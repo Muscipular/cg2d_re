@@ -207,6 +207,15 @@ int main(int argc, char* argv[])
                     "ui",
                     "InputBox submitted: " + std::string{demoInputBox.GetText()});
             }
+
+            if (inputBoxConsumed && event.type == cg::platform::EventType::TextEditing) {
+                cg::core::Log(cg::core::LogLevel::Info,
+                    "ui",
+                    "InputBox composition: text=" + std::string{demoInputBox.GetCompositionText()} +
+                        ", cursor=" + std::to_string(demoInputBox.GetCompositionCursor()) +
+                        ", selection=" + std::to_string(demoInputBox.GetCompositionSelectionLength()) +
+                        ", display=" + demoInputBox.GetDisplayText());
+            }
         }
 
         renderer.ResetStats();
@@ -255,7 +264,12 @@ int main(int argc, char* argv[])
                 "ui",
                 "InputBox demo: focused=" + std::to_string(demoInputBox.IsFocused() ? 1 : 0) +
                     ", cursor=" + std::to_string(demoInputBox.GetCursorByteOffset()) +
-                    ", text=" + std::string{demoInputBox.GetText()});
+                    ", text=" + std::string{demoInputBox.GetText()} +
+                    ", composition=" + std::string{demoInputBox.GetCompositionText()} +
+                    ", compositionCursor=" + std::to_string(demoInputBox.GetCompositionCursor()) +
+                    ", compositionSelection=" +
+                        std::to_string(demoInputBox.GetCompositionSelectionLength()) +
+                    ", display=" + demoInputBox.GetDisplayText());
             framesSinceStatsLog = 0;
         }
 

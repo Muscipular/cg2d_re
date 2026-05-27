@@ -25,9 +25,15 @@ public:
 
     void SetText(std::string_view text);
     [[nodiscard]] std::string_view GetText() const noexcept;
+    [[nodiscard]] std::string GetDisplayText() const;
 
     void SetCursorByteOffset(std::size_t offset) noexcept;
     [[nodiscard]] std::size_t GetCursorByteOffset() const noexcept;
+
+    [[nodiscard]] std::string_view GetCompositionText() const noexcept;
+    [[nodiscard]] std::size_t GetCompositionCursor() const noexcept;
+    [[nodiscard]] std::size_t GetCompositionSelectionLength() const noexcept;
+    [[nodiscard]] bool HasComposition() const noexcept;
 
     [[nodiscard]] bool WasSubmitted() const noexcept;
     [[nodiscard]] bool ConsumeSubmitted() noexcept;
@@ -35,9 +41,14 @@ public:
     [[nodiscard]] bool HandleEvent(const platform::Event& event);
 
 private:
+    void ClearComposition() noexcept;
+
     render::RectF bounds_ = {};
     std::string text_;
+    std::string compositionText_;
     std::size_t cursorByteOffset_ = 0;
+    std::size_t compositionCursor_ = 0;
+    std::size_t compositionSelectionLength_ = 0;
     bool focused_ = false;
     bool submitted_ = false;
 };

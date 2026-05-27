@@ -73,6 +73,24 @@ namespace {
     return previous;
 }
 
+[[nodiscard]] std::size_t CountUtf8Codepoints(std::string_view text) noexcept
+{
+    std::size_t count = 0;
+    std::size_t offset = 0;
+    while (offset < text.size()) {
+        const std::size_t next = NextUtf8Offset(text, offset);
+        offset = next > offset ? next : offset + 1;
+        ++count;
+    }
+
+    return count;
+}
+
+[[nodiscard]] std::size_t ToNonNegativeSize(int value) noexcept
+{
+    return value > 0 ? static_cast<std::size_t>(value) : 0;
+}
+
 [[nodiscard]] bool Contains(render::RectF bounds, float x, float y) noexcept
 {
     return x >= bounds.x &&
@@ -96,6 +114,9 @@ const render::RectF& InputBox::GetBounds() const noexcept
 void InputBox::SetFocused(bool focused) noexcept
 {
     focused_ = focused;
+    if (!focused_) {
+        ClearComposition();
+    }
 }
 
 bool InputBox::IsFocused() const noexcept
@@ -107,12 +128,21 @@ void InputBox::SetText(std::string_view text)
 {
     text_.assign(text);
     cursorByteOffset_ = text_.size();
+    ClearComposition();
     submitted_ = false;
 }
 
 std::string_view InputBox::GetText() const noexcept
 {
     return text_;
+}
+
+std::string InputBox::GetDisplayText() const
+{
+    std::string displayText = text_;
+    const std::size_t insertOffset = ClampToUtf8Boundary(displayText, cursorByteOffset_);
+    displayText.insert(insertOffset, compositionText_);
+    return displayText;
 }
 
 void InputBox::SetCursorByteOffset(std::size_t offset) noexcept
@@ -123,6 +153,26 @@ void InputBox::SetCursorByteOffset(std::size_t offset) noexcept
 std::size_t InputBox::GetCursorByteOffset() const noexcept
 {
     return cursorByteOffset_;
+}
+
+std::string_view InputBox::GetCompositionText() const noexcept
+{
+    return compositionText_;
+}
+
+std::size_t InputBox::GetCompositionCursor() const noexcept
+{
+    return compositionCursor_;
+}
+
+std::size_t InputBox::GetCompositionSelectionLength() const noexcept
+{
+    return compositionSelectionLength_;
+}
+
+bool InputBox::HasComposition() const noexcept
+{
+    return !compositionText_.empty();
 }
 
 bool InputBox::WasSubmitted() const noexcept
@@ -137,6 +187,13 @@ bool InputBox::ConsumeSubmitted() noexcept
     return submitted;
 }
 
+void InputBox::ClearComposition() noexcept
+{
+    compositionText_.clear();
+    compositionCursor_ = 0;
+    compositionSelectionLength_ = 0;
+}
+
 bool InputBox::HandleEvent(const platform::Event& event)
 {
     if (event.type == platform::EventType::MouseButtonDown && event.button == SDL_BUTTON_LEFT) {
@@ -144,6 +201,8 @@ bool InputBox::HandleEvent(const platform::Event& event)
         focused_ = Contains(bounds_, event.mouseX, event.mouseY);
         if (focused_) {
             cursorByteOffset_ = text_.size();
+        } else {
+            ClearComposition();
         }
 
         return focused_ || wasFocused;
@@ -161,6 +220,17 @@ bool InputBox::HandleEvent(const platform::Event& event)
         cursorByteOffset_ = ClampToUtf8Boundary(text_, cursorByteOffset_);
         text_.insert(cursorByteOffset_, event.text);
         cursorByteOffset_ += event.text.size();
+        ClearComposition();
+        submitted_ = false;
+        return true;
+    }
+
+    if (event.type == platform::EventType::TextEditing) {
+        compositionText_ = event.text;
+        const std::size_t compositionLength = CountUtf8Codepoints(compositionText_);
+        compositionCursor_ = std::min(ToNonNegativeSize(event.cursor), compositionLength);
+        compositionSelectionLength_ =
+            std::min(ToNonNegativeSize(event.selectionLength), compositionLength - compositionCursor_);
         submitted_ = false;
         return true;
     }
@@ -171,6 +241,7 @@ bool InputBox::HandleEvent(const platform::Event& event)
 
     switch (event.key) {
     case SDLK_BACKSPACE: {
+        ClearComposition();
         const std::size_t previous = PreviousUtf8Offset(text_, cursorByteOffset_);
         if (previous != cursorByteOffset_) {
             text_.erase(previous, cursorByteOffset_ - previous);
@@ -180,6 +251,7 @@ bool InputBox::HandleEvent(const platform::Event& event)
         return true;
     }
     case SDLK_DELETE: {
+        ClearComposition();
         cursorByteOffset_ = ClampToUtf8Boundary(text_, cursorByteOffset_);
         const std::size_t next = NextUtf8Offset(text_, cursorByteOffset_);
         if (next != cursorByteOffset_) {
@@ -189,9 +261,11 @@ bool InputBox::HandleEvent(const platform::Event& event)
         return true;
     }
     case SDLK_LEFT:
+        ClearComposition();
         cursorByteOffset_ = PreviousUtf8Offset(text_, cursorByteOffset_);
         return true;
     case SDLK_RIGHT:
+        ClearComposition();
         cursorByteOffset_ = NextUtf8Offset(text_, cursorByteOffset_);
         return true;
     case SDLK_RETURN:

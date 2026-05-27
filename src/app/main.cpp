@@ -9,7 +9,7 @@
 #include "render/SdlRendererBackend.hpp"
 #include "render/TextureAtlas.hpp"
 #include "render/TextureCache.hpp"
-#include "ui/InputBox.hpp"
+#include "ui/ChatBox.hpp"
 #include "ui/TextLayout.hpp"
 
 #include <SDL3/SDL.h>
@@ -31,7 +31,7 @@ constexpr std::uint32_t StatsLogFrameInterval = 120;
 constexpr std::string_view DemoFontKey = "demo-font";
 constexpr std::string_view DemoText = "你好 CrossGate";
 constexpr std::string_view DemoLayoutText = "你好 CrossGate\nText layout";
-constexpr std::string_view DemoInputText = "你好 InputBox";
+constexpr std::string_view DemoInputText = "你好 ChatBox";
 constexpr std::array<std::string_view, 3> DemoFontPaths = {
     "C:/Windows/Fonts/msyh.ttc",
     "C:/Windows/Fonts/simhei.ttf",
@@ -179,7 +179,8 @@ int main(int argc, char* argv[])
     if (!imeController.BeginTextInput()) {
         cg::core::LogSdlError("ime", "SDL_StartTextInput");
     }
-    cg::ui::InputBox demoInputBox;
+    cg::ui::ChatBox demoChatBox;
+    cg::ui::InputBox& demoInputBox = demoChatBox.Input();
     demoInputBox.SetBounds({64.0F, 344.0F, 360.0F, 36.0F});
     demoInputBox.SetCandidateDisplayMode(cg::ui::CandidateDisplayMode::System);
     demoInputBox.SetText(DemoInputText);
@@ -208,8 +209,8 @@ int main(int argc, char* argv[])
         cg::platform::Event event;
         while (eventPump.Poll(event)) {
             inputState.HandleEvent(event);
-            const bool inputBoxConsumed = demoInputBox.HandleEvent(event);
-            (void)inputBoxConsumed;
+            const std::size_t messageCountBefore = demoChatBox.GetMessages().size();
+            const bool chatBoxConsumed = demoChatBox.HandleEvent(event);
 
             if (event.type == cg::platform::EventType::Quit) {
                 running = false;
@@ -220,13 +221,14 @@ int main(int argc, char* argv[])
                 running = false;
             }
 
-            if (demoInputBox.ConsumeSubmitted()) {
+            if (demoChatBox.GetMessages().size() != messageCountBefore) {
+                const auto& messages = demoChatBox.GetMessages();
                 cg::core::Log(cg::core::LogLevel::Info,
                     "ui",
-                    "InputBox submitted: " + std::string{demoInputBox.GetText()});
+                    "ChatBox submitted: " + messages.back().text);
             }
 
-            if (inputBoxConsumed && event.type == cg::platform::EventType::TextEditing) {
+            if (chatBoxConsumed && event.type == cg::platform::EventType::TextEditing) {
                 cg::core::Log(cg::core::LogLevel::Info,
                     "ui",
                     "InputBox composition: text=" + std::string{demoInputBox.GetCompositionText()} +
@@ -235,7 +237,7 @@ int main(int argc, char* argv[])
                         ", display=" + demoInputBox.GetDisplayText());
             }
 
-            if (inputBoxConsumed && event.type == cg::platform::EventType::TextEditingCandidates) {
+            if (chatBoxConsumed && event.type == cg::platform::EventType::TextEditingCandidates) {
                 cg::core::Log(cg::core::LogLevel::Info,
                     "ui",
                     "InputBox candidates: count=" + std::to_string(demoInputBox.GetCandidates().size()) +
@@ -289,9 +291,13 @@ int main(int argc, char* argv[])
                 "Render stats: drawCalls=" + std::to_string(stats.drawCalls) +
                     ", sprites=" + std::to_string(stats.sprites) +
                     ", textureSwitches=" + std::to_string(stats.textureSwitches));
+            const auto visibleMessages = demoChatBox.GetVisibleMessages(5);
             cg::core::Log(cg::core::LogLevel::Info,
                 "ui",
-                "InputBox demo: focused=" + std::to_string(demoInputBox.IsFocused() ? 1 : 0) +
+                "ChatBox demo: history=" + std::to_string(demoChatBox.GetMessages().size()) +
+                    ", visible=" + std::to_string(visibleMessages.size()) +
+                    ", scroll=" + std::to_string(demoChatBox.GetScrollOffset()) +
+                    ", focused=" + std::to_string(demoInputBox.IsFocused() ? 1 : 0) +
                     ", cursor=" + std::to_string(demoInputBox.GetCursorByteOffset()) +
                     ", text=" + std::string{demoInputBox.GetText()} +
                     ", composition=" + std::string{demoInputBox.GetCompositionText()} +

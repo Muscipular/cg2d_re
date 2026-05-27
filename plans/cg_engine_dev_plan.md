@@ -203,6 +203,7 @@ public:
 | 日期 | 任务 | 修改 | 验证 | 遗留 |
 |---|---|---|---|---|
 | 2026-05-27 | M2.1 IRenderer | 新增 `src/render/IRenderer.hpp`、`RenderTypes.hpp`、`Texture.hpp`、`Color.hpp`，定义无 SDL 依赖的渲染接口、矩形、颜色和纹理句柄 | `cmake --preset windows-msvc-x64`；`cmake --build --preset windows-msvc-x64-debug`；启动烟测；确认 `src/render` 公开头无 SDL 类型 | SpriteCmd、RenderQueue、SDL_Renderer 后端仍待后续 M2.x |
+| 2026-05-27 | M2.2 SpriteCmd | 新增 `src/render/SpriteCmd.hpp`，定义 sprite 绘制命令，包含 texture、source/destination、color、layer、sortY、order | `cmake --preset windows-msvc-x64`；`cmake --build --preset windows-msvc-x64-debug`；启动烟测；确认公开头无 SDL 类型 | RenderQueue、SDL_Renderer 后端仍待后续 M2.x |
 
 ### 目录
 

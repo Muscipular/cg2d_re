@@ -4,6 +4,7 @@
 #include "platform/Input.hpp"
 #include "platform/Timer.hpp"
 #include "platform/Window.hpp"
+#include "render/SdlRendererBackend.hpp"
 
 #include <SDL3/SDL.h>
 #include <SDL3_image/SDL_image.h>
@@ -44,6 +45,15 @@ int main(int argc, char* argv[])
         return 1;
     }
 
+    cg::render::SdlRendererBackend renderer;
+    if (!renderer.Initialize(window)) {
+        cg::core::LogSdlError("render", "SDL_CreateRenderer");
+        window.Destroy();
+        TTF_Quit();
+        SDL_Quit();
+        return 1;
+    }
+
     cg::platform::ImeController imeController(window);
     if (!imeController.BeginTextInput()) {
         cg::core::LogSdlError("ime", "SDL_StartTextInput");
@@ -73,6 +83,16 @@ int main(int argc, char* argv[])
                 event.windowId == window.GetId()) {
                 running = false;
             }
+        }
+
+        if (!renderer.BeginFrame({0.07F, 0.08F, 0.09F, 1.0F})) {
+            cg::core::LogSdlError("render", "BeginFrame");
+            break;
+        }
+
+        if (!renderer.EndFrame()) {
+            cg::core::LogSdlError("render", "EndFrame");
+            break;
         }
 
         inputState.EndFrame();

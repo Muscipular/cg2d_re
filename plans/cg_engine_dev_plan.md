@@ -205,6 +205,7 @@ public:
 | 2026-05-27 | M2.1 IRenderer | 新增 `src/render/IRenderer.hpp`、`RenderTypes.hpp`、`Texture.hpp`、`Color.hpp`，定义无 SDL 依赖的渲染接口、矩形、颜色和纹理句柄 | `cmake --preset windows-msvc-x64`；`cmake --build --preset windows-msvc-x64-debug`；启动烟测；确认 `src/render` 公开头无 SDL 类型 | SpriteCmd、RenderQueue、SDL_Renderer 后端仍待后续 M2.x |
 | 2026-05-27 | M2.2 SpriteCmd | 新增 `src/render/SpriteCmd.hpp`，定义 sprite 绘制命令，包含 texture、source/destination、color、layer、sortY、order | `cmake --preset windows-msvc-x64`；`cmake --build --preset windows-msvc-x64-debug`；启动烟测；确认公开头无 SDL 类型 | RenderQueue、SDL_Renderer 后端仍待后续 M2.x |
 | 2026-05-27 | M2.3 RenderQueue | 新增 `src/render/RenderQueue.hpp/.cpp`，收集 `SpriteCmd`，按 layer、sortY、order 稳定排序并提交给 `IRenderer` | `cmake --preset windows-msvc-x64`；`cmake --build --preset windows-msvc-x64-debug`；启动烟测；确认 render 队列无 SDL 依赖 | SDL_Renderer 后端、颜色提交和批处理仍待后续 M2.x |
+| 2026-05-27 | M2.4 SDL_Renderer 后端 | 新增 `src/render/SdlRendererBackend.hpp/.cpp`，实现 clear、present、纹理句柄管理和 `SDL_RenderTexture` 绘制；`main.cpp` 改用后端清屏提交 | `cmake --preset windows-msvc-x64`；`cmake --build --preset windows-msvc-x64-debug`；启动烟测 | 像素上传、PNG 绘制、颜色提交和批处理仍待后续 M2.x |
 
 ### 目录
 

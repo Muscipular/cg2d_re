@@ -41,6 +41,7 @@ public:
 
     [[nodiscard]] bool BeginFrame(ClearColor clearColor) override;
     [[nodiscard]] bool EndFrame() override;
+    [[nodiscard]] bool SetLogicalPresentation(const LogicalPresentation& presentation) override;
     void ResetStats() noexcept override;
     [[nodiscard]] RenderStats GetStats() const noexcept override;
     [[nodiscard]] TextureHandle CreateTexture(const TextureDesc& desc) override;

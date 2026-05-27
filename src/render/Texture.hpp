@@ -11,11 +11,18 @@ enum class PixelFormat {
     Bgra8,
 };
 
+// TextureScaleMode 控制纹理放大/缩小时的采样方式。
+enum class TextureScaleMode {
+    Nearest,
+    Linear,
+};
+
 // TextureDesc 描述需要创建的纹理资源。
 struct TextureDesc {
     int width = 0;
     int height = 0;
     PixelFormat format = PixelFormat::Rgba8;
+    TextureScaleMode scaleMode = TextureScaleMode::Nearest;
 };
 
 // TextureHandle 是渲染层纹理资源的稳定句柄，不暴露后端对象。

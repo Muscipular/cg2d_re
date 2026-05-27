@@ -78,6 +78,15 @@ int main(int argc, char* argv[])
         SDL_Quit();
         return 1;
     }
+    if (!renderer.SetLogicalPresentation(
+            {WindowWidth, WindowHeight, cg::render::LogicalPresentationMode::IntegerScale})) {
+        cg::core::LogSdlError("render", "SDL_SetRenderLogicalPresentation");
+        renderer.Shutdown();
+        window.Destroy();
+        TTF_Quit();
+        SDL_Quit();
+        return 1;
+    }
 
     cg::render::TextureCache textureCache(renderer);
     const auto testPixels = CreateTestTexturePixels();

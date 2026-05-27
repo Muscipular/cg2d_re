@@ -28,6 +28,9 @@ public:
     // EndFrame 结束当前帧并提交显示。
     [[nodiscard]] virtual bool EndFrame() = 0;
 
+    // SetLogicalPresentation 设置逻辑分辨率和缩放策略。
+    [[nodiscard]] virtual bool SetLogicalPresentation(const LogicalPresentation& presentation) = 0;
+
     // ResetStats 清空当前帧渲染统计。
     virtual void ResetStats() noexcept = 0;
 

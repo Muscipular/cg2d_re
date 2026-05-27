@@ -27,6 +27,37 @@ namespace {
     return SDL_PIXELFORMAT_UNKNOWN;
 }
 
+[[nodiscard]] SDL_ScaleMode ToSdlScaleMode(TextureScaleMode scaleMode) noexcept
+{
+    switch (scaleMode) {
+    case TextureScaleMode::Nearest:
+        return SDL_SCALEMODE_NEAREST;
+    case TextureScaleMode::Linear:
+        return SDL_SCALEMODE_LINEAR;
+    }
+
+    return SDL_SCALEMODE_NEAREST;
+}
+
+[[nodiscard]] SDL_RendererLogicalPresentation ToSdlLogicalPresentationMode(
+    LogicalPresentationMode mode) noexcept
+{
+    switch (mode) {
+    case LogicalPresentationMode::Disabled:
+        return SDL_LOGICAL_PRESENTATION_DISABLED;
+    case LogicalPresentationMode::Stretch:
+        return SDL_LOGICAL_PRESENTATION_STRETCH;
+    case LogicalPresentationMode::Letterbox:
+        return SDL_LOGICAL_PRESENTATION_LETTERBOX;
+    case LogicalPresentationMode::Overscan:
+        return SDL_LOGICAL_PRESENTATION_OVERSCAN;
+    case LogicalPresentationMode::IntegerScale:
+        return SDL_LOGICAL_PRESENTATION_INTEGER_SCALE;
+    }
+
+    return SDL_LOGICAL_PRESENTATION_DISABLED;
+}
+
 [[nodiscard]] std::uint32_t NextGeneration(std::uint32_t generation) noexcept
 {
     ++generation;
@@ -137,6 +168,10 @@ struct SdlRendererBackend::Impl {
 
         SDL_Texture* texture = SDL_CreateTexture(renderer, format, SDL_TEXTUREACCESS_STATIC, desc.width, desc.height);
         if (texture == nullptr) {
+            return {};
+        }
+        if (!SDL_SetTextureScaleMode(texture, ToSdlScaleMode(desc.scaleMode))) {
+            SDL_DestroyTexture(texture);
             return {};
         }
 
@@ -362,6 +397,23 @@ void SdlRendererBackend::ResetStats() noexcept
 RenderStats SdlRendererBackend::GetStats() const noexcept
 {
     return impl_->stats;
+}
+
+bool SdlRendererBackend::SetLogicalPresentation(const LogicalPresentation& presentation)
+{
+    if (impl_->renderer == nullptr) {
+        return false;
+    }
+
+    if (presentation.mode != LogicalPresentationMode::Disabled &&
+        (presentation.width <= 0 || presentation.height <= 0)) {
+        return false;
+    }
+
+    return SDL_SetRenderLogicalPresentation(impl_->renderer,
+        presentation.width,
+        presentation.height,
+        ToSdlLogicalPresentationMode(presentation.mode));
 }
 
 TextureHandle SdlRendererBackend::CreateTexture(const TextureDesc& desc)

@@ -9,16 +9,28 @@
 8. 不要隐藏困惑，呈现权衡。不确定的点停下要求用户澄清。严禁假设或猜测。
 9. 读写文件必须显式指定编码，禁止使用Default编码
 10. 定义成功标准，循环验证直到达成
-11. 使用subagent进行编码、验证
+11. 按流程要求使用 subAgent 进行编码、验证
+
+# 流程要求
+1. 每次推进开发进度，必须同步写入 `plans/progess.md`
+2. 每个可验证小步完成后提交；用户明确要求不提交时，仅记录进度，提交由主线程统一处理
+3. 使用 subAgent 时，每个 agent 只处理单项任务
+4. worker/reviewer 完成后及时关闭；验证交由独立 reviewer/validator agent
+
 
 # 项目目录
 1. `plans/`：开发计划与阶段任务说明
+   - [cg_engine_dev_plan.md](plans/cg_engine_dev_plan.md)：项目总规划
+   - [progess.md](plans/progess.md)：统一进度记录文件
 2. `scripts/`：项目辅助脚本，例如依赖下载脚本
 3. `src/app/`：客户端入口与应用层代码
 4. `src/core/`：基础公共代码，例如日志
-5. `third_party/sdl/`：本地下载的 SDL3 依赖目录，已被 `.gitignore` 忽略，不提交仓库
-6. `build/`：CMake 构建输出目录，已被 `.gitignore` 忽略
-7. `doc`：记录文档
+5. `src/platform/`：SDL3 平台封装，例如窗口、事件、输入、IME、路径、计时器、线程
+6. `src/render/`：渲染基础层，例如渲染接口、队列、纹理、字体缓存
+7. `src/ui/`：UI 与输入控件，例如文本布局、输入框、聊天框
+8. `src/text/`：文本编码边界，例如 UTF-8 与旧协议编码转换
+9. `third_party/sdl/`：本地下载的 SDL3 依赖目录，已被 `.gitignore` 忽略，不提交仓库
+10. `build/`：CMake 构建输出目录，已被 `.gitignore` 忽略
 
 # 代码风格
 ## 逻辑尽量语义化表达

@@ -279,6 +279,9 @@ struct SdlRendererBackend::Impl {
             AppendSpriteGeometry(sprites[index], slot.width, slot.height, vertices, indices);
         }
 
+        ++stats.drawCalls;
+        stats.sprites += static_cast<std::uint64_t>(count);
+        ++stats.textureSwitches;
         return SDL_RenderGeometry(renderer,
             slot.texture,
             vertices.data(),
@@ -295,6 +298,7 @@ struct SdlRendererBackend::Impl {
 
     SDL_Renderer* renderer = nullptr;
     std::vector<TextureSlot> textureSlots;
+    RenderStats stats;
 };
 
 SdlRendererBackend::SdlRendererBackend()
@@ -350,6 +354,16 @@ bool SdlRendererBackend::EndFrame()
     return SDL_RenderPresent(impl_->renderer);
 }
 
+void SdlRendererBackend::ResetStats() noexcept
+{
+    impl_->stats.Reset();
+}
+
+RenderStats SdlRendererBackend::GetStats() const noexcept
+{
+    return impl_->stats;
+}
+
 TextureHandle SdlRendererBackend::CreateTexture(const TextureDesc& desc)
 {
     return impl_->CreateTexture(desc);
@@ -378,6 +392,9 @@ bool SdlRendererBackend::DrawTexture(TextureHandle texture, const RectF& source,
 
     const SDL_FRect sourceRect = {source.x, source.y, source.width, source.height};
     const SDL_FRect destinationRect = {destination.x, destination.y, destination.width, destination.height};
+    ++impl_->stats.drawCalls;
+    ++impl_->stats.sprites;
+    ++impl_->stats.textureSwitches;
     return SDL_RenderTexture(impl_->renderer, sdlTexture, &sourceRect, &destinationRect);
 }
 

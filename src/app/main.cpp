@@ -22,6 +22,7 @@ namespace {
 constexpr int WindowWidth = 1280;
 constexpr int WindowHeight = 720;
 constexpr int TestTextureSize = 64;
+constexpr std::uint32_t StatsLogFrameInterval = 120;
 
 std::vector<std::uint8_t> CreateTestTexturePixels()
 {
@@ -117,6 +118,7 @@ int main(int argc, char* argv[])
     cg::platform::InputState inputState;
     cg::platform::FrameTimer frameTimer;
     cg::render::RenderQueue renderQueue;
+    std::uint32_t framesSinceStatsLog = 0;
     bool running = true;
     while (running) {
         const double deltaSeconds = frameTimer.Tick();
@@ -137,6 +139,7 @@ int main(int argc, char* argv[])
             }
         }
 
+        renderer.ResetStats();
         if (!renderer.BeginFrame({0.07F, 0.08F, 0.09F, 1.0F})) {
             cg::core::LogSdlError("render", "BeginFrame");
             break;
@@ -157,6 +160,17 @@ int main(int argc, char* argv[])
         if (!renderer.EndFrame()) {
             cg::core::LogSdlError("render", "EndFrame");
             break;
+        }
+
+        ++framesSinceStatsLog;
+        if (framesSinceStatsLog >= StatsLogFrameInterval) {
+            const auto stats = renderer.GetStats();
+            cg::core::Log(cg::core::LogLevel::Info,
+                "render",
+                "Render stats: drawCalls=" + std::to_string(stats.drawCalls) +
+                    ", sprites=" + std::to_string(stats.sprites) +
+                    ", textureSwitches=" + std::to_string(stats.textureSwitches));
+            framesSinceStatsLog = 0;
         }
 
         inputState.EndFrame();

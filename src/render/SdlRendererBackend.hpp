@@ -41,6 +41,8 @@ public:
 
     [[nodiscard]] bool BeginFrame(ClearColor clearColor) override;
     [[nodiscard]] bool EndFrame() override;
+    void ResetStats() noexcept override;
+    [[nodiscard]] RenderStats GetStats() const noexcept override;
     [[nodiscard]] TextureHandle CreateTexture(const TextureDesc& desc) override;
     [[nodiscard]] bool UpdateTexture(TextureHandle texture, const void* pixels, int pitch) override;
     void DestroyTexture(TextureHandle texture) noexcept override;

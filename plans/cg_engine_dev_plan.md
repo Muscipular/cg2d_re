@@ -210,6 +210,7 @@ public:
 | 2026-05-27 | M2.6 SDL_RenderGeometry batch | 扩展 `IRenderer::DrawSprites`，SDL 后端用 `SDL_RenderGeometry` 批量绘制连续同纹理 sprite，`RenderQueue` 改为按纹理分段提交 batch | `cmake --preset windows-msvc-x64`；`cmake --build --preset windows-msvc-x64-debug`；启动烟测 | PNG 绘制、TextureCache、Atlas 和统计仍待后续 M2.x |
 | 2026-05-27 | M2.7 TextureCache | 新增 `src/render/TextureCache.hpp/.cpp`，按字符串 key 缓存纹理句柄并负责销毁；`main.cpp` 通过缓存加载测试 RGBA 纹理 | `cmake --preset windows-msvc-x64`；`cmake --build --preset windows-msvc-x64-debug`；启动烟测 | PNG 绘制、Atlas 和统计仍待后续 M2.x |
 | 2026-05-27 | M2.8 TextureAtlas | 新增 `src/render/TextureAtlas.hpp/.cpp`，保存 atlas 纹理和 key 到源区域映射；`main.cpp` 通过 atlas 创建测试 `SpriteCmd` | `cmake --preset windows-msvc-x64`；`cmake --build --preset windows-msvc-x64-debug`；启动烟测 | Render stats、Pixel-perfect 仍待后续 M2.x |
+| 2026-05-27 | M2.9 Render stats | 新增 `src/render/RenderStats.hpp`，`IRenderer` 暴露统计读写接口；SDL 后端统计 draw calls、sprites、texture switches；`main.cpp` 每 120 帧输出统计日志 | `powershell -ExecutionPolicy Bypass -File scripts/download_sdl3.ps1`；VS CMake configure/build `windows-msvc-x64-debug`；启动烟测确认 `Render stats` 日志 | Pixel-perfect 仍待后续 M2.x |
 
 ### 目录
 
@@ -218,6 +219,7 @@ src/render/
 ├─ IRenderer.hpp
 ├─ RenderTypes.hpp
 ├─ SpriteCmd.hpp
+├─ RenderStats.hpp
 ├─ RenderQueue.hpp/.cpp
 ├─ SdlRendererBackend.hpp/.cpp
 ├─ Texture.hpp

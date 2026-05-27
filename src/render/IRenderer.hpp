@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Color.hpp"
+#include "RenderStats.hpp"
 #include "RenderTypes.hpp"
 #include "Texture.hpp"
 
@@ -26,6 +27,12 @@ public:
 
     // EndFrame 结束当前帧并提交显示。
     [[nodiscard]] virtual bool EndFrame() = 0;
+
+    // ResetStats 清空当前帧渲染统计。
+    virtual void ResetStats() noexcept = 0;
+
+    // GetStats 返回当前帧已累计的渲染统计。
+    [[nodiscard]] virtual RenderStats GetStats() const noexcept = 0;
 
     // CreateTexture 创建纹理；失败时返回无效 TextureHandle。
     [[nodiscard]] virtual TextureHandle CreateTexture(const TextureDesc& desc) = 0;

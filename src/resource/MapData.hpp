@@ -8,6 +8,7 @@ namespace cg::resource {
 
 // MapData 保存地图三层原始格子数据，不包含加载路径和渲染后端对象。
 struct MapData {
+    // mapId 语义：0=固定地图，1=迷宫地图，2=玩家出租屋，3=家族地图，5=lua地图。
     std::uint32_t mapId = 0;
     std::uint16_t serverNo = 0;
     std::uint16_t floor = 0;

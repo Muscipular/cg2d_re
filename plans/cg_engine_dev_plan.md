@@ -441,6 +441,8 @@ textureCache.LoadRgba8(key, image.width, image.height, image.pixels.data(), imag
 
 ### M5.2 MapData/MapLoader
 
+`mapId` 取值：0=固定地图，1=迷宫地图，2=玩家出租屋，3=家族地图，5=lua地图。
+
 | 编号 | 任务 | 验收标准 |
 |---|---|---|
 | M5.2.1 | 定义 `MapData` | 保存 `mapId/serverNo/floor/width/height/tileData/objData/hitData`，公开头无 SDL 类型 |

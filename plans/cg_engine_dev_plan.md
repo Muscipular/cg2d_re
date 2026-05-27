@@ -142,6 +142,7 @@ cg-engine/
 | 2026-05-27 | M1.7 Path 工具 | 新增 `src/platform/Path.hpp/.cpp`，封装 base/assets/config/save 路径，基于 SDL base/pref path，不硬编码平台路径 | `cmake --preset windows-msvc-x64`；`cmake --build --preset windows-msvc-x64-debug`；启动烟测 | 计时器、线程仍待后续 M1.x |
 | 2026-05-27 | M1.8 Timer | 新增 `src/platform/Timer.hpp/.cpp`，提供帧 delta/累计时间、帧率上限等待和固定步长累加器；`main.cpp` 用 `FrameTimer` 限制 60 FPS | `cmake --preset windows-msvc-x64`；`cmake --build --preset windows-msvc-x64-debug`；启动烟测 | 线程仍待 M1.9 |
 | 2026-05-27 | M1.9 Thread/Job 基础 | 新增 `src/platform/Thread.hpp/.cpp`，提供最小 `JobQueue`，支持后台 worker、入队、停止和 join | `cmake --preset windows-msvc-x64`；`cmake --build --preset windows-msvc-x64-debug`；启动烟测 | M1 已完成，后续进入 M2 前可补工具化验证 |
+| 2026-05-27 | M1 收尾 | 新增 `src/platform/Platform.hpp` 聚合头，覆盖 M1 平台层所有公开头文件 | `cmake --preset windows-msvc-x64`；`cmake --build --preset windows-msvc-x64-debug`；启动烟测 | `JobQueue` 的任务异常和 worker 内自调用 `Stop()` 风险已记录，后续按使用场景再收敛 |
 
 ### 目录
 

@@ -47,6 +47,20 @@ namespace {
     return field.Tag() == "?" && LooksLikeProjectPath(field.Scalar());
 }
 
+[[nodiscard]] std::filesystem::path NormalizeConfigPath(const std::filesystem::path& ymlPath, const std::string& value)
+{
+    if (value.empty()) {
+        return {};
+    }
+
+    const std::filesystem::path path { value };
+    if (path.is_absolute()) {
+        return path.lexically_normal();
+    }
+
+    return (ymlPath.parent_path() / path).lexically_normal();
+}
+
 [[nodiscard]] bool ReadOptionalPathField(
     const YAML::Node& item,
     const char* yamlField,
@@ -68,7 +82,7 @@ namespace {
     }
 
     const std::string value = field.as<std::string>();
-    output = value.empty() ? std::filesystem::path {} : std::filesystem::path { value };
+    output = NormalizeConfigPath(ymlPath, value);
     return true;
 }
 

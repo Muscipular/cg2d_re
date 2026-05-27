@@ -29,6 +29,9 @@ public:
     // IsTextInputActive 查询当前窗口是否已启用文本输入。
     [[nodiscard]] bool IsTextInputActive() const noexcept;
 
+    // SetInputArea 设置 IME 候选窗口参考区域，参数均为窗口坐标。
+    [[nodiscard]] bool SetInputArea(float x, float y, float width, float height, float cursorX) noexcept;
+
 private:
     SDL_WindowID windowId_ = 0;
 };

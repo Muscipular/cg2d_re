@@ -47,6 +47,9 @@ int main(int argc, char* argv[])
     if (!imeController.BeginTextInput()) {
         cg::core::LogSdlError("ime", "SDL_StartTextInput");
     }
+    if (!imeController.SetInputArea(0.0F, 0.0F, 1.0F, 1.0F, 0.0F)) {
+        cg::core::LogSdlError("ime", "SDL_SetTextInputArea");
+    }
 
     cg::platform::EventPump eventPump;
     cg::platform::InputState inputState;

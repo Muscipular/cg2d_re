@@ -3,6 +3,8 @@
 #include "platform/Window.hpp"
 
 #include <SDL3/SDL_keyboard.h>
+#include <SDL3/SDL_rect.h>
+#include <SDL3/SDL_stdinc.h>
 #include <SDL3/SDL_video.h>
 
 namespace cg::platform {
@@ -72,6 +74,23 @@ bool ImeController::IsTextInputActive() const noexcept
     }
 
     return SDL_TextInputActive(window);
+}
+
+bool ImeController::SetInputArea(float x, float y, float width, float height, float cursorX) noexcept
+{
+    SDL_Window* window = ResolveWindow(windowId_);
+    if (window == nullptr) {
+        return false;
+    }
+
+    const SDL_Rect rect = {
+        static_cast<int>(SDL_roundf(x)),
+        static_cast<int>(SDL_roundf(y)),
+        static_cast<int>(SDL_roundf(width)),
+        static_cast<int>(SDL_roundf(height)),
+    };
+    const int cursorOffset = static_cast<int>(SDL_roundf(cursorX - x));
+    return SDL_SetTextInputArea(window, &rect, cursorOffset);
 }
 
 } // namespace cg::platform

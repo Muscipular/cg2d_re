@@ -59,6 +59,7 @@ add_executable(cg-client
     src/resource/BinaryReader.cpp
     src/resource/BinSetConfigLoader.cpp
     src/resource/GraphicDecoder.cpp
+    src/resource/MapLoader.cpp
     src/resource/Palette.cpp
     src/resource/ResourceManager.cpp
 )

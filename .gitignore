@@ -1,6 +1,7 @@
 build/
 out/
 .vs/
+.idea/
 
 CMakeFiles/
 CMakeCache.txt
@@ -13,3 +14,4 @@ CMakeUserPresets.json
 *.vcxproj.user
 
 third_party/sdl/
+third_party/yaml-cpp/

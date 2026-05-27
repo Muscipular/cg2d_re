@@ -409,35 +409,93 @@ textureCache.LoadRgba8(key, image.width, image.height, image.pixels.data(), imag
 
 ### 目标
 
-先做工具，不要所有问题都在主客户端里调。资源、地图、动画必须有独立查看器。
+先补配置和地图数据，再做独立查看器。M5 不在主客户端里调地图行为；所有地图、资源、动画问题先通过工具验证。地图参考 IDA `0x0046CF00`、`0x00468520`，以及 `D:\Source\cgmsv\twcg_hook\src\hooks\UI\automap.cpp`、`D:\Source\cgmsv\twcg_hook\src\hooks\UI\UIControls\MapExControl.cpp`。binSet 顺序参考 `H:\Games\cgmsv_21.2a\CrossGate7.1.0\cgmsv.yml`。
 
-### asset_viewer
+成功标准：
 
-| 编号 | 任务 | 验收标准 |
-|---|---|---|
-| T1.1 | 枚举 package 内容 | 左侧资源列表可搜索 |
-| T1.2 | 显示图片资源 | 能查看尺寸、像素格式、透明区域 |
-| T1.3 | 导出 PNG | 方便和原客户端截图对比 |
-| T1.4 | 显示 palette | 能切换/查看调色板 |
+1. 可通过 `yaml-cpp` 读取 `cgmsv.yml`，并按 `BinLoader` 顺序生成 `BinSetDesc`。
+2. 可读取旧客户端 `map\0\floor.dat` 和 `map\mapId\group\floor.dat`。
+3. 可生成自动地图 RGBA8 buffer，tile/object/collision 可开关。
+4. 可用独立 viewer 查看 Graphic、Anime、Map，不要求接入主客户端流程。
+5. `resource` 公开头不暴露 SDL 类型；SDL 上传只在 viewer/render 边界发生。
 
-### map_viewer
+### M5.0 yaml-cpp 依赖
 
-| 编号 | 任务 | 验收标准 |
-|---|---|---|
-| T2.1 | 加载地图 | 可平移/缩放查看 |
-| T2.2 | 显示 tile layer | 地图块位置正确 |
-| T2.3 | 显示 object layer | 遮挡层可开关 |
-| T2.4 | 显示 collision | 阻挡格可开关 |
-| T2.5 | 截图对比 | 能导出当前视图截图 |
-
-### anim_viewer
+`yaml-cpp` 是本阶段用户明确要求的外部依赖例外，来源固定为 `https://github.com/jbeder/yaml-cpp`，版本固定 `yaml-cpp-0.9.0`。除该项外，仍不新增其他外部依赖。
 
 | 编号 | 任务 | 验收标准 |
 |---|---|---|
-| T3.1 | 加载角色动画 | 可选方向、动作、帧 |
-| T3.2 | 播放控制 | pause/play/frame step/speed |
-| T3.3 | 显示 anchor/bounds | 锚点、包围盒可视化 |
-| T3.4 | 批量检查 | 资源缺帧/异常帧可记录 |
+| M5.0.1 | 新增 `scripts/download_yaml_cpp.ps1` | 可下载源码 zip 到 `third_party/yaml-cpp/yaml-cpp-0.9.0` |
+| M5.0.2 | CMake 引入本地源码 | `CG_YAML_CPP_ROOT` 指向本地目录，`add_subdirectory` 可用 |
+| M5.0.3 | 关闭无关构建项 | `YAML_BUILD_SHARED_LIBS=OFF`、`YAML_CPP_BUILD_TESTS=OFF`、`YAML_CPP_BUILD_TOOLS=OFF`、`YAML_CPP_INSTALL=OFF` |
+| M5.0.4 | 链接目标 | `cg-client` 可链接 `yaml-cpp::yaml-cpp` |
+
+### M5.1 binSet yml loader
+
+| 编号 | 任务 | 验收标准 |
+|---|---|---|
+| M5.1.1 | 读取 `BinLoader` 数组 | BASE/EX/V3/Puk2/Puk3/Joy/Joy_EX/Joy_CH1/TAO1/A1/TAOPuk4 顺序一致 |
+| M5.1.2 | 生成 `BinSetDesc` | `Name/Graphic/GraphicInfo/Anime/AnimeInfo/Coordinate/CoordinateInfo` 字段映射正确 |
+| M5.1.3 | 路径规范化 | 相对路径以 yml 所在目录为根，空路径保留为空并跳过资源 |
+| M5.1.4 | 错误报告 | 缺少 `BinLoader` 或字段类型错误时返回明确错误 |
+
+### M5.2 MapData/MapLoader
+
+| 编号 | 任务 | 验收标准 |
+|---|---|---|
+| M5.2.1 | 定义 `MapData` | 保存 `mapId/group/floor/width/height/tileData/objData/hitData`，公开头无 SDL 类型 |
+| M5.2.2 | 构造地图路径 | `mapId == 0` 使用 `map\0\floor.dat`，否则使用 `map\mapId\group\floor.dat` |
+| M5.2.3 | 读取地图文件 | 校验 `MAP\1`、4 个 int header、三层 `uint16` 数据长度 |
+| M5.2.4 | 边界保护 | 宽高必须大于 0，cell 数不得超过明确上限，读取失败有错误信息 |
+
+### M5.3 自动地图规则
+
+| 编号 | 任务 | 验收标准 |
+|---|---|---|
+| M5.3.1 | `DecodeMapCell` 校对 | `raw < 0x10000` 查 IDA `dword_C35010`，否则返回 raw；实现前先导出或确认查表来源 |
+| M5.3.2 | 地图投影 | `screenX = 1 + 2 * (x + y)`，`screenY = mapWidth + 1 + y - x` |
+| M5.3.3 | tile 颜色 | 普通地图用 `MapNoIndex[800000]`，新地图 `220000..265535` 用 `newMapRes` |
+| M5.3.4 | object 覆盖 | 参考 `GraphicInfo.sx/sy/blockFlag` 计算覆盖范围，不只覆盖 object 所在格 |
+| M5.3.5 | collision overlay | 只显示阻挡层开关，不扩展寻路规则 |
+| M5.3.6 | RGBA8 输出 | palette 优先，缺色时按 `AUT_DATA` fallback，可上传到 `TextureCache::LoadRgba8` |
+
+### M5.4 map_viewer MVP
+
+| 编号 | 任务 | 验收标准 |
+|---|---|---|
+| M5.4.1 | 加载 yml 和 map dat | 可选择 binSet 配置和地图文件根目录 |
+| M5.4.2 | 显示自动地图 | 可平移、缩放，坐标和鼠标反算坐标正确 |
+| M5.4.3 | 图层开关 | tile/object/collision 可独立开关 |
+| M5.4.4 | 截图导出 | 能导出当前视图用于旧客户端对照 |
+
+### M5.5 asset_viewer MVP
+
+| 编号 | 任务 | 验收标准 |
+|---|---|---|
+| M5.5.1 | 按 yml 枚举 Graphic | 可按 binSet、seqNo、mapNo 搜索 |
+| M5.5.2 | 显示图片资源 | 能查看尺寸、偏移、像素格式、透明区域 |
+| M5.5.3 | 显示 palette | 能查看默认 palette 和 CGEX 内嵌 palette |
+| M5.5.4 | 导出 PNG | 方便和原客户端截图对比 |
+
+### M5.6 anim_viewer MVP
+
+| 编号 | 任务 | 验收标准 |
+|---|---|---|
+| M5.6.1 | 按 yml 加载 Anime | 可按 animeNo 选择动画 |
+| M5.6.2 | 动作和方向选择 | 可选 dir/action/frame |
+| M5.6.3 | 播放控制 | 支持 pause/play/frame step/speed |
+| M5.6.4 | anchor/bounds | 锚点、包围盒可视化 |
+| M5.6.5 | 异常记录 | 资源缺帧、Graphic 缺失、异常帧写 warning |
+
+### M5.7 验证与提交
+
+| 编号 | 任务 | 验收标准 |
+|---|---|---|
+| M5.7.1 | 依赖验证 | 下载脚本后存在 `third_party/yaml-cpp/yaml-cpp-0.9.0/CMakeLists.txt` |
+| M5.7.2 | 配置验证 | CMake configure 能找到并链接 `yaml-cpp::yaml-cpp` |
+| M5.7.3 | 实物资源验证 | 抽样读取 `cgmsv.yml`、Graphic/Anime、地图 dat |
+| M5.7.4 | 对照验证 | raw cell 解码、screen 坐标、object 覆盖范围与 hook/IDA 一致 |
+| M5.7.5 | 流程记录 | 每个可验证小步写入 `plans/progess.md` 并提交；验证交由独立 subAgent |
 
 ---
 

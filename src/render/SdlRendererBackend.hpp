@@ -35,9 +35,13 @@ public:
     // Initialize 通过平台窗口创建渲染后端；失败时返回 false。
     [[nodiscard]] bool Initialize(const platform::Window& window) noexcept;
 
+    // Shutdown 显式释放后端资源，应在窗口销毁和 SDL_Quit 前调用。
+    void Shutdown() noexcept;
+
     [[nodiscard]] bool BeginFrame(ClearColor clearColor) override;
     [[nodiscard]] bool EndFrame() override;
     [[nodiscard]] TextureHandle CreateTexture(const TextureDesc& desc) override;
+    [[nodiscard]] bool UpdateTexture(TextureHandle texture, const void* pixels, int pitch) override;
     void DestroyTexture(TextureHandle texture) noexcept override;
     [[nodiscard]] bool DrawTexture(TextureHandle texture, const RectF& source, const RectF& destination) override;
 

@@ -10,12 +10,32 @@
 #include <SDL3_image/SDL_image.h>
 #include <SDL3_ttf/SDL_ttf.h>
 
+#include <cstdint>
+#include <vector>
 #include <string>
 
 namespace {
 
 constexpr int WindowWidth = 1280;
 constexpr int WindowHeight = 720;
+constexpr int TestTextureSize = 64;
+
+std::vector<std::uint8_t> CreateTestTexturePixels()
+{
+    std::vector<std::uint8_t> pixels(TestTextureSize * TestTextureSize * 4);
+    for (int y = 0; y < TestTextureSize; ++y) {
+        for (int x = 0; x < TestTextureSize; ++x) {
+            const bool bright = ((x / 8) + (y / 8)) % 2 == 0;
+            const std::size_t offset = static_cast<std::size_t>((y * TestTextureSize + x) * 4);
+            pixels[offset + 0] = bright ? 0x4CU : 0xF7U;
+            pixels[offset + 1] = bright ? 0xC9U : 0x25U;
+            pixels[offset + 2] = bright ? 0xF0U : 0x85U;
+            pixels[offset + 3] = 0xFFU;
+        }
+    }
+
+    return pixels;
+}
 
 } // namespace
 
@@ -48,6 +68,20 @@ int main(int argc, char* argv[])
     cg::render::SdlRendererBackend renderer;
     if (!renderer.Initialize(window)) {
         cg::core::LogSdlError("render", "SDL_CreateRenderer");
+        renderer.Shutdown();
+        window.Destroy();
+        TTF_Quit();
+        SDL_Quit();
+        return 1;
+    }
+
+    const auto testPixels = CreateTestTexturePixels();
+    const cg::render::TextureHandle testTexture =
+        renderer.CreateTexture({TestTextureSize, TestTextureSize, cg::render::PixelFormat::Rgba8});
+    if (!testTexture.IsValid() ||
+        !renderer.UpdateTexture(testTexture, testPixels.data(), TestTextureSize * static_cast<int>(sizeof(std::uint32_t)))) {
+        cg::core::LogSdlError("render", "CreateTexture/UpdateTexture");
+        renderer.Shutdown();
         window.Destroy();
         TTF_Quit();
         SDL_Quit();
@@ -90,6 +124,13 @@ int main(int argc, char* argv[])
             break;
         }
 
+        if (!renderer.DrawTexture(testTexture,
+                {0.0F, 0.0F, static_cast<float>(TestTextureSize), static_cast<float>(TestTextureSize)},
+                {64.0F, 64.0F, 192.0F, 192.0F})) {
+            cg::core::LogSdlError("render", "DrawTexture");
+            break;
+        }
+
         if (!renderer.EndFrame()) {
             cg::core::LogSdlError("render", "EndFrame");
             break;
@@ -103,6 +144,8 @@ int main(int argc, char* argv[])
         cg::core::LogSdlError("ime", "SDL_StopTextInput");
     }
 
+    renderer.DestroyTexture(testTexture);
+    renderer.Shutdown();
     window.Destroy();
     TTF_Quit();
     SDL_Quit();

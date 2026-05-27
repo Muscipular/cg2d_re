@@ -26,6 +26,9 @@ public:
     // CreateTexture 创建纹理；失败时返回无效 TextureHandle。
     [[nodiscard]] virtual TextureHandle CreateTexture(const TextureDesc& desc) = 0;
 
+    // UpdateTexture 使用内存像素更新整张纹理；pixels 为连续像素数据，pitch 为单行字节数。
+    [[nodiscard]] virtual bool UpdateTexture(TextureHandle texture, const void* pixels, int pitch) = 0;
+
     // DestroyTexture 销毁由 CreateTexture 创建的纹理句柄。
     virtual void DestroyTexture(TextureHandle texture) noexcept = 0;
 

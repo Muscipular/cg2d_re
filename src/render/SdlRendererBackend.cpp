@@ -15,9 +15,9 @@ namespace {
 {
     switch (format) {
     case PixelFormat::Rgba8:
-        return SDL_PIXELFORMAT_RGBA8888;
+        return SDL_PIXELFORMAT_RGBA32;
     case PixelFormat::Bgra8:
-        return SDL_PIXELFORMAT_BGRA8888;
+        return SDL_PIXELFORMAT_BGRA32;
     case PixelFormat::Unknown:
         break;
     }
@@ -99,6 +99,20 @@ struct SdlRendererBackend::Impl {
         TextureSlot& slot = textureSlots[slotIndex];
         slot.texture = texture;
         return TextureHandle{static_cast<std::uint32_t>(slotIndex + 1), slot.generation};
+    }
+
+    [[nodiscard]] bool UpdateTexture(TextureHandle handle, const void* pixels, int pitch) noexcept
+    {
+        if (pixels == nullptr || pitch <= 0) {
+            return false;
+        }
+
+        SDL_Texture* texture = ResolveTexture(handle);
+        if (texture == nullptr) {
+            return false;
+        }
+
+        return SDL_UpdateTexture(texture, nullptr, pixels, pitch);
     }
 
     void DestroyTexture(TextureHandle handle) noexcept
@@ -206,6 +220,11 @@ bool SdlRendererBackend::Initialize(const platform::Window& window) noexcept
     return Initialize(static_cast<WindowId>(window.GetId()));
 }
 
+void SdlRendererBackend::Shutdown() noexcept
+{
+    impl_->Reset();
+}
+
 bool SdlRendererBackend::BeginFrame(ClearColor clearColor)
 {
     if (impl_->renderer == nullptr) {
@@ -228,6 +247,11 @@ bool SdlRendererBackend::EndFrame()
 TextureHandle SdlRendererBackend::CreateTexture(const TextureDesc& desc)
 {
     return impl_->CreateTexture(desc);
+}
+
+bool SdlRendererBackend::UpdateTexture(TextureHandle texture, const void* pixels, int pitch)
+{
+    return impl_->UpdateTexture(texture, pixels, pitch);
 }
 
 void SdlRendererBackend::DestroyTexture(TextureHandle texture) noexcept

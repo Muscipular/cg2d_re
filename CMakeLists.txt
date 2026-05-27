@@ -30,6 +30,7 @@ add_executable(cg-client
     src/core/Log.cpp
     src/render/RenderQueue.cpp
     src/render/SdlRendererBackend.cpp
+    src/render/TextureCache.cpp
     src/platform/Event.cpp
     src/platform/Ime.cpp
     src/platform/Input.cpp

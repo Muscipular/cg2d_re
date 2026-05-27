@@ -6,6 +6,7 @@
 #include "platform/Window.hpp"
 #include "render/RenderQueue.hpp"
 #include "render/SdlRendererBackend.hpp"
+#include "render/TextureCache.hpp"
 
 #include <SDL3/SDL.h>
 #include <SDL3_image/SDL_image.h>
@@ -76,12 +77,12 @@ int main(int argc, char* argv[])
         return 1;
     }
 
+    cg::render::TextureCache textureCache(renderer);
     const auto testPixels = CreateTestTexturePixels();
     const cg::render::TextureHandle testTexture =
-        renderer.CreateTexture({TestTextureSize, TestTextureSize, cg::render::PixelFormat::Rgba8});
-    if (!testTexture.IsValid() ||
-        !renderer.UpdateTexture(testTexture, testPixels.data(), TestTextureSize * static_cast<int>(sizeof(std::uint32_t)))) {
-        cg::core::LogSdlError("render", "CreateTexture/UpdateTexture");
+        textureCache.LoadRgba8("m2-test-texture", TestTextureSize, TestTextureSize, testPixels.data(), TestTextureSize * 4);
+    if (!testTexture.IsValid()) {
+        cg::core::LogSdlError("render", "TextureCache::LoadRgba8");
         renderer.Shutdown();
         window.Destroy();
         TTF_Quit();
@@ -154,7 +155,7 @@ int main(int argc, char* argv[])
         cg::core::LogSdlError("ime", "SDL_StopTextInput");
     }
 
-    renderer.DestroyTexture(testTexture);
+    textureCache.Clear();
     renderer.Shutdown();
     window.Destroy();
     TTF_Quit();

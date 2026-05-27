@@ -30,6 +30,10 @@ if(NOT EXISTS "${CG_YAML_CPP_ROOT}/CMakeLists.txt")
     message(FATAL_ERROR "找不到 yaml-cpp 源码目录：${CG_YAML_CPP_ROOT}。请先运行 scripts/download_yaml_cpp.ps1。")
 endif()
 
+set(YAML_BUILD_SHARED_LIBS OFF CACHE BOOL "Build yaml-cpp shared libraries" FORCE)
+set(YAML_CPP_BUILD_TESTS OFF CACHE BOOL "Build yaml-cpp tests" FORCE)
+set(YAML_CPP_BUILD_TOOLS OFF CACHE BOOL "Build yaml-cpp tools" FORCE)
+set(YAML_CPP_INSTALL OFF CACHE BOOL "Install yaml-cpp targets" FORCE)
 add_subdirectory("${CG_YAML_CPP_ROOT}" "${CMAKE_BINARY_DIR}/third_party/yaml-cpp")
 
 add_executable(cg-client

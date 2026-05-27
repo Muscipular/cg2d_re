@@ -9,6 +9,7 @@
 #include "render/SdlRendererBackend.hpp"
 #include "render/TextureAtlas.hpp"
 #include "render/TextureCache.hpp"
+#include "ui/InputBox.hpp"
 #include "ui/TextLayout.hpp"
 
 #include <SDL3/SDL.h>
@@ -30,6 +31,7 @@ constexpr std::uint32_t StatsLogFrameInterval = 120;
 constexpr std::string_view DemoFontKey = "demo-font";
 constexpr std::string_view DemoText = "你好 CrossGate";
 constexpr std::string_view DemoLayoutText = "你好 CrossGate\nText layout";
+constexpr std::string_view DemoInputText = "你好 InputBox";
 constexpr std::array<std::string_view, 3> DemoFontPaths = {
     "C:/Windows/Fonts/msyh.ttc",
     "C:/Windows/Fonts/simhei.ttf",
@@ -160,7 +162,17 @@ int main(int argc, char* argv[])
     if (!imeController.BeginTextInput()) {
         cg::core::LogSdlError("ime", "SDL_StartTextInput");
     }
-    if (!imeController.SetInputArea(0.0F, 0.0F, 1.0F, 1.0F, 0.0F)) {
+    cg::ui::InputBox demoInputBox;
+    demoInputBox.SetBounds({64.0F, 344.0F, 360.0F, 36.0F});
+    demoInputBox.SetText(DemoInputText);
+    demoInputBox.SetFocused(true);
+    const cg::render::RectF inputBoxBounds = demoInputBox.GetBounds();
+    if (!imeController.SetInputArea(
+            inputBoxBounds.x,
+            inputBoxBounds.y,
+            inputBoxBounds.width,
+            inputBoxBounds.height,
+            0.0F)) {
         cg::core::LogSdlError("ime", "SDL_SetTextInputArea");
     }
 
@@ -178,6 +190,8 @@ int main(int argc, char* argv[])
         cg::platform::Event event;
         while (eventPump.Poll(event)) {
             inputState.HandleEvent(event);
+            const bool inputBoxConsumed = demoInputBox.HandleEvent(event);
+            (void)inputBoxConsumed;
 
             if (event.type == cg::platform::EventType::Quit) {
                 running = false;
@@ -186,6 +200,12 @@ int main(int argc, char* argv[])
             if (event.type == cg::platform::EventType::WindowCloseRequested &&
                 event.windowId == window.GetId()) {
                 running = false;
+            }
+
+            if (demoInputBox.ConsumeSubmitted()) {
+                cg::core::Log(cg::core::LogLevel::Info,
+                    "ui",
+                    "InputBox submitted: " + std::string{demoInputBox.GetText()});
             }
         }
 
@@ -231,6 +251,11 @@ int main(int argc, char* argv[])
                 "Render stats: drawCalls=" + std::to_string(stats.drawCalls) +
                     ", sprites=" + std::to_string(stats.sprites) +
                     ", textureSwitches=" + std::to_string(stats.textureSwitches));
+            cg::core::Log(cg::core::LogLevel::Info,
+                "ui",
+                "InputBox demo: focused=" + std::to_string(demoInputBox.IsFocused() ? 1 : 0) +
+                    ", cursor=" + std::to_string(demoInputBox.GetCursorByteOffset()) +
+                    ", text=" + std::string{demoInputBox.GetText()});
             framesSinceStatsLog = 0;
         }
 

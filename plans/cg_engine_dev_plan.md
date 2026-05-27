@@ -414,7 +414,7 @@ textureCache.LoadRgba8(key, image.width, image.height, image.pixels.data(), imag
 成功标准：
 
 1. 可通过 `yaml-cpp` 读取 `cgmsv.yml`，并按 `BinLoader` 顺序生成 `BinSetDesc`。
-2. 可读取旧客户端 `map\0\floor.dat` 和 `map\mapId\serverNo\floor.dat`。
+2. 可读取旧客户端 `map\0\${floor}.dat` 和 `map\mapId\serverNo\${floor}.dat`。
 3. 可生成自动地图 RGBA8 buffer，tile/object/collision 可开关。
 4. 可用独立 viewer 查看 Graphic、Anime、Map，不要求接入主客户端流程。
 5. `resource` 公开头不暴露 SDL 类型；SDL 上传只在 viewer/render 边界发生。
@@ -446,8 +446,8 @@ textureCache.LoadRgba8(key, image.width, image.height, image.pixels.data(), imag
 | 编号 | 任务 | 验收标准 |
 |---|---|---|
 | M5.2.1 | 定义 `MapData` | 保存 `mapId/serverNo/floor/width/height/tileData/objData/hitData`，公开头无 SDL 类型 |
-| M5.2.2 | 构造地图路径 | `mapId == 0` 使用 `map\0\floor.dat`，否则使用 `map\mapId\serverNo\floor.dat` |
-| M5.2.3 | 读取地图文件 | 校验 `MAP\1`、4 个 int header、三层 `uint16` 数据长度 |
+| M5.2.2 | 构造地图路径 | `mapId == 0` 使用 `map\0\${floor}.dat`，否则使用 `map\mapId\serverNo\${floor}.dat` |
+| M5.2.3 | 读取地图文件 | 按 `${floor}.dat` 路径校验 `MAP\1`、4 个 int header、三层 `uint16` 数据长度 |
 | M5.2.4 | 边界保护 | 宽高必须大于 0，cell 数不得超过明确上限，读取失败有错误信息 |
 
 ### M5.3 自动地图规则

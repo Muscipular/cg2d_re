@@ -45,13 +45,13 @@ std::filesystem::path BuildMapFloorPath(
     std::uint16_t serverNo,
     std::uint16_t floor)
 {
-    (void)floor;
+    const std::string floorFileName = std::to_string(floor) + ".dat";
 
     if (mapId == 0) {
-        return (mapRoot / "map" / "0" / "floor.dat").lexically_normal();
+        return (mapRoot / "map" / "0" / floorFileName).lexically_normal();
     }
 
-    return (mapRoot / "map" / std::to_string(mapId) / std::to_string(serverNo) / "floor.dat").lexically_normal();
+    return (mapRoot / "map" / std::to_string(mapId) / std::to_string(serverNo) / floorFileName).lexically_normal();
 }
 
 MapLoadResult LoadMapData(

@@ -8,7 +8,7 @@
 
 namespace cg::resource {
 
-// MapLoadResult 保存 floor.dat 读取结果和失败原因。
+// MapLoadResult 保存地图楼层文件读取结果和失败原因。
 struct MapLoadResult {
     MapData map;
     ResourceError error;
@@ -19,7 +19,7 @@ struct MapLoadResult {
     }
 };
 
-// BuildMapFloorPath 构造地图 floor.dat 路径；floor 当前不参与文件名规则。
+// BuildMapFloorPath 构造地图楼层路径，文件名为 `${floor}.dat`。
 [[nodiscard]] std::filesystem::path BuildMapFloorPath(
     const std::filesystem::path& mapRoot,
     std::uint32_t mapId,

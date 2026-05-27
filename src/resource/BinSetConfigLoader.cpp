@@ -19,6 +19,34 @@ namespace {
     };
 }
 
+[[nodiscard]] bool HasExplicitStringTag(const YAML::Node& field)
+{
+    return field.Tag() == "!" || field.Tag() == "tag:yaml.org,2002:str";
+}
+
+[[nodiscard]] bool LooksLikeProjectPath(const std::string& value)
+{
+    return value.find('\\') != std::string::npos || value.find('/') != std::string::npos;
+}
+
+[[nodiscard]] bool IsStringField(const YAML::Node& field)
+{
+    return field.IsScalar() && HasExplicitStringTag(field);
+}
+
+[[nodiscard]] bool IsPathField(const YAML::Node& field)
+{
+    if (!field.IsScalar()) {
+        return false;
+    }
+    if (HasExplicitStringTag(field)) {
+        return true;
+    }
+
+    // yaml-cpp 将未加引号数字和未加引号路径都标为 "?"，这里只保守放行项目 yml 实际使用的路径形态。
+    return field.Tag() == "?" && LooksLikeProjectPath(field.Scalar());
+}
+
 [[nodiscard]] bool ReadOptionalPathField(
     const YAML::Node& item,
     const char* yamlField,
@@ -32,7 +60,7 @@ namespace {
         output.clear();
         return true;
     }
-    if (!field.IsScalar()) {
+    if (!IsPathField(field)) {
         error = MakeConfigError(
             ymlPath,
             "BinLoader[" + std::to_string(index) + "] 字段 " + yamlField + " 必须是 string");
@@ -72,8 +100,13 @@ BinSetConfigLoadResult LoadBinSetConfig(const std::filesystem::path& ymlPath)
             }
 
             const YAML::Node name = item["Name"];
-            if (!name || !name.IsScalar()) {
-                result.error = MakeConfigError(ymlPath, "BinLoader[" + std::to_string(index) + "] 缺少 string 类型 Name");
+            if (!name) {
+                result.error = MakeConfigError(ymlPath, "BinLoader[" + std::to_string(index) + "] 缺少 Name");
+                result.binSets.clear();
+                return result;
+            }
+            if (!IsStringField(name)) {
+                result.error = MakeConfigError(ymlPath, "BinLoader[" + std::to_string(index) + "] 字段 Name 必须是 string");
                 result.binSets.clear();
                 return result;
             }

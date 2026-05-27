@@ -29,6 +29,7 @@ add_executable(cg-client
     src/app/main.cpp
     src/core/Log.cpp
     src/platform/Event.cpp
+    src/platform/Input.cpp
     src/platform/Window.cpp
 )
 

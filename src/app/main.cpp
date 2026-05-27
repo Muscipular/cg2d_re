@@ -1,5 +1,6 @@
 #include "core/Log.hpp"
 #include "platform/Event.hpp"
+#include "platform/Input.hpp"
 #include "platform/Window.hpp"
 
 #include <SDL3/SDL.h>
@@ -42,10 +43,15 @@ int main(int argc, char* argv[])
     }
 
     cg::platform::EventPump eventPump;
+    cg::platform::InputState inputState;
     bool running = true;
     while (running) {
+        inputState.BeginFrame();
+
         cg::platform::Event event;
         while (eventPump.Poll(event)) {
+            inputState.HandleEvent(event);
+
             if (event.type == cg::platform::EventType::Quit) {
                 running = false;
             }
@@ -56,6 +62,7 @@ int main(int argc, char* argv[])
             }
         }
 
+        inputState.EndFrame();
         SDL_Delay(16);
     }
 

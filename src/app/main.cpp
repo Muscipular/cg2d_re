@@ -2,6 +2,7 @@
 #include "platform/Event.hpp"
 #include "platform/Ime.hpp"
 #include "platform/Input.hpp"
+#include "platform/Timer.hpp"
 #include "platform/Window.hpp"
 
 #include <SDL3/SDL.h>
@@ -53,8 +54,11 @@ int main(int argc, char* argv[])
 
     cg::platform::EventPump eventPump;
     cg::platform::InputState inputState;
+    cg::platform::FrameTimer frameTimer;
     bool running = true;
     while (running) {
+        const double deltaSeconds = frameTimer.Tick();
+        (void)deltaSeconds;
         inputState.BeginFrame();
 
         cg::platform::Event event;
@@ -72,7 +76,7 @@ int main(int argc, char* argv[])
         }
 
         inputState.EndFrame();
-        SDL_Delay(16);
+        frameTimer.DelayToCap(60.0);
     }
 
     if (!imeController.EndTextInput()) {

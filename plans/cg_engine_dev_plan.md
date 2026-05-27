@@ -209,6 +209,7 @@ public:
 | 2026-05-27 | M2.5 SDL_RenderTexture | 扩展 `IRenderer::UpdateTexture` 和 SDL 后端像素上传，`main.cpp` 创建内存测试纹理并用 `DrawTexture` 绘制 | `cmake --preset windows-msvc-x64`；`cmake --build --preset windows-msvc-x64-debug`；启动烟测 | PNG 绘制、颜色提交和批处理仍待后续 M2.x |
 | 2026-05-27 | M2.6 SDL_RenderGeometry batch | 扩展 `IRenderer::DrawSprites`，SDL 后端用 `SDL_RenderGeometry` 批量绘制连续同纹理 sprite，`RenderQueue` 改为按纹理分段提交 batch | `cmake --preset windows-msvc-x64`；`cmake --build --preset windows-msvc-x64-debug`；启动烟测 | PNG 绘制、TextureCache、Atlas 和统计仍待后续 M2.x |
 | 2026-05-27 | M2.7 TextureCache | 新增 `src/render/TextureCache.hpp/.cpp`，按字符串 key 缓存纹理句柄并负责销毁；`main.cpp` 通过缓存加载测试 RGBA 纹理 | `cmake --preset windows-msvc-x64`；`cmake --build --preset windows-msvc-x64-debug`；启动烟测 | PNG 绘制、Atlas 和统计仍待后续 M2.x |
+| 2026-05-27 | M2.8 TextureAtlas | 新增 `src/render/TextureAtlas.hpp/.cpp`，保存 atlas 纹理和 key 到源区域映射；`main.cpp` 通过 atlas 创建测试 `SpriteCmd` | `cmake --preset windows-msvc-x64`；`cmake --build --preset windows-msvc-x64-debug`；启动烟测 | Render stats、Pixel-perfect 仍待后续 M2.x |
 
 ### 目录
 

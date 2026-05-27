@@ -6,6 +6,7 @@
 #include "platform/Window.hpp"
 #include "render/RenderQueue.hpp"
 #include "render/SdlRendererBackend.hpp"
+#include "render/TextureAtlas.hpp"
 #include "render/TextureCache.hpp"
 
 #include <SDL3/SDL.h>
@@ -90,6 +91,20 @@ int main(int argc, char* argv[])
         return 1;
     }
 
+    cg::render::TextureAtlas testAtlas;
+    testAtlas.SetTexture(testTexture);
+    if (!testAtlas.AddRegion(
+            "m2-test-region",
+            {0.0F, 0.0F, static_cast<float>(TestTextureSize), static_cast<float>(TestTextureSize)})) {
+        cg::core::Log(cg::core::LogLevel::Error, "render", "TextureAtlas::AddRegion failed");
+        textureCache.Clear();
+        renderer.Shutdown();
+        window.Destroy();
+        TTF_Quit();
+        SDL_Quit();
+        return 1;
+    }
+
     cg::platform::ImeController imeController(window);
     if (!imeController.BeginTextInput()) {
         cg::core::LogSdlError("ime", "SDL_StartTextInput");
@@ -128,15 +143,12 @@ int main(int argc, char* argv[])
         }
 
         renderQueue.Clear();
-        renderQueue.PushSprite({
-            testTexture,
-            {0.0F, 0.0F, static_cast<float>(TestTextureSize), static_cast<float>(TestTextureSize)},
-            {64.0F, 64.0F, 192.0F, 192.0F},
-            {1.0F, 1.0F, 1.0F, 1.0F},
-            0,
-            0,
-            0,
-        });
+        const auto testSprite = testAtlas.MakeSprite("m2-test-region", {64.0F, 64.0F, 192.0F, 192.0F});
+        if (!testSprite.has_value()) {
+            cg::core::Log(cg::core::LogLevel::Error, "render", "TextureAtlas::MakeSprite failed");
+            break;
+        }
+        renderQueue.PushSprite(*testSprite);
         if (!renderQueue.Flush(renderer)) {
             cg::core::LogSdlError("render", "RenderQueue::Flush");
             break;

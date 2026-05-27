@@ -32,12 +32,14 @@ struct GraphicInfo {
     int sizeX = 0;
     int sizeY = 0;
     std::uint32_t flag = 0;
+    std::uint32_t asGround = 0;
     int mapNo = 0;
 };
 
 // GraphicRef 表示可定位到具体 binSet 和数据文件的图档引用。
 struct GraphicRef {
     int binSetIndex = 0;
+    int globalIndex = 0;
     int seqNo = 0;
     int mapNo = 0;
     std::filesystem::path dataPath;
@@ -47,6 +49,7 @@ struct GraphicRef {
 // AnimeInfo 对应 AnimeInfo_*.bin 的单条动画索引信息。
 struct AnimeInfo {
     int animeNo = 0;
+    int sourceAnimeNo = 0;
     std::uint32_t offset = 0;
     std::uint16_t count = 0;
     std::uint16_t flag = 0;
@@ -56,6 +59,7 @@ struct AnimeInfo {
 struct AnimeRef {
     int binSetIndex = 0;
     int animeNo = 0;
+    int sourceAnimeNo = 0;
     std::filesystem::path dataPath;
     AnimeInfo info;
 };
@@ -63,6 +67,7 @@ struct AnimeRef {
 // AnimeFrame 表示动画帧中引用的图档和绘制偏移。
 struct AnimeFrame {
     int graphicSeqNo = 0;
+    int graphicGlobalIndex = -1;
     int x = 0;
     int y = 0;
     int flag = 0;
@@ -83,6 +88,7 @@ struct AnimeAction {
 // AnimationClip 保存一个 animeNo 下的动作头和连续帧数据。
 struct AnimationClip {
     int animeNo = 0;
+    int binSetIndex = -1;
     std::vector<AnimeAction> actions;
     std::vector<AnimeFrame> frames;
 };
@@ -94,6 +100,12 @@ struct DecodedImage {
     int offsetX = 0;
     int offsetY = 0;
     int mapNo = 0;
+    std::uint8_t version = 0;
+    std::uint8_t attributes = 0;
+    bool compressed = false;
+    bool hasEmbeddedPalette = false;
+    bool zeroTransparent = false;
+    std::uint32_t embeddedPaletteSize = 0;
     cg::render::PixelFormat format = cg::render::PixelFormat::Rgba8;
     std::vector<std::uint8_t> pixels;
 };

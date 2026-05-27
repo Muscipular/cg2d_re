@@ -4,6 +4,7 @@
 #include "BinaryReader.hpp"
 #include "core/Log.hpp"
 
+#include <algorithm>
 #include <array>
 #include <cstdint>
 #include <string>
@@ -31,14 +32,15 @@ constexpr std::uint64_t GraphicInfoRecordSize = 40;
     std::uint8_t sizeX = 0;
     std::uint8_t sizeY = 0;
     std::uint8_t flag = 0;
-    std::array<std::uint8_t, 5> reserved {};
+    std::uint8_t asGround = 0;
+    std::array<std::uint8_t, 4> reserved {};
     std::int32_t mapNo = 0;
 
     if (!reader.ReadI32(seqNo) || !reader.ReadU32(offset) || !reader.ReadU32(length)
         || !reader.ReadI32(offsetX) || !reader.ReadI32(offsetY)
         || !reader.ReadI32(width) || !reader.ReadI32(height)
         || !reader.ReadU8(sizeX) || !reader.ReadU8(sizeY) || !reader.ReadU8(flag)
-        || !reader.ReadBytes(reserved) || !reader.ReadI32(mapNo)) {
+        || !reader.ReadU8(asGround) || !reader.ReadBytes(reserved) || !reader.ReadI32(mapNo)) {
         return false;
     }
 
@@ -52,6 +54,7 @@ constexpr std::uint64_t GraphicInfoRecordSize = 40;
     info.sizeX = sizeX;
     info.sizeY = sizeY;
     info.flag = flag;
+    info.asGround = asGround;
     info.mapNo = mapNo;
     return true;
 }
@@ -100,8 +103,10 @@ void ResourceManager::Clear()
 {
     binSets_.clear();
     graphicsByMapNo_.clear();
+    graphicsByGlobalIndex_.clear();
     animesByNo_.clear();
     stats_ = ResourceStats {};
+    nextGraphicGlobalIndex_ = 0;
     ClearError();
 }
 
@@ -128,6 +133,27 @@ std::optional<GraphicRef> ResourceManager::FindGraphicBySeq(int binSetIndex, int
     }
 
     return iter->second;
+}
+
+std::optional<GraphicRef> ResourceManager::FindGraphicByGlobalIndex(int globalIndex) const
+{
+    const auto iter = graphicsByGlobalIndex_.find(globalIndex);
+    if (iter == graphicsByGlobalIndex_.end()) {
+        return std::nullopt;
+    }
+
+    return iter->second;
+}
+
+std::optional<GraphicRef> ResourceManager::FindGraphicForFrame(const AnimationClip& clip, const AnimeFrame& frame) const
+{
+    if (frame.graphicGlobalIndex >= 0) {
+        const std::optional<GraphicRef> ref = FindGraphicByGlobalIndex(frame.graphicGlobalIndex);
+        if (ref.has_value()) {
+            return ref;
+        }
+    }
+    return FindGraphicBySeq(clip.binSetIndex, frame.graphicSeqNo);
 }
 
 std::optional<AnimeRef> ResourceManager::FindAnime(int animeNo) const
@@ -177,6 +203,14 @@ std::optional<AnimationClip> ResourceManager::LoadAnimation(int animeNo)
         return std::nullopt;
     }
 
+    clip.binSetIndex = ref->binSetIndex;
+    if (ref->binSetIndex >= 0 && static_cast<std::size_t>(ref->binSetIndex) < binSets_.size()) {
+        const int graphicStartIndex = binSets_[static_cast<std::size_t>(ref->binSetIndex)].graphicStartIndex;
+        for (AnimeFrame& frame : clip.frames) {
+            frame.graphicGlobalIndex = graphicStartIndex + frame.graphicSeqNo;
+        }
+    }
+
     ClearError();
     return clip;
 }
@@ -214,6 +248,8 @@ bool ResourceManager::LoadGraphicIndex(int binSetIndex, const BinSetDesc& desc, 
     }
 
     const std::uint64_t count = reader.Size() / GraphicInfoRecordSize;
+    state.graphicStartIndex = nextGraphicGlobalIndex_;
+    int maxSeqNo = -1;
     for (std::uint64_t index = 0; index < count; ++index) {
         GraphicInfo info;
         if (!ReadGraphicInfo(reader, info)) {
@@ -223,16 +259,19 @@ bool ResourceManager::LoadGraphicIndex(int binSetIndex, const BinSetDesc& desc, 
 
         GraphicRef ref;
         ref.binSetIndex = binSetIndex;
+        ref.globalIndex = state.graphicStartIndex + info.seqNo;
         ref.seqNo = info.seqNo;
         ref.mapNo = info.mapNo;
         ref.dataPath = desc.graphicDataPath;
         ref.info = info;
+        maxSeqNo = std::max(maxSeqNo, info.seqNo);
 
         if (state.graphicsBySeq.contains(info.seqNo)) {
             ++stats_.graphicOverrideCount;
             AddWarning("同一 binSet 内 Graphic seqNo 重复，使用后者");
         }
         state.graphicsBySeq[info.seqNo] = ref;
+        graphicsByGlobalIndex_[ref.globalIndex] = ref;
 
         if (info.mapNo > 0) {
             if (graphicsByMapNo_.contains(info.mapNo)) {
@@ -243,6 +282,9 @@ bool ResourceManager::LoadGraphicIndex(int binSetIndex, const BinSetDesc& desc, 
         }
 
         ++stats_.graphicCount;
+    }
+    if (maxSeqNo >= 0) {
+        nextGraphicGlobalIndex_ += maxSeqNo + 1;
     }
 
     cg::core::Log(cg::core::LogLevel::Info,
@@ -279,6 +321,7 @@ bool ResourceManager::LoadAnimeIndex(int binSetIndex, const BinSetDesc& desc)
         AnimeRef ref;
         ref.binSetIndex = binSetIndex;
         ref.animeNo = info.animeNo;
+        ref.sourceAnimeNo = info.sourceAnimeNo;
         ref.dataPath = desc.animeDataPath;
         ref.info = info;
 
@@ -287,6 +330,9 @@ bool ResourceManager::LoadAnimeIndex(int binSetIndex, const BinSetDesc& desc)
             AddWarning("Anime animeNo 重复，使用后加载 binSet");
         }
         animesByNo_[info.animeNo] = ref;
+        if (info.sourceAnimeNo != info.animeNo) {
+            animesByNo_[info.sourceAnimeNo] = ref;
+        }
         ++stats_.animeCount;
     }
 

@@ -20,6 +20,8 @@ public:
 
     [[nodiscard]] std::optional<GraphicRef> FindGraphicByMapNo(int mapNo) const;
     [[nodiscard]] std::optional<GraphicRef> FindGraphicBySeq(int binSetIndex, int seqNo) const;
+    [[nodiscard]] std::optional<GraphicRef> FindGraphicByGlobalIndex(int globalIndex) const;
+    [[nodiscard]] std::optional<GraphicRef> FindGraphicForFrame(const AnimationClip& clip, const AnimeFrame& frame) const;
     [[nodiscard]] std::optional<AnimeRef> FindAnime(int animeNo) const;
 
     [[nodiscard]] std::optional<DecodedImage> DecodeGraphic(const GraphicRef& ref);
@@ -33,6 +35,7 @@ public:
 private:
     struct BinSetState {
         BinSetDesc desc;
+        int graphicStartIndex = 0;
         std::unordered_map<int, GraphicRef> graphicsBySeq;
     };
 
@@ -45,11 +48,13 @@ private:
 
     std::vector<BinSetState> binSets_;
     std::unordered_map<int, GraphicRef> graphicsByMapNo_;
+    std::unordered_map<int, GraphicRef> graphicsByGlobalIndex_;
     std::unordered_map<int, AnimeRef> animesByNo_;
     Palette defaultPalette_;
     ResourceStats stats_;
     ResourceError lastError_;
     GraphicDecoder graphicDecoder_;
+    int nextGraphicGlobalIndex_ = 0;
 };
 
 } // namespace cg::resource

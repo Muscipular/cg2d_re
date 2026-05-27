@@ -26,4 +26,10 @@ class BinaryReader;
     const AnimeInfo& info,
     AnimationClip& outClip);
 
+// FindAnimeAction 按旧客户端规则精确匹配动作号和方向号。
+[[nodiscard]] const AnimeAction* FindAnimeAction(const AnimationClip& clip, int action, int dir) noexcept;
+[[nodiscard]] std::span<const AnimeFrame> GetAnimeActionFrames(
+    const AnimationClip& clip,
+    const AnimeAction& action) noexcept;
+
 } // namespace cg::resource

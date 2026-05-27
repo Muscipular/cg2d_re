@@ -25,7 +25,7 @@ enum class GraphicDecodeError {
 // GraphicBlockHeader 是 RD Graphic 块头的纯数据表示。
 struct GraphicBlockHeader {
     std::uint8_t version = 0;
-    std::uint8_t padding = 0;
+    std::uint8_t attributes = 0;
     int width = 0;
     int height = 0;
     std::uint32_t blockSize = 0;

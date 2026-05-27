@@ -9,7 +9,7 @@
 namespace cg::resource {
 namespace {
 
-constexpr std::uint32_t AnimeActionPadding = 0xFFFFFFFFU;
+constexpr int AnimeNoBase = 100000;
 
 [[nodiscard]] std::uint16_t ReadU16(std::span<const std::uint8_t> data, std::size_t offset) noexcept
 {
@@ -30,17 +30,17 @@ constexpr std::uint32_t AnimeActionPadding = 0xFFFFFFFFU;
     return std::bit_cast<std::int32_t>(ReadU32(data, offset));
 }
 
-[[nodiscard]] bool ReadAnimeAction(BinaryReader& reader, int frameIndex, AnimeAction& action)
+[[nodiscard]] bool ReadAnimeAction(BinaryReader& reader, bool hasExtendedHeader, int frameIndex, AnimeAction& action)
 {
-    std::uint16_t direction = 0;
-    std::uint16_t actionNo = 0;
+    std::int16_t direction = 0;
+    std::int16_t actionNo = 0;
     std::int32_t duration = 0;
     std::int32_t frameCount = 0;
-    std::uint16_t palette = 0;
-    std::uint16_t revertRaw = 0;
+    std::int16_t palette = 0;
+    std::int16_t revertRaw = 0;
     std::uint32_t padding = 0;
 
-    if (!reader.ReadU16(direction) || !reader.ReadU16(actionNo) || !reader.ReadI32(duration)
+    if (!reader.ReadI16(direction) || !reader.ReadI16(actionNo) || !reader.ReadI32(duration)
         || !reader.ReadI32(frameCount)) {
         return false;
     }
@@ -48,24 +48,9 @@ constexpr std::uint32_t AnimeActionPadding = 0xFFFFFFFFU;
         return false;
     }
 
-    const std::uint64_t extStart = reader.Position();
-    const bool hasExtBytes = reader.ReadU16(palette) && reader.ReadU16(revertRaw) && reader.ReadU32(padding);
-    if (!hasExtBytes) {
-        if (!reader.Seek(extStart)) {
+    if (hasExtendedHeader
+        && (!reader.ReadI16(palette) || !reader.ReadI16(revertRaw) || !reader.ReadU32(padding))) {
             return false;
-        }
-
-        palette = 0;
-        revertRaw = 0;
-        padding = 0;
-    } else if (padding != AnimeActionPadding) {
-        if (!reader.Seek(extStart)) {
-            return false;
-        }
-
-        palette = 0;
-        revertRaw = 0;
-        padding = 0;
     }
 
     action.dir = direction;
@@ -106,7 +91,8 @@ bool ReadAnimeInfo(std::span<const std::uint8_t> row, AnimeInfo& outInfo) noexce
     }
 
     const std::span<const std::uint8_t> record = row.first(AnimeInfoRecordSize);
-    outInfo.animeNo = ReadI32(record, 0);
+    outInfo.sourceAnimeNo = ReadI32(record, 0);
+    outInfo.animeNo = outInfo.sourceAnimeNo >= AnimeNoBase ? outInfo.sourceAnimeNo - AnimeNoBase : outInfo.sourceAnimeNo;
     outInfo.offset = ReadU32(record, 4);
     outInfo.count = ReadU16(record, 8);
     outInfo.flag = ReadU16(record, 10);
@@ -124,7 +110,8 @@ bool ReadAnimeInfo(BinaryReader& reader, AnimeInfo& outInfo)
         return false;
     }
 
-    outInfo.animeNo = animeNo;
+    outInfo.sourceAnimeNo = animeNo;
+    outInfo.animeNo = animeNo >= AnimeNoBase ? animeNo - AnimeNoBase : animeNo;
     outInfo.offset = offset;
     outInfo.count = count;
     outInfo.flag = flag;
@@ -140,10 +127,11 @@ bool LoadAnimationClip(BinaryReader& reader, const AnimeInfo& info, AnimationCli
     AnimationClip clip;
     clip.animeNo = info.animeNo;
     clip.actions.reserve(info.count);
+    const bool hasExtendedHeader = info.flag != 0;
 
     for (std::uint16_t actionIndex = 0; actionIndex < info.count; ++actionIndex) {
         AnimeAction action;
-        if (!ReadAnimeAction(reader, static_cast<int>(clip.frames.size()), action)) {
+        if (!ReadAnimeAction(reader, hasExtendedHeader, static_cast<int>(clip.frames.size()), action)) {
             return false;
         }
 
@@ -174,6 +162,35 @@ bool LoadAnimationClip(const std::filesystem::path& animeDataPath, const AnimeIn
     }
 
     return LoadAnimationClip(reader, info, outClip);
+}
+
+const AnimeAction* FindAnimeAction(const AnimationClip& clip, int action, int dir) noexcept
+{
+    for (const AnimeAction& candidate : clip.actions) {
+        if (candidate.action == action && candidate.dir == dir) {
+            return &candidate;
+        }
+    }
+
+    return nullptr;
+}
+
+std::span<const AnimeFrame> GetAnimeActionFrames(const AnimationClip& clip, const AnimeAction& action) noexcept
+{
+    if (action.frameIndex < 0 || action.frameCount < 0) {
+        return {};
+    }
+
+    const auto frameIndex = static_cast<std::size_t>(action.frameIndex);
+    const auto frameCount = static_cast<std::size_t>(action.frameCount);
+    if (frameIndex > clip.frames.size() || frameCount > clip.frames.size() - frameIndex) {
+        return {};
+    }
+    if (frameCount == 0) {
+        return {};
+    }
+
+    return std::span<const AnimeFrame>(clip.frames.data() + frameIndex, frameCount);
 }
 
 } // namespace cg::resource

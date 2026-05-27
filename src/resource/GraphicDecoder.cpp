@@ -79,7 +79,7 @@ template <typename T>
     }
 
     header.version = block[2];
-    header.padding = block[3];
+    header.attributes = block[3];
     header.width = static_cast<int>(width);
     header.height = static_cast<int>(height);
     header.compressed = (header.version & 0x01U) != 0;
@@ -325,8 +325,14 @@ template <typename T>
     result.image.offsetX = info.offsetX;
     result.image.offsetY = info.offsetY;
     result.image.mapNo = info.mapNo;
+    result.image.version = header.version;
+    result.image.attributes = header.attributes;
+    result.image.compressed = header.compressed;
+    result.image.hasEmbeddedPalette = header.hasEmbeddedPalette;
+    result.image.embeddedPaletteSize = header.paletteSize;
 
-    const bool zeroOpaque = (info.flag & 0x08) != 0;
+    const bool zeroTransparent = (header.attributes & 0x08U) != 0;
+    result.image.zeroTransparent = zeroTransparent;
     result.image.pixels.resize(indexed.size() * 4U);
 
     for (int y = 0; y < header.height; ++y) {
@@ -340,7 +346,7 @@ template <typename T>
             result.image.pixels[target] = color.r;
             result.image.pixels[target + 1] = color.g;
             result.image.pixels[target + 2] = color.b;
-            result.image.pixels[target + 3] = (colorIndex == 0 && !zeroOpaque) ? 0 : color.a;
+            result.image.pixels[target + 3] = (colorIndex == 0 && zeroTransparent) ? 0 : color.a;
         }
     }
 
@@ -405,34 +411,33 @@ GraphicDecodeResult GraphicDecoder::DecodeBlock(
         return MakeError(GraphicDecodeError::OutputOverflow, "Graphic 输出尺寸无效");
     }
 
-    const std::span<const std::uint8_t> payload = block.subspan(
+    const std::span<const std::uint8_t> imagePayload = block.subspan(
         headerSize,
         static_cast<std::size_t>(header.blockSize) - headerSize);
-    if (header.paletteSize > payload.size()) {
-        return MakeError(GraphicDecodeError::UnexpectedEof, "CGEX palette 范围越界");
-    }
-
-    std::span<const std::uint8_t> imagePayload = payload;
-    std::span<const std::uint8_t> paletteBytes;
-    if (header.hasEmbeddedPalette && header.paletteSize > 0) {
-        imagePayload = payload.first(payload.size() - header.paletteSize);
-        paletteBytes = payload.last(header.paletteSize);
+    std::size_t decodedSize = pixelCount;
+    if (header.hasEmbeddedPalette) {
+        if (header.paletteSize > std::numeric_limits<std::size_t>::max() - decodedSize) {
+            return MakeError(GraphicDecodeError::OutputOverflow, "Graphic 输出尺寸无效");
+        }
+        decodedSize += header.paletteSize;
     }
 
     std::vector<std::uint8_t> decoded;
     if (header.compressed) {
-        if (!DecodeRle(imagePayload, pixelCount, decoded)) {
+        if (!DecodeRle(imagePayload, decodedSize, decoded)) {
             return MakeError(GraphicDecodeError::InvalidRle, "Graphic RLE 数据越界或控制字节无效");
         }
     } else {
-        if (imagePayload.size() < pixelCount) {
+        if (imagePayload.size() < decodedSize) {
             return MakeError(GraphicDecodeError::UnexpectedEof, "Graphic indexed 数据不完整");
         }
-        decoded.assign(imagePayload.begin(), imagePayload.begin() + static_cast<std::ptrdiff_t>(pixelCount));
+        decoded.assign(imagePayload.begin(), imagePayload.begin() + static_cast<std::ptrdiff_t>(decodedSize));
     }
 
     Palette activePalette = defaultPalette;
-    if (!paletteBytes.empty()) {
+    std::span<const std::uint8_t> paletteBytes;
+    if (header.hasEmbeddedPalette && header.paletteSize > 0) {
+        paletteBytes = std::span<const std::uint8_t>(decoded.data() + pixelCount, header.paletteSize);
         if (!BuildEmbeddedPalette(defaultPalette, paletteBytes, activePalette)) {
             return MakeError(GraphicDecodeError::InvalidPalette, "CGEX 内嵌 palette 长度无效");
         }

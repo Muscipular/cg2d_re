@@ -2,6 +2,15 @@
 
 namespace cg::resource {
 
+AutoMapScreenPoint ProjectMapCellToAutoMap(std::int32_t mapWidth, std::int32_t x, std::int32_t y) noexcept
+{
+    // 来源：MapExScreenFromMap / DrawAutoMapSurface；screenY 以 mapWidth 为基准。
+    return AutoMapScreenPoint{
+        static_cast<std::int32_t>(1 + 2 * (x + y)),
+        static_cast<std::int32_t>(mapWidth + 1 + y - x),
+    };
+}
+
 std::uint32_t DecodeMapCell(std::uint32_t raw) noexcept
 {
     // 来源：IDA 0x0046CF20 初始化 dword_C35010，0x0046CF00 查询。

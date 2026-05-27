@@ -78,6 +78,7 @@ template <typename T>
         return false;
     }
 
+    header.magic = { block[0], block[1] };
     header.version = block[2];
     header.attributes = block[3];
     header.width = static_cast<int>(width);
@@ -92,6 +93,7 @@ template <typename T>
             return false;
         }
     }
+    header.headerSize = headerSize;
 
     if (header.blockSize < headerSize || header.blockSize > block.size()) {
         return false;
@@ -325,6 +327,7 @@ template <typename T>
     result.image.offsetX = info.offsetX;
     result.image.offsetY = info.offsetY;
     result.image.mapNo = info.mapNo;
+    result.image.dataHeader = header;
     result.image.version = header.version;
     result.image.attributes = header.attributes;
     result.image.compressed = header.compressed;

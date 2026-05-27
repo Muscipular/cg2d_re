@@ -59,8 +59,18 @@ constexpr int AnimeNoBase = 100000;
     action.frameIndex = frameIndex;
     action.frameCount = frameCount;
     action.pal = palette;
+    action.revertRaw = revertRaw;
     action.revert = revertRaw != 0;
     action.padding = padding;
+    action.header.dir = direction;
+    action.header.action = actionNo;
+    action.header.duration = duration;
+    action.header.frameCount = frameCount;
+    action.header.pal = palette;
+    action.header.revert = revertRaw;
+    action.header.padding = padding;
+    action.header.headerSize = hasExtendedHeader ? 20U : 12U;
+    action.header.hasExtendedFields = hasExtendedHeader;
     return true;
 }
 

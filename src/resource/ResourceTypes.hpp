@@ -2,6 +2,8 @@
 
 #include "render/Texture.hpp"
 
+#include <array>
+#include <cstddef>
 #include <cstdint>
 #include <filesystem>
 #include <string>
@@ -33,7 +35,22 @@ struct GraphicInfo {
     int sizeY = 0;
     std::uint32_t flag = 0;
     std::uint32_t asGround = 0;
+    std::array<std::uint8_t, 4> reserved {};
     int mapNo = 0;
+};
+
+// GraphicDataHeader 对应 Graphic*.bin 中每个 RD/CGEX 数据块头。
+struct GraphicDataHeader {
+    std::array<std::uint8_t, 2> magic {};
+    std::uint8_t version = 0;
+    std::uint8_t attributes = 0;
+    int width = 0;
+    int height = 0;
+    std::uint32_t blockSize = 0;
+    std::uint32_t paletteSize = 0;
+    std::size_t headerSize = 0;
+    bool compressed = false;
+    bool hasEmbeddedPalette = false;
 };
 
 // GraphicRef 表示可定位到具体 binSet 和数据文件的图档引用。
@@ -73,14 +90,29 @@ struct AnimeFrame {
     int flag = 0;
 };
 
+// AnimeActionHeader 对应 Anime*.bin 中每个动作的数据头。
+struct AnimeActionHeader {
+    int dir = 0;
+    int action = 0;
+    int duration = 0;
+    int frameCount = 0;
+    int pal = 0;
+    int revert = 0;
+    std::uint32_t padding = 0;
+    std::size_t headerSize = 0;
+    bool hasExtendedFields = false;
+};
+
 // AnimeAction 描述动画动作头及其在帧数组中的范围。
 struct AnimeAction {
+    AnimeActionHeader header;
     int dir = 0;
     int action = 0;
     int duration = 0;
     int frameIndex = 0;
     int frameCount = 0;
     int pal = 0;
+    int revertRaw = 0;
     bool revert = false;
     std::uint32_t padding = 0;
 };
@@ -100,6 +132,7 @@ struct DecodedImage {
     int offsetX = 0;
     int offsetY = 0;
     int mapNo = 0;
+    GraphicDataHeader dataHeader;
     std::uint8_t version = 0;
     std::uint8_t attributes = 0;
     bool compressed = false;

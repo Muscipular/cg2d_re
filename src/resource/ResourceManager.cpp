@@ -55,6 +55,7 @@ constexpr std::uint64_t GraphicInfoRecordSize = 40;
     info.sizeY = sizeY;
     info.flag = flag;
     info.asGround = asGround;
+    info.reserved = reserved;
     info.mapNo = mapNo;
     return true;
 }

@@ -38,10 +38,19 @@ bool RenderQueue::Flush(IRenderer& renderer)
 {
     Sort();
 
-    for (const SpriteCmd& sprite : sprites_) {
-        if (!renderer.DrawTexture(sprite.texture, sprite.source, sprite.destination)) {
+    std::size_t batchStart = 0;
+    while (batchStart < sprites_.size()) {
+        const TextureHandle texture = sprites_[batchStart].texture;
+        std::size_t batchEnd = batchStart + 1;
+        while (batchEnd < sprites_.size() && sprites_[batchEnd].texture == texture) {
+            ++batchEnd;
+        }
+
+        if (!renderer.DrawSprites(sprites_.data() + batchStart, batchEnd - batchStart)) {
             return false;
         }
+
+        batchStart = batchEnd;
     }
 
     return true;

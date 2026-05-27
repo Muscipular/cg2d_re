@@ -4,6 +4,7 @@
 #include "platform/Input.hpp"
 #include "platform/Timer.hpp"
 #include "platform/Window.hpp"
+#include "render/RenderQueue.hpp"
 #include "render/SdlRendererBackend.hpp"
 
 #include <SDL3/SDL.h>
@@ -99,6 +100,7 @@ int main(int argc, char* argv[])
     cg::platform::EventPump eventPump;
     cg::platform::InputState inputState;
     cg::platform::FrameTimer frameTimer;
+    cg::render::RenderQueue renderQueue;
     bool running = true;
     while (running) {
         const double deltaSeconds = frameTimer.Tick();
@@ -124,10 +126,18 @@ int main(int argc, char* argv[])
             break;
         }
 
-        if (!renderer.DrawTexture(testTexture,
-                {0.0F, 0.0F, static_cast<float>(TestTextureSize), static_cast<float>(TestTextureSize)},
-                {64.0F, 64.0F, 192.0F, 192.0F})) {
-            cg::core::LogSdlError("render", "DrawTexture");
+        renderQueue.Clear();
+        renderQueue.PushSprite({
+            testTexture,
+            {0.0F, 0.0F, static_cast<float>(TestTextureSize), static_cast<float>(TestTextureSize)},
+            {64.0F, 64.0F, 192.0F, 192.0F},
+            {1.0F, 1.0F, 1.0F, 1.0F},
+            0,
+            0,
+            0,
+        });
+        if (!renderQueue.Flush(renderer)) {
+            cg::core::LogSdlError("render", "RenderQueue::Flush");
             break;
         }
 

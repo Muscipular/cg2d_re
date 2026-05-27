@@ -2,6 +2,7 @@
 
 #include "IRenderer.hpp"
 
+#include <cstddef>
 #include <cstdint>
 #include <memory>
 
@@ -44,6 +45,7 @@ public:
     [[nodiscard]] bool UpdateTexture(TextureHandle texture, const void* pixels, int pitch) override;
     void DestroyTexture(TextureHandle texture) noexcept override;
     [[nodiscard]] bool DrawTexture(TextureHandle texture, const RectF& source, const RectF& destination) override;
+    [[nodiscard]] bool DrawSprites(const SpriteCmd* sprites, std::size_t count) override;
 
 private:
     struct Impl;

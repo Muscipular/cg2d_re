@@ -4,7 +4,11 @@
 #include "RenderTypes.hpp"
 #include "Texture.hpp"
 
+#include <cstddef>
+
 namespace cg::render {
+
+struct SpriteCmd;
 
 // IRenderer 定义上层可依赖的最小渲染接口，不暴露具体后端对象。
 class IRenderer {
@@ -34,6 +38,9 @@ public:
 
     // DrawTexture 将 source 区域绘制到 destination 区域。
     [[nodiscard]] virtual bool DrawTexture(TextureHandle texture, const RectF& source, const RectF& destination) = 0;
+
+    // DrawSprites 批量绘制 sprite；后端可对连续相同 texture 的命令合批。
+    [[nodiscard]] virtual bool DrawSprites(const SpriteCmd* sprites, std::size_t count) = 0;
 
 protected:
     IRenderer() = default;

@@ -1,10 +1,12 @@
 #include "SdlRendererBackend.hpp"
 
 #include "platform/Window.hpp"
+#include "SpriteCmd.hpp"
 
 #include <SDL3/SDL_render.h>
 #include <SDL3/SDL_video.h>
 
+#include <algorithm>
 #include <limits>
 #include <vector>
 
@@ -35,11 +37,53 @@ namespace {
     return generation;
 }
 
+[[nodiscard]] SDL_FColor ToSdlColor(ColorF color) noexcept
+{
+    return SDL_FColor{color.r, color.g, color.b, color.a};
+}
+
+[[nodiscard]] SDL_Vertex MakeVertex(float x, float y, float u, float v, SDL_FColor color) noexcept
+{
+    return SDL_Vertex{SDL_FPoint{x, y}, color, SDL_FPoint{u, v}};
+}
+
+void AppendSpriteGeometry(const SpriteCmd& sprite,
+    float textureWidth,
+    float textureHeight,
+    std::vector<SDL_Vertex>& vertices,
+    std::vector<int>& indices)
+{
+    const int baseIndex = static_cast<int>(vertices.size());
+    const float x0 = sprite.destination.x;
+    const float y0 = sprite.destination.y;
+    const float x1 = sprite.destination.x + sprite.destination.width;
+    const float y1 = sprite.destination.y + sprite.destination.height;
+    const float u0 = sprite.source.x / textureWidth;
+    const float v0 = sprite.source.y / textureHeight;
+    const float u1 = (sprite.source.x + sprite.source.width) / textureWidth;
+    const float v1 = (sprite.source.y + sprite.source.height) / textureHeight;
+    const SDL_FColor color = ToSdlColor(sprite.color);
+
+    vertices.push_back(MakeVertex(x0, y0, u0, v0, color));
+    vertices.push_back(MakeVertex(x1, y0, u1, v0, color));
+    vertices.push_back(MakeVertex(x1, y1, u1, v1, color));
+    vertices.push_back(MakeVertex(x0, y1, u0, v1, color));
+
+    indices.push_back(baseIndex);
+    indices.push_back(baseIndex + 1);
+    indices.push_back(baseIndex + 2);
+    indices.push_back(baseIndex);
+    indices.push_back(baseIndex + 2);
+    indices.push_back(baseIndex + 3);
+}
+
 } // namespace
 
 struct SdlRendererBackend::Impl {
     struct TextureSlot {
         SDL_Texture* texture = nullptr;
+        float width = 0.0F;
+        float height = 0.0F;
         std::uint32_t generation = 1;
     };
 
@@ -98,6 +142,8 @@ struct SdlRendererBackend::Impl {
 
         TextureSlot& slot = textureSlots[slotIndex];
         slot.texture = texture;
+        slot.width = static_cast<float>(desc.width);
+        slot.height = static_cast<float>(desc.height);
         return TextureHandle{static_cast<std::uint32_t>(slotIndex + 1), slot.generation};
     }
 
@@ -124,7 +170,42 @@ struct SdlRendererBackend::Impl {
 
         SDL_DestroyTexture(slot->texture);
         slot->texture = nullptr;
+        slot->width = 0.0F;
+        slot->height = 0.0F;
         slot->generation = NextGeneration(slot->generation);
+    }
+
+    [[nodiscard]] bool DrawSprites(const SpriteCmd* sprites, std::size_t count)
+    {
+        if (count == 0) {
+            return true;
+        }
+        if (renderer == nullptr || sprites == nullptr) {
+            return false;
+        }
+
+        std::size_t batchStart = 0;
+        while (batchStart < count) {
+            TextureSlot* slot = FindTextureSlot(sprites[batchStart].texture);
+            if (slot == nullptr || slot->width <= 0.0F || slot->height <= 0.0F) {
+                return false;
+            }
+
+            std::size_t batchEnd = batchStart + 1;
+            while (batchEnd < count && sprites[batchEnd].texture == sprites[batchStart].texture) {
+                ++batchEnd;
+            }
+
+            while (batchStart < batchEnd) {
+                const std::size_t batchCount = std::min(batchEnd - batchStart, MaxSpritesPerGeometry);
+                if (!RenderGeometryBatch(*slot, sprites + batchStart, batchCount)) {
+                    return false;
+                }
+                batchStart += batchCount;
+            }
+        }
+
+        return true;
     }
 
     [[nodiscard]] SDL_Texture* ResolveTexture(TextureHandle handle) noexcept
@@ -181,11 +262,36 @@ struct SdlRendererBackend::Impl {
 
             SDL_DestroyTexture(slot.texture);
             slot.texture = nullptr;
+            slot.width = 0.0F;
+            slot.height = 0.0F;
             slot.generation = NextGeneration(slot.generation);
         }
     }
 
+    [[nodiscard]] bool RenderGeometryBatch(TextureSlot& slot, const SpriteCmd* sprites, std::size_t count)
+    {
+        std::vector<SDL_Vertex> vertices;
+        std::vector<int> indices;
+        vertices.reserve(count * VerticesPerSprite);
+        indices.reserve(count * IndicesPerSprite);
+
+        for (std::size_t index = 0; index < count; ++index) {
+            AppendSpriteGeometry(sprites[index], slot.width, slot.height, vertices, indices);
+        }
+
+        return SDL_RenderGeometry(renderer,
+            slot.texture,
+            vertices.data(),
+            static_cast<int>(vertices.size()),
+            indices.data(),
+            static_cast<int>(indices.size()));
+    }
+
     static constexpr std::size_t InvalidSlotIndex = std::numeric_limits<std::size_t>::max();
+    static constexpr std::size_t VerticesPerSprite = 4;
+    static constexpr std::size_t IndicesPerSprite = 6;
+    static constexpr std::size_t MaxSpritesPerGeometry =
+        static_cast<std::size_t>(std::numeric_limits<int>::max()) / IndicesPerSprite;
 
     SDL_Renderer* renderer = nullptr;
     std::vector<TextureSlot> textureSlots;
@@ -273,6 +379,11 @@ bool SdlRendererBackend::DrawTexture(TextureHandle texture, const RectF& source,
     const SDL_FRect sourceRect = {source.x, source.y, source.width, source.height};
     const SDL_FRect destinationRect = {destination.x, destination.y, destination.width, destination.height};
     return SDL_RenderTexture(impl_->renderer, sdlTexture, &sourceRect, &destinationRect);
+}
+
+bool SdlRendererBackend::DrawSprites(const SpriteCmd* sprites, std::size_t count)
+{
+    return impl_->DrawSprites(sprites, count);
 }
 
 } // namespace cg::render

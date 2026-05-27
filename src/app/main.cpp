@@ -4,6 +4,7 @@
 #include "platform/Input.hpp"
 #include "platform/Timer.hpp"
 #include "platform/Window.hpp"
+#include "render/FontCache.hpp"
 #include "render/RenderQueue.hpp"
 #include "render/SdlRendererBackend.hpp"
 #include "render/TextureAtlas.hpp"
@@ -13,9 +14,11 @@
 #include <SDL3_image/SDL_image.h>
 #include <SDL3_ttf/SDL_ttf.h>
 
+#include <array>
 #include <cstdint>
-#include <vector>
 #include <string>
+#include <string_view>
+#include <vector>
 
 namespace {
 
@@ -23,6 +26,13 @@ constexpr int WindowWidth = 1280;
 constexpr int WindowHeight = 720;
 constexpr int TestTextureSize = 64;
 constexpr std::uint32_t StatsLogFrameInterval = 120;
+constexpr std::string_view DemoFontKey = "demo-font";
+constexpr std::string_view DemoText = "你好 CrossGate";
+constexpr std::array<std::string_view, 3> DemoFontPaths = {
+    "C:/Windows/Fonts/msyh.ttc",
+    "C:/Windows/Fonts/simhei.ttf",
+    "C:/Windows/Fonts/simsun.ttc",
+};
 
 std::vector<std::uint8_t> CreateTestTexturePixels()
 {
@@ -115,6 +125,28 @@ int main(int argc, char* argv[])
         return 1;
     }
 
+    cg::render::FontCache fontCache(renderer);
+    cg::render::TextTexture demoTextTexture;
+    std::string_view loadedFontPath;
+    for (const std::string_view fontPath : DemoFontPaths) {
+        if (fontCache.LoadFont(DemoFontKey, fontPath, 28.0F)) {
+            loadedFontPath = fontPath;
+            break;
+        }
+    }
+    if (!loadedFontPath.empty()) {
+        demoTextTexture = fontCache.RenderText(DemoFontKey, DemoText, {0.95F, 0.95F, 0.90F, 1.0F});
+        if (demoTextTexture.texture.IsValid()) {
+            cg::core::Log(cg::core::LogLevel::Info,
+                "render",
+                "FontCache demo loaded: " + std::string{loadedFontPath});
+        } else {
+            cg::core::Log(cg::core::LogLevel::Warning, "render", "FontCache demo text render failed");
+        }
+    } else {
+        cg::core::Log(cg::core::LogLevel::Warning, "render", "FontCache demo font not found");
+    }
+
     cg::platform::ImeController imeController(window);
     if (!imeController.BeginTextInput()) {
         cg::core::LogSdlError("ime", "SDL_StartTextInput");
@@ -161,6 +193,17 @@ int main(int argc, char* argv[])
             break;
         }
         renderQueue.PushSprite(*testSprite);
+        if (demoTextTexture.texture.IsValid()) {
+            renderQueue.PushSprite({
+                demoTextTexture.texture,
+                {0.0F, 0.0F, static_cast<float>(demoTextTexture.width), static_cast<float>(demoTextTexture.height)},
+                {64.0F, 280.0F, static_cast<float>(demoTextTexture.width), static_cast<float>(demoTextTexture.height)},
+                {1.0F, 1.0F, 1.0F, 1.0F},
+                1,
+                0,
+                1,
+            });
+        }
         if (!renderQueue.Flush(renderer)) {
             cg::core::LogSdlError("render", "RenderQueue::Flush");
             break;
@@ -190,6 +233,7 @@ int main(int argc, char* argv[])
         cg::core::LogSdlError("ime", "SDL_StopTextInput");
     }
 
+    fontCache.Clear();
     textureCache.Clear();
     renderer.Shutdown();
     window.Destroy();

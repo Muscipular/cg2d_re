@@ -28,6 +28,7 @@ find_package(SDL3_ttf CONFIG REQUIRED)
 add_executable(cg-client
     src/app/main.cpp
     src/core/Log.cpp
+    src/render/FontCache.cpp
     src/render/RenderQueue.cpp
     src/render/SdlRendererBackend.cpp
     src/render/TextureAtlas.cpp

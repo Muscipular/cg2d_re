@@ -1,4 +1,5 @@
 #include "core/Log.hpp"
+#include "platform/Event.hpp"
 #include "platform/Window.hpp"
 
 #include <SDL3/SDL.h>
@@ -40,16 +41,17 @@ int main(int argc, char* argv[])
         return 1;
     }
 
+    cg::platform::EventPump eventPump;
     bool running = true;
     while (running) {
-        SDL_Event event;
-        while (SDL_PollEvent(&event)) {
-            if (event.type == SDL_EVENT_QUIT) {
+        cg::platform::Event event;
+        while (eventPump.Poll(event)) {
+            if (event.type == cg::platform::EventType::Quit) {
                 running = false;
             }
 
-            if (event.type == SDL_EVENT_WINDOW_CLOSE_REQUESTED &&
-                event.window.windowID == window.GetId()) {
+            if (event.type == cg::platform::EventType::WindowCloseRequested &&
+                event.windowId == window.GetId()) {
                 running = false;
             }
         }

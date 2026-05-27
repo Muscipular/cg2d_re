@@ -2,6 +2,8 @@
 
 #include <yaml-cpp/yaml.h>
 
+#include <algorithm>
+#include <cctype>
 #include <cstddef>
 #include <string>
 #include <utility>
@@ -24,9 +26,30 @@ namespace {
     return field.Tag() == "!" || field.Tag() == "tag:yaml.org,2002:str";
 }
 
-[[nodiscard]] bool LooksLikeProjectPath(const std::string& value)
+[[nodiscard]] bool IsUnsignedIntegerLiteral(const std::string& value)
 {
-    return value.find('\\') != std::string::npos || value.find('/') != std::string::npos;
+    return !value.empty() && std::all_of(value.begin(), value.end(), [](unsigned char ch) {
+        return std::isdigit(ch) != 0;
+    });
+}
+
+[[nodiscard]] std::string ToLowerAscii(std::string value)
+{
+    std::transform(value.begin(), value.end(), value.begin(), [](unsigned char ch) {
+        return static_cast<char>(std::tolower(ch));
+    });
+    return value;
+}
+
+[[nodiscard]] bool IsReservedYamlScalar(const std::string& value)
+{
+    const std::string lower = ToLowerAscii(value);
+    return lower == "true" || lower == "false" || lower == "null" || lower == "~";
+}
+
+[[nodiscard]] bool LooksLikePlainRelativePath(const std::string& value)
+{
+    return !value.empty() && !IsUnsignedIntegerLiteral(value) && !IsReservedYamlScalar(value);
 }
 
 [[nodiscard]] bool IsStringField(const YAML::Node& field)
@@ -43,8 +66,8 @@ namespace {
         return true;
     }
 
-    // yaml-cpp 将未加引号数字和未加引号路径都标为 "?"，这里只保守放行项目 yml 实际使用的路径形态。
-    return field.Tag() == "?" && LooksLikeProjectPath(field.Scalar());
+    // yaml-cpp 将未加引号数字和未加引号路径都标为 "?"，这里拒绝明确非路径的标量。
+    return field.Tag() == "?" && LooksLikePlainRelativePath(field.Scalar());
 }
 
 [[nodiscard]] std::filesystem::path NormalizeConfigPath(const std::filesystem::path& ymlPath, const std::string& value)

@@ -4,12 +4,18 @@
 
 #include <array>
 #include <limits>
+#include <sstream>
 #include <string>
+#include <string_view>
 #include <utility>
 #include <vector>
 
 namespace cg::resource {
 namespace {
+
+// 地图 cell 数上限只作为加载保护，避免异常文件触发超大分配；不是业务地图尺寸规则。
+// hook 中 AUT_DATA 示例约 159201 cells，因此这里保守预留到 200000 cells。
+constexpr std::size_t kMaxMapCellCount = 200000;
 
 [[nodiscard]] ResourceError MakeMapError(
     ResourceErrorCode code,
@@ -22,6 +28,41 @@ namespace {
         0,
         std::move(message),
     };
+}
+
+[[nodiscard]] std::string MakeMapContextMessage(
+    const std::filesystem::path& path,
+    std::uint32_t mapId,
+    std::uint16_t serverNo,
+    std::uint16_t floor,
+    std::int32_t width,
+    std::int32_t height,
+    std::string_view reason)
+{
+    std::ostringstream message;
+    message << reason << " path=" << path.string()
+            << " mapId=" << mapId
+            << " serverNo=" << serverNo
+            << " floor=" << floor
+            << " width=" << width
+            << " height=" << height;
+    return message.str();
+}
+
+[[nodiscard]] std::string MakeMapContextMessage(
+    const std::filesystem::path& path,
+    std::uint32_t mapId,
+    std::uint16_t serverNo,
+    std::uint16_t floor,
+    std::int32_t width,
+    std::int32_t height,
+    std::size_t cellCount,
+    std::string_view reason)
+{
+    std::ostringstream message;
+    message << MakeMapContextMessage(path, mapId, serverNo, floor, width, height, reason)
+            << " cellCount=" << cellCount;
+    return message.str();
 }
 
 [[nodiscard]] bool ReadMapLayer(BinaryReader& reader, std::vector<std::uint16_t>& layer, std::size_t cellCount)
@@ -90,19 +131,46 @@ MapLoadResult LoadMapData(
     (void)reserved1;
 
     if (width <= 0 || height <= 0) {
-        result.error = MakeMapError(ResourceErrorCode::InvalidFormat, path, "地图尺寸非正");
+        result.error = MakeMapError(
+            ResourceErrorCode::InvalidFormat,
+            path,
+            MakeMapContextMessage(path, mapId, serverNo, floor, width, height, "地图尺寸非正"));
         return result;
     }
     if (width > static_cast<std::int32_t>(std::numeric_limits<std::uint16_t>::max())
         || height > static_cast<std::int32_t>(std::numeric_limits<std::uint16_t>::max())) {
-        result.error = MakeMapError(ResourceErrorCode::InvalidFormat, path, "地图尺寸超出 MapData 字段范围");
+        result.error = MakeMapError(
+            ResourceErrorCode::InvalidFormat,
+            path,
+            MakeMapContextMessage(path, mapId, serverNo, floor, width, height, "地图尺寸超出 MapData 字段范围"));
         return result;
     }
 
-    const std::size_t cellCount = static_cast<std::size_t>(width) * static_cast<std::size_t>(height);
+    const std::size_t widthCells = static_cast<std::size_t>(width);
+    const std::size_t heightCells = static_cast<std::size_t>(height);
+    if (widthCells > std::numeric_limits<std::size_t>::max() / heightCells) {
+        result.error = MakeMapError(
+            ResourceErrorCode::InvalidFormat,
+            path,
+            MakeMapContextMessage(path, mapId, serverNo, floor, width, height, "地图 cell 数乘法溢出"));
+        return result;
+    }
+
+    const std::size_t cellCount = widthCells * heightCells;
+    if (cellCount > kMaxMapCellCount) {
+        result.error = MakeMapError(
+            ResourceErrorCode::InvalidFormat,
+            path,
+            MakeMapContextMessage(path, mapId, serverNo, floor, width, height, cellCount, "地图 cell 数超出加载保护上限"));
+        return result;
+    }
+
     const std::uint64_t bytesNeeded = static_cast<std::uint64_t>(cellCount) * 3ULL * sizeof(std::uint16_t);
     if (bytesNeeded > reader.Size() - reader.Position()) {
-        result.error = MakeMapError(ResourceErrorCode::FileReadFailed, path, "地图三层数据不足");
+        result.error = MakeMapError(
+            ResourceErrorCode::FileReadFailed,
+            path,
+            MakeMapContextMessage(path, mapId, serverNo, floor, width, height, cellCount, "地图三层数据不足"));
         return result;
     }
 
@@ -116,7 +184,10 @@ MapLoadResult LoadMapData(
         || !ReadMapLayer(reader, result.map.objData, cellCount)
         || !ReadMapLayer(reader, result.map.hitData, cellCount)) {
         result.map = MapData {};
-        result.error = MakeMapError(ResourceErrorCode::FileReadFailed, path, "地图三层数据读取失败");
+        result.error = MakeMapError(
+            ResourceErrorCode::FileReadFailed,
+            path,
+            MakeMapContextMessage(path, mapId, serverNo, floor, width, height, cellCount, "地图三层数据读取失败"));
         return result;
     }
 

@@ -53,3 +53,9 @@
 | 2026-05-27 | M3.6 ChatBox | 新增 `src/ui/ChatBox.hpp/.cpp`，保存聊天历史、滚动偏移和输入栏状态；提交非空输入后加入历史并清空输入；`main.cpp` 改为通过 ChatBox 转发输入事件并输出 history/visible/input 日志 | `powershell -ExecutionPolicy Bypass -File scripts/download_sdl3.ps1`；VS CMake configure/build `windows-msvc-x64-debug`；4 秒启动烟测确认 `FontCache demo loaded`、`TextLayout demo`、`ChatBox demo` 和 `Render stats` 日志 | 未做聊天绘制和复杂虚拟列表；M3.7 及后续任务未处理 |
 | 2026-05-27 | M3.7 编码边界 | 新增 `src/text/TextEncoding.hpp/.cpp`，提供 UTF-8 与 GBK/Big5 的转换接口；Windows 使用系统 code page，非 Windows 明确返回失败；`main.cpp` 增加 GBK 往返转换 demo 日志 | `powershell -ExecutionPolicy Bypass -File scripts/download_sdl3.ps1`；`cmake --preset windows-msvc-x64` 因 PATH 无 cmake 失败；VS CMake configure/build `windows-msvc-x64-debug`；4 秒启动烟测确认 `Encoding demo`、`ChatBox demo` 和 `Render stats` 日志 | M3.8 及后续任务未处理 |
 | 2026-05-27 | M3 收尾 | 独立 reviewer 总体验证 M3.1-M3.7：FontCache、TextLayout、InputBox、IME composition、候选策略、ChatBox 和编码边界均存在；公开头未暴露 SDL/TTF/Win32 类型 | `powershell -ExecutionPolicy Bypass -File scripts/download_sdl3.ps1`；VS CMake configure/build `windows-msvc-x64-debug`；DLL 检查；4 秒启动烟测确认 `FontCache demo loaded`、`TextLayout demo`、`ChatBox demo`、`Encoding demo` 和 `Render stats` 日志 | M3 已完成；IME composition/候选仍需后续人工输入法交互验证 |
+
+## M4：resource 基础层
+
+| 日期 | 任务 | 修改 | 验证 | 遗留 |
+|---|---|---|---|---|
+| 2026-05-27 | M4 动态 binSet 基础 | 更新 `plans/cg_engine_dev_plan.md` 的 M4 细分计划；新增 `src/resource`，实现 `ResourceTypes`、`ResourceError`、`BinaryReader`、`Palette`、`GraphicDecoder`、`AnimationLoader`、`ResourceManager`；CMake 接入 resource 源文件；resource 公开头不暴露 SDL 类型，Graphic 解码输出 RGBA8 纯数据 | 编码 subAgent A/B/C 分别处理基础类型、Graphic/Palette、Anime；验证 subAgent 只读检查通过：公开头无 SDL、无结构体硬转读取、`GraphicInfo` 40 字节、`AnimeInfo` 12 字节、`AnimeFrame` 10 字节、Anime action 的 duration/frameCount 为 32 位；`D:\SOFTSTAR\bin` 下 11 个 `GraphicInfo/AnimeInfo` 文件长度整除检查通过；VS CMake configure/build `windows-msvc-x64-debug` 通过 | Coordinate/MapData、viewer、主程序资源接入、TextureCache 上传示例和更细粒度单测仍待后续 M4/M5 小步 |

@@ -289,45 +289,119 @@ struct SpriteCmd {
 
 ### 目标
 
-建立旧客户端资源读取和解码管线。第一阶段不追求完整格式覆盖，先支持测试资源和一类核心图片/动画资源。
+建立旧客户端动态 binSet 资源读取和解码管线。M4 只做解码库，不接 viewer，不直接接主程序渲染路径。`resource` 层不暴露 `SDL_Surface*`、`SDL_Texture*`、`SDL_Renderer*`；Graphic 解码输出纯 RGBA8 数据，SDL3 上传交给 `render` 边界用现有 `TextureCache::LoadRgba8` 处理。
+
+成功标准：
+
+1. 可通过 API 传入多组 `BinSetDesc` 动态加载 Graphic/Anime 资源。
+2. 重复 `mapNo`、`animeNo` 时后加载 binSet 覆盖前加载 binSet，并记录 warning。
+3. 可按 `mapNo` 解码 Graphic 为 RGBA8，输出尺寸、偏移、像素数据。
+4. 可按 `animeNo` 读取动作列表和帧列表，帧公开 `graphicSeqNo/x/y/flag`。
+5. resource 公开头不包含 SDL 类型。
 
 ### 目录
 
 ```text
 src/resource/
-├─ ResourceHandle.hpp
-├─ ResourceManager.hpp/.cpp
-├─ PackageReader.hpp/.cpp
-├─ ImageDecoder.hpp/.cpp
+├─ ResourceTypes.hpp
+├─ ResourceError.hpp
+├─ BinaryReader.hpp/.cpp
+├─ BinSetReader.hpp/.cpp
+├─ GraphicDecoder.hpp/.cpp
 ├─ AnimationLoader.hpp/.cpp
-├─ MapLoader.hpp/.cpp
 ├─ Palette.hpp/.cpp
-└─ ResourceCache.hpp/.cpp
+├─ ResourceManager.hpp/.cpp
+└─ ResourceStats.hpp
 ```
 
 ### 任务
 
 | 编号 | 任务 | 说明 | 验收标准 |
 |---|---|---|---|
-| M4.1 | ResourceManager | 统一加载入口 | 上层通过 handle 请求资源 |
-| M4.2 | PackageReader | 读取资源包目录、文件偏移、大小 | 能枚举资源包内容 |
-| M4.3 | ImageDecoder | 旧格式转 RGBA8888 | 能输出 width/height/pixels |
-| M4.4 | Palette 支持 | 调色板、透明色、alpha 规则 | 透明边缘正确 |
-| M4.5 | AnimationLoader | 帧序列、方向、帧时长 | 可播放角色动画 |
-| M4.6 | MapLoader | 地图 tile、object、阻挡数据 | 可解析测试地图 |
-| M4.7 | Cache 生命周期 | 引用计数或 LRU | 切图/切地图不爆内存 |
-| M4.8 | Error reporting | 格式错误、缺失资源、解码失败 | 日志能定位具体资源 |
+| M4.0 | resource 模块占位 | 新建目录并接入 CMake | 构建配置不破坏现有目标 |
+| M4.1 | ResourceTypes | 定义 `BinSetDesc`、`GraphicInfo`、`GraphicRef`、`DecodedImage`、`AnimeInfo`、`AnimeAction`、`AnimeFrame` | 公开类型无 SDL 类型 |
+| M4.2 | ResourceError | 定义错误码、错误文本、路径和资源 id 上下文 | 失败日志能定位文件和资源 |
+| M4.3 | BinaryReader | 显式小端读取、seek/read、边界检查 | 不用 Default 编码，不用结构体硬转 |
+| M4.4 | GraphicInfoReader | 读取 40 字节 `GraphicInfo` 行 | `GraphicInfo_66.bin` 可枚举 |
+| M4.5 | Graphic seq 索引 | 建 `binSetIndex + seqNo -> GraphicRef` | 同 binSet 重复 seq 后者覆盖并 warning |
+| M4.6 | Graphic mapNo 索引 | 建 `mapNo -> GraphicRef` | 多 binSet 重复 mapNo 后者覆盖 |
+| M4.7 | Palette | 读取 `.cgp` 中间 224 色，补旧客户端固定头尾 16+16 色 | `palet_00.cgp` 得到 256 色 RGBA |
+| M4.8 | Graphic 块头读取 | 读取 `RD`、version、width、height、blockSize、可选 palSize | 非 `RD` 返回格式错误 |
+| M4.9 | 非压缩 Graphic | 解普通/CGEX indexed 数据 | 输出 indexed pixels |
+| M4.10 | 压缩 Graphic RLE | 按 IDA `Graphic::readGraphicData` 行为解压 | 覆盖 literal、fill、zero 长短分支 |
+| M4.11 | Indexed 转 RGBA8 | 默认 palette 或 CGEX 内嵌 palette 转色 | 输出 `width * height * 4` |
+| M4.12 | 透明规则 | `flag & 0x8` 时色号 0 不透明，否则透明 | 透明规则符合旧客户端 |
+| M4.13 | GraphicDecoder | 封装 `Decode(GraphicRef)` | 输出 `DecodedImage`，不含 SDL |
+| M4.14 | AnimeInfoReader | 读取 12 字节 `AnimeInfo` 行 | `AnimeInfo_4.bin` 可枚举 |
+| M4.15 | animeNo 索引 | 建 `animeNo -> AnimeRef` | 多 binSet 重复 animeNo 后者覆盖 |
+| M4.16 | Anime action 读取 | 读取 dir/action/duration/frameCount/pal/revert | action 数等于 info.count |
+| M4.17 | Anime frame 读取 | 读取 10 字节帧 | 公开 `graphicSeqNo/x/y/flag` |
+| M4.18 | Anime 帧关联 | 帧按所属 binSet 的 seq 索引找 Graphic | 找不到 warning，不崩溃 |
+| M4.19 | ResourceManager | 实现 `LoadBinSets` 和查询解码 API | 调用方不接触文件句柄 |
+| M4.20 | ResourceStats | 记录 binSet、graphic、anime、覆盖、错误数量 | 日志可定位加载结果 |
+| M4.21 | 最小验证入口 | 覆盖 info、palette、RLE、透明、覆盖、anime frame | 不启动 SDL |
+| M4.22 | 实物资源抽样 | 使用 `D:\SOFTSTAR\bin` 抽样基础/Ex/V3/Joy/PUK3 文件 | 解码样本尺寸和像素长度正确 |
+| M4.23 | Texture 上传验证 | 在 render/app 边界用 `TextureCache::LoadRgba8` 上传一张 `DecodedImage` | resource 不包含 SDL 头 |
+| M4.24 | 进度记录与提交 | 更新 `plans/progess.md` 并小步提交 | 不提交 build、third_party、本地资源 |
 
 ### 资源解码约定
 
 ```cpp
+struct BinSetDesc {
+    std::string name;
+    std::filesystem::path graphicInfoPath;
+    std::filesystem::path graphicDataPath;
+    std::filesystem::path animeInfoPath;
+    std::filesystem::path animeDataPath;
+    std::filesystem::path coordinateInfoPath;
+    std::filesystem::path coordinateDataPath;
+};
+
 struct DecodedImage {
     int width = 0;
     int height = 0;
-    PixelFormat format = PixelFormat::RGBA8888;
-    std::vector<uint8_t> pixels;
+    int offsetX = 0;
+    int offsetY = 0;
+    int mapNo = 0;
+    cg::render::PixelFormat format = cg::render::PixelFormat::Rgba8;
+    std::vector<std::uint8_t> pixels;
 };
 ```
+
+推荐最小 API：
+
+```cpp
+bool LoadBinSets(std::span<const BinSetDesc> binSets, const std::filesystem::path& defaultPalettePath);
+std::optional<GraphicRef> FindGraphicByMapNo(int mapNo) const;
+std::optional<GraphicRef> FindGraphicBySeq(int binSetIndex, int seqNo) const;
+std::optional<DecodedImage> DecodeGraphic(const GraphicRef& ref) const;
+std::optional<AnimationClip> LoadAnimation(int animeNo) const;
+```
+
+SDL3 上传示例由调用方在 `render` 边界处理：
+
+```cpp
+textureCache.LoadRgba8(key, image.width, image.height, image.pixels.data(), image.width * 4);
+```
+
+### 格式规则
+
+1. `GraphicInfo` 磁盘行长 40 字节：`seqNo`、`offset`、`length`、`offsetX`、`offsetY`、`width`、`height`、`sizeX`、`sizeY`、`flag`、5 字节保留、`mapNo`。
+2. `Graphic` 数据头：`RD`、`version`、`padding`、`width`、`height`、`blockSize`；`version & 1` 表示 RLE 压缩，`version & 2` 表示 CGEX。
+3. RLE 行为以 IDA `Graphic::readGraphicData` 为准，不以 `cgrw` 的旧实现为唯一依据。
+4. palette 默认使用调用方传入的 `palet_00.cgp`；CGEX 有内嵌 palette 时优先使用内嵌 palette。
+5. 透明规则按旧客户端：`GraphicInfo.flag & 0x8` 时色号 0 不透明，否则色号 0 alpha 为 0。
+6. `AnimeInfo` 磁盘行长 12 字节：`animeNo`、`offset`、`count`、`flag`。
+7. `AnimeAction` 读取 `dir`、`action`、`duration`、`frameCount`、`pal`、`revert`、`padding`；若旧格式无扩展字段，再兼容回退。
+8. `AnimeFrame` 磁盘行长 10 字节，公开为 `graphicSeqNo/x/y/flag`。
+
+### subAgent 拆分
+
+1. 编码 subAgent A：只处理 `ResourceTypes`、`ResourceError`、`BinaryReader`。
+2. 编码 subAgent B：只处理 `GraphicInfoReader`、`Palette`、`GraphicDecoder`。
+3. 编码 subAgent C：只处理 `AnimeInfoReader`、`AnimationLoader`。
+4. 主线程：整合 `ResourceManager`、CMake、进度记录、提交。
+5. 验证 subAgent：只做验证，不修改实现文件。
 
 ---
 

@@ -44,6 +44,11 @@ add_executable(cg-client
     src/platform/Thread.cpp
     src/platform/Timer.cpp
     src/platform/Window.cpp
+    src/resource/AnimationLoader.cpp
+    src/resource/BinaryReader.cpp
+    src/resource/GraphicDecoder.cpp
+    src/resource/Palette.cpp
+    src/resource/ResourceManager.cpp
 )
 
 target_include_directories(cg-client

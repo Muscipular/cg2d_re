@@ -137,7 +137,7 @@ bool LoadAnimationClip(BinaryReader& reader, const AnimeInfo& info, AnimationCli
     AnimationClip clip;
     clip.animeNo = info.animeNo;
     clip.actions.reserve(info.count);
-    const bool hasExtendedHeader = info.flag != 0;
+    const bool hasExtendedHeader = info.flag == 1;
 
     for (std::uint16_t actionIndex = 0; actionIndex < info.count; ++actionIndex) {
         AnimeAction action;

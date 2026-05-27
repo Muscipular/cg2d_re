@@ -15,7 +15,7 @@
 1. 每次推进开发进度，必须同步写入 `plans/progess.md`
 2. 每个可验证小步完成后提交；用户明确要求不提交时，仅记录进度，提交由主线程统一处理
 3. 使用 subAgent 时，每个 agent 只处理单项任务
-4. worker/reviewer 完成后及时关闭；验证交由独立 reviewer/validator agent
+4. subAgent 完成后及时关闭；验证交由独立 subAgent
 
 
 # 项目目录
@@ -32,6 +32,17 @@
 9. `third_party/sdl/`：本地下载的 SDL3 依赖目录，已被 `.gitignore` 忽略，不提交仓库
 10. `build/`：CMake 构建输出目录，已被 `.gitignore` 忽略
 
+# Namespace 与类型规划
+1. 根 namespace 统一为 `cg`。
+2. 当前已实现模块 namespace 为 `cg::app`、`cg::core`、`cg::platform`、`cg::render`、`cg::ui`、`cg::text`。
+3. 接口类型优先使用 `I` 前缀，例如 `IRenderer`。
+4. handle 类型用于表达稳定资源引用，例如 `TextureHandle`；上层不得长期持有底层 SDL 指针。
+5. RAII 封装类型负责资源生命周期；SDL 创建/销毁逻辑封装在 `cg::platform`、`cg::render` 后端等边界内。
+6. 值类型用于跨模块传递轻量数据，例如 `RectF`、`ColorF`、事件结构、编码结果等。
+7. SDL 类型边界：`SDL_Window*`、`SDL_Renderer*`、`SDL_Texture*`、TTF/Win32 类型不得进入上层业务公开接口；只能出现在 `cg::platform`、`cg::render` 后端或 `cg::text` 边界实现中。
+8. 编码边界：内部文本统一 UTF-8；GBK/Big5 等旧协议编码只在 `cg::text` 或协议边界转换。
+9. 不要随意新增全局类型或跨模块暴露底层对象。
+
 # 代码风格
 ## 逻辑尽量语义化表达
 1. 合理使用`enum`、`#define`
@@ -42,4 +53,3 @@
 1. 思考时需要考虑其他模块的影响
 2. 避免随意改动其他关联方的函数
 3. 工具函数是好，但不能滥用
-

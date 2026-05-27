@@ -55,6 +55,23 @@ std::vector<std::uint8_t> CreateTestTexturePixels()
     return pixels;
 }
 
+[[nodiscard]] const char* ToCandidateDisplayModeName(cg::ui::CandidateDisplayMode mode) noexcept
+{
+    switch (mode) {
+    case cg::ui::CandidateDisplayMode::System:
+        return "system";
+    case cg::ui::CandidateDisplayMode::Custom:
+        return "custom";
+    default:
+        return "unknown";
+    }
+}
+
+[[nodiscard]] const char* ToCandidateDirectionName(bool horizontal) noexcept
+{
+    return horizontal ? "horizontal" : "vertical";
+}
+
 } // namespace
 
 int main(int argc, char* argv[])
@@ -164,6 +181,7 @@ int main(int argc, char* argv[])
     }
     cg::ui::InputBox demoInputBox;
     demoInputBox.SetBounds({64.0F, 344.0F, 360.0F, 36.0F});
+    demoInputBox.SetCandidateDisplayMode(cg::ui::CandidateDisplayMode::System);
     demoInputBox.SetText(DemoInputText);
     demoInputBox.SetFocused(true);
     const cg::render::RectF inputBoxBounds = demoInputBox.GetBounds();
@@ -215,6 +233,17 @@ int main(int argc, char* argv[])
                         ", cursor=" + std::to_string(demoInputBox.GetCompositionCursor()) +
                         ", selection=" + std::to_string(demoInputBox.GetCompositionSelectionLength()) +
                         ", display=" + demoInputBox.GetDisplayText());
+            }
+
+            if (inputBoxConsumed && event.type == cg::platform::EventType::TextEditingCandidates) {
+                cg::core::Log(cg::core::LogLevel::Info,
+                    "ui",
+                    "InputBox candidates: count=" + std::to_string(demoInputBox.GetCandidates().size()) +
+                        ", selected=" + std::to_string(demoInputBox.GetSelectedCandidate()) +
+                        ", direction=" +
+                        std::string{ToCandidateDirectionName(demoInputBox.AreCandidatesHorizontal())} +
+                        ", mode=" +
+                        std::string{ToCandidateDisplayModeName(demoInputBox.GetCandidateDisplayMode())});
             }
         }
 
@@ -269,7 +298,13 @@ int main(int argc, char* argv[])
                     ", compositionCursor=" + std::to_string(demoInputBox.GetCompositionCursor()) +
                     ", compositionSelection=" +
                         std::to_string(demoInputBox.GetCompositionSelectionLength()) +
-                    ", display=" + demoInputBox.GetDisplayText());
+                    ", display=" + demoInputBox.GetDisplayText() +
+                    ", candidateMode=" +
+                    std::string{ToCandidateDisplayModeName(demoInputBox.GetCandidateDisplayMode())} +
+                    ", candidates=" + std::to_string(demoInputBox.GetCandidates().size()) +
+                    ", selectedCandidate=" + std::to_string(demoInputBox.GetSelectedCandidate()) +
+                    ", candidateDirection=" +
+                    std::string{ToCandidateDirectionName(demoInputBox.AreCandidatesHorizontal())});
             framesSinceStatsLog = 0;
         }
 

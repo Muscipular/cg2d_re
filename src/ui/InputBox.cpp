@@ -175,6 +175,36 @@ bool InputBox::HasComposition() const noexcept
     return !compositionText_.empty();
 }
 
+void InputBox::SetCandidateDisplayMode(CandidateDisplayMode mode) noexcept
+{
+    candidateDisplayMode_ = mode;
+}
+
+CandidateDisplayMode InputBox::GetCandidateDisplayMode() const noexcept
+{
+    return candidateDisplayMode_;
+}
+
+const std::vector<std::string>& InputBox::GetCandidates() const noexcept
+{
+    return candidates_;
+}
+
+int InputBox::GetSelectedCandidate() const noexcept
+{
+    return selectedCandidate_;
+}
+
+bool InputBox::AreCandidatesHorizontal() const noexcept
+{
+    return candidatesHorizontal_;
+}
+
+bool InputBox::HasCandidates() const noexcept
+{
+    return !candidates_.empty();
+}
+
 bool InputBox::WasSubmitted() const noexcept
 {
     return submitted_;
@@ -192,6 +222,14 @@ void InputBox::ClearComposition() noexcept
     compositionText_.clear();
     compositionCursor_ = 0;
     compositionSelectionLength_ = 0;
+    ClearCandidates();
+}
+
+void InputBox::ClearCandidates() noexcept
+{
+    candidates_.clear();
+    selectedCandidate_ = -1;
+    candidatesHorizontal_ = false;
 }
 
 bool InputBox::HandleEvent(const platform::Event& event)
@@ -231,6 +269,17 @@ bool InputBox::HandleEvent(const platform::Event& event)
         compositionCursor_ = std::min(ToNonNegativeSize(event.cursor), compositionLength);
         compositionSelectionLength_ =
             std::min(ToNonNegativeSize(event.selectionLength), compositionLength - compositionCursor_);
+        if (compositionText_.empty()) {
+            ClearCandidates();
+        }
+        submitted_ = false;
+        return true;
+    }
+
+    if (event.type == platform::EventType::TextEditingCandidates) {
+        candidates_ = event.candidates;
+        selectedCandidate_ = event.selectedCandidate;
+        candidatesHorizontal_ = event.candidatesHorizontal;
         submitted_ = false;
         return true;
     }

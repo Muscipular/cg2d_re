@@ -5,6 +5,7 @@
 #include <cstddef>
 #include <string>
 #include <string_view>
+#include <vector>
 
 namespace cg::platform {
 
@@ -13,6 +14,11 @@ struct Event;
 } // namespace cg::platform
 
 namespace cg::ui {
+
+enum class CandidateDisplayMode {
+    System,
+    Custom,
+};
 
 // InputBox 保存单行文本输入状态，不负责绘制。
 class InputBox final {
@@ -35,6 +41,13 @@ public:
     [[nodiscard]] std::size_t GetCompositionSelectionLength() const noexcept;
     [[nodiscard]] bool HasComposition() const noexcept;
 
+    void SetCandidateDisplayMode(CandidateDisplayMode mode) noexcept;
+    [[nodiscard]] CandidateDisplayMode GetCandidateDisplayMode() const noexcept;
+    [[nodiscard]] const std::vector<std::string>& GetCandidates() const noexcept;
+    [[nodiscard]] int GetSelectedCandidate() const noexcept;
+    [[nodiscard]] bool AreCandidatesHorizontal() const noexcept;
+    [[nodiscard]] bool HasCandidates() const noexcept;
+
     [[nodiscard]] bool WasSubmitted() const noexcept;
     [[nodiscard]] bool ConsumeSubmitted() noexcept;
 
@@ -42,13 +55,18 @@ public:
 
 private:
     void ClearComposition() noexcept;
+    void ClearCandidates() noexcept;
 
     render::RectF bounds_ = {};
     std::string text_;
     std::string compositionText_;
+    std::vector<std::string> candidates_;
     std::size_t cursorByteOffset_ = 0;
     std::size_t compositionCursor_ = 0;
     std::size_t compositionSelectionLength_ = 0;
+    int selectedCandidate_ = -1;
+    bool candidatesHorizontal_ = false;
+    CandidateDisplayMode candidateDisplayMode_ = CandidateDisplayMode::System;
     bool focused_ = false;
     bool submitted_ = false;
 };

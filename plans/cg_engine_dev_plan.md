@@ -129,6 +129,12 @@ cg-engine/
 
 封装 SDL3 平台能力，包括窗口、事件、输入、IME、文件路径、计时器和基础线程工具。
 
+### 进度记录
+
+| 日期 | 任务 | 修改 | 验证 | 遗留 |
+|---|---|---|---|---|
+| 2026-05-27 | M1.1 Window 封装 | 新增 `src/platform/Window.hpp/.cpp`，封装窗口创建/销毁、尺寸、像素尺寸、DPI scale、全屏切换和窗口 ID；`main.cpp` 改用 `Window` 持有窗口 | `cmake --preset windows-msvc-x64`；`cmake --build --preset windows-msvc-x64-debug`；启动烟测 | 事件、输入、IME、路径、计时器、线程仍待后续 M1.x |
+
 ### 目录
 
 ```text

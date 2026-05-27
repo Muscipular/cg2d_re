@@ -28,6 +28,7 @@ find_package(SDL3_ttf CONFIG REQUIRED)
 add_executable(cg-client
     src/app/main.cpp
     src/core/Log.cpp
+    src/platform/Window.cpp
 )
 
 target_include_directories(cg-client

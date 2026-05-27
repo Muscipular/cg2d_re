@@ -1,4 +1,5 @@
 #include "core/Log.hpp"
+#include "platform/Window.hpp"
 
 #include <SDL3/SDL.h>
 #include <SDL3_image/SDL_image.h>
@@ -31,18 +32,9 @@ int main(int argc, char* argv[])
 
     cg::core::Log(cg::core::LogLevel::Info, "app", "SDL3_image version: " + std::to_string(IMG_Version()));
 
-    SDL_Window* window = SDL_CreateWindow("cg-client M0", WindowWidth, WindowHeight, SDL_WINDOW_RESIZABLE);
-    if (window == nullptr) {
+    cg::platform::Window window;
+    if (!window.Create("cg-client M1.1", WindowWidth, WindowHeight, SDL_WINDOW_RESIZABLE)) {
         cg::core::LogSdlError("app", "SDL_CreateWindow");
-        TTF_Quit();
-        SDL_Quit();
-        return 1;
-    }
-
-    SDL_Renderer* renderer = SDL_CreateRenderer(window, nullptr);
-    if (renderer == nullptr) {
-        cg::core::LogSdlError("app", "SDL_CreateRenderer");
-        SDL_DestroyWindow(window);
         TTF_Quit();
         SDL_Quit();
         return 1;
@@ -57,31 +49,15 @@ int main(int argc, char* argv[])
             }
 
             if (event.type == SDL_EVENT_WINDOW_CLOSE_REQUESTED &&
-                event.window.windowID == SDL_GetWindowID(window)) {
+                event.window.windowID == window.GetId()) {
                 running = false;
             }
-        }
-
-        if (!SDL_SetRenderDrawColor(renderer, 18, 20, 24, SDL_ALPHA_OPAQUE)) {
-            cg::core::LogSdlError("render", "SDL_SetRenderDrawColor");
-            break;
-        }
-
-        if (!SDL_RenderClear(renderer)) {
-            cg::core::LogSdlError("render", "SDL_RenderClear");
-            break;
-        }
-
-        if (!SDL_RenderPresent(renderer)) {
-            cg::core::LogSdlError("render", "SDL_RenderPresent");
-            break;
         }
 
         SDL_Delay(16);
     }
 
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
+    window.Destroy();
     TTF_Quit();
     SDL_Quit();
 

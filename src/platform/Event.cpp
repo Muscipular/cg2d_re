@@ -1,9 +1,32 @@
 #include "platform/Event.hpp"
 
+#include <cstddef>
+
 namespace cg::platform {
 namespace {
 
-bool Translate(const SDL_Event& source, Event& target) noexcept
+[[nodiscard]] std::string CopySdlText(const char* text)
+{
+    if (text == nullptr) {
+        return {};
+    }
+
+    return text;
+}
+
+void CopySdlCandidates(const SDL_TextEditingCandidatesEvent& source, Event& target)
+{
+    if (source.candidates == nullptr || source.num_candidates <= 0) {
+        return;
+    }
+
+    target.candidates.reserve(static_cast<std::size_t>(source.num_candidates));
+    for (Sint32 i = 0; i < source.num_candidates; ++i) {
+        target.candidates.push_back(CopySdlText(source.candidates[i]));
+    }
+}
+
+bool Translate(const SDL_Event& source, Event& target)
 {
     target = {};
 
@@ -63,6 +86,25 @@ bool Translate(const SDL_Event& source, Event& target) noexcept
         target.wheelX = source.wheel.x;
         target.wheelY = source.wheel.y;
         return true;
+    case SDL_EVENT_TEXT_EDITING:
+        target.type = EventType::TextEditing;
+        target.windowId = source.edit.windowID;
+        target.text = CopySdlText(source.edit.text);
+        target.cursor = source.edit.start;
+        target.selectionLength = source.edit.length;
+        return true;
+    case SDL_EVENT_TEXT_INPUT:
+        target.type = EventType::TextInput;
+        target.windowId = source.text.windowID;
+        target.text = CopySdlText(source.text.text);
+        return true;
+    case SDL_EVENT_TEXT_EDITING_CANDIDATES:
+        target.type = EventType::TextEditingCandidates;
+        target.windowId = source.edit_candidates.windowID;
+        target.selectedCandidate = source.edit_candidates.selected_candidate;
+        target.candidatesHorizontal = source.edit_candidates.horizontal;
+        CopySdlCandidates(source.edit_candidates, target);
+        return true;
     default:
         return false;
     }
@@ -70,7 +112,7 @@ bool Translate(const SDL_Event& source, Event& target) noexcept
 
 } // namespace
 
-bool EventPump::Poll(Event& out) noexcept
+bool EventPump::Poll(Event& out)
 {
     SDL_Event sdlEvent;
     while (SDL_PollEvent(&sdlEvent)) {

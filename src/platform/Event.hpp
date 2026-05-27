@@ -2,6 +2,9 @@
 
 #include <SDL3/SDL_events.h>
 
+#include <string>
+#include <vector>
+
 namespace cg::platform {
 
 // EventType 表示当前平台层支持分发的事件类型。
@@ -16,6 +19,9 @@ enum class EventType {
     MouseButtonDown,
     MouseButtonUp,
     MouseWheel,
+    TextEditing,
+    TextInput,
+    TextEditingCandidates,
 };
 
 // Event 是 SDL_Event 转换后的最小事件载体。
@@ -32,13 +38,21 @@ struct Event {
     float wheelY = 0.0F;
     int width = 0;
     int height = 0;
+    // text 在 TextEditing 中表示 IME composition，在 TextInput 中表示已提交文本。
+    std::string text;
+    // cursor/selectionLength 对应 SDL_TEXT_EDITING 的 start/length，单位为 UTF-8 字符。
+    int cursor = 0;
+    int selectionLength = 0;
+    std::vector<std::string> candidates;
+    int selectedCandidate = -1;
+    bool candidatesHorizontal = false;
 };
 
 // EventPump 负责从 SDL 事件队列轮询并转换为 Event。
 class EventPump {
 public:
     // Poll 轮询下一个已支持事件；未支持的 SDL 事件会被跳过。
-    [[nodiscard]] bool Poll(Event& out) noexcept;
+    [[nodiscard]] bool Poll(Event& out);
 };
 
 } // namespace cg::platform

@@ -31,6 +31,7 @@ add_executable(cg-client
     src/platform/Event.cpp
     src/platform/Ime.cpp
     src/platform/Input.cpp
+    src/platform/Path.cpp
     src/platform/Window.cpp
 )
 

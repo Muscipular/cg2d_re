@@ -139,6 +139,7 @@ cg-engine/
 | 2026-05-27 | M1.4 IME 启停 | 新增 `src/platform/Ime.hpp/.cpp`，按窗口 ID 封装 SDL 文本输入启停和状态查询；`main.cpp` 绑定窗口并退出时关闭文本输入 | `cmake --preset windows-msvc-x64`；`cmake --build --preset windows-msvc-x64-debug`；启动烟测 | 输入区域、text editing、路径、计时器、线程仍待后续 M1.x |
 | 2026-05-27 | M1.5 IME 输入区域 | 扩展 `ImeController::SetInputArea`，用窗口坐标设置 `SDL_SetTextInputArea` 候选框参考区域；`main.cpp` 设置默认输入区域 | `cmake --preset windows-msvc-x64`；`cmake --build --preset windows-msvc-x64-debug`；启动烟测 | text editing、路径、计时器、线程仍待后续 M1.x |
 | 2026-05-27 | M1.6 Text editing 事件 | 扩展 `Event` 支持 `TextEditing`、`TextInput` 和候选项事件，区分 IME composition 与 committed text | `cmake --preset windows-msvc-x64`；`cmake --build --preset windows-msvc-x64-debug`；启动烟测 | 路径、计时器、线程仍待后续 M1.x |
+| 2026-05-27 | M1.7 Path 工具 | 新增 `src/platform/Path.hpp/.cpp`，封装 base/assets/config/save 路径，基于 SDL base/pref path，不硬编码平台路径 | `cmake --preset windows-msvc-x64`；`cmake --build --preset windows-msvc-x64-debug`；启动烟测 | 计时器、线程仍待后续 M1.x |
 
 ### 目录
 

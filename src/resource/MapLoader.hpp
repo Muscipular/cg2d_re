@@ -9,7 +9,7 @@ namespace cg::resource {
 [[nodiscard]] std::filesystem::path BuildMapFloorPath(
     const std::filesystem::path& mapRoot,
     std::uint32_t mapId,
-    std::uint16_t group,
+    std::uint16_t serverNo,
     std::uint16_t floor);
 
 } // namespace cg::resource

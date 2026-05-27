@@ -28,6 +28,7 @@ find_package(SDL3_ttf CONFIG REQUIRED)
 add_executable(cg-client
     src/app/main.cpp
     src/core/Log.cpp
+    src/render/RenderQueue.cpp
     src/platform/Event.cpp
     src/platform/Ime.cpp
     src/platform/Input.cpp

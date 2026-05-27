@@ -56,6 +56,7 @@ add_executable(cg-client
     src/platform/Timer.cpp
     src/platform/Window.cpp
     src/resource/AnimationLoader.cpp
+    src/resource/AutoMapRules.cpp
     src/resource/BinaryReader.cpp
     src/resource/BinSetConfigLoader.cpp
     src/resource/GraphicDecoder.cpp

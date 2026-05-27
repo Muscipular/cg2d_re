@@ -9,12 +9,12 @@
 8. 不要隐藏困惑，呈现权衡。不确定的点停下要求用户澄清。严禁假设或猜测。
 9. 读写文件必须显式指定编码，禁止使用Default编码
 10. 定义成功标准，循环验证直到达成
-11. 按流程要求使用 subAgent 进行编码、验证
+11. 按流程要求使用 subAgent 进行小颗粒度的分析、编码、验证
 
 # 流程要求
 1. 每次推进开发进度，必须同步写入 `plans/progess.md`
 2. 每个可验证小步完成后提交；用户明确要求不提交时，仅记录进度，提交由主线程统一处理
-3. 使用 subAgent 时，每个 agent 只处理单项任务
+3. 使用 subAgent 时，每个 agent 只处理单项任务，如Mx.x或Mx.x.x
 4. subAgent 完成后及时关闭；验证交由独立 subAgent
 
 
@@ -42,6 +42,7 @@
 7. SDL 类型边界：`SDL_Window*`、`SDL_Renderer*`、`SDL_Texture*`、TTF/Win32 类型不得进入上层业务公开接口；只能出现在 `cg::platform`、`cg::render` 后端或 `cg::text` 边界实现中。
 8. 编码边界：内部文本统一 UTF-8；GBK/Big5 等旧协议编码只在 `cg::text` 或协议边界转换。
 9. 不要随意新增全局类型或跨模块暴露底层对象。
+10. 禁用c++ rtti
 
 # 代码风格
 ## 逻辑尽量语义化表达
@@ -53,3 +54,7 @@
 1. 思考时需要考虑其他模块的影响
 2. 避免随意改动其他关联方的函数
 3. 工具函数是好，但不能滥用
+
+# 常用文件
+"C:\Program Files (x86)\Microsoft Visual Studio\Installer\vswhere.exe"
+"C:\Program Files\Microsoft Visual Studio\18\Enterprise\Common7\Tools\VsDevCmd.bat"

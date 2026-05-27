@@ -1,0 +1,39 @@
+################################################################################
+# Define MCP servers under this table. Leave empty to disable.
+################################################################################
+
+[mcp_servers]
+[mcp_servers.clion]
+enabled = true
+url = "http://127.0.0.1:64342/stream"
+
+[mcp_servers.ida]
+url = "http://127.0.0.1:13338/mcp"
+enabled = true
+
+# --- Example: STDIO transport ---
+# [mcp_servers.docs]
+# enabled = true                       # optional; default true
+# required = true                      # optional; fail startup/resume if this server cannot initialize
+# command = "docs-server"                 # required
+# args = ["--port", "4000"]               # optional
+# env = { "API_KEY" = "value" }           # optional key/value pairs copied as-is
+# env_vars = ["ANOTHER_SECRET"]            # optional: forward these from the parent env
+# cwd = "/path/to/server"                 # optional working directory override
+# startup_timeout_sec = 10.0               # optional; default 10.0 seconds
+# # startup_timeout_ms = 10000              # optional alias for startup timeout (milliseconds)
+# tool_timeout_sec = 60.0                  # optional; default 60.0 seconds
+# enabled_tools = ["search", "summarize"]  # optional allow-list
+# disabled_tools = ["slow-tool"]           # optional deny-list (applied after allow-list)
+
+# --- Example: Streamable HTTP transport ---
+# [mcp_servers.github]
+# enabled = true                          # optional; default true
+# required = true                         # optional; fail startup/resume if this server cannot initialize
+# url = "https://github-mcp.example.com/mcp"  # required
+# bearer_token_env_var = "GITHUB_TOKEN"        # optional; Authorization: Bearer <token>
+# http_headers = { "X-Example" = "value" }    # optional static headers
+# env_http_headers = { "X-Auth" = "AUTH_ENV" } # optional headers populated from env vars
+# startup_timeout_sec = 10.0                   # optional
+# tool_timeout_sec = 60.0                      # optional
+# enabled_tools = ["list_issues"]             # optional allow-list

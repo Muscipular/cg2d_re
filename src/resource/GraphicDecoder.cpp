@@ -2,6 +2,7 @@
 
 #include "resource/BinaryReader.hpp"
 
+#include <bit>
 #include <cstddef>
 #include <limits>
 #include <type_traits>
@@ -52,10 +53,24 @@ template <typename T>
     return true;
 }
 
+[[nodiscard]] bool TryReadI32Le(
+    std::span<const std::uint8_t> bytes,
+    std::size_t offset,
+    std::int32_t& value)
+{
+    std::uint32_t unsignedValue = 0;
+    if (!TryReadU32Le(bytes, offset, unsignedValue)) {
+        return false;
+    }
+
+    value = std::bit_cast<std::int32_t>(unsignedValue);
+    return true;
+}
+
 [[nodiscard]] bool TryParseHeader(
     std::span<const std::uint8_t> block,
     GraphicBlockHeader& header,
-    std::size_t& headerSize)
+    GraphicDataMetadata& metadata)
 {
     if (block.size() < BaseHeaderSize) {
         return false;
@@ -64,38 +79,45 @@ template <typename T>
         return false;
     }
 
-    std::uint32_t width = 0;
-    std::uint32_t height = 0;
-    if (!TryReadU32Le(block, 4, width)
-        || !TryReadU32Le(block, 8, height)
-        || !TryReadU32Le(block, 12, header.blockSize)) {
+    std::int32_t width = 0;
+    std::int32_t height = 0;
+    std::int32_t blockLength = 0;
+    if (!TryReadI32Le(block, 4, width)
+        || !TryReadI32Le(block, 8, height)
+        || !TryReadI32Le(block, 12, blockLength)) {
         return false;
     }
 
-    if (width == 0 || height == 0
-        || width > static_cast<std::uint32_t>(std::numeric_limits<int>::max())
-        || height > static_cast<std::uint32_t>(std::numeric_limits<int>::max())) {
+    if (width <= 0 || height <= 0 || blockLength <= 0) {
         return false;
     }
 
-    header.magic = { block[0], block[1] };
-    header.version = block[2];
-    header.attributes = block[3];
-    header.width = static_cast<int>(width);
-    header.height = static_cast<int>(height);
-    header.compressed = (header.version & 0x01U) != 0;
-    header.hasEmbeddedPalette = (header.version & 0x02U) != 0;
+    header.head[0] = static_cast<char>(block[0]);
+    header.head[1] = static_cast<char>(block[1]);
+    header.version = static_cast<CG_GraphicVersion>(block[2]);
+    header.unk1 = static_cast<char>(block[3]);
+    header.w = width;
+    header.h = height;
+    header.length = blockLength;
 
-    headerSize = BaseHeaderSize;
-    if (header.hasEmbeddedPalette) {
+    const auto version = static_cast<std::uint8_t>(header.version);
+    metadata = GraphicDataMetadata {};
+    metadata.compressed = (version & 0x01U) != 0;
+    metadata.hasEmbeddedPalette = (version & 0x02U) != 0;
+
+    std::size_t headerSize = BaseHeaderSize;
+    if (metadata.hasEmbeddedPalette) {
         headerSize += CgexPaletteSizeFieldSize;
-        if (block.size() < headerSize || !TryReadU32Le(block, BaseHeaderSize, header.paletteSize)) {
+        std::int32_t paletteSize = 0;
+        if (block.size() < headerSize || !TryReadI32Le(block, BaseHeaderSize, paletteSize) || paletteSize < 0) {
             return false;
         }
+        metadata.paletteSize = static_cast<std::uint32_t>(paletteSize);
     }
-    header.headerSize = headerSize;
+    metadata.headerSize = headerSize;
 
-    if (header.blockSize < headerSize || header.blockSize > block.size()) {
+    if (static_cast<std::uint64_t>(header.length) < headerSize
+        || static_cast<std::uint64_t>(header.length) > block.size()) {
         return false;
     }
 
@@ -303,8 +325,8 @@ template <typename T>
     const GraphicBlockHeader& header,
     std::size_t& pixelCount)
 {
-    const std::uint64_t width = static_cast<std::uint64_t>(header.width);
-    const std::uint64_t height = static_cast<std::uint64_t>(header.height);
+    const std::uint64_t width = static_cast<std::uint64_t>(header.w);
+    const std::uint64_t height = static_cast<std::uint64_t>(header.h);
     const std::uint64_t pixels = width * height;
 
     if (pixels > std::numeric_limits<std::size_t>::max()) {
@@ -318,38 +340,36 @@ template <typename T>
 [[nodiscard]] GraphicDecodeResult ConvertIndexedToRgba(
     const GraphicInfo& info,
     const GraphicBlockHeader& header,
+    const GraphicDataMetadata& metadata,
     std::span<const std::uint8_t> indexed,
     const Palette& palette)
 {
     GraphicDecodeResult result;
-    result.image.width = header.width;
-    result.image.height = header.height;
-    result.image.offsetX = info.offsetX;
-    result.image.offsetY = info.offsetY;
+    result.image.width = header.w;
+    result.image.height = header.h;
+    result.image.offsetX = info.x;
+    result.image.offsetY = info.y;
     result.image.mapNo = info.mapNo;
     result.image.dataHeader = header;
-    result.image.version = header.version;
-    result.image.attributes = header.attributes;
-    result.image.compressed = header.compressed;
-    result.image.hasEmbeddedPalette = header.hasEmbeddedPalette;
-    result.image.embeddedPaletteSize = header.paletteSize;
 
-    const bool zeroTransparent = (header.attributes & 0x08U) != 0;
-    result.image.zeroTransparent = zeroTransparent;
+    GraphicDataMetadata outputMetadata = metadata;
+    const auto attributes = static_cast<std::uint8_t>(header.unk1);
+    outputMetadata.zeroTransparent = (attributes & 0x08U) != 0;
+    result.image.dataMetadata = outputMetadata;
     result.image.pixels.resize(indexed.size() * 4U);
 
-    for (int y = 0; y < header.height; ++y) {
-        const int sourceY = header.height - 1 - y;
-        for (int x = 0; x < header.width; ++x) {
-            const std::size_t source = static_cast<std::size_t>(sourceY * header.width + x);
+    for (int y = 0; y < header.h; ++y) {
+        const int sourceY = header.h - 1 - y;
+        for (int x = 0; x < header.w; ++x) {
+            const std::size_t source = static_cast<std::size_t>(sourceY * header.w + x);
             const std::uint8_t colorIndex = indexed[source];
             const Rgba8 color = palette[colorIndex];
-            const std::size_t target = static_cast<std::size_t>(y * header.width + x) * 4U;
+            const std::size_t target = static_cast<std::size_t>(y * header.w + x) * 4U;
 
             result.image.pixels[target] = color.r;
             result.image.pixels[target + 1] = color.g;
             result.image.pixels[target + 2] = color.b;
-            result.image.pixels[target + 3] = (colorIndex == 0 && zeroTransparent) ? 0 : color.a;
+            result.image.pixels[target + 3] = (colorIndex == 0 && outputMetadata.zeroTransparent) ? 0 : color.a;
         }
     }
 
@@ -404,8 +424,8 @@ GraphicDecodeResult GraphicDecoder::DecodeBlock(
     const Palette& defaultPalette) const
 {
     GraphicBlockHeader header;
-    std::size_t headerSize = 0;
-    if (!TryParseHeader(block, header, headerSize)) {
+    GraphicDataMetadata metadata;
+    if (!TryParseHeader(block, header, metadata)) {
         return MakeError(GraphicDecodeError::InvalidHeader, "Graphic 块头无效");
     }
 
@@ -415,18 +435,18 @@ GraphicDecodeResult GraphicDecoder::DecodeBlock(
     }
 
     const std::span<const std::uint8_t> imagePayload = block.subspan(
-        headerSize,
-        static_cast<std::size_t>(header.blockSize) - headerSize);
+        metadata.headerSize,
+        static_cast<std::size_t>(header.length) - metadata.headerSize);
     std::size_t decodedSize = pixelCount;
-    if (header.hasEmbeddedPalette) {
-        if (header.paletteSize > std::numeric_limits<std::size_t>::max() - decodedSize) {
+    if (metadata.hasEmbeddedPalette) {
+        if (metadata.paletteSize > std::numeric_limits<std::size_t>::max() - decodedSize) {
             return MakeError(GraphicDecodeError::OutputOverflow, "Graphic 输出尺寸无效");
         }
-        decodedSize += header.paletteSize;
+        decodedSize += metadata.paletteSize;
     }
 
     std::vector<std::uint8_t> decoded;
-    if (header.compressed) {
+    if (metadata.compressed) {
         if (!DecodeRle(imagePayload, decodedSize, decoded)) {
             return MakeError(GraphicDecodeError::InvalidRle, "Graphic RLE 数据越界或控制字节无效");
         }
@@ -439,8 +459,8 @@ GraphicDecodeResult GraphicDecoder::DecodeBlock(
 
     Palette activePalette = defaultPalette;
     std::span<const std::uint8_t> paletteBytes;
-    if (header.hasEmbeddedPalette && header.paletteSize > 0) {
-        paletteBytes = std::span<const std::uint8_t>(decoded.data() + pixelCount, header.paletteSize);
+    if (metadata.hasEmbeddedPalette && metadata.paletteSize > 0) {
+        paletteBytes = std::span<const std::uint8_t>(decoded.data() + pixelCount, metadata.paletteSize);
         if (!BuildEmbeddedPalette(defaultPalette, paletteBytes, activePalette)) {
             return MakeError(GraphicDecodeError::InvalidPalette, "CGEX 内嵌 palette 长度无效");
         }
@@ -449,6 +469,7 @@ GraphicDecodeResult GraphicDecoder::DecodeBlock(
     return ConvertIndexedToRgba(
         info,
         header,
+        metadata,
         std::span<const std::uint8_t>(decoded.data(), pixelCount),
         activePalette);
 }

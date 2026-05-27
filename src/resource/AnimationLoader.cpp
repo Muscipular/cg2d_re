@@ -17,6 +17,11 @@ constexpr int AnimeNoBase = 100000;
         | static_cast<std::uint16_t>(static_cast<std::uint16_t>(data[offset + 1]) << 8U);
 }
 
+[[nodiscard]] std::int16_t ReadI16(std::span<const std::uint8_t> data, std::size_t offset) noexcept
+{
+    return std::bit_cast<std::int16_t>(ReadU16(data, offset));
+}
+
 [[nodiscard]] std::uint32_t ReadU32(std::span<const std::uint8_t> data, std::size_t offset) noexcept
 {
     return static_cast<std::uint32_t>(data[offset])
@@ -30,6 +35,11 @@ constexpr int AnimeNoBase = 100000;
     return std::bit_cast<std::int32_t>(ReadU32(data, offset));
 }
 
+[[nodiscard]] int NormalizeAnimeNo(int animeNo) noexcept
+{
+    return animeNo >= AnimeNoBase ? animeNo - AnimeNoBase : animeNo;
+}
+
 [[nodiscard]] bool ReadAnimeAction(BinaryReader& reader, bool hasExtendedHeader, int frameIndex, AnimeAction& action)
 {
     std::int16_t direction = 0;
@@ -38,7 +48,7 @@ constexpr int AnimeNoBase = 100000;
     std::int32_t frameCount = 0;
     std::int16_t palette = 0;
     std::int16_t revertRaw = 0;
-    std::uint32_t padding = 0;
+    std::int32_t colorMask = 0;
 
     if (!reader.ReadI16(direction) || !reader.ReadI16(actionNo) || !reader.ReadI32(duration)
         || !reader.ReadI32(frameCount)) {
@@ -49,28 +59,20 @@ constexpr int AnimeNoBase = 100000;
     }
 
     if (hasExtendedHeader
-        && (!reader.ReadI16(palette) || !reader.ReadI16(revertRaw) || !reader.ReadU32(padding))) {
-            return false;
+        && (!reader.ReadI16(palette) || !reader.ReadI16(revertRaw) || !reader.ReadI32(colorMask))) {
+        return false;
     }
 
-    action.dir = direction;
-    action.action = actionNo;
-    action.duration = duration;
     action.frameIndex = frameIndex;
-    action.frameCount = frameCount;
-    action.pal = palette;
-    action.revertRaw = revertRaw;
-    action.revert = revertRaw != 0;
-    action.padding = padding;
-    action.header.dir = direction;
-    action.header.action = actionNo;
+    action.header.dir = static_cast<CG_Direction>(direction);
+    action.header.action = static_cast<CG_ActionType>(actionNo);
     action.header.duration = duration;
     action.header.frameCount = frameCount;
     action.header.pal = palette;
     action.header.revert = revertRaw;
-    action.header.padding = padding;
-    action.header.headerSize = hasExtendedHeader ? 20U : 12U;
-    action.header.hasExtendedFields = hasExtendedHeader;
+    action.header.colorMask = colorMask;
+    action.headerSize = hasExtendedHeader ? 20U : 12U;
+    action.hasExtendedFields = hasExtendedHeader;
     return true;
 }
 
@@ -101,11 +103,10 @@ bool ReadAnimeInfo(std::span<const std::uint8_t> row, AnimeInfo& outInfo) noexce
     }
 
     const std::span<const std::uint8_t> record = row.first(AnimeInfoRecordSize);
-    outInfo.sourceAnimeNo = ReadI32(record, 0);
-    outInfo.animeNo = outInfo.sourceAnimeNo >= AnimeNoBase ? outInfo.sourceAnimeNo - AnimeNoBase : outInfo.sourceAnimeNo;
+    outInfo.animeNo = ReadI32(record, 0);
     outInfo.offset = ReadU32(record, 4);
-    outInfo.count = ReadU16(record, 8);
-    outInfo.flag = ReadU16(record, 10);
+    outInfo.count = ReadI16(record, 8);
+    outInfo.flg = ReadU16(record, 10);
     return true;
 }
 
@@ -113,44 +114,43 @@ bool ReadAnimeInfo(BinaryReader& reader, AnimeInfo& outInfo)
 {
     std::int32_t animeNo = 0;
     std::uint32_t offset = 0;
-    std::uint16_t count = 0;
+    std::int16_t count = 0;
     std::uint16_t flag = 0;
 
-    if (!reader.ReadI32(animeNo) || !reader.ReadU32(offset) || !reader.ReadU16(count) || !reader.ReadU16(flag)) {
+    if (!reader.ReadI32(animeNo) || !reader.ReadU32(offset) || !reader.ReadI16(count) || !reader.ReadU16(flag)) {
         return false;
     }
 
-    outInfo.sourceAnimeNo = animeNo;
-    outInfo.animeNo = animeNo >= AnimeNoBase ? animeNo - AnimeNoBase : animeNo;
+    outInfo.animeNo = animeNo;
     outInfo.offset = offset;
     outInfo.count = count;
-    outInfo.flag = flag;
+    outInfo.flg = flag;
     return true;
 }
 
 bool LoadAnimationClip(BinaryReader& reader, const AnimeInfo& info, AnimationClip& outClip)
 {
-    if (!reader.Seek(info.offset)) {
+    if (info.count < 0 || !reader.Seek(info.offset)) {
         return false;
     }
 
     AnimationClip clip;
-    clip.animeNo = info.animeNo;
-    clip.actions.reserve(info.count);
-    const bool hasExtendedHeader = info.flag == 1;
+    clip.animeNo = NormalizeAnimeNo(info.animeNo);
+    clip.actions.reserve(static_cast<std::size_t>(info.count));
+    const bool hasExtendedHeader = info.flg == 1;
 
-    for (std::uint16_t actionIndex = 0; actionIndex < info.count; ++actionIndex) {
+    for (std::int16_t actionIndex = 0; actionIndex < info.count; ++actionIndex) {
         AnimeAction action;
         if (!ReadAnimeAction(reader, hasExtendedHeader, static_cast<int>(clip.frames.size()), action)) {
             return false;
         }
 
         clip.actions.push_back(action);
-        if (action.frameCount > std::numeric_limits<std::size_t>::max() / AnimeFrameRecordSize) {
+        if (action.header.frameCount > std::numeric_limits<std::size_t>::max() / AnimeFrameRecordSize) {
             return false;
         }
 
-        for (int frameIndex = 0; frameIndex < action.frameCount; ++frameIndex) {
+        for (int frameIndex = 0; frameIndex < action.header.frameCount; ++frameIndex) {
             AnimeFrame frame;
             if (!ReadAnimeFrame(reader, frame)) {
                 return false;
@@ -177,7 +177,8 @@ bool LoadAnimationClip(const std::filesystem::path& animeDataPath, const AnimeIn
 const AnimeAction* FindAnimeAction(const AnimationClip& clip, int action, int dir) noexcept
 {
     for (const AnimeAction& candidate : clip.actions) {
-        if (candidate.action == action && candidate.dir == dir) {
+        if (static_cast<int>(candidate.header.action) == action
+            && static_cast<int>(candidate.header.dir) == dir) {
             return &candidate;
         }
     }
@@ -187,12 +188,12 @@ const AnimeAction* FindAnimeAction(const AnimationClip& clip, int action, int di
 
 std::span<const AnimeFrame> GetAnimeActionFrames(const AnimationClip& clip, const AnimeAction& action) noexcept
 {
-    if (action.frameIndex < 0 || action.frameCount < 0) {
+    if (action.frameIndex < 0 || action.header.frameCount < 0) {
         return {};
     }
 
     const auto frameIndex = static_cast<std::size_t>(action.frameIndex);
-    const auto frameCount = static_cast<std::size_t>(action.frameCount);
+    const auto frameCount = static_cast<std::size_t>(action.header.frameCount);
     if (frameIndex > clip.frames.size() || frameCount > clip.frames.size() - frameIndex) {
         return {};
     }

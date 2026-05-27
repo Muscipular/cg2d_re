@@ -44,3 +44,4 @@
 | 日期 | 任务 | 修改 | 验证 | 遗留 |
 |---|---|---|---|---|
 | 2026-05-27 | M3.1 FontCache | 新增 `src/render/FontCache.hpp/.cpp`，封装 SDL_ttf 字体加载和 UTF-8 文本栅格化上传；`main.cpp` 尝试加载 Windows 中文字体并绘制 `你好 CrossGate` demo 文本 | `powershell -ExecutionPolicy Bypass -File scripts/download_sdl3.ps1`；VS CMake configure/build `windows-msvc-x64-debug`；4 秒启动烟测确认 `FontCache demo loaded` 和 `Render stats` 日志 | M3.2 及后续任务未处理 |
+| 2026-05-27 | M3.2 Text layout 基础 | 扩展 `FontCache::MeasureText`，新增 `src/ui/TextLayout.hpp/.cpp`，支持 UTF-8 文本按 `\n` 分段、按 codepoint 边界保守换行并统计行尺寸；`main.cpp` 增加轻量布局日志 | `powershell -ExecutionPolicy Bypass -File scripts/download_sdl3.ps1`；VS CMake configure/build `windows-msvc-x64-debug`；4 秒启动烟测确认 `FontCache demo loaded`、`TextLayout demo` 和 `Render stats` 日志 | M3.3 及后续任务未处理 |

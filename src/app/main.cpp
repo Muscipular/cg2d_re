@@ -9,6 +9,7 @@
 #include "render/SdlRendererBackend.hpp"
 #include "render/TextureAtlas.hpp"
 #include "render/TextureCache.hpp"
+#include "ui/TextLayout.hpp"
 
 #include <SDL3/SDL.h>
 #include <SDL3_image/SDL_image.h>
@@ -28,6 +29,7 @@ constexpr int TestTextureSize = 64;
 constexpr std::uint32_t StatsLogFrameInterval = 120;
 constexpr std::string_view DemoFontKey = "demo-font";
 constexpr std::string_view DemoText = "你好 CrossGate";
+constexpr std::string_view DemoLayoutText = "你好 CrossGate\nText layout";
 constexpr std::array<std::string_view, 3> DemoFontPaths = {
     "C:/Windows/Fonts/msyh.ttc",
     "C:/Windows/Fonts/simhei.ttf",
@@ -137,9 +139,16 @@ int main(int argc, char* argv[])
     if (!loadedFontPath.empty()) {
         demoTextTexture = fontCache.RenderText(DemoFontKey, DemoText, {0.95F, 0.95F, 0.90F, 1.0F});
         if (demoTextTexture.texture.IsValid()) {
+            const cg::ui::TextLayoutResult demoLayout =
+                cg::ui::LayoutText(fontCache, DemoFontKey, DemoLayoutText, 180);
             cg::core::Log(cg::core::LogLevel::Info,
                 "render",
                 "FontCache demo loaded: " + std::string{loadedFontPath});
+            cg::core::Log(cg::core::LogLevel::Info,
+                "ui",
+                "TextLayout demo: lines=" + std::to_string(demoLayout.lines.size()) +
+                    ", size=" + std::to_string(demoLayout.width) +
+                    "x" + std::to_string(demoLayout.height));
         } else {
             cg::core::Log(cg::core::LogLevel::Warning, "render", "FontCache demo text render failed");
         }

@@ -83,6 +83,30 @@ struct FontCache::Impl {
         return true;
     }
 
+    [[nodiscard]] TextMetrics MeasureText(std::string_view fontKey, std::string_view text) const
+    {
+        if (fontKey.empty()) {
+            return {};
+        }
+
+        const auto fontIter = fonts.find(std::string{fontKey});
+        if (fontIter == fonts.end()) {
+            return {};
+        }
+
+        if (text.empty()) {
+            return TextMetrics{0, TTF_GetFontHeight(fontIter->second.get()), true};
+        }
+
+        int width = 0;
+        int height = 0;
+        if (!TTF_GetStringSize(fontIter->second.get(), text.data(), text.size(), &width, &height)) {
+            return {};
+        }
+
+        return TextMetrics{width, height, true};
+    }
+
     [[nodiscard]] TextTexture RenderText(std::string_view fontKey, std::string_view text, ColorF color)
     {
         if (fontKey.empty() || text.empty()) {
@@ -162,6 +186,11 @@ FontCache::~FontCache()
 bool FontCache::LoadFont(std::string_view key, std::string_view path, float pointSize)
 {
     return impl_->LoadFont(key, path, pointSize);
+}
+
+TextMetrics FontCache::MeasureText(std::string_view fontKey, std::string_view text) const
+{
+    return impl_->MeasureText(fontKey, text);
 }
 
 TextTexture FontCache::RenderText(std::string_view fontKey, std::string_view text, ColorF color)

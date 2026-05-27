@@ -17,6 +17,12 @@ struct TextTexture {
     int height = 0;
 };
 
+struct TextMetrics {
+    int width = 0;
+    int height = 0;
+    bool valid = false;
+};
+
 // FontCache 管理字体对象和由文本生成的纹理，不向公开头暴露 SDL 类型。
 class FontCache final {
 public:
@@ -30,6 +36,7 @@ public:
     FontCache& operator=(FontCache&&) = delete;
 
     [[nodiscard]] bool LoadFont(std::string_view key, std::string_view path, float pointSize);
+    [[nodiscard]] TextMetrics MeasureText(std::string_view fontKey, std::string_view text) const;
     [[nodiscard]] TextTexture RenderText(std::string_view fontKey, std::string_view text, ColorF color);
     void Clear() noexcept;
 

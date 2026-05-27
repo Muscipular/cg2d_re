@@ -1,5 +1,6 @@
 #include "core/Log.hpp"
 #include "platform/Event.hpp"
+#include "platform/Ime.hpp"
 #include "platform/Input.hpp"
 #include "platform/Window.hpp"
 
@@ -42,6 +43,11 @@ int main(int argc, char* argv[])
         return 1;
     }
 
+    cg::platform::ImeController imeController(window);
+    if (!imeController.BeginTextInput()) {
+        cg::core::LogSdlError("ime", "SDL_StartTextInput");
+    }
+
     cg::platform::EventPump eventPump;
     cg::platform::InputState inputState;
     bool running = true;
@@ -64,6 +70,10 @@ int main(int argc, char* argv[])
 
         inputState.EndFrame();
         SDL_Delay(16);
+    }
+
+    if (!imeController.EndTextInput()) {
+        cg::core::LogSdlError("ime", "SDL_StopTextInput");
     }
 
     window.Destroy();

@@ -136,6 +136,7 @@ cg-engine/
 | 2026-05-27 | M1.1 Window 封装 | 新增 `src/platform/Window.hpp/.cpp`，封装窗口创建/销毁、尺寸、像素尺寸、DPI scale、全屏切换和窗口 ID；`main.cpp` 改用 `Window` 持有窗口 | `cmake --preset windows-msvc-x64`；`cmake --build --preset windows-msvc-x64-debug`；启动烟测 | 事件、输入、IME、路径、计时器、线程仍待后续 M1.x |
 | 2026-05-27 | M1.2 Event 分发 | 新增 `src/platform/Event.hpp/.cpp`，将 SDL quit、window、keyboard、mouse 事件转换为平台层 `Event`；`main.cpp` 改用 `EventPump` | `cmake --preset windows-msvc-x64`；`cmake --build --preset windows-msvc-x64-debug`；启动烟测 | 输入状态缓存、IME、路径、计时器、线程仍待后续 M1.x |
 | 2026-05-27 | M1.3 Input 状态缓存 | 新增 `src/platform/Input.hpp/.cpp`，基于 `Event` 缓存键盘和鼠标 down/pressed/released 状态；`main.cpp` 接入帧级输入更新 | `cmake --preset windows-msvc-x64`；`cmake --build --preset windows-msvc-x64-debug`；启动烟测 | IME、路径、计时器、线程仍待后续 M1.x |
+| 2026-05-27 | M1.4 IME 启停 | 新增 `src/platform/Ime.hpp/.cpp`，按窗口 ID 封装 SDL 文本输入启停和状态查询；`main.cpp` 绑定窗口并退出时关闭文本输入 | `cmake --preset windows-msvc-x64`；`cmake --build --preset windows-msvc-x64-debug`；启动烟测 | 输入区域、text editing、路径、计时器、线程仍待后续 M1.x |
 
 ### 目录
 

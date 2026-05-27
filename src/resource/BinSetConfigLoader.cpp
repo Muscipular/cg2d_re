@@ -19,6 +19,31 @@ namespace {
     };
 }
 
+[[nodiscard]] bool ReadOptionalPathField(
+    const YAML::Node& item,
+    const char* yamlField,
+    const std::filesystem::path& ymlPath,
+    std::size_t index,
+    std::filesystem::path& output,
+    ResourceError& error)
+{
+    const YAML::Node field = item[yamlField];
+    if (!field) {
+        output.clear();
+        return true;
+    }
+    if (!field.IsScalar()) {
+        error = MakeConfigError(
+            ymlPath,
+            "BinLoader[" + std::to_string(index) + "] 字段 " + yamlField + " 必须是 string");
+        return false;
+    }
+
+    const std::string value = field.as<std::string>();
+    output = value.empty() ? std::filesystem::path {} : std::filesystem::path { value };
+    return true;
+}
+
 } // namespace
 
 BinSetConfigLoadResult LoadBinSetConfig(const std::filesystem::path& ymlPath)
@@ -55,6 +80,21 @@ BinSetConfigLoadResult LoadBinSetConfig(const std::filesystem::path& ymlPath)
 
             BinSetDesc desc;
             desc.name = name.as<std::string>();
+            if (!ReadOptionalPathField(item, "Graphic", ymlPath, index, desc.graphicDataPath, result.error)
+                || !ReadOptionalPathField(item, "GraphicInfo", ymlPath, index, desc.graphicInfoPath, result.error)
+                || !ReadOptionalPathField(item, "Anime", ymlPath, index, desc.animeDataPath, result.error)
+                || !ReadOptionalPathField(item, "AnimeInfo", ymlPath, index, desc.animeInfoPath, result.error)
+                || !ReadOptionalPathField(item, "Coordinate", ymlPath, index, desc.coordinateDataPath, result.error)
+                || !ReadOptionalPathField(
+                    item,
+                    "CoordinateInfo",
+                    ymlPath,
+                    index,
+                    desc.coordinateInfoPath,
+                    result.error)) {
+                result.binSets.clear();
+                return result;
+            }
             result.binSets.push_back(std::move(desc));
         }
     } catch (const YAML::BadFile&) {

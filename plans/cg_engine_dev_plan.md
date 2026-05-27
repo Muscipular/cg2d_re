@@ -212,6 +212,7 @@ public:
 | 2026-05-27 | M2.8 TextureAtlas | 新增 `src/render/TextureAtlas.hpp/.cpp`，保存 atlas 纹理和 key 到源区域映射；`main.cpp` 通过 atlas 创建测试 `SpriteCmd` | `cmake --preset windows-msvc-x64`；`cmake --build --preset windows-msvc-x64-debug`；启动烟测 | Render stats、Pixel-perfect 仍待后续 M2.x |
 | 2026-05-27 | M2.9 Render stats | 新增 `src/render/RenderStats.hpp`，`IRenderer` 暴露统计读写接口；SDL 后端统计 draw calls、sprites、texture switches；`main.cpp` 每 120 帧输出统计日志 | `powershell -ExecutionPolicy Bypass -File scripts/download_sdl3.ps1`；VS CMake configure/build `windows-msvc-x64-debug`；启动烟测确认 `Render stats` 日志 | Pixel-perfect 仍待后续 M2.x |
 | 2026-05-27 | M2.10 Pixel-perfect 设置 | 新增 `TextureScaleMode` 和 `LogicalPresentationMode`；纹理默认 nearest，SDL 后端应用 nearest/linear，`main.cpp` 设置 1280x720 integer scale | `powershell -ExecutionPolicy Bypass -File scripts/download_sdl3.ps1`；VS CMake configure/build `windows-msvc-x64-debug`；启动烟测确认 `Render stats` 日志 | M2 基础层完成；PNG/FontCache 后续阶段处理 |
+| 2026-05-27 | M2 收尾 | 独立 reviewer 总体验证 M2.1-M2.10：渲染接口、队列、批绘制、纹理缓存、Atlas、统计和 Pixel-perfect 均存在；公开头未暴露 SDL 类型 | `powershell -ExecutionPolicy Bypass -File scripts/download_sdl3.ps1`；VS CMake configure/build `windows-msvc-x64-debug`；DLL 检查；4 秒启动烟测确认 `Render stats` 日志 | M2 已完成；后续进入 M3 Font/Input/UI 最小闭环 |
 
 ### 目录
 

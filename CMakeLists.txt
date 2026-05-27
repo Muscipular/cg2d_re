@@ -32,6 +32,7 @@ add_executable(cg-client
     src/platform/Ime.cpp
     src/platform/Input.cpp
     src/platform/Path.cpp
+    src/platform/Thread.cpp
     src/platform/Timer.cpp
     src/platform/Window.cpp
 )

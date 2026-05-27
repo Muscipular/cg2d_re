@@ -9,6 +9,7 @@
 #include "render/SdlRendererBackend.hpp"
 #include "render/TextureAtlas.hpp"
 #include "render/TextureCache.hpp"
+#include "text/TextEncoding.hpp"
 #include "ui/ChatBox.hpp"
 #include "ui/TextLayout.hpp"
 
@@ -174,6 +175,18 @@ int main(int argc, char* argv[])
     } else {
         cg::core::Log(cg::core::LogLevel::Warning, "render", "FontCache demo font not found");
     }
+
+    const cg::text::EncodingResult gbkBytes =
+        cg::text::Utf8ToLegacy(DemoText, cg::text::LegacyEncoding::Gbk);
+    const cg::text::EncodingResult gbkRoundtrip =
+        gbkBytes.ok ? cg::text::LegacyToUtf8(gbkBytes.text, cg::text::LegacyEncoding::Gbk) :
+                      cg::text::EncodingResult{};
+    const bool gbkRoundtripOk = gbkRoundtrip.ok && std::string_view{gbkRoundtrip.text} == DemoText;
+    cg::core::Log(cg::core::LogLevel::Info,
+        "text",
+        "Encoding demo: gbkOk=" + std::to_string(gbkBytes.ok ? 1 : 0) +
+            ", gbkBytes=" + std::to_string(gbkBytes.text.size()) +
+            ", roundtripOk=" + std::to_string(gbkRoundtripOk ? 1 : 0));
 
     cg::platform::ImeController imeController(window);
     if (!imeController.BeginTextInput()) {

@@ -33,6 +33,7 @@ add_executable(cg-client
     src/render/SdlRendererBackend.cpp
     src/render/TextureAtlas.cpp
     src/render/TextureCache.cpp
+    src/text/TextEncoding.cpp
     src/ui/ChatBox.cpp
     src/ui/InputBox.cpp
     src/ui/TextLayout.cpp

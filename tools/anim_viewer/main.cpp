@@ -245,7 +245,7 @@ void PrintAnimation(
     const cg::resource::AnimationClip& clip)
 {
     std::cout << "Anime：animeNo=" << ref.sourceAnimeNo
-              << "，index=" << ref.index
+              << "，indexNo=" << ref.indexNo
               << "，binSetIndex=" << ref.binSetIndex << '\n';
     std::cout << "action 数：" << clip.actions.size()
               << "，总帧数：" << clip.frames.size() << '\n';
@@ -264,7 +264,7 @@ void PrintSelectedAnimation(
     const cg::resource::AnimeAction& action)
 {
     std::cout << "Anime：animeNo=" << ref.sourceAnimeNo
-              << "，index=" << ref.index
+              << "，indexNo=" << ref.indexNo
               << "，binSetIndex=" << ref.binSetIndex << '\n';
     std::cout << "匹配 action：";
     PrintActionSummary(action.header);

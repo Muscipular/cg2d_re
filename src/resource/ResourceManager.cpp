@@ -34,7 +34,7 @@ static_assert(GraphicInfoRecordSize == 40);
     return static_cast<std::int8_t>(value);
 }
 
-[[nodiscard]] int ComputeAnimeIndex(int sourceAnimeNo) noexcept
+[[nodiscard]] int ComputeAnimeIndexNo(int sourceAnimeNo) noexcept
 {
     return sourceAnimeNo >= AnimeNoBase ? sourceAnimeNo - AnimeNoBase : sourceAnimeNo;
 }
@@ -462,10 +462,10 @@ bool ResourceManager::LoadAnimeIndex(int binSetIndex, const BinSetDesc& desc)
         }
 
         const int sourceAnimeNo = info.animeNo;
-        const int animeIndex = ComputeAnimeIndex(sourceAnimeNo);
+        const int indexNo = ComputeAnimeIndexNo(sourceAnimeNo);
         AnimeRef ref;
         ref.binSetIndex = binSetIndex;
-        ref.index = animeIndex;
+        ref.indexNo = indexNo;
         ref.sourceAnimeNo = sourceAnimeNo;
         ref.dataPath = desc.animeDataPath;
         ref.info = info;

@@ -35,7 +35,7 @@ constexpr int AnimeNoBase = 100000;
     return std::bit_cast<std::int32_t>(ReadU32(data, offset));
 }
 
-[[nodiscard]] int ComputeAnimeIndex(int sourceAnimeNo) noexcept
+[[nodiscard]] int ComputeAnimeIndexNo(int sourceAnimeNo) noexcept
 {
     return sourceAnimeNo >= AnimeNoBase ? sourceAnimeNo - AnimeNoBase : sourceAnimeNo;
 }
@@ -135,7 +135,7 @@ bool LoadAnimationClip(BinaryReader& reader, const AnimeInfo& info, AnimationCli
     }
 
     AnimationClip clip;
-    clip.index = ComputeAnimeIndex(info.animeNo);
+    clip.indexNo = ComputeAnimeIndexNo(info.animeNo);
     clip.sourceAnimeNo = info.animeNo;
     clip.actions.reserve(static_cast<std::size_t>(info.count));
     const bool hasExtendedHeader = info.flg == 1;

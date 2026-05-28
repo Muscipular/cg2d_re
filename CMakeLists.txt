@@ -56,6 +56,7 @@ add_executable(cg-client
     src/platform/Timer.cpp
     src/platform/Window.cpp
     src/resource/AnimationLoader.cpp
+    src/resource/AutoMapData.cpp
     src/resource/AutoMapRenderer.cpp
     src/resource/AutoMapRules.cpp
     src/resource/BinaryReader.cpp
@@ -70,6 +71,7 @@ add_executable(cg-client
 add_executable(cg-map-viewer
     tools/map_viewer/main.cpp
     src/core/Log.cpp
+    src/resource/AutoMapData.cpp
     src/resource/AutoMapRenderer.cpp
     src/resource/AnimationLoader.cpp
     src/resource/AutoMapRules.cpp
@@ -159,6 +161,7 @@ enable_testing()
 
 add_executable(cg-automap-renderer-test
     tests/resource/AutoMapRendererTest.cpp
+    src/resource/AutoMapData.cpp
     src/resource/AnimationLoader.cpp
     src/resource/AutoMapRenderer.cpp
     src/resource/AutoMapRules.cpp

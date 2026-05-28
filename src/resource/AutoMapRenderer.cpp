@@ -103,6 +103,20 @@ void DrawTileLayer(
     }
 }
 
+void DrawAutoMapDataLayer(AutoMapImage& image, const MapData& map, const AutoMapData& autoMapData) noexcept
+{
+    if (autoMapData.width != map.width || autoMapData.height != map.height) {
+        return;
+    }
+
+    const std::size_t count = std::min(map.CellCount(), autoMapData.cells.size());
+    for (std::size_t index = 0; index < count; ++index) {
+        const int x = static_cast<int>(index % map.width);
+        const int y = static_cast<int>(index / map.width);
+        DrawCellDiamond(image, map.width, x, y, autoMapData.cells[index]);
+    }
+}
+
 void DrawObjectCoverRect(
     AutoMapImage& image,
     const MapData& map,
@@ -181,6 +195,16 @@ AutoMapImage RenderAutoMapRgba8(
     const Palette& palette,
     const AutoMapRenderOptions& options)
 {
+    return RenderAutoMapRgba8(map, resourceManager, palette, options, nullptr);
+}
+
+AutoMapImage RenderAutoMapRgba8(
+    const MapData& map,
+    const ResourceManager& resourceManager,
+    const Palette& palette,
+    const AutoMapRenderOptions& options,
+    const AutoMapData* autoMapData)
+{
     AutoMapImage image;
     if (map.IsEmpty()) {
         return image;
@@ -195,7 +219,11 @@ AutoMapImage RenderAutoMapRgba8(
     image.pixels.resize(static_cast<std::size_t>(image.width) * static_cast<std::size_t>(image.height) * Rgba8Stride);
 
     if (options.drawTiles) {
-        DrawTileLayer(image, map, resourceManager, palette);
+        if (autoMapData != nullptr && !autoMapData->IsEmpty()) {
+            DrawAutoMapDataLayer(image, map, *autoMapData);
+        } else {
+            DrawTileLayer(image, map, resourceManager, palette);
+        }
     }
     if (options.drawObjects) {
         DrawObjectLayer(image, map, resourceManager, palette);

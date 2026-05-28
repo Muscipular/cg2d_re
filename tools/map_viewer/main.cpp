@@ -1,3 +1,4 @@
+#include "resource/AutoMapData.hpp"
 #include "resource/AutoMapRenderer.hpp"
 #include "resource/AutoMapRules.hpp"
 #include "resource/BinSetConfigLoader.hpp"
@@ -15,6 +16,7 @@
 #include <iostream>
 #include <limits>
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <streambuf>
 #include <string>
@@ -154,6 +156,25 @@ void PrintResourceError(std::string_view prefix, const cg::resource::ResourceErr
         std::cerr << "，资源编号：" << error.resourceId;
     }
     std::cerr << '\n';
+}
+
+void PrintAutoMapDataStatus(const cg::resource::AutoMapDataLoadResult& result)
+{
+    if (result.IsOk()) {
+        std::cout << "AUT 状态：已加载，路径：" << PathToUtf8(result.error.path)
+                  << "，尺寸：" << result.data.width << 'x' << result.data.height
+                  << "；tile 底图使用 AUT RGB，object/collision 仍按本工具图层叠加\n";
+        return;
+    }
+
+    std::cout << "AUT 状态：未加载，fallback 到 tile/object 颜色路径";
+    if (!result.error.message.empty()) {
+        std::cout << "，原因：" << result.error.message;
+    }
+    if (!result.error.path.empty()) {
+        std::cout << "，路径：" << PathToUtf8(result.error.path);
+    }
+    std::cout << '\n';
 }
 
 void PrintSdlError(std::string_view prefix)
@@ -367,9 +388,10 @@ void ProcessStdinCommands(
     const cg::resource::MapData& map,
     const cg::resource::ResourceManager& resourceManager,
     const cg::resource::Palette& palette,
-    const cg::resource::AutoMapRenderOptions& options)
+    const cg::resource::AutoMapRenderOptions& options,
+    const cg::resource::AutoMapData* autoMapData)
 {
-    image = cg::resource::RenderAutoMapRgba8(map, resourceManager, palette, options);
+    image = cg::resource::RenderAutoMapRgba8(map, resourceManager, palette, options, autoMapData);
     if (image.width <= 0 || image.height <= 0 || image.pixels.empty()) {
         std::cerr << "失败：自动地图图像为空\n";
         return false;
@@ -436,7 +458,8 @@ void ProcessStdinCommands(
     const cg::resource::ResourceManager& resourceManager,
     const cg::resource::Palette& palette,
     cg::resource::AutoMapImage image,
-    cg::resource::AutoMapRenderOptions options)
+    cg::resource::AutoMapRenderOptions options,
+    const cg::resource::AutoMapData* autoMapData)
 {
     if (image.width <= 0 || image.height <= 0 || image.pixels.empty()) {
         std::cerr << "失败：自动地图图像为空\n";
@@ -521,7 +544,7 @@ void ProcessStdinCommands(
                     const std::filesystem::path screenshotPath = BuildScreenshotPath(map);
                     SaveAutoMapBmp(image, screenshotPath);
                 } else if (!event.key.repeat && ToggleLayerOption(event.key.key, options)) {
-                    if (!RebuildAutoMapTexture(texture, image, map, resourceManager, palette, options)) {
+                    if (!RebuildAutoMapTexture(texture, image, map, resourceManager, palette, options, autoMapData)) {
                         running = false;
                         break;
                     }
@@ -637,6 +660,14 @@ int main(int argc, char* argv[])
         PrintResourceError("地图加载失败", mapResult.error);
         return 1;
     }
+
+    const std::filesystem::path autoMapPath = cg::resource::BuildAutoMapDataPath(mapRoot, floor);
+    const cg::resource::AutoMapDataLoadResult autoMapResult =
+        cg::resource::LoadAutoMapData(autoMapPath, mapResult.map.width, mapResult.map.height, floor);
+    std::optional<cg::resource::AutoMapData> autoMapData;
+    if (autoMapResult.IsOk()) {
+        autoMapData = autoMapResult.data;
+    }
     const std::vector<int> autoMapColorMapNos = CollectAutoMapColorMapNos(mapResult.map);
 
     cg::resource::ResourceManager resources;
@@ -675,12 +706,20 @@ int main(int argc, char* argv[])
     std::cout << "地图尺寸：" << map.width << "x" << map.height << '\n';
     std::cout << "tile/obj/hit 数量：" << map.tileData.size() << '/'
               << map.objData.size() << '/' << map.hitData.size() << '\n';
+    PrintAutoMapDataStatus(autoMapResult);
 
     const cg::resource::AutoMapRenderOptions options;
     const cg::resource::AutoMapImage image = cg::resource::RenderAutoMapRgba8(
         map,
         resources,
         resources.DefaultPalette(),
-        options);
-    return ShowAutoMapWindow(map, resources, resources.DefaultPalette(), image, options) ? 0 : 1;
+        options,
+        autoMapData.has_value() ? &*autoMapData : nullptr);
+    return ShowAutoMapWindow(
+        map,
+        resources,
+        resources.DefaultPalette(),
+        image,
+        options,
+        autoMapData.has_value() ? &*autoMapData : nullptr) ? 0 : 1;
 }

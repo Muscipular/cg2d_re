@@ -243,6 +243,30 @@ bool Run()
     image = cg::resource::RenderAutoMapRgba8(missingColorMap, resourceManager, palette, options);
     ok &= Expect(CountVisiblePixels(image) == 0, "颜色索引 0 时应保持透明");
 
+    cg::resource::AutoMapData autoMapData;
+    autoMapData.width = 2;
+    autoMapData.height = 2;
+    autoMapData.cells = {
+        cg::resource::Rgba8 {10, 20, 30, 255},
+        cg::resource::Rgba8 {40, 50, 60, 255},
+        cg::resource::Rgba8 {70, 80, 90, 255},
+        cg::resource::Rgba8 {100, 110, 120, 255},
+    };
+
+    options = cg::resource::AutoMapRenderOptions {};
+    options.drawObjects = false;
+    image = cg::resource::RenderAutoMapRgba8(map, resourceManager, palette, options, &autoMapData);
+    ok &= Expect(PixelEquals(image, 1, 3, cg::resource::Rgba8 {10, 20, 30, 255}), "AUT tile 像素颜色错误");
+
+    options.drawTiles = false;
+    image = cg::resource::RenderAutoMapRgba8(map, resourceManager, palette, options, &autoMapData);
+    ok &= Expect(CountVisiblePixels(image) == 0, "AUT tile 关闭时应保持透明");
+
+    options.drawTiles = true;
+    options.drawObjects = true;
+    image = cg::resource::RenderAutoMapRgba8(map, resourceManager, palette, options, &autoMapData);
+    ok &= Expect(PixelEquals(image, 1, 3, cg::resource::Rgba8 {0, 250, 0, 255}), "object 应覆盖 AUT 底图");
+
     std::filesystem::remove_all(directory);
     return ok;
 }

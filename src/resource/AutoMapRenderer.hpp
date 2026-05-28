@@ -1,5 +1,6 @@
 #pragma once
 
+#include "AutoMapData.hpp"
 #include "MapData.hpp"
 #include "Palette.hpp"
 #include "ResourceManager.hpp"
@@ -24,11 +25,19 @@ struct AutoMapRenderOptions {
     Rgba8 collisionColor {255, 0, 0, 160};
 };
 
-// RenderAutoMapRgba8 输出纯 RGBA8 buffer；缺少颜色或 AUT_DATA fallback 时保持透明。
+// RenderAutoMapRgba8 输出纯 RGBA8 buffer；缺少颜色时保持透明。
 [[nodiscard]] AutoMapImage RenderAutoMapRgba8(
     const MapData& map,
     const ResourceManager& resourceManager,
     const Palette& palette,
     const AutoMapRenderOptions& options);
+
+// RenderAutoMapRgba8 使用 PUK `.aut` 作为 tile 底图；object/collision 仍按 options 叠加。
+[[nodiscard]] AutoMapImage RenderAutoMapRgba8(
+    const MapData& map,
+    const ResourceManager& resourceManager,
+    const Palette& palette,
+    const AutoMapRenderOptions& options,
+    const AutoMapData* autoMapData);
 
 } // namespace cg::resource

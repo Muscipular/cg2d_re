@@ -66,7 +66,25 @@ add_executable(cg-client
     src/resource/ResourceManager.cpp
 )
 
+add_executable(cg-map-viewer
+    tools/map_viewer/main.cpp
+    src/core/Log.cpp
+    src/resource/AnimationLoader.cpp
+    src/resource/AutoMapRules.cpp
+    src/resource/BinaryReader.cpp
+    src/resource/BinSetConfigLoader.cpp
+    src/resource/GraphicDecoder.cpp
+    src/resource/MapLoader.cpp
+    src/resource/Palette.cpp
+    src/resource/ResourceManager.cpp
+)
+
 target_include_directories(cg-client
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+
+target_include_directories(cg-map-viewer
     PRIVATE
         "${CMAKE_CURRENT_SOURCE_DIR}/src"
 )
@@ -76,6 +94,12 @@ target_link_libraries(cg-client
         SDL3::SDL3
         SDL3_image::SDL3_image
         SDL3_ttf::SDL3_ttf
+        yaml-cpp::yaml-cpp
+)
+
+target_link_libraries(cg-map-viewer
+    PRIVATE
+        SDL3::SDL3
         yaml-cpp::yaml-cpp
 )
 
@@ -101,9 +125,11 @@ add_test(NAME cg-automap-renderer-test COMMAND cg-automap-renderer-test)
 
 if(MSVC)
     target_compile_options(cg-client PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-map-viewer PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-automap-renderer-test PRIVATE /W4 /utf-8 /permissive-)
 else()
     target_compile_options(cg-client PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-map-viewer PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-automap-renderer-test PRIVATE -Wall -Wextra -Wpedantic)
 endif()
 
@@ -118,4 +144,13 @@ if(WIN32)
             )
         endif()
     endforeach()
+
+    if(TARGET SDL3::SDL3-shared)
+        add_custom_command(TARGET cg-map-viewer POST_BUILD
+            COMMAND "${CMAKE_COMMAND}" -E copy_if_different
+                "$<TARGET_FILE:SDL3::SDL3-shared>"
+                "$<TARGET_FILE_DIR:cg-map-viewer>"
+            VERBATIM
+        )
+    endif()
 endif()

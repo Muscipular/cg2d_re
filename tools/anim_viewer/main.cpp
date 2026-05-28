@@ -1,3 +1,4 @@
+#include "resource/AnimationLoader.hpp"
 #include "resource/BinSetConfigLoader.hpp"
 #include "resource/ResourceManager.hpp"
 
@@ -7,6 +8,7 @@
 #include <iostream>
 #include <optional>
 #include <ostream>
+#include <span>
 #include <streambuf>
 #include <string>
 #include <string_view>
@@ -18,6 +20,8 @@ constexpr int RequiredArgCount = 3;
 
 struct ViewerOptions {
     std::optional<int> animeNo;
+    std::optional<int> dir;
+    std::optional<int> action;
 };
 
 [[nodiscard]] std::string PathToUtf8(const std::filesystem::path& path)
@@ -61,7 +65,7 @@ struct ViewerOptions {
 
 void PrintUsage(std::ostream& output)
 {
-    output << "用法：cg-anim-viewer <cgmsv.yml> <palette.cgp> --anime-no <animeNo>\n";
+    output << "用法：cg-anim-viewer <cgmsv.yml> <palette.cgp> --anime-no <animeNo> [--dir <dir> --action <action>]\n";
 }
 
 void PrintResourceError(std::string_view prefix, const cg::resource::ResourceError& error)
@@ -109,6 +113,16 @@ void PrintResourceError(std::string_view prefix, const cg::resource::ResourceErr
                 return false;
             }
             options.animeNo = value;
+        } else if (arg == "--dir" || arg == "--direction") {
+            if (!ReadOptionValue(argc, argv, index, arg, value)) {
+                return false;
+            }
+            options.dir = value;
+        } else if (arg == "--action") {
+            if (!ReadOptionValue(argc, argv, index, arg, value)) {
+                return false;
+            }
+            options.action = value;
         } else {
             std::cerr << "失败：未知参数 " << arg << '\n';
             return false;
@@ -119,7 +133,21 @@ void PrintResourceError(std::string_view prefix, const cg::resource::ResourceErr
         std::cerr << "失败：缺少 --anime-no <animeNo>\n";
         return false;
     }
+    if (options.dir.has_value() != options.action.has_value()) {
+        std::cerr << "失败：--dir 和 --action 必须同时指定\n";
+        return false;
+    }
     return true;
+}
+
+void PrintActionSummary(const cg::resource::AnimeActionHeader& header)
+{
+    std::cout << "dir=" << static_cast<int>(header.dir)
+              << "，action=" << static_cast<int>(header.action)
+              << "，duration=" << header.duration
+              << "，frameCount=" << header.frameCount
+              << "，pal=" << header.pal
+              << "，revert=" << header.revert;
 }
 
 void PrintAnimation(
@@ -134,12 +162,32 @@ void PrintAnimation(
 
     for (std::size_t index = 0; index < clip.actions.size(); ++index) {
         const cg::resource::AnimeActionHeader& header = clip.actions[index].header;
-        std::cout << "action[" << index << "] dir=" << static_cast<int>(header.dir)
-                  << "，action=" << static_cast<int>(header.action)
-                  << "，duration=" << header.duration
-                  << "，frameCount=" << header.frameCount
-                  << "，pal=" << header.pal
-                  << "，revert=" << header.revert << '\n';
+        std::cout << "action[" << index << "] ";
+        PrintActionSummary(header);
+        std::cout << '\n';
+    }
+}
+
+void PrintSelectedAnimation(
+    const cg::resource::AnimeRef& ref,
+    const cg::resource::AnimationClip& clip,
+    const cg::resource::AnimeAction& action)
+{
+    std::cout << "Anime：animeNo=" << ref.animeNo
+              << "，sourceAnimeNo=" << ref.sourceAnimeNo
+              << "，binSetIndex=" << ref.binSetIndex << '\n';
+    std::cout << "匹配 action：";
+    PrintActionSummary(action.header);
+    std::cout << '\n';
+
+    const std::span<const cg::resource::AnimeFrame> frames = cg::resource::GetAnimeActionFrames(clip, action);
+    for (std::size_t index = 0; index < frames.size(); ++index) {
+        const cg::resource::AnimeFrame& frame = frames[index];
+        std::cout << "frame index=" << index
+                  << "，graphicSeqNo=" << frame.graphicSeqNo
+                  << "，x=" << frame.x
+                  << "，y=" << frame.y
+                  << "，flag=" << frame.flag << '\n';
     }
 }
 
@@ -245,6 +293,20 @@ int main(int argc, char* argv[])
     if (!ref.has_value()) {
         std::cerr << "失败：Anime 已加载但无法读取索引，animeNo=" << *options.animeNo << '\n';
         return 1;
+    }
+
+    if (options.dir.has_value() && options.action.has_value()) {
+        const cg::resource::AnimeAction* const action =
+            cg::resource::FindAnimeAction(*clip, *options.action, *options.dir);
+        if (action == nullptr) {
+            std::cerr << "失败：未找到匹配 action，animeNo=" << *options.animeNo
+                      << "，dir=" << *options.dir
+                      << "，action=" << *options.action << '\n';
+            return 1;
+        }
+
+        PrintSelectedAnimation(*ref, *clip, *action);
+        return 0;
     }
 
     PrintAnimation(*ref, *clip);

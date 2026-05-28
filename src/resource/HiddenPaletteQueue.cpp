@@ -1,6 +1,7 @@
 #include "HiddenPaletteQueue.hpp"
 
 #include <array>
+#include <cstddef>
 
 namespace cg::resource {
 namespace {
@@ -10,8 +11,6 @@ struct HiddenPaletteQueueSegment {
     int palEnd;
     int mapNoBegin;
 };
-
-constexpr int StaticQueueCount = 1752;
 
 // 来自 IDA sub_522B30 读取的 0x58B7E8..0x58D348 静态 queue1。
 // queue1 值是 hidden palette Graphic 的 mapNo，不是 Graphic seq/globalIndex。
@@ -79,39 +78,17 @@ constexpr std::array<HiddenPaletteQueueSegment, 60> StaticQueueSegments {{
     { 1748, 1751, 104700 },
 }};
 
-constexpr std::optional<int> FindStaticMapNoByPalIndex(int palIndex) noexcept
-{
-    if (palIndex < 0 || palIndex >= StaticQueueCount) {
-        return std::nullopt;
-    }
-
-    for (const HiddenPaletteQueueSegment& segment : StaticQueueSegments) {
-        if (palIndex >= segment.palBegin && palIndex <= segment.palEnd) {
-            const int mapNo = segment.mapNoBegin + (palIndex - segment.palBegin);
-            if (mapNo <= 0) {
-                return std::nullopt;
-            }
-            return mapNo;
-        }
-    }
-
-    return std::nullopt;
-}
-
-static_assert(!FindStaticMapNoByPalIndex(0).has_value());
-static_assert(*FindStaticMapNoByPalIndex(51) == 110350);
-static_assert(*FindStaticMapNoByPalIndex(1751) == 104703);
-
 } // namespace
 
-int StaticHiddenPaletteQueueCount() noexcept
+std::array<int, 1752> BuildStaticHiddenPaletteQueue() noexcept
 {
-    return StaticQueueCount;
-}
-
-std::optional<int> FindStaticHiddenPaletteMapNoByPalIndex(int palIndex) noexcept
-{
-    return FindStaticMapNoByPalIndex(palIndex);
+    std::array<int, 1752> queue {};
+    for (const HiddenPaletteQueueSegment& segment : StaticQueueSegments) {
+        for (int palIndex = segment.palBegin; palIndex <= segment.palEnd; ++palIndex) {
+            queue[static_cast<std::size_t>(palIndex)] = segment.mapNoBegin + (palIndex - segment.palBegin);
+        }
+    }
+    return queue;
 }
 
 } // namespace cg::resource

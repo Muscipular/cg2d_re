@@ -745,11 +745,10 @@ void ResourceManager::LoadHiddenPaletteTable(const ResourceLoadOptions& options)
     hiddenPaletteMapNoByPalIndex_.clear();
     stats_.hiddenPaletteCount = 0;
 
-    hiddenPaletteMapNoByPalIndex_.resize(static_cast<std::size_t>(StaticHiddenPaletteQueueCount()), 0);
-    for (int palIndex = 0; palIndex < StaticHiddenPaletteQueueCount(); ++palIndex) {
-        const std::optional<int> mapNo = FindStaticHiddenPaletteMapNoByPalIndex(palIndex);
-        if (mapNo.has_value()) {
-            hiddenPaletteMapNoByPalIndex_[static_cast<std::size_t>(palIndex)] = *mapNo;
+    const auto staticQueue = BuildStaticHiddenPaletteQueue();
+    hiddenPaletteMapNoByPalIndex_.assign(staticQueue.begin(), staticQueue.end());
+    for (const int mapNo : hiddenPaletteMapNoByPalIndex_) {
+        if (mapNo > 0) {
             ++stats_.hiddenPaletteCount;
         }
     }

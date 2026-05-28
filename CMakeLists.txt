@@ -92,6 +92,18 @@ add_executable(cg-asset-viewer
     src/resource/ResourceManager.cpp
 )
 
+add_executable(cg-anim-viewer
+    tools/anim_viewer/main.cpp
+    src/core/Log.cpp
+    src/resource/AnimationLoader.cpp
+    src/resource/AutoMapRules.cpp
+    src/resource/BinaryReader.cpp
+    src/resource/BinSetConfigLoader.cpp
+    src/resource/GraphicDecoder.cpp
+    src/resource/Palette.cpp
+    src/resource/ResourceManager.cpp
+)
+
 target_include_directories(cg-client
     PRIVATE
         "${CMAKE_CURRENT_SOURCE_DIR}/src"
@@ -103,6 +115,11 @@ target_include_directories(cg-map-viewer
 )
 
 target_include_directories(cg-asset-viewer
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+
+target_include_directories(cg-anim-viewer
     PRIVATE
         "${CMAKE_CURRENT_SOURCE_DIR}/src"
 )
@@ -125,6 +142,12 @@ target_link_libraries(cg-asset-viewer
     PRIVATE
         SDL3::SDL3
         SDL3_image::SDL3_image
+        yaml-cpp::yaml-cpp
+)
+
+target_link_libraries(cg-anim-viewer
+    PRIVATE
+        SDL3::SDL3
         yaml-cpp::yaml-cpp
 )
 
@@ -152,11 +175,13 @@ if(MSVC)
     target_compile_options(cg-client PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-map-viewer PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-asset-viewer PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-anim-viewer PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-automap-renderer-test PRIVATE /W4 /utf-8 /permissive-)
 else()
     target_compile_options(cg-client PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-map-viewer PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-asset-viewer PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-anim-viewer PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-automap-renderer-test PRIVATE -Wall -Wextra -Wpedantic)
 endif()
 
@@ -183,6 +208,12 @@ if(WIN32)
             COMMAND "${CMAKE_COMMAND}" -E copy_if_different
                 "$<TARGET_FILE:SDL3::SDL3-shared>"
                 "$<TARGET_FILE_DIR:cg-asset-viewer>"
+            VERBATIM
+        )
+        add_custom_command(TARGET cg-anim-viewer POST_BUILD
+            COMMAND "${CMAKE_COMMAND}" -E copy_if_different
+                "$<TARGET_FILE:SDL3::SDL3-shared>"
+                "$<TARGET_FILE_DIR:cg-anim-viewer>"
             VERBATIM
         )
     endif()

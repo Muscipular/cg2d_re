@@ -54,6 +54,12 @@ struct PlaybackFrame {
     SDL_Texture* texture = nullptr;
 };
 
+struct ActionPaletteState {
+    int palIndex = 0;
+    std::optional<int> hiddenPaletteMapNo;
+    std::optional<cg::resource::Palette> hiddenPalette;
+};
+
 struct PlaybackBounds {
     int minX = 0;
     int minY = 0;
@@ -122,6 +128,11 @@ private:
         value.push_back(static_cast<char8_t>(ch));
     }
     return std::filesystem::path(value);
+}
+
+[[nodiscard]] std::filesystem::path BuildHiddenPaletteTablePath(const std::filesystem::path& ymlPath)
+{
+    return ymlPath.parent_path() / "data" / "CGLoadSpr.dbf";
 }
 
 [[nodiscard]] bool ParseInt(std::string_view text, int& value)
@@ -281,6 +292,20 @@ void PrintSelectedAnimation(
     }
 }
 
+void PrintPaletteState(const ActionPaletteState& state)
+{
+    std::cout << "palette 状态：pal=" << state.palIndex;
+    if (state.hiddenPalette.has_value()) {
+        std::cout << "，hidden=true，hiddenMapNo=" << *state.hiddenPaletteMapNo << '\n';
+        return;
+    }
+    if (state.hiddenPaletteMapNo.has_value()) {
+        std::cout << "，hidden=false，fallback=default，hiddenMapNo=" << *state.hiddenPaletteMapNo << '\n';
+        return;
+    }
+    std::cout << "，hidden=false，fallback=default\n";
+}
+
 [[nodiscard]] bool IsValidImageBuffer(const cg::resource::DecodedImage& image) noexcept
 {
     if (image.width <= 0 || image.height <= 0 || image.pixels.empty()) {
@@ -355,6 +380,39 @@ void AddActionFrameSpanWarning(
     }
 }
 
+[[nodiscard]] ActionPaletteState ResolveActionPalette(
+    cg::resource::ResourceManager& resources,
+    const cg::resource::AnimeAction& action,
+    AnimWarningCollector& warnings)
+{
+    ActionPaletteState state;
+    state.palIndex = action.header.pal;
+    if (state.palIndex <= 0) {
+        return state;
+    }
+
+    state.hiddenPaletteMapNo = resources.FindHiddenPaletteMapNoByPalIndex(state.palIndex);
+    if (!state.hiddenPaletteMapNo.has_value()) {
+        warnings.Add("隐藏 palette fallback：pal=" + std::to_string(state.palIndex)
+            + " 未命中 queue1 映射，使用默认 palette");
+        return state;
+    }
+
+    state.hiddenPalette = resources.LoadHiddenPaletteByPalIndex(state.palIndex);
+    if (!state.hiddenPalette.has_value()) {
+        const cg::resource::ResourceError error = resources.LastError();
+        std::string message = "隐藏 palette fallback：pal=" + std::to_string(state.palIndex)
+            + "，hiddenMapNo=" + std::to_string(*state.hiddenPaletteMapNo)
+            + " 读取失败，使用默认 palette";
+        if (!error.message.empty()) {
+            message += "，原因=" + error.message;
+        }
+        warnings.Add(std::move(message));
+    }
+
+    return state;
+}
+
 [[nodiscard]] std::span<const cg::resource::AnimeFrame> GetAvailableActionFrames(
     const cg::resource::AnimationClip& clip,
     const cg::resource::AnimeAction& action) noexcept
@@ -422,6 +480,7 @@ void ScanAnimationWarnings(
     cg::resource::ResourceManager& resources,
     const cg::resource::AnimationClip& clip,
     const cg::resource::AnimeAction& action,
+    const ActionPaletteState& paletteState,
     std::size_t actionIndex,
     AnimWarningCollector& warnings)
 {
@@ -446,7 +505,11 @@ void ScanAnimationWarnings(
             continue;
         }
 
-        playbackFrame.image = resources.DecodeGraphic(*playbackFrame.graphic);
+        if (paletteState.hiddenPalette.has_value()) {
+            playbackFrame.image = resources.DecodeGraphic(*playbackFrame.graphic, *paletteState.hiddenPalette);
+        } else {
+            playbackFrame.image = resources.DecodeGraphic(*playbackFrame.graphic);
+        }
         if (!playbackFrame.image.has_value()) {
             const cg::resource::ResourceError error = resources.LastError();
             AddFrameWarning(
@@ -1018,6 +1081,7 @@ int main(int argc, char* argv[])
 
     const std::filesystem::path ymlPath = PathFromUtf8(argv[1]);
     const std::filesystem::path palettePath = PathFromUtf8(argv[2]);
+    const std::filesystem::path hiddenPaletteTablePath = BuildHiddenPaletteTablePath(ymlPath);
     const cg::resource::BinSetConfigLoadResult config = cg::resource::LoadBinSetConfig(ymlPath);
     if (!config.IsOk()) {
         PrintResourceError("yml 加载失败", config.error);
@@ -1030,10 +1094,13 @@ int main(int argc, char* argv[])
     {
         ScopedStreamRedirect suppressInfo(std::cout);
         ScopedStreamRedirect suppressError(std::cerr);
+        cg::resource::ResourceLoadOptions loadOptions;
+        loadOptions.buildAutoMapColorCache = false;
+        loadOptions.hiddenPaletteTablePath = hiddenPaletteTablePath;
         binSetsLoaded = resources.LoadBinSets(
             config.binSets,
             palettePath,
-            cg::resource::ResourceLoadOptions { .buildAutoMapColorCache = false });
+            loadOptions);
         if (!binSetsLoaded) {
             binSetError = resources.LastError();
         }
@@ -1048,7 +1115,8 @@ int main(int argc, char* argv[])
     std::cout << "palette 路径：" << PathToUtf8(palettePath) << '\n';
     std::cout << "binSet 数：" << config.binSets.size()
               << "，已加载：" << stats.binSetCount
-              << "，Anime 数：" << stats.animeCount << '\n';
+              << "，Anime 数：" << stats.animeCount
+              << "，hiddenPalette 映射：" << stats.hiddenPaletteCount << '\n';
 
     std::optional<cg::resource::AnimationClip> clip;
     cg::resource::ResourceError animationError;
@@ -1084,8 +1152,10 @@ int main(int argc, char* argv[])
 
         PrintSelectedAnimation(*ref, *clip, *action);
         const std::size_t actionIndex = FindActionIndex(*clip, *action);
+        const ActionPaletteState paletteState = ResolveActionPalette(resources, *action, warnings);
+        PrintPaletteState(paletteState);
         std::vector<PlaybackFrame> playbackFrames =
-            DecodePlaybackFrames(resources, *clip, *action, actionIndex, warnings);
+            DecodePlaybackFrames(resources, *clip, *action, paletteState, actionIndex, warnings);
         if (options.play) {
             const bool windowShown = ShowPlaybackWindow(*options.sourceAnimeNo, *options.dir, *options.action, *action, playbackFrames);
             warnings.PrintSummary(std::cout);

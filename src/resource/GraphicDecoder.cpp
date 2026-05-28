@@ -32,6 +32,14 @@ constexpr std::size_t BytesPerColor = 3;
     return result;
 }
 
+[[nodiscard]] GraphicPaletteDecodeResult MakePaletteError(GraphicDecodeError error, std::string message)
+{
+    GraphicPaletteDecodeResult result;
+    result.error = error;
+    result.message = std::move(message);
+    return result;
+}
+
 struct DecodedIndexedBlock {
     GraphicBlockHeader header;
     GraphicDataMetadata metadata;
@@ -548,6 +556,70 @@ GraphicIndexedDecodeResult GraphicDecoder::DecodeGraphicIndexed(
     result.image.dataMetadata = decodedBlock.metadata;
     decodedBlock.decoded.resize(decodedBlock.pixelCount);
     result.image.pixels = std::move(decodedBlock.decoded);
+    return result;
+}
+
+GraphicPaletteDecodeResult GraphicDecoder::DecodeEmbeddedPaletteFromFile(
+    const GraphicInfo& info,
+    const std::filesystem::path& graphicDataPath,
+    const Palette& defaultPalette) const
+{
+    std::uint64_t offset = 0;
+    std::uint64_t length = 0;
+    if (!TryToU64(info.offset, offset) || !TryToU64(info.length, length) || length == 0) {
+        auto result = MakePaletteError(GraphicDecodeError::InvalidInfo, "GraphicInfo offset/length 无效");
+        result.path = graphicDataPath;
+        return result;
+    }
+
+    BinaryReader reader(graphicDataPath);
+    if (!reader.IsOpen()) {
+        auto result = MakePaletteError(GraphicDecodeError::FileOpenFailed, "Graphic 数据文件打开失败");
+        result.path = graphicDataPath;
+        return result;
+    }
+
+    if (offset > reader.Size()
+        || length > reader.Size() - offset
+        || length > std::numeric_limits<std::size_t>::max()) {
+        auto result = MakePaletteError(GraphicDecodeError::UnexpectedEof, "GraphicInfo 指向范围越过文件结尾");
+        result.path = graphicDataPath;
+        return result;
+    }
+
+    std::vector<std::uint8_t> block;
+    if (!reader.Seek(offset) || !reader.ReadBytes(block, static_cast<std::size_t>(length))) {
+        auto result = MakePaletteError(GraphicDecodeError::UnexpectedEof, "Graphic 数据读取不完整");
+        result.path = graphicDataPath;
+        return result;
+    }
+
+    auto result = DecodeEmbeddedPaletteFromBlock(block, defaultPalette);
+    result.path = graphicDataPath;
+    return result;
+}
+
+GraphicPaletteDecodeResult GraphicDecoder::DecodeEmbeddedPaletteFromBlock(
+    std::span<const std::uint8_t> block,
+    const Palette& defaultPalette) const
+{
+    DecodedIndexedBlock decodedBlock;
+    std::string message;
+    const GraphicDecodeError error = DecodeIndexedBlockData(block, decodedBlock, message);
+    if (error != GraphicDecodeError::None) {
+        return MakePaletteError(error, std::move(message));
+    }
+
+    const std::span<const std::uint8_t> paletteBytes = EmbeddedPaletteBytes(decodedBlock);
+    if (paletteBytes.empty()) {
+        return MakePaletteError(GraphicDecodeError::InvalidPalette, "Graphic 未包含内嵌 palette");
+    }
+
+    GraphicPaletteDecodeResult result;
+    if (!BuildEmbeddedPalette(defaultPalette, paletteBytes, result.palette)) {
+        return MakePaletteError(GraphicDecodeError::InvalidPalette, "Graphic 内嵌 palette 长度无效");
+    }
+
     return result;
 }
 

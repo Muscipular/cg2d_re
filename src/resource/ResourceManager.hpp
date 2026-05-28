@@ -16,6 +16,8 @@ class BinaryReader;
 
 struct ResourceLoadOptions {
     bool buildAutoMapColorCache = true;
+    std::filesystem::path hiddenPaletteTablePath;
+    int hiddenPaletteStaticQueueCount = 1752;
 };
 
 // ResourceManager 管理动态 binSet 索引，并提供 Graphic/Anime 查询和解码入口。
@@ -34,12 +36,16 @@ public:
     [[nodiscard]] std::optional<GraphicRef> FindGraphicBySeq(int binSetIndex, int seqNo) const;
     [[nodiscard]] std::optional<GraphicRef> FindGraphicByGlobalIndex(int globalIndex) const;
     [[nodiscard]] std::optional<GraphicRef> FindGraphicForFrame(const AnimationClip& clip, const AnimeFrame& frame) const;
+    [[nodiscard]] std::optional<int> FindHiddenPaletteMapNoByPalIndex(int palIndex) const;
     // Anime 查询只接受 AnimeInfo 中的原始 animeNo，不接受内部 indexNo；indexNo 是旧客户端派生动画编号/内部动画号，不是数组下标。
     [[nodiscard]] std::optional<AnimeRef> FindAnime(int sourceAnimeNo) const;
     [[nodiscard]] std::span<const GraphicRef> Graphics(int binSetIndex) const noexcept;
 
     [[nodiscard]] std::optional<DecodedImage> DecodeGraphic(const GraphicRef& ref);
+    [[nodiscard]] std::optional<DecodedImage> DecodeGraphic(const GraphicRef& ref, const Palette& palette);
     [[nodiscard]] std::optional<DecodedImage> DecodeGraphicByMapNo(int mapNo);
+    [[nodiscard]] std::optional<Palette> LoadHiddenPaletteByMapNo(int mapNo);
+    [[nodiscard]] std::optional<Palette> LoadHiddenPaletteByPalIndex(int palIndex);
     // Anime 加载只接受 AnimeInfo 中的原始 animeNo，不接受内部 indexNo；indexNo 是旧客户端派生动画编号/内部动画号，不是数组下标。
     [[nodiscard]] std::optional<AnimationClip> LoadAnimation(int sourceAnimeNo);
 
@@ -63,6 +69,7 @@ private:
     [[nodiscard]] bool LoadAnimeIndex(int binSetIndex, const BinSetDesc& desc);
 
     void BuildAutoMapColorIndex(const GraphicRef& ref, BinaryReader& graphicDataReader, bool& graphicDataOpenTried);
+    void LoadHiddenPaletteTable(const ResourceLoadOptions& options);
     void ClearError();
     void SetError(ResourceErrorCode code, const std::filesystem::path& path, int resourceId, std::string message);
     void AddWarning(std::string_view message);
@@ -71,6 +78,7 @@ private:
     std::unordered_map<int, GraphicRef> graphicsByMapNo_;
     std::unordered_map<int, std::uint8_t> autoMapColorByMapNo_;
     std::unordered_map<int, GraphicRef> graphicsByGlobalIndex_;
+    std::unordered_map<int, int> hiddenPaletteMapNoByPalIndex_;
     std::unordered_map<int, AnimeRef> animesBySourceAnimeNo_;
     Palette defaultPalette_;
     ResourceStats stats_;

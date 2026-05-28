@@ -221,6 +221,7 @@ struct ResourceStats {
     std::uint32_t animeCount = 0;
     std::uint32_t graphicOverrideCount = 0;
     std::uint32_t animeOverrideCount = 0;
+    std::uint32_t hiddenPaletteCount = 0;
     std::uint32_t warningCount = 0;
     std::uint32_t errorCount = 0;
 };

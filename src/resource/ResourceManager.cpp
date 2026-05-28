@@ -9,6 +9,7 @@
 #include <array>
 #include <cstdint>
 #include <limits>
+#include <map>
 #include <string>
 #include <utility>
 #include <vector>
@@ -22,6 +23,10 @@ constexpr int AutoMapNormalEnd = 19999;
 constexpr int AutoMapNewBegin = 220000;
 constexpr int AutoMapNewEnd = 265535;
 constexpr std::uint64_t GraphicInfoRecordSize = sizeof(GraphicInfo);
+constexpr std::size_t HiddenPaletteHeaderSize = 32;
+constexpr std::size_t HiddenPaletteRecordHeaderSize = 8;
+constexpr std::size_t HiddenPaletteRecordMinSize = 8;
+constexpr std::size_t MaxHiddenPaletteTableSize = 64U * 1024U * 1024U;
 static_assert(GraphicInfoRecordSize == 40);
 
 [[nodiscard]] bool IsEmptyPathPair(const std::filesystem::path& first, const std::filesystem::path& second)
@@ -67,6 +72,255 @@ static_assert(GraphicInfoRecordSize == 40);
     }
 
     return true;
+}
+
+[[nodiscard]] bool TryReadU16Le(std::span<const std::uint8_t> bytes, std::size_t offset, std::uint16_t& value)
+{
+    if (offset > bytes.size() || bytes.size() - offset < sizeof(std::uint16_t)) {
+        return false;
+    }
+
+    value = static_cast<std::uint16_t>(bytes[offset])
+        | static_cast<std::uint16_t>(static_cast<std::uint16_t>(bytes[offset + 1]) << 8U);
+    return true;
+}
+
+[[nodiscard]] bool TryReadU32Le(std::span<const std::uint8_t> bytes, std::size_t offset, std::uint32_t& value)
+{
+    if (offset > bytes.size() || bytes.size() - offset < sizeof(std::uint32_t)) {
+        return false;
+    }
+
+    value = static_cast<std::uint32_t>(bytes[offset])
+        | (static_cast<std::uint32_t>(bytes[offset + 1]) << 8U)
+        | (static_cast<std::uint32_t>(bytes[offset + 2]) << 16U)
+        | (static_cast<std::uint32_t>(bytes[offset + 3]) << 24U);
+    return true;
+}
+
+[[nodiscard]] std::int32_t U32ToI32(std::uint32_t value) noexcept
+{
+    if (value <= static_cast<std::uint32_t>(std::numeric_limits<std::int32_t>::max())) {
+        return static_cast<std::int32_t>(value);
+    }
+
+    return static_cast<std::int32_t>(static_cast<std::int64_t>(value) - 0x100000000LL);
+}
+
+[[nodiscard]] bool TryReadI32Le(std::span<const std::uint8_t> bytes, std::size_t offset, std::int32_t& value)
+{
+    std::uint32_t unsignedValue = 0;
+    if (!TryReadU32Le(bytes, offset, unsignedValue)) {
+        return false;
+    }
+
+    value = U32ToI32(unsignedValue);
+    return true;
+}
+
+[[nodiscard]] bool DecompressLzo1x(
+    std::span<const std::uint8_t> input,
+    std::size_t outputCapacity,
+    std::vector<std::uint8_t>& output,
+    std::string& message)
+{
+    output.assign(outputCapacity, 0);
+    std::size_t inputOffset = 0;
+    std::size_t outputOffset = 0;
+
+    const auto fail = [&message](std::string text) {
+        message = std::move(text);
+        return false;
+    };
+    const auto readByte = [&input, &inputOffset, &fail](std::uint8_t& value) {
+        if (inputOffset >= input.size()) {
+            return fail("LZO 数据提前结束");
+        }
+        value = input[inputOffset++];
+        return true;
+    };
+    const auto readU16 = [&input, &inputOffset, &fail](std::uint16_t& value) {
+        if (!TryReadU16Le(input, inputOffset, value)) {
+            return fail("LZO 数据提前结束");
+        }
+        inputOffset += sizeof(std::uint16_t);
+        return true;
+    };
+    const auto copyLiteral = [&input, &inputOffset, &output, &outputOffset, &fail](std::size_t count) {
+        if (inputOffset > input.size() || count > input.size() - inputOffset) {
+            return fail("LZO literal 越过输入结尾");
+        }
+        if (outputOffset > output.size() || count > output.size() - outputOffset) {
+            return fail("LZO literal 越过输出缓冲");
+        }
+
+        std::copy_n(input.begin() + static_cast<std::ptrdiff_t>(inputOffset),
+            count,
+            output.begin() + static_cast<std::ptrdiff_t>(outputOffset));
+        inputOffset += count;
+        outputOffset += count;
+        return true;
+    };
+    const auto copyMatch = [&output, &outputOffset, &fail](std::size_t distance, std::size_t count) {
+        if (distance == 0 || distance > outputOffset) {
+            return fail("LZO match 引用无效");
+        }
+        if (outputOffset > output.size() || count > output.size() - outputOffset) {
+            return fail("LZO match 越过输出缓冲");
+        }
+
+        std::size_t source = outputOffset - distance;
+        for (std::size_t index = 0; index < count; ++index) {
+            output[outputOffset++] = output[source++];
+        }
+        return true;
+    };
+    const auto readExtendedLength = [&readByte](std::size_t& length, std::size_t base) {
+        std::uint8_t value = 0;
+        if (!readByte(value)) {
+            return false;
+        }
+        while (value == 0) {
+            length += 255U;
+            if (!readByte(value)) {
+                return false;
+            }
+        }
+        length += static_cast<std::size_t>(value) + base;
+        return true;
+    };
+    const auto afterMatch = [&input, &inputOffset, &copyLiteral, &fail](bool& readLiteralRun) {
+        if (inputOffset < 2U) {
+            return fail("LZO match 后状态无效");
+        }
+
+        const std::size_t literalCount = input[inputOffset - 2U] & 0x03U;
+        if (literalCount == 0) {
+            readLiteralRun = true;
+            return true;
+        }
+
+        if (!copyLiteral(literalCount)) {
+            return false;
+        }
+        readLiteralRun = false;
+        return true;
+    };
+
+    if (input.empty()) {
+        return fail("LZO 输入为空");
+    }
+
+    bool readLiteralRun = true;
+    if (input[0] > 17U) {
+        std::uint8_t first = 0;
+        if (!readByte(first)) {
+            return false;
+        }
+        const std::size_t literalCount = static_cast<std::size_t>(first) - 17U;
+        if (!copyLiteral(literalCount)) {
+            return false;
+        }
+        readLiteralRun = false;
+    }
+
+    while (true) {
+        std::uint8_t control = 0;
+        if (readLiteralRun) {
+            if (!readByte(control)) {
+                return false;
+            }
+
+            std::size_t literalCount = control;
+            if (literalCount < 16U) {
+                if (literalCount == 0 && !readExtendedLength(literalCount, 15U)) {
+                    return false;
+                }
+                if (!copyLiteral(literalCount + 3U) || !readByte(control)) {
+                    return false;
+                }
+            }
+        } else if (!readByte(control)) {
+            return false;
+        }
+
+        if (control < 16U) {
+            std::uint8_t next = 0;
+            if (!readByte(next)
+                || !copyMatch((static_cast<std::size_t>(control) >> 2U) + 4U * next + 2049U, 3U)
+                || !afterMatch(readLiteralRun)) {
+                return false;
+            }
+            if (readLiteralRun) {
+                continue;
+            }
+            if (!readByte(control)) {
+                return false;
+            }
+        }
+
+        while (true) {
+            if (control >= 64U) {
+                std::uint8_t next = 0;
+                if (!readByte(next)
+                    || !copyMatch(((static_cast<std::size_t>(control) >> 2U) & 0x07U) + 1U + 8U * next,
+                        (static_cast<std::size_t>(control) >> 5U) + 1U)) {
+                    return false;
+                }
+            } else if (control >= 32U) {
+                std::size_t matchLength = control & 0x1FU;
+                if (matchLength == 0 && !readExtendedLength(matchLength, 31U)) {
+                    return false;
+                }
+
+                std::uint16_t pair = 0;
+                if (!readU16(pair)
+                    || !copyMatch((static_cast<std::size_t>(pair) >> 2U) + 1U, matchLength + 2U)) {
+                    return false;
+                }
+            } else if (control >= 16U) {
+                std::size_t matchLength = control & 0x07U;
+                if (matchLength == 0 && !readExtendedLength(matchLength, 7U)) {
+                    return false;
+                }
+
+                std::uint16_t pair = 0;
+                if (!readU16(pair)) {
+                    return false;
+                }
+
+                const std::size_t baseDistance = 2048U * (control & 0x08U)
+                    + (static_cast<std::size_t>(pair) >> 2U);
+                if (baseDistance == 0) {
+                    if (inputOffset != input.size()) {
+                        return fail("LZO 结束标记后仍有数据");
+                    }
+                    output.resize(outputOffset);
+                    return true;
+                }
+                if (baseDistance > std::numeric_limits<std::size_t>::max() - 0x4000U
+                    || !copyMatch(baseDistance + 0x4000U, matchLength + 2U)) {
+                    return false;
+                }
+            } else {
+                std::uint8_t next = 0;
+                if (!readByte(next)
+                    || !copyMatch((static_cast<std::size_t>(control) >> 2U) + 1U + 4U * next, 2U)) {
+                    return false;
+                }
+            }
+
+            if (!afterMatch(readLiteralRun)) {
+                return false;
+            }
+            if (readLiteralRun) {
+                break;
+            }
+            if (!readByte(control)) {
+                return false;
+            }
+        }
+    }
 }
 
 [[nodiscard]] bool ReadGraphicInfo(BinaryReader& reader, GraphicInfo& info)
@@ -149,6 +403,7 @@ bool ResourceManager::LoadBinSets(
         binSets_.push_back(std::move(state));
     }
 
+    LoadHiddenPaletteTable(options);
     stats_.binSetCount = static_cast<std::uint32_t>(binSets_.size());
     ClearError();
     return true;
@@ -160,6 +415,7 @@ void ResourceManager::Clear()
     graphicsByMapNo_.clear();
     autoMapColorByMapNo_.clear();
     graphicsByGlobalIndex_.clear();
+    hiddenPaletteMapNoByPalIndex_.clear();
     animesBySourceAnimeNo_.clear();
     stats_ = ResourceStats {};
     nextGraphicGlobalIndex_ = 0;
@@ -232,6 +488,16 @@ std::optional<GraphicRef> ResourceManager::FindGraphicForFrame(const AnimationCl
     return FindGraphicBySeq(clip.binSetIndex, frame.graphicSeqNo);
 }
 
+std::optional<int> ResourceManager::FindHiddenPaletteMapNoByPalIndex(int palIndex) const
+{
+    const auto iter = hiddenPaletteMapNoByPalIndex_.find(palIndex);
+    if (iter == hiddenPaletteMapNoByPalIndex_.end()) {
+        return std::nullopt;
+    }
+
+    return iter->second;
+}
+
 std::optional<AnimeRef> ResourceManager::FindAnime(int sourceAnimeNo) const
 {
     const auto iter = animesBySourceAnimeNo_.find(sourceAnimeNo);
@@ -253,7 +519,12 @@ std::span<const GraphicRef> ResourceManager::Graphics(int binSetIndex) const noe
 
 std::optional<DecodedImage> ResourceManager::DecodeGraphic(const GraphicRef& ref)
 {
-    GraphicDecodeResult result = graphicDecoder_.DecodeFromFile(ref.info, ref.dataPath, defaultPalette_);
+    return DecodeGraphic(ref, defaultPalette_);
+}
+
+std::optional<DecodedImage> ResourceManager::DecodeGraphic(const GraphicRef& ref, const Palette& palette)
+{
+    GraphicDecodeResult result = graphicDecoder_.DecodeFromFile(ref.info, ref.dataPath, palette);
     if (!result) {
         SetError(ResourceErrorCode::DecodeFailed, result.path, ref.mapNo, result.message);
         return std::nullopt;
@@ -272,6 +543,35 @@ std::optional<DecodedImage> ResourceManager::DecodeGraphicByMapNo(int mapNo)
     }
 
     return DecodeGraphic(*ref);
+}
+
+std::optional<Palette> ResourceManager::LoadHiddenPaletteByMapNo(int mapNo)
+{
+    const std::optional<GraphicRef> ref = FindGraphicByMapNo(mapNo);
+    if (!ref.has_value()) {
+        SetError(ResourceErrorCode::MissingResource, {}, mapNo, "隐藏调色盘 mapNo 找不到 Graphic");
+        return std::nullopt;
+    }
+
+    GraphicPaletteDecodeResult result =
+        graphicDecoder_.DecodeEmbeddedPaletteFromFile(ref->info, ref->dataPath, defaultPalette_);
+    if (!result) {
+        SetError(ResourceErrorCode::DecodeFailed, result.path, mapNo, result.message);
+        return std::nullopt;
+    }
+
+    ClearError();
+    return result.palette;
+}
+
+std::optional<Palette> ResourceManager::LoadHiddenPaletteByPalIndex(int palIndex)
+{
+    const std::optional<int> mapNo = FindHiddenPaletteMapNoByPalIndex(palIndex);
+    if (!mapNo.has_value()) {
+        return std::nullopt;
+    }
+
+    return LoadHiddenPaletteByMapNo(*mapNo);
 }
 
 std::optional<AnimationClip> ResourceManager::LoadAnimation(int sourceAnimeNo)
@@ -434,6 +734,109 @@ void ResourceManager::BuildAutoMapColorIndex(const GraphicRef& ref, BinaryReader
     }
 
     autoMapColorByMapNo_[ref.mapNo] = ComputeAutoMapColorIndex(result.image.pixels, defaultPalette_);
+}
+
+void ResourceManager::LoadHiddenPaletteTable(const ResourceLoadOptions& options)
+{
+    hiddenPaletteMapNoByPalIndex_.clear();
+    stats_.hiddenPaletteCount = 0;
+    if (options.hiddenPaletteTablePath.empty()) {
+        return;
+    }
+    if (options.hiddenPaletteStaticQueueCount < 0) {
+        AddWarning("隐藏调色盘 CGLoadSpr.dbf 静态 queue1 数量无效，跳过隐藏调色盘映射");
+        return;
+    }
+
+    BinaryReader reader(options.hiddenPaletteTablePath);
+    if (!reader.IsOpen()) {
+        AddWarning("隐藏调色盘 CGLoadSpr.dbf 打开失败，使用默认 palette fallback");
+        return;
+    }
+    if (reader.Size() < HiddenPaletteHeaderSize) {
+        AddWarning("隐藏调色盘 CGLoadSpr.dbf 文件过短，使用默认 palette fallback");
+        return;
+    }
+
+    std::vector<std::uint8_t> header;
+    if (!reader.ReadBytes(header, HiddenPaletteHeaderSize)) {
+        AddWarning("隐藏调色盘 CGLoadSpr.dbf 头读取失败，使用默认 palette fallback");
+        return;
+    }
+    if (header[0] != 'D' || header[1] != 'B' || header[2] != 'F' || header[3] != 0) {
+        AddWarning("隐藏调色盘 CGLoadSpr.dbf magic 无效，使用默认 palette fallback");
+        return;
+    }
+
+    std::uint32_t outputSize = 0;
+    std::uint32_t inputSize = 0;
+    if (!TryReadU32Le(header, 4, outputSize) || !TryReadU32Le(header, 8, inputSize)
+        || outputSize == 0 || inputSize == 0
+        || outputSize > MaxHiddenPaletteTableSize
+        || inputSize > MaxHiddenPaletteTableSize) {
+        AddWarning("隐藏调色盘 CGLoadSpr.dbf 压缩尺寸无效，使用默认 palette fallback");
+        return;
+    }
+    if (reader.Size() - HiddenPaletteHeaderSize < inputSize) {
+        AddWarning("隐藏调色盘 CGLoadSpr.dbf 压缩数据越界，使用默认 palette fallback");
+        return;
+    }
+
+    std::vector<std::uint8_t> compressed;
+    if (!reader.ReadBytes(compressed, inputSize)) {
+        AddWarning("隐藏调色盘 CGLoadSpr.dbf 压缩数据读取失败，使用默认 palette fallback");
+        return;
+    }
+
+    std::vector<std::uint8_t> decoded;
+    std::string message;
+    if (!DecompressLzo1x(compressed, outputSize, decoded, message)) {
+        AddWarning("隐藏调色盘 CGLoadSpr.dbf 解压失败，使用默认 palette fallback：" + message);
+        return;
+    }
+    if (decoded.size() < HiddenPaletteRecordHeaderSize) {
+        AddWarning("隐藏调色盘 CGLoadSpr.dbf 解压数据过短，使用默认 palette fallback");
+        return;
+    }
+
+    std::uint32_t recordCount = 0;
+    std::uint32_t recordSize = 0;
+    if (!TryReadU32Le(decoded, 0, recordCount) || !TryReadU32Le(decoded, 4, recordSize)
+        || recordSize < HiddenPaletteRecordMinSize) {
+        AddWarning("隐藏调色盘 CGLoadSpr.dbf 记录头无效，使用默认 palette fallback");
+        return;
+    }
+
+    const std::size_t payloadSize = decoded.size() - HiddenPaletteRecordHeaderSize;
+    if (recordCount > payloadSize / recordSize) {
+        AddWarning("隐藏调色盘 CGLoadSpr.dbf 记录范围越界，使用默认 palette fallback");
+        return;
+    }
+
+    std::map<int, int> mapNoByKey;
+    for (std::uint32_t index = 0; index < recordCount; ++index) {
+        const std::size_t offset = HiddenPaletteRecordHeaderSize
+            + static_cast<std::size_t>(index) * recordSize;
+        std::int32_t key = 0;
+        std::int32_t mapNo = 0;
+        if (!TryReadI32Le(decoded, offset, key) || !TryReadI32Le(decoded, offset + 4U, mapNo)) {
+            AddWarning("隐藏调色盘 CGLoadSpr.dbf 记录读取失败，使用默认 palette fallback");
+            hiddenPaletteMapNoByPalIndex_.clear();
+            stats_.hiddenPaletteCount = 0;
+            return;
+        }
+        if (mapNo > 0) {
+            mapNoByKey[key] = mapNo;
+        }
+    }
+
+    int palIndex = options.hiddenPaletteStaticQueueCount;
+    hiddenPaletteMapNoByPalIndex_.reserve(mapNoByKey.size());
+    for (const auto& [key, mapNo] : mapNoByKey) {
+        (void)key;
+        hiddenPaletteMapNoByPalIndex_[palIndex++] = mapNo;
+    }
+    stats_.hiddenPaletteCount = static_cast<std::uint32_t>(hiddenPaletteMapNoByPalIndex_.size());
 }
 
 bool ResourceManager::LoadAnimeIndex(int binSetIndex, const BinSetDesc& desc)

@@ -50,6 +50,24 @@ using GraphicDecodeResult = GraphicDecodeResultT<DecodedImage>;
 // GraphicIndexedDecodeResult 返回 indexed 色号图片或失败原因。
 using GraphicIndexedDecodeResult = GraphicDecodeResultT<GraphicIndexedImage>;
 
+// GraphicPaletteDecodeResult 返回 Graphic 尾部内嵌 palette 或失败原因。
+struct GraphicPaletteDecodeResult {
+    Palette palette;
+    GraphicDecodeError error = GraphicDecodeError::None;
+    std::filesystem::path path;
+    std::string message;
+
+    [[nodiscard]] bool Succeeded() const noexcept
+    {
+        return error == GraphicDecodeError::None;
+    }
+
+    [[nodiscard]] explicit operator bool() const noexcept
+    {
+        return Succeeded();
+    }
+};
+
 // GraphicDecoder 解码 GraphicInfo 指向的 RD/CGEX 图块，不暴露 SDL 类型。
 class GraphicDecoder final {
 public:
@@ -66,6 +84,15 @@ public:
     [[nodiscard]] GraphicIndexedDecodeResult DecodeGraphicIndexed(
         const GraphicInfo& info,
         std::span<const std::uint8_t> block) const;
+
+    [[nodiscard]] GraphicPaletteDecodeResult DecodeEmbeddedPaletteFromFile(
+        const GraphicInfo& info,
+        const std::filesystem::path& graphicDataPath,
+        const Palette& defaultPalette) const;
+
+    [[nodiscard]] GraphicPaletteDecodeResult DecodeEmbeddedPaletteFromBlock(
+        std::span<const std::uint8_t> block,
+        const Palette& defaultPalette) const;
 };
 
 } // namespace cg::resource

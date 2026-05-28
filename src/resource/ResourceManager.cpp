@@ -483,7 +483,8 @@ std::optional<GraphicRef> ResourceManager::FindGraphicByGlobalIndex(int globalIn
     const GraphicRef* ref = nullptr;
     if (globalIndex >= 0 && static_cast<std::size_t>(globalIndex) < graphicsByGlobalIndex_.size()) {
         ref = ResolveGraphicHandle(graphicsByGlobalIndex_[static_cast<std::size_t>(globalIndex)]);
-    } else {
+    }
+    if (ref == nullptr) {
         const auto iter = graphicsBySparseGlobalIndex_.find(globalIndex);
         if (iter != graphicsBySparseGlobalIndex_.end()) {
             ref = ResolveGraphicHandle(iter->second);
@@ -661,7 +662,10 @@ const GraphicRef* ResourceManager::ResolveGraphicHandle(const GraphicHandle& han
 const GraphicRef* ResourceManager::FindGraphicInStateBySeq(const BinSetState& state, int seqNo) const noexcept
 {
     if (seqNo >= 0 && static_cast<std::size_t>(seqNo) < state.graphicsBySeq.size()) {
-        return ResolveGraphicHandle(state.graphicsBySeq[static_cast<std::size_t>(seqNo)]);
+        const GraphicRef* const ref = ResolveGraphicHandle(state.graphicsBySeq[static_cast<std::size_t>(seqNo)]);
+        if (ref != nullptr) {
+            return ref;
+        }
     }
 
     const auto iter = state.graphicsBySparseSeq.find(seqNo);
@@ -767,13 +771,20 @@ bool ResourceManager::LoadGraphicIndex(
                 state.graphicsBySeq.size(),
                 static_cast<std::size_t>(count))) {
             const std::size_t seqIndex = static_cast<std::size_t>(info.seqNo);
+            const bool hasDenseSeq = seqIndex < state.graphicsBySeq.size()
+                && state.graphicsBySeq[seqIndex].binSetIndex >= 0;
+            const bool hasSparseSeq = state.graphicsBySparseSeq.contains(info.seqNo);
             if (seqIndex >= state.graphicsBySeq.size()) {
                 state.graphicsBySeq.resize(seqIndex + 1U);
-            } else if (state.graphicsBySeq[seqIndex].binSetIndex >= 0) {
+            }
+            if (hasDenseSeq || hasSparseSeq) {
                 ++stats_.graphicOverrideCount;
                 AddWarning("同一 binSet 内 Graphic seqNo 重复，使用后者");
             }
             state.graphicsBySeq[seqIndex] = handle;
+            if (hasSparseSeq) {
+                state.graphicsBySparseSeq.erase(info.seqNo);
+            }
         } else {
             if (state.graphicsBySparseSeq.contains(info.seqNo)) {
                 ++stats_.graphicOverrideCount;
@@ -792,6 +803,7 @@ bool ResourceManager::LoadGraphicIndex(
                 graphicsByGlobalIndex_.resize(globalIndex + 1U);
             }
             graphicsByGlobalIndex_[globalIndex] = handle;
+            graphicsBySparseGlobalIndex_.erase(storedRef.globalIndex);
         } else {
             graphicsBySparseGlobalIndex_[storedRef.globalIndex] = handle;
         }

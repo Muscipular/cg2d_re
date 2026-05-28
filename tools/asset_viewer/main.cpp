@@ -3,11 +3,13 @@
 #include "resource/ResourceManager.hpp"
 
 #include <SDL3/SDL.h>
+#include <SDL3_image/SDL_image.h>
 
 #include <algorithm>
 #include <charconv>
 #include <cstddef>
 #include <cstdint>
+#include <cstring>
 #include <filesystem>
 #include <iostream>
 #include <limits>
@@ -17,6 +19,7 @@
 #include <string>
 #include <string_view>
 #include <system_error>
+#include <utility>
 #include <vector>
 
 namespace {
@@ -35,6 +38,7 @@ struct SearchOptions {
     std::optional<int> binSetIndex;
     std::optional<int> seqNo;
     std::optional<int> mapNo;
+    std::optional<std::filesystem::path> exportPngPath;
     bool show = false;
     bool showPalette = false;
 };
@@ -80,7 +84,7 @@ struct SearchOptions {
 
 void PrintUsage(std::ostream& output)
 {
-    output << "用法：cg-asset-viewer <cgmsv.yml> <palette.cgp> [--bin-set <index>] [--seq <seqNo>] [--map-no <mapNo>] [--show] [--show-palette]\n";
+    output << "用法：cg-asset-viewer <cgmsv.yml> <palette.cgp> [--bin-set <index>] [--seq <seqNo>] [--map-no <mapNo>] [--show] [--show-palette] [--export-png <path>]\n";
 }
 
 void PrintResourceError(std::string_view prefix, const cg::resource::ResourceError& error)
@@ -138,6 +142,18 @@ void PrintPaletteError(std::string_view prefix, const cg::resource::PaletteLoadR
     return true;
 }
 
+[[nodiscard]] bool ReadPathOptionValue(int argc, char* argv[], int& index, std::string_view option, std::filesystem::path& value)
+{
+    if (index + 1 >= argc) {
+        std::cerr << "失败：" << option << " 缺少参数值\n";
+        return false;
+    }
+
+    ++index;
+    value = PathFromUtf8(argv[index]);
+    return true;
+}
+
 [[nodiscard]] bool ParseOptions(int argc, char* argv[], SearchOptions& options)
 {
     for (int index = RequiredArgCount; index < argc; ++index) {
@@ -167,6 +183,12 @@ void PrintPaletteError(std::string_view prefix, const cg::resource::PaletteLoadR
             options.show = true;
         } else if (arg == "--show-palette") {
             options.showPalette = true;
+        } else if (arg == "--export-png") {
+            std::filesystem::path path;
+            if (!ReadPathOptionValue(argc, argv, index, arg, path)) {
+                return false;
+            }
+            options.exportPngPath = std::move(path);
         } else {
             std::cerr << "失败：未知参数 " << arg << '\n';
             return false;
@@ -359,12 +381,13 @@ void PrintSearchResults(
     }
 }
 
-[[nodiscard]] const cg::resource::GraphicRef* SelectGraphicToShow(
+[[nodiscard]] const cg::resource::GraphicRef* SelectGraphicForAction(
     const std::vector<cg::resource::GraphicRef>& matches,
-    const SearchOptions& options)
+    const SearchOptions& options,
+    std::string_view actionName)
 {
     if (matches.empty()) {
-        std::cerr << "失败：--show 未命中 Graphic\n";
+        std::cerr << "失败：" << actionName << " 未命中 Graphic\n";
         return nullptr;
     }
 
@@ -373,11 +396,11 @@ void PrintSearchResults(
     }
 
     if ((options.binSetIndex.has_value() && options.seqNo.has_value()) || options.mapNo.has_value()) {
-        std::cout << "显示选择：指定条件命中多条，使用第一条\n";
+        std::cout << actionName << "选择：指定条件命中多条，使用第一条\n";
         return &matches.front();
     }
 
-    std::cerr << "失败：--show 需要唯一 Graphic，当前命中数量：" << matches.size() << '\n';
+    std::cerr << "失败：" << actionName << " 需要唯一 Graphic，当前命中数量：" << matches.size() << '\n';
     return nullptr;
 }
 
@@ -625,6 +648,59 @@ void PrintSearchResults(
     return true;
 }
 
+[[nodiscard]] bool ExportGraphicPng(
+    const cg::resource::GraphicRef& ref,
+    const cg::resource::DecodedImage& image,
+    const std::filesystem::path& path,
+    std::size_t alphaZeroCount)
+{
+    if (!IsValidImageBuffer(image)) {
+        std::cerr << "失败：解码后的 Graphic 图像为空或像素尺寸不匹配\n";
+        return false;
+    }
+    if (image.format != cg::render::PixelFormat::Rgba8) {
+        std::cerr << "失败：当前仅支持导出 RGBA8 Graphic\n";
+        return false;
+    }
+    if (image.width > std::numeric_limits<int>::max() / Rgba8BytesPerPixel) {
+        std::cerr << "失败：Graphic 行跨度超出 SDL surface 限制\n";
+        return false;
+    }
+
+    SDL_Surface* surface = SDL_CreateSurface(image.width, image.height, SDL_PIXELFORMAT_RGBA32);
+    if (surface == nullptr) {
+        PrintSdlError("创建 PNG surface 失败");
+        return false;
+    }
+
+    const std::size_t sourcePitch = static_cast<std::size_t>(image.width) * Rgba8BytesPerPixel;
+    for (int y = 0; y < image.height; ++y) {
+        std::memcpy(
+            static_cast<std::uint8_t*>(surface->pixels) + static_cast<std::size_t>(y) * surface->pitch,
+            image.pixels.data() + static_cast<std::size_t>(y) * sourcePitch,
+            sourcePitch);
+    }
+
+    const std::string savePath = PathToUtf8(path);
+    const bool saved = IMG_SavePNG(surface, savePath.c_str());
+    SDL_DestroySurface(surface);
+    if (!saved) {
+        PrintSdlError("保存 PNG 失败");
+        return false;
+    }
+
+    const std::size_t pixelCount = image.pixels.size() / Rgba8BytesPerPixel;
+    std::cout << "导出 PNG：保存路径=" << savePath
+              << "，binSet=" << ref.binSetIndex
+              << "，seqNo=" << ref.seqNo
+              << "，mapNo=" << ref.mapNo
+              << "，尺寸=" << image.width << 'x' << image.height
+              << "，像素格式=RGBA8"
+              << "，透明像素(alpha==0)=" << alphaZeroCount << '/' << pixelCount
+              << '\n';
+    return true;
+}
+
 class NullStreamBuffer final : public std::streambuf {
 protected:
     int overflow(int ch) override
@@ -720,8 +796,8 @@ int main(int argc, char* argv[])
     }
 
     if (!HasSearchFilter(options)) {
-        if (options.show) {
-            std::cerr << "失败：--show 需要配合 --bin-set、--seq 或 --map-no 搜索条件\n";
+        if (options.show || options.exportPngPath.has_value()) {
+            std::cerr << "失败：--show 或 --export-png 需要配合 --bin-set、--seq 或 --map-no 搜索条件\n";
             return 2;
         }
         return 0;
@@ -731,11 +807,14 @@ int main(int argc, char* argv[])
     const std::vector<cg::resource::GraphicRef> matches = FindSearchResults(resources, config.binSets, options);
     PrintSearchResults(matches, config.binSets);
     std::cout << "命中数量：" << matches.size() << '\n';
-    if (!options.show) {
+    if (!options.show && !options.exportPngPath.has_value()) {
         return 0;
     }
 
-    const cg::resource::GraphicRef* selected = SelectGraphicToShow(matches, options);
+    const cg::resource::GraphicRef* selected = SelectGraphicForAction(
+        matches,
+        options,
+        options.exportPngPath.has_value() ? "--export-png" : "--show");
     if (selected == nullptr) {
         return 2;
     }
@@ -748,6 +827,12 @@ int main(int argc, char* argv[])
 
     const std::size_t alphaZeroCount = CountAlphaZeroPixels(*image);
     PrintDecodedGraphic(*selected, *image, alphaZeroCount);
+    if (options.exportPngPath.has_value() && !ExportGraphicPng(*selected, *image, *options.exportPngPath, alphaZeroCount)) {
+        return 1;
+    }
+    if (!options.show) {
+        return 0;
+    }
     if (!ShowGraphicWindow(*selected, *image, alphaZeroCount)) {
         return 1;
     }

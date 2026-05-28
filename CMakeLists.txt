@@ -124,6 +124,7 @@ target_link_libraries(cg-map-viewer
 target_link_libraries(cg-asset-viewer
     PRIVATE
         SDL3::SDL3
+        SDL3_image::SDL3_image
         yaml-cpp::yaml-cpp
 )
 
@@ -181,6 +182,15 @@ if(WIN32)
         add_custom_command(TARGET cg-asset-viewer POST_BUILD
             COMMAND "${CMAKE_COMMAND}" -E copy_if_different
                 "$<TARGET_FILE:SDL3::SDL3-shared>"
+                "$<TARGET_FILE_DIR:cg-asset-viewer>"
+            VERBATIM
+        )
+    endif()
+
+    if(TARGET SDL3_image::SDL3_image-shared)
+        add_custom_command(TARGET cg-asset-viewer POST_BUILD
+            COMMAND "${CMAKE_COMMAND}" -E copy_if_different
+                "$<TARGET_FILE:SDL3_image::SDL3_image-shared>"
                 "$<TARGET_FILE_DIR:cg-asset-viewer>"
             VERBATIM
         )

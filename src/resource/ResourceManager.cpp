@@ -430,7 +430,11 @@ std::optional<GraphicRef> ResourceManager::FindGraphicByMapNo(int mapNo) const
         return std::nullopt;
     }
 
-    return iter->second;
+    const GraphicRef* const ref = ResolveGraphicHandle(iter->second);
+    if (ref == nullptr) {
+        return std::nullopt;
+    }
+    return *ref;
 }
 
 std::optional<std::uint8_t> ResourceManager::FindAutoMapColorIndexByMapNo(int mapNo) const
@@ -465,7 +469,11 @@ std::optional<GraphicRef> ResourceManager::FindGraphicBySeq(int binSetIndex, int
         return std::nullopt;
     }
 
-    return iter->second;
+    const GraphicRef* const ref = ResolveGraphicHandle(iter->second);
+    if (ref == nullptr) {
+        return std::nullopt;
+    }
+    return *ref;
 }
 
 std::optional<GraphicRef> ResourceManager::FindGraphicByGlobalIndex(int globalIndex) const
@@ -475,7 +483,11 @@ std::optional<GraphicRef> ResourceManager::FindGraphicByGlobalIndex(int globalIn
         return std::nullopt;
     }
 
-    return iter->second;
+    const GraphicRef* const ref = ResolveGraphicHandle(iter->second);
+    if (ref == nullptr) {
+        return std::nullopt;
+    }
+    return *ref;
 }
 
 std::optional<GraphicRef> ResourceManager::FindGraphicForFrame(const AnimationClip& clip, const AnimeFrame& frame) const
@@ -616,6 +628,19 @@ const Palette& ResourceManager::DefaultPalette() const noexcept
     return defaultPalette_;
 }
 
+const GraphicRef* ResourceManager::ResolveGraphicHandle(const GraphicHandle& handle) const noexcept
+{
+    if (handle.binSetIndex < 0 || static_cast<std::size_t>(handle.binSetIndex) >= binSets_.size()) {
+        return nullptr;
+    }
+
+    const BinSetState& state = binSets_[static_cast<std::size_t>(handle.binSetIndex)];
+    if (handle.localIndex >= state.graphics.size()) {
+        return nullptr;
+    }
+    return &state.graphics[handle.localIndex];
+}
+
 bool ResourceManager::LoadGraphicIndex(
     int binSetIndex,
     const BinSetDesc& desc,
@@ -672,24 +697,27 @@ bool ResourceManager::LoadGraphicIndex(
         ref.dataPath = desc.graphicDataPath;
         ref.info = info;
         maxSeqNo = std::max(maxSeqNo, info.seqNo);
-        state.graphics.push_back(ref);
+        state.graphics.push_back(std::move(ref));
+        const std::size_t localIndex = state.graphics.size() - 1U;
+        const GraphicHandle handle { binSetIndex, localIndex };
+        const GraphicRef& storedRef = state.graphics[localIndex];
 
         if (state.graphicsBySeq.contains(info.seqNo)) {
             ++stats_.graphicOverrideCount;
             AddWarning("同一 binSet 内 Graphic seqNo 重复，使用后者");
         }
-        state.graphicsBySeq[info.seqNo] = ref;
-        graphicsByGlobalIndex_[ref.globalIndex] = ref;
+        state.graphicsBySeq[info.seqNo] = handle;
+        graphicsByGlobalIndex_[storedRef.globalIndex] = handle;
 
         if (info.mapNo > 0) {
             if (graphicsByMapNo_.contains(info.mapNo)) {
                 ++stats_.graphicOverrideCount;
                 AddWarning("Graphic mapNo 重复，使用后加载 binSet");
             }
-            graphicsByMapNo_[info.mapNo] = ref;
+            graphicsByMapNo_[info.mapNo] = handle;
         }
         if (options.buildAutoMapColorCache) {
-            BuildAutoMapColorIndex(ref, graphicDataReader, graphicDataOpenTried);
+            BuildAutoMapColorIndex(storedRef, graphicDataReader, graphicDataOpenTried);
         }
 
         ++stats_.graphicCount;

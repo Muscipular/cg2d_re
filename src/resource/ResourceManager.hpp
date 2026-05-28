@@ -5,6 +5,7 @@
 #include "ResourceError.hpp"
 #include "ResourceTypes.hpp"
 
+#include <cstddef>
 #include <optional>
 #include <span>
 #include <unordered_map>
@@ -53,13 +54,19 @@ public:
     [[nodiscard]] const Palette& DefaultPalette() const noexcept;
 
 private:
+    struct GraphicHandle {
+        int binSetIndex = -1;
+        std::size_t localIndex = 0;
+    };
+
     struct BinSetState {
         BinSetDesc desc;
         int graphicStartIndex = 0;
         std::vector<GraphicRef> graphics;
-        std::unordered_map<int, GraphicRef> graphicsBySeq;
+        std::unordered_map<int, GraphicHandle> graphicsBySeq;
     };
 
+    [[nodiscard]] const GraphicRef* ResolveGraphicHandle(const GraphicHandle& handle) const noexcept;
     [[nodiscard]] bool LoadGraphicIndex(
         int binSetIndex,
         const BinSetDesc& desc,
@@ -74,9 +81,9 @@ private:
     void AddWarning(std::string_view message);
 
     std::vector<BinSetState> binSets_;
-    std::unordered_map<int, GraphicRef> graphicsByMapNo_;
+    std::unordered_map<int, GraphicHandle> graphicsByMapNo_;
     std::unordered_map<int, std::uint8_t> autoMapColorByMapNo_;
-    std::unordered_map<int, GraphicRef> graphicsByGlobalIndex_;
+    std::unordered_map<int, GraphicHandle> graphicsByGlobalIndex_;
     std::vector<int> hiddenPaletteMapNoByPalIndex_;
     std::unordered_map<int, AnimeRef> animesBySourceAnimeNo_;
     Palette defaultPalette_;

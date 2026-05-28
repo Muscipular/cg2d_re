@@ -40,7 +40,7 @@ std::optional<AutoMapCellRect> ComputeObjectCoverRect(
         return std::nullopt;
     }
 
-    if (info.blockFlag != 0) {
+    if (GraphicFlag1(info) != 0) {
         return AutoMapCellRect{objectX, objectY, objectX, objectY};
     }
 

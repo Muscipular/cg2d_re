@@ -117,6 +117,15 @@ static_assert(GraphicInfoRecordSize == 40);
     return static_cast<std::int32_t>(static_cast<std::int64_t>(value) - 0x100000000LL);
 }
 
+[[nodiscard]] std::int16_t U16ToI16(std::uint16_t value) noexcept
+{
+    if (value <= static_cast<std::uint16_t>(std::numeric_limits<std::int16_t>::max())) {
+        return static_cast<std::int16_t>(value);
+    }
+
+    return static_cast<std::int16_t>(static_cast<std::int32_t>(value) - 0x10000);
+}
+
 [[nodiscard]] bool TryReadI32Le(std::span<const std::uint8_t> bytes, std::size_t offset, std::int32_t& value)
 {
     std::uint32_t unsignedValue = 0;
@@ -343,6 +352,7 @@ static_assert(GraphicInfoRecordSize == 40);
     std::int32_t w = 0;
     std::int32_t h = 0;
     std::int32_t mapNo = 0;
+    std::uint16_t flag = 0;
     if (!TryReadI32Le(bytes, 0, seqNo)
         || !TryReadI32Le(bytes, 4, offset)
         || !TryReadI32Le(bytes, 8, length)
@@ -350,6 +360,7 @@ static_assert(GraphicInfoRecordSize == 40);
         || !TryReadI32Le(bytes, 16, y)
         || !TryReadI32Le(bytes, 20, w)
         || !TryReadI32Le(bytes, 24, h)
+        || !TryReadU16Le(bytes, 30, flag)
         || !TryReadI32Le(bytes, 36, mapNo)) {
         return false;
     }
@@ -363,8 +374,7 @@ static_assert(GraphicInfoRecordSize == 40);
     info.h = h;
     info.sx = ToI8(bytes[28]);
     info.sy = ToI8(bytes[29]);
-    info.blockFlag = ToI8(bytes[30]);
-    info.asGround = ToI8(bytes[31]);
+    info.flag = U16ToI16(flag);
     for (std::size_t index = 0; index < 4; ++index) {
         info.pad[index] = static_cast<char>(bytes[32 + index]);
     }

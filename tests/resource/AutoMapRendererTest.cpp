@@ -35,6 +35,13 @@ void AppendI32Le(std::vector<std::uint8_t>& bytes, std::int32_t value)
     bytes.push_back(static_cast<std::uint8_t>((unsignedValue >> 24U) & 0xFFU));
 }
 
+void AppendI16Le(std::vector<std::uint8_t>& bytes, std::int16_t value)
+{
+    const auto unsignedValue = static_cast<std::uint16_t>(value);
+    bytes.push_back(static_cast<std::uint8_t>(unsignedValue & 0xFFU));
+    bytes.push_back(static_cast<std::uint8_t>((unsignedValue >> 8U) & 0xFFU));
+}
+
 void WriteBytes(const std::filesystem::path& path, const std::vector<std::uint8_t>& bytes)
 {
     std::ofstream file(path, std::ios::binary);
@@ -78,7 +85,7 @@ void AppendGraphicInfo(
     std::int32_t length,
     std::int8_t sx,
     std::int8_t sy,
-    std::int8_t blockFlag,
+    std::int16_t flag,
     std::int32_t mapNo)
 {
     AppendI32Le(bytes, seqNo);
@@ -90,8 +97,7 @@ void AppendGraphicInfo(
     AppendI32Le(bytes, 1);
     bytes.push_back(static_cast<std::uint8_t>(sx));
     bytes.push_back(static_cast<std::uint8_t>(sy));
-    bytes.push_back(static_cast<std::uint8_t>(blockFlag));
-    bytes.push_back(0);
+    AppendI16Le(bytes, flag);
     bytes.insert(bytes.end(), 4, 0);
     AppendI32Le(bytes, mapNo);
 }
@@ -106,7 +112,7 @@ void WriteResourceFiles(const std::filesystem::path& graphicInfoPath, const std:
 
     std::vector<std::uint8_t> graphicInfo;
     AppendGraphicInfo(graphicInfo, 0, 0, 17, 1, 1, 1, 1000);
-    AppendGraphicInfo(graphicInfo, 1, 17, 17, 2, 2, 0, 1001);
+    AppendGraphicInfo(graphicInfo, 1, 17, 17, 2, 2, 100, 1001);
     AppendGraphicInfo(graphicInfo, 2, 34, 17, 1, 1, 1, EmptyColorMapNo);
 
     WriteBytes(graphicInfoPath, graphicInfo);
@@ -217,7 +223,7 @@ bool Run()
     options.drawTiles = false;
     options.drawObjects = true;
     image = cg::resource::RenderAutoMapRgba8(map, resourceManager, palette, options);
-    ok &= Expect(PixelEquals(image, 1, 3, cg::resource::Rgba8 {0, 250, 0, 255}), "object 覆盖像素颜色错误");
+    ok &= Expect(PixelEquals(image, 1, 3, cg::resource::Rgba8 {0, 250, 0, 255}), "flag=100 object 应按 sx/sy 扩展覆盖");
 
     options.drawObjects = false;
     options.drawCollision = false;

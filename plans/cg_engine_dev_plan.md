@@ -83,11 +83,11 @@ cg-engine/
 | M3 | Font/Input/UI 最小闭环 | 中文输入、聊天框、字体缓存 | P0 |
 | M4 | Resource 基础层 | package reader、image decoder、texture cache | P0 |
 | M5 | Map/Animation Viewer | 地图块、动画帧、资源查看器 | P0 |
-| M6 | World 渲染与排序 | entity data、移动插值、可见性裁剪、Y-sort | P0 |
-| M7 | 性能压测 | 16000 可见移动角色压测 | P0 |
-| M8 | Net 基础层 | session、packet codec、协议状态机雏形 | P1 |
-| M9 | UI 系统扩展 | 面板、按钮、输入框、列表、tooltip | P1 |
-| M10 | 工具链完善 | asset/map/anim viewer 稳定化 | P1 |
+| M6 | 封包解析与全量协议支持 | 209 个旧客户端封包、i62/es、内嵌 payload | P0 |
+| M7 | World 渲染与排序 | entity data、移动插值、可见性裁剪、Y-sort | P0 |
+| M8 | 性能压测 | 16000 可见移动角色压测 | P0 |
+| M9 | Net 连接层 | session、socket、mock/replay、协议运行链路 | P1 |
+| M10 | UI 系统扩展 | 面板、按钮、输入框、列表、tooltip | P1 |
 | M11 | Hook/旧客户端对照 | 旧行为采样、差异记录、迁移验证 | P1 |
 | M12 | 跨平台与打包 | Windows/Linux/macOS 构建与发布 | P2 |
 | M13 | SDL3_GPU 后端评估 | 在确有性能瓶颈时实现 GPU 后端 | P2 |
@@ -501,11 +501,99 @@ textureCache.LoadRgba8(key, image.width, image.height, image.pixels.data(), imag
 
 ---
 
-## 9. M6：world 层
+## 9. M6：封包解析与全量协议支持
 
 ### 目标
 
-建立角色、地图实体、移动插值、可见性裁剪和 Y 排序。先离线模拟，不依赖真实服务器。
+建立旧客户端封包解析层，支持 `plans/CG封包.xlsx` 中全部 209 个封包：客户端->服务端 100 个、服务端->客户端 109 个。M6 只负责封包编解码和内嵌 payload 结构化，不实现 TCP session、重连、网络线程；连接运行链路放到 M9。
+
+成功标准：
+
+1. `plans/protocol_m6_inventory.md` 列出 209 个封包，包含方向、状态、来源、format 是否为空、是否疑似内嵌 payload。
+2. 默认数值编码为 `i62`，即旧端 base62：`0-9a-zA-Z`，支持负号。
+3. `es` 字符串转义兼容旧 `nrproto_escapeString/descapeString` 行为。
+4. 明文 token 可按空格和 `0x17` 拆分，可回写旧格式 token 串。
+5. 注册表包含全部 209 个封包；`CCL` 和 `TgX` 不因旧 C 分发缺失而跳过。
+6. 53 个 xlsx 空 format 封包必须用 C 代码或 IDA MCP 补来源；无法确认字段写 `unknownN`。
+7. 内嵌 payload 至少支持按分隔符解析、回写和 unknown 字段保留。
+8. 每个封包至少有 1 条明文 fixture；含 payload 的封包必须有二级 payload 样本。
+9. 全量 parse/build roundtrip 通过；缺 token、非法 i62、未知包返回明确错误。
+
+### 目录
+
+```text
+src/net/
+├─ PacketTypes.hpp
+├─ LegacyNumberCodec.hpp/.cpp
+├─ LegacyStringCodec.hpp/.cpp
+├─ LegacyTokenCodec.hpp/.cpp
+├─ LegacyEnvelopeCodec.hpp/.cpp
+├─ ProtocolRegistry.hpp/.cpp
+├─ PacketParser.hpp/.cpp
+├─ PacketBuilder.hpp/.cpp
+├─ PayloadCodec.hpp/.cpp
+├─ MapPayload.hpp/.cpp
+├─ CharacterPayload.hpp/.cpp
+├─ ItemSkillPetPayload.hpp/.cpp
+├─ UiMessagePayload.hpp/.cpp
+├─ BattleTradeGuildPayload.hpp/.cpp
+└─ AuthCharacterPackets.hpp/.cpp
+
+tests/net/
+├─ LegacyCodecTest.cpp
+├─ ProtocolRegistryTest.cpp
+└─ PayloadCodecTest.cpp
+
+tests/fixtures/protocol/
+└─ *.pkt
+```
+
+### 来源优先级
+
+1. `plans/CG封包.xlsx` 主表 `封包` 的非空定义。
+2. `D:\Source\cgmsv\cgmsv_server\nrproto_serv.c` 的 RECV/SEND 宏、dispatch 参数、send builder。
+3. `D:\Source\cgmsv\cgmsv_server\callfromcli.c` 的业务调用语义。
+4. `D:\Source\cgmsv\cgmsv_server\nrproto_util.c` 的 i62、es、token、envelope 行为。
+5. IDA MCP 中旧客户端 `cg2d.exe.i64` 的客户端行为。
+
+### 任务
+
+| 编号 | 任务 | 说明 | 验收标准 |
+|---|---|---|---|
+| M6.0 | 协议资料盘点 | 读取 xlsx 和 C 代码，生成协议清单 | `plans/protocol_m6_inventory.md` 包含 209 个封包 |
+| M6.1 | 协议基础类型 | 定义方向、字段类型、错误码、来源标记 | `PacketTypes` 公开头无 SDL 类型 |
+| M6.2 | i62 编解码 | 迁移 base62 数值编码 | 与 `nrproto_a62toi/cnv10to62` 行为一致 |
+| M6.3 | es 字符串转义 | 迁移旧字符串 escape/descape | 空格、换行、回车、反斜杠和旧 2 字节字符行为一致 |
+| M6.4 | 明文 token codec | 拆分/构造旧明文封包 token | 支持空格、`0x17` 和行尾处理 |
+| M6.5 | 加密压缩 envelope | encode64/decode64、jEncode/jDecode、ringo 开关 | 短包未压缩路径 roundtrip 通过；压缩路径行为明确 |
+| M6.6 | Schema 注册表 | 注册 209 个封包 | 100 个 RECV、109 个 SEND；`CCL`、`TgX` 存在 |
+| M6.7 | 外层封包解析 | token 到统一 packet 结构 | 209 个封包均可解析；未知包返回错误 |
+| M6.8 | 外层封包构造 | 统一 packet 到 token 串 | 209 个封包均可构造明文 token |
+| M6.9 | 内嵌 payload 框架 | 二级分隔和转义 | 支持 `|`、`,`、`\z/\c/\y/\n` |
+| M6.10 | 地图/对象 payload | 地图、对象、坐标封包 payload | 覆盖 `M/MC/C/CA/CD/MN/CC/XYD/SH` |
+| M6.11 | 角色/属性 payload | flag 驱动角色属性 payload | 覆盖 `CP/CP2/CN/TITLE/PR*` |
+| M6.12 | 物品/技能/宠物 payload | 物品、技能、宠物 payload | 覆盖 `I/IA/SI/IR/CS/CT/PT/KP/KP2/PS/iKe/TgX` |
+| M6.13 | 聊天/窗口/系统 payload | 聊天、窗口、系统消息 payload | 覆盖 `MSG/TK/STK/WN/PRW/B/EF/SE/BGMW/PLAYSE/ES` |
+| M6.14 | 战斗/交易/家族 payload | 战斗、交易、家族 payload | 覆盖 `RS/RD/BT/AB*/TR*/GI/GT/GM/GMI/GML/GD` |
+| M6.15 | 登录/角色管理封包 | 登录、角色列表、角色管理 | 覆盖 `ClientLogin/CharList/CharLogin/CreateNewChar/CharDelete/CharLogout/PV/PVUP/IP/MAC/Expire` |
+| M6.16 | xlsx 空字段补全 | 53 个空 format 行补来源 | C/IDA 来源可追踪；未知字段写 `unknownN` |
+| M6.17 | fixture 与回归样本 | 每个封包生成明文样本 | 209 条 fixture；payload 包含二级 payload 样本 |
+| M6.18 | 验证入口 | 最小协议测试程序/单测 | 全量 parse/build roundtrip 通过；异常输入不崩溃 |
+| M6.19 | 进度记录与提交 | 更新 `plans/progess.md` 并小步提交 | 每个可验证小步记录并提交；验证交由独立 subAgent |
+
+### subAgent 拆分
+
+1. 编码 subAgent：每次只处理一个 M6.x 小步。
+2. 验证 subAgent：每次只验证刚完成的小步，不修改实现文件。
+3. 主线程：统筹计划文件、整合结果、记录进度和提交。
+
+---
+
+## 10. M7：world 层
+
+### 目标
+
+建立角色、地图实体、移动插值、可见性裁剪和 Y 排序。先离线模拟，输入数据优先贴近 M6 的协议结构。
 
 ### 目录
 
@@ -526,14 +614,14 @@ src/world/
 
 | 编号 | 任务 | 说明 | 验收标准 |
 |---|---|---|---|
-| M6.1 | EntityId/EntityData | 角色基础数据 | 可创建/删除大量实体 |
-| M6.2 | Transform | tile 坐标、像素坐标、朝向 | 坐标转换正确 |
-| M6.3 | Movement interpolation | 服务器位置到客户端平滑移动 | 移动无明显跳变 |
-| M6.4 | AnimationState | 动作、方向、帧更新 | 走路动画随移动播放 |
-| M6.5 | Visibility culling | camera rect 裁剪 | 屏外角色不提交渲染 |
-| M6.6 | Y-sort | sort key 生成与排序 | 角色遮挡顺序正确 |
-| M6.7 | WorldRenderer | entity 转 SpriteCmd | 不直接调用 SDL |
-| M6.8 | Synthetic population | 随机生成大量角色 | 可生成 1k/4k/8k/16k 角色 |
+| M7.1 | EntityId/EntityData | 角色基础数据 | 可创建/删除大量实体 |
+| M7.2 | Transform | tile 坐标、像素坐标、朝向 | 坐标转换正确 |
+| M7.3 | Movement interpolation | 服务器位置到客户端平滑移动 | 移动无明显跳变 |
+| M7.4 | AnimationState | 动作、方向、帧更新 | 走路动画随移动播放 |
+| M7.5 | Visibility culling | camera rect 裁剪 | 屏外角色不提交渲染 |
+| M7.6 | Y-sort | sort key 生成与排序 | 角色遮挡顺序正确 |
+| M7.7 | WorldRenderer | entity 转 SpriteCmd | 不直接调用 SDL |
+| M7.8 | Synthetic population | 随机生成大量角色 | 可生成 1k/4k/8k/16k 角色 |
 
 ### 数据组织建议
 
@@ -553,7 +641,7 @@ struct EntityRenderData {
 
 ---
 
-## 10. M7：16000 角色性能压测
+## 11. M8：16000 角色性能压测
 
 ### 目标
 
@@ -611,11 +699,11 @@ memory usage
 
 ---
 
-## 11. M8：net 层
+## 12. M9：net 连接层
 
 ### 目标
 
-建立协议层骨架，先用 mock server 或本地回放包验证状态机，再接真实服务器。
+在 M6 封包编解码基础上建立网络连接层，先用 mock server 或本地回放包验证状态机，再接真实服务器。
 
 ### 目录
 
@@ -634,17 +722,17 @@ src/net/
 
 | 编号 | 任务 | 说明 | 验收标准 |
 |---|---|---|---|
-| M8.1 | Socket 抽象 | TCP connect/read/write | 能连接测试地址 |
-| M8.2 | Session | 连接状态、重连、心跳 | 状态转移可日志追踪 |
-| M8.3 | PacketCodec | 封包、拆包、校验、加解密预留 | 粘包/半包处理正确 |
-| M8.4 | Protocol messages | 登录、移动、聊天、实体更新等基础消息 | mock 数据可驱动 world |
-| M8.5 | MessageQueue | 网络线程到主线程消息队列 | 无数据竞争 |
-| M8.6 | Replay | 保存/回放网络包 | 可重现 bug 场景 |
-| M8.7 | Encoding boundary | 聊天/名字编码转换 | 协议层外仍保持 UTF-8 |
+| M9.1 | Socket 抽象 | TCP connect/read/write | 能连接测试地址 |
+| M9.2 | Session | 连接状态、重连、心跳 | 状态转移可日志追踪 |
+| M9.3 | Packet stream | 接入 M6 token/envelope codec | 粘包/半包处理正确 |
+| M9.4 | Protocol messages | 登录、移动、聊天、实体更新等基础消息 | mock 数据可驱动 world |
+| M9.5 | MessageQueue | 网络线程到主线程消息队列 | 无数据竞争 |
+| M9.6 | Replay | 保存/回放网络包 | 可重现 bug 场景 |
+| M9.7 | Encoding boundary | 聊天/名字编码转换 | 协议层外仍保持 UTF-8 |
 
 ---
 
-## 12. M9：ui 层
+## 13. M10：ui 层
 
 ### 目标
 
@@ -671,19 +759,19 @@ src/ui/
 
 | 编号 | 任务 | 说明 | 验收标准 |
 |---|---|---|---|
-| M9.1 | UiContext | 鼠标/键盘/焦点/hover | 控件可聚焦、点击 |
-| M9.2 | Panel | 9-grid 背景、拖动、层级 | 面板显示和排序正确 |
-| M9.3 | Button | normal/hover/pressed/disabled | 交互状态正确 |
-| M9.4 | Label | 单行/多行/颜色 | 文本显示稳定 |
-| M9.5 | InputBox | 与 M3 输入框合并完善 | IME、复制粘贴、选择文本 |
-| M9.6 | ChatBox | 历史、频道、滚动、超链接预留 | 可承载真实聊天 |
-| M9.7 | ListBox | 背包/角色列表基础 | 大量 item 不明显卡顿 |
-| M9.8 | Tooltip | 鼠标悬停说明 | 不遮挡关键输入 |
-| M9.9 | Theme | 旧客户端 UI skin 复刻 | 可替换皮肤资源 |
+| M10.1 | UiContext | 鼠标/键盘/焦点/hover | 控件可聚焦、点击 |
+| M10.2 | Panel | 9-grid 背景、拖动、层级 | 面板显示和排序正确 |
+| M10.3 | Button | normal/hover/pressed/disabled | 交互状态正确 |
+| M10.4 | Label | 单行/多行/颜色 | 文本显示稳定 |
+| M10.5 | InputBox | 与 M3 输入框合并完善 | IME、复制粘贴、选择文本 |
+| M10.6 | ChatBox | 历史、频道、滚动、超链接预留 | 可承载真实聊天 |
+| M10.7 | ListBox | 背包/角色列表基础 | 大量 item 不明显卡顿 |
+| M10.8 | Tooltip | 鼠标悬停说明 | 不遮挡关键输入 |
+| M10.9 | Theme | 旧客户端 UI skin 复刻 | 可替换皮肤资源 |
 
 ---
 
-## 13. M10：Hook/旧客户端对照与迁移
+## 14. M11：Hook/旧客户端对照与迁移
 
 ### 目标
 
@@ -693,13 +781,13 @@ src/ui/
 
 | 编号 | 任务 | 说明 | 验收标准 |
 |---|---|---|---|
-| M10.1 | 行为清单 | 从旧客户端记录已分析行为 | 每个行为有来源、截图或日志 |
-| M10.2 | 截图对照 | 原客户端 vs 新客户端 | 同场景可并排比较 |
-| M10.3 | 坐标对照 | tile/pixel/camera/anchor | 人物站位和遮挡一致 |
-| M10.4 | 动画对照 | 帧率、帧序、方向、锚点 | 走路/待机/战斗动作一致 |
-| M10.5 | UI 对照 | 面板尺寸、文字位置、输入行为 | 关键 UI 接近原客户端 |
-| M10.6 | 协议对照 | 封包字段、状态机、边界条件 | mock/replay 可复现 |
-| M10.7 | 差异文档 | `docs/migration_notes.md` | 每个差异记录是否接受或待修复 |
+| M11.1 | 行为清单 | 从旧客户端记录已分析行为 | 每个行为有来源、截图或日志 |
+| M11.2 | 截图对照 | 原客户端 vs 新客户端 | 同场景可并排比较 |
+| M11.3 | 坐标对照 | tile/pixel/camera/anchor | 人物站位和遮挡一致 |
+| M11.4 | 动画对照 | 帧率、帧序、方向、锚点 | 走路/待机/战斗动作一致 |
+| M11.5 | UI 对照 | 面板尺寸、文字位置、输入行为 | 关键 UI 接近原客户端 |
+| M11.6 | 协议对照 | 封包字段、状态机、边界条件 | mock/replay 可复现 |
+| M11.7 | 差异文档 | `docs/migration_notes.md` | 每个差异记录是否接受或待修复 |
 
 ### 建议文档格式
 
@@ -716,7 +804,7 @@ src/ui/
 
 ---
 
-## 14. M11：跨平台与打包
+## 15. M12：跨平台与打包
 
 ### 目标
 
@@ -726,17 +814,17 @@ src/ui/
 
 | 编号 | 任务 | 平台 | 验收标准 |
 |---|---|---|---|
-| M11.1 | Windows x64 构建 | MSVC | exe 可运行，DLL 路径正确 |
-| M11.2 | Linux 构建 | GCC/Clang | 可启动、IME 基础可用 |
-| M11.3 | macOS 构建 | Clang | 可启动、Metal/renderer 正常 |
-| M11.4 | 配置文件路径 | 全平台 | user config 不写进程序目录 |
-| M11.5 | 日志路径 | 全平台 | crash/bug 可收集日志 |
-| M11.6 | 资源打包 | 全平台 | assets/package 可定位 |
-| M11.7 | CI 构建 | GitHub Actions 或本地脚本 | 至少 Windows/Linux 自动构建 |
+| M12.1 | Windows x64 构建 | MSVC | exe 可运行，DLL 路径正确 |
+| M12.2 | Linux 构建 | GCC/Clang | 可启动、IME 基础可用 |
+| M12.3 | macOS 构建 | Clang | 可启动、Metal/renderer 正常 |
+| M12.4 | 配置文件路径 | 全平台 | user config 不写进程序目录 |
+| M12.5 | 日志路径 | 全平台 | crash/bug 可收集日志 |
+| M12.6 | 资源打包 | 全平台 | assets/package 可定位 |
+| M12.7 | CI 构建 | GitHub Actions 或本地脚本 | 至少 Windows/Linux 自动构建 |
 
 ---
 
-## 15. M12：SDL3_GPU 后端评估
+## 16. M13：SDL3_GPU 后端评估
 
 ### 目标
 
@@ -746,17 +834,17 @@ src/ui/
 
 | 编号 | 任务 | 说明 | 验收标准 |
 |---|---|---|---|
-| M12.1 | 定义 backend 接口差异 | IRenderer 是否足够 | 不修改 world/ui/resource 即可切换 |
-| M12.2 | Shader pipeline | 基础 sprite shader | 可绘制 atlas sprite |
-| M12.3 | Vertex/index buffer | 动态上传 SpriteCmd | 批量 sprite 可绘制 |
-| M12.4 | Texture upload | RGBA8888 上传 | 与 SDL_Renderer 画面一致 |
-| M12.5 | Blend modes | alpha/additive | 特效混合正确 |
-| M12.6 | 对比压测 | 同样 16000 场景 | 记录和 SDL_Renderer 差异 |
-| M12.7 | fallback | GPU 失败回退 SDL_Renderer | 老机器可启动 |
+| M13.1 | 定义 backend 接口差异 | IRenderer 是否足够 | 不修改 world/ui/resource 即可切换 |
+| M13.2 | Shader pipeline | 基础 sprite shader | 可绘制 atlas sprite |
+| M13.3 | Vertex/index buffer | 动态上传 SpriteCmd | 批量 sprite 可绘制 |
+| M13.4 | Texture upload | RGBA8888 上传 | 与 SDL_Renderer 画面一致 |
+| M13.5 | Blend modes | alpha/additive | 特效混合正确 |
+| M13.6 | 对比压测 | 同样 16000 场景 | 记录和 SDL_Renderer 差异 |
+| M13.7 | fallback | GPU 失败回退 SDL_Renderer | 老机器可启动 |
 
 ---
 
-## 16. 推荐开发顺序
+## 17. 推荐开发顺序
 
 ### 第一轮：最小可运行客户端
 
@@ -780,37 +868,45 @@ M2 TextureAtlas/TextureCache
 
 验收：可以查看旧资源、播放动画、显示地图。
 
-### 第三轮：世界与角色
+### 第三轮：封包解析
 
 ```text
-M6 entity/movement/animation/y-sort/culling
-M7 1k/4k/8k/16k 压测
+M6 protocol inventory/i62/es/token/payload/fixtures
+```
+
+验收：209 个旧封包可解析和回写，内嵌 payload 可保留 unknown 字段并 roundtrip。
+
+### 第四轮：世界与角色
+
+```text
+M7 entity/movement/animation/y-sort/culling
+M8 1k/4k/8k/16k 压测
 ```
 
 验收：大量角色移动，遮挡顺序正确，性能数据可观测。
 
-### 第四轮：网络和 UI
+### 第五轮：网络和 UI
 
 ```text
-M8 session/packet/protocol/mock/replay
-M9 UI panels/buttons/list/chat
+M9 session/socket/mock/replay
+M10 UI panels/buttons/list/chat
 ```
 
 验收：mock 协议能驱动角色移动和聊天 UI。
 
-### 第五轮：旧客户端对照和跨平台
+### 第六轮：旧客户端对照和跨平台
 
 ```text
-M10 behavior comparison
-M11 packaging/cross-platform
-M12 GPU backend optional
+M11 behavior comparison
+M12 packaging/cross-platform
+M13 GPU backend optional
 ```
 
 验收：关键行为有对照记录，Windows 可发布测试包，Linux/macOS 可构建。
 
 ---
 
-## 17. 每周/迭代任务拆分建议
+## 18. 每周/迭代任务拆分建议
 
 ### Iteration 1：工程和窗口
 
@@ -869,7 +965,28 @@ M12 GPU backend optional
 
 交付物：能看地图和角色动画。
 
-### Iteration 7：World MVP
+### Iteration 7：Protocol MVP
+
+- 协议资料盘点。
+- i62 编解码。
+- es 字符串转义。
+- 明文 token codec。
+- 209 个封包 registry。
+
+交付物：全量封包可注册、可外层解析和回写。
+
+### Iteration 8：Payload MVP
+
+- 内嵌 payload 二级分隔。
+- 地图/对象 payload。
+- 角色/属性 payload。
+- 物品/技能/宠物 payload。
+- 聊天/窗口/系统 payload。
+- 战斗/交易/家族 payload。
+
+交付物：含 payload 封包可结构化、保留 unknown 字段并 roundtrip。
+
+### Iteration 9：World MVP
 
 - EntityData。
 - Movement interpolation。
@@ -879,7 +996,7 @@ M12 GPU backend optional
 
 交付物：大量角色在地图上移动。
 
-### Iteration 8：Performance Pass
+### Iteration 10：Performance Pass
 
 - 1k/4k/8k/16k 压测。
 - Atlas 优化。
@@ -889,17 +1006,17 @@ M12 GPU backend optional
 
 交付物：性能报告和是否需要 SDL3_GPU 的结论。
 
-### Iteration 9：Network MVP
+### Iteration 11：Network MVP
 
 - Session。
-- PacketCodec。
+- M6 codec 接入。
 - MockServer。
 - Replay。
 - 聊天/移动消息。
 
 交付物：mock 网络驱动 world 和 chat。
 
-### Iteration 10：UI MVP
+### Iteration 12：UI MVP
 
 - Panel。
 - Button。
@@ -911,22 +1028,24 @@ M12 GPU backend optional
 
 ---
 
-## 18. 风险清单
+## 19. 风险清单
 
 | 风险 | 影响 | 缓解 |
 |---|---|---|
 | 旧资源格式细节不完整 | 地图/动画显示错误 | 工具优先，逐格式验证 |
+| 封包格式细节不完整 | 登录、移动、聊天或 payload 解析错误 | xlsx 非空优先，空字段用 C/IDA 补齐，unknown 字段保留并记录来源 |
+| 内嵌 payload 过早业务化 | 字段误判导致后续返工 | M6 只做结构化、回写和 unknown 保留，不补未确认业务逻辑 |
 | IME 全屏候选框异常 | 中文输入体验差 | 先窗口模式稳定，预留自绘候选 UI |
 | 16000 角色性能不足 | 客户端极限场景不达标 | Atlas + geometry batch + culling；必要时 SDL3_GPU |
 | Y-sort 与原客户端不一致 | 遮挡错误 | 旧客户端截图/Hook 对照 |
 | 字体和编码乱码 | 聊天/名字不可用 | UTF-8 内部，协议边界转换 |
-| 协议状态机错误 | 登录/移动/聊天异常 | mock/replay 优先 |
+| 协议状态机错误 | 登录/移动/聊天异常 | M6 先保证封包 roundtrip，M9 再做 mock/replay |
 | UI 抽象过重 | 开发速度下降 | 先实现 CrossGate 必需控件，不做通用编辑器 |
 | 过早引入 GPU 后端 | 功能进度拖慢 | SDL_Renderer 先完成，压测后决策 |
 
 ---
 
-## 19. Definition of Done
+## 20. Definition of Done
 
 一个模块完成必须满足：
 
@@ -940,24 +1059,24 @@ M12 GPU backend optional
 
 ---
 
-## 20. 当前最应该先做的 10 个任务
+## 21. 当前最应该先做的 10 个任务
 
-1. 创建 CMake/vcpkg SDL3 工程。
-2. 实现窗口、主循环、日志。
-3. 实现 SDL text input 和 IME composition/commit 分离。
-4. 实现 FontCache 和基础文本绘制。
-5. 实现 ChatBox/InputBox demo。
-6. 定义 `IRenderer`、`TextureHandle`、`SpriteCmd`。
-7. 实现 SDL_Renderer 后端和 RenderQueue。
-8. 实现 `SDL_RenderGeometry` sprite batch。
-9. 实现 TextureCache 和简单 atlas。
-10. 做 1000/4000/8000/16000 sprite 压测 demo。
+1. 完成 M6.0 协议资料盘点并提交。
+2. 实现 `PacketTypes`。
+3. 实现 i62 编解码。
+4. 实现 es 字符串转义。
+5. 实现明文 token codec。
+6. 实现 envelope 未压缩 roundtrip 和压缩错误边界。
+7. 注册 209 个封包 schema。
+8. 实现外层 `PacketParser`。
+9. 实现外层 `PacketBuilder`。
+10. 实现 payload 二级分隔和转义框架。
 
 ---
 
-## 21. 最小闭环验收标准
+## 22. 最小闭环验收标准
 
-当下面全部满足时，说明 cg-engine 第一阶段可以进入旧资源/协议接入：
+当下面全部满足时，说明 cg-engine 第一阶段可以进入 world 与网络连接层：
 
 ```text
 1. Windows 下稳定启动和退出。
@@ -970,4 +1089,7 @@ M12 GPU backend optional
 8. 可以运行 16000 sprite 压测。
 9. 业务层没有直接依赖 SDL_Texture/SDL_Renderer。
 10. asset_viewer/map_viewer/anim_viewer 至少有一个 MVP。
+11. M6 封包清单覆盖 209 个封包。
+12. i62、es、token、payload 基础 codec 有测试。
+13. 209 个封包 fixture 可 parse/build roundtrip。
 ```

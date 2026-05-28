@@ -123,3 +123,10 @@
 | 2026-05-29 | GraphicInfo flag 语义修复实现 | `GraphicInfo` 将原 `blockFlag/asGround` 两个字节合并为 `std::int16_t flag`；新增 `GraphicFlag1(flag % 100)` 与 `GraphicFlag2(flag / 100)`；`ReadGraphicInfo` 按 little-endian 读取 0x1A 的 16-bit flag；`ComputeObjectCoverRect` 改用 `GraphicFlag1`，`flag1 != 0` 只覆盖本格，`flag1 == 0` 按 `sx/sy` 扩展；测试数据新增 `flag=100` 覆盖旧误判 | 待验证同上 | 未实现普通地图绘制队列；`flag2` 仅作为后续普通地图层级语义辅助 |
 | 2026-05-29 | GraphicInfo flag 语义修复验证 | `git diff --check` 通过；VS bundled CMake Release 构建 `cg-map-viewer`、`cg-asset-viewer`、`cg-anim-viewer` 通过；Release CTest 1/1 通过；真实资源 `floor=59520` 输出 `AUT 状态：已加载`，截图保存路径 `D:\Source\cgmsv\cg3a\map_0_0_59520.bmp` 正常且大小 `2863358` 字节；真实资源 `floor=1000` 输出 fallback 到 tile/object 颜色路径，热缓存 `441ms`；anim `--anime-no 110350 --dir 0 --action 5` 输出 `hidden=true`、`hiddenMapNo=110350`、warning 0 | 临时 BMP 已删除；`cmake` 不在当前 PATH，验证使用 VS bundled CMake/CTest 绝对路径 | 目标达成，随后提交本小步 |
 | 2026-05-29 | review 2b18b80 GraphicInfo flag 语义 | 独立 review `2b18b802a18e4d9aef6793bbf66b728e33dc71b9`；修复 `plans/cg_engine_dev_plan.md` M5.3.4 残留 `blockFlag` 旧术语，改为 `GraphicInfo::flag % 100`；确认代码中 `GraphicInfo` 保持 40 字节并表达 16-bit `flag`，`ReadGraphicInfo` little-endian 读取 0x1A，AUT object 覆盖使用 `flag1`，`flag=100` 测试覆盖关键场景；未实现普通地图绘制队列 | `git diff --check` 通过；Release 构建 `cg-map-viewer`、`cg-asset-viewer`、`cg-anim-viewer` 通过；Release CTest 1/1 通过；真实资源 `floor=59520` 输出 `AUT 状态：已加载`，BMP `2863358` 字节生成后删除；真实资源 `floor=1000` fallback，热缓存 `469ms`；anim `--anime-no 110350 --dir 0 --action 5` 输出 `hidden=true`、`hiddenMapNo=110350`、warning 0 | 新增本 review 文档修复提交 |
+
+## M6：协议资料盘点
+
+| 日期 | 任务 | 修改 | 验证 | 遗留 |
+|---|---|---|---|---|
+| 2026-05-29 | M6.0 协议资料盘点 | 新增 `plans/protocol_m6_inventory.md`，从 `plans/CG封包.xlsx` 主表 `封包` 读取 209 行；记录来源优先级、方向/状态/format 统计和 209 个封包清单；format 非空来源标 `xlsx`，空 format 标 `待 C/IDA 补全` | 文档生成并复核 209 行；方向统计：服务端->客户端 109、客户端->服务端 100；状态统计：完成 161、进行中 25、暂缓 18、待办 5；format 非空 156、空 53；未编译 | M6.1 起未实现 |
+| 2026-05-29 | M6 总规划同步 | 更新 `plans/cg_engine_dev_plan.md`：M6 改为封包解析与全量协议支持，补 M6.0-M6.19 任务；原 world 顺延为 M7，性能为 M8，net 连接层为 M9，UI 为 M10，Hook 对照为 M11，跨平台为 M12，GPU 为 M13；推荐开发顺序、迭代建议、风险和当前任务同步调整 | 文档检查；未编译 | M6.1 起未实现 |

@@ -25,6 +25,33 @@ AutoMapScreenPoint ProjectMapCellToAutoMap(std::int32_t mapWidth, std::int32_t x
     };
 }
 
+std::optional<AutoMapCellRect> ComputeObjectCoverRect(
+    const GraphicInfo& info,
+    std::int32_t objectX,
+    std::int32_t objectY,
+    std::uint8_t colorIndex) noexcept
+{
+    if (colorIndex == 0) {
+        return std::nullopt;
+    }
+
+    if (info.blockFlag != 0) {
+        return AutoMapCellRect{objectX, objectY, objectX, objectY};
+    }
+
+    if (info.sx <= 0 || info.sy <= 0) {
+        // 异常保护：非阻挡 object 缺少有效 sx/sy 时不推导覆盖范围。
+        return std::nullopt;
+    }
+
+    return AutoMapCellRect{
+        objectX,
+        objectY - static_cast<std::int32_t>(info.sy) + 1,
+        objectX + static_cast<std::int32_t>(info.sx) - 1,
+        objectY,
+    };
+}
+
 std::uint32_t DecodeMapCell(std::uint32_t raw) noexcept
 {
     // 来源：IDA 0x0046CF20 初始化 dword_C35010，0x0046CF00 查询。

@@ -40,6 +40,13 @@ struct MapCoord {
     int y = 0;
 };
 
+[[nodiscard]] std::string BuildLayerStateText(const cg::resource::AutoMapRenderOptions& options)
+{
+    return "tile=" + std::string(options.drawTiles ? "on" : "off")
+        + " object=" + std::string(options.drawObjects ? "on" : "off")
+        + " collision=" + std::string(options.drawCollision ? "on" : "off");
+}
+
 [[nodiscard]] std::string PathToUtf8(const std::filesystem::path& path)
 {
     const std::u8string value = path.u8string();
@@ -192,18 +199,73 @@ void PanByKeyboard(ViewState& view) noexcept
 [[nodiscard]] std::string BuildWindowTitle(
     const ViewState& view,
     const cg::resource::MapData& map,
+    const cg::resource::AutoMapRenderOptions& options,
     float mouseX,
     float mouseY)
 {
     const MapCoord coord = ScreenToMapCoord(view, map, mouseX, mouseY);
     return "cg-map-viewer map=(" + std::to_string(coord.x) + "," + std::to_string(coord.y) + ") zoom="
-        + std::to_string(view.scale);
+        + std::to_string(view.scale) + " layers[" + BuildLayerStateText(options) + "]";
 }
 
-void UpdateWindowTitle(SDL_Window* window, const ViewState& view, const cg::resource::MapData& map, float mouseX, float mouseY)
+void UpdateWindowTitle(
+    SDL_Window* window,
+    const ViewState& view,
+    const cg::resource::MapData& map,
+    const cg::resource::AutoMapRenderOptions& options,
+    float mouseX,
+    float mouseY)
 {
-    const std::string title = BuildWindowTitle(view, map, mouseX, mouseY);
+    const std::string title = BuildWindowTitle(view, map, options, mouseX, mouseY);
     SDL_SetWindowTitle(window, title.c_str());
+}
+
+void PrintLayerState(const cg::resource::AutoMapRenderOptions& options)
+{
+    std::cout << "图层状态：" << BuildLayerStateText(options) << '\n';
+    std::cout.flush();
+}
+
+[[nodiscard]] bool UploadAutoMapTexture(SDL_Texture* texture, const cg::resource::AutoMapImage& image)
+{
+    return SDL_UpdateTexture(texture, nullptr, image.pixels.data(), image.width * Rgba8BytesPerPixel);
+}
+
+[[nodiscard]] bool RebuildAutoMapTexture(
+    SDL_Texture* texture,
+    cg::resource::AutoMapImage& image,
+    const cg::resource::MapData& map,
+    const cg::resource::ResourceManager& resourceManager,
+    const cg::resource::Palette& palette,
+    const cg::resource::AutoMapRenderOptions& options)
+{
+    image = cg::resource::RenderAutoMapRgba8(map, resourceManager, palette, options);
+    if (image.width <= 0 || image.height <= 0 || image.pixels.empty()) {
+        std::cerr << "失败：自动地图图像为空\n";
+        return false;
+    }
+    if (!UploadAutoMapTexture(texture, image)) {
+        PrintSdlError("上传自动地图纹理失败");
+        return false;
+    }
+    return true;
+}
+
+[[nodiscard]] bool ToggleLayerOption(SDL_Keycode key, cg::resource::AutoMapRenderOptions& options) noexcept
+{
+    switch (key) {
+    case SDLK_1:
+        options.drawTiles = !options.drawTiles;
+        return true;
+    case SDLK_2:
+        options.drawObjects = !options.drawObjects;
+        return true;
+    case SDLK_3:
+        options.drawCollision = !options.drawCollision;
+        return true;
+    default:
+        return false;
+    }
 }
 
 [[nodiscard]] bool RenderFrame(
@@ -229,7 +291,12 @@ void UpdateWindowTitle(SDL_Window* window, const ViewState& view, const cg::reso
     return SDL_RenderPresent(renderer);
 }
 
-[[nodiscard]] bool ShowAutoMapWindow(const cg::resource::MapData& map, const cg::resource::AutoMapImage& image)
+[[nodiscard]] bool ShowAutoMapWindow(
+    const cg::resource::MapData& map,
+    const cg::resource::ResourceManager& resourceManager,
+    const cg::resource::Palette& palette,
+    cg::resource::AutoMapImage image,
+    cg::resource::AutoMapRenderOptions options)
 {
     if (image.width <= 0 || image.height <= 0 || image.pixels.empty()) {
         std::cerr << "失败：自动地图图像为空\n";
@@ -275,7 +342,7 @@ void UpdateWindowTitle(SDL_Window* window, const ViewState& view, const cg::reso
     }
     if (!SDL_SetTextureScaleMode(texture, SDL_SCALEMODE_NEAREST)
         || !SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND)
-        || !SDL_UpdateTexture(texture, nullptr, image.pixels.data(), image.width * Rgba8BytesPerPixel)) {
+        || !UploadAutoMapTexture(texture, image)) {
         PrintSdlError("上传自动地图纹理失败");
         SDL_DestroyTexture(texture);
         SDL_DestroyRenderer(renderer);
@@ -290,10 +357,11 @@ void UpdateWindowTitle(SDL_Window* window, const ViewState& view, const cg::reso
     ViewState view = MakeInitialView(image, windowWidth, windowHeight);
     float mouseX = static_cast<float>(windowWidth) * 0.5F;
     float mouseY = static_cast<float>(windowHeight) * 0.5F;
-    UpdateWindowTitle(window, view, map, mouseX, mouseY);
+    UpdateWindowTitle(window, view, map, options, mouseX, mouseY);
 
     std::cout << "自动地图尺寸：" << image.width << "x" << image.height << '\n';
-    std::cout << "窗口已打开：ESC 退出，WASD/方向键平移，鼠标滚轮缩放\n";
+    PrintLayerState(options);
+    std::cout << "窗口已打开：ESC 退出，WASD/方向键平移，鼠标滚轮缩放，1/2/3 切换 tile/object/collision\n";
     std::cout.flush();
 
     bool running = true;
@@ -308,18 +376,25 @@ void UpdateWindowTitle(SDL_Window* window, const ViewState& view, const cg::reso
             case SDL_EVENT_KEY_DOWN:
                 if (event.key.key == SDLK_ESCAPE) {
                     running = false;
+                } else if (!event.key.repeat && ToggleLayerOption(event.key.key, options)) {
+                    if (!RebuildAutoMapTexture(texture, image, map, resourceManager, palette, options)) {
+                        running = false;
+                        break;
+                    }
+                    PrintLayerState(options);
+                    UpdateWindowTitle(window, view, map, options, mouseX, mouseY);
                 }
                 break;
             case SDL_EVENT_MOUSE_MOTION:
                 mouseX = event.motion.x;
                 mouseY = event.motion.y;
-                UpdateWindowTitle(window, view, map, mouseX, mouseY);
+                UpdateWindowTitle(window, view, map, options, mouseX, mouseY);
                 break;
             case SDL_EVENT_MOUSE_WHEEL:
                 mouseX = event.wheel.mouse_x;
                 mouseY = event.wheel.mouse_y;
                 ZoomAt(view, mouseX, mouseY, event.wheel.y);
-                UpdateWindowTitle(window, view, map, mouseX, mouseY);
+                UpdateWindowTitle(window, view, map, options, mouseX, mouseY);
                 break;
             default:
                 break;
@@ -327,7 +402,7 @@ void UpdateWindowTitle(SDL_Window* window, const ViewState& view, const cg::reso
         }
 
         PanByKeyboard(view);
-        UpdateWindowTitle(window, view, map, mouseX, mouseY);
+        UpdateWindowTitle(window, view, map, options, mouseX, mouseY);
         if (!RenderFrame(renderer, texture, image, view)) {
             PrintSdlError("渲染自动地图失败");
             running = false;
@@ -441,10 +516,11 @@ int main(int argc, char* argv[])
     std::cout << "tile/obj/hit 数量：" << map.tileData.size() << '/'
               << map.objData.size() << '/' << map.hitData.size() << '\n';
 
+    const cg::resource::AutoMapRenderOptions options;
     const cg::resource::AutoMapImage image = cg::resource::RenderAutoMapRgba8(
         map,
         resources,
         resources.DefaultPalette(),
-        cg::resource::AutoMapRenderOptions {});
-    return ShowAutoMapWindow(map, image) ? 0 : 1;
+        options);
+    return ShowAutoMapWindow(map, resources, resources.DefaultPalette(), image, options) ? 0 : 1;
 }

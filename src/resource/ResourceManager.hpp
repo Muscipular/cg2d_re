@@ -34,13 +34,13 @@ public:
     [[nodiscard]] std::optional<GraphicRef> FindGraphicBySeq(int binSetIndex, int seqNo) const;
     [[nodiscard]] std::optional<GraphicRef> FindGraphicByGlobalIndex(int globalIndex) const;
     [[nodiscard]] std::optional<GraphicRef> FindGraphicForFrame(const AnimationClip& clip, const AnimeFrame& frame) const;
-    // Anime 查询只接受 AnimeInfo 中的原始 animeNo，不接受内部 index。
+    // Anime 查询只接受 AnimeInfo 中的原始 animeNo，不接受内部 indexNo；indexNo 是旧客户端派生动画编号/内部动画号，不是数组下标。
     [[nodiscard]] std::optional<AnimeRef> FindAnime(int sourceAnimeNo) const;
     [[nodiscard]] std::span<const GraphicRef> Graphics(int binSetIndex) const noexcept;
 
     [[nodiscard]] std::optional<DecodedImage> DecodeGraphic(const GraphicRef& ref);
     [[nodiscard]] std::optional<DecodedImage> DecodeGraphicByMapNo(int mapNo);
-    // Anime 加载只接受 AnimeInfo 中的原始 animeNo，不接受内部 index。
+    // Anime 加载只接受 AnimeInfo 中的原始 animeNo，不接受内部 indexNo；indexNo 是旧客户端派生动画编号/内部动画号，不是数组下标。
     [[nodiscard]] std::optional<AnimationClip> LoadAnimation(int sourceAnimeNo);
 
     [[nodiscard]] const ResourceStats& Stats() const noexcept;

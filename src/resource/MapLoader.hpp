@@ -20,6 +20,7 @@ struct MapLoadResult {
 };
 
 // BuildMapFloorPath 构造地图楼层路径，文件名为 `${floor}.dat`。
+// mapRoot 必须是客户端资源根目录（包含 `map` 子目录的父目录），不要传入 `map` 目录本身，否则会重复拼接 `map/`。
 [[nodiscard]] std::filesystem::path BuildMapFloorPath(
     const std::filesystem::path& mapRoot,
     std::uint32_t mapId,

@@ -24,6 +24,21 @@ constexpr std::size_t BytesPerColor = 3;
     return result;
 }
 
+[[nodiscard]] GraphicIndexedDecodeResult MakeIndexedError(GraphicDecodeError error, std::string message)
+{
+    GraphicIndexedDecodeResult result;
+    result.error = error;
+    result.message = std::move(message);
+    return result;
+}
+
+struct DecodedIndexedBlock {
+    GraphicBlockHeader header;
+    GraphicDataMetadata metadata;
+    std::size_t pixelCount = 0;
+    std::vector<std::uint8_t> decoded;
+};
+
 template <typename T>
 [[nodiscard]] bool TryToU64(T value, std::uint64_t& output)
 {
@@ -337,6 +352,76 @@ template <typename T>
     return true;
 }
 
+[[nodiscard]] GraphicDecodeError DecodeIndexedBlockData(
+    std::span<const std::uint8_t> block,
+    DecodedIndexedBlock& output,
+    std::string& message)
+{
+    GraphicBlockHeader header;
+    GraphicDataMetadata metadata;
+    if (!TryParseHeader(block, header, metadata)) {
+        message = "Graphic 块头无效";
+        return GraphicDecodeError::InvalidHeader;
+    }
+
+    std::size_t pixelCount = 0;
+    if (!TryGetPixelCount(header, pixelCount)) {
+        message = "Graphic 输出尺寸无效";
+        return GraphicDecodeError::OutputOverflow;
+    }
+
+    const std::span<const std::uint8_t> imagePayload = block.subspan(
+        metadata.headerSize,
+        static_cast<std::size_t>(header.length) - metadata.headerSize);
+    std::size_t decodedSize = pixelCount;
+    if (metadata.hasEmbeddedPalette) {
+        if (metadata.paletteSize > std::numeric_limits<std::size_t>::max() - decodedSize) {
+            message = "Graphic 输出尺寸无效";
+            return GraphicDecodeError::OutputOverflow;
+        }
+        decodedSize += metadata.paletteSize;
+    }
+
+    std::vector<std::uint8_t> decoded;
+    if (metadata.compressed) {
+        if (!DecodeRle(imagePayload, decodedSize, decoded)) {
+            message = "Graphic RLE 数据越界或控制字节无效";
+            return GraphicDecodeError::InvalidRle;
+        }
+    } else {
+        if (imagePayload.size() < decodedSize) {
+            message = "Graphic indexed 数据不完整";
+            return GraphicDecodeError::UnexpectedEof;
+        }
+        decoded.assign(imagePayload.begin(), imagePayload.begin() + static_cast<std::ptrdiff_t>(decodedSize));
+    }
+
+    const auto attributes = static_cast<std::uint8_t>(header.unk1);
+    metadata.zeroTransparent = (attributes & 0x08U) != 0;
+
+    output.header = header;
+    output.metadata = metadata;
+    output.pixelCount = pixelCount;
+    output.decoded = std::move(decoded);
+    return GraphicDecodeError::None;
+}
+
+[[nodiscard]] std::span<const std::uint8_t> IndexedPixels(const DecodedIndexedBlock& block)
+{
+    return std::span<const std::uint8_t>(block.decoded.data(), block.pixelCount);
+}
+
+[[nodiscard]] std::span<const std::uint8_t> EmbeddedPaletteBytes(const DecodedIndexedBlock& block)
+{
+    if (!block.metadata.hasEmbeddedPalette || block.metadata.paletteSize == 0) {
+        return {};
+    }
+
+    return std::span<const std::uint8_t>(
+        block.decoded.data() + block.pixelCount,
+        block.metadata.paletteSize);
+}
+
 [[nodiscard]] GraphicDecodeResult ConvertIndexedToRgba(
     const GraphicInfo& info,
     const GraphicBlockHeader& header,
@@ -351,11 +436,7 @@ template <typename T>
     result.image.offsetY = info.y;
     result.image.mapNo = info.mapNo;
     result.image.dataHeader = header;
-
-    GraphicDataMetadata outputMetadata = metadata;
-    const auto attributes = static_cast<std::uint8_t>(header.unk1);
-    outputMetadata.zeroTransparent = (attributes & 0x08U) != 0;
-    result.image.dataMetadata = outputMetadata;
+    result.image.dataMetadata = metadata;
     result.image.pixels.resize(indexed.size() * 4U);
 
     for (int y = 0; y < header.h; ++y) {
@@ -369,7 +450,7 @@ template <typename T>
             result.image.pixels[target] = color.r;
             result.image.pixels[target + 1] = color.g;
             result.image.pixels[target + 2] = color.b;
-            result.image.pixels[target + 3] = (colorIndex == 0 && outputMetadata.zeroTransparent) ? 0 : color.a;
+            result.image.pixels[target + 3] = (colorIndex == 0 && metadata.zeroTransparent) ? 0 : color.a;
         }
     }
 
@@ -423,44 +504,16 @@ GraphicDecodeResult GraphicDecoder::DecodeBlock(
     std::span<const std::uint8_t> block,
     const Palette& defaultPalette) const
 {
-    GraphicBlockHeader header;
-    GraphicDataMetadata metadata;
-    if (!TryParseHeader(block, header, metadata)) {
-        return MakeError(GraphicDecodeError::InvalidHeader, "Graphic 块头无效");
-    }
-
-    std::size_t pixelCount = 0;
-    if (!TryGetPixelCount(header, pixelCount)) {
-        return MakeError(GraphicDecodeError::OutputOverflow, "Graphic 输出尺寸无效");
-    }
-
-    const std::span<const std::uint8_t> imagePayload = block.subspan(
-        metadata.headerSize,
-        static_cast<std::size_t>(header.length) - metadata.headerSize);
-    std::size_t decodedSize = pixelCount;
-    if (metadata.hasEmbeddedPalette) {
-        if (metadata.paletteSize > std::numeric_limits<std::size_t>::max() - decodedSize) {
-            return MakeError(GraphicDecodeError::OutputOverflow, "Graphic 输出尺寸无效");
-        }
-        decodedSize += metadata.paletteSize;
-    }
-
-    std::vector<std::uint8_t> decoded;
-    if (metadata.compressed) {
-        if (!DecodeRle(imagePayload, decodedSize, decoded)) {
-            return MakeError(GraphicDecodeError::InvalidRle, "Graphic RLE 数据越界或控制字节无效");
-        }
-    } else {
-        if (imagePayload.size() < decodedSize) {
-            return MakeError(GraphicDecodeError::UnexpectedEof, "Graphic indexed 数据不完整");
-        }
-        decoded.assign(imagePayload.begin(), imagePayload.begin() + static_cast<std::ptrdiff_t>(decodedSize));
+    DecodedIndexedBlock decodedBlock;
+    std::string message;
+    const GraphicDecodeError error = DecodeIndexedBlockData(block, decodedBlock, message);
+    if (error != GraphicDecodeError::None) {
+        return MakeError(error, std::move(message));
     }
 
     Palette activePalette = defaultPalette;
-    std::span<const std::uint8_t> paletteBytes;
-    if (metadata.hasEmbeddedPalette && metadata.paletteSize > 0) {
-        paletteBytes = std::span<const std::uint8_t>(decoded.data() + pixelCount, metadata.paletteSize);
+    const std::span<const std::uint8_t> paletteBytes = EmbeddedPaletteBytes(decodedBlock);
+    if (!paletteBytes.empty()) {
         if (!BuildEmbeddedPalette(defaultPalette, paletteBytes, activePalette)) {
             return MakeError(GraphicDecodeError::InvalidPalette, "CGEX 内嵌 palette 长度无效");
         }
@@ -468,10 +521,34 @@ GraphicDecodeResult GraphicDecoder::DecodeBlock(
 
     return ConvertIndexedToRgba(
         info,
-        header,
-        metadata,
-        std::span<const std::uint8_t>(decoded.data(), pixelCount),
+        decodedBlock.header,
+        decodedBlock.metadata,
+        IndexedPixels(decodedBlock),
         activePalette);
+}
+
+GraphicIndexedDecodeResult GraphicDecoder::DecodeGraphicIndexed(
+    const GraphicInfo& info,
+    std::span<const std::uint8_t> block) const
+{
+    DecodedIndexedBlock decodedBlock;
+    std::string message;
+    const GraphicDecodeError error = DecodeIndexedBlockData(block, decodedBlock, message);
+    if (error != GraphicDecodeError::None) {
+        return MakeIndexedError(error, std::move(message));
+    }
+
+    GraphicIndexedDecodeResult result;
+    result.image.width = decodedBlock.header.w;
+    result.image.height = decodedBlock.header.h;
+    result.image.offsetX = info.x;
+    result.image.offsetY = info.y;
+    result.image.mapNo = info.mapNo;
+    result.image.dataHeader = decodedBlock.header;
+    result.image.dataMetadata = decodedBlock.metadata;
+    decodedBlock.decoded.resize(decodedBlock.pixelCount);
+    result.image.pixels = std::move(decodedBlock.decoded);
+    return result;
 }
 
 } // namespace cg::resource

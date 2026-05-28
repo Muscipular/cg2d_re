@@ -199,6 +199,18 @@ struct DecodedImage {
     std::vector<std::uint8_t> pixels;
 };
 
+// GraphicIndexedImage 是 Graphic 解码后的 indexed 色号像素数据，不做 palette/透明转换。
+struct GraphicIndexedImage {
+    int width = 0;
+    int height = 0;
+    int offsetX = 0;
+    int offsetY = 0;
+    int mapNo = 0;
+    GraphicDataHeader dataHeader;
+    GraphicDataMetadata dataMetadata;
+    std::vector<std::uint8_t> pixels;
+};
+
 // ResourceStats 记录资源加载过程的基础统计。
 struct ResourceStats {
     std::uint32_t binSetCount = 0;

@@ -25,9 +25,10 @@ enum class GraphicDecodeError {
 // GraphicBlockHeader 是 RD Graphic 块头的纯数据表示。
 using GraphicBlockHeader = GraphicDataHeader;
 
-// GraphicDecodeResult 返回 RGBA8 图片或失败原因。
-struct GraphicDecodeResult {
-    DecodedImage image;
+// GraphicDecodeResultT 返回 Graphic 解码图片或失败原因。
+template <typename TImage>
+struct GraphicDecodeResultT {
+    TImage image;
     GraphicDecodeError error = GraphicDecodeError::None;
     std::filesystem::path path;
     std::string message;
@@ -43,6 +44,12 @@ struct GraphicDecodeResult {
     }
 };
 
+// GraphicDecodeResult 返回 RGBA8 图片或失败原因。
+using GraphicDecodeResult = GraphicDecodeResultT<DecodedImage>;
+
+// GraphicIndexedDecodeResult 返回 indexed 色号图片或失败原因。
+using GraphicIndexedDecodeResult = GraphicDecodeResultT<GraphicIndexedImage>;
+
 // GraphicDecoder 解码 GraphicInfo 指向的 RD/CGEX 图块，不暴露 SDL 类型。
 class GraphicDecoder final {
 public:
@@ -55,6 +62,10 @@ public:
         const GraphicInfo& info,
         std::span<const std::uint8_t> block,
         const Palette& defaultPalette) const;
+
+    [[nodiscard]] GraphicIndexedDecodeResult DecodeGraphicIndexed(
+        const GraphicInfo& info,
+        std::span<const std::uint8_t> block) const;
 };
 
 } // namespace cg::resource

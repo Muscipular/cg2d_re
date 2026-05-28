@@ -238,8 +238,10 @@ void PrintSearchOptions(const SearchOptions& options)
 void PrintGraphic(const cg::resource::GraphicRef& ref, const std::vector<cg::resource::BinSetDesc>& binSets)
 {
     std::cout << "binSet=" << ref.binSetIndex;
+    const cg::resource::BinSetDesc* binSet = nullptr;
     if (ref.binSetIndex >= 0 && static_cast<std::size_t>(ref.binSetIndex) < binSets.size()) {
-        std::cout << '(' << binSets[static_cast<std::size_t>(ref.binSetIndex)].name << ')';
+        binSet = &binSets[static_cast<std::size_t>(ref.binSetIndex)];
+        std::cout << '(' << binSet->name << ')';
     }
     std::cout << "，seqNo=" << ref.seqNo
               << "，mapNo=" << ref.mapNo
@@ -247,7 +249,7 @@ void PrintGraphic(const cg::resource::GraphicRef& ref, const std::vector<cg::res
               << "，数据偏移=" << ref.info.offset
               << "，数据长度=" << ref.info.length
               << "，坐标偏移=(" << ref.info.x << ',' << ref.info.y << ')'
-              << "，dataPath=" << PathToUtf8(ref.dataPath) << '\n';
+              << "，dataPath=" << (binSet == nullptr ? std::string {} : PathToUtf8(binSet->graphicDataPath)) << '\n';
 }
 
 [[nodiscard]] const char* PixelFormatName(cg::render::PixelFormat format) noexcept

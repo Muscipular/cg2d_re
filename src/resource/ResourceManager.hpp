@@ -63,10 +63,13 @@ private:
         BinSetDesc desc;
         int graphicStartIndex = 0;
         std::vector<GraphicRef> graphics;
-        std::unordered_map<int, GraphicHandle> graphicsBySeq;
+        std::vector<GraphicHandle> graphicsBySeq;
+        std::unordered_map<int, GraphicHandle> graphicsBySparseSeq;
     };
 
     [[nodiscard]] const GraphicRef* ResolveGraphicHandle(const GraphicHandle& handle) const noexcept;
+    [[nodiscard]] const GraphicRef* FindGraphicInStateBySeq(const BinSetState& state, int seqNo) const noexcept;
+    [[nodiscard]] const std::filesystem::path* ResolveGraphicDataPath(const GraphicRef& ref) const noexcept;
     [[nodiscard]] bool LoadGraphicIndex(
         int binSetIndex,
         const BinSetDesc& desc,
@@ -74,7 +77,11 @@ private:
         const ResourceLoadOptions& options);
     [[nodiscard]] bool LoadAnimeIndex(int binSetIndex, const BinSetDesc& desc);
 
-    void BuildAutoMapColorIndex(const GraphicRef& ref, BinaryReader& graphicDataReader, bool& graphicDataOpenTried);
+    void BuildAutoMapColorIndex(
+        const GraphicRef& ref,
+        const std::filesystem::path& graphicDataPath,
+        BinaryReader& graphicDataReader,
+        bool& graphicDataOpenTried);
     void LoadHiddenPaletteTable(const ResourceLoadOptions& options);
     void ClearError();
     void SetError(ResourceErrorCode code, const std::filesystem::path& path, int resourceId, std::string message);
@@ -83,7 +90,8 @@ private:
     std::vector<BinSetState> binSets_;
     std::unordered_map<int, GraphicHandle> graphicsByMapNo_;
     std::unordered_map<int, std::uint8_t> autoMapColorByMapNo_;
-    std::unordered_map<int, GraphicHandle> graphicsByGlobalIndex_;
+    std::vector<GraphicHandle> graphicsByGlobalIndex_;
+    std::unordered_map<int, GraphicHandle> graphicsBySparseGlobalIndex_;
     std::vector<int> hiddenPaletteMapNoByPalIndex_;
     std::unordered_map<int, AnimeRef> animesBySourceAnimeNo_;
     Palette defaultPalette_;

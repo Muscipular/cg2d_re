@@ -150,13 +150,12 @@ struct GraphicDataMetadata {
     bool zeroTransparent = false;
 };
 
-// GraphicRef 表示可定位到具体 binSet 和数据文件的图档引用。
+// GraphicRef 表示可通过 binSet 定位数据文件的图档引用。
 struct GraphicRef {
     int binSetIndex = 0;
     int globalIndex = 0;
     int seqNo = 0;
     int mapNo = 0;
-    std::filesystem::path dataPath;
     GraphicInfo info;
 };
 

@@ -28,6 +28,7 @@ constexpr std::size_t HiddenPaletteHeaderSize = 32;
 constexpr std::size_t HiddenPaletteRecordHeaderSize = 8;
 constexpr std::size_t HiddenPaletteRecordMinSize = 8;
 constexpr std::size_t MaxHiddenPaletteTableSize = 64U * 1024U * 1024U;
+constexpr std::size_t DenseIndexSlackMultiplier = 2;
 static_assert(GraphicInfoRecordSize == 40);
 
 [[nodiscard]] bool IsEmptyPathPair(const std::filesystem::path& first, const std::filesystem::path& second)
@@ -49,6 +50,14 @@ static_assert(GraphicInfoRecordSize == 40);
 {
     return (mapNo >= AutoMapNormalBegin && mapNo <= AutoMapNormalEnd)
         || (mapNo >= AutoMapNewBegin && mapNo <= AutoMapNewEnd);
+}
+
+[[nodiscard]] bool CanUseDenseIndex(std::size_t index, std::size_t currentSize, std::size_t recordCount) noexcept
+{
+    if (recordCount > (std::numeric_limits<std::size_t>::max() - currentSize) / DenseIndexSlackMultiplier) {
+        return false;
+    }
+    return index < currentSize + recordCount * DenseIndexSlackMultiplier;
 }
 
 [[nodiscard]] bool TryReadGraphicBlock(BinaryReader& reader, const GraphicRef& ref, std::vector<std::uint8_t>& block, std::string& message)
@@ -324,13 +333,8 @@ static_assert(GraphicInfoRecordSize == 40);
     }
 }
 
-[[nodiscard]] bool ReadGraphicInfo(BinaryReader& reader, GraphicInfo& info)
+[[nodiscard]] bool ReadGraphicInfo(std::span<const std::uint8_t> bytes, GraphicInfo& info)
 {
-    std::array<std::uint8_t, GraphicInfoRecordSize> bytes {};
-    if (!reader.ReadBytes(bytes)) {
-        return false;
-    }
-
     std::int32_t seqNo = 0;
     std::int32_t offset = 0;
     std::int32_t length = 0;
@@ -418,6 +422,7 @@ void ResourceManager::Clear()
     graphicsByMapNo_.clear();
     autoMapColorByMapNo_.clear();
     graphicsByGlobalIndex_.clear();
+    graphicsBySparseGlobalIndex_.clear();
     hiddenPaletteMapNoByPalIndex_.clear();
     animesBySourceAnimeNo_.clear();
     stats_ = ResourceStats {};
@@ -466,12 +471,7 @@ std::optional<GraphicRef> ResourceManager::FindGraphicBySeq(int binSetIndex, int
     }
 
     const auto& state = binSets_[static_cast<std::size_t>(binSetIndex)];
-    const auto iter = state.graphicsBySeq.find(seqNo);
-    if (iter == state.graphicsBySeq.end()) {
-        return std::nullopt;
-    }
-
-    const GraphicRef* const ref = ResolveGraphicHandle(iter->second);
+    const GraphicRef* const ref = FindGraphicInStateBySeq(state, seqNo);
     if (ref == nullptr) {
         return std::nullopt;
     }
@@ -480,12 +480,15 @@ std::optional<GraphicRef> ResourceManager::FindGraphicBySeq(int binSetIndex, int
 
 std::optional<GraphicRef> ResourceManager::FindGraphicByGlobalIndex(int globalIndex) const
 {
-    const auto iter = graphicsByGlobalIndex_.find(globalIndex);
-    if (iter == graphicsByGlobalIndex_.end()) {
-        return std::nullopt;
+    const GraphicRef* ref = nullptr;
+    if (globalIndex >= 0 && static_cast<std::size_t>(globalIndex) < graphicsByGlobalIndex_.size()) {
+        ref = ResolveGraphicHandle(graphicsByGlobalIndex_[static_cast<std::size_t>(globalIndex)]);
+    } else {
+        const auto iter = graphicsBySparseGlobalIndex_.find(globalIndex);
+        if (iter != graphicsBySparseGlobalIndex_.end()) {
+            ref = ResolveGraphicHandle(iter->second);
+        }
     }
-
-    const GraphicRef* const ref = ResolveGraphicHandle(iter->second);
     if (ref == nullptr) {
         return std::nullopt;
     }
@@ -542,7 +545,13 @@ std::optional<DecodedImage> ResourceManager::DecodeGraphic(const GraphicRef& ref
 
 std::optional<DecodedImage> ResourceManager::DecodeGraphic(const GraphicRef& ref, const Palette& palette)
 {
-    GraphicDecodeResult result = graphicDecoder_.DecodeFromFile(ref.info, ref.dataPath, palette);
+    const std::filesystem::path* const dataPath = ResolveGraphicDataPath(ref);
+    if (dataPath == nullptr) {
+        SetError(ResourceErrorCode::MissingResource, {}, ref.mapNo, "Graphic 数据路径无效");
+        return std::nullopt;
+    }
+
+    GraphicDecodeResult result = graphicDecoder_.DecodeFromFile(ref.info, *dataPath, palette);
     if (!result) {
         SetError(ResourceErrorCode::DecodeFailed, result.path, ref.mapNo, result.message);
         return std::nullopt;
@@ -571,8 +580,14 @@ std::optional<Palette> ResourceManager::LoadHiddenPaletteByMapNo(int mapNo)
         return std::nullopt;
     }
 
+    const std::filesystem::path* const dataPath = ResolveGraphicDataPath(*ref);
+    if (dataPath == nullptr) {
+        SetError(ResourceErrorCode::MissingResource, {}, mapNo, "隐藏调色盘 Graphic 数据路径无效");
+        return std::nullopt;
+    }
+
     GraphicPaletteDecodeResult result =
-        graphicDecoder_.DecodeEmbeddedPaletteFromFile(ref->info, ref->dataPath, defaultPalette_);
+        graphicDecoder_.DecodeEmbeddedPaletteFromFile(ref->info, *dataPath, defaultPalette_);
     if (!result) {
         SetError(ResourceErrorCode::DecodeFailed, result.path, mapNo, result.message);
         return std::nullopt;
@@ -643,6 +658,33 @@ const GraphicRef* ResourceManager::ResolveGraphicHandle(const GraphicHandle& han
     return &state.graphics[handle.localIndex];
 }
 
+const GraphicRef* ResourceManager::FindGraphicInStateBySeq(const BinSetState& state, int seqNo) const noexcept
+{
+    if (seqNo >= 0 && static_cast<std::size_t>(seqNo) < state.graphicsBySeq.size()) {
+        return ResolveGraphicHandle(state.graphicsBySeq[static_cast<std::size_t>(seqNo)]);
+    }
+
+    const auto iter = state.graphicsBySparseSeq.find(seqNo);
+    if (iter == state.graphicsBySparseSeq.end()) {
+        return nullptr;
+    }
+    return ResolveGraphicHandle(iter->second);
+}
+
+const std::filesystem::path* ResourceManager::ResolveGraphicDataPath(const GraphicRef& ref) const noexcept
+{
+    if (ref.binSetIndex < 0 || static_cast<std::size_t>(ref.binSetIndex) >= binSets_.size()) {
+        return nullptr;
+    }
+
+    const std::filesystem::path& dataPath =
+        binSets_[static_cast<std::size_t>(ref.binSetIndex)].desc.graphicDataPath;
+    if (dataPath.empty()) {
+        return nullptr;
+    }
+    return &dataPath;
+}
+
 bool ResourceManager::LoadGraphicIndex(
     int binSetIndex,
     const BinSetDesc& desc,
@@ -661,6 +703,17 @@ bool ResourceManager::LoadGraphicIndex(
     }
     if (reader.Size() % GraphicInfoRecordSize != 0) {
         SetError(ResourceErrorCode::InvalidFormat, desc.graphicInfoPath, 0, "GraphicInfo 文件长度不是 40 的倍数");
+        return false;
+    }
+
+    if (reader.Size() > static_cast<std::uint64_t>(std::numeric_limits<std::size_t>::max())) {
+        SetError(ResourceErrorCode::OutOfRange, desc.graphicInfoPath, 0, "GraphicInfo 文件过大");
+        return false;
+    }
+
+    std::vector<std::uint8_t> graphicInfoBytes;
+    if (!reader.ReadBytes(graphicInfoBytes, static_cast<std::size_t>(reader.Size()))) {
+        SetError(ResourceErrorCode::FileReadFailed, desc.graphicInfoPath, 0, "GraphicInfo 文件读取失败");
         return false;
     }
 
@@ -686,7 +739,12 @@ bool ResourceManager::LoadGraphicIndex(
     int maxSeqNo = -1;
     for (std::uint64_t index = 0; index < count; ++index) {
         GraphicInfo info;
-        if (!ReadGraphicInfo(reader, info)) {
+        const std::size_t recordOffset = static_cast<std::size_t>(index * GraphicInfoRecordSize);
+        const std::span<const std::uint8_t> record {
+            graphicInfoBytes.data() + recordOffset,
+            static_cast<std::size_t>(GraphicInfoRecordSize),
+        };
+        if (!ReadGraphicInfo(record, info)) {
             SetError(ResourceErrorCode::FileReadFailed, desc.graphicInfoPath, static_cast<int>(index), "GraphicInfo 记录读取失败");
             return false;
         }
@@ -696,7 +754,6 @@ bool ResourceManager::LoadGraphicIndex(
         ref.globalIndex = state.graphicStartIndex + info.seqNo;
         ref.seqNo = info.seqNo;
         ref.mapNo = info.mapNo;
-        ref.dataPath = desc.graphicDataPath;
         ref.info = info;
         maxSeqNo = std::max(maxSeqNo, info.seqNo);
         state.graphics.push_back(std::move(ref));
@@ -704,12 +761,40 @@ bool ResourceManager::LoadGraphicIndex(
         const GraphicHandle handle { binSetIndex, localIndex };
         const GraphicRef& storedRef = state.graphics[localIndex];
 
-        if (state.graphicsBySeq.contains(info.seqNo)) {
-            ++stats_.graphicOverrideCount;
-            AddWarning("同一 binSet 内 Graphic seqNo 重复，使用后者");
+        if (info.seqNo >= 0
+            && CanUseDenseIndex(
+                static_cast<std::size_t>(info.seqNo),
+                state.graphicsBySeq.size(),
+                static_cast<std::size_t>(count))) {
+            const std::size_t seqIndex = static_cast<std::size_t>(info.seqNo);
+            if (seqIndex >= state.graphicsBySeq.size()) {
+                state.graphicsBySeq.resize(seqIndex + 1U);
+            } else if (state.graphicsBySeq[seqIndex].binSetIndex >= 0) {
+                ++stats_.graphicOverrideCount;
+                AddWarning("同一 binSet 内 Graphic seqNo 重复，使用后者");
+            }
+            state.graphicsBySeq[seqIndex] = handle;
+        } else {
+            if (state.graphicsBySparseSeq.contains(info.seqNo)) {
+                ++stats_.graphicOverrideCount;
+                AddWarning("同一 binSet 内 Graphic seqNo 重复，使用后者");
+            }
+            state.graphicsBySparseSeq[info.seqNo] = handle;
         }
-        state.graphicsBySeq[info.seqNo] = handle;
-        graphicsByGlobalIndex_[storedRef.globalIndex] = handle;
+
+        if (storedRef.globalIndex >= 0
+            && CanUseDenseIndex(
+                static_cast<std::size_t>(storedRef.globalIndex),
+                graphicsByGlobalIndex_.size(),
+                static_cast<std::size_t>(count))) {
+            const std::size_t globalIndex = static_cast<std::size_t>(storedRef.globalIndex);
+            if (globalIndex >= graphicsByGlobalIndex_.size()) {
+                graphicsByGlobalIndex_.resize(globalIndex + 1U);
+            }
+            graphicsByGlobalIndex_[globalIndex] = handle;
+        } else {
+            graphicsBySparseGlobalIndex_[storedRef.globalIndex] = handle;
+        }
 
         if (info.mapNo > 0) {
             if (graphicsByMapNo_.contains(info.mapNo)) {
@@ -719,7 +804,7 @@ bool ResourceManager::LoadGraphicIndex(
             graphicsByMapNo_[info.mapNo] = handle;
         }
         if (options.buildAutoMapColorCache) {
-            BuildAutoMapColorIndex(storedRef, graphicDataReader, graphicDataOpenTried);
+            BuildAutoMapColorIndex(storedRef, desc.graphicDataPath, graphicDataReader, graphicDataOpenTried);
         }
 
         ++stats_.graphicCount;
@@ -734,7 +819,11 @@ bool ResourceManager::LoadGraphicIndex(
     return true;
 }
 
-void ResourceManager::BuildAutoMapColorIndex(const GraphicRef& ref, BinaryReader& graphicDataReader, bool& graphicDataOpenTried)
+void ResourceManager::BuildAutoMapColorIndex(
+    const GraphicRef& ref,
+    const std::filesystem::path& graphicDataPath,
+    BinaryReader& graphicDataReader,
+    bool& graphicDataOpenTried)
 {
     if (!IsAutoMapColorMapNo(ref.mapNo)) {
         return;
@@ -745,7 +834,7 @@ void ResourceManager::BuildAutoMapColorIndex(const GraphicRef& ref, BinaryReader
 
     if (!graphicDataOpenTried) {
         graphicDataOpenTried = true;
-        if (!graphicDataReader.Open(ref.dataPath)) {
+        if (!graphicDataReader.Open(graphicDataPath)) {
             AddWarning("自动地图颜色索引打开 Graphic 数据失败，保留缺省颜色 0");
             return;
         }

@@ -41,7 +41,7 @@ constexpr int FallbackBoundsPadding = 16;
 constexpr std::size_t MaxWarningDetails = 20;
 
 struct ViewerOptions {
-    std::optional<int> animeNo;
+    std::optional<int> sourceAnimeNo;
     std::optional<int> dir;
     std::optional<int> action;
     bool play = false;
@@ -144,7 +144,7 @@ private:
 
 void PrintUsage(std::ostream& output)
 {
-    output << "用法：cg-anim-viewer <cgmsv.yml> <palette.cgp> --anime-no <animeNo> [--dir <dir> --action <action>] [--play]\n";
+    output << "用法：cg-anim-viewer <cgmsv.yml> <palette.cgp> --anime-no <原始animeNo> [--dir <dir> --action <action>] [--play]\n";
 }
 
 void PrintResourceError(std::string_view prefix, const cg::resource::ResourceError& error)
@@ -196,7 +196,7 @@ void PrintSdlError(std::string_view prefix)
                 std::cerr << "失败：animeNo 不能为负数\n";
                 return false;
             }
-            options.animeNo = value;
+            options.sourceAnimeNo = value;
         } else if (arg == "--dir" || arg == "--direction") {
             if (!ReadOptionValue(argc, argv, index, arg, value)) {
                 return false;
@@ -215,7 +215,7 @@ void PrintSdlError(std::string_view prefix)
         }
     }
 
-    if (!options.animeNo.has_value()) {
+    if (!options.sourceAnimeNo.has_value()) {
         std::cerr << "失败：缺少 --anime-no <animeNo>\n";
         return false;
     }
@@ -244,8 +244,8 @@ void PrintAnimation(
     const cg::resource::AnimeRef& ref,
     const cg::resource::AnimationClip& clip)
 {
-    std::cout << "Anime：animeNo=" << ref.animeNo
-              << "，sourceAnimeNo=" << ref.sourceAnimeNo
+    std::cout << "Anime：animeNo=" << ref.sourceAnimeNo
+              << "，index=" << ref.index
               << "，binSetIndex=" << ref.binSetIndex << '\n';
     std::cout << "action 数：" << clip.actions.size()
               << "，总帧数：" << clip.frames.size() << '\n';
@@ -263,8 +263,8 @@ void PrintSelectedAnimation(
     const cg::resource::AnimationClip& clip,
     const cg::resource::AnimeAction& action)
 {
-    std::cout << "Anime：animeNo=" << ref.animeNo
-              << "，sourceAnimeNo=" << ref.sourceAnimeNo
+    std::cout << "Anime：animeNo=" << ref.sourceAnimeNo
+              << "，index=" << ref.index
               << "，binSetIndex=" << ref.binSetIndex << '\n';
     std::cout << "匹配 action：";
     PrintActionSummary(action.header);
@@ -551,13 +551,13 @@ void ScanAnimationWarnings(
 }
 
 [[nodiscard]] std::string BuildPlaybackStatus(
-    int animeNo,
+    int sourceAnimeNo,
     int dir,
     int action,
     const PlaybackState& state,
     std::size_t frameCount)
 {
-    return "animeNo=" + std::to_string(animeNo)
+    return "animeNo=" + std::to_string(sourceAnimeNo)
         + " dir=" + std::to_string(dir)
         + " action=" + std::to_string(action)
         + " frame=" + std::to_string(state.frameIndex + 1) + "/" + std::to_string(frameCount)
@@ -568,24 +568,24 @@ void ScanAnimationWarnings(
 
 void UpdatePlaybackTitle(
     SDL_Window* window,
-    int animeNo,
+    int sourceAnimeNo,
     int dir,
     int action,
     const PlaybackState& state,
     std::size_t frameCount)
 {
-    const std::string title = "cg-anim-viewer " + BuildPlaybackStatus(animeNo, dir, action, state, frameCount);
+    const std::string title = "cg-anim-viewer " + BuildPlaybackStatus(sourceAnimeNo, dir, action, state, frameCount);
     SDL_SetWindowTitle(window, title.c_str());
 }
 
 void PrintPlaybackStatus(
-    int animeNo,
+    int sourceAnimeNo,
     int dir,
     int action,
     const PlaybackState& state,
     std::size_t frameCount)
 {
-    std::cout << "播放状态：" << BuildPlaybackStatus(animeNo, dir, action, state, frameCount) << '\n';
+    std::cout << "播放状态：" << BuildPlaybackStatus(sourceAnimeNo, dir, action, state, frameCount) << '\n';
 }
 
 [[nodiscard]] float ComputePlaybackScale(const PlaybackBounds& bounds, int windowWidth, int windowHeight) noexcept
@@ -850,7 +850,7 @@ void AdvancePlaybackFrame(PlaybackState& state, std::size_t frameCount, int step
 }
 
 [[nodiscard]] bool ShowPlaybackWindow(
-    int animeNo,
+    int sourceAnimeNo,
     int dir,
     int action,
     const cg::resource::AnimeAction& animeAction,
@@ -902,9 +902,9 @@ void AdvancePlaybackFrame(PlaybackState& state, std::size_t frameCount, int step
     const double frameDurationMs = ComputeFrameDurationMs(animeAction, frames.size());
     double elapsedMs = 0.0;
     std::uint64_t lastTick = SDL_GetTicks();
-    UpdatePlaybackTitle(window, animeNo, dir, action, state, frames.size());
+    UpdatePlaybackTitle(window, sourceAnimeNo, dir, action, state, frames.size());
     std::cout << "窗口已打开：space 暂停/播放，左右键逐帧，+/- 调速，B 切换 overlay，ESC 或关闭窗口退出\n";
-    PrintPlaybackStatus(animeNo, dir, action, state, frames.size());
+    PrintPlaybackStatus(sourceAnimeNo, dir, action, state, frames.size());
     std::cout.flush();
 
     bool running = true;
@@ -946,10 +946,10 @@ void AdvancePlaybackFrame(PlaybackState& state, std::size_t frameCount, int step
         }
 
         if (titleChanged) {
-            UpdatePlaybackTitle(window, animeNo, dir, action, state, frames.size());
+            UpdatePlaybackTitle(window, sourceAnimeNo, dir, action, state, frames.size());
         }
         if (statusChanged) {
-            PrintPlaybackStatus(animeNo, dir, action, state, frames.size());
+            PrintPlaybackStatus(sourceAnimeNo, dir, action, state, frames.size());
             std::cout.flush();
         }
 
@@ -1055,7 +1055,7 @@ int main(int argc, char* argv[])
     {
         ScopedStreamRedirect suppressInfo(std::cout);
         ScopedStreamRedirect suppressError(std::cerr);
-        clip = resources.LoadAnimation(*options.animeNo);
+        clip = resources.LoadAnimation(*options.sourceAnimeNo);
         if (!clip.has_value()) {
             animationError = resources.LastError();
         }
@@ -1065,9 +1065,9 @@ int main(int argc, char* argv[])
         return 1;
     }
 
-    const std::optional<cg::resource::AnimeRef> ref = resources.FindAnime(*options.animeNo);
+    const std::optional<cg::resource::AnimeRef> ref = resources.FindAnime(*options.sourceAnimeNo);
     if (!ref.has_value()) {
-        std::cerr << "失败：Anime 已加载但无法读取索引，animeNo=" << *options.animeNo << '\n';
+        std::cerr << "失败：Anime 已加载但无法读取原始 animeNo，animeNo=" << *options.sourceAnimeNo << '\n';
         return 1;
     }
 
@@ -1076,7 +1076,7 @@ int main(int argc, char* argv[])
         const cg::resource::AnimeAction* const action =
             cg::resource::FindAnimeAction(*clip, *options.action, *options.dir);
         if (action == nullptr) {
-            std::cerr << "失败：未找到匹配 action，animeNo=" << *options.animeNo
+            std::cerr << "失败：未找到匹配 action，animeNo=" << *options.sourceAnimeNo
                       << "，dir=" << *options.dir
                       << "，action=" << *options.action << '\n';
             return 1;
@@ -1087,7 +1087,7 @@ int main(int argc, char* argv[])
         std::vector<PlaybackFrame> playbackFrames =
             DecodePlaybackFrames(resources, *clip, *action, actionIndex, warnings);
         if (options.play) {
-            const bool windowShown = ShowPlaybackWindow(*options.animeNo, *options.dir, *options.action, *action, playbackFrames);
+            const bool windowShown = ShowPlaybackWindow(*options.sourceAnimeNo, *options.dir, *options.action, *action, playbackFrames);
             warnings.PrintSummary(std::cout);
             if (!windowShown) {
                 return 1;

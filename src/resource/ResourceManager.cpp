@@ -34,9 +34,9 @@ static_assert(GraphicInfoRecordSize == 40);
     return static_cast<std::int8_t>(value);
 }
 
-[[nodiscard]] int NormalizeAnimeNo(int animeNo) noexcept
+[[nodiscard]] int ComputeAnimeIndex(int sourceAnimeNo) noexcept
 {
-    return animeNo >= AnimeNoBase ? animeNo - AnimeNoBase : animeNo;
+    return sourceAnimeNo >= AnimeNoBase ? sourceAnimeNo - AnimeNoBase : sourceAnimeNo;
 }
 
 [[nodiscard]] bool IsAutoMapColorMapNo(int mapNo) noexcept
@@ -160,7 +160,7 @@ void ResourceManager::Clear()
     graphicsByMapNo_.clear();
     autoMapColorByMapNo_.clear();
     graphicsByGlobalIndex_.clear();
-    animesByNo_.clear();
+    animesBySourceAnimeNo_.clear();
     stats_ = ResourceStats {};
     nextGraphicGlobalIndex_ = 0;
     ClearError();
@@ -232,10 +232,10 @@ std::optional<GraphicRef> ResourceManager::FindGraphicForFrame(const AnimationCl
     return FindGraphicBySeq(clip.binSetIndex, frame.graphicSeqNo);
 }
 
-std::optional<AnimeRef> ResourceManager::FindAnime(int animeNo) const
+std::optional<AnimeRef> ResourceManager::FindAnime(int sourceAnimeNo) const
 {
-    const auto iter = animesByNo_.find(animeNo);
-    if (iter == animesByNo_.end()) {
+    const auto iter = animesBySourceAnimeNo_.find(sourceAnimeNo);
+    if (iter == animesBySourceAnimeNo_.end()) {
         return std::nullopt;
     }
 
@@ -274,17 +274,17 @@ std::optional<DecodedImage> ResourceManager::DecodeGraphicByMapNo(int mapNo)
     return DecodeGraphic(*ref);
 }
 
-std::optional<AnimationClip> ResourceManager::LoadAnimation(int animeNo)
+std::optional<AnimationClip> ResourceManager::LoadAnimation(int sourceAnimeNo)
 {
-    const std::optional<AnimeRef> ref = FindAnime(animeNo);
+    const std::optional<AnimeRef> ref = FindAnime(sourceAnimeNo);
     if (!ref.has_value()) {
-        SetError(ResourceErrorCode::MissingResource, {}, animeNo, "找不到 animeNo 对应 Anime");
+        SetError(ResourceErrorCode::MissingResource, {}, sourceAnimeNo, "找不到原始 animeNo 对应 Anime");
         return std::nullopt;
     }
 
     AnimationClip clip;
     if (!LoadAnimationClip(ref->dataPath, ref->info, clip)) {
-        SetError(ResourceErrorCode::DecodeFailed, ref->dataPath, animeNo, "Anime 数据读取失败");
+        SetError(ResourceErrorCode::DecodeFailed, ref->dataPath, sourceAnimeNo, "Anime 数据读取失败");
         return std::nullopt;
     }
 
@@ -462,22 +462,19 @@ bool ResourceManager::LoadAnimeIndex(int binSetIndex, const BinSetDesc& desc)
         }
 
         const int sourceAnimeNo = info.animeNo;
-        const int animeNo = NormalizeAnimeNo(sourceAnimeNo);
+        const int animeIndex = ComputeAnimeIndex(sourceAnimeNo);
         AnimeRef ref;
         ref.binSetIndex = binSetIndex;
-        ref.animeNo = animeNo;
+        ref.index = animeIndex;
         ref.sourceAnimeNo = sourceAnimeNo;
         ref.dataPath = desc.animeDataPath;
         ref.info = info;
 
-        if (animesByNo_.contains(animeNo)) {
+        if (animesBySourceAnimeNo_.contains(sourceAnimeNo)) {
             ++stats_.animeOverrideCount;
-            AddWarning("Anime animeNo 重复，使用后加载 binSet");
+            AddWarning("Anime 原始 animeNo 重复，使用后加载 binSet");
         }
-        animesByNo_[animeNo] = ref;
-        if (sourceAnimeNo != animeNo) {
-            animesByNo_[sourceAnimeNo] = ref;
-        }
+        animesBySourceAnimeNo_[sourceAnimeNo] = ref;
         ++stats_.animeCount;
     }
 

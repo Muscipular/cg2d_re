@@ -35,9 +35,9 @@ constexpr int AnimeNoBase = 100000;
     return std::bit_cast<std::int32_t>(ReadU32(data, offset));
 }
 
-[[nodiscard]] int NormalizeAnimeNo(int animeNo) noexcept
+[[nodiscard]] int ComputeAnimeIndex(int sourceAnimeNo) noexcept
 {
-    return animeNo >= AnimeNoBase ? animeNo - AnimeNoBase : animeNo;
+    return sourceAnimeNo >= AnimeNoBase ? sourceAnimeNo - AnimeNoBase : sourceAnimeNo;
 }
 
 [[nodiscard]] bool ReadAnimeAction(BinaryReader& reader, bool hasExtendedHeader, int frameIndex, AnimeAction& action)
@@ -135,7 +135,8 @@ bool LoadAnimationClip(BinaryReader& reader, const AnimeInfo& info, AnimationCli
     }
 
     AnimationClip clip;
-    clip.animeNo = NormalizeAnimeNo(info.animeNo);
+    clip.index = ComputeAnimeIndex(info.animeNo);
+    clip.sourceAnimeNo = info.animeNo;
     clip.actions.reserve(static_cast<std::size_t>(info.count));
     const bool hasExtendedHeader = info.flg == 1;
 

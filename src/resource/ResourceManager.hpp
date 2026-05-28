@@ -34,12 +34,14 @@ public:
     [[nodiscard]] std::optional<GraphicRef> FindGraphicBySeq(int binSetIndex, int seqNo) const;
     [[nodiscard]] std::optional<GraphicRef> FindGraphicByGlobalIndex(int globalIndex) const;
     [[nodiscard]] std::optional<GraphicRef> FindGraphicForFrame(const AnimationClip& clip, const AnimeFrame& frame) const;
-    [[nodiscard]] std::optional<AnimeRef> FindAnime(int animeNo) const;
+    // Anime 查询只接受 AnimeInfo 中的原始 animeNo，不接受内部 index。
+    [[nodiscard]] std::optional<AnimeRef> FindAnime(int sourceAnimeNo) const;
     [[nodiscard]] std::span<const GraphicRef> Graphics(int binSetIndex) const noexcept;
 
     [[nodiscard]] std::optional<DecodedImage> DecodeGraphic(const GraphicRef& ref);
     [[nodiscard]] std::optional<DecodedImage> DecodeGraphicByMapNo(int mapNo);
-    [[nodiscard]] std::optional<AnimationClip> LoadAnimation(int animeNo);
+    // Anime 加载只接受 AnimeInfo 中的原始 animeNo，不接受内部 index。
+    [[nodiscard]] std::optional<AnimationClip> LoadAnimation(int sourceAnimeNo);
 
     [[nodiscard]] const ResourceStats& Stats() const noexcept;
     [[nodiscard]] const ResourceError& LastError() const noexcept;
@@ -69,7 +71,7 @@ private:
     std::unordered_map<int, GraphicRef> graphicsByMapNo_;
     std::unordered_map<int, std::uint8_t> autoMapColorByMapNo_;
     std::unordered_map<int, GraphicRef> graphicsByGlobalIndex_;
-    std::unordered_map<int, AnimeRef> animesByNo_;
+    std::unordered_map<int, AnimeRef> animesBySourceAnimeNo_;
     Palette defaultPalette_;
     ResourceStats stats_;
     ResourceError lastError_;

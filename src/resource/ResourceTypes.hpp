@@ -163,7 +163,8 @@ struct GraphicRef {
 // AnimeRef 表示可定位到具体 binSet 和数据文件的动画引用。
 struct AnimeRef {
     int binSetIndex = 0;
-    int animeNo = 0;
+    // index 是旧客户端内部连续索引；sourceAnimeNo 是 AnimeInfo 原始 animeNo。
+    int index = 0;
     int sourceAnimeNo = 0;
     std::filesystem::path dataPath;
     AnimeInfo info;
@@ -177,9 +178,11 @@ struct AnimeAction {
     bool hasExtendedFields = false;
 };
 
-// AnimationClip 保存一个 animeNo 下的动作头和连续帧数据。
+// AnimationClip 保存一个原始 animeNo 下的动作头和连续帧数据。
 struct AnimationClip {
-    int animeNo = 0;
+    // index 是旧客户端内部连续索引；sourceAnimeNo 是 AnimeInfo 原始 animeNo。
+    int index = 0;
+    int sourceAnimeNo = 0;
     int binSetIndex = -1;
     int graphicStartIndex = -1;
     std::vector<AnimeAction> actions;

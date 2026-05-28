@@ -36,6 +36,7 @@ constexpr double MinFrameDurationMs = 16.0;
 constexpr double MinSpeed = 0.25;
 constexpr double MaxSpeed = 4.0;
 constexpr double SpeedStep = 0.25;
+constexpr float AnchorHalfSize = 8.0F;
 
 struct ViewerOptions {
     std::optional<int> animeNo;
@@ -60,10 +61,17 @@ struct PlaybackBounds {
     bool hasValue = false;
 };
 
+struct PlaybackTransform {
+    float scale = 1.0F;
+    float originX = 0.0F;
+    float originY = 0.0F;
+};
+
 struct PlaybackState {
     std::size_t frameIndex = 0;
     double speed = 1.0;
     bool paused = false;
+    bool showOverlay = true;
 };
 
 [[nodiscard]] std::string PathToUtf8(const std::filesystem::path& path)
@@ -375,7 +383,8 @@ void PrintGraphicWarning(
         + " action=" + std::to_string(action)
         + " frame=" + std::to_string(state.frameIndex + 1) + "/" + std::to_string(frameCount)
         + " speed=" + FormatSpeed(state.speed)
-        + " pause=" + (state.paused ? "true" : "false");
+        + " pause=" + (state.paused ? "true" : "false")
+        + " overlay=" + (state.showOverlay ? "true" : "false");
 }
 
 void UpdatePlaybackTitle(
@@ -413,6 +422,46 @@ void PrintPlaybackStatus(
     return std::min(1.0F, std::min(fitX, fitY));
 }
 
+[[nodiscard]] PlaybackTransform ComputePlaybackTransform(
+    const PlaybackBounds& bounds,
+    int windowWidth,
+    int windowHeight) noexcept
+{
+    const float scale = ComputePlaybackScale(bounds, windowWidth, windowHeight);
+    const float contentWidth = static_cast<float>(std::max(1, bounds.maxX - bounds.minX)) * scale;
+    const float contentHeight = static_cast<float>(std::max(1, bounds.maxY - bounds.minY)) * scale;
+
+    return PlaybackTransform {
+        scale,
+        (static_cast<float>(windowWidth) - contentWidth) * 0.5F - static_cast<float>(bounds.minX) * scale,
+        (static_cast<float>(windowHeight) - contentHeight) * 0.5F - static_cast<float>(bounds.minY) * scale,
+    };
+}
+
+[[nodiscard]] SDL_FPoint ProjectPlaybackPoint(const PlaybackTransform& transform, int x, int y) noexcept
+{
+    return SDL_FPoint {
+        transform.originX + static_cast<float>(x) * transform.scale,
+        transform.originY + static_cast<float>(y) * transform.scale,
+    };
+}
+
+[[nodiscard]] SDL_FRect ProjectPlaybackRect(
+    const PlaybackTransform& transform,
+    int x,
+    int y,
+    int width,
+    int height) noexcept
+{
+    const SDL_FPoint point = ProjectPlaybackPoint(transform, x, y);
+    return SDL_FRect {
+        point.x,
+        point.y,
+        static_cast<float>(width) * transform.scale,
+        static_cast<float>(height) * transform.scale,
+    };
+}
+
 [[nodiscard]] SDL_FRect ComputeFrameDestination(
     const PlaybackFrame& frame,
     const PlaybackBounds& bounds,
@@ -420,20 +469,10 @@ void PrintPlaybackStatus(
     int windowHeight) noexcept
 {
     const cg::resource::DecodedImage& image = *frame.image;
-    const float scale = ComputePlaybackScale(bounds, windowWidth, windowHeight);
-    const float contentWidth = static_cast<float>(std::max(1, bounds.maxX - bounds.minX)) * scale;
-    const float contentHeight = static_cast<float>(std::max(1, bounds.maxY - bounds.minY)) * scale;
-    const float originX = (static_cast<float>(windowWidth) - contentWidth) * 0.5F - static_cast<float>(bounds.minX) * scale;
-    const float originY = (static_cast<float>(windowHeight) - contentHeight) * 0.5F - static_cast<float>(bounds.minY) * scale;
+    const PlaybackTransform transform = ComputePlaybackTransform(bounds, windowWidth, windowHeight);
     const int left = static_cast<int>(frame.frame.x) + image.offsetX;
     const int top = static_cast<int>(frame.frame.y) + image.offsetY;
-
-    return SDL_FRect {
-        originX + static_cast<float>(left) * scale,
-        originY + static_cast<float>(top) * scale,
-        static_cast<float>(image.width) * scale,
-        static_cast<float>(image.height) * scale,
-    };
+    return ProjectPlaybackRect(transform, left, top, image.width, image.height);
 }
 
 [[nodiscard]] bool CreateFrameTextures(SDL_Renderer* renderer, std::vector<PlaybackFrame>& frames)
@@ -475,24 +514,71 @@ void DestroyFrameTextures(std::vector<PlaybackFrame>& frames)
     }
 }
 
+[[nodiscard]] bool RenderPlaybackOverlay(
+    SDL_Renderer* renderer,
+    const PlaybackBounds& bounds,
+    const PlaybackFrame& frame,
+    int windowWidth,
+    int windowHeight)
+{
+    const PlaybackTransform transform = ComputePlaybackTransform(bounds, windowWidth, windowHeight);
+    const SDL_FRect actionRect = ProjectPlaybackRect(
+        transform,
+        bounds.minX,
+        bounds.minY,
+        bounds.maxX - bounds.minX,
+        bounds.maxY - bounds.minY);
+    if (!SDL_SetRenderDrawColor(renderer, 64, 176, 255, 255)
+        || !SDL_RenderRect(renderer, &actionRect)) {
+        return false;
+    }
+
+    if (frame.image.has_value()) {
+        const cg::resource::DecodedImage& image = *frame.image;
+        const SDL_FRect frameRect = ProjectPlaybackRect(
+            transform,
+            static_cast<int>(frame.frame.x) + image.offsetX,
+            static_cast<int>(frame.frame.y) + image.offsetY,
+            image.width,
+            image.height);
+        if (!SDL_SetRenderDrawColor(renderer, 255, 216, 96, 255)
+            || !SDL_RenderRect(renderer, &frameRect)) {
+            return false;
+        }
+    }
+
+    const SDL_FPoint anchor = ProjectPlaybackPoint(
+        transform,
+        static_cast<int>(frame.frame.x),
+        static_cast<int>(frame.frame.y));
+    return SDL_SetRenderDrawColor(renderer, 255, 96, 96, 255)
+        && SDL_RenderLine(renderer, anchor.x - AnchorHalfSize, anchor.y, anchor.x + AnchorHalfSize, anchor.y)
+        && SDL_RenderLine(renderer, anchor.x, anchor.y - AnchorHalfSize, anchor.x, anchor.y + AnchorHalfSize);
+}
+
 [[nodiscard]] bool RenderPlaybackFrame(
     SDL_Window* window,
     SDL_Renderer* renderer,
     const PlaybackBounds& bounds,
-    const PlaybackFrame& frame)
+    const PlaybackFrame& frame,
+    bool showOverlay)
 {
     if (!SDL_SetRenderDrawColor(renderer, 32, 32, 32, 255) || !SDL_RenderClear(renderer)) {
         return false;
     }
 
+    int windowWidth = 0;
+    int windowHeight = 0;
+    SDL_GetWindowSize(window, &windowWidth, &windowHeight);
     if (frame.texture != nullptr && frame.image.has_value()) {
-        int windowWidth = 0;
-        int windowHeight = 0;
-        SDL_GetWindowSize(window, &windowWidth, &windowHeight);
         const SDL_FRect destination = ComputeFrameDestination(frame, bounds, windowWidth, windowHeight);
         if (!SDL_RenderTexture(renderer, frame.texture, nullptr, &destination)) {
             return false;
         }
+    }
+
+    if (showOverlay && !RenderPlaybackOverlay(renderer, bounds, frame, windowWidth, windowHeight)) {
+        return false;
     }
 
     return SDL_RenderPresent(renderer);
@@ -545,6 +631,11 @@ void AdvancePlaybackFrame(PlaybackState& state, std::size_t frameCount, int step
         || key.scancode == SDL_SCANCODE_MINUS;
 }
 
+[[nodiscard]] bool IsOverlayKey(const SDL_KeyboardEvent& key) noexcept
+{
+    return key.key == SDLK_B || key.scancode == SDL_SCANCODE_B;
+}
+
 [[nodiscard]] bool HandlePlaybackKey(
     const SDL_KeyboardEvent& key,
     PlaybackState& state,
@@ -570,6 +661,10 @@ void AdvancePlaybackFrame(PlaybackState& state, std::size_t frameCount, int step
     }
     if (IsSpeedDownKey(key)) {
         state.speed = std::max(MinSpeed, state.speed - SpeedStep);
+        return true;
+    }
+    if (IsOverlayKey(key)) {
+        state.showOverlay = !state.showOverlay;
         return true;
     }
     return false;
@@ -630,7 +725,7 @@ void AdvancePlaybackFrame(PlaybackState& state, std::size_t frameCount, int step
     double elapsedMs = 0.0;
     std::uint64_t lastTick = SDL_GetTicks();
     UpdatePlaybackTitle(window, animeNo, dir, action, state, frames.size());
-    std::cout << "窗口已打开：space 暂停/播放，左右键逐帧，+/- 调速，ESC 或关闭窗口退出\n";
+    std::cout << "窗口已打开：space 暂停/播放，左右键逐帧，+/- 调速，B 切换 overlay，ESC 或关闭窗口退出\n";
     PrintPlaybackStatus(animeNo, dir, action, state, frames.size());
     std::cout.flush();
 
@@ -680,7 +775,7 @@ void AdvancePlaybackFrame(PlaybackState& state, std::size_t frameCount, int step
             std::cout.flush();
         }
 
-        if (!RenderPlaybackFrame(window, renderer, bounds, frames[state.frameIndex])) {
+        if (!RenderPlaybackFrame(window, renderer, bounds, frames[state.frameIndex], state.showOverlay)) {
             PrintSdlError("渲染动画帧失败");
             running = false;
         }

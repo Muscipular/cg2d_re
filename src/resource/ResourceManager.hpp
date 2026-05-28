@@ -17,7 +17,6 @@ class BinaryReader;
 struct ResourceLoadOptions {
     bool buildAutoMapColorCache = true;
     std::filesystem::path hiddenPaletteTablePath;
-    int hiddenPaletteStaticQueueCount = 1752;
 };
 
 // ResourceManager 管理动态 binSet 索引，并提供 Graphic/Anime 查询和解码入口。
@@ -78,7 +77,7 @@ private:
     std::unordered_map<int, GraphicRef> graphicsByMapNo_;
     std::unordered_map<int, std::uint8_t> autoMapColorByMapNo_;
     std::unordered_map<int, GraphicRef> graphicsByGlobalIndex_;
-    std::unordered_map<int, int> hiddenPaletteMapNoByPalIndex_;
+    std::vector<int> hiddenPaletteMapNoByPalIndex_;
     std::unordered_map<int, AnimeRef> animesBySourceAnimeNo_;
     Palette defaultPalette_;
     ResourceStats stats_;

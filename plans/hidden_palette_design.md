@@ -31,6 +31,7 @@
 - Resource 层读取可选 `CGLoadSpr.dbf`，路径由工具按 `cgmsv.yml` 根目录推导为 `data/CGLoadSpr.dbf`。
 - Resource 层公开 `LoadHiddenPaletteByMapNo(mapNo)`，只通过 `mapNo -> GraphicRef` 读取该 Graphic 尾部内嵌 palette；`LoadHiddenPaletteByPalIndex(pal)` 仅负责先查 `queue1` 映射再复用该入口。
 - `CGLoadSpr.dbf` 是 `DBF\0` 头 + LZO1X 压缩数据；解压后为 `[count][recordSize][key,mapNo]...`。
-- IDA 静态 `queue1` 表内容暂未内置；仅使用 IDA 确认的静态表长度 1752 来定位 `CGLoadSpr.dbf` 的追加区。因此当前可解析的 pal 范围是 `1752..1752+CGLoadSpr记录数-1`。
-- 缺少 `CGLoadSpr.dbf`、pal 未命中、隐藏 Graphic 缺失或 palette bytes 无效时，anim_viewer 保持默认 palette，并在输出或 warning 摘要中说明 fallback。
+- 已内置 IDA 静态 `queue1`：`sub_522B30` 从 `0x58B7E8..0x58D348` 读入 1752 个 `int32`；`pal=0` 对应 0，按旧客户端语义走默认 palette，不作为有效隐藏 `mapNo`。
+- `CGLoadSpr.dbf` 仅作为追加区；解压记录按 key 排序后从 `palIndex=1752` 开始追加，缺少或解析失败只影响追加区。
+- pal 未命中、隐藏 Graphic 缺失或 palette bytes 无效时，anim_viewer 保持默认 palette，并在输出或 warning 摘要中说明 fallback。
 - 读取隐藏 palette 时只读取隐藏 palette Graphic 解码数据中 `pixelData + width * height` 后的内嵌 palette bytes，不混用 `mapNo`、`seqNo`、`globalIndex`。

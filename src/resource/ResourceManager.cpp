@@ -4,6 +4,7 @@
 #include "AutoMapRules.hpp"
 #include "BinaryReader.hpp"
 #include "core/Log.hpp"
+#include "HiddenPaletteQueue.hpp"
 
 #include <algorithm>
 #include <array>
@@ -490,12 +491,15 @@ std::optional<GraphicRef> ResourceManager::FindGraphicForFrame(const AnimationCl
 
 std::optional<int> ResourceManager::FindHiddenPaletteMapNoByPalIndex(int palIndex) const
 {
-    const auto iter = hiddenPaletteMapNoByPalIndex_.find(palIndex);
-    if (iter == hiddenPaletteMapNoByPalIndex_.end()) {
+    if (palIndex < 0 || static_cast<std::size_t>(palIndex) >= hiddenPaletteMapNoByPalIndex_.size()) {
         return std::nullopt;
     }
 
-    return iter->second;
+    const int mapNo = hiddenPaletteMapNoByPalIndex_[static_cast<std::size_t>(palIndex)];
+    if (mapNo <= 0) {
+        return std::nullopt;
+    }
+    return mapNo;
 }
 
 std::optional<AnimeRef> ResourceManager::FindAnime(int sourceAnimeNo) const
@@ -740,31 +744,37 @@ void ResourceManager::LoadHiddenPaletteTable(const ResourceLoadOptions& options)
 {
     hiddenPaletteMapNoByPalIndex_.clear();
     stats_.hiddenPaletteCount = 0;
-    if (options.hiddenPaletteTablePath.empty()) {
-        return;
+
+    hiddenPaletteMapNoByPalIndex_.resize(static_cast<std::size_t>(StaticHiddenPaletteQueueCount()), 0);
+    for (int palIndex = 0; palIndex < StaticHiddenPaletteQueueCount(); ++palIndex) {
+        const std::optional<int> mapNo = FindStaticHiddenPaletteMapNoByPalIndex(palIndex);
+        if (mapNo.has_value()) {
+            hiddenPaletteMapNoByPalIndex_[static_cast<std::size_t>(palIndex)] = *mapNo;
+            ++stats_.hiddenPaletteCount;
+        }
     }
-    if (options.hiddenPaletteStaticQueueCount < 0) {
-        AddWarning("隐藏调色盘 CGLoadSpr.dbf 静态 queue1 数量无效，跳过隐藏调色盘映射");
+
+    if (options.hiddenPaletteTablePath.empty()) {
         return;
     }
 
     BinaryReader reader(options.hiddenPaletteTablePath);
     if (!reader.IsOpen()) {
-        AddWarning("隐藏调色盘 CGLoadSpr.dbf 打开失败，使用默认 palette fallback");
+        AddWarning("隐藏调色盘 CGLoadSpr.dbf 打开失败，跳过追加区");
         return;
     }
     if (reader.Size() < HiddenPaletteHeaderSize) {
-        AddWarning("隐藏调色盘 CGLoadSpr.dbf 文件过短，使用默认 palette fallback");
+        AddWarning("隐藏调色盘 CGLoadSpr.dbf 文件过短，跳过追加区");
         return;
     }
 
     std::vector<std::uint8_t> header;
     if (!reader.ReadBytes(header, HiddenPaletteHeaderSize)) {
-        AddWarning("隐藏调色盘 CGLoadSpr.dbf 头读取失败，使用默认 palette fallback");
+        AddWarning("隐藏调色盘 CGLoadSpr.dbf 头读取失败，跳过追加区");
         return;
     }
     if (header[0] != 'D' || header[1] != 'B' || header[2] != 'F' || header[3] != 0) {
-        AddWarning("隐藏调色盘 CGLoadSpr.dbf magic 无效，使用默认 palette fallback");
+        AddWarning("隐藏调色盘 CGLoadSpr.dbf magic 无效，跳过追加区");
         return;
     }
 
@@ -774,28 +784,28 @@ void ResourceManager::LoadHiddenPaletteTable(const ResourceLoadOptions& options)
         || outputSize == 0 || inputSize == 0
         || outputSize > MaxHiddenPaletteTableSize
         || inputSize > MaxHiddenPaletteTableSize) {
-        AddWarning("隐藏调色盘 CGLoadSpr.dbf 压缩尺寸无效，使用默认 palette fallback");
+        AddWarning("隐藏调色盘 CGLoadSpr.dbf 压缩尺寸无效，跳过追加区");
         return;
     }
     if (reader.Size() - HiddenPaletteHeaderSize < inputSize) {
-        AddWarning("隐藏调色盘 CGLoadSpr.dbf 压缩数据越界，使用默认 palette fallback");
+        AddWarning("隐藏调色盘 CGLoadSpr.dbf 压缩数据越界，跳过追加区");
         return;
     }
 
     std::vector<std::uint8_t> compressed;
     if (!reader.ReadBytes(compressed, inputSize)) {
-        AddWarning("隐藏调色盘 CGLoadSpr.dbf 压缩数据读取失败，使用默认 palette fallback");
+        AddWarning("隐藏调色盘 CGLoadSpr.dbf 压缩数据读取失败，跳过追加区");
         return;
     }
 
     std::vector<std::uint8_t> decoded;
     std::string message;
     if (!DecompressLzo1x(compressed, outputSize, decoded, message)) {
-        AddWarning("隐藏调色盘 CGLoadSpr.dbf 解压失败，使用默认 palette fallback：" + message);
+        AddWarning("隐藏调色盘 CGLoadSpr.dbf 解压失败，跳过追加区：" + message);
         return;
     }
     if (decoded.size() < HiddenPaletteRecordHeaderSize) {
-        AddWarning("隐藏调色盘 CGLoadSpr.dbf 解压数据过短，使用默认 palette fallback");
+        AddWarning("隐藏调色盘 CGLoadSpr.dbf 解压数据过短，跳过追加区");
         return;
     }
 
@@ -803,13 +813,13 @@ void ResourceManager::LoadHiddenPaletteTable(const ResourceLoadOptions& options)
     std::uint32_t recordSize = 0;
     if (!TryReadU32Le(decoded, 0, recordCount) || !TryReadU32Le(decoded, 4, recordSize)
         || recordSize < HiddenPaletteRecordMinSize) {
-        AddWarning("隐藏调色盘 CGLoadSpr.dbf 记录头无效，使用默认 palette fallback");
+        AddWarning("隐藏调色盘 CGLoadSpr.dbf 记录头无效，跳过追加区");
         return;
     }
 
     const std::size_t payloadSize = decoded.size() - HiddenPaletteRecordHeaderSize;
     if (recordCount > payloadSize / recordSize) {
-        AddWarning("隐藏调色盘 CGLoadSpr.dbf 记录范围越界，使用默认 palette fallback");
+        AddWarning("隐藏调色盘 CGLoadSpr.dbf 记录范围越界，跳过追加区");
         return;
     }
 
@@ -820,9 +830,7 @@ void ResourceManager::LoadHiddenPaletteTable(const ResourceLoadOptions& options)
         std::int32_t key = 0;
         std::int32_t mapNo = 0;
         if (!TryReadI32Le(decoded, offset, key) || !TryReadI32Le(decoded, offset + 4U, mapNo)) {
-            AddWarning("隐藏调色盘 CGLoadSpr.dbf 记录读取失败，使用默认 palette fallback");
-            hiddenPaletteMapNoByPalIndex_.clear();
-            stats_.hiddenPaletteCount = 0;
+            AddWarning("隐藏调色盘 CGLoadSpr.dbf 记录读取失败，跳过追加区");
             return;
         }
         if (mapNo > 0) {
@@ -830,13 +838,12 @@ void ResourceManager::LoadHiddenPaletteTable(const ResourceLoadOptions& options)
         }
     }
 
-    int palIndex = options.hiddenPaletteStaticQueueCount;
-    hiddenPaletteMapNoByPalIndex_.reserve(mapNoByKey.size());
+    hiddenPaletteMapNoByPalIndex_.reserve(hiddenPaletteMapNoByPalIndex_.size() + mapNoByKey.size());
     for (const auto& [key, mapNo] : mapNoByKey) {
         (void)key;
-        hiddenPaletteMapNoByPalIndex_[palIndex++] = mapNo;
+        hiddenPaletteMapNoByPalIndex_.push_back(mapNo);
+        ++stats_.hiddenPaletteCount;
     }
-    stats_.hiddenPaletteCount = static_cast<std::uint32_t>(hiddenPaletteMapNoByPalIndex_.size());
 }
 
 bool ResourceManager::LoadAnimeIndex(int binSetIndex, const BinSetDesc& desc)

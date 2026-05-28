@@ -61,6 +61,7 @@ add_executable(cg-client
     src/resource/BinaryReader.cpp
     src/resource/BinSetConfigLoader.cpp
     src/resource/GraphicDecoder.cpp
+    src/resource/HiddenPaletteQueue.cpp
     src/resource/MapLoader.cpp
     src/resource/Palette.cpp
     src/resource/ResourceManager.cpp
@@ -75,6 +76,7 @@ add_executable(cg-map-viewer
     src/resource/BinaryReader.cpp
     src/resource/BinSetConfigLoader.cpp
     src/resource/GraphicDecoder.cpp
+    src/resource/HiddenPaletteQueue.cpp
     src/resource/MapLoader.cpp
     src/resource/Palette.cpp
     src/resource/ResourceManager.cpp
@@ -88,6 +90,7 @@ add_executable(cg-asset-viewer
     src/resource/BinaryReader.cpp
     src/resource/BinSetConfigLoader.cpp
     src/resource/GraphicDecoder.cpp
+    src/resource/HiddenPaletteQueue.cpp
     src/resource/Palette.cpp
     src/resource/ResourceManager.cpp
 )
@@ -100,6 +103,7 @@ add_executable(cg-anim-viewer
     src/resource/BinaryReader.cpp
     src/resource/BinSetConfigLoader.cpp
     src/resource/GraphicDecoder.cpp
+    src/resource/HiddenPaletteQueue.cpp
     src/resource/Palette.cpp
     src/resource/ResourceManager.cpp
 )
@@ -160,6 +164,7 @@ add_executable(cg-automap-renderer-test
     src/resource/AutoMapRules.cpp
     src/resource/BinaryReader.cpp
     src/resource/GraphicDecoder.cpp
+    src/resource/HiddenPaletteQueue.cpp
     src/resource/Palette.cpp
     src/resource/ResourceManager.cpp
 )

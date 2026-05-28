@@ -1,10 +1,15 @@
 #include "resource/BinSetConfigLoader.hpp"
 #include "resource/ResourceManager.hpp"
 
+#include <SDL3/SDL.h>
+
+#include <algorithm>
 #include <charconv>
 #include <cstddef>
+#include <cstdint>
 #include <filesystem>
 #include <iostream>
+#include <limits>
 #include <optional>
 #include <ostream>
 #include <streambuf>
@@ -16,11 +21,17 @@
 namespace {
 
 constexpr int RequiredArgCount = 3;
+constexpr int InitialMaxWindowWidth = 1024;
+constexpr int InitialMaxWindowHeight = 768;
+constexpr int InitialMinWindowWidth = 320;
+constexpr int InitialMinWindowHeight = 240;
+constexpr int Rgba8BytesPerPixel = 4;
 
 struct SearchOptions {
     std::optional<int> binSetIndex;
     std::optional<int> seqNo;
     std::optional<int> mapNo;
+    bool show = false;
 };
 
 [[nodiscard]] std::string PathToUtf8(const std::filesystem::path& path)
@@ -64,7 +75,7 @@ struct SearchOptions {
 
 void PrintUsage(std::ostream& output)
 {
-    output << "用法：cg-asset-viewer <cgmsv.yml> <palette.cgp> [--bin-set <index>] [--seq <seqNo>] [--map-no <mapNo>]\n";
+    output << "用法：cg-asset-viewer <cgmsv.yml> <palette.cgp> [--bin-set <index>] [--seq <seqNo>] [--map-no <mapNo>] [--show]\n";
 }
 
 void PrintResourceError(std::string_view prefix, const cg::resource::ResourceError& error)
@@ -80,6 +91,11 @@ void PrintResourceError(std::string_view prefix, const cg::resource::ResourceErr
         std::cerr << "，资源编号：" << error.resourceId;
     }
     std::cerr << '\n';
+}
+
+void PrintSdlError(std::string_view prefix)
+{
+    std::cerr << "失败：" << prefix << "：" << SDL_GetError() << '\n';
 }
 
 [[nodiscard]] bool ReadOptionValue(int argc, char* argv[], int& index, std::string_view option, int& value)
@@ -122,6 +138,8 @@ void PrintResourceError(std::string_view prefix, const cg::resource::ResourceErr
                 return false;
             }
             options.mapNo = value;
+        } else if (arg == "--show") {
+            options.show = true;
         } else {
             std::cerr << "失败：未知参数 " << arg << '\n';
             return false;
@@ -183,6 +201,66 @@ void PrintGraphic(const cg::resource::GraphicRef& ref, const std::vector<cg::res
               << "，dataPath=" << PathToUtf8(ref.dataPath) << '\n';
 }
 
+[[nodiscard]] const char* PixelFormatName(cg::render::PixelFormat format) noexcept
+{
+    switch (format) {
+    case cg::render::PixelFormat::Rgba8:
+        return "RGBA8";
+    case cg::render::PixelFormat::Bgra8:
+        return "BGRA8";
+    case cg::render::PixelFormat::Unknown:
+    default:
+        return "Unknown";
+    }
+}
+
+[[nodiscard]] std::size_t CountAlphaZeroPixels(const cg::resource::DecodedImage& image) noexcept
+{
+    if (image.pixels.size() < Rgba8BytesPerPixel) {
+        return 0;
+    }
+
+    std::size_t count = 0;
+    for (std::size_t offset = 3; offset < image.pixels.size(); offset += Rgba8BytesPerPixel) {
+        if (image.pixels[offset] == 0) {
+            ++count;
+        }
+    }
+    return count;
+}
+
+[[nodiscard]] std::string BuildGraphicTitle(
+    const cg::resource::GraphicRef& ref,
+    const cg::resource::DecodedImage& image,
+    std::size_t alphaZeroCount)
+{
+    return "cg-asset-viewer mapNo=" + std::to_string(ref.mapNo)
+        + " seqNo=" + std::to_string(ref.seqNo)
+        + " size=" + std::to_string(image.width) + "x" + std::to_string(image.height)
+        + " offset=(" + std::to_string(image.offsetX) + "," + std::to_string(image.offsetY) + ")"
+        + " format=" + PixelFormatName(image.format)
+        + " alpha0=" + std::to_string(alphaZeroCount);
+}
+
+void PrintDecodedGraphic(
+    const cg::resource::GraphicRef& ref,
+    const cg::resource::DecodedImage& image,
+    std::size_t alphaZeroCount)
+{
+    const std::size_t pixelCount = image.pixels.size() / Rgba8BytesPerPixel;
+    std::cout << "显示 Graphic：binSet=" << ref.binSetIndex
+              << "，seqNo=" << ref.seqNo
+              << "，mapNo=" << ref.mapNo
+              << "，尺寸=" << image.width << 'x' << image.height
+              << "，坐标偏移=(" << image.offsetX << ',' << image.offsetY << ')'
+              << "，数据偏移=" << ref.info.offset
+              << "，数据长度=" << ref.info.length
+              << "，像素格式=" << PixelFormatName(image.format)
+              << "，透明像素(alpha==0)=" << alphaZeroCount << '/' << pixelCount
+              << "，zeroTransparent=" << (image.dataMetadata.zeroTransparent ? "true" : "false")
+              << '\n';
+}
+
 void PrintStats(
     const cg::resource::ResourceManager& resources,
     const std::vector<cg::resource::BinSetDesc>& binSets,
@@ -205,12 +283,12 @@ void PrintStats(
     }
 }
 
-[[nodiscard]] std::size_t PrintSearchResults(
+[[nodiscard]] std::vector<cg::resource::GraphicRef> FindSearchResults(
     const cg::resource::ResourceManager& resources,
     const std::vector<cg::resource::BinSetDesc>& binSets,
     const SearchOptions& options)
 {
-    std::size_t matchCount = 0;
+    std::vector<cg::resource::GraphicRef> matches;
     const int firstBinSet = options.binSetIndex.value_or(0);
     const int endBinSet = options.binSetIndex.value_or(static_cast<int>(binSets.size()) - 1);
 
@@ -219,12 +297,199 @@ void PrintStats(
             if (!Matches(ref, options)) {
                 continue;
             }
-            PrintGraphic(ref, binSets);
-            ++matchCount;
+            matches.push_back(ref);
         }
     }
 
-    return matchCount;
+    return matches;
+}
+
+void PrintSearchResults(
+    const std::vector<cg::resource::GraphicRef>& matches,
+    const std::vector<cg::resource::BinSetDesc>& binSets)
+{
+    for (const cg::resource::GraphicRef& ref : matches) {
+        PrintGraphic(ref, binSets);
+    }
+}
+
+[[nodiscard]] const cg::resource::GraphicRef* SelectGraphicToShow(
+    const std::vector<cg::resource::GraphicRef>& matches,
+    const SearchOptions& options)
+{
+    if (matches.empty()) {
+        std::cerr << "失败：--show 未命中 Graphic\n";
+        return nullptr;
+    }
+
+    if (matches.size() == 1) {
+        return &matches.front();
+    }
+
+    if ((options.binSetIndex.has_value() && options.seqNo.has_value()) || options.mapNo.has_value()) {
+        std::cout << "显示选择：指定条件命中多条，使用第一条\n";
+        return &matches.front();
+    }
+
+    std::cerr << "失败：--show 需要唯一 Graphic，当前命中数量：" << matches.size() << '\n';
+    return nullptr;
+}
+
+[[nodiscard]] bool IsValidImageBuffer(const cg::resource::DecodedImage& image) noexcept
+{
+    if (image.width <= 0 || image.height <= 0 || image.pixels.empty()) {
+        return false;
+    }
+
+    const std::uint64_t width = static_cast<std::uint64_t>(image.width);
+    const std::uint64_t height = static_cast<std::uint64_t>(image.height);
+    const std::uint64_t expectedSize = width * height * Rgba8BytesPerPixel;
+    return expectedSize <= std::numeric_limits<std::size_t>::max()
+        && image.pixels.size() == static_cast<std::size_t>(expectedSize);
+}
+
+[[nodiscard]] float ComputeFitScale(const cg::resource::DecodedImage& image, int windowWidth, int windowHeight) noexcept
+{
+    if (image.width <= 0 || image.height <= 0 || windowWidth <= 0 || windowHeight <= 0) {
+        return 1.0F;
+    }
+
+    const float fitX = static_cast<float>(windowWidth) / static_cast<float>(image.width);
+    const float fitY = static_cast<float>(windowHeight) / static_cast<float>(image.height);
+    return std::min(1.0F, std::min(fitX, fitY));
+}
+
+[[nodiscard]] SDL_FRect ComputeImageDestination(
+    const cg::resource::DecodedImage& image,
+    int windowWidth,
+    int windowHeight) noexcept
+{
+    const float scale = ComputeFitScale(image, windowWidth, windowHeight);
+    const float width = static_cast<float>(image.width) * scale;
+    const float height = static_cast<float>(image.height) * scale;
+    return SDL_FRect {
+        (static_cast<float>(windowWidth) - width) * 0.5F,
+        (static_cast<float>(windowHeight) - height) * 0.5F,
+        width,
+        height,
+    };
+}
+
+[[nodiscard]] bool RenderGraphicFrame(
+    SDL_Window* window,
+    SDL_Renderer* renderer,
+    SDL_Texture* texture,
+    const cg::resource::DecodedImage& image)
+{
+    int windowWidth = 0;
+    int windowHeight = 0;
+    SDL_GetWindowSize(window, &windowWidth, &windowHeight);
+    const SDL_FRect destination = ComputeImageDestination(image, windowWidth, windowHeight);
+
+    if (!SDL_SetRenderDrawColor(renderer, 32, 32, 32, 255) || !SDL_RenderClear(renderer)) {
+        return false;
+    }
+    if (!SDL_RenderTexture(renderer, texture, nullptr, &destination)) {
+        return false;
+    }
+    return SDL_RenderPresent(renderer);
+}
+
+[[nodiscard]] bool ShowGraphicWindow(
+    const cg::resource::GraphicRef& ref,
+    const cg::resource::DecodedImage& image,
+    std::size_t alphaZeroCount)
+{
+    if (!IsValidImageBuffer(image)) {
+        std::cerr << "失败：解码后的 Graphic 图像为空或像素尺寸不匹配\n";
+        return false;
+    }
+    if (image.format != cg::render::PixelFormat::Rgba8) {
+        std::cerr << "失败：当前仅支持显示 RGBA8 Graphic\n";
+        return false;
+    }
+
+    if (!SDL_Init(SDL_INIT_VIDEO)) {
+        PrintSdlError("SDL 初始化失败");
+        return false;
+    }
+
+    const std::string title = BuildGraphicTitle(ref, image, alphaZeroCount);
+    const int windowWidth = std::clamp(image.width, InitialMinWindowWidth, InitialMaxWindowWidth);
+    const int windowHeight = std::clamp(image.height, InitialMinWindowHeight, InitialMaxWindowHeight);
+    SDL_Window* window = SDL_CreateWindow(title.c_str(), windowWidth, windowHeight, SDL_WINDOW_RESIZABLE);
+    if (window == nullptr) {
+        PrintSdlError("创建窗口失败");
+        SDL_Quit();
+        return false;
+    }
+
+    SDL_Renderer* renderer = SDL_CreateRenderer(window, nullptr);
+    if (renderer == nullptr) {
+        PrintSdlError("创建 renderer 失败");
+        SDL_DestroyWindow(window);
+        SDL_Quit();
+        return false;
+    }
+
+    SDL_Texture* texture = SDL_CreateTexture(
+        renderer,
+        SDL_PIXELFORMAT_RGBA32,
+        SDL_TEXTUREACCESS_STATIC,
+        image.width,
+        image.height);
+    if (texture == nullptr) {
+        PrintSdlError("创建 Graphic 纹理失败");
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        SDL_Quit();
+        return false;
+    }
+    if (!SDL_SetTextureScaleMode(texture, SDL_SCALEMODE_NEAREST)
+        || !SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND)
+        || !SDL_UpdateTexture(texture, nullptr, image.pixels.data(), image.width * Rgba8BytesPerPixel)) {
+        PrintSdlError("上传 Graphic 纹理失败");
+        SDL_DestroyTexture(texture);
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        SDL_Quit();
+        return false;
+    }
+
+    std::cout << "窗口已打开：ESC 或关闭窗口退出\n";
+    std::cout.flush();
+
+    bool running = true;
+    while (running) {
+        SDL_Event event;
+        while (SDL_PollEvent(&event)) {
+            switch (event.type) {
+            case SDL_EVENT_QUIT:
+            case SDL_EVENT_WINDOW_CLOSE_REQUESTED:
+                running = false;
+                break;
+            case SDL_EVENT_KEY_DOWN:
+                if (event.key.key == SDLK_ESCAPE || event.key.scancode == SDL_SCANCODE_ESCAPE) {
+                    running = false;
+                }
+                break;
+            default:
+                break;
+            }
+        }
+
+        if (!RenderGraphicFrame(window, renderer, texture, image)) {
+            PrintSdlError("渲染 Graphic 失败");
+            running = false;
+        }
+        SDL_Delay(16);
+    }
+
+    SDL_DestroyTexture(texture);
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
+    SDL_Quit();
+    return true;
 }
 
 class NullStreamBuffer final : public std::streambuf {
@@ -310,11 +575,36 @@ int main(int argc, char* argv[])
 
     PrintStats(resources, config.binSets, ymlPath, palettePath);
     if (!HasSearchFilter(options)) {
+        if (options.show) {
+            std::cerr << "失败：--show 需要配合 --bin-set、--seq 或 --map-no 搜索条件\n";
+            return 2;
+        }
         return 0;
     }
 
     PrintSearchOptions(options);
-    const std::size_t matchCount = PrintSearchResults(resources, config.binSets, options);
-    std::cout << "命中数量：" << matchCount << '\n';
+    const std::vector<cg::resource::GraphicRef> matches = FindSearchResults(resources, config.binSets, options);
+    PrintSearchResults(matches, config.binSets);
+    std::cout << "命中数量：" << matches.size() << '\n';
+    if (!options.show) {
+        return 0;
+    }
+
+    const cg::resource::GraphicRef* selected = SelectGraphicToShow(matches, options);
+    if (selected == nullptr) {
+        return 2;
+    }
+
+    std::optional<cg::resource::DecodedImage> image = resources.DecodeGraphic(*selected);
+    if (!image.has_value()) {
+        PrintResourceError("Graphic 解码失败", resources.LastError());
+        return 1;
+    }
+
+    const std::size_t alphaZeroCount = CountAlphaZeroPixels(*image);
+    PrintDecodedGraphic(*selected, *image, alphaZeroCount);
+    if (!ShowGraphicWindow(*selected, *image, alphaZeroCount)) {
+        return 1;
+    }
     return 0;
 }

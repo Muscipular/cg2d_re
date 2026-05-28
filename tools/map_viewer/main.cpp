@@ -6,17 +6,20 @@
 #include <SDL3/SDL.h>
 
 #include <algorithm>
+#include <atomic>
 #include <charconv>
 #include <cmath>
 #include <cstdint>
 #include <filesystem>
 #include <iostream>
 #include <limits>
+#include <memory>
 #include <ostream>
 #include <streambuf>
 #include <string>
 #include <string_view>
 #include <system_error>
+#include <thread>
 
 namespace {
 
@@ -38,6 +41,11 @@ struct ViewState {
 struct MapCoord {
     int x = 0;
     int y = 0;
+};
+
+struct StdinCommandState {
+    std::atomic_bool saveRequested {false};
+    std::atomic_bool quitRequested {false};
 };
 
 [[nodiscard]] std::string BuildLayerStateText(const cg::resource::AutoMapRenderOptions& options)
@@ -226,6 +234,90 @@ void PrintLayerState(const cg::resource::AutoMapRenderOptions& options)
     std::cout.flush();
 }
 
+[[nodiscard]] std::shared_ptr<StdinCommandState> StartStdinCommandReader()
+{
+    std::shared_ptr<StdinCommandState> state = std::make_shared<StdinCommandState>();
+    std::thread([state]() {
+        char command = '\0';
+        while (std::cin.get(command)) {
+            switch (command) {
+            case 's':
+            case 'S':
+                state->saveRequested.store(true);
+                break;
+            case 'q':
+            case 'Q':
+            case '\x1B':
+                state->quitRequested.store(true);
+                break;
+            default:
+                break;
+            }
+        }
+    }).detach();
+    return state;
+}
+
+[[nodiscard]] std::filesystem::path BuildScreenshotPath(const cg::resource::MapData& map)
+{
+    const std::string fileName = "map_" + std::to_string(map.mapId) + '_' + std::to_string(map.serverNo) + '_'
+        + std::to_string(map.floor) + ".bmp";
+
+    std::error_code error;
+    const std::filesystem::path currentPath = std::filesystem::current_path(error);
+    if (error) {
+        return std::filesystem::path(fileName);
+    }
+    return (currentPath / fileName).lexically_normal();
+}
+
+bool SaveAutoMapBmp(const cg::resource::AutoMapImage& image, const std::filesystem::path& path)
+{
+    if (image.width <= 0 || image.height <= 0 || image.pixels.empty()) {
+        std::cerr << "失败：自动地图图像为空，无法保存截图\n";
+        return false;
+    }
+
+    const int pitch = image.width * Rgba8BytesPerPixel;
+    SDL_Surface* surface = SDL_CreateSurfaceFrom(
+        image.width,
+        image.height,
+        SDL_PIXELFORMAT_RGBA32,
+        const_cast<std::uint8_t*>(image.pixels.data()),
+        pitch);
+    if (surface == nullptr) {
+        PrintSdlError("创建截图 surface 失败");
+        return false;
+    }
+
+    const std::string outputPath = PathToUtf8(path);
+    const bool saved = SDL_SaveBMP(surface, outputPath.c_str());
+    SDL_DestroySurface(surface);
+    if (!saved) {
+        PrintSdlError("保存截图失败");
+        return false;
+    }
+
+    std::cout << "截图已保存：" << outputPath << '\n';
+    std::cout.flush();
+    return true;
+}
+
+void ProcessStdinCommands(
+    const std::shared_ptr<StdinCommandState>& state,
+    const cg::resource::MapData& map,
+    const cg::resource::AutoMapImage& image,
+    bool& running)
+{
+    if (state->saveRequested.exchange(false)) {
+        const std::filesystem::path screenshotPath = BuildScreenshotPath(map);
+        SaveAutoMapBmp(image, screenshotPath);
+    }
+    if (state->quitRequested.exchange(false)) {
+        running = false;
+    }
+}
+
 [[nodiscard]] bool UploadAutoMapTexture(SDL_Texture* texture, const cg::resource::AutoMapImage& image)
 {
     return SDL_UpdateTexture(texture, nullptr, image.pixels.data(), image.width * Rgba8BytesPerPixel);
@@ -266,6 +358,16 @@ void PrintLayerState(const cg::resource::AutoMapRenderOptions& options)
     default:
         return false;
     }
+}
+
+[[nodiscard]] bool IsEscapeKey(const SDL_KeyboardEvent& key) noexcept
+{
+    return key.key == SDLK_ESCAPE || key.scancode == SDL_SCANCODE_ESCAPE;
+}
+
+[[nodiscard]] bool IsScreenshotKey(const SDL_KeyboardEvent& key) noexcept
+{
+    return key.key == SDLK_S || key.scancode == SDL_SCANCODE_S;
 }
 
 [[nodiscard]] bool RenderFrame(
@@ -361,9 +463,10 @@ void PrintLayerState(const cg::resource::AutoMapRenderOptions& options)
 
     std::cout << "自动地图尺寸：" << image.width << "x" << image.height << '\n';
     PrintLayerState(options);
-    std::cout << "窗口已打开：ESC 退出，WASD/方向键平移，鼠标滚轮缩放，1/2/3 切换 tile/object/collision\n";
+    std::cout << "窗口已打开：ESC 退出，WASD/方向键平移，鼠标滚轮缩放，1/2/3 切换 tile/object/collision，S 导出 BMP；stdin s 导出，stdin ESC/q 退出\n";
     std::cout.flush();
 
+    const std::shared_ptr<StdinCommandState> stdinCommands = StartStdinCommandReader();
     bool running = true;
     while (running) {
         SDL_Event event;
@@ -374,8 +477,11 @@ void PrintLayerState(const cg::resource::AutoMapRenderOptions& options)
                 running = false;
                 break;
             case SDL_EVENT_KEY_DOWN:
-                if (event.key.key == SDLK_ESCAPE) {
+                if (IsEscapeKey(event.key)) {
                     running = false;
+                } else if (!event.key.repeat && IsScreenshotKey(event.key)) {
+                    const std::filesystem::path screenshotPath = BuildScreenshotPath(map);
+                    SaveAutoMapBmp(image, screenshotPath);
                 } else if (!event.key.repeat && ToggleLayerOption(event.key.key, options)) {
                     if (!RebuildAutoMapTexture(texture, image, map, resourceManager, palette, options)) {
                         running = false;
@@ -399,6 +505,11 @@ void PrintLayerState(const cg::resource::AutoMapRenderOptions& options)
             default:
                 break;
             }
+        }
+
+        ProcessStdinCommands(stdinCommands, map, image, running);
+        if (!running) {
+            break;
         }
 
         PanByKeyboard(view);

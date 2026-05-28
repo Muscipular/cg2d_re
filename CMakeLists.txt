@@ -69,6 +69,7 @@ add_executable(cg-client
 add_executable(cg-map-viewer
     tools/map_viewer/main.cpp
     src/core/Log.cpp
+    src/resource/AutoMapRenderer.cpp
     src/resource/AnimationLoader.cpp
     src/resource/AutoMapRules.cpp
     src/resource/BinaryReader.cpp

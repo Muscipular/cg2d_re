@@ -224,15 +224,10 @@ bool BinaryReader::ReadBytes(std::span<std::uint8_t> bytes)
         return false;
     }
 
-    std::string buffer(bytes.size(), '\0');
-    file_.read(buffer.data(), static_cast<std::streamsize>(buffer.size()));
-    if (!file_ || file_.gcount() != static_cast<std::streamsize>(buffer.size())) {
+    file_.read(reinterpret_cast<char*>(bytes.data()), static_cast<std::streamsize>(bytes.size()));
+    if (!file_ || file_.gcount() != static_cast<std::streamsize>(bytes.size())) {
         SetError(ResourceErrorCode::FileReadFailed, "读取二进制数据失败");
         return false;
-    }
-
-    for (std::size_t index = 0; index < bytes.size(); ++index) {
-        bytes[index] = static_cast<std::uint8_t>(static_cast<unsigned char>(buffer[index]));
     }
 
     ClearError();
@@ -256,12 +251,10 @@ bool BinaryReader::ReadBytes(std::vector<std::uint8_t>& bytes, std::size_t count
         return false;
     }
 
-    std::vector<std::uint8_t> buffer(count);
-    if (!ReadBytes(std::span<std::uint8_t>{buffer.data(), buffer.size()})) {
+    bytes.assign(count, 0);
+    if (!ReadBytes(std::span<std::uint8_t>{bytes.data(), bytes.size()})) {
         return false;
     }
-
-    bytes = std::move(buffer);
     return true;
 }
 

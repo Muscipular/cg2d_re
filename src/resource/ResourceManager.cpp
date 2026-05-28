@@ -326,6 +326,11 @@ static_assert(GraphicInfoRecordSize == 40);
 
 [[nodiscard]] bool ReadGraphicInfo(BinaryReader& reader, GraphicInfo& info)
 {
+    std::array<std::uint8_t, GraphicInfoRecordSize> bytes {};
+    if (!reader.ReadBytes(bytes)) {
+        return false;
+    }
+
     std::int32_t seqNo = 0;
     std::int32_t offset = 0;
     std::int32_t length = 0;
@@ -333,18 +338,15 @@ static_assert(GraphicInfoRecordSize == 40);
     std::int32_t y = 0;
     std::int32_t w = 0;
     std::int32_t h = 0;
-    std::uint8_t sx = 0;
-    std::uint8_t sy = 0;
-    std::uint8_t blockFlag = 0;
-    std::uint8_t asGround = 0;
-    std::array<std::uint8_t, 4> pad {};
     std::int32_t mapNo = 0;
-
-    if (!reader.ReadI32(seqNo) || !reader.ReadI32(offset) || !reader.ReadI32(length)
-        || !reader.ReadI32(x) || !reader.ReadI32(y)
-        || !reader.ReadI32(w) || !reader.ReadI32(h)
-        || !reader.ReadU8(sx) || !reader.ReadU8(sy) || !reader.ReadU8(blockFlag)
-        || !reader.ReadU8(asGround) || !reader.ReadBytes(pad) || !reader.ReadI32(mapNo)) {
+    if (!TryReadI32Le(bytes, 0, seqNo)
+        || !TryReadI32Le(bytes, 4, offset)
+        || !TryReadI32Le(bytes, 8, length)
+        || !TryReadI32Le(bytes, 12, x)
+        || !TryReadI32Le(bytes, 16, y)
+        || !TryReadI32Le(bytes, 20, w)
+        || !TryReadI32Le(bytes, 24, h)
+        || !TryReadI32Le(bytes, 36, mapNo)) {
         return false;
     }
 
@@ -355,12 +357,12 @@ static_assert(GraphicInfoRecordSize == 40);
     info.y = y;
     info.w = w;
     info.h = h;
-    info.sx = ToI8(sx);
-    info.sy = ToI8(sy);
-    info.blockFlag = ToI8(blockFlag);
-    info.asGround = ToI8(asGround);
+    info.sx = ToI8(bytes[28]);
+    info.sy = ToI8(bytes[29]);
+    info.blockFlag = ToI8(bytes[30]);
+    info.asGround = ToI8(bytes[31]);
     for (std::size_t index = 0; index < 4; ++index) {
-        info.pad[index] = static_cast<char>(pad[index]);
+        info.pad[index] = static_cast<char>(bytes[32 + index]);
     }
     info.mapNo = mapNo;
     return true;

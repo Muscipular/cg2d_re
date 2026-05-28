@@ -37,6 +37,8 @@ constexpr double MinSpeed = 0.25;
 constexpr double MaxSpeed = 4.0;
 constexpr double SpeedStep = 0.25;
 constexpr float AnchorHalfSize = 8.0F;
+constexpr int FallbackBoundsPadding = 16;
+constexpr std::size_t MaxWarningDetails = 20;
 
 struct ViewerOptions {
     std::optional<int> animeNo;
@@ -46,7 +48,6 @@ struct ViewerOptions {
 };
 
 struct PlaybackFrame {
-    int index = 0;
     cg::resource::AnimeFrame frame;
     std::optional<cg::resource::GraphicRef> graphic;
     std::optional<cg::resource::DecodedImage> image;
@@ -72,6 +73,34 @@ struct PlaybackState {
     double speed = 1.0;
     bool paused = false;
     bool showOverlay = true;
+};
+
+class AnimWarningCollector final {
+public:
+    void Add(std::string message)
+    {
+        warnings_.push_back(std::move(message));
+    }
+
+    [[nodiscard]] std::size_t Count() const noexcept
+    {
+        return warnings_.size();
+    }
+
+    void PrintSummary(std::ostream& output) const
+    {
+        output << "warning 摘要：总数=" << Count() << '\n';
+        const std::size_t detailCount = std::min(warnings_.size(), MaxWarningDetails);
+        for (std::size_t index = 0; index < detailCount; ++index) {
+            output << "warning[" << index << "]：" << warnings_[index] << '\n';
+        }
+        if (warnings_.size() > detailCount) {
+            output << "warning 其余 " << (warnings_.size() - detailCount) << " 条已省略\n";
+        }
+    }
+
+private:
+    std::vector<std::string> warnings_;
 };
 
 [[nodiscard]] std::string PathToUtf8(const std::filesystem::path& path)
@@ -265,43 +294,154 @@ void PrintSelectedAnimation(
         && image.pixels.size() == static_cast<std::size_t>(expectedSize);
 }
 
-void PrintGraphicWarning(
+void AddFrameWarning(
+    AnimWarningCollector& warnings,
+    std::size_t actionIndex,
+    std::size_t frameIndex,
+    const cg::resource::AnimeFrame& frame,
     std::string_view message,
-    const PlaybackFrame& frame,
+    const std::optional<cg::resource::GraphicRef>& graphic,
     const cg::resource::ResourceError* error = nullptr)
 {
-    std::cerr << "warning：frame index=" << frame.index
-              << "，graphicSeqNo=" << frame.frame.graphicSeqNo
-              << "，" << message;
-    if (frame.graphic.has_value()) {
-        std::cerr << "，binSet=" << frame.graphic->binSetIndex
-                  << "，seqNo=" << frame.graphic->seqNo;
+    std::ostringstream output;
+    output << message
+           << "：action[" << actionIndex << "]"
+           << "，frame index=" << frameIndex
+           << "，graphicSeqNo=" << frame.graphicSeqNo;
+    if (graphic.has_value()) {
+        output << "，binSet=" << graphic->binSetIndex
+               << "，seqNo=" << graphic->seqNo;
     }
     if (error != nullptr && !error->message.empty()) {
-        std::cerr << "：" << error->message;
+        output << "，原因=" << error->message;
     }
     if (error != nullptr && !error->path.empty()) {
-        std::cerr << "，路径：" << PathToUtf8(error->path);
+        output << "，路径=" << PathToUtf8(error->path);
     }
-    std::cerr << '\n';
+    warnings.Add(output.str());
+}
+
+void AddActionFrameSpanWarning(
+    AnimWarningCollector& warnings,
+    const cg::resource::AnimationClip& clip,
+    const cg::resource::AnimeAction& action,
+    std::size_t actionIndex)
+{
+    if (action.header.frameCount <= 0) {
+        std::ostringstream output;
+        output << "资源缺帧：action[" << actionIndex << "] frameCount=" << action.header.frameCount;
+        warnings.Add(output.str());
+        return;
+    }
+    if (action.frameIndex < 0) {
+        std::ostringstream output;
+        output << "异常帧：action[" << actionIndex << "] frameIndex=" << action.frameIndex;
+        warnings.Add(output.str());
+        return;
+    }
+
+    const std::size_t frameIndex = static_cast<std::size_t>(action.frameIndex);
+    const std::size_t expectedCount = static_cast<std::size_t>(action.header.frameCount);
+    const std::size_t actualCount = frameIndex <= clip.frames.size()
+        ? std::min(expectedCount, clip.frames.size() - frameIndex)
+        : 0;
+    if (actualCount != expectedCount) {
+        std::ostringstream output;
+        output << "异常帧：action[" << actionIndex << "] frameCount=" << action.header.frameCount
+               << "，实际 frame span=" << actualCount
+               << "，frameIndex=" << action.frameIndex
+               << "，总帧数=" << clip.frames.size();
+        warnings.Add(output.str());
+    }
+}
+
+[[nodiscard]] std::span<const cg::resource::AnimeFrame> GetAvailableActionFrames(
+    const cg::resource::AnimationClip& clip,
+    const cg::resource::AnimeAction& action) noexcept
+{
+    if (action.frameIndex < 0 || action.header.frameCount <= 0) {
+        return {};
+    }
+
+    const std::size_t frameIndex = static_cast<std::size_t>(action.frameIndex);
+    if (frameIndex >= clip.frames.size()) {
+        return {};
+    }
+
+    const std::size_t expectedCount = static_cast<std::size_t>(action.header.frameCount);
+    const std::size_t actualCount = std::min(expectedCount, clip.frames.size() - frameIndex);
+    return std::span<const cg::resource::AnimeFrame>(clip.frames.data() + frameIndex, actualCount);
+}
+
+void ScanActionWarnings(
+    cg::resource::ResourceManager& resources,
+    const cg::resource::AnimationClip& clip,
+    const cg::resource::AnimeAction& action,
+    std::size_t actionIndex,
+    AnimWarningCollector& warnings)
+{
+    AddActionFrameSpanWarning(warnings, clip, action, actionIndex);
+    const std::span<const cg::resource::AnimeFrame> frames = GetAvailableActionFrames(clip, action);
+    for (std::size_t index = 0; index < frames.size(); ++index) {
+        const std::optional<cg::resource::GraphicRef> graphic = resources.FindGraphicForFrame(clip, frames[index]);
+        if (!graphic.has_value()) {
+            AddFrameWarning(
+                warnings,
+                actionIndex,
+                index,
+                frames[index],
+                "Graphic 缺失，frame graphicSeqNo 找不到",
+                graphic);
+        }
+    }
+}
+
+void ScanAnimationWarnings(
+    cg::resource::ResourceManager& resources,
+    const cg::resource::AnimationClip& clip,
+    AnimWarningCollector& warnings)
+{
+    for (std::size_t index = 0; index < clip.actions.size(); ++index) {
+        ScanActionWarnings(resources, clip, clip.actions[index], index, warnings);
+    }
+}
+
+[[nodiscard]] std::size_t FindActionIndex(
+    const cg::resource::AnimationClip& clip,
+    const cg::resource::AnimeAction& action) noexcept
+{
+    for (std::size_t index = 0; index < clip.actions.size(); ++index) {
+        if (&clip.actions[index] == &action) {
+            return index;
+        }
+    }
+    return clip.actions.size();
 }
 
 [[nodiscard]] std::vector<PlaybackFrame> DecodePlaybackFrames(
     cg::resource::ResourceManager& resources,
     const cg::resource::AnimationClip& clip,
-    const cg::resource::AnimeAction& action)
+    const cg::resource::AnimeAction& action,
+    std::size_t actionIndex,
+    AnimWarningCollector& warnings)
 {
-    const std::span<const cg::resource::AnimeFrame> frames = cg::resource::GetAnimeActionFrames(clip, action);
+    AddActionFrameSpanWarning(warnings, clip, action, actionIndex);
+    const std::span<const cg::resource::AnimeFrame> frames = GetAvailableActionFrames(clip, action);
     std::vector<PlaybackFrame> playbackFrames;
     playbackFrames.reserve(frames.size());
 
     for (std::size_t index = 0; index < frames.size(); ++index) {
         PlaybackFrame playbackFrame;
-        playbackFrame.index = static_cast<int>(index);
         playbackFrame.frame = frames[index];
         playbackFrame.graphic = resources.FindGraphicForFrame(clip, playbackFrame.frame);
         if (!playbackFrame.graphic.has_value()) {
-            PrintGraphicWarning("缺失 Graphic", playbackFrame);
+            AddFrameWarning(
+                warnings,
+                actionIndex,
+                index,
+                playbackFrame.frame,
+                "Graphic 缺失，frame graphicSeqNo 找不到",
+                playbackFrame.graphic);
             playbackFrames.push_back(std::move(playbackFrame));
             continue;
         }
@@ -309,12 +449,25 @@ void PrintGraphicWarning(
         playbackFrame.image = resources.DecodeGraphic(*playbackFrame.graphic);
         if (!playbackFrame.image.has_value()) {
             const cg::resource::ResourceError error = resources.LastError();
-            PrintGraphicWarning("Graphic 解码失败", playbackFrame, &error);
+            AddFrameWarning(
+                warnings,
+                actionIndex,
+                index,
+                playbackFrame.frame,
+                "Graphic 解码失败",
+                playbackFrame.graphic,
+                &error);
             playbackFrames.push_back(std::move(playbackFrame));
             continue;
         }
         if (playbackFrame.image->format != cg::render::PixelFormat::Rgba8 || !IsValidImageBuffer(*playbackFrame.image)) {
-            PrintGraphicWarning("Graphic 图像为空或不是 RGBA8", playbackFrame);
+            AddFrameWarning(
+                warnings,
+                actionIndex,
+                index,
+                playbackFrame.frame,
+                "异常帧，Graphic 图像为空或不是 RGBA8",
+                playbackFrame.graphic);
             playbackFrame.image.reset();
         }
         playbackFrames.push_back(std::move(playbackFrame));
@@ -336,6 +489,32 @@ void PrintGraphicWarning(
         const int top = static_cast<int>(frame.frame.y) + image.offsetY;
         const int right = left + image.width;
         const int bottom = top + image.height;
+        if (!bounds.hasValue) {
+            bounds.minX = left;
+            bounds.minY = top;
+            bounds.maxX = right;
+            bounds.maxY = bottom;
+            bounds.hasValue = true;
+            continue;
+        }
+
+        bounds.minX = std::min(bounds.minX, left);
+        bounds.minY = std::min(bounds.minY, top);
+        bounds.maxX = std::max(bounds.maxX, right);
+        bounds.maxY = std::max(bounds.maxY, bottom);
+    }
+
+    return bounds;
+}
+
+[[nodiscard]] PlaybackBounds ComputeFallbackPlaybackBounds(const std::vector<PlaybackFrame>& frames)
+{
+    PlaybackBounds bounds;
+    for (const PlaybackFrame& frame : frames) {
+        const int left = static_cast<int>(frame.frame.x) - FallbackBoundsPadding;
+        const int top = static_cast<int>(frame.frame.y) - FallbackBoundsPadding;
+        const int right = static_cast<int>(frame.frame.x) + FallbackBoundsPadding;
+        const int bottom = static_cast<int>(frame.frame.y) + FallbackBoundsPadding;
         if (!bounds.hasValue) {
             bounds.minX = left;
             bounds.minY = top;
@@ -682,10 +861,9 @@ void AdvancePlaybackFrame(PlaybackState& state, std::size_t frameCount, int step
         return false;
     }
 
-    const PlaybackBounds bounds = ComputePlaybackBounds(frames);
+    PlaybackBounds bounds = ComputePlaybackBounds(frames);
     if (!bounds.hasValue) {
-        std::cerr << "失败：匹配 action 没有可显示 Graphic 帧\n";
-        return false;
+        bounds = ComputeFallbackPlaybackBounds(frames);
     }
 
     if (!SDL_Init(SDL_INIT_VIDEO)) {
@@ -893,6 +1071,7 @@ int main(int argc, char* argv[])
         return 1;
     }
 
+    AnimWarningCollector warnings;
     if (options.dir.has_value() && options.action.has_value()) {
         const cg::resource::AnimeAction* const action =
             cg::resource::FindAnimeAction(*clip, *options.action, *options.dir);
@@ -904,15 +1083,23 @@ int main(int argc, char* argv[])
         }
 
         PrintSelectedAnimation(*ref, *clip, *action);
+        const std::size_t actionIndex = FindActionIndex(*clip, *action);
+        std::vector<PlaybackFrame> playbackFrames =
+            DecodePlaybackFrames(resources, *clip, *action, actionIndex, warnings);
         if (options.play) {
-            std::vector<PlaybackFrame> playbackFrames = DecodePlaybackFrames(resources, *clip, *action);
-            if (!ShowPlaybackWindow(*options.animeNo, *options.dir, *options.action, *action, playbackFrames)) {
+            const bool windowShown = ShowPlaybackWindow(*options.animeNo, *options.dir, *options.action, *action, playbackFrames);
+            warnings.PrintSummary(std::cout);
+            if (!windowShown) {
                 return 1;
             }
+        } else {
+            warnings.PrintSummary(std::cout);
         }
         return 0;
     }
 
     PrintAnimation(*ref, *clip);
+    ScanAnimationWarnings(resources, *clip, warnings);
+    warnings.PrintSummary(std::cout);
     return 0;
 }

@@ -1,4 +1,5 @@
 #include "resource/BinSetConfigLoader.hpp"
+#include "resource/Palette.hpp"
 #include "resource/ResourceManager.hpp"
 
 #include <SDL3/SDL.h>
@@ -26,12 +27,16 @@ constexpr int InitialMaxWindowHeight = 768;
 constexpr int InitialMinWindowWidth = 320;
 constexpr int InitialMinWindowHeight = 240;
 constexpr int Rgba8BytesPerPixel = 4;
+constexpr int PaletteGridColumns = 16;
+constexpr int PaletteGridRows = 16;
+constexpr int PaletteCellSize = 24;
 
 struct SearchOptions {
     std::optional<int> binSetIndex;
     std::optional<int> seqNo;
     std::optional<int> mapNo;
     bool show = false;
+    bool showPalette = false;
 };
 
 [[nodiscard]] std::string PathToUtf8(const std::filesystem::path& path)
@@ -75,7 +80,7 @@ struct SearchOptions {
 
 void PrintUsage(std::ostream& output)
 {
-    output << "用法：cg-asset-viewer <cgmsv.yml> <palette.cgp> [--bin-set <index>] [--seq <seqNo>] [--map-no <mapNo>] [--show]\n";
+    output << "用法：cg-asset-viewer <cgmsv.yml> <palette.cgp> [--bin-set <index>] [--seq <seqNo>] [--map-no <mapNo>] [--show] [--show-palette]\n";
 }
 
 void PrintResourceError(std::string_view prefix, const cg::resource::ResourceError& error)
@@ -96,6 +101,26 @@ void PrintResourceError(std::string_view prefix, const cg::resource::ResourceErr
 void PrintSdlError(std::string_view prefix)
 {
     std::cerr << "失败：" << prefix << "：" << SDL_GetError() << '\n';
+}
+
+void PrintPaletteError(std::string_view prefix, const cg::resource::PaletteLoadResult& result)
+{
+    std::cerr << "失败：" << prefix;
+    switch (result.error) {
+    case cg::resource::PaletteLoadError::FileOpenFailed:
+        std::cerr << "：无法打开文件";
+        break;
+    case cg::resource::PaletteLoadError::UnexpectedEof:
+        std::cerr << "：文件长度不足";
+        break;
+    case cg::resource::PaletteLoadError::None:
+    default:
+        break;
+    }
+    if (!result.path.empty()) {
+        std::cerr << "，路径：" << PathToUtf8(result.path);
+    }
+    std::cerr << '\n';
 }
 
 [[nodiscard]] bool ReadOptionValue(int argc, char* argv[], int& index, std::string_view option, int& value)
@@ -140,6 +165,8 @@ void PrintSdlError(std::string_view prefix)
             options.mapNo = value;
         } else if (arg == "--show") {
             options.show = true;
+        } else if (arg == "--show-palette") {
+            options.showPalette = true;
         } else {
             std::cerr << "失败：未知参数 " << arg << '\n';
             return false;
@@ -257,8 +284,27 @@ void PrintDecodedGraphic(
               << "，数据长度=" << ref.info.length
               << "，像素格式=" << PixelFormatName(image.format)
               << "，透明像素(alpha==0)=" << alphaZeroCount << '/' << pixelCount
+              << "，compressed=" << (image.dataMetadata.compressed ? "true" : "false")
+              << "，hasEmbeddedPalette=" << (image.dataMetadata.hasEmbeddedPalette ? "true" : "false")
+              << "，paletteSize=" << image.dataMetadata.paletteSize
+              << "，headerSize=" << image.dataMetadata.headerSize
               << "，zeroTransparent=" << (image.dataMetadata.zeroTransparent ? "true" : "false")
               << '\n';
+}
+
+void PrintPaletteSample(const cg::resource::Palette& palette)
+{
+    constexpr std::uint8_t sampleIndices[] {0, 1, 15, 16, 127, 239, 240, 255};
+
+    std::cout << "默认 palette 色数：" << cg::resource::Palette::ColorCount << '\n';
+    for (const std::uint8_t index : sampleIndices) {
+        const cg::resource::Rgba8& color = palette[index];
+        std::cout << "palette[" << static_cast<int>(index) << "]=("
+                  << static_cast<int>(color.r) << ','
+                  << static_cast<int>(color.g) << ','
+                  << static_cast<int>(color.b) << ','
+                  << static_cast<int>(color.a) << ")\n";
+    }
 }
 
 void PrintStats(
@@ -393,6 +439,93 @@ void PrintSearchResults(
         return false;
     }
     return SDL_RenderPresent(renderer);
+}
+
+[[nodiscard]] bool RenderPaletteFrame(SDL_Renderer* renderer, const cg::resource::Palette& palette)
+{
+    if (!SDL_SetRenderDrawColor(renderer, 32, 32, 32, 255) || !SDL_RenderClear(renderer)) {
+        return false;
+    }
+
+    for (std::size_t index = 0; index < cg::resource::Palette::ColorCount; ++index) {
+        const cg::resource::Rgba8& color = palette[static_cast<std::uint8_t>(index)];
+        if (!SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a)) {
+            return false;
+        }
+
+        const int x = static_cast<int>(index % PaletteGridColumns) * PaletteCellSize;
+        const int y = static_cast<int>(index / PaletteGridColumns) * PaletteCellSize;
+        const SDL_FRect rect {
+            static_cast<float>(x),
+            static_cast<float>(y),
+            static_cast<float>(PaletteCellSize),
+            static_cast<float>(PaletteCellSize),
+        };
+        if (!SDL_RenderFillRect(renderer, &rect)) {
+            return false;
+        }
+    }
+
+    return SDL_RenderPresent(renderer);
+}
+
+[[nodiscard]] bool ShowPaletteWindow(const cg::resource::Palette& palette)
+{
+    if (!SDL_Init(SDL_INIT_VIDEO)) {
+        PrintSdlError("SDL 初始化失败");
+        return false;
+    }
+
+    constexpr int windowWidth = PaletteGridColumns * PaletteCellSize;
+    constexpr int windowHeight = PaletteGridRows * PaletteCellSize;
+    SDL_Window* window = SDL_CreateWindow("cg-asset-viewer default palette 16x16", windowWidth, windowHeight, 0);
+    if (window == nullptr) {
+        PrintSdlError("创建 palette 窗口失败");
+        SDL_Quit();
+        return false;
+    }
+
+    SDL_Renderer* renderer = SDL_CreateRenderer(window, nullptr);
+    if (renderer == nullptr) {
+        PrintSdlError("创建 renderer 失败");
+        SDL_DestroyWindow(window);
+        SDL_Quit();
+        return false;
+    }
+
+    std::cout << "palette 窗口已打开：ESC 或关闭窗口退出\n";
+    std::cout.flush();
+
+    bool running = true;
+    while (running) {
+        SDL_Event event;
+        while (SDL_PollEvent(&event)) {
+            switch (event.type) {
+            case SDL_EVENT_QUIT:
+            case SDL_EVENT_WINDOW_CLOSE_REQUESTED:
+                running = false;
+                break;
+            case SDL_EVENT_KEY_DOWN:
+                if (event.key.key == SDLK_ESCAPE || event.key.scancode == SDL_SCANCODE_ESCAPE) {
+                    running = false;
+                }
+                break;
+            default:
+                break;
+            }
+        }
+
+        if (!RenderPaletteFrame(renderer, palette)) {
+            PrintSdlError("渲染 palette 失败");
+            running = false;
+        }
+        SDL_Delay(16);
+    }
+
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
+    SDL_Quit();
+    return true;
 }
 
 [[nodiscard]] bool ShowGraphicWindow(
@@ -574,6 +707,18 @@ int main(int argc, char* argv[])
     }
 
     PrintStats(resources, config.binSets, ymlPath, palettePath);
+    if (options.showPalette) {
+        const cg::resource::PaletteLoadResult paletteResult = cg::resource::LoadPaletteFromFile(palettePath);
+        if (!paletteResult) {
+            PrintPaletteError("palette 加载失败", paletteResult);
+            return 1;
+        }
+        PrintPaletteSample(paletteResult.palette);
+        if (!ShowPaletteWindow(paletteResult.palette)) {
+            return 1;
+        }
+    }
+
     if (!HasSearchFilter(options)) {
         if (options.show) {
             std::cerr << "失败：--show 需要配合 --bin-set、--seq 或 --map-no 搜索条件\n";

@@ -6,9 +6,11 @@
 #include "ResourceTypes.hpp"
 
 #include <cstddef>
+#include <cstdint>
 #include <optional>
 #include <span>
 #include <unordered_map>
+#include <unordered_set>
 #include <vector>
 
 namespace cg::resource {
@@ -17,7 +19,12 @@ class BinaryReader;
 
 struct ResourceLoadOptions {
     bool buildAutoMapColorCache = true;
+    bool buildGraphicSeqIndex = true;
+    bool buildGraphicGlobalIndex = true;
+    bool loadAnimeIndex = true;
+    bool loadHiddenPaletteTable = true;
     std::filesystem::path hiddenPaletteTablePath;
+    std::unordered_set<int> graphicMapNoFilter;
 };
 
 // ResourceManager 管理动态 binSet 索引，并提供 Graphic/Anime 查询和解码入口。
@@ -33,6 +40,7 @@ public:
     // 返回值 0 是有效的“无颜色/缺省颜色”索引；nullopt 仅表示未命中颜色缓存。
     [[nodiscard]] std::optional<std::uint8_t> FindAutoMapColorIndexByMapNo(int mapNo) const;
     [[nodiscard]] std::optional<std::uint8_t> FindAutoMapColorIndexByRaw(std::uint32_t raw) const;
+    void BuildAutoMapColorIndexForMapNos(std::span<const int> mapNos);
     [[nodiscard]] std::optional<GraphicRef> FindGraphicBySeq(int binSetIndex, int seqNo) const;
     [[nodiscard]] std::optional<GraphicRef> FindGraphicByGlobalIndex(int globalIndex) const;
     [[nodiscard]] std::optional<GraphicRef> FindGraphicForFrame(const AnimationClip& clip, const AnimeFrame& frame) const;
@@ -81,7 +89,8 @@ private:
         const GraphicRef& ref,
         const std::filesystem::path& graphicDataPath,
         BinaryReader& graphicDataReader,
-        bool& graphicDataOpenTried);
+        bool& graphicDataOpenTried,
+        std::vector<std::uint8_t>& block);
     void LoadHiddenPaletteTable(const ResourceLoadOptions& options);
     void ClearError();
     void SetError(ResourceErrorCode code, const std::filesystem::path& path, int resourceId, std::string message);

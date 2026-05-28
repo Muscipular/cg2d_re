@@ -13,10 +13,6 @@
 namespace cg::resource {
 namespace {
 
-// 地图 cell 数上限只作为加载保护，避免异常文件触发超大分配；不是业务地图尺寸规则。
-// hook 中 AUT_DATA 示例约 159201 cells，因此这里保守预留到 200000 cells。
-constexpr std::size_t kMaxMapCellCount = 200000;
-
 [[nodiscard]] ResourceError MakeMapError(
     ResourceErrorCode code,
     const std::filesystem::path& path,
@@ -68,10 +64,19 @@ constexpr std::size_t kMaxMapCellCount = 200000;
 [[nodiscard]] bool ReadMapLayer(BinaryReader& reader, std::vector<std::uint16_t>& layer, std::size_t cellCount)
 {
     std::vector<std::uint16_t> values(cellCount);
+    std::vector<std::uint8_t> bytes;
+    if (cellCount > std::numeric_limits<std::size_t>::max() / sizeof(std::uint16_t)) {
+        return false;
+    }
+    const std::size_t byteCount = cellCount * sizeof(std::uint16_t);
+    if (!reader.ReadBytes(bytes, byteCount)) {
+        return false;
+    }
+
     for (std::size_t index = 0; index < cellCount; ++index) {
-        if (!reader.ReadU16(values[index])) {
-            return false;
-        }
+        const std::size_t offset = index * sizeof(std::uint16_t);
+        values[index] = static_cast<std::uint16_t>(bytes[offset])
+            | (static_cast<std::uint16_t>(bytes[offset + 1U]) << 8U);
     }
 
     layer = std::move(values);
@@ -157,14 +162,6 @@ MapLoadResult LoadMapData(
     }
 
     const std::size_t cellCount = widthCells * heightCells;
-    if (cellCount > kMaxMapCellCount) {
-        result.error = MakeMapError(
-            ResourceErrorCode::InvalidFormat,
-            path,
-            MakeMapContextMessage(path, mapId, serverNo, floor, width, height, cellCount, "地图 cell 数超出加载保护上限"));
-        return result;
-    }
-
     const std::uint64_t bytesNeeded = static_cast<std::uint64_t>(cellCount) * 3ULL * sizeof(std::uint16_t);
     if (bytesNeeded > reader.Size() - reader.Position()) {
         result.error = MakeMapError(

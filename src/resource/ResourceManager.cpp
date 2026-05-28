@@ -403,14 +403,16 @@ bool ResourceManager::LoadBinSets(
         if (!LoadGraphicIndex(binSetIndex, state.desc, state, options)) {
             return false;
         }
-        if (!LoadAnimeIndex(binSetIndex, state.desc)) {
+        if (options.loadAnimeIndex && !LoadAnimeIndex(binSetIndex, state.desc)) {
             return false;
         }
 
         binSets_.push_back(std::move(state));
     }
 
-    LoadHiddenPaletteTable(options);
+    if (options.loadHiddenPaletteTable) {
+        LoadHiddenPaletteTable(options);
+    }
     stats_.binSetCount = static_cast<std::uint32_t>(binSets_.size());
     ClearError();
     return true;
@@ -462,6 +464,62 @@ std::optional<std::uint8_t> ResourceManager::FindAutoMapColorIndexByRaw(std::uin
     }
 
     return FindAutoMapColorIndexByMapNo(static_cast<int>(mapNo));
+}
+
+void ResourceManager::BuildAutoMapColorIndexForMapNos(std::span<const int> mapNos)
+{
+    std::vector<const GraphicRef*> refs;
+    refs.reserve(mapNos.size());
+    for (const int mapNo : mapNos) {
+        if (!IsAutoMapColorMapNo(mapNo) || autoMapColorByMapNo_.contains(mapNo)) {
+            continue;
+        }
+
+        const auto iter = graphicsByMapNo_.find(mapNo);
+        if (iter == graphicsByMapNo_.end()) {
+            continue;
+        }
+
+        const GraphicRef* const ref = ResolveGraphicHandle(iter->second);
+        if (ref == nullptr) {
+            continue;
+        }
+        refs.push_back(ref);
+    }
+
+    std::sort(refs.begin(), refs.end(), [](const GraphicRef* lhs, const GraphicRef* rhs) {
+        if (lhs->binSetIndex != rhs->binSetIndex) {
+            return lhs->binSetIndex < rhs->binSetIndex;
+        }
+        return lhs->info.offset < rhs->info.offset;
+    });
+
+    std::vector<BinaryReader> graphicDataReaders(binSets_.size());
+    std::vector<std::uint8_t> graphicDataOpenTried(binSets_.size(), 0);
+    std::vector<std::vector<std::uint8_t>> graphicBlocks(binSets_.size());
+    for (const GraphicRef* const ref : refs) {
+        if (autoMapColorByMapNo_.contains(ref->mapNo)) {
+            continue;
+        }
+        if (ref->binSetIndex < 0 || static_cast<std::size_t>(ref->binSetIndex) >= binSets_.size()) {
+            continue;
+        }
+
+        const std::filesystem::path* const dataPath = ResolveGraphicDataPath(*ref);
+        if (dataPath == nullptr) {
+            continue;
+        }
+
+        const std::size_t binSetIndex = static_cast<std::size_t>(ref->binSetIndex);
+        bool openTried = graphicDataOpenTried[binSetIndex] != 0;
+        BuildAutoMapColorIndex(
+            *ref,
+            *dataPath,
+            graphicDataReaders[binSetIndex],
+            openTried,
+            graphicBlocks[binSetIndex]);
+        graphicDataOpenTried[binSetIndex] = openTried ? 1 : 0;
+    }
 }
 
 std::optional<GraphicRef> ResourceManager::FindGraphicBySeq(int binSetIndex, int seqNo) const
@@ -725,13 +783,19 @@ bool ResourceManager::LoadGraphicIndex(
     state.graphicStartIndex = nextGraphicGlobalIndex_;
     if (count <= static_cast<std::uint64_t>(std::numeric_limits<std::size_t>::max())) {
         const std::size_t recordCount = static_cast<std::size_t>(count);
-        state.graphics.reserve(recordCount);
-        state.graphicsBySeq.reserve(recordCount);
-        if (recordCount <= std::numeric_limits<std::size_t>::max() - graphicsByGlobalIndex_.size()) {
+        const std::size_t graphicReserve = options.graphicMapNoFilter.empty()
+            ? recordCount
+            : std::min(recordCount, options.graphicMapNoFilter.size());
+        state.graphics.reserve(graphicReserve);
+        if (options.buildGraphicSeqIndex) {
+            state.graphicsBySeq.reserve(recordCount);
+        }
+        if (options.buildGraphicGlobalIndex
+            && recordCount <= std::numeric_limits<std::size_t>::max() - graphicsByGlobalIndex_.size()) {
             graphicsByGlobalIndex_.reserve(graphicsByGlobalIndex_.size() + recordCount);
         }
-        if (recordCount <= std::numeric_limits<std::size_t>::max() - graphicsByMapNo_.size()) {
-            graphicsByMapNo_.reserve(graphicsByMapNo_.size() + recordCount);
+        if (graphicReserve <= std::numeric_limits<std::size_t>::max() - graphicsByMapNo_.size()) {
+            graphicsByMapNo_.reserve(graphicsByMapNo_.size() + graphicReserve);
         }
         if (options.buildAutoMapColorCache
             && recordCount <= std::numeric_limits<std::size_t>::max() - autoMapColorByMapNo_.size()) {
@@ -740,17 +804,65 @@ bool ResourceManager::LoadGraphicIndex(
     }
     BinaryReader graphicDataReader;
     bool graphicDataOpenTried = false;
+    std::vector<std::uint8_t> graphicBlock;
+    std::vector<std::uint8_t> graphicMapNoFilterFlags;
+    if (!options.graphicMapNoFilter.empty()) {
+        int maxFilterMapNo = -1;
+        for (const int mapNo : options.graphicMapNoFilter) {
+            maxFilterMapNo = std::max(maxFilterMapNo, mapNo);
+        }
+        if (maxFilterMapNo >= 0 && maxFilterMapNo <= AutoMapNewEnd) {
+            graphicMapNoFilterFlags.resize(static_cast<std::size_t>(maxFilterMapNo) + 1U, 0);
+            for (const int mapNo : options.graphicMapNoFilter) {
+                if (mapNo >= 0) {
+                    graphicMapNoFilterFlags[static_cast<std::size_t>(mapNo)] = 1;
+                }
+            }
+        }
+    }
     int maxSeqNo = -1;
+    const bool needsGlobalIndexBase = options.buildGraphicGlobalIndex || options.loadAnimeIndex;
     for (std::uint64_t index = 0; index < count; ++index) {
-        GraphicInfo info;
         const std::size_t recordOffset = static_cast<std::size_t>(index * GraphicInfoRecordSize);
         const std::span<const std::uint8_t> record {
             graphicInfoBytes.data() + recordOffset,
             static_cast<std::size_t>(GraphicInfoRecordSize),
         };
+        if (!options.graphicMapNoFilter.empty()) {
+            std::int32_t recordMapNo = 0;
+            if (!TryReadI32Le(record, 36, recordMapNo)) {
+                SetError(ResourceErrorCode::FileReadFailed, desc.graphicInfoPath, static_cast<int>(index), "GraphicInfo 记录读取失败");
+                return false;
+            }
+
+            bool keepGraphic = false;
+            if (!graphicMapNoFilterFlags.empty()) {
+                keepGraphic = recordMapNo >= 0
+                    && static_cast<std::size_t>(recordMapNo) < graphicMapNoFilterFlags.size()
+                    && graphicMapNoFilterFlags[static_cast<std::size_t>(recordMapNo)] != 0;
+            } else {
+                keepGraphic = options.graphicMapNoFilter.contains(recordMapNo);
+            }
+            if (!keepGraphic) {
+                if (needsGlobalIndexBase) {
+                    std::int32_t recordSeqNo = 0;
+                    if (!TryReadI32Le(record, 0, recordSeqNo)) {
+                        SetError(ResourceErrorCode::FileReadFailed, desc.graphicInfoPath, static_cast<int>(index), "GraphicInfo 记录读取失败");
+                        return false;
+                    }
+                    maxSeqNo = std::max(maxSeqNo, recordSeqNo);
+                }
+                continue;
+            }
+        }
+
+        GraphicInfo info;
         if (!ReadGraphicInfo(record, info)) {
             SetError(ResourceErrorCode::FileReadFailed, desc.graphicInfoPath, static_cast<int>(index), "GraphicInfo 记录读取失败");
             return false;
+        }
+        if (needsGlobalIndexBase) {
+            maxSeqNo = std::max(maxSeqNo, info.seqNo);
         }
 
         GraphicRef ref;
@@ -759,13 +871,13 @@ bool ResourceManager::LoadGraphicIndex(
         ref.seqNo = info.seqNo;
         ref.mapNo = info.mapNo;
         ref.info = info;
-        maxSeqNo = std::max(maxSeqNo, info.seqNo);
         state.graphics.push_back(std::move(ref));
         const std::size_t localIndex = state.graphics.size() - 1U;
         const GraphicHandle handle { binSetIndex, localIndex };
         const GraphicRef& storedRef = state.graphics[localIndex];
 
-        if (info.seqNo >= 0
+        if (options.buildGraphicSeqIndex
+            && info.seqNo >= 0
             && CanUseDenseIndex(
                 static_cast<std::size_t>(info.seqNo),
                 state.graphicsBySeq.size(),
@@ -785,7 +897,7 @@ bool ResourceManager::LoadGraphicIndex(
             if (hasSparseSeq) {
                 state.graphicsBySparseSeq.erase(info.seqNo);
             }
-        } else {
+        } else if (options.buildGraphicSeqIndex) {
             if (state.graphicsBySparseSeq.contains(info.seqNo)) {
                 ++stats_.graphicOverrideCount;
                 AddWarning("同一 binSet 内 Graphic seqNo 重复，使用后者");
@@ -793,7 +905,8 @@ bool ResourceManager::LoadGraphicIndex(
             state.graphicsBySparseSeq[info.seqNo] = handle;
         }
 
-        if (storedRef.globalIndex >= 0
+        if (options.buildGraphicGlobalIndex
+            && storedRef.globalIndex >= 0
             && CanUseDenseIndex(
                 static_cast<std::size_t>(storedRef.globalIndex),
                 graphicsByGlobalIndex_.size(),
@@ -804,7 +917,7 @@ bool ResourceManager::LoadGraphicIndex(
             }
             graphicsByGlobalIndex_[globalIndex] = handle;
             graphicsBySparseGlobalIndex_.erase(storedRef.globalIndex);
-        } else {
+        } else if (options.buildGraphicGlobalIndex) {
             graphicsBySparseGlobalIndex_[storedRef.globalIndex] = handle;
         }
 
@@ -816,7 +929,7 @@ bool ResourceManager::LoadGraphicIndex(
             graphicsByMapNo_[info.mapNo] = handle;
         }
         if (options.buildAutoMapColorCache) {
-            BuildAutoMapColorIndex(storedRef, desc.graphicDataPath, graphicDataReader, graphicDataOpenTried);
+            BuildAutoMapColorIndex(storedRef, desc.graphicDataPath, graphicDataReader, graphicDataOpenTried, graphicBlock);
         }
 
         ++stats_.graphicCount;
@@ -835,7 +948,8 @@ void ResourceManager::BuildAutoMapColorIndex(
     const GraphicRef& ref,
     const std::filesystem::path& graphicDataPath,
     BinaryReader& graphicDataReader,
-    bool& graphicDataOpenTried)
+    bool& graphicDataOpenTried,
+    std::vector<std::uint8_t>& block)
 {
     if (!IsAutoMapColorMapNo(ref.mapNo)) {
         return;
@@ -855,7 +969,6 @@ void ResourceManager::BuildAutoMapColorIndex(
         return;
     }
 
-    std::vector<std::uint8_t> block;
     std::string message;
     if (!TryReadGraphicBlock(graphicDataReader, ref, block, message)) {
         AddWarning("自动地图颜色索引读取 Graphic 失败，mapNo=" + std::to_string(ref.mapNo) + "，" + message);

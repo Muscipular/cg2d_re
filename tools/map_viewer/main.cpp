@@ -1,4 +1,5 @@
 #include "resource/AutoMapRenderer.hpp"
+#include "resource/AutoMapRules.hpp"
 #include "resource/BinSetConfigLoader.hpp"
 #include "resource/MapLoader.hpp"
 #include "resource/ResourceManager.hpp"
@@ -20,6 +21,7 @@
 #include <string_view>
 #include <system_error>
 #include <thread>
+#include <vector>
 
 namespace {
 
@@ -31,6 +33,7 @@ constexpr float MaxZoom = 16.0F;
 constexpr float ZoomStep = 1.15F;
 constexpr float PanPixelsPerFrame = 16.0F;
 constexpr int Rgba8BytesPerPixel = 4;
+constexpr int MaxDecodedMapCellNo = 265535;
 
 struct ViewState {
     float offsetX = 0.0F;
@@ -74,6 +77,41 @@ struct StdinCommandState {
         value.push_back(static_cast<char8_t>(ch));
     }
     return std::filesystem::path(value);
+}
+
+void AppendAutoMapColorMapNo(
+    std::uint16_t raw,
+    std::vector<int>& mapNos,
+    std::vector<std::uint8_t>& seen)
+{
+    const std::uint32_t decoded = cg::resource::DecodeMapCell(raw);
+    if (decoded == 0 || decoded > static_cast<std::uint32_t>(MaxDecodedMapCellNo)) {
+        return;
+    }
+
+    const int mapNo = static_cast<int>(decoded);
+    if (seen[static_cast<std::size_t>(mapNo)] == 0) {
+        seen[static_cast<std::size_t>(mapNo)] = 1;
+        mapNos.push_back(mapNo);
+    }
+}
+
+[[nodiscard]] std::vector<int> CollectAutoMapColorMapNos(const cg::resource::MapData& map)
+{
+    std::vector<int> mapNos;
+    std::vector<std::uint8_t> seen(static_cast<std::size_t>(MaxDecodedMapCellNo) + 1U, 0);
+    const std::size_t tileCount = std::min(map.CellCount(), map.tileData.size());
+    const std::size_t objCount = std::min(map.CellCount(), map.objData.size());
+    const std::size_t reserveCount = std::min<std::size_t>(tileCount + objCount, 8192U);
+    mapNos.reserve(reserveCount);
+
+    for (std::size_t index = 0; index < tileCount; ++index) {
+        AppendAutoMapColorMapNo(map.tileData[index], mapNos, seen);
+    }
+    for (std::size_t index = 0; index < objCount; ++index) {
+        AppendAutoMapColorMapNo(map.objData[index], mapNos, seen);
+    }
+    return mapNos;
 }
 
 template <typename T>
@@ -593,15 +631,31 @@ int main(int argc, char* argv[])
         return 1;
     }
 
+    const std::filesystem::path mapPath = cg::resource::BuildMapFloorPath(mapRoot, mapId, serverNo, floor);
+    const cg::resource::MapLoadResult mapResult = cg::resource::LoadMapData(mapPath, mapId, serverNo, floor);
+    if (!mapResult.IsOk()) {
+        PrintResourceError("地图加载失败", mapResult.error);
+        return 1;
+    }
+    const std::vector<int> autoMapColorMapNos = CollectAutoMapColorMapNos(mapResult.map);
+
     cg::resource::ResourceManager resources;
     bool binSetsLoaded = false;
     cg::resource::ResourceError binSetError;
     {
         ScopedStreamRedirect suppressInfo(std::cout);
         ScopedStreamRedirect suppressError(std::cerr);
+        cg::resource::ResourceLoadOptions loadOptions;
+        loadOptions.buildAutoMapColorCache = false;
+        loadOptions.buildGraphicSeqIndex = false;
+        loadOptions.buildGraphicGlobalIndex = false;
+        loadOptions.loadAnimeIndex = false;
+        loadOptions.loadHiddenPaletteTable = false;
+        loadOptions.graphicMapNoFilter.insert(autoMapColorMapNos.begin(), autoMapColorMapNos.end());
         binSetsLoaded = resources.LoadBinSets(
             config.binSets,
-            palettePath);
+            palettePath,
+            loadOptions);
         if (!binSetsLoaded) {
             binSetError = resources.LastError();
         }
@@ -611,12 +665,7 @@ int main(int argc, char* argv[])
         return 1;
     }
 
-    const std::filesystem::path mapPath = cg::resource::BuildMapFloorPath(mapRoot, mapId, serverNo, floor);
-    const cg::resource::MapLoadResult mapResult = cg::resource::LoadMapData(mapPath, mapId, serverNo, floor);
-    if (!mapResult.IsOk()) {
-        PrintResourceError("地图加载失败", mapResult.error);
-        return 1;
-    }
+    resources.BuildAutoMapColorIndexForMapNos(autoMapColorMapNos);
 
     const cg::resource::ResourceStats& stats = resources.Stats();
     const cg::resource::MapData& map = mapResult.map;

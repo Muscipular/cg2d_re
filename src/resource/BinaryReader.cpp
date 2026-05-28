@@ -251,7 +251,7 @@ bool BinaryReader::ReadBytes(std::vector<std::uint8_t>& bytes, std::size_t count
         return false;
     }
 
-    bytes.assign(count, 0);
+    bytes.resize(count);
     if (!ReadBytes(std::span<std::uint8_t>{bytes.data(), bytes.size()})) {
         return false;
     }

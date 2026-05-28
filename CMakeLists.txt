@@ -56,6 +56,7 @@ add_executable(cg-client
     src/platform/Timer.cpp
     src/platform/Window.cpp
     src/resource/AnimationLoader.cpp
+    src/resource/AutoMapRenderer.cpp
     src/resource/AutoMapRules.cpp
     src/resource/BinaryReader.cpp
     src/resource/BinSetConfigLoader.cpp
@@ -78,10 +79,32 @@ target_link_libraries(cg-client
         yaml-cpp::yaml-cpp
 )
 
+enable_testing()
+
+add_executable(cg-automap-renderer-test
+    tests/resource/AutoMapRendererTest.cpp
+    src/resource/AnimationLoader.cpp
+    src/resource/AutoMapRenderer.cpp
+    src/resource/AutoMapRules.cpp
+    src/resource/BinaryReader.cpp
+    src/resource/GraphicDecoder.cpp
+    src/resource/Palette.cpp
+    src/resource/ResourceManager.cpp
+)
+
+target_include_directories(cg-automap-renderer-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+
+add_test(NAME cg-automap-renderer-test COMMAND cg-automap-renderer-test)
+
 if(MSVC)
     target_compile_options(cg-client PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-automap-renderer-test PRIVATE /W4 /utf-8 /permissive-)
 else()
     target_compile_options(cg-client PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-automap-renderer-test PRIVATE -Wall -Wextra -Wpedantic)
 endif()
 
 if(WIN32)

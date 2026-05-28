@@ -457,7 +457,7 @@ textureCache.LoadRgba8(key, image.width, image.height, image.pixels.data(), imag
 | M5.3.1 | `DecodeMapCell` 校对 | `raw < 0x10000` 查 IDA `dword_C35010`，否则返回 raw；实现前先导出或确认查表来源 |
 | M5.3.2 | 地图投影 | `screenX = 1 + 2 * (x + y)`，`screenY = mapWidth + 1 + y - x` |
 | M5.3.3 | tile 颜色 | 普通地图用 `MapNoIndex[800000]`，新地图 `220000..265535` 用 `newMapRes` |
-| M5.3.4 | object 覆盖 | 参考 `GraphicInfo.sx/sy/blockFlag` 计算覆盖范围，不只覆盖 object 所在格 |
+| M5.3.4 | object 覆盖 | 参考 `GraphicInfo.sx/sy` 与 `GraphicInfo::flag % 100` 计算覆盖范围，不只覆盖 object 所在格 |
 | M5.3.5 | collision overlay | 只显示阻挡层开关，不扩展寻路规则 |
 | M5.3.6 | RGBA8 输出 | palette 优先，缺色时按 `AUT_DATA` fallback，可上传到 `TextureCache::LoadRgba8` |
 

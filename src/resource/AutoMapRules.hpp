@@ -38,6 +38,10 @@ struct AutoMapCellRect {
     std::int32_t x,
     std::int32_t y) noexcept;
 
+// 自动地图 collision overlay 显示标志来源：automap.cpp / MapExControl。
+// 仅表示阻挡层显示开关，不是完整寻路/碰撞规则。
+[[nodiscard]] bool IsAutoMapCollisionVisible(std::uint16_t hitRaw) noexcept;
+
 // 自动地图 object 覆盖规则：colorIndex 为 0 表示不绘制。
 [[nodiscard]] std::optional<AutoMapCellRect> ComputeObjectCoverRect(
     const GraphicInfo& info,

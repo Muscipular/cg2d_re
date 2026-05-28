@@ -25,6 +25,11 @@ AutoMapScreenPoint ProjectMapCellToAutoMap(std::int32_t mapWidth, std::int32_t x
     };
 }
 
+bool IsAutoMapCollisionVisible(std::uint16_t hitRaw) noexcept
+{
+    return ((hitRaw >> 8) & 0x40U) != 0;
+}
+
 std::optional<AutoMapCellRect> ComputeObjectCoverRect(
     const GraphicInfo& info,
     std::int32_t objectX,

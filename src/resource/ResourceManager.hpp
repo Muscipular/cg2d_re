@@ -12,6 +12,8 @@
 
 namespace cg::resource {
 
+class BinaryReader;
+
 // ResourceManager 管理动态 binSet 索引，并提供 Graphic/Anime 查询和解码入口。
 class ResourceManager final {
 public:
@@ -19,6 +21,9 @@ public:
     void Clear();
 
     [[nodiscard]] std::optional<GraphicRef> FindGraphicByMapNo(int mapNo) const;
+    // 返回值 0 是有效的“无颜色/缺省颜色”索引；nullopt 仅表示未命中颜色缓存。
+    [[nodiscard]] std::optional<std::uint8_t> FindAutoMapColorIndexByMapNo(int mapNo) const;
+    [[nodiscard]] std::optional<std::uint8_t> FindAutoMapColorIndexByRaw(std::uint32_t raw) const;
     [[nodiscard]] std::optional<GraphicRef> FindGraphicBySeq(int binSetIndex, int seqNo) const;
     [[nodiscard]] std::optional<GraphicRef> FindGraphicByGlobalIndex(int globalIndex) const;
     [[nodiscard]] std::optional<GraphicRef> FindGraphicForFrame(const AnimationClip& clip, const AnimeFrame& frame) const;
@@ -42,12 +47,14 @@ private:
     [[nodiscard]] bool LoadGraphicIndex(int binSetIndex, const BinSetDesc& desc, BinSetState& state);
     [[nodiscard]] bool LoadAnimeIndex(int binSetIndex, const BinSetDesc& desc);
 
+    void BuildAutoMapColorIndex(const GraphicRef& ref, BinaryReader& graphicDataReader, bool& graphicDataOpenTried);
     void ClearError();
     void SetError(ResourceErrorCode code, const std::filesystem::path& path, int resourceId, std::string message);
     void AddWarning(std::string_view message);
 
     std::vector<BinSetState> binSets_;
     std::unordered_map<int, GraphicRef> graphicsByMapNo_;
+    std::unordered_map<int, std::uint8_t> autoMapColorByMapNo_;
     std::unordered_map<int, GraphicRef> graphicsByGlobalIndex_;
     std::unordered_map<int, AnimeRef> animesByNo_;
     Palette defaultPalette_;

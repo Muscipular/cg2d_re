@@ -1,19 +1,26 @@
 #include "ResourceManager.hpp"
 
 #include "AnimationLoader.hpp"
+#include "AutoMapRules.hpp"
 #include "BinaryReader.hpp"
 #include "core/Log.hpp"
 
 #include <algorithm>
 #include <array>
 #include <cstdint>
+#include <limits>
 #include <string>
 #include <utility>
+#include <vector>
 
 namespace cg::resource {
 namespace {
 
 constexpr int AnimeNoBase = 100000;
+constexpr int AutoMapNormalBegin = 1000;
+constexpr int AutoMapNormalEnd = 19999;
+constexpr int AutoMapNewBegin = 220000;
+constexpr int AutoMapNewEnd = 265535;
 constexpr std::uint64_t GraphicInfoRecordSize = sizeof(GraphicInfo);
 static_assert(GraphicInfoRecordSize == 40);
 
@@ -30,6 +37,36 @@ static_assert(GraphicInfoRecordSize == 40);
 [[nodiscard]] int NormalizeAnimeNo(int animeNo) noexcept
 {
     return animeNo >= AnimeNoBase ? animeNo - AnimeNoBase : animeNo;
+}
+
+[[nodiscard]] bool IsAutoMapColorMapNo(int mapNo) noexcept
+{
+    return (mapNo >= AutoMapNormalBegin && mapNo <= AutoMapNormalEnd)
+        || (mapNo >= AutoMapNewBegin && mapNo <= AutoMapNewEnd);
+}
+
+[[nodiscard]] bool TryReadGraphicBlock(BinaryReader& reader, const GraphicRef& ref, std::vector<std::uint8_t>& block, std::string& message)
+{
+    if (ref.info.offset < 0 || ref.info.length <= 0) {
+        message = "GraphicInfo offset/length 无效";
+        return false;
+    }
+
+    const std::uint64_t offset = static_cast<std::uint64_t>(ref.info.offset);
+    const std::uint64_t length = static_cast<std::uint64_t>(ref.info.length);
+    if (offset > reader.Size()
+        || length > reader.Size() - offset
+        || length > std::numeric_limits<std::size_t>::max()) {
+        message = "GraphicInfo 指向范围越过文件结尾";
+        return false;
+    }
+
+    if (!reader.Seek(offset) || !reader.ReadBytes(block, static_cast<std::size_t>(length))) {
+        message = reader.LastError().message.empty() ? "Graphic 数据读取失败" : reader.LastError().message;
+        return false;
+    }
+
+    return true;
 }
 
 [[nodiscard]] bool ReadGraphicInfo(BinaryReader& reader, GraphicInfo& info)
@@ -118,6 +155,7 @@ void ResourceManager::Clear()
 {
     binSets_.clear();
     graphicsByMapNo_.clear();
+    autoMapColorByMapNo_.clear();
     graphicsByGlobalIndex_.clear();
     animesByNo_.clear();
     stats_ = ResourceStats {};
@@ -133,6 +171,26 @@ std::optional<GraphicRef> ResourceManager::FindGraphicByMapNo(int mapNo) const
     }
 
     return iter->second;
+}
+
+std::optional<std::uint8_t> ResourceManager::FindAutoMapColorIndexByMapNo(int mapNo) const
+{
+    const auto iter = autoMapColorByMapNo_.find(mapNo);
+    if (iter == autoMapColorByMapNo_.end()) {
+        return std::nullopt;
+    }
+
+    return iter->second;
+}
+
+std::optional<std::uint8_t> ResourceManager::FindAutoMapColorIndexByRaw(std::uint32_t raw) const
+{
+    const std::uint32_t mapNo = DecodeMapCell(raw);
+    if (mapNo > static_cast<std::uint32_t>(std::numeric_limits<int>::max())) {
+        return std::nullopt;
+    }
+
+    return FindAutoMapColorIndexByMapNo(static_cast<int>(mapNo));
 }
 
 std::optional<GraphicRef> ResourceManager::FindGraphicBySeq(int binSetIndex, int seqNo) const
@@ -261,6 +319,8 @@ bool ResourceManager::LoadGraphicIndex(int binSetIndex, const BinSetDesc& desc, 
 
     const std::uint64_t count = reader.Size() / GraphicInfoRecordSize;
     state.graphicStartIndex = nextGraphicGlobalIndex_;
+    BinaryReader graphicDataReader;
+    bool graphicDataOpenTried = false;
     int maxSeqNo = -1;
     for (std::uint64_t index = 0; index < count; ++index) {
         GraphicInfo info;
@@ -292,6 +352,7 @@ bool ResourceManager::LoadGraphicIndex(int binSetIndex, const BinSetDesc& desc, 
             }
             graphicsByMapNo_[info.mapNo] = ref;
         }
+        BuildAutoMapColorIndex(ref, graphicDataReader, graphicDataOpenTried);
 
         ++stats_.graphicCount;
     }
@@ -303,6 +364,42 @@ bool ResourceManager::LoadGraphicIndex(int binSetIndex, const BinSetDesc& desc, 
         "resource",
         "GraphicInfo loaded: " + ToLogPath(desc.graphicInfoPath) + ", count=" + std::to_string(count));
     return true;
+}
+
+void ResourceManager::BuildAutoMapColorIndex(const GraphicRef& ref, BinaryReader& graphicDataReader, bool& graphicDataOpenTried)
+{
+    if (!IsAutoMapColorMapNo(ref.mapNo)) {
+        return;
+    }
+
+    // twcg_hook 普通 MapNoIndex 与 newMapRes 均以 0 作为缺省颜色；后加载记录覆盖前者。
+    autoMapColorByMapNo_[ref.mapNo] = 0;
+
+    if (!graphicDataOpenTried) {
+        graphicDataOpenTried = true;
+        if (!graphicDataReader.Open(ref.dataPath)) {
+            AddWarning("自动地图颜色索引打开 Graphic 数据失败，保留缺省颜色 0");
+            return;
+        }
+    }
+    if (!graphicDataReader.IsOpen()) {
+        return;
+    }
+
+    std::vector<std::uint8_t> block;
+    std::string message;
+    if (!TryReadGraphicBlock(graphicDataReader, ref, block, message)) {
+        AddWarning("自动地图颜色索引读取 Graphic 失败，mapNo=" + std::to_string(ref.mapNo) + "，" + message);
+        return;
+    }
+
+    GraphicIndexedDecodeResult result = graphicDecoder_.DecodeGraphicIndexed(ref.info, block);
+    if (!result) {
+        AddWarning("自动地图颜色索引解码 Graphic 失败，mapNo=" + std::to_string(ref.mapNo) + "，" + result.message);
+        return;
+    }
+
+    autoMapColorByMapNo_[ref.mapNo] = ComputeAutoMapColorIndex(result.image.pixels, defaultPalette_);
 }
 
 bool ResourceManager::LoadAnimeIndex(int binSetIndex, const BinSetDesc& desc)

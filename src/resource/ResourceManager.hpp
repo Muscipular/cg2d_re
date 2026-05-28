@@ -14,10 +14,17 @@ namespace cg::resource {
 
 class BinaryReader;
 
+struct ResourceLoadOptions {
+    bool buildAutoMapColorCache = true;
+};
+
 // ResourceManager 管理动态 binSet 索引，并提供 Graphic/Anime 查询和解码入口。
 class ResourceManager final {
 public:
-    [[nodiscard]] bool LoadBinSets(std::span<const BinSetDesc> binSets, const std::filesystem::path& defaultPalettePath);
+    [[nodiscard]] bool LoadBinSets(
+        std::span<const BinSetDesc> binSets,
+        const std::filesystem::path& defaultPalettePath,
+        ResourceLoadOptions options = {});
     void Clear();
 
     [[nodiscard]] std::optional<GraphicRef> FindGraphicByMapNo(int mapNo) const;
@@ -44,7 +51,11 @@ private:
         std::unordered_map<int, GraphicRef> graphicsBySeq;
     };
 
-    [[nodiscard]] bool LoadGraphicIndex(int binSetIndex, const BinSetDesc& desc, BinSetState& state);
+    [[nodiscard]] bool LoadGraphicIndex(
+        int binSetIndex,
+        const BinSetDesc& desc,
+        BinSetState& state,
+        const ResourceLoadOptions& options);
     [[nodiscard]] bool LoadAnimeIndex(int binSetIndex, const BinSetDesc& desc);
 
     void BuildAutoMapColorIndex(const GraphicRef& ref, BinaryReader& graphicDataReader, bool& graphicDataOpenTried);

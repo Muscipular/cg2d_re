@@ -8,7 +8,7 @@
 #include <iostream>
 #include <limits>
 #include <ostream>
-#include <sstream>
+#include <streambuf>
 #include <string>
 #include <string_view>
 #include <system_error>
@@ -80,11 +80,19 @@ void PrintResourceError(std::string_view prefix, const cg::resource::ResourceErr
     std::cerr << '\n';
 }
 
+class NullStreamBuffer final : public std::streambuf {
+protected:
+    int overflow(int ch) override
+    {
+        return ch;
+    }
+};
+
 class ScopedStreamRedirect final {
 public:
     explicit ScopedStreamRedirect(std::ostream& stream)
         : stream_(stream)
-        , oldBuffer_(stream.rdbuf(sink_.rdbuf()))
+        , oldBuffer_(stream.rdbuf(&sink_))
     {
     }
 
@@ -99,7 +107,7 @@ public:
 private:
     std::ostream& stream_;
     std::streambuf* oldBuffer_ = nullptr;
-    std::ostringstream sink_;
+    NullStreamBuffer sink_;
 };
 
 } // namespace
@@ -143,7 +151,10 @@ int main(int argc, char* argv[])
     {
         ScopedStreamRedirect suppressInfo(std::cout);
         ScopedStreamRedirect suppressError(std::cerr);
-        binSetsLoaded = resources.LoadBinSets(config.binSets, palettePath);
+        binSetsLoaded = resources.LoadBinSets(
+            config.binSets,
+            palettePath,
+            cg::resource::ResourceLoadOptions {.buildAutoMapColorCache = false});
         if (!binSetsLoaded) {
             binSetError = resources.LastError();
         }

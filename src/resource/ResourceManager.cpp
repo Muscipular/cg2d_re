@@ -118,7 +118,10 @@ static_assert(GraphicInfoRecordSize == 40);
 
 } // namespace
 
-bool ResourceManager::LoadBinSets(std::span<const BinSetDesc> binSets, const std::filesystem::path& defaultPalettePath)
+bool ResourceManager::LoadBinSets(
+    std::span<const BinSetDesc> binSets,
+    const std::filesystem::path& defaultPalettePath,
+    ResourceLoadOptions options)
 {
     Clear();
 
@@ -136,7 +139,7 @@ bool ResourceManager::LoadBinSets(std::span<const BinSetDesc> binSets, const std
         state.desc = binSets[index];
         const int binSetIndex = static_cast<int>(index);
 
-        if (!LoadGraphicIndex(binSetIndex, state.desc, state)) {
+        if (!LoadGraphicIndex(binSetIndex, state.desc, state, options)) {
             return false;
         }
         if (!LoadAnimeIndex(binSetIndex, state.desc)) {
@@ -300,7 +303,11 @@ const Palette& ResourceManager::DefaultPalette() const noexcept
     return defaultPalette_;
 }
 
-bool ResourceManager::LoadGraphicIndex(int binSetIndex, const BinSetDesc& desc, BinSetState& state)
+bool ResourceManager::LoadGraphicIndex(
+    int binSetIndex,
+    const BinSetDesc& desc,
+    BinSetState& state,
+    const ResourceLoadOptions& options)
 {
     if (IsEmptyPathPair(desc.graphicInfoPath, desc.graphicDataPath)) {
         AddWarning("binSet 未提供 Graphic 文件对，跳过 Graphic 索引");
@@ -319,6 +326,20 @@ bool ResourceManager::LoadGraphicIndex(int binSetIndex, const BinSetDesc& desc, 
 
     const std::uint64_t count = reader.Size() / GraphicInfoRecordSize;
     state.graphicStartIndex = nextGraphicGlobalIndex_;
+    if (count <= static_cast<std::uint64_t>(std::numeric_limits<std::size_t>::max())) {
+        const std::size_t recordCount = static_cast<std::size_t>(count);
+        state.graphicsBySeq.reserve(recordCount);
+        if (recordCount <= std::numeric_limits<std::size_t>::max() - graphicsByGlobalIndex_.size()) {
+            graphicsByGlobalIndex_.reserve(graphicsByGlobalIndex_.size() + recordCount);
+        }
+        if (recordCount <= std::numeric_limits<std::size_t>::max() - graphicsByMapNo_.size()) {
+            graphicsByMapNo_.reserve(graphicsByMapNo_.size() + recordCount);
+        }
+        if (options.buildAutoMapColorCache
+            && recordCount <= std::numeric_limits<std::size_t>::max() - autoMapColorByMapNo_.size()) {
+            autoMapColorByMapNo_.reserve(autoMapColorByMapNo_.size() + recordCount);
+        }
+    }
     BinaryReader graphicDataReader;
     bool graphicDataOpenTried = false;
     int maxSeqNo = -1;
@@ -352,7 +373,9 @@ bool ResourceManager::LoadGraphicIndex(int binSetIndex, const BinSetDesc& desc, 
             }
             graphicsByMapNo_[info.mapNo] = ref;
         }
-        BuildAutoMapColorIndex(ref, graphicDataReader, graphicDataOpenTried);
+        if (options.buildAutoMapColorCache) {
+            BuildAutoMapColorIndex(ref, graphicDataReader, graphicDataOpenTried);
+        }
 
         ++stats_.graphicCount;
     }

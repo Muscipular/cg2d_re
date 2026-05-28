@@ -242,6 +242,15 @@ std::optional<AnimeRef> ResourceManager::FindAnime(int animeNo) const
     return iter->second;
 }
 
+std::span<const GraphicRef> ResourceManager::Graphics(int binSetIndex) const noexcept
+{
+    if (binSetIndex < 0 || static_cast<std::size_t>(binSetIndex) >= binSets_.size()) {
+        return {};
+    }
+
+    return binSets_[static_cast<std::size_t>(binSetIndex)].graphics;
+}
+
 std::optional<DecodedImage> ResourceManager::DecodeGraphic(const GraphicRef& ref)
 {
     GraphicDecodeResult result = graphicDecoder_.DecodeFromFile(ref.info, ref.dataPath, defaultPalette_);
@@ -328,6 +337,7 @@ bool ResourceManager::LoadGraphicIndex(
     state.graphicStartIndex = nextGraphicGlobalIndex_;
     if (count <= static_cast<std::uint64_t>(std::numeric_limits<std::size_t>::max())) {
         const std::size_t recordCount = static_cast<std::size_t>(count);
+        state.graphics.reserve(recordCount);
         state.graphicsBySeq.reserve(recordCount);
         if (recordCount <= std::numeric_limits<std::size_t>::max() - graphicsByGlobalIndex_.size()) {
             graphicsByGlobalIndex_.reserve(graphicsByGlobalIndex_.size() + recordCount);
@@ -358,6 +368,7 @@ bool ResourceManager::LoadGraphicIndex(
         ref.dataPath = desc.graphicDataPath;
         ref.info = info;
         maxSeqNo = std::max(maxSeqNo, info.seqNo);
+        state.graphics.push_back(ref);
 
         if (state.graphicsBySeq.contains(info.seqNo)) {
             ++stats_.graphicOverrideCount;

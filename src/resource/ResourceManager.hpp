@@ -35,6 +35,7 @@ public:
     [[nodiscard]] std::optional<GraphicRef> FindGraphicByGlobalIndex(int globalIndex) const;
     [[nodiscard]] std::optional<GraphicRef> FindGraphicForFrame(const AnimationClip& clip, const AnimeFrame& frame) const;
     [[nodiscard]] std::optional<AnimeRef> FindAnime(int animeNo) const;
+    [[nodiscard]] std::span<const GraphicRef> Graphics(int binSetIndex) const noexcept;
 
     [[nodiscard]] std::optional<DecodedImage> DecodeGraphic(const GraphicRef& ref);
     [[nodiscard]] std::optional<DecodedImage> DecodeGraphicByMapNo(int mapNo);
@@ -48,6 +49,7 @@ private:
     struct BinSetState {
         BinSetDesc desc;
         int graphicStartIndex = 0;
+        std::vector<GraphicRef> graphics;
         std::unordered_map<int, GraphicRef> graphicsBySeq;
     };
 

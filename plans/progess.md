@@ -130,3 +130,10 @@
 |---|---|---|---|---|
 | 2026-05-29 | M6.0 协议资料盘点 | 新增 `plans/protocol_m6_inventory.md`，从 `plans/CG封包.xlsx` 主表 `封包` 读取 209 行；记录来源优先级、方向/状态/format 统计和 209 个封包清单；format 非空来源标 `xlsx`，空 format 标 `待 C/IDA 补全` | 文档生成并复核 209 行；方向统计：服务端->客户端 109、客户端->服务端 100；状态统计：完成 161、进行中 25、暂缓 18、待办 5；format 非空 156、空 53；未编译 | M6.1 起未实现 |
 | 2026-05-29 | M6 总规划同步 | 更新 `plans/cg_engine_dev_plan.md`：M6 改为封包解析与全量协议支持，补 M6.0-M6.19 任务；原 world 顺延为 M7，性能为 M8，net 连接层为 M9，UI 为 M10，Hook 对照为 M11，跨平台为 M12，GPU 为 M13；推荐开发顺序、迭代建议、风险和当前任务同步调整 | 文档检查；未编译 | M6.1 起未实现 |
+
+## 工具补充
+
+| 日期 | 任务 | 修改 | 验证 | 遗留 |
+|---|---|---|---|---|
+| 2026-05-30 | anim_exporter sprite_atlas 启动 | 定义成功标准：参考 `anim_viewer` 新增 `cg-anim-exporter`；支持 `--mode sprite_atlas --anime-no <animeNo> --o <dir> [--pal=xx]`；按 anime 的每个 dir/action 导出 1024 宽 PNG，输出高度自适应；默认使用 action.pal，`--pal` 作为隐藏调色盘覆盖 | 待验证：静态检查、目标构建和参数解析检查 | 不扩展 JSON/manifest 等未要求功能 |
+| 2026-05-30 | anim_exporter sprite_atlas 实现 | 新增 `tools/anim_exporter/main.cpp` 与 `cg-anim-exporter` target；复用 `ResourceManager::LoadAnimation`、`FindGraphicForFrame`、hidden palette 解析和 `IMG_SavePNG`；按每个 action 输出 `anime_<animeNo>_dir_<dir>_action_<action>.png`，atlas 宽固定 1024，高度按行自适应；单帧宽度超过 1024 时 warning 且不裁剪；单帧解码异常时保留 warning 并导出该 action 的可解码帧 | `git diff --check` 通过；Release `cg-anim-exporter` 构建通过；真实资源 `--anime-no 106283 --mode sprite_atlas` 导出 152/152 张 PNG，warning 0，exit=0 | 未生成 manifest/坐标元数据，按本次要求仅导出 atlas 图 |

@@ -27,13 +27,14 @@
 namespace {
 
 constexpr int RequiredArgCount = 3;
-constexpr int AtlasWidth = 1024;
+constexpr int MaxAtlasWidth = 1024;
 constexpr int Rgba8BytesPerPixel = 4;
 constexpr std::size_t MaxWarningDetails = 20;
 
 struct ExportOptions {
     std::optional<int> sourceAnimeNo;
     std::optional<int> palOverride;
+    std::uint32_t bgColor = 0;
     std::filesystem::path outputDir;
     std::string mode;
     bool hasOutputDir = false;
@@ -134,9 +135,32 @@ private:
     return true;
 }
 
+[[nodiscard]] bool ParseBgColor(std::string_view text, std::uint32_t& value)
+{
+    if (!(text.starts_with("0x") || text.starts_with("0X"))) {
+        return false;
+    }
+
+    text.remove_prefix(2);
+    if (text.size() != 8) {
+        return false;
+    }
+
+    std::uint32_t parsed = 0;
+    const char* const begin = text.data();
+    const char* const end = begin + text.size();
+    const auto result = std::from_chars(begin, end, parsed, 16);
+    if (result.ec != std::errc {} || result.ptr != end) {
+        return false;
+    }
+
+    value = parsed;
+    return true;
+}
+
 void PrintUsage(std::ostream& output)
 {
-    output << "用法：cg-anim-exporter <cgmsv.yml> <palette.cgp> --mode sprite_atlas --anime-no <animeNo> --o <dir> [--pal=<palIndex>]\n";
+    output << "用法：cg-anim-exporter <cgmsv.yml> <palette.cgp> --mode sprite_atlas --anime-no <animeNo> --o <dir> [--pal=<palIndex>] [--bgColor 0xRRGGBBAA]\n";
 }
 
 void PrintResourceError(std::string_view prefix, const cg::resource::ResourceError& error)
@@ -192,6 +216,28 @@ void PrintSdlError(std::string_view prefix)
 {
     if (!ParseInt(text, value)) {
         std::cerr << "失败：" << option << " 必须是整数\n";
+        return false;
+    }
+    return true;
+}
+
+[[nodiscard]] bool ReadOptionBgColor(int argc, char* argv[], int& index, std::string_view option, std::uint32_t& value)
+{
+    std::string_view text;
+    if (!ReadOptionText(argc, argv, index, option, text)) {
+        return false;
+    }
+    if (!ParseBgColor(text, value)) {
+        std::cerr << "失败：" << option << " 必须是 0xRRGGBBAA 格式\n";
+        return false;
+    }
+    return true;
+}
+
+[[nodiscard]] bool ReadInlineBgColor(std::string_view text, std::string_view option, std::uint32_t& value)
+{
+    if (!ParseBgColor(text, value)) {
+        std::cerr << "失败：" << option << " 必须是 0xRRGGBBAA 格式\n";
         return false;
     }
     return true;
@@ -255,6 +301,14 @@ void PrintSdlError(std::string_view prefix)
                 return false;
             }
             options.palOverride = value;
+        } else if (arg == "--bgColor") {
+            if (!ReadOptionBgColor(argc, argv, index, arg, options.bgColor)) {
+                return false;
+            }
+        } else if (arg.starts_with("--bgColor=")) {
+            if (!ReadInlineBgColor(arg.substr(std::string_view { "--bgColor=" }.size()), "--bgColor", options.bgColor)) {
+                return false;
+            }
         } else {
             std::cerr << "失败：未知参数 " << arg << '\n';
             return false;
@@ -428,6 +482,16 @@ void AddActionFrameSpanWarning(
     return state;
 }
 
+[[nodiscard]] cg::resource::Rgba8 ResolvePaletteZeroColor(
+    const cg::resource::ResourceManager& resources,
+    const ActionPaletteState& paletteState) noexcept
+{
+    if (paletteState.hiddenPalette.has_value()) {
+        return (*paletteState.hiddenPalette)[0];
+    }
+    return resources.DefaultPalette()[0];
+}
+
 [[nodiscard]] DecodedActionFrames DecodeActionFrames(
     cg::resource::ResourceManager& resources,
     const cg::resource::AnimationClip& clip,
@@ -499,19 +563,22 @@ void AddActionFrameSpanWarning(
 [[nodiscard]] bool BuildAtlasLayout(
     const std::vector<ExportFrame>& frames,
     std::vector<AtlasPlacement>& placements,
+    int& atlasWidth,
     int& atlasHeight,
     WarningCollector& warnings,
     std::size_t actionIndex)
 {
     placements.clear();
+    atlasWidth = 0;
     atlasHeight = 0;
 
     int x = 0;
     int y = 0;
     int rowHeight = 0;
+    int maxUsedWidth = 0;
     for (const ExportFrame& frame : frames) {
         const cg::resource::DecodedImage& image = frame.image;
-        if (image.width > AtlasWidth) {
+        if (image.width > MaxAtlasWidth) {
             std::ostringstream output;
             output << "atlas 失败：action[" << actionIndex << "] 单帧宽度超过 1024"
                    << "，seqNo=" << frame.graphic.seqNo
@@ -520,7 +587,8 @@ void AddActionFrameSpanWarning(
             return false;
         }
 
-        if (x > 0 && x + image.width > AtlasWidth) {
+        if (x > 0 && x + image.width > MaxAtlasWidth) {
+            maxUsedWidth = std::max(maxUsedWidth, x);
             if (y > std::numeric_limits<int>::max() - rowHeight) {
                 warnings.Add("atlas 失败：高度整数溢出，action[" + std::to_string(actionIndex) + "]");
                 return false;
@@ -538,43 +606,67 @@ void AddActionFrameSpanWarning(
     if (placements.empty() || rowHeight <= 0) {
         return false;
     }
+    maxUsedWidth = std::max(maxUsedWidth, x);
     if (y > std::numeric_limits<int>::max() - rowHeight) {
         warnings.Add("atlas 失败：高度整数溢出，action[" + std::to_string(actionIndex) + "]");
         return false;
     }
+    atlasWidth = maxUsedWidth;
     atlasHeight = y + rowHeight;
-    return atlasHeight > 0;
+    return atlasWidth > 0 && atlasHeight > 0;
 }
 
 [[nodiscard]] bool SaveAtlasPng(
     const std::vector<ExportFrame>& frames,
     const std::filesystem::path& outputPath,
+    std::uint32_t bgColor,
+    const cg::resource::Rgba8& sourceBgColor,
+    int& atlasWidth,
     int& atlasHeight,
     WarningCollector& warnings,
     std::size_t actionIndex)
 {
     std::vector<AtlasPlacement> placements;
-    if (!BuildAtlasLayout(frames, placements, atlasHeight, warnings, actionIndex)) {
+    if (!BuildAtlasLayout(frames, placements, atlasWidth, atlasHeight, warnings, actionIndex)) {
         return false;
     }
 
-    SDL_Surface* surface = SDL_CreateSurface(AtlasWidth, atlasHeight, SDL_PIXELFORMAT_RGBA32);
+    SDL_Surface* surface = SDL_CreateSurface(atlasWidth, atlasHeight, SDL_PIXELFORMAT_RGBA32);
     if (surface == nullptr) {
         PrintSdlError("创建 atlas surface 失败");
         return false;
     }
 
-    std::memset(surface->pixels, 0, static_cast<std::size_t>(surface->pitch) * static_cast<std::size_t>(atlasHeight));
+    const std::uint8_t bgR = static_cast<std::uint8_t>((bgColor >> 24U) & 0xFFU);
+    const std::uint8_t bgG = static_cast<std::uint8_t>((bgColor >> 16U) & 0xFFU);
+    const std::uint8_t bgB = static_cast<std::uint8_t>((bgColor >> 8U) & 0xFFU);
+    const std::uint8_t bgA = static_cast<std::uint8_t>(bgColor & 0xFFU);
+    const std::uint32_t mappedBgColor = SDL_MapSurfaceRGBA(surface, bgR, bgG, bgB, bgA);
+    if (!SDL_FillSurfaceRect(surface, nullptr, mappedBgColor)) {
+        PrintSdlError("填充 atlas 背景失败");
+        SDL_DestroySurface(surface);
+        return false;
+    }
+
     for (const AtlasPlacement& placement : placements) {
         const cg::resource::DecodedImage& image = placement.frame->image;
         const std::size_t sourcePitch = static_cast<std::size_t>(image.width) * Rgba8BytesPerPixel;
         for (int row = 0; row < image.height; ++row) {
-            std::memcpy(
-                static_cast<std::uint8_t*>(surface->pixels)
-                    + static_cast<std::size_t>(placement.y + row) * static_cast<std::size_t>(surface->pitch)
-                    + static_cast<std::size_t>(placement.x) * Rgba8BytesPerPixel,
-                image.pixels.data() + static_cast<std::size_t>(row) * sourcePitch,
-                sourcePitch);
+            const std::uint8_t* const sourceRow = image.pixels.data() + static_cast<std::size_t>(row) * sourcePitch;
+            std::uint8_t* const targetRow = static_cast<std::uint8_t*>(surface->pixels)
+                + static_cast<std::size_t>(placement.y + row) * static_cast<std::size_t>(surface->pitch)
+                + static_cast<std::size_t>(placement.x) * Rgba8BytesPerPixel;
+            for (int column = 0; column < image.width; ++column) {
+                const std::size_t offset = static_cast<std::size_t>(column) * Rgba8BytesPerPixel;
+                const bool isTransparent = sourceRow[offset + 3] == 0;
+                const bool isPaletteBackground = sourceRow[offset] == sourceBgColor.r
+                    && sourceRow[offset + 1] == sourceBgColor.g
+                    && sourceRow[offset + 2] == sourceBgColor.b;
+                if (isTransparent || isPaletteBackground) {
+                    continue;
+                }
+                std::memcpy(targetRow + offset, sourceRow + offset, Rgba8BytesPerPixel);
+            }
         }
     }
 
@@ -718,6 +810,7 @@ int main(int argc, char* argv[])
     for (std::size_t actionIndex = 0; actionIndex < clip->actions.size(); ++actionIndex) {
         const cg::resource::AnimeAction& action = clip->actions[actionIndex];
         const ActionPaletteState paletteState = ResolveActionPalette(resources, action, options.palOverride, warnings);
+        const cg::resource::Rgba8 sourceBgColor = ResolvePaletteZeroColor(resources, paletteState);
         const DecodedActionFrames decoded = DecodeActionFrames(resources, *clip, action, paletteState, actionIndex, warnings);
         if (decoded.expectedFrameCount == 0 || decoded.frames.empty()) {
             warnings.Add("atlas 跳过：action[" + std::to_string(actionIndex) + "] 没有可导出的帧");
@@ -726,8 +819,9 @@ int main(int argc, char* argv[])
         }
         const std::filesystem::path outputPath =
             BuildAtlasOutputPath(options.outputDir, *options.sourceAnimeNo, action);
+        int atlasWidth = 0;
         int atlasHeight = 0;
-        if (!SaveAtlasPng(decoded.frames, outputPath, atlasHeight, warnings, actionIndex)) {
+        if (!SaveAtlasPng(decoded.frames, outputPath, options.bgColor, sourceBgColor, atlasWidth, atlasHeight, warnings, actionIndex)) {
             ++failedCount;
             continue;
         }
@@ -737,7 +831,7 @@ int main(int argc, char* argv[])
                   << "，dir=" << static_cast<int>(action.header.dir)
                   << "，action=" << static_cast<int>(action.header.action)
                   << "，frameCount=" << decoded.frames.size() << '/' << decoded.expectedFrameCount
-                  << "，尺寸=" << AtlasWidth << 'x' << atlasHeight
+                  << "，尺寸=" << atlasWidth << 'x' << atlasHeight
                   << "，pal=" << paletteState.palIndex << '\n';
     }
 

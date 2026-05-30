@@ -641,6 +641,7 @@ void AddActionFrameSpanWarning(
     const std::uint8_t bgG = static_cast<std::uint8_t>((bgColor >> 16U) & 0xFFU);
     const std::uint8_t bgB = static_cast<std::uint8_t>((bgColor >> 8U) & 0xFFU);
     const std::uint8_t bgA = static_cast<std::uint8_t>(bgColor & 0xFFU);
+    const bool replaceBackground = bgColor != 0;
     const std::uint32_t mappedBgColor = SDL_MapSurfaceRGBA(surface, bgR, bgG, bgB, bgA);
     if (!SDL_FillSurfaceRect(surface, nullptr, mappedBgColor)) {
         PrintSdlError("填充 atlas 背景失败");
@@ -658,11 +659,11 @@ void AddActionFrameSpanWarning(
                 + static_cast<std::size_t>(placement.x) * Rgba8BytesPerPixel;
             for (int column = 0; column < image.width; ++column) {
                 const std::size_t offset = static_cast<std::size_t>(column) * Rgba8BytesPerPixel;
-                const bool isTransparent = sourceRow[offset + 3] == 0;
+                const bool isTransparent = replaceBackground && sourceRow[offset + 3] == 0;
                 const bool isPaletteBackground = sourceRow[offset] == sourceBgColor.r
                     && sourceRow[offset + 1] == sourceBgColor.g
                     && sourceRow[offset + 2] == sourceBgColor.b;
-                if (isTransparent || isPaletteBackground) {
+                if (isTransparent || (replaceBackground && isPaletteBackground)) {
                     continue;
                 }
                 std::memcpy(targetRow + offset, sourceRow + offset, Rgba8BytesPerPixel);

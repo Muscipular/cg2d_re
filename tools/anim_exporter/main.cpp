@@ -38,6 +38,7 @@ struct ExportOptions {
     std::filesystem::path outputDir;
     std::string mode;
     bool hasOutputDir = false;
+    bool split = false;
 };
 
 struct ActionPaletteState {
@@ -50,6 +51,7 @@ struct ExportFrame {
     cg::resource::AnimeFrame frame;
     cg::resource::GraphicRef graphic;
     cg::resource::DecodedImage image;
+    std::size_t frameIndex = 0;
 };
 
 struct DecodedActionFrames {
@@ -160,7 +162,7 @@ private:
 
 void PrintUsage(std::ostream& output)
 {
-    output << "用法：cg-anim-exporter <cgmsv.yml> <palette.cgp> --mode sprite_atlas --anime-no <animeNo> --o <dir> [--pal=<palIndex>] [--bgColor 0xRRGGBBAA]\n";
+    output << "用法：cg-anim-exporter <cgmsv.yml> <palette.cgp> --mode sprite_atlas --anime-no <animeNo> --o <dir> [--pal=<palIndex>] [--bgColor 0xRRGGBBAA] [--split]\n";
 }
 
 void PrintResourceError(std::string_view prefix, const cg::resource::ResourceError& error)
@@ -309,6 +311,8 @@ void PrintSdlError(std::string_view prefix)
             if (!ReadInlineBgColor(arg.substr(std::string_view { "--bgColor=" }.size()), "--bgColor", options.bgColor)) {
                 return false;
             }
+        } else if (arg == "--split") {
+            options.split = true;
         } else {
             std::cerr << "失败：未知参数 " << arg << '\n';
             return false;
@@ -554,6 +558,7 @@ void AddActionFrameSpanWarning(
         exportFrame.frame = frame;
         exportFrame.graphic = *graphic;
         exportFrame.image = std::move(*image);
+        exportFrame.frameIndex = index;
         result.frames.push_back(std::move(exportFrame));
     }
 
@@ -616,6 +621,51 @@ void AddActionFrameSpanWarning(
     return atlasWidth > 0 && atlasHeight > 0;
 }
 
+[[nodiscard]] bool FillSurfaceBackground(SDL_Surface* surface, std::uint32_t bgColor)
+{
+    const std::uint8_t bgR = static_cast<std::uint8_t>((bgColor >> 24U) & 0xFFU);
+    const std::uint8_t bgG = static_cast<std::uint8_t>((bgColor >> 16U) & 0xFFU);
+    const std::uint8_t bgB = static_cast<std::uint8_t>((bgColor >> 8U) & 0xFFU);
+    const std::uint8_t bgA = static_cast<std::uint8_t>(bgColor & 0xFFU);
+    const std::uint32_t mappedBgColor = SDL_MapSurfaceRGBA(surface, bgR, bgG, bgB, bgA);
+    return SDL_FillSurfaceRect(surface, nullptr, mappedBgColor);
+}
+
+void CopyImageToSurface(
+    const cg::resource::DecodedImage& image,
+    const cg::resource::Rgba8& sourceBgColor,
+    std::uint32_t bgColor,
+    SDL_Surface* surface,
+    int targetX,
+    int targetY)
+{
+    const bool replaceBackground = bgColor != 0;
+    const std::size_t sourcePitch = static_cast<std::size_t>(image.width) * Rgba8BytesPerPixel;
+    for (int row = 0; row < image.height; ++row) {
+        const std::uint8_t* const sourceRow = image.pixels.data() + static_cast<std::size_t>(row) * sourcePitch;
+        std::uint8_t* const targetRow = static_cast<std::uint8_t*>(surface->pixels)
+            + static_cast<std::size_t>(targetY + row) * static_cast<std::size_t>(surface->pitch)
+            + static_cast<std::size_t>(targetX) * Rgba8BytesPerPixel;
+        for (int column = 0; column < image.width; ++column) {
+            const std::size_t offset = static_cast<std::size_t>(column) * Rgba8BytesPerPixel;
+            const bool isTransparent = replaceBackground && sourceRow[offset + 3] == 0;
+            const bool isPaletteBackground = sourceRow[offset] == sourceBgColor.r
+                && sourceRow[offset + 1] == sourceBgColor.g
+                && sourceRow[offset + 2] == sourceBgColor.b;
+            if (isTransparent || (replaceBackground && isPaletteBackground)) {
+                continue;
+            }
+            std::memcpy(targetRow + offset, sourceRow + offset, Rgba8BytesPerPixel);
+        }
+    }
+}
+
+[[nodiscard]] bool SaveSurfacePng(SDL_Surface* surface, const std::filesystem::path& outputPath)
+{
+    const std::string savePath = PathToUtf8(outputPath);
+    return IMG_SavePNG(surface, savePath.c_str());
+}
+
 [[nodiscard]] bool SaveAtlasPng(
     const std::vector<ExportFrame>& frames,
     const std::filesystem::path& outputPath,
@@ -637,45 +687,49 @@ void AddActionFrameSpanWarning(
         return false;
     }
 
-    const std::uint8_t bgR = static_cast<std::uint8_t>((bgColor >> 24U) & 0xFFU);
-    const std::uint8_t bgG = static_cast<std::uint8_t>((bgColor >> 16U) & 0xFFU);
-    const std::uint8_t bgB = static_cast<std::uint8_t>((bgColor >> 8U) & 0xFFU);
-    const std::uint8_t bgA = static_cast<std::uint8_t>(bgColor & 0xFFU);
-    const bool replaceBackground = bgColor != 0;
-    const std::uint32_t mappedBgColor = SDL_MapSurfaceRGBA(surface, bgR, bgG, bgB, bgA);
-    if (!SDL_FillSurfaceRect(surface, nullptr, mappedBgColor)) {
+    if (!FillSurfaceBackground(surface, bgColor)) {
         PrintSdlError("填充 atlas 背景失败");
         SDL_DestroySurface(surface);
         return false;
     }
 
     for (const AtlasPlacement& placement : placements) {
-        const cg::resource::DecodedImage& image = placement.frame->image;
-        const std::size_t sourcePitch = static_cast<std::size_t>(image.width) * Rgba8BytesPerPixel;
-        for (int row = 0; row < image.height; ++row) {
-            const std::uint8_t* const sourceRow = image.pixels.data() + static_cast<std::size_t>(row) * sourcePitch;
-            std::uint8_t* const targetRow = static_cast<std::uint8_t*>(surface->pixels)
-                + static_cast<std::size_t>(placement.y + row) * static_cast<std::size_t>(surface->pitch)
-                + static_cast<std::size_t>(placement.x) * Rgba8BytesPerPixel;
-            for (int column = 0; column < image.width; ++column) {
-                const std::size_t offset = static_cast<std::size_t>(column) * Rgba8BytesPerPixel;
-                const bool isTransparent = replaceBackground && sourceRow[offset + 3] == 0;
-                const bool isPaletteBackground = sourceRow[offset] == sourceBgColor.r
-                    && sourceRow[offset + 1] == sourceBgColor.g
-                    && sourceRow[offset + 2] == sourceBgColor.b;
-                if (isTransparent || (replaceBackground && isPaletteBackground)) {
-                    continue;
-                }
-                std::memcpy(targetRow + offset, sourceRow + offset, Rgba8BytesPerPixel);
-            }
-        }
+        CopyImageToSurface(placement.frame->image, sourceBgColor, bgColor, surface, placement.x, placement.y);
     }
 
-    const std::string savePath = PathToUtf8(outputPath);
-    const bool saved = IMG_SavePNG(surface, savePath.c_str());
+    const bool saved = SaveSurfacePng(surface, outputPath);
     SDL_DestroySurface(surface);
     if (!saved) {
         PrintSdlError("保存 atlas PNG 失败");
+        return false;
+    }
+    return true;
+}
+
+[[nodiscard]] bool SaveFramePng(
+    const ExportFrame& frame,
+    const std::filesystem::path& outputPath,
+    std::uint32_t bgColor,
+    const cg::resource::Rgba8& sourceBgColor)
+{
+    const cg::resource::DecodedImage& image = frame.image;
+    SDL_Surface* surface = SDL_CreateSurface(image.width, image.height, SDL_PIXELFORMAT_RGBA32);
+    if (surface == nullptr) {
+        PrintSdlError("创建 split frame surface 失败");
+        return false;
+    }
+
+    if (!FillSurfaceBackground(surface, bgColor)) {
+        PrintSdlError("填充 split frame 背景失败");
+        SDL_DestroySurface(surface);
+        return false;
+    }
+
+    CopyImageToSurface(image, sourceBgColor, bgColor, surface, 0, 0);
+    const bool saved = SaveSurfacePng(surface, outputPath);
+    SDL_DestroySurface(surface);
+    if (!saved) {
+        PrintSdlError("保存 split frame PNG 失败");
         return false;
     }
     return true;
@@ -692,6 +746,51 @@ void AddActionFrameSpanWarning(
              << "_action_" << static_cast<int>(action.header.action)
              << ".png";
     return outputDir / filename.str();
+}
+
+[[nodiscard]] std::filesystem::path BuildSplitActionOutputDir(
+    const std::filesystem::path& outputDir,
+    int animeNo,
+    const cg::resource::AnimeAction& action)
+{
+    std::ostringstream dirname;
+    dirname << "anime_" << animeNo
+            << "_dir_" << static_cast<int>(action.header.dir)
+            << "_action_" << static_cast<int>(action.header.action);
+    return outputDir / dirname.str();
+}
+
+[[nodiscard]] std::filesystem::path BuildSplitFrameOutputPath(
+    const std::filesystem::path& actionDir,
+    const ExportFrame& frame)
+{
+    std::ostringstream filename;
+    filename << "frame_" << frame.frameIndex
+             << "_seq_" << frame.graphic.seqNo
+             << ".png";
+    return actionDir / filename.str();
+}
+
+[[nodiscard]] bool SaveSplitFrames(
+    const std::vector<ExportFrame>& frames,
+    const std::filesystem::path& actionDir,
+    std::uint32_t bgColor,
+    const cg::resource::Rgba8& sourceBgColor,
+    std::size_t& savedFrameCount)
+{
+    savedFrameCount = 0;
+    if (!EnsureOutputDir(actionDir)) {
+        return false;
+    }
+
+    for (const ExportFrame& frame : frames) {
+        const std::filesystem::path outputPath = BuildSplitFrameOutputPath(actionDir, frame);
+        if (!SaveFramePng(frame, outputPath, bgColor, sourceBgColor)) {
+            return false;
+        }
+        ++savedFrameCount;
+    }
+    return true;
 }
 
 class NullStreamBuffer final : public std::streambuf {
@@ -804,9 +903,13 @@ int main(int argc, char* argv[])
     if (options.palOverride.has_value()) {
         std::cout << "palette 覆盖：pal=" << *options.palOverride << '\n';
     }
+    if (options.split) {
+        std::cout << "split：true\n";
+    }
 
     WarningCollector warnings;
     std::size_t exportedCount = 0;
+    std::size_t splitFrameCount = 0;
     std::size_t failedCount = 0;
     for (std::size_t actionIndex = 0; actionIndex < clip->actions.size(); ++actionIndex) {
         const cg::resource::AnimeAction& action = clip->actions[actionIndex];
@@ -827,6 +930,19 @@ int main(int argc, char* argv[])
             continue;
         }
 
+        if (options.split) {
+            const std::filesystem::path actionDir =
+                BuildSplitActionOutputDir(options.outputDir, *options.sourceAnimeNo, action);
+            std::size_t actionSplitFrameCount = 0;
+            if (!SaveSplitFrames(decoded.frames, actionDir, options.bgColor, sourceBgColor, actionSplitFrameCount)) {
+                ++failedCount;
+                continue;
+            }
+            splitFrameCount += actionSplitFrameCount;
+            std::cout << "导出 split：目录=" << PathToUtf8(actionDir)
+                      << "，frameCount=" << actionSplitFrameCount << '/' << decoded.expectedFrameCount << '\n';
+        }
+
         ++exportedCount;
         std::cout << "导出 atlas：路径=" << PathToUtf8(outputPath)
                   << "，dir=" << static_cast<int>(action.header.dir)
@@ -837,7 +953,11 @@ int main(int argc, char* argv[])
     }
 
     warnings.PrintSummary(std::cout);
-    std::cout << "导出完成：成功=" << exportedCount << "，失败/跳过=" << failedCount << '\n';
+    std::cout << "导出完成：成功=" << exportedCount << "，失败/跳过=" << failedCount;
+    if (options.split) {
+        std::cout << "，splitFrames=" << splitFrameCount;
+    }
+    std::cout << '\n';
     if (exportedCount == 0 || failedCount > 0) {
         return 1;
     }

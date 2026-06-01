@@ -532,6 +532,166 @@ namespace cg::packet::receive
     };
 
     /**
+     * SEND_CD 发送删除ObjectIndex列表		uSB {data:es}
+     */
+    struct ObjectDelete
+    {
+        static constexpr std::string_view Code = "uSB";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::string_view IndexDelimiter = ",";
+
+        std::vector<int> objectIndexes;
+
+        explicit ObjectDelete(std::vector<int> objectIndexes)
+            : objectIndexes(std::move(objectIndexes))
+        {
+        }
+
+        [[nodiscard]] std::string BuildData() const
+        {
+            std::vector<std::string> values;
+            values.reserve(objectIndexes.size());
+            for (const int objectIndex : objectIndexes) {
+                PacketResult<std::string> encoded = EncodeInt62(objectIndex);
+                values.push_back(encoded.HasValue() ? encoded.Value() : std::string());
+            }
+
+            PacketResult<std::string> payload = BuildPayload(
+                std::span<const std::string>(values.data(), values.size()),
+                IndexDelimiter);
+            if (payload.HasValue()) {
+                return payload.Value();
+            }
+
+            return {};
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            packet.fields.push_back(PacketField {
+                "data",
+                PacketFieldType::EscapedString,
+                BuildData(),
+                PacketSourceTag::Xlsx,
+            });
+            return packet;
+        }
+
+        static PacketResult<ObjectDelete> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view);
+            if (!parsed.HasValue()) {
+                return PacketResult<ObjectDelete>::Failure(parsed.Error());
+            }
+
+            const Packet& packet = parsed.Value();
+            if (packet.code.View() != Code) {
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "ObjectDelete Parse 收到非 uSB 封包");
+                error.packetCode = packet.code;
+                return PacketResult<ObjectDelete>::Failure(std::move(error));
+            }
+
+            if (packet.direction != Direction) {
+                return PacketResult<ObjectDelete>::Failure(MakePacketError(
+                    PacketErrorCode::DecodeFailed,
+                    "ObjectDelete Parse 封包方向不匹配"));
+            }
+
+            if (packet.fields.size() != FieldCount) {
+                return PacketResult<ObjectDelete>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "ObjectDelete Parse 字段数量不匹配",
+                    packet.fields.empty() ? 0U : FieldCount));
+            }
+
+            const PacketField& field = packet.fields[DataFieldIndex];
+            if (field.name != "data") {
+                return PacketResult<ObjectDelete>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "ObjectDelete Parse 字段名不匹配",
+                    DataFieldIndex));
+            }
+
+            if (field.type != PacketFieldType::EscapedString) {
+                return PacketResult<ObjectDelete>::Failure(MakeFieldError(
+                    PacketErrorCode::InvalidFieldType,
+                    "ObjectDelete Parse 字段类型不匹配",
+                    DataFieldIndex));
+            }
+
+            PacketResult<std::vector<int>> objectIndexes = ParseIndexes(field.value);
+            if (!objectIndexes.HasValue()) {
+                return PacketResult<ObjectDelete>::Failure(objectIndexes.Error());
+            }
+
+            return PacketResult<ObjectDelete>::Success(ObjectDelete(std::move(objectIndexes.Value())));
+        }
+
+    private:
+        static constexpr std::size_t FieldCount = 1U;
+        static constexpr std::size_t DataFieldIndex = 0U;
+
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            error.source = PacketSourceTag::Xlsx;
+            return error;
+        }
+
+        [[nodiscard]] static PacketError MakeFieldError(
+            PacketErrorCode code,
+            std::string message,
+            std::size_t fieldIndex)
+        {
+            PacketError error = MakePacketError(code, std::move(message));
+            error.fieldIndex = fieldIndex;
+            return error;
+        }
+
+        [[nodiscard]] static PacketResult<std::vector<int>> ParseIndexes(std::string_view payload)
+        {
+            if (payload.empty()) {
+                return PacketResult<std::vector<int>>::Success({});
+            }
+
+            PacketResult<std::vector<std::string>> parts = SplitPayload(payload, IndexDelimiter);
+            if (!parts.HasValue()) {
+                PacketError error = parts.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = DataFieldIndex;
+                error.source = PacketSourceTag::Xlsx;
+                return PacketResult<std::vector<int>>::Failure(std::move(error));
+            }
+
+            std::vector<int> indexes;
+            indexes.reserve(parts.Value().size());
+            for (std::size_t index = 0; index < parts.Value().size(); ++index) {
+                if (parts.Value()[index].empty()) {
+                    return PacketResult<std::vector<int>>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "ObjectDelete payload objectIndex 为空",
+                        index));
+                }
+
+                PacketResult<int> objectIndex = DecodeInt62(parts.Value()[index]);
+                if (!objectIndex.HasValue()) {
+                    PacketError error = objectIndex.Error();
+                    error.packetCode = PacketCode(Code);
+                    error.fieldIndex = index;
+                    error.source = PacketSourceTag::Xlsx;
+                    return PacketResult<std::vector<int>>::Failure(std::move(error));
+                }
+
+                indexes.push_back(objectIndex.Value());
+            }
+
+            return PacketResult<std::vector<int>>::Success(std::move(indexes));
+        }
+    };
+
+    /**
      * SEND_MAP_DATA 地图数据		aBS {mapid:i62} {floor:i62} {x1:i62} {y1:i62} {x2:i62} {y2:i62} {data:es}
      */
     struct MapData

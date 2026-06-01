@@ -3875,6 +3875,295 @@ namespace cg::packet::receive
         }
     };
 
+    struct CharacterPetRecord
+    {
+        std::string name;
+        int level = 0;
+        int injury = 0;
+        int hp = 0;
+        int maxHp = 0;
+        int forcePoint = 0;
+        int maxForcePoint = 0;
+    };
+
+    /**
+     * SEND_GPD CHAR_sendCharAndPetList		ND {data:es}
+     * data: `name|level|injury|hp|maxHp|forcePoint|maxForcePoint|`，0..6 条记录；name 保留 raw escaped 字符串。
+     */
+    struct CharacterPetList
+    {
+        static constexpr std::string_view Code = "ND";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::string_view PayloadDelimiter = "|";
+
+        std::vector<CharacterPetRecord> records;
+
+        explicit CharacterPetList(std::vector<CharacterPetRecord> records)
+            : records(std::move(records))
+        {
+        }
+
+        [[nodiscard]] PacketResult<std::string> BuildData() const
+        {
+            if (records.size() > MaxRecordCount) {
+                return PacketResult<std::string>::Failure(MakeFieldError(
+                    PacketErrorCode::EncodeFailed,
+                    "CharacterPetList 记录数超过 6",
+                    DataFieldIndex));
+            }
+
+            std::string payload;
+            for (std::size_t recordIndex = 0; recordIndex < records.size(); ++recordIndex) {
+                const CharacterPetRecord& record = records[recordIndex];
+                const std::size_t baseIndex = recordIndex * RecordFieldCount;
+                payload.append(record.name);
+                payload.push_back('|');
+
+                const std::array<int, 6> values = {{
+                    record.level,
+                    record.injury,
+                    record.hp,
+                    record.maxHp,
+                    record.forcePoint,
+                    record.maxForcePoint,
+                }};
+                for (std::size_t valueIndex = 0; valueIndex < values.size(); ++valueIndex) {
+                    PacketResult<int> value = ValidateDecimalField(values[valueIndex], baseIndex + valueIndex + 1U);
+                    if (!value.HasValue()) {
+                        return PacketResult<std::string>::Failure(value.Error());
+                    }
+
+                    payload.append(std::to_string(value.Value()));
+                    payload.push_back('|');
+                }
+            }
+            return PacketResult<std::string>::Success(std::move(payload));
+        }
+
+        [[nodiscard]] PacketResult<Packet> ToPacket() const
+        {
+            PacketResult<std::string> data = BuildData();
+            if (!data.HasValue()) {
+                return PacketResult<Packet>::Failure(data.Error());
+            }
+
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ServerC);
+            packet.fields.push_back(PacketField {
+                "data",
+                PacketFieldType::EscapedString,
+                data.Value(),
+                PacketSourceTag::ServerC,
+            });
+            return PacketResult<Packet>::Success(std::move(packet));
+        }
+
+        static PacketResult<CharacterPetList> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view);
+            if (!parsed.HasValue()) {
+                return PacketResult<CharacterPetList>::Failure(parsed.Error());
+            }
+
+            const Packet& packet = parsed.Value();
+            if (packet.code.View() != Code) {
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "CharacterPetList Parse 收到非 ND 封包");
+                error.packetCode = packet.code;
+                return PacketResult<CharacterPetList>::Failure(std::move(error));
+            }
+
+            if (packet.direction != Direction) {
+                return PacketResult<CharacterPetList>::Failure(MakePacketError(
+                    PacketErrorCode::DecodeFailed,
+                    "CharacterPetList Parse 封包方向不匹配"));
+            }
+
+            if (packet.fields.size() != FieldCount) {
+                return PacketResult<CharacterPetList>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "CharacterPetList Parse 字段数量不匹配",
+                    packet.fields.empty() ? 0U : FieldCount));
+            }
+
+            const PacketField& field = packet.fields[DataFieldIndex];
+            if (field.name != "data") {
+                return PacketResult<CharacterPetList>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "CharacterPetList Parse 字段名不匹配",
+                    DataFieldIndex));
+            }
+
+            if (field.type != PacketFieldType::EscapedString) {
+                return PacketResult<CharacterPetList>::Failure(MakeFieldError(
+                    PacketErrorCode::InvalidFieldType,
+                    "CharacterPetList Parse 字段类型不匹配",
+                    DataFieldIndex));
+            }
+
+            PacketResult<std::vector<CharacterPetRecord>> records = ParseRecords(field.value);
+            if (!records.HasValue()) {
+                return PacketResult<CharacterPetList>::Failure(records.Error());
+            }
+
+            return PacketResult<CharacterPetList>::Success(CharacterPetList(std::move(records.Value())));
+        }
+
+    private:
+        static constexpr std::size_t FieldCount = 1U;
+        static constexpr std::size_t DataFieldIndex = 0U;
+        static constexpr std::size_t RecordFieldCount = 7U;
+        static constexpr std::size_t MaxRecordCount = 6U;
+
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            error.source = PacketSourceTag::ServerC;
+            return error;
+        }
+
+        [[nodiscard]] static PacketError MakeFieldError(
+            PacketErrorCode code,
+            std::string message,
+            std::size_t fieldIndex)
+        {
+            PacketError error = MakePacketError(code, std::move(message));
+            error.fieldIndex = fieldIndex;
+            return error;
+        }
+
+        [[nodiscard]] static PacketResult<std::vector<CharacterPetRecord>> ParseRecords(std::string_view payload)
+        {
+            if (payload.empty()) {
+                return PacketResult<std::vector<CharacterPetRecord>>::Success({});
+            }
+
+            if (payload.back() != '|') {
+                return PacketResult<std::vector<CharacterPetRecord>>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "CharacterPetList payload 缺少尾随分隔符",
+                    DataFieldIndex));
+            }
+
+            PacketResult<std::vector<std::string>> split = SplitPayload(payload, PayloadDelimiter);
+            if (!split.HasValue()) {
+                PacketError error = split.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = DataFieldIndex;
+                error.source = PacketSourceTag::ServerC;
+                return PacketResult<std::vector<CharacterPetRecord>>::Failure(std::move(error));
+            }
+
+            std::vector<std::string> parts = std::move(split.Value());
+            parts.pop_back();
+            if ((parts.size() % RecordFieldCount) != 0U) {
+                return PacketResult<std::vector<CharacterPetRecord>>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "CharacterPetList payload 段数量不是 7 的倍数",
+                    DataFieldIndex));
+            }
+
+            const std::size_t recordCount = parts.size() / RecordFieldCount;
+            if (recordCount > MaxRecordCount) {
+                return PacketResult<std::vector<CharacterPetRecord>>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "CharacterPetList payload 记录数超过 6",
+                    DataFieldIndex));
+            }
+
+            std::vector<CharacterPetRecord> records;
+            records.reserve(recordCount);
+            for (std::size_t recordIndex = 0; recordIndex < recordCount; ++recordIndex) {
+                const std::size_t baseIndex = recordIndex * RecordFieldCount;
+                PacketResult<int> level = ParseDecimalField(parts[baseIndex + 1U], baseIndex + 1U);
+                if (!level.HasValue()) {
+                    return PacketResult<std::vector<CharacterPetRecord>>::Failure(level.Error());
+                }
+
+                PacketResult<int> injury = ParseDecimalField(parts[baseIndex + 2U], baseIndex + 2U);
+                if (!injury.HasValue()) {
+                    return PacketResult<std::vector<CharacterPetRecord>>::Failure(injury.Error());
+                }
+
+                PacketResult<int> hp = ParseDecimalField(parts[baseIndex + 3U], baseIndex + 3U);
+                if (!hp.HasValue()) {
+                    return PacketResult<std::vector<CharacterPetRecord>>::Failure(hp.Error());
+                }
+
+                PacketResult<int> maxHp = ParseDecimalField(parts[baseIndex + 4U], baseIndex + 4U);
+                if (!maxHp.HasValue()) {
+                    return PacketResult<std::vector<CharacterPetRecord>>::Failure(maxHp.Error());
+                }
+
+                PacketResult<int> forcePoint = ParseDecimalField(parts[baseIndex + 5U], baseIndex + 5U);
+                if (!forcePoint.HasValue()) {
+                    return PacketResult<std::vector<CharacterPetRecord>>::Failure(forcePoint.Error());
+                }
+
+                PacketResult<int> maxForcePoint = ParseDecimalField(parts[baseIndex + 6U], baseIndex + 6U);
+                if (!maxForcePoint.HasValue()) {
+                    return PacketResult<std::vector<CharacterPetRecord>>::Failure(maxForcePoint.Error());
+                }
+
+                records.push_back(CharacterPetRecord {
+                    parts[baseIndex],
+                    level.Value(),
+                    injury.Value(),
+                    hp.Value(),
+                    maxHp.Value(),
+                    forcePoint.Value(),
+                    maxForcePoint.Value(),
+                });
+            }
+
+            return PacketResult<std::vector<CharacterPetRecord>>::Success(std::move(records));
+        }
+
+        [[nodiscard]] static PacketResult<int> ParseDecimalField(std::string_view text, std::size_t fieldIndex)
+        {
+            if (text.empty()) {
+                return PacketResult<int>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "CharacterPetList 十进制字段为空",
+                    fieldIndex));
+            }
+
+            const std::int64_t maxValue = static_cast<std::int64_t>(std::numeric_limits<int>::max());
+            std::int64_t value = 0;
+            for (const char ch : text) {
+                if (ch < '0' || ch > '9') {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "CharacterPetList 十进制字段包含非法字符",
+                        fieldIndex));
+                }
+
+                const int digit = ch - '0';
+                if (value > (maxValue - digit) / 10) {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "CharacterPetList 十进制字段超出 int 范围",
+                        fieldIndex));
+                }
+
+                value = (value * 10) + digit;
+            }
+
+            return PacketResult<int>::Success(static_cast<int>(value));
+        }
+
+        [[nodiscard]] static PacketResult<int> ValidateDecimalField(int value, std::size_t fieldIndex)
+        {
+            if (value < 0) {
+                return PacketResult<int>::Failure(MakeFieldError(
+                    PacketErrorCode::EncodeFailed,
+                    "CharacterPetList 十进制字段不能为负",
+                    fieldIndex));
+            }
+
+            return PacketResult<int>::Success(value);
+        }
+    };
+
     enum class ProfileWindowPayloadKind
     {
         Start,

@@ -72,7 +72,16 @@ namespace cg::packet
             {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
         }};
 
-        inline constexpr std::array<PacketSpec, 9> PacketRegistry = {{
+        inline constexpr std::array<PacketFieldSpec, 6> MapDataRequestFields = {{
+            {"mapid", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"floor", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"x1", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"y1", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"x2", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"y2", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+        }};
+
+        inline constexpr std::array<PacketSpec, 10> PacketRegistry = {{
             {
                 "JFVf",
                 PacketDirection::ClientToServer,
@@ -121,6 +130,13 @@ namespace cg::packet
                 PacketSourceTag::Xlsx,
                 MapDataFields.data(),
                 MapDataFields.size(),
+            },
+            {
+                "UUN",
+                PacketDirection::ClientToServer,
+                PacketSourceTag::Xlsx,
+                MapDataRequestFields.data(),
+                MapDataRequestFields.size(),
             },
             {
                 "uSB",

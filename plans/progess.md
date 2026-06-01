@@ -326,3 +326,11 @@
 | 2026-06-02 | M6.13.08 发送邮件消息 CV 测试接入 | 新增 `cg-packet-mail-message-send-test`，覆盖 ToPacket/Encode、BuildPacket、ParsePacket roundtrip、空 message、空格/换行/反斜杠转义、`|` 原样、缺字段/多字段、非法 i62、非法 es 和手工 Packet 方向/字段名/字段类型错误；CMake 接入测试目标与编译选项 | 待验证：`git diff --check`、VS bundled CMake configure、Debug 构建新增目标、运行测试 exe、Debug schema 覆盖测试、CTest Debug `^cg-packet-` | 不扩展其他协议；测试只确认普通外层 es 行为 |
 
 | 2026-06-02 | M6.13.08 发送邮件消息 CV 验证 | 复跑格式检查、VS bundled CMake configure、Debug 新增目标与 schema 覆盖测试构建、运行新增测试 exe、运行 schema 覆盖测试、packet CTest | `git diff --check` 通过，仅 LF/CRLF 提示；VS bundled CMake configure 通过；Debug 构建并运行 `cg-packet-mail-message-send-test` 通过；Debug `cg-packet-coverage-schema-test` 通过；CTest Debug `^cg-packet-` 64/64 通过 | 不扩展其他协议；`message` 仍为普通外层 es；未添加业务范围或内容校验 |
+
+| 2026-06-02 | M6.13.09 发送聊天 uSr 启动 | 确认范围仅 `uSr` / `RECV_TK`；按任务事实实现客户端到服务端 `{x:i62} {y:i62} {msg:es} {color:i62} {area:i62} {fontSize:i62}`，`msg` 为普通外层 es，允许空值且不拆 `P|text` | 待验证：`git diff --check`、VS bundled CMake configure、Debug 构建新增 `cg-packet-chat-message-send-test`、运行测试 exe、CTest Debug `^cg-packet-` | 不扩展其他协议；不校验 `P|` 前缀、坐标、颜色、area、fontSize 范围；当前环境未提供可调用 subAgent/线程工具，按单线程推进 |
+
+| 2026-06-02 | M6.13.09 发送聊天 uSr 实现 | 新增 `send::ChatMessageSend`，注册 `uSr {x:i62} {y:i62} {msg:es} {color:i62} {area:i62} {fontSize:i62}`；schema 补 resolved `{x:i62} {y:i62} {msg:es} {color:i62} {area:i62} {fontSize:i62}` 与来源 `xlsx+ServerC+ClientIda+src`；M6 清单同步完成 | 待验证：新增测试、CMake 接入、`git diff --check`、VS bundled CMake configure/build/test、CTest Debug `^cg-packet-` | 不扩展其他协议；`msg` 不拆 payload；不新增业务范围、前缀或内容校验 |
+
+| 2026-06-02 | M6.13.09 发送聊天 uSr 测试接入 | 新增 `cg-packet-chat-message-send-test`，覆盖 `P|hello` 样例、空 msg、普通 es 转义 roundtrip、`|` 原样且不校验 marker、缺/多字段、每个 i62 字段非法输入、非法 es、手工 Packet 方向/字段名/字段类型错误；CMake 接入测试目标与编译选项 | 待验证：`git diff --check`、VS bundled CMake configure、Debug 构建新增目标、运行测试 exe、Debug schema 覆盖测试、CTest Debug `^cg-packet-` | 不扩展其他协议；测试只确认外层格式与普通 es 行为 |
+
+| 2026-06-02 | M6.13.09 发送聊天 uSr 验证 | 复跑格式检查、VS bundled CMake configure、Debug 新增目标与 schema 覆盖测试构建、运行新增测试 exe、运行 schema 覆盖测试、packet CTest | `git diff --check` 通过，仅 LF/CRLF 提示；VS bundled CMake configure 通过；Debug 构建并运行 `cg-packet-chat-message-send-test` 通过；Debug `cg-packet-coverage-schema-test` 通过；CTest Debug `^cg-packet-` 65/65 通过 | 不扩展其他协议；`msg` 仍为普通外层 es；未添加 `P|`、坐标、颜色、area、fontSize 业务校验 |

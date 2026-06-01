@@ -460,6 +460,79 @@ namespace cg::packet::send
     };
 
     /**
+     * RECV_TK 发送聊天 uSr {x:i62} {y:i62} {msg:es} {color:i62} {area:i62} {fontSize:i62}
+     */
+    struct ChatMessageSend
+    {
+        static constexpr std::string_view Code = "uSr";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+
+        int x = 0;
+        int y = 0;
+        std::string msg;
+        int color = 0;
+        int area = 0;
+        int fontSize = 0;
+
+        ChatMessageSend(int x, int y, std::string msg, int color, int area, int fontSize)
+            : x(x),
+              y(y),
+              msg(std::move(msg)),
+              color(color),
+              area(area),
+              fontSize(fontSize)
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            packet.fields.push_back(PacketField {
+                "x",
+                PacketFieldType::Int62,
+                std::to_string(x),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "y",
+                PacketFieldType::Int62,
+                std::to_string(y),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "msg",
+                PacketFieldType::EscapedString,
+                msg,
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "color",
+                PacketFieldType::Int62,
+                std::to_string(color),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "area",
+                PacketFieldType::Int62,
+                std::to_string(area),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "fontSize",
+                PacketFieldType::Int62,
+                std::to_string(fontSize),
+                PacketSourceTag::Xlsx,
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket());
+        }
+    };
+
+    /**
      * RECV_PMSG 发送宠邮 rMsv {index:i62} {petindex:i62} {itemindex:i62} {message:es} {color:i62}
      */
     struct PetMailSend

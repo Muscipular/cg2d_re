@@ -193,6 +193,15 @@ namespace cg::packet
             {"color", PacketFieldType::Int62, PacketSourceTag::Xlsx},
         }};
 
+        inline constexpr std::array<PacketFieldSpec, 6> ChatMessageSendFields = {{
+            {"x", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"y", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"msg", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+            {"color", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"area", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"fontSize", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+        }};
+
         inline constexpr std::array<PacketFieldSpec, 5> PetMailSendFields = {{
             {"index", PacketFieldType::Int62, PacketSourceTag::Xlsx},
             {"petindex", PacketFieldType::Int62, PacketSourceTag::Xlsx},
@@ -356,7 +365,7 @@ namespace cg::packet
             {"y2", PacketFieldType::Int62, PacketSourceTag::Xlsx},
         }};
 
-        inline constexpr std::array<PacketSpec, 59> PacketRegistry = {{
+        inline constexpr std::array<PacketSpec, 60> PacketRegistry = {{
             {
                 "JFVf",
                 PacketDirection::ClientToServer,
@@ -538,6 +547,13 @@ namespace cg::packet
                 PacketSourceTag::Xlsx,
                 MailMessageSendFields.data(),
                 MailMessageSendFields.size(),
+            },
+            {
+                "uSr",
+                PacketDirection::ClientToServer,
+                PacketSourceTag::Xlsx,
+                ChatMessageSendFields.data(),
+                ChatMessageSendFields.size(),
             },
             {
                 "rMsv",

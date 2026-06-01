@@ -4525,6 +4525,8 @@
       "rawFormat": "{x} {y} {msg} {color} {area} {fontSize}",
       "formatEmpty": false,
       "source": "xlsx",
+      "resolvedFormat": "{x:i62} {y:i62} {msg:es} {color:i62} {area:i62} {fontSize:i62}",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src",
       "fields": [
         {
           "index": 0,

@@ -755,6 +755,33 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         }
     }
 
+    const PacketSchema* chatMessageSendSchema = FindPacket(packets, "uSr");
+    failures += Expect(chatMessageSendSchema != nullptr, "uSr schema exists");
+    if (chatMessageSendSchema != nullptr) {
+        failures += Expect(chatMessageSendSchema->direction == "客户端->服务端", "uSr direction");
+        failures += Expect(chatMessageSendSchema->legacyKind == "RECV", "uSr legacyKind");
+        failures += Expect(
+            chatMessageSendSchema->rawFormat == "{x} {y} {msg} {color} {area} {fontSize}",
+            "uSr rawFormat");
+        failures += Expect(
+            chatMessageSendSchema->resolvedFormat ==
+                "{x:i62} {y:i62} {msg:es} {color:i62} {area:i62} {fontSize:i62}",
+            "uSr resolvedFormat");
+        failures += Expect(
+            chatMessageSendSchema->resolvedSource == "xlsx+ServerC+ClientIda+src",
+            "uSr resolvedSource");
+        failures += Expect(chatMessageSendSchema->fields.size() == 6U, "uSr raw field count");
+        if (chatMessageSendSchema->fields.size() == 6U) {
+            failures += Expect(chatMessageSendSchema->fields[0].name == "x", "uSr raw field x");
+            failures += Expect(chatMessageSendSchema->fields[1].name == "y", "uSr raw field y");
+            failures += Expect(chatMessageSendSchema->fields[2].name == "msg", "uSr raw field msg");
+            failures += Expect(chatMessageSendSchema->fields[3].name == "color", "uSr raw field color");
+            failures += Expect(chatMessageSendSchema->fields[4].name == "area", "uSr raw field area");
+            failures += Expect(chatMessageSendSchema->fields[5].name == "fontSize", "uSr raw field fontSize");
+            failures += Expect(chatMessageSendSchema->fields[2].typeToken == "unknown", "uSr raw msg type");
+        }
+    }
+
     const PacketSchema* checkCommandSchema = FindPacket(packets, "CCL");
     failures += Expect(checkCommandSchema != nullptr, "CCL schema exists");
     if (checkCommandSchema != nullptr) {

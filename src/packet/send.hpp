@@ -368,6 +368,47 @@ namespace cg::packet::send
             return BuildPacket(ToPacket());
         }
     };
+
+    /**
+     * RECV_KN CHAR_inputUserPetName 宠物姓名 ycX {petSlot:i62} {name:es}
+     */
+    struct UserPetNameInput
+    {
+        static constexpr std::string_view Code = "ycX";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+
+        int petSlot = 0;
+        std::string name;
+
+        UserPetNameInput(int petSlot, std::string name)
+            : petSlot(petSlot),
+              name(std::move(name))
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            packet.fields.push_back(PacketField {
+                "petSlot",
+                PacketFieldType::Int62,
+                std::to_string(petSlot),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "name",
+                PacketFieldType::EscapedString,
+                name,
+                PacketSourceTag::Xlsx,
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket());
+        }
+    };
 }
 
 #endif //CG_ENGINE_SEND_H

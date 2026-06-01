@@ -659,6 +659,29 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             failures += Expect(equipSuitSchema->fields[0].rawSpec == "{data}", "TgX rawSpec");
         }
     }
+
+    const PacketSchema* petMailSendSchema = FindPacket(packets, "rMsv");
+    failures += Expect(petMailSendSchema != nullptr, "rMsv schema exists");
+    if (petMailSendSchema != nullptr) {
+        failures += Expect(petMailSendSchema->direction == "客户端->服务端", "rMsv direction");
+        failures += Expect(petMailSendSchema->legacyKind == "RECV", "rMsv legacyKind");
+        failures += Expect(
+            petMailSendSchema->resolvedFormat == "{index:i62} {petindex:i62} {itemindex:i62} {message:es} {color:i62}",
+            "rMsv resolvedFormat");
+        failures += Expect(
+            petMailSendSchema->resolvedSource == "xlsx+ServerC+ClientIda+src/packet",
+            "rMsv resolvedSource");
+        failures += Expect(petMailSendSchema->fields.size() == 5U, "rMsv field count");
+        if (petMailSendSchema->fields.size() == 5U) {
+            failures += Expect(petMailSendSchema->fields[0].name == "index", "rMsv index field");
+            failures += Expect(petMailSendSchema->fields[1].name == "petindex", "rMsv petindex field");
+            failures += Expect(petMailSendSchema->fields[2].name == "itemindex", "rMsv itemindex field");
+            failures += Expect(petMailSendSchema->fields[3].name == "message", "rMsv message field");
+            failures += Expect(petMailSendSchema->fields[4].name == "color", "rMsv color field");
+            failures += Expect(petMailSendSchema->fields[0].typeToken == "unknown", "rMsv raw type");
+            failures += Expect(petMailSendSchema->fields[3].rawSpec == "{message}", "rMsv message rawSpec");
+        }
+    }
     return failures;
 }
 

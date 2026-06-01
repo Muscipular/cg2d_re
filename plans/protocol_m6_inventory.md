@@ -115,7 +115,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | M6.12.11 物品/技能/宠物封包-JgO | `JgO` | 服务端->客户端 | 是 | 完成 | SEND_TU techuse；旧 C `nrproto_TU_send` + 客户端 IDA `network_dispatch/sub_50C7F0` 补外层 `{result:i62} {type:i62} {data:es}`；payload 按 type 1..4 解析，数值为 raw signed decimal，字符串保留 raw escaped；type3 `value` 语义待补 |
 | M6.12.12 物品/技能/宠物封包-iKe | `iKe` | 服务端->客户端 | 是 | 完成 | SEND_PET_ITEM；旧 C `nrproto_iKe_send` + 客户端 IDA `network_dispatch/sub_510150` 补外层 `{petSlot:i62} {data:es}`；payload 复用普通物品 14 段 item record，无 count，空 payload 为 0 records 且不代表清空全部，清空槽为 `slot|||||||||||||`，字符串字段保留 raw escaped |
 | M6.12.13 物品/技能/宠物封包-TgX | `TgX` | 服务端->客户端 | 否 | 完成 | SEND_EQUIP_SUIT；外层 `{data:es}`；空 data 表示 inactive/empty；非空 data 为单条逗号分隔 27 段，字符串字段保留 raw escaped，`specialTitleFlag` 只接受 `0/1`，其余数值为 raw signed decimal |
-| M6.12.14 物品/技能/宠物封包-rMsv | `rMsv` | 客户端->服务端 | 否 | 未开始 | RECV_PMSG 发送宠邮 |
+| M6.12.14 物品/技能/宠物封包-rMsv | `rMsv` | 客户端->服务端 | 否 | 完成 | RECV_PMSG 发送宠邮；外层 `{index:i62} {petindex:i62} {itemindex:i62} {message:es} {color:i62}`；无二级 payload，`message` 为普通外层 es，允许空文本且不拆 `|` |
 | M6.12.15 物品/技能/宠物封包-PfqV | `PfqV` | 客户端->服务端 | 否 | 未开始 | RECV_PGML 宠邮 |
 | M6.13.01 聊天/窗口/系统封包-Zd | `Zd` | 服务端->客户端 | 否 | 未开始 | SEND_STK  SYSTEMMSG 系统信息 |
 | M6.13.02 聊天/窗口/系统封包-zzd | `zzd` | 服务端->客户端 | 否 | 未开始 | SEND_EF |
@@ -342,7 +342,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 138 | `CV` | 客户端->服务端 | 完成 | RECV_MSG 发送邮件信息 触发SEND_MSG | 否 | 是 | xlsx |
 | 139 | `kza` | 客户端->服务端 | 完成 | RECV_ALI 请求图鉴数据 触发SEND_ALI | 否 | 否 | xlsx |
 | 140 | `LaR` | 客户端->服务端 | 完成 | RECV_ALN 请求图鉴名字 触发 SEND_ALN | 否 | 否 | xlsx |
-| 141 | `rMsv` | 客户端->服务端 | 完成 | RECV_PMSG 发送宠邮 | 否 | 是 | xlsx |
+| 141 | `rMsv` | 客户端->服务端 | 完成 | RECV_PMSG 发送宠邮；外层 `{index:i62} {petindex:i62} {itemindex:i62} {message:es} {color:i62}`；无二级 payload，`message` 为普通外层 es | 否 | 是 | xlsx |
 | 142 | `FPkR` | 客户端->服务端 | 完成 | RECV_DAB 删除名片 | 否 | 否 | xlsx |
 | 143 | `vcAz` | 客户端->服务端 | 完成 | RECV_AAB 交互名片 | 否 | 否 | xlsx |
 | 144 | `Ufm` | 客户端->服务端 | 进行中 | RECV_GI 变更家族信息 | 否 | 是 | xlsx |

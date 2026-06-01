@@ -3888,6 +3888,8 @@
       "rawFormat": "{index} {petindex} {itemindex} {message} {color}",
       "formatEmpty": false,
       "source": "xlsx",
+      "resolvedFormat": "{index:i62} {petindex:i62} {itemindex:i62} {message:es} {color:i62}",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
       "fields": [
         {
           "index": 0,

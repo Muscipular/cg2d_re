@@ -302,6 +302,15 @@ namespace cg::packet
             {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
         }};
 
+        inline constexpr std::array<PacketFieldSpec, 6> StallBrowseFields = {{
+            {"result", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"objIndex", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"name", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+            {"description", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+            {"item", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+            {"pet", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+        }};
+
         inline constexpr std::array<PacketFieldSpec, 1> CheckCommandFields = {{
             {"time", PacketFieldType::Int62, PacketSourceTag::Xlsx},
         }};
@@ -341,7 +350,7 @@ namespace cg::packet
             {"y2", PacketFieldType::Int62, PacketSourceTag::Xlsx},
         }};
 
-        inline constexpr std::array<PacketSpec, 57> PacketRegistry = {{
+        inline constexpr std::array<PacketSpec, 58> PacketRegistry = {{
             {
                 "JFVf",
                 PacketDirection::ClientToServer,
@@ -684,6 +693,13 @@ namespace cg::packet
                 PacketSourceTag::Xlsx,
                 WindowPacketFields.data(),
                 WindowPacketFields.size(),
+            },
+            {
+                "ft",
+                PacketDirection::ServerToClient,
+                PacketSourceTag::Xlsx,
+                StallBrowseFields.data(),
+                StallBrowseFields.size(),
             },
             {
                 "CCL",

@@ -308,3 +308,13 @@
 | 2026-06-02 | M6.13.06 窗口封包 BZ schema/清单 | schema 保留 xlsx raw `{windowtype} {buttontype} {seqno} {objindex} {data:es}`，补 resolved `{windowtype:i62} {buttontype:i62} {seqno:i62} {objindex:i62} {data:es}` 和来源 `xlsx+ServerC+ClientIda+src`；M6 清单标记完成并说明无二级 payload | 待验证：`git diff --check`、VS bundled CMake configure/build/test、CTest Debug `^cg-packet-` | 不改变 raw xlsx 字段；不扩展 `ft/CV/uSr/xD` 等相邻协议 |
 
 | 2026-06-02 | M6.13.06 窗口封包 BZ 验证 | 复跑格式检查、VS bundled CMake configure、Debug 新增目标与 schema 覆盖测试构建、运行新增测试 exe、运行 schema 覆盖测试、packet CTest | `git diff --check` 通过，仅 LF/CRLF 提示；VS bundled CMake configure 通过；Debug 构建并运行 `cg-packet-window-packet-test` 通过；Debug `cg-packet-coverage-schema-test` 通过；CTest Debug `^cg-packet-` 62/62 通过 | 首次构建发现新目标漏加 `/utf-8` 选项并已补齐；首次 registry 数量未同步并已修正为 57 |
+
+| 2026-06-02 | M6.13.07 摊位浏览 ft 启动 | 确认范围仅 `ft` / `SEND_StallBrowse`；按旧 C/IDA 修正外层 6 字段 `{result:i62} {objIndex:i62} {name:es} {description:es} {item:es} {pet:es}`，item/pet 本步仅保留 raw string | 待验证：`git diff --check`、VS bundled CMake configure、Debug 构建新增 `cg-packet-stall-browse-test`、运行测试 exe、CTest Debug `^cg-packet-` | 不扩展其他协议；不校验 result 范围、item/pet 内字段或长度；当前环境未提供可调用 subAgent/线程工具，按单线程推进 |
+
+| 2026-06-02 | M6.13.07 摊位浏览 ft registry/receive | `PacketParser` 注册 `ft {result:i62} {objIndex:i62} {name:es} {description:es} {item:es} {pet:es}`；新增 `receive::StallBrowse`，四个 es 允许空，item/pet 只保存外层 es 解码后的 raw 字符串 | 待验证：新增测试、CMake 接入、schema 覆盖、`git diff --check`、VS bundled CMake configure/build/test、CTest Debug `^cg-packet-` | 不扩展其他协议；不校验 result 枚举、item/pet 内部 payload 或长度 |
+
+| 2026-06-02 | M6.13.07 摊位浏览 ft 测试接入 | 新增 `cg-packet-stall-browse-test`，覆盖成功样例、失败 result 空 es、旧 5 字段 FieldCountMismatch、result/objIndex 非法 i62、item/pet `|` 与反斜杠 roundtrip，以及手工 Packet 方向/字段名/字段类型错误 | 待验证：schema 更新、`git diff --check`、VS bundled CMake configure/build/test、CTest Debug `^cg-packet-` | 测试只确认外层格式与 raw payload 保留；不拆 item/pet |
+
+| 2026-06-02 | M6.13.07 摊位浏览 ft schema/清单 | schema 保留 xlsx raw `{result} {name} {description} {item} {pet}` 与 5 个 raw fields，补 resolved `{result:i62} {objIndex:i62} {name:es} {description:es} {item:es} {pet:es}` 和来源 `xlsx+ServerC+ClientIda+src`；M6 清单标记完成并注明 item/pet raw payload | 待验证：`git diff --check`、VS bundled CMake configure/build/test、CTest Debug `^cg-packet-` | 不改变 raw xlsx 字段；不扩展 `CV/uSr/xD` 等相邻协议 |
+
+| 2026-06-02 | M6.13.07 摊位浏览 ft 验证 | 复跑格式检查、VS bundled CMake configure、Debug 新增目标与 schema 覆盖测试构建、运行新增测试 exe、运行 schema 覆盖测试、Debug 全量 build、packet CTest | `git diff --check` 通过；VS bundled CMake configure 通过；Debug 构建并运行 `cg-packet-stall-browse-test` 通过；Debug `cg-packet-coverage-schema-test` 通过；Debug 全量 build 通过；CTest Debug `^cg-packet-` 63/63 通过 | 首次旧 5 字段测试样例末尾带空 token，按现有 token 规则改为无尾随空格后通过；不改解析器 |

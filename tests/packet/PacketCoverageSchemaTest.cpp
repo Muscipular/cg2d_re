@@ -704,6 +704,32 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         }
     }
 
+    const PacketSchema* stallBrowseSchema = FindPacket(packets, "ft");
+    failures += Expect(stallBrowseSchema != nullptr, "ft schema exists");
+    if (stallBrowseSchema != nullptr) {
+        failures += Expect(stallBrowseSchema->direction == "服务端->客户端", "ft direction");
+        failures += Expect(stallBrowseSchema->legacyKind == "SEND", "ft legacyKind");
+        failures += Expect(
+            stallBrowseSchema->rawFormat == "{result} {name} {description} {item} {pet}",
+            "ft rawFormat");
+        failures += Expect(
+            stallBrowseSchema->resolvedFormat ==
+                "{result:i62} {objIndex:i62} {name:es} {description:es} {item:es} {pet:es}",
+            "ft resolvedFormat");
+        failures += Expect(
+            stallBrowseSchema->resolvedSource == "xlsx+ServerC+ClientIda+src",
+            "ft resolvedSource");
+        failures += Expect(stallBrowseSchema->fields.size() == 5U, "ft raw field count");
+        if (stallBrowseSchema->fields.size() == 5U) {
+            failures += Expect(stallBrowseSchema->fields[0].name == "result", "ft raw field result");
+            failures += Expect(stallBrowseSchema->fields[1].name == "name", "ft raw field name");
+            failures += Expect(stallBrowseSchema->fields[2].name == "description", "ft raw field description");
+            failures += Expect(stallBrowseSchema->fields[3].name == "item", "ft raw field item");
+            failures += Expect(stallBrowseSchema->fields[4].name == "pet", "ft raw field pet");
+            failures += Expect(stallBrowseSchema->fields[1].typeToken == "unknown", "ft raw type unknown");
+        }
+    }
+
     const PacketSchema* checkCommandSchema = FindPacket(packets, "CCL");
     failures += Expect(checkCommandSchema != nullptr, "CCL schema exists");
     if (checkCommandSchema != nullptr) {

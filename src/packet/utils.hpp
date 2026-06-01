@@ -8,6 +8,7 @@
 #include <string>
 #include <string_view>
 #include <utility>
+#include <vector>
 
 namespace cg::packet
 {
@@ -203,6 +204,64 @@ namespace cg::packet
                 output.push_back('\\');
             }
             ++index;
+        }
+
+        return PacketResult<std::string>::Success(std::move(output));
+    }
+
+    [[nodiscard]] inline PacketResult<std::vector<std::string>> SplitPlainTokens(std::string_view text)
+    {
+        std::vector<std::string> tokens;
+        if (text.empty() || text.front() == '\0') {
+            return PacketResult<std::vector<std::string>>::Success(std::move(tokens));
+        }
+
+        std::vector<std::size_t> tokenStarts;
+        tokenStarts.push_back(0);
+
+        const auto appendOpenTokens = [&](std::size_t end) {
+            for (const std::size_t start : tokenStarts) {
+                tokens.emplace_back(text.substr(start, end - start));
+            }
+            tokenStarts.clear();
+        };
+
+        for (std::size_t index = 0; index < text.size(); ++index) {
+            const char ch = text[index];
+            if (ch == '\0') {
+                appendOpenTokens(index);
+                return PacketResult<std::vector<std::string>>::Success(std::move(tokens));
+            }
+            if (ch == '\n' || ch == '\r') {
+                appendOpenTokens(index);
+                return PacketResult<std::vector<std::string>>::Success(std::move(tokens));
+            }
+            if (ch == ' ') {
+                appendOpenTokens(index);
+                tokenStarts.push_back(index + 1U);
+                continue;
+            }
+            if (ch == '\x17') {
+                tokenStarts.push_back(index + 1U);
+            }
+        }
+
+        appendOpenTokens(text.size());
+        return PacketResult<std::vector<std::string>>::Success(std::move(tokens));
+    }
+
+    [[nodiscard]] inline PacketResult<std::string> BuildPlainTokenString(const std::vector<std::string>& tokens)
+    {
+        std::size_t totalSize = tokens.size();
+        for (const std::string& token : tokens) {
+            totalSize += token.size();
+        }
+
+        std::string output;
+        output.reserve(totalSize);
+        for (const std::string& token : tokens) {
+            output.append(token);
+            output.push_back(' ');
         }
 
         return PacketResult<std::string>::Success(std::move(output));

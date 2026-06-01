@@ -1658,6 +1658,24 @@
       "rawFormat": "",
       "formatEmpty": true,
       "source": "xlsx",
+      "resolvedFormat": "{haveskillindex:i62} {data:es}",
+      "resolvedSource": "ServerC+ClientIda+src",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "haveskillindex",
+          "typeToken": "i62",
+          "rawSpec": "{haveskillindex:i62}",
+          "source": "ServerC+ClientIda+src"
+        },
+        {
+          "index": 1,
+          "name": "data",
+          "typeToken": "es",
+          "rawSpec": "{data:es}",
+          "source": "ServerC+ClientIda+src"
+        }
+      ],
       "fields": []
     },
     {

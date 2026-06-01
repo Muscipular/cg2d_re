@@ -71,6 +71,11 @@ namespace cg::packet
             {"data", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
         }};
 
+        inline constexpr std::array<PacketFieldSpec, 2> ItemRecipeFields = {{
+            {"haveskillindex", PacketFieldType::Int62, PacketSourceTag::ServerC},
+            {"data", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
+        }};
+
         inline constexpr std::array<PacketFieldSpec, 2> AlbumFlagsFields = {{
             {"albumversion", PacketFieldType::Int62, PacketSourceTag::Xlsx},
             {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
@@ -229,7 +234,7 @@ namespace cg::packet
             {"y2", PacketFieldType::Int62, PacketSourceTag::Xlsx},
         }};
 
-        inline constexpr std::array<PacketSpec, 40> PacketRegistry = {{
+        inline constexpr std::array<PacketSpec, 41> PacketRegistry = {{
             {
                 "JFVf",
                 PacketDirection::ClientToServer,
@@ -292,6 +297,13 @@ namespace cg::packet
                 PacketSourceTag::ServerC,
                 ItemInfoListFields.data(),
                 ItemInfoListFields.size(),
+            },
+            {
+                "xmgQ",
+                PacketDirection::ServerToClient,
+                PacketSourceTag::ServerC,
+                ItemRecipeFields.data(),
+                ItemRecipeFields.size(),
             },
             {
                 "Ilz",

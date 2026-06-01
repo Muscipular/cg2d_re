@@ -4317,6 +4317,416 @@ namespace cg::packet::receive
     };
 
     /**
+     * SEND_IR 配方材料：materialItemId|materialName|required。
+     */
+    struct ItemRecipeMaterial
+    {
+        int itemId = 0;
+        std::string nameRaw;
+        int required = 0;
+    };
+
+    /**
+     * SEND_IR 道具配方记录：22 段，字符串字段为内层 makeEscapeString 后的 raw 字符串。
+     */
+    struct ItemRecipeRecord
+    {
+        int recipeId = 0;
+        int itemLevel = 0;
+        int recipeItemId = 0;
+        std::string itemNameRaw;
+        std::string itemInfoRaw;
+        int forcePoint = 0;
+        int usable = 0;
+        std::array<ItemRecipeMaterial, 5U> materials = {};
+    };
+
+    /**
+     * SEND_IR 道具配方列表		xmgQ {haveskillindex:i62} {data:es}
+     * data: 每条 22 段，数值为 raw decimal，整体保留尾随 `|`；record 数量为 1..56。
+     */
+    struct ItemRecipe
+    {
+        static constexpr std::string_view Code = "xmgQ";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::string_view PayloadDelimiter = "|";
+
+        int haveSkillIndex = 0;
+        std::vector<ItemRecipeRecord> records;
+
+        ItemRecipe(int haveSkillIndex, std::vector<ItemRecipeRecord> records)
+            : haveSkillIndex(haveSkillIndex),
+              records(std::move(records))
+        {
+        }
+
+        [[nodiscard]] std::string BuildData() const
+        {
+            std::string payload;
+            for (const ItemRecipeRecord& record : records) {
+                payload.append(std::to_string(record.recipeId));
+                payload.push_back('|');
+                payload.append(std::to_string(record.itemLevel));
+                payload.push_back('|');
+                payload.append(std::to_string(record.recipeItemId));
+                payload.push_back('|');
+                payload.append(record.itemNameRaw);
+                payload.push_back('|');
+                payload.append(record.itemInfoRaw);
+                payload.push_back('|');
+                payload.append(std::to_string(record.forcePoint));
+                payload.push_back('|');
+                payload.append(std::to_string(record.usable));
+                payload.push_back('|');
+                for (const ItemRecipeMaterial& material : record.materials) {
+                    payload.append(std::to_string(material.itemId));
+                    payload.push_back('|');
+                    payload.append(material.nameRaw);
+                    payload.push_back('|');
+                    payload.append(std::to_string(material.required));
+                    payload.push_back('|');
+                }
+            }
+            return payload;
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ServerC);
+            packet.fields.push_back(PacketField {
+                "haveskillindex",
+                PacketFieldType::Int62,
+                std::to_string(haveSkillIndex),
+                PacketSourceTag::ServerC,
+            });
+            packet.fields.push_back(PacketField {
+                "data",
+                PacketFieldType::EscapedString,
+                BuildData(),
+                PacketSourceTag::ServerC,
+            });
+            return packet;
+        }
+
+        static PacketResult<ItemRecipe> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view);
+            if (!parsed.HasValue()) {
+                return PacketResult<ItemRecipe>::Failure(parsed.Error());
+            }
+
+            const Packet& packet = parsed.Value();
+            if (packet.code.View() != Code) {
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "ItemRecipe Parse 收到非 xmgQ 封包");
+                error.packetCode = packet.code;
+                return PacketResult<ItemRecipe>::Failure(std::move(error));
+            }
+
+            if (packet.direction != Direction) {
+                return PacketResult<ItemRecipe>::Failure(MakePacketError(
+                    PacketErrorCode::DecodeFailed,
+                    "ItemRecipe Parse 封包方向不匹配"));
+            }
+
+            if (packet.fields.size() != FieldCount) {
+                return PacketResult<ItemRecipe>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "ItemRecipe Parse 字段数量不匹配",
+                    packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
+            }
+
+            const PacketField& haveSkillIndexField = packet.fields[HaveSkillIndexFieldIndex];
+            if (haveSkillIndexField.name != "haveskillindex") {
+                return PacketResult<ItemRecipe>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "ItemRecipe Parse haveskillindex 字段名不匹配",
+                    HaveSkillIndexFieldIndex));
+            }
+
+            if (haveSkillIndexField.type != PacketFieldType::Int62) {
+                return PacketResult<ItemRecipe>::Failure(MakeFieldError(
+                    PacketErrorCode::InvalidFieldType,
+                    "ItemRecipe Parse haveskillindex 字段类型不匹配",
+                    HaveSkillIndexFieldIndex));
+            }
+
+            PacketResult<int> haveSkillIndex = ParseDecimalField(
+                haveSkillIndexField.value,
+                HaveSkillIndexFieldIndex);
+            if (!haveSkillIndex.HasValue()) {
+                return PacketResult<ItemRecipe>::Failure(haveSkillIndex.Error());
+            }
+
+            const PacketField& dataField = packet.fields[DataFieldIndex];
+            if (dataField.name != "data") {
+                return PacketResult<ItemRecipe>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "ItemRecipe Parse data 字段名不匹配",
+                    DataFieldIndex));
+            }
+
+            if (dataField.type != PacketFieldType::EscapedString) {
+                return PacketResult<ItemRecipe>::Failure(MakeFieldError(
+                    PacketErrorCode::InvalidFieldType,
+                    "ItemRecipe Parse data 字段类型不匹配",
+                    DataFieldIndex));
+            }
+
+            PacketResult<std::vector<ItemRecipeRecord>> records = ParseRecords(dataField.value);
+            if (!records.HasValue()) {
+                return PacketResult<ItemRecipe>::Failure(records.Error());
+            }
+
+            return PacketResult<ItemRecipe>::Success(ItemRecipe(
+                haveSkillIndex.Value(),
+                std::move(records.Value())));
+        }
+
+    private:
+        static constexpr std::size_t FieldCount = 2U;
+        static constexpr std::size_t HaveSkillIndexFieldIndex = 0U;
+        static constexpr std::size_t DataFieldIndex = 1U;
+        static constexpr std::size_t RecordFieldCount = 22U;
+        static constexpr std::size_t MaterialCount = 5U;
+        static constexpr std::size_t MaterialFieldCount = 3U;
+        static constexpr std::size_t MaxRecordCount = 56U;
+
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            error.source = PacketSourceTag::ServerC;
+            return error;
+        }
+
+        [[nodiscard]] static PacketError MakeFieldError(
+            PacketErrorCode code,
+            std::string message,
+            std::size_t fieldIndex)
+        {
+            PacketError error = MakePacketError(code, std::move(message));
+            error.fieldIndex = fieldIndex;
+            return error;
+        }
+
+        [[nodiscard]] static PacketResult<std::vector<ItemRecipeRecord>> ParseRecords(std::string_view payload)
+        {
+            if (payload.empty()) {
+                return PacketResult<std::vector<ItemRecipeRecord>>::Failure(MakeFieldError(
+                    PacketErrorCode::EmptyInput,
+                    "ItemRecipe payload 为空",
+                    DataFieldIndex));
+            }
+
+            if (payload.back() != '|') {
+                return PacketResult<std::vector<ItemRecipeRecord>>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "ItemRecipe payload 缺少尾随分隔符",
+                    DataFieldIndex));
+            }
+
+            PacketResult<std::vector<std::string>> split = SplitPayload(payload, PayloadDelimiter);
+            if (!split.HasValue()) {
+                PacketError error = split.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = DataFieldIndex;
+                error.source = PacketSourceTag::ServerC;
+                return PacketResult<std::vector<ItemRecipeRecord>>::Failure(std::move(error));
+            }
+
+            std::vector<std::string> parts = std::move(split.Value());
+            parts.pop_back();
+            if (parts.empty() || (parts.size() % RecordFieldCount) != 0U) {
+                return PacketResult<std::vector<ItemRecipeRecord>>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "ItemRecipe payload 段数量不是 22 的倍数",
+                    DataFieldIndex));
+            }
+
+            const std::size_t recordCount = parts.size() / RecordFieldCount;
+            if (recordCount > MaxRecordCount) {
+                return PacketResult<std::vector<ItemRecipeRecord>>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "ItemRecipe payload record 数量超过 56",
+                    DataFieldIndex));
+            }
+
+            std::vector<ItemRecipeRecord> records;
+            records.reserve(recordCount);
+            for (std::size_t recordIndex = 0; recordIndex < recordCount; ++recordIndex) {
+                PacketResult<ItemRecipeRecord> record = ParseRecord(parts, recordIndex * RecordFieldCount);
+                if (!record.HasValue()) {
+                    return PacketResult<std::vector<ItemRecipeRecord>>::Failure(record.Error());
+                }
+                records.push_back(std::move(record.Value()));
+            }
+
+            return PacketResult<std::vector<ItemRecipeRecord>>::Success(std::move(records));
+        }
+
+        [[nodiscard]] static PacketResult<ItemRecipeRecord> ParseRecord(
+            const std::vector<std::string>& parts,
+            std::size_t baseIndex)
+        {
+            PacketResult<int> recipeId = ParseDecimalField(parts[baseIndex], baseIndex);
+            if (!recipeId.HasValue()) {
+                return PacketResult<ItemRecipeRecord>::Failure(recipeId.Error());
+            }
+
+            PacketResult<int> itemLevel = ParseDecimalField(parts[baseIndex + 1U], baseIndex + 1U);
+            if (!itemLevel.HasValue()) {
+                return PacketResult<ItemRecipeRecord>::Failure(itemLevel.Error());
+            }
+
+            PacketResult<int> recipeItemId = ParseDecimalField(parts[baseIndex + 2U], baseIndex + 2U);
+            if (!recipeItemId.HasValue()) {
+                return PacketResult<ItemRecipeRecord>::Failure(recipeItemId.Error());
+            }
+
+            PacketResult<std::string> itemNameRaw = ValidateRawStringField(parts[baseIndex + 3U], baseIndex + 3U);
+            if (!itemNameRaw.HasValue()) {
+                return PacketResult<ItemRecipeRecord>::Failure(itemNameRaw.Error());
+            }
+
+            PacketResult<std::string> itemInfoRaw = ValidateRawStringField(parts[baseIndex + 4U], baseIndex + 4U);
+            if (!itemInfoRaw.HasValue()) {
+                return PacketResult<ItemRecipeRecord>::Failure(itemInfoRaw.Error());
+            }
+
+            PacketResult<int> forcePoint = ParseDecimalField(parts[baseIndex + 5U], baseIndex + 5U);
+            if (!forcePoint.HasValue()) {
+                return PacketResult<ItemRecipeRecord>::Failure(forcePoint.Error());
+            }
+
+            PacketResult<int> usable = ParseDecimalField(parts[baseIndex + 6U], baseIndex + 6U);
+            if (!usable.HasValue()) {
+                return PacketResult<ItemRecipeRecord>::Failure(usable.Error());
+            }
+            if (usable.Value() != 0 && usable.Value() != 1) {
+                return PacketResult<ItemRecipeRecord>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "ItemRecipe usable 只能为 0/1",
+                    baseIndex + 6U));
+            }
+
+            ItemRecipeRecord record;
+            record.recipeId = recipeId.Value();
+            record.itemLevel = itemLevel.Value();
+            record.recipeItemId = recipeItemId.Value();
+            record.itemNameRaw = std::move(itemNameRaw.Value());
+            record.itemInfoRaw = std::move(itemInfoRaw.Value());
+            record.forcePoint = forcePoint.Value();
+            record.usable = usable.Value();
+
+            for (std::size_t materialIndex = 0; materialIndex < MaterialCount; ++materialIndex) {
+                const std::size_t materialBase = baseIndex + 7U + (materialIndex * MaterialFieldCount);
+                PacketResult<ItemRecipeMaterial> material = ParseMaterial(parts, materialBase);
+                if (!material.HasValue()) {
+                    return PacketResult<ItemRecipeRecord>::Failure(material.Error());
+                }
+                record.materials[materialIndex] = std::move(material.Value());
+            }
+
+            return PacketResult<ItemRecipeRecord>::Success(std::move(record));
+        }
+
+        [[nodiscard]] static PacketResult<ItemRecipeMaterial> ParseMaterial(
+            const std::vector<std::string>& parts,
+            std::size_t baseIndex)
+        {
+            PacketResult<int> itemId = ParseDecimalField(parts[baseIndex], baseIndex);
+            if (!itemId.HasValue()) {
+                return PacketResult<ItemRecipeMaterial>::Failure(itemId.Error());
+            }
+
+            PacketResult<std::string> nameRaw = ValidateRawStringField(parts[baseIndex + 1U], baseIndex + 1U);
+            if (!nameRaw.HasValue()) {
+                return PacketResult<ItemRecipeMaterial>::Failure(nameRaw.Error());
+            }
+
+            PacketResult<int> required = ParseDecimalField(parts[baseIndex + 2U], baseIndex + 2U);
+            if (!required.HasValue()) {
+                return PacketResult<ItemRecipeMaterial>::Failure(required.Error());
+            }
+
+            return PacketResult<ItemRecipeMaterial>::Success(ItemRecipeMaterial {
+                itemId.Value(),
+                std::move(nameRaw.Value()),
+                required.Value(),
+            });
+        }
+
+        [[nodiscard]] static PacketResult<std::string> ValidateRawStringField(
+            std::string_view text,
+            std::size_t fieldIndex)
+        {
+            for (std::size_t index = 0; index < text.size(); ++index) {
+                if (!cg::packet::detail::IsLegacyDoubleByteLead(text[index])) {
+                    continue;
+                }
+
+                if (index + 1U >= text.size()) {
+                    return PacketResult<std::string>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "ItemRecipe raw 字符串旧双字节字符被截断",
+                        fieldIndex));
+                }
+                ++index;
+            }
+
+            return PacketResult<std::string>::Success(std::string(text));
+        }
+
+        [[nodiscard]] static PacketResult<int> ParseDecimalField(std::string_view text, std::size_t fieldIndex)
+        {
+            bool negative = false;
+            std::size_t index = 0;
+            if (!text.empty() && text.front() == '-') {
+                negative = true;
+                index = 1U;
+            }
+
+            if (index == text.size()) {
+                return PacketResult<int>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "ItemRecipe 十进制字段为空",
+                    fieldIndex));
+            }
+
+            const std::int64_t maxValue = static_cast<std::int64_t>(std::numeric_limits<int>::max());
+            const std::int64_t minValue = static_cast<std::int64_t>(std::numeric_limits<int>::min());
+            const std::int64_t limit = negative ? (0 - minValue) : maxValue;
+            std::int64_t value = 0;
+
+            for (; index < text.size(); ++index) {
+                const char ch = text[index];
+                if (ch < '0' || ch > '9') {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "ItemRecipe 十进制字段包含非法字符",
+                        fieldIndex));
+                }
+
+                const int digit = ch - '0';
+                if (value > (limit - digit) / 10) {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "ItemRecipe 十进制字段超出 int 范围",
+                        fieldIndex));
+                }
+
+                value = (value * 10) + digit;
+            }
+
+            if (negative) {
+                value = -value;
+            }
+
+            return PacketResult<int>::Success(static_cast<int>(value));
+        }
+    };
+
+    /**
      * SEND_AL 图鉴页标志		Ilz {albumversion:i62} {data:es}
      * data: `page0|page1|...|`，page 为 raw decimal int；不在 codec 展开每页 bit 语义。
      */

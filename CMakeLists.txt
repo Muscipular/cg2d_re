@@ -259,6 +259,21 @@ target_include_directories(cg-packet-envelope-codec-test
 
 add_test(NAME cg-packet-envelope-codec-test COMMAND cg-packet-envelope-codec-test)
 
+add_executable(cg-packet-coverage-schema-test
+    tests/packet/PacketCoverageSchemaTest.cpp
+)
+
+target_include_directories(cg-packet-coverage-schema-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+
+add_test(
+    NAME cg-packet-coverage-schema-test
+    COMMAND cg-packet-coverage-schema-test
+        "${CMAKE_CURRENT_SOURCE_DIR}/tests/fixtures/protocol/schema/packet_coverage_schema.json"
+)
+
 if(MSVC)
     target_compile_options(cg-client PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-map-viewer PRIVATE /W4 /utf-8 /permissive-)
@@ -271,6 +286,7 @@ if(MSVC)
     target_compile_options(cg-packet-es-string-codec-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-token-codec-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-envelope-codec-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-coverage-schema-test PRIVATE /W4 /utf-8 /permissive-)
 else()
     target_compile_options(cg-client PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-map-viewer PRIVATE -Wall -Wextra -Wpedantic)
@@ -283,6 +299,7 @@ else()
     target_compile_options(cg-packet-es-string-codec-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-token-codec-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-envelope-codec-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-packet-coverage-schema-test PRIVATE -Wall -Wextra -Wpedantic)
 endif()
 
 if(WIN32)

@@ -1,0 +1,5206 @@
+{
+  "schema": "cg.packet.coverage.v1",
+  "sourceWorkbook": "plans/CG封包.xlsx",
+  "sourceSheet": "封包",
+  "packetCount": 209,
+  "packets": [
+    {
+      "code": "JFVf",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "账号密码",
+      "rawFormat": "{clientHash:es} {password:es} {account:es}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "clientHash",
+          "typeToken": "es",
+          "rawSpec": "{clientHash:es}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "password",
+          "typeToken": "es",
+          "rawSpec": "{password:es}",
+          "source": "xlsx"
+        },
+        {
+          "index": 2,
+          "name": "account",
+          "typeToken": "es",
+          "rawSpec": "{account:es}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "Gp",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_CharList 获取角色列表",
+      "rawFormat": "",
+      "originalFormat": "Gp",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "emRV",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_CharLogin 登录",
+      "rawFormat": "{registnumber:i62} {renewal:i62} {face:i62}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "registnumber",
+          "typeToken": "i62",
+          "rawSpec": "{registnumber:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "renewal",
+          "typeToken": "i62",
+          "rawSpec": "{renewal:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 2,
+          "name": "face",
+          "typeToken": "i62",
+          "rawSpec": "{face:i62}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "CCL",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_CheckCommand 发送客户端时间",
+      "rawFormat": "{time:i62}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "time",
+          "typeToken": "i62",
+          "rawSpec": "{time:i62}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "lz",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_PRO CHAR_setProfileStatus 简介开关",
+      "rawFormat": "{0:i62}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "0",
+          "typeToken": "i62",
+          "rawSpec": "{0:i62}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "WA",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_CharLogout 登出",
+      "rawFormat": "",
+      "originalFormat": "WA",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "whV",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_ClientLogin 登录角色表结果",
+      "rawFormat": "{result:i62} {data:es}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "result",
+          "typeToken": "i62",
+          "rawSpec": "{result:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "data",
+          "typeToken": "es",
+          "rawSpec": "{data:es}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "PfM",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_PV 版本信息？",
+      "rawFormat": "{TrialFlg:i62}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "TrialFlg",
+          "typeToken": "i62",
+          "rawSpec": "{TrialFlg:i62}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "Daj",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_CharList 登录角色表",
+      "rawFormat": "{result:i62} {data:es} {result:i62} {msg:es}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "result",
+          "typeToken": "i62",
+          "rawSpec": "{result:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "data",
+          "typeToken": "es",
+          "rawSpec": "{data:es}",
+          "source": "xlsx"
+        },
+        {
+          "index": 2,
+          "name": "result",
+          "typeToken": "i62",
+          "rawSpec": "{result:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 3,
+          "name": "msg",
+          "typeToken": "es",
+          "rawSpec": "{msg:es}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "HNP",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_PRV \nCHAR_sendProfileVersion简介版本内容",
+      "rawFormat": "{data:es}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "data",
+          "typeToken": "es",
+          "rawSpec": "{data:es}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "Zd",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_STK  SYSTEMMSG 系统信息",
+      "rawFormat": "{message:es}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "message",
+          "typeToken": "es",
+          "rawSpec": "{message:es}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "hPUd",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_CharLogin 登录结果",
+      "rawFormat": "{result:es} {msg:es}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "result",
+          "typeToken": "es",
+          "rawSpec": "{result:es}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "msg",
+          "typeToken": "es",
+          "rawSpec": "{msg:es}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "PudO",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_ClientIndex",
+      "rawFormat": "{Objlndex:i62} {servertime:i62} {servernumber:i62} {adjusttime:i62}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "Objlndex",
+          "typeToken": "i62",
+          "rawSpec": "{Objlndex:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "servertime",
+          "typeToken": "i62",
+          "rawSpec": "{servertime:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 2,
+          "name": "servernumber",
+          "typeToken": "i62",
+          "rawSpec": "{servernumber:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 3,
+          "name": "adjusttime",
+          "typeToken": "i62",
+          "rawSpec": "{adjusttime:i62}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "GmNM",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_CC CHAR_sendCoordinate",
+      "rawFormat": "{mapid:i62} {floor:i62} {maxx:i62} {maxy:i62} {x:i62} {y:i62} {cfgid:i62} {seqno:i62} {var:i62} {bgm:i62} {cut:i62} {warpnum:i62}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "mapid",
+          "typeToken": "i62",
+          "rawSpec": "{mapid:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "floor",
+          "typeToken": "i62",
+          "rawSpec": "{floor:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 2,
+          "name": "maxx",
+          "typeToken": "i62",
+          "rawSpec": "{maxx:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 3,
+          "name": "maxy",
+          "typeToken": "i62",
+          "rawSpec": "{maxy:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 4,
+          "name": "x",
+          "typeToken": "i62",
+          "rawSpec": "{x:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 5,
+          "name": "y",
+          "typeToken": "i62",
+          "rawSpec": "{y:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 6,
+          "name": "cfgid",
+          "typeToken": "i62",
+          "rawSpec": "{cfgid:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 7,
+          "name": "seqno",
+          "typeToken": "i62",
+          "rawSpec": "{seqno:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 8,
+          "name": "var",
+          "typeToken": "i62",
+          "rawSpec": "{var:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 9,
+          "name": "bgm",
+          "typeToken": "i62",
+          "rawSpec": "{bgm:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 10,
+          "name": "cut",
+          "typeToken": "i62",
+          "rawSpec": "{cut:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 11,
+          "name": "warpnum",
+          "typeToken": "i62",
+          "rawSpec": "{warpnum:i62}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "TeD",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_MN SendMapName",
+      "rawFormat": "{data:es}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "data",
+          "typeToken": "es",
+          "rawSpec": "{data:es}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "aPc",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_CP CharData_1",
+      "rawFormat": "{data:es} {flag:%d} {flagValue:%d}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "data",
+          "typeToken": "es",
+          "rawSpec": "{data:es}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "flag",
+          "typeToken": "%d",
+          "rawSpec": "{flag:%d}",
+          "source": "xlsx"
+        },
+        {
+          "index": 2,
+          "name": "flagValue",
+          "typeToken": "%d",
+          "rawSpec": "{flagValue:%d}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "UU",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_CP2 CharData_2",
+      "rawFormat": "{data:es} {flag:%d} {flagValue:%d}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "data",
+          "typeToken": "es",
+          "rawSpec": "{data:es}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "flag",
+          "typeToken": "%d",
+          "rawSpec": "{flag:%d}",
+          "source": "xlsx"
+        },
+        {
+          "index": 2,
+          "name": "flagValue",
+          "typeToken": "%d",
+          "rawSpec": "{flagValue:%d}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "jv",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_CJ SendJobName",
+      "rawFormat": "{jobassort:i62} {name:es}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "jobassort",
+          "typeToken": "i62",
+          "rawSpec": "{jobassort:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "name",
+          "typeToken": "es",
+          "rawSpec": "{name:es}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "cNE",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_CS CHAR_sendSkillData",
+      "rawFormat": "{data:es}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "data",
+          "typeToken": "es",
+          "rawSpec": "{data:es}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "Sc",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_TITLE",
+      "rawFormat": "{data:es} {titleName:%s}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "data",
+          "typeToken": "es",
+          "rawSpec": "{data:es}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "titleName",
+          "typeToken": "%s",
+          "rawSpec": "{titleName:%s}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "rU",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_I CHAR_sendItemData",
+      "rawFormat": "{data:es}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "data",
+          "typeToken": "es",
+          "rawSpec": "{data:es}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "OaHi",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_EP 遇敌率",
+      "rawFormat": "{min:i62} {max:i62}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "min",
+          "typeToken": "i62",
+          "rawSpec": "{min:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "max",
+          "typeToken": "i62",
+          "rawSpec": "{max:i62}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "SkBD",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_FS 发送玩家状态开关",
+      "rawFormat": "{flg:i62}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "flg",
+          "typeToken": "i62",
+          "rawSpec": "{flg:i62}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "jmb",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_MC sendMapHash",
+      "rawFormat": "{mapid:i62} {floor:i62} {x1:i62} {y1:i62} {x2:i62} {y2:i62} {tilesum:i62} {objsum:i62} {eventsum:i62}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "mapid",
+          "typeToken": "i62",
+          "rawSpec": "{mapid:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "floor",
+          "typeToken": "i62",
+          "rawSpec": "{floor:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 2,
+          "name": "x1",
+          "typeToken": "i62",
+          "rawSpec": "{x1:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 3,
+          "name": "y1",
+          "typeToken": "i62",
+          "rawSpec": "{y1:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 4,
+          "name": "x2",
+          "typeToken": "i62",
+          "rawSpec": "{x2:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 5,
+          "name": "y2",
+          "typeToken": "i62",
+          "rawSpec": "{y2:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 6,
+          "name": "tilesum",
+          "typeToken": "i62",
+          "rawSpec": "{tilesum:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 7,
+          "name": "objsum",
+          "typeToken": "i62",
+          "rawSpec": "{objsum:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 8,
+          "name": "eventsum",
+          "typeToken": "i62",
+          "rawSpec": "{eventsum:i62}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "gnxd",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_AB SendAddressbook",
+      "rawFormat": "{data:es}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "data",
+          "typeToken": "es",
+          "rawSpec": "{data:es}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "PhdQ",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_ABG SendAddressbookGuildInfo",
+      "rawFormat": "{data:es}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "data",
+          "typeToken": "es",
+          "rawSpec": "{data:es}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "nsY",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_C ObjectList",
+      "rawFormat": "{data:es}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "data",
+          "typeToken": "es",
+          "rawSpec": "{data:es}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "MTg",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_BT CHAR_sendFeverStatus",
+      "rawFormat": "{FeverHaveTime:i62} {isFever:i62}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "FeverHaveTime",
+          "typeToken": "i62",
+          "rawSpec": "{FeverHaveTime:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "isFever",
+          "typeToken": "i62",
+          "rawSpec": "{isFever:i62}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "Ov",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_POS 前后排",
+      "rawFormat": "{pos:i62}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "pos",
+          "typeToken": "i62",
+          "rawSpec": "{pos:i62}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "Ilz",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_AL 图鉴？",
+      "rawFormat": "{albumversion:i62} {data:es}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "albumversion",
+          "typeToken": "i62",
+          "rawSpec": "{albumversion:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "data",
+          "typeToken": "es",
+          "rawSpec": "{data:es}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "lSZ",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_IP",
+      "rawFormat": "{clientIP:es}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "clientIP",
+          "typeToken": "es",
+          "rawSpec": "{clientIP:es}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "tq",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_MAC Mouse?",
+      "rawFormat": "{config.mouselist:i62} {config.mousecount:i62}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "config.mouselist",
+          "typeToken": "i62",
+          "rawSpec": "{config.mouselist:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "config.mousecount",
+          "typeToken": "i62",
+          "rawSpec": "{config.mousecount:i62}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "zzd",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_EF",
+      "rawFormat": "{EffType:i62} {TM_EffSize:i62} {data:es}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "EffType",
+          "typeToken": "i62",
+          "rawSpec": "{EffType:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "TM_EffSize",
+          "typeToken": "i62",
+          "rawSpec": "{TM_EffSize:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 2,
+          "name": "data",
+          "typeToken": "es",
+          "rawSpec": "{data:es}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "NI",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_CA 发送头顶图标",
+      "rawFormat": "{data:es} {caInfo:s}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "data",
+          "typeToken": "es",
+          "rawSpec": "{data:es}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "caInfo",
+          "typeToken": "s",
+          "rawSpec": "{caInfo:s}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "HMNy",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_CharLogout",
+      "rawFormat": "{result:es} {msg:es}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "result",
+          "typeToken": "es",
+          "rawSpec": "{result:es}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "msg",
+          "typeToken": "es",
+          "rawSpec": "{msg:es}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "Or",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "Ping",
+      "rawFormat": "{stamp:es}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "stamp",
+          "typeToken": "es",
+          "rawSpec": "{stamp:es}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "DE",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_FCTime, 定时心跳包，视服务器setup.cf配置而定 {fctime}秒内心跳{fccount}次",
+      "rawFormat": "",
+      "originalFormat": "DE",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "LOh",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "Pong",
+      "rawFormat": "{stamp:es}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "stamp",
+          "typeToken": "es",
+          "rawSpec": "{stamp:es}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "Ot",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_PRS SetProfileData 简介内容",
+      "rawFormat": "{sellFlag:i62} {sellMsg:es} {buyFlag:i62} {buyMsg:es} {aboutFlg:i62} {aboutMsg:es} {ProfileMsg:es}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "sellFlag",
+          "typeToken": "i62",
+          "rawSpec": "{sellFlag:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "sellMsg",
+          "typeToken": "es",
+          "rawSpec": "{sellMsg:es}",
+          "source": "xlsx"
+        },
+        {
+          "index": 2,
+          "name": "buyFlag",
+          "typeToken": "i62",
+          "rawSpec": "{buyFlag:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 3,
+          "name": "buyMsg",
+          "typeToken": "es",
+          "rawSpec": "{buyMsg:es}",
+          "source": "xlsx"
+        },
+        {
+          "index": 4,
+          "name": "aboutFlg",
+          "typeToken": "i62",
+          "rawSpec": "{aboutFlg:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 5,
+          "name": "aboutMsg",
+          "typeToken": "es",
+          "rawSpec": "{aboutMsg:es}",
+          "source": "xlsx"
+        },
+        {
+          "index": 6,
+          "name": "ProfileMsg",
+          "typeToken": "es",
+          "rawSpec": "{ProfileMsg:es}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "aBS",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_MAP_DATA",
+      "rawFormat": "{mapid:i62} {floor:i62} {x1:i62} {y1:i62} {x2:i62} {y2:i62} {data:es}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "mapid",
+          "typeToken": "i62",
+          "rawSpec": "{mapid:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "floor",
+          "typeToken": "i62",
+          "rawSpec": "{floor:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 2,
+          "name": "x1",
+          "typeToken": "i62",
+          "rawSpec": "{x1:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 3,
+          "name": "y1",
+          "typeToken": "i62",
+          "rawSpec": "{y1:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 4,
+          "name": "x2",
+          "typeToken": "i62",
+          "rawSpec": "{x2:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 5,
+          "name": "y2",
+          "typeToken": "i62",
+          "rawSpec": "{y2:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 6,
+          "name": "data",
+          "typeToken": "es",
+          "rawSpec": "{data:es}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "UUN",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_M MAP_getdataFromRECT 获取地图信息",
+      "rawFormat": "{mapid:i62} {floor:i62} {x1:i62} {y1:i62} {x2:i62} {y2:i62}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "mapid",
+          "typeToken": "i62",
+          "rawSpec": "{mapid:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "floor",
+          "typeToken": "i62",
+          "rawSpec": "{floor:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 2,
+          "name": "x1",
+          "typeToken": "i62",
+          "rawSpec": "{x1:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 3,
+          "name": "y1",
+          "typeToken": "i62",
+          "rawSpec": "{y1:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 4,
+          "name": "x2",
+          "typeToken": "i62",
+          "rawSpec": "{x2:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 5,
+          "name": "y2",
+          "typeToken": "i62",
+          "rawSpec": "{y2:i62}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "zA",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_W 移动",
+      "rawFormat": "{x:i62} {y:i62} {direction:es} {warpnum::i62}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "x",
+          "typeToken": "i62",
+          "rawSpec": "{x:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "y",
+          "typeToken": "i62",
+          "rawSpec": "{y:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 2,
+          "name": "direction",
+          "typeToken": "es",
+          "rawSpec": "{direction:es}",
+          "source": "xlsx"
+        },
+        {
+          "index": 3,
+          "name": "warpnum",
+          "typeToken": ":i62",
+          "rawSpec": "{warpnum::i62}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "uSB",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_CD 发送删除ObjectIndex列表",
+      "rawFormat": "{data:es} {objectIndex:i62}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "data",
+          "typeToken": "es",
+          "rawSpec": "{data:es}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "objectIndex",
+          "typeToken": "i62",
+          "rawSpec": "{objectIndex:i62}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "QBt",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_XYD",
+      "rawFormat": "{x:i62} {y:i62} {dir:i62}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "x",
+          "typeToken": "i62",
+          "rawSpec": "{x:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "y",
+          "typeToken": "i62",
+          "rawSpec": "{y:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 2,
+          "name": "dir",
+          "typeToken": "i62",
+          "rawSpec": "{dir:i62}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "sz",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_w 移动",
+      "rawFormat": "{x:i62} {y:i62} {direction:es}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "x",
+          "typeToken": "i62",
+          "rawSpec": "{x:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "y",
+          "typeToken": "i62",
+          "rawSpec": "{y:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 2,
+          "name": "direction",
+          "typeToken": "es",
+          "rawSpec": "{direction:es}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "pg",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_EV NPC事件",
+      "rawFormat": "{event:i62} {seqno:i62} {x:i62} {y:i62} {dir:i62}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "event",
+          "typeToken": "i62",
+          "rawSpec": "{event:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "seqno",
+          "typeToken": "i62",
+          "rawSpec": "{seqno:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 2,
+          "name": "x",
+          "typeToken": "i62",
+          "rawSpec": "{x:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 3,
+          "name": "y",
+          "typeToken": "i62",
+          "rawSpec": "{y:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 4,
+          "name": "dir",
+          "typeToken": "i62",
+          "rawSpec": "{dir:i62}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "KeOX",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_EN 客户端遇敌",
+      "rawFormat": "{x} {y}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "x",
+          "typeToken": "unknown",
+          "rawSpec": "{x}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "y",
+          "typeToken": "unknown",
+          "rawSpec": "{y}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "ik",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_DU PK请求",
+      "rawFormat": "{x} {y}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "x",
+          "typeToken": "unknown",
+          "rawSpec": "{x}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "y",
+          "typeToken": "unknown",
+          "rawSpec": "{y}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "eL",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_EO 离开战斗界面",
+      "rawFormat": "",
+      "originalFormat": "eL 0",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "NgMy",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_BU 停止观战",
+      "rawFormat": "",
+      "originalFormat": "NgMy 0",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "EZ",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_EV Revc_EV的返回",
+      "rawFormat": "{seqno:i62} {result:i62}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "seqno",
+          "typeToken": "i62",
+          "rawSpec": "{seqno:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "result",
+          "typeToken": "i62",
+          "rawSpec": "{result:i62}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "dAgg",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_EN 进入战斗",
+      "rawFormat": "{battletype:i62} {fieldno:i62}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "battletype",
+          "typeToken": "i62",
+          "rawSpec": "{battletype:i62}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "fieldno",
+          "typeToken": "i62",
+          "rawSpec": "{fieldno:i62}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "Gn",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_RS 战斗获得物品",
+      "rawFormat": "",
+      "formatEmpty": true,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "hB",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_RD BATTLE_GetDuelPoint",
+      "rawFormat": "",
+      "formatEmpty": true,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "LYIm",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_B",
+      "rawFormat": "",
+      "formatEmpty": true,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "ELoy",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "暂缓",
+      "description": "SEND_IA 道具信息相关",
+      "rawFormat": "",
+      "formatEmpty": true,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "vWpn",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_SI moveitem",
+      "rawFormat": "",
+      "formatEmpty": true,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "xmgQ",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_IR CHAR_sendItemRecipe",
+      "rawFormat": "",
+      "formatEmpty": true,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "Mhbt",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_MSG recvmsg",
+      "rawFormat": "",
+      "formatEmpty": true,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "dM",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_ALI",
+      "rawFormat": "",
+      "formatEmpty": true,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "Dn",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_ALN",
+      "rawFormat": "",
+      "formatEmpty": true,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "IYo",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_ALO",
+      "rawFormat": "",
+      "formatEmpty": true,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "lDuJ",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_PME 宠邮动画",
+      "rawFormat": "{objIndex} {graphicsno} {x} {y} {dir} {flg} {no} {data}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "objIndex",
+          "typeToken": "unknown",
+          "rawSpec": "{objIndex}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "graphicsno",
+          "typeToken": "unknown",
+          "rawSpec": "{graphicsno}",
+          "source": "xlsx"
+        },
+        {
+          "index": 2,
+          "name": "x",
+          "typeToken": "unknown",
+          "rawSpec": "{x}",
+          "source": "xlsx"
+        },
+        {
+          "index": 3,
+          "name": "y",
+          "typeToken": "unknown",
+          "rawSpec": "{y}",
+          "source": "xlsx"
+        },
+        {
+          "index": 4,
+          "name": "dir",
+          "typeToken": "unknown",
+          "rawSpec": "{dir}",
+          "source": "xlsx"
+        },
+        {
+          "index": 5,
+          "name": "flg",
+          "typeToken": "unknown",
+          "rawSpec": "{flg}",
+          "source": "xlsx"
+        },
+        {
+          "index": 6,
+          "name": "no",
+          "typeToken": "unknown",
+          "rawSpec": "{no}",
+          "source": "xlsx"
+        },
+        {
+          "index": 7,
+          "name": "data",
+          "typeToken": "unknown",
+          "rawSpec": "{data}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "vI",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_ABI ADDRESSBOOK_sendAddressbookTableOne",
+      "rawFormat": "{registry} {data}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "registry",
+          "typeToken": "unknown",
+          "rawSpec": "{registry}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "data",
+          "typeToken": "unknown",
+          "rawSpec": "{data}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "GC",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "进行中",
+      "description": "SEND_GC addGuildMember 加入家族",
+      "rawFormat": "",
+      "originalFormat": "GC",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "aDn",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "进行中",
+      "description": "SEND_GI guildinfo",
+      "rawFormat": "{data} {flag:i62}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "data",
+          "typeToken": "unknown",
+          "rawSpec": "{data}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "flag",
+          "typeToken": "i62",
+          "rawSpec": "{flag:i62}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "znv",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "进行中",
+      "description": "SEND_GT guildtitle",
+      "rawFormat": "{data}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "data",
+          "typeToken": "unknown",
+          "rawSpec": "{data}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "yuD",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "进行中",
+      "description": "SEND_GM guildmember",
+      "rawFormat": "{data}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "data",
+          "typeToken": "unknown",
+          "rawSpec": "{data}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "Kka",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "进行中",
+      "description": "SEND_GMI guildmemberinfo",
+      "rawFormat": "{index} {data}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "index",
+          "typeToken": "unknown",
+          "rawSpec": "{index}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "data",
+          "typeToken": "unknown",
+          "rawSpec": "{data}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "oRut",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "进行中",
+      "description": "SEND_RGM 开除回执",
+      "rawFormat": "{registseqnumber}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "registseqnumber",
+          "typeToken": "unknown",
+          "rawSpec": "{registseqnumber}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "Rll",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "进行中",
+      "description": "SEND_GML 家族邮件",
+      "rawFormat": "{fromregistseqnumber} {text} {color}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "fromregistseqnumber",
+          "typeToken": "unknown",
+          "rawSpec": "{fromregistseqnumber}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "text",
+          "typeToken": "unknown",
+          "rawSpec": "{text}",
+          "source": "xlsx"
+        },
+        {
+          "index": 2,
+          "name": "color",
+          "typeToken": "unknown",
+          "rawSpec": "{color}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "frQp",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "进行中",
+      "description": "SEND_GD 退出或解散家族",
+      "rawFormat": "{guildId}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "guildId",
+          "typeToken": "unknown",
+          "rawSpec": "{guildId}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "eZT",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "进行中",
+      "description": "SEND_PRL 收到profile list",
+      "rawFormat": "{data}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "data",
+          "typeToken": "unknown",
+          "rawSpec": "{data}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "IUn",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "进行中",
+      "description": "SEND_PRA 收到about list",
+      "rawFormat": "{data}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "data",
+          "typeToken": "unknown",
+          "rawSpec": "{data}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "DpSY",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "进行中",
+      "description": "SEND_PRD profile data",
+      "rawFormat": "{name} {lv} {job} {title} {guildName} {graphic} {sid} {smsg} {bid} {bmsg} {aid} {amsg} {pmsg}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "name",
+          "typeToken": "unknown",
+          "rawSpec": "{name}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "lv",
+          "typeToken": "unknown",
+          "rawSpec": "{lv}",
+          "source": "xlsx"
+        },
+        {
+          "index": 2,
+          "name": "job",
+          "typeToken": "unknown",
+          "rawSpec": "{job}",
+          "source": "xlsx"
+        },
+        {
+          "index": 3,
+          "name": "title",
+          "typeToken": "unknown",
+          "rawSpec": "{title}",
+          "source": "xlsx"
+        },
+        {
+          "index": 4,
+          "name": "guildName",
+          "typeToken": "unknown",
+          "rawSpec": "{guildName}",
+          "source": "xlsx"
+        },
+        {
+          "index": 5,
+          "name": "graphic",
+          "typeToken": "unknown",
+          "rawSpec": "{graphic}",
+          "source": "xlsx"
+        },
+        {
+          "index": 6,
+          "name": "sid",
+          "typeToken": "unknown",
+          "rawSpec": "{sid}",
+          "source": "xlsx"
+        },
+        {
+          "index": 7,
+          "name": "smsg",
+          "typeToken": "unknown",
+          "rawSpec": "{smsg}",
+          "source": "xlsx"
+        },
+        {
+          "index": 8,
+          "name": "bid",
+          "typeToken": "unknown",
+          "rawSpec": "{bid}",
+          "source": "xlsx"
+        },
+        {
+          "index": 9,
+          "name": "bmsg",
+          "typeToken": "unknown",
+          "rawSpec": "{bmsg}",
+          "source": "xlsx"
+        },
+        {
+          "index": 10,
+          "name": "aid",
+          "typeToken": "unknown",
+          "rawSpec": "{aid}",
+          "source": "xlsx"
+        },
+        {
+          "index": 11,
+          "name": "amsg",
+          "typeToken": "unknown",
+          "rawSpec": "{amsg}",
+          "source": "xlsx"
+        },
+        {
+          "index": 12,
+          "name": "pmsg",
+          "typeToken": "unknown",
+          "rawSpec": "{pmsg}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "cNB",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "进行中",
+      "description": "SEND_PRE 删除迷你邮件成员",
+      "rawFormat": "{data}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "data",
+          "typeToken": "unknown",
+          "rawSpec": "{data}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "ow",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "进行中",
+      "description": "SEND_PRM 迷你信件回执?",
+      "rawFormat": "{profileIndex} {dtext} {color}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "profileIndex",
+          "typeToken": "unknown",
+          "rawSpec": "{profileIndex}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "dtext",
+          "typeToken": "unknown",
+          "rawSpec": "{dtext}",
+          "source": "xlsx"
+        },
+        {
+          "index": 2,
+          "name": "color",
+          "typeToken": "unknown",
+          "rawSpec": "{color}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "DyAG",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "进行中",
+      "description": "SEND_PRW 交流版",
+      "rawFormat": "{} {} {} {} {data}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "",
+          "typeToken": "unknown",
+          "rawSpec": "{}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "",
+          "typeToken": "unknown",
+          "rawSpec": "{}",
+          "source": "xlsx"
+        },
+        {
+          "index": 2,
+          "name": "",
+          "typeToken": "unknown",
+          "rawSpec": "{}",
+          "source": "xlsx"
+        },
+        {
+          "index": 3,
+          "name": "",
+          "typeToken": "unknown",
+          "rawSpec": "{}",
+          "source": "xlsx"
+        },
+        {
+          "index": 4,
+          "name": "data",
+          "typeToken": "unknown",
+          "rawSpec": "{data}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "KyN",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "进行中",
+      "description": "SEND_PRAD 收到迷你信件",
+      "rawFormat": "{data}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "data",
+          "typeToken": "unknown",
+          "rawSpec": "{data}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "zdr",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_TK",
+      "rawFormat": "",
+      "formatEmpty": true,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "IsSy",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_KP",
+      "rawFormat": "",
+      "formatEmpty": true,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "AU",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_KP2",
+      "rawFormat": "",
+      "formatEmpty": true,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "TNT",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_PP",
+      "rawFormat": "",
+      "formatEmpty": true,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "JJQj",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_CN",
+      "rawFormat": "",
+      "formatEmpty": true,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "Rspn",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_CT",
+      "rawFormat": "",
+      "formatEmpty": true,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "OBee",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_PT",
+      "rawFormat": "",
+      "formatEmpty": true,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "Yo",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "暂缓",
+      "description": "SEND_S",
+      "rawFormat": "",
+      "formatEmpty": true,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "sZWu",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "暂缓",
+      "description": "SEND_HL",
+      "rawFormat": "",
+      "formatEmpty": true,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "bNY",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_PR",
+      "rawFormat": "",
+      "formatEmpty": true,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "ysVc",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_GFL CHAR_sendFrontCharList",
+      "rawFormat": "",
+      "formatEmpty": true,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "ND",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_GPD CHAR_sendCharAndPetList",
+      "rawFormat": "",
+      "formatEmpty": true,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "LY",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_GFLI CHAR_sendFrontCharList",
+      "rawFormat": "",
+      "formatEmpty": true,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "nFV",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_GPDI CHAR_sendCharAndPetList",
+      "rawFormat": "",
+      "formatEmpty": true,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "JgO",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_TU techuse",
+      "rawFormat": "",
+      "formatEmpty": true,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "Cxo",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_TRPL CHAR_Trade_getPlayerList 获得可交易人员列表",
+      "rawFormat": "",
+      "formatEmpty": true,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "ms",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_TRS CHAR_Trade_startTrade 被交易",
+      "rawFormat": "",
+      "formatEmpty": true,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "NdM",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_TROP CHAR_Trade_setTradeList 对方取出物品",
+      "rawFormat": "",
+      "formatEmpty": true,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "nUbJ",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_TRLI CHAR_Trade_setTradeList 对方物品信息",
+      "rawFormat": "",
+      "formatEmpty": true,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "hJq",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_TRLG CHAR_Trade_setTradeList 对方金币信息",
+      "rawFormat": "",
+      "formatEmpty": true,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "RwK",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_TRLP CHAR_Trade_setTradeList 对法宠物信息",
+      "rawFormat": "",
+      "formatEmpty": true,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "Yq",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_TRLPS CHAR_Trade_setTradeList 对方宠物技能信息",
+      "rawFormat": "",
+      "formatEmpty": true,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "xEg",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "暂缓",
+      "description": "SEND_TRCL CHAR_Trade_closeItem",
+      "rawFormat": "",
+      "formatEmpty": true,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "We",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_TROC",
+      "rawFormat": "",
+      "originalFormat": "0终止 1确认 2完成",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "BHe",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "暂缓",
+      "description": "SEND_PS",
+      "rawFormat": "",
+      "formatEmpty": true,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "kg",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_LVUP",
+      "rawFormat": "",
+      "formatEmpty": true,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "sA",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_PLVUP",
+      "rawFormat": "",
+      "formatEmpty": true,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "BZ",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_WN",
+      "rawFormat": "{windowtype} {buttontype} {seqno} {objindex} {data:es}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "windowtype",
+          "typeToken": "unknown",
+          "rawSpec": "{windowtype}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "buttontype",
+          "typeToken": "unknown",
+          "rawSpec": "{buttontype}",
+          "source": "xlsx"
+        },
+        {
+          "index": 2,
+          "name": "seqno",
+          "typeToken": "unknown",
+          "rawSpec": "{seqno}",
+          "source": "xlsx"
+        },
+        {
+          "index": 3,
+          "name": "objindex",
+          "typeToken": "unknown",
+          "rawSpec": "{objindex}",
+          "source": "xlsx"
+        },
+        {
+          "index": 4,
+          "name": "data",
+          "typeToken": "es",
+          "rawSpec": "{data:es}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "TFCu",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_SE",
+      "rawFormat": "",
+      "formatEmpty": true,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "wiB",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_BGMW",
+      "rawFormat": "",
+      "formatEmpty": true,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "bJg",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_PC send_palette 变换调色板",
+      "rawFormat": "{palnumber} {frameCnt}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "palnumber",
+          "typeToken": "unknown",
+          "rawSpec": "{palnumber}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "frameCnt",
+          "typeToken": "unknown",
+          "rawSpec": "{frameCnt}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "PVfz",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_SH 可移动动画（船，鲸鱼）",
+      "rawFormat": "{type} {mapId} {floorId} {x} {y}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "type",
+          "typeToken": "unknown",
+          "rawSpec": "{type}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "mapId",
+          "typeToken": "unknown",
+          "rawSpec": "{mapId}",
+          "source": "xlsx"
+        },
+        {
+          "index": 2,
+          "name": "floorId",
+          "typeToken": "unknown",
+          "rawSpec": "{floorId}",
+          "source": "xlsx"
+        },
+        {
+          "index": 3,
+          "name": "x",
+          "typeToken": "unknown",
+          "rawSpec": "{x}",
+          "source": "xlsx"
+        },
+        {
+          "index": 4,
+          "name": "y",
+          "typeToken": "unknown",
+          "rawSpec": "{y}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "murD",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_PLAYSE",
+      "rawFormat": "",
+      "formatEmpty": true,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "ftaN",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_ES NPC_sePlayMySePlay",
+      "rawFormat": "{seno} {x} {y}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "seno",
+          "typeToken": "unknown",
+          "rawSpec": "{seno}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "x",
+          "typeToken": "unknown",
+          "rawSpec": "{x}",
+          "source": "xlsx"
+        },
+        {
+          "index": 2,
+          "name": "y",
+          "typeToken": "unknown",
+          "rawSpec": "{y}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "DZ",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_CreateNewChar",
+      "rawFormat": "",
+      "formatEmpty": true,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "oy",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_CharDelete",
+      "rawFormat": "",
+      "formatEmpty": true,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "cJzI",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "暂缓",
+      "description": "SEND_ProcGet",
+      "rawFormat": "",
+      "formatEmpty": true,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "Bi",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "暂缓",
+      "description": "SEND_PlayerNumGet",
+      "rawFormat": "",
+      "formatEmpty": true,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "ed",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "暂缓",
+      "description": "SEND_PVUP 历史迁移封包",
+      "rawFormat": "",
+      "formatEmpty": true,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "Expire",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "暂缓",
+      "description": "SEND_Expire",
+      "rawFormat": "",
+      "formatEmpty": true,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "Tmrx",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_StallStart",
+      "rawFormat": "{result}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "result",
+          "typeToken": "unknown",
+          "rawSpec": "{result}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "KXhH",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_StallEnd",
+      "rawFormat": "{result}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "result",
+          "typeToken": "unknown",
+          "rawSpec": "{result}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "ft",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_StallBrowse",
+      "rawFormat": "{result} {name} {description} {item} {pet}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "result",
+          "typeToken": "unknown",
+          "rawSpec": "{result}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "name",
+          "typeToken": "unknown",
+          "rawSpec": "{name}",
+          "source": "xlsx"
+        },
+        {
+          "index": 2,
+          "name": "description",
+          "typeToken": "unknown",
+          "rawSpec": "{description}",
+          "source": "xlsx"
+        },
+        {
+          "index": 3,
+          "name": "item",
+          "typeToken": "unknown",
+          "rawSpec": "{item}",
+          "source": "xlsx"
+        },
+        {
+          "index": 4,
+          "name": "pet",
+          "typeToken": "unknown",
+          "rawSpec": "{pet}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "Yx",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_StallBuy",
+      "rawFormat": "{result}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "result",
+          "typeToken": "unknown",
+          "rawSpec": "{result}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "iKe",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "完成",
+      "description": "SEND_PET_ITEM",
+      "rawFormat": "",
+      "formatEmpty": true,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "kiG",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "待办",
+      "description": "SEND_PET_ITEM_SWAP 在人或宠物间移动装备",
+      "rawFormat": "{fromChar} {fromSlot} {toChar} {toSlot}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "fromChar",
+          "typeToken": "unknown",
+          "rawSpec": "{fromChar}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "fromSlot",
+          "typeToken": "unknown",
+          "rawSpec": "{fromSlot}",
+          "source": "xlsx"
+        },
+        {
+          "index": 2,
+          "name": "toChar",
+          "typeToken": "unknown",
+          "rawSpec": "{toChar}",
+          "source": "xlsx"
+        },
+        {
+          "index": 3,
+          "name": "toSlot",
+          "typeToken": "unknown",
+          "rawSpec": "{toSlot}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "TgX",
+      "direction": "服务端->客户端",
+      "legacyKind": "SEND",
+      "clientNamespace": "receive",
+      "xlsxStatus": "待办",
+      "description": "SEND_EQUIP_SUIT",
+      "rawFormat": "{data}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "data",
+          "typeToken": "unknown",
+          "rawSpec": "{data}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "cEj",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_JB",
+      "rawFormat": "{x} {y}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "x",
+          "typeToken": "unknown",
+          "rawSpec": "{x}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "y",
+          "typeToken": "unknown",
+          "rawSpec": "{y}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "IMv",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_LB WatchTry 触发一次Watch？会重置玩家位置到x, y, Δx,Δy>1时会发送XYD封包重置玩家位置",
+      "rawFormat": "{x} {y}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "x",
+          "typeToken": "unknown",
+          "rawSpec": "{x}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "y",
+          "typeToken": "unknown",
+          "rawSpec": "{y}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "Rg",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_B BattleCommand 战斗指令",
+      "rawFormat": "{cmd:es}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "cmd",
+          "typeToken": "es",
+          "rawSpec": "{cmd:es}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "Ak",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_ID ITEM_USE 使用物品",
+      "rawFormat": "{x} {y} {haveitemindex} {toindex}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "x",
+          "typeToken": "unknown",
+          "rawSpec": "{x}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "y",
+          "typeToken": "unknown",
+          "rawSpec": "{y}",
+          "source": "xlsx"
+        },
+        {
+          "index": 2,
+          "name": "haveitemindex",
+          "typeToken": "unknown",
+          "rawSpec": "{haveitemindex}",
+          "source": "xlsx"
+        },
+        {
+          "index": 3,
+          "name": "toindex",
+          "typeToken": "unknown",
+          "rawSpec": "{toindex}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "iVfo",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_IDF ITEM_useRecovery_Field 使用回复物品",
+      "rawFormat": "{x} {y} {haveitemindex} {toindex}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "x",
+          "typeToken": "unknown",
+          "rawSpec": "{x}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "y",
+          "typeToken": "unknown",
+          "rawSpec": "{y}",
+          "source": "xlsx"
+        },
+        {
+          "index": 2,
+          "name": "haveitemindex",
+          "typeToken": "unknown",
+          "rawSpec": "{haveitemindex}",
+          "source": "xlsx"
+        },
+        {
+          "index": 3,
+          "name": "toindex",
+          "typeToken": "unknown",
+          "rawSpec": "{toindex}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "fIM",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_PI PickUpItem 捡起物品",
+      "rawFormat": "{x} {y} {dir}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "x",
+          "typeToken": "unknown",
+          "rawSpec": "{x}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "y",
+          "typeToken": "unknown",
+          "rawSpec": "{y}",
+          "source": "xlsx"
+        },
+        {
+          "index": 2,
+          "name": "dir",
+          "typeToken": "unknown",
+          "rawSpec": "{dir}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "QpfE",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_DI DropItem 丢物品",
+      "rawFormat": "{x} {y} {who} {itemindex}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "x",
+          "typeToken": "unknown",
+          "rawSpec": "{x}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "y",
+          "typeToken": "unknown",
+          "rawSpec": "{y}",
+          "source": "xlsx"
+        },
+        {
+          "index": 2,
+          "name": "who",
+          "typeToken": "unknown",
+          "rawSpec": "{who}",
+          "source": "xlsx"
+        },
+        {
+          "index": 3,
+          "name": "itemindex",
+          "typeToken": "unknown",
+          "rawSpec": "{itemindex}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "woz",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_DG DropGold 丢金币",
+      "rawFormat": "{x} {y} {amount}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "x",
+          "typeToken": "unknown",
+          "rawSpec": "{x}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "y",
+          "typeToken": "unknown",
+          "rawSpec": "{y}",
+          "source": "xlsx"
+        },
+        {
+          "index": 2,
+          "name": "amount",
+          "typeToken": "unknown",
+          "rawSpec": "{amount}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "FvWm",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_DP DropPet 丢宠物",
+      "rawFormat": "{x} {y} {petindex}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "x",
+          "typeToken": "unknown",
+          "rawSpec": "{x}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "y",
+          "typeToken": "unknown",
+          "rawSpec": "{y}",
+          "source": "xlsx"
+        },
+        {
+          "index": 2,
+          "name": "petindex",
+          "typeToken": "unknown",
+          "rawSpec": "{petindex}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "yi",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_MI MoveItem 移动物品",
+      "rawFormat": "{fromindex} {toindex} {num}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "fromindex",
+          "typeToken": "unknown",
+          "rawSpec": "{fromindex}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "toindex",
+          "typeToken": "unknown",
+          "rawSpec": "{toindex}",
+          "source": "xlsx"
+        },
+        {
+          "index": 2,
+          "name": "num",
+          "typeToken": "unknown",
+          "rawSpec": "{num}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "fS",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_IR RequestItemRecipe 获取配方",
+      "rawFormat": "{haveskillindex}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "haveskillindex",
+          "typeToken": "unknown",
+          "rawSpec": "{haveskillindex}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "CV",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_MSG 发送邮件信息 触发SEND_MSG",
+      "rawFormat": "{index} {message:es} {color}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "index",
+          "typeToken": "unknown",
+          "rawSpec": "{index}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "message",
+          "typeToken": "es",
+          "rawSpec": "{message:es}",
+          "source": "xlsx"
+        },
+        {
+          "index": 2,
+          "name": "color",
+          "typeToken": "unknown",
+          "rawSpec": "{color}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "kza",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_ALI 请求图鉴数据 触发SEND_ALI",
+      "rawFormat": "{albumid}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "albumid",
+          "typeToken": "unknown",
+          "rawSpec": "{albumid}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "LaR",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_ALN 请求图鉴名字 触发 SEND_ALN",
+      "rawFormat": "{albumid}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "albumid",
+          "typeToken": "unknown",
+          "rawSpec": "{albumid}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "rMsv",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_PMSG 发送宠邮",
+      "rawFormat": "{index} {petindex} {itemindex} {message} {color}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "index",
+          "typeToken": "unknown",
+          "rawSpec": "{index}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "petindex",
+          "typeToken": "unknown",
+          "rawSpec": "{petindex}",
+          "source": "xlsx"
+        },
+        {
+          "index": 2,
+          "name": "itemindex",
+          "typeToken": "unknown",
+          "rawSpec": "{itemindex}",
+          "source": "xlsx"
+        },
+        {
+          "index": 3,
+          "name": "message",
+          "typeToken": "unknown",
+          "rawSpec": "{message}",
+          "source": "xlsx"
+        },
+        {
+          "index": 4,
+          "name": "color",
+          "typeToken": "unknown",
+          "rawSpec": "{color}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "FPkR",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_DAB 删除名片",
+      "rawFormat": "{index}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "index",
+          "typeToken": "unknown",
+          "rawSpec": "{index}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "vcAz",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_AAB 交互名片",
+      "rawFormat": "{x} {y}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "x",
+          "typeToken": "unknown",
+          "rawSpec": "{x}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "y",
+          "typeToken": "unknown",
+          "rawSpec": "{y}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "Ufm",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "进行中",
+      "description": "RECV_GI 变更家族信息",
+      "rawFormat": "{c} {data:es}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "c",
+          "typeToken": "unknown",
+          "rawSpec": "{c}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "data",
+          "typeToken": "es",
+          "rawSpec": "{data:es}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "GY",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "进行中",
+      "description": "RECV_GT 设置家族职位信息",
+      "rawFormat": "{index} {bitflag} {data:es}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "index",
+          "typeToken": "unknown",
+          "rawSpec": "{index}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "bitflag",
+          "typeToken": "unknown",
+          "rawSpec": "{bitflag}",
+          "source": "xlsx"
+        },
+        {
+          "index": 2,
+          "name": "data",
+          "typeToken": "es",
+          "rawSpec": "{data:es}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "CZ",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "进行中",
+      "description": "RECV_GMR 请求家族成员列表",
+      "rawFormat": "{time}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "time",
+          "typeToken": "unknown",
+          "rawSpec": "{time}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "uHb",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "进行中",
+      "description": "RECV_BGT  变更家族成员职位",
+      "rawFormat": "{index} {title}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "index",
+          "typeToken": "unknown",
+          "rawSpec": "{index}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "title",
+          "typeToken": "unknown",
+          "rawSpec": "{title}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "npzi",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_AGM 家族邀请",
+      "rawFormat": "{x} {y}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "x",
+          "typeToken": "unknown",
+          "rawSpec": "{x}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "y",
+          "typeToken": "unknown",
+          "rawSpec": "{y}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "XIsR",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "进行中",
+      "description": "RECV_LG 离开家族",
+      "rawFormat": "{id}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "id",
+          "typeToken": "unknown",
+          "rawSpec": "{id}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "dbQC",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "进行中",
+      "description": "RECV_RGM 移除家族成员",
+      "rawFormat": "{index}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "index",
+          "typeToken": "unknown",
+          "rawSpec": "{index}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "uId",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "进行中",
+      "description": "RECV_GML 家族邮件",
+      "rawFormat": "{toregistNumber} {text} {color}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "toregistNumber",
+          "typeToken": "unknown",
+          "rawSpec": "{toregistNumber}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "text",
+          "typeToken": "unknown",
+          "rawSpec": "{text}",
+          "source": "xlsx"
+        },
+        {
+          "index": 2,
+          "name": "color",
+          "typeToken": "unknown",
+          "rawSpec": "{color}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "PfqV",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "进行中",
+      "description": "RECV_PGML 宠邮",
+      "rawFormat": "{toregist} {petSlot} {itemSlot} {text} {color}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "toregist",
+          "typeToken": "unknown",
+          "rawSpec": "{toregist}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "petSlot",
+          "typeToken": "unknown",
+          "rawSpec": "{petSlot}",
+          "source": "xlsx"
+        },
+        {
+          "index": 2,
+          "name": "itemSlot",
+          "typeToken": "unknown",
+          "rawSpec": "{itemSlot}",
+          "source": "xlsx"
+        },
+        {
+          "index": 3,
+          "name": "text",
+          "typeToken": "unknown",
+          "rawSpec": "{text}",
+          "source": "xlsx"
+        },
+        {
+          "index": 4,
+          "name": "color",
+          "typeToken": "unknown",
+          "rawSpec": "{color}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "nkda",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "进行中",
+      "description": "RECV_GD 解散家族",
+      "rawFormat": "",
+      "originalFormat": "nkda",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "HoW",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "待办",
+      "description": "RECV_PRV 获取profile",
+      "rawFormat": "{flg}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "flg",
+          "typeToken": "unknown",
+          "rawSpec": "{flg}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "TLKH",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "进行中",
+      "description": "RECV_PRD 关闭stall后发送",
+      "rawFormat": "{flg} {index}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "flg",
+          "typeToken": "unknown",
+          "rawSpec": "{flg}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "index",
+          "typeToken": "unknown",
+          "rawSpec": "{index}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "wD",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "待办",
+      "description": "RECV_PRE 删除迷你邮件好友",
+      "rawFormat": "{} {name}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "",
+          "typeToken": "unknown",
+          "rawSpec": "{}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "name",
+          "typeToken": "unknown",
+          "rawSpec": "{name}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "GH",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "待办",
+      "description": "RECV_PRM 发送迷你邮件",
+      "rawFormat": "{data} {color}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "data",
+          "typeToken": "unknown",
+          "rawSpec": "{data}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "color",
+          "typeToken": "unknown",
+          "rawSpec": "{color}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "nB",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "暂缓",
+      "description": "RECV_L",
+      "rawFormat": "",
+      "formatEmpty": true,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "uSr",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_TK 发送聊天",
+      "rawFormat": "{x} {y} {msg} {color} {area} {fontSize}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "x",
+          "typeToken": "unknown",
+          "rawSpec": "{x}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "y",
+          "typeToken": "unknown",
+          "rawSpec": "{y}",
+          "source": "xlsx"
+        },
+        {
+          "index": 2,
+          "name": "msg",
+          "typeToken": "unknown",
+          "rawSpec": "{msg}",
+          "source": "xlsx"
+        },
+        {
+          "index": 3,
+          "name": "color",
+          "typeToken": "unknown",
+          "rawSpec": "{color}",
+          "source": "xlsx"
+        },
+        {
+          "index": 4,
+          "name": "area",
+          "typeToken": "unknown",
+          "rawSpec": "{area}",
+          "source": "xlsx"
+        },
+        {
+          "index": 5,
+          "name": "fontSize",
+          "typeToken": "unknown",
+          "rawSpec": "{fontSize}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "dcMv",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_FS 战易聊队状态",
+      "rawFormat": "{status}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "status",
+          "typeToken": "unknown",
+          "rawSpec": "{status}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "FVm",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "暂缓",
+      "description": "RECV_HL",
+      "rawFormat": "",
+      "formatEmpty": true,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "zn",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_PR 进出队伍",
+      "rawFormat": "{x} {y} {join}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "x",
+          "typeToken": "unknown",
+          "rawSpec": "{x}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "y",
+          "typeToken": "unknown",
+          "rawSpec": "{y}",
+          "source": "xlsx"
+        },
+        {
+          "index": 2,
+          "name": "join",
+          "typeToken": "unknown",
+          "rawSpec": "{join}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "LKQy",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_KS PET_SelectBattleEntryPet 宠物战斗状态",
+      "rawFormat": "{statut0} {statut1} {statut2} {statut3} {statut4}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "statut0",
+          "typeToken": "unknown",
+          "rawSpec": "{statut0}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "statut1",
+          "typeToken": "unknown",
+          "rawSpec": "{statut1}",
+          "source": "xlsx"
+        },
+        {
+          "index": 2,
+          "name": "statut2",
+          "typeToken": "unknown",
+          "rawSpec": "{statut2}",
+          "source": "xlsx"
+        },
+        {
+          "index": 3,
+          "name": "statut3",
+          "typeToken": "unknown",
+          "rawSpec": "{statut3}",
+          "source": "xlsx"
+        },
+        {
+          "index": 4,
+          "name": "statut4",
+          "typeToken": "unknown",
+          "rawSpec": "{statut4}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "Ukuy",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_MP PET_MovePet 移动宠物",
+      "rawFormat": "{from} {to}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "from",
+          "typeToken": "unknown",
+          "rawSpec": "{from}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "to",
+          "typeToken": "unknown",
+          "rawSpec": "{to}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "iET",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_GFL CHAR_sendFrontCharList 技能角色列表",
+      "rawFormat": "{skill}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "skill",
+          "typeToken": "unknown",
+          "rawSpec": "{skill}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "McVa",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_GPD CHAR_sendCharAndPetList 技能角色宠物列表",
+      "rawFormat": "{charSlot}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "charSlot",
+          "typeToken": "unknown",
+          "rawSpec": "{charSlot}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "as",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_GFLI CHAR_sendFrontCharList 物品角色列表",
+      "rawFormat": "",
+      "originalFormat": "as",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "mjCv",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_GPDI CHAR_sendCharAndPetList 物品角色宠物列表",
+      "rawFormat": "{charSlot}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "charSlot",
+          "typeToken": "unknown",
+          "rawSpec": "{charSlot}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "BG",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_IH Item_useHanko 盖章",
+      "rawFormat": "{toslot} {fromslot}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "toslot",
+          "typeToken": "unknown",
+          "rawSpec": "{toslot}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "fromslot",
+          "typeToken": "unknown",
+          "rawSpec": "{fromslot}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "MIS",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_AC 角色动作",
+      "rawFormat": "{x} {y} {action}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "x",
+          "typeToken": "unknown",
+          "rawSpec": "{x}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "y",
+          "typeToken": "unknown",
+          "rawSpec": "{y}",
+          "source": "xlsx"
+        },
+        {
+          "index": 2,
+          "name": "action",
+          "typeToken": "unknown",
+          "rawSpec": "{action}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "klF",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_ACS 生产技能图标",
+      "rawFormat": "{x} {y} {icon}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "x",
+          "typeToken": "unknown",
+          "rawSpec": "{x}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "y",
+          "typeToken": "unknown",
+          "rawSpec": "{y}",
+          "source": "xlsx"
+        },
+        {
+          "index": 2,
+          "name": "icon",
+          "typeToken": "unknown",
+          "rawSpec": "{icon}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "RXr",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "暂缓",
+      "description": "RECV_MU",
+      "rawFormat": "",
+      "formatEmpty": true,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "sM",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_TU tech_use 使用技能",
+      "rawFormat": "{skill} {tech} {to} {receipe}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "skill",
+          "typeToken": "unknown",
+          "rawSpec": "{skill}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "tech",
+          "typeToken": "unknown",
+          "rawSpec": "{tech}",
+          "source": "xlsx"
+        },
+        {
+          "index": 2,
+          "name": "to",
+          "typeToken": "unknown",
+          "rawSpec": "{to}",
+          "source": "xlsx"
+        },
+        {
+          "index": 3,
+          "name": "receipe",
+          "typeToken": "unknown",
+          "rawSpec": "{receipe}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "ixH",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_TRPL 请求交易",
+      "rawFormat": "",
+      "originalFormat": "ixH",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "QeuC",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_TRS CHAR_Trade_startTrade 从交易列表选择交易对象",
+      "rawFormat": "{slot}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "slot",
+          "typeToken": "unknown",
+          "rawSpec": "{slot}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "aiAb",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_TROP CHAR_Trade_setTradeList 取出物品",
+      "rawFormat": "{item} {pet} {gold}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "item",
+          "typeToken": "unknown",
+          "rawSpec": "{item}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "pet",
+          "typeToken": "unknown",
+          "rawSpec": "{pet}",
+          "source": "xlsx"
+        },
+        {
+          "index": 2,
+          "name": "gold",
+          "typeToken": "unknown",
+          "rawSpec": "{gold}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "suI",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_TRCL CHAR_Trade_closeItem 取消交易",
+      "rawFormat": "",
+      "originalFormat": "suI",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "OU",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_TROC CHAR_Trade_closeTrade 确认物品",
+      "rawFormat": "{result}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "result",
+          "typeToken": "unknown",
+          "rawSpec": "{result}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "Flvp",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "暂缓",
+      "description": "RECV_PS",
+      "rawFormat": "",
+      "formatEmpty": true,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "zGp",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_ST CHAR_selectTitle 设置称号",
+      "rawFormat": "{slot}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "slot",
+          "typeToken": "unknown",
+          "rawSpec": "{slot}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "tj",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_DT CHAR_deleteTitle 删除称号",
+      "rawFormat": "{slot}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "slot",
+          "typeToken": "unknown",
+          "rawSpec": "{slot}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "ACwB",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_FT CHAR_inputOwnTitle 自定义称号",
+      "rawFormat": "{title}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "title",
+          "typeToken": "unknown",
+          "rawSpec": "{title}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "IHw",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_LVUP 人物加点",
+      "rawFormat": "{sqeno}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "sqeno",
+          "typeToken": "unknown",
+          "rawSpec": "{sqeno}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "kjSK",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_PLVUP 宠物加点",
+      "rawFormat": "{petSlot} {sqeno}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "petSlot",
+          "typeToken": "unknown",
+          "rawSpec": "{petSlot}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "sqeno",
+          "typeToken": "unknown",
+          "rawSpec": "{sqeno}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "Noeb",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_SKSW SKILL_swap 人物技能移动",
+      "rawFormat": "{from} {to}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "from",
+          "typeToken": "unknown",
+          "rawSpec": "{from}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "to",
+          "typeToken": "unknown",
+          "rawSpec": "{to}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "HJQp",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_PSSW SKILL_swapPetSkill 宠物技能移动",
+      "rawFormat": "{petSlot} {from} {to}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "petSlot",
+          "typeToken": "unknown",
+          "rawSpec": "{petSlot}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "from",
+          "typeToken": "unknown",
+          "rawSpec": "{from}",
+          "source": "xlsx"
+        },
+        {
+          "index": 2,
+          "name": "to",
+          "typeToken": "unknown",
+          "rawSpec": "{to}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "ih",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_POS CHAR_Position 战斗位置",
+      "rawFormat": "",
+      "originalFormat": "ih",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "ycX",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_KN CHAR_inputUserPetName 宠物姓名",
+      "rawFormat": "{petSlot} {name}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "petSlot",
+          "typeToken": "unknown",
+          "rawSpec": "{petSlot}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "name",
+          "typeToken": "unknown",
+          "rawSpec": "{name}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "xD",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_WN 打开系统窗口",
+      "rawFormat": "{x} {y} {seqno} {objindex} {select} {data:es}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "x",
+          "typeToken": "unknown",
+          "rawSpec": "{x}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "y",
+          "typeToken": "unknown",
+          "rawSpec": "{y}",
+          "source": "xlsx"
+        },
+        {
+          "index": 2,
+          "name": "seqno",
+          "typeToken": "unknown",
+          "rawSpec": "{seqno}",
+          "source": "xlsx"
+        },
+        {
+          "index": 3,
+          "name": "objindex",
+          "typeToken": "unknown",
+          "rawSpec": "{objindex}",
+          "source": "xlsx"
+        },
+        {
+          "index": 4,
+          "name": "select",
+          "typeToken": "unknown",
+          "rawSpec": "{select}",
+          "source": "xlsx"
+        },
+        {
+          "index": 5,
+          "name": "data",
+          "typeToken": "es",
+          "rawSpec": "{data:es}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "cZt",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_SP 离队时发送",
+      "rawFormat": "",
+      "originalFormat": "cZt x:i62 y:i62 dir:i62",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "aSEl",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_CreateNewChar 创建角色",
+      "rawFormat": "{dataPlace} {name} {image} {face} {vital} {strength} {tough} {quick} {magic} {earth} {water} {fire} {wind}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "dataPlace",
+          "typeToken": "unknown",
+          "rawSpec": "{dataPlace}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "name",
+          "typeToken": "unknown",
+          "rawSpec": "{name}",
+          "source": "xlsx"
+        },
+        {
+          "index": 2,
+          "name": "image",
+          "typeToken": "unknown",
+          "rawSpec": "{image}",
+          "source": "xlsx"
+        },
+        {
+          "index": 3,
+          "name": "face",
+          "typeToken": "unknown",
+          "rawSpec": "{face}",
+          "source": "xlsx"
+        },
+        {
+          "index": 4,
+          "name": "vital",
+          "typeToken": "unknown",
+          "rawSpec": "{vital}",
+          "source": "xlsx"
+        },
+        {
+          "index": 5,
+          "name": "strength",
+          "typeToken": "unknown",
+          "rawSpec": "{strength}",
+          "source": "xlsx"
+        },
+        {
+          "index": 6,
+          "name": "tough",
+          "typeToken": "unknown",
+          "rawSpec": "{tough}",
+          "source": "xlsx"
+        },
+        {
+          "index": 7,
+          "name": "quick",
+          "typeToken": "unknown",
+          "rawSpec": "{quick}",
+          "source": "xlsx"
+        },
+        {
+          "index": 8,
+          "name": "magic",
+          "typeToken": "unknown",
+          "rawSpec": "{magic}",
+          "source": "xlsx"
+        },
+        {
+          "index": 9,
+          "name": "earth",
+          "typeToken": "unknown",
+          "rawSpec": "{earth}",
+          "source": "xlsx"
+        },
+        {
+          "index": 10,
+          "name": "water",
+          "typeToken": "unknown",
+          "rawSpec": "{water}",
+          "source": "xlsx"
+        },
+        {
+          "index": 11,
+          "name": "fire",
+          "typeToken": "unknown",
+          "rawSpec": "{fire}",
+          "source": "xlsx"
+        },
+        {
+          "index": 12,
+          "name": "wind",
+          "typeToken": "unknown",
+          "rawSpec": "{wind}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "Godf",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_CharDelete 删除角色",
+      "rawFormat": "{registNumber}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "registNumber",
+          "typeToken": "unknown",
+          "rawSpec": "{registNumber}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "yp",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "暂缓",
+      "description": "RECV_ProcGet gm命令？",
+      "rawFormat": "",
+      "formatEmpty": true,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "rvb",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "暂缓",
+      "description": "RECV_PlayerNumGet",
+      "rawFormat": "",
+      "formatEmpty": true,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "IcE",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "暂缓",
+      "description": "RECV_Shutdown",
+      "rawFormat": "",
+      "formatEmpty": true,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "PGXE",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_CH cheat 检测作弊",
+      "rawFormat": "{type}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "type",
+          "typeToken": "unknown",
+          "rawSpec": "{type}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "lO",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_CharLoginGate 回登陆点",
+      "rawFormat": "",
+      "originalFormat": "lO",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "Xoee",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "暂缓",
+      "description": "RECV_PVUP 历史迁移封包",
+      "rawFormat": "{mode} {productkey}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "mode",
+          "typeToken": "unknown",
+          "rawSpec": "{mode}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "productkey",
+          "typeToken": "unknown",
+          "rawSpec": "{productkey}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "ylGN",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_StallStart 开始摆摊请求",
+      "rawFormat": "{stallName} {stallDescription} {stallList}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "stallName",
+          "typeToken": "unknown",
+          "rawSpec": "{stallName}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "stallDescription",
+          "typeToken": "unknown",
+          "rawSpec": "{stallDescription}",
+          "source": "xlsx"
+        },
+        {
+          "index": 2,
+          "name": "stallList",
+          "typeToken": "unknown",
+          "rawSpec": "{stallList}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "JMh",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_StallEnd 结束摆摊请求",
+      "rawFormat": "",
+      "originalFormat": "JMh",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "ElVN",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_StallBrowse 摆摊浏览请求",
+      "rawFormat": "{objIndex}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "objIndex",
+          "typeToken": "unknown",
+          "rawSpec": "{objIndex}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "wAo",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_StallBuy 摆摊购买请求",
+      "rawFormat": "{slot}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "slot",
+          "typeToken": "unknown",
+          "rawSpec": "{slot}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "IPy",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_ProduceTime 生产时间",
+      "rawFormat": "{time(s)}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "time(s)",
+          "typeToken": "unknown",
+          "rawSpec": "{time(s)}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "rh",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_BankPage 银行翻页",
+      "rawFormat": "{page}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "page",
+          "typeToken": "unknown",
+          "rawSpec": "{page}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "Cpa",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_PET_ITEM_MOVE 移动宠物装备",
+      "rawFormat": "{fromChar} {fromItem} {toChar} {toItem} {pile}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "fromChar",
+          "typeToken": "unknown",
+          "rawSpec": "{fromChar}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "fromItem",
+          "typeToken": "unknown",
+          "rawSpec": "{fromItem}",
+          "source": "xlsx"
+        },
+        {
+          "index": 2,
+          "name": "toChar",
+          "typeToken": "unknown",
+          "rawSpec": "{toChar}",
+          "source": "xlsx"
+        },
+        {
+          "index": 3,
+          "name": "toItem",
+          "typeToken": "unknown",
+          "rawSpec": "{toItem}",
+          "source": "xlsx"
+        },
+        {
+          "index": 4,
+          "name": "pile",
+          "typeToken": "unknown",
+          "rawSpec": "{pile}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "SWITM",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_BagPage 背包翻页",
+      "rawFormat": "{page}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "page",
+          "typeToken": "unknown",
+          "rawSpec": "{page}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "SWITMP",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_BagPageMove 移动物品",
+      "rawFormat": "{fromSlot} {toPage} {toSlot}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "fromSlot",
+          "typeToken": "unknown",
+          "rawSpec": "{fromSlot}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "toPage",
+          "typeToken": "unknown",
+          "rawSpec": "{toPage}",
+          "source": "xlsx"
+        },
+        {
+          "index": 2,
+          "name": "toSlot",
+          "typeToken": "unknown",
+          "rawSpec": "{toSlot}",
+          "source": "xlsx"
+        }
+      ]
+    },
+    {
+      "code": "SWITMM",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "暂缓",
+      "description": "RECV_BagPageMgr 菜单型背包窗口",
+      "rawFormat": "",
+      "originalFormat": "SWITMM",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": []
+    },
+    {
+      "code": "SWITMP2",
+      "direction": "客户端->服务端",
+      "legacyKind": "RECV",
+      "clientNamespace": "send",
+      "xlsxStatus": "完成",
+      "description": "RECV_BagPageMoveEx 移动物品",
+      "rawFormat": "{fromPage} {fromSlot} {toPage} {toSlot}",
+      "formatEmpty": false,
+      "source": "xlsx",
+      "fields": [
+        {
+          "index": 0,
+          "name": "fromPage",
+          "typeToken": "unknown",
+          "rawSpec": "{fromPage}",
+          "source": "xlsx"
+        },
+        {
+          "index": 1,
+          "name": "fromSlot",
+          "typeToken": "unknown",
+          "rawSpec": "{fromSlot}",
+          "source": "xlsx"
+        },
+        {
+          "index": 2,
+          "name": "toPage",
+          "typeToken": "unknown",
+          "rawSpec": "{toPage}",
+          "source": "xlsx"
+        },
+        {
+          "index": 3,
+          "name": "toSlot",
+          "typeToken": "unknown",
+          "rawSpec": "{toSlot}",
+          "source": "xlsx"
+        }
+      ]
+    }
+  ]
+}

@@ -67,6 +67,10 @@ namespace cg::packet
             {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
         }};
 
+        inline constexpr std::array<PacketFieldSpec, 1> ItemInfoListFields = {{
+            {"data", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
+        }};
+
         inline constexpr std::array<PacketFieldSpec, 2> AlbumFlagsFields = {{
             {"albumversion", PacketFieldType::Int62, PacketSourceTag::Xlsx},
             {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
@@ -225,7 +229,7 @@ namespace cg::packet
             {"y2", PacketFieldType::Int62, PacketSourceTag::Xlsx},
         }};
 
-        inline constexpr std::array<PacketSpec, 39> PacketRegistry = {{
+        inline constexpr std::array<PacketSpec, 40> PacketRegistry = {{
             {
                 "JFVf",
                 PacketDirection::ClientToServer,
@@ -281,6 +285,13 @@ namespace cg::packet
                 PacketSourceTag::Xlsx,
                 ItemDataFields.data(),
                 ItemDataFields.size(),
+            },
+            {
+                "ELoy",
+                PacketDirection::ServerToClient,
+                PacketSourceTag::ServerC,
+                ItemInfoListFields.data(),
+                ItemInfoListFields.size(),
             },
             {
                 "Ilz",

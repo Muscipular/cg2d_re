@@ -1618,11 +1618,22 @@
       "direction": "服务端->客户端",
       "legacyKind": "SEND",
       "clientNamespace": "receive",
-      "xlsxStatus": "暂缓",
+      "xlsxStatus": "完成",
       "description": "SEND_IA 道具信息相关",
       "rawFormat": "",
       "formatEmpty": true,
       "source": "xlsx",
+      "resolvedFormat": "{data:es}",
+      "resolvedSource": "ServerC+ClientIda+src",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "data",
+          "typeToken": "es",
+          "rawSpec": "{data:es}",
+          "source": "ServerC+ClientIda+src"
+        }
+      ],
       "fields": []
     },
     {

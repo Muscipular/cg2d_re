@@ -3935,6 +3935,388 @@ namespace cg::packet::receive
     };
 
     /**
+     * SEND_IA 道具信息槽：nameRaw|color|descriptionRaw|imageNo|canUseInField|battleUseFlag|target|level|flag|itemId|itemType|count|memoRaw。
+     */
+    struct ItemInfoSlot
+    {
+        std::string nameRaw;
+        int color = 0;
+        std::string descriptionRaw;
+        int imageNo = 0;
+        int canUseInField = 0;
+        int battleUseFlag = 0;
+        int target = 0;
+        int level = 0;
+        int flag = 0;
+        int itemId = 0;
+        int itemType = 0;
+        int count = 0;
+        std::string memoRaw;
+        bool emptySlot = true;
+    };
+
+    /**
+     * SEND_IA nrproto_IA_send		ELoy {data:es}
+     * data: ignored0 + 28 个隐式道具槽；每槽 13 段，无显式 slotIndex。
+     */
+    struct ItemInfoList
+    {
+        static constexpr std::string_view Code = "ELoy";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::string_view PayloadDelimiter = "|";
+        static constexpr std::size_t SlotCount = 28U;
+        static constexpr std::size_t SlotFieldCount = 13U;
+
+        std::string ignored0;
+        std::array<ItemInfoSlot, SlotCount> slots = {};
+
+        ItemInfoList(std::string ignored0, std::array<ItemInfoSlot, SlotCount> slots)
+            : ignored0(std::move(ignored0)),
+              slots(std::move(slots))
+        {
+        }
+
+        [[nodiscard]] std::string BuildData() const
+        {
+            if (ignored0.empty() && IsAllSlotsEmpty()) {
+                return {};
+            }
+
+            std::vector<std::string> parts;
+            parts.reserve(1U + (SlotCount * SlotFieldCount));
+            parts.push_back(ignored0);
+
+            for (const ItemInfoSlot& slot : slots) {
+                if (slot.emptySlot) {
+                    for (std::size_t index = 0; index < SlotFieldCount; ++index) {
+                        parts.emplace_back();
+                    }
+                    continue;
+                }
+
+                parts.push_back(slot.nameRaw);
+                parts.push_back(std::to_string(slot.color));
+                parts.push_back(slot.descriptionRaw);
+                parts.push_back(std::to_string(slot.imageNo));
+                parts.push_back(std::to_string(slot.canUseInField));
+                parts.push_back(std::to_string(slot.battleUseFlag));
+                parts.push_back(std::to_string(slot.target));
+                parts.push_back(std::to_string(slot.level));
+                parts.push_back(std::to_string(slot.flag));
+                parts.push_back(std::to_string(slot.itemId));
+                parts.push_back(std::to_string(slot.itemType));
+                parts.push_back(std::to_string(slot.count));
+                parts.push_back(slot.memoRaw);
+            }
+
+            PacketResult<std::string> payload = BuildPayload(
+                std::span<const std::string>(parts.data(), parts.size()),
+                PayloadDelimiter);
+            if (payload.HasValue()) {
+                return payload.Value();
+            }
+
+            return {};
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ServerC);
+            packet.fields.push_back(PacketField {
+                "data",
+                PacketFieldType::EscapedString,
+                BuildData(),
+                PacketSourceTag::ServerC,
+            });
+            return packet;
+        }
+
+        static PacketResult<ItemInfoList> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view);
+            if (!parsed.HasValue()) {
+                return PacketResult<ItemInfoList>::Failure(parsed.Error());
+            }
+
+            const Packet& packet = parsed.Value();
+            if (packet.code.View() != Code) {
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "ItemInfoList Parse 收到非 ELoy 封包");
+                error.packetCode = packet.code;
+                return PacketResult<ItemInfoList>::Failure(std::move(error));
+            }
+
+            if (packet.direction != Direction) {
+                return PacketResult<ItemInfoList>::Failure(MakePacketError(
+                    PacketErrorCode::DecodeFailed,
+                    "ItemInfoList Parse 封包方向不匹配"));
+            }
+
+            if (packet.fields.size() != FieldCount) {
+                return PacketResult<ItemInfoList>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "ItemInfoList Parse 字段数量不匹配",
+                    packet.fields.empty() ? 0U : FieldCount));
+            }
+
+            const PacketField& field = packet.fields[DataFieldIndex];
+            if (field.name != "data") {
+                return PacketResult<ItemInfoList>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "ItemInfoList Parse 字段名不匹配",
+                    DataFieldIndex));
+            }
+
+            if (field.type != PacketFieldType::EscapedString) {
+                return PacketResult<ItemInfoList>::Failure(MakeFieldError(
+                    PacketErrorCode::InvalidFieldType,
+                    "ItemInfoList Parse 字段类型不匹配",
+                    DataFieldIndex));
+            }
+
+            return ParseData(field.value);
+        }
+
+    private:
+        static constexpr std::size_t FieldCount = 1U;
+        static constexpr std::size_t DataFieldIndex = 0U;
+        static constexpr std::size_t TotalPayloadFieldCount = 1U + (SlotCount * SlotFieldCount);
+
+        [[nodiscard]] bool IsAllSlotsEmpty() const
+        {
+            for (const ItemInfoSlot& slot : slots) {
+                if (!slot.emptySlot) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            error.source = PacketSourceTag::ServerC;
+            return error;
+        }
+
+        [[nodiscard]] static PacketError MakeFieldError(
+            PacketErrorCode code,
+            std::string message,
+            std::size_t fieldIndex)
+        {
+            PacketError error = MakePacketError(code, std::move(message));
+            error.fieldIndex = fieldIndex;
+            return error;
+        }
+
+        [[nodiscard]] static PacketResult<ItemInfoList> ParseData(std::string_view payload)
+        {
+            if (payload.empty()) {
+                return PacketResult<ItemInfoList>::Success(ItemInfoList(std::string(), {}));
+            }
+
+            PacketResult<std::vector<std::string>> split = SplitPayload(payload, PayloadDelimiter);
+            if (!split.HasValue()) {
+                PacketError error = split.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = DataFieldIndex;
+                error.source = PacketSourceTag::ServerC;
+                return PacketResult<ItemInfoList>::Failure(std::move(error));
+            }
+
+            std::vector<std::string> parts = std::move(split.Value());
+            if (parts.size() != TotalPayloadFieldCount) {
+                return PacketResult<ItemInfoList>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "ItemInfoList payload 段数量不匹配",
+                    DataFieldIndex));
+            }
+
+            std::array<ItemInfoSlot, SlotCount> slots = {};
+            for (std::size_t slotIndex = 0; slotIndex < SlotCount; ++slotIndex) {
+                const std::size_t baseIndex = 1U + (slotIndex * SlotFieldCount);
+                if (IsEmptySlot(parts, baseIndex)) {
+                    continue;
+                }
+
+                PacketResult<ItemInfoSlot> slot = ParseSlot(parts, baseIndex);
+                if (!slot.HasValue()) {
+                    return PacketResult<ItemInfoList>::Failure(slot.Error());
+                }
+                slots[slotIndex] = std::move(slot.Value());
+            }
+
+            return PacketResult<ItemInfoList>::Success(ItemInfoList(std::move(parts[0]), std::move(slots)));
+        }
+
+        [[nodiscard]] static bool IsEmptySlot(const std::vector<std::string>& parts, std::size_t baseIndex)
+        {
+            for (std::size_t index = 0; index < SlotFieldCount; ++index) {
+                if (!parts[baseIndex + index].empty()) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        [[nodiscard]] static PacketResult<ItemInfoSlot> ParseSlot(
+            const std::vector<std::string>& parts,
+            std::size_t baseIndex)
+        {
+            PacketResult<int> color = ParseDecimalField(parts[baseIndex + 1U], baseIndex + 1U);
+            if (!color.HasValue()) {
+                return PacketResult<ItemInfoSlot>::Failure(color.Error());
+            }
+
+            PacketResult<int> imageNo = ParseDecimalField(parts[baseIndex + 3U], baseIndex + 3U);
+            if (!imageNo.HasValue()) {
+                return PacketResult<ItemInfoSlot>::Failure(imageNo.Error());
+            }
+
+            PacketResult<int> canUseInField = ParseDecimalField(parts[baseIndex + 4U], baseIndex + 4U);
+            if (!canUseInField.HasValue()) {
+                return PacketResult<ItemInfoSlot>::Failure(canUseInField.Error());
+            }
+
+            PacketResult<int> battleUseFlag = ParseDecimalField(parts[baseIndex + 5U], baseIndex + 5U);
+            if (!battleUseFlag.HasValue()) {
+                return PacketResult<ItemInfoSlot>::Failure(battleUseFlag.Error());
+            }
+
+            PacketResult<int> target = ParseDecimalField(parts[baseIndex + 6U], baseIndex + 6U);
+            if (!target.HasValue()) {
+                return PacketResult<ItemInfoSlot>::Failure(target.Error());
+            }
+
+            PacketResult<int> level = ParseDecimalField(parts[baseIndex + 7U], baseIndex + 7U);
+            if (!level.HasValue()) {
+                return PacketResult<ItemInfoSlot>::Failure(level.Error());
+            }
+
+            PacketResult<int> flag = ParseDecimalField(parts[baseIndex + 8U], baseIndex + 8U);
+            if (!flag.HasValue()) {
+                return PacketResult<ItemInfoSlot>::Failure(flag.Error());
+            }
+
+            PacketResult<int> itemId = ParseDecimalField(parts[baseIndex + 9U], baseIndex + 9U);
+            if (!itemId.HasValue()) {
+                return PacketResult<ItemInfoSlot>::Failure(itemId.Error());
+            }
+
+            PacketResult<int> itemType = ParseDecimalField(parts[baseIndex + 10U], baseIndex + 10U);
+            if (!itemType.HasValue()) {
+                return PacketResult<ItemInfoSlot>::Failure(itemType.Error());
+            }
+
+            PacketResult<int> count = ParseDecimalField(parts[baseIndex + 11U], baseIndex + 11U);
+            if (!count.HasValue()) {
+                return PacketResult<ItemInfoSlot>::Failure(count.Error());
+            }
+
+            PacketResult<std::string> nameRaw = ValidateRawStringField(parts[baseIndex], baseIndex);
+            if (!nameRaw.HasValue()) {
+                return PacketResult<ItemInfoSlot>::Failure(nameRaw.Error());
+            }
+
+            PacketResult<std::string> descriptionRaw = ValidateRawStringField(parts[baseIndex + 2U], baseIndex + 2U);
+            if (!descriptionRaw.HasValue()) {
+                return PacketResult<ItemInfoSlot>::Failure(descriptionRaw.Error());
+            }
+
+            PacketResult<std::string> memoRaw = ValidateRawStringField(parts[baseIndex + 12U], baseIndex + 12U);
+            if (!memoRaw.HasValue()) {
+                return PacketResult<ItemInfoSlot>::Failure(memoRaw.Error());
+            }
+
+            return PacketResult<ItemInfoSlot>::Success(ItemInfoSlot {
+                std::move(nameRaw.Value()),
+                color.Value(),
+                std::move(descriptionRaw.Value()),
+                imageNo.Value(),
+                canUseInField.Value(),
+                battleUseFlag.Value(),
+                target.Value(),
+                level.Value(),
+                flag.Value(),
+                itemId.Value(),
+                itemType.Value(),
+                count.Value(),
+                std::move(memoRaw.Value()),
+                false,
+            });
+        }
+
+        [[nodiscard]] static PacketResult<std::string> ValidateRawStringField(
+            std::string_view text,
+            std::size_t fieldIndex)
+        {
+            for (std::size_t index = 0; index < text.size(); ++index) {
+                if (!cg::packet::detail::IsLegacyDoubleByteLead(text[index])) {
+                    continue;
+                }
+
+                if (index + 1U >= text.size()) {
+                    return PacketResult<std::string>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "ItemInfoList raw 字符串旧双字节字符被截断",
+                        fieldIndex));
+                }
+                ++index;
+            }
+
+            return PacketResult<std::string>::Success(std::string(text));
+        }
+
+        [[nodiscard]] static PacketResult<int> ParseDecimalField(std::string_view text, std::size_t fieldIndex)
+        {
+            bool negative = false;
+            std::size_t index = 0;
+            if (!text.empty() && text.front() == '-') {
+                negative = true;
+                index = 1U;
+            }
+
+            if (index == text.size()) {
+                return PacketResult<int>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "ItemInfoList 十进制字段为空",
+                    fieldIndex));
+            }
+
+            const std::int64_t maxValue = static_cast<std::int64_t>(std::numeric_limits<int>::max());
+            const std::int64_t minValue = static_cast<std::int64_t>(std::numeric_limits<int>::min());
+            const std::int64_t limit = negative ? (0 - minValue) : maxValue;
+            std::int64_t value = 0;
+
+            for (; index < text.size(); ++index) {
+                const char ch = text[index];
+                if (ch < '0' || ch > '9') {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "ItemInfoList 十进制字段包含非法字符",
+                        fieldIndex));
+                }
+
+                const int digit = ch - '0';
+                if (value > (limit - digit) / 10) {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "ItemInfoList 十进制字段超出 int 范围",
+                        fieldIndex));
+                }
+
+                value = (value * 10) + digit;
+            }
+
+            if (negative) {
+                value = -value;
+            }
+
+            return PacketResult<int>::Success(static_cast<int>(value));
+        }
+    };
+
+    /**
      * SEND_AL 图鉴页标志		Ilz {albumversion:i62} {data:es}
      * data: `page0|page1|...|`，page 为 raw decimal int；不在 codec 展开每页 bit 语义。
      */

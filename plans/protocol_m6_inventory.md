@@ -87,7 +87,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | M6.11.10 角色/Profile封包-ow | `ow` | 服务端->客户端 | 否 | 完成 | SEND_PRM 迷你信件回执；旧 C 字段 `{profileIndex:i62} {dtext:es} {color:i62}`，dtext 按旧 C 修正为 es，保留 raw string，不拆内部 `|` |
 | M6.11.11 角色/Profile封包-DyAG | `DyAG` | 服务端->客户端 | 否 | 完成 | SEND_PRW 交流版；xlsx `{}` 按旧 C `nrproto_PRW_send` 修正为 `{windowType:i62} {buttonType:i62} {seqNo:i62} {objectIndex:i62} {data:es}`；data 使用 `\z` 表示逻辑 `|` |
 | M6.11.12 角色/Profile封包-KyN | `KyN` | 服务端->客户端 | 否 | 完成 | SEND_PRAD 收到迷你信件；xlsx 原 schema `{data}` 按旧 C `nrproto_mkstr_string(data)` 修正为 `data/es`；payload 为 `profileIndex|faceImageNumber|level|name|guildName|ownTitle|senderProfileIndex|sentTimeText|message||color`，第 10 段固定为空，数值字段为 raw decimal |
-| M6.11.13 角色/Profile封包-TNT | `TNT` | 服务端->客户端 | 是 | 字段待补 | SEND_PP |
+| M6.11.13 角色/Profile封包-TNT | `TNT` | 服务端->客户端 | 是 | 完成 | SEND_PP；xlsx rawFormat 为空，字段由旧 C `nrproto_PP_send(int fd, char* data)` + 客户端 IDA 补足；外层 `{data:es}`；payload 为 1..5 条 `objectIndex|hp|maxHp|forcePoint|maxForcePoint|` 记录，objectIndex 为 i62，其余为 raw decimal，整体保留尾随 `|` |
 | M6.11.14 角色/Profile封包-JJQj | `JJQj` | 服务端->客户端 | 是 | 字段待补 | SEND_CN |
 | M6.11.15 角色/Profile封包-Rspn | `Rspn` | 服务端->客户端 | 是 | 字段待补 | SEND_CT |
 | M6.11.16 角色/Profile封包-OBee | `OBee` | 服务端->客户端 | 是 | 字段待补 | SEND_PT |
@@ -175,6 +175,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | `ow` | 服务端->客户端 | `cg::packet::receive::ProfileMailReceipt` | `{profileIndex:i62} {dtext:es} {color:i62}` | M6.11.10 已实现；按旧 C `SEND_PRM/nrproto_PRM_send` 修正 `dtext` 为 es；`dtext` 保存 raw 字符串，不拆内部 `sentTimeText|message|` |
 | `DyAG` | 服务端->客户端 | `cg::packet::receive::ProfileWindow` | `{windowType:i62} {buttonType:i62} {seqNo:i62} {objectIndex:i62} {data:es}` | M6.11.11 已实现；xlsx `{}` 按旧 C `SEND_PRW/nrproto_PRW_send` 修正字段类型；`data` 按字面 `\z` 拆逻辑段，仅解析 START flags、PROFILELIST 20 条记录和 PROFILEMAIL 14 段 |
 | `KyN` | 服务端->客户端 | `cg::packet::receive::ProfileMailArrive` | `{data:es}` | M6.11.12 已实现；xlsx 原 schema `{data}` 按旧 C `SEND_PRAD/nrproto_PRAD_send` 修正为 `data/es`；`data` 为 `profileIndex|faceImageNumber|level|name|guildName|ownTitle|senderProfileIndex|sentTimeText|message||color`，第 10 段固定为空并回写保留，数值字段为 raw decimal |
+| `TNT` | 服务端->客户端 | `cg::packet::receive::PartyParam` | `{data:es}` | M6.11.13 已实现；xlsx rawFormat 为空，字段由旧 C `SEND_PP/nrproto_PP_send` + 客户端 IDA 补足；`data` 为 1..5 条 `objectIndex|hp|maxHp|forcePoint|maxForcePoint|` 记录，objectIndex 为 i62，其余为 raw decimal，整体保留尾随 `|` |
 | `TeD` | 服务端->客户端 | `cg::packet::receive::MapName` | `{data:es}` | M6.10.01 已实现；仅保留 `data`，不拆二级 payload |
 | `nsY` | 服务端->客户端 | `cg::packet::receive::ObjectList` | `{data:es}` | M6.10.02 已实现；`data` 按字面 `\t` 拆 object record，record 按 `|` 保留 raw fields；仅校验 4、7、>=16 字段和 objectIndex i62，不拆 ownTitle/petInfo suffix |
 | `NI` | 服务端->客户端 | `cg::packet::receive::CharacterIcon` | `{data:es}` | M6.10.03 已实现；按旧 C `nrproto_CA_send` 修正为单外层 `data`，不实现 xlsx `caInfo` 外层字段；`data` 按 `,` 拆 entry、按 `|` 保留 raw fields；仅校验 5、6、8、12 字段和 objectIndex i62 |
@@ -267,7 +268,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 80 | `zdr` | 服务端->客户端 | 完成 | SEND_TK | 是 | 是 | 待 C/IDA 补全 |
 | 81 | `IsSy` | 服务端->客户端 | 完成 | SEND_KP | 是 | 是 | 待 C/IDA 补全 |
 | 82 | `AU` | 服务端->客户端 | 完成 | SEND_KP2 | 是 | 是 | 待 C/IDA 补全 |
-| 83 | `TNT` | 服务端->客户端 | 完成 | SEND_PP | 是 | 是 | 待 C/IDA 补全 |
+| 83 | `TNT` | 服务端->客户端 | 完成 | SEND_PP | 是 | 是 | 旧 C + IDA + src/packet |
 | 84 | `JJQj` | 服务端->客户端 | 完成 | SEND_CN | 是 | 是 | 待 C/IDA 补全 |
 | 85 | `Rspn` | 服务端->客户端 | 完成 | SEND_CT | 是 | 是 | 待 C/IDA 补全 |
 | 86 | `OBee` | 服务端->客户端 | 完成 | SEND_PT | 是 | 是 | 待 C/IDA 补全 |

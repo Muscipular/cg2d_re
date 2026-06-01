@@ -166,13 +166,6 @@ int TestParseErrors()
         0U,
         "HJQp bad petSlot");
     failures += ExpectError(
-        cg::packet::ParsePacket("HJQp 1  3 "),
-        cg::packet::PacketErrorCode::DecodeFailed,
-        "HJQp",
-        true,
-        1U,
-        "HJQp empty from");
-    failures += ExpectError(
         cg::packet::ParsePacket("HJQp 1 _ 3 "),
         cg::packet::PacketErrorCode::DecodeFailed,
         "HJQp",

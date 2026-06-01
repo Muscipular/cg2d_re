@@ -594,15 +594,6 @@ namespace cg::packet
 
             switch (fieldSpec.type) {
             case PacketFieldType::Int62: {
-                if (token.empty()) {
-                    PacketError error = detail::MakeParserError(
-                        PacketErrorCode::DecodeFailed,
-                        "i62 字段为空",
-                        fieldSpec.source);
-                    detail::FillErrorContext(error, code, index);
-                    return PacketResult<Packet>::Failure(std::move(error));
-                }
-
                 PacketResult<int> decoded = DecodeInt62(token);
                 if (!decoded.HasValue()) {
                     PacketError error = decoded.Error();

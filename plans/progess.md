@@ -192,6 +192,7 @@
 | 2026-06-02 | M6.11.26 宠物技能移动 HJQp 实现 | 新增 `send::PetSkillSwap`，code `HJQp`，客户端到服务端；`PacketParser` 注册 `{petSlot:i62} {from:i62} {to:i62}`；新增 `cg-packet-pet-skill-swap-test` 覆盖 Encode、Parse、`10/61/62 -> a/Z/10`、缺字段、多字段、非法 i62、错误 code 和手写空 i62；schema 保留 raw xlsx 并补 resolved 信息，M6 清单同步完成 | 待验证：`git diff --check`、VS bundled CMake configure、Debug 构建新增目标、CTest Debug `^cg-packet-` | 不实现相邻 `Noeb/ycX`；不添加 petSlot/from/to 业务范围校验 |
 | 2026-06-02 | M6.11.26 宠物技能移动 HJQp 验证 | 复跑格式检查、VS bundled CMake configure、Debug 新增目标构建与执行、packet CTest | `git diff --check` 通过，仅 LF/CRLF 提示；PATH 无 `cmake`，改用 VS bundled CMake；VS bundled CMake configure 通过；Debug 构建并运行 `cg-packet-pet-skill-swap-test` 通过；CTest Debug `^cg-packet-` 40/40 通过 | 不实现相邻 `Noeb/ycX`；未使用 subAgent 工具：当前环境未提供可调用 subAgent/线程工具 |
 | 2026-06-02 | M6.11.26 宠物技能移动 HJQp 空 i62 补充 | `PacketParser` 对 `Int62` 空 token 增加 `DecodeFailed` 拦截；`cg-packet-pet-skill-swap-test` 补充 `HJQp 1  3 ` 解析失败覆盖 | `git diff --check` 通过，仅 LF/CRLF 提示；Debug 构建并运行 `cg-packet-pet-skill-swap-test` 通过；CTest Debug `^cg-packet-` 40/40 通过 | 该拦截适用于所有已注册 `Int62` 字段；保留底层 `DecodeInt62("") == 0` codec 兼容测试 |
+| 2026-06-02 | M6.11.26 HJQp 空 i62 review 修复 | 恢复 `ParsePacket` 对空 `Int62` token 走 `DecodeInt62` 的全局行为；移除 HJQp parse 空 i62 必须失败断言，保留 `BuildPacket` 手写空 i62 字段失败覆盖 | `git diff --check` 通过，仅 LF/CRLF 提示；VS bundled CMake Debug 构建并运行 `cg-packet-parser-test` 通过；VS bundled CMake Debug 构建并运行 `cg-packet-pet-skill-swap-test` 通过；CTest Debug `^cg-packet-` 40/40 通过 | 不实现新封包；不改变 HJQp 字段/方向/ToPacket/Encode/schema |
 
 ## 工具补充
 

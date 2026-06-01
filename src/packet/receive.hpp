@@ -3658,6 +3658,251 @@ namespace cg::packet::receive
         int nonPlayerFlag = 0;
     };
 
+    namespace detail
+    {
+        struct FrontCharListCodec
+        {
+            static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+            static constexpr std::string_view PayloadDelimiter = "|";
+            static constexpr std::size_t FieldCount = 1U;
+            static constexpr std::size_t DataFieldIndex = 0U;
+            static constexpr std::size_t RecordFieldCount = 2U;
+
+            [[nodiscard]] static PacketResult<std::string> BuildData(
+                std::span<const FrontCharRecord> records,
+                std::string_view code,
+                std::string_view packetName)
+            {
+                std::string payload;
+                for (std::size_t recordIndex = 0; recordIndex < records.size(); ++recordIndex) {
+                    const FrontCharRecord& record = records[recordIndex];
+                    if (record.nonPlayerFlag != 0 && record.nonPlayerFlag != 1) {
+                        return PacketResult<std::string>::Failure(MakeFieldError(
+                            code,
+                            PacketErrorCode::EncodeFailed,
+                            MakeMessage(packetName, "nonPlayerFlag 只能为 0 或 1"),
+                            (recordIndex * RecordFieldCount) + 1U));
+                    }
+
+                    payload.append(record.name);
+                    payload.push_back('|');
+                    payload.append(std::to_string(record.nonPlayerFlag));
+                    payload.push_back('|');
+                }
+                return PacketResult<std::string>::Success(std::move(payload));
+            }
+
+            [[nodiscard]] static PacketResult<Packet> ToPacket(
+                std::span<const FrontCharRecord> records,
+                std::string_view code,
+                std::string_view packetName)
+            {
+                PacketResult<std::string> data = BuildData(records, code, packetName);
+                if (!data.HasValue()) {
+                    return PacketResult<Packet>::Failure(data.Error());
+                }
+
+                Packet packet(PacketCode(code), Direction, PacketSourceTag::ServerC);
+                packet.fields.push_back(PacketField {
+                    "data",
+                    PacketFieldType::EscapedString,
+                    data.Value(),
+                    PacketSourceTag::ServerC,
+                });
+                return PacketResult<Packet>::Success(std::move(packet));
+            }
+
+            [[nodiscard]] static PacketResult<std::vector<FrontCharRecord>> Parse(
+                std::string_view view,
+                std::string_view code,
+                std::string_view packetName)
+            {
+                PacketResult<Packet> parsed = ParsePacket(view);
+                if (!parsed.HasValue()) {
+                    return PacketResult<std::vector<FrontCharRecord>>::Failure(parsed.Error());
+                }
+
+                const Packet& packet = parsed.Value();
+                if (packet.code.View() != code) {
+                    PacketError error = MakePacketError(
+                        code,
+                        PacketErrorCode::InvalidCode,
+                        MakeMessage(packetName, "Parse 收到非目标封包"));
+                    error.packetCode = packet.code;
+                    return PacketResult<std::vector<FrontCharRecord>>::Failure(std::move(error));
+                }
+
+                if (packet.direction != Direction) {
+                    return PacketResult<std::vector<FrontCharRecord>>::Failure(MakePacketError(
+                        code,
+                        PacketErrorCode::DecodeFailed,
+                        MakeMessage(packetName, "Parse 封包方向不匹配")));
+                }
+
+                if (packet.fields.size() != FieldCount) {
+                    return PacketResult<std::vector<FrontCharRecord>>::Failure(MakeFieldError(
+                        code,
+                        PacketErrorCode::FieldCountMismatch,
+                        MakeMessage(packetName, "Parse 字段数量不匹配"),
+                        packet.fields.empty() ? 0U : FieldCount));
+                }
+
+                const PacketField& field = packet.fields[DataFieldIndex];
+                if (field.name != "data") {
+                    return PacketResult<std::vector<FrontCharRecord>>::Failure(MakeFieldError(
+                        code,
+                        PacketErrorCode::DecodeFailed,
+                        MakeMessage(packetName, "Parse 字段名不匹配"),
+                        DataFieldIndex));
+                }
+
+                if (field.type != PacketFieldType::EscapedString) {
+                    return PacketResult<std::vector<FrontCharRecord>>::Failure(MakeFieldError(
+                        code,
+                        PacketErrorCode::InvalidFieldType,
+                        MakeMessage(packetName, "Parse 字段类型不匹配"),
+                        DataFieldIndex));
+                }
+
+                return ParseRecords(field.value, code, packetName);
+            }
+
+        private:
+            [[nodiscard]] static std::string MakeMessage(std::string_view packetName, std::string_view text)
+            {
+                std::string message(packetName);
+                message.push_back(' ');
+                message.append(text);
+                return message;
+            }
+
+            [[nodiscard]] static PacketError MakePacketError(
+                std::string_view code,
+                PacketErrorCode errorCode,
+                std::string message)
+            {
+                PacketError error = PacketError::Make(errorCode, std::move(message));
+                error.packetCode = PacketCode(code);
+                error.source = PacketSourceTag::ServerC;
+                return error;
+            }
+
+            [[nodiscard]] static PacketError MakeFieldError(
+                std::string_view code,
+                PacketErrorCode errorCode,
+                std::string message,
+                std::size_t fieldIndex)
+            {
+                PacketError error = MakePacketError(code, errorCode, std::move(message));
+                error.fieldIndex = fieldIndex;
+                return error;
+            }
+
+            [[nodiscard]] static PacketResult<std::vector<FrontCharRecord>> ParseRecords(
+                std::string_view payload,
+                std::string_view code,
+                std::string_view packetName)
+            {
+                if (payload.empty()) {
+                    return PacketResult<std::vector<FrontCharRecord>>::Success({});
+                }
+
+                if (payload.back() != '|') {
+                    return PacketResult<std::vector<FrontCharRecord>>::Failure(MakeFieldError(
+                        code,
+                        PacketErrorCode::DecodeFailed,
+                        MakeMessage(packetName, "payload 缺少尾随分隔符"),
+                        DataFieldIndex));
+                }
+
+                PacketResult<std::vector<std::string>> split = SplitPayload(payload, PayloadDelimiter);
+                if (!split.HasValue()) {
+                    PacketError error = split.Error();
+                    error.packetCode = PacketCode(code);
+                    error.fieldIndex = DataFieldIndex;
+                    error.source = PacketSourceTag::ServerC;
+                    return PacketResult<std::vector<FrontCharRecord>>::Failure(std::move(error));
+                }
+
+                std::vector<std::string> parts = std::move(split.Value());
+                parts.pop_back();
+                if ((parts.size() % RecordFieldCount) != 0U) {
+                    return PacketResult<std::vector<FrontCharRecord>>::Failure(MakeFieldError(
+                        code,
+                        PacketErrorCode::FieldCountMismatch,
+                        MakeMessage(packetName, "payload 段数量不是 2 的倍数"),
+                        DataFieldIndex));
+                }
+
+                std::vector<FrontCharRecord> records;
+                records.reserve(parts.size() / RecordFieldCount);
+                for (std::size_t recordIndex = 0; recordIndex < parts.size() / RecordFieldCount; ++recordIndex) {
+                    const std::size_t baseIndex = recordIndex * RecordFieldCount;
+                    PacketResult<int> nonPlayerFlag =
+                        ParseNonPlayerFlag(parts[baseIndex + 1U], baseIndex + 1U, code, packetName);
+                    if (!nonPlayerFlag.HasValue()) {
+                        return PacketResult<std::vector<FrontCharRecord>>::Failure(nonPlayerFlag.Error());
+                    }
+
+                    records.push_back(FrontCharRecord {
+                        parts[baseIndex],
+                        nonPlayerFlag.Value(),
+                    });
+                }
+
+                return PacketResult<std::vector<FrontCharRecord>>::Success(std::move(records));
+            }
+
+            [[nodiscard]] static PacketResult<int> ParseNonPlayerFlag(
+                std::string_view text,
+                std::size_t fieldIndex,
+                std::string_view code,
+                std::string_view packetName)
+            {
+                if (text.empty()) {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        code,
+                        PacketErrorCode::DecodeFailed,
+                        MakeMessage(packetName, "nonPlayerFlag 为空"),
+                        fieldIndex));
+                }
+
+                const std::int64_t maxValue = static_cast<std::int64_t>(std::numeric_limits<int>::max());
+                std::int64_t value = 0;
+                for (const char ch : text) {
+                    if (ch < '0' || ch > '9') {
+                        return PacketResult<int>::Failure(MakeFieldError(
+                            code,
+                            PacketErrorCode::DecodeFailed,
+                            MakeMessage(packetName, "nonPlayerFlag 包含非十进制字符"),
+                            fieldIndex));
+                    }
+
+                    const int digit = ch - '0';
+                    if (value > (maxValue - digit) / 10) {
+                        return PacketResult<int>::Failure(MakeFieldError(
+                            code,
+                            PacketErrorCode::DecodeFailed,
+                            MakeMessage(packetName, "nonPlayerFlag 超出 int 范围"),
+                            fieldIndex));
+                    }
+
+                    value = (value * 10) + digit;
+                }
+
+                if (value != 0 && value != 1) {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        code,
+                        PacketErrorCode::DecodeFailed,
+                        MakeMessage(packetName, "nonPlayerFlag 只能为 0 或 1"),
+                        fieldIndex));
+                }
+
+                return PacketResult<int>::Success(static_cast<int>(value));
+            }
+        };
+    } // namespace detail
+
     /**
      * SEND_GFL CHAR_sendFrontCharList		ysVc {data:es}
      * data: `name|nonPlayerFlag|` 重复记录，空 data 表示空列表；name 保留 makeEscapeString 后的 raw 字符串。
@@ -3677,201 +3922,62 @@ namespace cg::packet::receive
 
         [[nodiscard]] PacketResult<std::string> BuildData() const
         {
-            std::string payload;
-            for (std::size_t recordIndex = 0; recordIndex < records.size(); ++recordIndex) {
-                const FrontCharRecord& record = records[recordIndex];
-                if (record.nonPlayerFlag != 0 && record.nonPlayerFlag != 1) {
-                    return PacketResult<std::string>::Failure(MakeFieldError(
-                        PacketErrorCode::EncodeFailed,
-                        "FrontCharList nonPlayerFlag 只能为 0 或 1",
-                        (recordIndex * RecordFieldCount) + 1U));
-                }
-
-                payload.append(record.name);
-                payload.push_back('|');
-                payload.append(std::to_string(record.nonPlayerFlag));
-                payload.push_back('|');
-            }
-            return PacketResult<std::string>::Success(std::move(payload));
+            return detail::FrontCharListCodec::BuildData(records, Code, "FrontCharList");
         }
 
         [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
-            PacketResult<std::string> data = BuildData();
-            if (!data.HasValue()) {
-                return PacketResult<Packet>::Failure(data.Error());
-            }
-
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ServerC);
-            packet.fields.push_back(PacketField {
-                "data",
-                PacketFieldType::EscapedString,
-                data.Value(),
-                PacketSourceTag::ServerC,
-            });
-            return PacketResult<Packet>::Success(std::move(packet));
+            return detail::FrontCharListCodec::ToPacket(records, Code, "FrontCharList");
         }
 
         static PacketResult<FrontCharList> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view);
-            if (!parsed.HasValue()) {
-                return PacketResult<FrontCharList>::Failure(parsed.Error());
-            }
-
-            const Packet& packet = parsed.Value();
-            if (packet.code.View() != Code) {
-                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "FrontCharList Parse 收到非 ysVc 封包");
-                error.packetCode = packet.code;
-                return PacketResult<FrontCharList>::Failure(std::move(error));
-            }
-
-            if (packet.direction != Direction) {
-                return PacketResult<FrontCharList>::Failure(MakePacketError(
-                    PacketErrorCode::DecodeFailed,
-                    "FrontCharList Parse 封包方向不匹配"));
-            }
-
-            if (packet.fields.size() != FieldCount) {
-                return PacketResult<FrontCharList>::Failure(MakeFieldError(
-                    PacketErrorCode::FieldCountMismatch,
-                    "FrontCharList Parse 字段数量不匹配",
-                    packet.fields.empty() ? 0U : FieldCount));
-            }
-
-            const PacketField& field = packet.fields[DataFieldIndex];
-            if (field.name != "data") {
-                return PacketResult<FrontCharList>::Failure(MakeFieldError(
-                    PacketErrorCode::DecodeFailed,
-                    "FrontCharList Parse 字段名不匹配",
-                    DataFieldIndex));
-            }
-
-            if (field.type != PacketFieldType::EscapedString) {
-                return PacketResult<FrontCharList>::Failure(MakeFieldError(
-                    PacketErrorCode::InvalidFieldType,
-                    "FrontCharList Parse 字段类型不匹配",
-                    DataFieldIndex));
-            }
-
-            PacketResult<std::vector<FrontCharRecord>> records = ParseRecords(field.value);
+            PacketResult<std::vector<FrontCharRecord>> records =
+                detail::FrontCharListCodec::Parse(view, Code, "FrontCharList");
             if (!records.HasValue()) {
                 return PacketResult<FrontCharList>::Failure(records.Error());
             }
 
             return PacketResult<FrontCharList>::Success(FrontCharList(std::move(records.Value())));
         }
+    };
 
-    private:
-        static constexpr std::size_t FieldCount = 1U;
-        static constexpr std::size_t DataFieldIndex = 0U;
-        static constexpr std::size_t RecordFieldCount = 2U;
+    /**
+     * SEND_GFLI CHAR_sendFrontCharList		LY {data:es}
+     * data: `name|nonPlayerFlag|` 重复记录，空 data 表示空列表；name 保留 makeEscapeString 后的 raw 字符串。
+     */
+    struct ItemFrontCharList
+    {
+        static constexpr std::string_view Code = "LY";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::string_view PayloadDelimiter = "|";
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        std::vector<FrontCharRecord> records;
+
+        explicit ItemFrontCharList(std::vector<FrontCharRecord> records)
+            : records(std::move(records))
         {
-            PacketError error = PacketError::Make(code, std::move(message));
-            error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::ServerC;
-            return error;
         }
 
-        [[nodiscard]] static PacketError MakeFieldError(
-            PacketErrorCode code,
-            std::string message,
-            std::size_t fieldIndex)
+        [[nodiscard]] PacketResult<std::string> BuildData() const
         {
-            PacketError error = MakePacketError(code, std::move(message));
-            error.fieldIndex = fieldIndex;
-            return error;
+            return detail::FrontCharListCodec::BuildData(records, Code, "ItemFrontCharList");
         }
 
-        [[nodiscard]] static PacketResult<std::vector<FrontCharRecord>> ParseRecords(std::string_view payload)
+        [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
-            if (payload.empty()) {
-                return PacketResult<std::vector<FrontCharRecord>>::Success({});
-            }
-
-            if (payload.back() != '|') {
-                return PacketResult<std::vector<FrontCharRecord>>::Failure(MakeFieldError(
-                    PacketErrorCode::DecodeFailed,
-                    "FrontCharList payload 缺少尾随分隔符",
-                    DataFieldIndex));
-            }
-
-            PacketResult<std::vector<std::string>> split = SplitPayload(payload, PayloadDelimiter);
-            if (!split.HasValue()) {
-                PacketError error = split.Error();
-                error.packetCode = PacketCode(Code);
-                error.fieldIndex = DataFieldIndex;
-                error.source = PacketSourceTag::ServerC;
-                return PacketResult<std::vector<FrontCharRecord>>::Failure(std::move(error));
-            }
-
-            std::vector<std::string> parts = std::move(split.Value());
-            parts.pop_back();
-            if ((parts.size() % RecordFieldCount) != 0U) {
-                return PacketResult<std::vector<FrontCharRecord>>::Failure(MakeFieldError(
-                    PacketErrorCode::FieldCountMismatch,
-                    "FrontCharList payload 段数量不是 2 的倍数",
-                    DataFieldIndex));
-            }
-
-            std::vector<FrontCharRecord> records;
-            records.reserve(parts.size() / RecordFieldCount);
-            for (std::size_t recordIndex = 0; recordIndex < parts.size() / RecordFieldCount; ++recordIndex) {
-                const std::size_t baseIndex = recordIndex * RecordFieldCount;
-                PacketResult<int> nonPlayerFlag = ParseNonPlayerFlag(parts[baseIndex + 1U], baseIndex + 1U);
-                if (!nonPlayerFlag.HasValue()) {
-                    return PacketResult<std::vector<FrontCharRecord>>::Failure(nonPlayerFlag.Error());
-                }
-
-                records.push_back(FrontCharRecord {
-                    parts[baseIndex],
-                    nonPlayerFlag.Value(),
-                });
-            }
-
-            return PacketResult<std::vector<FrontCharRecord>>::Success(std::move(records));
+            return detail::FrontCharListCodec::ToPacket(records, Code, "ItemFrontCharList");
         }
 
-        [[nodiscard]] static PacketResult<int> ParseNonPlayerFlag(std::string_view text, std::size_t fieldIndex)
+        static PacketResult<ItemFrontCharList> Parse(std::string_view view)
         {
-            if (text.empty()) {
-                return PacketResult<int>::Failure(MakeFieldError(
-                    PacketErrorCode::DecodeFailed,
-                    "FrontCharList nonPlayerFlag 为空",
-                    fieldIndex));
+            PacketResult<std::vector<FrontCharRecord>> records =
+                detail::FrontCharListCodec::Parse(view, Code, "ItemFrontCharList");
+            if (!records.HasValue()) {
+                return PacketResult<ItemFrontCharList>::Failure(records.Error());
             }
 
-            const std::int64_t maxValue = static_cast<std::int64_t>(std::numeric_limits<int>::max());
-            std::int64_t value = 0;
-            for (const char ch : text) {
-                if (ch < '0' || ch > '9') {
-                    return PacketResult<int>::Failure(MakeFieldError(
-                        PacketErrorCode::DecodeFailed,
-                        "FrontCharList nonPlayerFlag 包含非十进制字符",
-                        fieldIndex));
-                }
-
-                const int digit = ch - '0';
-                if (value > (maxValue - digit) / 10) {
-                    return PacketResult<int>::Failure(MakeFieldError(
-                        PacketErrorCode::DecodeFailed,
-                        "FrontCharList nonPlayerFlag 超出 int 范围",
-                        fieldIndex));
-                }
-
-                value = (value * 10) + digit;
-            }
-
-            if (value != 0 && value != 1) {
-                return PacketResult<int>::Failure(MakeFieldError(
-                    PacketErrorCode::DecodeFailed,
-                    "FrontCharList nonPlayerFlag 只能为 0 或 1",
-                    fieldIndex));
-            }
-
-            return PacketResult<int>::Success(static_cast<int>(value));
+            return PacketResult<ItemFrontCharList>::Success(ItemFrontCharList(std::move(records.Value())));
         }
     };
 

@@ -94,7 +94,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | M6.11.17 角色/Profile封包-Yo | `Yo` | 服务端->客户端 | 是 | 完成 | SEND_S；xlsx rawFormat 为空，字段由旧 C `nrproto_S_send(int fd, char* data)` + 客户端 IDA 补足；外层 `{data:es}`；payload 原样保留，不拆二级结构 |
 | M6.11.18 角色/Profile封包-ysVc | `ysVc` | 服务端->客户端 | 是 | 完成 | SEND_GFL；旧 C `SEND_GFL/nrproto_GFL_send` + `CHAR_sendFrontCharList` 补外层 `{data:es}`；payload 为 `name|nonPlayerFlag|` 重复记录，name 保留 makeEscapeString 后 raw 字符串，nonPlayerFlag 为 raw decimal，允许空 data |
 | M6.11.19 角色/Profile封包-ND | `ND` | 服务端->客户端 | 是 | 完成 | SEND_GPD；旧 C `RECV_GPD/nrproto_GPD_recv` + `CHAR_sendCharAndPetList` + `SEND_GPD/nrproto_GPD_send` 补外层 `{data:es}`；payload 为 0..6 条 `name|level|injury|hp|maxHp|forcePoint|maxForcePoint|` 记录，name 保留 raw escaped 字符串，数值为 raw decimal |
-| M6.11.20 角色/Profile封包-LY | `LY` | 服务端->客户端 | 是 | 字段待补 | SEND_GFLI CHAR_sendFrontCharList |
+| M6.11.20 角色/Profile封包-LY | `LY` | 服务端->客户端 | 是 | 完成 | SEND_GFLI；旧 C `SEND_GFLI/CHAR_sendFrontCharList` + IDA 补外层 `{data:es}`；payload 为 `name|nonPlayerFlag|` 重复记录，空 data 为空列表，name 保留 makeEscapeString 后 raw 字符串，nonPlayerFlag 只接受 `0/1` |
 | M6.11.21 角色/Profile封包-nFV | `nFV` | 服务端->客户端 | 是 | 字段待补 | SEND_GPDI CHAR_sendCharAndPetList |
 | M6.11.22 角色/Profile封包-Ot | `Ot` | 客户端->服务端 | 否 | 未开始 | RECV_PRS SetProfileData 简介内容 |
 | M6.11.23 角色/Profile封包-RXr | `RXr` | 客户端->服务端 | 是 | 字段待补 | RECV_MU |
@@ -179,6 +179,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | `JJQj` | 服务端->客户端 | `cg::packet::receive::PartyMemberStatus` | `{partySlot:i62} {data:es}` | M6.11.14 已实现；xlsx rawFormat 为空，字段由旧 C `SEND_CN/nrproto_CN_send` 补足；`data` 仅支持 `0|` 空队员/离队和 `1|objectIndexllevel|maxHp|hp|forcePoint|name|` 完整状态，其他 fieldMask 返回错误 |
 | `OBee` | 服务端->客户端 | `cg::packet::receive::PetTechData` | `{petIndex:i62} {data:es}` | M6.11.16 已实现；xlsx rawFormat 为空，字段由旧 C `SEND_PT/nrproto_PT_send` + 客户端 IDA 补足；`data` 每条 8 段：`skillSlot|techId|name|description|forcePoint|techField|target|seqNo|`，数值为 raw decimal，字符串保留 raw，空 data 视为错误 |
 | `Yo` | 服务端->客户端 | `cg::packet::receive::ProfileStatus` | `{data:es}` | M6.11.17 已实现；xlsx rawFormat 为空，字段由旧 C `SEND_S/nrproto_S_send` + 客户端 IDA 补足；仅实现外层 `data/es`，payload 原样保留，不拆内部 `|` |
+| `LY` | 服务端->客户端 | `cg::packet::receive::ItemFrontCharList` | `{data:es}` | M6.11.20 已实现；旧 C `SEND_GFLI/CHAR_sendFrontCharList` + IDA 补足；`data` 为 `name|nonPlayerFlag|` 重复记录，空 data 为空列表，name 保留 raw escaped 字符串，nonPlayerFlag 只接受 `0/1` |
 | `ND` | 服务端->客户端 | `cg::packet::receive::CharacterPetList` | `{data:es}` | M6.11.19 已实现；xlsx rawFormat 为空，字段由旧 C `RECV_GPD/nrproto_GPD_recv` + `CHAR_sendCharAndPetList` + `SEND_GPD/nrproto_GPD_send` 补足；`data` 为 0..6 条 `name|level|injury|hp|maxHp|forcePoint|maxForcePoint|` 记录，name 保留 raw escaped 字符串，数值为 raw decimal，整体保留尾随 `|` |
 | `TeD` | 服务端->客户端 | `cg::packet::receive::MapName` | `{data:es}` | M6.10.01 已实现；仅保留 `data`，不拆二级 payload |
 | `nsY` | 服务端->客户端 | `cg::packet::receive::ObjectList` | `{data:es}` | M6.10.02 已实现；`data` 按字面 `\t` 拆 object record，record 按 `|` 保留 raw fields；仅校验 4、7、>=16 字段和 objectIndex i62，不拆 ownTitle/petInfo suffix |
@@ -281,7 +282,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 89 | `bNY` | 服务端->客户端 | 完成 | SEND_PR | 是 | 否 | 待 C/IDA 补全 |
 | 90 | `ysVc` | 服务端->客户端 | 完成 | SEND_GFL；旧 C 补外层 `{data:es}`，payload 为 `name|nonPlayerFlag|` 重复记录并保留尾随 `|` | 是 | 是 | 旧 C + src/packet |
 | 91 | `ND` | 服务端->客户端 | 完成 | SEND_GPD；旧 C 补外层 `{data:es}`，payload 为 0..6 条角色/宠物状态记录并保留尾随 `|` | 是 | 是 | 旧 C + src/packet |
-| 92 | `LY` | 服务端->客户端 | 完成 | SEND_GFLI CHAR_sendFrontCharList | 是 | 是 | 待 C/IDA 补全 |
+| 92 | `LY` | 服务端->客户端 | 完成 | SEND_GFLI；旧 C `SEND_GFLI/CHAR_sendFrontCharList` + IDA 补外层 `{data:es}`，payload 为 `name|nonPlayerFlag|` 重复记录，空 data 为空列表 | 是 | 是 | 旧 C + IDA + src/packet |
 | 93 | `nFV` | 服务端->客户端 | 完成 | SEND_GPDI CHAR_sendCharAndPetList | 是 | 是 | 待 C/IDA 补全 |
 | 94 | `JgO` | 服务端->客户端 | 完成 | SEND_TU techuse | 是 | 是 | 待 C/IDA 补全 |
 | 95 | `Cxo` | 服务端->客户端 | 完成 | SEND_TRPL CHAR_Trade_getPlayerList 获得可交易人员列表 | 是 | 是 | 待 C/IDA 补全 |

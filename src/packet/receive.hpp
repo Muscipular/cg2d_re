@@ -443,6 +443,177 @@ namespace cg::packet::receive
     };
 
     /**
+     * SEND_CP2 CharData_2		UU {data:es}
+     * data: flagMask|value...|，flagMask 为 i62；后续字段按 bit 顺序保留 raw 字符串。
+     */
+    struct CharacterProfile2
+    {
+        static constexpr std::string_view Code = "UU";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::string_view PayloadDelimiter = "|";
+
+        int flagMask = 0;
+        std::vector<std::string> values;
+
+        CharacterProfile2(int flagMask, std::vector<std::string> values)
+            : flagMask(flagMask),
+              values(std::move(values))
+        {
+        }
+
+        [[nodiscard]] std::string BuildData() const
+        {
+            PacketResult<std::string> encodedFlagMask = EncodeInt62(flagMask);
+            std::string payload = encodedFlagMask.HasValue() ? encodedFlagMask.Value() : std::string();
+            payload.push_back('|');
+            for (const std::string& value : values) {
+                payload.append(value);
+                payload.push_back('|');
+            }
+            return payload;
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            packet.fields.push_back(PacketField {
+                "data",
+                PacketFieldType::EscapedString,
+                BuildData(),
+                PacketSourceTag::Xlsx,
+            });
+            return packet;
+        }
+
+        static PacketResult<CharacterProfile2> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view);
+            if (!parsed.HasValue()) {
+                return PacketResult<CharacterProfile2>::Failure(parsed.Error());
+            }
+
+            const Packet& packet = parsed.Value();
+            if (packet.code.View() != Code) {
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "CharacterProfile2 Parse 收到非 UU 封包");
+                error.packetCode = packet.code;
+                return PacketResult<CharacterProfile2>::Failure(std::move(error));
+            }
+
+            if (packet.direction != Direction) {
+                return PacketResult<CharacterProfile2>::Failure(MakePacketError(
+                    PacketErrorCode::DecodeFailed,
+                    "CharacterProfile2 Parse 封包方向不匹配"));
+            }
+
+            if (packet.fields.size() != FieldCount) {
+                return PacketResult<CharacterProfile2>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "CharacterProfile2 Parse 字段数量不匹配",
+                    packet.fields.empty() ? 0U : FieldCount));
+            }
+
+            const PacketField& field = packet.fields[DataFieldIndex];
+            if (field.name != "data") {
+                return PacketResult<CharacterProfile2>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "CharacterProfile2 Parse 字段名不匹配",
+                    DataFieldIndex));
+            }
+
+            if (field.type != PacketFieldType::EscapedString) {
+                return PacketResult<CharacterProfile2>::Failure(MakeFieldError(
+                    PacketErrorCode::InvalidFieldType,
+                    "CharacterProfile2 Parse 字段类型不匹配",
+                    DataFieldIndex));
+            }
+
+            return ParseData(field.value);
+        }
+
+    private:
+        static constexpr std::size_t FieldCount = 1U;
+        static constexpr std::size_t DataFieldIndex = 0U;
+
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            error.source = PacketSourceTag::Xlsx;
+            return error;
+        }
+
+        [[nodiscard]] static PacketError MakeFieldError(
+            PacketErrorCode code,
+            std::string message,
+            std::size_t fieldIndex)
+        {
+            PacketError error = MakePacketError(code, std::move(message));
+            error.fieldIndex = fieldIndex;
+            return error;
+        }
+
+        [[nodiscard]] static PacketResult<CharacterProfile2> ParseData(std::string_view payload)
+        {
+            if (payload.empty()) {
+                return PacketResult<CharacterProfile2>::Failure(MakeFieldError(
+                    PacketErrorCode::EmptyInput,
+                    "CharacterProfile2 payload 为空",
+                    DataFieldIndex));
+            }
+
+            if (payload.back() != '|') {
+                return PacketResult<CharacterProfile2>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "CharacterProfile2 payload 缺少尾随分隔符",
+                    DataFieldIndex));
+            }
+
+            PacketResult<std::vector<std::string>> parts = SplitPayload(payload, PayloadDelimiter);
+            if (!parts.HasValue()) {
+                PacketError error = parts.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = DataFieldIndex;
+                error.source = PacketSourceTag::Xlsx;
+                return PacketResult<CharacterProfile2>::Failure(std::move(error));
+            }
+
+            std::vector<std::string> payloadParts = std::move(parts.Value());
+            payloadParts.pop_back();
+            if (payloadParts.empty() || payloadParts.front().empty()) {
+                return PacketResult<CharacterProfile2>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "CharacterProfile2 payload flagMask 为空",
+                    DataFieldIndex));
+            }
+
+            PacketResult<int> decodedFlagMask = DecodeInt62(payloadParts.front());
+            if (!decodedFlagMask.HasValue()) {
+                PacketError error = decodedFlagMask.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = DataFieldIndex;
+                error.source = PacketSourceTag::Xlsx;
+                return PacketResult<CharacterProfile2>::Failure(std::move(error));
+            }
+
+            std::vector<std::string> rawValues;
+            rawValues.reserve(payloadParts.size() - 1U);
+            for (std::size_t index = 1U; index < payloadParts.size(); ++index) {
+                if (payloadParts[index].empty()) {
+                    return PacketResult<CharacterProfile2>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "CharacterProfile2 payload value 为空",
+                        DataFieldIndex));
+                }
+
+                rawValues.push_back(std::move(payloadParts[index]));
+            }
+
+            return PacketResult<CharacterProfile2>::Success(
+                CharacterProfile2(decodedFlagMask.Value(), std::move(rawValues)));
+        }
+    };
+
+    /**
      * SEND_MN SendMapName		TeD {data:es}
      */
     struct MapName

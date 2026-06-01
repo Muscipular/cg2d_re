@@ -77,7 +77,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | M6.10.06 地图封包-UUN | `UUN` | 客户端->服务端 | 否 | 完成 | RECV_M MAP_getdataFromRECT 获取地图信息；实现 `{mapid:i62} {floor:i62} {x1:i62} {y1:i62} {x2:i62} {y2:i62}` Encode；M6.10 地图组完成 |
 | M6.11.01 角色/Profile封包-HNP | `HNP` | 服务端->客户端 | 否 | 完成 | SEND_PRV  CHAR_sendProfileVersion简介版本内容；外层 `{data:es}`；payload 为 `profileVersion|aboutVersion|mailCharge|seekPos` 4 段 raw decimal，不用 i62 |
 | M6.11.02 角色/Profile封包-aPc | `aPc` | 服务端->客户端 | 否 | 完成 | SEND_CP CharData_1；按旧 C 修正为单外层 `{data:es}`；payload 最小解析 `flags|values...|`，flags 为 i62，后续 raw values 保留尾随 `|` 回写，不拆业务 bit |
-| M6.11.03 角色/Profile封包-UU | `UU` | 服务端->客户端 | 否 | 未开始 | SEND_CP2 CharData_2 |
+| M6.11.03 角色/Profile封包-UU | `UU` | 服务端->客户端 | 否 | 完成 | SEND_CP2 CharData_2；按旧 C 修正为单外层 `{data:es}`；payload 最小解析 `flagMask|values...|`，flagMask 为 i62，后续 raw values 不允许中间空值，回写保留尾随 `|`，不拆业务 bit |
 | M6.11.04 角色/Profile封包-jv | `jv` | 服务端->客户端 | 否 | 未开始 | SEND_CJ SendJobName |
 | M6.11.05 角色/Profile封包-Sc | `Sc` | 服务端->客户端 | 否 | 未开始 | SEND_TITLE |
 | M6.11.06 角色/Profile封包-eZT | `eZT` | 服务端->客户端 | 否 | 未开始 | SEND_PRL 收到profile list |
@@ -165,6 +165,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | `whV` | 服务端->客户端 | `cg::packet::receive::ClientLoginResult` | `{result:i62} {data:es}` | 结构与结果枚举已存在，Parse 待实现；`data` 可能为空或为 `fail/block/busy` |
 | `HNP` | 服务端->客户端 | `cg::packet::receive::ProfileVersion` | `{data:es}` | M6.11.01 已实现；`data` 按 `|` 拆 `profileVersion/aboutVersion/mailCharge/seekPos` 4 段，均为 raw decimal，不用 i62，`seekPos` 可为 `-1` |
 | `aPc` | 服务端->客户端 | `cg::packet::receive::CharacterProfile` | `{data:es}` | M6.11.02 已实现；按旧 C `nrproto_CP_send(int fd, char* data)` 修正为单外层 `data`；`data` 最小解析 `flags|values...|`，flags 为 i62，values 保留 raw 字符串和中间空值，回写保留尾随 `|`，不拆业务 bit |
+| `UU` | 服务端->客户端 | `cg::packet::receive::CharacterProfile2` | `{data:es}` | M6.11.03 已实现；按旧 C `nrproto_CP2_send(int fd, char* data)` 修正为单外层 `data`；`data` 最小解析 `flagMask|values...|`，flagMask 为 i62，values 保留 raw 字符串且拒绝中间空值，回写保留尾随 `|`，不拆业务 bit |
 | `TeD` | 服务端->客户端 | `cg::packet::receive::MapName` | `{data:es}` | M6.10.01 已实现；仅保留 `data`，不拆二级 payload |
 | `nsY` | 服务端->客户端 | `cg::packet::receive::ObjectList` | `{data:es}` | M6.10.02 已实现；`data` 按字面 `\t` 拆 object record，record 按 `|` 保留 raw fields；仅校验 4、7、>=16 字段和 objectIndex i62，不拆 ownTitle/petInfo suffix |
 | `NI` | 服务端->客户端 | `cg::packet::receive::CharacterIcon` | `{data:es}` | M6.10.03 已实现；按旧 C `nrproto_CA_send` 修正为单外层 `data`，不实现 xlsx `caInfo` 外层字段；`data` 按 `,` 拆 entry、按 `|` 保留 raw fields；仅校验 5、6、8、12 字段和 objectIndex i62 |
@@ -191,7 +192,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 14 | `GmNM` | 服务端->客户端 | 完成 | SEND_CC CHAR_sendCoordinate | 否 | 否 | xlsx |
 | 15 | `TeD` | 服务端->客户端 | 完成 | SEND_MN SendMapName | 否 | 是 | xlsx |
 | 16 | `aPc` | 服务端->客户端 | 完成 | SEND_CP CharData_1 | 否 | 是 | xlsx |
-| 17 | `UU` | 服务端->客户端 | 完成 | SEND_CP2 CharData_2 | 否 | 是 | xlsx |
+| 17 | `UU` | 服务端->客户端 | 完成 | SEND_CP2 CharData_2 | 否 | 是 | xlsx + src/packet |
 | 18 | `jv` | 服务端->客户端 | 完成 | SEND_CJ SendJobName | 否 | 是 | xlsx |
 | 19 | `cNE` | 服务端->客户端 | 完成 | SEND_CS CHAR_sendSkillData | 否 | 是 | xlsx |
 | 20 | `Sc` | 服务端->客户端 | 完成 | SEND_TITLE | 否 | 是 | xlsx |

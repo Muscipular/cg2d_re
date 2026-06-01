@@ -603,6 +603,8 @@
       "xlsxStatus": "完成",
       "description": "SEND_I CHAR_sendItemData",
       "rawFormat": "{data:es}",
+      "resolvedFormat": "{data:es}",
+      "resolvedSource": "xlsx+ServerC+IDA+SDLCG+src",
       "formatEmpty": false,
       "source": "xlsx",
       "fields": [

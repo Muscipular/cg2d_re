@@ -3589,6 +3589,352 @@ namespace cg::packet::receive
     };
 
     /**
+     * SEND_I 道具记录：slot|nameRaw|nameColor|explanationRaw|imageId|ableUseField|battleUseFlag|target|level|flag|itemId|type|remain|memoRaw。
+     */
+    struct ItemRecord
+    {
+        int slot = 0;
+        std::string nameRaw;
+        int nameColor = 0;
+        std::string explanationRaw;
+        int imageId = 0;
+        int ableUseField = 0;
+        int battleUseFlag = 0;
+        int target = 0;
+        int level = 0;
+        int flag = 0;
+        int itemId = 0;
+        int type = 0;
+        int remain = 0;
+        std::string memoRaw;
+        bool clearSlot = false;
+
+        [[nodiscard]] static ItemRecord Clear(int slot)
+        {
+            ItemRecord record;
+            record.slot = slot;
+            record.clearSlot = true;
+            return record;
+        }
+    };
+
+    /**
+     * SEND_I CHAR_sendItemData		rU {data:es}
+     * data: 每条 14 段，数值为 raw decimal，name/explanation/memo 保留二级转义 raw 字符串。
+     */
+    struct ItemData
+    {
+        static constexpr std::string_view Code = "rU";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::string_view PayloadDelimiter = "|";
+
+        std::vector<ItemRecord> records;
+
+        explicit ItemData(std::vector<ItemRecord> records)
+            : records(std::move(records))
+        {
+        }
+
+        [[nodiscard]] std::string BuildData() const
+        {
+            std::vector<std::string> parts;
+            parts.reserve(records.size() * RecordFieldCount);
+            for (const ItemRecord& record : records) {
+                parts.push_back(std::to_string(record.slot));
+                if (record.clearSlot) {
+                    for (std::size_t index = 0; index < ClearFieldCount; ++index) {
+                        parts.emplace_back();
+                    }
+                    continue;
+                }
+
+                parts.push_back(record.nameRaw);
+                parts.push_back(std::to_string(record.nameColor));
+                parts.push_back(record.explanationRaw);
+                parts.push_back(std::to_string(record.imageId));
+                parts.push_back(std::to_string(record.ableUseField));
+                parts.push_back(std::to_string(record.battleUseFlag));
+                parts.push_back(std::to_string(record.target));
+                parts.push_back(std::to_string(record.level));
+                parts.push_back(std::to_string(record.flag));
+                parts.push_back(std::to_string(record.itemId));
+                parts.push_back(std::to_string(record.type));
+                parts.push_back(std::to_string(record.remain));
+                parts.push_back(record.memoRaw);
+            }
+
+            PacketResult<std::string> payload = BuildPayload(
+                std::span<const std::string>(parts.data(), parts.size()),
+                PayloadDelimiter);
+            if (payload.HasValue()) {
+                return payload.Value();
+            }
+
+            return {};
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            packet.fields.push_back(PacketField {
+                "data",
+                PacketFieldType::EscapedString,
+                BuildData(),
+                PacketSourceTag::Xlsx,
+            });
+            return packet;
+        }
+
+        static PacketResult<ItemData> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view);
+            if (!parsed.HasValue()) {
+                return PacketResult<ItemData>::Failure(parsed.Error());
+            }
+
+            const Packet& packet = parsed.Value();
+            if (packet.code.View() != Code) {
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "ItemData Parse 收到非 rU 封包");
+                error.packetCode = packet.code;
+                return PacketResult<ItemData>::Failure(std::move(error));
+            }
+
+            if (packet.direction != Direction) {
+                return PacketResult<ItemData>::Failure(MakePacketError(
+                    PacketErrorCode::DecodeFailed,
+                    "ItemData Parse 封包方向不匹配"));
+            }
+
+            if (packet.fields.size() != FieldCount) {
+                return PacketResult<ItemData>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "ItemData Parse 字段数量不匹配",
+                    packet.fields.empty() ? 0U : FieldCount));
+            }
+
+            const PacketField& field = packet.fields[DataFieldIndex];
+            if (field.name != "data") {
+                return PacketResult<ItemData>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "ItemData Parse 字段名不匹配",
+                    DataFieldIndex));
+            }
+
+            if (field.type != PacketFieldType::EscapedString) {
+                return PacketResult<ItemData>::Failure(MakeFieldError(
+                    PacketErrorCode::InvalidFieldType,
+                    "ItemData Parse 字段类型不匹配",
+                    DataFieldIndex));
+            }
+
+            PacketResult<std::vector<ItemRecord>> records = ParseRecords(field.value);
+            if (!records.HasValue()) {
+                return PacketResult<ItemData>::Failure(records.Error());
+            }
+
+            return PacketResult<ItemData>::Success(ItemData(std::move(records.Value())));
+        }
+
+    private:
+        static constexpr std::size_t FieldCount = 1U;
+        static constexpr std::size_t DataFieldIndex = 0U;
+        static constexpr std::size_t RecordFieldCount = 14U;
+        static constexpr std::size_t ClearFieldCount = RecordFieldCount - 1U;
+
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            error.source = PacketSourceTag::Xlsx;
+            return error;
+        }
+
+        [[nodiscard]] static PacketError MakeFieldError(
+            PacketErrorCode code,
+            std::string message,
+            std::size_t fieldIndex)
+        {
+            PacketError error = MakePacketError(code, std::move(message));
+            error.fieldIndex = fieldIndex;
+            return error;
+        }
+
+        [[nodiscard]] static PacketResult<std::vector<ItemRecord>> ParseRecords(std::string_view payload)
+        {
+            if (payload.empty()) {
+                return PacketResult<std::vector<ItemRecord>>::Success({});
+            }
+
+            PacketResult<std::vector<std::string>> split = SplitPayload(payload, PayloadDelimiter);
+            if (!split.HasValue()) {
+                PacketError error = split.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = DataFieldIndex;
+                error.source = PacketSourceTag::Xlsx;
+                return PacketResult<std::vector<ItemRecord>>::Failure(std::move(error));
+            }
+
+            std::vector<std::string> parts = std::move(split.Value());
+            if (parts.empty() || (parts.size() % RecordFieldCount) != 0U) {
+                return PacketResult<std::vector<ItemRecord>>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "ItemData payload 段数量不是 14 的倍数",
+                    DataFieldIndex));
+            }
+
+            std::vector<ItemRecord> records;
+            records.reserve(parts.size() / RecordFieldCount);
+            for (std::size_t recordIndex = 0; recordIndex < parts.size() / RecordFieldCount; ++recordIndex) {
+                const std::size_t baseIndex = recordIndex * RecordFieldCount;
+                PacketResult<int> slot = ParseDecimalField(parts[baseIndex], baseIndex);
+                if (!slot.HasValue()) {
+                    return PacketResult<std::vector<ItemRecord>>::Failure(slot.Error());
+                }
+
+                if (parts[baseIndex + 1U].empty()) {
+                    if (!IsClearRecord(parts, baseIndex)) {
+                        return PacketResult<std::vector<ItemRecord>>::Failure(MakeFieldError(
+                            PacketErrorCode::DecodeFailed,
+                            "ItemData clear record 非 slot 字段必须为空",
+                            baseIndex + 1U));
+                    }
+
+                    records.push_back(ItemRecord::Clear(slot.Value()));
+                    continue;
+                }
+
+                PacketResult<int> nameColor = ParseDecimalField(parts[baseIndex + 2U], baseIndex + 2U);
+                if (!nameColor.HasValue()) {
+                    return PacketResult<std::vector<ItemRecord>>::Failure(nameColor.Error());
+                }
+
+                PacketResult<int> imageId = ParseDecimalField(parts[baseIndex + 4U], baseIndex + 4U);
+                if (!imageId.HasValue()) {
+                    return PacketResult<std::vector<ItemRecord>>::Failure(imageId.Error());
+                }
+
+                PacketResult<int> ableUseField = ParseDecimalField(parts[baseIndex + 5U], baseIndex + 5U);
+                if (!ableUseField.HasValue()) {
+                    return PacketResult<std::vector<ItemRecord>>::Failure(ableUseField.Error());
+                }
+
+                PacketResult<int> battleUseFlag = ParseDecimalField(parts[baseIndex + 6U], baseIndex + 6U);
+                if (!battleUseFlag.HasValue()) {
+                    return PacketResult<std::vector<ItemRecord>>::Failure(battleUseFlag.Error());
+                }
+
+                PacketResult<int> target = ParseDecimalField(parts[baseIndex + 7U], baseIndex + 7U);
+                if (!target.HasValue()) {
+                    return PacketResult<std::vector<ItemRecord>>::Failure(target.Error());
+                }
+
+                PacketResult<int> level = ParseDecimalField(parts[baseIndex + 8U], baseIndex + 8U);
+                if (!level.HasValue()) {
+                    return PacketResult<std::vector<ItemRecord>>::Failure(level.Error());
+                }
+
+                PacketResult<int> flag = ParseDecimalField(parts[baseIndex + 9U], baseIndex + 9U);
+                if (!flag.HasValue()) {
+                    return PacketResult<std::vector<ItemRecord>>::Failure(flag.Error());
+                }
+
+                PacketResult<int> itemId = ParseDecimalField(parts[baseIndex + 10U], baseIndex + 10U);
+                if (!itemId.HasValue()) {
+                    return PacketResult<std::vector<ItemRecord>>::Failure(itemId.Error());
+                }
+
+                PacketResult<int> type = ParseDecimalField(parts[baseIndex + 11U], baseIndex + 11U);
+                if (!type.HasValue()) {
+                    return PacketResult<std::vector<ItemRecord>>::Failure(type.Error());
+                }
+
+                PacketResult<int> remain = ParseDecimalField(parts[baseIndex + 12U], baseIndex + 12U);
+                if (!remain.HasValue()) {
+                    return PacketResult<std::vector<ItemRecord>>::Failure(remain.Error());
+                }
+
+                records.push_back(ItemRecord {
+                    slot.Value(),
+                    parts[baseIndex + 1U],
+                    nameColor.Value(),
+                    parts[baseIndex + 3U],
+                    imageId.Value(),
+                    ableUseField.Value(),
+                    battleUseFlag.Value(),
+                    target.Value(),
+                    level.Value(),
+                    flag.Value(),
+                    itemId.Value(),
+                    type.Value(),
+                    remain.Value(),
+                    parts[baseIndex + 13U],
+                    false,
+                });
+            }
+
+            return PacketResult<std::vector<ItemRecord>>::Success(std::move(records));
+        }
+
+        [[nodiscard]] static bool IsClearRecord(const std::vector<std::string>& parts, std::size_t baseIndex)
+        {
+            for (std::size_t index = 1U; index < RecordFieldCount; ++index) {
+                if (!parts[baseIndex + index].empty()) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        [[nodiscard]] static PacketResult<int> ParseDecimalField(std::string_view text, std::size_t fieldIndex)
+        {
+            bool negative = false;
+            std::size_t index = 0;
+            if (!text.empty() && text.front() == '-') {
+                negative = true;
+                index = 1U;
+            }
+
+            if (index == text.size()) {
+                return PacketResult<int>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "ItemData 十进制字段为空",
+                    fieldIndex));
+            }
+
+            const std::int64_t maxValue = static_cast<std::int64_t>(std::numeric_limits<int>::max());
+            const std::int64_t minValue = static_cast<std::int64_t>(std::numeric_limits<int>::min());
+            const std::int64_t limit = negative ? (0 - minValue) : maxValue;
+            std::int64_t value = 0;
+
+            for (; index < text.size(); ++index) {
+                const char ch = text[index];
+                if (ch < '0' || ch > '9') {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "ItemData 十进制字段包含非法字符",
+                        fieldIndex));
+                }
+
+                const int digit = ch - '0';
+                if (value > (limit - digit) / 10) {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "ItemData 十进制字段超出 int 范围",
+                        fieldIndex));
+                }
+
+                value = (value * 10) + digit;
+            }
+
+            if (negative) {
+                value = -value;
+            }
+
+            return PacketResult<int>::Success(static_cast<int>(value));
+        }
+    };
+
+    /**
      * SEND_PT 宠物技能记录：skillSlot|techId|name|description|forcePoint|techField|target|seqNo。
      */
     struct PetTechRecord

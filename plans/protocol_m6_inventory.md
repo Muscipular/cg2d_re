@@ -103,7 +103,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | M6.11.26 角色/Profile封包-HJQp | `HJQp` | 客户端->服务端 | 否 | 完成 | RECV_PSSW SKILL_swapPetSkill 宠物技能移动；xlsx rawFormat `{petSlot} {from} {to}`，IDA `sub_5124E0` 确认三字段为 i62，无 payload |
 | M6.11.27 角色/Profile封包-ycX | `ycX` | 客户端->服务端 | 否 | 完成 | RECV_KN CHAR_inputUserPetName 宠物姓名；外层 `{petSlot:i62} {name:es}`；无二级 payload；来源 xlsx + ServerC + ClientIda |
 | M6.12.01 物品/技能/宠物封包-cNE | `cNE` | 服务端->客户端 | 否 | 完成 | SEND_CS CHAR_sendSkillData；外层 `{data:es}`；payload 为 `skillSlot|skillId|name|level|exp|maxLevel|nextExp|requiredSlots|operation|consumptionRate|seqNo|` 重复记录，空技能槽为 `skillSlot|||||||||||`，name 保留 raw escaped 字符串，数值字段为 raw decimal |
-| M6.12.02 物品/技能/宠物封包-rU | `rU` | 服务端->客户端 | 否 | 未开始 | SEND_I CHAR_sendItemData |
+| M6.12.02 物品/技能/宠物封包-rU | `rU` | 服务端->客户端 | 否 | 完成 | SEND_I CHAR_sendItemData；外层 `{data:es}`；payload 为 14 段 item record 重复，`slot/nameColor/imageId/ableUseField/battleUseFlag/target/level/flag/itemId/type/remain` 为 raw decimal，`nameRaw/explanationRaw/memoRaw` 保留 raw escaped 字符串，空 payload 为 0 records，清空 slot 为 `slot|||||||||||||` |
 | M6.12.03 物品/技能/宠物封包-Ilz | `Ilz` | 服务端->客户端 | 否 | 未开始 | SEND_AL 图鉴？ |
 | M6.12.04 物品/技能/宠物封包-ELoy | `ELoy` | 服务端->客户端 | 是 | 字段待补 | SEND_IA 道具信息相关 |
 | M6.12.05 物品/技能/宠物封包-xmgQ | `xmgQ` | 服务端->客户端 | 是 | 字段待补 | SEND_IR CHAR_sendItemRecipe |
@@ -168,6 +168,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | `UU` | 服务端->客户端 | `cg::packet::receive::CharacterProfile2` | `{data:es}` | M6.11.03 已实现；按旧 C `nrproto_CP2_send(int fd, char* data)` 修正为单外层 `data`；`data` 最小解析 `flagMask|values...|`，flagMask 为 i62，values 保留 raw 字符串且拒绝中间空值，回写保留尾随 `|`，不拆业务 bit |
 | `jv` | 服务端->客户端 | `cg::packet::receive::JobName` | `{jobassort:i62} {name:es}` | M6.11.04 已实现；无二级 payload，`name` 按外层 `es` 解码后原样保存，不拆业务内容 |
 | `Sc` | 服务端->客户端 | `cg::packet::receive::TitleList` | `{data:es}` | M6.11.05 已实现；`data` 每 3 段为一个 title slot：`titleName/titleMakeId/titleId`，空 slot 三字段全空回写为 `||`，`titleMakeId/titleId` 为 raw decimal，不用 i62，不硬猜数量 |
+| `rU` | 服务端->客户端 | `cg::packet::receive::ItemData` | `{data:es}` | M6.12.02 已实现；旧 C `SEND_I/nrproto_I_send` + IDA `sub_50C260` + SDLCG 补足 14 段 item record；空 payload 为空 records，清空 slot 为 `slot|||||||||||||`，字符串字段保留 raw escaped |
 | `eZT` | 服务端->客户端 | `cg::packet::receive::ProfileList` | `{data:es}` | M6.11.06 已实现；xlsx 原 schema `{data}` 按旧 C `nrproto_mkstr_string(data)` 修正为 `data/es`；`data` 为 `version|itemId|graphicNo|itemName...`，无 count，`version/itemId/graphicNo` 为 raw decimal，`itemName` 保留 raw 字符串 |
 | `IUn` | 服务端->客户端 | `cg::packet::receive::AboutList` | `{data:es}` | M6.11.07 已实现；xlsx 原 schema `{data}` 按旧 C `nrproto_mkstr_string(data)` 修正为 `data/es`；`data` 为 `version|itemId|graphicNo|itemName...`，无 count，`version/itemId/graphicNo` 为 raw decimal，`itemName` 保留 raw 字符串 |
 | `DpSY` | 服务端->客户端 | `cg::packet::receive::ProfileData` | `{name:es} {lv:i62} {job:es} {title:es} {guildName:es} {graphic:i62} {sid:i62} {smsg:es} {bid:i62} {bmsg:es} {aid:i62} {amsg:es} {pmsg:es}` | M6.11.08 已实现；按旧 C `SEND_PRD/nrproto_PRD_send` 修正为 13 个外层 token；`smsg/bmsg/amsg/pmsg` 保留 es 字符串，不拆二级 payload |
@@ -212,7 +213,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 18 | `jv` | 服务端->客户端 | 完成 | SEND_CJ SendJobName | 否 | 是 | xlsx + src/packet |
 | 19 | `cNE` | 服务端->客户端 | 完成 | SEND_CS CHAR_sendSkillData | 否 | 是 | xlsx + 旧 C + IDA + src/packet |
 | 20 | `Sc` | 服务端->客户端 | 完成 | SEND_TITLE | 否 | 是 | xlsx |
-| 21 | `rU` | 服务端->客户端 | 完成 | SEND_I CHAR_sendItemData | 否 | 是 | xlsx |
+| 21 | `rU` | 服务端->客户端 | 完成 | SEND_I CHAR_sendItemData；旧 C + IDA + SDLCG 确认 14 段 item record，外层 `{data:es}` | 否 | 是 | xlsx + 旧 C + IDA + SDLCG + src/packet |
 | 22 | `OaHi` | 服务端->客户端 | 完成 | SEND_EP 遇敌率 | 否 | 否 | xlsx |
 | 23 | `SkBD` | 服务端->客户端 | 完成 | SEND_FS 发送玩家状态开关 | 否 | 否 | xlsx |
 | 24 | `jmb` | 服务端->客户端 | 完成 | SEND_MC sendMapHash | 否 | 否 | xlsx |

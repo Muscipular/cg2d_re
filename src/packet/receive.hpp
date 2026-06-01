@@ -1341,6 +1341,338 @@ namespace cg::packet::receive
     };
 
     /**
+     * SEND_PRD ProfileData		DpSY {name:es} {lv:i62} {job:es} {title:es} {guildName:es} {graphic:i62} {sid:i62} {smsg:es} {bid:i62} {bmsg:es} {aid:i62} {amsg:es} {pmsg:es}
+     * smsg/bmsg/amsg/pmsg 按外层 es 保存，不拆二级 payload。
+     */
+    struct ProfileData
+    {
+        static constexpr std::string_view Code = "DpSY";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+
+        std::string name;
+        int level = 0;
+        std::string jobName;
+        std::string title;
+        std::string guildName;
+        int graphic = 0;
+        int sellFlag = 0;
+        std::string sellMessage;
+        int buyFlag = 0;
+        std::string buyMessage;
+        int aboutFlag = 0;
+        std::string aboutMessage;
+        std::string profileMessage;
+
+        ProfileData(
+            std::string name,
+            int level,
+            std::string jobName,
+            std::string title,
+            std::string guildName,
+            int graphic,
+            int sellFlag,
+            std::string sellMessage,
+            int buyFlag,
+            std::string buyMessage,
+            int aboutFlag,
+            std::string aboutMessage,
+            std::string profileMessage)
+            : name(std::move(name)),
+              level(level),
+              jobName(std::move(jobName)),
+              title(std::move(title)),
+              guildName(std::move(guildName)),
+              graphic(graphic),
+              sellFlag(sellFlag),
+              sellMessage(std::move(sellMessage)),
+              buyFlag(buyFlag),
+              buyMessage(std::move(buyMessage)),
+              aboutFlag(aboutFlag),
+              aboutMessage(std::move(aboutMessage)),
+              profileMessage(std::move(profileMessage))
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            packet.fields.reserve(FieldCount);
+            packet.fields.push_back(PacketField {
+                "name",
+                PacketFieldType::EscapedString,
+                name,
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "lv",
+                PacketFieldType::Int62,
+                std::to_string(level),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "job",
+                PacketFieldType::EscapedString,
+                jobName,
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "title",
+                PacketFieldType::EscapedString,
+                title,
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "guildName",
+                PacketFieldType::EscapedString,
+                guildName,
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "graphic",
+                PacketFieldType::Int62,
+                std::to_string(graphic),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "sid",
+                PacketFieldType::Int62,
+                std::to_string(sellFlag),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "smsg",
+                PacketFieldType::EscapedString,
+                sellMessage,
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "bid",
+                PacketFieldType::Int62,
+                std::to_string(buyFlag),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "bmsg",
+                PacketFieldType::EscapedString,
+                buyMessage,
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "aid",
+                PacketFieldType::Int62,
+                std::to_string(aboutFlag),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "amsg",
+                PacketFieldType::EscapedString,
+                aboutMessage,
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "pmsg",
+                PacketFieldType::EscapedString,
+                profileMessage,
+                PacketSourceTag::Xlsx,
+            });
+            return packet;
+        }
+
+        static PacketResult<ProfileData> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view);
+            if (!parsed.HasValue()) {
+                return PacketResult<ProfileData>::Failure(parsed.Error());
+            }
+
+            const Packet& packet = parsed.Value();
+            if (packet.code.View() != Code) {
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "ProfileData Parse 收到非 DpSY 封包");
+                error.packetCode = packet.code;
+                return PacketResult<ProfileData>::Failure(std::move(error));
+            }
+
+            if (packet.direction != Direction) {
+                return PacketResult<ProfileData>::Failure(MakePacketError(
+                    PacketErrorCode::DecodeFailed,
+                    "ProfileData Parse 封包方向不匹配"));
+            }
+
+            if (packet.fields.size() != FieldCount) {
+                return PacketResult<ProfileData>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "ProfileData Parse 字段数量不匹配",
+                    packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
+            }
+
+            const std::array<std::string_view, FieldCount> fieldNames = {
+                "name",
+                "lv",
+                "job",
+                "title",
+                "guildName",
+                "graphic",
+                "sid",
+                "smsg",
+                "bid",
+                "bmsg",
+                "aid",
+                "amsg",
+                "pmsg",
+            };
+            const std::array<PacketFieldType, FieldCount> fieldTypes = {
+                PacketFieldType::EscapedString,
+                PacketFieldType::Int62,
+                PacketFieldType::EscapedString,
+                PacketFieldType::EscapedString,
+                PacketFieldType::EscapedString,
+                PacketFieldType::Int62,
+                PacketFieldType::Int62,
+                PacketFieldType::EscapedString,
+                PacketFieldType::Int62,
+                PacketFieldType::EscapedString,
+                PacketFieldType::Int62,
+                PacketFieldType::EscapedString,
+                PacketFieldType::EscapedString,
+            };
+
+            for (std::size_t index = 0; index < FieldCount; ++index) {
+                if (packet.fields[index].name != fieldNames[index]) {
+                    return PacketResult<ProfileData>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "ProfileData Parse 字段名不匹配",
+                        index));
+                }
+
+                if (packet.fields[index].type != fieldTypes[index]) {
+                    return PacketResult<ProfileData>::Failure(MakeFieldError(
+                        PacketErrorCode::InvalidFieldType,
+                        "ProfileData Parse 字段类型不匹配",
+                        index));
+                }
+            }
+
+            PacketResult<int> levelValue = ParseDecimalField(packet.fields[LevelFieldIndex].value, LevelFieldIndex);
+            if (!levelValue.HasValue()) {
+                return PacketResult<ProfileData>::Failure(levelValue.Error());
+            }
+            PacketResult<int> graphicValue = ParseDecimalField(packet.fields[GraphicFieldIndex].value, GraphicFieldIndex);
+            if (!graphicValue.HasValue()) {
+                return PacketResult<ProfileData>::Failure(graphicValue.Error());
+            }
+            PacketResult<int> sellFlagValue = ParseDecimalField(packet.fields[SellFlagFieldIndex].value, SellFlagFieldIndex);
+            if (!sellFlagValue.HasValue()) {
+                return PacketResult<ProfileData>::Failure(sellFlagValue.Error());
+            }
+            PacketResult<int> buyFlagValue = ParseDecimalField(packet.fields[BuyFlagFieldIndex].value, BuyFlagFieldIndex);
+            if (!buyFlagValue.HasValue()) {
+                return PacketResult<ProfileData>::Failure(buyFlagValue.Error());
+            }
+            PacketResult<int> aboutFlagValue = ParseDecimalField(packet.fields[AboutFlagFieldIndex].value, AboutFlagFieldIndex);
+            if (!aboutFlagValue.HasValue()) {
+                return PacketResult<ProfileData>::Failure(aboutFlagValue.Error());
+            }
+
+            return PacketResult<ProfileData>::Success(ProfileData(
+                packet.fields[NameFieldIndex].value,
+                levelValue.Value(),
+                packet.fields[JobNameFieldIndex].value,
+                packet.fields[TitleFieldIndex].value,
+                packet.fields[GuildNameFieldIndex].value,
+                graphicValue.Value(),
+                sellFlagValue.Value(),
+                packet.fields[SellMessageFieldIndex].value,
+                buyFlagValue.Value(),
+                packet.fields[BuyMessageFieldIndex].value,
+                aboutFlagValue.Value(),
+                packet.fields[AboutMessageFieldIndex].value,
+                packet.fields[ProfileMessageFieldIndex].value));
+        }
+
+    private:
+        static constexpr std::size_t FieldCount = 13U;
+        static constexpr std::size_t NameFieldIndex = 0U;
+        static constexpr std::size_t LevelFieldIndex = 1U;
+        static constexpr std::size_t JobNameFieldIndex = 2U;
+        static constexpr std::size_t TitleFieldIndex = 3U;
+        static constexpr std::size_t GuildNameFieldIndex = 4U;
+        static constexpr std::size_t GraphicFieldIndex = 5U;
+        static constexpr std::size_t SellFlagFieldIndex = 6U;
+        static constexpr std::size_t SellMessageFieldIndex = 7U;
+        static constexpr std::size_t BuyFlagFieldIndex = 8U;
+        static constexpr std::size_t BuyMessageFieldIndex = 9U;
+        static constexpr std::size_t AboutFlagFieldIndex = 10U;
+        static constexpr std::size_t AboutMessageFieldIndex = 11U;
+        static constexpr std::size_t ProfileMessageFieldIndex = 12U;
+
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            error.source = PacketSourceTag::Xlsx;
+            return error;
+        }
+
+        [[nodiscard]] static PacketError MakeFieldError(
+            PacketErrorCode code,
+            std::string message,
+            std::size_t fieldIndex)
+        {
+            PacketError error = MakePacketError(code, std::move(message));
+            error.fieldIndex = fieldIndex;
+            return error;
+        }
+
+        [[nodiscard]] static PacketResult<int> ParseDecimalField(std::string_view text, std::size_t fieldIndex)
+        {
+            bool negative = false;
+            std::size_t index = 0;
+            if (!text.empty() && text.front() == '-') {
+                negative = true;
+                index = 1U;
+            }
+
+            if (index == text.size()) {
+                return PacketResult<int>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "ProfileData Parse i62 字段为空",
+                    fieldIndex));
+            }
+
+            const std::int64_t maxValue = static_cast<std::int64_t>(std::numeric_limits<int>::max());
+            const std::int64_t minValue = static_cast<std::int64_t>(std::numeric_limits<int>::min());
+            const std::int64_t limit = negative ? (0 - minValue) : maxValue;
+            std::int64_t value = 0;
+
+            for (; index < text.size(); ++index) {
+                const char ch = text[index];
+                if (ch < '0' || ch > '9') {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "ProfileData Parse i62 字段包含非十进制字符",
+                        fieldIndex));
+                }
+
+                const int digit = ch - '0';
+                if (value > (limit - digit) / 10) {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "ProfileData Parse i62 字段超出 int 范围",
+                        fieldIndex));
+                }
+
+                value = (value * 10) + digit;
+            }
+
+            if (negative) {
+                value = -value;
+            }
+
+            return PacketResult<int>::Success(static_cast<int>(value));
+        }
+    };
+
+    /**
      * SEND_CJ SendJobName		jv {jobassort:i62} {name:es}
      */
     struct JobName

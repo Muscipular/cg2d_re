@@ -28,8 +28,8 @@
 ## 状态统计
 | 状态 | 数量 |
 |---|---:|
-| 完成 | 161 |
-| 进行中 | 25 |
+| 完成 | 162 |
+| 进行中 | 24 |
 | 暂缓 | 18 |
 | 待办 | 5 |
 
@@ -82,7 +82,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | M6.11.05 角色/Profile封包-Sc | `Sc` | 服务端->客户端 | 否 | 完成 | SEND_TITLE；外层 `{data:es}`；payload 每 3 段为一个 title slot：`titleName|titleMakeId|titleId`，空 slot 为 `||`，不硬猜固定数量 |
 | M6.11.06 角色/Profile封包-eZT | `eZT` | 服务端->客户端 | 否 | 完成 | SEND_PRL 收到profile list；xlsx 原 schema `{data}` 按旧 C `nrproto_mkstr_string(data)` 修正为 `{data:es}`；payload 为 `version|itemId|graphicNo|itemName...`，前三类数值均为 raw decimal |
 | M6.11.07 角色/Profile封包-IUn | `IUn` | 服务端->客户端 | 否 | 完成 | SEND_PRA 收到about list；xlsx 原 schema `{data}` 按旧 C `nrproto_mkstr_string(data)` 修正为 `{data:es}`；payload 为 `version|itemId|graphicNo|itemName...`，无 count，前三类数值均为 raw decimal |
-| M6.11.08 角色/Profile封包-DpSY | `DpSY` | 服务端->客户端 | 否 | 未开始 | SEND_PRD profile data |
+| M6.11.08 角色/Profile封包-DpSY | `DpSY` | 服务端->客户端 | 否 | 完成 | SEND_PRD profile data；旧 C 实际 13 个外层 token：`{name:es} {lv:i62} {job:es} {title:es} {guildName:es} {graphic:i62} {sid:i62} {smsg:es} {bid:i62} {bmsg:es} {aid:i62} {amsg:es} {pmsg:es}`；无二级 payload，消息字段按 es 保存 |
 | M6.11.09 角色/Profile封包-cNB | `cNB` | 服务端->客户端 | 否 | 未开始 | SEND_PRE 删除迷你邮件成员 |
 | M6.11.10 角色/Profile封包-ow | `ow` | 服务端->客户端 | 否 | 未开始 | SEND_PRM 迷你信件回执? |
 | M6.11.11 角色/Profile封包-DyAG | `DyAG` | 服务端->客户端 | 否 | 未开始 | SEND_PRW 交流版 |
@@ -170,6 +170,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | `Sc` | 服务端->客户端 | `cg::packet::receive::TitleList` | `{data:es}` | M6.11.05 已实现；`data` 每 3 段为一个 title slot：`titleName/titleMakeId/titleId`，空 slot 三字段全空回写为 `||`，`titleMakeId/titleId` 为 raw decimal，不用 i62，不硬猜数量 |
 | `eZT` | 服务端->客户端 | `cg::packet::receive::ProfileList` | `{data:es}` | M6.11.06 已实现；xlsx 原 schema `{data}` 按旧 C `nrproto_mkstr_string(data)` 修正为 `data/es`；`data` 为 `version|itemId|graphicNo|itemName...`，无 count，`version/itemId/graphicNo` 为 raw decimal，`itemName` 保留 raw 字符串 |
 | `IUn` | 服务端->客户端 | `cg::packet::receive::AboutList` | `{data:es}` | M6.11.07 已实现；xlsx 原 schema `{data}` 按旧 C `nrproto_mkstr_string(data)` 修正为 `data/es`；`data` 为 `version|itemId|graphicNo|itemName...`，无 count，`version/itemId/graphicNo` 为 raw decimal，`itemName` 保留 raw 字符串 |
+| `DpSY` | 服务端->客户端 | `cg::packet::receive::ProfileData` | `{name:es} {lv:i62} {job:es} {title:es} {guildName:es} {graphic:i62} {sid:i62} {smsg:es} {bid:i62} {bmsg:es} {aid:i62} {amsg:es} {pmsg:es}` | M6.11.08 已实现；按旧 C `SEND_PRD/nrproto_PRD_send` 修正为 13 个外层 token；`smsg/bmsg/amsg/pmsg` 保留 es 字符串，不拆二级 payload |
 | `TeD` | 服务端->客户端 | `cg::packet::receive::MapName` | `{data:es}` | M6.10.01 已实现；仅保留 `data`，不拆二级 payload |
 | `nsY` | 服务端->客户端 | `cg::packet::receive::ObjectList` | `{data:es}` | M6.10.02 已实现；`data` 按字面 `\t` 拆 object record，record 按 `|` 保留 raw fields；仅校验 4、7、>=16 字段和 objectIndex i62，不拆 ownTitle/petInfo suffix |
 | `NI` | 服务端->客户端 | `cg::packet::receive::CharacterIcon` | `{data:es}` | M6.10.03 已实现；按旧 C `nrproto_CA_send` 修正为单外层 `data`，不实现 xlsx `caInfo` 外层字段；`data` 按 `,` 拆 entry、按 `|` 保留 raw fields；仅校验 5、6、8、12 字段和 objectIndex i62 |
@@ -254,7 +255,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 72 | `frQp` | 服务端->客户端 | 进行中 | SEND_GD 退出或解散家族 | 否 | 否 | xlsx |
 | 73 | `eZT` | 服务端->客户端 | 完成 | SEND_PRL 收到profile list | 否 | 是 | xlsx + src/packet |
 | 74 | `IUn` | 服务端->客户端 | 完成 | SEND_PRA 收到about list | 否 | 是 | xlsx + src/packet |
-| 75 | `DpSY` | 服务端->客户端 | 进行中 | SEND_PRD profile data | 否 | 是 | xlsx |
+| 75 | `DpSY` | 服务端->客户端 | 完成 | SEND_PRD profile data | 否 | 是 | xlsx + src/packet |
 | 76 | `cNB` | 服务端->客户端 | 进行中 | SEND_PRE 删除迷你邮件成员 | 否 | 是 | xlsx |
 | 77 | `ow` | 服务端->客户端 | 进行中 | SEND_PRM 迷你信件回执? | 否 | 是 | xlsx |
 | 78 | `DyAG` | 服务端->客户端 | 进行中 | SEND_PRW 交流版 | 否 | 是 | xlsx |

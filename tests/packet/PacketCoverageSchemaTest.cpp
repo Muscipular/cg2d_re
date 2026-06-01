@@ -679,6 +679,31 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         failures += Expect(chatMessageSchema->fields.empty(), "zdr raw fields empty");
     }
 
+    const PacketSchema* windowPacketSchema = FindPacket(packets, "BZ");
+    failures += Expect(windowPacketSchema != nullptr, "BZ schema exists");
+    if (windowPacketSchema != nullptr) {
+        failures += Expect(windowPacketSchema->direction == "服务端->客户端", "BZ direction");
+        failures += Expect(windowPacketSchema->legacyKind == "SEND", "BZ legacyKind");
+        failures += Expect(
+            windowPacketSchema->rawFormat == "{windowtype} {buttontype} {seqno} {objindex} {data:es}",
+            "BZ rawFormat");
+        failures += Expect(
+            windowPacketSchema->resolvedFormat == "{windowtype:i62} {buttontype:i62} {seqno:i62} {objindex:i62} {data:es}",
+            "BZ resolvedFormat");
+        failures += Expect(
+            windowPacketSchema->resolvedSource == "xlsx+ServerC+ClientIda+src",
+            "BZ resolvedSource");
+        failures += Expect(windowPacketSchema->fields.size() == 5U, "BZ raw field count");
+        if (windowPacketSchema->fields.size() == 5U) {
+            failures += Expect(windowPacketSchema->fields[0].name == "windowtype", "BZ field windowtype");
+            failures += Expect(windowPacketSchema->fields[1].name == "buttontype", "BZ field buttontype");
+            failures += Expect(windowPacketSchema->fields[2].name == "seqno", "BZ field seqno");
+            failures += Expect(windowPacketSchema->fields[3].name == "objindex", "BZ field objindex");
+            failures += Expect(windowPacketSchema->fields[4].name == "data", "BZ field data");
+            failures += Expect(windowPacketSchema->fields[4].typeToken == "es", "BZ data raw field type");
+        }
+    }
+
     const PacketSchema* checkCommandSchema = FindPacket(packets, "CCL");
     failures += Expect(checkCommandSchema != nullptr, "CCL schema exists");
     if (checkCommandSchema != nullptr) {

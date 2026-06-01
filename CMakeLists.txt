@@ -853,6 +853,17 @@ target_include_directories(cg-packet-chat-message-test
 
 add_test(NAME cg-packet-chat-message-test COMMAND cg-packet-chat-message-test)
 
+add_executable(cg-packet-window-packet-test
+    tests/packet/WindowPacketTest.cpp
+)
+
+target_include_directories(cg-packet-window-packet-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+
+add_test(NAME cg-packet-window-packet-test COMMAND cg-packet-window-packet-test)
+
 add_executable(cg-packet-payload-codec-test
     tests/packet/PayloadCodecTest.cpp
 )
@@ -945,6 +956,7 @@ if(MSVC)
     target_compile_options(cg-packet-battle-command-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-profile-mail-message-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-chat-message-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-window-packet-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-payload-codec-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-coverage-schema-test PRIVATE /W4 /utf-8 /permissive-)
 else()
@@ -1012,6 +1024,7 @@ else()
     target_compile_options(cg-packet-battle-command-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-profile-mail-message-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-chat-message-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-packet-window-packet-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-payload-codec-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-coverage-schema-test PRIVATE -Wall -Wextra -Wpedantic)
 endif()

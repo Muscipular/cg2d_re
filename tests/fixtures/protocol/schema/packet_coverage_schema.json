@@ -3054,6 +3054,45 @@
       "rawFormat": "{windowtype} {buttontype} {seqno} {objindex} {data:es}",
       "formatEmpty": false,
       "source": "xlsx",
+      "resolvedFormat": "{windowtype:i62} {buttontype:i62} {seqno:i62} {objindex:i62} {data:es}",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "windowtype",
+          "typeToken": "i62",
+          "rawSpec": "{windowtype:i62}",
+          "source": "xlsx+ServerC+ClientIda+src"
+        },
+        {
+          "index": 1,
+          "name": "buttontype",
+          "typeToken": "i62",
+          "rawSpec": "{buttontype:i62}",
+          "source": "xlsx+ServerC+ClientIda+src"
+        },
+        {
+          "index": 2,
+          "name": "seqno",
+          "typeToken": "i62",
+          "rawSpec": "{seqno:i62}",
+          "source": "xlsx+ServerC+ClientIda+src"
+        },
+        {
+          "index": 3,
+          "name": "objindex",
+          "typeToken": "i62",
+          "rawSpec": "{objindex:i62}",
+          "source": "xlsx+ServerC+ClientIda+src"
+        },
+        {
+          "index": 4,
+          "name": "data",
+          "typeToken": "es",
+          "rawSpec": "{data:es}",
+          "source": "xlsx+ServerC+ClientIda+src"
+        }
+      ],
       "fields": [
         {
           "index": 0,

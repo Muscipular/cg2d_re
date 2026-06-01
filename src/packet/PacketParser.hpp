@@ -294,6 +294,14 @@ namespace cg::packet
             {"fontSize", PacketFieldType::Int62, PacketSourceTag::ServerC},
         }};
 
+        inline constexpr std::array<PacketFieldSpec, 5> WindowPacketFields = {{
+            {"windowtype", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"buttontype", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"seqno", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"objindex", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+        }};
+
         inline constexpr std::array<PacketFieldSpec, 1> CheckCommandFields = {{
             {"time", PacketFieldType::Int62, PacketSourceTag::Xlsx},
         }};
@@ -333,7 +341,7 @@ namespace cg::packet
             {"y2", PacketFieldType::Int62, PacketSourceTag::Xlsx},
         }};
 
-        inline constexpr std::array<PacketSpec, 56> PacketRegistry = {{
+        inline constexpr std::array<PacketSpec, 57> PacketRegistry = {{
             {
                 "JFVf",
                 PacketDirection::ClientToServer,
@@ -669,6 +677,13 @@ namespace cg::packet
                 PacketSourceTag::ServerC,
                 ChatMessageFields.data(),
                 ChatMessageFields.size(),
+            },
+            {
+                "BZ",
+                PacketDirection::ServerToClient,
+                PacketSourceTag::Xlsx,
+                WindowPacketFields.data(),
+                WindowPacketFields.size(),
             },
             {
                 "CCL",

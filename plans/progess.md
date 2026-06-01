@@ -300,3 +300,11 @@
 | 2026-06-02 | M6.13.05 聊天消息 zdr 验证 | 复跑格式检查、VS bundled CMake configure、Debug 新增目标与 schema 覆盖测试构建、运行新增测试 exe、运行 schema 覆盖测试、packet CTest | `git diff --check` 通过；VS bundled CMake configure 通过；Debug 构建并运行 `cg-packet-chat-message-test` 通过；Debug `cg-packet-coverage-schema-test` 通过；CTest Debug `^cg-packet-` 61/61 通过 | 首次 schema JSON 补丁误匹配到 `Gn`，已移到 `zdr` 并重跑通过；首次 CTest 因既有 `cg-packet-profile-mail-message-test.exe` 缺失 Not Run，补构建后重跑通过 |
 
 | 2026-06-02 | M6.13.05 聊天消息 zdr review 修复 | `PacketParser` 将 `zdr/message` 纳入嵌套 payload es 解码，保留 raw escaped `\z/\c/\y/\n`；新增直接解析 `zdr -1 P|name\zmsg\cmark\ybell\nliteral 4 g ` 的保留测试 | `git diff --check` 通过；VS bundled CMake Debug 构建并运行 `cg-packet-chat-message-test` 通过；CTest Debug `^cg-packet-` 61/61 通过 | 仅修复 `zdr`；不改其他协议；不新增独立工具文件 |
+
+| 2026-06-02 | M6.13.06 窗口封包 BZ registry/receive | `PacketParser` 新增独立 `BZ {windowtype:i62} {buttontype:i62} {seqno:i62} {objindex:i62} {data:es}` 字段定义；新增 `receive::WindowPacket`，`data` 仅按普通外层 es 原样保存 | 待验证：新增测试、CMake 接入、schema 覆盖、`git diff --check`、VS bundled CMake configure/build/test、CTest Debug `^cg-packet-` | 不复用 `ProfileWindowFields`；不拆 `data`；不添加窗口类型、按钮类型、序号或对象索引业务范围校验；当前环境未提供可调用 subAgent/线程工具，按单线程推进 |
+
+| 2026-06-02 | M6.13.06 窗口封包 BZ 测试接入 | 新增 `cg-packet-window-packet-test`，覆盖建议样例、typed parse、空 `data`、`buttontype == -1` 非特殊分支、空格/实际换行/字面 `\n`/`\S` roundtrip、缺 `data`、非法 i62、wrong code 以及手工 Packet 构造失败 | 待验证：schema 更新、`git diff --check`、VS bundled CMake configure/build/test、CTest Debug `^cg-packet-` | 不扩展其他协议；测试只确认外层格式与普通 es 行为 |
+
+| 2026-06-02 | M6.13.06 窗口封包 BZ schema/清单 | schema 保留 xlsx raw `{windowtype} {buttontype} {seqno} {objindex} {data:es}`，补 resolved `{windowtype:i62} {buttontype:i62} {seqno:i62} {objindex:i62} {data:es}` 和来源 `xlsx+ServerC+ClientIda+src`；M6 清单标记完成并说明无二级 payload | 待验证：`git diff --check`、VS bundled CMake configure/build/test、CTest Debug `^cg-packet-` | 不改变 raw xlsx 字段；不扩展 `ft/CV/uSr/xD` 等相邻协议 |
+
+| 2026-06-02 | M6.13.06 窗口封包 BZ 验证 | 复跑格式检查、VS bundled CMake configure、Debug 新增目标与 schema 覆盖测试构建、运行新增测试 exe、运行 schema 覆盖测试、packet CTest | `git diff --check` 通过，仅 LF/CRLF 提示；VS bundled CMake configure 通过；Debug 构建并运行 `cg-packet-window-packet-test` 通过；Debug `cg-packet-coverage-schema-test` 通过；CTest Debug `^cg-packet-` 62/62 通过 | 首次构建发现新目标漏加 `/utf-8` 选项并已补齐；首次 registry 数量未同步并已修正为 57 |

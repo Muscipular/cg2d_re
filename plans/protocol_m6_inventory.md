@@ -3,12 +3,14 @@
 ## 成功标准
 - 从 `plans/CG封包.xlsx` 主表 `封包` 读取 209 行并生成统计与清单。
 - format 非空的来源标 `xlsx`；format 为空的来源标 `待 C/IDA 补全`，不猜测字段。
+- 比对现有 `src/packet/` 原型定义，记录已覆盖封包和对 M6 后续计划的影响。
 - 本步只写入文档，不编译、不提交、不修改 C++ 源码。
 
 ## 资料来源优先级
 1. `plans/CG封包.xlsx` 主表 `封包`：主来源，统计和清单字段均以该表为准。
 2. `D:\Source\cgmsv\cgmsv_server\nrproto_serv.c` 与 `D:\Source\cgmsv\cgmsv_server\include\nrproto_serv.h`：仅在 format 为空时辅助判断 C send/recv 参数是否含 `char*` 或 `array`。
-3. IDA：本步未使用；format 为空的封包仍统一标 `待 C/IDA 补全`。
+3. `src/packet/`：当前仓库已有 C++ 原型，仅用于确定 M6 实现边界和已存在的封包结构，不覆盖 xlsx 字段事实。
+4. IDA：本步未使用；format 为空的封包仍统一标 `待 C/IDA 补全`。
 
 ## 统计总数
 | 项 | 数量 |
@@ -42,16 +44,34 @@
 - format 为空且对应 C send/recv 参数含 `char*` 或 `array` 时标记为是。
 - 上述规则只用于盘点风险提示，不补全字段格式。
 
+## 现有 `src/packet/` 覆盖
+| 文件 | 命名空间 | 方向语义 | 当前内容 | M6 影响 |
+|---|---|---|---|---|
+| `src/packet/send.hpp` | `cg::packet::send` | 客户端发送给服务端，对应旧 C `RECV_*` | `ClientLogin`，code `JFVf`，字段 `{clientHash:es} {password:es} {account:es}`，`Encode()` 未实现 | M6 应保留客户端视角命名，schema 字段顺序以注释/xlsx 为准，不以构造函数参数顺序推断 |
+| `src/packet/receive.hpp` | `cg::packet::receive` | 客户端接收服务端封包，对应旧 C `SEND_*` | `ClientLoginResult`，code `whV`，字段 `{result:i62} {data:es}`，含登录结果枚举，`Parse()` 未实现；`data` 注释出现空值、`fail`、`block`、`busy` | M6.15 登录/角色管理封包以该结构为第一批迁移对象 |
+| `src/packet/utils.hpp` | `cg::packet` | 基础 codec | base62 与字符串 encode/decode 为 TODO | M6.2/M6.3 应先落地到独立 codec，再由具体封包复用 |
+| `src/packet/packet.hpp` | `cg::packet` | 聚合头 | 引入 `utils.hpp`、`receive.hpp`、`send.hpp` | M6 继续使用 `src/packet` 作为协议模块目录，M9 再接入 `src/net` 连接层 |
+
+当前 `src/packet` 只覆盖 2 个草稿封包，未形成 209 个封包注册表；`rg` 只找到 `packet.hpp` 内部 include，未发现 CMake 或业务代码接入。实现 M6 时不得把该目录视为完整协议事实来源。
+
+已知草稿风险：`receive.hpp` 使用 `std::string_view` 但未包含 `<string_view>`；`Parse()` 返回 `{}`，当前类型无默认构造。该风险只记录到 M6 计划，不在本步修改 C++。
+
+## 现有 `src/packet/` 封包清单
+| code | 方向 | 现有类型 | format | 当前状态 |
+|---|---|---|---|---|
+| `JFVf` | 客户端->服务端 | `cg::packet::send::ClientLogin` | `{clientHash:es} {password:es} {account:es}` | 结构已存在，Encode 待实现 |
+| `whV` | 服务端->客户端 | `cg::packet::receive::ClientLoginResult` | `{result:i62} {data:es}` | 结构与结果枚举已存在，Parse 待实现；`data` 可能为空或为 `fail/block/busy` |
+
 ## 209 个封包清单
 | 序号 | code | 方向 | 状态 | 说明 | format 是否为空 | 是否疑似内嵌 payload | 来源 |
 |---:|---|---|---|---|---|---|---|
-| 1 | `JFVf` | 客户端->服务端 | 完成 | 账号密码 | 否 | 否 | xlsx |
+| 1 | `JFVf` | 客户端->服务端 | 完成 | 账号密码 | 否 | 否 | xlsx + src/packet |
 | 2 | `Gp` | 客户端->服务端 | 完成 | RECV_CharList 获取角色列表 | 否 | 否 | xlsx |
 | 3 | `emRV` | 客户端->服务端 | 完成 | RECV_CharLogin 登录 | 否 | 否 | xlsx |
 | 4 | `CCL` | 客户端->服务端 | 完成 | RECV_CheckCommand 发送客户端时间 | 否 | 否 | xlsx |
 | 5 | `lz` | 客户端->服务端 | 完成 | RECV_PRO CHAR_setProfileStatus 简介开关 | 否 | 否 | xlsx |
 | 6 | `WA` | 客户端->服务端 | 完成 | RECV_CharLogout 登出 | 否 | 否 | xlsx |
-| 7 | `whV` | 服务端->客户端 | 完成 | SEND_ClientLogin 登录角色表结果 | 否 | 是 | xlsx |
+| 7 | `whV` | 服务端->客户端 | 完成 | SEND_ClientLogin 登录角色表结果 | 否 | 是 | xlsx + src/packet |
 | 8 | `PfM` | 服务端->客户端 | 完成 | SEND_PV 版本信息？ | 否 | 否 | xlsx |
 | 9 | `Daj` | 服务端->客户端 | 完成 | SEND_CharList 登录角色表 | 否 | 是 | xlsx |
 | 10 | `HNP` | 服务端->客户端 | 完成 | SEND_PRV <br>CHAR_sendProfileVersion简介版本内容 | 否 | 是 | xlsx |

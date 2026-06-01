@@ -517,12 +517,17 @@ textureCache.LoadRgba8(key, image.width, image.height, image.pixels.data(), imag
 6. 53 个 xlsx 空 format 封包必须用 C 代码或 IDA MCP 补来源；无法确认字段写 `unknownN`。
 7. 内嵌 payload 至少支持按分隔符解析、回写和 unknown 字段保留。
 8. 每个封包至少有 1 条明文 fixture；含 payload 的封包必须有二级 payload 样本。
-9. 全量 parse/build roundtrip 通过；缺 token、非法 i62、未知包返回明确错误。
+9. 现有 `src/packet` 中 `send::ClientLogin`、`receive::ClientLoginResult`、`utils.hpp` TODO 被收敛进统一 codec/schema，不另起重复协议目录。
+10. 全量 parse/build roundtrip 通过；缺 token、非法 i62、未知包返回明确错误。
 
 ### 目录
 
 ```text
-src/net/
+src/packet/
+├─ packet.hpp
+├─ send.hpp
+├─ receive.hpp
+├─ utils.hpp
 ├─ PacketTypes.hpp
 ├─ LegacyNumberCodec.hpp/.cpp
 ├─ LegacyStringCodec.hpp/.cpp
@@ -539,7 +544,7 @@ src/net/
 ├─ BattleTradeGuildPayload.hpp/.cpp
 └─ AuthCharacterPackets.hpp/.cpp
 
-tests/net/
+tests/packet/
 ├─ LegacyCodecTest.cpp
 ├─ ProtocolRegistryTest.cpp
 └─ PayloadCodecTest.cpp
@@ -551,31 +556,32 @@ tests/fixtures/protocol/
 ### 来源优先级
 
 1. `plans/CG封包.xlsx` 主表 `封包` 的非空定义。
-2. `D:\Source\cgmsv\cgmsv_server\nrproto_serv.c` 的 RECV/SEND 宏、dispatch 参数、send builder。
-3. `D:\Source\cgmsv\cgmsv_server\callfromcli.c` 的业务调用语义。
-4. `D:\Source\cgmsv\cgmsv_server\nrproto_util.c` 的 i62、es、token、envelope 行为。
-5. IDA MCP 中旧客户端 `cg2d.exe.i64` 的客户端行为。
+2. `src/packet/` 现有原型：用于确定当前实现目录、命名空间、已存在登录封包结构和 TODO 收敛点；该目录目前仅为 2 个封包草稿，未接入 CMake 或业务代码，不作为完整协议事实来源。
+3. `D:\Source\cgmsv\cgmsv_server\nrproto_serv.c` 的 RECV/SEND 宏、dispatch 参数、send builder。
+4. `D:\Source\cgmsv\cgmsv_server\callfromcli.c` 的业务调用语义。
+5. `D:\Source\cgmsv\cgmsv_server\nrproto_util.c` 的 i62、es、token、envelope 行为。
+6. IDA MCP 中旧客户端 `cg2d.exe.i64` 的客户端行为。
 
 ### 任务
 
 | 编号 | 任务 | 说明 | 验收标准 |
 |---|---|---|---|
-| M6.0 | 协议资料盘点 | 读取 xlsx 和 C 代码，生成协议清单 | `plans/protocol_m6_inventory.md` 包含 209 个封包 |
-| M6.1 | 协议基础类型 | 定义方向、字段类型、错误码、来源标记 | `PacketTypes` 公开头无 SDL 类型 |
-| M6.2 | i62 编解码 | 迁移 base62 数值编码 | 与 `nrproto_a62toi/cnv10to62` 行为一致 |
+| M6.0 | 协议资料盘点 | 读取 xlsx、C 代码和 `src/packet` 原型，生成协议清单 | `plans/protocol_m6_inventory.md` 包含 209 个封包，并标出 `src/packet` 已有 `JFVf/whV` |
+| M6.1 | 协议基础类型 | 在 `src/packet` 收敛 `PacketCode`、方向、字段类型、错误码、来源标记和基础 `Packet` 表达 | `PacketTypes` 公开头无 SDL 类型；`send` 表示客户端发出，`receive` 表示客户端接收；解析失败不返回半初始化对象 |
+| M6.2 | i62 编解码 | 迁移 base62 数值编码；统一说明 `i62` 即旧端 base62 数值格式 | 与 `nrproto_a62toi/cnv10to62` 行为一致 |
 | M6.3 | es 字符串转义 | 迁移旧字符串 escape/descape | 空格、换行、回车、反斜杠和旧 2 字节字符行为一致 |
 | M6.4 | 明文 token codec | 拆分/构造旧明文封包 token | 支持空格、`0x17` 和行尾处理 |
 | M6.5 | 加密压缩 envelope | encode64/decode64、jEncode/jDecode、ringo 开关 | 短包未压缩路径 roundtrip 通过；压缩路径行为明确 |
-| M6.6 | Schema 注册表 | 注册 209 个封包 | 100 个 RECV、109 个 SEND；`CCL`、`TgX` 存在 |
-| M6.7 | 外层封包解析 | token 到统一 packet 结构 | 209 个封包均可解析；未知包返回错误 |
-| M6.8 | 外层封包构造 | 统一 packet 到 token 串 | 209 个封包均可构造明文 token |
+| M6.6 | Schema 注册表 | 注册 209 个封包，并接入 `src/packet` 已有登录封包原型 | 100 个 RECV、109 个 SEND；`CCL`、`TgX`、`JFVf`、`whV` 存在 |
+| M6.7 | 外层封包解析 | token 到统一 packet 结构，并定义缺 token、非法 i62、字段数不匹配、未知 code 的错误模型 | 209 个封包均可解析；未知包返回错误 |
+| M6.8 | 外层封包构造 | 统一 packet 到 token 串，并复用 M6.7 错误码表达构造失败 | 209 个封包均可构造明文 token |
 | M6.9 | 内嵌 payload 框架 | 二级分隔和转义 | 支持 `|`、`,`、`\z/\c/\y/\n` |
 | M6.10 | 地图/对象 payload | 地图、对象、坐标封包 payload | 覆盖 `M/MC/C/CA/CD/MN/CC/XYD/SH` |
 | M6.11 | 角色/属性 payload | flag 驱动角色属性 payload | 覆盖 `CP/CP2/CN/TITLE/PR*` |
 | M6.12 | 物品/技能/宠物 payload | 物品、技能、宠物 payload | 覆盖 `I/IA/SI/IR/CS/CT/PT/KP/KP2/PS/iKe/TgX` |
 | M6.13 | 聊天/窗口/系统 payload | 聊天、窗口、系统消息 payload | 覆盖 `MSG/TK/STK/WN/PRW/B/EF/SE/BGMW/PLAYSE/ES` |
 | M6.14 | 战斗/交易/家族 payload | 战斗、交易、家族 payload | 覆盖 `RS/RD/BT/AB*/TR*/GI/GT/GM/GMI/GML/GD` |
-| M6.15 | 登录/角色管理封包 | 登录、角色列表、角色管理 | 覆盖 `ClientLogin/CharList/CharLogin/CreateNewChar/CharDelete/CharLogout/PV/PVUP/IP/MAC/Expire` |
+| M6.15 | 登录/角色管理封包 | 登录、角色列表、角色管理；优先迁移 `send::ClientLogin` 和 `receive::ClientLoginResult` | 覆盖 `ClientLogin/CharList/CharLogin/CreateNewChar/CharDelete/CharLogout/PV/PVUP/IP/MAC/Expire`；`JFVf` 可 build，`whV` 可 parse；`whV.result` 枚举和 `data` 空值/`fail`/`block`/`busy` 保留 |
 | M6.16 | xlsx 空字段补全 | 53 个空 format 行补来源 | C/IDA 来源可追踪；未知字段写 `unknownN` |
 | M6.17 | fixture 与回归样本 | 每个封包生成明文样本 | 209 条 fixture；payload 包含二级 payload 样本 |
 | M6.18 | 验证入口 | 最小协议测试程序/单测 | 全量 parse/build roundtrip 通过；异常输入不崩溃 |
@@ -1061,13 +1067,13 @@ M13 GPU backend optional
 
 ## 21. 当前最应该先做的 10 个任务
 
-1. 完成 M6.0 协议资料盘点并提交。
-2. 实现 `PacketTypes`。
-3. 实现 i62 编解码。
-4. 实现 es 字符串转义。
-5. 实现明文 token codec。
-6. 实现 envelope 未压缩 roundtrip 和压缩错误边界。
-7. 注册 209 个封包 schema。
+1. 按 `src/packet` 现有结构完成 M6.1 `PacketTypes` 收敛。
+2. 实现 i62 编解码。
+3. 实现 es 字符串转义。
+4. 实现明文 token codec。
+5. 实现 envelope 未压缩 roundtrip 和压缩错误边界。
+6. 注册 209 个封包 schema。
+7. 迁移 `JFVf` build 与 `whV` parse。
 8. 实现外层 `PacketParser`。
 9. 实现外层 `PacketBuilder`。
 10. 实现 payload 二级分隔和转义框架。

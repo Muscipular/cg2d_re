@@ -109,6 +109,12 @@ namespace cg::packet
             {"sqeno", PacketFieldType::Int62, PacketSourceTag::Xlsx},
         }};
 
+        inline constexpr std::array<PacketFieldSpec, 3> PetSkillSwapFields = {{
+            {"petSlot", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"from", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"to", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+        }};
+
         inline constexpr std::array<PacketFieldSpec, 1> ProfileMailDeleteFields = {{
             {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
         }};
@@ -201,7 +207,7 @@ namespace cg::packet
             {"y2", PacketFieldType::Int62, PacketSourceTag::Xlsx},
         }};
 
-        inline constexpr std::array<PacketSpec, 34> PacketRegistry = {{
+        inline constexpr std::array<PacketSpec, 35> PacketRegistry = {{
             {
                 "JFVf",
                 PacketDirection::ClientToServer,
@@ -292,6 +298,13 @@ namespace cg::packet
                 PacketSourceTag::Xlsx,
                 PetLevelUpPointFields.data(),
                 PetLevelUpPointFields.size(),
+            },
+            {
+                "HJQp",
+                PacketDirection::ClientToServer,
+                PacketSourceTag::Xlsx,
+                PetSkillSwapFields.data(),
+                PetSkillSwapFields.size(),
             },
             {
                 "cNB",
@@ -581,6 +594,15 @@ namespace cg::packet
 
             switch (fieldSpec.type) {
             case PacketFieldType::Int62: {
+                if (token.empty()) {
+                    PacketError error = detail::MakeParserError(
+                        PacketErrorCode::DecodeFailed,
+                        "i62 字段为空",
+                        fieldSpec.source);
+                    detail::FillErrorContext(error, code, index);
+                    return PacketResult<Packet>::Failure(std::move(error));
+                }
+
                 PacketResult<int> decoded = DecodeInt62(token);
                 if (!decoded.HasValue()) {
                     PacketError error = decoded.Error();

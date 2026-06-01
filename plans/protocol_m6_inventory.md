@@ -100,7 +100,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | M6.11.23 角色/Profile封包-RXr | `RXr` | 客户端->服务端 | 是 | 暂缓 | RECV_MU；xlsx rawFormat 为空，旧 C/IDA 未补到字段，缺 `RECV_MU`/`RXr` 封包结构证据，不能实现 |
 | M6.11.24 角色/Profile封包-Flvp | `Flvp` | 客户端->服务端 | 是 | 完成 | RECV_PS；旧 C `nrproto_serv.c/nrproto_serv.h` 补外层 `{havepetindex:i62} {havepetskill:i62} {toindex:i62} {data:es}`；`data` 为 opaque es；IDA 未找到客户端 Flvp wrapper |
 | M6.11.25 角色/Profile封包-kjSK | `kjSK` | 客户端->服务端 | 否 | 完成 | RECV_PLVUP 宠物加点；xlsx rawFormat `{petSlot} {sqeno}`，旧 C + IDA 确认为 i62，无 payload |
-| M6.11.26 角色/Profile封包-HJQp | `HJQp` | 客户端->服务端 | 否 | 未开始 | RECV_PSSW SKILL_swapPetSkill 宠物技能移动 |
+| M6.11.26 角色/Profile封包-HJQp | `HJQp` | 客户端->服务端 | 否 | 完成 | RECV_PSSW SKILL_swapPetSkill 宠物技能移动；xlsx rawFormat `{petSlot} {from} {to}`，IDA `sub_5124E0` 确认三字段为 i62，无 payload |
 | M6.11.27 角色/Profile封包-ycX | `ycX` | 客户端->服务端 | 否 | 未开始 | RECV_KN CHAR_inputUserPetName 宠物姓名 |
 | M6.12.01 物品/技能/宠物封包-cNE | `cNE` | 服务端->客户端 | 否 | 未开始 | SEND_CS CHAR_sendSkillData |
 | M6.12.02 物品/技能/宠物封包-rU | `rU` | 服务端->客户端 | 否 | 未开始 | SEND_I CHAR_sendItemData |
@@ -377,7 +377,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 183 | `IHw` | 客户端->服务端 | 完成 | RECV_LVUP 人物加点 | 否 | 否 | xlsx |
 | 184 | `kjSK` | 客户端->服务端 | 完成 | RECV_PLVUP 宠物加点；xlsx rawFormat `{petSlot} {sqeno}`，旧 C + IDA 确认为 i62，无 payload | 否 | 是 | xlsx + 旧 C + IDA + src/packet |
 | 185 | `Noeb` | 客户端->服务端 | 完成 | RECV_SKSW SKILL_swap 人物技能移动 | 否 | 否 | xlsx |
-| 186 | `HJQp` | 客户端->服务端 | 完成 | RECV_PSSW SKILL_swapPetSkill 宠物技能移动 | 否 | 是 | xlsx |
+| 186 | `HJQp` | 客户端->服务端 | 完成 | RECV_PSSW SKILL_swapPetSkill 宠物技能移动；xlsx rawFormat `{petSlot} {from} {to}`，IDA `sub_5124E0` 确认三字段为 i62，无 payload | 否 | 否 | xlsx + IDA + src/packet |
 | 187 | `ih` | 客户端->服务端 | 完成 | RECV_POS CHAR_Position 战斗位置 | 否 | 否 | xlsx |
 | 188 | `ycX` | 客户端->服务端 | 完成 | RECV_KN CHAR_inputUserPetName 宠物姓名 | 否 | 是 | xlsx |
 | 189 | `xD` | 客户端->服务端 | 完成 | RECV_WN 打开系统窗口 | 否 | 是 | xlsx |

@@ -319,6 +319,55 @@ namespace cg::packet::send
             return BuildPacket(ToPacket());
         }
     };
+
+    /**
+     * RECV_PSSW SKILL_swapPetSkill 宠物技能移动 HJQp {petSlot:i62} {from:i62} {to:i62}
+     */
+    struct PetSkillSwap
+    {
+        static constexpr std::string_view Code = "HJQp";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+
+        int petSlot = 0;
+        int from = 0;
+        int to = 0;
+
+        PetSkillSwap(int petSlot, int from, int to)
+            : petSlot(petSlot),
+              from(from),
+              to(to)
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            packet.fields.push_back(PacketField {
+                "petSlot",
+                PacketFieldType::Int62,
+                std::to_string(petSlot),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "from",
+                PacketFieldType::Int62,
+                std::to_string(from),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "to",
+                PacketFieldType::Int62,
+                std::to_string(to),
+                PacketSourceTag::Xlsx,
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket());
+        }
+    };
 }
 
 #endif //CG_ENGINE_SEND_H

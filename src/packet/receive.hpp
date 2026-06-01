@@ -2973,6 +2973,287 @@ namespace cg::packet::receive
         }
     };
 
+    /**
+     * SEND_CT 技能记录：techName|comment|forcePoint|field|targetFlag|canUse。
+     */
+    struct TechRecord
+    {
+        std::string techName;
+        std::string comment;
+        int forcePoint = 0;
+        int field = 0;
+        int targetFlag = 0;
+        int canUse = 0;
+    };
+
+    /**
+     * SEND_CT 技能列表		Rspn {skillIndex:i62} {data:es}
+     * data: 每条 6 段，数值为 raw decimal，整体保留尾随 `|`；空 data 表示无记录。
+     */
+    struct TechList
+    {
+        static constexpr std::string_view Code = "Rspn";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::string_view PayloadDelimiter = "|";
+
+        int skillIndex = 0;
+        std::vector<TechRecord> records;
+
+        TechList(int skillIndex, std::vector<TechRecord> records)
+            : skillIndex(skillIndex),
+              records(std::move(records))
+        {
+        }
+
+        [[nodiscard]] std::string BuildData() const
+        {
+            std::string payload;
+            for (const TechRecord& record : records) {
+                payload.append(record.techName);
+                payload.push_back('|');
+                payload.append(record.comment);
+                payload.push_back('|');
+                payload.append(std::to_string(record.forcePoint));
+                payload.push_back('|');
+                payload.append(std::to_string(record.field));
+                payload.push_back('|');
+                payload.append(std::to_string(record.targetFlag));
+                payload.push_back('|');
+                payload.append(std::to_string(record.canUse));
+                payload.push_back('|');
+            }
+            return payload;
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ServerC);
+            packet.fields.push_back(PacketField {
+                "skillIndex",
+                PacketFieldType::Int62,
+                std::to_string(skillIndex),
+                PacketSourceTag::ServerC,
+            });
+            packet.fields.push_back(PacketField {
+                "data",
+                PacketFieldType::EscapedString,
+                BuildData(),
+                PacketSourceTag::ServerC,
+            });
+            return packet;
+        }
+
+        static PacketResult<TechList> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view);
+            if (!parsed.HasValue()) {
+                return PacketResult<TechList>::Failure(parsed.Error());
+            }
+
+            const Packet& packet = parsed.Value();
+            if (packet.code.View() != Code) {
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "TechList Parse 收到非 Rspn 封包");
+                error.packetCode = packet.code;
+                return PacketResult<TechList>::Failure(std::move(error));
+            }
+
+            if (packet.direction != Direction) {
+                return PacketResult<TechList>::Failure(MakePacketError(
+                    PacketErrorCode::DecodeFailed,
+                    "TechList Parse 封包方向不匹配"));
+            }
+
+            if (packet.fields.size() != FieldCount) {
+                return PacketResult<TechList>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "TechList Parse 字段数量不匹配",
+                    packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
+            }
+
+            const PacketField& skillIndexField = packet.fields[SkillIndexFieldIndex];
+            if (skillIndexField.name != "skillIndex") {
+                return PacketResult<TechList>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "TechList Parse skillIndex 字段名不匹配",
+                    SkillIndexFieldIndex));
+            }
+
+            if (skillIndexField.type != PacketFieldType::Int62) {
+                return PacketResult<TechList>::Failure(MakeFieldError(
+                    PacketErrorCode::InvalidFieldType,
+                    "TechList Parse skillIndex 字段类型不匹配",
+                    SkillIndexFieldIndex));
+            }
+
+            PacketResult<int> skillIndex = ParseDecimalField(skillIndexField.value, SkillIndexFieldIndex);
+            if (!skillIndex.HasValue()) {
+                return PacketResult<TechList>::Failure(skillIndex.Error());
+            }
+
+            const PacketField& dataField = packet.fields[DataFieldIndex];
+            if (dataField.name != "data") {
+                return PacketResult<TechList>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "TechList Parse data 字段名不匹配",
+                    DataFieldIndex));
+            }
+
+            if (dataField.type != PacketFieldType::EscapedString) {
+                return PacketResult<TechList>::Failure(MakeFieldError(
+                    PacketErrorCode::InvalidFieldType,
+                    "TechList Parse data 字段类型不匹配",
+                    DataFieldIndex));
+            }
+
+            PacketResult<std::vector<TechRecord>> records = ParseRecords(dataField.value);
+            if (!records.HasValue()) {
+                return PacketResult<TechList>::Failure(records.Error());
+            }
+
+            return PacketResult<TechList>::Success(TechList(skillIndex.Value(), std::move(records.Value())));
+        }
+
+    private:
+        static constexpr std::size_t FieldCount = 2U;
+        static constexpr std::size_t SkillIndexFieldIndex = 0U;
+        static constexpr std::size_t DataFieldIndex = 1U;
+        static constexpr std::size_t RecordFieldCount = 6U;
+
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            error.source = PacketSourceTag::ServerC;
+            return error;
+        }
+
+        [[nodiscard]] static PacketError MakeFieldError(
+            PacketErrorCode code,
+            std::string message,
+            std::size_t fieldIndex)
+        {
+            PacketError error = MakePacketError(code, std::move(message));
+            error.fieldIndex = fieldIndex;
+            return error;
+        }
+
+        [[nodiscard]] static PacketResult<std::vector<TechRecord>> ParseRecords(std::string_view payload)
+        {
+            if (payload.empty()) {
+                return PacketResult<std::vector<TechRecord>>::Success({});
+            }
+
+            if (payload.back() != '|') {
+                return PacketResult<std::vector<TechRecord>>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "TechList payload 缺少尾随分隔符",
+                    DataFieldIndex));
+            }
+
+            PacketResult<std::vector<std::string>> split = SplitPayload(payload, PayloadDelimiter);
+            if (!split.HasValue()) {
+                PacketError error = split.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = DataFieldIndex;
+                error.source = PacketSourceTag::ServerC;
+                return PacketResult<std::vector<TechRecord>>::Failure(std::move(error));
+            }
+
+            std::vector<std::string> parts = std::move(split.Value());
+            parts.pop_back();
+            if (parts.empty() || (parts.size() % RecordFieldCount) != 0U) {
+                return PacketResult<std::vector<TechRecord>>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "TechList payload 段数量不是 6 的倍数",
+                    DataFieldIndex));
+            }
+
+            std::vector<TechRecord> records;
+            records.reserve(parts.size() / RecordFieldCount);
+            for (std::size_t recordIndex = 0; recordIndex < parts.size() / RecordFieldCount; ++recordIndex) {
+                const std::size_t baseIndex = recordIndex * RecordFieldCount;
+                PacketResult<int> forcePoint = ParseDecimalField(parts[baseIndex + 2U], baseIndex + 2U);
+                if (!forcePoint.HasValue()) {
+                    return PacketResult<std::vector<TechRecord>>::Failure(forcePoint.Error());
+                }
+
+                PacketResult<int> field = ParseDecimalField(parts[baseIndex + 3U], baseIndex + 3U);
+                if (!field.HasValue()) {
+                    return PacketResult<std::vector<TechRecord>>::Failure(field.Error());
+                }
+
+                PacketResult<int> targetFlag = ParseDecimalField(parts[baseIndex + 4U], baseIndex + 4U);
+                if (!targetFlag.HasValue()) {
+                    return PacketResult<std::vector<TechRecord>>::Failure(targetFlag.Error());
+                }
+
+                PacketResult<int> canUse = ParseDecimalField(parts[baseIndex + 5U], baseIndex + 5U);
+                if (!canUse.HasValue()) {
+                    return PacketResult<std::vector<TechRecord>>::Failure(canUse.Error());
+                }
+
+                records.push_back(TechRecord {
+                    parts[baseIndex],
+                    parts[baseIndex + 1U],
+                    forcePoint.Value(),
+                    field.Value(),
+                    targetFlag.Value(),
+                    canUse.Value(),
+                });
+            }
+
+            return PacketResult<std::vector<TechRecord>>::Success(std::move(records));
+        }
+
+        [[nodiscard]] static PacketResult<int> ParseDecimalField(std::string_view text, std::size_t fieldIndex)
+        {
+            bool negative = false;
+            std::size_t index = 0;
+            if (!text.empty() && text.front() == '-') {
+                negative = true;
+                index = 1U;
+            }
+
+            if (index == text.size()) {
+                return PacketResult<int>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "TechList 十进制字段为空",
+                    fieldIndex));
+            }
+
+            const std::int64_t maxValue = static_cast<std::int64_t>(std::numeric_limits<int>::max());
+            const std::int64_t minValue = static_cast<std::int64_t>(std::numeric_limits<int>::min());
+            const std::int64_t limit = negative ? (0 - minValue) : maxValue;
+            std::int64_t value = 0;
+
+            for (; index < text.size(); ++index) {
+                const char ch = text[index];
+                if (ch < '0' || ch > '9') {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "TechList 十进制字段包含非法字符",
+                        fieldIndex));
+                }
+
+                const int digit = ch - '0';
+                if (value > (limit - digit) / 10) {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "TechList 十进制字段超出 int 范围",
+                        fieldIndex));
+                }
+
+                value = (value * 10) + digit;
+            }
+
+            if (negative) {
+                value = -value;
+            }
+
+            return PacketResult<int>::Success(static_cast<int>(value));
+        }
+    };
+
     enum class ProfileWindowPayloadKind
     {
         Start,

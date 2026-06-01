@@ -2317,6 +2317,24 @@
       "rawFormat": "",
       "formatEmpty": true,
       "source": "xlsx",
+      "resolvedFormat": "{skillIndex:i62} {data:es}",
+      "resolvedSource": "ServerC+IDA+src",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "skillIndex",
+          "typeToken": "i62",
+          "rawSpec": "{skillIndex:i62}",
+          "source": "ServerC+IDA+src"
+        },
+        {
+          "index": 1,
+          "name": "data",
+          "typeToken": "es",
+          "rawSpec": "{data:es}",
+          "source": "ServerC+IDA+src"
+        }
+      ],
       "fields": []
     },
     {

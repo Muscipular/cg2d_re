@@ -89,7 +89,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | M6.11.12 角色/Profile封包-KyN | `KyN` | 服务端->客户端 | 否 | 完成 | SEND_PRAD 收到迷你信件；xlsx 原 schema `{data}` 按旧 C `nrproto_mkstr_string(data)` 修正为 `data/es`；payload 为 `profileIndex|faceImageNumber|level|name|guildName|ownTitle|senderProfileIndex|sentTimeText|message||color`，第 10 段固定为空，数值字段为 raw decimal |
 | M6.11.13 角色/Profile封包-TNT | `TNT` | 服务端->客户端 | 是 | 完成 | SEND_PP；xlsx rawFormat 为空，字段由旧 C `nrproto_PP_send(int fd, char* data)` + 客户端 IDA 补足；外层 `{data:es}`；payload 为 1..5 条 `objectIndex|hp|maxHp|forcePoint|maxForcePoint|` 记录，objectIndex 为 i62，其余为 raw decimal，整体保留尾随 `|` |
 | M6.11.14 角色/Profile封包-JJQj | `JJQj` | 服务端->客户端 | 是 | 完成 | SEND_CN；xlsx rawFormat 为空，字段由旧 C `nrproto_CN_send(int fd, int number, char* data)` 补足；外层 `{partySlot:i62} {data:es}`；payload `0|` 为空队员/离队，`1|objectIndexllevel|maxHp|hp|forcePoint|name|` 为完整状态，除 fieldMask 外数值为 raw decimal |
-| M6.11.15 角色/Profile封包-Rspn | `Rspn` | 服务端->客户端 | 是 | 字段待补 | SEND_CT |
+| M6.11.15 角色/Profile封包-Rspn | `Rspn` | 服务端->客户端 | 是 | 完成 | SEND_CT；xlsx rawFormat 为空，字段由旧 C `nrproto_CT_send(int fd, int skillindex, char* data)` + 客户端 IDA 补足；外层 `{skillIndex:i62} {data:es}`；payload 每条 `techName|comment|forcePoint|field|targetFlag|canUse|`，数值为 raw decimal，保留尾随 `|` |
 | M6.11.16 角色/Profile封包-OBee | `OBee` | 服务端->客户端 | 是 | 字段待补 | SEND_PT |
 | M6.11.17 角色/Profile封包-Yo | `Yo` | 服务端->客户端 | 是 | 字段待补 | SEND_S |
 | M6.11.18 角色/Profile封包-ysVc | `ysVc` | 服务端->客户端 | 是 | 字段待补 | SEND_GFL CHAR_sendFrontCharList |
@@ -271,7 +271,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 82 | `AU` | 服务端->客户端 | 完成 | SEND_KP2 | 是 | 是 | 待 C/IDA 补全 |
 | 83 | `TNT` | 服务端->客户端 | 完成 | SEND_PP | 是 | 是 | 旧 C + IDA + src/packet |
 | 84 | `JJQj` | 服务端->客户端 | 完成 | SEND_CN；旧 C 补外层 `{partySlot:i62} {data:es}` | 是 | 是 | 旧 C + src/packet |
-| 85 | `Rspn` | 服务端->客户端 | 完成 | SEND_CT | 是 | 是 | 待 C/IDA 补全 |
+| 85 | `Rspn` | 服务端->客户端 | 完成 | SEND_CT；旧 C+IDA 补外层 `{skillIndex:i62} {data:es}`，payload 为 6 段技能记录并保留尾随 `|` | 是 | 是 | 旧 C + IDA + src/packet |
 | 86 | `OBee` | 服务端->客户端 | 完成 | SEND_PT | 是 | 是 | 待 C/IDA 补全 |
 | 87 | `Yo` | 服务端->客户端 | 暂缓 | SEND_S | 是 | 是 | 待 C/IDA 补全 |
 | 88 | `sZWu` | 服务端->客户端 | 暂缓 | SEND_HL | 是 | 否 | 待 C/IDA 补全 |

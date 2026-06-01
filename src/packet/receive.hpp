@@ -4,7 +4,10 @@
 #include "PacketTypes.hpp"
 #include "PayloadCodec.hpp"
 
+#include <array>
 #include <cstddef>
+#include <cstdint>
+#include <limits>
 #include <span>
 #include <string>
 #include <string_view>
@@ -525,6 +528,417 @@ namespace cg::packet::receive
             }
 
             return PacketResult<std::vector<CharacterIconEntry>>::Success(std::move(parsedEntries));
+        }
+    };
+
+    /**
+     * SEND_MAP_DATA 地图数据		aBS {mapid:i62} {floor:i62} {x1:i62} {y1:i62} {x2:i62} {y2:i62} {data:es}
+     */
+    struct MapData
+    {
+        static constexpr std::string_view Code = "aBS";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::string_view LayerDelimiter = "|";
+        static constexpr std::string_view CellDelimiter = ",";
+
+        int mapId = 0;
+        int floor = 0;
+        int x1 = 0;
+        int y1 = 0;
+        int x2 = 0;
+        int y2 = 0;
+        std::vector<int> tileData;
+        std::vector<int> objectData;
+        std::vector<int> eventDataRaw;
+
+        MapData(
+            int mapId,
+            int floor,
+            int x1,
+            int y1,
+            int x2,
+            int y2,
+            std::vector<int> tileData,
+            std::vector<int> objectData,
+            std::vector<int> eventDataRaw)
+            : mapId(mapId),
+              floor(floor),
+              x1(x1),
+              y1(y1),
+              x2(x2),
+              y2(y2),
+              tileData(std::move(tileData)),
+              objectData(std::move(objectData)),
+              eventDataRaw(std::move(eventDataRaw))
+        {
+        }
+
+        [[nodiscard]] std::string BuildData() const
+        {
+            std::vector<std::string> layerPayloads;
+            layerPayloads.reserve(3U);
+            layerPayloads.push_back(BuildLayer(tileData, false));
+            layerPayloads.push_back(BuildLayer(objectData, true));
+            layerPayloads.push_back(BuildLayer(eventDataRaw, true));
+
+            PacketResult<std::string> payload = BuildPayload(
+                std::span<const std::string>(layerPayloads.data(), layerPayloads.size()),
+                LayerDelimiter);
+            if (payload.HasValue()) {
+                return payload.Value();
+            }
+
+            return {};
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            packet.fields.push_back(PacketField {
+                "mapid",
+                PacketFieldType::Int62,
+                std::to_string(mapId),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "floor",
+                PacketFieldType::Int62,
+                std::to_string(floor),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "x1",
+                PacketFieldType::Int62,
+                std::to_string(x1),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "y1",
+                PacketFieldType::Int62,
+                std::to_string(y1),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "x2",
+                PacketFieldType::Int62,
+                std::to_string(x2),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "y2",
+                PacketFieldType::Int62,
+                std::to_string(y2),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "data",
+                PacketFieldType::EscapedString,
+                BuildData(),
+                PacketSourceTag::Xlsx,
+            });
+            return packet;
+        }
+
+        static PacketResult<MapData> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view);
+            if (!parsed.HasValue()) {
+                return PacketResult<MapData>::Failure(parsed.Error());
+            }
+
+            const Packet& packet = parsed.Value();
+            if (packet.code.View() != Code) {
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "MapData Parse 收到非 aBS 封包");
+                error.packetCode = packet.code;
+                return PacketResult<MapData>::Failure(std::move(error));
+            }
+
+            if (packet.direction != Direction) {
+                return PacketResult<MapData>::Failure(MakePacketError(
+                    PacketErrorCode::DecodeFailed,
+                    "MapData Parse 封包方向不匹配"));
+            }
+
+            if (packet.fields.size() != FieldCount) {
+                return PacketResult<MapData>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "MapData Parse 字段数量不匹配",
+                    packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
+            }
+
+            const std::array<std::string_view, FieldCount> fieldNames = {
+                "mapid",
+                "floor",
+                "x1",
+                "y1",
+                "x2",
+                "y2",
+                "data",
+            };
+            const std::array<PacketFieldType, FieldCount> fieldTypes = {
+                PacketFieldType::Int62,
+                PacketFieldType::Int62,
+                PacketFieldType::Int62,
+                PacketFieldType::Int62,
+                PacketFieldType::Int62,
+                PacketFieldType::Int62,
+                PacketFieldType::EscapedString,
+            };
+
+            for (std::size_t index = 0; index < FieldCount; ++index) {
+                if (packet.fields[index].name != fieldNames[index]) {
+                    return PacketResult<MapData>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "MapData Parse 字段名不匹配",
+                        index));
+                }
+
+                if (packet.fields[index].type != fieldTypes[index]) {
+                    return PacketResult<MapData>::Failure(MakeFieldError(
+                        PacketErrorCode::InvalidFieldType,
+                        "MapData Parse 字段类型不匹配",
+                        index));
+                }
+            }
+
+            std::array<int, DataFieldIndex> values = {};
+            for (std::size_t index = 0; index < DataFieldIndex; ++index) {
+                PacketResult<int> value = ParseDecimalField(packet.fields[index].value, index);
+                if (!value.HasValue()) {
+                    return PacketResult<MapData>::Failure(value.Error());
+                }
+                values[index] = value.Value();
+            }
+
+            if (values[4] < values[2]) {
+                return PacketResult<MapData>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "MapData Parse x2 小于 x1",
+                    4U));
+            }
+            if (values[5] < values[3]) {
+                return PacketResult<MapData>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "MapData Parse y2 小于 y1",
+                    5U));
+            }
+
+            const std::int64_t width64 = static_cast<std::int64_t>(values[4]) - static_cast<std::int64_t>(values[2]);
+            const std::int64_t height64 = static_cast<std::int64_t>(values[5]) - static_cast<std::int64_t>(values[3]);
+            const std::size_t width = static_cast<std::size_t>(width64);
+            const std::size_t height = static_cast<std::size_t>(height64);
+            if (height != 0U && width > (std::numeric_limits<std::size_t>::max() / height)) {
+                return PacketResult<MapData>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "MapData Parse 面积溢出",
+                    DataFieldIndex));
+            }
+            const std::size_t area = width * height;
+            const std::string& payload = packet.fields[DataFieldIndex].value;
+
+            if (area == 0U && payload.empty()) {
+                return PacketResult<MapData>::Success(MapData(
+                    values[0],
+                    values[1],
+                    values[2],
+                    values[3],
+                    values[4],
+                    values[5],
+                    {},
+                    {},
+                    {}));
+            }
+
+            PacketResult<std::vector<std::string>> layers = SplitPayload(payload, LayerDelimiter);
+            if (!layers.HasValue()) {
+                PacketError error = layers.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = DataFieldIndex;
+                error.source = PacketSourceTag::Xlsx;
+                return PacketResult<MapData>::Failure(std::move(error));
+            }
+
+            if (layers.Value().size() != 3U) {
+                return PacketResult<MapData>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "MapData payload 段数量不匹配",
+                    DataFieldIndex));
+            }
+
+            PacketResult<std::vector<int>> tileLayer = ParseLayer(layers.Value()[0], area, false);
+            if (!tileLayer.HasValue()) {
+                return PacketResult<MapData>::Failure(tileLayer.Error());
+            }
+
+            PacketResult<std::vector<int>> objectLayer = ParseLayer(layers.Value()[1], area, true);
+            if (!objectLayer.HasValue()) {
+                return PacketResult<MapData>::Failure(objectLayer.Error());
+            }
+
+            PacketResult<std::vector<int>> eventLayer = ParseLayer(layers.Value()[2], area, true);
+            if (!eventLayer.HasValue()) {
+                return PacketResult<MapData>::Failure(eventLayer.Error());
+            }
+
+            return PacketResult<MapData>::Success(MapData(
+                values[0],
+                values[1],
+                values[2],
+                values[3],
+                values[4],
+                values[5],
+                std::move(tileLayer.Value()),
+                std::move(objectLayer.Value()),
+                std::move(eventLayer.Value())));
+        }
+
+    private:
+        static constexpr std::size_t FieldCount = 7U;
+        static constexpr std::size_t DataFieldIndex = 6U;
+
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            error.source = PacketSourceTag::Xlsx;
+            return error;
+        }
+
+        [[nodiscard]] static PacketError MakeFieldError(
+            PacketErrorCode code,
+            std::string message,
+            std::size_t fieldIndex)
+        {
+            PacketError error = MakePacketError(code, std::move(message));
+            error.fieldIndex = fieldIndex;
+            return error;
+        }
+
+        [[nodiscard]] static PacketResult<int> ParseDecimalField(std::string_view text, std::size_t fieldIndex)
+        {
+            bool negative = false;
+            std::size_t index = 0;
+            if (!text.empty() && text.front() == '-') {
+                negative = true;
+                index = 1U;
+            }
+
+            if (index == text.size()) {
+                return PacketResult<int>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "MapData Parse i62 字段为空",
+                    fieldIndex));
+            }
+
+            const std::int64_t maxValue = static_cast<std::int64_t>(std::numeric_limits<int>::max());
+            const std::int64_t minValue = static_cast<std::int64_t>(std::numeric_limits<int>::min());
+            const std::int64_t limit = negative ? (0 - minValue) : maxValue;
+            std::int64_t value = 0;
+
+            for (; index < text.size(); ++index) {
+                const char ch = text[index];
+                if (ch < '0' || ch > '9') {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "MapData Parse i62 字段包含非十进制字符",
+                        fieldIndex));
+                }
+
+                const int digit = ch - '0';
+                if (value > (limit - digit) / 10) {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "MapData Parse i62 字段超出 int 范围",
+                        fieldIndex));
+                }
+
+                value = (value * 10) + digit;
+            }
+
+            if (negative) {
+                value = -value;
+            }
+
+            return PacketResult<int>::Success(static_cast<int>(value));
+        }
+
+        [[nodiscard]] static PacketResult<std::vector<int>> ParseLayer(
+            std::string_view layer,
+            std::size_t area,
+            bool emptyCellAsZero)
+        {
+            if (area == 0U && layer.empty()) {
+                return PacketResult<std::vector<int>>::Success({});
+            }
+
+            PacketResult<std::vector<std::string>> cells = SplitPayload(layer, CellDelimiter);
+            if (!cells.HasValue()) {
+                PacketError error = cells.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = DataFieldIndex;
+                error.source = PacketSourceTag::Xlsx;
+                return PacketResult<std::vector<int>>::Failure(std::move(error));
+            }
+
+            if (cells.Value().size() != area) {
+                return PacketResult<std::vector<int>>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "MapData payload 单层元素数量不匹配",
+                    DataFieldIndex));
+            }
+
+            std::vector<int> values;
+            values.reserve(cells.Value().size());
+            for (const std::string& cell : cells.Value()) {
+                if (cell.empty()) {
+                    if (emptyCellAsZero) {
+                        values.push_back(0);
+                        continue;
+                    }
+
+                    return PacketResult<std::vector<int>>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "MapData tileData 空字段非法",
+                        DataFieldIndex));
+                }
+
+                PacketResult<int> value = DecodeInt62(cell);
+                if (!value.HasValue()) {
+                    PacketError error = value.Error();
+                    error.packetCode = PacketCode(Code);
+                    error.fieldIndex = DataFieldIndex;
+                    error.source = PacketSourceTag::Xlsx;
+                    return PacketResult<std::vector<int>>::Failure(std::move(error));
+                }
+
+                values.push_back(value.Value());
+            }
+
+            return PacketResult<std::vector<int>>::Success(std::move(values));
+        }
+
+        [[nodiscard]] static std::string BuildLayer(const std::vector<int>& values, bool zeroAsEmpty)
+        {
+            std::vector<std::string> cells;
+            cells.reserve(values.size());
+            for (const int value : values) {
+                if (zeroAsEmpty && value == 0) {
+                    cells.emplace_back();
+                    continue;
+                }
+
+                PacketResult<std::string> encoded = EncodeInt62(value);
+                cells.push_back(encoded.HasValue() ? encoded.Value() : std::string());
+            }
+
+            PacketResult<std::string> payload = BuildPayload(
+                std::span<const std::string>(cells.data(), cells.size()),
+                CellDelimiter);
+            if (payload.HasValue()) {
+                return payload.Value();
+            }
+
+            return {};
         }
     };
 }

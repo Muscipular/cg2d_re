@@ -314,6 +314,17 @@ target_include_directories(cg-packet-character-icon-test
 
 add_test(NAME cg-packet-character-icon-test COMMAND cg-packet-character-icon-test)
 
+add_executable(cg-packet-map-data-test
+    tests/packet/MapDataPacketTest.cpp
+)
+
+target_include_directories(cg-packet-map-data-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+
+add_test(NAME cg-packet-map-data-test COMMAND cg-packet-map-data-test)
+
 add_executable(cg-packet-payload-codec-test
     tests/packet/PayloadCodecTest.cpp
 )
@@ -357,6 +368,7 @@ if(MSVC)
     target_compile_options(cg-packet-map-name-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-object-list-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-character-icon-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-map-data-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-payload-codec-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-coverage-schema-test PRIVATE /W4 /utf-8 /permissive-)
 else()
@@ -376,6 +388,7 @@ else()
     target_compile_options(cg-packet-map-name-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-object-list-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-character-icon-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-packet-map-data-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-payload-codec-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-coverage-schema-test PRIVATE -Wall -Wextra -Wpedantic)
 endif()

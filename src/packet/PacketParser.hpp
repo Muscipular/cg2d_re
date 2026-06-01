@@ -91,6 +91,12 @@ namespace cg::packet
             {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
         }};
 
+        inline constexpr std::array<PacketFieldSpec, 3> ProfileMailReceiptFields = {{
+            {"profileIndex", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"dtext", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+            {"color", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+        }};
+
         inline constexpr std::array<PacketFieldSpec, 1> CheckCommandFields = {{
             {"time", PacketFieldType::Int62, PacketSourceTag::Xlsx},
         }};
@@ -130,7 +136,7 @@ namespace cg::packet
             {"y2", PacketFieldType::Int62, PacketSourceTag::Xlsx},
         }};
 
-        inline constexpr std::array<PacketSpec, 19> PacketRegistry = {{
+        inline constexpr std::array<PacketSpec, 20> PacketRegistry = {{
             {
                 "JFVf",
                 PacketDirection::ClientToServer,
@@ -207,6 +213,13 @@ namespace cg::packet
                 PacketSourceTag::Xlsx,
                 ProfileMailDeleteFields.data(),
                 ProfileMailDeleteFields.size(),
+            },
+            {
+                "ow",
+                PacketDirection::ServerToClient,
+                PacketSourceTag::Xlsx,
+                ProfileMailReceiptFields.data(),
+                ProfileMailReceiptFields.size(),
             },
             {
                 "CCL",

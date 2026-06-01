@@ -92,7 +92,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | M6.11.15 角色/Profile封包-Rspn | `Rspn` | 服务端->客户端 | 是 | 完成 | SEND_CT；xlsx rawFormat 为空，字段由旧 C `nrproto_CT_send(int fd, int skillindex, char* data)` + 客户端 IDA 补足；外层 `{skillIndex:i62} {data:es}`；payload 每条 `techName|comment|forcePoint|field|targetFlag|canUse|`，数值为 raw decimal，保留尾随 `|` |
 | M6.11.16 角色/Profile封包-OBee | `OBee` | 服务端->客户端 | 是 | 完成 | SEND_PT；xlsx rawFormat 为空，字段由旧 C `nrproto_PT_send(int fd, int petindex, char* data)` + 客户端 IDA 补足；外层 `{petIndex:i62} {data:es}`；payload 每条 `skillSlot|techId|name|description|forcePoint|techField|target|seqNo|`，数值为 raw decimal，保留尾随 `|`，空 data 视为错误 |
 | M6.11.17 角色/Profile封包-Yo | `Yo` | 服务端->客户端 | 是 | 完成 | SEND_S；xlsx rawFormat 为空，字段由旧 C `nrproto_S_send(int fd, char* data)` + 客户端 IDA 补足；外层 `{data:es}`；payload 原样保留，不拆二级结构 |
-| M6.11.18 角色/Profile封包-ysVc | `ysVc` | 服务端->客户端 | 是 | 字段待补 | SEND_GFL CHAR_sendFrontCharList |
+| M6.11.18 角色/Profile封包-ysVc | `ysVc` | 服务端->客户端 | 是 | 完成 | SEND_GFL；旧 C `SEND_GFL/nrproto_GFL_send` + `CHAR_sendFrontCharList` 补外层 `{data:es}`；payload 为 `name|nonPlayerFlag|` 重复记录，name 保留 makeEscapeString 后 raw 字符串，nonPlayerFlag 为 raw decimal，允许空 data |
 | M6.11.19 角色/Profile封包-ND | `ND` | 服务端->客户端 | 是 | 字段待补 | SEND_GPD CHAR_sendCharAndPetList |
 | M6.11.20 角色/Profile封包-LY | `LY` | 服务端->客户端 | 是 | 字段待补 | SEND_GFLI CHAR_sendFrontCharList |
 | M6.11.21 角色/Profile封包-nFV | `nFV` | 服务端->客户端 | 是 | 字段待补 | SEND_GPDI CHAR_sendCharAndPetList |
@@ -278,7 +278,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 87 | `Yo` | 服务端->客户端 | 完成 | SEND_S；旧 C+IDA 补外层 `{data:es}`，payload 原样保留不拆 | 是 | 是 | 旧 C + IDA + src/packet |
 | 88 | `sZWu` | 服务端->客户端 | 暂缓 | SEND_HL | 是 | 否 | 待 C/IDA 补全 |
 | 89 | `bNY` | 服务端->客户端 | 完成 | SEND_PR | 是 | 否 | 待 C/IDA 补全 |
-| 90 | `ysVc` | 服务端->客户端 | 完成 | SEND_GFL CHAR_sendFrontCharList | 是 | 是 | 待 C/IDA 补全 |
+| 90 | `ysVc` | 服务端->客户端 | 完成 | SEND_GFL；旧 C 补外层 `{data:es}`，payload 为 `name|nonPlayerFlag|` 重复记录并保留尾随 `|` | 是 | 是 | 旧 C + src/packet |
 | 91 | `ND` | 服务端->客户端 | 完成 | SEND_GPD CHAR_sendCharAndPetList | 是 | 是 | 待 C/IDA 补全 |
 | 92 | `LY` | 服务端->客户端 | 完成 | SEND_GFLI CHAR_sendFrontCharList | 是 | 是 | 待 C/IDA 补全 |
 | 93 | `nFV` | 服务端->客户端 | 完成 | SEND_GPDI CHAR_sendCharAndPetList | 是 | 是 | 待 C/IDA 补全 |

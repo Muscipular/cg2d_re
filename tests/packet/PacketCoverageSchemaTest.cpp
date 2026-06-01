@@ -647,6 +647,22 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         failures += Expect(battleCommandSchema->fields.empty(), "LYIm raw fields empty");
     }
 
+    const PacketSchema* profileMailMessageSchema = FindPacket(packets, "Mhbt");
+    failures += Expect(profileMailMessageSchema != nullptr, "Mhbt schema exists");
+    if (profileMailMessageSchema != nullptr) {
+        failures += Expect(profileMailMessageSchema->direction == "服务端->客户端", "Mhbt direction");
+        failures += Expect(profileMailMessageSchema->legacyKind == "SEND", "Mhbt legacyKind");
+        failures += Expect(profileMailMessageSchema->rawFormat.empty(), "Mhbt rawFormat empty");
+        failures += Expect(profileMailMessageSchema->formatEmpty, "Mhbt formatEmpty");
+        failures += Expect(
+            profileMailMessageSchema->resolvedFormat == "{aindex:i62} {text:es} {color:i62}",
+            "Mhbt resolvedFormat");
+        failures += Expect(
+            profileMailMessageSchema->resolvedSource == "ServerC+ClientIda+src",
+            "Mhbt resolvedSource");
+        failures += Expect(profileMailMessageSchema->fields.empty(), "Mhbt raw fields empty");
+    }
+
     const PacketSchema* checkCommandSchema = FindPacket(packets, "CCL");
     failures += Expect(checkCommandSchema != nullptr, "CCL schema exists");
     if (checkCommandSchema != nullptr) {

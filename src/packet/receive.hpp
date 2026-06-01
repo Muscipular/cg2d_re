@@ -10096,6 +10096,292 @@ namespace cg::packet::receive
     };
 
     /**
+     * SEND_MSG recvmsg 名片邮件 payload。
+     * 普通邮件 3 段：sentTimeText|messageRaw|petBaseImageNumberOrMarker。
+     * 宠邮 6 段：sentTimeText|messageRaw|petBaseImageNumber|petLevel|petNameRaw|itemBaseImageNumber。
+     */
+    struct ProfileMailMessagePayload
+    {
+        bool isPetMail = false;
+        std::string sentTimeText;
+        std::string messageRaw;
+        int petBaseImageNumberOrMarker = -1;
+        int petLevel = 0;
+        std::string petNameRaw;
+        int itemBaseImageNumber = 0;
+    };
+
+    /**
+     * SEND_MSG recvmsg 名片邮件		Mhbt {aindex:i62} {text:es} {color:i62}
+     * text 为内部 `|` payload，仅支持普通邮件 3 段与宠邮 6 段。
+     */
+    struct ProfileMailMessage
+    {
+        static constexpr std::string_view Code = "Mhbt";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::string_view PayloadDelimiter = "|";
+
+        int aindex = 0;
+        ProfileMailMessagePayload payload;
+        int color = 0;
+
+        ProfileMailMessage(int aindex, ProfileMailMessagePayload payload, int color)
+            : aindex(aindex),
+              payload(std::move(payload)),
+              color(color)
+        {
+        }
+
+        [[nodiscard]] std::string BuildText() const
+        {
+            std::string text;
+            text.append(payload.sentTimeText);
+            text.push_back('|');
+            text.append(payload.messageRaw);
+            text.push_back('|');
+            text.append(std::to_string(payload.petBaseImageNumberOrMarker));
+            if (payload.isPetMail) {
+                text.push_back('|');
+                text.append(std::to_string(payload.petLevel));
+                text.push_back('|');
+                text.append(payload.petNameRaw);
+                text.push_back('|');
+                text.append(std::to_string(payload.itemBaseImageNumber));
+            }
+            return text;
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ServerC);
+            packet.fields.push_back(PacketField {
+                "aindex",
+                PacketFieldType::Int62,
+                std::to_string(aindex),
+                PacketSourceTag::ServerC,
+            });
+            packet.fields.push_back(PacketField {
+                "text",
+                PacketFieldType::EscapedString,
+                BuildText(),
+                PacketSourceTag::ServerC,
+            });
+            packet.fields.push_back(PacketField {
+                "color",
+                PacketFieldType::Int62,
+                std::to_string(color),
+                PacketSourceTag::ServerC,
+            });
+            return packet;
+        }
+
+        static PacketResult<ProfileMailMessage> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view);
+            if (!parsed.HasValue()) {
+                return PacketResult<ProfileMailMessage>::Failure(parsed.Error());
+            }
+
+            const Packet& packet = parsed.Value();
+            if (packet.code.View() != Code) {
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "ProfileMailMessage Parse 收到非 Mhbt 封包");
+                error.packetCode = packet.code;
+                return PacketResult<ProfileMailMessage>::Failure(std::move(error));
+            }
+
+            if (packet.direction != Direction) {
+                return PacketResult<ProfileMailMessage>::Failure(MakePacketError(
+                    PacketErrorCode::DecodeFailed,
+                    "ProfileMailMessage Parse 封包方向不匹配"));
+            }
+
+            if (packet.fields.size() != FieldCount) {
+                return PacketResult<ProfileMailMessage>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "ProfileMailMessage Parse 字段数量不匹配",
+                    packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
+            }
+
+            const std::array<std::string_view, FieldCount> fieldNames = {
+                "aindex",
+                "text",
+                "color",
+            };
+            const std::array<PacketFieldType, FieldCount> fieldTypes = {
+                PacketFieldType::Int62,
+                PacketFieldType::EscapedString,
+                PacketFieldType::Int62,
+            };
+
+            for (std::size_t index = 0; index < FieldCount; ++index) {
+                if (packet.fields[index].name != fieldNames[index]) {
+                    return PacketResult<ProfileMailMessage>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "ProfileMailMessage Parse 字段名不匹配",
+                        index));
+                }
+
+                if (packet.fields[index].type != fieldTypes[index]) {
+                    return PacketResult<ProfileMailMessage>::Failure(MakeFieldError(
+                        PacketErrorCode::InvalidFieldType,
+                        "ProfileMailMessage Parse 字段类型不匹配",
+                        index));
+                }
+            }
+
+            PacketResult<int> aindexValue = ParseDecimalField(packet.fields[AindexFieldIndex].value, AindexFieldIndex);
+            if (!aindexValue.HasValue()) {
+                return PacketResult<ProfileMailMessage>::Failure(aindexValue.Error());
+            }
+
+            PacketResult<ProfileMailMessagePayload> payloadValue = ParsePayloadText(packet.fields[TextFieldIndex].value);
+            if (!payloadValue.HasValue()) {
+                return PacketResult<ProfileMailMessage>::Failure(payloadValue.Error());
+            }
+
+            PacketResult<int> colorValue = ParseDecimalField(packet.fields[ColorFieldIndex].value, ColorFieldIndex);
+            if (!colorValue.HasValue()) {
+                return PacketResult<ProfileMailMessage>::Failure(colorValue.Error());
+            }
+
+            return PacketResult<ProfileMailMessage>::Success(ProfileMailMessage(
+                aindexValue.Value(),
+                std::move(payloadValue.Value()),
+                colorValue.Value()));
+        }
+
+    private:
+        static constexpr std::size_t FieldCount = 3U;
+        static constexpr std::size_t AindexFieldIndex = 0U;
+        static constexpr std::size_t TextFieldIndex = 1U;
+        static constexpr std::size_t ColorFieldIndex = 2U;
+        static constexpr std::size_t NormalPayloadFieldCount = 3U;
+        static constexpr std::size_t PetPayloadFieldCount = 6U;
+        static constexpr std::size_t PetBaseImageFieldIndex = 2U;
+        static constexpr std::size_t PetLevelFieldIndex = 3U;
+        static constexpr std::size_t ItemBaseImageFieldIndex = 5U;
+
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            error.source = PacketSourceTag::ServerC;
+            return error;
+        }
+
+        [[nodiscard]] static PacketError MakeFieldError(
+            PacketErrorCode code,
+            std::string message,
+            std::size_t fieldIndex)
+        {
+            PacketError error = MakePacketError(code, std::move(message));
+            error.fieldIndex = fieldIndex;
+            return error;
+        }
+
+        [[nodiscard]] static PacketResult<ProfileMailMessagePayload> ParsePayloadText(std::string_view text)
+        {
+            PacketResult<std::vector<std::string>> split = SplitPayload(text, PayloadDelimiter);
+            if (!split.HasValue()) {
+                PacketError error = split.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = TextFieldIndex;
+                error.source = PacketSourceTag::ServerC;
+                return PacketResult<ProfileMailMessagePayload>::Failure(std::move(error));
+            }
+
+            const std::vector<std::string>& parts = split.Value();
+            if (parts.size() != NormalPayloadFieldCount && parts.size() != PetPayloadFieldCount) {
+                return PacketResult<ProfileMailMessagePayload>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "ProfileMailMessage payload 段数量不匹配",
+                    TextFieldIndex));
+            }
+
+            PacketResult<int> petBaseImageNumberOrMarker = ParseDecimalField(
+                parts[PetBaseImageFieldIndex],
+                PetBaseImageFieldIndex);
+            if (!petBaseImageNumberOrMarker.HasValue()) {
+                return PacketResult<ProfileMailMessagePayload>::Failure(petBaseImageNumberOrMarker.Error());
+            }
+
+            ProfileMailMessagePayload payload;
+            payload.isPetMail = parts.size() == PetPayloadFieldCount;
+            payload.sentTimeText = parts[0];
+            payload.messageRaw = parts[1];
+            payload.petBaseImageNumberOrMarker = petBaseImageNumberOrMarker.Value();
+
+            if (payload.isPetMail) {
+                PacketResult<int> petLevel = ParseDecimalField(parts[PetLevelFieldIndex], PetLevelFieldIndex);
+                if (!petLevel.HasValue()) {
+                    return PacketResult<ProfileMailMessagePayload>::Failure(petLevel.Error());
+                }
+
+                PacketResult<int> itemBaseImageNumber = ParseDecimalField(
+                    parts[ItemBaseImageFieldIndex],
+                    ItemBaseImageFieldIndex);
+                if (!itemBaseImageNumber.HasValue()) {
+                    return PacketResult<ProfileMailMessagePayload>::Failure(itemBaseImageNumber.Error());
+                }
+
+                payload.petLevel = petLevel.Value();
+                payload.petNameRaw = parts[4];
+                payload.itemBaseImageNumber = itemBaseImageNumber.Value();
+            }
+
+            return PacketResult<ProfileMailMessagePayload>::Success(std::move(payload));
+        }
+
+        [[nodiscard]] static PacketResult<int> ParseDecimalField(std::string_view text, std::size_t fieldIndex)
+        {
+            bool negative = false;
+            std::size_t index = 0;
+            if (!text.empty() && text.front() == '-') {
+                negative = true;
+                index = 1U;
+            }
+
+            if (index == text.size()) {
+                return PacketResult<int>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "ProfileMailMessage 十进制字段为空",
+                    fieldIndex));
+            }
+
+            const std::int64_t maxValue = static_cast<std::int64_t>(std::numeric_limits<int>::max());
+            const std::int64_t minValue = static_cast<std::int64_t>(std::numeric_limits<int>::min());
+            const std::int64_t limit = negative ? (0 - minValue) : maxValue;
+            std::int64_t value = 0;
+
+            for (; index < text.size(); ++index) {
+                const char ch = text[index];
+                if (ch < '0' || ch > '9') {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "ProfileMailMessage 十进制字段包含非法字符",
+                        fieldIndex));
+                }
+
+                const int digit = ch - '0';
+                if (value > (limit - digit) / 10) {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "ProfileMailMessage 十进制字段超出 int 范围",
+                        fieldIndex));
+                }
+
+                value = (value * 10) + digit;
+            }
+
+            if (negative) {
+                value = -value;
+            }
+
+            return PacketResult<int>::Success(static_cast<int>(value));
+        }
+    };
+
+    /**
      * SEND_CJ SendJobName		jv {jobassort:i62} {name:es}
      */
     struct JobName

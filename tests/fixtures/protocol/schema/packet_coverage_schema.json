@@ -1833,6 +1833,24 @@
       "xlsxStatus": "完成",
       "description": "SEND_ALN",
       "rawFormat": "",
+      "resolvedFormat": "{albumId:i62} {name:es}",
+      "resolvedSource": "ServerC+ClientIda+src",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "albumId",
+          "typeToken": "i62",
+          "rawSpec": "{albumId:i62}",
+          "source": "ServerC+ClientIda+src"
+        },
+        {
+          "index": 1,
+          "name": "name",
+          "typeToken": "es",
+          "rawSpec": "{name:es}",
+          "source": "ServerC+ClientIda+src"
+        }
+      ],
       "formatEmpty": true,
       "source": "xlsx",
       "fields": []

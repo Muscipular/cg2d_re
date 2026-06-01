@@ -46,7 +46,11 @@ namespace cg::packet
             {"time", PacketFieldType::Int62, PacketSourceTag::Xlsx},
         }};
 
-        inline constexpr std::array<PacketSpec, 4> PacketRegistry = {{
+        inline constexpr std::array<PacketFieldSpec, 1> MapNameFields = {{
+            {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+        }};
+
+        inline constexpr std::array<PacketSpec, 5> PacketRegistry = {{
             {
                 "JFVf",
                 PacketDirection::ClientToServer,
@@ -67,6 +71,13 @@ namespace cg::packet
                 PacketSourceTag::Xlsx,
                 CheckCommandFields.data(),
                 CheckCommandFields.size(),
+            },
+            {
+                "TeD",
+                PacketDirection::ServerToClient,
+                PacketSourceTag::Xlsx,
+                MapNameFields.data(),
+                MapNameFields.size(),
             },
             {
                 "Gp",

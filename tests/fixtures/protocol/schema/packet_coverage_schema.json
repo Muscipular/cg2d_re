@@ -4661,16 +4661,34 @@
       "legacyKind": "RECV",
       "clientNamespace": "send",
       "xlsxStatus": "完成",
-      "description": "RECV_PLVUP 宠物加点",
-      "rawFormat": "{petSlot} {sqeno}",
-      "formatEmpty": false,
-      "source": "xlsx",
-      "fields": [
-        {
-          "index": 0,
-          "name": "petSlot",
-          "typeToken": "unknown",
-          "rawSpec": "{petSlot}",
+        "description": "RECV_PLVUP 宠物加点",
+        "rawFormat": "{petSlot} {sqeno}",
+        "formatEmpty": false,
+        "source": "xlsx",
+        "resolvedFormat": "{petSlot:i62} {sqeno:i62}",
+        "resolvedSource": "xlsx+ServerC+IDA+src",
+        "resolvedFields": [
+          {
+            "index": 0,
+            "name": "petSlot",
+            "typeToken": "i62",
+            "rawSpec": "{petSlot:i62}",
+            "source": "xlsx+ServerC+IDA+src"
+          },
+          {
+            "index": 1,
+            "name": "sqeno",
+            "typeToken": "i62",
+            "rawSpec": "{sqeno:i62}",
+            "source": "xlsx+ServerC+IDA+src"
+          }
+        ],
+        "fields": [
+          {
+            "index": 0,
+            "name": "petSlot",
+            "typeToken": "unknown",
+            "rawSpec": "{petSlot}",
           "source": "xlsx"
         },
         {

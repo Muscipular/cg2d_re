@@ -127,7 +127,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | M6.13.08 聊天/窗口/系统封包-CV | `CV` | 客户端->服务端 | 否 | 未开始 | RECV_MSG 发送邮件信息 触发SEND_MSG |
 | M6.13.09 聊天/窗口/系统封包-uSr | `uSr` | 客户端->服务端 | 否 | 未开始 | RECV_TK 发送聊天 |
 | M6.13.10 聊天/窗口/系统封包-xD | `xD` | 客户端->服务端 | 否 | 未开始 | RECV_WN 打开系统窗口 |
-| M6.13.11 聊天/窗口/系统封包-IcE | `IcE` | 客户端->服务端 | 是 | 字段待补 | RECV_Shutdown |
+| M6.13.11 聊天/窗口/系统封包-IcE | `IcE` | 客户端->服务端 | 是 | 字段待补 | RECV_Shutdown；xlsx 未使用；旧 C 未补；IDA 未找到；禁止猜 0 字段 |
 | M6.14.01 战斗/交易/家族/社交封包-gnxd | `gnxd` | 服务端->客户端 | 否 | 未开始 | SEND_AB SendAddressbook |
 | M6.14.02 战斗/交易/家族/社交封包-PhdQ | `PhdQ` | 服务端->客户端 | 否 | 未开始 | SEND_ABG SendAddressbookGuildInfo |
 | M6.14.03 战斗/交易/家族/社交封包-Gn | `Gn` | 服务端->客户端 | 是 | 字段待补 | SEND_RS 战斗获得物品 |
@@ -396,7 +396,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 192 | `Godf` | 客户端->服务端 | 完成 | RECV_CharDelete 删除角色 | 否 | 否 | xlsx |
 | 193 | `yp` | 客户端->服务端 | 暂缓 | RECV_ProcGet gm命令？ | 是 | 否 | 待 C/IDA 补全 |
 | 194 | `rvb` | 客户端->服务端 | 暂缓 | RECV_PlayerNumGet | 是 | 否 | 待 C/IDA 补全 |
-| 195 | `IcE` | 客户端->服务端 | 暂缓 | RECV_Shutdown | 是 | 是 | 待 C/IDA 补全 |
+| 195 | `IcE` | 客户端->服务端 | 暂缓 | RECV_Shutdown；xlsx 未使用；旧 C 未补；IDA 未找到；禁止猜 0 字段 | 是 | 是 | 待 C/IDA 补全 |
 | 196 | `PGXE` | 客户端->服务端 | 完成 | RECV_CH cheat 检测作弊 | 否 | 否 | xlsx |
 | 197 | `lO` | 客户端->服务端 | 完成 | RECV_CharLoginGate 回登陆点 | 否 | 否 | xlsx |
 | 198 | `Xoee` | 客户端->服务端 | 暂缓 | RECV_PVUP 历史迁移封包 | 否 | 否 | xlsx |

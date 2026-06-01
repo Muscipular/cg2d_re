@@ -169,6 +169,7 @@
 | 2026-06-01 | M6.11.18 角色/Profile封包 ysVc 启动 | 确认范围仅 `ysVc` / `SEND_GFL CHAR_sendFrontCharList`；计划注册外层 `{data:es}`，typed payload 解析 `name|nonPlayerFlag|` 重复记录，空 data 为空列表 | 待验证：`git diff --check`、VS bundled CMake configure、Debug 构建新增 `cg-packet-front-char-list-test`、CTest Debug `^cg-packet-` | 不实现 `ND`/`LY`/`nFV` 等相邻封包 |
 | 2026-06-01 | M6.11.18 角色/Profile封包 ysVc 实现 | 新增 `receive::FrontCharList`/`FrontCharRecord`；registry 注册 `ysVc {data:es}` 且来源标 `ServerC`；payload 解析空 data、尾随 `|`、二字段成对和 `nonPlayerFlag` 十进制；新增 `cg-packet-front-char-list-test`；schema 与 M6 清单补 resolved 外层和二级 payload 说明 | `git diff --check` 通过，仅 LF/CRLF 提示；VS bundled CMake `-S . -B build` 通过；Debug 构建并运行 `cg-packet-front-char-list-test` 通过；CTest Debug `^cg-packet-` 33/33 通过 | 不实现相邻 `SEND_GPD/GFLI/GPDI` |
 | 2026-06-02 | M6.11.18 ysVc review 修复 | 限定 `nonPlayerFlag` 解析值只能为 `0/1`；`BuildData()`/`ToPacket()` 改为 `PacketResult`，构造输出遇到 `2/-1` 返回失败；补 `Alice|2|`、`Alice|-1|` 解析失败和构造失败测试 | `git diff --check` 通过，仅 LF/CRLF 提示；PATH 无 `cmake`，改用 VS bundled CMake；Debug 构建并运行 `cg-packet-front-char-list-test` 通过；CTest Debug `^cg-packet-` 33/33 通过 | 不实现新封包；未扩展相邻 payload 语义；未使用 subAgent 工具：当前环境未提供可调用 subAgent/线程工具 |
+| 2026-06-02 | M6.11.18 ysVc review 补测 | `tests/packet/FrontCharListPacketTest.cpp` 补 `Alice||` 空 `nonPlayerFlag` 解析失败测试，保留 `x/2/-1` 非法 flag 用例 | `git diff --check` 通过，仅 LF/CRLF 提示；VS bundled CMake Debug 构建并运行 `cg-packet-front-char-list-test` 通过；CTest Debug `^cg-packet-` 33/33 通过 | 不改生产代码；不实现新封包 |
 
 ## 工具补充
 

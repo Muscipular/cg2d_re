@@ -237,6 +237,11 @@ int TestErrors()
         "ysVc",
         "ysVc nonPlayerFlag non-decimal");
     failures += ExpectError(
+        cg::packet::receive::FrontCharList::Parse(BuildPlainYsVc("Alice||")),
+        cg::packet::PacketErrorCode::DecodeFailed,
+        "ysVc",
+        "ysVc nonPlayerFlag rejects empty");
+    failures += ExpectError(
         cg::packet::receive::FrontCharList::Parse(BuildPlainYsVc("Alice|2|")),
         cg::packet::PacketErrorCode::DecodeFailed,
         "ysVc",

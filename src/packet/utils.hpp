@@ -37,6 +37,18 @@ namespace cg::packet
             error.source = PacketSourceTag::ServerC;
             return error;
         }
+
+        [[nodiscard]] inline bool IsLegacyDoubleByteLead(char ch) noexcept
+        {
+            return static_cast<unsigned char>(ch) >= 0x80U;
+        }
+
+        [[nodiscard]] inline PacketError MakeEscapedStringError(PacketErrorCode code, std::string message)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.source = PacketSourceTag::ServerC;
+            return error;
+        }
     }
 
     [[nodiscard]] inline PacketResult<std::string> EncodeInt62(int value)
@@ -108,9 +120,93 @@ namespace cg::packet
         return PacketResult<int>::Success(static_cast<int>(value));
     }
 
-    // toto encode string
+    [[nodiscard]] inline PacketResult<std::string> EncodeEscapedString(std::string_view text)
+    {
+        std::string output;
+        output.reserve(text.size());
 
-    // toto decode string
+        for (std::size_t index = 0; index < text.size(); ++index) {
+            const char ch = text[index];
+            if (detail::IsLegacyDoubleByteLead(ch)) {
+                if (index + 1U >= text.size()) {
+                    return PacketResult<std::string>::Failure(detail::MakeEscapedStringError(
+                        PacketErrorCode::EncodeFailed,
+                        "es 字符串旧双字节字符被截断"));
+                }
+
+                output.push_back(ch);
+                output.push_back(text[index + 1U]);
+                ++index;
+                continue;
+            }
+
+            if (ch == '\\') {
+                output.push_back('\\');
+                output.push_back('\\');
+            } else if (ch == ' ') {
+                output.push_back('\\');
+                output.push_back('S');
+            } else if (ch == '\n') {
+                output.push_back('\\');
+                output.push_back('n');
+            } else if (ch == '\r') {
+                output.push_back('\\');
+                output.push_back('r');
+            } else {
+                output.push_back(ch);
+            }
+        }
+
+        return PacketResult<std::string>::Success(std::move(output));
+    }
+
+    [[nodiscard]] inline PacketResult<std::string> DecodeEscapedString(std::string_view text)
+    {
+        std::string output;
+        output.reserve(text.size());
+
+        for (std::size_t index = 0; index < text.size(); ++index) {
+            const char ch = text[index];
+            if (detail::IsLegacyDoubleByteLead(ch)) {
+                if (index + 1U >= text.size()) {
+                    return PacketResult<std::string>::Failure(detail::MakeEscapedStringError(
+                        PacketErrorCode::DecodeFailed,
+                        "es 字符串旧双字节字符被截断"));
+                }
+
+                output.push_back(ch);
+                output.push_back(text[index + 1U]);
+                ++index;
+                continue;
+            }
+
+            if (ch != '\\') {
+                output.push_back(ch);
+                continue;
+            }
+
+            if (index + 1U >= text.size()) {
+                output.push_back('\\');
+                continue;
+            }
+
+            const char escaped = text[index + 1U];
+            if (escaped == 'S') {
+                output.push_back(' ');
+            } else if (escaped == 'n') {
+                output.push_back('\n');
+            } else if (escaped == 'r') {
+                output.push_back('\r');
+            } else if (escaped == '\\') {
+                output.push_back('\\');
+            } else {
+                output.push_back('\\');
+            }
+            ++index;
+        }
+
+        return PacketResult<std::string>::Success(std::move(output));
+    }
 }
 
 #endif //CG_ENGINE_UTILS_H

@@ -226,6 +226,17 @@ target_include_directories(cg-packet-int62-codec-test
 
 add_test(NAME cg-packet-int62-codec-test COMMAND cg-packet-int62-codec-test)
 
+add_executable(cg-packet-es-string-codec-test
+    tests/packet/EsStringCodecTest.cpp
+)
+
+target_include_directories(cg-packet-es-string-codec-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+
+add_test(NAME cg-packet-es-string-codec-test COMMAND cg-packet-es-string-codec-test)
+
 if(MSVC)
     target_compile_options(cg-client PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-map-viewer PRIVATE /W4 /utf-8 /permissive-)
@@ -235,6 +246,7 @@ if(MSVC)
     target_compile_options(cg-automap-renderer-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-types-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-int62-codec-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-es-string-codec-test PRIVATE /W4 /utf-8 /permissive-)
 else()
     target_compile_options(cg-client PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-map-viewer PRIVATE -Wall -Wextra -Wpedantic)
@@ -244,6 +256,7 @@ else()
     target_compile_options(cg-automap-renderer-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-types-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-int62-codec-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-packet-es-string-codec-test PRIVATE -Wall -Wextra -Wpedantic)
 endif()
 
 if(WIN32)

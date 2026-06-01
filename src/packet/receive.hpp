@@ -1673,6 +1673,190 @@ namespace cg::packet::receive
     };
 
     /**
+     * SEND_PRE 删除迷你邮件成员		cNB {data:es}
+     * data: profileIndex|name，profileIndex 为 raw decimal，不使用 i62；回写不带尾随 |。
+     */
+    struct ProfileMailDelete
+    {
+        static constexpr std::string_view Code = "cNB";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::string_view PayloadDelimiter = "|";
+
+        int profileIndex = 0;
+        std::string name;
+
+        ProfileMailDelete(int profileIndex, std::string name)
+            : profileIndex(profileIndex),
+              name(std::move(name))
+        {
+        }
+
+        [[nodiscard]] std::string BuildData() const
+        {
+            std::string payload = std::to_string(profileIndex);
+            payload.push_back('|');
+            payload.append(name);
+            return payload;
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            packet.fields.push_back(PacketField {
+                "data",
+                PacketFieldType::EscapedString,
+                BuildData(),
+                PacketSourceTag::Xlsx,
+            });
+            return packet;
+        }
+
+        static PacketResult<ProfileMailDelete> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view);
+            if (!parsed.HasValue()) {
+                return PacketResult<ProfileMailDelete>::Failure(parsed.Error());
+            }
+
+            const Packet& packet = parsed.Value();
+            if (packet.code.View() != Code) {
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "ProfileMailDelete Parse 收到非 cNB 封包");
+                error.packetCode = packet.code;
+                return PacketResult<ProfileMailDelete>::Failure(std::move(error));
+            }
+
+            if (packet.direction != Direction) {
+                return PacketResult<ProfileMailDelete>::Failure(MakePacketError(
+                    PacketErrorCode::DecodeFailed,
+                    "ProfileMailDelete Parse 封包方向不匹配"));
+            }
+
+            if (packet.fields.size() != FieldCount) {
+                return PacketResult<ProfileMailDelete>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "ProfileMailDelete Parse 字段数量不匹配",
+                    packet.fields.empty() ? 0U : FieldCount));
+            }
+
+            const PacketField& field = packet.fields[DataFieldIndex];
+            if (field.name != "data") {
+                return PacketResult<ProfileMailDelete>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "ProfileMailDelete Parse 字段名不匹配",
+                    DataFieldIndex));
+            }
+
+            if (field.type != PacketFieldType::EscapedString) {
+                return PacketResult<ProfileMailDelete>::Failure(MakeFieldError(
+                    PacketErrorCode::InvalidFieldType,
+                    "ProfileMailDelete Parse 字段类型不匹配",
+                    DataFieldIndex));
+            }
+
+            return ParseData(field.value);
+        }
+
+    private:
+        static constexpr std::size_t FieldCount = 1U;
+        static constexpr std::size_t DataFieldIndex = 0U;
+        static constexpr std::size_t PayloadFieldCount = 2U;
+
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            error.source = PacketSourceTag::Xlsx;
+            return error;
+        }
+
+        [[nodiscard]] static PacketError MakeFieldError(
+            PacketErrorCode code,
+            std::string message,
+            std::size_t fieldIndex)
+        {
+            PacketError error = MakePacketError(code, std::move(message));
+            error.fieldIndex = fieldIndex;
+            return error;
+        }
+
+        [[nodiscard]] static PacketResult<ProfileMailDelete> ParseData(std::string_view payload)
+        {
+            PacketResult<std::vector<std::string>> parts = SplitPayload(payload, PayloadDelimiter);
+            if (!parts.HasValue()) {
+                PacketError error = parts.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = DataFieldIndex;
+                error.source = PacketSourceTag::Xlsx;
+                return PacketResult<ProfileMailDelete>::Failure(std::move(error));
+            }
+
+            std::vector<std::string> payloadParts = std::move(parts.Value());
+            if (payloadParts.size() != PayloadFieldCount) {
+                return PacketResult<ProfileMailDelete>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "ProfileMailDelete payload 段数量不匹配",
+                    DataFieldIndex));
+            }
+
+            PacketResult<int> profileIndexValue = ParseDecimalField(payloadParts[0], 0U);
+            if (!profileIndexValue.HasValue()) {
+                return PacketResult<ProfileMailDelete>::Failure(profileIndexValue.Error());
+            }
+
+            return PacketResult<ProfileMailDelete>::Success(
+                ProfileMailDelete(profileIndexValue.Value(), std::move(payloadParts[1])));
+        }
+
+        [[nodiscard]] static PacketResult<int> ParseDecimalField(std::string_view text, std::size_t fieldIndex)
+        {
+            bool negative = false;
+            std::size_t index = 0;
+            if (!text.empty() && text.front() == '-') {
+                negative = true;
+                index = 1U;
+            }
+
+            if (index == text.size()) {
+                return PacketResult<int>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "ProfileMailDelete payload 十进制字段为空",
+                    fieldIndex));
+            }
+
+            const std::int64_t maxValue = static_cast<std::int64_t>(std::numeric_limits<int>::max());
+            const std::int64_t minValue = static_cast<std::int64_t>(std::numeric_limits<int>::min());
+            const std::int64_t limit = negative ? (0 - minValue) : maxValue;
+            std::int64_t value = 0;
+
+            for (; index < text.size(); ++index) {
+                const char ch = text[index];
+                if (ch < '0' || ch > '9') {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "ProfileMailDelete payload 十进制字段包含非法字符",
+                        fieldIndex));
+                }
+
+                const int digit = ch - '0';
+                if (value > (limit - digit) / 10) {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "ProfileMailDelete payload 十进制字段超出 int 范围",
+                        fieldIndex));
+                }
+
+                value = (value * 10) + digit;
+            }
+
+            if (negative) {
+                value = -value;
+            }
+
+            return PacketResult<int>::Success(static_cast<int>(value));
+        }
+    };
+
+    /**
      * SEND_CJ SendJobName		jv {jobassort:i62} {name:es}
      */
     struct JobName

@@ -2522,6 +2522,24 @@
       "rawFormat": "",
       "formatEmpty": true,
       "source": "xlsx",
+      "resolvedFormat": "{petIndex:i62} {data:es}",
+      "resolvedSource": "xlsx+ServerC+ClientIda+SDLCG",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "petIndex",
+          "typeToken": "i62",
+          "rawSpec": "{petIndex:i62}",
+          "source": "xlsx+ServerC+ClientIda+SDLCG"
+        },
+        {
+          "index": 1,
+          "name": "data",
+          "typeToken": "es",
+          "rawSpec": "{data:es}",
+          "source": "xlsx+ServerC+ClientIda+SDLCG"
+        }
+      ],
       "fields": []
     },
     {

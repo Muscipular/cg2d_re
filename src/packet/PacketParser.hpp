@@ -97,6 +97,13 @@ namespace cg::packet
             {"ProfileMsg", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
         }};
 
+        inline constexpr std::array<PacketFieldSpec, 4> PetSkillUseRequestFields = {{
+            {"havepetindex", PacketFieldType::Int62, PacketSourceTag::ServerC},
+            {"havepetskill", PacketFieldType::Int62, PacketSourceTag::ServerC},
+            {"toindex", PacketFieldType::Int62, PacketSourceTag::ServerC},
+            {"data", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
+        }};
+
         inline constexpr std::array<PacketFieldSpec, 1> ProfileMailDeleteFields = {{
             {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
         }};
@@ -189,7 +196,7 @@ namespace cg::packet
             {"y2", PacketFieldType::Int62, PacketSourceTag::Xlsx},
         }};
 
-        inline constexpr std::array<PacketSpec, 32> PacketRegistry = {{
+        inline constexpr std::array<PacketSpec, 33> PacketRegistry = {{
             {
                 "JFVf",
                 PacketDirection::ClientToServer,
@@ -266,6 +273,13 @@ namespace cg::packet
                 PacketSourceTag::Xlsx,
                 SetProfileDataFields.data(),
                 SetProfileDataFields.size(),
+            },
+            {
+                "Flvp",
+                PacketDirection::ClientToServer,
+                PacketSourceTag::ServerC,
+                PetSkillUseRequestFields.data(),
+                PetSkillUseRequestFields.size(),
             },
             {
                 "cNB",

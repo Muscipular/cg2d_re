@@ -98,7 +98,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | M6.11.21 角色/Profile封包-nFV | `nFV` | 服务端->客户端 | 是 | 完成 | SEND_GPDI；旧 C `nrproto_GPDI_send` + `CHAR_sendCharAndPetList` + IDA `sub_4E4020` 补外层 `{data:es}`；payload 为 0..6 条 `name|level|injury|hp|maxHp|forcePoint|maxForcePoint|` 记录，name 保留 raw escaped 字符串，数值为 raw decimal |
 | M6.11.22 角色/Profile封包-Ot | `Ot` | 客户端->服务端 | 否 | 完成 | RECV_PRS/nrproto_PRS_recv + IDA sub_511640 确认外层 7 token；无二级 payload |
 | M6.11.23 角色/Profile封包-RXr | `RXr` | 客户端->服务端 | 是 | 暂缓 | RECV_MU；xlsx rawFormat 为空，旧 C/IDA 未补到字段，缺 `RECV_MU`/`RXr` 封包结构证据，不能实现 |
-| M6.11.24 角色/Profile封包-Flvp | `Flvp` | 客户端->服务端 | 是 | 字段待补 | RECV_PS |
+| M6.11.24 角色/Profile封包-Flvp | `Flvp` | 客户端->服务端 | 是 | 完成 | RECV_PS；旧 C `nrproto_serv.c/nrproto_serv.h` 补外层 `{havepetindex:i62} {havepetskill:i62} {toindex:i62} {data:es}`；`data` 为 opaque es；IDA 未找到客户端 Flvp wrapper |
 | M6.11.25 角色/Profile封包-kjSK | `kjSK` | 客户端->服务端 | 否 | 未开始 | RECV_PLVUP 宠物加点 |
 | M6.11.26 角色/Profile封包-HJQp | `HJQp` | 客户端->服务端 | 否 | 未开始 | RECV_PSSW SKILL_swapPetSkill 宠物技能移动 |
 | M6.11.27 角色/Profile封包-ycX | `ycX` | 客户端->服务端 | 否 | 未开始 | RECV_KN CHAR_inputUserPetName 宠物姓名 |
@@ -370,7 +370,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 176 | `aiAb` | 客户端->服务端 | 完成 | RECV_TROP CHAR_Trade_setTradeList 取出物品 | 否 | 是 | xlsx |
 | 177 | `suI` | 客户端->服务端 | 完成 | RECV_TRCL CHAR_Trade_closeItem 取消交易 | 否 | 否 | xlsx |
 | 178 | `OU` | 客户端->服务端 | 完成 | RECV_TROC CHAR_Trade_closeTrade 确认物品 | 否 | 否 | xlsx |
-| 179 | `Flvp` | 客户端->服务端 | 暂缓 | RECV_PS | 是 | 是 | 待 C/IDA 补全 |
+| 179 | `Flvp` | 客户端->服务端 | 完成 | RECV_PS；旧 C `nrproto_serv.c/nrproto_serv.h` 补外层字段；`data` 为 opaque es；IDA 未找到客户端 Flvp wrapper | 是 | 是 | ServerC+src |
 | 180 | `zGp` | 客户端->服务端 | 完成 | RECV_ST CHAR_selectTitle 设置称号 | 否 | 否 | xlsx |
 | 181 | `tj` | 客户端->服务端 | 完成 | RECV_DT CHAR_deleteTitle 删除称号 | 否 | 否 | xlsx |
 | 182 | `ACwB` | 客户端->服务端 | 完成 | RECV_FT CHAR_inputOwnTitle 自定义称号 | 否 | 否 | xlsx |

@@ -4536,11 +4536,43 @@
       "direction": "客户端->服务端",
       "legacyKind": "RECV",
       "clientNamespace": "send",
-      "xlsxStatus": "暂缓",
+      "xlsxStatus": "完成",
       "description": "RECV_PS",
       "rawFormat": "",
       "formatEmpty": true,
       "source": "xlsx",
+      "resolvedFormat": "{havepetindex:i62} {havepetskill:i62} {toindex:i62} {data:es}",
+      "resolvedSource": "ServerC+src",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "havepetindex",
+          "typeToken": "i62",
+          "rawSpec": "{havepetindex:i62}",
+          "source": "ServerC+src"
+        },
+        {
+          "index": 1,
+          "name": "havepetskill",
+          "typeToken": "i62",
+          "rawSpec": "{havepetskill:i62}",
+          "source": "ServerC+src"
+        },
+        {
+          "index": 2,
+          "name": "toindex",
+          "typeToken": "i62",
+          "rawSpec": "{toindex:i62}",
+          "source": "ServerC+src"
+        },
+        {
+          "index": 3,
+          "name": "data",
+          "typeToken": "es",
+          "rawSpec": "{data:es}",
+          "source": "ServerC+src"
+        }
+      ],
       "fields": []
     },
     {

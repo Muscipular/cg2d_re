@@ -446,6 +446,17 @@ target_include_directories(cg-packet-profile-set-data-test
 
 add_test(NAME cg-packet-profile-set-data-test COMMAND cg-packet-profile-set-data-test)
 
+add_executable(cg-packet-pet-skill-use-request-test
+    tests/packet/PetSkillUseRequestPacketTest.cpp
+)
+
+target_include_directories(cg-packet-pet-skill-use-request-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+
+add_test(NAME cg-packet-pet-skill-use-request-test COMMAND cg-packet-pet-skill-use-request-test)
+
 add_executable(cg-packet-profile-mail-delete-test
     tests/packet/ProfileMailDeletePacketTest.cpp
 )
@@ -644,6 +655,7 @@ if(MSVC)
     target_compile_options(cg-packet-about-list-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-profile-data-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-profile-set-data-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-pet-skill-use-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-profile-mail-delete-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-profile-mail-receipt-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-profile-mail-arrive-test PRIVATE /W4 /utf-8 /permissive-)
@@ -688,6 +700,7 @@ else()
     target_compile_options(cg-packet-about-list-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-profile-data-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-profile-set-data-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-packet-pet-skill-use-request-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-profile-mail-delete-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-profile-mail-receipt-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-profile-mail-arrive-test PRIVATE -Wall -Wextra -Wpedantic)

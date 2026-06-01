@@ -221,6 +221,63 @@ namespace cg::packet::send
             return BuildPacket(ToPacket());
         }
     };
+
+    /**
+     * RECV_PS PETSKILL_Use 宠物技能使用 Flvp {havepetindex:i62} {havepetskill:i62} {toindex:i62} {data:es}
+     */
+    struct PetSkillUseRequest
+    {
+        static constexpr std::string_view Code = "Flvp";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+
+        int havepetindex = 0;
+        int havepetskill = 0;
+        int toindex = 0;
+        std::string data;
+
+        PetSkillUseRequest(int havepetindex, int havepetskill, int toindex, std::string data)
+            : havepetindex(havepetindex),
+              havepetskill(havepetskill),
+              toindex(toindex),
+              data(std::move(data))
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ServerC);
+            packet.fields.push_back(PacketField {
+                "havepetindex",
+                PacketFieldType::Int62,
+                std::to_string(havepetindex),
+                PacketSourceTag::ServerC,
+            });
+            packet.fields.push_back(PacketField {
+                "havepetskill",
+                PacketFieldType::Int62,
+                std::to_string(havepetskill),
+                PacketSourceTag::ServerC,
+            });
+            packet.fields.push_back(PacketField {
+                "toindex",
+                PacketFieldType::Int62,
+                std::to_string(toindex),
+                PacketSourceTag::ServerC,
+            });
+            packet.fields.push_back(PacketField {
+                "data",
+                PacketFieldType::EscapedString,
+                data,
+                PacketSourceTag::ServerC,
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket());
+        }
+    };
 }
 
 #endif //CG_ENGINE_SEND_H

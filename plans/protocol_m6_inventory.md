@@ -119,7 +119,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | M6.12.15 物品/技能/宠物封包-PfqV | `PfqV` | 客户端->服务端 | 否 | 完成 | RECV_PGML 宠邮登记；外层 `{toregist:i62} {petSlot:i62} {itemSlot:i62} {text:es} {color:i62}`；无二级 payload，`text` 为普通外层 es，允许空文本且不拆 `|`，客户端不执行 `color | 0x100` |
 | M6.13.01 聊天/窗口/系统封包-Zd | `Zd` | 服务端->客户端 | 否 | 完成 | SEND_STK  SYSTEMMSG 系统信息；外层 `{message:es}`，message 为普通外层 es，允许空文本且不拆 `|`/`\z` |
 | M6.13.02 聊天/窗口/系统封包-zzd | `zzd` | 服务端->客户端 | 否 | 完成 | SEND_EF 特效封包；外层 `{EffType:i62} {TM_EffSize:i62} {data:es}`；`data` 为 opaque 外层 es，允许空值，不拆二级结构 |
-| M6.13.03 聊天/窗口/系统封包-LYIm | `LYIm` | 服务端->客户端 | 是 | 字段待补 | SEND_B |
+| M6.13.03 聊天/窗口/系统封包-LYIm | `LYIm` | 服务端->客户端 | 是 | 完成 | SEND_B；旧 C `nrproto_B_send(int fd, char* command)` + 客户端 IDA `network_dispatch/sub_50D3C0` 补外层 `{command:es}`；command 为 opaque 战斗命令串，允许空值、`|` 和空格转义，不拆 `C/P/A/BU/M`，不校验内部十六进制/战斗状态，不要求尾随 `|`，不做 i62 解码 |
 | M6.13.04 聊天/窗口/系统封包-Mhbt | `Mhbt` | 服务端->客户端 | 是 | 字段待补 | SEND_MSG recvmsg |
 | M6.13.05 聊天/窗口/系统封包-zdr | `zdr` | 服务端->客户端 | 是 | 字段待补 | SEND_TK |
 | M6.13.06 聊天/窗口/系统封包-BZ | `BZ` | 服务端->客户端 | 否 | 未开始 | SEND_WN |
@@ -189,6 +189,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | `JgO` | 服务端->客户端 | `cg::packet::receive::TechUseResult` | `{result:i62} {type:i62} {data:es}` | M6.12.11 已实现；旧 C `SEND_TU/nrproto_TU_send` + 客户端 IDA `network_dispatch/sub_50C7F0` 补足；`type=1` 为 8 个 raw decimal + 0..6 个删除素材 raw 字符串且拒绝中间空后有内容，`type=2/3` 为 7 个 raw decimal，`type=4` 为 7 个 raw decimal + itemNameRaw + 可选 petHelpFlag |
 | `iKe` | 服务端->客户端 | `cg::packet::receive::PetItemData` | `{petSlot:i62} {data:es}` | M6.12.12 已实现；旧 C `nrproto_iKe_send` + 客户端 IDA `network_dispatch/sub_510150` 补足；`data` 复用普通物品 14 段 item record，无 count、无额外尾随分隔符要求，空 payload 为空 records 且不表示清空全部，清空槽为 `slot|||||||||||||`，字符串字段保留 raw escaped，数值字段为 raw signed decimal |
 | `Yo` | 服务端->客户端 | `cg::packet::receive::ProfileStatus` | `{data:es}` | M6.11.17 已实现；xlsx rawFormat 为空，字段由旧 C `SEND_S/nrproto_S_send` + 客户端 IDA 补足；仅实现外层 `data/es`，payload 原样保留，不拆内部 `|` |
+| `LYIm` | 服务端->客户端 | `cg::packet::receive::BattleCommand` | `{command:es}` | M6.13.03 已实现；旧 C `nrproto_B_send(int fd, char* command)` + 客户端 IDA 补外层 `command/es`；command 为 opaque 战斗命令串，允许空值、`|` 和空格转义，不拆 `C/P/A/BU/M`，不校验内部字段，不要求尾随 `|` |
 | `LY` | 服务端->客户端 | `cg::packet::receive::ItemFrontCharList` | `{data:es}` | M6.11.20 已实现；旧 C `SEND_GFLI/CHAR_sendFrontCharList` + IDA 补足；`data` 为 `name|nonPlayerFlag|` 重复记录，空 data 为空列表，name 保留 raw escaped 字符串，nonPlayerFlag 只接受 `0/1` |
 | `ND` | 服务端->客户端 | `cg::packet::receive::CharacterPetList` | `{data:es}` | M6.11.19 已实现；xlsx rawFormat 为空，字段由旧 C `RECV_GPD/nrproto_GPD_recv` + `CHAR_sendCharAndPetList` + `SEND_GPD/nrproto_GPD_send` 补足；`data` 为 0..6 条 `name|level|injury|hp|maxHp|forcePoint|maxForcePoint|` 记录，name 保留 raw escaped 字符串，数值为 raw decimal，整体保留尾随 `|` |
 | `nFV` | 服务端->客户端 | `cg::packet::receive::ItemCharacterPetList` | `{data:es}` | M6.11.21 已实现；旧 C `nrproto_GPDI_send` + `CHAR_sendCharAndPetList` + IDA `sub_4E4020` 补足；`data` 为 0..6 条 `name|level|injury|hp|maxHp|forcePoint|maxForcePoint|` 记录，name 保留 raw escaped 字符串，数值为 raw decimal，整体保留尾随 `|` |
@@ -256,7 +257,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 52 | `dAgg` | 服务端->客户端 | 完成 | SEND_EN 进入战斗 | 否 | 否 | xlsx |
 | 53 | `Gn` | 服务端->客户端 | 完成 | SEND_RS 战斗获得物品 | 是 | 是 | 待 C/IDA 补全 |
 | 54 | `hB` | 服务端->客户端 | 完成 | SEND_RD BATTLE_GetDuelPoint | 是 | 是 | 待 C/IDA 补全 |
-| 55 | `LYIm` | 服务端->客户端 | 完成 | SEND_B | 是 | 是 | 待 C/IDA 补全 |
+| 55 | `LYIm` | 服务端->客户端 | 完成 | SEND_B；外层 `{command:es}`，payload opaque，不拆 `C/P/A/BU/M` | 是 | 是 | ServerC + ClientIda + src |
 | 56 | `ELoy` | 服务端->客户端 | 完成 | SEND_IA/nrproto_IA_send + IDA sub_50BFD0；外层 `{data:es}`，payload 为 `ignored0` + 28 * 13 道具槽，`ignored0` 语义待补 | 是 | 是 | ServerC + ClientIda + src/packet |
 | 57 | `vWpn` | 服务端->客户端 | 完成 | SEND_SI moveitem | 是 | 否 | 待 C/IDA 补全 |
 | 58 | `xmgQ` | 服务端->客户端 | 完成 | SEND_IR CHAR_sendItemRecipe；外层 `{haveskillindex:i62} {data:es}`，payload 22 段 recipe record，最多 56 条 | 是 | 是 | ServerC+ClientIda+src |

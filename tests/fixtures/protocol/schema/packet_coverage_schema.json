@@ -1611,6 +1611,17 @@
       "rawFormat": "",
       "formatEmpty": true,
       "source": "xlsx",
+      "resolvedFormat": "{command:es}",
+      "resolvedSource": "ServerC+ClientIda+src",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "command",
+          "typeToken": "es",
+          "rawSpec": "{command:es}",
+          "source": "ServerC+ClientIda+src"
+        }
+      ],
       "fields": []
     },
     {

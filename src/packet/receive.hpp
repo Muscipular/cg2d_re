@@ -10000,6 +10000,102 @@ namespace cg::packet::receive
     };
 
     /**
+     * SEND_B 战斗命令		LYIm {command:es}
+     * command 为 opaque 战斗命令串，仅按外层 es 处理。
+     */
+    struct BattleCommand
+    {
+        static constexpr std::string_view Code = "LYIm";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+
+        std::string command;
+
+        explicit BattleCommand(std::string command)
+            : command(std::move(command))
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ServerC);
+            packet.fields.push_back(PacketField {
+                "command",
+                PacketFieldType::EscapedString,
+                command,
+                PacketSourceTag::ServerC,
+            });
+            return packet;
+        }
+
+        static PacketResult<BattleCommand> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view);
+            if (!parsed.HasValue()) {
+                return PacketResult<BattleCommand>::Failure(parsed.Error());
+            }
+
+            const Packet& packet = parsed.Value();
+            if (packet.code.View() != Code) {
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "BattleCommand Parse 收到非 LYIm 封包");
+                error.packetCode = packet.code;
+                return PacketResult<BattleCommand>::Failure(std::move(error));
+            }
+
+            if (packet.direction != Direction) {
+                return PacketResult<BattleCommand>::Failure(MakePacketError(
+                    PacketErrorCode::DecodeFailed,
+                    "BattleCommand Parse 封包方向不匹配"));
+            }
+
+            if (packet.fields.size() != FieldCount) {
+                return PacketResult<BattleCommand>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "BattleCommand Parse 字段数量不匹配",
+                    packet.fields.empty() ? 0U : FieldCount));
+            }
+
+            const PacketField& field = packet.fields[CommandFieldIndex];
+            if (field.name != "command") {
+                return PacketResult<BattleCommand>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "BattleCommand Parse 字段名不匹配",
+                    CommandFieldIndex));
+            }
+
+            if (field.type != PacketFieldType::EscapedString) {
+                return PacketResult<BattleCommand>::Failure(MakeFieldError(
+                    PacketErrorCode::InvalidFieldType,
+                    "BattleCommand Parse 字段类型不匹配",
+                    CommandFieldIndex));
+            }
+
+            return PacketResult<BattleCommand>::Success(BattleCommand(field.value));
+        }
+
+    private:
+        static constexpr std::size_t FieldCount = 1U;
+        static constexpr std::size_t CommandFieldIndex = 0U;
+
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            error.source = PacketSourceTag::ServerC;
+            return error;
+        }
+
+        [[nodiscard]] static PacketError MakeFieldError(
+            PacketErrorCode code,
+            std::string message,
+            std::size_t fieldIndex)
+        {
+            PacketError error = MakePacketError(code, std::move(message));
+            error.fieldIndex = fieldIndex;
+            return error;
+        }
+    };
+
+    /**
      * SEND_CJ SendJobName		jv {jobassort:i62} {name:es}
      */
     struct JobName

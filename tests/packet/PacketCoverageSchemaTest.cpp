@@ -633,6 +633,20 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         failures += ExpectPacketFieldsMatch(*effectSchema, effect.ToPacket(), "zzd field order");
     }
 
+    const PacketSchema* battleCommandSchema = FindPacket(packets, "LYIm");
+    failures += Expect(battleCommandSchema != nullptr, "LYIm schema exists");
+    if (battleCommandSchema != nullptr) {
+        failures += Expect(battleCommandSchema->direction == "服务端->客户端", "LYIm direction");
+        failures += Expect(battleCommandSchema->legacyKind == "SEND", "LYIm legacyKind");
+        failures += Expect(battleCommandSchema->rawFormat.empty(), "LYIm rawFormat empty");
+        failures += Expect(battleCommandSchema->formatEmpty, "LYIm formatEmpty");
+        failures += Expect(battleCommandSchema->resolvedFormat == "{command:es}", "LYIm resolvedFormat");
+        failures += Expect(
+            battleCommandSchema->resolvedSource == "ServerC+ClientIda+src",
+            "LYIm resolvedSource");
+        failures += Expect(battleCommandSchema->fields.empty(), "LYIm raw fields empty");
+    }
+
     const PacketSchema* checkCommandSchema = FindPacket(packets, "CCL");
     failures += Expect(checkCommandSchema != nullptr, "CCL schema exists");
     if (checkCommandSchema != nullptr) {

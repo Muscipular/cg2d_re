@@ -342,6 +342,191 @@ namespace cg::packet::receive
             return PacketResult<std::vector<ObjectListRecord>>::Success(std::move(parsedRecords));
         }
     };
+
+    struct CharacterIconEntry
+    {
+        std::vector<std::string> fields;
+        int objectIndex = 0;
+
+        CharacterIconEntry(std::vector<std::string> fields, int objectIndex)
+            : fields(std::move(fields)),
+              objectIndex(objectIndex)
+        {
+        }
+    };
+
+    /**
+     * SEND_CA 发送头顶图标		NI {data:es}
+     */
+    struct CharacterIcon
+    {
+        static constexpr std::string_view Code = "NI";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::string_view EntryDelimiter = ",";
+        static constexpr std::string_view FieldDelimiter = "|";
+
+        std::string data;
+        std::vector<CharacterIconEntry> entries;
+
+        CharacterIcon(std::string data, std::vector<CharacterIconEntry> entries)
+            : data(std::move(data)),
+              entries(std::move(entries))
+        {
+        }
+
+        explicit CharacterIcon(std::vector<CharacterIconEntry> entries)
+            : entries(std::move(entries))
+        {
+            data = BuildData();
+        }
+
+        [[nodiscard]] std::string BuildData() const
+        {
+            std::vector<std::string> entryPayloads;
+            entryPayloads.reserve(entries.size());
+            for (const CharacterIconEntry& entry : entries) {
+                PacketResult<std::string> payload = BuildPayload(
+                    std::span<const std::string>(entry.fields.data(), entry.fields.size()),
+                    FieldDelimiter);
+                if (payload.HasValue()) {
+                    entryPayloads.push_back(payload.Value());
+                }
+            }
+
+            PacketResult<std::string> payload = BuildPayload(
+                std::span<const std::string>(entryPayloads.data(), entryPayloads.size()),
+                EntryDelimiter);
+            if (payload.HasValue()) {
+                return payload.Value();
+            }
+
+            return {};
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            packet.fields.push_back(PacketField {
+                "data",
+                PacketFieldType::EscapedString,
+                BuildData(),
+                PacketSourceTag::Xlsx,
+            });
+            return packet;
+        }
+
+        static PacketResult<CharacterIcon> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view);
+            if (!parsed.HasValue()) {
+                return PacketResult<CharacterIcon>::Failure(parsed.Error());
+            }
+
+            const Packet& packet = parsed.Value();
+            if (packet.code.View() != Code) {
+                PacketError error = PacketError::Make(PacketErrorCode::InvalidCode, "CharacterIcon Parse 收到非 NI 封包");
+                error.packetCode = packet.code;
+                error.source = PacketSourceTag::Xlsx;
+                return PacketResult<CharacterIcon>::Failure(std::move(error));
+            }
+
+            if (packet.direction != Direction) {
+                PacketError error = PacketError::Make(PacketErrorCode::DecodeFailed, "CharacterIcon Parse 封包方向不匹配");
+                error.packetCode = PacketCode(Code);
+                error.source = PacketSourceTag::Xlsx;
+                return PacketResult<CharacterIcon>::Failure(std::move(error));
+            }
+
+            if (packet.fields.size() != 1U) {
+                PacketError error = PacketError::Make(PacketErrorCode::FieldCountMismatch, "CharacterIcon Parse 字段数量不匹配");
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = packet.fields.empty() ? 0U : 1U;
+                error.source = PacketSourceTag::Xlsx;
+                return PacketResult<CharacterIcon>::Failure(std::move(error));
+            }
+
+            const PacketField& field = packet.fields.front();
+            if (field.name != "data") {
+                PacketError error = PacketError::Make(PacketErrorCode::DecodeFailed, "CharacterIcon Parse 字段名不匹配");
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = 0U;
+                error.source = PacketSourceTag::Xlsx;
+                return PacketResult<CharacterIcon>::Failure(std::move(error));
+            }
+
+            if (field.type != PacketFieldType::EscapedString) {
+                PacketError error = PacketError::Make(PacketErrorCode::InvalidFieldType, "CharacterIcon Parse 字段类型不匹配");
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = 0U;
+                error.source = PacketSourceTag::Xlsx;
+                return PacketResult<CharacterIcon>::Failure(std::move(error));
+            }
+
+            PacketResult<std::vector<CharacterIconEntry>> entries = ParseEntries(field.value);
+            if (!entries.HasValue()) {
+                return PacketResult<CharacterIcon>::Failure(entries.Error());
+            }
+
+            return PacketResult<CharacterIcon>::Success(CharacterIcon(field.value, entries.Value()));
+        }
+
+    private:
+        [[nodiscard]] static bool IsKnownEntryFieldCount(std::size_t fieldCount) noexcept
+        {
+            return fieldCount == 5U || fieldCount == 6U || fieldCount == 8U || fieldCount == 12U;
+        }
+
+        [[nodiscard]] static PacketError MakePayloadError(
+            PacketErrorCode code,
+            std::string message,
+            std::size_t entryIndex)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            error.fieldIndex = entryIndex;
+            error.source = PacketSourceTag::Xlsx;
+            return error;
+        }
+
+        [[nodiscard]] static PacketResult<std::vector<CharacterIconEntry>> ParseEntries(std::string_view payload)
+        {
+            PacketResult<std::vector<std::string>> entryPayloads = SplitPayload(payload, EntryDelimiter);
+            if (!entryPayloads.HasValue()) {
+                return PacketResult<std::vector<CharacterIconEntry>>::Failure(entryPayloads.Error());
+            }
+
+            std::vector<CharacterIconEntry> parsedEntries;
+            parsedEntries.reserve(entryPayloads.Value().size());
+            for (std::size_t entryIndex = 0; entryIndex < entryPayloads.Value().size(); ++entryIndex) {
+                PacketResult<std::vector<std::string>> fields = SplitPayload(
+                    entryPayloads.Value()[entryIndex],
+                    FieldDelimiter);
+                if (!fields.HasValue()) {
+                    return PacketResult<std::vector<CharacterIconEntry>>::Failure(fields.Error());
+                }
+
+                if (!IsKnownEntryFieldCount(fields.Value().size())) {
+                    return PacketResult<std::vector<CharacterIconEntry>>::Failure(MakePayloadError(
+                        PacketErrorCode::FieldCountMismatch,
+                        "CharacterIcon payload entry 字段数量不匹配",
+                        entryIndex));
+                }
+
+                PacketResult<int> objectIndex = DecodeInt62(fields.Value()[0]);
+                if (!objectIndex.HasValue()) {
+                    PacketError error = objectIndex.Error();
+                    error.packetCode = PacketCode(Code);
+                    error.fieldIndex = entryIndex;
+                    error.source = PacketSourceTag::Xlsx;
+                    return PacketResult<std::vector<CharacterIconEntry>>::Failure(std::move(error));
+                }
+
+                parsedEntries.emplace_back(fields.Value(), objectIndex.Value());
+            }
+
+            return PacketResult<std::vector<CharacterIconEntry>>::Success(std::move(parsedEntries));
+        }
+    };
 }
 
 #endif //CG_ENGINE_RECEIVE_H

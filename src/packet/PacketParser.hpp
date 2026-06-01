@@ -54,7 +54,11 @@ namespace cg::packet
             {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
         }};
 
-        inline constexpr std::array<PacketSpec, 6> PacketRegistry = {{
+        inline constexpr std::array<PacketFieldSpec, 1> CharacterIconFields = {{
+            {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+        }};
+
+        inline constexpr std::array<PacketSpec, 7> PacketRegistry = {{
             {
                 "JFVf",
                 PacketDirection::ClientToServer,
@@ -89,6 +93,13 @@ namespace cg::packet
                 PacketSourceTag::Xlsx,
                 ObjectListFields.data(),
                 ObjectListFields.size(),
+            },
+            {
+                "NI",
+                PacketDirection::ServerToClient,
+                PacketSourceTag::Xlsx,
+                CharacterIconFields.data(),
+                CharacterIconFields.size(),
             },
             {
                 "Gp",

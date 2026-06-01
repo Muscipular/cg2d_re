@@ -71,7 +71,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 |---|---|---|---|---|---|
 | M6.10.01 地图封包-TeD | `TeD` | 服务端->客户端 | 否 | 完成 | SEND_MN SendMapName；M6 仅实现 `{data:es}`，不拆二级 payload |
 | M6.10.02 地图封包-nsY | `nsY` | 服务端->客户端 | 否 | 完成 | SEND_C ObjectList；按 `data` payload 最小结构拆 record |
-| M6.10.03 地图封包-NI | `NI` | 服务端->客户端 | 否 | 未开始 | SEND_CA 发送头顶图标 |
+| M6.10.03 地图封包-NI | `NI` | 服务端->客户端 | 否 | 完成 | SEND_CA 发送头顶图标；按旧 C 修正为单外层 `{data:es}`，不实现 xlsx `caInfo` 外层字段；payload 按 `,` 拆 entry、按 `|` 保留 raw fields，仅校验 5/6/8/12 字段和 objectIndex i62 |
 | M6.10.04 地图封包-aBS | `aBS` | 服务端->客户端 | 否 | 未开始 | SEND_MAP_DATA |
 | M6.10.05 地图封包-uSB | `uSB` | 服务端->客户端 | 否 | 未开始 | SEND_CD 发送删除ObjectIndex列表 |
 | M6.10.06 地图封包-UUN | `UUN` | 客户端->服务端 | 否 | 未开始 | RECV_M MAP_getdataFromRECT 获取地图信息 |
@@ -165,6 +165,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | `whV` | 服务端->客户端 | `cg::packet::receive::ClientLoginResult` | `{result:i62} {data:es}` | 结构与结果枚举已存在，Parse 待实现；`data` 可能为空或为 `fail/block/busy` |
 | `TeD` | 服务端->客户端 | `cg::packet::receive::MapName` | `{data:es}` | M6.10.01 已实现；仅保留 `data`，不拆二级 payload |
 | `nsY` | 服务端->客户端 | `cg::packet::receive::ObjectList` | `{data:es}` | M6.10.02 已实现；`data` 按字面 `\t` 拆 object record，record 按 `|` 保留 raw fields；仅校验 4、7、>=16 字段和 objectIndex i62，不拆 ownTitle/petInfo suffix |
+| `NI` | 服务端->客户端 | `cg::packet::receive::CharacterIcon` | `{data:es}` | M6.10.03 已实现；按旧 C `nrproto_CA_send` 修正为单外层 `data`，不实现 xlsx `caInfo` 外层字段；`data` 按 `,` 拆 entry、按 `|` 保留 raw fields；仅校验 5、6、8、12 字段和 objectIndex i62 |
 
 ## 209 个封包清单
 | 序号 | code | 方向 | 状态 | 说明 | format 是否为空 | 是否疑似内嵌 payload | 来源 |

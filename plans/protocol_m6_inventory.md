@@ -104,7 +104,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | M6.11.27 角色/Profile封包-ycX | `ycX` | 客户端->服务端 | 否 | 完成 | RECV_KN CHAR_inputUserPetName 宠物姓名；外层 `{petSlot:i62} {name:es}`；无二级 payload；来源 xlsx + ServerC + ClientIda |
 | M6.12.01 物品/技能/宠物封包-cNE | `cNE` | 服务端->客户端 | 否 | 完成 | SEND_CS CHAR_sendSkillData；外层 `{data:es}`；payload 为 `skillSlot|skillId|name|level|exp|maxLevel|nextExp|requiredSlots|operation|consumptionRate|seqNo|` 重复记录，空技能槽为 `skillSlot|||||||||||`，name 保留 raw escaped 字符串，数值字段为 raw decimal |
 | M6.12.02 物品/技能/宠物封包-rU | `rU` | 服务端->客户端 | 否 | 完成 | SEND_I CHAR_sendItemData；外层 `{data:es}`；payload 为 14 段 item record 重复，`slot/nameColor/imageId/ableUseField/battleUseFlag/target/level/flag/itemId/type/remain` 为 raw decimal，`nameRaw/explanationRaw/memoRaw` 保留 raw escaped 字符串，空 payload 为 0 records，清空 slot 为 `slot|||||||||||||` |
-| M6.12.03 物品/技能/宠物封包-Ilz | `Ilz` | 服务端->客户端 | 否 | 未开始 | SEND_AL 图鉴？ |
+| M6.12.03 物品/技能/宠物封包-Ilz | `Ilz` | 服务端->客户端 | 否 | 完成 | SEND_AL CHAR_sendAlbumFlgData；外层 `{albumversion:i62} {data:es}`；payload 为 `page0|page1|...|`，page 为 raw decimal int，允许负数，空 data 为空 pages，可选尾随 `|`，不展开每页 32 bit 业务语义 |
 | M6.12.04 物品/技能/宠物封包-ELoy | `ELoy` | 服务端->客户端 | 是 | 字段待补 | SEND_IA 道具信息相关 |
 | M6.12.05 物品/技能/宠物封包-xmgQ | `xmgQ` | 服务端->客户端 | 是 | 字段待补 | SEND_IR CHAR_sendItemRecipe |
 | M6.12.06 物品/技能/宠物封包-dM | `dM` | 服务端->客户端 | 是 | 字段待补 | SEND_ALI |
@@ -169,6 +169,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | `jv` | 服务端->客户端 | `cg::packet::receive::JobName` | `{jobassort:i62} {name:es}` | M6.11.04 已实现；无二级 payload，`name` 按外层 `es` 解码后原样保存，不拆业务内容 |
 | `Sc` | 服务端->客户端 | `cg::packet::receive::TitleList` | `{data:es}` | M6.11.05 已实现；`data` 每 3 段为一个 title slot：`titleName/titleMakeId/titleId`，空 slot 三字段全空回写为 `||`，`titleMakeId/titleId` 为 raw decimal，不用 i62，不硬猜数量 |
 | `rU` | 服务端->客户端 | `cg::packet::receive::ItemData` | `{data:es}` | M6.12.02 已实现；旧 C `SEND_I/nrproto_I_send` + IDA `sub_50C260` + SDLCG 补足 14 段 item record；空 payload 为空 records，清空 slot 为 `slot|||||||||||||`，字符串字段保留 raw escaped |
+| `Ilz` | 服务端->客户端 | `cg::packet::receive::AlbumFlags` | `{albumversion:i62} {data:es}` | M6.12.03 已实现；旧 C `SEND_AL/nrproto_AL_send` + `CHAR_sendAlbumFlgData` + 客户端 IDA 补足；`data` 为 `page0|page1|...|`，page 为 raw decimal int，允许负数，空 payload 为空 pages，回写规范化尾随 `|` |
 | `eZT` | 服务端->客户端 | `cg::packet::receive::ProfileList` | `{data:es}` | M6.11.06 已实现；xlsx 原 schema `{data}` 按旧 C `nrproto_mkstr_string(data)` 修正为 `data/es`；`data` 为 `version|itemId|graphicNo|itemName...`，无 count，`version/itemId/graphicNo` 为 raw decimal，`itemName` 保留 raw 字符串 |
 | `IUn` | 服务端->客户端 | `cg::packet::receive::AboutList` | `{data:es}` | M6.11.07 已实现；xlsx 原 schema `{data}` 按旧 C `nrproto_mkstr_string(data)` 修正为 `data/es`；`data` 为 `version|itemId|graphicNo|itemName...`，无 count，`version/itemId/graphicNo` 为 raw decimal，`itemName` 保留 raw 字符串 |
 | `DpSY` | 服务端->客户端 | `cg::packet::receive::ProfileData` | `{name:es} {lv:i62} {job:es} {title:es} {guildName:es} {graphic:i62} {sid:i62} {smsg:es} {bid:i62} {bmsg:es} {aid:i62} {amsg:es} {pmsg:es}` | M6.11.08 已实现；按旧 C `SEND_PRD/nrproto_PRD_send` 修正为 13 个外层 token；`smsg/bmsg/amsg/pmsg` 保留 es 字符串，不拆二级 payload |
@@ -222,7 +223,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 27 | `nsY` | 服务端->客户端 | 完成 | SEND_C ObjectList | 否 | 是 | xlsx |
 | 28 | `MTg` | 服务端->客户端 | 完成 | SEND_BT CHAR_sendFeverStatus | 否 | 否 | xlsx |
 | 29 | `Ov` | 服务端->客户端 | 完成 | SEND_POS 前后排 | 否 | 否 | xlsx |
-| 30 | `Ilz` | 服务端->客户端 | 完成 | SEND_AL 图鉴？ | 否 | 是 | xlsx |
+| 30 | `Ilz` | 服务端->客户端 | 完成 | SEND_AL 图鉴？；外层 `{albumversion:i62} {data:es}`；payload page 为 raw decimal int | 否 | 是 | xlsx + 旧 C + IDA + src/packet |
 | 31 | `lSZ` | 服务端->客户端 | 完成 | SEND_IP | 否 | 否 | xlsx |
 | 32 | `tq` | 服务端->客户端 | 完成 | SEND_MAC Mouse? | 否 | 否 | xlsx |
 | 33 | `zzd` | 服务端->客户端 | 完成 | SEND_EF | 否 | 是 | xlsx |

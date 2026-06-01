@@ -855,6 +855,24 @@
       "xlsxStatus": "完成",
       "description": "SEND_AL 图鉴？",
       "rawFormat": "{albumversion:i62} {data:es}",
+      "resolvedFormat": "{albumversion:i62} {data:es}",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "albumversion",
+          "typeToken": "i62",
+          "rawSpec": "{albumversion:i62}",
+          "source": "xlsx+ServerC+ClientIda+src"
+        },
+        {
+          "index": 1,
+          "name": "data",
+          "typeToken": "es",
+          "rawSpec": "{data:es}",
+          "source": "xlsx+ServerC+ClientIda+src"
+        }
+      ],
       "formatEmpty": false,
       "source": "xlsx",
       "fields": [

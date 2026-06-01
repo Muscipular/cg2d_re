@@ -512,6 +512,17 @@ target_include_directories(cg-packet-item-data-test
 
 add_test(NAME cg-packet-item-data-test COMMAND cg-packet-item-data-test)
 
+add_executable(cg-packet-album-flags-test
+    tests/packet/AlbumFlagsPacketTest.cpp
+)
+
+target_include_directories(cg-packet-album-flags-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+
+add_test(NAME cg-packet-album-flags-test COMMAND cg-packet-album-flags-test)
+
 add_executable(cg-packet-profile-mail-delete-test
     tests/packet/ProfileMailDeletePacketTest.cpp
 )
@@ -716,6 +727,7 @@ if(MSVC)
     target_compile_options(cg-packet-user-pet-name-input-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-character-skill-data-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-item-data-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-album-flags-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-profile-mail-delete-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-profile-mail-receipt-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-profile-mail-arrive-test PRIVATE /W4 /utf-8 /permissive-)
@@ -766,6 +778,7 @@ else()
     target_compile_options(cg-packet-user-pet-name-input-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-character-skill-data-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-item-data-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-packet-album-flags-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-profile-mail-delete-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-profile-mail-receipt-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-profile-mail-arrive-test PRIVATE -Wall -Wextra -Wpedantic)

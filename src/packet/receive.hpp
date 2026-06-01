@@ -3935,6 +3935,230 @@ namespace cg::packet::receive
     };
 
     /**
+     * SEND_AL 图鉴页标志		Ilz {albumversion:i62} {data:es}
+     * data: `page0|page1|...|`，page 为 raw decimal int；不在 codec 展开每页 bit 语义。
+     */
+    struct AlbumFlags
+    {
+        static constexpr std::string_view Code = "Ilz";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::string_view PayloadDelimiter = "|";
+
+        int albumVersion = 0;
+        std::vector<int> pages;
+
+        AlbumFlags(int albumVersion, std::vector<int> pages)
+            : albumVersion(albumVersion),
+              pages(std::move(pages))
+        {
+        }
+
+        [[nodiscard]] std::string BuildData() const
+        {
+            std::string payload;
+            for (const int page : pages) {
+                payload.append(std::to_string(page));
+                payload.push_back('|');
+            }
+            return payload;
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            packet.fields.push_back(PacketField {
+                "albumversion",
+                PacketFieldType::Int62,
+                std::to_string(albumVersion),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "data",
+                PacketFieldType::EscapedString,
+                BuildData(),
+                PacketSourceTag::Xlsx,
+            });
+            return packet;
+        }
+
+        static PacketResult<AlbumFlags> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view);
+            if (!parsed.HasValue()) {
+                return PacketResult<AlbumFlags>::Failure(parsed.Error());
+            }
+
+            const Packet& packet = parsed.Value();
+            if (packet.code.View() != Code) {
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "AlbumFlags Parse 收到非 Ilz 封包");
+                error.packetCode = packet.code;
+                return PacketResult<AlbumFlags>::Failure(std::move(error));
+            }
+
+            if (packet.direction != Direction) {
+                return PacketResult<AlbumFlags>::Failure(MakePacketError(
+                    PacketErrorCode::DecodeFailed,
+                    "AlbumFlags Parse 封包方向不匹配"));
+            }
+
+            if (packet.fields.size() != FieldCount) {
+                return PacketResult<AlbumFlags>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "AlbumFlags Parse 字段数量不匹配",
+                    packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
+            }
+
+            const PacketField& albumVersionField = packet.fields[AlbumVersionFieldIndex];
+            if (albumVersionField.name != "albumversion") {
+                return PacketResult<AlbumFlags>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "AlbumFlags Parse albumversion 字段名不匹配",
+                    AlbumVersionFieldIndex));
+            }
+
+            if (albumVersionField.type != PacketFieldType::Int62) {
+                return PacketResult<AlbumFlags>::Failure(MakeFieldError(
+                    PacketErrorCode::InvalidFieldType,
+                    "AlbumFlags Parse albumversion 字段类型不匹配",
+                    AlbumVersionFieldIndex));
+            }
+
+            PacketResult<int> albumVersion = ParseDecimalField(
+                albumVersionField.value,
+                AlbumVersionFieldIndex);
+            if (!albumVersion.HasValue()) {
+                return PacketResult<AlbumFlags>::Failure(albumVersion.Error());
+            }
+
+            const PacketField& dataField = packet.fields[DataFieldIndex];
+            if (dataField.name != "data") {
+                return PacketResult<AlbumFlags>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "AlbumFlags Parse data 字段名不匹配",
+                    DataFieldIndex));
+            }
+
+            if (dataField.type != PacketFieldType::EscapedString) {
+                return PacketResult<AlbumFlags>::Failure(MakeFieldError(
+                    PacketErrorCode::InvalidFieldType,
+                    "AlbumFlags Parse data 字段类型不匹配",
+                    DataFieldIndex));
+            }
+
+            PacketResult<std::vector<int>> pages = ParsePages(dataField.value);
+            if (!pages.HasValue()) {
+                return PacketResult<AlbumFlags>::Failure(pages.Error());
+            }
+
+            return PacketResult<AlbumFlags>::Success(AlbumFlags(albumVersion.Value(), std::move(pages.Value())));
+        }
+
+    private:
+        static constexpr std::size_t FieldCount = 2U;
+        static constexpr std::size_t AlbumVersionFieldIndex = 0U;
+        static constexpr std::size_t DataFieldIndex = 1U;
+
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            error.source = PacketSourceTag::Xlsx;
+            return error;
+        }
+
+        [[nodiscard]] static PacketError MakeFieldError(
+            PacketErrorCode code,
+            std::string message,
+            std::size_t fieldIndex)
+        {
+            PacketError error = MakePacketError(code, std::move(message));
+            error.fieldIndex = fieldIndex;
+            return error;
+        }
+
+        [[nodiscard]] static PacketResult<std::vector<int>> ParsePages(std::string_view payload)
+        {
+            if (payload.empty()) {
+                return PacketResult<std::vector<int>>::Success({});
+            }
+
+            PacketResult<std::vector<std::string>> split = SplitPayload(payload, PayloadDelimiter);
+            if (!split.HasValue()) {
+                PacketError error = split.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = DataFieldIndex;
+                error.source = PacketSourceTag::Xlsx;
+                return PacketResult<std::vector<int>>::Failure(std::move(error));
+            }
+
+            std::vector<std::string> parts = std::move(split.Value());
+            if (!parts.empty() && parts.back().empty()) {
+                parts.pop_back();
+            }
+
+            std::vector<int> pages;
+            pages.reserve(parts.size());
+            for (std::size_t index = 0; index < parts.size(); ++index) {
+                PacketResult<int> page = ParseDecimalField(parts[index], index);
+                if (!page.HasValue()) {
+                    return PacketResult<std::vector<int>>::Failure(page.Error());
+                }
+                pages.push_back(page.Value());
+            }
+
+            return PacketResult<std::vector<int>>::Success(std::move(pages));
+        }
+
+        [[nodiscard]] static PacketResult<int> ParseDecimalField(std::string_view text, std::size_t fieldIndex)
+        {
+            bool negative = false;
+            std::size_t index = 0;
+            if (!text.empty() && text.front() == '-') {
+                negative = true;
+                index = 1U;
+            }
+
+            if (index == text.size()) {
+                return PacketResult<int>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "AlbumFlags 十进制字段为空",
+                    fieldIndex));
+            }
+
+            const std::int64_t maxValue = static_cast<std::int64_t>(std::numeric_limits<int>::max());
+            const std::int64_t minValue = static_cast<std::int64_t>(std::numeric_limits<int>::min());
+            const std::int64_t limit = negative ? (0 - minValue) : maxValue;
+            std::int64_t value = 0;
+
+            for (; index < text.size(); ++index) {
+                const char ch = text[index];
+                if (ch < '0' || ch > '9') {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "AlbumFlags 十进制字段包含非法字符",
+                        fieldIndex));
+                }
+
+                const int digit = ch - '0';
+                if (value > (limit - digit) / 10) {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "AlbumFlags 十进制字段超出 int 范围",
+                        fieldIndex));
+                }
+
+                value = (value * 10) + digit;
+            }
+
+            if (negative) {
+                value = -value;
+            }
+
+            return PacketResult<int>::Success(static_cast<int>(value));
+        }
+    };
+
+    /**
      * SEND_PT 宠物技能记录：skillSlot|techId|name|description|forcePoint|techField|target|seqNo。
      */
     struct PetTechRecord

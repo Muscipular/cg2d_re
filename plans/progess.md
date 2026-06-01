@@ -181,6 +181,7 @@
 | 2026-06-02 | M6.11.22 简介设置 Ot 启动 | 确认范围仅 `Ot` / `RECV_PRS SetProfileData 简介内容`；当前工作树干净；计划按 xlsx 注册 `{sellFlag:i62} {sellMsg:es} {buyFlag:i62} {buyMsg:es} {aboutFlg:i62} {aboutMsg:es} {ProfileMsg:es}`，客户端发送结构只做外层 7 token Encode | 待验证：`git diff --check`、VS bundled CMake configure、Debug 构建新增 `cg-packet-profile-set-data-test`、CTest Debug `^cg-packet-` | 不实现 `RXr/Flvp` 或其他相邻封包；当前环境未提供可调用 subAgent 工具，按小步单线程推进 |
 | 2026-06-02 | M6.11.22 简介设置 Ot 实现 | 新增 `send::SetProfileData`，code `Ot`，客户端到服务端；registry 按 xlsx 注册 7 个外层字段，字段名保留 `sellFlag/sellMsg/buyFlag/buyMsg/aboutFlg/aboutMsg/ProfileMsg`；新增 `cg-packet-profile-set-data-test` 覆盖 ToPacket、Encode、i62、es roundtrip、空 es 和错误路径；同步 M6 清单状态 | 待验证：`git diff --check`、VS bundled CMake configure、Debug 构建新增目标、CTest Debug `^cg-packet-` | 不实现相邻 `RXr/Flvp`；不拆 `|`/`,` 业务语义 |
 | 2026-06-02 | M6.11.22 简介设置 Ot 验证 | 复跑格式检查、VS bundled CMake configure、Debug 新增目标构建与执行、Debug 全量构建、packet CTest | `git diff --check` 通过，仅 LF/CRLF 提示；VS bundled CMake configure 通过；Debug 构建并运行 `cg-packet-profile-set-data-test` 通过；Debug 全量构建通过；CTest Debug `^cg-packet-` 37/37 通过 | 不实现相邻 `RXr/Flvp`；未添加服务端 profile 长度校验 |
+| 2026-06-02 | M6.11.23 RXr 暂缓 | code `RXr`，方向客户端->服务端，旧来源 `RECV_MU`；仓库内 `RECV_MU`/`RXr` 仅命中计划和 schema，IDA 未找到对应字符串；相邻客户端发送 code 表有 `MIS`、`klF`、`sM`、`ixH`、`QeuC`，未确认 `RXr` 发送 wrapper/caller；xlsx/schema rawFormat 为空且 fields 为空 | `git diff --check` 通过，仅 LF/CRLF 提示；按要求不编译 | 缺旧 C `RECV_MU` 实现或含 `RXr` 的客户端 IDA/封包日志，无法确认 outer format、send 字段、payload 结构；不能假定 `{data:es}`，本步仅标记暂缓，不实现代码、不改 schema |
 
 ## 工具补充
 

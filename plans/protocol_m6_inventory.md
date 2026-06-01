@@ -97,7 +97,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | M6.11.20 角色/Profile封包-LY | `LY` | 服务端->客户端 | 是 | 完成 | SEND_GFLI；旧 C `SEND_GFLI/CHAR_sendFrontCharList` + IDA 补外层 `{data:es}`；payload 为 `name|nonPlayerFlag|` 重复记录，空 data 为空列表，name 保留 makeEscapeString 后 raw 字符串，nonPlayerFlag 只接受 `0/1` |
 | M6.11.21 角色/Profile封包-nFV | `nFV` | 服务端->客户端 | 是 | 完成 | SEND_GPDI；旧 C `nrproto_GPDI_send` + `CHAR_sendCharAndPetList` + IDA `sub_4E4020` 补外层 `{data:es}`；payload 为 0..6 条 `name|level|injury|hp|maxHp|forcePoint|maxForcePoint|` 记录，name 保留 raw escaped 字符串，数值为 raw decimal |
 | M6.11.22 角色/Profile封包-Ot | `Ot` | 客户端->服务端 | 否 | 完成 | RECV_PRS/nrproto_PRS_recv + IDA sub_511640 确认外层 7 token；无二级 payload |
-| M6.11.23 角色/Profile封包-RXr | `RXr` | 客户端->服务端 | 是 | 字段待补 | RECV_MU |
+| M6.11.23 角色/Profile封包-RXr | `RXr` | 客户端->服务端 | 是 | 暂缓 | RECV_MU；xlsx rawFormat 为空，旧 C/IDA 未补到字段，缺 `RECV_MU`/`RXr` 封包结构证据，不能实现 |
 | M6.11.24 角色/Profile封包-Flvp | `Flvp` | 客户端->服务端 | 是 | 字段待补 | RECV_PS |
 | M6.11.25 角色/Profile封包-kjSK | `kjSK` | 客户端->服务端 | 否 | 未开始 | RECV_PLVUP 宠物加点 |
 | M6.11.26 角色/Profile封包-HJQp | `HJQp` | 客户端->服务端 | 否 | 未开始 | RECV_PSSW SKILL_swapPetSkill 宠物技能移动 |
@@ -363,7 +363,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 169 | `BG` | 客户端->服务端 | 完成 | RECV_IH Item_useHanko 盖章 | 否 | 否 | xlsx |
 | 170 | `MIS` | 客户端->服务端 | 完成 | RECV_AC 角色动作 | 否 | 否 | xlsx |
 | 171 | `klF` | 客户端->服务端 | 完成 | RECV_ACS 生产技能图标 | 否 | 否 | xlsx |
-| 172 | `RXr` | 客户端->服务端 | 暂缓 | RECV_MU | 是 | 是 | 待 C/IDA 补全 |
+| 172 | `RXr` | 客户端->服务端 | 暂缓 | RECV_MU；xlsx rawFormat 为空，旧 C/IDA 未补到字段，缺 `RECV_MU`/`RXr` 证据，来源仍待补 | 是 | 是 | 待 C/IDA 补全 |
 | 173 | `sM` | 客户端->服务端 | 完成 | RECV_TU tech_use 使用技能 | 否 | 否 | xlsx |
 | 174 | `ixH` | 客户端->服务端 | 完成 | RECV_TRPL 请求交易 | 否 | 否 | xlsx |
 | 175 | `QeuC` | 客户端->服务端 | 完成 | RECV_TRS CHAR_Trade_startTrade 从交易列表选择交易对象 | 否 | 否 | xlsx |

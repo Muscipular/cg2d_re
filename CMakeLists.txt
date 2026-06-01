@@ -556,6 +556,17 @@ target_include_directories(cg-packet-character-pet-list-test
 
 add_test(NAME cg-packet-character-pet-list-test COMMAND cg-packet-character-pet-list-test)
 
+add_executable(cg-packet-char-and-pet-item-list-test
+    tests/packet/CharAndPetItemListPacketTest.cpp
+)
+
+target_include_directories(cg-packet-char-and-pet-item-list-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+
+add_test(NAME cg-packet-char-and-pet-item-list-test COMMAND cg-packet-char-and-pet-item-list-test)
+
 add_executable(cg-packet-profile-window-test
     tests/packet/ProfileWindowPacketTest.cpp
 )
@@ -632,6 +643,7 @@ if(MSVC)
     target_compile_options(cg-packet-front-char-list-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-item-front-char-list-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-character-pet-list-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-char-and-pet-item-list-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-profile-window-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-payload-codec-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-coverage-schema-test PRIVATE /W4 /utf-8 /permissive-)
@@ -674,6 +686,7 @@ else()
     target_compile_options(cg-packet-front-char-list-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-item-front-char-list-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-character-pet-list-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-packet-char-and-pet-item-list-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-profile-window-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-payload-codec-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-coverage-schema-test PRIVATE -Wall -Wextra -Wpedantic)

@@ -179,7 +179,7 @@ namespace cg::packet
             {"y2", PacketFieldType::Int62, PacketSourceTag::Xlsx},
         }};
 
-        inline constexpr std::array<PacketSpec, 30> PacketRegistry = {{
+        inline constexpr std::array<PacketSpec, 31> PacketRegistry = {{
             {
                 "JFVf",
                 PacketDirection::ClientToServer,
@@ -322,6 +322,13 @@ namespace cg::packet
             },
             {
                 "ND",
+                PacketDirection::ServerToClient,
+                PacketSourceTag::ServerC,
+                CharacterPetListFields.data(),
+                CharacterPetListFields.size(),
+            },
+            {
+                "nFV",
                 PacketDirection::ServerToClient,
                 PacketSourceTag::ServerC,
                 CharacterPetListFields.data(),

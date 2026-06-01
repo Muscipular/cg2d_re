@@ -110,7 +110,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | M6.12.06 物品/技能/宠物封包-dM | `dM` | 服务端->客户端 | 否 | 完成 | SEND_ALI；旧 C `nrproto_ALI_send` + `CHAR_sendAlbumInfoData` + IDA `network_dispatch/sub_518870` 补外层 17 字段 `{albumId:i62} {imageNumber:i62} {catchFlag:i62} {rare:i62} {type:i62} {vital:i62} {strength:i62} {toughness:i62} {quick:i62} {magic:i62} {earth:i62} {water:i62} {fire:i62} {wind:i62} {slot:i62} {comment:es} {name:es}`；无二级 payload，`comment/name` 保留外层 es 结果 |
 | M6.12.07 物品/技能/宠物封包-Dn | `Dn` | 服务端->客户端 | 否 | 完成 | SEND_ALN；旧 C `nrproto_ALN_send` + `CHAR_sendAlbumPetNameData` + IDA `network_dispatch` 补外层 `{albumId:i62} {name:es}`；无二级 payload，`name` 保留外层 es 结果 |
 | M6.12.08 物品/技能/宠物封包-lDuJ | `lDuJ` | 服务端->客户端 | 否 | 完成 | SEND_PME 宠邮动画；xlsx 8 字段，客户端 IDA 确认前 7 字段 i62、data/es；sub_50DD80 确认 flg!=0 时 data 为 12 段 `|` payload |
-| M6.12.09 物品/技能/宠物封包-IsSy | `IsSy` | 服务端->客户端 | 是 | 字段待补 | SEND_KP |
+| M6.12.09 物品/技能/宠物封包-IsSy | `IsSy` | 服务端->客户端 | 是 | 完成 | SEND_KP；旧 C `nrproto_KP_send/CHAR_send_KP_String` + IDA `sub_50A6B0` 补外层 `{petIndex:i62} {data:es}`；payload 支持 literal `0`、`1|` full/all marker、以及 `flags|field...|` partial，字段按 flags bit 顺序解析，数值为 raw decimal，`name/userPetName` 原样保存 |
 | M6.12.10 物品/技能/宠物封包-AU | `AU` | 服务端->客户端 | 是 | 字段待补 | SEND_KP2 |
 | M6.12.11 物品/技能/宠物封包-JgO | `JgO` | 服务端->客户端 | 是 | 字段待补 | SEND_TU techuse |
 | M6.12.12 物品/技能/宠物封包-iKe | `iKe` | 服务端->客户端 | 是 | 字段待补 | SEND_PET_ITEM |
@@ -184,6 +184,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | `TNT` | 服务端->客户端 | `cg::packet::receive::PartyParam` | `{data:es}` | M6.11.13 已实现；xlsx rawFormat 为空，字段由旧 C `SEND_PP/nrproto_PP_send` + 客户端 IDA 补足；`data` 为 1..5 条 `objectIndex|hp|maxHp|forcePoint|maxForcePoint|` 记录，objectIndex 为 i62，其余为 raw decimal，整体保留尾随 `|` |
 | `JJQj` | 服务端->客户端 | `cg::packet::receive::PartyMemberStatus` | `{partySlot:i62} {data:es}` | M6.11.14 已实现；xlsx rawFormat 为空，字段由旧 C `SEND_CN/nrproto_CN_send` 补足；`data` 仅支持 `0|` 空队员/离队和 `1|objectIndexllevel|maxHp|hp|forcePoint|name|` 完整状态，其他 fieldMask 返回错误 |
 | `OBee` | 服务端->客户端 | `cg::packet::receive::PetTechData` | `{petIndex:i62} {data:es}` | M6.11.16 已实现；xlsx rawFormat 为空，字段由旧 C `SEND_PT/nrproto_PT_send` + 客户端 IDA 补足；`data` 每条 8 段：`skillSlot|techId|name|description|forcePoint|techField|target|seqNo|`，数值为 raw decimal，字符串保留 raw，空 data 视为错误 |
+| `IsSy` | 服务端->客户端 | `cg::packet::receive::RidePetData` | `{petIndex:i62} {data:es}` | M6.12.09 已实现；旧 C `SEND_KP/nrproto_KP_send` + `CHAR_send_KP_String/CHAR_make_KP_String` + IDA `sub_50A6B0` 补足；`data` literal `0` 清空，`1|` 为 full/all marker，partial 为 `flags|field...|` 且保留尾随 `|`，字段顺序按 `1<<1` 到 `1<<25`，数值 raw decimal，`name/userPetName` 按 `|` 分段原样保存 |
 | `Yo` | 服务端->客户端 | `cg::packet::receive::ProfileStatus` | `{data:es}` | M6.11.17 已实现；xlsx rawFormat 为空，字段由旧 C `SEND_S/nrproto_S_send` + 客户端 IDA 补足；仅实现外层 `data/es`，payload 原样保留，不拆内部 `|` |
 | `LY` | 服务端->客户端 | `cg::packet::receive::ItemFrontCharList` | `{data:es}` | M6.11.20 已实现；旧 C `SEND_GFLI/CHAR_sendFrontCharList` + IDA 补足；`data` 为 `name|nonPlayerFlag|` 重复记录，空 data 为空列表，name 保留 raw escaped 字符串，nonPlayerFlag 只接受 `0/1` |
 | `ND` | 服务端->客户端 | `cg::packet::receive::CharacterPetList` | `{data:es}` | M6.11.19 已实现；xlsx rawFormat 为空，字段由旧 C `RECV_GPD/nrproto_GPD_recv` + `CHAR_sendCharAndPetList` + `SEND_GPD/nrproto_GPD_send` 补足；`data` 为 0..6 条 `name|level|injury|hp|maxHp|forcePoint|maxForcePoint|` 记录，name 保留 raw escaped 字符串，数值为 raw decimal，整体保留尾随 `|` |
@@ -278,7 +279,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 78 | `DyAG` | 服务端->客户端 | 完成 | SEND_PRW 交流版；xlsx `{}` 按旧 C 修正为 `{windowType:i62} {buttonType:i62} {seqNo:i62} {objectIndex:i62} {data:es}` | 否 | 是 | xlsx + src/packet |
 | 79 | `KyN` | 服务端->客户端 | 完成 | SEND_PRAD 收到迷你信件；schema `{data}` 按旧 C 修正为 data/es | 否 | 是 | xlsx + src/packet |
 | 80 | `zdr` | 服务端->客户端 | 完成 | SEND_TK | 是 | 是 | 待 C/IDA 补全 |
-| 81 | `IsSy` | 服务端->客户端 | 完成 | SEND_KP | 是 | 是 | 待 C/IDA 补全 |
+| 81 | `IsSy` | 服务端->客户端 | 完成 | SEND_KP；外层 `{petIndex:i62} {data:es}`；payload 支持 `0`、`1|`、partial flags | 是 | 是 | ServerC+ClientIda+src |
 | 82 | `AU` | 服务端->客户端 | 完成 | SEND_KP2 | 是 | 是 | 待 C/IDA 补全 |
 | 83 | `TNT` | 服务端->客户端 | 完成 | SEND_PP | 是 | 是 | 旧 C + IDA + src/packet |
 | 84 | `JJQj` | 服务端->客户端 | 完成 | SEND_CN；旧 C 补外层 `{partySlot:i62} {data:es}` | 是 | 是 | 旧 C + src/packet |

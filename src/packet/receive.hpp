@@ -5851,6 +5851,557 @@ namespace cg::packet::receive
         }
     };
 
+    struct RidePetPayload
+    {
+        bool clear = false;
+        bool fullMarker = false;
+        int flags = 0;
+        int baseImageNumber = 0;
+        int tribe = 0;
+        int hp = 0;
+        int maxHp = 0;
+        int forcePoint = 0;
+        int maxForcePoint = 0;
+        int exp = 0;
+        int nextExp = 0;
+        int level = 0;
+        int attack = 0;
+        int defense = 0;
+        int agility = 0;
+        int magicPower = 0;
+        int recovery = 0;
+        int loyalty = 0;
+        int earth = 0;
+        int water = 0;
+        int fire = 0;
+        int wind = 0;
+        int slot = 0;
+        int changeNameFlag = 0;
+        std::string name;
+        std::string userPetName;
+        int departureBattleStatus = 0;
+        int injury = 0;
+
+        [[nodiscard]] static RidePetPayload Clear()
+        {
+            RidePetPayload payload;
+            payload.clear = true;
+            return payload;
+        }
+
+        [[nodiscard]] static RidePetPayload FullMarker()
+        {
+            RidePetPayload payload;
+            payload.fullMarker = true;
+            payload.flags = FullMarkerFlag;
+            return payload;
+        }
+
+        static constexpr int FullMarkerFlag = 1;
+    };
+
+    /**
+     * SEND_KP CHAR_send_KP_String 骑宠资料		IsSy {petIndex:i62} {data:es}
+     * data: literal `0` 表示清空；`1|` 表示 full/all marker；partial 为 `flags|field...|`。
+     */
+    struct RidePetData
+    {
+        static constexpr std::string_view Code = "IsSy";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::string_view PayloadDelimiter = "|";
+
+        int petIndex = 0;
+        RidePetPayload payload;
+
+        RidePetData(int petIndex, RidePetPayload payload)
+            : petIndex(petIndex),
+              payload(std::move(payload))
+        {
+        }
+
+        [[nodiscard]] std::string BuildData() const
+        {
+            if (payload.clear) {
+                return "0";
+            }
+
+            if (payload.fullMarker) {
+                return "1|";
+            }
+
+            PacketResult<std::string> encodedFlags = EncodeInt62(payload.flags);
+            std::string data = encodedFlags.HasValue() ? encodedFlags.Value() : std::string();
+            data.push_back('|');
+            AppendNumberField(data, payload.flags, BaseImageNumberFlag, payload.baseImageNumber);
+            AppendNumberField(data, payload.flags, TribeFlag, payload.tribe);
+            AppendNumberField(data, payload.flags, HpFlag, payload.hp);
+            AppendNumberField(data, payload.flags, MaxHpFlag, payload.maxHp);
+            AppendNumberField(data, payload.flags, ForcePointFlag, payload.forcePoint);
+            AppendNumberField(data, payload.flags, MaxForcePointFlag, payload.maxForcePoint);
+            AppendNumberField(data, payload.flags, ExpFlag, payload.exp);
+            AppendNumberField(data, payload.flags, NextExpFlag, payload.nextExp);
+            AppendNumberField(data, payload.flags, LevelFlag, payload.level);
+            AppendNumberField(data, payload.flags, AttackFlag, payload.attack);
+            AppendNumberField(data, payload.flags, DefenseFlag, payload.defense);
+            AppendNumberField(data, payload.flags, AgilityFlag, payload.agility);
+            AppendNumberField(data, payload.flags, MagicPowerFlag, payload.magicPower);
+            AppendNumberField(data, payload.flags, RecoveryFlag, payload.recovery);
+            AppendNumberField(data, payload.flags, LoyaltyFlag, payload.loyalty);
+            AppendNumberField(data, payload.flags, EarthFlag, payload.earth);
+            AppendNumberField(data, payload.flags, WaterFlag, payload.water);
+            AppendNumberField(data, payload.flags, FireFlag, payload.fire);
+            AppendNumberField(data, payload.flags, WindFlag, payload.wind);
+            AppendNumberField(data, payload.flags, SlotFlag, payload.slot);
+            AppendNumberField(data, payload.flags, ChangeNameFlag, payload.changeNameFlag);
+            AppendStringField(data, payload.flags, NameFlag, payload.name);
+            AppendStringField(data, payload.flags, UserPetNameFlag, payload.userPetName);
+            AppendNumberField(data, payload.flags, DepartureBattleStatusFlag, payload.departureBattleStatus);
+            AppendNumberField(data, payload.flags, InjuryFlag, payload.injury);
+            return data;
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ServerC);
+            packet.fields.push_back(PacketField {
+                "petIndex",
+                PacketFieldType::Int62,
+                std::to_string(petIndex),
+                PacketSourceTag::ServerC,
+            });
+            packet.fields.push_back(PacketField {
+                "data",
+                PacketFieldType::EscapedString,
+                BuildData(),
+                PacketSourceTag::ServerC,
+            });
+            return packet;
+        }
+
+        static PacketResult<RidePetData> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view);
+            if (!parsed.HasValue()) {
+                return PacketResult<RidePetData>::Failure(parsed.Error());
+            }
+
+            const Packet& packet = parsed.Value();
+            if (packet.code.View() != Code) {
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "RidePetData Parse 收到非 IsSy 封包");
+                error.packetCode = packet.code;
+                return PacketResult<RidePetData>::Failure(std::move(error));
+            }
+
+            if (packet.direction != Direction) {
+                return PacketResult<RidePetData>::Failure(MakePacketError(
+                    PacketErrorCode::DecodeFailed,
+                    "RidePetData Parse 封包方向不匹配"));
+            }
+
+            if (packet.fields.size() != FieldCount) {
+                return PacketResult<RidePetData>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "RidePetData Parse 字段数量不匹配",
+                    packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
+            }
+
+            const PacketField& petIndexField = packet.fields[PetIndexFieldIndex];
+            if (petIndexField.name != "petIndex") {
+                return PacketResult<RidePetData>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "RidePetData Parse petIndex 字段名不匹配",
+                    PetIndexFieldIndex));
+            }
+
+            if (petIndexField.type != PacketFieldType::Int62) {
+                return PacketResult<RidePetData>::Failure(MakeFieldError(
+                    PacketErrorCode::InvalidFieldType,
+                    "RidePetData Parse petIndex 字段类型不匹配",
+                    PetIndexFieldIndex));
+            }
+
+            PacketResult<int> petIndex = ParseDecimalField(petIndexField.value, PetIndexFieldIndex);
+            if (!petIndex.HasValue()) {
+                return PacketResult<RidePetData>::Failure(petIndex.Error());
+            }
+
+            const PacketField& dataField = packet.fields[DataFieldIndex];
+            if (dataField.name != "data") {
+                return PacketResult<RidePetData>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "RidePetData Parse data 字段名不匹配",
+                    DataFieldIndex));
+            }
+
+            if (dataField.type != PacketFieldType::EscapedString) {
+                return PacketResult<RidePetData>::Failure(MakeFieldError(
+                    PacketErrorCode::InvalidFieldType,
+                    "RidePetData Parse data 字段类型不匹配",
+                    DataFieldIndex));
+            }
+
+            PacketResult<RidePetPayload> payload = ParsePayload(dataField.value);
+            if (!payload.HasValue()) {
+                return PacketResult<RidePetData>::Failure(payload.Error());
+            }
+
+            return PacketResult<RidePetData>::Success(RidePetData(petIndex.Value(), std::move(payload.Value())));
+        }
+
+    private:
+        static constexpr std::size_t FieldCount = 2U;
+        static constexpr std::size_t PetIndexFieldIndex = 0U;
+        static constexpr std::size_t DataFieldIndex = 1U;
+        static constexpr int BaseImageNumberFlag = 1 << 1;
+        static constexpr int TribeFlag = 1 << 2;
+        static constexpr int HpFlag = 1 << 3;
+        static constexpr int MaxHpFlag = 1 << 4;
+        static constexpr int ForcePointFlag = 1 << 5;
+        static constexpr int MaxForcePointFlag = 1 << 6;
+        static constexpr int ExpFlag = 1 << 7;
+        static constexpr int NextExpFlag = 1 << 8;
+        static constexpr int LevelFlag = 1 << 9;
+        static constexpr int AttackFlag = 1 << 10;
+        static constexpr int DefenseFlag = 1 << 11;
+        static constexpr int AgilityFlag = 1 << 12;
+        static constexpr int MagicPowerFlag = 1 << 13;
+        static constexpr int RecoveryFlag = 1 << 14;
+        static constexpr int LoyaltyFlag = 1 << 15;
+        static constexpr int EarthFlag = 1 << 16;
+        static constexpr int WaterFlag = 1 << 17;
+        static constexpr int FireFlag = 1 << 18;
+        static constexpr int WindFlag = 1 << 19;
+        static constexpr int SlotFlag = 1 << 20;
+        static constexpr int ChangeNameFlag = 1 << 21;
+        static constexpr int NameFlag = 1 << 22;
+        static constexpr int UserPetNameFlag = 1 << 23;
+        static constexpr int DepartureBattleStatusFlag = 1 << 24;
+        static constexpr int InjuryFlag = 1 << 25;
+        static constexpr int PartialFlagsMask = (1 << 26) - 2;
+
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            error.source = PacketSourceTag::ServerC;
+            return error;
+        }
+
+        [[nodiscard]] static PacketError MakeFieldError(
+            PacketErrorCode code,
+            std::string message,
+            std::size_t fieldIndex)
+        {
+            PacketError error = MakePacketError(code, std::move(message));
+            error.fieldIndex = fieldIndex;
+            return error;
+        }
+
+        static void AppendNumberField(std::string& data, int flags, int flag, int value)
+        {
+            if ((flags & flag) == 0) {
+                return;
+            }
+
+            data.append(std::to_string(value));
+            data.push_back('|');
+        }
+
+        static void AppendStringField(std::string& data, int flags, int flag, const std::string& value)
+        {
+            if ((flags & flag) == 0) {
+                return;
+            }
+
+            data.append(value);
+            data.push_back('|');
+        }
+
+        [[nodiscard]] static std::size_t CountPayloadFields(int flags) noexcept
+        {
+            std::size_t count = 0;
+            for (int flag = BaseImageNumberFlag; flag <= InjuryFlag; flag <<= 1) {
+                if ((flags & flag) != 0) {
+                    ++count;
+                }
+            }
+            return count;
+        }
+
+        [[nodiscard]] static PacketResult<RidePetPayload> ParsePayload(std::string_view text)
+        {
+            if (text.empty()) {
+                return PacketResult<RidePetPayload>::Failure(MakeFieldError(
+                    PacketErrorCode::EmptyInput,
+                    "RidePetData payload 为空",
+                    DataFieldIndex));
+            }
+
+            if (text == "0") {
+                return PacketResult<RidePetPayload>::Success(RidePetPayload::Clear());
+            }
+
+            if (text.back() != '|') {
+                return PacketResult<RidePetPayload>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "RidePetData payload 缺少尾随分隔符",
+                    DataFieldIndex));
+            }
+
+            PacketResult<std::vector<std::string>> split = SplitPayload(text, PayloadDelimiter);
+            if (!split.HasValue()) {
+                PacketError error = split.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = DataFieldIndex;
+                error.source = PacketSourceTag::ServerC;
+                return PacketResult<RidePetPayload>::Failure(std::move(error));
+            }
+
+            std::vector<std::string> parts = std::move(split.Value());
+            parts.pop_back();
+            if (parts.empty() || parts.front().empty() || parts.front() == "-") {
+                return PacketResult<RidePetPayload>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "RidePetData flags 字段为空",
+                    DataFieldIndex));
+            }
+
+            PacketResult<int> flags = DecodeInt62(parts.front());
+            if (!flags.HasValue()) {
+                PacketError error = flags.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = DataFieldIndex;
+                error.source = PacketSourceTag::ServerC;
+                return PacketResult<RidePetPayload>::Failure(std::move(error));
+            }
+
+            if (flags.Value() < 0) {
+                return PacketResult<RidePetPayload>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "RidePetData flags 不能为负",
+                    DataFieldIndex));
+            }
+
+            if (flags.Value() == 0) {
+                return PacketResult<RidePetPayload>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "RidePetData flags 为 0 但 payload 不是 literal 0",
+                    DataFieldIndex));
+            }
+
+            if (flags.Value() == RidePetPayload::FullMarkerFlag) {
+                if (parts.size() != 1U) {
+                    return PacketResult<RidePetPayload>::Failure(MakeFieldError(
+                        PacketErrorCode::FieldCountMismatch,
+                        "RidePetData full marker 不应携带字段",
+                        DataFieldIndex));
+                }
+                return PacketResult<RidePetPayload>::Success(RidePetPayload::FullMarker());
+            }
+
+            if ((flags.Value() & ~PartialFlagsMask) != 0) {
+                return PacketResult<RidePetPayload>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "RidePetData flags 包含未知 bit",
+                    DataFieldIndex));
+            }
+
+            const std::size_t expectedPartCount = 1U + CountPayloadFields(flags.Value());
+            if (parts.size() != expectedPartCount) {
+                return PacketResult<RidePetPayload>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "RidePetData payload 字段数量不匹配",
+                    DataFieldIndex));
+            }
+
+            RidePetPayload payload;
+            payload.flags = flags.Value();
+            std::size_t partIndex = 1U;
+            PacketResult<bool> parsed = ParseNumberField(parts, partIndex, flags.Value(), BaseImageNumberFlag, &RidePetPayload::baseImageNumber, payload);
+            if (!parsed.HasValue()) {
+                return PacketResult<RidePetPayload>::Failure(parsed.Error());
+            }
+            parsed = ParseNumberField(parts, partIndex, flags.Value(), TribeFlag, &RidePetPayload::tribe, payload);
+            if (!parsed.HasValue()) {
+                return PacketResult<RidePetPayload>::Failure(parsed.Error());
+            }
+            parsed = ParseNumberField(parts, partIndex, flags.Value(), HpFlag, &RidePetPayload::hp, payload);
+            if (!parsed.HasValue()) {
+                return PacketResult<RidePetPayload>::Failure(parsed.Error());
+            }
+            parsed = ParseNumberField(parts, partIndex, flags.Value(), MaxHpFlag, &RidePetPayload::maxHp, payload);
+            if (!parsed.HasValue()) {
+                return PacketResult<RidePetPayload>::Failure(parsed.Error());
+            }
+            parsed = ParseNumberField(parts, partIndex, flags.Value(), ForcePointFlag, &RidePetPayload::forcePoint, payload);
+            if (!parsed.HasValue()) {
+                return PacketResult<RidePetPayload>::Failure(parsed.Error());
+            }
+            parsed = ParseNumberField(parts, partIndex, flags.Value(), MaxForcePointFlag, &RidePetPayload::maxForcePoint, payload);
+            if (!parsed.HasValue()) {
+                return PacketResult<RidePetPayload>::Failure(parsed.Error());
+            }
+            parsed = ParseNumberField(parts, partIndex, flags.Value(), ExpFlag, &RidePetPayload::exp, payload);
+            if (!parsed.HasValue()) {
+                return PacketResult<RidePetPayload>::Failure(parsed.Error());
+            }
+            parsed = ParseNumberField(parts, partIndex, flags.Value(), NextExpFlag, &RidePetPayload::nextExp, payload);
+            if (!parsed.HasValue()) {
+                return PacketResult<RidePetPayload>::Failure(parsed.Error());
+            }
+            parsed = ParseNumberField(parts, partIndex, flags.Value(), LevelFlag, &RidePetPayload::level, payload);
+            if (!parsed.HasValue()) {
+                return PacketResult<RidePetPayload>::Failure(parsed.Error());
+            }
+            parsed = ParseNumberField(parts, partIndex, flags.Value(), AttackFlag, &RidePetPayload::attack, payload);
+            if (!parsed.HasValue()) {
+                return PacketResult<RidePetPayload>::Failure(parsed.Error());
+            }
+            parsed = ParseNumberField(parts, partIndex, flags.Value(), DefenseFlag, &RidePetPayload::defense, payload);
+            if (!parsed.HasValue()) {
+                return PacketResult<RidePetPayload>::Failure(parsed.Error());
+            }
+            parsed = ParseNumberField(parts, partIndex, flags.Value(), AgilityFlag, &RidePetPayload::agility, payload);
+            if (!parsed.HasValue()) {
+                return PacketResult<RidePetPayload>::Failure(parsed.Error());
+            }
+            parsed = ParseNumberField(parts, partIndex, flags.Value(), MagicPowerFlag, &RidePetPayload::magicPower, payload);
+            if (!parsed.HasValue()) {
+                return PacketResult<RidePetPayload>::Failure(parsed.Error());
+            }
+            parsed = ParseNumberField(parts, partIndex, flags.Value(), RecoveryFlag, &RidePetPayload::recovery, payload);
+            if (!parsed.HasValue()) {
+                return PacketResult<RidePetPayload>::Failure(parsed.Error());
+            }
+            parsed = ParseNumberField(parts, partIndex, flags.Value(), LoyaltyFlag, &RidePetPayload::loyalty, payload);
+            if (!parsed.HasValue()) {
+                return PacketResult<RidePetPayload>::Failure(parsed.Error());
+            }
+            parsed = ParseNumberField(parts, partIndex, flags.Value(), EarthFlag, &RidePetPayload::earth, payload);
+            if (!parsed.HasValue()) {
+                return PacketResult<RidePetPayload>::Failure(parsed.Error());
+            }
+            parsed = ParseNumberField(parts, partIndex, flags.Value(), WaterFlag, &RidePetPayload::water, payload);
+            if (!parsed.HasValue()) {
+                return PacketResult<RidePetPayload>::Failure(parsed.Error());
+            }
+            parsed = ParseNumberField(parts, partIndex, flags.Value(), FireFlag, &RidePetPayload::fire, payload);
+            if (!parsed.HasValue()) {
+                return PacketResult<RidePetPayload>::Failure(parsed.Error());
+            }
+            parsed = ParseNumberField(parts, partIndex, flags.Value(), WindFlag, &RidePetPayload::wind, payload);
+            if (!parsed.HasValue()) {
+                return PacketResult<RidePetPayload>::Failure(parsed.Error());
+            }
+            parsed = ParseNumberField(parts, partIndex, flags.Value(), SlotFlag, &RidePetPayload::slot, payload);
+            if (!parsed.HasValue()) {
+                return PacketResult<RidePetPayload>::Failure(parsed.Error());
+            }
+            parsed = ParseNumberField(parts, partIndex, flags.Value(), ChangeNameFlag, &RidePetPayload::changeNameFlag, payload);
+            if (!parsed.HasValue()) {
+                return PacketResult<RidePetPayload>::Failure(parsed.Error());
+            }
+            ParseStringField(parts, partIndex, flags.Value(), NameFlag, &RidePetPayload::name, payload);
+            ParseStringField(parts, partIndex, flags.Value(), UserPetNameFlag, &RidePetPayload::userPetName, payload);
+            parsed = ParseNumberField(parts, partIndex, flags.Value(), DepartureBattleStatusFlag, &RidePetPayload::departureBattleStatus, payload);
+            if (!parsed.HasValue()) {
+                return PacketResult<RidePetPayload>::Failure(parsed.Error());
+            }
+            parsed = ParseNumberField(parts, partIndex, flags.Value(), InjuryFlag, &RidePetPayload::injury, payload);
+            if (!parsed.HasValue()) {
+                return PacketResult<RidePetPayload>::Failure(parsed.Error());
+            }
+
+            return PacketResult<RidePetPayload>::Success(std::move(payload));
+        }
+
+        [[nodiscard]] static PacketResult<bool> ParseNumberField(
+            const std::vector<std::string>& parts,
+            std::size_t& partIndex,
+            int flags,
+            int flag,
+            int RidePetPayload::* member,
+            RidePetPayload& payload)
+        {
+            if ((flags & flag) == 0) {
+                return PacketResult<bool>::Success(true);
+            }
+
+            PacketResult<int> value = ParseDecimalField(parts[partIndex], partIndex);
+            if (!value.HasValue()) {
+                return PacketResult<bool>::Failure(value.Error());
+            }
+
+            payload.*member = value.Value();
+            ++partIndex;
+            return PacketResult<bool>::Success(true);
+        }
+
+        static void ParseStringField(
+            const std::vector<std::string>& parts,
+            std::size_t& partIndex,
+            int flags,
+            int flag,
+            std::string RidePetPayload::* member,
+            RidePetPayload& payload)
+        {
+            if ((flags & flag) == 0) {
+                return;
+            }
+
+            payload.*member = parts[partIndex];
+            ++partIndex;
+        }
+
+        [[nodiscard]] static PacketResult<int> ParseDecimalField(std::string_view text, std::size_t fieldIndex)
+        {
+            bool negative = false;
+            std::size_t index = 0;
+            if (!text.empty() && text.front() == '-') {
+                negative = true;
+                index = 1U;
+            }
+
+            if (index == text.size()) {
+                return PacketResult<int>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "RidePetData 十进制字段为空",
+                    fieldIndex));
+            }
+
+            const std::int64_t maxValue = static_cast<std::int64_t>(std::numeric_limits<int>::max());
+            const std::int64_t minValue = static_cast<std::int64_t>(std::numeric_limits<int>::min());
+            const std::int64_t limit = negative ? (0 - minValue) : maxValue;
+            std::int64_t value = 0;
+
+            for (; index < text.size(); ++index) {
+                const char ch = text[index];
+                if (ch < '0' || ch > '9') {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "RidePetData 十进制字段包含非法字符",
+                        fieldIndex));
+                }
+
+                const int digit = ch - '0';
+                if (value > (limit - digit) / 10) {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "RidePetData 十进制字段超出 int 范围",
+                        fieldIndex));
+                }
+
+                value = (value * 10) + digit;
+            }
+
+            if (negative) {
+                value = -value;
+            }
+
+            return PacketResult<int>::Success(static_cast<int>(value));
+        }
+    };
+
     /**
      * SEND_PT 宠物技能记录：skillSlot|techId|name|description|forcePoint|techField|target|seqNo。
      */

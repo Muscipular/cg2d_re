@@ -655,6 +655,17 @@ target_include_directories(cg-packet-pet-tech-data-test
 
 add_test(NAME cg-packet-pet-tech-data-test COMMAND cg-packet-pet-tech-data-test)
 
+add_executable(cg-packet-ride-pet-data-test
+    tests/packet/RidePetDataPacketTest.cpp
+)
+
+target_include_directories(cg-packet-ride-pet-data-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+
+add_test(NAME cg-packet-ride-pet-data-test COMMAND cg-packet-ride-pet-data-test)
+
 add_executable(cg-packet-profile-status-test
     tests/packet/ProfileStatusPacketTest.cpp
 )
@@ -795,6 +806,7 @@ if(MSVC)
     target_compile_options(cg-packet-party-member-status-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-tech-list-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-pet-tech-data-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-ride-pet-data-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-profile-status-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-front-char-list-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-item-front-char-list-test PRIVATE /W4 /utf-8 /permissive-)
@@ -851,6 +863,7 @@ else()
     target_compile_options(cg-packet-party-member-status-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-tech-list-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-pet-tech-data-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-packet-ride-pet-data-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-profile-status-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-front-char-list-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-item-front-char-list-test PRIVATE -Wall -Wextra -Wpedantic)

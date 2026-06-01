@@ -1,19 +1,21 @@
 #ifndef CG_ENGINE_RECEIVE_H
 #define CG_ENGINE_RECEIVE_H
+#include "PacketTypes.hpp"
+
 #include <string>
+#include <string_view>
+#include <utility>
 
 namespace cg::packet::receive
 {
-    struct Packet
-    {
-        std::string header;
-    };
-
     /**
      * SEND_ClientLogin 登录角色表结果		whV {result:i62} {data:es}
      */
-    struct ClientLoginResult : public Packet
+    struct ClientLoginResult
     {
+        static constexpr std::string_view Code = "whV";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+
         enum
         {
             ClientLogin_AUTH_OK, //data:  (null)
@@ -32,14 +34,38 @@ namespace cg::packet::receive
         std::string data;
 
         ClientLoginResult(int result, const std::string& data)
-            : Packet("whV"), result(result), data(data)
+            : result(result), data(data)
         {
         }
 
-        static ClientLoginResult Parse(std::string_view view)
+        [[nodiscard]] Packet ToPacket() const
         {
-            //TODO Parse
-            return {};
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ExistingPrototype);
+            packet.fields.push_back(PacketField {
+                "result",
+                PacketFieldType::Int62,
+                std::to_string(result),
+                PacketSourceTag::ExistingPrototype,
+            });
+            packet.fields.push_back(PacketField {
+                "data",
+                PacketFieldType::EscapedString,
+                data,
+                PacketSourceTag::ExistingPrototype,
+            });
+            return packet;
+        }
+
+        static PacketResult<ClientLoginResult> Parse(std::string_view view)
+        {
+            PacketError error = PacketError::Make(PacketErrorCode::NotImplemented, "ClientLoginResult Parse 待 M6.7/M6.15 实现");
+            error.packetCode = PacketCode(Code);
+            error.source = PacketSourceTag::ExistingPrototype;
+            if (view.empty()) {
+                error.code = PacketErrorCode::EmptyInput;
+                error.message = "ClientLoginResult Parse 收到空输入";
+            }
+            return PacketResult<ClientLoginResult>::Failure(std::move(error));
         }
     };
 }

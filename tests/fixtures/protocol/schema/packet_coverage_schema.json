@@ -2516,6 +2516,38 @@
       "rawFormat": "",
       "formatEmpty": true,
       "source": "xlsx",
+      "resolvedFormat": "{objectIndex:i62} {message:es} {color:i62} {fontSize:i62}",
+      "resolvedSource": "ServerC+ClientIda+src",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "objectIndex",
+          "typeToken": "i62",
+          "rawSpec": "{objectIndex:i62}",
+          "source": "ServerC+ClientIda+src"
+        },
+        {
+          "index": 1,
+          "name": "message",
+          "typeToken": "es",
+          "rawSpec": "{message:es}",
+          "source": "ServerC+ClientIda+src"
+        },
+        {
+          "index": 2,
+          "name": "color",
+          "typeToken": "i62",
+          "rawSpec": "{color:i62}",
+          "source": "ServerC+ClientIda+src"
+        },
+        {
+          "index": 3,
+          "name": "fontSize",
+          "typeToken": "i62",
+          "rawSpec": "{fontSize:i62}",
+          "source": "ServerC+ClientIda+src"
+        }
+      ],
       "fields": []
     },
     {

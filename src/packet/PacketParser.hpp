@@ -287,6 +287,13 @@ namespace cg::packet
             {"color", PacketFieldType::Int62, PacketSourceTag::ServerC},
         }};
 
+        inline constexpr std::array<PacketFieldSpec, 4> ChatMessageFields = {{
+            {"objectIndex", PacketFieldType::Int62, PacketSourceTag::ServerC},
+            {"message", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
+            {"color", PacketFieldType::Int62, PacketSourceTag::ServerC},
+            {"fontSize", PacketFieldType::Int62, PacketSourceTag::ServerC},
+        }};
+
         inline constexpr std::array<PacketFieldSpec, 1> CheckCommandFields = {{
             {"time", PacketFieldType::Int62, PacketSourceTag::Xlsx},
         }};
@@ -326,7 +333,7 @@ namespace cg::packet
             {"y2", PacketFieldType::Int62, PacketSourceTag::Xlsx},
         }};
 
-        inline constexpr std::array<PacketSpec, 55> PacketRegistry = {{
+        inline constexpr std::array<PacketSpec, 56> PacketRegistry = {{
             {
                 "JFVf",
                 PacketDirection::ClientToServer,
@@ -655,6 +662,13 @@ namespace cg::packet
                 PacketSourceTag::ServerC,
                 ProfileMailMessageFields.data(),
                 ProfileMailMessageFields.size(),
+            },
+            {
+                "zdr",
+                PacketDirection::ServerToClient,
+                PacketSourceTag::ServerC,
+                ChatMessageFields.data(),
+                ChatMessageFields.size(),
             },
             {
                 "CCL",

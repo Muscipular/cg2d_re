@@ -121,7 +121,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | M6.13.02 聊天/窗口/系统封包-zzd | `zzd` | 服务端->客户端 | 否 | 完成 | SEND_EF 特效封包；外层 `{EffType:i62} {TM_EffSize:i62} {data:es}`；`data` 为 opaque 外层 es，允许空值，不拆二级结构 |
 | M6.13.03 聊天/窗口/系统封包-LYIm | `LYIm` | 服务端->客户端 | 是 | 完成 | SEND_B；旧 C `nrproto_B_send(int fd, char* command)` + 客户端 IDA `network_dispatch/sub_50D3C0` 补外层 `{command:es}`；command 为 opaque 战斗命令串，允许空值、`|` 和空格转义，不拆 `C/P/A/BU/M`，不校验内部十六进制/战斗状态，不要求尾随 `|`，不做 i62 解码 |
 | M6.13.04 聊天/窗口/系统封包-Mhbt | `Mhbt` | 服务端->客户端 | 是 | 完成 | SEND_MSG recvmsg；外层 `{aindex:i62} {text:es} {color:i62}`；`text` payload 仅支持普通邮件 3 段 `sentTimeText|messageRaw|-1` 与宠邮 6 段 `sentTimeText|messageRaw|petBaseImageNumber|petLevel|petNameRaw|itemBaseImageNumber`；payload 数值为 raw signed decimal，字符串保留 raw |
-| M6.13.05 聊天/窗口/系统封包-zdr | `zdr` | 服务端->客户端 | 是 | 字段待补 | SEND_TK |
+| M6.13.05 聊天/窗口/系统封包-zdr | `zdr` | 服务端->客户端 | 是 | 完成 | SEND_TK；外层 `{objectIndex:i62} {message:es} {color:i62} {fontSize:i62}`；message payload 为 `P|textRaw`，marker 必须 `P`，textRaw 可为空并保留 raw escaped `\z/\c/\y/\n` |
 | M6.13.06 聊天/窗口/系统封包-BZ | `BZ` | 服务端->客户端 | 否 | 未开始 | SEND_WN |
 | M6.13.07 聊天/窗口/系统封包-ft | `ft` | 服务端->客户端 | 否 | 未开始 | SEND_StallBrowse |
 | M6.13.08 聊天/窗口/系统封包-CV | `CV` | 客户端->服务端 | 否 | 未开始 | RECV_MSG 发送邮件信息 触发SEND_MSG |
@@ -283,7 +283,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 77 | `ow` | 服务端->客户端 | 完成 | SEND_PRM 迷你信件回执；旧 C `{profileIndex:i62} {dtext:es} {color:i62}`，dtext 不拆内部 `|` | 否 | 是 | xlsx + src/packet |
 | 78 | `DyAG` | 服务端->客户端 | 完成 | SEND_PRW 交流版；xlsx `{}` 按旧 C 修正为 `{windowType:i62} {buttonType:i62} {seqNo:i62} {objectIndex:i62} {data:es}` | 否 | 是 | xlsx + src/packet |
 | 79 | `KyN` | 服务端->客户端 | 完成 | SEND_PRAD 收到迷你信件；schema `{data}` 按旧 C 修正为 data/es | 否 | 是 | xlsx + src/packet |
-| 80 | `zdr` | 服务端->客户端 | 完成 | SEND_TK | 是 | 是 | 待 C/IDA 补全 |
+| 80 | `zdr` | 服务端->客户端 | 完成 | SEND_TK；外层 `{objectIndex:i62} {message:es} {color:i62} {fontSize:i62}`；message payload 为 `P|textRaw`，保留 raw escaped 内容 | 是 | 是 | ServerC+ClientIda+src |
 | 81 | `IsSy` | 服务端->客户端 | 完成 | SEND_KP；外层 `{petIndex:i62} {data:es}`；payload 支持 `0`、`1|`、partial flags | 是 | 是 | ServerC+ClientIda+src |
 | 82 | `AU` | 服务端->客户端 | 完成 | SEND_KP2；外层 `{petIndex:i62} {data:es}`；payload 支持 `0`、`flags == 1` 全字段、partial flags | 是 | 是 | xlsx+ServerC+ClientIda+SDLCG+src |
 | 83 | `TNT` | 服务端->客户端 | 完成 | SEND_PP | 是 | 是 | 旧 C + IDA + src/packet |

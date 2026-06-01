@@ -663,6 +663,22 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         failures += Expect(profileMailMessageSchema->fields.empty(), "Mhbt raw fields empty");
     }
 
+    const PacketSchema* chatMessageSchema = FindPacket(packets, "zdr");
+    failures += Expect(chatMessageSchema != nullptr, "zdr schema exists");
+    if (chatMessageSchema != nullptr) {
+        failures += Expect(chatMessageSchema->direction == "服务端->客户端", "zdr direction");
+        failures += Expect(chatMessageSchema->legacyKind == "SEND", "zdr legacyKind");
+        failures += Expect(chatMessageSchema->rawFormat.empty(), "zdr rawFormat empty");
+        failures += Expect(chatMessageSchema->formatEmpty, "zdr formatEmpty");
+        failures += Expect(
+            chatMessageSchema->resolvedFormat == "{objectIndex:i62} {message:es} {color:i62} {fontSize:i62}",
+            "zdr resolvedFormat");
+        failures += Expect(
+            chatMessageSchema->resolvedSource == "ServerC+ClientIda+src",
+            "zdr resolvedSource");
+        failures += Expect(chatMessageSchema->fields.empty(), "zdr raw fields empty");
+    }
+
     const PacketSchema* checkCommandSchema = FindPacket(packets, "CCL");
     failures += Expect(checkCommandSchema != nullptr, "CCL schema exists");
     if (checkCommandSchema != nullptr) {

@@ -10388,6 +10388,266 @@ namespace cg::packet::receive
         }
     };
 
+    struct ChatMessagePayload
+    {
+        std::string textRaw;
+    };
+
+    /**
+     * SEND_TK 聊天消息		zdr {objectIndex:i62} {message:es} {color:i62} {fontSize:i62}
+     * message: `P|textRaw`，textRaw 保留 raw escaped 内容，不做业务显示还原。
+     */
+    struct ChatMessage
+    {
+        static constexpr std::string_view Code = "zdr";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::string_view PayloadDelimiter = "|";
+
+        int objectIndex = 0;
+        ChatMessagePayload payload;
+        int color = 0;
+        int fontSize = 0;
+
+        ChatMessage(int objectIndex, ChatMessagePayload payload, int color, int fontSize)
+            : objectIndex(objectIndex),
+              payload(std::move(payload)),
+              color(color),
+              fontSize(fontSize)
+        {
+        }
+
+        [[nodiscard]] std::string BuildMessage() const
+        {
+            std::string message = "P|";
+            message.append(payload.textRaw);
+            return message;
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ServerC);
+            packet.fields.push_back(PacketField {
+                "objectIndex",
+                PacketFieldType::Int62,
+                std::to_string(objectIndex),
+                PacketSourceTag::ServerC,
+            });
+            packet.fields.push_back(PacketField {
+                "message",
+                PacketFieldType::EscapedString,
+                BuildMessage(),
+                PacketSourceTag::ServerC,
+            });
+            packet.fields.push_back(PacketField {
+                "color",
+                PacketFieldType::Int62,
+                std::to_string(color),
+                PacketSourceTag::ServerC,
+            });
+            packet.fields.push_back(PacketField {
+                "fontSize",
+                PacketFieldType::Int62,
+                std::to_string(fontSize),
+                PacketSourceTag::ServerC,
+            });
+            return packet;
+        }
+
+        static PacketResult<ChatMessage> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view);
+            if (!parsed.HasValue()) {
+                return PacketResult<ChatMessage>::Failure(parsed.Error());
+            }
+
+            const Packet& packet = parsed.Value();
+            if (packet.code.View() != Code) {
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "ChatMessage Parse 收到非 zdr 封包");
+                error.packetCode = packet.code;
+                return PacketResult<ChatMessage>::Failure(std::move(error));
+            }
+
+            if (packet.direction != Direction) {
+                return PacketResult<ChatMessage>::Failure(MakePacketError(
+                    PacketErrorCode::DecodeFailed,
+                    "ChatMessage Parse 封包方向不匹配"));
+            }
+
+            if (packet.fields.size() != FieldCount) {
+                return PacketResult<ChatMessage>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "ChatMessage Parse 字段数量不匹配",
+                    packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
+            }
+
+            const std::array<std::string_view, FieldCount> fieldNames = {
+                "objectIndex",
+                "message",
+                "color",
+                "fontSize",
+            };
+            const std::array<PacketFieldType, FieldCount> fieldTypes = {
+                PacketFieldType::Int62,
+                PacketFieldType::EscapedString,
+                PacketFieldType::Int62,
+                PacketFieldType::Int62,
+            };
+
+            for (std::size_t index = 0; index < FieldCount; ++index) {
+                if (packet.fields[index].name != fieldNames[index]) {
+                    return PacketResult<ChatMessage>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "ChatMessage Parse 字段名不匹配",
+                        index));
+                }
+
+                if (packet.fields[index].type != fieldTypes[index]) {
+                    return PacketResult<ChatMessage>::Failure(MakeFieldError(
+                        PacketErrorCode::InvalidFieldType,
+                        "ChatMessage Parse 字段类型不匹配",
+                        index));
+                }
+            }
+
+            PacketResult<int> objectIndexValue = ParseDecimalField(
+                packet.fields[ObjectIndexFieldIndex].value,
+                ObjectIndexFieldIndex);
+            if (!objectIndexValue.HasValue()) {
+                return PacketResult<ChatMessage>::Failure(objectIndexValue.Error());
+            }
+
+            PacketResult<ChatMessagePayload> payloadValue = ParseMessage(packet.fields[MessageFieldIndex].value);
+            if (!payloadValue.HasValue()) {
+                return PacketResult<ChatMessage>::Failure(payloadValue.Error());
+            }
+
+            PacketResult<int> colorValue = ParseDecimalField(packet.fields[ColorFieldIndex].value, ColorFieldIndex);
+            if (!colorValue.HasValue()) {
+                return PacketResult<ChatMessage>::Failure(colorValue.Error());
+            }
+
+            PacketResult<int> fontSizeValue = ParseDecimalField(
+                packet.fields[FontSizeFieldIndex].value,
+                FontSizeFieldIndex);
+            if (!fontSizeValue.HasValue()) {
+                return PacketResult<ChatMessage>::Failure(fontSizeValue.Error());
+            }
+
+            return PacketResult<ChatMessage>::Success(ChatMessage(
+                objectIndexValue.Value(),
+                std::move(payloadValue.Value()),
+                colorValue.Value(),
+                fontSizeValue.Value()));
+        }
+
+    private:
+        static constexpr std::size_t FieldCount = 4U;
+        static constexpr std::size_t ObjectIndexFieldIndex = 0U;
+        static constexpr std::size_t MessageFieldIndex = 1U;
+        static constexpr std::size_t ColorFieldIndex = 2U;
+        static constexpr std::size_t FontSizeFieldIndex = 3U;
+        static constexpr std::size_t PayloadFieldCount = 2U;
+        static constexpr std::size_t MarkerPayloadIndex = 0U;
+        static constexpr std::size_t TextPayloadIndex = 1U;
+
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            error.source = PacketSourceTag::ServerC;
+            return error;
+        }
+
+        [[nodiscard]] static PacketError MakeFieldError(
+            PacketErrorCode code,
+            std::string message,
+            std::size_t fieldIndex)
+        {
+            PacketError error = MakePacketError(code, std::move(message));
+            error.fieldIndex = fieldIndex;
+            return error;
+        }
+
+        [[nodiscard]] static PacketResult<ChatMessagePayload> ParseMessage(std::string_view message)
+        {
+            PacketResult<std::vector<std::string>> split = SplitPayload(message, PayloadDelimiter);
+            if (!split.HasValue()) {
+                PacketError error = split.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = MessageFieldIndex;
+                error.source = PacketSourceTag::ServerC;
+                return PacketResult<ChatMessagePayload>::Failure(std::move(error));
+            }
+
+            const std::vector<std::string>& parts = split.Value();
+            if (parts.size() != PayloadFieldCount) {
+                return PacketResult<ChatMessagePayload>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "ChatMessage payload 段数量不匹配",
+                    MessageFieldIndex));
+            }
+
+            if (parts[MarkerPayloadIndex] != "P") {
+                return PacketResult<ChatMessagePayload>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "ChatMessage payload marker 必须为 P",
+                    MessageFieldIndex));
+            }
+
+            ChatMessagePayload payload;
+            payload.textRaw = parts[TextPayloadIndex];
+            return PacketResult<ChatMessagePayload>::Success(std::move(payload));
+        }
+
+        [[nodiscard]] static PacketResult<int> ParseDecimalField(std::string_view text, std::size_t fieldIndex)
+        {
+            bool negative = false;
+            std::size_t index = 0;
+            if (!text.empty() && text.front() == '-') {
+                negative = true;
+                index = 1U;
+            }
+
+            if (index == text.size()) {
+                return PacketResult<int>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "ChatMessage i62 字段为空",
+                    fieldIndex));
+            }
+
+            const std::int64_t maxValue = static_cast<std::int64_t>(std::numeric_limits<int>::max());
+            const std::int64_t minValue = static_cast<std::int64_t>(std::numeric_limits<int>::min());
+            const std::int64_t limit = negative ? (0 - minValue) : maxValue;
+            std::int64_t value = 0;
+
+            for (; index < text.size(); ++index) {
+                const char ch = text[index];
+                if (ch < '0' || ch > '9') {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "ChatMessage i62 字段包含非法字符",
+                        fieldIndex));
+                }
+
+                const int digit = ch - '0';
+                if (value > (limit - digit) / 10) {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "ChatMessage i62 字段超出 int 范围",
+                        fieldIndex));
+                }
+
+                value = (value * 10) + digit;
+            }
+
+            if (negative) {
+                value = -value;
+            }
+
+            return PacketResult<int>::Success(static_cast<int>(value));
+        }
+    };
+
     /**
      * SEND_CJ SendJobName		jv {jobassort:i62} {name:es}
      */

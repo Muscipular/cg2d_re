@@ -353,6 +353,13 @@ int TestPayloadNumberErrors()
         2U,
         "Mhbt normal marker overflow");
     failures += ExpectError(
+        cg::packet::receive::ProfileMailMessage::Parse(BuildPlainMhbt("time|message|0")),
+        cg::packet::PacketErrorCode::DecodeFailed,
+        "Mhbt",
+        true,
+        2U,
+        "Mhbt normal marker must be -1");
+    failures += ExpectError(
         cg::packet::receive::ProfileMailMessage::Parse(BuildPlainMhbt("time|message|62|x|Pochi|-1")),
         cg::packet::PacketErrorCode::DecodeFailed,
         "Mhbt",

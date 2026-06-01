@@ -10097,7 +10097,7 @@ namespace cg::packet::receive
 
     /**
      * SEND_MSG recvmsg 名片邮件 payload。
-     * 普通邮件 3 段：sentTimeText|messageRaw|petBaseImageNumberOrMarker。
+     * 普通邮件 3 段：sentTimeText|messageRaw|-1。
      * 宠邮 6 段：sentTimeText|messageRaw|petBaseImageNumber|petLevel|petNameRaw|itemBaseImageNumber。
      */
     struct ProfileMailMessagePayload
@@ -10303,6 +10303,13 @@ namespace cg::packet::receive
                 PetBaseImageFieldIndex);
             if (!petBaseImageNumberOrMarker.HasValue()) {
                 return PacketResult<ProfileMailMessagePayload>::Failure(petBaseImageNumberOrMarker.Error());
+            }
+
+            if (parts.size() == NormalPayloadFieldCount && petBaseImageNumberOrMarker.Value() != -1) {
+                return PacketResult<ProfileMailMessagePayload>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "ProfileMailMessage 普通邮件标记必须为 -1",
+                    PetBaseImageFieldIndex));
             }
 
             ProfileMailMessagePayload payload;

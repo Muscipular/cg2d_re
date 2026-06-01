@@ -97,6 +97,14 @@ namespace cg::packet
             {"color", PacketFieldType::Int62, PacketSourceTag::Xlsx},
         }};
 
+        inline constexpr std::array<PacketFieldSpec, 5> ProfileWindowFields = {{
+            {"windowType", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"buttonType", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"seqNo", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"objectIndex", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+        }};
+
         inline constexpr std::array<PacketFieldSpec, 1> CheckCommandFields = {{
             {"time", PacketFieldType::Int62, PacketSourceTag::Xlsx},
         }};
@@ -136,7 +144,7 @@ namespace cg::packet
             {"y2", PacketFieldType::Int62, PacketSourceTag::Xlsx},
         }};
 
-        inline constexpr std::array<PacketSpec, 20> PacketRegistry = {{
+        inline constexpr std::array<PacketSpec, 21> PacketRegistry = {{
             {
                 "JFVf",
                 PacketDirection::ClientToServer,
@@ -222,6 +230,13 @@ namespace cg::packet
                 ProfileMailReceiptFields.size(),
             },
             {
+                "DyAG",
+                PacketDirection::ServerToClient,
+                PacketSourceTag::Xlsx,
+                ProfileWindowFields.data(),
+                ProfileWindowFields.size(),
+            },
+            {
                 "CCL",
                 PacketDirection::ClientToServer,
                 PacketSourceTag::Xlsx,
@@ -304,6 +319,58 @@ namespace cg::packet
             error.packetCode = PacketCode(code);
             error.fieldIndex = fieldIndex;
         }
+
+        [[nodiscard]] inline bool UsesNestedPayloadEscapedString(
+            std::string_view code,
+            std::string_view fieldName) noexcept
+        {
+            return code == "DyAG" && fieldName == "data";
+        }
+
+        [[nodiscard]] inline PacketResult<std::string> DecodeNestedPayloadEscapedString(std::string_view text)
+        {
+            std::string output;
+            output.reserve(text.size());
+
+            for (std::size_t index = 0; index < text.size(); ++index) {
+                const char ch = text[index];
+                if (IsLegacyDoubleByteLead(ch)) {
+                    if (index + 1U >= text.size()) {
+                        return PacketResult<std::string>::Failure(MakeEscapedStringError(
+                            PacketErrorCode::DecodeFailed,
+                            "es 字符串旧双字节字符被截断"));
+                    }
+
+                    output.push_back(ch);
+                    output.push_back(text[index + 1U]);
+                    ++index;
+                    continue;
+                }
+
+                if (ch != '\\') {
+                    output.push_back(ch);
+                    continue;
+                }
+
+                if (index + 1U >= text.size()) {
+                    output.push_back('\\');
+                    continue;
+                }
+
+                const char escaped = text[index + 1U];
+                if (escaped == 'S') {
+                    output.push_back(' ');
+                } else if (escaped == '\\') {
+                    output.push_back('\\');
+                } else {
+                    output.push_back('\\');
+                    output.push_back(escaped);
+                }
+                ++index;
+            }
+
+            return PacketResult<std::string>::Success(std::move(output));
+        }
     }
 
     /**
@@ -376,7 +443,9 @@ namespace cg::packet
                 break;
             }
             case PacketFieldType::EscapedString: {
-                PacketResult<std::string> decoded = DecodeEscapedString(token);
+                PacketResult<std::string> decoded = detail::UsesNestedPayloadEscapedString(code, fieldSpec.name)
+                    ? detail::DecodeNestedPayloadEscapedString(token)
+                    : DecodeEscapedString(token);
                 if (!decoded.HasValue()) {
                     PacketError error = decoded.Error();
                     detail::FillErrorContext(error, code, index);

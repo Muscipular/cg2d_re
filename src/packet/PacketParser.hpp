@@ -97,6 +97,10 @@ namespace cg::packet
             {"color", PacketFieldType::Int62, PacketSourceTag::Xlsx},
         }};
 
+        inline constexpr std::array<PacketFieldSpec, 1> ProfileMailArriveFields = {{
+            {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+        }};
+
         inline constexpr std::array<PacketFieldSpec, 5> ProfileWindowFields = {{
             {"windowType", PacketFieldType::Int62, PacketSourceTag::Xlsx},
             {"buttonType", PacketFieldType::Int62, PacketSourceTag::Xlsx},
@@ -144,7 +148,7 @@ namespace cg::packet
             {"y2", PacketFieldType::Int62, PacketSourceTag::Xlsx},
         }};
 
-        inline constexpr std::array<PacketSpec, 21> PacketRegistry = {{
+        inline constexpr std::array<PacketSpec, 22> PacketRegistry = {{
             {
                 "JFVf",
                 PacketDirection::ClientToServer,
@@ -228,6 +232,13 @@ namespace cg::packet
                 PacketSourceTag::Xlsx,
                 ProfileMailReceiptFields.data(),
                 ProfileMailReceiptFields.size(),
+            },
+            {
+                "KyN",
+                PacketDirection::ServerToClient,
+                PacketSourceTag::Xlsx,
+                ProfileMailArriveFields.data(),
+                ProfileMailArriveFields.size(),
             },
             {
                 "DyAG",

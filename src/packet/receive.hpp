@@ -2046,6 +2046,288 @@ namespace cg::packet::receive
         }
     };
 
+    /**
+     * SEND_PRAD 收到迷你信件		KyN {data:es}
+     * data: profileIndex|faceImageNumber|level|name|guildName|ownTitle|senderProfileIndex|sentTimeText|message||color。
+     * 第 10 段固定为空；数值字段为 raw decimal，不使用 i62。
+     */
+    struct ProfileMailArrive
+    {
+        static constexpr std::string_view Code = "KyN";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::string_view PayloadDelimiter = "|";
+
+        int profileIndex = 0;
+        int faceImageNumber = 0;
+        int level = 0;
+        std::string name;
+        std::string guildName;
+        std::string ownTitle;
+        int senderProfileIndex = 0;
+        std::string sentTimeText;
+        std::string message;
+        int color = 0;
+
+        ProfileMailArrive(
+            int profileIndex,
+            int faceImageNumber,
+            int level,
+            std::string name,
+            std::string guildName,
+            std::string ownTitle,
+            int senderProfileIndex,
+            std::string sentTimeText,
+            std::string message,
+            int color)
+            : profileIndex(profileIndex),
+              faceImageNumber(faceImageNumber),
+              level(level),
+              name(std::move(name)),
+              guildName(std::move(guildName)),
+              ownTitle(std::move(ownTitle)),
+              senderProfileIndex(senderProfileIndex),
+              sentTimeText(std::move(sentTimeText)),
+              message(std::move(message)),
+              color(color)
+        {
+        }
+
+        [[nodiscard]] std::string BuildData() const
+        {
+            const std::array<std::string, PayloadFieldCount> values = {
+                std::to_string(profileIndex),
+                std::to_string(faceImageNumber),
+                std::to_string(level),
+                name,
+                guildName,
+                ownTitle,
+                std::to_string(senderProfileIndex),
+                sentTimeText,
+                message,
+                std::string(),
+                std::to_string(color),
+            };
+
+            PacketResult<std::string> payload = BuildPayload(
+                std::span<const std::string>(values.data(), values.size()),
+                PayloadDelimiter);
+            if (payload.HasValue()) {
+                return payload.Value();
+            }
+
+            return {};
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            packet.fields.push_back(PacketField {
+                "data",
+                PacketFieldType::EscapedString,
+                BuildData(),
+                PacketSourceTag::Xlsx,
+            });
+            return packet;
+        }
+
+        static PacketResult<ProfileMailArrive> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view);
+            if (!parsed.HasValue()) {
+                return PacketResult<ProfileMailArrive>::Failure(parsed.Error());
+            }
+
+            const Packet& packet = parsed.Value();
+            if (packet.code.View() != Code) {
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "ProfileMailArrive Parse 收到非 KyN 封包");
+                error.packetCode = packet.code;
+                return PacketResult<ProfileMailArrive>::Failure(std::move(error));
+            }
+
+            if (packet.direction != Direction) {
+                return PacketResult<ProfileMailArrive>::Failure(MakePacketError(
+                    PacketErrorCode::DecodeFailed,
+                    "ProfileMailArrive Parse 封包方向不匹配"));
+            }
+
+            if (packet.fields.size() != FieldCount) {
+                return PacketResult<ProfileMailArrive>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "ProfileMailArrive Parse 字段数量不匹配",
+                    packet.fields.empty() ? 0U : FieldCount));
+            }
+
+            const PacketField& field = packet.fields[DataFieldIndex];
+            if (field.name != "data") {
+                return PacketResult<ProfileMailArrive>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "ProfileMailArrive Parse 字段名不匹配",
+                    DataFieldIndex));
+            }
+
+            if (field.type != PacketFieldType::EscapedString) {
+                return PacketResult<ProfileMailArrive>::Failure(MakeFieldError(
+                    PacketErrorCode::InvalidFieldType,
+                    "ProfileMailArrive Parse 字段类型不匹配",
+                    DataFieldIndex));
+            }
+
+            return ParseData(field.value);
+        }
+
+    private:
+        static constexpr std::size_t FieldCount = 1U;
+        static constexpr std::size_t DataFieldIndex = 0U;
+        static constexpr std::size_t PayloadFieldCount = 11U;
+        static constexpr std::size_t ProfileIndexPayloadIndex = 0U;
+        static constexpr std::size_t FaceImageNumberPayloadIndex = 1U;
+        static constexpr std::size_t LevelPayloadIndex = 2U;
+        static constexpr std::size_t NamePayloadIndex = 3U;
+        static constexpr std::size_t GuildNamePayloadIndex = 4U;
+        static constexpr std::size_t OwnTitlePayloadIndex = 5U;
+        static constexpr std::size_t SenderProfileIndexPayloadIndex = 6U;
+        static constexpr std::size_t SentTimeTextPayloadIndex = 7U;
+        static constexpr std::size_t MessagePayloadIndex = 8U;
+        static constexpr std::size_t EmptyPayloadIndex = 9U;
+        static constexpr std::size_t ColorPayloadIndex = 10U;
+
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            error.source = PacketSourceTag::Xlsx;
+            return error;
+        }
+
+        [[nodiscard]] static PacketError MakeFieldError(
+            PacketErrorCode code,
+            std::string message,
+            std::size_t fieldIndex)
+        {
+            PacketError error = MakePacketError(code, std::move(message));
+            error.fieldIndex = fieldIndex;
+            return error;
+        }
+
+        [[nodiscard]] static PacketResult<ProfileMailArrive> ParseData(std::string_view payload)
+        {
+            PacketResult<std::vector<std::string>> parts = SplitPayload(payload, PayloadDelimiter);
+            if (!parts.HasValue()) {
+                PacketError error = parts.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = DataFieldIndex;
+                error.source = PacketSourceTag::Xlsx;
+                return PacketResult<ProfileMailArrive>::Failure(std::move(error));
+            }
+
+            std::vector<std::string> payloadParts = std::move(parts.Value());
+            if (payloadParts.size() != PayloadFieldCount) {
+                return PacketResult<ProfileMailArrive>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "ProfileMailArrive payload 段数量不匹配",
+                    DataFieldIndex));
+            }
+
+            if (!payloadParts[EmptyPayloadIndex].empty()) {
+                return PacketResult<ProfileMailArrive>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "ProfileMailArrive payload 第 10 段必须为空",
+                    EmptyPayloadIndex));
+            }
+
+            PacketResult<int> profileIndexValue = ParseDecimalField(
+                payloadParts[ProfileIndexPayloadIndex],
+                ProfileIndexPayloadIndex);
+            if (!profileIndexValue.HasValue()) {
+                return PacketResult<ProfileMailArrive>::Failure(profileIndexValue.Error());
+            }
+
+            PacketResult<int> faceImageNumberValue = ParseDecimalField(
+                payloadParts[FaceImageNumberPayloadIndex],
+                FaceImageNumberPayloadIndex);
+            if (!faceImageNumberValue.HasValue()) {
+                return PacketResult<ProfileMailArrive>::Failure(faceImageNumberValue.Error());
+            }
+
+            PacketResult<int> levelValue = ParseDecimalField(payloadParts[LevelPayloadIndex], LevelPayloadIndex);
+            if (!levelValue.HasValue()) {
+                return PacketResult<ProfileMailArrive>::Failure(levelValue.Error());
+            }
+
+            PacketResult<int> senderProfileIndexValue = ParseDecimalField(
+                payloadParts[SenderProfileIndexPayloadIndex],
+                SenderProfileIndexPayloadIndex);
+            if (!senderProfileIndexValue.HasValue()) {
+                return PacketResult<ProfileMailArrive>::Failure(senderProfileIndexValue.Error());
+            }
+
+            PacketResult<int> colorValue = ParseDecimalField(payloadParts[ColorPayloadIndex], ColorPayloadIndex);
+            if (!colorValue.HasValue()) {
+                return PacketResult<ProfileMailArrive>::Failure(colorValue.Error());
+            }
+
+            return PacketResult<ProfileMailArrive>::Success(ProfileMailArrive(
+                profileIndexValue.Value(),
+                faceImageNumberValue.Value(),
+                levelValue.Value(),
+                std::move(payloadParts[NamePayloadIndex]),
+                std::move(payloadParts[GuildNamePayloadIndex]),
+                std::move(payloadParts[OwnTitlePayloadIndex]),
+                senderProfileIndexValue.Value(),
+                std::move(payloadParts[SentTimeTextPayloadIndex]),
+                std::move(payloadParts[MessagePayloadIndex]),
+                colorValue.Value()));
+        }
+
+        [[nodiscard]] static PacketResult<int> ParseDecimalField(std::string_view text, std::size_t fieldIndex)
+        {
+            bool negative = false;
+            std::size_t index = 0;
+            if (!text.empty() && text.front() == '-') {
+                negative = true;
+                index = 1U;
+            }
+
+            if (index == text.size()) {
+                return PacketResult<int>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "ProfileMailArrive payload 十进制字段为空",
+                    fieldIndex));
+            }
+
+            const std::int64_t maxValue = static_cast<std::int64_t>(std::numeric_limits<int>::max());
+            const std::int64_t minValue = static_cast<std::int64_t>(std::numeric_limits<int>::min());
+            const std::int64_t limit = negative ? (0 - minValue) : maxValue;
+            std::int64_t value = 0;
+
+            for (; index < text.size(); ++index) {
+                const char ch = text[index];
+                if (ch < '0' || ch > '9') {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "ProfileMailArrive payload 十进制字段包含非法字符",
+                        fieldIndex));
+                }
+
+                const int digit = ch - '0';
+                if (value > (limit - digit) / 10) {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "ProfileMailArrive payload 十进制字段超出 int 范围",
+                        fieldIndex));
+                }
+
+                value = (value * 10) + digit;
+            }
+
+            if (negative) {
+                value = -value;
+            }
+
+            return PacketResult<int>::Success(static_cast<int>(value));
+        }
+    };
+
     enum class ProfileWindowPayloadKind
     {
         Start,

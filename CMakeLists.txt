@@ -457,6 +457,17 @@ target_include_directories(cg-packet-profile-mail-receipt-test
 
 add_test(NAME cg-packet-profile-mail-receipt-test COMMAND cg-packet-profile-mail-receipt-test)
 
+add_executable(cg-packet-profile-mail-arrive-test
+    tests/packet/ProfileMailArrivePacketTest.cpp
+)
+
+target_include_directories(cg-packet-profile-mail-arrive-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+
+add_test(NAME cg-packet-profile-mail-arrive-test COMMAND cg-packet-profile-mail-arrive-test)
+
 add_executable(cg-packet-profile-window-test
     tests/packet/ProfileWindowPacketTest.cpp
 )
@@ -524,6 +535,7 @@ if(MSVC)
     target_compile_options(cg-packet-profile-data-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-profile-mail-delete-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-profile-mail-receipt-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-profile-mail-arrive-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-profile-window-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-payload-codec-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-coverage-schema-test PRIVATE /W4 /utf-8 /permissive-)
@@ -557,6 +569,7 @@ else()
     target_compile_options(cg-packet-profile-data-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-profile-mail-delete-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-profile-mail-receipt-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-packet-profile-mail-arrive-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-profile-window-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-payload-codec-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-coverage-schema-test PRIVATE -Wall -Wextra -Wpedantic)

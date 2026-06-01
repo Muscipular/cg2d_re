@@ -28,8 +28,8 @@
 ## 状态统计
 | 状态 | 数量 |
 |---|---:|
-| 完成 | 162 |
-| 进行中 | 24 |
+| 完成 | 163 |
+| 进行中 | 23 |
 | 暂缓 | 18 |
 | 待办 | 5 |
 
@@ -86,7 +86,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | M6.11.09 角色/Profile封包-cNB | `cNB` | 服务端->客户端 | 否 | 完成 | SEND_PRE 删除迷你邮件成员；xlsx 原 schema `{data}` 按旧 C `nrproto_mkstr_string(data)` 修正为 `{data:es}`；payload 为 `profileIndex|name` 两段，profileIndex 为 raw decimal，不生成 xlsx 尾随 `|` |
 | M6.11.10 角色/Profile封包-ow | `ow` | 服务端->客户端 | 否 | 完成 | SEND_PRM 迷你信件回执；旧 C 字段 `{profileIndex:i62} {dtext:es} {color:i62}`，dtext 按旧 C 修正为 es，保留 raw string，不拆内部 `|` |
 | M6.11.11 角色/Profile封包-DyAG | `DyAG` | 服务端->客户端 | 否 | 完成 | SEND_PRW 交流版；xlsx `{}` 按旧 C `nrproto_PRW_send` 修正为 `{windowType:i62} {buttonType:i62} {seqNo:i62} {objectIndex:i62} {data:es}`；data 使用 `\z` 表示逻辑 `|` |
-| M6.11.12 角色/Profile封包-KyN | `KyN` | 服务端->客户端 | 否 | 未开始 | SEND_PRAD 收到迷你信件 |
+| M6.11.12 角色/Profile封包-KyN | `KyN` | 服务端->客户端 | 否 | 完成 | SEND_PRAD 收到迷你信件；xlsx 原 schema `{data}` 按旧 C `nrproto_mkstr_string(data)` 修正为 `data/es`；payload 为 `profileIndex|faceImageNumber|level|name|guildName|ownTitle|senderProfileIndex|sentTimeText|message||color`，第 10 段固定为空，数值字段为 raw decimal |
 | M6.11.13 角色/Profile封包-TNT | `TNT` | 服务端->客户端 | 是 | 字段待补 | SEND_PP |
 | M6.11.14 角色/Profile封包-JJQj | `JJQj` | 服务端->客户端 | 是 | 字段待补 | SEND_CN |
 | M6.11.15 角色/Profile封包-Rspn | `Rspn` | 服务端->客户端 | 是 | 字段待补 | SEND_CT |
@@ -174,6 +174,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | `cNB` | 服务端->客户端 | `cg::packet::receive::ProfileMailDelete` | `{data:es}` | M6.11.09 已实现；xlsx 原 schema `{data}` 按旧 C `nrproto_mkstr_string(data)` 修正为 `data/es`；`data` 为 `profileIndex|name` 两段，`profileIndex` 为 raw decimal，`name` 保留 raw 字符串且可为空，回写不生成 xlsx 尾随 `|` |
 | `ow` | 服务端->客户端 | `cg::packet::receive::ProfileMailReceipt` | `{profileIndex:i62} {dtext:es} {color:i62}` | M6.11.10 已实现；按旧 C `SEND_PRM/nrproto_PRM_send` 修正 `dtext` 为 es；`dtext` 保存 raw 字符串，不拆内部 `sentTimeText|message|` |
 | `DyAG` | 服务端->客户端 | `cg::packet::receive::ProfileWindow` | `{windowType:i62} {buttonType:i62} {seqNo:i62} {objectIndex:i62} {data:es}` | M6.11.11 已实现；xlsx `{}` 按旧 C `SEND_PRW/nrproto_PRW_send` 修正字段类型；`data` 按字面 `\z` 拆逻辑段，仅解析 START flags、PROFILELIST 20 条记录和 PROFILEMAIL 14 段 |
+| `KyN` | 服务端->客户端 | `cg::packet::receive::ProfileMailArrive` | `{data:es}` | M6.11.12 已实现；xlsx 原 schema `{data}` 按旧 C `SEND_PRAD/nrproto_PRAD_send` 修正为 `data/es`；`data` 为 `profileIndex|faceImageNumber|level|name|guildName|ownTitle|senderProfileIndex|sentTimeText|message||color`，第 10 段固定为空并回写保留，数值字段为 raw decimal |
 | `TeD` | 服务端->客户端 | `cg::packet::receive::MapName` | `{data:es}` | M6.10.01 已实现；仅保留 `data`，不拆二级 payload |
 | `nsY` | 服务端->客户端 | `cg::packet::receive::ObjectList` | `{data:es}` | M6.10.02 已实现；`data` 按字面 `\t` 拆 object record，record 按 `|` 保留 raw fields；仅校验 4、7、>=16 字段和 objectIndex i62，不拆 ownTitle/petInfo suffix |
 | `NI` | 服务端->客户端 | `cg::packet::receive::CharacterIcon` | `{data:es}` | M6.10.03 已实现；按旧 C `nrproto_CA_send` 修正为单外层 `data`，不实现 xlsx `caInfo` 外层字段；`data` 按 `,` 拆 entry、按 `|` 保留 raw fields；仅校验 5、6、8、12 字段和 objectIndex i62 |
@@ -262,7 +263,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 76 | `cNB` | 服务端->客户端 | 完成 | SEND_PRE 删除迷你邮件成员；schema `{data}` 按旧 C 修正为 data/es，不生成 xlsx 尾随 `|` | 否 | 是 | xlsx + src/packet |
 | 77 | `ow` | 服务端->客户端 | 完成 | SEND_PRM 迷你信件回执；旧 C `{profileIndex:i62} {dtext:es} {color:i62}`，dtext 不拆内部 `|` | 否 | 是 | xlsx + src/packet |
 | 78 | `DyAG` | 服务端->客户端 | 完成 | SEND_PRW 交流版；xlsx `{}` 按旧 C 修正为 `{windowType:i62} {buttonType:i62} {seqNo:i62} {objectIndex:i62} {data:es}` | 否 | 是 | xlsx + src/packet |
-| 79 | `KyN` | 服务端->客户端 | 进行中 | SEND_PRAD 收到迷你信件 | 否 | 是 | xlsx |
+| 79 | `KyN` | 服务端->客户端 | 完成 | SEND_PRAD 收到迷你信件；schema `{data}` 按旧 C 修正为 data/es | 否 | 是 | xlsx + src/packet |
 | 80 | `zdr` | 服务端->客户端 | 完成 | SEND_TK | 是 | 是 | 待 C/IDA 补全 |
 | 81 | `IsSy` | 服务端->客户端 | 完成 | SEND_KP | 是 | 是 | 待 C/IDA 补全 |
 | 82 | `AU` | 服务端->客户端 | 完成 | SEND_KP2 | 是 | 是 | 待 C/IDA 补全 |

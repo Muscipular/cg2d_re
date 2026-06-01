@@ -3359,6 +3359,24 @@
       "rawFormat": "",
       "formatEmpty": true,
       "source": "xlsx",
+      "resolvedFormat": "{petSlot:i62} {data:es}",
+      "resolvedSource": "ServerC+ClientIda+src/packet",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "petSlot",
+          "typeToken": "i62",
+          "rawSpec": "{petSlot:i62}",
+          "source": "ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 1,
+          "name": "data",
+          "typeToken": "es",
+          "rawSpec": "{data:es}",
+          "source": "ServerC+ClientIda+src/packet"
+        }
+      ],
       "fields": []
     },
     {

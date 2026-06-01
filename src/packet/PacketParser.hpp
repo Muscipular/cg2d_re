@@ -67,6 +67,11 @@ namespace cg::packet
             {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
         }};
 
+        inline constexpr std::array<PacketFieldSpec, 2> PetItemDataFields = {{
+            {"petSlot", PacketFieldType::Int62, PacketSourceTag::ServerC},
+            {"data", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
+        }};
+
         inline constexpr std::array<PacketFieldSpec, 1> ItemInfoListFields = {{
             {"data", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
         }};
@@ -281,7 +286,7 @@ namespace cg::packet
             {"y2", PacketFieldType::Int62, PacketSourceTag::Xlsx},
         }};
 
-        inline constexpr std::array<PacketSpec, 47> PacketRegistry = {{
+        inline constexpr std::array<PacketSpec, 48> PacketRegistry = {{
             {
                 "JFVf",
                 PacketDirection::ClientToServer,
@@ -337,6 +342,13 @@ namespace cg::packet
                 PacketSourceTag::Xlsx,
                 ItemDataFields.data(),
                 ItemDataFields.size(),
+            },
+            {
+                "iKe",
+                PacketDirection::ServerToClient,
+                PacketSourceTag::ServerC,
+                PetItemDataFields.data(),
+                PetItemDataFields.size(),
             },
             {
                 "ELoy",

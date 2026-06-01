@@ -413,6 +413,17 @@ target_include_directories(cg-packet-profile-list-test
 
 add_test(NAME cg-packet-profile-list-test COMMAND cg-packet-profile-list-test)
 
+add_executable(cg-packet-about-list-test
+    tests/packet/AboutListPacketTest.cpp
+)
+
+target_include_directories(cg-packet-about-list-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+
+add_test(NAME cg-packet-about-list-test COMMAND cg-packet-about-list-test)
+
 add_executable(cg-packet-payload-codec-test
     tests/packet/PayloadCodecTest.cpp
 )
@@ -465,6 +476,7 @@ if(MSVC)
     target_compile_options(cg-packet-job-name-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-title-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-profile-list-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-about-list-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-payload-codec-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-coverage-schema-test PRIVATE /W4 /utf-8 /permissive-)
 else()
@@ -493,6 +505,7 @@ else()
     target_compile_options(cg-packet-job-name-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-title-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-profile-list-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-packet-about-list-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-payload-codec-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-coverage-schema-test PRIVATE -Wall -Wextra -Wpedantic)
 endif()

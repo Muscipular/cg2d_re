@@ -501,6 +501,17 @@ target_include_directories(cg-packet-tech-list-test
 
 add_test(NAME cg-packet-tech-list-test COMMAND cg-packet-tech-list-test)
 
+add_executable(cg-packet-pet-tech-data-test
+    tests/packet/PetTechDataPacketTest.cpp
+)
+
+target_include_directories(cg-packet-pet-tech-data-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+
+add_test(NAME cg-packet-pet-tech-data-test COMMAND cg-packet-pet-tech-data-test)
+
 add_executable(cg-packet-profile-window-test
     tests/packet/ProfileWindowPacketTest.cpp
 )
@@ -572,6 +583,7 @@ if(MSVC)
     target_compile_options(cg-packet-party-param-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-party-member-status-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-tech-list-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-pet-tech-data-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-profile-window-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-payload-codec-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-coverage-schema-test PRIVATE /W4 /utf-8 /permissive-)
@@ -609,6 +621,7 @@ else()
     target_compile_options(cg-packet-party-param-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-party-member-status-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-tech-list-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-packet-pet-tech-data-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-profile-window-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-payload-codec-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-coverage-schema-test PRIVATE -Wall -Wextra -Wpedantic)

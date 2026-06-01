@@ -90,7 +90,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | M6.11.13 角色/Profile封包-TNT | `TNT` | 服务端->客户端 | 是 | 完成 | SEND_PP；xlsx rawFormat 为空，字段由旧 C `nrproto_PP_send(int fd, char* data)` + 客户端 IDA 补足；外层 `{data:es}`；payload 为 1..5 条 `objectIndex|hp|maxHp|forcePoint|maxForcePoint|` 记录，objectIndex 为 i62，其余为 raw decimal，整体保留尾随 `|` |
 | M6.11.14 角色/Profile封包-JJQj | `JJQj` | 服务端->客户端 | 是 | 完成 | SEND_CN；xlsx rawFormat 为空，字段由旧 C `nrproto_CN_send(int fd, int number, char* data)` 补足；外层 `{partySlot:i62} {data:es}`；payload `0|` 为空队员/离队，`1|objectIndexllevel|maxHp|hp|forcePoint|name|` 为完整状态，除 fieldMask 外数值为 raw decimal |
 | M6.11.15 角色/Profile封包-Rspn | `Rspn` | 服务端->客户端 | 是 | 完成 | SEND_CT；xlsx rawFormat 为空，字段由旧 C `nrproto_CT_send(int fd, int skillindex, char* data)` + 客户端 IDA 补足；外层 `{skillIndex:i62} {data:es}`；payload 每条 `techName|comment|forcePoint|field|targetFlag|canUse|`，数值为 raw decimal，保留尾随 `|` |
-| M6.11.16 角色/Profile封包-OBee | `OBee` | 服务端->客户端 | 是 | 字段待补 | SEND_PT |
+| M6.11.16 角色/Profile封包-OBee | `OBee` | 服务端->客户端 | 是 | 完成 | SEND_PT；xlsx rawFormat 为空，字段由旧 C `nrproto_PT_send(int fd, int petindex, char* data)` + 客户端 IDA 补足；外层 `{petIndex:i62} {data:es}`；payload 每条 `skillSlot|techId|name|description|forcePoint|techField|target|seqNo|`，数值为 raw decimal，保留尾随 `|`，空 data 视为错误 |
 | M6.11.17 角色/Profile封包-Yo | `Yo` | 服务端->客户端 | 是 | 字段待补 | SEND_S |
 | M6.11.18 角色/Profile封包-ysVc | `ysVc` | 服务端->客户端 | 是 | 字段待补 | SEND_GFL CHAR_sendFrontCharList |
 | M6.11.19 角色/Profile封包-ND | `ND` | 服务端->客户端 | 是 | 字段待补 | SEND_GPD CHAR_sendCharAndPetList |
@@ -177,6 +177,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | `KyN` | 服务端->客户端 | `cg::packet::receive::ProfileMailArrive` | `{data:es}` | M6.11.12 已实现；xlsx 原 schema `{data}` 按旧 C `SEND_PRAD/nrproto_PRAD_send` 修正为 `data/es`；`data` 为 `profileIndex|faceImageNumber|level|name|guildName|ownTitle|senderProfileIndex|sentTimeText|message||color`，第 10 段固定为空并回写保留，数值字段为 raw decimal |
 | `TNT` | 服务端->客户端 | `cg::packet::receive::PartyParam` | `{data:es}` | M6.11.13 已实现；xlsx rawFormat 为空，字段由旧 C `SEND_PP/nrproto_PP_send` + 客户端 IDA 补足；`data` 为 1..5 条 `objectIndex|hp|maxHp|forcePoint|maxForcePoint|` 记录，objectIndex 为 i62，其余为 raw decimal，整体保留尾随 `|` |
 | `JJQj` | 服务端->客户端 | `cg::packet::receive::PartyMemberStatus` | `{partySlot:i62} {data:es}` | M6.11.14 已实现；xlsx rawFormat 为空，字段由旧 C `SEND_CN/nrproto_CN_send` 补足；`data` 仅支持 `0|` 空队员/离队和 `1|objectIndexllevel|maxHp|hp|forcePoint|name|` 完整状态，其他 fieldMask 返回错误 |
+| `OBee` | 服务端->客户端 | `cg::packet::receive::PetTechData` | `{petIndex:i62} {data:es}` | M6.11.16 已实现；xlsx rawFormat 为空，字段由旧 C `SEND_PT/nrproto_PT_send` + 客户端 IDA 补足；`data` 每条 8 段：`skillSlot|techId|name|description|forcePoint|techField|target|seqNo|`，数值为 raw decimal，字符串保留 raw，空 data 视为错误 |
 | `TeD` | 服务端->客户端 | `cg::packet::receive::MapName` | `{data:es}` | M6.10.01 已实现；仅保留 `data`，不拆二级 payload |
 | `nsY` | 服务端->客户端 | `cg::packet::receive::ObjectList` | `{data:es}` | M6.10.02 已实现；`data` 按字面 `\t` 拆 object record，record 按 `|` 保留 raw fields；仅校验 4、7、>=16 字段和 objectIndex i62，不拆 ownTitle/petInfo suffix |
 | `NI` | 服务端->客户端 | `cg::packet::receive::CharacterIcon` | `{data:es}` | M6.10.03 已实现；按旧 C `nrproto_CA_send` 修正为单外层 `data`，不实现 xlsx `caInfo` 外层字段；`data` 按 `,` 拆 entry、按 `|` 保留 raw fields；仅校验 5、6、8、12 字段和 objectIndex i62 |
@@ -272,7 +273,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 83 | `TNT` | 服务端->客户端 | 完成 | SEND_PP | 是 | 是 | 旧 C + IDA + src/packet |
 | 84 | `JJQj` | 服务端->客户端 | 完成 | SEND_CN；旧 C 补外层 `{partySlot:i62} {data:es}` | 是 | 是 | 旧 C + src/packet |
 | 85 | `Rspn` | 服务端->客户端 | 完成 | SEND_CT；旧 C+IDA 补外层 `{skillIndex:i62} {data:es}`，payload 为 6 段技能记录并保留尾随 `|` | 是 | 是 | 旧 C + IDA + src/packet |
-| 86 | `OBee` | 服务端->客户端 | 完成 | SEND_PT | 是 | 是 | 待 C/IDA 补全 |
+| 86 | `OBee` | 服务端->客户端 | 完成 | SEND_PT；旧 C+IDA 补外层 `{petIndex:i62} {data:es}`，payload 为 8 段宠物技能记录并保留尾随 `|` | 是 | 是 | 旧 C + IDA + src/packet |
 | 87 | `Yo` | 服务端->客户端 | 暂缓 | SEND_S | 是 | 是 | 待 C/IDA 补全 |
 | 88 | `sZWu` | 服务端->客户端 | 暂缓 | SEND_HL | 是 | 否 | 待 C/IDA 补全 |
 | 89 | `bNY` | 服务端->客户端 | 完成 | SEND_PR | 是 | 否 | 待 C/IDA 补全 |

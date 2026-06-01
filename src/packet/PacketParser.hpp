@@ -115,6 +115,11 @@ namespace cg::packet
             {"data", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
         }};
 
+        inline constexpr std::array<PacketFieldSpec, 2> PetTechDataFields = {{
+            {"petIndex", PacketFieldType::Int62, PacketSourceTag::ServerC},
+            {"data", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
+        }};
+
         inline constexpr std::array<PacketFieldSpec, 5> ProfileWindowFields = {{
             {"windowType", PacketFieldType::Int62, PacketSourceTag::Xlsx},
             {"buttonType", PacketFieldType::Int62, PacketSourceTag::Xlsx},
@@ -162,7 +167,7 @@ namespace cg::packet
             {"y2", PacketFieldType::Int62, PacketSourceTag::Xlsx},
         }};
 
-        inline constexpr std::array<PacketSpec, 25> PacketRegistry = {{
+        inline constexpr std::array<PacketSpec, 26> PacketRegistry = {{
             {
                 "JFVf",
                 PacketDirection::ClientToServer,
@@ -274,6 +279,13 @@ namespace cg::packet
                 PacketSourceTag::ServerC,
                 TechListFields.data(),
                 TechListFields.size(),
+            },
+            {
+                "OBee",
+                PacketDirection::ServerToClient,
+                PacketSourceTag::ServerC,
+                PetTechDataFields.data(),
+                PetTechDataFields.size(),
             },
             {
                 "DyAG",

@@ -106,6 +106,17 @@ namespace cg::packet
             {"name", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
         }};
 
+        inline constexpr std::array<PacketFieldSpec, 8> PetMailAnimationFields = {{
+            {"objIndex", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"graphicsno", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"x", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"y", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"dir", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"flg", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"no", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+        }};
+
         inline constexpr std::array<PacketFieldSpec, 1> TitleListFields = {{
             {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
         }};
@@ -259,7 +270,7 @@ namespace cg::packet
             {"y2", PacketFieldType::Int62, PacketSourceTag::Xlsx},
         }};
 
-        inline constexpr std::array<PacketSpec, 43> PacketRegistry = {{
+        inline constexpr std::array<PacketSpec, 44> PacketRegistry = {{
             {
                 "JFVf",
                 PacketDirection::ClientToServer,
@@ -350,6 +361,13 @@ namespace cg::packet
                 PacketSourceTag::ServerC,
                 AlbumNameFields.data(),
                 AlbumNameFields.size(),
+            },
+            {
+                "lDuJ",
+                PacketDirection::ServerToClient,
+                PacketSourceTag::Xlsx,
+                PetMailAnimationFields.data(),
+                PetMailAnimationFields.size(),
             },
             {
                 "Sc",
@@ -593,7 +611,7 @@ namespace cg::packet
             std::string_view code,
             std::string_view fieldName) noexcept
         {
-            return code == "DyAG" && fieldName == "data";
+            return fieldName == "data" && (code == "DyAG" || code == "lDuJ");
         }
 
         [[nodiscard]] inline PacketResult<std::string> DecodeNestedPayloadEscapedString(std::string_view text)

@@ -109,7 +109,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | M6.12.05 物品/技能/宠物封包-xmgQ | `xmgQ` | 服务端->客户端 | 是 | 完成 | SEND_IR CHAR_sendItemRecipe；外层 `{haveskillindex:i62} {data:es}`；payload 为 1..56 条 22 段 recipe record，字段为 `recipeId|itemLevel|recipeItemId|itemNameRaw|itemInfoRaw|forcePoint|usable|material0ItemId|material0NameRaw|required0|...|material4ItemId|material4NameRaw|required4|`，数值为 raw decimal，`usable` 只接受 `0/1`，字符串保留 raw escaped；本服务端为 22 段 `_OPERATION_APPEND_JEWEL` 格式，不兼容旧 21 段 |
 | M6.12.06 物品/技能/宠物封包-dM | `dM` | 服务端->客户端 | 否 | 完成 | SEND_ALI；旧 C `nrproto_ALI_send` + `CHAR_sendAlbumInfoData` + IDA `network_dispatch/sub_518870` 补外层 17 字段 `{albumId:i62} {imageNumber:i62} {catchFlag:i62} {rare:i62} {type:i62} {vital:i62} {strength:i62} {toughness:i62} {quick:i62} {magic:i62} {earth:i62} {water:i62} {fire:i62} {wind:i62} {slot:i62} {comment:es} {name:es}`；无二级 payload，`comment/name` 保留外层 es 结果 |
 | M6.12.07 物品/技能/宠物封包-Dn | `Dn` | 服务端->客户端 | 否 | 完成 | SEND_ALN；旧 C `nrproto_ALN_send` + `CHAR_sendAlbumPetNameData` + IDA `network_dispatch` 补外层 `{albumId:i62} {name:es}`；无二级 payload，`name` 保留外层 es 结果 |
-| M6.12.08 物品/技能/宠物封包-lDuJ | `lDuJ` | 服务端->客户端 | 否 | 未开始 | SEND_PME 宠邮动画 |
+| M6.12.08 物品/技能/宠物封包-lDuJ | `lDuJ` | 服务端->客户端 | 否 | 完成 | SEND_PME 宠邮动画；xlsx 8 字段，客户端 IDA 确认前 7 字段 i62、data/es；sub_50DD80 确认 flg!=0 时 data 为 12 段 `|` payload |
 | M6.12.09 物品/技能/宠物封包-IsSy | `IsSy` | 服务端->客户端 | 是 | 字段待补 | SEND_KP |
 | M6.12.10 物品/技能/宠物封包-AU | `AU` | 服务端->客户端 | 是 | 字段待补 | SEND_KP2 |
 | M6.12.11 物品/技能/宠物封包-JgO | `JgO` | 服务端->客户端 | 是 | 字段待补 | SEND_TU techuse |
@@ -260,7 +260,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 60 | `dM` | 服务端->客户端 | 完成 | SEND_ALI；外层 15 个 i62 + `comment/name` 两个 es，无二级 payload | 否 | 是 | ServerC+ClientIda+src |
 | 61 | `Dn` | 服务端->客户端 | 完成 | SEND_ALN；外层 `{albumId:i62} {name:es}`，无二级 payload | 否 | 是 | ServerC+ClientIda+src |
 | 62 | `IYo` | 服务端->客户端 | 完成 | SEND_ALO | 是 | 否 | 待 C/IDA 补全 |
-| 63 | `lDuJ` | 服务端->客户端 | 完成 | SEND_PME 宠邮动画 | 否 | 是 | xlsx |
+| 63 | `lDuJ` | 服务端->客户端 | 完成 | SEND_PME 宠邮动画；外层 `{objIndex:i62} {graphicsno:i62} {x:i62} {y:i62} {dir:i62} {flg:i62} {no:i62} {data:es}`；`flg != 0` 时 payload 为 12 段 `typeMb|objectIndex|x|y|dir|imageNo|lv|field40|nameRaw|titleDataRaw|flg1|flg2`，`objectIndex` 为 i62，其余数值为 raw decimal，`nameRaw/titleDataRaw` 保留 raw escaped | 否 | 是 | xlsx+ClientIda+src |
 | 64 | `vI` | 服务端->客户端 | 完成 | SEND_ABI ADDRESSBOOK_sendAddressbookTableOne | 否 | 是 | xlsx |
 | 65 | `GC` | 服务端->客户端 | 进行中 | SEND_GC addGuildMember 加入家族 | 否 | 否 | xlsx |
 | 66 | `aDn` | 服务端->客户端 | 进行中 | SEND_GI guildinfo | 否 | 是 | xlsx |

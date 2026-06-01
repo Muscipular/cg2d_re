@@ -5402,6 +5402,456 @@ namespace cg::packet::receive
     };
 
     /**
+     * SEND_PME 宠邮动画 payload：typeMb|objectIndex|x|y|dir|imageNo|lv|field40|nameRaw|titleDataRaw|flg1|flg2。
+     */
+    struct PetMailAnimationPayload
+    {
+        int typeMb = 0;
+        int objectIndex = 0;
+        int x = 0;
+        int y = 0;
+        int dir = 0;
+        int imageNo = 0;
+        int lv = 0;
+        int field40 = 0;
+        std::string nameRaw;
+        std::string titleDataRaw;
+        int flg1 = 0;
+        int flg2 = 0;
+    };
+
+    /**
+     * SEND_PME 宠邮动画		lDuJ {objIndex:i62} {graphicsno:i62} {x:i62} {y:i62} {dir:i62} {flg:i62} {no:i62} {data:es}
+     * flg 为 0 时忽略 data；非 0 时 data 必须为 12 段 payload，raw 字符串保留 \c/\z/\y/\n。
+     */
+    struct PetMailAnimation
+    {
+        static constexpr std::string_view Code = "lDuJ";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::string_view PayloadDelimiter = "|";
+
+        int objIndex = 0;
+        int graphicsNo = 0;
+        int x = 0;
+        int y = 0;
+        int dir = 0;
+        int flg = 0;
+        int no = 0;
+        std::string data;
+        bool hasPayload = false;
+        PetMailAnimationPayload payload;
+
+        PetMailAnimation(
+            int objIndex,
+            int graphicsNo,
+            int x,
+            int y,
+            int dir,
+            int flg,
+            int no,
+            std::string data)
+            : objIndex(objIndex),
+              graphicsNo(graphicsNo),
+              x(x),
+              y(y),
+              dir(dir),
+              flg(flg),
+              no(no),
+              data(std::move(data))
+        {
+        }
+
+        PetMailAnimation(
+            int objIndex,
+            int graphicsNo,
+            int x,
+            int y,
+            int dir,
+            int flg,
+            int no,
+            PetMailAnimationPayload payload)
+            : objIndex(objIndex),
+              graphicsNo(graphicsNo),
+              x(x),
+              y(y),
+              dir(dir),
+              flg(flg),
+              no(no),
+              hasPayload(true),
+              payload(std::move(payload))
+        {
+            data = BuildData();
+        }
+
+        [[nodiscard]] std::string BuildData() const
+        {
+            if (!hasPayload) {
+                return data;
+            }
+
+            const std::array<std::string, PayloadFieldCount> values = {
+                std::to_string(payload.typeMb),
+                EncodeInt62OrEmpty(payload.objectIndex),
+                std::to_string(payload.x),
+                std::to_string(payload.y),
+                std::to_string(payload.dir),
+                std::to_string(payload.imageNo),
+                std::to_string(payload.lv),
+                std::to_string(payload.field40),
+                payload.nameRaw,
+                payload.titleDataRaw,
+                std::to_string(payload.flg1),
+                std::to_string(payload.flg2),
+            };
+
+            PacketResult<std::string> built = BuildPayload(
+                std::span<const std::string>(values.data(), values.size()),
+                PayloadDelimiter);
+            return built.HasValue() ? built.Value() : std::string();
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            packet.fields.reserve(FieldCount);
+            packet.fields.push_back(PacketField {
+                "objIndex",
+                PacketFieldType::Int62,
+                std::to_string(objIndex),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "graphicsno",
+                PacketFieldType::Int62,
+                std::to_string(graphicsNo),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "x",
+                PacketFieldType::Int62,
+                std::to_string(x),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "y",
+                PacketFieldType::Int62,
+                std::to_string(y),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "dir",
+                PacketFieldType::Int62,
+                std::to_string(dir),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "flg",
+                PacketFieldType::Int62,
+                std::to_string(flg),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "no",
+                PacketFieldType::Int62,
+                std::to_string(no),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "data",
+                PacketFieldType::EscapedString,
+                BuildData(),
+                PacketSourceTag::Xlsx,
+            });
+            return packet;
+        }
+
+        static PacketResult<PetMailAnimation> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view);
+            if (!parsed.HasValue()) {
+                return PacketResult<PetMailAnimation>::Failure(parsed.Error());
+            }
+
+            const Packet& packet = parsed.Value();
+            if (packet.code.View() != Code) {
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "PetMailAnimation Parse 收到非 lDuJ 封包");
+                error.packetCode = packet.code;
+                return PacketResult<PetMailAnimation>::Failure(std::move(error));
+            }
+
+            if (packet.direction != Direction) {
+                return PacketResult<PetMailAnimation>::Failure(MakePacketError(
+                    PacketErrorCode::DecodeFailed,
+                    "PetMailAnimation Parse 封包方向不匹配"));
+            }
+
+            if (packet.fields.size() != FieldCount) {
+                return PacketResult<PetMailAnimation>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "PetMailAnimation Parse 字段数量不匹配",
+                    packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
+            }
+
+            const std::array<std::string_view, FieldCount> fieldNames = {
+                "objIndex",
+                "graphicsno",
+                "x",
+                "y",
+                "dir",
+                "flg",
+                "no",
+                "data",
+            };
+            const std::array<PacketFieldType, FieldCount> fieldTypes = {
+                PacketFieldType::Int62,
+                PacketFieldType::Int62,
+                PacketFieldType::Int62,
+                PacketFieldType::Int62,
+                PacketFieldType::Int62,
+                PacketFieldType::Int62,
+                PacketFieldType::Int62,
+                PacketFieldType::EscapedString,
+            };
+
+            for (std::size_t index = 0; index < FieldCount; ++index) {
+                if (packet.fields[index].name != fieldNames[index]) {
+                    return PacketResult<PetMailAnimation>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "PetMailAnimation Parse 字段名不匹配",
+                        index));
+                }
+
+                if (packet.fields[index].type != fieldTypes[index]) {
+                    return PacketResult<PetMailAnimation>::Failure(MakeFieldError(
+                        PacketErrorCode::InvalidFieldType,
+                        "PetMailAnimation Parse 字段类型不匹配",
+                        index));
+                }
+            }
+
+            std::array<int, DataFieldIndex> values = {};
+            for (std::size_t index = 0; index < DataFieldIndex; ++index) {
+                PacketResult<int> value = ParseDecimalField(packet.fields[index].value, index);
+                if (!value.HasValue()) {
+                    return PacketResult<PetMailAnimation>::Failure(value.Error());
+                }
+                values[index] = value.Value();
+            }
+
+            const std::string& dataField = packet.fields[DataFieldIndex].value;
+            if (values[FlgFieldIndex] == 0) {
+                return PacketResult<PetMailAnimation>::Success(PetMailAnimation(
+                    values[0],
+                    values[1],
+                    values[2],
+                    values[3],
+                    values[4],
+                    values[5],
+                    values[6],
+                    dataField));
+            }
+
+            PacketResult<PetMailAnimationPayload> parsedPayload = ParsePayload(dataField);
+            if (!parsedPayload.HasValue()) {
+                return PacketResult<PetMailAnimation>::Failure(parsedPayload.Error());
+            }
+
+            return PacketResult<PetMailAnimation>::Success(PetMailAnimation(
+                values[0],
+                values[1],
+                values[2],
+                values[3],
+                values[4],
+                values[5],
+                values[6],
+                std::move(parsedPayload.Value())));
+        }
+
+    private:
+        static constexpr std::size_t FieldCount = 8U;
+        static constexpr std::size_t FlgFieldIndex = 5U;
+        static constexpr std::size_t DataFieldIndex = 7U;
+        static constexpr std::size_t PayloadFieldCount = 12U;
+
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            error.source = PacketSourceTag::Xlsx;
+            return error;
+        }
+
+        [[nodiscard]] static PacketError MakeFieldError(
+            PacketErrorCode code,
+            std::string message,
+            std::size_t fieldIndex)
+        {
+            PacketError error = MakePacketError(code, std::move(message));
+            error.fieldIndex = fieldIndex;
+            return error;
+        }
+
+        [[nodiscard]] static std::string EncodeInt62OrEmpty(int value)
+        {
+            PacketResult<std::string> encoded = EncodeInt62(value);
+            return encoded.HasValue() ? encoded.Value() : std::string();
+        }
+
+        [[nodiscard]] static PacketResult<PetMailAnimationPayload> ParsePayload(std::string_view text)
+        {
+            if (text.empty()) {
+                return PacketResult<PetMailAnimationPayload>::Failure(MakeFieldError(
+                    PacketErrorCode::EmptyInput,
+                    "PetMailAnimation payload 为空",
+                    DataFieldIndex));
+            }
+
+            PacketResult<std::vector<std::string>> split = SplitPayload(text, PayloadDelimiter);
+            if (!split.HasValue()) {
+                PacketError error = split.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = DataFieldIndex;
+                error.source = PacketSourceTag::Xlsx;
+                return PacketResult<PetMailAnimationPayload>::Failure(std::move(error));
+            }
+
+            const std::vector<std::string>& parts = split.Value();
+            if (parts.size() != PayloadFieldCount) {
+                return PacketResult<PetMailAnimationPayload>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "PetMailAnimation payload 段数量不匹配",
+                    DataFieldIndex));
+            }
+
+            PetMailAnimationPayload parsed;
+            PacketResult<int> typeMb = ParseDecimalField(parts[0], 0U);
+            if (!typeMb.HasValue()) {
+                return PacketResult<PetMailAnimationPayload>::Failure(typeMb.Error());
+            }
+            PacketResult<int> objectIndex = ParsePayloadObjectIndex(parts[1], 1U);
+            if (!objectIndex.HasValue()) {
+                return PacketResult<PetMailAnimationPayload>::Failure(objectIndex.Error());
+            }
+            PacketResult<int> x = ParseDecimalField(parts[2], 2U);
+            if (!x.HasValue()) {
+                return PacketResult<PetMailAnimationPayload>::Failure(x.Error());
+            }
+            PacketResult<int> y = ParseDecimalField(parts[3], 3U);
+            if (!y.HasValue()) {
+                return PacketResult<PetMailAnimationPayload>::Failure(y.Error());
+            }
+            PacketResult<int> dir = ParseDecimalField(parts[4], 4U);
+            if (!dir.HasValue()) {
+                return PacketResult<PetMailAnimationPayload>::Failure(dir.Error());
+            }
+            PacketResult<int> imageNo = ParseDecimalField(parts[5], 5U);
+            if (!imageNo.HasValue()) {
+                return PacketResult<PetMailAnimationPayload>::Failure(imageNo.Error());
+            }
+            PacketResult<int> lv = ParseDecimalField(parts[6], 6U);
+            if (!lv.HasValue()) {
+                return PacketResult<PetMailAnimationPayload>::Failure(lv.Error());
+            }
+            PacketResult<int> field40 = ParseDecimalField(parts[7], 7U);
+            if (!field40.HasValue()) {
+                return PacketResult<PetMailAnimationPayload>::Failure(field40.Error());
+            }
+            PacketResult<int> flg1 = ParseDecimalField(parts[10], 10U);
+            if (!flg1.HasValue()) {
+                return PacketResult<PetMailAnimationPayload>::Failure(flg1.Error());
+            }
+            PacketResult<int> flg2 = ParseDecimalField(parts[11], 11U);
+            if (!flg2.HasValue()) {
+                return PacketResult<PetMailAnimationPayload>::Failure(flg2.Error());
+            }
+
+            parsed.typeMb = typeMb.Value();
+            parsed.objectIndex = objectIndex.Value();
+            parsed.x = x.Value();
+            parsed.y = y.Value();
+            parsed.dir = dir.Value();
+            parsed.imageNo = imageNo.Value();
+            parsed.lv = lv.Value();
+            parsed.field40 = field40.Value();
+            parsed.nameRaw = parts[8];
+            parsed.titleDataRaw = parts[9];
+            parsed.flg1 = flg1.Value();
+            parsed.flg2 = flg2.Value();
+            return PacketResult<PetMailAnimationPayload>::Success(std::move(parsed));
+        }
+
+        [[nodiscard]] static PacketResult<int> ParsePayloadObjectIndex(
+            std::string_view text,
+            std::size_t fieldIndex)
+        {
+            if (text.empty() || text == "-") {
+                return PacketResult<int>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "PetMailAnimation payload objectIndex 为空",
+                    fieldIndex));
+            }
+
+            PacketResult<int> decoded = DecodeInt62(text);
+            if (!decoded.HasValue()) {
+                PacketError error = decoded.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = fieldIndex;
+                error.source = PacketSourceTag::Xlsx;
+                return PacketResult<int>::Failure(std::move(error));
+            }
+            return decoded;
+        }
+
+        [[nodiscard]] static PacketResult<int> ParseDecimalField(std::string_view text, std::size_t fieldIndex)
+        {
+            bool negative = false;
+            std::size_t index = 0;
+            if (!text.empty() && text.front() == '-') {
+                negative = true;
+                index = 1U;
+            }
+
+            if (index == text.size()) {
+                return PacketResult<int>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "PetMailAnimation 十进制字段为空",
+                    fieldIndex));
+            }
+
+            const std::int64_t maxValue = static_cast<std::int64_t>(std::numeric_limits<int>::max());
+            const std::int64_t minValue = static_cast<std::int64_t>(std::numeric_limits<int>::min());
+            const std::int64_t limit = negative ? (0 - minValue) : maxValue;
+            std::int64_t value = 0;
+
+            for (; index < text.size(); ++index) {
+                const char ch = text[index];
+                if (ch < '0' || ch > '9') {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "PetMailAnimation 十进制字段包含非法字符",
+                        fieldIndex));
+                }
+
+                const int digit = ch - '0';
+                if (value > (limit - digit) / 10) {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "PetMailAnimation 十进制字段超出 int 范围",
+                        fieldIndex));
+                }
+
+                value = (value * 10) + digit;
+            }
+
+            if (negative) {
+                value = -value;
+            }
+
+            return PacketResult<int>::Success(static_cast<int>(value));
+        }
+    };
+
+    /**
      * SEND_PT 宠物技能记录：skillSlot|techId|name|description|forcePoint|techField|target|seqNo。
      */
     struct PetTechRecord

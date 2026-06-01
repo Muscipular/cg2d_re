@@ -3556,6 +3556,102 @@ namespace cg::packet::receive
         }
     };
 
+    /**
+     * SEND_S Profile 状态		Yo {data:es}
+     * data 仅按外层 es 保存；旧 C/IDA 未证实二级结构，不拆 payload。
+     */
+    struct ProfileStatus
+    {
+        static constexpr std::string_view Code = "Yo";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+
+        std::string data;
+
+        explicit ProfileStatus(std::string data)
+            : data(std::move(data))
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ServerC);
+            packet.fields.push_back(PacketField {
+                "data",
+                PacketFieldType::EscapedString,
+                data,
+                PacketSourceTag::ServerC,
+            });
+            return packet;
+        }
+
+        static PacketResult<ProfileStatus> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view);
+            if (!parsed.HasValue()) {
+                return PacketResult<ProfileStatus>::Failure(parsed.Error());
+            }
+
+            const Packet& packet = parsed.Value();
+            if (packet.code.View() != Code) {
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "ProfileStatus Parse 收到非 Yo 封包");
+                error.packetCode = packet.code;
+                return PacketResult<ProfileStatus>::Failure(std::move(error));
+            }
+
+            if (packet.direction != Direction) {
+                return PacketResult<ProfileStatus>::Failure(MakePacketError(
+                    PacketErrorCode::DecodeFailed,
+                    "ProfileStatus Parse 封包方向不匹配"));
+            }
+
+            if (packet.fields.size() != FieldCount) {
+                return PacketResult<ProfileStatus>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "ProfileStatus Parse 字段数量不匹配",
+                    packet.fields.empty() ? 0U : FieldCount));
+            }
+
+            const PacketField& field = packet.fields[DataFieldIndex];
+            if (field.name != "data") {
+                return PacketResult<ProfileStatus>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "ProfileStatus Parse 字段名不匹配",
+                    DataFieldIndex));
+            }
+
+            if (field.type != PacketFieldType::EscapedString) {
+                return PacketResult<ProfileStatus>::Failure(MakeFieldError(
+                    PacketErrorCode::InvalidFieldType,
+                    "ProfileStatus Parse 字段类型不匹配",
+                    DataFieldIndex));
+            }
+
+            return PacketResult<ProfileStatus>::Success(ProfileStatus(field.value));
+        }
+
+    private:
+        static constexpr std::size_t FieldCount = 1U;
+        static constexpr std::size_t DataFieldIndex = 0U;
+
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            error.source = PacketSourceTag::ServerC;
+            return error;
+        }
+
+        [[nodiscard]] static PacketError MakeFieldError(
+            PacketErrorCode code,
+            std::string message,
+            std::size_t fieldIndex)
+        {
+            PacketError error = MakePacketError(code, std::move(message));
+            error.fieldIndex = fieldIndex;
+            return error;
+        }
+    };
+
     enum class ProfileWindowPayloadKind
     {
         Start,

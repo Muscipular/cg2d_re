@@ -479,6 +479,17 @@ target_include_directories(cg-packet-party-param-test
 
 add_test(NAME cg-packet-party-param-test COMMAND cg-packet-party-param-test)
 
+add_executable(cg-packet-party-member-status-test
+    tests/packet/PartyMemberStatusPacketTest.cpp
+)
+
+target_include_directories(cg-packet-party-member-status-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+
+add_test(NAME cg-packet-party-member-status-test COMMAND cg-packet-party-member-status-test)
+
 add_executable(cg-packet-profile-window-test
     tests/packet/ProfileWindowPacketTest.cpp
 )
@@ -548,6 +559,7 @@ if(MSVC)
     target_compile_options(cg-packet-profile-mail-receipt-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-profile-mail-arrive-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-party-param-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-party-member-status-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-profile-window-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-payload-codec-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-coverage-schema-test PRIVATE /W4 /utf-8 /permissive-)
@@ -583,6 +595,7 @@ else()
     target_compile_options(cg-packet-profile-mail-receipt-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-profile-mail-arrive-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-party-param-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-packet-party-member-status-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-profile-window-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-payload-codec-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-coverage-schema-test PRIVATE -Wall -Wextra -Wpedantic)

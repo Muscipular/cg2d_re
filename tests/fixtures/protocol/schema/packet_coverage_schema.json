@@ -2287,6 +2287,24 @@
       "rawFormat": "",
       "formatEmpty": true,
       "source": "xlsx",
+      "resolvedFormat": "{partySlot:i62} {data:es}",
+      "resolvedSource": "ServerC+src",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "partySlot",
+          "typeToken": "i62",
+          "rawSpec": "{partySlot:i62}",
+          "source": "ServerC+src"
+        },
+        {
+          "index": 1,
+          "name": "data",
+          "typeToken": "es",
+          "rawSpec": "{data:es}",
+          "source": "ServerC+src"
+        }
+      ],
       "fields": []
     },
     {

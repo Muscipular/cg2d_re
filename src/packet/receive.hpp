@@ -2609,6 +2609,370 @@ namespace cg::packet::receive
         }
     };
 
+    enum class PartyMemberStatusKind
+    {
+        EmptyOrRemove,
+        All,
+    };
+
+    /**
+     * SEND_CN 队伍成员完整状态：objectIndexllevel|maxHp|hp|forcePoint|name。
+     */
+    struct PartyMemberStatusEntry
+    {
+        int objectIndex = 0;
+        int level = 0;
+        int maxHp = 0;
+        int hp = 0;
+        int forcePoint = 0;
+        std::string name;
+    };
+
+    /**
+     * SEND_CN 队伍成员状态		JJQj {partySlot:i62} {data:es}
+     * data: `0|` 表示空队员/离队；`1|objectIndexllevel|maxHp|hp|forcePoint|name|` 表示完整状态。
+     */
+    struct PartyMemberStatus
+    {
+        static constexpr std::string_view Code = "JJQj";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::string_view PayloadDelimiter = "|";
+
+        int partySlot = 0;
+        PartyMemberStatusKind kind = PartyMemberStatusKind::EmptyOrRemove;
+        PartyMemberStatusEntry member;
+
+        explicit PartyMemberStatus(int partySlot)
+            : partySlot(partySlot)
+        {
+        }
+
+        PartyMemberStatus(int partySlot, PartyMemberStatusEntry member)
+            : partySlot(partySlot),
+              kind(PartyMemberStatusKind::All),
+              member(std::move(member))
+        {
+        }
+
+        [[nodiscard]] std::string BuildData() const
+        {
+            if (kind == PartyMemberStatusKind::EmptyOrRemove) {
+                return "0|";
+            }
+
+            std::string payload = "1|";
+            payload.append(std::to_string(member.objectIndex));
+            payload.push_back('l');
+            payload.append(std::to_string(member.level));
+            payload.push_back('|');
+            payload.append(std::to_string(member.maxHp));
+            payload.push_back('|');
+            payload.append(std::to_string(member.hp));
+            payload.push_back('|');
+            payload.append(std::to_string(member.forcePoint));
+            payload.push_back('|');
+            payload.append(member.name);
+            payload.push_back('|');
+            return payload;
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ServerC);
+            packet.fields.push_back(PacketField {
+                "partySlot",
+                PacketFieldType::Int62,
+                std::to_string(partySlot),
+                PacketSourceTag::ServerC,
+            });
+            packet.fields.push_back(PacketField {
+                "data",
+                PacketFieldType::EscapedString,
+                BuildData(),
+                PacketSourceTag::ServerC,
+            });
+            return packet;
+        }
+
+        static PacketResult<PartyMemberStatus> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view);
+            if (!parsed.HasValue()) {
+                return PacketResult<PartyMemberStatus>::Failure(parsed.Error());
+            }
+
+            const Packet& packet = parsed.Value();
+            if (packet.code.View() != Code) {
+                PacketError error = MakePacketError(
+                    PacketErrorCode::InvalidCode,
+                    "PartyMemberStatus Parse 收到非 JJQj 封包");
+                error.packetCode = packet.code;
+                return PacketResult<PartyMemberStatus>::Failure(std::move(error));
+            }
+
+            if (packet.direction != Direction) {
+                return PacketResult<PartyMemberStatus>::Failure(MakePacketError(
+                    PacketErrorCode::DecodeFailed,
+                    "PartyMemberStatus Parse 封包方向不匹配"));
+            }
+
+            if (packet.fields.size() != FieldCount) {
+                return PacketResult<PartyMemberStatus>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "PartyMemberStatus Parse 字段数量不匹配",
+                    packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
+            }
+
+            const PacketField& partySlotField = packet.fields[PartySlotFieldIndex];
+            if (partySlotField.name != "partySlot") {
+                return PacketResult<PartyMemberStatus>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "PartyMemberStatus Parse partySlot 字段名不匹配",
+                    PartySlotFieldIndex));
+            }
+
+            if (partySlotField.type != PacketFieldType::Int62) {
+                return PacketResult<PartyMemberStatus>::Failure(MakeFieldError(
+                    PacketErrorCode::InvalidFieldType,
+                    "PartyMemberStatus Parse partySlot 字段类型不匹配",
+                    PartySlotFieldIndex));
+            }
+
+            PacketResult<int> partySlot = ParseDecimalField(partySlotField.value, PartySlotFieldIndex);
+            if (!partySlot.HasValue()) {
+                return PacketResult<PartyMemberStatus>::Failure(partySlot.Error());
+            }
+
+            const PacketField& dataField = packet.fields[DataFieldIndex];
+            if (dataField.name != "data") {
+                return PacketResult<PartyMemberStatus>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "PartyMemberStatus Parse data 字段名不匹配",
+                    DataFieldIndex));
+            }
+
+            if (dataField.type != PacketFieldType::EscapedString) {
+                return PacketResult<PartyMemberStatus>::Failure(MakeFieldError(
+                    PacketErrorCode::InvalidFieldType,
+                    "PartyMemberStatus Parse data 字段类型不匹配",
+                    DataFieldIndex));
+            }
+
+            return ParseData(partySlot.Value(), dataField.value);
+        }
+
+    private:
+        static constexpr std::size_t FieldCount = 2U;
+        static constexpr std::size_t PartySlotFieldIndex = 0U;
+        static constexpr std::size_t DataFieldIndex = 1U;
+        static constexpr std::size_t AllPayloadFieldCount = 6U;
+        static constexpr std::size_t ObjectLevelFieldIndex = 1U;
+
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            error.source = PacketSourceTag::ServerC;
+            return error;
+        }
+
+        [[nodiscard]] static PacketError MakeFieldError(
+            PacketErrorCode code,
+            std::string message,
+            std::size_t fieldIndex)
+        {
+            PacketError error = MakePacketError(code, std::move(message));
+            error.fieldIndex = fieldIndex;
+            return error;
+        }
+
+        [[nodiscard]] static PacketResult<PartyMemberStatus> ParseData(int partySlot, std::string_view payload)
+        {
+            if (payload.empty()) {
+                return PacketResult<PartyMemberStatus>::Failure(MakeFieldError(
+                    PacketErrorCode::EmptyInput,
+                    "PartyMemberStatus payload 为空",
+                    DataFieldIndex));
+            }
+
+            if (payload.back() != '|') {
+                return PacketResult<PartyMemberStatus>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "PartyMemberStatus payload 缺少尾随分隔符",
+                    DataFieldIndex));
+            }
+
+            PacketResult<std::vector<std::string>> split = SplitPayload(payload, PayloadDelimiter);
+            if (!split.HasValue()) {
+                PacketError error = split.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = DataFieldIndex;
+                error.source = PacketSourceTag::ServerC;
+                return PacketResult<PartyMemberStatus>::Failure(std::move(error));
+            }
+
+            std::vector<std::string> parts = std::move(split.Value());
+            parts.pop_back();
+            if (parts.empty()) {
+                return PacketResult<PartyMemberStatus>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "PartyMemberStatus payload 缺少 fieldMask",
+                    DataFieldIndex));
+            }
+
+            PacketResult<int> fieldMask = ParseFieldMask(parts.front());
+            if (!fieldMask.HasValue()) {
+                return PacketResult<PartyMemberStatus>::Failure(fieldMask.Error());
+            }
+
+            if (fieldMask.Value() == 0) {
+                if (payload != "0|") {
+                    return PacketResult<PartyMemberStatus>::Failure(MakeFieldError(
+                        PacketErrorCode::FieldCountMismatch,
+                        "PartyMemberStatus fieldMask 0 payload 必须为 0|",
+                        DataFieldIndex));
+                }
+                return PacketResult<PartyMemberStatus>::Success(PartyMemberStatus(partySlot));
+            }
+
+            if (fieldMask.Value() != 1) {
+                return PacketResult<PartyMemberStatus>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "PartyMemberStatus 不支持的 fieldMask",
+                    DataFieldIndex));
+            }
+
+            if (parts.size() != AllPayloadFieldCount) {
+                return PacketResult<PartyMemberStatus>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "PartyMemberStatus fieldMask 1 payload 段数量不匹配",
+                    DataFieldIndex));
+            }
+
+            PacketResult<PartyMemberStatusEntry> member = ParseAllPayload(parts);
+            if (!member.HasValue()) {
+                return PacketResult<PartyMemberStatus>::Failure(member.Error());
+            }
+
+            return PacketResult<PartyMemberStatus>::Success(PartyMemberStatus(partySlot, std::move(member.Value())));
+        }
+
+        [[nodiscard]] static PacketResult<int> ParseFieldMask(std::string_view text)
+        {
+            PacketResult<int> decoded = DecodeInt62(text);
+            if (!decoded.HasValue()) {
+                PacketError error = decoded.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = DataFieldIndex;
+                error.source = PacketSourceTag::ServerC;
+                return PacketResult<int>::Failure(std::move(error));
+            }
+            return decoded;
+        }
+
+        [[nodiscard]] static PacketResult<PartyMemberStatusEntry> ParseAllPayload(
+            const std::vector<std::string>& parts)
+        {
+            const std::string& objectAndLevel = parts[ObjectLevelFieldIndex];
+            const std::size_t separator = objectAndLevel.find('l');
+            if (separator == std::string::npos ||
+                separator == 0U ||
+                separator + 1U == objectAndLevel.size() ||
+                objectAndLevel.find('l', separator + 1U) != std::string::npos) {
+                return PacketResult<PartyMemberStatusEntry>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "PartyMemberStatus objectIndexllevel 格式不匹配",
+                    ObjectLevelFieldIndex));
+            }
+
+            PacketResult<int> objectIndex = ParseDecimalField(
+                std::string_view(objectAndLevel).substr(0U, separator),
+                ObjectLevelFieldIndex);
+            if (!objectIndex.HasValue()) {
+                return PacketResult<PartyMemberStatusEntry>::Failure(objectIndex.Error());
+            }
+
+            PacketResult<int> level = ParseDecimalField(
+                std::string_view(objectAndLevel).substr(separator + 1U),
+                ObjectLevelFieldIndex);
+            if (!level.HasValue()) {
+                return PacketResult<PartyMemberStatusEntry>::Failure(level.Error());
+            }
+
+            PacketResult<int> maxHp = ParseDecimalField(parts[2], 2U);
+            if (!maxHp.HasValue()) {
+                return PacketResult<PartyMemberStatusEntry>::Failure(maxHp.Error());
+            }
+
+            PacketResult<int> hp = ParseDecimalField(parts[3], 3U);
+            if (!hp.HasValue()) {
+                return PacketResult<PartyMemberStatusEntry>::Failure(hp.Error());
+            }
+
+            PacketResult<int> forcePoint = ParseDecimalField(parts[4], 4U);
+            if (!forcePoint.HasValue()) {
+                return PacketResult<PartyMemberStatusEntry>::Failure(forcePoint.Error());
+            }
+
+            return PacketResult<PartyMemberStatusEntry>::Success(PartyMemberStatusEntry {
+                objectIndex.Value(),
+                level.Value(),
+                maxHp.Value(),
+                hp.Value(),
+                forcePoint.Value(),
+                parts[5],
+            });
+        }
+
+        [[nodiscard]] static PacketResult<int> ParseDecimalField(std::string_view text, std::size_t fieldIndex)
+        {
+            bool negative = false;
+            std::size_t index = 0;
+            if (!text.empty() && text.front() == '-') {
+                negative = true;
+                index = 1U;
+            }
+
+            if (index == text.size()) {
+                return PacketResult<int>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "PartyMemberStatus 十进制字段为空",
+                    fieldIndex));
+            }
+
+            const std::int64_t maxValue = static_cast<std::int64_t>(std::numeric_limits<int>::max());
+            const std::int64_t minValue = static_cast<std::int64_t>(std::numeric_limits<int>::min());
+            const std::int64_t limit = negative ? (0 - minValue) : maxValue;
+            std::int64_t value = 0;
+
+            for (; index < text.size(); ++index) {
+                const char ch = text[index];
+                if (ch < '0' || ch > '9') {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "PartyMemberStatus 十进制字段包含非法字符",
+                        fieldIndex));
+                }
+
+                const int digit = ch - '0';
+                if (value > (limit - digit) / 10) {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "PartyMemberStatus 十进制字段超出 int 范围",
+                        fieldIndex));
+                }
+
+                value = (value * 10) + digit;
+            }
+
+            if (negative) {
+                value = -value;
+            }
+
+            return PacketResult<int>::Success(static_cast<int>(value));
+        }
+    };
+
     enum class ProfileWindowPayloadKind
     {
         Start,

@@ -105,6 +105,11 @@ namespace cg::packet
             {"data", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
         }};
 
+        inline constexpr std::array<PacketFieldSpec, 2> PartyMemberStatusFields = {{
+            {"partySlot", PacketFieldType::Int62, PacketSourceTag::ServerC},
+            {"data", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
+        }};
+
         inline constexpr std::array<PacketFieldSpec, 5> ProfileWindowFields = {{
             {"windowType", PacketFieldType::Int62, PacketSourceTag::Xlsx},
             {"buttonType", PacketFieldType::Int62, PacketSourceTag::Xlsx},
@@ -152,7 +157,7 @@ namespace cg::packet
             {"y2", PacketFieldType::Int62, PacketSourceTag::Xlsx},
         }};
 
-        inline constexpr std::array<PacketSpec, 23> PacketRegistry = {{
+        inline constexpr std::array<PacketSpec, 24> PacketRegistry = {{
             {
                 "JFVf",
                 PacketDirection::ClientToServer,
@@ -250,6 +255,13 @@ namespace cg::packet
                 PacketSourceTag::ServerC,
                 PartyParamFields.data(),
                 PartyParamFields.size(),
+            },
+            {
+                "JJQj",
+                PacketDirection::ServerToClient,
+                PacketSourceTag::ServerC,
+                PartyMemberStatusFields.data(),
+                PartyMemberStatusFields.size(),
             },
             {
                 "DyAG",

@@ -102,7 +102,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | M6.11.25 角色/Profile封包-kjSK | `kjSK` | 客户端->服务端 | 否 | 完成 | RECV_PLVUP 宠物加点；xlsx rawFormat `{petSlot} {sqeno}`，旧 C + IDA 确认为 i62，无 payload |
 | M6.11.26 角色/Profile封包-HJQp | `HJQp` | 客户端->服务端 | 否 | 完成 | RECV_PSSW SKILL_swapPetSkill 宠物技能移动；xlsx rawFormat `{petSlot} {from} {to}`，IDA `sub_5124E0` 确认三字段为 i62，无 payload |
 | M6.11.27 角色/Profile封包-ycX | `ycX` | 客户端->服务端 | 否 | 完成 | RECV_KN CHAR_inputUserPetName 宠物姓名；外层 `{petSlot:i62} {name:es}`；无二级 payload；来源 xlsx + ServerC + ClientIda |
-| M6.12.01 物品/技能/宠物封包-cNE | `cNE` | 服务端->客户端 | 否 | 未开始 | SEND_CS CHAR_sendSkillData |
+| M6.12.01 物品/技能/宠物封包-cNE | `cNE` | 服务端->客户端 | 否 | 完成 | SEND_CS CHAR_sendSkillData；外层 `{data:es}`；payload 为 `skillSlot|skillId|name|level|exp|maxLevel|nextExp|requiredSlots|operation|consumptionRate|seqNo|` 重复记录，空技能槽为 `skillSlot|||||||||||`，name 保留 raw escaped 字符串，数值字段为 raw decimal |
 | M6.12.02 物品/技能/宠物封包-rU | `rU` | 服务端->客户端 | 否 | 未开始 | SEND_I CHAR_sendItemData |
 | M6.12.03 物品/技能/宠物封包-Ilz | `Ilz` | 服务端->客户端 | 否 | 未开始 | SEND_AL 图鉴？ |
 | M6.12.04 物品/技能/宠物封包-ELoy | `ELoy` | 服务端->客户端 | 是 | 字段待补 | SEND_IA 道具信息相关 |
@@ -210,7 +210,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 16 | `aPc` | 服务端->客户端 | 完成 | SEND_CP CharData_1 | 否 | 是 | xlsx |
 | 17 | `UU` | 服务端->客户端 | 完成 | SEND_CP2 CharData_2 | 否 | 是 | xlsx + src/packet |
 | 18 | `jv` | 服务端->客户端 | 完成 | SEND_CJ SendJobName | 否 | 是 | xlsx + src/packet |
-| 19 | `cNE` | 服务端->客户端 | 完成 | SEND_CS CHAR_sendSkillData | 否 | 是 | xlsx |
+| 19 | `cNE` | 服务端->客户端 | 完成 | SEND_CS CHAR_sendSkillData | 否 | 是 | xlsx + 旧 C + IDA + src/packet |
 | 20 | `Sc` | 服务端->客户端 | 完成 | SEND_TITLE | 否 | 是 | xlsx |
 | 21 | `rU` | 服务端->客户端 | 完成 | SEND_I CHAR_sendItemData | 否 | 是 | xlsx |
 | 22 | `OaHi` | 服务端->客户端 | 完成 | SEND_EP 遇敌率 | 否 | 否 | xlsx |

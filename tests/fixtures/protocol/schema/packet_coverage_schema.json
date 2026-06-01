@@ -554,6 +554,8 @@
       "xlsxStatus": "完成",
       "description": "SEND_CS CHAR_sendSkillData",
       "rawFormat": "{data:es}",
+      "resolvedFormat": "{data:es}",
+      "resolvedSource": "xlsx+ServerC+IDA+src",
       "formatEmpty": false,
       "source": "xlsx",
       "fields": [

@@ -3255,6 +3255,340 @@ namespace cg::packet::receive
     };
 
     /**
+     * SEND_CS 角色技能记录：skillSlot|skillId|name|level|exp|maxLevel|nextExp|requiredSlots|operation|consumptionRate|seqNo。
+     */
+    struct CharacterSkillRecord
+    {
+        int skillSlot = 0;
+        int skillId = 0;
+        std::string name;
+        int level = 0;
+        int exp = 0;
+        int maxLevel = 0;
+        int nextExp = 0;
+        int requiredSlots = 0;
+        int operation = 0;
+        int consumptionRate = 0;
+        int seqNo = 0;
+        bool emptySlot = false;
+
+        [[nodiscard]] static CharacterSkillRecord Empty(int skillSlot)
+        {
+            CharacterSkillRecord record;
+            record.skillSlot = skillSlot;
+            record.emptySlot = true;
+            return record;
+        }
+    };
+
+    /**
+     * SEND_CS CHAR_sendSkillData		cNE {data:es}
+     * data: 每条 11 段，数值为 raw decimal，name 保留二级转义 raw 字符串，整体回写保留尾随 `|`。
+     */
+    struct CharacterSkillData
+    {
+        static constexpr std::string_view Code = "cNE";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::string_view PayloadDelimiter = "|";
+
+        std::vector<CharacterSkillRecord> records;
+
+        explicit CharacterSkillData(std::vector<CharacterSkillRecord> records)
+            : records(std::move(records))
+        {
+        }
+
+        [[nodiscard]] std::string BuildData() const
+        {
+            std::string payload;
+            for (const CharacterSkillRecord& record : records) {
+                payload.append(std::to_string(record.skillSlot));
+                payload.push_back('|');
+
+                if (record.emptySlot) {
+                    for (std::size_t index = 0; index < EmptySlotFieldCount; ++index) {
+                        payload.push_back('|');
+                    }
+                    continue;
+                }
+
+                payload.append(std::to_string(record.skillId));
+                payload.push_back('|');
+                payload.append(record.name);
+                payload.push_back('|');
+                payload.append(std::to_string(record.level));
+                payload.push_back('|');
+                payload.append(std::to_string(record.exp));
+                payload.push_back('|');
+                payload.append(std::to_string(record.maxLevel));
+                payload.push_back('|');
+                payload.append(std::to_string(record.nextExp));
+                payload.push_back('|');
+                payload.append(std::to_string(record.requiredSlots));
+                payload.push_back('|');
+                payload.append(std::to_string(record.operation));
+                payload.push_back('|');
+                payload.append(std::to_string(record.consumptionRate));
+                payload.push_back('|');
+                payload.append(std::to_string(record.seqNo));
+                payload.push_back('|');
+            }
+            return payload;
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            packet.fields.push_back(PacketField {
+                "data",
+                PacketFieldType::EscapedString,
+                BuildData(),
+                PacketSourceTag::Xlsx,
+            });
+            return packet;
+        }
+
+        static PacketResult<CharacterSkillData> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view);
+            if (!parsed.HasValue()) {
+                return PacketResult<CharacterSkillData>::Failure(parsed.Error());
+            }
+
+            const Packet& packet = parsed.Value();
+            if (packet.code.View() != Code) {
+                PacketError error = MakePacketError(
+                    PacketErrorCode::InvalidCode,
+                    "CharacterSkillData Parse 收到非 cNE 封包");
+                error.packetCode = packet.code;
+                return PacketResult<CharacterSkillData>::Failure(std::move(error));
+            }
+
+            if (packet.direction != Direction) {
+                return PacketResult<CharacterSkillData>::Failure(MakePacketError(
+                    PacketErrorCode::DecodeFailed,
+                    "CharacterSkillData Parse 封包方向不匹配"));
+            }
+
+            if (packet.fields.size() != FieldCount) {
+                return PacketResult<CharacterSkillData>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "CharacterSkillData Parse 字段数量不匹配",
+                    packet.fields.empty() ? 0U : FieldCount));
+            }
+
+            const PacketField& field = packet.fields[DataFieldIndex];
+            if (field.name != "data") {
+                return PacketResult<CharacterSkillData>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "CharacterSkillData Parse 字段名不匹配",
+                    DataFieldIndex));
+            }
+
+            if (field.type != PacketFieldType::EscapedString) {
+                return PacketResult<CharacterSkillData>::Failure(MakeFieldError(
+                    PacketErrorCode::InvalidFieldType,
+                    "CharacterSkillData Parse 字段类型不匹配",
+                    DataFieldIndex));
+            }
+
+            PacketResult<std::vector<CharacterSkillRecord>> records = ParseRecords(field.value);
+            if (!records.HasValue()) {
+                return PacketResult<CharacterSkillData>::Failure(records.Error());
+            }
+
+            return PacketResult<CharacterSkillData>::Success(CharacterSkillData(std::move(records.Value())));
+        }
+
+    private:
+        static constexpr std::size_t FieldCount = 1U;
+        static constexpr std::size_t DataFieldIndex = 0U;
+        static constexpr std::size_t RecordFieldCount = 11U;
+        static constexpr std::size_t EmptySlotFieldCount = RecordFieldCount - 1U;
+
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            error.source = PacketSourceTag::Xlsx;
+            return error;
+        }
+
+        [[nodiscard]] static PacketError MakeFieldError(
+            PacketErrorCode code,
+            std::string message,
+            std::size_t fieldIndex)
+        {
+            PacketError error = MakePacketError(code, std::move(message));
+            error.fieldIndex = fieldIndex;
+            return error;
+        }
+
+        [[nodiscard]] static PacketResult<std::vector<CharacterSkillRecord>> ParseRecords(std::string_view payload)
+        {
+            if (payload.empty()) {
+                return PacketResult<std::vector<CharacterSkillRecord>>::Success({});
+            }
+
+            PacketResult<std::vector<std::string>> split = SplitPayload(payload, PayloadDelimiter);
+            if (!split.HasValue()) {
+                PacketError error = split.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = DataFieldIndex;
+                error.source = PacketSourceTag::Xlsx;
+                return PacketResult<std::vector<CharacterSkillRecord>>::Failure(std::move(error));
+            }
+
+            std::vector<std::string> parts = std::move(split.Value());
+            if ((parts.size() % RecordFieldCount) != 0U && !parts.empty() && parts.back().empty()) {
+                parts.pop_back();
+            }
+
+            if (parts.empty() || (parts.size() % RecordFieldCount) != 0U) {
+                return PacketResult<std::vector<CharacterSkillRecord>>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "CharacterSkillData payload 段数量不是 11 的倍数",
+                    DataFieldIndex));
+            }
+
+            std::vector<CharacterSkillRecord> records;
+            records.reserve(parts.size() / RecordFieldCount);
+            for (std::size_t recordIndex = 0; recordIndex < parts.size() / RecordFieldCount; ++recordIndex) {
+                const std::size_t baseIndex = recordIndex * RecordFieldCount;
+                PacketResult<int> skillSlot = ParseDecimalField(parts[baseIndex], baseIndex);
+                if (!skillSlot.HasValue()) {
+                    return PacketResult<std::vector<CharacterSkillRecord>>::Failure(skillSlot.Error());
+                }
+
+                if (IsEmptySlot(parts, baseIndex)) {
+                    records.push_back(CharacterSkillRecord::Empty(skillSlot.Value()));
+                    continue;
+                }
+
+                PacketResult<int> skillId = ParseDecimalField(parts[baseIndex + 1U], baseIndex + 1U);
+                if (!skillId.HasValue()) {
+                    return PacketResult<std::vector<CharacterSkillRecord>>::Failure(skillId.Error());
+                }
+
+                PacketResult<int> level = ParseDecimalField(parts[baseIndex + 3U], baseIndex + 3U);
+                if (!level.HasValue()) {
+                    return PacketResult<std::vector<CharacterSkillRecord>>::Failure(level.Error());
+                }
+
+                PacketResult<int> exp = ParseDecimalField(parts[baseIndex + 4U], baseIndex + 4U);
+                if (!exp.HasValue()) {
+                    return PacketResult<std::vector<CharacterSkillRecord>>::Failure(exp.Error());
+                }
+
+                PacketResult<int> maxLevel = ParseDecimalField(parts[baseIndex + 5U], baseIndex + 5U);
+                if (!maxLevel.HasValue()) {
+                    return PacketResult<std::vector<CharacterSkillRecord>>::Failure(maxLevel.Error());
+                }
+
+                PacketResult<int> nextExp = ParseDecimalField(parts[baseIndex + 6U], baseIndex + 6U);
+                if (!nextExp.HasValue()) {
+                    return PacketResult<std::vector<CharacterSkillRecord>>::Failure(nextExp.Error());
+                }
+
+                PacketResult<int> requiredSlots = ParseDecimalField(parts[baseIndex + 7U], baseIndex + 7U);
+                if (!requiredSlots.HasValue()) {
+                    return PacketResult<std::vector<CharacterSkillRecord>>::Failure(requiredSlots.Error());
+                }
+
+                PacketResult<int> operation = ParseDecimalField(parts[baseIndex + 8U], baseIndex + 8U);
+                if (!operation.HasValue()) {
+                    return PacketResult<std::vector<CharacterSkillRecord>>::Failure(operation.Error());
+                }
+
+                PacketResult<int> consumptionRate = ParseDecimalField(parts[baseIndex + 9U], baseIndex + 9U);
+                if (!consumptionRate.HasValue()) {
+                    return PacketResult<std::vector<CharacterSkillRecord>>::Failure(consumptionRate.Error());
+                }
+
+                PacketResult<int> seqNo = ParseDecimalField(parts[baseIndex + 10U], baseIndex + 10U);
+                if (!seqNo.HasValue()) {
+                    return PacketResult<std::vector<CharacterSkillRecord>>::Failure(seqNo.Error());
+                }
+
+                records.push_back(CharacterSkillRecord {
+                    skillSlot.Value(),
+                    skillId.Value(),
+                    parts[baseIndex + 2U],
+                    level.Value(),
+                    exp.Value(),
+                    maxLevel.Value(),
+                    nextExp.Value(),
+                    requiredSlots.Value(),
+                    operation.Value(),
+                    consumptionRate.Value(),
+                    seqNo.Value(),
+                    false,
+                });
+            }
+
+            return PacketResult<std::vector<CharacterSkillRecord>>::Success(std::move(records));
+        }
+
+        [[nodiscard]] static bool IsEmptySlot(const std::vector<std::string>& parts, std::size_t baseIndex)
+        {
+            for (std::size_t index = 1U; index < RecordFieldCount; ++index) {
+                if (!parts[baseIndex + index].empty()) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        [[nodiscard]] static PacketResult<int> ParseDecimalField(std::string_view text, std::size_t fieldIndex)
+        {
+            bool negative = false;
+            std::size_t index = 0;
+            if (!text.empty() && text.front() == '-') {
+                negative = true;
+                index = 1U;
+            }
+
+            if (index == text.size()) {
+                return PacketResult<int>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "CharacterSkillData 十进制字段为空",
+                    fieldIndex));
+            }
+
+            const std::int64_t maxValue = static_cast<std::int64_t>(std::numeric_limits<int>::max());
+            const std::int64_t minValue = static_cast<std::int64_t>(std::numeric_limits<int>::min());
+            const std::int64_t limit = negative ? (0 - minValue) : maxValue;
+            std::int64_t value = 0;
+
+            for (; index < text.size(); ++index) {
+                const char ch = text[index];
+                if (ch < '0' || ch > '9') {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "CharacterSkillData 十进制字段包含非法字符",
+                        fieldIndex));
+                }
+
+                const int digit = ch - '0';
+                if (value > (limit - digit) / 10) {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "CharacterSkillData 十进制字段超出 int 范围",
+                        fieldIndex));
+                }
+
+                value = (value * 10) + digit;
+            }
+
+            if (negative) {
+                value = -value;
+            }
+
+            return PacketResult<int>::Success(static_cast<int>(value));
+        }
+    };
+
+    /**
      * SEND_PT 宠物技能记录：skillSlot|techId|name|description|forcePoint|techField|target|seqNo。
      */
     struct PetTechRecord

@@ -59,6 +59,10 @@ namespace cg::packet
             {"name", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
         }};
 
+        inline constexpr std::array<PacketFieldSpec, 1> CharacterSkillDataFields = {{
+            {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+        }};
+
         inline constexpr std::array<PacketFieldSpec, 1> TitleListFields = {{
             {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
         }};
@@ -212,7 +216,7 @@ namespace cg::packet
             {"y2", PacketFieldType::Int62, PacketSourceTag::Xlsx},
         }};
 
-        inline constexpr std::array<PacketSpec, 36> PacketRegistry = {{
+        inline constexpr std::array<PacketSpec, 37> PacketRegistry = {{
             {
                 "JFVf",
                 PacketDirection::ClientToServer,
@@ -254,6 +258,13 @@ namespace cg::packet
                 PacketSourceTag::Xlsx,
                 JobNameFields.data(),
                 JobNameFields.size(),
+            },
+            {
+                "cNE",
+                PacketDirection::ServerToClient,
+                PacketSourceTag::Xlsx,
+                CharacterSkillDataFields.data(),
+                CharacterSkillDataFields.size(),
             },
             {
                 "Sc",

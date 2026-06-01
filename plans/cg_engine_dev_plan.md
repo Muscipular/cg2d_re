@@ -514,11 +514,11 @@ textureCache.LoadRgba8(key, image.width, image.height, image.pixels.data(), imag
 3. `es` 字符串转义兼容旧 `nrproto_escapeString/descapeString` 行为。
 4. 明文 token 可按空格和 `0x17` 拆分，可回写旧格式 token 串。
 5. 生产代码按 `send.hpp`、`receive.hpp` 当前 per-packet struct 风格实现；封包覆盖必须包含全部 209 个封包，`CCL` 和 `TgX` 不因旧 C 分发缺失而跳过。
-6. 53 个 xlsx 空 format 封包必须用 C 代码或 IDA MCP 补来源；无法确认字段写 `unknownN`。
-7. 内嵌 payload 至少支持按分隔符解析、回写和 unknown 字段保留。
-8. 每个封包至少有 1 条明文 fixture；含 payload 的封包必须有二级 payload 样本。
+6. 53 个 xlsx 空 format 封包必须用 C 代码或 IDA MCP 补来源；`unknownN` 只能作为盘点/迁移临时字段，单包完成前必须明确字段来源或明确记录为可回写未知 payload。
+7. 内嵌 payload 封包必须在单包目标内完成 payload 解析和组装，支持分隔符、回写和 unknown 字段保留。
+8. 每个封包至少有 1 条明文 fixture；含 payload 的封包必须有二级 payload 样本，且每个 payload 封包独立验收。
 9. 现有 `src/packet` 中 `send::ClientLogin`、`receive::ClientLoginResult`、`utils.hpp` TODO 被收敛进统一 codec 与具体封包结构，不另起重复协议目录。
-10. 全量 parse/build roundtrip 通过；缺 token、非法 i62、未知包返回明确错误。
+10. 209 个封包全部完成主方向 parse 或 encode 后，才允许进入下一阶段；全量 parse/build roundtrip 通过；缺 token、非法 i62、未知包返回明确错误。
 
 ### 目录
 
@@ -555,6 +555,16 @@ tests/fixtures/protocol/
 
 schema 只允许作为测试/fixture 资料存在，用于覆盖率、字段顺序、来源标记和 roundtrip 验证；不得作为生产代码构成，不生成封包类型，不替代 `send.hpp`/`receive.hpp` 风格的显式结构。
 
+### 阶段推进门禁
+
+1. 每个封包都是独立完成单位，不能只完成组级 codec 后推进下一阶段。
+2. 客户端接收封包（服务端->客户端）必须完成完整 `Parse`；客户端发送封包（客户端->服务端）必须完成完整 `Encode`。
+3. 含 payload 封包必须在同一目标内完成 payload 解析和组装；字段待补目标不能进入 parse/encode 实现验收。
+4. `unknownN` 只能作为补字段过程中的临时占位；若最终仍未知，必须保留原始字段并证明 parse->encode 可无损回写，且在目标遗留中标明来源缺口。
+5. 含 payload 封包按 `plans/protocol_m6_inventory.md` 的“含 payload 独立目标清单”逐个推进，目标名格式如 `M6.10.04 地图封包-aBS 服务端->客户端 SEND_MAP_DATA`。
+6. 单包完成标准：代码实现、明文 fixture、payload 样本（如有）、主方向 parse/encode 验证、错误输入验证、进度记录和独立 subAgent 验证均完成。
+7. M6.10-M6.15 只表示分组，不是可一次性关闭的实现目标；分组内所有单包完成后，该分组才可完成。
+
 ### 来源优先级
 
 1. `plans/CG封包.xlsx` 主表 `封包` 的非空定义。
@@ -575,19 +585,19 @@ schema 只允许作为测试/fixture 资料存在，用于覆盖率、字段顺�
 | M6.4 | 明文 token codec | 拆分/构造旧明文封包 token | 支持空格、`0x17` 和行尾处理 |
 | M6.5 | 加密压缩 envelope | encode64/decode64、jEncode/jDecode、ringo 开关 | 短包未压缩路径 roundtrip 通过；压缩路径行为明确 |
 | M6.6 | 封包覆盖与测试 schema | 生产代码不做 schema 驱动；测试 schema 覆盖 209 个封包，并核对 `src/packet` 已有登录封包原型 | 测试 schema 覆盖 100 个 RECV、109 个 SEND；`CCL`、`TgX`、`JFVf`、`whV` 存在 |
-| M6.7 | 外层封包解析 | token 到统一 packet 结构，并定义缺 token、非法 i62、字段数不匹配、未知 code 的错误模型 | 209 个封包均可解析；未知包返回错误 |
-| M6.8 | 外层封包构造 | 统一 packet 到 token 串，并复用 M6.7 错误码表达构造失败 | 209 个封包均可构造明文 token |
+| M6.7 | 外层封包解析 | token 到统一 packet 结构，并定义缺 token、非法 i62、字段数不匹配、未知 code 的错误模型 | 外层解析能力可复用；单包 Parse 完成仍按 M6.10-M6.15 独立验收 |
+| M6.8 | 外层封包构造 | 统一 packet 到 token 串，并复用 M6.7 错误码表达构造失败 | 外层构造能力可复用；单包 Encode 完成仍按 M6.10-M6.15 独立验收 |
 | M6.9 | 内嵌 payload 框架 | 二级分隔和转义 | 支持 `|`、`,`、`\z/\c/\y/\n` |
-| M6.10 | 地图/对象 payload | 地图、对象、坐标封包 payload | 覆盖 `M/MC/C/CA/CD/MN/CC/XYD/SH` |
-| M6.11 | 角色/属性 payload | flag 驱动角色属性 payload | 覆盖 `CP/CP2/CN/TITLE/PR*` |
-| M6.12 | 物品/技能/宠物 payload | 物品、技能、宠物 payload | 覆盖 `I/IA/SI/IR/CS/CT/PT/KP/KP2/PS/iKe/TgX` |
-| M6.13 | 聊天/窗口/系统 payload | 聊天、窗口、系统消息 payload | 覆盖 `MSG/TK/STK/WN/PRW/B/EF/SE/BGMW/PLAYSE/ES` |
-| M6.14 | 战斗/交易/家族 payload | 战斗、交易、家族 payload | 覆盖 `RS/RD/BT/AB*/TR*/GI/GT/GM/GMI/GML/GD` |
-| M6.15 | 登录/角色管理封包 | 登录、角色列表、角色管理；优先迁移 `send::ClientLogin` 和 `receive::ClientLoginResult` | 覆盖 `ClientLogin/CharList/CharLogin/CreateNewChar/CharDelete/CharLogout/PV/PVUP/IP/MAC/Expire`；`JFVf` 可 build，`whV` 可 parse；`whV.result` 枚举和 `data` 空值/`fail`/`block`/`busy` 保留 |
-| M6.16 | xlsx 空字段补全 | 53 个空 format 行补来源 | C/IDA 来源可追踪；未知字段写 `unknownN` |
-| M6.17 | fixture 与回归样本 | 每个封包生成明文样本 | 209 条 fixture；payload 包含二级 payload 样本 |
+| M6.10 | 地图/对象 payload | 地图、对象、坐标封包按 code 独立目标推进 | 每个目标完成主方向 parse/encode、payload parse/build、fixture 和错误验证；示例：`M6.10.04 地图封包-aBS 服务端->客户端 SEND_MAP_DATA` |
+| M6.11 | 角色/属性 payload | 角色、profile、属性封包按 code 独立目标推进 | 每个目标完成主方向 parse/encode、payload parse/build、fixture 和错误验证 |
+| M6.12 | 物品/技能/宠物 payload | 物品、技能、宠物封包按 code 独立目标推进 | 每个目标完成主方向 parse/encode、payload parse/build、fixture 和错误验证 |
+| M6.13 | 聊天/窗口/系统 payload | 聊天、窗口、系统消息封包按 code 独立目标推进 | 每个目标完成主方向 parse/encode、payload parse/build、fixture 和错误验证 |
+| M6.14 | 战斗/交易/家族 payload | 战斗、交易、家族、社交封包按 code 独立目标推进 | 每个目标完成主方向 parse/encode、payload parse/build、fixture 和错误验证 |
+| M6.15 | 登录/角色管理封包 | 登录、角色列表、角色管理按 code 独立目标推进；优先迁移 `send::ClientLogin` 和 `receive::ClientLoginResult` | 每个目标完成主方向 parse/encode、fixture 和错误验证；含 payload 时完成 payload parse/build；`whV.result` 枚举和 `data` 空值/`fail`/`block`/`busy` 保留 |
+| M6.16 | xlsx 空字段补全 | 53 个空 format 行补来源；被单包目标依赖时先补该 code 再实现 | C/IDA 来源可追踪；`unknownN` 只作为临时占位或无损回写字段，不单独视为完成 |
+| M6.17 | fixture 与回归样本 | 每个单包目标生成明文样本 | 209 条 fixture；payload 包含二级 payload 样本；fixture 必须随单包目标一起提交 |
 | M6.18 | 验证入口 | 最小协议测试程序/单测 | 全量 parse/build roundtrip 通过；异常输入不崩溃 |
-| M6.19 | 进度记录与提交 | 更新 `plans/progess.md` 并小步提交 | 每个可验证小步记录并提交；验证交由独立 subAgent |
+| M6.19 | 进度记录与提交 | 每个单包目标更新 `plans/progess.md` 并小步提交 | 每个可验证小步记录并提交；验证交由独立 subAgent |
 
 ### subAgent 拆分
 
@@ -1075,7 +1085,7 @@ M13 GPU backend optional
 4. 实现明文 token codec。
 5. 实现 envelope 未压缩 roundtrip 和压缩错误边界。
 6. 为测试补 209 个封包 schema/覆盖清单。
-7. 迁移 `JFVf` build 与 `whV` parse。
+7. 按单包目标迁移 `JFVf` build 与 `whV` parse。
 8. 实现外层 `PacketParser`。
 9. 实现外层 `PacketBuilder`。
 10. 实现 payload 二级分隔和转义框架。

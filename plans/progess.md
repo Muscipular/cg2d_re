@@ -132,6 +132,7 @@
 | 2026-05-29 | M6 总规划同步 | 更新 `plans/cg_engine_dev_plan.md`：M6 改为封包解析与全量协议支持，补 M6.0-M6.19 任务；原 world 顺延为 M7，性能为 M8，net 连接层为 M9，UI 为 M10，Hook 对照为 M11，跨平台为 M12，GPU 为 M13；推荐开发顺序、迭代建议、风险和当前任务同步调整 | 文档检查；未编译 | M6.1 起未实现 |
 | 2026-06-01 | M6 参考 `src/packet` 更新计划 | 更新 `plans/protocol_m6_inventory.md`，补 `src/packet` 现有结构、`JFVf/whV` 覆盖表和来源标记；更新 `plans/cg_engine_dev_plan.md`，将 M6 实现目录收敛到 `src/packet`，明确 `send` 为客户端发送、`receive` 为客户端接收，并把 `JFVf` build、`whV` parse 纳入 M6.15 | `git diff --check` 通过；独立 subAgent 只读核对通过：209 行清单、100/109 方向统计、53 个空 format、`src/packet` 草稿事实和 M6 任务更新均一致；未编译 | M6.1 起仍未实现；本次不修改 C++ 源码 |
 | 2026-06-01 | M6 schema 定位修正 | 按用户要求更新 M6 计划：生产代码参考 `send.hpp`、`receive.hpp` 的 per-packet struct 风格；schema 不作为代码构成，只能用于测试/fixture 的 209 封包覆盖、字段顺序和 roundtrip 校验 | `git diff --check` 通过；独立 subAgent 只读核对通过：生产代码不做 schema 驱动，schema 仅用于测试/fixture；未编译 | M6.1 起仍未实现；本次不修改 C++ 源码 |
+| 2026-06-01 | M6 单包推进门禁规划 | 按用户要求更新 M6 阶段门禁：每个封包独立完成主方向 parse 或 encode 后才算完成；含 payload 封包必须在单包目标内完成 payload 解析和组装；M6.10-M6.15 只作分组，不能组级关闭；`plans/protocol_m6_inventory.md` 补 88 个含 payload 独立目标和 M6 实现状态 | `git diff --check` 通过；独立 subAgent 只读核对通过：88 个 payload 目标、33 个字段待补、66/22 payload 方向统计、209 全量方向统计均一致；未编译 | M6.1 起仍未实现；本次不修改 C++ 源码 |
 
 ## 工具补充
 

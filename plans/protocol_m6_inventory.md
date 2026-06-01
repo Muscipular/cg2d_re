@@ -58,6 +58,106 @@
 
 schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp`/`receive.hpp` 风格的封包结构；只可放在测试或 fixture 中，用于校验 209 个 code 覆盖、字段顺序、来源和 roundtrip。
 
+## M6 单包推进规则
+- 每个封包是独立完成单位；服务端->客户端封包完成完整 `Parse`，客户端->服务端封包完成完整 `Encode`。
+- 含 payload 封包必须在同一目标内完成 payload 解析和组装，不能只完成外层 token。
+- M6.10-M6.15 只是分组；分组内每个 code 均完成后，分组才算完成。
+- 主表“状态”是 xlsx 来源状态，不代表 M6 实现状态；M6 实现状态以本表 `M6 实现状态` 为准。
+- `字段待补` 目标必须先补 C/IDA 来源；`unknownN` 只能作为临时占位或可证明无损回写的未知字段，不能单独算完整 parse/encode 完成。
+- 下表基于当前“是否疑似内嵌 payload=是”生成，共 88 个独立目标；字段结构仍以 xlsx/C/IDA 后续确认，不在本表猜测。
+
+## 含 payload 独立目标清单
+| 目标 | code | 方向 | format 是否为空 | M6 实现状态 | 说明 |
+|---|---|---|---|---|---|
+| M6.10.01 地图封包-TeD | `TeD` | 服务端->客户端 | 否 | 未开始 | SEND_MN SendMapName |
+| M6.10.02 地图封包-nsY | `nsY` | 服务端->客户端 | 否 | 未开始 | SEND_C ObjectList |
+| M6.10.03 地图封包-NI | `NI` | 服务端->客户端 | 否 | 未开始 | SEND_CA 发送头顶图标 |
+| M6.10.04 地图封包-aBS | `aBS` | 服务端->客户端 | 否 | 未开始 | SEND_MAP_DATA |
+| M6.10.05 地图封包-uSB | `uSB` | 服务端->客户端 | 否 | 未开始 | SEND_CD 发送删除ObjectIndex列表 |
+| M6.10.06 地图封包-UUN | `UUN` | 客户端->服务端 | 否 | 未开始 | RECV_M MAP_getdataFromRECT 获取地图信息 |
+| M6.11.01 角色/Profile封包-HNP | `HNP` | 服务端->客户端 | 否 | 未开始 | SEND_PRV  CHAR_sendProfileVersion简介版本内容 |
+| M6.11.02 角色/Profile封包-aPc | `aPc` | 服务端->客户端 | 否 | 未开始 | SEND_CP CharData_1 |
+| M6.11.03 角色/Profile封包-UU | `UU` | 服务端->客户端 | 否 | 未开始 | SEND_CP2 CharData_2 |
+| M6.11.04 角色/Profile封包-jv | `jv` | 服务端->客户端 | 否 | 未开始 | SEND_CJ SendJobName |
+| M6.11.05 角色/Profile封包-Sc | `Sc` | 服务端->客户端 | 否 | 未开始 | SEND_TITLE |
+| M6.11.06 角色/Profile封包-eZT | `eZT` | 服务端->客户端 | 否 | 未开始 | SEND_PRL 收到profile list |
+| M6.11.07 角色/Profile封包-IUn | `IUn` | 服务端->客户端 | 否 | 未开始 | SEND_PRA 收到about list |
+| M6.11.08 角色/Profile封包-DpSY | `DpSY` | 服务端->客户端 | 否 | 未开始 | SEND_PRD profile data |
+| M6.11.09 角色/Profile封包-cNB | `cNB` | 服务端->客户端 | 否 | 未开始 | SEND_PRE 删除迷你邮件成员 |
+| M6.11.10 角色/Profile封包-ow | `ow` | 服务端->客户端 | 否 | 未开始 | SEND_PRM 迷你信件回执? |
+| M6.11.11 角色/Profile封包-DyAG | `DyAG` | 服务端->客户端 | 否 | 未开始 | SEND_PRW 交流版 |
+| M6.11.12 角色/Profile封包-KyN | `KyN` | 服务端->客户端 | 否 | 未开始 | SEND_PRAD 收到迷你信件 |
+| M6.11.13 角色/Profile封包-TNT | `TNT` | 服务端->客户端 | 是 | 字段待补 | SEND_PP |
+| M6.11.14 角色/Profile封包-JJQj | `JJQj` | 服务端->客户端 | 是 | 字段待补 | SEND_CN |
+| M6.11.15 角色/Profile封包-Rspn | `Rspn` | 服务端->客户端 | 是 | 字段待补 | SEND_CT |
+| M6.11.16 角色/Profile封包-OBee | `OBee` | 服务端->客户端 | 是 | 字段待补 | SEND_PT |
+| M6.11.17 角色/Profile封包-Yo | `Yo` | 服务端->客户端 | 是 | 字段待补 | SEND_S |
+| M6.11.18 角色/Profile封包-ysVc | `ysVc` | 服务端->客户端 | 是 | 字段待补 | SEND_GFL CHAR_sendFrontCharList |
+| M6.11.19 角色/Profile封包-ND | `ND` | 服务端->客户端 | 是 | 字段待补 | SEND_GPD CHAR_sendCharAndPetList |
+| M6.11.20 角色/Profile封包-LY | `LY` | 服务端->客户端 | 是 | 字段待补 | SEND_GFLI CHAR_sendFrontCharList |
+| M6.11.21 角色/Profile封包-nFV | `nFV` | 服务端->客户端 | 是 | 字段待补 | SEND_GPDI CHAR_sendCharAndPetList |
+| M6.11.22 角色/Profile封包-Ot | `Ot` | 客户端->服务端 | 否 | 未开始 | RECV_PRS SetProfileData 简介内容 |
+| M6.11.23 角色/Profile封包-RXr | `RXr` | 客户端->服务端 | 是 | 字段待补 | RECV_MU |
+| M6.11.24 角色/Profile封包-Flvp | `Flvp` | 客户端->服务端 | 是 | 字段待补 | RECV_PS |
+| M6.11.25 角色/Profile封包-kjSK | `kjSK` | 客户端->服务端 | 否 | 未开始 | RECV_PLVUP 宠物加点 |
+| M6.11.26 角色/Profile封包-HJQp | `HJQp` | 客户端->服务端 | 否 | 未开始 | RECV_PSSW SKILL_swapPetSkill 宠物技能移动 |
+| M6.11.27 角色/Profile封包-ycX | `ycX` | 客户端->服务端 | 否 | 未开始 | RECV_KN CHAR_inputUserPetName 宠物姓名 |
+| M6.12.01 物品/技能/宠物封包-cNE | `cNE` | 服务端->客户端 | 否 | 未开始 | SEND_CS CHAR_sendSkillData |
+| M6.12.02 物品/技能/宠物封包-rU | `rU` | 服务端->客户端 | 否 | 未开始 | SEND_I CHAR_sendItemData |
+| M6.12.03 物品/技能/宠物封包-Ilz | `Ilz` | 服务端->客户端 | 否 | 未开始 | SEND_AL 图鉴？ |
+| M6.12.04 物品/技能/宠物封包-ELoy | `ELoy` | 服务端->客户端 | 是 | 字段待补 | SEND_IA 道具信息相关 |
+| M6.12.05 物品/技能/宠物封包-xmgQ | `xmgQ` | 服务端->客户端 | 是 | 字段待补 | SEND_IR CHAR_sendItemRecipe |
+| M6.12.06 物品/技能/宠物封包-dM | `dM` | 服务端->客户端 | 是 | 字段待补 | SEND_ALI |
+| M6.12.07 物品/技能/宠物封包-Dn | `Dn` | 服务端->客户端 | 是 | 字段待补 | SEND_ALN |
+| M6.12.08 物品/技能/宠物封包-lDuJ | `lDuJ` | 服务端->客户端 | 否 | 未开始 | SEND_PME 宠邮动画 |
+| M6.12.09 物品/技能/宠物封包-IsSy | `IsSy` | 服务端->客户端 | 是 | 字段待补 | SEND_KP |
+| M6.12.10 物品/技能/宠物封包-AU | `AU` | 服务端->客户端 | 是 | 字段待补 | SEND_KP2 |
+| M6.12.11 物品/技能/宠物封包-JgO | `JgO` | 服务端->客户端 | 是 | 字段待补 | SEND_TU techuse |
+| M6.12.12 物品/技能/宠物封包-iKe | `iKe` | 服务端->客户端 | 是 | 字段待补 | SEND_PET_ITEM |
+| M6.12.13 物品/技能/宠物封包-TgX | `TgX` | 服务端->客户端 | 否 | 未开始 | SEND_EQUIP_SUIT |
+| M6.12.14 物品/技能/宠物封包-rMsv | `rMsv` | 客户端->服务端 | 否 | 未开始 | RECV_PMSG 发送宠邮 |
+| M6.12.15 物品/技能/宠物封包-PfqV | `PfqV` | 客户端->服务端 | 否 | 未开始 | RECV_PGML 宠邮 |
+| M6.13.01 聊天/窗口/系统封包-Zd | `Zd` | 服务端->客户端 | 否 | 未开始 | SEND_STK  SYSTEMMSG 系统信息 |
+| M6.13.02 聊天/窗口/系统封包-zzd | `zzd` | 服务端->客户端 | 否 | 未开始 | SEND_EF |
+| M6.13.03 聊天/窗口/系统封包-LYIm | `LYIm` | 服务端->客户端 | 是 | 字段待补 | SEND_B |
+| M6.13.04 聊天/窗口/系统封包-Mhbt | `Mhbt` | 服务端->客户端 | 是 | 字段待补 | SEND_MSG recvmsg |
+| M6.13.05 聊天/窗口/系统封包-zdr | `zdr` | 服务端->客户端 | 是 | 字段待补 | SEND_TK |
+| M6.13.06 聊天/窗口/系统封包-BZ | `BZ` | 服务端->客户端 | 否 | 未开始 | SEND_WN |
+| M6.13.07 聊天/窗口/系统封包-ft | `ft` | 服务端->客户端 | 否 | 未开始 | SEND_StallBrowse |
+| M6.13.08 聊天/窗口/系统封包-CV | `CV` | 客户端->服务端 | 否 | 未开始 | RECV_MSG 发送邮件信息 触发SEND_MSG |
+| M6.13.09 聊天/窗口/系统封包-uSr | `uSr` | 客户端->服务端 | 否 | 未开始 | RECV_TK 发送聊天 |
+| M6.13.10 聊天/窗口/系统封包-xD | `xD` | 客户端->服务端 | 否 | 未开始 | RECV_WN 打开系统窗口 |
+| M6.13.11 聊天/窗口/系统封包-IcE | `IcE` | 客户端->服务端 | 是 | 字段待补 | RECV_Shutdown |
+| M6.14.01 战斗/交易/家族/社交封包-gnxd | `gnxd` | 服务端->客户端 | 否 | 未开始 | SEND_AB SendAddressbook |
+| M6.14.02 战斗/交易/家族/社交封包-PhdQ | `PhdQ` | 服务端->客户端 | 否 | 未开始 | SEND_ABG SendAddressbookGuildInfo |
+| M6.14.03 战斗/交易/家族/社交封包-Gn | `Gn` | 服务端->客户端 | 是 | 字段待补 | SEND_RS 战斗获得物品 |
+| M6.14.04 战斗/交易/家族/社交封包-hB | `hB` | 服务端->客户端 | 是 | 字段待补 | SEND_RD BATTLE_GetDuelPoint |
+| M6.14.05 战斗/交易/家族/社交封包-vI | `vI` | 服务端->客户端 | 否 | 未开始 | SEND_ABI ADDRESSBOOK_sendAddressbookTableOne |
+| M6.14.06 战斗/交易/家族/社交封包-aDn | `aDn` | 服务端->客户端 | 否 | 未开始 | SEND_GI guildinfo |
+| M6.14.07 战斗/交易/家族/社交封包-znv | `znv` | 服务端->客户端 | 否 | 未开始 | SEND_GT guildtitle |
+| M6.14.08 战斗/交易/家族/社交封包-yuD | `yuD` | 服务端->客户端 | 否 | 未开始 | SEND_GM guildmember |
+| M6.14.09 战斗/交易/家族/社交封包-Kka | `Kka` | 服务端->客户端 | 否 | 未开始 | SEND_GMI guildmemberinfo |
+| M6.14.10 战斗/交易/家族/社交封包-Rll | `Rll` | 服务端->客户端 | 否 | 未开始 | SEND_GML 家族邮件 |
+| M6.14.11 战斗/交易/家族/社交封包-Cxo | `Cxo` | 服务端->客户端 | 是 | 字段待补 | SEND_TRPL CHAR_Trade_getPlayerList 获得可交易人员列表 |
+| M6.14.12 战斗/交易/家族/社交封包-ms | `ms` | 服务端->客户端 | 是 | 字段待补 | SEND_TRS CHAR_Trade_startTrade 被交易 |
+| M6.14.13 战斗/交易/家族/社交封包-nUbJ | `nUbJ` | 服务端->客户端 | 是 | 字段待补 | SEND_TRLI CHAR_Trade_setTradeList 对方物品信息 |
+| M6.14.14 战斗/交易/家族/社交封包-RwK | `RwK` | 服务端->客户端 | 是 | 字段待补 | SEND_TRLP CHAR_Trade_setTradeList 对法宠物信息 |
+| M6.14.15 战斗/交易/家族/社交封包-Yq | `Yq` | 服务端->客户端 | 是 | 字段待补 | SEND_TRLPS CHAR_Trade_setTradeList 对方宠物技能信息 |
+| M6.14.16 战斗/交易/家族/社交封包-woz | `woz` | 客户端->服务端 | 否 | 未开始 | RECV_DG DropGold 丢金币 |
+| M6.14.17 战斗/交易/家族/社交封包-Ufm | `Ufm` | 客户端->服务端 | 否 | 未开始 | RECV_GI 变更家族信息 |
+| M6.14.18 战斗/交易/家族/社交封包-GY | `GY` | 客户端->服务端 | 否 | 未开始 | RECV_GT 设置家族职位信息 |
+| M6.14.19 战斗/交易/家族/社交封包-uId | `uId` | 客户端->服务端 | 否 | 未开始 | RECV_GML 家族邮件 |
+| M6.14.20 战斗/交易/家族/社交封包-wD | `wD` | 客户端->服务端 | 否 | 未开始 | RECV_PRE 删除迷你邮件好友 |
+| M6.14.21 战斗/交易/家族/社交封包-GH | `GH` | 客户端->服务端 | 否 | 未开始 | RECV_PRM 发送迷你邮件 |
+| M6.14.22 战斗/交易/家族/社交封包-aiAb | `aiAb` | 客户端->服务端 | 否 | 未开始 | RECV_TROP CHAR_Trade_setTradeList 取出物品 |
+| M6.14.23 战斗/交易/家族/社交封包-ylGN | `ylGN` | 客户端->服务端 | 否 | 未开始 | RECV_StallStart 开始摆摊请求 |
+| M6.15.01 登录/角色管理封包-whV | `whV` | 服务端->客户端 | 否 | 未开始 | SEND_ClientLogin 登录角色表结果 |
+| M6.15.02 登录/角色管理封包-Daj | `Daj` | 服务端->客户端 | 否 | 未开始 | SEND_CharList 登录角色表 |
+| M6.15.03 登录/角色管理封包-DZ | `DZ` | 服务端->客户端 | 是 | 字段待补 | SEND_CreateNewChar |
+| M6.15.04 登录/角色管理封包-oy | `oy` | 服务端->客户端 | 是 | 字段待补 | SEND_CharDelete |
+| M6.15.05 登录/角色管理封包-cJzI | `cJzI` | 服务端->客户端 | 是 | 字段待补 | SEND_ProcGet |
+| M6.15.06 登录/角色管理封包-aSEl | `aSEl` | 客户端->服务端 | 否 | 未开始 | RECV_CreateNewChar 创建角色 |
+
 ## 现有 `src/packet/` 封包清单
 | code | 方向 | 现有类型 | format | 当前状态 |
 |---|---|---|---|---|

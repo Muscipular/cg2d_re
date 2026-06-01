@@ -54,6 +54,9 @@
 2. 避免随意改动其他关联方的函数
 3. 工具函数是好，但不能滥用
 
+# packet 规范
+1. 小颗粒协议工具优先收敛到既有 `src/packet` 工具文件；避免为少量函数新增独立 hpp/cpp，确有复用范围或复杂度后再拆分。
+
 # 常用文件
 "C:\Program Files (x86)\Microsoft Visual Studio\Installer\vswhere.exe"
 "C:\Program Files\Microsoft Visual Studio\18\Enterprise\Common7\Tools\VsDevCmd.bat"

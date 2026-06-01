@@ -527,9 +527,8 @@ src/packet/
 ├─ packet.hpp
 ├─ send.hpp
 ├─ receive.hpp
-├─ utils.hpp
+├─ utils.hpp                 # i62 等小颗粒协议工具收敛于此
 ├─ PacketTypes.hpp
-├─ LegacyNumberCodec.hpp/.cpp
 ├─ LegacyStringCodec.hpp/.cpp
 ├─ LegacyTokenCodec.hpp/.cpp
 ├─ LegacyEnvelopeCodec.hpp/.cpp

@@ -96,7 +96,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | M6.11.19 角色/Profile封包-ND | `ND` | 服务端->客户端 | 是 | 完成 | SEND_GPD；旧 C `RECV_GPD/nrproto_GPD_recv` + `CHAR_sendCharAndPetList` + `SEND_GPD/nrproto_GPD_send` 补外层 `{data:es}`；payload 为 0..6 条 `name|level|injury|hp|maxHp|forcePoint|maxForcePoint|` 记录，name 保留 raw escaped 字符串，数值为 raw decimal |
 | M6.11.20 角色/Profile封包-LY | `LY` | 服务端->客户端 | 是 | 完成 | SEND_GFLI；旧 C `SEND_GFLI/CHAR_sendFrontCharList` + IDA 补外层 `{data:es}`；payload 为 `name|nonPlayerFlag|` 重复记录，空 data 为空列表，name 保留 makeEscapeString 后 raw 字符串，nonPlayerFlag 只接受 `0/1` |
 | M6.11.21 角色/Profile封包-nFV | `nFV` | 服务端->客户端 | 是 | 完成 | SEND_GPDI；旧 C `nrproto_GPDI_send` + `CHAR_sendCharAndPetList` + IDA `sub_4E4020` 补外层 `{data:es}`；payload 为 0..6 条 `name|level|injury|hp|maxHp|forcePoint|maxForcePoint|` 记录，name 保留 raw escaped 字符串，数值为 raw decimal |
-| M6.11.22 角色/Profile封包-Ot | `Ot` | 客户端->服务端 | 否 | 未开始 | RECV_PRS SetProfileData 简介内容 |
+| M6.11.22 角色/Profile封包-Ot | `Ot` | 客户端->服务端 | 否 | 完成 | RECV_PRS/nrproto_PRS_recv + IDA sub_511640 确认外层 7 token；无二级 payload |
 | M6.11.23 角色/Profile封包-RXr | `RXr` | 客户端->服务端 | 是 | 字段待补 | RECV_MU |
 | M6.11.24 角色/Profile封包-Flvp | `Flvp` | 客户端->服务端 | 是 | 字段待补 | RECV_PS |
 | M6.11.25 角色/Profile封包-kjSK | `kjSK` | 客户端->服务端 | 否 | 未开始 | RECV_PLVUP 宠物加点 |
@@ -230,7 +230,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 36 | `Or` | 客户端->服务端 | 完成 | Ping | 否 | 否 | xlsx |
 | 37 | `DE` | 客户端->服务端 | 完成 | RECV_FCTime, 定时心跳包，视服务器setup.cf配置而定 {fctime}秒内心跳{fccount}次 | 否 | 否 | xlsx |
 | 38 | `LOh` | 服务端->客户端 | 完成 | Pong | 否 | 否 | xlsx |
-| 39 | `Ot` | 客户端->服务端 | 完成 | RECV_PRS SetProfileData 简介内容 | 否 | 是 | xlsx |
+| 39 | `Ot` | 客户端->服务端 | 完成 | RECV_PRS SetProfileData 简介内容；外层 7 token，无二级 payload | 否 | 是 | xlsx + src/packet |
 | 40 | `aBS` | 服务端->客户端 | 完成 | SEND_MAP_DATA | 否 | 是 | xlsx |
 | 41 | `UUN` | 客户端->服务端 | 完成 | RECV_M MAP_getdataFromRECT 获取地图信息 | 否 | 是 | xlsx |
 | 42 | `zA` | 客户端->服务端 | 完成 | RECV_W 移动 | 否 | 否 | xlsx |

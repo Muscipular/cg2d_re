@@ -87,6 +87,16 @@ namespace cg::packet
             {"pmsg", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
         }};
 
+        inline constexpr std::array<PacketFieldSpec, 7> SetProfileDataFields = {{
+            {"sellFlag", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"sellMsg", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+            {"buyFlag", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"buyMsg", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+            {"aboutFlg", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"aboutMsg", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+            {"ProfileMsg", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+        }};
+
         inline constexpr std::array<PacketFieldSpec, 1> ProfileMailDeleteFields = {{
             {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
         }};
@@ -179,7 +189,7 @@ namespace cg::packet
             {"y2", PacketFieldType::Int62, PacketSourceTag::Xlsx},
         }};
 
-        inline constexpr std::array<PacketSpec, 31> PacketRegistry = {{
+        inline constexpr std::array<PacketSpec, 32> PacketRegistry = {{
             {
                 "JFVf",
                 PacketDirection::ClientToServer,
@@ -249,6 +259,13 @@ namespace cg::packet
                 PacketSourceTag::Xlsx,
                 ProfileDataFields.data(),
                 ProfileDataFields.size(),
+            },
+            {
+                "Ot",
+                PacketDirection::ClientToServer,
+                PacketSourceTag::Xlsx,
+                SetProfileDataFields.data(),
+                SetProfileDataFields.size(),
             },
             {
                 "cNB",

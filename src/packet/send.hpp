@@ -133,6 +133,94 @@ namespace cg::packet::send
             return BuildPacket(ToPacket());
         }
     };
+
+    /**
+     * RECV_PRS SetProfileData 简介内容 Ot {sellFlag:i62} {sellMsg:es} {buyFlag:i62} {buyMsg:es} {aboutFlg:i62} {aboutMsg:es} {ProfileMsg:es}
+     */
+    struct SetProfileData
+    {
+        static constexpr std::string_view Code = "Ot";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+
+        int sellFlag = 0;
+        std::string sellMessage;
+        int buyFlag = 0;
+        std::string buyMessage;
+        int aboutFlag = 0;
+        std::string aboutMessage;
+        std::string profileMessage;
+
+        SetProfileData(
+            int sellFlag,
+            std::string sellMessage,
+            int buyFlag,
+            std::string buyMessage,
+            int aboutFlag,
+            std::string aboutMessage,
+            std::string profileMessage)
+            : sellFlag(sellFlag),
+              sellMessage(std::move(sellMessage)),
+              buyFlag(buyFlag),
+              buyMessage(std::move(buyMessage)),
+              aboutFlag(aboutFlag),
+              aboutMessage(std::move(aboutMessage)),
+              profileMessage(std::move(profileMessage))
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            packet.fields.push_back(PacketField {
+                "sellFlag",
+                PacketFieldType::Int62,
+                std::to_string(sellFlag),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "sellMsg",
+                PacketFieldType::EscapedString,
+                sellMessage,
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "buyFlag",
+                PacketFieldType::Int62,
+                std::to_string(buyFlag),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "buyMsg",
+                PacketFieldType::EscapedString,
+                buyMessage,
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "aboutFlg",
+                PacketFieldType::Int62,
+                std::to_string(aboutFlag),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "aboutMsg",
+                PacketFieldType::EscapedString,
+                aboutMessage,
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "ProfileMsg",
+                PacketFieldType::EscapedString,
+                profileMessage,
+                PacketSourceTag::Xlsx,
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket());
+        }
+    };
 }
 
 #endif //CG_ENGINE_SEND_H

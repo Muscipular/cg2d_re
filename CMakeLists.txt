@@ -435,6 +435,17 @@ target_include_directories(cg-packet-profile-data-test
 
 add_test(NAME cg-packet-profile-data-test COMMAND cg-packet-profile-data-test)
 
+add_executable(cg-packet-profile-set-data-test
+    tests/packet/ProfileSetDataPacketTest.cpp
+)
+
+target_include_directories(cg-packet-profile-set-data-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+
+add_test(NAME cg-packet-profile-set-data-test COMMAND cg-packet-profile-set-data-test)
+
 add_executable(cg-packet-profile-mail-delete-test
     tests/packet/ProfileMailDeletePacketTest.cpp
 )
@@ -632,6 +643,7 @@ if(MSVC)
     target_compile_options(cg-packet-profile-list-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-about-list-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-profile-data-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-profile-set-data-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-profile-mail-delete-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-profile-mail-receipt-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-profile-mail-arrive-test PRIVATE /W4 /utf-8 /permissive-)
@@ -675,6 +687,7 @@ else()
     target_compile_options(cg-packet-profile-list-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-about-list-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-profile-data-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-packet-profile-set-data-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-profile-mail-delete-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-profile-mail-receipt-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-profile-mail-arrive-test PRIVATE -Wall -Wextra -Wpedantic)

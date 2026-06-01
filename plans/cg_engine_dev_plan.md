@@ -513,11 +513,11 @@ textureCache.LoadRgba8(key, image.width, image.height, image.pixels.data(), imag
 2. 默认数值编码为 `i62`，即旧端 base62：`0-9a-zA-Z`，支持负号。
 3. `es` 字符串转义兼容旧 `nrproto_escapeString/descapeString` 行为。
 4. 明文 token 可按空格和 `0x17` 拆分，可回写旧格式 token 串。
-5. 注册表包含全部 209 个封包；`CCL` 和 `TgX` 不因旧 C 分发缺失而跳过。
+5. 生产代码按 `send.hpp`、`receive.hpp` 当前 per-packet struct 风格实现；封包覆盖必须包含全部 209 个封包，`CCL` 和 `TgX` 不因旧 C 分发缺失而跳过。
 6. 53 个 xlsx 空 format 封包必须用 C 代码或 IDA MCP 补来源；无法确认字段写 `unknownN`。
 7. 内嵌 payload 至少支持按分隔符解析、回写和 unknown 字段保留。
 8. 每个封包至少有 1 条明文 fixture；含 payload 的封包必须有二级 payload 样本。
-9. 现有 `src/packet` 中 `send::ClientLogin`、`receive::ClientLoginResult`、`utils.hpp` TODO 被收敛进统一 codec/schema，不另起重复协议目录。
+9. 现有 `src/packet` 中 `send::ClientLogin`、`receive::ClientLoginResult`、`utils.hpp` TODO 被收敛进统一 codec 与具体封包结构，不另起重复协议目录。
 10. 全量 parse/build roundtrip 通过；缺 token、非法 i62、未知包返回明确错误。
 
 ### 目录
@@ -533,7 +533,6 @@ src/packet/
 ├─ LegacyStringCodec.hpp/.cpp
 ├─ LegacyTokenCodec.hpp/.cpp
 ├─ LegacyEnvelopeCodec.hpp/.cpp
-├─ ProtocolRegistry.hpp/.cpp
 ├─ PacketParser.hpp/.cpp
 ├─ PacketBuilder.hpp/.cpp
 ├─ PayloadCodec.hpp/.cpp
@@ -546,12 +545,15 @@ src/packet/
 
 tests/packet/
 ├─ LegacyCodecTest.cpp
-├─ ProtocolRegistryTest.cpp
+├─ PacketCoverageSchemaTest.cpp
 └─ PayloadCodecTest.cpp
 
 tests/fixtures/protocol/
+├─ schema/*
 └─ *.pkt
 ```
+
+schema 只允许作为测试/fixture 资料存在，用于覆盖率、字段顺序、来源标记和 roundtrip 验证；不得作为生产代码构成，不生成封包类型，不替代 `send.hpp`/`receive.hpp` 风格的显式结构。
 
 ### 来源优先级
 
@@ -567,12 +569,12 @@ tests/fixtures/protocol/
 | 编号 | 任务 | 说明 | 验收标准 |
 |---|---|---|---|
 | M6.0 | 协议资料盘点 | 读取 xlsx、C 代码和 `src/packet` 原型，生成协议清单 | `plans/protocol_m6_inventory.md` 包含 209 个封包，并标出 `src/packet` 已有 `JFVf/whV` |
-| M6.1 | 协议基础类型 | 在 `src/packet` 收敛 `PacketCode`、方向、字段类型、错误码、来源标记和基础 `Packet` 表达 | `PacketTypes` 公开头无 SDL 类型；`send` 表示客户端发出，`receive` 表示客户端接收；解析失败不返回半初始化对象 |
+| M6.1 | 协议基础类型 | 在 `src/packet` 收敛 `PacketCode`、方向、字段类型、错误码、来源标记和基础 `Packet` 表达；具体封包继续参考 `send.hpp`、`receive.hpp` 的 struct 风格 | `PacketTypes` 公开头无 SDL 类型；`send` 表示客户端发出，`receive` 表示客户端接收；解析失败不返回半初始化对象 |
 | M6.2 | i62 编解码 | 迁移 base62 数值编码；统一说明 `i62` 即旧端 base62 数值格式 | 与 `nrproto_a62toi/cnv10to62` 行为一致 |
 | M6.3 | es 字符串转义 | 迁移旧字符串 escape/descape | 空格、换行、回车、反斜杠和旧 2 字节字符行为一致 |
 | M6.4 | 明文 token codec | 拆分/构造旧明文封包 token | 支持空格、`0x17` 和行尾处理 |
 | M6.5 | 加密压缩 envelope | encode64/decode64、jEncode/jDecode、ringo 开关 | 短包未压缩路径 roundtrip 通过；压缩路径行为明确 |
-| M6.6 | Schema 注册表 | 注册 209 个封包，并接入 `src/packet` 已有登录封包原型 | 100 个 RECV、109 个 SEND；`CCL`、`TgX`、`JFVf`、`whV` 存在 |
+| M6.6 | 封包覆盖与测试 schema | 生产代码不做 schema 驱动；测试 schema 覆盖 209 个封包，并核对 `src/packet` 已有登录封包原型 | 测试 schema 覆盖 100 个 RECV、109 个 SEND；`CCL`、`TgX`、`JFVf`、`whV` 存在 |
 | M6.7 | 外层封包解析 | token 到统一 packet 结构，并定义缺 token、非法 i62、字段数不匹配、未知 code 的错误模型 | 209 个封包均可解析；未知包返回错误 |
 | M6.8 | 外层封包构造 | 统一 packet 到 token 串，并复用 M6.7 错误码表达构造失败 | 209 个封包均可构造明文 token |
 | M6.9 | 内嵌 payload 框架 | 二级分隔和转义 | 支持 `|`、`,`、`\z/\c/\y/\n` |
@@ -1072,7 +1074,7 @@ M13 GPU backend optional
 3. 实现 es 字符串转义。
 4. 实现明文 token codec。
 5. 实现 envelope 未压缩 roundtrip 和压缩错误边界。
-6. 注册 209 个封包 schema。
+6. 为测试补 209 个封包 schema/覆盖清单。
 7. 迁移 `JFVf` build 与 `whV` parse。
 8. 实现外层 `PacketParser`。
 9. 实现外层 `PacketBuilder`。

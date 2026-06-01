@@ -75,7 +75,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | M6.10.04 地图封包-aBS | `aBS` | 服务端->客户端 | 否 | 完成 | SEND_MAP_DATA；外层 `{mapid:i62} {floor:i62} {x1:i62} {y1:i62} {x2:i62} {y2:i62} {data:es}`；`data` 拆 `tileData|objectData|eventDataRaw` 三段，每段按 `,` 拆 i62 网格，不拆业务事件语义 |
 | M6.10.05 地图封包-uSB | `uSB` | 服务端->客户端 | 否 | 完成 | SEND_CD 发送删除ObjectIndex列表；按旧 C 修正为单外层 `{data:es}`，不实现 xlsx 第二外层 `objectIndex:i62` 字段；`data` payload 按 `,` 拆 objectIndex i62 列表，允许空列表 |
 | M6.10.06 地图封包-UUN | `UUN` | 客户端->服务端 | 否 | 完成 | RECV_M MAP_getdataFromRECT 获取地图信息；实现 `{mapid:i62} {floor:i62} {x1:i62} {y1:i62} {x2:i62} {y2:i62}` Encode；M6.10 地图组完成 |
-| M6.11.01 角色/Profile封包-HNP | `HNP` | 服务端->客户端 | 否 | 未开始 | SEND_PRV  CHAR_sendProfileVersion简介版本内容 |
+| M6.11.01 角色/Profile封包-HNP | `HNP` | 服务端->客户端 | 否 | 完成 | SEND_PRV  CHAR_sendProfileVersion简介版本内容；外层 `{data:es}`；payload 为 `profileVersion|aboutVersion|mailCharge|seekPos` 4 段 raw decimal，不用 i62 |
 | M6.11.02 角色/Profile封包-aPc | `aPc` | 服务端->客户端 | 否 | 未开始 | SEND_CP CharData_1 |
 | M6.11.03 角色/Profile封包-UU | `UU` | 服务端->客户端 | 否 | 未开始 | SEND_CP2 CharData_2 |
 | M6.11.04 角色/Profile封包-jv | `jv` | 服务端->客户端 | 否 | 未开始 | SEND_CJ SendJobName |
@@ -163,6 +163,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 |---|---|---|---|---|
 | `JFVf` | 客户端->服务端 | `cg::packet::send::ClientLogin` | `{clientHash:es} {password:es} {account:es}` | 结构已存在，Encode 待实现 |
 | `whV` | 服务端->客户端 | `cg::packet::receive::ClientLoginResult` | `{result:i62} {data:es}` | 结构与结果枚举已存在，Parse 待实现；`data` 可能为空或为 `fail/block/busy` |
+| `HNP` | 服务端->客户端 | `cg::packet::receive::ProfileVersion` | `{data:es}` | M6.11.01 已实现；`data` 按 `|` 拆 `profileVersion/aboutVersion/mailCharge/seekPos` 4 段，均为 raw decimal，不用 i62，`seekPos` 可为 `-1` |
 | `TeD` | 服务端->客户端 | `cg::packet::receive::MapName` | `{data:es}` | M6.10.01 已实现；仅保留 `data`，不拆二级 payload |
 | `nsY` | 服务端->客户端 | `cg::packet::receive::ObjectList` | `{data:es}` | M6.10.02 已实现；`data` 按字面 `\t` 拆 object record，record 按 `|` 保留 raw fields；仅校验 4、7、>=16 字段和 objectIndex i62，不拆 ownTitle/petInfo suffix |
 | `NI` | 服务端->客户端 | `cg::packet::receive::CharacterIcon` | `{data:es}` | M6.10.03 已实现；按旧 C `nrproto_CA_send` 修正为单外层 `data`，不实现 xlsx `caInfo` 外层字段；`data` 按 `,` 拆 entry、按 `|` 保留 raw fields；仅校验 5、6、8、12 字段和 objectIndex i62 |

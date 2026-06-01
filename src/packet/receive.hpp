@@ -78,6 +78,208 @@ namespace cg::packet::receive
     };
 
     /**
+     * SEND_PRV 简介版本内容		HNP {data:es}
+     * data: profileVersion|aboutVersion|mailCharge|seekPos，均为十进制 int，不使用 i62。
+     */
+    struct ProfileVersion
+    {
+        static constexpr std::string_view Code = "HNP";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::string_view PayloadDelimiter = "|";
+
+        int profileVersion = 0;
+        int aboutVersion = 0;
+        int mailCharge = 0;
+        int seekPos = 0;
+
+        ProfileVersion(int profileVersion, int aboutVersion, int mailCharge, int seekPos)
+            : profileVersion(profileVersion),
+              aboutVersion(aboutVersion),
+              mailCharge(mailCharge),
+              seekPos(seekPos)
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            const std::array<std::string, PayloadFieldCount> values = {
+                std::to_string(profileVersion),
+                std::to_string(aboutVersion),
+                std::to_string(mailCharge),
+                std::to_string(seekPos),
+            };
+
+            PacketResult<std::string> payload = BuildPayload(
+                std::span<const std::string>(values.data(), values.size()),
+                PayloadDelimiter);
+
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            packet.fields.push_back(PacketField {
+                "data",
+                PacketFieldType::EscapedString,
+                payload.HasValue() ? payload.Value() : std::string(),
+                PacketSourceTag::Xlsx,
+            });
+            return packet;
+        }
+
+        static PacketResult<ProfileVersion> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view);
+            if (!parsed.HasValue()) {
+                return PacketResult<ProfileVersion>::Failure(parsed.Error());
+            }
+
+            const Packet& packet = parsed.Value();
+            if (packet.code.View() != Code) {
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "ProfileVersion Parse 收到非 HNP 封包");
+                error.packetCode = packet.code;
+                return PacketResult<ProfileVersion>::Failure(std::move(error));
+            }
+
+            if (packet.direction != Direction) {
+                return PacketResult<ProfileVersion>::Failure(MakePacketError(
+                    PacketErrorCode::DecodeFailed,
+                    "ProfileVersion Parse 封包方向不匹配"));
+            }
+
+            if (packet.fields.size() != FieldCount) {
+                return PacketResult<ProfileVersion>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "ProfileVersion Parse 字段数量不匹配",
+                    packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
+            }
+
+            const PacketField& field = packet.fields[DataFieldIndex];
+            if (field.name != "data") {
+                return PacketResult<ProfileVersion>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "ProfileVersion Parse 字段名不匹配",
+                    DataFieldIndex));
+            }
+
+            if (field.type != PacketFieldType::EscapedString) {
+                return PacketResult<ProfileVersion>::Failure(MakeFieldError(
+                    PacketErrorCode::InvalidFieldType,
+                    "ProfileVersion Parse 字段类型不匹配",
+                    DataFieldIndex));
+            }
+
+            PacketResult<std::array<int, PayloadFieldCount>> values = ParsePayload(field.value);
+            if (!values.HasValue()) {
+                return PacketResult<ProfileVersion>::Failure(values.Error());
+            }
+
+            return PacketResult<ProfileVersion>::Success(ProfileVersion(
+                values.Value()[0],
+                values.Value()[1],
+                values.Value()[2],
+                values.Value()[3]));
+        }
+
+    private:
+        static constexpr std::size_t FieldCount = 1U;
+        static constexpr std::size_t DataFieldIndex = 0U;
+        static constexpr std::size_t PayloadFieldCount = 4U;
+
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            error.source = PacketSourceTag::Xlsx;
+            return error;
+        }
+
+        [[nodiscard]] static PacketError MakeFieldError(
+            PacketErrorCode code,
+            std::string message,
+            std::size_t fieldIndex)
+        {
+            PacketError error = MakePacketError(code, std::move(message));
+            error.fieldIndex = fieldIndex;
+            return error;
+        }
+
+        [[nodiscard]] static PacketResult<std::array<int, PayloadFieldCount>> ParsePayload(std::string_view payload)
+        {
+            PacketResult<std::vector<std::string>> parts = SplitPayload(payload, PayloadDelimiter);
+            if (!parts.HasValue()) {
+                PacketError error = parts.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = DataFieldIndex;
+                error.source = PacketSourceTag::Xlsx;
+                return PacketResult<std::array<int, PayloadFieldCount>>::Failure(std::move(error));
+            }
+
+            if (parts.Value().size() != PayloadFieldCount) {
+                return PacketResult<std::array<int, PayloadFieldCount>>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "ProfileVersion payload 段数量不匹配",
+                    DataFieldIndex));
+            }
+
+            std::array<int, PayloadFieldCount> values = {};
+            for (std::size_t index = 0; index < PayloadFieldCount; ++index) {
+                PacketResult<int> value = ParseDecimalField(parts.Value()[index], index);
+                if (!value.HasValue()) {
+                    return PacketResult<std::array<int, PayloadFieldCount>>::Failure(value.Error());
+                }
+                values[index] = value.Value();
+            }
+
+            return PacketResult<std::array<int, PayloadFieldCount>>::Success(values);
+        }
+
+        [[nodiscard]] static PacketResult<int> ParseDecimalField(std::string_view text, std::size_t fieldIndex)
+        {
+            bool negative = false;
+            std::size_t index = 0;
+            if (!text.empty() && text.front() == '-') {
+                negative = true;
+                index = 1U;
+            }
+
+            if (index == text.size()) {
+                return PacketResult<int>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "ProfileVersion payload 十进制字段为空",
+                    fieldIndex));
+            }
+
+            const std::int64_t maxValue = static_cast<std::int64_t>(std::numeric_limits<int>::max());
+            const std::int64_t minValue = static_cast<std::int64_t>(std::numeric_limits<int>::min());
+            const std::int64_t limit = negative ? (0 - minValue) : maxValue;
+            std::int64_t value = 0;
+
+            for (; index < text.size(); ++index) {
+                const char ch = text[index];
+                if (ch < '0' || ch > '9') {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "ProfileVersion payload 十进制字段包含非法字符",
+                        fieldIndex));
+                }
+
+                const int digit = ch - '0';
+                if (value > (limit - digit) / 10) {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "ProfileVersion payload 十进制字段超出 int 范围",
+                        fieldIndex));
+                }
+
+                value = (value * 10) + digit;
+            }
+
+            if (negative) {
+                value = -value;
+            }
+
+            return PacketResult<int>::Success(static_cast<int>(value));
+        }
+    };
+
+    /**
      * SEND_MN SendMapName		TeD {data:es}
      */
     struct MapName

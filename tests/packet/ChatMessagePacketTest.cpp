@@ -249,6 +249,19 @@ int TestInternalEscapesPreserved()
     return failures;
 }
 
+int TestRawEscapesPreserved()
+{
+    const std::string textRaw = R"(name\zmsg\cmark\ybell\nliteral)";
+    const cg::packet::PacketResult<cg::packet::receive::ChatMessage> parsed =
+        cg::packet::receive::ChatMessage::Parse("zdr -1 P|name\\zmsg\\cmark\\ybell\\nliteral 4 g ");
+
+    int failures = Expect(static_cast<bool>(parsed), "parse zdr raw escapes");
+    if (parsed.HasValue()) {
+        failures += Expect(parsed.Value().payload.textRaw == textRaw, "zdr raw escapes preserved");
+    }
+    return failures;
+}
+
 int TestEmptyText()
 {
     const cg::packet::PacketResult<cg::packet::receive::ChatMessage> parsed =
@@ -401,6 +414,7 @@ int main()
     failures += TestBuildRoundtrip();
     failures += TestSpaceTextRoundtrip();
     failures += TestInternalEscapesPreserved();
+    failures += TestRawEscapesPreserved();
     failures += TestEmptyText();
     failures += TestParseErrors();
     failures += TestBuildErrors();

@@ -758,7 +758,8 @@ namespace cg::packet
             std::string_view code,
             std::string_view fieldName) noexcept
         {
-            return fieldName == "data" && (code == "DyAG" || code == "lDuJ");
+            return (fieldName == "data" && (code == "DyAG" || code == "lDuJ")) ||
+                (code == "zdr" && fieldName == "message");
         }
 
         [[nodiscard]] inline PacketResult<std::string> DecodeNestedPayloadEscapedString(std::string_view text)

@@ -253,7 +253,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 71 | `Rll` | 服务端->客户端 | 进行中 | SEND_GML 家族邮件 | 否 | 是 | xlsx |
 | 72 | `frQp` | 服务端->客户端 | 进行中 | SEND_GD 退出或解散家族 | 否 | 否 | xlsx |
 | 73 | `eZT` | 服务端->客户端 | 完成 | SEND_PRL 收到profile list | 否 | 是 | xlsx + src/packet |
-| 74 | `IUn` | 服务端->客户端 | 进行中 | SEND_PRA 收到about list | 否 | 是 | xlsx |
+| 74 | `IUn` | 服务端->客户端 | 完成 | SEND_PRA 收到about list | 否 | 是 | xlsx + src/packet |
 | 75 | `DpSY` | 服务端->客户端 | 进行中 | SEND_PRD profile data | 否 | 是 | xlsx |
 | 76 | `cNB` | 服务端->客户端 | 进行中 | SEND_PRE 删除迷你邮件成员 | 否 | 是 | xlsx |
 | 77 | `ow` | 服务端->客户端 | 进行中 | SEND_PRM 迷你信件回执? | 否 | 是 | xlsx |

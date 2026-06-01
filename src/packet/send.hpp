@@ -474,6 +474,71 @@ namespace cg::packet::send
             return BuildPacket(ToPacket());
         }
     };
+
+    /**
+     * RECV_PGML 宠邮登记 PfqV {toregist:i62} {petSlot:i62} {itemSlot:i62} {text:es} {color:i62}
+     */
+    struct PetMailRegister
+    {
+        static constexpr std::string_view Code = "PfqV";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+
+        int toregist = 0;
+        int petSlot = 0;
+        int itemSlot = 0;
+        std::string text;
+        int color = 0;
+
+        PetMailRegister(int toregist, int petSlot, int itemSlot, std::string text, int color)
+            : toregist(toregist),
+              petSlot(petSlot),
+              itemSlot(itemSlot),
+              text(std::move(text)),
+              color(color)
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            packet.fields.push_back(PacketField {
+                "toregist",
+                PacketFieldType::Int62,
+                std::to_string(toregist),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "petSlot",
+                PacketFieldType::Int62,
+                std::to_string(petSlot),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "itemSlot",
+                PacketFieldType::Int62,
+                std::to_string(itemSlot),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "text",
+                PacketFieldType::EscapedString,
+                text,
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "color",
+                PacketFieldType::Int62,
+                std::to_string(color),
+                PacketSourceTag::Xlsx,
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket());
+        }
+    };
 }
 
 #endif //CG_ENGINE_SEND_H

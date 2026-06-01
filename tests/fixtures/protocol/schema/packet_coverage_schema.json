@@ -4189,11 +4189,13 @@
       "direction": "客户端->服务端",
       "legacyKind": "RECV",
       "clientNamespace": "send",
-      "xlsxStatus": "进行中",
+      "xlsxStatus": "完成",
       "description": "RECV_PGML 宠邮",
       "rawFormat": "{toregist} {petSlot} {itemSlot} {text} {color}",
       "formatEmpty": false,
       "source": "xlsx",
+      "resolvedFormat": "{toregist:i62} {petSlot:i62} {itemSlot:i62} {text:es} {color:i62}",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
       "fields": [
         {
           "index": 0,

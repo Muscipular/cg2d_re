@@ -682,6 +682,30 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             failures += Expect(petMailSendSchema->fields[3].rawSpec == "{message}", "rMsv message rawSpec");
         }
     }
+
+    const PacketSchema* petMailRegisterSchema = FindPacket(packets, "PfqV");
+    failures += Expect(petMailRegisterSchema != nullptr, "PfqV schema exists");
+    if (petMailRegisterSchema != nullptr) {
+        failures += Expect(petMailRegisterSchema->direction == "客户端->服务端", "PfqV direction");
+        failures += Expect(petMailRegisterSchema->legacyKind == "RECV", "PfqV legacyKind");
+        failures += Expect(
+            petMailRegisterSchema->resolvedFormat ==
+                "{toregist:i62} {petSlot:i62} {itemSlot:i62} {text:es} {color:i62}",
+            "PfqV resolvedFormat");
+        failures += Expect(
+            petMailRegisterSchema->resolvedSource == "xlsx+ServerC+ClientIda+src/packet",
+            "PfqV resolvedSource");
+        failures += Expect(petMailRegisterSchema->fields.size() == 5U, "PfqV field count");
+        if (petMailRegisterSchema->fields.size() == 5U) {
+            failures += Expect(petMailRegisterSchema->fields[0].name == "toregist", "PfqV toregist field");
+            failures += Expect(petMailRegisterSchema->fields[1].name == "petSlot", "PfqV petSlot field");
+            failures += Expect(petMailRegisterSchema->fields[2].name == "itemSlot", "PfqV itemSlot field");
+            failures += Expect(petMailRegisterSchema->fields[3].name == "text", "PfqV text field");
+            failures += Expect(petMailRegisterSchema->fields[4].name == "color", "PfqV color field");
+            failures += Expect(petMailRegisterSchema->fields[0].typeToken == "unknown", "PfqV raw type");
+            failures += Expect(petMailRegisterSchema->fields[3].rawSpec == "{text}", "PfqV text rawSpec");
+        }
+    }
     return failures;
 }
 

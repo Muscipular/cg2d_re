@@ -261,4 +261,10 @@
 
 | 2026-06-02 | M6.12.14 发送宠邮 rMsv 验证 | 复跑格式检查、VS bundled CMake configure、Debug 新增目标构建与执行、Debug schema 覆盖测试构建、packet CTest | `git diff --check` 通过，仅 LF/CRLF 提示；VS bundled CMake configure 通过；Debug 构建并运行 `cg-packet-pet-mail-send-test` 通过；Debug 构建 `cg-packet-coverage-schema-test` 通过；CTest Debug `^cg-packet-` 55/55 通过 | 不实现 `PfqV` 或其他协议；首次 CTest 因 schema 测试误用 typed 字段匹配 raw schema 失败，已改为 raw/resolved 分层断言并重跑通过 |
 
+| 2026-06-02 | M6.12.15 宠邮登记 PfqV 启动 | 确认范围仅 `PfqV` / `RECV_PGML`；按任务事实实现客户端到服务端 `{toregist:i62} {petSlot:i62} {itemSlot:i62} {text:es} {color:i62}`，`text` 为普通外层 es，允许空文本且不拆 `|` | 待验证：`git diff --check`、VS bundled CMake configure、Debug 构建新增 `cg-packet-pet-mail-register-test`、运行测试 exe、CTest Debug `^cg-packet-` | 不实现其他协议；不添加 toregist/petSlot/itemSlot/color 范围校验；不执行 `color | 0x100`；当前环境未提供可调用 subAgent 工具，按单线程推进 |
+
+| 2026-06-02 | M6.12.15 宠邮登记 PfqV 实现 | 新增 `send::PetMailRegister`，注册 `PfqV {toregist:i62} {petSlot:i62} {itemSlot:i62} {text:es} {color:i62}`；新增 `cg-packet-pet-mail-register-test` 覆盖 ToPacket/Encode、空 text、es 转义、`|` 保留、`color=1` 不变、ParsePacket roundtrip、缺/多字段、非法 i62、非法 es 和手工 Packet 方向/字段名/字段类型错误；schema 与 M6 清单补 resolved 信息 | 待验证：`git diff --check`、VS bundled CMake configure、Debug 构建新增目标、运行测试 exe、CTest Debug `^cg-packet-` | 不实现其他协议；不添加槽位/收件人/color 范围校验；不引入独立 codec 文件 |
+
+| 2026-06-02 | M6.12.15 宠邮登记 PfqV 验证 | 复跑格式检查、VS bundled CMake configure、Debug 新增目标构建与执行、Debug schema 覆盖测试构建、packet CTest | `git diff --check` 通过，仅 LF/CRLF 提示；VS bundled CMake configure 通过；Debug 构建并运行 `cg-packet-pet-mail-register-test` 通过；Debug 构建 `cg-packet-coverage-schema-test` 通过；CTest Debug `^cg-packet-` 56/56 通过 | 不实现其他协议；`text` 不拆 `|`，`color=1` 保持编码为 `1` |
+
 | 2026-06-02 | M6.13.11 IcE 暂缓记录 | 更新 `plans/protocol_m6_inventory.md` 中 `IcE` / `RECV_Shutdown` 备注：xlsx 未使用、旧 C 未补、IDA 未找到，禁止把空 format 猜成 0 字段；schema 保持 rawFormat 空、formatEmpty true、fields []，未添加 resolvedFormat/resolvedFields | `git diff --check` 通过；未编译 | 未改 C++；不实现 `IcE`；字段待补，暂缓 |

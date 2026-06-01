@@ -75,6 +75,31 @@ int ExpectFrontCharListPacket(
     return failures;
 }
 
+int ExpectFrontCharListPacket(
+    const cg::packet::PacketResult<cg::packet::Packet>& packet,
+    std::string_view value,
+    const char* message)
+{
+    int failures = Expect(static_cast<bool>(packet), message);
+    if (packet.HasValue()) {
+        failures += ExpectFrontCharListPacket(packet.Value(), value, message);
+    }
+    return failures;
+}
+
+int ExpectBuildData(
+    const cg::packet::receive::FrontCharList& frontCharList,
+    std::string_view value,
+    const char* message)
+{
+    const cg::packet::PacketResult<std::string> data = frontCharList.BuildData();
+    int failures = Expect(static_cast<bool>(data), message);
+    if (data.HasValue()) {
+        failures += Expect(data.Value() == value, message);
+    }
+    return failures;
+}
+
 int ExpectRecord(
     const cg::packet::receive::FrontCharRecord& record,
     std::string_view name,
@@ -107,7 +132,7 @@ int TestEmptyData()
     int failures = Expect(static_cast<bool>(parsed), "parse ysVc empty data");
     if (parsed.HasValue()) {
         failures += Expect(parsed.Value().records.empty(), "ysVc empty data record count");
-        failures += Expect(parsed.Value().BuildData().empty(), "ysVc empty data BuildData");
+        failures += ExpectBuildData(parsed.Value(), "", "ysVc empty data BuildData");
     }
     return failures;
 }
@@ -128,7 +153,7 @@ int TestTwoRecords()
         failures += ExpectRecord(parsed.Value().records[0], "Alice", 0, "ysVc first record");
         failures += ExpectRecord(parsed.Value().records[1], "Pet", 1, "ysVc second record");
     }
-    failures += Expect(parsed.Value().BuildData() == payload, "ysVc two records BuildData");
+    failures += ExpectBuildData(parsed.Value(), payload, "ysVc two records BuildData");
     return failures;
 }
 
@@ -147,9 +172,15 @@ int TestRawNamePreserved()
     if (parsed.Value().records.size() == 1U) {
         failures += ExpectRecord(parsed.Value().records[0], "A\\zB\\cC\\yD\\nE", 0, "ysVc raw name record");
     }
-    failures += Expect(parsed.Value().BuildData() == payload, "ysVc raw name BuildData");
+    failures += ExpectBuildData(parsed.Value(), payload, "ysVc raw name BuildData");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(parsed.Value().ToPacket());
+    const cg::packet::PacketResult<cg::packet::Packet> packet = parsed.Value().ToPacket();
+    failures += ExpectFrontCharListPacket(packet, payload, "ysVc raw name ToPacket");
+    if (!packet.HasValue()) {
+        return failures;
+    }
+
+    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet.Value());
     failures += Expect(static_cast<bool>(built), "build ysVc raw name packet");
     if (built.HasValue()) {
         failures += Expect(built.Value() == BuildPlainYsVc(payload), "ysVc raw name roundtrip");
@@ -165,9 +196,13 @@ int TestConstructRoundtrip()
     const cg::packet::receive::FrontCharList frontCharList(std::move(records));
     const std::string payload = "Alice|0|Pet|1|";
 
-    int failures = ExpectFrontCharListPacket(frontCharList.ToPacket(), payload, "ysVc ToPacket");
+    const cg::packet::PacketResult<cg::packet::Packet> packet = frontCharList.ToPacket();
+    int failures = ExpectFrontCharListPacket(packet, payload, "ysVc ToPacket");
+    if (!packet.HasValue()) {
+        return failures;
+    }
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(frontCharList.ToPacket());
+    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet.Value());
     failures += Expect(static_cast<bool>(built), "build ysVc packet");
     if (!built.HasValue()) {
         return failures;
@@ -178,7 +213,7 @@ int TestConstructRoundtrip()
     failures += Expect(static_cast<bool>(parsed), "roundtrip ysVc packet");
     if (parsed.HasValue()) {
         failures += Expect(parsed.Value().records.size() == 2U, "roundtrip ysVc record count");
-        failures += Expect(parsed.Value().BuildData() == payload, "roundtrip ysVc payload");
+        failures += ExpectBuildData(parsed.Value(), payload, "roundtrip ysVc payload");
     }
     return failures;
 }
@@ -201,6 +236,46 @@ int TestErrors()
         cg::packet::PacketErrorCode::DecodeFailed,
         "ysVc",
         "ysVc nonPlayerFlag non-decimal");
+    failures += ExpectError(
+        cg::packet::receive::FrontCharList::Parse(BuildPlainYsVc("Alice|2|")),
+        cg::packet::PacketErrorCode::DecodeFailed,
+        "ysVc",
+        "ysVc nonPlayerFlag rejects 2");
+    failures += ExpectError(
+        cg::packet::receive::FrontCharList::Parse(BuildPlainYsVc("Alice|-1|")),
+        cg::packet::PacketErrorCode::DecodeFailed,
+        "ysVc",
+        "ysVc nonPlayerFlag rejects -1");
+    return failures;
+}
+
+int TestBuildRejectsInvalidNonPlayerFlag()
+{
+    int failures = 0;
+    const cg::packet::receive::FrontCharList frontCharListWithTwo({cg::packet::receive::FrontCharRecord {"Alice", 2}});
+    failures += ExpectError(
+        frontCharListWithTwo.BuildData(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        "ysVc",
+        "ysVc BuildData rejects 2");
+    failures += ExpectError(
+        frontCharListWithTwo.ToPacket(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        "ysVc",
+        "ysVc ToPacket rejects 2");
+
+    const cg::packet::receive::FrontCharList frontCharListWithNegative(
+        {cg::packet::receive::FrontCharRecord {"Alice", -1}});
+    failures += ExpectError(
+        frontCharListWithNegative.BuildData(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        "ysVc",
+        "ysVc BuildData rejects -1");
+    failures += ExpectError(
+        frontCharListWithNegative.ToPacket(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        "ysVc",
+        "ysVc ToPacket rejects -1");
     return failures;
 }
 
@@ -215,6 +290,7 @@ int main()
     failures += TestRawNamePreserved();
     failures += TestConstructRoundtrip();
     failures += TestErrors();
+    failures += TestBuildRejectsInvalidNonPlayerFlag();
     if (failures != 0) {
         std::cerr << failures << " checks failed\n";
         return 1;

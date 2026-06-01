@@ -3675,28 +3675,41 @@ namespace cg::packet::receive
         {
         }
 
-        [[nodiscard]] std::string BuildData() const
+        [[nodiscard]] PacketResult<std::string> BuildData() const
         {
             std::string payload;
-            for (const FrontCharRecord& record : records) {
+            for (std::size_t recordIndex = 0; recordIndex < records.size(); ++recordIndex) {
+                const FrontCharRecord& record = records[recordIndex];
+                if (record.nonPlayerFlag != 0 && record.nonPlayerFlag != 1) {
+                    return PacketResult<std::string>::Failure(MakeFieldError(
+                        PacketErrorCode::EncodeFailed,
+                        "FrontCharList nonPlayerFlag 只能为 0 或 1",
+                        (recordIndex * RecordFieldCount) + 1U));
+                }
+
                 payload.append(record.name);
                 payload.push_back('|');
                 payload.append(std::to_string(record.nonPlayerFlag));
                 payload.push_back('|');
             }
-            return payload;
+            return PacketResult<std::string>::Success(std::move(payload));
         }
 
-        [[nodiscard]] Packet ToPacket() const
+        [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
+            PacketResult<std::string> data = BuildData();
+            if (!data.HasValue()) {
+                return PacketResult<Packet>::Failure(data.Error());
+            }
+
             Packet packet(PacketCode(Code), Direction, PacketSourceTag::ServerC);
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
-                BuildData(),
+                data.Value(),
                 PacketSourceTag::ServerC,
             });
-            return packet;
+            return PacketResult<Packet>::Success(std::move(packet));
         }
 
         static PacketResult<FrontCharList> Parse(std::string_view view)
@@ -3849,6 +3862,13 @@ namespace cg::packet::receive
                 }
 
                 value = (value * 10) + digit;
+            }
+
+            if (value != 0 && value != 1) {
+                return PacketResult<int>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "FrontCharList nonPlayerFlag 只能为 0 或 1",
+                    fieldIndex));
             }
 
             return PacketResult<int>::Success(static_cast<int>(value));

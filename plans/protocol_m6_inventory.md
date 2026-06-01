@@ -112,7 +112,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | M6.12.08 物品/技能/宠物封包-lDuJ | `lDuJ` | 服务端->客户端 | 否 | 完成 | SEND_PME 宠邮动画；xlsx 8 字段，客户端 IDA 确认前 7 字段 i62、data/es；sub_50DD80 确认 flg!=0 时 data 为 12 段 `|` payload |
 | M6.12.09 物品/技能/宠物封包-IsSy | `IsSy` | 服务端->客户端 | 是 | 完成 | SEND_KP；旧 C `nrproto_KP_send/CHAR_send_KP_String` + IDA `sub_50A6B0` 补外层 `{petIndex:i62} {data:es}`；payload 支持 literal `0`、`1|` full/all marker、以及 `flags|field...|` partial，字段按 flags bit 顺序解析，数值为 raw decimal，`name/userPetName` 原样保存 |
 | M6.12.10 物品/技能/宠物封包-AU | `AU` | 服务端->客户端 | 是 | 完成 | SEND_KP2；旧 C `nrproto_KP2_send(fd,int number,char* data)` + IDA `network_dispatch/sub_50AC20` + SDLCG 补外层 `{petIndex:i62} {data:es}`；`data` literal `0` 清空，`flags == 1` 为 all marker 且必须追加全部 19 个 raw signed decimal 字段，partial 为 `flags|field...|`，字段顺序按 `1<<1` 到 `1<<19`，拒绝 bit0/unknown bit/flags==0 active payload；`itemHave` 语义待补 |
-| M6.12.11 物品/技能/宠物封包-JgO | `JgO` | 服务端->客户端 | 是 | 字段待补 | SEND_TU techuse |
+| M6.12.11 物品/技能/宠物封包-JgO | `JgO` | 服务端->客户端 | 是 | 完成 | SEND_TU techuse；旧 C `nrproto_TU_send` + 客户端 IDA `network_dispatch/sub_50C7F0` 补外层 `{result:i62} {type:i62} {data:es}`；payload 按 type 1..4 解析，数值为 raw signed decimal，字符串保留 raw escaped；type3 `value` 语义待补 |
 | M6.12.12 物品/技能/宠物封包-iKe | `iKe` | 服务端->客户端 | 是 | 字段待补 | SEND_PET_ITEM |
 | M6.12.13 物品/技能/宠物封包-TgX | `TgX` | 服务端->客户端 | 否 | 未开始 | SEND_EQUIP_SUIT |
 | M6.12.14 物品/技能/宠物封包-rMsv | `rMsv` | 客户端->服务端 | 否 | 未开始 | RECV_PMSG 发送宠邮 |
@@ -186,6 +186,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | `OBee` | 服务端->客户端 | `cg::packet::receive::PetTechData` | `{petIndex:i62} {data:es}` | M6.11.16 已实现；xlsx rawFormat 为空，字段由旧 C `SEND_PT/nrproto_PT_send` + 客户端 IDA 补足；`data` 每条 8 段：`skillSlot|techId|name|description|forcePoint|techField|target|seqNo|`，数值为 raw decimal，字符串保留 raw，空 data 视为错误 |
 | `IsSy` | 服务端->客户端 | `cg::packet::receive::RidePetData` | `{petIndex:i62} {data:es}` | M6.12.09 已实现；旧 C `SEND_KP/nrproto_KP_send` + `CHAR_send_KP_String/CHAR_make_KP_String` + IDA `sub_50A6B0` 补足；`data` literal `0` 清空，`1|` 为 full/all marker，partial 为 `flags|field...|` 且保留尾随 `|`，字段顺序按 `1<<1` 到 `1<<25`，数值 raw decimal，`name/userPetName` 按 `|` 分段原样保存 |
 | `AU` | 服务端->客户端 | `cg::packet::receive::RidePetExtraData` | `{petIndex:i62} {data:es}` | M6.12.10 已实现；旧 C `SEND_KP2/nrproto_KP2_send` + IDA `network_dispatch/sub_50AC20` + SDLCG 补足；`data` literal `0` 清空，`flags == 1` 为 all marker 且必须携带 19 个 raw signed decimal 字段，partial flags 按 `1<<1` 到 `1<<19` 顺序解析，`itemHave` 语义待补 |
+| `JgO` | 服务端->客户端 | `cg::packet::receive::TechUseResult` | `{result:i62} {type:i62} {data:es}` | M6.12.11 已实现；旧 C `SEND_TU/nrproto_TU_send` + 客户端 IDA `network_dispatch/sub_50C7F0` 补足；`type=1` 为 8 个 raw decimal + 0..6 个删除素材 raw 字符串且拒绝中间空后有内容，`type=2/3` 为 7 个 raw decimal，`type=4` 为 7 个 raw decimal + itemNameRaw + 可选 petHelpFlag |
 | `Yo` | 服务端->客户端 | `cg::packet::receive::ProfileStatus` | `{data:es}` | M6.11.17 已实现；xlsx rawFormat 为空，字段由旧 C `SEND_S/nrproto_S_send` + 客户端 IDA 补足；仅实现外层 `data/es`，payload 原样保留，不拆内部 `|` |
 | `LY` | 服务端->客户端 | `cg::packet::receive::ItemFrontCharList` | `{data:es}` | M6.11.20 已实现；旧 C `SEND_GFLI/CHAR_sendFrontCharList` + IDA 补足；`data` 为 `name|nonPlayerFlag|` 重复记录，空 data 为空列表，name 保留 raw escaped 字符串，nonPlayerFlag 只接受 `0/1` |
 | `ND` | 服务端->客户端 | `cg::packet::receive::CharacterPetList` | `{data:es}` | M6.11.19 已实现；xlsx rawFormat 为空，字段由旧 C `RECV_GPD/nrproto_GPD_recv` + `CHAR_sendCharAndPetList` + `SEND_GPD/nrproto_GPD_send` 补足；`data` 为 0..6 条 `name|level|injury|hp|maxHp|forcePoint|maxForcePoint|` 记录，name 保留 raw escaped 字符串，数值为 raw decimal，整体保留尾随 `|` |
@@ -293,7 +294,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 91 | `ND` | 服务端->客户端 | 完成 | SEND_GPD；旧 C 补外层 `{data:es}`，payload 为 0..6 条角色/宠物状态记录并保留尾随 `|` | 是 | 是 | 旧 C + src/packet |
 | 92 | `LY` | 服务端->客户端 | 完成 | SEND_GFLI；旧 C `SEND_GFLI/CHAR_sendFrontCharList` + IDA 补外层 `{data:es}`，payload 为 `name|nonPlayerFlag|` 重复记录，空 data 为空列表 | 是 | 是 | 旧 C + IDA + src/packet |
 | 93 | `nFV` | 服务端->客户端 | 完成 | SEND_GPDI；旧 C `nrproto_GPDI_send/CHAR_sendCharAndPetList` + IDA `sub_4E4020` 补外层 `{data:es}`，payload 为 0..6 条角色/宠物状态记录并保留尾随 `|` | 是 | 是 | 旧 C + IDA + src/packet |
-| 94 | `JgO` | 服务端->客户端 | 完成 | SEND_TU techuse | 是 | 是 | 待 C/IDA 补全 |
+| 94 | `JgO` | 服务端->客户端 | 完成 | SEND_TU techuse；外层 `{result:i62} {type:i62} {data:es}`；payload 按 type 1..4 解析，数值 raw signed decimal | 是 | 是 | xlsx+ServerC+ClientIda+src |
 | 95 | `Cxo` | 服务端->客户端 | 完成 | SEND_TRPL CHAR_Trade_getPlayerList 获得可交易人员列表 | 是 | 是 | 待 C/IDA 补全 |
 | 96 | `ms` | 服务端->客户端 | 完成 | SEND_TRS CHAR_Trade_startTrade 被交易 | 是 | 是 | 待 C/IDA 补全 |
 | 97 | `NdM` | 服务端->客户端 | 完成 | SEND_TROP CHAR_Trade_setTradeList 对方取出物品 | 是 | 否 | 待 C/IDA 补全 |

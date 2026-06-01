@@ -216,6 +216,12 @@ namespace cg::packet
             {"data", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
         }};
 
+        inline constexpr std::array<PacketFieldSpec, 3> TechUseResultFields = {{
+            {"result", PacketFieldType::Int62, PacketSourceTag::ServerC},
+            {"type", PacketFieldType::Int62, PacketSourceTag::ServerC},
+            {"data", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
+        }};
+
         inline constexpr std::array<PacketFieldSpec, 1> ProfileStatusFields = {{
             {"data", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
         }};
@@ -275,7 +281,7 @@ namespace cg::packet
             {"y2", PacketFieldType::Int62, PacketSourceTag::Xlsx},
         }};
 
-        inline constexpr std::array<PacketSpec, 46> PacketRegistry = {{
+        inline constexpr std::array<PacketSpec, 47> PacketRegistry = {{
             {
                 "JFVf",
                 PacketDirection::ClientToServer,
@@ -499,6 +505,13 @@ namespace cg::packet
                 PacketSourceTag::ServerC,
                 RidePetDataFields.data(),
                 RidePetDataFields.size(),
+            },
+            {
+                "JgO",
+                PacketDirection::ServerToClient,
+                PacketSourceTag::ServerC,
+                TechUseResultFields.data(),
+                TechUseResultFields.size(),
             },
             {
                 "Yo",

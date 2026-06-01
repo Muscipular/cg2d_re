@@ -6802,6 +6802,497 @@ namespace cg::packet::receive
         }
     };
 
+    struct TechUsePayload
+    {
+        int exp = 0;
+        int fame = 0;
+        int levelUp = 0;
+        int stamina = 0;
+        int dexterity = 0;
+        int intelligence = 0;
+        int injuryFlag = 0;
+        int itemImageNumber = 0;
+        int value = 0; // type=3 语义 unknown，按原字段保留。
+        std::vector<std::string> deleteAtomsRaw;
+        std::string itemNameRaw;
+        bool hasPetHelpFlag = false;
+        int petHelpFlag = 0;
+    };
+
+    /**
+     * SEND_TU techuse 技能使用结果		JgO {result:i62} {type:i62} {data:es}
+     * data 内数值为 raw signed decimal；字符串字段保留 raw escaped，不做二次 unescape。
+     */
+    struct TechUseResult
+    {
+        static constexpr std::string_view Code = "JgO";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::string_view PayloadDelimiter = "|";
+
+        int result = 0;
+        int type = 0;
+        TechUsePayload payload;
+
+        TechUseResult(int result, int type, TechUsePayload payload)
+            : result(result),
+              type(type),
+              payload(std::move(payload))
+        {
+        }
+
+        [[nodiscard]] std::string BuildData() const
+        {
+            std::vector<std::string> parts;
+            if (type == 1) {
+                parts.reserve(8U + payload.deleteAtomsRaw.size());
+                AppendBaseStats(parts);
+                parts.push_back(std::to_string(payload.injuryFlag));
+                parts.push_back(std::to_string(payload.itemImageNumber));
+                for (const std::string& atom : payload.deleteAtomsRaw) {
+                    parts.push_back(atom);
+                }
+                return JoinParts(parts);
+            }
+
+            if (type == 2) {
+                parts.reserve(7U);
+                AppendBaseStats(parts);
+                parts.push_back(std::to_string(payload.injuryFlag));
+                return JoinParts(parts);
+            }
+
+            if (type == 3) {
+                parts.reserve(7U);
+                AppendBaseStats(parts);
+                parts.push_back(std::to_string(payload.value));
+                return JoinParts(parts);
+            }
+
+            if (type == 4) {
+                parts.reserve(payload.hasPetHelpFlag ? 9U : 8U);
+                AppendBaseStats(parts);
+                parts.push_back(std::to_string(payload.itemImageNumber));
+                parts.push_back(payload.itemNameRaw);
+                if (payload.hasPetHelpFlag) {
+                    parts.push_back(std::to_string(payload.petHelpFlag));
+                }
+                return JoinParts(parts);
+            }
+
+            return {};
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ServerC);
+            packet.fields.push_back(PacketField {
+                "result",
+                PacketFieldType::Int62,
+                std::to_string(result),
+                PacketSourceTag::ServerC,
+            });
+            packet.fields.push_back(PacketField {
+                "type",
+                PacketFieldType::Int62,
+                std::to_string(type),
+                PacketSourceTag::ServerC,
+            });
+            packet.fields.push_back(PacketField {
+                "data",
+                PacketFieldType::EscapedString,
+                BuildData(),
+                PacketSourceTag::ServerC,
+            });
+            return packet;
+        }
+
+        static PacketResult<TechUseResult> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view);
+            if (!parsed.HasValue()) {
+                return PacketResult<TechUseResult>::Failure(parsed.Error());
+            }
+
+            const Packet& packet = parsed.Value();
+            if (packet.code.View() != Code) {
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "TechUseResult Parse 收到非 JgO 封包");
+                error.packetCode = packet.code;
+                return PacketResult<TechUseResult>::Failure(std::move(error));
+            }
+
+            if (packet.direction != Direction) {
+                return PacketResult<TechUseResult>::Failure(MakePacketError(
+                    PacketErrorCode::DecodeFailed,
+                    "TechUseResult Parse 封包方向不匹配"));
+            }
+
+            if (packet.fields.size() != FieldCount) {
+                return PacketResult<TechUseResult>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "TechUseResult Parse 字段数量不匹配",
+                    packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
+            }
+
+            const std::array<std::string_view, FieldCount> fieldNames = {
+                "result",
+                "type",
+                "data",
+            };
+            const std::array<PacketFieldType, FieldCount> fieldTypes = {
+                PacketFieldType::Int62,
+                PacketFieldType::Int62,
+                PacketFieldType::EscapedString,
+            };
+
+            for (std::size_t index = 0; index < FieldCount; ++index) {
+                if (packet.fields[index].name != fieldNames[index]) {
+                    return PacketResult<TechUseResult>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "TechUseResult Parse 字段名不匹配",
+                        index));
+                }
+
+                if (packet.fields[index].type != fieldTypes[index]) {
+                    return PacketResult<TechUseResult>::Failure(MakeFieldError(
+                        PacketErrorCode::InvalidFieldType,
+                        "TechUseResult Parse 字段类型不匹配",
+                        index));
+                }
+            }
+
+            PacketResult<int> resultValue = ParseDecimalField(packet.fields[ResultFieldIndex].value, ResultFieldIndex);
+            if (!resultValue.HasValue()) {
+                return PacketResult<TechUseResult>::Failure(resultValue.Error());
+            }
+
+            PacketResult<int> typeValue = ParseDecimalField(packet.fields[TypeFieldIndex].value, TypeFieldIndex);
+            if (!typeValue.HasValue()) {
+                return PacketResult<TechUseResult>::Failure(typeValue.Error());
+            }
+
+            if (typeValue.Value() < 1 || typeValue.Value() > 4) {
+                return PacketResult<TechUseResult>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "TechUseResult type 不在 1..4 范围内",
+                    TypeFieldIndex));
+            }
+
+            PacketResult<TechUsePayload> payloadValue = ParsePayload(typeValue.Value(), packet.fields[DataFieldIndex].value);
+            if (!payloadValue.HasValue()) {
+                return PacketResult<TechUseResult>::Failure(payloadValue.Error());
+            }
+
+            return PacketResult<TechUseResult>::Success(TechUseResult(
+                resultValue.Value(),
+                typeValue.Value(),
+                std::move(payloadValue.Value())));
+        }
+
+    private:
+        static constexpr std::size_t FieldCount = 3U;
+        static constexpr std::size_t ResultFieldIndex = 0U;
+        static constexpr std::size_t TypeFieldIndex = 1U;
+        static constexpr std::size_t DataFieldIndex = 2U;
+        static constexpr std::size_t Type1BaseFieldCount = 8U;
+        static constexpr std::size_t Type1MaxFieldCount = 14U;
+        static constexpr std::size_t Type2FieldCount = 7U;
+        static constexpr std::size_t Type3FieldCount = 7U;
+        static constexpr std::size_t Type4MinFieldCount = 8U;
+        static constexpr std::size_t Type4MaxFieldCount = 9U;
+
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            error.source = PacketSourceTag::ServerC;
+            return error;
+        }
+
+        [[nodiscard]] static PacketError MakeFieldError(
+            PacketErrorCode code,
+            std::string message,
+            std::size_t fieldIndex)
+        {
+            PacketError error = MakePacketError(code, std::move(message));
+            error.fieldIndex = fieldIndex;
+            return error;
+        }
+
+        void AppendBaseStats(std::vector<std::string>& parts) const
+        {
+            parts.push_back(std::to_string(payload.exp));
+            parts.push_back(std::to_string(payload.fame));
+            parts.push_back(std::to_string(payload.levelUp));
+            parts.push_back(std::to_string(payload.stamina));
+            parts.push_back(std::to_string(payload.dexterity));
+            parts.push_back(std::to_string(payload.intelligence));
+        }
+
+        [[nodiscard]] static std::string JoinParts(const std::vector<std::string>& parts)
+        {
+            PacketResult<std::string> payload = BuildPayload(
+                std::span<const std::string>(parts.data(), parts.size()),
+                PayloadDelimiter);
+            if (payload.HasValue()) {
+                return payload.Value();
+            }
+
+            return {};
+        }
+
+        [[nodiscard]] static PacketResult<TechUsePayload> ParsePayload(int type, std::string_view text)
+        {
+            if (text.empty()) {
+                return PacketResult<TechUsePayload>::Failure(MakeFieldError(
+                    PacketErrorCode::EmptyInput,
+                    "TechUseResult payload 为空",
+                    DataFieldIndex));
+            }
+
+            PacketResult<std::vector<std::string>> split = SplitPayload(text, PayloadDelimiter);
+            if (!split.HasValue()) {
+                PacketError error = split.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = DataFieldIndex;
+                error.source = PacketSourceTag::ServerC;
+                return PacketResult<TechUsePayload>::Failure(std::move(error));
+            }
+
+            const std::vector<std::string>& parts = split.Value();
+            if (type == 1) {
+                return ParseType1(parts);
+            }
+            if (type == 2) {
+                return ParseType2(parts);
+            }
+            if (type == 3) {
+                return ParseType3(parts);
+            }
+            return ParseType4(parts);
+        }
+
+        [[nodiscard]] static PacketResult<TechUsePayload> ParseType1(const std::vector<std::string>& parts)
+        {
+            if (parts.size() < Type1BaseFieldCount || parts.size() > Type1MaxFieldCount) {
+                return PacketResult<TechUsePayload>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "TechUseResult type1 payload 字段数量不匹配",
+                    DataFieldIndex));
+            }
+
+            TechUsePayload payload;
+            PacketResult<bool> base = ParseBaseStats(parts, payload);
+            if (!base.HasValue()) {
+                return PacketResult<TechUsePayload>::Failure(base.Error());
+            }
+
+            PacketResult<int> injuryFlag = ParseDecimalField(parts[6], 6U);
+            if (!injuryFlag.HasValue()) {
+                return PacketResult<TechUsePayload>::Failure(injuryFlag.Error());
+            }
+            PacketResult<int> itemImageNumber = ParseDecimalField(parts[7], 7U);
+            if (!itemImageNumber.HasValue()) {
+                return PacketResult<TechUsePayload>::Failure(itemImageNumber.Error());
+            }
+
+            payload.injuryFlag = injuryFlag.Value();
+            payload.itemImageNumber = itemImageNumber.Value();
+            payload.deleteAtomsRaw.reserve(parts.size() - Type1BaseFieldCount);
+
+            bool seenEmptyAtom = false;
+            std::size_t nonEmptyAtomCount = 0;
+            for (std::size_t index = Type1BaseFieldCount; index < parts.size(); ++index) {
+                if (parts[index].empty()) {
+                    seenEmptyAtom = true;
+                } else {
+                    if (seenEmptyAtom) {
+                        return PacketResult<TechUsePayload>::Failure(MakeFieldError(
+                            PacketErrorCode::DecodeFailed,
+                            "TechUseResult type1 deleteAtomRaw 中间空段后仍有内容",
+                            index));
+                    }
+                    ++nonEmptyAtomCount;
+                }
+                payload.deleteAtomsRaw.push_back(parts[index]);
+            }
+
+            if (nonEmptyAtomCount > 6U) {
+                return PacketResult<TechUsePayload>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "TechUseResult type1 deleteAtomRaw 非空数量超过 6",
+                    DataFieldIndex));
+            }
+
+            return PacketResult<TechUsePayload>::Success(std::move(payload));
+        }
+
+        [[nodiscard]] static PacketResult<TechUsePayload> ParseType2(const std::vector<std::string>& parts)
+        {
+            if (parts.size() != Type2FieldCount) {
+                return PacketResult<TechUsePayload>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "TechUseResult type2 payload 字段数量不匹配",
+                    DataFieldIndex));
+            }
+
+            TechUsePayload payload;
+            PacketResult<bool> base = ParseBaseStats(parts, payload);
+            if (!base.HasValue()) {
+                return PacketResult<TechUsePayload>::Failure(base.Error());
+            }
+
+            PacketResult<int> injuryFlag = ParseDecimalField(parts[6], 6U);
+            if (!injuryFlag.HasValue()) {
+                return PacketResult<TechUsePayload>::Failure(injuryFlag.Error());
+            }
+            payload.injuryFlag = injuryFlag.Value();
+            return PacketResult<TechUsePayload>::Success(std::move(payload));
+        }
+
+        [[nodiscard]] static PacketResult<TechUsePayload> ParseType3(const std::vector<std::string>& parts)
+        {
+            if (parts.size() != Type3FieldCount) {
+                return PacketResult<TechUsePayload>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "TechUseResult type3 payload 字段数量不匹配",
+                    DataFieldIndex));
+            }
+
+            TechUsePayload payload;
+            PacketResult<bool> base = ParseBaseStats(parts, payload);
+            if (!base.HasValue()) {
+                return PacketResult<TechUsePayload>::Failure(base.Error());
+            }
+
+            PacketResult<int> value = ParseDecimalField(parts[6], 6U);
+            if (!value.HasValue()) {
+                return PacketResult<TechUsePayload>::Failure(value.Error());
+            }
+            payload.value = value.Value();
+            return PacketResult<TechUsePayload>::Success(std::move(payload));
+        }
+
+        [[nodiscard]] static PacketResult<TechUsePayload> ParseType4(const std::vector<std::string>& parts)
+        {
+            if (parts.size() < Type4MinFieldCount || parts.size() > Type4MaxFieldCount) {
+                return PacketResult<TechUsePayload>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "TechUseResult type4 payload 字段数量不匹配",
+                    DataFieldIndex));
+            }
+
+            TechUsePayload payload;
+            PacketResult<bool> base = ParseBaseStats(parts, payload);
+            if (!base.HasValue()) {
+                return PacketResult<TechUsePayload>::Failure(base.Error());
+            }
+
+            PacketResult<int> itemImageNumber = ParseDecimalField(parts[6], 6U);
+            if (!itemImageNumber.HasValue()) {
+                return PacketResult<TechUsePayload>::Failure(itemImageNumber.Error());
+            }
+            payload.itemImageNumber = itemImageNumber.Value();
+            payload.itemNameRaw = parts[7];
+
+            if (parts.size() == Type4MaxFieldCount) {
+                PacketResult<int> petHelpFlag = ParseDecimalField(parts[8], 8U);
+                if (!petHelpFlag.HasValue()) {
+                    return PacketResult<TechUsePayload>::Failure(petHelpFlag.Error());
+                }
+                payload.hasPetHelpFlag = true;
+                payload.petHelpFlag = petHelpFlag.Value();
+            }
+
+            return PacketResult<TechUsePayload>::Success(std::move(payload));
+        }
+
+        [[nodiscard]] static PacketResult<bool> ParseBaseStats(
+            const std::vector<std::string>& parts,
+            TechUsePayload& payload)
+        {
+            PacketResult<int> exp = ParseDecimalField(parts[0], 0U);
+            if (!exp.HasValue()) {
+                return PacketResult<bool>::Failure(exp.Error());
+            }
+            PacketResult<int> fame = ParseDecimalField(parts[1], 1U);
+            if (!fame.HasValue()) {
+                return PacketResult<bool>::Failure(fame.Error());
+            }
+            PacketResult<int> levelUp = ParseDecimalField(parts[2], 2U);
+            if (!levelUp.HasValue()) {
+                return PacketResult<bool>::Failure(levelUp.Error());
+            }
+            PacketResult<int> stamina = ParseDecimalField(parts[3], 3U);
+            if (!stamina.HasValue()) {
+                return PacketResult<bool>::Failure(stamina.Error());
+            }
+            PacketResult<int> dexterity = ParseDecimalField(parts[4], 4U);
+            if (!dexterity.HasValue()) {
+                return PacketResult<bool>::Failure(dexterity.Error());
+            }
+            PacketResult<int> intelligence = ParseDecimalField(parts[5], 5U);
+            if (!intelligence.HasValue()) {
+                return PacketResult<bool>::Failure(intelligence.Error());
+            }
+
+            payload.exp = exp.Value();
+            payload.fame = fame.Value();
+            payload.levelUp = levelUp.Value();
+            payload.stamina = stamina.Value();
+            payload.dexterity = dexterity.Value();
+            payload.intelligence = intelligence.Value();
+            return PacketResult<bool>::Success(true);
+        }
+
+        [[nodiscard]] static PacketResult<int> ParseDecimalField(std::string_view text, std::size_t fieldIndex)
+        {
+            bool negative = false;
+            std::size_t index = 0;
+            if (!text.empty() && text.front() == '-') {
+                negative = true;
+                index = 1U;
+            }
+
+            if (index == text.size()) {
+                return PacketResult<int>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "TechUseResult 十进制字段为空",
+                    fieldIndex));
+            }
+
+            const std::int64_t maxValue = static_cast<std::int64_t>(std::numeric_limits<int>::max());
+            const std::int64_t minValue = static_cast<std::int64_t>(std::numeric_limits<int>::min());
+            const std::int64_t limit = negative ? (0 - minValue) : maxValue;
+            std::int64_t value = 0;
+
+            for (; index < text.size(); ++index) {
+                const char ch = text[index];
+                if (ch < '0' || ch > '9') {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "TechUseResult 十进制字段包含非法字符",
+                        fieldIndex));
+                }
+
+                const int digit = ch - '0';
+                if (value > (limit - digit) / 10) {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "TechUseResult 十进制字段超出 int 范围",
+                        fieldIndex));
+                }
+
+                value = (value * 10) + digit;
+            }
+
+            if (negative) {
+                value = -value;
+            }
+
+            return PacketResult<int>::Success(static_cast<int>(value));
+        }
+    };
+
     /**
      * SEND_PT 宠物技能记录：skillSlot|techId|name|description|forcePoint|techField|target|seqNo。
      */

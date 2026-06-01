@@ -9729,6 +9729,89 @@ namespace cg::packet::receive
     };
 
     /**
+     * SEND_STK SYSTEMMSG 系统信息		Zd {message:es}
+     * message 仅按外层 es 处理，不拆二级 payload。
+     */
+    struct SystemMessage
+    {
+        static constexpr std::string_view Code = "Zd";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+
+        std::string message;
+
+        explicit SystemMessage(std::string message)
+            : message(std::move(message))
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            packet.fields.push_back(PacketField {
+                "message",
+                PacketFieldType::EscapedString,
+                message,
+                PacketSourceTag::Xlsx,
+            });
+            return packet;
+        }
+
+        static PacketResult<SystemMessage> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view);
+            if (!parsed.HasValue()) {
+                return PacketResult<SystemMessage>::Failure(parsed.Error());
+            }
+
+            const Packet& packet = parsed.Value();
+            if (packet.code.View() != Code) {
+                PacketError error = PacketError::Make(PacketErrorCode::InvalidCode, "SystemMessage Parse 收到非 Zd 封包");
+                error.packetCode = packet.code;
+                error.source = PacketSourceTag::Xlsx;
+                return PacketResult<SystemMessage>::Failure(std::move(error));
+            }
+
+            if (packet.direction != Direction) {
+                PacketError error = PacketError::Make(PacketErrorCode::DecodeFailed, "SystemMessage Parse 封包方向不匹配");
+                error.packetCode = PacketCode(Code);
+                error.source = PacketSourceTag::Xlsx;
+                return PacketResult<SystemMessage>::Failure(std::move(error));
+            }
+
+            if (packet.fields.size() != FieldCount) {
+                PacketError error = PacketError::Make(PacketErrorCode::FieldCountMismatch, "SystemMessage Parse 字段数量不匹配");
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = packet.fields.empty() ? 0U : FieldCount;
+                error.source = PacketSourceTag::Xlsx;
+                return PacketResult<SystemMessage>::Failure(std::move(error));
+            }
+
+            const PacketField& field = packet.fields[MessageFieldIndex];
+            if (field.name != "message") {
+                PacketError error = PacketError::Make(PacketErrorCode::DecodeFailed, "SystemMessage Parse 字段名不匹配");
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = MessageFieldIndex;
+                error.source = PacketSourceTag::Xlsx;
+                return PacketResult<SystemMessage>::Failure(std::move(error));
+            }
+
+            if (field.type != PacketFieldType::EscapedString) {
+                PacketError error = PacketError::Make(PacketErrorCode::InvalidFieldType, "SystemMessage Parse 字段类型不匹配");
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = MessageFieldIndex;
+                error.source = PacketSourceTag::Xlsx;
+                return PacketResult<SystemMessage>::Failure(std::move(error));
+            }
+
+            return PacketResult<SystemMessage>::Success(SystemMessage(field.value));
+        }
+
+    private:
+        static constexpr std::size_t FieldCount = 1U;
+        static constexpr std::size_t MessageFieldIndex = 0U;
+    };
+
+    /**
      * SEND_CJ SendJobName		jv {jobassort:i62} {name:es}
      */
     struct JobName

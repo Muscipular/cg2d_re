@@ -268,3 +268,7 @@
 | 2026-06-02 | M6.12.15 宠邮登记 PfqV 验证 | 复跑格式检查、VS bundled CMake configure、Debug 新增目标构建与执行、Debug schema 覆盖测试构建、packet CTest | `git diff --check` 通过，仅 LF/CRLF 提示；VS bundled CMake configure 通过；Debug 构建并运行 `cg-packet-pet-mail-register-test` 通过；Debug 构建 `cg-packet-coverage-schema-test` 通过；CTest Debug `^cg-packet-` 56/56 通过 | 不实现其他协议；`text` 不拆 `|`，`color=1` 保持编码为 `1` |
 
 | 2026-06-02 | M6.13.11 IcE 暂缓记录 | 更新 `plans/protocol_m6_inventory.md` 中 `IcE` / `RECV_Shutdown` 备注：xlsx 未使用、旧 C 未补、IDA 未找到，禁止把空 format 猜成 0 字段；schema 保持 rawFormat 空、formatEmpty true、fields []，未添加 resolvedFormat/resolvedFields | `git diff --check` 通过；未编译 | 未改 C++；不实现 `IcE`；字段待补，暂缓 |
+
+| 2026-06-02 | M6.13.01 系统消息 Zd 实现 | `PacketParser` 注册 `Zd {message:es}`；新增 `receive::SystemMessage`，message 仅按普通外层 es 处理，允许空文本且不拆 `|`/`\z`；新增 `cg-packet-system-message-test` 覆盖 Parse、空消息、空格/换行/反斜杠 roundtrip、缺/多字段和手工 Packet 方向/字段名/字段类型构造失败；M6 清单同步完成 | 待验证：`git diff --check`、VS bundled CMake configure、Debug 构建新增目标、运行测试 exe、CTest Debug `^cg-packet-` | 不实现其他 M6.13 协议；不实现 Unescape2、@FIND_LV1/@MSG、音效/窗口业务；不添加非空/长度/内容校验 |
+
+| 2026-06-02 | M6.13.01 系统消息 Zd 验证 | 复跑格式检查、VS bundled CMake configure、Debug 新增目标构建与执行、packet CTest | `git diff --check` 通过，仅 LF/CRLF 提示；VS bundled CMake configure 通过；Debug 构建并运行 `cg-packet-system-message-test` 通过；CTest Debug `^cg-packet-` 57/57 通过 | 不实现其他协议；schema 既有 raw `{message:es}` 与 source xlsx 已匹配，未强行改 raw |

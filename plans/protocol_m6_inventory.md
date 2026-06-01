@@ -117,7 +117,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | M6.12.13 物品/技能/宠物封包-TgX | `TgX` | 服务端->客户端 | 否 | 完成 | SEND_EQUIP_SUIT；外层 `{data:es}`；空 data 表示 inactive/empty；非空 data 为单条逗号分隔 27 段，字符串字段保留 raw escaped，`specialTitleFlag` 只接受 `0/1`，其余数值为 raw signed decimal |
 | M6.12.14 物品/技能/宠物封包-rMsv | `rMsv` | 客户端->服务端 | 否 | 完成 | RECV_PMSG 发送宠邮；外层 `{index:i62} {petindex:i62} {itemindex:i62} {message:es} {color:i62}`；无二级 payload，`message` 为普通外层 es，允许空文本且不拆 `|` |
 | M6.12.15 物品/技能/宠物封包-PfqV | `PfqV` | 客户端->服务端 | 否 | 完成 | RECV_PGML 宠邮登记；外层 `{toregist:i62} {petSlot:i62} {itemSlot:i62} {text:es} {color:i62}`；无二级 payload，`text` 为普通外层 es，允许空文本且不拆 `|`，客户端不执行 `color | 0x100` |
-| M6.13.01 聊天/窗口/系统封包-Zd | `Zd` | 服务端->客户端 | 否 | 未开始 | SEND_STK  SYSTEMMSG 系统信息 |
+| M6.13.01 聊天/窗口/系统封包-Zd | `Zd` | 服务端->客户端 | 否 | 完成 | SEND_STK  SYSTEMMSG 系统信息；外层 `{message:es}`，message 为普通外层 es，允许空文本且不拆 `|`/`\z` |
 | M6.13.02 聊天/窗口/系统封包-zzd | `zzd` | 服务端->客户端 | 否 | 未开始 | SEND_EF |
 | M6.13.03 聊天/窗口/系统封包-LYIm | `LYIm` | 服务端->客户端 | 是 | 字段待补 | SEND_B |
 | M6.13.04 聊天/窗口/系统封包-Mhbt | `Mhbt` | 服务端->客户端 | 是 | 字段待补 | SEND_MSG recvmsg |

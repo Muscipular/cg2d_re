@@ -2,6 +2,7 @@
 #define CG_ENGINE_PAYLOAD_CODEC_H
 
 #include "PacketTypes.hpp"
+#include "utils.hpp"
 
 #include <cstddef>
 #include <span>
@@ -45,6 +46,44 @@ namespace cg::packet
             start = found + delimiter.size();
         }
 
+        return PacketResult<std::vector<std::string>>::Success(std::move(parts));
+    }
+
+    [[nodiscard]] inline PacketResult<std::vector<std::string>> SplitPayloadLegacyAware(
+        std::string_view text,
+        std::string_view delimiter)
+    {
+        if (delimiter.empty()) {
+            return PacketResult<std::vector<std::string>>::Failure(detail::MakePayloadCodecError(
+                PacketErrorCode::DecodeFailed,
+                "payload 分隔符不能为空"));
+        }
+
+        std::vector<std::string> parts;
+        std::size_t start = 0;
+        for (std::size_t index = 0; index < text.size();) {
+            if (detail::IsLegacyDoubleByteLead(text[index])) {
+                if (index + 1U >= text.size()) {
+                    return PacketResult<std::vector<std::string>>::Failure(detail::MakePayloadCodecError(
+                        PacketErrorCode::DecodeFailed,
+                        "payload 旧双字节字符被截断"));
+                }
+
+                index += 2U;
+                continue;
+            }
+
+            if (text.substr(index, delimiter.size()) == delimiter) {
+                parts.emplace_back(text.substr(start, index - start));
+                index += delimiter.size();
+                start = index;
+                continue;
+            }
+
+            ++index;
+        }
+
+        parts.emplace_back(text.substr(start));
         return PacketResult<std::vector<std::string>>::Success(std::move(parts));
     }
 

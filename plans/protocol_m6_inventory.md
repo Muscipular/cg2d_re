@@ -114,7 +114,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | M6.12.10 物品/技能/宠物封包-AU | `AU` | 服务端->客户端 | 是 | 完成 | SEND_KP2；旧 C `nrproto_KP2_send(fd,int number,char* data)` + IDA `network_dispatch/sub_50AC20` + SDLCG 补外层 `{petIndex:i62} {data:es}`；`data` literal `0` 清空，`flags == 1` 为 all marker 且必须追加全部 19 个 raw signed decimal 字段，partial 为 `flags|field...|`，字段顺序按 `1<<1` 到 `1<<19`，拒绝 bit0/unknown bit/flags==0 active payload；`itemHave` 语义待补 |
 | M6.12.11 物品/技能/宠物封包-JgO | `JgO` | 服务端->客户端 | 是 | 完成 | SEND_TU techuse；旧 C `nrproto_TU_send` + 客户端 IDA `network_dispatch/sub_50C7F0` 补外层 `{result:i62} {type:i62} {data:es}`；payload 按 type 1..4 解析，数值为 raw signed decimal，字符串保留 raw escaped；type3 `value` 语义待补 |
 | M6.12.12 物品/技能/宠物封包-iKe | `iKe` | 服务端->客户端 | 是 | 完成 | SEND_PET_ITEM；旧 C `nrproto_iKe_send` + 客户端 IDA `network_dispatch/sub_510150` 补外层 `{petSlot:i62} {data:es}`；payload 复用普通物品 14 段 item record，无 count，空 payload 为 0 records 且不代表清空全部，清空槽为 `slot|||||||||||||`，字符串字段保留 raw escaped |
-| M6.12.13 物品/技能/宠物封包-TgX | `TgX` | 服务端->客户端 | 否 | 未开始 | SEND_EQUIP_SUIT |
+| M6.12.13 物品/技能/宠物封包-TgX | `TgX` | 服务端->客户端 | 否 | 完成 | SEND_EQUIP_SUIT；外层 `{data:es}`；空 data 表示 inactive/empty；非空 data 为单条逗号分隔 27 段，字符串字段保留 raw escaped，`specialTitleFlag` 只接受 `0/1`，其余数值为 raw signed decimal |
 | M6.12.14 物品/技能/宠物封包-rMsv | `rMsv` | 客户端->服务端 | 否 | 未开始 | RECV_PMSG 发送宠邮 |
 | M6.12.15 物品/技能/宠物封包-PfqV | `PfqV` | 客户端->服务端 | 否 | 未开始 | RECV_PGML 宠邮 |
 | M6.13.01 聊天/窗口/系统封包-Zd | `Zd` | 服务端->客户端 | 否 | 未开始 | SEND_STK  SYSTEMMSG 系统信息 |
@@ -327,7 +327,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 123 | `Yx` | 服务端->客户端 | 完成 | SEND_StallBuy | 否 | 否 | xlsx |
 | 124 | `iKe` | 服务端->客户端 | 完成 | SEND_PET_ITEM；外层 `{petSlot:i62} {data:es}`，data 复用 14 段 item record | 是 | 是 | ServerC + ClientIda + src/packet |
 | 125 | `kiG` | 服务端->客户端 | 待办 | SEND_PET_ITEM_SWAP 在人或宠物间移动装备 | 否 | 否 | xlsx |
-| 126 | `TgX` | 服务端->客户端 | 待办 | SEND_EQUIP_SUIT | 否 | 是 | xlsx |
+| 126 | `TgX` | 服务端->客户端 | 完成 | SEND_EQUIP_SUIT；外层 `{data:es}`；payload 为 `nameRaw,skillNameRaw,specialTitleFlag,` 后接 24 个 raw signed decimal 属性字段，逗号分隔跳过旧双字节第二字节 | 否 | 是 | xlsx+ServerC+ClientIda+src/packet |
 | 127 | `cEj` | 客户端->服务端 | 完成 | RECV_JB | 否 | 否 | xlsx |
 | 128 | `IMv` | 客户端->服务端 | 完成 | RECV_LB WatchTry 触发一次Watch？会重置玩家位置到x, y, Δx,Δy>1时会发送XYD封包重置玩家位置 | 否 | 否 | xlsx |
 | 129 | `Rg` | 客户端->服务端 | 完成 | RECV_B BattleCommand 战斗指令 | 否 | 否 | xlsx |

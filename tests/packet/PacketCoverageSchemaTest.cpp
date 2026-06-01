@@ -346,6 +346,8 @@ struct PacketSchema
     std::string originalFormat;
     bool formatEmpty = false;
     std::string source;
+    std::string resolvedFormat;
+    std::string resolvedSource;
     std::vector<FieldSchema> fields;
 };
 
@@ -444,6 +446,8 @@ PacketSchema ReadPacketSchema(const JsonValue& object, int& failures)
     packet.originalFormat = OptionalString(object, "originalFormat", failures);
     packet.formatEmpty = RequiredBool(object, "formatEmpty", failures);
     packet.source = RequiredString(object, "source", failures);
+    packet.resolvedFormat = OptionalString(object, "resolvedFormat", failures);
+    packet.resolvedSource = OptionalString(object, "resolvedSource", failures);
 
     const JsonValue* fields = RequiredMember(object, "fields", failures);
     if (fields != nullptr) {
@@ -644,6 +648,10 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     failures += Expect(equipSuitSchema != nullptr, "TgX schema exists");
     if (equipSuitSchema != nullptr) {
         failures += Expect(equipSuitSchema->rawFormat == "{data}", "TgX rawFormat");
+        failures += Expect(equipSuitSchema->resolvedFormat == "{data:es}", "TgX resolvedFormat");
+        failures += Expect(
+            equipSuitSchema->resolvedSource == "xlsx+ServerC+ClientIda+src/packet",
+            "TgX resolvedSource");
         failures += Expect(equipSuitSchema->fields.size() == 1U, "TgX field count");
         if (equipSuitSchema->fields.size() == 1U) {
             failures += Expect(equipSuitSchema->fields[0].name == "data", "TgX field name");

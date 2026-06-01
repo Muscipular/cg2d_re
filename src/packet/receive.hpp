@@ -4185,6 +4185,418 @@ namespace cg::packet::receive
     };
 
     /**
+     * SEND_EQUIP_SUIT 装备套装		TgX {data:es}
+     * data: 空值表示 inactive；非空为 27 段逗号 payload，字符串字段保留 raw escaped。
+     */
+    struct EquipSuit
+    {
+        static constexpr std::string_view Code = "TgX";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::string_view PayloadDelimiter = ",";
+
+        bool active = false;
+        std::string nameRaw;
+        std::string skillNameRaw;
+        int specialTitleFlag = 0;
+        int attackPercent = 0;
+        int attackValue = 0;
+        int defensePercent = 0;
+        int defenseValue = 0;
+        int agilityPercent = 0;
+        int agilityValue = 0;
+        int spiritPercent = 0;
+        int spiritValue = 0;
+        int recoveryPercent = 0;
+        int recoveryValue = 0;
+        int hpPercent = 0;
+        int hpValue = 0;
+        int fpPercent = 0;
+        int fpValue = 0;
+        int poisonResist = 0;
+        int sleepResist = 0;
+        int stoneResist = 0;
+        int drunkResist = 0;
+        int confusionResist = 0;
+        int amnesiaResist = 0;
+        int critical = 0;
+        int counter = 0;
+        int hitRate = 0;
+        int avoid = 0;
+
+        EquipSuit() = default;
+
+        EquipSuit(
+            std::string nameRaw,
+            std::string skillNameRaw,
+            int specialTitleFlag,
+            int attackPercent,
+            int attackValue,
+            int defensePercent,
+            int defenseValue,
+            int agilityPercent,
+            int agilityValue,
+            int spiritPercent,
+            int spiritValue,
+            int recoveryPercent,
+            int recoveryValue,
+            int hpPercent,
+            int hpValue,
+            int fpPercent,
+            int fpValue,
+            int poisonResist,
+            int sleepResist,
+            int stoneResist,
+            int drunkResist,
+            int confusionResist,
+            int amnesiaResist,
+            int critical,
+            int counter,
+            int hitRate,
+            int avoid)
+            : active(true),
+              nameRaw(std::move(nameRaw)),
+              skillNameRaw(std::move(skillNameRaw)),
+              specialTitleFlag(specialTitleFlag),
+              attackPercent(attackPercent),
+              attackValue(attackValue),
+              defensePercent(defensePercent),
+              defenseValue(defenseValue),
+              agilityPercent(agilityPercent),
+              agilityValue(agilityValue),
+              spiritPercent(spiritPercent),
+              spiritValue(spiritValue),
+              recoveryPercent(recoveryPercent),
+              recoveryValue(recoveryValue),
+              hpPercent(hpPercent),
+              hpValue(hpValue),
+              fpPercent(fpPercent),
+              fpValue(fpValue),
+              poisonResist(poisonResist),
+              sleepResist(sleepResist),
+              stoneResist(stoneResist),
+              drunkResist(drunkResist),
+              confusionResist(confusionResist),
+              amnesiaResist(amnesiaResist),
+              critical(critical),
+              counter(counter),
+              hitRate(hitRate),
+              avoid(avoid)
+        {
+        }
+
+        [[nodiscard]] std::string BuildData() const
+        {
+            if (!active) {
+                return {};
+            }
+
+            const std::array<std::string, PayloadFieldCount> values = {
+                nameRaw,
+                skillNameRaw,
+                std::to_string(specialTitleFlag),
+                std::to_string(attackPercent),
+                std::to_string(attackValue),
+                std::to_string(defensePercent),
+                std::to_string(defenseValue),
+                std::to_string(agilityPercent),
+                std::to_string(agilityValue),
+                std::to_string(spiritPercent),
+                std::to_string(spiritValue),
+                std::to_string(recoveryPercent),
+                std::to_string(recoveryValue),
+                std::to_string(hpPercent),
+                std::to_string(hpValue),
+                std::to_string(fpPercent),
+                std::to_string(fpValue),
+                std::to_string(poisonResist),
+                std::to_string(sleepResist),
+                std::to_string(stoneResist),
+                std::to_string(drunkResist),
+                std::to_string(confusionResist),
+                std::to_string(amnesiaResist),
+                std::to_string(critical),
+                std::to_string(counter),
+                std::to_string(hitRate),
+                std::to_string(avoid),
+            };
+
+            PacketResult<std::string> payload = BuildPayload(
+                std::span<const std::string>(values.data(), values.size()),
+                PayloadDelimiter);
+            if (payload.HasValue()) {
+                return payload.Value();
+            }
+
+            return {};
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            packet.fields.push_back(PacketField {
+                "data",
+                PacketFieldType::EscapedString,
+                BuildData(),
+                PacketSourceTag::Xlsx,
+            });
+            return packet;
+        }
+
+        static PacketResult<EquipSuit> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view);
+            if (!parsed.HasValue()) {
+                return PacketResult<EquipSuit>::Failure(parsed.Error());
+            }
+
+            return FromPacket(parsed.Value());
+        }
+
+        static PacketResult<EquipSuit> FromPacket(const Packet& packet)
+        {
+            if (packet.code.View() != Code) {
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "EquipSuit Parse 收到非 TgX 封包");
+                error.packetCode = packet.code;
+                return PacketResult<EquipSuit>::Failure(std::move(error));
+            }
+
+            if (packet.direction != Direction) {
+                return PacketResult<EquipSuit>::Failure(MakePacketError(
+                    PacketErrorCode::DecodeFailed,
+                    "EquipSuit Parse 封包方向不匹配"));
+            }
+
+            if (packet.fields.size() != FieldCount) {
+                return PacketResult<EquipSuit>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "EquipSuit Parse 字段数量不匹配",
+                    packet.fields.empty() ? 0U : FieldCount));
+            }
+
+            const PacketField& field = packet.fields[DataFieldIndex];
+            if (field.name != "data") {
+                return PacketResult<EquipSuit>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "EquipSuit Parse 字段名不匹配",
+                    DataFieldIndex));
+            }
+
+            if (field.type != PacketFieldType::EscapedString) {
+                return PacketResult<EquipSuit>::Failure(MakeFieldError(
+                    PacketErrorCode::InvalidFieldType,
+                    "EquipSuit Parse 字段类型不匹配",
+                    DataFieldIndex));
+            }
+
+            return ParseData(field.value);
+        }
+
+    private:
+        static constexpr std::size_t FieldCount = 1U;
+        static constexpr std::size_t DataFieldIndex = 0U;
+        static constexpr std::size_t PayloadFieldCount = 27U;
+        static constexpr std::size_t StatFieldCount = 24U;
+
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            error.source = PacketSourceTag::Xlsx;
+            return error;
+        }
+
+        [[nodiscard]] static PacketError MakeFieldError(
+            PacketErrorCode code,
+            std::string message,
+            std::size_t fieldIndex)
+        {
+            PacketError error = MakePacketError(code, std::move(message));
+            error.fieldIndex = fieldIndex;
+            return error;
+        }
+
+        [[nodiscard]] static PacketResult<EquipSuit> ParseData(std::string_view payload)
+        {
+            if (payload.empty()) {
+                return PacketResult<EquipSuit>::Success(EquipSuit());
+            }
+
+            PacketResult<std::vector<std::string>> split = SplitPayloadLegacyAware(payload, PayloadDelimiter);
+            if (!split.HasValue()) {
+                PacketError error = split.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = DataFieldIndex;
+                error.source = PacketSourceTag::Xlsx;
+                return PacketResult<EquipSuit>::Failure(std::move(error));
+            }
+
+            const std::vector<std::string>& parts = split.Value();
+            if (parts.size() != PayloadFieldCount) {
+                return PacketResult<EquipSuit>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "EquipSuit payload 段数量不匹配",
+                    DataFieldIndex));
+            }
+
+            PacketResult<int> flag = ParseDecimalField(parts[2U], 2U);
+            if (!flag.HasValue()) {
+                return PacketResult<EquipSuit>::Failure(flag.Error());
+            }
+            if (flag.Value() != 0 && flag.Value() != 1) {
+                return PacketResult<EquipSuit>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "EquipSuit specialTitleFlag 只能为 0 或 1",
+                    2U));
+            }
+
+            EquipSuit equipSuit;
+            equipSuit.active = true;
+            equipSuit.nameRaw = parts[0U];
+            equipSuit.skillNameRaw = parts[1U];
+            equipSuit.specialTitleFlag = flag.Value();
+
+            for (std::size_t index = 0; index < StatFieldCount; ++index) {
+                const std::size_t payloadIndex = index + 3U;
+                PacketResult<int> value = ParseDecimalField(parts[payloadIndex], payloadIndex);
+                if (!value.HasValue()) {
+                    return PacketResult<EquipSuit>::Failure(value.Error());
+                }
+                AssignStatValue(equipSuit, index, value.Value());
+            }
+
+            return PacketResult<EquipSuit>::Success(std::move(equipSuit));
+        }
+
+        static void AssignStatValue(EquipSuit& equipSuit, std::size_t index, int value)
+        {
+            switch (index) {
+            case 0U:
+                equipSuit.attackPercent = value;
+                break;
+            case 1U:
+                equipSuit.attackValue = value;
+                break;
+            case 2U:
+                equipSuit.defensePercent = value;
+                break;
+            case 3U:
+                equipSuit.defenseValue = value;
+                break;
+            case 4U:
+                equipSuit.agilityPercent = value;
+                break;
+            case 5U:
+                equipSuit.agilityValue = value;
+                break;
+            case 6U:
+                equipSuit.spiritPercent = value;
+                break;
+            case 7U:
+                equipSuit.spiritValue = value;
+                break;
+            case 8U:
+                equipSuit.recoveryPercent = value;
+                break;
+            case 9U:
+                equipSuit.recoveryValue = value;
+                break;
+            case 10U:
+                equipSuit.hpPercent = value;
+                break;
+            case 11U:
+                equipSuit.hpValue = value;
+                break;
+            case 12U:
+                equipSuit.fpPercent = value;
+                break;
+            case 13U:
+                equipSuit.fpValue = value;
+                break;
+            case 14U:
+                equipSuit.poisonResist = value;
+                break;
+            case 15U:
+                equipSuit.sleepResist = value;
+                break;
+            case 16U:
+                equipSuit.stoneResist = value;
+                break;
+            case 17U:
+                equipSuit.drunkResist = value;
+                break;
+            case 18U:
+                equipSuit.confusionResist = value;
+                break;
+            case 19U:
+                equipSuit.amnesiaResist = value;
+                break;
+            case 20U:
+                equipSuit.critical = value;
+                break;
+            case 21U:
+                equipSuit.counter = value;
+                break;
+            case 22U:
+                equipSuit.hitRate = value;
+                break;
+            case 23U:
+                equipSuit.avoid = value;
+                break;
+            default:
+                break;
+            }
+        }
+
+        [[nodiscard]] static PacketResult<int> ParseDecimalField(std::string_view text, std::size_t fieldIndex)
+        {
+            bool negative = false;
+            std::size_t index = 0;
+            if (!text.empty() && text.front() == '-') {
+                negative = true;
+                index = 1U;
+            }
+
+            if (index == text.size()) {
+                return PacketResult<int>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "EquipSuit 十进制字段为空",
+                    fieldIndex));
+            }
+
+            const std::int64_t maxValue = static_cast<std::int64_t>(std::numeric_limits<int>::max());
+            const std::int64_t minValue = static_cast<std::int64_t>(std::numeric_limits<int>::min());
+            const std::int64_t limit = negative ? (0 - minValue) : maxValue;
+            std::int64_t value = 0;
+
+            for (; index < text.size(); ++index) {
+                const char ch = text[index];
+                if (ch < '0' || ch > '9') {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "EquipSuit 十进制字段包含非法字符",
+                        fieldIndex));
+                }
+
+                const int digit = ch - '0';
+                if (value > (limit - digit) / 10) {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "EquipSuit 十进制字段超出 int 范围",
+                        fieldIndex));
+                }
+
+                value = (value * 10) + digit;
+            }
+
+            if (negative) {
+                value = -value;
+            }
+
+            return PacketResult<int>::Success(static_cast<int>(value));
+        }
+    };
+
+    /**
      * SEND_IA 道具信息槽：nameRaw|color|descriptionRaw|imageNo|canUseInField|battleUseFlag|target|level|flag|itemId|itemType|count|memoRaw。
      */
     struct ItemInfoSlot

@@ -248,3 +248,9 @@
 | 2026-06-02 | M6.12.12 宠物装备 iKe 实现 | 新增 `receive::PetItemData`，注册 `iKe {petSlot:i62} {data:es}`；`data` 与 `rU` 共用同文件 14 段 `ItemRecordCodec`，支持空 payload、清空槽、raw escaped 保留和 raw signed decimal 溢出检查；新增 `cg-packet-pet-item-data-test`；schema 与 M6 清单补 resolved 信息 | 待验证：`git diff --check`、VS bundled CMake configure、Debug 构建新增目标、运行测试 exe、CTest Debug `^cg-packet-` | 不实现其他协议；不校验 petSlot 范围、宠物存在、宠物装备业务枚举；未新增独立 codec 文件 |
 
 | 2026-06-02 | M6.12.12 宠物装备 iKe 验证 | 复跑格式检查、VS bundled CMake configure、Debug 新增目标构建与执行、Debug 全量构建、packet CTest | `git diff --check` 通过，仅 LF/CRLF 提示；VS bundled CMake configure 通过；Debug 构建并运行 `cg-packet-pet-item-data-test` 通过；Debug 全量构建通过；CTest Debug `^cg-packet-` 53/53 通过 | 不实现其他协议；首次新增测试因 C++ raw escape 字面量少一层反斜杠产生 C4129 warning，已修正并重跑通过 |
+
+| 2026-06-02 | M6.12.13 装备套装 TgX 启动 | 确认范围仅 `TgX` / `SEND_EQUIP_SUIT`；按任务事实实现服务端到客户端 `{data:es}`，空 data 表示 inactive/empty，非空 data 为单条逗号分隔 27 段，字符串字段保留 raw escaped，数值字段为 raw signed decimal，`specialTitleFlag` 限定 `0/1` | 待验证：`git diff --check`、VS bundled CMake configure、Debug 构建新增 `cg-packet-equip-suit-test`、运行测试 exe、CTest Debug `^cg-packet-` | 不实现其他协议；不校验装备槽、套装数量、属性范围、百分比范围、字符串 31-byte 长度；当前环境未提供可调用 subAgent 工具，按单线程推进 |
+
+| 2026-06-02 | M6.12.13 装备套装 TgX 实现 | 新增 `SplitPayloadLegacyAware` 供逗号 payload 跳过旧双字节第二字节；`PacketParser` 注册 `TgX {data:es}`；新增 `receive::EquipSuit`，空 data 为 inactive，非空严格 27 段，字符串 raw escaped 保留，flag 限定 `0/1`，24 个属性字段 raw signed decimal 校验；新增 `cg-packet-equip-suit-test`；schema 与 M6 清单补 resolved 信息 | 待验证：`git diff --check`、VS bundled CMake configure、Debug 构建新增目标、运行测试 exe、CTest Debug `^cg-packet-` | 不实现其他协议；不添加装备槽、套装数量、属性范围、百分比范围或字符串长度校验 |
+
+| 2026-06-02 | M6.12.13 装备套装 TgX 验证 | 复跑格式检查、VS bundled CMake configure、Debug 新增目标构建与执行、Debug 全量构建、packet CTest | `git diff --check` 通过，仅 LF/CRLF 提示；VS bundled CMake configure 通过；Debug 构建并运行 `cg-packet-equip-suit-test` 通过；Debug 全量构建通过；CTest Debug `^cg-packet-` 54/54 通过 | 不实现其他协议；未使用 subAgent 工具：当前环境未提供可调用 subAgent/线程工具 |

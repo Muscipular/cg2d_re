@@ -523,6 +523,17 @@ target_include_directories(cg-packet-pet-item-data-test
 
 add_test(NAME cg-packet-pet-item-data-test COMMAND cg-packet-pet-item-data-test)
 
+add_executable(cg-packet-equip-suit-test
+    tests/packet/EquipSuitPacketTest.cpp
+)
+
+target_include_directories(cg-packet-equip-suit-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+
+add_test(NAME cg-packet-equip-suit-test COMMAND cg-packet-equip-suit-test)
+
 add_executable(cg-packet-item-info-list-test
     tests/packet/ItemInfoListPacketTest.cpp
 )
@@ -827,6 +838,7 @@ if(MSVC)
     target_compile_options(cg-packet-character-skill-data-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-item-data-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-pet-item-data-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-equip-suit-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-item-info-list-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-item-recipe-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-album-flags-test PRIVATE /W4 /utf-8 /permissive-)
@@ -887,6 +899,7 @@ else()
     target_compile_options(cg-packet-character-skill-data-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-item-data-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-pet-item-data-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-packet-equip-suit-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-item-info-list-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-item-recipe-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-album-flags-test PRIVATE -Wall -Wextra -Wpedantic)

@@ -281,6 +281,17 @@ target_include_directories(cg-packet-builder-test
 
 add_test(NAME cg-packet-builder-test COMMAND cg-packet-builder-test)
 
+add_executable(cg-packet-payload-codec-test
+    tests/packet/PayloadCodecTest.cpp
+)
+
+target_include_directories(cg-packet-payload-codec-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+
+add_test(NAME cg-packet-payload-codec-test COMMAND cg-packet-payload-codec-test)
+
 add_executable(cg-packet-coverage-schema-test
     tests/packet/PacketCoverageSchemaTest.cpp
 )
@@ -310,6 +321,7 @@ if(MSVC)
     target_compile_options(cg-packet-envelope-codec-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-parser-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-builder-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-payload-codec-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-coverage-schema-test PRIVATE /W4 /utf-8 /permissive-)
 else()
     target_compile_options(cg-client PRIVATE -Wall -Wextra -Wpedantic)
@@ -325,6 +337,7 @@ else()
     target_compile_options(cg-packet-envelope-codec-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-parser-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-builder-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-packet-payload-codec-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-coverage-schema-test PRIVATE -Wall -Wextra -Wpedantic)
 endif()
 

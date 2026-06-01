@@ -81,6 +81,26 @@ namespace cg::packet
             {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
         }};
 
+        inline constexpr std::array<PacketFieldSpec, 17> AlbumInfoFields = {{
+            {"albumId", PacketFieldType::Int62, PacketSourceTag::ServerC},
+            {"imageNumber", PacketFieldType::Int62, PacketSourceTag::ServerC},
+            {"catchFlag", PacketFieldType::Int62, PacketSourceTag::ServerC},
+            {"rare", PacketFieldType::Int62, PacketSourceTag::ServerC},
+            {"type", PacketFieldType::Int62, PacketSourceTag::ServerC},
+            {"vital", PacketFieldType::Int62, PacketSourceTag::ServerC},
+            {"strength", PacketFieldType::Int62, PacketSourceTag::ServerC},
+            {"toughness", PacketFieldType::Int62, PacketSourceTag::ServerC},
+            {"quick", PacketFieldType::Int62, PacketSourceTag::ServerC},
+            {"magic", PacketFieldType::Int62, PacketSourceTag::ServerC},
+            {"earth", PacketFieldType::Int62, PacketSourceTag::ServerC},
+            {"water", PacketFieldType::Int62, PacketSourceTag::ServerC},
+            {"fire", PacketFieldType::Int62, PacketSourceTag::ServerC},
+            {"wind", PacketFieldType::Int62, PacketSourceTag::ServerC},
+            {"slot", PacketFieldType::Int62, PacketSourceTag::ServerC},
+            {"comment", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
+            {"name", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
+        }};
+
         inline constexpr std::array<PacketFieldSpec, 1> TitleListFields = {{
             {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
         }};
@@ -234,7 +254,7 @@ namespace cg::packet
             {"y2", PacketFieldType::Int62, PacketSourceTag::Xlsx},
         }};
 
-        inline constexpr std::array<PacketSpec, 41> PacketRegistry = {{
+        inline constexpr std::array<PacketSpec, 42> PacketRegistry = {{
             {
                 "JFVf",
                 PacketDirection::ClientToServer,
@@ -311,6 +331,13 @@ namespace cg::packet
                 PacketSourceTag::Xlsx,
                 AlbumFlagsFields.data(),
                 AlbumFlagsFields.size(),
+            },
+            {
+                "dM",
+                PacketDirection::ServerToClient,
+                PacketSourceTag::ServerC,
+                AlbumInfoFields.data(),
+                AlbumInfoFields.size(),
             },
             {
                 "Sc",

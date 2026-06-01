@@ -4951,6 +4951,284 @@ namespace cg::packet::receive
     };
 
     /**
+     * SEND_ALI 图鉴信息		dM {albumId:i62} {imageNumber:i62} {catchFlag:i62} {rare:i62} {type:i62}
+     * {vital:i62} {strength:i62} {toughness:i62} {quick:i62} {magic:i62} {earth:i62} {water:i62}
+     * {fire:i62} {wind:i62} {slot:i62} {comment:es} {name:es}
+     */
+    struct AlbumInfo
+    {
+        static constexpr std::string_view Code = "dM";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+
+        int albumId = 0;
+        int imageNumber = 0;
+        int catchFlag = 0;
+        int rare = 0;
+        int type = 0;
+        int vital = 0;
+        int strength = 0;
+        int toughness = 0;
+        int quick = 0;
+        int magic = 0;
+        int earth = 0;
+        int water = 0;
+        int fire = 0;
+        int wind = 0;
+        int slot = 0;
+        std::string comment;
+        std::string name;
+
+        AlbumInfo(
+            int albumId,
+            int imageNumber,
+            int catchFlag,
+            int rare,
+            int type,
+            int vital,
+            int strength,
+            int toughness,
+            int quick,
+            int magic,
+            int earth,
+            int water,
+            int fire,
+            int wind,
+            int slot,
+            std::string comment,
+            std::string name)
+            : albumId(albumId),
+              imageNumber(imageNumber),
+              catchFlag(catchFlag),
+              rare(rare),
+              type(type),
+              vital(vital),
+              strength(strength),
+              toughness(toughness),
+              quick(quick),
+              magic(magic),
+              earth(earth),
+              water(water),
+              fire(fire),
+              wind(wind),
+              slot(slot),
+              comment(std::move(comment)),
+              name(std::move(name))
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ServerC);
+            packet.fields.reserve(FieldCount);
+
+            const std::array<int, NumericFieldCount> values = {
+                albumId,
+                imageNumber,
+                catchFlag,
+                rare,
+                type,
+                vital,
+                strength,
+                toughness,
+                quick,
+                magic,
+                earth,
+                water,
+                fire,
+                wind,
+                slot,
+            };
+
+            for (std::size_t index = 0; index < NumericFieldCount; ++index) {
+                packet.fields.push_back(PacketField {
+                    std::string(FieldNames[index]),
+                    PacketFieldType::Int62,
+                    std::to_string(values[index]),
+                    PacketSourceTag::ServerC,
+                });
+            }
+            packet.fields.push_back(PacketField {
+                std::string(FieldNames[CommentFieldIndex]),
+                PacketFieldType::EscapedString,
+                comment,
+                PacketSourceTag::ServerC,
+            });
+            packet.fields.push_back(PacketField {
+                std::string(FieldNames[NameFieldIndex]),
+                PacketFieldType::EscapedString,
+                name,
+                PacketSourceTag::ServerC,
+            });
+            return packet;
+        }
+
+        static PacketResult<AlbumInfo> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view);
+            if (!parsed.HasValue()) {
+                return PacketResult<AlbumInfo>::Failure(parsed.Error());
+            }
+
+            const Packet& packet = parsed.Value();
+            if (packet.code.View() != Code) {
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "AlbumInfo Parse 收到非 dM 封包");
+                error.packetCode = packet.code;
+                return PacketResult<AlbumInfo>::Failure(std::move(error));
+            }
+
+            if (packet.direction != Direction) {
+                return PacketResult<AlbumInfo>::Failure(MakePacketError(
+                    PacketErrorCode::DecodeFailed,
+                    "AlbumInfo Parse 封包方向不匹配"));
+            }
+
+            if (packet.fields.size() != FieldCount) {
+                return PacketResult<AlbumInfo>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "AlbumInfo Parse 字段数量不匹配",
+                    packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
+            }
+
+            for (std::size_t index = 0; index < FieldCount; ++index) {
+                if (packet.fields[index].name != FieldNames[index]) {
+                    return PacketResult<AlbumInfo>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "AlbumInfo Parse 字段名不匹配",
+                        index));
+                }
+
+                const PacketFieldType expectedType =
+                    index < NumericFieldCount ? PacketFieldType::Int62 : PacketFieldType::EscapedString;
+                if (packet.fields[index].type != expectedType) {
+                    return PacketResult<AlbumInfo>::Failure(MakeFieldError(
+                        PacketErrorCode::InvalidFieldType,
+                        "AlbumInfo Parse 字段类型不匹配",
+                        index));
+                }
+            }
+
+            std::array<int, NumericFieldCount> values = {};
+            for (std::size_t index = 0; index < NumericFieldCount; ++index) {
+                PacketResult<int> value = ParseDecimalField(packet.fields[index].value, index);
+                if (!value.HasValue()) {
+                    return PacketResult<AlbumInfo>::Failure(value.Error());
+                }
+                values[index] = value.Value();
+            }
+
+            return PacketResult<AlbumInfo>::Success(AlbumInfo(
+                values[0],
+                values[1],
+                values[2],
+                values[3],
+                values[4],
+                values[5],
+                values[6],
+                values[7],
+                values[8],
+                values[9],
+                values[10],
+                values[11],
+                values[12],
+                values[13],
+                values[14],
+                packet.fields[CommentFieldIndex].value,
+                packet.fields[NameFieldIndex].value));
+        }
+
+    private:
+        static constexpr std::size_t FieldCount = 17U;
+        static constexpr std::size_t NumericFieldCount = 15U;
+        static constexpr std::size_t CommentFieldIndex = 15U;
+        static constexpr std::size_t NameFieldIndex = 16U;
+        static constexpr std::array<std::string_view, FieldCount> FieldNames = {
+            "albumId",
+            "imageNumber",
+            "catchFlag",
+            "rare",
+            "type",
+            "vital",
+            "strength",
+            "toughness",
+            "quick",
+            "magic",
+            "earth",
+            "water",
+            "fire",
+            "wind",
+            "slot",
+            "comment",
+            "name",
+        };
+
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            error.source = PacketSourceTag::ServerC;
+            return error;
+        }
+
+        [[nodiscard]] static PacketError MakeFieldError(
+            PacketErrorCode code,
+            std::string message,
+            std::size_t fieldIndex)
+        {
+            PacketError error = MakePacketError(code, std::move(message));
+            error.fieldIndex = fieldIndex;
+            return error;
+        }
+
+        [[nodiscard]] static PacketResult<int> ParseDecimalField(std::string_view text, std::size_t fieldIndex)
+        {
+            bool negative = false;
+            std::size_t index = 0;
+            if (!text.empty() && text.front() == '-') {
+                negative = true;
+                index = 1U;
+            }
+
+            if (index == text.size()) {
+                return PacketResult<int>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "AlbumInfo 十进制字段为空",
+                    fieldIndex));
+            }
+
+            const std::int64_t maxValue = static_cast<std::int64_t>(std::numeric_limits<int>::max());
+            const std::int64_t minValue = static_cast<std::int64_t>(std::numeric_limits<int>::min());
+            const std::int64_t limit = negative ? (0 - minValue) : maxValue;
+            std::int64_t value = 0;
+
+            for (; index < text.size(); ++index) {
+                const char ch = text[index];
+                if (ch < '0' || ch > '9') {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "AlbumInfo 十进制字段包含非法字符",
+                        fieldIndex));
+                }
+
+                const int digit = ch - '0';
+                if (value > (limit - digit) / 10) {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "AlbumInfo 十进制字段超出 int 范围",
+                        fieldIndex));
+                }
+
+                value = (value * 10) + digit;
+            }
+
+            if (negative) {
+                value = -value;
+            }
+
+            return PacketResult<int>::Success(static_cast<int>(value));
+        }
+    };
+
+    /**
      * SEND_PT 宠物技能记录：skillSlot|techId|name|description|forcePoint|techField|target|seqNo。
      */
     struct PetTechRecord

@@ -1698,6 +1698,129 @@
       "xlsxStatus": "完成",
       "description": "SEND_ALI",
       "rawFormat": "",
+      "resolvedFormat": "{albumId:i62} {imageNumber:i62} {catchFlag:i62} {rare:i62} {type:i62} {vital:i62} {strength:i62} {toughness:i62} {quick:i62} {magic:i62} {earth:i62} {water:i62} {fire:i62} {wind:i62} {slot:i62} {comment:es} {name:es}",
+      "resolvedSource": "ServerC+ClientIda+src",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "albumId",
+          "typeToken": "i62",
+          "rawSpec": "{albumId:i62}",
+          "source": "ServerC+ClientIda+src"
+        },
+        {
+          "index": 1,
+          "name": "imageNumber",
+          "typeToken": "i62",
+          "rawSpec": "{imageNumber:i62}",
+          "source": "ServerC+ClientIda+src"
+        },
+        {
+          "index": 2,
+          "name": "catchFlag",
+          "typeToken": "i62",
+          "rawSpec": "{catchFlag:i62}",
+          "source": "ServerC+ClientIda+src"
+        },
+        {
+          "index": 3,
+          "name": "rare",
+          "typeToken": "i62",
+          "rawSpec": "{rare:i62}",
+          "source": "ServerC+ClientIda+src"
+        },
+        {
+          "index": 4,
+          "name": "type",
+          "typeToken": "i62",
+          "rawSpec": "{type:i62}",
+          "source": "ServerC+ClientIda+src"
+        },
+        {
+          "index": 5,
+          "name": "vital",
+          "typeToken": "i62",
+          "rawSpec": "{vital:i62}",
+          "source": "ServerC+ClientIda+src"
+        },
+        {
+          "index": 6,
+          "name": "strength",
+          "typeToken": "i62",
+          "rawSpec": "{strength:i62}",
+          "source": "ServerC+ClientIda+src"
+        },
+        {
+          "index": 7,
+          "name": "toughness",
+          "typeToken": "i62",
+          "rawSpec": "{toughness:i62}",
+          "source": "ServerC+ClientIda+src"
+        },
+        {
+          "index": 8,
+          "name": "quick",
+          "typeToken": "i62",
+          "rawSpec": "{quick:i62}",
+          "source": "ServerC+ClientIda+src"
+        },
+        {
+          "index": 9,
+          "name": "magic",
+          "typeToken": "i62",
+          "rawSpec": "{magic:i62}",
+          "source": "ServerC+ClientIda+src"
+        },
+        {
+          "index": 10,
+          "name": "earth",
+          "typeToken": "i62",
+          "rawSpec": "{earth:i62}",
+          "source": "ServerC+ClientIda+src"
+        },
+        {
+          "index": 11,
+          "name": "water",
+          "typeToken": "i62",
+          "rawSpec": "{water:i62}",
+          "source": "ServerC+ClientIda+src"
+        },
+        {
+          "index": 12,
+          "name": "fire",
+          "typeToken": "i62",
+          "rawSpec": "{fire:i62}",
+          "source": "ServerC+ClientIda+src"
+        },
+        {
+          "index": 13,
+          "name": "wind",
+          "typeToken": "i62",
+          "rawSpec": "{wind:i62}",
+          "source": "ServerC+ClientIda+src"
+        },
+        {
+          "index": 14,
+          "name": "slot",
+          "typeToken": "i62",
+          "rawSpec": "{slot:i62}",
+          "source": "ServerC+ClientIda+src"
+        },
+        {
+          "index": 15,
+          "name": "comment",
+          "typeToken": "es",
+          "rawSpec": "{comment:es}",
+          "source": "ServerC+ClientIda+src"
+        },
+        {
+          "index": 16,
+          "name": "name",
+          "typeToken": "es",
+          "rawSpec": "{name:es}",
+          "source": "ServerC+ClientIda+src"
+        }
+      ],
       "formatEmpty": true,
       "source": "xlsx",
       "fields": []

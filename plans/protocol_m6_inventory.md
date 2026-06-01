@@ -107,7 +107,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | M6.12.03 物品/技能/宠物封包-Ilz | `Ilz` | 服务端->客户端 | 否 | 完成 | SEND_AL CHAR_sendAlbumFlgData；外层 `{albumversion:i62} {data:es}`；payload 为 `page0|page1|...|`，page 为 raw decimal int，允许负数，空 data 为空 pages，可选尾随 `|`，不展开每页 32 bit 业务语义 |
 | M6.12.04 物品/技能/宠物封包-ELoy | `ELoy` | 服务端->客户端 | 是 | 完成 | SEND_IA/nrproto_IA_send + IDA sub_50BFD0；外层 `{data:es}`；payload 为 `ignored0` + 28 个隐式道具槽，每槽 13 段 `nameRaw|color|descriptionRaw|imageNo|canUseInField|battleUseFlag|target|level|flag|itemId|itemType|count|memoRaw`，字符串字段保留 raw escaped，数值为 raw decimal，`ignored0` 语义待补，空 payload 按清空 28 槽处理 |
 | M6.12.05 物品/技能/宠物封包-xmgQ | `xmgQ` | 服务端->客户端 | 是 | 完成 | SEND_IR CHAR_sendItemRecipe；外层 `{haveskillindex:i62} {data:es}`；payload 为 1..56 条 22 段 recipe record，字段为 `recipeId|itemLevel|recipeItemId|itemNameRaw|itemInfoRaw|forcePoint|usable|material0ItemId|material0NameRaw|required0|...|material4ItemId|material4NameRaw|required4|`，数值为 raw decimal，`usable` 只接受 `0/1`，字符串保留 raw escaped；本服务端为 22 段 `_OPERATION_APPEND_JEWEL` 格式，不兼容旧 21 段 |
-| M6.12.06 物品/技能/宠物封包-dM | `dM` | 服务端->客户端 | 是 | 字段待补 | SEND_ALI |
+| M6.12.06 物品/技能/宠物封包-dM | `dM` | 服务端->客户端 | 否 | 完成 | SEND_ALI；旧 C `nrproto_ALI_send` + `CHAR_sendAlbumInfoData` + IDA `network_dispatch/sub_518870` 补外层 17 字段 `{albumId:i62} {imageNumber:i62} {catchFlag:i62} {rare:i62} {type:i62} {vital:i62} {strength:i62} {toughness:i62} {quick:i62} {magic:i62} {earth:i62} {water:i62} {fire:i62} {wind:i62} {slot:i62} {comment:es} {name:es}`；无二级 payload，`comment/name` 保留外层 es 结果 |
 | M6.12.07 物品/技能/宠物封包-Dn | `Dn` | 服务端->客户端 | 是 | 字段待补 | SEND_ALN |
 | M6.12.08 物品/技能/宠物封包-lDuJ | `lDuJ` | 服务端->客户端 | 否 | 未开始 | SEND_PME 宠邮动画 |
 | M6.12.09 物品/技能/宠物封包-IsSy | `IsSy` | 服务端->客户端 | 是 | 字段待补 | SEND_KP |
@@ -172,6 +172,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | `ELoy` | 服务端->客户端 | `cg::packet::receive::ItemInfoList` | `{data:es}` | M6.12.04 已实现；旧 C `SEND_IA/nrproto_IA_send` + IDA `sub_50BFD0` 补足；`data` 为 `ignored0` + 28 个隐式道具槽，每槽 13 段，字符串字段保留 raw escaped，数值为 raw decimal，空 payload 按清空 28 槽处理，`ignored0` 语义待补 |
 | `xmgQ` | 服务端->客户端 | `cg::packet::receive::ItemRecipe` | `{haveskillindex:i62} {data:es}` | M6.12.05 已实现；旧 C `SEND_IR/nrproto_IR_send` + `CHAR_sendItemRecipe` + 客户端 IDA 补足；`data` 为 1..56 条 22 段 recipe record，包含 `recipeItemId`，数值为 raw decimal，`usable` 限定 `0/1`，字符串字段保留 raw escaped，整体保留尾随 `|` |
 | `Ilz` | 服务端->客户端 | `cg::packet::receive::AlbumFlags` | `{albumversion:i62} {data:es}` | M6.12.03 已实现；旧 C `SEND_AL/nrproto_AL_send` + `CHAR_sendAlbumFlgData` + 客户端 IDA 补足；`data` 为 `page0|page1|...|`，page 为 raw decimal int，允许负数，空 payload 为空 pages，回写规范化尾随 `|` |
+| `dM` | 服务端->客户端 | `cg::packet::receive::AlbumInfo` | `{albumId:i62} {imageNumber:i62} {catchFlag:i62} {rare:i62} {type:i62} {vital:i62} {strength:i62} {toughness:i62} {quick:i62} {magic:i62} {earth:i62} {water:i62} {fire:i62} {wind:i62} {slot:i62} {comment:es} {name:es}` | M6.12.06 已实现；旧 C `SEND_ALI/nrproto_ALI_send` + `CHAR_sendAlbumInfoData` + 客户端 IDA 补足；无二级 payload，`comment/name` 允许空字符串并保留外层 es 结果，不做 UI 展示用 `Unescape2` |
 | `eZT` | 服务端->客户端 | `cg::packet::receive::ProfileList` | `{data:es}` | M6.11.06 已实现；xlsx 原 schema `{data}` 按旧 C `nrproto_mkstr_string(data)` 修正为 `data/es`；`data` 为 `version|itemId|graphicNo|itemName...`，无 count，`version/itemId/graphicNo` 为 raw decimal，`itemName` 保留 raw 字符串 |
 | `IUn` | 服务端->客户端 | `cg::packet::receive::AboutList` | `{data:es}` | M6.11.07 已实现；xlsx 原 schema `{data}` 按旧 C `nrproto_mkstr_string(data)` 修正为 `data/es`；`data` 为 `version|itemId|graphicNo|itemName...`，无 count，`version/itemId/graphicNo` 为 raw decimal，`itemName` 保留 raw 字符串 |
 | `DpSY` | 服务端->客户端 | `cg::packet::receive::ProfileData` | `{name:es} {lv:i62} {job:es} {title:es} {guildName:es} {graphic:i62} {sid:i62} {smsg:es} {bid:i62} {bmsg:es} {aid:i62} {amsg:es} {pmsg:es}` | M6.11.08 已实现；按旧 C `SEND_PRD/nrproto_PRD_send` 修正为 13 个外层 token；`smsg/bmsg/amsg/pmsg` 保留 es 字符串，不拆二级 payload |
@@ -255,7 +256,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 57 | `vWpn` | 服务端->客户端 | 完成 | SEND_SI moveitem | 是 | 否 | 待 C/IDA 补全 |
 | 58 | `xmgQ` | 服务端->客户端 | 完成 | SEND_IR CHAR_sendItemRecipe；外层 `{haveskillindex:i62} {data:es}`，payload 22 段 recipe record，最多 56 条 | 是 | 是 | ServerC+ClientIda+src |
 | 59 | `Mhbt` | 服务端->客户端 | 完成 | SEND_MSG recvmsg | 是 | 是 | 待 C/IDA 补全 |
-| 60 | `dM` | 服务端->客户端 | 完成 | SEND_ALI | 是 | 是 | 待 C/IDA 补全 |
+| 60 | `dM` | 服务端->客户端 | 完成 | SEND_ALI；外层 15 个 i62 + `comment/name` 两个 es，无二级 payload | 否 | 是 | ServerC+ClientIda+src |
 | 61 | `Dn` | 服务端->客户端 | 完成 | SEND_ALN | 是 | 是 | 待 C/IDA 补全 |
 | 62 | `IYo` | 服务端->客户端 | 完成 | SEND_ALO | 是 | 否 | 待 C/IDA 补全 |
 | 63 | `lDuJ` | 服务端->客户端 | 完成 | SEND_PME 宠邮动画 | 否 | 是 | xlsx |

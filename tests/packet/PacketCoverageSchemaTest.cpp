@@ -623,6 +623,16 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         failures += ExpectPacketFieldsMatch(*loginResultSchema, loginResult.ToPacket(), "whV field order");
     }
 
+    const PacketSchema* effectSchema = FindPacket(packets, "zzd");
+    failures += Expect(effectSchema != nullptr, "zzd schema exists");
+    if (effectSchema != nullptr) {
+        const cg::packet::receive::Effect effect(1, 2, "data");
+        failures += Expect(effectSchema->direction == "服务端->客户端", "zzd direction");
+        failures += Expect(effectSchema->legacyKind == "SEND", "zzd legacyKind");
+        failures += Expect(effectSchema->rawFormat == "{EffType:i62} {TM_EffSize:i62} {data:es}", "zzd rawFormat");
+        failures += ExpectPacketFieldsMatch(*effectSchema, effect.ToPacket(), "zzd field order");
+    }
+
     const PacketSchema* checkCommandSchema = FindPacket(packets, "CCL");
     failures += Expect(checkCommandSchema != nullptr, "CCL schema exists");
     if (checkCommandSchema != nullptr) {

@@ -272,3 +272,9 @@
 | 2026-06-02 | M6.13.01 系统消息 Zd 实现 | `PacketParser` 注册 `Zd {message:es}`；新增 `receive::SystemMessage`，message 仅按普通外层 es 处理，允许空文本且不拆 `|`/`\z`；新增 `cg-packet-system-message-test` 覆盖 Parse、空消息、空格/换行/反斜杠 roundtrip、缺/多字段和手工 Packet 方向/字段名/字段类型构造失败；M6 清单同步完成 | 待验证：`git diff --check`、VS bundled CMake configure、Debug 构建新增目标、运行测试 exe、CTest Debug `^cg-packet-` | 不实现其他 M6.13 协议；不实现 Unescape2、@FIND_LV1/@MSG、音效/窗口业务；不添加非空/长度/内容校验 |
 
 | 2026-06-02 | M6.13.01 系统消息 Zd 验证 | 复跑格式检查、VS bundled CMake configure、Debug 新增目标构建与执行、packet CTest | `git diff --check` 通过，仅 LF/CRLF 提示；VS bundled CMake configure 通过；Debug 构建并运行 `cg-packet-system-message-test` 通过；CTest Debug `^cg-packet-` 57/57 通过 | 不实现其他协议；schema 既有 raw `{message:es}` 与 source xlsx 已匹配，未强行改 raw |
+
+| 2026-06-02 | M6.13.02 特效 zzd 启动 | 确认范围仅 `zzd` / `SEND_EF`；按任务事实实现服务端到客户端 `{EffType:i62} {TM_EffSize:i62} {data:es}`，`data` 为 opaque 外层 es，允许空值 | 待验证：`git diff --check`、VS bundled CMake configure、Debug 构建新增 `cg-packet-effect-test`、运行测试 exe、CTest Debug `^cg-packet-` | 不实现其他协议；不拆 `data`；不添加 effect bitmask、level/size、正负或枚举校验；不新增独立 codec 文件 |
+
+| 2026-06-02 | M6.13.02 特效 zzd 实现 | `PacketParser` 注册 `zzd {EffType:i62} {TM_EffSize:i62} {data:es}`；新增 `receive::Effect`，typed 成员为 `effType/tmEffSize/data`，`data` 仅按普通外层 es 保留；新增 `cg-packet-effect-test`；schema 覆盖测试校验 `zzd` raw 与 typed 字段一致；M6 清单同步完成 | 待验证：`git diff --check`、VS bundled CMake configure、Debug 构建新增目标、运行测试 exe、CTest Debug `^cg-packet-` | 不实现其他协议；不拆 `data`；不添加 bitmask、范围、正负或枚举校验；不引入独立 codec 文件 |
+
+| 2026-06-02 | M6.13.02 特效 zzd 验证 | 复跑格式检查、VS bundled CMake configure、Debug 新增目标与 schema 覆盖测试构建、运行新增测试 exe、packet CTest | `git diff --check` 通过，仅 LF/CRLF 提示；VS bundled CMake configure 通过；Debug 构建并运行 `cg-packet-effect-test` 通过；Debug `cg-packet-coverage-schema-test` 通过；首次 CTest 因 3 个既有 exe 缺失 Not Run，补构建后 CTest Debug `^cg-packet-` 58/58 通过 | 不实现其他协议；`data` 仍为 opaque 外层 es；未添加业务范围或枚举校验 |

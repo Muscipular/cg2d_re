@@ -9812,6 +9812,194 @@ namespace cg::packet::receive
     };
 
     /**
+     * SEND_EF 特效封包		zzd {EffType:i62} {TM_EffSize:i62} {data:es}
+     * data 为 opaque 外层 es，不拆二级 payload。
+     */
+    struct Effect
+    {
+        static constexpr std::string_view Code = "zzd";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+
+        int effType = 0;
+        int tmEffSize = 0;
+        std::string data;
+
+        Effect(int effType, int tmEffSize, std::string data)
+            : effType(effType),
+              tmEffSize(tmEffSize),
+              data(std::move(data))
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            packet.fields.push_back(PacketField {
+                "EffType",
+                PacketFieldType::Int62,
+                std::to_string(effType),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "TM_EffSize",
+                PacketFieldType::Int62,
+                std::to_string(tmEffSize),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "data",
+                PacketFieldType::EscapedString,
+                data,
+                PacketSourceTag::Xlsx,
+            });
+            return packet;
+        }
+
+        static PacketResult<Effect> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view);
+            if (!parsed.HasValue()) {
+                return PacketResult<Effect>::Failure(parsed.Error());
+            }
+
+            const Packet& packet = parsed.Value();
+            if (packet.code.View() != Code) {
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "Effect Parse 收到非 zzd 封包");
+                error.packetCode = packet.code;
+                return PacketResult<Effect>::Failure(std::move(error));
+            }
+
+            if (packet.direction != Direction) {
+                return PacketResult<Effect>::Failure(MakePacketError(
+                    PacketErrorCode::DecodeFailed,
+                    "Effect Parse 封包方向不匹配"));
+            }
+
+            if (packet.fields.size() != FieldCount) {
+                return PacketResult<Effect>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "Effect Parse 字段数量不匹配",
+                    packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
+            }
+
+            const std::array<std::string_view, FieldCount> fieldNames = {
+                "EffType",
+                "TM_EffSize",
+                "data",
+            };
+            const std::array<PacketFieldType, FieldCount> fieldTypes = {
+                PacketFieldType::Int62,
+                PacketFieldType::Int62,
+                PacketFieldType::EscapedString,
+            };
+
+            for (std::size_t index = 0; index < FieldCount; ++index) {
+                if (packet.fields[index].name != fieldNames[index]) {
+                    return PacketResult<Effect>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "Effect Parse 字段名不匹配",
+                        index));
+                }
+
+                if (packet.fields[index].type != fieldTypes[index]) {
+                    return PacketResult<Effect>::Failure(MakeFieldError(
+                        PacketErrorCode::InvalidFieldType,
+                        "Effect Parse 字段类型不匹配",
+                        index));
+                }
+            }
+
+            PacketResult<int> effTypeValue = ParseDecimalField(packet.fields[EffTypeFieldIndex].value, EffTypeFieldIndex);
+            if (!effTypeValue.HasValue()) {
+                return PacketResult<Effect>::Failure(effTypeValue.Error());
+            }
+
+            PacketResult<int> tmEffSizeValue =
+                ParseDecimalField(packet.fields[TmEffSizeFieldIndex].value, TmEffSizeFieldIndex);
+            if (!tmEffSizeValue.HasValue()) {
+                return PacketResult<Effect>::Failure(tmEffSizeValue.Error());
+            }
+
+            return PacketResult<Effect>::Success(Effect(
+                effTypeValue.Value(),
+                tmEffSizeValue.Value(),
+                packet.fields[DataFieldIndex].value));
+        }
+
+    private:
+        static constexpr std::size_t FieldCount = 3U;
+        static constexpr std::size_t EffTypeFieldIndex = 0U;
+        static constexpr std::size_t TmEffSizeFieldIndex = 1U;
+        static constexpr std::size_t DataFieldIndex = 2U;
+
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            error.source = PacketSourceTag::Xlsx;
+            return error;
+        }
+
+        [[nodiscard]] static PacketError MakeFieldError(
+            PacketErrorCode code,
+            std::string message,
+            std::size_t fieldIndex)
+        {
+            PacketError error = MakePacketError(code, std::move(message));
+            error.fieldIndex = fieldIndex;
+            return error;
+        }
+
+        [[nodiscard]] static PacketResult<int> ParseDecimalField(std::string_view text, std::size_t fieldIndex)
+        {
+            bool negative = false;
+            std::size_t index = 0;
+            if (!text.empty() && text.front() == '-') {
+                negative = true;
+                index = 1U;
+            }
+
+            if (index == text.size()) {
+                return PacketResult<int>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "Effect Parse i62 字段为空",
+                    fieldIndex));
+            }
+
+            const std::int64_t maxValue = static_cast<std::int64_t>(std::numeric_limits<int>::max());
+            const std::int64_t minValue = static_cast<std::int64_t>(std::numeric_limits<int>::min());
+            const std::int64_t limit = negative ? (0 - minValue) : maxValue;
+            std::int64_t value = 0;
+
+            for (; index < text.size(); ++index) {
+                const char ch = text[index];
+                if (ch < '0' || ch > '9') {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "Effect Parse i62 字段包含非十进制字符",
+                        fieldIndex));
+                }
+
+                const int digit = ch - '0';
+                if (value > (limit - digit) / 10) {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "Effect Parse i62 字段超出 int 范围",
+                        fieldIndex));
+                }
+
+                value = (value * 10) + digit;
+            }
+
+            if (negative) {
+                value = -value;
+            }
+
+            return PacketResult<int>::Success(static_cast<int>(value));
+        }
+    };
+
+    /**
      * SEND_CJ SendJobName		jv {jobassort:i62} {name:es}
      */
     struct JobName

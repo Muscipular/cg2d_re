@@ -730,6 +730,31 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         }
     }
 
+    const PacketSchema* mailMessageSendSchema = FindPacket(packets, "CV");
+    failures += Expect(mailMessageSendSchema != nullptr, "CV schema exists");
+    if (mailMessageSendSchema != nullptr) {
+        failures += Expect(mailMessageSendSchema->direction == "客户端->服务端", "CV direction");
+        failures += Expect(mailMessageSendSchema->legacyKind == "RECV", "CV legacyKind");
+        failures += Expect(
+            mailMessageSendSchema->rawFormat == "{index} {message:es} {color}",
+            "CV rawFormat");
+        failures += Expect(
+            mailMessageSendSchema->resolvedFormat == "{index:i62} {message:es} {color:i62}",
+            "CV resolvedFormat");
+        failures += Expect(
+            mailMessageSendSchema->resolvedSource == "xlsx+ServerC+ClientIda+src",
+            "CV resolvedSource");
+        failures += Expect(mailMessageSendSchema->fields.size() == 3U, "CV raw field count");
+        if (mailMessageSendSchema->fields.size() == 3U) {
+            failures += Expect(mailMessageSendSchema->fields[0].name == "index", "CV raw field index");
+            failures += Expect(mailMessageSendSchema->fields[1].name == "message", "CV raw field message");
+            failures += Expect(mailMessageSendSchema->fields[2].name == "color", "CV raw field color");
+            failures += Expect(mailMessageSendSchema->fields[0].typeToken == "unknown", "CV raw type unknown");
+            failures += Expect(mailMessageSendSchema->fields[1].typeToken == "es", "CV raw message type");
+            failures += Expect(mailMessageSendSchema->fields[2].typeToken == "unknown", "CV raw color type");
+        }
+    }
+
     const PacketSchema* checkCommandSchema = FindPacket(packets, "CCL");
     failures += Expect(checkCommandSchema != nullptr, "CCL schema exists");
     if (checkCommandSchema != nullptr) {

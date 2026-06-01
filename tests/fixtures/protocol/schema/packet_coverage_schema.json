@@ -3967,6 +3967,8 @@
       "rawFormat": "{index} {message:es} {color}",
       "formatEmpty": false,
       "source": "xlsx",
+      "resolvedFormat": "{index:i62} {message:es} {color:i62}",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src",
       "fields": [
         {
           "index": 0,

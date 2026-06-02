@@ -6,7 +6,6 @@
 
 #include <array>
 #include <cstddef>
-#include <span>
 #include <string>
 #include <string_view>
 #include <utility>
@@ -158,7 +157,7 @@ namespace cg::packet
             {"dir", PacketFieldType::Int62},
             {"flg", PacketFieldType::Int62},
             {"no", PacketFieldType::Int62},
-            {"data", PacketFieldType::EscapedString},
+            {"data", PacketFieldType::SubPayload},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 1> TitleListFields = {{
@@ -335,7 +334,7 @@ namespace cg::packet
             {"buttonType", PacketFieldType::Int62},
             {"seqNo", PacketFieldType::Int62},
             {"objectIndex", PacketFieldType::Int62},
-            {"data", PacketFieldType::EscapedString},
+            {"data", PacketFieldType::SubPayload},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 1> SystemMessageFields = {{
@@ -353,7 +352,7 @@ namespace cg::packet
         }};
 
         inline constexpr std::array<PacketFieldSpec, 1> BattleRewardFields = {{
-            {"data", PacketFieldType::EscapedString},
+            {"data", PacketFieldType::SubPayload},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 1> DuelPointFields = {{
@@ -368,7 +367,7 @@ namespace cg::packet
 
         inline constexpr std::array<PacketFieldSpec, 4> ChatMessageFields = {{
             {"objectIndex", PacketFieldType::Int62},
-            {"message", PacketFieldType::EscapedString},
+            {"message", PacketFieldType::SubPayload},
             {"color", PacketFieldType::Int62},
             {"fontSize", PacketFieldType::Int62},
         }};
@@ -397,62 +396,62 @@ namespace cg::packet
         }};
 
         inline constexpr std::array<PacketFieldSpec, 1> AddressBookFields = {{
-            {"data", PacketFieldType::EscapedString},
+            {"data", PacketFieldType::SubPayload},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 2> AddressBookInfoFields = {{
             {"registry", PacketFieldType::Int62},
-            {"data", PacketFieldType::EscapedString},
+            {"data", PacketFieldType::SubPayload},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 1> AddressBookGuildInfoFields = {{
-            {"data", PacketFieldType::EscapedString},
+            {"data", PacketFieldType::SubPayload},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 1> GuildInfoFields = {{
-            {"data", PacketFieldType::EscapedString},
+            {"data", PacketFieldType::SubPayload},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 1> GuildTitleFields = {{
-            {"data", PacketFieldType::EscapedString},
+            {"data", PacketFieldType::SubPayload},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 1> GuildMemberFields = {{
-            {"data", PacketFieldType::EscapedString},
+            {"data", PacketFieldType::SubPayload},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 2> GuildMemberInfoFields = {{
             {"index", PacketFieldType::Int62},
-            {"data", PacketFieldType::EscapedString},
+            {"data", PacketFieldType::SubPayload},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 3> GuildMailFields = {{
             {"fromregistseqnumber", PacketFieldType::Int62},
-            {"text", PacketFieldType::EscapedString},
+            {"text", PacketFieldType::SubPayload},
             {"color", PacketFieldType::Int62},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 1> TradePlayerListFields = {{
-            {"data", PacketFieldType::EscapedString},
+            {"data", PacketFieldType::SubPayload},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 2> TradeStartFields = {{
-            {"name", PacketFieldType::EscapedString},
+            {"name", PacketFieldType::SubPayload},
             {"level", PacketFieldType::Int62},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 1> TradeItemInfoFields = {{
-            {"data", PacketFieldType::EscapedString},
+            {"data", PacketFieldType::SubPayload},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 2> TradePetInfoFields = {{
             {"petPlace", PacketFieldType::Int62},
-            {"data", PacketFieldType::EscapedString},
+            {"data", PacketFieldType::SubPayload},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 2> TradePetSkillInfoFields = {{
             {"petIndex", PacketFieldType::Int62},
-            {"data", PacketFieldType::EscapedString},
+            {"data", PacketFieldType::SubPayload},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 3> TradeTakeOutFields = {{
@@ -490,7 +489,7 @@ namespace cg::packet
         }};
 
         inline constexpr std::array<PacketFieldSpec, 2> ProfileMiniMailSendFields = {{
-            {"data", PacketFieldType::EscapedString},
+            {"data", PacketFieldType::SubPayload},
             {"color", PacketFieldType::Int62},
         }};
 
@@ -1185,6 +1184,108 @@ namespace cg::packet
 
             return PacketResult<std::string>::Success(std::move(output));
         }
+
+        [[nodiscard]] inline PacketResult<Packet> ParsePacketWithSpec(
+            std::string_view plainTokens,
+            const PacketSpec& packetSpec,
+            bool decodeSubPayload)
+        {
+            PacketResult<std::vector<std::string>> splitResult = SplitPlainTokens(plainTokens);
+            if (!splitResult.HasValue()) {
+                return PacketResult<Packet>::Failure(splitResult.Error());
+            }
+
+            std::vector<std::string> tokens = splitResult.Value();
+            if (tokens.empty()) {
+                return PacketResult<Packet>::Failure(MakeParserError(
+                    PacketErrorCode::EmptyInput,
+                    "封包明文 token 输入为空"));
+            }
+
+            const std::string& code = tokens.front();
+            if (code.empty()) {
+                PacketError error = MakeParserError(PacketErrorCode::InvalidCode, "封包 code 为空");
+                error.packetCode = PacketCode(code);
+                return PacketResult<Packet>::Failure(std::move(error));
+            }
+
+            if (code != packetSpec.code) {
+                PacketError error = MakeParserError(PacketErrorCode::InvalidCode, "封包 code 与定义不匹配");
+                error.packetCode = PacketCode(code);
+                return PacketResult<Packet>::Failure(std::move(error));
+            }
+
+            std::vector<std::string> fieldTokens(tokens.begin() + 1, tokens.end());
+            if (fieldTokens.size() == packetSpec.fieldCount + 1U && !fieldTokens.empty() && fieldTokens.back().empty()) {
+                fieldTokens.pop_back();
+            }
+
+            if (fieldTokens.size() != packetSpec.fieldCount) {
+                PacketError error = MakeParserError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "封包字段数量不匹配");
+                error.packetCode = PacketCode(code);
+                error.fieldIndex = fieldTokens.size() < packetSpec.fieldCount
+                    ? fieldTokens.size()
+                    : packetSpec.fieldCount;
+                return PacketResult<Packet>::Failure(std::move(error));
+            }
+
+            Packet packet(PacketCode(code), packetSpec.direction);
+            packet.fields.reserve(packetSpec.fieldCount);
+
+            for (std::size_t index = 0; index < packetSpec.fieldCount; ++index) {
+                const PacketFieldSpec& fieldSpec = packetSpec.fields[index];
+                const std::string& token = fieldTokens[index];
+
+                PacketField field;
+                field.name = std::string(fieldSpec.name);
+                field.type = fieldSpec.type == PacketFieldType::SubPayload
+                    ? PacketFieldType::EscapedString
+                    : fieldSpec.type;
+
+                switch (fieldSpec.type) {
+                case PacketFieldType::Int62: {
+                    PacketResult<int> decoded = DecodeInt62(token);
+                    if (!decoded.HasValue()) {
+                        PacketError error = decoded.Error();
+                        FillErrorContext(error, code, index);
+                        return PacketResult<Packet>::Failure(std::move(error));
+                    }
+                    field.value = std::to_string(decoded.Value());
+                    break;
+                }
+                case PacketFieldType::EscapedString:
+                case PacketFieldType::SubPayload: {
+                    PacketResult<std::string> decoded = fieldSpec.type == PacketFieldType::SubPayload && decodeSubPayload
+                        ? DecodeNestedPayloadEscapedString(token)
+                        : DecodeEscapedString(token);
+                    if (!decoded.HasValue()) {
+                        PacketError error = decoded.Error();
+                        FillErrorContext(error, code, index);
+                        return PacketResult<Packet>::Failure(std::move(error));
+                    }
+                    field.value = decoded.Value();
+                    break;
+                }
+                case PacketFieldType::RawString:
+                    field.value = token;
+                    break;
+                case PacketFieldType::Payload:
+                case PacketFieldType::Unknown: {
+                    PacketError error = MakeParserError(
+                        PacketErrorCode::InvalidFieldType,
+                        "封包字段类型暂不支持");
+                    FillErrorContext(error, code, index);
+                    return PacketResult<Packet>::Failure(std::move(error));
+                }
+                }
+
+                packet.fields.push_back(std::move(field));
+            }
+
+            return PacketResult<Packet>::Success(std::move(packet));
+        }
     }
 
     /**
@@ -1218,147 +1319,14 @@ namespace cg::packet
             return PacketResult<Packet>::Failure(std::move(error));
         }
 
-        std::vector<std::string> fieldTokens(tokens.begin() + 1, tokens.end());
-        if (fieldTokens.size() == spec->fieldCount + 1U && !fieldTokens.empty() && fieldTokens.back().empty()) {
-            fieldTokens.pop_back();
-        }
-
-        if (fieldTokens.size() != spec->fieldCount) {
-            PacketError error = detail::MakeParserError(
-                PacketErrorCode::FieldCountMismatch,
-                "封包字段数量不匹配");
-            error.packetCode = PacketCode(code);
-            error.fieldIndex = fieldTokens.size() < spec->fieldCount ? fieldTokens.size() : spec->fieldCount;
-            return PacketResult<Packet>::Failure(std::move(error));
-        }
-
-        Packet packet(PacketCode(code), spec->direction);
-        packet.fields.reserve(spec->fieldCount);
-
-        for (std::size_t index = 0; index < spec->fieldCount; ++index) {
-            const PacketFieldSpec& fieldSpec = spec->fields[index];
-            const std::string& token = fieldTokens[index];
-
-            PacketField field;
-            field.name = std::string(fieldSpec.name);
-            field.type = fieldSpec.type;
-
-            switch (fieldSpec.type) {
-            case PacketFieldType::Int62: {
-                PacketResult<int> decoded = DecodeInt62(token);
-                if (!decoded.HasValue()) {
-                    PacketError error = decoded.Error();
-                    detail::FillErrorContext(error, code, index);
-                    return PacketResult<Packet>::Failure(std::move(error));
-                }
-                field.value = std::to_string(decoded.Value());
-                break;
-            }
-            case PacketFieldType::EscapedString: {
-                PacketResult<std::string> decoded = DecodeEscapedString(token);
-                if (!decoded.HasValue()) {
-                    PacketError error = decoded.Error();
-                    detail::FillErrorContext(error, code, index);
-                    return PacketResult<Packet>::Failure(std::move(error));
-                }
-                field.value = decoded.Value();
-                break;
-            }
-            case PacketFieldType::RawString:
-                field.value = token;
-                break;
-            case PacketFieldType::Payload:
-            case PacketFieldType::Unknown: {
-                PacketError error = detail::MakeParserError(
-                    PacketErrorCode::InvalidFieldType,
-                    "封包字段类型暂不支持");
-                detail::FillErrorContext(error, code, index);
-                return PacketResult<Packet>::Failure(std::move(error));
-            }
-            }
-
-            packet.fields.push_back(std::move(field));
-        }
-
-        return PacketResult<Packet>::Success(std::move(packet));
+        return detail::ParsePacketWithSpec(plainTokens, *spec, false);
     }
 
-    [[nodiscard]] inline PacketResult<Packet> ParsePacketWithSubPayloadFields(
+    [[nodiscard]] inline PacketResult<Packet> ParsePacket(
         std::string_view plainTokens,
-        const PacketSpec& packetSpec,
-        std::span<const std::size_t> fieldIndexes)
+        const PacketSpec& packetSpec)
     {
-        PacketResult<Packet> parsed = ParsePacket(plainTokens);
-        if (!parsed.HasValue()) {
-            return parsed;
-        }
-
-        Packet packet = std::move(parsed.Value());
-        if (packet.code.View() != packetSpec.code || fieldIndexes.empty()) {
-            return PacketResult<Packet>::Success(std::move(packet));
-        }
-
-        PacketResult<std::vector<std::string>> splitResult = SplitPlainTokens(plainTokens);
-        if (!splitResult.HasValue()) {
-            return PacketResult<Packet>::Failure(splitResult.Error());
-        }
-
-        std::vector<std::string> tokens = std::move(splitResult.Value());
-        std::vector<std::string> fieldTokens(tokens.begin() + 1, tokens.end());
-        if (fieldTokens.size() == packet.fields.size() + 1U && !fieldTokens.empty() && fieldTokens.back().empty()) {
-            fieldTokens.pop_back();
-        }
-
-        for (const std::size_t fieldIndex : fieldIndexes) {
-            if (fieldIndex >= packetSpec.fieldCount || fieldIndex >= packet.fields.size() ||
-                fieldIndex >= fieldTokens.size()) {
-                PacketError error = detail::MakeParserError(
-                    PacketErrorCode::FieldCountMismatch,
-                    "sub payload 字段索引越界");
-                error.packetCode = packet.code;
-                error.fieldIndex = fieldIndex;
-                return PacketResult<Packet>::Failure(std::move(error));
-            }
-
-            const PacketFieldSpec& fieldSpec = packetSpec.fields[fieldIndex];
-            if (packet.fields[fieldIndex].name != fieldSpec.name) {
-                PacketError error = detail::MakeParserError(
-                    PacketErrorCode::DecodeFailed,
-                    "sub payload 字段名不匹配");
-                detail::FillErrorContext(error, packet.code.View(), fieldIndex);
-                return PacketResult<Packet>::Failure(std::move(error));
-            }
-
-            if (fieldSpec.type != PacketFieldType::EscapedString ||
-                packet.fields[fieldIndex].type != PacketFieldType::EscapedString) {
-                PacketError error = detail::MakeParserError(
-                    PacketErrorCode::InvalidFieldType,
-                    "sub payload 字段类型不匹配");
-                detail::FillErrorContext(error, packet.code.View(), fieldIndex);
-                return PacketResult<Packet>::Failure(std::move(error));
-            }
-
-            PacketResult<std::string> decoded =
-                detail::DecodeNestedPayloadEscapedString(fieldTokens[fieldIndex]);
-            if (!decoded.HasValue()) {
-                PacketError error = decoded.Error();
-                detail::FillErrorContext(error, packet.code.View(), fieldIndex);
-                return PacketResult<Packet>::Failure(std::move(error));
-            }
-
-            packet.fields[fieldIndex].value = std::move(decoded.Value());
-        }
-
-        return PacketResult<Packet>::Success(std::move(packet));
-    }
-
-    [[nodiscard]] inline PacketResult<Packet> ParsePacketWithSubPayloadField(
-        std::string_view plainTokens,
-        const PacketSpec& packetSpec,
-        std::size_t fieldIndex)
-    {
-        const std::array<std::size_t, 1> fieldIndexes = {fieldIndex};
-        return ParsePacketWithSubPayloadFields(plainTokens, packetSpec, fieldIndexes);
+        return detail::ParsePacketWithSpec(plainTokens, packetSpec, true);
     }
 }
 

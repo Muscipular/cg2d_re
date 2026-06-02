@@ -72,6 +72,16 @@ namespace cg::packet
         {
             return type == PacketFieldType::Payload || type == PacketFieldType::Unknown;
         }
+
+        [[nodiscard]] inline bool IsBuilderFieldTypeCompatible(
+            PacketFieldType fieldType,
+            PacketFieldType specType) noexcept
+        {
+            if (specType == PacketFieldType::SubPayload) {
+                return fieldType == PacketFieldType::EscapedString || fieldType == PacketFieldType::SubPayload;
+            }
+            return fieldType == specType;
+        }
     }
 
     /**
@@ -135,7 +145,7 @@ namespace cg::packet
                 return PacketResult<std::string>::Failure(std::move(error));
             }
 
-            if (field.type != fieldSpec.type) {
+            if (!detail::IsBuilderFieldTypeCompatible(field.type, fieldSpec.type)) {
                 PacketError error = detail::MakeBuilderError(
                     PacketErrorCode::EncodeFailed,
                     "封包字段类型不匹配");
@@ -161,7 +171,8 @@ namespace cg::packet
                 tokens.push_back(encoded.Value());
                 break;
             }
-            case PacketFieldType::EscapedString: {
+            case PacketFieldType::EscapedString:
+            case PacketFieldType::SubPayload: {
                 PacketResult<std::string> encoded = EncodeEscapedString(field.value);
                 if (!encoded.HasValue()) {
                     PacketError error = encoded.Error();

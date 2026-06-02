@@ -488,6 +488,7 @@ std::string TypeToken(cg::packet::PacketFieldType type)
     case cg::packet::PacketFieldType::Int62:
         return "i62";
     case cg::packet::PacketFieldType::EscapedString:
+    case cg::packet::PacketFieldType::SubPayload:
         return "es";
     case cg::packet::PacketFieldType::RawString:
         return "raw";

@@ -47,6 +47,7 @@ namespace cg::packet
     {
         Int62,
         EscapedString,
+        SubPayload,
         RawString,
         Payload,
         Unknown,

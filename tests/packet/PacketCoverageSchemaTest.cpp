@@ -1000,6 +1000,36 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         }
     }
 
+    const PacketSchema* guildInfoChangeSchema = FindPacket(packets, "Ufm");
+    failures += Expect(guildInfoChangeSchema != nullptr, "Ufm schema exists");
+    if (guildInfoChangeSchema != nullptr) {
+        const cg::packet::send::GuildInfoChange guildInfoChange(2, "data");
+        const cg::packet::Packet packet = guildInfoChange.ToPacket();
+        failures += Expect(guildInfoChangeSchema->direction == "客户端->服务端", "Ufm direction");
+        failures += Expect(guildInfoChangeSchema->legacyKind == "RECV", "Ufm legacyKind");
+        failures += Expect(guildInfoChangeSchema->rawFormat == "{c} {data:es}", "Ufm rawFormat");
+        failures += Expect(
+            guildInfoChangeSchema->resolvedFormat == "{c:i62} {data:es}",
+            "Ufm resolvedFormat");
+        failures += Expect(guildInfoChangeSchema->resolvedSource == "xlsx+src/packet", "Ufm resolvedSource");
+        failures += Expect(guildInfoChangeSchema->fields.size() == 2U, "Ufm raw field count");
+        if (guildInfoChangeSchema->fields.size() == 2U) {
+            failures += Expect(guildInfoChangeSchema->fields[0].name == "c", "Ufm raw field c");
+            failures += Expect(guildInfoChangeSchema->fields[1].name == "data", "Ufm raw field data");
+            failures += Expect(guildInfoChangeSchema->fields[0].typeToken == "unknown", "Ufm raw c type");
+            failures += Expect(guildInfoChangeSchema->fields[1].typeToken == "es", "Ufm raw data type");
+        }
+        failures += Expect(packet.fields.size() == 2U, "Ufm packet field count");
+        if (packet.fields.size() == 2U) {
+            failures += Expect(packet.fields[0].name == "c", "Ufm packet c field");
+            failures += Expect(packet.fields[0].type == cg::packet::PacketFieldType::Int62, "Ufm packet c type");
+            failures += Expect(packet.fields[1].name == "data", "Ufm packet data field");
+            failures += Expect(
+                packet.fields[1].type == cg::packet::PacketFieldType::EscapedString,
+                "Ufm packet data type");
+        }
+    }
+
     const PacketSchema* checkCommandSchema = FindPacket(packets, "CCL");
     failures += Expect(checkCommandSchema != nullptr, "CCL schema exists");
     if (checkCommandSchema != nullptr) {

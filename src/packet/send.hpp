@@ -783,6 +783,47 @@ namespace cg::packet::send
             return BuildPacket(ToPacket());
         }
     };
+
+    /**
+     * RECV_GI 变更家族信息 Ufm {c:i62} {data:es}
+     */
+    struct GuildInfoChange
+    {
+        static constexpr std::string_view Code = "Ufm";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+
+        int c = 0;
+        std::string data;
+
+        GuildInfoChange(int c, std::string data)
+            : c(c),
+              data(std::move(data))
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            packet.fields.push_back(PacketField {
+                "c",
+                PacketFieldType::Int62,
+                std::to_string(c),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "data",
+                PacketFieldType::EscapedString,
+                data,
+                PacketSourceTag::Xlsx,
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket());
+        }
+    };
 }
 
 #endif //CG_ENGINE_SEND_H

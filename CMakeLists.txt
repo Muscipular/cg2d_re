@@ -446,6 +446,17 @@ target_include_directories(cg-packet-drop-gold-test
 
 add_test(NAME cg-packet-drop-gold-test COMMAND cg-packet-drop-gold-test)
 
+add_executable(cg-packet-guild-info-change-test
+    tests/packet/GuildInfoChangePacketTest.cpp
+)
+
+target_include_directories(cg-packet-guild-info-change-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+
+add_test(NAME cg-packet-guild-info-change-test COMMAND cg-packet-guild-info-change-test)
+
 add_executable(cg-packet-character-icon-test
     tests/packet/CharacterIconPacketTest.cpp
 )
@@ -1128,6 +1139,7 @@ if(MSVC)
     target_compile_options(cg-packet-trade-pet-info-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-trade-pet-skill-info-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-drop-gold-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-guild-info-change-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-character-icon-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-object-delete-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-map-data-test PRIVATE /W4 /utf-8 /permissive-)
@@ -1214,6 +1226,7 @@ else()
     target_compile_options(cg-packet-trade-item-info-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-trade-pet-skill-info-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-drop-gold-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-packet-guild-info-change-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-character-icon-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-object-delete-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-map-data-test PRIVATE -Wall -Wextra -Wpedantic)

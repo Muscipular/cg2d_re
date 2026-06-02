@@ -4267,9 +4267,11 @@
       "direction": "客户端->服务端",
       "legacyKind": "RECV",
       "clientNamespace": "send",
-      "xlsxStatus": "进行中",
+      "xlsxStatus": "完成",
       "description": "RECV_GI 变更家族信息",
       "rawFormat": "{c} {data:es}",
+      "resolvedFormat": "{c:i62} {data:es}",
+      "resolvedSource": "xlsx+src/packet",
       "formatEmpty": false,
       "source": "xlsx",
       "fields": [

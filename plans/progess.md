@@ -9,6 +9,7 @@
 | 2026-05-27 | 进度记录迁移 | 新增 `plans/progess.md`，将 M1/M2 进度记录从 `plans/cg_engine_dev_plan.md` 迁入统一进度文件；总规划仅保留链接 | 文档检查；未编译 | 后续推进继续写入本文件 |
 | 2026-05-27 | 更新项目规则文档 | `AGENTS.md` 已按当前项目更新，补充当前目录、进度记录文件和 subAgent 流程规则 | 文档检查；未编译 | 无 |
 | 2026-05-27 | 补充 namespace 与类型规划 | `AGENTS.md` 新增 namespace 与类型规划约束，明确根 namespace、模块 namespace、接口、handle、RAII、值类型、SDL 类型边界和编码边界 | 文档检查；未编译 | 无 |
+| 2026-06-03 | M7 方案落盘 | 更新 `plans/cg_engine_dev_plan.md` 的 M7 world 层计划，补充 IDA 对齐依据、`MapTileAtlasCacheKey`、地板 sprite atlas 常驻显存、地图 obj 纹理 100 容量 LRU + 30 秒清退、排序映射和验收场景 | 文档检查；未编译 | 仅方案落盘；具体实现和更细 IDA 校对留给后续 M7 小步 |
 
 ## M1：platform 层
 

@@ -610,7 +610,15 @@ schema 只允许作为测试/fixture 资料存在，用于覆盖率、字段顺�
 
 ### 目标
 
-建立角色、地图实体、移动插值、可见性裁剪和 Y 排序。先离线模拟，输入数据优先贴近 M6 的协议结构。
+建立参考旧客户端 IDA 行为的 world 渲染链路。M7 先处理 normal scene 的地板 tile atlas、地图 obj 纹理缓存、渲染分层排序，再接入角色实体、移动插值、动画、裁剪和压测数据。
+
+成功标准：
+
+1. 地板纹理按 map scene 切换，并缓存为常驻显存的 `sprite_atlas`。
+2. 原 `SceneKey` 命名收敛为 `MapTileAtlasCacheKey`，只用于地板 tile atlas。
+3. 地图 obj 纹理不进入地板 atlas，独立缓存，容量上限 100，LRU + 30 秒 idle timer 清退。
+4. tile/object 入队、偏移和排序先参考 IDA，再映射到现有 `RenderQueue`。
+5. world 公开头不暴露 `SDL_Window*`、`SDL_Renderer*`、`SDL_Texture*`、TTF/Win32 类型。
 
 ### 目录
 
@@ -623,26 +631,78 @@ src/world/
 ├─ AnimationState.hpp/.cpp
 ├─ Visibility.hpp/.cpp
 ├─ YSort.hpp/.cpp
+├─ MapTileAtlasCacheKey.hpp
+├─ SceneGroundAtlasCache.hpp/.cpp
+├─ MapObjectTextureCache.hpp/.cpp
+├─ IdaRenderRules.hpp/.cpp
 ├─ Scene.hpp/.cpp
 └─ WorldRenderer.hpp/.cpp
 ```
+
+### IDA 对齐依据
+
+实现前必须先对齐以下旧客户端行为，不用自动地图规则替代主世界绘制规则：
+
+| 行为 | IDA 来源 | M7 使用方式 |
+|---|---|---|
+| map cell 解码 | `0x46CF00` | `raw < 0x10000` 查表，否则原样返回 |
+| normal scene 绘制链路 | `0x46CF60` | 地板 tile、地图 obj 入队顺序和分层依据 |
+| 地图读取/准备链路 | `0x469030`、`0x4693F0`、`0x46D9C0` | 校对 tile/object 数据进入渲染前的处理 |
+| Graphic mapNo 转索引 | `Graphic::getMapNoIndex(0x45A8B0)` | `imageNo > 999` 先转 graphic index |
+| Graphic 偏移/尺寸/flag | `getXY/getWH/getFlag1/getFlag2` | sprite 位置偏移、裁剪和 object 分组 |
+| 普通 graphic 入队 | `Renderer::DrawGraphic(0x521B10)` | `x/y + Graphic::getXY` 后入队 |
+| 复杂 graphic 入队 | `Renderer::DrawGraphic3(0x520970)` | 仅作为后续特殊模式参考，不先扩大范围 |
+| object 分组 | `sub_46BE50`、`sub_46BD60` | `MapNo == 1`、`flag2 == 3`、其他 obj 分组 |
+| 渲染排序 | `Renderer::SortTexture(0x520790)`、`0x5222A0` | layer 升序，同 layer 按 cacheIndex 逆序 |
+
+### 地板 atlas 与 obj 缓存
+
+`MapTileAtlasCacheKey` 固定字段：
+
+```cpp
+struct MapTileAtlasCacheKey {
+    int mapId = 0;
+    int serverNo = 0;
+    int floor = 0;
+    uint32_t tileLayerMask = 0;
+    uint64_t mapGeneration = 0;
+    uint64_t resourceGeneration = 0;
+};
+```
+
+规则：
+
+1. `MapTileAtlasCacheKey` 只标识地板 tile atlas，不替代完整 scene 标识。
+2. 地板 atlas 只包含 map tile；不包含地图 obj、角色、宠物、特效、UI。
+3. tile raw 值先按 IDA `0x46CF00` 解码；`decoded <= 999` 不绘制。
+4. `5000..5009`、`7664..7679` 进入 tile layer 1；其他 `decoded > 999` 进入 tile layer 5。
+5. 地板 atlas 上传到显存后释放 CPU 拼图临时 RGBA；atlas 随 key 常驻，直到 map/resource generation 失效。
+6. 地图 obj 纹理走 `MapObjectTextureCache`，容量 100，命中刷新 LRU，30 秒未使用清退。
+7. 地图 obj 分组参考 `sub_46BE50/sub_46BD60` 和 `Graphic::getFlag2`，不得简单并入地板层。
 
 ### 任务
 
 | 编号 | 任务 | 说明 | 验收标准 |
 |---|---|---|---|
-| M7.1 | EntityId/EntityData | 角色基础数据 | 可创建/删除大量实体 |
-| M7.2 | Transform | tile 坐标、像素坐标、朝向 | 坐标转换正确 |
-| M7.3 | Movement interpolation | 服务器位置到客户端平滑移动 | 移动无明显跳变 |
-| M7.4 | AnimationState | 动作、方向、帧更新 | 走路动画随移动播放 |
-| M7.5 | Visibility culling | camera rect 裁剪 | 屏外角色不提交渲染 |
-| M7.6 | Y-sort | sort key 生成与排序 | 角色遮挡顺序正确 |
-| M7.7 | WorldRenderer | entity 转 SpriteCmd | 不直接调用 SDL |
-| M7.8 | Synthetic population | 随机生成大量角色 | 可生成 1k/4k/8k/16k 角色 |
+| M7.0 | IDA 渲染行为校对 | 落地 `IdaRenderRules` 对照表，记录 tile decode、DrawGraphic、obj 分组、SortTexture 规则 | 每条规则可追溯到 IDA 地址；未确认规则不得写成业务结论 |
+| M7.1 | EntityId/EntityData | 角色基础数据；`ObjectList.objectIndex` 不直接等同 `EntityId` | 可创建/删除大量实体，id 来源边界明确 |
+| M7.2 | Transform | tile 坐标、像素坐标、朝向；屏幕投影先按 IDA 校对 | 坐标转换测试通过，公开头无 SDL 类型 |
+| M7.3 | MapTileAtlasCacheKey | 替换方案中的 `SceneKey` 命名，定义 hash/equality | 相同 map/key 命中，不同 generation/layerMask 不复用 |
+| M7.4 | SceneGroundAtlasCache | 按 `MapTileAtlasCacheKey` 构建地板 sprite atlas，上传显存并释放临时 RGBA | scene 切换命中缓存；失效时重建 |
+| M7.5 | 地板 tile 入队 | 按 IDA decode 和 layer 规则生成 chunk `SpriteCmd` | `<=999` 跳过，特殊范围 layer=1，普通 tile layer=5 |
+| M7.6 | MapObjectTextureCache | 地图 obj 纹理独立缓存，容量 100，LRU + 30 秒 timer 清退 | 超量淘汰最久未用；超时未用被清退 |
+| M7.7 | 地图 obj 入队分组 | 参考 `sub_46BE50/sub_46BD60`、`MapNo`、`flag2` 生成 obj 渲染组 | obj 不进入地板 atlas；分组 fixture 通过 |
+| M7.8 | IDA 排序映射 | 将 layer 升序、同 layer cacheIndex 逆序映射到现有 `RenderQueue` | 可用 `order = UINT_MAX - enqueueIndex` 或等价策略通过排序测试 |
+| M7.9 | Movement interpolation | 服务器位置到客户端平滑移动 | 移动无明显跳变 |
+| M7.10 | AnimationState | 动作、方向、帧更新，帧偏移参考 `anim_viewer` 已验证逻辑 | 走路动画随移动播放 |
+| M7.11 | Visibility culling | camera rect 裁剪 tile、obj、entity | 屏外对象不提交渲染 |
+| M7.12 | WorldRenderer | 地板 atlas、地图 obj、entity 转 `SpriteCmd` | 不直接调用 SDL；提交顺序稳定 |
+| M7.13 | Synthetic population | 随机生成大量角色 | 可生成 1k/4k/8k/16k 角色 |
+| M7.14 | 进度记录与提交 | 每个可验证小步写入 `plans/progess.md` | 文档、测试、验证结果可追踪 |
 
 ### 数据组织建议
 
-初期可以用简单 vector；压测阶段改为更 cache-friendly 的结构：
+初期可以用简单 vector；压测阶段再改为更 cache-friendly 的结构。排序 key 不直接假设等同旧端 Y-sort，必须先兼容 IDA layer/cacheIndex 语义：
 
 ```cpp
 struct EntityRenderData {
@@ -655,6 +715,26 @@ struct EntityRenderData {
     uint32_t sortKey;
 };
 ```
+
+渲染提交默认顺序：
+
+1. 地板 tile atlas chunk。
+2. 地图 obj 分组。
+3. entity/角色。
+4. effect/name/overlay。
+5. UI。
+
+同层具体先后以 IDA 校对结果为准；未确认角色遮挡前，不声明与旧端完全一致。
+
+### 验收场景
+
+1. map cell decode fixture：`raw < 0x10000` 查表，`raw >= 0x10000` 原样。
+2. tile layer fixture：`5000..5009`、`7664..7679` 为 layer 1，其他 `>999` 为 layer 5。
+3. `DrawGraphic` fixture：mapNo 转 graphic index 后叠加 `Graphic::getXY` 偏移。
+4. sort fixture：layer 升序，同 layer cacheIndex 逆序。
+5. obj cache fixture：100 容量淘汰和 30 秒 idle 清退。
+6. atlas fixture：相同 `MapTileAtlasCacheKey` 命中，不同 generation/layerMask 失效。
+7. world 公开头检查：不得出现 SDL/TTF/Win32 类型。
 
 ---
 

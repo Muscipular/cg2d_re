@@ -48,9 +48,11 @@ add_executable(cg-client
     src/world/MapObjectSpriteBuilder.cpp
     src/world/VisibilityCulling.cpp
     src/world/MapObjectTextureCache.cpp
+    src/world/WorldRenderer.cpp
     src/world/AnimationState.cpp
     src/world/Movement.cpp
     src/world/SceneGroundAtlasCache.cpp
+    src/world/SceneGroundSpriteBuilder.cpp
     src/world/Transform.cpp
     src/text/TextEncoding.cpp
     src/ui/ChatBox.cpp
@@ -328,6 +330,27 @@ target_include_directories(cg-world-render-order-test
 )
 
 add_test(NAME cg-world-render-order-test COMMAND cg-world-render-order-test)
+
+add_executable(cg-world-world-renderer-test
+    tests/world/WorldRendererTest.cpp
+    src/world/WorldRenderer.cpp
+    src/world/SceneGroundAtlasCache.cpp
+    src/world/SceneGroundSpriteBuilder.cpp
+    src/world/MapObjectTextureCache.cpp
+    src/world/MapObjectSpriteBuilder.cpp
+    src/world/VisibilityCulling.cpp
+    src/world/Transform.cpp
+    src/world/IdaRenderRules.cpp
+    src/render/TextureAtlas.cpp
+    src/render/TextureCache.cpp
+)
+
+target_include_directories(cg-world-world-renderer-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+
+add_test(NAME cg-world-world-renderer-test COMMAND cg-world-world-renderer-test)
 
 add_executable(cg-world-entity-store-test
     tests/world/EntityStoreTest.cpp
@@ -1443,6 +1466,7 @@ if(MSVC)
     target_compile_options(cg-world-scene-ground-sprite-builder-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-world-visibility-culling-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-world-render-order-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-world-world-renderer-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-world-entity-store-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-world-transform-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-world-movement-test PRIVATE /W4 /utf-8 /permissive-)
@@ -1557,6 +1581,7 @@ else()
     target_compile_options(cg-world-scene-ground-sprite-builder-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-world-visibility-culling-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-world-render-order-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-world-world-renderer-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-world-entity-store-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-world-transform-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-world-movement-test PRIVATE -Wall -Wextra -Wpedantic)

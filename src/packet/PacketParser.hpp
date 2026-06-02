@@ -6,6 +6,7 @@
 
 #include <array>
 #include <cstddef>
+#include <span>
 #include <string>
 #include <string_view>
 #include <utility>
@@ -1104,18 +1105,6 @@ namespace cg::packet
             error.fieldIndex = fieldIndex;
         }
 
-        [[nodiscard]] inline bool UsesNestedPayloadEscapedString(
-            std::string_view code,
-            std::string_view fieldName) noexcept
-        {
-            return (fieldName == "data" &&
-                       (code == "DyAG" || code == "lDuJ" || code == "gnxd" || code == "PhdQ" || code == "Gn" ||
-                           code == "vI" || code == "aDn" || code == "znv" || code == "yuD" || code == "Kka" ||
-                           code == "Cxo" || code == "nUbJ" || code == "RwK" || code == "Yq" || code == "GH")) ||
-                (code == "zdr" && fieldName == "message") || (code == "Rll" && fieldName == "text") ||
-                (code == "ms" && fieldName == "name");
-        }
-
         [[nodiscard]] inline PacketResult<std::string> DecodeNestedPayloadEscapedString(std::string_view text)
         {
             std::string output;
@@ -1230,9 +1219,7 @@ namespace cg::packet
                 break;
             }
             case PacketFieldType::EscapedString: {
-                PacketResult<std::string> decoded = detail::UsesNestedPayloadEscapedString(code, fieldSpec.name)
-                    ? detail::DecodeNestedPayloadEscapedString(token)
-                    : DecodeEscapedString(token);
+                PacketResult<std::string> decoded = DecodeEscapedString(token);
                 if (!decoded.HasValue()) {
                     PacketError error = decoded.Error();
                     detail::FillErrorContext(error, code, index);
@@ -1258,6 +1245,73 @@ namespace cg::packet
         }
 
         return PacketResult<Packet>::Success(std::move(packet));
+    }
+
+    [[nodiscard]] inline PacketResult<Packet> ParsePacketWithSubPayloadFields(
+        std::string_view plainTokens,
+        std::string_view code,
+        std::span<const std::size_t> fieldIndexes)
+    {
+        PacketResult<Packet> parsed = ParsePacket(plainTokens);
+        if (!parsed.HasValue()) {
+            return parsed;
+        }
+
+        Packet packet = std::move(parsed.Value());
+        if (packet.code.View() != code || fieldIndexes.empty()) {
+            return PacketResult<Packet>::Success(std::move(packet));
+        }
+
+        PacketResult<std::vector<std::string>> splitResult = SplitPlainTokens(plainTokens);
+        if (!splitResult.HasValue()) {
+            return PacketResult<Packet>::Failure(splitResult.Error());
+        }
+
+        std::vector<std::string> tokens = std::move(splitResult.Value());
+        std::vector<std::string> fieldTokens(tokens.begin() + 1, tokens.end());
+        if (fieldTokens.size() == packet.fields.size() + 1U && !fieldTokens.empty() && fieldTokens.back().empty()) {
+            fieldTokens.pop_back();
+        }
+
+        for (const std::size_t fieldIndex : fieldIndexes) {
+            if (fieldIndex >= packet.fields.size() || fieldIndex >= fieldTokens.size()) {
+                PacketError error = detail::MakeParserError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "sub payload 字段索引越界");
+                error.packetCode = packet.code;
+                error.fieldIndex = fieldIndex;
+                return PacketResult<Packet>::Failure(std::move(error));
+            }
+
+            if (packet.fields[fieldIndex].type != PacketFieldType::EscapedString) {
+                PacketError error = detail::MakeParserError(
+                    PacketErrorCode::InvalidFieldType,
+                    "sub payload 字段类型不匹配");
+                detail::FillErrorContext(error, packet.code.View(), fieldIndex);
+                return PacketResult<Packet>::Failure(std::move(error));
+            }
+
+            PacketResult<std::string> decoded =
+                detail::DecodeNestedPayloadEscapedString(fieldTokens[fieldIndex]);
+            if (!decoded.HasValue()) {
+                PacketError error = decoded.Error();
+                detail::FillErrorContext(error, packet.code.View(), fieldIndex);
+                return PacketResult<Packet>::Failure(std::move(error));
+            }
+
+            packet.fields[fieldIndex].value = std::move(decoded.Value());
+        }
+
+        return PacketResult<Packet>::Success(std::move(packet));
+    }
+
+    [[nodiscard]] inline PacketResult<Packet> ParsePacketWithSubPayloadField(
+        std::string_view plainTokens,
+        std::string_view code,
+        std::size_t fieldIndex)
+    {
+        const std::array<std::size_t, 1> fieldIndexes = {fieldIndex};
+        return ParsePacketWithSubPayloadFields(plainTokens, code, fieldIndexes);
     }
 }
 

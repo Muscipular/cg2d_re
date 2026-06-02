@@ -823,6 +823,129 @@ namespace cg::packet::receive
     };
 
     /**
+     * SEND_CharDelete 删除角色结果		oy {result:es} {data:es}
+     * data 为普通外层 es/opaque；不拆二级 payload。
+     */
+    struct CharacterDeleteResult
+    {
+        static constexpr std::string_view Code = "oy";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+
+        std::string result;
+        std::string data;
+
+        CharacterDeleteResult(std::string result, std::string data)
+            : result(std::move(result)),
+              data(std::move(data))
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ServerC);
+            packet.fields.push_back(PacketField {
+                "result",
+                PacketFieldType::EscapedString,
+                result,
+                PacketSourceTag::ServerC,
+            });
+            packet.fields.push_back(PacketField {
+                "data",
+                PacketFieldType::EscapedString,
+                data,
+                PacketSourceTag::ServerC,
+            });
+            return packet;
+        }
+
+        static PacketResult<CharacterDeleteResult> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view);
+            if (!parsed.HasValue()) {
+                return PacketResult<CharacterDeleteResult>::Failure(parsed.Error());
+            }
+
+            return FromPacket(parsed.Value());
+        }
+
+        static PacketResult<CharacterDeleteResult> FromPacket(const Packet& packet)
+        {
+            if (packet.code.View() != Code) {
+                PacketError error = MakePacketError(
+                    PacketErrorCode::InvalidCode,
+                    "CharacterDeleteResult Parse 收到非 oy 封包");
+                error.packetCode = packet.code;
+                return PacketResult<CharacterDeleteResult>::Failure(std::move(error));
+            }
+
+            if (packet.direction != Direction) {
+                return PacketResult<CharacterDeleteResult>::Failure(MakePacketError(
+                    PacketErrorCode::DecodeFailed,
+                    "CharacterDeleteResult Parse 封包方向不匹配"));
+            }
+
+            if (packet.fields.size() != FieldCount) {
+                return PacketResult<CharacterDeleteResult>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "CharacterDeleteResult Parse 字段数量不匹配",
+                    packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
+            }
+
+            const std::array<std::string_view, FieldCount> fieldNames = {
+                "result",
+                "data",
+            };
+            const std::array<PacketFieldType, FieldCount> fieldTypes = {
+                PacketFieldType::EscapedString,
+                PacketFieldType::EscapedString,
+            };
+
+            for (std::size_t index = 0; index < FieldCount; ++index) {
+                if (packet.fields[index].name != fieldNames[index]) {
+                    return PacketResult<CharacterDeleteResult>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "CharacterDeleteResult Parse 字段名不匹配",
+                        index));
+                }
+
+                if (packet.fields[index].type != fieldTypes[index]) {
+                    return PacketResult<CharacterDeleteResult>::Failure(MakeFieldError(
+                        PacketErrorCode::InvalidFieldType,
+                        "CharacterDeleteResult Parse 字段类型不匹配",
+                        index));
+                }
+            }
+
+            return PacketResult<CharacterDeleteResult>::Success(CharacterDeleteResult(
+                packet.fields[ResultFieldIndex].value,
+                packet.fields[DataFieldIndex].value));
+        }
+
+    private:
+        static constexpr std::size_t FieldCount = 2U;
+        static constexpr std::size_t ResultFieldIndex = 0U;
+        static constexpr std::size_t DataFieldIndex = 1U;
+
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            error.source = PacketSourceTag::ServerC;
+            return error;
+        }
+
+        [[nodiscard]] static PacketError MakeFieldError(
+            PacketErrorCode code,
+            std::string message,
+            std::size_t fieldIndex)
+        {
+            PacketError error = MakePacketError(code, std::move(message));
+            error.fieldIndex = fieldIndex;
+            return error;
+        }
+    };
+
+    /**
      * SEND_PRV 简介版本内容		HNP {data:es}
      * data: profileVersion|aboutVersion|mailCharge|seekPos，均为十进制 int，不使用 i62。
      */

@@ -689,6 +689,25 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         failures += ExpectResolvedFieldsMatch(*createNewCharResultSchema, packet, "DZ resolved field order");
     }
 
+    const PacketSchema* characterDeleteResultSchema = FindPacket(packets, "oy");
+    failures += Expect(characterDeleteResultSchema != nullptr, "oy schema exists");
+    if (characterDeleteResultSchema != nullptr) {
+        const cg::packet::receive::CharacterDeleteResult characterDeleteResult("successful", "");
+        const cg::packet::Packet packet = characterDeleteResult.ToPacket();
+        failures += Expect(characterDeleteResultSchema->direction == "服务端->客户端", "oy direction");
+        failures += Expect(characterDeleteResultSchema->legacyKind == "SEND", "oy legacyKind");
+        failures += Expect(characterDeleteResultSchema->rawFormat.empty(), "oy rawFormat empty");
+        failures += Expect(characterDeleteResultSchema->formatEmpty, "oy formatEmpty");
+        failures += Expect(
+            characterDeleteResultSchema->resolvedFormat == "{result:es} {data:es}",
+            "oy resolvedFormat");
+        failures += Expect(
+            characterDeleteResultSchema->resolvedSource == "ServerC+ClientIda+src/packet",
+            "oy resolvedSource");
+        failures += Expect(characterDeleteResultSchema->fields.empty(), "oy raw fields empty");
+        failures += ExpectResolvedFieldsMatch(*characterDeleteResultSchema, packet, "oy resolved field order");
+    }
+
     const PacketSchema* effectSchema = FindPacket(packets, "zzd");
     failures += Expect(effectSchema != nullptr, "zzd schema exists");
     if (effectSchema != nullptr) {

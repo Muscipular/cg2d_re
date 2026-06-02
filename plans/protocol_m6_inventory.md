@@ -154,7 +154,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | M6.15.01 登录/角色管理封包-whV | `whV` | 服务端->客户端 | 否 | 完成 | SEND_ClientLogin 登录角色表结果；外层 `{result:i62} {data:es}`；result 仅转 int/枚举值，不做范围校验；`data` 为普通外层 es 原样保存，不强校验、不拆 payload，强类型拆分 BLOCKED：旧 C/IDA/xlsx 对 data 语义冲突 |
 | M6.15.02 登录/角色管理封包-Daj | `Daj` | 服务端->客户端 | 否 | 完成 | SEND_CharList 登录角色表；外层最终 `{result:i62} {data:es}`；result 0 成功时 data 为 `nameRaw|detailRaw|` 重复记录，detail 以字面 `\z` 分隔 19 段，数值为 raw signed decimal；result 非 0 时 data/msg 原样保留不拆 |
 | M6.15.03 登录/角色管理封包-DZ | `DZ` | 服务端->客户端 | 是 | 完成 | SEND_CreateNewChar；外层 `{result:es} {registnumber:i62} {data:es}`；result 为字符串，不做枚举/range 校验；registnumber 允许 `-1`；data 为普通外层 es/opaque，允许空、错误文本或 DB result string，不拆 payload，强类型拆分 BLOCKED：客户端 IDA 解码 data 但丢弃，当前证据不足 |
-| M6.15.04 登录/角色管理封包-oy | `oy` | 服务端->客户端 | 是 | 字段待补 | SEND_CharDelete |
+| M6.15.04 登录/角色管理封包-oy | `oy` | 服务端->客户端 | 是 | 完成 | SEND_CharDelete；外层 `{result:es} {data:es}`；result 为字符串，不做枚举/range 校验；data 为普通外层 es/opaque message/DB result，可为空，不加入 nested es，不拆 payload，强类型拆分 BLOCKED：当前仅确认外层结果与消息，缺少稳定业务 payload 语义证据 |
 | M6.15.05 登录/角色管理封包-cJzI | `cJzI` | 服务端->客户端 | 是 | 字段待补 | SEND_ProcGet |
 | M6.15.06 登录/角色管理封包-aSEl | `aSEl` | 客户端->服务端 | 否 | 未开始 | RECV_CreateNewChar 创建角色 |
 
@@ -164,6 +164,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | `JFVf` | 客户端->服务端 | `cg::packet::send::ClientLogin` | `{clientHash:es} {password:es} {account:es}` | 结构已存在，Encode 待实现 |
 | `whV` | 服务端->客户端 | `cg::packet::receive::ClientLoginResult` | `{result:i62} {data:es}` | M6.15.01 已实现 Parse；`data` 可能为空或为 `fail/block/busy`，本步不强校验、不拆 payload，强类型拆分 BLOCKED：旧 C/IDA/xlsx 对 data 语义冲突 |
 | `DZ` | 服务端->客户端 | `cg::packet::receive::CreateNewCharResult` | `{result:es} {registnumber:i62} {data:es}` | M6.15.03 已实现；result 为字符串，不做枚举/range 校验；registnumber 允许 `-1`；data 为普通外层 es/opaque，不加入 nested es，不拆 payload，强类型拆分 BLOCKED：客户端 IDA 解码 data 但丢弃，当前证据不足 |
+| `oy` | 服务端->客户端 | `cg::packet::receive::CharacterDeleteResult` | `{result:es} {data:es}` | M6.15.04 已实现；result 为字符串，不做枚举/range 校验；data 为普通外层 es/opaque message/DB result，可为空，不加入 nested es，不拆 payload，强类型拆分 BLOCKED：当前仅确认外层结果与消息，缺少稳定业务 payload 语义证据 |
 | `HNP` | 服务端->客户端 | `cg::packet::receive::ProfileVersion` | `{data:es}` | M6.11.01 已实现；`data` 按 `|` 拆 `profileVersion/aboutVersion/mailCharge/seekPos` 4 段，均为 raw decimal，不用 i62，`seekPos` 可为 `-1` |
 | `aPc` | 服务端->客户端 | `cg::packet::receive::CharacterProfile` | `{data:es}` | M6.11.02 已实现；按旧 C `nrproto_CP_send(int fd, char* data)` 修正为单外层 `data`；`data` 最小解析 `flags|values...|`，flags 为 i62，values 保留 raw 字符串和中间空值，回写保留尾随 `|`，不拆业务 bit |
 | `UU` | 服务端->客户端 | `cg::packet::receive::CharacterProfile2` | `{data:es}` | M6.11.03 已实现；按旧 C `nrproto_CP2_send(int fd, char* data)` 修正为单外层 `data`；`data` 最小解析 `flagMask|values...|`，flagMask 为 i62，values 保留 raw 字符串且拒绝中间空值，回写保留尾随 `|`，不拆业务 bit |
@@ -319,7 +320,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 112 | `murD` | 服务端->客户端 | 完成 | SEND_PLAYSE | 是 | 否 | 待 C/IDA 补全 |
 | 113 | `ftaN` | 服务端->客户端 | 完成 | SEND_ES NPC_sePlayMySePlay | 否 | 否 | xlsx |
 | 114 | `DZ` | 服务端->客户端 | 完成 | SEND_CreateNewChar；resolved `{result:es} {registnumber:i62} {data:es}`；data 为普通外层 es/opaque，不拆 payload，强类型拆分 BLOCKED：客户端 IDA 解码 data 但丢弃，当前证据不足 | 是 | 是 | ServerC+ClientIda+src/packet |
-| 115 | `oy` | 服务端->客户端 | 完成 | SEND_CharDelete | 是 | 是 | 待 C/IDA 补全 |
+| 115 | `oy` | 服务端->客户端 | 完成 | SEND_CharDelete；resolved `{result:es} {data:es}`；data 为普通外层 es/opaque message/DB result，可为空，不加入 nested es，不拆 payload，强类型拆分 BLOCKED：当前仅确认外层结果与消息，缺少稳定业务 payload 语义证据 | 是 | 是 | ServerC+ClientIda+src/packet |
 | 116 | `cJzI` | 服务端->客户端 | 暂缓 | SEND_ProcGet | 是 | 是 | 待 C/IDA 补全 |
 | 117 | `Bi` | 服务端->客户端 | 暂缓 | SEND_PlayerNumGet | 是 | 否 | 待 C/IDA 补全 |
 | 118 | `ed` | 服务端->客户端 | 暂缓 | SEND_PVUP 历史迁移封包 | 是 | 否 | 待 C/IDA 补全 |

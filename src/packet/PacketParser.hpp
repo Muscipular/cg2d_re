@@ -53,6 +53,11 @@ namespace cg::packet
             {"data", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
         }};
 
+        inline constexpr std::array<PacketFieldSpec, 2> CharacterDeleteResultFields = {{
+            {"result", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
+            {"data", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
+        }};
+
         inline constexpr std::array<PacketFieldSpec, 1> ProfileVersionFields = {{
             {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
         }};
@@ -497,7 +502,7 @@ namespace cg::packet
             {"y2", PacketFieldType::Int62, PacketSourceTag::Xlsx},
         }};
 
-        inline constexpr std::array<PacketSpec, 86> PacketRegistry = {{
+        inline constexpr std::array<PacketSpec, 87> PacketRegistry = {{
             {
                 "JFVf",
                 PacketDirection::ClientToServer,
@@ -525,6 +530,13 @@ namespace cg::packet
                 PacketSourceTag::ServerC,
                 CreateNewCharResultFields.data(),
                 CreateNewCharResultFields.size(),
+            },
+            {
+                "oy",
+                PacketDirection::ServerToClient,
+                PacketSourceTag::ServerC,
+                CharacterDeleteResultFields.data(),
+                CharacterDeleteResultFields.size(),
             },
             {
                 "HNP",

@@ -922,6 +922,47 @@ namespace cg::packet::send
             return BuildPacket(ToPacket());
         }
     };
+
+    /**
+     * RECV_PRE 删除迷你邮件好友 wD {profileIndex:i62} {name:es}
+     */
+    struct ProfileMailFriendDelete
+    {
+        static constexpr std::string_view Code = "wD";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+
+        int profileIndex = 0;
+        std::string name;
+
+        ProfileMailFriendDelete(int profileIndex, std::string name)
+            : profileIndex(profileIndex),
+              name(std::move(name))
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            packet.fields.push_back(PacketField {
+                "profileIndex",
+                PacketFieldType::Int62,
+                std::to_string(profileIndex),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "name",
+                PacketFieldType::EscapedString,
+                name,
+                PacketSourceTag::Xlsx,
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket());
+        }
+    };
 }
 
 #endif //CG_ENGINE_SEND_H

@@ -4592,9 +4592,11 @@
       "direction": "客户端->服务端",
       "legacyKind": "RECV",
       "clientNamespace": "send",
-      "xlsxStatus": "待办",
+      "xlsxStatus": "完成",
       "description": "RECV_PRE 删除迷你邮件好友",
       "rawFormat": "{} {name}",
+      "resolvedFormat": "{profileIndex:i62} {name:es}",
+      "resolvedSource": "xlsx+src/packet",
       "formatEmpty": false,
       "source": "xlsx",
       "fields": [

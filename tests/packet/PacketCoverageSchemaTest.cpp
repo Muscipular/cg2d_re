@@ -1104,6 +1104,38 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         }
     }
 
+    const PacketSchema* profileMailFriendDeleteSchema = FindPacket(packets, "wD");
+    failures += Expect(profileMailFriendDeleteSchema != nullptr, "wD schema exists");
+    if (profileMailFriendDeleteSchema != nullptr) {
+        const cg::packet::send::ProfileMailFriendDelete profileMailFriendDelete(12, "Alice");
+        const cg::packet::Packet packet = profileMailFriendDelete.ToPacket();
+        failures += Expect(profileMailFriendDeleteSchema->direction == "客户端->服务端", "wD direction");
+        failures += Expect(profileMailFriendDeleteSchema->legacyKind == "RECV", "wD legacyKind");
+        failures += Expect(profileMailFriendDeleteSchema->rawFormat == "{} {name}", "wD rawFormat");
+        failures += Expect(
+            profileMailFriendDeleteSchema->resolvedFormat == "{profileIndex:i62} {name:es}",
+            "wD resolvedFormat");
+        failures += Expect(profileMailFriendDeleteSchema->resolvedSource == "xlsx+src/packet", "wD resolvedSource");
+        failures += Expect(profileMailFriendDeleteSchema->fields.size() == 2U, "wD raw field count");
+        if (profileMailFriendDeleteSchema->fields.size() == 2U) {
+            failures += Expect(profileMailFriendDeleteSchema->fields[0].name.empty(), "wD raw field profileIndex");
+            failures += Expect(profileMailFriendDeleteSchema->fields[1].name == "name", "wD raw field name");
+            failures += Expect(profileMailFriendDeleteSchema->fields[0].typeToken == "unknown", "wD raw profileIndex type");
+            failures += Expect(profileMailFriendDeleteSchema->fields[1].typeToken == "unknown", "wD raw name type");
+        }
+        failures += Expect(packet.fields.size() == 2U, "wD packet field count");
+        if (packet.fields.size() == 2U) {
+            failures += Expect(packet.fields[0].name == "profileIndex", "wD packet profileIndex field");
+            failures += Expect(
+                packet.fields[0].type == cg::packet::PacketFieldType::Int62,
+                "wD packet profileIndex type");
+            failures += Expect(packet.fields[1].name == "name", "wD packet name field");
+            failures += Expect(
+                packet.fields[1].type == cg::packet::PacketFieldType::EscapedString,
+                "wD packet name type");
+        }
+    }
+
     const PacketSchema* checkCommandSchema = FindPacket(packets, "CCL");
     failures += Expect(checkCommandSchema != nullptr, "CCL schema exists");
     if (checkCommandSchema != nullptr) {

@@ -425,6 +425,11 @@ namespace cg::packet
             {"color", PacketFieldType::Int62, PacketSourceTag::Xlsx},
         }};
 
+        inline constexpr std::array<PacketFieldSpec, 2> ProfileMailFriendDeleteFields = {{
+            {"profileIndex", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"name", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+        }};
+
         inline constexpr std::array<PacketFieldSpec, 1> CheckCommandFields = {{
             {"time", PacketFieldType::Int62, PacketSourceTag::Xlsx},
         }};
@@ -464,7 +469,7 @@ namespace cg::packet
             {"y2", PacketFieldType::Int62, PacketSourceTag::Xlsx},
         }};
 
-        inline constexpr std::array<PacketSpec, 80> PacketRegistry = {{
+        inline constexpr std::array<PacketSpec, 81> PacketRegistry = {{
             {
                 "JFVf",
                 PacketDirection::ClientToServer,
@@ -982,6 +987,13 @@ namespace cg::packet
                 PacketSourceTag::Xlsx,
                 GuildMailSendFields.data(),
                 GuildMailSendFields.size(),
+            },
+            {
+                "wD",
+                PacketDirection::ClientToServer,
+                PacketSourceTag::Xlsx,
+                ProfileMailFriendDeleteFields.data(),
+                ProfileMailFriendDeleteFields.size(),
             },
             {
                 "nsY",

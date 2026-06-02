@@ -685,7 +685,7 @@ struct MapTileAtlasCacheKey {
 | 编号 | 任务 | 说明 | 验收标准 |
 |---|---|---|---|
 | M7.0 | IDA 渲染行为校对 | 落地 `IdaRenderRules` 对照表，记录 tile decode、DrawGraphic、obj 分组、SortTexture 规则 | 每条规则可追溯到 IDA 地址；未确认规则不得写成业务结论 |
-| M7.1 | EntityId/EntityData | 角色基础数据；`ObjectList.objectIndex` 不直接等同 `EntityId` | 可创建/删除大量实体，id 来源边界明确 |
+| M7.1 | EntityId/EntityData | 角色基础数据；`EntityData` 不保存 `objectIndex`，后续由实际地图 `Obj` 对象保持 | 可创建/删除大量实体，id 来源边界明确 |
 | M7.2 | Transform | tile 坐标、像素坐标、朝向；屏幕投影先按 IDA 校对 | 坐标转换测试通过，公开头无 SDL 类型 |
 | M7.3 | MapTileAtlasCacheKey | 替换方案中的 `SceneKey` 命名，定义 hash/equality | 相同 map/key 命中，不同 generation/layerMask 不复用 |
 | M7.4 | SceneGroundAtlasCache | 按 `MapTileAtlasCacheKey` 构建地板 sprite atlas，上传显存并释放临时 RGBA | scene 切换命中缓存；失效时重建 |

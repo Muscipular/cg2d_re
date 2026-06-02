@@ -86,104 +86,6 @@ namespace cg::packet
             return PacketResult<std::string>::Success(std::move(output));
         }
 
-        [[nodiscard]] inline PacketResult<Packet> ParsePacketWithSpec(
-            std::string_view plainTokens,
-            const PacketSpec& packetSpec,
-            bool decodeSubPayload)
-        {
-            PacketResult<std::vector<std::string_view>> splitResult = SplitPlainTokens(plainTokens);
-            if (!splitResult.HasValue()) {
-                return PacketResult<Packet>::Failure(splitResult.Error());
-            }
-
-            const std::vector<std::string_view>& tokens = splitResult.Value();
-            if (tokens.empty()) {
-                return PacketResult<Packet>::Failure(MakeParserError(
-                    PacketErrorCode::EmptyInput,
-                    "封包明文 token 输入为空"));
-            }
-
-            const std::string_view code = tokens.front();
-            if (code.empty()) {
-                PacketError error = MakeParserError(PacketErrorCode::InvalidCode, "封包 code 为空");
-                error.packetCode = PacketCode(code);
-                return PacketResult<Packet>::Failure(std::move(error));
-            }
-
-            if (code != packetSpec.code) {
-                PacketError error = MakeParserError(PacketErrorCode::InvalidCode, "封包 code 与定义不匹配");
-                error.packetCode = PacketCode(code);
-                return PacketResult<Packet>::Failure(std::move(error));
-            }
-
-            std::size_t fieldTokenCount = tokens.size() - 1U;
-            if (fieldTokenCount == packetSpec.fieldCount + 1U && tokens.back().empty()) {
-                --fieldTokenCount;
-            }
-
-            if (fieldTokenCount != packetSpec.fieldCount) {
-                PacketError error = MakeParserError(
-                    PacketErrorCode::FieldCountMismatch,
-                    "封包字段数量不匹配");
-                error.packetCode = PacketCode(code);
-                error.fieldIndex = fieldTokenCount < packetSpec.fieldCount
-                    ? fieldTokenCount
-                    : packetSpec.fieldCount;
-                return PacketResult<Packet>::Failure(std::move(error));
-            }
-
-            Packet packet(PacketCode(code), packetSpec.direction);
-            packet.fields.reserve(packetSpec.fieldCount);
-
-            for (std::size_t index = 0; index < packetSpec.fieldCount; ++index) {
-                const PacketFieldSpec& fieldSpec = packetSpec.fields[index];
-                const std::string_view token = tokens[index + 1U];
-
-                PacketField field;
-                field.name = std::string(fieldSpec.name);
-                field.type = fieldSpec.type == PacketFieldType::SubPayload
-                    ? PacketFieldType::EscapedString
-                    : fieldSpec.type;
-
-                switch (fieldSpec.type) {
-                case PacketFieldType::Int62: {
-                    PacketResult<int> decoded = DecodeInt62(token);
-                    if (!decoded.HasValue()) {
-                        PacketError error = decoded.Error();
-                        FillErrorContext(error, code, index);
-                        return PacketResult<Packet>::Failure(std::move(error));
-                    }
-                    field.value = std::to_string(decoded.Value());
-                    break;
-                }
-                case PacketFieldType::EscapedString:
-                case PacketFieldType::SubPayload: {
-                    PacketResult<std::string> decoded = fieldSpec.type == PacketFieldType::SubPayload && decodeSubPayload
-                        ? DecodeNestedPayloadEscapedString(token)
-                        : DecodeEscapedString(token);
-                    if (!decoded.HasValue()) {
-                        PacketError error = decoded.Error();
-                        FillErrorContext(error, code, index);
-                        return PacketResult<Packet>::Failure(std::move(error));
-                    }
-                    field.value = decoded.Value();
-                    break;
-                }
-                case PacketFieldType::Payload:
-                case PacketFieldType::Unknown: {
-                    PacketError error = MakeParserError(
-                        PacketErrorCode::InvalidFieldType,
-                        "封包字段类型暂不支持");
-                    FillErrorContext(error, code, index);
-                    return PacketResult<Packet>::Failure(std::move(error));
-                }
-                }
-
-                packet.fields.push_back(std::move(field));
-            }
-
-            return PacketResult<Packet>::Success(std::move(packet));
-        }
     }
 
     /**
@@ -193,7 +95,98 @@ namespace cg::packet
         std::string_view plainTokens,
         const PacketSpec& packetSpec)
     {
-        return detail::ParsePacketWithSpec(plainTokens, packetSpec, true);
+        PacketResult<std::vector<std::string_view>> splitResult = SplitPlainTokens(plainTokens);
+        if (!splitResult.HasValue()) {
+            return PacketResult<Packet>::Failure(splitResult.Error());
+        }
+
+        const std::vector<std::string_view>& tokens = splitResult.Value();
+        if (tokens.empty()) {
+            return PacketResult<Packet>::Failure(detail::MakeParserError(
+                PacketErrorCode::EmptyInput,
+                "封包明文 token 输入为空"));
+        }
+
+        const std::string_view code = tokens.front();
+        if (code.empty()) {
+            PacketError error = detail::MakeParserError(PacketErrorCode::InvalidCode, "封包 code 为空");
+            error.packetCode = PacketCode(code);
+            return PacketResult<Packet>::Failure(std::move(error));
+        }
+
+        if (code != packetSpec.code) {
+            PacketError error = detail::MakeParserError(PacketErrorCode::InvalidCode, "封包 code 与定义不匹配");
+            error.packetCode = PacketCode(code);
+            return PacketResult<Packet>::Failure(std::move(error));
+        }
+
+        std::size_t fieldTokenCount = tokens.size() - 1U;
+        if (fieldTokenCount == packetSpec.fieldCount + 1U && tokens.back().empty()) {
+            --fieldTokenCount;
+        }
+
+        if (fieldTokenCount != packetSpec.fieldCount) {
+            PacketError error = detail::MakeParserError(
+                PacketErrorCode::FieldCountMismatch,
+                "封包字段数量不匹配");
+            error.packetCode = PacketCode(code);
+            error.fieldIndex = fieldTokenCount < packetSpec.fieldCount
+                ? fieldTokenCount
+                : packetSpec.fieldCount;
+            return PacketResult<Packet>::Failure(std::move(error));
+        }
+
+        Packet packet(PacketCode(code), packetSpec.direction);
+        packet.fields.reserve(packetSpec.fieldCount);
+
+        for (std::size_t index = 0; index < packetSpec.fieldCount; ++index) {
+            const PacketFieldSpec& fieldSpec = packetSpec.fields[index];
+            const std::string_view token = tokens[index + 1U];
+
+            PacketField field;
+            field.name = std::string(fieldSpec.name);
+            field.type = fieldSpec.type == PacketFieldType::SubPayload
+                ? PacketFieldType::EscapedString
+                : fieldSpec.type;
+
+            switch (fieldSpec.type) {
+            case PacketFieldType::Int62: {
+                PacketResult<int> decoded = DecodeInt62(token);
+                if (!decoded.HasValue()) {
+                    PacketError error = decoded.Error();
+                    detail::FillErrorContext(error, code, index);
+                    return PacketResult<Packet>::Failure(std::move(error));
+                }
+                field.value = std::to_string(decoded.Value());
+                break;
+            }
+            case PacketFieldType::EscapedString:
+            case PacketFieldType::SubPayload: {
+                PacketResult<std::string> decoded = fieldSpec.type == PacketFieldType::SubPayload
+                    ? detail::DecodeNestedPayloadEscapedString(token)
+                    : DecodeEscapedString(token);
+                if (!decoded.HasValue()) {
+                    PacketError error = decoded.Error();
+                    detail::FillErrorContext(error, code, index);
+                    return PacketResult<Packet>::Failure(std::move(error));
+                }
+                field.value = decoded.Value();
+                break;
+            }
+            case PacketFieldType::Payload:
+            case PacketFieldType::Unknown: {
+                PacketError error = detail::MakeParserError(
+                    PacketErrorCode::InvalidFieldType,
+                    "封包字段类型暂不支持");
+                detail::FillErrorContext(error, code, index);
+                return PacketResult<Packet>::Failure(std::move(error));
+            }
+            }
+
+            packet.fields.push_back(std::move(field));
+        }
+
+        return PacketResult<Packet>::Success(std::move(packet));
     }
 }
 

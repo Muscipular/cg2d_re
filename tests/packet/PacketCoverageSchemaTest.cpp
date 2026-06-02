@@ -671,6 +671,32 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         failures += Expect(duelPointSchema->fields.empty(), "hB raw fields empty");
     }
 
+    const PacketSchema* tradePlayerListSchema = FindPacket(packets, "Cxo");
+    failures += Expect(tradePlayerListSchema != nullptr, "Cxo schema exists");
+    if (tradePlayerListSchema != nullptr) {
+        const cg::packet::receive::TradePlayerList tradePlayerList({{"Alice"}});
+        const cg::packet::PacketResult<cg::packet::Packet> packet = tradePlayerList.ToPacket();
+        failures += Expect(tradePlayerListSchema->direction == "服务端->客户端", "Cxo direction");
+        failures += Expect(tradePlayerListSchema->legacyKind == "SEND", "Cxo legacyKind");
+        failures += Expect(tradePlayerListSchema->rawFormat.empty(), "Cxo rawFormat empty");
+        failures += Expect(tradePlayerListSchema->formatEmpty, "Cxo formatEmpty");
+        failures += Expect(tradePlayerListSchema->resolvedFormat == "{data:es}", "Cxo resolvedFormat");
+        failures += Expect(
+            tradePlayerListSchema->resolvedSource == "ServerC+src/packet",
+            "Cxo resolvedSource");
+        failures += Expect(tradePlayerListSchema->fields.empty(), "Cxo raw fields empty");
+        failures += Expect(packet.HasValue(), "Cxo packet build");
+        if (packet.HasValue()) {
+            failures += Expect(packet.Value().fields.size() == 1U, "Cxo packet field count");
+            if (packet.Value().fields.size() == 1U) {
+                failures += Expect(packet.Value().fields[0].name == "data", "Cxo packet data field");
+                failures += Expect(
+                    packet.Value().fields[0].type == cg::packet::PacketFieldType::EscapedString,
+                    "Cxo packet data type");
+            }
+        }
+    }
+
     const PacketSchema* profileMailMessageSchema = FindPacket(packets, "Mhbt");
     failures += Expect(profileMailMessageSchema != nullptr, "Mhbt schema exists");
     if (profileMailMessageSchema != nullptr) {

@@ -14271,6 +14271,198 @@ namespace cg::packet::receive
         }
     };
 
+    struct TradePlayerRecord
+    {
+        std::string nameRaw;
+    };
+
+    /**
+     * SEND_TRPL CHAR_Trade_getPlayerList 获得可交易人员列表		Cxo {data:es}
+     * data: `nameRaw|` 重复记录，空 data 表示空列表；nameRaw 保留 makeEscapeString 后的 raw 字符串。
+     */
+    struct TradePlayerList
+    {
+        static constexpr std::string_view Code = "Cxo";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::string_view PayloadDelimiter = "|";
+
+        std::vector<TradePlayerRecord> records;
+
+        TradePlayerList() = default;
+
+        explicit TradePlayerList(std::vector<TradePlayerRecord> records)
+            : records(std::move(records))
+        {
+        }
+
+        [[nodiscard]] PacketResult<std::string> BuildData() const
+        {
+            std::string payload;
+            for (const TradePlayerRecord& record : records) {
+                if (record.nameRaw.empty()) {
+                    return PacketResult<std::string>::Failure(MakeFieldError(
+                        PacketErrorCode::EncodeFailed,
+                        "TradePlayerList BuildData nameRaw 为空",
+                        DataFieldIndex));
+                }
+
+                if (record.nameRaw.find('|') != std::string::npos) {
+                    return PacketResult<std::string>::Failure(MakeFieldError(
+                        PacketErrorCode::EncodeFailed,
+                        "TradePlayerList BuildData nameRaw 包含 literal |",
+                        DataFieldIndex));
+                }
+
+                payload.append(record.nameRaw);
+                payload.push_back('|');
+            }
+
+            return PacketResult<std::string>::Success(std::move(payload));
+        }
+
+        [[nodiscard]] PacketResult<Packet> ToPacket() const
+        {
+            PacketResult<std::string> data = BuildData();
+            if (!data.HasValue()) {
+                return PacketResult<Packet>::Failure(data.Error());
+            }
+
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ServerC);
+            packet.fields.push_back(PacketField {
+                "data",
+                PacketFieldType::EscapedString,
+                data.Value(),
+                PacketSourceTag::ServerC,
+            });
+            return PacketResult<Packet>::Success(std::move(packet));
+        }
+
+        static PacketResult<TradePlayerList> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view);
+            if (!parsed.HasValue()) {
+                return PacketResult<TradePlayerList>::Failure(parsed.Error());
+            }
+
+            return FromPacket(parsed.Value());
+        }
+
+        static PacketResult<TradePlayerList> FromPacket(const Packet& packet)
+        {
+            if (packet.code.View() != Code) {
+                PacketError error = MakePacketError(
+                    PacketErrorCode::InvalidCode,
+                    "TradePlayerList Parse 收到非 Cxo 封包");
+                error.packetCode = packet.code;
+                return PacketResult<TradePlayerList>::Failure(std::move(error));
+            }
+
+            if (packet.direction != Direction) {
+                return PacketResult<TradePlayerList>::Failure(MakePacketError(
+                    PacketErrorCode::DecodeFailed,
+                    "TradePlayerList Parse 封包方向不匹配"));
+            }
+
+            if (packet.fields.size() != FieldCount) {
+                return PacketResult<TradePlayerList>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "TradePlayerList Parse 字段数量不匹配",
+                    packet.fields.empty() ? 0U : FieldCount));
+            }
+
+            const PacketField& field = packet.fields[DataFieldIndex];
+            if (field.name != "data") {
+                return PacketResult<TradePlayerList>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "TradePlayerList Parse 字段名不匹配",
+                    DataFieldIndex));
+            }
+
+            if (field.type != PacketFieldType::EscapedString) {
+                return PacketResult<TradePlayerList>::Failure(MakeFieldError(
+                    PacketErrorCode::InvalidFieldType,
+                    "TradePlayerList Parse 字段类型不匹配",
+                    DataFieldIndex));
+            }
+
+            PacketResult<std::vector<TradePlayerRecord>> recordsValue = ParseRecords(field.value);
+            if (!recordsValue.HasValue()) {
+                return PacketResult<TradePlayerList>::Failure(recordsValue.Error());
+            }
+
+            return PacketResult<TradePlayerList>::Success(TradePlayerList(std::move(recordsValue.Value())));
+        }
+
+    private:
+        static constexpr std::size_t FieldCount = 1U;
+        static constexpr std::size_t DataFieldIndex = 0U;
+
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            error.source = PacketSourceTag::ServerC;
+            return error;
+        }
+
+        [[nodiscard]] static PacketError MakeFieldError(
+            PacketErrorCode code,
+            std::string message,
+            std::size_t fieldIndex)
+        {
+            PacketError error = MakePacketError(code, std::move(message));
+            error.fieldIndex = fieldIndex;
+            return error;
+        }
+
+        [[nodiscard]] static PacketResult<std::vector<TradePlayerRecord>> ParseRecords(std::string_view payload)
+        {
+            if (payload.empty()) {
+                return PacketResult<std::vector<TradePlayerRecord>>::Success({});
+            }
+
+            if (payload.back() != '|') {
+                return PacketResult<std::vector<TradePlayerRecord>>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "TradePlayerList payload 缺少尾随分隔符",
+                    DataFieldIndex));
+            }
+
+            PacketResult<std::vector<std::string>> split = SplitPayload(payload, PayloadDelimiter);
+            if (!split.HasValue()) {
+                PacketError error = split.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = DataFieldIndex;
+                error.source = PacketSourceTag::ServerC;
+                return PacketResult<std::vector<TradePlayerRecord>>::Failure(std::move(error));
+            }
+
+            std::vector<std::string> parts = std::move(split.Value());
+            parts.pop_back();
+            if (parts.empty()) {
+                return PacketResult<std::vector<TradePlayerRecord>>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "TradePlayerList payload 不能只有尾随分隔符",
+                    DataFieldIndex));
+            }
+
+            std::vector<TradePlayerRecord> records;
+            records.reserve(parts.size());
+            for (std::string& nameRaw : parts) {
+                if (nameRaw.empty()) {
+                    return PacketResult<std::vector<TradePlayerRecord>>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "TradePlayerList payload 包含空 nameRaw",
+                        DataFieldIndex));
+                }
+
+                records.push_back(TradePlayerRecord {std::move(nameRaw)});
+            }
+
+            return PacketResult<std::vector<TradePlayerRecord>>::Success(std::move(records));
+        }
+    };
+
     struct AddressBookGuildInfoRecord
     {
         std::string guildNameRaw;

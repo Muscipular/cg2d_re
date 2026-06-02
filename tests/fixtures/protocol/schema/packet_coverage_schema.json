@@ -2963,6 +2963,17 @@
       "rawFormat": "",
       "formatEmpty": true,
       "source": "xlsx",
+      "resolvedFormat": "{data:es}",
+      "resolvedSource": "ServerC+src/packet",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "data",
+          "typeToken": "es",
+          "rawSpec": "{data:es}",
+          "source": "ServerC+src/packet"
+        }
+      ],
       "fields": []
     },
     {

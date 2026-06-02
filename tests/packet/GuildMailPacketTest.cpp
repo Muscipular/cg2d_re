@@ -430,7 +430,7 @@ int TestBuildErrors()
             cg::packet::PacketDirection::ServerToClient,
             {
                 Field("fromregistseqnumber", cg::packet::PacketFieldType::Int62, "1"),
-                Field("text", cg::packet::PacketFieldType::Payload, "time|msg|-1"),
+                Field("text", cg::packet::PacketFieldType::Unknown, "time|msg|-1"),
                 Field("color", cg::packet::PacketFieldType::Int62, "3"),
             })),
         cg::packet::PacketErrorCode::InvalidFieldType,

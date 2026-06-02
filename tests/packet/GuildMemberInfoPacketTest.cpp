@@ -313,7 +313,7 @@ int TestManualPacketErrors()
     packet = builtPacket.Value();
     packet.fields.push_back(cg::packet::PacketField {
         "extra",
-        cg::packet::PacketFieldType::Payload,
+        cg::packet::PacketFieldType::Unknown,
         "",
     });
     failures += ExpectError(
@@ -331,7 +331,7 @@ int TestManualPacketErrors()
         "Kka manual bad index name");
 
     packet = builtPacket.Value();
-    packet.fields[1].type = cg::packet::PacketFieldType::Payload;
+    packet.fields[1].type = cg::packet::PacketFieldType::Unknown;
     failures += ExpectError(
         GuildMemberInfo::FromPacket(packet),
         cg::packet::PacketErrorCode::InvalidFieldType,

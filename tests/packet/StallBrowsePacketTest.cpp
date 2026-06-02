@@ -320,7 +320,7 @@ int TestBuildErrors()
             Field("objIndex", cg::packet::PacketFieldType::Int62, "2"),
             Field("name", cg::packet::PacketFieldType::EscapedString, "shop"),
             Field("description", cg::packet::PacketFieldType::EscapedString, "desc"),
-            Field("item", cg::packet::PacketFieldType::Payload, "0|"),
+            Field("item", cg::packet::PacketFieldType::Unknown, "0|"),
             Field("pet", cg::packet::PacketFieldType::EscapedString, "0|"),
         })),
         cg::packet::PacketErrorCode::InvalidFieldType,

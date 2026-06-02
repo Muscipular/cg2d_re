@@ -173,7 +173,6 @@ namespace cg::packet
                 field.value = decoded.Value();
                 break;
             }
-            case PacketFieldType::Payload:
             case PacketFieldType::Unknown: {
                 PacketError error = detail::MakeParserError(
                     PacketErrorCode::InvalidFieldType,

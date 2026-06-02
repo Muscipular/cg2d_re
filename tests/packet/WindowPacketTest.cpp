@@ -286,7 +286,7 @@ int TestBuildErrors()
     failures += ExpectError(
         BuildPacket(PacketOf(cg::packet::PacketDirection::ServerToClient, {
             Field("windowtype", cg::packet::PacketFieldType::Int62, "0"),
-            Field("buttontype", cg::packet::PacketFieldType::Payload, "1"),
+            Field("buttontype", cg::packet::PacketFieldType::Unknown, "1"),
             Field("seqno", cg::packet::PacketFieldType::Int62, "2"),
             Field("objindex", cg::packet::PacketFieldType::Int62, "-1"),
             Field("data", cg::packet::PacketFieldType::EscapedString, "hello"),

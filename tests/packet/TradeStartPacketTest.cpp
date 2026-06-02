@@ -266,7 +266,7 @@ int TestManualPacketErrors()
         TradeStart::FromPacket(PacketOf(
             cg::packet::PacketDirection::ServerToClient,
             {
-                Field("name", cg::packet::PacketFieldType::Payload, "Alice"),
+                Field("name", cg::packet::PacketFieldType::Unknown, "Alice"),
                 Field("level", cg::packet::PacketFieldType::Int62, "10"),
             })),
         cg::packet::PacketErrorCode::InvalidFieldType,

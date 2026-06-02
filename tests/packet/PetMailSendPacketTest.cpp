@@ -306,7 +306,7 @@ int TestBuildErrors()
         "rMsv field name mismatch");
 
     cg::packet::Packet wrongType = cg::packet::send::PetMailSend(1, 2, 3, "msg", 4).ToPacket();
-    wrongType.fields[3].type = cg::packet::PacketFieldType::Payload;
+    wrongType.fields[3].type = cg::packet::PacketFieldType::Unknown;
     failures += ExpectError(
         BuildPacket(wrongType),
         cg::packet::PacketErrorCode::InvalidFieldType,

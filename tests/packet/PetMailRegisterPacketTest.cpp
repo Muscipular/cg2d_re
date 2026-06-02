@@ -318,7 +318,7 @@ int TestBuildErrors()
         "PfqV field name mismatch");
 
     cg::packet::Packet wrongType = cg::packet::send::PetMailRegister(1, 2, 3, "text", 4).ToPacket();
-    wrongType.fields[3].type = cg::packet::PacketFieldType::Payload;
+    wrongType.fields[3].type = cg::packet::PacketFieldType::Unknown;
     failures += ExpectError(
         BuildPacket(wrongType),
         cg::packet::PacketErrorCode::InvalidFieldType,

@@ -236,7 +236,7 @@ int TestBuildErrors()
     failures += ExpectError(
         BuildPacket(PacketOf(
             cg::packet::PacketDirection::ServerToClient,
-            {Field("data", cg::packet::PacketFieldType::Payload, "Central City")})),
+            {Field("data", cg::packet::PacketFieldType::Unknown, "Central City")})),
         cg::packet::PacketErrorCode::InvalidFieldType,
         "TeD",
         true,

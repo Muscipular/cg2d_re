@@ -70,7 +70,7 @@ namespace cg::packet
 
         [[nodiscard]] inline bool IsUnsupportedBuilderFieldType(PacketFieldType type) noexcept
         {
-            return type == PacketFieldType::Payload || type == PacketFieldType::Unknown;
+            return type == PacketFieldType::Unknown;
         }
 
         [[nodiscard]] inline bool IsBuilderFieldTypeCompatible(
@@ -181,7 +181,6 @@ namespace cg::packet
                 tokens.push_back(encoded.Value());
                 break;
             }
-            case PacketFieldType::Payload:
             case PacketFieldType::Unknown: {
                 PacketError error = detail::MakeBuilderError(
                     PacketErrorCode::InvalidFieldType,

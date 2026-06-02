@@ -307,7 +307,7 @@ int TestBuildErrors()
         "xD field name mismatch");
 
     cg::packet::Packet wrongType = cg::packet::send::WindowOpenSend(1, 2, 3, 4, 5, "data").ToPacket();
-    wrongType.fields[5].type = cg::packet::PacketFieldType::Payload;
+    wrongType.fields[5].type = cg::packet::PacketFieldType::Unknown;
     failures += ExpectError(
         BuildPacket(wrongType),
         cg::packet::PacketErrorCode::InvalidFieldType,

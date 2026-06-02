@@ -414,7 +414,7 @@ int TestPacketErrors()
     failures += ExpectError(
         TradeItemInfo::FromPacket(PacketOf(
             cg::packet::PacketDirection::ServerToClient,
-            {Field("data", cg::packet::PacketFieldType::Payload, BuildPayload(1U, true))})),
+            {Field("data", cg::packet::PacketFieldType::Unknown, BuildPayload(1U, true))})),
         cg::packet::PacketErrorCode::InvalidFieldType,
         "nUbJ",
         "nUbJ manual wrong field type");

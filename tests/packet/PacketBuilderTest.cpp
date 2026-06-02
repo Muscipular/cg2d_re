@@ -331,7 +331,7 @@ int TestErrors()
         cg::packet::BuildPacket(PacketOf(
             "Gp",
             cg::packet::PacketDirection::ClientToServer,
-            {Field("extra", cg::packet::PacketFieldType::Payload, "x")}),
+            {Field("extra", cg::packet::PacketFieldType::Unknown, "x")}),
             cg::packet::send::CharacterListRequest::Spec),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "Gp",
@@ -358,7 +358,7 @@ int TestErrors()
             "JFVf",
             cg::packet::PacketDirection::ClientToServer,
             {
-                Field("clientHash", cg::packet::PacketFieldType::Payload, "hash"),
+                Field("clientHash", cg::packet::PacketFieldType::Unknown, "hash"),
                 Field("password", cg::packet::PacketFieldType::EscapedString, "pass"),
                 Field("account", cg::packet::PacketFieldType::EscapedString, "account"),
             }),
@@ -368,17 +368,6 @@ int TestErrors()
         true,
         0U,
         "field type mismatch");
-    failures += ExpectError(
-        cg::packet::BuildPacket(PacketOf(
-            "CCL",
-            cg::packet::PacketDirection::ClientToServer,
-            {Field("time", cg::packet::PacketFieldType::Payload, "1")}),
-            cg::packet::send::CheckCommand::Spec),
-        cg::packet::PacketErrorCode::InvalidFieldType,
-        "CCL",
-        true,
-        0U,
-        "payload unsupported");
     failures += ExpectError(
         cg::packet::BuildPacket(PacketOf(
             "CCL",

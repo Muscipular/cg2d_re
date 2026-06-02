@@ -264,7 +264,7 @@ int TestBuildErrors()
     failures += ExpectError(
         BuildPacket(PacketOf(
             cg::packet::PacketDirection::ServerToClient,
-            {Field("message", cg::packet::PacketFieldType::Payload, "hello")})),
+            {Field("message", cg::packet::PacketFieldType::Unknown, "hello")})),
         cg::packet::PacketErrorCode::InvalidFieldType,
         "Zd",
         true,

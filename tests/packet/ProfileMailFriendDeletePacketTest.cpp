@@ -322,7 +322,7 @@ int TestBuildErrors()
         "wD wrong field name");
 
     cg::packet::Packet wrongType = ProfileMailFriendDelete(12, "Alice").ToPacket();
-    wrongType.fields[1].type = cg::packet::PacketFieldType::Payload;
+    wrongType.fields[1].type = cg::packet::PacketFieldType::Unknown;
     failures += ExpectError(
         BuildPacket(wrongType),
         cg::packet::PacketErrorCode::InvalidFieldType,

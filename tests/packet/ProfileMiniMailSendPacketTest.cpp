@@ -431,7 +431,7 @@ int TestBuildErrors()
         ProfileMiniMailSend::FromPacket(PacketOf(
             cg::packet::PacketDirection::ClientToServer,
             {
-                Field("data", cg::packet::PacketFieldType::Payload, "12|Alice|hello|"),
+                Field("data", cg::packet::PacketFieldType::Unknown, "12|Alice|hello|"),
                 Field("color", cg::packet::PacketFieldType::Int62, "3"),
             })),
         cg::packet::PacketErrorCode::InvalidFieldType,

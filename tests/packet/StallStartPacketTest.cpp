@@ -449,7 +449,7 @@ int TestBuildPacketErrors()
             {
                 Field("stallName", cg::packet::PacketFieldType::EscapedString, "Shop"),
                 Field("stallDescription", cg::packet::PacketFieldType::EscapedString, "Desc"),
-                Field("stallList", cg::packet::PacketFieldType::Payload, stallList),
+                Field("stallList", cg::packet::PacketFieldType::Unknown, stallList),
             })),
         cg::packet::PacketErrorCode::InvalidFieldType,
         "ylGN",

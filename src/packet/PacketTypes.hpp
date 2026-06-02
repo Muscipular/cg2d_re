@@ -48,7 +48,6 @@ namespace cg::packet
         Int62,
         EscapedString,
         SubPayload,
-        Payload,
         Unknown,
     };
 

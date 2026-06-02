@@ -290,7 +290,7 @@ int TestBuildErrors()
         "CV field name mismatch");
 
     cg::packet::Packet wrongType = cg::packet::send::MailMessageSend(1, "msg", 4).ToPacket();
-    wrongType.fields[1].type = cg::packet::PacketFieldType::Payload;
+    wrongType.fields[1].type = cg::packet::PacketFieldType::Unknown;
     failures += ExpectError(
         BuildPacket(wrongType),
         cg::packet::PacketErrorCode::InvalidFieldType,

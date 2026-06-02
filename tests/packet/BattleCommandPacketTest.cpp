@@ -239,7 +239,7 @@ int TestBuildErrors()
         "LYIm build wrong field name");
     failures += ExpectError(
         BuildPacket(PacketOf(cg::packet::PacketDirection::ServerToClient, {
-            Field("command", cg::packet::PacketFieldType::Payload, "BU"),
+            Field("command", cg::packet::PacketFieldType::Unknown, "BU"),
         })),
         cg::packet::PacketErrorCode::InvalidFieldType,
         "LYIm",

@@ -211,7 +211,7 @@ int TestManualPacketErrors()
     failures += ExpectError(
         ProcessStatus::FromPacket(PacketOf(
             cg::packet::PacketDirection::ServerToClient,
-            {Field("data", cg::packet::PacketFieldType::Payload, "")})),
+            {Field("data", cg::packet::PacketFieldType::Unknown, "")})),
         cg::packet::PacketErrorCode::InvalidFieldType,
         "cJzI",
         "cJzI wrong field type");
@@ -230,7 +230,7 @@ int TestBuildErrors()
         "cJzI build wrong field name");
 
     cg::packet::Packet wrongType = ProcessStatus("").ToPacket();
-    wrongType.fields[0].type = cg::packet::PacketFieldType::Payload;
+    wrongType.fields[0].type = cg::packet::PacketFieldType::Unknown;
     failures += ExpectError(
         BuildPacket(wrongType),
         cg::packet::PacketErrorCode::InvalidFieldType,

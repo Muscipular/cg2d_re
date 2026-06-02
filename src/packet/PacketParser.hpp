@@ -360,6 +360,10 @@ namespace cg::packet
             {"data", PacketFieldType::EscapedString, PacketSourceTag::ClientIda},
         }};
 
+        inline constexpr std::array<PacketFieldSpec, 1> GuildTitleFields = {{
+            {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+        }};
+
         inline constexpr std::array<PacketFieldSpec, 1> CheckCommandFields = {{
             {"time", PacketFieldType::Int62, PacketSourceTag::Xlsx},
         }};
@@ -399,7 +403,7 @@ namespace cg::packet
             {"y2", PacketFieldType::Int62, PacketSourceTag::Xlsx},
         }};
 
-        inline constexpr std::array<PacketSpec, 67> PacketRegistry = {{
+        inline constexpr std::array<PacketSpec, 68> PacketRegistry = {{
             {
                 "JFVf",
                 PacketDirection::ClientToServer,
@@ -828,6 +832,13 @@ namespace cg::packet
                 GuildInfoFields.size(),
             },
             {
+                "znv",
+                PacketDirection::ServerToClient,
+                PacketSourceTag::Xlsx,
+                GuildTitleFields.data(),
+                GuildTitleFields.size(),
+            },
+            {
                 "nsY",
                 PacketDirection::ServerToClient,
                 PacketSourceTag::Xlsx,
@@ -903,7 +914,7 @@ namespace cg::packet
         {
             return (fieldName == "data" &&
                        (code == "DyAG" || code == "lDuJ" || code == "gnxd" || code == "PhdQ" || code == "Gn" ||
-                           code == "vI" || code == "aDn")) ||
+                           code == "vI" || code == "aDn" || code == "znv")) ||
                 (code == "zdr" && fieldName == "message");
         }
 

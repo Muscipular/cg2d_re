@@ -922,6 +922,31 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         }
     }
 
+    const PacketSchema* guildTitleSchema = FindPacket(packets, "znv");
+    failures += Expect(guildTitleSchema != nullptr, "znv schema exists");
+    if (guildTitleSchema != nullptr) {
+        const cg::packet::receive::GuildTitle guildTitle;
+        const cg::packet::Packet packet = guildTitle.ToPacket();
+        failures += Expect(guildTitleSchema->direction == "服务端->客户端", "znv direction");
+        failures += Expect(guildTitleSchema->legacyKind == "SEND", "znv legacyKind");
+        failures += Expect(guildTitleSchema->rawFormat == "{data}", "znv rawFormat");
+        failures += Expect(guildTitleSchema->resolvedFormat == "{data:es}", "znv resolvedFormat");
+        failures += Expect(guildTitleSchema->resolvedSource == "xlsx+src/packet", "znv resolvedSource");
+        failures += Expect(guildTitleSchema->fields.size() == 1U, "znv field count");
+        if (guildTitleSchema->fields.size() == 1U) {
+            failures += Expect(guildTitleSchema->fields[0].name == "data", "znv data field");
+            failures += Expect(guildTitleSchema->fields[0].typeToken == "unknown", "znv raw data type");
+            failures += Expect(guildTitleSchema->fields[0].rawSpec == "{data}", "znv rawSpec");
+        }
+        failures += Expect(packet.fields.size() == 1U, "znv packet field count");
+        if (packet.fields.size() == 1U) {
+            failures += Expect(packet.fields[0].name == "data", "znv packet data field");
+            failures += Expect(
+                packet.fields[0].type == cg::packet::PacketFieldType::EscapedString,
+                "znv packet data type");
+        }
+    }
+
     const PacketSchema* petMailSendSchema = FindPacket(packets, "rMsv");
     failures += Expect(petMailSendSchema != nullptr, "rMsv schema exists");
     if (petMailSendSchema != nullptr) {

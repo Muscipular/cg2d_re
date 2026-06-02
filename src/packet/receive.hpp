@@ -13103,6 +13103,253 @@ namespace cg::packet::receive
         }
     };
 
+    struct GuildTitleRecord
+    {
+        int seq = 0;
+        int commition = 0;
+        std::string titleNameRaw;
+    };
+
+    /**
+     * SEND_GT guildtitle		znv {data:es}
+     * data: cnt|seq|commition|titleNameRaw x cnt；数值为 raw decimal，titleNameRaw 保留 raw escaped。
+     */
+    struct GuildTitle
+    {
+        static constexpr std::string_view Code = "znv";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::string_view PayloadDelimiter = "|";
+        static constexpr std::size_t RecordFieldCount = 3U;
+
+        std::vector<GuildTitleRecord> records;
+
+        GuildTitle() = default;
+
+        explicit GuildTitle(std::vector<GuildTitleRecord> records)
+            : records(std::move(records))
+        {
+        }
+
+        [[nodiscard]] std::string BuildData() const
+        {
+            if (records.empty()) {
+                return "0";
+            }
+
+            std::vector<std::string> parts;
+            parts.reserve(1U + (records.size() * RecordFieldCount));
+            parts.push_back(std::to_string(records.size()));
+            for (const GuildTitleRecord& record : records) {
+                parts.push_back(std::to_string(record.seq));
+                parts.push_back(std::to_string(record.commition));
+                parts.push_back(record.titleNameRaw);
+            }
+
+            PacketResult<std::string> payload =
+                BuildPayload(std::span<const std::string>(parts.data(), parts.size()), PayloadDelimiter);
+            if (payload.HasValue()) {
+                return payload.Value();
+            }
+
+            return {};
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            packet.fields.push_back(PacketField {
+                "data",
+                PacketFieldType::EscapedString,
+                BuildData(),
+                PacketSourceTag::Xlsx,
+            });
+            return packet;
+        }
+
+        static PacketResult<GuildTitle> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view);
+            if (!parsed.HasValue()) {
+                return PacketResult<GuildTitle>::Failure(parsed.Error());
+            }
+
+            const Packet& packet = parsed.Value();
+            if (packet.code.View() != Code) {
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "GuildTitle Parse 收到非 znv 封包");
+                error.packetCode = packet.code;
+                return PacketResult<GuildTitle>::Failure(std::move(error));
+            }
+
+            if (packet.direction != Direction) {
+                return PacketResult<GuildTitle>::Failure(MakePacketError(
+                    PacketErrorCode::DecodeFailed,
+                    "GuildTitle Parse 封包方向不匹配"));
+            }
+
+            if (packet.fields.size() != FieldCount) {
+                return PacketResult<GuildTitle>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "GuildTitle Parse 字段数量不匹配",
+                    packet.fields.empty() ? 0U : FieldCount));
+            }
+
+            const PacketField& field = packet.fields[DataFieldIndex];
+            if (field.name != "data") {
+                return PacketResult<GuildTitle>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "GuildTitle Parse 字段名不匹配",
+                    DataFieldIndex));
+            }
+
+            if (field.type != PacketFieldType::EscapedString) {
+                return PacketResult<GuildTitle>::Failure(MakeFieldError(
+                    PacketErrorCode::InvalidFieldType,
+                    "GuildTitle Parse 字段类型不匹配",
+                    DataFieldIndex));
+            }
+
+            return ParseData(field.value);
+        }
+
+    private:
+        static constexpr std::size_t FieldCount = 1U;
+        static constexpr std::size_t DataFieldIndex = 0U;
+        static constexpr std::size_t CountPayloadIndex = 0U;
+
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            error.source = PacketSourceTag::Xlsx;
+            return error;
+        }
+
+        [[nodiscard]] static PacketError MakeFieldError(
+            PacketErrorCode code,
+            std::string message,
+            std::size_t fieldIndex)
+        {
+            PacketError error = MakePacketError(code, std::move(message));
+            error.fieldIndex = fieldIndex;
+            return error;
+        }
+
+        [[nodiscard]] static PacketResult<GuildTitle> ParseData(std::string_view payload)
+        {
+            if (payload.empty()) {
+                return PacketResult<GuildTitle>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "GuildTitle payload 为空",
+                    DataFieldIndex));
+            }
+
+            PacketResult<std::vector<std::string>> split = SplitPayloadLegacyAware(payload, PayloadDelimiter);
+            if (!split.HasValue()) {
+                PacketError error = split.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = DataFieldIndex;
+                error.source = PacketSourceTag::Xlsx;
+                return PacketResult<GuildTitle>::Failure(std::move(error));
+            }
+
+            std::vector<std::string> parts = std::move(split.Value());
+            PacketResult<int> countValue = ParseDecimalField(parts[CountPayloadIndex], CountPayloadIndex);
+            if (!countValue.HasValue()) {
+                return PacketResult<GuildTitle>::Failure(countValue.Error());
+            }
+
+            if (countValue.Value() < 0) {
+                return PacketResult<GuildTitle>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "GuildTitle payload cnt 不能为负数",
+                    CountPayloadIndex));
+            }
+
+            const std::size_t recordCount = static_cast<std::size_t>(countValue.Value());
+            const std::size_t expectedFieldCount = 1U + (recordCount * RecordFieldCount);
+            if (parts.size() == expectedFieldCount + 1U && !parts.empty() && parts.back().empty()) {
+                parts.pop_back();
+            }
+
+            if (parts.size() != expectedFieldCount) {
+                return PacketResult<GuildTitle>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "GuildTitle payload 段数量不匹配",
+                    DataFieldIndex));
+            }
+
+            std::vector<GuildTitleRecord> records;
+            records.reserve(recordCount);
+            for (std::size_t index = 1U; index < parts.size(); index += RecordFieldCount) {
+                PacketResult<int> seq = ParseDecimalField(parts[index], index);
+                if (!seq.HasValue()) {
+                    return PacketResult<GuildTitle>::Failure(seq.Error());
+                }
+
+                PacketResult<int> commition = ParseDecimalField(parts[index + 1U], index + 1U);
+                if (!commition.HasValue()) {
+                    return PacketResult<GuildTitle>::Failure(commition.Error());
+                }
+
+                records.push_back(GuildTitleRecord {
+                    seq.Value(),
+                    commition.Value(),
+                    std::move(parts[index + 2U]),
+                });
+            }
+
+            return PacketResult<GuildTitle>::Success(GuildTitle(std::move(records)));
+        }
+
+        [[nodiscard]] static PacketResult<int> ParseDecimalField(std::string_view text, std::size_t fieldIndex)
+        {
+            bool negative = false;
+            std::size_t index = 0;
+            if (!text.empty() && text.front() == '-') {
+                negative = true;
+                index = 1U;
+            }
+
+            if (index == text.size()) {
+                return PacketResult<int>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "GuildTitle payload 十进制字段为空",
+                    fieldIndex));
+            }
+
+            const std::int64_t maxValue = static_cast<std::int64_t>(std::numeric_limits<int>::max());
+            const std::int64_t minValue = static_cast<std::int64_t>(std::numeric_limits<int>::min());
+            const std::int64_t limit = negative ? (0 - minValue) : maxValue;
+            std::int64_t value = 0;
+
+            for (; index < text.size(); ++index) {
+                const char ch = text[index];
+                if (ch < '0' || ch > '9') {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "GuildTitle payload 十进制字段包含非法字符",
+                        fieldIndex));
+                }
+
+                const int digit = ch - '0';
+                if (value > (limit - digit) / 10) {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "GuildTitle payload 十进制字段超出 int 范围",
+                        fieldIndex));
+                }
+
+                value = (value * 10) + digit;
+            }
+
+            if (negative) {
+                value = -value;
+            }
+
+            return PacketResult<int>::Success(static_cast<int>(value));
+        }
+    };
+
     struct AddressBookGuildInfoRecord
     {
         std::string guildNameRaw;

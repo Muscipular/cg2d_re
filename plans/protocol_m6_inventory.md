@@ -149,7 +149,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | M6.14.19 战斗/交易/家族/社交封包-uId | `uId` | 客户端->服务端 | 否 | 完成 | RECV_GML 家族邮件；外层 `{toregistNumber:i62} {text:es} {color:i62}`；无二级 payload，`text` 为普通外层 es 且允许空，不拆 `|`；`toregistNumber/color` 仅按 i62，不做范围或 bit 业务校验 |
 | M6.14.20 战斗/交易/家族/社交封包-wD | `wD` | 客户端->服务端 | 否 | 完成 | RECV_PRE 删除迷你邮件好友；外层 `{profileIndex:i62} {name:es}`；无二级 payload，`name` 为普通外层 es 且允许空，不拆 `|`；`profileIndex` 仅按 i62，不做范围业务校验 |
 | M6.14.21 战斗/交易/家族/社交封包-GH | `GH` | 客户端->服务端 | 否 | 完成 | RECV_PRM 发送迷你邮件；外层 `{data:es} {color:i62}`；`data` 为 `profileIndex|name|msg|` 且必须尾随 `|`，严格 4 段且第 4 段为空；profileIndex 为 raw signed decimal，name/msg 为 raw 字符串并拒绝 literal `|`/`\z` |
-| M6.14.22 战斗/交易/家族/社交封包-aiAb | `aiAb` | 客户端->服务端 | 否 | 完成 | RECV_TROP CHAR_Trade_setTradeList 取出物品；外层 `{item:es} {pet:es} {gold:i62}`；`item/pet` 为普通外层 es，允许空且不拆 `|`，不要求尾随 `|`；`gold` 不允许空，仅按 i62，不限制正负；内部强类型解析暂缓：缺服务端旧 C 或更明确语义证据解释两种格式差异 |
+| M6.14.22 战斗/交易/家族/社交封包-aiAb | `aiAb` | 客户端->服务端 | 否 | 完成 | RECV_TROP CHAR_Trade_setTradeList 取出物品；外层 `{item:es} {pet:es} {gold:i62}`；`item/pet` 为普通外层 es，允许空且不拆 `|`，不要求尾随 `|`；`gold` 仅按普通 i62，不限制正负；`item/pet` 强类型解析 BLOCKED：缺服务端旧 C 或更明确语义证据解释两种格式差异 |
 | M6.14.23 战斗/交易/家族/社交封包-ylGN | `ylGN` | 客户端->服务端 | 否 | 未开始 | RECV_StallStart 开始摆摊请求 |
 | M6.15.01 登录/角色管理封包-whV | `whV` | 服务端->客户端 | 否 | 未开始 | SEND_ClientLogin 登录角色表结果 |
 | M6.15.02 登录/角色管理封包-Daj | `Daj` | 服务端->客户端 | 否 | 未开始 | SEND_CharList 登录角色表 |
@@ -379,7 +379,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 173 | `sM` | 客户端->服务端 | 完成 | RECV_TU tech_use 使用技能 | 否 | 否 | xlsx |
 | 174 | `ixH` | 客户端->服务端 | 完成 | RECV_TRPL 请求交易 | 否 | 否 | xlsx |
 | 175 | `QeuC` | 客户端->服务端 | 完成 | RECV_TRS CHAR_Trade_startTrade 从交易列表选择交易对象 | 否 | 否 | xlsx |
-| 176 | `aiAb` | 客户端->服务端 | 完成 | RECV_TROP CHAR_Trade_setTradeList 取出物品；resolved `{item:es} {pet:es} {gold:i62}`，resolvedSource `xlsx+src/packet`；`item/pet` 为普通外层 es，允许空且不拆 `|`，不要求尾随 `|`；`gold` 不允许空，仅按 i62；内部强类型解析暂缓：缺服务端旧 C 或更明确语义证据解释两种格式差异 | 否 | 是 | xlsx + src/packet |
+| 176 | `aiAb` | 客户端->服务端 | 完成 | RECV_TROP CHAR_Trade_setTradeList 取出物品；resolved `{item:es} {pet:es} {gold:i62}`，resolvedSource `xlsx+src/packet`；`item/pet` 为普通外层 es，允许空且不拆 `|`，不要求尾随 `|`；`gold` 仅按普通 i62；`item/pet` 强类型解析 BLOCKED：缺服务端旧 C 或更明确语义证据解释两种格式差异 | 否 | 是 | xlsx + src/packet |
 | 177 | `suI` | 客户端->服务端 | 完成 | RECV_TRCL CHAR_Trade_closeItem 取消交易 | 否 | 否 | xlsx |
 | 178 | `OU` | 客户端->服务端 | 完成 | RECV_TROC CHAR_Trade_closeTrade 确认物品 | 否 | 否 | xlsx |
 | 179 | `Flvp` | 客户端->服务端 | 完成 | RECV_PS；旧 C `nrproto_serv.c/nrproto_serv.h` 补外层字段；`data` 为 opaque es；IDA 未找到客户端 Flvp wrapper | 是 | 是 | ServerC+src |

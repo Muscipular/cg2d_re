@@ -1115,13 +1115,6 @@ namespace cg::packet
                 (code == "ms" && fieldName == "name");
         }
 
-        [[nodiscard]] inline bool RequiresNonEmptyInt62(
-            std::string_view code,
-            std::string_view fieldName) noexcept
-        {
-            return code == "aiAb" && fieldName == "gold";
-        }
-
         [[nodiscard]] inline PacketResult<std::string> DecodeNestedPayloadEscapedString(std::string_view text)
         {
             std::string output;
@@ -1228,15 +1221,6 @@ namespace cg::packet
 
             switch (fieldSpec.type) {
             case PacketFieldType::Int62: {
-                if (token.empty() && detail::RequiresNonEmptyInt62(code, fieldSpec.name)) {
-                    PacketError error = detail::MakeParserError(
-                        PacketErrorCode::DecodeFailed,
-                        "i62 字段为空",
-                        fieldSpec.source);
-                    detail::FillErrorContext(error, code, index);
-                    return PacketResult<Packet>::Failure(std::move(error));
-                }
-
                 PacketResult<int> decoded = DecodeInt62(token);
                 if (!decoded.HasValue()) {
                     PacketError error = decoded.Error();

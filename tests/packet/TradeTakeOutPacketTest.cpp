@@ -227,6 +227,17 @@ int TestPipePayloadIsOpaque()
     return failures;
 }
 
+int TestEmptyGoldParsesAsZero()
+{
+    const cg::packet::PacketResult<cg::packet::Packet> parsed =
+        cg::packet::ParsePacket(BuildRawPlain("8|12", "0|2", ""));
+    int failures = Expect(static_cast<bool>(parsed), "aiAb empty gold parse");
+    if (parsed.HasValue()) {
+        failures += ExpectTradeTakeOutPacket(parsed.Value(), "8|12", "0|2", "0", "aiAb empty gold packet");
+    }
+    return failures;
+}
+
 int TestParseErrors()
 {
     int failures = 0;
@@ -244,13 +255,6 @@ int TestParseErrors()
         true,
         3U,
         "aiAb extra field");
-    failures += ExpectError(
-        cg::packet::ParsePacket(BuildRawPlain("8|12", "0|2", "")),
-        cg::packet::PacketErrorCode::DecodeFailed,
-        "aiAb",
-        true,
-        2U,
-        "aiAb empty gold");
     failures += ExpectError(
         cg::packet::ParsePacket(BuildRawPlain("8|12", "0|2", "_")),
         cg::packet::PacketErrorCode::DecodeFailed,
@@ -353,6 +357,7 @@ int main()
     failures += TestEmptyItemPet();
     failures += TestEscapedItemPetRoundtrip();
     failures += TestPipePayloadIsOpaque();
+    failures += TestEmptyGoldParsesAsZero();
     failures += TestParseErrors();
     failures += TestBuildErrors();
     if (failures != 0) {

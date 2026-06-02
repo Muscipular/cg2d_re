@@ -2986,6 +2986,24 @@
       "rawFormat": "",
       "formatEmpty": true,
       "source": "xlsx",
+      "resolvedFormat": "{name:es} {level:i62}",
+      "resolvedSource": "ServerC+src/packet",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "name",
+          "typeToken": "es",
+          "rawSpec": "{name:es}",
+          "source": "ServerC+src/packet"
+        },
+        {
+          "index": 1,
+          "name": "level",
+          "typeToken": "i62",
+          "rawSpec": "{level:i62}",
+          "source": "ServerC+src/packet"
+        }
+      ],
       "fields": []
     },
     {

@@ -139,7 +139,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | M6.14.09 战斗/交易/家族/社交封包-Kka | `Kka` | 服务端->客户端 | 否 | 完成 | SEND_GMI guildmemberinfo；外层 `{index:i62} {data:es}`；payload 严格 `flag|registSeqNumber|nameTitleRaw|registSeqNumberAgain|level|online|graphicsNo|toGuildTitleID|`，必须尾随 `|` 且 8 字段；payload 数值 raw decimal，`nameTitleRaw` raw escaped 保留；来源 xlsx+ServerC+src |
 | M6.14.10 战斗/交易/家族/社交封包-Rll | `Rll` | 服务端->客户端 | 否 | 完成 | SEND_GML 家族邮件；外层 `{fromregistseqnumber:i62} {text:es} {color:i62}`；`text` payload 仅支持普通邮件 3 段 `sentTimeText|messageRaw|-1` 与宠邮 6 段 `sentTimeText|messageRaw|petBaseImageNumber|petLevel|petNameRaw|itemBaseImageNumber`；普通 marker 必须 literal `-1`，payload 数值为 raw signed decimal，字符串 raw escaped 保留 |
 | M6.14.11 战斗/交易/家族/社交封包-Cxo | `Cxo` | 服务端->客户端 | 是 | 完成 | SEND_TRPL；xlsx rawFormat 为空，旧 C `nrproto_TRPL_send` 补外层 `{data:es}`；payload 为 `nameRaw|...|` 交易候选玩家名列表，空 data 为空列表，非空必须尾随 `|`，拒绝空段，nameRaw raw escaped 保留 |
-| M6.14.12 战斗/交易/家族/社交封包-ms | `ms` | 服务端->客户端 | 是 | 字段待补 | SEND_TRS CHAR_Trade_startTrade 被交易 |
+| M6.14.12 战斗/交易/家族/社交封包-ms | `ms` | 服务端->客户端 | 是 | 完成 | SEND_TRS CHAR_Trade_startTrade 被交易；旧 C 补外层 `{name:es} {level:i62}`；无二级 payload；nameRaw 保留 makeEscapeString 后 raw escaped 字符串，不做 Unescape2/GBK；level 按 i62 |
 | M6.14.13 战斗/交易/家族/社交封包-nUbJ | `nUbJ` | 服务端->客户端 | 是 | 字段待补 | SEND_TRLI CHAR_Trade_setTradeList 对方物品信息 |
 | M6.14.14 战斗/交易/家族/社交封包-RwK | `RwK` | 服务端->客户端 | 是 | 字段待补 | SEND_TRLP CHAR_Trade_setTradeList 对法宠物信息 |
 | M6.14.15 战斗/交易/家族/社交封包-Yq | `Yq` | 服务端->客户端 | 是 | 字段待补 | SEND_TRLPS CHAR_Trade_setTradeList 对方宠物技能信息 |
@@ -299,7 +299,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 93 | `nFV` | 服务端->客户端 | 完成 | SEND_GPDI；旧 C `nrproto_GPDI_send/CHAR_sendCharAndPetList` + IDA `sub_4E4020` 补外层 `{data:es}`，payload 为 0..6 条角色/宠物状态记录并保留尾随 `|` | 是 | 是 | 旧 C + IDA + src/packet |
 | 94 | `JgO` | 服务端->客户端 | 完成 | SEND_TU techuse；外层 `{result:i62} {type:i62} {data:es}`；payload 按 type 1..4 解析，数值 raw signed decimal | 是 | 是 | xlsx+ServerC+ClientIda+src |
 | 95 | `Cxo` | 服务端->客户端 | 完成 | SEND_TRPL；旧 C `nrproto_TRPL_send` 补外层 `{data:es}`，payload 为 `nameRaw|...|`，空 data 为空列表，非空必须尾随 `|` | 是 | 是 | 旧 C + src/packet |
-| 96 | `ms` | 服务端->客户端 | 完成 | SEND_TRS CHAR_Trade_startTrade 被交易 | 是 | 是 | 待 C/IDA 补全 |
+| 96 | `ms` | 服务端->客户端 | 完成 | SEND_TRS；旧 C 补外层 `{name:es} {level:i62}`，无二级 payload，nameRaw raw escaped 保留 | 是 | 否 | 旧 C + src/packet |
 | 97 | `NdM` | 服务端->客户端 | 完成 | SEND_TROP CHAR_Trade_setTradeList 对方取出物品 | 是 | 否 | 待 C/IDA 补全 |
 | 98 | `nUbJ` | 服务端->客户端 | 完成 | SEND_TRLI CHAR_Trade_setTradeList 对方物品信息 | 是 | 是 | 待 C/IDA 补全 |
 | 99 | `hJq` | 服务端->客户端 | 完成 | SEND_TRLG CHAR_Trade_setTradeList 对方金币信息 | 是 | 否 | 待 C/IDA 补全 |

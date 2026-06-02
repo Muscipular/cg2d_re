@@ -391,6 +391,17 @@ target_include_directories(cg-packet-trade-player-list-test
 
 add_test(NAME cg-packet-trade-player-list-test COMMAND cg-packet-trade-player-list-test)
 
+add_executable(cg-packet-trade-start-test
+    tests/packet/TradeStartPacketTest.cpp
+)
+
+target_include_directories(cg-packet-trade-start-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+
+add_test(NAME cg-packet-trade-start-test COMMAND cg-packet-trade-start-test)
+
 add_executable(cg-packet-character-icon-test
     tests/packet/CharacterIconPacketTest.cpp
 )
@@ -1068,6 +1079,7 @@ if(MSVC)
     target_compile_options(cg-packet-guild-member-info-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-guild-mail-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-trade-player-list-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-trade-start-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-character-icon-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-object-delete-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-map-data-test PRIVATE /W4 /utf-8 /permissive-)
@@ -1150,6 +1162,7 @@ else()
     target_compile_options(cg-packet-guild-member-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-guild-member-info-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-trade-player-list-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-packet-trade-start-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-character-icon-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-object-delete-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-map-data-test PRIVATE -Wall -Wextra -Wpedantic)

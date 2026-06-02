@@ -383,6 +383,11 @@ namespace cg::packet
             {"data", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
         }};
 
+        inline constexpr std::array<PacketFieldSpec, 2> TradeStartFields = {{
+            {"name", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
+            {"level", PacketFieldType::Int62, PacketSourceTag::ServerC},
+        }};
+
         inline constexpr std::array<PacketFieldSpec, 1> CheckCommandFields = {{
             {"time", PacketFieldType::Int62, PacketSourceTag::Xlsx},
         }};
@@ -422,7 +427,7 @@ namespace cg::packet
             {"y2", PacketFieldType::Int62, PacketSourceTag::Xlsx},
         }};
 
-        inline constexpr std::array<PacketSpec, 72> PacketRegistry = {{
+        inline constexpr std::array<PacketSpec, 73> PacketRegistry = {{
             {
                 "JFVf",
                 PacketDirection::ClientToServer,
@@ -886,6 +891,13 @@ namespace cg::packet
                 TradePlayerListFields.size(),
             },
             {
+                "ms",
+                PacketDirection::ServerToClient,
+                PacketSourceTag::ServerC,
+                TradeStartFields.data(),
+                TradeStartFields.size(),
+            },
+            {
                 "nsY",
                 PacketDirection::ServerToClient,
                 PacketSourceTag::Xlsx,
@@ -963,7 +975,8 @@ namespace cg::packet
                        (code == "DyAG" || code == "lDuJ" || code == "gnxd" || code == "PhdQ" || code == "Gn" ||
                            code == "vI" || code == "aDn" || code == "znv" || code == "yuD" || code == "Kka" ||
                            code == "Cxo")) ||
-                (code == "zdr" && fieldName == "message") || (code == "Rll" && fieldName == "text");
+                (code == "zdr" && fieldName == "message") || (code == "Rll" && fieldName == "text") ||
+                (code == "ms" && fieldName == "name");
         }
 
         [[nodiscard]] inline PacketResult<std::string> DecodeNestedPayloadEscapedString(std::string_view text)

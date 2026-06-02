@@ -697,6 +697,31 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         }
     }
 
+    const PacketSchema* tradeStartSchema = FindPacket(packets, "ms");
+    failures += Expect(tradeStartSchema != nullptr, "ms schema exists");
+    if (tradeStartSchema != nullptr) {
+        const cg::packet::receive::TradeStart tradeStart("Alice", 10);
+        const cg::packet::Packet packet = tradeStart.ToPacket();
+        failures += Expect(tradeStartSchema->direction == "服务端->客户端", "ms direction");
+        failures += Expect(tradeStartSchema->legacyKind == "SEND", "ms legacyKind");
+        failures += Expect(tradeStartSchema->rawFormat.empty(), "ms rawFormat empty");
+        failures += Expect(tradeStartSchema->formatEmpty, "ms formatEmpty");
+        failures += Expect(tradeStartSchema->resolvedFormat == "{name:es} {level:i62}", "ms resolvedFormat");
+        failures += Expect(tradeStartSchema->resolvedSource == "ServerC+src/packet", "ms resolvedSource");
+        failures += Expect(tradeStartSchema->fields.empty(), "ms raw fields empty");
+        failures += Expect(packet.fields.size() == 2U, "ms packet field count");
+        if (packet.fields.size() == 2U) {
+            failures += Expect(packet.fields[0].name == "name", "ms packet name field");
+            failures += Expect(
+                packet.fields[0].type == cg::packet::PacketFieldType::EscapedString,
+                "ms packet name type");
+            failures += Expect(packet.fields[1].name == "level", "ms packet level field");
+            failures += Expect(
+                packet.fields[1].type == cg::packet::PacketFieldType::Int62,
+                "ms packet level type");
+        }
+    }
+
     const PacketSchema* profileMailMessageSchema = FindPacket(packets, "Mhbt");
     failures += Expect(profileMailMessageSchema != nullptr, "Mhbt schema exists");
     if (profileMailMessageSchema != nullptr) {

@@ -257,7 +257,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 51 | `EZ` | 服务端->客户端 | 完成 | SEND_EV Revc_EV的返回 | 否 | 否 | xlsx |
 | 52 | `dAgg` | 服务端->客户端 | 完成 | SEND_EN 进入战斗 | 否 | 否 | xlsx |
 | 53 | `Gn` | 服务端->客户端 | 完成 | SEND_RS 战斗获得物品；外层 `{data:es}`；payload 20 段：4 actor、itemGroup、15 skill；itemGroup 3 项可空，nameRaw 保留 raw escaped | 是 | 是 | ClientIda+src；旧 C 未取得 |
-| 54 | `hB` | 服务端->客户端 | 完成 | SEND_RD BATTLE_GetDuelPoint | 是 | 是 | 待 C/IDA 补全 |
+| 54 | `hB` | 服务端->客户端 | 完成 | SEND_RD BATTLE_GetDuelPoint；外层 `{data:es}`；payload 严格 `dpAdd:i62|duelPointNow:i62|` 三段且必须尾随 `|`，前两段支持负数 i62 | 是 | 是 | ServerC+ClientIda+src |
 | 55 | `LYIm` | 服务端->客户端 | 完成 | SEND_B；外层 `{command:es}`，payload opaque，不拆 `C/P/A/BU/M` | 是 | 是 | ServerC + ClientIda + src |
 | 56 | `ELoy` | 服务端->客户端 | 完成 | SEND_IA/nrproto_IA_send + IDA sub_50BFD0；外层 `{data:es}`，payload 为 `ignored0` + 28 * 13 道具槽，`ignored0` 语义待补 | 是 | 是 | ServerC + ClientIda + src/packet |
 | 57 | `vWpn` | 服务端->客户端 | 完成 | SEND_SI moveitem | 是 | 否 | 待 C/IDA 补全 |

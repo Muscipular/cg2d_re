@@ -344,3 +344,4 @@
 | 2026-06-02 | M6.13.10 打开窗口 xD schema/清单 | schema 补 resolved `{x:i62} {y:i62} {seqno:i62} {objindex:i62} {select:i62} {data:es}` 与来源 `xlsx+ServerC+ClientIda+src`；M6 清单标记完成并注明无二级 payload | 待验证：`git diff --check`、VS bundled CMake configure、Debug 新增目标与 schema 覆盖测试构建、运行新增测试 exe、packet CTest | 不改变 raw xlsx 字段；不扩展相邻协议 |
 
 | 2026-06-02 | M6.13.10 打开窗口 xD 验证 | 复跑格式检查、VS bundled CMake configure、Debug 新增目标与 schema 覆盖测试构建、运行新增测试 exe、运行 schema 覆盖测试、packet CTest | `git diff --check` 通过，仅 LF/CRLF 提示；VS bundled CMake configure 通过；Debug 构建并运行 `cg-packet-window-open-send-test` 通过；Debug `cg-packet-coverage-schema-test` 通过；CTest Debug `^cg-packet-` 66/66 通过 | 不扩展其他协议；`data` 仍为普通外层 es；未添加业务范围或枚举校验 |
+| 2026-06-02 | M6.13.11 IcE 暂缓状态收口 | 顶部 M6.13.11 清单状态改为暂缓；209 清单 IcE 状态/来源已检查一致；schema 保持无 resolvedFormat/resolvedFields | `git diff --check` 通过，仅 LF/CRLF 提示；未改 C++，未编译 | xlsx 未使用；旧 C 未补；IDA 未找到；禁止猜 0 字段 |

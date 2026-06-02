@@ -835,6 +835,22 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         }
     }
 
+    const PacketSchema* addressBookGuildInfoSchema = FindPacket(packets, "PhdQ");
+    failures += Expect(addressBookGuildInfoSchema != nullptr, "PhdQ schema exists");
+    if (addressBookGuildInfoSchema != nullptr) {
+        const cg::packet::receive::AddressBookGuildInfo guildInfo;
+        const cg::packet::PacketResult<cg::packet::Packet> packet = guildInfo.ToPacket();
+        failures += Expect(addressBookGuildInfoSchema->direction == "服务端->客户端", "PhdQ direction");
+        failures += Expect(addressBookGuildInfoSchema->legacyKind == "SEND", "PhdQ legacyKind");
+        failures += Expect(addressBookGuildInfoSchema->rawFormat == "{data:es}", "PhdQ rawFormat");
+        failures += Expect(addressBookGuildInfoSchema->resolvedFormat == "{data:es}", "PhdQ resolvedFormat");
+        failures += Expect(addressBookGuildInfoSchema->resolvedSource == "xlsx+src/packet", "PhdQ resolvedSource");
+        failures += Expect(packet.HasValue(), "PhdQ packet build");
+        if (packet.HasValue()) {
+            failures += ExpectPacketFieldsMatch(*addressBookGuildInfoSchema, packet.Value(), "PhdQ field order");
+        }
+    }
+
     const PacketSchema* petMailSendSchema = FindPacket(packets, "rMsv");
     failures += Expect(petMailSendSchema != nullptr, "rMsv schema exists");
     if (petMailSendSchema != nullptr) {

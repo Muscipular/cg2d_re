@@ -772,6 +772,8 @@
       "rawFormat": "{data:es}",
       "formatEmpty": false,
       "source": "xlsx",
+      "resolvedFormat": "{data:es}",
+      "resolvedSource": "xlsx+src/packet",
       "fields": [
         {
           "index": 0,

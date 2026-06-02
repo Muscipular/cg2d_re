@@ -339,6 +339,10 @@ namespace cg::packet
             {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
         }};
 
+        inline constexpr std::array<PacketFieldSpec, 1> AddressBookGuildInfoFields = {{
+            {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+        }};
+
         inline constexpr std::array<PacketFieldSpec, 1> CheckCommandFields = {{
             {"time", PacketFieldType::Int62, PacketSourceTag::Xlsx},
         }};
@@ -378,7 +382,7 @@ namespace cg::packet
             {"y2", PacketFieldType::Int62, PacketSourceTag::Xlsx},
         }};
 
-        inline constexpr std::array<PacketSpec, 62> PacketRegistry = {{
+        inline constexpr std::array<PacketSpec, 63> PacketRegistry = {{
             {
                 "JFVf",
                 PacketDirection::ClientToServer,
@@ -772,6 +776,13 @@ namespace cg::packet
                 AddressBookFields.size(),
             },
             {
+                "PhdQ",
+                PacketDirection::ServerToClient,
+                PacketSourceTag::Xlsx,
+                AddressBookGuildInfoFields.data(),
+                AddressBookGuildInfoFields.size(),
+            },
+            {
                 "nsY",
                 PacketDirection::ServerToClient,
                 PacketSourceTag::Xlsx,
@@ -845,7 +856,7 @@ namespace cg::packet
             std::string_view code,
             std::string_view fieldName) noexcept
         {
-            return (fieldName == "data" && (code == "DyAG" || code == "lDuJ" || code == "gnxd")) ||
+            return (fieldName == "data" && (code == "DyAG" || code == "lDuJ" || code == "gnxd" || code == "PhdQ")) ||
                 (code == "zdr" && fieldName == "message");
         }
 

@@ -314,6 +314,17 @@ target_include_directories(cg-packet-address-book-test
 
 add_test(NAME cg-packet-address-book-test COMMAND cg-packet-address-book-test)
 
+add_executable(cg-packet-address-book-guild-info-test
+    tests/packet/AddressBookGuildInfoPacketTest.cpp
+)
+
+target_include_directories(cg-packet-address-book-guild-info-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+
+add_test(NAME cg-packet-address-book-guild-info-test COMMAND cg-packet-address-book-guild-info-test)
+
 add_executable(cg-packet-character-icon-test
     tests/packet/CharacterIconPacketTest.cpp
 )
@@ -962,6 +973,7 @@ if(MSVC)
     target_compile_options(cg-packet-map-name-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-object-list-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-address-book-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-address-book-guild-info-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-character-icon-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-object-delete-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-map-data-test PRIVATE /W4 /utf-8 /permissive-)
@@ -1036,6 +1048,7 @@ else()
     target_compile_options(cg-packet-map-name-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-object-list-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-address-book-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-packet-address-book-guild-info-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-character-icon-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-object-delete-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-map-data-test PRIVATE -Wall -Wextra -Wpedantic)

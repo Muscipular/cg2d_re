@@ -77,8 +77,7 @@ cg::packet::Packet PacketOf(
 {
     cg::packet::Packet packet(
         cg::packet::PacketCode(cg::packet::receive::ChatMessage::Code),
-        direction,
-        cg::packet::PacketSourceTag::ServerC);
+        direction);
     packet.fields.assign(fields.begin(), fields.end());
     return packet;
 }
@@ -119,7 +118,6 @@ int ExpectField(
 
     failures += Expect(packet.fields[index].name == name, message);
     failures += Expect(packet.fields[index].type == type, message);
-    failures += Expect(packet.fields[index].source == cg::packet::PacketSourceTag::ServerC, message);
     failures += Expect(packet.fields[index].value == value, message);
     return failures;
 }
@@ -135,7 +133,6 @@ int ExpectChatPacket(
     int failures = 0;
     failures += Expect(packet.code == cg::packet::PacketCode(cg::packet::receive::ChatMessage::Code), label);
     failures += Expect(packet.direction == cg::packet::PacketDirection::ServerToClient, label);
-    failures += Expect(packet.source == cg::packet::PacketSourceTag::ServerC, label);
     failures += Expect(packet.fields.size() == 4U, label);
     if (packet.fields.size() != 4U) {
         return failures;

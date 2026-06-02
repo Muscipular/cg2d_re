@@ -61,7 +61,6 @@ int TestPacketExpression()
 
     failures += Expect(packet.code == cg::packet::PacketCode("JFVf"), "ClientLogin code");
     failures += Expect(packet.direction == cg::packet::PacketDirection::ClientToServer, "ClientLogin direction");
-    failures += Expect(packet.source == cg::packet::PacketSourceTag::ExistingPrototype, "ClientLogin source");
     failures += Expect(packet.fields.size() == 3, "ClientLogin field count");
     if (packet.fields.size() != 3) {
         return failures;

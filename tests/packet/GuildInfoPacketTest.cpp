@@ -78,7 +78,6 @@ int ExpectGuildInfoPacket(
     int failures = 0;
     failures += Expect(packet.code == cg::packet::PacketCode(GuildInfo::Code), message);
     failures += Expect(packet.direction == cg::packet::PacketDirection::ServerToClient, message);
-    failures += Expect(packet.source == cg::packet::PacketSourceTag::ClientIda, message);
     failures += Expect(packet.fields.size() == 1U, message);
     if (packet.fields.size() != 1U) {
         return failures;
@@ -86,7 +85,6 @@ int ExpectGuildInfoPacket(
 
     failures += Expect(packet.fields[0].name == "data", message);
     failures += Expect(packet.fields[0].type == cg::packet::PacketFieldType::EscapedString, message);
-    failures += Expect(packet.fields[0].source == cg::packet::PacketSourceTag::ClientIda, message);
     failures += Expect(packet.fields[0].value == payload, message);
     return failures;
 }

@@ -52,22 +52,11 @@ namespace cg::packet
         Unknown,
     };
 
-    enum class PacketSourceTag
-    {
-        Xlsx,
-        ExistingPrototype,
-        ServerC,
-        ClientIda,
-        Manual,
-        Unknown,
-    };
-
     struct PacketField
     {
         std::string name;
         PacketFieldType type = PacketFieldType::Unknown;
         std::string value;
-        PacketSourceTag source = PacketSourceTag::Unknown;
     };
 
     struct Packet
@@ -75,14 +64,12 @@ namespace cg::packet
         PacketCode code;
         PacketDirection direction = PacketDirection::ClientToServer;
         std::vector<PacketField> fields;
-        PacketSourceTag source = PacketSourceTag::Unknown;
 
         Packet() = default;
 
-        Packet(PacketCode packetCode, PacketDirection packetDirection, PacketSourceTag packetSource)
+        Packet(PacketCode packetCode, PacketDirection packetDirection)
             : code(std::move(packetCode)),
-              direction(packetDirection),
-              source(packetSource)
+              direction(packetDirection)
         {
         }
     };
@@ -107,7 +94,6 @@ namespace cg::packet
         std::string message;
         std::optional<PacketCode> packetCode;
         std::optional<std::size_t> fieldIndex;
-        PacketSourceTag source = PacketSourceTag::Unknown;
 
         static PacketError Make(PacketErrorCode errorCode, std::string errorMessage)
         {

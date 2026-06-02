@@ -36,24 +36,21 @@ namespace cg::packet::send
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ExistingPrototype);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "clientHash",
                 PacketFieldType::EscapedString,
                 clientHash,
-                PacketSourceTag::ExistingPrototype,
             });
             packet.fields.push_back(PacketField {
                 "password",
                 PacketFieldType::EscapedString,
                 password,
-                PacketSourceTag::ExistingPrototype,
             });
             packet.fields.push_back(PacketField {
                 "account",
                 PacketFieldType::EscapedString,
                 account,
-                PacketSourceTag::ExistingPrototype,
             });
             return packet;
         }
@@ -62,7 +59,6 @@ namespace cg::packet::send
         {
             PacketError error = PacketError::Make(PacketErrorCode::NotImplemented, "ClientLogin Encode 待 M6.7/M6.8 实现");
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::ExistingPrototype;
             return PacketResult<std::string>::Failure(std::move(error));
         }
     };
@@ -123,84 +119,71 @@ namespace cg::packet::send
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "dataPlace",
                 PacketFieldType::Int62,
                 std::to_string(dataPlace),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "name",
                 PacketFieldType::EscapedString,
                 name,
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "image",
                 PacketFieldType::Int62,
                 std::to_string(image),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "face",
                 PacketFieldType::Int62,
                 std::to_string(face),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "vital",
                 PacketFieldType::Int62,
                 std::to_string(vital),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "strength",
                 PacketFieldType::Int62,
                 std::to_string(strength),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "tough",
                 PacketFieldType::Int62,
                 std::to_string(tough),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "quick",
                 PacketFieldType::Int62,
                 std::to_string(quick),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "magic",
                 PacketFieldType::Int62,
                 std::to_string(magic),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "earth",
                 PacketFieldType::Int62,
                 std::to_string(earth),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "water",
                 PacketFieldType::Int62,
                 std::to_string(water),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "fire",
                 PacketFieldType::Int62,
                 std::to_string(fire),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "wind",
                 PacketFieldType::Int62,
                 std::to_string(wind),
-                PacketSourceTag::Xlsx,
             });
             return packet;
         }
@@ -238,42 +221,36 @@ namespace cg::packet::send
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "mapid",
                 PacketFieldType::Int62,
                 std::to_string(mapId),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "floor",
                 PacketFieldType::Int62,
                 std::to_string(floor),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "x1",
                 PacketFieldType::Int62,
                 std::to_string(x1),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "y1",
                 PacketFieldType::Int62,
                 std::to_string(y1),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "x2",
                 PacketFieldType::Int62,
                 std::to_string(x2),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "y2",
                 PacketFieldType::Int62,
                 std::to_string(y2),
-                PacketSourceTag::Xlsx,
             });
             return packet;
         }
@@ -320,48 +297,41 @@ namespace cg::packet::send
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "sellFlag",
                 PacketFieldType::Int62,
                 std::to_string(sellFlag),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "sellMsg",
                 PacketFieldType::EscapedString,
                 sellMessage,
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "buyFlag",
                 PacketFieldType::Int62,
                 std::to_string(buyFlag),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "buyMsg",
                 PacketFieldType::EscapedString,
                 buyMessage,
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "aboutFlg",
                 PacketFieldType::Int62,
                 std::to_string(aboutFlag),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "aboutMsg",
                 PacketFieldType::EscapedString,
                 aboutMessage,
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "ProfileMsg",
                 PacketFieldType::EscapedString,
                 profileMessage,
-                PacketSourceTag::Xlsx,
             });
             return packet;
         }
@@ -395,30 +365,26 @@ namespace cg::packet::send
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ServerC);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "x",
                 PacketFieldType::Int62,
                 std::to_string(x),
-                PacketSourceTag::ServerC,
             });
             packet.fields.push_back(PacketField {
                 "y",
                 PacketFieldType::Int62,
                 std::to_string(y),
-                PacketSourceTag::ServerC,
             });
             packet.fields.push_back(PacketField {
                 "array",
                 PacketFieldType::Int62,
                 std::to_string(array),
-                PacketSourceTag::ServerC,
             });
             packet.fields.push_back(PacketField {
                 "toindex",
                 PacketFieldType::Int62,
                 std::to_string(toindex),
-                PacketSourceTag::ServerC,
             });
             return packet;
         }
@@ -452,30 +418,26 @@ namespace cg::packet::send
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ServerC);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "havepetindex",
                 PacketFieldType::Int62,
                 std::to_string(havepetindex),
-                PacketSourceTag::ServerC,
             });
             packet.fields.push_back(PacketField {
                 "havepetskill",
                 PacketFieldType::Int62,
                 std::to_string(havepetskill),
-                PacketSourceTag::ServerC,
             });
             packet.fields.push_back(PacketField {
                 "toindex",
                 PacketFieldType::Int62,
                 std::to_string(toindex),
-                PacketSourceTag::ServerC,
             });
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
                 data,
-                PacketSourceTag::ServerC,
             });
             return packet;
         }
@@ -505,18 +467,16 @@ namespace cg::packet::send
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "petSlot",
                 PacketFieldType::Int62,
                 std::to_string(petSlot),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "sqeno",
                 PacketFieldType::Int62,
                 std::to_string(sqeno),
-                PacketSourceTag::Xlsx,
             });
             return packet;
         }
@@ -548,24 +508,21 @@ namespace cg::packet::send
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "petSlot",
                 PacketFieldType::Int62,
                 std::to_string(petSlot),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "from",
                 PacketFieldType::Int62,
                 std::to_string(from),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "to",
                 PacketFieldType::Int62,
                 std::to_string(to),
-                PacketSourceTag::Xlsx,
             });
             return packet;
         }
@@ -595,18 +552,16 @@ namespace cg::packet::send
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "petSlot",
                 PacketFieldType::Int62,
                 std::to_string(petSlot),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "name",
                 PacketFieldType::EscapedString,
                 name,
-                PacketSourceTag::Xlsx,
             });
             return packet;
         }
@@ -638,24 +593,21 @@ namespace cg::packet::send
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "index",
                 PacketFieldType::Int62,
                 std::to_string(index),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "message",
                 PacketFieldType::EscapedString,
                 message,
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "color",
                 PacketFieldType::Int62,
                 std::to_string(color),
-                PacketSourceTag::Xlsx,
             });
             return packet;
         }
@@ -693,42 +645,36 @@ namespace cg::packet::send
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "x",
                 PacketFieldType::Int62,
                 std::to_string(x),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "y",
                 PacketFieldType::Int62,
                 std::to_string(y),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "msg",
                 PacketFieldType::EscapedString,
                 msg,
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "color",
                 PacketFieldType::Int62,
                 std::to_string(color),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "area",
                 PacketFieldType::Int62,
                 std::to_string(area),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "fontSize",
                 PacketFieldType::Int62,
                 std::to_string(fontSize),
-                PacketSourceTag::Xlsx,
             });
             return packet;
         }
@@ -766,42 +712,36 @@ namespace cg::packet::send
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "x",
                 PacketFieldType::Int62,
                 std::to_string(x),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "y",
                 PacketFieldType::Int62,
                 std::to_string(y),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "seqno",
                 PacketFieldType::Int62,
                 std::to_string(seqno),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "objindex",
                 PacketFieldType::Int62,
                 std::to_string(objindex),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "select",
                 PacketFieldType::Int62,
                 std::to_string(select),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
                 data,
-                PacketSourceTag::Xlsx,
             });
             return packet;
         }
@@ -831,18 +771,16 @@ namespace cg::packet::send
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ServerC);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "passwd",
                 PacketFieldType::EscapedString,
                 passwd,
-                PacketSourceTag::ServerC,
             });
             packet.fields.push_back(PacketField {
                 "min",
                 PacketFieldType::Int62,
                 std::to_string(min),
-                PacketSourceTag::ServerC,
             });
             return packet;
         }
@@ -878,36 +816,31 @@ namespace cg::packet::send
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "index",
                 PacketFieldType::Int62,
                 std::to_string(index),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "petindex",
                 PacketFieldType::Int62,
                 std::to_string(petindex),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "itemindex",
                 PacketFieldType::Int62,
                 std::to_string(itemindex),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "message",
                 PacketFieldType::EscapedString,
                 message,
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "color",
                 PacketFieldType::Int62,
                 std::to_string(color),
-                PacketSourceTag::Xlsx,
             });
             return packet;
         }
@@ -943,36 +876,31 @@ namespace cg::packet::send
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "toregist",
                 PacketFieldType::Int62,
                 std::to_string(toregist),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "petSlot",
                 PacketFieldType::Int62,
                 std::to_string(petSlot),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "itemSlot",
                 PacketFieldType::Int62,
                 std::to_string(itemSlot),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "text",
                 PacketFieldType::EscapedString,
                 text,
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "color",
                 PacketFieldType::Int62,
                 std::to_string(color),
-                PacketSourceTag::Xlsx,
             });
             return packet;
         }
@@ -1004,24 +932,21 @@ namespace cg::packet::send
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "x",
                 PacketFieldType::Int62,
                 std::to_string(x),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "y",
                 PacketFieldType::Int62,
                 std::to_string(y),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "amount",
                 PacketFieldType::Int62,
                 std::to_string(amount),
-                PacketSourceTag::Xlsx,
             });
             return packet;
         }
@@ -1051,18 +976,16 @@ namespace cg::packet::send
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "c",
                 PacketFieldType::Int62,
                 std::to_string(c),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
                 data,
-                PacketSourceTag::Xlsx,
             });
             return packet;
         }
@@ -1094,24 +1017,21 @@ namespace cg::packet::send
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "index",
                 PacketFieldType::Int62,
                 std::to_string(index),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "bitflag",
                 PacketFieldType::Int62,
                 std::to_string(bitflag),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
                 data,
-                PacketSourceTag::Xlsx,
             });
             return packet;
         }
@@ -1143,24 +1063,21 @@ namespace cg::packet::send
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "toregistNumber",
                 PacketFieldType::Int62,
                 std::to_string(toregistNumber),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "text",
                 PacketFieldType::EscapedString,
                 text,
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "color",
                 PacketFieldType::Int62,
                 std::to_string(color),
-                PacketSourceTag::Xlsx,
             });
             return packet;
         }
@@ -1190,18 +1107,16 @@ namespace cg::packet::send
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "profileIndex",
                 PacketFieldType::Int62,
                 std::to_string(profileIndex),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "name",
                 PacketFieldType::EscapedString,
                 name,
-                PacketSourceTag::Xlsx,
             });
             return packet;
         }
@@ -1273,18 +1188,16 @@ namespace cg::packet::send
                 return PacketResult<Packet>::Failure(data.Error());
             }
 
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
                 data.Value(),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "color",
                 PacketFieldType::Int62,
                 std::to_string(color),
-                PacketSourceTag::Xlsx,
             });
             return PacketResult<Packet>::Success(std::move(packet));
         }
@@ -1390,7 +1303,6 @@ namespace cg::packet::send
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::Xlsx;
             return error;
         }
 
@@ -1425,7 +1337,6 @@ namespace cg::packet::send
                 PacketError error = split.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = DataFieldIndex;
-                error.source = PacketSourceTag::Xlsx;
                 return PacketResult<ProfileMiniMailPayload>::Failure(std::move(error));
             }
 
@@ -1617,24 +1528,21 @@ namespace cg::packet::send
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "item",
                 PacketFieldType::EscapedString,
                 item,
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "pet",
                 PacketFieldType::EscapedString,
                 pet,
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "gold",
                 PacketFieldType::Int62,
                 std::to_string(gold),
-                PacketSourceTag::Xlsx,
             });
             return packet;
         }
@@ -1664,7 +1572,7 @@ namespace cg::packet::send
 
         static std::array<int, PriceCount> MakeZeroPrices()
         {
-            std::array<int, PriceCount> values;
+            std::array<int, PriceCount> values{};
             for (int& value : values) {
                 value = 0;
             }
@@ -1715,24 +1623,21 @@ namespace cg::packet::send
                 return PacketResult<Packet>::Failure(stallList.Error());
             }
 
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "stallName",
                 PacketFieldType::EscapedString,
                 stallName,
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "stallDescription",
                 PacketFieldType::EscapedString,
                 stallDescription,
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "stallList",
                 PacketFieldType::EscapedString,
                 stallList.Value(),
-                PacketSourceTag::Xlsx,
             });
             return PacketResult<Packet>::Success(std::move(packet));
         }
@@ -1843,7 +1748,6 @@ namespace cg::packet::send
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::Xlsx;
             return error;
         }
 
@@ -1878,7 +1782,6 @@ namespace cg::packet::send
                 PacketError error = split.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = StallListFieldIndex;
-                error.source = PacketSourceTag::Xlsx;
                 return PacketResult<std::array<int, PriceCount>>::Failure(std::move(error));
             }
 

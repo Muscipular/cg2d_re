@@ -69,7 +69,6 @@ int ExpectField(
 
     failures += Expect(packet.fields[index].name == name, message);
     failures += Expect(packet.fields[index].type == type, message);
-    failures += Expect(packet.fields[index].source == cg::packet::PacketSourceTag::ServerC, message);
     failures += Expect(packet.fields[index].value == value, message);
     return failures;
 }
@@ -83,7 +82,6 @@ int ExpectAlbumNamePacket(
     int failures = 0;
     failures += Expect(packet.code == cg::packet::PacketCode(cg::packet::receive::AlbumName::Code), message);
     failures += Expect(packet.direction == cg::packet::PacketDirection::ServerToClient, message);
-    failures += Expect(packet.source == cg::packet::PacketSourceTag::ServerC, message);
     failures += Expect(packet.fields.size() == 2U, message);
     if (packet.fields.size() != 2U) {
         return failures;

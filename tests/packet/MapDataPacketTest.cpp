@@ -84,7 +84,6 @@ int ExpectMapDataPacket(
     int failures = 0;
     failures += Expect(packet.code == cg::packet::PacketCode(cg::packet::receive::MapData::Code), message);
     failures += Expect(packet.direction == cg::packet::PacketDirection::ServerToClient, message);
-    failures += Expect(packet.source == cg::packet::PacketSourceTag::Xlsx, message);
     failures += Expect(packet.fields.size() == 7U, message);
     if (packet.fields.size() != 7U) {
         return failures;
@@ -99,10 +98,8 @@ int ExpectMapDataPacket(
     failures += Expect(packet.fields[6].name == "data", message);
     for (std::size_t index = 0; index < 6U; ++index) {
         failures += Expect(packet.fields[index].type == cg::packet::PacketFieldType::Int62, message);
-        failures += Expect(packet.fields[index].source == cg::packet::PacketSourceTag::Xlsx, message);
     }
     failures += Expect(packet.fields[6].type == cg::packet::PacketFieldType::EscapedString, message);
-    failures += Expect(packet.fields[6].source == cg::packet::PacketSourceTag::Xlsx, message);
     failures += Expect(packet.fields[6].value == value, message);
     return failures;
 }

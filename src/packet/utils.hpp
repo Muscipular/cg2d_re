@@ -58,7 +58,6 @@ namespace cg::packet
         [[nodiscard]] inline PacketError MakeInt62Error(PacketErrorCode code, std::string message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
-            error.source = PacketSourceTag::ServerC;
             return error;
         }
 
@@ -70,14 +69,12 @@ namespace cg::packet
         [[nodiscard]] inline PacketError MakeEscapedStringError(PacketErrorCode code, std::string message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
-            error.source = PacketSourceTag::ServerC;
             return error;
         }
 
         [[nodiscard]] inline PacketError MakeEnvelopeCodecError(PacketErrorCode code, std::string message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
-            error.source = PacketSourceTag::ServerC;
             return error;
         }
 

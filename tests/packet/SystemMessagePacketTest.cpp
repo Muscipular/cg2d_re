@@ -70,8 +70,7 @@ cg::packet::Packet PacketOf(
 {
     cg::packet::Packet packet(
         cg::packet::PacketCode(cg::packet::receive::SystemMessage::Code),
-        direction,
-        cg::packet::PacketSourceTag::Xlsx);
+        direction);
     packet.fields.assign(fields.begin(), fields.end());
     return packet;
 }
@@ -84,7 +83,6 @@ int ExpectSystemMessagePacket(
     int failures = 0;
     failures += Expect(packet.code == cg::packet::PacketCode(cg::packet::receive::SystemMessage::Code), label);
     failures += Expect(packet.direction == cg::packet::PacketDirection::ServerToClient, label);
-    failures += Expect(packet.source == cg::packet::PacketSourceTag::Xlsx, label);
     failures += Expect(packet.fields.size() == 1U, label);
     if (packet.fields.size() != 1U) {
         return failures;
@@ -92,7 +90,6 @@ int ExpectSystemMessagePacket(
 
     failures += Expect(packet.fields[0].name == "message", label);
     failures += Expect(packet.fields[0].type == cg::packet::PacketFieldType::EscapedString, label);
-    failures += Expect(packet.fields[0].source == cg::packet::PacketSourceTag::Xlsx, label);
     failures += Expect(packet.fields[0].value == message, label);
     return failures;
 }

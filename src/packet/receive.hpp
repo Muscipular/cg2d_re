@@ -49,18 +49,16 @@ namespace cg::packet::receive
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ExistingPrototype);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "result",
                 PacketFieldType::Int62,
                 std::to_string(result),
-                PacketSourceTag::ExistingPrototype,
             });
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
                 data,
-                PacketSourceTag::ExistingPrototype,
             });
             return packet;
         }
@@ -141,7 +139,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::ExistingPrototype;
             return error;
         }
 
@@ -292,18 +289,16 @@ namespace cg::packet::receive
                 dataValue = std::move(builtData.Value());
             }
 
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ServerC);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "result",
                 PacketFieldType::Int62,
                 std::to_string(result),
-                PacketSourceTag::ServerC,
             });
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
                 std::move(dataValue),
-                PacketSourceTag::ServerC,
             });
             return PacketResult<Packet>::Success(std::move(packet));
         }
@@ -407,7 +402,6 @@ namespace cg::packet::receive
                 PacketError error = split.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = DataFieldIndex;
-                error.source = PacketSourceTag::ServerC;
                 return PacketResult<std::vector<CharacterListRecord>>::Failure(std::move(error));
             }
 
@@ -445,7 +439,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::ServerC;
             return error;
         }
 
@@ -488,7 +481,6 @@ namespace cg::packet::receive
                 PacketError error = detail.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = DataFieldIndex;
-                error.source = PacketSourceTag::ServerC;
                 return PacketResult<std::string>::Failure(std::move(error));
             }
             return detail;
@@ -503,7 +495,6 @@ namespace cg::packet::receive
                 PacketError error = split.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = DataFieldIndex;
-                error.source = PacketSourceTag::ServerC;
                 return PacketResult<CharacterListRecord>::Failure(std::move(error));
             }
 
@@ -654,24 +645,21 @@ namespace cg::packet::receive
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ServerC);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "result",
                 PacketFieldType::EscapedString,
                 result,
-                PacketSourceTag::ServerC,
             });
             packet.fields.push_back(PacketField {
                 "registnumber",
                 PacketFieldType::Int62,
                 std::to_string(registNumber),
-                PacketSourceTag::ServerC,
             });
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
                 data,
-                PacketSourceTag::ServerC,
             });
             return packet;
         }
@@ -759,7 +747,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::ServerC;
             return error;
         }
 
@@ -842,18 +829,16 @@ namespace cg::packet::receive
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ServerC);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "result",
                 PacketFieldType::EscapedString,
                 result,
-                PacketSourceTag::ServerC,
             });
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
                 data,
-                PacketSourceTag::ServerC,
             });
             return packet;
         }
@@ -930,7 +915,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::ServerC;
             return error;
         }
 
@@ -963,12 +947,11 @@ namespace cg::packet::receive
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ServerC);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
                 data,
-                PacketSourceTag::ServerC,
             });
             return packet;
         }
@@ -1032,7 +1015,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::ServerC;
             return error;
         }
 
@@ -1083,12 +1065,11 @@ namespace cg::packet::receive
                 std::span<const std::string>(values.data(), values.size()),
                 PayloadDelimiter);
 
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
                 payload.HasValue() ? payload.Value() : std::string(),
-                PacketSourceTag::Xlsx,
             });
             return packet;
         }
@@ -1156,7 +1137,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::Xlsx;
             return error;
         }
 
@@ -1177,7 +1157,6 @@ namespace cg::packet::receive
                 PacketError error = parts.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = DataFieldIndex;
-                error.source = PacketSourceTag::Xlsx;
                 return PacketResult<std::array<int, PayloadFieldCount>>::Failure(std::move(error));
             }
 
@@ -1282,12 +1261,11 @@ namespace cg::packet::receive
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
                 BuildData(),
-                PacketSourceTag::Xlsx,
             });
             return packet;
         }
@@ -1345,7 +1323,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::Xlsx;
             return error;
         }
 
@@ -1380,7 +1357,6 @@ namespace cg::packet::receive
                 PacketError error = parts.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = DataFieldIndex;
-                error.source = PacketSourceTag::Xlsx;
                 return PacketResult<CharacterProfile>::Failure(std::move(error));
             }
 
@@ -1398,7 +1374,6 @@ namespace cg::packet::receive
                 PacketError error = decodedFlags.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = DataFieldIndex;
-                error.source = PacketSourceTag::Xlsx;
                 return PacketResult<CharacterProfile>::Failure(std::move(error));
             }
 
@@ -1445,12 +1420,11 @@ namespace cg::packet::receive
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
                 BuildData(),
-                PacketSourceTag::Xlsx,
             });
             return packet;
         }
@@ -1508,7 +1482,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::Xlsx;
             return error;
         }
 
@@ -1543,7 +1516,6 @@ namespace cg::packet::receive
                 PacketError error = parts.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = DataFieldIndex;
-                error.source = PacketSourceTag::Xlsx;
                 return PacketResult<CharacterProfile2>::Failure(std::move(error));
             }
 
@@ -1561,7 +1533,6 @@ namespace cg::packet::receive
                 PacketError error = decodedFlagMask.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = DataFieldIndex;
-                error.source = PacketSourceTag::Xlsx;
                 return PacketResult<CharacterProfile2>::Failure(std::move(error));
             }
 
@@ -1657,12 +1628,11 @@ namespace cg::packet::receive
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
                 BuildData(),
-                PacketSourceTag::Xlsx,
             });
             return packet;
         }
@@ -1726,7 +1696,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::Xlsx;
             return error;
         }
 
@@ -1751,7 +1720,6 @@ namespace cg::packet::receive
                 PacketError error = parts.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = DataFieldIndex;
-                error.source = PacketSourceTag::Xlsx;
                 return PacketResult<std::vector<TitleSlot>>::Failure(std::move(error));
             }
 
@@ -1876,12 +1844,11 @@ namespace cg::packet::receive
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
                 BuildData(),
-                PacketSourceTag::Xlsx,
             });
             return packet;
         }
@@ -1961,7 +1928,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::Xlsx;
             return error;
         }
 
@@ -1989,7 +1955,6 @@ namespace cg::packet::receive
                 PacketError error = parts.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = DataFieldIndex;
-                error.source = PacketSourceTag::Xlsx;
                 return PacketResult<ProfileList>::Failure(std::move(error));
             }
 
@@ -2112,12 +2077,11 @@ namespace cg::packet::receive
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
                 BuildData(),
-                PacketSourceTag::Xlsx,
             });
             return packet;
         }
@@ -2197,7 +2161,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::Xlsx;
             return error;
         }
 
@@ -2225,7 +2188,6 @@ namespace cg::packet::receive
                 PacketError error = parts.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = DataFieldIndex;
-                error.source = PacketSourceTag::Xlsx;
                 return PacketResult<AboutList>::Failure(std::move(error));
             }
 
@@ -2365,85 +2327,72 @@ namespace cg::packet::receive
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.reserve(FieldCount);
             packet.fields.push_back(PacketField {
                 "name",
                 PacketFieldType::EscapedString,
                 name,
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "lv",
                 PacketFieldType::Int62,
                 std::to_string(level),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "job",
                 PacketFieldType::EscapedString,
                 jobName,
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "title",
                 PacketFieldType::EscapedString,
                 title,
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "guildName",
                 PacketFieldType::EscapedString,
                 guildName,
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "graphic",
                 PacketFieldType::Int62,
                 std::to_string(graphic),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "sid",
                 PacketFieldType::Int62,
                 std::to_string(sellFlag),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "smsg",
                 PacketFieldType::EscapedString,
                 sellMessage,
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "bid",
                 PacketFieldType::Int62,
                 std::to_string(buyFlag),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "bmsg",
                 PacketFieldType::EscapedString,
                 buyMessage,
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "aid",
                 PacketFieldType::Int62,
                 std::to_string(aboutFlag),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "amsg",
                 PacketFieldType::EscapedString,
                 aboutMessage,
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "pmsg",
                 PacketFieldType::EscapedString,
                 profileMessage,
-                PacketSourceTag::Xlsx,
             });
             return packet;
         }
@@ -2579,7 +2528,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::Xlsx;
             return error;
         }
 
@@ -2671,12 +2619,11 @@ namespace cg::packet::receive
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
                 BuildData(),
-                PacketSourceTag::Xlsx,
             });
             return packet;
         }
@@ -2735,7 +2682,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::Xlsx;
             return error;
         }
 
@@ -2756,7 +2702,6 @@ namespace cg::packet::receive
                 PacketError error = parts.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = DataFieldIndex;
-                error.source = PacketSourceTag::Xlsx;
                 return PacketResult<ProfileMailDelete>::Failure(std::move(error));
             }
 
@@ -2848,25 +2793,22 @@ namespace cg::packet::receive
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.reserve(FieldCount);
             packet.fields.push_back(PacketField {
                 "profileIndex",
                 PacketFieldType::Int62,
                 std::to_string(profileIndex),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "dtext",
                 PacketFieldType::EscapedString,
                 text,
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "color",
                 PacketFieldType::Int62,
                 std::to_string(color),
-                PacketSourceTag::Xlsx,
             });
             return packet;
         }
@@ -2953,7 +2895,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::Xlsx;
             return error;
         }
 
@@ -3090,12 +3031,11 @@ namespace cg::packet::receive
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
                 BuildData(),
-                PacketSourceTag::Xlsx,
             });
             return packet;
         }
@@ -3165,7 +3105,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::Xlsx;
             return error;
         }
 
@@ -3186,7 +3125,6 @@ namespace cg::packet::receive
                 PacketError error = parts.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = DataFieldIndex;
-                error.source = PacketSourceTag::Xlsx;
                 return PacketResult<ProfileMailArrive>::Failure(std::move(error));
             }
 
@@ -3348,12 +3286,11 @@ namespace cg::packet::receive
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ServerC);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
                 BuildData(),
-                PacketSourceTag::ServerC,
             });
             return packet;
         }
@@ -3413,7 +3350,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::ServerC;
             return error;
         }
 
@@ -3448,7 +3384,6 @@ namespace cg::packet::receive
                 PacketError error = split.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = DataFieldIndex;
-                error.source = PacketSourceTag::ServerC;
                 return PacketResult<PartyParam>::Failure(std::move(error));
             }
 
@@ -3524,7 +3459,6 @@ namespace cg::packet::receive
                 PacketError error = decoded.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = fieldIndex;
-                error.source = PacketSourceTag::ServerC;
                 return PacketResult<int>::Failure(std::move(error));
             }
             return decoded;
@@ -3648,18 +3582,16 @@ namespace cg::packet::receive
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ServerC);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "partySlot",
                 PacketFieldType::Int62,
                 std::to_string(partySlot),
-                PacketSourceTag::ServerC,
             });
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
                 BuildData(),
-                PacketSourceTag::ServerC,
             });
             return packet;
         }
@@ -3742,7 +3674,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::ServerC;
             return error;
         }
 
@@ -3777,7 +3708,6 @@ namespace cg::packet::receive
                 PacketError error = split.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = DataFieldIndex;
-                error.source = PacketSourceTag::ServerC;
                 return PacketResult<PartyMemberStatus>::Failure(std::move(error));
             }
 
@@ -3834,7 +3764,6 @@ namespace cg::packet::receive
                 PacketError error = decoded.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = DataFieldIndex;
-                error.source = PacketSourceTag::ServerC;
                 return PacketResult<int>::Failure(std::move(error));
             }
             return decoded;
@@ -3997,18 +3926,16 @@ namespace cg::packet::receive
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ServerC);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "skillIndex",
                 PacketFieldType::Int62,
                 std::to_string(skillIndex),
-                PacketSourceTag::ServerC,
             });
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
                 BuildData(),
-                PacketSourceTag::ServerC,
             });
             return packet;
         }
@@ -4093,7 +4020,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::ServerC;
             return error;
         }
 
@@ -4125,7 +4051,6 @@ namespace cg::packet::receive
                 PacketError error = split.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = DataFieldIndex;
-                error.source = PacketSourceTag::ServerC;
                 return PacketResult<std::vector<TechRecord>>::Failure(std::move(error));
             }
 
@@ -4308,12 +4233,11 @@ namespace cg::packet::receive
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
                 BuildData(),
-                PacketSourceTag::Xlsx,
             });
             return packet;
         }
@@ -4380,7 +4304,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::Xlsx;
             return error;
         }
 
@@ -4405,7 +4328,6 @@ namespace cg::packet::receive
                 PacketError error = split.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = DataFieldIndex;
-                error.source = PacketSourceTag::Xlsx;
                 return PacketResult<std::vector<CharacterSkillRecord>>::Failure(std::move(error));
             }
 
@@ -4591,7 +4513,6 @@ namespace cg::packet::receive
     struct ItemRecordCodecContext
     {
         std::string_view code;
-        PacketSourceTag source = PacketSourceTag::Unknown;
         std::string_view packetName;
         std::size_t dataFieldIndex = 0U;
     };
@@ -4653,7 +4574,6 @@ namespace cg::packet::receive
                 PacketError error = split.Error();
                 error.packetCode = PacketCode(context.code);
                 error.fieldIndex = context.dataFieldIndex;
-                error.source = context.source;
                 return PacketResult<std::vector<ItemRecord>>::Failure(std::move(error));
             }
 
@@ -4775,7 +4695,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(context.code);
-            error.source = context.source;
             return error;
         }
 
@@ -4879,12 +4798,11 @@ namespace cg::packet::receive
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
                 BuildData(),
-                PacketSourceTag::Xlsx,
             });
             return packet;
         }
@@ -4933,7 +4851,7 @@ namespace cg::packet::receive
 
             PacketResult<std::vector<ItemRecord>> records = ItemRecordCodec::ParseRecords(
                 field.value,
-                ItemRecordCodecContext {Code, PacketSourceTag::Xlsx, "ItemData", DataFieldIndex});
+                ItemRecordCodecContext {Code, "ItemData", DataFieldIndex});
             if (!records.HasValue()) {
                 return PacketResult<ItemData>::Failure(records.Error());
             }
@@ -4949,7 +4867,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::Xlsx;
             return error;
         }
 
@@ -4990,18 +4907,16 @@ namespace cg::packet::receive
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ServerC);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "petSlot",
                 PacketFieldType::Int62,
                 std::to_string(petSlot),
-                PacketSourceTag::ServerC,
             });
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
                 BuildData(),
-                PacketSourceTag::ServerC,
             });
             return packet;
         }
@@ -5074,7 +4989,7 @@ namespace cg::packet::receive
 
             PacketResult<std::vector<ItemRecord>> records = ItemRecordCodec::ParseRecords(
                 dataField.value,
-                ItemRecordCodecContext {Code, PacketSourceTag::ServerC, "PetItemData", DataFieldIndex});
+                ItemRecordCodecContext {Code, "PetItemData", DataFieldIndex});
             if (!records.HasValue()) {
                 return PacketResult<PetItemData>::Failure(records.Error());
             }
@@ -5091,7 +5006,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::ServerC;
             return error;
         }
 
@@ -5302,12 +5216,11 @@ namespace cg::packet::receive
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
                 BuildData(),
-                PacketSourceTag::Xlsx,
             });
             return packet;
         }
@@ -5371,7 +5284,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::Xlsx;
             return error;
         }
 
@@ -5396,7 +5308,6 @@ namespace cg::packet::receive
                 PacketError error = split.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = DataFieldIndex;
-                error.source = PacketSourceTag::Xlsx;
                 return PacketResult<EquipSuit>::Failure(std::move(error));
             }
 
@@ -5653,12 +5564,11 @@ namespace cg::packet::receive
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ServerC);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
                 BuildData(),
-                PacketSourceTag::ServerC,
             });
             return packet;
         }
@@ -5727,7 +5637,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::ServerC;
             return error;
         }
 
@@ -5752,7 +5661,6 @@ namespace cg::packet::receive
                 PacketError error = split.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = DataFieldIndex;
-                error.source = PacketSourceTag::ServerC;
                 return PacketResult<ItemInfoList>::Failure(std::move(error));
             }
 
@@ -6024,18 +5932,16 @@ namespace cg::packet::receive
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ServerC);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "haveskillindex",
                 PacketFieldType::Int62,
                 std::to_string(haveSkillIndex),
-                PacketSourceTag::ServerC,
             });
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
                 BuildData(),
-                PacketSourceTag::ServerC,
             });
             return packet;
         }
@@ -6127,7 +6033,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::ServerC;
             return error;
         }
 
@@ -6162,7 +6067,6 @@ namespace cg::packet::receive
                 PacketError error = split.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = DataFieldIndex;
-                error.source = PacketSourceTag::ServerC;
                 return PacketResult<std::vector<ItemRecipeRecord>>::Failure(std::move(error));
             }
 
@@ -6389,18 +6293,16 @@ namespace cg::packet::receive
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "albumversion",
                 PacketFieldType::Int62,
                 std::to_string(albumVersion),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
                 BuildData(),
-                PacketSourceTag::Xlsx,
             });
             return packet;
         }
@@ -6486,7 +6388,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::Xlsx;
             return error;
         }
 
@@ -6511,7 +6412,6 @@ namespace cg::packet::receive
                 PacketError error = split.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = DataFieldIndex;
-                error.source = PacketSourceTag::Xlsx;
                 return PacketResult<std::vector<int>>::Failure(std::move(error));
             }
 
@@ -6650,7 +6550,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ServerC);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.reserve(FieldCount);
 
             const std::array<int, NumericFieldCount> values = {
@@ -6676,20 +6576,17 @@ namespace cg::packet::receive
                     std::string(FieldNames[index]),
                     PacketFieldType::Int62,
                     std::to_string(values[index]),
-                    PacketSourceTag::ServerC,
                 });
             }
             packet.fields.push_back(PacketField {
                 std::string(FieldNames[CommentFieldIndex]),
                 PacketFieldType::EscapedString,
                 comment,
-                PacketSourceTag::ServerC,
             });
             packet.fields.push_back(PacketField {
                 std::string(FieldNames[NameFieldIndex]),
                 PacketFieldType::EscapedString,
                 name,
-                PacketSourceTag::ServerC,
             });
             return packet;
         }
@@ -6797,7 +6694,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::ServerC;
             return error;
         }
 
@@ -6880,18 +6776,16 @@ namespace cg::packet::receive
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ServerC);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "albumId",
                 PacketFieldType::Int62,
                 std::to_string(albumId),
-                PacketSourceTag::ServerC,
             });
             packet.fields.push_back(PacketField {
                 "name",
                 PacketFieldType::EscapedString,
                 name,
-                PacketSourceTag::ServerC,
             });
             return packet;
         }
@@ -6970,7 +6864,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::ServerC;
             return error;
         }
 
@@ -7144,55 +7037,47 @@ namespace cg::packet::receive
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.reserve(FieldCount);
             packet.fields.push_back(PacketField {
                 "objIndex",
                 PacketFieldType::Int62,
                 std::to_string(objIndex),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "graphicsno",
                 PacketFieldType::Int62,
                 std::to_string(graphicsNo),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "x",
                 PacketFieldType::Int62,
                 std::to_string(x),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "y",
                 PacketFieldType::Int62,
                 std::to_string(y),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "dir",
                 PacketFieldType::Int62,
                 std::to_string(dir),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "flg",
                 PacketFieldType::Int62,
                 std::to_string(flg),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "no",
                 PacketFieldType::Int62,
                 std::to_string(no),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
                 BuildData(),
-                PacketSourceTag::Xlsx,
             });
             return packet;
         }
@@ -7309,7 +7194,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::Xlsx;
             return error;
         }
 
@@ -7343,7 +7227,6 @@ namespace cg::packet::receive
                 PacketError error = split.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = DataFieldIndex;
-                error.source = PacketSourceTag::Xlsx;
                 return PacketResult<PetMailAnimationPayload>::Failure(std::move(error));
             }
 
@@ -7428,7 +7311,6 @@ namespace cg::packet::receive
                 PacketError error = decoded.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = fieldIndex;
-                error.source = PacketSourceTag::Xlsx;
                 return PacketResult<int>::Failure(std::move(error));
             }
             return decoded;
@@ -7594,18 +7476,16 @@ namespace cg::packet::receive
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ServerC);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "petIndex",
                 PacketFieldType::Int62,
                 std::to_string(petIndex),
-                PacketSourceTag::ServerC,
             });
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
                 BuildData(),
-                PacketSourceTag::ServerC,
             });
             return packet;
         }
@@ -7715,7 +7595,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::ServerC;
             return error;
         }
 
@@ -7785,7 +7664,6 @@ namespace cg::packet::receive
                 PacketError error = split.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = DataFieldIndex;
-                error.source = PacketSourceTag::ServerC;
                 return PacketResult<RidePetPayload>::Failure(std::move(error));
             }
 
@@ -7803,7 +7681,6 @@ namespace cg::packet::receive
                 PacketError error = flags.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = DataFieldIndex;
-                error.source = PacketSourceTag::ServerC;
                 return PacketResult<RidePetPayload>::Failure(std::move(error));
             }
 
@@ -8105,18 +7982,16 @@ namespace cg::packet::receive
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ServerC);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "petIndex",
                 PacketFieldType::Int62,
                 std::to_string(petIndex),
-                PacketSourceTag::ServerC,
             });
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
                 BuildData(),
-                PacketSourceTag::ServerC,
             });
             return packet;
         }
@@ -8248,7 +8123,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::ServerC;
             return error;
         }
 
@@ -8303,7 +8177,6 @@ namespace cg::packet::receive
                 PacketError error = split.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = DataFieldIndex;
-                error.source = PacketSourceTag::ServerC;
                 return PacketResult<RidePetExtraPayload>::Failure(std::move(error));
             }
 
@@ -8321,7 +8194,6 @@ namespace cg::packet::receive
                 PacketError error = flags.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = DataFieldIndex;
-                error.source = PacketSourceTag::ServerC;
                 return PacketResult<RidePetExtraPayload>::Failure(std::move(error));
             }
 
@@ -8516,24 +8388,21 @@ namespace cg::packet::receive
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ServerC);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "result",
                 PacketFieldType::Int62,
                 std::to_string(result),
-                PacketSourceTag::ServerC,
             });
             packet.fields.push_back(PacketField {
                 "type",
                 PacketFieldType::Int62,
                 std::to_string(type),
-                PacketSourceTag::ServerC,
             });
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
                 BuildData(),
-                PacketSourceTag::ServerC,
             });
             return packet;
         }
@@ -8636,7 +8505,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::ServerC;
             return error;
         }
 
@@ -8686,7 +8554,6 @@ namespace cg::packet::receive
                 PacketError error = split.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = DataFieldIndex;
-                error.source = PacketSourceTag::ServerC;
                 return PacketResult<TechUsePayload>::Failure(std::move(error));
             }
 
@@ -8985,18 +8852,16 @@ namespace cg::packet::receive
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ServerC);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "petIndex",
                 PacketFieldType::Int62,
                 std::to_string(petIndex),
-                PacketSourceTag::ServerC,
             });
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
                 BuildData(),
-                PacketSourceTag::ServerC,
             });
             return packet;
         }
@@ -9081,7 +8946,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::ServerC;
             return error;
         }
 
@@ -9116,7 +8980,6 @@ namespace cg::packet::receive
                 PacketError error = split.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = DataFieldIndex;
-                error.source = PacketSourceTag::ServerC;
                 return PacketResult<std::vector<PetTechRecord>>::Failure(std::move(error));
             }
 
@@ -9245,12 +9108,11 @@ namespace cg::packet::receive
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ServerC);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
                 data,
-                PacketSourceTag::ServerC,
             });
             return packet;
         }
@@ -9308,7 +9170,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::ServerC;
             return error;
         }
 
@@ -9373,12 +9234,11 @@ namespace cg::packet::receive
                     return PacketResult<Packet>::Failure(data.Error());
                 }
 
-                Packet packet(PacketCode(code), Direction, PacketSourceTag::ServerC);
+                Packet packet(PacketCode(code), Direction);
                 packet.fields.push_back(PacketField {
                     "data",
                     PacketFieldType::EscapedString,
                     data.Value(),
-                    PacketSourceTag::ServerC,
                 });
                 return PacketResult<Packet>::Success(std::move(packet));
             }
@@ -9454,7 +9314,6 @@ namespace cg::packet::receive
             {
                 PacketError error = PacketError::Make(errorCode, std::move(message));
                 error.packetCode = PacketCode(code);
-                error.source = PacketSourceTag::ServerC;
                 return error;
             }
 
@@ -9491,7 +9350,6 @@ namespace cg::packet::receive
                     PacketError error = split.Error();
                     error.packetCode = PacketCode(code);
                     error.fieldIndex = DataFieldIndex;
-                    error.source = PacketSourceTag::ServerC;
                     return PacketResult<std::vector<FrontCharRecord>>::Failure(std::move(error));
                 }
 
@@ -9726,12 +9584,11 @@ namespace cg::packet::receive
                     return PacketResult<Packet>::Failure(data.Error());
                 }
 
-                Packet packet(PacketCode(code), Direction, PacketSourceTag::ServerC);
+                Packet packet(PacketCode(code), Direction);
                 packet.fields.push_back(PacketField {
                     "data",
                     PacketFieldType::EscapedString,
                     data.Value(),
-                    PacketSourceTag::ServerC,
                 });
                 return PacketResult<Packet>::Success(std::move(packet));
             }
@@ -9807,7 +9664,6 @@ namespace cg::packet::receive
             {
                 PacketError error = PacketError::Make(errorCode, std::move(message));
                 error.packetCode = PacketCode(code);
-                error.source = PacketSourceTag::ServerC;
                 return error;
             }
 
@@ -9844,7 +9700,6 @@ namespace cg::packet::receive
                     PacketError error = split.Error();
                     error.packetCode = PacketCode(code);
                     error.fieldIndex = DataFieldIndex;
-                    error.source = PacketSourceTag::ServerC;
                     return PacketResult<std::vector<CharacterPetRecord>>::Failure(std::move(error));
                 }
 
@@ -10192,37 +10047,32 @@ namespace cg::packet::receive
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.reserve(FieldCount);
             packet.fields.push_back(PacketField {
                 "windowType",
                 PacketFieldType::Int62,
                 std::to_string(windowType),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "buttonType",
                 PacketFieldType::Int62,
                 std::to_string(buttonType),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "seqNo",
                 PacketFieldType::Int62,
                 std::to_string(seqNo),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "objectIndex",
                 PacketFieldType::Int62,
                 std::to_string(objectIndex),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
                 BuildData(),
-                PacketSourceTag::Xlsx,
             });
             return packet;
         }
@@ -10337,7 +10187,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::Xlsx;
             return error;
         }
 
@@ -10494,7 +10343,6 @@ namespace cg::packet::receive
                 PacketError error = split.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = DataFieldIndex;
-                error.source = PacketSourceTag::Xlsx;
                 return PacketResult<ProfileWindow>::Failure(std::move(error));
             }
 
@@ -10716,12 +10564,11 @@ namespace cg::packet::receive
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "message",
                 PacketFieldType::EscapedString,
                 message,
-                PacketSourceTag::Xlsx,
             });
             return packet;
         }
@@ -10737,14 +10584,12 @@ namespace cg::packet::receive
             if (packet.code.View() != Code) {
                 PacketError error = PacketError::Make(PacketErrorCode::InvalidCode, "SystemMessage Parse 收到非 Zd 封包");
                 error.packetCode = packet.code;
-                error.source = PacketSourceTag::Xlsx;
                 return PacketResult<SystemMessage>::Failure(std::move(error));
             }
 
             if (packet.direction != Direction) {
                 PacketError error = PacketError::Make(PacketErrorCode::DecodeFailed, "SystemMessage Parse 封包方向不匹配");
                 error.packetCode = PacketCode(Code);
-                error.source = PacketSourceTag::Xlsx;
                 return PacketResult<SystemMessage>::Failure(std::move(error));
             }
 
@@ -10752,7 +10597,6 @@ namespace cg::packet::receive
                 PacketError error = PacketError::Make(PacketErrorCode::FieldCountMismatch, "SystemMessage Parse 字段数量不匹配");
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = packet.fields.empty() ? 0U : FieldCount;
-                error.source = PacketSourceTag::Xlsx;
                 return PacketResult<SystemMessage>::Failure(std::move(error));
             }
 
@@ -10761,7 +10605,6 @@ namespace cg::packet::receive
                 PacketError error = PacketError::Make(PacketErrorCode::DecodeFailed, "SystemMessage Parse 字段名不匹配");
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = MessageFieldIndex;
-                error.source = PacketSourceTag::Xlsx;
                 return PacketResult<SystemMessage>::Failure(std::move(error));
             }
 
@@ -10769,7 +10612,6 @@ namespace cg::packet::receive
                 PacketError error = PacketError::Make(PacketErrorCode::InvalidFieldType, "SystemMessage Parse 字段类型不匹配");
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = MessageFieldIndex;
-                error.source = PacketSourceTag::Xlsx;
                 return PacketResult<SystemMessage>::Failure(std::move(error));
             }
 
@@ -10803,24 +10645,21 @@ namespace cg::packet::receive
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "EffType",
                 PacketFieldType::Int62,
                 std::to_string(effType),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "TM_EffSize",
                 PacketFieldType::Int62,
                 std::to_string(tmEffSize),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
                 data,
-                PacketSourceTag::Xlsx,
             });
             return packet;
         }
@@ -10906,7 +10745,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::Xlsx;
             return error;
         }
 
@@ -11045,12 +10883,11 @@ namespace cg::packet::receive
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ClientIda);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
                 BuildData(),
-                PacketSourceTag::ClientIda,
             });
             return packet;
         }
@@ -11117,7 +10954,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::ClientIda;
             return error;
         }
 
@@ -11202,7 +11038,6 @@ namespace cg::packet::receive
                 PacketError error = split.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = DataFieldIndex;
-                error.source = PacketSourceTag::ClientIda;
                 return PacketResult<BattleReward>::Failure(std::move(error));
             }
 
@@ -11377,7 +11212,6 @@ namespace cg::packet::receive
                 PacketError error = decoded.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = fieldIndex;
-                error.source = PacketSourceTag::ClientIda;
                 return PacketResult<int>::Failure(std::move(error));
             }
             return decoded;
@@ -11470,12 +11304,11 @@ namespace cg::packet::receive
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ServerC);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
                 BuildData(),
-                PacketSourceTag::ServerC,
             });
             return packet;
         }
@@ -11541,7 +11374,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::ServerC;
             return error;
         }
 
@@ -11571,7 +11403,6 @@ namespace cg::packet::receive
                 PacketError error = split.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = DataFieldIndex;
-                error.source = PacketSourceTag::ServerC;
                 return PacketResult<DuelPoint>::Failure(std::move(error));
             }
 
@@ -11620,7 +11451,6 @@ namespace cg::packet::receive
                 PacketError error = decoded.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = fieldIndex;
-                error.source = PacketSourceTag::ServerC;
                 return PacketResult<int>::Failure(std::move(error));
             }
 
@@ -11646,12 +11476,11 @@ namespace cg::packet::receive
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ServerC);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "command",
                 PacketFieldType::EscapedString,
                 command,
-                PacketSourceTag::ServerC,
             });
             return packet;
         }
@@ -11709,7 +11538,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::ServerC;
             return error;
         }
 
@@ -11782,24 +11610,21 @@ namespace cg::packet::receive
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ServerC);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "aindex",
                 PacketFieldType::Int62,
                 std::to_string(aindex),
-                PacketSourceTag::ServerC,
             });
             packet.fields.push_back(PacketField {
                 "text",
                 PacketFieldType::EscapedString,
                 BuildText(),
-                PacketSourceTag::ServerC,
             });
             packet.fields.push_back(PacketField {
                 "color",
                 PacketFieldType::Int62,
                 std::to_string(color),
-                PacketSourceTag::ServerC,
             });
             return packet;
         }
@@ -11894,7 +11719,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::ServerC;
             return error;
         }
 
@@ -11915,7 +11739,6 @@ namespace cg::packet::receive
                 PacketError error = split.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = TextFieldIndex;
-                error.source = PacketSourceTag::ServerC;
                 return PacketResult<ProfileMailMessagePayload>::Failure(std::move(error));
             }
 
@@ -12054,30 +11877,26 @@ namespace cg::packet::receive
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ServerC);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "objectIndex",
                 PacketFieldType::Int62,
                 std::to_string(objectIndex),
-                PacketSourceTag::ServerC,
             });
             packet.fields.push_back(PacketField {
                 "message",
                 PacketFieldType::EscapedString,
                 BuildMessage(),
-                PacketSourceTag::ServerC,
             });
             packet.fields.push_back(PacketField {
                 "color",
                 PacketFieldType::Int62,
                 std::to_string(color),
-                PacketSourceTag::ServerC,
             });
             packet.fields.push_back(PacketField {
                 "fontSize",
                 PacketFieldType::Int62,
                 std::to_string(fontSize),
-                PacketSourceTag::ServerC,
             });
             return packet;
         }
@@ -12183,7 +12002,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::ServerC;
             return error;
         }
 
@@ -12204,7 +12022,6 @@ namespace cg::packet::receive
                 PacketError error = split.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = MessageFieldIndex;
-                error.source = PacketSourceTag::ServerC;
                 return PacketResult<ChatMessagePayload>::Failure(std::move(error));
             }
 
@@ -12303,36 +12120,31 @@ namespace cg::packet::receive
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "windowtype",
                 PacketFieldType::Int62,
                 std::to_string(windowtype),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "buttontype",
                 PacketFieldType::Int62,
                 std::to_string(buttontype),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "seqno",
                 PacketFieldType::Int62,
                 std::to_string(seqno),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "objindex",
                 PacketFieldType::Int62,
                 std::to_string(objindex),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
                 data,
-                PacketSourceTag::Xlsx,
             });
             return packet;
         }
@@ -12441,7 +12253,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::Xlsx;
             return error;
         }
 
@@ -12538,42 +12349,36 @@ namespace cg::packet::receive
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "result",
                 PacketFieldType::Int62,
                 std::to_string(result),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "objIndex",
                 PacketFieldType::Int62,
                 std::to_string(objIndex),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "name",
                 PacketFieldType::EscapedString,
                 name,
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "description",
                 PacketFieldType::EscapedString,
                 description,
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "item",
                 PacketFieldType::EscapedString,
                 item,
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "pet",
                 PacketFieldType::EscapedString,
                 pet,
-                PacketSourceTag::Xlsx,
             });
             return packet;
         }
@@ -12672,7 +12477,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::Xlsx;
             return error;
         }
 
@@ -12754,18 +12558,16 @@ namespace cg::packet::receive
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "jobassort",
                 PacketFieldType::Int62,
                 std::to_string(jobAssort),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "name",
                 PacketFieldType::EscapedString,
                 name,
-                PacketSourceTag::Xlsx,
             });
             return packet;
         }
@@ -12843,7 +12645,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::Xlsx;
             return error;
         }
 
@@ -12923,12 +12724,11 @@ namespace cg::packet::receive
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
                 data,
-                PacketSourceTag::Xlsx,
             });
             return packet;
         }
@@ -12944,14 +12744,12 @@ namespace cg::packet::receive
             if (packet.code.View() != Code) {
                 PacketError error = PacketError::Make(PacketErrorCode::InvalidCode, "MapName Parse 收到非 TeD 封包");
                 error.packetCode = packet.code;
-                error.source = PacketSourceTag::Xlsx;
                 return PacketResult<MapName>::Failure(std::move(error));
             }
 
             if (packet.direction != Direction) {
                 PacketError error = PacketError::Make(PacketErrorCode::DecodeFailed, "MapName Parse 封包方向不匹配");
                 error.packetCode = PacketCode(Code);
-                error.source = PacketSourceTag::Xlsx;
                 return PacketResult<MapName>::Failure(std::move(error));
             }
 
@@ -12959,7 +12757,6 @@ namespace cg::packet::receive
                 PacketError error = PacketError::Make(PacketErrorCode::FieldCountMismatch, "MapName Parse 字段数量不匹配");
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = packet.fields.empty() ? 0U : 1U;
-                error.source = PacketSourceTag::Xlsx;
                 return PacketResult<MapName>::Failure(std::move(error));
             }
 
@@ -12968,7 +12765,6 @@ namespace cg::packet::receive
                 PacketError error = PacketError::Make(PacketErrorCode::DecodeFailed, "MapName Parse 字段名不匹配");
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = 0U;
-                error.source = PacketSourceTag::Xlsx;
                 return PacketResult<MapName>::Failure(std::move(error));
             }
 
@@ -12976,7 +12772,6 @@ namespace cg::packet::receive
                 PacketError error = PacketError::Make(PacketErrorCode::InvalidFieldType, "MapName Parse 字段类型不匹配");
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = 0U;
-                error.source = PacketSourceTag::Xlsx;
                 return PacketResult<MapName>::Failure(std::move(error));
             }
 
@@ -13058,12 +12853,11 @@ namespace cg::packet::receive
                 return PacketResult<Packet>::Failure(data.Error());
             }
 
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
                 data.Value(),
-                PacketSourceTag::Xlsx,
             });
             return PacketResult<Packet>::Success(std::move(packet));
         }
@@ -13132,7 +12926,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::Xlsx;
             return error;
         }
 
@@ -13153,7 +12946,6 @@ namespace cg::packet::receive
                 PacketError error = split.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = DataFieldIndex;
-                error.source = PacketSourceTag::Xlsx;
                 return PacketResult<AddressBook>::Failure(std::move(error));
             }
 
@@ -13373,18 +13165,16 @@ namespace cg::packet::receive
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ClientIda);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "registry",
                 PacketFieldType::Int62,
                 std::to_string(registry),
-                PacketSourceTag::ClientIda,
             });
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
                 BuildData(),
-                PacketSourceTag::ClientIda,
             });
             return packet;
         }
@@ -13475,7 +13265,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::ClientIda;
             return error;
         }
 
@@ -13496,7 +13285,6 @@ namespace cg::packet::receive
                 PacketError error = split.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = DataFieldIndex;
-                error.source = PacketSourceTag::ClientIda;
                 return PacketResult<AddressBookInfo>::Failure(std::move(error));
             }
 
@@ -13675,7 +13463,6 @@ namespace cg::packet::receive
                 PacketError error = encodedFlag.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = FlagPayloadIndex;
-                error.source = PacketSourceTag::ClientIda;
                 return PacketResult<std::string>::Failure(std::move(error));
             }
 
@@ -13731,12 +13518,11 @@ namespace cg::packet::receive
                 return PacketResult<Packet>::Failure(data.Error());
             }
 
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ClientIda);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
                 data.Value(),
-                PacketSourceTag::ClientIda,
             });
             return PacketResult<Packet>::Success(std::move(packet));
         }
@@ -13805,7 +13591,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::ClientIda;
             return error;
         }
 
@@ -13878,7 +13663,6 @@ namespace cg::packet::receive
                 PacketError error = split.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = DataFieldIndex;
-                error.source = PacketSourceTag::ClientIda;
                 return PacketResult<GuildInfo>::Failure(std::move(error));
             }
 
@@ -13993,7 +13777,6 @@ namespace cg::packet::receive
                 PacketError error = decoded.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = FlagPayloadIndex;
-                error.source = PacketSourceTag::ClientIda;
                 return PacketResult<int>::Failure(std::move(error));
             }
 
@@ -14125,12 +13908,11 @@ namespace cg::packet::receive
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
                 BuildData(),
-                PacketSourceTag::Xlsx,
             });
             return packet;
         }
@@ -14189,7 +13971,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::Xlsx;
             return error;
         }
 
@@ -14217,7 +13998,6 @@ namespace cg::packet::receive
                 PacketError error = split.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = DataFieldIndex;
-                error.source = PacketSourceTag::Xlsx;
                 return PacketResult<GuildTitle>::Failure(std::move(error));
             }
 
@@ -14383,12 +14163,11 @@ namespace cg::packet::receive
                 return PacketResult<Packet>::Failure(data.Error());
             }
 
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
                 data.Value(),
-                PacketSourceTag::Xlsx,
             });
             return PacketResult<Packet>::Success(std::move(packet));
         }
@@ -14454,7 +14233,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::Xlsx;
             return error;
         }
 
@@ -14479,7 +14257,6 @@ namespace cg::packet::receive
                 PacketError error = split.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = DataFieldIndex;
-                error.source = PacketSourceTag::Xlsx;
                 return PacketResult<GuildMember>::Failure(std::move(error));
             }
 
@@ -14679,18 +14456,16 @@ namespace cg::packet::receive
                 return PacketResult<Packet>::Failure(data.Error());
             }
 
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ServerC);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "index",
                 PacketFieldType::Int62,
                 std::to_string(index),
-                PacketSourceTag::ServerC,
             });
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
                 data.Value(),
-                PacketSourceTag::ServerC,
             });
             return PacketResult<Packet>::Success(std::move(packet));
         }
@@ -14789,7 +14564,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::ServerC;
             return error;
         }
 
@@ -14817,7 +14591,6 @@ namespace cg::packet::receive
                 PacketError error = split.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = DataFieldIndex;
-                error.source = PacketSourceTag::ServerC;
                 return PacketResult<GuildMemberInfo>::Failure(std::move(error));
             }
 
@@ -14993,24 +14766,21 @@ namespace cg::packet::receive
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "fromregistseqnumber",
                 PacketFieldType::Int62,
                 std::to_string(fromRegistSeqNumber),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "text",
                 PacketFieldType::EscapedString,
                 BuildData(),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "color",
                 PacketFieldType::Int62,
                 std::to_string(color),
-                PacketSourceTag::Xlsx,
             });
             return packet;
         }
@@ -15111,7 +14881,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::Xlsx;
             return error;
         }
 
@@ -15139,7 +14908,6 @@ namespace cg::packet::receive
                 PacketError error = split.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = TextFieldIndex;
-                error.source = PacketSourceTag::Xlsx;
                 return PacketResult<GuildMailPayload>::Failure(std::move(error));
             }
 
@@ -15296,12 +15064,11 @@ namespace cg::packet::receive
                 return PacketResult<Packet>::Failure(data.Error());
             }
 
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ServerC);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
                 data.Value(),
-                PacketSourceTag::ServerC,
             });
             return PacketResult<Packet>::Success(std::move(packet));
         }
@@ -15370,7 +15137,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::ServerC;
             return error;
         }
 
@@ -15402,7 +15168,6 @@ namespace cg::packet::receive
                 PacketError error = split.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = DataFieldIndex;
-                error.source = PacketSourceTag::ServerC;
                 return PacketResult<std::vector<TradePlayerRecord>>::Failure(std::move(error));
             }
 
@@ -15452,18 +15217,16 @@ namespace cg::packet::receive
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ServerC);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "name",
                 PacketFieldType::EscapedString,
                 nameRaw,
-                PacketSourceTag::ServerC,
             });
             packet.fields.push_back(PacketField {
                 "level",
                 PacketFieldType::Int62,
                 std::to_string(level),
-                PacketSourceTag::ServerC,
             });
             return packet;
         }
@@ -15547,7 +15310,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::ServerC;
             return error;
         }
 
@@ -15716,12 +15478,11 @@ namespace cg::packet::receive
                 return PacketResult<Packet>::Failure(data.Error());
             }
 
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ServerC);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
                 data.Value(),
-                PacketSourceTag::ServerC,
             });
             return PacketResult<Packet>::Success(std::move(packet));
         }
@@ -15790,7 +15551,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::ServerC;
             return error;
         }
 
@@ -15818,7 +15578,6 @@ namespace cg::packet::receive
                 PacketError error = split.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = DataFieldIndex;
-                error.source = PacketSourceTag::ServerC;
                 return PacketResult<std::vector<TradeItemInfoRecord>>::Failure(std::move(error));
             }
 
@@ -16153,18 +15912,16 @@ namespace cg::packet::receive
                 return PacketResult<Packet>::Failure(payload.Error());
             }
 
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ServerC);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "petPlace",
                 PacketFieldType::Int62,
                 std::to_string(petPlace),
-                PacketSourceTag::ServerC,
             });
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
                 payload.Value(),
-                PacketSourceTag::ServerC,
             });
             return PacketResult<Packet>::Success(std::move(packet));
         }
@@ -16255,7 +16012,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::ServerC;
             return error;
         }
 
@@ -16283,7 +16039,6 @@ namespace cg::packet::receive
                 PacketError error = split.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = DataFieldIndex;
-                error.source = PacketSourceTag::ServerC;
                 return PacketResult<TradePetInfoData>::Failure(std::move(error));
             }
 
@@ -16495,18 +16250,16 @@ namespace cg::packet::receive
                 return PacketResult<Packet>::Failure(payload.Error());
             }
 
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ServerC);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "petIndex",
                 PacketFieldType::Int62,
                 std::to_string(petIndex),
-                PacketSourceTag::ServerC,
             });
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
                 payload.Value(),
-                PacketSourceTag::ServerC,
             });
             return PacketResult<Packet>::Success(std::move(packet));
         }
@@ -16595,7 +16348,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::ServerC;
             return error;
         }
 
@@ -16627,7 +16379,6 @@ namespace cg::packet::receive
                 PacketError error = split.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = DataFieldIndex;
-                error.source = PacketSourceTag::ServerC;
                 return PacketResult<std::vector<std::string>>::Failure(std::move(error));
             }
 
@@ -16780,12 +16531,11 @@ namespace cg::packet::receive
                 return PacketResult<Packet>::Failure(data.Error());
             }
 
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
                 data.Value(),
-                PacketSourceTag::Xlsx,
             });
             return PacketResult<Packet>::Success(std::move(packet));
         }
@@ -16845,7 +16595,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::Xlsx;
             return error;
         }
 
@@ -16866,7 +16615,6 @@ namespace cg::packet::receive
                 PacketError error = split.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = DataFieldIndex;
-                error.source = PacketSourceTag::Xlsx;
                 return PacketResult<AddressBookGuildInfo>::Failure(std::move(error));
             }
 
@@ -16965,12 +16713,11 @@ namespace cg::packet::receive
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
                 BuildData(),
-                PacketSourceTag::Xlsx,
             });
             return packet;
         }
@@ -16986,14 +16733,12 @@ namespace cg::packet::receive
             if (packet.code.View() != Code) {
                 PacketError error = PacketError::Make(PacketErrorCode::InvalidCode, "ObjectList Parse 收到非 nsY 封包");
                 error.packetCode = packet.code;
-                error.source = PacketSourceTag::Xlsx;
                 return PacketResult<ObjectList>::Failure(std::move(error));
             }
 
             if (packet.direction != Direction) {
                 PacketError error = PacketError::Make(PacketErrorCode::DecodeFailed, "ObjectList Parse 封包方向不匹配");
                 error.packetCode = PacketCode(Code);
-                error.source = PacketSourceTag::Xlsx;
                 return PacketResult<ObjectList>::Failure(std::move(error));
             }
 
@@ -17001,7 +16746,6 @@ namespace cg::packet::receive
                 PacketError error = PacketError::Make(PacketErrorCode::FieldCountMismatch, "ObjectList Parse 字段数量不匹配");
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = packet.fields.empty() ? 0U : 1U;
-                error.source = PacketSourceTag::Xlsx;
                 return PacketResult<ObjectList>::Failure(std::move(error));
             }
 
@@ -17010,7 +16754,6 @@ namespace cg::packet::receive
                 PacketError error = PacketError::Make(PacketErrorCode::DecodeFailed, "ObjectList Parse 字段名不匹配");
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = 0U;
-                error.source = PacketSourceTag::Xlsx;
                 return PacketResult<ObjectList>::Failure(std::move(error));
             }
 
@@ -17018,7 +16761,6 @@ namespace cg::packet::receive
                 PacketError error = PacketError::Make(PacketErrorCode::InvalidFieldType, "ObjectList Parse 字段类型不匹配");
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = 0U;
-                error.source = PacketSourceTag::Xlsx;
                 return PacketResult<ObjectList>::Failure(std::move(error));
             }
 
@@ -17049,7 +16791,6 @@ namespace cg::packet::receive
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
             error.fieldIndex = recordIndex;
-            error.source = PacketSourceTag::Xlsx;
             return error;
         }
 
@@ -17083,7 +16824,6 @@ namespace cg::packet::receive
                     PacketError error = objectIndex.Error();
                     error.packetCode = PacketCode(Code);
                     error.fieldIndex = recordIndex;
-                    error.source = PacketSourceTag::Xlsx;
                     return PacketResult<std::vector<ObjectListRecord>>::Failure(std::move(error));
                 }
 
@@ -17156,12 +16896,11 @@ namespace cg::packet::receive
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
                 BuildData(),
-                PacketSourceTag::Xlsx,
             });
             return packet;
         }
@@ -17177,14 +16916,12 @@ namespace cg::packet::receive
             if (packet.code.View() != Code) {
                 PacketError error = PacketError::Make(PacketErrorCode::InvalidCode, "CharacterIcon Parse 收到非 NI 封包");
                 error.packetCode = packet.code;
-                error.source = PacketSourceTag::Xlsx;
                 return PacketResult<CharacterIcon>::Failure(std::move(error));
             }
 
             if (packet.direction != Direction) {
                 PacketError error = PacketError::Make(PacketErrorCode::DecodeFailed, "CharacterIcon Parse 封包方向不匹配");
                 error.packetCode = PacketCode(Code);
-                error.source = PacketSourceTag::Xlsx;
                 return PacketResult<CharacterIcon>::Failure(std::move(error));
             }
 
@@ -17192,7 +16929,6 @@ namespace cg::packet::receive
                 PacketError error = PacketError::Make(PacketErrorCode::FieldCountMismatch, "CharacterIcon Parse 字段数量不匹配");
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = packet.fields.empty() ? 0U : 1U;
-                error.source = PacketSourceTag::Xlsx;
                 return PacketResult<CharacterIcon>::Failure(std::move(error));
             }
 
@@ -17201,7 +16937,6 @@ namespace cg::packet::receive
                 PacketError error = PacketError::Make(PacketErrorCode::DecodeFailed, "CharacterIcon Parse 字段名不匹配");
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = 0U;
-                error.source = PacketSourceTag::Xlsx;
                 return PacketResult<CharacterIcon>::Failure(std::move(error));
             }
 
@@ -17209,7 +16944,6 @@ namespace cg::packet::receive
                 PacketError error = PacketError::Make(PacketErrorCode::InvalidFieldType, "CharacterIcon Parse 字段类型不匹配");
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = 0U;
-                error.source = PacketSourceTag::Xlsx;
                 return PacketResult<CharacterIcon>::Failure(std::move(error));
             }
 
@@ -17235,7 +16969,6 @@ namespace cg::packet::receive
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
             error.fieldIndex = entryIndex;
-            error.source = PacketSourceTag::Xlsx;
             return error;
         }
 
@@ -17268,7 +17001,6 @@ namespace cg::packet::receive
                     PacketError error = objectIndex.Error();
                     error.packetCode = PacketCode(Code);
                     error.fieldIndex = entryIndex;
-                    error.source = PacketSourceTag::Xlsx;
                     return PacketResult<std::vector<CharacterIconEntry>>::Failure(std::move(error));
                 }
 
@@ -17316,12 +17048,11 @@ namespace cg::packet::receive
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
                 BuildData(),
-                PacketSourceTag::Xlsx,
             });
             return packet;
         }
@@ -17384,7 +17115,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::Xlsx;
             return error;
         }
 
@@ -17409,7 +17139,6 @@ namespace cg::packet::receive
                 PacketError error = parts.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = DataFieldIndex;
-                error.source = PacketSourceTag::Xlsx;
                 return PacketResult<std::vector<int>>::Failure(std::move(error));
             }
 
@@ -17428,7 +17157,6 @@ namespace cg::packet::receive
                     PacketError error = objectIndex.Error();
                     error.packetCode = PacketCode(Code);
                     error.fieldIndex = index;
-                    error.source = PacketSourceTag::Xlsx;
                     return PacketResult<std::vector<int>>::Failure(std::move(error));
                 }
 
@@ -17501,48 +17229,41 @@ namespace cg::packet::receive
 
         [[nodiscard]] Packet ToPacket() const
         {
-            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 "mapid",
                 PacketFieldType::Int62,
                 std::to_string(mapId),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "floor",
                 PacketFieldType::Int62,
                 std::to_string(floor),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "x1",
                 PacketFieldType::Int62,
                 std::to_string(x1),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "y1",
                 PacketFieldType::Int62,
                 std::to_string(y1),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "x2",
                 PacketFieldType::Int62,
                 std::to_string(x2),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "y2",
                 PacketFieldType::Int62,
                 std::to_string(y2),
-                PacketSourceTag::Xlsx,
             });
             packet.fields.push_back(PacketField {
                 "data",
                 PacketFieldType::EscapedString,
                 BuildData(),
-                PacketSourceTag::Xlsx,
             });
             return packet;
         }
@@ -17662,7 +17383,6 @@ namespace cg::packet::receive
                 PacketError error = layers.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = DataFieldIndex;
-                error.source = PacketSourceTag::Xlsx;
                 return PacketResult<MapData>::Failure(std::move(error));
             }
 
@@ -17708,7 +17428,6 @@ namespace cg::packet::receive
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
-            error.source = PacketSourceTag::Xlsx;
             return error;
         }
 
@@ -17784,7 +17503,6 @@ namespace cg::packet::receive
                 PacketError error = cells.Error();
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = DataFieldIndex;
-                error.source = PacketSourceTag::Xlsx;
                 return PacketResult<std::vector<int>>::Failure(std::move(error));
             }
 
@@ -17815,7 +17533,6 @@ namespace cg::packet::receive
                     PacketError error = value.Error();
                     error.packetCode = PacketCode(Code);
                     error.fieldIndex = DataFieldIndex;
-                    error.source = PacketSourceTag::Xlsx;
                     return PacketResult<std::vector<int>>::Failure(std::move(error));
                 }
 

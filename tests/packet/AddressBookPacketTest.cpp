@@ -127,7 +127,6 @@ int ExpectAddressBookPacket(
     int failures = 0;
     failures += Expect(packet.code == cg::packet::PacketCode(AddressBook::Code), message);
     failures += Expect(packet.direction == cg::packet::PacketDirection::ServerToClient, message);
-    failures += Expect(packet.source == cg::packet::PacketSourceTag::Xlsx, message);
     failures += Expect(packet.fields.size() == 1U, message);
     if (packet.fields.size() != 1U) {
         return failures;
@@ -135,7 +134,6 @@ int ExpectAddressBookPacket(
 
     failures += Expect(packet.fields[0].name == "data", message);
     failures += Expect(packet.fields[0].type == cg::packet::PacketFieldType::EscapedString, message);
-    failures += Expect(packet.fields[0].source == cg::packet::PacketSourceTag::Xlsx, message);
     failures += Expect(packet.fields[0].value == payload, message);
     return failures;
 }
@@ -195,7 +193,6 @@ int ExpectAddressBookInfoPacket(
     int failures = 0;
     failures += Expect(packet.code == cg::packet::PacketCode(AddressBookInfo::Code), message);
     failures += Expect(packet.direction == cg::packet::PacketDirection::ServerToClient, message);
-    failures += Expect(packet.source == cg::packet::PacketSourceTag::ClientIda, message);
     failures += Expect(packet.fields.size() == 2U, message);
     if (packet.fields.size() != 2U) {
         return failures;
@@ -203,11 +200,9 @@ int ExpectAddressBookInfoPacket(
 
     failures += Expect(packet.fields[0].name == "registry", message);
     failures += Expect(packet.fields[0].type == cg::packet::PacketFieldType::Int62, message);
-    failures += Expect(packet.fields[0].source == cg::packet::PacketSourceTag::ClientIda, message);
     failures += Expect(packet.fields[0].value == std::to_string(registry), message);
     failures += Expect(packet.fields[1].name == "data", message);
     failures += Expect(packet.fields[1].type == cg::packet::PacketFieldType::EscapedString, message);
-    failures += Expect(packet.fields[1].source == cg::packet::PacketSourceTag::ClientIda, message);
     failures += Expect(packet.fields[1].value == payload, message);
     return failures;
 }

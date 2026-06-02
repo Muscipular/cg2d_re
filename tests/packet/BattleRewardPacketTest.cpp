@@ -96,7 +96,6 @@ int ExpectBattleRewardPacket(
     int failures = 0;
     failures += Expect(packet.code == cg::packet::PacketCode(cg::packet::receive::BattleReward::Code), message);
     failures += Expect(packet.direction == cg::packet::PacketDirection::ServerToClient, message);
-    failures += Expect(packet.source == cg::packet::PacketSourceTag::ClientIda, message);
     failures += Expect(packet.fields.size() == 1U, message);
     if (packet.fields.size() != 1U) {
         return failures;
@@ -104,7 +103,6 @@ int ExpectBattleRewardPacket(
 
     failures += Expect(packet.fields[0].name == "data", message);
     failures += Expect(packet.fields[0].type == cg::packet::PacketFieldType::EscapedString, message);
-    failures += Expect(packet.fields[0].source == cg::packet::PacketSourceTag::ClientIda, message);
     failures += Expect(packet.fields[0].value == data, message);
     return failures;
 }
@@ -304,13 +302,11 @@ int TestOuterErrors()
         "Gn extra outer data");
 
     cg::packet::Packet manual(cg::packet::PacketCode(cg::packet::receive::BattleReward::Code),
-        cg::packet::PacketDirection::ClientToServer,
-        cg::packet::PacketSourceTag::ClientIda);
+        cg::packet::PacketDirection::ClientToServer);
     manual.fields.push_back(cg::packet::PacketField {
         "data",
         cg::packet::PacketFieldType::EscapedString,
         payload,
-        cg::packet::PacketSourceTag::ClientIda,
     });
     failures += ExpectError(
         cg::packet::receive::BattleReward::FromPacket(manual),

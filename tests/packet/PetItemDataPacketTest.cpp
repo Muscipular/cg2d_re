@@ -101,19 +101,16 @@ cg::packet::Packet BuildManualPacket(int petSlot, std::string_view payload)
 {
     cg::packet::Packet packet(
         cg::packet::PacketCode(cg::packet::receive::PetItemData::Code),
-        cg::packet::PacketDirection::ServerToClient,
-        cg::packet::PacketSourceTag::ServerC);
+        cg::packet::PacketDirection::ServerToClient);
     packet.fields.push_back(cg::packet::PacketField {
         "petSlot",
         cg::packet::PacketFieldType::Int62,
         std::to_string(petSlot),
-        cg::packet::PacketSourceTag::ServerC,
     });
     packet.fields.push_back(cg::packet::PacketField {
         "data",
         cg::packet::PacketFieldType::EscapedString,
         std::string(payload),
-        cg::packet::PacketSourceTag::ServerC,
     });
     return packet;
 }
@@ -127,7 +124,6 @@ int ExpectPetItemPacket(
     int failures = 0;
     failures += Expect(packet.code == cg::packet::PacketCode(cg::packet::receive::PetItemData::Code), message);
     failures += Expect(packet.direction == cg::packet::PacketDirection::ServerToClient, message);
-    failures += Expect(packet.source == cg::packet::PacketSourceTag::ServerC, message);
     failures += Expect(packet.fields.size() == 2U, message);
     if (packet.fields.size() != 2U) {
         return failures;
@@ -135,11 +131,9 @@ int ExpectPetItemPacket(
 
     failures += Expect(packet.fields[0].name == "petSlot", message);
     failures += Expect(packet.fields[0].type == cg::packet::PacketFieldType::Int62, message);
-    failures += Expect(packet.fields[0].source == cg::packet::PacketSourceTag::ServerC, message);
     failures += Expect(packet.fields[0].value == std::to_string(petSlot), message);
     failures += Expect(packet.fields[1].name == "data", message);
     failures += Expect(packet.fields[1].type == cg::packet::PacketFieldType::EscapedString, message);
-    failures += Expect(packet.fields[1].source == cg::packet::PacketSourceTag::ServerC, message);
     failures += Expect(packet.fields[1].value == value, message);
     return failures;
 }

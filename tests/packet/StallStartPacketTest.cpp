@@ -74,8 +74,7 @@ cg::packet::Packet PacketOf(
 {
     cg::packet::Packet packet(
         cg::packet::PacketCode(StallStart::Code),
-        direction,
-        cg::packet::PacketSourceTag::Xlsx);
+        direction);
     packet.fields.assign(fields.begin(), fields.end());
     return packet;
 }
@@ -150,7 +149,6 @@ int ExpectField(
 
     failures += Expect(packet.fields[index].name == name, message);
     failures += Expect(packet.fields[index].type == type, message);
-    failures += Expect(packet.fields[index].source == cg::packet::PacketSourceTag::Xlsx, message);
     failures += Expect(packet.fields[index].value == value, message);
     return failures;
 }
@@ -165,7 +163,6 @@ int ExpectStallStartPacket(
     int failures = 0;
     failures += Expect(packet.code == cg::packet::PacketCode(StallStart::Code), message);
     failures += Expect(packet.direction == cg::packet::PacketDirection::ClientToServer, message);
-    failures += Expect(packet.source == cg::packet::PacketSourceTag::Xlsx, message);
     failures += Expect(packet.fields.size() == 3U, message);
     if (packet.fields.size() != 3U) {
         return failures;

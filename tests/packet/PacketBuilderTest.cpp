@@ -47,7 +47,7 @@ cg::packet::Packet PacketOf(
     cg::packet::PacketDirection direction,
     std::initializer_list<cg::packet::PacketField> fields)
 {
-    cg::packet::Packet packet(cg::packet::PacketCode(code), direction, cg::packet::PacketSourceTag::Unknown);
+    cg::packet::Packet packet(cg::packet::PacketCode(code), direction);
     packet.fields.assign(fields.begin(), fields.end());
     return packet;
 }

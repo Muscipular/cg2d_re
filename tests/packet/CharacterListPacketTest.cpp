@@ -64,8 +64,7 @@ cg::packet::Packet PacketOf(
 {
     cg::packet::Packet packet(
         cg::packet::PacketCode(CharacterList::Code),
-        direction,
-        cg::packet::PacketSourceTag::ServerC);
+        direction);
     packet.fields.assign(fields.begin(), fields.end());
     return packet;
 }

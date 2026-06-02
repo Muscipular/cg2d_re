@@ -73,8 +73,7 @@ cg::packet::Packet PacketOf(
 {
     cg::packet::Packet packet(
         cg::packet::PacketCode(GuildMail::Code),
-        direction,
-        cg::packet::PacketSourceTag::Xlsx);
+        direction);
     packet.fields.assign(fields.begin(), fields.end());
     return packet;
 }
@@ -108,7 +107,6 @@ int ExpectGuildMailPacket(
     int failures = 0;
     failures += Expect(packet.code == cg::packet::PacketCode(GuildMail::Code), message);
     failures += Expect(packet.direction == cg::packet::PacketDirection::ServerToClient, message);
-    failures += Expect(packet.source == cg::packet::PacketSourceTag::Xlsx, message);
     failures += Expect(packet.fields.size() == 3U, message);
     if (packet.fields.size() != 3U) {
         return failures;
@@ -116,15 +114,12 @@ int ExpectGuildMailPacket(
 
     failures += Expect(packet.fields[0].name == "fromregistseqnumber", message);
     failures += Expect(packet.fields[0].type == cg::packet::PacketFieldType::Int62, message);
-    failures += Expect(packet.fields[0].source == cg::packet::PacketSourceTag::Xlsx, message);
     failures += Expect(packet.fields[0].value == "1", message);
     failures += Expect(packet.fields[1].name == "text", message);
     failures += Expect(packet.fields[1].type == cg::packet::PacketFieldType::EscapedString, message);
-    failures += Expect(packet.fields[1].source == cg::packet::PacketSourceTag::Xlsx, message);
     failures += Expect(packet.fields[1].value == text, message);
     failures += Expect(packet.fields[2].name == "color", message);
     failures += Expect(packet.fields[2].type == cg::packet::PacketFieldType::Int62, message);
-    failures += Expect(packet.fields[2].source == cg::packet::PacketSourceTag::Xlsx, message);
     failures += Expect(packet.fields[2].value == "3", message);
     return failures;
 }

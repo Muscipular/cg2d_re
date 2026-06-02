@@ -72,8 +72,7 @@ cg::packet::Packet PacketOf(
 {
     cg::packet::Packet packet(
         cg::packet::PacketCode(TradeStart::Code),
-        direction,
-        cg::packet::PacketSourceTag::ServerC);
+        direction);
     packet.fields.assign(fields.begin(), fields.end());
     return packet;
 }
@@ -97,7 +96,6 @@ int ExpectTradeStartPacket(
     int failures = 0;
     failures += Expect(packet.code == cg::packet::PacketCode(TradeStart::Code), message);
     failures += Expect(packet.direction == cg::packet::PacketDirection::ServerToClient, message);
-    failures += Expect(packet.source == cg::packet::PacketSourceTag::ServerC, message);
     failures += Expect(packet.fields.size() == 2U, message);
     if (packet.fields.size() != 2U) {
         return failures;
@@ -105,11 +103,9 @@ int ExpectTradeStartPacket(
 
     failures += Expect(packet.fields[0].name == "name", message);
     failures += Expect(packet.fields[0].type == cg::packet::PacketFieldType::EscapedString, message);
-    failures += Expect(packet.fields[0].source == cg::packet::PacketSourceTag::ServerC, message);
     failures += Expect(packet.fields[0].value == nameRaw, message);
     failures += Expect(packet.fields[1].name == "level", message);
     failures += Expect(packet.fields[1].type == cg::packet::PacketFieldType::Int62, message);
-    failures += Expect(packet.fields[1].source == cg::packet::PacketSourceTag::ServerC, message);
     failures += Expect(packet.fields[1].value == level, message);
     return failures;
 }

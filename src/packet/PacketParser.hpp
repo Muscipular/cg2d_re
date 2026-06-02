@@ -19,1156 +19,1063 @@ namespace cg::packet
         {
             std::string_view name;
             PacketFieldType type = PacketFieldType::Unknown;
-            PacketSourceTag source = PacketSourceTag::Unknown;
         };
 
         struct PacketSpec
         {
             std::string_view code;
             PacketDirection direction = PacketDirection::ClientToServer;
-            PacketSourceTag source = PacketSourceTag::Unknown;
             const PacketFieldSpec* fields = nullptr;
             std::size_t fieldCount = 0;
         };
 
         inline constexpr std::array<PacketFieldSpec, 3> ClientLoginFields = {{
-            {"clientHash", PacketFieldType::EscapedString, PacketSourceTag::ExistingPrototype},
-            {"password", PacketFieldType::EscapedString, PacketSourceTag::ExistingPrototype},
-            {"account", PacketFieldType::EscapedString, PacketSourceTag::ExistingPrototype},
+            {"clientHash", PacketFieldType::EscapedString},
+            {"password", PacketFieldType::EscapedString},
+            {"account", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 2> ClientLoginResultFields = {{
-            {"result", PacketFieldType::Int62, PacketSourceTag::ExistingPrototype},
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::ExistingPrototype},
+            {"result", PacketFieldType::Int62},
+            {"data", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 2> CharacterListFields = {{
-            {"result", PacketFieldType::Int62, PacketSourceTag::ServerC},
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
+            {"result", PacketFieldType::Int62},
+            {"data", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 3> CreateNewCharResultFields = {{
-            {"result", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
-            {"registnumber", PacketFieldType::Int62, PacketSourceTag::ServerC},
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
+            {"result", PacketFieldType::EscapedString},
+            {"registnumber", PacketFieldType::Int62},
+            {"data", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 2> CharacterDeleteResultFields = {{
-            {"result", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
+            {"result", PacketFieldType::EscapedString},
+            {"data", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 1> ProcessStatusFields = {{
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
+            {"data", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 13> CreateNewCharFields = {{
-            {"dataPlace", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"name", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
-            {"image", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"face", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"vital", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"strength", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"tough", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"quick", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"magic", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"earth", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"water", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"fire", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"wind", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"dataPlace", PacketFieldType::Int62},
+            {"name", PacketFieldType::EscapedString},
+            {"image", PacketFieldType::Int62},
+            {"face", PacketFieldType::Int62},
+            {"vital", PacketFieldType::Int62},
+            {"strength", PacketFieldType::Int62},
+            {"tough", PacketFieldType::Int62},
+            {"quick", PacketFieldType::Int62},
+            {"magic", PacketFieldType::Int62},
+            {"earth", PacketFieldType::Int62},
+            {"water", PacketFieldType::Int62},
+            {"fire", PacketFieldType::Int62},
+            {"wind", PacketFieldType::Int62},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 1> ProfileVersionFields = {{
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+            {"data", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 1> CharacterProfileFields = {{
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+            {"data", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 1> CharacterProfile2Fields = {{
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+            {"data", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 2> JobNameFields = {{
-            {"jobassort", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"name", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+            {"jobassort", PacketFieldType::Int62},
+            {"name", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 1> CharacterSkillDataFields = {{
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+            {"data", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 1> ItemDataFields = {{
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+            {"data", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 2> PetItemDataFields = {{
-            {"petSlot", PacketFieldType::Int62, PacketSourceTag::ServerC},
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
+            {"petSlot", PacketFieldType::Int62},
+            {"data", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 1> EquipSuitFields = {{
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+            {"data", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 1> ItemInfoListFields = {{
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
+            {"data", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 2> ItemRecipeFields = {{
-            {"haveskillindex", PacketFieldType::Int62, PacketSourceTag::ServerC},
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
+            {"haveskillindex", PacketFieldType::Int62},
+            {"data", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 2> AlbumFlagsFields = {{
-            {"albumversion", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+            {"albumversion", PacketFieldType::Int62},
+            {"data", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 17> AlbumInfoFields = {{
-            {"albumId", PacketFieldType::Int62, PacketSourceTag::ServerC},
-            {"imageNumber", PacketFieldType::Int62, PacketSourceTag::ServerC},
-            {"catchFlag", PacketFieldType::Int62, PacketSourceTag::ServerC},
-            {"rare", PacketFieldType::Int62, PacketSourceTag::ServerC},
-            {"type", PacketFieldType::Int62, PacketSourceTag::ServerC},
-            {"vital", PacketFieldType::Int62, PacketSourceTag::ServerC},
-            {"strength", PacketFieldType::Int62, PacketSourceTag::ServerC},
-            {"toughness", PacketFieldType::Int62, PacketSourceTag::ServerC},
-            {"quick", PacketFieldType::Int62, PacketSourceTag::ServerC},
-            {"magic", PacketFieldType::Int62, PacketSourceTag::ServerC},
-            {"earth", PacketFieldType::Int62, PacketSourceTag::ServerC},
-            {"water", PacketFieldType::Int62, PacketSourceTag::ServerC},
-            {"fire", PacketFieldType::Int62, PacketSourceTag::ServerC},
-            {"wind", PacketFieldType::Int62, PacketSourceTag::ServerC},
-            {"slot", PacketFieldType::Int62, PacketSourceTag::ServerC},
-            {"comment", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
-            {"name", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
+            {"albumId", PacketFieldType::Int62},
+            {"imageNumber", PacketFieldType::Int62},
+            {"catchFlag", PacketFieldType::Int62},
+            {"rare", PacketFieldType::Int62},
+            {"type", PacketFieldType::Int62},
+            {"vital", PacketFieldType::Int62},
+            {"strength", PacketFieldType::Int62},
+            {"toughness", PacketFieldType::Int62},
+            {"quick", PacketFieldType::Int62},
+            {"magic", PacketFieldType::Int62},
+            {"earth", PacketFieldType::Int62},
+            {"water", PacketFieldType::Int62},
+            {"fire", PacketFieldType::Int62},
+            {"wind", PacketFieldType::Int62},
+            {"slot", PacketFieldType::Int62},
+            {"comment", PacketFieldType::EscapedString},
+            {"name", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 2> AlbumNameFields = {{
-            {"albumId", PacketFieldType::Int62, PacketSourceTag::ServerC},
-            {"name", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
+            {"albumId", PacketFieldType::Int62},
+            {"name", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 8> PetMailAnimationFields = {{
-            {"objIndex", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"graphicsno", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"x", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"y", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"dir", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"flg", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"no", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+            {"objIndex", PacketFieldType::Int62},
+            {"graphicsno", PacketFieldType::Int62},
+            {"x", PacketFieldType::Int62},
+            {"y", PacketFieldType::Int62},
+            {"dir", PacketFieldType::Int62},
+            {"flg", PacketFieldType::Int62},
+            {"no", PacketFieldType::Int62},
+            {"data", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 1> TitleListFields = {{
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+            {"data", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 1> ProfileListFields = {{
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+            {"data", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 1> AboutListFields = {{
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+            {"data", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 13> ProfileDataFields = {{
-            {"name", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
-            {"lv", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"job", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
-            {"title", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
-            {"guildName", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
-            {"graphic", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"sid", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"smsg", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
-            {"bid", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"bmsg", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
-            {"aid", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"amsg", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
-            {"pmsg", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+            {"name", PacketFieldType::EscapedString},
+            {"lv", PacketFieldType::Int62},
+            {"job", PacketFieldType::EscapedString},
+            {"title", PacketFieldType::EscapedString},
+            {"guildName", PacketFieldType::EscapedString},
+            {"graphic", PacketFieldType::Int62},
+            {"sid", PacketFieldType::Int62},
+            {"smsg", PacketFieldType::EscapedString},
+            {"bid", PacketFieldType::Int62},
+            {"bmsg", PacketFieldType::EscapedString},
+            {"aid", PacketFieldType::Int62},
+            {"amsg", PacketFieldType::EscapedString},
+            {"pmsg", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 7> SetProfileDataFields = {{
-            {"sellFlag", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"sellMsg", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
-            {"buyFlag", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"buyMsg", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
-            {"aboutFlg", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"aboutMsg", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
-            {"ProfileMsg", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+            {"sellFlag", PacketFieldType::Int62},
+            {"sellMsg", PacketFieldType::EscapedString},
+            {"buyFlag", PacketFieldType::Int62},
+            {"buyMsg", PacketFieldType::EscapedString},
+            {"aboutFlg", PacketFieldType::Int62},
+            {"aboutMsg", PacketFieldType::EscapedString},
+            {"ProfileMsg", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 4> MagicUseRequestFields = {{
-            {"x", PacketFieldType::Int62, PacketSourceTag::ServerC},
-            {"y", PacketFieldType::Int62, PacketSourceTag::ServerC},
-            {"array", PacketFieldType::Int62, PacketSourceTag::ServerC},
-            {"toindex", PacketFieldType::Int62, PacketSourceTag::ServerC},
+            {"x", PacketFieldType::Int62},
+            {"y", PacketFieldType::Int62},
+            {"array", PacketFieldType::Int62},
+            {"toindex", PacketFieldType::Int62},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 4> PetSkillUseRequestFields = {{
-            {"havepetindex", PacketFieldType::Int62, PacketSourceTag::ServerC},
-            {"havepetskill", PacketFieldType::Int62, PacketSourceTag::ServerC},
-            {"toindex", PacketFieldType::Int62, PacketSourceTag::ServerC},
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
+            {"havepetindex", PacketFieldType::Int62},
+            {"havepetskill", PacketFieldType::Int62},
+            {"toindex", PacketFieldType::Int62},
+            {"data", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 2> PetLevelUpPointFields = {{
-            {"petSlot", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"sqeno", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"petSlot", PacketFieldType::Int62},
+            {"sqeno", PacketFieldType::Int62},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 3> PetSkillSwapFields = {{
-            {"petSlot", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"from", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"to", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"petSlot", PacketFieldType::Int62},
+            {"from", PacketFieldType::Int62},
+            {"to", PacketFieldType::Int62},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 2> UserPetNameInputFields = {{
-            {"petSlot", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"name", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+            {"petSlot", PacketFieldType::Int62},
+            {"name", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 3> MailMessageSendFields = {{
-            {"index", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"message", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
-            {"color", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"index", PacketFieldType::Int62},
+            {"message", PacketFieldType::EscapedString},
+            {"color", PacketFieldType::Int62},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 6> ChatMessageSendFields = {{
-            {"x", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"y", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"msg", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
-            {"color", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"area", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"fontSize", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"x", PacketFieldType::Int62},
+            {"y", PacketFieldType::Int62},
+            {"msg", PacketFieldType::EscapedString},
+            {"color", PacketFieldType::Int62},
+            {"area", PacketFieldType::Int62},
+            {"fontSize", PacketFieldType::Int62},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 6> WindowOpenSendFields = {{
-            {"x", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"y", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"seqno", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"objindex", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"select", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+            {"x", PacketFieldType::Int62},
+            {"y", PacketFieldType::Int62},
+            {"seqno", PacketFieldType::Int62},
+            {"objindex", PacketFieldType::Int62},
+            {"select", PacketFieldType::Int62},
+            {"data", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 2> ShutdownRequestFields = {{
-            {"passwd", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
-            {"min", PacketFieldType::Int62, PacketSourceTag::ServerC},
+            {"passwd", PacketFieldType::EscapedString},
+            {"min", PacketFieldType::Int62},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 5> PetMailSendFields = {{
-            {"index", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"petindex", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"itemindex", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"message", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
-            {"color", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"index", PacketFieldType::Int62},
+            {"petindex", PacketFieldType::Int62},
+            {"itemindex", PacketFieldType::Int62},
+            {"message", PacketFieldType::EscapedString},
+            {"color", PacketFieldType::Int62},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 5> PetMailRegisterFields = {{
-            {"toregist", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"petSlot", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"itemSlot", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"text", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
-            {"color", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"toregist", PacketFieldType::Int62},
+            {"petSlot", PacketFieldType::Int62},
+            {"itemSlot", PacketFieldType::Int62},
+            {"text", PacketFieldType::EscapedString},
+            {"color", PacketFieldType::Int62},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 1> ProfileMailDeleteFields = {{
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+            {"data", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 3> ProfileMailReceiptFields = {{
-            {"profileIndex", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"dtext", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
-            {"color", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"profileIndex", PacketFieldType::Int62},
+            {"dtext", PacketFieldType::EscapedString},
+            {"color", PacketFieldType::Int62},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 1> ProfileMailArriveFields = {{
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+            {"data", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 1> PartyParamFields = {{
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
+            {"data", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 2> PartyMemberStatusFields = {{
-            {"partySlot", PacketFieldType::Int62, PacketSourceTag::ServerC},
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
+            {"partySlot", PacketFieldType::Int62},
+            {"data", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 2> TechListFields = {{
-            {"skillIndex", PacketFieldType::Int62, PacketSourceTag::ServerC},
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
+            {"skillIndex", PacketFieldType::Int62},
+            {"data", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 2> PetTechDataFields = {{
-            {"petIndex", PacketFieldType::Int62, PacketSourceTag::ServerC},
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
+            {"petIndex", PacketFieldType::Int62},
+            {"data", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 2> RidePetDataFields = {{
-            {"petIndex", PacketFieldType::Int62, PacketSourceTag::ServerC},
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
+            {"petIndex", PacketFieldType::Int62},
+            {"data", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 3> TechUseResultFields = {{
-            {"result", PacketFieldType::Int62, PacketSourceTag::ServerC},
-            {"type", PacketFieldType::Int62, PacketSourceTag::ServerC},
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
+            {"result", PacketFieldType::Int62},
+            {"type", PacketFieldType::Int62},
+            {"data", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 1> ProfileStatusFields = {{
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
+            {"data", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 1> FrontCharListFields = {{
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
+            {"data", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 1> CharacterPetListFields = {{
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
+            {"data", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 5> ProfileWindowFields = {{
-            {"windowType", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"buttonType", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"seqNo", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"objectIndex", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+            {"windowType", PacketFieldType::Int62},
+            {"buttonType", PacketFieldType::Int62},
+            {"seqNo", PacketFieldType::Int62},
+            {"objectIndex", PacketFieldType::Int62},
+            {"data", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 1> SystemMessageFields = {{
-            {"message", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+            {"message", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 3> EffectFields = {{
-            {"EffType", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"TM_EffSize", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+            {"EffType", PacketFieldType::Int62},
+            {"TM_EffSize", PacketFieldType::Int62},
+            {"data", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 1> BattleCommandFields = {{
-            {"command", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
+            {"command", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 1> BattleRewardFields = {{
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::ClientIda},
+            {"data", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 1> DuelPointFields = {{
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
+            {"data", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 3> ProfileMailMessageFields = {{
-            {"aindex", PacketFieldType::Int62, PacketSourceTag::ServerC},
-            {"text", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
-            {"color", PacketFieldType::Int62, PacketSourceTag::ServerC},
+            {"aindex", PacketFieldType::Int62},
+            {"text", PacketFieldType::EscapedString},
+            {"color", PacketFieldType::Int62},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 4> ChatMessageFields = {{
-            {"objectIndex", PacketFieldType::Int62, PacketSourceTag::ServerC},
-            {"message", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
-            {"color", PacketFieldType::Int62, PacketSourceTag::ServerC},
-            {"fontSize", PacketFieldType::Int62, PacketSourceTag::ServerC},
+            {"objectIndex", PacketFieldType::Int62},
+            {"message", PacketFieldType::EscapedString},
+            {"color", PacketFieldType::Int62},
+            {"fontSize", PacketFieldType::Int62},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 5> WindowPacketFields = {{
-            {"windowtype", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"buttontype", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"seqno", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"objindex", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+            {"windowtype", PacketFieldType::Int62},
+            {"buttontype", PacketFieldType::Int62},
+            {"seqno", PacketFieldType::Int62},
+            {"objindex", PacketFieldType::Int62},
+            {"data", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 6> StallBrowseFields = {{
-            {"result", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"objIndex", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"name", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
-            {"description", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
-            {"item", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
-            {"pet", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+            {"result", PacketFieldType::Int62},
+            {"objIndex", PacketFieldType::Int62},
+            {"name", PacketFieldType::EscapedString},
+            {"description", PacketFieldType::EscapedString},
+            {"item", PacketFieldType::EscapedString},
+            {"pet", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 3> StallStartFields = {{
-            {"stallName", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
-            {"stallDescription", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
-            {"stallList", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+            {"stallName", PacketFieldType::EscapedString},
+            {"stallDescription", PacketFieldType::EscapedString},
+            {"stallList", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 1> AddressBookFields = {{
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+            {"data", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 2> AddressBookInfoFields = {{
-            {"registry", PacketFieldType::Int62, PacketSourceTag::ClientIda},
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::ClientIda},
+            {"registry", PacketFieldType::Int62},
+            {"data", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 1> AddressBookGuildInfoFields = {{
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+            {"data", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 1> GuildInfoFields = {{
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::ClientIda},
+            {"data", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 1> GuildTitleFields = {{
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+            {"data", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 1> GuildMemberFields = {{
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+            {"data", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 2> GuildMemberInfoFields = {{
-            {"index", PacketFieldType::Int62, PacketSourceTag::ServerC},
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
+            {"index", PacketFieldType::Int62},
+            {"data", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 3> GuildMailFields = {{
-            {"fromregistseqnumber", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"text", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
-            {"color", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"fromregistseqnumber", PacketFieldType::Int62},
+            {"text", PacketFieldType::EscapedString},
+            {"color", PacketFieldType::Int62},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 1> TradePlayerListFields = {{
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
+            {"data", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 2> TradeStartFields = {{
-            {"name", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
-            {"level", PacketFieldType::Int62, PacketSourceTag::ServerC},
+            {"name", PacketFieldType::EscapedString},
+            {"level", PacketFieldType::Int62},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 1> TradeItemInfoFields = {{
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
+            {"data", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 2> TradePetInfoFields = {{
-            {"petPlace", PacketFieldType::Int62, PacketSourceTag::ServerC},
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
+            {"petPlace", PacketFieldType::Int62},
+            {"data", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 2> TradePetSkillInfoFields = {{
-            {"petIndex", PacketFieldType::Int62, PacketSourceTag::ServerC},
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
+            {"petIndex", PacketFieldType::Int62},
+            {"data", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 3> TradeTakeOutFields = {{
-            {"item", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
-            {"pet", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
-            {"gold", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"item", PacketFieldType::EscapedString},
+            {"pet", PacketFieldType::EscapedString},
+            {"gold", PacketFieldType::Int62},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 3> DropGoldFields = {{
-            {"x", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"y", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"amount", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"x", PacketFieldType::Int62},
+            {"y", PacketFieldType::Int62},
+            {"amount", PacketFieldType::Int62},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 2> GuildInfoChangeFields = {{
-            {"c", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+            {"c", PacketFieldType::Int62},
+            {"data", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 3> GuildTitleSetFields = {{
-            {"index", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"bitflag", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+            {"index", PacketFieldType::Int62},
+            {"bitflag", PacketFieldType::Int62},
+            {"data", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 3> GuildMailSendFields = {{
-            {"toregistNumber", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"text", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
-            {"color", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"toregistNumber", PacketFieldType::Int62},
+            {"text", PacketFieldType::EscapedString},
+            {"color", PacketFieldType::Int62},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 2> ProfileMailFriendDeleteFields = {{
-            {"profileIndex", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"name", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+            {"profileIndex", PacketFieldType::Int62},
+            {"name", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 2> ProfileMiniMailSendFields = {{
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
-            {"color", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"data", PacketFieldType::EscapedString},
+            {"color", PacketFieldType::Int62},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 1> CheckCommandFields = {{
-            {"time", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"time", PacketFieldType::Int62},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 1> MapNameFields = {{
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+            {"data", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 1> ObjectListFields = {{
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+            {"data", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 1> CharacterIconFields = {{
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+            {"data", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 1> ObjectDeleteFields = {{
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+            {"data", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 7> MapDataFields = {{
-            {"mapid", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"floor", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"x1", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"y1", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"x2", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"y2", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+            {"mapid", PacketFieldType::Int62},
+            {"floor", PacketFieldType::Int62},
+            {"x1", PacketFieldType::Int62},
+            {"y1", PacketFieldType::Int62},
+            {"x2", PacketFieldType::Int62},
+            {"y2", PacketFieldType::Int62},
+            {"data", PacketFieldType::EscapedString},
         }};
 
         inline constexpr std::array<PacketFieldSpec, 6> MapDataRequestFields = {{
-            {"mapid", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"floor", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"x1", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"y1", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"x2", PacketFieldType::Int62, PacketSourceTag::Xlsx},
-            {"y2", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"mapid", PacketFieldType::Int62},
+            {"floor", PacketFieldType::Int62},
+            {"x1", PacketFieldType::Int62},
+            {"y1", PacketFieldType::Int62},
+            {"x2", PacketFieldType::Int62},
+            {"y2", PacketFieldType::Int62},
         }};
 
         inline constexpr std::array<PacketSpec, 91> PacketRegistry = {{
             {
                 "JFVf",
                 PacketDirection::ClientToServer,
-                PacketSourceTag::ExistingPrototype,
                 ClientLoginFields.data(),
                 ClientLoginFields.size(),
             },
             {
                 "whV",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::ExistingPrototype,
                 ClientLoginResultFields.data(),
                 ClientLoginResultFields.size(),
             },
             {
                 "Daj",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::ServerC,
                 CharacterListFields.data(),
                 CharacterListFields.size(),
             },
             {
                 "DZ",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::ServerC,
                 CreateNewCharResultFields.data(),
                 CreateNewCharResultFields.size(),
             },
             {
                 "oy",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::ServerC,
                 CharacterDeleteResultFields.data(),
                 CharacterDeleteResultFields.size(),
             },
             {
                 "cJzI",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::ServerC,
                 ProcessStatusFields.data(),
                 ProcessStatusFields.size(),
             },
             {
                 "aSEl",
                 PacketDirection::ClientToServer,
-                PacketSourceTag::Xlsx,
                 CreateNewCharFields.data(),
                 CreateNewCharFields.size(),
             },
             {
                 "HNP",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::Xlsx,
                 ProfileVersionFields.data(),
                 ProfileVersionFields.size(),
             },
             {
                 "aPc",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::Xlsx,
                 CharacterProfileFields.data(),
                 CharacterProfileFields.size(),
             },
             {
                 "UU",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::Xlsx,
                 CharacterProfile2Fields.data(),
                 CharacterProfile2Fields.size(),
             },
             {
                 "jv",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::Xlsx,
                 JobNameFields.data(),
                 JobNameFields.size(),
             },
             {
                 "cNE",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::Xlsx,
                 CharacterSkillDataFields.data(),
                 CharacterSkillDataFields.size(),
             },
             {
                 "rU",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::Xlsx,
                 ItemDataFields.data(),
                 ItemDataFields.size(),
             },
             {
                 "iKe",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::ServerC,
                 PetItemDataFields.data(),
                 PetItemDataFields.size(),
             },
             {
                 "TgX",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::Xlsx,
                 EquipSuitFields.data(),
                 EquipSuitFields.size(),
             },
             {
                 "ELoy",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::ServerC,
                 ItemInfoListFields.data(),
                 ItemInfoListFields.size(),
             },
             {
                 "xmgQ",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::ServerC,
                 ItemRecipeFields.data(),
                 ItemRecipeFields.size(),
             },
             {
                 "Ilz",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::Xlsx,
                 AlbumFlagsFields.data(),
                 AlbumFlagsFields.size(),
             },
             {
                 "dM",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::ServerC,
                 AlbumInfoFields.data(),
                 AlbumInfoFields.size(),
             },
             {
                 "Dn",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::ServerC,
                 AlbumNameFields.data(),
                 AlbumNameFields.size(),
             },
             {
                 "lDuJ",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::Xlsx,
                 PetMailAnimationFields.data(),
                 PetMailAnimationFields.size(),
             },
             {
                 "Sc",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::Xlsx,
                 TitleListFields.data(),
                 TitleListFields.size(),
             },
             {
                 "eZT",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::Xlsx,
                 ProfileListFields.data(),
                 ProfileListFields.size(),
             },
             {
                 "IUn",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::Xlsx,
                 AboutListFields.data(),
                 AboutListFields.size(),
             },
             {
                 "DpSY",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::Xlsx,
                 ProfileDataFields.data(),
                 ProfileDataFields.size(),
             },
             {
                 "Ot",
                 PacketDirection::ClientToServer,
-                PacketSourceTag::Xlsx,
                 SetProfileDataFields.data(),
                 SetProfileDataFields.size(),
             },
             {
                 "RXr",
                 PacketDirection::ClientToServer,
-                PacketSourceTag::ServerC,
                 MagicUseRequestFields.data(),
                 MagicUseRequestFields.size(),
             },
             {
                 "Flvp",
                 PacketDirection::ClientToServer,
-                PacketSourceTag::ServerC,
                 PetSkillUseRequestFields.data(),
                 PetSkillUseRequestFields.size(),
             },
             {
                 "kjSK",
                 PacketDirection::ClientToServer,
-                PacketSourceTag::Xlsx,
                 PetLevelUpPointFields.data(),
                 PetLevelUpPointFields.size(),
             },
             {
                 "HJQp",
                 PacketDirection::ClientToServer,
-                PacketSourceTag::Xlsx,
                 PetSkillSwapFields.data(),
                 PetSkillSwapFields.size(),
             },
             {
                 "ycX",
                 PacketDirection::ClientToServer,
-                PacketSourceTag::Xlsx,
                 UserPetNameInputFields.data(),
                 UserPetNameInputFields.size(),
             },
             {
                 "CV",
                 PacketDirection::ClientToServer,
-                PacketSourceTag::Xlsx,
                 MailMessageSendFields.data(),
                 MailMessageSendFields.size(),
             },
             {
                 "uSr",
                 PacketDirection::ClientToServer,
-                PacketSourceTag::Xlsx,
                 ChatMessageSendFields.data(),
                 ChatMessageSendFields.size(),
             },
             {
                 "xD",
                 PacketDirection::ClientToServer,
-                PacketSourceTag::Xlsx,
                 WindowOpenSendFields.data(),
                 WindowOpenSendFields.size(),
             },
             {
                 "IcE",
                 PacketDirection::ClientToServer,
-                PacketSourceTag::ServerC,
                 ShutdownRequestFields.data(),
                 ShutdownRequestFields.size(),
             },
             {
                 "rMsv",
                 PacketDirection::ClientToServer,
-                PacketSourceTag::Xlsx,
                 PetMailSendFields.data(),
                 PetMailSendFields.size(),
             },
             {
                 "PfqV",
                 PacketDirection::ClientToServer,
-                PacketSourceTag::Xlsx,
                 PetMailRegisterFields.data(),
                 PetMailRegisterFields.size(),
             },
             {
                 "cNB",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::Xlsx,
                 ProfileMailDeleteFields.data(),
                 ProfileMailDeleteFields.size(),
             },
             {
                 "ow",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::Xlsx,
                 ProfileMailReceiptFields.data(),
                 ProfileMailReceiptFields.size(),
             },
             {
                 "KyN",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::Xlsx,
                 ProfileMailArriveFields.data(),
                 ProfileMailArriveFields.size(),
             },
             {
                 "TNT",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::ServerC,
                 PartyParamFields.data(),
                 PartyParamFields.size(),
             },
             {
                 "JJQj",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::ServerC,
                 PartyMemberStatusFields.data(),
                 PartyMemberStatusFields.size(),
             },
             {
                 "Rspn",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::ServerC,
                 TechListFields.data(),
                 TechListFields.size(),
             },
             {
                 "OBee",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::ServerC,
                 PetTechDataFields.data(),
                 PetTechDataFields.size(),
             },
             {
                 "IsSy",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::ServerC,
                 RidePetDataFields.data(),
                 RidePetDataFields.size(),
             },
             {
                 "AU",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::ServerC,
                 RidePetDataFields.data(),
                 RidePetDataFields.size(),
             },
             {
                 "JgO",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::ServerC,
                 TechUseResultFields.data(),
                 TechUseResultFields.size(),
             },
             {
                 "Yo",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::ServerC,
                 ProfileStatusFields.data(),
                 ProfileStatusFields.size(),
             },
             {
                 "ysVc",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::ServerC,
                 FrontCharListFields.data(),
                 FrontCharListFields.size(),
             },
             {
                 "LY",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::ServerC,
                 FrontCharListFields.data(),
                 FrontCharListFields.size(),
             },
             {
                 "ND",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::ServerC,
                 CharacterPetListFields.data(),
                 CharacterPetListFields.size(),
             },
             {
                 "nFV",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::ServerC,
                 CharacterPetListFields.data(),
                 CharacterPetListFields.size(),
             },
             {
                 "DyAG",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::Xlsx,
                 ProfileWindowFields.data(),
                 ProfileWindowFields.size(),
             },
             {
                 "Zd",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::Xlsx,
                 SystemMessageFields.data(),
                 SystemMessageFields.size(),
             },
             {
                 "zzd",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::Xlsx,
                 EffectFields.data(),
                 EffectFields.size(),
             },
             {
                 "Gn",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::ClientIda,
                 BattleRewardFields.data(),
                 BattleRewardFields.size(),
             },
             {
                 "hB",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::ServerC,
                 DuelPointFields.data(),
                 DuelPointFields.size(),
             },
             {
                 "LYIm",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::ServerC,
                 BattleCommandFields.data(),
                 BattleCommandFields.size(),
             },
             {
                 "Mhbt",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::ServerC,
                 ProfileMailMessageFields.data(),
                 ProfileMailMessageFields.size(),
             },
             {
                 "zdr",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::ServerC,
                 ChatMessageFields.data(),
                 ChatMessageFields.size(),
             },
             {
                 "BZ",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::Xlsx,
                 WindowPacketFields.data(),
                 WindowPacketFields.size(),
             },
             {
                 "ft",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::Xlsx,
                 StallBrowseFields.data(),
                 StallBrowseFields.size(),
             },
             {
                 "ylGN",
                 PacketDirection::ClientToServer,
-                PacketSourceTag::Xlsx,
                 StallStartFields.data(),
                 StallStartFields.size(),
             },
             {
                 "CCL",
                 PacketDirection::ClientToServer,
-                PacketSourceTag::Xlsx,
                 CheckCommandFields.data(),
                 CheckCommandFields.size(),
             },
             {
                 "TeD",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::Xlsx,
                 MapNameFields.data(),
                 MapNameFields.size(),
             },
             {
                 "gnxd",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::Xlsx,
                 AddressBookFields.data(),
                 AddressBookFields.size(),
             },
             {
                 "PhdQ",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::Xlsx,
                 AddressBookGuildInfoFields.data(),
                 AddressBookGuildInfoFields.size(),
             },
             {
                 "vI",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::ClientIda,
                 AddressBookInfoFields.data(),
                 AddressBookInfoFields.size(),
             },
             {
                 "aDn",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::ClientIda,
                 GuildInfoFields.data(),
                 GuildInfoFields.size(),
             },
             {
                 "znv",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::Xlsx,
                 GuildTitleFields.data(),
                 GuildTitleFields.size(),
             },
             {
                 "yuD",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::Xlsx,
                 GuildMemberFields.data(),
                 GuildMemberFields.size(),
             },
             {
                 "Kka",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::ServerC,
                 GuildMemberInfoFields.data(),
                 GuildMemberInfoFields.size(),
             },
             {
                 "Rll",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::Xlsx,
                 GuildMailFields.data(),
                 GuildMailFields.size(),
             },
             {
                 "Cxo",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::ServerC,
                 TradePlayerListFields.data(),
                 TradePlayerListFields.size(),
             },
             {
                 "ms",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::ServerC,
                 TradeStartFields.data(),
                 TradeStartFields.size(),
             },
             {
                 "nUbJ",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::ServerC,
                 TradeItemInfoFields.data(),
                 TradeItemInfoFields.size(),
             },
             {
                 "RwK",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::ServerC,
                 TradePetInfoFields.data(),
                 TradePetInfoFields.size(),
             },
             {
                 "Yq",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::ServerC,
                 TradePetSkillInfoFields.data(),
                 TradePetSkillInfoFields.size(),
             },
             {
                 "aiAb",
                 PacketDirection::ClientToServer,
-                PacketSourceTag::Xlsx,
                 TradeTakeOutFields.data(),
                 TradeTakeOutFields.size(),
             },
             {
                 "woz",
                 PacketDirection::ClientToServer,
-                PacketSourceTag::Xlsx,
                 DropGoldFields.data(),
                 DropGoldFields.size(),
             },
             {
                 "Ufm",
                 PacketDirection::ClientToServer,
-                PacketSourceTag::Xlsx,
                 GuildInfoChangeFields.data(),
                 GuildInfoChangeFields.size(),
             },
             {
                 "GY",
                 PacketDirection::ClientToServer,
-                PacketSourceTag::Xlsx,
                 GuildTitleSetFields.data(),
                 GuildTitleSetFields.size(),
             },
             {
                 "uId",
                 PacketDirection::ClientToServer,
-                PacketSourceTag::Xlsx,
                 GuildMailSendFields.data(),
                 GuildMailSendFields.size(),
             },
             {
                 "wD",
                 PacketDirection::ClientToServer,
-                PacketSourceTag::Xlsx,
                 ProfileMailFriendDeleteFields.data(),
                 ProfileMailFriendDeleteFields.size(),
             },
             {
                 "GH",
                 PacketDirection::ClientToServer,
-                PacketSourceTag::Xlsx,
                 ProfileMiniMailSendFields.data(),
                 ProfileMiniMailSendFields.size(),
             },
             {
                 "nsY",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::Xlsx,
                 ObjectListFields.data(),
                 ObjectListFields.size(),
             },
             {
                 "NI",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::Xlsx,
                 CharacterIconFields.data(),
                 CharacterIconFields.size(),
             },
             {
                 "aBS",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::Xlsx,
                 MapDataFields.data(),
                 MapDataFields.size(),
             },
             {
                 "UUN",
                 PacketDirection::ClientToServer,
-                PacketSourceTag::Xlsx,
                 MapDataRequestFields.data(),
                 MapDataRequestFields.size(),
             },
             {
                 "uSB",
                 PacketDirection::ServerToClient,
-                PacketSourceTag::Xlsx,
                 ObjectDeleteFields.data(),
                 ObjectDeleteFields.size(),
             },
             {
                 "Gp",
                 PacketDirection::ClientToServer,
-                PacketSourceTag::Xlsx,
                 nullptr,
                 0,
             },
@@ -1186,12 +1093,9 @@ namespace cg::packet
 
         [[nodiscard]] inline PacketError MakeParserError(
             PacketErrorCode errorCode,
-            std::string message,
-            PacketSourceTag source = PacketSourceTag::Unknown)
+            std::string message)
         {
-            PacketError error = PacketError::Make(errorCode, std::move(message));
-            error.source = source;
-            return error;
+            return PacketError::Make(errorCode, std::move(message));
         }
 
         inline void FillErrorContext(PacketError& error, std::string_view code, std::size_t fieldIndex)
@@ -1297,14 +1201,13 @@ namespace cg::packet
         if (fieldTokens.size() != spec->fieldCount) {
             PacketError error = detail::MakeParserError(
                 PacketErrorCode::FieldCountMismatch,
-                "封包字段数量不匹配",
-                spec->source);
+                "封包字段数量不匹配");
             error.packetCode = PacketCode(code);
             error.fieldIndex = fieldTokens.size() < spec->fieldCount ? fieldTokens.size() : spec->fieldCount;
             return PacketResult<Packet>::Failure(std::move(error));
         }
 
-        Packet packet(PacketCode(code), spec->direction, spec->source);
+        Packet packet(PacketCode(code), spec->direction);
         packet.fields.reserve(spec->fieldCount);
 
         for (std::size_t index = 0; index < spec->fieldCount; ++index) {
@@ -1314,7 +1217,6 @@ namespace cg::packet
             PacketField field;
             field.name = std::string(fieldSpec.name);
             field.type = fieldSpec.type;
-            field.source = fieldSpec.source;
 
             switch (fieldSpec.type) {
             case PacketFieldType::Int62: {
@@ -1346,8 +1248,7 @@ namespace cg::packet
             case PacketFieldType::Unknown: {
                 PacketError error = detail::MakeParserError(
                     PacketErrorCode::InvalidFieldType,
-                    "封包字段类型暂不支持",
-                    fieldSpec.source);
+                    "封包字段类型暂不支持");
                 detail::FillErrorContext(error, code, index);
                 return PacketResult<Packet>::Failure(std::move(error));
             }

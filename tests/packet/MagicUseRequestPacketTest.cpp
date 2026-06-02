@@ -65,7 +65,6 @@ int ExpectField(
 
     failures += Expect(packet.fields[index].name == name, message);
     failures += Expect(packet.fields[index].type == cg::packet::PacketFieldType::Int62, message);
-    failures += Expect(packet.fields[index].source == cg::packet::PacketSourceTag::ServerC, message);
     failures += Expect(packet.fields[index].value == value, message);
     return failures;
 }
@@ -75,7 +74,6 @@ int ExpectMagicUseRequestPacket(const cg::packet::Packet& packet, const char* me
     int failures = 0;
     failures += Expect(packet.code == cg::packet::PacketCode(cg::packet::send::MagicUseRequest::Code), message);
     failures += Expect(packet.direction == cg::packet::PacketDirection::ClientToServer, message);
-    failures += Expect(packet.source == cg::packet::PacketSourceTag::ServerC, message);
     failures += Expect(packet.fields.size() == 4U, message);
     if (packet.fields.size() != 4U) {
         return failures;

@@ -60,7 +60,6 @@ int ExpectJobNamePacket(
     int failures = 0;
     failures += Expect(packet.code == cg::packet::PacketCode(cg::packet::receive::JobName::Code), message);
     failures += Expect(packet.direction == cg::packet::PacketDirection::ServerToClient, message);
-    failures += Expect(packet.source == cg::packet::PacketSourceTag::Xlsx, message);
     failures += Expect(packet.fields.size() == 2U, message);
     if (packet.fields.size() != 2U) {
         return failures;
@@ -68,11 +67,9 @@ int ExpectJobNamePacket(
 
     failures += Expect(packet.fields[0].name == "jobassort", message);
     failures += Expect(packet.fields[0].type == cg::packet::PacketFieldType::Int62, message);
-    failures += Expect(packet.fields[0].source == cg::packet::PacketSourceTag::Xlsx, message);
     failures += Expect(packet.fields[0].value == jobAssort, message);
     failures += Expect(packet.fields[1].name == "name", message);
     failures += Expect(packet.fields[1].type == cg::packet::PacketFieldType::EscapedString, message);
-    failures += Expect(packet.fields[1].source == cg::packet::PacketSourceTag::Xlsx, message);
     failures += Expect(packet.fields[1].value == name, message);
     return failures;
 }

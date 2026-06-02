@@ -70,8 +70,7 @@ cg::packet::Packet PacketOf(
 {
     cg::packet::Packet packet(
         cg::packet::PacketCode(cg::packet::receive::BattleCommand::Code),
-        direction,
-        cg::packet::PacketSourceTag::ServerC);
+        direction);
     packet.fields.assign(fields.begin(), fields.end());
     return packet;
 }
@@ -84,7 +83,6 @@ int ExpectBattleCommandPacket(
     int failures = 0;
     failures += Expect(packet.code == cg::packet::PacketCode(cg::packet::receive::BattleCommand::Code), message);
     failures += Expect(packet.direction == cg::packet::PacketDirection::ServerToClient, message);
-    failures += Expect(packet.source == cg::packet::PacketSourceTag::ServerC, message);
     failures += Expect(packet.fields.size() == 1U, message);
     if (packet.fields.size() != 1U) {
         return failures;
@@ -92,7 +90,6 @@ int ExpectBattleCommandPacket(
 
     failures += Expect(packet.fields[0].name == "command", message);
     failures += Expect(packet.fields[0].type == cg::packet::PacketFieldType::EscapedString, message);
-    failures += Expect(packet.fields[0].source == cg::packet::PacketSourceTag::ServerC, message);
     failures += Expect(packet.fields[0].value == command, message);
     return failures;
 }

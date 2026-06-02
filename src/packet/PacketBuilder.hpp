@@ -18,12 +18,9 @@ namespace cg::packet
     {
         [[nodiscard]] inline PacketError MakeBuilderError(
             PacketErrorCode errorCode,
-            std::string message,
-            PacketSourceTag source = PacketSourceTag::Unknown)
+            std::string message)
         {
-            PacketError error = PacketError::Make(errorCode, std::move(message));
-            error.source = source;
-            return error;
+            return PacketError::Make(errorCode, std::move(message));
         }
 
         [[nodiscard]] inline PacketResult<int> ParseDecimalInt(std::string_view text)
@@ -99,8 +96,7 @@ namespace cg::packet
         if (packet.direction != spec->direction) {
             PacketError error = detail::MakeBuilderError(
                 PacketErrorCode::EncodeFailed,
-                "封包方向不匹配",
-                spec->source);
+                "封包方向不匹配");
             error.packetCode = PacketCode(code);
             return PacketResult<std::string>::Failure(std::move(error));
         }
@@ -108,8 +104,7 @@ namespace cg::packet
         if (packet.fields.size() != spec->fieldCount) {
             PacketError error = detail::MakeBuilderError(
                 PacketErrorCode::FieldCountMismatch,
-                "封包字段数量不匹配",
-                spec->source);
+                "封包字段数量不匹配");
             error.packetCode = PacketCode(code);
             error.fieldIndex = packet.fields.size() < spec->fieldCount ? packet.fields.size() : spec->fieldCount;
             return PacketResult<std::string>::Failure(std::move(error));
@@ -126,8 +121,7 @@ namespace cg::packet
             if (field.name != fieldSpec.name) {
                 PacketError error = detail::MakeBuilderError(
                     PacketErrorCode::EncodeFailed,
-                    "封包字段名不匹配",
-                    fieldSpec.source);
+                    "封包字段名不匹配");
                 detail::FillErrorContext(error, code, index);
                 return PacketResult<std::string>::Failure(std::move(error));
             }
@@ -136,8 +130,7 @@ namespace cg::packet
                 detail::IsUnsupportedBuilderFieldType(fieldSpec.type)) {
                 PacketError error = detail::MakeBuilderError(
                     PacketErrorCode::InvalidFieldType,
-                    "封包字段类型暂不支持",
-                    fieldSpec.source);
+                    "封包字段类型暂不支持");
                 detail::FillErrorContext(error, code, index);
                 return PacketResult<std::string>::Failure(std::move(error));
             }
@@ -145,8 +138,7 @@ namespace cg::packet
             if (field.type != fieldSpec.type) {
                 PacketError error = detail::MakeBuilderError(
                     PacketErrorCode::EncodeFailed,
-                    "封包字段类型不匹配",
-                    fieldSpec.source);
+                    "封包字段类型不匹配");
                 detail::FillErrorContext(error, code, index);
                 return PacketResult<std::string>::Failure(std::move(error));
             }
@@ -186,8 +178,7 @@ namespace cg::packet
             case PacketFieldType::Unknown: {
                 PacketError error = detail::MakeBuilderError(
                     PacketErrorCode::InvalidFieldType,
-                    "封包字段类型暂不支持",
-                    fieldSpec.source);
+                    "封包字段类型暂不支持");
                 detail::FillErrorContext(error, code, index);
                 return PacketResult<std::string>::Failure(std::move(error));
             }

@@ -67,7 +67,6 @@ int ExpectField(
 
     failures += Expect(packet.fields[index].name == name, message);
     failures += Expect(packet.fields[index].type == type, message);
-    failures += Expect(packet.fields[index].source == cg::packet::PacketSourceTag::Xlsx, message);
     failures += Expect(packet.fields[index].value == value, message);
     return failures;
 }
@@ -77,7 +76,6 @@ int ExpectSetProfileDataPacket(const cg::packet::Packet& packet, const char* mes
     int failures = 0;
     failures += Expect(packet.code == cg::packet::PacketCode(cg::packet::send::SetProfileData::Code), message);
     failures += Expect(packet.direction == cg::packet::PacketDirection::ClientToServer, message);
-    failures += Expect(packet.source == cg::packet::PacketSourceTag::Xlsx, message);
     failures += Expect(packet.fields.size() == 7U, message);
     if (packet.fields.size() != 7U) {
         return failures;

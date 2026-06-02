@@ -67,7 +67,6 @@ int TestKnownPackets()
         const cg::packet::Packet& packet = login.Value();
         failures += Expect(packet.code == cg::packet::PacketCode("JFVf"), "JFVf code");
         failures += Expect(packet.direction == cg::packet::PacketDirection::ClientToServer, "JFVf direction");
-        failures += Expect(packet.source == cg::packet::PacketSourceTag::ExistingPrototype, "JFVf source");
         failures += Expect(packet.fields.size() == 3U, "JFVf field count");
         failures += ExpectParsedField(
             packet,
@@ -98,7 +97,6 @@ int TestKnownPackets()
         const cg::packet::Packet& packet = checkCommand.Value();
         failures += Expect(packet.code == cg::packet::PacketCode("CCL"), "CCL code");
         failures += Expect(packet.direction == cg::packet::PacketDirection::ClientToServer, "CCL direction");
-        failures += Expect(packet.source == cg::packet::PacketSourceTag::Xlsx, "CCL source");
         failures += Expect(packet.fields.size() == 1U, "CCL field count");
         failures += ExpectParsedField(
             packet,

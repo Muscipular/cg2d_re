@@ -55,7 +55,6 @@ int ExpectPartyMemberStatusPacket(
         packet.code == cg::packet::PacketCode(cg::packet::receive::PartyMemberStatus::Code),
         message);
     failures += Expect(packet.direction == cg::packet::PacketDirection::ServerToClient, message);
-    failures += Expect(packet.source == cg::packet::PacketSourceTag::ServerC, message);
     failures += Expect(packet.fields.size() == 2U, message);
     if (packet.fields.size() != 2U) {
         return failures;
@@ -63,11 +62,9 @@ int ExpectPartyMemberStatusPacket(
 
     failures += Expect(packet.fields[0].name == "partySlot", message);
     failures += Expect(packet.fields[0].type == cg::packet::PacketFieldType::Int62, message);
-    failures += Expect(packet.fields[0].source == cg::packet::PacketSourceTag::ServerC, message);
     failures += Expect(packet.fields[0].value == std::to_string(partySlot), message);
     failures += Expect(packet.fields[1].name == "data", message);
     failures += Expect(packet.fields[1].type == cg::packet::PacketFieldType::EscapedString, message);
-    failures += Expect(packet.fields[1].source == cg::packet::PacketSourceTag::ServerC, message);
     failures += Expect(packet.fields[1].value == data, message);
     return failures;
 }

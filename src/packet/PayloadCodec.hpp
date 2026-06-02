@@ -18,7 +18,6 @@ namespace cg::packet
         [[nodiscard]] inline PacketError MakePayloadCodecError(PacketErrorCode code, std::string message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
-            error.source = PacketSourceTag::Manual;
             return error;
         }
     }

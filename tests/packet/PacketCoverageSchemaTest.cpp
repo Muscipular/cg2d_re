@@ -894,6 +894,34 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         }
     }
 
+    const PacketSchema* guildInfoSchema = FindPacket(packets, "aDn");
+    failures += Expect(guildInfoSchema != nullptr, "aDn schema exists");
+    if (guildInfoSchema != nullptr) {
+        const cg::packet::receive::GuildInfo guildInfo;
+        const cg::packet::PacketResult<cg::packet::Packet> packet = guildInfo.ToPacket();
+        failures += Expect(guildInfoSchema->direction == "服务端->客户端", "aDn direction");
+        failures += Expect(guildInfoSchema->legacyKind == "SEND", "aDn legacyKind");
+        failures += Expect(guildInfoSchema->rawFormat == "{data}", "aDn rawFormat");
+        failures += Expect(guildInfoSchema->resolvedFormat == "{data:es}", "aDn resolvedFormat");
+        failures += Expect(guildInfoSchema->resolvedSource == "xlsx+ClientIda+src/packet", "aDn resolvedSource");
+        failures += Expect(guildInfoSchema->fields.size() == 1U, "aDn field count");
+        failures += Expect(packet.HasValue(), "aDn packet build");
+        if (guildInfoSchema->fields.size() == 1U) {
+            failures += Expect(guildInfoSchema->fields[0].name == "data", "aDn data field");
+            failures += Expect(guildInfoSchema->fields[0].typeToken == "unknown", "aDn raw data type");
+            failures += Expect(guildInfoSchema->fields[0].rawSpec == "{data}", "aDn rawSpec");
+        }
+        if (packet.HasValue()) {
+            failures += Expect(packet.Value().fields.size() == 1U, "aDn packet field count");
+            if (packet.Value().fields.size() == 1U) {
+                failures += Expect(packet.Value().fields[0].name == "data", "aDn packet data field");
+                failures += Expect(
+                    packet.Value().fields[0].type == cg::packet::PacketFieldType::EscapedString,
+                    "aDn packet data type");
+            }
+        }
+    }
+
     const PacketSchema* petMailSendSchema = FindPacket(packets, "rMsv");
     failures += Expect(petMailSendSchema != nullptr, "rMsv schema exists");
     if (petMailSendSchema != nullptr) {

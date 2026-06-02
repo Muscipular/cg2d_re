@@ -8,6 +8,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <limits>
+#include <optional>
 #include <span>
 #include <string>
 #include <string_view>
@@ -12629,6 +12630,465 @@ namespace cg::packet::receive
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
                         "AddressBookInfo 十进制字段超出 int 范围",
+                        fieldIndex));
+                }
+
+                value = (value * 10) + digit;
+            }
+
+            if (negative) {
+                value = -value;
+            }
+
+            return PacketResult<int>::Success(static_cast<int>(value));
+        }
+    };
+
+    /**
+     * SEND_GI guildinfo		aDn {data:es}
+     * data: flag:i62|[fields...]|；除 flag 外数值为 raw decimal，字段由 flag bit 控制。
+     */
+    struct GuildInfo
+    {
+        static constexpr std::string_view Code = "aDn";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::string_view PayloadDelimiter = "|";
+
+        static constexpr int AllFieldsFlag = 0x0001;
+        static constexpr int GuildIdFlag = 0x0002;
+        static constexpr int GuildNameFlag = 0x0004;
+        static constexpr int RoomNameFlag = 0x0008;
+        static constexpr int TitleIdFlag = 0x0010;
+        static constexpr int LastUpdateFlag = 0x0020;
+        static constexpr int SortTypeFlag = 0x0040;
+        static constexpr int ServerNoFlag = 0x0080;
+        static constexpr int CommitionFlag = 0x0100;
+        static constexpr int Breeding0Flag = 0x0200;
+        static constexpr int Breeding1Flag = 0x0400;
+        static constexpr int Breeding2Flag = 0x0800;
+        static constexpr int RegistSeqNumberFlag = 0x1000;
+        static constexpr int KnownFlagMask = 0x1FFF;
+
+        int flag = 0;
+        std::optional<int> guildId;
+        std::optional<std::string> guildNameRaw;
+        std::optional<std::string> roomNameRaw;
+        std::optional<int> titleId;
+        std::optional<int> lastUpdate;
+        std::optional<int> sortType;
+        std::optional<int> serverNo;
+        std::optional<int> commition;
+        std::optional<std::string> breeding0Raw;
+        std::optional<std::string> breeding1Raw;
+        std::optional<std::string> breeding2Raw;
+        std::optional<int> registSeqNumber;
+
+        GuildInfo() = default;
+
+        explicit GuildInfo(int flag)
+            : flag(flag)
+        {
+        }
+
+        [[nodiscard]] bool HasField(int fieldBit) const noexcept
+        {
+            return IsFieldSelected(flag, fieldBit);
+        }
+
+        [[nodiscard]] PacketResult<std::string> BuildData() const
+        {
+            if (std::optional<PacketError> error = ValidateFlag(flag, PacketErrorCode::EncodeFailed, FlagPayloadIndex)) {
+                return PacketResult<std::string>::Failure(std::move(*error));
+            }
+
+            PacketResult<std::string> encodedFlag = EncodeInt62(flag);
+            if (!encodedFlag.HasValue()) {
+                PacketError error = encodedFlag.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = FlagPayloadIndex;
+                error.source = PacketSourceTag::ClientIda;
+                return PacketResult<std::string>::Failure(std::move(error));
+            }
+
+            std::vector<std::string> parts;
+            parts.reserve(PayloadFieldMaxCount);
+            parts.push_back(encodedFlag.Value());
+
+            if (std::optional<PacketError> error = AppendIntField(parts, guildId, GuildIdFlag, "GuildInfo BuildData guildId 缺失")) {
+                return PacketResult<std::string>::Failure(std::move(*error));
+            }
+            if (std::optional<PacketError> error = AppendStringField(parts, guildNameRaw, GuildNameFlag, "GuildInfo BuildData guildNameRaw 缺失")) {
+                return PacketResult<std::string>::Failure(std::move(*error));
+            }
+            if (std::optional<PacketError> error = AppendStringField(parts, roomNameRaw, RoomNameFlag, "GuildInfo BuildData roomNameRaw 缺失")) {
+                return PacketResult<std::string>::Failure(std::move(*error));
+            }
+            if (std::optional<PacketError> error = AppendIntField(parts, titleId, TitleIdFlag, "GuildInfo BuildData titleId 缺失")) {
+                return PacketResult<std::string>::Failure(std::move(*error));
+            }
+            if (std::optional<PacketError> error = AppendIntField(parts, lastUpdate, LastUpdateFlag, "GuildInfo BuildData lastUpdate 缺失")) {
+                return PacketResult<std::string>::Failure(std::move(*error));
+            }
+            if (std::optional<PacketError> error = AppendIntField(parts, sortType, SortTypeFlag, "GuildInfo BuildData sortType 缺失")) {
+                return PacketResult<std::string>::Failure(std::move(*error));
+            }
+            if (std::optional<PacketError> error = AppendIntField(parts, serverNo, ServerNoFlag, "GuildInfo BuildData serverNo 缺失")) {
+                return PacketResult<std::string>::Failure(std::move(*error));
+            }
+            if (std::optional<PacketError> error = AppendIntField(parts, commition, CommitionFlag, "GuildInfo BuildData commition 缺失")) {
+                return PacketResult<std::string>::Failure(std::move(*error));
+            }
+            if (std::optional<PacketError> error = AppendStringField(parts, breeding0Raw, Breeding0Flag, "GuildInfo BuildData breeding0Raw 缺失")) {
+                return PacketResult<std::string>::Failure(std::move(*error));
+            }
+            if (std::optional<PacketError> error = AppendStringField(parts, breeding1Raw, Breeding1Flag, "GuildInfo BuildData breeding1Raw 缺失")) {
+                return PacketResult<std::string>::Failure(std::move(*error));
+            }
+            if (std::optional<PacketError> error = AppendStringField(parts, breeding2Raw, Breeding2Flag, "GuildInfo BuildData breeding2Raw 缺失")) {
+                return PacketResult<std::string>::Failure(std::move(*error));
+            }
+            if (std::optional<PacketError> error = AppendIntField(parts, registSeqNumber, RegistSeqNumberFlag, "GuildInfo BuildData registSeqNumber 缺失")) {
+                return PacketResult<std::string>::Failure(std::move(*error));
+            }
+
+            parts.emplace_back();
+            return BuildPayload(std::span<const std::string>(parts.data(), parts.size()), PayloadDelimiter);
+        }
+
+        [[nodiscard]] PacketResult<Packet> ToPacket() const
+        {
+            PacketResult<std::string> data = BuildData();
+            if (!data.HasValue()) {
+                return PacketResult<Packet>::Failure(data.Error());
+            }
+
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ClientIda);
+            packet.fields.push_back(PacketField {
+                "data",
+                PacketFieldType::EscapedString,
+                data.Value(),
+                PacketSourceTag::ClientIda,
+            });
+            return PacketResult<Packet>::Success(std::move(packet));
+        }
+
+        static PacketResult<GuildInfo> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view);
+            if (!parsed.HasValue()) {
+                return PacketResult<GuildInfo>::Failure(parsed.Error());
+            }
+
+            return FromPacket(parsed.Value());
+        }
+
+        static PacketResult<GuildInfo> FromPacket(const Packet& packet)
+        {
+            if (packet.code.View() != Code) {
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "GuildInfo Parse 收到非 aDn 封包");
+                error.packetCode = packet.code;
+                return PacketResult<GuildInfo>::Failure(std::move(error));
+            }
+
+            if (packet.direction != Direction) {
+                return PacketResult<GuildInfo>::Failure(MakePacketError(
+                    PacketErrorCode::DecodeFailed,
+                    "GuildInfo Parse 封包方向不匹配"));
+            }
+
+            if (packet.fields.size() != FieldCount) {
+                return PacketResult<GuildInfo>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "GuildInfo Parse 字段数量不匹配",
+                    packet.fields.empty() ? 0U : FieldCount));
+            }
+
+            const PacketField& field = packet.fields[DataFieldIndex];
+            if (field.name != "data") {
+                return PacketResult<GuildInfo>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "GuildInfo Parse 字段名不匹配",
+                    DataFieldIndex));
+            }
+
+            if (field.type != PacketFieldType::EscapedString) {
+                return PacketResult<GuildInfo>::Failure(MakeFieldError(
+                    PacketErrorCode::InvalidFieldType,
+                    "GuildInfo Parse 字段类型不匹配",
+                    DataFieldIndex));
+            }
+
+            return ParseData(field.value);
+        }
+
+    private:
+        static constexpr std::size_t FieldCount = 1U;
+        static constexpr std::size_t DataFieldIndex = 0U;
+        static constexpr std::size_t FlagPayloadIndex = 0U;
+        static constexpr std::size_t PayloadFieldMaxCount = 14U;
+
+        [[nodiscard]] static bool IsFieldSelected(int flagValue, int fieldBit) noexcept
+        {
+            return (flagValue & (AllFieldsFlag | fieldBit)) != 0;
+        }
+
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            error.source = PacketSourceTag::ClientIda;
+            return error;
+        }
+
+        [[nodiscard]] static PacketError MakeFieldError(
+            PacketErrorCode code,
+            std::string message,
+            std::size_t fieldIndex)
+        {
+            PacketError error = MakePacketError(code, std::move(message));
+            error.fieldIndex = fieldIndex;
+            return error;
+        }
+
+        [[nodiscard]] static std::optional<PacketError> ValidateFlag(
+            int flagValue,
+            PacketErrorCode code,
+            std::size_t fieldIndex)
+        {
+            if (flagValue < 0) {
+                return MakeFieldError(code, "GuildInfo flag 不能为负数", fieldIndex);
+            }
+
+            if ((flagValue & ~KnownFlagMask) != 0) {
+                return MakeFieldError(code, "GuildInfo flag 包含未知 bit", fieldIndex);
+            }
+
+            return std::nullopt;
+        }
+
+        [[nodiscard]] std::optional<PacketError> AppendIntField(
+            std::vector<std::string>& parts,
+            const std::optional<int>& value,
+            int fieldBit,
+            std::string message) const
+        {
+            if (!HasField(fieldBit)) {
+                return std::nullopt;
+            }
+
+            if (!value.has_value()) {
+                return MakeFieldError(PacketErrorCode::EncodeFailed, std::move(message), parts.size());
+            }
+
+            parts.push_back(std::to_string(value.value()));
+            return std::nullopt;
+        }
+
+        [[nodiscard]] std::optional<PacketError> AppendStringField(
+            std::vector<std::string>& parts,
+            const std::optional<std::string>& value,
+            int fieldBit,
+            std::string message) const
+        {
+            if (!HasField(fieldBit)) {
+                return std::nullopt;
+            }
+
+            if (!value.has_value()) {
+                return MakeFieldError(PacketErrorCode::EncodeFailed, std::move(message), parts.size());
+            }
+
+            parts.push_back(value.value());
+            return std::nullopt;
+        }
+
+        [[nodiscard]] static PacketResult<GuildInfo> ParseData(std::string_view payload)
+        {
+            PacketResult<std::vector<std::string>> split = SplitPayloadLegacyAware(payload, PayloadDelimiter);
+            if (!split.HasValue()) {
+                PacketError error = split.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = DataFieldIndex;
+                error.source = PacketSourceTag::ClientIda;
+                return PacketResult<GuildInfo>::Failure(std::move(error));
+            }
+
+            std::vector<std::string> parts = std::move(split.Value());
+            if (parts.size() < 2U || !parts.back().empty()) {
+                return PacketResult<GuildInfo>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "GuildInfo payload 缺少尾随空段",
+                    DataFieldIndex));
+            }
+            parts.pop_back();
+
+            PacketResult<int> flagValue = ParseFlagField(parts[FlagPayloadIndex]);
+            if (!flagValue.HasValue()) {
+                return PacketResult<GuildInfo>::Failure(flagValue.Error());
+            }
+
+            const std::size_t expectedFieldCount = ExpectedPayloadFieldCount(flagValue.Value());
+            if (parts.size() != expectedFieldCount) {
+                return PacketResult<GuildInfo>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "GuildInfo payload 段数量不匹配",
+                    DataFieldIndex));
+            }
+
+            GuildInfo info(flagValue.Value());
+            std::size_t payloadIndex = 1U;
+
+            if (IsFieldSelected(info.flag, GuildIdFlag)) {
+                PacketResult<int> value = ParseDecimalField(parts[payloadIndex], payloadIndex);
+                if (!value.HasValue()) {
+                    return PacketResult<GuildInfo>::Failure(value.Error());
+                }
+                info.guildId = value.Value();
+                ++payloadIndex;
+            }
+            if (IsFieldSelected(info.flag, GuildNameFlag)) {
+                info.guildNameRaw = std::move(parts[payloadIndex]);
+                ++payloadIndex;
+            }
+            if (IsFieldSelected(info.flag, RoomNameFlag)) {
+                info.roomNameRaw = std::move(parts[payloadIndex]);
+                ++payloadIndex;
+            }
+            if (IsFieldSelected(info.flag, TitleIdFlag)) {
+                PacketResult<int> value = ParseDecimalField(parts[payloadIndex], payloadIndex);
+                if (!value.HasValue()) {
+                    return PacketResult<GuildInfo>::Failure(value.Error());
+                }
+                info.titleId = value.Value();
+                ++payloadIndex;
+            }
+            if (IsFieldSelected(info.flag, LastUpdateFlag)) {
+                PacketResult<int> value = ParseDecimalField(parts[payloadIndex], payloadIndex);
+                if (!value.HasValue()) {
+                    return PacketResult<GuildInfo>::Failure(value.Error());
+                }
+                info.lastUpdate = value.Value();
+                ++payloadIndex;
+            }
+            if (IsFieldSelected(info.flag, SortTypeFlag)) {
+                PacketResult<int> value = ParseDecimalField(parts[payloadIndex], payloadIndex);
+                if (!value.HasValue()) {
+                    return PacketResult<GuildInfo>::Failure(value.Error());
+                }
+                info.sortType = value.Value();
+                ++payloadIndex;
+            }
+            if (IsFieldSelected(info.flag, ServerNoFlag)) {
+                PacketResult<int> value = ParseDecimalField(parts[payloadIndex], payloadIndex);
+                if (!value.HasValue()) {
+                    return PacketResult<GuildInfo>::Failure(value.Error());
+                }
+                info.serverNo = value.Value();
+                ++payloadIndex;
+            }
+            if (IsFieldSelected(info.flag, CommitionFlag)) {
+                PacketResult<int> value = ParseDecimalField(parts[payloadIndex], payloadIndex);
+                if (!value.HasValue()) {
+                    return PacketResult<GuildInfo>::Failure(value.Error());
+                }
+                info.commition = value.Value();
+                ++payloadIndex;
+            }
+            if (IsFieldSelected(info.flag, Breeding0Flag)) {
+                info.breeding0Raw = std::move(parts[payloadIndex]);
+                ++payloadIndex;
+            }
+            if (IsFieldSelected(info.flag, Breeding1Flag)) {
+                info.breeding1Raw = std::move(parts[payloadIndex]);
+                ++payloadIndex;
+            }
+            if (IsFieldSelected(info.flag, Breeding2Flag)) {
+                info.breeding2Raw = std::move(parts[payloadIndex]);
+                ++payloadIndex;
+            }
+            if (IsFieldSelected(info.flag, RegistSeqNumberFlag)) {
+                PacketResult<int> value = ParseDecimalField(parts[payloadIndex], payloadIndex);
+                if (!value.HasValue()) {
+                    return PacketResult<GuildInfo>::Failure(value.Error());
+                }
+                info.registSeqNumber = value.Value();
+            }
+
+            return PacketResult<GuildInfo>::Success(std::move(info));
+        }
+
+        [[nodiscard]] static PacketResult<int> ParseFlagField(std::string_view text)
+        {
+            PacketResult<int> decoded = DecodeInt62(text);
+            if (!decoded.HasValue()) {
+                PacketError error = decoded.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = FlagPayloadIndex;
+                error.source = PacketSourceTag::ClientIda;
+                return PacketResult<int>::Failure(std::move(error));
+            }
+
+            if (std::optional<PacketError> error =
+                    ValidateFlag(decoded.Value(), PacketErrorCode::DecodeFailed, FlagPayloadIndex)) {
+                return PacketResult<int>::Failure(std::move(*error));
+            }
+
+            return decoded;
+        }
+
+        [[nodiscard]] static std::size_t ExpectedPayloadFieldCount(int flagValue) noexcept
+        {
+            std::size_t fieldCount = 1U;
+            fieldCount += IsFieldSelected(flagValue, GuildIdFlag) ? 1U : 0U;
+            fieldCount += IsFieldSelected(flagValue, GuildNameFlag) ? 1U : 0U;
+            fieldCount += IsFieldSelected(flagValue, RoomNameFlag) ? 1U : 0U;
+            fieldCount += IsFieldSelected(flagValue, TitleIdFlag) ? 1U : 0U;
+            fieldCount += IsFieldSelected(flagValue, LastUpdateFlag) ? 1U : 0U;
+            fieldCount += IsFieldSelected(flagValue, SortTypeFlag) ? 1U : 0U;
+            fieldCount += IsFieldSelected(flagValue, ServerNoFlag) ? 1U : 0U;
+            fieldCount += IsFieldSelected(flagValue, CommitionFlag) ? 1U : 0U;
+            fieldCount += IsFieldSelected(flagValue, Breeding0Flag) ? 1U : 0U;
+            fieldCount += IsFieldSelected(flagValue, Breeding1Flag) ? 1U : 0U;
+            fieldCount += IsFieldSelected(flagValue, Breeding2Flag) ? 1U : 0U;
+            fieldCount += IsFieldSelected(flagValue, RegistSeqNumberFlag) ? 1U : 0U;
+            return fieldCount;
+        }
+
+        [[nodiscard]] static PacketResult<int> ParseDecimalField(std::string_view text, std::size_t fieldIndex)
+        {
+            bool negative = false;
+            std::size_t index = 0;
+            if (!text.empty() && text.front() == '-') {
+                negative = true;
+                index = 1U;
+            }
+
+            if (index == text.size()) {
+                return PacketResult<int>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "GuildInfo payload 十进制字段为空",
+                    fieldIndex));
+            }
+
+            const std::int64_t maxValue = static_cast<std::int64_t>(std::numeric_limits<int>::max());
+            const std::int64_t minValue = static_cast<std::int64_t>(std::numeric_limits<int>::min());
+            const std::int64_t limit = negative ? (0 - minValue) : maxValue;
+            std::int64_t value = 0;
+
+            for (; index < text.size(); ++index) {
+                const char ch = text[index];
+                if (ch < '0' || ch > '9') {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "GuildInfo payload 十进制字段包含非法字符",
+                        fieldIndex));
+                }
+
+                const int digit = ch - '0';
+                if (value > (limit - digit) / 10) {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "GuildInfo payload 十进制字段超出 int 范围",
                         fieldIndex));
                 }
 

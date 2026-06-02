@@ -2107,7 +2107,9 @@
       "clientNamespace": "receive",
       "xlsxStatus": "进行中",
       "description": "SEND_GI guildinfo",
-      "rawFormat": "{data} {flag:i62}",
+      "rawFormat": "{data}",
+      "resolvedFormat": "{data:es}",
+      "resolvedSource": "xlsx+ClientIda+src/packet",
       "formatEmpty": false,
       "source": "xlsx",
       "fields": [
@@ -2116,13 +2118,6 @@
           "name": "data",
           "typeToken": "unknown",
           "rawSpec": "{data}",
-          "source": "xlsx"
-        },
-        {
-          "index": 1,
-          "name": "flag",
-          "typeToken": "i62",
-          "rawSpec": "{flag:i62}",
           "source": "xlsx"
         }
       ]

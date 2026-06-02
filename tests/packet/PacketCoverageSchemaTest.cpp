@@ -708,6 +708,25 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         failures += ExpectResolvedFieldsMatch(*characterDeleteResultSchema, packet, "oy resolved field order");
     }
 
+    const PacketSchema* processStatusSchema = FindPacket(packets, "cJzI");
+    failures += Expect(processStatusSchema != nullptr, "cJzI schema exists");
+    if (processStatusSchema != nullptr) {
+        const cg::packet::receive::ProcessStatus processStatus("proc status");
+        const cg::packet::Packet packet = processStatus.ToPacket();
+        failures += Expect(processStatusSchema->direction == "服务端->客户端", "cJzI direction");
+        failures += Expect(processStatusSchema->legacyKind == "SEND", "cJzI legacyKind");
+        failures += Expect(processStatusSchema->rawFormat.empty(), "cJzI rawFormat empty");
+        failures += Expect(processStatusSchema->formatEmpty, "cJzI formatEmpty");
+        failures += Expect(
+            processStatusSchema->resolvedFormat == "{data:es}",
+            "cJzI resolvedFormat");
+        failures += Expect(
+            processStatusSchema->resolvedSource == "ServerC+src/packet",
+            "cJzI resolvedSource");
+        failures += Expect(processStatusSchema->fields.empty(), "cJzI raw fields empty");
+        failures += ExpectResolvedFieldsMatch(*processStatusSchema, packet, "cJzI resolved field order");
+    }
+
     const PacketSchema* effectSchema = FindPacket(packets, "zzd");
     failures += Expect(effectSchema != nullptr, "zzd schema exists");
     if (effectSchema != nullptr) {

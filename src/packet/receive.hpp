@@ -946,6 +946,108 @@ namespace cg::packet::receive
     };
 
     /**
+     * SEND_ProcGet 进程状态		cJzI {data:es}
+     * data 为 outputNetProcLog 的 opaque 多行状态文本；不拆二级 payload。
+     */
+    struct ProcessStatus
+    {
+        static constexpr std::string_view Code = "cJzI";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+
+        std::string data;
+
+        explicit ProcessStatus(std::string data)
+            : data(std::move(data))
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ServerC);
+            packet.fields.push_back(PacketField {
+                "data",
+                PacketFieldType::EscapedString,
+                data,
+                PacketSourceTag::ServerC,
+            });
+            return packet;
+        }
+
+        static PacketResult<ProcessStatus> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view);
+            if (!parsed.HasValue()) {
+                return PacketResult<ProcessStatus>::Failure(parsed.Error());
+            }
+
+            return FromPacket(parsed.Value());
+        }
+
+        static PacketResult<ProcessStatus> FromPacket(const Packet& packet)
+        {
+            if (packet.code.View() != Code) {
+                PacketError error = MakePacketError(
+                    PacketErrorCode::InvalidCode,
+                    "ProcessStatus Parse 收到非 cJzI 封包");
+                error.packetCode = packet.code;
+                return PacketResult<ProcessStatus>::Failure(std::move(error));
+            }
+
+            if (packet.direction != Direction) {
+                return PacketResult<ProcessStatus>::Failure(MakePacketError(
+                    PacketErrorCode::DecodeFailed,
+                    "ProcessStatus Parse 封包方向不匹配"));
+            }
+
+            if (packet.fields.size() != FieldCount) {
+                return PacketResult<ProcessStatus>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "ProcessStatus Parse 字段数量不匹配",
+                    packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
+            }
+
+            const PacketField& dataField = packet.fields[DataFieldIndex];
+            if (dataField.name != "data") {
+                return PacketResult<ProcessStatus>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "ProcessStatus Parse data 字段名不匹配",
+                    DataFieldIndex));
+            }
+
+            if (dataField.type != PacketFieldType::EscapedString) {
+                return PacketResult<ProcessStatus>::Failure(MakeFieldError(
+                    PacketErrorCode::InvalidFieldType,
+                    "ProcessStatus Parse data 字段类型不匹配",
+                    DataFieldIndex));
+            }
+
+            return PacketResult<ProcessStatus>::Success(ProcessStatus(dataField.value));
+        }
+
+    private:
+        static constexpr std::size_t FieldCount = 1U;
+        static constexpr std::size_t DataFieldIndex = 0U;
+
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            error.source = PacketSourceTag::ServerC;
+            return error;
+        }
+
+        [[nodiscard]] static PacketError MakeFieldError(
+            PacketErrorCode code,
+            std::string message,
+            std::size_t fieldIndex)
+        {
+            PacketError error = MakePacketError(code, std::move(message));
+            error.fieldIndex = fieldIndex;
+            return error;
+        }
+    };
+
+    /**
      * SEND_PRV 简介版本内容		HNP {data:es}
      * data: profileVersion|aboutVersion|mailCharge|seekPos，均为十进制 int，不使用 i62。
      */

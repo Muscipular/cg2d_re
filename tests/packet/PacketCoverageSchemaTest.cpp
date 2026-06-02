@@ -722,6 +722,30 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         }
     }
 
+    const PacketSchema* tradeItemInfoSchema = FindPacket(packets, "nUbJ");
+    failures += Expect(tradeItemInfoSchema != nullptr, "nUbJ schema exists");
+    if (tradeItemInfoSchema != nullptr) {
+        const cg::packet::receive::TradeItemInfo tradeItemInfo({{0, "Potion"}});
+        const cg::packet::PacketResult<cg::packet::Packet> packet = tradeItemInfo.ToPacket();
+        failures += Expect(tradeItemInfoSchema->direction == "服务端->客户端", "nUbJ direction");
+        failures += Expect(tradeItemInfoSchema->legacyKind == "SEND", "nUbJ legacyKind");
+        failures += Expect(tradeItemInfoSchema->rawFormat.empty(), "nUbJ rawFormat empty");
+        failures += Expect(tradeItemInfoSchema->formatEmpty, "nUbJ formatEmpty");
+        failures += Expect(tradeItemInfoSchema->resolvedFormat == "{data:es}", "nUbJ resolvedFormat");
+        failures += Expect(tradeItemInfoSchema->resolvedSource == "ServerC+src/packet", "nUbJ resolvedSource");
+        failures += Expect(tradeItemInfoSchema->fields.empty(), "nUbJ raw fields empty");
+        failures += Expect(packet.HasValue(), "nUbJ packet build");
+        if (packet.HasValue()) {
+            failures += Expect(packet.Value().fields.size() == 1U, "nUbJ packet field count");
+            if (packet.Value().fields.size() == 1U) {
+                failures += Expect(packet.Value().fields[0].name == "data", "nUbJ packet data field");
+                failures += Expect(
+                    packet.Value().fields[0].type == cg::packet::PacketFieldType::EscapedString,
+                    "nUbJ packet data type");
+            }
+        }
+    }
+
     const PacketSchema* profileMailMessageSchema = FindPacket(packets, "Mhbt");
     failures += Expect(profileMailMessageSchema != nullptr, "Mhbt schema exists");
     if (profileMailMessageSchema != nullptr) {

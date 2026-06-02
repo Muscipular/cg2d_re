@@ -1457,12 +1457,14 @@ namespace cg::packet::send
         static constexpr std::string_view PayloadDelimiter = "|";
 
     private:
+#if CG_PACKET_ENABLE_TEST_HELPERS
         struct ProfileMiniMailPayload
         {
             int profileIndex = 0;
             std::string name;
             std::string message;
         };
+#endif
 
     public:
         int profileIndex = 0;
@@ -1530,6 +1532,7 @@ namespace cg::packet::send
             return BuildPacket(packet.Value(), Spec);
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         static PacketResult<ProfileMiniMailSend> Parse(std::string_view view)
         {
             PacketResult<Packet> parsed = ParsePacket(view, Spec);
@@ -1607,6 +1610,7 @@ namespace cg::packet::send
                 std::move(payload.Value().message),
                 colorValue.Value()));
         }
+#endif
 
     private:
         static constexpr std::size_t FieldCount = 2U;
@@ -1635,6 +1639,7 @@ namespace cg::packet::send
             return error;
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] static PacketResult<ProfileMiniMailPayload> ParseData(std::string_view payload)
         {
             if (payload.empty()) {
@@ -1740,6 +1745,7 @@ namespace cg::packet::send
 
             return PacketResult<std::string>::Success(std::string(text));
         }
+#endif
 
         [[nodiscard]] static PacketResult<std::string> ValidateBuildStringField(
             std::string_view text,
@@ -1776,6 +1782,7 @@ namespace cg::packet::send
             return PacketResult<std::string>::Success(std::string(text));
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] static PacketResult<int> ParseDecimalField(std::string_view text, std::size_t fieldIndex)
         {
             bool negative = false;
@@ -1823,6 +1830,7 @@ namespace cg::packet::send
 
             return PacketResult<int>::Success(static_cast<int>(value));
         }
+#endif
     };
 
     /**
@@ -1992,6 +2000,7 @@ namespace cg::packet::send
             return BuildPacket(packet.Value(), Spec);
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         static PacketResult<StallStart> Parse(std::string_view view)
         {
             PacketResult<Packet> parsed = ParsePacket(view, Spec);
@@ -2076,6 +2085,7 @@ namespace cg::packet::send
                 packet.fields[StallDescriptionFieldIndex].value,
                 std::move(parsedPrices.Value())));
         }
+#endif
 
     private:
         static constexpr std::size_t FieldCount = 3U;
@@ -2102,6 +2112,7 @@ namespace cg::packet::send
             return error;
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] static PacketResult<std::array<int, PriceCount>> ParseStallList(std::string_view payload)
         {
             if (payload.empty()) {
@@ -2150,6 +2161,7 @@ namespace cg::packet::send
 
             return PacketResult<std::array<int, PriceCount>>::Success(std::move(parsedPrices));
         }
+#endif
 
         [[nodiscard]] static PacketResult<std::string> ValidateRawDecimalPrice(
             int price,
@@ -2167,6 +2179,7 @@ namespace cg::packet::send
             return PacketResult<std::string>::Success(std::to_string(price));
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] static PacketResult<int> ParseRawDecimalPrice(
             std::string_view text,
             std::size_t fieldIndex,
@@ -2202,6 +2215,7 @@ namespace cg::packet::send
 
             return PacketResult<int>::Success(value);
         }
+#endif
     };
 }
 

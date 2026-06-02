@@ -2152,6 +2152,8 @@
       "xlsxStatus": "进行中",
       "description": "SEND_GM guildmember",
       "rawFormat": "{data}",
+      "resolvedFormat": "{data:es}",
+      "resolvedSource": "xlsx+src/packet",
       "formatEmpty": false,
       "source": "xlsx",
       "fields": [

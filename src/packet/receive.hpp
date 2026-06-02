@@ -13350,6 +13350,298 @@ namespace cg::packet::receive
         }
     };
 
+    struct GuildMemberRecord
+    {
+        int flag = 0;
+        int registSeqNumber = 0;
+        std::string nameTitleRaw;
+        int registSeqNumber2 = 0;
+        int level = 0;
+        int online = 0;
+        int graphicsNo = 0;
+        int toGuildTitleId = 0;
+    };
+
+    /**
+     * SEND_GM guildmember		yuD {data:es}
+     * data: flag|registSeqNumber|nameTitleRaw|registSeqNumber2|level|online|graphicsNo|toGuildTitleID x N。
+     */
+    struct GuildMember
+    {
+        static constexpr std::string_view Code = "yuD";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::string_view PayloadDelimiter = "|";
+        static constexpr std::size_t RecordFieldCount = 8U;
+
+        std::vector<GuildMemberRecord> records;
+
+        GuildMember() = default;
+
+        explicit GuildMember(std::vector<GuildMemberRecord> records)
+            : records(std::move(records))
+        {
+        }
+
+        [[nodiscard]] PacketResult<std::string> BuildData() const
+        {
+            std::vector<std::string> parts;
+            parts.reserve(records.size() * RecordFieldCount);
+            for (const GuildMemberRecord& record : records) {
+                if (record.flag <= 0) {
+                    return PacketResult<std::string>::Failure(MakeFieldError(
+                        PacketErrorCode::EncodeFailed,
+                        "GuildMember BuildData flag 必须大于 0",
+                        parts.size()));
+                }
+
+                parts.push_back(std::to_string(record.flag));
+                parts.push_back(std::to_string(record.registSeqNumber));
+                parts.push_back(record.nameTitleRaw);
+                parts.push_back(std::to_string(record.registSeqNumber2));
+                parts.push_back(std::to_string(record.level));
+                parts.push_back(std::to_string(record.online));
+                parts.push_back(std::to_string(record.graphicsNo));
+                parts.push_back(std::to_string(record.toGuildTitleId));
+            }
+
+            return BuildPayload(std::span<const std::string>(parts.data(), parts.size()), PayloadDelimiter);
+        }
+
+        [[nodiscard]] PacketResult<Packet> ToPacket() const
+        {
+            PacketResult<std::string> data = BuildData();
+            if (!data.HasValue()) {
+                return PacketResult<Packet>::Failure(data.Error());
+            }
+
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            packet.fields.push_back(PacketField {
+                "data",
+                PacketFieldType::EscapedString,
+                data.Value(),
+                PacketSourceTag::Xlsx,
+            });
+            return PacketResult<Packet>::Success(std::move(packet));
+        }
+
+        static PacketResult<GuildMember> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view);
+            if (!parsed.HasValue()) {
+                return PacketResult<GuildMember>::Failure(parsed.Error());
+            }
+
+            const Packet& packet = parsed.Value();
+            if (packet.code.View() != Code) {
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "GuildMember Parse 收到非 yuD 封包");
+                error.packetCode = packet.code;
+                return PacketResult<GuildMember>::Failure(std::move(error));
+            }
+
+            if (packet.direction != Direction) {
+                return PacketResult<GuildMember>::Failure(MakePacketError(
+                    PacketErrorCode::DecodeFailed,
+                    "GuildMember Parse 封包方向不匹配"));
+            }
+
+            if (packet.fields.size() != FieldCount) {
+                return PacketResult<GuildMember>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "GuildMember Parse 字段数量不匹配",
+                    packet.fields.empty() ? 0U : FieldCount));
+            }
+
+            const PacketField& field = packet.fields[DataFieldIndex];
+            if (field.name != "data") {
+                return PacketResult<GuildMember>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "GuildMember Parse 字段名不匹配",
+                    DataFieldIndex));
+            }
+
+            if (field.type != PacketFieldType::EscapedString) {
+                return PacketResult<GuildMember>::Failure(MakeFieldError(
+                    PacketErrorCode::InvalidFieldType,
+                    "GuildMember Parse 字段类型不匹配",
+                    DataFieldIndex));
+            }
+
+            return ParseData(field.value);
+        }
+
+    private:
+        static constexpr std::size_t FieldCount = 1U;
+        static constexpr std::size_t DataFieldIndex = 0U;
+        static constexpr std::size_t FlagPayloadIndex = 0U;
+        static constexpr std::size_t RegistSeqNumberPayloadIndex = 1U;
+        static constexpr std::size_t NameTitlePayloadIndex = 2U;
+        static constexpr std::size_t RegistSeqNumber2PayloadIndex = 3U;
+        static constexpr std::size_t LevelPayloadIndex = 4U;
+        static constexpr std::size_t OnlinePayloadIndex = 5U;
+        static constexpr std::size_t GraphicsNoPayloadIndex = 6U;
+        static constexpr std::size_t ToGuildTitleIdPayloadIndex = 7U;
+
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            error.source = PacketSourceTag::Xlsx;
+            return error;
+        }
+
+        [[nodiscard]] static PacketError MakeFieldError(
+            PacketErrorCode code,
+            std::string message,
+            std::size_t fieldIndex)
+        {
+            PacketError error = MakePacketError(code, std::move(message));
+            error.fieldIndex = fieldIndex;
+            return error;
+        }
+
+        [[nodiscard]] static PacketResult<GuildMember> ParseData(std::string_view payload)
+        {
+            if (payload.empty()) {
+                return PacketResult<GuildMember>::Success(GuildMember());
+            }
+
+            PacketResult<std::vector<std::string>> split = SplitPayloadLegacyAware(payload, PayloadDelimiter);
+            if (!split.HasValue()) {
+                PacketError error = split.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = DataFieldIndex;
+                error.source = PacketSourceTag::Xlsx;
+                return PacketResult<GuildMember>::Failure(std::move(error));
+            }
+
+            std::vector<std::string> parts = std::move(split.Value());
+            if ((parts.size() % RecordFieldCount) == 1U && !parts.empty() && parts.back().empty()) {
+                parts.pop_back();
+            }
+
+            if ((parts.size() % RecordFieldCount) != 0U) {
+                return PacketResult<GuildMember>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "GuildMember payload 段数量不匹配",
+                    DataFieldIndex));
+            }
+
+            std::vector<GuildMemberRecord> records;
+            records.reserve(parts.size() / RecordFieldCount);
+            for (std::size_t index = 0; index < parts.size(); index += RecordFieldCount) {
+                PacketResult<int> flag = ParseDecimalField(parts[index + FlagPayloadIndex], index + FlagPayloadIndex);
+                if (!flag.HasValue()) {
+                    return PacketResult<GuildMember>::Failure(flag.Error());
+                }
+                if (flag.Value() <= 0) {
+                    return PacketResult<GuildMember>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "GuildMember payload flag 必须大于 0",
+                        index + FlagPayloadIndex));
+                }
+
+                PacketResult<int> registSeqNumber = ParseDecimalField(
+                    parts[index + RegistSeqNumberPayloadIndex],
+                    index + RegistSeqNumberPayloadIndex);
+                if (!registSeqNumber.HasValue()) {
+                    return PacketResult<GuildMember>::Failure(registSeqNumber.Error());
+                }
+
+                PacketResult<int> registSeqNumber2 = ParseDecimalField(
+                    parts[index + RegistSeqNumber2PayloadIndex],
+                    index + RegistSeqNumber2PayloadIndex);
+                if (!registSeqNumber2.HasValue()) {
+                    return PacketResult<GuildMember>::Failure(registSeqNumber2.Error());
+                }
+
+                PacketResult<int> level = ParseDecimalField(parts[index + LevelPayloadIndex], index + LevelPayloadIndex);
+                if (!level.HasValue()) {
+                    return PacketResult<GuildMember>::Failure(level.Error());
+                }
+
+                PacketResult<int> online = ParseDecimalField(parts[index + OnlinePayloadIndex], index + OnlinePayloadIndex);
+                if (!online.HasValue()) {
+                    return PacketResult<GuildMember>::Failure(online.Error());
+                }
+
+                PacketResult<int> graphicsNo = ParseDecimalField(
+                    parts[index + GraphicsNoPayloadIndex],
+                    index + GraphicsNoPayloadIndex);
+                if (!graphicsNo.HasValue()) {
+                    return PacketResult<GuildMember>::Failure(graphicsNo.Error());
+                }
+
+                PacketResult<int> toGuildTitleId = ParseDecimalField(
+                    parts[index + ToGuildTitleIdPayloadIndex],
+                    index + ToGuildTitleIdPayloadIndex);
+                if (!toGuildTitleId.HasValue()) {
+                    return PacketResult<GuildMember>::Failure(toGuildTitleId.Error());
+                }
+
+                records.push_back(GuildMemberRecord {
+                    flag.Value(),
+                    registSeqNumber.Value(),
+                    std::move(parts[index + NameTitlePayloadIndex]),
+                    registSeqNumber2.Value(),
+                    level.Value(),
+                    online.Value(),
+                    graphicsNo.Value(),
+                    toGuildTitleId.Value(),
+                });
+            }
+
+            return PacketResult<GuildMember>::Success(GuildMember(std::move(records)));
+        }
+
+        [[nodiscard]] static PacketResult<int> ParseDecimalField(std::string_view text, std::size_t fieldIndex)
+        {
+            bool negative = false;
+            std::size_t index = 0;
+            if (!text.empty() && text.front() == '-') {
+                negative = true;
+                index = 1U;
+            }
+
+            if (index == text.size()) {
+                return PacketResult<int>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "GuildMember payload 十进制字段为空",
+                    fieldIndex));
+            }
+
+            const std::int64_t maxValue = static_cast<std::int64_t>(std::numeric_limits<int>::max());
+            const std::int64_t minValue = static_cast<std::int64_t>(std::numeric_limits<int>::min());
+            const std::int64_t limit = negative ? (0 - minValue) : maxValue;
+            std::int64_t value = 0;
+
+            for (; index < text.size(); ++index) {
+                const char ch = text[index];
+                if (ch < '0' || ch > '9') {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "GuildMember payload 十进制字段包含非法字符",
+                        fieldIndex));
+                }
+
+                const int digit = ch - '0';
+                if (value > (limit - digit) / 10) {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "GuildMember payload 十进制字段超出 int 范围",
+                        fieldIndex));
+                }
+
+                value = (value * 10) + digit;
+            }
+
+            if (negative) {
+                value = -value;
+            }
+
+            return PacketResult<int>::Success(static_cast<int>(value));
+        }
+    };
+
     struct AddressBookGuildInfoRecord
     {
         std::string guildNameRaw;

@@ -299,10 +299,10 @@ int TestBuildErrors()
         "uSr field name mismatch");
 
     cg::packet::Packet wrongType = cg::packet::send::ChatMessageSend(1, 2, "P|hello", 4, 5, 16).ToPacket();
-    wrongType.fields[2].type = cg::packet::PacketFieldType::RawString;
+    wrongType.fields[2].type = cg::packet::PacketFieldType::Payload;
     failures += ExpectError(
         BuildPacket(wrongType),
-        cg::packet::PacketErrorCode::EncodeFailed,
+        cg::packet::PacketErrorCode::InvalidFieldType,
         "uSr",
         true,
         2U,

@@ -288,7 +288,7 @@ int TestManualPacketErrors()
         CharacterDeleteResult::FromPacket(PacketOf(
             cg::packet::PacketDirection::ServerToClient,
             {Field("result", cg::packet::PacketFieldType::EscapedString, "successful"),
-             Field("data", cg::packet::PacketFieldType::RawString, "")})),
+             Field("data", cg::packet::PacketFieldType::Payload, "")})),
         cg::packet::PacketErrorCode::InvalidFieldType,
         "oy",
         "oy wrong data field type");
@@ -307,10 +307,10 @@ int TestBuildErrors()
         "oy build wrong field name");
 
     cg::packet::Packet wrongType = CharacterDeleteResult("successful", "").ToPacket();
-    wrongType.fields[1].type = cg::packet::PacketFieldType::RawString;
+    wrongType.fields[1].type = cg::packet::PacketFieldType::Payload;
     failures += ExpectError(
         BuildPacket(wrongType),
-        cg::packet::PacketErrorCode::EncodeFailed,
+        cg::packet::PacketErrorCode::InvalidFieldType,
         "oy",
         "oy build wrong field type");
     return failures;

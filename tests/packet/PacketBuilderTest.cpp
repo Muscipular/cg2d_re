@@ -331,7 +331,7 @@ int TestErrors()
         cg::packet::BuildPacket(PacketOf(
             "Gp",
             cg::packet::PacketDirection::ClientToServer,
-            {Field("extra", cg::packet::PacketFieldType::RawString, "x")}),
+            {Field("extra", cg::packet::PacketFieldType::Payload, "x")}),
             cg::packet::send::CharacterListRequest::Spec),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "Gp",
@@ -358,12 +358,12 @@ int TestErrors()
             "JFVf",
             cg::packet::PacketDirection::ClientToServer,
             {
-                Field("clientHash", cg::packet::PacketFieldType::RawString, "hash"),
+                Field("clientHash", cg::packet::PacketFieldType::Payload, "hash"),
                 Field("password", cg::packet::PacketFieldType::EscapedString, "pass"),
                 Field("account", cg::packet::PacketFieldType::EscapedString, "account"),
             }),
             cg::packet::send::ClientLogin::Spec),
-        cg::packet::PacketErrorCode::EncodeFailed,
+        cg::packet::PacketErrorCode::InvalidFieldType,
         "JFVf",
         true,
         0U,

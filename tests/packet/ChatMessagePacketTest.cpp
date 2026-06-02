@@ -400,11 +400,11 @@ int TestBuildErrors()
             cg::packet::PacketDirection::ServerToClient,
             {
                 Field("objectIndex", cg::packet::PacketFieldType::Int62, "-1"),
-                Field("message", cg::packet::PacketFieldType::RawString, "P|hello"),
+                Field("message", cg::packet::PacketFieldType::Payload, "P|hello"),
                 Field("color", cg::packet::PacketFieldType::Int62, "4"),
                 Field("fontSize", cg::packet::PacketFieldType::Int62, "16"),
             })),
-        cg::packet::PacketErrorCode::EncodeFailed,
+        cg::packet::PacketErrorCode::InvalidFieldType,
         "zdr",
         true,
         1U,

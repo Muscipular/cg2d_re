@@ -333,10 +333,10 @@ int TestBuildErrors()
         "uId wrong field name");
 
     cg::packet::Packet wrongType = GuildMailSend(10, "text", 6).ToPacket();
-    wrongType.fields[1].type = cg::packet::PacketFieldType::RawString;
+    wrongType.fields[1].type = cg::packet::PacketFieldType::Payload;
     failures += ExpectError(
         BuildPacket(wrongType),
-        cg::packet::PacketErrorCode::EncodeFailed,
+        cg::packet::PacketErrorCode::InvalidFieldType,
         "uId",
         true,
         1U,

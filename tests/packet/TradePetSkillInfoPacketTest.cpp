@@ -329,7 +329,7 @@ int TestOuterErrors()
             cg::packet::PacketDirection::ServerToClient,
             {
                 Field("petIndex", cg::packet::PacketFieldType::Int62, "2"),
-                Field("data", cg::packet::PacketFieldType::RawString, "A|"),
+                Field("data", cg::packet::PacketFieldType::Payload, "A|"),
             })),
         cg::packet::PacketErrorCode::InvalidFieldType,
         "Yq",

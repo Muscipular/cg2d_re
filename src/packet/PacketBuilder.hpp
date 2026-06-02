@@ -181,9 +181,6 @@ namespace cg::packet
                 tokens.push_back(encoded.Value());
                 break;
             }
-            case PacketFieldType::RawString:
-                tokens.push_back(field.value);
-                break;
             case PacketFieldType::Payload:
             case PacketFieldType::Unknown: {
                 PacketError error = detail::MakeBuilderError(

@@ -267,7 +267,7 @@ int TestPacketErrors()
     failures += ExpectError(
         TradePlayerList::FromPacket(PacketOf(
             cg::packet::PacketDirection::ServerToClient,
-            {Field("data", cg::packet::PacketFieldType::RawString, "Alice|")})),
+            {Field("data", cg::packet::PacketFieldType::Payload, "Alice|")})),
         cg::packet::PacketErrorCode::InvalidFieldType,
         "Cxo",
         "Cxo wrong field type");

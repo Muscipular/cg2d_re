@@ -324,10 +324,10 @@ int TestBuildErrors()
         "aiAb wrong field name");
 
     cg::packet::Packet wrongType = TradeTakeOut("8|12", "0|2", 10).ToPacket();
-    wrongType.fields[0].type = cg::packet::PacketFieldType::RawString;
+    wrongType.fields[0].type = cg::packet::PacketFieldType::Payload;
     failures += ExpectError(
         BuildPacket(wrongType),
-        cg::packet::PacketErrorCode::EncodeFailed,
+        cg::packet::PacketErrorCode::InvalidFieldType,
         "aiAb",
         true,
         0U,

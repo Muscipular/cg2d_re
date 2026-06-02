@@ -441,7 +441,7 @@ int TestOuterErrors()
             cg::packet::PacketDirection::ServerToClient,
             {
                 Field("petPlace", cg::packet::PacketFieldType::Int62, "2"),
-                Field("data", cg::packet::PacketFieldType::RawString, payload),
+                Field("data", cg::packet::PacketFieldType::Payload, payload),
             })),
         cg::packet::PacketErrorCode::InvalidFieldType,
         "RwK",

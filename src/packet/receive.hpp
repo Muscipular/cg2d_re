@@ -5986,17 +5986,17 @@ namespace cg::packet::receive
                 return PacketResult<ItemInfoSlot>::Failure(count.Error());
             }
 
-            PacketResult<std::string> nameRaw = ValidateRawStringField(parts[baseIndex], baseIndex);
+            PacketResult<std::string> nameRaw = ValidatePayloadTextField(parts[baseIndex], baseIndex);
             if (!nameRaw.HasValue()) {
                 return PacketResult<ItemInfoSlot>::Failure(nameRaw.Error());
             }
 
-            PacketResult<std::string> descriptionRaw = ValidateRawStringField(parts[baseIndex + 2U], baseIndex + 2U);
+            PacketResult<std::string> descriptionRaw = ValidatePayloadTextField(parts[baseIndex + 2U], baseIndex + 2U);
             if (!descriptionRaw.HasValue()) {
                 return PacketResult<ItemInfoSlot>::Failure(descriptionRaw.Error());
             }
 
-            PacketResult<std::string> memoRaw = ValidateRawStringField(parts[baseIndex + 12U], baseIndex + 12U);
+            PacketResult<std::string> memoRaw = ValidatePayloadTextField(parts[baseIndex + 12U], baseIndex + 12U);
             if (!memoRaw.HasValue()) {
                 return PacketResult<ItemInfoSlot>::Failure(memoRaw.Error());
             }
@@ -6019,7 +6019,7 @@ namespace cg::packet::receive
             });
         }
 
-        [[nodiscard]] static PacketResult<std::string> ValidateRawStringField(
+        [[nodiscard]] static PacketResult<std::string> ValidatePayloadTextField(
             std::string_view text,
             std::size_t fieldIndex)
         {
@@ -6362,12 +6362,12 @@ namespace cg::packet::receive
                 return PacketResult<ItemRecipeRecord>::Failure(recipeItemId.Error());
             }
 
-            PacketResult<std::string> itemNameRaw = ValidateRawStringField(parts[baseIndex + 3U], baseIndex + 3U);
+            PacketResult<std::string> itemNameRaw = ValidatePayloadTextField(parts[baseIndex + 3U], baseIndex + 3U);
             if (!itemNameRaw.HasValue()) {
                 return PacketResult<ItemRecipeRecord>::Failure(itemNameRaw.Error());
             }
 
-            PacketResult<std::string> itemInfoRaw = ValidateRawStringField(parts[baseIndex + 4U], baseIndex + 4U);
+            PacketResult<std::string> itemInfoRaw = ValidatePayloadTextField(parts[baseIndex + 4U], baseIndex + 4U);
             if (!itemInfoRaw.HasValue()) {
                 return PacketResult<ItemRecipeRecord>::Failure(itemInfoRaw.Error());
             }
@@ -6418,7 +6418,7 @@ namespace cg::packet::receive
                 return PacketResult<ItemRecipeMaterial>::Failure(itemId.Error());
             }
 
-            PacketResult<std::string> nameRaw = ValidateRawStringField(parts[baseIndex + 1U], baseIndex + 1U);
+            PacketResult<std::string> nameRaw = ValidatePayloadTextField(parts[baseIndex + 1U], baseIndex + 1U);
             if (!nameRaw.HasValue()) {
                 return PacketResult<ItemRecipeMaterial>::Failure(nameRaw.Error());
             }
@@ -6435,7 +6435,7 @@ namespace cg::packet::receive
             });
         }
 
-        [[nodiscard]] static PacketResult<std::string> ValidateRawStringField(
+        [[nodiscard]] static PacketResult<std::string> ValidatePayloadTextField(
             std::string_view text,
             std::size_t fieldIndex)
         {
@@ -16248,7 +16248,7 @@ namespace cg::packet::receive
                 return PacketResult<TradeItemInfoRecord>::Failure(tradeWindowIndex.Error());
             }
 
-            PacketResult<std::string> nameRaw = ValidateRawStringField(parts[baseIndex + 1U], baseIndex + 1U);
+            PacketResult<std::string> nameRaw = ValidatePayloadTextField(parts[baseIndex + 1U], baseIndex + 1U);
             if (!nameRaw.HasValue()) {
                 return PacketResult<TradeItemInfoRecord>::Failure(nameRaw.Error());
             }
@@ -16259,7 +16259,7 @@ namespace cg::packet::receive
             }
 
             PacketResult<std::string> descriptionRaw =
-                ValidateRawStringField(parts[baseIndex + 3U], baseIndex + 3U);
+                ValidatePayloadTextField(parts[baseIndex + 3U], baseIndex + 3U);
             if (!descriptionRaw.HasValue()) {
                 return PacketResult<TradeItemInfoRecord>::Failure(descriptionRaw.Error());
             }
@@ -16309,7 +16309,7 @@ namespace cg::packet::receive
                 return PacketResult<TradeItemInfoRecord>::Failure(count.Error());
             }
 
-            PacketResult<std::string> memoRaw = ValidateRawStringField(parts[baseIndex + 13U], baseIndex + 13U);
+            PacketResult<std::string> memoRaw = ValidatePayloadTextField(parts[baseIndex + 13U], baseIndex + 13U);
             if (!memoRaw.HasValue()) {
                 return PacketResult<TradeItemInfoRecord>::Failure(memoRaw.Error());
             }
@@ -16332,7 +16332,7 @@ namespace cg::packet::receive
             });
         }
 
-        [[nodiscard]] static PacketResult<std::string> ValidateRawStringField(
+        [[nodiscard]] static PacketResult<std::string> ValidatePayloadTextField(
             std::string_view text,
             std::size_t fieldIndex)
         {
@@ -16482,14 +16482,14 @@ namespace cg::packet::receive
 
         [[nodiscard]] PacketResult<std::string> BuildData() const
         {
-            PacketResult<std::string> freeNameRaw = ValidateRawStringField(
+            PacketResult<std::string> freeNameRaw = ValidatePayloadTextField(
                 data.freeNameRaw,
                 FreeNameFieldIndex);
             if (!freeNameRaw.HasValue()) {
                 return PacketResult<std::string>::Failure(freeNameRaw.Error());
             }
 
-            PacketResult<std::string> nameRaw = ValidateRawStringField(data.nameRaw, NameFieldIndex);
+            PacketResult<std::string> nameRaw = ValidatePayloadTextField(data.nameRaw, NameFieldIndex);
             if (!nameRaw.HasValue()) {
                 return PacketResult<std::string>::Failure(nameRaw.Error());
             }
@@ -16676,14 +16676,14 @@ namespace cg::packet::receive
                     DataFieldIndex));
             }
 
-            PacketResult<std::string> freeNameRaw = ValidateRawStringField(
+            PacketResult<std::string> freeNameRaw = ValidatePayloadTextField(
                 parts[FreeNameFieldIndex],
                 FreeNameFieldIndex);
             if (!freeNameRaw.HasValue()) {
                 return PacketResult<TradePetInfoData>::Failure(freeNameRaw.Error());
             }
 
-            PacketResult<std::string> nameRaw = ValidateRawStringField(parts[NameFieldIndex], NameFieldIndex);
+            PacketResult<std::string> nameRaw = ValidatePayloadTextField(parts[NameFieldIndex], NameFieldIndex);
             if (!nameRaw.HasValue()) {
                 return PacketResult<TradePetInfoData>::Failure(nameRaw.Error());
             }
@@ -16747,7 +16747,7 @@ namespace cg::packet::receive
             });
         }
 
-        [[nodiscard]] static PacketResult<std::string> ValidateRawStringField(
+        [[nodiscard]] static PacketResult<std::string> ValidatePayloadTextField(
             std::string_view text,
             std::size_t fieldIndex)
         {
@@ -16867,7 +16867,7 @@ namespace cg::packet::receive
 
             std::string payload;
             for (std::size_t index = 0; index < skillNameRaws.size(); ++index) {
-                PacketResult<std::string> skillNameRaw = ValidateRawStringField(skillNameRaws[index], index);
+                PacketResult<std::string> skillNameRaw = ValidatePayloadTextField(skillNameRaws[index], index);
                 if (!skillNameRaw.HasValue()) {
                     return PacketResult<std::string>::Failure(skillNameRaw.Error());
                 }
@@ -17028,7 +17028,7 @@ namespace cg::packet::receive
             }
 
             for (std::size_t index = 0; index < skillNameRaws.size(); ++index) {
-                PacketResult<std::string> skillNameRaw = ValidateRawStringField(skillNameRaws[index], index);
+                PacketResult<std::string> skillNameRaw = ValidatePayloadTextField(skillNameRaws[index], index);
                 if (!skillNameRaw.HasValue()) {
                     return PacketResult<std::vector<std::string>>::Failure(skillNameRaw.Error());
                 }
@@ -17037,7 +17037,7 @@ namespace cg::packet::receive
             return PacketResult<std::vector<std::string>>::Success(std::move(skillNameRaws));
         }
 
-        [[nodiscard]] static PacketResult<std::string> ValidateRawStringField(
+        [[nodiscard]] static PacketResult<std::string> ValidatePayloadTextField(
             std::string_view text,
             std::size_t fieldIndex)
         {

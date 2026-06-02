@@ -305,8 +305,8 @@ int TestErrors()
     failures += ExpectError(
         BuildPacket(PacketOf(
             cg::packet::PacketDirection::ServerToClient,
-            {Field("data", cg::packet::PacketFieldType::RawString, "Guild|Leader")})),
-        cg::packet::PacketErrorCode::EncodeFailed,
+            {Field("data", cg::packet::PacketFieldType::Payload, "Guild|Leader")})),
+        cg::packet::PacketErrorCode::InvalidFieldType,
         "PhdQ",
         "PhdQ manual field type mismatch");
     return failures;

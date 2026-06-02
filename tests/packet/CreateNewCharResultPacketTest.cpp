@@ -293,7 +293,7 @@ int TestManualPacketErrors()
             cg::packet::PacketDirection::ServerToClient,
             {Field("result", cg::packet::PacketFieldType::EscapedString, "successful"),
              Field("registnumber", cg::packet::PacketFieldType::Int62, "1"),
-             Field("data", cg::packet::PacketFieldType::RawString, "")})),
+             Field("data", cg::packet::PacketFieldType::Payload, "")})),
         cg::packet::PacketErrorCode::InvalidFieldType,
         "DZ",
         "DZ wrong data field type");

@@ -286,10 +286,10 @@ int TestManualPacketErrors()
         "IcE wrong field name");
 
     cg::packet::Packet wrongType = ShutdownRequest("pass", 10).ToPacket();
-    wrongType.fields[0].type = cg::packet::PacketFieldType::RawString;
+    wrongType.fields[0].type = cg::packet::PacketFieldType::Payload;
     failures += ExpectError(
         BuildPacket(wrongType),
-        cg::packet::PacketErrorCode::EncodeFailed,
+        cg::packet::PacketErrorCode::InvalidFieldType,
         "IcE",
         true,
         0U,

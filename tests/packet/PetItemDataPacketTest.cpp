@@ -443,7 +443,7 @@ int TestErrors()
         "iKe wrong manual field name");
 
     packet = BuildManualPacket(2, JoinParts(BuildItemParts()));
-    packet.fields[1].type = cg::packet::PacketFieldType::RawString;
+    packet.fields[1].type = cg::packet::PacketFieldType::Payload;
     failures += ExpectError(
         cg::packet::receive::PetItemData::FromPacket(packet),
         cg::packet::PacketErrorCode::InvalidFieldType,

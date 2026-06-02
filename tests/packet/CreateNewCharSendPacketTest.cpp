@@ -339,10 +339,10 @@ int TestManualPacketErrors()
         "aSEl wrong field name");
 
     cg::packet::Packet wrongType = CreateNewChar(1, "Alice", 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12).ToPacket();
-    wrongType.fields[1].type = cg::packet::PacketFieldType::RawString;
+    wrongType.fields[1].type = cg::packet::PacketFieldType::Payload;
     failures += ExpectError(
         BuildPacket(wrongType),
-        cg::packet::PacketErrorCode::EncodeFailed,
+        cg::packet::PacketErrorCode::InvalidFieldType,
         "aSEl",
         true,
         1U,

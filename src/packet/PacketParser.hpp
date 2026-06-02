@@ -169,9 +169,6 @@ namespace cg::packet
                     field.value = decoded.Value();
                     break;
                 }
-                case PacketFieldType::RawString:
-                    field.value = token;
-                    break;
                 case PacketFieldType::Payload:
                 case PacketFieldType::Unknown: {
                     PacketError error = MakeParserError(

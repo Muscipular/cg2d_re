@@ -215,10 +215,10 @@ int TestClientLoginResultBuildErrors()
         "ClientLoginResult build wrong field name");
 
     cg::packet::Packet wrongType = cg::packet::receive::ClientLoginResult(9, "busy").ToPacket();
-    wrongType.fields[1].type = cg::packet::PacketFieldType::RawString;
+    wrongType.fields[1].type = cg::packet::PacketFieldType::Payload;
     failures += ExpectError(
         cg::packet::BuildPacket(wrongType, cg::packet::receive::ClientLoginResult::Spec),
-        cg::packet::PacketErrorCode::EncodeFailed,
+        cg::packet::PacketErrorCode::InvalidFieldType,
         "whV",
         true,
         1U,

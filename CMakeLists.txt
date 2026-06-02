@@ -1246,7 +1246,9 @@ add_test(
 get_property(cg_targets DIRECTORY PROPERTY BUILDSYSTEM_TARGETS)
 foreach(cg_target IN LISTS cg_targets)
     if(cg_target MATCHES "^cg-packet-.*-test$")
-        target_compile_definitions(${cg_target} PRIVATE CG_PACKET_ENABLE_DIAGNOSTIC_TEXT=1)
+        target_compile_definitions(${cg_target} PRIVATE
+            CG_PACKET_ENABLE_DIAGNOSTIC_TEXT=1
+            CG_PACKET_ENABLE_TEST_HELPERS=1)
     endif()
 endforeach()
 

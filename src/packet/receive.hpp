@@ -57,6 +57,7 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] Packet ToPacket() const
         {
             Packet packet(PacketCode(Code), Direction);
@@ -72,6 +73,7 @@ namespace cg::packet::receive
             });
             return packet;
         }
+#endif
 
         static PacketResult<ClientLoginResult> Parse(std::string_view view)
         {
@@ -280,6 +282,7 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] PacketResult<std::string> BuildData() const
         {
             std::string payload;
@@ -297,7 +300,9 @@ namespace cg::packet::receive
 
             return PacketResult<std::string>::Success(std::move(payload));
         }
+#endif
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
             std::string dataValue = data;
@@ -322,6 +327,7 @@ namespace cg::packet::receive
             });
             return PacketResult<Packet>::Success(std::move(packet));
         }
+#endif
 
         static PacketResult<CharacterList> Parse(std::string_view view)
         {
@@ -674,6 +680,7 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] Packet ToPacket() const
         {
             Packet packet(PacketCode(Code), Direction);
@@ -694,6 +701,7 @@ namespace cg::packet::receive
             });
             return packet;
         }
+#endif
 
         static PacketResult<CreateNewCharResult> Parse(std::string_view view)
         {
@@ -868,6 +876,7 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] Packet ToPacket() const
         {
             Packet packet(PacketCode(Code), Direction);
@@ -883,6 +892,7 @@ namespace cg::packet::receive
             });
             return packet;
         }
+#endif
 
         static PacketResult<CharacterDeleteResult> Parse(std::string_view view)
         {
@@ -995,6 +1005,7 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] Packet ToPacket() const
         {
             Packet packet(PacketCode(Code), Direction);
@@ -1005,6 +1016,7 @@ namespace cg::packet::receive
             });
             return packet;
         }
+#endif
 
         static PacketResult<ProcessStatus> Parse(std::string_view view)
         {
@@ -1111,6 +1123,7 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] Packet ToPacket() const
         {
             const std::array<std::string, PayloadFieldCount> values = {
@@ -1132,6 +1145,7 @@ namespace cg::packet::receive
             });
             return packet;
         }
+#endif
 
         static PacketResult<ProfileVersion> Parse(std::string_view view)
         {
@@ -1315,6 +1329,7 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] std::string BuildData() const
         {
             PacketResult<std::string> encodedFlags = EncodeInt62(flags);
@@ -1326,7 +1341,9 @@ namespace cg::packet::receive
             }
             return payload;
         }
+#endif
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] Packet ToPacket() const
         {
             Packet packet(PacketCode(Code), Direction);
@@ -1337,6 +1354,7 @@ namespace cg::packet::receive
             });
             return packet;
         }
+#endif
 
         static PacketResult<CharacterProfile> Parse(std::string_view view)
         {
@@ -1483,6 +1501,7 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] std::string BuildData() const
         {
             PacketResult<std::string> encodedFlagMask = EncodeInt62(flagMask);
@@ -1494,7 +1513,9 @@ namespace cg::packet::receive
             }
             return payload;
         }
+#endif
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] Packet ToPacket() const
         {
             Packet packet(PacketCode(Code), Direction);
@@ -1505,6 +1526,7 @@ namespace cg::packet::receive
             });
             return packet;
         }
+#endif
 
         static PacketResult<CharacterProfile2> Parse(std::string_view view)
         {
@@ -1685,6 +1707,7 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] std::string BuildData() const
         {
             std::vector<std::string> values;
@@ -1711,7 +1734,9 @@ namespace cg::packet::receive
 
             return {};
         }
+#endif
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] Packet ToPacket() const
         {
             Packet packet(PacketCode(Code), Direction);
@@ -1722,6 +1747,7 @@ namespace cg::packet::receive
             });
             return packet;
         }
+#endif
 
         static PacketResult<TitleList> Parse(std::string_view view)
         {
@@ -1937,6 +1963,7 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] Packet ToPacket() const
         {
             Packet packet(PacketCode(Code), Direction);
@@ -1947,6 +1974,7 @@ namespace cg::packet::receive
             });
             return packet;
         }
+#endif
 
         static PacketResult<ProfileList> Parse(std::string_view view)
         {
@@ -1998,6 +2026,7 @@ namespace cg::packet::receive
         static constexpr std::size_t DataFieldIndex = 0U;
         static constexpr std::size_t EntryFieldCount = 3U;
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] std::string BuildData() const
         {
             std::vector<std::string> values;
@@ -2018,6 +2047,7 @@ namespace cg::packet::receive
 
             return {};
         }
+#endif
 
         [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
@@ -2179,6 +2209,7 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] Packet ToPacket() const
         {
             Packet packet(PacketCode(Code), Direction);
@@ -2189,6 +2220,7 @@ namespace cg::packet::receive
             });
             return packet;
         }
+#endif
 
         static PacketResult<AboutList> Parse(std::string_view view)
         {
@@ -2240,6 +2272,7 @@ namespace cg::packet::receive
         static constexpr std::size_t DataFieldIndex = 0U;
         static constexpr std::size_t EntryFieldCount = 3U;
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] std::string BuildData() const
         {
             std::vector<std::string> values;
@@ -2260,6 +2293,7 @@ namespace cg::packet::receive
 
             return {};
         }
+#endif
 
         [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
@@ -2450,6 +2484,7 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] Packet ToPacket() const
         {
             Packet packet(PacketCode(Code), Direction);
@@ -2521,6 +2556,7 @@ namespace cg::packet::receive
             });
             return packet;
         }
+#endif
 
         static PacketResult<ProfileData> Parse(std::string_view view)
         {
@@ -2743,6 +2779,7 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] std::string BuildData() const
         {
             std::string payload = std::to_string(profileIndex);
@@ -2750,7 +2787,9 @@ namespace cg::packet::receive
             payload.append(name);
             return payload;
         }
+#endif
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] Packet ToPacket() const
         {
             Packet packet(PacketCode(Code), Direction);
@@ -2761,6 +2800,7 @@ namespace cg::packet::receive
             });
             return packet;
         }
+#endif
 
         static PacketResult<ProfileMailDelete> Parse(std::string_view view)
         {
@@ -2936,6 +2976,7 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] Packet ToPacket() const
         {
             Packet packet(PacketCode(Code), Direction);
@@ -2957,6 +2998,7 @@ namespace cg::packet::receive
             });
             return packet;
         }
+#endif
 
         static PacketResult<ProfileMailReceipt> Parse(std::string_view view)
         {
@@ -3157,6 +3199,7 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] std::string BuildData() const
         {
             const std::array<std::string, PayloadFieldCount> values = {
@@ -3182,7 +3225,9 @@ namespace cg::packet::receive
 
             return {};
         }
+#endif
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] Packet ToPacket() const
         {
             Packet packet(PacketCode(Code), Direction);
@@ -3193,6 +3238,7 @@ namespace cg::packet::receive
             });
             return packet;
         }
+#endif
 
         static PacketResult<ProfileMailArrive> Parse(std::string_view view)
         {
@@ -3428,6 +3474,7 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] std::string BuildData() const
         {
             std::string payload;
@@ -3446,7 +3493,9 @@ namespace cg::packet::receive
             }
             return payload;
         }
+#endif
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] Packet ToPacket() const
         {
             Packet packet(PacketCode(Code), Direction);
@@ -3457,6 +3506,7 @@ namespace cg::packet::receive
             });
             return packet;
         }
+#endif
 
         static PacketResult<PartyParam> Parse(std::string_view view)
         {
@@ -3731,6 +3781,7 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] std::string BuildData() const
         {
             if (kind == PartyMemberStatusKind::EmptyOrRemove) {
@@ -3752,7 +3803,9 @@ namespace cg::packet::receive
             payload.push_back('|');
             return payload;
         }
+#endif
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] Packet ToPacket() const
         {
             Packet packet(PacketCode(Code), Direction);
@@ -3768,6 +3821,7 @@ namespace cg::packet::receive
             });
             return packet;
         }
+#endif
 
         static PacketResult<PartyMemberStatus> Parse(std::string_view view)
         {
@@ -4087,6 +4141,7 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] std::string BuildData() const
         {
             std::string payload;
@@ -4106,7 +4161,9 @@ namespace cg::packet::receive
             }
             return payload;
         }
+#endif
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] Packet ToPacket() const
         {
             Packet packet(PacketCode(Code), Direction);
@@ -4122,6 +4179,7 @@ namespace cg::packet::receive
             });
             return packet;
         }
+#endif
 
         static PacketResult<TechList> Parse(std::string_view view)
         {
@@ -4385,6 +4443,7 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] std::string BuildData() const
         {
             std::string payload;
@@ -4422,7 +4481,9 @@ namespace cg::packet::receive
             }
             return payload;
         }
+#endif
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] Packet ToPacket() const
         {
             Packet packet(PacketCode(Code), Direction);
@@ -4433,6 +4494,7 @@ namespace cg::packet::receive
             });
             return packet;
         }
+#endif
 
         static PacketResult<CharacterSkillData> Parse(std::string_view view)
         {
@@ -4724,6 +4786,7 @@ namespace cg::packet::receive
             static constexpr std::size_t RecordFieldCount = 14U;
             static constexpr std::size_t ClearFieldCount = RecordFieldCount - 1U;
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
             [[nodiscard]] static std::string BuildData(const std::vector<ItemRecord>& records)
             {
                 std::vector<std::string> parts;
@@ -4761,6 +4824,7 @@ namespace cg::packet::receive
 
                 return {};
             }
+#endif
 
             [[nodiscard]] static PacketResult<std::vector<ItemRecord>> ParseRecords(
                 std::string_view payload,
@@ -4996,11 +5060,14 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] std::string BuildData() const
         {
             return Codec::BuildData(records);
         }
+#endif
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] Packet ToPacket() const
         {
             Packet packet(PacketCode(Code), Direction);
@@ -5011,6 +5078,7 @@ namespace cg::packet::receive
             });
             return packet;
         }
+#endif
 
         static PacketResult<ItemData> Parse(std::string_view view)
         {
@@ -5115,11 +5183,14 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] std::string BuildData() const
         {
             return ItemData::Codec::BuildData(records);
         }
+#endif
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] Packet ToPacket() const
         {
             Packet packet(PacketCode(Code), Direction);
@@ -5135,6 +5206,7 @@ namespace cg::packet::receive
             });
             return packet;
         }
+#endif
 
         static PacketResult<PetItemData> Parse(std::string_view view)
         {
@@ -5392,6 +5464,7 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] std::string BuildData() const
         {
             if (!active) {
@@ -5437,7 +5510,9 @@ namespace cg::packet::receive
 
             return {};
         }
+#endif
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] Packet ToPacket() const
         {
             Packet packet(PacketCode(Code), Direction);
@@ -5448,6 +5523,7 @@ namespace cg::packet::receive
             });
             return packet;
         }
+#endif
 
         static PacketResult<EquipSuit> Parse(std::string_view view)
         {
@@ -5752,6 +5828,7 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] std::string BuildData() const
         {
             if (ignored0.empty() && IsAllSlotsEmpty()) {
@@ -5794,7 +5871,9 @@ namespace cg::packet::receive
 
             return {};
         }
+#endif
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] Packet ToPacket() const
         {
             Packet packet(PacketCode(Code), Direction);
@@ -5805,6 +5884,7 @@ namespace cg::packet::receive
             });
             return packet;
         }
+#endif
 
         static PacketResult<ItemInfoList> Parse(std::string_view view)
         {
@@ -6143,6 +6223,7 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] std::string BuildData() const
         {
             std::string payload;
@@ -6172,7 +6253,9 @@ namespace cg::packet::receive
             }
             return payload;
         }
+#endif
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] Packet ToPacket() const
         {
             Packet packet(PacketCode(Code), Direction);
@@ -6188,6 +6271,7 @@ namespace cg::packet::receive
             });
             return packet;
         }
+#endif
 
         static PacketResult<ItemRecipe> Parse(std::string_view view)
         {
@@ -6534,6 +6618,7 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] std::string BuildData() const
         {
             std::string payload;
@@ -6543,7 +6628,9 @@ namespace cg::packet::receive
             }
             return payload;
         }
+#endif
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] Packet ToPacket() const
         {
             Packet packet(PacketCode(Code), Direction);
@@ -6559,6 +6646,7 @@ namespace cg::packet::receive
             });
             return packet;
         }
+#endif
 
         static PacketResult<AlbumFlags> Parse(std::string_view view)
         {
@@ -6826,6 +6914,7 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] Packet ToPacket() const
         {
             Packet packet(PacketCode(Code), Direction);
@@ -6868,6 +6957,7 @@ namespace cg::packet::receive
             });
             return packet;
         }
+#endif
 
         static PacketResult<AlbumInfo> Parse(std::string_view view)
         {
@@ -7062,6 +7152,7 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] Packet ToPacket() const
         {
             Packet packet(PacketCode(Code), Direction);
@@ -7077,6 +7168,7 @@ namespace cg::packet::receive
             });
             return packet;
         }
+#endif
 
         static PacketResult<AlbumName> Parse(std::string_view view)
         {
@@ -7339,6 +7431,7 @@ namespace cg::packet::receive
             return built.HasValue() ? built.Value() : std::string();
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] Packet ToPacket() const
         {
             Packet packet(PacketCode(Code), Direction);
@@ -7385,6 +7478,7 @@ namespace cg::packet::receive
             });
             return packet;
         }
+#endif
 
         static PacketResult<PetMailAnimation> Parse(std::string_view view)
         {
@@ -7747,6 +7841,7 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] std::string BuildData() const
         {
             if (payload.clear) {
@@ -7787,7 +7882,9 @@ namespace cg::packet::receive
             AppendNumberField(data, payload.flags, InjuryFlag, payload.injury);
             return data;
         }
+#endif
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] Packet ToPacket() const
         {
             Packet packet(PacketCode(Code), Direction);
@@ -7803,6 +7900,7 @@ namespace cg::packet::receive
             });
             return packet;
         }
+#endif
 
         static PacketResult<RidePetData> Parse(std::string_view view)
         {
@@ -8286,6 +8384,7 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] std::string BuildData() const
         {
             if (payload.clear) {
@@ -8303,7 +8402,9 @@ namespace cg::packet::receive
             }
             return data;
         }
+#endif
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] Packet ToPacket() const
         {
             Packet packet(PacketCode(Code), Direction);
@@ -8319,6 +8420,7 @@ namespace cg::packet::receive
             });
             return packet;
         }
+#endif
 
         static PacketResult<RidePetExtraData> Parse(std::string_view view)
         {
@@ -8679,6 +8781,7 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] std::string BuildData() const
         {
             std::vector<std::string> parts;
@@ -8720,7 +8823,9 @@ namespace cg::packet::receive
 
             return {};
         }
+#endif
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] Packet ToPacket() const
         {
             Packet packet(PacketCode(Code), Direction);
@@ -8741,6 +8846,7 @@ namespace cg::packet::receive
             });
             return packet;
         }
+#endif
 
         static PacketResult<TechUseResult> Parse(std::string_view view)
         {
@@ -9171,6 +9277,7 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] std::string BuildData() const
         {
             std::string payload;
@@ -9194,7 +9301,9 @@ namespace cg::packet::receive
             }
             return payload;
         }
+#endif
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] Packet ToPacket() const
         {
             Packet packet(PacketCode(Code), Direction);
@@ -9210,6 +9319,7 @@ namespace cg::packet::receive
             });
             return packet;
         }
+#endif
 
         static PacketResult<PetTechData> Parse(std::string_view view)
         {
@@ -9460,6 +9570,7 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] Packet ToPacket() const
         {
             Packet packet(PacketCode(Code), Direction);
@@ -9470,6 +9581,7 @@ namespace cg::packet::receive
             });
             return packet;
         }
+#endif
 
         static PacketResult<ProfileStatus> Parse(std::string_view view)
         {
@@ -9570,15 +9682,19 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] PacketResult<std::string> BuildData() const
         {
             return Codec::BuildData(records, Code, CG_PACKET_DIAGNOSTIC_TEXT("FrontCharList"));
         }
+#endif
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
             return Codec::ToPacket(records, Code, CG_PACKET_DIAGNOSTIC_TEXT("FrontCharList"));
         }
+#endif
 
         static PacketResult<FrontCharList> Parse(std::string_view view)
         {
@@ -9602,6 +9718,7 @@ namespace cg::packet::receive
             static constexpr std::size_t DataFieldIndex = 0U;
             static constexpr std::size_t RecordFieldCount = 2U;
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
             [[nodiscard]] static PacketResult<std::string> BuildData(
                 std::span<const FrontCharRecord> records,
                 std::string_view code,
@@ -9625,7 +9742,9 @@ namespace cg::packet::receive
                 }
                 return PacketResult<std::string>::Success(std::move(payload));
             }
+#endif
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
             [[nodiscard]] static PacketResult<Packet> ToPacket(
                 std::span<const FrontCharRecord> records,
                 std::string_view code,
@@ -9644,6 +9763,7 @@ namespace cg::packet::receive
                 });
                 return PacketResult<Packet>::Success(std::move(packet));
             }
+#endif
 
             [[nodiscard]] static PacketResult<std::vector<FrontCharRecord>> Parse(
                 std::string_view view,
@@ -9861,15 +9981,19 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] PacketResult<std::string> BuildData() const
         {
             return FrontCharList::Codec::BuildData(records, Code, CG_PACKET_DIAGNOSTIC_TEXT("ItemFrontCharList"));
         }
+#endif
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
             return FrontCharList::Codec::ToPacket(records, Code, CG_PACKET_DIAGNOSTIC_TEXT("ItemFrontCharList"));
         }
+#endif
 
         static PacketResult<ItemFrontCharList> Parse(std::string_view view)
         {
@@ -9920,15 +10044,19 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] PacketResult<std::string> BuildData() const
         {
             return Codec::BuildData(records, Code, CG_PACKET_DIAGNOSTIC_TEXT("CharacterPetList"));
         }
+#endif
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
             return Codec::ToPacket(records, Code, CG_PACKET_DIAGNOSTIC_TEXT("CharacterPetList"));
         }
+#endif
 
         static PacketResult<CharacterPetList> Parse(std::string_view view)
         {
@@ -9953,6 +10081,7 @@ namespace cg::packet::receive
             static constexpr std::size_t RecordFieldCount = 7U;
             static constexpr std::size_t MaxRecordCount = 6U;
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
             [[nodiscard]] static PacketResult<std::string> BuildData(
                 std::span<const CharacterPetRecord> records,
                 std::string_view code,
@@ -9994,7 +10123,9 @@ namespace cg::packet::receive
                 }
                 return PacketResult<std::string>::Success(std::move(payload));
             }
+#endif
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
             [[nodiscard]] static PacketResult<Packet> ToPacket(
                 std::span<const CharacterPetRecord> records,
                 std::string_view code,
@@ -10013,6 +10144,7 @@ namespace cg::packet::receive
                 });
                 return PacketResult<Packet>::Success(std::move(packet));
             }
+#endif
 
             [[nodiscard]] static PacketResult<std::vector<CharacterPetRecord>> Parse(
                 std::string_view view,
@@ -10283,15 +10415,19 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] PacketResult<std::string> BuildData() const
         {
             return CharacterPetList::Codec::BuildData(records, Code, CG_PACKET_DIAGNOSTIC_TEXT("ItemCharacterPetList"));
         }
+#endif
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
             return CharacterPetList::Codec::ToPacket(records, Code, CG_PACKET_DIAGNOSTIC_TEXT("ItemCharacterPetList"));
         }
+#endif
 
         static PacketResult<ItemCharacterPetList> Parse(std::string_view view)
         {
@@ -10450,6 +10586,7 @@ namespace cg::packet::receive
             return {};
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] Packet ToPacket() const
         {
             Packet packet(PacketCode(Code), Direction);
@@ -10481,6 +10618,7 @@ namespace cg::packet::receive
             });
             return packet;
         }
+#endif
 
         static PacketResult<ProfileWindow> Parse(std::string_view view)
         {
@@ -10976,6 +11114,7 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] Packet ToPacket() const
         {
             Packet packet(PacketCode(Code), Direction);
@@ -10986,6 +11125,7 @@ namespace cg::packet::receive
             });
             return packet;
         }
+#endif
 
         static PacketResult<SystemMessage> Parse(std::string_view view)
         {
@@ -11068,6 +11208,7 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] Packet ToPacket() const
         {
             Packet packet(PacketCode(Code), Direction);
@@ -11088,6 +11229,7 @@ namespace cg::packet::receive
             });
             return packet;
         }
+#endif
 
         static PacketResult<Effect> Parse(std::string_view view)
         {
@@ -11293,6 +11435,7 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] std::string BuildData() const
         {
             std::vector<std::string> parts;
@@ -11314,7 +11457,9 @@ namespace cg::packet::receive
             }
             return {};
         }
+#endif
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] Packet ToPacket() const
         {
             Packet packet(PacketCode(Code), Direction);
@@ -11325,6 +11470,7 @@ namespace cg::packet::receive
             });
             return packet;
         }
+#endif
 
         static PacketResult<BattleReward> Parse(std::string_view view)
         {
@@ -11728,6 +11874,7 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] std::string BuildData() const
         {
             const std::array<std::string, PayloadFieldCount> parts = {
@@ -11744,7 +11891,9 @@ namespace cg::packet::receive
             }
             return {};
         }
+#endif
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] Packet ToPacket() const
         {
             Packet packet(PacketCode(Code), Direction);
@@ -11755,6 +11904,7 @@ namespace cg::packet::receive
             });
             return packet;
         }
+#endif
 
         static PacketResult<DuelPoint> Parse(std::string_view view)
         {
@@ -11926,6 +12076,7 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] Packet ToPacket() const
         {
             Packet packet(PacketCode(Code), Direction);
@@ -11936,6 +12087,7 @@ namespace cg::packet::receive
             });
             return packet;
         }
+#endif
 
         static PacketResult<BattleCommand> Parse(std::string_view view)
         {
@@ -12071,6 +12223,7 @@ namespace cg::packet::receive
             return text;
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] Packet ToPacket() const
         {
             Packet packet(PacketCode(Code), Direction);
@@ -12091,6 +12244,7 @@ namespace cg::packet::receive
             });
             return packet;
         }
+#endif
 
         static PacketResult<ProfileMailMessage> Parse(std::string_view view)
         {
@@ -12350,6 +12504,7 @@ namespace cg::packet::receive
             return message;
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] Packet ToPacket() const
         {
             Packet packet(PacketCode(Code), Direction);
@@ -12375,6 +12530,7 @@ namespace cg::packet::receive
             });
             return packet;
         }
+#endif
 
         static PacketResult<ChatMessage> Parse(std::string_view view)
         {
@@ -12606,6 +12762,7 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] Packet ToPacket() const
         {
             Packet packet(PacketCode(Code), Direction);
@@ -12636,6 +12793,7 @@ namespace cg::packet::receive
             });
             return packet;
         }
+#endif
 
         static PacketResult<WindowPacket> Parse(std::string_view view)
         {
@@ -12849,6 +13007,7 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] Packet ToPacket() const
         {
             Packet packet(PacketCode(Code), Direction);
@@ -12884,6 +13043,7 @@ namespace cg::packet::receive
             });
             return packet;
         }
+#endif
 
         static PacketResult<StallBrowse> Parse(std::string_view view)
         {
@@ -13068,6 +13228,7 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] Packet ToPacket() const
         {
             Packet packet(PacketCode(Code), Direction);
@@ -13083,6 +13244,7 @@ namespace cg::packet::receive
             });
             return packet;
         }
+#endif
 
         static PacketResult<JobName> Parse(std::string_view view)
         {
@@ -13243,6 +13405,7 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] Packet ToPacket() const
         {
             Packet packet(PacketCode(Code), Direction);
@@ -13253,6 +13416,7 @@ namespace cg::packet::receive
             });
             return packet;
         }
+#endif
 
         static PacketResult<MapName> Parse(std::string_view view)
         {
@@ -13347,6 +13511,7 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] PacketResult<std::string> BuildData() const
         {
             std::array<std::string, PayloadFieldCount> parts = {};
@@ -13375,7 +13540,9 @@ namespace cg::packet::receive
 
             return BuildPayload(std::span<const std::string>(parts.data(), parts.size()), PayloadDelimiter);
         }
+#endif
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
             PacketResult<std::string> data = BuildData();
@@ -13391,6 +13558,7 @@ namespace cg::packet::receive
             });
             return PacketResult<Packet>::Success(std::move(packet));
         }
+#endif
 
         static PacketResult<AddressBook> Parse(std::string_view view)
         {
@@ -13677,6 +13845,7 @@ namespace cg::packet::receive
             return use > 0;
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] std::string BuildData() const
         {
             std::array<std::string, PayloadFieldCount> parts = {};
@@ -13702,7 +13871,9 @@ namespace cg::packet::receive
             }
             return {};
         }
+#endif
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] Packet ToPacket() const
         {
             Packet packet(PacketCode(Code), Direction);
@@ -13718,6 +13889,7 @@ namespace cg::packet::receive
             });
             return packet;
         }
+#endif
 
         static PacketResult<AddressBookInfo> Parse(std::string_view view)
         {
@@ -14001,6 +14173,7 @@ namespace cg::packet::receive
             return IsFieldSelected(flag, fieldBit);
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] PacketResult<std::string> BuildData() const
         {
             if (std::optional<PacketError> error = ValidateFlag(flag, PacketErrorCode::EncodeFailed, FlagPayloadIndex)) {
@@ -14059,7 +14232,9 @@ namespace cg::packet::receive
             parts.emplace_back();
             return BuildPayload(std::span<const std::string>(parts.data(), parts.size()), PayloadDelimiter);
         }
+#endif
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
             PacketResult<std::string> data = BuildData();
@@ -14075,6 +14250,7 @@ namespace cg::packet::receive
             });
             return PacketResult<Packet>::Success(std::move(packet));
         }
+#endif
 
         static PacketResult<GuildInfo> Parse(std::string_view view)
         {
@@ -14440,6 +14616,7 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] std::string BuildData() const
         {
             if (records.empty()) {
@@ -14463,7 +14640,9 @@ namespace cg::packet::receive
 
             return {};
         }
+#endif
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] Packet ToPacket() const
         {
             Packet packet(PacketCode(Code), Direction);
@@ -14474,6 +14653,7 @@ namespace cg::packet::receive
             });
             return packet;
         }
+#endif
 
         static PacketResult<GuildTitle> Parse(std::string_view view)
         {
@@ -14698,6 +14878,7 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] PacketResult<std::string> BuildData() const
         {
             std::vector<std::string> parts;
@@ -14722,7 +14903,9 @@ namespace cg::packet::receive
 
             return BuildPayload(std::span<const std::string>(parts.data(), parts.size()), PayloadDelimiter);
         }
+#endif
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
             PacketResult<std::string> data = BuildData();
@@ -14738,6 +14921,7 @@ namespace cg::packet::receive
             });
             return PacketResult<Packet>::Success(std::move(packet));
         }
+#endif
 
         static PacketResult<GuildMember> Parse(std::string_view view)
         {
@@ -15009,6 +15193,7 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] PacketResult<std::string> BuildData() const
         {
             const std::array<std::string, PayloadFieldCount + 1U> parts = {
@@ -15025,7 +15210,9 @@ namespace cg::packet::receive
 
             return BuildPayload(std::span<const std::string>(parts.data(), parts.size()), PayloadDelimiter);
         }
+#endif
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
             PacketResult<std::string> data = BuildData();
@@ -15046,6 +15233,7 @@ namespace cg::packet::receive
             });
             return PacketResult<Packet>::Success(std::move(packet));
         }
+#endif
 
         static PacketResult<GuildMemberInfo> Parse(std::string_view view)
         {
@@ -15330,6 +15518,7 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] std::string BuildData() const
         {
             std::string text;
@@ -15351,7 +15540,9 @@ namespace cg::packet::receive
             text.append(std::to_string(payload.itemBaseImageNumber));
             return text;
         }
+#endif
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] Packet ToPacket() const
         {
             Packet packet(PacketCode(Code), Direction);
@@ -15372,6 +15563,7 @@ namespace cg::packet::receive
             });
             return packet;
         }
+#endif
 
         static PacketResult<GuildMail> Parse(std::string_view view)
         {
@@ -15629,6 +15821,7 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] PacketResult<std::string> BuildData() const
         {
             std::string payload;
@@ -15653,7 +15846,9 @@ namespace cg::packet::receive
 
             return PacketResult<std::string>::Success(std::move(payload));
         }
+#endif
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
             PacketResult<std::string> data = BuildData();
@@ -15669,6 +15864,7 @@ namespace cg::packet::receive
             });
             return PacketResult<Packet>::Success(std::move(packet));
         }
+#endif
 
         static PacketResult<TradePlayerList> Parse(std::string_view view)
         {
@@ -15822,6 +16018,7 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] Packet ToPacket() const
         {
             Packet packet(PacketCode(Code), Direction);
@@ -15837,6 +16034,7 @@ namespace cg::packet::receive
             });
             return packet;
         }
+#endif
 
         static PacketResult<TradeStart> Parse(std::string_view view)
         {
@@ -16031,6 +16229,7 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] PacketResult<std::string> BuildData() const
         {
             if (records.empty()) {
@@ -16086,7 +16285,9 @@ namespace cg::packet::receive
 
             return PacketResult<std::string>::Success(std::move(payload));
         }
+#endif
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
             PacketResult<std::string> data = BuildData();
@@ -16102,6 +16303,7 @@ namespace cg::packet::receive
             });
             return PacketResult<Packet>::Success(std::move(packet));
         }
+#endif
 
         static PacketResult<TradeItemInfo> Parse(std::string_view view)
         {
@@ -16480,6 +16682,7 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] PacketResult<std::string> BuildData() const
         {
             PacketResult<std::string> freeNameRaw = ValidatePayloadTextField(
@@ -16530,7 +16733,9 @@ namespace cg::packet::receive
 
             return PacketResult<std::string>::Success(std::move(payload));
         }
+#endif
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
             PacketResult<std::string> payload = BuildData();
@@ -16551,6 +16756,7 @@ namespace cg::packet::receive
             });
             return PacketResult<Packet>::Success(std::move(packet));
         }
+#endif
 
         static PacketResult<TradePetInfo> Parse(std::string_view view)
         {
@@ -16856,6 +17062,7 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] PacketResult<std::string> BuildData() const
         {
             if (skillNameRaws.size() > MaxSkillCount) {
@@ -16878,7 +17085,9 @@ namespace cg::packet::receive
 
             return PacketResult<std::string>::Success(std::move(payload));
         }
+#endif
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
             PacketResult<std::string> payload = BuildData();
@@ -16899,6 +17108,7 @@ namespace cg::packet::receive
             });
             return PacketResult<Packet>::Success(std::move(packet));
         }
+#endif
 
         static PacketResult<TradePetSkillInfo> Parse(std::string_view view)
         {
@@ -17150,6 +17360,7 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] PacketResult<std::string> BuildData() const
         {
             if (records.size() > MaxRecordCount) {
@@ -17168,7 +17379,9 @@ namespace cg::packet::receive
 
             return BuildPayload(std::span<const std::string>(parts.data(), parts.size()), PayloadDelimiter);
         }
+#endif
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
             PacketResult<std::string> data = BuildData();
@@ -17184,6 +17397,7 @@ namespace cg::packet::receive
             });
             return PacketResult<Packet>::Success(std::move(packet));
         }
+#endif
 
         static PacketResult<AddressBookGuildInfo> Parse(std::string_view view)
         {
@@ -17365,6 +17579,7 @@ namespace cg::packet::receive
             return {};
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] Packet ToPacket() const
         {
             Packet packet(PacketCode(Code), Direction);
@@ -17375,6 +17590,7 @@ namespace cg::packet::receive
             });
             return packet;
         }
+#endif
 
         static PacketResult<ObjectList> Parse(std::string_view view)
         {
@@ -17557,6 +17773,7 @@ namespace cg::packet::receive
             return {};
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] Packet ToPacket() const
         {
             Packet packet(PacketCode(Code), Direction);
@@ -17567,6 +17784,7 @@ namespace cg::packet::receive
             });
             return packet;
         }
+#endif
 
         static PacketResult<CharacterIcon> Parse(std::string_view view)
         {
@@ -17699,6 +17917,7 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] std::string BuildData() const
         {
             std::vector<std::string> values;
@@ -17717,7 +17936,9 @@ namespace cg::packet::receive
 
             return {};
         }
+#endif
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] Packet ToPacket() const
         {
             Packet packet(PacketCode(Code), Direction);
@@ -17728,6 +17949,7 @@ namespace cg::packet::receive
             });
             return packet;
         }
+#endif
 
         static PacketResult<ObjectDelete> Parse(std::string_view view)
         {
@@ -17896,6 +18118,7 @@ namespace cg::packet::receive
         {
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] std::string BuildData() const
         {
             std::vector<std::string> layerPayloads;
@@ -17913,7 +18136,9 @@ namespace cg::packet::receive
 
             return {};
         }
+#endif
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] Packet ToPacket() const
         {
             Packet packet(PacketCode(Code), Direction);
@@ -17954,6 +18179,7 @@ namespace cg::packet::receive
             });
             return packet;
         }
+#endif
 
         static PacketResult<MapData> Parse(std::string_view view)
         {

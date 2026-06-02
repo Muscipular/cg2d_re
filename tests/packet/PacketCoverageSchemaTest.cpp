@@ -1008,6 +1008,48 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         }
     }
 
+    const PacketSchema* guildMailSchema = FindPacket(packets, "Rll");
+    failures += Expect(guildMailSchema != nullptr, "Rll schema exists");
+    if (guildMailSchema != nullptr) {
+        cg::packet::receive::GuildMailPayload payload;
+        payload.sentTimeText = "time";
+        payload.messageRaw = "message";
+        payload.petBaseImageNumberOrMarker = -1;
+        const cg::packet::receive::GuildMail guildMail(1, std::move(payload), 3);
+        const cg::packet::Packet packet = guildMail.ToPacket();
+        failures += Expect(guildMailSchema->direction == "服务端->客户端", "Rll direction");
+        failures += Expect(guildMailSchema->legacyKind == "SEND", "Rll legacyKind");
+        failures += Expect(guildMailSchema->rawFormat == "{fromregistseqnumber} {text} {color}", "Rll rawFormat");
+        failures += Expect(
+            guildMailSchema->resolvedFormat == "{fromregistseqnumber:i62} {text:es} {color:i62}",
+            "Rll resolvedFormat");
+        failures += Expect(guildMailSchema->resolvedSource == "xlsx+src/packet", "Rll resolvedSource");
+        failures += Expect(guildMailSchema->fields.size() == 3U, "Rll field count");
+        if (guildMailSchema->fields.size() == 3U) {
+            failures += Expect(guildMailSchema->fields[0].name == "fromregistseqnumber", "Rll from field");
+            failures += Expect(guildMailSchema->fields[1].name == "text", "Rll text field");
+            failures += Expect(guildMailSchema->fields[2].name == "color", "Rll color field");
+            failures += Expect(guildMailSchema->fields[0].typeToken == "unknown", "Rll raw from type");
+            failures += Expect(guildMailSchema->fields[1].typeToken == "unknown", "Rll raw text type");
+            failures += Expect(guildMailSchema->fields[2].typeToken == "unknown", "Rll raw color type");
+        }
+        failures += Expect(packet.fields.size() == 3U, "Rll packet field count");
+        if (packet.fields.size() == 3U) {
+            failures += Expect(packet.fields[0].name == "fromregistseqnumber", "Rll packet from field");
+            failures += Expect(
+                packet.fields[0].type == cg::packet::PacketFieldType::Int62,
+                "Rll packet from type");
+            failures += Expect(packet.fields[1].name == "text", "Rll packet text field");
+            failures += Expect(
+                packet.fields[1].type == cg::packet::PacketFieldType::EscapedString,
+                "Rll packet text type");
+            failures += Expect(packet.fields[2].name == "color", "Rll packet color field");
+            failures += Expect(
+                packet.fields[2].type == cg::packet::PacketFieldType::Int62,
+                "Rll packet color type");
+        }
+    }
+
     const PacketSchema* petMailSendSchema = FindPacket(packets, "rMsv");
     failures += Expect(petMailSendSchema != nullptr, "rMsv schema exists");
     if (petMailSendSchema != nullptr) {

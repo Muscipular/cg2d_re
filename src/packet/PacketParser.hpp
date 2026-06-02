@@ -373,6 +373,12 @@ namespace cg::packet
             {"data", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
         }};
 
+        inline constexpr std::array<PacketFieldSpec, 3> GuildMailFields = {{
+            {"fromregistseqnumber", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"text", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+            {"color", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+        }};
+
         inline constexpr std::array<PacketFieldSpec, 1> CheckCommandFields = {{
             {"time", PacketFieldType::Int62, PacketSourceTag::Xlsx},
         }};
@@ -412,7 +418,7 @@ namespace cg::packet
             {"y2", PacketFieldType::Int62, PacketSourceTag::Xlsx},
         }};
 
-        inline constexpr std::array<PacketSpec, 70> PacketRegistry = {{
+        inline constexpr std::array<PacketSpec, 71> PacketRegistry = {{
             {
                 "JFVf",
                 PacketDirection::ClientToServer,
@@ -862,6 +868,13 @@ namespace cg::packet
                 GuildMemberInfoFields.size(),
             },
             {
+                "Rll",
+                PacketDirection::ServerToClient,
+                PacketSourceTag::Xlsx,
+                GuildMailFields.data(),
+                GuildMailFields.size(),
+            },
+            {
                 "nsY",
                 PacketDirection::ServerToClient,
                 PacketSourceTag::Xlsx,
@@ -938,7 +951,7 @@ namespace cg::packet
             return (fieldName == "data" &&
                        (code == "DyAG" || code == "lDuJ" || code == "gnxd" || code == "PhdQ" || code == "Gn" ||
                            code == "vI" || code == "aDn" || code == "znv" || code == "yuD" || code == "Kka")) ||
-                (code == "zdr" && fieldName == "message");
+                (code == "zdr" && fieldName == "message") || (code == "Rll" && fieldName == "text");
         }
 
         [[nodiscard]] inline PacketResult<std::string> DecodeNestedPayloadEscapedString(std::string_view text)

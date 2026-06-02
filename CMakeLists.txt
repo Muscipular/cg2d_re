@@ -369,6 +369,17 @@ target_include_directories(cg-packet-guild-member-info-test
 
 add_test(NAME cg-packet-guild-member-info-test COMMAND cg-packet-guild-member-info-test)
 
+add_executable(cg-packet-guild-mail-test
+    tests/packet/GuildMailPacketTest.cpp
+)
+
+target_include_directories(cg-packet-guild-mail-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+
+add_test(NAME cg-packet-guild-mail-test COMMAND cg-packet-guild-mail-test)
+
 add_executable(cg-packet-character-icon-test
     tests/packet/CharacterIconPacketTest.cpp
 )
@@ -1044,6 +1055,7 @@ if(MSVC)
     target_compile_options(cg-packet-guild-title-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-guild-member-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-guild-member-info-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-guild-mail-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-character-icon-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-object-delete-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-map-data-test PRIVATE /W4 /utf-8 /permissive-)

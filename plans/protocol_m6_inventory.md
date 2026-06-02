@@ -137,7 +137,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | M6.14.07 战斗/交易/家族/社交封包-znv | `znv` | 服务端->客户端 | 否 | 完成 | SEND_GT guildtitle；外层 `{data:es}`；payload 为 `cnt|seq|commition|titleNameRaw|...`，`cnt` raw decimal 且非负，段数必须为 `1 + cnt * 3`，兼容最终空尾；`cnt == 0` 为 `0`；`seq/commition` raw decimal，`commition == -1` 表示 clear 但仍保留 3 段；`titleNameRaw` raw escaped 保留；来源 xlsx+src |
 | M6.14.08 战斗/交易/家族/社交封包-yuD | `yuD` | 服务端->客户端 | 否 | 完成 | SEND_GM guildmember；外层 `{data:es}`；payload 为 8 段记录 `flag|registSeqNumber|nameTitleRaw|registSeqNumber2|level|online|graphicsNo|toGuildTitleID`，空 data 为 0 条，兼容最终空尾；`flag` raw decimal 且 >0，其他数值 raw decimal，`nameTitleRaw` raw escaped 保留；来源 xlsx+src/packet |
 | M6.14.09 战斗/交易/家族/社交封包-Kka | `Kka` | 服务端->客户端 | 否 | 完成 | SEND_GMI guildmemberinfo；外层 `{index:i62} {data:es}`；payload 严格 `flag|registSeqNumber|nameTitleRaw|registSeqNumberAgain|level|online|graphicsNo|toGuildTitleID|`，必须尾随 `|` 且 8 字段；payload 数值 raw decimal，`nameTitleRaw` raw escaped 保留；来源 xlsx+ServerC+src |
-| M6.14.10 战斗/交易/家族/社交封包-Rll | `Rll` | 服务端->客户端 | 否 | 未开始 | SEND_GML 家族邮件 |
+| M6.14.10 战斗/交易/家族/社交封包-Rll | `Rll` | 服务端->客户端 | 否 | 完成 | SEND_GML 家族邮件；外层 `{fromregistseqnumber:i62} {text:es} {color:i62}`；`text` payload 仅支持普通邮件 3 段 `sentTimeText|messageRaw|-1` 与宠邮 6 段 `sentTimeText|messageRaw|petBaseImageNumber|petLevel|petNameRaw|itemBaseImageNumber`；普通 marker 必须 literal `-1`，payload 数值为 raw signed decimal，字符串 raw escaped 保留 |
 | M6.14.11 战斗/交易/家族/社交封包-Cxo | `Cxo` | 服务端->客户端 | 是 | 字段待补 | SEND_TRPL CHAR_Trade_getPlayerList 获得可交易人员列表 |
 | M6.14.12 战斗/交易/家族/社交封包-ms | `ms` | 服务端->客户端 | 是 | 字段待补 | SEND_TRS CHAR_Trade_startTrade 被交易 |
 | M6.14.13 战斗/交易/家族/社交封包-nUbJ | `nUbJ` | 服务端->客户端 | 是 | 字段待补 | SEND_TRLI CHAR_Trade_setTradeList 对方物品信息 |
@@ -274,7 +274,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 68 | `yuD` | 服务端->客户端 | 完成 | SEND_GM guildmember；resolved `{data:es}`，payload 为 8 段记录 `flag|registSeqNumber|nameTitleRaw|registSeqNumber2|level|online|graphicsNo|toGuildTitleID`，空 data 为 0 条，兼容最终空尾；`flag` raw decimal 且 >0，其他数值 raw decimal，`nameTitleRaw` raw escaped | 否 | 是 | xlsx+src/packet |
 | 69 | `Kka` | 服务端->客户端 | 完成 | SEND_GMI guildmemberinfo；resolved `{index:i62} {data:es}`，payload 固定 8 字段并必须尾随 `|`；payload 数值 raw decimal，`nameTitleRaw` raw escaped | 否 | 是 | xlsx+ServerC+src |
 | 70 | `oRut` | 服务端->客户端 | 进行中 | SEND_RGM 开除回执 | 否 | 否 | xlsx |
-| 71 | `Rll` | 服务端->客户端 | 进行中 | SEND_GML 家族邮件 | 否 | 是 | xlsx |
+| 71 | `Rll` | 服务端->客户端 | 完成 | SEND_GML 家族邮件；外层 `{fromregistseqnumber:i62} {text:es} {color:i62}`，payload 3/6 段；普通 marker literal `-1` | 否 | 是 | xlsx+src/packet |
 | 72 | `frQp` | 服务端->客户端 | 进行中 | SEND_GD 退出或解散家族 | 否 | 否 | xlsx |
 | 73 | `eZT` | 服务端->客户端 | 完成 | SEND_PRL 收到profile list | 否 | 是 | xlsx + src/packet |
 | 74 | `IUn` | 服务端->客户端 | 完成 | SEND_PRA 收到about list | 否 | 是 | xlsx + src/packet |

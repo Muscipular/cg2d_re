@@ -2220,11 +2220,36 @@
       "direction": "服务端->客户端",
       "legacyKind": "SEND",
       "clientNamespace": "receive",
-      "xlsxStatus": "进行中",
+      "xlsxStatus": "完成",
       "description": "SEND_GML 家族邮件",
       "rawFormat": "{fromregistseqnumber} {text} {color}",
       "formatEmpty": false,
       "source": "xlsx",
+      "resolvedFormat": "{fromregistseqnumber:i62} {text:es} {color:i62}",
+      "resolvedSource": "xlsx+src/packet",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "fromregistseqnumber",
+          "typeToken": "i62",
+          "rawSpec": "{fromregistseqnumber:i62}",
+          "source": "xlsx+src/packet"
+        },
+        {
+          "index": 1,
+          "name": "text",
+          "typeToken": "es",
+          "rawSpec": "{text:es}",
+          "source": "xlsx+src/packet"
+        },
+        {
+          "index": 2,
+          "name": "color",
+          "typeToken": "i62",
+          "rawSpec": "{color:i62}",
+          "source": "xlsx+src/packet"
+        }
+      ],
       "fields": [
         {
           "index": 0,

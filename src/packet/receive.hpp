@@ -13963,6 +13963,314 @@ namespace cg::packet::receive
         }
     };
 
+    /**
+     * SEND_GML 家族邮件 payload。
+     * 普通邮件 3 段：sentTimeText|messageRaw|-1。
+     * 宠邮 6 段：sentTimeText|messageRaw|petBaseImageNumber|petLevel|petNameRaw|itemBaseImageNumber。
+     */
+    struct GuildMailPayload
+    {
+        bool isPetMail = false;
+        std::string sentTimeText;
+        std::string messageRaw;
+        int petBaseImageNumberOrMarker = -1;
+        int petLevel = 0;
+        std::string petNameRaw;
+        int itemBaseImageNumber = 0;
+    };
+
+    /**
+     * SEND_GML 家族邮件		Rll {fromregistseqnumber:i62} {text:es} {color:i62}
+     * text 为内部 `|` payload，仅支持普通邮件 3 段与宠邮 6 段。
+     */
+    struct GuildMail
+    {
+        static constexpr std::string_view Code = "Rll";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::string_view PayloadDelimiter = "|";
+
+        int fromRegistSeqNumber = 0;
+        GuildMailPayload payload;
+        int color = 0;
+
+        GuildMail(int fromRegistSeqNumber, GuildMailPayload payload, int color)
+            : fromRegistSeqNumber(fromRegistSeqNumber),
+              payload(std::move(payload)),
+              color(color)
+        {
+        }
+
+        [[nodiscard]] std::string BuildData() const
+        {
+            std::string text;
+            text.append(payload.sentTimeText);
+            text.push_back('|');
+            text.append(payload.messageRaw);
+            text.push_back('|');
+            if (!payload.isPetMail) {
+                text.append("-1");
+                return text;
+            }
+
+            text.append(std::to_string(payload.petBaseImageNumberOrMarker));
+            text.push_back('|');
+            text.append(std::to_string(payload.petLevel));
+            text.push_back('|');
+            text.append(payload.petNameRaw);
+            text.push_back('|');
+            text.append(std::to_string(payload.itemBaseImageNumber));
+            return text;
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            packet.fields.push_back(PacketField {
+                "fromregistseqnumber",
+                PacketFieldType::Int62,
+                std::to_string(fromRegistSeqNumber),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "text",
+                PacketFieldType::EscapedString,
+                BuildData(),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "color",
+                PacketFieldType::Int62,
+                std::to_string(color),
+                PacketSourceTag::Xlsx,
+            });
+            return packet;
+        }
+
+        static PacketResult<GuildMail> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view);
+            if (!parsed.HasValue()) {
+                return PacketResult<GuildMail>::Failure(parsed.Error());
+            }
+
+            return FromPacket(parsed.Value());
+        }
+
+        static PacketResult<GuildMail> FromPacket(const Packet& packet)
+        {
+            if (packet.code.View() != Code) {
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "GuildMail Parse 收到非 Rll 封包");
+                error.packetCode = packet.code;
+                return PacketResult<GuildMail>::Failure(std::move(error));
+            }
+
+            if (packet.direction != Direction) {
+                return PacketResult<GuildMail>::Failure(MakePacketError(
+                    PacketErrorCode::DecodeFailed,
+                    "GuildMail Parse 封包方向不匹配"));
+            }
+
+            if (packet.fields.size() != FieldCount) {
+                return PacketResult<GuildMail>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "GuildMail Parse 字段数量不匹配",
+                    packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
+            }
+
+            const std::array<std::string_view, FieldCount> fieldNames = {
+                "fromregistseqnumber",
+                "text",
+                "color",
+            };
+            const std::array<PacketFieldType, FieldCount> fieldTypes = {
+                PacketFieldType::Int62,
+                PacketFieldType::EscapedString,
+                PacketFieldType::Int62,
+            };
+
+            for (std::size_t index = 0; index < FieldCount; ++index) {
+                if (packet.fields[index].name != fieldNames[index]) {
+                    return PacketResult<GuildMail>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "GuildMail Parse 字段名不匹配",
+                        index));
+                }
+
+                if (packet.fields[index].type != fieldTypes[index]) {
+                    return PacketResult<GuildMail>::Failure(MakeFieldError(
+                        PacketErrorCode::InvalidFieldType,
+                        "GuildMail Parse 字段类型不匹配",
+                        index));
+                }
+            }
+
+            PacketResult<int> fromRegistSeqNumberValue =
+                ParseDecimalField(packet.fields[FromRegistSeqNumberFieldIndex].value, FromRegistSeqNumberFieldIndex);
+            if (!fromRegistSeqNumberValue.HasValue()) {
+                return PacketResult<GuildMail>::Failure(fromRegistSeqNumberValue.Error());
+            }
+
+            PacketResult<GuildMailPayload> payloadValue = ParsePayloadText(packet.fields[TextFieldIndex].value);
+            if (!payloadValue.HasValue()) {
+                return PacketResult<GuildMail>::Failure(payloadValue.Error());
+            }
+
+            PacketResult<int> colorValue = ParseDecimalField(packet.fields[ColorFieldIndex].value, ColorFieldIndex);
+            if (!colorValue.HasValue()) {
+                return PacketResult<GuildMail>::Failure(colorValue.Error());
+            }
+
+            return PacketResult<GuildMail>::Success(GuildMail(
+                fromRegistSeqNumberValue.Value(),
+                std::move(payloadValue.Value()),
+                colorValue.Value()));
+        }
+
+    private:
+        static constexpr std::size_t FieldCount = 3U;
+        static constexpr std::size_t FromRegistSeqNumberFieldIndex = 0U;
+        static constexpr std::size_t TextFieldIndex = 1U;
+        static constexpr std::size_t ColorFieldIndex = 2U;
+        static constexpr std::size_t NormalPayloadFieldCount = 3U;
+        static constexpr std::size_t PetPayloadFieldCount = 6U;
+        static constexpr std::size_t PetBaseImageFieldIndex = 2U;
+        static constexpr std::size_t PetLevelFieldIndex = 3U;
+        static constexpr std::size_t PetNameFieldIndex = 4U;
+        static constexpr std::size_t ItemBaseImageFieldIndex = 5U;
+
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            error.source = PacketSourceTag::Xlsx;
+            return error;
+        }
+
+        [[nodiscard]] static PacketError MakeFieldError(
+            PacketErrorCode code,
+            std::string message,
+            std::size_t fieldIndex)
+        {
+            PacketError error = MakePacketError(code, std::move(message));
+            error.fieldIndex = fieldIndex;
+            return error;
+        }
+
+        [[nodiscard]] static PacketResult<GuildMailPayload> ParsePayloadText(std::string_view text)
+        {
+            if (text.empty()) {
+                return PacketResult<GuildMailPayload>::Failure(MakeFieldError(
+                    PacketErrorCode::EmptyInput,
+                    "GuildMail payload 为空",
+                    TextFieldIndex));
+            }
+
+            PacketResult<std::vector<std::string>> split = SplitPayload(text, PayloadDelimiter);
+            if (!split.HasValue()) {
+                PacketError error = split.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = TextFieldIndex;
+                error.source = PacketSourceTag::Xlsx;
+                return PacketResult<GuildMailPayload>::Failure(std::move(error));
+            }
+
+            const std::vector<std::string>& parts = split.Value();
+            if (parts.size() != NormalPayloadFieldCount && parts.size() != PetPayloadFieldCount) {
+                return PacketResult<GuildMailPayload>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "GuildMail payload 段数量不匹配",
+                    TextFieldIndex));
+            }
+
+            GuildMailPayload payload;
+            payload.isPetMail = parts.size() == PetPayloadFieldCount;
+            payload.sentTimeText = parts[0];
+            payload.messageRaw = parts[1];
+
+            if (!payload.isPetMail) {
+                if (parts[PetBaseImageFieldIndex] != "-1") {
+                    return PacketResult<GuildMailPayload>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "GuildMail 普通邮件标记必须为 -1",
+                        PetBaseImageFieldIndex));
+                }
+                payload.petBaseImageNumberOrMarker = -1;
+                return PacketResult<GuildMailPayload>::Success(std::move(payload));
+            }
+
+            PacketResult<int> petBaseImageNumber =
+                ParseDecimalField(parts[PetBaseImageFieldIndex], PetBaseImageFieldIndex);
+            if (!petBaseImageNumber.HasValue()) {
+                return PacketResult<GuildMailPayload>::Failure(petBaseImageNumber.Error());
+            }
+
+            PacketResult<int> petLevel = ParseDecimalField(parts[PetLevelFieldIndex], PetLevelFieldIndex);
+            if (!petLevel.HasValue()) {
+                return PacketResult<GuildMailPayload>::Failure(petLevel.Error());
+            }
+
+            PacketResult<int> itemBaseImageNumber =
+                ParseDecimalField(parts[ItemBaseImageFieldIndex], ItemBaseImageFieldIndex);
+            if (!itemBaseImageNumber.HasValue()) {
+                return PacketResult<GuildMailPayload>::Failure(itemBaseImageNumber.Error());
+            }
+
+            payload.petBaseImageNumberOrMarker = petBaseImageNumber.Value();
+            payload.petLevel = petLevel.Value();
+            payload.petNameRaw = parts[PetNameFieldIndex];
+            payload.itemBaseImageNumber = itemBaseImageNumber.Value();
+            return PacketResult<GuildMailPayload>::Success(std::move(payload));
+        }
+
+        [[nodiscard]] static PacketResult<int> ParseDecimalField(std::string_view text, std::size_t fieldIndex)
+        {
+            bool negative = false;
+            std::size_t index = 0;
+            if (!text.empty() && text.front() == '-') {
+                negative = true;
+                index = 1U;
+            }
+
+            if (index == text.size()) {
+                return PacketResult<int>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "GuildMail 十进制字段为空",
+                    fieldIndex));
+            }
+
+            const std::int64_t maxValue = static_cast<std::int64_t>(std::numeric_limits<int>::max());
+            const std::int64_t minValue = static_cast<std::int64_t>(std::numeric_limits<int>::min());
+            const std::int64_t limit = negative ? (0 - minValue) : maxValue;
+            std::int64_t value = 0;
+
+            for (; index < text.size(); ++index) {
+                const char ch = text[index];
+                if (ch < '0' || ch > '9') {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "GuildMail 十进制字段包含非法字符",
+                        fieldIndex));
+                }
+
+                const int digit = ch - '0';
+                if (value > (limit - digit) / 10) {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "GuildMail 十进制字段超出 int 范围",
+                        fieldIndex));
+                }
+
+                value = (value * 10) + digit;
+            }
+
+            if (negative) {
+                value = -value;
+            }
+
+            return PacketResult<int>::Success(static_cast<int>(value));
+        }
+    };
+
     struct AddressBookGuildInfoRecord
     {
         std::string guildNameRaw;

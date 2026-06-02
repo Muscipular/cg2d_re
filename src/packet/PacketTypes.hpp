@@ -18,34 +18,16 @@
 
 #if CG_PACKET_ENABLE_DIAGNOSTIC_TEXT
 #define CG_PACKET_DIAGNOSTIC_TEXT(text) (text)
+#define CG_PACKET_DIAGNOSTIC_STRING(text) (std::string(text))
 #define CG_PACKET_FIELD_NAME_MATCHES(lhs, rhs) ((lhs) == (rhs))
 #else
 #define CG_PACKET_DIAGNOSTIC_TEXT(text) ("")
+#define CG_PACKET_DIAGNOSTIC_STRING(text) (std::string())
 #define CG_PACKET_FIELD_NAME_MATCHES(lhs, rhs) ((void)sizeof(lhs), (void)sizeof(rhs), true)
 #endif
 
 namespace cg::packet
 {
-    [[nodiscard]] inline constexpr std::string_view PacketDiagnosticText(std::string_view text) noexcept
-    {
-#if CG_PACKET_ENABLE_DIAGNOSTIC_TEXT
-        return text;
-#else
-        (void)text;
-        return {};
-#endif
-    }
-
-    [[nodiscard]] inline std::string PacketDiagnosticString(std::string_view text)
-    {
-#if CG_PACKET_ENABLE_DIAGNOSTIC_TEXT
-        return std::string(text);
-#else
-        (void)text;
-        return {};
-#endif
-    }
-
     struct PacketCode
     {
         std::string value;
@@ -96,10 +78,13 @@ namespace cg::packet
         PacketField() = default;
 
         PacketField(std::string_view fieldName, PacketFieldType fieldType, std::string fieldValue)
-            : name(PacketDiagnosticString(fieldName)),
+            : name(CG_PACKET_DIAGNOSTIC_STRING(fieldName)),
               type(fieldType),
               value(std::move(fieldValue))
         {
+#if !CG_PACKET_ENABLE_DIAGNOSTIC_TEXT
+            (void)fieldName;
+#endif
         }
     };
 
@@ -142,7 +127,10 @@ namespace cg::packet
         {
             PacketError error;
             error.code = errorCode;
-            error.message = PacketDiagnosticString(errorMessage);
+            error.message = CG_PACKET_DIAGNOSTIC_STRING(errorMessage);
+#if !CG_PACKET_ENABLE_DIAGNOSTIC_TEXT
+            (void)errorMessage;
+#endif
             return error;
         }
     };

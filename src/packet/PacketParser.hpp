@@ -20,7 +20,7 @@ namespace cg::packet
         constexpr PacketFieldSpec() = default;
 
         constexpr PacketFieldSpec(std::string_view fieldName, PacketFieldType fieldType) noexcept
-            : name(PacketDiagnosticText(fieldName)),
+            : name(fieldName),
               type(fieldType)
         {
         }
@@ -152,7 +152,7 @@ namespace cg::packet
             const std::string_view token = tokens[index + 1U];
 
             PacketField field;
-            field.name = PacketDiagnosticString(fieldSpec.name);
+            field.name = CG_PACKET_DIAGNOSTIC_STRING(fieldSpec.name);
             field.type = fieldSpec.type == PacketFieldType::SubPayload
                 ? PacketFieldType::EscapedString
                 : fieldSpec.type;

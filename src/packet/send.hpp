@@ -68,9 +68,7 @@ namespace cg::packet::send
 
         [[nodiscard]] PacketResult<std::string> Encode() const
         {
-            PacketError error = PacketError::Make(PacketErrorCode::NotImplemented, "ClientLogin Encode 待 M6.7/M6.8 实现");
-            error.packetCode = PacketCode(Code);
-            return PacketResult<std::string>::Failure(std::move(error));
+            return BuildPacket(ToPacket(), Spec);
         }
     };
 

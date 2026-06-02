@@ -263,7 +263,7 @@ int TestPacketResult()
     return failures;
 }
 
-int TestTodoResultShape()
+int TestClientLoginEncode()
 {
     int failures = 0;
     const cg::packet::PacketResult<cg::packet::receive::ClientLoginResult> emptyParse =
@@ -278,12 +278,9 @@ int TestTodoResultShape()
 
     const cg::packet::send::ClientLogin login("hash", "account", "password");
     const cg::packet::PacketResult<std::string> encoded = login.Encode();
-    const bool encodedHasError = encoded.HasError();
-    failures += Expect(encodedHasError, "ClientLogin encode has error");
-    if (encodedHasError) {
-        failures += Expect(
-            encoded.Error().code == cg::packet::PacketErrorCode::NotImplemented,
-            "ClientLogin encode error code");
+    failures += Expect(static_cast<bool>(encoded), "ClientLogin encode success");
+    if (encoded.HasValue()) {
+        failures += Expect(encoded.Value() == "JFVf hash password account ", "ClientLogin encode value");
     }
     return failures;
 }
@@ -299,7 +296,7 @@ int main()
     failures += TestClientLoginResultParseErrors();
     failures += TestClientLoginResultBuildErrors();
     failures += TestPacketResult();
-    failures += TestTodoResultShape();
+    failures += TestClientLoginEncode();
     if (failures != 0) {
         std::cerr << failures << " checks failed\n";
         return 1;

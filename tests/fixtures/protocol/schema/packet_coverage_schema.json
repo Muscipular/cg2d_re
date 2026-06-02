@@ -3063,6 +3063,24 @@
       "rawFormat": "",
       "formatEmpty": true,
       "source": "xlsx",
+      "resolvedFormat": "{petPlace:i62} {data:es}",
+      "resolvedSource": "ServerC+src/packet",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "petPlace",
+          "typeToken": "i62",
+          "rawSpec": "{petPlace:i62}",
+          "source": "ServerC+src/packet"
+        },
+        {
+          "index": 1,
+          "name": "data",
+          "typeToken": "es",
+          "rawSpec": "{data:es}",
+          "source": "ServerC+src/packet"
+        }
+      ],
       "fields": []
     },
     {

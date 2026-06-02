@@ -15072,6 +15072,408 @@ namespace cg::packet::receive
         }
     };
 
+    /**
+     * SEND_TRLP 交易窗口宠物信息：
+     * freeNameRaw|level|tribe|maxHp|maxForcePoint|vital|strength|tough|quick|magic|loyalty|skillSlot|nameRaw|imageId|attack|defense|agility|magicPower|recovery|earth|water|fire|wind|。
+     */
+    struct TradePetInfoData
+    {
+        std::string freeNameRaw;
+        int level = 0;
+        int tribe = 0;
+        int maxHp = 0;
+        int maxForcePoint = 0;
+        int vital = 0;
+        int strength = 0;
+        int tough = 0;
+        int quick = 0;
+        int magic = 0;
+        int loyalty = 0;
+        int skillSlot = 0;
+        std::string nameRaw;
+        int imageId = 0;
+        int attack = 0;
+        int defense = 0;
+        int agility = 0;
+        int magicPower = 0;
+        int recovery = 0;
+        int earth = 0;
+        int water = 0;
+        int fire = 0;
+        int wind = 0;
+    };
+
+    /**
+     * SEND_TRLP CHAR_Trade_setTradeList 对方宠物信息		RwK {petPlace:i62} {data:es}
+     * data: 固定 23 字段并必须尾随 `|`；数值为 raw signed decimal，字符串 raw escaped 保留。
+     */
+    struct TradePetInfo
+    {
+        static constexpr std::string_view Code = "RwK";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::string_view PayloadDelimiter = "|";
+        static constexpr std::size_t PayloadFieldCount = 23U;
+        static constexpr std::size_t PayloadPartCount = PayloadFieldCount + 1U;
+
+        int petPlace = 0;
+        TradePetInfoData data;
+
+        TradePetInfo() = default;
+
+        TradePetInfo(int petPlace, TradePetInfoData data)
+            : petPlace(petPlace),
+              data(std::move(data))
+        {
+        }
+
+        [[nodiscard]] PacketResult<std::string> BuildData() const
+        {
+            PacketResult<std::string> freeNameRaw = ValidateRawStringField(
+                data.freeNameRaw,
+                FreeNameFieldIndex);
+            if (!freeNameRaw.HasValue()) {
+                return PacketResult<std::string>::Failure(freeNameRaw.Error());
+            }
+
+            PacketResult<std::string> nameRaw = ValidateRawStringField(data.nameRaw, NameFieldIndex);
+            if (!nameRaw.HasValue()) {
+                return PacketResult<std::string>::Failure(nameRaw.Error());
+            }
+
+            std::string payload;
+            const auto appendString = [&payload](std::string_view value) {
+                payload.append(value);
+                payload.push_back('|');
+            };
+            const auto appendInt = [&payload](int value) {
+                payload.append(std::to_string(value));
+                payload.push_back('|');
+            };
+
+            appendString(data.freeNameRaw);
+            appendInt(data.level);
+            appendInt(data.tribe);
+            appendInt(data.maxHp);
+            appendInt(data.maxForcePoint);
+            appendInt(data.vital);
+            appendInt(data.strength);
+            appendInt(data.tough);
+            appendInt(data.quick);
+            appendInt(data.magic);
+            appendInt(data.loyalty);
+            appendInt(data.skillSlot);
+            appendString(data.nameRaw);
+            appendInt(data.imageId);
+            appendInt(data.attack);
+            appendInt(data.defense);
+            appendInt(data.agility);
+            appendInt(data.magicPower);
+            appendInt(data.recovery);
+            appendInt(data.earth);
+            appendInt(data.water);
+            appendInt(data.fire);
+            appendInt(data.wind);
+
+            return PacketResult<std::string>::Success(std::move(payload));
+        }
+
+        [[nodiscard]] PacketResult<Packet> ToPacket() const
+        {
+            PacketResult<std::string> payload = BuildData();
+            if (!payload.HasValue()) {
+                return PacketResult<Packet>::Failure(payload.Error());
+            }
+
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ServerC);
+            packet.fields.push_back(PacketField {
+                "petPlace",
+                PacketFieldType::Int62,
+                std::to_string(petPlace),
+                PacketSourceTag::ServerC,
+            });
+            packet.fields.push_back(PacketField {
+                "data",
+                PacketFieldType::EscapedString,
+                payload.Value(),
+                PacketSourceTag::ServerC,
+            });
+            return PacketResult<Packet>::Success(std::move(packet));
+        }
+
+        static PacketResult<TradePetInfo> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view);
+            if (!parsed.HasValue()) {
+                return PacketResult<TradePetInfo>::Failure(parsed.Error());
+            }
+
+            return FromPacket(parsed.Value());
+        }
+
+        static PacketResult<TradePetInfo> FromPacket(const Packet& packet)
+        {
+            if (packet.code.View() != Code) {
+                PacketError error = MakePacketError(
+                    PacketErrorCode::InvalidCode,
+                    "TradePetInfo Parse 收到非 RwK 封包");
+                error.packetCode = packet.code;
+                return PacketResult<TradePetInfo>::Failure(std::move(error));
+            }
+
+            if (packet.direction != Direction) {
+                return PacketResult<TradePetInfo>::Failure(MakePacketError(
+                    PacketErrorCode::DecodeFailed,
+                    "TradePetInfo Parse 封包方向不匹配"));
+            }
+
+            if (packet.fields.size() != FieldCount) {
+                return PacketResult<TradePetInfo>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "TradePetInfo Parse 字段数量不匹配",
+                    packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
+            }
+
+            const std::array<std::string_view, FieldCount> fieldNames = {
+                "petPlace",
+                "data",
+            };
+            const std::array<PacketFieldType, FieldCount> fieldTypes = {
+                PacketFieldType::Int62,
+                PacketFieldType::EscapedString,
+            };
+
+            for (std::size_t index = 0; index < FieldCount; ++index) {
+                if (packet.fields[index].name != fieldNames[index]) {
+                    return PacketResult<TradePetInfo>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "TradePetInfo Parse 字段名不匹配",
+                        index));
+                }
+
+                if (packet.fields[index].type != fieldTypes[index]) {
+                    return PacketResult<TradePetInfo>::Failure(MakeFieldError(
+                        PacketErrorCode::InvalidFieldType,
+                        "TradePetInfo Parse 字段类型不匹配",
+                        index));
+                }
+            }
+
+            PacketResult<int> petPlaceValue = ParseDecimalField(
+                packet.fields[PetPlaceFieldIndex].value,
+                PetPlaceFieldIndex);
+            if (!petPlaceValue.HasValue()) {
+                return PacketResult<TradePetInfo>::Failure(petPlaceValue.Error());
+            }
+
+            PacketResult<TradePetInfoData> dataValue = ParseData(packet.fields[DataFieldIndex].value);
+            if (!dataValue.HasValue()) {
+                return PacketResult<TradePetInfo>::Failure(dataValue.Error());
+            }
+
+            return PacketResult<TradePetInfo>::Success(TradePetInfo(
+                petPlaceValue.Value(),
+                std::move(dataValue.Value())));
+        }
+
+    private:
+        static constexpr std::size_t FieldCount = 2U;
+        static constexpr std::size_t PetPlaceFieldIndex = 0U;
+        static constexpr std::size_t DataFieldIndex = 1U;
+        static constexpr std::size_t FreeNameFieldIndex = 0U;
+        static constexpr std::size_t NameFieldIndex = 12U;
+
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            error.source = PacketSourceTag::ServerC;
+            return error;
+        }
+
+        [[nodiscard]] static PacketError MakeFieldError(
+            PacketErrorCode code,
+            std::string message,
+            std::size_t fieldIndex)
+        {
+            PacketError error = MakePacketError(code, std::move(message));
+            error.fieldIndex = fieldIndex;
+            return error;
+        }
+
+        [[nodiscard]] static PacketResult<TradePetInfoData> ParseData(std::string_view payload)
+        {
+            if (payload.empty()) {
+                return PacketResult<TradePetInfoData>::Failure(MakeFieldError(
+                    PacketErrorCode::EmptyInput,
+                    "TradePetInfo payload 为空",
+                    DataFieldIndex));
+            }
+
+            PacketResult<std::vector<std::string>> split = SplitPayload(payload, PayloadDelimiter);
+            if (!split.HasValue()) {
+                PacketError error = split.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = DataFieldIndex;
+                error.source = PacketSourceTag::ServerC;
+                return PacketResult<TradePetInfoData>::Failure(std::move(error));
+            }
+
+            const std::vector<std::string>& parts = split.Value();
+            if (parts.size() != PayloadPartCount || !parts.back().empty()) {
+                return PacketResult<TradePetInfoData>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "TradePetInfo payload 段数量不匹配",
+                    DataFieldIndex));
+            }
+
+            PacketResult<std::string> freeNameRaw = ValidateRawStringField(
+                parts[FreeNameFieldIndex],
+                FreeNameFieldIndex);
+            if (!freeNameRaw.HasValue()) {
+                return PacketResult<TradePetInfoData>::Failure(freeNameRaw.Error());
+            }
+
+            PacketResult<std::string> nameRaw = ValidateRawStringField(parts[NameFieldIndex], NameFieldIndex);
+            if (!nameRaw.HasValue()) {
+                return PacketResult<TradePetInfoData>::Failure(nameRaw.Error());
+            }
+
+            std::array<int, PayloadFieldCount> numericValues = {};
+            const std::array<std::size_t, 21U> numericFieldIndexes = {
+                1U,
+                2U,
+                3U,
+                4U,
+                5U,
+                6U,
+                7U,
+                8U,
+                9U,
+                10U,
+                11U,
+                13U,
+                14U,
+                15U,
+                16U,
+                17U,
+                18U,
+                19U,
+                20U,
+                21U,
+                22U,
+            };
+            for (const std::size_t fieldIndex : numericFieldIndexes) {
+                PacketResult<int> value = ParseDecimalField(parts[fieldIndex], fieldIndex);
+                if (!value.HasValue()) {
+                    return PacketResult<TradePetInfoData>::Failure(value.Error());
+                }
+                numericValues[fieldIndex] = value.Value();
+            }
+
+            return PacketResult<TradePetInfoData>::Success(TradePetInfoData {
+                std::move(freeNameRaw.Value()),
+                numericValues[1],
+                numericValues[2],
+                numericValues[3],
+                numericValues[4],
+                numericValues[5],
+                numericValues[6],
+                numericValues[7],
+                numericValues[8],
+                numericValues[9],
+                numericValues[10],
+                numericValues[11],
+                std::move(nameRaw.Value()),
+                numericValues[13],
+                numericValues[14],
+                numericValues[15],
+                numericValues[16],
+                numericValues[17],
+                numericValues[18],
+                numericValues[19],
+                numericValues[20],
+                numericValues[21],
+                numericValues[22],
+            });
+        }
+
+        [[nodiscard]] static PacketResult<std::string> ValidateRawStringField(
+            std::string_view text,
+            std::size_t fieldIndex)
+        {
+            if (text.find('|') != std::string_view::npos) {
+                return PacketResult<std::string>::Failure(MakeFieldError(
+                    PacketErrorCode::EncodeFailed,
+                    "TradePetInfo raw 字符串包含 literal |",
+                    fieldIndex));
+            }
+
+            for (std::size_t index = 0; index < text.size(); ++index) {
+                if (!cg::packet::detail::IsLegacyDoubleByteLead(text[index])) {
+                    continue;
+                }
+
+                if (index + 1U >= text.size()) {
+                    return PacketResult<std::string>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "TradePetInfo raw 字符串旧双字节字符被截断",
+                        fieldIndex));
+                }
+                ++index;
+            }
+
+            return PacketResult<std::string>::Success(std::string(text));
+        }
+
+        [[nodiscard]] static PacketResult<int> ParseDecimalField(std::string_view text, std::size_t fieldIndex)
+        {
+            bool negative = false;
+            std::size_t index = 0;
+            if (!text.empty() && text.front() == '-') {
+                negative = true;
+                index = 1U;
+            }
+
+            if (index == text.size()) {
+                return PacketResult<int>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "TradePetInfo 十进制字段为空",
+                    fieldIndex));
+            }
+
+            const std::int64_t maxValue = static_cast<std::int64_t>(std::numeric_limits<int>::max());
+            const std::int64_t minValue = static_cast<std::int64_t>(std::numeric_limits<int>::min());
+            const std::int64_t limit = negative ? (0 - minValue) : maxValue;
+            std::int64_t value = 0;
+
+            for (; index < text.size(); ++index) {
+                const char ch = text[index];
+                if (ch < '0' || ch > '9') {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "TradePetInfo 十进制字段包含非法字符",
+                        fieldIndex));
+                }
+
+                const int digit = ch - '0';
+                if (value > (limit - digit) / 10) {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "TradePetInfo 十进制字段超出 int 范围",
+                        fieldIndex));
+                }
+
+                value = (value * 10) + digit;
+            }
+
+            if (negative) {
+                value = -value;
+            }
+
+            return PacketResult<int>::Success(static_cast<int>(value));
+        }
+    };
+
     struct AddressBookGuildInfoRecord
     {
         std::string guildNameRaw;

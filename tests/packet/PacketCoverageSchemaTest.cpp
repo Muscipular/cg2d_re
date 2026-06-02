@@ -746,6 +746,61 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         }
     }
 
+    const PacketSchema* tradePetInfoSchema = FindPacket(packets, "RwK");
+    failures += Expect(tradePetInfoSchema != nullptr, "RwK schema exists");
+    if (tradePetInfoSchema != nullptr) {
+        const cg::packet::receive::TradePetInfoData data {
+            "Free",
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            "Pet",
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+        };
+        const cg::packet::receive::TradePetInfo tradePetInfo(2, data);
+        const cg::packet::PacketResult<cg::packet::Packet> packet = tradePetInfo.ToPacket();
+        failures += Expect(tradePetInfoSchema->direction == "服务端->客户端", "RwK direction");
+        failures += Expect(tradePetInfoSchema->legacyKind == "SEND", "RwK legacyKind");
+        failures += Expect(tradePetInfoSchema->rawFormat.empty(), "RwK rawFormat empty");
+        failures += Expect(tradePetInfoSchema->formatEmpty, "RwK formatEmpty");
+        failures += Expect(
+            tradePetInfoSchema->resolvedFormat == "{petPlace:i62} {data:es}",
+            "RwK resolvedFormat");
+        failures += Expect(tradePetInfoSchema->resolvedSource == "ServerC+src/packet", "RwK resolvedSource");
+        failures += Expect(tradePetInfoSchema->fields.empty(), "RwK raw fields empty");
+        failures += Expect(packet.HasValue(), "RwK packet build");
+        if (packet.HasValue()) {
+            failures += Expect(packet.Value().fields.size() == 2U, "RwK packet field count");
+            if (packet.Value().fields.size() == 2U) {
+                failures += Expect(packet.Value().fields[0].name == "petPlace", "RwK packet petPlace field");
+                failures += Expect(
+                    packet.Value().fields[0].type == cg::packet::PacketFieldType::Int62,
+                    "RwK packet petPlace type");
+                failures += Expect(packet.Value().fields[1].name == "data", "RwK packet data field");
+                failures += Expect(
+                    packet.Value().fields[1].type == cg::packet::PacketFieldType::EscapedString,
+                    "RwK packet data type");
+            }
+        }
+    }
+
     const PacketSchema* profileMailMessageSchema = FindPacket(packets, "Mhbt");
     failures += Expect(profileMailMessageSchema != nullptr, "Mhbt schema exists");
     if (profileMailMessageSchema != nullptr) {

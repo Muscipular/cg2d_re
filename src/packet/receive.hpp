@@ -67,14 +67,140 @@ namespace cg::packet::receive
 
         static PacketResult<ClientLoginResult> Parse(std::string_view view)
         {
-            PacketError error = PacketError::Make(PacketErrorCode::NotImplemented, "ClientLoginResult Parse 待 M6.7/M6.15 实现");
+            PacketResult<Packet> parsed = ParsePacket(view);
+            if (!parsed.HasValue()) {
+                return PacketResult<ClientLoginResult>::Failure(parsed.Error());
+            }
+
+            const Packet& packet = parsed.Value();
+            if (packet.code.View() != Code) {
+                PacketError error = MakePacketError(
+                    PacketErrorCode::InvalidCode,
+                    "ClientLoginResult Parse 收到非 whV 封包");
+                error.packetCode = packet.code;
+                return PacketResult<ClientLoginResult>::Failure(std::move(error));
+            }
+
+            if (packet.direction != Direction) {
+                return PacketResult<ClientLoginResult>::Failure(MakePacketError(
+                    PacketErrorCode::DecodeFailed,
+                    "ClientLoginResult Parse 封包方向不匹配"));
+            }
+
+            if (packet.fields.size() != FieldCount) {
+                return PacketResult<ClientLoginResult>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "ClientLoginResult Parse 字段数量不匹配",
+                    packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
+            }
+
+            const PacketField& resultField = packet.fields[ResultFieldIndex];
+            if (resultField.name != "result") {
+                return PacketResult<ClientLoginResult>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "ClientLoginResult Parse result 字段名不匹配",
+                    ResultFieldIndex));
+            }
+
+            if (resultField.type != PacketFieldType::Int62) {
+                return PacketResult<ClientLoginResult>::Failure(MakeFieldError(
+                    PacketErrorCode::InvalidFieldType,
+                    "ClientLoginResult Parse result 字段类型不匹配",
+                    ResultFieldIndex));
+            }
+
+            const PacketField& dataField = packet.fields[DataFieldIndex];
+            if (dataField.name != "data") {
+                return PacketResult<ClientLoginResult>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "ClientLoginResult Parse data 字段名不匹配",
+                    DataFieldIndex));
+            }
+
+            if (dataField.type != PacketFieldType::EscapedString) {
+                return PacketResult<ClientLoginResult>::Failure(MakeFieldError(
+                    PacketErrorCode::InvalidFieldType,
+                    "ClientLoginResult Parse data 字段类型不匹配",
+                    DataFieldIndex));
+            }
+
+            PacketResult<int> result = ParseResultValue(resultField.value);
+            if (!result.HasValue()) {
+                return PacketResult<ClientLoginResult>::Failure(result.Error());
+            }
+
+            return PacketResult<ClientLoginResult>::Success(ClientLoginResult(result.Value(), dataField.value));
+        }
+
+    private:
+        static constexpr std::size_t FieldCount = 2U;
+        static constexpr std::size_t ResultFieldIndex = 0U;
+        static constexpr std::size_t DataFieldIndex = 1U;
+
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
             error.source = PacketSourceTag::ExistingPrototype;
-            if (view.empty()) {
-                error.code = PacketErrorCode::EmptyInput;
-                error.message = "ClientLoginResult Parse 收到空输入";
+            return error;
+        }
+
+        [[nodiscard]] static PacketError MakeFieldError(
+            PacketErrorCode code,
+            std::string message,
+            std::size_t fieldIndex)
+        {
+            PacketError error = MakePacketError(code, std::move(message));
+            error.fieldIndex = fieldIndex;
+            return error;
+        }
+
+        [[nodiscard]] static PacketResult<int> ParseResultValue(std::string_view text)
+        {
+            bool negative = false;
+            std::size_t index = 0U;
+            if (!text.empty() && text.front() == '-') {
+                negative = true;
+                index = 1U;
             }
-            return PacketResult<ClientLoginResult>::Failure(std::move(error));
+
+            if (index == text.size()) {
+                return PacketResult<int>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "ClientLoginResult result 为空",
+                    ResultFieldIndex));
+            }
+
+            const std::int64_t maxValue = static_cast<std::int64_t>(std::numeric_limits<int>::max());
+            const std::int64_t minValue = static_cast<std::int64_t>(std::numeric_limits<int>::min());
+            const std::int64_t limit = negative ? (0 - minValue) : maxValue;
+            std::int64_t value = 0;
+
+            for (; index < text.size(); ++index) {
+                const char ch = text[index];
+                if (ch < '0' || ch > '9') {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "ClientLoginResult result 包含非法字符",
+                        ResultFieldIndex));
+                }
+
+                const int digit = ch - '0';
+                if (value > (limit - digit) / 10) {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "ClientLoginResult result 超出 int 范围",
+                        ResultFieldIndex));
+                }
+
+                value = (value * 10) + digit;
+            }
+
+            if (negative) {
+                value = -value;
+            }
+
+            return PacketResult<int>::Success(static_cast<int>(value));
         }
     };
 

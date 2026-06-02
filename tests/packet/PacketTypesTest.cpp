@@ -1,9 +1,12 @@
+#include "packet/PacketBuilder.hpp"
 #include "packet/PacketTypes.hpp"
 #include "packet/receive.hpp"
 #include "packet/send.hpp"
 
+#include <cstddef>
 #include <iostream>
 #include <string>
+#include <string_view>
 
 namespace {
 
@@ -15,6 +18,39 @@ int Expect(bool condition, const char* message)
 
     std::cerr << "EXPECT failed: " << message << '\n';
     return 1;
+}
+
+template <typename T>
+int ExpectError(
+    const cg::packet::PacketResult<T>& result,
+    cg::packet::PacketErrorCode code,
+    std::string_view packetCode,
+    bool hasFieldIndex,
+    std::size_t fieldIndex,
+    const char* message)
+{
+    int failures = Expect(!static_cast<bool>(result), message);
+    failures += Expect(result.HasError(), message);
+    if (!result.HasError()) {
+        return failures;
+    }
+
+    const cg::packet::PacketError& error = result.Error();
+    failures += Expect(error.code == code, message);
+    failures += Expect(error.packetCode.has_value(), message);
+    if (error.packetCode.has_value()) {
+        failures += Expect(error.packetCode->View() == packetCode, message);
+    }
+
+    if (hasFieldIndex) {
+        failures += Expect(error.fieldIndex.has_value(), message);
+        if (error.fieldIndex.has_value()) {
+            failures += Expect(*error.fieldIndex == fieldIndex, message);
+        }
+    } else {
+        failures += Expect(!error.fieldIndex.has_value(), message);
+    }
+    return failures;
 }
 
 int TestPacketExpression()
@@ -63,6 +99,129 @@ int TestReceivePacketExpression()
     failures += Expect(
         packet.fields[1].type == cg::packet::PacketFieldType::EscapedString,
         "ClientLoginResult data type");
+    return failures;
+}
+
+int TestClientLoginResultParseAndBuild()
+{
+    int failures = 0;
+
+    const cg::packet::PacketResult<cg::packet::receive::ClientLoginResult> emptyData =
+        cg::packet::receive::ClientLoginResult::Parse("whV 0  ");
+    failures += Expect(static_cast<bool>(emptyData), "ClientLoginResult parse empty data");
+    if (emptyData.HasValue()) {
+        failures += Expect(
+            emptyData.Value().result == cg::packet::receive::ClientLoginResult::ClientLogin_AUTH_OK,
+            "ClientLoginResult empty data result");
+        failures += Expect(emptyData.Value().data.empty(), "ClientLoginResult empty data value");
+
+        const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(emptyData.Value().ToPacket());
+        failures += Expect(static_cast<bool>(built), "ClientLoginResult build empty data");
+        if (built.HasValue()) {
+            failures += Expect(built.Value() == "whV 0  ", "ClientLoginResult build empty data value");
+        }
+    }
+
+    const cg::packet::PacketResult<cg::packet::receive::ClientLoginResult> busy =
+        cg::packet::receive::ClientLoginResult::Parse("whV 9 busy ");
+    failures += Expect(static_cast<bool>(busy), "ClientLoginResult parse busy");
+    if (busy.HasValue()) {
+        failures += Expect(
+            busy.Value().result == cg::packet::receive::ClientLoginResult::ClientLogin_AUTH_ERROR_OTHER,
+            "ClientLoginResult busy result");
+        failures += Expect(busy.Value().data == "busy", "ClientLoginResult busy data");
+
+        const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(busy.Value().ToPacket());
+        failures += Expect(static_cast<bool>(built), "ClientLoginResult build busy");
+        if (built.HasValue()) {
+            failures += Expect(built.Value() == "whV 9 busy ", "ClientLoginResult build busy value");
+        }
+    }
+
+    const cg::packet::PacketResult<cg::packet::receive::ClientLoginResult> faild =
+        cg::packet::receive::ClientLoginResult::Parse("whV 1 faild ");
+    failures += Expect(static_cast<bool>(faild), "ClientLoginResult parse faild");
+    if (faild.HasValue()) {
+        failures += Expect(faild.Value().data == "faild", "ClientLoginResult faild data");
+    }
+
+    const cg::packet::PacketResult<cg::packet::receive::ClientLoginResult> incorrect =
+        cg::packet::receive::ClientLoginResult::Parse("whV 2 incorrect ");
+    failures += Expect(static_cast<bool>(incorrect), "ClientLoginResult parse incorrect");
+    if (incorrect.HasValue()) {
+        failures += Expect(incorrect.Value().data == "incorrect", "ClientLoginResult incorrect data");
+    }
+
+    return failures;
+}
+
+int TestClientLoginResultParseErrors()
+{
+    int failures = 0;
+    failures += ExpectError(
+        cg::packet::receive::ClientLoginResult::Parse("JFVf hash pass account "),
+        cg::packet::PacketErrorCode::InvalidCode,
+        "JFVf",
+        false,
+        0U,
+        "ClientLoginResult wrong code");
+    failures += ExpectError(
+        cg::packet::receive::ClientLoginResult::Parse("whV 0"),
+        cg::packet::PacketErrorCode::FieldCountMismatch,
+        "whV",
+        true,
+        1U,
+        "ClientLoginResult missing data");
+    failures += ExpectError(
+        cg::packet::receive::ClientLoginResult::Parse("whV _ busy "),
+        cg::packet::PacketErrorCode::DecodeFailed,
+        "whV",
+        true,
+        0U,
+        "ClientLoginResult invalid result");
+    failures += ExpectError(
+        cg::packet::receive::ClientLoginResult::Parse("whV 9 busy extra "),
+        cg::packet::PacketErrorCode::FieldCountMismatch,
+        "whV",
+        true,
+        2U,
+        "ClientLoginResult extra field");
+    return failures;
+}
+
+int TestClientLoginResultBuildErrors()
+{
+    int failures = 0;
+
+    cg::packet::Packet wrongDirection = cg::packet::receive::ClientLoginResult(9, "busy").ToPacket();
+    wrongDirection.direction = cg::packet::PacketDirection::ClientToServer;
+    failures += ExpectError(
+        cg::packet::BuildPacket(wrongDirection),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        "whV",
+        false,
+        0U,
+        "ClientLoginResult build wrong direction");
+
+    cg::packet::Packet wrongName = cg::packet::receive::ClientLoginResult(9, "busy").ToPacket();
+    wrongName.fields[0].name = "wrong";
+    failures += ExpectError(
+        cg::packet::BuildPacket(wrongName),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        "whV",
+        true,
+        0U,
+        "ClientLoginResult build wrong field name");
+
+    cg::packet::Packet wrongType = cg::packet::receive::ClientLoginResult(9, "busy").ToPacket();
+    wrongType.fields[1].type = cg::packet::PacketFieldType::RawString;
+    failures += ExpectError(
+        cg::packet::BuildPacket(wrongType),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        "whV",
+        true,
+        1U,
+        "ClientLoginResult build wrong field type");
     return failures;
 }
 
@@ -135,6 +294,9 @@ int main()
     int failures = 0;
     failures += TestPacketExpression();
     failures += TestReceivePacketExpression();
+    failures += TestClientLoginResultParseAndBuild();
+    failures += TestClientLoginResultParseErrors();
+    failures += TestClientLoginResultBuildErrors();
     failures += TestPacketResult();
     failures += TestTodoResultShape();
     if (failures != 0) {

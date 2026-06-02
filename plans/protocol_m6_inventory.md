@@ -151,7 +151,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | M6.14.21 战斗/交易/家族/社交封包-GH | `GH` | 客户端->服务端 | 否 | 完成 | RECV_PRM 发送迷你邮件；外层 `{data:es} {color:i62}`；`data` 为 `profileIndex|name|msg|` 且必须尾随 `|`，严格 4 段且第 4 段为空；profileIndex 为 raw signed decimal，name/msg 为 raw 字符串并拒绝 literal `|`/`\z` |
 | M6.14.22 战斗/交易/家族/社交封包-aiAb | `aiAb` | 客户端->服务端 | 否 | 完成 | RECV_TROP CHAR_Trade_setTradeList 取出物品；外层 `{item:es} {pet:es} {gold:i62}`；`item/pet` 为普通外层 es，允许空且不拆 `|`，不要求尾随 `|`；`gold` 仅按普通 i62，不限制正负；`item/pet` 强类型解析 BLOCKED：缺服务端旧 C 或更明确语义证据解释两种格式差异 |
 | M6.14.23 战斗/交易/家族/社交封包-ylGN | `ylGN` | 客户端->服务端 | 否 | 完成 | RECV_StallStart 开始摆摊请求；外层 `{stallName:es} {stallDescription:es} {stallList:es}`；stallList 固定 25 个 raw decimal price 且必须尾随 `|`；无 nested es；来源 xlsx + ClientIda + src/packet |
-| M6.15.01 登录/角色管理封包-whV | `whV` | 服务端->客户端 | 否 | 未开始 | SEND_ClientLogin 登录角色表结果 |
+| M6.15.01 登录/角色管理封包-whV | `whV` | 服务端->客户端 | 否 | 完成 | SEND_ClientLogin 登录角色表结果；外层 `{result:i62} {data:es}`；result 仅转 int/枚举值，不做范围校验；`data` 为普通外层 es 原样保存，不强校验、不拆 payload，强类型拆分 BLOCKED：旧 C/IDA/xlsx 对 data 语义冲突 |
 | M6.15.02 登录/角色管理封包-Daj | `Daj` | 服务端->客户端 | 否 | 未开始 | SEND_CharList 登录角色表 |
 | M6.15.03 登录/角色管理封包-DZ | `DZ` | 服务端->客户端 | 是 | 字段待补 | SEND_CreateNewChar |
 | M6.15.04 登录/角色管理封包-oy | `oy` | 服务端->客户端 | 是 | 字段待补 | SEND_CharDelete |
@@ -162,7 +162,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | code | 方向 | 现有类型 | format | 当前状态 |
 |---|---|---|---|---|
 | `JFVf` | 客户端->服务端 | `cg::packet::send::ClientLogin` | `{clientHash:es} {password:es} {account:es}` | 结构已存在，Encode 待实现 |
-| `whV` | 服务端->客户端 | `cg::packet::receive::ClientLoginResult` | `{result:i62} {data:es}` | 结构与结果枚举已存在，Parse 待实现；`data` 可能为空或为 `fail/block/busy` |
+| `whV` | 服务端->客户端 | `cg::packet::receive::ClientLoginResult` | `{result:i62} {data:es}` | M6.15.01 已实现 Parse；`data` 可能为空或为 `fail/block/busy`，本步不强校验、不拆 payload，强类型拆分 BLOCKED：旧 C/IDA/xlsx 对 data 语义冲突 |
 | `HNP` | 服务端->客户端 | `cg::packet::receive::ProfileVersion` | `{data:es}` | M6.11.01 已实现；`data` 按 `|` 拆 `profileVersion/aboutVersion/mailCharge/seekPos` 4 段，均为 raw decimal，不用 i62，`seekPos` 可为 `-1` |
 | `aPc` | 服务端->客户端 | `cg::packet::receive::CharacterProfile` | `{data:es}` | M6.11.02 已实现；按旧 C `nrproto_CP_send(int fd, char* data)` 修正为单外层 `data`；`data` 最小解析 `flags|values...|`，flags 为 i62，values 保留 raw 字符串和中间空值，回写保留尾随 `|`，不拆业务 bit |
 | `UU` | 服务端->客户端 | `cg::packet::receive::CharacterProfile2` | `{data:es}` | M6.11.03 已实现；按旧 C `nrproto_CP2_send(int fd, char* data)` 修正为单外层 `data`；`data` 最小解析 `flagMask|values...|`，flagMask 为 i62，values 保留 raw 字符串且拒绝中间空值，回写保留尾随 `|`，不拆业务 bit |

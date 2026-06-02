@@ -19,7 +19,6 @@ namespace cg::packet
         inline constexpr int Int62Radix = 62;
         inline constexpr std::string_view Encode64Digits =
             "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+-";
-        inline constexpr int JEncodeKey = 4595;
 
         [[nodiscard]] inline int DecodeInt62Digit(char ch) noexcept
         {
@@ -72,7 +71,7 @@ namespace cg::packet
             return error;
         }
 
-        [[nodiscard]] inline PacketError MakeEnvelopeCodecError(PacketErrorCode code, std::string message)
+        [[nodiscard]] inline PacketError MakeEncode64Error(PacketErrorCode code, std::string message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             return error;
@@ -83,19 +82,6 @@ namespace cg::packet
             return static_cast<std::uint8_t>(static_cast<unsigned char>(bytes[index]));
         }
 
-        [[nodiscard]] inline std::string TrimEnvelopeLineEnding(std::string_view text)
-        {
-            if (!text.empty() && text.back() == '\n') {
-                text.remove_suffix(1);
-                if (!text.empty() && text.back() == '\r') {
-                    text.remove_suffix(1);
-                }
-            } else if (!text.empty() && text.back() == '\r') {
-                text.remove_suffix(1);
-            }
-
-            return std::string(text);
-        }
     }
 
     [[nodiscard]] inline PacketResult<std::string> EncodeInt62(int value)
@@ -342,7 +328,7 @@ namespace cg::packet
     {
         for (const char ch : text) {
             if (detail::Decode64Digit(ch) < 0) {
-                return PacketResult<std::string>::Failure(detail::MakeEnvelopeCodecError(
+                return PacketResult<std::string>::Failure(detail::MakeEncode64Error(
                     PacketErrorCode::DecodeFailed,
                     "encode64 文本包含非法字符"));
             }
@@ -373,150 +359,6 @@ namespace cg::packet
         return PacketResult<std::string>::Success(std::move(output));
     }
 
-    [[nodiscard]] inline PacketResult<std::string> JEncode(std::string_view bytes)
-    {
-        if (bytes.empty()) {
-            return PacketResult<std::string>::Failure(detail::MakeEnvelopeCodecError(
-                PacketErrorCode::EncodeFailed,
-                "jEncode 输入不能为空"));
-        }
-
-        std::string work(bytes);
-        std::uint8_t sum = 0;
-        for (std::size_t index = 0; index < work.size(); ++index) {
-            std::uint8_t value = detail::ByteAt(work, index);
-            sum = static_cast<std::uint8_t>(sum + value);
-            if ((detail::JEncodeKey % 7) == static_cast<int>(index % 5U) ||
-                (detail::JEncodeKey % 2) == static_cast<int>(index % 2U)) {
-                value = static_cast<std::uint8_t>(~value);
-                work[index] = static_cast<char>(value);
-            }
-        }
-
-        const std::size_t pivot = static_cast<std::size_t>(detail::JEncodeKey) % bytes.size();
-        std::string output;
-        output.resize(bytes.size() + 1U);
-        for (std::size_t index = 0; index < output.size(); ++index) {
-            if (pivot > index) {
-                const std::uint8_t value = static_cast<std::uint8_t>(
-                    detail::ByteAt(work, index) + sum * ((index * index) % 3U));
-                output[index] = static_cast<char>(value);
-            } else if (pivot == index) {
-                output[index] = static_cast<char>(sum);
-            } else {
-                const std::uint8_t value = static_cast<std::uint8_t>(
-                    detail::ByteAt(work, index - 1U) + sum * ((index * index) % 7U));
-                output[index] = static_cast<char>(value);
-            }
-        }
-
-        return PacketResult<std::string>::Success(std::move(output));
-    }
-
-    [[nodiscard]] inline PacketResult<std::string> JDecode(std::string_view bytes)
-    {
-        if (bytes.size() <= 1U) {
-            return PacketResult<std::string>::Failure(detail::MakeEnvelopeCodecError(
-                PacketErrorCode::DecodeFailed,
-                "jDecode 输入长度不足"));
-        }
-
-        const std::size_t decodedSize = bytes.size() - 1U;
-        const std::size_t pivot = static_cast<std::size_t>(detail::JEncodeKey) % decodedSize;
-        const std::uint8_t sum = detail::ByteAt(bytes, pivot);
-        std::string output;
-        output.resize(decodedSize);
-
-        for (std::size_t index = 0; index < bytes.size(); ++index) {
-            if (pivot > index) {
-                const std::uint8_t value = static_cast<std::uint8_t>(
-                    detail::ByteAt(bytes, index) - sum * ((index * index) % 3U));
-                output[index] = static_cast<char>(value);
-            } else if (pivot < index) {
-                const std::uint8_t value = static_cast<std::uint8_t>(
-                    detail::ByteAt(bytes, index) - sum * ((index * index) % 7U));
-                output[index - 1U] = static_cast<char>(value);
-            }
-        }
-
-        for (std::size_t index = 0; index < output.size(); ++index) {
-            if ((detail::JEncodeKey % 7) == static_cast<int>(index % 5U) ||
-                (detail::JEncodeKey % 2) == static_cast<int>(index % 2U)) {
-                output[index] = static_cast<char>(~detail::ByteAt(output, index));
-            }
-        }
-
-        return PacketResult<std::string>::Success(std::move(output));
-    }
-
-    [[nodiscard]] inline PacketResult<std::string> EncodeEnvelope(std::string_view payload, bool noCompress = false)
-    {
-        if (payload.size() >= 99U && !noCompress) {
-            return PacketResult<std::string>::Failure(detail::MakeEnvelopeCodecError(
-                PacketErrorCode::NotImplemented,
-                "ringo 压缩 encode 路径待补"));
-        }
-
-        const std::size_t payloadSizeWithNul = payload.size() + 1U;
-        if (payloadSizeWithNul > 255U) {
-            return PacketResult<std::string>::Failure(detail::MakeEnvelopeCodecError(
-                PacketErrorCode::EncodeFailed,
-                "未压缩 envelope 长度超过 flag 字节范围"));
-        }
-
-        std::uint8_t flag = static_cast<std::uint8_t>(payloadSizeWithNul);
-        if ((flag % 2U) == 1U) {
-            ++flag;
-        }
-
-        std::string plain;
-        plain.reserve(payloadSizeWithNul + 1U);
-        plain.push_back(static_cast<char>(flag));
-        plain.append(payload);
-        plain.push_back('\0');
-
-        PacketResult<std::string> jEncoded = JEncode(plain);
-        if (!jEncoded.HasValue()) {
-            return jEncoded;
-        }
-
-        return Encode64(jEncoded.Value());
-    }
-
-    [[nodiscard]] inline PacketResult<std::string> DecodeEnvelope(std::string_view text)
-    {
-        const std::string trimmed = detail::TrimEnvelopeLineEnding(text);
-        PacketResult<std::string> decoded64 = Decode64(trimmed);
-        if (!decoded64.HasValue()) {
-            return decoded64;
-        }
-
-        PacketResult<std::string> decoded = JDecode(decoded64.Value());
-        if (!decoded.HasValue()) {
-            return decoded;
-        }
-        if (decoded.Value().size() < 2U) {
-            return PacketResult<std::string>::Failure(detail::MakeEnvelopeCodecError(
-                PacketErrorCode::DecodeFailed,
-                "envelope 解码后长度不足"));
-        }
-
-        const std::uint8_t flag = detail::ByteAt(decoded.Value(), 0);
-        if ((flag % 2U) == 1U) {
-            return PacketResult<std::string>::Failure(detail::MakeEnvelopeCodecError(
-                PacketErrorCode::NotImplemented,
-                "ringo 压缩 decode 路径待补"));
-        }
-
-        std::string payload(decoded.Value().substr(1U));
-        if (payload.empty() || payload.back() != '\0') {
-            return PacketResult<std::string>::Failure(detail::MakeEnvelopeCodecError(
-                PacketErrorCode::DecodeFailed,
-                "未压缩 envelope payload 缺少尾 NUL"));
-        }
-        payload.pop_back();
-        return PacketResult<std::string>::Success(std::move(payload));
-    }
 }
 
 #endif //CG_ENGINE_UTILS_H

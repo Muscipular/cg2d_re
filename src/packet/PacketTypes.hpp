@@ -77,7 +77,6 @@ namespace cg::packet
     enum class PacketErrorCode
     {
         None,
-        NotImplemented,
         EmptyInput,
         InvalidCode,
         UnknownCode,

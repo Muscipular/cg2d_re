@@ -192,37 +192,6 @@ int TestKnownPackets()
     return failures;
 }
 
-int TestEnvelopeBoundary()
-{
-    const cg::packet::PacketResult<std::string> envelope = cg::packet::EncodeEnvelope("whV 0 busy ");
-    int failures = Expect(static_cast<bool>(envelope), "encode whV envelope");
-    if (!envelope.HasValue()) {
-        return failures;
-    }
-
-    const cg::packet::PacketResult<std::string> plain = cg::packet::DecodeEnvelope(envelope.Value());
-    failures += Expect(static_cast<bool>(plain), "decode whV envelope");
-    if (!plain.HasValue()) {
-        return failures;
-    }
-
-    const cg::packet::PacketResult<cg::packet::Packet> parsed =
-        cg::packet::ParsePacket(plain.Value(), cg::packet::receive::ClientLoginResult::Spec);
-    failures += Expect(static_cast<bool>(parsed), "parse decoded whV");
-    if (parsed.HasValue()) {
-        failures += Expect(parsed.Value().code == cg::packet::PacketCode("whV"), "decoded whV code");
-        failures += Expect(parsed.Value().fields.size() == 2U, "decoded whV field count");
-        failures += ExpectParsedField(
-            parsed.Value(),
-            1U,
-            "data",
-            cg::packet::PacketFieldType::EscapedString,
-            "busy",
-            "decoded whV data");
-    }
-    return failures;
-}
-
 int TestErrors()
 {
     int failures = 0;
@@ -293,7 +262,6 @@ int main()
 {
     int failures = 0;
     failures += TestKnownPackets();
-    failures += TestEnvelopeBoundary();
     failures += TestErrors();
     if (failures != 0) {
         std::cerr << failures << " checks failed\n";

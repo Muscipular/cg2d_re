@@ -85,7 +85,7 @@ namespace cg::packet
     }
 
     /**
-     * 构造 DecodeEnvelope 前的明文 token 串；不生成 envelope 或换行。
+     * 构造明文 token 串。
      */
     [[nodiscard]] inline PacketResult<std::string> BuildPacket(const Packet& packet, const PacketSpec& packetSpec)
     {

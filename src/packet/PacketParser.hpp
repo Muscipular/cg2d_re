@@ -187,7 +187,7 @@ namespace cg::packet
     }
 
     /**
-     * 解析 DecodeEnvelope 后的明文 token 串；不接受 envelope 文本。
+     * 解析明文 token 串。
      */
     [[nodiscard]] inline PacketResult<Packet> ParsePacket(
         std::string_view plainTokens,

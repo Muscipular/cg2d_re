@@ -293,16 +293,16 @@ target_include_directories(cg-packet-token-codec-test
 
 add_test(NAME cg-packet-token-codec-test COMMAND cg-packet-token-codec-test)
 
-add_executable(cg-packet-envelope-codec-test
-    tests/packet/EnvelopeCodecTest.cpp
+add_executable(cg-packet-encode64-codec-test
+    tests/packet/Encode64CodecTest.cpp
 )
 
-target_include_directories(cg-packet-envelope-codec-test
+target_include_directories(cg-packet-encode64-codec-test
     PRIVATE
         "${CMAKE_CURRENT_SOURCE_DIR}/src"
 )
 
-add_test(NAME cg-packet-envelope-codec-test COMMAND cg-packet-envelope-codec-test)
+add_test(NAME cg-packet-encode64-codec-test COMMAND cg-packet-encode64-codec-test)
 
 add_executable(cg-packet-parser-test
     tests/packet/PacketParserTest.cpp
@@ -1259,7 +1259,7 @@ if(MSVC)
     target_compile_options(cg-packet-int62-codec-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-es-string-codec-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-token-codec-test PRIVATE /W4 /utf-8 /permissive-)
-    target_compile_options(cg-packet-envelope-codec-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-encode64-codec-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-parser-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-builder-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-map-name-test PRIVATE /W4 /utf-8 /permissive-)
@@ -1360,7 +1360,7 @@ else()
     target_compile_options(cg-packet-int62-codec-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-es-string-codec-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-token-codec-test PRIVATE -Wall -Wextra -Wpedantic)
-    target_compile_options(cg-packet-envelope-codec-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-packet-encode64-codec-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-parser-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-builder-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-map-name-test PRIVATE -Wall -Wextra -Wpedantic)

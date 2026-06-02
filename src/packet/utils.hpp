@@ -54,9 +54,9 @@ namespace cg::packet
             return -1;
         }
 
-        [[nodiscard]] inline PacketError MakeInt62Error(PacketErrorCode code, std::string message)
+        [[nodiscard]] inline PacketError MakeInt62Error(PacketErrorCode code, std::string_view message)
         {
-            PacketError error = PacketError::Make(code, std::move(message));
+            PacketError error = PacketError::Make(code, message);
             return error;
         }
 
@@ -65,15 +65,15 @@ namespace cg::packet
             return static_cast<unsigned char>(ch) >= 0x80U;
         }
 
-        [[nodiscard]] inline PacketError MakeEscapedStringError(PacketErrorCode code, std::string message)
+        [[nodiscard]] inline PacketError MakeEscapedStringError(PacketErrorCode code, std::string_view message)
         {
-            PacketError error = PacketError::Make(code, std::move(message));
+            PacketError error = PacketError::Make(code, message);
             return error;
         }
 
-        [[nodiscard]] inline PacketError MakeEncode64Error(PacketErrorCode code, std::string message)
+        [[nodiscard]] inline PacketError MakeEncode64Error(PacketErrorCode code, std::string_view message)
         {
-            PacketError error = PacketError::Make(code, std::move(message));
+            PacketError error = PacketError::Make(code, message);
             return error;
         }
 
@@ -134,13 +134,13 @@ namespace cg::packet
             if (digit < 0) {
                 return PacketResult<int>::Failure(detail::MakeInt62Error(
                     PacketErrorCode::DecodeFailed,
-                    "i62 数值包含非法字符"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("i62 数值包含非法字符")));
             }
 
             if (value > (limit - digit) / detail::Int62Radix) {
                 return PacketResult<int>::Failure(detail::MakeInt62Error(
                     PacketErrorCode::DecodeFailed,
-                    "i62 数值超出 int 范围"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("i62 数值超出 int 范围")));
             }
 
             value = (value * detail::Int62Radix) + digit;
@@ -164,7 +164,7 @@ namespace cg::packet
                 if (index + 1U >= text.size()) {
                     return PacketResult<std::string>::Failure(detail::MakeEscapedStringError(
                         PacketErrorCode::EncodeFailed,
-                        "es 字符串旧双字节字符被截断"));
+                        CG_PACKET_DIAGNOSTIC_TEXT("es 字符串旧双字节字符被截断")));
                 }
 
                 output.push_back(ch);
@@ -204,7 +204,7 @@ namespace cg::packet
                 if (index + 1U >= text.size()) {
                     return PacketResult<std::string>::Failure(detail::MakeEscapedStringError(
                         PacketErrorCode::DecodeFailed,
-                        "es 字符串旧双字节字符被截断"));
+                        CG_PACKET_DIAGNOSTIC_TEXT("es 字符串旧双字节字符被截断")));
                 }
 
                 output.push_back(ch);
@@ -333,7 +333,7 @@ namespace cg::packet
             if (detail::Decode64Digit(ch) < 0) {
                 return PacketResult<std::string>::Failure(detail::MakeEncode64Error(
                     PacketErrorCode::DecodeFailed,
-                    "encode64 文本包含非法字符"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("encode64 文本包含非法字符")));
             }
         }
 

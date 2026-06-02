@@ -15,9 +15,9 @@ namespace cg::packet
 {
     namespace detail
     {
-        [[nodiscard]] inline PacketError MakePayloadCodecError(PacketErrorCode code, std::string message)
+        [[nodiscard]] inline PacketError MakePayloadCodecError(PacketErrorCode code, std::string_view message)
         {
-            PacketError error = PacketError::Make(code, std::move(message));
+            PacketError error = PacketError::Make(code, message);
             return error;
         }
     }
@@ -29,7 +29,7 @@ namespace cg::packet
         if (delimiter.empty()) {
             return PacketResult<std::vector<std::string>>::Failure(detail::MakePayloadCodecError(
                 PacketErrorCode::DecodeFailed,
-                "payload 分隔符不能为空"));
+                CG_PACKET_DIAGNOSTIC_TEXT("payload 分隔符不能为空")));
         }
 
         std::vector<std::string> parts;
@@ -55,7 +55,7 @@ namespace cg::packet
         if (delimiter.empty()) {
             return PacketResult<std::vector<std::string>>::Failure(detail::MakePayloadCodecError(
                 PacketErrorCode::DecodeFailed,
-                "payload 分隔符不能为空"));
+                CG_PACKET_DIAGNOSTIC_TEXT("payload 分隔符不能为空")));
         }
 
         std::vector<std::string> parts;
@@ -65,7 +65,7 @@ namespace cg::packet
                 if (index + 1U >= text.size()) {
                     return PacketResult<std::vector<std::string>>::Failure(detail::MakePayloadCodecError(
                         PacketErrorCode::DecodeFailed,
-                        "payload 旧双字节字符被截断"));
+                        CG_PACKET_DIAGNOSTIC_TEXT("payload 旧双字节字符被截断")));
                 }
 
                 index += 2U;
@@ -93,7 +93,7 @@ namespace cg::packet
         if (delimiter.empty()) {
             return PacketResult<std::string>::Failure(detail::MakePayloadCodecError(
                 PacketErrorCode::EncodeFailed,
-                "payload 分隔符不能为空"));
+                CG_PACKET_DIAGNOSTIC_TEXT("payload 分隔符不能为空")));
         }
 
         std::size_t totalSize = 0;

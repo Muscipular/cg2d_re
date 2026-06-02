@@ -1243,6 +1243,13 @@ add_test(
         "${CMAKE_CURRENT_SOURCE_DIR}/tests/fixtures/protocol/schema/packet_coverage_schema.json"
 )
 
+get_property(cg_targets DIRECTORY PROPERTY BUILDSYSTEM_TARGETS)
+foreach(cg_target IN LISTS cg_targets)
+    if(cg_target MATCHES "^cg-packet-.*-test$")
+        target_compile_definitions(${cg_target} PRIVATE CG_PACKET_ENABLE_DIAGNOSTIC_TEXT=1)
+    endif()
+endforeach()
+
 if(MSVC)
     target_compile_options(cg-client PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-map-viewer PRIVATE /W4 /utf-8 /permissive-)

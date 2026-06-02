@@ -23,9 +23,9 @@ namespace cg::packet::send
         static constexpr std::string_view Code = "JFVf";
         static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
         static constexpr std::array<PacketFieldSpec, 3U> Fields = {{
-            {"clientHash", PacketFieldType::EscapedString},
-            {"password", PacketFieldType::EscapedString},
-            {"account", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("clientHash"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("password"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("account"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -49,17 +49,17 @@ namespace cg::packet::send
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "clientHash",
+                CG_PACKET_DIAGNOSTIC_TEXT("clientHash"),
                 PacketFieldType::EscapedString,
                 clientHash,
             });
             packet.fields.push_back(PacketField {
-                "password",
+                CG_PACKET_DIAGNOSTIC_TEXT("password"),
                 PacketFieldType::EscapedString,
                 password,
             });
             packet.fields.push_back(PacketField {
-                "account",
+                CG_PACKET_DIAGNOSTIC_TEXT("account"),
                 PacketFieldType::EscapedString,
                 account,
             });
@@ -106,7 +106,7 @@ namespace cg::packet::send
         static constexpr std::string_view Code = "CCL";
         static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
         static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
-            {"time", PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("time"), PacketFieldType::Int62},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -126,7 +126,7 @@ namespace cg::packet::send
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "time",
+                CG_PACKET_DIAGNOSTIC_TEXT("time"),
                 PacketFieldType::Int62,
                 std::to_string(time),
             });
@@ -149,19 +149,19 @@ namespace cg::packet::send
         static constexpr std::string_view Code = "aSEl";
         static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
         static constexpr std::array<PacketFieldSpec, 13U> Fields = {{
-            {"dataPlace", PacketFieldType::Int62},
-            {"name", PacketFieldType::EscapedString},
-            {"image", PacketFieldType::Int62},
-            {"face", PacketFieldType::Int62},
-            {"vital", PacketFieldType::Int62},
-            {"strength", PacketFieldType::Int62},
-            {"tough", PacketFieldType::Int62},
-            {"quick", PacketFieldType::Int62},
-            {"magic", PacketFieldType::Int62},
-            {"earth", PacketFieldType::Int62},
-            {"water", PacketFieldType::Int62},
-            {"fire", PacketFieldType::Int62},
-            {"wind", PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("dataPlace"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("name"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("image"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("face"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("vital"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("strength"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("tough"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("quick"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("magic"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("earth"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("water"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("fire"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("wind"), PacketFieldType::Int62},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -218,67 +218,67 @@ namespace cg::packet::send
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "dataPlace",
+                CG_PACKET_DIAGNOSTIC_TEXT("dataPlace"),
                 PacketFieldType::Int62,
                 std::to_string(dataPlace),
             });
             packet.fields.push_back(PacketField {
-                "name",
+                CG_PACKET_DIAGNOSTIC_TEXT("name"),
                 PacketFieldType::EscapedString,
                 name,
             });
             packet.fields.push_back(PacketField {
-                "image",
+                CG_PACKET_DIAGNOSTIC_TEXT("image"),
                 PacketFieldType::Int62,
                 std::to_string(image),
             });
             packet.fields.push_back(PacketField {
-                "face",
+                CG_PACKET_DIAGNOSTIC_TEXT("face"),
                 PacketFieldType::Int62,
                 std::to_string(face),
             });
             packet.fields.push_back(PacketField {
-                "vital",
+                CG_PACKET_DIAGNOSTIC_TEXT("vital"),
                 PacketFieldType::Int62,
                 std::to_string(vital),
             });
             packet.fields.push_back(PacketField {
-                "strength",
+                CG_PACKET_DIAGNOSTIC_TEXT("strength"),
                 PacketFieldType::Int62,
                 std::to_string(strength),
             });
             packet.fields.push_back(PacketField {
-                "tough",
+                CG_PACKET_DIAGNOSTIC_TEXT("tough"),
                 PacketFieldType::Int62,
                 std::to_string(tough),
             });
             packet.fields.push_back(PacketField {
-                "quick",
+                CG_PACKET_DIAGNOSTIC_TEXT("quick"),
                 PacketFieldType::Int62,
                 std::to_string(quick),
             });
             packet.fields.push_back(PacketField {
-                "magic",
+                CG_PACKET_DIAGNOSTIC_TEXT("magic"),
                 PacketFieldType::Int62,
                 std::to_string(magic),
             });
             packet.fields.push_back(PacketField {
-                "earth",
+                CG_PACKET_DIAGNOSTIC_TEXT("earth"),
                 PacketFieldType::Int62,
                 std::to_string(earth),
             });
             packet.fields.push_back(PacketField {
-                "water",
+                CG_PACKET_DIAGNOSTIC_TEXT("water"),
                 PacketFieldType::Int62,
                 std::to_string(water),
             });
             packet.fields.push_back(PacketField {
-                "fire",
+                CG_PACKET_DIAGNOSTIC_TEXT("fire"),
                 PacketFieldType::Int62,
                 std::to_string(fire),
             });
             packet.fields.push_back(PacketField {
-                "wind",
+                CG_PACKET_DIAGNOSTIC_TEXT("wind"),
                 PacketFieldType::Int62,
                 std::to_string(wind),
             });
@@ -299,12 +299,12 @@ namespace cg::packet::send
         static constexpr std::string_view Code = "UUN";
         static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
         static constexpr std::array<PacketFieldSpec, 6U> Fields = {{
-            {"mapid", PacketFieldType::Int62},
-            {"floor", PacketFieldType::Int62},
-            {"x1", PacketFieldType::Int62},
-            {"y1", PacketFieldType::Int62},
-            {"x2", PacketFieldType::Int62},
-            {"y2", PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("mapid"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("floor"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("x1"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("y1"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("x2"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("y2"), PacketFieldType::Int62},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -334,32 +334,32 @@ namespace cg::packet::send
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "mapid",
+                CG_PACKET_DIAGNOSTIC_TEXT("mapid"),
                 PacketFieldType::Int62,
                 std::to_string(mapId),
             });
             packet.fields.push_back(PacketField {
-                "floor",
+                CG_PACKET_DIAGNOSTIC_TEXT("floor"),
                 PacketFieldType::Int62,
                 std::to_string(floor),
             });
             packet.fields.push_back(PacketField {
-                "x1",
+                CG_PACKET_DIAGNOSTIC_TEXT("x1"),
                 PacketFieldType::Int62,
                 std::to_string(x1),
             });
             packet.fields.push_back(PacketField {
-                "y1",
+                CG_PACKET_DIAGNOSTIC_TEXT("y1"),
                 PacketFieldType::Int62,
                 std::to_string(y1),
             });
             packet.fields.push_back(PacketField {
-                "x2",
+                CG_PACKET_DIAGNOSTIC_TEXT("x2"),
                 PacketFieldType::Int62,
                 std::to_string(x2),
             });
             packet.fields.push_back(PacketField {
-                "y2",
+                CG_PACKET_DIAGNOSTIC_TEXT("y2"),
                 PacketFieldType::Int62,
                 std::to_string(y2),
             });
@@ -380,13 +380,13 @@ namespace cg::packet::send
         static constexpr std::string_view Code = "Ot";
         static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
         static constexpr std::array<PacketFieldSpec, 7U> Fields = {{
-            {"sellFlag", PacketFieldType::Int62},
-            {"sellMsg", PacketFieldType::EscapedString},
-            {"buyFlag", PacketFieldType::Int62},
-            {"buyMsg", PacketFieldType::EscapedString},
-            {"aboutFlg", PacketFieldType::Int62},
-            {"aboutMsg", PacketFieldType::EscapedString},
-            {"ProfileMsg", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("sellFlag"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("sellMsg"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("buyFlag"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("buyMsg"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("aboutFlg"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("aboutMsg"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("ProfileMsg"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -425,37 +425,37 @@ namespace cg::packet::send
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "sellFlag",
+                CG_PACKET_DIAGNOSTIC_TEXT("sellFlag"),
                 PacketFieldType::Int62,
                 std::to_string(sellFlag),
             });
             packet.fields.push_back(PacketField {
-                "sellMsg",
+                CG_PACKET_DIAGNOSTIC_TEXT("sellMsg"),
                 PacketFieldType::EscapedString,
                 sellMessage,
             });
             packet.fields.push_back(PacketField {
-                "buyFlag",
+                CG_PACKET_DIAGNOSTIC_TEXT("buyFlag"),
                 PacketFieldType::Int62,
                 std::to_string(buyFlag),
             });
             packet.fields.push_back(PacketField {
-                "buyMsg",
+                CG_PACKET_DIAGNOSTIC_TEXT("buyMsg"),
                 PacketFieldType::EscapedString,
                 buyMessage,
             });
             packet.fields.push_back(PacketField {
-                "aboutFlg",
+                CG_PACKET_DIAGNOSTIC_TEXT("aboutFlg"),
                 PacketFieldType::Int62,
                 std::to_string(aboutFlag),
             });
             packet.fields.push_back(PacketField {
-                "aboutMsg",
+                CG_PACKET_DIAGNOSTIC_TEXT("aboutMsg"),
                 PacketFieldType::EscapedString,
                 aboutMessage,
             });
             packet.fields.push_back(PacketField {
-                "ProfileMsg",
+                CG_PACKET_DIAGNOSTIC_TEXT("ProfileMsg"),
                 PacketFieldType::EscapedString,
                 profileMessage,
             });
@@ -476,10 +476,10 @@ namespace cg::packet::send
         static constexpr std::string_view Code = "RXr";
         static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
         static constexpr std::array<PacketFieldSpec, 4U> Fields = {{
-            {"x", PacketFieldType::Int62},
-            {"y", PacketFieldType::Int62},
-            {"array", PacketFieldType::Int62},
-            {"toindex", PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("x"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("y"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("array"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("toindex"), PacketFieldType::Int62},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -505,22 +505,22 @@ namespace cg::packet::send
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "x",
+                CG_PACKET_DIAGNOSTIC_TEXT("x"),
                 PacketFieldType::Int62,
                 std::to_string(x),
             });
             packet.fields.push_back(PacketField {
-                "y",
+                CG_PACKET_DIAGNOSTIC_TEXT("y"),
                 PacketFieldType::Int62,
                 std::to_string(y),
             });
             packet.fields.push_back(PacketField {
-                "array",
+                CG_PACKET_DIAGNOSTIC_TEXT("array"),
                 PacketFieldType::Int62,
                 std::to_string(array),
             });
             packet.fields.push_back(PacketField {
-                "toindex",
+                CG_PACKET_DIAGNOSTIC_TEXT("toindex"),
                 PacketFieldType::Int62,
                 std::to_string(toindex),
             });
@@ -541,10 +541,10 @@ namespace cg::packet::send
         static constexpr std::string_view Code = "Flvp";
         static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
         static constexpr std::array<PacketFieldSpec, 4U> Fields = {{
-            {"havepetindex", PacketFieldType::Int62},
-            {"havepetskill", PacketFieldType::Int62},
-            {"toindex", PacketFieldType::Int62},
-            {"data", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("havepetindex"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("havepetskill"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("toindex"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -570,22 +570,22 @@ namespace cg::packet::send
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "havepetindex",
+                CG_PACKET_DIAGNOSTIC_TEXT("havepetindex"),
                 PacketFieldType::Int62,
                 std::to_string(havepetindex),
             });
             packet.fields.push_back(PacketField {
-                "havepetskill",
+                CG_PACKET_DIAGNOSTIC_TEXT("havepetskill"),
                 PacketFieldType::Int62,
                 std::to_string(havepetskill),
             });
             packet.fields.push_back(PacketField {
-                "toindex",
+                CG_PACKET_DIAGNOSTIC_TEXT("toindex"),
                 PacketFieldType::Int62,
                 std::to_string(toindex),
             });
             packet.fields.push_back(PacketField {
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
                 PacketFieldType::EscapedString,
                 data,
             });
@@ -606,8 +606,8 @@ namespace cg::packet::send
         static constexpr std::string_view Code = "kjSK";
         static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
         static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
-            {"petSlot", PacketFieldType::Int62},
-            {"sqeno", PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("petSlot"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("sqeno"), PacketFieldType::Int62},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -629,12 +629,12 @@ namespace cg::packet::send
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "petSlot",
+                CG_PACKET_DIAGNOSTIC_TEXT("petSlot"),
                 PacketFieldType::Int62,
                 std::to_string(petSlot),
             });
             packet.fields.push_back(PacketField {
-                "sqeno",
+                CG_PACKET_DIAGNOSTIC_TEXT("sqeno"),
                 PacketFieldType::Int62,
                 std::to_string(sqeno),
             });
@@ -655,9 +655,9 @@ namespace cg::packet::send
         static constexpr std::string_view Code = "HJQp";
         static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
         static constexpr std::array<PacketFieldSpec, 3U> Fields = {{
-            {"petSlot", PacketFieldType::Int62},
-            {"from", PacketFieldType::Int62},
-            {"to", PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("petSlot"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("from"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("to"), PacketFieldType::Int62},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -681,17 +681,17 @@ namespace cg::packet::send
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "petSlot",
+                CG_PACKET_DIAGNOSTIC_TEXT("petSlot"),
                 PacketFieldType::Int62,
                 std::to_string(petSlot),
             });
             packet.fields.push_back(PacketField {
-                "from",
+                CG_PACKET_DIAGNOSTIC_TEXT("from"),
                 PacketFieldType::Int62,
                 std::to_string(from),
             });
             packet.fields.push_back(PacketField {
-                "to",
+                CG_PACKET_DIAGNOSTIC_TEXT("to"),
                 PacketFieldType::Int62,
                 std::to_string(to),
             });
@@ -712,8 +712,8 @@ namespace cg::packet::send
         static constexpr std::string_view Code = "ycX";
         static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
         static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
-            {"petSlot", PacketFieldType::Int62},
-            {"name", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("petSlot"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("name"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -735,12 +735,12 @@ namespace cg::packet::send
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "petSlot",
+                CG_PACKET_DIAGNOSTIC_TEXT("petSlot"),
                 PacketFieldType::Int62,
                 std::to_string(petSlot),
             });
             packet.fields.push_back(PacketField {
-                "name",
+                CG_PACKET_DIAGNOSTIC_TEXT("name"),
                 PacketFieldType::EscapedString,
                 name,
             });
@@ -761,9 +761,9 @@ namespace cg::packet::send
         static constexpr std::string_view Code = "CV";
         static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
         static constexpr std::array<PacketFieldSpec, 3U> Fields = {{
-            {"index", PacketFieldType::Int62},
-            {"message", PacketFieldType::EscapedString},
-            {"color", PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("index"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("message"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("color"), PacketFieldType::Int62},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -787,17 +787,17 @@ namespace cg::packet::send
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "index",
+                CG_PACKET_DIAGNOSTIC_TEXT("index"),
                 PacketFieldType::Int62,
                 std::to_string(index),
             });
             packet.fields.push_back(PacketField {
-                "message",
+                CG_PACKET_DIAGNOSTIC_TEXT("message"),
                 PacketFieldType::EscapedString,
                 message,
             });
             packet.fields.push_back(PacketField {
-                "color",
+                CG_PACKET_DIAGNOSTIC_TEXT("color"),
                 PacketFieldType::Int62,
                 std::to_string(color),
             });
@@ -818,12 +818,12 @@ namespace cg::packet::send
         static constexpr std::string_view Code = "uSr";
         static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
         static constexpr std::array<PacketFieldSpec, 6U> Fields = {{
-            {"x", PacketFieldType::Int62},
-            {"y", PacketFieldType::Int62},
-            {"msg", PacketFieldType::EscapedString},
-            {"color", PacketFieldType::Int62},
-            {"area", PacketFieldType::Int62},
-            {"fontSize", PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("x"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("y"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("msg"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("color"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("area"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("fontSize"), PacketFieldType::Int62},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -853,32 +853,32 @@ namespace cg::packet::send
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "x",
+                CG_PACKET_DIAGNOSTIC_TEXT("x"),
                 PacketFieldType::Int62,
                 std::to_string(x),
             });
             packet.fields.push_back(PacketField {
-                "y",
+                CG_PACKET_DIAGNOSTIC_TEXT("y"),
                 PacketFieldType::Int62,
                 std::to_string(y),
             });
             packet.fields.push_back(PacketField {
-                "msg",
+                CG_PACKET_DIAGNOSTIC_TEXT("msg"),
                 PacketFieldType::EscapedString,
                 msg,
             });
             packet.fields.push_back(PacketField {
-                "color",
+                CG_PACKET_DIAGNOSTIC_TEXT("color"),
                 PacketFieldType::Int62,
                 std::to_string(color),
             });
             packet.fields.push_back(PacketField {
-                "area",
+                CG_PACKET_DIAGNOSTIC_TEXT("area"),
                 PacketFieldType::Int62,
                 std::to_string(area),
             });
             packet.fields.push_back(PacketField {
-                "fontSize",
+                CG_PACKET_DIAGNOSTIC_TEXT("fontSize"),
                 PacketFieldType::Int62,
                 std::to_string(fontSize),
             });
@@ -899,12 +899,12 @@ namespace cg::packet::send
         static constexpr std::string_view Code = "xD";
         static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
         static constexpr std::array<PacketFieldSpec, 6U> Fields = {{
-            {"x", PacketFieldType::Int62},
-            {"y", PacketFieldType::Int62},
-            {"seqno", PacketFieldType::Int62},
-            {"objindex", PacketFieldType::Int62},
-            {"select", PacketFieldType::Int62},
-            {"data", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("x"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("y"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("seqno"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("objindex"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("select"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -934,32 +934,32 @@ namespace cg::packet::send
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "x",
+                CG_PACKET_DIAGNOSTIC_TEXT("x"),
                 PacketFieldType::Int62,
                 std::to_string(x),
             });
             packet.fields.push_back(PacketField {
-                "y",
+                CG_PACKET_DIAGNOSTIC_TEXT("y"),
                 PacketFieldType::Int62,
                 std::to_string(y),
             });
             packet.fields.push_back(PacketField {
-                "seqno",
+                CG_PACKET_DIAGNOSTIC_TEXT("seqno"),
                 PacketFieldType::Int62,
                 std::to_string(seqno),
             });
             packet.fields.push_back(PacketField {
-                "objindex",
+                CG_PACKET_DIAGNOSTIC_TEXT("objindex"),
                 PacketFieldType::Int62,
                 std::to_string(objindex),
             });
             packet.fields.push_back(PacketField {
-                "select",
+                CG_PACKET_DIAGNOSTIC_TEXT("select"),
                 PacketFieldType::Int62,
                 std::to_string(select),
             });
             packet.fields.push_back(PacketField {
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
                 PacketFieldType::EscapedString,
                 data,
             });
@@ -980,8 +980,8 @@ namespace cg::packet::send
         static constexpr std::string_view Code = "IcE";
         static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
         static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
-            {"passwd", PacketFieldType::EscapedString},
-            {"min", PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("passwd"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("min"), PacketFieldType::Int62},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -1003,12 +1003,12 @@ namespace cg::packet::send
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "passwd",
+                CG_PACKET_DIAGNOSTIC_TEXT("passwd"),
                 PacketFieldType::EscapedString,
                 passwd,
             });
             packet.fields.push_back(PacketField {
-                "min",
+                CG_PACKET_DIAGNOSTIC_TEXT("min"),
                 PacketFieldType::Int62,
                 std::to_string(min),
             });
@@ -1029,11 +1029,11 @@ namespace cg::packet::send
         static constexpr std::string_view Code = "rMsv";
         static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
         static constexpr std::array<PacketFieldSpec, 5U> Fields = {{
-            {"index", PacketFieldType::Int62},
-            {"petindex", PacketFieldType::Int62},
-            {"itemindex", PacketFieldType::Int62},
-            {"message", PacketFieldType::EscapedString},
-            {"color", PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("index"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("petindex"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("itemindex"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("message"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("color"), PacketFieldType::Int62},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -1061,27 +1061,27 @@ namespace cg::packet::send
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "index",
+                CG_PACKET_DIAGNOSTIC_TEXT("index"),
                 PacketFieldType::Int62,
                 std::to_string(index),
             });
             packet.fields.push_back(PacketField {
-                "petindex",
+                CG_PACKET_DIAGNOSTIC_TEXT("petindex"),
                 PacketFieldType::Int62,
                 std::to_string(petindex),
             });
             packet.fields.push_back(PacketField {
-                "itemindex",
+                CG_PACKET_DIAGNOSTIC_TEXT("itemindex"),
                 PacketFieldType::Int62,
                 std::to_string(itemindex),
             });
             packet.fields.push_back(PacketField {
-                "message",
+                CG_PACKET_DIAGNOSTIC_TEXT("message"),
                 PacketFieldType::EscapedString,
                 message,
             });
             packet.fields.push_back(PacketField {
-                "color",
+                CG_PACKET_DIAGNOSTIC_TEXT("color"),
                 PacketFieldType::Int62,
                 std::to_string(color),
             });
@@ -1102,11 +1102,11 @@ namespace cg::packet::send
         static constexpr std::string_view Code = "PfqV";
         static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
         static constexpr std::array<PacketFieldSpec, 5U> Fields = {{
-            {"toregist", PacketFieldType::Int62},
-            {"petSlot", PacketFieldType::Int62},
-            {"itemSlot", PacketFieldType::Int62},
-            {"text", PacketFieldType::EscapedString},
-            {"color", PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("toregist"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("petSlot"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("itemSlot"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("text"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("color"), PacketFieldType::Int62},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -1134,27 +1134,27 @@ namespace cg::packet::send
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "toregist",
+                CG_PACKET_DIAGNOSTIC_TEXT("toregist"),
                 PacketFieldType::Int62,
                 std::to_string(toregist),
             });
             packet.fields.push_back(PacketField {
-                "petSlot",
+                CG_PACKET_DIAGNOSTIC_TEXT("petSlot"),
                 PacketFieldType::Int62,
                 std::to_string(petSlot),
             });
             packet.fields.push_back(PacketField {
-                "itemSlot",
+                CG_PACKET_DIAGNOSTIC_TEXT("itemSlot"),
                 PacketFieldType::Int62,
                 std::to_string(itemSlot),
             });
             packet.fields.push_back(PacketField {
-                "text",
+                CG_PACKET_DIAGNOSTIC_TEXT("text"),
                 PacketFieldType::EscapedString,
                 text,
             });
             packet.fields.push_back(PacketField {
-                "color",
+                CG_PACKET_DIAGNOSTIC_TEXT("color"),
                 PacketFieldType::Int62,
                 std::to_string(color),
             });
@@ -1175,9 +1175,9 @@ namespace cg::packet::send
         static constexpr std::string_view Code = "woz";
         static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
         static constexpr std::array<PacketFieldSpec, 3U> Fields = {{
-            {"x", PacketFieldType::Int62},
-            {"y", PacketFieldType::Int62},
-            {"amount", PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("x"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("y"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("amount"), PacketFieldType::Int62},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -1201,17 +1201,17 @@ namespace cg::packet::send
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "x",
+                CG_PACKET_DIAGNOSTIC_TEXT("x"),
                 PacketFieldType::Int62,
                 std::to_string(x),
             });
             packet.fields.push_back(PacketField {
-                "y",
+                CG_PACKET_DIAGNOSTIC_TEXT("y"),
                 PacketFieldType::Int62,
                 std::to_string(y),
             });
             packet.fields.push_back(PacketField {
-                "amount",
+                CG_PACKET_DIAGNOSTIC_TEXT("amount"),
                 PacketFieldType::Int62,
                 std::to_string(amount),
             });
@@ -1232,8 +1232,8 @@ namespace cg::packet::send
         static constexpr std::string_view Code = "Ufm";
         static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
         static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
-            {"c", PacketFieldType::Int62},
-            {"data", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("c"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -1255,12 +1255,12 @@ namespace cg::packet::send
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "c",
+                CG_PACKET_DIAGNOSTIC_TEXT("c"),
                 PacketFieldType::Int62,
                 std::to_string(c),
             });
             packet.fields.push_back(PacketField {
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
                 PacketFieldType::EscapedString,
                 data,
             });
@@ -1281,9 +1281,9 @@ namespace cg::packet::send
         static constexpr std::string_view Code = "GY";
         static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
         static constexpr std::array<PacketFieldSpec, 3U> Fields = {{
-            {"index", PacketFieldType::Int62},
-            {"bitflag", PacketFieldType::Int62},
-            {"data", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("index"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("bitflag"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -1307,17 +1307,17 @@ namespace cg::packet::send
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "index",
+                CG_PACKET_DIAGNOSTIC_TEXT("index"),
                 PacketFieldType::Int62,
                 std::to_string(index),
             });
             packet.fields.push_back(PacketField {
-                "bitflag",
+                CG_PACKET_DIAGNOSTIC_TEXT("bitflag"),
                 PacketFieldType::Int62,
                 std::to_string(bitflag),
             });
             packet.fields.push_back(PacketField {
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
                 PacketFieldType::EscapedString,
                 data,
             });
@@ -1338,9 +1338,9 @@ namespace cg::packet::send
         static constexpr std::string_view Code = "uId";
         static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
         static constexpr std::array<PacketFieldSpec, 3U> Fields = {{
-            {"toregistNumber", PacketFieldType::Int62},
-            {"text", PacketFieldType::EscapedString},
-            {"color", PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("toregistNumber"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("text"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("color"), PacketFieldType::Int62},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -1364,17 +1364,17 @@ namespace cg::packet::send
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "toregistNumber",
+                CG_PACKET_DIAGNOSTIC_TEXT("toregistNumber"),
                 PacketFieldType::Int62,
                 std::to_string(toregistNumber),
             });
             packet.fields.push_back(PacketField {
-                "text",
+                CG_PACKET_DIAGNOSTIC_TEXT("text"),
                 PacketFieldType::EscapedString,
                 text,
             });
             packet.fields.push_back(PacketField {
-                "color",
+                CG_PACKET_DIAGNOSTIC_TEXT("color"),
                 PacketFieldType::Int62,
                 std::to_string(color),
             });
@@ -1395,8 +1395,8 @@ namespace cg::packet::send
         static constexpr std::string_view Code = "wD";
         static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
         static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
-            {"profileIndex", PacketFieldType::Int62},
-            {"name", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("profileIndex"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("name"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -1418,12 +1418,12 @@ namespace cg::packet::send
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "profileIndex",
+                CG_PACKET_DIAGNOSTIC_TEXT("profileIndex"),
                 PacketFieldType::Int62,
                 std::to_string(profileIndex),
             });
             packet.fields.push_back(PacketField {
-                "name",
+                CG_PACKET_DIAGNOSTIC_TEXT("name"),
                 PacketFieldType::EscapedString,
                 name,
             });
@@ -1445,8 +1445,8 @@ namespace cg::packet::send
         static constexpr std::string_view Code = "GH";
         static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
         static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
-            {"data", PacketFieldType::SubPayload},
-            {"color", PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::SubPayload},
+            {CG_PACKET_DIAGNOSTIC_TEXT("color"), PacketFieldType::Int62},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -1509,12 +1509,12 @@ namespace cg::packet::send
 
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
                 PacketFieldType::EscapedString,
                 data.Value(),
             });
             packet.fields.push_back(PacketField {
-                "color",
+                CG_PACKET_DIAGNOSTIC_TEXT("color"),
                 PacketFieldType::Int62,
                 std::to_string(color),
             });
@@ -1543,7 +1543,7 @@ namespace cg::packet::send
         static PacketResult<ProfileMiniMailSend> FromPacket(const Packet& packet)
         {
             if (packet.code.View() != Code) {
-                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "ProfileMiniMailSend Parse 收到非 GH 封包");
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, CG_PACKET_DIAGNOSTIC_TEXT("ProfileMiniMailSend Parse 收到非 GH 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<ProfileMiniMailSend>::Failure(std::move(error));
             }
@@ -1551,43 +1551,43 @@ namespace cg::packet::send
             if (packet.direction != Direction) {
                 return PacketResult<ProfileMiniMailSend>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "ProfileMiniMailSend Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileMiniMailSend Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<ProfileMiniMailSend>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "ProfileMiniMailSend Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileMiniMailSend Parse 字段数量不匹配"),
                     packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
             }
 
             const PacketField& dataField = packet.fields[DataFieldIndex];
-            if (dataField.name != "data") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(dataField.name, CG_PACKET_DIAGNOSTIC_TEXT("data"))) {
                 return PacketResult<ProfileMiniMailSend>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "ProfileMiniMailSend Parse data 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileMiniMailSend Parse data 字段名不匹配"),
                     DataFieldIndex));
             }
 
             if (dataField.type != PacketFieldType::EscapedString) {
                 return PacketResult<ProfileMiniMailSend>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "ProfileMiniMailSend Parse data 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileMiniMailSend Parse data 字段类型不匹配"),
                     DataFieldIndex));
             }
 
             const PacketField& colorField = packet.fields[ColorFieldIndex];
-            if (colorField.name != "color") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(colorField.name, CG_PACKET_DIAGNOSTIC_TEXT("color"))) {
                 return PacketResult<ProfileMiniMailSend>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "ProfileMiniMailSend Parse color 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileMiniMailSend Parse color 字段名不匹配"),
                     ColorFieldIndex));
             }
 
             if (colorField.type != PacketFieldType::Int62) {
                 return PacketResult<ProfileMiniMailSend>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "ProfileMiniMailSend Parse color 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileMiniMailSend Parse color 字段类型不匹配"),
                     ColorFieldIndex));
             }
 
@@ -1618,7 +1618,7 @@ namespace cg::packet::send
         static constexpr std::size_t MessagePayloadIndex = 2U;
         static constexpr std::size_t TailPayloadIndex = 3U;
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -1627,7 +1627,7 @@ namespace cg::packet::send
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -1640,14 +1640,14 @@ namespace cg::packet::send
             if (payload.empty()) {
                 return PacketResult<ProfileMiniMailPayload>::Failure(MakeFieldError(
                     PacketErrorCode::EmptyInput,
-                    "ProfileMiniMailSend payload 为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileMiniMailSend payload 为空"),
                     DataFieldIndex));
             }
 
             if (payload.back() != '|') {
                 return PacketResult<ProfileMiniMailPayload>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "ProfileMiniMailSend payload 缺少尾随分隔符",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileMiniMailSend payload 缺少尾随分隔符"),
                     DataFieldIndex));
             }
 
@@ -1663,28 +1663,28 @@ namespace cg::packet::send
             if (parts.size() != PayloadPartCount || !parts[TailPayloadIndex].empty()) {
                 return PacketResult<ProfileMiniMailPayload>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "ProfileMiniMailSend payload 段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileMiniMailSend payload 段数量不匹配"),
                     DataFieldIndex));
             }
 
             if (parts[ProfileIndexPayloadIndex].empty()) {
                 return PacketResult<ProfileMiniMailPayload>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "ProfileMiniMailSend profileIndex 为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileMiniMailSend profileIndex 为空"),
                     ProfileIndexPayloadIndex));
             }
 
             if (parts[NamePayloadIndex].empty()) {
                 return PacketResult<ProfileMiniMailPayload>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "ProfileMiniMailSend name 为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileMiniMailSend name 为空"),
                     NamePayloadIndex));
             }
 
             if (parts[MessagePayloadIndex].empty()) {
                 return PacketResult<ProfileMiniMailPayload>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "ProfileMiniMailSend message 为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileMiniMailSend message 为空"),
                     MessagePayloadIndex));
             }
 
@@ -1720,7 +1720,7 @@ namespace cg::packet::send
             if (text.find('|') != std::string_view::npos || text.find("\\z") != std::string_view::npos) {
                 return PacketResult<std::string>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "ProfileMiniMailSend raw 字符串包含非法分隔符",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileMiniMailSend raw 字符串包含非法分隔符"),
                     fieldIndex));
             }
 
@@ -1732,7 +1732,7 @@ namespace cg::packet::send
                 if (index + 1U >= text.size()) {
                     return PacketResult<std::string>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "ProfileMiniMailSend raw 字符串旧双字节字符被截断",
+                        CG_PACKET_DIAGNOSTIC_TEXT("ProfileMiniMailSend raw 字符串旧双字节字符被截断"),
                         fieldIndex));
                 }
                 ++index;
@@ -1748,14 +1748,14 @@ namespace cg::packet::send
             if (text.empty()) {
                 return PacketResult<std::string>::Failure(MakeFieldError(
                     PacketErrorCode::EncodeFailed,
-                    "ProfileMiniMailSend BuildData raw 字符串为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileMiniMailSend BuildData raw 字符串为空"),
                     fieldIndex));
             }
 
             if (text.find('|') != std::string_view::npos || text.find("\\z") != std::string_view::npos) {
                 return PacketResult<std::string>::Failure(MakeFieldError(
                     PacketErrorCode::EncodeFailed,
-                    "ProfileMiniMailSend BuildData raw 字符串包含非法分隔符",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileMiniMailSend BuildData raw 字符串包含非法分隔符"),
                     fieldIndex));
             }
 
@@ -1767,7 +1767,7 @@ namespace cg::packet::send
                 if (index + 1U >= text.size()) {
                     return PacketResult<std::string>::Failure(MakeFieldError(
                         PacketErrorCode::EncodeFailed,
-                        "ProfileMiniMailSend BuildData raw 字符串旧双字节字符被截断",
+                        CG_PACKET_DIAGNOSTIC_TEXT("ProfileMiniMailSend BuildData raw 字符串旧双字节字符被截断"),
                         fieldIndex));
                 }
                 ++index;
@@ -1788,7 +1788,7 @@ namespace cg::packet::send
             if (index == text.size()) {
                 return PacketResult<int>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "ProfileMiniMailSend 十进制字段为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileMiniMailSend 十进制字段为空"),
                     fieldIndex));
             }
 
@@ -1802,7 +1802,7 @@ namespace cg::packet::send
                 if (ch < '0' || ch > '9') {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "ProfileMiniMailSend 十进制字段包含非法字符",
+                        CG_PACKET_DIAGNOSTIC_TEXT("ProfileMiniMailSend 十进制字段包含非法字符"),
                         fieldIndex));
                 }
 
@@ -1810,7 +1810,7 @@ namespace cg::packet::send
                 if (value > (limit - digit) / 10) {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "ProfileMiniMailSend 十进制字段超出 int 范围",
+                        CG_PACKET_DIAGNOSTIC_TEXT("ProfileMiniMailSend 十进制字段超出 int 范围"),
                         fieldIndex));
                 }
 
@@ -1834,9 +1834,9 @@ namespace cg::packet::send
         static constexpr std::string_view Code = "aiAb";
         static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
         static constexpr std::array<PacketFieldSpec, 3U> Fields = {{
-            {"item", PacketFieldType::EscapedString},
-            {"pet", PacketFieldType::EscapedString},
-            {"gold", PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("item"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("pet"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("gold"), PacketFieldType::Int62},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -1860,17 +1860,17 @@ namespace cg::packet::send
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "item",
+                CG_PACKET_DIAGNOSTIC_TEXT("item"),
                 PacketFieldType::EscapedString,
                 item,
             });
             packet.fields.push_back(PacketField {
-                "pet",
+                CG_PACKET_DIAGNOSTIC_TEXT("pet"),
                 PacketFieldType::EscapedString,
                 pet,
             });
             packet.fields.push_back(PacketField {
-                "gold",
+                CG_PACKET_DIAGNOSTIC_TEXT("gold"),
                 PacketFieldType::Int62,
                 std::to_string(gold),
             });
@@ -1892,9 +1892,9 @@ namespace cg::packet::send
         static constexpr std::string_view Code = "ylGN";
         static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
         static constexpr std::array<PacketFieldSpec, 3U> Fields = {{
-            {"stallName", PacketFieldType::EscapedString},
-            {"stallDescription", PacketFieldType::EscapedString},
-            {"stallList", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("stallName"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("stallDescription"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("stallList"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -1945,7 +1945,7 @@ namespace cg::packet::send
                     prices[index],
                     index,
                     PacketErrorCode::EncodeFailed,
-                    "StallStart BuildData price 非 raw decimal");
+                    CG_PACKET_DIAGNOSTIC_TEXT("StallStart BuildData price 非 raw decimal"));
                 if (!price.HasValue()) {
                     return PacketResult<std::string>::Failure(price.Error());
                 }
@@ -1966,17 +1966,17 @@ namespace cg::packet::send
 
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "stallName",
+                CG_PACKET_DIAGNOSTIC_TEXT("stallName"),
                 PacketFieldType::EscapedString,
                 stallName,
             });
             packet.fields.push_back(PacketField {
-                "stallDescription",
+                CG_PACKET_DIAGNOSTIC_TEXT("stallDescription"),
                 PacketFieldType::EscapedString,
                 stallDescription,
             });
             packet.fields.push_back(PacketField {
-                "stallList",
+                CG_PACKET_DIAGNOSTIC_TEXT("stallList"),
                 PacketFieldType::EscapedString,
                 stallList.Value(),
             });
@@ -2005,7 +2005,7 @@ namespace cg::packet::send
         static PacketResult<StallStart> FromPacket(const Packet& packet)
         {
             if (packet.code.View() != Code) {
-                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "StallStart Parse 收到非 ylGN 封包");
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, CG_PACKET_DIAGNOSTIC_TEXT("StallStart Parse 收到非 ylGN 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<StallStart>::Failure(std::move(error));
             }
@@ -2013,56 +2013,56 @@ namespace cg::packet::send
             if (packet.direction != Direction) {
                 return PacketResult<StallStart>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "StallStart Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("StallStart Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<StallStart>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "StallStart Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("StallStart Parse 字段数量不匹配"),
                     packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
             }
 
-            if (packet.fields[StallNameFieldIndex].name != "stallName") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(packet.fields[StallNameFieldIndex].name, CG_PACKET_DIAGNOSTIC_TEXT("stallName"))) {
                 return PacketResult<StallStart>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "StallStart Parse stallName 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("StallStart Parse stallName 字段名不匹配"),
                     StallNameFieldIndex));
             }
 
             if (packet.fields[StallNameFieldIndex].type != PacketFieldType::EscapedString) {
                 return PacketResult<StallStart>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "StallStart Parse stallName 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("StallStart Parse stallName 字段类型不匹配"),
                     StallNameFieldIndex));
             }
 
-            if (packet.fields[StallDescriptionFieldIndex].name != "stallDescription") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(packet.fields[StallDescriptionFieldIndex].name, CG_PACKET_DIAGNOSTIC_TEXT("stallDescription"))) {
                 return PacketResult<StallStart>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "StallStart Parse stallDescription 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("StallStart Parse stallDescription 字段名不匹配"),
                     StallDescriptionFieldIndex));
             }
 
             if (packet.fields[StallDescriptionFieldIndex].type != PacketFieldType::EscapedString) {
                 return PacketResult<StallStart>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "StallStart Parse stallDescription 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("StallStart Parse stallDescription 字段类型不匹配"),
                     StallDescriptionFieldIndex));
             }
 
             const PacketField& stallListField = packet.fields[StallListFieldIndex];
-            if (stallListField.name != "stallList") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(stallListField.name, CG_PACKET_DIAGNOSTIC_TEXT("stallList"))) {
                 return PacketResult<StallStart>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "StallStart Parse stallList 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("StallStart Parse stallList 字段名不匹配"),
                     StallListFieldIndex));
             }
 
             if (stallListField.type != PacketFieldType::EscapedString) {
                 return PacketResult<StallStart>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "StallStart Parse stallList 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("StallStart Parse stallList 字段类型不匹配"),
                     StallListFieldIndex));
             }
 
@@ -2085,7 +2085,7 @@ namespace cg::packet::send
         static constexpr std::size_t PayloadPartCount = PriceCount + 1U;
         static constexpr std::size_t TailPayloadIndex = PriceCount;
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -2094,7 +2094,7 @@ namespace cg::packet::send
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -2107,14 +2107,14 @@ namespace cg::packet::send
             if (payload.empty()) {
                 return PacketResult<std::array<int, PriceCount>>::Failure(MakeFieldError(
                     PacketErrorCode::EmptyInput,
-                    "StallStart stallList 为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("StallStart stallList 为空"),
                     StallListFieldIndex));
             }
 
             if (payload.back() != '|') {
                 return PacketResult<std::array<int, PriceCount>>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "StallStart stallList 缺少尾随分隔符",
+                    CG_PACKET_DIAGNOSTIC_TEXT("StallStart stallList 缺少尾随分隔符"),
                     StallListFieldIndex));
             }
 
@@ -2130,7 +2130,7 @@ namespace cg::packet::send
             if (parts.size() != PayloadPartCount || !parts[TailPayloadIndex].empty()) {
                 return PacketResult<std::array<int, PriceCount>>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "StallStart stallList price 段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("StallStart stallList price 段数量不匹配"),
                     StallListFieldIndex));
             }
 
@@ -2140,7 +2140,7 @@ namespace cg::packet::send
                     parts[index],
                     index,
                     PacketErrorCode::DecodeFailed,
-                    "StallStart stallList price 非 raw decimal");
+                    CG_PACKET_DIAGNOSTIC_TEXT("StallStart stallList price 非 raw decimal"));
                 if (!price.HasValue()) {
                     return PacketResult<std::array<int, PriceCount>>::Failure(price.Error());
                 }

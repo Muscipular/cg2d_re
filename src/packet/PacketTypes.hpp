@@ -8,8 +8,44 @@
 #include <utility>
 #include <vector>
 
+#ifndef CG_PACKET_ENABLE_DIAGNOSTIC_TEXT
+#if !defined(NDEBUG)
+#define CG_PACKET_ENABLE_DIAGNOSTIC_TEXT 1
+#else
+#define CG_PACKET_ENABLE_DIAGNOSTIC_TEXT 0
+#endif
+#endif
+
+#if CG_PACKET_ENABLE_DIAGNOSTIC_TEXT
+#define CG_PACKET_DIAGNOSTIC_TEXT(text) (text)
+#define CG_PACKET_FIELD_NAME_MATCHES(lhs, rhs) ((lhs) == (rhs))
+#else
+#define CG_PACKET_DIAGNOSTIC_TEXT(text) ("")
+#define CG_PACKET_FIELD_NAME_MATCHES(lhs, rhs) ((void)sizeof(lhs), (void)sizeof(rhs), true)
+#endif
+
 namespace cg::packet
 {
+    [[nodiscard]] inline constexpr std::string_view PacketDiagnosticText(std::string_view text) noexcept
+    {
+#if CG_PACKET_ENABLE_DIAGNOSTIC_TEXT
+        return text;
+#else
+        (void)text;
+        return {};
+#endif
+    }
+
+    [[nodiscard]] inline std::string PacketDiagnosticString(std::string_view text)
+    {
+#if CG_PACKET_ENABLE_DIAGNOSTIC_TEXT
+        return std::string(text);
+#else
+        (void)text;
+        return {};
+#endif
+    }
+
     struct PacketCode
     {
         std::string value;
@@ -56,6 +92,15 @@ namespace cg::packet
         std::string name;
         PacketFieldType type = PacketFieldType::Unknown;
         std::string value;
+
+        PacketField() = default;
+
+        PacketField(std::string_view fieldName, PacketFieldType fieldType, std::string fieldValue)
+            : name(PacketDiagnosticString(fieldName)),
+              type(fieldType),
+              value(std::move(fieldValue))
+        {
+        }
     };
 
     struct Packet
@@ -93,11 +138,11 @@ namespace cg::packet
         std::optional<PacketCode> packetCode;
         std::optional<std::size_t> fieldIndex;
 
-        static PacketError Make(PacketErrorCode errorCode, std::string errorMessage)
+        static PacketError Make(PacketErrorCode errorCode, std::string_view errorMessage)
         {
             PacketError error;
             error.code = errorCode;
-            error.message = std::move(errorMessage);
+            error.message = PacketDiagnosticString(errorMessage);
             return error;
         }
     };

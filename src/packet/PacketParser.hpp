@@ -16,6 +16,14 @@ namespace cg::packet
     {
         std::string_view name;
         PacketFieldType type = PacketFieldType::Unknown;
+
+        constexpr PacketFieldSpec() = default;
+
+        constexpr PacketFieldSpec(std::string_view fieldName, PacketFieldType fieldType) noexcept
+            : name(PacketDiagnosticText(fieldName)),
+              type(fieldType)
+        {
+        }
     };
 
     struct PacketSpec
@@ -30,9 +38,9 @@ namespace cg::packet
     {
         [[nodiscard]] inline PacketError MakeParserError(
             PacketErrorCode errorCode,
-            std::string message)
+            std::string_view message)
         {
-            return PacketError::Make(errorCode, std::move(message));
+            return PacketError::Make(errorCode, message);
         }
 
         inline void FillErrorContext(PacketError& error, std::string_view code, std::size_t fieldIndex)
@@ -52,7 +60,7 @@ namespace cg::packet
                     if (index + 1U >= text.size()) {
                         return PacketResult<std::string>::Failure(MakeEscapedStringError(
                             PacketErrorCode::DecodeFailed,
-                            "es 字符串旧双字节字符被截断"));
+                            CG_PACKET_DIAGNOSTIC_TEXT("es 字符串旧双字节字符被截断")));
                     }
 
                     output.push_back(ch);
@@ -104,18 +112,18 @@ namespace cg::packet
         if (tokens.empty()) {
             return PacketResult<Packet>::Failure(detail::MakeParserError(
                 PacketErrorCode::EmptyInput,
-                "封包明文 token 输入为空"));
+                CG_PACKET_DIAGNOSTIC_TEXT("封包明文 token 输入为空")));
         }
 
         const std::string_view code = tokens.front();
         if (code.empty()) {
-            PacketError error = detail::MakeParserError(PacketErrorCode::InvalidCode, "封包 code 为空");
+            PacketError error = detail::MakeParserError(PacketErrorCode::InvalidCode, CG_PACKET_DIAGNOSTIC_TEXT("封包 code 为空"));
             error.packetCode = PacketCode(code);
             return PacketResult<Packet>::Failure(std::move(error));
         }
 
         if (code != packetSpec.code) {
-            PacketError error = detail::MakeParserError(PacketErrorCode::InvalidCode, "封包 code 与定义不匹配");
+            PacketError error = detail::MakeParserError(PacketErrorCode::InvalidCode, CG_PACKET_DIAGNOSTIC_TEXT("封包 code 与定义不匹配"));
             error.packetCode = PacketCode(code);
             return PacketResult<Packet>::Failure(std::move(error));
         }
@@ -128,7 +136,7 @@ namespace cg::packet
         if (fieldTokenCount != packetSpec.fieldCount) {
             PacketError error = detail::MakeParserError(
                 PacketErrorCode::FieldCountMismatch,
-                "封包字段数量不匹配");
+                CG_PACKET_DIAGNOSTIC_TEXT("封包字段数量不匹配"));
             error.packetCode = PacketCode(code);
             error.fieldIndex = fieldTokenCount < packetSpec.fieldCount
                 ? fieldTokenCount
@@ -144,7 +152,7 @@ namespace cg::packet
             const std::string_view token = tokens[index + 1U];
 
             PacketField field;
-            field.name = std::string(fieldSpec.name);
+            field.name = PacketDiagnosticString(fieldSpec.name);
             field.type = fieldSpec.type == PacketFieldType::SubPayload
                 ? PacketFieldType::EscapedString
                 : fieldSpec.type;
@@ -176,7 +184,7 @@ namespace cg::packet
             case PacketFieldType::Unknown: {
                 PacketError error = detail::MakeParserError(
                     PacketErrorCode::InvalidFieldType,
-                    "封包字段类型暂不支持");
+                    CG_PACKET_DIAGNOSTIC_TEXT("封包字段类型暂不支持"));
                 detail::FillErrorContext(error, code, index);
                 return PacketResult<Packet>::Failure(std::move(error));
             }

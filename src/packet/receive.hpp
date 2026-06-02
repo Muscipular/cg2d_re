@@ -25,8 +25,8 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "whV";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
-            {"result", PacketFieldType::Int62},
-            {"data", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("result"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -61,12 +61,12 @@ namespace cg::packet::receive
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "result",
+                CG_PACKET_DIAGNOSTIC_TEXT("result"),
                 PacketFieldType::Int62,
                 std::to_string(result),
             });
             packet.fields.push_back(PacketField {
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
                 PacketFieldType::EscapedString,
                 data,
             });
@@ -84,7 +84,7 @@ namespace cg::packet::receive
             if (packet.code.View() != Code) {
                 PacketError error = MakePacketError(
                     PacketErrorCode::InvalidCode,
-                    "ClientLoginResult Parse 收到非 whV 封包");
+                    CG_PACKET_DIAGNOSTIC_TEXT("ClientLoginResult Parse 收到非 whV 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<ClientLoginResult>::Failure(std::move(error));
             }
@@ -92,43 +92,43 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<ClientLoginResult>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "ClientLoginResult Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("ClientLoginResult Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<ClientLoginResult>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "ClientLoginResult Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ClientLoginResult Parse 字段数量不匹配"),
                     packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
             }
 
             const PacketField& resultField = packet.fields[ResultFieldIndex];
-            if (resultField.name != "result") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(resultField.name, CG_PACKET_DIAGNOSTIC_TEXT("result"))) {
                 return PacketResult<ClientLoginResult>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "ClientLoginResult Parse result 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ClientLoginResult Parse result 字段名不匹配"),
                     ResultFieldIndex));
             }
 
             if (resultField.type != PacketFieldType::Int62) {
                 return PacketResult<ClientLoginResult>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "ClientLoginResult Parse result 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ClientLoginResult Parse result 字段类型不匹配"),
                     ResultFieldIndex));
             }
 
             const PacketField& dataField = packet.fields[DataFieldIndex];
-            if (dataField.name != "data") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(dataField.name, CG_PACKET_DIAGNOSTIC_TEXT("data"))) {
                 return PacketResult<ClientLoginResult>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "ClientLoginResult Parse data 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ClientLoginResult Parse data 字段名不匹配"),
                     DataFieldIndex));
             }
 
             if (dataField.type != PacketFieldType::EscapedString) {
                 return PacketResult<ClientLoginResult>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "ClientLoginResult Parse data 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ClientLoginResult Parse data 字段类型不匹配"),
                     DataFieldIndex));
             }
 
@@ -145,7 +145,7 @@ namespace cg::packet::receive
         static constexpr std::size_t ResultFieldIndex = 0U;
         static constexpr std::size_t DataFieldIndex = 1U;
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -154,7 +154,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -174,7 +174,7 @@ namespace cg::packet::receive
             if (index == text.size()) {
                 return PacketResult<int>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "ClientLoginResult result 为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ClientLoginResult result 为空"),
                     ResultFieldIndex));
             }
 
@@ -188,7 +188,7 @@ namespace cg::packet::receive
                 if (ch < '0' || ch > '9') {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "ClientLoginResult result 包含非法字符",
+                        CG_PACKET_DIAGNOSTIC_TEXT("ClientLoginResult result 包含非法字符"),
                         ResultFieldIndex));
                 }
 
@@ -196,7 +196,7 @@ namespace cg::packet::receive
                 if (value > (limit - digit) / 10) {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "ClientLoginResult result 超出 int 范围",
+                        CG_PACKET_DIAGNOSTIC_TEXT("ClientLoginResult result 超出 int 范围"),
                         ResultFieldIndex));
                 }
 
@@ -244,8 +244,8 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "Daj";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
-            {"result", PacketFieldType::Int62},
-            {"data", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("result"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -311,12 +311,12 @@ namespace cg::packet::receive
 
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "result",
+                CG_PACKET_DIAGNOSTIC_TEXT("result"),
                 PacketFieldType::Int62,
                 std::to_string(result),
             });
             packet.fields.push_back(PacketField {
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
                 PacketFieldType::EscapedString,
                 std::move(dataValue),
             });
@@ -338,7 +338,7 @@ namespace cg::packet::receive
             if (packet.code.View() != Code) {
                 PacketError error = MakePacketError(
                     PacketErrorCode::InvalidCode,
-                    "CharacterList Parse 收到非 Daj 封包");
+                    CG_PACKET_DIAGNOSTIC_TEXT("CharacterList Parse 收到非 Daj 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<CharacterList>::Failure(std::move(error));
             }
@@ -346,43 +346,43 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<CharacterList>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "CharacterList Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("CharacterList Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<CharacterList>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "CharacterList Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("CharacterList Parse 字段数量不匹配"),
                     packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
             }
 
             const PacketField& resultField = packet.fields[ResultFieldIndex];
-            if (resultField.name != "result") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(resultField.name, CG_PACKET_DIAGNOSTIC_TEXT("result"))) {
                 return PacketResult<CharacterList>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "CharacterList Parse result 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("CharacterList Parse result 字段名不匹配"),
                     ResultFieldIndex));
             }
 
             if (resultField.type != PacketFieldType::Int62) {
                 return PacketResult<CharacterList>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "CharacterList Parse result 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("CharacterList Parse result 字段类型不匹配"),
                     ResultFieldIndex));
             }
 
             const PacketField& dataField = packet.fields[DataFieldIndex];
-            if (dataField.name != "data") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(dataField.name, CG_PACKET_DIAGNOSTIC_TEXT("data"))) {
                 return PacketResult<CharacterList>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "CharacterList Parse data 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("CharacterList Parse data 字段名不匹配"),
                     DataFieldIndex));
             }
 
             if (dataField.type != PacketFieldType::EscapedString) {
                 return PacketResult<CharacterList>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "CharacterList Parse data 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("CharacterList Parse data 字段类型不匹配"),
                     DataFieldIndex));
             }
 
@@ -413,7 +413,7 @@ namespace cg::packet::receive
             if (payload.back() != '|') {
                 return PacketResult<std::vector<CharacterListRecord>>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "CharacterList payload 缺少尾随分隔符",
+                    CG_PACKET_DIAGNOSTIC_TEXT("CharacterList payload 缺少尾随分隔符"),
                     DataFieldIndex));
             }
 
@@ -430,7 +430,7 @@ namespace cg::packet::receive
             if ((parts.size() % RecordFieldCount) != 0U) {
                 return PacketResult<std::vector<CharacterListRecord>>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "CharacterList payload 段数量不是 2 的倍数",
+                    CG_PACKET_DIAGNOSTIC_TEXT("CharacterList payload 段数量不是 2 的倍数"),
                     DataFieldIndex));
             }
 
@@ -455,7 +455,7 @@ namespace cg::packet::receive
         static constexpr std::size_t RecordFieldCount = 2U;
         static constexpr std::size_t DetailFieldCount = 19U;
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -464,7 +464,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -522,7 +522,7 @@ namespace cg::packet::receive
             if (detailParts.size() != DetailFieldCount) {
                 return PacketResult<CharacterListRecord>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "CharacterList detail 段数量不是 19",
+                    CG_PACKET_DIAGNOSTIC_TEXT("CharacterList detail 段数量不是 19"),
                     DataFieldIndex));
             }
 
@@ -606,7 +606,7 @@ namespace cg::packet::receive
             if (index == text.size()) {
                 return PacketResult<int>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "CharacterList 十进制字段为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("CharacterList 十进制字段为空"),
                     fieldIndex));
             }
 
@@ -620,7 +620,7 @@ namespace cg::packet::receive
                 if (ch < '0' || ch > '9') {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "CharacterList 十进制字段包含非法字符",
+                        CG_PACKET_DIAGNOSTIC_TEXT("CharacterList 十进制字段包含非法字符"),
                         fieldIndex));
                 }
 
@@ -628,7 +628,7 @@ namespace cg::packet::receive
                 if (value > (limit - digit) / 10) {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "CharacterList 十进制字段超出 int 范围",
+                        CG_PACKET_DIAGNOSTIC_TEXT("CharacterList 十进制字段超出 int 范围"),
                         fieldIndex));
                 }
 
@@ -652,9 +652,9 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "DZ";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 3U> Fields = {{
-            {"result", PacketFieldType::EscapedString},
-            {"registnumber", PacketFieldType::Int62},
-            {"data", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("result"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("registnumber"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -678,17 +678,17 @@ namespace cg::packet::receive
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "result",
+                CG_PACKET_DIAGNOSTIC_TEXT("result"),
                 PacketFieldType::EscapedString,
                 result,
             });
             packet.fields.push_back(PacketField {
-                "registnumber",
+                CG_PACKET_DIAGNOSTIC_TEXT("registnumber"),
                 PacketFieldType::Int62,
                 std::to_string(registNumber),
             });
             packet.fields.push_back(PacketField {
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
                 PacketFieldType::EscapedString,
                 data,
             });
@@ -710,7 +710,7 @@ namespace cg::packet::receive
             if (packet.code.View() != Code) {
                 PacketError error = MakePacketError(
                     PacketErrorCode::InvalidCode,
-                    "CreateNewCharResult Parse 收到非 DZ 封包");
+                    CG_PACKET_DIAGNOSTIC_TEXT("CreateNewCharResult Parse 收到非 DZ 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<CreateNewCharResult>::Failure(std::move(error));
             }
@@ -718,20 +718,20 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<CreateNewCharResult>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "CreateNewCharResult Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("CreateNewCharResult Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<CreateNewCharResult>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "CreateNewCharResult Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("CreateNewCharResult Parse 字段数量不匹配"),
                     packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
             }
 
             const std::array<std::string_view, FieldCount> fieldNames = {
-                "result",
-                "registnumber",
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("result"),
+                CG_PACKET_DIAGNOSTIC_TEXT("registnumber"),
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
             };
             const std::array<PacketFieldType, FieldCount> fieldTypes = {
                 PacketFieldType::EscapedString,
@@ -740,17 +740,17 @@ namespace cg::packet::receive
             };
 
             for (std::size_t index = 0; index < FieldCount; ++index) {
-                if (packet.fields[index].name != fieldNames[index]) {
+                if (!CG_PACKET_FIELD_NAME_MATCHES(packet.fields[index].name, fieldNames[index])) {
                     return PacketResult<CreateNewCharResult>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "CreateNewCharResult Parse 字段名不匹配",
+                        CG_PACKET_DIAGNOSTIC_TEXT("CreateNewCharResult Parse 字段名不匹配"),
                         index));
                 }
 
                 if (packet.fields[index].type != fieldTypes[index]) {
                     return PacketResult<CreateNewCharResult>::Failure(MakeFieldError(
                         PacketErrorCode::InvalidFieldType,
-                        "CreateNewCharResult Parse 字段类型不匹配",
+                        CG_PACKET_DIAGNOSTIC_TEXT("CreateNewCharResult Parse 字段类型不匹配"),
                         index));
                 }
             }
@@ -774,7 +774,7 @@ namespace cg::packet::receive
         static constexpr std::size_t RegistNumberFieldIndex = 1U;
         static constexpr std::size_t DataFieldIndex = 2U;
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -783,7 +783,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -803,7 +803,7 @@ namespace cg::packet::receive
             if (index == text.size()) {
                 return PacketResult<int>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "CreateNewCharResult registnumber 为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("CreateNewCharResult registnumber 为空"),
                     fieldIndex));
             }
 
@@ -817,7 +817,7 @@ namespace cg::packet::receive
                 if (ch < '0' || ch > '9') {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "CreateNewCharResult registnumber 包含非法字符",
+                        CG_PACKET_DIAGNOSTIC_TEXT("CreateNewCharResult registnumber 包含非法字符"),
                         fieldIndex));
                 }
 
@@ -825,7 +825,7 @@ namespace cg::packet::receive
                 if (value > (limit - digit) / 10) {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "CreateNewCharResult registnumber 超出 int 范围",
+                        CG_PACKET_DIAGNOSTIC_TEXT("CreateNewCharResult registnumber 超出 int 范围"),
                         fieldIndex));
                 }
 
@@ -849,8 +849,8 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "oy";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
-            {"result", PacketFieldType::EscapedString},
-            {"data", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("result"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -872,12 +872,12 @@ namespace cg::packet::receive
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "result",
+                CG_PACKET_DIAGNOSTIC_TEXT("result"),
                 PacketFieldType::EscapedString,
                 result,
             });
             packet.fields.push_back(PacketField {
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
                 PacketFieldType::EscapedString,
                 data,
             });
@@ -899,7 +899,7 @@ namespace cg::packet::receive
             if (packet.code.View() != Code) {
                 PacketError error = MakePacketError(
                     PacketErrorCode::InvalidCode,
-                    "CharacterDeleteResult Parse 收到非 oy 封包");
+                    CG_PACKET_DIAGNOSTIC_TEXT("CharacterDeleteResult Parse 收到非 oy 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<CharacterDeleteResult>::Failure(std::move(error));
             }
@@ -907,19 +907,19 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<CharacterDeleteResult>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "CharacterDeleteResult Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("CharacterDeleteResult Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<CharacterDeleteResult>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "CharacterDeleteResult Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("CharacterDeleteResult Parse 字段数量不匹配"),
                     packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
             }
 
             const std::array<std::string_view, FieldCount> fieldNames = {
-                "result",
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("result"),
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
             };
             const std::array<PacketFieldType, FieldCount> fieldTypes = {
                 PacketFieldType::EscapedString,
@@ -927,17 +927,17 @@ namespace cg::packet::receive
             };
 
             for (std::size_t index = 0; index < FieldCount; ++index) {
-                if (packet.fields[index].name != fieldNames[index]) {
+                if (!CG_PACKET_FIELD_NAME_MATCHES(packet.fields[index].name, fieldNames[index])) {
                     return PacketResult<CharacterDeleteResult>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "CharacterDeleteResult Parse 字段名不匹配",
+                        CG_PACKET_DIAGNOSTIC_TEXT("CharacterDeleteResult Parse 字段名不匹配"),
                         index));
                 }
 
                 if (packet.fields[index].type != fieldTypes[index]) {
                     return PacketResult<CharacterDeleteResult>::Failure(MakeFieldError(
                         PacketErrorCode::InvalidFieldType,
-                        "CharacterDeleteResult Parse 字段类型不匹配",
+                        CG_PACKET_DIAGNOSTIC_TEXT("CharacterDeleteResult Parse 字段类型不匹配"),
                         index));
                 }
             }
@@ -952,7 +952,7 @@ namespace cg::packet::receive
         static constexpr std::size_t ResultFieldIndex = 0U;
         static constexpr std::size_t DataFieldIndex = 1U;
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -961,7 +961,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -979,7 +979,7 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "cJzI";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
-            {"data", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -999,7 +999,7 @@ namespace cg::packet::receive
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
                 PacketFieldType::EscapedString,
                 data,
             });
@@ -1021,7 +1021,7 @@ namespace cg::packet::receive
             if (packet.code.View() != Code) {
                 PacketError error = MakePacketError(
                     PacketErrorCode::InvalidCode,
-                    "ProcessStatus Parse 收到非 cJzI 封包");
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProcessStatus Parse 收到非 cJzI 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<ProcessStatus>::Failure(std::move(error));
             }
@@ -1029,28 +1029,28 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<ProcessStatus>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "ProcessStatus Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProcessStatus Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<ProcessStatus>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "ProcessStatus Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProcessStatus Parse 字段数量不匹配"),
                     packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
             }
 
             const PacketField& dataField = packet.fields[DataFieldIndex];
-            if (dataField.name != "data") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(dataField.name, CG_PACKET_DIAGNOSTIC_TEXT("data"))) {
                 return PacketResult<ProcessStatus>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "ProcessStatus Parse data 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProcessStatus Parse data 字段名不匹配"),
                     DataFieldIndex));
             }
 
             if (dataField.type != PacketFieldType::EscapedString) {
                 return PacketResult<ProcessStatus>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "ProcessStatus Parse data 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProcessStatus Parse data 字段类型不匹配"),
                     DataFieldIndex));
             }
 
@@ -1061,7 +1061,7 @@ namespace cg::packet::receive
         static constexpr std::size_t FieldCount = 1U;
         static constexpr std::size_t DataFieldIndex = 0U;
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -1070,7 +1070,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -1088,7 +1088,7 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "HNP";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
-            {"data", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -1126,7 +1126,7 @@ namespace cg::packet::receive
 
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
                 PacketFieldType::EscapedString,
                 payload.HasValue() ? payload.Value() : std::string(),
             });
@@ -1142,7 +1142,7 @@ namespace cg::packet::receive
 
             const Packet& packet = parsed.Value();
             if (packet.code.View() != Code) {
-                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "ProfileVersion Parse 收到非 HNP 封包");
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, CG_PACKET_DIAGNOSTIC_TEXT("ProfileVersion Parse 收到非 HNP 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<ProfileVersion>::Failure(std::move(error));
             }
@@ -1150,28 +1150,28 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<ProfileVersion>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "ProfileVersion Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileVersion Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<ProfileVersion>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "ProfileVersion Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileVersion Parse 字段数量不匹配"),
                     packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
             }
 
             const PacketField& field = packet.fields[DataFieldIndex];
-            if (field.name != "data") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(field.name, CG_PACKET_DIAGNOSTIC_TEXT("data"))) {
                 return PacketResult<ProfileVersion>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "ProfileVersion Parse 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileVersion Parse 字段名不匹配"),
                     DataFieldIndex));
             }
 
             if (field.type != PacketFieldType::EscapedString) {
                 return PacketResult<ProfileVersion>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "ProfileVersion Parse 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileVersion Parse 字段类型不匹配"),
                     DataFieldIndex));
             }
 
@@ -1192,7 +1192,7 @@ namespace cg::packet::receive
         static constexpr std::size_t DataFieldIndex = 0U;
         static constexpr std::size_t PayloadFieldCount = 4U;
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -1201,7 +1201,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -1222,7 +1222,7 @@ namespace cg::packet::receive
             if (parts.Value().size() != PayloadFieldCount) {
                 return PacketResult<std::array<int, PayloadFieldCount>>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "ProfileVersion payload 段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileVersion payload 段数量不匹配"),
                     DataFieldIndex));
             }
 
@@ -1250,7 +1250,7 @@ namespace cg::packet::receive
             if (index == text.size()) {
                 return PacketResult<int>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "ProfileVersion payload 十进制字段为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileVersion payload 十进制字段为空"),
                     fieldIndex));
             }
 
@@ -1264,7 +1264,7 @@ namespace cg::packet::receive
                 if (ch < '0' || ch > '9') {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "ProfileVersion payload 十进制字段包含非法字符",
+                        CG_PACKET_DIAGNOSTIC_TEXT("ProfileVersion payload 十进制字段包含非法字符"),
                         fieldIndex));
                 }
 
@@ -1272,7 +1272,7 @@ namespace cg::packet::receive
                 if (value > (limit - digit) / 10) {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "ProfileVersion payload 十进制字段超出 int 范围",
+                        CG_PACKET_DIAGNOSTIC_TEXT("ProfileVersion payload 十进制字段超出 int 范围"),
                         fieldIndex));
                 }
 
@@ -1296,7 +1296,7 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "aPc";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
-            {"data", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -1331,7 +1331,7 @@ namespace cg::packet::receive
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
                 PacketFieldType::EscapedString,
                 BuildData(),
             });
@@ -1347,7 +1347,7 @@ namespace cg::packet::receive
 
             const Packet& packet = parsed.Value();
             if (packet.code.View() != Code) {
-                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "CharacterProfile Parse 收到非 aPc 封包");
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, CG_PACKET_DIAGNOSTIC_TEXT("CharacterProfile Parse 收到非 aPc 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<CharacterProfile>::Failure(std::move(error));
             }
@@ -1355,28 +1355,28 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<CharacterProfile>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "CharacterProfile Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("CharacterProfile Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<CharacterProfile>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "CharacterProfile Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("CharacterProfile Parse 字段数量不匹配"),
                     packet.fields.empty() ? 0U : FieldCount));
             }
 
             const PacketField& field = packet.fields[DataFieldIndex];
-            if (field.name != "data") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(field.name, CG_PACKET_DIAGNOSTIC_TEXT("data"))) {
                 return PacketResult<CharacterProfile>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "CharacterProfile Parse 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("CharacterProfile Parse 字段名不匹配"),
                     DataFieldIndex));
             }
 
             if (field.type != PacketFieldType::EscapedString) {
                 return PacketResult<CharacterProfile>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "CharacterProfile Parse 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("CharacterProfile Parse 字段类型不匹配"),
                     DataFieldIndex));
             }
 
@@ -1387,7 +1387,7 @@ namespace cg::packet::receive
         static constexpr std::size_t FieldCount = 1U;
         static constexpr std::size_t DataFieldIndex = 0U;
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -1396,7 +1396,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -1409,14 +1409,14 @@ namespace cg::packet::receive
             if (payload.empty()) {
                 return PacketResult<CharacterProfile>::Failure(MakeFieldError(
                     PacketErrorCode::EmptyInput,
-                    "CharacterProfile payload 为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("CharacterProfile payload 为空"),
                     DataFieldIndex));
             }
 
             if (payload.back() != '|') {
                 return PacketResult<CharacterProfile>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "CharacterProfile payload 缺少尾随分隔符",
+                    CG_PACKET_DIAGNOSTIC_TEXT("CharacterProfile payload 缺少尾随分隔符"),
                     DataFieldIndex));
             }
 
@@ -1433,7 +1433,7 @@ namespace cg::packet::receive
             if (payloadParts.empty() || payloadParts.front().empty()) {
                 return PacketResult<CharacterProfile>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "CharacterProfile payload flags 为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("CharacterProfile payload flags 为空"),
                     DataFieldIndex));
             }
 
@@ -1464,7 +1464,7 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "UU";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
-            {"data", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -1499,7 +1499,7 @@ namespace cg::packet::receive
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
                 PacketFieldType::EscapedString,
                 BuildData(),
             });
@@ -1515,7 +1515,7 @@ namespace cg::packet::receive
 
             const Packet& packet = parsed.Value();
             if (packet.code.View() != Code) {
-                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "CharacterProfile2 Parse 收到非 UU 封包");
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, CG_PACKET_DIAGNOSTIC_TEXT("CharacterProfile2 Parse 收到非 UU 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<CharacterProfile2>::Failure(std::move(error));
             }
@@ -1523,28 +1523,28 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<CharacterProfile2>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "CharacterProfile2 Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("CharacterProfile2 Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<CharacterProfile2>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "CharacterProfile2 Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("CharacterProfile2 Parse 字段数量不匹配"),
                     packet.fields.empty() ? 0U : FieldCount));
             }
 
             const PacketField& field = packet.fields[DataFieldIndex];
-            if (field.name != "data") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(field.name, CG_PACKET_DIAGNOSTIC_TEXT("data"))) {
                 return PacketResult<CharacterProfile2>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "CharacterProfile2 Parse 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("CharacterProfile2 Parse 字段名不匹配"),
                     DataFieldIndex));
             }
 
             if (field.type != PacketFieldType::EscapedString) {
                 return PacketResult<CharacterProfile2>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "CharacterProfile2 Parse 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("CharacterProfile2 Parse 字段类型不匹配"),
                     DataFieldIndex));
             }
 
@@ -1555,7 +1555,7 @@ namespace cg::packet::receive
         static constexpr std::size_t FieldCount = 1U;
         static constexpr std::size_t DataFieldIndex = 0U;
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -1564,7 +1564,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -1577,14 +1577,14 @@ namespace cg::packet::receive
             if (payload.empty()) {
                 return PacketResult<CharacterProfile2>::Failure(MakeFieldError(
                     PacketErrorCode::EmptyInput,
-                    "CharacterProfile2 payload 为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("CharacterProfile2 payload 为空"),
                     DataFieldIndex));
             }
 
             if (payload.back() != '|') {
                 return PacketResult<CharacterProfile2>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "CharacterProfile2 payload 缺少尾随分隔符",
+                    CG_PACKET_DIAGNOSTIC_TEXT("CharacterProfile2 payload 缺少尾随分隔符"),
                     DataFieldIndex));
             }
 
@@ -1601,7 +1601,7 @@ namespace cg::packet::receive
             if (payloadParts.empty() || payloadParts.front().empty()) {
                 return PacketResult<CharacterProfile2>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "CharacterProfile2 payload flagMask 为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("CharacterProfile2 payload flagMask 为空"),
                     DataFieldIndex));
             }
 
@@ -1619,7 +1619,7 @@ namespace cg::packet::receive
                 if (payloadParts[index].empty()) {
                     return PacketResult<CharacterProfile2>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "CharacterProfile2 payload value 为空",
+                        CG_PACKET_DIAGNOSTIC_TEXT("CharacterProfile2 payload value 为空"),
                         DataFieldIndex));
                 }
 
@@ -1668,7 +1668,7 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "Sc";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
-            {"data", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -1716,7 +1716,7 @@ namespace cg::packet::receive
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
                 PacketFieldType::EscapedString,
                 BuildData(),
             });
@@ -1732,7 +1732,7 @@ namespace cg::packet::receive
 
             const Packet& packet = parsed.Value();
             if (packet.code.View() != Code) {
-                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "TitleList Parse 收到非 Sc 封包");
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, CG_PACKET_DIAGNOSTIC_TEXT("TitleList Parse 收到非 Sc 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<TitleList>::Failure(std::move(error));
             }
@@ -1740,28 +1740,28 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<TitleList>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "TitleList Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("TitleList Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<TitleList>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "TitleList Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("TitleList Parse 字段数量不匹配"),
                     packet.fields.empty() ? 0U : FieldCount));
             }
 
             const PacketField& field = packet.fields[DataFieldIndex];
-            if (field.name != "data") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(field.name, CG_PACKET_DIAGNOSTIC_TEXT("data"))) {
                 return PacketResult<TitleList>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "TitleList Parse 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("TitleList Parse 字段名不匹配"),
                     DataFieldIndex));
             }
 
             if (field.type != PacketFieldType::EscapedString) {
                 return PacketResult<TitleList>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "TitleList Parse 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("TitleList Parse 字段类型不匹配"),
                     DataFieldIndex));
             }
 
@@ -1778,7 +1778,7 @@ namespace cg::packet::receive
         static constexpr std::size_t DataFieldIndex = 0U;
         static constexpr std::size_t SlotFieldCount = 3U;
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -1787,7 +1787,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -1812,7 +1812,7 @@ namespace cg::packet::receive
             if ((parts.Value().size() % SlotFieldCount) != 0U) {
                 return PacketResult<std::vector<TitleSlot>>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "TitleList payload slot 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("TitleList payload slot 字段数量不匹配"),
                     DataFieldIndex));
             }
 
@@ -1855,7 +1855,7 @@ namespace cg::packet::receive
             if (index == text.size()) {
                 return PacketResult<int>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "TitleList payload 十进制字段为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("TitleList payload 十进制字段为空"),
                     fieldIndex));
             }
 
@@ -1869,7 +1869,7 @@ namespace cg::packet::receive
                 if (ch < '0' || ch > '9') {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "TitleList payload 十进制字段包含非法字符",
+                        CG_PACKET_DIAGNOSTIC_TEXT("TitleList payload 十进制字段包含非法字符"),
                         fieldIndex));
                 }
 
@@ -1877,7 +1877,7 @@ namespace cg::packet::receive
                 if (value > (limit - digit) / 10) {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "TitleList payload 十进制字段超出 int 范围",
+                        CG_PACKET_DIAGNOSTIC_TEXT("TitleList payload 十进制字段超出 int 范围"),
                         fieldIndex));
                 }
 
@@ -1918,7 +1918,7 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "eZT";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
-            {"data", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -1941,7 +1941,7 @@ namespace cg::packet::receive
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
                 PacketFieldType::EscapedString,
                 BuildData(),
             });
@@ -1957,7 +1957,7 @@ namespace cg::packet::receive
 
             const Packet& packet = parsed.Value();
             if (packet.code.View() != Code) {
-                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "ProfileList Parse 收到非 eZT 封包");
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, CG_PACKET_DIAGNOSTIC_TEXT("ProfileList Parse 收到非 eZT 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<ProfileList>::Failure(std::move(error));
             }
@@ -1965,28 +1965,28 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<ProfileList>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "ProfileList Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileList Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<ProfileList>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "ProfileList Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileList Parse 字段数量不匹配"),
                     packet.fields.empty() ? 0U : FieldCount));
             }
 
             const PacketField& field = packet.fields[DataFieldIndex];
-            if (field.name != "data") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(field.name, CG_PACKET_DIAGNOSTIC_TEXT("data"))) {
                 return PacketResult<ProfileList>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "ProfileList Parse 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileList Parse 字段名不匹配"),
                     DataFieldIndex));
             }
 
             if (field.type != PacketFieldType::EscapedString) {
                 return PacketResult<ProfileList>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "ProfileList Parse 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileList Parse 字段类型不匹配"),
                     DataFieldIndex));
             }
 
@@ -2019,7 +2019,7 @@ namespace cg::packet::receive
             return {};
         }
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -2028,7 +2028,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -2041,7 +2041,7 @@ namespace cg::packet::receive
             if (payload.empty()) {
                 return PacketResult<ProfileList>::Failure(MakeFieldError(
                     PacketErrorCode::EmptyInput,
-                    "ProfileList payload 为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileList payload 为空"),
                     DataFieldIndex));
             }
 
@@ -2057,7 +2057,7 @@ namespace cg::packet::receive
             if (((payloadParts.size() - 1U) % EntryFieldCount) != 0U) {
                 return PacketResult<ProfileList>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "ProfileList payload entry 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileList payload entry 字段数量不匹配"),
                     DataFieldIndex));
             }
 
@@ -2097,7 +2097,7 @@ namespace cg::packet::receive
             if (index == text.size()) {
                 return PacketResult<int>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "ProfileList payload 十进制字段为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileList payload 十进制字段为空"),
                     fieldIndex));
             }
 
@@ -2111,7 +2111,7 @@ namespace cg::packet::receive
                 if (ch < '0' || ch > '9') {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "ProfileList payload 十进制字段包含非法字符",
+                        CG_PACKET_DIAGNOSTIC_TEXT("ProfileList payload 十进制字段包含非法字符"),
                         fieldIndex));
                 }
 
@@ -2119,7 +2119,7 @@ namespace cg::packet::receive
                 if (value > (limit - digit) / 10) {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "ProfileList payload 十进制字段超出 int 范围",
+                        CG_PACKET_DIAGNOSTIC_TEXT("ProfileList payload 十进制字段超出 int 范围"),
                         fieldIndex));
                 }
 
@@ -2160,7 +2160,7 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "IUn";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
-            {"data", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -2183,7 +2183,7 @@ namespace cg::packet::receive
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
                 PacketFieldType::EscapedString,
                 BuildData(),
             });
@@ -2199,7 +2199,7 @@ namespace cg::packet::receive
 
             const Packet& packet = parsed.Value();
             if (packet.code.View() != Code) {
-                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "AboutList Parse 收到非 IUn 封包");
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, CG_PACKET_DIAGNOSTIC_TEXT("AboutList Parse 收到非 IUn 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<AboutList>::Failure(std::move(error));
             }
@@ -2207,28 +2207,28 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<AboutList>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "AboutList Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("AboutList Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<AboutList>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "AboutList Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("AboutList Parse 字段数量不匹配"),
                     packet.fields.empty() ? 0U : FieldCount));
             }
 
             const PacketField& field = packet.fields[DataFieldIndex];
-            if (field.name != "data") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(field.name, CG_PACKET_DIAGNOSTIC_TEXT("data"))) {
                 return PacketResult<AboutList>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "AboutList Parse 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("AboutList Parse 字段名不匹配"),
                     DataFieldIndex));
             }
 
             if (field.type != PacketFieldType::EscapedString) {
                 return PacketResult<AboutList>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "AboutList Parse 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("AboutList Parse 字段类型不匹配"),
                     DataFieldIndex));
             }
 
@@ -2261,7 +2261,7 @@ namespace cg::packet::receive
             return {};
         }
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -2270,7 +2270,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -2283,7 +2283,7 @@ namespace cg::packet::receive
             if (payload.empty()) {
                 return PacketResult<AboutList>::Failure(MakeFieldError(
                     PacketErrorCode::EmptyInput,
-                    "AboutList payload 为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("AboutList payload 为空"),
                     DataFieldIndex));
             }
 
@@ -2299,7 +2299,7 @@ namespace cg::packet::receive
             if (((payloadParts.size() - 1U) % EntryFieldCount) != 0U) {
                 return PacketResult<AboutList>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "AboutList payload entry 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("AboutList payload entry 字段数量不匹配"),
                     DataFieldIndex));
             }
 
@@ -2339,7 +2339,7 @@ namespace cg::packet::receive
             if (index == text.size()) {
                 return PacketResult<int>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "AboutList payload 十进制字段为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("AboutList payload 十进制字段为空"),
                     fieldIndex));
             }
 
@@ -2353,7 +2353,7 @@ namespace cg::packet::receive
                 if (ch < '0' || ch > '9') {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "AboutList payload 十进制字段包含非法字符",
+                        CG_PACKET_DIAGNOSTIC_TEXT("AboutList payload 十进制字段包含非法字符"),
                         fieldIndex));
                 }
 
@@ -2361,7 +2361,7 @@ namespace cg::packet::receive
                 if (value > (limit - digit) / 10) {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "AboutList payload 十进制字段超出 int 范围",
+                        CG_PACKET_DIAGNOSTIC_TEXT("AboutList payload 十进制字段超出 int 范围"),
                         fieldIndex));
                 }
 
@@ -2385,19 +2385,19 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "DpSY";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 13U> Fields = {{
-            {"name", PacketFieldType::EscapedString},
-            {"lv", PacketFieldType::Int62},
-            {"job", PacketFieldType::EscapedString},
-            {"title", PacketFieldType::EscapedString},
-            {"guildName", PacketFieldType::EscapedString},
-            {"graphic", PacketFieldType::Int62},
-            {"sid", PacketFieldType::Int62},
-            {"smsg", PacketFieldType::EscapedString},
-            {"bid", PacketFieldType::Int62},
-            {"bmsg", PacketFieldType::EscapedString},
-            {"aid", PacketFieldType::Int62},
-            {"amsg", PacketFieldType::EscapedString},
-            {"pmsg", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("name"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("lv"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("job"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("title"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("guildName"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("graphic"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("sid"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("smsg"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("bid"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("bmsg"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("aid"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("amsg"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("pmsg"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -2455,67 +2455,67 @@ namespace cg::packet::receive
             Packet packet(PacketCode(Code), Direction);
             packet.fields.reserve(FieldCount);
             packet.fields.push_back(PacketField {
-                "name",
+                CG_PACKET_DIAGNOSTIC_TEXT("name"),
                 PacketFieldType::EscapedString,
                 name,
             });
             packet.fields.push_back(PacketField {
-                "lv",
+                CG_PACKET_DIAGNOSTIC_TEXT("lv"),
                 PacketFieldType::Int62,
                 std::to_string(level),
             });
             packet.fields.push_back(PacketField {
-                "job",
+                CG_PACKET_DIAGNOSTIC_TEXT("job"),
                 PacketFieldType::EscapedString,
                 jobName,
             });
             packet.fields.push_back(PacketField {
-                "title",
+                CG_PACKET_DIAGNOSTIC_TEXT("title"),
                 PacketFieldType::EscapedString,
                 title,
             });
             packet.fields.push_back(PacketField {
-                "guildName",
+                CG_PACKET_DIAGNOSTIC_TEXT("guildName"),
                 PacketFieldType::EscapedString,
                 guildName,
             });
             packet.fields.push_back(PacketField {
-                "graphic",
+                CG_PACKET_DIAGNOSTIC_TEXT("graphic"),
                 PacketFieldType::Int62,
                 std::to_string(graphic),
             });
             packet.fields.push_back(PacketField {
-                "sid",
+                CG_PACKET_DIAGNOSTIC_TEXT("sid"),
                 PacketFieldType::Int62,
                 std::to_string(sellFlag),
             });
             packet.fields.push_back(PacketField {
-                "smsg",
+                CG_PACKET_DIAGNOSTIC_TEXT("smsg"),
                 PacketFieldType::EscapedString,
                 sellMessage,
             });
             packet.fields.push_back(PacketField {
-                "bid",
+                CG_PACKET_DIAGNOSTIC_TEXT("bid"),
                 PacketFieldType::Int62,
                 std::to_string(buyFlag),
             });
             packet.fields.push_back(PacketField {
-                "bmsg",
+                CG_PACKET_DIAGNOSTIC_TEXT("bmsg"),
                 PacketFieldType::EscapedString,
                 buyMessage,
             });
             packet.fields.push_back(PacketField {
-                "aid",
+                CG_PACKET_DIAGNOSTIC_TEXT("aid"),
                 PacketFieldType::Int62,
                 std::to_string(aboutFlag),
             });
             packet.fields.push_back(PacketField {
-                "amsg",
+                CG_PACKET_DIAGNOSTIC_TEXT("amsg"),
                 PacketFieldType::EscapedString,
                 aboutMessage,
             });
             packet.fields.push_back(PacketField {
-                "pmsg",
+                CG_PACKET_DIAGNOSTIC_TEXT("pmsg"),
                 PacketFieldType::EscapedString,
                 profileMessage,
             });
@@ -2531,7 +2531,7 @@ namespace cg::packet::receive
 
             const Packet& packet = parsed.Value();
             if (packet.code.View() != Code) {
-                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "ProfileData Parse 收到非 DpSY 封包");
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, CG_PACKET_DIAGNOSTIC_TEXT("ProfileData Parse 收到非 DpSY 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<ProfileData>::Failure(std::move(error));
             }
@@ -2539,30 +2539,30 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<ProfileData>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "ProfileData Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileData Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<ProfileData>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "ProfileData Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileData Parse 字段数量不匹配"),
                     packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
             }
 
             const std::array<std::string_view, FieldCount> fieldNames = {
-                "name",
-                "lv",
-                "job",
-                "title",
-                "guildName",
-                "graphic",
-                "sid",
-                "smsg",
-                "bid",
-                "bmsg",
-                "aid",
-                "amsg",
-                "pmsg",
+                CG_PACKET_DIAGNOSTIC_TEXT("name"),
+                CG_PACKET_DIAGNOSTIC_TEXT("lv"),
+                CG_PACKET_DIAGNOSTIC_TEXT("job"),
+                CG_PACKET_DIAGNOSTIC_TEXT("title"),
+                CG_PACKET_DIAGNOSTIC_TEXT("guildName"),
+                CG_PACKET_DIAGNOSTIC_TEXT("graphic"),
+                CG_PACKET_DIAGNOSTIC_TEXT("sid"),
+                CG_PACKET_DIAGNOSTIC_TEXT("smsg"),
+                CG_PACKET_DIAGNOSTIC_TEXT("bid"),
+                CG_PACKET_DIAGNOSTIC_TEXT("bmsg"),
+                CG_PACKET_DIAGNOSTIC_TEXT("aid"),
+                CG_PACKET_DIAGNOSTIC_TEXT("amsg"),
+                CG_PACKET_DIAGNOSTIC_TEXT("pmsg"),
             };
             const std::array<PacketFieldType, FieldCount> fieldTypes = {
                 PacketFieldType::EscapedString,
@@ -2581,17 +2581,17 @@ namespace cg::packet::receive
             };
 
             for (std::size_t index = 0; index < FieldCount; ++index) {
-                if (packet.fields[index].name != fieldNames[index]) {
+                if (!CG_PACKET_FIELD_NAME_MATCHES(packet.fields[index].name, fieldNames[index])) {
                     return PacketResult<ProfileData>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "ProfileData Parse 字段名不匹配",
+                        CG_PACKET_DIAGNOSTIC_TEXT("ProfileData Parse 字段名不匹配"),
                         index));
                 }
 
                 if (packet.fields[index].type != fieldTypes[index]) {
                     return PacketResult<ProfileData>::Failure(MakeFieldError(
                         PacketErrorCode::InvalidFieldType,
-                        "ProfileData Parse 字段类型不匹配",
+                        CG_PACKET_DIAGNOSTIC_TEXT("ProfileData Parse 字段类型不匹配"),
                         index));
                 }
             }
@@ -2649,7 +2649,7 @@ namespace cg::packet::receive
         static constexpr std::size_t AboutMessageFieldIndex = 11U;
         static constexpr std::size_t ProfileMessageFieldIndex = 12U;
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -2658,7 +2658,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -2678,7 +2678,7 @@ namespace cg::packet::receive
             if (index == text.size()) {
                 return PacketResult<int>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "ProfileData Parse i62 字段为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileData Parse i62 字段为空"),
                     fieldIndex));
             }
 
@@ -2692,7 +2692,7 @@ namespace cg::packet::receive
                 if (ch < '0' || ch > '9') {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "ProfileData Parse i62 字段包含非十进制字符",
+                        CG_PACKET_DIAGNOSTIC_TEXT("ProfileData Parse i62 字段包含非十进制字符"),
                         fieldIndex));
                 }
 
@@ -2700,7 +2700,7 @@ namespace cg::packet::receive
                 if (value > (limit - digit) / 10) {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "ProfileData Parse i62 字段超出 int 范围",
+                        CG_PACKET_DIAGNOSTIC_TEXT("ProfileData Parse i62 字段超出 int 范围"),
                         fieldIndex));
                 }
 
@@ -2724,7 +2724,7 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "cNB";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
-            {"data", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -2755,7 +2755,7 @@ namespace cg::packet::receive
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
                 PacketFieldType::EscapedString,
                 BuildData(),
             });
@@ -2771,7 +2771,7 @@ namespace cg::packet::receive
 
             const Packet& packet = parsed.Value();
             if (packet.code.View() != Code) {
-                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "ProfileMailDelete Parse 收到非 cNB 封包");
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, CG_PACKET_DIAGNOSTIC_TEXT("ProfileMailDelete Parse 收到非 cNB 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<ProfileMailDelete>::Failure(std::move(error));
             }
@@ -2779,28 +2779,28 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<ProfileMailDelete>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "ProfileMailDelete Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileMailDelete Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<ProfileMailDelete>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "ProfileMailDelete Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileMailDelete Parse 字段数量不匹配"),
                     packet.fields.empty() ? 0U : FieldCount));
             }
 
             const PacketField& field = packet.fields[DataFieldIndex];
-            if (field.name != "data") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(field.name, CG_PACKET_DIAGNOSTIC_TEXT("data"))) {
                 return PacketResult<ProfileMailDelete>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "ProfileMailDelete Parse 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileMailDelete Parse 字段名不匹配"),
                     DataFieldIndex));
             }
 
             if (field.type != PacketFieldType::EscapedString) {
                 return PacketResult<ProfileMailDelete>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "ProfileMailDelete Parse 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileMailDelete Parse 字段类型不匹配"),
                     DataFieldIndex));
             }
 
@@ -2812,7 +2812,7 @@ namespace cg::packet::receive
         static constexpr std::size_t DataFieldIndex = 0U;
         static constexpr std::size_t PayloadFieldCount = 2U;
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -2821,7 +2821,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -2843,7 +2843,7 @@ namespace cg::packet::receive
             if (payloadParts.size() != PayloadFieldCount) {
                 return PacketResult<ProfileMailDelete>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "ProfileMailDelete payload 段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileMailDelete payload 段数量不匹配"),
                     DataFieldIndex));
             }
 
@@ -2868,7 +2868,7 @@ namespace cg::packet::receive
             if (index == text.size()) {
                 return PacketResult<int>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "ProfileMailDelete payload 十进制字段为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileMailDelete payload 十进制字段为空"),
                     fieldIndex));
             }
 
@@ -2882,7 +2882,7 @@ namespace cg::packet::receive
                 if (ch < '0' || ch > '9') {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "ProfileMailDelete payload 十进制字段包含非法字符",
+                        CG_PACKET_DIAGNOSTIC_TEXT("ProfileMailDelete payload 十进制字段包含非法字符"),
                         fieldIndex));
                 }
 
@@ -2890,7 +2890,7 @@ namespace cg::packet::receive
                 if (value > (limit - digit) / 10) {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "ProfileMailDelete payload 十进制字段超出 int 范围",
+                        CG_PACKET_DIAGNOSTIC_TEXT("ProfileMailDelete payload 十进制字段超出 int 范围"),
                         fieldIndex));
                 }
 
@@ -2914,9 +2914,9 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "ow";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 3U> Fields = {{
-            {"profileIndex", PacketFieldType::Int62},
-            {"dtext", PacketFieldType::EscapedString},
-            {"color", PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("profileIndex"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("dtext"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("color"), PacketFieldType::Int62},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -2941,17 +2941,17 @@ namespace cg::packet::receive
             Packet packet(PacketCode(Code), Direction);
             packet.fields.reserve(FieldCount);
             packet.fields.push_back(PacketField {
-                "profileIndex",
+                CG_PACKET_DIAGNOSTIC_TEXT("profileIndex"),
                 PacketFieldType::Int62,
                 std::to_string(profileIndex),
             });
             packet.fields.push_back(PacketField {
-                "dtext",
+                CG_PACKET_DIAGNOSTIC_TEXT("dtext"),
                 PacketFieldType::EscapedString,
                 text,
             });
             packet.fields.push_back(PacketField {
-                "color",
+                CG_PACKET_DIAGNOSTIC_TEXT("color"),
                 PacketFieldType::Int62,
                 std::to_string(color),
             });
@@ -2967,7 +2967,7 @@ namespace cg::packet::receive
 
             const Packet& packet = parsed.Value();
             if (packet.code.View() != Code) {
-                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "ProfileMailReceipt Parse 收到非 ow 封包");
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, CG_PACKET_DIAGNOSTIC_TEXT("ProfileMailReceipt Parse 收到非 ow 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<ProfileMailReceipt>::Failure(std::move(error));
             }
@@ -2975,20 +2975,20 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<ProfileMailReceipt>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "ProfileMailReceipt Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileMailReceipt Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<ProfileMailReceipt>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "ProfileMailReceipt Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileMailReceipt Parse 字段数量不匹配"),
                     packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
             }
 
             const std::array<std::string_view, FieldCount> fieldNames = {
-                "profileIndex",
-                "dtext",
-                "color",
+                CG_PACKET_DIAGNOSTIC_TEXT("profileIndex"),
+                CG_PACKET_DIAGNOSTIC_TEXT("dtext"),
+                CG_PACKET_DIAGNOSTIC_TEXT("color"),
             };
             const std::array<PacketFieldType, FieldCount> fieldTypes = {
                 PacketFieldType::Int62,
@@ -2997,17 +2997,17 @@ namespace cg::packet::receive
             };
 
             for (std::size_t index = 0; index < FieldCount; ++index) {
-                if (packet.fields[index].name != fieldNames[index]) {
+                if (!CG_PACKET_FIELD_NAME_MATCHES(packet.fields[index].name, fieldNames[index])) {
                     return PacketResult<ProfileMailReceipt>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "ProfileMailReceipt Parse 字段名不匹配",
+                        CG_PACKET_DIAGNOSTIC_TEXT("ProfileMailReceipt Parse 字段名不匹配"),
                         index));
                 }
 
                 if (packet.fields[index].type != fieldTypes[index]) {
                     return PacketResult<ProfileMailReceipt>::Failure(MakeFieldError(
                         PacketErrorCode::InvalidFieldType,
-                        "ProfileMailReceipt Parse 字段类型不匹配",
+                        CG_PACKET_DIAGNOSTIC_TEXT("ProfileMailReceipt Parse 字段类型不匹配"),
                         index));
                 }
             }
@@ -3036,7 +3036,7 @@ namespace cg::packet::receive
         static constexpr std::size_t TextFieldIndex = 1U;
         static constexpr std::size_t ColorFieldIndex = 2U;
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -3045,7 +3045,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -3065,7 +3065,7 @@ namespace cg::packet::receive
             if (index == text.size()) {
                 return PacketResult<int>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "ProfileMailReceipt Parse i62 字段为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileMailReceipt Parse i62 字段为空"),
                     fieldIndex));
             }
 
@@ -3079,7 +3079,7 @@ namespace cg::packet::receive
                 if (ch < '0' || ch > '9') {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "ProfileMailReceipt Parse i62 字段包含非十进制字符",
+                        CG_PACKET_DIAGNOSTIC_TEXT("ProfileMailReceipt Parse i62 字段包含非十进制字符"),
                         fieldIndex));
                 }
 
@@ -3087,7 +3087,7 @@ namespace cg::packet::receive
                 if (value > (limit - digit) / 10) {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "ProfileMailReceipt Parse i62 字段超出 int 范围",
+                        CG_PACKET_DIAGNOSTIC_TEXT("ProfileMailReceipt Parse i62 字段超出 int 范围"),
                         fieldIndex));
                 }
 
@@ -3112,7 +3112,7 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "KyN";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
-            {"data", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -3187,7 +3187,7 @@ namespace cg::packet::receive
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
                 PacketFieldType::EscapedString,
                 BuildData(),
             });
@@ -3203,7 +3203,7 @@ namespace cg::packet::receive
 
             const Packet& packet = parsed.Value();
             if (packet.code.View() != Code) {
-                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "ProfileMailArrive Parse 收到非 KyN 封包");
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, CG_PACKET_DIAGNOSTIC_TEXT("ProfileMailArrive Parse 收到非 KyN 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<ProfileMailArrive>::Failure(std::move(error));
             }
@@ -3211,28 +3211,28 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<ProfileMailArrive>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "ProfileMailArrive Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileMailArrive Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<ProfileMailArrive>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "ProfileMailArrive Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileMailArrive Parse 字段数量不匹配"),
                     packet.fields.empty() ? 0U : FieldCount));
             }
 
             const PacketField& field = packet.fields[DataFieldIndex];
-            if (field.name != "data") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(field.name, CG_PACKET_DIAGNOSTIC_TEXT("data"))) {
                 return PacketResult<ProfileMailArrive>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "ProfileMailArrive Parse 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileMailArrive Parse 字段名不匹配"),
                     DataFieldIndex));
             }
 
             if (field.type != PacketFieldType::EscapedString) {
                 return PacketResult<ProfileMailArrive>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "ProfileMailArrive Parse 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileMailArrive Parse 字段类型不匹配"),
                     DataFieldIndex));
             }
 
@@ -3255,7 +3255,7 @@ namespace cg::packet::receive
         static constexpr std::size_t EmptyPayloadIndex = 9U;
         static constexpr std::size_t ColorPayloadIndex = 10U;
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -3264,7 +3264,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -3286,14 +3286,14 @@ namespace cg::packet::receive
             if (payloadParts.size() != PayloadFieldCount) {
                 return PacketResult<ProfileMailArrive>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "ProfileMailArrive payload 段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileMailArrive payload 段数量不匹配"),
                     DataFieldIndex));
             }
 
             if (!payloadParts[EmptyPayloadIndex].empty()) {
                 return PacketResult<ProfileMailArrive>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "ProfileMailArrive payload 第 10 段必须为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileMailArrive payload 第 10 段必须为空"),
                     EmptyPayloadIndex));
             }
 
@@ -3353,7 +3353,7 @@ namespace cg::packet::receive
             if (index == text.size()) {
                 return PacketResult<int>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "ProfileMailArrive payload 十进制字段为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileMailArrive payload 十进制字段为空"),
                     fieldIndex));
             }
 
@@ -3367,7 +3367,7 @@ namespace cg::packet::receive
                 if (ch < '0' || ch > '9') {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "ProfileMailArrive payload 十进制字段包含非法字符",
+                        CG_PACKET_DIAGNOSTIC_TEXT("ProfileMailArrive payload 十进制字段包含非法字符"),
                         fieldIndex));
                 }
 
@@ -3375,7 +3375,7 @@ namespace cg::packet::receive
                 if (value > (limit - digit) / 10) {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "ProfileMailArrive payload 十进制字段超出 int 范围",
+                        CG_PACKET_DIAGNOSTIC_TEXT("ProfileMailArrive payload 十进制字段超出 int 范围"),
                         fieldIndex));
                 }
 
@@ -3411,7 +3411,7 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "TNT";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
-            {"data", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -3451,7 +3451,7 @@ namespace cg::packet::receive
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
                 PacketFieldType::EscapedString,
                 BuildData(),
             });
@@ -3467,7 +3467,7 @@ namespace cg::packet::receive
 
             const Packet& packet = parsed.Value();
             if (packet.code.View() != Code) {
-                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "PartyParam Parse 收到非 TNT 封包");
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, CG_PACKET_DIAGNOSTIC_TEXT("PartyParam Parse 收到非 TNT 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<PartyParam>::Failure(std::move(error));
             }
@@ -3475,28 +3475,28 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<PartyParam>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "PartyParam Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("PartyParam Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<PartyParam>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "PartyParam Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("PartyParam Parse 字段数量不匹配"),
                     packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
             }
 
             const PacketField& field = packet.fields[DataFieldIndex];
-            if (field.name != "data") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(field.name, CG_PACKET_DIAGNOSTIC_TEXT("data"))) {
                 return PacketResult<PartyParam>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "PartyParam Parse 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("PartyParam Parse 字段名不匹配"),
                     DataFieldIndex));
             }
 
             if (field.type != PacketFieldType::EscapedString) {
                 return PacketResult<PartyParam>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "PartyParam Parse 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("PartyParam Parse 字段类型不匹配"),
                     DataFieldIndex));
             }
 
@@ -3509,7 +3509,7 @@ namespace cg::packet::receive
         static constexpr std::size_t EntryFieldCount = 5U;
         static constexpr std::size_t MaxEntryCount = 5U;
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -3518,7 +3518,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -3531,14 +3531,14 @@ namespace cg::packet::receive
             if (payload.empty()) {
                 return PacketResult<PartyParam>::Failure(MakeFieldError(
                     PacketErrorCode::EmptyInput,
-                    "PartyParam payload 为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("PartyParam payload 为空"),
                     DataFieldIndex));
             }
 
             if (payload.back() != '|') {
                 return PacketResult<PartyParam>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "PartyParam payload 缺少尾随分隔符",
+                    CG_PACKET_DIAGNOSTIC_TEXT("PartyParam payload 缺少尾随分隔符"),
                     DataFieldIndex));
             }
 
@@ -3555,7 +3555,7 @@ namespace cg::packet::receive
             if (parts.empty() || (parts.size() % EntryFieldCount) != 0U) {
                 return PacketResult<PartyParam>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "PartyParam payload 段数量不是 5 的倍数",
+                    CG_PACKET_DIAGNOSTIC_TEXT("PartyParam payload 段数量不是 5 的倍数"),
                     DataFieldIndex));
             }
 
@@ -3563,7 +3563,7 @@ namespace cg::packet::receive
             if (entryCount == 0U || entryCount > MaxEntryCount) {
                 return PacketResult<PartyParam>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "PartyParam payload 记录数不在 1..5 范围",
+                    CG_PACKET_DIAGNOSTIC_TEXT("PartyParam payload 记录数不在 1..5 范围"),
                     DataFieldIndex));
             }
 
@@ -3613,7 +3613,7 @@ namespace cg::packet::receive
             if (text.empty() || text == "-") {
                 return PacketResult<int>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "PartyParam payload objectIndex 为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("PartyParam payload objectIndex 为空"),
                     fieldIndex));
             }
 
@@ -3639,7 +3639,7 @@ namespace cg::packet::receive
             if (index == text.size()) {
                 return PacketResult<int>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "PartyParam payload 十进制字段为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("PartyParam payload 十进制字段为空"),
                     fieldIndex));
             }
 
@@ -3653,7 +3653,7 @@ namespace cg::packet::receive
                 if (ch < '0' || ch > '9') {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "PartyParam payload 十进制字段包含非法字符",
+                        CG_PACKET_DIAGNOSTIC_TEXT("PartyParam payload 十进制字段包含非法字符"),
                         fieldIndex));
                 }
 
@@ -3661,7 +3661,7 @@ namespace cg::packet::receive
                 if (value > (limit - digit) / 10) {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "PartyParam payload 十进制字段超出 int 范围",
+                        CG_PACKET_DIAGNOSTIC_TEXT("PartyParam payload 十进制字段超出 int 范围"),
                         fieldIndex));
                 }
 
@@ -3704,8 +3704,8 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "JJQj";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
-            {"partySlot", PacketFieldType::Int62},
-            {"data", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("partySlot"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -3757,12 +3757,12 @@ namespace cg::packet::receive
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "partySlot",
+                CG_PACKET_DIAGNOSTIC_TEXT("partySlot"),
                 PacketFieldType::Int62,
                 std::to_string(partySlot),
             });
             packet.fields.push_back(PacketField {
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
                 PacketFieldType::EscapedString,
                 BuildData(),
             });
@@ -3780,7 +3780,7 @@ namespace cg::packet::receive
             if (packet.code.View() != Code) {
                 PacketError error = MakePacketError(
                     PacketErrorCode::InvalidCode,
-                    "PartyMemberStatus Parse 收到非 JJQj 封包");
+                    CG_PACKET_DIAGNOSTIC_TEXT("PartyMemberStatus Parse 收到非 JJQj 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<PartyMemberStatus>::Failure(std::move(error));
             }
@@ -3788,28 +3788,28 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<PartyMemberStatus>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "PartyMemberStatus Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("PartyMemberStatus Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<PartyMemberStatus>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "PartyMemberStatus Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("PartyMemberStatus Parse 字段数量不匹配"),
                     packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
             }
 
             const PacketField& partySlotField = packet.fields[PartySlotFieldIndex];
-            if (partySlotField.name != "partySlot") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(partySlotField.name, CG_PACKET_DIAGNOSTIC_TEXT("partySlot"))) {
                 return PacketResult<PartyMemberStatus>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "PartyMemberStatus Parse partySlot 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("PartyMemberStatus Parse partySlot 字段名不匹配"),
                     PartySlotFieldIndex));
             }
 
             if (partySlotField.type != PacketFieldType::Int62) {
                 return PacketResult<PartyMemberStatus>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "PartyMemberStatus Parse partySlot 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("PartyMemberStatus Parse partySlot 字段类型不匹配"),
                     PartySlotFieldIndex));
             }
 
@@ -3819,17 +3819,17 @@ namespace cg::packet::receive
             }
 
             const PacketField& dataField = packet.fields[DataFieldIndex];
-            if (dataField.name != "data") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(dataField.name, CG_PACKET_DIAGNOSTIC_TEXT("data"))) {
                 return PacketResult<PartyMemberStatus>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "PartyMemberStatus Parse data 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("PartyMemberStatus Parse data 字段名不匹配"),
                     DataFieldIndex));
             }
 
             if (dataField.type != PacketFieldType::EscapedString) {
                 return PacketResult<PartyMemberStatus>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "PartyMemberStatus Parse data 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("PartyMemberStatus Parse data 字段类型不匹配"),
                     DataFieldIndex));
             }
 
@@ -3843,7 +3843,7 @@ namespace cg::packet::receive
         static constexpr std::size_t AllPayloadFieldCount = 6U;
         static constexpr std::size_t ObjectLevelFieldIndex = 1U;
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -3852,7 +3852,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -3865,14 +3865,14 @@ namespace cg::packet::receive
             if (payload.empty()) {
                 return PacketResult<PartyMemberStatus>::Failure(MakeFieldError(
                     PacketErrorCode::EmptyInput,
-                    "PartyMemberStatus payload 为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("PartyMemberStatus payload 为空"),
                     DataFieldIndex));
             }
 
             if (payload.back() != '|') {
                 return PacketResult<PartyMemberStatus>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "PartyMemberStatus payload 缺少尾随分隔符",
+                    CG_PACKET_DIAGNOSTIC_TEXT("PartyMemberStatus payload 缺少尾随分隔符"),
                     DataFieldIndex));
             }
 
@@ -3889,7 +3889,7 @@ namespace cg::packet::receive
             if (parts.empty()) {
                 return PacketResult<PartyMemberStatus>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "PartyMemberStatus payload 缺少 fieldMask",
+                    CG_PACKET_DIAGNOSTIC_TEXT("PartyMemberStatus payload 缺少 fieldMask"),
                     DataFieldIndex));
             }
 
@@ -3902,7 +3902,7 @@ namespace cg::packet::receive
                 if (payload != "0|") {
                     return PacketResult<PartyMemberStatus>::Failure(MakeFieldError(
                         PacketErrorCode::FieldCountMismatch,
-                        "PartyMemberStatus fieldMask 0 payload 必须为 0|",
+                        CG_PACKET_DIAGNOSTIC_TEXT("PartyMemberStatus fieldMask 0 payload 必须为 0|"),
                         DataFieldIndex));
                 }
                 return PacketResult<PartyMemberStatus>::Success(PartyMemberStatus(partySlot));
@@ -3911,14 +3911,14 @@ namespace cg::packet::receive
             if (fieldMask.Value() != 1) {
                 return PacketResult<PartyMemberStatus>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "PartyMemberStatus 不支持的 fieldMask",
+                    CG_PACKET_DIAGNOSTIC_TEXT("PartyMemberStatus 不支持的 fieldMask"),
                     DataFieldIndex));
             }
 
             if (parts.size() != AllPayloadFieldCount) {
                 return PacketResult<PartyMemberStatus>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "PartyMemberStatus fieldMask 1 payload 段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("PartyMemberStatus fieldMask 1 payload 段数量不匹配"),
                     DataFieldIndex));
             }
 
@@ -3953,7 +3953,7 @@ namespace cg::packet::receive
                 objectAndLevel.find('l', separator + 1U) != std::string::npos) {
                 return PacketResult<PartyMemberStatusEntry>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "PartyMemberStatus objectIndexllevel 格式不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("PartyMemberStatus objectIndexllevel 格式不匹配"),
                     ObjectLevelFieldIndex));
             }
 
@@ -4008,7 +4008,7 @@ namespace cg::packet::receive
             if (index == text.size()) {
                 return PacketResult<int>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "PartyMemberStatus 十进制字段为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("PartyMemberStatus 十进制字段为空"),
                     fieldIndex));
             }
 
@@ -4022,7 +4022,7 @@ namespace cg::packet::receive
                 if (ch < '0' || ch > '9') {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "PartyMemberStatus 十进制字段包含非法字符",
+                        CG_PACKET_DIAGNOSTIC_TEXT("PartyMemberStatus 十进制字段包含非法字符"),
                         fieldIndex));
                 }
 
@@ -4030,7 +4030,7 @@ namespace cg::packet::receive
                 if (value > (limit - digit) / 10) {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "PartyMemberStatus 十进制字段超出 int 范围",
+                        CG_PACKET_DIAGNOSTIC_TEXT("PartyMemberStatus 十进制字段超出 int 范围"),
                         fieldIndex));
                 }
 
@@ -4067,8 +4067,8 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "Rspn";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
-            {"skillIndex", PacketFieldType::Int62},
-            {"data", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("skillIndex"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -4111,12 +4111,12 @@ namespace cg::packet::receive
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "skillIndex",
+                CG_PACKET_DIAGNOSTIC_TEXT("skillIndex"),
                 PacketFieldType::Int62,
                 std::to_string(skillIndex),
             });
             packet.fields.push_back(PacketField {
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
                 PacketFieldType::EscapedString,
                 BuildData(),
             });
@@ -4132,7 +4132,7 @@ namespace cg::packet::receive
 
             const Packet& packet = parsed.Value();
             if (packet.code.View() != Code) {
-                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "TechList Parse 收到非 Rspn 封包");
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, CG_PACKET_DIAGNOSTIC_TEXT("TechList Parse 收到非 Rspn 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<TechList>::Failure(std::move(error));
             }
@@ -4140,28 +4140,28 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<TechList>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "TechList Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("TechList Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<TechList>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "TechList Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("TechList Parse 字段数量不匹配"),
                     packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
             }
 
             const PacketField& skillIndexField = packet.fields[SkillIndexFieldIndex];
-            if (skillIndexField.name != "skillIndex") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(skillIndexField.name, CG_PACKET_DIAGNOSTIC_TEXT("skillIndex"))) {
                 return PacketResult<TechList>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "TechList Parse skillIndex 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("TechList Parse skillIndex 字段名不匹配"),
                     SkillIndexFieldIndex));
             }
 
             if (skillIndexField.type != PacketFieldType::Int62) {
                 return PacketResult<TechList>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "TechList Parse skillIndex 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("TechList Parse skillIndex 字段类型不匹配"),
                     SkillIndexFieldIndex));
             }
 
@@ -4171,17 +4171,17 @@ namespace cg::packet::receive
             }
 
             const PacketField& dataField = packet.fields[DataFieldIndex];
-            if (dataField.name != "data") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(dataField.name, CG_PACKET_DIAGNOSTIC_TEXT("data"))) {
                 return PacketResult<TechList>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "TechList Parse data 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("TechList Parse data 字段名不匹配"),
                     DataFieldIndex));
             }
 
             if (dataField.type != PacketFieldType::EscapedString) {
                 return PacketResult<TechList>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "TechList Parse data 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("TechList Parse data 字段类型不匹配"),
                     DataFieldIndex));
             }
 
@@ -4199,7 +4199,7 @@ namespace cg::packet::receive
         static constexpr std::size_t DataFieldIndex = 1U;
         static constexpr std::size_t RecordFieldCount = 6U;
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -4208,7 +4208,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -4225,7 +4225,7 @@ namespace cg::packet::receive
             if (payload.back() != '|') {
                 return PacketResult<std::vector<TechRecord>>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "TechList payload 缺少尾随分隔符",
+                    CG_PACKET_DIAGNOSTIC_TEXT("TechList payload 缺少尾随分隔符"),
                     DataFieldIndex));
             }
 
@@ -4242,7 +4242,7 @@ namespace cg::packet::receive
             if (parts.empty() || (parts.size() % RecordFieldCount) != 0U) {
                 return PacketResult<std::vector<TechRecord>>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "TechList payload 段数量不是 6 的倍数",
+                    CG_PACKET_DIAGNOSTIC_TEXT("TechList payload 段数量不是 6 的倍数"),
                     DataFieldIndex));
             }
 
@@ -4295,7 +4295,7 @@ namespace cg::packet::receive
             if (index == text.size()) {
                 return PacketResult<int>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "TechList 十进制字段为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("TechList 十进制字段为空"),
                     fieldIndex));
             }
 
@@ -4309,7 +4309,7 @@ namespace cg::packet::receive
                 if (ch < '0' || ch > '9') {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "TechList 十进制字段包含非法字符",
+                        CG_PACKET_DIAGNOSTIC_TEXT("TechList 十进制字段包含非法字符"),
                         fieldIndex));
                 }
 
@@ -4317,7 +4317,7 @@ namespace cg::packet::receive
                 if (value > (limit - digit) / 10) {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "TechList 十进制字段超出 int 范围",
+                        CG_PACKET_DIAGNOSTIC_TEXT("TechList 十进制字段超出 int 范围"),
                         fieldIndex));
                 }
 
@@ -4368,7 +4368,7 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "cNE";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
-            {"data", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -4427,7 +4427,7 @@ namespace cg::packet::receive
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
                 PacketFieldType::EscapedString,
                 BuildData(),
             });
@@ -4445,7 +4445,7 @@ namespace cg::packet::receive
             if (packet.code.View() != Code) {
                 PacketError error = MakePacketError(
                     PacketErrorCode::InvalidCode,
-                    "CharacterSkillData Parse 收到非 cNE 封包");
+                    CG_PACKET_DIAGNOSTIC_TEXT("CharacterSkillData Parse 收到非 cNE 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<CharacterSkillData>::Failure(std::move(error));
             }
@@ -4453,28 +4453,28 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<CharacterSkillData>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "CharacterSkillData Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("CharacterSkillData Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<CharacterSkillData>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "CharacterSkillData Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("CharacterSkillData Parse 字段数量不匹配"),
                     packet.fields.empty() ? 0U : FieldCount));
             }
 
             const PacketField& field = packet.fields[DataFieldIndex];
-            if (field.name != "data") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(field.name, CG_PACKET_DIAGNOSTIC_TEXT("data"))) {
                 return PacketResult<CharacterSkillData>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "CharacterSkillData Parse 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("CharacterSkillData Parse 字段名不匹配"),
                     DataFieldIndex));
             }
 
             if (field.type != PacketFieldType::EscapedString) {
                 return PacketResult<CharacterSkillData>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "CharacterSkillData Parse 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("CharacterSkillData Parse 字段类型不匹配"),
                     DataFieldIndex));
             }
 
@@ -4492,7 +4492,7 @@ namespace cg::packet::receive
         static constexpr std::size_t RecordFieldCount = 11U;
         static constexpr std::size_t EmptySlotFieldCount = RecordFieldCount - 1U;
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -4501,7 +4501,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -4531,7 +4531,7 @@ namespace cg::packet::receive
             if (parts.empty() || (parts.size() % RecordFieldCount) != 0U) {
                 return PacketResult<std::vector<CharacterSkillRecord>>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "CharacterSkillData payload 段数量不是 11 的倍数",
+                    CG_PACKET_DIAGNOSTIC_TEXT("CharacterSkillData payload 段数量不是 11 的倍数"),
                     DataFieldIndex));
             }
 
@@ -4635,7 +4635,7 @@ namespace cg::packet::receive
             if (index == text.size()) {
                 return PacketResult<int>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "CharacterSkillData 十进制字段为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("CharacterSkillData 十进制字段为空"),
                     fieldIndex));
             }
 
@@ -4649,7 +4649,7 @@ namespace cg::packet::receive
                 if (ch < '0' || ch > '9') {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "CharacterSkillData 十进制字段包含非法字符",
+                        CG_PACKET_DIAGNOSTIC_TEXT("CharacterSkillData 十进制字段包含非法字符"),
                         fieldIndex));
                 }
 
@@ -4657,7 +4657,7 @@ namespace cg::packet::receive
                 if (value > (limit - digit) / 10) {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "CharacterSkillData 十进制字段超出 int 范围",
+                        CG_PACKET_DIAGNOSTIC_TEXT("CharacterSkillData 十进制字段超出 int 范围"),
                         fieldIndex));
                 }
 
@@ -4783,7 +4783,7 @@ namespace cg::packet::receive
                     return PacketResult<std::vector<ItemRecord>>::Failure(MakeFieldError(
                         context,
                         PacketErrorCode::FieldCountMismatch,
-                        Message(context, " payload 段数量不是 14 的倍数"),
+                        Message(context, CG_PACKET_DIAGNOSTIC_TEXT(" payload 段数量不是 14 的倍数")),
                         context.dataFieldIndex));
                 }
 
@@ -4801,7 +4801,7 @@ namespace cg::packet::receive
                             return PacketResult<std::vector<ItemRecord>>::Failure(MakeFieldError(
                                 context,
                                 PacketErrorCode::DecodeFailed,
-                                Message(context, " clear record 非 slot 字段必须为空"),
+                                Message(context, CG_PACKET_DIAGNOSTIC_TEXT(" clear record 非 slot 字段必须为空")),
                                 baseIndex + 1U));
                         }
 
@@ -4892,7 +4892,7 @@ namespace cg::packet::receive
             [[nodiscard]] static PacketError MakePacketError(
                 const CodecContext& context,
                 PacketErrorCode code,
-                std::string message)
+                std::string_view message)
             {
                 PacketError error = PacketError::Make(code, std::move(message));
                 error.packetCode = PacketCode(context.code);
@@ -4902,7 +4902,7 @@ namespace cg::packet::receive
             [[nodiscard]] static PacketError MakeFieldError(
                 const CodecContext& context,
                 PacketErrorCode code,
-                std::string message,
+                std::string_view message,
                 std::size_t fieldIndex)
             {
                 PacketError error = MakePacketError(context, code, std::move(message));
@@ -4936,7 +4936,7 @@ namespace cg::packet::receive
                     return PacketResult<int>::Failure(MakeFieldError(
                         context,
                         PacketErrorCode::DecodeFailed,
-                        Message(context, " 十进制字段为空"),
+                        Message(context, CG_PACKET_DIAGNOSTIC_TEXT(" 十进制字段为空")),
                         fieldIndex));
                 }
 
@@ -4951,7 +4951,7 @@ namespace cg::packet::receive
                         return PacketResult<int>::Failure(MakeFieldError(
                             context,
                             PacketErrorCode::DecodeFailed,
-                            Message(context, " 十进制字段包含非法字符"),
+                            Message(context, CG_PACKET_DIAGNOSTIC_TEXT(" 十进制字段包含非法字符")),
                             fieldIndex));
                     }
 
@@ -4960,7 +4960,7 @@ namespace cg::packet::receive
                         return PacketResult<int>::Failure(MakeFieldError(
                             context,
                             PacketErrorCode::DecodeFailed,
-                            Message(context, " 十进制字段超出 int 范围"),
+                            Message(context, CG_PACKET_DIAGNOSTIC_TEXT(" 十进制字段超出 int 范围")),
                             fieldIndex));
                     }
 
@@ -4979,7 +4979,7 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "rU";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
-            {"data", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -5005,7 +5005,7 @@ namespace cg::packet::receive
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
                 PacketFieldType::EscapedString,
                 BuildData(),
             });
@@ -5021,7 +5021,7 @@ namespace cg::packet::receive
 
             const Packet& packet = parsed.Value();
             if (packet.code.View() != Code) {
-                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "ItemData Parse 收到非 rU 封包");
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, CG_PACKET_DIAGNOSTIC_TEXT("ItemData Parse 收到非 rU 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<ItemData>::Failure(std::move(error));
             }
@@ -5029,34 +5029,34 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<ItemData>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "ItemData Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("ItemData Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<ItemData>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "ItemData Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ItemData Parse 字段数量不匹配"),
                     packet.fields.empty() ? 0U : FieldCount));
             }
 
             const PacketField& field = packet.fields[DataFieldIndex];
-            if (field.name != "data") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(field.name, CG_PACKET_DIAGNOSTIC_TEXT("data"))) {
                 return PacketResult<ItemData>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "ItemData Parse 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ItemData Parse 字段名不匹配"),
                     DataFieldIndex));
             }
 
             if (field.type != PacketFieldType::EscapedString) {
                 return PacketResult<ItemData>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "ItemData Parse 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ItemData Parse 字段类型不匹配"),
                     DataFieldIndex));
             }
 
             PacketResult<std::vector<ItemRecord>> records = Codec::ParseRecords(
                 field.value,
-                CodecContext {Code, "ItemData", DataFieldIndex});
+                CodecContext {Code, CG_PACKET_DIAGNOSTIC_TEXT("ItemData"), DataFieldIndex});
             if (!records.HasValue()) {
                 return PacketResult<ItemData>::Failure(records.Error());
             }
@@ -5068,7 +5068,7 @@ namespace cg::packet::receive
         static constexpr std::size_t FieldCount = 1U;
         static constexpr std::size_t DataFieldIndex = 0U;
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -5077,7 +5077,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -5095,8 +5095,8 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "iKe";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
-            {"petSlot", PacketFieldType::Int62},
-            {"data", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("petSlot"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -5124,12 +5124,12 @@ namespace cg::packet::receive
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "petSlot",
+                CG_PACKET_DIAGNOSTIC_TEXT("petSlot"),
                 PacketFieldType::Int62,
                 std::to_string(petSlot),
             });
             packet.fields.push_back(PacketField {
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
                 PacketFieldType::EscapedString,
                 BuildData(),
             });
@@ -5149,7 +5149,7 @@ namespace cg::packet::receive
         static PacketResult<PetItemData> FromPacket(const Packet& packet)
         {
             if (packet.code.View() != Code) {
-                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "PetItemData Parse 收到非 iKe 封包");
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, CG_PACKET_DIAGNOSTIC_TEXT("PetItemData Parse 收到非 iKe 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<PetItemData>::Failure(std::move(error));
             }
@@ -5157,28 +5157,28 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<PetItemData>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "PetItemData Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("PetItemData Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<PetItemData>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "PetItemData Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("PetItemData Parse 字段数量不匹配"),
                     packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
             }
 
             const PacketField& petSlotField = packet.fields[PetSlotFieldIndex];
-            if (petSlotField.name != "petSlot") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(petSlotField.name, CG_PACKET_DIAGNOSTIC_TEXT("petSlot"))) {
                 return PacketResult<PetItemData>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "PetItemData Parse petSlot 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("PetItemData Parse petSlot 字段名不匹配"),
                     PetSlotFieldIndex));
             }
 
             if (petSlotField.type != PacketFieldType::Int62) {
                 return PacketResult<PetItemData>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "PetItemData Parse petSlot 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("PetItemData Parse petSlot 字段类型不匹配"),
                     PetSlotFieldIndex));
             }
 
@@ -5188,23 +5188,23 @@ namespace cg::packet::receive
             }
 
             const PacketField& dataField = packet.fields[DataFieldIndex];
-            if (dataField.name != "data") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(dataField.name, CG_PACKET_DIAGNOSTIC_TEXT("data"))) {
                 return PacketResult<PetItemData>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "PetItemData Parse data 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("PetItemData Parse data 字段名不匹配"),
                     DataFieldIndex));
             }
 
             if (dataField.type != PacketFieldType::EscapedString) {
                 return PacketResult<PetItemData>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "PetItemData Parse data 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("PetItemData Parse data 字段类型不匹配"),
                     DataFieldIndex));
             }
 
             PacketResult<std::vector<ItemRecord>> records = ItemData::Codec::ParseRecords(
                 dataField.value,
-                ItemData::CodecContext {Code, "PetItemData", DataFieldIndex});
+                ItemData::CodecContext {Code, CG_PACKET_DIAGNOSTIC_TEXT("PetItemData"), DataFieldIndex});
             if (!records.HasValue()) {
                 return PacketResult<PetItemData>::Failure(records.Error());
             }
@@ -5217,7 +5217,7 @@ namespace cg::packet::receive
         static constexpr std::size_t PetSlotFieldIndex = 0U;
         static constexpr std::size_t DataFieldIndex = 1U;
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -5226,7 +5226,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -5246,7 +5246,7 @@ namespace cg::packet::receive
             if (index == text.size()) {
                 return PacketResult<int>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "PetItemData 十进制字段为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("PetItemData 十进制字段为空"),
                     fieldIndex));
             }
 
@@ -5260,7 +5260,7 @@ namespace cg::packet::receive
                 if (ch < '0' || ch > '9') {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "PetItemData 十进制字段包含非法字符",
+                        CG_PACKET_DIAGNOSTIC_TEXT("PetItemData 十进制字段包含非法字符"),
                         fieldIndex));
                 }
 
@@ -5268,7 +5268,7 @@ namespace cg::packet::receive
                 if (value > (limit - digit) / 10) {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "PetItemData 十进制字段超出 int 范围",
+                        CG_PACKET_DIAGNOSTIC_TEXT("PetItemData 十进制字段超出 int 范围"),
                         fieldIndex));
                 }
 
@@ -5292,7 +5292,7 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "TgX";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
-            {"data", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -5442,7 +5442,7 @@ namespace cg::packet::receive
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
                 PacketFieldType::EscapedString,
                 BuildData(),
             });
@@ -5462,7 +5462,7 @@ namespace cg::packet::receive
         static PacketResult<EquipSuit> FromPacket(const Packet& packet)
         {
             if (packet.code.View() != Code) {
-                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "EquipSuit Parse 收到非 TgX 封包");
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, CG_PACKET_DIAGNOSTIC_TEXT("EquipSuit Parse 收到非 TgX 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<EquipSuit>::Failure(std::move(error));
             }
@@ -5470,28 +5470,28 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<EquipSuit>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "EquipSuit Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("EquipSuit Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<EquipSuit>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "EquipSuit Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("EquipSuit Parse 字段数量不匹配"),
                     packet.fields.empty() ? 0U : FieldCount));
             }
 
             const PacketField& field = packet.fields[DataFieldIndex];
-            if (field.name != "data") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(field.name, CG_PACKET_DIAGNOSTIC_TEXT("data"))) {
                 return PacketResult<EquipSuit>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "EquipSuit Parse 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("EquipSuit Parse 字段名不匹配"),
                     DataFieldIndex));
             }
 
             if (field.type != PacketFieldType::EscapedString) {
                 return PacketResult<EquipSuit>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "EquipSuit Parse 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("EquipSuit Parse 字段类型不匹配"),
                     DataFieldIndex));
             }
 
@@ -5504,7 +5504,7 @@ namespace cg::packet::receive
         static constexpr std::size_t PayloadFieldCount = 27U;
         static constexpr std::size_t StatFieldCount = 24U;
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -5513,7 +5513,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -5539,7 +5539,7 @@ namespace cg::packet::receive
             if (parts.size() != PayloadFieldCount) {
                 return PacketResult<EquipSuit>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "EquipSuit payload 段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("EquipSuit payload 段数量不匹配"),
                     DataFieldIndex));
             }
 
@@ -5550,7 +5550,7 @@ namespace cg::packet::receive
             if (flag.Value() != 0 && flag.Value() != 1) {
                 return PacketResult<EquipSuit>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "EquipSuit specialTitleFlag 只能为 0 或 1",
+                    CG_PACKET_DIAGNOSTIC_TEXT("EquipSuit specialTitleFlag 只能为 0 或 1"),
                     2U));
             }
 
@@ -5664,7 +5664,7 @@ namespace cg::packet::receive
             if (index == text.size()) {
                 return PacketResult<int>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "EquipSuit 十进制字段为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("EquipSuit 十进制字段为空"),
                     fieldIndex));
             }
 
@@ -5678,7 +5678,7 @@ namespace cg::packet::receive
                 if (ch < '0' || ch > '9') {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "EquipSuit 十进制字段包含非法字符",
+                        CG_PACKET_DIAGNOSTIC_TEXT("EquipSuit 十进制字段包含非法字符"),
                         fieldIndex));
                 }
 
@@ -5686,7 +5686,7 @@ namespace cg::packet::receive
                 if (value > (limit - digit) / 10) {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "EquipSuit 十进制字段超出 int 范围",
+                        CG_PACKET_DIAGNOSTIC_TEXT("EquipSuit 十进制字段超出 int 范围"),
                         fieldIndex));
                 }
 
@@ -5731,7 +5731,7 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "ELoy";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
-            {"data", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -5799,7 +5799,7 @@ namespace cg::packet::receive
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
                 PacketFieldType::EscapedString,
                 BuildData(),
             });
@@ -5815,7 +5815,7 @@ namespace cg::packet::receive
 
             const Packet& packet = parsed.Value();
             if (packet.code.View() != Code) {
-                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "ItemInfoList Parse 收到非 ELoy 封包");
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, CG_PACKET_DIAGNOSTIC_TEXT("ItemInfoList Parse 收到非 ELoy 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<ItemInfoList>::Failure(std::move(error));
             }
@@ -5823,28 +5823,28 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<ItemInfoList>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "ItemInfoList Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("ItemInfoList Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<ItemInfoList>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "ItemInfoList Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ItemInfoList Parse 字段数量不匹配"),
                     packet.fields.empty() ? 0U : FieldCount));
             }
 
             const PacketField& field = packet.fields[DataFieldIndex];
-            if (field.name != "data") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(field.name, CG_PACKET_DIAGNOSTIC_TEXT("data"))) {
                 return PacketResult<ItemInfoList>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "ItemInfoList Parse 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ItemInfoList Parse 字段名不匹配"),
                     DataFieldIndex));
             }
 
             if (field.type != PacketFieldType::EscapedString) {
                 return PacketResult<ItemInfoList>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "ItemInfoList Parse 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ItemInfoList Parse 字段类型不匹配"),
                     DataFieldIndex));
             }
 
@@ -5866,7 +5866,7 @@ namespace cg::packet::receive
             return true;
         }
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -5875,7 +5875,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -5901,7 +5901,7 @@ namespace cg::packet::receive
             if (parts.size() != TotalPayloadFieldCount) {
                 return PacketResult<ItemInfoList>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "ItemInfoList payload 段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ItemInfoList payload 段数量不匹配"),
                     DataFieldIndex));
             }
 
@@ -6031,7 +6031,7 @@ namespace cg::packet::receive
                 if (index + 1U >= text.size()) {
                     return PacketResult<std::string>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "ItemInfoList raw 字符串旧双字节字符被截断",
+                        CG_PACKET_DIAGNOSTIC_TEXT("ItemInfoList raw 字符串旧双字节字符被截断"),
                         fieldIndex));
                 }
                 ++index;
@@ -6052,7 +6052,7 @@ namespace cg::packet::receive
             if (index == text.size()) {
                 return PacketResult<int>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "ItemInfoList 十进制字段为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ItemInfoList 十进制字段为空"),
                     fieldIndex));
             }
 
@@ -6066,7 +6066,7 @@ namespace cg::packet::receive
                 if (ch < '0' || ch > '9') {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "ItemInfoList 十进制字段包含非法字符",
+                        CG_PACKET_DIAGNOSTIC_TEXT("ItemInfoList 十进制字段包含非法字符"),
                         fieldIndex));
                 }
 
@@ -6074,7 +6074,7 @@ namespace cg::packet::receive
                 if (value > (limit - digit) / 10) {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "ItemInfoList 十进制字段超出 int 范围",
+                        CG_PACKET_DIAGNOSTIC_TEXT("ItemInfoList 十进制字段超出 int 范围"),
                         fieldIndex));
                 }
 
@@ -6123,8 +6123,8 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "xmgQ";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
-            {"haveskillindex", PacketFieldType::Int62},
-            {"data", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("haveskillindex"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -6177,12 +6177,12 @@ namespace cg::packet::receive
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "haveskillindex",
+                CG_PACKET_DIAGNOSTIC_TEXT("haveskillindex"),
                 PacketFieldType::Int62,
                 std::to_string(haveSkillIndex),
             });
             packet.fields.push_back(PacketField {
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
                 PacketFieldType::EscapedString,
                 BuildData(),
             });
@@ -6198,7 +6198,7 @@ namespace cg::packet::receive
 
             const Packet& packet = parsed.Value();
             if (packet.code.View() != Code) {
-                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "ItemRecipe Parse 收到非 xmgQ 封包");
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, CG_PACKET_DIAGNOSTIC_TEXT("ItemRecipe Parse 收到非 xmgQ 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<ItemRecipe>::Failure(std::move(error));
             }
@@ -6206,28 +6206,28 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<ItemRecipe>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "ItemRecipe Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("ItemRecipe Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<ItemRecipe>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "ItemRecipe Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ItemRecipe Parse 字段数量不匹配"),
                     packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
             }
 
             const PacketField& haveSkillIndexField = packet.fields[HaveSkillIndexFieldIndex];
-            if (haveSkillIndexField.name != "haveskillindex") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(haveSkillIndexField.name, CG_PACKET_DIAGNOSTIC_TEXT("haveskillindex"))) {
                 return PacketResult<ItemRecipe>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "ItemRecipe Parse haveskillindex 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ItemRecipe Parse haveskillindex 字段名不匹配"),
                     HaveSkillIndexFieldIndex));
             }
 
             if (haveSkillIndexField.type != PacketFieldType::Int62) {
                 return PacketResult<ItemRecipe>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "ItemRecipe Parse haveskillindex 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ItemRecipe Parse haveskillindex 字段类型不匹配"),
                     HaveSkillIndexFieldIndex));
             }
 
@@ -6239,17 +6239,17 @@ namespace cg::packet::receive
             }
 
             const PacketField& dataField = packet.fields[DataFieldIndex];
-            if (dataField.name != "data") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(dataField.name, CG_PACKET_DIAGNOSTIC_TEXT("data"))) {
                 return PacketResult<ItemRecipe>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "ItemRecipe Parse data 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ItemRecipe Parse data 字段名不匹配"),
                     DataFieldIndex));
             }
 
             if (dataField.type != PacketFieldType::EscapedString) {
                 return PacketResult<ItemRecipe>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "ItemRecipe Parse data 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ItemRecipe Parse data 字段类型不匹配"),
                     DataFieldIndex));
             }
 
@@ -6272,7 +6272,7 @@ namespace cg::packet::receive
         static constexpr std::size_t MaterialFieldCount = 3U;
         static constexpr std::size_t MaxRecordCount = 56U;
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -6281,7 +6281,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -6294,14 +6294,14 @@ namespace cg::packet::receive
             if (payload.empty()) {
                 return PacketResult<std::vector<ItemRecipeRecord>>::Failure(MakeFieldError(
                     PacketErrorCode::EmptyInput,
-                    "ItemRecipe payload 为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ItemRecipe payload 为空"),
                     DataFieldIndex));
             }
 
             if (payload.back() != '|') {
                 return PacketResult<std::vector<ItemRecipeRecord>>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "ItemRecipe payload 缺少尾随分隔符",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ItemRecipe payload 缺少尾随分隔符"),
                     DataFieldIndex));
             }
 
@@ -6318,7 +6318,7 @@ namespace cg::packet::receive
             if (parts.empty() || (parts.size() % RecordFieldCount) != 0U) {
                 return PacketResult<std::vector<ItemRecipeRecord>>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "ItemRecipe payload 段数量不是 22 的倍数",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ItemRecipe payload 段数量不是 22 的倍数"),
                     DataFieldIndex));
             }
 
@@ -6326,7 +6326,7 @@ namespace cg::packet::receive
             if (recordCount > MaxRecordCount) {
                 return PacketResult<std::vector<ItemRecipeRecord>>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "ItemRecipe payload record 数量超过 56",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ItemRecipe payload record 数量超过 56"),
                     DataFieldIndex));
             }
 
@@ -6384,7 +6384,7 @@ namespace cg::packet::receive
             if (usable.Value() != 0 && usable.Value() != 1) {
                 return PacketResult<ItemRecipeRecord>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "ItemRecipe usable 只能为 0/1",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ItemRecipe usable 只能为 0/1"),
                     baseIndex + 6U));
             }
 
@@ -6447,7 +6447,7 @@ namespace cg::packet::receive
                 if (index + 1U >= text.size()) {
                     return PacketResult<std::string>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "ItemRecipe raw 字符串旧双字节字符被截断",
+                        CG_PACKET_DIAGNOSTIC_TEXT("ItemRecipe raw 字符串旧双字节字符被截断"),
                         fieldIndex));
                 }
                 ++index;
@@ -6468,7 +6468,7 @@ namespace cg::packet::receive
             if (index == text.size()) {
                 return PacketResult<int>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "ItemRecipe 十进制字段为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ItemRecipe 十进制字段为空"),
                     fieldIndex));
             }
 
@@ -6482,7 +6482,7 @@ namespace cg::packet::receive
                 if (ch < '0' || ch > '9') {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "ItemRecipe 十进制字段包含非法字符",
+                        CG_PACKET_DIAGNOSTIC_TEXT("ItemRecipe 十进制字段包含非法字符"),
                         fieldIndex));
                 }
 
@@ -6490,7 +6490,7 @@ namespace cg::packet::receive
                 if (value > (limit - digit) / 10) {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "ItemRecipe 十进制字段超出 int 范围",
+                        CG_PACKET_DIAGNOSTIC_TEXT("ItemRecipe 十进制字段超出 int 范围"),
                         fieldIndex));
                 }
 
@@ -6514,8 +6514,8 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "Ilz";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
-            {"albumversion", PacketFieldType::Int62},
-            {"data", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("albumversion"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -6548,12 +6548,12 @@ namespace cg::packet::receive
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "albumversion",
+                CG_PACKET_DIAGNOSTIC_TEXT("albumversion"),
                 PacketFieldType::Int62,
                 std::to_string(albumVersion),
             });
             packet.fields.push_back(PacketField {
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
                 PacketFieldType::EscapedString,
                 BuildData(),
             });
@@ -6569,7 +6569,7 @@ namespace cg::packet::receive
 
             const Packet& packet = parsed.Value();
             if (packet.code.View() != Code) {
-                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "AlbumFlags Parse 收到非 Ilz 封包");
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, CG_PACKET_DIAGNOSTIC_TEXT("AlbumFlags Parse 收到非 Ilz 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<AlbumFlags>::Failure(std::move(error));
             }
@@ -6577,28 +6577,28 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<AlbumFlags>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "AlbumFlags Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("AlbumFlags Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<AlbumFlags>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "AlbumFlags Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("AlbumFlags Parse 字段数量不匹配"),
                     packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
             }
 
             const PacketField& albumVersionField = packet.fields[AlbumVersionFieldIndex];
-            if (albumVersionField.name != "albumversion") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(albumVersionField.name, CG_PACKET_DIAGNOSTIC_TEXT("albumversion"))) {
                 return PacketResult<AlbumFlags>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "AlbumFlags Parse albumversion 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("AlbumFlags Parse albumversion 字段名不匹配"),
                     AlbumVersionFieldIndex));
             }
 
             if (albumVersionField.type != PacketFieldType::Int62) {
                 return PacketResult<AlbumFlags>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "AlbumFlags Parse albumversion 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("AlbumFlags Parse albumversion 字段类型不匹配"),
                     AlbumVersionFieldIndex));
             }
 
@@ -6610,17 +6610,17 @@ namespace cg::packet::receive
             }
 
             const PacketField& dataField = packet.fields[DataFieldIndex];
-            if (dataField.name != "data") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(dataField.name, CG_PACKET_DIAGNOSTIC_TEXT("data"))) {
                 return PacketResult<AlbumFlags>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "AlbumFlags Parse data 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("AlbumFlags Parse data 字段名不匹配"),
                     DataFieldIndex));
             }
 
             if (dataField.type != PacketFieldType::EscapedString) {
                 return PacketResult<AlbumFlags>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "AlbumFlags Parse data 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("AlbumFlags Parse data 字段类型不匹配"),
                     DataFieldIndex));
             }
 
@@ -6637,7 +6637,7 @@ namespace cg::packet::receive
         static constexpr std::size_t AlbumVersionFieldIndex = 0U;
         static constexpr std::size_t DataFieldIndex = 1U;
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -6646,7 +6646,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -6698,7 +6698,7 @@ namespace cg::packet::receive
             if (index == text.size()) {
                 return PacketResult<int>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "AlbumFlags 十进制字段为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("AlbumFlags 十进制字段为空"),
                     fieldIndex));
             }
 
@@ -6712,7 +6712,7 @@ namespace cg::packet::receive
                 if (ch < '0' || ch > '9') {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "AlbumFlags 十进制字段包含非法字符",
+                        CG_PACKET_DIAGNOSTIC_TEXT("AlbumFlags 十进制字段包含非法字符"),
                         fieldIndex));
                 }
 
@@ -6720,7 +6720,7 @@ namespace cg::packet::receive
                 if (value > (limit - digit) / 10) {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "AlbumFlags 十进制字段超出 int 范围",
+                        CG_PACKET_DIAGNOSTIC_TEXT("AlbumFlags 十进制字段超出 int 范围"),
                         fieldIndex));
                 }
 
@@ -6745,23 +6745,23 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "dM";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 17U> Fields = {{
-            {"albumId", PacketFieldType::Int62},
-            {"imageNumber", PacketFieldType::Int62},
-            {"catchFlag", PacketFieldType::Int62},
-            {"rare", PacketFieldType::Int62},
-            {"type", PacketFieldType::Int62},
-            {"vital", PacketFieldType::Int62},
-            {"strength", PacketFieldType::Int62},
-            {"toughness", PacketFieldType::Int62},
-            {"quick", PacketFieldType::Int62},
-            {"magic", PacketFieldType::Int62},
-            {"earth", PacketFieldType::Int62},
-            {"water", PacketFieldType::Int62},
-            {"fire", PacketFieldType::Int62},
-            {"wind", PacketFieldType::Int62},
-            {"slot", PacketFieldType::Int62},
-            {"comment", PacketFieldType::EscapedString},
-            {"name", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("albumId"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("imageNumber"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("catchFlag"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("rare"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("type"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("vital"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("strength"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("toughness"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("quick"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("magic"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("earth"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("water"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("fire"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("wind"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("slot"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("comment"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("name"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -6878,7 +6878,7 @@ namespace cg::packet::receive
 
             const Packet& packet = parsed.Value();
             if (packet.code.View() != Code) {
-                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "AlbumInfo Parse 收到非 dM 封包");
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, CG_PACKET_DIAGNOSTIC_TEXT("AlbumInfo Parse 收到非 dM 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<AlbumInfo>::Failure(std::move(error));
             }
@@ -6886,21 +6886,21 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<AlbumInfo>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "AlbumInfo Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("AlbumInfo Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<AlbumInfo>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "AlbumInfo Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("AlbumInfo Parse 字段数量不匹配"),
                     packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
             }
 
             for (std::size_t index = 0; index < FieldCount; ++index) {
-                if (packet.fields[index].name != FieldNames[index]) {
+                if (!CG_PACKET_FIELD_NAME_MATCHES(packet.fields[index].name, FieldNames[index])) {
                     return PacketResult<AlbumInfo>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "AlbumInfo Parse 字段名不匹配",
+                        CG_PACKET_DIAGNOSTIC_TEXT("AlbumInfo Parse 字段名不匹配"),
                         index));
                 }
 
@@ -6909,7 +6909,7 @@ namespace cg::packet::receive
                 if (packet.fields[index].type != expectedType) {
                     return PacketResult<AlbumInfo>::Failure(MakeFieldError(
                         PacketErrorCode::InvalidFieldType,
-                        "AlbumInfo Parse 字段类型不匹配",
+                        CG_PACKET_DIAGNOSTIC_TEXT("AlbumInfo Parse 字段类型不匹配"),
                         index));
                 }
             }
@@ -6949,26 +6949,26 @@ namespace cg::packet::receive
         static constexpr std::size_t CommentFieldIndex = 15U;
         static constexpr std::size_t NameFieldIndex = 16U;
         static constexpr std::array<std::string_view, FieldCount> FieldNames = {
-            "albumId",
-            "imageNumber",
-            "catchFlag",
-            "rare",
-            "type",
-            "vital",
-            "strength",
-            "toughness",
-            "quick",
-            "magic",
-            "earth",
-            "water",
-            "fire",
-            "wind",
-            "slot",
-            "comment",
-            "name",
+            CG_PACKET_DIAGNOSTIC_TEXT("albumId"),
+            CG_PACKET_DIAGNOSTIC_TEXT("imageNumber"),
+            CG_PACKET_DIAGNOSTIC_TEXT("catchFlag"),
+            CG_PACKET_DIAGNOSTIC_TEXT("rare"),
+            CG_PACKET_DIAGNOSTIC_TEXT("type"),
+            CG_PACKET_DIAGNOSTIC_TEXT("vital"),
+            CG_PACKET_DIAGNOSTIC_TEXT("strength"),
+            CG_PACKET_DIAGNOSTIC_TEXT("toughness"),
+            CG_PACKET_DIAGNOSTIC_TEXT("quick"),
+            CG_PACKET_DIAGNOSTIC_TEXT("magic"),
+            CG_PACKET_DIAGNOSTIC_TEXT("earth"),
+            CG_PACKET_DIAGNOSTIC_TEXT("water"),
+            CG_PACKET_DIAGNOSTIC_TEXT("fire"),
+            CG_PACKET_DIAGNOSTIC_TEXT("wind"),
+            CG_PACKET_DIAGNOSTIC_TEXT("slot"),
+            CG_PACKET_DIAGNOSTIC_TEXT("comment"),
+            CG_PACKET_DIAGNOSTIC_TEXT("name"),
         };
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -6977,7 +6977,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -6997,7 +6997,7 @@ namespace cg::packet::receive
             if (index == text.size()) {
                 return PacketResult<int>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "AlbumInfo 十进制字段为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("AlbumInfo 十进制字段为空"),
                     fieldIndex));
             }
 
@@ -7011,7 +7011,7 @@ namespace cg::packet::receive
                 if (ch < '0' || ch > '9') {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "AlbumInfo 十进制字段包含非法字符",
+                        CG_PACKET_DIAGNOSTIC_TEXT("AlbumInfo 十进制字段包含非法字符"),
                         fieldIndex));
                 }
 
@@ -7019,7 +7019,7 @@ namespace cg::packet::receive
                 if (value > (limit - digit) / 10) {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "AlbumInfo 十进制字段超出 int 范围",
+                        CG_PACKET_DIAGNOSTIC_TEXT("AlbumInfo 十进制字段超出 int 范围"),
                         fieldIndex));
                 }
 
@@ -7043,8 +7043,8 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "Dn";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
-            {"albumId", PacketFieldType::Int62},
-            {"name", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("albumId"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("name"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -7066,12 +7066,12 @@ namespace cg::packet::receive
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "albumId",
+                CG_PACKET_DIAGNOSTIC_TEXT("albumId"),
                 PacketFieldType::Int62,
                 std::to_string(albumId),
             });
             packet.fields.push_back(PacketField {
-                "name",
+                CG_PACKET_DIAGNOSTIC_TEXT("name"),
                 PacketFieldType::EscapedString,
                 name,
             });
@@ -7087,7 +7087,7 @@ namespace cg::packet::receive
 
             const Packet& packet = parsed.Value();
             if (packet.code.View() != Code) {
-                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "AlbumName Parse 收到非 Dn 封包");
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, CG_PACKET_DIAGNOSTIC_TEXT("AlbumName Parse 收到非 Dn 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<AlbumName>::Failure(std::move(error));
             }
@@ -7095,28 +7095,28 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<AlbumName>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "AlbumName Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("AlbumName Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<AlbumName>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "AlbumName Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("AlbumName Parse 字段数量不匹配"),
                     packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
             }
 
             const PacketField& albumIdField = packet.fields[AlbumIdFieldIndex];
-            if (albumIdField.name != "albumId") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(albumIdField.name, CG_PACKET_DIAGNOSTIC_TEXT("albumId"))) {
                 return PacketResult<AlbumName>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "AlbumName Parse albumId 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("AlbumName Parse albumId 字段名不匹配"),
                     AlbumIdFieldIndex));
             }
 
             if (albumIdField.type != PacketFieldType::Int62) {
                 return PacketResult<AlbumName>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "AlbumName Parse albumId 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("AlbumName Parse albumId 字段类型不匹配"),
                     AlbumIdFieldIndex));
             }
 
@@ -7126,17 +7126,17 @@ namespace cg::packet::receive
             }
 
             const PacketField& nameField = packet.fields[NameFieldIndex];
-            if (nameField.name != "name") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(nameField.name, CG_PACKET_DIAGNOSTIC_TEXT("name"))) {
                 return PacketResult<AlbumName>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "AlbumName Parse name 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("AlbumName Parse name 字段名不匹配"),
                     NameFieldIndex));
             }
 
             if (nameField.type != PacketFieldType::EscapedString) {
                 return PacketResult<AlbumName>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "AlbumName Parse name 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("AlbumName Parse name 字段类型不匹配"),
                     NameFieldIndex));
             }
 
@@ -7148,7 +7148,7 @@ namespace cg::packet::receive
         static constexpr std::size_t AlbumIdFieldIndex = 0U;
         static constexpr std::size_t NameFieldIndex = 1U;
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -7157,7 +7157,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -7177,7 +7177,7 @@ namespace cg::packet::receive
             if (index == text.size()) {
                 return PacketResult<int>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "AlbumName 十进制字段为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("AlbumName 十进制字段为空"),
                     fieldIndex));
             }
 
@@ -7191,7 +7191,7 @@ namespace cg::packet::receive
                 if (ch < '0' || ch > '9') {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "AlbumName 十进制字段包含非法字符",
+                        CG_PACKET_DIAGNOSTIC_TEXT("AlbumName 十进制字段包含非法字符"),
                         fieldIndex));
                 }
 
@@ -7199,7 +7199,7 @@ namespace cg::packet::receive
                 if (value > (limit - digit) / 10) {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "AlbumName 十进制字段超出 int 范围",
+                        CG_PACKET_DIAGNOSTIC_TEXT("AlbumName 十进制字段超出 int 范围"),
                         fieldIndex));
                 }
 
@@ -7242,14 +7242,14 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "lDuJ";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 8U> Fields = {{
-            {"objIndex", PacketFieldType::Int62},
-            {"graphicsno", PacketFieldType::Int62},
-            {"x", PacketFieldType::Int62},
-            {"y", PacketFieldType::Int62},
-            {"dir", PacketFieldType::Int62},
-            {"flg", PacketFieldType::Int62},
-            {"no", PacketFieldType::Int62},
-            {"data", PacketFieldType::SubPayload},
+            {CG_PACKET_DIAGNOSTIC_TEXT("objIndex"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("graphicsno"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("x"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("y"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("dir"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("flg"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("no"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::SubPayload},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -7344,42 +7344,42 @@ namespace cg::packet::receive
             Packet packet(PacketCode(Code), Direction);
             packet.fields.reserve(FieldCount);
             packet.fields.push_back(PacketField {
-                "objIndex",
+                CG_PACKET_DIAGNOSTIC_TEXT("objIndex"),
                 PacketFieldType::Int62,
                 std::to_string(objIndex),
             });
             packet.fields.push_back(PacketField {
-                "graphicsno",
+                CG_PACKET_DIAGNOSTIC_TEXT("graphicsno"),
                 PacketFieldType::Int62,
                 std::to_string(graphicsNo),
             });
             packet.fields.push_back(PacketField {
-                "x",
+                CG_PACKET_DIAGNOSTIC_TEXT("x"),
                 PacketFieldType::Int62,
                 std::to_string(x),
             });
             packet.fields.push_back(PacketField {
-                "y",
+                CG_PACKET_DIAGNOSTIC_TEXT("y"),
                 PacketFieldType::Int62,
                 std::to_string(y),
             });
             packet.fields.push_back(PacketField {
-                "dir",
+                CG_PACKET_DIAGNOSTIC_TEXT("dir"),
                 PacketFieldType::Int62,
                 std::to_string(dir),
             });
             packet.fields.push_back(PacketField {
-                "flg",
+                CG_PACKET_DIAGNOSTIC_TEXT("flg"),
                 PacketFieldType::Int62,
                 std::to_string(flg),
             });
             packet.fields.push_back(PacketField {
-                "no",
+                CG_PACKET_DIAGNOSTIC_TEXT("no"),
                 PacketFieldType::Int62,
                 std::to_string(no),
             });
             packet.fields.push_back(PacketField {
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
                 PacketFieldType::EscapedString,
                 BuildData(),
             });
@@ -7395,7 +7395,7 @@ namespace cg::packet::receive
 
             const Packet& packet = parsed.Value();
             if (packet.code.View() != Code) {
-                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "PetMailAnimation Parse 收到非 lDuJ 封包");
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, CG_PACKET_DIAGNOSTIC_TEXT("PetMailAnimation Parse 收到非 lDuJ 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<PetMailAnimation>::Failure(std::move(error));
             }
@@ -7403,25 +7403,25 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<PetMailAnimation>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "PetMailAnimation Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("PetMailAnimation Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<PetMailAnimation>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "PetMailAnimation Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("PetMailAnimation Parse 字段数量不匹配"),
                     packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
             }
 
             const std::array<std::string_view, FieldCount> fieldNames = {
-                "objIndex",
-                "graphicsno",
-                "x",
-                "y",
-                "dir",
-                "flg",
-                "no",
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("objIndex"),
+                CG_PACKET_DIAGNOSTIC_TEXT("graphicsno"),
+                CG_PACKET_DIAGNOSTIC_TEXT("x"),
+                CG_PACKET_DIAGNOSTIC_TEXT("y"),
+                CG_PACKET_DIAGNOSTIC_TEXT("dir"),
+                CG_PACKET_DIAGNOSTIC_TEXT("flg"),
+                CG_PACKET_DIAGNOSTIC_TEXT("no"),
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
             };
             const std::array<PacketFieldType, FieldCount> fieldTypes = {
                 PacketFieldType::Int62,
@@ -7435,17 +7435,17 @@ namespace cg::packet::receive
             };
 
             for (std::size_t index = 0; index < FieldCount; ++index) {
-                if (packet.fields[index].name != fieldNames[index]) {
+                if (!CG_PACKET_FIELD_NAME_MATCHES(packet.fields[index].name, fieldNames[index])) {
                     return PacketResult<PetMailAnimation>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "PetMailAnimation Parse 字段名不匹配",
+                        CG_PACKET_DIAGNOSTIC_TEXT("PetMailAnimation Parse 字段名不匹配"),
                         index));
                 }
 
                 if (packet.fields[index].type != fieldTypes[index]) {
                     return PacketResult<PetMailAnimation>::Failure(MakeFieldError(
                         PacketErrorCode::InvalidFieldType,
-                        "PetMailAnimation Parse 字段类型不匹配",
+                        CG_PACKET_DIAGNOSTIC_TEXT("PetMailAnimation Parse 字段类型不匹配"),
                         index));
                 }
             }
@@ -7494,7 +7494,7 @@ namespace cg::packet::receive
         static constexpr std::size_t DataFieldIndex = 7U;
         static constexpr std::size_t PayloadFieldCount = 12U;
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -7503,7 +7503,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -7522,7 +7522,7 @@ namespace cg::packet::receive
             if (text.empty()) {
                 return PacketResult<PetMailAnimationPayload>::Failure(MakeFieldError(
                     PacketErrorCode::EmptyInput,
-                    "PetMailAnimation payload 为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("PetMailAnimation payload 为空"),
                     DataFieldIndex));
             }
 
@@ -7538,7 +7538,7 @@ namespace cg::packet::receive
             if (parts.size() != PayloadFieldCount) {
                 return PacketResult<PetMailAnimationPayload>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "PetMailAnimation payload 段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("PetMailAnimation payload 段数量不匹配"),
                     DataFieldIndex));
             }
 
@@ -7606,7 +7606,7 @@ namespace cg::packet::receive
             if (text.empty() || text == "-") {
                 return PacketResult<int>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "PetMailAnimation payload objectIndex 为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("PetMailAnimation payload objectIndex 为空"),
                     fieldIndex));
             }
 
@@ -7632,7 +7632,7 @@ namespace cg::packet::receive
             if (index == text.size()) {
                 return PacketResult<int>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "PetMailAnimation 十进制字段为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("PetMailAnimation 十进制字段为空"),
                     fieldIndex));
             }
 
@@ -7646,7 +7646,7 @@ namespace cg::packet::receive
                 if (ch < '0' || ch > '9') {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "PetMailAnimation 十进制字段包含非法字符",
+                        CG_PACKET_DIAGNOSTIC_TEXT("PetMailAnimation 十进制字段包含非法字符"),
                         fieldIndex));
                 }
 
@@ -7654,7 +7654,7 @@ namespace cg::packet::receive
                 if (value > (limit - digit) / 10) {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "PetMailAnimation 十进制字段超出 int 范围",
+                        CG_PACKET_DIAGNOSTIC_TEXT("PetMailAnimation 十进制字段超出 int 范围"),
                         fieldIndex));
                 }
 
@@ -7727,8 +7727,8 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "IsSy";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
-            {"petIndex", PacketFieldType::Int62},
-            {"data", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("petIndex"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -7792,12 +7792,12 @@ namespace cg::packet::receive
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "petIndex",
+                CG_PACKET_DIAGNOSTIC_TEXT("petIndex"),
                 PacketFieldType::Int62,
                 std::to_string(petIndex),
             });
             packet.fields.push_back(PacketField {
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
                 PacketFieldType::EscapedString,
                 BuildData(),
             });
@@ -7813,7 +7813,7 @@ namespace cg::packet::receive
 
             const Packet& packet = parsed.Value();
             if (packet.code.View() != Code) {
-                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "RidePetData Parse 收到非 IsSy 封包");
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, CG_PACKET_DIAGNOSTIC_TEXT("RidePetData Parse 收到非 IsSy 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<RidePetData>::Failure(std::move(error));
             }
@@ -7821,28 +7821,28 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<RidePetData>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "RidePetData Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("RidePetData Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<RidePetData>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "RidePetData Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("RidePetData Parse 字段数量不匹配"),
                     packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
             }
 
             const PacketField& petIndexField = packet.fields[PetIndexFieldIndex];
-            if (petIndexField.name != "petIndex") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(petIndexField.name, CG_PACKET_DIAGNOSTIC_TEXT("petIndex"))) {
                 return PacketResult<RidePetData>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "RidePetData Parse petIndex 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("RidePetData Parse petIndex 字段名不匹配"),
                     PetIndexFieldIndex));
             }
 
             if (petIndexField.type != PacketFieldType::Int62) {
                 return PacketResult<RidePetData>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "RidePetData Parse petIndex 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("RidePetData Parse petIndex 字段类型不匹配"),
                     PetIndexFieldIndex));
             }
 
@@ -7852,17 +7852,17 @@ namespace cg::packet::receive
             }
 
             const PacketField& dataField = packet.fields[DataFieldIndex];
-            if (dataField.name != "data") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(dataField.name, CG_PACKET_DIAGNOSTIC_TEXT("data"))) {
                 return PacketResult<RidePetData>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "RidePetData Parse data 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("RidePetData Parse data 字段名不匹配"),
                     DataFieldIndex));
             }
 
             if (dataField.type != PacketFieldType::EscapedString) {
                 return PacketResult<RidePetData>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "RidePetData Parse data 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("RidePetData Parse data 字段类型不匹配"),
                     DataFieldIndex));
             }
 
@@ -7905,7 +7905,7 @@ namespace cg::packet::receive
         static constexpr int InjuryFlag = 1 << 25;
         static constexpr int PartialFlagsMask = (1 << 26) - 2;
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -7914,7 +7914,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -7958,7 +7958,7 @@ namespace cg::packet::receive
             if (text.empty()) {
                 return PacketResult<RidePetPayload>::Failure(MakeFieldError(
                     PacketErrorCode::EmptyInput,
-                    "RidePetData payload 为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("RidePetData payload 为空"),
                     DataFieldIndex));
             }
 
@@ -7969,7 +7969,7 @@ namespace cg::packet::receive
             if (text.back() != '|') {
                 return PacketResult<RidePetPayload>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "RidePetData payload 缺少尾随分隔符",
+                    CG_PACKET_DIAGNOSTIC_TEXT("RidePetData payload 缺少尾随分隔符"),
                     DataFieldIndex));
             }
 
@@ -7986,7 +7986,7 @@ namespace cg::packet::receive
             if (parts.empty() || parts.front().empty() || parts.front() == "-") {
                 return PacketResult<RidePetPayload>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "RidePetData flags 字段为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("RidePetData flags 字段为空"),
                     DataFieldIndex));
             }
 
@@ -8001,14 +8001,14 @@ namespace cg::packet::receive
             if (flags.Value() < 0) {
                 return PacketResult<RidePetPayload>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "RidePetData flags 不能为负",
+                    CG_PACKET_DIAGNOSTIC_TEXT("RidePetData flags 不能为负"),
                     DataFieldIndex));
             }
 
             if (flags.Value() == 0) {
                 return PacketResult<RidePetPayload>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "RidePetData flags 为 0 但 payload 不是 literal 0",
+                    CG_PACKET_DIAGNOSTIC_TEXT("RidePetData flags 为 0 但 payload 不是 literal 0"),
                     DataFieldIndex));
             }
 
@@ -8016,7 +8016,7 @@ namespace cg::packet::receive
                 if (parts.size() != 1U) {
                     return PacketResult<RidePetPayload>::Failure(MakeFieldError(
                         PacketErrorCode::FieldCountMismatch,
-                        "RidePetData full marker 不应携带字段",
+                        CG_PACKET_DIAGNOSTIC_TEXT("RidePetData full marker 不应携带字段"),
                         DataFieldIndex));
                 }
                 return PacketResult<RidePetPayload>::Success(RidePetPayload::FullMarker());
@@ -8025,7 +8025,7 @@ namespace cg::packet::receive
             if ((flags.Value() & ~PartialFlagsMask) != 0) {
                 return PacketResult<RidePetPayload>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "RidePetData flags 包含未知 bit",
+                    CG_PACKET_DIAGNOSTIC_TEXT("RidePetData flags 包含未知 bit"),
                     DataFieldIndex));
             }
 
@@ -8033,7 +8033,7 @@ namespace cg::packet::receive
             if (parts.size() != expectedPartCount) {
                 return PacketResult<RidePetPayload>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "RidePetData payload 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("RidePetData payload 字段数量不匹配"),
                     DataFieldIndex));
             }
 
@@ -8188,7 +8188,7 @@ namespace cg::packet::receive
             if (index == text.size()) {
                 return PacketResult<int>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "RidePetData 十进制字段为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("RidePetData 十进制字段为空"),
                     fieldIndex));
             }
 
@@ -8202,7 +8202,7 @@ namespace cg::packet::receive
                 if (ch < '0' || ch > '9') {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "RidePetData 十进制字段包含非法字符",
+                        CG_PACKET_DIAGNOSTIC_TEXT("RidePetData 十进制字段包含非法字符"),
                         fieldIndex));
                 }
 
@@ -8210,7 +8210,7 @@ namespace cg::packet::receive
                 if (value > (limit - digit) / 10) {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "RidePetData 十进制字段超出 int 范围",
+                        CG_PACKET_DIAGNOSTIC_TEXT("RidePetData 十进制字段超出 int 范围"),
                         fieldIndex));
                 }
 
@@ -8266,8 +8266,8 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "AU";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
-            {"petIndex", PacketFieldType::Int62},
-            {"data", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("petIndex"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -8308,12 +8308,12 @@ namespace cg::packet::receive
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "petIndex",
+                CG_PACKET_DIAGNOSTIC_TEXT("petIndex"),
                 PacketFieldType::Int62,
                 std::to_string(petIndex),
             });
             packet.fields.push_back(PacketField {
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
                 PacketFieldType::EscapedString,
                 BuildData(),
             });
@@ -8329,7 +8329,7 @@ namespace cg::packet::receive
 
             const Packet& packet = parsed.Value();
             if (packet.code.View() != Code) {
-                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "RidePetExtraData Parse 收到非 AU 封包");
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, CG_PACKET_DIAGNOSTIC_TEXT("RidePetExtraData Parse 收到非 AU 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<RidePetExtraData>::Failure(std::move(error));
             }
@@ -8337,28 +8337,28 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<RidePetExtraData>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "RidePetExtraData Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("RidePetExtraData Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<RidePetExtraData>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "RidePetExtraData Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("RidePetExtraData Parse 字段数量不匹配"),
                     packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
             }
 
             const PacketField& petIndexField = packet.fields[PetIndexFieldIndex];
-            if (petIndexField.name != "petIndex") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(petIndexField.name, CG_PACKET_DIAGNOSTIC_TEXT("petIndex"))) {
                 return PacketResult<RidePetExtraData>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "RidePetExtraData Parse petIndex 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("RidePetExtraData Parse petIndex 字段名不匹配"),
                     PetIndexFieldIndex));
             }
 
             if (petIndexField.type != PacketFieldType::Int62) {
                 return PacketResult<RidePetExtraData>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "RidePetExtraData Parse petIndex 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("RidePetExtraData Parse petIndex 字段类型不匹配"),
                     PetIndexFieldIndex));
             }
 
@@ -8368,17 +8368,17 @@ namespace cg::packet::receive
             }
 
             const PacketField& dataField = packet.fields[DataFieldIndex];
-            if (dataField.name != "data") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(dataField.name, CG_PACKET_DIAGNOSTIC_TEXT("data"))) {
                 return PacketResult<RidePetExtraData>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "RidePetExtraData Parse data 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("RidePetExtraData Parse data 字段名不匹配"),
                     DataFieldIndex));
             }
 
             if (dataField.type != PacketFieldType::EscapedString) {
                 return PacketResult<RidePetExtraData>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "RidePetExtraData Parse data 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("RidePetExtraData Parse data 字段类型不匹配"),
                     DataFieldIndex));
             }
 
@@ -8443,7 +8443,7 @@ namespace cg::packet::receive
             {ItemHaveFlag, &RidePetExtraPayload::itemHave},
         }};
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -8452,7 +8452,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -8481,7 +8481,7 @@ namespace cg::packet::receive
             if (text.empty()) {
                 return PacketResult<RidePetExtraPayload>::Failure(MakeFieldError(
                     PacketErrorCode::EmptyInput,
-                    "RidePetExtraData payload 为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("RidePetExtraData payload 为空"),
                     DataFieldIndex));
             }
 
@@ -8492,7 +8492,7 @@ namespace cg::packet::receive
             if (text.back() != '|') {
                 return PacketResult<RidePetExtraPayload>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "RidePetExtraData payload 缺少尾随分隔符",
+                    CG_PACKET_DIAGNOSTIC_TEXT("RidePetExtraData payload 缺少尾随分隔符"),
                     DataFieldIndex));
             }
 
@@ -8509,7 +8509,7 @@ namespace cg::packet::receive
             if (parts.empty() || parts.front().empty() || parts.front() == "-") {
                 return PacketResult<RidePetExtraPayload>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "RidePetExtraData flags 字段为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("RidePetExtraData flags 字段为空"),
                     DataFieldIndex));
             }
 
@@ -8524,14 +8524,14 @@ namespace cg::packet::receive
             if (flags.Value() < 0) {
                 return PacketResult<RidePetExtraPayload>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "RidePetExtraData flags 不能为负",
+                    CG_PACKET_DIAGNOSTIC_TEXT("RidePetExtraData flags 不能为负"),
                     DataFieldIndex));
             }
 
             if (flags.Value() == 0) {
                 return PacketResult<RidePetExtraPayload>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "RidePetExtraData flags 为 0 但 payload 不是 literal 0",
+                    CG_PACKET_DIAGNOSTIC_TEXT("RidePetExtraData flags 为 0 但 payload 不是 literal 0"),
                     DataFieldIndex));
             }
 
@@ -8542,13 +8542,13 @@ namespace cg::packet::receive
                 if ((flags.Value() & AllMarkerFlag) != 0) {
                     return PacketResult<RidePetExtraPayload>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "RidePetExtraData partial flags 不允许 bit0",
+                        CG_PACKET_DIAGNOSTIC_TEXT("RidePetExtraData partial flags 不允许 bit0"),
                         DataFieldIndex));
                 }
                 if ((flags.Value() & ~PartialFlagsMask) != 0) {
                     return PacketResult<RidePetExtraPayload>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "RidePetExtraData flags 包含未知 bit",
+                        CG_PACKET_DIAGNOSTIC_TEXT("RidePetExtraData flags 包含未知 bit"),
                         DataFieldIndex));
                 }
                 expectedPartCount = 1U + CountPayloadFields(flags.Value());
@@ -8557,7 +8557,7 @@ namespace cg::packet::receive
             if (parts.size() != expectedPartCount) {
                 return PacketResult<RidePetExtraPayload>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "RidePetExtraData payload 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("RidePetExtraData payload 字段数量不匹配"),
                     DataFieldIndex));
             }
 
@@ -8593,7 +8593,7 @@ namespace cg::packet::receive
             if (index == text.size()) {
                 return PacketResult<int>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "RidePetExtraData 十进制字段为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("RidePetExtraData 十进制字段为空"),
                     fieldIndex));
             }
 
@@ -8607,7 +8607,7 @@ namespace cg::packet::receive
                 if (ch < '0' || ch > '9') {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "RidePetExtraData 十进制字段包含非法字符",
+                        CG_PACKET_DIAGNOSTIC_TEXT("RidePetExtraData 十进制字段包含非法字符"),
                         fieldIndex));
                 }
 
@@ -8615,7 +8615,7 @@ namespace cg::packet::receive
                 if (value > (limit - digit) / 10) {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "RidePetExtraData 十进制字段超出 int 范围",
+                        CG_PACKET_DIAGNOSTIC_TEXT("RidePetExtraData 十进制字段超出 int 范围"),
                         fieldIndex));
                 }
 
@@ -8656,9 +8656,9 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "JgO";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 3U> Fields = {{
-            {"result", PacketFieldType::Int62},
-            {"type", PacketFieldType::Int62},
-            {"data", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("result"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("type"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -8725,17 +8725,17 @@ namespace cg::packet::receive
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "result",
+                CG_PACKET_DIAGNOSTIC_TEXT("result"),
                 PacketFieldType::Int62,
                 std::to_string(result),
             });
             packet.fields.push_back(PacketField {
-                "type",
+                CG_PACKET_DIAGNOSTIC_TEXT("type"),
                 PacketFieldType::Int62,
                 std::to_string(type),
             });
             packet.fields.push_back(PacketField {
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
                 PacketFieldType::EscapedString,
                 BuildData(),
             });
@@ -8751,7 +8751,7 @@ namespace cg::packet::receive
 
             const Packet& packet = parsed.Value();
             if (packet.code.View() != Code) {
-                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "TechUseResult Parse 收到非 JgO 封包");
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, CG_PACKET_DIAGNOSTIC_TEXT("TechUseResult Parse 收到非 JgO 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<TechUseResult>::Failure(std::move(error));
             }
@@ -8759,20 +8759,20 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<TechUseResult>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "TechUseResult Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("TechUseResult Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<TechUseResult>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "TechUseResult Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("TechUseResult Parse 字段数量不匹配"),
                     packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
             }
 
             const std::array<std::string_view, FieldCount> fieldNames = {
-                "result",
-                "type",
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("result"),
+                CG_PACKET_DIAGNOSTIC_TEXT("type"),
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
             };
             const std::array<PacketFieldType, FieldCount> fieldTypes = {
                 PacketFieldType::Int62,
@@ -8781,17 +8781,17 @@ namespace cg::packet::receive
             };
 
             for (std::size_t index = 0; index < FieldCount; ++index) {
-                if (packet.fields[index].name != fieldNames[index]) {
+                if (!CG_PACKET_FIELD_NAME_MATCHES(packet.fields[index].name, fieldNames[index])) {
                     return PacketResult<TechUseResult>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "TechUseResult Parse 字段名不匹配",
+                        CG_PACKET_DIAGNOSTIC_TEXT("TechUseResult Parse 字段名不匹配"),
                         index));
                 }
 
                 if (packet.fields[index].type != fieldTypes[index]) {
                     return PacketResult<TechUseResult>::Failure(MakeFieldError(
                         PacketErrorCode::InvalidFieldType,
-                        "TechUseResult Parse 字段类型不匹配",
+                        CG_PACKET_DIAGNOSTIC_TEXT("TechUseResult Parse 字段类型不匹配"),
                         index));
                 }
             }
@@ -8809,7 +8809,7 @@ namespace cg::packet::receive
             if (typeValue.Value() < 1 || typeValue.Value() > 4) {
                 return PacketResult<TechUseResult>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "TechUseResult type 不在 1..4 范围内",
+                    CG_PACKET_DIAGNOSTIC_TEXT("TechUseResult type 不在 1..4 范围内"),
                     TypeFieldIndex));
             }
 
@@ -8836,7 +8836,7 @@ namespace cg::packet::receive
         static constexpr std::size_t Type4MinFieldCount = 8U;
         static constexpr std::size_t Type4MaxFieldCount = 9U;
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -8845,7 +8845,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -8880,7 +8880,7 @@ namespace cg::packet::receive
             if (text.empty()) {
                 return PacketResult<TechUsePayload>::Failure(MakeFieldError(
                     PacketErrorCode::EmptyInput,
-                    "TechUseResult payload 为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("TechUseResult payload 为空"),
                     DataFieldIndex));
             }
 
@@ -8910,7 +8910,7 @@ namespace cg::packet::receive
             if (parts.size() < Type1BaseFieldCount || parts.size() > Type1MaxFieldCount) {
                 return PacketResult<TechUsePayload>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "TechUseResult type1 payload 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("TechUseResult type1 payload 字段数量不匹配"),
                     DataFieldIndex));
             }
 
@@ -8942,7 +8942,7 @@ namespace cg::packet::receive
                     if (seenEmptyAtom) {
                         return PacketResult<TechUsePayload>::Failure(MakeFieldError(
                             PacketErrorCode::DecodeFailed,
-                            "TechUseResult type1 deleteAtomRaw 中间空段后仍有内容",
+                            CG_PACKET_DIAGNOSTIC_TEXT("TechUseResult type1 deleteAtomRaw 中间空段后仍有内容"),
                             index));
                     }
                     ++nonEmptyAtomCount;
@@ -8953,7 +8953,7 @@ namespace cg::packet::receive
             if (nonEmptyAtomCount > 6U) {
                 return PacketResult<TechUsePayload>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "TechUseResult type1 deleteAtomRaw 非空数量超过 6",
+                    CG_PACKET_DIAGNOSTIC_TEXT("TechUseResult type1 deleteAtomRaw 非空数量超过 6"),
                     DataFieldIndex));
             }
 
@@ -8965,7 +8965,7 @@ namespace cg::packet::receive
             if (parts.size() != Type2FieldCount) {
                 return PacketResult<TechUsePayload>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "TechUseResult type2 payload 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("TechUseResult type2 payload 字段数量不匹配"),
                     DataFieldIndex));
             }
 
@@ -8988,7 +8988,7 @@ namespace cg::packet::receive
             if (parts.size() != Type3FieldCount) {
                 return PacketResult<TechUsePayload>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "TechUseResult type3 payload 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("TechUseResult type3 payload 字段数量不匹配"),
                     DataFieldIndex));
             }
 
@@ -9011,7 +9011,7 @@ namespace cg::packet::receive
             if (parts.size() < Type4MinFieldCount || parts.size() > Type4MaxFieldCount) {
                 return PacketResult<TechUsePayload>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "TechUseResult type4 payload 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("TechUseResult type4 payload 字段数量不匹配"),
                     DataFieldIndex));
             }
 
@@ -9090,7 +9090,7 @@ namespace cg::packet::receive
             if (index == text.size()) {
                 return PacketResult<int>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "TechUseResult 十进制字段为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("TechUseResult 十进制字段为空"),
                     fieldIndex));
             }
 
@@ -9104,7 +9104,7 @@ namespace cg::packet::receive
                 if (ch < '0' || ch > '9') {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "TechUseResult 十进制字段包含非法字符",
+                        CG_PACKET_DIAGNOSTIC_TEXT("TechUseResult 十进制字段包含非法字符"),
                         fieldIndex));
                 }
 
@@ -9112,7 +9112,7 @@ namespace cg::packet::receive
                 if (value > (limit - digit) / 10) {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "TechUseResult 十进制字段超出 int 范围",
+                        CG_PACKET_DIAGNOSTIC_TEXT("TechUseResult 十进制字段超出 int 范围"),
                         fieldIndex));
                 }
 
@@ -9151,8 +9151,8 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "OBee";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
-            {"petIndex", PacketFieldType::Int62},
-            {"data", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("petIndex"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -9199,12 +9199,12 @@ namespace cg::packet::receive
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "petIndex",
+                CG_PACKET_DIAGNOSTIC_TEXT("petIndex"),
                 PacketFieldType::Int62,
                 std::to_string(petIndex),
             });
             packet.fields.push_back(PacketField {
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
                 PacketFieldType::EscapedString,
                 BuildData(),
             });
@@ -9220,7 +9220,7 @@ namespace cg::packet::receive
 
             const Packet& packet = parsed.Value();
             if (packet.code.View() != Code) {
-                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "PetTechData Parse 收到非 OBee 封包");
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, CG_PACKET_DIAGNOSTIC_TEXT("PetTechData Parse 收到非 OBee 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<PetTechData>::Failure(std::move(error));
             }
@@ -9228,28 +9228,28 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<PetTechData>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "PetTechData Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("PetTechData Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<PetTechData>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "PetTechData Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("PetTechData Parse 字段数量不匹配"),
                     packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
             }
 
             const PacketField& petIndexField = packet.fields[PetIndexFieldIndex];
-            if (petIndexField.name != "petIndex") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(petIndexField.name, CG_PACKET_DIAGNOSTIC_TEXT("petIndex"))) {
                 return PacketResult<PetTechData>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "PetTechData Parse petIndex 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("PetTechData Parse petIndex 字段名不匹配"),
                     PetIndexFieldIndex));
             }
 
             if (petIndexField.type != PacketFieldType::Int62) {
                 return PacketResult<PetTechData>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "PetTechData Parse petIndex 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("PetTechData Parse petIndex 字段类型不匹配"),
                     PetIndexFieldIndex));
             }
 
@@ -9259,17 +9259,17 @@ namespace cg::packet::receive
             }
 
             const PacketField& dataField = packet.fields[DataFieldIndex];
-            if (dataField.name != "data") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(dataField.name, CG_PACKET_DIAGNOSTIC_TEXT("data"))) {
                 return PacketResult<PetTechData>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "PetTechData Parse data 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("PetTechData Parse data 字段名不匹配"),
                     DataFieldIndex));
             }
 
             if (dataField.type != PacketFieldType::EscapedString) {
                 return PacketResult<PetTechData>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "PetTechData Parse data 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("PetTechData Parse data 字段类型不匹配"),
                     DataFieldIndex));
             }
 
@@ -9287,7 +9287,7 @@ namespace cg::packet::receive
         static constexpr std::size_t DataFieldIndex = 1U;
         static constexpr std::size_t RecordFieldCount = 8U;
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -9296,7 +9296,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -9309,14 +9309,14 @@ namespace cg::packet::receive
             if (payload.empty()) {
                 return PacketResult<std::vector<PetTechRecord>>::Failure(MakeFieldError(
                     PacketErrorCode::EmptyInput,
-                    "PetTechData payload 为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("PetTechData payload 为空"),
                     DataFieldIndex));
             }
 
             if (payload.back() != '|') {
                 return PacketResult<std::vector<PetTechRecord>>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "PetTechData payload 缺少尾随分隔符",
+                    CG_PACKET_DIAGNOSTIC_TEXT("PetTechData payload 缺少尾随分隔符"),
                     DataFieldIndex));
             }
 
@@ -9333,7 +9333,7 @@ namespace cg::packet::receive
             if (parts.empty() || (parts.size() % RecordFieldCount) != 0U) {
                 return PacketResult<std::vector<PetTechRecord>>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "PetTechData payload 段数量不是 8 的倍数",
+                    CG_PACKET_DIAGNOSTIC_TEXT("PetTechData payload 段数量不是 8 的倍数"),
                     DataFieldIndex));
             }
 
@@ -9398,7 +9398,7 @@ namespace cg::packet::receive
             if (index == text.size()) {
                 return PacketResult<int>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "PetTechData 十进制字段为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("PetTechData 十进制字段为空"),
                     fieldIndex));
             }
 
@@ -9412,7 +9412,7 @@ namespace cg::packet::receive
                 if (ch < '0' || ch > '9') {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "PetTechData 十进制字段包含非法字符",
+                        CG_PACKET_DIAGNOSTIC_TEXT("PetTechData 十进制字段包含非法字符"),
                         fieldIndex));
                 }
 
@@ -9420,7 +9420,7 @@ namespace cg::packet::receive
                 if (value > (limit - digit) / 10) {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "PetTechData 十进制字段超出 int 范围",
+                        CG_PACKET_DIAGNOSTIC_TEXT("PetTechData 十进制字段超出 int 范围"),
                         fieldIndex));
                 }
 
@@ -9444,7 +9444,7 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "Yo";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
-            {"data", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -9464,7 +9464,7 @@ namespace cg::packet::receive
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
                 PacketFieldType::EscapedString,
                 data,
             });
@@ -9480,7 +9480,7 @@ namespace cg::packet::receive
 
             const Packet& packet = parsed.Value();
             if (packet.code.View() != Code) {
-                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "ProfileStatus Parse 收到非 Yo 封包");
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, CG_PACKET_DIAGNOSTIC_TEXT("ProfileStatus Parse 收到非 Yo 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<ProfileStatus>::Failure(std::move(error));
             }
@@ -9488,28 +9488,28 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<ProfileStatus>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "ProfileStatus Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileStatus Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<ProfileStatus>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "ProfileStatus Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileStatus Parse 字段数量不匹配"),
                     packet.fields.empty() ? 0U : FieldCount));
             }
 
             const PacketField& field = packet.fields[DataFieldIndex];
-            if (field.name != "data") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(field.name, CG_PACKET_DIAGNOSTIC_TEXT("data"))) {
                 return PacketResult<ProfileStatus>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "ProfileStatus Parse 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileStatus Parse 字段名不匹配"),
                     DataFieldIndex));
             }
 
             if (field.type != PacketFieldType::EscapedString) {
                 return PacketResult<ProfileStatus>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "ProfileStatus Parse 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileStatus Parse 字段类型不匹配"),
                     DataFieldIndex));
             }
 
@@ -9520,7 +9520,7 @@ namespace cg::packet::receive
         static constexpr std::size_t FieldCount = 1U;
         static constexpr std::size_t DataFieldIndex = 0U;
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -9529,7 +9529,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -9553,7 +9553,7 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "ysVc";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
-            {"data", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -9572,18 +9572,18 @@ namespace cg::packet::receive
 
         [[nodiscard]] PacketResult<std::string> BuildData() const
         {
-            return Codec::BuildData(records, Code, "FrontCharList");
+            return Codec::BuildData(records, Code, CG_PACKET_DIAGNOSTIC_TEXT("FrontCharList"));
         }
 
         [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
-            return Codec::ToPacket(records, Code, "FrontCharList");
+            return Codec::ToPacket(records, Code, CG_PACKET_DIAGNOSTIC_TEXT("FrontCharList"));
         }
 
         static PacketResult<FrontCharList> Parse(std::string_view view)
         {
             PacketResult<std::vector<FrontCharRecord>> records =
-                Codec::Parse(view, Spec, "FrontCharList");
+                Codec::Parse(view, Spec, CG_PACKET_DIAGNOSTIC_TEXT("FrontCharList"));
             if (!records.HasValue()) {
                 return PacketResult<FrontCharList>::Failure(records.Error());
             }
@@ -9614,7 +9614,7 @@ namespace cg::packet::receive
                         return PacketResult<std::string>::Failure(MakeFieldError(
                             code,
                             PacketErrorCode::EncodeFailed,
-                            MakeMessage(packetName, "nonPlayerFlag 只能为 0 或 1"),
+                            MakeMessage(packetName, CG_PACKET_DIAGNOSTIC_TEXT("nonPlayerFlag 只能为 0 或 1")),
                             (recordIndex * RecordFieldCount) + 1U));
                     }
 
@@ -9638,7 +9638,7 @@ namespace cg::packet::receive
 
                 Packet packet(PacketCode(code), Direction);
                 packet.fields.push_back(PacketField {
-                    "data",
+                    CG_PACKET_DIAGNOSTIC_TEXT("data"),
                     PacketFieldType::EscapedString,
                     data.Value(),
                 });
@@ -9661,7 +9661,7 @@ namespace cg::packet::receive
                     PacketError error = MakePacketError(
                         code,
                         PacketErrorCode::InvalidCode,
-                        MakeMessage(packetName, "Parse 收到非目标封包"));
+                        MakeMessage(packetName, CG_PACKET_DIAGNOSTIC_TEXT("Parse 收到非目标封包")));
                     error.packetCode = packet.code;
                     return PacketResult<std::vector<FrontCharRecord>>::Failure(std::move(error));
                 }
@@ -9670,23 +9670,23 @@ namespace cg::packet::receive
                     return PacketResult<std::vector<FrontCharRecord>>::Failure(MakePacketError(
                         code,
                         PacketErrorCode::DecodeFailed,
-                        MakeMessage(packetName, "Parse 封包方向不匹配")));
+                        MakeMessage(packetName, CG_PACKET_DIAGNOSTIC_TEXT("Parse 封包方向不匹配"))));
                 }
 
                 if (packet.fields.size() != FieldCount) {
                     return PacketResult<std::vector<FrontCharRecord>>::Failure(MakeFieldError(
                         code,
                         PacketErrorCode::FieldCountMismatch,
-                        MakeMessage(packetName, "Parse 字段数量不匹配"),
+                        MakeMessage(packetName, CG_PACKET_DIAGNOSTIC_TEXT("Parse 字段数量不匹配")),
                         packet.fields.empty() ? 0U : FieldCount));
                 }
 
                 const PacketField& field = packet.fields[DataFieldIndex];
-                if (field.name != "data") {
+                if (!CG_PACKET_FIELD_NAME_MATCHES(field.name, CG_PACKET_DIAGNOSTIC_TEXT("data"))) {
                     return PacketResult<std::vector<FrontCharRecord>>::Failure(MakeFieldError(
                         code,
                         PacketErrorCode::DecodeFailed,
-                        MakeMessage(packetName, "Parse 字段名不匹配"),
+                        MakeMessage(packetName, CG_PACKET_DIAGNOSTIC_TEXT("Parse 字段名不匹配")),
                         DataFieldIndex));
                 }
 
@@ -9694,7 +9694,7 @@ namespace cg::packet::receive
                     return PacketResult<std::vector<FrontCharRecord>>::Failure(MakeFieldError(
                         code,
                         PacketErrorCode::InvalidFieldType,
-                        MakeMessage(packetName, "Parse 字段类型不匹配"),
+                        MakeMessage(packetName, CG_PACKET_DIAGNOSTIC_TEXT("Parse 字段类型不匹配")),
                         DataFieldIndex));
                 }
 
@@ -9713,7 +9713,7 @@ namespace cg::packet::receive
             [[nodiscard]] static PacketError MakePacketError(
                 std::string_view code,
                 PacketErrorCode errorCode,
-                std::string message)
+                std::string_view message)
             {
                 PacketError error = PacketError::Make(errorCode, std::move(message));
                 error.packetCode = PacketCode(code);
@@ -9723,7 +9723,7 @@ namespace cg::packet::receive
             [[nodiscard]] static PacketError MakeFieldError(
                 std::string_view code,
                 PacketErrorCode errorCode,
-                std::string message,
+                std::string_view message,
                 std::size_t fieldIndex)
             {
                 PacketError error = MakePacketError(code, errorCode, std::move(message));
@@ -9744,7 +9744,7 @@ namespace cg::packet::receive
                     return PacketResult<std::vector<FrontCharRecord>>::Failure(MakeFieldError(
                         code,
                         PacketErrorCode::DecodeFailed,
-                        MakeMessage(packetName, "payload 缺少尾随分隔符"),
+                        MakeMessage(packetName, CG_PACKET_DIAGNOSTIC_TEXT("payload 缺少尾随分隔符")),
                         DataFieldIndex));
                 }
 
@@ -9762,7 +9762,7 @@ namespace cg::packet::receive
                     return PacketResult<std::vector<FrontCharRecord>>::Failure(MakeFieldError(
                         code,
                         PacketErrorCode::FieldCountMismatch,
-                        MakeMessage(packetName, "payload 段数量不是 2 的倍数"),
+                        MakeMessage(packetName, CG_PACKET_DIAGNOSTIC_TEXT("payload 段数量不是 2 的倍数")),
                         DataFieldIndex));
                 }
 
@@ -9795,7 +9795,7 @@ namespace cg::packet::receive
                     return PacketResult<int>::Failure(MakeFieldError(
                         code,
                         PacketErrorCode::DecodeFailed,
-                        MakeMessage(packetName, "nonPlayerFlag 为空"),
+                        MakeMessage(packetName, CG_PACKET_DIAGNOSTIC_TEXT("nonPlayerFlag 为空")),
                         fieldIndex));
                 }
 
@@ -9806,7 +9806,7 @@ namespace cg::packet::receive
                         return PacketResult<int>::Failure(MakeFieldError(
                             code,
                             PacketErrorCode::DecodeFailed,
-                            MakeMessage(packetName, "nonPlayerFlag 包含非十进制字符"),
+                            MakeMessage(packetName, CG_PACKET_DIAGNOSTIC_TEXT("nonPlayerFlag 包含非十进制字符")),
                             fieldIndex));
                     }
 
@@ -9815,7 +9815,7 @@ namespace cg::packet::receive
                         return PacketResult<int>::Failure(MakeFieldError(
                             code,
                             PacketErrorCode::DecodeFailed,
-                            MakeMessage(packetName, "nonPlayerFlag 超出 int 范围"),
+                            MakeMessage(packetName, CG_PACKET_DIAGNOSTIC_TEXT("nonPlayerFlag 超出 int 范围")),
                             fieldIndex));
                     }
 
@@ -9826,7 +9826,7 @@ namespace cg::packet::receive
                     return PacketResult<int>::Failure(MakeFieldError(
                         code,
                         PacketErrorCode::DecodeFailed,
-                        MakeMessage(packetName, "nonPlayerFlag 只能为 0 或 1"),
+                        MakeMessage(packetName, CG_PACKET_DIAGNOSTIC_TEXT("nonPlayerFlag 只能为 0 或 1")),
                         fieldIndex));
                 }
 
@@ -9844,7 +9844,7 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "LY";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
-            {"data", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -9863,18 +9863,18 @@ namespace cg::packet::receive
 
         [[nodiscard]] PacketResult<std::string> BuildData() const
         {
-            return FrontCharList::Codec::BuildData(records, Code, "ItemFrontCharList");
+            return FrontCharList::Codec::BuildData(records, Code, CG_PACKET_DIAGNOSTIC_TEXT("ItemFrontCharList"));
         }
 
         [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
-            return FrontCharList::Codec::ToPacket(records, Code, "ItemFrontCharList");
+            return FrontCharList::Codec::ToPacket(records, Code, CG_PACKET_DIAGNOSTIC_TEXT("ItemFrontCharList"));
         }
 
         static PacketResult<ItemFrontCharList> Parse(std::string_view view)
         {
             PacketResult<std::vector<FrontCharRecord>> records =
-                FrontCharList::Codec::Parse(view, Spec, "ItemFrontCharList");
+                FrontCharList::Codec::Parse(view, Spec, CG_PACKET_DIAGNOSTIC_TEXT("ItemFrontCharList"));
             if (!records.HasValue()) {
                 return PacketResult<ItemFrontCharList>::Failure(records.Error());
             }
@@ -9903,7 +9903,7 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "ND";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
-            {"data", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -9922,18 +9922,18 @@ namespace cg::packet::receive
 
         [[nodiscard]] PacketResult<std::string> BuildData() const
         {
-            return Codec::BuildData(records, Code, "CharacterPetList");
+            return Codec::BuildData(records, Code, CG_PACKET_DIAGNOSTIC_TEXT("CharacterPetList"));
         }
 
         [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
-            return Codec::ToPacket(records, Code, "CharacterPetList");
+            return Codec::ToPacket(records, Code, CG_PACKET_DIAGNOSTIC_TEXT("CharacterPetList"));
         }
 
         static PacketResult<CharacterPetList> Parse(std::string_view view)
         {
             PacketResult<std::vector<CharacterPetRecord>> records =
-                Codec::Parse(view, Spec, "CharacterPetList");
+                Codec::Parse(view, Spec, CG_PACKET_DIAGNOSTIC_TEXT("CharacterPetList"));
             if (!records.HasValue()) {
                 return PacketResult<CharacterPetList>::Failure(records.Error());
             }
@@ -9962,7 +9962,7 @@ namespace cg::packet::receive
                     return PacketResult<std::string>::Failure(MakeFieldError(
                         code,
                         PacketErrorCode::EncodeFailed,
-                        MakeMessage(packetName, "记录数超过 6"),
+                        MakeMessage(packetName, CG_PACKET_DIAGNOSTIC_TEXT("记录数超过 6")),
                         DataFieldIndex));
                 }
 
@@ -10007,7 +10007,7 @@ namespace cg::packet::receive
 
                 Packet packet(PacketCode(code), Direction);
                 packet.fields.push_back(PacketField {
-                    "data",
+                    CG_PACKET_DIAGNOSTIC_TEXT("data"),
                     PacketFieldType::EscapedString,
                     data.Value(),
                 });
@@ -10030,7 +10030,7 @@ namespace cg::packet::receive
                     PacketError error = MakePacketError(
                         code,
                         PacketErrorCode::InvalidCode,
-                        MakeMessage(packetName, "Parse 收到非目标封包"));
+                        MakeMessage(packetName, CG_PACKET_DIAGNOSTIC_TEXT("Parse 收到非目标封包")));
                     error.packetCode = packet.code;
                     return PacketResult<std::vector<CharacterPetRecord>>::Failure(std::move(error));
                 }
@@ -10039,23 +10039,23 @@ namespace cg::packet::receive
                     return PacketResult<std::vector<CharacterPetRecord>>::Failure(MakePacketError(
                         code,
                         PacketErrorCode::DecodeFailed,
-                        MakeMessage(packetName, "Parse 封包方向不匹配")));
+                        MakeMessage(packetName, CG_PACKET_DIAGNOSTIC_TEXT("Parse 封包方向不匹配"))));
                 }
 
                 if (packet.fields.size() != FieldCount) {
                     return PacketResult<std::vector<CharacterPetRecord>>::Failure(MakeFieldError(
                         code,
                         PacketErrorCode::FieldCountMismatch,
-                        MakeMessage(packetName, "Parse 字段数量不匹配"),
+                        MakeMessage(packetName, CG_PACKET_DIAGNOSTIC_TEXT("Parse 字段数量不匹配")),
                         packet.fields.empty() ? 0U : FieldCount));
                 }
 
                 const PacketField& field = packet.fields[DataFieldIndex];
-                if (field.name != "data") {
+                if (!CG_PACKET_FIELD_NAME_MATCHES(field.name, CG_PACKET_DIAGNOSTIC_TEXT("data"))) {
                     return PacketResult<std::vector<CharacterPetRecord>>::Failure(MakeFieldError(
                         code,
                         PacketErrorCode::DecodeFailed,
-                        MakeMessage(packetName, "Parse 字段名不匹配"),
+                        MakeMessage(packetName, CG_PACKET_DIAGNOSTIC_TEXT("Parse 字段名不匹配")),
                         DataFieldIndex));
                 }
 
@@ -10063,7 +10063,7 @@ namespace cg::packet::receive
                     return PacketResult<std::vector<CharacterPetRecord>>::Failure(MakeFieldError(
                         code,
                         PacketErrorCode::InvalidFieldType,
-                        MakeMessage(packetName, "Parse 字段类型不匹配"),
+                        MakeMessage(packetName, CG_PACKET_DIAGNOSTIC_TEXT("Parse 字段类型不匹配")),
                         DataFieldIndex));
                 }
 
@@ -10082,7 +10082,7 @@ namespace cg::packet::receive
             [[nodiscard]] static PacketError MakePacketError(
                 std::string_view code,
                 PacketErrorCode errorCode,
-                std::string message)
+                std::string_view message)
             {
                 PacketError error = PacketError::Make(errorCode, std::move(message));
                 error.packetCode = PacketCode(code);
@@ -10092,7 +10092,7 @@ namespace cg::packet::receive
             [[nodiscard]] static PacketError MakeFieldError(
                 std::string_view code,
                 PacketErrorCode errorCode,
-                std::string message,
+                std::string_view message,
                 std::size_t fieldIndex)
             {
                 PacketError error = MakePacketError(code, errorCode, std::move(message));
@@ -10113,7 +10113,7 @@ namespace cg::packet::receive
                     return PacketResult<std::vector<CharacterPetRecord>>::Failure(MakeFieldError(
                         code,
                         PacketErrorCode::DecodeFailed,
-                        MakeMessage(packetName, "payload 缺少尾随分隔符"),
+                        MakeMessage(packetName, CG_PACKET_DIAGNOSTIC_TEXT("payload 缺少尾随分隔符")),
                         DataFieldIndex));
                 }
 
@@ -10131,7 +10131,7 @@ namespace cg::packet::receive
                     return PacketResult<std::vector<CharacterPetRecord>>::Failure(MakeFieldError(
                         code,
                         PacketErrorCode::FieldCountMismatch,
-                        MakeMessage(packetName, "payload 段数量不是 7 的倍数"),
+                        MakeMessage(packetName, CG_PACKET_DIAGNOSTIC_TEXT("payload 段数量不是 7 的倍数")),
                         DataFieldIndex));
                 }
 
@@ -10140,7 +10140,7 @@ namespace cg::packet::receive
                     return PacketResult<std::vector<CharacterPetRecord>>::Failure(MakeFieldError(
                         code,
                         PacketErrorCode::FieldCountMismatch,
-                        MakeMessage(packetName, "payload 记录数超过 6"),
+                        MakeMessage(packetName, CG_PACKET_DIAGNOSTIC_TEXT("payload 记录数超过 6")),
                         DataFieldIndex));
                 }
 
@@ -10208,7 +10208,7 @@ namespace cg::packet::receive
                     return PacketResult<int>::Failure(MakeFieldError(
                         code,
                         PacketErrorCode::DecodeFailed,
-                        MakeMessage(packetName, "十进制字段为空"),
+                        MakeMessage(packetName, CG_PACKET_DIAGNOSTIC_TEXT("十进制字段为空")),
                         fieldIndex));
                 }
 
@@ -10219,7 +10219,7 @@ namespace cg::packet::receive
                         return PacketResult<int>::Failure(MakeFieldError(
                             code,
                             PacketErrorCode::DecodeFailed,
-                            MakeMessage(packetName, "十进制字段包含非法字符"),
+                            MakeMessage(packetName, CG_PACKET_DIAGNOSTIC_TEXT("十进制字段包含非法字符")),
                             fieldIndex));
                     }
 
@@ -10228,7 +10228,7 @@ namespace cg::packet::receive
                         return PacketResult<int>::Failure(MakeFieldError(
                             code,
                             PacketErrorCode::DecodeFailed,
-                            MakeMessage(packetName, "十进制字段超出 int 范围"),
+                            MakeMessage(packetName, CG_PACKET_DIAGNOSTIC_TEXT("十进制字段超出 int 范围")),
                             fieldIndex));
                     }
 
@@ -10248,7 +10248,7 @@ namespace cg::packet::receive
                     return PacketResult<int>::Failure(MakeFieldError(
                         code,
                         PacketErrorCode::EncodeFailed,
-                        MakeMessage(packetName, "十进制字段不能为负"),
+                        MakeMessage(packetName, CG_PACKET_DIAGNOSTIC_TEXT("十进制字段不能为负")),
                         fieldIndex));
                 }
 
@@ -10266,7 +10266,7 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "nFV";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
-            {"data", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -10285,18 +10285,18 @@ namespace cg::packet::receive
 
         [[nodiscard]] PacketResult<std::string> BuildData() const
         {
-            return CharacterPetList::Codec::BuildData(records, Code, "ItemCharacterPetList");
+            return CharacterPetList::Codec::BuildData(records, Code, CG_PACKET_DIAGNOSTIC_TEXT("ItemCharacterPetList"));
         }
 
         [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
-            return CharacterPetList::Codec::ToPacket(records, Code, "ItemCharacterPetList");
+            return CharacterPetList::Codec::ToPacket(records, Code, CG_PACKET_DIAGNOSTIC_TEXT("ItemCharacterPetList"));
         }
 
         static PacketResult<ItemCharacterPetList> Parse(std::string_view view)
         {
             PacketResult<std::vector<CharacterPetRecord>> records =
-                CharacterPetList::Codec::Parse(view, Spec, "ItemCharacterPetList");
+                CharacterPetList::Codec::Parse(view, Spec, CG_PACKET_DIAGNOSTIC_TEXT("ItemCharacterPetList"));
             if (!records.HasValue()) {
                 return PacketResult<ItemCharacterPetList>::Failure(records.Error());
             }
@@ -10364,11 +10364,11 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "DyAG";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 5U> Fields = {{
-            {"windowType", PacketFieldType::Int62},
-            {"buttonType", PacketFieldType::Int62},
-            {"seqNo", PacketFieldType::Int62},
-            {"objectIndex", PacketFieldType::Int62},
-            {"data", PacketFieldType::SubPayload},
+            {CG_PACKET_DIAGNOSTIC_TEXT("windowType"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("buttonType"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("seqNo"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("objectIndex"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::SubPayload},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -10455,27 +10455,27 @@ namespace cg::packet::receive
             Packet packet(PacketCode(Code), Direction);
             packet.fields.reserve(FieldCount);
             packet.fields.push_back(PacketField {
-                "windowType",
+                CG_PACKET_DIAGNOSTIC_TEXT("windowType"),
                 PacketFieldType::Int62,
                 std::to_string(windowType),
             });
             packet.fields.push_back(PacketField {
-                "buttonType",
+                CG_PACKET_DIAGNOSTIC_TEXT("buttonType"),
                 PacketFieldType::Int62,
                 std::to_string(buttonType),
             });
             packet.fields.push_back(PacketField {
-                "seqNo",
+                CG_PACKET_DIAGNOSTIC_TEXT("seqNo"),
                 PacketFieldType::Int62,
                 std::to_string(seqNo),
             });
             packet.fields.push_back(PacketField {
-                "objectIndex",
+                CG_PACKET_DIAGNOSTIC_TEXT("objectIndex"),
                 PacketFieldType::Int62,
                 std::to_string(objectIndex),
             });
             packet.fields.push_back(PacketField {
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
                 PacketFieldType::EscapedString,
                 BuildData(),
             });
@@ -10491,7 +10491,7 @@ namespace cg::packet::receive
 
             const Packet& packet = parsed.Value();
             if (packet.code.View() != Code) {
-                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "ProfileWindow Parse 收到非 DyAG 封包");
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, CG_PACKET_DIAGNOSTIC_TEXT("ProfileWindow Parse 收到非 DyAG 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<ProfileWindow>::Failure(std::move(error));
             }
@@ -10499,22 +10499,22 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<ProfileWindow>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "ProfileWindow Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileWindow Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<ProfileWindow>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "ProfileWindow Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileWindow Parse 字段数量不匹配"),
                     packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
             }
 
             const std::array<std::string_view, FieldCount> fieldNames = {
-                "windowType",
-                "buttonType",
-                "seqNo",
-                "objectIndex",
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("windowType"),
+                CG_PACKET_DIAGNOSTIC_TEXT("buttonType"),
+                CG_PACKET_DIAGNOSTIC_TEXT("seqNo"),
+                CG_PACKET_DIAGNOSTIC_TEXT("objectIndex"),
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
             };
             const std::array<PacketFieldType, FieldCount> fieldTypes = {
                 PacketFieldType::Int62,
@@ -10525,17 +10525,17 @@ namespace cg::packet::receive
             };
 
             for (std::size_t index = 0; index < FieldCount; ++index) {
-                if (packet.fields[index].name != fieldNames[index]) {
+                if (!CG_PACKET_FIELD_NAME_MATCHES(packet.fields[index].name, fieldNames[index])) {
                     return PacketResult<ProfileWindow>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "ProfileWindow Parse 字段名不匹配",
+                        CG_PACKET_DIAGNOSTIC_TEXT("ProfileWindow Parse 字段名不匹配"),
                         index));
                 }
 
                 if (packet.fields[index].type != fieldTypes[index]) {
                     return PacketResult<ProfileWindow>::Failure(MakeFieldError(
                         PacketErrorCode::InvalidFieldType,
-                        "ProfileWindow Parse 字段类型不匹配",
+                        CG_PACKET_DIAGNOSTIC_TEXT("ProfileWindow Parse 字段类型不匹配"),
                         index));
                 }
             }
@@ -10588,7 +10588,7 @@ namespace cg::packet::receive
         static constexpr std::size_t ProfileListPayloadFieldCountWithTail = ProfileListPayloadFieldCount + 1U;
         static constexpr std::size_t ProfileMailPayloadFieldCount = 14U;
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -10597,7 +10597,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -10739,7 +10739,7 @@ namespace cg::packet::receive
             if (payload.empty()) {
                 return PacketResult<ProfileWindow>::Failure(MakeFieldError(
                     PacketErrorCode::EmptyInput,
-                    "ProfileWindow data 为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileWindow data 为空"),
                     DataFieldIndex));
             }
 
@@ -10767,7 +10767,7 @@ namespace cg::packet::receive
 
             return PacketResult<ProfileWindow>::Failure(MakeFieldError(
                 PacketErrorCode::FieldCountMismatch,
-                "ProfileWindow data 段数量不匹配",
+                CG_PACKET_DIAGNOSTIC_TEXT("ProfileWindow data 段数量不匹配"),
                 DataFieldIndex));
         }
 
@@ -10914,7 +10914,7 @@ namespace cg::packet::receive
             if (index == text.size()) {
                 return PacketResult<int>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "ProfileWindow 十进制字段为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileWindow 十进制字段为空"),
                     fieldIndex));
             }
 
@@ -10928,7 +10928,7 @@ namespace cg::packet::receive
                 if (ch < '0' || ch > '9') {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "ProfileWindow 十进制字段包含非法字符",
+                        CG_PACKET_DIAGNOSTIC_TEXT("ProfileWindow 十进制字段包含非法字符"),
                         fieldIndex));
                 }
 
@@ -10936,7 +10936,7 @@ namespace cg::packet::receive
                 if (value > (limit - digit) / 10) {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "ProfileWindow 十进制字段超出 int 范围",
+                        CG_PACKET_DIAGNOSTIC_TEXT("ProfileWindow 十进制字段超出 int 范围"),
                         fieldIndex));
                 }
 
@@ -10960,7 +10960,7 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "Zd";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
-            {"message", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("message"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -10980,7 +10980,7 @@ namespace cg::packet::receive
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "message",
+                CG_PACKET_DIAGNOSTIC_TEXT("message"),
                 PacketFieldType::EscapedString,
                 message,
             });
@@ -10996,34 +10996,34 @@ namespace cg::packet::receive
 
             const Packet& packet = parsed.Value();
             if (packet.code.View() != Code) {
-                PacketError error = PacketError::Make(PacketErrorCode::InvalidCode, "SystemMessage Parse 收到非 Zd 封包");
+                PacketError error = PacketError::Make(PacketErrorCode::InvalidCode, CG_PACKET_DIAGNOSTIC_TEXT("SystemMessage Parse 收到非 Zd 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<SystemMessage>::Failure(std::move(error));
             }
 
             if (packet.direction != Direction) {
-                PacketError error = PacketError::Make(PacketErrorCode::DecodeFailed, "SystemMessage Parse 封包方向不匹配");
+                PacketError error = PacketError::Make(PacketErrorCode::DecodeFailed, CG_PACKET_DIAGNOSTIC_TEXT("SystemMessage Parse 封包方向不匹配"));
                 error.packetCode = PacketCode(Code);
                 return PacketResult<SystemMessage>::Failure(std::move(error));
             }
 
             if (packet.fields.size() != FieldCount) {
-                PacketError error = PacketError::Make(PacketErrorCode::FieldCountMismatch, "SystemMessage Parse 字段数量不匹配");
+                PacketError error = PacketError::Make(PacketErrorCode::FieldCountMismatch, CG_PACKET_DIAGNOSTIC_TEXT("SystemMessage Parse 字段数量不匹配"));
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = packet.fields.empty() ? 0U : FieldCount;
                 return PacketResult<SystemMessage>::Failure(std::move(error));
             }
 
             const PacketField& field = packet.fields[MessageFieldIndex];
-            if (field.name != "message") {
-                PacketError error = PacketError::Make(PacketErrorCode::DecodeFailed, "SystemMessage Parse 字段名不匹配");
+            if (!CG_PACKET_FIELD_NAME_MATCHES(field.name, CG_PACKET_DIAGNOSTIC_TEXT("message"))) {
+                PacketError error = PacketError::Make(PacketErrorCode::DecodeFailed, CG_PACKET_DIAGNOSTIC_TEXT("SystemMessage Parse 字段名不匹配"));
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = MessageFieldIndex;
                 return PacketResult<SystemMessage>::Failure(std::move(error));
             }
 
             if (field.type != PacketFieldType::EscapedString) {
-                PacketError error = PacketError::Make(PacketErrorCode::InvalidFieldType, "SystemMessage Parse 字段类型不匹配");
+                PacketError error = PacketError::Make(PacketErrorCode::InvalidFieldType, CG_PACKET_DIAGNOSTIC_TEXT("SystemMessage Parse 字段类型不匹配"));
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = MessageFieldIndex;
                 return PacketResult<SystemMessage>::Failure(std::move(error));
@@ -11046,9 +11046,9 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "zzd";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 3U> Fields = {{
-            {"EffType", PacketFieldType::Int62},
-            {"TM_EffSize", PacketFieldType::Int62},
-            {"data", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("EffType"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("TM_EffSize"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -11072,17 +11072,17 @@ namespace cg::packet::receive
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "EffType",
+                CG_PACKET_DIAGNOSTIC_TEXT("EffType"),
                 PacketFieldType::Int62,
                 std::to_string(effType),
             });
             packet.fields.push_back(PacketField {
-                "TM_EffSize",
+                CG_PACKET_DIAGNOSTIC_TEXT("TM_EffSize"),
                 PacketFieldType::Int62,
                 std::to_string(tmEffSize),
             });
             packet.fields.push_back(PacketField {
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
                 PacketFieldType::EscapedString,
                 data,
             });
@@ -11098,7 +11098,7 @@ namespace cg::packet::receive
 
             const Packet& packet = parsed.Value();
             if (packet.code.View() != Code) {
-                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "Effect Parse 收到非 zzd 封包");
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, CG_PACKET_DIAGNOSTIC_TEXT("Effect Parse 收到非 zzd 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<Effect>::Failure(std::move(error));
             }
@@ -11106,20 +11106,20 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<Effect>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "Effect Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("Effect Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<Effect>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "Effect Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("Effect Parse 字段数量不匹配"),
                     packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
             }
 
             const std::array<std::string_view, FieldCount> fieldNames = {
-                "EffType",
-                "TM_EffSize",
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("EffType"),
+                CG_PACKET_DIAGNOSTIC_TEXT("TM_EffSize"),
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
             };
             const std::array<PacketFieldType, FieldCount> fieldTypes = {
                 PacketFieldType::Int62,
@@ -11128,17 +11128,17 @@ namespace cg::packet::receive
             };
 
             for (std::size_t index = 0; index < FieldCount; ++index) {
-                if (packet.fields[index].name != fieldNames[index]) {
+                if (!CG_PACKET_FIELD_NAME_MATCHES(packet.fields[index].name, fieldNames[index])) {
                     return PacketResult<Effect>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "Effect Parse 字段名不匹配",
+                        CG_PACKET_DIAGNOSTIC_TEXT("Effect Parse 字段名不匹配"),
                         index));
                 }
 
                 if (packet.fields[index].type != fieldTypes[index]) {
                     return PacketResult<Effect>::Failure(MakeFieldError(
                         PacketErrorCode::InvalidFieldType,
-                        "Effect Parse 字段类型不匹配",
+                        CG_PACKET_DIAGNOSTIC_TEXT("Effect Parse 字段类型不匹配"),
                         index));
                 }
             }
@@ -11166,7 +11166,7 @@ namespace cg::packet::receive
         static constexpr std::size_t TmEffSizeFieldIndex = 1U;
         static constexpr std::size_t DataFieldIndex = 2U;
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -11175,7 +11175,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -11195,7 +11195,7 @@ namespace cg::packet::receive
             if (index == text.size()) {
                 return PacketResult<int>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "Effect Parse i62 字段为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("Effect Parse i62 字段为空"),
                     fieldIndex));
             }
 
@@ -11209,7 +11209,7 @@ namespace cg::packet::receive
                 if (ch < '0' || ch > '9') {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "Effect Parse i62 字段包含非十进制字符",
+                        CG_PACKET_DIAGNOSTIC_TEXT("Effect Parse i62 字段包含非十进制字符"),
                         fieldIndex));
                 }
 
@@ -11217,7 +11217,7 @@ namespace cg::packet::receive
                 if (value > (limit - digit) / 10) {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "Effect Parse i62 字段超出 int 范围",
+                        CG_PACKET_DIAGNOSTIC_TEXT("Effect Parse i62 字段超出 int 范围"),
                         fieldIndex));
                 }
 
@@ -11262,7 +11262,7 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "Gn";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
-            {"data", PacketFieldType::SubPayload},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::SubPayload},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -11319,7 +11319,7 @@ namespace cg::packet::receive
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
                 PacketFieldType::EscapedString,
                 BuildData(),
             });
@@ -11339,7 +11339,7 @@ namespace cg::packet::receive
         static PacketResult<BattleReward> FromPacket(const Packet& packet)
         {
             if (packet.code.View() != Code) {
-                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "BattleReward Parse 收到非 Gn 封包");
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, CG_PACKET_DIAGNOSTIC_TEXT("BattleReward Parse 收到非 Gn 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<BattleReward>::Failure(std::move(error));
             }
@@ -11347,28 +11347,28 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<BattleReward>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "BattleReward Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("BattleReward Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<BattleReward>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "BattleReward Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("BattleReward Parse 字段数量不匹配"),
                     packet.fields.empty() ? 0U : FieldCount));
             }
 
             const PacketField& field = packet.fields[DataFieldIndex];
-            if (field.name != "data") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(field.name, CG_PACKET_DIAGNOSTIC_TEXT("data"))) {
                 return PacketResult<BattleReward>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "BattleReward Parse 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("BattleReward Parse 字段名不匹配"),
                     DataFieldIndex));
             }
 
             if (field.type != PacketFieldType::EscapedString) {
                 return PacketResult<BattleReward>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "BattleReward Parse 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("BattleReward Parse 字段类型不匹配"),
                     DataFieldIndex));
             }
 
@@ -11384,7 +11384,7 @@ namespace cg::packet::receive
         static constexpr std::size_t ActorFieldCount = 3U;
         static constexpr std::size_t SkillFieldCount = 2U;
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -11393,7 +11393,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -11479,7 +11479,7 @@ namespace cg::packet::receive
             if (parts.size() != PayloadFieldCount) {
                 return PacketResult<BattleReward>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "BattleReward payload 顶层段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("BattleReward payload 顶层段数量不匹配"),
                     DataFieldIndex));
             }
 
@@ -11523,7 +11523,7 @@ namespace cg::packet::receive
             if (parts.size() != ActorFieldCount) {
                 return PacketResult<BattleRewardActor>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "BattleReward actor 段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("BattleReward actor 段数量不匹配"),
                     payloadIndex));
             }
 
@@ -11559,7 +11559,7 @@ namespace cg::packet::receive
             if (parts.size() != ItemCount) {
                 return PacketResult<std::array<BattleRewardItem, ItemCount>>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "BattleReward itemGroup 项数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("BattleReward itemGroup 项数量不匹配"),
                     ItemGroupIndex));
             }
 
@@ -11613,7 +11613,7 @@ namespace cg::packet::receive
             if (parts.size() != SkillFieldCount) {
                 return PacketResult<BattleRewardSkill>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "BattleReward skill 段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("BattleReward skill 段数量不匹配"),
                     payloadIndex));
             }
 
@@ -11637,7 +11637,7 @@ namespace cg::packet::receive
             if (text.empty() || text == "-") {
                 return PacketResult<int>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "BattleReward i62 字段为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("BattleReward i62 字段为空"),
                     fieldIndex));
             }
 
@@ -11663,7 +11663,7 @@ namespace cg::packet::receive
             if (index == text.size()) {
                 return PacketResult<int>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "BattleReward 十进制字段为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("BattleReward 十进制字段为空"),
                     fieldIndex));
             }
 
@@ -11677,7 +11677,7 @@ namespace cg::packet::receive
                 if (ch < '0' || ch > '9') {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "BattleReward 十进制字段包含非法字符",
+                        CG_PACKET_DIAGNOSTIC_TEXT("BattleReward 十进制字段包含非法字符"),
                         fieldIndex));
                 }
 
@@ -11685,7 +11685,7 @@ namespace cg::packet::receive
                 if (value > (limit - digit) / 10) {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "BattleReward 十进制字段超出 int 范围",
+                        CG_PACKET_DIAGNOSTIC_TEXT("BattleReward 十进制字段超出 int 范围"),
                         fieldIndex));
                 }
 
@@ -11709,7 +11709,7 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "hB";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
-            {"data", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -11749,7 +11749,7 @@ namespace cg::packet::receive
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
                 PacketFieldType::EscapedString,
                 BuildData(),
             });
@@ -11769,7 +11769,7 @@ namespace cg::packet::receive
         static PacketResult<DuelPoint> FromPacket(const Packet& packet)
         {
             if (packet.code.View() != Code) {
-                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "DuelPoint Parse 收到非 hB 封包");
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, CG_PACKET_DIAGNOSTIC_TEXT("DuelPoint Parse 收到非 hB 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<DuelPoint>::Failure(std::move(error));
             }
@@ -11777,28 +11777,28 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<DuelPoint>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "DuelPoint Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("DuelPoint Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<DuelPoint>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "DuelPoint Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("DuelPoint Parse 字段数量不匹配"),
                     packet.fields.empty() ? 0U : FieldCount));
             }
 
             const PacketField& field = packet.fields[DataFieldIndex];
-            if (field.name != "data") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(field.name, CG_PACKET_DIAGNOSTIC_TEXT("data"))) {
                 return PacketResult<DuelPoint>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "DuelPoint Parse 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("DuelPoint Parse 字段名不匹配"),
                     DataFieldIndex));
             }
 
             if (field.type != PacketFieldType::EscapedString) {
                 return PacketResult<DuelPoint>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "DuelPoint Parse 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("DuelPoint Parse 字段类型不匹配"),
                     DataFieldIndex));
             }
 
@@ -11813,7 +11813,7 @@ namespace cg::packet::receive
         static constexpr std::size_t DuelPointNowIndex = 1U;
         static constexpr std::size_t TailIndex = 2U;
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -11822,7 +11822,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -11853,14 +11853,14 @@ namespace cg::packet::receive
             if (parts.size() != PayloadFieldCount) {
                 return PacketResult<DuelPoint>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "DuelPoint payload 段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("DuelPoint payload 段数量不匹配"),
                     DataFieldIndex));
             }
 
             if (!parts[TailIndex].empty()) {
                 return PacketResult<DuelPoint>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "DuelPoint payload 缺少尾随空段",
+                    CG_PACKET_DIAGNOSTIC_TEXT("DuelPoint payload 缺少尾随空段"),
                     DataFieldIndex));
             }
 
@@ -11885,7 +11885,7 @@ namespace cg::packet::receive
             if (text.empty()) {
                 return PacketResult<int>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "DuelPoint payload i62 字段为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("DuelPoint payload i62 字段为空"),
                     fieldIndex));
             }
 
@@ -11910,7 +11910,7 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "LYIm";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
-            {"command", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("command"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -11930,7 +11930,7 @@ namespace cg::packet::receive
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "command",
+                CG_PACKET_DIAGNOSTIC_TEXT("command"),
                 PacketFieldType::EscapedString,
                 command,
             });
@@ -11946,7 +11946,7 @@ namespace cg::packet::receive
 
             const Packet& packet = parsed.Value();
             if (packet.code.View() != Code) {
-                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "BattleCommand Parse 收到非 LYIm 封包");
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, CG_PACKET_DIAGNOSTIC_TEXT("BattleCommand Parse 收到非 LYIm 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<BattleCommand>::Failure(std::move(error));
             }
@@ -11954,28 +11954,28 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<BattleCommand>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "BattleCommand Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("BattleCommand Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<BattleCommand>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "BattleCommand Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("BattleCommand Parse 字段数量不匹配"),
                     packet.fields.empty() ? 0U : FieldCount));
             }
 
             const PacketField& field = packet.fields[CommandFieldIndex];
-            if (field.name != "command") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(field.name, CG_PACKET_DIAGNOSTIC_TEXT("command"))) {
                 return PacketResult<BattleCommand>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "BattleCommand Parse 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("BattleCommand Parse 字段名不匹配"),
                     CommandFieldIndex));
             }
 
             if (field.type != PacketFieldType::EscapedString) {
                 return PacketResult<BattleCommand>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "BattleCommand Parse 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("BattleCommand Parse 字段类型不匹配"),
                     CommandFieldIndex));
             }
 
@@ -11986,7 +11986,7 @@ namespace cg::packet::receive
         static constexpr std::size_t FieldCount = 1U;
         static constexpr std::size_t CommandFieldIndex = 0U;
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -11995,7 +11995,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -12029,9 +12029,9 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "Mhbt";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 3U> Fields = {{
-            {"aindex", PacketFieldType::Int62},
-            {"text", PacketFieldType::EscapedString},
-            {"color", PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("aindex"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("text"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("color"), PacketFieldType::Int62},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -12075,17 +12075,17 @@ namespace cg::packet::receive
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "aindex",
+                CG_PACKET_DIAGNOSTIC_TEXT("aindex"),
                 PacketFieldType::Int62,
                 std::to_string(aindex),
             });
             packet.fields.push_back(PacketField {
-                "text",
+                CG_PACKET_DIAGNOSTIC_TEXT("text"),
                 PacketFieldType::EscapedString,
                 BuildText(),
             });
             packet.fields.push_back(PacketField {
-                "color",
+                CG_PACKET_DIAGNOSTIC_TEXT("color"),
                 PacketFieldType::Int62,
                 std::to_string(color),
             });
@@ -12101,7 +12101,7 @@ namespace cg::packet::receive
 
             const Packet& packet = parsed.Value();
             if (packet.code.View() != Code) {
-                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "ProfileMailMessage Parse 收到非 Mhbt 封包");
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, CG_PACKET_DIAGNOSTIC_TEXT("ProfileMailMessage Parse 收到非 Mhbt 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<ProfileMailMessage>::Failure(std::move(error));
             }
@@ -12109,20 +12109,20 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<ProfileMailMessage>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "ProfileMailMessage Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileMailMessage Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<ProfileMailMessage>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "ProfileMailMessage Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileMailMessage Parse 字段数量不匹配"),
                     packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
             }
 
             const std::array<std::string_view, FieldCount> fieldNames = {
-                "aindex",
-                "text",
-                "color",
+                CG_PACKET_DIAGNOSTIC_TEXT("aindex"),
+                CG_PACKET_DIAGNOSTIC_TEXT("text"),
+                CG_PACKET_DIAGNOSTIC_TEXT("color"),
             };
             const std::array<PacketFieldType, FieldCount> fieldTypes = {
                 PacketFieldType::Int62,
@@ -12131,17 +12131,17 @@ namespace cg::packet::receive
             };
 
             for (std::size_t index = 0; index < FieldCount; ++index) {
-                if (packet.fields[index].name != fieldNames[index]) {
+                if (!CG_PACKET_FIELD_NAME_MATCHES(packet.fields[index].name, fieldNames[index])) {
                     return PacketResult<ProfileMailMessage>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "ProfileMailMessage Parse 字段名不匹配",
+                        CG_PACKET_DIAGNOSTIC_TEXT("ProfileMailMessage Parse 字段名不匹配"),
                         index));
                 }
 
                 if (packet.fields[index].type != fieldTypes[index]) {
                     return PacketResult<ProfileMailMessage>::Failure(MakeFieldError(
                         PacketErrorCode::InvalidFieldType,
-                        "ProfileMailMessage Parse 字段类型不匹配",
+                        CG_PACKET_DIAGNOSTIC_TEXT("ProfileMailMessage Parse 字段类型不匹配"),
                         index));
                 }
             }
@@ -12178,7 +12178,7 @@ namespace cg::packet::receive
         static constexpr std::size_t PetLevelFieldIndex = 3U;
         static constexpr std::size_t ItemBaseImageFieldIndex = 5U;
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -12187,7 +12187,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -12209,7 +12209,7 @@ namespace cg::packet::receive
             if (parts.size() != NormalPayloadFieldCount && parts.size() != PetPayloadFieldCount) {
                 return PacketResult<ProfileMailMessagePayload>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "ProfileMailMessage payload 段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileMailMessage payload 段数量不匹配"),
                     TextFieldIndex));
             }
 
@@ -12223,7 +12223,7 @@ namespace cg::packet::receive
             if (parts.size() == NormalPayloadFieldCount && petBaseImageNumberOrMarker.Value() != -1) {
                 return PacketResult<ProfileMailMessagePayload>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "ProfileMailMessage 普通邮件标记必须为 -1",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileMailMessage 普通邮件标记必须为 -1"),
                     PetBaseImageFieldIndex));
             }
 
@@ -12266,7 +12266,7 @@ namespace cg::packet::receive
             if (index == text.size()) {
                 return PacketResult<int>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "ProfileMailMessage 十进制字段为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileMailMessage 十进制字段为空"),
                     fieldIndex));
             }
 
@@ -12280,7 +12280,7 @@ namespace cg::packet::receive
                 if (ch < '0' || ch > '9') {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "ProfileMailMessage 十进制字段包含非法字符",
+                        CG_PACKET_DIAGNOSTIC_TEXT("ProfileMailMessage 十进制字段包含非法字符"),
                         fieldIndex));
                 }
 
@@ -12288,7 +12288,7 @@ namespace cg::packet::receive
                 if (value > (limit - digit) / 10) {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "ProfileMailMessage 十进制字段超出 int 范围",
+                        CG_PACKET_DIAGNOSTIC_TEXT("ProfileMailMessage 十进制字段超出 int 范围"),
                         fieldIndex));
                 }
 
@@ -12317,10 +12317,10 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "zdr";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 4U> Fields = {{
-            {"objectIndex", PacketFieldType::Int62},
-            {"message", PacketFieldType::SubPayload},
-            {"color", PacketFieldType::Int62},
-            {"fontSize", PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("objectIndex"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("message"), PacketFieldType::SubPayload},
+            {CG_PACKET_DIAGNOSTIC_TEXT("color"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("fontSize"), PacketFieldType::Int62},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -12354,22 +12354,22 @@ namespace cg::packet::receive
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "objectIndex",
+                CG_PACKET_DIAGNOSTIC_TEXT("objectIndex"),
                 PacketFieldType::Int62,
                 std::to_string(objectIndex),
             });
             packet.fields.push_back(PacketField {
-                "message",
+                CG_PACKET_DIAGNOSTIC_TEXT("message"),
                 PacketFieldType::EscapedString,
                 BuildMessage(),
             });
             packet.fields.push_back(PacketField {
-                "color",
+                CG_PACKET_DIAGNOSTIC_TEXT("color"),
                 PacketFieldType::Int62,
                 std::to_string(color),
             });
             packet.fields.push_back(PacketField {
-                "fontSize",
+                CG_PACKET_DIAGNOSTIC_TEXT("fontSize"),
                 PacketFieldType::Int62,
                 std::to_string(fontSize),
             });
@@ -12385,7 +12385,7 @@ namespace cg::packet::receive
 
             const Packet& packet = parsed.Value();
             if (packet.code.View() != Code) {
-                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "ChatMessage Parse 收到非 zdr 封包");
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, CG_PACKET_DIAGNOSTIC_TEXT("ChatMessage Parse 收到非 zdr 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<ChatMessage>::Failure(std::move(error));
             }
@@ -12393,21 +12393,21 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<ChatMessage>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "ChatMessage Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("ChatMessage Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<ChatMessage>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "ChatMessage Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ChatMessage Parse 字段数量不匹配"),
                     packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
             }
 
             const std::array<std::string_view, FieldCount> fieldNames = {
-                "objectIndex",
-                "message",
-                "color",
-                "fontSize",
+                CG_PACKET_DIAGNOSTIC_TEXT("objectIndex"),
+                CG_PACKET_DIAGNOSTIC_TEXT("message"),
+                CG_PACKET_DIAGNOSTIC_TEXT("color"),
+                CG_PACKET_DIAGNOSTIC_TEXT("fontSize"),
             };
             const std::array<PacketFieldType, FieldCount> fieldTypes = {
                 PacketFieldType::Int62,
@@ -12417,17 +12417,17 @@ namespace cg::packet::receive
             };
 
             for (std::size_t index = 0; index < FieldCount; ++index) {
-                if (packet.fields[index].name != fieldNames[index]) {
+                if (!CG_PACKET_FIELD_NAME_MATCHES(packet.fields[index].name, fieldNames[index])) {
                     return PacketResult<ChatMessage>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "ChatMessage Parse 字段名不匹配",
+                        CG_PACKET_DIAGNOSTIC_TEXT("ChatMessage Parse 字段名不匹配"),
                         index));
                 }
 
                 if (packet.fields[index].type != fieldTypes[index]) {
                     return PacketResult<ChatMessage>::Failure(MakeFieldError(
                         PacketErrorCode::InvalidFieldType,
-                        "ChatMessage Parse 字段类型不匹配",
+                        CG_PACKET_DIAGNOSTIC_TEXT("ChatMessage Parse 字段类型不匹配"),
                         index));
                 }
             }
@@ -12473,7 +12473,7 @@ namespace cg::packet::receive
         static constexpr std::size_t MarkerPayloadIndex = 0U;
         static constexpr std::size_t TextPayloadIndex = 1U;
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -12482,7 +12482,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -12504,14 +12504,14 @@ namespace cg::packet::receive
             if (parts.size() != PayloadFieldCount) {
                 return PacketResult<ChatMessagePayload>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "ChatMessage payload 段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ChatMessage payload 段数量不匹配"),
                     MessageFieldIndex));
             }
 
             if (parts[MarkerPayloadIndex] != "P") {
                 return PacketResult<ChatMessagePayload>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "ChatMessage payload marker 必须为 P",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ChatMessage payload marker 必须为 P"),
                     MessageFieldIndex));
             }
 
@@ -12532,7 +12532,7 @@ namespace cg::packet::receive
             if (index == text.size()) {
                 return PacketResult<int>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "ChatMessage i62 字段为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ChatMessage i62 字段为空"),
                     fieldIndex));
             }
 
@@ -12546,7 +12546,7 @@ namespace cg::packet::receive
                 if (ch < '0' || ch > '9') {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "ChatMessage i62 字段包含非法字符",
+                        CG_PACKET_DIAGNOSTIC_TEXT("ChatMessage i62 字段包含非法字符"),
                         fieldIndex));
                 }
 
@@ -12554,7 +12554,7 @@ namespace cg::packet::receive
                 if (value > (limit - digit) / 10) {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "ChatMessage i62 字段超出 int 范围",
+                        CG_PACKET_DIAGNOSTIC_TEXT("ChatMessage i62 字段超出 int 范围"),
                         fieldIndex));
                 }
 
@@ -12578,11 +12578,11 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "BZ";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 5U> Fields = {{
-            {"windowtype", PacketFieldType::Int62},
-            {"buttontype", PacketFieldType::Int62},
-            {"seqno", PacketFieldType::Int62},
-            {"objindex", PacketFieldType::Int62},
-            {"data", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("windowtype"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("buttontype"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("seqno"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("objindex"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -12610,27 +12610,27 @@ namespace cg::packet::receive
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "windowtype",
+                CG_PACKET_DIAGNOSTIC_TEXT("windowtype"),
                 PacketFieldType::Int62,
                 std::to_string(windowtype),
             });
             packet.fields.push_back(PacketField {
-                "buttontype",
+                CG_PACKET_DIAGNOSTIC_TEXT("buttontype"),
                 PacketFieldType::Int62,
                 std::to_string(buttontype),
             });
             packet.fields.push_back(PacketField {
-                "seqno",
+                CG_PACKET_DIAGNOSTIC_TEXT("seqno"),
                 PacketFieldType::Int62,
                 std::to_string(seqno),
             });
             packet.fields.push_back(PacketField {
-                "objindex",
+                CG_PACKET_DIAGNOSTIC_TEXT("objindex"),
                 PacketFieldType::Int62,
                 std::to_string(objindex),
             });
             packet.fields.push_back(PacketField {
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
                 PacketFieldType::EscapedString,
                 data,
             });
@@ -12646,7 +12646,7 @@ namespace cg::packet::receive
 
             const Packet& packet = parsed.Value();
             if (packet.code.View() != Code) {
-                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "WindowPacket Parse 收到非 BZ 封包");
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, CG_PACKET_DIAGNOSTIC_TEXT("WindowPacket Parse 收到非 BZ 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<WindowPacket>::Failure(std::move(error));
             }
@@ -12654,22 +12654,22 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<WindowPacket>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "WindowPacket Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("WindowPacket Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<WindowPacket>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "WindowPacket Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("WindowPacket Parse 字段数量不匹配"),
                     packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
             }
 
             const std::array<std::string_view, FieldCount> fieldNames = {
-                "windowtype",
-                "buttontype",
-                "seqno",
-                "objindex",
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("windowtype"),
+                CG_PACKET_DIAGNOSTIC_TEXT("buttontype"),
+                CG_PACKET_DIAGNOSTIC_TEXT("seqno"),
+                CG_PACKET_DIAGNOSTIC_TEXT("objindex"),
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
             };
             const std::array<PacketFieldType, FieldCount> fieldTypes = {
                 PacketFieldType::Int62,
@@ -12680,17 +12680,17 @@ namespace cg::packet::receive
             };
 
             for (std::size_t index = 0; index < FieldCount; ++index) {
-                if (packet.fields[index].name != fieldNames[index]) {
+                if (!CG_PACKET_FIELD_NAME_MATCHES(packet.fields[index].name, fieldNames[index])) {
                     return PacketResult<WindowPacket>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "WindowPacket Parse 字段名不匹配",
+                        CG_PACKET_DIAGNOSTIC_TEXT("WindowPacket Parse 字段名不匹配"),
                         index));
                 }
 
                 if (packet.fields[index].type != fieldTypes[index]) {
                     return PacketResult<WindowPacket>::Failure(MakeFieldError(
                         PacketErrorCode::InvalidFieldType,
-                        "WindowPacket Parse 字段类型不匹配",
+                        CG_PACKET_DIAGNOSTIC_TEXT("WindowPacket Parse 字段类型不匹配"),
                         index));
                 }
             }
@@ -12737,7 +12737,7 @@ namespace cg::packet::receive
         static constexpr std::size_t ObjIndexFieldIndex = 3U;
         static constexpr std::size_t DataFieldIndex = 4U;
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -12746,7 +12746,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -12766,7 +12766,7 @@ namespace cg::packet::receive
             if (index == text.size()) {
                 return PacketResult<int>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "WindowPacket Parse i62 字段为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("WindowPacket Parse i62 字段为空"),
                     fieldIndex));
             }
 
@@ -12780,7 +12780,7 @@ namespace cg::packet::receive
                 if (ch < '0' || ch > '9') {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "WindowPacket Parse i62 字段包含非十进制字符",
+                        CG_PACKET_DIAGNOSTIC_TEXT("WindowPacket Parse i62 字段包含非十进制字符"),
                         fieldIndex));
                 }
 
@@ -12788,7 +12788,7 @@ namespace cg::packet::receive
                 if (value > (limit - digit) / 10) {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "WindowPacket Parse i62 字段超出 int 范围",
+                        CG_PACKET_DIAGNOSTIC_TEXT("WindowPacket Parse i62 字段超出 int 范围"),
                         fieldIndex));
                 }
 
@@ -12812,12 +12812,12 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "ft";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 6U> Fields = {{
-            {"result", PacketFieldType::Int62},
-            {"objIndex", PacketFieldType::Int62},
-            {"name", PacketFieldType::EscapedString},
-            {"description", PacketFieldType::EscapedString},
-            {"item", PacketFieldType::EscapedString},
-            {"pet", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("result"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("objIndex"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("name"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("description"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("item"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("pet"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -12853,32 +12853,32 @@ namespace cg::packet::receive
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "result",
+                CG_PACKET_DIAGNOSTIC_TEXT("result"),
                 PacketFieldType::Int62,
                 std::to_string(result),
             });
             packet.fields.push_back(PacketField {
-                "objIndex",
+                CG_PACKET_DIAGNOSTIC_TEXT("objIndex"),
                 PacketFieldType::Int62,
                 std::to_string(objIndex),
             });
             packet.fields.push_back(PacketField {
-                "name",
+                CG_PACKET_DIAGNOSTIC_TEXT("name"),
                 PacketFieldType::EscapedString,
                 name,
             });
             packet.fields.push_back(PacketField {
-                "description",
+                CG_PACKET_DIAGNOSTIC_TEXT("description"),
                 PacketFieldType::EscapedString,
                 description,
             });
             packet.fields.push_back(PacketField {
-                "item",
+                CG_PACKET_DIAGNOSTIC_TEXT("item"),
                 PacketFieldType::EscapedString,
                 item,
             });
             packet.fields.push_back(PacketField {
-                "pet",
+                CG_PACKET_DIAGNOSTIC_TEXT("pet"),
                 PacketFieldType::EscapedString,
                 pet,
             });
@@ -12894,7 +12894,7 @@ namespace cg::packet::receive
 
             const Packet& packet = parsed.Value();
             if (packet.code.View() != Code) {
-                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "StallBrowse Parse 收到非 ft 封包");
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, CG_PACKET_DIAGNOSTIC_TEXT("StallBrowse Parse 收到非 ft 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<StallBrowse>::Failure(std::move(error));
             }
@@ -12902,23 +12902,23 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<StallBrowse>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "StallBrowse Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("StallBrowse Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<StallBrowse>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "StallBrowse Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("StallBrowse Parse 字段数量不匹配"),
                     packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
             }
 
             const std::array<std::string_view, FieldCount> fieldNames = {
-                "result",
-                "objIndex",
-                "name",
-                "description",
-                "item",
-                "pet",
+                CG_PACKET_DIAGNOSTIC_TEXT("result"),
+                CG_PACKET_DIAGNOSTIC_TEXT("objIndex"),
+                CG_PACKET_DIAGNOSTIC_TEXT("name"),
+                CG_PACKET_DIAGNOSTIC_TEXT("description"),
+                CG_PACKET_DIAGNOSTIC_TEXT("item"),
+                CG_PACKET_DIAGNOSTIC_TEXT("pet"),
             };
             const std::array<PacketFieldType, FieldCount> fieldTypes = {
                 PacketFieldType::Int62,
@@ -12930,17 +12930,17 @@ namespace cg::packet::receive
             };
 
             for (std::size_t index = 0; index < FieldCount; ++index) {
-                if (packet.fields[index].name != fieldNames[index]) {
+                if (!CG_PACKET_FIELD_NAME_MATCHES(packet.fields[index].name, fieldNames[index])) {
                     return PacketResult<StallBrowse>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "StallBrowse Parse 字段名不匹配",
+                        CG_PACKET_DIAGNOSTIC_TEXT("StallBrowse Parse 字段名不匹配"),
                         index));
                 }
 
                 if (packet.fields[index].type != fieldTypes[index]) {
                     return PacketResult<StallBrowse>::Failure(MakeFieldError(
                         PacketErrorCode::InvalidFieldType,
-                        "StallBrowse Parse 字段类型不匹配",
+                        CG_PACKET_DIAGNOSTIC_TEXT("StallBrowse Parse 字段类型不匹配"),
                         index));
                 }
             }
@@ -12975,7 +12975,7 @@ namespace cg::packet::receive
         static constexpr std::size_t ItemFieldIndex = 4U;
         static constexpr std::size_t PetFieldIndex = 5U;
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -12984,7 +12984,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -13004,7 +13004,7 @@ namespace cg::packet::receive
             if (index == text.size()) {
                 return PacketResult<int>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "StallBrowse Parse i62 字段为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("StallBrowse Parse i62 字段为空"),
                     fieldIndex));
             }
 
@@ -13018,7 +13018,7 @@ namespace cg::packet::receive
                 if (ch < '0' || ch > '9') {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "StallBrowse Parse i62 字段包含非十进制字符",
+                        CG_PACKET_DIAGNOSTIC_TEXT("StallBrowse Parse i62 字段包含非十进制字符"),
                         fieldIndex));
                 }
 
@@ -13026,7 +13026,7 @@ namespace cg::packet::receive
                 if (value > (limit - digit) / 10) {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "StallBrowse Parse i62 字段超出 int 范围",
+                        CG_PACKET_DIAGNOSTIC_TEXT("StallBrowse Parse i62 字段超出 int 范围"),
                         fieldIndex));
                 }
 
@@ -13049,8 +13049,8 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "jv";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
-            {"jobassort", PacketFieldType::Int62},
-            {"name", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("jobassort"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("name"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -13072,12 +13072,12 @@ namespace cg::packet::receive
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "jobassort",
+                CG_PACKET_DIAGNOSTIC_TEXT("jobassort"),
                 PacketFieldType::Int62,
                 std::to_string(jobAssort),
             });
             packet.fields.push_back(PacketField {
-                "name",
+                CG_PACKET_DIAGNOSTIC_TEXT("name"),
                 PacketFieldType::EscapedString,
                 name,
             });
@@ -13093,7 +13093,7 @@ namespace cg::packet::receive
 
             const Packet& packet = parsed.Value();
             if (packet.code.View() != Code) {
-                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "JobName Parse 收到非 jv 封包");
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, CG_PACKET_DIAGNOSTIC_TEXT("JobName Parse 收到非 jv 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<JobName>::Failure(std::move(error));
             }
@@ -13101,19 +13101,19 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<JobName>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "JobName Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("JobName Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<JobName>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "JobName Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("JobName Parse 字段数量不匹配"),
                     packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
             }
 
             const std::array<std::string_view, FieldCount> fieldNames = {
-                "jobassort",
-                "name",
+                CG_PACKET_DIAGNOSTIC_TEXT("jobassort"),
+                CG_PACKET_DIAGNOSTIC_TEXT("name"),
             };
             const std::array<PacketFieldType, FieldCount> fieldTypes = {
                 PacketFieldType::Int62,
@@ -13121,17 +13121,17 @@ namespace cg::packet::receive
             };
 
             for (std::size_t index = 0; index < FieldCount; ++index) {
-                if (packet.fields[index].name != fieldNames[index]) {
+                if (!CG_PACKET_FIELD_NAME_MATCHES(packet.fields[index].name, fieldNames[index])) {
                     return PacketResult<JobName>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "JobName Parse 字段名不匹配",
+                        CG_PACKET_DIAGNOSTIC_TEXT("JobName Parse 字段名不匹配"),
                         index));
                 }
 
                 if (packet.fields[index].type != fieldTypes[index]) {
                     return PacketResult<JobName>::Failure(MakeFieldError(
                         PacketErrorCode::InvalidFieldType,
-                        "JobName Parse 字段类型不匹配",
+                        CG_PACKET_DIAGNOSTIC_TEXT("JobName Parse 字段类型不匹配"),
                         index));
                 }
             }
@@ -13153,7 +13153,7 @@ namespace cg::packet::receive
         static constexpr std::size_t JobAssortFieldIndex = 0U;
         static constexpr std::size_t NameFieldIndex = 1U;
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -13162,7 +13162,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -13182,7 +13182,7 @@ namespace cg::packet::receive
             if (index == text.size()) {
                 return PacketResult<int>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "JobName Parse i62 字段为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("JobName Parse i62 字段为空"),
                     fieldIndex));
             }
 
@@ -13196,7 +13196,7 @@ namespace cg::packet::receive
                 if (ch < '0' || ch > '9') {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "JobName Parse i62 字段包含非十进制字符",
+                        CG_PACKET_DIAGNOSTIC_TEXT("JobName Parse i62 字段包含非十进制字符"),
                         fieldIndex));
                 }
 
@@ -13204,7 +13204,7 @@ namespace cg::packet::receive
                 if (value > (limit - digit) / 10) {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "JobName Parse i62 字段超出 int 范围",
+                        CG_PACKET_DIAGNOSTIC_TEXT("JobName Parse i62 字段超出 int 范围"),
                         fieldIndex));
                 }
 
@@ -13227,7 +13227,7 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "TeD";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
-            {"data", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -13247,7 +13247,7 @@ namespace cg::packet::receive
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
                 PacketFieldType::EscapedString,
                 data,
             });
@@ -13263,34 +13263,34 @@ namespace cg::packet::receive
 
             const Packet& packet = parsed.Value();
             if (packet.code.View() != Code) {
-                PacketError error = PacketError::Make(PacketErrorCode::InvalidCode, "MapName Parse 收到非 TeD 封包");
+                PacketError error = PacketError::Make(PacketErrorCode::InvalidCode, CG_PACKET_DIAGNOSTIC_TEXT("MapName Parse 收到非 TeD 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<MapName>::Failure(std::move(error));
             }
 
             if (packet.direction != Direction) {
-                PacketError error = PacketError::Make(PacketErrorCode::DecodeFailed, "MapName Parse 封包方向不匹配");
+                PacketError error = PacketError::Make(PacketErrorCode::DecodeFailed, CG_PACKET_DIAGNOSTIC_TEXT("MapName Parse 封包方向不匹配"));
                 error.packetCode = PacketCode(Code);
                 return PacketResult<MapName>::Failure(std::move(error));
             }
 
             if (packet.fields.size() != 1U) {
-                PacketError error = PacketError::Make(PacketErrorCode::FieldCountMismatch, "MapName Parse 字段数量不匹配");
+                PacketError error = PacketError::Make(PacketErrorCode::FieldCountMismatch, CG_PACKET_DIAGNOSTIC_TEXT("MapName Parse 字段数量不匹配"));
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = packet.fields.empty() ? 0U : 1U;
                 return PacketResult<MapName>::Failure(std::move(error));
             }
 
             const PacketField& field = packet.fields.front();
-            if (field.name != "data") {
-                PacketError error = PacketError::Make(PacketErrorCode::DecodeFailed, "MapName Parse 字段名不匹配");
+            if (!CG_PACKET_FIELD_NAME_MATCHES(field.name, CG_PACKET_DIAGNOSTIC_TEXT("data"))) {
+                PacketError error = PacketError::Make(PacketErrorCode::DecodeFailed, CG_PACKET_DIAGNOSTIC_TEXT("MapName Parse 字段名不匹配"));
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = 0U;
                 return PacketResult<MapName>::Failure(std::move(error));
             }
 
             if (field.type != PacketFieldType::EscapedString) {
-                PacketError error = PacketError::Make(PacketErrorCode::InvalidFieldType, "MapName Parse 字段类型不匹配");
+                PacketError error = PacketError::Make(PacketErrorCode::InvalidFieldType, CG_PACKET_DIAGNOSTIC_TEXT("MapName Parse 字段类型不匹配"));
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = 0U;
                 return PacketResult<MapName>::Failure(std::move(error));
@@ -13325,7 +13325,7 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "gnxd";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
-            {"data", PacketFieldType::SubPayload},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::SubPayload},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -13360,7 +13360,7 @@ namespace cg::packet::receive
                 if (slot.use <= 0) {
                     return PacketResult<std::string>::Failure(MakeFieldError(
                         PacketErrorCode::EncodeFailed,
-                        "AddressBook BuildData use 必须大于 0",
+                        CG_PACKET_DIAGNOSTIC_TEXT("AddressBook BuildData use 必须大于 0"),
                         baseIndex));
                 }
 
@@ -13385,7 +13385,7 @@ namespace cg::packet::receive
 
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
                 PacketFieldType::EscapedString,
                 data.Value(),
             });
@@ -13401,7 +13401,7 @@ namespace cg::packet::receive
 
             const Packet& packet = parsed.Value();
             if (packet.code.View() != Code) {
-                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "AddressBook Parse 收到非 gnxd 封包");
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, CG_PACKET_DIAGNOSTIC_TEXT("AddressBook Parse 收到非 gnxd 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<AddressBook>::Failure(std::move(error));
             }
@@ -13409,28 +13409,28 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<AddressBook>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "AddressBook Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("AddressBook Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<AddressBook>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "AddressBook Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("AddressBook Parse 字段数量不匹配"),
                     packet.fields.empty() ? 0U : FieldCount));
             }
 
             const PacketField& field = packet.fields[DataFieldIndex];
-            if (field.name != "data") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(field.name, CG_PACKET_DIAGNOSTIC_TEXT("data"))) {
                 return PacketResult<AddressBook>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "AddressBook Parse 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("AddressBook Parse 字段名不匹配"),
                     DataFieldIndex));
             }
 
             if (field.type != PacketFieldType::EscapedString) {
                 return PacketResult<AddressBook>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "AddressBook Parse 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("AddressBook Parse 字段类型不匹配"),
                     DataFieldIndex));
             }
 
@@ -13452,7 +13452,7 @@ namespace cg::packet::receive
                 slot.graphicsNo != 0;
         }
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -13461,7 +13461,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -13487,7 +13487,7 @@ namespace cg::packet::receive
             if (parts.size() != PayloadFieldCount) {
                 return PacketResult<AddressBook>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "AddressBook payload 段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("AddressBook payload 段数量不匹配"),
                     DataFieldIndex));
             }
 
@@ -13501,7 +13501,7 @@ namespace cg::packet::receive
                 if (parts[baseIndex].empty()) {
                     return PacketResult<AddressBook>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "AddressBook payload use 为空但槽位非空",
+                        CG_PACKET_DIAGNOSTIC_TEXT("AddressBook payload use 为空但槽位非空"),
                         baseIndex));
                 }
 
@@ -13512,7 +13512,7 @@ namespace cg::packet::receive
                 if (use.Value() <= 0) {
                     return PacketResult<AddressBook>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "AddressBook payload use 必须大于 0",
+                        CG_PACKET_DIAGNOSTIC_TEXT("AddressBook payload use 必须大于 0"),
                         baseIndex));
                 }
 
@@ -13574,7 +13574,7 @@ namespace cg::packet::receive
             if (index == text.size()) {
                 return PacketResult<int>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "AddressBook payload 十进制字段为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("AddressBook payload 十进制字段为空"),
                     fieldIndex));
             }
 
@@ -13588,7 +13588,7 @@ namespace cg::packet::receive
                 if (ch < '0' || ch > '9') {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "AddressBook payload 十进制字段包含非法字符",
+                        CG_PACKET_DIAGNOSTIC_TEXT("AddressBook payload 十进制字段包含非法字符"),
                         fieldIndex));
                 }
 
@@ -13596,7 +13596,7 @@ namespace cg::packet::receive
                 if (value > (limit - digit) / 10) {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "AddressBook payload 十进制字段超出 int 范围",
+                        CG_PACKET_DIAGNOSTIC_TEXT("AddressBook payload 十进制字段超出 int 范围"),
                         fieldIndex));
                 }
 
@@ -13620,8 +13620,8 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "vI";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
-            {"registry", PacketFieldType::Int62},
-            {"data", PacketFieldType::SubPayload},
+            {CG_PACKET_DIAGNOSTIC_TEXT("registry"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::SubPayload},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -13707,12 +13707,12 @@ namespace cg::packet::receive
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "registry",
+                CG_PACKET_DIAGNOSTIC_TEXT("registry"),
                 PacketFieldType::Int62,
                 std::to_string(registry),
             });
             packet.fields.push_back(PacketField {
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
                 PacketFieldType::EscapedString,
                 BuildData(),
             });
@@ -13732,7 +13732,7 @@ namespace cg::packet::receive
         static PacketResult<AddressBookInfo> FromPacket(const Packet& packet)
         {
             if (packet.code.View() != Code) {
-                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "AddressBookInfo Parse 收到非 vI 封包");
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, CG_PACKET_DIAGNOSTIC_TEXT("AddressBookInfo Parse 收到非 vI 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<AddressBookInfo>::Failure(std::move(error));
             }
@@ -13740,41 +13740,41 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<AddressBookInfo>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "AddressBookInfo Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("AddressBookInfo Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<AddressBookInfo>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "AddressBookInfo Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("AddressBookInfo Parse 字段数量不匹配"),
                     packet.fields.empty() ? 0U : FieldCount));
             }
 
             const PacketField& registryField = packet.fields[RegistryFieldIndex];
-            if (registryField.name != "registry") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(registryField.name, CG_PACKET_DIAGNOSTIC_TEXT("registry"))) {
                 return PacketResult<AddressBookInfo>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "AddressBookInfo Parse 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("AddressBookInfo Parse 字段名不匹配"),
                     RegistryFieldIndex));
             }
             if (registryField.type != PacketFieldType::Int62) {
                 return PacketResult<AddressBookInfo>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "AddressBookInfo Parse 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("AddressBookInfo Parse 字段类型不匹配"),
                     RegistryFieldIndex));
             }
 
             const PacketField& dataField = packet.fields[DataFieldIndex];
-            if (dataField.name != "data") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(dataField.name, CG_PACKET_DIAGNOSTIC_TEXT("data"))) {
                 return PacketResult<AddressBookInfo>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "AddressBookInfo Parse 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("AddressBookInfo Parse 字段名不匹配"),
                     DataFieldIndex));
             }
             if (dataField.type != PacketFieldType::EscapedString) {
                 return PacketResult<AddressBookInfo>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "AddressBookInfo Parse 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("AddressBookInfo Parse 字段类型不匹配"),
                     DataFieldIndex));
             }
 
@@ -13801,7 +13801,7 @@ namespace cg::packet::receive
         static constexpr std::size_t Field9PayloadIndex = 8U;
         static constexpr std::size_t Field10PayloadIndex = 9U;
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -13810,7 +13810,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -13836,7 +13836,7 @@ namespace cg::packet::receive
             if (parts.size() != PayloadFieldCount) {
                 return PacketResult<AddressBookInfo>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "AddressBookInfo payload 段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("AddressBookInfo payload 段数量不匹配"),
                     DataFieldIndex));
             }
 
@@ -13904,7 +13904,7 @@ namespace cg::packet::receive
             if (index == text.size()) {
                 return PacketResult<int>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "AddressBookInfo 十进制字段为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("AddressBookInfo 十进制字段为空"),
                     fieldIndex));
             }
 
@@ -13918,7 +13918,7 @@ namespace cg::packet::receive
                 if (ch < '0' || ch > '9') {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "AddressBookInfo 十进制字段包含非法字符",
+                        CG_PACKET_DIAGNOSTIC_TEXT("AddressBookInfo 十进制字段包含非法字符"),
                         fieldIndex));
                 }
 
@@ -13926,7 +13926,7 @@ namespace cg::packet::receive
                 if (value > (limit - digit) / 10) {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "AddressBookInfo 十进制字段超出 int 范围",
+                        CG_PACKET_DIAGNOSTIC_TEXT("AddressBookInfo 十进制字段超出 int 范围"),
                         fieldIndex));
                 }
 
@@ -13950,7 +13950,7 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "aDn";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
-            {"data", PacketFieldType::SubPayload},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::SubPayload},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -14019,40 +14019,40 @@ namespace cg::packet::receive
             parts.reserve(PayloadFieldMaxCount);
             parts.push_back(encodedFlag.Value());
 
-            if (std::optional<PacketError> error = AppendIntField(parts, guildId, GuildIdFlag, "GuildInfo BuildData guildId 缺失")) {
+            if (std::optional<PacketError> error = AppendIntField(parts, guildId, GuildIdFlag, CG_PACKET_DIAGNOSTIC_TEXT("GuildInfo BuildData guildId 缺失"))) {
                 return PacketResult<std::string>::Failure(std::move(*error));
             }
-            if (std::optional<PacketError> error = AppendStringField(parts, guildNameRaw, GuildNameFlag, "GuildInfo BuildData guildNameRaw 缺失")) {
+            if (std::optional<PacketError> error = AppendStringField(parts, guildNameRaw, GuildNameFlag, CG_PACKET_DIAGNOSTIC_TEXT("GuildInfo BuildData guildNameRaw 缺失"))) {
                 return PacketResult<std::string>::Failure(std::move(*error));
             }
-            if (std::optional<PacketError> error = AppendStringField(parts, roomNameRaw, RoomNameFlag, "GuildInfo BuildData roomNameRaw 缺失")) {
+            if (std::optional<PacketError> error = AppendStringField(parts, roomNameRaw, RoomNameFlag, CG_PACKET_DIAGNOSTIC_TEXT("GuildInfo BuildData roomNameRaw 缺失"))) {
                 return PacketResult<std::string>::Failure(std::move(*error));
             }
-            if (std::optional<PacketError> error = AppendIntField(parts, titleId, TitleIdFlag, "GuildInfo BuildData titleId 缺失")) {
+            if (std::optional<PacketError> error = AppendIntField(parts, titleId, TitleIdFlag, CG_PACKET_DIAGNOSTIC_TEXT("GuildInfo BuildData titleId 缺失"))) {
                 return PacketResult<std::string>::Failure(std::move(*error));
             }
-            if (std::optional<PacketError> error = AppendIntField(parts, lastUpdate, LastUpdateFlag, "GuildInfo BuildData lastUpdate 缺失")) {
+            if (std::optional<PacketError> error = AppendIntField(parts, lastUpdate, LastUpdateFlag, CG_PACKET_DIAGNOSTIC_TEXT("GuildInfo BuildData lastUpdate 缺失"))) {
                 return PacketResult<std::string>::Failure(std::move(*error));
             }
-            if (std::optional<PacketError> error = AppendIntField(parts, sortType, SortTypeFlag, "GuildInfo BuildData sortType 缺失")) {
+            if (std::optional<PacketError> error = AppendIntField(parts, sortType, SortTypeFlag, CG_PACKET_DIAGNOSTIC_TEXT("GuildInfo BuildData sortType 缺失"))) {
                 return PacketResult<std::string>::Failure(std::move(*error));
             }
-            if (std::optional<PacketError> error = AppendIntField(parts, serverNo, ServerNoFlag, "GuildInfo BuildData serverNo 缺失")) {
+            if (std::optional<PacketError> error = AppendIntField(parts, serverNo, ServerNoFlag, CG_PACKET_DIAGNOSTIC_TEXT("GuildInfo BuildData serverNo 缺失"))) {
                 return PacketResult<std::string>::Failure(std::move(*error));
             }
-            if (std::optional<PacketError> error = AppendIntField(parts, commition, CommitionFlag, "GuildInfo BuildData commition 缺失")) {
+            if (std::optional<PacketError> error = AppendIntField(parts, commition, CommitionFlag, CG_PACKET_DIAGNOSTIC_TEXT("GuildInfo BuildData commition 缺失"))) {
                 return PacketResult<std::string>::Failure(std::move(*error));
             }
-            if (std::optional<PacketError> error = AppendStringField(parts, breeding0Raw, Breeding0Flag, "GuildInfo BuildData breeding0Raw 缺失")) {
+            if (std::optional<PacketError> error = AppendStringField(parts, breeding0Raw, Breeding0Flag, CG_PACKET_DIAGNOSTIC_TEXT("GuildInfo BuildData breeding0Raw 缺失"))) {
                 return PacketResult<std::string>::Failure(std::move(*error));
             }
-            if (std::optional<PacketError> error = AppendStringField(parts, breeding1Raw, Breeding1Flag, "GuildInfo BuildData breeding1Raw 缺失")) {
+            if (std::optional<PacketError> error = AppendStringField(parts, breeding1Raw, Breeding1Flag, CG_PACKET_DIAGNOSTIC_TEXT("GuildInfo BuildData breeding1Raw 缺失"))) {
                 return PacketResult<std::string>::Failure(std::move(*error));
             }
-            if (std::optional<PacketError> error = AppendStringField(parts, breeding2Raw, Breeding2Flag, "GuildInfo BuildData breeding2Raw 缺失")) {
+            if (std::optional<PacketError> error = AppendStringField(parts, breeding2Raw, Breeding2Flag, CG_PACKET_DIAGNOSTIC_TEXT("GuildInfo BuildData breeding2Raw 缺失"))) {
                 return PacketResult<std::string>::Failure(std::move(*error));
             }
-            if (std::optional<PacketError> error = AppendIntField(parts, registSeqNumber, RegistSeqNumberFlag, "GuildInfo BuildData registSeqNumber 缺失")) {
+            if (std::optional<PacketError> error = AppendIntField(parts, registSeqNumber, RegistSeqNumberFlag, CG_PACKET_DIAGNOSTIC_TEXT("GuildInfo BuildData registSeqNumber 缺失"))) {
                 return PacketResult<std::string>::Failure(std::move(*error));
             }
 
@@ -14069,7 +14069,7 @@ namespace cg::packet::receive
 
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
                 PacketFieldType::EscapedString,
                 data.Value(),
             });
@@ -14089,7 +14089,7 @@ namespace cg::packet::receive
         static PacketResult<GuildInfo> FromPacket(const Packet& packet)
         {
             if (packet.code.View() != Code) {
-                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "GuildInfo Parse 收到非 aDn 封包");
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, CG_PACKET_DIAGNOSTIC_TEXT("GuildInfo Parse 收到非 aDn 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<GuildInfo>::Failure(std::move(error));
             }
@@ -14097,28 +14097,28 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<GuildInfo>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "GuildInfo Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("GuildInfo Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<GuildInfo>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "GuildInfo Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("GuildInfo Parse 字段数量不匹配"),
                     packet.fields.empty() ? 0U : FieldCount));
             }
 
             const PacketField& field = packet.fields[DataFieldIndex];
-            if (field.name != "data") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(field.name, CG_PACKET_DIAGNOSTIC_TEXT("data"))) {
                 return PacketResult<GuildInfo>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "GuildInfo Parse 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("GuildInfo Parse 字段名不匹配"),
                     DataFieldIndex));
             }
 
             if (field.type != PacketFieldType::EscapedString) {
                 return PacketResult<GuildInfo>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "GuildInfo Parse 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("GuildInfo Parse 字段类型不匹配"),
                     DataFieldIndex));
             }
 
@@ -14136,7 +14136,7 @@ namespace cg::packet::receive
             return (flagValue & (AllFieldsFlag | fieldBit)) != 0;
         }
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -14145,7 +14145,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -14159,11 +14159,11 @@ namespace cg::packet::receive
             std::size_t fieldIndex)
         {
             if (flagValue < 0) {
-                return MakeFieldError(code, "GuildInfo flag 不能为负数", fieldIndex);
+                return MakeFieldError(code, CG_PACKET_DIAGNOSTIC_TEXT("GuildInfo flag 不能为负数"), fieldIndex);
             }
 
             if ((flagValue & ~KnownFlagMask) != 0) {
-                return MakeFieldError(code, "GuildInfo flag 包含未知 bit", fieldIndex);
+                return MakeFieldError(code, CG_PACKET_DIAGNOSTIC_TEXT("GuildInfo flag 包含未知 bit"), fieldIndex);
             }
 
             return std::nullopt;
@@ -14219,7 +14219,7 @@ namespace cg::packet::receive
             if (parts.size() < 2U || !parts.back().empty()) {
                 return PacketResult<GuildInfo>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "GuildInfo payload 缺少尾随空段",
+                    CG_PACKET_DIAGNOSTIC_TEXT("GuildInfo payload 缺少尾随空段"),
                     DataFieldIndex));
             }
             parts.pop_back();
@@ -14233,7 +14233,7 @@ namespace cg::packet::receive
             if (parts.size() != expectedFieldCount) {
                 return PacketResult<GuildInfo>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "GuildInfo payload 段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("GuildInfo payload 段数量不匹配"),
                     DataFieldIndex));
             }
 
@@ -14367,7 +14367,7 @@ namespace cg::packet::receive
             if (index == text.size()) {
                 return PacketResult<int>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "GuildInfo payload 十进制字段为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("GuildInfo payload 十进制字段为空"),
                     fieldIndex));
             }
 
@@ -14381,7 +14381,7 @@ namespace cg::packet::receive
                 if (ch < '0' || ch > '9') {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "GuildInfo payload 十进制字段包含非法字符",
+                        CG_PACKET_DIAGNOSTIC_TEXT("GuildInfo payload 十进制字段包含非法字符"),
                         fieldIndex));
                 }
 
@@ -14389,7 +14389,7 @@ namespace cg::packet::receive
                 if (value > (limit - digit) / 10) {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "GuildInfo payload 十进制字段超出 int 范围",
+                        CG_PACKET_DIAGNOSTIC_TEXT("GuildInfo payload 十进制字段超出 int 范围"),
                         fieldIndex));
                 }
 
@@ -14420,7 +14420,7 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "znv";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
-            {"data", PacketFieldType::SubPayload},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::SubPayload},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -14468,7 +14468,7 @@ namespace cg::packet::receive
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
                 PacketFieldType::EscapedString,
                 BuildData(),
             });
@@ -14484,7 +14484,7 @@ namespace cg::packet::receive
 
             const Packet& packet = parsed.Value();
             if (packet.code.View() != Code) {
-                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "GuildTitle Parse 收到非 znv 封包");
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, CG_PACKET_DIAGNOSTIC_TEXT("GuildTitle Parse 收到非 znv 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<GuildTitle>::Failure(std::move(error));
             }
@@ -14492,28 +14492,28 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<GuildTitle>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "GuildTitle Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("GuildTitle Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<GuildTitle>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "GuildTitle Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("GuildTitle Parse 字段数量不匹配"),
                     packet.fields.empty() ? 0U : FieldCount));
             }
 
             const PacketField& field = packet.fields[DataFieldIndex];
-            if (field.name != "data") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(field.name, CG_PACKET_DIAGNOSTIC_TEXT("data"))) {
                 return PacketResult<GuildTitle>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "GuildTitle Parse 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("GuildTitle Parse 字段名不匹配"),
                     DataFieldIndex));
             }
 
             if (field.type != PacketFieldType::EscapedString) {
                 return PacketResult<GuildTitle>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "GuildTitle Parse 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("GuildTitle Parse 字段类型不匹配"),
                     DataFieldIndex));
             }
 
@@ -14525,7 +14525,7 @@ namespace cg::packet::receive
         static constexpr std::size_t DataFieldIndex = 0U;
         static constexpr std::size_t CountPayloadIndex = 0U;
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -14534,7 +14534,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -14547,7 +14547,7 @@ namespace cg::packet::receive
             if (payload.empty()) {
                 return PacketResult<GuildTitle>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "GuildTitle payload 为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("GuildTitle payload 为空"),
                     DataFieldIndex));
             }
 
@@ -14568,7 +14568,7 @@ namespace cg::packet::receive
             if (countValue.Value() < 0) {
                 return PacketResult<GuildTitle>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "GuildTitle payload cnt 不能为负数",
+                    CG_PACKET_DIAGNOSTIC_TEXT("GuildTitle payload cnt 不能为负数"),
                     CountPayloadIndex));
             }
 
@@ -14581,7 +14581,7 @@ namespace cg::packet::receive
             if (parts.size() != expectedFieldCount) {
                 return PacketResult<GuildTitle>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "GuildTitle payload 段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("GuildTitle payload 段数量不匹配"),
                     DataFieldIndex));
             }
 
@@ -14620,7 +14620,7 @@ namespace cg::packet::receive
             if (index == text.size()) {
                 return PacketResult<int>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "GuildTitle payload 十进制字段为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("GuildTitle payload 十进制字段为空"),
                     fieldIndex));
             }
 
@@ -14634,7 +14634,7 @@ namespace cg::packet::receive
                 if (ch < '0' || ch > '9') {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "GuildTitle payload 十进制字段包含非法字符",
+                        CG_PACKET_DIAGNOSTIC_TEXT("GuildTitle payload 十进制字段包含非法字符"),
                         fieldIndex));
                 }
 
@@ -14642,7 +14642,7 @@ namespace cg::packet::receive
                 if (value > (limit - digit) / 10) {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "GuildTitle payload 十进制字段超出 int 范围",
+                        CG_PACKET_DIAGNOSTIC_TEXT("GuildTitle payload 十进制字段超出 int 范围"),
                         fieldIndex));
                 }
 
@@ -14678,7 +14678,7 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "yuD";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
-            {"data", PacketFieldType::SubPayload},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::SubPayload},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -14706,7 +14706,7 @@ namespace cg::packet::receive
                 if (record.flag <= 0) {
                     return PacketResult<std::string>::Failure(MakeFieldError(
                         PacketErrorCode::EncodeFailed,
-                        "GuildMember BuildData flag 必须大于 0",
+                        CG_PACKET_DIAGNOSTIC_TEXT("GuildMember BuildData flag 必须大于 0"),
                         parts.size()));
                 }
 
@@ -14732,7 +14732,7 @@ namespace cg::packet::receive
 
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
                 PacketFieldType::EscapedString,
                 data.Value(),
             });
@@ -14748,7 +14748,7 @@ namespace cg::packet::receive
 
             const Packet& packet = parsed.Value();
             if (packet.code.View() != Code) {
-                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "GuildMember Parse 收到非 yuD 封包");
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, CG_PACKET_DIAGNOSTIC_TEXT("GuildMember Parse 收到非 yuD 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<GuildMember>::Failure(std::move(error));
             }
@@ -14756,28 +14756,28 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<GuildMember>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "GuildMember Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("GuildMember Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<GuildMember>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "GuildMember Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("GuildMember Parse 字段数量不匹配"),
                     packet.fields.empty() ? 0U : FieldCount));
             }
 
             const PacketField& field = packet.fields[DataFieldIndex];
-            if (field.name != "data") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(field.name, CG_PACKET_DIAGNOSTIC_TEXT("data"))) {
                 return PacketResult<GuildMember>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "GuildMember Parse 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("GuildMember Parse 字段名不匹配"),
                     DataFieldIndex));
             }
 
             if (field.type != PacketFieldType::EscapedString) {
                 return PacketResult<GuildMember>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "GuildMember Parse 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("GuildMember Parse 字段类型不匹配"),
                     DataFieldIndex));
             }
 
@@ -14796,7 +14796,7 @@ namespace cg::packet::receive
         static constexpr std::size_t GraphicsNoPayloadIndex = 6U;
         static constexpr std::size_t ToGuildTitleIdPayloadIndex = 7U;
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -14805,7 +14805,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -14835,7 +14835,7 @@ namespace cg::packet::receive
             if ((parts.size() % RecordFieldCount) != 0U) {
                 return PacketResult<GuildMember>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "GuildMember payload 段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("GuildMember payload 段数量不匹配"),
                     DataFieldIndex));
             }
 
@@ -14849,7 +14849,7 @@ namespace cg::packet::receive
                 if (flag.Value() <= 0) {
                     return PacketResult<GuildMember>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "GuildMember payload flag 必须大于 0",
+                        CG_PACKET_DIAGNOSTIC_TEXT("GuildMember payload flag 必须大于 0"),
                         index + FlagPayloadIndex));
                 }
 
@@ -14918,7 +14918,7 @@ namespace cg::packet::receive
             if (index == text.size()) {
                 return PacketResult<int>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "GuildMember payload 十进制字段为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("GuildMember payload 十进制字段为空"),
                     fieldIndex));
             }
 
@@ -14932,7 +14932,7 @@ namespace cg::packet::receive
                 if (ch < '0' || ch > '9') {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "GuildMember payload 十进制字段包含非法字符",
+                        CG_PACKET_DIAGNOSTIC_TEXT("GuildMember payload 十进制字段包含非法字符"),
                         fieldIndex));
                 }
 
@@ -14940,7 +14940,7 @@ namespace cg::packet::receive
                 if (value > (limit - digit) / 10) {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "GuildMember payload 十进制字段超出 int 范围",
+                        CG_PACKET_DIAGNOSTIC_TEXT("GuildMember payload 十进制字段超出 int 范围"),
                         fieldIndex));
                 }
 
@@ -14964,8 +14964,8 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "Kka";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
-            {"index", PacketFieldType::Int62},
-            {"data", PacketFieldType::SubPayload},
+            {CG_PACKET_DIAGNOSTIC_TEXT("index"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::SubPayload},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -15035,12 +15035,12 @@ namespace cg::packet::receive
 
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "index",
+                CG_PACKET_DIAGNOSTIC_TEXT("index"),
                 PacketFieldType::Int62,
                 std::to_string(index),
             });
             packet.fields.push_back(PacketField {
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
                 PacketFieldType::EscapedString,
                 data.Value(),
             });
@@ -15060,7 +15060,7 @@ namespace cg::packet::receive
         static PacketResult<GuildMemberInfo> FromPacket(const Packet& packet)
         {
             if (packet.code.View() != Code) {
-                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "GuildMemberInfo Parse 收到非 Kka 封包");
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, CG_PACKET_DIAGNOSTIC_TEXT("GuildMemberInfo Parse 收到非 Kka 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<GuildMemberInfo>::Failure(std::move(error));
             }
@@ -15068,43 +15068,43 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<GuildMemberInfo>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "GuildMemberInfo Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("GuildMemberInfo Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<GuildMemberInfo>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "GuildMemberInfo Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("GuildMemberInfo Parse 字段数量不匹配"),
                     packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
             }
 
             const PacketField& indexField = packet.fields[IndexFieldIndex];
-            if (indexField.name != "index") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(indexField.name, CG_PACKET_DIAGNOSTIC_TEXT("index"))) {
                 return PacketResult<GuildMemberInfo>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "GuildMemberInfo Parse index 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("GuildMemberInfo Parse index 字段名不匹配"),
                     IndexFieldIndex));
             }
 
             if (indexField.type != PacketFieldType::Int62) {
                 return PacketResult<GuildMemberInfo>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "GuildMemberInfo Parse index 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("GuildMemberInfo Parse index 字段类型不匹配"),
                     IndexFieldIndex));
             }
 
             const PacketField& dataField = packet.fields[DataFieldIndex];
-            if (dataField.name != "data") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(dataField.name, CG_PACKET_DIAGNOSTIC_TEXT("data"))) {
                 return PacketResult<GuildMemberInfo>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "GuildMemberInfo Parse data 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("GuildMemberInfo Parse data 字段名不匹配"),
                     DataFieldIndex));
             }
 
             if (dataField.type != PacketFieldType::EscapedString) {
                 return PacketResult<GuildMemberInfo>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "GuildMemberInfo Parse data 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("GuildMemberInfo Parse data 字段类型不匹配"),
                     DataFieldIndex));
             }
 
@@ -15137,7 +15137,7 @@ namespace cg::packet::receive
         static constexpr std::size_t GraphicsNoPayloadIndex = 6U;
         static constexpr std::size_t ToGuildTitleIdPayloadIndex = 7U;
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -15146,7 +15146,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -15159,7 +15159,7 @@ namespace cg::packet::receive
             if (payload.empty()) {
                 return PacketResult<GuildMemberInfo>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "GuildMemberInfo payload 为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("GuildMemberInfo payload 为空"),
                     DataFieldIndex));
             }
 
@@ -15175,7 +15175,7 @@ namespace cg::packet::receive
             if (parts.size() != PayloadFieldCount + 1U || parts.back() != "") {
                 return PacketResult<GuildMemberInfo>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "GuildMemberInfo payload 段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("GuildMemberInfo payload 段数量不匹配"),
                     DataFieldIndex));
             }
             parts.pop_back();
@@ -15245,7 +15245,7 @@ namespace cg::packet::receive
             if (index == text.size()) {
                 return PacketResult<int>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "GuildMemberInfo 十进制字段为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("GuildMemberInfo 十进制字段为空"),
                     fieldIndex));
             }
 
@@ -15259,7 +15259,7 @@ namespace cg::packet::receive
                 if (ch < '0' || ch > '9') {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "GuildMemberInfo 十进制字段包含非法字符",
+                        CG_PACKET_DIAGNOSTIC_TEXT("GuildMemberInfo 十进制字段包含非法字符"),
                         fieldIndex));
                 }
 
@@ -15267,7 +15267,7 @@ namespace cg::packet::receive
                 if (value > (limit - digit) / 10) {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "GuildMemberInfo 十进制字段超出 int 范围",
+                        CG_PACKET_DIAGNOSTIC_TEXT("GuildMemberInfo 十进制字段超出 int 范围"),
                         fieldIndex));
                 }
 
@@ -15307,9 +15307,9 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "Rll";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 3U> Fields = {{
-            {"fromregistseqnumber", PacketFieldType::Int62},
-            {"text", PacketFieldType::SubPayload},
-            {"color", PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("fromregistseqnumber"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("text"), PacketFieldType::SubPayload},
+            {CG_PACKET_DIAGNOSTIC_TEXT("color"), PacketFieldType::Int62},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -15356,17 +15356,17 @@ namespace cg::packet::receive
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "fromregistseqnumber",
+                CG_PACKET_DIAGNOSTIC_TEXT("fromregistseqnumber"),
                 PacketFieldType::Int62,
                 std::to_string(fromRegistSeqNumber),
             });
             packet.fields.push_back(PacketField {
-                "text",
+                CG_PACKET_DIAGNOSTIC_TEXT("text"),
                 PacketFieldType::EscapedString,
                 BuildData(),
             });
             packet.fields.push_back(PacketField {
-                "color",
+                CG_PACKET_DIAGNOSTIC_TEXT("color"),
                 PacketFieldType::Int62,
                 std::to_string(color),
             });
@@ -15386,7 +15386,7 @@ namespace cg::packet::receive
         static PacketResult<GuildMail> FromPacket(const Packet& packet)
         {
             if (packet.code.View() != Code) {
-                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "GuildMail Parse 收到非 Rll 封包");
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, CG_PACKET_DIAGNOSTIC_TEXT("GuildMail Parse 收到非 Rll 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<GuildMail>::Failure(std::move(error));
             }
@@ -15394,20 +15394,20 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<GuildMail>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "GuildMail Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("GuildMail Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<GuildMail>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "GuildMail Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("GuildMail Parse 字段数量不匹配"),
                     packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
             }
 
             const std::array<std::string_view, FieldCount> fieldNames = {
-                "fromregistseqnumber",
-                "text",
-                "color",
+                CG_PACKET_DIAGNOSTIC_TEXT("fromregistseqnumber"),
+                CG_PACKET_DIAGNOSTIC_TEXT("text"),
+                CG_PACKET_DIAGNOSTIC_TEXT("color"),
             };
             const std::array<PacketFieldType, FieldCount> fieldTypes = {
                 PacketFieldType::Int62,
@@ -15416,17 +15416,17 @@ namespace cg::packet::receive
             };
 
             for (std::size_t index = 0; index < FieldCount; ++index) {
-                if (packet.fields[index].name != fieldNames[index]) {
+                if (!CG_PACKET_FIELD_NAME_MATCHES(packet.fields[index].name, fieldNames[index])) {
                     return PacketResult<GuildMail>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "GuildMail Parse 字段名不匹配",
+                        CG_PACKET_DIAGNOSTIC_TEXT("GuildMail Parse 字段名不匹配"),
                         index));
                 }
 
                 if (packet.fields[index].type != fieldTypes[index]) {
                     return PacketResult<GuildMail>::Failure(MakeFieldError(
                         PacketErrorCode::InvalidFieldType,
-                        "GuildMail Parse 字段类型不匹配",
+                        CG_PACKET_DIAGNOSTIC_TEXT("GuildMail Parse 字段类型不匹配"),
                         index));
                 }
             }
@@ -15465,7 +15465,7 @@ namespace cg::packet::receive
         static constexpr std::size_t PetNameFieldIndex = 4U;
         static constexpr std::size_t ItemBaseImageFieldIndex = 5U;
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -15474,7 +15474,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -15487,7 +15487,7 @@ namespace cg::packet::receive
             if (text.empty()) {
                 return PacketResult<GuildMailPayload>::Failure(MakeFieldError(
                     PacketErrorCode::EmptyInput,
-                    "GuildMail payload 为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("GuildMail payload 为空"),
                     TextFieldIndex));
             }
 
@@ -15503,7 +15503,7 @@ namespace cg::packet::receive
             if (parts.size() != NormalPayloadFieldCount && parts.size() != PetPayloadFieldCount) {
                 return PacketResult<GuildMailPayload>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "GuildMail payload 段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("GuildMail payload 段数量不匹配"),
                     TextFieldIndex));
             }
 
@@ -15516,7 +15516,7 @@ namespace cg::packet::receive
                 if (parts[PetBaseImageFieldIndex] != "-1") {
                     return PacketResult<GuildMailPayload>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "GuildMail 普通邮件标记必须为 -1",
+                        CG_PACKET_DIAGNOSTIC_TEXT("GuildMail 普通邮件标记必须为 -1"),
                         PetBaseImageFieldIndex));
                 }
                 payload.petBaseImageNumberOrMarker = -1;
@@ -15559,7 +15559,7 @@ namespace cg::packet::receive
             if (index == text.size()) {
                 return PacketResult<int>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "GuildMail 十进制字段为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("GuildMail 十进制字段为空"),
                     fieldIndex));
             }
 
@@ -15573,7 +15573,7 @@ namespace cg::packet::receive
                 if (ch < '0' || ch > '9') {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "GuildMail 十进制字段包含非法字符",
+                        CG_PACKET_DIAGNOSTIC_TEXT("GuildMail 十进制字段包含非法字符"),
                         fieldIndex));
                 }
 
@@ -15581,7 +15581,7 @@ namespace cg::packet::receive
                 if (value > (limit - digit) / 10) {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "GuildMail 十进制字段超出 int 范围",
+                        CG_PACKET_DIAGNOSTIC_TEXT("GuildMail 十进制字段超出 int 范围"),
                         fieldIndex));
                 }
 
@@ -15610,7 +15610,7 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "Cxo";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
-            {"data", PacketFieldType::SubPayload},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::SubPayload},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -15636,14 +15636,14 @@ namespace cg::packet::receive
                 if (record.nameRaw.empty()) {
                     return PacketResult<std::string>::Failure(MakeFieldError(
                         PacketErrorCode::EncodeFailed,
-                        "TradePlayerList BuildData nameRaw 为空",
+                        CG_PACKET_DIAGNOSTIC_TEXT("TradePlayerList BuildData nameRaw 为空"),
                         DataFieldIndex));
                 }
 
                 if (record.nameRaw.find('|') != std::string::npos) {
                     return PacketResult<std::string>::Failure(MakeFieldError(
                         PacketErrorCode::EncodeFailed,
-                        "TradePlayerList BuildData nameRaw 包含 literal |",
+                        CG_PACKET_DIAGNOSTIC_TEXT("TradePlayerList BuildData nameRaw 包含 literal |"),
                         DataFieldIndex));
                 }
 
@@ -15663,7 +15663,7 @@ namespace cg::packet::receive
 
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
                 PacketFieldType::EscapedString,
                 data.Value(),
             });
@@ -15685,7 +15685,7 @@ namespace cg::packet::receive
             if (packet.code.View() != Code) {
                 PacketError error = MakePacketError(
                     PacketErrorCode::InvalidCode,
-                    "TradePlayerList Parse 收到非 Cxo 封包");
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradePlayerList Parse 收到非 Cxo 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<TradePlayerList>::Failure(std::move(error));
             }
@@ -15693,28 +15693,28 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<TradePlayerList>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "TradePlayerList Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradePlayerList Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<TradePlayerList>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "TradePlayerList Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradePlayerList Parse 字段数量不匹配"),
                     packet.fields.empty() ? 0U : FieldCount));
             }
 
             const PacketField& field = packet.fields[DataFieldIndex];
-            if (field.name != "data") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(field.name, CG_PACKET_DIAGNOSTIC_TEXT("data"))) {
                 return PacketResult<TradePlayerList>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "TradePlayerList Parse 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradePlayerList Parse 字段名不匹配"),
                     DataFieldIndex));
             }
 
             if (field.type != PacketFieldType::EscapedString) {
                 return PacketResult<TradePlayerList>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "TradePlayerList Parse 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradePlayerList Parse 字段类型不匹配"),
                     DataFieldIndex));
             }
 
@@ -15730,7 +15730,7 @@ namespace cg::packet::receive
         static constexpr std::size_t FieldCount = 1U;
         static constexpr std::size_t DataFieldIndex = 0U;
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -15739,7 +15739,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -15756,7 +15756,7 @@ namespace cg::packet::receive
             if (payload.back() != '|') {
                 return PacketResult<std::vector<TradePlayerRecord>>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "TradePlayerList payload 缺少尾随分隔符",
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradePlayerList payload 缺少尾随分隔符"),
                     DataFieldIndex));
             }
 
@@ -15773,7 +15773,7 @@ namespace cg::packet::receive
             if (parts.empty()) {
                 return PacketResult<std::vector<TradePlayerRecord>>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "TradePlayerList payload 不能只有尾随分隔符",
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradePlayerList payload 不能只有尾随分隔符"),
                     DataFieldIndex));
             }
 
@@ -15783,7 +15783,7 @@ namespace cg::packet::receive
                 if (nameRaw.empty()) {
                     return PacketResult<std::vector<TradePlayerRecord>>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "TradePlayerList payload 包含空 nameRaw",
+                        CG_PACKET_DIAGNOSTIC_TEXT("TradePlayerList payload 包含空 nameRaw"),
                         DataFieldIndex));
                 }
 
@@ -15803,8 +15803,8 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "ms";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
-            {"name", PacketFieldType::SubPayload},
-            {"level", PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("name"), PacketFieldType::SubPayload},
+            {CG_PACKET_DIAGNOSTIC_TEXT("level"), PacketFieldType::Int62},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -15826,12 +15826,12 @@ namespace cg::packet::receive
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "name",
+                CG_PACKET_DIAGNOSTIC_TEXT("name"),
                 PacketFieldType::EscapedString,
                 nameRaw,
             });
             packet.fields.push_back(PacketField {
-                "level",
+                CG_PACKET_DIAGNOSTIC_TEXT("level"),
                 PacketFieldType::Int62,
                 std::to_string(level),
             });
@@ -15853,7 +15853,7 @@ namespace cg::packet::receive
             if (packet.code.View() != Code) {
                 PacketError error = MakePacketError(
                     PacketErrorCode::InvalidCode,
-                    "TradeStart Parse 收到非 ms 封包");
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradeStart Parse 收到非 ms 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<TradeStart>::Failure(std::move(error));
             }
@@ -15861,19 +15861,19 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<TradeStart>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "TradeStart Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradeStart Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<TradeStart>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "TradeStart Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradeStart Parse 字段数量不匹配"),
                     packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
             }
 
             const std::array<std::string_view, FieldCount> fieldNames = {
-                "name",
-                "level",
+                CG_PACKET_DIAGNOSTIC_TEXT("name"),
+                CG_PACKET_DIAGNOSTIC_TEXT("level"),
             };
             const std::array<PacketFieldType, FieldCount> fieldTypes = {
                 PacketFieldType::EscapedString,
@@ -15881,17 +15881,17 @@ namespace cg::packet::receive
             };
 
             for (std::size_t index = 0; index < FieldCount; ++index) {
-                if (packet.fields[index].name != fieldNames[index]) {
+                if (!CG_PACKET_FIELD_NAME_MATCHES(packet.fields[index].name, fieldNames[index])) {
                     return PacketResult<TradeStart>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "TradeStart Parse 字段名不匹配",
+                        CG_PACKET_DIAGNOSTIC_TEXT("TradeStart Parse 字段名不匹配"),
                         index));
                 }
 
                 if (packet.fields[index].type != fieldTypes[index]) {
                     return PacketResult<TradeStart>::Failure(MakeFieldError(
                         PacketErrorCode::InvalidFieldType,
-                        "TradeStart Parse 字段类型不匹配",
+                        CG_PACKET_DIAGNOSTIC_TEXT("TradeStart Parse 字段类型不匹配"),
                         index));
                 }
             }
@@ -15913,7 +15913,7 @@ namespace cg::packet::receive
         static constexpr std::size_t NameFieldIndex = 0U;
         static constexpr std::size_t LevelFieldIndex = 1U;
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -15922,7 +15922,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -15942,7 +15942,7 @@ namespace cg::packet::receive
             if (index == text.size()) {
                 return PacketResult<int>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "TradeStart Parse i62 字段为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradeStart Parse i62 字段为空"),
                     fieldIndex));
             }
 
@@ -15956,7 +15956,7 @@ namespace cg::packet::receive
                 if (ch < '0' || ch > '9') {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "TradeStart Parse i62 字段包含非十进制字符",
+                        CG_PACKET_DIAGNOSTIC_TEXT("TradeStart Parse i62 字段包含非十进制字符"),
                         fieldIndex));
                 }
 
@@ -15964,7 +15964,7 @@ namespace cg::packet::receive
                 if (value > (limit - digit) / 10) {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "TradeStart Parse i62 字段超出 int 范围",
+                        CG_PACKET_DIAGNOSTIC_TEXT("TradeStart Parse i62 字段超出 int 范围"),
                         fieldIndex));
                 }
 
@@ -16010,7 +16010,7 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "nUbJ";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
-            {"data", PacketFieldType::SubPayload},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::SubPayload},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -16036,14 +16036,14 @@ namespace cg::packet::receive
             if (records.empty()) {
                 return PacketResult<std::string>::Failure(MakeFieldError(
                     PacketErrorCode::EncodeFailed,
-                    "TradeItemInfo BuildData records 为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradeItemInfo BuildData records 为空"),
                     DataFieldIndex));
             }
 
             if (records.size() > MaxRecordCount) {
                 return PacketResult<std::string>::Failure(MakeFieldError(
                     PacketErrorCode::EncodeFailed,
-                    "TradeItemInfo BuildData records 超过 20 条",
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradeItemInfo BuildData records 超过 20 条"),
                     DataFieldIndex));
             }
 
@@ -16096,7 +16096,7 @@ namespace cg::packet::receive
 
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
                 PacketFieldType::EscapedString,
                 data.Value(),
             });
@@ -16118,7 +16118,7 @@ namespace cg::packet::receive
             if (packet.code.View() != Code) {
                 PacketError error = MakePacketError(
                     PacketErrorCode::InvalidCode,
-                    "TradeItemInfo Parse 收到非 nUbJ 封包");
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradeItemInfo Parse 收到非 nUbJ 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<TradeItemInfo>::Failure(std::move(error));
             }
@@ -16126,28 +16126,28 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<TradeItemInfo>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "TradeItemInfo Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradeItemInfo Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<TradeItemInfo>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "TradeItemInfo Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradeItemInfo Parse 字段数量不匹配"),
                     packet.fields.empty() ? 0U : FieldCount));
             }
 
             const PacketField& field = packet.fields[DataFieldIndex];
-            if (field.name != "data") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(field.name, CG_PACKET_DIAGNOSTIC_TEXT("data"))) {
                 return PacketResult<TradeItemInfo>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "TradeItemInfo Parse 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradeItemInfo Parse 字段名不匹配"),
                     DataFieldIndex));
             }
 
             if (field.type != PacketFieldType::EscapedString) {
                 return PacketResult<TradeItemInfo>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "TradeItemInfo Parse 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradeItemInfo Parse 字段类型不匹配"),
                     DataFieldIndex));
             }
 
@@ -16163,7 +16163,7 @@ namespace cg::packet::receive
         static constexpr std::size_t FieldCount = 1U;
         static constexpr std::size_t DataFieldIndex = 0U;
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -16172,7 +16172,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -16185,7 +16185,7 @@ namespace cg::packet::receive
             if (payload.empty()) {
                 return PacketResult<std::vector<TradeItemInfoRecord>>::Failure(MakeFieldError(
                     PacketErrorCode::EmptyInput,
-                    "TradeItemInfo payload 为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradeItemInfo payload 为空"),
                     DataFieldIndex));
             }
 
@@ -16201,7 +16201,7 @@ namespace cg::packet::receive
             if (parts.size() == 1U && parts.front().empty()) {
                 return PacketResult<std::vector<TradeItemInfoRecord>>::Failure(MakeFieldError(
                     PacketErrorCode::EmptyInput,
-                    "TradeItemInfo payload 为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradeItemInfo payload 为空"),
                     DataFieldIndex));
             }
 
@@ -16212,7 +16212,7 @@ namespace cg::packet::receive
             if (parts.empty() || (parts.size() % RecordFieldCount) != 0U) {
                 return PacketResult<std::vector<TradeItemInfoRecord>>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "TradeItemInfo payload 段数量不是 14 的倍数",
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradeItemInfo payload 段数量不是 14 的倍数"),
                     DataFieldIndex));
             }
 
@@ -16220,7 +16220,7 @@ namespace cg::packet::receive
             if (recordCount > MaxRecordCount) {
                 return PacketResult<std::vector<TradeItemInfoRecord>>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "TradeItemInfo payload records 超过 20 条",
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradeItemInfo payload records 超过 20 条"),
                     DataFieldIndex));
             }
 
@@ -16344,7 +16344,7 @@ namespace cg::packet::receive
                 if (index + 1U >= text.size()) {
                     return PacketResult<std::string>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "TradeItemInfo raw 字符串旧双字节字符被截断",
+                        CG_PACKET_DIAGNOSTIC_TEXT("TradeItemInfo raw 字符串旧双字节字符被截断"),
                         fieldIndex));
                 }
                 ++index;
@@ -16360,7 +16360,7 @@ namespace cg::packet::receive
                 record.memoRaw.find('|') != std::string::npos) {
                 return PacketResult<bool>::Failure(MakeFieldError(
                     PacketErrorCode::EncodeFailed,
-                    "TradeItemInfo BuildData raw 字符串包含 literal |",
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradeItemInfo BuildData raw 字符串包含 literal |"),
                     DataFieldIndex));
             }
 
@@ -16379,7 +16379,7 @@ namespace cg::packet::receive
             if (index == text.size()) {
                 return PacketResult<int>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "TradeItemInfo 十进制字段为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradeItemInfo 十进制字段为空"),
                     fieldIndex));
             }
 
@@ -16393,7 +16393,7 @@ namespace cg::packet::receive
                 if (ch < '0' || ch > '9') {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "TradeItemInfo 十进制字段包含非法字符",
+                        CG_PACKET_DIAGNOSTIC_TEXT("TradeItemInfo 十进制字段包含非法字符"),
                         fieldIndex));
                 }
 
@@ -16401,7 +16401,7 @@ namespace cg::packet::receive
                 if (value > (limit - digit) / 10) {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "TradeItemInfo 十进制字段超出 int 范围",
+                        CG_PACKET_DIAGNOSTIC_TEXT("TradeItemInfo 十进制字段超出 int 范围"),
                         fieldIndex));
                 }
 
@@ -16456,8 +16456,8 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "RwK";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
-            {"petPlace", PacketFieldType::Int62},
-            {"data", PacketFieldType::SubPayload},
+            {CG_PACKET_DIAGNOSTIC_TEXT("petPlace"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::SubPayload},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -16540,12 +16540,12 @@ namespace cg::packet::receive
 
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "petPlace",
+                CG_PACKET_DIAGNOSTIC_TEXT("petPlace"),
                 PacketFieldType::Int62,
                 std::to_string(petPlace),
             });
             packet.fields.push_back(PacketField {
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
                 PacketFieldType::EscapedString,
                 payload.Value(),
             });
@@ -16567,7 +16567,7 @@ namespace cg::packet::receive
             if (packet.code.View() != Code) {
                 PacketError error = MakePacketError(
                     PacketErrorCode::InvalidCode,
-                    "TradePetInfo Parse 收到非 RwK 封包");
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradePetInfo Parse 收到非 RwK 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<TradePetInfo>::Failure(std::move(error));
             }
@@ -16575,19 +16575,19 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<TradePetInfo>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "TradePetInfo Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradePetInfo Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<TradePetInfo>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "TradePetInfo Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradePetInfo Parse 字段数量不匹配"),
                     packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
             }
 
             const std::array<std::string_view, FieldCount> fieldNames = {
-                "petPlace",
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("petPlace"),
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
             };
             const std::array<PacketFieldType, FieldCount> fieldTypes = {
                 PacketFieldType::Int62,
@@ -16595,17 +16595,17 @@ namespace cg::packet::receive
             };
 
             for (std::size_t index = 0; index < FieldCount; ++index) {
-                if (packet.fields[index].name != fieldNames[index]) {
+                if (!CG_PACKET_FIELD_NAME_MATCHES(packet.fields[index].name, fieldNames[index])) {
                     return PacketResult<TradePetInfo>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "TradePetInfo Parse 字段名不匹配",
+                        CG_PACKET_DIAGNOSTIC_TEXT("TradePetInfo Parse 字段名不匹配"),
                         index));
                 }
 
                 if (packet.fields[index].type != fieldTypes[index]) {
                     return PacketResult<TradePetInfo>::Failure(MakeFieldError(
                         PacketErrorCode::InvalidFieldType,
-                        "TradePetInfo Parse 字段类型不匹配",
+                        CG_PACKET_DIAGNOSTIC_TEXT("TradePetInfo Parse 字段类型不匹配"),
                         index));
                 }
             }
@@ -16634,7 +16634,7 @@ namespace cg::packet::receive
         static constexpr std::size_t FreeNameFieldIndex = 0U;
         static constexpr std::size_t NameFieldIndex = 12U;
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -16643,7 +16643,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -16656,7 +16656,7 @@ namespace cg::packet::receive
             if (payload.empty()) {
                 return PacketResult<TradePetInfoData>::Failure(MakeFieldError(
                     PacketErrorCode::EmptyInput,
-                    "TradePetInfo payload 为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradePetInfo payload 为空"),
                     DataFieldIndex));
             }
 
@@ -16672,7 +16672,7 @@ namespace cg::packet::receive
             if (parts.size() != PayloadPartCount || !parts.back().empty()) {
                 return PacketResult<TradePetInfoData>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "TradePetInfo payload 段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradePetInfo payload 段数量不匹配"),
                     DataFieldIndex));
             }
 
@@ -16754,7 +16754,7 @@ namespace cg::packet::receive
             if (text.find('|') != std::string_view::npos) {
                 return PacketResult<std::string>::Failure(MakeFieldError(
                     PacketErrorCode::EncodeFailed,
-                    "TradePetInfo raw 字符串包含 literal |",
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradePetInfo raw 字符串包含 literal |"),
                     fieldIndex));
             }
 
@@ -16766,7 +16766,7 @@ namespace cg::packet::receive
                 if (index + 1U >= text.size()) {
                     return PacketResult<std::string>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "TradePetInfo raw 字符串旧双字节字符被截断",
+                        CG_PACKET_DIAGNOSTIC_TEXT("TradePetInfo raw 字符串旧双字节字符被截断"),
                         fieldIndex));
                 }
                 ++index;
@@ -16787,7 +16787,7 @@ namespace cg::packet::receive
             if (index == text.size()) {
                 return PacketResult<int>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "TradePetInfo 十进制字段为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradePetInfo 十进制字段为空"),
                     fieldIndex));
             }
 
@@ -16801,7 +16801,7 @@ namespace cg::packet::receive
                 if (ch < '0' || ch > '9') {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "TradePetInfo 十进制字段包含非法字符",
+                        CG_PACKET_DIAGNOSTIC_TEXT("TradePetInfo 十进制字段包含非法字符"),
                         fieldIndex));
                 }
 
@@ -16809,7 +16809,7 @@ namespace cg::packet::receive
                 if (value > (limit - digit) / 10) {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "TradePetInfo 十进制字段超出 int 范围",
+                        CG_PACKET_DIAGNOSTIC_TEXT("TradePetInfo 十进制字段超出 int 范围"),
                         fieldIndex));
                 }
 
@@ -16833,8 +16833,8 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "Yq";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
-            {"petIndex", PacketFieldType::Int62},
-            {"data", PacketFieldType::SubPayload},
+            {CG_PACKET_DIAGNOSTIC_TEXT("petIndex"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::SubPayload},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -16861,7 +16861,7 @@ namespace cg::packet::receive
             if (skillNameRaws.size() > MaxSkillCount) {
                 return PacketResult<std::string>::Failure(MakeFieldError(
                     PacketErrorCode::EncodeFailed,
-                    "TradePetSkillInfo BuildData 技能名超过 10 条",
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradePetSkillInfo BuildData 技能名超过 10 条"),
                     DataFieldIndex));
             }
 
@@ -16888,12 +16888,12 @@ namespace cg::packet::receive
 
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "petIndex",
+                CG_PACKET_DIAGNOSTIC_TEXT("petIndex"),
                 PacketFieldType::Int62,
                 std::to_string(petIndex),
             });
             packet.fields.push_back(PacketField {
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
                 PacketFieldType::EscapedString,
                 payload.Value(),
             });
@@ -16915,7 +16915,7 @@ namespace cg::packet::receive
             if (packet.code.View() != Code) {
                 PacketError error = MakePacketError(
                     PacketErrorCode::InvalidCode,
-                    "TradePetSkillInfo Parse 收到非 Yq 封包");
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradePetSkillInfo Parse 收到非 Yq 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<TradePetSkillInfo>::Failure(std::move(error));
             }
@@ -16923,19 +16923,19 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<TradePetSkillInfo>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "TradePetSkillInfo Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradePetSkillInfo Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<TradePetSkillInfo>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "TradePetSkillInfo Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradePetSkillInfo Parse 字段数量不匹配"),
                     packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
             }
 
             const std::array<std::string_view, FieldCount> fieldNames = {
-                "petIndex",
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("petIndex"),
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
             };
             const std::array<PacketFieldType, FieldCount> fieldTypes = {
                 PacketFieldType::Int62,
@@ -16943,17 +16943,17 @@ namespace cg::packet::receive
             };
 
             for (std::size_t index = 0; index < FieldCount; ++index) {
-                if (packet.fields[index].name != fieldNames[index]) {
+                if (!CG_PACKET_FIELD_NAME_MATCHES(packet.fields[index].name, fieldNames[index])) {
                     return PacketResult<TradePetSkillInfo>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "TradePetSkillInfo Parse 字段名不匹配",
+                        CG_PACKET_DIAGNOSTIC_TEXT("TradePetSkillInfo Parse 字段名不匹配"),
                         index));
                 }
 
                 if (packet.fields[index].type != fieldTypes[index]) {
                     return PacketResult<TradePetSkillInfo>::Failure(MakeFieldError(
                         PacketErrorCode::InvalidFieldType,
-                        "TradePetSkillInfo Parse 字段类型不匹配",
+                        CG_PACKET_DIAGNOSTIC_TEXT("TradePetSkillInfo Parse 字段类型不匹配"),
                         index));
                 }
             }
@@ -16980,7 +16980,7 @@ namespace cg::packet::receive
         static constexpr std::size_t PetIndexFieldIndex = 0U;
         static constexpr std::size_t DataFieldIndex = 1U;
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -16989,7 +16989,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -17006,7 +17006,7 @@ namespace cg::packet::receive
             if (payload.back() != '|') {
                 return PacketResult<std::vector<std::string>>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "TradePetSkillInfo payload 缺少尾随分隔符",
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradePetSkillInfo payload 缺少尾随分隔符"),
                     DataFieldIndex));
             }
 
@@ -17023,7 +17023,7 @@ namespace cg::packet::receive
             if (skillNameRaws.size() > MaxSkillCount) {
                 return PacketResult<std::vector<std::string>>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "TradePetSkillInfo payload 技能名超过 10 条",
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradePetSkillInfo payload 技能名超过 10 条"),
                     DataFieldIndex));
             }
 
@@ -17044,7 +17044,7 @@ namespace cg::packet::receive
             if (text.find('|') != std::string_view::npos) {
                 return PacketResult<std::string>::Failure(MakeFieldError(
                     PacketErrorCode::EncodeFailed,
-                    "TradePetSkillInfo raw 字符串包含 literal |",
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradePetSkillInfo raw 字符串包含 literal |"),
                     fieldIndex));
             }
 
@@ -17056,7 +17056,7 @@ namespace cg::packet::receive
                 if (index + 1U >= text.size()) {
                     return PacketResult<std::string>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "TradePetSkillInfo raw 字符串旧双字节字符被截断",
+                        CG_PACKET_DIAGNOSTIC_TEXT("TradePetSkillInfo raw 字符串旧双字节字符被截断"),
                         fieldIndex));
                 }
                 ++index;
@@ -17077,7 +17077,7 @@ namespace cg::packet::receive
             if (index == text.size()) {
                 return PacketResult<int>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "TradePetSkillInfo i62 字段为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradePetSkillInfo i62 字段为空"),
                     fieldIndex));
             }
 
@@ -17091,7 +17091,7 @@ namespace cg::packet::receive
                 if (ch < '0' || ch > '9') {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "TradePetSkillInfo i62 字段包含非十进制字符",
+                        CG_PACKET_DIAGNOSTIC_TEXT("TradePetSkillInfo i62 字段包含非十进制字符"),
                         fieldIndex));
                 }
 
@@ -17099,7 +17099,7 @@ namespace cg::packet::receive
                 if (value > (limit - digit) / 10) {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "TradePetSkillInfo i62 字段超出 int 范围",
+                        CG_PACKET_DIAGNOSTIC_TEXT("TradePetSkillInfo i62 字段超出 int 范围"),
                         fieldIndex));
                 }
 
@@ -17129,7 +17129,7 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "PhdQ";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
-            {"data", PacketFieldType::SubPayload},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::SubPayload},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -17155,7 +17155,7 @@ namespace cg::packet::receive
             if (records.size() > MaxRecordCount) {
                 return PacketResult<std::string>::Failure(MakeFieldError(
                     PacketErrorCode::EncodeFailed,
-                    "AddressBookGuildInfo BuildData 记录数超过上限",
+                    CG_PACKET_DIAGNOSTIC_TEXT("AddressBookGuildInfo BuildData 记录数超过上限"),
                     DataFieldIndex));
             }
 
@@ -17178,7 +17178,7 @@ namespace cg::packet::receive
 
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
                 PacketFieldType::EscapedString,
                 data.Value(),
             });
@@ -17196,7 +17196,7 @@ namespace cg::packet::receive
             if (packet.code.View() != Code) {
                 PacketError error = MakePacketError(
                     PacketErrorCode::InvalidCode,
-                    "AddressBookGuildInfo Parse 收到非 PhdQ 封包");
+                    CG_PACKET_DIAGNOSTIC_TEXT("AddressBookGuildInfo Parse 收到非 PhdQ 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<AddressBookGuildInfo>::Failure(std::move(error));
             }
@@ -17204,28 +17204,28 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<AddressBookGuildInfo>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "AddressBookGuildInfo Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("AddressBookGuildInfo Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<AddressBookGuildInfo>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "AddressBookGuildInfo Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("AddressBookGuildInfo Parse 字段数量不匹配"),
                     packet.fields.empty() ? 0U : FieldCount));
             }
 
             const PacketField& field = packet.fields[DataFieldIndex];
-            if (field.name != "data") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(field.name, CG_PACKET_DIAGNOSTIC_TEXT("data"))) {
                 return PacketResult<AddressBookGuildInfo>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "AddressBookGuildInfo Parse 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("AddressBookGuildInfo Parse 字段名不匹配"),
                     DataFieldIndex));
             }
 
             if (field.type != PacketFieldType::EscapedString) {
                 return PacketResult<AddressBookGuildInfo>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "AddressBookGuildInfo Parse 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("AddressBookGuildInfo Parse 字段类型不匹配"),
                     DataFieldIndex));
             }
 
@@ -17236,7 +17236,7 @@ namespace cg::packet::receive
         static constexpr std::size_t FieldCount = 1U;
         static constexpr std::size_t DataFieldIndex = 0U;
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -17245,7 +17245,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -17271,7 +17271,7 @@ namespace cg::packet::receive
             if ((parts.size() % RecordFieldCount) != 0U) {
                 return PacketResult<AddressBookGuildInfo>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "AddressBookGuildInfo payload 段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("AddressBookGuildInfo payload 段数量不匹配"),
                     DataFieldIndex));
             }
 
@@ -17279,7 +17279,7 @@ namespace cg::packet::receive
             if (recordCount > MaxRecordCount) {
                 return PacketResult<AddressBookGuildInfo>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "AddressBookGuildInfo payload 记录数超过上限",
+                    CG_PACKET_DIAGNOSTIC_TEXT("AddressBookGuildInfo payload 记录数超过上限"),
                     DataFieldIndex));
             }
 
@@ -17316,7 +17316,7 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "nsY";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
-            {"data", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -17369,7 +17369,7 @@ namespace cg::packet::receive
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
                 PacketFieldType::EscapedString,
                 BuildData(),
             });
@@ -17385,34 +17385,34 @@ namespace cg::packet::receive
 
             const Packet& packet = parsed.Value();
             if (packet.code.View() != Code) {
-                PacketError error = PacketError::Make(PacketErrorCode::InvalidCode, "ObjectList Parse 收到非 nsY 封包");
+                PacketError error = PacketError::Make(PacketErrorCode::InvalidCode, CG_PACKET_DIAGNOSTIC_TEXT("ObjectList Parse 收到非 nsY 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<ObjectList>::Failure(std::move(error));
             }
 
             if (packet.direction != Direction) {
-                PacketError error = PacketError::Make(PacketErrorCode::DecodeFailed, "ObjectList Parse 封包方向不匹配");
+                PacketError error = PacketError::Make(PacketErrorCode::DecodeFailed, CG_PACKET_DIAGNOSTIC_TEXT("ObjectList Parse 封包方向不匹配"));
                 error.packetCode = PacketCode(Code);
                 return PacketResult<ObjectList>::Failure(std::move(error));
             }
 
             if (packet.fields.size() != 1U) {
-                PacketError error = PacketError::Make(PacketErrorCode::FieldCountMismatch, "ObjectList Parse 字段数量不匹配");
+                PacketError error = PacketError::Make(PacketErrorCode::FieldCountMismatch, CG_PACKET_DIAGNOSTIC_TEXT("ObjectList Parse 字段数量不匹配"));
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = packet.fields.empty() ? 0U : 1U;
                 return PacketResult<ObjectList>::Failure(std::move(error));
             }
 
             const PacketField& field = packet.fields.front();
-            if (field.name != "data") {
-                PacketError error = PacketError::Make(PacketErrorCode::DecodeFailed, "ObjectList Parse 字段名不匹配");
+            if (!CG_PACKET_FIELD_NAME_MATCHES(field.name, CG_PACKET_DIAGNOSTIC_TEXT("data"))) {
+                PacketError error = PacketError::Make(PacketErrorCode::DecodeFailed, CG_PACKET_DIAGNOSTIC_TEXT("ObjectList Parse 字段名不匹配"));
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = 0U;
                 return PacketResult<ObjectList>::Failure(std::move(error));
             }
 
             if (field.type != PacketFieldType::EscapedString) {
-                PacketError error = PacketError::Make(PacketErrorCode::InvalidFieldType, "ObjectList Parse 字段类型不匹配");
+                PacketError error = PacketError::Make(PacketErrorCode::InvalidFieldType, CG_PACKET_DIAGNOSTIC_TEXT("ObjectList Parse 字段类型不匹配"));
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = 0U;
                 return PacketResult<ObjectList>::Failure(std::move(error));
@@ -17439,7 +17439,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakePayloadError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t recordIndex)
         {
             PacketError error = PacketError::Make(code, std::move(message));
@@ -17468,7 +17468,7 @@ namespace cg::packet::receive
                 if (!IsKnownRecordFieldCount(fields.Value().size())) {
                     return PacketResult<std::vector<ObjectListRecord>>::Failure(MakePayloadError(
                         PacketErrorCode::FieldCountMismatch,
-                        "ObjectList record 字段数量不匹配",
+                        CG_PACKET_DIAGNOSTIC_TEXT("ObjectList record 字段数量不匹配"),
                         recordIndex));
                 }
 
@@ -17508,7 +17508,7 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "NI";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
-            {"data", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -17561,7 +17561,7 @@ namespace cg::packet::receive
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
                 PacketFieldType::EscapedString,
                 BuildData(),
             });
@@ -17577,34 +17577,34 @@ namespace cg::packet::receive
 
             const Packet& packet = parsed.Value();
             if (packet.code.View() != Code) {
-                PacketError error = PacketError::Make(PacketErrorCode::InvalidCode, "CharacterIcon Parse 收到非 NI 封包");
+                PacketError error = PacketError::Make(PacketErrorCode::InvalidCode, CG_PACKET_DIAGNOSTIC_TEXT("CharacterIcon Parse 收到非 NI 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<CharacterIcon>::Failure(std::move(error));
             }
 
             if (packet.direction != Direction) {
-                PacketError error = PacketError::Make(PacketErrorCode::DecodeFailed, "CharacterIcon Parse 封包方向不匹配");
+                PacketError error = PacketError::Make(PacketErrorCode::DecodeFailed, CG_PACKET_DIAGNOSTIC_TEXT("CharacterIcon Parse 封包方向不匹配"));
                 error.packetCode = PacketCode(Code);
                 return PacketResult<CharacterIcon>::Failure(std::move(error));
             }
 
             if (packet.fields.size() != 1U) {
-                PacketError error = PacketError::Make(PacketErrorCode::FieldCountMismatch, "CharacterIcon Parse 字段数量不匹配");
+                PacketError error = PacketError::Make(PacketErrorCode::FieldCountMismatch, CG_PACKET_DIAGNOSTIC_TEXT("CharacterIcon Parse 字段数量不匹配"));
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = packet.fields.empty() ? 0U : 1U;
                 return PacketResult<CharacterIcon>::Failure(std::move(error));
             }
 
             const PacketField& field = packet.fields.front();
-            if (field.name != "data") {
-                PacketError error = PacketError::Make(PacketErrorCode::DecodeFailed, "CharacterIcon Parse 字段名不匹配");
+            if (!CG_PACKET_FIELD_NAME_MATCHES(field.name, CG_PACKET_DIAGNOSTIC_TEXT("data"))) {
+                PacketError error = PacketError::Make(PacketErrorCode::DecodeFailed, CG_PACKET_DIAGNOSTIC_TEXT("CharacterIcon Parse 字段名不匹配"));
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = 0U;
                 return PacketResult<CharacterIcon>::Failure(std::move(error));
             }
 
             if (field.type != PacketFieldType::EscapedString) {
-                PacketError error = PacketError::Make(PacketErrorCode::InvalidFieldType, "CharacterIcon Parse 字段类型不匹配");
+                PacketError error = PacketError::Make(PacketErrorCode::InvalidFieldType, CG_PACKET_DIAGNOSTIC_TEXT("CharacterIcon Parse 字段类型不匹配"));
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = 0U;
                 return PacketResult<CharacterIcon>::Failure(std::move(error));
@@ -17626,7 +17626,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakePayloadError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t entryIndex)
         {
             PacketError error = PacketError::Make(code, std::move(message));
@@ -17655,7 +17655,7 @@ namespace cg::packet::receive
                 if (!IsKnownEntryFieldCount(fields.Value().size())) {
                     return PacketResult<std::vector<CharacterIconEntry>>::Failure(MakePayloadError(
                         PacketErrorCode::FieldCountMismatch,
-                        "CharacterIcon payload entry 字段数量不匹配",
+                        CG_PACKET_DIAGNOSTIC_TEXT("CharacterIcon payload entry 字段数量不匹配"),
                         entryIndex));
                 }
 
@@ -17682,7 +17682,7 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "uSB";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
-            {"data", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -17722,7 +17722,7 @@ namespace cg::packet::receive
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
                 PacketFieldType::EscapedString,
                 BuildData(),
             });
@@ -17738,7 +17738,7 @@ namespace cg::packet::receive
 
             const Packet& packet = parsed.Value();
             if (packet.code.View() != Code) {
-                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "ObjectDelete Parse 收到非 uSB 封包");
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, CG_PACKET_DIAGNOSTIC_TEXT("ObjectDelete Parse 收到非 uSB 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<ObjectDelete>::Failure(std::move(error));
             }
@@ -17746,28 +17746,28 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<ObjectDelete>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "ObjectDelete Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("ObjectDelete Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<ObjectDelete>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "ObjectDelete Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ObjectDelete Parse 字段数量不匹配"),
                     packet.fields.empty() ? 0U : FieldCount));
             }
 
             const PacketField& field = packet.fields[DataFieldIndex];
-            if (field.name != "data") {
+            if (!CG_PACKET_FIELD_NAME_MATCHES(field.name, CG_PACKET_DIAGNOSTIC_TEXT("data"))) {
                 return PacketResult<ObjectDelete>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "ObjectDelete Parse 字段名不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ObjectDelete Parse 字段名不匹配"),
                     DataFieldIndex));
             }
 
             if (field.type != PacketFieldType::EscapedString) {
                 return PacketResult<ObjectDelete>::Failure(MakeFieldError(
                     PacketErrorCode::InvalidFieldType,
-                    "ObjectDelete Parse 字段类型不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("ObjectDelete Parse 字段类型不匹配"),
                     DataFieldIndex));
             }
 
@@ -17783,7 +17783,7 @@ namespace cg::packet::receive
         static constexpr std::size_t FieldCount = 1U;
         static constexpr std::size_t DataFieldIndex = 0U;
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -17792,7 +17792,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -17820,7 +17820,7 @@ namespace cg::packet::receive
                 if (parts.Value()[index].empty()) {
                     return PacketResult<std::vector<int>>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "ObjectDelete payload objectIndex 为空",
+                        CG_PACKET_DIAGNOSTIC_TEXT("ObjectDelete payload objectIndex 为空"),
                         index));
                 }
 
@@ -17847,13 +17847,13 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "aBS";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 7U> Fields = {{
-            {"mapid", PacketFieldType::Int62},
-            {"floor", PacketFieldType::Int62},
-            {"x1", PacketFieldType::Int62},
-            {"y1", PacketFieldType::Int62},
-            {"x2", PacketFieldType::Int62},
-            {"y2", PacketFieldType::Int62},
-            {"data", PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("mapid"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("floor"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("x1"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("y1"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("x2"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("y2"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -17918,37 +17918,37 @@ namespace cg::packet::receive
         {
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
-                "mapid",
+                CG_PACKET_DIAGNOSTIC_TEXT("mapid"),
                 PacketFieldType::Int62,
                 std::to_string(mapId),
             });
             packet.fields.push_back(PacketField {
-                "floor",
+                CG_PACKET_DIAGNOSTIC_TEXT("floor"),
                 PacketFieldType::Int62,
                 std::to_string(floor),
             });
             packet.fields.push_back(PacketField {
-                "x1",
+                CG_PACKET_DIAGNOSTIC_TEXT("x1"),
                 PacketFieldType::Int62,
                 std::to_string(x1),
             });
             packet.fields.push_back(PacketField {
-                "y1",
+                CG_PACKET_DIAGNOSTIC_TEXT("y1"),
                 PacketFieldType::Int62,
                 std::to_string(y1),
             });
             packet.fields.push_back(PacketField {
-                "x2",
+                CG_PACKET_DIAGNOSTIC_TEXT("x2"),
                 PacketFieldType::Int62,
                 std::to_string(x2),
             });
             packet.fields.push_back(PacketField {
-                "y2",
+                CG_PACKET_DIAGNOSTIC_TEXT("y2"),
                 PacketFieldType::Int62,
                 std::to_string(y2),
             });
             packet.fields.push_back(PacketField {
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
                 PacketFieldType::EscapedString,
                 BuildData(),
             });
@@ -17964,7 +17964,7 @@ namespace cg::packet::receive
 
             const Packet& packet = parsed.Value();
             if (packet.code.View() != Code) {
-                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "MapData Parse 收到非 aBS 封包");
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, CG_PACKET_DIAGNOSTIC_TEXT("MapData Parse 收到非 aBS 封包"));
                 error.packetCode = packet.code;
                 return PacketResult<MapData>::Failure(std::move(error));
             }
@@ -17972,24 +17972,24 @@ namespace cg::packet::receive
             if (packet.direction != Direction) {
                 return PacketResult<MapData>::Failure(MakePacketError(
                     PacketErrorCode::DecodeFailed,
-                    "MapData Parse 封包方向不匹配"));
+                    CG_PACKET_DIAGNOSTIC_TEXT("MapData Parse 封包方向不匹配")));
             }
 
             if (packet.fields.size() != FieldCount) {
                 return PacketResult<MapData>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "MapData Parse 字段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("MapData Parse 字段数量不匹配"),
                     packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
             }
 
             const std::array<std::string_view, FieldCount> fieldNames = {
-                "mapid",
-                "floor",
-                "x1",
-                "y1",
-                "x2",
-                "y2",
-                "data",
+                CG_PACKET_DIAGNOSTIC_TEXT("mapid"),
+                CG_PACKET_DIAGNOSTIC_TEXT("floor"),
+                CG_PACKET_DIAGNOSTIC_TEXT("x1"),
+                CG_PACKET_DIAGNOSTIC_TEXT("y1"),
+                CG_PACKET_DIAGNOSTIC_TEXT("x2"),
+                CG_PACKET_DIAGNOSTIC_TEXT("y2"),
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
             };
             const std::array<PacketFieldType, FieldCount> fieldTypes = {
                 PacketFieldType::Int62,
@@ -18002,17 +18002,17 @@ namespace cg::packet::receive
             };
 
             for (std::size_t index = 0; index < FieldCount; ++index) {
-                if (packet.fields[index].name != fieldNames[index]) {
+                if (!CG_PACKET_FIELD_NAME_MATCHES(packet.fields[index].name, fieldNames[index])) {
                     return PacketResult<MapData>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "MapData Parse 字段名不匹配",
+                        CG_PACKET_DIAGNOSTIC_TEXT("MapData Parse 字段名不匹配"),
                         index));
                 }
 
                 if (packet.fields[index].type != fieldTypes[index]) {
                     return PacketResult<MapData>::Failure(MakeFieldError(
                         PacketErrorCode::InvalidFieldType,
-                        "MapData Parse 字段类型不匹配",
+                        CG_PACKET_DIAGNOSTIC_TEXT("MapData Parse 字段类型不匹配"),
                         index));
                 }
             }
@@ -18029,13 +18029,13 @@ namespace cg::packet::receive
             if (values[4] < values[2]) {
                 return PacketResult<MapData>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "MapData Parse x2 小于 x1",
+                    CG_PACKET_DIAGNOSTIC_TEXT("MapData Parse x2 小于 x1"),
                     4U));
             }
             if (values[5] < values[3]) {
                 return PacketResult<MapData>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "MapData Parse y2 小于 y1",
+                    CG_PACKET_DIAGNOSTIC_TEXT("MapData Parse y2 小于 y1"),
                     5U));
             }
 
@@ -18046,7 +18046,7 @@ namespace cg::packet::receive
             if (height != 0U && width > (std::numeric_limits<std::size_t>::max() / height)) {
                 return PacketResult<MapData>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "MapData Parse 面积溢出",
+                    CG_PACKET_DIAGNOSTIC_TEXT("MapData Parse 面积溢出"),
                     DataFieldIndex));
             }
             const std::size_t area = width * height;
@@ -18076,7 +18076,7 @@ namespace cg::packet::receive
             if (layers.Value().size() != 3U) {
                 return PacketResult<MapData>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "MapData payload 段数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("MapData payload 段数量不匹配"),
                     DataFieldIndex));
             }
 
@@ -18111,7 +18111,7 @@ namespace cg::packet::receive
         static constexpr std::size_t FieldCount = 7U;
         static constexpr std::size_t DataFieldIndex = 6U;
 
-        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
             error.packetCode = PacketCode(Code);
@@ -18120,7 +18120,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketError MakeFieldError(
             PacketErrorCode code,
-            std::string message,
+            std::string_view message,
             std::size_t fieldIndex)
         {
             PacketError error = MakePacketError(code, std::move(message));
@@ -18140,7 +18140,7 @@ namespace cg::packet::receive
             if (index == text.size()) {
                 return PacketResult<int>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    "MapData Parse i62 字段为空",
+                    CG_PACKET_DIAGNOSTIC_TEXT("MapData Parse i62 字段为空"),
                     fieldIndex));
             }
 
@@ -18154,7 +18154,7 @@ namespace cg::packet::receive
                 if (ch < '0' || ch > '9') {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "MapData Parse i62 字段包含非十进制字符",
+                        CG_PACKET_DIAGNOSTIC_TEXT("MapData Parse i62 字段包含非十进制字符"),
                         fieldIndex));
                 }
 
@@ -18162,7 +18162,7 @@ namespace cg::packet::receive
                 if (value > (limit - digit) / 10) {
                     return PacketResult<int>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "MapData Parse i62 字段超出 int 范围",
+                        CG_PACKET_DIAGNOSTIC_TEXT("MapData Parse i62 字段超出 int 范围"),
                         fieldIndex));
                 }
 
@@ -18196,7 +18196,7 @@ namespace cg::packet::receive
             if (cells.Value().size() != area) {
                 return PacketResult<std::vector<int>>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    "MapData payload 单层元素数量不匹配",
+                    CG_PACKET_DIAGNOSTIC_TEXT("MapData payload 单层元素数量不匹配"),
                     DataFieldIndex));
             }
 
@@ -18211,7 +18211,7 @@ namespace cg::packet::receive
 
                     return PacketResult<std::vector<int>>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
-                        "MapData tileData 空字段非法",
+                        CG_PACKET_DIAGNOSTIC_TEXT("MapData tileData 空字段非法"),
                         DataFieldIndex));
                 }
 

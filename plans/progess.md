@@ -334,3 +334,13 @@
 | 2026-06-02 | M6.13.09 发送聊天 uSr 测试接入 | 新增 `cg-packet-chat-message-send-test`，覆盖 `P|hello` 样例、空 msg、普通 es 转义 roundtrip、`|` 原样且不校验 marker、缺/多字段、每个 i62 字段非法输入、非法 es、手工 Packet 方向/字段名/字段类型错误；CMake 接入测试目标与编译选项 | 待验证：`git diff --check`、VS bundled CMake configure、Debug 构建新增目标、运行测试 exe、Debug schema 覆盖测试、CTest Debug `^cg-packet-` | 不扩展其他协议；测试只确认外层格式与普通 es 行为 |
 
 | 2026-06-02 | M6.13.09 发送聊天 uSr 验证 | 复跑格式检查、VS bundled CMake configure、Debug 新增目标与 schema 覆盖测试构建、运行新增测试 exe、运行 schema 覆盖测试、packet CTest | `git diff --check` 通过，仅 LF/CRLF 提示；VS bundled CMake configure 通过；Debug 构建并运行 `cg-packet-chat-message-send-test` 通过；Debug `cg-packet-coverage-schema-test` 通过；CTest Debug `^cg-packet-` 65/65 通过 | 不扩展其他协议；`msg` 仍为普通外层 es；未添加 `P|`、坐标、颜色、area、fontSize 业务校验 |
+
+| 2026-06-02 | M6.13.10 打开窗口 xD 启动 | 确认范围仅 `xD` / `RECV_WN`；按任务事实实现客户端到服务端 `{x:i62} {y:i62} {seqno:i62} {objindex:i62} {select:i62} {data:es}`，`data` 为普通外层 es，允许空值且不拆窗口类型或内部 payload | 待验证：`git diff --check`、VS bundled CMake configure、Debug 构建新增 `cg-packet-window-open-send-test`、运行测试 exe、Debug schema 覆盖测试、CTest Debug `^cg-packet-` | 不扩展其他协议；不校验 seqno/objindex/select 范围或窗口枚举；当前环境未提供可调用 subAgent/线程工具，按单线程推进 |
+
+| 2026-06-02 | M6.13.10 打开窗口 xD send/registry | 新增 `send::WindowOpenSend`，注册 `xD {x:i62} {y:i62} {seqno:i62} {objindex:i62} {select:i62} {data:es}`；`data` 仅作为普通外层 es 保存 | 待验证：新增测试、CMake 接入、schema 更新、`git diff --check`、VS bundled CMake configure/build/test、CTest Debug `^cg-packet-` | 不扩展其他协议；不拆 `data`；不添加窗口枚举或范围校验 |
+
+| 2026-06-02 | M6.13.10 打开窗口 xD 测试接入 | 新增 `cg-packet-window-open-send-test`，覆盖 ToPacket/Encode、ParsePacket roundtrip、空 `data`、空格/反斜杠/换行/`|`、缺/多字段、各 i62 非法、非法 es 和手工 Packet 方向/字段名/字段类型错误；CMake 接入测试目标与编译选项 | 待验证：schema 更新、`git diff --check`、VS bundled CMake configure/build/test、CTest Debug `^cg-packet-` | 测试只确认普通外层 es 行为；不拆窗口数据 |
+
+| 2026-06-02 | M6.13.10 打开窗口 xD schema/清单 | schema 补 resolved `{x:i62} {y:i62} {seqno:i62} {objindex:i62} {select:i62} {data:es}` 与来源 `xlsx+ServerC+ClientIda+src`；M6 清单标记完成并注明无二级 payload | 待验证：`git diff --check`、VS bundled CMake configure、Debug 新增目标与 schema 覆盖测试构建、运行新增测试 exe、packet CTest | 不改变 raw xlsx 字段；不扩展相邻协议 |
+
+| 2026-06-02 | M6.13.10 打开窗口 xD 验证 | 复跑格式检查、VS bundled CMake configure、Debug 新增目标与 schema 覆盖测试构建、运行新增测试 exe、运行 schema 覆盖测试、packet CTest | `git diff --check` 通过，仅 LF/CRLF 提示；VS bundled CMake configure 通过；Debug 构建并运行 `cg-packet-window-open-send-test` 通过；Debug `cg-packet-coverage-schema-test` 通过；CTest Debug `^cg-packet-` 66/66 通过 | 不扩展其他协议；`data` 仍为普通外层 es；未添加业务范围或枚举校验 |

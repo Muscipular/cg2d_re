@@ -533,6 +533,79 @@ namespace cg::packet::send
     };
 
     /**
+     * RECV_WN 打开系统窗口 xD {x:i62} {y:i62} {seqno:i62} {objindex:i62} {select:i62} {data:es}
+     */
+    struct WindowOpenSend
+    {
+        static constexpr std::string_view Code = "xD";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+
+        int x = 0;
+        int y = 0;
+        int seqno = 0;
+        int objindex = 0;
+        int select = 0;
+        std::string data;
+
+        WindowOpenSend(int x, int y, int seqno, int objindex, int select, std::string data)
+            : x(x),
+              y(y),
+              seqno(seqno),
+              objindex(objindex),
+              select(select),
+              data(std::move(data))
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            packet.fields.push_back(PacketField {
+                "x",
+                PacketFieldType::Int62,
+                std::to_string(x),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "y",
+                PacketFieldType::Int62,
+                std::to_string(y),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "seqno",
+                PacketFieldType::Int62,
+                std::to_string(seqno),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "objindex",
+                PacketFieldType::Int62,
+                std::to_string(objindex),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "select",
+                PacketFieldType::Int62,
+                std::to_string(select),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "data",
+                PacketFieldType::EscapedString,
+                data,
+                PacketSourceTag::Xlsx,
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket());
+        }
+    };
+
+    /**
      * RECV_PMSG 发送宠邮 rMsv {index:i62} {petindex:i62} {itemindex:i62} {message:es} {color:i62}
      */
     struct PetMailSend

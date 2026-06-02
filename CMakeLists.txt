@@ -622,6 +622,17 @@ target_include_directories(cg-packet-chat-message-send-test
 
 add_test(NAME cg-packet-chat-message-send-test COMMAND cg-packet-chat-message-send-test)
 
+add_executable(cg-packet-window-open-send-test
+    tests/packet/WindowOpenSendPacketTest.cpp
+)
+
+target_include_directories(cg-packet-window-open-send-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+
+add_test(NAME cg-packet-window-open-send-test COMMAND cg-packet-window-open-send-test)
+
 add_executable(cg-packet-pet-mail-send-test
     tests/packet/PetMailSendPacketTest.cpp
 )
@@ -968,6 +979,7 @@ if(MSVC)
     target_compile_options(cg-packet-pet-mail-animation-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-mail-message-send-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-chat-message-send-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-window-open-send-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-pet-mail-send-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-pet-mail-register-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-profile-mail-delete-test PRIVATE /W4 /utf-8 /permissive-)
@@ -1040,6 +1052,7 @@ else()
     target_compile_options(cg-packet-pet-mail-animation-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-mail-message-send-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-chat-message-send-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-packet-window-open-send-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-pet-mail-send-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-pet-mail-register-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-profile-mail-delete-test PRIVATE -Wall -Wextra -Wpedantic)

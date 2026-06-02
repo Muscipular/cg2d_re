@@ -126,7 +126,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | M6.13.07 聊天/窗口/系统封包-ft | `ft` | 服务端->客户端 | 否 | 完成 | SEND_StallBrowse；xlsx raw `{result} {name} {description} {item} {pet}` 少 `objIndex`，按旧 C/IDA 修正为 `{result:i62} {objIndex:i62} {name:es} {description:es} {item:es} {pet:es}`；item/pet 为 raw payload，不拆内部 `|` 字段 |
 | M6.13.08 聊天/窗口/系统封包-CV | `CV` | 客户端->服务端 | 否 | 完成 | RECV_MSG 发送邮件信息 触发SEND_MSG；外层 `{index:i62} {message:es} {color:i62}`；无二级 payload，`message` 为普通外层 es，允许空文本且不拆 `|` |
 | M6.13.09 聊天/窗口/系统封包-uSr | `uSr` | 客户端->服务端 | 否 | 完成 | RECV_TK 发送聊天；外层 `{x:i62} {y:i62} {msg:es} {color:i62} {area:i62} {fontSize:i62}`；无二级 payload，`msg` 为普通外层 es，允许空值且不拆 `P|text` |
-| M6.13.10 聊天/窗口/系统封包-xD | `xD` | 客户端->服务端 | 否 | 未开始 | RECV_WN 打开系统窗口 |
+| M6.13.10 聊天/窗口/系统封包-xD | `xD` | 客户端->服务端 | 否 | 完成 | RECV_WN 打开系统窗口；外层 `{x:i62} {y:i62} {seqno:i62} {objindex:i62} {select:i62} {data:es}`；无二级 payload，`data` 为普通外层 es，允许空值且不拆窗口类型 |
 | M6.13.11 聊天/窗口/系统封包-IcE | `IcE` | 客户端->服务端 | 是 | 字段待补 | RECV_Shutdown；xlsx 未使用；旧 C 未补；IDA 未找到；禁止猜 0 字段 |
 | M6.14.01 战斗/交易/家族/社交封包-gnxd | `gnxd` | 服务端->客户端 | 否 | 未开始 | SEND_AB SendAddressbook |
 | M6.14.02 战斗/交易/家族/社交封包-PhdQ | `PhdQ` | 服务端->客户端 | 否 | 未开始 | SEND_ABG SendAddressbookGuildInfo |
@@ -392,7 +392,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 186 | `HJQp` | 客户端->服务端 | 完成 | RECV_PSSW SKILL_swapPetSkill 宠物技能移动；xlsx rawFormat `{petSlot} {from} {to}`，IDA `sub_5124E0` 确认三字段为 i62，无 payload | 否 | 否 | xlsx + IDA + src/packet |
 | 187 | `ih` | 客户端->服务端 | 完成 | RECV_POS CHAR_Position 战斗位置 | 否 | 否 | xlsx |
 | 188 | `ycX` | 客户端->服务端 | 完成 | RECV_KN CHAR_inputUserPetName 宠物姓名；外层 `{petSlot:i62} {name:es}`；无二级 payload；来源 xlsx + ServerC + ClientIda | 否 | 否 | xlsx + ServerC + ClientIda + src/packet |
-| 189 | `xD` | 客户端->服务端 | 完成 | RECV_WN 打开系统窗口 | 否 | 是 | xlsx |
+| 189 | `xD` | 客户端->服务端 | 完成 | RECV_WN 打开系统窗口；外层 `{x:i62} {y:i62} {seqno:i62} {objindex:i62} {select:i62} {data:es}`；无二级 payload；来源 xlsx + ServerC + ClientIda | 否 | 是 | xlsx + ServerC + ClientIda + src/packet |
 | 190 | `cZt` | 客户端->服务端 | 完成 | RECV_SP 离队时发送 | 否 | 否 | xlsx |
 | 191 | `aSEl` | 客户端->服务端 | 完成 | RECV_CreateNewChar 创建角色 | 否 | 是 | xlsx |
 | 192 | `Godf` | 客户端->服务端 | 完成 | RECV_CharDelete 删除角色 | 否 | 否 | xlsx |

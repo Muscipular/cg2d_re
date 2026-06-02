@@ -10463,6 +10463,202 @@ namespace cg::packet::receive
     };
 
     /**
+     * SEND_RD BATTLE_GetDuelPoint		hB {data:es}
+     * data: dpAdd:i62|duelPointNow:i62|，必须保留尾随空段。
+     */
+    struct DuelPoint
+    {
+        static constexpr std::string_view Code = "hB";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::string_view PayloadDelimiter = "|";
+
+        int dpAdd = 0;
+        int duelPointNow = 0;
+
+        DuelPoint(int dpAdd, int duelPointNow)
+            : dpAdd(dpAdd),
+              duelPointNow(duelPointNow)
+        {
+        }
+
+        [[nodiscard]] std::string BuildData() const
+        {
+            const std::array<std::string, PayloadFieldCount> parts = {
+                BuildInt62(dpAdd),
+                BuildInt62(duelPointNow),
+                std::string(),
+            };
+
+            PacketResult<std::string> payload = BuildPayload(
+                std::span<const std::string>(parts.data(), parts.size()),
+                PayloadDelimiter);
+            if (payload.HasValue()) {
+                return payload.Value();
+            }
+            return {};
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ServerC);
+            packet.fields.push_back(PacketField {
+                "data",
+                PacketFieldType::EscapedString,
+                BuildData(),
+                PacketSourceTag::ServerC,
+            });
+            return packet;
+        }
+
+        static PacketResult<DuelPoint> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view);
+            if (!parsed.HasValue()) {
+                return PacketResult<DuelPoint>::Failure(parsed.Error());
+            }
+
+            return FromPacket(parsed.Value());
+        }
+
+        static PacketResult<DuelPoint> FromPacket(const Packet& packet)
+        {
+            if (packet.code.View() != Code) {
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "DuelPoint Parse 收到非 hB 封包");
+                error.packetCode = packet.code;
+                return PacketResult<DuelPoint>::Failure(std::move(error));
+            }
+
+            if (packet.direction != Direction) {
+                return PacketResult<DuelPoint>::Failure(MakePacketError(
+                    PacketErrorCode::DecodeFailed,
+                    "DuelPoint Parse 封包方向不匹配"));
+            }
+
+            if (packet.fields.size() != FieldCount) {
+                return PacketResult<DuelPoint>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "DuelPoint Parse 字段数量不匹配",
+                    packet.fields.empty() ? 0U : FieldCount));
+            }
+
+            const PacketField& field = packet.fields[DataFieldIndex];
+            if (field.name != "data") {
+                return PacketResult<DuelPoint>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "DuelPoint Parse 字段名不匹配",
+                    DataFieldIndex));
+            }
+
+            if (field.type != PacketFieldType::EscapedString) {
+                return PacketResult<DuelPoint>::Failure(MakeFieldError(
+                    PacketErrorCode::InvalidFieldType,
+                    "DuelPoint Parse 字段类型不匹配",
+                    DataFieldIndex));
+            }
+
+            return ParseData(field.value);
+        }
+
+    private:
+        static constexpr std::size_t FieldCount = 1U;
+        static constexpr std::size_t DataFieldIndex = 0U;
+        static constexpr std::size_t PayloadFieldCount = 3U;
+        static constexpr std::size_t DpAddIndex = 0U;
+        static constexpr std::size_t DuelPointNowIndex = 1U;
+        static constexpr std::size_t TailIndex = 2U;
+
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            error.source = PacketSourceTag::ServerC;
+            return error;
+        }
+
+        [[nodiscard]] static PacketError MakeFieldError(
+            PacketErrorCode code,
+            std::string message,
+            std::size_t fieldIndex)
+        {
+            PacketError error = MakePacketError(code, std::move(message));
+            error.fieldIndex = fieldIndex;
+            return error;
+        }
+
+        [[nodiscard]] static std::string BuildInt62(int value)
+        {
+            PacketResult<std::string> encoded = EncodeInt62(value);
+            if (encoded.HasValue()) {
+                return encoded.Value();
+            }
+            return {};
+        }
+
+        [[nodiscard]] static PacketResult<DuelPoint> ParseData(std::string_view payload)
+        {
+            PacketResult<std::vector<std::string>> split = SplitPayload(payload, PayloadDelimiter);
+            if (!split.HasValue()) {
+                PacketError error = split.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = DataFieldIndex;
+                error.source = PacketSourceTag::ServerC;
+                return PacketResult<DuelPoint>::Failure(std::move(error));
+            }
+
+            const std::vector<std::string>& parts = split.Value();
+            if (parts.size() != PayloadFieldCount) {
+                return PacketResult<DuelPoint>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "DuelPoint payload 段数量不匹配",
+                    DataFieldIndex));
+            }
+
+            if (!parts[TailIndex].empty()) {
+                return PacketResult<DuelPoint>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "DuelPoint payload 缺少尾随空段",
+                    DataFieldIndex));
+            }
+
+            PacketResult<int> dpAddValue = ParseInt62PayloadField(parts[DpAddIndex], DpAddIndex);
+            if (!dpAddValue.HasValue()) {
+                return PacketResult<DuelPoint>::Failure(dpAddValue.Error());
+            }
+
+            PacketResult<int> duelPointNowValue =
+                ParseInt62PayloadField(parts[DuelPointNowIndex], DuelPointNowIndex);
+            if (!duelPointNowValue.HasValue()) {
+                return PacketResult<DuelPoint>::Failure(duelPointNowValue.Error());
+            }
+
+            return PacketResult<DuelPoint>::Success(DuelPoint(dpAddValue.Value(), duelPointNowValue.Value()));
+        }
+
+        [[nodiscard]] static PacketResult<int> ParseInt62PayloadField(
+            std::string_view text,
+            std::size_t fieldIndex)
+        {
+            if (text.empty()) {
+                return PacketResult<int>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "DuelPoint payload i62 字段为空",
+                    fieldIndex));
+            }
+
+            PacketResult<int> decoded = DecodeInt62(text);
+            if (!decoded.HasValue()) {
+                PacketError error = decoded.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = fieldIndex;
+                error.source = PacketSourceTag::ServerC;
+                return PacketResult<int>::Failure(std::move(error));
+            }
+
+            return decoded;
+        }
+    };
+
+    /**
      * SEND_B 战斗命令		LYIm {command:es}
      * command 为 opaque 战斗命令串，仅按外层 es 处理。
      */

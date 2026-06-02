@@ -309,6 +309,10 @@ namespace cg::packet
             {"data", PacketFieldType::EscapedString, PacketSourceTag::ClientIda},
         }};
 
+        inline constexpr std::array<PacketFieldSpec, 1> DuelPointFields = {{
+            {"data", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
+        }};
+
         inline constexpr std::array<PacketFieldSpec, 3> ProfileMailMessageFields = {{
             {"aindex", PacketFieldType::Int62, PacketSourceTag::ServerC},
             {"text", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
@@ -386,7 +390,7 @@ namespace cg::packet
             {"y2", PacketFieldType::Int62, PacketSourceTag::Xlsx},
         }};
 
-        inline constexpr std::array<PacketSpec, 64> PacketRegistry = {{
+        inline constexpr std::array<PacketSpec, 65> PacketRegistry = {{
             {
                 "JFVf",
                 PacketDirection::ClientToServer,
@@ -729,6 +733,13 @@ namespace cg::packet
                 PacketSourceTag::ClientIda,
                 BattleRewardFields.data(),
                 BattleRewardFields.size(),
+            },
+            {
+                "hB",
+                PacketDirection::ServerToClient,
+                PacketSourceTag::ServerC,
+                DuelPointFields.data(),
+                DuelPointFields.size(),
             },
             {
                 "LYIm",

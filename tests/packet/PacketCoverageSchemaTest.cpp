@@ -659,6 +659,18 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         failures += Expect(battleRewardSchema->fields.empty(), "Gn raw fields empty");
     }
 
+    const PacketSchema* duelPointSchema = FindPacket(packets, "hB");
+    failures += Expect(duelPointSchema != nullptr, "hB schema exists");
+    if (duelPointSchema != nullptr) {
+        failures += Expect(duelPointSchema->direction == "服务端->客户端", "hB direction");
+        failures += Expect(duelPointSchema->legacyKind == "SEND", "hB legacyKind");
+        failures += Expect(duelPointSchema->rawFormat.empty(), "hB rawFormat empty");
+        failures += Expect(duelPointSchema->formatEmpty, "hB formatEmpty");
+        failures += Expect(duelPointSchema->resolvedFormat == "{data:es}", "hB resolvedFormat");
+        failures += Expect(duelPointSchema->resolvedSource == "ServerC+ClientIda+src", "hB resolvedSource");
+        failures += Expect(duelPointSchema->fields.empty(), "hB raw fields empty");
+    }
+
     const PacketSchema* profileMailMessageSchema = FindPacket(packets, "Mhbt");
     failures += Expect(profileMailMessageSchema != nullptr, "Mhbt schema exists");
     if (profileMailMessageSchema != nullptr) {

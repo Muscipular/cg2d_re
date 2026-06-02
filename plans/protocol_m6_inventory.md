@@ -131,7 +131,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | M6.14.01 战斗/交易/家族/社交封包-gnxd | `gnxd` | 服务端->客户端 | 否 | 完成 | SEND_AB SendAddressbook；外层 `{data:es}`；payload 为固定 60 槽 AddressBook，每槽 `use|charNameRaw|ownTitleRaw|registSeqNumber|level|online|graphicsNo`；空槽 7 段全空，字符串 raw 保留，数值 raw signed decimal |
 | M6.14.02 战斗/交易/家族/社交封包-PhdQ | `PhdQ` | 服务端->客户端 | 否 | 完成 | SEND_ABG SendAddressbookGuildInfo；外层 `{data:es}`；payload 为 0..60 条 AddressBookGuildInfo 记录，每条 `guildNameRaw|guildTitleRaw`；空 data 为空列表，空槽为 `|`，字符串 raw 保留 |
 | M6.14.03 战斗/交易/家族/社交封包-Gn | `Gn` | 服务端->客户端 | 是 | 完成 | SEND_RS 战斗获得物品；外层 `{data:es}`；payload 为 4 actor + 3 item itemGroup + 15 skill，顶层 20 段逗号分隔；actor/skill 经验为 i62，其他数值为 raw signed decimal；item nameRaw 保留 raw escaped；来源 ClientIda+src，旧 C 未取得 |
-| M6.14.04 战斗/交易/家族/社交封包-hB | `hB` | 服务端->客户端 | 是 | 字段待补 | SEND_RD BATTLE_GetDuelPoint |
+| M6.14.04 战斗/交易/家族/社交封包-hB | `hB` | 服务端->客户端 | 是 | 完成 | SEND_RD BATTLE_GetDuelPoint；外层 `{data:es}`；payload 严格 `dpAdd:i62|duelPointNow:i62|` 三段且必须尾随 `|`，前两段支持负数 i62；来源 ServerC+ClientIda+src |
 | M6.14.05 战斗/交易/家族/社交封包-vI | `vI` | 服务端->客户端 | 否 | 未开始 | SEND_ABI ADDRESSBOOK_sendAddressbookTableOne |
 | M6.14.06 战斗/交易/家族/社交封包-aDn | `aDn` | 服务端->客户端 | 否 | 未开始 | SEND_GI guildinfo |
 | M6.14.07 战斗/交易/家族/社交封包-znv | `znv` | 服务端->客户端 | 否 | 未开始 | SEND_GT guildtitle |

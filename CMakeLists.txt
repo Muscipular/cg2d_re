@@ -886,6 +886,17 @@ target_include_directories(cg-packet-battle-reward-test
 
 add_test(NAME cg-packet-battle-reward-test COMMAND cg-packet-battle-reward-test)
 
+add_executable(cg-packet-duel-point-test
+    tests/packet/DuelPointPacketTest.cpp
+)
+
+target_include_directories(cg-packet-duel-point-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+
+add_test(NAME cg-packet-duel-point-test COMMAND cg-packet-duel-point-test)
+
 add_executable(cg-packet-battle-command-test
     tests/packet/BattleCommandPacketTest.cpp
 )
@@ -1036,6 +1047,7 @@ if(MSVC)
     target_compile_options(cg-packet-system-message-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-effect-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-battle-reward-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-duel-point-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-battle-command-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-profile-mail-message-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-chat-message-test PRIVATE /W4 /utf-8 /permissive-)
@@ -1111,6 +1123,7 @@ else()
     target_compile_options(cg-packet-system-message-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-effect-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-battle-reward-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-packet-duel-point-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-battle-command-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-profile-mail-message-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-chat-message-test PRIVATE -Wall -Wextra -Wpedantic)

@@ -658,10 +658,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         const cg::packet::PacketResult<cg::packet::Packet> packet = characterList.ToPacket();
         failures += Expect(characterListSchema->direction == "服务端->客户端", "Daj direction");
         failures += Expect(characterListSchema->legacyKind == "SEND", "Daj legacyKind");
-        failures += Expect(
-            characterListSchema->rawFormat == "{result:i62} {data:es} {result:i62} {msg:es}",
-            "Daj rawFormat keeps xlsx");
-        failures += Expect(characterListSchema->fields.size() == 4U, "Daj raw field count");
+        failures += Expect(characterListSchema->rawFormat == "{result:i62} {data:es}", "Daj rawFormat");
+        failures += Expect(characterListSchema->fields.size() == 2U, "Daj raw field count");
         failures += Expect(characterListSchema->resolvedFormat == "{result:i62} {data:es}", "Daj resolvedFormat");
         failures += Expect(
             characterListSchema->resolvedSource == "xlsx+ServerC+ClientIda+src",

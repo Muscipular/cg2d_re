@@ -402,6 +402,12 @@ namespace cg::packet
             {"data", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
         }};
 
+        inline constexpr std::array<PacketFieldSpec, 3> TradeTakeOutFields = {{
+            {"item", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+            {"pet", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+            {"gold", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+        }};
+
         inline constexpr std::array<PacketFieldSpec, 3> DropGoldFields = {{
             {"x", PacketFieldType::Int62, PacketSourceTag::Xlsx},
             {"y", PacketFieldType::Int62, PacketSourceTag::Xlsx},
@@ -474,7 +480,7 @@ namespace cg::packet
             {"y2", PacketFieldType::Int62, PacketSourceTag::Xlsx},
         }};
 
-        inline constexpr std::array<PacketSpec, 82> PacketRegistry = {{
+        inline constexpr std::array<PacketSpec, 83> PacketRegistry = {{
             {
                 "JFVf",
                 PacketDirection::ClientToServer,
@@ -966,6 +972,13 @@ namespace cg::packet
                 TradePetSkillInfoFields.size(),
             },
             {
+                "aiAb",
+                PacketDirection::ClientToServer,
+                PacketSourceTag::Xlsx,
+                TradeTakeOutFields.data(),
+                TradeTakeOutFields.size(),
+            },
+            {
                 "woz",
                 PacketDirection::ClientToServer,
                 PacketSourceTag::Xlsx,
@@ -1089,6 +1102,13 @@ namespace cg::packet
                 (code == "ms" && fieldName == "name");
         }
 
+        [[nodiscard]] inline bool RequiresNonEmptyInt62(
+            std::string_view code,
+            std::string_view fieldName) noexcept
+        {
+            return code == "aiAb" && fieldName == "gold";
+        }
+
         [[nodiscard]] inline PacketResult<std::string> DecodeNestedPayloadEscapedString(std::string_view text)
         {
             std::string output;
@@ -1195,6 +1215,15 @@ namespace cg::packet
 
             switch (fieldSpec.type) {
             case PacketFieldType::Int62: {
+                if (token.empty() && detail::RequiresNonEmptyInt62(code, fieldSpec.name)) {
+                    PacketError error = detail::MakeParserError(
+                        PacketErrorCode::DecodeFailed,
+                        "i62 字段为空",
+                        fieldSpec.source);
+                    detail::FillErrorContext(error, code, index);
+                    return PacketResult<Packet>::Failure(std::move(error));
+                }
+
                 PacketResult<int> decoded = DecodeInt62(token);
                 if (!decoded.HasValue()) {
                     PacketError error = decoded.Error();

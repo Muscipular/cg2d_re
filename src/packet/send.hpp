@@ -1351,6 +1351,56 @@ namespace cg::packet::send
             return PacketResult<int>::Success(static_cast<int>(value));
         }
     };
+
+    /**
+     * RECV_TROP CHAR_Trade_setTradeList 取出物品 aiAb {item:es} {pet:es} {gold:i62}
+     * item/pet 为普通外层 es；内部 `|` 保持 opaque，不在此处拆解。
+     */
+    struct TradeTakeOut
+    {
+        static constexpr std::string_view Code = "aiAb";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+
+        std::string item;
+        std::string pet;
+        int gold = 0;
+
+        TradeTakeOut(std::string item, std::string pet, int gold)
+            : item(std::move(item)),
+              pet(std::move(pet)),
+              gold(gold)
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            packet.fields.push_back(PacketField {
+                "item",
+                PacketFieldType::EscapedString,
+                item,
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "pet",
+                PacketFieldType::EscapedString,
+                pet,
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "gold",
+                PacketFieldType::Int62,
+                std::to_string(gold),
+                PacketSourceTag::Xlsx,
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket());
+        }
+    };
 }
 
 #endif //CG_ENGINE_SEND_H

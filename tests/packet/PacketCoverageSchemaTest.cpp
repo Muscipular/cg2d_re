@@ -1000,6 +1000,44 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         }
     }
 
+    const PacketSchema* tradeTakeOutSchema = FindPacket(packets, "aiAb");
+    failures += Expect(tradeTakeOutSchema != nullptr, "aiAb schema exists");
+    if (tradeTakeOutSchema != nullptr) {
+        const cg::packet::send::TradeTakeOut tradeTakeOut("8|12", "0|2", 10);
+        const cg::packet::Packet packet = tradeTakeOut.ToPacket();
+        failures += Expect(tradeTakeOutSchema->direction == "客户端->服务端", "aiAb direction");
+        failures += Expect(tradeTakeOutSchema->legacyKind == "RECV", "aiAb legacyKind");
+        failures += Expect(tradeTakeOutSchema->rawFormat == "{item} {pet} {gold}", "aiAb rawFormat");
+        failures += Expect(
+            tradeTakeOutSchema->resolvedFormat == "{item:es} {pet:es} {gold:i62}",
+            "aiAb resolvedFormat");
+        failures += Expect(tradeTakeOutSchema->resolvedSource == "xlsx+src/packet", "aiAb resolvedSource");
+        failures += Expect(tradeTakeOutSchema->fields.size() == 3U, "aiAb raw field count");
+        if (tradeTakeOutSchema->fields.size() == 3U) {
+            failures += Expect(tradeTakeOutSchema->fields[0].name == "item", "aiAb raw field item");
+            failures += Expect(tradeTakeOutSchema->fields[1].name == "pet", "aiAb raw field pet");
+            failures += Expect(tradeTakeOutSchema->fields[2].name == "gold", "aiAb raw field gold");
+            failures += Expect(tradeTakeOutSchema->fields[0].typeToken == "unknown", "aiAb raw item type");
+            failures += Expect(tradeTakeOutSchema->fields[1].typeToken == "unknown", "aiAb raw pet type");
+            failures += Expect(tradeTakeOutSchema->fields[2].typeToken == "unknown", "aiAb raw gold type");
+        }
+        failures += Expect(packet.fields.size() == 3U, "aiAb packet field count");
+        if (packet.fields.size() == 3U) {
+            failures += Expect(packet.fields[0].name == "item", "aiAb packet item field");
+            failures += Expect(
+                packet.fields[0].type == cg::packet::PacketFieldType::EscapedString,
+                "aiAb packet item type");
+            failures += Expect(packet.fields[1].name == "pet", "aiAb packet pet field");
+            failures += Expect(
+                packet.fields[1].type == cg::packet::PacketFieldType::EscapedString,
+                "aiAb packet pet type");
+            failures += Expect(packet.fields[2].name == "gold", "aiAb packet gold field");
+            failures += Expect(
+                packet.fields[2].type == cg::packet::PacketFieldType::Int62,
+                "aiAb packet gold type");
+        }
+    }
+
     const PacketSchema* guildInfoChangeSchema = FindPacket(packets, "Ufm");
     failures += Expect(guildInfoChangeSchema != nullptr, "Ufm schema exists");
     if (guildInfoChangeSchema != nullptr) {

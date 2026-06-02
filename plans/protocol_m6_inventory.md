@@ -150,7 +150,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | M6.14.20 战斗/交易/家族/社交封包-wD | `wD` | 客户端->服务端 | 否 | 完成 | RECV_PRE 删除迷你邮件好友；外层 `{profileIndex:i62} {name:es}`；无二级 payload，`name` 为普通外层 es 且允许空，不拆 `|`；`profileIndex` 仅按 i62，不做范围业务校验 |
 | M6.14.21 战斗/交易/家族/社交封包-GH | `GH` | 客户端->服务端 | 否 | 完成 | RECV_PRM 发送迷你邮件；外层 `{data:es} {color:i62}`；`data` 为 `profileIndex|name|msg|` 且必须尾随 `|`，严格 4 段且第 4 段为空；profileIndex 为 raw signed decimal，name/msg 为 raw 字符串并拒绝 literal `|`/`\z` |
 | M6.14.22 战斗/交易/家族/社交封包-aiAb | `aiAb` | 客户端->服务端 | 否 | 完成 | RECV_TROP CHAR_Trade_setTradeList 取出物品；外层 `{item:es} {pet:es} {gold:i62}`；`item/pet` 为普通外层 es，允许空且不拆 `|`，不要求尾随 `|`；`gold` 仅按普通 i62，不限制正负；`item/pet` 强类型解析 BLOCKED：缺服务端旧 C 或更明确语义证据解释两种格式差异 |
-| M6.14.23 战斗/交易/家族/社交封包-ylGN | `ylGN` | 客户端->服务端 | 否 | 未开始 | RECV_StallStart 开始摆摊请求 |
+| M6.14.23 战斗/交易/家族/社交封包-ylGN | `ylGN` | 客户端->服务端 | 否 | 完成 | RECV_StallStart 开始摆摊请求；外层 `{stallName:es} {stallDescription:es} {stallList:es}`；stallList 固定 25 个 raw decimal price 且必须尾随 `|`；无 nested es；来源 xlsx + ClientIda + src/packet |
 | M6.15.01 登录/角色管理封包-whV | `whV` | 服务端->客户端 | 否 | 未开始 | SEND_ClientLogin 登录角色表结果 |
 | M6.15.02 登录/角色管理封包-Daj | `Daj` | 服务端->客户端 | 否 | 未开始 | SEND_CharList 登录角色表 |
 | M6.15.03 登录/角色管理封包-DZ | `DZ` | 服务端->客户端 | 是 | 字段待补 | SEND_CreateNewChar |
@@ -402,7 +402,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 196 | `PGXE` | 客户端->服务端 | 完成 | RECV_CH cheat 检测作弊 | 否 | 否 | xlsx |
 | 197 | `lO` | 客户端->服务端 | 完成 | RECV_CharLoginGate 回登陆点 | 否 | 否 | xlsx |
 | 198 | `Xoee` | 客户端->服务端 | 暂缓 | RECV_PVUP 历史迁移封包 | 否 | 否 | xlsx |
-| 199 | `ylGN` | 客户端->服务端 | 完成 | RECV_StallStart 开始摆摊请求；外层 `{stallName:es} {stallDescription:es} {stallList:es}`；stallList 固定 25 个 raw decimal price 且必须尾随 `|` | 否 | 是 | xlsx + src/packet |
+| 199 | `ylGN` | 客户端->服务端 | 完成 | RECV_StallStart 开始摆摊请求；外层 `{stallName:es} {stallDescription:es} {stallList:es}`；stallList 固定 25 个 raw decimal price 且必须尾随 `|`；无 nested es | 否 | 是 | xlsx + ClientIda + src/packet |
 | 200 | `JMh` | 客户端->服务端 | 完成 | RECV_StallEnd 结束摆摊请求 | 否 | 否 | xlsx |
 | 201 | `ElVN` | 客户端->服务端 | 完成 | RECV_StallBrowse 摆摊浏览请求 | 否 | 否 | xlsx |
 | 202 | `wAo` | 客户端->服务端 | 完成 | RECV_StallBuy 摆摊购买请求 | 否 | 否 | xlsx |

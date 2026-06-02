@@ -323,6 +323,58 @@ int TestEmptyPayload()
     return failures;
 }
 
+int TestPacketLogSample()
+{
+    const std::string explanation =
+        R"($1防御\S+51\S$2昏睡\S+20\S酒醉\S+20\\n$2遗忘\S+20\S$8闪躲\S+10\S$4等级\S11\\n$4耐久\S0168/0241\S$0种类\S帽子\\n\\n\\n\\n\\n\\n$4能够实现配戴者之欲望的帽子.\\n\\n)";
+    const std::string payload = JoinParts({
+        "0",
+        "贝斯神帽",
+        "0",
+        explanation,
+        "21511",
+        "1",
+        "2",
+        "0",
+        "11",
+        "153",
+        "601615",
+        "9",
+        "0",
+        "",
+    });
+    const cg::packet::PacketResult<cg::packet::receive::ItemData> parsed =
+        cg::packet::receive::ItemData::Parse(BuildPlainRu(payload));
+
+    int failures = Expect(static_cast<bool>(parsed), "parse rU packet log sample");
+    if (!parsed.HasValue()) {
+        return failures;
+    }
+
+    failures += Expect(parsed.Value().records.size() == 1U, "rU packet log record count");
+    if (parsed.Value().records.size() == 1U) {
+        failures += ExpectRecord(
+            parsed.Value().records[0],
+            0,
+            "贝斯神帽",
+            0,
+            explanation,
+            21511,
+            1,
+            2,
+            0,
+            11,
+            153,
+            601615,
+            9,
+            0,
+            "",
+            "rU packet log record");
+    }
+    failures += Expect(parsed.Value().BuildData() == payload, "rU packet log BuildData");
+    return failures;
+}
+
 int TestErrors()
 {
     int failures = 0;
@@ -409,6 +461,7 @@ int main()
     failures += TestMultiRecordRoundtrip();
     failures += TestRawInnerEscapesPreserved();
     failures += TestEmptyPayload();
+    failures += TestPacketLogSample();
     failures += TestErrors();
     if (failures != 0) {
         std::cerr << failures << " checks failed\n";

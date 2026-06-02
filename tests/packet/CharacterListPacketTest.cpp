@@ -331,6 +331,77 @@ int TestFailureResultsPreserveData()
     return failures;
 }
 
+int TestPacketLogSample()
+{
+    const std::string payload =
+        "Muscipular|0\\z200648\\z120\\z137\\z217\\z0\\z80\\z0\\z0\\z100\\z0\\z0\\z608\\zMuscipular\\z92\\z幽影箭尊\\z2\\z106283\\z-1|"
+        "测试|1\\z242200\\z4\\z10\\z15\\z0\\z5\\z0\\z0\\z0\\z0\\z100\\z11\\z测试\\z93\\z游民\\z2\\z106277\\z-1|";
+    const cg::packet::PacketResult<CharacterList> parsed = CharacterList::Parse(BuildPlain(0, payload));
+
+    int failures = Expect(static_cast<bool>(parsed), "parse Daj packet log sample");
+    if (!parsed.HasValue()) {
+        return failures;
+    }
+
+    CharacterListRecord first;
+    first.nameRaw = "Muscipular";
+    first.dataPlaceNumber = 0;
+    first.faceImageNumber = 200648;
+    first.level = 120;
+    first.vital = 137;
+    first.strength = 217;
+    first.toughness = 0;
+    first.quick = 80;
+    first.magic = 0;
+    first.earth = 0;
+    first.water = 100;
+    first.fire = 0;
+    first.wind = 0;
+    first.loginCount = 608;
+    first.duplicateNameRaw = "Muscipular";
+    first.registNumber = 92;
+    first.jobNameRaw = "幽影箭尊";
+    first.renewal = 2;
+    first.baseBaseImage = 106283;
+    first.titleId = -1;
+
+    CharacterListRecord second;
+    second.nameRaw = "测试";
+    second.dataPlaceNumber = 1;
+    second.faceImageNumber = 242200;
+    second.level = 4;
+    second.vital = 10;
+    second.strength = 15;
+    second.toughness = 0;
+    second.quick = 5;
+    second.magic = 0;
+    second.earth = 0;
+    second.water = 0;
+    second.fire = 0;
+    second.wind = 100;
+    second.loginCount = 11;
+    second.duplicateNameRaw = "测试";
+    second.registNumber = 93;
+    second.jobNameRaw = "游民";
+    second.renewal = 2;
+    second.baseBaseImage = 106277;
+    second.titleId = -1;
+
+    failures += Expect(parsed.Value().result == CharacterList::SUCCESSFUL, "Daj packet log result");
+    failures += Expect(parsed.Value().records.size() == 2U, "Daj packet log record count");
+    if (parsed.Value().records.size() == 2U) {
+        failures += ExpectRecord(parsed.Value().records[0], first, "Daj packet log first record");
+        failures += ExpectRecord(parsed.Value().records[1], second, "Daj packet log second record");
+    }
+
+    const cg::packet::PacketResult<std::string> built = parsed.Value().BuildData();
+    failures += Expect(static_cast<bool>(built), "Daj packet log BuildData");
+    if (built.HasValue()) {
+        failures += Expect(built.Value() == payload, "Daj packet log BuildData value");
+    }
+    return failures;
+}
+
 int TestOuterErrors()
 {
     int failures = 0;
@@ -417,6 +488,7 @@ int main()
     failures += TestEmptyList();
     failures += TestOneAndTwoRoundtrip();
     failures += TestFailureResultsPreserveData();
+    failures += TestPacketLogSample();
     failures += TestOuterErrors();
     failures += TestPayloadErrors();
 

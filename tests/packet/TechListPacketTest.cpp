@@ -205,6 +205,34 @@ int TestRawEscapeRoundtrip()
     return failures;
 }
 
+int TestPacketLogSample()
+{
+    const std::string payload = "陨石魔法LV1|向单体对象施展地属性的魔法攻击|10|1|4221|0|";
+    const cg::packet::PacketResult<cg::packet::receive::TechList> parsed =
+        cg::packet::receive::TechList::Parse(BuildPlainRspn(10, payload));
+
+    int failures = Expect(static_cast<bool>(parsed), "parse Rspn packet log sample");
+    if (!parsed.HasValue()) {
+        return failures;
+    }
+
+    failures += Expect(parsed.Value().skillIndex == 10, "Rspn packet log skillIndex");
+    failures += Expect(parsed.Value().records.size() == 1U, "Rspn packet log record count");
+    if (parsed.Value().records.size() == 1U) {
+        failures += ExpectRecord(
+            parsed.Value().records[0],
+            "陨石魔法LV1",
+            "向单体对象施展地属性的魔法攻击",
+            10,
+            1,
+            4221,
+            0,
+            "Rspn packet log record");
+    }
+    failures += Expect(parsed.Value().BuildData() == payload, "Rspn packet log BuildData");
+    return failures;
+}
+
 int TestErrors()
 {
     int failures = 0;
@@ -255,6 +283,7 @@ int main()
     failures += TestEmptyData();
     failures += TestSingleRecordWithTrailingDelimiter();
     failures += TestRawEscapeRoundtrip();
+    failures += TestPacketLogSample();
     failures += TestErrors();
     if (failures != 0) {
         std::cerr << failures << " checks failed\n";

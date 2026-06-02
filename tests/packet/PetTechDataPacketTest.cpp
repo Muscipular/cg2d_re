@@ -204,6 +204,52 @@ int TestRawTextPreserved()
     return failures;
 }
 
+int TestPacketLogSample()
+{
+    const std::string payload =
+        "0|7300|攻击|能以普通物理攻击给与打击|0|1|1141|7|"
+        "1|7400|防御|能防守来自物理攻击的打击|0|1|72|9|"
+        "2|412|活杀气功弹Ⅲ|以赤手空拳来攻击敌人|59|1|117|8|"
+        "5|634|战栗袭心-Ⅲ|可减少敌人的魔法力.|22|1|1141|10|"
+        "6|534|崩击-Ⅲ|能给与正在防御的敌人很大的打击|11|1|1141|11|";
+    const cg::packet::PacketResult<cg::packet::receive::PetTechData> parsed =
+        cg::packet::receive::PetTechData::Parse(BuildPlainObee(0, payload));
+
+    int failures = Expect(static_cast<bool>(parsed), "parse OBee packet log sample");
+    if (!parsed.HasValue()) {
+        return failures;
+    }
+
+    failures += Expect(parsed.Value().petIndex == 0, "OBee packet log petIndex");
+    failures += Expect(parsed.Value().records.size() == 5U, "OBee packet log record count");
+    if (parsed.Value().records.size() == 5U) {
+        failures += ExpectRecord(
+            parsed.Value().records[0],
+            0,
+            7300,
+            "攻击",
+            "能以普通物理攻击给与打击",
+            0,
+            1,
+            1141,
+            7,
+            "OBee packet log first record");
+        failures += ExpectRecord(
+            parsed.Value().records[4],
+            6,
+            534,
+            "崩击-Ⅲ",
+            "能给与正在防御的敌人很大的打击",
+            11,
+            1,
+            1141,
+            11,
+            "OBee packet log last record");
+    }
+    failures += Expect(parsed.Value().BuildData() == payload, "OBee packet log BuildData");
+    return failures;
+}
+
 int TestErrors()
 {
     int failures = 0;
@@ -244,6 +290,7 @@ int main()
     failures += TestSingleRecord();
     failures += TestMultiRecordRoundtrip();
     failures += TestRawTextPreserved();
+    failures += TestPacketLogSample();
     failures += TestErrors();
     if (failures != 0) {
         std::cerr << failures << " checks failed\n";

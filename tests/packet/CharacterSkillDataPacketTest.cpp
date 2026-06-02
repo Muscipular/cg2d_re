@@ -273,6 +273,65 @@ int TestNoTrailingDelimiter()
     return failures;
 }
 
+int TestPacketLogSample()
+{
+    const std::string payload =
+        "0|95|乱射|8|51000|13|68500|1|0|100|1|"
+        "1|71|调教|3|2000|3|5500|1|0|100|7|"
+        "2|3|乾坤一掷|1|0|5|500|1|0|100|3|"
+        "3|70|宠物强化|3|2000|3|5500|1|0|100|8|"
+        "4|68|气绝回复|1|0|3|500|1|0|100|5|"
+        "5|12|明镜止水|1|0|13|500|1|0|100|6|"
+        "6|400|飞刀乱舞|13|192500|13|254500|1|0|100|2|"
+        "7|72|窃盗|1|0|13|500|1|0|100|4|"
+        "8|1002|一击必中|7|40400|13|51000|1|0|100|9|"
+        "9|1003|毒击|7|37000|7|51000|1|0|100|10|"
+        "10|||||||||||11|||||||||||12|||||||||||13|||||||||||14|||||||||||";
+    const cg::packet::PacketResult<cg::packet::receive::CharacterSkillData> parsed =
+        cg::packet::receive::CharacterSkillData::Parse(BuildPlainCne(payload));
+
+    int failures = Expect(static_cast<bool>(parsed), "parse cNE packet log sample");
+    if (!parsed.HasValue()) {
+        return failures;
+    }
+
+    failures += Expect(parsed.Value().records.size() == 15U, "cNE packet log record count");
+    if (parsed.Value().records.size() == 15U) {
+        failures += ExpectRecord(
+            parsed.Value().records[0],
+            0,
+            95,
+            "乱射",
+            8,
+            51000,
+            13,
+            68500,
+            1,
+            0,
+            100,
+            1,
+            "cNE packet log first record");
+        failures += ExpectRecord(
+            parsed.Value().records[9],
+            9,
+            1003,
+            "毒击",
+            7,
+            37000,
+            7,
+            51000,
+            1,
+            0,
+            100,
+            10,
+            "cNE packet log last skill record");
+        failures += ExpectEmptyRecord(parsed.Value().records[10], 10, "cNE packet log empty slot 10");
+        failures += ExpectEmptyRecord(parsed.Value().records[14], 14, "cNE packet log empty slot 14");
+    }
+    failures += Expect(parsed.Value().BuildData() == payload, "cNE packet log BuildData");
+    return failures;
+}
+
 int TestErrors()
 {
     int failures = 0;
@@ -321,6 +380,7 @@ int main()
     failures += TestEmptyPayload();
     failures += TestRawNamePreserved();
     failures += TestNoTrailingDelimiter();
+    failures += TestPacketLogSample();
     failures += TestErrors();
     if (failures != 0) {
         std::cerr << failures << " checks failed\n";

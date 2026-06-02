@@ -247,6 +247,54 @@ int TestEmptyMessages()
     return failures;
 }
 
+int TestPacketLogSample()
+{
+    const std::string privateText = "\xB2\xBB\xB9\xAB\xBF\xAA";
+    const std::string unsetText = "\xCE\xB4\xC9\xE8\xB6\xA8";
+    const cg::packet::send::SetProfileData data(0, privateText, 0, privateText, 0, privateText, unsetText);
+    const cg::packet::PacketResult<std::string> encoded = data.Encode();
+    int failures = Expect(static_cast<bool>(encoded), "encode Ot packet log sample");
+    if (!encoded.HasValue()) {
+        return failures;
+    }
+
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(encoded.Value());
+    failures += Expect(static_cast<bool>(parsed), "parse Ot packet log sample");
+    if (!parsed.HasValue()) {
+        return failures;
+    }
+
+    failures += ExpectField(
+        parsed.Value(),
+        0U,
+        "sellFlag",
+        cg::packet::PacketFieldType::Int62,
+        "0",
+        "Ot packet log sellFlag");
+    failures += ExpectField(
+        parsed.Value(),
+        1U,
+        "sellMsg",
+        cg::packet::PacketFieldType::EscapedString,
+        privateText,
+        "Ot packet log sellMsg");
+    failures += ExpectField(
+        parsed.Value(),
+        3U,
+        "buyMsg",
+        cg::packet::PacketFieldType::EscapedString,
+        privateText,
+        "Ot packet log buyMsg");
+    failures += ExpectField(
+        parsed.Value(),
+        6U,
+        "ProfileMsg",
+        cg::packet::PacketFieldType::EscapedString,
+        unsetText,
+        "Ot packet log profile");
+    return failures;
+}
+
 int TestErrors()
 {
     int failures = 0;
@@ -318,6 +366,7 @@ int main()
     failures += TestInt62Values();
     failures += TestEscapedFieldsRoundtrip();
     failures += TestEmptyMessages();
+    failures += TestPacketLogSample();
     failures += TestErrors();
     if (failures != 0) {
         std::cerr << failures << " checks failed\n";

@@ -93,6 +93,33 @@ int TestKnownPackets()
             "JFVf account");
     }
 
+    const cg::packet::PacketResult<cg::packet::Packet> loginSample =
+        cg::packet::ParsePacket("JFVf aassdd u01 b42e99e808dc ", cg::packet::send::ClientLogin::Spec);
+    failures += Expect(static_cast<bool>(loginSample), "parse JFVf packet log sample");
+    if (loginSample.HasValue()) {
+        failures += ExpectParsedField(
+            loginSample.Value(),
+            0U,
+            "clientHash",
+            cg::packet::PacketFieldType::EscapedString,
+            "aassdd",
+            "JFVf packet log clientHash");
+        failures += ExpectParsedField(
+            loginSample.Value(),
+            1U,
+            "password",
+            cg::packet::PacketFieldType::EscapedString,
+            "u01",
+            "JFVf packet log password");
+        failures += ExpectParsedField(
+            loginSample.Value(),
+            2U,
+            "account",
+            cg::packet::PacketFieldType::EscapedString,
+            "b42e99e808dc",
+            "JFVf packet log account");
+    }
+
     const cg::packet::PacketResult<cg::packet::Packet> checkCommand =
         cg::packet::ParsePacket("CCL a ", cg::packet::send::CheckCommand::Spec);
     failures += Expect(static_cast<bool>(checkCommand), "parse CCL");
@@ -108,6 +135,19 @@ int TestKnownPackets()
             cg::packet::PacketFieldType::Int62,
             "10",
             "CCL time");
+    }
+
+    const cg::packet::PacketResult<cg::packet::Packet> checkCommandSample =
+        cg::packet::ParsePacket("CCL 4lF ", cg::packet::send::CheckCommand::Spec);
+    failures += Expect(static_cast<bool>(checkCommandSample), "parse CCL packet log sample");
+    if (checkCommandSample.HasValue()) {
+        failures += ExpectParsedField(
+            checkCommandSample.Value(),
+            0U,
+            "time",
+            cg::packet::PacketFieldType::Int62,
+            "16719",
+            "CCL packet log time");
     }
 
     const cg::packet::PacketResult<cg::packet::Packet> charList =

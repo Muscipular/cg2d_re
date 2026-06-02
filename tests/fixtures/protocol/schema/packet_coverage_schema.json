@@ -3975,6 +3975,8 @@
       "rawFormat": "{x} {y} {amount}",
       "formatEmpty": false,
       "source": "xlsx",
+      "resolvedFormat": "{x:i62} {y:i62} {amount:i62}",
+      "resolvedSource": "xlsx+src/packet",
       "fields": [
         {
           "index": 0,

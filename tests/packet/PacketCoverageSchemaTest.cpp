@@ -966,6 +966,40 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         }
     }
 
+    const PacketSchema* dropGoldSchema = FindPacket(packets, "woz");
+    failures += Expect(dropGoldSchema != nullptr, "woz schema exists");
+    if (dropGoldSchema != nullptr) {
+        const cg::packet::send::DropGold dropGold(1, 2, 3);
+        const cg::packet::Packet packet = dropGold.ToPacket();
+        failures += Expect(dropGoldSchema->direction == "客户端->服务端", "woz direction");
+        failures += Expect(dropGoldSchema->legacyKind == "RECV", "woz legacyKind");
+        failures += Expect(dropGoldSchema->rawFormat == "{x} {y} {amount}", "woz rawFormat");
+        failures += Expect(
+            dropGoldSchema->resolvedFormat == "{x:i62} {y:i62} {amount:i62}",
+            "woz resolvedFormat");
+        failures += Expect(dropGoldSchema->resolvedSource == "xlsx+src/packet", "woz resolvedSource");
+        failures += Expect(dropGoldSchema->fields.size() == 3U, "woz raw field count");
+        if (dropGoldSchema->fields.size() == 3U) {
+            failures += Expect(dropGoldSchema->fields[0].name == "x", "woz raw field x");
+            failures += Expect(dropGoldSchema->fields[1].name == "y", "woz raw field y");
+            failures += Expect(dropGoldSchema->fields[2].name == "amount", "woz raw field amount");
+            failures += Expect(dropGoldSchema->fields[0].typeToken == "unknown", "woz raw x type");
+            failures += Expect(dropGoldSchema->fields[1].typeToken == "unknown", "woz raw y type");
+            failures += Expect(dropGoldSchema->fields[2].typeToken == "unknown", "woz raw amount type");
+        }
+        failures += Expect(packet.fields.size() == 3U, "woz packet field count");
+        if (packet.fields.size() == 3U) {
+            failures += Expect(packet.fields[0].name == "x", "woz packet x field");
+            failures += Expect(packet.fields[0].type == cg::packet::PacketFieldType::Int62, "woz packet x type");
+            failures += Expect(packet.fields[1].name == "y", "woz packet y field");
+            failures += Expect(packet.fields[1].type == cg::packet::PacketFieldType::Int62, "woz packet y type");
+            failures += Expect(packet.fields[2].name == "amount", "woz packet amount field");
+            failures += Expect(
+                packet.fields[2].type == cg::packet::PacketFieldType::Int62,
+                "woz packet amount type");
+        }
+    }
+
     const PacketSchema* checkCommandSchema = FindPacket(packets, "CCL");
     failures += Expect(checkCommandSchema != nullptr, "CCL schema exists");
     if (checkCommandSchema != nullptr) {

@@ -402,6 +402,12 @@ namespace cg::packet
             {"data", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
         }};
 
+        inline constexpr std::array<PacketFieldSpec, 3> DropGoldFields = {{
+            {"x", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"y", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"amount", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+        }};
+
         inline constexpr std::array<PacketFieldSpec, 1> CheckCommandFields = {{
             {"time", PacketFieldType::Int62, PacketSourceTag::Xlsx},
         }};
@@ -441,7 +447,7 @@ namespace cg::packet
             {"y2", PacketFieldType::Int62, PacketSourceTag::Xlsx},
         }};
 
-        inline constexpr std::array<PacketSpec, 76> PacketRegistry = {{
+        inline constexpr std::array<PacketSpec, 77> PacketRegistry = {{
             {
                 "JFVf",
                 PacketDirection::ClientToServer,
@@ -931,6 +937,13 @@ namespace cg::packet
                 PacketSourceTag::ServerC,
                 TradePetSkillInfoFields.data(),
                 TradePetSkillInfoFields.size(),
+            },
+            {
+                "woz",
+                PacketDirection::ClientToServer,
+                PacketSourceTag::Xlsx,
+                DropGoldFields.data(),
+                DropGoldFields.size(),
             },
             {
                 "nsY",

@@ -734,6 +734,55 @@ namespace cg::packet::send
             return BuildPacket(ToPacket());
         }
     };
+
+    /**
+     * RECV_DG DropGold 丢金币 woz {x:i62} {y:i62} {amount:i62}
+     */
+    struct DropGold
+    {
+        static constexpr std::string_view Code = "woz";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+
+        int x = 0;
+        int y = 0;
+        int amount = 0;
+
+        DropGold(int x, int y, int amount)
+            : x(x),
+              y(y),
+              amount(amount)
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            packet.fields.push_back(PacketField {
+                "x",
+                PacketFieldType::Int62,
+                std::to_string(x),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "y",
+                PacketFieldType::Int62,
+                std::to_string(y),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "amount",
+                PacketFieldType::Int62,
+                std::to_string(amount),
+                PacketSourceTag::Xlsx,
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket());
+        }
+    };
 }
 
 #endif //CG_ENGINE_SEND_H

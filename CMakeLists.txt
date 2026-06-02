@@ -711,6 +711,17 @@ target_include_directories(cg-packet-profile-set-data-test
 
 add_test(NAME cg-packet-profile-set-data-test COMMAND cg-packet-profile-set-data-test)
 
+add_executable(cg-packet-magic-use-request-test
+    tests/packet/MagicUseRequestPacketTest.cpp
+)
+
+target_include_directories(cg-packet-magic-use-request-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+
+add_test(NAME cg-packet-magic-use-request-test COMMAND cg-packet-magic-use-request-test)
+
 add_executable(cg-packet-pet-skill-use-request-test
     tests/packet/PetSkillUseRequestPacketTest.cpp
 )
@@ -1275,6 +1286,7 @@ if(MSVC)
     target_compile_options(cg-packet-about-list-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-profile-data-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-profile-set-data-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-magic-use-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-pet-skill-use-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-pet-level-up-point-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-pet-skill-swap-test PRIVATE /W4 /utf-8 /permissive-)
@@ -1372,6 +1384,7 @@ else()
     target_compile_options(cg-packet-about-list-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-profile-data-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-profile-set-data-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-packet-magic-use-request-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-pet-skill-use-request-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-pet-level-up-point-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-pet-skill-swap-test PRIVATE -Wall -Wextra -Wpedantic)

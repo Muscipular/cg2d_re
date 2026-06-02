@@ -373,6 +373,63 @@ namespace cg::packet::send
     };
 
     /**
+     * RECV_MU MAGIC_Use 使用魔法 RXr {x:i62} {y:i62} {array:i62} {toindex:i62}
+     */
+    struct MagicUseRequest
+    {
+        static constexpr std::string_view Code = "RXr";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+
+        int x = 0;
+        int y = 0;
+        int array = 0;
+        int toindex = 0;
+
+        MagicUseRequest(int x, int y, int array, int toindex)
+            : x(x),
+              y(y),
+              array(array),
+              toindex(toindex)
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ServerC);
+            packet.fields.push_back(PacketField {
+                "x",
+                PacketFieldType::Int62,
+                std::to_string(x),
+                PacketSourceTag::ServerC,
+            });
+            packet.fields.push_back(PacketField {
+                "y",
+                PacketFieldType::Int62,
+                std::to_string(y),
+                PacketSourceTag::ServerC,
+            });
+            packet.fields.push_back(PacketField {
+                "array",
+                PacketFieldType::Int62,
+                std::to_string(array),
+                PacketSourceTag::ServerC,
+            });
+            packet.fields.push_back(PacketField {
+                "toindex",
+                PacketFieldType::Int62,
+                std::to_string(toindex),
+                PacketSourceTag::ServerC,
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket());
+        }
+    };
+
+    /**
      * RECV_PS PETSKILL_Use 宠物技能使用 Flvp {havepetindex:i62} {havepetskill:i62} {toindex:i62} {data:es}
      */
     struct PetSkillUseRequest

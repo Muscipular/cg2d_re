@@ -200,6 +200,13 @@ namespace cg::packet
             {"ProfileMsg", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
         }};
 
+        inline constexpr std::array<PacketFieldSpec, 4> MagicUseRequestFields = {{
+            {"x", PacketFieldType::Int62, PacketSourceTag::ServerC},
+            {"y", PacketFieldType::Int62, PacketSourceTag::ServerC},
+            {"array", PacketFieldType::Int62, PacketSourceTag::ServerC},
+            {"toindex", PacketFieldType::Int62, PacketSourceTag::ServerC},
+        }};
+
         inline constexpr std::array<PacketFieldSpec, 4> PetSkillUseRequestFields = {{
             {"havepetindex", PacketFieldType::Int62, PacketSourceTag::ServerC},
             {"havepetskill", PacketFieldType::Int62, PacketSourceTag::ServerC},
@@ -522,7 +529,7 @@ namespace cg::packet
             {"y2", PacketFieldType::Int62, PacketSourceTag::Xlsx},
         }};
 
-        inline constexpr std::array<PacketSpec, 89> PacketRegistry = {{
+        inline constexpr std::array<PacketSpec, 90> PacketRegistry = {{
             {
                 "JFVf",
                 PacketDirection::ClientToServer,
@@ -704,6 +711,13 @@ namespace cg::packet
                 PacketSourceTag::Xlsx,
                 SetProfileDataFields.data(),
                 SetProfileDataFields.size(),
+            },
+            {
+                "RXr",
+                PacketDirection::ClientToServer,
+                PacketSourceTag::ServerC,
+                MagicUseRequestFields.data(),
+                MagicUseRequestFields.size(),
             },
             {
                 "Flvp",

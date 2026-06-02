@@ -747,6 +747,23 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         failures += ExpectResolvedFieldsMatch(*createNewCharSchema, packet, "aSEl resolved field order");
     }
 
+    const PacketSchema* magicUseSchema = FindPacket(packets, "RXr");
+    failures += Expect(magicUseSchema != nullptr, "RXr schema exists");
+    if (magicUseSchema != nullptr) {
+        const cg::packet::send::MagicUseRequest magicUse(1, 2, 3, 4);
+        const cg::packet::Packet packet = magicUse.ToPacket();
+        failures += Expect(magicUseSchema->direction == "客户端->服务端", "RXr direction");
+        failures += Expect(magicUseSchema->legacyKind == "RECV", "RXr legacyKind");
+        failures += Expect(magicUseSchema->rawFormat.empty(), "RXr rawFormat empty");
+        failures += Expect(magicUseSchema->formatEmpty, "RXr formatEmpty");
+        failures += Expect(
+            magicUseSchema->resolvedFormat == "{x:i62} {y:i62} {array:i62} {toindex:i62}",
+            "RXr resolvedFormat");
+        failures += Expect(magicUseSchema->resolvedSource == "ServerC+src/packet", "RXr resolvedSource");
+        failures += Expect(magicUseSchema->fields.empty(), "RXr raw fields empty");
+        failures += ExpectResolvedFieldsMatch(*magicUseSchema, packet, "RXr resolved field order");
+    }
+
     const PacketSchema* effectSchema = FindPacket(packets, "zzd");
     failures += Expect(effectSchema != nullptr, "zzd schema exists");
     if (effectSchema != nullptr) {

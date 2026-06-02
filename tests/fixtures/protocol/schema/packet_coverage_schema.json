@@ -5086,11 +5086,43 @@
       "direction": "客户端->服务端",
       "legacyKind": "RECV",
       "clientNamespace": "send",
-      "xlsxStatus": "暂缓",
+      "xlsxStatus": "完成",
       "description": "RECV_MU",
       "rawFormat": "",
       "formatEmpty": true,
       "source": "xlsx",
+      "resolvedFormat": "{x:i62} {y:i62} {array:i62} {toindex:i62}",
+      "resolvedSource": "ServerC+src/packet",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "x",
+          "typeToken": "i62",
+          "rawSpec": "{x:i62}",
+          "source": "ServerC+src/packet"
+        },
+        {
+          "index": 1,
+          "name": "y",
+          "typeToken": "i62",
+          "rawSpec": "{y:i62}",
+          "source": "ServerC+src/packet"
+        },
+        {
+          "index": 2,
+          "name": "array",
+          "typeToken": "i62",
+          "rawSpec": "{array:i62}",
+          "source": "ServerC+src/packet"
+        },
+        {
+          "index": 3,
+          "name": "toindex",
+          "typeToken": "i62",
+          "rawSpec": "{toindex:i62}",
+          "source": "ServerC+src/packet"
+        }
+      ],
       "fields": []
     },
     {

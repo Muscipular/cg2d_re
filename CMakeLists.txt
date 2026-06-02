@@ -47,6 +47,7 @@ add_executable(cg-client
     src/world/IdaRenderRules.cpp
     src/world/MapObjectSpriteBuilder.cpp
     src/world/MapObjectTextureCache.cpp
+    src/world/Movement.cpp
     src/world/SceneGroundAtlasCache.cpp
     src/world/Transform.cpp
     src/text/TextEncoding.cpp
@@ -329,6 +330,19 @@ target_include_directories(cg-world-transform-test
 )
 
 add_test(NAME cg-world-transform-test COMMAND cg-world-transform-test)
+
+add_executable(cg-world-movement-test
+    tests/world/MovementTest.cpp
+    src/world/Movement.cpp
+    src/world/Transform.cpp
+)
+
+target_include_directories(cg-world-movement-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+
+add_test(NAME cg-world-movement-test COMMAND cg-world-movement-test)
 
 add_executable(cg-packet-types-test
     tests/packet/PacketTypesTest.cpp
@@ -1394,6 +1408,7 @@ if(MSVC)
     target_compile_options(cg-world-render-order-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-world-entity-store-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-world-transform-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-world-movement-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-types-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-character-list-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-create-new-char-result-test PRIVATE /W4 /utf-8 /permissive-)
@@ -1505,6 +1520,7 @@ else()
     target_compile_options(cg-world-render-order-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-world-entity-store-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-world-transform-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-world-movement-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-types-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-character-list-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-create-new-char-result-test PRIVATE -Wall -Wextra -Wpedantic)

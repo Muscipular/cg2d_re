@@ -875,6 +875,17 @@ target_include_directories(cg-packet-effect-test
 
 add_test(NAME cg-packet-effect-test COMMAND cg-packet-effect-test)
 
+add_executable(cg-packet-battle-reward-test
+    tests/packet/BattleRewardPacketTest.cpp
+)
+
+target_include_directories(cg-packet-battle-reward-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+
+add_test(NAME cg-packet-battle-reward-test COMMAND cg-packet-battle-reward-test)
+
 add_executable(cg-packet-battle-command-test
     tests/packet/BattleCommandPacketTest.cpp
 )
@@ -1024,6 +1035,7 @@ if(MSVC)
     target_compile_options(cg-packet-profile-window-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-system-message-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-effect-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-battle-reward-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-battle-command-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-profile-mail-message-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-chat-message-test PRIVATE /W4 /utf-8 /permissive-)
@@ -1098,6 +1110,7 @@ else()
     target_compile_options(cg-packet-profile-window-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-system-message-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-effect-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-packet-battle-reward-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-battle-command-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-profile-mail-message-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-chat-message-test PRIVATE -Wall -Wextra -Wpedantic)

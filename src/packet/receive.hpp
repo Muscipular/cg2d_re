@@ -10000,6 +10000,469 @@ namespace cg::packet::receive
     };
 
     /**
+     * SEND_RS 战斗获得物品 Gn {data:es}
+     * data: actor0,actor1,actor2,actor3,itemGroup,skill0,...,skill14。
+     */
+    struct BattleRewardActor
+    {
+        int targetIndex = 0;
+        int levelUpFlag = 0;
+        int expDelta = 0;
+    };
+
+    struct BattleRewardItem
+    {
+        bool hasItem = false;
+        int imageNumber = 0;
+        bool hasNameRaw = false;
+        std::string nameRaw;
+    };
+
+    struct BattleRewardSkill
+    {
+        int levelUpFlag = 0;
+        int expDelta = 0;
+    };
+
+    struct BattleReward
+    {
+        static constexpr std::string_view Code = "Gn";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::string_view TopLevelDelimiter = ",";
+        static constexpr std::string_view SegmentDelimiter = "|";
+        static constexpr std::string_view ItemNameMarker = "\\z";
+        static constexpr std::size_t ActorCount = 4U;
+        static constexpr std::size_t ItemCount = 3U;
+        static constexpr std::size_t SkillCount = 15U;
+
+        std::array<BattleRewardActor, ActorCount> actors {};
+        std::array<BattleRewardItem, ItemCount> items {};
+        std::array<BattleRewardSkill, SkillCount> skills {};
+
+        BattleReward() = default;
+
+        BattleReward(
+            std::array<BattleRewardActor, ActorCount> actors,
+            std::array<BattleRewardItem, ItemCount> items,
+            std::array<BattleRewardSkill, SkillCount> skills)
+            : actors(std::move(actors)),
+              items(std::move(items)),
+              skills(std::move(skills))
+        {
+        }
+
+        [[nodiscard]] std::string BuildData() const
+        {
+            std::vector<std::string> parts;
+            parts.reserve(PayloadFieldCount);
+
+            for (const BattleRewardActor& actor : actors) {
+                parts.push_back(BuildActor(actor));
+            }
+            parts.push_back(BuildItemGroup());
+            for (const BattleRewardSkill& skill : skills) {
+                parts.push_back(BuildSkill(skill));
+            }
+
+            PacketResult<std::string> payload = BuildPayload(
+                std::span<const std::string>(parts.data(), parts.size()),
+                TopLevelDelimiter);
+            if (payload.HasValue()) {
+                return payload.Value();
+            }
+            return {};
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ClientIda);
+            packet.fields.push_back(PacketField {
+                "data",
+                PacketFieldType::EscapedString,
+                BuildData(),
+                PacketSourceTag::ClientIda,
+            });
+            return packet;
+        }
+
+        static PacketResult<BattleReward> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view);
+            if (!parsed.HasValue()) {
+                return PacketResult<BattleReward>::Failure(parsed.Error());
+            }
+
+            return FromPacket(parsed.Value());
+        }
+
+        static PacketResult<BattleReward> FromPacket(const Packet& packet)
+        {
+            if (packet.code.View() != Code) {
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "BattleReward Parse 收到非 Gn 封包");
+                error.packetCode = packet.code;
+                return PacketResult<BattleReward>::Failure(std::move(error));
+            }
+
+            if (packet.direction != Direction) {
+                return PacketResult<BattleReward>::Failure(MakePacketError(
+                    PacketErrorCode::DecodeFailed,
+                    "BattleReward Parse 封包方向不匹配"));
+            }
+
+            if (packet.fields.size() != FieldCount) {
+                return PacketResult<BattleReward>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "BattleReward Parse 字段数量不匹配",
+                    packet.fields.empty() ? 0U : FieldCount));
+            }
+
+            const PacketField& field = packet.fields[DataFieldIndex];
+            if (field.name != "data") {
+                return PacketResult<BattleReward>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "BattleReward Parse 字段名不匹配",
+                    DataFieldIndex));
+            }
+
+            if (field.type != PacketFieldType::EscapedString) {
+                return PacketResult<BattleReward>::Failure(MakeFieldError(
+                    PacketErrorCode::InvalidFieldType,
+                    "BattleReward Parse 字段类型不匹配",
+                    DataFieldIndex));
+            }
+
+            return ParseData(field.value);
+        }
+
+    private:
+        static constexpr std::size_t FieldCount = 1U;
+        static constexpr std::size_t DataFieldIndex = 0U;
+        static constexpr std::size_t ItemGroupIndex = 4U;
+        static constexpr std::size_t SkillStartIndex = 5U;
+        static constexpr std::size_t PayloadFieldCount = ActorCount + 1U + SkillCount;
+        static constexpr std::size_t ActorFieldCount = 3U;
+        static constexpr std::size_t SkillFieldCount = 2U;
+
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            error.source = PacketSourceTag::ClientIda;
+            return error;
+        }
+
+        [[nodiscard]] static PacketError MakeFieldError(
+            PacketErrorCode code,
+            std::string message,
+            std::size_t fieldIndex)
+        {
+            PacketError error = MakePacketError(code, std::move(message));
+            error.fieldIndex = fieldIndex;
+            return error;
+        }
+
+        [[nodiscard]] static std::string BuildActor(const BattleRewardActor& actor)
+        {
+            const std::array<std::string, ActorFieldCount> parts = {
+                std::to_string(actor.targetIndex),
+                std::to_string(actor.levelUpFlag),
+                BuildInt62(actor.expDelta),
+            };
+            return JoinParts(parts);
+        }
+
+        [[nodiscard]] std::string BuildItemGroup() const
+        {
+            const std::array<std::string, ItemCount> parts = {
+                BuildItem(items[0]),
+                BuildItem(items[1]),
+                BuildItem(items[2]),
+            };
+            return JoinParts(parts);
+        }
+
+        [[nodiscard]] static std::string BuildItem(const BattleRewardItem& item)
+        {
+            if (!item.hasItem) {
+                return {};
+            }
+
+            std::string data = std::to_string(item.imageNumber);
+            if (item.hasNameRaw || !item.nameRaw.empty()) {
+                data.append(ItemNameMarker);
+                data.append(item.nameRaw);
+            }
+            return data;
+        }
+
+        [[nodiscard]] static std::string BuildSkill(const BattleRewardSkill& skill)
+        {
+            const std::array<std::string, SkillFieldCount> parts = {
+                std::to_string(skill.levelUpFlag),
+                BuildInt62(skill.expDelta),
+            };
+            return JoinParts(parts);
+        }
+
+        template <std::size_t Count>
+        [[nodiscard]] static std::string JoinParts(const std::array<std::string, Count>& parts)
+        {
+            PacketResult<std::string> payload = BuildPayload(
+                std::span<const std::string>(parts.data(), parts.size()),
+                SegmentDelimiter);
+            if (payload.HasValue()) {
+                return payload.Value();
+            }
+            return {};
+        }
+
+        [[nodiscard]] static std::string BuildInt62(int value)
+        {
+            PacketResult<std::string> encoded = EncodeInt62(value);
+            if (encoded.HasValue()) {
+                return encoded.Value();
+            }
+            return {};
+        }
+
+        [[nodiscard]] static PacketResult<BattleReward> ParseData(std::string_view payload)
+        {
+            PacketResult<std::vector<std::string>> split = SplitPayload(payload, TopLevelDelimiter);
+            if (!split.HasValue()) {
+                PacketError error = split.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = DataFieldIndex;
+                error.source = PacketSourceTag::ClientIda;
+                return PacketResult<BattleReward>::Failure(std::move(error));
+            }
+
+            const std::vector<std::string>& parts = split.Value();
+            if (parts.size() != PayloadFieldCount) {
+                return PacketResult<BattleReward>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "BattleReward payload 顶层段数量不匹配",
+                    DataFieldIndex));
+            }
+
+            BattleReward reward;
+            for (std::size_t index = 0; index < ActorCount; ++index) {
+                PacketResult<BattleRewardActor> actor = ParseActor(parts[index], index);
+                if (!actor.HasValue()) {
+                    return PacketResult<BattleReward>::Failure(actor.Error());
+                }
+                reward.actors[index] = actor.Value();
+            }
+
+            PacketResult<std::array<BattleRewardItem, ItemCount>> items = ParseItemGroup(parts[ItemGroupIndex]);
+            if (!items.HasValue()) {
+                return PacketResult<BattleReward>::Failure(items.Error());
+            }
+            reward.items = items.Value();
+
+            for (std::size_t index = 0; index < SkillCount; ++index) {
+                const std::size_t payloadIndex = SkillStartIndex + index;
+                PacketResult<BattleRewardSkill> skill = ParseSkill(parts[payloadIndex], payloadIndex);
+                if (!skill.HasValue()) {
+                    return PacketResult<BattleReward>::Failure(skill.Error());
+                }
+                reward.skills[index] = skill.Value();
+            }
+
+            return PacketResult<BattleReward>::Success(std::move(reward));
+        }
+
+        [[nodiscard]] static PacketResult<BattleRewardActor> ParseActor(
+            std::string_view text,
+            std::size_t payloadIndex)
+        {
+            PacketResult<std::vector<std::string>> split = SplitPayload(text, SegmentDelimiter);
+            if (!split.HasValue()) {
+                return PacketResult<BattleRewardActor>::Failure(split.Error());
+            }
+
+            const std::vector<std::string>& parts = split.Value();
+            if (parts.size() != ActorFieldCount) {
+                return PacketResult<BattleRewardActor>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "BattleReward actor 段数量不匹配",
+                    payloadIndex));
+            }
+
+            PacketResult<int> targetIndex = ParseDecimalField(parts[0], payloadIndex);
+            if (!targetIndex.HasValue()) {
+                return PacketResult<BattleRewardActor>::Failure(targetIndex.Error());
+            }
+            PacketResult<int> levelUpFlag = ParseDecimalField(parts[1], payloadIndex);
+            if (!levelUpFlag.HasValue()) {
+                return PacketResult<BattleRewardActor>::Failure(levelUpFlag.Error());
+            }
+            PacketResult<int> expDelta = ParseInt62Field(parts[2], payloadIndex);
+            if (!expDelta.HasValue()) {
+                return PacketResult<BattleRewardActor>::Failure(expDelta.Error());
+            }
+
+            return PacketResult<BattleRewardActor>::Success(BattleRewardActor {
+                targetIndex.Value(),
+                levelUpFlag.Value(),
+                expDelta.Value(),
+            });
+        }
+
+        [[nodiscard]] static PacketResult<std::array<BattleRewardItem, ItemCount>> ParseItemGroup(
+            std::string_view text)
+        {
+            PacketResult<std::vector<std::string>> split = SplitPayload(text, SegmentDelimiter);
+            if (!split.HasValue()) {
+                return PacketResult<std::array<BattleRewardItem, ItemCount>>::Failure(split.Error());
+            }
+
+            const std::vector<std::string>& parts = split.Value();
+            if (parts.size() != ItemCount) {
+                return PacketResult<std::array<BattleRewardItem, ItemCount>>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "BattleReward itemGroup 项数量不匹配",
+                    ItemGroupIndex));
+            }
+
+            std::array<BattleRewardItem, ItemCount> items {};
+            for (std::size_t index = 0; index < ItemCount; ++index) {
+                PacketResult<BattleRewardItem> item = ParseItem(parts[index]);
+                if (!item.HasValue()) {
+                    return PacketResult<std::array<BattleRewardItem, ItemCount>>::Failure(item.Error());
+                }
+                items[index] = item.Value();
+            }
+            return PacketResult<std::array<BattleRewardItem, ItemCount>>::Success(std::move(items));
+        }
+
+        [[nodiscard]] static PacketResult<BattleRewardItem> ParseItem(std::string_view text)
+        {
+            BattleRewardItem item;
+            if (text.empty()) {
+                return PacketResult<BattleRewardItem>::Success(std::move(item));
+            }
+
+            const std::size_t markerPos = text.find(ItemNameMarker);
+            const std::string_view imageText = markerPos == std::string_view::npos
+                ? text
+                : text.substr(0, markerPos);
+
+            PacketResult<int> imageNumber = ParseDecimalField(imageText, ItemGroupIndex);
+            if (!imageNumber.HasValue()) {
+                return PacketResult<BattleRewardItem>::Failure(imageNumber.Error());
+            }
+
+            item.hasItem = true;
+            item.imageNumber = imageNumber.Value();
+            item.hasNameRaw = markerPos != std::string_view::npos;
+            if (item.hasNameRaw) {
+                item.nameRaw = std::string(text.substr(markerPos + ItemNameMarker.size()));
+            }
+            return PacketResult<BattleRewardItem>::Success(std::move(item));
+        }
+
+        [[nodiscard]] static PacketResult<BattleRewardSkill> ParseSkill(
+            std::string_view text,
+            std::size_t payloadIndex)
+        {
+            PacketResult<std::vector<std::string>> split = SplitPayload(text, SegmentDelimiter);
+            if (!split.HasValue()) {
+                return PacketResult<BattleRewardSkill>::Failure(split.Error());
+            }
+
+            const std::vector<std::string>& parts = split.Value();
+            if (parts.size() != SkillFieldCount) {
+                return PacketResult<BattleRewardSkill>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "BattleReward skill 段数量不匹配",
+                    payloadIndex));
+            }
+
+            PacketResult<int> levelUpFlag = ParseDecimalField(parts[0], payloadIndex);
+            if (!levelUpFlag.HasValue()) {
+                return PacketResult<BattleRewardSkill>::Failure(levelUpFlag.Error());
+            }
+            PacketResult<int> expDelta = ParseInt62Field(parts[1], payloadIndex);
+            if (!expDelta.HasValue()) {
+                return PacketResult<BattleRewardSkill>::Failure(expDelta.Error());
+            }
+
+            return PacketResult<BattleRewardSkill>::Success(BattleRewardSkill {
+                levelUpFlag.Value(),
+                expDelta.Value(),
+            });
+        }
+
+        [[nodiscard]] static PacketResult<int> ParseInt62Field(std::string_view text, std::size_t fieldIndex)
+        {
+            if (text.empty() || text == "-") {
+                return PacketResult<int>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "BattleReward i62 字段为空",
+                    fieldIndex));
+            }
+
+            PacketResult<int> decoded = DecodeInt62(text);
+            if (!decoded.HasValue()) {
+                PacketError error = decoded.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = fieldIndex;
+                error.source = PacketSourceTag::ClientIda;
+                return PacketResult<int>::Failure(std::move(error));
+            }
+            return decoded;
+        }
+
+        [[nodiscard]] static PacketResult<int> ParseDecimalField(std::string_view text, std::size_t fieldIndex)
+        {
+            bool negative = false;
+            std::size_t index = 0;
+            if (!text.empty() && text.front() == '-') {
+                negative = true;
+                index = 1U;
+            }
+
+            if (index == text.size()) {
+                return PacketResult<int>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "BattleReward 十进制字段为空",
+                    fieldIndex));
+            }
+
+            const std::int64_t maxValue = static_cast<std::int64_t>(std::numeric_limits<int>::max());
+            const std::int64_t minValue = static_cast<std::int64_t>(std::numeric_limits<int>::min());
+            const std::int64_t limit = negative ? (0 - minValue) : maxValue;
+            std::int64_t value = 0;
+
+            for (; index < text.size(); ++index) {
+                const char ch = text[index];
+                if (ch < '0' || ch > '9') {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "BattleReward 十进制字段包含非法字符",
+                        fieldIndex));
+                }
+
+                const int digit = ch - '0';
+                if (value > (limit - digit) / 10) {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "BattleReward 十进制字段超出 int 范围",
+                        fieldIndex));
+                }
+
+                value = (value * 10) + digit;
+            }
+
+            if (negative) {
+                value = -value;
+            }
+
+            return PacketResult<int>::Success(static_cast<int>(value));
+        }
+    };
+
+    /**
      * SEND_B 战斗命令		LYIm {command:es}
      * command 为 opaque 战斗命令串，仅按外层 es 处理。
      */

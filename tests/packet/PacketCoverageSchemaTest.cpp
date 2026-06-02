@@ -647,6 +647,18 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         failures += Expect(battleCommandSchema->fields.empty(), "LYIm raw fields empty");
     }
 
+    const PacketSchema* battleRewardSchema = FindPacket(packets, "Gn");
+    failures += Expect(battleRewardSchema != nullptr, "Gn schema exists");
+    if (battleRewardSchema != nullptr) {
+        failures += Expect(battleRewardSchema->direction == "服务端->客户端", "Gn direction");
+        failures += Expect(battleRewardSchema->legacyKind == "SEND", "Gn legacyKind");
+        failures += Expect(battleRewardSchema->rawFormat.empty(), "Gn rawFormat empty");
+        failures += Expect(battleRewardSchema->formatEmpty, "Gn formatEmpty");
+        failures += Expect(battleRewardSchema->resolvedFormat == "{data:es}", "Gn resolvedFormat");
+        failures += Expect(battleRewardSchema->resolvedSource == "ClientIda+src", "Gn resolvedSource");
+        failures += Expect(battleRewardSchema->fields.empty(), "Gn raw fields empty");
+    }
+
     const PacketSchema* profileMailMessageSchema = FindPacket(packets, "Mhbt");
     failures += Expect(profileMailMessageSchema != nullptr, "Mhbt schema exists");
     if (profileMailMessageSchema != nullptr) {

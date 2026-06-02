@@ -130,7 +130,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | M6.13.11 聊天/窗口/系统封包-IcE | `IcE` | 客户端->服务端 | 是 | 暂缓 | RECV_Shutdown；xlsx 未使用；旧 C 未补；IDA 未找到；禁止猜 0 字段 |
 | M6.14.01 战斗/交易/家族/社交封包-gnxd | `gnxd` | 服务端->客户端 | 否 | 完成 | SEND_AB SendAddressbook；外层 `{data:es}`；payload 为固定 60 槽 AddressBook，每槽 `use|charNameRaw|ownTitleRaw|registSeqNumber|level|online|graphicsNo`；空槽 7 段全空，字符串 raw 保留，数值 raw signed decimal |
 | M6.14.02 战斗/交易/家族/社交封包-PhdQ | `PhdQ` | 服务端->客户端 | 否 | 完成 | SEND_ABG SendAddressbookGuildInfo；外层 `{data:es}`；payload 为 0..60 条 AddressBookGuildInfo 记录，每条 `guildNameRaw|guildTitleRaw`；空 data 为空列表，空槽为 `|`，字符串 raw 保留 |
-| M6.14.03 战斗/交易/家族/社交封包-Gn | `Gn` | 服务端->客户端 | 是 | 字段待补 | SEND_RS 战斗获得物品 |
+| M6.14.03 战斗/交易/家族/社交封包-Gn | `Gn` | 服务端->客户端 | 是 | 完成 | SEND_RS 战斗获得物品；外层 `{data:es}`；payload 为 4 actor + 3 item itemGroup + 15 skill，顶层 20 段逗号分隔；actor/skill 经验为 i62，其他数值为 raw signed decimal；item nameRaw 保留 raw escaped；来源 ClientIda+src，旧 C 未取得 |
 | M6.14.04 战斗/交易/家族/社交封包-hB | `hB` | 服务端->客户端 | 是 | 字段待补 | SEND_RD BATTLE_GetDuelPoint |
 | M6.14.05 战斗/交易/家族/社交封包-vI | `vI` | 服务端->客户端 | 否 | 未开始 | SEND_ABI ADDRESSBOOK_sendAddressbookTableOne |
 | M6.14.06 战斗/交易/家族/社交封包-aDn | `aDn` | 服务端->客户端 | 否 | 未开始 | SEND_GI guildinfo |
@@ -256,7 +256,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 50 | `NgMy` | 客户端->服务端 | 完成 | RECV_BU 停止观战 | 否 | 否 | xlsx |
 | 51 | `EZ` | 服务端->客户端 | 完成 | SEND_EV Revc_EV的返回 | 否 | 否 | xlsx |
 | 52 | `dAgg` | 服务端->客户端 | 完成 | SEND_EN 进入战斗 | 否 | 否 | xlsx |
-| 53 | `Gn` | 服务端->客户端 | 完成 | SEND_RS 战斗获得物品 | 是 | 是 | 待 C/IDA 补全 |
+| 53 | `Gn` | 服务端->客户端 | 完成 | SEND_RS 战斗获得物品；外层 `{data:es}`；payload 20 段：4 actor、itemGroup、15 skill；itemGroup 3 项可空，nameRaw 保留 raw escaped | 是 | 是 | ClientIda+src；旧 C 未取得 |
 | 54 | `hB` | 服务端->客户端 | 完成 | SEND_RD BATTLE_GetDuelPoint | 是 | 是 | 待 C/IDA 补全 |
 | 55 | `LYIm` | 服务端->客户端 | 完成 | SEND_B；外层 `{command:es}`，payload opaque，不拆 `C/P/A/BU/M` | 是 | 是 | ServerC + ClientIda + src |
 | 56 | `ELoy` | 服务端->客户端 | 完成 | SEND_IA/nrproto_IA_send + IDA sub_50BFD0；外层 `{data:es}`，payload 为 `ignored0` + 28 * 13 道具槽，`ignored0` 语义待补 | 是 | 是 | ServerC + ClientIda + src/packet |

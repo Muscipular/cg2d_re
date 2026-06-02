@@ -305,6 +305,10 @@ namespace cg::packet
             {"command", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
         }};
 
+        inline constexpr std::array<PacketFieldSpec, 1> BattleRewardFields = {{
+            {"data", PacketFieldType::EscapedString, PacketSourceTag::ClientIda},
+        }};
+
         inline constexpr std::array<PacketFieldSpec, 3> ProfileMailMessageFields = {{
             {"aindex", PacketFieldType::Int62, PacketSourceTag::ServerC},
             {"text", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
@@ -382,7 +386,7 @@ namespace cg::packet
             {"y2", PacketFieldType::Int62, PacketSourceTag::Xlsx},
         }};
 
-        inline constexpr std::array<PacketSpec, 63> PacketRegistry = {{
+        inline constexpr std::array<PacketSpec, 64> PacketRegistry = {{
             {
                 "JFVf",
                 PacketDirection::ClientToServer,
@@ -720,6 +724,13 @@ namespace cg::packet
                 EffectFields.size(),
             },
             {
+                "Gn",
+                PacketDirection::ServerToClient,
+                PacketSourceTag::ClientIda,
+                BattleRewardFields.data(),
+                BattleRewardFields.size(),
+            },
+            {
                 "LYIm",
                 PacketDirection::ServerToClient,
                 PacketSourceTag::ServerC,
@@ -856,7 +867,8 @@ namespace cg::packet
             std::string_view code,
             std::string_view fieldName) noexcept
         {
-            return (fieldName == "data" && (code == "DyAG" || code == "lDuJ" || code == "gnxd" || code == "PhdQ")) ||
+            return (fieldName == "data" &&
+                       (code == "DyAG" || code == "lDuJ" || code == "gnxd" || code == "PhdQ" || code == "Gn")) ||
                 (code == "zdr" && fieldName == "message");
         }
 

@@ -10,19 +10,14 @@
 
 namespace {
 
-const cg::packet::PacketSpec& PacketSpec() noexcept
-{
-    return cg::packet::receive::TradeItemInfo::Spec;
-}
-
 cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
 {
-    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+    return cg::packet::ParsePacket(plainTokens, cg::packet::receive::TradeItemInfo::Spec);
 }
 
 cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
 {
-    return cg::packet::BuildPacket(packet, PacketSpec());
+    return cg::packet::BuildPacket(packet, cg::packet::receive::TradeItemInfo::Spec);
 }
 
 using TradeItemInfo = cg::packet::receive::TradeItemInfo;

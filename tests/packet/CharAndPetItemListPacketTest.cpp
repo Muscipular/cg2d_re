@@ -10,14 +10,9 @@
 
 namespace {
 
-const cg::packet::PacketSpec& PacketSpec() noexcept
-{
-    return cg::packet::receive::ItemCharacterPetList::Spec;
-}
-
 cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
 {
-    return cg::packet::BuildPacket(packet, PacketSpec());
+    return cg::packet::BuildPacket(packet, cg::packet::receive::ItemCharacterPetList::Spec);
 }
 
 int Expect(bool condition, const char* message)

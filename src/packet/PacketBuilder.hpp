@@ -86,7 +86,7 @@ namespace cg::packet
             return PacketResult<std::string>::Failure(std::move(error));
         }
 
-        const detail::PacketSpec* spec = detail::FindPacketSpec(code);
+        const PacketSpec* spec = detail::FindPacketSpec(code);
         if (spec == nullptr) {
             PacketError error = detail::MakeBuilderError(PacketErrorCode::UnknownCode, "封包 code 未注册");
             error.packetCode = PacketCode(code);
@@ -115,7 +115,7 @@ namespace cg::packet
         tokens.emplace_back(code);
 
         for (std::size_t index = 0; index < packet.fields.size(); ++index) {
-            const detail::PacketFieldSpec& fieldSpec = spec->fields[index];
+            const PacketFieldSpec& fieldSpec = spec->fields[index];
             const PacketField& field = packet.fields[index];
 
             if (field.name != fieldSpec.name) {

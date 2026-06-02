@@ -1213,7 +1213,7 @@ namespace cg::packet::send
 
         static PacketResult<ProfileMiniMailSend> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacketWithSubPayloadField(view, Code, DataFieldIndex);
+            PacketResult<Packet> parsed = ParsePacketWithSubPayloadField(view, ::cg::packet::detail::ProfileMiniMailSendSpec, DataFieldIndex);
             if (!parsed.HasValue()) {
                 return PacketResult<ProfileMiniMailSend>::Failure(parsed.Error());
             }

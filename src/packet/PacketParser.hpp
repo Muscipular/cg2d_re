@@ -14,22 +14,22 @@
 
 namespace cg::packet
 {
+    struct PacketFieldSpec
+    {
+        std::string_view name;
+        PacketFieldType type = PacketFieldType::Unknown;
+    };
+
+    struct PacketSpec
+    {
+        std::string_view code;
+        PacketDirection direction = PacketDirection::ClientToServer;
+        const PacketFieldSpec* fields = nullptr;
+        std::size_t fieldCount = 0;
+    };
+
     namespace detail
     {
-        struct PacketFieldSpec
-        {
-            std::string_view name;
-            PacketFieldType type = PacketFieldType::Unknown;
-        };
-
-        struct PacketSpec
-        {
-            std::string_view code;
-            PacketDirection direction = PacketDirection::ClientToServer;
-            const PacketFieldSpec* fields = nullptr;
-            std::size_t fieldCount = 0;
-        };
-
         inline constexpr std::array<PacketFieldSpec, 3> ClientLoginFields = {{
             {"clientHash", PacketFieldType::EscapedString},
             {"password", PacketFieldType::EscapedString},
@@ -494,6 +494,132 @@ namespace cg::packet
             {"color", PacketFieldType::Int62},
         }};
 
+        inline constexpr PacketSpec PetMailAnimationSpec {
+            "lDuJ",
+            PacketDirection::ServerToClient,
+            PetMailAnimationFields.data(),
+            PetMailAnimationFields.size(),
+        };
+
+        inline constexpr PacketSpec ProfileWindowSpec {
+            "DyAG",
+            PacketDirection::ServerToClient,
+            ProfileWindowFields.data(),
+            ProfileWindowFields.size(),
+        };
+
+        inline constexpr PacketSpec BattleRewardSpec {
+            "Gn",
+            PacketDirection::ServerToClient,
+            BattleRewardFields.data(),
+            BattleRewardFields.size(),
+        };
+
+        inline constexpr PacketSpec ChatMessageSpec {
+            "zdr",
+            PacketDirection::ServerToClient,
+            ChatMessageFields.data(),
+            ChatMessageFields.size(),
+        };
+
+        inline constexpr PacketSpec AddressBookSpec {
+            "gnxd",
+            PacketDirection::ServerToClient,
+            AddressBookFields.data(),
+            AddressBookFields.size(),
+        };
+
+        inline constexpr PacketSpec AddressBookInfoSpec {
+            "vI",
+            PacketDirection::ServerToClient,
+            AddressBookInfoFields.data(),
+            AddressBookInfoFields.size(),
+        };
+
+        inline constexpr PacketSpec AddressBookGuildInfoSpec {
+            "PhdQ",
+            PacketDirection::ServerToClient,
+            AddressBookGuildInfoFields.data(),
+            AddressBookGuildInfoFields.size(),
+        };
+
+        inline constexpr PacketSpec GuildInfoSpec {
+            "aDn",
+            PacketDirection::ServerToClient,
+            GuildInfoFields.data(),
+            GuildInfoFields.size(),
+        };
+
+        inline constexpr PacketSpec GuildTitleSpec {
+            "znv",
+            PacketDirection::ServerToClient,
+            GuildTitleFields.data(),
+            GuildTitleFields.size(),
+        };
+
+        inline constexpr PacketSpec GuildMemberSpec {
+            "yuD",
+            PacketDirection::ServerToClient,
+            GuildMemberFields.data(),
+            GuildMemberFields.size(),
+        };
+
+        inline constexpr PacketSpec GuildMemberInfoSpec {
+            "Kka",
+            PacketDirection::ServerToClient,
+            GuildMemberInfoFields.data(),
+            GuildMemberInfoFields.size(),
+        };
+
+        inline constexpr PacketSpec GuildMailSpec {
+            "Rll",
+            PacketDirection::ServerToClient,
+            GuildMailFields.data(),
+            GuildMailFields.size(),
+        };
+
+        inline constexpr PacketSpec TradePlayerListSpec {
+            "Cxo",
+            PacketDirection::ServerToClient,
+            TradePlayerListFields.data(),
+            TradePlayerListFields.size(),
+        };
+
+        inline constexpr PacketSpec TradeStartSpec {
+            "ms",
+            PacketDirection::ServerToClient,
+            TradeStartFields.data(),
+            TradeStartFields.size(),
+        };
+
+        inline constexpr PacketSpec TradeItemInfoSpec {
+            "nUbJ",
+            PacketDirection::ServerToClient,
+            TradeItemInfoFields.data(),
+            TradeItemInfoFields.size(),
+        };
+
+        inline constexpr PacketSpec TradePetInfoSpec {
+            "RwK",
+            PacketDirection::ServerToClient,
+            TradePetInfoFields.data(),
+            TradePetInfoFields.size(),
+        };
+
+        inline constexpr PacketSpec TradePetSkillInfoSpec {
+            "Yq",
+            PacketDirection::ServerToClient,
+            TradePetSkillInfoFields.data(),
+            TradePetSkillInfoFields.size(),
+        };
+
+        inline constexpr PacketSpec ProfileMiniMailSendSpec {
+            "GH",
+            PacketDirection::ClientToServer,
+            ProfileMiniMailSendFields.data(),
+            ProfileMiniMailSendFields.size(),
+        };
+
         inline constexpr std::array<PacketFieldSpec, 1> CheckCommandFields = {{
             {"time", PacketFieldType::Int62},
         }};
@@ -654,12 +780,7 @@ namespace cg::packet
                 AlbumNameFields.data(),
                 AlbumNameFields.size(),
             },
-            {
-                "lDuJ",
-                PacketDirection::ServerToClient,
-                PetMailAnimationFields.data(),
-                PetMailAnimationFields.size(),
-            },
+            PetMailAnimationSpec,
             {
                 "Sc",
                 PacketDirection::ServerToClient,
@@ -846,12 +967,7 @@ namespace cg::packet
                 CharacterPetListFields.data(),
                 CharacterPetListFields.size(),
             },
-            {
-                "DyAG",
-                PacketDirection::ServerToClient,
-                ProfileWindowFields.data(),
-                ProfileWindowFields.size(),
-            },
+            ProfileWindowSpec,
             {
                 "Zd",
                 PacketDirection::ServerToClient,
@@ -864,12 +980,7 @@ namespace cg::packet
                 EffectFields.data(),
                 EffectFields.size(),
             },
-            {
-                "Gn",
-                PacketDirection::ServerToClient,
-                BattleRewardFields.data(),
-                BattleRewardFields.size(),
-            },
+            BattleRewardSpec,
             {
                 "hB",
                 PacketDirection::ServerToClient,
@@ -888,12 +999,7 @@ namespace cg::packet
                 ProfileMailMessageFields.data(),
                 ProfileMailMessageFields.size(),
             },
-            {
-                "zdr",
-                PacketDirection::ServerToClient,
-                ChatMessageFields.data(),
-                ChatMessageFields.size(),
-            },
+            ChatMessageSpec,
             {
                 "BZ",
                 PacketDirection::ServerToClient,
@@ -924,84 +1030,19 @@ namespace cg::packet
                 MapNameFields.data(),
                 MapNameFields.size(),
             },
-            {
-                "gnxd",
-                PacketDirection::ServerToClient,
-                AddressBookFields.data(),
-                AddressBookFields.size(),
-            },
-            {
-                "PhdQ",
-                PacketDirection::ServerToClient,
-                AddressBookGuildInfoFields.data(),
-                AddressBookGuildInfoFields.size(),
-            },
-            {
-                "vI",
-                PacketDirection::ServerToClient,
-                AddressBookInfoFields.data(),
-                AddressBookInfoFields.size(),
-            },
-            {
-                "aDn",
-                PacketDirection::ServerToClient,
-                GuildInfoFields.data(),
-                GuildInfoFields.size(),
-            },
-            {
-                "znv",
-                PacketDirection::ServerToClient,
-                GuildTitleFields.data(),
-                GuildTitleFields.size(),
-            },
-            {
-                "yuD",
-                PacketDirection::ServerToClient,
-                GuildMemberFields.data(),
-                GuildMemberFields.size(),
-            },
-            {
-                "Kka",
-                PacketDirection::ServerToClient,
-                GuildMemberInfoFields.data(),
-                GuildMemberInfoFields.size(),
-            },
-            {
-                "Rll",
-                PacketDirection::ServerToClient,
-                GuildMailFields.data(),
-                GuildMailFields.size(),
-            },
-            {
-                "Cxo",
-                PacketDirection::ServerToClient,
-                TradePlayerListFields.data(),
-                TradePlayerListFields.size(),
-            },
-            {
-                "ms",
-                PacketDirection::ServerToClient,
-                TradeStartFields.data(),
-                TradeStartFields.size(),
-            },
-            {
-                "nUbJ",
-                PacketDirection::ServerToClient,
-                TradeItemInfoFields.data(),
-                TradeItemInfoFields.size(),
-            },
-            {
-                "RwK",
-                PacketDirection::ServerToClient,
-                TradePetInfoFields.data(),
-                TradePetInfoFields.size(),
-            },
-            {
-                "Yq",
-                PacketDirection::ServerToClient,
-                TradePetSkillInfoFields.data(),
-                TradePetSkillInfoFields.size(),
-            },
+            AddressBookSpec,
+            AddressBookGuildInfoSpec,
+            AddressBookInfoSpec,
+            GuildInfoSpec,
+            GuildTitleSpec,
+            GuildMemberSpec,
+            GuildMemberInfoSpec,
+            GuildMailSpec,
+            TradePlayerListSpec,
+            TradeStartSpec,
+            TradeItemInfoSpec,
+            TradePetInfoSpec,
+            TradePetSkillInfoSpec,
             {
                 "aiAb",
                 PacketDirection::ClientToServer,
@@ -1038,12 +1079,7 @@ namespace cg::packet
                 ProfileMailFriendDeleteFields.data(),
                 ProfileMailFriendDeleteFields.size(),
             },
-            {
-                "GH",
-                PacketDirection::ClientToServer,
-                ProfileMiniMailSendFields.data(),
-                ProfileMiniMailSendFields.size(),
-            },
+            ProfileMiniMailSendSpec,
             {
                 "nsY",
                 PacketDirection::ServerToClient,
@@ -1175,7 +1211,7 @@ namespace cg::packet
             return PacketResult<Packet>::Failure(std::move(error));
         }
 
-        const detail::PacketSpec* spec = detail::FindPacketSpec(code);
+        const PacketSpec* spec = detail::FindPacketSpec(code);
         if (spec == nullptr) {
             PacketError error = detail::MakeParserError(PacketErrorCode::UnknownCode, "封包 code 未注册");
             error.packetCode = PacketCode(code);
@@ -1200,7 +1236,7 @@ namespace cg::packet
         packet.fields.reserve(spec->fieldCount);
 
         for (std::size_t index = 0; index < spec->fieldCount; ++index) {
-            const detail::PacketFieldSpec& fieldSpec = spec->fields[index];
+            const PacketFieldSpec& fieldSpec = spec->fields[index];
             const std::string& token = fieldTokens[index];
 
             PacketField field;
@@ -1249,7 +1285,7 @@ namespace cg::packet
 
     [[nodiscard]] inline PacketResult<Packet> ParsePacketWithSubPayloadFields(
         std::string_view plainTokens,
-        std::string_view code,
+        const PacketSpec& packetSpec,
         std::span<const std::size_t> fieldIndexes)
     {
         PacketResult<Packet> parsed = ParsePacket(plainTokens);
@@ -1258,7 +1294,7 @@ namespace cg::packet
         }
 
         Packet packet = std::move(parsed.Value());
-        if (packet.code.View() != code || fieldIndexes.empty()) {
+        if (packet.code.View() != packetSpec.code || fieldIndexes.empty()) {
             return PacketResult<Packet>::Success(std::move(packet));
         }
 
@@ -1274,7 +1310,8 @@ namespace cg::packet
         }
 
         for (const std::size_t fieldIndex : fieldIndexes) {
-            if (fieldIndex >= packet.fields.size() || fieldIndex >= fieldTokens.size()) {
+            if (fieldIndex >= packetSpec.fieldCount || fieldIndex >= packet.fields.size() ||
+                fieldIndex >= fieldTokens.size()) {
                 PacketError error = detail::MakeParserError(
                     PacketErrorCode::FieldCountMismatch,
                     "sub payload 字段索引越界");
@@ -1283,7 +1320,17 @@ namespace cg::packet
                 return PacketResult<Packet>::Failure(std::move(error));
             }
 
-            if (packet.fields[fieldIndex].type != PacketFieldType::EscapedString) {
+            const PacketFieldSpec& fieldSpec = packetSpec.fields[fieldIndex];
+            if (packet.fields[fieldIndex].name != fieldSpec.name) {
+                PacketError error = detail::MakeParserError(
+                    PacketErrorCode::DecodeFailed,
+                    "sub payload 字段名不匹配");
+                detail::FillErrorContext(error, packet.code.View(), fieldIndex);
+                return PacketResult<Packet>::Failure(std::move(error));
+            }
+
+            if (fieldSpec.type != PacketFieldType::EscapedString ||
+                packet.fields[fieldIndex].type != PacketFieldType::EscapedString) {
                 PacketError error = detail::MakeParserError(
                     PacketErrorCode::InvalidFieldType,
                     "sub payload 字段类型不匹配");
@@ -1307,11 +1354,11 @@ namespace cg::packet
 
     [[nodiscard]] inline PacketResult<Packet> ParsePacketWithSubPayloadField(
         std::string_view plainTokens,
-        std::string_view code,
+        const PacketSpec& packetSpec,
         std::size_t fieldIndex)
     {
         const std::array<std::size_t, 1> fieldIndexes = {fieldIndex};
-        return ParsePacketWithSubPayloadFields(plainTokens, code, fieldIndexes);
+        return ParsePacketWithSubPayloadFields(plainTokens, packetSpec, fieldIndexes);
     }
 }
 

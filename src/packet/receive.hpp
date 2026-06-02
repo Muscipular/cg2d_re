@@ -7084,7 +7084,7 @@ namespace cg::packet::receive
 
         static PacketResult<PetMailAnimation> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacketWithSubPayloadField(view, Code, DataFieldIndex);
+            PacketResult<Packet> parsed = ParsePacketWithSubPayloadField(view, ::cg::packet::detail::PetMailAnimationSpec, DataFieldIndex);
             if (!parsed.HasValue()) {
                 return PacketResult<PetMailAnimation>::Failure(parsed.Error());
             }
@@ -10079,7 +10079,7 @@ namespace cg::packet::receive
 
         static PacketResult<ProfileWindow> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacketWithSubPayloadField(view, Code, DataFieldIndex);
+            PacketResult<Packet> parsed = ParsePacketWithSubPayloadField(view, ::cg::packet::detail::ProfileWindowSpec, DataFieldIndex);
             if (!parsed.HasValue()) {
                 return PacketResult<ProfileWindow>::Failure(parsed.Error());
             }
@@ -10894,7 +10894,7 @@ namespace cg::packet::receive
 
         static PacketResult<BattleReward> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacketWithSubPayloadField(view, Code, DataFieldIndex);
+            PacketResult<Packet> parsed = ParsePacketWithSubPayloadField(view, ::cg::packet::detail::BattleRewardSpec, DataFieldIndex);
             if (!parsed.HasValue()) {
                 return PacketResult<BattleReward>::Failure(parsed.Error());
             }
@@ -11903,7 +11903,7 @@ namespace cg::packet::receive
 
         static PacketResult<ChatMessage> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacketWithSubPayloadField(view, Code, MessageFieldIndex);
+            PacketResult<Packet> parsed = ParsePacketWithSubPayloadField(view, ::cg::packet::detail::ChatMessageSpec, MessageFieldIndex);
             if (!parsed.HasValue()) {
                 return PacketResult<ChatMessage>::Failure(parsed.Error());
             }
@@ -12864,7 +12864,7 @@ namespace cg::packet::receive
 
         static PacketResult<AddressBook> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacketWithSubPayloadField(view, Code, DataFieldIndex);
+            PacketResult<Packet> parsed = ParsePacketWithSubPayloadField(view, ::cg::packet::detail::AddressBookSpec, DataFieldIndex);
             if (!parsed.HasValue()) {
                 return PacketResult<AddressBook>::Failure(parsed.Error());
             }
@@ -13181,7 +13181,7 @@ namespace cg::packet::receive
 
         static PacketResult<AddressBookInfo> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacketWithSubPayloadField(view, Code, DataFieldIndex);
+            PacketResult<Packet> parsed = ParsePacketWithSubPayloadField(view, ::cg::packet::detail::AddressBookInfoSpec, DataFieldIndex);
             if (!parsed.HasValue()) {
                 return PacketResult<AddressBookInfo>::Failure(parsed.Error());
             }
@@ -13529,7 +13529,7 @@ namespace cg::packet::receive
 
         static PacketResult<GuildInfo> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacketWithSubPayloadField(view, Code, DataFieldIndex);
+            PacketResult<Packet> parsed = ParsePacketWithSubPayloadField(view, ::cg::packet::detail::GuildInfoSpec, DataFieldIndex);
             if (!parsed.HasValue()) {
                 return PacketResult<GuildInfo>::Failure(parsed.Error());
             }
@@ -13919,7 +13919,7 @@ namespace cg::packet::receive
 
         static PacketResult<GuildTitle> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacketWithSubPayloadField(view, Code, DataFieldIndex);
+            PacketResult<Packet> parsed = ParsePacketWithSubPayloadField(view, ::cg::packet::detail::GuildTitleSpec, DataFieldIndex);
             if (!parsed.HasValue()) {
                 return PacketResult<GuildTitle>::Failure(parsed.Error());
             }
@@ -14174,7 +14174,7 @@ namespace cg::packet::receive
 
         static PacketResult<GuildMember> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacketWithSubPayloadField(view, Code, DataFieldIndex);
+            PacketResult<Packet> parsed = ParsePacketWithSubPayloadField(view, ::cg::packet::detail::GuildMemberSpec, DataFieldIndex);
             if (!parsed.HasValue()) {
                 return PacketResult<GuildMember>::Failure(parsed.Error());
             }
@@ -14472,7 +14472,7 @@ namespace cg::packet::receive
 
         static PacketResult<GuildMemberInfo> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacketWithSubPayloadField(view, Code, DataFieldIndex);
+            PacketResult<Packet> parsed = ParsePacketWithSubPayloadField(view, ::cg::packet::detail::GuildMemberInfoSpec, DataFieldIndex);
             if (!parsed.HasValue()) {
                 return PacketResult<GuildMemberInfo>::Failure(parsed.Error());
             }
@@ -14787,7 +14787,7 @@ namespace cg::packet::receive
 
         static PacketResult<GuildMail> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacketWithSubPayloadField(view, Code, TextFieldIndex);
+            PacketResult<Packet> parsed = ParsePacketWithSubPayloadField(view, ::cg::packet::detail::GuildMailSpec, TextFieldIndex);
             if (!parsed.HasValue()) {
                 return PacketResult<GuildMail>::Failure(parsed.Error());
             }
@@ -15075,7 +15075,7 @@ namespace cg::packet::receive
 
         static PacketResult<TradePlayerList> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacketWithSubPayloadField(view, Code, DataFieldIndex);
+            PacketResult<Packet> parsed = ParsePacketWithSubPayloadField(view, ::cg::packet::detail::TradePlayerListSpec, DataFieldIndex);
             if (!parsed.HasValue()) {
                 return PacketResult<TradePlayerList>::Failure(parsed.Error());
             }
@@ -15233,7 +15233,7 @@ namespace cg::packet::receive
 
         static PacketResult<TradeStart> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacketWithSubPayloadField(view, Code, NameFieldIndex);
+            PacketResult<Packet> parsed = ParsePacketWithSubPayloadField(view, ::cg::packet::detail::TradeStartSpec, NameFieldIndex);
             if (!parsed.HasValue()) {
                 return PacketResult<TradeStart>::Failure(parsed.Error());
             }
@@ -15489,7 +15489,7 @@ namespace cg::packet::receive
 
         static PacketResult<TradeItemInfo> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacketWithSubPayloadField(view, Code, DataFieldIndex);
+            PacketResult<Packet> parsed = ParsePacketWithSubPayloadField(view, ::cg::packet::detail::TradeItemInfoSpec, DataFieldIndex);
             if (!parsed.HasValue()) {
                 return PacketResult<TradeItemInfo>::Failure(parsed.Error());
             }
@@ -15928,7 +15928,7 @@ namespace cg::packet::receive
 
         static PacketResult<TradePetInfo> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacketWithSubPayloadField(view, Code, DataFieldIndex);
+            PacketResult<Packet> parsed = ParsePacketWithSubPayloadField(view, ::cg::packet::detail::TradePetInfoSpec, DataFieldIndex);
             if (!parsed.HasValue()) {
                 return PacketResult<TradePetInfo>::Failure(parsed.Error());
             }
@@ -16266,7 +16266,7 @@ namespace cg::packet::receive
 
         static PacketResult<TradePetSkillInfo> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacketWithSubPayloadField(view, Code, DataFieldIndex);
+            PacketResult<Packet> parsed = ParsePacketWithSubPayloadField(view, ::cg::packet::detail::TradePetSkillInfoSpec, DataFieldIndex);
             if (!parsed.HasValue()) {
                 return PacketResult<TradePetSkillInfo>::Failure(parsed.Error());
             }
@@ -16542,7 +16542,7 @@ namespace cg::packet::receive
 
         static PacketResult<AddressBookGuildInfo> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacketWithSubPayloadField(view, Code, DataFieldIndex);
+            PacketResult<Packet> parsed = ParsePacketWithSubPayloadField(view, ::cg::packet::detail::AddressBookGuildInfoSpec, DataFieldIndex);
             if (!parsed.HasValue()) {
                 return PacketResult<AddressBookGuildInfo>::Failure(parsed.Error());
             }

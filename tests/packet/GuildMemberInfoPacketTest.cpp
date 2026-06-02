@@ -127,7 +127,7 @@ int TestParsePacketOuter()
 {
     const std::string payload = "1|123|Alice\\zLeader|123|45|1|987|2|";
     const cg::packet::PacketResult<cg::packet::Packet> parsed =
-        cg::packet::ParsePacketWithSubPayloadField(BuildRawPlain("a", payload), GuildMemberInfo::Code, 1U);
+        cg::packet::ParsePacketWithSubPayloadField(BuildRawPlain("a", payload), ::cg::packet::detail::GuildMemberInfoSpec, 1U);
 
     int failures = Expect(static_cast<bool>(parsed), "parse Kka outer");
     if (parsed.HasValue()) {

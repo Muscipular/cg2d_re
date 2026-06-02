@@ -875,6 +875,25 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         }
     }
 
+    const PacketSchema* addressBookInfoSchema = FindPacket(packets, "vI");
+    failures += Expect(addressBookInfoSchema != nullptr, "vI schema exists");
+    if (addressBookInfoSchema != nullptr) {
+        const cg::packet::receive::AddressBookInfo info;
+        const cg::packet::Packet packet = info.ToPacket();
+        failures += Expect(addressBookInfoSchema->direction == "服务端->客户端", "vI direction");
+        failures += Expect(addressBookInfoSchema->legacyKind == "SEND", "vI legacyKind");
+        failures += Expect(addressBookInfoSchema->rawFormat == "{registry} {data}", "vI rawFormat");
+        failures += Expect(addressBookInfoSchema->resolvedFormat == "{registry:i62} {data:es}", "vI resolvedFormat");
+        failures += Expect(addressBookInfoSchema->resolvedSource == "xlsx+ClientIda+src/packet", "vI resolvedSource");
+        failures += Expect(addressBookInfoSchema->fields.size() == 2U, "vI field count");
+        if (addressBookInfoSchema->fields.size() == 2U) {
+            failures += Expect(addressBookInfoSchema->fields[0].name == packet.fields[0].name, "vI registry field");
+            failures += Expect(addressBookInfoSchema->fields[1].name == packet.fields[1].name, "vI data field");
+            failures += Expect(addressBookInfoSchema->fields[0].typeToken == "unknown", "vI raw registry type");
+            failures += Expect(addressBookInfoSchema->fields[1].typeToken == "unknown", "vI raw data type");
+        }
+    }
+
     const PacketSchema* petMailSendSchema = FindPacket(packets, "rMsv");
     failures += Expect(petMailSendSchema != nullptr, "rMsv schema exists");
     if (petMailSendSchema != nullptr) {

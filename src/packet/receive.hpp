@@ -12319,6 +12319,330 @@ namespace cg::packet::receive
         }
     };
 
+    /**
+     * SEND_ABI ADDRESSBOOK_sendAddressbookTableOne		vI {registry:i62} {data:es}
+     * data: use|charNameRaw|ownTitleRaw|registSeqNumber|level|online|graphicsNo|clearGraphicsFlag|field9Raw|field10Raw。
+     */
+    struct AddressBookInfo
+    {
+        static constexpr std::string_view Code = "vI";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::string_view PayloadDelimiter = "|";
+        static constexpr std::size_t PayloadFieldCount = 10U;
+
+        int registry = 0;
+        int use = 0;
+        std::string charNameRaw;
+        std::string ownTitleRaw;
+        int registSeqNumber = 0;
+        int level = 0;
+        int online = 0;
+        int graphicsNo = 0;
+        int clearGraphicsFlag = 0;
+        std::string field9Raw;
+        std::string field10Raw;
+
+        AddressBookInfo() = default;
+
+        AddressBookInfo(
+            int registry,
+            int use,
+            std::string charNameRaw,
+            std::string ownTitleRaw,
+            int registSeqNumber,
+            int level,
+            int online,
+            int graphicsNo,
+            int clearGraphicsFlag,
+            std::string field9Raw,
+            std::string field10Raw)
+            : registry(registry),
+              use(use),
+              charNameRaw(std::move(charNameRaw)),
+              ownTitleRaw(std::move(ownTitleRaw)),
+              registSeqNumber(registSeqNumber),
+              level(level),
+              online(online),
+              graphicsNo(graphicsNo),
+              clearGraphicsFlag(clearGraphicsFlag),
+              field9Raw(std::move(field9Raw)),
+              field10Raw(std::move(field10Raw))
+        {
+        }
+
+        [[nodiscard]] bool IsActive() const noexcept
+        {
+            return use > 0;
+        }
+
+        [[nodiscard]] std::string BuildData() const
+        {
+            std::array<std::string, PayloadFieldCount> parts = {};
+            parts[UsePayloadIndex] = std::to_string(use);
+
+            if (IsActive()) {
+                parts[CharNamePayloadIndex] = charNameRaw;
+                parts[OwnTitlePayloadIndex] = ownTitleRaw;
+                parts[RegistSeqNumberPayloadIndex] = std::to_string(registSeqNumber);
+                parts[LevelPayloadIndex] = std::to_string(level);
+                parts[OnlinePayloadIndex] = std::to_string(online);
+                parts[GraphicsNoPayloadIndex] = std::to_string(graphicsNo);
+                parts[ClearGraphicsFlagPayloadIndex] = std::to_string(clearGraphicsFlag);
+                parts[Field9PayloadIndex] = field9Raw;
+                parts[Field10PayloadIndex] = field10Raw;
+            }
+
+            PacketResult<std::string> payload = BuildPayload(
+                std::span<const std::string>(parts.data(), parts.size()),
+                PayloadDelimiter);
+            if (payload.HasValue()) {
+                return payload.Value();
+            }
+            return {};
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ClientIda);
+            packet.fields.push_back(PacketField {
+                "registry",
+                PacketFieldType::Int62,
+                std::to_string(registry),
+                PacketSourceTag::ClientIda,
+            });
+            packet.fields.push_back(PacketField {
+                "data",
+                PacketFieldType::EscapedString,
+                BuildData(),
+                PacketSourceTag::ClientIda,
+            });
+            return packet;
+        }
+
+        static PacketResult<AddressBookInfo> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view);
+            if (!parsed.HasValue()) {
+                return PacketResult<AddressBookInfo>::Failure(parsed.Error());
+            }
+
+            return FromPacket(parsed.Value());
+        }
+
+        static PacketResult<AddressBookInfo> FromPacket(const Packet& packet)
+        {
+            if (packet.code.View() != Code) {
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "AddressBookInfo Parse 收到非 vI 封包");
+                error.packetCode = packet.code;
+                return PacketResult<AddressBookInfo>::Failure(std::move(error));
+            }
+
+            if (packet.direction != Direction) {
+                return PacketResult<AddressBookInfo>::Failure(MakePacketError(
+                    PacketErrorCode::DecodeFailed,
+                    "AddressBookInfo Parse 封包方向不匹配"));
+            }
+
+            if (packet.fields.size() != FieldCount) {
+                return PacketResult<AddressBookInfo>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "AddressBookInfo Parse 字段数量不匹配",
+                    packet.fields.empty() ? 0U : FieldCount));
+            }
+
+            const PacketField& registryField = packet.fields[RegistryFieldIndex];
+            if (registryField.name != "registry") {
+                return PacketResult<AddressBookInfo>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "AddressBookInfo Parse 字段名不匹配",
+                    RegistryFieldIndex));
+            }
+            if (registryField.type != PacketFieldType::Int62) {
+                return PacketResult<AddressBookInfo>::Failure(MakeFieldError(
+                    PacketErrorCode::InvalidFieldType,
+                    "AddressBookInfo Parse 字段类型不匹配",
+                    RegistryFieldIndex));
+            }
+
+            const PacketField& dataField = packet.fields[DataFieldIndex];
+            if (dataField.name != "data") {
+                return PacketResult<AddressBookInfo>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "AddressBookInfo Parse 字段名不匹配",
+                    DataFieldIndex));
+            }
+            if (dataField.type != PacketFieldType::EscapedString) {
+                return PacketResult<AddressBookInfo>::Failure(MakeFieldError(
+                    PacketErrorCode::InvalidFieldType,
+                    "AddressBookInfo Parse 字段类型不匹配",
+                    DataFieldIndex));
+            }
+
+            PacketResult<int> registryValue = ParseDecimalField(registryField.value, RegistryFieldIndex);
+            if (!registryValue.HasValue()) {
+                return PacketResult<AddressBookInfo>::Failure(registryValue.Error());
+            }
+
+            return ParseData(registryValue.Value(), dataField.value);
+        }
+
+    private:
+        static constexpr std::size_t FieldCount = 2U;
+        static constexpr std::size_t RegistryFieldIndex = 0U;
+        static constexpr std::size_t DataFieldIndex = 1U;
+        static constexpr std::size_t UsePayloadIndex = 0U;
+        static constexpr std::size_t CharNamePayloadIndex = 1U;
+        static constexpr std::size_t OwnTitlePayloadIndex = 2U;
+        static constexpr std::size_t RegistSeqNumberPayloadIndex = 3U;
+        static constexpr std::size_t LevelPayloadIndex = 4U;
+        static constexpr std::size_t OnlinePayloadIndex = 5U;
+        static constexpr std::size_t GraphicsNoPayloadIndex = 6U;
+        static constexpr std::size_t ClearGraphicsFlagPayloadIndex = 7U;
+        static constexpr std::size_t Field9PayloadIndex = 8U;
+        static constexpr std::size_t Field10PayloadIndex = 9U;
+
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            error.source = PacketSourceTag::ClientIda;
+            return error;
+        }
+
+        [[nodiscard]] static PacketError MakeFieldError(
+            PacketErrorCode code,
+            std::string message,
+            std::size_t fieldIndex)
+        {
+            PacketError error = MakePacketError(code, std::move(message));
+            error.fieldIndex = fieldIndex;
+            return error;
+        }
+
+        [[nodiscard]] static PacketResult<AddressBookInfo> ParseData(int registry, std::string_view payload)
+        {
+            PacketResult<std::vector<std::string>> split = SplitPayloadLegacyAware(payload, PayloadDelimiter);
+            if (!split.HasValue()) {
+                PacketError error = split.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = DataFieldIndex;
+                error.source = PacketSourceTag::ClientIda;
+                return PacketResult<AddressBookInfo>::Failure(std::move(error));
+            }
+
+            std::vector<std::string> parts = std::move(split.Value());
+            if (parts.size() == PayloadFieldCount + 1U && !parts.empty() && parts.back().empty()) {
+                parts.pop_back();
+            }
+
+            if (parts.size() != PayloadFieldCount) {
+                return PacketResult<AddressBookInfo>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "AddressBookInfo payload 段数量不匹配",
+                    DataFieldIndex));
+            }
+
+            PacketResult<int> useValue = ParseDecimalField(parts[UsePayloadIndex], UsePayloadIndex);
+            if (!useValue.HasValue()) {
+                return PacketResult<AddressBookInfo>::Failure(useValue.Error());
+            }
+
+            AddressBookInfo info;
+            info.registry = registry;
+            info.use = useValue.Value();
+            info.charNameRaw = parts[CharNamePayloadIndex];
+            info.ownTitleRaw = parts[OwnTitlePayloadIndex];
+            info.field9Raw = parts[Field9PayloadIndex];
+            info.field10Raw = parts[Field10PayloadIndex];
+
+            if (!info.IsActive()) {
+                return PacketResult<AddressBookInfo>::Success(std::move(info));
+            }
+
+            PacketResult<int> registSeqNumber =
+                ParseDecimalField(parts[RegistSeqNumberPayloadIndex], RegistSeqNumberPayloadIndex);
+            if (!registSeqNumber.HasValue()) {
+                return PacketResult<AddressBookInfo>::Failure(registSeqNumber.Error());
+            }
+
+            PacketResult<int> level = ParseDecimalField(parts[LevelPayloadIndex], LevelPayloadIndex);
+            if (!level.HasValue()) {
+                return PacketResult<AddressBookInfo>::Failure(level.Error());
+            }
+
+            PacketResult<int> online = ParseDecimalField(parts[OnlinePayloadIndex], OnlinePayloadIndex);
+            if (!online.HasValue()) {
+                return PacketResult<AddressBookInfo>::Failure(online.Error());
+            }
+
+            PacketResult<int> graphicsNo = ParseDecimalField(parts[GraphicsNoPayloadIndex], GraphicsNoPayloadIndex);
+            if (!graphicsNo.HasValue()) {
+                return PacketResult<AddressBookInfo>::Failure(graphicsNo.Error());
+            }
+
+            PacketResult<int> clearGraphicsFlag =
+                ParseDecimalField(parts[ClearGraphicsFlagPayloadIndex], ClearGraphicsFlagPayloadIndex);
+            if (!clearGraphicsFlag.HasValue()) {
+                return PacketResult<AddressBookInfo>::Failure(clearGraphicsFlag.Error());
+            }
+
+            info.registSeqNumber = registSeqNumber.Value();
+            info.level = level.Value();
+            info.online = online.Value();
+            info.graphicsNo = graphicsNo.Value();
+            info.clearGraphicsFlag = clearGraphicsFlag.Value();
+            return PacketResult<AddressBookInfo>::Success(std::move(info));
+        }
+
+        [[nodiscard]] static PacketResult<int> ParseDecimalField(std::string_view text, std::size_t fieldIndex)
+        {
+            bool negative = false;
+            std::size_t index = 0;
+            if (!text.empty() && text.front() == '-') {
+                negative = true;
+                index = 1U;
+            }
+
+            if (index == text.size()) {
+                return PacketResult<int>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "AddressBookInfo 十进制字段为空",
+                    fieldIndex));
+            }
+
+            const std::int64_t maxValue = static_cast<std::int64_t>(std::numeric_limits<int>::max());
+            const std::int64_t minValue = static_cast<std::int64_t>(std::numeric_limits<int>::min());
+            const std::int64_t limit = negative ? (0 - minValue) : maxValue;
+            std::int64_t value = 0;
+
+            for (; index < text.size(); ++index) {
+                const char ch = text[index];
+                if (ch < '0' || ch > '9') {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "AddressBookInfo 十进制字段包含非法字符",
+                        fieldIndex));
+                }
+
+                const int digit = ch - '0';
+                if (value > (limit - digit) / 10) {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "AddressBookInfo 十进制字段超出 int 范围",
+                        fieldIndex));
+                }
+
+                value = (value * 10) + digit;
+            }
+
+            if (negative) {
+                value = -value;
+            }
+
+            return PacketResult<int>::Success(static_cast<int>(value));
+        }
+    };
+
     struct AddressBookGuildInfoRecord
     {
         std::string guildNameRaw;

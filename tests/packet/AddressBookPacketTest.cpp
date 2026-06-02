@@ -12,6 +12,7 @@
 namespace {
 
 using AddressBook = cg::packet::receive::AddressBook;
+using AddressBookInfo = cg::packet::receive::AddressBookInfo;
 using AddressBookSlot = cg::packet::receive::AddressBookSlot;
 
 int Expect(bool condition, const char* message)
@@ -93,6 +94,31 @@ std::string BuildRawPlain(std::string_view payload)
     return plain;
 }
 
+std::string BuildPlainVi(std::string_view registry, std::string_view payload)
+{
+    const cg::packet::PacketResult<std::string> encodedPayload = cg::packet::EncodeEscapedString(payload);
+    if (!encodedPayload.HasValue()) {
+        return "vI   ";
+    }
+
+    std::string plain = "vI ";
+    plain.append(registry);
+    plain.push_back(' ');
+    plain.append(encodedPayload.Value());
+    plain.push_back(' ');
+    return plain;
+}
+
+std::string BuildRawPlainVi(std::string_view registry, std::string_view payload)
+{
+    std::string plain = "vI ";
+    plain.append(registry);
+    plain.push_back(' ');
+    plain.append(payload);
+    plain.push_back(' ');
+    return plain;
+}
+
 int ExpectAddressBookPacket(
     const cg::packet::Packet& packet,
     std::string_view payload,
@@ -157,6 +183,63 @@ int ExpectUnusedSlots(const AddressBook& addressBook, std::size_t firstSlot, con
         failures += Expect(addressBook.slots[index].charNameRaw.empty(), message);
         failures += Expect(addressBook.slots[index].ownTitleRaw.empty(), message);
     }
+    return failures;
+}
+
+int ExpectAddressBookInfoPacket(
+    const cg::packet::Packet& packet,
+    int registry,
+    std::string_view payload,
+    const char* message)
+{
+    int failures = 0;
+    failures += Expect(packet.code == cg::packet::PacketCode(AddressBookInfo::Code), message);
+    failures += Expect(packet.direction == cg::packet::PacketDirection::ServerToClient, message);
+    failures += Expect(packet.source == cg::packet::PacketSourceTag::ClientIda, message);
+    failures += Expect(packet.fields.size() == 2U, message);
+    if (packet.fields.size() != 2U) {
+        return failures;
+    }
+
+    failures += Expect(packet.fields[0].name == "registry", message);
+    failures += Expect(packet.fields[0].type == cg::packet::PacketFieldType::Int62, message);
+    failures += Expect(packet.fields[0].source == cg::packet::PacketSourceTag::ClientIda, message);
+    failures += Expect(packet.fields[0].value == std::to_string(registry), message);
+    failures += Expect(packet.fields[1].name == "data", message);
+    failures += Expect(packet.fields[1].type == cg::packet::PacketFieldType::EscapedString, message);
+    failures += Expect(packet.fields[1].source == cg::packet::PacketSourceTag::ClientIda, message);
+    failures += Expect(packet.fields[1].value == payload, message);
+    return failures;
+}
+
+int ExpectActiveAddressBookInfo(
+    const AddressBookInfo& info,
+    int registry,
+    int use,
+    std::string_view charNameRaw,
+    std::string_view ownTitleRaw,
+    int registSeqNumber,
+    int level,
+    int online,
+    int graphicsNo,
+    int clearGraphicsFlag,
+    std::string_view field9Raw,
+    std::string_view field10Raw,
+    const char* message)
+{
+    int failures = 0;
+    failures += Expect(info.IsActive(), message);
+    failures += Expect(info.registry == registry, message);
+    failures += Expect(info.use == use, message);
+    failures += Expect(info.charNameRaw == charNameRaw, message);
+    failures += Expect(info.ownTitleRaw == ownTitleRaw, message);
+    failures += Expect(info.registSeqNumber == registSeqNumber, message);
+    failures += Expect(info.level == level, message);
+    failures += Expect(info.online == online, message);
+    failures += Expect(info.graphicsNo == graphicsNo, message);
+    failures += Expect(info.clearGraphicsFlag == clearGraphicsFlag, message);
+    failures += Expect(info.field9Raw == field9Raw, message);
+    failures += Expect(info.field10Raw == field10Raw, message);
     return failures;
 }
 
@@ -277,6 +360,133 @@ int TestRawEscapePreserved()
     return failures;
 }
 
+int TestAddressBookInfoActiveRoundtrip()
+{
+    const std::string payload = "1|Alice|Leader|123|45|1|987|2|raw9|raw10";
+    const cg::packet::PacketResult<cg::packet::Packet> parsedPacket =
+        cg::packet::ParsePacket(BuildPlainVi("10", payload));
+
+    int failures = Expect(static_cast<bool>(parsedPacket), "parse vI outer");
+    if (parsedPacket.HasValue()) {
+        failures += ExpectAddressBookInfoPacket(parsedPacket.Value(), 62, payload, "parse vI outer packet");
+    }
+
+    const cg::packet::PacketResult<AddressBookInfo> parsed = AddressBookInfo::Parse(BuildPlainVi("10", payload));
+    failures += Expect(static_cast<bool>(parsed), "parse vI active");
+    if (parsed.HasValue()) {
+        failures += ExpectActiveAddressBookInfo(
+            parsed.Value(),
+            62,
+            1,
+            "Alice",
+            "Leader",
+            123,
+            45,
+            1,
+            987,
+            2,
+            "raw9",
+            "raw10",
+            "vI active fields");
+        failures += Expect(parsed.Value().BuildData() == payload, "vI active BuildData");
+    }
+
+    const AddressBookInfo info(62, 1, "Alice", "Leader", 123, 45, 1, 987, 2, "raw9", "raw10");
+    failures += Expect(info.BuildData() == payload, "vI construct BuildData");
+    const cg::packet::Packet packet = info.ToPacket();
+    failures += ExpectAddressBookInfoPacket(packet, 62, payload, "vI ToPacket");
+
+    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet);
+    failures += Expect(static_cast<bool>(built), "build vI packet");
+    if (built.HasValue()) {
+        failures += Expect(built.Value() == BuildPlainVi("10", payload), "vI registry 62 encoded as 10");
+    }
+    return failures;
+}
+
+int TestAddressBookInfoInactive()
+{
+    const std::string payload = "0|||||||||";
+    const cg::packet::PacketResult<AddressBookInfo> parsed = AddressBookInfo::Parse(BuildPlainVi("1", payload));
+
+    int failures = Expect(static_cast<bool>(parsed), "parse vI inactive");
+    if (parsed.HasValue()) {
+        failures += Expect(!parsed.Value().IsActive(), "vI inactive state");
+        failures += Expect(parsed.Value().registry == 1, "vI inactive registry");
+        failures += Expect(parsed.Value().use == 0, "vI inactive use");
+        failures += Expect(parsed.Value().BuildData() == payload, "vI inactive BuildData");
+    }
+    return failures;
+}
+
+int TestAddressBookInfoRawEscapePreserved()
+{
+    const std::string payload = "1|A\\zB|T\\cD|1|2|0|4|3|F\\y9|G\\z10";
+    const cg::packet::PacketResult<AddressBookInfo> parsed = AddressBookInfo::Parse(BuildRawPlainVi("1", payload));
+
+    int failures = Expect(static_cast<bool>(parsed), "parse vI raw escape");
+    if (!parsed.HasValue()) {
+        return failures;
+    }
+
+    failures += ExpectActiveAddressBookInfo(
+        parsed.Value(),
+        1,
+        1,
+        "A\\zB",
+        "T\\cD",
+        1,
+        2,
+        0,
+        4,
+        3,
+        "F\\y9",
+        "G\\z10",
+        "vI raw escape fields");
+    failures += Expect(parsed.Value().BuildData() == payload, "vI raw escape BuildData");
+    return failures;
+}
+
+int TestAddressBookInfoPayloadCompatibility()
+{
+    const std::string payload = "1|Alice|Leader|123|45|1|987|2|raw9|raw10";
+    const cg::packet::PacketResult<AddressBookInfo> withEmptyTail =
+        AddressBookInfo::Parse(BuildPlainVi("1", payload + "|"));
+
+    int failures = Expect(static_cast<bool>(withEmptyTail), "parse vI 11th empty tail");
+    if (withEmptyTail.HasValue()) {
+        failures += Expect(withEmptyTail.Value().BuildData() == payload, "vI drops empty 11th field");
+    }
+
+    failures += ExpectError(
+        AddressBookInfo::Parse(BuildPlainVi("1", "1|Alice|Leader|123|45|1|987|2|raw9")),
+        cg::packet::PacketErrorCode::FieldCountMismatch,
+        "vI",
+        "vI 9 fields fail");
+    failures += ExpectError(
+        AddressBookInfo::Parse(BuildPlainVi("1", payload + "|extra")),
+        cg::packet::PacketErrorCode::FieldCountMismatch,
+        "vI",
+        "vI 11th non-empty fail");
+    return failures;
+}
+
+int TestAddressBookInfoErrors()
+{
+    int failures = 0;
+    failures += ExpectError(
+        AddressBookInfo::Parse("vI"),
+        cg::packet::PacketErrorCode::FieldCountMismatch,
+        "vI",
+        "vI missing fields");
+    failures += ExpectError(
+        AddressBookInfo::Parse(BuildPlainVi("1", "1|Alice|Leader|a|45|1|987|2|raw9|raw10")),
+        cg::packet::PacketErrorCode::DecodeFailed,
+        "vI",
+        "vI active numeric a");
+    return failures;
+}
+
 int TestErrors()
 {
     int failures = 0;
@@ -348,6 +558,11 @@ int main()
     failures += TestAllEmptyTable();
     failures += TestLegacyTrailingEmptyCompatible();
     failures += TestRawEscapePreserved();
+    failures += TestAddressBookInfoActiveRoundtrip();
+    failures += TestAddressBookInfoInactive();
+    failures += TestAddressBookInfoRawEscapePreserved();
+    failures += TestAddressBookInfoPayloadCompatibility();
+    failures += TestAddressBookInfoErrors();
     failures += TestErrors();
     if (failures != 0) {
         std::cerr << failures << " checks failed\n";

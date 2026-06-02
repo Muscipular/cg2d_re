@@ -2068,6 +2068,8 @@
       "rawFormat": "{registry} {data}",
       "formatEmpty": false,
       "source": "xlsx",
+      "resolvedFormat": "{registry:i62} {data:es}",
+      "resolvedSource": "xlsx+ClientIda+src/packet",
       "fields": [
         {
           "index": 0,

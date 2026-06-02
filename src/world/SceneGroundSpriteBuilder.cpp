@@ -1,8 +1,49 @@
 #include "world/SceneGroundSpriteBuilder.hpp"
 
 #include "world/IdaRenderRules.hpp"
+#include "world/VisibilityCulling.hpp"
 
 namespace cg::world {
+
+namespace {
+
+std::size_t AppendSceneGroundSpriteCmdsImpl(
+    const SceneGroundAtlas& ground,
+    TileCoord originTile,
+    ScreenPixelCoord originScreen,
+    std::uint32_t firstEnqueueIndex,
+    const cg::render::RectF* cameraRect,
+    std::vector<cg::render::SpriteCmd>& out)
+{
+    std::uint32_t entryIndex = 0U;
+    std::uint32_t emittedCount = 0U;
+    const cg::render::TextureHandle texture = ground.atlas.GetTexture();
+
+    for (const SceneGroundAtlasEntry& entry : ground.entries) {
+        const std::uint32_t currentEntryIndex = entryIndex;
+        ++entryIndex;
+
+        const cg::render::RectF destination = MakeTileSpriteRect(entry, originTile, originScreen);
+        if (cameraRect != nullptr && !IsSpriteVisible(*cameraRect, destination)) {
+            continue;
+        }
+
+        cg::render::SpriteCmd cmd{};
+        cmd.texture = texture;
+        cmd.source = entry.source;
+        cmd.destination = destination;
+        cmd.layer = static_cast<std::uint32_t>(entry.layer);
+        cmd.sortY = 0;
+        cmd.order = MakeIdaCompatibleOrder(firstEnqueueIndex + currentEntryIndex);
+
+        out.push_back(cmd);
+        ++emittedCount;
+    }
+
+    return emittedCount;
+}
+
+} // namespace
 
 std::size_t AppendSceneGroundSpriteCmds(
     const SceneGroundAtlas& ground,
@@ -11,35 +52,18 @@ std::size_t AppendSceneGroundSpriteCmds(
     std::uint32_t firstEnqueueIndex,
     std::vector<cg::render::SpriteCmd>& out)
 {
-    std::uint32_t emittedIndex = 0U;
-    const cg::render::TextureHandle texture = ground.atlas.GetTexture();
+    return AppendSceneGroundSpriteCmdsImpl(ground, originTile, originScreen, firstEnqueueIndex, nullptr, out);
+}
 
-    for (const SceneGroundAtlasEntry& entry : ground.entries) {
-        const ScreenPixelCoord screen = ProjectTileDeltaToScreen(
-            TileCoord{
-                static_cast<std::int32_t>(entry.mapX) - originTile.x,
-                static_cast<std::int32_t>(entry.mapY) - originTile.y,
-            },
-            originScreen);
-
-        cg::render::SpriteCmd cmd{};
-        cmd.texture = texture;
-        cmd.source = entry.source;
-        cmd.destination = cg::render::RectF{
-            static_cast<float>(screen.x + entry.offsetX),
-            static_cast<float>(screen.y + entry.offsetY),
-            static_cast<float>(entry.width),
-            static_cast<float>(entry.height),
-        };
-        cmd.layer = static_cast<std::uint32_t>(entry.layer);
-        cmd.sortY = 0;
-        cmd.order = MakeIdaCompatibleOrder(firstEnqueueIndex + emittedIndex);
-
-        out.push_back(cmd);
-        ++emittedIndex;
-    }
-
-    return emittedIndex;
+std::size_t AppendSceneGroundSpriteCmds(
+    const SceneGroundAtlas& ground,
+    TileCoord originTile,
+    ScreenPixelCoord originScreen,
+    std::uint32_t firstEnqueueIndex,
+    const cg::render::RectF& cameraRect,
+    std::vector<cg::render::SpriteCmd>& out)
+{
+    return AppendSceneGroundSpriteCmdsImpl(ground, originTile, originScreen, firstEnqueueIndex, &cameraRect, out);
 }
 
 } // namespace cg::world

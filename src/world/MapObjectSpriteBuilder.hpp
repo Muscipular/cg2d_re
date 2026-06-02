@@ -30,4 +30,11 @@ struct GroupedMapObjectSpriteCmd {
     ScreenPixelCoord originScreen,
     std::uint32_t enqueueIndex);
 
+[[nodiscard]] std::optional<GroupedMapObjectSpriteCmd> BuildMapObjectSpriteCmd(
+    const MapObjectRenderInput& input,
+    TileCoord originTile,
+    ScreenPixelCoord originScreen,
+    std::uint32_t enqueueIndex,
+    const cg::render::RectF& cameraRect);
+
 } // namespace cg::world

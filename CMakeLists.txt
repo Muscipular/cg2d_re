@@ -46,6 +46,7 @@ add_executable(cg-client
     src/render/TextureCache.cpp
     src/world/IdaRenderRules.cpp
     src/world/MapObjectSpriteBuilder.cpp
+    src/world/VisibilityCulling.cpp
     src/world/MapObjectTextureCache.cpp
     src/world/AnimationState.cpp
     src/world/Movement.cpp
@@ -250,6 +251,7 @@ add_test(NAME cg-world-map-object-texture-cache-test COMMAND cg-world-map-object
 add_executable(cg-world-map-object-sprite-builder-test
     tests/world/MapObjectSpriteBuilderTest.cpp
     src/world/MapObjectSpriteBuilder.cpp
+    src/world/VisibilityCulling.cpp
     src/world/Transform.cpp
     src/world/IdaRenderRules.cpp
 )
@@ -279,6 +281,7 @@ add_test(NAME cg-world-scene-ground-atlas-cache-test COMMAND cg-world-scene-grou
 add_executable(cg-world-scene-ground-sprite-builder-test
     tests/world/SceneGroundSpriteBuilderTest.cpp
     src/world/SceneGroundSpriteBuilder.cpp
+    src/world/VisibilityCulling.cpp
     src/world/Transform.cpp
     src/world/IdaRenderRules.cpp
     src/render/TextureAtlas.cpp
@@ -291,12 +294,30 @@ target_include_directories(cg-world-scene-ground-sprite-builder-test
 
 add_test(NAME cg-world-scene-ground-sprite-builder-test COMMAND cg-world-scene-ground-sprite-builder-test)
 
+add_executable(cg-world-visibility-culling-test
+    tests/world/VisibilityCullingTest.cpp
+    src/world/VisibilityCulling.cpp
+    src/world/SceneGroundSpriteBuilder.cpp
+    src/world/MapObjectSpriteBuilder.cpp
+    src/world/Transform.cpp
+    src/world/IdaRenderRules.cpp
+    src/render/TextureAtlas.cpp
+)
+
+target_include_directories(cg-world-visibility-culling-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+
+add_test(NAME cg-world-visibility-culling-test COMMAND cg-world-visibility-culling-test)
+
 add_executable(cg-world-render-order-test
     tests/world/WorldRenderOrderTest.cpp
     src/render/RenderQueue.cpp
     src/world/IdaRenderRules.cpp
     src/world/SceneGroundSpriteBuilder.cpp
     src/world/MapObjectSpriteBuilder.cpp
+    src/world/VisibilityCulling.cpp
     src/world/Transform.cpp
     src/render/TextureAtlas.cpp
 )
@@ -1420,6 +1441,7 @@ if(MSVC)
     target_compile_options(cg-world-map-object-sprite-builder-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-world-scene-ground-atlas-cache-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-world-scene-ground-sprite-builder-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-world-visibility-culling-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-world-render-order-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-world-entity-store-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-world-transform-test PRIVATE /W4 /utf-8 /permissive-)
@@ -1533,6 +1555,7 @@ else()
     target_compile_options(cg-world-map-object-sprite-builder-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-world-scene-ground-atlas-cache-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-world-scene-ground-sprite-builder-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-world-visibility-culling-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-world-render-order-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-world-entity-store-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-world-transform-test PRIVATE -Wall -Wextra -Wpedantic)

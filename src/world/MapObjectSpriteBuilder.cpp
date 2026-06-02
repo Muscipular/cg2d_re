@@ -1,14 +1,18 @@
 #include "world/MapObjectSpriteBuilder.hpp"
 
 #include "world/MapObjectTextureCache.hpp"
+#include "world/VisibilityCulling.hpp"
 
 namespace cg::world {
 
-std::optional<GroupedMapObjectSpriteCmd> BuildMapObjectSpriteCmd(
+namespace {
+
+std::optional<GroupedMapObjectSpriteCmd> BuildMapObjectSpriteCmdImpl(
     const MapObjectRenderInput& input,
     TileCoord originTile,
     ScreenPixelCoord originScreen,
-    std::uint32_t enqueueIndex)
+    std::uint32_t enqueueIndex,
+    const cg::render::RectF* cameraRect)
 {
     const MapObject* object = input.object;
     const MapObjectTexture* texture = input.texture;
@@ -25,12 +29,10 @@ std::optional<GroupedMapObjectSpriteCmd> BuildMapObjectSpriteCmd(
         return std::nullopt;
     }
 
-    const ScreenPixelCoord screen = ProjectTileDeltaToScreen(
-        TileCoord{
-            object->tile.x - originTile.x,
-            object->tile.y - originTile.y,
-        },
-        originScreen);
+    const cg::render::RectF destination = MakeMapObjectSpriteRect(*object, *texture, originTile, originScreen);
+    if (cameraRect != nullptr && !IsSpriteVisible(*cameraRect, destination)) {
+        return std::nullopt;
+    }
 
     cg::render::SpriteCmd sprite{};
     sprite.texture = texture->texture;
@@ -40,12 +42,7 @@ std::optional<GroupedMapObjectSpriteCmd> BuildMapObjectSpriteCmd(
         static_cast<float>(texture->width),
         static_cast<float>(texture->height),
     };
-    sprite.destination = cg::render::RectF{
-        static_cast<float>(screen.x + texture->offsetX),
-        static_cast<float>(screen.y + texture->offsetY),
-        static_cast<float>(texture->width),
-        static_cast<float>(texture->height),
-    };
+    sprite.destination = destination;
     sprite.sortY = 0;
     sprite.order = MakeIdaCompatibleOrder(enqueueIndex);
 
@@ -53,6 +50,27 @@ std::optional<GroupedMapObjectSpriteCmd> BuildMapObjectSpriteCmd(
         *group,
         sprite,
     };
+}
+
+} // namespace
+
+std::optional<GroupedMapObjectSpriteCmd> BuildMapObjectSpriteCmd(
+    const MapObjectRenderInput& input,
+    TileCoord originTile,
+    ScreenPixelCoord originScreen,
+    std::uint32_t enqueueIndex)
+{
+    return BuildMapObjectSpriteCmdImpl(input, originTile, originScreen, enqueueIndex, nullptr);
+}
+
+std::optional<GroupedMapObjectSpriteCmd> BuildMapObjectSpriteCmd(
+    const MapObjectRenderInput& input,
+    TileCoord originTile,
+    ScreenPixelCoord originScreen,
+    std::uint32_t enqueueIndex,
+    const cg::render::RectF& cameraRect)
+{
+    return BuildMapObjectSpriteCmdImpl(input, originTile, originScreen, enqueueIndex, &cameraRect);
 }
 
 } // namespace cg::world

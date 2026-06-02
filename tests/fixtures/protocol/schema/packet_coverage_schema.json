@@ -2174,6 +2174,8 @@
       "xlsxStatus": "进行中",
       "description": "SEND_GMI guildmemberinfo",
       "rawFormat": "{index} {data}",
+      "resolvedFormat": "{index:i62} {data:es}",
+      "resolvedSource": "xlsx+ServerC+src",
       "formatEmpty": false,
       "source": "xlsx",
       "fields": [

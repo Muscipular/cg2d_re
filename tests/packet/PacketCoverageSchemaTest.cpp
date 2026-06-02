@@ -975,6 +975,39 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         }
     }
 
+    const PacketSchema* guildMemberInfoSchema = FindPacket(packets, "Kka");
+    failures += Expect(guildMemberInfoSchema != nullptr, "Kka schema exists");
+    if (guildMemberInfoSchema != nullptr) {
+        const cg::packet::receive::GuildMemberInfo guildMemberInfo(10, 1, 123, "Alice", 123, 45, 1, 987, 2);
+        const cg::packet::PacketResult<cg::packet::Packet> packet = guildMemberInfo.ToPacket();
+        failures += Expect(guildMemberInfoSchema->direction == "服务端->客户端", "Kka direction");
+        failures += Expect(guildMemberInfoSchema->legacyKind == "SEND", "Kka legacyKind");
+        failures += Expect(guildMemberInfoSchema->rawFormat == "{index} {data}", "Kka rawFormat");
+        failures += Expect(guildMemberInfoSchema->resolvedFormat == "{index:i62} {data:es}", "Kka resolvedFormat");
+        failures += Expect(guildMemberInfoSchema->resolvedSource == "xlsx+ServerC+src", "Kka resolvedSource");
+        failures += Expect(guildMemberInfoSchema->fields.size() == 2U, "Kka field count");
+        failures += Expect(packet.HasValue(), "Kka packet build");
+        if (guildMemberInfoSchema->fields.size() == 2U) {
+            failures += Expect(guildMemberInfoSchema->fields[0].name == "index", "Kka index field");
+            failures += Expect(guildMemberInfoSchema->fields[1].name == "data", "Kka data field");
+            failures += Expect(guildMemberInfoSchema->fields[0].typeToken == "unknown", "Kka raw index type");
+            failures += Expect(guildMemberInfoSchema->fields[1].typeToken == "unknown", "Kka raw data type");
+        }
+        if (packet.HasValue()) {
+            failures += Expect(packet.Value().fields.size() == 2U, "Kka packet field count");
+            if (packet.Value().fields.size() == 2U) {
+                failures += Expect(packet.Value().fields[0].name == "index", "Kka packet index field");
+                failures += Expect(
+                    packet.Value().fields[0].type == cg::packet::PacketFieldType::Int62,
+                    "Kka packet index type");
+                failures += Expect(packet.Value().fields[1].name == "data", "Kka packet data field");
+                failures += Expect(
+                    packet.Value().fields[1].type == cg::packet::PacketFieldType::EscapedString,
+                    "Kka packet data type");
+            }
+        }
+    }
+
     const PacketSchema* petMailSendSchema = FindPacket(packets, "rMsv");
     failures += Expect(petMailSendSchema != nullptr, "rMsv schema exists");
     if (petMailSendSchema != nullptr) {

@@ -11355,6 +11355,311 @@ namespace cg::packet::receive
         }
     };
 
+    struct AddressBookSlot
+    {
+        int use = 0;
+        std::string charNameRaw;
+        std::string ownTitleRaw;
+        int registSeqNumber = 0;
+        int level = 0;
+        int online = 0;
+        int graphicsNo = 0;
+
+        [[nodiscard]] bool IsUsed() const noexcept
+        {
+            return use > 0;
+        }
+    };
+
+    /**
+     * SEND_AB SendAddressbook		gnxd {data:es}
+     * data: 固定 60 槽 AddressBook；每槽 use|charNameRaw|ownTitleRaw|registSeqNumber|level|online|graphicsNo。
+     */
+    struct AddressBook
+    {
+        static constexpr std::string_view Code = "gnxd";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::string_view PayloadDelimiter = "|";
+        static constexpr std::size_t SlotCount = 60U;
+        static constexpr std::size_t SlotFieldCount = 7U;
+        static constexpr std::size_t PayloadFieldCount = SlotCount * SlotFieldCount;
+
+        std::array<AddressBookSlot, SlotCount> slots = {};
+
+        AddressBook() = default;
+
+        explicit AddressBook(std::array<AddressBookSlot, SlotCount> slots)
+            : slots(std::move(slots))
+        {
+        }
+
+        [[nodiscard]] PacketResult<std::string> BuildData() const
+        {
+            std::array<std::string, PayloadFieldCount> parts = {};
+            for (std::size_t slotIndex = 0; slotIndex < slots.size(); ++slotIndex) {
+                const AddressBookSlot& slot = slots[slotIndex];
+                const std::size_t baseIndex = slotIndex * SlotFieldCount;
+                if (!SlotHasBuildData(slot)) {
+                    continue;
+                }
+
+                if (slot.use <= 0) {
+                    return PacketResult<std::string>::Failure(MakeFieldError(
+                        PacketErrorCode::EncodeFailed,
+                        "AddressBook BuildData use 必须大于 0",
+                        baseIndex));
+                }
+
+                parts[baseIndex] = std::to_string(slot.use);
+                parts[baseIndex + 1U] = slot.charNameRaw;
+                parts[baseIndex + 2U] = slot.ownTitleRaw;
+                parts[baseIndex + 3U] = std::to_string(slot.registSeqNumber);
+                parts[baseIndex + 4U] = std::to_string(slot.level);
+                parts[baseIndex + 5U] = std::to_string(slot.online);
+                parts[baseIndex + 6U] = std::to_string(slot.graphicsNo);
+            }
+
+            return BuildPayload(std::span<const std::string>(parts.data(), parts.size()), PayloadDelimiter);
+        }
+
+        [[nodiscard]] PacketResult<Packet> ToPacket() const
+        {
+            PacketResult<std::string> data = BuildData();
+            if (!data.HasValue()) {
+                return PacketResult<Packet>::Failure(data.Error());
+            }
+
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            packet.fields.push_back(PacketField {
+                "data",
+                PacketFieldType::EscapedString,
+                data.Value(),
+                PacketSourceTag::Xlsx,
+            });
+            return PacketResult<Packet>::Success(std::move(packet));
+        }
+
+        static PacketResult<AddressBook> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view);
+            if (!parsed.HasValue()) {
+                return PacketResult<AddressBook>::Failure(parsed.Error());
+            }
+
+            const Packet& packet = parsed.Value();
+            if (packet.code.View() != Code) {
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "AddressBook Parse 收到非 gnxd 封包");
+                error.packetCode = packet.code;
+                return PacketResult<AddressBook>::Failure(std::move(error));
+            }
+
+            if (packet.direction != Direction) {
+                return PacketResult<AddressBook>::Failure(MakePacketError(
+                    PacketErrorCode::DecodeFailed,
+                    "AddressBook Parse 封包方向不匹配"));
+            }
+
+            if (packet.fields.size() != FieldCount) {
+                return PacketResult<AddressBook>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "AddressBook Parse 字段数量不匹配",
+                    packet.fields.empty() ? 0U : FieldCount));
+            }
+
+            const PacketField& field = packet.fields[DataFieldIndex];
+            if (field.name != "data") {
+                return PacketResult<AddressBook>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "AddressBook Parse 字段名不匹配",
+                    DataFieldIndex));
+            }
+
+            if (field.type != PacketFieldType::EscapedString) {
+                return PacketResult<AddressBook>::Failure(MakeFieldError(
+                    PacketErrorCode::InvalidFieldType,
+                    "AddressBook Parse 字段类型不匹配",
+                    DataFieldIndex));
+            }
+
+            return ParseData(field.value);
+        }
+
+    private:
+        static constexpr std::size_t FieldCount = 1U;
+        static constexpr std::size_t DataFieldIndex = 0U;
+
+        [[nodiscard]] static bool SlotHasBuildData(const AddressBookSlot& slot) noexcept
+        {
+            return slot.use != 0 ||
+                !slot.charNameRaw.empty() ||
+                !slot.ownTitleRaw.empty() ||
+                slot.registSeqNumber != 0 ||
+                slot.level != 0 ||
+                slot.online != 0 ||
+                slot.graphicsNo != 0;
+        }
+
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            error.source = PacketSourceTag::Xlsx;
+            return error;
+        }
+
+        [[nodiscard]] static PacketError MakeFieldError(
+            PacketErrorCode code,
+            std::string message,
+            std::size_t fieldIndex)
+        {
+            PacketError error = MakePacketError(code, std::move(message));
+            error.fieldIndex = fieldIndex;
+            return error;
+        }
+
+        [[nodiscard]] static PacketResult<AddressBook> ParseData(std::string_view payload)
+        {
+            PacketResult<std::vector<std::string>> split = SplitPayloadLegacyAware(payload, PayloadDelimiter);
+            if (!split.HasValue()) {
+                PacketError error = split.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = DataFieldIndex;
+                error.source = PacketSourceTag::Xlsx;
+                return PacketResult<AddressBook>::Failure(std::move(error));
+            }
+
+            std::vector<std::string> parts = std::move(split.Value());
+            if (parts.size() == PayloadFieldCount + 1U && !parts.empty() && parts.back().empty()) {
+                parts.pop_back();
+            }
+
+            if (parts.size() != PayloadFieldCount) {
+                return PacketResult<AddressBook>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "AddressBook payload 段数量不匹配",
+                    DataFieldIndex));
+            }
+
+            std::array<AddressBookSlot, SlotCount> slots = {};
+            for (std::size_t slotIndex = 0; slotIndex < SlotCount; ++slotIndex) {
+                const std::size_t baseIndex = slotIndex * SlotFieldCount;
+                if (SlotPartsEmpty(parts, baseIndex)) {
+                    continue;
+                }
+
+                if (parts[baseIndex].empty()) {
+                    return PacketResult<AddressBook>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "AddressBook payload use 为空但槽位非空",
+                        baseIndex));
+                }
+
+                PacketResult<int> use = ParseDecimalField(parts[baseIndex], baseIndex);
+                if (!use.HasValue()) {
+                    return PacketResult<AddressBook>::Failure(use.Error());
+                }
+                if (use.Value() <= 0) {
+                    return PacketResult<AddressBook>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "AddressBook payload use 必须大于 0",
+                        baseIndex));
+                }
+
+                PacketResult<int> registSeqNumber = ParseDecimalField(parts[baseIndex + 3U], baseIndex + 3U);
+                if (!registSeqNumber.HasValue()) {
+                    return PacketResult<AddressBook>::Failure(registSeqNumber.Error());
+                }
+
+                PacketResult<int> level = ParseDecimalField(parts[baseIndex + 4U], baseIndex + 4U);
+                if (!level.HasValue()) {
+                    return PacketResult<AddressBook>::Failure(level.Error());
+                }
+
+                PacketResult<int> online = ParseDecimalField(parts[baseIndex + 5U], baseIndex + 5U);
+                if (!online.HasValue()) {
+                    return PacketResult<AddressBook>::Failure(online.Error());
+                }
+
+                PacketResult<int> graphicsNo = ParseDecimalField(parts[baseIndex + 6U], baseIndex + 6U);
+                if (!graphicsNo.HasValue()) {
+                    return PacketResult<AddressBook>::Failure(graphicsNo.Error());
+                }
+
+                slots[slotIndex] = AddressBookSlot {
+                    use.Value(),
+                    parts[baseIndex + 1U],
+                    parts[baseIndex + 2U],
+                    registSeqNumber.Value(),
+                    level.Value(),
+                    online.Value(),
+                    graphicsNo.Value(),
+                };
+            }
+
+            return PacketResult<AddressBook>::Success(AddressBook(std::move(slots)));
+        }
+
+        [[nodiscard]] static bool SlotPartsEmpty(
+            const std::vector<std::string>& parts,
+            std::size_t baseIndex) noexcept
+        {
+            for (std::size_t index = 0; index < SlotFieldCount; ++index) {
+                if (!parts[baseIndex + index].empty()) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        [[nodiscard]] static PacketResult<int> ParseDecimalField(std::string_view text, std::size_t fieldIndex)
+        {
+            bool negative = false;
+            std::size_t index = 0;
+            if (!text.empty() && text.front() == '-') {
+                negative = true;
+                index = 1U;
+            }
+
+            if (index == text.size()) {
+                return PacketResult<int>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "AddressBook payload 十进制字段为空",
+                    fieldIndex));
+            }
+
+            const std::int64_t maxValue = static_cast<std::int64_t>(std::numeric_limits<int>::max());
+            const std::int64_t minValue = static_cast<std::int64_t>(std::numeric_limits<int>::min());
+            const std::int64_t limit = negative ? (0 - minValue) : maxValue;
+            std::int64_t value = 0;
+
+            for (; index < text.size(); ++index) {
+                const char ch = text[index];
+                if (ch < '0' || ch > '9') {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "AddressBook payload 十进制字段包含非法字符",
+                        fieldIndex));
+                }
+
+                const int digit = ch - '0';
+                if (value > (limit - digit) / 10) {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "AddressBook payload 十进制字段超出 int 范围",
+                        fieldIndex));
+                }
+
+                value = (value * 10) + digit;
+            }
+
+            if (negative) {
+                value = -value;
+            }
+
+            return PacketResult<int>::Success(static_cast<int>(value));
+        }
+    };
+
     struct ObjectListRecord
     {
         std::vector<std::string> fields;

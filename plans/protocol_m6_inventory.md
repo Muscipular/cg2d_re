@@ -128,7 +128,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | M6.13.09 聊天/窗口/系统封包-uSr | `uSr` | 客户端->服务端 | 否 | 完成 | RECV_TK 发送聊天；外层 `{x:i62} {y:i62} {msg:es} {color:i62} {area:i62} {fontSize:i62}`；无二级 payload，`msg` 为普通外层 es，允许空值且不拆 `P|text` |
 | M6.13.10 聊天/窗口/系统封包-xD | `xD` | 客户端->服务端 | 否 | 完成 | RECV_WN 打开系统窗口；外层 `{x:i62} {y:i62} {seqno:i62} {objindex:i62} {select:i62} {data:es}`；无二级 payload，`data` 为普通外层 es，允许空值且不拆窗口类型 |
 | M6.13.11 聊天/窗口/系统封包-IcE | `IcE` | 客户端->服务端 | 是 | 暂缓 | RECV_Shutdown；xlsx 未使用；旧 C 未补；IDA 未找到；禁止猜 0 字段 |
-| M6.14.01 战斗/交易/家族/社交封包-gnxd | `gnxd` | 服务端->客户端 | 否 | 未开始 | SEND_AB SendAddressbook |
+| M6.14.01 战斗/交易/家族/社交封包-gnxd | `gnxd` | 服务端->客户端 | 否 | 完成 | SEND_AB SendAddressbook；外层 `{data:es}`；payload 为固定 60 槽 AddressBook，每槽 `use|charNameRaw|ownTitleRaw|registSeqNumber|level|online|graphicsNo`；空槽 7 段全空，字符串 raw 保留，数值 raw signed decimal |
 | M6.14.02 战斗/交易/家族/社交封包-PhdQ | `PhdQ` | 服务端->客户端 | 否 | 未开始 | SEND_ABG SendAddressbookGuildInfo |
 | M6.14.03 战斗/交易/家族/社交封包-Gn | `Gn` | 服务端->客户端 | 是 | 字段待补 | SEND_RS 战斗获得物品 |
 | M6.14.04 战斗/交易/家族/社交封包-hB | `hB` | 服务端->客户端 | 是 | 字段待补 | SEND_RD BATTLE_GetDuelPoint |
@@ -228,7 +228,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 22 | `OaHi` | 服务端->客户端 | 完成 | SEND_EP 遇敌率 | 否 | 否 | xlsx |
 | 23 | `SkBD` | 服务端->客户端 | 完成 | SEND_FS 发送玩家状态开关 | 否 | 否 | xlsx |
 | 24 | `jmb` | 服务端->客户端 | 完成 | SEND_MC sendMapHash | 否 | 否 | xlsx |
-| 25 | `gnxd` | 服务端->客户端 | 完成 | SEND_AB SendAddressbook | 否 | 是 | xlsx |
+| 25 | `gnxd` | 服务端->客户端 | 完成 | SEND_AB SendAddressbook / AddressBook；固定 60 槽，每槽 7 段，空槽全空 | 否 | 是 | xlsx + src/packet |
 | 26 | `PhdQ` | 服务端->客户端 | 完成 | SEND_ABG SendAddressbookGuildInfo | 否 | 是 | xlsx |
 | 27 | `nsY` | 服务端->客户端 | 完成 | SEND_C ObjectList | 否 | 是 | xlsx |
 | 28 | `MTg` | 服务端->客户端 | 完成 | SEND_BT CHAR_sendFeverStatus | 否 | 否 | xlsx |

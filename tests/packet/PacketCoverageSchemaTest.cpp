@@ -819,6 +819,22 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         }
     }
 
+    const PacketSchema* addressBookSchema = FindPacket(packets, "gnxd");
+    failures += Expect(addressBookSchema != nullptr, "gnxd schema exists");
+    if (addressBookSchema != nullptr) {
+        const cg::packet::receive::AddressBook addressBook;
+        const cg::packet::PacketResult<cg::packet::Packet> packet = addressBook.ToPacket();
+        failures += Expect(addressBookSchema->direction == "服务端->客户端", "gnxd direction");
+        failures += Expect(addressBookSchema->legacyKind == "SEND", "gnxd legacyKind");
+        failures += Expect(addressBookSchema->rawFormat == "{data:es}", "gnxd rawFormat");
+        failures += Expect(addressBookSchema->resolvedFormat == "{data:es}", "gnxd resolvedFormat");
+        failures += Expect(addressBookSchema->resolvedSource == "xlsx+src/packet", "gnxd resolvedSource");
+        failures += Expect(packet.HasValue(), "gnxd packet build");
+        if (packet.HasValue()) {
+            failures += ExpectPacketFieldsMatch(*addressBookSchema, packet.Value(), "gnxd field order");
+        }
+    }
+
     const PacketSchema* petMailSendSchema = FindPacket(packets, "rMsv");
     failures += Expect(petMailSendSchema != nullptr, "rMsv schema exists");
     if (petMailSendSchema != nullptr) {

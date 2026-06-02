@@ -1660,13 +1660,13 @@ namespace cg::packet::send
 
         std::string stallName;
         std::string stallDescription;
-        std::array<std::string, PriceCount> prices;
+        std::array<int, PriceCount> prices;
 
-        static std::array<std::string, PriceCount> MakeZeroPrices()
+        static std::array<int, PriceCount> MakeZeroPrices()
         {
-            std::array<std::string, PriceCount> values;
-            for (std::string& value : values) {
-                value = "0";
+            std::array<int, PriceCount> values;
+            for (int& value : values) {
+                value = 0;
             }
             return values;
         }
@@ -1681,7 +1681,7 @@ namespace cg::packet::send
         StallStart(
             std::string stallName,
             std::string stallDescription,
-            std::array<std::string, PriceCount> prices)
+            std::array<int, PriceCount> prices)
             : stallName(std::move(stallName)),
               stallDescription(std::move(stallDescription)),
               prices(std::move(prices))
@@ -1820,7 +1820,7 @@ namespace cg::packet::send
                     StallListFieldIndex));
             }
 
-            PacketResult<std::array<std::string, PriceCount>> parsedPrices = ParseStallList(stallListField.value);
+            PacketResult<std::array<int, PriceCount>> parsedPrices = ParseStallList(stallListField.value);
             if (!parsedPrices.HasValue()) {
                 return PacketResult<StallStart>::Failure(parsedPrices.Error());
             }
@@ -1857,17 +1857,17 @@ namespace cg::packet::send
             return error;
         }
 
-        [[nodiscard]] static PacketResult<std::array<std::string, PriceCount>> ParseStallList(std::string_view payload)
+        [[nodiscard]] static PacketResult<std::array<int, PriceCount>> ParseStallList(std::string_view payload)
         {
             if (payload.empty()) {
-                return PacketResult<std::array<std::string, PriceCount>>::Failure(MakeFieldError(
+                return PacketResult<std::array<int, PriceCount>>::Failure(MakeFieldError(
                     PacketErrorCode::EmptyInput,
                     "StallStart stallList 为空",
                     StallListFieldIndex));
             }
 
             if (payload.back() != '|') {
-                return PacketResult<std::array<std::string, PriceCount>>::Failure(MakeFieldError(
+                return PacketResult<std::array<int, PriceCount>>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
                     "StallStart stallList 缺少尾随分隔符",
                     StallListFieldIndex));
@@ -1879,57 +1879,84 @@ namespace cg::packet::send
                 error.packetCode = PacketCode(Code);
                 error.fieldIndex = StallListFieldIndex;
                 error.source = PacketSourceTag::Xlsx;
-                return PacketResult<std::array<std::string, PriceCount>>::Failure(std::move(error));
+                return PacketResult<std::array<int, PriceCount>>::Failure(std::move(error));
             }
 
             const std::vector<std::string>& parts = split.Value();
             if (parts.size() != PayloadPartCount || !parts[TailPayloadIndex].empty()) {
-                return PacketResult<std::array<std::string, PriceCount>>::Failure(MakeFieldError(
+                return PacketResult<std::array<int, PriceCount>>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
                     "StallStart stallList price 段数量不匹配",
                     StallListFieldIndex));
             }
 
-            std::array<std::string, PriceCount> parsedPrices;
+            std::array<int, PriceCount> parsedPrices;
             for (std::size_t index = 0; index < PriceCount; ++index) {
-                PacketResult<std::string> price = ValidateRawDecimalPrice(
+                PacketResult<int> price = ParseRawDecimalPrice(
                     parts[index],
                     index,
                     PacketErrorCode::DecodeFailed,
                     "StallStart stallList price 非 raw decimal");
                 if (!price.HasValue()) {
-                    return PacketResult<std::array<std::string, PriceCount>>::Failure(price.Error());
+                    return PacketResult<std::array<int, PriceCount>>::Failure(price.Error());
                 }
 
-                parsedPrices[index] = std::move(price.Value());
+                parsedPrices[index] = price.Value();
             }
 
-            return PacketResult<std::array<std::string, PriceCount>>::Success(std::move(parsedPrices));
+            return PacketResult<std::array<int, PriceCount>>::Success(std::move(parsedPrices));
         }
 
         [[nodiscard]] static PacketResult<std::string> ValidateRawDecimalPrice(
-            std::string_view text,
+            int price,
             std::size_t fieldIndex,
             PacketErrorCode code,
             std::string message)
         {
-            if (text.empty()) {
+            if (price < 0) {
                 return PacketResult<std::string>::Failure(MakeFieldError(
                     code,
                     std::move(message),
                     fieldIndex));
             }
 
+            return PacketResult<std::string>::Success(std::to_string(price));
+        }
+
+        [[nodiscard]] static PacketResult<int> ParseRawDecimalPrice(
+            std::string_view text,
+            std::size_t fieldIndex,
+            PacketErrorCode code,
+            std::string message)
+        {
+            if (text.empty()) {
+                return PacketResult<int>::Failure(MakeFieldError(
+                    code,
+                    std::move(message),
+                    fieldIndex));
+            }
+
+            int value = 0;
             for (const char ch : text) {
                 if (ch < '0' || ch > '9') {
-                    return PacketResult<std::string>::Failure(MakeFieldError(
+                    return PacketResult<int>::Failure(MakeFieldError(
                         code,
                         std::move(message),
                         fieldIndex));
                 }
+
+                const int digit = ch - '0';
+                if (value > (std::numeric_limits<int>::max() - digit) / 10) {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        code,
+                        std::move(message),
+                        fieldIndex));
+                }
+
+                value = (value * 10) + digit;
             }
 
-            return PacketResult<std::string>::Success(std::string(text));
+            return PacketResult<int>::Success(value);
         }
     };
 }

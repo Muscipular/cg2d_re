@@ -80,20 +80,37 @@ cg::packet::Packet PacketOf(
     return packet;
 }
 
-std::array<std::string, StallStart::PriceCount> MakeSequentialPrices()
+std::array<int, StallStart::PriceCount> MakeSequentialPrices()
 {
-    std::array<std::string, StallStart::PriceCount> prices = StallStart::MakeZeroPrices();
+    std::array<int, StallStart::PriceCount> prices = StallStart::MakeZeroPrices();
     for (std::size_t index = 0; index < prices.size(); ++index) {
-        prices[index] = std::to_string(index + 1U);
+        prices[index] = static_cast<int>(index + 1U);
     }
     return prices;
 }
 
-std::string BuildStallList(const std::array<std::string, StallStart::PriceCount>& prices)
+std::string BuildStallList(const std::array<int, StallStart::PriceCount>& prices)
 {
     std::string payload;
-    for (const std::string& price : prices) {
-        payload.append(price);
+    for (const int price : prices) {
+        payload.append(std::to_string(price));
+        payload.push_back('|');
+    }
+    return payload;
+}
+
+std::string BuildStallListWithPrice(
+    const std::array<int, StallStart::PriceCount>& prices,
+    std::size_t priceIndex,
+    std::string_view priceText)
+{
+    std::string payload;
+    for (std::size_t index = 0; index < prices.size(); ++index) {
+        if (index == priceIndex) {
+            payload.append(priceText);
+        } else {
+            payload.append(std::to_string(prices[index]));
+        }
         payload.push_back('|');
     }
     return payload;
@@ -170,7 +187,7 @@ int ExpectStallStartValue(
     const StallStart& packet,
     std::string_view stallName,
     std::string_view stallDescription,
-    const std::array<std::string, StallStart::PriceCount>& prices,
+    const std::array<int, StallStart::PriceCount>& prices,
     const char* message)
 {
     int failures = 0;
@@ -184,7 +201,7 @@ int ExpectStallStartValue(
 
 int TestToPacketAndEncode()
 {
-    const std::array<std::string, StallStart::PriceCount> prices = MakeSequentialPrices();
+    const std::array<int, StallStart::PriceCount> prices = MakeSequentialPrices();
     const std::string stallList = BuildStallList(prices);
     const StallStart request("Shop", "Desc", prices);
     int failures = 0;
@@ -219,9 +236,9 @@ int TestToPacketAndEncode()
 
 int TestTypedParseRoundtrip()
 {
-    std::array<std::string, StallStart::PriceCount> prices = MakeSequentialPrices();
-    prices[0] = "0001";
-    prices[20] = "50000";
+    std::array<int, StallStart::PriceCount> prices = MakeSequentialPrices();
+    prices[0] = 1;
+    prices[20] = 50000;
 
     const StallStart request("Shop Name", "Line\nTwo\\Tail", prices);
     const cg::packet::PacketResult<std::string> encoded = request.Encode();
@@ -246,7 +263,7 @@ int TestTypedParseRoundtrip()
 
 int TestEmptyNameDescription()
 {
-    const std::array<std::string, StallStart::PriceCount> prices = MakeSequentialPrices();
+    const std::array<int, StallStart::PriceCount> prices = MakeSequentialPrices();
     const std::string stallList = BuildStallList(prices);
     const StallStart request("", "", prices);
     const cg::packet::PacketResult<std::string> encoded = request.Encode();
@@ -276,7 +293,7 @@ int TestDefaultZeroPrices()
         return failures;
     }
 
-    const std::array<std::string, StallStart::PriceCount> prices = StallStart::MakeZeroPrices();
+    const std::array<int, StallStart::PriceCount> prices = StallStart::MakeZeroPrices();
     failures += Expect(data.Value() == BuildStallList(prices), "ylGN zero price payload");
 
     const cg::packet::PacketResult<StallStart> parsed =
@@ -290,7 +307,7 @@ int TestDefaultZeroPrices()
 
 int TestParsePacketOuterFields()
 {
-    const std::array<std::string, StallStart::PriceCount> prices = MakeSequentialPrices();
+    const std::array<int, StallStart::PriceCount> prices = MakeSequentialPrices();
     const std::string stallList = BuildStallList(prices);
     const cg::packet::PacketResult<cg::packet::Packet> parsed =
         cg::packet::ParsePacket(BuildPlainYlGn("Shop", "Desc", stallList));
@@ -305,7 +322,7 @@ int TestParsePacketOuterFields()
 int TestPayloadParseErrors()
 {
     int failures = 0;
-    std::array<std::string, StallStart::PriceCount> prices = MakeSequentialPrices();
+    std::array<int, StallStart::PriceCount> prices = MakeSequentialPrices();
 
     std::string missingTail = BuildStallList(prices);
     missingTail.pop_back();
@@ -317,10 +334,9 @@ int TestPayloadParseErrors()
         2U,
         "ylGN missing payload tail");
 
-    std::array<std::string, StallStart::PriceCount> shortPrices = prices;
     std::string shortPayload;
-    for (std::size_t index = 0; index < shortPrices.size() - 1U; ++index) {
-        shortPayload.append(shortPrices[index]);
+    for (std::size_t index = 0; index < prices.size() - 1U; ++index) {
+        shortPayload.append(std::to_string(prices[index]));
         shortPayload.push_back('|');
     }
     failures += ExpectError(
@@ -341,28 +357,27 @@ int TestPayloadParseErrors()
         2U,
         "ylGN long payload");
 
-    prices[4].clear();
+    const std::string emptyPricePayload = BuildStallListWithPrice(prices, 4U, "");
     failures += ExpectError(
-        StallStart::Parse(BuildPlainYlGn("Shop", "Desc", BuildStallList(prices))),
+        StallStart::Parse(BuildPlainYlGn("Shop", "Desc", emptyPricePayload)),
         cg::packet::PacketErrorCode::DecodeFailed,
         "ylGN",
         true,
         4U,
         "ylGN empty price");
 
-    prices = MakeSequentialPrices();
-    prices[20] = "12a";
+    const std::string badDecimalPayload = BuildStallListWithPrice(prices, 20U, "12a");
     failures += ExpectError(
-        StallStart::Parse(BuildPlainYlGn("Shop", "Desc", BuildStallList(prices))),
+        StallStart::Parse(BuildPlainYlGn("Shop", "Desc", badDecimalPayload)),
         cg::packet::PacketErrorCode::DecodeFailed,
         "ylGN",
         true,
         20U,
         "ylGN bad decimal price");
 
-    prices[20] = "-1";
+    const std::string signedPayload = BuildStallListWithPrice(prices, 20U, "-1");
     failures += ExpectError(
-        StallStart::Parse(BuildPlainYlGn("Shop", "Desc", BuildStallList(prices))),
+        StallStart::Parse(BuildPlainYlGn("Shop", "Desc", signedPayload)),
         cg::packet::PacketErrorCode::DecodeFailed,
         "ylGN",
         true,
@@ -374,19 +389,9 @@ int TestPayloadParseErrors()
 int TestBuildDataErrors()
 {
     int failures = 0;
-    std::array<std::string, StallStart::PriceCount> prices = MakeSequentialPrices();
+    std::array<int, StallStart::PriceCount> prices = MakeSequentialPrices();
 
-    prices[1].clear();
-    failures += ExpectError(
-        StallStart("Shop", "Desc", prices).BuildData(),
-        cg::packet::PacketErrorCode::EncodeFailed,
-        "ylGN",
-        true,
-        1U,
-        "ylGN BuildData empty price");
-
-    prices = MakeSequentialPrices();
-    prices[2] = "bad";
+    prices[2] = -1;
     failures += ExpectError(
         StallStart("Shop", "Desc", prices).BuildData(),
         cg::packet::PacketErrorCode::EncodeFailed,
@@ -399,7 +404,7 @@ int TestBuildDataErrors()
 
 int TestBuildPacketErrors()
 {
-    const std::array<std::string, StallStart::PriceCount> prices = MakeSequentialPrices();
+    const std::array<int, StallStart::PriceCount> prices = MakeSequentialPrices();
     const std::string stallList = BuildStallList(prices);
     int failures = 0;
 

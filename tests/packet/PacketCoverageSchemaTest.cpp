@@ -670,6 +670,25 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         }
     }
 
+    const PacketSchema* createNewCharResultSchema = FindPacket(packets, "DZ");
+    failures += Expect(createNewCharResultSchema != nullptr, "DZ schema exists");
+    if (createNewCharResultSchema != nullptr) {
+        const cg::packet::receive::CreateNewCharResult createNewCharResult("successful", 1, "");
+        const cg::packet::Packet packet = createNewCharResult.ToPacket();
+        failures += Expect(createNewCharResultSchema->direction == "服务端->客户端", "DZ direction");
+        failures += Expect(createNewCharResultSchema->legacyKind == "SEND", "DZ legacyKind");
+        failures += Expect(createNewCharResultSchema->rawFormat.empty(), "DZ rawFormat empty");
+        failures += Expect(createNewCharResultSchema->formatEmpty, "DZ formatEmpty");
+        failures += Expect(
+            createNewCharResultSchema->resolvedFormat == "{result:es} {registnumber:i62} {data:es}",
+            "DZ resolvedFormat");
+        failures += Expect(
+            createNewCharResultSchema->resolvedSource == "ServerC+ClientIda+src/packet",
+            "DZ resolvedSource");
+        failures += Expect(createNewCharResultSchema->fields.empty(), "DZ raw fields empty");
+        failures += ExpectResolvedFieldsMatch(*createNewCharResultSchema, packet, "DZ resolved field order");
+    }
+
     const PacketSchema* effectSchema = FindPacket(packets, "zzd");
     failures += Expect(effectSchema != nullptr, "zzd schema exists");
     if (effectSchema != nullptr) {

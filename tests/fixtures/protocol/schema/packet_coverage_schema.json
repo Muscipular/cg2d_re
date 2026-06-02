@@ -3420,6 +3420,31 @@
       "rawFormat": "",
       "formatEmpty": true,
       "source": "xlsx",
+      "resolvedFormat": "{result:es} {registnumber:i62} {data:es}",
+      "resolvedSource": "ServerC+ClientIda+src/packet",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "result",
+          "typeToken": "es",
+          "rawSpec": "{result:es}",
+          "source": "ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 1,
+          "name": "registnumber",
+          "typeToken": "i62",
+          "rawSpec": "{registnumber:i62}",
+          "source": "ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 2,
+          "name": "data",
+          "typeToken": "es",
+          "rawSpec": "{data:es}",
+          "source": "ServerC+ClientIda+src/packet"
+        }
+      ],
       "fields": []
     },
     {

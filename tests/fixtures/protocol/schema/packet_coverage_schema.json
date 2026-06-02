@@ -4621,9 +4621,11 @@
       "direction": "客户端->服务端",
       "legacyKind": "RECV",
       "clientNamespace": "send",
-      "xlsxStatus": "待办",
+      "xlsxStatus": "完成",
       "description": "RECV_PRM 发送迷你邮件",
       "rawFormat": "{data} {color}",
+      "resolvedFormat": "{data:es} {color:i62}",
+      "resolvedSource": "xlsx+src/packet",
       "formatEmpty": false,
       "source": "xlsx",
       "fields": [

@@ -1136,6 +1136,41 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         }
     }
 
+    const PacketSchema* profileMiniMailSendSchema = FindPacket(packets, "GH");
+    failures += Expect(profileMiniMailSendSchema != nullptr, "GH schema exists");
+    if (profileMiniMailSendSchema != nullptr) {
+        const cg::packet::send::ProfileMiniMailSend profileMiniMailSend(12, "Alice", "hello", 3);
+        const cg::packet::PacketResult<cg::packet::Packet> packet = profileMiniMailSend.ToPacket();
+        failures += Expect(profileMiniMailSendSchema->direction == "客户端->服务端", "GH direction");
+        failures += Expect(profileMiniMailSendSchema->legacyKind == "RECV", "GH legacyKind");
+        failures += Expect(profileMiniMailSendSchema->rawFormat == "{data} {color}", "GH rawFormat");
+        failures += Expect(
+            profileMiniMailSendSchema->resolvedFormat == "{data:es} {color:i62}",
+            "GH resolvedFormat");
+        failures += Expect(profileMiniMailSendSchema->resolvedSource == "xlsx+src/packet", "GH resolvedSource");
+        failures += Expect(profileMiniMailSendSchema->fields.size() == 2U, "GH raw field count");
+        if (profileMiniMailSendSchema->fields.size() == 2U) {
+            failures += Expect(profileMiniMailSendSchema->fields[0].name == "data", "GH raw field data");
+            failures += Expect(profileMiniMailSendSchema->fields[1].name == "color", "GH raw field color");
+            failures += Expect(profileMiniMailSendSchema->fields[0].typeToken == "unknown", "GH raw data type");
+            failures += Expect(profileMiniMailSendSchema->fields[1].typeToken == "unknown", "GH raw color type");
+        }
+        failures += Expect(static_cast<bool>(packet), "GH packet build");
+        if (packet.HasValue()) {
+            failures += Expect(packet.Value().fields.size() == 2U, "GH packet field count");
+            if (packet.Value().fields.size() == 2U) {
+                failures += Expect(packet.Value().fields[0].name == "data", "GH packet data field");
+                failures += Expect(
+                    packet.Value().fields[0].type == cg::packet::PacketFieldType::EscapedString,
+                    "GH packet data type");
+                failures += Expect(packet.Value().fields[1].name == "color", "GH packet color field");
+                failures += Expect(
+                    packet.Value().fields[1].type == cg::packet::PacketFieldType::Int62,
+                    "GH packet color type");
+            }
+        }
+    }
+
     const PacketSchema* checkCommandSchema = FindPacket(packets, "CCL");
     failures += Expect(checkCommandSchema != nullptr, "CCL schema exists");
     if (checkCommandSchema != nullptr) {

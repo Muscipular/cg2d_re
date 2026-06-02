@@ -148,7 +148,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | M6.14.18 战斗/交易/家族/社交封包-GY | `GY` | 客户端->服务端 | 否 | 完成 | RECV_GT 设置家族职位信息；外层 `{index:i62} {bitflag:i62} {data:es}`；无二级 payload，`data` 为普通外层 es 且允许空；`index/bitflag` 仅按 i62，不做范围或 mask 校验 |
 | M6.14.19 战斗/交易/家族/社交封包-uId | `uId` | 客户端->服务端 | 否 | 完成 | RECV_GML 家族邮件；外层 `{toregistNumber:i62} {text:es} {color:i62}`；无二级 payload，`text` 为普通外层 es 且允许空，不拆 `|`；`toregistNumber/color` 仅按 i62，不做范围或 bit 业务校验 |
 | M6.14.20 战斗/交易/家族/社交封包-wD | `wD` | 客户端->服务端 | 否 | 完成 | RECV_PRE 删除迷你邮件好友；外层 `{profileIndex:i62} {name:es}`；无二级 payload，`name` 为普通外层 es 且允许空，不拆 `|`；`profileIndex` 仅按 i62，不做范围业务校验 |
-| M6.14.21 战斗/交易/家族/社交封包-GH | `GH` | 客户端->服务端 | 否 | 未开始 | RECV_PRM 发送迷你邮件 |
+| M6.14.21 战斗/交易/家族/社交封包-GH | `GH` | 客户端->服务端 | 否 | 完成 | RECV_PRM 发送迷你邮件；外层 `{data:es} {color:i62}`；`data` 为 `profileIndex|name|msg|` 且必须尾随 `|`，严格 4 段且第 4 段为空；profileIndex 为 raw signed decimal，name/msg 为 raw 字符串并拒绝 literal `|`/`\z` |
 | M6.14.22 战斗/交易/家族/社交封包-aiAb | `aiAb` | 客户端->服务端 | 否 | 未开始 | RECV_TROP CHAR_Trade_setTradeList 取出物品 |
 | M6.14.23 战斗/交易/家族/社交封包-ylGN | `ylGN` | 客户端->服务端 | 否 | 未开始 | RECV_StallStart 开始摆摊请求 |
 | M6.15.01 登录/角色管理封包-whV | `whV` | 服务端->客户端 | 否 | 未开始 | SEND_ClientLogin 登录角色表结果 |
@@ -360,7 +360,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 154 | `HoW` | 客户端->服务端 | 待办 | RECV_PRV 获取profile | 否 | 否 | xlsx |
 | 155 | `TLKH` | 客户端->服务端 | 进行中 | RECV_PRD 关闭stall后发送 | 否 | 否 | xlsx |
 | 156 | `wD` | 客户端->服务端 | 完成 | RECV_PRE 删除迷你邮件好友；resolved `{profileIndex:i62} {name:es}`，resolvedSource `xlsx+src/packet`；无二级 payload，`name` 为普通外层 es 且允许空，不拆 `|`；`profileIndex` 仅按 i62 | 否 | 是 | xlsx + src/packet |
-| 157 | `GH` | 客户端->服务端 | 待办 | RECV_PRM 发送迷你邮件 | 否 | 是 | xlsx |
+| 157 | `GH` | 客户端->服务端 | 完成 | RECV_PRM 发送迷你邮件；resolved `{data:es} {color:i62}`，resolvedSource `xlsx+src/packet`；`data` 为 `profileIndex|name|msg|` 且必须尾随 `|`，严格 4 段且第 4 段为空；profileIndex 为 raw signed decimal；name/msg 为 raw 字符串并拒绝 literal `|`/`\z` | 否 | 是 | xlsx + src/packet |
 | 158 | `nB` | 客户端->服务端 | 暂缓 | RECV_L | 是 | 否 | 待 C/IDA 补全 |
 | 159 | `uSr` | 客户端->服务端 | 完成 | RECV_TK 发送聊天 | 否 | 是 | xlsx |
 | 160 | `dcMv` | 客户端->服务端 | 完成 | RECV_FS 战易聊队状态 | 否 | 否 | xlsx |

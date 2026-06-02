@@ -91,19 +91,19 @@ namespace cg::packet
             const PacketSpec& packetSpec,
             bool decodeSubPayload)
         {
-            PacketResult<std::vector<std::string>> splitResult = SplitPlainTokens(plainTokens);
+            PacketResult<std::vector<std::string_view>> splitResult = SplitPlainTokens(plainTokens);
             if (!splitResult.HasValue()) {
                 return PacketResult<Packet>::Failure(splitResult.Error());
             }
 
-            std::vector<std::string> tokens = splitResult.Value();
+            const std::vector<std::string_view>& tokens = splitResult.Value();
             if (tokens.empty()) {
                 return PacketResult<Packet>::Failure(MakeParserError(
                     PacketErrorCode::EmptyInput,
                     "封包明文 token 输入为空"));
             }
 
-            const std::string& code = tokens.front();
+            const std::string_view code = tokens.front();
             if (code.empty()) {
                 PacketError error = MakeParserError(PacketErrorCode::InvalidCode, "封包 code 为空");
                 error.packetCode = PacketCode(code);
@@ -116,18 +116,18 @@ namespace cg::packet
                 return PacketResult<Packet>::Failure(std::move(error));
             }
 
-            std::vector<std::string> fieldTokens(tokens.begin() + 1, tokens.end());
-            if (fieldTokens.size() == packetSpec.fieldCount + 1U && !fieldTokens.empty() && fieldTokens.back().empty()) {
-                fieldTokens.pop_back();
+            std::size_t fieldTokenCount = tokens.size() - 1U;
+            if (fieldTokenCount == packetSpec.fieldCount + 1U && tokens.back().empty()) {
+                --fieldTokenCount;
             }
 
-            if (fieldTokens.size() != packetSpec.fieldCount) {
+            if (fieldTokenCount != packetSpec.fieldCount) {
                 PacketError error = MakeParserError(
                     PacketErrorCode::FieldCountMismatch,
                     "封包字段数量不匹配");
                 error.packetCode = PacketCode(code);
-                error.fieldIndex = fieldTokens.size() < packetSpec.fieldCount
-                    ? fieldTokens.size()
+                error.fieldIndex = fieldTokenCount < packetSpec.fieldCount
+                    ? fieldTokenCount
                     : packetSpec.fieldCount;
                 return PacketResult<Packet>::Failure(std::move(error));
             }
@@ -137,7 +137,7 @@ namespace cg::packet
 
             for (std::size_t index = 0; index < packetSpec.fieldCount; ++index) {
                 const PacketFieldSpec& fieldSpec = packetSpec.fields[index];
-                const std::string& token = fieldTokens[index];
+                const std::string_view token = tokens[index + 1U];
 
                 PacketField field;
                 field.name = std::string(fieldSpec.name);

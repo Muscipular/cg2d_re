@@ -30,10 +30,15 @@ std::string Bytes(std::initializer_list<unsigned int> values)
 
 int ExpectSplit(std::string_view text, const std::vector<std::string>& expected, const char* message)
 {
-    const cg::packet::PacketResult<std::vector<std::string>> result = cg::packet::SplitPlainTokens(text);
+    const cg::packet::PacketResult<std::vector<std::string_view>> result = cg::packet::SplitPlainTokens(text);
     int failures = Expect(static_cast<bool>(result), message);
     if (result.HasValue()) {
-        failures += Expect(result.Value() == expected, message);
+        failures += Expect(result.Value().size() == expected.size(), message);
+        if (result.Value().size() == expected.size()) {
+            for (std::size_t index = 0; index < expected.size(); ++index) {
+                failures += Expect(result.Value()[index] == std::string_view(expected[index]), message);
+            }
+        }
     }
     return failures;
 }

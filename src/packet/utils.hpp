@@ -241,11 +241,14 @@ namespace cg::packet
         return PacketResult<std::string>::Success(std::move(output));
     }
 
-    [[nodiscard]] inline PacketResult<std::vector<std::string>> SplitPlainTokens(std::string_view text)
+    /**
+     * 返回指向 text 的 token 视图；调用方需保证 text 生命周期覆盖返回值使用期。
+     */
+    [[nodiscard]] inline PacketResult<std::vector<std::string_view>> SplitPlainTokens(std::string_view text)
     {
-        std::vector<std::string> tokens;
+        std::vector<std::string_view> tokens;
         if (text.empty() || text.front() == '\0') {
-            return PacketResult<std::vector<std::string>>::Success(std::move(tokens));
+            return PacketResult<std::vector<std::string_view>>::Success(std::move(tokens));
         }
 
         std::vector<std::size_t> tokenStarts;
@@ -262,11 +265,11 @@ namespace cg::packet
             const char ch = text[index];
             if (ch == '\0') {
                 appendOpenTokens(index);
-                return PacketResult<std::vector<std::string>>::Success(std::move(tokens));
+                return PacketResult<std::vector<std::string_view>>::Success(std::move(tokens));
             }
             if (ch == '\n' || ch == '\r') {
                 appendOpenTokens(index);
-                return PacketResult<std::vector<std::string>>::Success(std::move(tokens));
+                return PacketResult<std::vector<std::string_view>>::Success(std::move(tokens));
             }
             if (ch == ' ') {
                 appendOpenTokens(index);
@@ -279,7 +282,7 @@ namespace cg::packet
         }
 
         appendOpenTokens(text.size());
-        return PacketResult<std::vector<std::string>>::Success(std::move(tokens));
+        return PacketResult<std::vector<std::string_view>>::Success(std::move(tokens));
     }
 
     [[nodiscard]] inline PacketResult<std::string> BuildPlainTokenString(const std::vector<std::string>& tokens)

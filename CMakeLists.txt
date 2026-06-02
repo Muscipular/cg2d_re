@@ -352,6 +352,21 @@ target_include_directories(cg-world-world-renderer-test
 
 add_test(NAME cg-world-world-renderer-test COMMAND cg-world-world-renderer-test)
 
+add_executable(cg-world-synthetic-population-test
+    tests/world/SyntheticPopulationTest.cpp
+    src/world/SyntheticPopulation.cpp
+    src/world/EntityStore.cpp
+    src/world/Transform.cpp
+    src/render/RenderQueue.cpp
+)
+
+target_include_directories(cg-world-synthetic-population-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+
+add_test(NAME cg-world-synthetic-population-test COMMAND cg-world-synthetic-population-test)
+
 add_executable(cg-world-entity-store-test
     tests/world/EntityStoreTest.cpp
     src/world/EntityStore.cpp
@@ -1467,6 +1482,7 @@ if(MSVC)
     target_compile_options(cg-world-visibility-culling-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-world-render-order-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-world-world-renderer-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-world-synthetic-population-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-world-entity-store-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-world-transform-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-world-movement-test PRIVATE /W4 /utf-8 /permissive-)
@@ -1582,6 +1598,7 @@ else()
     target_compile_options(cg-world-visibility-culling-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-world-render-order-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-world-world-renderer-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-world-synthetic-population-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-world-entity-store-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-world-transform-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-world-movement-test PRIVATE -Wall -Wextra -Wpedantic)

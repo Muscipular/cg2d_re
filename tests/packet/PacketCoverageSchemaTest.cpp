@@ -801,6 +801,36 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         }
     }
 
+    const PacketSchema* tradePetSkillInfoSchema = FindPacket(packets, "Yq");
+    failures += Expect(tradePetSkillInfoSchema != nullptr, "Yq schema exists");
+    if (tradePetSkillInfoSchema != nullptr) {
+        const cg::packet::receive::TradePetSkillInfo tradePetSkillInfo(2, {"Bite"});
+        const cg::packet::PacketResult<cg::packet::Packet> packet = tradePetSkillInfo.ToPacket();
+        failures += Expect(tradePetSkillInfoSchema->direction == "服务端->客户端", "Yq direction");
+        failures += Expect(tradePetSkillInfoSchema->legacyKind == "SEND", "Yq legacyKind");
+        failures += Expect(tradePetSkillInfoSchema->rawFormat.empty(), "Yq rawFormat empty");
+        failures += Expect(tradePetSkillInfoSchema->formatEmpty, "Yq formatEmpty");
+        failures += Expect(
+            tradePetSkillInfoSchema->resolvedFormat == "{petIndex:i62} {data:es}",
+            "Yq resolvedFormat");
+        failures += Expect(tradePetSkillInfoSchema->resolvedSource == "ServerC+src/packet", "Yq resolvedSource");
+        failures += Expect(tradePetSkillInfoSchema->fields.empty(), "Yq raw fields empty");
+        failures += Expect(packet.HasValue(), "Yq packet build");
+        if (packet.HasValue()) {
+            failures += Expect(packet.Value().fields.size() == 2U, "Yq packet field count");
+            if (packet.Value().fields.size() == 2U) {
+                failures += Expect(packet.Value().fields[0].name == "petIndex", "Yq packet petIndex field");
+                failures += Expect(
+                    packet.Value().fields[0].type == cg::packet::PacketFieldType::Int62,
+                    "Yq packet petIndex type");
+                failures += Expect(packet.Value().fields[1].name == "data", "Yq packet data field");
+                failures += Expect(
+                    packet.Value().fields[1].type == cg::packet::PacketFieldType::EscapedString,
+                    "Yq packet data type");
+            }
+        }
+    }
+
     const PacketSchema* profileMailMessageSchema = FindPacket(packets, "Mhbt");
     failures += Expect(profileMailMessageSchema != nullptr, "Mhbt schema exists");
     if (profileMailMessageSchema != nullptr) {

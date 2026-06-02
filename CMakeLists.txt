@@ -424,6 +424,17 @@ target_include_directories(cg-packet-trade-pet-info-test
 
 add_test(NAME cg-packet-trade-pet-info-test COMMAND cg-packet-trade-pet-info-test)
 
+add_executable(cg-packet-trade-pet-skill-info-test
+    tests/packet/TradePetSkillInfoPacketTest.cpp
+)
+
+target_include_directories(cg-packet-trade-pet-skill-info-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+
+add_test(NAME cg-packet-trade-pet-skill-info-test COMMAND cg-packet-trade-pet-skill-info-test)
+
 add_executable(cg-packet-character-icon-test
     tests/packet/CharacterIconPacketTest.cpp
 )
@@ -1104,6 +1115,7 @@ if(MSVC)
     target_compile_options(cg-packet-trade-start-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-trade-item-info-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-trade-pet-info-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-trade-pet-skill-info-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-character-icon-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-object-delete-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-map-data-test PRIVATE /W4 /utf-8 /permissive-)
@@ -1188,6 +1200,7 @@ else()
     target_compile_options(cg-packet-trade-player-list-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-trade-start-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-trade-item-info-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-packet-trade-pet-skill-info-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-character-icon-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-object-delete-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-map-data-test PRIVATE -Wall -Wextra -Wpedantic)

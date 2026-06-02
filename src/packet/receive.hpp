@@ -15474,6 +15474,290 @@ namespace cg::packet::receive
         }
     };
 
+    /**
+     * SEND_TRLPS CHAR_Trade_setTradeList 对方宠物技能信息		Yq {petIndex:i62} {data:es}
+     * data: 0..10 条隐式技能名 `skillNameRaw|...|`；空 data 表示 0 条，非空必须尾随 `|`。
+     */
+    struct TradePetSkillInfo
+    {
+        static constexpr std::string_view Code = "Yq";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::string_view PayloadDelimiter = "|";
+        static constexpr std::size_t MaxSkillCount = 10U;
+
+        int petIndex = 0;
+        std::vector<std::string> skillNameRaws;
+
+        TradePetSkillInfo() = default;
+
+        TradePetSkillInfo(int petIndex, std::vector<std::string> skillNameRaws)
+            : petIndex(petIndex),
+              skillNameRaws(std::move(skillNameRaws))
+        {
+        }
+
+        [[nodiscard]] PacketResult<std::string> BuildData() const
+        {
+            if (skillNameRaws.size() > MaxSkillCount) {
+                return PacketResult<std::string>::Failure(MakeFieldError(
+                    PacketErrorCode::EncodeFailed,
+                    "TradePetSkillInfo BuildData 技能名超过 10 条",
+                    DataFieldIndex));
+            }
+
+            std::string payload;
+            for (std::size_t index = 0; index < skillNameRaws.size(); ++index) {
+                PacketResult<std::string> skillNameRaw = ValidateRawStringField(skillNameRaws[index], index);
+                if (!skillNameRaw.HasValue()) {
+                    return PacketResult<std::string>::Failure(skillNameRaw.Error());
+                }
+
+                payload.append(skillNameRaws[index]);
+                payload.push_back('|');
+            }
+
+            return PacketResult<std::string>::Success(std::move(payload));
+        }
+
+        [[nodiscard]] PacketResult<Packet> ToPacket() const
+        {
+            PacketResult<std::string> payload = BuildData();
+            if (!payload.HasValue()) {
+                return PacketResult<Packet>::Failure(payload.Error());
+            }
+
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ServerC);
+            packet.fields.push_back(PacketField {
+                "petIndex",
+                PacketFieldType::Int62,
+                std::to_string(petIndex),
+                PacketSourceTag::ServerC,
+            });
+            packet.fields.push_back(PacketField {
+                "data",
+                PacketFieldType::EscapedString,
+                payload.Value(),
+                PacketSourceTag::ServerC,
+            });
+            return PacketResult<Packet>::Success(std::move(packet));
+        }
+
+        static PacketResult<TradePetSkillInfo> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view);
+            if (!parsed.HasValue()) {
+                return PacketResult<TradePetSkillInfo>::Failure(parsed.Error());
+            }
+
+            return FromPacket(parsed.Value());
+        }
+
+        static PacketResult<TradePetSkillInfo> FromPacket(const Packet& packet)
+        {
+            if (packet.code.View() != Code) {
+                PacketError error = MakePacketError(
+                    PacketErrorCode::InvalidCode,
+                    "TradePetSkillInfo Parse 收到非 Yq 封包");
+                error.packetCode = packet.code;
+                return PacketResult<TradePetSkillInfo>::Failure(std::move(error));
+            }
+
+            if (packet.direction != Direction) {
+                return PacketResult<TradePetSkillInfo>::Failure(MakePacketError(
+                    PacketErrorCode::DecodeFailed,
+                    "TradePetSkillInfo Parse 封包方向不匹配"));
+            }
+
+            if (packet.fields.size() != FieldCount) {
+                return PacketResult<TradePetSkillInfo>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "TradePetSkillInfo Parse 字段数量不匹配",
+                    packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
+            }
+
+            const std::array<std::string_view, FieldCount> fieldNames = {
+                "petIndex",
+                "data",
+            };
+            const std::array<PacketFieldType, FieldCount> fieldTypes = {
+                PacketFieldType::Int62,
+                PacketFieldType::EscapedString,
+            };
+
+            for (std::size_t index = 0; index < FieldCount; ++index) {
+                if (packet.fields[index].name != fieldNames[index]) {
+                    return PacketResult<TradePetSkillInfo>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "TradePetSkillInfo Parse 字段名不匹配",
+                        index));
+                }
+
+                if (packet.fields[index].type != fieldTypes[index]) {
+                    return PacketResult<TradePetSkillInfo>::Failure(MakeFieldError(
+                        PacketErrorCode::InvalidFieldType,
+                        "TradePetSkillInfo Parse 字段类型不匹配",
+                        index));
+                }
+            }
+
+            PacketResult<int> petIndexValue = ParseDecimalField(
+                packet.fields[PetIndexFieldIndex].value,
+                PetIndexFieldIndex);
+            if (!petIndexValue.HasValue()) {
+                return PacketResult<TradePetSkillInfo>::Failure(petIndexValue.Error());
+            }
+
+            PacketResult<std::vector<std::string>> skillNameRawsValue = ParseData(packet.fields[DataFieldIndex].value);
+            if (!skillNameRawsValue.HasValue()) {
+                return PacketResult<TradePetSkillInfo>::Failure(skillNameRawsValue.Error());
+            }
+
+            return PacketResult<TradePetSkillInfo>::Success(TradePetSkillInfo(
+                petIndexValue.Value(),
+                std::move(skillNameRawsValue.Value())));
+        }
+
+    private:
+        static constexpr std::size_t FieldCount = 2U;
+        static constexpr std::size_t PetIndexFieldIndex = 0U;
+        static constexpr std::size_t DataFieldIndex = 1U;
+
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            error.source = PacketSourceTag::ServerC;
+            return error;
+        }
+
+        [[nodiscard]] static PacketError MakeFieldError(
+            PacketErrorCode code,
+            std::string message,
+            std::size_t fieldIndex)
+        {
+            PacketError error = MakePacketError(code, std::move(message));
+            error.fieldIndex = fieldIndex;
+            return error;
+        }
+
+        [[nodiscard]] static PacketResult<std::vector<std::string>> ParseData(std::string_view payload)
+        {
+            if (payload.empty()) {
+                return PacketResult<std::vector<std::string>>::Success({});
+            }
+
+            if (payload.back() != '|') {
+                return PacketResult<std::vector<std::string>>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "TradePetSkillInfo payload 缺少尾随分隔符",
+                    DataFieldIndex));
+            }
+
+            PacketResult<std::vector<std::string>> split = SplitPayload(payload, PayloadDelimiter);
+            if (!split.HasValue()) {
+                PacketError error = split.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = DataFieldIndex;
+                error.source = PacketSourceTag::ServerC;
+                return PacketResult<std::vector<std::string>>::Failure(std::move(error));
+            }
+
+            std::vector<std::string> skillNameRaws = std::move(split.Value());
+            skillNameRaws.pop_back();
+            if (skillNameRaws.size() > MaxSkillCount) {
+                return PacketResult<std::vector<std::string>>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "TradePetSkillInfo payload 技能名超过 10 条",
+                    DataFieldIndex));
+            }
+
+            for (std::size_t index = 0; index < skillNameRaws.size(); ++index) {
+                PacketResult<std::string> skillNameRaw = ValidateRawStringField(skillNameRaws[index], index);
+                if (!skillNameRaw.HasValue()) {
+                    return PacketResult<std::vector<std::string>>::Failure(skillNameRaw.Error());
+                }
+            }
+
+            return PacketResult<std::vector<std::string>>::Success(std::move(skillNameRaws));
+        }
+
+        [[nodiscard]] static PacketResult<std::string> ValidateRawStringField(
+            std::string_view text,
+            std::size_t fieldIndex)
+        {
+            if (text.find('|') != std::string_view::npos) {
+                return PacketResult<std::string>::Failure(MakeFieldError(
+                    PacketErrorCode::EncodeFailed,
+                    "TradePetSkillInfo raw 字符串包含 literal |",
+                    fieldIndex));
+            }
+
+            for (std::size_t index = 0; index < text.size(); ++index) {
+                if (!cg::packet::detail::IsLegacyDoubleByteLead(text[index])) {
+                    continue;
+                }
+
+                if (index + 1U >= text.size()) {
+                    return PacketResult<std::string>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "TradePetSkillInfo raw 字符串旧双字节字符被截断",
+                        fieldIndex));
+                }
+                ++index;
+            }
+
+            return PacketResult<std::string>::Success(std::string(text));
+        }
+
+        [[nodiscard]] static PacketResult<int> ParseDecimalField(std::string_view text, std::size_t fieldIndex)
+        {
+            bool negative = false;
+            std::size_t index = 0;
+            if (!text.empty() && text.front() == '-') {
+                negative = true;
+                index = 1U;
+            }
+
+            if (index == text.size()) {
+                return PacketResult<int>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "TradePetSkillInfo i62 字段为空",
+                    fieldIndex));
+            }
+
+            const std::int64_t maxValue = static_cast<std::int64_t>(std::numeric_limits<int>::max());
+            const std::int64_t minValue = static_cast<std::int64_t>(std::numeric_limits<int>::min());
+            const std::int64_t limit = negative ? (0 - minValue) : maxValue;
+            std::int64_t value = 0;
+
+            for (; index < text.size(); ++index) {
+                const char ch = text[index];
+                if (ch < '0' || ch > '9') {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "TradePetSkillInfo i62 字段包含非十进制字符",
+                        fieldIndex));
+                }
+
+                const int digit = ch - '0';
+                if (value > (limit - digit) / 10) {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "TradePetSkillInfo i62 字段超出 int 范围",
+                        fieldIndex));
+                }
+
+                value = (value * 10) + digit;
+            }
+
+            if (negative) {
+                value = -value;
+            }
+
+            return PacketResult<int>::Success(static_cast<int>(value));
+        }
+    };
+
     struct AddressBookGuildInfoRecord
     {
         std::string guildNameRaw;

@@ -233,6 +233,15 @@ target_include_directories(cg-packet-create-new-char-result-test
 )
 add_test(NAME cg-packet-create-new-char-result-test COMMAND cg-packet-create-new-char-result-test)
 
+add_executable(cg-packet-create-new-char-send-test
+    tests/packet/CreateNewCharSendPacketTest.cpp
+)
+target_include_directories(cg-packet-create-new-char-send-test
+    PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/src
+)
+add_test(NAME cg-packet-create-new-char-send-test COMMAND cg-packet-create-new-char-send-test)
+
 add_executable(cg-packet-character-delete-result-test
     tests/packet/CharacterDeleteResultPacketTest.cpp
 )
@@ -1222,6 +1231,7 @@ if(MSVC)
     target_compile_options(cg-packet-types-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-character-list-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-create-new-char-result-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-create-new-char-send-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-character-delete-result-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-process-status-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-int62-codec-test PRIVATE /W4 /utf-8 /permissive-)

@@ -62,6 +62,22 @@ namespace cg::packet
             {"data", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
         }};
 
+        inline constexpr std::array<PacketFieldSpec, 13> CreateNewCharFields = {{
+            {"dataPlace", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"name", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+            {"image", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"face", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"vital", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"strength", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"tough", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"quick", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"magic", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"earth", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"water", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"fire", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"wind", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+        }};
+
         inline constexpr std::array<PacketFieldSpec, 1> ProfileVersionFields = {{
             {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
         }};
@@ -506,7 +522,7 @@ namespace cg::packet
             {"y2", PacketFieldType::Int62, PacketSourceTag::Xlsx},
         }};
 
-        inline constexpr std::array<PacketSpec, 88> PacketRegistry = {{
+        inline constexpr std::array<PacketSpec, 89> PacketRegistry = {{
             {
                 "JFVf",
                 PacketDirection::ClientToServer,
@@ -548,6 +564,13 @@ namespace cg::packet
                 PacketSourceTag::ServerC,
                 ProcessStatusFields.data(),
                 ProcessStatusFields.size(),
+            },
+            {
+                "aSEl",
+                PacketDirection::ClientToServer,
+                PacketSourceTag::Xlsx,
+                CreateNewCharFields.data(),
+                CreateNewCharFields.size(),
             },
             {
                 "HNP",

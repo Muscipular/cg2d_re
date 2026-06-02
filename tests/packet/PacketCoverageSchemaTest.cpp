@@ -727,6 +727,26 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         failures += ExpectResolvedFieldsMatch(*processStatusSchema, packet, "cJzI resolved field order");
     }
 
+    const PacketSchema* createNewCharSchema = FindPacket(packets, "aSEl");
+    failures += Expect(createNewCharSchema != nullptr, "aSEl schema exists");
+    if (createNewCharSchema != nullptr) {
+        const cg::packet::send::CreateNewChar createNewChar(1, "Alice", 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+        const cg::packet::Packet packet = createNewChar.ToPacket();
+        failures += Expect(createNewCharSchema->direction == "客户端->服务端", "aSEl direction");
+        failures += Expect(createNewCharSchema->legacyKind == "RECV", "aSEl legacyKind");
+        failures += Expect(
+            createNewCharSchema->rawFormat ==
+                "{dataPlace} {name} {image} {face} {vital} {strength} {tough} {quick} {magic} {earth} {water} {fire} {wind}",
+            "aSEl rawFormat");
+        failures += Expect(createNewCharSchema->fields.size() == 13U, "aSEl raw field count");
+        failures += Expect(
+            createNewCharSchema->resolvedFormat ==
+                "{dataPlace:i62} {name:es} {image:i62} {face:i62} {vital:i62} {strength:i62} {tough:i62} {quick:i62} {magic:i62} {earth:i62} {water:i62} {fire:i62} {wind:i62}",
+            "aSEl resolvedFormat");
+        failures += Expect(createNewCharSchema->resolvedSource == "xlsx+src/packet", "aSEl resolvedSource");
+        failures += ExpectResolvedFieldsMatch(*createNewCharSchema, packet, "aSEl resolved field order");
+    }
+
     const PacketSchema* effectSchema = FindPacket(packets, "zzd");
     failures += Expect(effectSchema != nullptr, "zzd schema exists");
     if (effectSchema != nullptr) {

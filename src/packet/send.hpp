@@ -68,6 +68,150 @@ namespace cg::packet::send
     };
 
     /**
+     * RECV_CreateNewChar 创建角色 aSEl
+     * {dataPlace:i62} {name:es} {image:i62} {face:i62} {vital:i62} {strength:i62}
+     * {tough:i62} {quick:i62} {magic:i62} {earth:i62} {water:i62} {fire:i62} {wind:i62}
+     */
+    struct CreateNewChar
+    {
+        static constexpr std::string_view Code = "aSEl";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+
+        int dataPlace = 0;
+        std::string name;
+        int image = 0;
+        int face = 0;
+        int vital = 0;
+        int strength = 0;
+        int tough = 0;
+        int quick = 0;
+        int magic = 0;
+        int earth = 0;
+        int water = 0;
+        int fire = 0;
+        int wind = 0;
+
+        CreateNewChar(
+            int dataPlace,
+            std::string name,
+            int image,
+            int face,
+            int vital,
+            int strength,
+            int tough,
+            int quick,
+            int magic,
+            int earth,
+            int water,
+            int fire,
+            int wind)
+            : dataPlace(dataPlace),
+              name(std::move(name)),
+              image(image),
+              face(face),
+              vital(vital),
+              strength(strength),
+              tough(tough),
+              quick(quick),
+              magic(magic),
+              earth(earth),
+              water(water),
+              fire(fire),
+              wind(wind)
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            packet.fields.push_back(PacketField {
+                "dataPlace",
+                PacketFieldType::Int62,
+                std::to_string(dataPlace),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "name",
+                PacketFieldType::EscapedString,
+                name,
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "image",
+                PacketFieldType::Int62,
+                std::to_string(image),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "face",
+                PacketFieldType::Int62,
+                std::to_string(face),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "vital",
+                PacketFieldType::Int62,
+                std::to_string(vital),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "strength",
+                PacketFieldType::Int62,
+                std::to_string(strength),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "tough",
+                PacketFieldType::Int62,
+                std::to_string(tough),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "quick",
+                PacketFieldType::Int62,
+                std::to_string(quick),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "magic",
+                PacketFieldType::Int62,
+                std::to_string(magic),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "earth",
+                PacketFieldType::Int62,
+                std::to_string(earth),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "water",
+                PacketFieldType::Int62,
+                std::to_string(water),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "fire",
+                PacketFieldType::Int62,
+                std::to_string(fire),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "wind",
+                PacketFieldType::Int62,
+                std::to_string(wind),
+                PacketSourceTag::Xlsx,
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket());
+        }
+    };
+
+    /**
      * RECV_M 获取地图信息 UUN {mapid:i62} {floor:i62} {x1:i62} {y1:i62} {x2:i62} {y2:i62}
      */
     struct MapDataRequest

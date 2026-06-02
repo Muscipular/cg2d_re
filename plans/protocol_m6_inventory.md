@@ -156,7 +156,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | M6.15.03 登录/角色管理封包-DZ | `DZ` | 服务端->客户端 | 是 | 完成 | SEND_CreateNewChar；外层 `{result:es} {registnumber:i62} {data:es}`；result 为字符串，不做枚举/range 校验；registnumber 允许 `-1`；data 为普通外层 es/opaque，允许空、错误文本或 DB result string，不拆 payload，强类型拆分 BLOCKED：客户端 IDA 解码 data 但丢弃，当前证据不足 |
 | M6.15.04 登录/角色管理封包-oy | `oy` | 服务端->客户端 | 是 | 完成 | SEND_CharDelete；外层 `{result:es} {data:es}`；result 为字符串，不做枚举/range 校验；data 为普通外层 es/opaque message/DB result，可为空，不加入 nested es，不拆 payload，强类型拆分 BLOCKED：当前仅确认外层结果与消息，缺少稳定业务 payload 语义证据 |
 | M6.15.05 登录/角色管理封包-cJzI | `cJzI` | 服务端->客户端 | 是 | 完成 | SEND_ProcGet；外层 `{data:es}`；data 为 outputNetProcLog 的 opaque 多行状态文本，可为空、可含换行、逗号、竖线；不拆 payload，不加入 nested es，不自动添加或裁剪 newline；关联请求 `yp` 本任务不实现 |
-| M6.15.06 登录/角色管理封包-aSEl | `aSEl` | 客户端->服务端 | 否 | 未开始 | RECV_CreateNewChar 创建角色 |
+| M6.15.06 登录/角色管理封包-aSEl | `aSEl` | 客户端->服务端 | 否 | 完成 | RECV_CreateNewChar 创建角色；外层 `{dataPlace:i62} {name:es} {image:i62} {face:i62} {vital:i62} {strength:i62} {tough:i62} {quick:i62} {magic:i62} {earth:i62} {water:i62} {fire:i62} {wind:i62}`；`name` 为普通外层 es，可为空，不加入 nested es；不做 name length、分隔符、登录状态、点数范围或元素范围业务校验 |
 
 ## 现有 `src/packet/` 封包清单
 | code | 方向 | 现有类型 | format | 当前状态 |
@@ -166,6 +166,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | `DZ` | 服务端->客户端 | `cg::packet::receive::CreateNewCharResult` | `{result:es} {registnumber:i62} {data:es}` | M6.15.03 已实现；result 为字符串，不做枚举/range 校验；registnumber 允许 `-1`；data 为普通外层 es/opaque，不加入 nested es，不拆 payload，强类型拆分 BLOCKED：客户端 IDA 解码 data 但丢弃，当前证据不足 |
 | `oy` | 服务端->客户端 | `cg::packet::receive::CharacterDeleteResult` | `{result:es} {data:es}` | M6.15.04 已实现；result 为字符串，不做枚举/range 校验；data 为普通外层 es/opaque message/DB result，可为空，不加入 nested es，不拆 payload，强类型拆分 BLOCKED：当前仅确认外层结果与消息，缺少稳定业务 payload 语义证据 |
 | `cJzI` | 服务端->客户端 | `cg::packet::receive::ProcessStatus` | `{data:es}` | M6.15.05 已实现；data 为 outputNetProcLog 的 opaque 多行状态文本，可为空、可含换行、逗号、竖线；普通外层 es，不加入 nested es，不拆 payload，不自动添加或裁剪 newline；关联请求 `yp` 不实现 |
+| `aSEl` | 客户端->服务端 | `cg::packet::send::CreateNewChar` | `{dataPlace:i62} {name:es} {image:i62} {face:i62} {vital:i62} {strength:i62} {tough:i62} {quick:i62} {magic:i62} {earth:i62} {water:i62} {fire:i62} {wind:i62}` | M6.15.06 已实现；`name` 为普通外层 es，可为空，不加入 nested es；不做 name length、分隔符、登录状态、点数范围或元素范围业务校验 |
 | `HNP` | 服务端->客户端 | `cg::packet::receive::ProfileVersion` | `{data:es}` | M6.11.01 已实现；`data` 按 `|` 拆 `profileVersion/aboutVersion/mailCharge/seekPos` 4 段，均为 raw decimal，不用 i62，`seekPos` 可为 `-1` |
 | `aPc` | 服务端->客户端 | `cg::packet::receive::CharacterProfile` | `{data:es}` | M6.11.02 已实现；按旧 C `nrproto_CP_send(int fd, char* data)` 修正为单外层 `data`；`data` 最小解析 `flags|values...|`，flags 为 i62，values 保留 raw 字符串和中间空值，回写保留尾随 `|`，不拆业务 bit |
 | `UU` | 服务端->客户端 | `cg::packet::receive::CharacterProfile2` | `{data:es}` | M6.11.03 已实现；按旧 C `nrproto_CP2_send(int fd, char* data)` 修正为单外层 `data`；`data` 最小解析 `flagMask|values...|`，flagMask 为 i62，values 保留 raw 字符串且拒绝中间空值，回写保留尾随 `|`，不拆业务 bit |
@@ -397,7 +398,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 188 | `ycX` | 客户端->服务端 | 完成 | RECV_KN CHAR_inputUserPetName 宠物姓名；外层 `{petSlot:i62} {name:es}`；无二级 payload；来源 xlsx + ServerC + ClientIda | 否 | 否 | xlsx + ServerC + ClientIda + src/packet |
 | 189 | `xD` | 客户端->服务端 | 完成 | RECV_WN 打开系统窗口；外层 `{x:i62} {y:i62} {seqno:i62} {objindex:i62} {select:i62} {data:es}`；无二级 payload；来源 xlsx + ServerC + ClientIda | 否 | 是 | xlsx + ServerC + ClientIda + src/packet |
 | 190 | `cZt` | 客户端->服务端 | 完成 | RECV_SP 离队时发送 | 否 | 否 | xlsx |
-| 191 | `aSEl` | 客户端->服务端 | 完成 | RECV_CreateNewChar 创建角色 | 否 | 是 | xlsx |
+| 191 | `aSEl` | 客户端->服务端 | 完成 | RECV_CreateNewChar 创建角色；resolved `{dataPlace:i62} {name:es} {image:i62} {face:i62} {vital:i62} {strength:i62} {tough:i62} {quick:i62} {magic:i62} {earth:i62} {water:i62} {fire:i62} {wind:i62}`；`name` 为普通外层 es，可为空，不加入 nested es；不做 name length、分隔符、登录状态、点数范围或元素范围业务校验 | 否 | 否 | xlsx + src/packet |
 | 192 | `Godf` | 客户端->服务端 | 完成 | RECV_CharDelete 删除角色 | 否 | 否 | xlsx |
 | 193 | `yp` | 客户端->服务端 | 暂缓 | RECV_ProcGet gm命令？ | 是 | 否 | 待 C/IDA 补全 |
 | 194 | `rvb` | 客户端->服务端 | 暂缓 | RECV_PlayerNumGet | 是 | 否 | 待 C/IDA 补全 |

@@ -343,6 +343,12 @@ namespace cg::packet
             {"pet", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
         }};
 
+        inline constexpr std::array<PacketFieldSpec, 3> StallStartFields = {{
+            {"stallName", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+            {"stallDescription", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+            {"stallList", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+        }};
+
         inline constexpr std::array<PacketFieldSpec, 1> AddressBookFields = {{
             {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
         }};
@@ -480,7 +486,7 @@ namespace cg::packet
             {"y2", PacketFieldType::Int62, PacketSourceTag::Xlsx},
         }};
 
-        inline constexpr std::array<PacketSpec, 83> PacketRegistry = {{
+        inline constexpr std::array<PacketSpec, 84> PacketRegistry = {{
             {
                 "JFVf",
                 PacketDirection::ClientToServer,
@@ -865,6 +871,13 @@ namespace cg::packet
                 PacketSourceTag::Xlsx,
                 StallBrowseFields.data(),
                 StallBrowseFields.size(),
+            },
+            {
+                "ylGN",
+                PacketDirection::ClientToServer,
+                PacketSourceTag::Xlsx,
+                StallStartFields.data(),
+                StallStartFields.size(),
             },
             {
                 "CCL",

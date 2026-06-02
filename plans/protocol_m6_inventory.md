@@ -402,7 +402,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 196 | `PGXE` | 客户端->服务端 | 完成 | RECV_CH cheat 检测作弊 | 否 | 否 | xlsx |
 | 197 | `lO` | 客户端->服务端 | 完成 | RECV_CharLoginGate 回登陆点 | 否 | 否 | xlsx |
 | 198 | `Xoee` | 客户端->服务端 | 暂缓 | RECV_PVUP 历史迁移封包 | 否 | 否 | xlsx |
-| 199 | `ylGN` | 客户端->服务端 | 完成 | RECV_StallStart 开始摆摊请求 | 否 | 是 | xlsx |
+| 199 | `ylGN` | 客户端->服务端 | 完成 | RECV_StallStart 开始摆摊请求；外层 `{stallName:es} {stallDescription:es} {stallList:es}`；stallList 固定 25 个 raw decimal price 且必须尾随 `|` | 否 | 是 | xlsx + src/packet |
 | 200 | `JMh` | 客户端->服务端 | 完成 | RECV_StallEnd 结束摆摊请求 | 否 | 否 | xlsx |
 | 201 | `ElVN` | 客户端->服务端 | 完成 | RECV_StallBrowse 摆摊浏览请求 | 否 | 否 | xlsx |
 | 202 | `wAo` | 客户端->服务端 | 完成 | RECV_StallBuy 摆摊购买请求 | 否 | 否 | xlsx |

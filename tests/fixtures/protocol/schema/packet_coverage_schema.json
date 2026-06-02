@@ -5833,6 +5833,8 @@
       "xlsxStatus": "完成",
       "description": "RECV_StallStart 开始摆摊请求",
       "rawFormat": "{stallName} {stallDescription} {stallList}",
+      "resolvedFormat": "{stallName:es} {stallDescription:es} {stallList:es}",
+      "resolvedSource": "xlsx+src/packet",
       "formatEmpty": false,
       "source": "xlsx",
       "fields": [

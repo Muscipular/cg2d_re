@@ -4,6 +4,7 @@
 #include "PacketTypes.hpp"
 #include "PayloadCodec.hpp"
 
+#include <array>
 #include <cstddef>
 #include <cstdint>
 #include <limits>
@@ -1399,6 +1400,294 @@ namespace cg::packet::send
         [[nodiscard]] PacketResult<std::string> Encode() const
         {
             return BuildPacket(ToPacket());
+        }
+    };
+
+    /**
+     * RECV_StallStart 开始摆摊请求 ylGN {stallName:es} {stallDescription:es} {stallList:es}
+     * stallList 为 25 个 raw decimal 价格并带尾随 `|`，price0..19 为背包，price20..24 为宠物。
+     */
+    struct StallStart
+    {
+        static constexpr std::string_view Code = "ylGN";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::string_view PayloadDelimiter = "|";
+        static constexpr std::size_t ItemPriceCount = 20U;
+        static constexpr std::size_t PetPriceCount = 5U;
+        static constexpr std::size_t PriceCount = ItemPriceCount + PetPriceCount;
+
+        std::string stallName;
+        std::string stallDescription;
+        std::array<std::string, PriceCount> prices;
+
+        static std::array<std::string, PriceCount> MakeZeroPrices()
+        {
+            std::array<std::string, PriceCount> values;
+            for (std::string& value : values) {
+                value = "0";
+            }
+            return values;
+        }
+
+        StallStart(std::string stallName, std::string stallDescription)
+            : stallName(std::move(stallName)),
+              stallDescription(std::move(stallDescription)),
+              prices(MakeZeroPrices())
+        {
+        }
+
+        StallStart(
+            std::string stallName,
+            std::string stallDescription,
+            std::array<std::string, PriceCount> prices)
+            : stallName(std::move(stallName)),
+              stallDescription(std::move(stallDescription)),
+              prices(std::move(prices))
+        {
+        }
+
+        [[nodiscard]] PacketResult<std::string> BuildData() const
+        {
+            std::string payload;
+            for (std::size_t index = 0; index < prices.size(); ++index) {
+                PacketResult<std::string> price = ValidateRawDecimalPrice(
+                    prices[index],
+                    index,
+                    PacketErrorCode::EncodeFailed,
+                    "StallStart BuildData price 非 raw decimal");
+                if (!price.HasValue()) {
+                    return PacketResult<std::string>::Failure(price.Error());
+                }
+
+                payload.append(price.Value());
+                payload.push_back('|');
+            }
+
+            return PacketResult<std::string>::Success(std::move(payload));
+        }
+
+        [[nodiscard]] PacketResult<Packet> ToPacket() const
+        {
+            PacketResult<std::string> stallList = BuildData();
+            if (!stallList.HasValue()) {
+                return PacketResult<Packet>::Failure(stallList.Error());
+            }
+
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            packet.fields.push_back(PacketField {
+                "stallName",
+                PacketFieldType::EscapedString,
+                stallName,
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "stallDescription",
+                PacketFieldType::EscapedString,
+                stallDescription,
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "stallList",
+                PacketFieldType::EscapedString,
+                stallList.Value(),
+                PacketSourceTag::Xlsx,
+            });
+            return PacketResult<Packet>::Success(std::move(packet));
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            PacketResult<Packet> packet = ToPacket();
+            if (!packet.HasValue()) {
+                return PacketResult<std::string>::Failure(packet.Error());
+            }
+            return BuildPacket(packet.Value());
+        }
+
+        static PacketResult<StallStart> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view);
+            if (!parsed.HasValue()) {
+                return PacketResult<StallStart>::Failure(parsed.Error());
+            }
+
+            return FromPacket(parsed.Value());
+        }
+
+        static PacketResult<StallStart> FromPacket(const Packet& packet)
+        {
+            if (packet.code.View() != Code) {
+                PacketError error = MakePacketError(PacketErrorCode::InvalidCode, "StallStart Parse 收到非 ylGN 封包");
+                error.packetCode = packet.code;
+                return PacketResult<StallStart>::Failure(std::move(error));
+            }
+
+            if (packet.direction != Direction) {
+                return PacketResult<StallStart>::Failure(MakePacketError(
+                    PacketErrorCode::DecodeFailed,
+                    "StallStart Parse 封包方向不匹配"));
+            }
+
+            if (packet.fields.size() != FieldCount) {
+                return PacketResult<StallStart>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "StallStart Parse 字段数量不匹配",
+                    packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
+            }
+
+            if (packet.fields[StallNameFieldIndex].name != "stallName") {
+                return PacketResult<StallStart>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "StallStart Parse stallName 字段名不匹配",
+                    StallNameFieldIndex));
+            }
+
+            if (packet.fields[StallNameFieldIndex].type != PacketFieldType::EscapedString) {
+                return PacketResult<StallStart>::Failure(MakeFieldError(
+                    PacketErrorCode::InvalidFieldType,
+                    "StallStart Parse stallName 字段类型不匹配",
+                    StallNameFieldIndex));
+            }
+
+            if (packet.fields[StallDescriptionFieldIndex].name != "stallDescription") {
+                return PacketResult<StallStart>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "StallStart Parse stallDescription 字段名不匹配",
+                    StallDescriptionFieldIndex));
+            }
+
+            if (packet.fields[StallDescriptionFieldIndex].type != PacketFieldType::EscapedString) {
+                return PacketResult<StallStart>::Failure(MakeFieldError(
+                    PacketErrorCode::InvalidFieldType,
+                    "StallStart Parse stallDescription 字段类型不匹配",
+                    StallDescriptionFieldIndex));
+            }
+
+            const PacketField& stallListField = packet.fields[StallListFieldIndex];
+            if (stallListField.name != "stallList") {
+                return PacketResult<StallStart>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "StallStart Parse stallList 字段名不匹配",
+                    StallListFieldIndex));
+            }
+
+            if (stallListField.type != PacketFieldType::EscapedString) {
+                return PacketResult<StallStart>::Failure(MakeFieldError(
+                    PacketErrorCode::InvalidFieldType,
+                    "StallStart Parse stallList 字段类型不匹配",
+                    StallListFieldIndex));
+            }
+
+            PacketResult<std::array<std::string, PriceCount>> parsedPrices = ParseStallList(stallListField.value);
+            if (!parsedPrices.HasValue()) {
+                return PacketResult<StallStart>::Failure(parsedPrices.Error());
+            }
+
+            return PacketResult<StallStart>::Success(StallStart(
+                packet.fields[StallNameFieldIndex].value,
+                packet.fields[StallDescriptionFieldIndex].value,
+                std::move(parsedPrices.Value())));
+        }
+
+    private:
+        static constexpr std::size_t FieldCount = 3U;
+        static constexpr std::size_t StallNameFieldIndex = 0U;
+        static constexpr std::size_t StallDescriptionFieldIndex = 1U;
+        static constexpr std::size_t StallListFieldIndex = 2U;
+        static constexpr std::size_t PayloadPartCount = PriceCount + 1U;
+        static constexpr std::size_t TailPayloadIndex = PriceCount;
+
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            error.source = PacketSourceTag::Xlsx;
+            return error;
+        }
+
+        [[nodiscard]] static PacketError MakeFieldError(
+            PacketErrorCode code,
+            std::string message,
+            std::size_t fieldIndex)
+        {
+            PacketError error = MakePacketError(code, std::move(message));
+            error.fieldIndex = fieldIndex;
+            return error;
+        }
+
+        [[nodiscard]] static PacketResult<std::array<std::string, PriceCount>> ParseStallList(std::string_view payload)
+        {
+            if (payload.empty()) {
+                return PacketResult<std::array<std::string, PriceCount>>::Failure(MakeFieldError(
+                    PacketErrorCode::EmptyInput,
+                    "StallStart stallList 为空",
+                    StallListFieldIndex));
+            }
+
+            if (payload.back() != '|') {
+                return PacketResult<std::array<std::string, PriceCount>>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "StallStart stallList 缺少尾随分隔符",
+                    StallListFieldIndex));
+            }
+
+            PacketResult<std::vector<std::string>> split = SplitPayload(payload, PayloadDelimiter);
+            if (!split.HasValue()) {
+                PacketError error = split.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = StallListFieldIndex;
+                error.source = PacketSourceTag::Xlsx;
+                return PacketResult<std::array<std::string, PriceCount>>::Failure(std::move(error));
+            }
+
+            const std::vector<std::string>& parts = split.Value();
+            if (parts.size() != PayloadPartCount || !parts[TailPayloadIndex].empty()) {
+                return PacketResult<std::array<std::string, PriceCount>>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "StallStart stallList price 段数量不匹配",
+                    StallListFieldIndex));
+            }
+
+            std::array<std::string, PriceCount> parsedPrices;
+            for (std::size_t index = 0; index < PriceCount; ++index) {
+                PacketResult<std::string> price = ValidateRawDecimalPrice(
+                    parts[index],
+                    index,
+                    PacketErrorCode::DecodeFailed,
+                    "StallStart stallList price 非 raw decimal");
+                if (!price.HasValue()) {
+                    return PacketResult<std::array<std::string, PriceCount>>::Failure(price.Error());
+                }
+
+                parsedPrices[index] = std::move(price.Value());
+            }
+
+            return PacketResult<std::array<std::string, PriceCount>>::Success(std::move(parsedPrices));
+        }
+
+        [[nodiscard]] static PacketResult<std::string> ValidateRawDecimalPrice(
+            std::string_view text,
+            std::size_t fieldIndex,
+            PacketErrorCode code,
+            std::string message)
+        {
+            if (text.empty()) {
+                return PacketResult<std::string>::Failure(MakeFieldError(
+                    code,
+                    std::move(message),
+                    fieldIndex));
+            }
+
+            for (const char ch : text) {
+                if (ch < '0' || ch > '9') {
+                    return PacketResult<std::string>::Failure(MakeFieldError(
+                        code,
+                        std::move(message),
+                        fieldIndex));
+                }
+            }
+
+            return PacketResult<std::string>::Success(std::string(text));
         }
     };
 }

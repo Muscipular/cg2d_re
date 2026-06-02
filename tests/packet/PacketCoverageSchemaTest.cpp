@@ -1038,6 +1038,55 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         }
     }
 
+    const PacketSchema* stallStartSchema = FindPacket(packets, "ylGN");
+    failures += Expect(stallStartSchema != nullptr, "ylGN schema exists");
+    if (stallStartSchema != nullptr) {
+        const cg::packet::send::StallStart stallStart("Shop", "Desc");
+        const cg::packet::PacketResult<cg::packet::Packet> packet = stallStart.ToPacket();
+        failures += Expect(stallStartSchema->direction == "客户端->服务端", "ylGN direction");
+        failures += Expect(stallStartSchema->legacyKind == "RECV", "ylGN legacyKind");
+        failures += Expect(
+            stallStartSchema->rawFormat == "{stallName} {stallDescription} {stallList}",
+            "ylGN rawFormat");
+        failures += Expect(
+            stallStartSchema->resolvedFormat == "{stallName:es} {stallDescription:es} {stallList:es}",
+            "ylGN resolvedFormat");
+        failures += Expect(stallStartSchema->resolvedSource == "xlsx+src/packet", "ylGN resolvedSource");
+        failures += Expect(stallStartSchema->fields.size() == 3U, "ylGN raw field count");
+        if (stallStartSchema->fields.size() == 3U) {
+            failures += Expect(stallStartSchema->fields[0].name == "stallName", "ylGN raw field stallName");
+            failures += Expect(
+                stallStartSchema->fields[1].name == "stallDescription",
+                "ylGN raw field stallDescription");
+            failures += Expect(stallStartSchema->fields[2].name == "stallList", "ylGN raw field stallList");
+            failures += Expect(stallStartSchema->fields[0].typeToken == "unknown", "ylGN raw stallName type");
+            failures += Expect(
+                stallStartSchema->fields[1].typeToken == "unknown",
+                "ylGN raw stallDescription type");
+            failures += Expect(stallStartSchema->fields[2].typeToken == "unknown", "ylGN raw stallList type");
+        }
+        failures += Expect(static_cast<bool>(packet), "ylGN packet build");
+        if (packet.HasValue()) {
+            failures += Expect(packet.Value().fields.size() == 3U, "ylGN packet field count");
+            if (packet.Value().fields.size() == 3U) {
+                failures += Expect(packet.Value().fields[0].name == "stallName", "ylGN packet stallName field");
+                failures += Expect(
+                    packet.Value().fields[0].type == cg::packet::PacketFieldType::EscapedString,
+                    "ylGN packet stallName type");
+                failures += Expect(
+                    packet.Value().fields[1].name == "stallDescription",
+                    "ylGN packet stallDescription field");
+                failures += Expect(
+                    packet.Value().fields[1].type == cg::packet::PacketFieldType::EscapedString,
+                    "ylGN packet stallDescription type");
+                failures += Expect(packet.Value().fields[2].name == "stallList", "ylGN packet stallList field");
+                failures += Expect(
+                    packet.Value().fields[2].type == cg::packet::PacketFieldType::EscapedString,
+                    "ylGN packet stallList type");
+            }
+        }
+    }
+
     const PacketSchema* guildInfoChangeSchema = FindPacket(packets, "Ufm");
     failures += Expect(guildInfoChangeSchema != nullptr, "Ufm schema exists");
     if (guildInfoChangeSchema != nullptr) {

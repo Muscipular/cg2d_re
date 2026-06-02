@@ -4446,9 +4446,11 @@
       "direction": "客户端->服务端",
       "legacyKind": "RECV",
       "clientNamespace": "send",
-      "xlsxStatus": "进行中",
+      "xlsxStatus": "完成",
       "description": "RECV_GML 家族邮件",
       "rawFormat": "{toregistNumber} {text} {color}",
+      "resolvedFormat": "{toregistNumber:i62} {text:es} {color:i62}",
+      "resolvedSource": "xlsx+src/packet",
       "formatEmpty": false,
       "source": "xlsx",
       "fields": [

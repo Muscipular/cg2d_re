@@ -873,6 +873,55 @@ namespace cg::packet::send
             return BuildPacket(ToPacket());
         }
     };
+
+    /**
+     * RECV_GML 家族邮件 uId {toregistNumber:i62} {text:es} {color:i62}
+     */
+    struct GuildMailSend
+    {
+        static constexpr std::string_view Code = "uId";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+
+        int toregistNumber = 0;
+        std::string text;
+        int color = 0;
+
+        GuildMailSend(int toregistNumber, std::string text, int color)
+            : toregistNumber(toregistNumber),
+              text(std::move(text)),
+              color(color)
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            packet.fields.push_back(PacketField {
+                "toregistNumber",
+                PacketFieldType::Int62,
+                std::to_string(toregistNumber),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "text",
+                PacketFieldType::EscapedString,
+                text,
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "color",
+                PacketFieldType::Int62,
+                std::to_string(color),
+                PacketSourceTag::Xlsx,
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket());
+        }
+    };
 }
 
 #endif //CG_ENGINE_SEND_H

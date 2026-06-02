@@ -146,7 +146,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | M6.14.16 战斗/交易/家族/社交封包-woz | `woz` | 客户端->服务端 | 否 | 完成 | RECV_DG DropGold 丢金币；外层 `{x:i62} {y:i62} {amount:i62}`；无二级 payload，不做金币非负、坐标范围或战斗状态业务校验 |
 | M6.14.17 战斗/交易/家族/社交封包-Ufm | `Ufm` | 客户端->服务端 | 否 | 完成 | RECV_GI 变更家族信息；外层 `{c:i62} {data:es}`；无二级 payload，`data` 为普通外层 es 且允许空；`c` 仅按 i62，不做枚举或 sortType 范围校验 |
 | M6.14.18 战斗/交易/家族/社交封包-GY | `GY` | 客户端->服务端 | 否 | 完成 | RECV_GT 设置家族职位信息；外层 `{index:i62} {bitflag:i62} {data:es}`；无二级 payload，`data` 为普通外层 es 且允许空；`index/bitflag` 仅按 i62，不做范围或 mask 校验 |
-| M6.14.19 战斗/交易/家族/社交封包-uId | `uId` | 客户端->服务端 | 否 | 未开始 | RECV_GML 家族邮件 |
+| M6.14.19 战斗/交易/家族/社交封包-uId | `uId` | 客户端->服务端 | 否 | 完成 | RECV_GML 家族邮件；外层 `{toregistNumber:i62} {text:es} {color:i62}`；无二级 payload，`text` 为普通外层 es 且允许空，不拆 `|`；`toregistNumber/color` 仅按 i62，不做范围或 bit 业务校验 |
 | M6.14.20 战斗/交易/家族/社交封包-wD | `wD` | 客户端->服务端 | 否 | 未开始 | RECV_PRE 删除迷你邮件好友 |
 | M6.14.21 战斗/交易/家族/社交封包-GH | `GH` | 客户端->服务端 | 否 | 未开始 | RECV_PRM 发送迷你邮件 |
 | M6.14.22 战斗/交易/家族/社交封包-aiAb | `aiAb` | 客户端->服务端 | 否 | 未开始 | RECV_TROP CHAR_Trade_setTradeList 取出物品 |
@@ -354,7 +354,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 148 | `npzi` | 客户端->服务端 | 完成 | RECV_AGM 家族邀请 | 否 | 否 | xlsx |
 | 149 | `XIsR` | 客户端->服务端 | 进行中 | RECV_LG 离开家族 | 否 | 否 | xlsx |
 | 150 | `dbQC` | 客户端->服务端 | 进行中 | RECV_RGM 移除家族成员 | 否 | 否 | xlsx |
-| 151 | `uId` | 客户端->服务端 | 进行中 | RECV_GML 家族邮件 | 否 | 是 | xlsx |
+| 151 | `uId` | 客户端->服务端 | 完成 | RECV_GML 家族邮件；resolved `{toregistNumber:i62} {text:es} {color:i62}`，resolvedSource `xlsx+src/packet`；无二级 payload，`text` 为普通外层 es 且允许空，不拆 `|`；`toregistNumber/color` 仅按 i62，不做范围或 bit 业务校验 | 否 | 是 | xlsx + src/packet |
 | 152 | `PfqV` | 客户端->服务端 | 完成 | RECV_PGML 宠邮登记；resolved `{toregist:i62} {petSlot:i62} {itemSlot:i62} {text:es} {color:i62}`，resolvedSource `xlsx+ServerC+ClientIda+src/packet`；无二级 payload，`text` 为普通外层 es，客户端不执行 `color | 0x100` | 否 | 是 | xlsx |
 | 153 | `nkda` | 客户端->服务端 | 进行中 | RECV_GD 解散家族 | 否 | 否 | xlsx |
 | 154 | `HoW` | 客户端->服务端 | 待办 | RECV_PRV 获取profile | 否 | 否 | xlsx |

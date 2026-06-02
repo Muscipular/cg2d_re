@@ -1066,6 +1066,44 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         }
     }
 
+    const PacketSchema* guildMailSendSchema = FindPacket(packets, "uId");
+    failures += Expect(guildMailSendSchema != nullptr, "uId schema exists");
+    if (guildMailSendSchema != nullptr) {
+        const cg::packet::send::GuildMailSend guildMailSend(10, "text", 6);
+        const cg::packet::Packet packet = guildMailSend.ToPacket();
+        failures += Expect(guildMailSendSchema->direction == "客户端->服务端", "uId direction");
+        failures += Expect(guildMailSendSchema->legacyKind == "RECV", "uId legacyKind");
+        failures += Expect(
+            guildMailSendSchema->rawFormat == "{toregistNumber} {text} {color}",
+            "uId rawFormat");
+        failures += Expect(
+            guildMailSendSchema->resolvedFormat == "{toregistNumber:i62} {text:es} {color:i62}",
+            "uId resolvedFormat");
+        failures += Expect(guildMailSendSchema->resolvedSource == "xlsx+src/packet", "uId resolvedSource");
+        failures += Expect(guildMailSendSchema->fields.size() == 3U, "uId raw field count");
+        if (guildMailSendSchema->fields.size() == 3U) {
+            failures += Expect(guildMailSendSchema->fields[0].name == "toregistNumber", "uId raw field toregistNumber");
+            failures += Expect(guildMailSendSchema->fields[1].name == "text", "uId raw field text");
+            failures += Expect(guildMailSendSchema->fields[2].name == "color", "uId raw field color");
+            failures += Expect(guildMailSendSchema->fields[0].typeToken == "unknown", "uId raw toregistNumber type");
+            failures += Expect(guildMailSendSchema->fields[1].typeToken == "unknown", "uId raw text type");
+            failures += Expect(guildMailSendSchema->fields[2].typeToken == "unknown", "uId raw color type");
+        }
+        failures += Expect(packet.fields.size() == 3U, "uId packet field count");
+        if (packet.fields.size() == 3U) {
+            failures += Expect(packet.fields[0].name == "toregistNumber", "uId packet toregistNumber field");
+            failures += Expect(
+                packet.fields[0].type == cg::packet::PacketFieldType::Int62,
+                "uId packet toregistNumber type");
+            failures += Expect(packet.fields[1].name == "text", "uId packet text field");
+            failures += Expect(
+                packet.fields[1].type == cg::packet::PacketFieldType::EscapedString,
+                "uId packet text type");
+            failures += Expect(packet.fields[2].name == "color", "uId packet color field");
+            failures += Expect(packet.fields[2].type == cg::packet::PacketFieldType::Int62, "uId packet color type");
+        }
+    }
+
     const PacketSchema* checkCommandSchema = FindPacket(packets, "CCL");
     failures += Expect(checkCommandSchema != nullptr, "CCL schema exists");
     if (checkCommandSchema != nullptr) {

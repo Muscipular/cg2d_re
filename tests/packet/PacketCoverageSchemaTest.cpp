@@ -1141,6 +1141,23 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         }
     }
 
+    const PacketSchema* shutdownRequestSchema = FindPacket(packets, "IcE");
+    failures += Expect(shutdownRequestSchema != nullptr, "IcE schema exists");
+    if (shutdownRequestSchema != nullptr) {
+        const cg::packet::send::ShutdownRequest shutdownRequest("pass", 10);
+        const cg::packet::Packet packet = shutdownRequest.ToPacket();
+        failures += Expect(shutdownRequestSchema->direction == "客户端->服务端", "IcE direction");
+        failures += Expect(shutdownRequestSchema->legacyKind == "RECV", "IcE legacyKind");
+        failures += Expect(shutdownRequestSchema->rawFormat.empty(), "IcE rawFormat empty");
+        failures += Expect(shutdownRequestSchema->formatEmpty, "IcE formatEmpty");
+        failures += Expect(
+            shutdownRequestSchema->resolvedFormat == "{passwd:es} {min:i62}",
+            "IcE resolvedFormat");
+        failures += Expect(shutdownRequestSchema->resolvedSource == "ServerC+src/packet", "IcE resolvedSource");
+        failures += Expect(shutdownRequestSchema->fields.empty(), "IcE raw fields empty");
+        failures += ExpectResolvedFieldsMatch(*shutdownRequestSchema, packet, "IcE resolved field order");
+    }
+
     const PacketSchema* tradeTakeOutSchema = FindPacket(packets, "aiAb");
     failures += Expect(tradeTakeOutSchema != nullptr, "aiAb schema exists");
     if (tradeTakeOutSchema != nullptr) {

@@ -5946,6 +5946,24 @@
       "xlsxStatus": "暂缓",
       "description": "RECV_Shutdown",
       "rawFormat": "",
+      "resolvedFormat": "{passwd:es} {min:i62}",
+      "resolvedSource": "ServerC+src/packet",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "passwd",
+          "typeToken": "es",
+          "rawSpec": "{passwd:es}",
+          "source": "ServerC+src/packet"
+        },
+        {
+          "index": 1,
+          "name": "min",
+          "typeToken": "i62",
+          "rawSpec": "{min:i62}",
+          "source": "ServerC+src/packet"
+        }
+      ],
       "formatEmpty": true,
       "source": "xlsx",
       "fields": []

@@ -254,6 +254,11 @@ namespace cg::packet
             {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
         }};
 
+        inline constexpr std::array<PacketFieldSpec, 2> ShutdownRequestFields = {{
+            {"passwd", PacketFieldType::EscapedString, PacketSourceTag::ServerC},
+            {"min", PacketFieldType::Int62, PacketSourceTag::ServerC},
+        }};
+
         inline constexpr std::array<PacketFieldSpec, 5> PetMailSendFields = {{
             {"index", PacketFieldType::Int62, PacketSourceTag::Xlsx},
             {"petindex", PacketFieldType::Int62, PacketSourceTag::Xlsx},
@@ -529,7 +534,7 @@ namespace cg::packet
             {"y2", PacketFieldType::Int62, PacketSourceTag::Xlsx},
         }};
 
-        inline constexpr std::array<PacketSpec, 90> PacketRegistry = {{
+        inline constexpr std::array<PacketSpec, 91> PacketRegistry = {{
             {
                 "JFVf",
                 PacketDirection::ClientToServer,
@@ -767,6 +772,13 @@ namespace cg::packet
                 PacketSourceTag::Xlsx,
                 WindowOpenSendFields.data(),
                 WindowOpenSendFields.size(),
+            },
+            {
+                "IcE",
+                PacketDirection::ClientToServer,
+                PacketSourceTag::ServerC,
+                ShutdownRequestFields.data(),
+                ShutdownRequestFields.size(),
             },
             {
                 "rMsv",

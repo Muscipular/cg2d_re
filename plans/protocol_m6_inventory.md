@@ -127,7 +127,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | M6.13.08 聊天/窗口/系统封包-CV | `CV` | 客户端->服务端 | 否 | 完成 | RECV_MSG 发送邮件信息 触发SEND_MSG；外层 `{index:i62} {message:es} {color:i62}`；无二级 payload，`message` 为普通外层 es，允许空文本且不拆 `|` |
 | M6.13.09 聊天/窗口/系统封包-uSr | `uSr` | 客户端->服务端 | 否 | 完成 | RECV_TK 发送聊天；外层 `{x:i62} {y:i62} {msg:es} {color:i62} {area:i62} {fontSize:i62}`；无二级 payload，`msg` 为普通外层 es，允许空值且不拆 `P|text` |
 | M6.13.10 聊天/窗口/系统封包-xD | `xD` | 客户端->服务端 | 否 | 完成 | RECV_WN 打开系统窗口；外层 `{x:i62} {y:i62} {seqno:i62} {objindex:i62} {select:i62} {data:es}`；无二级 payload，`data` 为普通外层 es，允许空值且不拆窗口类型 |
-| M6.13.11 聊天/窗口/系统封包-IcE | `IcE` | 客户端->服务端 | 是 | 暂缓 | RECV_Shutdown；xlsx 未使用；旧 C 未补；IDA 未找到；禁止猜 0 字段 |
+| M6.13.11 聊天/窗口/系统封包-IcE | `IcE` | 客户端->服务端 | 是 | 完成 | RECV_Shutdown；旧 C `nrproto_Shutdown_recv` 补外层 `{passwd:es} {min:i62}`；无 payload，`passwd` 为普通外层 es 且不拆 `|`；IDA 未找到客户端触发 |
 | M6.14.01 战斗/交易/家族/社交封包-gnxd | `gnxd` | 服务端->客户端 | 否 | 完成 | SEND_AB SendAddressbook；外层 `{data:es}`；payload 为固定 60 槽 AddressBook，每槽 `use|charNameRaw|ownTitleRaw|registSeqNumber|level|online|graphicsNo`；空槽 7 段全空，字符串 raw 保留，数值 raw signed decimal |
 | M6.14.02 战斗/交易/家族/社交封包-PhdQ | `PhdQ` | 服务端->客户端 | 否 | 完成 | SEND_ABG SendAddressbookGuildInfo；外层 `{data:es}`；payload 为 0..60 条 AddressBookGuildInfo 记录，每条 `guildNameRaw|guildTitleRaw`；空 data 为空列表，空槽为 `|`，字符串 raw 保留 |
 | M6.14.03 战斗/交易/家族/社交封包-Gn | `Gn` | 服务端->客户端 | 是 | 完成 | SEND_RS 战斗获得物品；外层 `{data:es}`；payload 为 4 actor + 3 item itemGroup + 15 skill，顶层 20 段逗号分隔；actor/skill 经验为 i62，其他数值为 raw signed decimal；item nameRaw 保留 raw escaped；来源 ClientIda+src，旧 C 未取得 |
@@ -402,7 +402,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 192 | `Godf` | 客户端->服务端 | 完成 | RECV_CharDelete 删除角色 | 否 | 否 | xlsx |
 | 193 | `yp` | 客户端->服务端 | 暂缓 | RECV_ProcGet gm命令？ | 是 | 否 | 待 C/IDA 补全 |
 | 194 | `rvb` | 客户端->服务端 | 暂缓 | RECV_PlayerNumGet | 是 | 否 | 待 C/IDA 补全 |
-| 195 | `IcE` | 客户端->服务端 | 暂缓 | RECV_Shutdown；xlsx 未使用；旧 C 未补；IDA 未找到；禁止猜 0 字段 | 是 | 是 | 待 C/IDA 补全 |
+| 195 | `IcE` | 客户端->服务端 | 完成 | RECV_Shutdown；旧 C `nrproto_Shutdown_recv` 补外层 `{passwd:es} {min:i62}`；无 payload，`passwd` 为普通外层 es 且不拆 `|`；IDA 未找到客户端触发 | 是 | 是 | ServerC + src/packet |
 | 196 | `PGXE` | 客户端->服务端 | 完成 | RECV_CH cheat 检测作弊 | 否 | 否 | xlsx |
 | 197 | `lO` | 客户端->服务端 | 完成 | RECV_CharLoginGate 回登陆点 | 否 | 否 | xlsx |
 | 198 | `Xoee` | 客户端->服务端 | 暂缓 | RECV_PVUP 历史迁移封包 | 否 | 否 | xlsx |

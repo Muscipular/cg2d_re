@@ -813,6 +813,47 @@ namespace cg::packet::send
     };
 
     /**
+     * RECV_Shutdown 停机请求 IcE {passwd:es} {min:i62}
+     */
+    struct ShutdownRequest
+    {
+        static constexpr std::string_view Code = "IcE";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+
+        std::string passwd;
+        int min = 0;
+
+        ShutdownRequest(std::string passwd, int min)
+            : passwd(std::move(passwd)),
+              min(min)
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ServerC);
+            packet.fields.push_back(PacketField {
+                "passwd",
+                PacketFieldType::EscapedString,
+                passwd,
+                PacketSourceTag::ServerC,
+            });
+            packet.fields.push_back(PacketField {
+                "min",
+                PacketFieldType::Int62,
+                std::to_string(min),
+                PacketSourceTag::ServerC,
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket());
+        }
+    };
+
+    /**
      * RECV_PMSG 发送宠邮 rMsv {index:i62} {petindex:i62} {itemindex:i62} {message:es} {color:i62}
      */
     struct PetMailSend

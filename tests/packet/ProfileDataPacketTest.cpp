@@ -8,6 +8,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::ProfileData::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 int Expect(bool condition, const char* message)
 {
     if (condition) {
@@ -113,7 +128,7 @@ int ExpectProfileDataValue(const cg::packet::receive::ProfileData& data, const c
 int TestParsePacketOuter()
 {
     const cg::packet::PacketResult<cg::packet::Packet> parsed =
-        cg::packet::ParsePacket("DpSY Hero a Job Title Guild g8 1 Sell 2 Buy 3 About Profile ");
+        ParsePacket("DpSY Hero a Job Title Guild g8 1 Sell 2 Buy 3 About Profile ");
 
     int failures = Expect(static_cast<bool>(parsed), "parse DpSY outer");
     if (parsed.HasValue()) {
@@ -137,7 +152,7 @@ int TestTypedParseAndBuild()
     const cg::packet::Packet packet = parsed.Value().ToPacket();
     failures += ExpectProfileDataPacket(packet, "typed DpSY ToPacket");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet);
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet);
     failures += Expect(static_cast<bool>(built), "build DpSY");
     if (built.HasValue()) {
         failures += Expect(built.Value() == plain, "build DpSY value");
@@ -162,7 +177,7 @@ int TestEscapedFieldsRoundtrip()
         "About message",
         "Profile \\ line\nnext");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(data.ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(data.ToPacket());
     int failures = Expect(static_cast<bool>(built), "build DpSY escaped fields");
     if (!built.HasValue()) {
         return failures;

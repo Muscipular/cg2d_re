@@ -9,6 +9,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::PetItemData::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 int Expect(bool condition, const char* message)
 {
     if (condition) {
@@ -189,7 +204,7 @@ int ExpectClearRecord(const cg::packet::receive::ItemRecord& record, int slot, c
 int TestParsePacketOuter()
 {
     const std::string payload = JoinParts(BuildItemParts());
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(BuildPlainIKe(3, payload));
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(BuildPlainIKe(3, payload));
 
     int failures = Expect(static_cast<bool>(parsed), "parse iKe outer");
     if (parsed.HasValue()) {
@@ -233,7 +248,7 @@ int TestSingleItemRoundtrip()
     failures += Expect(parsed.Value().BuildData() == payload, "iKe single BuildData");
     failures += ExpectPetItemPacket(parsed.Value().ToPacket(), 3, payload, "iKe single ToPacket");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(parsed.Value().ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(parsed.Value().ToPacket());
     failures += Expect(static_cast<bool>(built), "build iKe single packet");
     if (built.HasValue()) {
         failures += Expect(built.Value() == BuildPlainIKe(3, payload), "roundtrip iKe single packet");

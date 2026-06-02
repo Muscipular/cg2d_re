@@ -7,6 +7,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::send::MagicUseRequest::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 int Expect(bool condition, const char* message)
 {
     if (condition) {
@@ -92,7 +107,7 @@ int TestToPacketAndEncode()
 
     int failures = ExpectMagicUseRequestPacket(request.ToPacket(), "RXr ToPacket");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(request.ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(request.ToPacket());
     failures += Expect(static_cast<bool>(built), "RXr BuildPacket");
     if (built.HasValue()) {
         failures += Expect(built.Value() == "RXr 1 2 3 4 ", "RXr BuildPacket value");
@@ -109,7 +124,7 @@ int TestToPacketAndEncode()
 int TestParsePacketRoundtrip()
 {
     const cg::packet::PacketResult<cg::packet::Packet> parsed =
-        cg::packet::ParsePacket("RXr 1 2 3 4 ");
+        ParsePacket("RXr 1 2 3 4 ");
 
     int failures = Expect(static_cast<bool>(parsed), "parse RXr");
     if (parsed.HasValue()) {
@@ -130,7 +145,7 @@ int TestInt62Values()
 
     failures += Expect(encoded.Value() == "RXr a -1 10 -10 ", "RXr i62 encoded value");
 
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(encoded.Value());
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(encoded.Value());
     failures += Expect(static_cast<bool>(parsed), "RXr parse i62 values");
     if (parsed.HasValue()) {
         failures += ExpectField(parsed.Value(), 0U, "x", "10", "RXr parsed x 10");
@@ -145,42 +160,42 @@ int TestParseErrors()
 {
     int failures = 0;
     failures += ExpectError(
-        cg::packet::ParsePacket("RXr 1 2 3"),
+        ParsePacket("RXr 1 2 3"),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "RXr",
         true,
         3U,
         "RXr missing toindex");
     failures += ExpectError(
-        cg::packet::ParsePacket("RXr 1 2 3 4 5 "),
+        ParsePacket("RXr 1 2 3 4 5 "),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "RXr",
         true,
         4U,
         "RXr extra field");
     failures += ExpectError(
-        cg::packet::ParsePacket("RXr _ 2 3 4 "),
+        ParsePacket("RXr _ 2 3 4 "),
         cg::packet::PacketErrorCode::DecodeFailed,
         "RXr",
         true,
         0U,
         "RXr bad x");
     failures += ExpectError(
-        cg::packet::ParsePacket("RXr 1 _ 3 4 "),
+        ParsePacket("RXr 1 _ 3 4 "),
         cg::packet::PacketErrorCode::DecodeFailed,
         "RXr",
         true,
         1U,
         "RXr bad y");
     failures += ExpectError(
-        cg::packet::ParsePacket("RXr 1 2 _ 4 "),
+        ParsePacket("RXr 1 2 _ 4 "),
         cg::packet::PacketErrorCode::DecodeFailed,
         "RXr",
         true,
         2U,
         "RXr bad array");
     failures += ExpectError(
-        cg::packet::ParsePacket("RXr 1 2 3 _ "),
+        ParsePacket("RXr 1 2 3 _ "),
         cg::packet::PacketErrorCode::DecodeFailed,
         "RXr",
         true,
@@ -196,7 +211,7 @@ int TestBuildErrors()
     cg::packet::Packet wrongDirection = cg::packet::send::MagicUseRequest(1, 2, 3, 4).ToPacket();
     wrongDirection.direction = cg::packet::PacketDirection::ServerToClient;
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongDirection),
+        BuildPacket(wrongDirection),
         cg::packet::PacketErrorCode::EncodeFailed,
         "RXr",
         false,
@@ -206,8 +221,8 @@ int TestBuildErrors()
     cg::packet::Packet wrongCode = cg::packet::send::MagicUseRequest(1, 2, 3, 4).ToPacket();
     wrongCode.code = cg::packet::PacketCode("RXx");
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongCode),
-        cg::packet::PacketErrorCode::UnknownCode,
+        BuildPacket(wrongCode),
+        cg::packet::PacketErrorCode::InvalidCode,
         "RXx",
         false,
         0U,
@@ -216,7 +231,7 @@ int TestBuildErrors()
     cg::packet::Packet wrongName = cg::packet::send::MagicUseRequest(1, 2, 3, 4).ToPacket();
     wrongName.fields[2].name = "magic";
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongName),
+        BuildPacket(wrongName),
         cg::packet::PacketErrorCode::EncodeFailed,
         "RXr",
         true,
@@ -226,7 +241,7 @@ int TestBuildErrors()
     cg::packet::Packet wrongType = cg::packet::send::MagicUseRequest(1, 2, 3, 4).ToPacket();
     wrongType.fields[3].type = cg::packet::PacketFieldType::EscapedString;
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongType),
+        BuildPacket(wrongType),
         cg::packet::PacketErrorCode::EncodeFailed,
         "RXr",
         true,

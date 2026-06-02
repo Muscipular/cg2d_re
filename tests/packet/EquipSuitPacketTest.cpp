@@ -9,6 +9,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::EquipSuit::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 int Expect(bool condition, const char* message)
 {
     if (condition) {
@@ -158,7 +173,7 @@ int ExpectSampleValue(const cg::packet::receive::EquipSuit& equipSuit, const cha
 int TestParsePacketOuter()
 {
     const std::string payload = JoinParts(BuildEquipSuitParts());
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(BuildPlain(payload));
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(BuildPlain(payload));
 
     int failures = Expect(static_cast<bool>(parsed), "parse TgX outer");
     if (parsed.HasValue()) {
@@ -184,7 +199,7 @@ int TestFullRoundtrip()
     failures += Expect(parsed.Value().BuildData().back() != ',', "TgX BuildData no trailing comma");
     failures += ExpectEquipSuitPacket(parsed.Value().ToPacket(), payload, "TgX ToPacket");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(parsed.Value().ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(parsed.Value().ToPacket());
     failures += Expect(static_cast<bool>(built), "build TgX packet");
     if (built.HasValue()) {
         failures += Expect(built.Value() == BuildPlain(payload), "roundtrip TgX packet");

@@ -7,6 +7,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::GuildInfo::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 using GuildInfo = cg::packet::receive::GuildInfo;
 
 int Expect(bool condition, const char* message)
@@ -128,7 +143,7 @@ GuildInfo MakeFullGuildInfo()
 
 int TestParsePacketOuter()
 {
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(BuildPlain("0|"));
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(BuildPlain("0|"));
 
     int failures = Expect(static_cast<bool>(parsed), "parse aDn outer");
     if (parsed.HasValue()) {
@@ -166,7 +181,7 @@ int TestFullFieldsRoundtrip()
     }
     failures += ExpectGuildInfoPacket(packet.Value(), payload, "aDn full packet");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet.Value());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
     failures += Expect(static_cast<bool>(built), "build aDn full packet");
     if (built.HasValue()) {
         failures += Expect(built.Value() == BuildPlain(payload), "build aDn full plain");
@@ -244,7 +259,7 @@ int TestRawEscapePreserved()
         return failures;
     }
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet.Value());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
     failures += Expect(static_cast<bool>(built), "aDn raw escape BuildPacket");
     if (built.HasValue()) {
         failures += Expect(built.Value() == "aDn 4|A\\\\zB\\\\cC\\\\yD\\\\nE| ", "aDn raw escape BuildPacket value");

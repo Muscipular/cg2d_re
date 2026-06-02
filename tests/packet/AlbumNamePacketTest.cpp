@@ -8,6 +8,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::AlbumName::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 int Expect(bool condition, const char* message)
 {
     if (condition) {
@@ -95,7 +110,7 @@ int ExpectAlbumNamePacket(
 int TestParsePacketOuter()
 {
     const cg::packet::PacketResult<cg::packet::Packet> parsed =
-        cg::packet::ParsePacket(BuildPlain("1", "Slime"));
+        ParsePacket(BuildPlain("1", "Slime"));
 
     int failures = Expect(static_cast<bool>(parsed), "parse Dn outer");
     if (parsed.HasValue()) {
@@ -118,7 +133,7 @@ int TestTypedRoundtrip()
     failures += Expect(parsed.Value().name == "Slime", "Dn name");
     failures += ExpectAlbumNamePacket(parsed.Value().ToPacket(), "1", "Slime", "Dn ToPacket");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(parsed.Value().ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(parsed.Value().ToPacket());
     failures += Expect(static_cast<bool>(built), "build Dn packet");
     if (built.HasValue()) {
         failures += Expect(built.Value() == BuildPlain("1", "Slime"), "roundtrip Dn packet");
@@ -151,7 +166,7 @@ int TestEscapedNameRoundtrip()
 
     failures += Expect(parsed.Value().name == "Blue Slime", "Dn escaped name value");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(parsed.Value().ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(parsed.Value().ToPacket());
     failures += Expect(static_cast<bool>(built), "build Dn escaped name");
     if (built.HasValue()) {
         failures += Expect(built.Value() == "Dn 1 Blue\\SSlime ", "Dn escaped name roundtrip");
@@ -174,7 +189,7 @@ int TestNameKeepsPipe()
 int TestEmptyName()
 {
     const cg::packet::receive::AlbumName albumName(1, "");
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(albumName.ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(albumName.ToPacket());
 
     int failures = Expect(static_cast<bool>(built), "build Dn empty name");
     if (!built.HasValue()) {

@@ -8,6 +8,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::PartyMemberStatus::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 constexpr std::string_view EmptyPlain = "JJQj 0 0| ";
 constexpr std::string_view AllPlain = "JJQj 2 1|123l35|500|450|120|Alice| ";
 constexpr std::string_view AllPayload = "1|123l35|500|450|120|Alice|";
@@ -88,7 +103,7 @@ int ExpectAllMember(
 
 int TestParsePacketOuter()
 {
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(EmptyPlain);
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(EmptyPlain);
 
     int failures = Expect(static_cast<bool>(parsed), "parse JJQj outer");
     if (parsed.HasValue()) {
@@ -141,7 +156,7 @@ int TestRoundtripPreservesObjectLevelAndTrailingDelimiter()
 
     int failures = ExpectPartyMemberStatusPacket(packet, 2, AllPayload, "JJQj ToPacket");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet);
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet);
     failures += Expect(static_cast<bool>(built), "build JJQj packet");
     if (!built.HasValue()) {
         return failures;

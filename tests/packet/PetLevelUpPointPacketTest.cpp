@@ -7,6 +7,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::send::PetLevelUpPoint::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 int Expect(bool condition, const char* message)
 {
     if (condition) {
@@ -90,7 +105,7 @@ int TestToPacketAndEncode()
 
     int failures = ExpectPetLevelUpPointPacket(request.ToPacket(), "kjSK ToPacket");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(request.ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(request.ToPacket());
     failures += Expect(static_cast<bool>(built), "kjSK BuildPacket");
     if (built.HasValue()) {
         failures += Expect(built.Value() == "kjSK 2 4 ", "kjSK BuildPacket value");
@@ -107,7 +122,7 @@ int TestToPacketAndEncode()
 int TestParsePacket()
 {
     const cg::packet::PacketResult<cg::packet::Packet> parsed =
-        cg::packet::ParsePacket("kjSK 2 4 ");
+        ParsePacket("kjSK 2 4 ");
 
     int failures = Expect(static_cast<bool>(parsed), "parse kjSK");
     if (parsed.HasValue()) {
@@ -128,7 +143,7 @@ int TestInt62Values()
 
     failures += Expect(encoded.Value() == "kjSK a -1 ", "kjSK i62 encoded value");
 
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(encoded.Value());
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(encoded.Value());
     failures += Expect(static_cast<bool>(parsed), "kjSK parse i62 values");
     if (parsed.HasValue()) {
         failures += ExpectField(parsed.Value(), 0U, "petSlot", "10", "kjSK parsed petSlot 10");
@@ -141,28 +156,28 @@ int TestParseErrors()
 {
     int failures = 0;
     failures += ExpectError(
-        cg::packet::ParsePacket("kjSK 2"),
+        ParsePacket("kjSK 2"),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "kjSK",
         true,
         1U,
         "kjSK missing field");
     failures += ExpectError(
-        cg::packet::ParsePacket("kjSK 2 4 6 "),
+        ParsePacket("kjSK 2 4 6 "),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "kjSK",
         true,
         2U,
         "kjSK extra field");
     failures += ExpectError(
-        cg::packet::ParsePacket("kjSK _ 4 "),
+        ParsePacket("kjSK _ 4 "),
         cg::packet::PacketErrorCode::DecodeFailed,
         "kjSK",
         true,
         0U,
         "kjSK bad petSlot");
     failures += ExpectError(
-        cg::packet::ParsePacket("kjSK 2 _ "),
+        ParsePacket("kjSK 2 _ "),
         cg::packet::PacketErrorCode::DecodeFailed,
         "kjSK",
         true,
@@ -178,7 +193,7 @@ int TestBuildErrors()
     cg::packet::Packet wrongDirection = cg::packet::send::PetLevelUpPoint(2, 4).ToPacket();
     wrongDirection.direction = cg::packet::PacketDirection::ServerToClient;
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongDirection),
+        BuildPacket(wrongDirection),
         cg::packet::PacketErrorCode::EncodeFailed,
         "kjSK",
         false,
@@ -188,7 +203,7 @@ int TestBuildErrors()
     cg::packet::Packet wrongName = cg::packet::send::PetLevelUpPoint(2, 4).ToPacket();
     wrongName.fields[0].name = "wrong";
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongName),
+        BuildPacket(wrongName),
         cg::packet::PacketErrorCode::EncodeFailed,
         "kjSK",
         true,
@@ -198,7 +213,7 @@ int TestBuildErrors()
     cg::packet::Packet wrongType = cg::packet::send::PetLevelUpPoint(2, 4).ToPacket();
     wrongType.fields[1].type = cg::packet::PacketFieldType::EscapedString;
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongType),
+        BuildPacket(wrongType),
         cg::packet::PacketErrorCode::EncodeFailed,
         "kjSK",
         true,
@@ -208,7 +223,7 @@ int TestBuildErrors()
     cg::packet::Packet emptyValue = cg::packet::send::PetLevelUpPoint(2, 4).ToPacket();
     emptyValue.fields[0].value.clear();
     failures += ExpectError(
-        cg::packet::BuildPacket(emptyValue),
+        BuildPacket(emptyValue),
         cg::packet::PacketErrorCode::EncodeFailed,
         "kjSK",
         true,
@@ -218,7 +233,7 @@ int TestBuildErrors()
     cg::packet::Packet badValue = cg::packet::send::PetLevelUpPoint(2, 4).ToPacket();
     badValue.fields[1].value = "abc";
     failures += ExpectError(
-        cg::packet::BuildPacket(badValue),
+        BuildPacket(badValue),
         cg::packet::PacketErrorCode::EncodeFailed,
         "kjSK",
         true,

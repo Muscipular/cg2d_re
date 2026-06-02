@@ -10,6 +10,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::send::GuildTitleSet::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 using GuildTitleSet = cg::packet::send::GuildTitleSet;
 
 int Expect(bool condition, const char* message)
@@ -147,7 +162,7 @@ int TestToPacketAndEncode()
 
     int failures = ExpectGuildTitleSetPacket(request.ToPacket(), "10", "128", "Guild Room", "GY ToPacket");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(request.ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(request.ToPacket());
     failures += Expect(static_cast<bool>(built), "GY BuildPacket");
     if (built.HasValue()) {
         failures += Expect(built.Value() == "GY a 24 Guild\\SRoom ", "GY BuildPacket value");
@@ -171,7 +186,7 @@ int TestRoundtrip()
         return failures;
     }
 
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(encoded.Value());
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(encoded.Value());
     failures += Expect(static_cast<bool>(parsed), "GY roundtrip parse");
     if (parsed.HasValue()) {
         failures += ExpectGuildTitleSetPacket(parsed.Value(), "10", "128", "Guild Room", "GY roundtrip packet");
@@ -191,7 +206,7 @@ int TestEmptyData()
 
     failures += Expect(encoded.Value() == "GY a 24  ", "GY empty data value");
 
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(encoded.Value());
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(encoded.Value());
     failures += Expect(static_cast<bool>(parsed), "GY empty data parse");
     if (parsed.HasValue()) {
         failures += ExpectGuildTitleSetPacket(parsed.Value(), "10", "128", "", "GY empty data packet");
@@ -212,7 +227,7 @@ int TestEscapedDataRoundtrip()
 
     failures += Expect(encoded.Value() == "GY a 24 A\\SB\\\\C\\nD\\rE ", "GY escaped data value");
 
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(encoded.Value());
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(encoded.Value());
     failures += Expect(static_cast<bool>(parsed), "GY escaped data parse");
     if (parsed.HasValue()) {
         failures += ExpectGuildTitleSetPacket(parsed.Value(), "10", "128", data, "GY escaped data packet");
@@ -233,7 +248,7 @@ int TestPipeDataIsNotNested()
 
     failures += Expect(encoded.Value() == "GY a 24 Guild|Room,Title ", "GY pipe data value");
 
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(BuildRawPlain("a", "24", data));
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(BuildRawPlain("a", "24", data));
     failures += Expect(static_cast<bool>(parsed), "GY pipe data parse");
     if (parsed.HasValue()) {
         failures += ExpectGuildTitleSetPacket(parsed.Value(), "10", "128", data, "GY pipe data packet");
@@ -245,35 +260,35 @@ int TestParseErrors()
 {
     int failures = 0;
     failures += ExpectError(
-        cg::packet::ParsePacket("GY a 24"),
+        ParsePacket("GY a 24"),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "GY",
         true,
         2U,
         "GY missing data");
     failures += ExpectError(
-        cg::packet::ParsePacket("GY a 24 data extra "),
+        ParsePacket("GY a 24 data extra "),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "GY",
         true,
         3U,
         "GY extra field");
     failures += ExpectError(
-        cg::packet::ParsePacket("GY _ 24 data "),
+        ParsePacket("GY _ 24 data "),
         cg::packet::PacketErrorCode::DecodeFailed,
         "GY",
         true,
         0U,
         "GY bad index");
     failures += ExpectError(
-        cg::packet::ParsePacket("GY a _ data "),
+        ParsePacket("GY a _ data "),
         cg::packet::PacketErrorCode::DecodeFailed,
         "GY",
         true,
         1U,
         "GY bad bitflag");
     failures += ExpectError(
-        cg::packet::ParsePacket(BuildRawPlain("a", "24", Bytes({0x81U}))),
+        ParsePacket(BuildRawPlain("a", "24", Bytes({0x81U}))),
         cg::packet::PacketErrorCode::DecodeFailed,
         "GY",
         true,
@@ -289,7 +304,7 @@ int TestBuildErrors()
     cg::packet::Packet wrongDirection = GuildTitleSet(10, 128, "data").ToPacket();
     wrongDirection.direction = cg::packet::PacketDirection::ServerToClient;
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongDirection),
+        BuildPacket(wrongDirection),
         cg::packet::PacketErrorCode::EncodeFailed,
         "GY",
         false,
@@ -297,7 +312,7 @@ int TestBuildErrors()
         "GY wrong direction");
 
     failures += ExpectError(
-        cg::packet::BuildPacket(PacketOf(
+        BuildPacket(PacketOf(
             cg::packet::PacketDirection::ClientToServer,
             {
                 Field("index", cg::packet::PacketFieldType::Int62, "10"),
@@ -312,7 +327,7 @@ int TestBuildErrors()
     cg::packet::Packet wrongName = GuildTitleSet(10, 128, "data").ToPacket();
     wrongName.fields[2].name = "guildRoom";
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongName),
+        BuildPacket(wrongName),
         cg::packet::PacketErrorCode::EncodeFailed,
         "GY",
         true,
@@ -322,7 +337,7 @@ int TestBuildErrors()
     cg::packet::Packet wrongType = GuildTitleSet(10, 128, "data").ToPacket();
     wrongType.fields[2].type = cg::packet::PacketFieldType::Int62;
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongType),
+        BuildPacket(wrongType),
         cg::packet::PacketErrorCode::EncodeFailed,
         "GY",
         true,
@@ -332,7 +347,7 @@ int TestBuildErrors()
     cg::packet::Packet badIndex = GuildTitleSet(10, 128, "data").ToPacket();
     badIndex.fields[0].value = "bad";
     failures += ExpectError(
-        cg::packet::BuildPacket(badIndex),
+        BuildPacket(badIndex),
         cg::packet::PacketErrorCode::EncodeFailed,
         "GY",
         true,
@@ -342,7 +357,7 @@ int TestBuildErrors()
     cg::packet::Packet badBitflag = GuildTitleSet(10, 128, "data").ToPacket();
     badBitflag.fields[1].value = "bad";
     failures += ExpectError(
-        cg::packet::BuildPacket(badBitflag),
+        BuildPacket(badBitflag),
         cg::packet::PacketErrorCode::EncodeFailed,
         "GY",
         true,
@@ -352,7 +367,7 @@ int TestBuildErrors()
     cg::packet::Packet badData = GuildTitleSet(10, 128, "data").ToPacket();
     badData.fields[2].value = Bytes({0x81U});
     failures += ExpectError(
-        cg::packet::BuildPacket(badData),
+        BuildPacket(badData),
         cg::packet::PacketErrorCode::EncodeFailed,
         "GY",
         true,

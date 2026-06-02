@@ -7,6 +7,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::send::PetSkillSwap::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 int Expect(bool condition, const char* message)
 {
     if (condition) {
@@ -91,7 +106,7 @@ int TestToPacketAndEncode()
 
     int failures = ExpectPetSkillSwapPacket(request.ToPacket(), "HJQp ToPacket");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(request.ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(request.ToPacket());
     failures += Expect(static_cast<bool>(built), "HJQp BuildPacket");
     if (built.HasValue()) {
         failures += Expect(built.Value() == "HJQp 1 2 3 ", "HJQp BuildPacket value");
@@ -108,7 +123,7 @@ int TestToPacketAndEncode()
 int TestParsePacket()
 {
     const cg::packet::PacketResult<cg::packet::Packet> parsed =
-        cg::packet::ParsePacket("HJQp 1 2 3 ");
+        ParsePacket("HJQp 1 2 3 ");
 
     int failures = Expect(static_cast<bool>(parsed), "parse HJQp");
     if (parsed.HasValue()) {
@@ -129,7 +144,7 @@ int TestInt62Values()
 
     failures += Expect(encoded.Value() == "HJQp a Z 10 ", "HJQp i62 encoded value");
 
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(encoded.Value());
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(encoded.Value());
     failures += Expect(static_cast<bool>(parsed), "HJQp parse i62 values");
     if (parsed.HasValue()) {
         failures += ExpectField(parsed.Value(), 0U, "petSlot", "10", "HJQp parsed petSlot 10");
@@ -143,43 +158,43 @@ int TestParseErrors()
 {
     int failures = 0;
     failures += ExpectError(
-        cg::packet::ParsePacket("HJQp 1 2"),
+        ParsePacket("HJQp 1 2"),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "HJQp",
         true,
         2U,
         "HJQp missing field");
     failures += ExpectError(
-        cg::packet::ParsePacket("HJQp 1 2 3 4 "),
+        ParsePacket("HJQp 1 2 3 4 "),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "HJQp",
         true,
         3U,
         "HJQp extra field");
     failures += ExpectError(
-        cg::packet::ParsePacket("HJQp _ 2 3 "),
+        ParsePacket("HJQp _ 2 3 "),
         cg::packet::PacketErrorCode::DecodeFailed,
         "HJQp",
         true,
         0U,
         "HJQp bad petSlot");
     failures += ExpectError(
-        cg::packet::ParsePacket("HJQp 1 _ 3 "),
+        ParsePacket("HJQp 1 _ 3 "),
         cg::packet::PacketErrorCode::DecodeFailed,
         "HJQp",
         true,
         1U,
         "HJQp bad from");
     failures += ExpectError(
-        cg::packet::ParsePacket("HJQp 1 2 _ "),
+        ParsePacket("HJQp 1 2 _ "),
         cg::packet::PacketErrorCode::DecodeFailed,
         "HJQp",
         true,
         2U,
         "HJQp bad to");
     failures += ExpectError(
-        cg::packet::ParsePacket("HJQx 1 2 3 "),
-        cg::packet::PacketErrorCode::UnknownCode,
+        ParsePacket("HJQx 1 2 3 "),
+        cg::packet::PacketErrorCode::InvalidCode,
         "HJQx",
         false,
         0U,
@@ -194,7 +209,7 @@ int TestBuildErrors()
     cg::packet::Packet wrongDirection = cg::packet::send::PetSkillSwap(1, 2, 3).ToPacket();
     wrongDirection.direction = cg::packet::PacketDirection::ServerToClient;
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongDirection),
+        BuildPacket(wrongDirection),
         cg::packet::PacketErrorCode::EncodeFailed,
         "HJQp",
         false,
@@ -204,7 +219,7 @@ int TestBuildErrors()
     cg::packet::Packet wrongName = cg::packet::send::PetSkillSwap(1, 2, 3).ToPacket();
     wrongName.fields[1].name = "wrong";
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongName),
+        BuildPacket(wrongName),
         cg::packet::PacketErrorCode::EncodeFailed,
         "HJQp",
         true,
@@ -214,7 +229,7 @@ int TestBuildErrors()
     cg::packet::Packet wrongType = cg::packet::send::PetSkillSwap(1, 2, 3).ToPacket();
     wrongType.fields[2].type = cg::packet::PacketFieldType::EscapedString;
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongType),
+        BuildPacket(wrongType),
         cg::packet::PacketErrorCode::EncodeFailed,
         "HJQp",
         true,
@@ -224,7 +239,7 @@ int TestBuildErrors()
     cg::packet::Packet emptyValue = cg::packet::send::PetSkillSwap(1, 2, 3).ToPacket();
     emptyValue.fields[0].value.clear();
     failures += ExpectError(
-        cg::packet::BuildPacket(emptyValue),
+        BuildPacket(emptyValue),
         cg::packet::PacketErrorCode::EncodeFailed,
         "HJQp",
         true,
@@ -234,7 +249,7 @@ int TestBuildErrors()
     cg::packet::Packet badValue = cg::packet::send::PetSkillSwap(1, 2, 3).ToPacket();
     badValue.fields[2].value = "abc";
     failures += ExpectError(
-        cg::packet::BuildPacket(badValue),
+        BuildPacket(badValue),
         cg::packet::PacketErrorCode::EncodeFailed,
         "HJQp",
         true,

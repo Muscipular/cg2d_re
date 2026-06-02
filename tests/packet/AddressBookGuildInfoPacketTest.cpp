@@ -12,6 +12,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::AddressBookGuildInfo::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 using AddressBookGuildInfo = cg::packet::receive::AddressBookGuildInfo;
 using AddressBookGuildInfoRecord = cg::packet::receive::AddressBookGuildInfoRecord;
 
@@ -114,7 +129,7 @@ int ExpectAddressBookGuildInfoPacket(
 int TestParsePacketOuter()
 {
     const cg::packet::PacketResult<cg::packet::Packet> parsed =
-        cg::packet::ParsePacket("PhdQ Guild|Leader ");
+        ParsePacket("PhdQ Guild|Leader ");
 
     int failures = Expect(static_cast<bool>(parsed), "parse PhdQ outer");
     if (parsed.HasValue()) {
@@ -140,7 +155,7 @@ int TestOneRecordRoundtrip()
     }
     failures += ExpectAddressBookGuildInfoPacket(packet.Value(), "Guild|Leader", "PhdQ one record packet");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet.Value());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
     failures += Expect(static_cast<bool>(built), "build PhdQ packet");
     if (!built.HasValue()) {
         return failures;
@@ -241,7 +256,7 @@ int TestRawEscapePreserved()
         return failures;
     }
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet.Value());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
     failures += Expect(static_cast<bool>(built), "PhdQ raw BuildPacket");
     if (built.HasValue()) {
         failures += Expect(built.Value() == "PhdQ A\\\\zB|C\\\\cD ", "PhdQ raw escaped BuildPacket");
@@ -279,21 +294,21 @@ int TestErrors()
         "PhdQ too many records");
 
     failures += ExpectError(
-        cg::packet::BuildPacket(PacketOf(
+        BuildPacket(PacketOf(
             cg::packet::PacketDirection::ClientToServer,
             {Field("data", cg::packet::PacketFieldType::EscapedString, "Guild|Leader")})),
         cg::packet::PacketErrorCode::EncodeFailed,
         "PhdQ",
         "PhdQ manual direction mismatch");
     failures += ExpectError(
-        cg::packet::BuildPacket(PacketOf(
+        BuildPacket(PacketOf(
             cg::packet::PacketDirection::ServerToClient,
             {Field("wrong", cg::packet::PacketFieldType::EscapedString, "Guild|Leader")})),
         cg::packet::PacketErrorCode::EncodeFailed,
         "PhdQ",
         "PhdQ manual field name mismatch");
     failures += ExpectError(
-        cg::packet::BuildPacket(PacketOf(
+        BuildPacket(PacketOf(
             cg::packet::PacketDirection::ServerToClient,
             {Field("data", cg::packet::PacketFieldType::RawString, "Guild|Leader")})),
         cg::packet::PacketErrorCode::EncodeFailed,

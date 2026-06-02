@@ -10,6 +10,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::TitleList::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 int Expect(bool condition, const char* message)
 {
     if (condition) {
@@ -97,7 +112,7 @@ int ExpectTitleSlot(
 int TestParsePacketOuter()
 {
     const cg::packet::PacketResult<cg::packet::Packet> parsed =
-        cg::packet::ParsePacket(BuildPlainSc("Hero|1|100|||"));
+        ParsePacket(BuildPlainSc("Hero|1|100|||"));
 
     int failures = Expect(static_cast<bool>(parsed), "parse Sc outer");
     if (parsed.HasValue()) {
@@ -137,7 +152,7 @@ int TestRoundtripKeepsEmptySlot()
     const cg::packet::Packet packet = parsed.Value().ToPacket();
     failures += ExpectTitlePacket(packet, "Hero|1|100|||", "Sc ToPacket keeps empty slot");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet);
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet);
     failures += Expect(static_cast<bool>(built), "build Sc packet");
     if (built.HasValue()) {
         failures += Expect(built.Value() == BuildPlainSc("Hero|1|100|||"), "roundtrip Sc empty slot text");
@@ -159,7 +174,7 @@ int TestEmptyPayload()
     const cg::packet::Packet packet = titleList.ToPacket();
     failures += ExpectTitlePacket(packet, "", "Sc empty ToPacket");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet);
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet);
     failures += Expect(static_cast<bool>(built), "build Sc empty payload");
     if (built.HasValue()) {
         failures += Expect(built.Value() == BuildPlainSc(""), "build Sc empty payload text");

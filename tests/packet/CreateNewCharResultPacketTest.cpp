@@ -8,6 +8,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::CreateNewCharResult::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 using CreateNewCharResult = cg::packet::receive::CreateNewCharResult;
 
 int Expect(bool condition, const char* message)
@@ -138,7 +153,7 @@ int TestSuccessfulEmptyData()
     failures += ExpectValue(parsed.Value(), "successful", 1, "", "DZ successful value");
     failures += ExpectPacket(parsed.Value().ToPacket(), "successful", 1, "", "DZ successful packet");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(parsed.Value().ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(parsed.Value().ToPacket());
     failures += Expect(static_cast<bool>(built), "DZ successful build");
     if (built.HasValue()) {
         failures += Expect(built.Value() == "DZ successful 1  ", "DZ successful built text");
@@ -160,7 +175,7 @@ int TestFailedMessage()
     failures += ExpectValue(parsed.Value(), "failed", -1, data, "DZ failed value");
     failures += ExpectPacket(parsed.Value().ToPacket(), "failed", -1, data, "DZ failed packet");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(parsed.Value().ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(parsed.Value().ToPacket());
     failures += Expect(static_cast<bool>(built), "DZ failed build");
     if (built.HasValue()) {
         failures += Expect(built.Value() == plain, "DZ failed built text");
@@ -182,7 +197,7 @@ int TestOpaqueDataRoundtrip()
     failures += ExpectValue(parsed.Value(), "custom result", 42, data, "DZ opaque value");
     failures += Expect(parsed.Value().data == data, "DZ opaque data not split");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(parsed.Value().ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(parsed.Value().ToPacket());
     failures += Expect(static_cast<bool>(built), "DZ opaque build");
     if (built.HasValue()) {
         const cg::packet::PacketResult<CreateNewCharResult> roundtrip =
@@ -296,7 +311,7 @@ int TestBuildErrors()
     cg::packet::Packet wrongName = CreateNewCharResult("successful", 1, "").ToPacket();
     wrongName.fields[0].name = "status";
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongName),
+        BuildPacket(wrongName),
         cg::packet::PacketErrorCode::EncodeFailed,
         "DZ",
         "DZ build wrong field name");
@@ -304,7 +319,7 @@ int TestBuildErrors()
     cg::packet::Packet wrongType = CreateNewCharResult("successful", 1, "").ToPacket();
     wrongType.fields[0].type = cg::packet::PacketFieldType::Int62;
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongType),
+        BuildPacket(wrongType),
         cg::packet::PacketErrorCode::EncodeFailed,
         "DZ",
         "DZ build wrong field type");

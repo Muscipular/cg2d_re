@@ -8,6 +8,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::ProfileVersion::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 int Expect(bool condition, const char* message)
 {
     if (condition) {
@@ -91,7 +106,7 @@ int ExpectProfileVersionValues(
 int TestParsePacketOuter()
 {
     const cg::packet::PacketResult<cg::packet::Packet> parsed =
-        cg::packet::ParsePacket(BuildPlainHnp("1|2|100|-1"));
+        ParsePacket(BuildPlainHnp("1|2|100|-1"));
 
     int failures = Expect(static_cast<bool>(parsed), "parse HNP outer");
     if (parsed.HasValue()) {
@@ -119,7 +134,7 @@ int TestBuildRoundtrip()
 
     int failures = ExpectProfileVersionPacket(packet, "1|2|100|-1", "HNP ToPacket");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet);
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet);
     failures += Expect(static_cast<bool>(built), "build HNP packet");
     if (!built.HasValue()) {
         return failures;
@@ -152,7 +167,7 @@ int TestErrors()
 {
     int failures = 0;
     failures += ExpectError(
-        cg::packet::ParsePacket("HNP"),
+        ParsePacket("HNP"),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "HNP",
         "HNP missing data");

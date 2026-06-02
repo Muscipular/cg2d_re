@@ -10,6 +10,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::send::ProfileMiniMailSend::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 using ProfileMiniMailSend = cg::packet::send::ProfileMiniMailSend;
 
 int Expect(bool condition, const char* message)
@@ -177,7 +192,7 @@ int TestToPacketAndEncode()
 
     failures += ExpectProfileMiniMailSendPacket(packet.Value(), "12|Alice|hello|", "12", "GH ToPacket value");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet.Value());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
     failures += Expect(static_cast<bool>(built), "GH BuildPacket");
     if (built.HasValue()) {
         failures += Expect(built.Value() == "GH 12|Alice|hello| c ", "GH BuildPacket value");
@@ -194,7 +209,7 @@ int TestToPacketAndEncode()
 int TestParsePacketOuter()
 {
     const cg::packet::PacketResult<cg::packet::Packet> parsed =
-        cg::packet::ParsePacket(BuildPlainGh("12|Alice|hello|", 3));
+        ParsePacket(BuildPlainGh("12|Alice|hello|", 3));
 
     int failures = Expect(static_cast<bool>(parsed), "GH parse outer");
     if (parsed.HasValue()) {

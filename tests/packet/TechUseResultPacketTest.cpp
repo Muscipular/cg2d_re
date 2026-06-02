@@ -9,6 +9,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::TechUseResult::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 int Expect(bool condition, const char* message)
 {
     if (condition) {
@@ -110,7 +125,7 @@ int ExpectBaseStats(
 int TestParsePacketOuter()
 {
     const std::string payload = "100|5|1|2|3|4|0|123";
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(BuildPlainJgO(0, 1, payload));
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(BuildPlainJgO(0, 1, payload));
 
     int failures = Expect(static_cast<bool>(parsed), "parse JgO outer");
     if (parsed.HasValue()) {
@@ -241,7 +256,7 @@ int TestRoundtrip()
         return failures;
     }
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(parsed.Value().ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(parsed.Value().ToPacket());
     failures += Expect(static_cast<bool>(built), "build JgO packet");
     if (!built.HasValue()) {
         return failures;
@@ -274,7 +289,7 @@ int TestBuildPacketShape()
 
     const std::string data = "10|20|1|3|4|5|888|Name|1";
     int failures = ExpectTechUseResultPacket(techUseResult.ToPacket(), 0, 4, data, "JgO ToPacket type4");
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(techUseResult.ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(techUseResult.ToPacket());
     failures += Expect(static_cast<bool>(built), "build JgO type4 packet");
     if (built.HasValue()) {
         failures += Expect(built.Value() == BuildPlainJgO(0, 4, data), "build JgO type4 value");

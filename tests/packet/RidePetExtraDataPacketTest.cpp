@@ -7,6 +7,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::RidePetExtraData::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 int Expect(bool condition, const char* message)
 {
     if (condition) {
@@ -97,7 +112,7 @@ int ExpectRidePetExtraPacket(
 
 int TestParsePacketOuter()
 {
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(BuildPlainAU(2, "0"));
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(BuildPlainAU(2, "0"));
 
     int failures = Expect(static_cast<bool>(parsed), "parse AU outer");
     if (parsed.HasValue()) {
@@ -187,7 +202,7 @@ int TestRoundtrip()
         return failures;
     }
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(parsed.Value().ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(parsed.Value().ToPacket());
     failures += Expect(static_cast<bool>(built), "build AU packet");
     if (!built.HasValue()) {
         return failures;
@@ -213,7 +228,7 @@ int TestBuildPacketShape()
     const cg::packet::receive::RidePetExtraData ridePetExtraData(2, payload);
 
     int failures = ExpectRidePetExtraPacket(ridePetExtraData.ToPacket(), 2, "6|10|-2|", "AU ToPacket partial");
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(ridePetExtraData.ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(ridePetExtraData.ToPacket());
     failures += Expect(static_cast<bool>(built), "build AU partial packet");
     if (built.HasValue()) {
         failures += Expect(built.Value() == BuildPlainAU(2, "6|10|-2|"), "build AU partial value");

@@ -8,6 +8,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::send::PetMailSend::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 int Expect(bool condition, const char* message)
 {
     if (condition) {
@@ -98,7 +113,7 @@ int TestToPacketAndEncode()
 
     int failures = ExpectPetMailSendPacket(request.ToPacket(), "Hello", "rMsv ToPacket");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(request.ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(request.ToPacket());
     failures += Expect(static_cast<bool>(built), "rMsv BuildPacket");
     if (built.HasValue()) {
         failures += Expect(built.Value() == "rMsv 1 2 3 Hello 4 ", "rMsv BuildPacket value");
@@ -124,7 +139,7 @@ int TestEmptyMessage()
 
     failures += Expect(encoded.Value() == "rMsv 1 2 3  4 ", "rMsv empty message value");
 
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(encoded.Value());
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(encoded.Value());
     failures += Expect(static_cast<bool>(parsed), "rMsv parse empty message");
     if (parsed.HasValue()) {
         failures += ExpectPetMailSendPacket(parsed.Value(), "", "rMsv parsed empty message");
@@ -144,7 +159,7 @@ int TestEscapedMessageRoundtrip()
 
     failures += Expect(encoded.Value() == "rMsv 1 2 3 A\\SB\\\\C\\nD\\rE 4 ", "rMsv escaped value");
 
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(encoded.Value());
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(encoded.Value());
     failures += Expect(static_cast<bool>(parsed), "rMsv parse escaped message");
     if (parsed.HasValue()) {
         failures += ExpectPetMailSendPacket(parsed.Value(), request.message, "rMsv roundtrip escaped message");
@@ -164,7 +179,7 @@ int TestPipeMessageRoundtrip()
 
     failures += Expect(encoded.Value() == "rMsv 1 2 3 A|B|C 4 ", "rMsv pipe unchanged");
 
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(encoded.Value());
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(encoded.Value());
     failures += Expect(static_cast<bool>(parsed), "rMsv parse pipe message");
     if (parsed.HasValue()) {
         failures += ExpectPetMailSendPacket(parsed.Value(), request.message, "rMsv roundtrip pipe message");
@@ -184,7 +199,7 @@ int TestParsePacketRoundtrip()
 
     failures += Expect(encoded.Value() == "rMsv a -1 10 Pet\\SMail 6 ", "rMsv i62 encoded value");
 
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(encoded.Value());
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(encoded.Value());
     failures += Expect(static_cast<bool>(parsed), "rMsv parse i62 values");
     if (parsed.HasValue()) {
         failures += ExpectField(
@@ -230,28 +245,28 @@ int TestParseErrors()
 {
     int failures = 0;
     failures += ExpectError(
-        cg::packet::ParsePacket("rMsv 1 2 3 msg"),
+        ParsePacket("rMsv 1 2 3 msg"),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "rMsv",
         true,
         4U,
         "rMsv missing color");
     failures += ExpectError(
-        cg::packet::ParsePacket("rMsv 1 2 3 msg 4 extra "),
+        ParsePacket("rMsv 1 2 3 msg 4 extra "),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "rMsv",
         true,
         5U,
         "rMsv extra field");
     failures += ExpectError(
-        cg::packet::ParsePacket("rMsv _ 2 3 msg 4 "),
+        ParsePacket("rMsv _ 2 3 msg 4 "),
         cg::packet::PacketErrorCode::DecodeFailed,
         "rMsv",
         true,
         0U,
         "rMsv bad index");
     failures += ExpectError(
-        cg::packet::ParsePacket("rMsv 1 2 3 msg _ "),
+        ParsePacket("rMsv 1 2 3 msg _ "),
         cg::packet::PacketErrorCode::DecodeFailed,
         "rMsv",
         true,
@@ -262,7 +277,7 @@ int TestParseErrors()
     truncatedMessage.push_back(static_cast<char>(0x80U));
     truncatedMessage.append(" 4 ");
     failures += ExpectError(
-        cg::packet::ParsePacket(truncatedMessage),
+        ParsePacket(truncatedMessage),
         cg::packet::PacketErrorCode::DecodeFailed,
         "rMsv",
         true,
@@ -278,7 +293,7 @@ int TestBuildErrors()
     cg::packet::Packet wrongDirection = cg::packet::send::PetMailSend(1, 2, 3, "msg", 4).ToPacket();
     wrongDirection.direction = cg::packet::PacketDirection::ServerToClient;
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongDirection),
+        BuildPacket(wrongDirection),
         cg::packet::PacketErrorCode::EncodeFailed,
         "rMsv",
         false,
@@ -288,7 +303,7 @@ int TestBuildErrors()
     cg::packet::Packet wrongName = cg::packet::send::PetMailSend(1, 2, 3, "msg", 4).ToPacket();
     wrongName.fields[3].name = "data";
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongName),
+        BuildPacket(wrongName),
         cg::packet::PacketErrorCode::EncodeFailed,
         "rMsv",
         true,
@@ -298,7 +313,7 @@ int TestBuildErrors()
     cg::packet::Packet wrongType = cg::packet::send::PetMailSend(1, 2, 3, "msg", 4).ToPacket();
     wrongType.fields[3].type = cg::packet::PacketFieldType::RawString;
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongType),
+        BuildPacket(wrongType),
         cg::packet::PacketErrorCode::EncodeFailed,
         "rMsv",
         true,
@@ -308,7 +323,7 @@ int TestBuildErrors()
     cg::packet::Packet badInt = cg::packet::send::PetMailSend(1, 2, 3, "msg", 4).ToPacket();
     badInt.fields[1].value = "abc";
     failures += ExpectError(
-        cg::packet::BuildPacket(badInt),
+        BuildPacket(badInt),
         cg::packet::PacketErrorCode::EncodeFailed,
         "rMsv",
         true,
@@ -318,7 +333,7 @@ int TestBuildErrors()
     cg::packet::Packet badMessage = cg::packet::send::PetMailSend(1, 2, 3, "msg", 4).ToPacket();
     badMessage.fields[3].value.assign(1U, static_cast<char>(0x80U));
     failures += ExpectError(
-        cg::packet::BuildPacket(badMessage),
+        BuildPacket(badMessage),
         cg::packet::PacketErrorCode::EncodeFailed,
         "rMsv",
         true,

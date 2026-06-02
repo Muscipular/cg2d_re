@@ -11,6 +11,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::CharacterList::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 using CharacterList = cg::packet::receive::CharacterList;
 using CharacterListRecord = cg::packet::receive::CharacterListRecord;
 
@@ -216,7 +231,7 @@ int TestParsePacketOuter()
 {
     const CharacterListRecord record = MakeRecord("Alice", 0);
     const std::string payload = PayloadFrom({record});
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(BuildPlain(0, payload));
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(BuildPlain(0, payload));
 
     int failures = Expect(static_cast<bool>(parsed), "parse Daj outer");
     if (parsed.HasValue()) {
@@ -247,7 +262,7 @@ int TestEmptyList()
     const cg::packet::PacketResult<cg::packet::Packet> packet = parsed.Value().ToPacket();
     failures += Expect(static_cast<bool>(packet), "Daj empty ToPacket");
     if (packet.HasValue()) {
-        const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet.Value());
+        const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
         failures += Expect(static_cast<bool>(built), "Daj empty BuildPacket");
         if (built.HasValue()) {
             failures += Expect(built.Value() == "Daj 0  ", "Daj empty encoded");
@@ -278,7 +293,7 @@ int TestOneAndTwoRoundtrip()
     }
 
     failures += ExpectCharacterListPacket(packet.Value(), 0, payload, "Daj two packet");
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet.Value());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
     failures += Expect(static_cast<bool>(built), "Daj two BuildPacket");
     if (!built.HasValue()) {
         return failures;

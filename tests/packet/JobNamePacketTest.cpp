@@ -8,6 +8,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::JobName::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 int Expect(bool condition, const char* message)
 {
     if (condition) {
@@ -77,7 +92,7 @@ int ExpectJobNamePacket(
 int TestParsePacket()
 {
     const cg::packet::PacketResult<cg::packet::Packet> parsed =
-        cg::packet::ParsePacket("jv 1 Soldier ");
+        ParsePacket("jv 1 Soldier ");
 
     int failures = Expect(static_cast<bool>(parsed), "parse jv");
     if (parsed.HasValue()) {
@@ -89,7 +104,7 @@ int TestParsePacket()
 int TestInt62Parse()
 {
     const cg::packet::PacketResult<cg::packet::Packet> parsed =
-        cg::packet::ParsePacket("jv a Soldier ");
+        ParsePacket("jv a Soldier ");
 
     int failures = Expect(static_cast<bool>(parsed), "parse jv i62");
     if (parsed.HasValue()) {
@@ -119,7 +134,7 @@ int TestEscapedNameRoundtrip()
     failures += Expect(parsed.Value().jobAssort == 10, "typed jv escaped jobAssort");
     failures += Expect(parsed.Value().name == "Job Name", "typed jv escaped name");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(parsed.Value().ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(parsed.Value().ToPacket());
     failures += Expect(static_cast<bool>(built), "build jv escaped name");
     if (built.HasValue()) {
         failures += Expect(built.Value() == "jv a Job\\SName ", "roundtrip jv escaped name");
@@ -142,7 +157,7 @@ int TestTypedParseAndBuild()
     const cg::packet::Packet packet = parsed.Value().ToPacket();
     failures += ExpectJobNamePacket(packet, "1", "Soldier", "typed jv ToPacket");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet);
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet);
     failures += Expect(static_cast<bool>(built), "build typed jv");
     if (built.HasValue()) {
         failures += Expect(built.Value() == "jv 1 Soldier ", "build typed jv value");
@@ -154,7 +169,7 @@ int TestParseErrors()
 {
     int failures = 0;
     failures += ExpectError(
-        cg::packet::ParsePacket("jv 1"),
+        ParsePacket("jv 1"),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "jv",
         true,
@@ -168,14 +183,14 @@ int TestParseErrors()
         1U,
         "typed jv missing name");
     failures += ExpectError(
-        cg::packet::ParsePacket("jv 1 Soldier extra "),
+        ParsePacket("jv 1 Soldier extra "),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "jv",
         true,
         2U,
         "jv extra field");
     failures += ExpectError(
-        cg::packet::ParsePacket("jv _ Soldier "),
+        ParsePacket("jv _ Soldier "),
         cg::packet::PacketErrorCode::DecodeFailed,
         "jv",
         true,

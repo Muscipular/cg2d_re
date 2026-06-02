@@ -8,6 +8,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::PetMailAnimation::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 int Expect(bool condition, const char* message)
 {
     if (condition) {
@@ -152,7 +167,7 @@ int ExpectPetMailAnimationPacket(
 int TestParsePacketOuter()
 {
     const cg::packet::PacketResult<cg::packet::Packet> parsed =
-        cg::packet::ParsePacket(BuildPlainLduj(1, 62, -3, 4, 5, 0, 7, ""));
+        ParsePacket(BuildPlainLduj(1, 62, -3, 4, 5, 0, 7, ""));
 
     int failures = Expect(static_cast<bool>(parsed), "parse lDuJ outer");
     if (parsed.HasValue()) {
@@ -178,7 +193,7 @@ int TestFlagZeroRoundtrip()
     failures += Expect(!parsed.Value().hasPayload, "lDuJ flg 0 no payload");
     failures += Expect(parsed.Value().BuildData().empty(), "lDuJ flg 0 data empty");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(parsed.Value().ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(parsed.Value().ToPacket());
     failures += Expect(static_cast<bool>(built), "build lDuJ flg 0");
     if (built.HasValue()) {
         failures += Expect(built.Value() == BuildPlainLduj(1, 62, -3, 4, 5, 0, 7, ""), "roundtrip lDuJ flg 0");
@@ -210,7 +225,7 @@ int TestPayloadRoundtrip()
         "lDuJ payload titleDataRaw");
     failures += Expect(parsed.Value().BuildData() == data, "lDuJ payload BuildData");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(parsed.Value().ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(parsed.Value().ToPacket());
     failures += Expect(static_cast<bool>(built), "build lDuJ payload");
     if (built.HasValue()) {
         failures += Expect(built.Value() == BuildPlainLduj(1, 62, -3, 4, 5, 1, 7, data), "roundtrip lDuJ payload");
@@ -224,7 +239,7 @@ int TestBuildFromValue()
     const cg::packet::Packet packet = packetValue.ToPacket();
 
     int failures = ExpectPetMailAnimationPacket(packet, 1, BuildPayloadData(), "lDuJ ToPacket");
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet);
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet);
     failures += Expect(static_cast<bool>(built), "build lDuJ value");
     if (built.HasValue()) {
         failures += Expect(

@@ -7,6 +7,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::ProfileMailDelete::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 int Expect(bool condition, const char* message)
 {
     if (condition) {
@@ -86,7 +101,7 @@ int ExpectProfileMailDeleteValue(
 int TestParsePacketOuter()
 {
     const cg::packet::PacketResult<cg::packet::Packet> parsed =
-        cg::packet::ParsePacket(BuildPlainCnb("12|Alice"));
+        ParsePacket(BuildPlainCnb("12|Alice"));
 
     int failures = Expect(static_cast<bool>(parsed), "parse cNB outer");
     if (parsed.HasValue()) {
@@ -120,7 +135,7 @@ int TestEscapedNameRoundtrip()
 
     failures += ExpectProfileMailDeleteValue(parsed.Value(), 12, "Alice Smith", "typed cNB escaped name value");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(parsed.Value().ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(parsed.Value().ToPacket());
     failures += Expect(static_cast<bool>(built), "build cNB escaped name");
     if (built.HasValue()) {
         failures += Expect(built.Value() == BuildPlainCnb(payload), "roundtrip cNB escaped name");
@@ -135,7 +150,7 @@ int TestBuildRoundtrip()
 
     int failures = ExpectProfileMailDeletePacket(packet, "12|Alice", "cNB ToPacket");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet);
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet);
     failures += Expect(static_cast<bool>(built), "build cNB packet");
     if (!built.HasValue()) {
         return failures;

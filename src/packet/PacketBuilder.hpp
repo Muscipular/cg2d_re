@@ -87,7 +87,7 @@ namespace cg::packet
     /**
      * 构造 DecodeEnvelope 前的明文 token 串；不生成 envelope 或换行。
      */
-    [[nodiscard]] inline PacketResult<std::string> BuildPacket(const Packet& packet)
+    [[nodiscard]] inline PacketResult<std::string> BuildPacket(const Packet& packet, const PacketSpec& packetSpec)
     {
         const std::string_view code = packet.code.View();
         if (code.empty()) {
@@ -96,14 +96,13 @@ namespace cg::packet
             return PacketResult<std::string>::Failure(std::move(error));
         }
 
-        const PacketSpec* spec = detail::FindPacketSpec(code);
-        if (spec == nullptr) {
-            PacketError error = detail::MakeBuilderError(PacketErrorCode::UnknownCode, "封包 code 未注册");
+        if (code != packetSpec.code) {
+            PacketError error = detail::MakeBuilderError(PacketErrorCode::InvalidCode, "封包 code 与定义不匹配");
             error.packetCode = PacketCode(code);
             return PacketResult<std::string>::Failure(std::move(error));
         }
 
-        if (packet.direction != spec->direction) {
+        if (packet.direction != packetSpec.direction) {
             PacketError error = detail::MakeBuilderError(
                 PacketErrorCode::EncodeFailed,
                 "封包方向不匹配");
@@ -111,12 +110,12 @@ namespace cg::packet
             return PacketResult<std::string>::Failure(std::move(error));
         }
 
-        if (packet.fields.size() != spec->fieldCount) {
+        if (packet.fields.size() != packetSpec.fieldCount) {
             PacketError error = detail::MakeBuilderError(
                 PacketErrorCode::FieldCountMismatch,
                 "封包字段数量不匹配");
             error.packetCode = PacketCode(code);
-            error.fieldIndex = packet.fields.size() < spec->fieldCount ? packet.fields.size() : spec->fieldCount;
+            error.fieldIndex = packet.fields.size() < packetSpec.fieldCount ? packet.fields.size() : packetSpec.fieldCount;
             return PacketResult<std::string>::Failure(std::move(error));
         }
 
@@ -125,7 +124,7 @@ namespace cg::packet
         tokens.emplace_back(code);
 
         for (std::size_t index = 0; index < packet.fields.size(); ++index) {
-            const PacketFieldSpec& fieldSpec = spec->fields[index];
+            const PacketFieldSpec& fieldSpec = packetSpec.fields[index];
             const PacketField& field = packet.fields[index];
 
             if (field.name != fieldSpec.name) {

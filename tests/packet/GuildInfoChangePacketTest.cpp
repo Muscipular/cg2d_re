@@ -10,6 +10,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::send::GuildInfoChange::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 using GuildInfoChange = cg::packet::send::GuildInfoChange;
 
 int Expect(bool condition, const char* message)
@@ -143,7 +158,7 @@ int TestToPacketAndEncode()
 
     int failures = ExpectGuildInfoChangePacket(request.ToPacket(), "2", "guild name", "Ufm ToPacket");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(request.ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(request.ToPacket());
     failures += Expect(static_cast<bool>(built), "Ufm BuildPacket");
     if (built.HasValue()) {
         failures += Expect(built.Value() == "Ufm 2 guild\\Sname ", "Ufm BuildPacket value");
@@ -193,7 +208,7 @@ int TestEmptyData()
 
     failures += Expect(encoded.Value() == "Ufm 2  ", "Ufm empty data value");
 
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(encoded.Value());
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(encoded.Value());
     failures += Expect(static_cast<bool>(parsed), "Ufm empty data parse");
     if (parsed.HasValue()) {
         failures += ExpectGuildInfoChangePacket(parsed.Value(), "2", "", "Ufm empty data packet");
@@ -214,7 +229,7 @@ int TestEscapedDataRoundtrip()
 
     failures += Expect(encoded.Value() == "Ufm 2 A\\SB\\\\C\\nD\\rE ", "Ufm escaped data value");
 
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(encoded.Value());
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(encoded.Value());
     failures += Expect(static_cast<bool>(parsed), "Ufm escaped data parse");
     if (parsed.HasValue()) {
         failures += ExpectGuildInfoChangePacket(parsed.Value(), "2", data, "Ufm escaped data packet");
@@ -235,7 +250,7 @@ int TestPipeDataIsNotNested()
 
     failures += Expect(encoded.Value() == "Ufm 2 A|B,C ", "Ufm pipe data value");
 
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(BuildRawPlain("2", data));
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(BuildRawPlain("2", data));
     failures += Expect(static_cast<bool>(parsed), "Ufm pipe data parse");
     if (parsed.HasValue()) {
         failures += ExpectGuildInfoChangePacket(parsed.Value(), "2", data, "Ufm pipe data packet");
@@ -247,28 +262,28 @@ int TestParseErrors()
 {
     int failures = 0;
     failures += ExpectError(
-        cg::packet::ParsePacket("Ufm 2"),
+        ParsePacket("Ufm 2"),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "Ufm",
         true,
         1U,
         "Ufm missing data");
     failures += ExpectError(
-        cg::packet::ParsePacket("Ufm 2 data extra "),
+        ParsePacket("Ufm 2 data extra "),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "Ufm",
         true,
         2U,
         "Ufm extra field");
     failures += ExpectError(
-        cg::packet::ParsePacket("Ufm _ data "),
+        ParsePacket("Ufm _ data "),
         cg::packet::PacketErrorCode::DecodeFailed,
         "Ufm",
         true,
         0U,
         "Ufm bad c");
     failures += ExpectError(
-        cg::packet::ParsePacket(BuildRawPlain("2", Bytes({0x81U}))),
+        ParsePacket(BuildRawPlain("2", Bytes({0x81U}))),
         cg::packet::PacketErrorCode::DecodeFailed,
         "Ufm",
         true,
@@ -284,7 +299,7 @@ int TestBuildErrors()
     cg::packet::Packet wrongDirection = GuildInfoChange(2, "data").ToPacket();
     wrongDirection.direction = cg::packet::PacketDirection::ServerToClient;
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongDirection),
+        BuildPacket(wrongDirection),
         cg::packet::PacketErrorCode::EncodeFailed,
         "Ufm",
         false,
@@ -292,7 +307,7 @@ int TestBuildErrors()
         "Ufm wrong direction");
 
     failures += ExpectError(
-        cg::packet::BuildPacket(PacketOf(
+        BuildPacket(PacketOf(
             cg::packet::PacketDirection::ClientToServer,
             {Field("c", cg::packet::PacketFieldType::Int62, "2")})),
         cg::packet::PacketErrorCode::FieldCountMismatch,
@@ -304,7 +319,7 @@ int TestBuildErrors()
     cg::packet::Packet wrongName = GuildInfoChange(2, "data").ToPacket();
     wrongName.fields[1].name = "message";
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongName),
+        BuildPacket(wrongName),
         cg::packet::PacketErrorCode::EncodeFailed,
         "Ufm",
         true,
@@ -314,7 +329,7 @@ int TestBuildErrors()
     cg::packet::Packet wrongType = GuildInfoChange(2, "data").ToPacket();
     wrongType.fields[1].type = cg::packet::PacketFieldType::Int62;
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongType),
+        BuildPacket(wrongType),
         cg::packet::PacketErrorCode::EncodeFailed,
         "Ufm",
         true,
@@ -324,7 +339,7 @@ int TestBuildErrors()
     cg::packet::Packet badC = GuildInfoChange(2, "data").ToPacket();
     badC.fields[0].value = "bad";
     failures += ExpectError(
-        cg::packet::BuildPacket(badC),
+        BuildPacket(badC),
         cg::packet::PacketErrorCode::EncodeFailed,
         "Ufm",
         true,
@@ -334,7 +349,7 @@ int TestBuildErrors()
     cg::packet::Packet badData = GuildInfoChange(2, "data").ToPacket();
     badData.fields[1].value = Bytes({0x81U});
     failures += ExpectError(
-        cg::packet::BuildPacket(badData),
+        BuildPacket(badData),
         cg::packet::PacketErrorCode::EncodeFailed,
         "Ufm",
         true,

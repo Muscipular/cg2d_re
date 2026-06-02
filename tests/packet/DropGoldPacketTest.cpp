@@ -8,6 +8,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::send::DropGold::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 int Expect(bool condition, const char* message)
 {
     if (condition) {
@@ -97,7 +112,7 @@ int TestToPacketAndEncode()
 
     int failures = ExpectDropGoldPacket(request.ToPacket(), "1", "2", "3", "woz ToPacket");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(request.ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(request.ToPacket());
     failures += Expect(static_cast<bool>(built), "woz BuildPacket");
     if (built.HasValue()) {
         failures += Expect(built.Value() == "woz 1 2 3 ", "woz BuildPacket value");
@@ -123,7 +138,7 @@ int TestInt62Values()
 
     failures += Expect(encoded.Value() == "woz a -1 10 ", "woz i62 encoded value");
 
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(encoded.Value());
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(encoded.Value());
     failures += Expect(static_cast<bool>(parsed), "woz parse i62 values");
     if (parsed.HasValue()) {
         failures += ExpectDropGoldPacket(parsed.Value(), "10", "-1", "62", "woz parsed i62 values");
@@ -141,7 +156,7 @@ int TestParsePacketRoundtrip()
         return failures;
     }
 
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(encoded.Value());
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(encoded.Value());
     failures += Expect(static_cast<bool>(parsed), "woz ParsePacket roundtrip");
     if (parsed.HasValue()) {
         failures += ExpectDropGoldPacket(parsed.Value(), "1", "2", "3", "woz roundtrip packet");
@@ -151,7 +166,7 @@ int TestParsePacketRoundtrip()
 
 int TestParseNoTrailingSpace()
 {
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket("woz 1 2 3");
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket("woz 1 2 3");
 
     int failures = Expect(static_cast<bool>(parsed), "woz parse no trailing space");
     if (parsed.HasValue()) {
@@ -162,7 +177,7 @@ int TestParseNoTrailingSpace()
 
 int TestParseEmptyAmountAsZero()
 {
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket("woz 1 2  ");
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket("woz 1 2  ");
 
     int failures = Expect(static_cast<bool>(parsed), "woz parse empty amount");
     if (parsed.HasValue()) {
@@ -175,35 +190,35 @@ int TestParseErrors()
 {
     int failures = 0;
     failures += ExpectError(
-        cg::packet::ParsePacket("woz 1 2"),
+        ParsePacket("woz 1 2"),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "woz",
         true,
         2U,
         "woz missing field");
     failures += ExpectError(
-        cg::packet::ParsePacket("woz 1 2 3 4 "),
+        ParsePacket("woz 1 2 3 4 "),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "woz",
         true,
         3U,
         "woz extra field");
     failures += ExpectError(
-        cg::packet::ParsePacket("woz _ 2 3 "),
+        ParsePacket("woz _ 2 3 "),
         cg::packet::PacketErrorCode::DecodeFailed,
         "woz",
         true,
         0U,
         "woz bad x");
     failures += ExpectError(
-        cg::packet::ParsePacket("woz 1 _ 3 "),
+        ParsePacket("woz 1 _ 3 "),
         cg::packet::PacketErrorCode::DecodeFailed,
         "woz",
         true,
         1U,
         "woz bad y");
     failures += ExpectError(
-        cg::packet::ParsePacket("woz 1 2 _ "),
+        ParsePacket("woz 1 2 _ "),
         cg::packet::PacketErrorCode::DecodeFailed,
         "woz",
         true,
@@ -219,7 +234,7 @@ int TestBuildErrors()
     cg::packet::Packet wrongDirection = cg::packet::send::DropGold(1, 2, 3).ToPacket();
     wrongDirection.direction = cg::packet::PacketDirection::ServerToClient;
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongDirection),
+        BuildPacket(wrongDirection),
         cg::packet::PacketErrorCode::EncodeFailed,
         "woz",
         false,
@@ -229,7 +244,7 @@ int TestBuildErrors()
     cg::packet::Packet wrongName = cg::packet::send::DropGold(1, 2, 3).ToPacket();
     wrongName.fields[1].name = "wrong";
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongName),
+        BuildPacket(wrongName),
         cg::packet::PacketErrorCode::EncodeFailed,
         "woz",
         true,
@@ -239,7 +254,7 @@ int TestBuildErrors()
     cg::packet::Packet wrongType = cg::packet::send::DropGold(1, 2, 3).ToPacket();
     wrongType.fields[2].type = cg::packet::PacketFieldType::EscapedString;
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongType),
+        BuildPacket(wrongType),
         cg::packet::PacketErrorCode::EncodeFailed,
         "woz",
         true,
@@ -249,7 +264,7 @@ int TestBuildErrors()
     cg::packet::Packet emptyValue = cg::packet::send::DropGold(1, 2, 3).ToPacket();
     emptyValue.fields[2].value.clear();
     failures += ExpectError(
-        cg::packet::BuildPacket(emptyValue),
+        BuildPacket(emptyValue),
         cg::packet::PacketErrorCode::EncodeFailed,
         "woz",
         true,
@@ -259,7 +274,7 @@ int TestBuildErrors()
     cg::packet::Packet badValue = cg::packet::send::DropGold(1, 2, 3).ToPacket();
     badValue.fields[2].value = "abc";
     failures += ExpectError(
-        cg::packet::BuildPacket(badValue),
+        BuildPacket(badValue),
         cg::packet::PacketErrorCode::EncodeFailed,
         "woz",
         true,

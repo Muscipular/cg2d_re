@@ -9,6 +9,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::ProfileMailMessage::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 int Expect(bool condition, const char* message)
 {
     if (condition) {
@@ -150,7 +165,7 @@ int ExpectPetMail(
 int TestParsePacketOuter()
 {
     const std::string text = "2026/ 6/02 12:34|hello|-1";
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(BuildPlainMhbt(text));
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(BuildPlainMhbt(text));
 
     int failures = Expect(static_cast<bool>(parsed), "parse Mhbt outer");
     if (parsed.HasValue()) {
@@ -205,7 +220,7 @@ int TestEscapedRoundtrip()
         "2026/ 6/02 12:34|body with space and slash \\ tail|62|10|Po chi\\name|-1",
         "Mhbt ToPacket escaped payload");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(message.ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(message.ToPacket());
     failures += Expect(static_cast<bool>(built), "build Mhbt escaped payload");
     if (!built.HasValue()) {
         return failures;
@@ -232,7 +247,7 @@ int TestBuildRoundtrip()
     payload.petBaseImageNumberOrMarker = -1;
     const cg::packet::receive::ProfileMailMessage message(1, std::move(payload), 3);
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(message.ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(message.ToPacket());
     int failures = Expect(static_cast<bool>(built), "build Mhbt normal mail");
     if (!built.HasValue()) {
         return failures;
@@ -252,7 +267,7 @@ int TestOuterParseErrors()
 {
     int failures = 0;
     failures += ExpectError(
-        cg::packet::ParsePacket("Mhbt 1 text"),
+        ParsePacket("Mhbt 1 text"),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "Mhbt",
         true,
@@ -266,14 +281,14 @@ int TestOuterParseErrors()
         2U,
         "typed Mhbt missing color");
     failures += ExpectError(
-        cg::packet::ParsePacket("Mhbt 1 text 3 extra "),
+        ParsePacket("Mhbt 1 text 3 extra "),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "Mhbt",
         true,
         3U,
         "Mhbt extra field");
     failures += ExpectError(
-        cg::packet::ParsePacket("Mhbt _ text 3 "),
+        ParsePacket("Mhbt _ text 3 "),
         cg::packet::PacketErrorCode::DecodeFailed,
         "Mhbt",
         true,
@@ -375,14 +390,14 @@ int TestBuildErrors()
 {
     int failures = 0;
     failures += ExpectError(
-        cg::packet::BuildPacket(PacketOf(cg::packet::PacketDirection::ServerToClient, {})),
+        BuildPacket(PacketOf(cg::packet::PacketDirection::ServerToClient, {})),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "Mhbt",
         true,
         0U,
         "Mhbt build missing fields");
     failures += ExpectError(
-        cg::packet::BuildPacket(PacketOf(
+        BuildPacket(PacketOf(
             cg::packet::PacketDirection::ClientToServer,
             {
                 Field("aindex", cg::packet::PacketFieldType::Int62, "1"),
@@ -395,7 +410,7 @@ int TestBuildErrors()
         0U,
         "Mhbt build wrong direction");
     failures += ExpectError(
-        cg::packet::BuildPacket(PacketOf(
+        BuildPacket(PacketOf(
             cg::packet::PacketDirection::ServerToClient,
             {
                 Field("index", cg::packet::PacketFieldType::Int62, "1"),
@@ -408,7 +423,7 @@ int TestBuildErrors()
         0U,
         "Mhbt build wrong field name");
     failures += ExpectError(
-        cg::packet::BuildPacket(PacketOf(
+        BuildPacket(PacketOf(
             cg::packet::PacketDirection::ServerToClient,
             {
                 Field("aindex", cg::packet::PacketFieldType::Int62, "1"),

@@ -10,6 +10,16 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::CharacterPetList::Spec;
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 int Expect(bool condition, const char* message)
 {
     if (condition) {
@@ -173,14 +183,18 @@ std::vector<cg::packet::receive::CharacterPetRecord> BuildRecords(int count)
     return records;
 }
 
-int TestParsePacketOuter()
+int TestParseRecordsInParse()
 {
     const std::string payload = "Alice|35|0|120|150|40|80|";
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(BuildPlainNd(payload));
+    const cg::packet::PacketResult<cg::packet::receive::CharacterPetList> parsed =
+        cg::packet::receive::CharacterPetList::Parse(BuildPlainNd(payload));
 
-    int failures = Expect(static_cast<bool>(parsed), "parse ND outer");
+    int failures = Expect(static_cast<bool>(parsed), "parse ND records in typed Parse");
     if (parsed.HasValue()) {
-        failures += ExpectCharacterPetListPacket(parsed.Value(), payload, "parse ND outer packet");
+        failures += Expect(parsed.Value().records.size() == 1U, "parse ND records count");
+    }
+    if (parsed.HasValue() && parsed.Value().records.size() == 1U) {
+        failures += ExpectRecord(parsed.Value().records[0], "Alice", 35, 0, 120, 150, 40, 80, "parse ND records");
     }
     return failures;
 }
@@ -228,7 +242,7 @@ int TestSixRecordsRoundtrip()
         return failures;
     }
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet.Value());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
     failures += Expect(static_cast<bool>(built), "build ND six records packet");
     if (!built.HasValue()) {
         return failures;
@@ -276,7 +290,7 @@ int TestRawNamePreserved()
         return failures;
     }
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet.Value());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
     failures += Expect(static_cast<bool>(built), "build ND raw name packet");
     if (built.HasValue()) {
         failures += Expect(built.Value() == BuildPlainNd(payload), "ND raw name roundtrip");
@@ -366,7 +380,7 @@ int TestBuildRejectsInvalidRecords()
 int main()
 {
     int failures = 0;
-    failures += TestParsePacketOuter();
+    failures += TestParseRecordsInParse();
     failures += TestEmptyData();
     failures += TestSingleRecord();
     failures += TestSixRecordsRoundtrip();

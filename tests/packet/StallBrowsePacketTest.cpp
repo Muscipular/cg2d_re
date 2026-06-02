@@ -9,6 +9,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::StallBrowse::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 int Expect(bool condition, const char* message)
 {
     if (condition) {
@@ -125,7 +140,7 @@ int ExpectStallBrowsePacket(
 int TestParsePacket()
 {
     const cg::packet::PacketResult<cg::packet::Packet> parsed =
-        cg::packet::ParsePacket("ft 0 2 Shop\\SName Line\\nTwo 0| 0| ");
+        ParsePacket("ft 0 2 Shop\\SName Line\\nTwo 0| 0| ");
 
     int failures = Expect(static_cast<bool>(parsed), "parse ft packet");
     if (parsed.HasValue()) {
@@ -145,7 +160,7 @@ int TestParsePacket()
 int TestTypedRoundtrip()
 {
     const cg::packet::receive::StallBrowse packet(0, 2, "Shop Name", "Line\nTwo", "0|", "0|");
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet.ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet.ToPacket());
 
     int failures = Expect(static_cast<bool>(built), "build ft packet");
     if (!built.HasValue()) {
@@ -182,7 +197,7 @@ int TestFailureResultsAllowEmptyStrings()
     int failures = 0;
     for (const int result : {1, 2, 3}) {
         const cg::packet::receive::StallBrowse packet(result, 2, "", "", "", "");
-        const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet.ToPacket());
+        const cg::packet::PacketResult<std::string> built = BuildPacket(packet.ToPacket());
         failures += Expect(static_cast<bool>(built), "build ft failure result");
         if (!built.HasValue()) {
             continue;
@@ -207,7 +222,7 @@ int TestItemPetRawRoundtrip()
     const std::string item = "2|0|name\\value|literal\\Sslash|tail|";
     const std::string pet = "1|pet\\value|skill|literal\\\\slash|";
     const cg::packet::receive::StallBrowse packet(0, 2, "shop", "desc", item, pet);
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet.ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet.ToPacket());
 
     int failures = Expect(static_cast<bool>(built), "build ft raw item pet");
     if (!built.HasValue()) {
@@ -224,7 +239,7 @@ int TestItemPetRawRoundtrip()
     failures += Expect(parsed.Value().item == item, "ft raw item");
     failures += Expect(parsed.Value().pet == pet, "ft raw pet");
 
-    const cg::packet::PacketResult<std::string> rebuilt = cg::packet::BuildPacket(parsed.Value().ToPacket());
+    const cg::packet::PacketResult<std::string> rebuilt = BuildPacket(parsed.Value().ToPacket());
     failures += Expect(static_cast<bool>(rebuilt), "rebuild ft raw item pet");
     if (rebuilt.HasValue()) {
         failures += Expect(rebuilt.Value() == built.Value(), "ft raw item pet roundtrip");
@@ -236,7 +251,7 @@ int TestParseErrors()
 {
     int failures = 0;
     failures += ExpectError(
-        cg::packet::ParsePacket("ft 0 Shop Desc 0| 0|"),
+        ParsePacket("ft 0 Shop Desc 0| 0|"),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "ft",
         true,
@@ -250,7 +265,7 @@ int TestParseErrors()
         5U,
         "typed ft old schema field count");
     failures += ExpectError(
-        cg::packet::ParsePacket("ft _ 2 name desc 0| 0| "),
+        ParsePacket("ft _ 2 name desc 0| 0| "),
         cg::packet::PacketErrorCode::DecodeFailed,
         "ft",
         true,
@@ -277,7 +292,7 @@ int TestBuildErrors()
 {
     int failures = 0;
     failures += ExpectError(
-        cg::packet::BuildPacket(PacketOf(cg::packet::PacketDirection::ClientToServer, {
+        BuildPacket(PacketOf(cg::packet::PacketDirection::ClientToServer, {
             Field("result", cg::packet::PacketFieldType::Int62, "0"),
             Field("objIndex", cg::packet::PacketFieldType::Int62, "2"),
             Field("name", cg::packet::PacketFieldType::EscapedString, "shop"),
@@ -291,7 +306,7 @@ int TestBuildErrors()
         0U,
         "ft build wrong direction");
     failures += ExpectError(
-        cg::packet::BuildPacket(PacketOf(cg::packet::PacketDirection::ServerToClient, {
+        BuildPacket(PacketOf(cg::packet::PacketDirection::ServerToClient, {
             Field("result", cg::packet::PacketFieldType::Int62, "0"),
             Field("objindex", cg::packet::PacketFieldType::Int62, "2"),
             Field("name", cg::packet::PacketFieldType::EscapedString, "shop"),
@@ -305,7 +320,7 @@ int TestBuildErrors()
         1U,
         "ft build wrong field name");
     failures += ExpectError(
-        cg::packet::BuildPacket(PacketOf(cg::packet::PacketDirection::ServerToClient, {
+        BuildPacket(PacketOf(cg::packet::PacketDirection::ServerToClient, {
             Field("result", cg::packet::PacketFieldType::Int62, "0"),
             Field("objIndex", cg::packet::PacketFieldType::Int62, "2"),
             Field("name", cg::packet::PacketFieldType::EscapedString, "shop"),

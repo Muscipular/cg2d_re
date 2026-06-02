@@ -9,6 +9,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::ObjectList::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 int Expect(bool condition, const char* message)
 {
     if (condition) {
@@ -96,7 +111,7 @@ int TestParsePacketOuter()
 {
     const std::string payload = "1|20|30|500";
     const cg::packet::PacketResult<cg::packet::Packet> parsed =
-        cg::packet::ParsePacket(BuildPlainNsY(payload));
+        ParsePacket(BuildPlainNsY(payload));
 
     int failures = Expect(static_cast<bool>(parsed), "parse nsY outer");
     if (parsed.HasValue()) {
@@ -192,7 +207,7 @@ int TestMultiRecordRoundTrip()
     const cg::packet::Packet packet = parsed.Value().ToPacket();
     failures += ExpectObjectListPacket(packet, payload, "nsY ToPacket");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet);
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet);
     failures += Expect(static_cast<bool>(built), "build nsY packet");
     if (!built.HasValue()) {
         return failures;
@@ -224,7 +239,7 @@ int TestPayloadZPreserved()
         failures += Expect(parsed.Value().records[0].fields[5] == "Potion\\zSmall", "preserve nsY z field");
     }
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(parsed.Value().ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(parsed.Value().ToPacket());
     failures += Expect(static_cast<bool>(built), "build nsY z payload");
     if (built.HasValue()) {
         const cg::packet::PacketResult<cg::packet::receive::ObjectList> parsedAgain =
@@ -241,7 +256,7 @@ int TestErrors()
 {
     int failures = 0;
     failures += ExpectError(
-        cg::packet::ParsePacket("nsY"),
+        ParsePacket("nsY"),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "nsY",
         "nsY missing data");
@@ -251,7 +266,7 @@ int TestErrors()
         "nsY",
         "typed nsY missing data");
     failures += ExpectError(
-        cg::packet::ParsePacket("nsY one two "),
+        ParsePacket("nsY one two "),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "nsY",
         "nsY extra data field");

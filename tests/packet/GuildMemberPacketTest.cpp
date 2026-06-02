@@ -8,6 +8,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::GuildMember::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 using GuildMember = cg::packet::receive::GuildMember;
 using GuildMemberRecord = cg::packet::receive::GuildMemberRecord;
 
@@ -88,7 +103,7 @@ int ExpectGuildMemberPacket(
 int TestParsePacketOuter()
 {
     const cg::packet::PacketResult<cg::packet::Packet> parsed =
-        cg::packet::ParsePacket(BuildRawPlain("1|100|Alice|101|30|1|2000|2"));
+        ParsePacket(BuildRawPlain("1|100|Alice|101|30|1|2000|2"));
 
     int failures = Expect(static_cast<bool>(parsed), "parse yuD outer");
     if (parsed.HasValue()) {
@@ -160,7 +175,7 @@ int TestOneAndTwoRecords()
     }
     failures += ExpectGuildMemberPacket(packet.Value(), twoPayload, "yuD two packet");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet.Value());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
     failures += Expect(static_cast<bool>(built), "build yuD two packet");
     if (built.HasValue()) {
         failures += Expect(built.Value() == BuildPlain(twoPayload), "build yuD two value");
@@ -207,7 +222,7 @@ int TestRawEscapePreserved()
         return failures;
     }
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet.Value());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
     failures += Expect(static_cast<bool>(built), "build yuD raw escape");
     if (built.HasValue()) {
         failures += Expect(

@@ -11,6 +11,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::AddressBook::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 using AddressBook = cg::packet::receive::AddressBook;
 using AddressBookInfo = cg::packet::receive::AddressBookInfo;
 using AddressBookSlot = cg::packet::receive::AddressBookSlot;
@@ -241,7 +256,7 @@ int ExpectActiveAddressBookInfo(
 int TestParsePacketOuter()
 {
     const std::string payload = BuildOneActivePayload();
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(BuildPlain(payload));
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(BuildPlain(payload));
 
     int failures = Expect(static_cast<bool>(parsed), "parse gnxd outer");
     if (parsed.HasValue()) {
@@ -275,7 +290,7 @@ int TestOneActiveRoundtrip()
         return failures;
     }
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet.Value());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
     failures += Expect(static_cast<bool>(built), "build gnxd packet");
     if (!built.HasValue()) {
         return failures;
@@ -359,7 +374,7 @@ int TestAddressBookInfoActiveRoundtrip()
 {
     const std::string payload = "1|Alice|Leader|123|45|1|987|2|raw9|raw10";
     const cg::packet::PacketResult<cg::packet::Packet> parsedPacket =
-        cg::packet::ParsePacket(BuildPlainVi("10", payload));
+        cg::packet::ParsePacket(BuildPlainVi("10", payload), cg::packet::receive::AddressBookInfo::Spec);
 
     int failures = Expect(static_cast<bool>(parsedPacket), "parse vI outer");
     if (parsedPacket.HasValue()) {
@@ -391,7 +406,8 @@ int TestAddressBookInfoActiveRoundtrip()
     const cg::packet::Packet packet = info.ToPacket();
     failures += ExpectAddressBookInfoPacket(packet, 62, payload, "vI ToPacket");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet);
+    const cg::packet::PacketResult<std::string> built =
+        cg::packet::BuildPacket(packet, cg::packet::receive::AddressBookInfo::Spec);
     failures += Expect(static_cast<bool>(built), "build vI packet");
     if (built.HasValue()) {
         failures += Expect(built.Value() == BuildPlainVi("10", payload), "vI registry 62 encoded as 10");

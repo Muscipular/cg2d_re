@@ -9,6 +9,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::ProcessStatus::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 using ProcessStatus = cg::packet::receive::ProcessStatus;
 
 int Expect(bool condition, const char* message)
@@ -92,7 +107,7 @@ int TestMultilineRoundtrip()
     const cg::packet::Packet packet = value.ToPacket();
 
     int failures = ExpectPacket(packet, data, "cJzI multiline packet");
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet);
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet);
     failures += Expect(static_cast<bool>(built), "cJzI multiline build");
     if (!built.HasValue()) {
         return failures;
@@ -117,7 +132,7 @@ int TestEmptyData()
     }
 
     failures += Expect(parsed.Value().data.empty(), "cJzI empty value");
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(parsed.Value().ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(parsed.Value().ToPacket());
     failures += Expect(static_cast<bool>(built), "cJzI empty build");
     if (built.HasValue()) {
         failures += Expect(built.Value() == "cJzI  ", "cJzI empty built text");
@@ -136,7 +151,7 @@ int TestOpaqueDelimiters()
 
     for (const std::string& data : dataValues) {
         const ProcessStatus value(data);
-        const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(value.ToPacket());
+        const cg::packet::PacketResult<std::string> built = BuildPacket(value.ToPacket());
         failures += Expect(static_cast<bool>(built), "cJzI delimiter build");
         if (!built.HasValue()) {
             continue;
@@ -214,7 +229,7 @@ int TestBuildErrors()
     cg::packet::Packet wrongName = ProcessStatus("").ToPacket();
     wrongName.fields[0].name = "message";
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongName),
+        BuildPacket(wrongName),
         cg::packet::PacketErrorCode::EncodeFailed,
         "cJzI",
         "cJzI build wrong field name");
@@ -222,7 +237,7 @@ int TestBuildErrors()
     cg::packet::Packet wrongType = ProcessStatus("").ToPacket();
     wrongType.fields[0].type = cg::packet::PacketFieldType::RawString;
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongType),
+        BuildPacket(wrongType),
         cg::packet::PacketErrorCode::EncodeFailed,
         "cJzI",
         "cJzI build wrong field type");

@@ -9,6 +9,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::SystemMessage::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 int Expect(bool condition, const char* message)
 {
     if (condition) {
@@ -97,7 +112,7 @@ int ExpectSystemMessagePacket(
 int TestParsePacket()
 {
     const cg::packet::PacketResult<cg::packet::Packet> parsed =
-        cg::packet::ParsePacket("Zd hello ");
+        ParsePacket("Zd hello ");
 
     int failures = Expect(static_cast<bool>(parsed), "parse Zd");
     if (parsed.HasValue()) {
@@ -119,7 +134,7 @@ int TestTypedRoundtrip()
     failures += Expect(parsed.Value().message == "hello", "Zd message");
     failures += ExpectSystemMessagePacket(parsed.Value().ToPacket(), "hello", "Zd ToPacket");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(parsed.Value().ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(parsed.Value().ToPacket());
     failures += Expect(static_cast<bool>(built), "build Zd packet");
     if (built.HasValue()) {
         failures += Expect(built.Value() == "Zd hello ", "roundtrip Zd packet");
@@ -130,7 +145,7 @@ int TestTypedRoundtrip()
 int TestEmptyMessage()
 {
     const cg::packet::receive::SystemMessage systemMessage("");
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(systemMessage.ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(systemMessage.ToPacket());
 
     int failures = Expect(static_cast<bool>(built), "build Zd empty message");
     if (!built.HasValue()) {
@@ -152,7 +167,7 @@ int TestEscapedRoundtrip()
 {
     const std::string message = "hello world\npath\\to\\z|tail";
     const cg::packet::receive::SystemMessage systemMessage(message);
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(systemMessage.ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(systemMessage.ToPacket());
 
     int failures = Expect(static_cast<bool>(built), "build Zd escaped message");
     if (!built.HasValue()) {
@@ -174,7 +189,7 @@ int TestParseErrors()
 {
     int failures = 0;
     failures += ExpectError(
-        cg::packet::ParsePacket("Zd"),
+        ParsePacket("Zd"),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "Zd",
         true,
@@ -188,7 +203,7 @@ int TestParseErrors()
         0U,
         "typed Zd missing field");
     failures += ExpectError(
-        cg::packet::ParsePacket("Zd one two "),
+        ParsePacket("Zd one two "),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "Zd",
         true,
@@ -215,14 +230,14 @@ int TestBuildErrors()
 {
     int failures = 0;
     failures += ExpectError(
-        cg::packet::BuildPacket(PacketOf(cg::packet::PacketDirection::ServerToClient, {})),
+        BuildPacket(PacketOf(cg::packet::PacketDirection::ServerToClient, {})),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "Zd",
         true,
         0U,
         "Zd build missing field");
     failures += ExpectError(
-        cg::packet::BuildPacket(PacketOf(
+        BuildPacket(PacketOf(
             cg::packet::PacketDirection::ServerToClient,
             {
                 Field("message", cg::packet::PacketFieldType::EscapedString, "hello"),
@@ -234,7 +249,7 @@ int TestBuildErrors()
         1U,
         "Zd build extra field");
     failures += ExpectError(
-        cg::packet::BuildPacket(PacketOf(
+        BuildPacket(PacketOf(
             cg::packet::PacketDirection::ClientToServer,
             {Field("message", cg::packet::PacketFieldType::EscapedString, "hello")})),
         cg::packet::PacketErrorCode::EncodeFailed,
@@ -243,7 +258,7 @@ int TestBuildErrors()
         0U,
         "Zd direction mismatch");
     failures += ExpectError(
-        cg::packet::BuildPacket(PacketOf(
+        BuildPacket(PacketOf(
             cg::packet::PacketDirection::ServerToClient,
             {Field("wrong", cg::packet::PacketFieldType::EscapedString, "hello")})),
         cg::packet::PacketErrorCode::EncodeFailed,
@@ -252,7 +267,7 @@ int TestBuildErrors()
         0U,
         "Zd field name mismatch");
     failures += ExpectError(
-        cg::packet::BuildPacket(PacketOf(
+        BuildPacket(PacketOf(
             cg::packet::PacketDirection::ServerToClient,
             {Field("message", cg::packet::PacketFieldType::RawString, "hello")})),
         cg::packet::PacketErrorCode::EncodeFailed,

@@ -24,6 +24,16 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "whV";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
+            {"result", PacketFieldType::Int62},
+            {"data", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
 
         enum
         {
@@ -65,7 +75,7 @@ namespace cg::packet::receive
 
         static PacketResult<ClientLoginResult> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<ClientLoginResult>::Failure(parsed.Error());
             }
@@ -233,6 +243,16 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "Daj";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
+            {"result", PacketFieldType::Int62},
+            {"data", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
         static constexpr std::string_view RecordDelimiter = "|";
         static constexpr std::string_view DetailDelimiter = "\\z";
 
@@ -305,7 +325,7 @@ namespace cg::packet::receive
 
         static PacketResult<CharacterList> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<CharacterList>::Failure(parsed.Error());
             }
@@ -631,6 +651,17 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "DZ";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 3U> Fields = {{
+            {"result", PacketFieldType::EscapedString},
+            {"registnumber", PacketFieldType::Int62},
+            {"data", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
 
         std::string result;
         int registNumber = 0;
@@ -666,7 +697,7 @@ namespace cg::packet::receive
 
         static PacketResult<CreateNewCharResult> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<CreateNewCharResult>::Failure(parsed.Error());
             }
@@ -817,6 +848,16 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "oy";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
+            {"result", PacketFieldType::EscapedString},
+            {"data", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
 
         std::string result;
         std::string data;
@@ -845,7 +886,7 @@ namespace cg::packet::receive
 
         static PacketResult<CharacterDeleteResult> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<CharacterDeleteResult>::Failure(parsed.Error());
             }
@@ -937,6 +978,15 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "cJzI";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {"data", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
 
         std::string data;
 
@@ -958,7 +1008,7 @@ namespace cg::packet::receive
 
         static PacketResult<ProcessStatus> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<ProcessStatus>::Failure(parsed.Error());
             }
@@ -1037,6 +1087,15 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "HNP";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {"data", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
         static constexpr std::string_view PayloadDelimiter = "|";
 
         int profileVersion = 0;
@@ -1076,7 +1135,7 @@ namespace cg::packet::receive
 
         static PacketResult<ProfileVersion> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<ProfileVersion>::Failure(parsed.Error());
             }
@@ -1236,6 +1295,15 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "aPc";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {"data", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
         static constexpr std::string_view PayloadDelimiter = "|";
 
         int flags = 0;
@@ -1272,7 +1340,7 @@ namespace cg::packet::receive
 
         static PacketResult<CharacterProfile> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<CharacterProfile>::Failure(parsed.Error());
             }
@@ -1395,6 +1463,15 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "UU";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {"data", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
         static constexpr std::string_view PayloadDelimiter = "|";
 
         int flagMask = 0;
@@ -1431,7 +1508,7 @@ namespace cg::packet::receive
 
         static PacketResult<CharacterProfile2> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<CharacterProfile2>::Failure(parsed.Error());
             }
@@ -1590,6 +1667,15 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "Sc";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {"data", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
         static constexpr std::string_view PayloadDelimiter = "|";
 
         std::vector<TitleSlot> slots;
@@ -1639,7 +1725,7 @@ namespace cg::packet::receive
 
         static PacketResult<TitleList> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<TitleList>::Failure(parsed.Error());
             }
@@ -1831,6 +1917,15 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "eZT";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {"data", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
         static constexpr std::string_view PayloadDelimiter = "|";
 
         int version = 0;
@@ -1855,7 +1950,7 @@ namespace cg::packet::receive
 
         static PacketResult<ProfileList> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<ProfileList>::Failure(parsed.Error());
             }
@@ -2064,6 +2159,15 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "IUn";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {"data", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
         static constexpr std::string_view PayloadDelimiter = "|";
 
         int version = 0;
@@ -2088,7 +2192,7 @@ namespace cg::packet::receive
 
         static PacketResult<AboutList> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<AboutList>::Failure(parsed.Error());
             }
@@ -2280,6 +2384,27 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "DpSY";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 13U> Fields = {{
+            {"name", PacketFieldType::EscapedString},
+            {"lv", PacketFieldType::Int62},
+            {"job", PacketFieldType::EscapedString},
+            {"title", PacketFieldType::EscapedString},
+            {"guildName", PacketFieldType::EscapedString},
+            {"graphic", PacketFieldType::Int62},
+            {"sid", PacketFieldType::Int62},
+            {"smsg", PacketFieldType::EscapedString},
+            {"bid", PacketFieldType::Int62},
+            {"bmsg", PacketFieldType::EscapedString},
+            {"aid", PacketFieldType::Int62},
+            {"amsg", PacketFieldType::EscapedString},
+            {"pmsg", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
 
         std::string name;
         int level = 0;
@@ -2399,7 +2524,7 @@ namespace cg::packet::receive
 
         static PacketResult<ProfileData> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<ProfileData>::Failure(parsed.Error());
             }
@@ -2598,6 +2723,15 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "cNB";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {"data", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
         static constexpr std::string_view PayloadDelimiter = "|";
 
         int profileIndex = 0;
@@ -2630,7 +2764,7 @@ namespace cg::packet::receive
 
         static PacketResult<ProfileMailDelete> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<ProfileMailDelete>::Failure(parsed.Error());
             }
@@ -2779,6 +2913,17 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "ow";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 3U> Fields = {{
+            {"profileIndex", PacketFieldType::Int62},
+            {"dtext", PacketFieldType::EscapedString},
+            {"color", PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
 
         int profileIndex = 0;
         std::string text;
@@ -2815,7 +2960,7 @@ namespace cg::packet::receive
 
         static PacketResult<ProfileMailReceipt> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<ProfileMailReceipt>::Failure(parsed.Error());
             }
@@ -2966,6 +3111,15 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "KyN";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {"data", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
         static constexpr std::string_view PayloadDelimiter = "|";
 
         int profileIndex = 0;
@@ -3042,7 +3196,7 @@ namespace cg::packet::receive
 
         static PacketResult<ProfileMailArrive> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<ProfileMailArrive>::Failure(parsed.Error());
             }
@@ -3256,6 +3410,15 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "TNT";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {"data", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
         static constexpr std::string_view PayloadDelimiter = "|";
 
         std::vector<PartyParamEntry> entries;
@@ -3297,7 +3460,7 @@ namespace cg::packet::receive
 
         static PacketResult<PartyParam> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<PartyParam>::Failure(parsed.Error());
             }
@@ -3540,6 +3703,16 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "JJQj";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
+            {"partySlot", PacketFieldType::Int62},
+            {"data", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
         static constexpr std::string_view PayloadDelimiter = "|";
 
         int partySlot = 0;
@@ -3598,7 +3771,7 @@ namespace cg::packet::receive
 
         static PacketResult<PartyMemberStatus> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<PartyMemberStatus>::Failure(parsed.Error());
             }
@@ -3893,6 +4066,16 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "Rspn";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
+            {"skillIndex", PacketFieldType::Int62},
+            {"data", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
         static constexpr std::string_view PayloadDelimiter = "|";
 
         int skillIndex = 0;
@@ -3942,7 +4125,7 @@ namespace cg::packet::receive
 
         static PacketResult<TechList> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<TechList>::Failure(parsed.Error());
             }
@@ -4184,6 +4367,15 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "cNE";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {"data", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
         static constexpr std::string_view PayloadDelimiter = "|";
 
         std::vector<CharacterSkillRecord> records;
@@ -4244,7 +4436,7 @@ namespace cg::packet::receive
 
         static PacketResult<CharacterSkillData> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<CharacterSkillData>::Failure(parsed.Error());
             }
@@ -4510,278 +4702,291 @@ namespace cg::packet::receive
         }
     };
 
-    struct ItemRecordCodecContext
-    {
-        std::string_view code;
-        std::string_view packetName;
-        std::size_t dataFieldIndex = 0U;
-    };
-
-    struct ItemRecordCodec
-    {
-        static constexpr std::string_view PayloadDelimiter = "|";
-        static constexpr std::size_t RecordFieldCount = 14U;
-        static constexpr std::size_t ClearFieldCount = RecordFieldCount - 1U;
-
-        [[nodiscard]] static std::string BuildData(const std::vector<ItemRecord>& records)
-        {
-            std::vector<std::string> parts;
-            parts.reserve(records.size() * RecordFieldCount);
-            for (const ItemRecord& record : records) {
-                parts.push_back(std::to_string(record.slot));
-                if (record.clearSlot) {
-                    for (std::size_t index = 0; index < ClearFieldCount; ++index) {
-                        parts.emplace_back();
-                    }
-                    continue;
-                }
-
-                parts.push_back(record.nameRaw);
-                parts.push_back(std::to_string(record.nameColor));
-                parts.push_back(record.explanationRaw);
-                parts.push_back(std::to_string(record.imageId));
-                parts.push_back(std::to_string(record.ableUseField));
-                parts.push_back(std::to_string(record.battleUseFlag));
-                parts.push_back(std::to_string(record.target));
-                parts.push_back(std::to_string(record.level));
-                parts.push_back(std::to_string(record.flag));
-                parts.push_back(std::to_string(record.itemId));
-                parts.push_back(std::to_string(record.type));
-                parts.push_back(std::to_string(record.remain));
-                parts.push_back(record.memoRaw);
-            }
-
-            PacketResult<std::string> payload = BuildPayload(
-                std::span<const std::string>(parts.data(), parts.size()),
-                PayloadDelimiter);
-            if (payload.HasValue()) {
-                return payload.Value();
-            }
-
-            return {};
-        }
-
-        [[nodiscard]] static PacketResult<std::vector<ItemRecord>> ParseRecords(
-            std::string_view payload,
-            const ItemRecordCodecContext& context)
-        {
-            if (payload.empty()) {
-                return PacketResult<std::vector<ItemRecord>>::Success({});
-            }
-
-            PacketResult<std::vector<std::string>> split = SplitPayload(payload, PayloadDelimiter);
-            if (!split.HasValue()) {
-                PacketError error = split.Error();
-                error.packetCode = PacketCode(context.code);
-                error.fieldIndex = context.dataFieldIndex;
-                return PacketResult<std::vector<ItemRecord>>::Failure(std::move(error));
-            }
-
-            std::vector<std::string> parts = std::move(split.Value());
-            if (parts.empty() || (parts.size() % RecordFieldCount) != 0U) {
-                return PacketResult<std::vector<ItemRecord>>::Failure(MakeFieldError(
-                    context,
-                    PacketErrorCode::FieldCountMismatch,
-                    Message(context, " payload 段数量不是 14 的倍数"),
-                    context.dataFieldIndex));
-            }
-
-            std::vector<ItemRecord> records;
-            records.reserve(parts.size() / RecordFieldCount);
-            for (std::size_t recordIndex = 0; recordIndex < parts.size() / RecordFieldCount; ++recordIndex) {
-                const std::size_t baseIndex = recordIndex * RecordFieldCount;
-                PacketResult<int> slot = ParseDecimalField(context, parts[baseIndex], baseIndex);
-                if (!slot.HasValue()) {
-                    return PacketResult<std::vector<ItemRecord>>::Failure(slot.Error());
-                }
-
-                if (parts[baseIndex + 1U].empty()) {
-                    if (!IsClearRecord(parts, baseIndex)) {
-                        return PacketResult<std::vector<ItemRecord>>::Failure(MakeFieldError(
-                            context,
-                            PacketErrorCode::DecodeFailed,
-                            Message(context, " clear record 非 slot 字段必须为空"),
-                            baseIndex + 1U));
-                    }
-
-                    records.push_back(ItemRecord::Clear(slot.Value()));
-                    continue;
-                }
-
-                PacketResult<int> nameColor = ParseDecimalField(context, parts[baseIndex + 2U], baseIndex + 2U);
-                if (!nameColor.HasValue()) {
-                    return PacketResult<std::vector<ItemRecord>>::Failure(nameColor.Error());
-                }
-
-                PacketResult<int> imageId = ParseDecimalField(context, parts[baseIndex + 4U], baseIndex + 4U);
-                if (!imageId.HasValue()) {
-                    return PacketResult<std::vector<ItemRecord>>::Failure(imageId.Error());
-                }
-
-                PacketResult<int> ableUseField = ParseDecimalField(context, parts[baseIndex + 5U], baseIndex + 5U);
-                if (!ableUseField.HasValue()) {
-                    return PacketResult<std::vector<ItemRecord>>::Failure(ableUseField.Error());
-                }
-
-                PacketResult<int> battleUseFlag = ParseDecimalField(context, parts[baseIndex + 6U], baseIndex + 6U);
-                if (!battleUseFlag.HasValue()) {
-                    return PacketResult<std::vector<ItemRecord>>::Failure(battleUseFlag.Error());
-                }
-
-                PacketResult<int> target = ParseDecimalField(context, parts[baseIndex + 7U], baseIndex + 7U);
-                if (!target.HasValue()) {
-                    return PacketResult<std::vector<ItemRecord>>::Failure(target.Error());
-                }
-
-                PacketResult<int> level = ParseDecimalField(context, parts[baseIndex + 8U], baseIndex + 8U);
-                if (!level.HasValue()) {
-                    return PacketResult<std::vector<ItemRecord>>::Failure(level.Error());
-                }
-
-                PacketResult<int> flag = ParseDecimalField(context, parts[baseIndex + 9U], baseIndex + 9U);
-                if (!flag.HasValue()) {
-                    return PacketResult<std::vector<ItemRecord>>::Failure(flag.Error());
-                }
-
-                PacketResult<int> itemId = ParseDecimalField(context, parts[baseIndex + 10U], baseIndex + 10U);
-                if (!itemId.HasValue()) {
-                    return PacketResult<std::vector<ItemRecord>>::Failure(itemId.Error());
-                }
-
-                PacketResult<int> type = ParseDecimalField(context, parts[baseIndex + 11U], baseIndex + 11U);
-                if (!type.HasValue()) {
-                    return PacketResult<std::vector<ItemRecord>>::Failure(type.Error());
-                }
-
-                PacketResult<int> remain = ParseDecimalField(context, parts[baseIndex + 12U], baseIndex + 12U);
-                if (!remain.HasValue()) {
-                    return PacketResult<std::vector<ItemRecord>>::Failure(remain.Error());
-                }
-
-                records.push_back(ItemRecord {
-                    slot.Value(),
-                    parts[baseIndex + 1U],
-                    nameColor.Value(),
-                    parts[baseIndex + 3U],
-                    imageId.Value(),
-                    ableUseField.Value(),
-                    battleUseFlag.Value(),
-                    target.Value(),
-                    level.Value(),
-                    flag.Value(),
-                    itemId.Value(),
-                    type.Value(),
-                    remain.Value(),
-                    parts[baseIndex + 13U],
-                    false,
-                });
-            }
-
-            return PacketResult<std::vector<ItemRecord>>::Success(std::move(records));
-        }
-
-    private:
-        [[nodiscard]] static std::string Message(const ItemRecordCodecContext& context, std::string_view suffix)
-        {
-            std::string message(context.packetName);
-            message.append(suffix);
-            return message;
-        }
-
-        [[nodiscard]] static PacketError MakePacketError(
-            const ItemRecordCodecContext& context,
-            PacketErrorCode code,
-            std::string message)
-        {
-            PacketError error = PacketError::Make(code, std::move(message));
-            error.packetCode = PacketCode(context.code);
-            return error;
-        }
-
-        [[nodiscard]] static PacketError MakeFieldError(
-            const ItemRecordCodecContext& context,
-            PacketErrorCode code,
-            std::string message,
-            std::size_t fieldIndex)
-        {
-            PacketError error = MakePacketError(context, code, std::move(message));
-            error.fieldIndex = fieldIndex;
-            return error;
-        }
-
-        [[nodiscard]] static bool IsClearRecord(const std::vector<std::string>& parts, std::size_t baseIndex)
-        {
-            for (std::size_t index = 1U; index < RecordFieldCount; ++index) {
-                if (!parts[baseIndex + index].empty()) {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        [[nodiscard]] static PacketResult<int> ParseDecimalField(
-            const ItemRecordCodecContext& context,
-            std::string_view text,
-            std::size_t fieldIndex)
-        {
-            bool negative = false;
-            std::size_t index = 0;
-            if (!text.empty() && text.front() == '-') {
-                negative = true;
-                index = 1U;
-            }
-
-            if (index == text.size()) {
-                return PacketResult<int>::Failure(MakeFieldError(
-                    context,
-                    PacketErrorCode::DecodeFailed,
-                    Message(context, " 十进制字段为空"),
-                    fieldIndex));
-            }
-
-            const std::int64_t maxValue = static_cast<std::int64_t>(std::numeric_limits<int>::max());
-            const std::int64_t minValue = static_cast<std::int64_t>(std::numeric_limits<int>::min());
-            const std::int64_t limit = negative ? (0 - minValue) : maxValue;
-            std::int64_t value = 0;
-
-            for (; index < text.size(); ++index) {
-                const char ch = text[index];
-                if (ch < '0' || ch > '9') {
-                    return PacketResult<int>::Failure(MakeFieldError(
-                        context,
-                        PacketErrorCode::DecodeFailed,
-                        Message(context, " 十进制字段包含非法字符"),
-                        fieldIndex));
-                }
-
-                const int digit = ch - '0';
-                if (value > (limit - digit) / 10) {
-                    return PacketResult<int>::Failure(MakeFieldError(
-                        context,
-                        PacketErrorCode::DecodeFailed,
-                        Message(context, " 十进制字段超出 int 范围"),
-                        fieldIndex));
-                }
-
-                value = (value * 10) + digit;
-            }
-
-            if (negative) {
-                value = -value;
-            }
-
-            return PacketResult<int>::Success(static_cast<int>(value));
-        }
-    };
-
     /**
      * SEND_I CHAR_sendItemData		rU {data:es}
      * data: 每条 14 段，数值为 raw decimal，name/explanation/memo 保留二级转义 raw 字符串。
      */
     struct ItemData
     {
+    private:
+        friend struct PetItemData;
+
+        struct CodecContext
+        {
+            std::string_view code;
+            std::string_view packetName;
+            std::size_t dataFieldIndex = 0U;
+        };
+
+        struct Codec
+        {
+            static constexpr std::string_view PayloadDelimiter = "|";
+            static constexpr std::size_t RecordFieldCount = 14U;
+            static constexpr std::size_t ClearFieldCount = RecordFieldCount - 1U;
+
+            [[nodiscard]] static std::string BuildData(const std::vector<ItemRecord>& records)
+            {
+                std::vector<std::string> parts;
+                parts.reserve(records.size() * RecordFieldCount);
+                for (const ItemRecord& record : records) {
+                    parts.push_back(std::to_string(record.slot));
+                    if (record.clearSlot) {
+                        for (std::size_t index = 0; index < ClearFieldCount; ++index) {
+                            parts.emplace_back();
+                        }
+                        continue;
+                    }
+
+                    parts.push_back(record.nameRaw);
+                    parts.push_back(std::to_string(record.nameColor));
+                    parts.push_back(record.explanationRaw);
+                    parts.push_back(std::to_string(record.imageId));
+                    parts.push_back(std::to_string(record.ableUseField));
+                    parts.push_back(std::to_string(record.battleUseFlag));
+                    parts.push_back(std::to_string(record.target));
+                    parts.push_back(std::to_string(record.level));
+                    parts.push_back(std::to_string(record.flag));
+                    parts.push_back(std::to_string(record.itemId));
+                    parts.push_back(std::to_string(record.type));
+                    parts.push_back(std::to_string(record.remain));
+                    parts.push_back(record.memoRaw);
+                }
+
+                PacketResult<std::string> payload = BuildPayload(
+                    std::span<const std::string>(parts.data(), parts.size()),
+                    PayloadDelimiter);
+                if (payload.HasValue()) {
+                    return payload.Value();
+                }
+
+                return {};
+            }
+
+            [[nodiscard]] static PacketResult<std::vector<ItemRecord>> ParseRecords(
+                std::string_view payload,
+                const CodecContext& context)
+            {
+                if (payload.empty()) {
+                    return PacketResult<std::vector<ItemRecord>>::Success({});
+                }
+
+                PacketResult<std::vector<std::string>> split = SplitPayload(payload, PayloadDelimiter);
+                if (!split.HasValue()) {
+                    PacketError error = split.Error();
+                    error.packetCode = PacketCode(context.code);
+                    error.fieldIndex = context.dataFieldIndex;
+                    return PacketResult<std::vector<ItemRecord>>::Failure(std::move(error));
+                }
+
+                std::vector<std::string> parts = std::move(split.Value());
+                if (parts.empty() || (parts.size() % RecordFieldCount) != 0U) {
+                    return PacketResult<std::vector<ItemRecord>>::Failure(MakeFieldError(
+                        context,
+                        PacketErrorCode::FieldCountMismatch,
+                        Message(context, " payload 段数量不是 14 的倍数"),
+                        context.dataFieldIndex));
+                }
+
+                std::vector<ItemRecord> records;
+                records.reserve(parts.size() / RecordFieldCount);
+                for (std::size_t recordIndex = 0; recordIndex < parts.size() / RecordFieldCount; ++recordIndex) {
+                    const std::size_t baseIndex = recordIndex * RecordFieldCount;
+                    PacketResult<int> slot = ParseDecimalField(context, parts[baseIndex], baseIndex);
+                    if (!slot.HasValue()) {
+                        return PacketResult<std::vector<ItemRecord>>::Failure(slot.Error());
+                    }
+
+                    if (parts[baseIndex + 1U].empty()) {
+                        if (!IsClearRecord(parts, baseIndex)) {
+                            return PacketResult<std::vector<ItemRecord>>::Failure(MakeFieldError(
+                                context,
+                                PacketErrorCode::DecodeFailed,
+                                Message(context, " clear record 非 slot 字段必须为空"),
+                                baseIndex + 1U));
+                        }
+
+                        records.push_back(ItemRecord::Clear(slot.Value()));
+                        continue;
+                    }
+
+                    PacketResult<int> nameColor = ParseDecimalField(context, parts[baseIndex + 2U], baseIndex + 2U);
+                    if (!nameColor.HasValue()) {
+                        return PacketResult<std::vector<ItemRecord>>::Failure(nameColor.Error());
+                    }
+
+                    PacketResult<int> imageId = ParseDecimalField(context, parts[baseIndex + 4U], baseIndex + 4U);
+                    if (!imageId.HasValue()) {
+                        return PacketResult<std::vector<ItemRecord>>::Failure(imageId.Error());
+                    }
+
+                    PacketResult<int> ableUseField = ParseDecimalField(context, parts[baseIndex + 5U], baseIndex + 5U);
+                    if (!ableUseField.HasValue()) {
+                        return PacketResult<std::vector<ItemRecord>>::Failure(ableUseField.Error());
+                    }
+
+                    PacketResult<int> battleUseFlag = ParseDecimalField(context, parts[baseIndex + 6U], baseIndex + 6U);
+                    if (!battleUseFlag.HasValue()) {
+                        return PacketResult<std::vector<ItemRecord>>::Failure(battleUseFlag.Error());
+                    }
+
+                    PacketResult<int> target = ParseDecimalField(context, parts[baseIndex + 7U], baseIndex + 7U);
+                    if (!target.HasValue()) {
+                        return PacketResult<std::vector<ItemRecord>>::Failure(target.Error());
+                    }
+
+                    PacketResult<int> level = ParseDecimalField(context, parts[baseIndex + 8U], baseIndex + 8U);
+                    if (!level.HasValue()) {
+                        return PacketResult<std::vector<ItemRecord>>::Failure(level.Error());
+                    }
+
+                    PacketResult<int> flag = ParseDecimalField(context, parts[baseIndex + 9U], baseIndex + 9U);
+                    if (!flag.HasValue()) {
+                        return PacketResult<std::vector<ItemRecord>>::Failure(flag.Error());
+                    }
+
+                    PacketResult<int> itemId = ParseDecimalField(context, parts[baseIndex + 10U], baseIndex + 10U);
+                    if (!itemId.HasValue()) {
+                        return PacketResult<std::vector<ItemRecord>>::Failure(itemId.Error());
+                    }
+
+                    PacketResult<int> type = ParseDecimalField(context, parts[baseIndex + 11U], baseIndex + 11U);
+                    if (!type.HasValue()) {
+                        return PacketResult<std::vector<ItemRecord>>::Failure(type.Error());
+                    }
+
+                    PacketResult<int> remain = ParseDecimalField(context, parts[baseIndex + 12U], baseIndex + 12U);
+                    if (!remain.HasValue()) {
+                        return PacketResult<std::vector<ItemRecord>>::Failure(remain.Error());
+                    }
+
+                    records.push_back(ItemRecord {
+                        slot.Value(),
+                        parts[baseIndex + 1U],
+                        nameColor.Value(),
+                        parts[baseIndex + 3U],
+                        imageId.Value(),
+                        ableUseField.Value(),
+                        battleUseFlag.Value(),
+                        target.Value(),
+                        level.Value(),
+                        flag.Value(),
+                        itemId.Value(),
+                        type.Value(),
+                        remain.Value(),
+                        parts[baseIndex + 13U],
+                        false,
+                    });
+                }
+
+                return PacketResult<std::vector<ItemRecord>>::Success(std::move(records));
+            }
+
+        private:
+            [[nodiscard]] static std::string Message(const CodecContext& context, std::string_view suffix)
+            {
+                std::string message(context.packetName);
+                message.append(suffix);
+                return message;
+            }
+
+            [[nodiscard]] static PacketError MakePacketError(
+                const CodecContext& context,
+                PacketErrorCode code,
+                std::string message)
+            {
+                PacketError error = PacketError::Make(code, std::move(message));
+                error.packetCode = PacketCode(context.code);
+                return error;
+            }
+
+            [[nodiscard]] static PacketError MakeFieldError(
+                const CodecContext& context,
+                PacketErrorCode code,
+                std::string message,
+                std::size_t fieldIndex)
+            {
+                PacketError error = MakePacketError(context, code, std::move(message));
+                error.fieldIndex = fieldIndex;
+                return error;
+            }
+
+            [[nodiscard]] static bool IsClearRecord(const std::vector<std::string>& parts, std::size_t baseIndex)
+            {
+                for (std::size_t index = 1U; index < RecordFieldCount; ++index) {
+                    if (!parts[baseIndex + index].empty()) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+
+            [[nodiscard]] static PacketResult<int> ParseDecimalField(
+                const CodecContext& context,
+                std::string_view text,
+                std::size_t fieldIndex)
+            {
+                bool negative = false;
+                std::size_t index = 0;
+                if (!text.empty() && text.front() == '-') {
+                    negative = true;
+                    index = 1U;
+                }
+
+                if (index == text.size()) {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        context,
+                        PacketErrorCode::DecodeFailed,
+                        Message(context, " 十进制字段为空"),
+                        fieldIndex));
+                }
+
+                const std::int64_t maxValue = static_cast<std::int64_t>(std::numeric_limits<int>::max());
+                const std::int64_t minValue = static_cast<std::int64_t>(std::numeric_limits<int>::min());
+                const std::int64_t limit = negative ? (0 - minValue) : maxValue;
+                std::int64_t value = 0;
+
+                for (; index < text.size(); ++index) {
+                    const char ch = text[index];
+                    if (ch < '0' || ch > '9') {
+                        return PacketResult<int>::Failure(MakeFieldError(
+                            context,
+                            PacketErrorCode::DecodeFailed,
+                            Message(context, " 十进制字段包含非法字符"),
+                            fieldIndex));
+                    }
+
+                    const int digit = ch - '0';
+                    if (value > (limit - digit) / 10) {
+                        return PacketResult<int>::Failure(MakeFieldError(
+                            context,
+                            PacketErrorCode::DecodeFailed,
+                            Message(context, " 十进制字段超出 int 范围"),
+                            fieldIndex));
+                    }
+
+                    value = (value * 10) + digit;
+                }
+
+                if (negative) {
+                    value = -value;
+                }
+
+                return PacketResult<int>::Success(static_cast<int>(value));
+            }
+        };
+
+    public:
         static constexpr std::string_view Code = "rU";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {"data", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
         static constexpr std::string_view PayloadDelimiter = "|";
 
         std::vector<ItemRecord> records;
@@ -4793,7 +4998,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] std::string BuildData() const
         {
-            return ItemRecordCodec::BuildData(records);
+            return Codec::BuildData(records);
         }
 
         [[nodiscard]] Packet ToPacket() const
@@ -4809,7 +5014,7 @@ namespace cg::packet::receive
 
         static PacketResult<ItemData> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<ItemData>::Failure(parsed.Error());
             }
@@ -4849,9 +5054,9 @@ namespace cg::packet::receive
                     DataFieldIndex));
             }
 
-            PacketResult<std::vector<ItemRecord>> records = ItemRecordCodec::ParseRecords(
+            PacketResult<std::vector<ItemRecord>> records = Codec::ParseRecords(
                 field.value,
-                ItemRecordCodecContext {Code, "ItemData", DataFieldIndex});
+                CodecContext {Code, "ItemData", DataFieldIndex});
             if (!records.HasValue()) {
                 return PacketResult<ItemData>::Failure(records.Error());
             }
@@ -4889,6 +5094,16 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "iKe";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
+            {"petSlot", PacketFieldType::Int62},
+            {"data", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
         static constexpr std::string_view PayloadDelimiter = "|";
 
         int petSlot = 0;
@@ -4902,7 +5117,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] std::string BuildData() const
         {
-            return ItemRecordCodec::BuildData(records);
+            return ItemData::Codec::BuildData(records);
         }
 
         [[nodiscard]] Packet ToPacket() const
@@ -4923,7 +5138,7 @@ namespace cg::packet::receive
 
         static PacketResult<PetItemData> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<PetItemData>::Failure(parsed.Error());
             }
@@ -4987,9 +5202,9 @@ namespace cg::packet::receive
                     DataFieldIndex));
             }
 
-            PacketResult<std::vector<ItemRecord>> records = ItemRecordCodec::ParseRecords(
+            PacketResult<std::vector<ItemRecord>> records = ItemData::Codec::ParseRecords(
                 dataField.value,
-                ItemRecordCodecContext {Code, "PetItemData", DataFieldIndex});
+                ItemData::CodecContext {Code, "PetItemData", DataFieldIndex});
             if (!records.HasValue()) {
                 return PacketResult<PetItemData>::Failure(records.Error());
             }
@@ -5076,6 +5291,15 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "TgX";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {"data", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
         static constexpr std::string_view PayloadDelimiter = ",";
 
         bool active = false;
@@ -5227,7 +5451,7 @@ namespace cg::packet::receive
 
         static PacketResult<EquipSuit> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<EquipSuit>::Failure(parsed.Error());
             }
@@ -5506,6 +5730,15 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "ELoy";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {"data", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
         static constexpr std::string_view PayloadDelimiter = "|";
         static constexpr std::size_t SlotCount = 28U;
         static constexpr std::size_t SlotFieldCount = 13U;
@@ -5575,7 +5808,7 @@ namespace cg::packet::receive
 
         static PacketResult<ItemInfoList> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<ItemInfoList>::Failure(parsed.Error());
             }
@@ -5889,6 +6122,16 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "xmgQ";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
+            {"haveskillindex", PacketFieldType::Int62},
+            {"data", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
         static constexpr std::string_view PayloadDelimiter = "|";
 
         int haveSkillIndex = 0;
@@ -5948,7 +6191,7 @@ namespace cg::packet::receive
 
         static PacketResult<ItemRecipe> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<ItemRecipe>::Failure(parsed.Error());
             }
@@ -6270,6 +6513,16 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "Ilz";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
+            {"albumversion", PacketFieldType::Int62},
+            {"data", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
         static constexpr std::string_view PayloadDelimiter = "|";
 
         int albumVersion = 0;
@@ -6309,7 +6562,7 @@ namespace cg::packet::receive
 
         static PacketResult<AlbumFlags> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<AlbumFlags>::Failure(parsed.Error());
             }
@@ -6491,6 +6744,31 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "dM";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 17U> Fields = {{
+            {"albumId", PacketFieldType::Int62},
+            {"imageNumber", PacketFieldType::Int62},
+            {"catchFlag", PacketFieldType::Int62},
+            {"rare", PacketFieldType::Int62},
+            {"type", PacketFieldType::Int62},
+            {"vital", PacketFieldType::Int62},
+            {"strength", PacketFieldType::Int62},
+            {"toughness", PacketFieldType::Int62},
+            {"quick", PacketFieldType::Int62},
+            {"magic", PacketFieldType::Int62},
+            {"earth", PacketFieldType::Int62},
+            {"water", PacketFieldType::Int62},
+            {"fire", PacketFieldType::Int62},
+            {"wind", PacketFieldType::Int62},
+            {"slot", PacketFieldType::Int62},
+            {"comment", PacketFieldType::EscapedString},
+            {"name", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
 
         int albumId = 0;
         int imageNumber = 0;
@@ -6593,7 +6871,7 @@ namespace cg::packet::receive
 
         static PacketResult<AlbumInfo> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<AlbumInfo>::Failure(parsed.Error());
             }
@@ -6764,6 +7042,16 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "Dn";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
+            {"albumId", PacketFieldType::Int62},
+            {"name", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
 
         int albumId = 0;
         std::string name;
@@ -6792,7 +7080,7 @@ namespace cg::packet::receive
 
         static PacketResult<AlbumName> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<AlbumName>::Failure(parsed.Error());
             }
@@ -6953,6 +7241,22 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "lDuJ";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 8U> Fields = {{
+            {"objIndex", PacketFieldType::Int62},
+            {"graphicsno", PacketFieldType::Int62},
+            {"x", PacketFieldType::Int62},
+            {"y", PacketFieldType::Int62},
+            {"dir", PacketFieldType::Int62},
+            {"flg", PacketFieldType::Int62},
+            {"no", PacketFieldType::Int62},
+            {"data", PacketFieldType::SubPayload},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
         static constexpr std::string_view PayloadDelimiter = "|";
 
         int objIndex = 0;
@@ -7084,7 +7388,7 @@ namespace cg::packet::receive
 
         static PacketResult<PetMailAnimation> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view, ::cg::packet::detail::PetMailAnimationSpec);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<PetMailAnimation>::Failure(parsed.Error());
             }
@@ -7422,6 +7726,16 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "IsSy";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
+            {"petIndex", PacketFieldType::Int62},
+            {"data", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
         static constexpr std::string_view PayloadDelimiter = "|";
 
         int petIndex = 0;
@@ -7492,7 +7806,7 @@ namespace cg::packet::receive
 
         static PacketResult<RidePetData> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<RidePetData>::Failure(parsed.Error());
             }
@@ -7951,6 +8265,16 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "AU";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
+            {"petIndex", PacketFieldType::Int62},
+            {"data", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
         static constexpr std::string_view PayloadDelimiter = "|";
 
         int petIndex = 0;
@@ -7998,7 +8322,7 @@ namespace cg::packet::receive
 
         static PacketResult<RidePetExtraData> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<RidePetExtraData>::Failure(parsed.Error());
             }
@@ -8331,6 +8655,17 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "JgO";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 3U> Fields = {{
+            {"result", PacketFieldType::Int62},
+            {"type", PacketFieldType::Int62},
+            {"data", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
         static constexpr std::string_view PayloadDelimiter = "|";
 
         int result = 0;
@@ -8409,7 +8744,7 @@ namespace cg::packet::receive
 
         static PacketResult<TechUseResult> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<TechUseResult>::Failure(parsed.Error());
             }
@@ -8815,6 +9150,16 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "OBee";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
+            {"petIndex", PacketFieldType::Int62},
+            {"data", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
         static constexpr std::string_view PayloadDelimiter = "|";
 
         int petIndex = 0;
@@ -8868,7 +9213,7 @@ namespace cg::packet::receive
 
         static PacketResult<PetTechData> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<PetTechData>::Failure(parsed.Error());
             }
@@ -9098,6 +9443,15 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "Yo";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {"data", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
 
         std::string data;
 
@@ -9119,7 +9473,7 @@ namespace cg::packet::receive
 
         static PacketResult<ProfileStatus> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<ProfileStatus>::Failure(parsed.Error());
             }
@@ -9190,9 +9544,57 @@ namespace cg::packet::receive
         int nonPlayerFlag = 0;
     };
 
-    namespace detail
+    /**
+     * SEND_GFL CHAR_sendFrontCharList		ysVc {data:es}
+     * data: `name|nonPlayerFlag|` 重复记录，空 data 表示空列表；name 保留 makeEscapeString 后的 raw 字符串。
+     */
+    struct FrontCharList
     {
-        struct FrontCharListCodec
+        static constexpr std::string_view Code = "ysVc";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {"data", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+        static constexpr std::string_view PayloadDelimiter = "|";
+
+        std::vector<FrontCharRecord> records;
+
+        explicit FrontCharList(std::vector<FrontCharRecord> records)
+            : records(std::move(records))
+        {
+        }
+
+        [[nodiscard]] PacketResult<std::string> BuildData() const
+        {
+            return Codec::BuildData(records, Code, "FrontCharList");
+        }
+
+        [[nodiscard]] PacketResult<Packet> ToPacket() const
+        {
+            return Codec::ToPacket(records, Code, "FrontCharList");
+        }
+
+        static PacketResult<FrontCharList> Parse(std::string_view view)
+        {
+            PacketResult<std::vector<FrontCharRecord>> records =
+                Codec::Parse(view, Spec, "FrontCharList");
+            if (!records.HasValue()) {
+                return PacketResult<FrontCharList>::Failure(records.Error());
+            }
+
+            return PacketResult<FrontCharList>::Success(FrontCharList(std::move(records.Value())));
+        }
+
+    private:
+        friend struct ItemFrontCharList;
+
+        struct Codec
         {
             static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
             static constexpr std::string_view PayloadDelimiter = "|";
@@ -9245,10 +9647,11 @@ namespace cg::packet::receive
 
             [[nodiscard]] static PacketResult<std::vector<FrontCharRecord>> Parse(
                 std::string_view view,
-                std::string_view code,
+                const PacketSpec& packetSpec,
                 std::string_view packetName)
             {
-                PacketResult<Packet> parsed = ParsePacket(view);
+                const std::string_view code = packetSpec.code;
+                PacketResult<Packet> parsed = ParsePacket(view, packetSpec);
                 if (!parsed.HasValue()) {
                     return PacketResult<std::vector<FrontCharRecord>>::Failure(parsed.Error());
                 }
@@ -9430,45 +9833,6 @@ namespace cg::packet::receive
                 return PacketResult<int>::Success(static_cast<int>(value));
             }
         };
-    } // namespace detail
-
-    /**
-     * SEND_GFL CHAR_sendFrontCharList		ysVc {data:es}
-     * data: `name|nonPlayerFlag|` 重复记录，空 data 表示空列表；name 保留 makeEscapeString 后的 raw 字符串。
-     */
-    struct FrontCharList
-    {
-        static constexpr std::string_view Code = "ysVc";
-        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
-        static constexpr std::string_view PayloadDelimiter = "|";
-
-        std::vector<FrontCharRecord> records;
-
-        explicit FrontCharList(std::vector<FrontCharRecord> records)
-            : records(std::move(records))
-        {
-        }
-
-        [[nodiscard]] PacketResult<std::string> BuildData() const
-        {
-            return detail::FrontCharListCodec::BuildData(records, Code, "FrontCharList");
-        }
-
-        [[nodiscard]] PacketResult<Packet> ToPacket() const
-        {
-            return detail::FrontCharListCodec::ToPacket(records, Code, "FrontCharList");
-        }
-
-        static PacketResult<FrontCharList> Parse(std::string_view view)
-        {
-            PacketResult<std::vector<FrontCharRecord>> records =
-                detail::FrontCharListCodec::Parse(view, Code, "FrontCharList");
-            if (!records.HasValue()) {
-                return PacketResult<FrontCharList>::Failure(records.Error());
-            }
-
-            return PacketResult<FrontCharList>::Success(FrontCharList(std::move(records.Value())));
-        }
     };
 
     /**
@@ -9479,6 +9843,15 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "LY";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {"data", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
         static constexpr std::string_view PayloadDelimiter = "|";
 
         std::vector<FrontCharRecord> records;
@@ -9490,18 +9863,18 @@ namespace cg::packet::receive
 
         [[nodiscard]] PacketResult<std::string> BuildData() const
         {
-            return detail::FrontCharListCodec::BuildData(records, Code, "ItemFrontCharList");
+            return FrontCharList::Codec::BuildData(records, Code, "ItemFrontCharList");
         }
 
         [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
-            return detail::FrontCharListCodec::ToPacket(records, Code, "ItemFrontCharList");
+            return FrontCharList::Codec::ToPacket(records, Code, "ItemFrontCharList");
         }
 
         static PacketResult<ItemFrontCharList> Parse(std::string_view view)
         {
             PacketResult<std::vector<FrontCharRecord>> records =
-                detail::FrontCharListCodec::Parse(view, Code, "ItemFrontCharList");
+                FrontCharList::Codec::Parse(view, Spec, "ItemFrontCharList");
             if (!records.HasValue()) {
                 return PacketResult<ItemFrontCharList>::Failure(records.Error());
             }
@@ -9521,9 +9894,57 @@ namespace cg::packet::receive
         int maxForcePoint = 0;
     };
 
-    namespace detail
+    /**
+     * SEND_GPD CHAR_sendCharAndPetList		ND {data:es}
+     * data: `name|level|injury|hp|maxHp|forcePoint|maxForcePoint|`，0..6 条记录；name 保留 raw escaped 字符串。
+     */
+    struct CharacterPetList
     {
-        struct CharacterPetListCodec
+        static constexpr std::string_view Code = "ND";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {"data", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+        static constexpr std::string_view PayloadDelimiter = "|";
+
+        std::vector<CharacterPetRecord> records;
+
+        explicit CharacterPetList(std::vector<CharacterPetRecord> records)
+            : records(std::move(records))
+        {
+        }
+
+        [[nodiscard]] PacketResult<std::string> BuildData() const
+        {
+            return Codec::BuildData(records, Code, "CharacterPetList");
+        }
+
+        [[nodiscard]] PacketResult<Packet> ToPacket() const
+        {
+            return Codec::ToPacket(records, Code, "CharacterPetList");
+        }
+
+        static PacketResult<CharacterPetList> Parse(std::string_view view)
+        {
+            PacketResult<std::vector<CharacterPetRecord>> records =
+                Codec::Parse(view, Spec, "CharacterPetList");
+            if (!records.HasValue()) {
+                return PacketResult<CharacterPetList>::Failure(records.Error());
+            }
+
+            return PacketResult<CharacterPetList>::Success(CharacterPetList(std::move(records.Value())));
+        }
+
+    private:
+        friend struct ItemCharacterPetList;
+
+        struct Codec
         {
             static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
             static constexpr std::string_view PayloadDelimiter = "|";
@@ -9595,10 +10016,11 @@ namespace cg::packet::receive
 
             [[nodiscard]] static PacketResult<std::vector<CharacterPetRecord>> Parse(
                 std::string_view view,
-                std::string_view code,
+                const PacketSpec& packetSpec,
                 std::string_view packetName)
             {
-                PacketResult<Packet> parsed = ParsePacket(view);
+                const std::string_view code = packetSpec.code;
+                PacketResult<Packet> parsed = ParsePacket(view, packetSpec);
                 if (!parsed.HasValue()) {
                     return PacketResult<std::vector<CharacterPetRecord>>::Failure(parsed.Error());
                 }
@@ -9833,45 +10255,6 @@ namespace cg::packet::receive
                 return PacketResult<int>::Success(value);
             }
         };
-    } // namespace detail
-
-    /**
-     * SEND_GPD CHAR_sendCharAndPetList		ND {data:es}
-     * data: `name|level|injury|hp|maxHp|forcePoint|maxForcePoint|`，0..6 条记录；name 保留 raw escaped 字符串。
-     */
-    struct CharacterPetList
-    {
-        static constexpr std::string_view Code = "ND";
-        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
-        static constexpr std::string_view PayloadDelimiter = "|";
-
-        std::vector<CharacterPetRecord> records;
-
-        explicit CharacterPetList(std::vector<CharacterPetRecord> records)
-            : records(std::move(records))
-        {
-        }
-
-        [[nodiscard]] PacketResult<std::string> BuildData() const
-        {
-            return detail::CharacterPetListCodec::BuildData(records, Code, "CharacterPetList");
-        }
-
-        [[nodiscard]] PacketResult<Packet> ToPacket() const
-        {
-            return detail::CharacterPetListCodec::ToPacket(records, Code, "CharacterPetList");
-        }
-
-        static PacketResult<CharacterPetList> Parse(std::string_view view)
-        {
-            PacketResult<std::vector<CharacterPetRecord>> records =
-                detail::CharacterPetListCodec::Parse(view, Code, "CharacterPetList");
-            if (!records.HasValue()) {
-                return PacketResult<CharacterPetList>::Failure(records.Error());
-            }
-
-            return PacketResult<CharacterPetList>::Success(CharacterPetList(std::move(records.Value())));
-        }
     };
 
     /**
@@ -9882,6 +10265,15 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "nFV";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {"data", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
         static constexpr std::string_view PayloadDelimiter = "|";
 
         std::vector<CharacterPetRecord> records;
@@ -9893,18 +10285,18 @@ namespace cg::packet::receive
 
         [[nodiscard]] PacketResult<std::string> BuildData() const
         {
-            return detail::CharacterPetListCodec::BuildData(records, Code, "ItemCharacterPetList");
+            return CharacterPetList::Codec::BuildData(records, Code, "ItemCharacterPetList");
         }
 
         [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
-            return detail::CharacterPetListCodec::ToPacket(records, Code, "ItemCharacterPetList");
+            return CharacterPetList::Codec::ToPacket(records, Code, "ItemCharacterPetList");
         }
 
         static PacketResult<ItemCharacterPetList> Parse(std::string_view view)
         {
             PacketResult<std::vector<CharacterPetRecord>> records =
-                detail::CharacterPetListCodec::Parse(view, Code, "ItemCharacterPetList");
+                CharacterPetList::Codec::Parse(view, Spec, "ItemCharacterPetList");
             if (!records.HasValue()) {
                 return PacketResult<ItemCharacterPetList>::Failure(records.Error());
             }
@@ -9971,6 +10363,19 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "DyAG";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 5U> Fields = {{
+            {"windowType", PacketFieldType::Int62},
+            {"buttonType", PacketFieldType::Int62},
+            {"seqNo", PacketFieldType::Int62},
+            {"objectIndex", PacketFieldType::Int62},
+            {"data", PacketFieldType::SubPayload},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
         static constexpr std::string_view PayloadDelimiter = "\\z";
 
         int windowType = 0;
@@ -10079,7 +10484,7 @@ namespace cg::packet::receive
 
         static PacketResult<ProfileWindow> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view, ::cg::packet::detail::ProfileWindowSpec);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<ProfileWindow>::Failure(parsed.Error());
             }
@@ -10554,6 +10959,15 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "Zd";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {"message", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
 
         std::string message;
 
@@ -10575,7 +10989,7 @@ namespace cg::packet::receive
 
         static PacketResult<SystemMessage> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<SystemMessage>::Failure(parsed.Error());
             }
@@ -10631,6 +11045,17 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "zzd";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 3U> Fields = {{
+            {"EffType", PacketFieldType::Int62},
+            {"TM_EffSize", PacketFieldType::Int62},
+            {"data", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
 
         int effType = 0;
         int tmEffSize = 0;
@@ -10666,7 +11091,7 @@ namespace cg::packet::receive
 
         static PacketResult<Effect> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<Effect>::Failure(parsed.Error());
             }
@@ -10836,6 +11261,15 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "Gn";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {"data", PacketFieldType::SubPayload},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
         static constexpr std::string_view TopLevelDelimiter = ",";
         static constexpr std::string_view SegmentDelimiter = "|";
         static constexpr std::string_view ItemNameMarker = "\\z";
@@ -10894,7 +11328,7 @@ namespace cg::packet::receive
 
         static PacketResult<BattleReward> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view, ::cg::packet::detail::BattleRewardSpec);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<BattleReward>::Failure(parsed.Error());
             }
@@ -11274,6 +11708,15 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "hB";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {"data", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
         static constexpr std::string_view PayloadDelimiter = "|";
 
         int dpAdd = 0;
@@ -11315,7 +11758,7 @@ namespace cg::packet::receive
 
         static PacketResult<DuelPoint> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<DuelPoint>::Failure(parsed.Error());
             }
@@ -11466,6 +11909,15 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "LYIm";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {"command", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
 
         std::string command;
 
@@ -11487,7 +11939,7 @@ namespace cg::packet::receive
 
         static PacketResult<BattleCommand> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<BattleCommand>::Failure(parsed.Error());
             }
@@ -11576,6 +12028,17 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "Mhbt";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 3U> Fields = {{
+            {"aindex", PacketFieldType::Int62},
+            {"text", PacketFieldType::EscapedString},
+            {"color", PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
         static constexpr std::string_view PayloadDelimiter = "|";
 
         int aindex = 0;
@@ -11631,7 +12094,7 @@ namespace cg::packet::receive
 
         static PacketResult<ProfileMailMessage> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<ProfileMailMessage>::Failure(parsed.Error());
             }
@@ -11853,6 +12316,18 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "zdr";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 4U> Fields = {{
+            {"objectIndex", PacketFieldType::Int62},
+            {"message", PacketFieldType::SubPayload},
+            {"color", PacketFieldType::Int62},
+            {"fontSize", PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
         static constexpr std::string_view PayloadDelimiter = "|";
 
         int objectIndex = 0;
@@ -11903,7 +12378,7 @@ namespace cg::packet::receive
 
         static PacketResult<ChatMessage> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view, ::cg::packet::detail::ChatMessageSpec);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<ChatMessage>::Failure(parsed.Error());
             }
@@ -12102,6 +12577,19 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "BZ";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 5U> Fields = {{
+            {"windowtype", PacketFieldType::Int62},
+            {"buttontype", PacketFieldType::Int62},
+            {"seqno", PacketFieldType::Int62},
+            {"objindex", PacketFieldType::Int62},
+            {"data", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
 
         int windowtype = 0;
         int buttontype = 0;
@@ -12151,7 +12639,7 @@ namespace cg::packet::receive
 
         static PacketResult<WindowPacket> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<WindowPacket>::Failure(parsed.Error());
             }
@@ -12323,6 +12811,20 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "ft";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 6U> Fields = {{
+            {"result", PacketFieldType::Int62},
+            {"objIndex", PacketFieldType::Int62},
+            {"name", PacketFieldType::EscapedString},
+            {"description", PacketFieldType::EscapedString},
+            {"item", PacketFieldType::EscapedString},
+            {"pet", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
 
         int result = 0;
         int objIndex = 0;
@@ -12385,7 +12887,7 @@ namespace cg::packet::receive
 
         static PacketResult<StallBrowse> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<StallBrowse>::Failure(parsed.Error());
             }
@@ -12546,6 +13048,16 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "jv";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
+            {"jobassort", PacketFieldType::Int62},
+            {"name", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
 
         int jobAssort = 0;
         std::string name;
@@ -12574,7 +13086,7 @@ namespace cg::packet::receive
 
         static PacketResult<JobName> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<JobName>::Failure(parsed.Error());
             }
@@ -12714,6 +13226,15 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "TeD";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {"data", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
 
         std::string data;
 
@@ -12735,7 +13256,7 @@ namespace cg::packet::receive
 
         static PacketResult<MapName> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<MapName>::Failure(parsed.Error());
             }
@@ -12803,6 +13324,15 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "gnxd";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {"data", PacketFieldType::SubPayload},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
         static constexpr std::string_view PayloadDelimiter = "|";
         static constexpr std::size_t SlotCount = 60U;
         static constexpr std::size_t SlotFieldCount = 7U;
@@ -12864,7 +13394,7 @@ namespace cg::packet::receive
 
         static PacketResult<AddressBook> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view, ::cg::packet::detail::AddressBookSpec);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<AddressBook>::Failure(parsed.Error());
             }
@@ -13089,6 +13619,16 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "vI";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
+            {"registry", PacketFieldType::Int62},
+            {"data", PacketFieldType::SubPayload},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
         static constexpr std::string_view PayloadDelimiter = "|";
         static constexpr std::size_t PayloadFieldCount = 10U;
 
@@ -13181,7 +13721,7 @@ namespace cg::packet::receive
 
         static PacketResult<AddressBookInfo> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view, ::cg::packet::detail::AddressBookInfoSpec);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<AddressBookInfo>::Failure(parsed.Error());
             }
@@ -13409,6 +13949,15 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "aDn";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {"data", PacketFieldType::SubPayload},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
         static constexpr std::string_view PayloadDelimiter = "|";
 
         static constexpr int AllFieldsFlag = 0x0001;
@@ -13529,7 +14078,7 @@ namespace cg::packet::receive
 
         static PacketResult<GuildInfo> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view, ::cg::packet::detail::GuildInfoSpec);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<GuildInfo>::Failure(parsed.Error());
             }
@@ -13870,6 +14419,15 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "znv";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {"data", PacketFieldType::SubPayload},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
         static constexpr std::string_view PayloadDelimiter = "|";
         static constexpr std::size_t RecordFieldCount = 3U;
 
@@ -13919,7 +14477,7 @@ namespace cg::packet::receive
 
         static PacketResult<GuildTitle> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view, ::cg::packet::detail::GuildTitleSpec);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<GuildTitle>::Failure(parsed.Error());
             }
@@ -14119,6 +14677,15 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "yuD";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {"data", PacketFieldType::SubPayload},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
         static constexpr std::string_view PayloadDelimiter = "|";
         static constexpr std::size_t RecordFieldCount = 8U;
 
@@ -14174,7 +14741,7 @@ namespace cg::packet::receive
 
         static PacketResult<GuildMember> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view, ::cg::packet::detail::GuildMemberSpec);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<GuildMember>::Failure(parsed.Error());
             }
@@ -14396,6 +14963,16 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "Kka";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
+            {"index", PacketFieldType::Int62},
+            {"data", PacketFieldType::SubPayload},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
         static constexpr std::string_view PayloadDelimiter = "|";
 
         int index = 0;
@@ -14472,7 +15049,7 @@ namespace cg::packet::receive
 
         static PacketResult<GuildMemberInfo> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view, ::cg::packet::detail::GuildMemberInfoSpec);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<GuildMemberInfo>::Failure(parsed.Error());
             }
@@ -14729,6 +15306,17 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "Rll";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 3U> Fields = {{
+            {"fromregistseqnumber", PacketFieldType::Int62},
+            {"text", PacketFieldType::SubPayload},
+            {"color", PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
         static constexpr std::string_view PayloadDelimiter = "|";
 
         int fromRegistSeqNumber = 0;
@@ -14787,7 +15375,7 @@ namespace cg::packet::receive
 
         static PacketResult<GuildMail> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view, ::cg::packet::detail::GuildMailSpec);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<GuildMail>::Failure(parsed.Error());
             }
@@ -15021,6 +15609,15 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "Cxo";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {"data", PacketFieldType::SubPayload},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
         static constexpr std::string_view PayloadDelimiter = "|";
 
         std::vector<TradePlayerRecord> records;
@@ -15075,7 +15672,7 @@ namespace cg::packet::receive
 
         static PacketResult<TradePlayerList> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view, ::cg::packet::detail::TradePlayerListSpec);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<TradePlayerList>::Failure(parsed.Error());
             }
@@ -15205,6 +15802,16 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "ms";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
+            {"name", PacketFieldType::SubPayload},
+            {"level", PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
 
         std::string nameRaw;
         int level = 0;
@@ -15233,7 +15840,7 @@ namespace cg::packet::receive
 
         static PacketResult<TradeStart> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view, ::cg::packet::detail::TradeStartSpec);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<TradeStart>::Failure(parsed.Error());
             }
@@ -15402,6 +16009,15 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "nUbJ";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {"data", PacketFieldType::SubPayload},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
         static constexpr std::string_view PayloadDelimiter = "|";
         static constexpr std::size_t RecordFieldCount = 14U;
         static constexpr std::size_t MaxRecordCount = 20U;
@@ -15489,7 +16105,7 @@ namespace cg::packet::receive
 
         static PacketResult<TradeItemInfo> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view, ::cg::packet::detail::TradeItemInfoSpec);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<TradeItemInfo>::Failure(parsed.Error());
             }
@@ -15839,6 +16455,16 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "RwK";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
+            {"petPlace", PacketFieldType::Int62},
+            {"data", PacketFieldType::SubPayload},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
         static constexpr std::string_view PayloadDelimiter = "|";
         static constexpr std::size_t PayloadFieldCount = 23U;
         static constexpr std::size_t PayloadPartCount = PayloadFieldCount + 1U;
@@ -15928,7 +16554,7 @@ namespace cg::packet::receive
 
         static PacketResult<TradePetInfo> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view, ::cg::packet::detail::TradePetInfoSpec);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<TradePetInfo>::Failure(parsed.Error());
             }
@@ -16206,6 +16832,16 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "Yq";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
+            {"petIndex", PacketFieldType::Int62},
+            {"data", PacketFieldType::SubPayload},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
         static constexpr std::string_view PayloadDelimiter = "|";
         static constexpr std::size_t MaxSkillCount = 10U;
 
@@ -16266,7 +16902,7 @@ namespace cg::packet::receive
 
         static PacketResult<TradePetSkillInfo> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view, ::cg::packet::detail::TradePetSkillInfoSpec);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<TradePetSkillInfo>::Failure(parsed.Error());
             }
@@ -16492,6 +17128,15 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "PhdQ";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {"data", PacketFieldType::SubPayload},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
         static constexpr std::string_view PayloadDelimiter = "|";
         static constexpr std::size_t MaxRecordCount = 60U;
         static constexpr std::size_t RecordFieldCount = 2U;
@@ -16542,7 +17187,7 @@ namespace cg::packet::receive
 
         static PacketResult<AddressBookGuildInfo> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view, ::cg::packet::detail::AddressBookGuildInfoSpec);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<AddressBookGuildInfo>::Failure(parsed.Error());
             }
@@ -16670,6 +17315,15 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "nsY";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {"data", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
         static constexpr std::string_view RecordDelimiter = "\\t";
         static constexpr std::string_view FieldDelimiter = "|";
 
@@ -16724,7 +17378,7 @@ namespace cg::packet::receive
 
         static PacketResult<ObjectList> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<ObjectList>::Failure(parsed.Error());
             }
@@ -16853,6 +17507,15 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "NI";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {"data", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
         static constexpr std::string_view EntryDelimiter = ",";
         static constexpr std::string_view FieldDelimiter = "|";
 
@@ -16907,7 +17570,7 @@ namespace cg::packet::receive
 
         static PacketResult<CharacterIcon> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<CharacterIcon>::Failure(parsed.Error());
             }
@@ -17018,6 +17681,15 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "uSB";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {"data", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
         static constexpr std::string_view IndexDelimiter = ",";
 
         std::vector<int> objectIndexes;
@@ -17059,7 +17731,7 @@ namespace cg::packet::receive
 
         static PacketResult<ObjectDelete> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<ObjectDelete>::Failure(parsed.Error());
             }
@@ -17174,6 +17846,21 @@ namespace cg::packet::receive
     {
         static constexpr std::string_view Code = "aBS";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 7U> Fields = {{
+            {"mapid", PacketFieldType::Int62},
+            {"floor", PacketFieldType::Int62},
+            {"x1", PacketFieldType::Int62},
+            {"y1", PacketFieldType::Int62},
+            {"x2", PacketFieldType::Int62},
+            {"y2", PacketFieldType::Int62},
+            {"data", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
         static constexpr std::string_view LayerDelimiter = "|";
         static constexpr std::string_view CellDelimiter = ",";
 
@@ -17270,7 +17957,7 @@ namespace cg::packet::receive
 
         static PacketResult<MapData> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<MapData>::Failure(parsed.Error());
             }

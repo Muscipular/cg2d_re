@@ -9,6 +9,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::CharacterSkillData::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 int Expect(bool condition, const char* message)
 {
     if (condition) {
@@ -126,7 +141,7 @@ int ExpectEmptyRecord(
 int TestParsePacketOuter()
 {
     const std::string payload = "0|100|Fire|1|25|10|100|1|2|3|4|";
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(BuildPlainCne(payload));
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(BuildPlainCne(payload));
 
     int failures = Expect(static_cast<bool>(parsed), "parse cNE outer");
     if (parsed.HasValue()) {
@@ -152,7 +167,7 @@ int TestSingleRecordRoundtrip()
     }
     failures += Expect(parsed.Value().BuildData() == payload, "cNE single BuildData");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(parsed.Value().ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(parsed.Value().ToPacket());
     failures += Expect(static_cast<bool>(built), "build cNE single packet");
     if (built.HasValue()) {
         failures += Expect(built.Value() == BuildPlainCne(payload), "roundtrip cNE single packet");
@@ -169,7 +184,7 @@ int TestMultiRecordRoundtrip()
     const std::string payload = "0|100|Fire|1|25|10|100|1|2|3|4|1|101|Heal|2|50|10|200|2|3|4|5|";
 
     int failures = ExpectCharacterSkillDataPacket(skillData.ToPacket(), payload, "cNE multi ToPacket");
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(skillData.ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(skillData.ToPacket());
     failures += Expect(static_cast<bool>(built), "build cNE multi packet");
     if (!built.HasValue()) {
         return failures;

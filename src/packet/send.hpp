@@ -22,6 +22,17 @@ namespace cg::packet::send
     {
         static constexpr std::string_view Code = "JFVf";
         static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 3U> Fields = {{
+            {"clientHash", PacketFieldType::EscapedString},
+            {"password", PacketFieldType::EscapedString},
+            {"account", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
 
         std::string clientHash;
         std::string password;
@@ -64,6 +75,73 @@ namespace cg::packet::send
     };
 
     /**
+     * RECV_CharList 获取角色列表 Gp
+     */
+    struct CharacterListRequest
+    {
+        static constexpr std::string_view Code = "Gp";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 0U> Fields = {};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            return Packet(PacketCode(Code), Direction);
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket(), Spec);
+        }
+    };
+
+    /**
+     * RECV_CheckCommand 发送客户端时间 CCL {time:i62}
+     */
+    struct CheckCommand
+    {
+        static constexpr std::string_view Code = "CCL";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {"time", PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        int time = 0;
+
+        explicit CheckCommand(int time)
+            : time(time)
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                "time",
+                PacketFieldType::Int62,
+                std::to_string(time),
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket(), Spec);
+        }
+    };
+
+    /**
      * RECV_CreateNewChar 创建角色 aSEl
      * {dataPlace:i62} {name:es} {image:i62} {face:i62} {vital:i62} {strength:i62}
      * {tough:i62} {quick:i62} {magic:i62} {earth:i62} {water:i62} {fire:i62} {wind:i62}
@@ -72,6 +150,27 @@ namespace cg::packet::send
     {
         static constexpr std::string_view Code = "aSEl";
         static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 13U> Fields = {{
+            {"dataPlace", PacketFieldType::Int62},
+            {"name", PacketFieldType::EscapedString},
+            {"image", PacketFieldType::Int62},
+            {"face", PacketFieldType::Int62},
+            {"vital", PacketFieldType::Int62},
+            {"strength", PacketFieldType::Int62},
+            {"tough", PacketFieldType::Int62},
+            {"quick", PacketFieldType::Int62},
+            {"magic", PacketFieldType::Int62},
+            {"earth", PacketFieldType::Int62},
+            {"water", PacketFieldType::Int62},
+            {"fire", PacketFieldType::Int62},
+            {"wind", PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
 
         int dataPlace = 0;
         std::string name;
@@ -190,7 +289,7 @@ namespace cg::packet::send
 
         [[nodiscard]] PacketResult<std::string> Encode() const
         {
-            return BuildPacket(ToPacket());
+            return BuildPacket(ToPacket(), Spec);
         }
     };
 
@@ -201,6 +300,20 @@ namespace cg::packet::send
     {
         static constexpr std::string_view Code = "UUN";
         static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 6U> Fields = {{
+            {"mapid", PacketFieldType::Int62},
+            {"floor", PacketFieldType::Int62},
+            {"x1", PacketFieldType::Int62},
+            {"y1", PacketFieldType::Int62},
+            {"x2", PacketFieldType::Int62},
+            {"y2", PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
 
         int mapId = 0;
         int floor = 0;
@@ -257,7 +370,7 @@ namespace cg::packet::send
 
         [[nodiscard]] PacketResult<std::string> Encode() const
         {
-            return BuildPacket(ToPacket());
+            return BuildPacket(ToPacket(), Spec);
         }
     };
 
@@ -268,6 +381,21 @@ namespace cg::packet::send
     {
         static constexpr std::string_view Code = "Ot";
         static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 7U> Fields = {{
+            {"sellFlag", PacketFieldType::Int62},
+            {"sellMsg", PacketFieldType::EscapedString},
+            {"buyFlag", PacketFieldType::Int62},
+            {"buyMsg", PacketFieldType::EscapedString},
+            {"aboutFlg", PacketFieldType::Int62},
+            {"aboutMsg", PacketFieldType::EscapedString},
+            {"ProfileMsg", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
 
         int sellFlag = 0;
         std::string sellMessage;
@@ -338,7 +466,7 @@ namespace cg::packet::send
 
         [[nodiscard]] PacketResult<std::string> Encode() const
         {
-            return BuildPacket(ToPacket());
+            return BuildPacket(ToPacket(), Spec);
         }
     };
 
@@ -349,6 +477,18 @@ namespace cg::packet::send
     {
         static constexpr std::string_view Code = "RXr";
         static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 4U> Fields = {{
+            {"x", PacketFieldType::Int62},
+            {"y", PacketFieldType::Int62},
+            {"array", PacketFieldType::Int62},
+            {"toindex", PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
 
         int x = 0;
         int y = 0;
@@ -391,7 +531,7 @@ namespace cg::packet::send
 
         [[nodiscard]] PacketResult<std::string> Encode() const
         {
-            return BuildPacket(ToPacket());
+            return BuildPacket(ToPacket(), Spec);
         }
     };
 
@@ -402,6 +542,18 @@ namespace cg::packet::send
     {
         static constexpr std::string_view Code = "Flvp";
         static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 4U> Fields = {{
+            {"havepetindex", PacketFieldType::Int62},
+            {"havepetskill", PacketFieldType::Int62},
+            {"toindex", PacketFieldType::Int62},
+            {"data", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
 
         int havepetindex = 0;
         int havepetskill = 0;
@@ -444,7 +596,7 @@ namespace cg::packet::send
 
         [[nodiscard]] PacketResult<std::string> Encode() const
         {
-            return BuildPacket(ToPacket());
+            return BuildPacket(ToPacket(), Spec);
         }
     };
 
@@ -455,6 +607,16 @@ namespace cg::packet::send
     {
         static constexpr std::string_view Code = "kjSK";
         static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
+            {"petSlot", PacketFieldType::Int62},
+            {"sqeno", PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
 
         int petSlot = 0;
         int sqeno = 0;
@@ -483,7 +645,7 @@ namespace cg::packet::send
 
         [[nodiscard]] PacketResult<std::string> Encode() const
         {
-            return BuildPacket(ToPacket());
+            return BuildPacket(ToPacket(), Spec);
         }
     };
 
@@ -494,6 +656,17 @@ namespace cg::packet::send
     {
         static constexpr std::string_view Code = "HJQp";
         static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 3U> Fields = {{
+            {"petSlot", PacketFieldType::Int62},
+            {"from", PacketFieldType::Int62},
+            {"to", PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
 
         int petSlot = 0;
         int from = 0;
@@ -529,7 +702,7 @@ namespace cg::packet::send
 
         [[nodiscard]] PacketResult<std::string> Encode() const
         {
-            return BuildPacket(ToPacket());
+            return BuildPacket(ToPacket(), Spec);
         }
     };
 
@@ -540,6 +713,16 @@ namespace cg::packet::send
     {
         static constexpr std::string_view Code = "ycX";
         static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
+            {"petSlot", PacketFieldType::Int62},
+            {"name", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
 
         int petSlot = 0;
         std::string name;
@@ -568,7 +751,7 @@ namespace cg::packet::send
 
         [[nodiscard]] PacketResult<std::string> Encode() const
         {
-            return BuildPacket(ToPacket());
+            return BuildPacket(ToPacket(), Spec);
         }
     };
 
@@ -579,6 +762,17 @@ namespace cg::packet::send
     {
         static constexpr std::string_view Code = "CV";
         static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 3U> Fields = {{
+            {"index", PacketFieldType::Int62},
+            {"message", PacketFieldType::EscapedString},
+            {"color", PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
 
         int index = 0;
         std::string message;
@@ -614,7 +808,7 @@ namespace cg::packet::send
 
         [[nodiscard]] PacketResult<std::string> Encode() const
         {
-            return BuildPacket(ToPacket());
+            return BuildPacket(ToPacket(), Spec);
         }
     };
 
@@ -625,6 +819,20 @@ namespace cg::packet::send
     {
         static constexpr std::string_view Code = "uSr";
         static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 6U> Fields = {{
+            {"x", PacketFieldType::Int62},
+            {"y", PacketFieldType::Int62},
+            {"msg", PacketFieldType::EscapedString},
+            {"color", PacketFieldType::Int62},
+            {"area", PacketFieldType::Int62},
+            {"fontSize", PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
 
         int x = 0;
         int y = 0;
@@ -681,7 +889,7 @@ namespace cg::packet::send
 
         [[nodiscard]] PacketResult<std::string> Encode() const
         {
-            return BuildPacket(ToPacket());
+            return BuildPacket(ToPacket(), Spec);
         }
     };
 
@@ -692,6 +900,20 @@ namespace cg::packet::send
     {
         static constexpr std::string_view Code = "xD";
         static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 6U> Fields = {{
+            {"x", PacketFieldType::Int62},
+            {"y", PacketFieldType::Int62},
+            {"seqno", PacketFieldType::Int62},
+            {"objindex", PacketFieldType::Int62},
+            {"select", PacketFieldType::Int62},
+            {"data", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
 
         int x = 0;
         int y = 0;
@@ -748,7 +970,7 @@ namespace cg::packet::send
 
         [[nodiscard]] PacketResult<std::string> Encode() const
         {
-            return BuildPacket(ToPacket());
+            return BuildPacket(ToPacket(), Spec);
         }
     };
 
@@ -759,6 +981,16 @@ namespace cg::packet::send
     {
         static constexpr std::string_view Code = "IcE";
         static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
+            {"passwd", PacketFieldType::EscapedString},
+            {"min", PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
 
         std::string passwd;
         int min = 0;
@@ -787,7 +1019,7 @@ namespace cg::packet::send
 
         [[nodiscard]] PacketResult<std::string> Encode() const
         {
-            return BuildPacket(ToPacket());
+            return BuildPacket(ToPacket(), Spec);
         }
     };
 
@@ -798,6 +1030,19 @@ namespace cg::packet::send
     {
         static constexpr std::string_view Code = "rMsv";
         static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 5U> Fields = {{
+            {"index", PacketFieldType::Int62},
+            {"petindex", PacketFieldType::Int62},
+            {"itemindex", PacketFieldType::Int62},
+            {"message", PacketFieldType::EscapedString},
+            {"color", PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
 
         int index = 0;
         int petindex = 0;
@@ -847,7 +1092,7 @@ namespace cg::packet::send
 
         [[nodiscard]] PacketResult<std::string> Encode() const
         {
-            return BuildPacket(ToPacket());
+            return BuildPacket(ToPacket(), Spec);
         }
     };
 
@@ -858,6 +1103,19 @@ namespace cg::packet::send
     {
         static constexpr std::string_view Code = "PfqV";
         static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 5U> Fields = {{
+            {"toregist", PacketFieldType::Int62},
+            {"petSlot", PacketFieldType::Int62},
+            {"itemSlot", PacketFieldType::Int62},
+            {"text", PacketFieldType::EscapedString},
+            {"color", PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
 
         int toregist = 0;
         int petSlot = 0;
@@ -907,7 +1165,7 @@ namespace cg::packet::send
 
         [[nodiscard]] PacketResult<std::string> Encode() const
         {
-            return BuildPacket(ToPacket());
+            return BuildPacket(ToPacket(), Spec);
         }
     };
 
@@ -918,6 +1176,17 @@ namespace cg::packet::send
     {
         static constexpr std::string_view Code = "woz";
         static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 3U> Fields = {{
+            {"x", PacketFieldType::Int62},
+            {"y", PacketFieldType::Int62},
+            {"amount", PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
 
         int x = 0;
         int y = 0;
@@ -953,7 +1222,7 @@ namespace cg::packet::send
 
         [[nodiscard]] PacketResult<std::string> Encode() const
         {
-            return BuildPacket(ToPacket());
+            return BuildPacket(ToPacket(), Spec);
         }
     };
 
@@ -964,6 +1233,16 @@ namespace cg::packet::send
     {
         static constexpr std::string_view Code = "Ufm";
         static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
+            {"c", PacketFieldType::Int62},
+            {"data", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
 
         int c = 0;
         std::string data;
@@ -992,7 +1271,7 @@ namespace cg::packet::send
 
         [[nodiscard]] PacketResult<std::string> Encode() const
         {
-            return BuildPacket(ToPacket());
+            return BuildPacket(ToPacket(), Spec);
         }
     };
 
@@ -1003,6 +1282,17 @@ namespace cg::packet::send
     {
         static constexpr std::string_view Code = "GY";
         static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 3U> Fields = {{
+            {"index", PacketFieldType::Int62},
+            {"bitflag", PacketFieldType::Int62},
+            {"data", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
 
         int index = 0;
         int bitflag = 0;
@@ -1038,7 +1328,7 @@ namespace cg::packet::send
 
         [[nodiscard]] PacketResult<std::string> Encode() const
         {
-            return BuildPacket(ToPacket());
+            return BuildPacket(ToPacket(), Spec);
         }
     };
 
@@ -1049,6 +1339,17 @@ namespace cg::packet::send
     {
         static constexpr std::string_view Code = "uId";
         static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 3U> Fields = {{
+            {"toregistNumber", PacketFieldType::Int62},
+            {"text", PacketFieldType::EscapedString},
+            {"color", PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
 
         int toregistNumber = 0;
         std::string text;
@@ -1084,7 +1385,7 @@ namespace cg::packet::send
 
         [[nodiscard]] PacketResult<std::string> Encode() const
         {
-            return BuildPacket(ToPacket());
+            return BuildPacket(ToPacket(), Spec);
         }
     };
 
@@ -1095,6 +1396,16 @@ namespace cg::packet::send
     {
         static constexpr std::string_view Code = "wD";
         static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
+            {"profileIndex", PacketFieldType::Int62},
+            {"name", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
 
         int profileIndex = 0;
         std::string name;
@@ -1123,7 +1434,7 @@ namespace cg::packet::send
 
         [[nodiscard]] PacketResult<std::string> Encode() const
         {
-            return BuildPacket(ToPacket());
+            return BuildPacket(ToPacket(), Spec);
         }
     };
 
@@ -1135,6 +1446,16 @@ namespace cg::packet::send
     {
         static constexpr std::string_view Code = "GH";
         static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
+            {"data", PacketFieldType::SubPayload},
+            {"color", PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
         static constexpr std::string_view PayloadDelimiter = "|";
 
     private:
@@ -1208,12 +1529,12 @@ namespace cg::packet::send
             if (!packet.HasValue()) {
                 return PacketResult<std::string>::Failure(packet.Error());
             }
-            return BuildPacket(packet.Value());
+            return BuildPacket(packet.Value(), Spec);
         }
 
         static PacketResult<ProfileMiniMailSend> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view, ::cg::packet::detail::ProfileMiniMailSendSpec);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<ProfileMiniMailSend>::Failure(parsed.Error());
             }
@@ -1514,6 +1835,17 @@ namespace cg::packet::send
     {
         static constexpr std::string_view Code = "aiAb";
         static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 3U> Fields = {{
+            {"item", PacketFieldType::EscapedString},
+            {"pet", PacketFieldType::EscapedString},
+            {"gold", PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
 
         std::string item;
         std::string pet;
@@ -1549,7 +1881,7 @@ namespace cg::packet::send
 
         [[nodiscard]] PacketResult<std::string> Encode() const
         {
-            return BuildPacket(ToPacket());
+            return BuildPacket(ToPacket(), Spec);
         }
     };
 
@@ -1561,6 +1893,17 @@ namespace cg::packet::send
     {
         static constexpr std::string_view Code = "ylGN";
         static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 3U> Fields = {{
+            {"stallName", PacketFieldType::EscapedString},
+            {"stallDescription", PacketFieldType::EscapedString},
+            {"stallList", PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
         static constexpr std::string_view PayloadDelimiter = "|";
         static constexpr std::size_t ItemPriceCount = 20U;
         static constexpr std::size_t PetPriceCount = 5U;
@@ -1648,12 +1991,12 @@ namespace cg::packet::send
             if (!packet.HasValue()) {
                 return PacketResult<std::string>::Failure(packet.Error());
             }
-            return BuildPacket(packet.Value());
+            return BuildPacket(packet.Value(), Spec);
         }
 
         static PacketResult<StallStart> Parse(std::string_view view)
         {
-            PacketResult<Packet> parsed = ParsePacket(view);
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
             if (!parsed.HasValue()) {
                 return PacketResult<StallStart>::Failure(parsed.Error());
             }

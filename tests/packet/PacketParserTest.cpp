@@ -1,4 +1,6 @@
 #include "packet/PacketParser.hpp"
+#include "packet/receive.hpp"
+#include "packet/send.hpp"
 
 #include <iostream>
 #include <string>
@@ -61,7 +63,7 @@ int TestKnownPackets()
     int failures = 0;
 
     const cg::packet::PacketResult<cg::packet::Packet> login =
-        cg::packet::ParsePacket("JFVf hash pass account ");
+        cg::packet::ParsePacket("JFVf hash pass account ", cg::packet::send::ClientLogin::Spec);
     failures += Expect(static_cast<bool>(login), "parse JFVf");
     if (login.HasValue()) {
         const cg::packet::Packet& packet = login.Value();
@@ -91,7 +93,8 @@ int TestKnownPackets()
             "JFVf account");
     }
 
-    const cg::packet::PacketResult<cg::packet::Packet> checkCommand = cg::packet::ParsePacket("CCL a ");
+    const cg::packet::PacketResult<cg::packet::Packet> checkCommand =
+        cg::packet::ParsePacket("CCL a ", cg::packet::send::CheckCommand::Spec);
     failures += Expect(static_cast<bool>(checkCommand), "parse CCL");
     if (checkCommand.HasValue()) {
         const cg::packet::Packet& packet = checkCommand.Value();
@@ -107,20 +110,23 @@ int TestKnownPackets()
             "CCL time");
     }
 
-    const cg::packet::PacketResult<cg::packet::Packet> charList = cg::packet::ParsePacket("Gp");
+    const cg::packet::PacketResult<cg::packet::Packet> charList =
+        cg::packet::ParsePacket("Gp", cg::packet::send::CharacterListRequest::Spec);
     failures += Expect(static_cast<bool>(charList), "parse Gp");
     if (charList.HasValue()) {
         failures += Expect(charList.Value().code == cg::packet::PacketCode("Gp"), "Gp code");
         failures += Expect(charList.Value().fields.empty(), "Gp field count");
     }
 
-    const cg::packet::PacketResult<cg::packet::Packet> charListTrailing = cg::packet::ParsePacket("Gp ");
+    const cg::packet::PacketResult<cg::packet::Packet> charListTrailing =
+        cg::packet::ParsePacket("Gp ", cg::packet::send::CharacterListRequest::Spec);
     failures += Expect(static_cast<bool>(charListTrailing), "parse Gp trailing");
     if (charListTrailing.HasValue()) {
         failures += Expect(charListTrailing.Value().fields.empty(), "Gp trailing field count");
     }
 
-    const cg::packet::PacketResult<cg::packet::Packet> busy = cg::packet::ParsePacket("whV 0 busy ");
+    const cg::packet::PacketResult<cg::packet::Packet> busy =
+        cg::packet::ParsePacket("whV 0 busy ", cg::packet::receive::ClientLoginResult::Spec);
     failures += Expect(static_cast<bool>(busy), "parse whV busy");
     if (busy.HasValue()) {
         const cg::packet::Packet& packet = busy.Value();
@@ -160,7 +166,8 @@ int TestEnvelopeBoundary()
         return failures;
     }
 
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(plain.Value());
+    const cg::packet::PacketResult<cg::packet::Packet> parsed =
+        cg::packet::ParsePacket(plain.Value(), cg::packet::receive::ClientLoginResult::Spec);
     failures += Expect(static_cast<bool>(parsed), "parse decoded whV");
     if (parsed.HasValue()) {
         failures += Expect(parsed.Value().code == cg::packet::PacketCode("whV"), "decoded whV code");
@@ -179,11 +186,24 @@ int TestEnvelopeBoundary()
 int TestErrors()
 {
     int failures = 0;
-    failures += ExpectError(cg::packet::ParsePacket(""), cg::packet::PacketErrorCode::EmptyInput, "", "empty input");
-    failures += ExpectError(cg::packet::ParsePacket(" "), cg::packet::PacketErrorCode::InvalidCode, "", "empty code");
-    failures += ExpectError(cg::packet::ParsePacket("BAD"), cg::packet::PacketErrorCode::UnknownCode, "BAD", "unknown code");
+    failures += ExpectError(
+        cg::packet::ParsePacket("", cg::packet::receive::ClientLoginResult::Spec),
+        cg::packet::PacketErrorCode::EmptyInput,
+        "",
+        "empty input");
+    failures += ExpectError(
+        cg::packet::ParsePacket(" ", cg::packet::receive::ClientLoginResult::Spec),
+        cg::packet::PacketErrorCode::InvalidCode,
+        "",
+        "empty code");
+    failures += ExpectError(
+        cg::packet::ParsePacket("BAD", cg::packet::receive::ClientLoginResult::Spec),
+        cg::packet::PacketErrorCode::InvalidCode,
+        "BAD",
+        "wrong spec code");
 
-    const cg::packet::PacketResult<cg::packet::Packet> missingField = cg::packet::ParsePacket("whV 0");
+    const cg::packet::PacketResult<cg::packet::Packet> missingField =
+        cg::packet::ParsePacket("whV 0", cg::packet::receive::ClientLoginResult::Spec);
     failures += ExpectError(
         missingField,
         cg::packet::PacketErrorCode::FieldCountMismatch,
@@ -193,7 +213,8 @@ int TestErrors()
         failures += Expect(missingField.Error().fieldIndex == 1U, "missing field index");
     }
 
-    const cg::packet::PacketResult<cg::packet::Packet> extraField = cg::packet::ParsePacket("Gp a");
+    const cg::packet::PacketResult<cg::packet::Packet> extraField =
+        cg::packet::ParsePacket("Gp a", cg::packet::send::CharacterListRequest::Spec);
     failures += ExpectError(
         extraField,
         cg::packet::PacketErrorCode::FieldCountMismatch,
@@ -203,13 +224,15 @@ int TestErrors()
         failures += Expect(extraField.Error().fieldIndex == 0U, "extra field index");
     }
 
-    const cg::packet::PacketResult<cg::packet::Packet> intDecode = cg::packet::ParsePacket("CCL _");
+    const cg::packet::PacketResult<cg::packet::Packet> intDecode =
+        cg::packet::ParsePacket("CCL _", cg::packet::send::CheckCommand::Spec);
     failures += ExpectError(intDecode, cg::packet::PacketErrorCode::DecodeFailed, "CCL", "i62 decode failed");
     if (intDecode.HasError()) {
         failures += Expect(intDecode.Error().fieldIndex == 0U, "i62 field index");
     }
 
-    const cg::packet::PacketResult<cg::packet::Packet> emptyInt = cg::packet::ParsePacket("CCL ");
+    const cg::packet::PacketResult<cg::packet::Packet> emptyInt =
+        cg::packet::ParsePacket("CCL ", cg::packet::send::CheckCommand::Spec);
     failures += Expect(static_cast<bool>(emptyInt), "empty i62 token as zero");
     if (emptyInt.HasValue()) {
         failures += ExpectParsedField(

@@ -10,6 +10,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::TechList::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 int Expect(bool condition, const char* message)
 {
     if (condition) {
@@ -105,7 +120,7 @@ int TestParsePacketOuter()
 {
     const std::string payload = "Fire|Burn|10|2|3|1|";
     const cg::packet::PacketResult<cg::packet::Packet> parsed =
-        cg::packet::ParsePacket(BuildPlainRspn(62, payload));
+        ParsePacket(BuildPlainRspn(62, payload));
 
     int failures = Expect(static_cast<bool>(parsed), "parse Rspn outer");
     if (parsed.HasValue()) {
@@ -128,7 +143,7 @@ int TestEmptyData()
     failures += Expect(parsed.Value().records.empty(), "parse Rspn empty records");
     failures += ExpectTechListPacket(parsed.Value().ToPacket(), 3, "", "Rspn empty ToPacket");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(parsed.Value().ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(parsed.Value().ToPacket());
     failures += Expect(static_cast<bool>(built), "build Rspn empty data");
     if (built.HasValue()) {
         failures += Expect(built.Value() == BuildPlainRspn(3, ""), "build Rspn empty value");
@@ -180,7 +195,7 @@ int TestRawEscapeRoundtrip()
             "parse Rspn raw escape record");
     }
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(parsed.Value().ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(parsed.Value().ToPacket());
     failures += Expect(static_cast<bool>(built), "build Rspn raw escape packet");
     if (!built.HasValue()) {
         return failures;

@@ -9,6 +9,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::ObjectDelete::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 int Expect(bool condition, const char* message)
 {
     if (condition) {
@@ -93,7 +108,7 @@ int ExpectIndexes(
 int TestParsePacketOuter()
 {
     const cg::packet::PacketResult<cg::packet::Packet> parsed =
-        cg::packet::ParsePacket(BuildPlainUsb("1,2,a"));
+        ParsePacket(BuildPlainUsb("1,2,a"));
 
     int failures = Expect(static_cast<bool>(parsed), "parse uSB outer");
     if (parsed.HasValue()) {
@@ -132,14 +147,14 @@ int TestBuildNoOuterObjectIndex()
     const cg::packet::Packet packet = objectDelete.ToPacket();
 
     int failures = ExpectObjectDeletePacket(packet, "1,2,a", "uSB ToPacket data only");
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet);
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet);
     failures += Expect(static_cast<bool>(built), "build uSB packet");
     if (!built.HasValue()) {
         return failures;
     }
 
     failures += Expect(built.Value() == "uSB 1,2,a ", "build uSB no outer objectIndex");
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(built.Value());
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(built.Value());
     failures += Expect(static_cast<bool>(parsed), "parse built uSB packet");
     if (parsed.HasValue()) {
         failures += ExpectObjectDeletePacket(parsed.Value(), "1,2,a", "built uSB packet data only");
@@ -161,7 +176,7 @@ int TestEmptyList()
     const cg::packet::Packet packet = objectDelete.ToPacket();
     failures += ExpectObjectDeletePacket(packet, "", "uSB empty ToPacket");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet);
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet);
     failures += Expect(static_cast<bool>(built), "build uSB empty packet");
     if (built.HasValue()) {
         failures += Expect(built.Value() == "uSB  ", "build uSB empty data");
@@ -173,7 +188,7 @@ int TestErrors()
 {
     int failures = 0;
     failures += ExpectError(
-        cg::packet::ParsePacket("uSB"),
+        ParsePacket("uSB"),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "uSB",
         "uSB missing data");

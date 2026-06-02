@@ -9,6 +9,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::Effect::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 int Expect(bool condition, const char* message)
 {
     if (condition) {
@@ -119,7 +134,7 @@ int ExpectEffectPacket(
 int TestParsePacket()
 {
     const cg::packet::PacketResult<cg::packet::Packet> parsed =
-        cg::packet::ParsePacket("zzd 1 2 opt ");
+        ParsePacket("zzd 1 2 opt ");
 
     int failures = Expect(static_cast<bool>(parsed), "parse zzd");
     if (parsed.HasValue()) {
@@ -131,7 +146,7 @@ int TestParsePacket()
 int TestInt62Parse()
 {
     const cg::packet::PacketResult<cg::packet::Packet> parsed =
-        cg::packet::ParsePacket("zzd a Z data ");
+        ParsePacket("zzd a Z data ");
 
     int failures = Expect(static_cast<bool>(parsed), "parse zzd i62");
     if (parsed.HasValue()) {
@@ -164,7 +179,7 @@ int TestTypedRoundtrip()
     failures += Expect(parsed.Value().data == "opt", "zzd data");
     failures += ExpectEffectPacket(parsed.Value().ToPacket(), "1", "2", "opt", "zzd ToPacket");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(parsed.Value().ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(parsed.Value().ToPacket());
     failures += Expect(static_cast<bool>(built), "build zzd packet");
     if (built.HasValue()) {
         failures += Expect(built.Value() == "zzd 1 2 opt ", "roundtrip zzd packet");
@@ -175,7 +190,7 @@ int TestTypedRoundtrip()
 int TestEmptyData()
 {
     const cg::packet::receive::Effect effect(1, 2, "");
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(effect.ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(effect.ToPacket());
 
     int failures = Expect(static_cast<bool>(built), "build zzd empty data");
     if (!built.HasValue()) {
@@ -197,7 +212,7 @@ int TestEscapedDataRoundtrip()
 {
     const std::string data = "A B\\C|D";
     const cg::packet::receive::Effect effect(1, 2, data);
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(effect.ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(effect.ToPacket());
 
     int failures = Expect(static_cast<bool>(built), "build zzd escaped data");
     if (!built.HasValue()) {
@@ -219,7 +234,7 @@ int TestParseErrors()
 {
     int failures = 0;
     failures += ExpectError(
-        cg::packet::ParsePacket("zzd 1 2"),
+        ParsePacket("zzd 1 2"),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "zzd",
         true,
@@ -233,14 +248,14 @@ int TestParseErrors()
         2U,
         "typed zzd missing data");
     failures += ExpectError(
-        cg::packet::ParsePacket("zzd 1 2 data extra "),
+        ParsePacket("zzd 1 2 data extra "),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "zzd",
         true,
         3U,
         "zzd extra field");
     failures += ExpectError(
-        cg::packet::ParsePacket("zzd _ 2 data "),
+        ParsePacket("zzd _ 2 data "),
         cg::packet::PacketErrorCode::DecodeFailed,
         "zzd",
         true,
@@ -254,7 +269,7 @@ int TestParseErrors()
         1U,
         "typed zzd bad tmEffSize");
     failures += ExpectError(
-        cg::packet::ParsePacket("zzd 2lkCB2 2 data "),
+        ParsePacket("zzd 2lkCB2 2 data "),
         cg::packet::PacketErrorCode::DecodeFailed,
         "zzd",
         true,
@@ -281,14 +296,14 @@ int TestBuildErrors()
 {
     int failures = 0;
     failures += ExpectError(
-        cg::packet::BuildPacket(PacketOf(cg::packet::PacketDirection::ServerToClient, {})),
+        BuildPacket(PacketOf(cg::packet::PacketDirection::ServerToClient, {})),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "zzd",
         true,
         0U,
         "zzd build missing fields");
     failures += ExpectError(
-        cg::packet::BuildPacket(PacketOf(
+        BuildPacket(PacketOf(
             cg::packet::PacketDirection::ServerToClient,
             {
                 Field("EffType", cg::packet::PacketFieldType::Int62, "1"),
@@ -302,7 +317,7 @@ int TestBuildErrors()
         3U,
         "zzd build extra field");
     failures += ExpectError(
-        cg::packet::BuildPacket(PacketOf(
+        BuildPacket(PacketOf(
             cg::packet::PacketDirection::ClientToServer,
             {
                 Field("EffType", cg::packet::PacketFieldType::Int62, "1"),
@@ -315,7 +330,7 @@ int TestBuildErrors()
         0U,
         "zzd build wrong direction");
     failures += ExpectError(
-        cg::packet::BuildPacket(PacketOf(
+        BuildPacket(PacketOf(
             cg::packet::PacketDirection::ServerToClient,
             {
                 Field("effType", cg::packet::PacketFieldType::Int62, "1"),
@@ -328,7 +343,7 @@ int TestBuildErrors()
         0U,
         "zzd build wrong field name");
     failures += ExpectError(
-        cg::packet::BuildPacket(PacketOf(
+        BuildPacket(PacketOf(
             cg::packet::PacketDirection::ServerToClient,
             {
                 Field("EffType", cg::packet::PacketFieldType::EscapedString, "1"),

@@ -8,6 +8,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::send::WindowOpenSend::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 int Expect(bool condition, const char* message)
 {
     if (condition) {
@@ -104,7 +119,7 @@ int TestToPacketAndEncode()
 
     int failures = ExpectWindowOpenSendPacket(request.ToPacket(), "1", "2", "3", "4", "5", "open", "xD ToPacket");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(request.ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(request.ToPacket());
     failures += Expect(static_cast<bool>(built), "xD BuildPacket");
     if (built.HasValue()) {
         failures += Expect(built.Value() == "xD 1 2 3 4 5 open ", "xD BuildPacket value");
@@ -130,7 +145,7 @@ int TestEmptyData()
 
     failures += Expect(encoded.Value() == "xD 1 2 3 4 5  ", "xD empty data value");
 
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(encoded.Value());
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(encoded.Value());
     failures += Expect(static_cast<bool>(parsed), "xD parse empty data");
     if (parsed.HasValue()) {
         failures += ExpectWindowOpenSendPacket(parsed.Value(), "1", "2", "3", "4", "5", "", "xD parsed empty data");
@@ -150,7 +165,7 @@ int TestEscapedDataRoundtrip()
 
     failures += Expect(encoded.Value() == "xD 1 2 3 4 5 A\\SB\\\\C\\nD|E ", "xD escaped value");
 
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(encoded.Value());
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(encoded.Value());
     failures += Expect(static_cast<bool>(parsed), "xD parse escaped data");
     if (parsed.HasValue()) {
         failures += ExpectWindowOpenSendPacket(
@@ -178,7 +193,7 @@ int TestPipeDataRoundtrip()
 
     failures += Expect(encoded.Value() == "xD 1 2 3 4 5 A|B|C ", "xD pipe unchanged");
 
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(encoded.Value());
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(encoded.Value());
     failures += Expect(static_cast<bool>(parsed), "xD parse pipe data");
     if (parsed.HasValue()) {
         failures += ExpectWindowOpenSendPacket(parsed.Value(), "1", "2", "3", "4", "5", request.data, "xD pipe roundtrip");
@@ -198,7 +213,7 @@ int TestParsePacketRoundtrip()
 
     failures += Expect(encoded.Value() == "xD a k 3 -1 g window\\Sdata ", "xD i62 encoded value");
 
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(encoded.Value());
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(encoded.Value());
     failures += Expect(static_cast<bool>(parsed), "xD parse i62 values");
     if (parsed.HasValue()) {
         failures += ExpectWindowOpenSendPacket(parsed.Value(), "10", "20", "3", "-1", "16", request.data, "xD parsed i62 values");
@@ -210,49 +225,49 @@ int TestParseErrors()
 {
     int failures = 0;
     failures += ExpectError(
-        cg::packet::ParsePacket("xD 1 2 3 4 5"),
+        ParsePacket("xD 1 2 3 4 5"),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "xD",
         true,
         5U,
         "xD missing data");
     failures += ExpectError(
-        cg::packet::ParsePacket("xD 1 2 3 4 5 data extra "),
+        ParsePacket("xD 1 2 3 4 5 data extra "),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "xD",
         true,
         6U,
         "xD extra field");
     failures += ExpectError(
-        cg::packet::ParsePacket("xD _ 2 3 4 5 data "),
+        ParsePacket("xD _ 2 3 4 5 data "),
         cg::packet::PacketErrorCode::DecodeFailed,
         "xD",
         true,
         0U,
         "xD bad x");
     failures += ExpectError(
-        cg::packet::ParsePacket("xD 1 _ 3 4 5 data "),
+        ParsePacket("xD 1 _ 3 4 5 data "),
         cg::packet::PacketErrorCode::DecodeFailed,
         "xD",
         true,
         1U,
         "xD bad y");
     failures += ExpectError(
-        cg::packet::ParsePacket("xD 1 2 _ 4 5 data "),
+        ParsePacket("xD 1 2 _ 4 5 data "),
         cg::packet::PacketErrorCode::DecodeFailed,
         "xD",
         true,
         2U,
         "xD bad seqno");
     failures += ExpectError(
-        cg::packet::ParsePacket("xD 1 2 3 _ 5 data "),
+        ParsePacket("xD 1 2 3 _ 5 data "),
         cg::packet::PacketErrorCode::DecodeFailed,
         "xD",
         true,
         3U,
         "xD bad objindex");
     failures += ExpectError(
-        cg::packet::ParsePacket("xD 1 2 3 4 _ data "),
+        ParsePacket("xD 1 2 3 4 _ data "),
         cg::packet::PacketErrorCode::DecodeFailed,
         "xD",
         true,
@@ -263,7 +278,7 @@ int TestParseErrors()
     truncatedData.push_back(static_cast<char>(0x80U));
     truncatedData.push_back(' ');
     failures += ExpectError(
-        cg::packet::ParsePacket(truncatedData),
+        ParsePacket(truncatedData),
         cg::packet::PacketErrorCode::DecodeFailed,
         "xD",
         true,
@@ -279,7 +294,7 @@ int TestBuildErrors()
     cg::packet::Packet wrongDirection = cg::packet::send::WindowOpenSend(1, 2, 3, 4, 5, "data").ToPacket();
     wrongDirection.direction = cg::packet::PacketDirection::ServerToClient;
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongDirection),
+        BuildPacket(wrongDirection),
         cg::packet::PacketErrorCode::EncodeFailed,
         "xD",
         false,
@@ -289,7 +304,7 @@ int TestBuildErrors()
     cg::packet::Packet wrongName = cg::packet::send::WindowOpenSend(1, 2, 3, 4, 5, "data").ToPacket();
     wrongName.fields[5].name = "payload";
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongName),
+        BuildPacket(wrongName),
         cg::packet::PacketErrorCode::EncodeFailed,
         "xD",
         true,
@@ -299,7 +314,7 @@ int TestBuildErrors()
     cg::packet::Packet wrongType = cg::packet::send::WindowOpenSend(1, 2, 3, 4, 5, "data").ToPacket();
     wrongType.fields[5].type = cg::packet::PacketFieldType::RawString;
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongType),
+        BuildPacket(wrongType),
         cg::packet::PacketErrorCode::EncodeFailed,
         "xD",
         true,
@@ -309,7 +324,7 @@ int TestBuildErrors()
     cg::packet::Packet badInt = cg::packet::send::WindowOpenSend(1, 2, 3, 4, 5, "data").ToPacket();
     badInt.fields[0].value = "abc";
     failures += ExpectError(
-        cg::packet::BuildPacket(badInt),
+        BuildPacket(badInt),
         cg::packet::PacketErrorCode::EncodeFailed,
         "xD",
         true,
@@ -319,7 +334,7 @@ int TestBuildErrors()
     cg::packet::Packet badData = cg::packet::send::WindowOpenSend(1, 2, 3, 4, 5, "data").ToPacket();
     badData.fields[5].value.assign(1U, static_cast<char>(0x80U));
     failures += ExpectError(
-        cg::packet::BuildPacket(badData),
+        BuildPacket(badData),
         cg::packet::PacketErrorCode::EncodeFailed,
         "xD",
         true,

@@ -10,6 +10,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::send::ProfileMailFriendDelete::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 using ProfileMailFriendDelete = cg::packet::send::ProfileMailFriendDelete;
 
 int Expect(bool condition, const char* message)
@@ -143,7 +158,7 @@ int TestToPacketAndEncode()
 
     int failures = ExpectProfileMailFriendDeletePacket(request.ToPacket(), "12", "Alice", "wD ToPacket");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(request.ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(request.ToPacket());
     failures += Expect(static_cast<bool>(built), "wD BuildPacket");
     if (built.HasValue()) {
         failures += Expect(built.Value() == "wD c Alice ", "wD BuildPacket value");
@@ -169,7 +184,7 @@ int TestEmptyName()
 
     failures += Expect(encoded.Value() == "wD 0  ", "wD empty name value");
 
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(encoded.Value());
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(encoded.Value());
     failures += Expect(static_cast<bool>(parsed), "wD empty name parse");
     if (parsed.HasValue()) {
         failures += ExpectProfileMailFriendDeletePacket(parsed.Value(), "0", "", "wD empty name packet");
@@ -190,7 +205,7 @@ int TestEscapedNameRoundtrip()
 
     failures += Expect(encoded.Value() == "wD c A\\SB\\\\C\\nD\\rE ", "wD escaped name value");
 
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(encoded.Value());
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(encoded.Value());
     failures += Expect(static_cast<bool>(parsed), "wD escaped name parse");
     if (parsed.HasValue()) {
         failures += ExpectProfileMailFriendDeletePacket(parsed.Value(), "12", name, "wD escaped name packet");
@@ -211,7 +226,7 @@ int TestPipeNameIsNotNested()
 
     failures += Expect(encoded.Value() == "wD c Alice|Bob|Carol ", "wD pipe name value");
 
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(BuildRawPlain("c", name));
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(BuildRawPlain("c", name));
     failures += Expect(static_cast<bool>(parsed), "wD pipe name parse");
     if (parsed.HasValue()) {
         failures += ExpectProfileMailFriendDeletePacket(parsed.Value(), "12", name, "wD pipe name packet");
@@ -221,7 +236,7 @@ int TestPipeNameIsNotNested()
 
 int TestParsePacketRoundtrip()
 {
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket("wD c Alice ");
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket("wD c Alice ");
 
     int failures = Expect(static_cast<bool>(parsed), "wD parse packet");
     if (parsed.HasValue()) {
@@ -232,7 +247,7 @@ int TestParsePacketRoundtrip()
 
 int TestEmptyProfileIndexParse()
 {
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(BuildRawPlain("", "Alice"));
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(BuildRawPlain("", "Alice"));
 
     int failures = Expect(static_cast<bool>(parsed), "wD empty profileIndex parse");
     if (parsed.HasValue()) {
@@ -245,28 +260,28 @@ int TestParseErrors()
 {
     int failures = 0;
     failures += ExpectError(
-        cg::packet::ParsePacket("wD c"),
+        ParsePacket("wD c"),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "wD",
         true,
         1U,
         "wD missing name");
     failures += ExpectError(
-        cg::packet::ParsePacket("wD c Alice extra "),
+        ParsePacket("wD c Alice extra "),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "wD",
         true,
         2U,
         "wD extra field");
     failures += ExpectError(
-        cg::packet::ParsePacket("wD _ Alice "),
+        ParsePacket("wD _ Alice "),
         cg::packet::PacketErrorCode::DecodeFailed,
         "wD",
         true,
         0U,
         "wD bad profileIndex");
     failures += ExpectError(
-        cg::packet::ParsePacket(BuildRawPlain("c", Bytes({0x81U}))),
+        ParsePacket(BuildRawPlain("c", Bytes({0x81U}))),
         cg::packet::PacketErrorCode::DecodeFailed,
         "wD",
         true,
@@ -282,7 +297,7 @@ int TestBuildErrors()
     cg::packet::Packet wrongDirection = ProfileMailFriendDelete(12, "Alice").ToPacket();
     wrongDirection.direction = cg::packet::PacketDirection::ServerToClient;
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongDirection),
+        BuildPacket(wrongDirection),
         cg::packet::PacketErrorCode::EncodeFailed,
         "wD",
         false,
@@ -290,7 +305,7 @@ int TestBuildErrors()
         "wD wrong direction");
 
     failures += ExpectError(
-        cg::packet::BuildPacket(PacketOf(
+        BuildPacket(PacketOf(
             cg::packet::PacketDirection::ClientToServer,
             {
                 Field("profileIndex", cg::packet::PacketFieldType::Int62, "12"),
@@ -304,7 +319,7 @@ int TestBuildErrors()
     cg::packet::Packet wrongName = ProfileMailFriendDelete(12, "Alice").ToPacket();
     wrongName.fields[1].name = "data";
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongName),
+        BuildPacket(wrongName),
         cg::packet::PacketErrorCode::EncodeFailed,
         "wD",
         true,
@@ -314,7 +329,7 @@ int TestBuildErrors()
     cg::packet::Packet wrongType = ProfileMailFriendDelete(12, "Alice").ToPacket();
     wrongType.fields[1].type = cg::packet::PacketFieldType::RawString;
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongType),
+        BuildPacket(wrongType),
         cg::packet::PacketErrorCode::EncodeFailed,
         "wD",
         true,
@@ -324,7 +339,7 @@ int TestBuildErrors()
     cg::packet::Packet badProfileIndex = ProfileMailFriendDelete(12, "Alice").ToPacket();
     badProfileIndex.fields[0].value = "bad";
     failures += ExpectError(
-        cg::packet::BuildPacket(badProfileIndex),
+        BuildPacket(badProfileIndex),
         cg::packet::PacketErrorCode::EncodeFailed,
         "wD",
         true,
@@ -334,7 +349,7 @@ int TestBuildErrors()
     cg::packet::Packet badName = ProfileMailFriendDelete(12, "Alice").ToPacket();
     badName.fields[1].value = Bytes({0x81U});
     failures += ExpectError(
-        cg::packet::BuildPacket(badName),
+        BuildPacket(badName),
         cg::packet::PacketErrorCode::EncodeFailed,
         "wD",
         true,

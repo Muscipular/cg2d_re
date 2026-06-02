@@ -10,6 +10,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::send::GuildMailSend::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 using GuildMailSend = cg::packet::send::GuildMailSend;
 
 int Expect(bool condition, const char* message)
@@ -150,7 +165,7 @@ int TestToPacketAndEncode()
 
     int failures = ExpectGuildMailSendPacket(request.ToPacket(), "10", "Guild Mail", "6", "uId ToPacket");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(request.ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(request.ToPacket());
     failures += Expect(static_cast<bool>(built), "uId BuildPacket");
     if (built.HasValue()) {
         failures += Expect(built.Value() == "uId a Guild\\SMail 6 ", "uId BuildPacket value");
@@ -176,7 +191,7 @@ int TestEmptyText()
 
     failures += Expect(encoded.Value() == "uId a  6 ", "uId empty text value");
 
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(encoded.Value());
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(encoded.Value());
     failures += Expect(static_cast<bool>(parsed), "uId empty text parse");
     if (parsed.HasValue()) {
         failures += ExpectGuildMailSendPacket(parsed.Value(), "10", "", "6", "uId empty text packet");
@@ -197,7 +212,7 @@ int TestEscapedTextRoundtrip()
 
     failures += Expect(encoded.Value() == "uId a A\\SB\\\\C\\nD\\rE 6 ", "uId escaped text value");
 
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(encoded.Value());
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(encoded.Value());
     failures += Expect(static_cast<bool>(parsed), "uId escaped text parse");
     if (parsed.HasValue()) {
         failures += ExpectGuildMailSendPacket(parsed.Value(), "10", text, "6", "uId escaped text packet");
@@ -218,7 +233,7 @@ int TestPipeTextIsNotNested()
 
     failures += Expect(encoded.Value() == "uId a Guild|Mail|Text 6 ", "uId pipe text value");
 
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(BuildRawPlain("a", text, "6"));
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(BuildRawPlain("a", text, "6"));
     failures += Expect(static_cast<bool>(parsed), "uId pipe text parse");
     if (parsed.HasValue()) {
         failures += ExpectGuildMailSendPacket(parsed.Value(), "10", text, "6", "uId pipe text packet");
@@ -236,7 +251,7 @@ int TestParsePacketRoundtrip()
         return failures;
     }
 
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(encoded.Value());
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(encoded.Value());
     failures += Expect(static_cast<bool>(parsed), "uId roundtrip parse");
     if (parsed.HasValue()) {
         failures += ExpectGuildMailSendPacket(parsed.Value(), "10", "Guild Mail", "6", "uId roundtrip packet");
@@ -248,35 +263,35 @@ int TestParseErrors()
 {
     int failures = 0;
     failures += ExpectError(
-        cg::packet::ParsePacket("uId a text"),
+        ParsePacket("uId a text"),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "uId",
         true,
         2U,
         "uId missing color");
     failures += ExpectError(
-        cg::packet::ParsePacket("uId a text 6 extra "),
+        ParsePacket("uId a text 6 extra "),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "uId",
         true,
         3U,
         "uId extra field");
     failures += ExpectError(
-        cg::packet::ParsePacket("uId _ text 6 "),
+        ParsePacket("uId _ text 6 "),
         cg::packet::PacketErrorCode::DecodeFailed,
         "uId",
         true,
         0U,
         "uId bad toregistNumber");
     failures += ExpectError(
-        cg::packet::ParsePacket("uId a text _ "),
+        ParsePacket("uId a text _ "),
         cg::packet::PacketErrorCode::DecodeFailed,
         "uId",
         true,
         2U,
         "uId bad color");
     failures += ExpectError(
-        cg::packet::ParsePacket(BuildRawPlain("a", Bytes({0x81U}), "6")),
+        ParsePacket(BuildRawPlain("a", Bytes({0x81U}), "6")),
         cg::packet::PacketErrorCode::DecodeFailed,
         "uId",
         true,
@@ -292,7 +307,7 @@ int TestBuildErrors()
     cg::packet::Packet wrongDirection = GuildMailSend(10, "text", 6).ToPacket();
     wrongDirection.direction = cg::packet::PacketDirection::ServerToClient;
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongDirection),
+        BuildPacket(wrongDirection),
         cg::packet::PacketErrorCode::EncodeFailed,
         "uId",
         false,
@@ -300,7 +315,7 @@ int TestBuildErrors()
         "uId wrong direction");
 
     failures += ExpectError(
-        cg::packet::BuildPacket(PacketOf(
+        BuildPacket(PacketOf(
             cg::packet::PacketDirection::ClientToServer,
             {
                 Field("toregistNumber", cg::packet::PacketFieldType::Int62, "10"),
@@ -315,7 +330,7 @@ int TestBuildErrors()
     cg::packet::Packet wrongName = GuildMailSend(10, "text", 6).ToPacket();
     wrongName.fields[1].name = "message";
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongName),
+        BuildPacket(wrongName),
         cg::packet::PacketErrorCode::EncodeFailed,
         "uId",
         true,
@@ -325,7 +340,7 @@ int TestBuildErrors()
     cg::packet::Packet wrongType = GuildMailSend(10, "text", 6).ToPacket();
     wrongType.fields[1].type = cg::packet::PacketFieldType::RawString;
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongType),
+        BuildPacket(wrongType),
         cg::packet::PacketErrorCode::EncodeFailed,
         "uId",
         true,
@@ -335,7 +350,7 @@ int TestBuildErrors()
     cg::packet::Packet badToregistNumber = GuildMailSend(10, "text", 6).ToPacket();
     badToregistNumber.fields[0].value = "bad";
     failures += ExpectError(
-        cg::packet::BuildPacket(badToregistNumber),
+        BuildPacket(badToregistNumber),
         cg::packet::PacketErrorCode::EncodeFailed,
         "uId",
         true,
@@ -345,7 +360,7 @@ int TestBuildErrors()
     cg::packet::Packet badColor = GuildMailSend(10, "text", 6).ToPacket();
     badColor.fields[2].value = "bad";
     failures += ExpectError(
-        cg::packet::BuildPacket(badColor),
+        BuildPacket(badColor),
         cg::packet::PacketErrorCode::EncodeFailed,
         "uId",
         true,
@@ -355,7 +370,7 @@ int TestBuildErrors()
     cg::packet::Packet badText = GuildMailSend(10, "text", 6).ToPacket();
     badText.fields[1].value = Bytes({0x81U});
     failures += ExpectError(
-        cg::packet::BuildPacket(badText),
+        BuildPacket(badText),
         cg::packet::PacketErrorCode::EncodeFailed,
         "uId",
         true,

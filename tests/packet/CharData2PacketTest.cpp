@@ -9,6 +9,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::CharacterProfile2::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 int Expect(bool condition, const char* message)
 {
     if (condition) {
@@ -96,7 +111,7 @@ int TestParsePacketOuter()
 {
     const std::string payload = "2|123|";
     const cg::packet::PacketResult<cg::packet::Packet> parsed =
-        cg::packet::ParsePacket(BuildPlainUu(payload));
+        ParsePacket(BuildPlainUu(payload));
 
     int failures = Expect(static_cast<bool>(parsed), "parse UU outer");
     if (parsed.HasValue()) {
@@ -153,7 +168,7 @@ int TestToPacketBuildPreservesTrailingDelimiter()
 
     int failures = ExpectCharacterProfile2Packet(packet, "6|11|22|", "UU ToPacket data");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet);
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet);
     failures += Expect(static_cast<bool>(built), "build UU packet");
     if (!built.HasValue()) {
         return failures;
@@ -175,7 +190,7 @@ int TestEmptyValuesBuild()
     const cg::packet::receive::CharacterProfile2 profile(2, {});
 
     int failures = Expect(profile.BuildData() == "2|", "build UU empty values");
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(profile.ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(profile.ToPacket());
     failures += Expect(static_cast<bool>(built), "build UU empty values packet");
     if (built.HasValue()) {
         failures += Expect(built.Value() == BuildPlainUu("2|"), "build UU empty values packet value");
@@ -187,7 +202,7 @@ int TestErrors()
 {
     int failures = 0;
     failures += ExpectError(
-        cg::packet::ParsePacket("UU"),
+        ParsePacket("UU"),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "UU",
         "UU missing data");
@@ -197,7 +212,7 @@ int TestErrors()
         "UU",
         "typed UU missing data");
     failures += ExpectError(
-        cg::packet::ParsePacket("UU one two "),
+        ParsePacket("UU one two "),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "UU",
         "UU extra outer token");

@@ -10,6 +10,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::ItemInfoList::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 int Expect(bool condition, const char* message)
 {
     if (condition) {
@@ -178,7 +193,7 @@ int ExpectSlot(
 int TestParsePacketOuter()
 {
     const std::string payload = BuildOneItemPayload();
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(BuildPlainELoy(payload));
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(BuildPlainELoy(payload));
 
     int failures = Expect(static_cast<bool>(parsed), "parse ELoy outer");
     if (parsed.HasValue()) {
@@ -240,7 +255,7 @@ int TestSingleItemRoundtrip()
     failures += Expect(parsed.Value().BuildData() == payload, "ELoy BuildData");
     failures += ExpectItemInfoListPacket(parsed.Value().ToPacket(), payload, "ELoy ToPacket");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(parsed.Value().ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(parsed.Value().ToPacket());
     failures += Expect(static_cast<bool>(built), "build ELoy packet");
     if (built.HasValue()) {
         failures += Expect(built.Value() == BuildPlainELoy(payload), "ELoy packet roundtrip");

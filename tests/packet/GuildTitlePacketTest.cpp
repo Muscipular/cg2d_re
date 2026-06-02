@@ -8,6 +8,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::GuildTitle::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 using GuildTitle = cg::packet::receive::GuildTitle;
 using GuildTitleRecord = cg::packet::receive::GuildTitleRecord;
 
@@ -87,7 +102,7 @@ int ExpectGuildTitlePacket(
 
 int TestParsePacketOuter()
 {
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(BuildRawPlain("0"));
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(BuildRawPlain("0"));
 
     int failures = Expect(static_cast<bool>(parsed), "parse znv outer");
     if (parsed.HasValue()) {
@@ -141,7 +156,7 @@ int TestOneAndTwoRecords()
     const cg::packet::Packet packet = guildTitle.ToPacket();
     failures += ExpectGuildTitlePacket(packet, "2|1|2|Leader|3|4|Member", "znv two packet");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet);
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet);
     failures += Expect(static_cast<bool>(built), "build znv two packet");
     if (built.HasValue()) {
         failures += Expect(built.Value() == BuildPlain("2|1|2|Leader|3|4|Member"), "build znv two value");
@@ -186,7 +201,7 @@ int TestRawEscapePreserved()
     }
 
     const cg::packet::Packet packet = parsed.Value().ToPacket();
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet);
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet);
     failures += Expect(static_cast<bool>(built), "build znv raw escape");
     if (built.HasValue()) {
         failures += Expect(

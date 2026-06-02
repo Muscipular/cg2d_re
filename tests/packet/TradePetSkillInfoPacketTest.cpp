@@ -10,6 +10,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::TradePetSkillInfo::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 using TradePetSkillInfo = cg::packet::receive::TradePetSkillInfo;
 
 int Expect(bool condition, const char* message)
@@ -128,7 +143,7 @@ int ExpectTradePetSkillInfoPacket(
 int TestParsePacketOuter()
 {
     const std::string payload = "A|B|";
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(BuildPlain(2, payload));
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(BuildPlain(2, payload));
 
     int failures = Expect(static_cast<bool>(parsed), "parse Yq outer");
     if (parsed.HasValue()) {
@@ -176,7 +191,7 @@ int TestRoundtrip()
 
     failures += ExpectTradePetSkillInfoPacket(typedPacket.Value(), 2, payload, "Yq ToPacket fields");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(typedPacket.Value());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(typedPacket.Value());
     failures += Expect(static_cast<bool>(built), "build Yq packet");
     if (!built.HasValue()) {
         return failures;

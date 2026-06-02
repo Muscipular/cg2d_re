@@ -9,6 +9,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::BattleReward::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 int Expect(bool condition, const char* message)
 {
     if (condition) {
@@ -110,7 +125,7 @@ int ExpectBattleRewardPacket(
 int TestParsePacketOuter()
 {
     const std::string payload = JoinComma(BuildSampleParts());
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(BuildPlain(payload));
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(BuildPlain(payload));
 
     int failures = Expect(static_cast<bool>(parsed), "parse Gn outer");
     if (parsed.HasValue()) {
@@ -155,7 +170,7 @@ int TestFullRoundtrip()
     failures += Expect(!reward.BuildData().empty() && reward.BuildData().back() != ',', "Gn BuildData no trailing comma");
     failures += ExpectBattleRewardPacket(reward.ToPacket(), payload, "Gn ToPacket");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(reward.ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(reward.ToPacket());
     failures += Expect(static_cast<bool>(built), "build Gn packet");
     if (!built.HasValue()) {
         return failures;

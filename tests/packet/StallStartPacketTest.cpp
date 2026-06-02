@@ -11,6 +11,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::send::StallStart::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 using StallStart = cg::packet::send::StallStart;
 
 int Expect(bool condition, const char* message)
@@ -217,7 +232,7 @@ int TestToPacketAndEncode()
 
     failures += ExpectStallStartPacket(packet.Value(), "Shop", "Desc", stallList, "ylGN ToPacket value");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet.Value());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
     failures += Expect(static_cast<bool>(built), "ylGN BuildPacket");
     if (built.HasValue()) {
         failures += Expect(built.Value() == BuildPlainYlGn("Shop", "Desc", stallList), "ylGN BuildPacket value");
@@ -307,7 +322,7 @@ int TestParsePacketOuterFields()
     const std::array<int, StallStart::PriceCount> prices = MakeSequentialPrices();
     const std::string stallList = BuildStallList(prices);
     const cg::packet::PacketResult<cg::packet::Packet> parsed =
-        cg::packet::ParsePacket(BuildPlainYlGn("Shop", "Desc", stallList));
+        ParsePacket(BuildPlainYlGn("Shop", "Desc", stallList));
 
     int failures = Expect(static_cast<bool>(parsed), "ylGN ParsePacket outer");
     if (parsed.HasValue()) {
@@ -406,7 +421,7 @@ int TestBuildPacketErrors()
     int failures = 0;
 
     failures += ExpectError(
-        cg::packet::BuildPacket(PacketOf(
+        BuildPacket(PacketOf(
             cg::packet::PacketDirection::ServerToClient,
             {
                 Field("stallName", cg::packet::PacketFieldType::EscapedString, "Shop"),
@@ -420,7 +435,7 @@ int TestBuildPacketErrors()
         "ylGN build wrong direction");
 
     failures += ExpectError(
-        cg::packet::BuildPacket(PacketOf(
+        BuildPacket(PacketOf(
             cg::packet::PacketDirection::ClientToServer,
             {
                 Field("stallName", cg::packet::PacketFieldType::EscapedString, "Shop"),
@@ -434,7 +449,7 @@ int TestBuildPacketErrors()
         "ylGN build wrong field name");
 
     failures += ExpectError(
-        cg::packet::BuildPacket(PacketOf(
+        BuildPacket(PacketOf(
             cg::packet::PacketDirection::ClientToServer,
             {
                 Field("stallName", cg::packet::PacketFieldType::EscapedString, "Shop"),

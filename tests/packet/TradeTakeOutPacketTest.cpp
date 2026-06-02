@@ -10,6 +10,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::send::TradeTakeOut::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 using TradeTakeOut = cg::packet::send::TradeTakeOut;
 
 int Expect(bool condition, const char* message)
@@ -147,7 +162,7 @@ int TestToPacketAndEncode()
 
     int failures = ExpectTradeTakeOutPacket(request.ToPacket(), "8|12", "0|2", "10", "aiAb ToPacket");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(request.ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(request.ToPacket());
     failures += Expect(static_cast<bool>(built), "aiAb BuildPacket");
     if (built.HasValue()) {
         failures += Expect(built.Value() == "aiAb 8|12 0|2 a ", "aiAb BuildPacket value");
@@ -173,7 +188,7 @@ int TestEmptyItemPet()
 
     failures += Expect(encoded.Value() == "aiAb   0 ", "aiAb empty item pet value");
 
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(encoded.Value());
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(encoded.Value());
     failures += Expect(static_cast<bool>(parsed), "aiAb empty item pet parse");
     if (parsed.HasValue()) {
         failures += ExpectTradeTakeOutPacket(parsed.Value(), "", "", "0", "aiAb empty item pet packet");
@@ -195,7 +210,7 @@ int TestEscapedItemPetRoundtrip()
 
     failures += Expect(encoded.Value() == "aiAb A\\SB\\\\C\\nD P\\SQ\\\\R a ", "aiAb escaped value");
 
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(encoded.Value());
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(encoded.Value());
     failures += Expect(static_cast<bool>(parsed), "aiAb escaped parse");
     if (parsed.HasValue()) {
         failures += ExpectTradeTakeOutPacket(parsed.Value(), item, pet, "10", "aiAb escaped packet");
@@ -207,7 +222,7 @@ int TestPipePayloadIsOpaque()
 {
     const std::string item = "8|9";
     const std::string pet = "100|8|101|9";
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(BuildRawPlain(item, pet, "a"));
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(BuildRawPlain(item, pet, "a"));
 
     int failures = Expect(static_cast<bool>(parsed), "aiAb raw sample parse");
     if (!parsed.HasValue()) {
@@ -216,7 +231,7 @@ int TestPipePayloadIsOpaque()
 
     failures += ExpectTradeTakeOutPacket(parsed.Value(), item, pet, "10", "aiAb raw sample packet");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(parsed.Value());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(parsed.Value());
     failures += Expect(static_cast<bool>(built), "aiAb raw sample build");
     if (built.HasValue()) {
         failures += Expect(built.Value() == "aiAb 8|9 100|8|101|9 a ", "aiAb raw sample roundtrip");
@@ -227,7 +242,7 @@ int TestPipePayloadIsOpaque()
 int TestEmptyGoldParsesAsZero()
 {
     const cg::packet::PacketResult<cg::packet::Packet> parsed =
-        cg::packet::ParsePacket(BuildRawPlain("8|12", "0|2", ""));
+        ParsePacket(BuildRawPlain("8|12", "0|2", ""));
     int failures = Expect(static_cast<bool>(parsed), "aiAb empty gold parse");
     if (parsed.HasValue()) {
         failures += ExpectTradeTakeOutPacket(parsed.Value(), "8|12", "0|2", "0", "aiAb empty gold packet");
@@ -239,35 +254,35 @@ int TestParseErrors()
 {
     int failures = 0;
     failures += ExpectError(
-        cg::packet::ParsePacket("aiAb 8|12 0|2"),
+        ParsePacket("aiAb 8|12 0|2"),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "aiAb",
         true,
         2U,
         "aiAb missing gold");
     failures += ExpectError(
-        cg::packet::ParsePacket("aiAb 8|12 0|2 a extra "),
+        ParsePacket("aiAb 8|12 0|2 a extra "),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "aiAb",
         true,
         3U,
         "aiAb extra field");
     failures += ExpectError(
-        cg::packet::ParsePacket(BuildRawPlain("8|12", "0|2", "_")),
+        ParsePacket(BuildRawPlain("8|12", "0|2", "_")),
         cg::packet::PacketErrorCode::DecodeFailed,
         "aiAb",
         true,
         2U,
         "aiAb bad gold");
     failures += ExpectError(
-        cg::packet::ParsePacket(BuildRawPlain(Bytes({0x81U}), "0|2", "a")),
+        ParsePacket(BuildRawPlain(Bytes({0x81U}), "0|2", "a")),
         cg::packet::PacketErrorCode::DecodeFailed,
         "aiAb",
         true,
         0U,
         "aiAb bad item es");
     failures += ExpectError(
-        cg::packet::ParsePacket(BuildRawPlain("8|12", Bytes({0x81U}), "a")),
+        ParsePacket(BuildRawPlain("8|12", Bytes({0x81U}), "a")),
         cg::packet::PacketErrorCode::DecodeFailed,
         "aiAb",
         true,
@@ -283,7 +298,7 @@ int TestBuildErrors()
     cg::packet::Packet wrongDirection = TradeTakeOut("8|12", "0|2", 10).ToPacket();
     wrongDirection.direction = cg::packet::PacketDirection::ServerToClient;
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongDirection),
+        BuildPacket(wrongDirection),
         cg::packet::PacketErrorCode::EncodeFailed,
         "aiAb",
         false,
@@ -291,7 +306,7 @@ int TestBuildErrors()
         "aiAb wrong direction");
 
     failures += ExpectError(
-        cg::packet::BuildPacket(PacketOf(
+        BuildPacket(PacketOf(
             cg::packet::PacketDirection::ClientToServer,
             {
                 Field("item", cg::packet::PacketFieldType::EscapedString, "8|12"),
@@ -306,7 +321,7 @@ int TestBuildErrors()
     cg::packet::Packet wrongName = TradeTakeOut("8|12", "0|2", 10).ToPacket();
     wrongName.fields[1].name = "pets";
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongName),
+        BuildPacket(wrongName),
         cg::packet::PacketErrorCode::EncodeFailed,
         "aiAb",
         true,
@@ -316,7 +331,7 @@ int TestBuildErrors()
     cg::packet::Packet wrongType = TradeTakeOut("8|12", "0|2", 10).ToPacket();
     wrongType.fields[0].type = cg::packet::PacketFieldType::RawString;
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongType),
+        BuildPacket(wrongType),
         cg::packet::PacketErrorCode::EncodeFailed,
         "aiAb",
         true,
@@ -326,7 +341,7 @@ int TestBuildErrors()
     cg::packet::Packet emptyGold = TradeTakeOut("8|12", "0|2", 10).ToPacket();
     emptyGold.fields[2].value.clear();
     failures += ExpectError(
-        cg::packet::BuildPacket(emptyGold),
+        BuildPacket(emptyGold),
         cg::packet::PacketErrorCode::EncodeFailed,
         "aiAb",
         true,
@@ -336,7 +351,7 @@ int TestBuildErrors()
     cg::packet::Packet badGold = TradeTakeOut("8|12", "0|2", 10).ToPacket();
     badGold.fields[2].value = "bad";
     failures += ExpectError(
-        cg::packet::BuildPacket(badGold),
+        BuildPacket(badGold),
         cg::packet::PacketErrorCode::EncodeFailed,
         "aiAb",
         true,

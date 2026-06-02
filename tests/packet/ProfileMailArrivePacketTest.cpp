@@ -7,6 +7,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::ProfileMailArrive::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 constexpr std::string_view SamplePayload = "12|1000|35|Alice|Guild|Title|9|2026-06-01 12:00|Hello||3";
 
 int Expect(bool condition, const char* message)
@@ -92,7 +107,7 @@ int ExpectSampleValue(const cg::packet::receive::ProfileMailArrive& packet, cons
 int TestParsePacketOuter()
 {
     const cg::packet::PacketResult<cg::packet::Packet> parsed =
-        cg::packet::ParsePacket(BuildPlainKyN(SamplePayload));
+        ParsePacket(BuildPlainKyN(SamplePayload));
 
     int failures = Expect(static_cast<bool>(parsed), "parse KyN outer");
     if (parsed.HasValue()) {
@@ -131,7 +146,7 @@ int TestBuildRoundtrip()
 
     int failures = ExpectProfileMailArrivePacket(packet, SamplePayload, "KyN ToPacket");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet);
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet);
     failures += Expect(static_cast<bool>(built), "build KyN packet");
     if (!built.HasValue()) {
         return failures;

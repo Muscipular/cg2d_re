@@ -8,6 +8,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::send::ChatMessageSend::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 int Expect(bool condition, const char* message)
 {
     if (condition) {
@@ -104,7 +119,7 @@ int TestToPacketAndEncode()
 
     int failures = ExpectChatMessageSendPacket(request.ToPacket(), "1", "2", "P|hello", "4", "5", "16", "uSr ToPacket");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(request.ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(request.ToPacket());
     failures += Expect(static_cast<bool>(built), "uSr BuildPacket");
     if (built.HasValue()) {
         failures += Expect(built.Value() == "uSr 1 2 P|hello 4 5 g ", "uSr BuildPacket value");
@@ -130,7 +145,7 @@ int TestEmptyMessage()
 
     failures += Expect(encoded.Value() == "uSr 1 2  4 5 g ", "uSr empty msg value");
 
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(encoded.Value());
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(encoded.Value());
     failures += Expect(static_cast<bool>(parsed), "uSr parse empty msg");
     if (parsed.HasValue()) {
         failures += ExpectChatMessageSendPacket(parsed.Value(), "1", "2", "", "4", "5", "16", "uSr parsed empty msg");
@@ -150,7 +165,7 @@ int TestEscapedMessageRoundtrip()
 
     failures += Expect(encoded.Value() == "uSr 1 2 P|A\\SB\\\\C\\nD\\rE 4 5 g ", "uSr escaped value");
 
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(encoded.Value());
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(encoded.Value());
     failures += Expect(static_cast<bool>(parsed), "uSr parse escaped msg");
     if (parsed.HasValue()) {
         failures += ExpectChatMessageSendPacket(parsed.Value(), "1", "2", request.msg, "4", "5", "16", "uSr escaped roundtrip");
@@ -170,7 +185,7 @@ int TestPipeAndMarkerNotValidated()
 
     failures += Expect(encoded.Value() == "uSr 1 2 Q|hello|tail 4 5 g ", "uSr pipe unchanged");
 
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(encoded.Value());
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(encoded.Value());
     failures += Expect(static_cast<bool>(parsed), "uSr parse pipe msg");
     if (parsed.HasValue()) {
         failures += ExpectChatMessageSendPacket(parsed.Value(), "1", "2", request.msg, "4", "5", "16", "uSr pipe roundtrip");
@@ -190,7 +205,7 @@ int TestParsePacketRoundtrip()
 
     failures += Expect(encoded.Value() == "uSr a k P|hello\\Sworld 6 7 g ", "uSr i62 encoded value");
 
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(encoded.Value());
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(encoded.Value());
     failures += Expect(static_cast<bool>(parsed), "uSr parse i62 values");
     if (parsed.HasValue()) {
         failures += ExpectChatMessageSendPacket(parsed.Value(), "10", "20", request.msg, "6", "7", "16", "uSr parsed i62 values");
@@ -202,49 +217,49 @@ int TestParseErrors()
 {
     int failures = 0;
     failures += ExpectError(
-        cg::packet::ParsePacket("uSr 1 2 P|hello 4 5"),
+        ParsePacket("uSr 1 2 P|hello 4 5"),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "uSr",
         true,
         5U,
         "uSr missing fontSize");
     failures += ExpectError(
-        cg::packet::ParsePacket("uSr 1 2 P|hello 4 5 g extra "),
+        ParsePacket("uSr 1 2 P|hello 4 5 g extra "),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "uSr",
         true,
         6U,
         "uSr extra field");
     failures += ExpectError(
-        cg::packet::ParsePacket("uSr _ 2 P|hello 4 5 g "),
+        ParsePacket("uSr _ 2 P|hello 4 5 g "),
         cg::packet::PacketErrorCode::DecodeFailed,
         "uSr",
         true,
         0U,
         "uSr bad x");
     failures += ExpectError(
-        cg::packet::ParsePacket("uSr 1 _ P|hello 4 5 g "),
+        ParsePacket("uSr 1 _ P|hello 4 5 g "),
         cg::packet::PacketErrorCode::DecodeFailed,
         "uSr",
         true,
         1U,
         "uSr bad y");
     failures += ExpectError(
-        cg::packet::ParsePacket("uSr 1 2 P|hello _ 5 g "),
+        ParsePacket("uSr 1 2 P|hello _ 5 g "),
         cg::packet::PacketErrorCode::DecodeFailed,
         "uSr",
         true,
         3U,
         "uSr bad color");
     failures += ExpectError(
-        cg::packet::ParsePacket("uSr 1 2 P|hello 4 _ g "),
+        ParsePacket("uSr 1 2 P|hello 4 _ g "),
         cg::packet::PacketErrorCode::DecodeFailed,
         "uSr",
         true,
         4U,
         "uSr bad area");
     failures += ExpectError(
-        cg::packet::ParsePacket("uSr 1 2 P|hello 4 5 _ "),
+        ParsePacket("uSr 1 2 P|hello 4 5 _ "),
         cg::packet::PacketErrorCode::DecodeFailed,
         "uSr",
         true,
@@ -255,7 +270,7 @@ int TestParseErrors()
     truncatedMessage.push_back(static_cast<char>(0x80U));
     truncatedMessage.append(" 4 5 g ");
     failures += ExpectError(
-        cg::packet::ParsePacket(truncatedMessage),
+        ParsePacket(truncatedMessage),
         cg::packet::PacketErrorCode::DecodeFailed,
         "uSr",
         true,
@@ -271,7 +286,7 @@ int TestBuildErrors()
     cg::packet::Packet wrongDirection = cg::packet::send::ChatMessageSend(1, 2, "P|hello", 4, 5, 16).ToPacket();
     wrongDirection.direction = cg::packet::PacketDirection::ServerToClient;
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongDirection),
+        BuildPacket(wrongDirection),
         cg::packet::PacketErrorCode::EncodeFailed,
         "uSr",
         false,
@@ -281,7 +296,7 @@ int TestBuildErrors()
     cg::packet::Packet wrongName = cg::packet::send::ChatMessageSend(1, 2, "P|hello", 4, 5, 16).ToPacket();
     wrongName.fields[2].name = "message";
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongName),
+        BuildPacket(wrongName),
         cg::packet::PacketErrorCode::EncodeFailed,
         "uSr",
         true,
@@ -291,7 +306,7 @@ int TestBuildErrors()
     cg::packet::Packet wrongType = cg::packet::send::ChatMessageSend(1, 2, "P|hello", 4, 5, 16).ToPacket();
     wrongType.fields[2].type = cg::packet::PacketFieldType::RawString;
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongType),
+        BuildPacket(wrongType),
         cg::packet::PacketErrorCode::EncodeFailed,
         "uSr",
         true,
@@ -301,7 +316,7 @@ int TestBuildErrors()
     cg::packet::Packet badInt = cg::packet::send::ChatMessageSend(1, 2, "P|hello", 4, 5, 16).ToPacket();
     badInt.fields[0].value = "abc";
     failures += ExpectError(
-        cg::packet::BuildPacket(badInt),
+        BuildPacket(badInt),
         cg::packet::PacketErrorCode::EncodeFailed,
         "uSr",
         true,

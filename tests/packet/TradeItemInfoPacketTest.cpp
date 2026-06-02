@@ -10,6 +10,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::TradeItemInfo::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 using TradeItemInfo = cg::packet::receive::TradeItemInfo;
 using TradeItemInfoRecord = cg::packet::receive::TradeItemInfoRecord;
 
@@ -181,7 +196,7 @@ int ExpectRecord(
 int TestParsePacketOuter()
 {
     const std::string payload = BuildPayload(1U, true);
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(BuildPlain(payload));
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(BuildPlain(payload));
 
     int failures = Expect(static_cast<bool>(parsed), "parse nUbJ outer");
     if (parsed.HasValue()) {
@@ -217,7 +232,7 @@ int TestSingleRecordRoundtrip()
         return failures;
     }
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet.Value());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
     failures += Expect(static_cast<bool>(built), "build nUbJ packet");
     if (built.HasValue()) {
         failures += Expect(built.Value() == BuildPlain(payload), "nUbJ packet roundtrip");

@@ -9,6 +9,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::BattleCommand::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 int Expect(bool condition, const char* message)
 {
     if (condition) {
@@ -96,7 +111,7 @@ int ExpectBattleCommandPacket(
 
 int TestParsePacketOuter()
 {
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket("LYIm BU ");
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket("LYIm BU ");
 
     int failures = Expect(static_cast<bool>(parsed), "parse LYIm BU");
     if (parsed.HasValue()) {
@@ -112,7 +127,7 @@ int TestPipeRoundtrip()
 
     int failures = ExpectBattleCommandPacket(battleCommand.ToPacket(), command, "LYIm ToPacket pipe");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(battleCommand.ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(battleCommand.ToPacket());
     failures += Expect(static_cast<bool>(built), "build LYIm pipe command");
     if (!built.HasValue()) {
         return failures;
@@ -133,7 +148,7 @@ int TestEscapedSpaceRoundtrip()
 {
     const std::string command = "BU target now";
     const cg::packet::receive::BattleCommand battleCommand(command);
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(battleCommand.ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(battleCommand.ToPacket());
 
     int failures = Expect(static_cast<bool>(built), "build LYIm escaped space");
     if (!built.HasValue()) {
@@ -154,7 +169,7 @@ int TestEscapedSpaceRoundtrip()
 int TestEmptyCommand()
 {
     const cg::packet::receive::BattleCommand battleCommand("");
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(battleCommand.ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(battleCommand.ToPacket());
 
     int failures = Expect(static_cast<bool>(built), "build LYIm empty command");
     if (!built.HasValue()) {
@@ -176,7 +191,7 @@ int TestParseErrors()
 {
     int failures = 0;
     failures += ExpectError(
-        cg::packet::ParsePacket("LYIm"),
+        ParsePacket("LYIm"),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "LYIm",
         true,
@@ -190,7 +205,7 @@ int TestParseErrors()
         0U,
         "typed LYIm missing command");
     failures += ExpectError(
-        cg::packet::ParsePacket("LYIm BU extra "),
+        ParsePacket("LYIm BU extra "),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "LYIm",
         true,
@@ -210,7 +225,7 @@ int TestBuildErrors()
 {
     int failures = 0;
     failures += ExpectError(
-        cg::packet::BuildPacket(PacketOf(cg::packet::PacketDirection::ClientToServer, {
+        BuildPacket(PacketOf(cg::packet::PacketDirection::ClientToServer, {
             Field("command", cg::packet::PacketFieldType::EscapedString, "BU"),
         })),
         cg::packet::PacketErrorCode::EncodeFailed,
@@ -219,7 +234,7 @@ int TestBuildErrors()
         0U,
         "LYIm build wrong direction");
     failures += ExpectError(
-        cg::packet::BuildPacket(PacketOf(cg::packet::PacketDirection::ServerToClient, {
+        BuildPacket(PacketOf(cg::packet::PacketDirection::ServerToClient, {
             Field("data", cg::packet::PacketFieldType::EscapedString, "BU"),
         })),
         cg::packet::PacketErrorCode::EncodeFailed,
@@ -228,7 +243,7 @@ int TestBuildErrors()
         0U,
         "LYIm build wrong field name");
     failures += ExpectError(
-        cg::packet::BuildPacket(PacketOf(cg::packet::PacketDirection::ServerToClient, {
+        BuildPacket(PacketOf(cg::packet::PacketDirection::ServerToClient, {
             Field("command", cg::packet::PacketFieldType::RawString, "BU"),
         })),
         cg::packet::PacketErrorCode::EncodeFailed,

@@ -10,6 +10,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::send::ShutdownRequest::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 using cg::packet::send::ShutdownRequest;
 
 int Expect(bool condition, const char* message)
@@ -100,7 +115,7 @@ int TestToPacketAndEncode()
 
     int failures = ExpectShutdownRequestPacket(request.ToPacket(), "hogehoge", "10", "IcE ToPacket");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(request.ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(request.ToPacket());
     failures += Expect(static_cast<bool>(built), "IcE BuildPacket");
     if (built.HasValue()) {
         failures += Expect(built.Value() == "IcE hogehoge a ", "IcE BuildPacket value");
@@ -135,7 +150,7 @@ int TestPasswdRoundtripValues()
 
         failures += Expect(encoded.Value() == entry.second, "IcE passwd encoded value");
 
-        const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(encoded.Value());
+        const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(encoded.Value());
         failures += Expect(static_cast<bool>(parsed), "IcE passwd ParsePacket");
         if (parsed.HasValue()) {
             failures += ExpectShutdownRequestPacket(parsed.Value(), entry.first, "0", "IcE passwd roundtrip packet");
@@ -163,7 +178,7 @@ int TestMinRoundtripValues()
 
         failures += Expect(encoded.Value() == entry.second, "IcE min encoded value");
 
-        const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(encoded.Value());
+        const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(encoded.Value());
         failures += Expect(static_cast<bool>(parsed), "IcE min ParsePacket");
         if (parsed.HasValue()) {
             failures += ExpectShutdownRequestPacket(
@@ -186,7 +201,7 @@ int TestParsePacketRoundtrip()
         return failures;
     }
 
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(encoded.Value());
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(encoded.Value());
     failures += Expect(static_cast<bool>(parsed), "IcE roundtrip ParsePacket");
     if (!parsed.HasValue()) {
         return failures;
@@ -195,7 +210,7 @@ int TestParsePacketRoundtrip()
     failures += ExpectShutdownRequestPacket(parsed.Value(), request.passwd, "10", "IcE roundtrip packet");
     failures += Expect(parsed.Value().direction == cg::packet::PacketDirection::ClientToServer, "IcE direction");
 
-    const cg::packet::PacketResult<std::string> rebuilt = cg::packet::BuildPacket(parsed.Value());
+    const cg::packet::PacketResult<std::string> rebuilt = BuildPacket(parsed.Value());
     failures += Expect(static_cast<bool>(rebuilt), "IcE roundtrip BuildPacket");
     if (rebuilt.HasValue()) {
         failures += Expect(rebuilt.Value() == encoded.Value(), "IcE roundtrip rebuilt");
@@ -207,21 +222,21 @@ int TestParseErrors()
 {
     int failures = 0;
     failures += ExpectError(
-        cg::packet::ParsePacket("IcE pass"),
+        ParsePacket("IcE pass"),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "IcE",
         true,
         1U,
         "IcE missing min");
     failures += ExpectError(
-        cg::packet::ParsePacket("IcE pass a extra "),
+        ParsePacket("IcE pass a extra "),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "IcE",
         true,
         2U,
         "IcE extra field");
     failures += ExpectError(
-        cg::packet::ParsePacket("IcE pass _ "),
+        ParsePacket("IcE pass _ "),
         cg::packet::PacketErrorCode::DecodeFailed,
         "IcE",
         true,
@@ -232,7 +247,7 @@ int TestParseErrors()
     invalidPasswd.push_back(static_cast<char>(0x80));
     invalidPasswd.append(" 0 ");
     failures += ExpectError(
-        cg::packet::ParsePacket(invalidPasswd),
+        ParsePacket(invalidPasswd),
         cg::packet::PacketErrorCode::DecodeFailed,
         "IcE",
         true,
@@ -248,7 +263,7 @@ int TestManualPacketErrors()
     cg::packet::Packet wrongDirection = ShutdownRequest("pass", 10).ToPacket();
     wrongDirection.direction = cg::packet::PacketDirection::ServerToClient;
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongDirection),
+        BuildPacket(wrongDirection),
         cg::packet::PacketErrorCode::EncodeFailed,
         "IcE",
         false,
@@ -258,8 +273,8 @@ int TestManualPacketErrors()
     cg::packet::Packet wrongCode = ShutdownRequest("pass", 10).ToPacket();
     wrongCode.code = cg::packet::PacketCode("bad");
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongCode),
-        cg::packet::PacketErrorCode::UnknownCode,
+        BuildPacket(wrongCode),
+        cg::packet::PacketErrorCode::InvalidCode,
         "bad",
         false,
         0U,
@@ -268,7 +283,7 @@ int TestManualPacketErrors()
     cg::packet::Packet wrongName = ShutdownRequest("pass", 10).ToPacket();
     wrongName.fields[0].name = "password";
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongName),
+        BuildPacket(wrongName),
         cg::packet::PacketErrorCode::EncodeFailed,
         "IcE",
         true,
@@ -278,7 +293,7 @@ int TestManualPacketErrors()
     cg::packet::Packet wrongType = ShutdownRequest("pass", 10).ToPacket();
     wrongType.fields[0].type = cg::packet::PacketFieldType::RawString;
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongType),
+        BuildPacket(wrongType),
         cg::packet::PacketErrorCode::EncodeFailed,
         "IcE",
         true,

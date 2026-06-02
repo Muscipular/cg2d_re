@@ -10,6 +10,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::ProfileWindow::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 int Expect(bool condition, const char* message)
 {
     if (condition) {
@@ -157,7 +172,7 @@ int TestParsePacketOuter()
 {
     const std::string data = "0\\z3\\z1\\z";
     const cg::packet::PacketResult<cg::packet::Packet> parsed =
-        cg::packet::ParsePacket(BuildPlainDyag(62, 2, 3, -1, data));
+        ParsePacket(BuildPlainDyag(62, 2, 3, -1, data));
 
     int failures = Expect(static_cast<bool>(parsed), "parse DyAG outer");
     if (parsed.HasValue()) {
@@ -187,7 +202,7 @@ int TestStartPayload()
     }
     failures += Expect(parsed.Value().BuildData() == data, "DyAG START BuildData");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(parsed.Value().ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(parsed.Value().ToPacket());
     failures += Expect(static_cast<bool>(built), "build DyAG START");
     if (built.HasValue()) {
         failures += Expect(built.Value() == BuildPlainDyag(62, 2, 3, -1, data), "roundtrip DyAG START");
@@ -221,7 +236,7 @@ int TestProfileListPayload()
     failures += Expect(parsed.Value().profileList.records[5].message.empty(), "DyAG PROFILELIST empty message");
     failures += Expect(parsed.Value().BuildData() == data, "DyAG PROFILELIST BuildData");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(parsed.Value().ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(parsed.Value().ToPacket());
     failures += Expect(static_cast<bool>(built), "build DyAG PROFILELIST");
     if (built.HasValue()) {
         failures += Expect(built.Value() == BuildPlainDyag(62, 2, 3, -1, data), "roundtrip DyAG PROFILELIST");
@@ -253,7 +268,7 @@ int TestProfileMailPayload()
     failures += Expect(parsed.Value().profileMail.profileMessage == "Profile text", "DyAG PROFILEMAIL profile message");
     failures += Expect(parsed.Value().BuildData() == data, "DyAG PROFILEMAIL BuildData");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(parsed.Value().ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(parsed.Value().ToPacket());
     failures += Expect(static_cast<bool>(built), "build DyAG PROFILEMAIL");
     if (built.HasValue()) {
         failures += Expect(built.Value() == BuildPlainDyag(62, 2, 3, -1, data), "roundtrip DyAG PROFILEMAIL");

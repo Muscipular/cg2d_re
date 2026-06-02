@@ -10,6 +10,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::MapName::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 int Expect(bool condition, const char* message)
 {
     if (condition) {
@@ -98,7 +113,7 @@ int ExpectMapNamePacket(
 int TestParsePacket()
 {
     const cg::packet::PacketResult<cg::packet::Packet> parsed =
-        cg::packet::ParsePacket("TeD Central\\SCity ");
+        ParsePacket("TeD Central\\SCity ");
     int failures = Expect(static_cast<bool>(parsed), "parse TeD");
     if (parsed.HasValue()) {
         failures += ExpectMapNamePacket(parsed.Value(), "Central City", "parse TeD packet");
@@ -119,7 +134,7 @@ int TestTypedParseAndBuild()
     const cg::packet::Packet packet = parsed.Value().ToPacket();
     failures += ExpectMapNamePacket(packet, "Central City", "typed TeD ToPacket");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet);
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet);
     failures += Expect(static_cast<bool>(built), "build typed TeD");
     if (built.HasValue()) {
         failures += Expect(built.Value() == "TeD Central\\SCity ", "build typed TeD value");
@@ -131,7 +146,7 @@ int TestBusinessEscapedString()
 {
     const std::string data = "Floor\\z3\\c4";
     const cg::packet::receive::MapName mapName(data);
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(mapName.ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(mapName.ToPacket());
 
     int failures = Expect(static_cast<bool>(built), "build TeD business escaped string");
     if (!built.HasValue()) {
@@ -153,7 +168,7 @@ int TestParseErrors()
 {
     int failures = 0;
     failures += ExpectError(
-        cg::packet::ParsePacket("TeD"),
+        ParsePacket("TeD"),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "TeD",
         true,
@@ -167,7 +182,7 @@ int TestParseErrors()
         0U,
         "typed TeD missing field");
     failures += ExpectError(
-        cg::packet::ParsePacket("TeD one two "),
+        ParsePacket("TeD one two "),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "TeD",
         true,
@@ -187,14 +202,14 @@ int TestBuildErrors()
 {
     int failures = 0;
     failures += ExpectError(
-        cg::packet::BuildPacket(PacketOf(cg::packet::PacketDirection::ServerToClient, {})),
+        BuildPacket(PacketOf(cg::packet::PacketDirection::ServerToClient, {})),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "TeD",
         true,
         0U,
         "TeD build missing field");
     failures += ExpectError(
-        cg::packet::BuildPacket(PacketOf(
+        BuildPacket(PacketOf(
             cg::packet::PacketDirection::ServerToClient,
             {
                 Field("data", cg::packet::PacketFieldType::EscapedString, "Central City"),
@@ -206,7 +221,7 @@ int TestBuildErrors()
         1U,
         "TeD build extra field");
     failures += ExpectError(
-        cg::packet::BuildPacket(PacketOf(
+        BuildPacket(PacketOf(
             cg::packet::PacketDirection::ClientToServer,
             {Field("data", cg::packet::PacketFieldType::EscapedString, "Central City")})),
         cg::packet::PacketErrorCode::EncodeFailed,
@@ -215,7 +230,7 @@ int TestBuildErrors()
         0U,
         "TeD direction mismatch");
     failures += ExpectError(
-        cg::packet::BuildPacket(PacketOf(
+        BuildPacket(PacketOf(
             cg::packet::PacketDirection::ServerToClient,
             {Field("wrong", cg::packet::PacketFieldType::EscapedString, "Central City")})),
         cg::packet::PacketErrorCode::EncodeFailed,
@@ -224,7 +239,7 @@ int TestBuildErrors()
         0U,
         "TeD field name mismatch");
     failures += ExpectError(
-        cg::packet::BuildPacket(PacketOf(
+        BuildPacket(PacketOf(
             cg::packet::PacketDirection::ServerToClient,
             {Field("data", cg::packet::PacketFieldType::RawString, "Central City")})),
         cg::packet::PacketErrorCode::EncodeFailed,

@@ -10,6 +10,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::PetTechData::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 int Expect(bool condition, const char* message)
 {
     if (condition) {
@@ -109,7 +124,7 @@ int TestParsePacketOuter()
 {
     const std::string payload = "0|100|Bite|desc|30|1|2|7|";
     const cg::packet::PacketResult<cg::packet::Packet> parsed =
-        cg::packet::ParsePacket("OBee 2 0|100|Bite|desc|30|1|2|7| ");
+        ParsePacket("OBee 2 0|100|Bite|desc|30|1|2|7| ");
 
     int failures = Expect(static_cast<bool>(parsed), "parse OBee outer");
     if (parsed.HasValue()) {
@@ -148,7 +163,7 @@ int TestMultiRecordRoundtrip()
 
     int failures = ExpectPetTechDataPacket(petTechData.ToPacket(), 5, payload, "OBee multi ToPacket");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(petTechData.ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(petTechData.ToPacket());
     failures += Expect(static_cast<bool>(built), "build OBee packet");
     if (!built.HasValue()) {
         return failures;

@@ -8,6 +8,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::send::UserPetNameInput::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 int Expect(bool condition, const char* message)
 {
     if (condition) {
@@ -92,7 +107,7 @@ int TestToPacketAndEncode()
 
     int failures = ExpectUserPetNameInputPacket(request.ToPacket(), "ycX ToPacket");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(request.ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(request.ToPacket());
     failures += Expect(static_cast<bool>(built), "ycX BuildPacket");
     if (built.HasValue()) {
         failures += Expect(built.Value() == "ycX a Pochi ", "ycX BuildPacket value");
@@ -118,7 +133,7 @@ int TestEmptyName()
 
     failures += Expect(encoded.Value() == "ycX 0  ", "ycX empty name value");
 
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(encoded.Value());
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(encoded.Value());
     failures += Expect(static_cast<bool>(parsed), "ycX parse empty name");
     if (parsed.HasValue()) {
         failures += ExpectField(
@@ -144,7 +159,7 @@ int TestEscapedNameRoundtrip()
 
     failures += Expect(encoded.Value() == "ycX a A\\SB\\\\C\\nD\\rE ", "ycX escaped value");
 
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(encoded.Value());
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(encoded.Value());
     failures += Expect(static_cast<bool>(parsed), "ycX parse escaped name");
     if (parsed.HasValue()) {
         failures += ExpectField(
@@ -175,7 +190,7 @@ int TestPipeName()
 int TestParsePacket()
 {
     const cg::packet::PacketResult<cg::packet::Packet> parsed =
-        cg::packet::ParsePacket("ycX a Pet\\SName ");
+        ParsePacket("ycX a Pet\\SName ");
 
     int failures = Expect(static_cast<bool>(parsed), "parse ycX");
     if (parsed.HasValue()) {
@@ -201,21 +216,21 @@ int TestParseErrors()
 {
     int failures = 0;
     failures += ExpectError(
-        cg::packet::ParsePacket("ycX a"),
+        ParsePacket("ycX a"),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "ycX",
         true,
         1U,
         "ycX missing name");
     failures += ExpectError(
-        cg::packet::ParsePacket("ycX a Pet extra "),
+        ParsePacket("ycX a Pet extra "),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "ycX",
         true,
         2U,
         "ycX extra field");
     failures += ExpectError(
-        cg::packet::ParsePacket("ycX _ Pet "),
+        ParsePacket("ycX _ Pet "),
         cg::packet::PacketErrorCode::DecodeFailed,
         "ycX",
         true,
@@ -226,7 +241,7 @@ int TestParseErrors()
     truncatedName.push_back(static_cast<char>(0x80U));
     truncatedName.push_back(' ');
     failures += ExpectError(
-        cg::packet::ParsePacket(truncatedName),
+        ParsePacket(truncatedName),
         cg::packet::PacketErrorCode::DecodeFailed,
         "ycX",
         true,
@@ -242,7 +257,7 @@ int TestBuildErrors()
     cg::packet::Packet wrongDirection = cg::packet::send::UserPetNameInput(10, "Pochi").ToPacket();
     wrongDirection.direction = cg::packet::PacketDirection::ServerToClient;
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongDirection),
+        BuildPacket(wrongDirection),
         cg::packet::PacketErrorCode::EncodeFailed,
         "ycX",
         false,
@@ -252,7 +267,7 @@ int TestBuildErrors()
     cg::packet::Packet wrongName = cg::packet::send::UserPetNameInput(10, "Pochi").ToPacket();
     wrongName.fields[1].name = "wrong";
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongName),
+        BuildPacket(wrongName),
         cg::packet::PacketErrorCode::EncodeFailed,
         "ycX",
         true,
@@ -262,7 +277,7 @@ int TestBuildErrors()
     cg::packet::Packet wrongType = cg::packet::send::UserPetNameInput(10, "Pochi").ToPacket();
     wrongType.fields[1].type = cg::packet::PacketFieldType::Int62;
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongType),
+        BuildPacket(wrongType),
         cg::packet::PacketErrorCode::EncodeFailed,
         "ycX",
         true,
@@ -272,7 +287,7 @@ int TestBuildErrors()
     cg::packet::Packet emptyValue = cg::packet::send::UserPetNameInput(10, "Pochi").ToPacket();
     emptyValue.fields[0].value.clear();
     failures += ExpectError(
-        cg::packet::BuildPacket(emptyValue),
+        BuildPacket(emptyValue),
         cg::packet::PacketErrorCode::EncodeFailed,
         "ycX",
         true,
@@ -282,7 +297,7 @@ int TestBuildErrors()
     cg::packet::Packet badValue = cg::packet::send::UserPetNameInput(10, "Pochi").ToPacket();
     badValue.fields[0].value = "abc";
     failures += ExpectError(
-        cg::packet::BuildPacket(badValue),
+        BuildPacket(badValue),
         cg::packet::PacketErrorCode::EncodeFailed,
         "ycX",
         true,
@@ -292,7 +307,7 @@ int TestBuildErrors()
     cg::packet::Packet truncatedValue = cg::packet::send::UserPetNameInput(10, "Pochi").ToPacket();
     truncatedValue.fields[1].value.assign(1U, static_cast<char>(0x80U));
     failures += ExpectError(
-        cg::packet::BuildPacket(truncatedValue),
+        BuildPacket(truncatedValue),
         cg::packet::PacketErrorCode::EncodeFailed,
         "ycX",
         true,

@@ -9,6 +9,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::CharacterProfile::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 int Expect(bool condition, const char* message)
 {
     if (condition) {
@@ -96,7 +111,7 @@ int TestParsePacketOuter()
 {
     const std::string payload = "1|100|200|";
     const cg::packet::PacketResult<cg::packet::Packet> parsed =
-        cg::packet::ParsePacket(BuildPlainApc(payload));
+        ParsePacket(BuildPlainApc(payload));
 
     int failures = Expect(static_cast<bool>(parsed), "parse aPc outer");
     if (parsed.HasValue()) {
@@ -162,7 +177,7 @@ int TestToPacketBuildPreservesTrailingDelimiter()
 
     int failures = ExpectCharacterProfilePacket(packet, "a|123|", "aPc ToPacket data");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet);
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet);
     failures += Expect(static_cast<bool>(built), "build aPc packet");
     if (!built.HasValue()) {
         return failures;
@@ -184,7 +199,7 @@ int TestEmptyValuesBuild()
     const cg::packet::receive::CharacterProfile profile(1, {});
 
     int failures = Expect(profile.BuildData() == "1|", "build aPc empty values");
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(profile.ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(profile.ToPacket());
     failures += Expect(static_cast<bool>(built), "build aPc empty values packet");
     if (built.HasValue()) {
         failures += Expect(built.Value() == BuildPlainApc("1|"), "build aPc empty values packet value");
@@ -196,7 +211,7 @@ int TestErrors()
 {
     int failures = 0;
     failures += ExpectError(
-        cg::packet::ParsePacket("aPc"),
+        ParsePacket("aPc"),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "aPc",
         "aPc missing data");
@@ -206,7 +221,7 @@ int TestErrors()
         "aPc",
         "typed aPc missing data");
     failures += ExpectError(
-        cg::packet::ParsePacket("aPc one two "),
+        ParsePacket("aPc one two "),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "aPc",
         "aPc extra outer token");

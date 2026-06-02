@@ -10,6 +10,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::TradePetInfo::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 using TradePetInfo = cg::packet::receive::TradePetInfo;
 using TradePetInfoData = cg::packet::receive::TradePetInfoData;
 
@@ -225,7 +240,7 @@ int ExpectData(const TradePetInfoData& data, const char* message)
 int TestParsePacketOuter()
 {
     const std::string payload = BuildPayload();
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(BuildPlain(2, payload));
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(BuildPlain(2, payload));
 
     int failures = Expect(static_cast<bool>(parsed), "parse RwK outer");
     if (parsed.HasValue()) {
@@ -253,7 +268,7 @@ int TestBuildRoundtrip()
 
     failures += ExpectTradePetInfoPacket(typedPacket.Value(), 2, payload, "RwK ToPacket fields");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(typedPacket.Value());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(typedPacket.Value());
     failures += Expect(static_cast<bool>(built), "build RwK packet");
     if (!built.HasValue()) {
         return failures;

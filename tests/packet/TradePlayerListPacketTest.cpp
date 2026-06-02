@@ -10,6 +10,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::TradePlayerList::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 using TradePlayerList = cg::packet::receive::TradePlayerList;
 using TradePlayerRecord = cg::packet::receive::TradePlayerRecord;
 
@@ -107,7 +122,7 @@ int ExpectTradePlayerListPacket(
 int TestParsePacketOuter()
 {
     const cg::packet::PacketResult<cg::packet::Packet> parsed =
-        cg::packet::ParsePacket(BuildPlain("Alice|Bob|"));
+        ParsePacket(BuildPlain("Alice|Bob|"));
 
     int failures = Expect(static_cast<bool>(parsed), "parse Cxo outer");
     if (parsed.HasValue()) {
@@ -144,7 +159,7 @@ int TestTwoRecordsRoundtrip()
         return failures;
     }
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet.Value());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
     failures += Expect(static_cast<bool>(built), "build Cxo packet");
     if (built.HasValue()) {
         failures += Expect(built.Value() == BuildPlain("Alice|Bob|"), "Cxo build plain");
@@ -176,7 +191,7 @@ int TestRawEscapesPreserved()
     const cg::packet::PacketResult<cg::packet::Packet> packet = parsed.Value().ToPacket();
     failures += Expect(static_cast<bool>(packet), "Cxo raw escaped ToPacket");
     if (packet.HasValue()) {
-        const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet.Value());
+        const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
         failures += Expect(static_cast<bool>(built), "Cxo raw escaped BuildPacket");
         if (built.HasValue()) {
             failures += Expect(
@@ -206,7 +221,7 @@ int TestEmptyData()
     const cg::packet::PacketResult<cg::packet::Packet> packet = parsed.Value().ToPacket();
     failures += Expect(static_cast<bool>(packet), "Cxo empty ToPacket");
     if (packet.HasValue()) {
-        const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet.Value());
+        const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
         failures += Expect(static_cast<bool>(built), "Cxo empty BuildPacket");
         if (built.HasValue()) {
             failures += Expect(built.Value() == "Cxo  ", "Cxo empty BuildPacket value");
@@ -278,7 +293,7 @@ int TestBuildErrors()
         "Cxo",
         "Cxo build literal delimiter");
     failures += ExpectError(
-        cg::packet::BuildPacket(PacketOf(
+        BuildPacket(PacketOf(
             cg::packet::PacketDirection::ClientToServer,
             {Field("data", cg::packet::PacketFieldType::EscapedString, "Alice|")})),
         cg::packet::PacketErrorCode::EncodeFailed,

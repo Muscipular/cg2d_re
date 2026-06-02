@@ -8,6 +8,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::send::MapDataRequest::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 int Expect(bool condition, const char* message)
 {
     if (condition) {
@@ -97,7 +112,7 @@ int TestBuildAndEncode()
 
     int failures = ExpectMapDataRequestPacket(request.ToPacket(), "UUN ToPacket");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(request.ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(request.ToPacket());
     failures += Expect(static_cast<bool>(built), "UUN BuildPacket");
     if (built.HasValue()) {
         failures += Expect(built.Value() == "UUN 1 2 1 2 3 4 ", "UUN BuildPacket value");
@@ -114,7 +129,7 @@ int TestBuildAndEncode()
 int TestParsePacket()
 {
     const cg::packet::PacketResult<cg::packet::Packet> parsed =
-        cg::packet::ParsePacket("UUN 1 2 1 2 3 4 ");
+        ParsePacket("UUN 1 2 1 2 3 4 ");
 
     int failures = Expect(static_cast<bool>(parsed), "parse UUN");
     if (parsed.HasValue()) {
@@ -135,7 +150,7 @@ int TestInt62Values()
 
     failures += Expect(encoded.Value() == "UUN a -1 1 2 3 4 ", "UUN i62 encoded value");
 
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(encoded.Value());
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(encoded.Value());
     failures += Expect(static_cast<bool>(parsed), "UUN parse i62 values");
     if (parsed.HasValue()) {
         failures += ExpectParsedField(parsed.Value(), 0U, "mapid", "10", "UUN parsed mapid 10");
@@ -148,21 +163,21 @@ int TestErrors()
 {
     int failures = 0;
     failures += ExpectError(
-        cg::packet::ParsePacket("UUN 1 2 1 2 3"),
+        ParsePacket("UUN 1 2 1 2 3"),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "UUN",
         true,
         5U,
         "UUN missing field");
     failures += ExpectError(
-        cg::packet::ParsePacket("UUN 1 2 1 2 3 4 5 "),
+        ParsePacket("UUN 1 2 1 2 3 4 5 "),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "UUN",
         true,
         6U,
         "UUN extra field");
     failures += ExpectError(
-        cg::packet::ParsePacket("UUN _ 2 1 2 3 4 "),
+        ParsePacket("UUN _ 2 1 2 3 4 "),
         cg::packet::PacketErrorCode::DecodeFailed,
         "UUN",
         true,

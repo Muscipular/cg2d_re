@@ -10,6 +10,16 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::ItemCharacterPetList::Spec;
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 int Expect(bool condition, const char* message)
 {
     if (condition) {
@@ -173,14 +183,18 @@ std::vector<cg::packet::receive::CharacterPetRecord> BuildRecords(int count)
     return records;
 }
 
-int TestParsePacketOuter()
+int TestParseRecordsInParse()
 {
     const std::string payload = "Alice|35|0|120|150|40|80|";
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(BuildPlainNfv(payload));
+    const cg::packet::PacketResult<cg::packet::receive::ItemCharacterPetList> parsed =
+        cg::packet::receive::ItemCharacterPetList::Parse(BuildPlainNfv(payload));
 
-    int failures = Expect(static_cast<bool>(parsed), "parse nFV outer");
+    int failures = Expect(static_cast<bool>(parsed), "parse nFV records in typed Parse");
     if (parsed.HasValue()) {
-        failures += ExpectItemCharacterPetListPacket(parsed.Value(), payload, "parse nFV outer packet");
+        failures += Expect(parsed.Value().records.size() == 1U, "parse nFV records count");
+    }
+    if (parsed.HasValue() && parsed.Value().records.size() == 1U) {
+        failures += ExpectRecord(parsed.Value().records[0], "Alice", 35, 0, 120, 150, 40, 80, "parse nFV records");
     }
     return failures;
 }
@@ -245,7 +259,7 @@ int TestSixRecordsRoundtrip()
         return failures;
     }
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet.Value());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
     failures += Expect(static_cast<bool>(built), "build nFV six records packet");
     if (!built.HasValue()) {
         return failures;
@@ -293,7 +307,7 @@ int TestRawNamePreserved()
         return failures;
     }
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet.Value());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
     failures += Expect(static_cast<bool>(built), "build nFV raw name packet");
     if (built.HasValue()) {
         failures += Expect(built.Value() == BuildPlainNfv(payload), "nFV raw name roundtrip");
@@ -393,7 +407,7 @@ int TestBuildRejectsInvalidRecords()
 int main()
 {
     int failures = 0;
-    failures += TestParsePacketOuter();
+    failures += TestParseRecordsInParse();
     failures += TestEmptyData();
     failures += TestSingleRecord();
     failures += TestEmptyName();

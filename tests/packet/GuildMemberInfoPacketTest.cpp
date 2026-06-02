@@ -9,6 +9,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::GuildMemberInfo::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 using GuildMemberInfo = cg::packet::receive::GuildMemberInfo;
 
 int Expect(bool condition, const char* message)
@@ -127,7 +142,7 @@ int TestParsePacketOuter()
 {
     const std::string payload = "1|123|Alice\\zLeader|123|45|1|987|2|";
     const cg::packet::PacketResult<cg::packet::Packet> parsed =
-        cg::packet::ParsePacket(BuildRawPlain("a", payload), ::cg::packet::detail::GuildMemberInfoSpec);
+        cg::packet::ParsePacket(BuildRawPlain("a", payload), cg::packet::receive::GuildMemberInfo::Spec);
 
     int failures = Expect(static_cast<bool>(parsed), "parse Kka outer");
     if (parsed.HasValue()) {
@@ -161,7 +176,7 @@ int TestRoundtrip()
     }
     failures += ExpectGuildMemberInfoPacket(packet.Value(), 10, payload, "Kka ToPacket value");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet.Value());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
     failures += Expect(static_cast<bool>(built), "build Kka packet");
     if (built.HasValue()) {
         failures += Expect(built.Value() == BuildPlain(10, payload), "build Kka plain");
@@ -187,7 +202,7 @@ int TestRawEscapePreserved()
         return failures;
     }
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet.Value());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
     failures += Expect(static_cast<bool>(built), "Kka raw escape BuildPacket");
     if (built.HasValue()) {
         failures += Expect(built.Value() == BuildPlain(10, payload), "Kka raw escape BuildPacket value");

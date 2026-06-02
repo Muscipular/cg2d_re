@@ -10,6 +10,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::AlbumInfo::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 constexpr std::size_t NumericFieldCount = 15U;
 
 int Expect(bool condition, const char* message)
@@ -201,7 +216,7 @@ int TestParsePacketOuter()
 {
     const std::array<int, NumericFieldCount> values = BuildValues();
     const cg::packet::PacketResult<cg::packet::Packet> parsed =
-        cg::packet::ParsePacket(BuildPlain(values, "fast pet", "AlbumName"));
+        ParsePacket(BuildPlain(values, "fast pet", "AlbumName"));
 
     int failures = Expect(static_cast<bool>(parsed), "parse dM outer");
     if (parsed.HasValue()) {
@@ -226,7 +241,7 @@ int TestTypedRoundtrip()
     failures += ExpectAlbumInfoValue(parsed.Value(), values, comment, name, "dM typed values");
     failures += ExpectAlbumInfoPacket(parsed.Value().ToPacket(), values, comment, name, "dM ToPacket");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(parsed.Value().ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(parsed.Value().ToPacket());
     failures += Expect(static_cast<bool>(built), "build dM");
     if (built.HasValue()) {
         failures += Expect(built.Value() == BuildPlain(values, comment, name), "dM roundtrip");
@@ -272,7 +287,7 @@ int TestEmptyCommentAndName()
         "",
         "");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(albumInfo.ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(albumInfo.ToPacket());
     int failures = Expect(static_cast<bool>(built), "build dM empty strings");
     if (!built.HasValue()) {
         return failures;

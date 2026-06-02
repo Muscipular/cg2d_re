@@ -9,6 +9,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::ChatMessage::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 int Expect(bool condition, const char* message)
 {
     if (condition) {
@@ -165,7 +180,7 @@ int ExpectChatMessage(
 int TestSuggestedPacket()
 {
     const cg::packet::PacketResult<cg::packet::Packet> parsed =
-        cg::packet::ParsePacket("zdr -1 P|hello 4 g ");
+        ParsePacket("zdr -1 P|hello 4 g ");
 
     int failures = Expect(static_cast<bool>(parsed), "parse zdr suggested packet");
     if (parsed.HasValue()) {
@@ -184,7 +199,7 @@ int TestSuggestedPacket()
 int TestBuildRoundtrip()
 {
     const cg::packet::receive::ChatMessage message(-1, Payload("hello"), 4, 16);
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(message.ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(message.ToPacket());
 
     int failures = Expect(static_cast<bool>(built), "build zdr packet");
     if (!built.HasValue()) {
@@ -214,7 +229,7 @@ int TestSpaceTextRoundtrip()
 
     failures += ExpectChatMessage(parsed.Value(), -1, "hello world", 4, 16, "zdr space text values");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(parsed.Value().ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(parsed.Value().ToPacket());
     failures += Expect(static_cast<bool>(built), "build zdr space text");
     if (built.HasValue()) {
         failures += Expect(built.Value() == "zdr -1 P|hello\\Sworld 4 g ", "zdr space text plain");
@@ -226,7 +241,7 @@ int TestInternalEscapesPreserved()
 {
     const std::string textRaw = R"(name\zmsg\cmark\ybell\nliteral)";
     const cg::packet::receive::ChatMessage message(-1, Payload(textRaw), 4, 16);
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(message.ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(message.ToPacket());
 
     int failures = Expect(static_cast<bool>(built), "build zdr internal escapes");
     if (!built.HasValue()) {
@@ -270,7 +285,7 @@ int TestEmptyText()
     }
 
     const cg::packet::receive::ChatMessage message(-1, Payload(""), 4, 16);
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(message.ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(message.ToPacket());
     failures += Expect(static_cast<bool>(built), "build zdr empty text");
     if (built.HasValue()) {
         failures += Expect(built.Value() == "zdr -1 P| 4 g ", "zdr empty text plain");
@@ -282,21 +297,21 @@ int TestParseErrors()
 {
     int failures = 0;
     failures += ExpectError(
-        cg::packet::ParsePacket("zdr -1 P|hello 4"),
+        ParsePacket("zdr -1 P|hello 4"),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "zdr",
         true,
         3U,
         "zdr missing fontSize");
     failures += ExpectError(
-        cg::packet::ParsePacket("zdr -1 P|hello 4 g x "),
+        ParsePacket("zdr -1 P|hello 4 g x "),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "zdr",
         true,
         4U,
         "zdr extra field");
     failures += ExpectError(
-        cg::packet::ParsePacket("zdr _ P|hello 4 g "),
+        ParsePacket("zdr _ P|hello 4 g "),
         cg::packet::PacketErrorCode::DecodeFailed,
         "zdr",
         true,
@@ -351,14 +366,14 @@ int TestBuildErrors()
 {
     int failures = 0;
     failures += ExpectError(
-        cg::packet::BuildPacket(PacketOf(cg::packet::PacketDirection::ServerToClient, {})),
+        BuildPacket(PacketOf(cg::packet::PacketDirection::ServerToClient, {})),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "zdr",
         true,
         0U,
         "zdr build missing fields");
     failures += ExpectError(
-        cg::packet::BuildPacket(PacketOf(
+        BuildPacket(PacketOf(
             cg::packet::PacketDirection::ClientToServer,
             {
                 Field("objectIndex", cg::packet::PacketFieldType::Int62, "-1"),
@@ -372,7 +387,7 @@ int TestBuildErrors()
         0U,
         "zdr build wrong direction");
     failures += ExpectError(
-        cg::packet::BuildPacket(PacketOf(
+        BuildPacket(PacketOf(
             cg::packet::PacketDirection::ServerToClient,
             {
                 Field("objIndex", cg::packet::PacketFieldType::Int62, "-1"),
@@ -386,7 +401,7 @@ int TestBuildErrors()
         0U,
         "zdr build wrong field name");
     failures += ExpectError(
-        cg::packet::BuildPacket(PacketOf(
+        BuildPacket(PacketOf(
             cg::packet::PacketDirection::ServerToClient,
             {
                 Field("objectIndex", cg::packet::PacketFieldType::Int62, "-1"),

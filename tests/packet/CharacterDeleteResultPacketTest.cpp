@@ -9,6 +9,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::CharacterDeleteResult::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 using CharacterDeleteResult = cg::packet::receive::CharacterDeleteResult;
 
 int Expect(bool condition, const char* message)
@@ -130,7 +145,7 @@ int TestSuccessfulEmptyData()
     failures += ExpectValue(parsed.Value(), "successful", "", "oy successful value");
     failures += ExpectPacket(parsed.Value().ToPacket(), "successful", "", "oy successful packet");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(parsed.Value().ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(parsed.Value().ToPacket());
     failures += Expect(static_cast<bool>(built), "oy successful build");
     if (built.HasValue()) {
         failures += Expect(built.Value() == "oy successful  ", "oy successful built text");
@@ -152,7 +167,7 @@ int TestFailedMessage()
     failures += ExpectValue(parsed.Value(), "failed", data, "oy failed value");
     failures += ExpectPacket(parsed.Value().ToPacket(), "failed", data, "oy failed packet");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(parsed.Value().ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(parsed.Value().ToPacket());
     failures += Expect(static_cast<bool>(built), "oy failed build");
     if (built.HasValue()) {
         failures += Expect(built.Value() == plain, "oy failed built text");
@@ -174,7 +189,7 @@ int TestDataRoundtrip()
 
     for (const std::string& data : dataValues) {
         const CharacterDeleteResult value("failed", data);
-        const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(value.ToPacket());
+        const cg::packet::PacketResult<std::string> built = BuildPacket(value.ToPacket());
         failures += Expect(static_cast<bool>(built), "oy data roundtrip build");
         if (!built.HasValue()) {
             continue;
@@ -291,7 +306,7 @@ int TestBuildErrors()
     cg::packet::Packet wrongName = CharacterDeleteResult("successful", "").ToPacket();
     wrongName.fields[0].name = "status";
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongName),
+        BuildPacket(wrongName),
         cg::packet::PacketErrorCode::EncodeFailed,
         "oy",
         "oy build wrong field name");
@@ -299,7 +314,7 @@ int TestBuildErrors()
     cg::packet::Packet wrongType = CharacterDeleteResult("successful", "").ToPacket();
     wrongType.fields[1].type = cg::packet::PacketFieldType::RawString;
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongType),
+        BuildPacket(wrongType),
         cg::packet::PacketErrorCode::EncodeFailed,
         "oy",
         "oy build wrong field type");

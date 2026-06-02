@@ -9,6 +9,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::DuelPoint::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 int Expect(bool condition, const char* message)
 {
     if (condition) {
@@ -112,7 +127,7 @@ int ExpectDuelPointValues(
 int TestParsePacketOuter()
 {
     const cg::packet::PacketResult<cg::packet::Packet> parsed =
-        cg::packet::ParsePacket(BuildPlainHb("1|1C|"));
+        ParsePacket(BuildPlainHb("1|1C|"));
 
     int failures = Expect(static_cast<bool>(parsed), "parse hB outer");
     if (parsed.HasValue()) {
@@ -128,7 +143,7 @@ int TestBuildRoundtrip()
     int failures = Expect(duelPoint.BuildData() == "1|1C|", "hB BuildData 1 100");
     failures += ExpectDuelPointPacket(duelPoint.ToPacket(), "1|1C|", "hB ToPacket");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(duelPoint.ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(duelPoint.ToPacket());
     failures += Expect(static_cast<bool>(built), "build hB packet");
     if (!built.HasValue()) {
         return failures;
@@ -216,7 +231,7 @@ int TestOuterErrors()
 {
     int failures = 0;
     failures += ExpectError(
-        cg::packet::ParsePacket("hB"),
+        ParsePacket("hB"),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "hB",
         "hB missing field");
@@ -226,7 +241,7 @@ int TestOuterErrors()
         "hB",
         "typed hB missing field");
     failures += ExpectError(
-        cg::packet::ParsePacket("hB 1|1C| extra "),
+        ParsePacket("hB 1|1C| extra "),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "hB",
         "hB extra field");

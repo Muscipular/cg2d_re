@@ -9,6 +9,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::WindowPacket::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 int Expect(bool condition, const char* message)
 {
     if (condition) {
@@ -123,7 +138,7 @@ int ExpectWindowPacket(
 int TestParsePacket()
 {
     const cg::packet::PacketResult<cg::packet::Packet> parsed =
-        cg::packet::ParsePacket("BZ 0 1 2 -1 hello ");
+        ParsePacket("BZ 0 1 2 -1 hello ");
 
     int failures = Expect(static_cast<bool>(parsed), "parse BZ suggested packet");
     if (parsed.HasValue()) {
@@ -149,7 +164,7 @@ int TestTypedRoundtrip()
     failures += Expect(parsed.Value().data == "hello", "BZ data");
     failures += ExpectWindowPacket(parsed.Value().ToPacket(), "0", "1", "2", "-1", "hello", "BZ ToPacket");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(parsed.Value().ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(parsed.Value().ToPacket());
     failures += Expect(static_cast<bool>(built), "build BZ packet");
     if (built.HasValue()) {
         failures += Expect(built.Value() == "BZ 0 1 2 -1 hello ", "roundtrip BZ packet");
@@ -161,7 +176,7 @@ int TestEscapedDataRoundtrip()
 {
     const std::string data = "hello world\nliteral\\nslash\\S";
     const cg::packet::receive::WindowPacket packet(0, 1, 2, -1, data);
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet.ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet.ToPacket());
 
     int failures = Expect(static_cast<bool>(built), "build BZ escaped data");
     if (!built.HasValue()) {
@@ -184,7 +199,7 @@ int TestEscapedDataRoundtrip()
 int TestEmptyData()
 {
     const cg::packet::receive::WindowPacket packet(0, -1, 2, -1, "");
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet.ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet.ToPacket());
 
     int failures = Expect(static_cast<bool>(built), "build BZ empty data");
     if (!built.HasValue()) {
@@ -207,7 +222,7 @@ int TestParseErrors()
 {
     int failures = 0;
     failures += ExpectError(
-        cg::packet::ParsePacket("BZ 0 1 2 -1"),
+        ParsePacket("BZ 0 1 2 -1"),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "BZ",
         true,
@@ -221,7 +236,7 @@ int TestParseErrors()
         4U,
         "typed BZ missing data");
     failures += ExpectError(
-        cg::packet::ParsePacket("BZ _ 1 2 -1 hello "),
+        ParsePacket("BZ _ 1 2 -1 hello "),
         cg::packet::PacketErrorCode::DecodeFailed,
         "BZ",
         true,
@@ -248,7 +263,7 @@ int TestBuildErrors()
 {
     int failures = 0;
     failures += ExpectError(
-        cg::packet::BuildPacket(PacketOf(cg::packet::PacketDirection::ClientToServer, {
+        BuildPacket(PacketOf(cg::packet::PacketDirection::ClientToServer, {
             Field("windowtype", cg::packet::PacketFieldType::Int62, "0"),
             Field("buttontype", cg::packet::PacketFieldType::Int62, "1"),
             Field("seqno", cg::packet::PacketFieldType::Int62, "2"),
@@ -261,7 +276,7 @@ int TestBuildErrors()
         0U,
         "BZ build wrong direction");
     failures += ExpectError(
-        cg::packet::BuildPacket(PacketOf(cg::packet::PacketDirection::ServerToClient, {
+        BuildPacket(PacketOf(cg::packet::PacketDirection::ServerToClient, {
             Field("windowType", cg::packet::PacketFieldType::Int62, "0"),
             Field("buttontype", cg::packet::PacketFieldType::Int62, "1"),
             Field("seqno", cg::packet::PacketFieldType::Int62, "2"),
@@ -274,7 +289,7 @@ int TestBuildErrors()
         0U,
         "BZ build wrong field name");
     failures += ExpectError(
-        cg::packet::BuildPacket(PacketOf(cg::packet::PacketDirection::ServerToClient, {
+        BuildPacket(PacketOf(cg::packet::PacketDirection::ServerToClient, {
             Field("windowtype", cg::packet::PacketFieldType::Int62, "0"),
             Field("buttontype", cg::packet::PacketFieldType::RawString, "1"),
             Field("seqno", cg::packet::PacketFieldType::Int62, "2"),

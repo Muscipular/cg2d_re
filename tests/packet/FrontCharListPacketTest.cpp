@@ -9,6 +9,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::FrontCharList::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 int Expect(bool condition, const char* message)
 {
     if (condition) {
@@ -113,7 +128,7 @@ int ExpectRecord(
 int TestParsePacketOuter()
 {
     const std::string payload = "Alice|0|Pet|1|";
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(BuildPlainYsVc(payload));
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(BuildPlainYsVc(payload));
 
     int failures = Expect(static_cast<bool>(parsed), "parse ysVc outer");
     if (parsed.HasValue()) {
@@ -178,7 +193,7 @@ int TestRawNamePreserved()
         return failures;
     }
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet.Value());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
     failures += Expect(static_cast<bool>(built), "build ysVc raw name packet");
     if (built.HasValue()) {
         failures += Expect(built.Value() == BuildPlainYsVc(payload), "ysVc raw name roundtrip");
@@ -200,7 +215,7 @@ int TestConstructRoundtrip()
         return failures;
     }
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet.Value());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
     failures += Expect(static_cast<bool>(built), "build ysVc packet");
     if (!built.HasValue()) {
         return failures;

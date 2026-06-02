@@ -1,4 +1,6 @@
 #include "packet/PacketBuilder.hpp"
+#include "packet/receive.hpp"
+#include "packet/send.hpp"
 
 #include <cstddef>
 #include <initializer_list>
@@ -62,10 +64,11 @@ int ExpectNoNewline(std::string_view text, const char* message)
 
 int ExpectBuild(
     const cg::packet::Packet& packet,
+    const cg::packet::PacketSpec& packetSpec,
     std::string_view expected,
     const char* message)
 {
-    const cg::packet::PacketResult<std::string> result = cg::packet::BuildPacket(packet);
+    const cg::packet::PacketResult<std::string> result = cg::packet::BuildPacket(packet, packetSpec);
     int failures = Expect(static_cast<bool>(result), message);
     if (result.HasValue()) {
         failures += Expect(result.Value() == expected, message);
@@ -138,6 +141,7 @@ int TestKnownPackets()
                 Field("password", cg::packet::PacketFieldType::EscapedString, "pass"),
                 Field("account", cg::packet::PacketFieldType::EscapedString, "account"),
             }),
+        cg::packet::send::ClientLogin::Spec,
         "JFVf hash pass account ",
         "build JFVf");
 
@@ -149,6 +153,7 @@ int TestKnownPackets()
                 Field("result", cg::packet::PacketFieldType::Int62, "0"),
                 Field("data", cg::packet::PacketFieldType::EscapedString, "busy"),
             }),
+        cg::packet::receive::ClientLoginResult::Spec,
         "whV 0 busy ",
         "build whV");
 
@@ -157,11 +162,13 @@ int TestKnownPackets()
             "CCL",
             cg::packet::PacketDirection::ClientToServer,
             {Field("time", cg::packet::PacketFieldType::Int62, "10")}),
+        cg::packet::send::CheckCommand::Spec,
         "CCL a ",
         "build CCL 10");
 
     failures += ExpectBuild(
         PacketOf("Gp", cg::packet::PacketDirection::ClientToServer, {}),
+        cg::packet::send::CharacterListRequest::Spec,
         "Gp ",
         "build Gp");
     return failures;
@@ -179,6 +186,7 @@ int TestEscapedStringAndTailEmpty()
                 Field("password", cg::packet::PacketFieldType::EscapedString, "line\nret\rslash\\"),
                 Field("account", cg::packet::PacketFieldType::EscapedString, ""),
             }),
+        cg::packet::send::ClientLogin::Spec,
         "JFVf a\\Sb line\\nret\\rslash\\\\  ",
         "build JFVf escaped and tail empty");
 
@@ -190,6 +198,7 @@ int TestEscapedStringAndTailEmpty()
                 Field("result", cg::packet::PacketFieldType::Int62, "0"),
                 Field("data", cg::packet::PacketFieldType::EscapedString, ""),
             }),
+        cg::packet::receive::ClientLoginResult::Spec,
         "whV 0  ",
         "build whV empty es");
     return failures;
@@ -203,6 +212,7 @@ int TestInt62Values()
             "CCL",
             cg::packet::PacketDirection::ClientToServer,
             {Field("time", cg::packet::PacketFieldType::Int62, "0")}),
+        cg::packet::send::CheckCommand::Spec,
         "CCL 0 ",
         "build i62 zero");
     failures += ExpectBuild(
@@ -210,6 +220,7 @@ int TestInt62Values()
             "CCL",
             cg::packet::PacketDirection::ClientToServer,
             {Field("time", cg::packet::PacketFieldType::Int62, "-1")}),
+        cg::packet::send::CheckCommand::Spec,
         "CCL -1 ",
         "build i62 negative");
     failures += ExpectBuild(
@@ -217,6 +228,7 @@ int TestInt62Values()
             "CCL",
             cg::packet::PacketDirection::ClientToServer,
             {Field("time", cg::packet::PacketFieldType::Int62, std::to_string(std::numeric_limits<int>::max()))}),
+        cg::packet::send::CheckCommand::Spec,
         "CCL 2lkCB1 ",
         "build i62 int max");
     failures += ExpectBuild(
@@ -224,6 +236,7 @@ int TestInt62Values()
             "CCL",
             cg::packet::PacketDirection::ClientToServer,
             {Field("time", cg::packet::PacketFieldType::Int62, std::to_string(std::numeric_limits<int>::min()))}),
+        cg::packet::send::CheckCommand::Spec,
         "CCL -2lkCB2 ",
         "build i62 int min");
     return failures;
@@ -239,14 +252,16 @@ int TestRoundTrip()
             Field("data", cg::packet::PacketFieldType::EscapedString, "busy now\\ok"),
         });
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet);
+    const cg::packet::PacketResult<std::string> built =
+        cg::packet::BuildPacket(packet, cg::packet::receive::ClientLoginResult::Spec);
     int failures = Expect(static_cast<bool>(built), "roundtrip build");
     if (!built.HasValue()) {
         return failures;
     }
 
     failures += ExpectNoNewline(built.Value(), "roundtrip no newline");
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(built.Value());
+    const cg::packet::PacketResult<cg::packet::Packet> parsed =
+        cg::packet::ParsePacket(built.Value(), cg::packet::receive::ClientLoginResult::Spec);
     failures += Expect(static_cast<bool>(parsed), "roundtrip parse");
     if (parsed.HasValue()) {
         failures += Expect(parsed.Value().code == cg::packet::PacketCode("whV"), "roundtrip code");
@@ -273,24 +288,29 @@ int TestErrors()
 {
     int failures = 0;
     failures += ExpectError(
-        cg::packet::BuildPacket(PacketOf("", cg::packet::PacketDirection::ClientToServer, {})),
+        cg::packet::BuildPacket(
+            PacketOf("", cg::packet::PacketDirection::ClientToServer, {}),
+            cg::packet::send::ClientLogin::Spec),
         cg::packet::PacketErrorCode::InvalidCode,
         "",
         false,
         0U,
         "empty code");
     failures += ExpectError(
-        cg::packet::BuildPacket(PacketOf("BAD", cg::packet::PacketDirection::ClientToServer, {})),
-        cg::packet::PacketErrorCode::UnknownCode,
+        cg::packet::BuildPacket(
+            PacketOf("BAD", cg::packet::PacketDirection::ClientToServer, {}),
+            cg::packet::send::ClientLogin::Spec),
+        cg::packet::PacketErrorCode::InvalidCode,
         "BAD",
         false,
         0U,
-        "unknown code");
+        "wrong spec code");
     failures += ExpectError(
         cg::packet::BuildPacket(PacketOf(
             "CCL",
             cg::packet::PacketDirection::ServerToClient,
-            {Field("time", cg::packet::PacketFieldType::Int62, "1")})),
+            {Field("time", cg::packet::PacketFieldType::Int62, "1")}),
+            cg::packet::send::CheckCommand::Spec),
         cg::packet::PacketErrorCode::EncodeFailed,
         "CCL",
         false,
@@ -300,7 +320,8 @@ int TestErrors()
         cg::packet::BuildPacket(PacketOf(
             "whV",
             cg::packet::PacketDirection::ServerToClient,
-            {Field("result", cg::packet::PacketFieldType::Int62, "0")})),
+            {Field("result", cg::packet::PacketFieldType::Int62, "0")}),
+            cg::packet::receive::ClientLoginResult::Spec),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "whV",
         true,
@@ -310,7 +331,8 @@ int TestErrors()
         cg::packet::BuildPacket(PacketOf(
             "Gp",
             cg::packet::PacketDirection::ClientToServer,
-            {Field("extra", cg::packet::PacketFieldType::RawString, "x")})),
+            {Field("extra", cg::packet::PacketFieldType::RawString, "x")}),
+            cg::packet::send::CharacterListRequest::Spec),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "Gp",
         true,
@@ -324,7 +346,8 @@ int TestErrors()
                 Field("wrong", cg::packet::PacketFieldType::EscapedString, "hash"),
                 Field("password", cg::packet::PacketFieldType::EscapedString, "pass"),
                 Field("account", cg::packet::PacketFieldType::EscapedString, "account"),
-            })),
+            }),
+            cg::packet::send::ClientLogin::Spec),
         cg::packet::PacketErrorCode::EncodeFailed,
         "JFVf",
         true,
@@ -338,7 +361,8 @@ int TestErrors()
                 Field("clientHash", cg::packet::PacketFieldType::RawString, "hash"),
                 Field("password", cg::packet::PacketFieldType::EscapedString, "pass"),
                 Field("account", cg::packet::PacketFieldType::EscapedString, "account"),
-            })),
+            }),
+            cg::packet::send::ClientLogin::Spec),
         cg::packet::PacketErrorCode::EncodeFailed,
         "JFVf",
         true,
@@ -348,7 +372,8 @@ int TestErrors()
         cg::packet::BuildPacket(PacketOf(
             "CCL",
             cg::packet::PacketDirection::ClientToServer,
-            {Field("time", cg::packet::PacketFieldType::Payload, "1")})),
+            {Field("time", cg::packet::PacketFieldType::Payload, "1")}),
+            cg::packet::send::CheckCommand::Spec),
         cg::packet::PacketErrorCode::InvalidFieldType,
         "CCL",
         true,
@@ -358,7 +383,8 @@ int TestErrors()
         cg::packet::BuildPacket(PacketOf(
             "CCL",
             cg::packet::PacketDirection::ClientToServer,
-            {Field("time", cg::packet::PacketFieldType::Unknown, "1")})),
+            {Field("time", cg::packet::PacketFieldType::Unknown, "1")}),
+            cg::packet::send::CheckCommand::Spec),
         cg::packet::PacketErrorCode::InvalidFieldType,
         "CCL",
         true,
@@ -368,7 +394,8 @@ int TestErrors()
         cg::packet::BuildPacket(PacketOf(
             "CCL",
             cg::packet::PacketDirection::ClientToServer,
-            {Field("time", cg::packet::PacketFieldType::Int62, "a")})),
+            {Field("time", cg::packet::PacketFieldType::Int62, "a")}),
+            cg::packet::send::CheckCommand::Spec),
         cg::packet::PacketErrorCode::EncodeFailed,
         "CCL",
         true,
@@ -378,7 +405,8 @@ int TestErrors()
         cg::packet::BuildPacket(PacketOf(
             "CCL",
             cg::packet::PacketDirection::ClientToServer,
-            {Field("time", cg::packet::PacketFieldType::Int62, "2147483648")})),
+            {Field("time", cg::packet::PacketFieldType::Int62, "2147483648")}),
+            cg::packet::send::CheckCommand::Spec),
         cg::packet::PacketErrorCode::EncodeFailed,
         "CCL",
         true,
@@ -388,7 +416,8 @@ int TestErrors()
         cg::packet::BuildPacket(PacketOf(
             "CCL",
             cg::packet::PacketDirection::ClientToServer,
-            {Field("time", cg::packet::PacketFieldType::Int62, "-2147483649")})),
+            {Field("time", cg::packet::PacketFieldType::Int62, "-2147483649")}),
+            cg::packet::send::CheckCommand::Spec),
         cg::packet::PacketErrorCode::EncodeFailed,
         "CCL",
         true,
@@ -402,7 +431,8 @@ int TestErrors()
                 Field("clientHash", cg::packet::PacketFieldType::EscapedString, Bytes({0x81U})),
                 Field("password", cg::packet::PacketFieldType::EscapedString, "pass"),
                 Field("account", cg::packet::PacketFieldType::EscapedString, "account"),
-            })),
+            }),
+            cg::packet::send::ClientLogin::Spec),
         cg::packet::PacketErrorCode::EncodeFailed,
         "JFVf",
         true,

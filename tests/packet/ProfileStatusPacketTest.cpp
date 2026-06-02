@@ -7,6 +7,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::ProfileStatus::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 int Expect(bool condition, const char* message)
 {
     if (condition) {
@@ -73,7 +88,7 @@ int ExpectProfileStatusPacket(
 
 int TestParsePacketOuter()
 {
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket("Yo hello ");
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket("Yo hello ");
 
     int failures = Expect(static_cast<bool>(parsed), "parse Yo outer");
     if (parsed.HasValue()) {
@@ -90,7 +105,7 @@ int TestRoundtripPreservesRawData()
 
     int failures = ExpectProfileStatusPacket(packet, data, "Yo ToPacket raw data");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet);
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet);
     failures += Expect(static_cast<bool>(built), "build Yo packet");
     if (!built.HasValue()) {
         return failures;
@@ -120,7 +135,7 @@ int TestEscapedSpaceRoundtrip()
 {
     constexpr std::string_view data = "hello world";
     const cg::packet::receive::ProfileStatus profileStatus {std::string(data)};
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(profileStatus.ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(profileStatus.ToPacket());
 
     int failures = Expect(static_cast<bool>(built), "build Yo escaped space");
     if (!built.HasValue()) {

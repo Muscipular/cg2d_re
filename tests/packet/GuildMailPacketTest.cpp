@@ -9,6 +9,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::GuildMail::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 using GuildMail = cg::packet::receive::GuildMail;
 using GuildMailPayload = cg::packet::receive::GuildMailPayload;
 
@@ -161,7 +176,7 @@ int ExpectPetMail(
 int TestParsePacketOuter()
 {
     const std::string text = "2026/ 6/02 12:34|hello|-1";
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(BuildPlainRll(text));
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(BuildPlainRll(text));
 
     int failures = Expect(static_cast<bool>(parsed), "parse Rll outer");
     if (parsed.HasValue()) {
@@ -220,7 +235,7 @@ int TestBuildRoundtrip()
     payload.petBaseImageNumberOrMarker = 0;
     const GuildMail message(1, std::move(payload), 3);
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(message.ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(message.ToPacket());
     int failures = Expect(static_cast<bool>(built), "build Rll normal mail");
     if (!built.HasValue()) {
         return failures;
@@ -239,7 +254,7 @@ int TestOuterParseErrors()
 {
     int failures = 0;
     failures += ExpectError(
-        cg::packet::ParsePacket("Rll 1 text"),
+        ParsePacket("Rll 1 text"),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "Rll",
         true,
@@ -253,14 +268,14 @@ int TestOuterParseErrors()
         2U,
         "typed Rll missing color");
     failures += ExpectError(
-        cg::packet::ParsePacket("Rll 1 text 3 extra "),
+        ParsePacket("Rll 1 text 3 extra "),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "Rll",
         true,
         3U,
         "Rll extra field");
     failures += ExpectError(
-        cg::packet::ParsePacket("Rll _ text 3 "),
+        ParsePacket("Rll _ text 3 "),
         cg::packet::PacketErrorCode::DecodeFailed,
         "Rll",
         true,
@@ -383,14 +398,14 @@ int TestBuildErrors()
 {
     int failures = 0;
     failures += ExpectError(
-        cg::packet::BuildPacket(PacketOf(cg::packet::PacketDirection::ServerToClient, {})),
+        BuildPacket(PacketOf(cg::packet::PacketDirection::ServerToClient, {})),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "Rll",
         true,
         0U,
         "Rll build missing fields");
     failures += ExpectError(
-        cg::packet::BuildPacket(PacketOf(
+        BuildPacket(PacketOf(
             cg::packet::PacketDirection::ClientToServer,
             {
                 Field("fromregistseqnumber", cg::packet::PacketFieldType::Int62, "1"),
@@ -403,7 +418,7 @@ int TestBuildErrors()
         0U,
         "Rll build wrong direction");
     failures += ExpectError(
-        cg::packet::BuildPacket(PacketOf(
+        BuildPacket(PacketOf(
             cg::packet::PacketDirection::ServerToClient,
             {
                 Field("fromRegistSeqNumber", cg::packet::PacketFieldType::Int62, "1"),
@@ -416,7 +431,7 @@ int TestBuildErrors()
         0U,
         "Rll build wrong field name");
     failures += ExpectError(
-        cg::packet::BuildPacket(PacketOf(
+        BuildPacket(PacketOf(
             cg::packet::PacketDirection::ServerToClient,
             {
                 Field("fromregistseqnumber", cg::packet::PacketFieldType::Int62, "1"),

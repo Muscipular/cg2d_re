@@ -9,6 +9,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::CharacterIcon::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 int Expect(bool condition, const char* message)
 {
     if (condition) {
@@ -96,7 +111,7 @@ int TestParsePacketOuter()
 {
     const std::string payload = "1|10|20|3|4";
     const cg::packet::PacketResult<cg::packet::Packet> parsed =
-        cg::packet::ParsePacket(BuildPlainNi(payload));
+        ParsePacket(BuildPlainNi(payload));
 
     int failures = Expect(static_cast<bool>(parsed), "parse NI outer");
     if (parsed.HasValue()) {
@@ -169,7 +184,7 @@ int TestFieldCountRoundTrip()
         const cg::packet::Packet packet = parsed.Value().ToPacket();
         failures += ExpectCharacterIconPacket(packet, payload, "NI ToPacket");
 
-        const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet);
+        const cg::packet::PacketResult<std::string> built = BuildPacket(packet);
         failures += Expect(static_cast<bool>(built), "build NI packet");
         if (!built.HasValue()) {
             continue;
@@ -189,7 +204,7 @@ int TestErrors()
 {
     int failures = 0;
     failures += ExpectError(
-        cg::packet::ParsePacket("NI"),
+        ParsePacket("NI"),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "NI",
         "NI missing data");
@@ -199,7 +214,7 @@ int TestErrors()
         "NI",
         "typed NI missing data");
     failures += ExpectError(
-        cg::packet::ParsePacket("NI one caInfo "),
+        ParsePacket("NI one caInfo "),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "NI",
         "NI extra outer token");

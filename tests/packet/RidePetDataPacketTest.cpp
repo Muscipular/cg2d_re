@@ -8,6 +8,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::RidePetData::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 int Expect(bool condition, const char* message)
 {
     if (condition) {
@@ -96,7 +111,7 @@ int ExpectRidePetPacket(
 int TestParsePacketOuter()
 {
     const cg::packet::PacketResult<cg::packet::Packet> parsed =
-        cg::packet::ParsePacket(BuildPlainIsSy(0, "E|123|45|"));
+        ParsePacket(BuildPlainIsSy(0, "E|123|45|"));
 
     int failures = Expect(static_cast<bool>(parsed), "parse IsSy outer");
     if (parsed.HasValue()) {
@@ -175,7 +190,7 @@ int TestOuterEscapedName()
     failures += Expect(parsed.Value().payload.name == "Fast Pet\\nRaw", "parse IsSy escaped name value");
     failures += Expect(parsed.Value().BuildData() == payload, "build IsSy escaped name payload");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(parsed.Value().ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(parsed.Value().ToPacket());
     failures += Expect(static_cast<bool>(built), "build IsSy escaped name packet");
     if (built.HasValue()) {
         const cg::packet::PacketResult<cg::packet::receive::RidePetData> roundtrip =
@@ -197,7 +212,7 @@ int TestBuildPacketShape()
     const cg::packet::receive::RidePetData ridePetData(0, std::move(payload));
 
     int failures = ExpectRidePetPacket(ridePetData.ToPacket(), 0, "E|123|45|", "IsSy ToPacket partial");
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(ridePetData.ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(ridePetData.ToPacket());
     failures += Expect(static_cast<bool>(built), "build IsSy partial packet");
     if (built.HasValue()) {
         failures += Expect(built.Value() == BuildPlainIsSy(0, "E|123|45|"), "build IsSy partial value");

@@ -10,6 +10,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::AboutList::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 int Expect(bool condition, const char* message)
 {
     if (condition) {
@@ -91,7 +106,7 @@ int ExpectAboutListEntry(
 int TestParsePacketOuter()
 {
     const cg::packet::PacketResult<cg::packet::Packet> parsed =
-        cg::packet::ParsePacket(BuildPlainIUn("1|10|100|Hero|20|200|Mage"));
+        ParsePacket(BuildPlainIUn("1|10|100|Hero|20|200|Mage"));
 
     int failures = Expect(static_cast<bool>(parsed), "parse IUn outer");
     if (parsed.HasValue()) {
@@ -129,7 +144,7 @@ int TestRoundtrip()
 
     int failures = ExpectAboutListPacket(packet, "1|10|100|Hero|20|200|Mage", "IUn ToPacket");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet);
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet);
     failures += Expect(static_cast<bool>(built), "build IUn packet");
     if (!built.HasValue()) {
         return failures;
@@ -177,7 +192,7 @@ int TestEscapedItemNameRoundtrip()
         failures += ExpectAboutListEntry(parsed.Value().entries[0], 11, 101, "Hero Name", "typed IUn escaped itemName");
     }
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(parsed.Value().ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(parsed.Value().ToPacket());
     failures += Expect(static_cast<bool>(built), "build IUn escaped itemName");
     if (built.HasValue()) {
         failures += Expect(built.Value() == BuildPlainIUn(payload), "roundtrip IUn escaped itemName");

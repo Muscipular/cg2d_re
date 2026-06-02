@@ -8,6 +8,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::send::SetProfileData::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 int Expect(bool condition, const char* message)
 {
     if (condition) {
@@ -97,7 +112,7 @@ int TestToPacketAndEncode()
 
     int failures = ExpectSetProfileDataPacket(data.ToPacket(), "Ot ToPacket");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(data.ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(data.ToPacket());
     failures += Expect(static_cast<bool>(built), "Ot BuildPacket");
     if (built.HasValue()) {
         failures += Expect(built.Value() == "Ot 1 Sell 2 Buy 3 About Profile ", "Ot BuildPacket value");
@@ -114,7 +129,7 @@ int TestToPacketAndEncode()
 int TestParsePacket()
 {
     const cg::packet::PacketResult<cg::packet::Packet> parsed =
-        cg::packet::ParsePacket("Ot 1 Sell 2 Buy 3 About Profile ");
+        ParsePacket("Ot 1 Sell 2 Buy 3 About Profile ");
 
     int failures = Expect(static_cast<bool>(parsed), "parse Ot");
     if (parsed.HasValue()) {
@@ -135,7 +150,7 @@ int TestInt62Values()
 
     failures += Expect(encoded.Value() == "Ot a Sell -1 Buy 3 About Profile ", "Ot i62 encoded value");
 
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(encoded.Value());
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(encoded.Value());
     failures += Expect(static_cast<bool>(parsed), "Ot parse i62 values");
     if (parsed.HasValue()) {
         failures += ExpectField(
@@ -175,7 +190,7 @@ int TestEscapedFieldsRoundtrip()
 
     failures += Expect(encoded.Value().find('\n') == std::string::npos, "Ot escaped no newline");
 
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(encoded.Value());
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(encoded.Value());
     failures += Expect(static_cast<bool>(parsed), "Ot parse escaped fields");
     if (!parsed.HasValue()) {
         return failures;
@@ -224,7 +239,7 @@ int TestEmptyMessages()
 
     failures += Expect(encoded.Value() == "Ot 1  2  3   ", "Ot empty messages encoded value");
 
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(encoded.Value());
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(encoded.Value());
     failures += Expect(static_cast<bool>(parsed), "Ot parse empty messages");
     if (!parsed.HasValue()) {
         return failures;
@@ -241,35 +256,35 @@ int TestErrors()
 {
     int failures = 0;
     failures += ExpectError(
-        cg::packet::ParsePacket("Ot 1 Sell 2 Buy 3 About"),
+        ParsePacket("Ot 1 Sell 2 Buy 3 About"),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "Ot",
         true,
         6U,
         "Ot missing field");
     failures += ExpectError(
-        cg::packet::ParsePacket("Ot 1 Sell 2 Buy 3 About Profile extra "),
+        ParsePacket("Ot 1 Sell 2 Buy 3 About Profile extra "),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "Ot",
         true,
         7U,
         "Ot extra field");
     failures += ExpectError(
-        cg::packet::ParsePacket("Ot _ Sell 2 Buy 3 About Profile "),
+        ParsePacket("Ot _ Sell 2 Buy 3 About Profile "),
         cg::packet::PacketErrorCode::DecodeFailed,
         "Ot",
         true,
         0U,
         "Ot bad sellFlag");
     failures += ExpectError(
-        cg::packet::ParsePacket("Ot 1 Sell _ Buy 3 About Profile "),
+        ParsePacket("Ot 1 Sell _ Buy 3 About Profile "),
         cg::packet::PacketErrorCode::DecodeFailed,
         "Ot",
         true,
         2U,
         "Ot bad buyFlag");
     failures += ExpectError(
-        cg::packet::ParsePacket("Ot 1 Sell 2 Buy _ About Profile "),
+        ParsePacket("Ot 1 Sell 2 Buy _ About Profile "),
         cg::packet::PacketErrorCode::DecodeFailed,
         "Ot",
         true,
@@ -279,7 +294,7 @@ int TestErrors()
     cg::packet::Packet wrongName = cg::packet::send::SetProfileData(1, "Sell", 2, "Buy", 3, "About", "Profile").ToPacket();
     wrongName.fields[1].name = "wrong";
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongName),
+        BuildPacket(wrongName),
         cg::packet::PacketErrorCode::EncodeFailed,
         "Ot",
         true,
@@ -289,7 +304,7 @@ int TestErrors()
     cg::packet::Packet wrongType = cg::packet::send::SetProfileData(1, "Sell", 2, "Buy", 3, "About", "Profile").ToPacket();
     wrongType.fields[4].type = cg::packet::PacketFieldType::EscapedString;
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongType),
+        BuildPacket(wrongType),
         cg::packet::PacketErrorCode::EncodeFailed,
         "Ot",
         true,

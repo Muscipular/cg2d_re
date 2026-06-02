@@ -8,6 +8,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::send::PetSkillUseRequest::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 int Expect(bool condition, const char* message)
 {
     if (condition) {
@@ -94,7 +109,7 @@ int TestToPacketAndEncode()
 
     int failures = ExpectPetSkillUseRequestPacket(request.ToPacket(), "Flvp ToPacket");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(request.ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(request.ToPacket());
     failures += Expect(static_cast<bool>(built), "Flvp BuildPacket");
     if (built.HasValue()) {
         failures += Expect(built.Value() == "Flvp 1 2 3 option ", "Flvp BuildPacket value");
@@ -111,7 +126,7 @@ int TestToPacketAndEncode()
 int TestParsePacket()
 {
     const cg::packet::PacketResult<cg::packet::Packet> parsed =
-        cg::packet::ParsePacket("Flvp 1 2 3 option ");
+        ParsePacket("Flvp 1 2 3 option ");
 
     int failures = Expect(static_cast<bool>(parsed), "parse Flvp");
     if (parsed.HasValue()) {
@@ -119,7 +134,7 @@ int TestParsePacket()
     }
 
     const cg::packet::PacketResult<cg::packet::Packet> emptyData =
-        cg::packet::ParsePacket("Flvp 1 2 3  ");
+        ParsePacket("Flvp 1 2 3  ");
     failures += Expect(static_cast<bool>(emptyData), "parse Flvp empty data");
     if (emptyData.HasValue()) {
         failures += ExpectField(
@@ -145,7 +160,7 @@ int TestInt62Values()
 
     failures += Expect(encoded.Value() == "Flvp a -1 6  ", "Flvp i62 encoded value");
 
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(encoded.Value());
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(encoded.Value());
     failures += Expect(static_cast<bool>(parsed), "Flvp parse i62 values");
     if (parsed.HasValue()) {
         failures += ExpectField(
@@ -185,7 +200,7 @@ int TestEscapedDataRoundtrip()
 
     failures += Expect(encoded.Value() == "Flvp 1 2 3 a\\Sb\\nc\\\\d ", "Flvp escaped value");
 
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(encoded.Value());
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(encoded.Value());
     failures += Expect(static_cast<bool>(parsed), "Flvp parse escaped data");
     if (parsed.HasValue()) {
         failures += ExpectField(
@@ -203,35 +218,35 @@ int TestErrors()
 {
     int failures = 0;
     failures += ExpectError(
-        cg::packet::ParsePacket("Flvp 1 2 3"),
+        ParsePacket("Flvp 1 2 3"),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "Flvp",
         true,
         3U,
         "Flvp missing data");
     failures += ExpectError(
-        cg::packet::ParsePacket("Flvp 1 2 3 data extra "),
+        ParsePacket("Flvp 1 2 3 data extra "),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "Flvp",
         true,
         4U,
         "Flvp extra field");
     failures += ExpectError(
-        cg::packet::ParsePacket("Flvp _ 2 3 data "),
+        ParsePacket("Flvp _ 2 3 data "),
         cg::packet::PacketErrorCode::DecodeFailed,
         "Flvp",
         true,
         0U,
         "Flvp bad havepetindex");
     failures += ExpectError(
-        cg::packet::ParsePacket("Flvp 1 _ 3 data "),
+        ParsePacket("Flvp 1 _ 3 data "),
         cg::packet::PacketErrorCode::DecodeFailed,
         "Flvp",
         true,
         1U,
         "Flvp bad havepetskill");
     failures += ExpectError(
-        cg::packet::ParsePacket("Flvp 1 2 _ data "),
+        ParsePacket("Flvp 1 2 _ data "),
         cg::packet::PacketErrorCode::DecodeFailed,
         "Flvp",
         true,
@@ -242,7 +257,7 @@ int TestErrors()
     truncatedData.push_back(static_cast<char>(0x80U));
     truncatedData.push_back(' ');
     failures += ExpectError(
-        cg::packet::ParsePacket(truncatedData),
+        ParsePacket(truncatedData),
         cg::packet::PacketErrorCode::DecodeFailed,
         "Flvp",
         true,

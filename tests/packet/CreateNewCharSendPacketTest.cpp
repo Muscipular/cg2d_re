@@ -9,6 +9,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::send::CreateNewChar::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 using CreateNewChar = cg::packet::send::CreateNewChar;
 
 int Expect(bool condition, const char* message)
@@ -152,7 +167,7 @@ int TestToPacketAndEncode()
         "12",
         "aSEl ToPacket");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(request.ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(request.ToPacket());
     failures += Expect(static_cast<bool>(built), "aSEl BuildPacket");
     if (built.HasValue()) {
         failures += Expect(built.Value() == "aSEl 1 Alice 2 3 4 5 6 7 8 9 a b c ", "aSEl BuildPacket value");
@@ -185,7 +200,7 @@ int TestNameRoundtripValues()
             continue;
         }
 
-        const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(encoded.Value());
+        const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(encoded.Value());
         failures += Expect(static_cast<bool>(parsed), "aSEl name ParsePacket");
         if (parsed.HasValue()) {
             failures += ExpectCreateNewCharPacket(
@@ -219,7 +234,7 @@ int TestParsePacketRoundtrip()
         return failures;
     }
 
-    const cg::packet::PacketResult<cg::packet::Packet> parsed = cg::packet::ParsePacket(encoded.Value());
+    const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(encoded.Value());
     failures += Expect(static_cast<bool>(parsed), "aSEl roundtrip ParsePacket");
     if (!parsed.HasValue()) {
         return failures;
@@ -242,7 +257,7 @@ int TestParsePacketRoundtrip()
         "37",
         "aSEl roundtrip packet");
 
-    const cg::packet::PacketResult<std::string> rebuilt = cg::packet::BuildPacket(parsed.Value());
+    const cg::packet::PacketResult<std::string> rebuilt = BuildPacket(parsed.Value());
     failures += Expect(static_cast<bool>(rebuilt), "aSEl roundtrip BuildPacket");
     if (rebuilt.HasValue()) {
         failures += Expect(rebuilt.Value() == encoded.Value(), "aSEl roundtrip rebuilt");
@@ -254,14 +269,14 @@ int TestParseErrors()
 {
     int failures = 0;
     failures += ExpectError(
-        cg::packet::ParsePacket("aSEl 1 Alice 2 3 4 5 6 7 8 9 a b"),
+        ParsePacket("aSEl 1 Alice 2 3 4 5 6 7 8 9 a b"),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "aSEl",
         true,
         12U,
         "aSEl missing wind");
     failures += ExpectError(
-        cg::packet::ParsePacket("aSEl 1 Alice 2 3 4 5 6 7 8 9 a b c d "),
+        ParsePacket("aSEl 1 Alice 2 3 4 5 6 7 8 9 a b c d "),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "aSEl",
         true,
@@ -273,7 +288,7 @@ int TestParseErrors()
         std::vector<std::string> tokens = BasicEncodedTokens();
         tokens[fieldIndex] = "_";
         failures += ExpectError(
-            cg::packet::ParsePacket(BuildPlain(tokens)),
+            ParsePacket(BuildPlain(tokens)),
             cg::packet::PacketErrorCode::DecodeFailed,
             "aSEl",
             true,
@@ -285,7 +300,7 @@ int TestParseErrors()
     invalidName.push_back(static_cast<char>(0x80));
     invalidName.append(" 2 3 4 5 6 7 8 9 a b c ");
     failures += ExpectError(
-        cg::packet::ParsePacket(invalidName),
+        ParsePacket(invalidName),
         cg::packet::PacketErrorCode::DecodeFailed,
         "aSEl",
         true,
@@ -301,7 +316,7 @@ int TestManualPacketErrors()
     cg::packet::Packet wrongDirection = CreateNewChar(1, "Alice", 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12).ToPacket();
     wrongDirection.direction = cg::packet::PacketDirection::ServerToClient;
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongDirection),
+        BuildPacket(wrongDirection),
         cg::packet::PacketErrorCode::EncodeFailed,
         "aSEl",
         false,
@@ -311,8 +326,8 @@ int TestManualPacketErrors()
     cg::packet::Packet wrongCode = CreateNewChar(1, "Alice", 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12).ToPacket();
     wrongCode.code = cg::packet::PacketCode("bad");
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongCode),
-        cg::packet::PacketErrorCode::UnknownCode,
+        BuildPacket(wrongCode),
+        cg::packet::PacketErrorCode::InvalidCode,
         "bad",
         false,
         0U,
@@ -321,7 +336,7 @@ int TestManualPacketErrors()
     cg::packet::Packet wrongName = CreateNewChar(1, "Alice", 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12).ToPacket();
     wrongName.fields[1].name = "nickname";
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongName),
+        BuildPacket(wrongName),
         cg::packet::PacketErrorCode::EncodeFailed,
         "aSEl",
         true,
@@ -331,7 +346,7 @@ int TestManualPacketErrors()
     cg::packet::Packet wrongType = CreateNewChar(1, "Alice", 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12).ToPacket();
     wrongType.fields[1].type = cg::packet::PacketFieldType::RawString;
     failures += ExpectError(
-        cg::packet::BuildPacket(wrongType),
+        BuildPacket(wrongType),
         cg::packet::PacketErrorCode::EncodeFailed,
         "aSEl",
         true,

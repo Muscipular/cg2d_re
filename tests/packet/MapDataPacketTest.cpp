@@ -9,6 +9,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::MapData::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 int Expect(bool condition, const char* message)
 {
     if (condition) {
@@ -128,7 +143,7 @@ int TestParsePacketOuter()
 {
     const std::string payload = "0,1,2,3|4,0,5,0|6,7,0,8";
     const cg::packet::PacketResult<cg::packet::Packet> parsed =
-        cg::packet::ParsePacket(BuildPlainAbs(1, 2, 1, 2, 3, 4, payload));
+        ParsePacket(BuildPlainAbs(1, 2, 1, 2, 3, 4, payload));
 
     int failures = Expect(static_cast<bool>(parsed), "parse aBS outer");
     if (parsed.HasValue()) {
@@ -191,7 +206,7 @@ int TestToPacketBuildSeparators()
     const cg::packet::Packet packet = mapData.ToPacket();
     failures += ExpectMapDataPacket(packet, payload, "aBS ToPacket");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet);
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet);
     failures += Expect(static_cast<bool>(built), "build aBS packet");
     if (built.HasValue()) {
         failures += Expect(built.Value() == BuildPlainAbs(1, 2, 1, 2, 3, 4, payload), "build aBS packet value");

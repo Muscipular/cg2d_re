@@ -9,6 +9,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::TradeStart::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 using TradeStart = cg::packet::receive::TradeStart;
 
 int Expect(bool condition, const char* message)
@@ -113,7 +128,7 @@ int ExpectTradeStartPacket(
 int TestParsePacketOuter()
 {
     const cg::packet::PacketResult<cg::packet::Packet> parsed =
-        cg::packet::ParsePacket("ms Alice a ");
+        ParsePacket("ms Alice a ");
 
     int failures = Expect(static_cast<bool>(parsed), "parse ms outer");
     if (parsed.HasValue()) {
@@ -128,7 +143,7 @@ int TestTypedRoundtrip()
     const cg::packet::Packet packet = start.ToPacket();
 
     int failures = ExpectTradeStartPacket(packet, "Alice", "10", "ms ToPacket");
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(packet);
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet);
     failures += Expect(static_cast<bool>(built), "build ms packet");
     if (!built.HasValue()) {
         return failures;
@@ -160,7 +175,7 @@ int TestRawEscapesPreserved()
     failures += Expect(parsed.Value().level == 10, "ms raw escaped level");
 
     const cg::packet::PacketResult<std::string> built =
-        cg::packet::BuildPacket(parsed.Value().ToPacket());
+        BuildPacket(parsed.Value().ToPacket());
     failures += Expect(static_cast<bool>(built), "build ms raw escaped");
     if (built.HasValue()) {
         failures += Expect(
@@ -183,7 +198,7 @@ int TestEmptyNameAllowed()
     failures += Expect(parsed.Value().level == 10, "ms empty name level");
 
     const cg::packet::PacketResult<std::string> built =
-        cg::packet::BuildPacket(parsed.Value().ToPacket());
+        BuildPacket(parsed.Value().ToPacket());
     failures += Expect(static_cast<bool>(built), "build ms empty name");
     if (built.HasValue()) {
         failures += Expect(built.Value() == "ms  a ", "ms empty name build value");

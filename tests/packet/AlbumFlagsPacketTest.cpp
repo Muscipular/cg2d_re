@@ -9,6 +9,21 @@
 
 namespace {
 
+const cg::packet::PacketSpec& PacketSpec() noexcept
+{
+    return cg::packet::receive::AlbumFlags::Spec;
+}
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, PacketSpec());
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, PacketSpec());
+}
+
 int Expect(bool condition, const char* message)
 {
     if (condition) {
@@ -102,7 +117,7 @@ int ExpectPages(
 int TestParsePacketOuter()
 {
     const cg::packet::PacketResult<cg::packet::Packet> parsed =
-        cg::packet::ParsePacket(BuildPlainIlz("2", "1|0|-1|"));
+        ParsePacket(BuildPlainIlz("2", "1|0|-1|"));
 
     int failures = Expect(static_cast<bool>(parsed), "parse Ilz outer");
     if (parsed.HasValue()) {
@@ -126,7 +141,7 @@ int TestRoundtrip()
     failures += Expect(parsed.Value().BuildData() == "1|0|-1|", "Ilz BuildData");
     failures += ExpectAlbumFlagsPacket(parsed.Value().ToPacket(), "2", "1|0|-1|", "Ilz ToPacket");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(parsed.Value().ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(parsed.Value().ToPacket());
     failures += Expect(static_cast<bool>(built), "build Ilz packet");
     if (built.HasValue()) {
         failures += Expect(built.Value() == BuildPlainIlz("2", "1|0|-1|"), "roundtrip Ilz packet");
@@ -179,7 +194,7 @@ int TestConstructAndBuild()
     const cg::packet::receive::AlbumFlags albumFlags(2, {1, 0, -1});
     int failures = ExpectAlbumFlagsPacket(albumFlags.ToPacket(), "2", "1|0|-1|", "Ilz construct ToPacket");
 
-    const cg::packet::PacketResult<std::string> built = cg::packet::BuildPacket(albumFlags.ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(albumFlags.ToPacket());
     failures += Expect(static_cast<bool>(built), "build constructed Ilz");
     if (built.HasValue()) {
         failures += Expect(built.Value() == BuildPlainIlz("2", "1|0|-1|"), "constructed Ilz plain");

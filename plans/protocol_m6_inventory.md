@@ -152,7 +152,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | M6.14.22 战斗/交易/家族/社交封包-aiAb | `aiAb` | 客户端->服务端 | 否 | 完成 | RECV_TROP CHAR_Trade_setTradeList 取出物品；外层 `{item:es} {pet:es} {gold:i62}`；`item/pet` 为普通外层 es，允许空且不拆 `|`，不要求尾随 `|`；`gold` 仅按普通 i62，不限制正负；`item/pet` 强类型解析 BLOCKED：缺服务端旧 C 或更明确语义证据解释两种格式差异 |
 | M6.14.23 战斗/交易/家族/社交封包-ylGN | `ylGN` | 客户端->服务端 | 否 | 完成 | RECV_StallStart 开始摆摊请求；外层 `{stallName:es} {stallDescription:es} {stallList:es}`；stallList 固定 25 个 raw decimal price 且必须尾随 `|`；无 nested es；来源 xlsx + ClientIda + src/packet |
 | M6.15.01 登录/角色管理封包-whV | `whV` | 服务端->客户端 | 否 | 完成 | SEND_ClientLogin 登录角色表结果；外层 `{result:i62} {data:es}`；result 仅转 int/枚举值，不做范围校验；`data` 为普通外层 es 原样保存，不强校验、不拆 payload，强类型拆分 BLOCKED：旧 C/IDA/xlsx 对 data 语义冲突 |
-| M6.15.02 登录/角色管理封包-Daj | `Daj` | 服务端->客户端 | 否 | 未开始 | SEND_CharList 登录角色表 |
+| M6.15.02 登录/角色管理封包-Daj | `Daj` | 服务端->客户端 | 否 | 完成 | SEND_CharList 登录角色表；外层最终 `{result:i62} {data:es}`；result 0 成功时 data 为 `nameRaw|detailRaw|` 重复记录，detail 以字面 `\z` 分隔 19 段，数值为 raw signed decimal；result 非 0 时 data/msg 原样保留不拆 |
 | M6.15.03 登录/角色管理封包-DZ | `DZ` | 服务端->客户端 | 是 | 字段待补 | SEND_CreateNewChar |
 | M6.15.04 登录/角色管理封包-oy | `oy` | 服务端->客户端 | 是 | 字段待补 | SEND_CharDelete |
 | M6.15.05 登录/角色管理封包-cJzI | `cJzI` | 服务端->客户端 | 是 | 字段待补 | SEND_ProcGet |
@@ -212,7 +212,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 6 | `WA` | 客户端->服务端 | 完成 | RECV_CharLogout 登出 | 否 | 否 | xlsx |
 | 7 | `whV` | 服务端->客户端 | 完成 | SEND_ClientLogin 登录角色表结果 | 否 | 是 | xlsx + src/packet |
 | 8 | `PfM` | 服务端->客户端 | 完成 | SEND_PV 版本信息？ | 否 | 否 | xlsx |
-| 9 | `Daj` | 服务端->客户端 | 完成 | SEND_CharList 登录角色表 | 否 | 是 | xlsx |
+| 9 | `Daj` | 服务端->客户端 | 完成 | SEND_CharList 登录角色表；resolved `{result:i62} {data:es}`；成功 data 为角色列表 payload，失败 data/msg 原样保留 | 否 | 是 | xlsx+ServerC+ClientIda+src |
 | 10 | `HNP` | 服务端->客户端 | 完成 | SEND_PRV <br>CHAR_sendProfileVersion简介版本内容 | 否 | 是 | xlsx |
 | 11 | `Zd` | 服务端->客户端 | 完成 | SEND_STK  SYSTEMMSG 系统信息 | 否 | 是 | xlsx |
 | 12 | `hPUd` | 服务端->客户端 | 完成 | SEND_CharLogin 登录结果 | 否 | 否 | xlsx |

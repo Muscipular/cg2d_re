@@ -349,6 +349,7 @@ struct PacketSchema
     std::string resolvedFormat;
     std::string resolvedSource;
     std::vector<FieldSchema> fields;
+    std::vector<FieldSchema> resolvedFields;
 };
 
 int Expect(bool condition, const char* message)
@@ -459,6 +460,17 @@ PacketSchema ReadPacketSchema(const JsonValue& object, int& failures)
             }
         }
     }
+
+    const JsonValue* resolvedFields = object.Find("resolvedFields");
+    if (resolvedFields != nullptr) {
+        failures += Expect(resolvedFields->kind == JsonValue::Kind::Array, "resolvedFields array");
+        if (resolvedFields->kind == JsonValue::Kind::Array) {
+            packet.resolvedFields.reserve(resolvedFields->array.size());
+            for (const JsonValue& field : resolvedFields->array) {
+                packet.resolvedFields.push_back(ReadFieldSchema(field, failures));
+            }
+        }
+    }
     return packet;
 }
 
@@ -508,6 +520,21 @@ int ExpectPacketFieldsMatch(const PacketSchema& schema, const cg::packet::Packet
         failures += Expect(schema.fields[index].index == static_cast<int>(index), message);
         failures += Expect(schema.fields[index].name == packet.fields[index].name, message);
         failures += Expect(schema.fields[index].typeToken == TypeToken(packet.fields[index].type), message);
+    }
+    return failures;
+}
+
+int ExpectResolvedFieldsMatch(const PacketSchema& schema, const cg::packet::Packet& packet, const char* message)
+{
+    int failures = 0;
+    failures += Expect(schema.resolvedFields.size() == packet.fields.size(), message);
+    if (schema.resolvedFields.size() != packet.fields.size()) {
+        return failures;
+    }
+    for (std::size_t index = 0; index < packet.fields.size(); ++index) {
+        failures += Expect(schema.resolvedFields[index].index == static_cast<int>(index), message);
+        failures += Expect(schema.resolvedFields[index].name == packet.fields[index].name, message);
+        failures += Expect(schema.resolvedFields[index].typeToken == TypeToken(packet.fields[index].type), message);
     }
     return failures;
 }
@@ -621,6 +648,28 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         failures += Expect(loginResultSchema->direction == "服务端->客户端", "whV direction");
         failures += Expect(loginResultSchema->legacyKind == "SEND", "whV legacyKind");
         failures += ExpectPacketFieldsMatch(*loginResultSchema, loginResult.ToPacket(), "whV field order");
+    }
+
+    const PacketSchema* characterListSchema = FindPacket(packets, "Daj");
+    failures += Expect(characterListSchema != nullptr, "Daj schema exists");
+    if (characterListSchema != nullptr) {
+        const cg::packet::receive::CharacterList characterList(
+            std::vector<cg::packet::receive::CharacterListRecord> {});
+        const cg::packet::PacketResult<cg::packet::Packet> packet = characterList.ToPacket();
+        failures += Expect(characterListSchema->direction == "服务端->客户端", "Daj direction");
+        failures += Expect(characterListSchema->legacyKind == "SEND", "Daj legacyKind");
+        failures += Expect(
+            characterListSchema->rawFormat == "{result:i62} {data:es} {result:i62} {msg:es}",
+            "Daj rawFormat keeps xlsx");
+        failures += Expect(characterListSchema->fields.size() == 4U, "Daj raw field count");
+        failures += Expect(characterListSchema->resolvedFormat == "{result:i62} {data:es}", "Daj resolvedFormat");
+        failures += Expect(
+            characterListSchema->resolvedSource == "xlsx+ServerC+ClientIda+src",
+            "Daj resolvedSource");
+        failures += Expect(packet.HasValue(), "Daj packet exists");
+        if (packet.HasValue()) {
+            failures += ExpectResolvedFieldsMatch(*characterListSchema, packet.Value(), "Daj resolved field order");
+        }
     }
 
     const PacketSchema* effectSchema = FindPacket(packets, "zzd");

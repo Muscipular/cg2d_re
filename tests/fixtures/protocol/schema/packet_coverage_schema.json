@@ -193,6 +193,24 @@
       "xlsxStatus": "完成",
       "description": "SEND_CharList 登录角色表",
       "rawFormat": "{result:i62} {data:es} {result:i62} {msg:es}",
+      "resolvedFormat": "{result:i62} {data:es}",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "result",
+          "typeToken": "i62",
+          "rawSpec": "{result:i62}",
+          "source": "xlsx+ServerC+ClientIda+src"
+        },
+        {
+          "index": 1,
+          "name": "data",
+          "typeToken": "es",
+          "rawSpec": "{data:es}",
+          "source": "xlsx+ServerC+ClientIda+src"
+        }
+      ],
       "formatEmpty": false,
       "source": "xlsx",
       "fields": [

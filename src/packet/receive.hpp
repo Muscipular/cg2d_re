@@ -204,6 +204,434 @@ namespace cg::packet::receive
         }
     };
 
+    struct CharacterListRecord
+    {
+        std::string nameRaw;
+        int dataPlaceNumber = 0;
+        int faceImageNumber = 0;
+        int level = 0;
+        int vital = 0;
+        int strength = 0;
+        int toughness = 0;
+        int quick = 0;
+        int magic = 0;
+        int earth = 0;
+        int water = 0;
+        int fire = 0;
+        int wind = 0;
+        int loginCount = 0;
+        std::string duplicateNameRaw;
+        int registNumber = 0;
+        std::string jobNameRaw;
+        int renewal = 0;
+        int baseBaseImage = 0;
+        int titleId = 0;
+    };
+
+    /**
+     * SEND_CharList 登录角色表		Daj {result:i62} {data:es}
+     * result 为 0 时 data 是 `nameRaw|detailRaw|` 重复记录；非 0 时 data 按原始消息保留。
+     */
+    struct CharacterList
+    {
+        static constexpr std::string_view Code = "Daj";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::string_view RecordDelimiter = "|";
+        static constexpr std::string_view DetailDelimiter = "\\z";
+
+        enum Result
+        {
+            SUCCESSFUL = 0,
+            LOCKED = 1,
+            NOTYETAUTH = 2,
+            ETC = 3,
+        };
+
+        int result = SUCCESSFUL;
+        std::string data;
+        std::vector<CharacterListRecord> records;
+
+        CharacterList(int result, std::string data, std::vector<CharacterListRecord> records)
+            : result(result),
+              data(std::move(data)),
+              records(std::move(records))
+        {
+        }
+
+        explicit CharacterList(std::vector<CharacterListRecord> records)
+            : records(std::move(records))
+        {
+        }
+
+        [[nodiscard]] PacketResult<std::string> BuildData() const
+        {
+            std::string payload;
+            for (const CharacterListRecord& record : records) {
+                PacketResult<std::string> detail = BuildDetailData(record);
+                if (!detail.HasValue()) {
+                    return detail;
+                }
+
+                payload.append(record.nameRaw);
+                payload.push_back('|');
+                payload.append(detail.Value());
+                payload.push_back('|');
+            }
+
+            return PacketResult<std::string>::Success(std::move(payload));
+        }
+
+        [[nodiscard]] PacketResult<Packet> ToPacket() const
+        {
+            std::string dataValue = data;
+            if (result == SUCCESSFUL) {
+                PacketResult<std::string> builtData = BuildData();
+                if (!builtData.HasValue()) {
+                    return PacketResult<Packet>::Failure(builtData.Error());
+                }
+                dataValue = std::move(builtData.Value());
+            }
+
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::ServerC);
+            packet.fields.push_back(PacketField {
+                "result",
+                PacketFieldType::Int62,
+                std::to_string(result),
+                PacketSourceTag::ServerC,
+            });
+            packet.fields.push_back(PacketField {
+                "data",
+                PacketFieldType::EscapedString,
+                std::move(dataValue),
+                PacketSourceTag::ServerC,
+            });
+            return PacketResult<Packet>::Success(std::move(packet));
+        }
+
+        static PacketResult<CharacterList> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view);
+            if (!parsed.HasValue()) {
+                return PacketResult<CharacterList>::Failure(parsed.Error());
+            }
+
+            return FromPacket(parsed.Value());
+        }
+
+        static PacketResult<CharacterList> FromPacket(const Packet& packet)
+        {
+            if (packet.code.View() != Code) {
+                PacketError error = MakePacketError(
+                    PacketErrorCode::InvalidCode,
+                    "CharacterList Parse 收到非 Daj 封包");
+                error.packetCode = packet.code;
+                return PacketResult<CharacterList>::Failure(std::move(error));
+            }
+
+            if (packet.direction != Direction) {
+                return PacketResult<CharacterList>::Failure(MakePacketError(
+                    PacketErrorCode::DecodeFailed,
+                    "CharacterList Parse 封包方向不匹配"));
+            }
+
+            if (packet.fields.size() != FieldCount) {
+                return PacketResult<CharacterList>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "CharacterList Parse 字段数量不匹配",
+                    packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
+            }
+
+            const PacketField& resultField = packet.fields[ResultFieldIndex];
+            if (resultField.name != "result") {
+                return PacketResult<CharacterList>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "CharacterList Parse result 字段名不匹配",
+                    ResultFieldIndex));
+            }
+
+            if (resultField.type != PacketFieldType::Int62) {
+                return PacketResult<CharacterList>::Failure(MakeFieldError(
+                    PacketErrorCode::InvalidFieldType,
+                    "CharacterList Parse result 字段类型不匹配",
+                    ResultFieldIndex));
+            }
+
+            const PacketField& dataField = packet.fields[DataFieldIndex];
+            if (dataField.name != "data") {
+                return PacketResult<CharacterList>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "CharacterList Parse data 字段名不匹配",
+                    DataFieldIndex));
+            }
+
+            if (dataField.type != PacketFieldType::EscapedString) {
+                return PacketResult<CharacterList>::Failure(MakeFieldError(
+                    PacketErrorCode::InvalidFieldType,
+                    "CharacterList Parse data 字段类型不匹配",
+                    DataFieldIndex));
+            }
+
+            PacketResult<int> parsedResult = ParseDecimalField(resultField.value, ResultFieldIndex);
+            if (!parsedResult.HasValue()) {
+                return PacketResult<CharacterList>::Failure(parsedResult.Error());
+            }
+
+            if (parsedResult.Value() != SUCCESSFUL) {
+                return PacketResult<CharacterList>::Success(CharacterList(parsedResult.Value(), dataField.value, {}));
+            }
+
+            PacketResult<std::vector<CharacterListRecord>> parsedRecords = ParseData(dataField.value);
+            if (!parsedRecords.HasValue()) {
+                return PacketResult<CharacterList>::Failure(parsedRecords.Error());
+            }
+
+            return PacketResult<CharacterList>::Success(
+                CharacterList(parsedResult.Value(), dataField.value, std::move(parsedRecords.Value())));
+        }
+
+        [[nodiscard]] static PacketResult<std::vector<CharacterListRecord>> ParseData(std::string_view payload)
+        {
+            if (payload.empty()) {
+                return PacketResult<std::vector<CharacterListRecord>>::Success({});
+            }
+
+            if (payload.back() != '|') {
+                return PacketResult<std::vector<CharacterListRecord>>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "CharacterList payload 缺少尾随分隔符",
+                    DataFieldIndex));
+            }
+
+            PacketResult<std::vector<std::string>> split = SplitPayload(payload, RecordDelimiter);
+            if (!split.HasValue()) {
+                PacketError error = split.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = DataFieldIndex;
+                error.source = PacketSourceTag::ServerC;
+                return PacketResult<std::vector<CharacterListRecord>>::Failure(std::move(error));
+            }
+
+            std::vector<std::string> parts = std::move(split.Value());
+            parts.pop_back();
+            if ((parts.size() % RecordFieldCount) != 0U) {
+                return PacketResult<std::vector<CharacterListRecord>>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "CharacterList payload 段数量不是 2 的倍数",
+                    DataFieldIndex));
+            }
+
+            std::vector<CharacterListRecord> records;
+            records.reserve(parts.size() / RecordFieldCount);
+            for (std::size_t recordIndex = 0; recordIndex < parts.size() / RecordFieldCount; ++recordIndex) {
+                const std::size_t baseIndex = recordIndex * RecordFieldCount;
+                PacketResult<CharacterListRecord> record = ParseRecord(parts[baseIndex], parts[baseIndex + 1U]);
+                if (!record.HasValue()) {
+                    return PacketResult<std::vector<CharacterListRecord>>::Failure(record.Error());
+                }
+                records.push_back(std::move(record.Value()));
+            }
+
+            return PacketResult<std::vector<CharacterListRecord>>::Success(std::move(records));
+        }
+
+    private:
+        static constexpr std::size_t FieldCount = 2U;
+        static constexpr std::size_t ResultFieldIndex = 0U;
+        static constexpr std::size_t DataFieldIndex = 1U;
+        static constexpr std::size_t RecordFieldCount = 2U;
+        static constexpr std::size_t DetailFieldCount = 19U;
+
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string message)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            error.source = PacketSourceTag::ServerC;
+            return error;
+        }
+
+        [[nodiscard]] static PacketError MakeFieldError(
+            PacketErrorCode code,
+            std::string message,
+            std::size_t fieldIndex)
+        {
+            PacketError error = MakePacketError(code, std::move(message));
+            error.fieldIndex = fieldIndex;
+            return error;
+        }
+
+        [[nodiscard]] static PacketResult<std::string> BuildDetailData(const CharacterListRecord& record)
+        {
+            const std::array<std::string, DetailFieldCount> detailFields = {{
+                std::to_string(record.dataPlaceNumber),
+                std::to_string(record.faceImageNumber),
+                std::to_string(record.level),
+                std::to_string(record.vital),
+                std::to_string(record.strength),
+                std::to_string(record.toughness),
+                std::to_string(record.quick),
+                std::to_string(record.magic),
+                std::to_string(record.earth),
+                std::to_string(record.water),
+                std::to_string(record.fire),
+                std::to_string(record.wind),
+                std::to_string(record.loginCount),
+                record.duplicateNameRaw,
+                std::to_string(record.registNumber),
+                record.jobNameRaw,
+                std::to_string(record.renewal),
+                std::to_string(record.baseBaseImage),
+                std::to_string(record.titleId),
+            }};
+
+            PacketResult<std::string> detail = BuildPayload(detailFields, DetailDelimiter);
+            if (!detail.HasValue()) {
+                PacketError error = detail.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = DataFieldIndex;
+                error.source = PacketSourceTag::ServerC;
+                return PacketResult<std::string>::Failure(std::move(error));
+            }
+            return detail;
+        }
+
+        [[nodiscard]] static PacketResult<CharacterListRecord> ParseRecord(
+            std::string nameRaw,
+            std::string_view detailRaw)
+        {
+            PacketResult<std::vector<std::string>> split = SplitPayload(detailRaw, DetailDelimiter);
+            if (!split.HasValue()) {
+                PacketError error = split.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = DataFieldIndex;
+                error.source = PacketSourceTag::ServerC;
+                return PacketResult<CharacterListRecord>::Failure(std::move(error));
+            }
+
+            std::vector<std::string> detailParts = std::move(split.Value());
+            if (detailParts.size() != DetailFieldCount) {
+                return PacketResult<CharacterListRecord>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    "CharacterList detail 段数量不是 19",
+                    DataFieldIndex));
+            }
+
+            CharacterListRecord record;
+            record.nameRaw = std::move(nameRaw);
+
+            PacketResult<int> dataPlaceNumber = ParseDecimalField(detailParts[0], 0U);
+            PacketResult<int> faceImageNumber = ParseDecimalField(detailParts[1], 1U);
+            PacketResult<int> level = ParseDecimalField(detailParts[2], 2U);
+            PacketResult<int> vital = ParseDecimalField(detailParts[3], 3U);
+            PacketResult<int> strength = ParseDecimalField(detailParts[4], 4U);
+            PacketResult<int> toughness = ParseDecimalField(detailParts[5], 5U);
+            PacketResult<int> quick = ParseDecimalField(detailParts[6], 6U);
+            PacketResult<int> magic = ParseDecimalField(detailParts[7], 7U);
+            PacketResult<int> earth = ParseDecimalField(detailParts[8], 8U);
+            PacketResult<int> water = ParseDecimalField(detailParts[9], 9U);
+            PacketResult<int> fire = ParseDecimalField(detailParts[10], 10U);
+            PacketResult<int> wind = ParseDecimalField(detailParts[11], 11U);
+            PacketResult<int> loginCount = ParseDecimalField(detailParts[12], 12U);
+            PacketResult<int> registNumber = ParseDecimalField(detailParts[14], 14U);
+            PacketResult<int> renewal = ParseDecimalField(detailParts[16], 16U);
+            PacketResult<int> baseBaseImage = ParseDecimalField(detailParts[17], 17U);
+            PacketResult<int> titleId = ParseDecimalField(detailParts[18], 18U);
+
+            const std::array<const PacketResult<int>*, 17> numericResults = {{
+                &dataPlaceNumber,
+                &faceImageNumber,
+                &level,
+                &vital,
+                &strength,
+                &toughness,
+                &quick,
+                &magic,
+                &earth,
+                &water,
+                &fire,
+                &wind,
+                &loginCount,
+                &registNumber,
+                &renewal,
+                &baseBaseImage,
+                &titleId,
+            }};
+            for (const PacketResult<int>* value : numericResults) {
+                if (!value->HasValue()) {
+                    return PacketResult<CharacterListRecord>::Failure(value->Error());
+                }
+            }
+
+            record.dataPlaceNumber = dataPlaceNumber.Value();
+            record.faceImageNumber = faceImageNumber.Value();
+            record.level = level.Value();
+            record.vital = vital.Value();
+            record.strength = strength.Value();
+            record.toughness = toughness.Value();
+            record.quick = quick.Value();
+            record.magic = magic.Value();
+            record.earth = earth.Value();
+            record.water = water.Value();
+            record.fire = fire.Value();
+            record.wind = wind.Value();
+            record.loginCount = loginCount.Value();
+            record.duplicateNameRaw = std::move(detailParts[13]);
+            record.registNumber = registNumber.Value();
+            record.jobNameRaw = std::move(detailParts[15]);
+            record.renewal = renewal.Value();
+            record.baseBaseImage = baseBaseImage.Value();
+            record.titleId = titleId.Value();
+            return PacketResult<CharacterListRecord>::Success(std::move(record));
+        }
+
+        [[nodiscard]] static PacketResult<int> ParseDecimalField(std::string_view text, std::size_t fieldIndex)
+        {
+            bool negative = false;
+            std::size_t index = 0;
+            if (!text.empty() && text.front() == '-') {
+                negative = true;
+                index = 1U;
+            }
+
+            if (index == text.size()) {
+                return PacketResult<int>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    "CharacterList 十进制字段为空",
+                    fieldIndex));
+            }
+
+            const std::int64_t maxValue = static_cast<std::int64_t>(std::numeric_limits<int>::max());
+            const std::int64_t minValue = static_cast<std::int64_t>(std::numeric_limits<int>::min());
+            const std::int64_t limit = negative ? (0 - minValue) : maxValue;
+            std::int64_t value = 0;
+
+            for (; index < text.size(); ++index) {
+                const char ch = text[index];
+                if (ch < '0' || ch > '9') {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "CharacterList 十进制字段包含非法字符",
+                        fieldIndex));
+                }
+
+                const int digit = ch - '0';
+                if (value > (limit - digit) / 10) {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        "CharacterList 十进制字段超出 int 范围",
+                        fieldIndex));
+                }
+
+                value = (value * 10) + digit;
+            }
+
+            if (negative) {
+                value = -value;
+            }
+
+            return PacketResult<int>::Success(static_cast<int>(value));
+        }
+    };
+
     /**
      * SEND_PRV 简介版本内容		HNP {data:es}
      * data: profileVersion|aboutVersion|mailCharge|seekPos，均为十进制 int，不使用 i62。

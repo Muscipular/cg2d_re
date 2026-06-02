@@ -824,6 +824,55 @@ namespace cg::packet::send
             return BuildPacket(ToPacket());
         }
     };
+
+    /**
+     * RECV_GT 设置家族职位 GY {index:i62} {bitflag:i62} {data:es}
+     */
+    struct GuildTitleSet
+    {
+        static constexpr std::string_view Code = "GY";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+
+        int index = 0;
+        int bitflag = 0;
+        std::string data;
+
+        GuildTitleSet(int index, int bitflag, std::string data)
+            : index(index),
+              bitflag(bitflag),
+              data(std::move(data))
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction, PacketSourceTag::Xlsx);
+            packet.fields.push_back(PacketField {
+                "index",
+                PacketFieldType::Int62,
+                std::to_string(index),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "bitflag",
+                PacketFieldType::Int62,
+                std::to_string(bitflag),
+                PacketSourceTag::Xlsx,
+            });
+            packet.fields.push_back(PacketField {
+                "data",
+                PacketFieldType::EscapedString,
+                data,
+                PacketSourceTag::Xlsx,
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket());
+        }
+    };
 }
 
 #endif //CG_ENGINE_SEND_H

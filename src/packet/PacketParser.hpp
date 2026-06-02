@@ -413,6 +413,12 @@ namespace cg::packet
             {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
         }};
 
+        inline constexpr std::array<PacketFieldSpec, 3> GuildTitleSetFields = {{
+            {"index", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"bitflag", PacketFieldType::Int62, PacketSourceTag::Xlsx},
+            {"data", PacketFieldType::EscapedString, PacketSourceTag::Xlsx},
+        }};
+
         inline constexpr std::array<PacketFieldSpec, 1> CheckCommandFields = {{
             {"time", PacketFieldType::Int62, PacketSourceTag::Xlsx},
         }};
@@ -452,7 +458,7 @@ namespace cg::packet
             {"y2", PacketFieldType::Int62, PacketSourceTag::Xlsx},
         }};
 
-        inline constexpr std::array<PacketSpec, 78> PacketRegistry = {{
+        inline constexpr std::array<PacketSpec, 79> PacketRegistry = {{
             {
                 "JFVf",
                 PacketDirection::ClientToServer,
@@ -956,6 +962,13 @@ namespace cg::packet
                 PacketSourceTag::Xlsx,
                 GuildInfoChangeFields.data(),
                 GuildInfoChangeFields.size(),
+            },
+            {
+                "GY",
+                PacketDirection::ClientToServer,
+                PacketSourceTag::Xlsx,
+                GuildTitleSetFields.data(),
+                GuildTitleSetFields.size(),
             },
             {
                 "nsY",

@@ -1030,6 +1030,42 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         }
     }
 
+    const PacketSchema* guildTitleSetSchema = FindPacket(packets, "GY");
+    failures += Expect(guildTitleSetSchema != nullptr, "GY schema exists");
+    if (guildTitleSetSchema != nullptr) {
+        const cg::packet::send::GuildTitleSet guildTitleSet(10, 128, "data");
+        const cg::packet::Packet packet = guildTitleSet.ToPacket();
+        failures += Expect(guildTitleSetSchema->direction == "客户端->服务端", "GY direction");
+        failures += Expect(guildTitleSetSchema->legacyKind == "RECV", "GY legacyKind");
+        failures += Expect(guildTitleSetSchema->rawFormat == "{index} {bitflag} {data:es}", "GY rawFormat");
+        failures += Expect(
+            guildTitleSetSchema->resolvedFormat == "{index:i62} {bitflag:i62} {data:es}",
+            "GY resolvedFormat");
+        failures += Expect(guildTitleSetSchema->resolvedSource == "xlsx+src/packet", "GY resolvedSource");
+        failures += Expect(guildTitleSetSchema->fields.size() == 3U, "GY raw field count");
+        if (guildTitleSetSchema->fields.size() == 3U) {
+            failures += Expect(guildTitleSetSchema->fields[0].name == "index", "GY raw field index");
+            failures += Expect(guildTitleSetSchema->fields[1].name == "bitflag", "GY raw field bitflag");
+            failures += Expect(guildTitleSetSchema->fields[2].name == "data", "GY raw field data");
+            failures += Expect(guildTitleSetSchema->fields[0].typeToken == "unknown", "GY raw index type");
+            failures += Expect(guildTitleSetSchema->fields[1].typeToken == "unknown", "GY raw bitflag type");
+            failures += Expect(guildTitleSetSchema->fields[2].typeToken == "es", "GY raw data type");
+        }
+        failures += Expect(packet.fields.size() == 3U, "GY packet field count");
+        if (packet.fields.size() == 3U) {
+            failures += Expect(packet.fields[0].name == "index", "GY packet index field");
+            failures += Expect(packet.fields[0].type == cg::packet::PacketFieldType::Int62, "GY packet index type");
+            failures += Expect(packet.fields[1].name == "bitflag", "GY packet bitflag field");
+            failures += Expect(
+                packet.fields[1].type == cg::packet::PacketFieldType::Int62,
+                "GY packet bitflag type");
+            failures += Expect(packet.fields[2].name == "data", "GY packet data field");
+            failures += Expect(
+                packet.fields[2].type == cg::packet::PacketFieldType::EscapedString,
+                "GY packet data type");
+        }
+    }
+
     const PacketSchema* checkCommandSchema = FindPacket(packets, "CCL");
     failures += Expect(checkCommandSchema != nullptr, "CCL schema exists");
     if (checkCommandSchema != nullptr) {

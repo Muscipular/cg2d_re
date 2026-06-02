@@ -145,7 +145,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | M6.14.15 战斗/交易/家族/社交封包-Yq | `Yq` | 服务端->客户端 | 是 | 完成 | SEND_TRLPS CHAR_Trade_setTradeList 对方宠物技能信息；外层 `{petIndex:i62} {data:es}`；payload 为 0..10 条隐式技能名 `skillNameRaw|...|`，空 data 表示 0 条，非空必须尾随 `|`；允许中间空字段，字符串 raw escaped 保留，BuildData 拒绝 literal `|` |
 | M6.14.16 战斗/交易/家族/社交封包-woz | `woz` | 客户端->服务端 | 否 | 完成 | RECV_DG DropGold 丢金币；外层 `{x:i62} {y:i62} {amount:i62}`；无二级 payload，不做金币非负、坐标范围或战斗状态业务校验 |
 | M6.14.17 战斗/交易/家族/社交封包-Ufm | `Ufm` | 客户端->服务端 | 否 | 完成 | RECV_GI 变更家族信息；外层 `{c:i62} {data:es}`；无二级 payload，`data` 为普通外层 es 且允许空；`c` 仅按 i62，不做枚举或 sortType 范围校验 |
-| M6.14.18 战斗/交易/家族/社交封包-GY | `GY` | 客户端->服务端 | 否 | 未开始 | RECV_GT 设置家族职位信息 |
+| M6.14.18 战斗/交易/家族/社交封包-GY | `GY` | 客户端->服务端 | 否 | 完成 | RECV_GT 设置家族职位信息；外层 `{index:i62} {bitflag:i62} {data:es}`；无二级 payload，`data` 为普通外层 es 且允许空；`index/bitflag` 仅按 i62，不做范围或 mask 校验 |
 | M6.14.19 战斗/交易/家族/社交封包-uId | `uId` | 客户端->服务端 | 否 | 未开始 | RECV_GML 家族邮件 |
 | M6.14.20 战斗/交易/家族/社交封包-wD | `wD` | 客户端->服务端 | 否 | 未开始 | RECV_PRE 删除迷你邮件好友 |
 | M6.14.21 战斗/交易/家族/社交封包-GH | `GH` | 客户端->服务端 | 否 | 未开始 | RECV_PRM 发送迷你邮件 |
@@ -348,7 +348,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 142 | `FPkR` | 客户端->服务端 | 完成 | RECV_DAB 删除名片 | 否 | 否 | xlsx |
 | 143 | `vcAz` | 客户端->服务端 | 完成 | RECV_AAB 交互名片 | 否 | 否 | xlsx |
 | 144 | `Ufm` | 客户端->服务端 | 完成 | RECV_GI 变更家族信息；外层 `{c:i62} {data:es}`；无二级 payload，`data` 为普通外层 es 且允许空，不拆 `|`/`,`；`c` 仅按 i62，不做枚举或 sortType 范围校验 | 否 | 是 | xlsx + src/packet |
-| 145 | `GY` | 客户端->服务端 | 进行中 | RECV_GT 设置家族职位信息 | 否 | 是 | xlsx |
+| 145 | `GY` | 客户端->服务端 | 完成 | RECV_GT 设置家族职位信息；外层 `{index:i62} {bitflag:i62} {data:es}`；无二级 payload，`data` 为普通外层 es 且允许空，不拆 `|`/`,`；`index/bitflag` 仅按 i62，不做范围或 mask 校验 | 否 | 是 | xlsx + src/packet |
 | 146 | `CZ` | 客户端->服务端 | 进行中 | RECV_GMR 请求家族成员列表 | 否 | 否 | xlsx |
 | 147 | `uHb` | 客户端->服务端 | 进行中 | RECV_BGT  变更家族成员职位 | 否 | 否 | xlsx |
 | 148 | `npzi` | 客户端->服务端 | 完成 | RECV_AGM 家族邀请 | 否 | 否 | xlsx |

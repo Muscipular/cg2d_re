@@ -4296,9 +4296,11 @@
       "direction": "客户端->服务端",
       "legacyKind": "RECV",
       "clientNamespace": "send",
-      "xlsxStatus": "进行中",
+      "xlsxStatus": "完成",
       "description": "RECV_GT 设置家族职位信息",
       "rawFormat": "{index} {bitflag} {data:es}",
+      "resolvedFormat": "{index:i62} {bitflag:i62} {data:es}",
+      "resolvedSource": "xlsx+src/packet",
       "formatEmpty": false,
       "source": "xlsx",
       "fields": [

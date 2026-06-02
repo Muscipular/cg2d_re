@@ -204,6 +204,18 @@ target_include_directories(cg-automap-renderer-test
 
 add_test(NAME cg-automap-renderer-test COMMAND cg-automap-renderer-test)
 
+add_executable(cg-world-ida-render-rules-test
+    tests/world/IdaRenderRulesTest.cpp
+    src/world/IdaRenderRules.cpp
+)
+
+target_include_directories(cg-world-ida-render-rules-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+
+add_test(NAME cg-world-ida-render-rules-test COMMAND cg-world-ida-render-rules-test)
+
 add_executable(cg-packet-types-test
     tests/packet/PacketTypesTest.cpp
 )
@@ -1259,6 +1271,7 @@ if(MSVC)
     target_compile_options(cg-anim-viewer PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-anim-exporter PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-automap-renderer-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-world-ida-render-rules-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-types-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-character-list-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-create-new-char-result-test PRIVATE /W4 /utf-8 /permissive-)
@@ -1361,6 +1374,7 @@ else()
     target_compile_options(cg-anim-viewer PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-anim-exporter PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-automap-renderer-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-world-ida-render-rules-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-types-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-character-list-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-create-new-char-result-test PRIVATE -Wall -Wextra -Wpedantic)

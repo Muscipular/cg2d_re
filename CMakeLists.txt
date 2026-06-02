@@ -289,6 +289,23 @@ target_include_directories(cg-world-scene-ground-sprite-builder-test
 
 add_test(NAME cg-world-scene-ground-sprite-builder-test COMMAND cg-world-scene-ground-sprite-builder-test)
 
+add_executable(cg-world-render-order-test
+    tests/world/WorldRenderOrderTest.cpp
+    src/render/RenderQueue.cpp
+    src/world/IdaRenderRules.cpp
+    src/world/SceneGroundSpriteBuilder.cpp
+    src/world/MapObjectSpriteBuilder.cpp
+    src/world/Transform.cpp
+    src/render/TextureAtlas.cpp
+)
+
+target_include_directories(cg-world-render-order-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+
+add_test(NAME cg-world-render-order-test COMMAND cg-world-render-order-test)
+
 add_executable(cg-world-entity-store-test
     tests/world/EntityStoreTest.cpp
     src/world/EntityStore.cpp
@@ -1374,6 +1391,7 @@ if(MSVC)
     target_compile_options(cg-world-map-object-sprite-builder-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-world-scene-ground-atlas-cache-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-world-scene-ground-sprite-builder-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-world-render-order-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-world-entity-store-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-world-transform-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-types-test PRIVATE /W4 /utf-8 /permissive-)
@@ -1484,6 +1502,7 @@ else()
     target_compile_options(cg-world-map-object-sprite-builder-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-world-scene-ground-atlas-cache-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-world-scene-ground-sprite-builder-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-world-render-order-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-world-entity-store-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-world-transform-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-types-test PRIVATE -Wall -Wextra -Wpedantic)

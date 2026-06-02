@@ -44,6 +44,8 @@ add_executable(cg-client
     src/render/SdlRendererBackend.cpp
     src/render/TextureAtlas.cpp
     src/render/TextureCache.cpp
+    src/world/IdaRenderRules.cpp
+    src/world/SceneGroundAtlasCache.cpp
     src/text/TextEncoding.cpp
     src/ui/ChatBox.cpp
     src/ui/InputBox.cpp
@@ -226,6 +228,21 @@ target_include_directories(cg-world-map-tile-atlas-cache-key-test
 )
 
 add_test(NAME cg-world-map-tile-atlas-cache-key-test COMMAND cg-world-map-tile-atlas-cache-key-test)
+
+add_executable(cg-world-scene-ground-atlas-cache-test
+    tests/world/SceneGroundAtlasCacheTest.cpp
+    src/world/SceneGroundAtlasCache.cpp
+    src/world/IdaRenderRules.cpp
+    src/render/TextureAtlas.cpp
+    src/render/TextureCache.cpp
+)
+
+target_include_directories(cg-world-scene-ground-atlas-cache-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+
+add_test(NAME cg-world-scene-ground-atlas-cache-test COMMAND cg-world-scene-ground-atlas-cache-test)
 
 add_executable(cg-world-entity-store-test
     tests/world/EntityStoreTest.cpp
@@ -1308,6 +1325,7 @@ if(MSVC)
     target_compile_options(cg-automap-renderer-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-world-ida-render-rules-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-world-map-tile-atlas-cache-key-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-world-scene-ground-atlas-cache-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-world-entity-store-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-world-transform-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-types-test PRIVATE /W4 /utf-8 /permissive-)
@@ -1414,6 +1432,7 @@ else()
     target_compile_options(cg-automap-renderer-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-world-ida-render-rules-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-world-map-tile-atlas-cache-key-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-world-scene-ground-atlas-cache-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-world-entity-store-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-world-transform-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-types-test PRIVATE -Wall -Wextra -Wpedantic)

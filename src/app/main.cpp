@@ -460,7 +460,9 @@ public:
     {
     }
 
-    [[nodiscard]] std::optional<cg::world::EntitySpriteGraphic> ResolveEntityGraphic(std::int32_t graphicSeqNo) override
+    [[nodiscard]] std::optional<cg::world::EntitySpriteGraphic> ResolveEntityGraphic(
+        std::int32_t graphicSeqNo,
+        std::int16_t paletteIndex) override
     {
         if (resources_ != nullptr && clip_ != nullptr) {
             const std::optional<cg::resource::GraphicRef> graphic =
@@ -469,7 +471,12 @@ public:
                 return std::nullopt;
             }
 
-            std::optional<cg::resource::DecodedImage> image = resources_->DecodeGraphic(*graphic);
+            std::optional<cg::resource::Palette> palette;
+            if (paletteIndex > 0) {
+                palette = resources_->LoadHiddenPaletteByPalIndex(paletteIndex);
+            }
+            std::optional<cg::resource::DecodedImage> image =
+                palette.has_value() ? resources_->DecodeGraphic(*graphic, *palette) : resources_->DecodeGraphic(*graphic);
             if (!image.has_value()
                 || image->format != cg::render::PixelFormat::Rgba8
                 || image->width <= 0
@@ -480,7 +487,8 @@ public:
 
             const std::string key =
                 "entity-graphic:binSet=" + std::to_string(graphic->binSetIndex) +
-                ";seqNo=" + std::to_string(graphic->seqNo);
+                ";seqNo=" + std::to_string(graphic->seqNo) +
+                ";pal=" + std::to_string(palette.has_value() ? paletteIndex : 0);
             const cg::render::TextureHandle texture =
                 textureCache_.LoadRgba8(key, image->width, image->height, image->pixels.data(), image->width * 4);
             if (!texture.IsValid()) {

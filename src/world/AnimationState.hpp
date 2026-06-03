@@ -19,6 +19,7 @@ struct AnimationFrameOffset {
 
 // AnimationFrameSample 表示当前动画帧采样结果，不持有图像资源。
 struct AnimationFrameSample {
+    const resource::AnimeAction* action{};
     const resource::AnimeFrame* frame{};
     std::int32_t graphicSeqNo{};
     std::size_t frameIndex{};

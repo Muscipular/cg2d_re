@@ -330,7 +330,7 @@ src/resource/
 | M4.9 | 非压缩 Graphic | 解普通/CGEX indexed 数据 | 输出 indexed pixels |
 | M4.10 | 压缩 Graphic RLE | 按 IDA `Graphic::readGraphicData` 行为解压 | 覆盖 literal、fill、zero 长短分支 |
 | M4.11 | Indexed 转 RGBA8 | 默认 palette 或 CGEX 内嵌 palette 转色 | 输出 `width * height * 4` |
-| M4.12 | 透明规则 | `flag & 0x8` 时色号 0 不透明，否则透明 | 透明规则符合旧客户端 |
+| M4.12 | 透明规则 | 不声明 `GraphicInfo.flag & 0x8` 语义；透明规则需 IDA 追溯后再落地 | 透明规则有可追溯证据 |
 | M4.13 | GraphicDecoder | 封装 `Decode(GraphicRef)` | 输出 `DecodedImage`，不含 SDL |
 | M4.14 | AnimeInfoReader | 读取 12 字节 `AnimeInfo` 行 | `AnimeInfo_4.bin` 可枚举 |
 | M4.15 | animeNo 索引 | 建 `animeNo -> AnimeRef` | 多 binSet 重复 animeNo 后者覆盖 |
@@ -390,7 +390,7 @@ textureCache.LoadRgba8(key, image.width, image.height, image.pixels.data(), imag
 2. `Graphic` 数据头：`RD`、`version`、`padding`、`width`、`height`、`blockSize`；`version & 1` 表示 RLE 压缩，`version & 2` 表示 CGEX。
 3. RLE 行为以 IDA `Graphic::readGraphicData` 为准，不以 `cgrw` 的旧实现为唯一依据。
 4. palette 默认使用调用方传入的 `palet_00.cgp`；CGEX 有内嵌 palette 时优先使用内嵌 palette。
-5. 透明规则按旧客户端：`GraphicInfo.flag & 0x8` 时色号 0 不透明，否则色号 0 alpha 为 0。
+5. 暂无 IDA 证据支持 `GraphicInfo.flag & 0x8` 控制色号 0 透明；不得按该位实现透明规则，后续需追溯旧客户端贴图/调色板路径后再补。
 6. `AnimeInfo` 磁盘行长 12 字节：`animeNo`、`offset`、`count`、`flag`。
 7. `AnimeAction` 读取 `dir`、`action`、`duration`、`frameCount`、`pal`、`revert`、`padding`；若旧格式无扩展字段，再兼容回退。
 8. `AnimeFrame` 磁盘行长 10 字节，公开为 `graphicSeqNo/x/y/flag`。

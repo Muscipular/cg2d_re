@@ -38,7 +38,9 @@ public:
     IEntitySpriteGraphicResolver(IEntitySpriteGraphicResolver&&) = delete;
     IEntitySpriteGraphicResolver& operator=(IEntitySpriteGraphicResolver&&) = delete;
 
-    [[nodiscard]] virtual std::optional<EntitySpriteGraphic> ResolveEntityGraphic(std::int32_t graphicSeqNo) = 0;
+    [[nodiscard]] virtual std::optional<EntitySpriteGraphic> ResolveEntityGraphic(
+        std::int32_t graphicSeqNo,
+        std::int16_t paletteIndex) = 0;
 
 protected:
     IEntitySpriteGraphicResolver() = default;

@@ -53,8 +53,10 @@ std::optional<WorldEntitySprite> BuildEntitySprite(const EntitySpriteBuildInput&
         return std::nullopt;
     }
 
+    const std::int16_t paletteIndex =
+        sample.frame->action != nullptr ? sample.frame->action->header.pal : 0;
     std::optional<EntitySpriteGraphic> graphic =
-        input.graphicResolver->ResolveEntityGraphic(sample.frame->graphicSeqNo);
+        input.graphicResolver->ResolveEntityGraphic(sample.frame->graphicSeqNo, paletteIndex);
     if (!graphic.has_value() || !IsValidGraphic(*graphic)) {
         return std::nullopt;
     }

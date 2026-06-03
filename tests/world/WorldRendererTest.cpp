@@ -149,8 +149,11 @@ public:
 
 class FakeEntityGraphicResolver final : public cg::world::IEntitySpriteGraphicResolver {
 public:
-    [[nodiscard]] std::optional<cg::world::EntitySpriteGraphic> ResolveEntityGraphic(std::int32_t graphicSeqNo) override
+    [[nodiscard]] std::optional<cg::world::EntitySpriteGraphic> ResolveEntityGraphic(
+        std::int32_t graphicSeqNo,
+        std::int16_t paletteIndex) override
     {
+        (void)paletteIndex;
         requests.push_back(graphicSeqNo);
         const auto iter = graphics.find(graphicSeqNo);
         if (iter == graphics.end()) {

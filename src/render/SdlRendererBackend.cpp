@@ -174,6 +174,10 @@ struct SdlRendererBackend::Impl {
             SDL_DestroyTexture(texture);
             return {};
         }
+        if (!SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND)) {
+            SDL_DestroyTexture(texture);
+            return {};
+        }
 
         TextureSlot& slot = textureSlots[slotIndex];
         slot.texture = texture;

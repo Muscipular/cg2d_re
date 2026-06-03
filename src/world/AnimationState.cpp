@@ -82,6 +82,7 @@ std::optional<AnimationFrameSample> SampleAnimationFrame(
     const std::size_t frameIndex = state.frameIndex % frames.size();
     const resource::AnimeFrame& frame = frames[frameIndex];
     return AnimationFrameSample{
+        action,
         &frame,
         frame.graphicSeqNo,
         frameIndex,

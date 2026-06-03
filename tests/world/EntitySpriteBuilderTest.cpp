@@ -37,9 +37,11 @@ int Expect(bool condition, const char* message)
 
 class FakeGraphicResolver final : public cg::world::IEntitySpriteGraphicResolver {
 public:
-    [[nodiscard]] std::optional<cg::world::EntitySpriteGraphic> ResolveEntityGraphic(std::int32_t graphicSeqNo) override
+    [[nodiscard]] std::optional<cg::world::EntitySpriteGraphic> ResolveEntityGraphic(
+        std::int32_t graphicSeqNo,
+        std::int16_t paletteIndex) override
     {
-        requests.push_back(graphicSeqNo);
+        requests.push_back(Request{graphicSeqNo, paletteIndex});
         const auto iter = graphics.find(graphicSeqNo);
         if (iter == graphics.end()) {
             return std::nullopt;
@@ -49,7 +51,11 @@ public:
     }
 
     std::unordered_map<std::int32_t, cg::world::EntitySpriteGraphic> graphics;
-    std::vector<std::int32_t> requests;
+    struct Request {
+        std::int32_t graphicSeqNo = 0;
+        std::int16_t paletteIndex = 0;
+    };
+    std::vector<Request> requests;
 };
 
 [[nodiscard]] cg::resource::AnimeFrame MakeFrame(std::int32_t graphicSeqNo, std::int16_t x, std::int16_t y)
@@ -73,6 +79,7 @@ public:
     result.header.dir = static_cast<cg::resource::CG_Direction>(static_cast<int>(direction));
     result.header.duration = duration;
     result.header.frameCount = frameCount;
+    result.header.pal = 7;
     result.frameIndex = frameIndex;
     return result;
 }
@@ -147,7 +154,8 @@ int TestBuildWalkingEntitySprite()
     failures += Expect(animation.action == cg::resource::CG_ACTIONTYPE_WALK, "移动中写入 walk action");
     failures += Expect(animation.direction == cg::world::Direction::East, "动画方向跟随移动方向");
     failures += Expect(animation.frameIndex == 1U, "移动 delta 推进动画帧");
-    failures += Expect(!resolver.requests.empty() && resolver.requests[0] == 102, "使用推进后的动画帧解析图档");
+    failures += Expect(!resolver.requests.empty() && resolver.requests[0].graphicSeqNo == 102, "使用推进后的动画帧解析图档");
+    failures += Expect(!resolver.requests.empty() && resolver.requests[0].paletteIndex == 7, "向图档解析传入 action palette");
     if (!sprite.has_value()) {
         return failures;
     }

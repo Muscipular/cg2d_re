@@ -27,10 +27,10 @@ enum class MapObjectRenderGroup : std::uint8_t {
 // DecodeMapCellForWorld 校对自 IDA 0x46CF00 查询逻辑。
 [[nodiscard]] std::uint32_t DecodeMapCellForWorld(std::uint32_t raw) noexcept;
 
-// ClassifyWorldTileLayer 对应 normal scene tile layer 选择。
+// ClassifyWorldTileLayer 对应 IDA 0x46CF60 normal scene tile layer 选择。
 [[nodiscard]] std::optional<TileRenderLayer> ClassifyWorldTileLayer(std::uint32_t decodedImageNo) noexcept;
 
-// ComputeDrawGraphicPosition 对应 Renderer::DrawGraphic 叠加 Graphic::getXY。
+// ComputeDrawGraphicPosition 对应 Renderer::DrawGraphic(0x521B10) 叠加 Graphic::getXY。
 [[nodiscard]] GraphicDrawPosition ComputeDrawGraphicPosition(
     std::int32_t baseX,
     std::int32_t baseY,
@@ -42,7 +42,7 @@ enum class MapObjectRenderGroup : std::uint8_t {
     std::int32_t mapNo,
     std::int32_t flag2) noexcept;
 
-// MakeIdaCompatibleOrder 将 IDA 同 layer cacheIndex 逆序映射到 RenderQueue order 升序。
+// MakeIdaCompatibleOrder 将 Renderer::SortTexture(0x520790)/0x5222A0 同 layer cacheIndex 逆序映射到 RenderQueue order 升序。
 [[nodiscard]] std::uint32_t MakeIdaCompatibleOrder(std::uint32_t enqueueIndex) noexcept;
 
 } // namespace cg::world

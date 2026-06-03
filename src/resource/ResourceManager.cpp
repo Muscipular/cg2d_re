@@ -437,6 +437,7 @@ void ResourceManager::Clear()
     graphicsBySparseGlobalIndex_.clear();
     hiddenPaletteMapNoByPalIndex_.clear();
     animesBySourceAnimeNo_.clear();
+    loggedWarnings_.clear();
     stats_ = ResourceStats {};
     nextGraphicGlobalIndex_ = 0;
     ClearError();
@@ -1165,7 +1166,9 @@ void ResourceManager::SetError(ResourceErrorCode code, const std::filesystem::pa
 void ResourceManager::AddWarning(std::string_view message)
 {
     ++stats_.warningCount;
-    cg::core::Log(cg::core::LogLevel::Warning, "resource", message);
+    if (loggedWarnings_.insert(std::string{message}).second) {
+        cg::core::Log(cg::core::LogLevel::Warning, "resource", message);
+    }
 }
 
 } // namespace cg::resource

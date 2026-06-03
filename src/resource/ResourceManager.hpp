@@ -9,6 +9,7 @@
 #include <cstdint>
 #include <optional>
 #include <span>
+#include <string>
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
@@ -103,6 +104,7 @@ private:
     std::unordered_map<int, GraphicHandle> graphicsBySparseGlobalIndex_;
     std::vector<int> hiddenPaletteMapNoByPalIndex_;
     std::unordered_map<int, AnimeRef> animesBySourceAnimeNo_;
+    std::unordered_set<std::string> loggedWarnings_;
     Palette defaultPalette_;
     ResourceStats stats_;
     ResourceError lastError_;

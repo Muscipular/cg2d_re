@@ -60,6 +60,7 @@ add_executable(cg-client
     src/ui/ChatBox.cpp
     src/ui/InputBox.cpp
     src/ui/TextLayout.cpp
+    src/platform/Console.cpp
     src/platform/Event.cpp
     src/platform/Ime.cpp
     src/platform/Input.cpp

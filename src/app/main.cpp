@@ -1,4 +1,5 @@
 #include "core/Log.hpp"
+#include "platform/Console.hpp"
 #include "platform/Event.hpp"
 #include "platform/Ime.hpp"
 #include "platform/Input.hpp"
@@ -29,6 +30,7 @@
 
 #include <algorithm>
 #include <array>
+#include <cstddef>
 #include <cstdint>
 #include <filesystem>
 #include <limits>
@@ -52,6 +54,7 @@ constexpr std::uint32_t TestMapId = 0U;
 constexpr std::uint16_t TestServerNo = 0U;
 constexpr std::uint16_t TestFloor = 1000U;
 constexpr int TestAnimeNo = 110300;
+constexpr std::size_t DefaultMapObjectTextureCacheCapacity = 100U;
 constexpr std::string_view DefaultResourceRoot = "H:/Games/cgmsv_21.2a/CrossGate7.1.0";
 constexpr std::string_view DemoFontKey = "demo-font";
 constexpr std::string_view DemoText = "你好 CrossGate";
@@ -314,6 +317,23 @@ void AppendWorldMapNo(std::uint32_t mapNo, std::unordered_set<int>& seen, std::v
     return objects;
 }
 
+[[nodiscard]] std::size_t CountUniqueMapObjectImageNos(
+    const std::vector<cg::world::WorldMapObjectSprite>& mapObjects)
+{
+    std::unordered_set<std::uint32_t> imageNos;
+    imageNos.reserve(mapObjects.size());
+    for (const cg::world::WorldMapObjectSprite& object : mapObjects) {
+        imageNos.insert(object.object.imageNo);
+    }
+    return imageNos.size();
+}
+
+[[nodiscard]] std::size_t MakeMapObjectTextureCacheCapacity(
+    const std::vector<cg::world::WorldMapObjectSprite>& mapObjects)
+{
+    return std::max(DefaultMapObjectTextureCacheCapacity, CountUniqueMapObjectImageNos(mapObjects));
+}
+
 [[nodiscard]] bool TryLoadTestWorldScene(
     const std::filesystem::path& resourceRoot,
     cg::resource::ResourceManager& resources,
@@ -519,6 +539,8 @@ private:
 
 int main(int argc, char* argv[])
 {
+    cg::platform::ConfigureConsoleUtf8();
+
     if (!SDL_Init(SDL_INIT_VIDEO)) {
         cg::core::LogSdlError("app", "SDL_Init");
         return 1;
@@ -601,7 +623,10 @@ int main(int argc, char* argv[])
     DemoGroundTileImageProvider demoGroundProvider(realWorldLoaded ? &testResources : nullptr);
     DemoMapObjectImageProvider demoObjectProvider(realWorldLoaded ? &testResources : nullptr);
     cg::world::SceneGroundAtlasCache demoGroundAtlasCache(textureCache, demoGroundProvider);
-    cg::world::MapObjectTextureCache demoMapObjectTextureCache(textureCache, demoObjectProvider);
+    cg::world::MapObjectTextureCache demoMapObjectTextureCache(
+        textureCache,
+        demoObjectProvider,
+        MakeMapObjectTextureCacheCapacity(worldScene.mapObjects));
     cg::world::WorldRenderer demoWorldRenderer(demoGroundAtlasCache, demoMapObjectTextureCache);
     const cg::world::MapTileAtlasCacheKey demoGroundKey{
         static_cast<int>(worldScene.map.mapId),

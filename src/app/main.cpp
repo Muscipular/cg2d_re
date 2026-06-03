@@ -9,12 +9,16 @@
 #include "render/SdlRendererBackend.hpp"
 #include "render/TextureAtlas.hpp"
 #include "render/TextureCache.hpp"
+#include "resource/BinSetConfigLoader.hpp"
 #include "resource/MapData.hpp"
+#include "resource/MapLoader.hpp"
+#include "resource/ResourceManager.hpp"
 #include "resource/ResourceTypes.hpp"
 #include "text/TextEncoding.hpp"
 #include "ui/ChatBox.hpp"
 #include "ui/TextLayout.hpp"
 #include "world/EntitySpriteBuilder.hpp"
+#include "world/IdaRenderRules.hpp"
 #include "world/MapObjectTextureCache.hpp"
 #include "world/SceneGroundAtlasCache.hpp"
 #include "world/WorldRenderer.hpp"
@@ -23,12 +27,16 @@
 #include <SDL3_image/SDL_image.h>
 #include <SDL3_ttf/SDL_ttf.h>
 
+#include <algorithm>
 #include <array>
 #include <cstdint>
+#include <filesystem>
+#include <limits>
 #include <optional>
 #include <string>
 #include <string_view>
 #include <unordered_map>
+#include <unordered_set>
 #include <vector>
 
 namespace {
@@ -40,6 +48,11 @@ constexpr int DemoTileWidth = 64;
 constexpr int DemoTileHeight = 48;
 constexpr std::uint64_t DemoWalkLegMs = 2000;
 constexpr std::uint32_t StatsLogFrameInterval = 120;
+constexpr std::uint32_t TestMapId = 0U;
+constexpr std::uint16_t TestServerNo = 0U;
+constexpr std::uint16_t TestFloor = 1000U;
+constexpr int TestAnimeNo = 110300;
+constexpr std::string_view DefaultResourceRoot = "H:/Games/cgmsv_21.2a/CrossGate7.1.0";
 constexpr std::string_view DemoFontKey = "demo-font";
 constexpr std::string_view DemoText = "你好 CrossGate";
 constexpr std::string_view DemoLayoutText = "你好 CrossGate\nText layout";
@@ -49,6 +62,58 @@ constexpr std::array<std::string_view, 3> DemoFontPaths = {
     "C:/Windows/Fonts/simhei.ttf",
     "C:/Windows/Fonts/simsun.ttc",
 };
+
+struct WorldSceneData {
+    cg::resource::MapData map;
+    std::vector<cg::world::WorldMapObjectSprite> mapObjects;
+    cg::resource::AnimationClip walkClip;
+    bool realResources = false;
+};
+
+[[nodiscard]] std::string PathToUtf8(const std::filesystem::path& path)
+{
+    const std::u8string value = path.u8string();
+    std::string text;
+    text.reserve(value.size());
+    for (const char8_t ch : value) {
+        text.push_back(static_cast<char>(ch));
+    }
+    return text;
+}
+
+[[nodiscard]] std::filesystem::path PathFromUtf8(std::string_view text)
+{
+    std::u8string value;
+    value.reserve(text.size());
+    for (const char ch : text) {
+        value.push_back(static_cast<char8_t>(ch));
+    }
+    return std::filesystem::path(value);
+}
+
+[[nodiscard]] std::filesystem::path ResolveResourceRoot(int argc, char* argv[])
+{
+    if (argc >= 2 && argv[1] != nullptr && std::string_view{argv[1]} != "--help") {
+        return PathFromUtf8(argv[1]);
+    }
+
+    return PathFromUtf8(DefaultResourceRoot);
+}
+
+void LogResourceError(std::string_view prefix, const cg::resource::ResourceError& error)
+{
+    std::string message{prefix};
+    if (!error.message.empty()) {
+        message += ": " + error.message;
+    }
+    if (!error.path.empty()) {
+        message += ", path=" + PathToUtf8(error.path);
+    }
+    if (error.resourceId != 0) {
+        message += ", resourceId=" + std::to_string(error.resourceId);
+    }
+    cg::core::Log(cg::core::LogLevel::Warning, "resource", message);
+}
 
 std::vector<std::uint8_t> CreateTestTexturePixels()
 {
@@ -157,9 +222,158 @@ cg::resource::AnimationClip CreateDemoWalkClip()
     return clip;
 }
 
+[[nodiscard]] std::vector<cg::world::WorldMapObjectSprite> CreateDemoMapObjects()
+{
+    return std::vector<cg::world::WorldMapObjectSprite>{
+        cg::world::WorldMapObjectSprite{
+            cg::world::MapObject{1, cg::world::TileCoord{4, 3}, 2000U},
+            2000,
+            3,
+        },
+    };
+}
+
+[[nodiscard]] WorldSceneData CreateFallbackWorldScene()
+{
+    WorldSceneData scene;
+    scene.map = CreateDemoMapData();
+    scene.mapObjects = CreateDemoMapObjects();
+    scene.walkClip = CreateDemoWalkClip();
+    return scene;
+}
+
+void AppendWorldMapNo(std::uint32_t mapNo, std::unordered_set<int>& seen, std::vector<int>& mapNos)
+{
+    if (mapNo <= 999U || mapNo > static_cast<std::uint32_t>(std::numeric_limits<int>::max())) {
+        return;
+    }
+
+    const int value = static_cast<int>(mapNo);
+    if (seen.insert(value).second) {
+        mapNos.push_back(value);
+    }
+}
+
+[[nodiscard]] std::vector<int> CollectWorldMapNos(const cg::resource::MapData& map)
+{
+    std::unordered_set<int> seen;
+    std::vector<int> mapNos;
+    const std::size_t cellCount = map.CellCount();
+    const std::size_t tileCount = std::min(cellCount, map.tileData.size());
+    const std::size_t objCount = std::min(cellCount, map.objData.size());
+    mapNos.reserve(std::min<std::size_t>(tileCount + objCount, 4096U));
+
+    for (std::size_t index = 0; index < tileCount; ++index) {
+        AppendWorldMapNo(cg::world::DecodeMapCellForWorld(map.tileData[index]), seen, mapNos);
+    }
+    for (std::size_t index = 0; index < objCount; ++index) {
+        AppendWorldMapNo(cg::world::DecodeMapCellForWorld(map.objData[index]), seen, mapNos);
+    }
+    return mapNos;
+}
+
+[[nodiscard]] std::vector<cg::world::WorldMapObjectSprite> BuildWorldMapObjects(
+    const cg::resource::MapData& map,
+    const cg::resource::ResourceManager& resources)
+{
+    std::vector<cg::world::WorldMapObjectSprite> objects;
+    const std::size_t cellCount = map.CellCount();
+    const std::size_t objCount = std::min(cellCount, map.objData.size());
+    objects.reserve(std::min<std::size_t>(objCount, 4096U));
+
+    for (std::size_t index = 0; index < objCount; ++index) {
+        const std::uint32_t imageNo = cg::world::DecodeMapCellForWorld(map.objData[index]);
+        if (imageNo > static_cast<std::uint32_t>(std::numeric_limits<int>::max())) {
+            continue;
+        }
+
+        const std::optional<cg::resource::GraphicRef> graphic = resources.FindGraphicByMapNo(static_cast<int>(imageNo));
+        if (!graphic.has_value()) {
+            continue;
+        }
+
+        const int flag2 = cg::resource::GraphicFlag2(graphic->info);
+        if (!cg::world::ClassifyMapObjectRenderGroup(static_cast<int>(imageNo), flag2).has_value()) {
+            continue;
+        }
+
+        objects.push_back(cg::world::WorldMapObjectSprite{
+            cg::world::MapObject{
+                static_cast<int>(index),
+                cg::world::TileCoord{
+                    static_cast<std::int32_t>(index % map.width),
+                    static_cast<std::int32_t>(index / map.width),
+                },
+                imageNo,
+            },
+            static_cast<int>(imageNo),
+            flag2,
+        });
+    }
+
+    return objects;
+}
+
+[[nodiscard]] bool TryLoadTestWorldScene(
+    const std::filesystem::path& resourceRoot,
+    cg::resource::ResourceManager& resources,
+    WorldSceneData& scene)
+{
+    const std::filesystem::path ymlPath = resourceRoot / "cgmsv.yml";
+    const std::filesystem::path palettePath = resourceRoot / "3.x" / "bin" / "pal" / "palet_00.cgp";
+    const cg::resource::BinSetConfigLoadResult config = cg::resource::LoadBinSetConfig(ymlPath);
+    if (!config.IsOk()) {
+        LogResourceError("cgmsv.yml 加载失败", config.error);
+        return false;
+    }
+
+    const std::filesystem::path mapPath =
+        cg::resource::BuildMapFloorPath(resourceRoot, TestMapId, TestServerNo, TestFloor);
+    const cg::resource::MapLoadResult mapResult =
+        cg::resource::LoadMapData(mapPath, TestMapId, TestServerNo, TestFloor);
+    if (!mapResult.IsOk()) {
+        LogResourceError("测试地图加载失败", mapResult.error);
+        return false;
+    }
+    const std::vector<int> worldMapNos = CollectWorldMapNos(mapResult.map);
+
+    cg::resource::ResourceLoadOptions loadOptions;
+    loadOptions.buildAutoMapColorCache = false;
+    loadOptions.buildGraphicGlobalIndex = false;
+    loadOptions.hiddenPaletteTablePath = resourceRoot / "data" / "CGLoadSpr.dbf";
+    if (!resources.LoadBinSets(config.binSets, palettePath, loadOptions)) {
+        LogResourceError("binSet 加载失败", resources.LastError());
+        return false;
+    }
+
+    std::optional<cg::resource::AnimationClip> walkClip = resources.LoadAnimation(TestAnimeNo);
+    if (!walkClip.has_value()) {
+        LogResourceError("测试 Anime 加载失败", resources.LastError());
+        return false;
+    }
+
+    scene.map = mapResult.map;
+    scene.mapObjects = BuildWorldMapObjects(scene.map, resources);
+    scene.walkClip = std::move(*walkClip);
+    scene.realResources = true;
+    cg::core::Log(
+        cg::core::LogLevel::Info,
+        "world",
+        "Loaded test world: root=" + PathToUtf8(resourceRoot) +
+            ", mapId=" + std::to_string(TestMapId) +
+            ", serverNo=" + std::to_string(TestServerNo) +
+            ", floor=" + std::to_string(TestFloor) +
+            ", size=" + std::to_string(scene.map.width) + "x" + std::to_string(scene.map.height) +
+            ", mapNos=" + std::to_string(worldMapNos.size()) +
+            ", objects=" + std::to_string(scene.mapObjects.size()) +
+            ", animeNo=" + std::to_string(TestAnimeNo));
+    return true;
+}
+
 class DemoGroundTileImageProvider final : public cg::world::IGroundTileImageProvider {
 public:
-    DemoGroundTileImageProvider()
+    explicit DemoGroundTileImageProvider(cg::resource::ResourceManager* resources = nullptr)
+        : resources_(resources)
     {
         images_.emplace(1000U, CreateSolidImage(DemoTileWidth, DemoTileHeight, 0x2DU, 0x74U, 0x54U, -32, -24));
         images_.emplace(1001U, CreateSolidImage(DemoTileWidth, DemoTileHeight, 0x34U, 0x84U, 0x64U, -32, -24));
@@ -168,6 +382,10 @@ public:
 
     [[nodiscard]] std::optional<cg::resource::DecodedImage> DecodeTile(std::uint32_t imageNo) override
     {
+        if (resources_ != nullptr && imageNo <= static_cast<std::uint32_t>(std::numeric_limits<int>::max())) {
+            return resources_->DecodeGraphicByMapNo(static_cast<int>(imageNo));
+        }
+
         const auto iter = images_.find(imageNo);
         if (iter == images_.end()) {
             return std::nullopt;
@@ -177,18 +395,24 @@ public:
     }
 
 private:
+    cg::resource::ResourceManager* resources_ = nullptr;
     std::unordered_map<std::uint32_t, cg::resource::DecodedImage> images_;
 };
 
 class DemoMapObjectImageProvider final : public cg::world::IMapObjectImageProvider {
 public:
-    DemoMapObjectImageProvider()
+    explicit DemoMapObjectImageProvider(cg::resource::ResourceManager* resources = nullptr)
+        : resources_(resources)
     {
         images_.emplace(2000U, CreateSolidImage(48, 72, 0x64U, 0x70U, 0xB0U, -24, -66));
     }
 
     [[nodiscard]] std::optional<cg::resource::DecodedImage> DecodeObject(std::uint32_t imageNo) override
     {
+        if (resources_ != nullptr && imageNo <= static_cast<std::uint32_t>(std::numeric_limits<int>::max())) {
+            return resources_->DecodeGraphicByMapNo(static_cast<int>(imageNo));
+        }
+
         const auto iter = images_.find(imageNo);
         if (iter == images_.end()) {
             return std::nullopt;
@@ -198,18 +422,61 @@ public:
     }
 
 private:
+    cg::resource::ResourceManager* resources_ = nullptr;
     std::unordered_map<std::uint32_t, cg::resource::DecodedImage> images_;
 };
 
 class DemoEntityGraphicResolver final : public cg::world::IEntitySpriteGraphicResolver {
 public:
-    explicit DemoEntityGraphicResolver(cg::render::TextureHandle texture) noexcept
+    DemoEntityGraphicResolver(
+        cg::render::TextureHandle texture,
+        cg::render::TextureCache& textureCache,
+        cg::resource::ResourceManager* resources,
+        const cg::resource::AnimationClip* clip) noexcept
         : texture_(texture)
+        , textureCache_(textureCache)
+        , resources_(resources)
+        , clip_(clip)
     {
     }
 
     [[nodiscard]] std::optional<cg::world::EntitySpriteGraphic> ResolveEntityGraphic(std::int32_t graphicSeqNo) override
     {
+        if (resources_ != nullptr && clip_ != nullptr) {
+            const std::optional<cg::resource::GraphicRef> graphic =
+                resources_->FindGraphicBySeq(clip_->binSetIndex, graphicSeqNo);
+            if (!graphic.has_value()) {
+                return std::nullopt;
+            }
+
+            std::optional<cg::resource::DecodedImage> image = resources_->DecodeGraphic(*graphic);
+            if (!image.has_value()
+                || image->format != cg::render::PixelFormat::Rgba8
+                || image->width <= 0
+                || image->height <= 0
+                || image->pixels.empty()) {
+                return std::nullopt;
+            }
+
+            const std::string key =
+                "entity-graphic:binSet=" + std::to_string(graphic->binSetIndex) +
+                ";seqNo=" + std::to_string(graphic->seqNo);
+            const cg::render::TextureHandle texture =
+                textureCache_.LoadRgba8(key, image->width, image->height, image->pixels.data(), image->width * 4);
+            if (!texture.IsValid()) {
+                return std::nullopt;
+            }
+
+            return cg::world::EntitySpriteGraphic{
+                texture,
+                {0.0F, 0.0F, static_cast<float>(image->width), static_cast<float>(image->height)},
+                image->width,
+                image->height,
+                image->offsetX,
+                image->offsetY,
+            };
+        }
+
         if (graphicSeqNo != 1) {
             return std::nullopt;
         }
@@ -226,6 +493,9 @@ public:
 
 private:
     cg::render::TextureHandle texture_;
+    cg::render::TextureCache& textureCache_;
+    cg::resource::ResourceManager* resources_ = nullptr;
+    const cg::resource::AnimationClip* clip_ = nullptr;
 };
 
 [[nodiscard]] const char* ToCandidateDisplayModeName(cg::ui::CandidateDisplayMode mode) noexcept
@@ -249,9 +519,6 @@ private:
 
 int main(int argc, char* argv[])
 {
-    (void)argc;
-    (void)argv;
-
     if (!SDL_Init(SDL_INIT_VIDEO)) {
         cg::core::LogSdlError("app", "SDL_Init");
         return 1;
@@ -319,29 +586,36 @@ int main(int argc, char* argv[])
         return 1;
     }
 
-    DemoGroundTileImageProvider demoGroundProvider;
-    DemoMapObjectImageProvider demoObjectProvider;
+    const std::filesystem::path resourceRoot = ResolveResourceRoot(argc, argv);
+    cg::resource::ResourceManager testResources;
+    WorldSceneData worldScene = CreateFallbackWorldScene();
+    const bool realWorldLoaded = TryLoadTestWorldScene(resourceRoot, testResources, worldScene);
+    if (!realWorldLoaded) {
+        cg::core::Log(
+            cg::core::LogLevel::Warning,
+            "world",
+            "Use fallback in-memory world. Pass resource root as argv[1] or keep default root valid: " +
+                PathToUtf8(resourceRoot));
+    }
+
+    DemoGroundTileImageProvider demoGroundProvider(realWorldLoaded ? &testResources : nullptr);
+    DemoMapObjectImageProvider demoObjectProvider(realWorldLoaded ? &testResources : nullptr);
     cg::world::SceneGroundAtlasCache demoGroundAtlasCache(textureCache, demoGroundProvider);
     cg::world::MapObjectTextureCache demoMapObjectTextureCache(textureCache, demoObjectProvider);
     cg::world::WorldRenderer demoWorldRenderer(demoGroundAtlasCache, demoMapObjectTextureCache);
-    const cg::resource::MapData demoMap = CreateDemoMapData();
     const cg::world::MapTileAtlasCacheKey demoGroundKey{
-        static_cast<int>(demoMap.mapId),
-        static_cast<int>(demoMap.serverNo),
-        static_cast<int>(demoMap.floor),
+        static_cast<int>(worldScene.map.mapId),
+        static_cast<int>(worldScene.map.serverNo),
+        static_cast<int>(worldScene.map.floor),
         cg::world::MapTileAtlasAllLayerMask,
         1U,
         1U,
     };
-    const std::array<cg::world::WorldMapObjectSprite, 1> demoMapObjects{
-        cg::world::WorldMapObjectSprite{
-            cg::world::MapObject{1, cg::world::TileCoord{4, 3}, 2000U},
-            2000,
-            3,
-        },
-    };
-    const cg::resource::AnimationClip demoWalkClip = CreateDemoWalkClip();
-    DemoEntityGraphicResolver demoEntityResolver(testTexture);
+    DemoEntityGraphicResolver demoEntityResolver(
+        testTexture,
+        textureCache,
+        realWorldLoaded ? &testResources : nullptr,
+        &worldScene.walkClip);
     cg::world::AnimationState demoEntityAnimation{};
     cg::world::WorldRenderFrame demoWorldFrame;
     std::uint64_t demoWorldTimeMs = 0U;
@@ -473,9 +747,16 @@ int main(int argc, char* argv[])
         const std::uint64_t walkPhaseMs = demoWorldTimeMs % (DemoWalkLegMs * 2U);
         const bool walkingEast = walkPhaseMs < DemoWalkLegMs;
         const std::uint64_t walkNowMs = walkingEast ? walkPhaseMs : walkPhaseMs - DemoWalkLegMs;
+        const cg::world::TileCoord demoOriginTile{
+            static_cast<std::int32_t>(worldScene.map.width / 2U),
+            static_cast<std::int32_t>(worldScene.map.height / 2U),
+        };
+        const cg::world::WorldPixelCoord demoOriginWorld = cg::world::TileToWorldPixel(demoOriginTile);
         const cg::world::Movement demoEntityMovement = cg::world::MakePixelMovement(
-            walkingEast ? cg::world::WorldPixelCoord{-128, 0} : cg::world::WorldPixelCoord{128, 0},
-            walkingEast ? cg::world::WorldPixelCoord{128, 0} : cg::world::WorldPixelCoord{-128, 0},
+            walkingEast ? cg::world::WorldPixelCoord{demoOriginWorld.x - 128, demoOriginWorld.y} :
+                          cg::world::WorldPixelCoord{demoOriginWorld.x + 128, demoOriginWorld.y},
+            walkingEast ? cg::world::WorldPixelCoord{demoOriginWorld.x + 128, demoOriginWorld.y} :
+                          cg::world::WorldPixelCoord{demoOriginWorld.x - 128, demoOriginWorld.y},
             0U,
             DemoWalkLegMs,
             walkingEast ? cg::world::Direction::East : cg::world::Direction::West);
@@ -484,10 +765,10 @@ int main(int argc, char* argv[])
         demoEntityInput.id = cg::world::EntityId{1U, 1U};
         demoEntityInput.movement = &demoEntityMovement;
         demoEntityInput.animation = &demoEntityAnimation;
-        demoEntityInput.clip = &demoWalkClip;
+        demoEntityInput.clip = &worldScene.walkClip;
         demoEntityInput.graphicResolver = &demoEntityResolver;
         demoEntityInput.movingAction = static_cast<std::int16_t>(cg::resource::CG_ACTIONTYPE_WALK);
-        demoEntityInput.originTile = cg::world::TileCoord{0, 0};
+        demoEntityInput.originTile = demoOriginTile;
         demoEntityInput.originScreen = cg::world::ScreenPixelCoord{640, 300};
         demoEntityInput.nowTimeMs = walkNowMs;
         demoEntityInput.deltaMs = deltaMs;
@@ -499,11 +780,11 @@ int main(int argc, char* argv[])
             cg::world::BuildEntitySprite(demoEntityInput);
 
         cg::world::WorldRenderInput demoWorldInput;
-        demoWorldInput.map = &demoMap;
+        demoWorldInput.map = &worldScene.map;
         demoWorldInput.groundKey = demoGroundKey;
-        demoWorldInput.mapObjects = demoMapObjects;
+        demoWorldInput.mapObjects = worldScene.mapObjects;
         demoWorldInput.camera = cg::world::WorldRenderCamera{
-            cg::world::TileCoord{0, 0},
+            demoOriginTile,
             cg::world::ScreenPixelCoord{640, 300},
             cg::render::RectF{0.0F, 0.0F, static_cast<float>(WindowWidth), static_cast<float>(WindowHeight)},
         };

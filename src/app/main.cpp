@@ -9,9 +9,15 @@
 #include "render/SdlRendererBackend.hpp"
 #include "render/TextureAtlas.hpp"
 #include "render/TextureCache.hpp"
+#include "resource/MapData.hpp"
+#include "resource/ResourceTypes.hpp"
 #include "text/TextEncoding.hpp"
 #include "ui/ChatBox.hpp"
 #include "ui/TextLayout.hpp"
+#include "world/EntitySpriteBuilder.hpp"
+#include "world/MapObjectTextureCache.hpp"
+#include "world/SceneGroundAtlasCache.hpp"
+#include "world/WorldRenderer.hpp"
 
 #include <SDL3/SDL.h>
 #include <SDL3_image/SDL_image.h>
@@ -19,8 +25,10 @@
 
 #include <array>
 #include <cstdint>
+#include <optional>
 #include <string>
 #include <string_view>
+#include <unordered_map>
 #include <vector>
 
 namespace {
@@ -28,6 +36,9 @@ namespace {
 constexpr int WindowWidth = 1280;
 constexpr int WindowHeight = 720;
 constexpr int TestTextureSize = 64;
+constexpr int DemoTileWidth = 64;
+constexpr int DemoTileHeight = 48;
+constexpr std::uint64_t DemoWalkLegMs = 2000;
 constexpr std::uint32_t StatsLogFrameInterval = 120;
 constexpr std::string_view DemoFontKey = "demo-font";
 constexpr std::string_view DemoText = "你好 CrossGate";
@@ -55,6 +66,167 @@ std::vector<std::uint8_t> CreateTestTexturePixels()
 
     return pixels;
 }
+
+cg::resource::DecodedImage CreateSolidImage(
+    int width,
+    int height,
+    std::uint8_t red,
+    std::uint8_t green,
+    std::uint8_t blue,
+    int offsetX,
+    int offsetY)
+{
+    cg::resource::DecodedImage image;
+    image.width = width;
+    image.height = height;
+    image.offsetX = offsetX;
+    image.offsetY = offsetY;
+    image.format = cg::render::PixelFormat::Rgba8;
+    image.pixels.resize(static_cast<std::size_t>(width) * static_cast<std::size_t>(height) * 4U);
+    for (std::size_t index = 0; index < static_cast<std::size_t>(width) * static_cast<std::size_t>(height); ++index) {
+        const std::size_t offset = index * 4U;
+        image.pixels[offset + 0U] = red;
+        image.pixels[offset + 1U] = green;
+        image.pixels[offset + 2U] = blue;
+        image.pixels[offset + 3U] = 0xFFU;
+    }
+
+    return image;
+}
+
+cg::resource::MapData CreateDemoMapData()
+{
+    cg::resource::MapData map;
+    map.mapId = 1U;
+    map.serverNo = 1U;
+    map.floor = 1U;
+    map.width = 8U;
+    map.height = 8U;
+    map.tileData.reserve(map.CellCount());
+    for (std::size_t index = 0; index < map.CellCount(); ++index) {
+        const std::uint16_t x = static_cast<std::uint16_t>(index % map.width);
+        const std::uint16_t y = static_cast<std::uint16_t>(index / map.width);
+        if ((x + y) % 5U == 0U) {
+            map.tileData.push_back(5000U);
+        } else if ((x + y) % 2U == 0U) {
+            map.tileData.push_back(1000U);
+        } else {
+            map.tileData.push_back(1001U);
+        }
+    }
+
+    return map;
+}
+
+cg::resource::AnimeFrame CreateDemoAnimeFrame(std::int32_t graphicSeqNo, std::int16_t x, std::int16_t y)
+{
+    cg::resource::AnimeFrame frame;
+    frame.graphicSeqNo = graphicSeqNo;
+    frame.x = x;
+    frame.y = y;
+    return frame;
+}
+
+cg::resource::AnimeAction CreateDemoAnimeAction(
+    cg::world::Direction direction,
+    int frameIndex,
+    std::int32_t frameCount)
+{
+    cg::resource::AnimeAction action;
+    action.header.action = cg::resource::CG_ACTIONTYPE_WALK;
+    action.header.dir = static_cast<cg::resource::CG_Direction>(static_cast<int>(direction));
+    action.header.duration = 480;
+    action.header.frameCount = frameCount;
+    action.frameIndex = frameIndex;
+    return action;
+}
+
+cg::resource::AnimationClip CreateDemoWalkClip()
+{
+    cg::resource::AnimationClip clip;
+    clip.actions.push_back(CreateDemoAnimeAction(cg::world::Direction::East, 0, 4));
+    clip.actions.push_back(CreateDemoAnimeAction(cg::world::Direction::West, 4, 4));
+    clip.frames.push_back(CreateDemoAnimeFrame(1, 0, 0));
+    clip.frames.push_back(CreateDemoAnimeFrame(1, 2, -1));
+    clip.frames.push_back(CreateDemoAnimeFrame(1, 0, 0));
+    clip.frames.push_back(CreateDemoAnimeFrame(1, -2, -1));
+    clip.frames.push_back(CreateDemoAnimeFrame(1, 0, 0));
+    clip.frames.push_back(CreateDemoAnimeFrame(1, -2, -1));
+    clip.frames.push_back(CreateDemoAnimeFrame(1, 0, 0));
+    clip.frames.push_back(CreateDemoAnimeFrame(1, 2, -1));
+    return clip;
+}
+
+class DemoGroundTileImageProvider final : public cg::world::IGroundTileImageProvider {
+public:
+    DemoGroundTileImageProvider()
+    {
+        images_.emplace(1000U, CreateSolidImage(DemoTileWidth, DemoTileHeight, 0x2DU, 0x74U, 0x54U, -32, -24));
+        images_.emplace(1001U, CreateSolidImage(DemoTileWidth, DemoTileHeight, 0x34U, 0x84U, 0x64U, -32, -24));
+        images_.emplace(5000U, CreateSolidImage(DemoTileWidth, DemoTileHeight, 0x78U, 0x67U, 0x3BU, -32, -24));
+    }
+
+    [[nodiscard]] std::optional<cg::resource::DecodedImage> DecodeTile(std::uint32_t imageNo) override
+    {
+        const auto iter = images_.find(imageNo);
+        if (iter == images_.end()) {
+            return std::nullopt;
+        }
+
+        return iter->second;
+    }
+
+private:
+    std::unordered_map<std::uint32_t, cg::resource::DecodedImage> images_;
+};
+
+class DemoMapObjectImageProvider final : public cg::world::IMapObjectImageProvider {
+public:
+    DemoMapObjectImageProvider()
+    {
+        images_.emplace(2000U, CreateSolidImage(48, 72, 0x64U, 0x70U, 0xB0U, -24, -66));
+    }
+
+    [[nodiscard]] std::optional<cg::resource::DecodedImage> DecodeObject(std::uint32_t imageNo) override
+    {
+        const auto iter = images_.find(imageNo);
+        if (iter == images_.end()) {
+            return std::nullopt;
+        }
+
+        return iter->second;
+    }
+
+private:
+    std::unordered_map<std::uint32_t, cg::resource::DecodedImage> images_;
+};
+
+class DemoEntityGraphicResolver final : public cg::world::IEntitySpriteGraphicResolver {
+public:
+    explicit DemoEntityGraphicResolver(cg::render::TextureHandle texture) noexcept
+        : texture_(texture)
+    {
+    }
+
+    [[nodiscard]] std::optional<cg::world::EntitySpriteGraphic> ResolveEntityGraphic(std::int32_t graphicSeqNo) override
+    {
+        if (graphicSeqNo != 1) {
+            return std::nullopt;
+        }
+
+        return cg::world::EntitySpriteGraphic{
+            texture_,
+            {0.0F, 0.0F, static_cast<float>(TestTextureSize), static_cast<float>(TestTextureSize)},
+            TestTextureSize,
+            TestTextureSize,
+            -32,
+            -60,
+        };
+    }
+
+private:
+    cg::render::TextureHandle texture_;
+};
 
 [[nodiscard]] const char* ToCandidateDisplayModeName(cg::ui::CandidateDisplayMode mode) noexcept
 {
@@ -147,6 +319,33 @@ int main(int argc, char* argv[])
         return 1;
     }
 
+    DemoGroundTileImageProvider demoGroundProvider;
+    DemoMapObjectImageProvider demoObjectProvider;
+    cg::world::SceneGroundAtlasCache demoGroundAtlasCache(textureCache, demoGroundProvider);
+    cg::world::MapObjectTextureCache demoMapObjectTextureCache(textureCache, demoObjectProvider);
+    cg::world::WorldRenderer demoWorldRenderer(demoGroundAtlasCache, demoMapObjectTextureCache);
+    const cg::resource::MapData demoMap = CreateDemoMapData();
+    const cg::world::MapTileAtlasCacheKey demoGroundKey{
+        static_cast<int>(demoMap.mapId),
+        static_cast<int>(demoMap.serverNo),
+        static_cast<int>(demoMap.floor),
+        cg::world::MapTileAtlasAllLayerMask,
+        1U,
+        1U,
+    };
+    const std::array<cg::world::WorldMapObjectSprite, 1> demoMapObjects{
+        cg::world::WorldMapObjectSprite{
+            cg::world::MapObject{1, cg::world::TileCoord{4, 3}, 2000U},
+            2000,
+            3,
+        },
+    };
+    const cg::resource::AnimationClip demoWalkClip = CreateDemoWalkClip();
+    DemoEntityGraphicResolver demoEntityResolver(testTexture);
+    cg::world::AnimationState demoEntityAnimation{};
+    cg::world::WorldRenderFrame demoWorldFrame;
+    std::uint64_t demoWorldTimeMs = 0U;
+
     cg::render::FontCache fontCache(renderer);
     cg::render::TextTexture demoTextTexture;
     std::string_view loadedFontPath;
@@ -216,7 +415,9 @@ int main(int argc, char* argv[])
     bool running = true;
     while (running) {
         const double deltaSeconds = frameTimer.Tick();
-        (void)deltaSeconds;
+        const std::uint64_t deltaMs =
+            deltaSeconds > 0.0 ? static_cast<std::uint64_t>(deltaSeconds * 1000.0) : 0U;
+        demoWorldTimeMs += deltaMs;
         inputState.BeginFrame();
 
         cg::platform::Event event;
@@ -269,12 +470,71 @@ int main(int argc, char* argv[])
         }
 
         renderQueue.Clear();
+        const std::uint64_t walkPhaseMs = demoWorldTimeMs % (DemoWalkLegMs * 2U);
+        const bool walkingEast = walkPhaseMs < DemoWalkLegMs;
+        const std::uint64_t walkNowMs = walkingEast ? walkPhaseMs : walkPhaseMs - DemoWalkLegMs;
+        const cg::world::Movement demoEntityMovement = cg::world::MakePixelMovement(
+            walkingEast ? cg::world::WorldPixelCoord{-128, 0} : cg::world::WorldPixelCoord{128, 0},
+            walkingEast ? cg::world::WorldPixelCoord{128, 0} : cg::world::WorldPixelCoord{-128, 0},
+            0U,
+            DemoWalkLegMs,
+            walkingEast ? cg::world::Direction::East : cg::world::Direction::West);
+
+        cg::world::EntitySpriteBuildInput demoEntityInput;
+        demoEntityInput.id = cg::world::EntityId{1U, 1U};
+        demoEntityInput.movement = &demoEntityMovement;
+        demoEntityInput.animation = &demoEntityAnimation;
+        demoEntityInput.clip = &demoWalkClip;
+        demoEntityInput.graphicResolver = &demoEntityResolver;
+        demoEntityInput.movingAction = static_cast<std::int16_t>(cg::resource::CG_ACTIONTYPE_WALK);
+        demoEntityInput.originTile = cg::world::TileCoord{0, 0};
+        demoEntityInput.originScreen = cg::world::ScreenPixelCoord{640, 300};
+        demoEntityInput.nowTimeMs = walkNowMs;
+        demoEntityInput.deltaMs = deltaMs;
+        demoEntityInput.layer = 9U;
+        demoEntityInput.sortY = 300;
+
+        std::array<cg::world::WorldEntitySprite, 1> demoEntities{};
+        const std::optional<cg::world::WorldEntitySprite> demoEntitySprite =
+            cg::world::BuildEntitySprite(demoEntityInput);
+
+        cg::world::WorldRenderInput demoWorldInput;
+        demoWorldInput.map = &demoMap;
+        demoWorldInput.groundKey = demoGroundKey;
+        demoWorldInput.mapObjects = demoMapObjects;
+        demoWorldInput.camera = cg::world::WorldRenderCamera{
+            cg::world::TileCoord{0, 0},
+            cg::world::ScreenPixelCoord{640, 300},
+            cg::render::RectF{0.0F, 0.0F, static_cast<float>(WindowWidth), static_cast<float>(WindowHeight)},
+        };
+        demoWorldInput.nowMs = demoWorldTimeMs;
+        demoWorldInput.layers = cg::world::WorldRenderLayerMap{
+            6U,
+            7U,
+            7U,
+            7U,
+        };
+        demoWorldInput.orderBase = cg::world::WorldRenderOrderBase{
+            0U,
+            1000U,
+            2000U,
+        };
+        if (demoEntitySprite.has_value()) {
+            demoEntities[0] = *demoEntitySprite;
+            demoWorldInput.entities = demoEntities;
+        }
+        demoWorldRenderer.BuildFrame(demoWorldInput, demoWorldFrame);
+        demoMapObjectTextureCache.PruneIdle(demoWorldTimeMs);
+
         const auto testSprite = testAtlas.MakeSprite("m2-test-region", {64.0F, 64.0F, 192.0F, 192.0F});
         if (!testSprite.has_value()) {
             cg::core::Log(cg::core::LogLevel::Error, "render", "TextureAtlas::MakeSprite failed");
             break;
         }
         renderQueue.PushSprite(*testSprite);
+        for (const cg::render::SpriteCmd& worldSprite : demoWorldFrame.sprites) {
+            renderQueue.PushSprite(worldSprite);
+        }
         if (demoTextTexture.texture.IsValid()) {
             renderQueue.PushSprite({
                 demoTextTexture.texture,

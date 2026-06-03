@@ -17,7 +17,7 @@ struct GraphicDrawPosition {
     std::int32_t y{};
 };
 
-// MapObjectRenderGroup 只表达 IDA object 分组条件，不声明后续遮挡语义。
+// MapObjectRenderGroup 只表达 IDA object 入队分组条件，不声明透明/遮挡规则。
 enum class MapObjectRenderGroup : std::uint8_t {
     MapNoOne,
     HighMapNoFlag2Three,
@@ -37,7 +37,8 @@ enum class MapObjectRenderGroup : std::uint8_t {
     std::int32_t graphicX,
     std::int32_t graphicY) noexcept;
 
-// ClassifyMapObjectRenderGroup 对应 sub_46BE50/sub_46BD60 的 object 分组入口条件。
+// ClassifyMapObjectRenderGroup 对应 sub_46BE50/sub_46BD60：
+// mapNo == 1 进入普通 object 队列；mapNo > 999 时 flag2 == 3 进入末尾追加队列，其他 flag2 进入参与排序合并的队列。
 [[nodiscard]] std::optional<MapObjectRenderGroup> ClassifyMapObjectRenderGroup(
     std::int32_t mapNo,
     std::int32_t flag2) noexcept;

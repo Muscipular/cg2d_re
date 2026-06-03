@@ -73,7 +73,7 @@ int TestBuildMapObjectSpriteCmd()
     }
 
     const cg::render::SpriteCmd& sprite = built->sprite;
-    failures += Expect(built->group == cg::world::MapObjectRenderGroup::MapNoOne, "mapNo 1 分组");
+    failures += Expect(built->group == cg::world::MapObjectRenderGroup::MapNoOne, "mapNo 1 进入普通 object 队列");
     failures += Expect(sprite.texture == texture.texture, "texture handle 来自 MapObjectTexture");
     failures += Expect(RectEquals(sprite.source, cg::render::RectF{0.0F, 0.0F, 64.0F, 48.0F}), "source 使用整张纹理");
     failures += Expect(RectEquals(sprite.destination, cg::render::RectF{328.0F, 334.0F, 64.0F, 48.0F}), "destination 使用 tile 投影和纹理偏移");
@@ -108,7 +108,7 @@ int TestBuildMapObjectSpriteCmdGroups()
         0U);
     failures += Expect(
         flag2Three.has_value() && flag2Three->group == cg::world::MapObjectRenderGroup::HighMapNoFlag2Three,
-        "mapNo 1000 flag2 3 生成 HighMapNoFlag2Three 分组");
+        "mapNo 1000 flag2 3 进入末尾追加 object 队列");
 
     const std::optional<cg::world::GroupedMapObjectSpriteCmd> flag2Other = cg::world::BuildMapObjectSpriteCmd(
         cg::world::MapObjectRenderInput{&object, 1000, 2, &texture},
@@ -117,7 +117,7 @@ int TestBuildMapObjectSpriteCmdGroups()
         0U);
     failures += Expect(
         flag2Other.has_value() && flag2Other->group == cg::world::MapObjectRenderGroup::HighMapNoOtherFlag2,
-        "mapNo 1000 flag2 2 生成 HighMapNoOtherFlag2 分组");
+        "mapNo 1000 flag2 2 进入参与排序合并的 object 队列");
 
     return failures;
 }

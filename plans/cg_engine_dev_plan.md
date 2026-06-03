@@ -654,10 +654,10 @@ src/world/
 | normal scene 绘制链路 | `0x46CF60` | 地板 tile、地图 obj 入队顺序和分层依据 |
 | 地图读取/准备链路 | `0x469030`、`0x4693F0`、`0x46D9C0` | 校对 tile/object 数据进入渲染前的处理 |
 | Graphic mapNo 转索引 | `Graphic::getMapNoIndex(0x45A8B0)` | `imageNo > 999` 先转 graphic index |
-| Graphic 偏移/尺寸/flag | `getXY/getWH/getFlag1/getFlag2` | sprite 位置偏移、裁剪和 object 分组 |
+| Graphic 偏移/尺寸/flag | `getXY/getWH/getFlag1/getFlag2` | sprite 位置偏移、裁剪和 object 入队分组 |
 | 普通 graphic 入队 | `Renderer::DrawGraphic(0x521B10)` | `x/y + Graphic::getXY` 后入队 |
 | 复杂 graphic 入队 | `Renderer::DrawGraphic3(0x520970)` | 仅作为后续特殊模式参考，不先扩大范围 |
-| object 分组 | `sub_46BE50`、`sub_46BD60` | `MapNo == 1`、`flag2 == 3`、其他 obj 分组 |
+| object 分组 | `sub_46BE50`、`sub_46BD60`、`Graphic::getFlag2(0x45A860)` | `MapNo == 1` 入普通队列；`MapNo > 999 && flag2 == 3` 入末尾追加队列；`MapNo > 999 && flag2 != 3` 入排序合并队列 |
 | 渲染排序 | `Renderer::SortTexture(0x520790)`、`0x5222A0` | layer 升序，同 layer 按 cacheIndex 逆序 |
 
 ### 地板 atlas 与 obj 缓存
@@ -683,7 +683,7 @@ struct MapTileAtlasCacheKey {
 4. `5000..5009`、`7664..7679` 进入 tile layer 1；其他 `decoded > 999` 进入 tile layer 5。
 5. 地板 atlas 上传到显存后释放 CPU 拼图临时 RGBA；atlas 随 key 常驻，直到 map/resource generation 失效。
 6. 地图 obj 纹理走 `MapObjectTextureCache`，容量 100，命中刷新 LRU，30 秒未使用清退。
-7. 地图 obj 分组参考 `sub_46BE50/sub_46BD60` 和 `Graphic::getFlag2`，不得简单并入地板层。
+7. 地图 obj 分组参考 `sub_46BE50/sub_46BD60` 和 `Graphic::getFlag2`；`flag2` 只用于 object 入队分组，不表示透明规则；不得简单并入地板层。
 
 ### 任务
 

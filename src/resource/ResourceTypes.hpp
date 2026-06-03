@@ -73,7 +73,7 @@ enum CG_ActionType : std::int16_t {
 static_assert(sizeof(CG_ActionType) == 2);
 
 // GraphicInfo 对应 IDA CG_GraphicInfo，长度固定为 40 字节。
-// flag 是 IDA 运行期 16-bit Flag：flag1(flag % 100) 用于自动地图 object 覆盖；flag2(flag / 100) 用于普通地图绘制层级。
+// flag 是 IDA 运行期 16-bit Flag：flag1(flag % 100) 用于自动地图 object 覆盖；flag2(flag / 100) 用于普通地图 object 入队分组。
 struct GraphicInfo {
     std::int32_t seqNo = 0;
     std::int32_t offset = 0;

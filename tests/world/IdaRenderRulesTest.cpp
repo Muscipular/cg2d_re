@@ -95,15 +95,15 @@ int TestClassifyMapObjectRenderGroup()
     failures += ExpectOptionalEquals(
         cg::world::ClassifyMapObjectRenderGroup(1, 3),
         cg::world::MapObjectRenderGroup::MapNoOne,
-        "MapNo 1 优先进入独立 object 分组");
+        "MapNo 1 进入普通 object 队列");
     failures += ExpectOptionalEquals(
         cg::world::ClassifyMapObjectRenderGroup(1000, 3),
         cg::world::MapObjectRenderGroup::HighMapNoFlag2Three,
-        "MapNo > 999 且 flag2 == 3 进入独立 object 分组");
+        "MapNo > 999 且 flag2 == 3 进入末尾追加 object 队列");
     failures += ExpectOptionalEquals(
         cg::world::ClassifyMapObjectRenderGroup(1000, 2),
         cg::world::MapObjectRenderGroup::HighMapNoOtherFlag2,
-        "MapNo > 999 且 flag2 != 3 进入其他 object 分组");
+        "MapNo > 999 且 flag2 != 3 进入参与排序合并的 object 队列");
     failures += Expect(!cg::world::ClassifyMapObjectRenderGroup(999, 3).has_value(), "MapNo 999 不绘制");
     failures += Expect(!cg::world::ClassifyMapObjectRenderGroup(0, 0).has_value(), "MapNo 0 不绘制");
     return failures;

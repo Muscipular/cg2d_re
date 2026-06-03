@@ -44,6 +44,7 @@ add_executable(cg-client
     src/render/SdlRendererBackend.cpp
     src/render/TextureAtlas.cpp
     src/render/TextureCache.cpp
+    src/world/EntitySpriteBuilder.cpp
     src/world/IdaRenderRules.cpp
     src/world/MapObjectSpriteBuilder.cpp
     src/world/VisibilityCulling.cpp
@@ -51,6 +52,7 @@ add_executable(cg-client
     src/world/WorldRenderer.cpp
     src/world/AnimationState.cpp
     src/world/Movement.cpp
+    src/world/MovementAnimation.cpp
     src/world/SceneGroundAtlasCache.cpp
     src/world/SceneGroundSpriteBuilder.cpp
     src/world/Transform.cpp
@@ -334,6 +336,11 @@ add_test(NAME cg-world-render-order-test COMMAND cg-world-render-order-test)
 add_executable(cg-world-world-renderer-test
     tests/world/WorldRendererTest.cpp
     src/world/WorldRenderer.cpp
+    src/world/EntitySpriteBuilder.cpp
+    src/world/MovementAnimation.cpp
+    src/world/Movement.cpp
+    src/world/AnimationState.cpp
+    src/world/EntityStore.cpp
     src/world/SceneGroundAtlasCache.cpp
     src/world/SceneGroundSpriteBuilder.cpp
     src/world/MapObjectTextureCache.cpp
@@ -343,6 +350,8 @@ add_executable(cg-world-world-renderer-test
     src/world/IdaRenderRules.cpp
     src/render/TextureAtlas.cpp
     src/render/TextureCache.cpp
+    src/resource/AnimationLoader.cpp
+    src/resource/BinaryReader.cpp
 )
 
 target_include_directories(cg-world-world-renderer-test
@@ -417,6 +426,42 @@ target_include_directories(cg-world-animation-state-test
 )
 
 add_test(NAME cg-world-animation-state-test COMMAND cg-world-animation-state-test)
+
+add_executable(cg-world-movement-animation-test
+    tests/world/MovementAnimationTest.cpp
+    src/world/MovementAnimation.cpp
+    src/world/Movement.cpp
+    src/world/AnimationState.cpp
+    src/world/Transform.cpp
+    src/resource/AnimationLoader.cpp
+    src/resource/BinaryReader.cpp
+)
+
+target_include_directories(cg-world-movement-animation-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+
+add_test(NAME cg-world-movement-animation-test COMMAND cg-world-movement-animation-test)
+
+add_executable(cg-world-entity-sprite-builder-test
+    tests/world/EntitySpriteBuilderTest.cpp
+    src/world/EntitySpriteBuilder.cpp
+    src/world/MovementAnimation.cpp
+    src/world/Movement.cpp
+    src/world/AnimationState.cpp
+    src/world/EntityStore.cpp
+    src/world/Transform.cpp
+    src/resource/AnimationLoader.cpp
+    src/resource/BinaryReader.cpp
+)
+
+target_include_directories(cg-world-entity-sprite-builder-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+
+add_test(NAME cg-world-entity-sprite-builder-test COMMAND cg-world-entity-sprite-builder-test)
 
 add_executable(cg-packet-types-test
     tests/packet/PacketTypesTest.cpp
@@ -1487,6 +1532,8 @@ if(MSVC)
     target_compile_options(cg-world-transform-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-world-movement-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-world-animation-state-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-world-movement-animation-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-world-entity-sprite-builder-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-types-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-character-list-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-create-new-char-result-test PRIVATE /W4 /utf-8 /permissive-)
@@ -1603,6 +1650,8 @@ else()
     target_compile_options(cg-world-transform-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-world-movement-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-world-animation-state-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-world-movement-animation-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-world-entity-sprite-builder-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-types-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-character-list-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-create-new-char-result-test PRIVATE -Wall -Wextra -Wpedantic)

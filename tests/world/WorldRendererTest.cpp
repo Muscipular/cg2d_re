@@ -2,7 +2,10 @@
 
 #include "render/IRenderer.hpp"
 #include "render/TextureCache.hpp"
+#include "resource/ResourceTypes.hpp"
 #include "world/EntityData.hpp"
+#include "world/EntitySpriteBuilder.hpp"
+#include "world/EntityStore.hpp"
 #include "world/IdaRenderRules.hpp"
 #include "world/MapObjectTextureCache.hpp"
 #include "world/SceneGroundAtlasCache.hpp"
@@ -144,6 +147,23 @@ public:
     std::vector<std::uint32_t> requests;
 };
 
+class FakeEntityGraphicResolver final : public cg::world::IEntitySpriteGraphicResolver {
+public:
+    [[nodiscard]] std::optional<cg::world::EntitySpriteGraphic> ResolveEntityGraphic(std::int32_t graphicSeqNo) override
+    {
+        requests.push_back(graphicSeqNo);
+        const auto iter = graphics.find(graphicSeqNo);
+        if (iter == graphics.end()) {
+            return std::nullopt;
+        }
+
+        return iter->second;
+    }
+
+    std::unordered_map<std::int32_t, cg::world::EntitySpriteGraphic> graphics;
+    std::vector<std::int32_t> requests;
+};
+
 struct WorldRendererFixture {
     FakeRenderer renderer;
     cg::render::TextureCache textureCache{renderer};
@@ -218,6 +238,45 @@ int ExpectEquals(const T& actual, const T& expected, const char* message)
     map.height = height;
     map.tileData = std::move(tileData);
     return map;
+}
+
+[[nodiscard]] cg::resource::AnimeFrame MakeEntityFrame(std::int32_t graphicSeqNo, std::int16_t x, std::int16_t y)
+{
+    cg::resource::AnimeFrame frame;
+    frame.graphicSeqNo = graphicSeqNo;
+    frame.x = x;
+    frame.y = y;
+    return frame;
+}
+
+[[nodiscard]] cg::resource::AnimeAction MakeEntityAction(
+    std::int16_t action,
+    cg::world::Direction direction,
+    std::int32_t duration,
+    int frameIndex,
+    std::int32_t frameCount)
+{
+    cg::resource::AnimeAction result;
+    result.header.action = static_cast<cg::resource::CG_ActionType>(action);
+    result.header.dir = static_cast<cg::resource::CG_Direction>(static_cast<int>(direction));
+    result.header.duration = duration;
+    result.header.frameCount = frameCount;
+    result.frameIndex = frameIndex;
+    return result;
+}
+
+[[nodiscard]] cg::resource::AnimationClip MakeEntityWalkClip()
+{
+    cg::resource::AnimationClip clip;
+    clip.actions.push_back(MakeEntityAction(
+        static_cast<std::int16_t>(cg::resource::CG_ACTIONTYPE_WALK),
+        cg::world::Direction::East,
+        200,
+        0,
+        2));
+    clip.frames.push_back(MakeEntityFrame(101, 0, 0));
+    clip.frames.push_back(MakeEntityFrame(102, 1, 2));
+    return clip;
 }
 
 [[nodiscard]] cg::world::MapTileAtlasCacheKey MakeKey(std::uint64_t mapGeneration)
@@ -511,6 +570,80 @@ int TestMixedFrameHasStableSortableKeys()
     return failures;
 }
 
+int TestMovingEntityAnimationFeedsWorldRenderer()
+{
+    int failures = 0;
+    WorldRendererFixture fixture;
+    cg::world::EntityStore store;
+    const cg::world::EntityId id = store.Create();
+    const cg::world::Movement movement = cg::world::MakePixelMovement(
+        {0, 0},
+        {128, 0},
+        1000,
+        400,
+        cg::world::Direction::East);
+    cg::world::AnimationState animation{};
+    const cg::resource::AnimationClip clip = MakeEntityWalkClip();
+    FakeEntityGraphicResolver resolver;
+    resolver.graphics.emplace(
+        102,
+        cg::world::EntitySpriteGraphic{
+            cg::render::TextureHandle{91U, 1U},
+            cg::render::RectF{11.0F, 12.0F, 8.0F, 8.0F},
+            8,
+            8,
+            0,
+            0,
+        });
+
+    cg::world::EntitySpriteBuildInput buildInput;
+    buildInput.id = id;
+    buildInput.movement = &movement;
+    buildInput.animation = &animation;
+    buildInput.clip = &clip;
+    buildInput.graphicResolver = &resolver;
+    buildInput.movingAction = static_cast<std::int16_t>(cg::resource::CG_ACTIONTYPE_WALK);
+    buildInput.originTile = cg::world::TileCoord{0, 0};
+    buildInput.originScreen = cg::world::ScreenPixelCoord{0, 0};
+    buildInput.nowTimeMs = 1200;
+    buildInput.deltaMs = 100;
+    buildInput.layer = 9U;
+    buildInput.sortY = 44;
+
+    const std::optional<cg::world::WorldEntitySprite> built = cg::world::BuildEntitySprite(buildInput);
+    failures += Expect(built.has_value(), "移动+动画应生成 WorldEntitySprite");
+    failures += Expect(animation.action == cg::resource::CG_ACTIONTYPE_WALK, "移动中 action 为 walk");
+    failures += Expect(animation.direction == cg::world::Direction::East, "动画方向跟随移动方向");
+    failures += Expect(animation.frameIndex == 1U, "移动 delta 推进到第二帧");
+    failures += Expect(!resolver.requests.empty() && resolver.requests[0] == 102, "renderer 前已解析推进后的图档");
+    if (!built.has_value()) {
+        return failures;
+    }
+
+    const std::array<cg::world::WorldEntitySprite, 1> entities{*built};
+    cg::world::WorldRenderFrame frame;
+    cg::world::WorldRenderInput input;
+    input.entities = entities;
+    input.camera = MakeCamera();
+    input.orderBase.entity = 30U;
+
+    fixture.worldRenderer.BuildFrame(input, frame);
+
+    failures += ExpectEquals(frame.sprites.size(), static_cast<std::size_t>(1), "WorldRenderer 应接收 helper 生成的 entity sprite");
+    if (frame.sprites.empty()) {
+        return failures;
+    }
+
+    const cg::render::SpriteCmd& sprite = frame.sprites[0];
+    failures += ExpectEquals(sprite.texture, cg::render::TextureHandle{91U, 1U}, "闭环 texture");
+    failures += Expect(RectEquals(sprite.source, cg::render::RectF{11.0F, 12.0F, 8.0F, 8.0F}), "闭环 source");
+    failures += Expect(RectEquals(sprite.destination, cg::render::RectF{33.0F, -22.0F, 8.0F, 8.0F}), "闭环 destination");
+    failures += ExpectEquals(sprite.layer, 9U, "闭环 layer");
+    failures += ExpectEquals(sprite.sortY, 44, "闭环 sortY");
+    failures += ExpectEquals(sprite.order, static_cast<std::uint32_t>(UINT_MAX) - 30U, "闭环 order");
+    return failures;
+}
+
 int TestObjectIndexScope()
 {
     int failures = 0;
@@ -531,6 +664,7 @@ int main()
     failures += TestMapObjectsUseTextureCacheLayerMapAndOriginalOrder();
     failures += TestEntitiesBuildSpriteAndSkipInvalidInputs();
     failures += TestMixedFrameHasStableSortableKeys();
+    failures += TestMovingEntityAnimationFeedsWorldRenderer();
     failures += TestObjectIndexScope();
 
     if (failures != 0) {

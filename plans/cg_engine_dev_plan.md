@@ -625,17 +625,22 @@ schema 只允许作为测试/fixture 资料存在，用于覆盖率、字段顺�
 ```text
 src/world/
 ├─ EntityId.hpp
-├─ EntityData.hpp/.cpp
-├─ Transform.hpp
+├─ EntityData.hpp
+├─ EntityStore.hpp/.cpp
+├─ Transform.hpp/.cpp
 ├─ Movement.hpp/.cpp
+├─ MovementAnimation.hpp/.cpp
 ├─ AnimationState.hpp/.cpp
-├─ Visibility.hpp/.cpp
-├─ YSort.hpp/.cpp
+├─ VisibilityCulling.hpp/.cpp
 ├─ MapTileAtlasCacheKey.hpp
 ├─ SceneGroundAtlasCache.hpp/.cpp
+├─ SceneGroundSpriteBuilder.hpp/.cpp
+├─ MapObject.hpp
 ├─ MapObjectTextureCache.hpp/.cpp
+├─ MapObjectSpriteBuilder.hpp/.cpp
 ├─ IdaRenderRules.hpp/.cpp
-├─ Scene.hpp/.cpp
+├─ EntitySpriteBuilder.hpp/.cpp
+├─ SyntheticPopulation.hpp/.cpp
 └─ WorldRenderer.hpp/.cpp
 ```
 

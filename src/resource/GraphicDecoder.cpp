@@ -404,8 +404,8 @@ template <typename T>
         decoded.assign(imagePayload.begin(), imagePayload.begin() + static_cast<std::ptrdiff_t>(decodedSize));
     }
 
-    const auto attributes = static_cast<std::uint8_t>(header.unk1);
-    metadata.zeroTransparent = (attributes & 0x08U) != 0;
+    // IDA Renderer::LoadDXPalette(0x44E290) 最终将 palette[0] 置 0；旧端以黑色 color key 表达透明。
+    metadata.zeroTransparent = true;
 
     output.header = header;
     output.metadata = metadata;
@@ -458,7 +458,7 @@ template <typename T>
             result.image.pixels[target] = color.r;
             result.image.pixels[target + 1] = color.g;
             result.image.pixels[target + 2] = color.b;
-            result.image.pixels[target + 3] = (colorIndex == 0 && metadata.zeroTransparent) ? 0 : color.a;
+            result.image.pixels[target + 3] = colorIndex == 0 ? 0 : color.a;
         }
     }
 

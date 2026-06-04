@@ -346,6 +346,31 @@ int TestPausesBelowStopsRootAndLowerSubScenes()
     return failures;
 }
 
+int TestTypedPopSubScene()
+{
+    int failures = 0;
+    SceneCounters root;
+    SceneCounters hud;
+    SceneCounters overlay;
+    SceneManager manager;
+    manager.RegisterRootSceneFactory(RootSceneId::World, [&root]() {
+        return std::make_unique<RecordingScene>(RootSceneId::World, root, "root");
+    });
+    (void)manager.Start(RootSceneId::World);
+
+    SubScenePolicy transparent;
+    manager.PushSubScene(std::make_unique<RecordingSubScene>(SubSceneId::MainHud, hud, "hud", transparent, false));
+    failures += Expect(!manager.PopSubScene(SubSceneId::LoadingOverlay), "类型不匹配时不弹 MainHud");
+    failures += Expect(manager.SubSceneCount() == 1U, "类型不匹配时栈保持不变");
+
+    manager.PushSubScene(std::make_unique<RecordingSubScene>(SubSceneId::LoadingOverlay, overlay, "overlay", transparent, false));
+    failures += Expect(manager.PopSubScene(SubSceneId::LoadingOverlay), "类型匹配时弹 Overlay");
+    failures += Expect(manager.SubSceneCount() == 1U, "弹 Overlay 后保留 MainHud");
+    failures += Expect(manager.PopSubScene(SubSceneId::MainHud), "类型匹配时弹 MainHud");
+    failures += Expect(manager.SubSceneCount() == 0U, "弹 MainHud 后栈为空");
+    return failures;
+}
+
 int TestWorldSceneBridge()
 {
     int failures = 0;
@@ -402,6 +427,7 @@ int main()
     failures += TestFactoryFailureKeepsCurrent();
     failures += TestModalInputAndTransparentRender();
     failures += TestPausesBelowStopsRootAndLowerSubScenes();
+    failures += TestTypedPopSubScene();
     failures += TestWorldSceneBridge();
 
     if (failures != 0) {

@@ -1,16 +1,13 @@
 #include "app/M8ClientLoopBridge.hpp"
 
+#include <optional>
 #include <utility>
 
 namespace cg::app {
 namespace {
 
-void EnsureDefaultMenu(cg::ui::UiViewModel& model)
+void RebuildDefaultMenu(cg::ui::UiViewModel& model)
 {
-    if (!model.menuItems.empty()) {
-        return;
-    }
-
     switch (model.screen) {
     case cg::ui::UiScreenType::CharacterSelect:
         model.menuItems.push_back(cg::ui::UiMenuItem{"Demo Character", true});
@@ -23,6 +20,37 @@ void EnsureDefaultMenu(cg::ui::UiViewModel& model)
     case cg::ui::UiScreenType::World:
         break;
     }
+}
+
+void SyncScreenMenu(cg::ui::UiViewModel& model, cg::ui::UiScreenType nextScreen)
+{
+    const bool screenChanged = model.screen != nextScreen;
+    model.screen = nextScreen;
+    if (screenChanged) {
+        model.menuItems.clear();
+        model.selectedIndex = 0U;
+    }
+
+    if (model.menuItems.empty()) {
+        RebuildDefaultMenu(model);
+    }
+    if (model.selectedIndex >= model.menuItems.size()) {
+        model.selectedIndex = 0U;
+    }
+}
+
+[[nodiscard]] std::optional<cg::scene::SubSceneId> ToM8SubSceneId(cg::game::GameSubSceneType subScene) noexcept
+{
+    switch (subScene) {
+    case cg::game::GameSubSceneType::MainHud:
+        return cg::scene::SubSceneId::MainHud;
+    case cg::game::GameSubSceneType::Overlay:
+        return cg::scene::SubSceneId::LoadingOverlay;
+    case cg::game::GameSubSceneType::None:
+        break;
+    }
+
+    return std::nullopt;
 }
 
 void ApplyStatus(cg::ui::UiViewModel& model, const cg::game::GameState& state)
@@ -167,11 +195,10 @@ std::optional<cg::game::GameEvent> ToM8GameEvent(const cg::ui::UiIntent& intent)
 void SyncM8PresenterViewModel(cg::ui::IUiPresenter& presenter, const cg::game::GameState& state)
 {
     cg::ui::UiViewModel model = presenter.ViewModel();
-    model.screen = ToM8UiScreen(state.type);
+    SyncScreenMenu(model, ToM8UiScreen(state.type));
     if (model.title.empty()) {
         model.title = "M8";
     }
-    EnsureDefaultMenu(model);
     ApplyStatus(model, state);
     presenter.SetViewModel(std::move(model));
 }
@@ -192,9 +219,13 @@ void ApplyM8GameCommand(
             pushSubScene(sceneManager, command.subScene);
         }
         break;
-    case cg::game::GameCommandType::PopSubScene:
-        sceneManager.PopSubScene();
+    case cg::game::GameCommandType::PopSubScene: {
+        const std::optional<cg::scene::SubSceneId> subScene = ToM8SubSceneId(command.subScene);
+        if (subScene.has_value()) {
+            (void)sceneManager.PopSubScene(*subScene);
+        }
         break;
+    }
     case cg::game::GameCommandType::ClearSubScenes:
         sceneManager.ClearSubScenes();
         break;

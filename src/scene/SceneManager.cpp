@@ -63,6 +63,16 @@ void SceneManager::PopSubScene()
     subScenes_.pop_back();
 }
 
+bool SceneManager::PopSubScene(SubSceneId id)
+{
+    if (subScenes_.empty() || subScenes_.back()->Id() != id) {
+        return false;
+    }
+
+    PopSubScene();
+    return true;
+}
+
 void SceneManager::ClearSubScenes()
 {
     while (!subScenes_.empty()) {

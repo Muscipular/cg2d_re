@@ -22,6 +22,7 @@ public:
 
     void PushSubScene(std::unique_ptr<ISubScene> scene);
     void PopSubScene();
+    [[nodiscard]] bool PopSubScene(SubSceneId id);
     void ClearSubScenes();
 
     void Update(float deltaSeconds);

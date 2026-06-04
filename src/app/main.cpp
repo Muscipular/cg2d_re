@@ -139,6 +139,34 @@ public:
     }
 };
 
+class M8OverlaySubScene final : public cg::scene::ISubScene {
+public:
+    [[nodiscard]] cg::scene::SubSceneId Id() const noexcept override
+    {
+        return cg::scene::SubSceneId::LoadingOverlay;
+    }
+
+    [[nodiscard]] cg::scene::SubScenePolicy Policy() const noexcept override
+    {
+        cg::scene::SubScenePolicy policy;
+        policy.transparentRender = true;
+        return policy;
+    }
+
+    void Update(float) override
+    {
+    }
+
+    bool HandleInput(const cg::scene::SceneInputEvent&) override
+    {
+        return false;
+    }
+
+    void Render(cg::render::RenderQueue&) const override
+    {
+    }
+};
+
 void RegisterM8RootScenes(
     cg::scene::SceneManager& sceneManager,
     cg::render::TextureHandle demoTexture,
@@ -192,6 +220,8 @@ void PushM8SubScene(cg::scene::SceneManager& sceneManager, cg::game::GameSubScen
 {
     if (subScene == cg::game::GameSubSceneType::MainHud) {
         sceneManager.PushSubScene(std::make_unique<M8MainHudSubScene>());
+    } else if (subScene == cg::game::GameSubSceneType::Overlay) {
+        sceneManager.PushSubScene(std::make_unique<M8OverlaySubScene>());
     }
 }
 

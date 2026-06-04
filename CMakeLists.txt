@@ -38,7 +38,7 @@ add_subdirectory("${CG_YAML_CPP_ROOT}" "${CMAKE_BINARY_DIR}/third_party/yaml-cpp
 
 add_executable(cg-client
     src/app/main.cpp
-    src/app/M8ClientLoopBridge.cpp
+    src/app/SceneClientLoopBridge.cpp
     src/core/Log.cpp
     src/game/GameStateMachine.cpp
     src/render/FontCache.cpp
@@ -543,26 +543,26 @@ target_compile_definitions(cg-ui-presenter-test
 
 add_test(NAME cg-ui-presenter-test COMMAND cg-ui-presenter-test)
 
-add_executable(cg-app-m8-client-loop-bridge-test
-    tests/app/M8ClientLoopBridgeTest.cpp
-    src/app/M8ClientLoopBridge.cpp
+add_executable(cg-app-scene-client-loop-bridge-test
+    tests/app/SceneClientLoopBridgeTest.cpp
+    src/app/SceneClientLoopBridge.cpp
     src/game/GameStateMachine.cpp
     src/scene/SceneManager.cpp
     src/ui/SdlTextUiPresenter.cpp
     src/ui/UiIntent.cpp
 )
 
-target_include_directories(cg-app-m8-client-loop-bridge-test
+target_include_directories(cg-app-scene-client-loop-bridge-test
     PRIVATE
         "${CMAKE_CURRENT_SOURCE_DIR}/src"
 )
 
-target_compile_definitions(cg-app-m8-client-loop-bridge-test
+target_compile_definitions(cg-app-scene-client-loop-bridge-test
     PRIVATE
         CG_APP_TEST_SOURCE_DIR="${CMAKE_CURRENT_SOURCE_DIR}"
 )
 
-add_test(NAME cg-app-m8-client-loop-bridge-test COMMAND cg-app-m8-client-loop-bridge-test)
+add_test(NAME cg-app-scene-client-loop-bridge-test COMMAND cg-app-scene-client-loop-bridge-test)
 
 add_executable(cg-packet-types-test
     tests/packet/PacketTypesTest.cpp
@@ -1639,7 +1639,7 @@ if(MSVC)
     target_compile_options(cg-game-state-machine-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-scene-manager-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-ui-presenter-test PRIVATE /W4 /utf-8 /permissive-)
-    target_compile_options(cg-app-m8-client-loop-bridge-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-app-scene-client-loop-bridge-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-types-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-character-list-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-create-new-char-result-test PRIVATE /W4 /utf-8 /permissive-)
@@ -1762,7 +1762,7 @@ else()
     target_compile_options(cg-game-state-machine-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-scene-manager-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-ui-presenter-test PRIVATE -Wall -Wextra -Wpedantic)
-    target_compile_options(cg-app-m8-client-loop-bridge-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-app-scene-client-loop-bridge-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-types-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-character-list-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-create-new-char-result-test PRIVATE -Wall -Wextra -Wpedantic)

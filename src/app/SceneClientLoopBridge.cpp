@@ -1,4 +1,4 @@
-#include "app/M8ClientLoopBridge.hpp"
+#include "app/SceneClientLoopBridge.hpp"
 
 #include <optional>
 #include <utility>
@@ -39,7 +39,7 @@ void SyncScreenMenu(cg::ui::UiViewModel& model, cg::ui::UiScreenType nextScreen)
     }
 }
 
-[[nodiscard]] std::optional<cg::scene::SubSceneId> ToM8SubSceneId(cg::game::GameSubSceneType subScene) noexcept
+[[nodiscard]] std::optional<cg::scene::SubSceneId> ToSubSceneId(cg::game::GameSubSceneType subScene) noexcept
 {
     switch (subScene) {
     case cg::game::GameSubSceneType::MainHud:
@@ -67,7 +67,7 @@ void ApplyStatus(cg::ui::UiViewModel& model, const cg::game::GameState& state)
 
 } // namespace
 
-cg::scene::RootSceneId ToM8SceneRoot(cg::game::GameRootSceneType rootScene) noexcept
+cg::scene::RootSceneId ToSceneRoot(cg::game::GameRootSceneType rootScene) noexcept
 {
     switch (rootScene) {
     case cg::game::GameRootSceneType::Boot:
@@ -93,7 +93,7 @@ cg::scene::RootSceneId ToM8SceneRoot(cg::game::GameRootSceneType rootScene) noex
     return cg::scene::RootSceneId::Boot;
 }
 
-cg::ui::UiScreenType ToM8UiScreen(cg::game::GameStateType state) noexcept
+cg::ui::UiScreenType ToUiScreen(cg::game::GameStateType state) noexcept
 {
     switch (state) {
     case cg::game::GameStateType::CharacterSelect:
@@ -115,7 +115,7 @@ cg::ui::UiScreenType ToM8UiScreen(cg::game::GameStateType state) noexcept
     return cg::ui::UiScreenType::Login;
 }
 
-const char* ToM8GameStateName(cg::game::GameStateType state) noexcept
+const char* ToGameStateName(cg::game::GameStateType state) noexcept
 {
     switch (state) {
     case cg::game::GameStateType::Boot:
@@ -143,7 +143,7 @@ const char* ToM8GameStateName(cg::game::GameStateType state) noexcept
     return "Unknown";
 }
 
-cg::scene::SceneInputEvent ToM8SceneInput(const cg::ui::UiInputEvent& event)
+cg::scene::SceneInputEvent ToSceneInput(const cg::ui::UiInputEvent& event)
 {
     if (event.type == cg::ui::UiInputEventType::TextInput) {
         return cg::scene::SceneInputEvent{cg::scene::SceneInputEventType::Text, event.text};
@@ -171,7 +171,7 @@ cg::scene::SceneInputEvent ToM8SceneInput(const cg::ui::UiInputEvent& event)
     return {};
 }
 
-std::optional<cg::game::GameEvent> ToM8GameEvent(const cg::ui::UiIntent& intent)
+std::optional<cg::game::GameEvent> ToGameEvent(const cg::ui::UiIntent& intent)
 {
     switch (intent.type) {
     case cg::ui::UiIntentType::SubmitLogin:
@@ -192,26 +192,26 @@ std::optional<cg::game::GameEvent> ToM8GameEvent(const cg::ui::UiIntent& intent)
     return std::nullopt;
 }
 
-void SyncM8PresenterViewModel(cg::ui::IUiPresenter& presenter, const cg::game::GameState& state)
+void SyncPresenterViewModel(cg::ui::IUiPresenter& presenter, const cg::game::GameState& state)
 {
     cg::ui::UiViewModel model = presenter.ViewModel();
-    SyncScreenMenu(model, ToM8UiScreen(state.type));
+    SyncScreenMenu(model, ToUiScreen(state.type));
     if (model.title.empty()) {
-        model.title = "M8";
+        model.title = "Scene";
     }
     ApplyStatus(model, state);
     presenter.SetViewModel(std::move(model));
 }
 
-void ApplyM8GameCommand(
+void ApplyGameCommand(
     const cg::game::GameCommand& command,
     cg::scene::SceneManager& sceneManager,
     cg::ui::IUiPresenter& presenter,
-    M8ReplaceSubSceneFn replaceSubScene)
+    SceneReplaceSubSceneFn replaceSubScene)
 {
     switch (command.type) {
     case cg::game::GameCommandType::ReplaceRootScene:
-        sceneManager.ReplaceRootScene(ToM8SceneRoot(command.rootScene));
+        sceneManager.ReplaceRootScene(ToSceneRoot(command.rootScene));
         sceneManager.Update(0.0F);
         break;
     case cg::game::GameCommandType::ReplaceCurrentSubScene:
@@ -220,7 +220,7 @@ void ApplyM8GameCommand(
         }
         break;
     case cg::game::GameCommandType::ClearCurrentSubScene: {
-        const std::optional<cg::scene::SubSceneId> subScene = ToM8SubSceneId(command.subScene);
+        const std::optional<cg::scene::SubSceneId> subScene = ToSubSceneId(command.subScene);
         if (subScene.has_value()) {
             (void)sceneManager.ClearCurrentSubSceneIf(*subScene);
         } else {
@@ -250,40 +250,40 @@ void ApplyM8GameCommand(
     }
 }
 
-std::vector<cg::game::GameCommand> DriveM8GameEvent(
+std::vector<cg::game::GameCommand> DriveGameEvent(
     cg::game::GameStateMachine& stateMachine,
     cg::scene::SceneManager& sceneManager,
     cg::ui::IUiPresenter& presenter,
     const cg::game::GameEvent& event,
-    M8ReplaceSubSceneFn replaceSubScene)
+    SceneReplaceSubSceneFn replaceSubScene)
 {
     std::vector<cg::game::GameCommand> commands = stateMachine.HandleEvent(event);
     for (const cg::game::GameCommand& command : commands) {
-        ApplyM8GameCommand(command, sceneManager, presenter, replaceSubScene);
+        ApplyGameCommand(command, sceneManager, presenter, replaceSubScene);
     }
-    SyncM8PresenterViewModel(presenter, stateMachine.State());
+    SyncPresenterViewModel(presenter, stateMachine.State());
     return commands;
 }
 
-std::vector<cg::game::GameCommand> DriveM8UiInput(
+std::vector<cg::game::GameCommand> DriveUiInput(
     cg::game::GameStateMachine& stateMachine,
     cg::scene::SceneManager& sceneManager,
     cg::ui::IUiPresenter& presenter,
     const cg::ui::UiInputEvent& event,
-    M8ReplaceSubSceneFn replaceSubScene)
+    SceneReplaceSubSceneFn replaceSubScene)
 {
-    const cg::scene::SceneInputEvent sceneInput = ToM8SceneInput(event);
+    const cg::scene::SceneInputEvent sceneInput = ToSceneInput(event);
     if (sceneInput.type != cg::scene::SceneInputEventType::None && sceneManager.HandleInput(sceneInput)) {
         return {};
     }
 
     const cg::ui::UiIntent intent = presenter.HandleInput(event);
-    const std::optional<cg::game::GameEvent> gameEvent = ToM8GameEvent(intent);
+    const std::optional<cg::game::GameEvent> gameEvent = ToGameEvent(intent);
     if (!gameEvent.has_value()) {
         return {};
     }
 
-    return DriveM8GameEvent(stateMachine, sceneManager, presenter, *gameEvent, replaceSubScene);
+    return DriveGameEvent(stateMachine, sceneManager, presenter, *gameEvent, replaceSubScene);
 }
 
 } // namespace cg::app

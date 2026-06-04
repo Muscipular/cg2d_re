@@ -1,5 +1,5 @@
 #include "core/Log.hpp"
-#include "app/M8ClientLoopBridge.hpp"
+#include "app/SceneClientLoopBridge.hpp"
 #include "game/GameStateMachine.hpp"
 #include "platform/Console.hpp"
 #include "platform/Event.hpp"
@@ -82,9 +82,9 @@ struct WorldSceneData {
     bool realResources = false;
 };
 
-class M8SimpleScene final : public cg::scene::IScene {
+class ClientRootScene final : public cg::scene::IScene {
 public:
-    explicit M8SimpleScene(cg::scene::RootSceneId id) noexcept
+    explicit ClientRootScene(cg::scene::RootSceneId id) noexcept
         : id_(id)
     {
     }
@@ -111,7 +111,7 @@ private:
     cg::scene::RootSceneId id_;
 };
 
-class M8MainHudSubScene final : public cg::scene::ISubScene {
+class MainHudSubScene final : public cg::scene::ISubScene {
 public:
     [[nodiscard]] cg::scene::SubSceneId Id() const noexcept override
     {
@@ -139,7 +139,7 @@ public:
     }
 };
 
-class M8OverlaySubScene final : public cg::scene::ISubScene {
+class OverlaySubScene final : public cg::scene::ISubScene {
 public:
     [[nodiscard]] cg::scene::SubSceneId Id() const noexcept override
     {
@@ -167,22 +167,22 @@ public:
     }
 };
 
-void RegisterM8RootScenes(
+void RegisterClientRootScenes(
     cg::scene::SceneManager& sceneManager,
     cg::render::TextureHandle demoTexture,
     cg::scene::WorldScene::RenderProvider worldRenderProvider)
 {
     sceneManager.RegisterRootSceneFactory(cg::scene::RootSceneId::Boot, []() {
-        return std::make_unique<M8SimpleScene>(cg::scene::RootSceneId::Boot);
+        return std::make_unique<ClientRootScene>(cg::scene::RootSceneId::Boot);
     });
     sceneManager.RegisterRootSceneFactory(cg::scene::RootSceneId::Login, []() {
-        return std::make_unique<M8SimpleScene>(cg::scene::RootSceneId::Login);
+        return std::make_unique<ClientRootScene>(cg::scene::RootSceneId::Login);
     });
     sceneManager.RegisterRootSceneFactory(cg::scene::RootSceneId::CharacterSelect, []() {
-        return std::make_unique<M8SimpleScene>(cg::scene::RootSceneId::CharacterSelect);
+        return std::make_unique<ClientRootScene>(cg::scene::RootSceneId::CharacterSelect);
     });
     sceneManager.RegisterRootSceneFactory(cg::scene::RootSceneId::Loading, []() {
-        return std::make_unique<M8SimpleScene>(cg::scene::RootSceneId::Loading);
+        return std::make_unique<ClientRootScene>(cg::scene::RootSceneId::Loading);
     });
     sceneManager.RegisterRootSceneFactory(cg::scene::RootSceneId::World, [demoTexture, worldRenderProvider]() {
         auto scene = std::make_unique<cg::scene::WorldScene>();
@@ -206,26 +206,26 @@ void RegisterM8RootScenes(
         return scene;
     });
     sceneManager.RegisterRootSceneFactory(cg::scene::RootSceneId::Battle, []() {
-        return std::make_unique<M8SimpleScene>(cg::scene::RootSceneId::Battle);
+        return std::make_unique<ClientRootScene>(cg::scene::RootSceneId::Battle);
     });
     sceneManager.RegisterRootSceneFactory(cg::scene::RootSceneId::Disconnected, []() {
-        return std::make_unique<M8SimpleScene>(cg::scene::RootSceneId::Disconnected);
+        return std::make_unique<ClientRootScene>(cg::scene::RootSceneId::Disconnected);
     });
     sceneManager.RegisterRootSceneFactory(cg::scene::RootSceneId::Shutdown, []() {
-        return std::make_unique<M8SimpleScene>(cg::scene::RootSceneId::Shutdown);
+        return std::make_unique<ClientRootScene>(cg::scene::RootSceneId::Shutdown);
     });
 }
 
-void ReplaceM8SubScene(cg::scene::SceneManager& sceneManager, cg::game::GameSubSceneType subScene)
+void ReplaceClientSubScene(cg::scene::SceneManager& sceneManager, cg::game::GameSubSceneType subScene)
 {
     if (subScene == cg::game::GameSubSceneType::MainHud) {
-        sceneManager.ReplaceCurrentSubScene(std::make_unique<M8MainHudSubScene>());
+        sceneManager.ReplaceCurrentSubScene(std::make_unique<MainHudSubScene>());
     } else if (subScene == cg::game::GameSubSceneType::Overlay) {
-        sceneManager.ReplaceCurrentSubScene(std::make_unique<M8OverlaySubScene>());
+        sceneManager.ReplaceCurrentSubScene(std::make_unique<OverlaySubScene>());
     }
 }
 
-[[nodiscard]] std::optional<cg::ui::UiInputEvent> ToM8UiInputEvent(const cg::platform::Event& event)
+[[nodiscard]] std::optional<cg::ui::UiInputEvent> ToUiInputEvent(const cg::platform::Event& event)
 {
     if (event.type == cg::platform::EventType::TextInput && !event.text.empty()) {
         return cg::ui::UiInputEvent{cg::ui::UiInputEventType::TextInput, cg::ui::UiKey::None, event.text};
@@ -936,23 +936,23 @@ int main(int argc, char* argv[])
         demoEntityResolver,
         demoGroundKey);
 
-    cg::game::GameStateMachine m8StateMachine;
-    cg::scene::SceneManager m8SceneManager;
-    cg::ui::SdlTextUiPresenter m8TuiPresenter;
-    cg::ui::GraphicalUiPresenter m8GraphicalPresenter;
-    cg::ui::UiTextRenderer m8UiTextRenderer;
-    RegisterM8RootScenes(m8SceneManager, testTexture, [&demoWorldDriver](float deltaSeconds, std::vector<cg::render::SpriteCmd>& out) {
+    cg::game::GameStateMachine clientStateMachine;
+    cg::scene::SceneManager clientSceneManager;
+    cg::ui::SdlTextUiPresenter textPresenter;
+    cg::ui::GraphicalUiPresenter graphicalPresenter;
+    cg::ui::UiTextRenderer uiTextRenderer;
+    RegisterClientRootScenes(clientSceneManager, testTexture, [&demoWorldDriver](float deltaSeconds, std::vector<cg::render::SpriteCmd>& out) {
         demoWorldDriver.BuildFrame(deltaSeconds, out);
     });
-    (void)m8SceneManager.Start(cg::scene::RootSceneId::Boot);
+    (void)clientSceneManager.Start(cg::scene::RootSceneId::Boot);
 
-    cg::ui::UiViewModel m8Model;
-    m8Model.screen = cg::ui::UiScreenType::Login;
-    m8Model.title = "M8";
-    m8TuiPresenter.SetViewModel(m8Model);
-    m8GraphicalPresenter.SetViewModel(m8Model);
+    cg::ui::UiViewModel clientModel;
+    clientModel.screen = cg::ui::UiScreenType::Login;
+    clientModel.title = "Scene";
+    textPresenter.SetViewModel(clientModel);
+    graphicalPresenter.SetViewModel(clientModel);
 
-    const std::array<cg::game::GameEvent, 10> m8SeedEvents{{
+    const std::array<cg::game::GameEvent, 10> seedEvents{{
         {cg::game::GameEventType::AppStarted, {}, 0},
         {cg::game::GameEventType::LoginSubmitted, "demo-login", 0},
         {cg::game::GameEventType::LoginAccepted, {}, 0},
@@ -962,12 +962,17 @@ int main(int argc, char* argv[])
         {cg::game::GameEventType::ObjectListReceived, "demo-objects", 0},
         {cg::game::GameEventType::BattleStarted, {}, 0},
         {cg::game::GameEventType::BattleEnded, {}, 0},
-        {cg::game::GameEventType::ChatMessageReceived, "M8 loop ready", 0},
+        {cg::game::GameEventType::ChatMessageReceived, "Scene loop ready", 0},
     }};
-    for (const cg::game::GameEvent& seedEvent : m8SeedEvents) {
-        (void)cg::app::DriveM8GameEvent(m8StateMachine, m8SceneManager, m8TuiPresenter, seedEvent, ReplaceM8SubScene);
+    for (const cg::game::GameEvent& seedEvent : seedEvents) {
+        (void)cg::app::DriveGameEvent(
+            clientStateMachine,
+            clientSceneManager,
+            textPresenter,
+            seedEvent,
+            ReplaceClientSubScene);
     }
-    m8GraphicalPresenter.SetViewModel(m8TuiPresenter.ViewModel());
+    graphicalPresenter.SetViewModel(textPresenter.ViewModel());
 
     cg::render::FontCache fontCache(renderer);
     cg::render::TextTexture demoTextTexture;
@@ -1047,39 +1052,39 @@ int main(int argc, char* argv[])
             const bool chatBoxConsumed = demoChatBox.HandleEvent(event);
 
             if (event.type == cg::platform::EventType::Quit) {
-                (void)cg::app::DriveM8GameEvent(
-                    m8StateMachine,
-                    m8SceneManager,
-                    m8TuiPresenter,
+                (void)cg::app::DriveGameEvent(
+                    clientStateMachine,
+                    clientSceneManager,
+                    textPresenter,
                     {cg::game::GameEventType::QuitRequested, {}, 0},
-                    ReplaceM8SubScene);
+                    ReplaceClientSubScene);
                 running = false;
             }
 
             if (event.type == cg::platform::EventType::WindowCloseRequested &&
                 event.windowId == window.GetId()) {
-                (void)cg::app::DriveM8GameEvent(
-                    m8StateMachine,
-                    m8SceneManager,
-                    m8TuiPresenter,
+                (void)cg::app::DriveGameEvent(
+                    clientStateMachine,
+                    clientSceneManager,
+                    textPresenter,
                     {cg::game::GameEventType::QuitRequested, {}, 0},
-                    ReplaceM8SubScene);
+                    ReplaceClientSubScene);
                 running = false;
             }
 
-            const std::optional<cg::ui::UiInputEvent> m8Input = ToM8UiInputEvent(event);
-            if (m8Input.has_value()) {
-                (void)cg::app::DriveM8UiInput(
-                    m8StateMachine,
-                    m8SceneManager,
-                    m8TuiPresenter,
-                    *m8Input,
-                    ReplaceM8SubScene);
-                if (m8StateMachine.State().type == cg::game::GameStateType::Shutdown) {
+            const std::optional<cg::ui::UiInputEvent> uiInput = ToUiInputEvent(event);
+            if (uiInput.has_value()) {
+                (void)cg::app::DriveUiInput(
+                    clientStateMachine,
+                    clientSceneManager,
+                    textPresenter,
+                    *uiInput,
+                    ReplaceClientSubScene);
+                if (clientStateMachine.State().type == cg::game::GameStateType::Shutdown) {
                     running = false;
                 }
             }
-            m8GraphicalPresenter.SetViewModel(m8TuiPresenter.ViewModel());
+            graphicalPresenter.SetViewModel(textPresenter.ViewModel());
 
             if (demoChatBox.GetMessages().size() != messageCountBefore) {
                 const auto& messages = demoChatBox.GetMessages();
@@ -1116,8 +1121,8 @@ int main(int argc, char* argv[])
         }
 
         renderQueue.Clear();
-        m8SceneManager.Update(static_cast<float>(deltaSeconds));
-        m8SceneManager.Render(renderQueue);
+        clientSceneManager.Update(static_cast<float>(deltaSeconds));
+        clientSceneManager.Render(renderQueue);
 
         const auto testSprite = testAtlas.MakeSprite("m2-test-region", {64.0F, 64.0F, 192.0F, 192.0F});
         if (!testSprite.has_value()) {
@@ -1137,7 +1142,7 @@ int main(int argc, char* argv[])
             });
         }
         if (!loadedFontPath.empty()) {
-            const std::vector<cg::ui::UiTextDraw> tuiDraws = m8TuiPresenter.BuildTextDraws();
+            const std::vector<cg::ui::UiTextDraw> tuiDraws = textPresenter.BuildTextDraws();
             const cg::ui::GraphicalUiLayout graphicalLayout{
                 760.0F,
                 32.0F,
@@ -1147,9 +1152,9 @@ int main(int argc, char* argv[])
                 {1.0F, 0.92F, 0.68F, 1.0F},
                 {0.78F, 0.88F, 1.0F, 1.0F},
             };
-            const std::vector<cg::ui::UiTextDraw> graphicalDraws = m8GraphicalPresenter.BuildTextDraws(graphicalLayout);
-            (void)m8UiTextRenderer.PushTextDraws(fontCache, DemoFontKey, tuiDraws, renderQueue);
-            (void)m8UiTextRenderer.PushTextDraws(fontCache, DemoFontKey, graphicalDraws, renderQueue);
+            const std::vector<cg::ui::UiTextDraw> graphicalDraws = graphicalPresenter.BuildTextDraws(graphicalLayout);
+            (void)uiTextRenderer.PushTextDraws(fontCache, DemoFontKey, tuiDraws, renderQueue);
+            (void)uiTextRenderer.PushTextDraws(fontCache, DemoFontKey, graphicalDraws, renderQueue);
         }
         if (!renderQueue.Flush(renderer)) {
             cg::core::LogSdlError("render", "RenderQueue::Flush");
@@ -1200,7 +1205,7 @@ int main(int argc, char* argv[])
         cg::core::LogSdlError("ime", "SDL_StopTextInput");
     }
 
-    m8UiTextRenderer.Clear();
+    uiTextRenderer.Clear();
     fontCache.Clear();
     textureCache.Clear();
     renderer.Shutdown();

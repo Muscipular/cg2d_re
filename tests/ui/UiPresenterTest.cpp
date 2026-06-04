@@ -153,7 +153,7 @@ int TestDrawableTextInputs()
 
     UiViewModel world;
     world.screen = UiScreenType::World;
-    world.title = "M8";
+    world.title = "Scene";
     world.chatLines = {"hello", "你好"};
     world.inputText = "say";
     tui.SetViewModel(world);

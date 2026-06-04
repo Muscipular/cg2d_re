@@ -150,6 +150,13 @@ std::vector<GameCommand> GameStateMachine::HandleEvent(const GameEvent& event)
         }
         Apply(GameCommandType::AppendChatMessage, event.payload, commands);
         break;
+    case GameEventType::ChatSubmitted:
+        if (!IsWorldActive(state_.type)) {
+            WarnInvalidTiming(commands);
+            break;
+        }
+        SendPacketIntent(GamePacketIntentType::SendChat, event.payload, commands);
+        break;
     case GameEventType::OverlayOpened:
         if (!IsWorldActive(state_.type)) {
             WarnInvalidTiming(commands);
@@ -172,6 +179,13 @@ std::vector<GameCommand> GameStateMachine::HandleEvent(const GameEvent& event)
         state_.type = GameStateType::Battle;
         ClearSubScenes(commands);
         ReplaceRoot(GameRootSceneType::Battle, commands);
+        break;
+    case GameEventType::BattleCommandSubmitted:
+        if (state_.type != GameStateType::Battle) {
+            WarnInvalidTiming(commands);
+            break;
+        }
+        SendPacketIntent(GamePacketIntentType::BattleCommand, event.payload, commands);
         break;
     case GameEventType::BattleEnded:
         if (state_.type != GameStateType::Battle) {

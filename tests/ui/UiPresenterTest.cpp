@@ -24,6 +24,7 @@ using cg::ui::UiIntentType;
 using cg::ui::UiKey;
 using cg::ui::UiMenuItem;
 using cg::ui::UiScreenType;
+using cg::ui::UiTextDraw;
 using cg::ui::UiViewModel;
 
 int Expect(bool condition, const char* message)
@@ -64,6 +65,16 @@ bool FrameHasText(const TuiFrame& frame, const std::string& text)
     return false;
 }
 
+bool DrawsHaveText(const std::vector<UiTextDraw>& draws, const std::string& text)
+{
+    for (const UiTextDraw& draw : draws) {
+        if (draw.text.find(text) != std::string::npos) {
+            return true;
+        }
+    }
+    return false;
+}
+
 UiViewModel MakeMenuModel(UiScreenType screen)
 {
     UiViewModel model;
@@ -77,11 +88,13 @@ int TestPublicHeaderSurface()
 {
     int failures = 0;
     const std::filesystem::path root(CG_UI_TEST_SOURCE_DIR);
-    const std::array<std::filesystem::path, 6> headers{{
+    const std::array<std::filesystem::path, 8> headers{{
         root / "src/ui/UiIntent.hpp",
         root / "src/ui/UiViewModel.hpp",
         root / "src/ui/IUiPresenter.hpp",
         root / "src/ui/TuiFrame.hpp",
+        root / "src/ui/UiTextDraw.hpp",
+        root / "src/ui/UiTextRenderer.hpp",
         root / "src/ui/SdlTextUiPresenter.hpp",
         root / "src/ui/GraphicalUiPresenter.hpp",
     }};
@@ -129,6 +142,32 @@ int TestFrames()
 
     presenter.SetViewModel(MakeMenuModel(UiScreenType::Battle));
     failures += Expect(FrameHasText(presenter.BuildFrame(), "Battle"), "Battle frame");
+    return failures;
+}
+
+int TestDrawableTextInputs()
+{
+    int failures = 0;
+    SdlTextUiPresenter tui;
+    GraphicalUiPresenter graphical;
+
+    UiViewModel world;
+    world.screen = UiScreenType::World;
+    world.title = "M8";
+    world.chatLines = {"hello", "你好"};
+    world.inputText = "say";
+    tui.SetViewModel(world);
+    graphical.SetViewModel(world);
+
+    const auto tuiDraws = tui.BuildTextDraws({10.0F, 20.0F, 8.0F, 16.0F, 5U, 9U, {1.0F, 1.0F, 1.0F, 1.0F}});
+    const auto graphicalDraws = graphical.BuildTextDraws({200.0F, 30.0F, 18.0F, 6U, 30U, {1.0F, 1.0F, 1.0F, 1.0F}, {0.8F, 0.8F, 0.8F, 1.0F}});
+
+    failures += Expect(!tuiDraws.empty(), "TUI 生成文本绘制输入");
+    failures += Expect(!graphicalDraws.empty(), "Graphical 生成文本绘制输入");
+    failures += Expect(DrawsHaveText(tuiDraws, "你好"), "TUI 绘制输入保留 UTF-8");
+    failures += Expect(DrawsHaveText(graphicalDraws, "你好"), "Graphical 绘制输入保留 UTF-8");
+    failures += Expect(tuiDraws[0].destination.x == 10.0F && tuiDraws[0].destination.y == 20.0F, "TUI 固定网格映射坐标");
+    failures += Expect(graphicalDraws[0].layer == 6U && graphicalDraws[0].order == 30U, "Graphical 绘制输入 layer/order");
     return failures;
 }
 
@@ -226,6 +265,7 @@ int main()
     int failures = 0;
     failures += TestPublicHeaderSurface();
     failures += TestFrames();
+    failures += TestDrawableTextInputs();
     failures += TestTextInputAndEnterIntent();
     failures += TestDisabledMenuItem();
     failures += TestUtf8Backspace();

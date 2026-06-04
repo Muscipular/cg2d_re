@@ -371,6 +371,21 @@ int TestWorldSceneBridge()
     scene.Render(queue);
     failures += Expect(queue.Size() == 1U, "WorldScene 将 world render sprite 推入 RenderQueue");
 
+    int providerCalls = 0;
+    scene.SetRenderProvider([&providerCalls, sprite](float, std::vector<cg::render::SpriteCmd>& out) {
+        ++providerCalls;
+        out.assign(static_cast<std::size_t>(providerCalls), sprite);
+    });
+    scene.Update(0.016F);
+    queue.Clear();
+    scene.Render(queue);
+    failures += Expect(providerCalls == 1 && queue.Size() == 1U, "WorldScene Update 调用 render provider");
+
+    scene.Update(0.016F);
+    queue.Clear();
+    scene.Render(queue);
+    failures += Expect(providerCalls == 2 && queue.Size() == 2U, "WorldScene Update 实时刷新 RenderQueue 输入");
+
     scene.ClearWorld();
     failures += Expect(scene.ActiveEntityCount() == 0U, "WorldScene 可清空");
     return failures;

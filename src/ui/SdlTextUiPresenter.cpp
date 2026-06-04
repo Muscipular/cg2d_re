@@ -87,4 +87,29 @@ TuiFrame SdlTextUiPresenter::BuildFrame() const
     return frame;
 }
 
+std::vector<UiTextDraw> SdlTextUiPresenter::BuildTextDraws(const SdlTextUiLayout& layout) const
+{
+    const TuiFrame frame = BuildFrame();
+    std::vector<UiTextDraw> draws;
+    draws.reserve(frame.runs.size());
+
+    for (std::size_t index = 0U; index < frame.runs.size(); ++index) {
+        const TuiTextRun& run = frame.runs[index];
+        draws.push_back(UiTextDraw{
+            run.text,
+            cg::render::RectF{
+                layout.originX + static_cast<float>(run.column) * layout.cellWidth,
+                layout.originY + static_cast<float>(run.row) * layout.cellHeight,
+                0.0F,
+                0.0F,
+            },
+            layout.color,
+            layout.layer,
+            layout.orderBase + static_cast<std::uint32_t>(index),
+        });
+    }
+
+    return draws;
+}
+
 } // namespace cg::ui

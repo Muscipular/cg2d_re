@@ -1,4 +1,5 @@
 #include "core/Log.hpp"
+#include "app/M8ClientLoopBridge.hpp"
 #include "game/GameStateMachine.hpp"
 #include "platform/Console.hpp"
 #include "platform/Event.hpp"
@@ -20,8 +21,10 @@
 #include "scene/WorldScene.hpp"
 #include "text/TextEncoding.hpp"
 #include "ui/ChatBox.hpp"
+#include "ui/GraphicalUiPresenter.hpp"
 #include "ui/SdlTextUiPresenter.hpp"
 #include "ui/TextLayout.hpp"
+#include "ui/UiTextRenderer.hpp"
 #include "world/EntitySpriteBuilder.hpp"
 #include "world/IdaRenderRules.hpp"
 #include "world/MapObjectTextureCache.hpp"
@@ -136,83 +139,10 @@ public:
     }
 };
 
-[[nodiscard]] cg::scene::RootSceneId ToSceneRoot(cg::game::GameRootSceneType rootScene) noexcept
-{
-    switch (rootScene) {
-    case cg::game::GameRootSceneType::Boot:
-        return cg::scene::RootSceneId::Boot;
-    case cg::game::GameRootSceneType::Login:
-        return cg::scene::RootSceneId::Login;
-    case cg::game::GameRootSceneType::CharacterSelect:
-        return cg::scene::RootSceneId::CharacterSelect;
-    case cg::game::GameRootSceneType::Loading:
-        return cg::scene::RootSceneId::Loading;
-    case cg::game::GameRootSceneType::World:
-        return cg::scene::RootSceneId::World;
-    case cg::game::GameRootSceneType::Battle:
-        return cg::scene::RootSceneId::Battle;
-    case cg::game::GameRootSceneType::Disconnected:
-        return cg::scene::RootSceneId::Disconnected;
-    case cg::game::GameRootSceneType::Shutdown:
-        return cg::scene::RootSceneId::Shutdown;
-    case cg::game::GameRootSceneType::None:
-        break;
-    }
-
-    return cg::scene::RootSceneId::Boot;
-}
-
-[[nodiscard]] cg::ui::UiScreenType ToUiScreen(cg::game::GameStateType state) noexcept
-{
-    switch (state) {
-    case cg::game::GameStateType::CharacterSelect:
-        return cg::ui::UiScreenType::CharacterSelect;
-    case cg::game::GameStateType::Battle:
-        return cg::ui::UiScreenType::Battle;
-    case cg::game::GameStateType::World:
-        return cg::ui::UiScreenType::World;
-    case cg::game::GameStateType::Boot:
-    case cg::game::GameStateType::Login:
-    case cg::game::GameStateType::LoginPending:
-    case cg::game::GameStateType::CharacterListPending:
-    case cg::game::GameStateType::WorldLoading:
-    case cg::game::GameStateType::Disconnected:
-    case cg::game::GameStateType::Shutdown:
-        break;
-    }
-
-    return cg::ui::UiScreenType::Login;
-}
-
-[[nodiscard]] const char* ToM8GameStateName(cg::game::GameStateType state) noexcept
-{
-    switch (state) {
-    case cg::game::GameStateType::Boot:
-        return "Boot";
-    case cg::game::GameStateType::Login:
-        return "Login";
-    case cg::game::GameStateType::LoginPending:
-        return "LoginPending";
-    case cg::game::GameStateType::CharacterListPending:
-        return "CharacterListPending";
-    case cg::game::GameStateType::CharacterSelect:
-        return "CharacterSelect";
-    case cg::game::GameStateType::WorldLoading:
-        return "WorldLoading";
-    case cg::game::GameStateType::World:
-        return "World";
-    case cg::game::GameStateType::Battle:
-        return "Battle";
-    case cg::game::GameStateType::Disconnected:
-        return "Disconnected";
-    case cg::game::GameStateType::Shutdown:
-        return "Shutdown";
-    }
-
-    return "Unknown";
-}
-
-void RegisterM8RootScenes(cg::scene::SceneManager& sceneManager, cg::render::TextureHandle demoTexture)
+void RegisterM8RootScenes(
+    cg::scene::SceneManager& sceneManager,
+    cg::render::TextureHandle demoTexture,
+    cg::scene::WorldScene::RenderProvider worldRenderProvider)
 {
     sceneManager.RegisterRootSceneFactory(cg::scene::RootSceneId::Boot, []() {
         return std::make_unique<M8SimpleScene>(cg::scene::RootSceneId::Boot);
@@ -226,21 +156,25 @@ void RegisterM8RootScenes(cg::scene::SceneManager& sceneManager, cg::render::Tex
     sceneManager.RegisterRootSceneFactory(cg::scene::RootSceneId::Loading, []() {
         return std::make_unique<M8SimpleScene>(cg::scene::RootSceneId::Loading);
     });
-    sceneManager.RegisterRootSceneFactory(cg::scene::RootSceneId::World, [demoTexture]() {
+    sceneManager.RegisterRootSceneFactory(cg::scene::RootSceneId::World, [demoTexture, worldRenderProvider]() {
         auto scene = std::make_unique<cg::scene::WorldScene>();
         (void)scene->CreateDemoEntity();
-        const std::array<cg::render::SpriteCmd, 1> sprites{{
-            cg::render::SpriteCmd{
-                demoTexture,
-                {0.0F, 0.0F, static_cast<float>(TestTextureSize), static_cast<float>(TestTextureSize)},
-                {16.0F, 16.0F, 32.0F, 32.0F},
-                {1.0F, 1.0F, 1.0F, 1.0F},
-                1U,
-                0,
-                0U,
-            },
-        }};
-        scene->SetRenderSprites(sprites);
+        if (worldRenderProvider) {
+            scene->SetRenderProvider(worldRenderProvider);
+        } else {
+            const std::array<cg::render::SpriteCmd, 1> sprites{{
+                cg::render::SpriteCmd{
+                    demoTexture,
+                    {0.0F, 0.0F, static_cast<float>(TestTextureSize), static_cast<float>(TestTextureSize)},
+                    {16.0F, 16.0F, 32.0F, 32.0F},
+                    {1.0F, 1.0F, 1.0F, 1.0F},
+                    1U,
+                    0,
+                    0U,
+                },
+            }};
+            scene->SetRenderSprites(sprites);
+        }
         return scene;
     });
     sceneManager.RegisterRootSceneFactory(cg::scene::RootSceneId::Battle, []() {
@@ -254,90 +188,52 @@ void RegisterM8RootScenes(cg::scene::SceneManager& sceneManager, cg::render::Tex
     });
 }
 
-void ApplyM8Command(
-    const cg::game::GameCommand& command,
-    cg::scene::SceneManager& sceneManager,
-    cg::ui::SdlTextUiPresenter& presenter)
+void PushM8SubScene(cg::scene::SceneManager& sceneManager, cg::game::GameSubSceneType subScene)
 {
-    switch (command.type) {
-    case cg::game::GameCommandType::ReplaceRootScene:
-        sceneManager.ReplaceRootScene(ToSceneRoot(command.rootScene));
-        sceneManager.Update(0.0F);
-        break;
-    case cg::game::GameCommandType::PushSubScene:
-        if (command.subScene == cg::game::GameSubSceneType::MainHud) {
-            sceneManager.PushSubScene(std::make_unique<M8MainHudSubScene>());
-        }
-        break;
-    case cg::game::GameCommandType::ClearSubScenes:
-        sceneManager.ClearSubScenes();
-        break;
-    case cg::game::GameCommandType::ShowMessage: {
-        cg::ui::UiViewModel model = presenter.ViewModel();
-        model.statusText = command.payload;
-        presenter.SetViewModel(std::move(model));
-        break;
-    }
-    case cg::game::GameCommandType::PopSubScene:
-    case cg::game::GameCommandType::SendPacketIntent:
-    case cg::game::GameCommandType::LoadMap:
-    case cg::game::GameCommandType::ApplyMapData:
-    case cg::game::GameCommandType::ApplyObjectList:
-    case cg::game::GameCommandType::ApplyWorldUpdate:
-    case cg::game::GameCommandType::AppendChatMessage:
-    case cg::game::GameCommandType::LogWarning:
-        break;
+    if (subScene == cg::game::GameSubSceneType::MainHud) {
+        sceneManager.PushSubScene(std::make_unique<M8MainHudSubScene>());
     }
 }
 
-void RunM8ClientBridge(cg::render::TextureHandle demoTexture)
+[[nodiscard]] std::optional<cg::ui::UiInputEvent> ToM8UiInputEvent(const cg::platform::Event& event)
 {
-    cg::game::GameStateMachine stateMachine;
-    cg::scene::SceneManager sceneManager;
-    cg::ui::SdlTextUiPresenter presenter;
-    RegisterM8RootScenes(sceneManager, demoTexture);
-    (void)sceneManager.Start(cg::scene::RootSceneId::Boot);
-
-    cg::ui::UiViewModel model;
-    model.screen = cg::ui::UiScreenType::Login;
-    model.title = "M8";
-    presenter.SetViewModel(std::move(model));
-
-    const std::array<cg::game::GameEvent, 9> events{{
-        {cg::game::GameEventType::AppStarted, {}, 0},
-        {cg::game::GameEventType::LoginSubmitted, "demo-login", 0},
-        {cg::game::GameEventType::LoginAccepted, {}, 0},
-        {cg::game::GameEventType::CharacterListReceived, {}, 0},
-        {cg::game::GameEventType::CharacterSelected, "demo-character", 0},
-        {cg::game::GameEventType::MapReady, "demo-map", 0},
-        {cg::game::GameEventType::ObjectListReceived, "demo-objects", 0},
-        {cg::game::GameEventType::BattleStarted, {}, 0},
-        {cg::game::GameEventType::BattleEnded, {}, 0},
-    }};
-
-    for (const cg::game::GameEvent& event : events) {
-        const std::vector<cg::game::GameCommand> commands = stateMachine.HandleEvent(event);
-        for (const cg::game::GameCommand& command : commands) {
-            ApplyM8Command(command, sceneManager, presenter);
-        }
+    if (event.type == cg::platform::EventType::TextInput && !event.text.empty()) {
+        return cg::ui::UiInputEvent{cg::ui::UiInputEventType::TextInput, cg::ui::UiKey::None, event.text};
     }
 
-    cg::ui::UiViewModel finalModel = presenter.ViewModel();
-    finalModel.screen = ToUiScreen(stateMachine.State().type);
-    finalModel.chatLines.push_back("M8 replay ready");
-    presenter.SetViewModel(std::move(finalModel));
-    const cg::ui::TuiFrame frame = presenter.BuildFrame();
+    if (event.type != cg::platform::EventType::KeyDown || event.repeat) {
+        return std::nullopt;
+    }
 
-    cg::render::RenderQueue bridgeQueue;
-    sceneManager.Render(bridgeQueue);
-    cg::core::Log(
-        cg::core::LogLevel::Info,
-        "m8",
-        "M8 bridge: state=" + std::string{ToM8GameStateName(stateMachine.State().type)} +
-            ", root=" + std::to_string(static_cast<int>(sceneManager.CurrentRootSceneId())) +
-            ", subScenes=" + std::to_string(sceneManager.SubSceneCount()) +
-            ", tuiRuns=" + std::to_string(frame.runs.size()) +
-            ", worldSprites=" + std::to_string(bridgeQueue.Size()));
+    cg::ui::UiKey key = cg::ui::UiKey::None;
+    switch (event.key) {
+    case SDLK_UP:
+        key = cg::ui::UiKey::Up;
+        break;
+    case SDLK_DOWN:
+        key = cg::ui::UiKey::Down;
+        break;
+    case SDLK_LEFT:
+        key = cg::ui::UiKey::Left;
+        break;
+    case SDLK_RIGHT:
+        key = cg::ui::UiKey::Right;
+        break;
+    case SDLK_RETURN:
+    case SDLK_KP_ENTER:
+        key = cg::ui::UiKey::Enter;
+        break;
+    case SDLK_ESCAPE:
+        key = cg::ui::UiKey::Escape;
+        break;
+    case SDLK_BACKSPACE:
+        key = cg::ui::UiKey::Backspace;
+        break;
+    default:
+        return std::nullopt;
+    }
+
+    return cg::ui::UiInputEvent{cg::ui::UiInputEventType::Key, key, {}};
 }
 
 [[nodiscard]] std::string PathToUtf8(const std::filesystem::path& path)
@@ -793,6 +689,94 @@ private:
     const cg::resource::AnimationClip* clip_ = nullptr;
 };
 
+class DemoWorldRenderDriver final {
+public:
+    DemoWorldRenderDriver(
+        WorldSceneData& scene,
+        cg::world::WorldRenderer& worldRenderer,
+        cg::world::MapObjectTextureCache& mapObjectTextureCache,
+        DemoEntityGraphicResolver& entityResolver,
+        cg::world::MapTileAtlasCacheKey groundKey) noexcept
+        : scene_(scene)
+        , worldRenderer_(worldRenderer)
+        , mapObjectTextureCache_(mapObjectTextureCache)
+        , entityResolver_(entityResolver)
+        , groundKey_(groundKey)
+    {
+    }
+
+    void BuildFrame(float deltaSeconds, std::vector<cg::render::SpriteCmd>& out)
+    {
+        const std::uint64_t deltaMs = deltaSeconds > 0.0F ? static_cast<std::uint64_t>(deltaSeconds * 1000.0F) : 0U;
+        timeMs_ += deltaMs;
+
+        const std::uint64_t walkPhaseMs = timeMs_ % (DemoWalkLegMs * 2U);
+        const bool walkingEast = walkPhaseMs < DemoWalkLegMs;
+        const std::uint64_t walkNowMs = walkingEast ? walkPhaseMs : walkPhaseMs - DemoWalkLegMs;
+        const cg::world::TileCoord originTile{
+            static_cast<std::int32_t>(scene_.map.width / 2U),
+            static_cast<std::int32_t>(scene_.map.height / 2U),
+        };
+        const cg::world::WorldPixelCoord originWorld = cg::world::TileToWorldPixel(originTile);
+        const cg::world::Movement movement = cg::world::MakePixelMovement(
+            walkingEast ? cg::world::WorldPixelCoord{originWorld.x - 128, originWorld.y} :
+                          cg::world::WorldPixelCoord{originWorld.x + 128, originWorld.y},
+            walkingEast ? cg::world::WorldPixelCoord{originWorld.x + 128, originWorld.y} :
+                          cg::world::WorldPixelCoord{originWorld.x - 128, originWorld.y},
+            0U,
+            DemoWalkLegMs,
+            walkingEast ? cg::world::Direction::East : cg::world::Direction::West);
+
+        cg::world::EntitySpriteBuildInput entityInput;
+        entityInput.id = cg::world::EntityId{1U, 1U};
+        entityInput.movement = &movement;
+        entityInput.animation = &entityAnimation_;
+        entityInput.clip = &scene_.walkClip;
+        entityInput.graphicResolver = &entityResolver_;
+        entityInput.movingAction = static_cast<std::int16_t>(cg::resource::CG_ACTIONTYPE_WALK);
+        entityInput.originTile = originTile;
+        entityInput.originScreen = cg::world::ScreenPixelCoord{640, 300};
+        entityInput.nowTimeMs = walkNowMs;
+        entityInput.deltaMs = deltaMs;
+        entityInput.layer = 9U;
+        entityInput.sortY = 300;
+
+        std::array<cg::world::WorldEntitySprite, 1> entities{};
+        const std::optional<cg::world::WorldEntitySprite> entitySprite = cg::world::BuildEntitySprite(entityInput);
+
+        cg::world::WorldRenderInput input;
+        input.map = &scene_.map;
+        input.groundKey = groundKey_;
+        input.mapObjects = scene_.mapObjects;
+        input.camera = cg::world::WorldRenderCamera{
+            originTile,
+            cg::world::ScreenPixelCoord{640, 300},
+            cg::render::RectF{0.0F, 0.0F, static_cast<float>(WindowWidth), static_cast<float>(WindowHeight)},
+        };
+        input.nowMs = timeMs_;
+        input.layers = cg::world::WorldRenderLayerMap{6U, 7U, 7U, 7U};
+        input.orderBase = cg::world::WorldRenderOrderBase{0U, 1000U, 2000U};
+        if (entitySprite.has_value()) {
+            entities[0] = *entitySprite;
+            input.entities = entities;
+        }
+
+        worldRenderer_.BuildFrame(input, frame_);
+        mapObjectTextureCache_.PruneIdle(timeMs_);
+        out = frame_.sprites;
+    }
+
+private:
+    WorldSceneData& scene_;
+    cg::world::WorldRenderer& worldRenderer_;
+    cg::world::MapObjectTextureCache& mapObjectTextureCache_;
+    DemoEntityGraphicResolver& entityResolver_;
+    cg::world::MapTileAtlasCacheKey groundKey_{};
+    cg::world::AnimationState entityAnimation_{};
+    cg::world::WorldRenderFrame frame_;
+    std::uint64_t timeMs_ = 0U;
+};
+
 [[nodiscard]] const char* ToCandidateDisplayModeName(cg::ui::CandidateDisplayMode mode) noexcept
 {
     switch (mode) {
@@ -868,8 +852,6 @@ int main(int argc, char* argv[])
         SDL_Quit();
         return 1;
     }
-    RunM8ClientBridge(testTexture);
-
     cg::render::TextureAtlas testAtlas;
     testAtlas.SetTexture(testTexture);
     if (!testAtlas.AddRegion(
@@ -917,9 +899,45 @@ int main(int argc, char* argv[])
         textureCache,
         realWorldLoaded ? &testResources : nullptr,
         &worldScene.walkClip);
-    cg::world::AnimationState demoEntityAnimation{};
-    cg::world::WorldRenderFrame demoWorldFrame;
-    std::uint64_t demoWorldTimeMs = 0U;
+    DemoWorldRenderDriver demoWorldDriver(
+        worldScene,
+        demoWorldRenderer,
+        demoMapObjectTextureCache,
+        demoEntityResolver,
+        demoGroundKey);
+
+    cg::game::GameStateMachine m8StateMachine;
+    cg::scene::SceneManager m8SceneManager;
+    cg::ui::SdlTextUiPresenter m8TuiPresenter;
+    cg::ui::GraphicalUiPresenter m8GraphicalPresenter;
+    cg::ui::UiTextRenderer m8UiTextRenderer;
+    RegisterM8RootScenes(m8SceneManager, testTexture, [&demoWorldDriver](float deltaSeconds, std::vector<cg::render::SpriteCmd>& out) {
+        demoWorldDriver.BuildFrame(deltaSeconds, out);
+    });
+    (void)m8SceneManager.Start(cg::scene::RootSceneId::Boot);
+
+    cg::ui::UiViewModel m8Model;
+    m8Model.screen = cg::ui::UiScreenType::Login;
+    m8Model.title = "M8";
+    m8TuiPresenter.SetViewModel(m8Model);
+    m8GraphicalPresenter.SetViewModel(m8Model);
+
+    const std::array<cg::game::GameEvent, 10> m8SeedEvents{{
+        {cg::game::GameEventType::AppStarted, {}, 0},
+        {cg::game::GameEventType::LoginSubmitted, "demo-login", 0},
+        {cg::game::GameEventType::LoginAccepted, {}, 0},
+        {cg::game::GameEventType::CharacterListReceived, {}, 0},
+        {cg::game::GameEventType::CharacterSelected, "demo-character", 0},
+        {cg::game::GameEventType::MapReady, "demo-map", 0},
+        {cg::game::GameEventType::ObjectListReceived, "demo-objects", 0},
+        {cg::game::GameEventType::BattleStarted, {}, 0},
+        {cg::game::GameEventType::BattleEnded, {}, 0},
+        {cg::game::GameEventType::ChatMessageReceived, "M8 loop ready", 0},
+    }};
+    for (const cg::game::GameEvent& seedEvent : m8SeedEvents) {
+        (void)cg::app::DriveM8GameEvent(m8StateMachine, m8SceneManager, m8TuiPresenter, seedEvent, PushM8SubScene);
+    }
+    m8GraphicalPresenter.SetViewModel(m8TuiPresenter.ViewModel());
 
     cg::render::FontCache fontCache(renderer);
     cg::render::TextTexture demoTextTexture;
@@ -990,9 +1008,6 @@ int main(int argc, char* argv[])
     bool running = true;
     while (running) {
         const double deltaSeconds = frameTimer.Tick();
-        const std::uint64_t deltaMs =
-            deltaSeconds > 0.0 ? static_cast<std::uint64_t>(deltaSeconds * 1000.0) : 0U;
-        demoWorldTimeMs += deltaMs;
         inputState.BeginFrame();
 
         cg::platform::Event event;
@@ -1002,13 +1017,39 @@ int main(int argc, char* argv[])
             const bool chatBoxConsumed = demoChatBox.HandleEvent(event);
 
             if (event.type == cg::platform::EventType::Quit) {
+                (void)cg::app::DriveM8GameEvent(
+                    m8StateMachine,
+                    m8SceneManager,
+                    m8TuiPresenter,
+                    {cg::game::GameEventType::QuitRequested, {}, 0},
+                    PushM8SubScene);
                 running = false;
             }
 
             if (event.type == cg::platform::EventType::WindowCloseRequested &&
                 event.windowId == window.GetId()) {
+                (void)cg::app::DriveM8GameEvent(
+                    m8StateMachine,
+                    m8SceneManager,
+                    m8TuiPresenter,
+                    {cg::game::GameEventType::QuitRequested, {}, 0},
+                    PushM8SubScene);
                 running = false;
             }
+
+            const std::optional<cg::ui::UiInputEvent> m8Input = ToM8UiInputEvent(event);
+            if (m8Input.has_value()) {
+                (void)cg::app::DriveM8UiInput(
+                    m8StateMachine,
+                    m8SceneManager,
+                    m8TuiPresenter,
+                    *m8Input,
+                    PushM8SubScene);
+                if (m8StateMachine.State().type == cg::game::GameStateType::Shutdown) {
+                    running = false;
+                }
+            }
+            m8GraphicalPresenter.SetViewModel(m8TuiPresenter.ViewModel());
 
             if (demoChatBox.GetMessages().size() != messageCountBefore) {
                 const auto& messages = demoChatBox.GetMessages();
@@ -1045,68 +1086,8 @@ int main(int argc, char* argv[])
         }
 
         renderQueue.Clear();
-        const std::uint64_t walkPhaseMs = demoWorldTimeMs % (DemoWalkLegMs * 2U);
-        const bool walkingEast = walkPhaseMs < DemoWalkLegMs;
-        const std::uint64_t walkNowMs = walkingEast ? walkPhaseMs : walkPhaseMs - DemoWalkLegMs;
-        const cg::world::TileCoord demoOriginTile{
-            static_cast<std::int32_t>(worldScene.map.width / 2U),
-            static_cast<std::int32_t>(worldScene.map.height / 2U),
-        };
-        const cg::world::WorldPixelCoord demoOriginWorld = cg::world::TileToWorldPixel(demoOriginTile);
-        const cg::world::Movement demoEntityMovement = cg::world::MakePixelMovement(
-            walkingEast ? cg::world::WorldPixelCoord{demoOriginWorld.x - 128, demoOriginWorld.y} :
-                          cg::world::WorldPixelCoord{demoOriginWorld.x + 128, demoOriginWorld.y},
-            walkingEast ? cg::world::WorldPixelCoord{demoOriginWorld.x + 128, demoOriginWorld.y} :
-                          cg::world::WorldPixelCoord{demoOriginWorld.x - 128, demoOriginWorld.y},
-            0U,
-            DemoWalkLegMs,
-            walkingEast ? cg::world::Direction::East : cg::world::Direction::West);
-
-        cg::world::EntitySpriteBuildInput demoEntityInput;
-        demoEntityInput.id = cg::world::EntityId{1U, 1U};
-        demoEntityInput.movement = &demoEntityMovement;
-        demoEntityInput.animation = &demoEntityAnimation;
-        demoEntityInput.clip = &worldScene.walkClip;
-        demoEntityInput.graphicResolver = &demoEntityResolver;
-        demoEntityInput.movingAction = static_cast<std::int16_t>(cg::resource::CG_ACTIONTYPE_WALK);
-        demoEntityInput.originTile = demoOriginTile;
-        demoEntityInput.originScreen = cg::world::ScreenPixelCoord{640, 300};
-        demoEntityInput.nowTimeMs = walkNowMs;
-        demoEntityInput.deltaMs = deltaMs;
-        demoEntityInput.layer = 9U;
-        demoEntityInput.sortY = 300;
-
-        std::array<cg::world::WorldEntitySprite, 1> demoEntities{};
-        const std::optional<cg::world::WorldEntitySprite> demoEntitySprite =
-            cg::world::BuildEntitySprite(demoEntityInput);
-
-        cg::world::WorldRenderInput demoWorldInput;
-        demoWorldInput.map = &worldScene.map;
-        demoWorldInput.groundKey = demoGroundKey;
-        demoWorldInput.mapObjects = worldScene.mapObjects;
-        demoWorldInput.camera = cg::world::WorldRenderCamera{
-            demoOriginTile,
-            cg::world::ScreenPixelCoord{640, 300},
-            cg::render::RectF{0.0F, 0.0F, static_cast<float>(WindowWidth), static_cast<float>(WindowHeight)},
-        };
-        demoWorldInput.nowMs = demoWorldTimeMs;
-        demoWorldInput.layers = cg::world::WorldRenderLayerMap{
-            6U,
-            7U,
-            7U,
-            7U,
-        };
-        demoWorldInput.orderBase = cg::world::WorldRenderOrderBase{
-            0U,
-            1000U,
-            2000U,
-        };
-        if (demoEntitySprite.has_value()) {
-            demoEntities[0] = *demoEntitySprite;
-            demoWorldInput.entities = demoEntities;
-        }
-        demoWorldRenderer.BuildFrame(demoWorldInput, demoWorldFrame);
-        demoMapObjectTextureCache.PruneIdle(demoWorldTimeMs);
+        m8SceneManager.Update(static_cast<float>(deltaSeconds));
+        m8SceneManager.Render(renderQueue);
 
         const auto testSprite = testAtlas.MakeSprite("m2-test-region", {64.0F, 64.0F, 192.0F, 192.0F});
         if (!testSprite.has_value()) {
@@ -1114,9 +1095,6 @@ int main(int argc, char* argv[])
             break;
         }
         renderQueue.PushSprite(*testSprite);
-        for (const cg::render::SpriteCmd& worldSprite : demoWorldFrame.sprites) {
-            renderQueue.PushSprite(worldSprite);
-        }
         if (demoTextTexture.texture.IsValid()) {
             renderQueue.PushSprite({
                 demoTextTexture.texture,
@@ -1127,6 +1105,21 @@ int main(int argc, char* argv[])
                 0,
                 1,
             });
+        }
+        if (!loadedFontPath.empty()) {
+            const std::vector<cg::ui::UiTextDraw> tuiDraws = m8TuiPresenter.BuildTextDraws();
+            const cg::ui::GraphicalUiLayout graphicalLayout{
+                760.0F,
+                32.0F,
+                28.0F,
+                120U,
+                0U,
+                {1.0F, 0.92F, 0.68F, 1.0F},
+                {0.78F, 0.88F, 1.0F, 1.0F},
+            };
+            const std::vector<cg::ui::UiTextDraw> graphicalDraws = m8GraphicalPresenter.BuildTextDraws(graphicalLayout);
+            (void)m8UiTextRenderer.PushTextDraws(fontCache, DemoFontKey, tuiDraws, renderQueue);
+            (void)m8UiTextRenderer.PushTextDraws(fontCache, DemoFontKey, graphicalDraws, renderQueue);
         }
         if (!renderQueue.Flush(renderer)) {
             cg::core::LogSdlError("render", "RenderQueue::Flush");
@@ -1177,6 +1170,7 @@ int main(int argc, char* argv[])
         cg::core::LogSdlError("ime", "SDL_StopTextInput");
     }
 
+    m8UiTextRenderer.Clear();
     fontCache.Clear();
     textureCache.Clear();
     renderer.Shutdown();

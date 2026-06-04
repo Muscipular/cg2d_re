@@ -2,6 +2,8 @@
 
 #include "render/RenderQueue.hpp"
 
+#include <utility>
+
 namespace cg::scene {
 
 RootSceneId WorldScene::Id() const noexcept
@@ -9,8 +11,15 @@ RootSceneId WorldScene::Id() const noexcept
     return RootSceneId::World;
 }
 
-void WorldScene::Update(float)
+void WorldScene::Update(float deltaSeconds)
 {
+    if (!renderProvider_) {
+        return;
+    }
+
+    std::vector<cg::render::SpriteCmd> sprites;
+    renderProvider_(deltaSeconds, sprites);
+    renderSprites_ = std::move(sprites);
 }
 
 bool WorldScene::HandleInput(const SceneInputEvent&)
@@ -38,6 +47,11 @@ cg::world::EntityId WorldScene::CreateDemoEntity()
 void WorldScene::ClearWorld()
 {
     entities_.Clear();
+}
+
+void WorldScene::SetRenderProvider(RenderProvider provider)
+{
+    renderProvider_ = std::move(provider);
 }
 
 void WorldScene::SetRenderSprites(std::span<const cg::render::SpriteCmd> sprites)

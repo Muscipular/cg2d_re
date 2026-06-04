@@ -294,6 +294,23 @@ int TestWorldAndBattleMessages()
     return failures;
 }
 
+int TestUiSubmittedPacketIntents()
+{
+    int failures = 0;
+    GameStateMachine machine;
+    DriveToWorld(machine);
+
+    std::vector<GameCommand> commands = machine.HandleEvent({GameEventType::ChatSubmitted, "hi", 0});
+    failures += Expect(commands.size() == 1U && commands[0].type == GameCommandType::SendPacketIntent, "World 聊天提交发送包意图");
+    failures += Expect(commands[0].packetIntent == GamePacketIntentType::SendChat && commands[0].payload == "hi", "聊天提交使用 SendChat");
+
+    (void)machine.HandleEvent({GameEventType::BattleStarted, {}, 0});
+    commands = machine.HandleEvent({GameEventType::BattleCommandSubmitted, "Attack", 0});
+    failures += Expect(commands.size() == 1U && commands[0].type == GameCommandType::SendPacketIntent, "Battle 命令提交发送包意图");
+    failures += Expect(commands[0].packetIntent == GamePacketIntentType::BattleCommand && commands[0].payload == "Attack", "战斗命令提交使用 BattleCommand");
+    return failures;
+}
+
 int TestInvalidTimingWarns()
 {
     int failures = 0;
@@ -325,6 +342,7 @@ int main()
     failures += TestLoginRejected();
     failures += TestDisconnectedFromStates();
     failures += TestWorldAndBattleMessages();
+    failures += TestUiSubmittedPacketIntents();
     failures += TestInvalidTimingWarns();
 
     if (failures != 0) {

@@ -1,0 +1,308 @@
+#include "app/M8ClientLoopBridge.hpp"
+#include "render/RenderQueue.hpp"
+#include "ui/SdlTextUiPresenter.hpp"
+
+#include <array>
+#include <filesystem>
+#include <fstream>
+#include <iostream>
+#include <iterator>
+#include <memory>
+#include <string>
+#include <vector>
+
+#ifndef CG_APP_TEST_SOURCE_DIR
+#define CG_APP_TEST_SOURCE_DIR "."
+#endif
+
+namespace {
+
+using cg::app::DriveM8GameEvent;
+using cg::app::DriveM8UiInput;
+using cg::app::ToM8GameEvent;
+using cg::app::ToM8SceneInput;
+using cg::game::GameCommand;
+using cg::game::GameCommandType;
+using cg::game::GameEventType;
+using cg::game::GamePacketIntentType;
+using cg::game::GameRootSceneType;
+using cg::game::GameStateMachine;
+using cg::game::GameStateType;
+using cg::game::GameSubSceneType;
+using cg::scene::IScene;
+using cg::scene::ISubScene;
+using cg::scene::RootSceneId;
+using cg::scene::SceneInputEvent;
+using cg::scene::SceneInputEventType;
+using cg::scene::SceneManager;
+using cg::scene::SubSceneId;
+using cg::scene::SubScenePolicy;
+using cg::ui::SdlTextUiPresenter;
+using cg::ui::UiInputEventType;
+using cg::ui::UiIntent;
+using cg::ui::UiIntentType;
+using cg::ui::UiKey;
+using cg::ui::UiScreenType;
+using cg::ui::UiViewModel;
+
+class TestScene final : public IScene {
+public:
+    explicit TestScene(RootSceneId id) noexcept
+        : id_(id)
+    {
+    }
+
+    [[nodiscard]] RootSceneId Id() const noexcept override
+    {
+        return id_;
+    }
+
+    void Update(float) override
+    {
+    }
+
+    bool HandleInput(const SceneInputEvent&) override
+    {
+        return false;
+    }
+
+    void Render(cg::render::RenderQueue&) const override
+    {
+    }
+
+private:
+    RootSceneId id_;
+};
+
+class ModalSubScene final : public ISubScene {
+public:
+    [[nodiscard]] SubSceneId Id() const noexcept override
+    {
+        return SubSceneId::ConfirmDialog;
+    }
+
+    [[nodiscard]] SubScenePolicy Policy() const noexcept override
+    {
+        SubScenePolicy policy;
+        policy.modal = true;
+        return policy;
+    }
+
+    void Update(float) override
+    {
+    }
+
+    bool HandleInput(const SceneInputEvent&) override
+    {
+        return false;
+    }
+
+    void Render(cg::render::RenderQueue&) const override
+    {
+    }
+};
+
+int Expect(bool condition, const char* message)
+{
+    if (condition) {
+        return 0;
+    }
+
+    std::cerr << "EXPECT failed: " << message << '\n';
+    return 1;
+}
+
+std::string Join(const char* left, const char* right)
+{
+    std::string text(left);
+    text += right;
+    return text;
+}
+
+bool ReadFile(const std::filesystem::path& path, std::string& out)
+{
+    std::ifstream input(path, std::ios::binary);
+    if (!input) {
+        return false;
+    }
+
+    out.assign(std::istreambuf_iterator<char>(input), std::istreambuf_iterator<char>());
+    return true;
+}
+
+void RegisterRoots(SceneManager& manager)
+{
+    manager.RegisterRootSceneFactory(RootSceneId::Boot, []() {
+        return std::make_unique<TestScene>(RootSceneId::Boot);
+    });
+    manager.RegisterRootSceneFactory(RootSceneId::Login, []() {
+        return std::make_unique<TestScene>(RootSceneId::Login);
+    });
+    manager.RegisterRootSceneFactory(RootSceneId::CharacterSelect, []() {
+        return std::make_unique<TestScene>(RootSceneId::CharacterSelect);
+    });
+    manager.RegisterRootSceneFactory(RootSceneId::Loading, []() {
+        return std::make_unique<TestScene>(RootSceneId::Loading);
+    });
+    manager.RegisterRootSceneFactory(RootSceneId::World, []() {
+        return std::make_unique<TestScene>(RootSceneId::World);
+    });
+}
+
+void PushTestSubScene(SceneManager& manager, GameSubSceneType subScene)
+{
+    if (subScene == GameSubSceneType::MainHud) {
+        manager.PushSubScene(std::make_unique<ModalSubScene>());
+    }
+}
+
+int TestPublicHeaderSurface()
+{
+    int failures = 0;
+    const std::filesystem::path root(CG_APP_TEST_SOURCE_DIR);
+    const std::array<std::filesystem::path, 1> headers{{root / "src/app/M8ClientLoopBridge.hpp"}};
+    const std::array<std::string, 6> forbidden{{
+        Join("S", "DL"),
+        Join("T", "TF"),
+        Join("Win", "32"),
+        Join("platform", "/Event"),
+        Join("dynamic", "_cast"),
+        Join("type", "id"),
+    }};
+
+    for (const std::filesystem::path& header : headers) {
+        std::string text;
+        failures += Expect(ReadFile(header, text), "app bridge 公开头可读取");
+        for (const std::string& token : forbidden) {
+            failures += Expect(text.find(token) == std::string::npos, "app bridge 公开头无禁止边界");
+        }
+    }
+
+    return failures;
+}
+
+int TestIntentMapping()
+{
+    int failures = 0;
+    const UiIntent chat{UiIntentType::SubmitChat, "hi", 0U};
+    const auto chatEvent = ToM8GameEvent(chat);
+    failures += Expect(chatEvent.has_value() && chatEvent->type == GameEventType::ChatSubmitted, "SubmitChat 映射 ChatSubmitted");
+
+    const UiIntent battle{UiIntentType::SelectMenuItem, "Attack", 1U};
+    const auto battleEvent = ToM8GameEvent(battle);
+    failures += Expect(battleEvent.has_value() && battleEvent->type == GameEventType::BattleCommandSubmitted, "SelectMenuItem 映射 BattleCommandSubmitted");
+
+    const SceneInputEvent confirm = ToM8SceneInput({UiInputEventType::Key, UiKey::Enter, {}});
+    failures += Expect(confirm.type == SceneInputEventType::Confirm, "Enter 映射 scene Confirm");
+
+    const SceneInputEvent text = ToM8SceneInput({UiInputEventType::TextInput, UiKey::None, "你"});
+    failures += Expect(text.type == SceneInputEventType::Text && text.text == "你", "TextInput 映射 scene Text");
+    return failures;
+}
+
+int TestDriveGameEventAppliesSceneAndPresenter()
+{
+    int failures = 0;
+    GameStateMachine machine;
+    SceneManager manager;
+    SdlTextUiPresenter presenter;
+    RegisterRoots(manager);
+    (void)manager.Start(RootSceneId::Boot);
+
+    UiViewModel model;
+    model.screen = UiScreenType::Login;
+    model.title = "M8";
+    presenter.SetViewModel(model);
+
+    const std::vector<GameCommand> commands = DriveM8GameEvent(
+        machine,
+        manager,
+        presenter,
+        {GameEventType::AppStarted, {}, 0},
+        PushTestSubScene);
+
+    failures += Expect(commands.size() == 1U && commands[0].rootScene == GameRootSceneType::Login, "AppStarted 产生命令");
+    failures += Expect(manager.CurrentRootSceneId() == RootSceneId::Login, "AppStarted 应用到 SceneManager");
+    failures += Expect(presenter.ViewModel().screen == UiScreenType::Login, "AppStarted 同步 Presenter ViewModel");
+    return failures;
+}
+
+int TestDriveUiInputToCommand()
+{
+    int failures = 0;
+    GameStateMachine machine;
+    SceneManager manager;
+    SdlTextUiPresenter presenter;
+    RegisterRoots(manager);
+    (void)manager.Start(RootSceneId::Boot);
+
+    UiViewModel model;
+    model.screen = UiScreenType::Login;
+    model.title = "M8";
+    presenter.SetViewModel(model);
+    (void)DriveM8GameEvent(machine, manager, presenter, {GameEventType::AppStarted, {}, 0}, PushTestSubScene);
+
+    std::vector<GameCommand> commands = DriveM8UiInput(
+        machine,
+        manager,
+        presenter,
+        {UiInputEventType::TextInput, UiKey::None, "demo"},
+        PushTestSubScene);
+    failures += Expect(commands.empty() && presenter.ViewModel().inputText == "demo", "TextInput 更新 Presenter 但不进状态机");
+
+    commands = DriveM8UiInput(
+        machine,
+        manager,
+        presenter,
+        {UiInputEventType::Key, UiKey::Enter, {}},
+        PushTestSubScene);
+    failures += Expect(machine.State().type == GameStateType::LoginPending, "Enter 通过 UI intent 驱动状态机");
+    failures += Expect(commands.size() == 1U && commands[0].type == GameCommandType::SendPacketIntent, "Enter 产生命令");
+    failures += Expect(commands[0].packetIntent == GamePacketIntentType::Login && commands[0].payload == "demo", "Login payload 来自 Presenter");
+    return failures;
+}
+
+int TestModalBlocksUiInput()
+{
+    int failures = 0;
+    GameStateMachine machine;
+    SceneManager manager;
+    SdlTextUiPresenter presenter;
+    RegisterRoots(manager);
+    (void)manager.Start(RootSceneId::Boot);
+
+    UiViewModel model;
+    model.screen = UiScreenType::Login;
+    presenter.SetViewModel(model);
+    (void)DriveM8GameEvent(machine, manager, presenter, {GameEventType::AppStarted, {}, 0}, nullptr);
+    manager.PushSubScene(std::make_unique<ModalSubScene>());
+
+    const std::vector<GameCommand> commands = DriveM8UiInput(
+        machine,
+        manager,
+        presenter,
+        {UiInputEventType::TextInput, UiKey::None, "blocked"},
+        nullptr);
+    failures += Expect(commands.empty(), "modal 阻断时不产生命令");
+    failures += Expect(presenter.ViewModel().inputText.empty(), "modal 阻断时 Presenter 不接收输入");
+    return failures;
+}
+
+} // namespace
+
+int main()
+{
+    int failures = 0;
+    failures += TestPublicHeaderSurface();
+    failures += TestIntentMapping();
+    failures += TestDriveGameEventAppliesSceneAndPresenter();
+    failures += TestDriveUiInputToCommand();
+    failures += TestModalBlocksUiInput();
+
+    if (failures != 0) {
+        std::cerr << failures << " checks failed\n";
+        return 1;
+    }
+
+    return 0;
+}

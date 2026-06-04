@@ -478,6 +478,61 @@ target_include_directories(cg-world-entity-sprite-builder-test
 
 add_test(NAME cg-world-entity-sprite-builder-test COMMAND cg-world-entity-sprite-builder-test)
 
+add_executable(cg-game-state-machine-test
+    tests/game/GameStateMachineTest.cpp
+    src/game/GameStateMachine.cpp
+)
+
+target_include_directories(cg-game-state-machine-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+
+target_compile_definitions(cg-game-state-machine-test
+    PRIVATE
+        CG_GAME_TEST_SOURCE_DIR="${CMAKE_CURRENT_SOURCE_DIR}"
+)
+
+add_test(NAME cg-game-state-machine-test COMMAND cg-game-state-machine-test)
+
+add_executable(cg-scene-manager-test
+    tests/scene/SceneManagerTest.cpp
+    src/scene/SceneManager.cpp
+    src/scene/WorldScene.cpp
+    src/world/EntityStore.cpp
+)
+
+target_include_directories(cg-scene-manager-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+
+target_compile_definitions(cg-scene-manager-test
+    PRIVATE
+        CG_SCENE_TEST_SOURCE_DIR="${CMAKE_CURRENT_SOURCE_DIR}"
+)
+
+add_test(NAME cg-scene-manager-test COMMAND cg-scene-manager-test)
+
+add_executable(cg-ui-presenter-test
+    tests/ui/UiPresenterTest.cpp
+    src/ui/UiIntent.cpp
+    src/ui/SdlTextUiPresenter.cpp
+    src/ui/GraphicalUiPresenter.cpp
+)
+
+target_include_directories(cg-ui-presenter-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+
+target_compile_definitions(cg-ui-presenter-test
+    PRIVATE
+        CG_UI_TEST_SOURCE_DIR="${CMAKE_CURRENT_SOURCE_DIR}"
+)
+
+add_test(NAME cg-ui-presenter-test COMMAND cg-ui-presenter-test)
+
 add_executable(cg-packet-types-test
     tests/packet/PacketTypesTest.cpp
 )
@@ -1550,6 +1605,9 @@ if(MSVC)
     target_compile_options(cg-world-animation-state-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-world-movement-animation-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-world-entity-sprite-builder-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-game-state-machine-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-scene-manager-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-ui-presenter-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-types-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-character-list-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-create-new-char-result-test PRIVATE /W4 /utf-8 /permissive-)
@@ -1669,6 +1727,9 @@ else()
     target_compile_options(cg-world-animation-state-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-world-movement-animation-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-world-entity-sprite-builder-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-game-state-machine-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-scene-manager-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-ui-presenter-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-types-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-character-list-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-create-new-char-result-test PRIVATE -Wall -Wextra -Wpedantic)

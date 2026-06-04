@@ -11,6 +11,7 @@
 | 2026-05-27 | 补充 namespace 与类型规划 | `AGENTS.md` 新增 namespace 与类型规划约束，明确根 namespace、模块 namespace、接口、handle、RAII、值类型、SDL 类型边界和编码边界 | 文档检查；未编译 | 无 |
 | 2026-06-03 | M7 方案落盘 | 更新 `plans/cg_engine_dev_plan.md` 的 M7 world 层计划，补充 IDA 对齐依据、`MapTileAtlasCacheKey`、地板 sprite atlas 常驻显存、地图 obj 纹理 100 容量 LRU + 30 秒清退、排序映射和验收场景 | 文档检查；未编译 | 仅方案落盘；具体实现和更细 IDA 校对留给后续 M7 小步 |
 | 2026-06-04 | M8 Scene 状态机方案落盘 | 在 `plans/cg_engine_dev_plan.md` 的 M7 后新增 M8：Scene/SubScene、GameStateMachine、SDL-TUI 正式文字交互客户端和资深游戏开发者 subAgent 拆分要求；原 M8-M13 顺延为 M9-M14；同步 `plans/protocol_m6_inventory.md` 的 net 连接层编号 | 资深游戏开发者 subAgent 只读审查；文档编号检查；未编译 | 仅方案落盘；具体实现留给后续 M8 小步 |
+| 2026-06-04 | M8 Scene/Game/UI 实现 | 新增 `cg::game` 状态机与 replay driver、`cg::scene` Root/SubScene 生命周期和 `SceneManager`、`WorldScene` 最小 EntityStore 桥接、`cg::ui` ViewModel/Intent/Presenter 与 SDL-TUI 文本 frame builder；CMake 接入新增测试目标 | `git diff --check` 通过，仅既有 CRLF 提示；VS bundled CMake configure 通过；Debug 构建 `cg-game-state-machine-test`、`cg-scene-manager-test`、`cg-ui-presenter-test` 通过；CTest Debug 3/3 通过；公开头边界扫描无 SDL/TTF/Win32/RTTI token | 不接 net/socket，不改 `src/app/main.cpp`；图形 UI 仅保留最小 presenter 占位 |
 
 ## M1：platform 层
 

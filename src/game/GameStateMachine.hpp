@@ -16,10 +16,10 @@ public:
     [[nodiscard]] std::vector<GameCommand> HandleEvent(const GameEvent& event);
 
 private:
-    void ClearSubScenes(std::vector<GameCommand>& out) const;
+    void ClearCurrentSubScene(std::vector<GameCommand>& out) const;
     void ReplaceRoot(GameRootSceneType rootScene, std::vector<GameCommand>& out) const;
-    void PushSub(GameSubSceneType subScene, std::vector<GameCommand>& out) const;
-    void PopSub(GameSubSceneType subScene, std::vector<GameCommand>& out) const;
+    void ReplaceSubScene(GameSubSceneType subScene, std::vector<GameCommand>& out) const;
+    void ClearSubScene(GameSubSceneType subScene, std::vector<GameCommand>& out) const;
     void SendPacketIntent(GamePacketIntentType packetIntent, const std::string& payload, std::vector<GameCommand>& out) const;
     void Apply(GameCommandType type, const std::string& payload, std::vector<GameCommand>& out) const;
     void ShowMessage(std::string message, std::vector<GameCommand>& out);

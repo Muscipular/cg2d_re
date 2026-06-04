@@ -25,10 +25,8 @@ enum class GameSubSceneType : std::uint8_t {
 
 enum class GameCommandType : std::uint8_t {
     ReplaceRootScene,
-    // SubScene 命令名保留兼容；SceneManager/M8 bridge 语义是 replace/clear 单当前 SubScene。
-    PushSubScene,
-    PopSubScene,
-    ClearSubScenes,
+    ReplaceCurrentSubScene,
+    ClearCurrentSubScene,
     SendPacketIntent,
     LoadMap,
     ApplyMapData,

@@ -216,12 +216,12 @@ void RegisterM8RootScenes(
     });
 }
 
-void PushM8SubScene(cg::scene::SceneManager& sceneManager, cg::game::GameSubSceneType subScene)
+void ReplaceM8SubScene(cg::scene::SceneManager& sceneManager, cg::game::GameSubSceneType subScene)
 {
     if (subScene == cg::game::GameSubSceneType::MainHud) {
-        sceneManager.PushSubScene(std::make_unique<M8MainHudSubScene>());
+        sceneManager.ReplaceCurrentSubScene(std::make_unique<M8MainHudSubScene>());
     } else if (subScene == cg::game::GameSubSceneType::Overlay) {
-        sceneManager.PushSubScene(std::make_unique<M8OverlaySubScene>());
+        sceneManager.ReplaceCurrentSubScene(std::make_unique<M8OverlaySubScene>());
     }
 }
 
@@ -965,7 +965,7 @@ int main(int argc, char* argv[])
         {cg::game::GameEventType::ChatMessageReceived, "M8 loop ready", 0},
     }};
     for (const cg::game::GameEvent& seedEvent : m8SeedEvents) {
-        (void)cg::app::DriveM8GameEvent(m8StateMachine, m8SceneManager, m8TuiPresenter, seedEvent, PushM8SubScene);
+        (void)cg::app::DriveM8GameEvent(m8StateMachine, m8SceneManager, m8TuiPresenter, seedEvent, ReplaceM8SubScene);
     }
     m8GraphicalPresenter.SetViewModel(m8TuiPresenter.ViewModel());
 
@@ -1052,7 +1052,7 @@ int main(int argc, char* argv[])
                     m8SceneManager,
                     m8TuiPresenter,
                     {cg::game::GameEventType::QuitRequested, {}, 0},
-                    PushM8SubScene);
+                    ReplaceM8SubScene);
                 running = false;
             }
 
@@ -1063,7 +1063,7 @@ int main(int argc, char* argv[])
                     m8SceneManager,
                     m8TuiPresenter,
                     {cg::game::GameEventType::QuitRequested, {}, 0},
-                    PushM8SubScene);
+                    ReplaceM8SubScene);
                 running = false;
             }
 
@@ -1074,7 +1074,7 @@ int main(int argc, char* argv[])
                     m8SceneManager,
                     m8TuiPresenter,
                     *m8Input,
-                    PushM8SubScene);
+                    ReplaceM8SubScene);
                 if (m8StateMachine.State().type == cg::game::GameStateType::Shutdown) {
                     running = false;
                 }

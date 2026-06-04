@@ -185,14 +185,14 @@ void RegisterRoots(SceneManager& manager)
     });
 }
 
-void PushTestSubScene(SceneManager& manager, GameSubSceneType subScene)
+void ReplaceTestSubScene(SceneManager& manager, GameSubSceneType subScene)
 {
     SubScenePolicy policy;
     policy.transparentRender = true;
     if (subScene == GameSubSceneType::MainHud) {
-        manager.PushSubScene(std::make_unique<TestSubScene>(SubSceneId::MainHud, policy));
+        manager.ReplaceCurrentSubScene(std::make_unique<TestSubScene>(SubSceneId::MainHud, policy));
     } else if (subScene == GameSubSceneType::Overlay) {
-        manager.PushSubScene(std::make_unique<TestSubScene>(SubSceneId::LoadingOverlay, policy));
+        manager.ReplaceCurrentSubScene(std::make_unique<TestSubScene>(SubSceneId::LoadingOverlay, policy));
     }
 }
 
@@ -259,7 +259,7 @@ int TestDriveGameEventAppliesSceneAndPresenter()
         manager,
         presenter,
         {GameEventType::AppStarted, {}, 0},
-        PushTestSubScene);
+        ReplaceTestSubScene);
 
     failures += Expect(commands.size() == 1U && commands[0].rootScene == GameRootSceneType::Login, "AppStarted 产生命令");
     failures += Expect(manager.CurrentRootSceneId() == RootSceneId::Login, "AppStarted 应用到 SceneManager");
@@ -280,14 +280,14 @@ int TestDriveUiInputToCommand()
     model.screen = UiScreenType::Login;
     model.title = "M8";
     presenter.SetViewModel(model);
-    (void)DriveM8GameEvent(machine, manager, presenter, {GameEventType::AppStarted, {}, 0}, PushTestSubScene);
+    (void)DriveM8GameEvent(machine, manager, presenter, {GameEventType::AppStarted, {}, 0}, ReplaceTestSubScene);
 
     std::vector<GameCommand> commands = DriveM8UiInput(
         machine,
         manager,
         presenter,
         {UiInputEventType::TextInput, UiKey::None, "demo"},
-        PushTestSubScene);
+        ReplaceTestSubScene);
     failures += Expect(commands.empty() && presenter.ViewModel().inputText == "demo", "TextInput 更新 Presenter 但不进状态机");
 
     commands = DriveM8UiInput(
@@ -295,7 +295,7 @@ int TestDriveUiInputToCommand()
         manager,
         presenter,
         {UiInputEventType::Key, UiKey::Enter, {}},
-        PushTestSubScene);
+        ReplaceTestSubScene);
     failures += Expect(machine.State().type == GameStateType::LoginPending, "Enter 通过 UI intent 驱动状态机");
     failures += Expect(commands.size() == 1U && commands[0].type == GameCommandType::SendPacketIntent, "Enter 产生命令");
     failures += Expect(commands[0].packetIntent == GamePacketIntentType::Login && commands[0].payload == "demo", "Login payload 来自 Presenter");
@@ -325,17 +325,17 @@ int TestOverlayReplaceAndCloseClearsCurrent()
         GameEventType::ObjectListReceived,
     }};
     for (const GameEventType eventType : enterWorld) {
-        (void)DriveM8GameEvent(machine, manager, presenter, {eventType, "payload", 0}, PushTestSubScene);
+        (void)DriveM8GameEvent(machine, manager, presenter, {eventType, "payload", 0}, ReplaceTestSubScene);
     }
     failures += Expect(manager.SubSceneCount() == 1U, "进入 World 后当前 SubScene 为 MainHud");
 
-    (void)DriveM8GameEvent(machine, manager, presenter, {GameEventType::OverlayClosed, {}, 0}, PushTestSubScene);
+    (void)DriveM8GameEvent(machine, manager, presenter, {GameEventType::OverlayClosed, {}, 0}, ReplaceTestSubScene);
     failures += Expect(manager.SubSceneCount() == 1U, "未打开 Overlay 时关闭 Overlay 不清 MainHud");
 
-    (void)DriveM8GameEvent(machine, manager, presenter, {GameEventType::OverlayOpened, {}, 0}, PushTestSubScene);
+    (void)DriveM8GameEvent(machine, manager, presenter, {GameEventType::OverlayOpened, {}, 0}, ReplaceTestSubScene);
     failures += Expect(manager.SubSceneCount() == 1U, "OverlayOpened replace MainHud 为当前 Overlay");
 
-    (void)DriveM8GameEvent(machine, manager, presenter, {GameEventType::OverlayClosed, {}, 0}, PushTestSubScene);
+    (void)DriveM8GameEvent(machine, manager, presenter, {GameEventType::OverlayClosed, {}, 0}, ReplaceTestSubScene);
     failures += Expect(manager.SubSceneCount() == 0U, "OverlayClosed 清当前 Overlay 且不恢复 MainHud");
     return failures;
 }
@@ -353,22 +353,22 @@ int TestScreenChangeRebuildsMenu()
     model.screen = UiScreenType::Login;
     presenter.SetViewModel(model);
 
-    (void)DriveM8GameEvent(machine, manager, presenter, {GameEventType::AppStarted, {}, 0}, PushTestSubScene);
-    (void)DriveM8GameEvent(machine, manager, presenter, {GameEventType::LoginSubmitted, "login", 0}, PushTestSubScene);
-    (void)DriveM8GameEvent(machine, manager, presenter, {GameEventType::LoginAccepted, {}, 0}, PushTestSubScene);
-    (void)DriveM8GameEvent(machine, manager, presenter, {GameEventType::CharacterListReceived, {}, 0}, PushTestSubScene);
+    (void)DriveM8GameEvent(machine, manager, presenter, {GameEventType::AppStarted, {}, 0}, ReplaceTestSubScene);
+    (void)DriveM8GameEvent(machine, manager, presenter, {GameEventType::LoginSubmitted, "login", 0}, ReplaceTestSubScene);
+    (void)DriveM8GameEvent(machine, manager, presenter, {GameEventType::LoginAccepted, {}, 0}, ReplaceTestSubScene);
+    (void)DriveM8GameEvent(machine, manager, presenter, {GameEventType::CharacterListReceived, {}, 0}, ReplaceTestSubScene);
 
     failures += Expect(presenter.ViewModel().screen == UiScreenType::CharacterSelect, "进入角色选择 screen");
     failures += Expect(presenter.ViewModel().menuItems.size() == 1U && presenter.ViewModel().menuItems[0].text == "Demo Character", "角色选择默认菜单");
 
-    (void)DriveM8GameEvent(machine, manager, presenter, {GameEventType::CharacterSelected, "demo", 0}, PushTestSubScene);
-    (void)DriveM8GameEvent(machine, manager, presenter, {GameEventType::MapReady, "map", 0}, PushTestSubScene);
-    (void)DriveM8GameEvent(machine, manager, presenter, {GameEventType::ObjectListReceived, "objects", 0}, PushTestSubScene);
+    (void)DriveM8GameEvent(machine, manager, presenter, {GameEventType::CharacterSelected, "demo", 0}, ReplaceTestSubScene);
+    (void)DriveM8GameEvent(machine, manager, presenter, {GameEventType::MapReady, "map", 0}, ReplaceTestSubScene);
+    (void)DriveM8GameEvent(machine, manager, presenter, {GameEventType::ObjectListReceived, "objects", 0}, ReplaceTestSubScene);
 
     failures += Expect(presenter.ViewModel().screen == UiScreenType::World, "进入 World screen");
     failures += Expect(presenter.ViewModel().menuItems.empty() && presenter.ViewModel().selectedIndex == 0U, "World 清理角色菜单并重置选择");
 
-    (void)DriveM8GameEvent(machine, manager, presenter, {GameEventType::BattleStarted, {}, 0}, PushTestSubScene);
+    (void)DriveM8GameEvent(machine, manager, presenter, {GameEventType::BattleStarted, {}, 0}, ReplaceTestSubScene);
     failures += Expect(presenter.ViewModel().screen == UiScreenType::Battle, "进入 Battle screen");
     failures += Expect(presenter.ViewModel().menuItems.size() == 2U, "Battle 重建默认菜单");
     failures += Expect(presenter.ViewModel().menuItems[0].text == "Attack" && presenter.ViewModel().selectedIndex == 0U, "Battle 默认选中 Attack");
@@ -378,7 +378,7 @@ int TestScreenChangeRebuildsMenu()
         manager,
         presenter,
         {UiInputEventType::Key, UiKey::Enter, {}},
-        PushTestSubScene);
+        ReplaceTestSubScene);
     failures += Expect(commands.size() == 1U && commands[0].packetIntent == GamePacketIntentType::BattleCommand, "Battle Enter 发送战斗命令");
     failures += Expect(commands[0].payload == "Attack", "Battle Enter payload 不沿用角色菜单");
     return failures;
@@ -397,7 +397,7 @@ int TestModalBlocksUiInput()
     model.screen = UiScreenType::Login;
     presenter.SetViewModel(model);
     (void)DriveM8GameEvent(machine, manager, presenter, {GameEventType::AppStarted, {}, 0}, nullptr);
-    manager.PushSubScene(std::make_unique<ModalSubScene>());
+    manager.ReplaceCurrentSubScene(std::make_unique<ModalSubScene>());
 
     const std::vector<GameCommand> commands = DriveM8UiInput(
         machine,

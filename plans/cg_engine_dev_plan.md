@@ -887,9 +887,8 @@ enum class GameEventType {
 
 enum class GameCommandType {
     ReplaceRootScene,
-    // 名称保留兼容；SceneManager/M8 bridge 语义是 replace/clear 单当前 SubScene。
-    PushSubScene,
-    PopSubScene,
+    ReplaceCurrentSubScene,
+    ClearCurrentSubScene,
     LoadMap,
     ApplyWorldUpdate,
     SendPacketIntent,

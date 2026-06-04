@@ -43,7 +43,7 @@ void SceneManager::ReplaceRootScene(RootSceneId id)
     pendingRootScenes_.push_back(id);
 }
 
-void SceneManager::PushSubScene(std::unique_ptr<ISubScene> scene)
+void SceneManager::ReplaceCurrentSubScene(std::unique_ptr<ISubScene> scene)
 {
     if (!scene) {
         return;
@@ -56,7 +56,7 @@ void SceneManager::PushSubScene(std::unique_ptr<ISubScene> scene)
     currentSubScene_->Enter();
 }
 
-void SceneManager::PopSubScene()
+void SceneManager::ClearCurrentSubScene()
 {
     if (!currentSubScene_) {
         return;
@@ -66,19 +66,14 @@ void SceneManager::PopSubScene()
     currentSubScene_.reset();
 }
 
-bool SceneManager::PopSubScene(SubSceneId id)
+bool SceneManager::ClearCurrentSubSceneIf(SubSceneId id)
 {
     if (!currentSubScene_ || currentSubScene_->Id() != id) {
         return false;
     }
 
-    PopSubScene();
+    ClearCurrentSubScene();
     return true;
-}
-
-void SceneManager::ClearSubScenes()
-{
-    PopSubScene();
 }
 
 void SceneManager::Update(float deltaSeconds)

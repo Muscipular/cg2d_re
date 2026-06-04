@@ -33,7 +33,7 @@ std::vector<GameCommand> GameStateMachine::HandleEvent(const GameEvent& event)
     if (event.type == GameEventType::QuitRequested) {
         state_.type = GameStateType::Shutdown;
         ResetWorldLoadingFlags();
-        ClearSubScenes(commands);
+        ClearCurrentSubScene(commands);
         ReplaceRoot(GameRootSceneType::Shutdown, commands);
         return commands;
     }
@@ -162,14 +162,14 @@ std::vector<GameCommand> GameStateMachine::HandleEvent(const GameEvent& event)
             WarnInvalidTiming(commands);
             break;
         }
-        PushSub(GameSubSceneType::Overlay, commands);
+        ReplaceSubScene(GameSubSceneType::Overlay, commands);
         break;
     case GameEventType::OverlayClosed:
         if (!IsWorldActive(state_.type)) {
             WarnInvalidTiming(commands);
             break;
         }
-        PopSub(GameSubSceneType::Overlay, commands);
+        ClearSubScene(GameSubSceneType::Overlay, commands);
         break;
     case GameEventType::BattleStarted:
         if (state_.type != GameStateType::World) {
@@ -177,7 +177,7 @@ std::vector<GameCommand> GameStateMachine::HandleEvent(const GameEvent& event)
             break;
         }
         state_.type = GameStateType::Battle;
-        ClearSubScenes(commands);
+        ClearCurrentSubScene(commands);
         ReplaceRoot(GameRootSceneType::Battle, commands);
         break;
     case GameEventType::BattleCommandSubmitted:
@@ -194,7 +194,7 @@ std::vector<GameCommand> GameStateMachine::HandleEvent(const GameEvent& event)
         }
         state_.type = GameStateType::World;
         ReplaceRoot(GameRootSceneType::World, commands);
-        PushSub(GameSubSceneType::MainHud, commands);
+        ReplaceSubScene(GameSubSceneType::MainHud, commands);
         break;
     case GameEventType::Disconnected:
     case GameEventType::ProtocolError:
@@ -205,10 +205,10 @@ std::vector<GameCommand> GameStateMachine::HandleEvent(const GameEvent& event)
     return commands;
 }
 
-void GameStateMachine::ClearSubScenes(std::vector<GameCommand>& out) const
+void GameStateMachine::ClearCurrentSubScene(std::vector<GameCommand>& out) const
 {
     GameCommand command;
-    command.type = GameCommandType::ClearSubScenes;
+    command.type = GameCommandType::ClearCurrentSubScene;
     out.push_back(std::move(command));
 }
 
@@ -220,18 +220,18 @@ void GameStateMachine::ReplaceRoot(GameRootSceneType rootScene, std::vector<Game
     out.push_back(std::move(command));
 }
 
-void GameStateMachine::PushSub(GameSubSceneType subScene, std::vector<GameCommand>& out) const
+void GameStateMachine::ReplaceSubScene(GameSubSceneType subScene, std::vector<GameCommand>& out) const
 {
     GameCommand command;
-    command.type = GameCommandType::PushSubScene;
+    command.type = GameCommandType::ReplaceCurrentSubScene;
     command.subScene = subScene;
     out.push_back(std::move(command));
 }
 
-void GameStateMachine::PopSub(GameSubSceneType subScene, std::vector<GameCommand>& out) const
+void GameStateMachine::ClearSubScene(GameSubSceneType subScene, std::vector<GameCommand>& out) const
 {
     GameCommand command;
-    command.type = GameCommandType::PopSubScene;
+    command.type = GameCommandType::ClearCurrentSubScene;
     command.subScene = subScene;
     out.push_back(std::move(command));
 }
@@ -288,14 +288,14 @@ void GameStateMachine::EnterWorldIfReady(std::vector<GameCommand>& out)
 
     state_.type = GameStateType::World;
     ReplaceRoot(GameRootSceneType::World, out);
-    PushSub(GameSubSceneType::MainHud, out);
+    ReplaceSubScene(GameSubSceneType::MainHud, out);
 }
 
 void GameStateMachine::HandleDisconnectLike(const GameEvent& event, std::vector<GameCommand>& out)
 {
     state_.type = GameStateType::Disconnected;
     ResetWorldLoadingFlags();
-    ClearSubScenes(out);
+    ClearCurrentSubScene(out);
     ReplaceRoot(GameRootSceneType::Disconnected, out);
 
     if (event.type == GameEventType::ProtocolError) {

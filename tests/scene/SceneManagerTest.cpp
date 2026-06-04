@@ -286,7 +286,7 @@ int TestModalInputAndTransparentRender()
 
     SubScenePolicy transparent;
     transparent.transparentRender = true;
-    manager.PushSubScene(std::make_unique<RecordingSubScene>(SubSceneId::Chat, overlay, "overlay", transparent, false));
+    manager.ReplaceCurrentSubScene(std::make_unique<RecordingSubScene>(SubSceneId::Chat, overlay, "overlay", transparent, false));
 
     RenderQueue queue;
     manager.Render(queue);
@@ -300,14 +300,14 @@ int TestModalInputAndTransparentRender()
     SubScenePolicy modalPolicy;
     modalPolicy.modal = true;
     modalPolicy.transparentRender = true;
-    manager.PushSubScene(std::make_unique<RecordingSubScene>(SubSceneId::ConfirmDialog, modal, "modal", modalPolicy, false));
+    manager.ReplaceCurrentSubScene(std::make_unique<RecordingSubScene>(SubSceneId::ConfirmDialog, modal, "modal", modalPolicy, false));
     failures += Expect(manager.HandleInput(event), "modal 阻断输入");
     failures += Expect(root.input == 1 && overlay.input == 1 && modal.input == 1, "modal 不透传 root 输入");
     failures += Expect(overlay.leave == 1, "modal replace 会 Leave 旧 SubScene");
 
     SubScenePolicy opaquePolicy;
     opaquePolicy.transparentRender = false;
-    manager.PushSubScene(std::make_unique<RecordingSubScene>(SubSceneId::Inventory, opaque, "opaque", opaquePolicy, true));
+    manager.ReplaceCurrentSubScene(std::make_unique<RecordingSubScene>(SubSceneId::Inventory, opaque, "opaque", opaquePolicy, true));
     root.renders.clear();
     overlay.renders.clear();
     modal.renders.clear();
@@ -334,21 +334,21 @@ int TestPausesBelowStopsRootOnly()
 
     SubScenePolicy pausePolicy;
     pausePolicy.pausesBelow = true;
-    manager.PushSubScene(std::make_unique<RecordingSubScene>(SubSceneId::ConfirmDialog, pause, "pause", pausePolicy, true));
+    manager.ReplaceCurrentSubScene(std::make_unique<RecordingSubScene>(SubSceneId::ConfirmDialog, pause, "pause", pausePolicy, true));
 
     manager.Update(0.016F);
     failures += Expect(root.update == 0, "pausesBelow 暂停 Root update");
     failures += Expect(pause.update == 1, "pausesBelow 当前 SubScene 继续 update");
 
     SubScenePolicy transparent;
-    manager.PushSubScene(std::make_unique<RecordingSubScene>(SubSceneId::Inventory, upper, "upper", transparent, true));
+    manager.ReplaceCurrentSubScene(std::make_unique<RecordingSubScene>(SubSceneId::Inventory, upper, "upper", transparent, true));
     manager.Update(0.016F);
     failures += Expect(pause.leave == 1, "replace 会 Leave pausesBelow SubScene");
     failures += Expect(root.update == 1 && upper.update == 1, "非 pausesBelow 时 Root 和当前 SubScene 都 update");
     return failures;
 }
 
-int TestReplaceAndTypedPopSubScene()
+int TestReplaceAndTypedClearCurrentSubScene()
 {
     int failures = 0;
     SceneCounters root;
@@ -361,17 +361,17 @@ int TestReplaceAndTypedPopSubScene()
     (void)manager.Start(RootSceneId::World);
 
     SubScenePolicy transparent;
-    manager.PushSubScene(std::make_unique<RecordingSubScene>(SubSceneId::MainHud, hud, "hud", transparent, false));
-    failures += Expect(!manager.PopSubScene(SubSceneId::LoadingOverlay), "类型不匹配时不弹 MainHud");
+    manager.ReplaceCurrentSubScene(std::make_unique<RecordingSubScene>(SubSceneId::MainHud, hud, "hud", transparent, false));
+    failures += Expect(!manager.ClearCurrentSubSceneIf(SubSceneId::LoadingOverlay), "类型不匹配时不清 MainHud");
     failures += Expect(manager.SubSceneCount() == 1U, "类型不匹配时当前 SubScene 保持不变");
 
-    manager.PushSubScene(std::make_unique<RecordingSubScene>(SubSceneId::LoadingOverlay, overlay, "overlay", transparent, false));
-    failures += Expect(hud.leave == 1 && overlay.enter == 1, "第二次 PushSubScene 会 replace 当前 SubScene");
+    manager.ReplaceCurrentSubScene(std::make_unique<RecordingSubScene>(SubSceneId::LoadingOverlay, overlay, "overlay", transparent, false));
+    failures += Expect(hud.leave == 1 && overlay.enter == 1, "第二次 replace 会替换当前 SubScene");
     failures += Expect(manager.SubSceneCount() == 1U, "replace 后仍只有一个当前 SubScene");
-    failures += Expect(!manager.PopSubScene(SubSceneId::MainHud), "旧 MainHud 已被替换，不能再按类型弹出");
-    failures += Expect(manager.SubSceneCount() == 1U, "旧类型弹出失败后当前 Overlay 保留");
-    failures += Expect(manager.PopSubScene(SubSceneId::LoadingOverlay), "类型匹配时弹 Overlay");
-    failures += Expect(manager.SubSceneCount() == 0U, "弹 Overlay 后当前 SubScene 为空");
+    failures += Expect(!manager.ClearCurrentSubSceneIf(SubSceneId::MainHud), "旧 MainHud 已被替换，不能再按类型清理");
+    failures += Expect(manager.SubSceneCount() == 1U, "旧类型清理失败后当前 Overlay 保留");
+    failures += Expect(manager.ClearCurrentSubSceneIf(SubSceneId::LoadingOverlay), "类型匹配时清 Overlay");
+    failures += Expect(manager.SubSceneCount() == 0U, "清 Overlay 后当前 SubScene 为空");
     return failures;
 }
 
@@ -431,7 +431,7 @@ int main()
     failures += TestFactoryFailureKeepsCurrent();
     failures += TestModalInputAndTransparentRender();
     failures += TestPausesBelowStopsRootOnly();
-    failures += TestReplaceAndTypedPopSubScene();
+    failures += TestReplaceAndTypedClearCurrentSubScene();
     failures += TestWorldSceneBridge();
 
     if (failures != 0) {

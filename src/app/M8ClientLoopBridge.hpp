@@ -15,7 +15,7 @@
 
 namespace cg::app {
 
-using M8PushSubSceneFn = void (*)(cg::scene::SceneManager& manager, cg::game::GameSubSceneType subScene);
+using M8ReplaceSubSceneFn = void (*)(cg::scene::SceneManager& manager, cg::game::GameSubSceneType subScene);
 
 [[nodiscard]] cg::scene::RootSceneId ToM8SceneRoot(cg::game::GameRootSceneType rootScene) noexcept;
 [[nodiscard]] cg::ui::UiScreenType ToM8UiScreen(cg::game::GameStateType state) noexcept;
@@ -28,20 +28,20 @@ void ApplyM8GameCommand(
     const cg::game::GameCommand& command,
     cg::scene::SceneManager& sceneManager,
     cg::ui::IUiPresenter& presenter,
-    M8PushSubSceneFn pushSubScene = nullptr);
+    M8ReplaceSubSceneFn replaceSubScene = nullptr);
 
 [[nodiscard]] std::vector<cg::game::GameCommand> DriveM8GameEvent(
     cg::game::GameStateMachine& stateMachine,
     cg::scene::SceneManager& sceneManager,
     cg::ui::IUiPresenter& presenter,
     const cg::game::GameEvent& event,
-    M8PushSubSceneFn pushSubScene = nullptr);
+    M8ReplaceSubSceneFn replaceSubScene = nullptr);
 
 [[nodiscard]] std::vector<cg::game::GameCommand> DriveM8UiInput(
     cg::game::GameStateMachine& stateMachine,
     cg::scene::SceneManager& sceneManager,
     cg::ui::IUiPresenter& presenter,
     const cg::ui::UiInputEvent& event,
-    M8PushSubSceneFn pushSubScene = nullptr);
+    M8ReplaceSubSceneFn replaceSubScene = nullptr);
 
 } // namespace cg::app

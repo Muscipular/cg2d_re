@@ -207,28 +207,27 @@ void ApplyM8GameCommand(
     const cg::game::GameCommand& command,
     cg::scene::SceneManager& sceneManager,
     cg::ui::IUiPresenter& presenter,
-    M8PushSubSceneFn pushSubScene)
+    M8ReplaceSubSceneFn replaceSubScene)
 {
     switch (command.type) {
     case cg::game::GameCommandType::ReplaceRootScene:
         sceneManager.ReplaceRootScene(ToM8SceneRoot(command.rootScene));
         sceneManager.Update(0.0F);
         break;
-    case cg::game::GameCommandType::PushSubScene:
-        if (pushSubScene != nullptr) {
-            pushSubScene(sceneManager, command.subScene);
+    case cg::game::GameCommandType::ReplaceCurrentSubScene:
+        if (replaceSubScene != nullptr) {
+            replaceSubScene(sceneManager, command.subScene);
         }
         break;
-    case cg::game::GameCommandType::PopSubScene: {
+    case cg::game::GameCommandType::ClearCurrentSubScene: {
         const std::optional<cg::scene::SubSceneId> subScene = ToM8SubSceneId(command.subScene);
         if (subScene.has_value()) {
-            (void)sceneManager.PopSubScene(*subScene);
+            (void)sceneManager.ClearCurrentSubSceneIf(*subScene);
+        } else {
+            sceneManager.ClearCurrentSubScene();
         }
         break;
     }
-    case cg::game::GameCommandType::ClearSubScenes:
-        sceneManager.ClearSubScenes();
-        break;
     case cg::game::GameCommandType::AppendChatMessage: {
         cg::ui::UiViewModel model = presenter.ViewModel();
         model.chatLines.push_back(command.payload);
@@ -256,11 +255,11 @@ std::vector<cg::game::GameCommand> DriveM8GameEvent(
     cg::scene::SceneManager& sceneManager,
     cg::ui::IUiPresenter& presenter,
     const cg::game::GameEvent& event,
-    M8PushSubSceneFn pushSubScene)
+    M8ReplaceSubSceneFn replaceSubScene)
 {
     std::vector<cg::game::GameCommand> commands = stateMachine.HandleEvent(event);
     for (const cg::game::GameCommand& command : commands) {
-        ApplyM8GameCommand(command, sceneManager, presenter, pushSubScene);
+        ApplyM8GameCommand(command, sceneManager, presenter, replaceSubScene);
     }
     SyncM8PresenterViewModel(presenter, stateMachine.State());
     return commands;
@@ -271,7 +270,7 @@ std::vector<cg::game::GameCommand> DriveM8UiInput(
     cg::scene::SceneManager& sceneManager,
     cg::ui::IUiPresenter& presenter,
     const cg::ui::UiInputEvent& event,
-    M8PushSubSceneFn pushSubScene)
+    M8ReplaceSubSceneFn replaceSubScene)
 {
     const cg::scene::SceneInputEvent sceneInput = ToM8SceneInput(event);
     if (sceneInput.type != cg::scene::SceneInputEventType::None && sceneManager.HandleInput(sceneInput)) {
@@ -284,7 +283,7 @@ std::vector<cg::game::GameCommand> DriveM8UiInput(
         return {};
     }
 
-    return DriveM8GameEvent(stateMachine, sceneManager, presenter, *gameEvent, pushSubScene);
+    return DriveM8GameEvent(stateMachine, sceneManager, presenter, *gameEvent, replaceSubScene);
 }
 
 } // namespace cg::app

@@ -155,11 +155,13 @@ int TestFullReplayFlow()
     failures += ExpectCommandType(commands, 6U, GameCommandType::ApplyMapData, "应用地图数据");
     failures += ExpectCommandType(commands, 7U, GameCommandType::ApplyObjectList, "应用对象列表");
     failures += Expect(commands[8].rootScene == GameRootSceneType::World, "地图和对象齐备后切 World");
-    failures += Expect(commands[9].subScene == GameSubSceneType::MainHud, "进入 World 后压入 MainHud");
-    failures += ExpectCommandType(commands, 10U, GameCommandType::ClearSubScenes, "进战斗前清空子场景");
+    failures += ExpectCommandType(commands, 9U, GameCommandType::ReplaceCurrentSubScene, "进入 World 后替换为 MainHud");
+    failures += Expect(commands[9].subScene == GameSubSceneType::MainHud, "进入 World 后当前 SubScene 为 MainHud");
+    failures += ExpectCommandType(commands, 10U, GameCommandType::ClearCurrentSubScene, "进战斗前清当前 SubScene");
     failures += Expect(commands[11].rootScene == GameRootSceneType::Battle, "切 Battle root");
     failures += Expect(commands[12].rootScene == GameRootSceneType::World, "战斗结束切回 World");
-    failures += Expect(commands[13].subScene == GameSubSceneType::MainHud, "战斗结束恢复 MainHud");
+    failures += ExpectCommandType(commands, 13U, GameCommandType::ReplaceCurrentSubScene, "战斗结束替换为 MainHud");
+    failures += Expect(commands[13].subScene == GameSubSceneType::MainHud, "战斗结束当前 SubScene 为 MainHud");
     return failures;
 }
 
@@ -197,7 +199,8 @@ int TestWorldLoadingOrder()
         failures += Expect(commands.size() == 3U, "第二个加载事件附加入场命令");
         failures += Expect(commands[0].type == GameCommandType::ApplyMapData, "第二步应用地图");
         failures += Expect(commands[1].rootScene == GameRootSceneType::World, "第二步切 World");
-        failures += Expect(commands[2].subScene == GameSubSceneType::MainHud, "第二步压入 MainHud");
+        failures += Expect(commands[2].type == GameCommandType::ReplaceCurrentSubScene, "第二步替换为 MainHud");
+        failures += Expect(commands[2].subScene == GameSubSceneType::MainHud, "第二步当前 SubScene 为 MainHud");
     }
 
     return failures;
@@ -226,7 +229,7 @@ int ExpectDisconnected(GameStateMachine& machine, const char* message)
     int failures = 0;
     failures += Expect(machine.State().type == GameStateType::Disconnected, message);
     failures += Expect(commands.size() == 3U, "断线命令数量");
-    failures += Expect(commands[0].type == GameCommandType::ClearSubScenes, "断线清空子场景");
+    failures += Expect(commands[0].type == GameCommandType::ClearCurrentSubScene, "断线清当前 SubScene");
     failures += Expect(commands[1].rootScene == GameRootSceneType::Disconnected, "断线切 Disconnected");
     failures += Expect(commands[2].type == GameCommandType::LogWarning, "断线记录 warning");
     failures += Expect(commands[2].payload == "lost", "断线 warning 使用事件文本");

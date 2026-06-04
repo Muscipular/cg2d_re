@@ -19,10 +19,9 @@ public:
     [[nodiscard]] bool Start(RootSceneId id);
     void ReplaceRootScene(RootSceneId id);
 
-    void PushSubScene(std::unique_ptr<ISubScene> scene);
-    void PopSubScene();
-    [[nodiscard]] bool PopSubScene(SubSceneId id);
-    void ClearSubScenes();
+    void ReplaceCurrentSubScene(std::unique_ptr<ISubScene> scene);
+    void ClearCurrentSubScene();
+    [[nodiscard]] bool ClearCurrentSubSceneIf(SubSceneId id);
 
     void Update(float deltaSeconds);
     [[nodiscard]] bool HandleInput(const SceneInputEvent& event);

@@ -1,7 +1,11 @@
 #pragma once
 
+#include "render/SpriteCmd.hpp"
 #include "scene/Scene.hpp"
 #include "world/EntityStore.hpp"
+
+#include <span>
+#include <vector>
 
 namespace cg::scene {
 
@@ -16,9 +20,11 @@ public:
     [[nodiscard]] std::size_t ActiveEntityCount() const noexcept;
     [[nodiscard]] cg::world::EntityId CreateDemoEntity();
     void ClearWorld();
+    void SetRenderSprites(std::span<const cg::render::SpriteCmd> sprites);
 
 private:
     cg::world::EntityStore entities_;
+    std::vector<cg::render::SpriteCmd> renderSprites_;
 };
 
 } // namespace cg::scene

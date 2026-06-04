@@ -277,6 +277,7 @@ int TestModalInputAndTransparentRender()
     SceneCounters root;
     SceneCounters overlay;
     SceneCounters modal;
+    SceneCounters opaque;
     SceneManager manager;
     manager.RegisterRootSceneFactory(RootSceneId::World, [&root]() {
         return std::make_unique<RecordingScene>(RootSceneId::World, root, "root");
@@ -302,6 +303,46 @@ int TestModalInputAndTransparentRender()
     manager.PushSubScene(std::make_unique<RecordingSubScene>(SubSceneId::ConfirmDialog, modal, "modal", modalPolicy, false));
     failures += Expect(manager.HandleInput(event), "modal 阻断输入");
     failures += Expect(root.input == 1 && overlay.input == 1 && modal.input == 1, "modal 不透传下层输入");
+
+    SubScenePolicy opaquePolicy;
+    opaquePolicy.transparentRender = false;
+    manager.PushSubScene(std::make_unique<RecordingSubScene>(SubSceneId::Inventory, opaque, "opaque", opaquePolicy, true));
+    root.renders.clear();
+    overlay.renders.clear();
+    modal.renders.clear();
+    opaque.renders.clear();
+    manager.Render(queue);
+    failures += Expect(root.renders.size() == 1U, "非透明 SubScene 仍保留 Root 渲染");
+    failures += Expect(overlay.renders.empty() && modal.renders.empty(), "非透明 SubScene 遮挡下层 SubScene");
+    failures += Expect(opaque.renders.size() == 1U, "非透明 SubScene 自身渲染");
+    return failures;
+}
+
+int TestPausesBelowStopsRootAndLowerSubScenes()
+{
+    int failures = 0;
+    SceneCounters root;
+    SceneCounters lower;
+    SceneCounters pause;
+    SceneCounters upper;
+    SceneManager manager;
+    manager.RegisterRootSceneFactory(RootSceneId::World, [&root]() {
+        return std::make_unique<RecordingScene>(RootSceneId::World, root, "root");
+    });
+    (void)manager.Start(RootSceneId::World);
+
+    SubScenePolicy transparent;
+    manager.PushSubScene(std::make_unique<RecordingSubScene>(SubSceneId::Chat, lower, "lower", transparent, false));
+
+    SubScenePolicy pausePolicy;
+    pausePolicy.pausesBelow = true;
+    manager.PushSubScene(std::make_unique<RecordingSubScene>(SubSceneId::ConfirmDialog, pause, "pause", pausePolicy, true));
+    manager.PushSubScene(std::make_unique<RecordingSubScene>(SubSceneId::Inventory, upper, "upper", transparent, true));
+
+    manager.Update(0.016F);
+    failures += Expect(root.update == 0, "pausesBelow 暂停 Root update");
+    failures += Expect(lower.update == 0, "pausesBelow 暂停下层 SubScene update");
+    failures += Expect(pause.update == 1 && upper.update == 1, "pausesBelow 自身和上层继续 update");
     return failures;
 }
 
@@ -309,11 +350,27 @@ int TestWorldSceneBridge()
 {
     int failures = 0;
     WorldScene scene;
+    RenderQueue queue;
     failures += Expect(scene.Id() == RootSceneId::World, "WorldScene id");
     failures += Expect(scene.ActiveEntityCount() == 0U, "WorldScene 初始无实体");
     const cg::world::EntityId id = scene.CreateDemoEntity();
     failures += Expect(id.IsValid(), "WorldScene 可创建 demo entity");
     failures += Expect(scene.ActiveEntityCount() == 1U, "WorldScene 统计实体");
+
+    const cg::render::SpriteCmd sprite{
+        cg::render::TextureHandle{1U, 1U},
+        {0.0F, 0.0F, 16.0F, 16.0F},
+        {8.0F, 8.0F, 16.0F, 16.0F},
+        {1.0F, 1.0F, 1.0F, 1.0F},
+        1U,
+        0,
+        7U,
+    };
+    const std::array<cg::render::SpriteCmd, 1> sprites{{sprite}};
+    scene.SetRenderSprites(sprites);
+    scene.Render(queue);
+    failures += Expect(queue.Size() == 1U, "WorldScene 将 world render sprite 推入 RenderQueue");
+
     scene.ClearWorld();
     failures += Expect(scene.ActiveEntityCount() == 0U, "WorldScene 可清空");
     return failures;
@@ -329,6 +386,7 @@ int main()
     failures += TestOneSwitchPerFrameAndSameTargetIgnored();
     failures += TestFactoryFailureKeepsCurrent();
     failures += TestModalInputAndTransparentRender();
+    failures += TestPausesBelowStopsRootAndLowerSubScenes();
     failures += TestWorldSceneBridge();
 
     if (failures != 0) {

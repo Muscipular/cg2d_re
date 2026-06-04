@@ -72,17 +72,19 @@ void SceneManager::ClearSubScenes()
 
 void SceneManager::Update(float deltaSeconds)
 {
-    if (currentRootScene_) {
-        currentRootScene_->Update(deltaSeconds);
-    }
-
     std::size_t firstUpdatedSubScene = 0U;
+    bool updateRoot = true;
     for (std::size_t index = subScenes_.size(); index > 0U; --index) {
         const SubScenePolicy policy = subScenes_[index - 1U]->Policy();
         if (policy.pausesBelow) {
+            updateRoot = false;
             firstUpdatedSubScene = index - 1U;
             break;
         }
+    }
+
+    if (updateRoot && currentRootScene_) {
+        currentRootScene_->Update(deltaSeconds);
     }
 
     for (std::size_t index = firstUpdatedSubScene; index < subScenes_.size(); ++index) {
@@ -115,17 +117,15 @@ bool SceneManager::HandleInput(const SceneInputEvent& event)
 void SceneManager::Render(cg::render::RenderQueue& queue) const
 {
     std::size_t firstRenderedSubScene = 0U;
-    bool renderRoot = true;
     for (std::size_t index = subScenes_.size(); index > 0U; --index) {
         const SubScenePolicy policy = subScenes_[index - 1U]->Policy();
         if (!policy.transparentRender) {
-            renderRoot = false;
             firstRenderedSubScene = index - 1U;
             break;
         }
     }
 
-    if (renderRoot && currentRootScene_) {
+    if (currentRootScene_) {
         currentRootScene_->Render(queue);
     }
 

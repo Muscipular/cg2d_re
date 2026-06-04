@@ -28,6 +28,20 @@ void MoveSelection(UiViewModel& viewModel, int delta)
     viewModel.selectedIndex = static_cast<std::uint32_t>(next);
 }
 
+void EraseLastUtf8Codepoint(std::string& text)
+{
+    if (text.empty()) {
+        return;
+    }
+
+    std::size_t start = text.size() - 1U;
+    while (start > 0U && (static_cast<unsigned char>(text[start]) & 0xC0U) == 0x80U) {
+        --start;
+    }
+
+    text.erase(start);
+}
+
 UiIntent SubmitByScreen(UiViewModel& viewModel)
 {
     switch (viewModel.screen) {
@@ -71,9 +85,7 @@ UiIntent BuildUiIntent(UiViewModel& viewModel, const UiInputEvent& event)
     case UiKey::Escape:
         return UiIntent{UiIntentType::Cancel, {}, 0U};
     case UiKey::Backspace:
-        if (!viewModel.inputText.empty()) {
-            viewModel.inputText.pop_back();
-        }
+        EraseLastUtf8Codepoint(viewModel.inputText);
         return UiIntent{UiIntentType::EditText, viewModel.inputText, 0U};
     case UiKey::None:
     case UiKey::Left:

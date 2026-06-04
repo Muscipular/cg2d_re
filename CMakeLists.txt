@@ -39,12 +39,19 @@ add_subdirectory("${CG_YAML_CPP_ROOT}" "${CMAKE_BINARY_DIR}/third_party/yaml-cpp
 add_executable(cg-client
     src/app/main.cpp
     src/core/Log.cpp
+    src/game/GameStateMachine.cpp
     src/render/FontCache.cpp
     src/render/RenderQueue.cpp
     src/render/SdlRendererBackend.cpp
     src/render/TextureAtlas.cpp
     src/render/TextureCache.cpp
+    src/scene/SceneManager.cpp
+    src/scene/WorldScene.cpp
+    src/ui/GraphicalUiPresenter.cpp
+    src/ui/SdlTextUiPresenter.cpp
+    src/ui/UiIntent.cpp
     src/world/EntitySpriteBuilder.cpp
+    src/world/EntityStore.cpp
     src/world/IdaRenderRules.cpp
     src/world/MapObjectSpriteBuilder.cpp
     src/world/VisibilityCulling.cpp
@@ -497,6 +504,7 @@ add_test(NAME cg-game-state-machine-test COMMAND cg-game-state-machine-test)
 
 add_executable(cg-scene-manager-test
     tests/scene/SceneManagerTest.cpp
+    src/render/RenderQueue.cpp
     src/scene/SceneManager.cpp
     src/scene/WorldScene.cpp
     src/world/EntityStore.cpp

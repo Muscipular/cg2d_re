@@ -1,4 +1,5 @@
 #include "core/Log.hpp"
+#include "game/GameStateMachine.hpp"
 #include "platform/Console.hpp"
 #include "platform/Event.hpp"
 #include "platform/Ime.hpp"
@@ -15,8 +16,11 @@
 #include "resource/MapLoader.hpp"
 #include "resource/ResourceManager.hpp"
 #include "resource/ResourceTypes.hpp"
+#include "scene/SceneManager.hpp"
+#include "scene/WorldScene.hpp"
 #include "text/TextEncoding.hpp"
 #include "ui/ChatBox.hpp"
+#include "ui/SdlTextUiPresenter.hpp"
 #include "ui/TextLayout.hpp"
 #include "world/EntitySpriteBuilder.hpp"
 #include "world/IdaRenderRules.hpp"
@@ -34,11 +38,13 @@
 #include <cstdint>
 #include <filesystem>
 #include <limits>
+#include <memory>
 #include <optional>
 #include <string>
 #include <string_view>
 #include <unordered_map>
 #include <unordered_set>
+#include <utility>
 #include <vector>
 
 namespace {
@@ -72,6 +78,267 @@ struct WorldSceneData {
     cg::resource::AnimationClip walkClip;
     bool realResources = false;
 };
+
+class M8SimpleScene final : public cg::scene::IScene {
+public:
+    explicit M8SimpleScene(cg::scene::RootSceneId id) noexcept
+        : id_(id)
+    {
+    }
+
+    [[nodiscard]] cg::scene::RootSceneId Id() const noexcept override
+    {
+        return id_;
+    }
+
+    void Update(float) override
+    {
+    }
+
+    bool HandleInput(const cg::scene::SceneInputEvent&) override
+    {
+        return false;
+    }
+
+    void Render(cg::render::RenderQueue&) const override
+    {
+    }
+
+private:
+    cg::scene::RootSceneId id_;
+};
+
+class M8MainHudSubScene final : public cg::scene::ISubScene {
+public:
+    [[nodiscard]] cg::scene::SubSceneId Id() const noexcept override
+    {
+        return cg::scene::SubSceneId::MainHud;
+    }
+
+    [[nodiscard]] cg::scene::SubScenePolicy Policy() const noexcept override
+    {
+        cg::scene::SubScenePolicy policy;
+        policy.transparentRender = true;
+        return policy;
+    }
+
+    void Update(float) override
+    {
+    }
+
+    bool HandleInput(const cg::scene::SceneInputEvent&) override
+    {
+        return false;
+    }
+
+    void Render(cg::render::RenderQueue&) const override
+    {
+    }
+};
+
+[[nodiscard]] cg::scene::RootSceneId ToSceneRoot(cg::game::GameRootSceneType rootScene) noexcept
+{
+    switch (rootScene) {
+    case cg::game::GameRootSceneType::Boot:
+        return cg::scene::RootSceneId::Boot;
+    case cg::game::GameRootSceneType::Login:
+        return cg::scene::RootSceneId::Login;
+    case cg::game::GameRootSceneType::CharacterSelect:
+        return cg::scene::RootSceneId::CharacterSelect;
+    case cg::game::GameRootSceneType::Loading:
+        return cg::scene::RootSceneId::Loading;
+    case cg::game::GameRootSceneType::World:
+        return cg::scene::RootSceneId::World;
+    case cg::game::GameRootSceneType::Battle:
+        return cg::scene::RootSceneId::Battle;
+    case cg::game::GameRootSceneType::Disconnected:
+        return cg::scene::RootSceneId::Disconnected;
+    case cg::game::GameRootSceneType::Shutdown:
+        return cg::scene::RootSceneId::Shutdown;
+    case cg::game::GameRootSceneType::None:
+        break;
+    }
+
+    return cg::scene::RootSceneId::Boot;
+}
+
+[[nodiscard]] cg::ui::UiScreenType ToUiScreen(cg::game::GameStateType state) noexcept
+{
+    switch (state) {
+    case cg::game::GameStateType::CharacterSelect:
+        return cg::ui::UiScreenType::CharacterSelect;
+    case cg::game::GameStateType::Battle:
+        return cg::ui::UiScreenType::Battle;
+    case cg::game::GameStateType::World:
+        return cg::ui::UiScreenType::World;
+    case cg::game::GameStateType::Boot:
+    case cg::game::GameStateType::Login:
+    case cg::game::GameStateType::LoginPending:
+    case cg::game::GameStateType::CharacterListPending:
+    case cg::game::GameStateType::WorldLoading:
+    case cg::game::GameStateType::Disconnected:
+    case cg::game::GameStateType::Shutdown:
+        break;
+    }
+
+    return cg::ui::UiScreenType::Login;
+}
+
+[[nodiscard]] const char* ToM8GameStateName(cg::game::GameStateType state) noexcept
+{
+    switch (state) {
+    case cg::game::GameStateType::Boot:
+        return "Boot";
+    case cg::game::GameStateType::Login:
+        return "Login";
+    case cg::game::GameStateType::LoginPending:
+        return "LoginPending";
+    case cg::game::GameStateType::CharacterListPending:
+        return "CharacterListPending";
+    case cg::game::GameStateType::CharacterSelect:
+        return "CharacterSelect";
+    case cg::game::GameStateType::WorldLoading:
+        return "WorldLoading";
+    case cg::game::GameStateType::World:
+        return "World";
+    case cg::game::GameStateType::Battle:
+        return "Battle";
+    case cg::game::GameStateType::Disconnected:
+        return "Disconnected";
+    case cg::game::GameStateType::Shutdown:
+        return "Shutdown";
+    }
+
+    return "Unknown";
+}
+
+void RegisterM8RootScenes(cg::scene::SceneManager& sceneManager, cg::render::TextureHandle demoTexture)
+{
+    sceneManager.RegisterRootSceneFactory(cg::scene::RootSceneId::Boot, []() {
+        return std::make_unique<M8SimpleScene>(cg::scene::RootSceneId::Boot);
+    });
+    sceneManager.RegisterRootSceneFactory(cg::scene::RootSceneId::Login, []() {
+        return std::make_unique<M8SimpleScene>(cg::scene::RootSceneId::Login);
+    });
+    sceneManager.RegisterRootSceneFactory(cg::scene::RootSceneId::CharacterSelect, []() {
+        return std::make_unique<M8SimpleScene>(cg::scene::RootSceneId::CharacterSelect);
+    });
+    sceneManager.RegisterRootSceneFactory(cg::scene::RootSceneId::Loading, []() {
+        return std::make_unique<M8SimpleScene>(cg::scene::RootSceneId::Loading);
+    });
+    sceneManager.RegisterRootSceneFactory(cg::scene::RootSceneId::World, [demoTexture]() {
+        auto scene = std::make_unique<cg::scene::WorldScene>();
+        (void)scene->CreateDemoEntity();
+        const std::array<cg::render::SpriteCmd, 1> sprites{{
+            cg::render::SpriteCmd{
+                demoTexture,
+                {0.0F, 0.0F, static_cast<float>(TestTextureSize), static_cast<float>(TestTextureSize)},
+                {16.0F, 16.0F, 32.0F, 32.0F},
+                {1.0F, 1.0F, 1.0F, 1.0F},
+                1U,
+                0,
+                0U,
+            },
+        }};
+        scene->SetRenderSprites(sprites);
+        return scene;
+    });
+    sceneManager.RegisterRootSceneFactory(cg::scene::RootSceneId::Battle, []() {
+        return std::make_unique<M8SimpleScene>(cg::scene::RootSceneId::Battle);
+    });
+    sceneManager.RegisterRootSceneFactory(cg::scene::RootSceneId::Disconnected, []() {
+        return std::make_unique<M8SimpleScene>(cg::scene::RootSceneId::Disconnected);
+    });
+    sceneManager.RegisterRootSceneFactory(cg::scene::RootSceneId::Shutdown, []() {
+        return std::make_unique<M8SimpleScene>(cg::scene::RootSceneId::Shutdown);
+    });
+}
+
+void ApplyM8Command(
+    const cg::game::GameCommand& command,
+    cg::scene::SceneManager& sceneManager,
+    cg::ui::SdlTextUiPresenter& presenter)
+{
+    switch (command.type) {
+    case cg::game::GameCommandType::ReplaceRootScene:
+        sceneManager.ReplaceRootScene(ToSceneRoot(command.rootScene));
+        sceneManager.Update(0.0F);
+        break;
+    case cg::game::GameCommandType::PushSubScene:
+        if (command.subScene == cg::game::GameSubSceneType::MainHud) {
+            sceneManager.PushSubScene(std::make_unique<M8MainHudSubScene>());
+        }
+        break;
+    case cg::game::GameCommandType::ClearSubScenes:
+        sceneManager.ClearSubScenes();
+        break;
+    case cg::game::GameCommandType::ShowMessage: {
+        cg::ui::UiViewModel model = presenter.ViewModel();
+        model.statusText = command.payload;
+        presenter.SetViewModel(std::move(model));
+        break;
+    }
+    case cg::game::GameCommandType::PopSubScene:
+    case cg::game::GameCommandType::SendPacketIntent:
+    case cg::game::GameCommandType::LoadMap:
+    case cg::game::GameCommandType::ApplyMapData:
+    case cg::game::GameCommandType::ApplyObjectList:
+    case cg::game::GameCommandType::ApplyWorldUpdate:
+    case cg::game::GameCommandType::AppendChatMessage:
+    case cg::game::GameCommandType::LogWarning:
+        break;
+    }
+}
+
+void RunM8ClientBridge(cg::render::TextureHandle demoTexture)
+{
+    cg::game::GameStateMachine stateMachine;
+    cg::scene::SceneManager sceneManager;
+    cg::ui::SdlTextUiPresenter presenter;
+    RegisterM8RootScenes(sceneManager, demoTexture);
+    (void)sceneManager.Start(cg::scene::RootSceneId::Boot);
+
+    cg::ui::UiViewModel model;
+    model.screen = cg::ui::UiScreenType::Login;
+    model.title = "M8";
+    presenter.SetViewModel(std::move(model));
+
+    const std::array<cg::game::GameEvent, 9> events{{
+        {cg::game::GameEventType::AppStarted, {}, 0},
+        {cg::game::GameEventType::LoginSubmitted, "demo-login", 0},
+        {cg::game::GameEventType::LoginAccepted, {}, 0},
+        {cg::game::GameEventType::CharacterListReceived, {}, 0},
+        {cg::game::GameEventType::CharacterSelected, "demo-character", 0},
+        {cg::game::GameEventType::MapReady, "demo-map", 0},
+        {cg::game::GameEventType::ObjectListReceived, "demo-objects", 0},
+        {cg::game::GameEventType::BattleStarted, {}, 0},
+        {cg::game::GameEventType::BattleEnded, {}, 0},
+    }};
+
+    for (const cg::game::GameEvent& event : events) {
+        const std::vector<cg::game::GameCommand> commands = stateMachine.HandleEvent(event);
+        for (const cg::game::GameCommand& command : commands) {
+            ApplyM8Command(command, sceneManager, presenter);
+        }
+    }
+
+    cg::ui::UiViewModel finalModel = presenter.ViewModel();
+    finalModel.screen = ToUiScreen(stateMachine.State().type);
+    finalModel.chatLines.push_back("M8 replay ready");
+    presenter.SetViewModel(std::move(finalModel));
+    const cg::ui::TuiFrame frame = presenter.BuildFrame();
+
+    cg::render::RenderQueue bridgeQueue;
+    sceneManager.Render(bridgeQueue);
+    cg::core::Log(
+        cg::core::LogLevel::Info,
+        "m8",
+        "M8 bridge: state=" + std::string{ToM8GameStateName(stateMachine.State().type)} +
+            ", root=" + std::to_string(static_cast<int>(sceneManager.CurrentRootSceneId())) +
+            ", subScenes=" + std::to_string(sceneManager.SubSceneCount()) +
+            ", tuiRuns=" + std::to_string(frame.runs.size()) +
+            ", worldSprites=" + std::to_string(bridgeQueue.Size()));
+}
 
 [[nodiscard]] std::string PathToUtf8(const std::filesystem::path& path)
 {
@@ -601,6 +868,7 @@ int main(int argc, char* argv[])
         SDL_Quit();
         return 1;
     }
+    RunM8ClientBridge(testTexture);
 
     cg::render::TextureAtlas testAtlas;
     testAtlas.SetTexture(testTexture);

@@ -200,6 +200,25 @@ int TestDisabledMenuItem()
     return failures;
 }
 
+int TestUtf8Backspace()
+{
+    int failures = 0;
+    SdlTextUiPresenter presenter;
+    UiViewModel world;
+    world.screen = UiScreenType::World;
+    world.inputText = "你好a";
+    presenter.SetViewModel(world);
+
+    UiIntent intent = presenter.HandleInput({UiInputEventType::Key, UiKey::Backspace, {}});
+    failures += Expect(intent.type == UiIntentType::EditText, "Backspace 产生 EditText");
+    failures += Expect(presenter.ViewModel().inputText == "你好", "Backspace 删除 ASCII codepoint");
+
+    intent = presenter.HandleInput({UiInputEventType::Key, UiKey::Backspace, {}});
+    failures += Expect(intent.type == UiIntentType::EditText, "中文 Backspace 产生 EditText");
+    failures += Expect(presenter.ViewModel().inputText == "你", "Backspace 按 UTF-8 codepoint 删除中文");
+    return failures;
+}
+
 } // namespace
 
 int main()
@@ -209,6 +228,7 @@ int main()
     failures += TestFrames();
     failures += TestTextInputAndEnterIntent();
     failures += TestDisabledMenuItem();
+    failures += TestUtf8Backspace();
 
     if (failures != 0) {
         std::cerr << failures << " checks failed\n";

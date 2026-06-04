@@ -10,6 +10,7 @@
 | 2026-05-27 | 更新项目规则文档 | `AGENTS.md` 已按当前项目更新，补充当前目录、进度记录文件和 subAgent 流程规则 | 文档检查；未编译 | 无 |
 | 2026-05-27 | 补充 namespace 与类型规划 | `AGENTS.md` 新增 namespace 与类型规划约束，明确根 namespace、模块 namespace、接口、handle、RAII、值类型、SDL 类型边界和编码边界 | 文档检查；未编译 | 无 |
 | 2026-06-03 | M7 方案落盘 | 更新 `plans/cg_engine_dev_plan.md` 的 M7 world 层计划，补充 IDA 对齐依据、`MapTileAtlasCacheKey`、地板 sprite atlas 常驻显存、地图 obj 纹理 100 容量 LRU + 30 秒清退、排序映射和验收场景 | 文档检查；未编译 | 仅方案落盘；具体实现和更细 IDA 校对留给后续 M7 小步 |
+| 2026-06-04 | M8 Scene 状态机方案落盘 | 在 `plans/cg_engine_dev_plan.md` 的 M7 后新增 M8：Scene/SubScene、GameStateMachine、SDL-TUI 正式文字交互客户端和资深游戏开发者 subAgent 拆分要求；原 M8-M13 顺延为 M9-M14；同步 `plans/protocol_m6_inventory.md` 的 net 连接层编号 | 资深游戏开发者 subAgent 只读审查；文档编号检查；未编译 | 仅方案落盘；具体实现留给后续 M8 小步 |
 
 ## M1：platform 层
 

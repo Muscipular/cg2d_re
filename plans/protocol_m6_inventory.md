@@ -50,7 +50,7 @@
 | `src/packet/send.hpp` | `cg::packet::send` | 客户端发送给服务端，对应旧 C `RECV_*` | `ClientLogin`，code `JFVf`，字段 `{clientHash:es} {password:es} {account:es}`，`Encode()` 未实现 | M6 应保留客户端视角命名；生产代码参考当前 per-packet struct 风格，字段顺序以注释/xlsx 为准，不以构造函数参数顺序推断 |
 | `src/packet/receive.hpp` | `cg::packet::receive` | 客户端接收服务端封包，对应旧 C `SEND_*` | `ClientLoginResult`，code `whV`，字段 `{result:i62} {data:es}`，含登录结果枚举，`Parse()` 已实现；`data` 按普通外层 es 原样保存，注释出现空值、`fail`、`block`、`busy` | M6.15 登录/角色管理封包以该结构为第一批迁移对象 |
 | `src/packet/utils.hpp` | `cg::packet` | 基础 codec | base62 与字符串 encode/decode 为 TODO | M6.2/M6.3 应先落地到独立 codec，再由具体封包复用 |
-| `src/packet/packet.hpp` | `cg::packet` | 聚合头 | 引入 `utils.hpp`、`receive.hpp`、`send.hpp` | M6 继续使用 `src/packet` 作为协议模块目录，M9 再接入 `src/net` 连接层 |
+| `src/packet/packet.hpp` | `cg::packet` | 聚合头 | 引入 `utils.hpp`、`receive.hpp`、`send.hpp` | M6 继续使用 `src/packet` 作为协议模块目录，M10 再接入 `src/net` 连接层 |
 
 当前 `src/packet` 只覆盖 2 个草稿封包，未形成 209 个封包注册表；`rg` 只找到 `packet.hpp` 内部 include，未发现 CMake 或业务代码接入。实现 M6 时不得把该目录视为完整协议事实来源。
 

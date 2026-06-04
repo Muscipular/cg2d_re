@@ -1,6 +1,6 @@
 # cg-engine 开发任务计划
 
-> 目标：基于 SDL3 构建 CrossGate 客户端重写用的薄引擎层。第一阶段优先保证窗口、输入、IME、字体、地图、角色、UI、资源和协议链路跑通；第二阶段针对 16000 可见移动角色做批渲染、Atlas、裁剪和排序优化；第三阶段再评估是否引入 SDL3_GPU 后端。
+> 目标：基于 SDL3 构建 CrossGate 客户端重写用的薄引擎层。第一阶段优先保证窗口、输入、IME、字体、地图、角色、UI、资源、Scene 状态机和协议链路跑通；第二阶段针对 16000 可见移动角色做批渲染、Atlas、裁剪和排序优化；第三阶段再评估是否引入 SDL3_GPU 后端。
 
 ---
 
@@ -53,6 +53,8 @@ cg-engine/
 │  ├─ render/
 │  ├─ resource/
 │  ├─ world/
+│  ├─ game/
+│  ├─ scene/
 │  ├─ ui/
 │  ├─ net/
 │  └─ app/
@@ -85,12 +87,13 @@ cg-engine/
 | M5 | Map/Animation Viewer | 地图块、动画帧、资源查看器 | P0 |
 | M6 | 封包解析与全量协议支持 | 209 个旧客户端封包、i62/es、内嵌 payload | P0 |
 | M7 | World 渲染与排序 | entity data、移动插值、可见性裁剪、Y-sort | P0 |
-| M8 | 性能压测 | 16000 可见移动角色压测 | P0 |
-| M9 | Net 连接层 | session、socket、mock/replay、协议运行链路 | P1 |
-| M10 | UI 系统扩展 | 面板、按钮、输入框、列表、tooltip | P1 |
-| M11 | Hook/旧客户端对照 | 旧行为采样、差异记录、迁移验证 | P1 |
-| M12 | 跨平台与打包 | Windows/Linux/macOS 构建与发布 | P2 |
-| M13 | SDL3_GPU 后端评估 | 在确有性能瓶颈时实现 GPU 后端 | P2 |
+| M8 | Scene/SubScene 与游戏状态机 | Root Scene、SubScene 栈、协议驱动状态机、SDL-TUI | P0 |
+| M9 | 性能压测 | 16000 可见移动角色压测 | P0 |
+| M10 | Net 连接层 | session、socket、mock/replay、协议运行链路 | P1 |
+| M11 | UI 系统扩展 | 面板、按钮、输入框、列表、tooltip | P1 |
+| M12 | Hook/旧客户端对照 | 旧行为采样、差异记录、迁移验证 | P1 |
+| M13 | 跨平台与打包 | Windows/Linux/macOS 构建与发布 | P2 |
+| M14 | SDL3_GPU 后端评估 | 在确有性能瓶颈时实现 GPU 后端 | P2 |
 
 ---
 
@@ -505,7 +508,7 @@ textureCache.LoadRgba8(key, image.width, image.height, image.pixels.data(), imag
 
 ### 目标
 
-建立旧客户端封包解析层，支持 `plans/CG封包.xlsx` 中全部 209 个封包：客户端->服务端 100 个、服务端->客户端 109 个。M6 只负责封包编解码和内嵌 payload 结构化，不实现 TCP session、重连、网络线程；连接运行链路放到 M9。
+建立旧客户端封包解析层，支持 `plans/CG封包.xlsx` 中全部 209 个封包：客户端->服务端 100 个、服务端->客户端 109 个。M6 只负责封包编解码和内嵌 payload 结构化，不实现 TCP session、重连、网络线程；连接运行链路放到 M10。
 
 成功标准：
 
@@ -743,7 +746,200 @@ struct EntityRenderData {
 
 ---
 
-## 11. M8：16000 角色性能压测
+## 11. M8：Scene/SubScene、游戏状态机与 SDL 文本交互客户端
+
+### 目标
+
+建立 `Root Scene + SubScene 栈 + GameStateMachine` 的客户端编排层。M8 负责把 M6 封包解析产物或 mock/replay 事件转换为游戏状态、Scene 切换和 UI intent；不实现真实 socket/session，不补未确认业务逻辑。SDL 图形 UI 与 SDL-TUI 正式文字交互客户端共用 ViewModel/Intent，只替换 presenter。
+
+成功标准：
+
+1. mock 事件可驱动 `Boot -> Login -> CharacterSelect -> World -> Battle -> World`。
+2. Root Scene 单实例激活，SubScene 支持栈式叠加、modal 输入拦截和透明渲染。
+3. `WorldScene` 是唯一直接操作 `EntityStore` 的 scene；SubScene/UI 不直接改 Entity。
+4. SDL 图形 UI 与 SDL-TUI 使用同一份 `UiViewModel`，产出同类 `UiIntent`。
+5. `cg::game`、`cg::scene` 公开头不暴露 SDL/TTF/Win32 类型。
+6. M8 开发与 review subAgent 均按资深游戏开发者职责执行，默认思考强度 `xhigh`。
+
+### 目录
+
+```text
+src/game/
+├─ GameState.hpp
+├─ GameEvent.hpp
+├─ GameCommand.hpp
+├─ GameStateMachine.hpp/.cpp
+└─ GameReplayDriver.hpp/.cpp
+
+src/scene/
+├─ SceneTypes.hpp
+├─ IScene.hpp
+├─ ISubScene.hpp
+├─ SceneManager.hpp/.cpp
+├─ RootScenes.hpp/.cpp
+├─ SubScenes.hpp/.cpp
+├─ WorldScene.hpp/.cpp
+└─ SceneReplayDriver.hpp/.cpp
+
+src/ui/
+├─ UiViewModel.hpp
+├─ UiIntent.hpp
+├─ IUiPresenter.hpp
+├─ GraphicalUiPresenter.hpp/.cpp
+└─ SdlTextUiPresenter.hpp/.cpp
+```
+
+### 组织规则
+
+1. `cg::world`：Entity、地图、移动、动画、世界渲染输入；不引入通用 ECS。
+2. `cg::game`：协议事件驱动游戏状态，输入 `GameEvent`，输出 `GameCommand`；不绘制、不直接操作 UI 控件、不持有 SDL 类型。
+3. `cg::scene`：Root Scene、SubScene 生命周期、切换队列、输入/更新/渲染分发；允许接收 `platform::Event`，不得把 SDL 类型继续扩散到 game/world 公开接口。
+4. `cg::ui`：控件、`UiViewModel`、`UiIntent` 和 presenter；UI 操作统一转为 `UiIntent`，再由 scene/game 转为游戏命令。
+5. `src/app`：只负责依赖装配、主循环和运行模式选择，不承载具体业务状态。
+
+### Root Scene 与 SubScene
+
+Root Scene 是互斥主流程，任一时刻只激活一个：
+
+| Scene | 用途 | 进入条件 |
+|---|---|---|
+| `Boot` | 启动、基础资源检查 | 程序启动 |
+| `Loading` | 通用加载 | 资源或地图加载命令 |
+| `Login` | 登录输入和登录结果等待 | 启动完成或断线后返回 |
+| `CharacterSelect` | 角色列表与选角 | 登录成功并收到角色列表 |
+| `World` | 地图、Entity、聊天和主 HUD | 地图与初始对象可用 |
+| `Battle` | 战斗表现和战斗指令 | 收到战斗开始事件 |
+| `Disconnected` | 断线提示与返回登录 | session 断开或协议错误 |
+| `Shutdown` | 退出收尾 | 用户退出或关闭窗口 |
+
+SubScene 是 Root Scene 上方的局部流程或 UI 层：
+
+| SubScene | 用途 | 默认策略 |
+|---|---|---|
+| `MainHud` | 世界主界面 HUD | 非 modal，透明渲染 |
+| `Chat` | 聊天历史和输入 | 非 modal，可接收输入 |
+| `NpcDialog` | NPC 对话和选项 | modal，阻断下层输入 |
+| `Inventory` | 背包入口 | modal，透明渲染 |
+| `Trade` | 交易流程 | modal，阻断下层输入 |
+| `ConfirmDialog` | 确认框 | modal，阻断下层输入 |
+| `LoadingOverlay` | 局部加载遮罩 | modal，可暂停下层 update |
+
+SubScene 属性固定为 `modal`、`pausesBelow`、`receivesInput`、`transparentRender`。输入分发从栈顶向下，遇到 `modal` 停止；渲染从底到顶，非透明层可清空下层 UI 画面但不清空 Root Scene 的世界画面。
+
+### 关键接口建议
+
+```cpp
+enum class RootSceneId {
+    Boot,
+    Loading,
+    Login,
+    CharacterSelect,
+    World,
+    Battle,
+    Disconnected,
+    Shutdown,
+};
+
+enum class SubSceneId {
+    MainHud,
+    Chat,
+    NpcDialog,
+    Inventory,
+    Trade,
+    ConfirmDialog,
+    LoadingOverlay,
+};
+
+struct SubScenePolicy {
+    bool modal = false;
+    bool pausesBelow = false;
+    bool receivesInput = true;
+    bool transparentRender = true;
+};
+
+class IScene {
+public:
+    virtual ~IScene() = default;
+    virtual void Enter() = 0;
+    virtual void Leave() = 0;
+    virtual void Update(float deltaSeconds) = 0;
+    virtual void BuildRender(cg::render::RenderQueue& queue) = 0;
+    virtual bool HandleInput(const cg::platform::Event& event) = 0;
+};
+```
+
+```cpp
+enum class GameEventType {
+    AppStarted,
+    LoginAccepted,
+    LoginRejected,
+    CharacterListReceived,
+    CharacterSelected,
+    MapReady,
+    ObjectListReceived,
+    ChatMessageReceived,
+    WindowOpened,
+    BattleStarted,
+    BattleEnded,
+    Disconnected,
+    QuitRequested,
+};
+
+enum class GameCommandType {
+    ReplaceRootScene,
+    PushSubScene,
+    PopSubScene,
+    LoadMap,
+    ApplyWorldUpdate,
+    SendPacketIntent,
+    LogWarning,
+};
+```
+
+### SDL-TUI 规则
+
+1. SDL-TUI 是正式客户端表现形态，不是真实终端工具，不依赖 curses 或外部依赖。
+2. SDL-TUI 使用固定网格/行列布局，文本 UTF-8，字体渲染走现有 render/font 边界。
+3. 最小正式流程覆盖登录、选角、世界摘要、聊天、NPC 对话、背包/交易入口、战斗指令。
+4. 图形 UI 与 SDL-TUI 共用 `UiViewModel`、`UiIntent` 和焦点/选择语义；差异仅在 presenter。
+5. 完整控件细节留到 M11 UI 系统扩展，M8 只做 ViewModel、Intent 和最小 presenter 闭环。
+
+### 任务
+
+| 编号 | 任务 | 说明 | 验收标准 |
+|---|---|---|---|
+| M8.1 | 文档编号同步 | 新增 M8，原 M8-M13 顺延为 M9-M14 | 总览、章节、开发顺序、迭代、风险、验收无旧编号残留 |
+| M8.2 | Scene 生命周期 | 定义 `IScene`、Root Scene 枚举和切换队列 | Enter/Leave 只触发一次，update/render 中切换不重入 |
+| M8.3 | SubScene 栈 | 定义 `ISubScene`、SubScene 枚举和 policy | modal 输入拦截、非 modal 叠加、透明渲染 fixture 通过 |
+| M8.4 | Game 状态机 | 定义 `GameState`、`GameEvent`、`GameCommand` 和转移表 | mock 事件可驱动登录、选角、进地图、战斗、断线 |
+| M8.5 | UI ViewModel/Intent | 定义 `UiViewModel`、`UiIntent`、`IUiPresenter` | 图形 UI 与 SDL-TUI 产生同类 intent |
+| M8.6 | WorldScene | `WorldScene` 持有 world 状态并驱动 `EntityStore`、`WorldRenderer` | 只有 `WorldScene` 直接操作 EntityStore |
+| M8.7 | SDL-TUI 最小界面 | 登录、选角、世界摘要、聊天和战斗菜单 | 不依赖真实终端；UTF-8 文本可渲染 |
+| M8.8 | mock/replay 验证 | 用高层事件驱动状态机，不实现 socket/session | 可复现 `Boot -> Login -> CharacterSelect -> World -> Battle -> World` |
+| M8.9 | 进度记录与提交 | 更新 `plans/progess.md` 并小步提交 | 文档、验证结果和遗留问题可追踪 |
+
+### subAgent 拆分
+
+1. 开发 subAgent A：资深游戏开发者，只处理 Scene/Root Scene 生命周期与切换队列。
+2. 开发 subAgent B：资深游戏开发者，只处理 SubScene 栈、modal、输入拦截和渲染叠加。
+3. 开发 subAgent C：资深游戏开发者，只处理 `GameEvent/GameCommand` 与状态转移表。
+4. 开发 subAgent D：资深游戏开发者，只处理 UI ViewModel/Intent 与双 presenter 边界。
+5. 开发 subAgent E：资深游戏开发者，只处理 SDL-TUI 最小正式流程。
+6. 验证 subAgent：资深游戏开发者 + code reviewer，只读检查架构边界、生命周期、SDL 泄漏、编号同步和测试覆盖。
+7. 每个 subAgent 完成后及时关闭；验证必须由独立 subAgent 执行。
+
+### 验收场景
+
+1. mock 事件驱动 `Boot -> Login -> CharacterSelect -> World -> Battle -> World`。
+2. `NpcDialog` 或 `ConfirmDialog` 位于栈顶时，下层 `World` 和 `Chat` 不接收输入。
+3. `Chat` 作为非 modal SubScene 打开时，世界仍可渲染，聊天可获得文本输入。
+4. 图形 presenter 和 SDL-TUI presenter 读取同一份 `UiViewModel`，对同一操作输出同类 `UiIntent`。
+5. `WorldScene` 可驱动 `EntityStore` 和 `WorldRenderer`，其他 Scene/SubScene 不直接操作 Entity。
+6. `cg::game`、`cg::scene` 公开头无 SDL/TTF/Win32 类型。
+
+---
+
+## 12. M9：16000 角色性能压测
 
 ### 目标
 
@@ -801,11 +997,11 @@ memory usage
 
 ---
 
-## 12. M9：net 连接层
+## 13. M10：net 连接层
 
 ### 目标
 
-在 M6 封包编解码基础上建立网络连接层，先用 mock server 或本地回放包验证状态机，再接真实服务器。
+在 M6 封包编解码和 M8 游戏状态机基础上建立网络连接层，先用 mock server 或本地回放包验证 session，再接真实服务器。
 
 ### 目录
 
@@ -824,21 +1020,21 @@ src/net/
 
 | 编号 | 任务 | 说明 | 验收标准 |
 |---|---|---|---|
-| M9.1 | Socket 抽象 | TCP connect/read/write | 能连接测试地址 |
-| M9.2 | Session | 连接状态、重连、心跳 | 状态转移可日志追踪 |
-| M9.3 | Packet stream | 接入 M6 token/envelope codec | 粘包/半包处理正确 |
-| M9.4 | Protocol messages | 登录、移动、聊天、实体更新等基础消息 | mock 数据可驱动 world |
-| M9.5 | MessageQueue | 网络线程到主线程消息队列 | 无数据竞争 |
-| M9.6 | Replay | 保存/回放网络包 | 可重现 bug 场景 |
-| M9.7 | Encoding boundary | 聊天/名字编码转换 | 协议层外仍保持 UTF-8 |
+| M10.1 | Socket 抽象 | TCP connect/read/write | 能连接测试地址 |
+| M10.2 | Session | 连接状态、重连、心跳 | 状态转移可日志追踪 |
+| M10.3 | Packet stream | 接入 M6 token/envelope codec | 粘包/半包处理正确 |
+| M10.4 | Protocol messages | 登录、移动、聊天、实体更新等基础消息 | 网络消息可转换为 M8 `GameEvent` |
+| M10.5 | MessageQueue | 网络线程到主线程消息队列 | 无数据竞争 |
+| M10.6 | Replay | 保存/回放网络包 | 可重现 bug 场景 |
+| M10.7 | Encoding boundary | 聊天/名字编码转换 | 协议层外仍保持 UTF-8 |
 
 ---
 
-## 13. M10：ui 层
+## 14. M11：ui 层
 
 ### 目标
 
-建立适合旧客户端复刻的 UI 系统。建议 retained/immediate hybrid：窗口和控件状态保留，绘制命令每帧即时生成。
+建立适合旧客户端复刻的 UI 系统。建议 retained/immediate hybrid：窗口和控件状态保留，绘制命令每帧即时生成。M11 在 M8 `UiViewModel/UiIntent/IUiPresenter` 基础上扩展完整控件与图形/SDL-TUI 表现。
 
 ### 目录
 
@@ -861,19 +1057,20 @@ src/ui/
 
 | 编号 | 任务 | 说明 | 验收标准 |
 |---|---|---|---|
-| M10.1 | UiContext | 鼠标/键盘/焦点/hover | 控件可聚焦、点击 |
-| M10.2 | Panel | 9-grid 背景、拖动、层级 | 面板显示和排序正确 |
-| M10.3 | Button | normal/hover/pressed/disabled | 交互状态正确 |
-| M10.4 | Label | 单行/多行/颜色 | 文本显示稳定 |
-| M10.5 | InputBox | 与 M3 输入框合并完善 | IME、复制粘贴、选择文本 |
-| M10.6 | ChatBox | 历史、频道、滚动、超链接预留 | 可承载真实聊天 |
-| M10.7 | ListBox | 背包/角色列表基础 | 大量 item 不明显卡顿 |
-| M10.8 | Tooltip | 鼠标悬停说明 | 不遮挡关键输入 |
-| M10.9 | Theme | 旧客户端 UI skin 复刻 | 可替换皮肤资源 |
+| M11.1 | UiContext | 鼠标/键盘/焦点/hover | 控件可聚焦、点击 |
+| M11.2 | Panel | 9-grid 背景、拖动、层级 | 面板显示和排序正确 |
+| M11.3 | Button | normal/hover/pressed/disabled | 交互状态正确 |
+| M11.4 | Label | 单行/多行/颜色 | 文本显示稳定 |
+| M11.5 | InputBox | 与 M3 输入框合并完善 | IME、复制粘贴、选择文本 |
+| M11.6 | ChatBox | 历史、频道、滚动、超链接预留 | 可承载真实聊天 |
+| M11.7 | ListBox | 背包/角色列表基础 | 大量 item 不明显卡顿 |
+| M11.8 | Tooltip | 鼠标悬停说明 | 不遮挡关键输入 |
+| M11.9 | Theme | 旧客户端 UI skin 复刻 | 可替换皮肤资源 |
+| M11.10 | SDL-TUI 控件补全 | 文本菜单、表格、选择框、状态栏 | 与图形 UI 共用 ViewModel/Intent |
 
 ---
 
-## 14. M11：Hook/旧客户端对照与迁移
+## 15. M12：Hook/旧客户端对照与迁移
 
 ### 目标
 
@@ -883,13 +1080,13 @@ src/ui/
 
 | 编号 | 任务 | 说明 | 验收标准 |
 |---|---|---|---|
-| M11.1 | 行为清单 | 从旧客户端记录已分析行为 | 每个行为有来源、截图或日志 |
-| M11.2 | 截图对照 | 原客户端 vs 新客户端 | 同场景可并排比较 |
-| M11.3 | 坐标对照 | tile/pixel/camera/anchor | 人物站位和遮挡一致 |
-| M11.4 | 动画对照 | 帧率、帧序、方向、锚点 | 走路/待机/战斗动作一致 |
-| M11.5 | UI 对照 | 面板尺寸、文字位置、输入行为 | 关键 UI 接近原客户端 |
-| M11.6 | 协议对照 | 封包字段、状态机、边界条件 | mock/replay 可复现 |
-| M11.7 | 差异文档 | `docs/migration_notes.md` | 每个差异记录是否接受或待修复 |
+| M12.1 | 行为清单 | 从旧客户端记录已分析行为 | 每个行为有来源、截图或日志 |
+| M12.2 | 截图对照 | 原客户端 vs 新客户端 | 同场景可并排比较 |
+| M12.3 | 坐标对照 | tile/pixel/camera/anchor | 人物站位和遮挡一致 |
+| M12.4 | 动画对照 | 帧率、帧序、方向、锚点 | 走路/待机/战斗动作一致 |
+| M12.5 | UI 对照 | 面板尺寸、文字位置、输入行为 | 关键 UI 接近原客户端 |
+| M12.6 | 协议对照 | 封包字段、状态机、边界条件 | mock/replay 可复现 |
+| M12.7 | 差异文档 | `docs/migration_notes.md` | 每个差异记录是否接受或待修复 |
 
 ### 建议文档格式
 
@@ -906,7 +1103,7 @@ src/ui/
 
 ---
 
-## 15. M12：跨平台与打包
+## 16. M13：跨平台与打包
 
 ### 目标
 
@@ -916,17 +1113,17 @@ src/ui/
 
 | 编号 | 任务 | 平台 | 验收标准 |
 |---|---|---|---|
-| M12.1 | Windows x64 构建 | MSVC | exe 可运行，DLL 路径正确 |
-| M12.2 | Linux 构建 | GCC/Clang | 可启动、IME 基础可用 |
-| M12.3 | macOS 构建 | Clang | 可启动、Metal/renderer 正常 |
-| M12.4 | 配置文件路径 | 全平台 | user config 不写进程序目录 |
-| M12.5 | 日志路径 | 全平台 | crash/bug 可收集日志 |
-| M12.6 | 资源打包 | 全平台 | assets/package 可定位 |
-| M12.7 | CI 构建 | GitHub Actions 或本地脚本 | 至少 Windows/Linux 自动构建 |
+| M13.1 | Windows x64 构建 | MSVC | exe 可运行，DLL 路径正确 |
+| M13.2 | Linux 构建 | GCC/Clang | 可启动、IME 基础可用 |
+| M13.3 | macOS 构建 | Clang | 可启动、Metal/renderer 正常 |
+| M13.4 | 配置文件路径 | 全平台 | user config 不写进程序目录 |
+| M13.5 | 日志路径 | 全平台 | crash/bug 可收集日志 |
+| M13.6 | 资源打包 | 全平台 | assets/package 可定位 |
+| M13.7 | CI 构建 | GitHub Actions 或本地脚本 | 至少 Windows/Linux 自动构建 |
 
 ---
 
-## 16. M13：SDL3_GPU 后端评估
+## 17. M14：SDL3_GPU 后端评估
 
 ### 目标
 
@@ -936,17 +1133,17 @@ src/ui/
 
 | 编号 | 任务 | 说明 | 验收标准 |
 |---|---|---|---|
-| M13.1 | 定义 backend 接口差异 | IRenderer 是否足够 | 不修改 world/ui/resource 即可切换 |
-| M13.2 | Shader pipeline | 基础 sprite shader | 可绘制 atlas sprite |
-| M13.3 | Vertex/index buffer | 动态上传 SpriteCmd | 批量 sprite 可绘制 |
-| M13.4 | Texture upload | RGBA8888 上传 | 与 SDL_Renderer 画面一致 |
-| M13.5 | Blend modes | alpha/additive | 特效混合正确 |
-| M13.6 | 对比压测 | 同样 16000 场景 | 记录和 SDL_Renderer 差异 |
-| M13.7 | fallback | GPU 失败回退 SDL_Renderer | 老机器可启动 |
+| M14.1 | 定义 backend 接口差异 | IRenderer 是否足够 | 不修改 world/ui/resource 即可切换 |
+| M14.2 | Shader pipeline | 基础 sprite shader | 可绘制 atlas sprite |
+| M14.3 | Vertex/index buffer | 动态上传 SpriteCmd | 批量 sprite 可绘制 |
+| M14.4 | Texture upload | RGBA8888 上传 | 与 SDL_Renderer 画面一致 |
+| M14.5 | Blend modes | alpha/additive | 特效混合正确 |
+| M14.6 | 对比压测 | 同样 16000 场景 | 记录和 SDL_Renderer 差异 |
+| M14.7 | fallback | GPU 失败回退 SDL_Renderer | 老机器可启动 |
 
 ---
 
-## 17. 推荐开发顺序
+## 18. 推荐开发顺序
 
 ### 第一轮：最小可运行客户端
 
@@ -982,33 +1179,34 @@ M6 protocol inventory/i62/es/token/payload/fixtures
 
 ```text
 M7 entity/movement/animation/y-sort/culling
-M8 1k/4k/8k/16k 压测
+M8 scene/subscene/game state/SDL-TUI
+M9 1k/4k/8k/16k 压测
 ```
 
-验收：大量角色移动，遮挡顺序正确，性能数据可观测。
+验收：大量角色移动，遮挡顺序正确，mock 事件可驱动 scene 状态，SDL-TUI 可显示正式文字交互界面，性能数据可观测。
 
 ### 第五轮：网络和 UI
 
 ```text
-M9 session/socket/mock/replay
-M10 UI panels/buttons/list/chat
+M10 session/socket/mock/replay
+M11 UI panels/buttons/list/chat
 ```
 
-验收：mock 协议能驱动角色移动和聊天 UI。
+验收：真实 session 消息可转换为 M8 `GameEvent`，并驱动角色移动和聊天 UI。
 
 ### 第六轮：旧客户端对照和跨平台
 
 ```text
-M11 behavior comparison
-M12 packaging/cross-platform
-M13 GPU backend optional
+M12 behavior comparison
+M13 packaging/cross-platform
+M14 GPU backend optional
 ```
 
 验收：关键行为有对照记录，Windows 可发布测试包，Linux/macOS 可构建。
 
 ---
 
-## 18. 每周/迭代任务拆分建议
+## 19. 每周/迭代任务拆分建议
 
 ### Iteration 1：工程和窗口
 
@@ -1098,7 +1296,17 @@ M13 GPU backend optional
 
 交付物：大量角色在地图上移动。
 
-### Iteration 10：Performance Pass
+### Iteration 10：Scene/GameState/SDL-TUI MVP
+
+- Root Scene 生命周期。
+- SubScene 栈和 modal 输入拦截。
+- GameEvent/GameCommand 状态转移表。
+- UiViewModel/UiIntent。
+- SDL-TUI 登录、选角、世界摘要、聊天和战斗菜单。
+
+交付物：mock 事件可驱动 scene 状态，图形 UI 和 SDL-TUI 共用 ViewModel/Intent。
+
+### Iteration 11：Performance Pass
 
 - 1k/4k/8k/16k 压测。
 - Atlas 优化。
@@ -1108,7 +1316,7 @@ M13 GPU backend optional
 
 交付物：性能报告和是否需要 SDL3_GPU 的结论。
 
-### Iteration 11：Network MVP
+### Iteration 12：Network MVP
 
 - Session。
 - M6 codec 接入。
@@ -1118,19 +1326,20 @@ M13 GPU backend optional
 
 交付物：mock 网络驱动 world 和 chat。
 
-### Iteration 12：UI MVP
+### Iteration 13：UI MVP
 
 - Panel。
 - Button。
 - Label。
 - ListBox。
 - ChatBox 完善。
+- SDL-TUI 控件补全。
 
 交付物：可用的基础客户端 UI。
 
 ---
 
-## 19. 风险清单
+## 20. 风险清单
 
 | 风险 | 影响 | 缓解 |
 |---|---|---|
@@ -1141,13 +1350,15 @@ M13 GPU backend optional
 | 16000 角色性能不足 | 客户端极限场景不达标 | Atlas + geometry batch + culling；必要时 SDL3_GPU |
 | Y-sort 与原客户端不一致 | 遮挡错误 | 旧客户端截图/Hook 对照 |
 | 字体和编码乱码 | 聊天/名字不可用 | UTF-8 内部，协议边界转换 |
-| 协议状态机错误 | 登录/移动/聊天异常 | M6 先保证封包 roundtrip，M9 再做 mock/replay |
-| UI 抽象过重 | 开发速度下降 | 先实现 CrossGate 必需控件，不做通用编辑器 |
+| Scene/SubScene 生命周期错误 | 输入穿透、重复 Enter/Leave、状态错乱 | M8 用 mock/replay fixture 验证 Root Scene 和 SubScene 栈 |
+| 协议/Scene 状态机边界错误 | 登录、移动、聊天异常 | M6 先保证封包 roundtrip，M8 做 GameEvent 编排，M10 再接 session |
+| SDL-TUI 与图形 UI 状态不一致 | 两种客户端行为分裂 | 共用 `UiViewModel/UiIntent`，只替换 presenter |
+| UI 抽象过重 | 开发速度下降 | M8 只做 ViewModel/Intent 和最小 presenter，M11 再扩展控件 |
 | 过早引入 GPU 后端 | 功能进度拖慢 | SDL_Renderer 先完成，压测后决策 |
 
 ---
 
-## 20. Definition of Done
+## 21. Definition of Done
 
 一个模块完成必须满足：
 
@@ -1161,7 +1372,7 @@ M13 GPU backend optional
 
 ---
 
-## 21. 当前最应该先做的 10 个任务
+## 22. 当前最应该先做的 10 个任务
 
 1. 按 `src/packet` 现有结构完成 M6.1 `PacketTypes` 收敛。
 2. 实现 i62 编解码。
@@ -1176,9 +1387,9 @@ M13 GPU backend optional
 
 ---
 
-## 22. 最小闭环验收标准
+## 23. 最小闭环验收标准
 
-当下面全部满足时，说明 cg-engine 第一阶段可以进入 world 与网络连接层：
+当下面全部满足时，说明 cg-engine 第一阶段可以进入 world、Scene 状态机、性能压测与网络连接层：
 
 ```text
 1. Windows 下稳定启动和退出。
@@ -1194,4 +1405,7 @@ M13 GPU backend optional
 11. M6 封包清单覆盖 209 个封包。
 12. i62、es、token、payload 基础 codec 有测试。
 13. 209 个封包 fixture 可 parse/build roundtrip。
+14. mock 事件可驱动 `Boot -> Login -> CharacterSelect -> World -> Battle -> World`。
+15. SDL 图形 UI 与 SDL-TUI 共用 `UiViewModel/UiIntent`。
+16. `WorldScene` 是唯一直接操作 `EntityStore` 的 scene。
 ```

@@ -302,7 +302,7 @@ int TestDriveUiInputToCommand()
     return failures;
 }
 
-int TestOverlayCloseDoesNotPopMainHud()
+int TestOverlayReplaceAndCloseClearsCurrent()
 {
     int failures = 0;
     GameStateMachine machine;
@@ -327,16 +327,16 @@ int TestOverlayCloseDoesNotPopMainHud()
     for (const GameEventType eventType : enterWorld) {
         (void)DriveM8GameEvent(machine, manager, presenter, {eventType, "payload", 0}, PushTestSubScene);
     }
-    failures += Expect(manager.SubSceneCount() == 1U, "进入 World 后保留 MainHud");
+    failures += Expect(manager.SubSceneCount() == 1U, "进入 World 后当前 SubScene 为 MainHud");
 
     (void)DriveM8GameEvent(machine, manager, presenter, {GameEventType::OverlayClosed, {}, 0}, PushTestSubScene);
-    failures += Expect(manager.SubSceneCount() == 1U, "未打开 Overlay 时关闭 Overlay 不弹 MainHud");
+    failures += Expect(manager.SubSceneCount() == 1U, "未打开 Overlay 时关闭 Overlay 不清 MainHud");
 
     (void)DriveM8GameEvent(machine, manager, presenter, {GameEventType::OverlayOpened, {}, 0}, PushTestSubScene);
-    failures += Expect(manager.SubSceneCount() == 2U, "OverlayOpened 压入 Overlay");
+    failures += Expect(manager.SubSceneCount() == 1U, "OverlayOpened replace MainHud 为当前 Overlay");
 
     (void)DriveM8GameEvent(machine, manager, presenter, {GameEventType::OverlayClosed, {}, 0}, PushTestSubScene);
-    failures += Expect(manager.SubSceneCount() == 1U, "OverlayClosed 只弹 Overlay 并保留 MainHud");
+    failures += Expect(manager.SubSceneCount() == 0U, "OverlayClosed 清当前 Overlay 且不恢复 MainHud");
     return failures;
 }
 
@@ -419,7 +419,7 @@ int main()
     failures += TestIntentMapping();
     failures += TestDriveGameEventAppliesSceneAndPresenter();
     failures += TestDriveUiInputToCommand();
-    failures += TestOverlayCloseDoesNotPopMainHud();
+    failures += TestOverlayReplaceAndCloseClearsCurrent();
     failures += TestScreenChangeRebuildsMenu();
     failures += TestModalBlocksUiInput();
 

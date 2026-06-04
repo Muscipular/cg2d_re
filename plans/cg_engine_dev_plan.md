@@ -87,7 +87,7 @@ cg-engine/
 | M5 | Map/Animation Viewer | 地图块、动画帧、资源查看器 | P0 |
 | M6 | 封包解析与全量协议支持 | 209 个旧客户端封包、i62/es、内嵌 payload | P0 |
 | M7 | World 渲染与排序 | entity data、移动插值、可见性裁剪、Y-sort | P0 |
-| M8 | Scene/SubScene 与游戏状态机 | Root Scene、SubScene 栈、协议驱动状态机、SDL-TUI | P0 |
+| M8 | Scene/SubScene 与游戏状态机 | Root Scene、单当前 SubScene、协议驱动状态机、SDL-TUI | P0 |
 | M9 | 性能压测 | 16000 可见移动角色压测 | P0 |
 | M10 | Net 连接层 | session、socket、mock/replay、协议运行链路 | P1 |
 | M11 | UI 系统扩展 | 面板、按钮、输入框、列表、tooltip | P1 |
@@ -750,12 +750,12 @@ struct EntityRenderData {
 
 ### 目标
 
-建立 `Root Scene + SubScene 栈 + GameStateMachine` 的客户端编排层。M8 负责把 M6 封包解析产物或 mock/replay 事件转换为游戏状态、Scene 切换和 UI intent；不实现真实 socket/session，不补未确认业务逻辑。SDL 图形 UI 与 SDL-TUI 正式文字交互客户端共用 ViewModel/Intent，只替换 presenter。
+建立 `Root Scene + 单当前 SubScene + GameStateMachine` 的客户端编排层。M8 负责把 M6 封包解析产物或 mock/replay 事件转换为游戏状态、Scene 切换和 UI intent；不实现真实 socket/session，不补未确认业务逻辑。SDL 图形 UI 与 SDL-TUI 正式文字交互客户端共用 ViewModel/Intent，只替换 presenter。
 
 成功标准：
 
 1. mock 事件可驱动 `Boot -> Login -> CharacterSelect -> World -> Battle -> World`。
-2. Root Scene 单实例激活，SubScene 支持栈式叠加、modal 输入拦截和透明渲染。
+2. Root Scene 单实例激活，SubScene 仅保留单当前实例，打开 SubScene 语义为 replace，支持 modal 输入拦截和透明渲染。
 3. `WorldScene` 是唯一直接操作 `EntityStore` 的 scene；SubScene/UI 不直接改 Entity。
 4. SDL 图形 UI 与 SDL-TUI 使用同一份 `UiViewModel`，产出同类 `UiIntent`。
 5. `cg::game`、`cg::scene` 公开头不暴露 SDL/TTF/Win32 类型。
@@ -812,7 +812,7 @@ Root Scene 是互斥主流程，任一时刻只激活一个：
 | `Disconnected` | 断线提示与返回登录 | session 断开或协议错误 |
 | `Shutdown` | 退出收尾 | 用户退出或关闭窗口 |
 
-SubScene 是 Root Scene 上方的局部流程或 UI 层：
+SubScene 是 Root Scene 上方的单当前局部流程或 UI 层；每次打开 SubScene 都 replace 当前 SubScene：
 
 | SubScene | 用途 | 默认策略 |
 |---|---|---|
@@ -824,7 +824,7 @@ SubScene 是 Root Scene 上方的局部流程或 UI 层：
 | `ConfirmDialog` | 确认框 | modal，阻断下层输入 |
 | `LoadingOverlay` | 局部加载遮罩 | modal，可暂停下层 update |
 
-SubScene 属性固定为 `modal`、`pausesBelow`、`receivesInput`、`transparentRender`。输入分发从栈顶向下，遇到 `modal` 停止；渲染从底到顶，非透明层可清空下层 UI 画面但不清空 Root Scene 的世界画面。
+SubScene 属性固定为 `modal`、`pausesBelow`、`receivesInput`、`transparentRender`。输入先分发给当前 SubScene，未消费且非 `modal` 时再进入 Root Scene；渲染始终保留 Root Scene，再渲染当前 SubScene，`transparentRender=false` 只表示当前 SubScene 不需要保留被 replace 的旧 SubScene 画面。
 
 ### 关键接口建议
 
@@ -887,6 +887,7 @@ enum class GameEventType {
 
 enum class GameCommandType {
     ReplaceRootScene,
+    // 名称保留兼容；SceneManager/M8 bridge 语义是 replace/clear 单当前 SubScene。
     PushSubScene,
     PopSubScene,
     LoadMap,
@@ -910,7 +911,7 @@ enum class GameCommandType {
 |---|---|---|---|
 | M8.1 | 文档编号同步 | 新增 M8，原 M8-M13 顺延为 M9-M14 | 总览、章节、开发顺序、迭代、风险、验收无旧编号残留 |
 | M8.2 | Scene 生命周期 | 定义 `IScene`、Root Scene 枚举和切换队列 | Enter/Leave 只触发一次，update/render 中切换不重入 |
-| M8.3 | SubScene 栈 | 定义 `ISubScene`、SubScene 枚举和 policy | modal 输入拦截、非 modal 叠加、透明渲染 fixture 通过 |
+| M8.3 | 单当前 SubScene | 定义 `ISubScene`、SubScene 枚举和 policy | replace、modal 输入拦截、透明渲染 fixture 通过 |
 | M8.4 | Game 状态机 | 定义 `GameState`、`GameEvent`、`GameCommand` 和转移表 | mock 事件可驱动登录、选角、进地图、战斗、断线 |
 | M8.5 | UI ViewModel/Intent | 定义 `UiViewModel`、`UiIntent`、`IUiPresenter` | 图形 UI 与 SDL-TUI 产生同类 intent |
 | M8.6 | WorldScene | `WorldScene` 持有 world 状态并驱动 `EntityStore`、`WorldRenderer` | 只有 `WorldScene` 直接操作 EntityStore |
@@ -921,7 +922,7 @@ enum class GameCommandType {
 ### subAgent 拆分
 
 1. 开发 subAgent A：资深游戏开发者，只处理 Scene/Root Scene 生命周期与切换队列。
-2. 开发 subAgent B：资深游戏开发者，只处理 SubScene 栈、modal、输入拦截和渲染叠加。
+2. 开发 subAgent B：资深游戏开发者，只处理单当前 SubScene replace、modal、输入拦截和渲染叠加。
 3. 开发 subAgent C：资深游戏开发者，只处理 `GameEvent/GameCommand` 与状态转移表。
 4. 开发 subAgent D：资深游戏开发者，只处理 UI ViewModel/Intent 与双 presenter 边界。
 5. 开发 subAgent E：资深游戏开发者，只处理 SDL-TUI 最小正式流程。
@@ -931,8 +932,8 @@ enum class GameCommandType {
 ### 验收场景
 
 1. mock 事件驱动 `Boot -> Login -> CharacterSelect -> World -> Battle -> World`。
-2. `NpcDialog` 或 `ConfirmDialog` 位于栈顶时，下层 `World` 和 `Chat` 不接收输入。
-3. `Chat` 作为非 modal SubScene 打开时，世界仍可渲染，聊天可获得文本输入。
+2. `NpcDialog` 或 `ConfirmDialog` 作为当前 SubScene 时，Root Scene 不接收输入。
+3. `Chat` 作为非 modal 当前 SubScene 打开时，世界仍可渲染，聊天可获得文本输入。
 4. 图形 presenter 和 SDL-TUI presenter 读取同一份 `UiViewModel`，对同一操作输出同类 `UiIntent`。
 5. `WorldScene` 可驱动 `EntityStore` 和 `WorldRenderer`，其他 Scene/SubScene 不直接操作 Entity。
 6. `cg::game`、`cg::scene` 公开头无 SDL/TTF/Win32 类型。
@@ -1299,7 +1300,7 @@ M14 GPU backend optional
 ### Iteration 10：Scene/GameState/SDL-TUI MVP
 
 - Root Scene 生命周期。
-- SubScene 栈和 modal 输入拦截。
+- 单当前 SubScene replace 和 modal 输入拦截。
 - GameEvent/GameCommand 状态转移表。
 - UiViewModel/UiIntent。
 - SDL-TUI 登录、选角、世界摘要、聊天和战斗菜单。
@@ -1350,7 +1351,7 @@ M14 GPU backend optional
 | 16000 角色性能不足 | 客户端极限场景不达标 | Atlas + geometry batch + culling；必要时 SDL3_GPU |
 | Y-sort 与原客户端不一致 | 遮挡错误 | 旧客户端截图/Hook 对照 |
 | 字体和编码乱码 | 聊天/名字不可用 | UTF-8 内部，协议边界转换 |
-| Scene/SubScene 生命周期错误 | 输入穿透、重复 Enter/Leave、状态错乱 | M8 用 mock/replay fixture 验证 Root Scene 和 SubScene 栈 |
+| Scene/SubScene 生命周期错误 | 输入穿透、重复 Enter/Leave、状态错乱 | M8 用 mock/replay fixture 验证 Root Scene 和单当前 SubScene replace |
 | 协议/Scene 状态机边界错误 | 登录、移动、聊天异常 | M6 先保证封包 roundtrip，M8 做 GameEvent 编排，M10 再接 session |
 | SDL-TUI 与图形 UI 状态不一致 | 两种客户端行为分裂 | 共用 `UiViewModel/UiIntent`，只替换 presenter |
 | UI 抽象过重 | 开发速度下降 | M8 只做 ViewModel/Intent 和最小 presenter，M11 再扩展控件 |

@@ -49,23 +49,26 @@ void SceneManager::PushSubScene(std::unique_ptr<ISubScene> scene)
         return;
     }
 
-    scene->Enter();
-    subScenes_.push_back(std::move(scene));
+    if (currentSubScene_) {
+        currentSubScene_->Leave();
+    }
+    currentSubScene_ = std::move(scene);
+    currentSubScene_->Enter();
 }
 
 void SceneManager::PopSubScene()
 {
-    if (subScenes_.empty()) {
+    if (!currentSubScene_) {
         return;
     }
 
-    subScenes_.back()->Leave();
-    subScenes_.pop_back();
+    currentSubScene_->Leave();
+    currentSubScene_.reset();
 }
 
 bool SceneManager::PopSubScene(SubSceneId id)
 {
-    if (subScenes_.empty() || subScenes_.back()->Id() != id) {
+    if (!currentSubScene_ || currentSubScene_->Id() != id) {
         return false;
     }
 
@@ -75,30 +78,19 @@ bool SceneManager::PopSubScene(SubSceneId id)
 
 void SceneManager::ClearSubScenes()
 {
-    while (!subScenes_.empty()) {
-        PopSubScene();
-    }
+    PopSubScene();
 }
 
 void SceneManager::Update(float deltaSeconds)
 {
-    std::size_t firstUpdatedSubScene = 0U;
-    bool updateRoot = true;
-    for (std::size_t index = subScenes_.size(); index > 0U; --index) {
-        const SubScenePolicy policy = subScenes_[index - 1U]->Policy();
-        if (policy.pausesBelow) {
-            updateRoot = false;
-            firstUpdatedSubScene = index - 1U;
-            break;
-        }
-    }
+    const bool updateRoot = !currentSubScene_ || !currentSubScene_->Policy().pausesBelow;
 
     if (updateRoot && currentRootScene_) {
         currentRootScene_->Update(deltaSeconds);
     }
 
-    for (std::size_t index = firstUpdatedSubScene; index < subScenes_.size(); ++index) {
-        subScenes_[index]->Update(deltaSeconds);
+    if (currentSubScene_) {
+        currentSubScene_->Update(deltaSeconds);
     }
 
     ConsumeOneRootSwitch();
@@ -106,10 +98,9 @@ void SceneManager::Update(float deltaSeconds)
 
 bool SceneManager::HandleInput(const SceneInputEvent& event)
 {
-    for (std::size_t index = subScenes_.size(); index > 0U; --index) {
-        ISubScene& scene = *subScenes_[index - 1U];
-        const SubScenePolicy policy = scene.Policy();
-        if (policy.receivesInput && scene.HandleInput(event)) {
+    if (currentSubScene_) {
+        const SubScenePolicy policy = currentSubScene_->Policy();
+        if (policy.receivesInput && currentSubScene_->HandleInput(event)) {
             return true;
         }
         if (policy.modal) {
@@ -126,21 +117,12 @@ bool SceneManager::HandleInput(const SceneInputEvent& event)
 
 void SceneManager::Render(cg::render::RenderQueue& queue) const
 {
-    std::size_t firstRenderedSubScene = 0U;
-    for (std::size_t index = subScenes_.size(); index > 0U; --index) {
-        const SubScenePolicy policy = subScenes_[index - 1U]->Policy();
-        if (!policy.transparentRender) {
-            firstRenderedSubScene = index - 1U;
-            break;
-        }
-    }
-
     if (currentRootScene_) {
         currentRootScene_->Render(queue);
     }
 
-    for (std::size_t index = firstRenderedSubScene; index < subScenes_.size(); ++index) {
-        subScenes_[index]->Render(queue);
+    if (currentSubScene_) {
+        currentSubScene_->Render(queue);
     }
 }
 
@@ -160,7 +142,7 @@ std::size_t SceneManager::PendingRootSceneCount() const noexcept
 
 std::size_t SceneManager::SubSceneCount() const noexcept
 {
-    return subScenes_.size();
+    return currentSubScene_ ? 1U : 0U;
 }
 
 bool SceneManager::HasPendingRootScene(RootSceneId id) const noexcept

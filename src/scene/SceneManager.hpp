@@ -6,11 +6,10 @@
 #include <functional>
 #include <memory>
 #include <unordered_map>
-#include <vector>
 
 namespace cg::scene {
 
-// SceneManager 管理 Root Scene 延迟切换和 SubScene 栈。
+// SceneManager 管理 Root Scene 延迟切换和单当前 SubScene。
 class SceneManager final {
 public:
     using RootSceneFactory = std::function<std::unique_ptr<IScene>()>;
@@ -40,7 +39,7 @@ private:
     std::unordered_map<RootSceneId, RootSceneFactory> rootFactories_;
     std::deque<RootSceneId> pendingRootScenes_;
     std::unique_ptr<IScene> currentRootScene_;
-    std::vector<std::unique_ptr<ISubScene>> subScenes_;
+    std::unique_ptr<ISubScene> currentSubScene_;
 };
 
 } // namespace cg::scene

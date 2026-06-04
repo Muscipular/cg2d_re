@@ -4,9 +4,9 @@
 #include "PacketBuilder.hpp"
 #include "PacketParser.hpp"
 #include "PayloadCodec.hpp"
-#include "utils.hpp"
-#include "receive.hpp"
-#include "send.hpp"
+#include "Utils.hpp"
+#include "Receive.hpp"
+#include "Send.hpp"
 
 namespace cg::packet
 {

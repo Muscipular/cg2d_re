@@ -1,5 +1,5 @@
 #include "packet/PacketBuilder.hpp"
-#include "packet/receive.hpp"
+#include "packet/Receive.hpp"
 
 #include <cstddef>
 #include <iostream>

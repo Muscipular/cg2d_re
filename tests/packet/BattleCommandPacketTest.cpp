@@ -1,4 +1,4 @@
-#include "packet/packet.hpp"
+#include "packet/Packet.hpp"
 
 #include <cstddef>
 #include <initializer_list>

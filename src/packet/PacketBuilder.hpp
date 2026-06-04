@@ -2,7 +2,7 @@
 #define CG_ENGINE_PACKET_BUILDER_H
 
 #include "PacketParser.hpp"
-#include "utils.hpp"
+#include "Utils.hpp"
 
 #include <cstddef>
 #include <cstdint>

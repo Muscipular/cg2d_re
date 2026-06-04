@@ -1,6 +1,6 @@
 #include "packet/PacketBuilder.hpp"
-#include "packet/receive.hpp"
-#include "packet/send.hpp"
+#include "packet/Receive.hpp"
+#include "packet/Send.hpp"
 
 #include <cstddef>
 #include <initializer_list>

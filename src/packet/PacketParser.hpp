@@ -2,7 +2,7 @@
 #define CG_ENGINE_PACKET_PARSER_H
 
 #include "PacketTypes.hpp"
-#include "utils.hpp"
+#include "Utils.hpp"
 
 #include <cstddef>
 #include <string>

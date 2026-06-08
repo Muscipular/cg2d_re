@@ -39,7 +39,7 @@ std::size_t WorldScene::ActiveEntityCount() const noexcept
     return entities_.ActiveCount();
 }
 
-cg::world::EntityId WorldScene::CreateDemoEntity()
+cg::world::EntityId WorldScene::CreateEntity()
 {
     return entities_.Create();
 }

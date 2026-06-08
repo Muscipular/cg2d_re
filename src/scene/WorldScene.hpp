@@ -21,7 +21,7 @@ public:
     void Render(cg::render::RenderQueue& queue) const override;
 
     [[nodiscard]] std::size_t ActiveEntityCount() const noexcept;
-    [[nodiscard]] cg::world::EntityId CreateDemoEntity();
+    [[nodiscard]] cg::world::EntityId CreateEntity();
     void ClearWorld();
     void SetRenderProvider(RenderProvider provider);
     void SetRenderSprites(std::span<const cg::render::SpriteCmd> sprites);

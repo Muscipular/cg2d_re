@@ -359,7 +359,7 @@ int TestScreenChangeRebuildsMenu()
     (void)DriveGameEvent(machine, manager, presenter, {GameEventType::CharacterListReceived, {}, 0}, ReplaceTestSubScene);
 
     failures += Expect(presenter.ViewModel().screen == UiScreenType::CharacterSelect, "进入角色选择 screen");
-    failures += Expect(presenter.ViewModel().menuItems.size() == 1U && presenter.ViewModel().menuItems[0].text == "Demo Character", "角色选择默认菜单");
+    failures += Expect(presenter.ViewModel().menuItems.size() == 1U && presenter.ViewModel().menuItems[0].text == "Character", "角色选择默认菜单");
 
     (void)DriveGameEvent(machine, manager, presenter, {GameEventType::CharacterSelected, "demo", 0}, ReplaceTestSubScene);
     (void)DriveGameEvent(machine, manager, presenter, {GameEventType::MapReady, "map", 0}, ReplaceTestSubScene);

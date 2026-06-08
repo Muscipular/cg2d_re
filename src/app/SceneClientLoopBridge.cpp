@@ -10,7 +10,7 @@ void RebuildDefaultMenu(cg::ui::UiViewModel& model)
 {
     switch (model.screen) {
     case cg::ui::UiScreenType::CharacterSelect:
-        model.menuItems.push_back(cg::ui::UiMenuItem{"Demo Character", true});
+        model.menuItems.push_back(cg::ui::UiMenuItem{"Character", true});
         break;
     case cg::ui::UiScreenType::Battle:
         model.menuItems.push_back(cg::ui::UiMenuItem{"Attack", true});

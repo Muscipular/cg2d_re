@@ -382,8 +382,8 @@ int TestWorldSceneBridge()
     RenderQueue queue;
     failures += Expect(scene.Id() == RootSceneId::World, "WorldScene id");
     failures += Expect(scene.ActiveEntityCount() == 0U, "WorldScene 初始无实体");
-    const cg::world::EntityId id = scene.CreateDemoEntity();
-    failures += Expect(id.IsValid(), "WorldScene 可创建 demo entity");
+    const cg::world::EntityId id = scene.CreateEntity();
+    failures += Expect(id.IsValid(), "WorldScene 可创建 entity");
     failures += Expect(scene.ActiveEntityCount() == 1U, "WorldScene 统计实体");
 
     const cg::render::SpriteCmd sprite{

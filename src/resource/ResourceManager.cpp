@@ -576,17 +576,23 @@ std::optional<GraphicRef> ResourceManager::FindGraphicForFrame(const AnimationCl
     return FindGraphicBySeq(clip.binSetIndex, frame.graphicSeqNo);
 }
 
-std::optional<int> ResourceManager::FindHiddenPaletteMapNoByPalIndex(int palIndex) const
+std::optional<int> ResourceManager::FindHiddenPaletteMapNoByPalIndex(int palIndex, int fallbackMapNo) const
 {
-    if (palIndex < 0 || static_cast<std::size_t>(palIndex) >= hiddenPaletteMapNoByPalIndex_.size()) {
+    if (palIndex <= 0) {
         return std::nullopt;
     }
 
-    const int mapNo = hiddenPaletteMapNoByPalIndex_[static_cast<std::size_t>(palIndex)];
-    if (mapNo <= 0) {
-        return std::nullopt;
+    if (static_cast<std::size_t>(palIndex) < hiddenPaletteMapNoByPalIndex_.size()) {
+        const int mapNo = hiddenPaletteMapNoByPalIndex_[static_cast<std::size_t>(palIndex)];
+        if (mapNo > 0) {
+            return mapNo;
+        }
     }
-    return mapNo;
+
+    if (fallbackMapNo > 0) {
+        return fallbackMapNo;
+    }
+    return std::nullopt;
 }
 
 std::optional<AnimeRef> ResourceManager::FindAnime(int sourceAnimeNo) const
@@ -667,9 +673,9 @@ std::optional<Palette> ResourceManager::LoadHiddenPaletteByMapNo(int mapNo)
     return result.palette;
 }
 
-std::optional<Palette> ResourceManager::LoadHiddenPaletteByPalIndex(int palIndex)
+std::optional<Palette> ResourceManager::LoadHiddenPaletteByPalIndex(int palIndex, int fallbackMapNo)
 {
-    const std::optional<int> mapNo = FindHiddenPaletteMapNoByPalIndex(palIndex);
+    const std::optional<int> mapNo = FindHiddenPaletteMapNoByPalIndex(palIndex, fallbackMapNo);
     if (!mapNo.has_value()) {
         return std::nullopt;
     }

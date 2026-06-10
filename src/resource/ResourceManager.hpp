@@ -45,7 +45,7 @@ public:
     [[nodiscard]] std::optional<GraphicRef> FindGraphicBySeq(int binSetIndex, int seqNo) const;
     [[nodiscard]] std::optional<GraphicRef> FindGraphicByGlobalIndex(int globalIndex) const;
     [[nodiscard]] std::optional<GraphicRef> FindGraphicForFrame(const AnimationClip& clip, const AnimeFrame& frame) const;
-    [[nodiscard]] std::optional<int> FindHiddenPaletteMapNoByPalIndex(int palIndex) const;
+    [[nodiscard]] std::optional<int> FindHiddenPaletteMapNoByPalIndex(int palIndex, int fallbackMapNo = 0) const;
     // Anime 查询只接受 AnimeInfo 中的原始 animeNo，不接受内部 indexNo；indexNo 是旧客户端派生动画编号/内部动画号，不是数组下标。
     [[nodiscard]] std::optional<AnimeRef> FindAnime(int sourceAnimeNo) const;
     [[nodiscard]] std::span<const GraphicRef> Graphics(int binSetIndex) const noexcept;
@@ -54,7 +54,7 @@ public:
     [[nodiscard]] std::optional<DecodedImage> DecodeGraphic(const GraphicRef& ref, const Palette& palette);
     [[nodiscard]] std::optional<DecodedImage> DecodeGraphicByMapNo(int mapNo);
     [[nodiscard]] std::optional<Palette> LoadHiddenPaletteByMapNo(int mapNo);
-    [[nodiscard]] std::optional<Palette> LoadHiddenPaletteByPalIndex(int palIndex);
+    [[nodiscard]] std::optional<Palette> LoadHiddenPaletteByPalIndex(int palIndex, int fallbackMapNo = 0);
     // Anime 加载只接受 AnimeInfo 中的原始 animeNo，不接受内部 indexNo；indexNo 是旧客户端派生动画编号/内部动画号，不是数组下标。
     [[nodiscard]] std::optional<AnimationClip> LoadAnimation(int sourceAnimeNo);
 

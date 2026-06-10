@@ -498,7 +498,7 @@ public:
 
         std::optional<cg::resource::Palette> palette;
         if (paletteIndex > 0) {
-            palette = resources_.LoadHiddenPaletteByPalIndex(paletteIndex);
+            palette = resources_.LoadHiddenPaletteByPalIndex(paletteIndex, clip_->sourceAnimeNo);
         }
         std::optional<cg::resource::DecodedImage> image =
             palette.has_value() ? resources_.DecodeGraphic(*graphic, *palette) : resources_.DecodeGraphic(*graphic);

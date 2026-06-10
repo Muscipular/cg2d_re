@@ -45,6 +45,7 @@ struct ActionPaletteState {
     int palIndex = 0;
     std::optional<int> hiddenPaletteMapNo;
     std::optional<cg::resource::Palette> hiddenPalette;
+    bool usedAnimeNoMapNoFallback = false;
 };
 
 struct ExportFrame {
@@ -456,6 +457,7 @@ void AddActionFrameSpanWarning(
     cg::resource::ResourceManager& resources,
     const cg::resource::AnimeAction& action,
     const std::optional<int>& palOverride,
+    int sourceAnimeNo,
     WarningCollector& warnings)
 {
     ActionPaletteState state;
@@ -466,12 +468,20 @@ void AddActionFrameSpanWarning(
 
     state.hiddenPaletteMapNo = resources.FindHiddenPaletteMapNoByPalIndex(state.palIndex);
     if (!state.hiddenPaletteMapNo.has_value()) {
+        state.usedAnimeNoMapNoFallback = true;
+    }
+    state.hiddenPaletteMapNo = resources.FindHiddenPaletteMapNoByPalIndex(state.palIndex, sourceAnimeNo);
+    if (!state.hiddenPaletteMapNo.has_value()) {
         warnings.Add("隐藏 palette fallback：pal=" + std::to_string(state.palIndex)
             + " 未命中 queue1 映射，使用默认 palette");
         return state;
     }
 
-    state.hiddenPalette = resources.LoadHiddenPaletteByPalIndex(state.palIndex);
+    state.hiddenPalette = resources.LoadHiddenPaletteByPalIndex(state.palIndex, sourceAnimeNo);
+    if (state.hiddenPalette.has_value() && state.usedAnimeNoMapNoFallback) {
+        warnings.Add("隐藏 palette fallback：pal=" + std::to_string(state.palIndex)
+            + " 未命中 queue1 映射，使用 animeNo mapNo=" + std::to_string(*state.hiddenPaletteMapNo));
+    }
     if (!state.hiddenPalette.has_value()) {
         const cg::resource::ResourceError error = resources.LastError();
         std::string message = "隐藏 palette fallback：pal=" + std::to_string(state.palIndex)
@@ -913,7 +923,8 @@ int main(int argc, char* argv[])
     std::size_t failedCount = 0;
     for (std::size_t actionIndex = 0; actionIndex < clip->actions.size(); ++actionIndex) {
         const cg::resource::AnimeAction& action = clip->actions[actionIndex];
-        const ActionPaletteState paletteState = ResolveActionPalette(resources, action, options.palOverride, warnings);
+        const ActionPaletteState paletteState =
+            ResolveActionPalette(resources, action, options.palOverride, clip->sourceAnimeNo, warnings);
         const cg::resource::Rgba8 sourceBgColor = ResolvePaletteZeroColor(resources, paletteState);
         const DecodedActionFrames decoded = DecodeActionFrames(resources, *clip, action, paletteState, actionIndex, warnings);
         if (decoded.expectedFrameCount == 0 || decoded.frames.empty()) {
@@ -949,7 +960,11 @@ int main(int argc, char* argv[])
                   << "，action=" << static_cast<int>(action.header.action)
                   << "，frameCount=" << decoded.frames.size() << '/' << decoded.expectedFrameCount
                   << "，尺寸=" << atlasWidth << 'x' << atlasHeight
-                  << "，pal=" << paletteState.palIndex << '\n';
+                  << "，pal=" << paletteState.palIndex;
+        if (paletteState.usedAnimeNoMapNoFallback && paletteState.hiddenPalette.has_value()) {
+            std::cout << "，fallback=animeNo-mapNo";
+        }
+        std::cout << '\n';
     }
 
     warnings.PrintSummary(std::cout);

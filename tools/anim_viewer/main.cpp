@@ -58,6 +58,7 @@ struct ActionPaletteState {
     int palIndex = 0;
     std::optional<int> hiddenPaletteMapNo;
     std::optional<cg::resource::Palette> hiddenPalette;
+    bool usedAnimeNoMapNoFallback = false;
 };
 
 struct PlaybackBounds {
@@ -296,11 +297,19 @@ void PrintPaletteState(const ActionPaletteState& state)
 {
     std::cout << "palette 状态：pal=" << state.palIndex;
     if (state.hiddenPalette.has_value()) {
-        std::cout << "，hidden=true，hiddenMapNo=" << *state.hiddenPaletteMapNo << '\n';
+        std::cout << "，hidden=true，hiddenMapNo=" << *state.hiddenPaletteMapNo;
+        if (state.usedAnimeNoMapNoFallback) {
+            std::cout << "，fallback=animeNo-mapNo";
+        }
+        std::cout << '\n';
         return;
     }
     if (state.hiddenPaletteMapNo.has_value()) {
-        std::cout << "，hidden=false，fallback=default，hiddenMapNo=" << *state.hiddenPaletteMapNo << '\n';
+        std::cout << "，hidden=false，fallback=default，hiddenMapNo=" << *state.hiddenPaletteMapNo;
+        if (state.usedAnimeNoMapNoFallback) {
+            std::cout << "，tried=animeNo-mapNo";
+        }
+        std::cout << '\n';
         return;
     }
     std::cout << "，hidden=false，fallback=default\n";
@@ -383,6 +392,7 @@ void AddActionFrameSpanWarning(
 [[nodiscard]] ActionPaletteState ResolveActionPalette(
     cg::resource::ResourceManager& resources,
     const cg::resource::AnimeAction& action,
+    int sourceAnimeNo,
     AnimWarningCollector& warnings)
 {
     ActionPaletteState state;
@@ -393,12 +403,20 @@ void AddActionFrameSpanWarning(
 
     state.hiddenPaletteMapNo = resources.FindHiddenPaletteMapNoByPalIndex(state.palIndex);
     if (!state.hiddenPaletteMapNo.has_value()) {
+        state.usedAnimeNoMapNoFallback = true;
+    }
+    state.hiddenPaletteMapNo = resources.FindHiddenPaletteMapNoByPalIndex(state.palIndex, sourceAnimeNo);
+    if (!state.hiddenPaletteMapNo.has_value()) {
         warnings.Add("隐藏 palette fallback：pal=" + std::to_string(state.palIndex)
             + " 未命中 queue1 映射，使用默认 palette");
         return state;
     }
 
-    state.hiddenPalette = resources.LoadHiddenPaletteByPalIndex(state.palIndex);
+    state.hiddenPalette = resources.LoadHiddenPaletteByPalIndex(state.palIndex, sourceAnimeNo);
+    if (state.hiddenPalette.has_value() && state.usedAnimeNoMapNoFallback) {
+        warnings.Add("隐藏 palette fallback：pal=" + std::to_string(state.palIndex)
+            + " 未命中 queue1 映射，使用 animeNo mapNo=" + std::to_string(*state.hiddenPaletteMapNo));
+    }
     if (!state.hiddenPalette.has_value()) {
         const cg::resource::ResourceError error = resources.LastError();
         std::string message = "隐藏 palette fallback：pal=" + std::to_string(state.palIndex)
@@ -1152,7 +1170,7 @@ int main(int argc, char* argv[])
 
         PrintSelectedAnimation(*ref, *clip, *action);
         const std::size_t actionIndex = FindActionIndex(*clip, *action);
-        const ActionPaletteState paletteState = ResolveActionPalette(resources, *action, warnings);
+        const ActionPaletteState paletteState = ResolveActionPalette(resources, *action, clip->sourceAnimeNo, warnings);
         PrintPaletteState(paletteState);
         std::vector<PlaybackFrame> playbackFrames =
             DecodePlaybackFrames(resources, *clip, *action, paletteState, actionIndex, warnings);

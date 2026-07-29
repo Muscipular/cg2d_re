@@ -2094,6 +2094,17 @@
       "originalFormat": "NgMy 0",
       "formatEmpty": false,
       "source": "xlsx",
+      "resolvedFormat": "{dummy:i62}",
+      "resolvedSource": "xlsx+ServerC",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "dummy",
+          "typeToken": "i62",
+          "rawSpec": "{dummy:i62}",
+          "source": "xlsx+ServerC"
+        }
+      ],
       "fields": []
     },
     {

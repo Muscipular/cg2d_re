@@ -2044,6 +2044,85 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "eL resolved field order");
     }
 
+    const PacketSchema* battleWatchStopSchema = FindPacket(packets, "NgMy");
+    failures += Expect(battleWatchStopSchema != nullptr, "NgMy schema exists");
+    if (battleWatchStopSchema != nullptr) {
+        failures += Expect(
+            battleWatchStopSchema->direction == "客户端->服务端",
+            "NgMy direction");
+        failures += Expect(
+            battleWatchStopSchema->legacyKind == "RECV",
+            "NgMy legacyKind");
+        failures += Expect(
+            battleWatchStopSchema->originalFormat == "NgMy 0",
+            "NgMy originalFormat");
+        failures += Expect(
+            battleWatchStopSchema->rawFormat.empty(),
+            "NgMy rawFormat empty");
+        failures += Expect(
+            !battleWatchStopSchema->formatEmpty,
+            "NgMy formatEmpty false");
+        failures += Expect(
+            battleWatchStopSchema->source == "xlsx",
+            "NgMy raw source");
+        failures += Expect(
+            battleWatchStopSchema->fields.empty(),
+            "NgMy raw fields empty");
+        failures += Expect(
+            battleWatchStopSchema->hasResolvedFormat,
+            "NgMy resolvedFormat present");
+        failures += Expect(
+            battleWatchStopSchema->resolvedFormat == "{dummy:i62}",
+            "NgMy resolvedFormat");
+        failures += Expect(
+            battleWatchStopSchema->resolvedSource == "xlsx+ServerC",
+            "NgMy resolvedSource");
+        failures += Expect(
+            battleWatchStopSchema->resolvedSource.find("ClientIda") == std::string::npos,
+            "NgMy resolvedSource excludes ClientIda");
+        failures += Expect(
+            battleWatchStopSchema->hasResolvedFields,
+            "NgMy resolvedFields present");
+        failures += Expect(
+            battleWatchStopSchema->resolvedFields.size() == 1U,
+            "NgMy resolved field count");
+        if (battleWatchStopSchema->resolvedFields.size() == 1U) {
+            const FieldSchema& field = battleWatchStopSchema->resolvedFields[0];
+            failures += Expect(
+                field.index == 0 &&
+                    field.name == "dummy" &&
+                    field.typeToken == "i62" &&
+                    field.rawSpec == "{dummy:i62}" &&
+                    field.source == "xlsx+ServerC",
+                "NgMy resolved field");
+            failures += Expect(
+                field.source.find("ClientIda") == std::string::npos,
+                "NgMy resolved field source excludes ClientIda");
+        }
+
+        bool hasSendTypedPacket = false;
+        for (const cg::packet::test::TypedPacketManifestEntry& entry :
+             cg::packet::test::SendTypedPackets) {
+            if (entry.spec != nullptr && entry.spec->code == "NgMy") {
+                hasSendTypedPacket = true;
+            }
+        }
+        failures += Expect(
+            !hasSendTypedPacket,
+            "NgMy absent from send typed manifest");
+
+        bool hasReceiveTypedPacket = false;
+        for (const cg::packet::test::TypedPacketManifestEntry& entry :
+             cg::packet::test::ReceiveTypedPackets) {
+            if (entry.spec != nullptr && entry.spec->code == "NgMy") {
+                hasReceiveTypedPacket = true;
+            }
+        }
+        failures += Expect(
+            !hasReceiveTypedPacket,
+            "NgMy absent from receive typed manifest");
+    }
+
     const PacketSchema* loginResultSchema = FindPacket(packets, "whV");
     failures += Expect(loginResultSchema != nullptr, "whV schema exists");
     if (loginResultSchema != nullptr) {

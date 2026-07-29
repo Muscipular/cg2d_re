@@ -331,6 +331,79 @@ namespace cg::packet::send
     };
 
     /**
+     * RECV_EV NPC 事件 pg {event:i62} {seqno:i62} {x:i62} {y:i62} {dir:i62}
+     */
+    struct NpcEventRequest
+    {
+        static constexpr std::string_view Code = "pg";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 5U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("event"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("seqno"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("x"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("y"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("dir"), PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        int event = 0;
+        int sequenceNumber = 0;
+        int x = 0;
+        int y = 0;
+        int direction = 0;
+
+        NpcEventRequest(int event, int sequenceNumber, int x, int y, int direction)
+            : event(event)
+            , sequenceNumber(sequenceNumber)
+            , x(x)
+            , y(y)
+            , direction(direction)
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("event"),
+                PacketFieldType::Int62,
+                std::to_string(event),
+            });
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("seqno"),
+                PacketFieldType::Int62,
+                std::to_string(sequenceNumber),
+            });
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("x"),
+                PacketFieldType::Int62,
+                std::to_string(x),
+            });
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("y"),
+                PacketFieldType::Int62,
+                std::to_string(y),
+            });
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("dir"),
+                PacketFieldType::Int62,
+                std::to_string(direction),
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket(), Spec);
+        }
+    };
+
+    /**
      * RECV_CreateNewChar 创建角色 aSEl
      * {dataPlace:i62} {name:es} {image:i62} {face:i62} {vital:i62} {strength:i62}
      * {tough:i62} {quick:i62} {magic:i62} {earth:i62} {water:i62} {fire:i62} {wind:i62}

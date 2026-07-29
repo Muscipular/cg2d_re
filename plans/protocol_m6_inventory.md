@@ -253,7 +253,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 43 | `uSB` | 服务端->客户端 | 完成 | SEND_CD 发送删除ObjectIndex列表；M6R.0.2a 保留 xlsx raw 两字段，resolved 修正为单 `{data:es}` | 否 | 是 | xlsx(raw)+ServerC+src/packet |
 | 44 | `QBt` | 服务端->客户端 | 完成 | SEND_XYD | 否 | 否 | xlsx |
 | 45 | `sz` | 客户端->服务端 | 完成 | RECV_w 移动 | 否 | 否 | xlsx |
-| 46 | `pg` | 客户端->服务端 | 完成 | RECV_EV NPC事件 | 否 | 否 | xlsx |
+| 46 | `pg` | 客户端->服务端 | 完成 | RECV_EV NPC 事件；严格五字段 `{event:i62} {seqno:i62} {x:i62} {y:i62} {dir:i62}`；`send::NpcEventRequest`；不增加事件、坐标或方向范围约束；NoStructuredPayload；fixture `distinct-i62-order` | 否 | 否 | xlsx+ServerC+ClientIda+src/packet |
 | 47 | `KeOX` | 客户端->服务端 | 完成 | RECV_EN 客户端遇敌 | 否 | 否 | xlsx |
 | 48 | `ik` | 客户端->服务端 | 完成 | RECV_DU PK请求 | 否 | 否 | xlsx |
 | 49 | `eL` | 客户端->服务端 | 完成 | RECV_EO 离开战斗界面 | 否 | 否 | xlsx |

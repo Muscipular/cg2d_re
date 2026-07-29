@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=pg
+direction=client_to_server
+sample=distinct-i62-order
+plain_hex=70 67 20 31 30 20 2D 31 20 41 20 31 20 30
+canonical_hex=70 67 20 31 30 20 2D 31 20 41 20 31 20 30 20
+end_sample

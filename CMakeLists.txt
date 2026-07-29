@@ -648,6 +648,18 @@ add_test(
     COMMAND cg-packet-keep-alive-request-test
 )
 
+add_executable(cg-packet-npc-event-request-test
+    tests/packet/NpcEventRequestPacketTest.cpp
+)
+target_include_directories(cg-packet-npc-event-request-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+add_test(
+    NAME cg-packet-npc-event-request-test
+    COMMAND cg-packet-npc-event-request-test
+)
+
 add_executable(cg-packet-pfm-notification-test
     tests/packet/PfMNotificationPacketTest.cpp
 )
@@ -1762,6 +1774,7 @@ if(MSVC)
     target_compile_options(cg-packet-profile-status-update-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-echo-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-keep-alive-request-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-npc-event-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-pfm-notification-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-create-new-char-result-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-create-new-char-send-test PRIVATE /W4 /utf-8 /permissive-)
@@ -1891,6 +1904,7 @@ else()
     target_compile_options(cg-packet-profile-status-update-request-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-echo-request-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-keep-alive-request-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-packet-npc-event-request-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-pfm-notification-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-create-new-char-result-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-character-delete-result-test PRIVATE -Wall -Wextra -Wpedantic)

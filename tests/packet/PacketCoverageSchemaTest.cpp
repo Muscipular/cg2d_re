@@ -1124,11 +1124,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 30U, "send typed manifest count 30");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 31U, "send typed manifest count 31");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 67U, "receive typed manifest count 67");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 97U,
-        "typed manifest count 97");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 98U,
+        "typed manifest count 98");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1145,7 +1145,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 97U, "typed manifest unique code count 97");
+    failures += Expect(codes.size() == 98U, "typed manifest unique code count 98");
     return failures;
 }
 
@@ -1859,6 +1859,72 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             *keepAliveRequestSchema,
             packet,
             "DE resolved field order");
+    }
+
+    const PacketSchema* npcEventRequestSchema = FindPacket(packets, "pg");
+    failures += Expect(npcEventRequestSchema != nullptr, "pg schema exists");
+    if (npcEventRequestSchema != nullptr) {
+        const cg::packet::Packet packet =
+            cg::packet::send::NpcEventRequest(62, -1, 36, 1, 0).ToPacket();
+        constexpr std::array<std::string_view, 5U> fieldNames = {
+            "event",
+            "seqno",
+            "x",
+            "y",
+            "dir",
+        };
+        constexpr std::string_view format =
+            "{event:i62} {seqno:i62} {x:i62} {y:i62} {dir:i62}";
+        constexpr std::string_view resolvedSource =
+            "xlsx+ServerC+ClientIda+src/packet";
+
+        failures += Expect(npcEventRequestSchema->direction == "客户端->服务端", "pg direction");
+        failures += Expect(npcEventRequestSchema->legacyKind == "RECV", "pg legacyKind");
+        failures += Expect(npcEventRequestSchema->rawFormat == format, "pg rawFormat");
+        failures += Expect(npcEventRequestSchema->fields.size() == fieldNames.size(), "pg raw field count");
+        if (npcEventRequestSchema->fields.size() == fieldNames.size()) {
+            for (std::size_t index = 0U; index < fieldNames.size(); ++index) {
+                failures += Expect(
+                    npcEventRequestSchema->fields[index].name == fieldNames[index],
+                    "pg raw field name");
+                failures += Expect(
+                    npcEventRequestSchema->fields[index].typeToken == "i62",
+                    "pg raw field type");
+                failures += Expect(
+                    npcEventRequestSchema->fields[index].source == "xlsx",
+                    "pg raw field source");
+            }
+        }
+        failures += Expect(npcEventRequestSchema->hasResolvedFormat, "pg resolvedFormat present");
+        failures += Expect(npcEventRequestSchema->resolvedFormat == format, "pg resolvedFormat");
+        failures += Expect(
+            npcEventRequestSchema->resolvedSource == resolvedSource,
+            "pg resolvedSource");
+        failures += Expect(npcEventRequestSchema->hasResolvedFields, "pg resolvedFields present");
+        failures += Expect(
+            npcEventRequestSchema->resolvedFields.size() == fieldNames.size(),
+            "pg resolved field count");
+        if (npcEventRequestSchema->resolvedFields.size() == fieldNames.size()) {
+            for (std::size_t index = 0U; index < fieldNames.size(); ++index) {
+                failures += Expect(
+                    npcEventRequestSchema->resolvedFields[index].name == fieldNames[index],
+                    "pg resolved field name");
+                failures += Expect(
+                    npcEventRequestSchema->resolvedFields[index].typeToken == "i62",
+                    "pg resolved field type");
+                failures += Expect(
+                    npcEventRequestSchema->resolvedFields[index].source == resolvedSource,
+                    "pg resolved field source");
+            }
+        }
+        failures += ExpectEffectiveFieldsMatch(
+            *npcEventRequestSchema,
+            cg::packet::send::NpcEventRequest::Spec,
+            "pg Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *npcEventRequestSchema,
+            packet,
+            "pg resolved field order");
     }
 
     const PacketSchema* loginResultSchema = FindPacket(packets, "whV");

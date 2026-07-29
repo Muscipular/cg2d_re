@@ -850,7 +850,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     failures += Expect(profileWindowSchema != nullptr, "DyAG schema exists");
     if (profileWindowSchema != nullptr) {
         const cg::packet::receive::ProfileWindow profileWindow(38, 0, 0, 0, std::vector<int> {});
-        const cg::packet::Packet packet = profileWindow.ToPacket();
+        const cg::packet::PacketResult<cg::packet::Packet> packet = profileWindow.ToPacket();
         const std::array<std::string_view, 5U> rawNames = {{"", "", "", "", "data"}};
         const std::array<std::string_view, 5U> rawSpecs = {{"{}", "{}", "{}", "{}", "{data}"}};
         const std::array<std::string_view, 5U> resolvedNames = {{
@@ -885,6 +885,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         failures += Expect(
             profileWindowSchema->resolvedSource == "xlsx+ServerC+ClientIda+src/packet",
             "DyAG resolvedSource");
+        failures += Expect(static_cast<bool>(packet), "DyAG ToPacket");
         failures += Expect(
             profileWindowSchema->resolvedFields.size() == resolvedNames.size(),
             "DyAG resolved field count");
@@ -908,10 +909,12 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                     "DyAG resolved field source");
             }
         }
-        failures += ExpectResolvedFieldsMatch(
-            *profileWindowSchema,
-            packet,
-            "DyAG resolved/ToPacket field order");
+        if (packet.HasValue()) {
+            failures += ExpectResolvedFieldsMatch(
+                *profileWindowSchema,
+                packet.Value(),
+                "DyAG resolved/ToPacket field order");
+        }
     }
 
     const PacketSchema* profileMailDeleteSchema = FindPacket(packets, "cNB");

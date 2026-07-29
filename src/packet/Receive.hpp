@@ -11144,7 +11144,7 @@ namespace cg::packet::receive
      */
     struct ProfileWindowListRecord
     {
-        bool empty = false;
+        bool empty = true;
         int seekPos = 0;
         int graphics = 0;
         std::string name;
@@ -11184,7 +11184,7 @@ namespace cg::packet::receive
 
     /**
      * SEND_PRW 交流版		DyAG {windowType:i62} {buttonType:i62} {seqNo:i62} {objectIndex:i62} {data:es}
-     * data 使用字面 \z 表示逻辑 |；仅解析 START/PROFILELIST/PROFILEMAIL 三种已证 payload。
+     * data 先整体 legacy decode，再按逻辑 | 拆分；仅解析 wire 38/39/40 三种已证 payload。
      */
     struct ProfileWindow
     {
@@ -11203,13 +11203,12 @@ namespace cg::packet::receive
             Fields.data(),
             Fields.size(),
         };
-        static constexpr std::string_view PayloadDelimiter = "\\z";
+        static constexpr std::string_view PayloadDelimiter = "|";
 
         int windowType = 0;
         int buttonType = 0;
         int seqNo = 0;
         int objectIndex = 0;
-        std::string data;
         ProfileWindowPayloadKind payloadKind = ProfileWindowPayloadKind::Start;
         std::vector<int> flags;
         ProfileWindowProfileList profileList;
@@ -11228,7 +11227,6 @@ namespace cg::packet::receive
               payloadKind(ProfileWindowPayloadKind::Start),
               flags(std::move(flags))
         {
-            data = BuildData();
         }
 
         ProfileWindow(
@@ -11244,7 +11242,6 @@ namespace cg::packet::receive
               payloadKind(ProfileWindowPayloadKind::ProfileList),
               profileList(std::move(profileList))
         {
-            data = BuildData();
         }
 
         ProfileWindow(
@@ -11260,26 +11257,42 @@ namespace cg::packet::receive
               payloadKind(ProfileWindowPayloadKind::ProfileMail),
               profileMail(std::move(profileMail))
         {
-            data = BuildData();
         }
 
-        [[nodiscard]] std::string BuildData() const
+        [[nodiscard]] PacketResult<std::string> BuildData() const
         {
             switch (payloadKind) {
             case ProfileWindowPayloadKind::Start:
+                if (windowType != StartWindowType) {
+                    return PacketResult<std::string>::Failure(MakeWindowTypeMismatchError());
+                }
                 return BuildStartData();
             case ProfileWindowPayloadKind::ProfileList:
+                if (windowType != ProfileListWindowType) {
+                    return PacketResult<std::string>::Failure(MakeWindowTypeMismatchError());
+                }
                 return BuildProfileListData();
             case ProfileWindowPayloadKind::ProfileMail:
+                if (windowType != ProfileMailWindowType) {
+                    return PacketResult<std::string>::Failure(MakeWindowTypeMismatchError());
+                }
                 return BuildProfileMailData();
             }
 
-            return {};
+            return PacketResult<std::string>::Failure(MakeFieldError(
+                PacketErrorCode::EncodeFailed,
+                CG_PACKET_DIAGNOSTIC_TEXT("ProfileWindow payload kind 无效"),
+                DataFieldIndex));
         }
 
 #if CG_PACKET_ENABLE_TEST_HELPERS
-        [[nodiscard]] Packet ToPacket() const
+        [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
+            PacketResult<std::string> data = BuildData();
+            if (!data.HasValue()) {
+                return PacketResult<Packet>::Failure(data.Error());
+            }
+
             Packet packet(PacketCode(Code), Direction);
             packet.fields.reserve(FieldCount);
             packet.fields.push_back(PacketField {
@@ -11304,10 +11317,10 @@ namespace cg::packet::receive
             });
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("data"),
-                PacketFieldType::EscapedString,
-                BuildData(),
+                PacketFieldType::SubPayload,
+                std::move(data.Value()),
             });
-            return packet;
+            return PacketResult<Packet>::Success(std::move(packet));
         }
 #endif
 
@@ -11416,6 +11429,9 @@ namespace cg::packet::receive
             2U + (ProfileListRecordCount * ProfileListRecordFieldCount);
         static constexpr std::size_t ProfileListPayloadFieldCountWithTail = ProfileListPayloadFieldCount + 1U;
         static constexpr std::size_t ProfileMailPayloadFieldCount = 14U;
+        static constexpr int StartWindowType = 38;
+        static constexpr int ProfileListWindowType = 39;
+        static constexpr int ProfileMailWindowType = 40;
 
         [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
@@ -11434,25 +11450,60 @@ namespace cg::packet::receive
             return error;
         }
 
-        [[nodiscard]] std::string BuildStartData() const
+        [[nodiscard]] static PacketError FillDataError(PacketError error)
+        {
+            error.packetCode = PacketCode(Code);
+            error.fieldIndex = DataFieldIndex;
+            return error;
+        }
+
+        [[nodiscard]] static PacketError MakeWindowTypeMismatchError()
+        {
+            return MakeFieldError(
+                PacketErrorCode::EncodeFailed,
+                CG_PACKET_DIAGNOSTIC_TEXT("ProfileWindow windowType 与 payload kind 不匹配"),
+                WindowTypeFieldIndex);
+        }
+
+        [[nodiscard]] static PacketResult<std::string> EncodeDataText(std::string_view text)
+        {
+            PacketResult<std::string> encoded = EncodeLegacyPayloadText(text);
+            if (!encoded.HasValue()) {
+                return PacketResult<std::string>::Failure(FillDataError(encoded.Error()));
+            }
+            return encoded;
+        }
+
+        [[nodiscard]] static PacketResult<std::string> EncodeWholePayload(std::string_view payload)
+        {
+            PacketResult<std::string> encoded = EncodeLegacyPayloadText(payload);
+            if (!encoded.HasValue()) {
+                return PacketResult<std::string>::Failure(FillDataError(encoded.Error()));
+            }
+            return encoded;
+        }
+
+        [[nodiscard]] PacketResult<std::string> BuildStartData() const
         {
             std::string payload;
             for (const int flag : flags) {
                 payload.append(std::to_string(flag));
                 payload.append(PayloadDelimiter);
             }
-            return payload;
+            return EncodeWholePayload(payload);
         }
 
-        [[nodiscard]] std::string BuildProfileListData() const
+        [[nodiscard]] PacketResult<std::string> BuildProfileListData() const
         {
             std::vector<std::string> values;
             values.reserve(ProfileListPayloadFieldCountWithTail);
             values.push_back(std::to_string(profileList.categoryId));
             values.push_back(std::to_string(profileList.categoryIndex));
 
+            bool reachedEmptyRecord = false;
             for (const ProfileWindowListRecord& record : profileList.records) {
                 if (record.empty) {
+                    reachedEmptyRecord = true;
                     values.push_back("-1");
                     values.emplace_back();
                     values.emplace_back();
@@ -11460,92 +11511,83 @@ namespace cg::packet::receive
                     continue;
                 }
 
+                if (reachedEmptyRecord || record.seekPos == -1) {
+                    return PacketResult<std::string>::Failure(MakeFieldError(
+                        PacketErrorCode::EncodeFailed,
+                        CG_PACKET_DIAGNOSTIC_TEXT("ProfileWindow PROFILELIST sentinel 顺序无效"),
+                        DataFieldIndex));
+                }
+
+                PacketResult<std::string> name = EncodeDataText(record.name);
+                if (!name.HasValue()) {
+                    return PacketResult<std::string>::Failure(name.Error());
+                }
+                PacketResult<std::string> message = EncodeDataText(record.message);
+                if (!message.HasValue()) {
+                    return PacketResult<std::string>::Failure(message.Error());
+                }
+
                 values.push_back(std::to_string(record.seekPos));
                 values.push_back(std::to_string(record.graphics));
-                values.push_back(record.name);
-                values.push_back(record.message);
+                values.push_back(std::move(name.Value()));
+                values.push_back(std::move(message.Value()));
             }
 
             values.emplace_back();
             PacketResult<std::string> payload = BuildPayload(
                 std::span<const std::string>(values.data(), values.size()),
                 PayloadDelimiter);
-            if (payload.HasValue()) {
-                return payload.Value();
+            if (!payload.HasValue()) {
+                return PacketResult<std::string>::Failure(FillDataError(payload.Error()));
             }
-
-            return {};
+            return EncodeWholePayload(payload.Value());
         }
 
-        [[nodiscard]] std::string BuildProfileMailData() const
+        [[nodiscard]] PacketResult<std::string> BuildProfileMailData() const
         {
-            const std::array<std::string, ProfileMailPayloadFieldCount> values = {
+            std::array<std::string, ProfileMailPayloadFieldCount> values = {
                 std::to_string(profileMail.seekPos),
-                profileMail.name,
+                {},
                 std::to_string(profileMail.level),
+                {},
+                {},
+                {},
+                std::to_string(profileMail.faceImageNumber),
+                std::to_string(profileMail.sellFlag),
+                {},
+                std::to_string(profileMail.buyFlag),
+                {},
+                std::to_string(profileMail.aboutFlag),
+                {},
+                {},
+            };
+
+            const std::array<std::string_view, 8U> textValues = {{
+                profileMail.name,
                 profileMail.jobName,
                 profileMail.ownTitle,
                 profileMail.guildName,
-                std::to_string(profileMail.faceImageNumber),
-                std::to_string(profileMail.sellFlag),
                 profileMail.sellMessage,
-                std::to_string(profileMail.buyFlag),
                 profileMail.buyMessage,
-                std::to_string(profileMail.aboutFlag),
                 profileMail.aboutMessage,
                 profileMail.profileMessage,
-            };
+            }};
+            const std::array<std::size_t, 8U> textIndexes = {{1U, 3U, 4U, 5U, 8U, 10U, 12U, 13U}};
+            for (std::size_t index = 0; index < textValues.size(); ++index) {
+                PacketResult<std::string> encoded = EncodeDataText(textValues[index]);
+                if (!encoded.HasValue()) {
+                    return PacketResult<std::string>::Failure(encoded.Error());
+                }
+                values[textIndexes[index]] = std::move(encoded.Value());
+            }
 
             PacketResult<std::string> payload = BuildPayload(
                 std::span<const std::string>(values.data(), values.size()),
                 PayloadDelimiter);
-            if (payload.HasValue()) {
-                return payload.Value();
+            if (!payload.HasValue()) {
+                return PacketResult<std::string>::Failure(FillDataError(payload.Error()));
             }
-
-            return {};
-        }
-
-        [[nodiscard]] static bool EndsWithDelimiter(std::string_view payload) noexcept
-        {
-            return payload.size() >= PayloadDelimiter.size() &&
-                payload.substr(payload.size() - PayloadDelimiter.size()) == PayloadDelimiter;
-        }
-
-        [[nodiscard]] static bool IsDecimalSyntax(std::string_view text) noexcept
-        {
-            std::size_t index = 0;
-            if (!text.empty() && text.front() == '-') {
-                index = 1U;
-            }
-
-            if (index == text.size()) {
-                return false;
-            }
-
-            for (; index < text.size(); ++index) {
-                const char ch = text[index];
-                if (ch < '0' || ch > '9') {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
-        [[nodiscard]] static bool CanParseStart(const std::vector<std::string>& parts) noexcept
-        {
-            if (parts.size() <= 1U) {
-                return false;
-            }
-
-            for (std::size_t index = 0; index + 1U < parts.size(); ++index) {
-                if (!IsDecimalSyntax(parts[index])) {
-                    return false;
-                }
-            }
-
-            return true;
+            return EncodeWholePayload(payload.Value());
         }
 
         [[nodiscard]] static bool IsEmptyProfileListRecord(
@@ -11558,6 +11600,25 @@ namespace cg::packet::receive
                 parts[baseIndex + 3U].empty();
         }
 
+        [[nodiscard]] static PacketResult<std::string> DecodeDataText(std::string_view text)
+        {
+            PacketResult<std::string> decoded = DecodeLegacyPayloadText(text);
+            if (!decoded.HasValue()) {
+                return PacketResult<std::string>::Failure(FillDataError(decoded.Error()));
+            }
+            return decoded;
+        }
+
+        [[nodiscard]] static PacketResult<std::vector<std::string>> SplitDataPayload(std::string_view payload)
+        {
+            PacketResult<std::vector<std::string>> split =
+                SplitPayloadLegacyAware(payload, PayloadDelimiter);
+            if (!split.HasValue()) {
+                return PacketResult<std::vector<std::string>>::Failure(FillDataError(split.Error()));
+            }
+            return split;
+        }
+
         [[nodiscard]] static PacketResult<ProfileWindow> ParseData(
             int windowType,
             int buttonType,
@@ -11565,78 +11626,95 @@ namespace cg::packet::receive
             int objectIndex,
             std::string_view payload)
         {
-            if (payload.empty()) {
+            PacketResult<std::string> decoded = DecodeLegacyPayloadText(payload);
+            if (!decoded.HasValue()) {
+                return PacketResult<ProfileWindow>::Failure(FillDataError(decoded.Error()));
+            }
+
+            switch (windowType) {
+            case StartWindowType:
+                return ParseStart(buttonType, seqNo, objectIndex, decoded.Value());
+            case ProfileListWindowType:
+                return ParseProfileList(buttonType, seqNo, objectIndex, decoded.Value());
+            case ProfileMailWindowType:
+                return ParseProfileMail(buttonType, seqNo, objectIndex, decoded.Value());
+            default:
                 return PacketResult<ProfileWindow>::Failure(MakeFieldError(
-                    PacketErrorCode::EmptyInput,
-                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileWindow data 为空"),
-                    DataFieldIndex));
+                    PacketErrorCode::DecodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileWindow windowType 不是已证 wire 类型"),
+                    WindowTypeFieldIndex));
             }
-
-            PacketResult<std::vector<std::string>> split = SplitPayload(payload, PayloadDelimiter);
-            if (!split.HasValue()) {
-                PacketError error = split.Error();
-                error.packetCode = PacketCode(Code);
-                error.fieldIndex = DataFieldIndex;
-                return PacketResult<ProfileWindow>::Failure(std::move(error));
-            }
-
-            const bool hasTrailingDelimiter = EndsWithDelimiter(payload);
-            std::vector<std::string> parts = std::move(split.Value());
-            if (hasTrailingDelimiter && parts.size() == ProfileListPayloadFieldCountWithTail) {
-                return ParseProfileList(windowType, buttonType, seqNo, objectIndex, std::string(payload), parts);
-            }
-
-            if (!hasTrailingDelimiter && parts.size() == ProfileMailPayloadFieldCount) {
-                return ParseProfileMail(windowType, buttonType, seqNo, objectIndex, std::string(payload), parts);
-            }
-
-            if (hasTrailingDelimiter && CanParseStart(parts)) {
-                return ParseStart(windowType, buttonType, seqNo, objectIndex, std::string(payload), parts);
-            }
-
-            return PacketResult<ProfileWindow>::Failure(MakeFieldError(
-                PacketErrorCode::FieldCountMismatch,
-                CG_PACKET_DIAGNOSTIC_TEXT("ProfileWindow data 段数量不匹配"),
-                DataFieldIndex));
         }
 
         [[nodiscard]] static PacketResult<ProfileWindow> ParseStart(
-            int windowType,
             int buttonType,
             int seqNo,
             int objectIndex,
-            std::string originalPayload,
-            const std::vector<std::string>& parts)
+            std::string_view payload)
         {
+            if (payload.empty()) {
+                return PacketResult<ProfileWindow>::Success(
+                    ProfileWindow(StartWindowType, buttonType, seqNo, objectIndex, std::vector<int> {}));
+            }
+
+            if (payload.back() != PayloadDelimiter.front()) {
+                return PacketResult<ProfileWindow>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileWindow START 缺少尾随分隔符"),
+                    DataFieldIndex));
+            }
+
+            PacketResult<std::vector<std::string>> split = SplitDataPayload(payload);
+            if (!split.HasValue()) {
+                return PacketResult<ProfileWindow>::Failure(split.Error());
+            }
+            const std::vector<std::string>& parts = split.Value();
+
             std::vector<int> parsedFlags;
             parsedFlags.reserve(parts.size() - 1U);
             for (std::size_t index = 0; index + 1U < parts.size(); ++index) {
-                PacketResult<int> flag = ParseDecimalField(parts[index], index);
+                PacketResult<int> flag = ParseDecimalField(parts[index], DataFieldIndex);
                 if (!flag.HasValue()) {
                     return PacketResult<ProfileWindow>::Failure(flag.Error());
                 }
                 parsedFlags.push_back(flag.Value());
             }
 
-            ProfileWindow packet(windowType, buttonType, seqNo, objectIndex, std::move(parsedFlags));
-            packet.data = std::move(originalPayload);
-            return PacketResult<ProfileWindow>::Success(std::move(packet));
+            return PacketResult<ProfileWindow>::Success(
+                ProfileWindow(StartWindowType, buttonType, seqNo, objectIndex, std::move(parsedFlags)));
         }
 
         [[nodiscard]] static PacketResult<ProfileWindow> ParseProfileList(
-            int windowType,
             int buttonType,
             int seqNo,
             int objectIndex,
-            std::string originalPayload,
-            const std::vector<std::string>& parts)
+            std::string_view payload)
         {
-            PacketResult<int> categoryId = ParseDecimalField(parts[0], 0U);
+            if (payload.empty() || payload.back() != PayloadDelimiter.front()) {
+                return PacketResult<ProfileWindow>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileWindow PROFILELIST 缺少尾随分隔符"),
+                    DataFieldIndex));
+            }
+
+            PacketResult<std::vector<std::string>> split = SplitDataPayload(payload);
+            if (!split.HasValue()) {
+                return PacketResult<ProfileWindow>::Failure(split.Error());
+            }
+            const std::vector<std::string>& parts = split.Value();
+            if (parts.size() != ProfileListPayloadFieldCountWithTail) {
+                return PacketResult<ProfileWindow>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileWindow PROFILELIST 段数量不匹配"),
+                    DataFieldIndex));
+            }
+
+            PacketResult<int> categoryId = ParseDecimalField(parts[0], DataFieldIndex);
             if (!categoryId.HasValue()) {
                 return PacketResult<ProfileWindow>::Failure(categoryId.Error());
             }
 
-            PacketResult<int> categoryIndex = ParseDecimalField(parts[1], 1U);
+            PacketResult<int> categoryIndex = ParseDecimalField(parts[1], DataFieldIndex);
             if (!categoryIndex.HasValue()) {
                 return PacketResult<ProfileWindow>::Failure(categoryIndex.Error());
             }
@@ -11645,90 +11723,127 @@ namespace cg::packet::receive
             listPayload.categoryId = categoryId.Value();
             listPayload.categoryIndex = categoryIndex.Value();
 
+            bool reachedEmptyRecord = false;
             for (std::size_t recordIndex = 0; recordIndex < ProfileListRecordCount; ++recordIndex) {
                 const std::size_t baseIndex = 2U + (recordIndex * ProfileListRecordFieldCount);
                 ProfileWindowListRecord record;
                 if (IsEmptyProfileListRecord(parts, baseIndex)) {
+                    reachedEmptyRecord = true;
                     record.empty = true;
                     record.seekPos = -1;
                     listPayload.records[recordIndex] = std::move(record);
                     continue;
                 }
 
-                PacketResult<int> seekPos = ParseDecimalField(parts[baseIndex], baseIndex);
+                if (parts[baseIndex] == "-1" || reachedEmptyRecord) {
+                    return PacketResult<ProfileWindow>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        CG_PACKET_DIAGNOSTIC_TEXT("ProfileWindow PROFILELIST sentinel 顺序无效"),
+                        DataFieldIndex));
+                }
+
+                PacketResult<int> seekPos = ParseDecimalField(parts[baseIndex], DataFieldIndex);
                 if (!seekPos.HasValue()) {
                     return PacketResult<ProfileWindow>::Failure(seekPos.Error());
                 }
 
-                PacketResult<int> graphics = ParseDecimalField(parts[baseIndex + 1U], baseIndex + 1U);
+                PacketResult<int> graphics = ParseDecimalField(parts[baseIndex + 1U], DataFieldIndex);
                 if (!graphics.HasValue()) {
                     return PacketResult<ProfileWindow>::Failure(graphics.Error());
                 }
 
+                PacketResult<std::string> name = DecodeDataText(parts[baseIndex + 2U]);
+                if (!name.HasValue()) {
+                    return PacketResult<ProfileWindow>::Failure(name.Error());
+                }
+                PacketResult<std::string> message = DecodeDataText(parts[baseIndex + 3U]);
+                if (!message.HasValue()) {
+                    return PacketResult<ProfileWindow>::Failure(message.Error());
+                }
+
+                record.empty = false;
                 record.seekPos = seekPos.Value();
                 record.graphics = graphics.Value();
-                record.name = parts[baseIndex + 2U];
-                record.message = parts[baseIndex + 3U];
+                record.name = std::move(name.Value());
+                record.message = std::move(message.Value());
                 listPayload.records[recordIndex] = std::move(record);
             }
 
-            ProfileWindow packet(windowType, buttonType, seqNo, objectIndex, std::move(listPayload));
-            packet.data = std::move(originalPayload);
-            return PacketResult<ProfileWindow>::Success(std::move(packet));
+            return PacketResult<ProfileWindow>::Success(
+                ProfileWindow(ProfileListWindowType, buttonType, seqNo, objectIndex, std::move(listPayload)));
         }
 
         [[nodiscard]] static PacketResult<ProfileWindow> ParseProfileMail(
-            int windowType,
             int buttonType,
             int seqNo,
             int objectIndex,
-            std::string originalPayload,
-            const std::vector<std::string>& parts)
+            std::string_view payload)
         {
+            PacketResult<std::vector<std::string>> split = SplitDataPayload(payload);
+            if (!split.HasValue()) {
+                return PacketResult<ProfileWindow>::Failure(split.Error());
+            }
+            const std::vector<std::string>& parts = split.Value();
+            if (parts.size() != ProfileMailPayloadFieldCount) {
+                return PacketResult<ProfileWindow>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileWindow PROFILEMAIL 段数量不匹配"),
+                    DataFieldIndex));
+            }
+
             ProfileWindowProfileMail mailPayload;
-            PacketResult<int> seekPos = ParseDecimalField(parts[0], 0U);
+            PacketResult<int> seekPos = ParseDecimalField(parts[0], DataFieldIndex);
             if (!seekPos.HasValue()) {
                 return PacketResult<ProfileWindow>::Failure(seekPos.Error());
             }
-            PacketResult<int> level = ParseDecimalField(parts[2], 2U);
+            PacketResult<int> level = ParseDecimalField(parts[2], DataFieldIndex);
             if (!level.HasValue()) {
                 return PacketResult<ProfileWindow>::Failure(level.Error());
             }
-            PacketResult<int> faceImageNumber = ParseDecimalField(parts[6], 6U);
+            PacketResult<int> faceImageNumber = ParseDecimalField(parts[6], DataFieldIndex);
             if (!faceImageNumber.HasValue()) {
                 return PacketResult<ProfileWindow>::Failure(faceImageNumber.Error());
             }
-            PacketResult<int> sellFlag = ParseDecimalField(parts[7], 7U);
+            PacketResult<int> sellFlag = ParseDecimalField(parts[7], DataFieldIndex);
             if (!sellFlag.HasValue()) {
                 return PacketResult<ProfileWindow>::Failure(sellFlag.Error());
             }
-            PacketResult<int> buyFlag = ParseDecimalField(parts[9], 9U);
+            PacketResult<int> buyFlag = ParseDecimalField(parts[9], DataFieldIndex);
             if (!buyFlag.HasValue()) {
                 return PacketResult<ProfileWindow>::Failure(buyFlag.Error());
             }
-            PacketResult<int> aboutFlag = ParseDecimalField(parts[11], 11U);
+            PacketResult<int> aboutFlag = ParseDecimalField(parts[11], DataFieldIndex);
             if (!aboutFlag.HasValue()) {
                 return PacketResult<ProfileWindow>::Failure(aboutFlag.Error());
             }
 
+            const std::array<std::size_t, 8U> textIndexes = {{1U, 3U, 4U, 5U, 8U, 10U, 12U, 13U}};
+            std::array<std::string, 8U> textValues;
+            for (std::size_t index = 0; index < textIndexes.size(); ++index) {
+                PacketResult<std::string> decoded = DecodeDataText(parts[textIndexes[index]]);
+                if (!decoded.HasValue()) {
+                    return PacketResult<ProfileWindow>::Failure(decoded.Error());
+                }
+                textValues[index] = std::move(decoded.Value());
+            }
+
             mailPayload.seekPos = seekPos.Value();
-            mailPayload.name = parts[1];
+            mailPayload.name = std::move(textValues[0]);
             mailPayload.level = level.Value();
-            mailPayload.jobName = parts[3];
-            mailPayload.ownTitle = parts[4];
-            mailPayload.guildName = parts[5];
+            mailPayload.jobName = std::move(textValues[1]);
+            mailPayload.ownTitle = std::move(textValues[2]);
+            mailPayload.guildName = std::move(textValues[3]);
             mailPayload.faceImageNumber = faceImageNumber.Value();
             mailPayload.sellFlag = sellFlag.Value();
-            mailPayload.sellMessage = parts[8];
+            mailPayload.sellMessage = std::move(textValues[4]);
             mailPayload.buyFlag = buyFlag.Value();
-            mailPayload.buyMessage = parts[10];
+            mailPayload.buyMessage = std::move(textValues[5]);
             mailPayload.aboutFlag = aboutFlag.Value();
-            mailPayload.aboutMessage = parts[12];
-            mailPayload.profileMessage = parts[13];
+            mailPayload.aboutMessage = std::move(textValues[6]);
+            mailPayload.profileMessage = std::move(textValues[7]);
 
-            ProfileWindow packet(windowType, buttonType, seqNo, objectIndex, std::move(mailPayload));
-            packet.data = std::move(originalPayload);
-            return PacketResult<ProfileWindow>::Success(std::move(packet));
+            return PacketResult<ProfileWindow>::Success(
+                ProfileWindow(ProfileMailWindowType, buttonType, seqNo, objectIndex, std::move(mailPayload)));
         }
 
         [[nodiscard]] static PacketResult<int> ParseDecimalField(std::string_view text, std::size_t fieldIndex)

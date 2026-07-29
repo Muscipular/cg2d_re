@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=ixH
+direction=client_to_server
+sample=without-trailing-space
+plain_hex=69 78 48
+canonical_hex=69 78 48 20
+end_sample

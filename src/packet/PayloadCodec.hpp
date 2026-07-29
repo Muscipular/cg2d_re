@@ -86,6 +86,115 @@ namespace cg::packet
         return PacketResult<std::vector<std::string>>::Success(std::move(parts));
     }
 
+    [[nodiscard]] inline PacketResult<std::string> DecodeLegacyPayloadText(std::string_view text)
+    {
+        std::string output;
+        output.reserve(text.size());
+
+        for (std::size_t index = 0; index < text.size(); ++index) {
+            const char ch = text[index];
+            if (detail::IsLegacyDoubleByteLead(ch)) {
+                if (index + 1U >= text.size()) {
+                    return PacketResult<std::string>::Failure(detail::MakePayloadCodecError(
+                        PacketErrorCode::DecodeFailed,
+                        CG_PACKET_DIAGNOSTIC_TEXT("payload 文本旧双字节字符被截断")));
+                }
+
+                output.push_back(ch);
+                output.push_back(text[index + 1U]);
+                ++index;
+                continue;
+            }
+
+            if (ch != '\\') {
+                output.push_back(ch);
+                continue;
+            }
+
+            if (index + 1U >= text.size()) {
+                return PacketResult<std::string>::Failure(detail::MakePayloadCodecError(
+                    PacketErrorCode::DecodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT("payload 文本转义符被截断")));
+            }
+
+            const char escaped = text[++index];
+            if (detail::IsLegacyDoubleByteLead(escaped)) {
+                if (index + 1U >= text.size()) {
+                    return PacketResult<std::string>::Failure(detail::MakePayloadCodecError(
+                        PacketErrorCode::DecodeFailed,
+                        CG_PACKET_DIAGNOSTIC_TEXT("payload 文本转义后的旧双字节字符被截断")));
+                }
+
+                output.push_back(escaped);
+                output.push_back(text[index + 1U]);
+                ++index;
+                continue;
+            }
+
+            switch (escaped) {
+            case 'n':
+                output.push_back('\n');
+                break;
+            case 'c':
+                output.push_back(',');
+                break;
+            case 'z':
+                output.push_back('|');
+                break;
+            case 'y':
+                output.push_back('\\');
+                break;
+            default:
+                output.push_back(escaped);
+                break;
+            }
+        }
+
+        return PacketResult<std::string>::Success(std::move(output));
+    }
+
+    [[nodiscard]] inline PacketResult<std::string> EncodeLegacyPayloadText(std::string_view text)
+    {
+        std::string output;
+        output.reserve(text.size());
+
+        for (std::size_t index = 0; index < text.size(); ++index) {
+            const char ch = text[index];
+            if (detail::IsLegacyDoubleByteLead(ch)) {
+                if (index + 1U >= text.size()) {
+                    return PacketResult<std::string>::Failure(detail::MakePayloadCodecError(
+                        PacketErrorCode::EncodeFailed,
+                        CG_PACKET_DIAGNOSTIC_TEXT("payload 文本旧双字节字符被截断")));
+                }
+
+                output.push_back(ch);
+                output.push_back(text[index + 1U]);
+                ++index;
+                continue;
+            }
+
+            switch (ch) {
+            case '\n':
+                output.append("\\n");
+                break;
+            case ',':
+                output.append("\\c");
+                break;
+            case '|':
+                output.append("\\z");
+                break;
+            case '\\':
+                output.append("\\y");
+                break;
+            default:
+                output.push_back(ch);
+                break;
+            }
+        }
+
+        return PacketResult<std::string>::Success(std::move(output));
+    }
+
     [[nodiscard]] inline PacketResult<std::string> BuildPayload(
         std::span<const std::string> parts,
         std::string_view delimiter)

@@ -743,8 +743,10 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     const PacketSchema* characterProfileSchema = FindPacket(packets, "aPc");
     failures += Expect(characterProfileSchema != nullptr, "aPc schema exists");
     if (characterProfileSchema != nullptr) {
-        const cg::packet::receive::CharacterProfile characterProfile(2, {"100"});
-        const cg::packet::Packet packet = characterProfile.ToPacket();
+        cg::packet::receive::CharacterProfile characterProfile;
+        characterProfile.flags = 2;
+        characterProfile.hp = 100;
+        const cg::packet::PacketResult<cg::packet::Packet> packet = characterProfile.ToPacket();
         failures += Expect(characterProfileSchema->direction == "服务端->客户端", "aPc direction");
         failures += Expect(characterProfileSchema->legacyKind == "SEND", "aPc legacyKind");
         failures += Expect(
@@ -755,7 +757,13 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         failures += Expect(
             characterProfileSchema->resolvedSource == "ServerC+ClientIda+src/packet",
             "aPc resolvedSource");
-        failures += ExpectResolvedFieldsMatch(*characterProfileSchema, packet, "aPc resolved field order");
+        failures += Expect(static_cast<bool>(packet), "aPc ToPacket");
+        if (packet.HasValue()) {
+            failures += ExpectResolvedFieldsMatch(
+                *characterProfileSchema,
+                packet.Value(),
+                "aPc resolved field order");
+        }
     }
 
     const PacketSchema* createNewCharSchema = FindPacket(packets, "aSEl");

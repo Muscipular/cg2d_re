@@ -1303,14 +1303,14 @@ namespace cg::packet::receive
 
     /**
      * SEND_CP CharData_1		aPc {data:es}
-     * data: flags|value...|，flags 为 i62；后续字段按 flag bit 顺序保留 raw 字符串。
+     * data: flags|按 bit 顺序的字段...|；flags 为 i62，数值字段为 raw signed decimal。
      */
     struct CharacterProfile
     {
         static constexpr std::string_view Code = "aPc";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
-            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::SubPayload},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -1321,38 +1321,117 @@ namespace cg::packet::receive
         static constexpr std::string_view PayloadDelimiter = "|";
 
         int flags = 0;
-        std::vector<std::string> values;
-
-        CharacterProfile(int flags, std::vector<std::string> values)
-            : flags(flags),
-              values(std::move(values))
-        {
-        }
+        std::optional<int> hp;
+        std::optional<int> maxHp;
+        std::optional<int> forcePoint;
+        std::optional<int> maxForcePoint;
+        std::optional<int> vital;
+        std::optional<int> strength;
+        std::optional<int> toughness;
+        std::optional<int> quick;
+        std::optional<int> magic;
+        std::optional<int> stamina;
+        std::optional<int> dexterity;
+        std::optional<int> intelligence;
+        std::optional<int> experience;
+        std::optional<int> nextExperience;
+        std::optional<int> level;
+        std::optional<int> attack;
+        std::optional<int> defence;
+        std::optional<int> agility;
+        std::optional<int> magicPower;
+        std::optional<int> recovery;
+        std::optional<int> charm;
+        std::optional<int> fame;
+        std::optional<int> earth;
+        std::optional<int> water;
+        std::optional<int> fire;
+        std::optional<int> wind;
+        std::optional<int> gold;
+        std::optional<int> titleId;
+        std::optional<std::string> name;
+        std::optional<std::string> ownTitle;
+        std::optional<int> crystal;
 
 #if CG_PACKET_ENABLE_TEST_HELPERS
-        [[nodiscard]] std::string BuildData() const
+        [[nodiscard]] PacketResult<std::string> BuildData() const
         {
             PacketResult<std::string> encodedFlags = EncodeInt62(flags);
-            std::string payload = encodedFlags.HasValue() ? encodedFlags.Value() : std::string();
-            payload.push_back('|');
-            for (const std::string& value : values) {
-                payload.append(value);
-                payload.push_back('|');
+            if (!encodedFlags.HasValue()) {
+                PacketError error = encodedFlags.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = DataFieldIndex;
+                return PacketResult<std::string>::Failure(std::move(error));
+            }
+
+            const std::uint32_t flagBits = static_cast<std::uint32_t>(flags);
+            const std::array<NumericMember, NumericFieldCount> numericMembers = NumericMembers();
+            std::vector<std::string> parts;
+            parts.reserve(1U + NumericFieldCount + 3U + 1U);
+            parts.push_back(encodedFlags.Value());
+
+            for (std::size_t index = 0; index < numericMembers.size(); ++index) {
+                const std::size_t bit = index + FirstDataBit;
+                const std::optional<int>& value = this->*numericMembers[index];
+                const bool selected = IsSelected(flagBits, bit);
+                if (selected != value.has_value()) {
+                    return PacketResult<std::string>::Failure(MakeFieldError(
+                        PacketErrorCode::EncodeFailed,
+                        CG_PACKET_DIAGNOSTIC_TEXT("CharacterProfile flags 与数值字段不匹配"),
+                        bit));
+                }
+                if (selected) {
+                    parts.push_back(std::to_string(*value));
+                }
+            }
+
+            PacketResult<bool> nameAppended = AppendTextField(parts, name, flagBits, NameBit);
+            if (!nameAppended.HasValue()) {
+                return PacketResult<std::string>::Failure(nameAppended.Error());
+            }
+            PacketResult<bool> ownTitleAppended = AppendTextField(parts, ownTitle, flagBits, OwnTitleBit);
+            if (!ownTitleAppended.HasValue()) {
+                return PacketResult<std::string>::Failure(ownTitleAppended.Error());
+            }
+
+            const bool crystalSelected = IsSelected(flagBits, GoldBit);
+            if (crystalSelected != crystal.has_value()) {
+                return PacketResult<std::string>::Failure(MakeFieldError(
+                    PacketErrorCode::EncodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT("CharacterProfile flags 与 crystal 字段不匹配"),
+                    CrystalFieldIndex));
+            }
+            if (crystalSelected) {
+                parts.push_back(std::to_string(*crystal));
+            }
+
+            parts.emplace_back();
+            PacketResult<std::string> payload = BuildPayload(
+                std::span<const std::string>(parts.data(), parts.size()),
+                PayloadDelimiter);
+            if (!payload.HasValue()) {
+                PacketError error = payload.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = DataFieldIndex;
+                return PacketResult<std::string>::Failure(std::move(error));
             }
             return payload;
         }
-#endif
 
-#if CG_PACKET_ENABLE_TEST_HELPERS
-        [[nodiscard]] Packet ToPacket() const
+        [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
+            PacketResult<std::string> data = BuildData();
+            if (!data.HasValue()) {
+                return PacketResult<Packet>::Failure(data.Error());
+            }
+
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("data"),
-                PacketFieldType::EscapedString,
-                BuildData(),
+                PacketFieldType::SubPayload,
+                data.Value(),
             });
-            return packet;
+            return PacketResult<Packet>::Success(std::move(packet));
         }
 #endif
 
@@ -1402,8 +1481,70 @@ namespace cg::packet::receive
         }
 
     private:
+        using NumericMember = std::optional<int> CharacterProfile::*;
+
         static constexpr std::size_t FieldCount = 1U;
         static constexpr std::size_t DataFieldIndex = 0U;
+        static constexpr std::size_t FirstDataBit = 1U;
+        static constexpr std::size_t NumericFieldCount = 28U;
+        static constexpr std::size_t GoldBit = 27U;
+        static constexpr std::size_t NameBit = 29U;
+        static constexpr std::size_t OwnTitleBit = 30U;
+        static constexpr std::size_t CrystalFieldIndex = 31U;
+        static constexpr std::uint32_t AllFlag = 1U;
+
+        [[nodiscard]] static constexpr std::array<NumericMember, NumericFieldCount> NumericMembers() noexcept
+        {
+            return {{
+                &CharacterProfile::hp,
+                &CharacterProfile::maxHp,
+                &CharacterProfile::forcePoint,
+                &CharacterProfile::maxForcePoint,
+                &CharacterProfile::vital,
+                &CharacterProfile::strength,
+                &CharacterProfile::toughness,
+                &CharacterProfile::quick,
+                &CharacterProfile::magic,
+                &CharacterProfile::stamina,
+                &CharacterProfile::dexterity,
+                &CharacterProfile::intelligence,
+                &CharacterProfile::experience,
+                &CharacterProfile::nextExperience,
+                &CharacterProfile::level,
+                &CharacterProfile::attack,
+                &CharacterProfile::defence,
+                &CharacterProfile::agility,
+                &CharacterProfile::magicPower,
+                &CharacterProfile::recovery,
+                &CharacterProfile::charm,
+                &CharacterProfile::fame,
+                &CharacterProfile::earth,
+                &CharacterProfile::water,
+                &CharacterProfile::fire,
+                &CharacterProfile::wind,
+                &CharacterProfile::gold,
+                &CharacterProfile::titleId,
+            }};
+        }
+
+        [[nodiscard]] static constexpr bool IsSelected(std::uint32_t flagBits, std::size_t bit) noexcept
+        {
+            return (flagBits & AllFlag) != 0U || (flagBits & (1U << bit)) != 0U;
+        }
+
+        [[nodiscard]] static std::size_t ExpectedValueCount(std::uint32_t flagBits) noexcept
+        {
+            std::size_t count = 0;
+            for (std::size_t bit = FirstDataBit; bit <= OwnTitleBit; ++bit) {
+                if (IsSelected(flagBits, bit)) {
+                    ++count;
+                }
+            }
+            if (IsSelected(flagBits, GoldBit)) {
+                ++count;
+            }
+            return count;
+        }
 
         [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
@@ -1422,6 +1563,89 @@ namespace cg::packet::receive
             return error;
         }
 
+#if CG_PACKET_ENABLE_TEST_HELPERS
+        [[nodiscard]] static PacketResult<bool> AppendTextField(
+            std::vector<std::string>& parts,
+            const std::optional<std::string>& value,
+            std::uint32_t flagBits,
+            std::size_t bit)
+        {
+            const bool selected = IsSelected(flagBits, bit);
+            if (selected != value.has_value()) {
+                return PacketResult<bool>::Failure(MakeFieldError(
+                    PacketErrorCode::EncodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT("CharacterProfile flags 与文本字段不匹配"),
+                    bit));
+            }
+            if (!selected) {
+                return PacketResult<bool>::Success(false);
+            }
+
+            PacketResult<std::string> encoded = EncodeLegacyPayloadText(*value);
+            if (!encoded.HasValue()) {
+                PacketError error = encoded.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = bit;
+                return PacketResult<bool>::Failure(std::move(error));
+            }
+            parts.push_back(encoded.Value());
+            return PacketResult<bool>::Success(true);
+        }
+#endif
+
+        [[nodiscard]] static PacketResult<int> ParseDecimalField(
+            std::string_view text,
+            std::size_t fieldIndex)
+        {
+            if (text.empty()) {
+                return PacketResult<int>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT("CharacterProfile payload 十进制字段为空"),
+                    fieldIndex));
+            }
+
+            bool negative = false;
+            std::size_t index = 0;
+            if (text.front() == '-') {
+                negative = true;
+                index = 1U;
+            }
+            if (index == text.size()) {
+                return PacketResult<int>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT("CharacterProfile payload 十进制字段缺少数字"),
+                    fieldIndex));
+            }
+
+            const std::int64_t maxValue = static_cast<std::int64_t>(std::numeric_limits<int>::max());
+            const std::int64_t minValue = static_cast<std::int64_t>(std::numeric_limits<int>::min());
+            const std::int64_t limit = negative ? (0 - minValue) : maxValue;
+            std::int64_t value = 0;
+            for (; index < text.size(); ++index) {
+                const char ch = text[index];
+                if (ch < '0' || ch > '9') {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        CG_PACKET_DIAGNOSTIC_TEXT("CharacterProfile payload 十进制字段包含非法字符"),
+                        fieldIndex));
+                }
+
+                const int digit = ch - '0';
+                if (value > (limit - digit) / 10) {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        CG_PACKET_DIAGNOSTIC_TEXT("CharacterProfile payload 十进制字段超出 int 范围"),
+                        fieldIndex));
+                }
+                value = (value * 10) + digit;
+            }
+
+            if (negative) {
+                value = -value;
+            }
+            return PacketResult<int>::Success(static_cast<int>(value));
+        }
+
         [[nodiscard]] static PacketResult<CharacterProfile> ParseData(std::string_view payload)
         {
             if (payload.empty()) {
@@ -1431,14 +1655,8 @@ namespace cg::packet::receive
                     DataFieldIndex));
             }
 
-            if (payload.back() != '|') {
-                return PacketResult<CharacterProfile>::Failure(MakeFieldError(
-                    PacketErrorCode::DecodeFailed,
-                    CG_PACKET_DIAGNOSTIC_TEXT("CharacterProfile payload 缺少尾随分隔符"),
-                    DataFieldIndex));
-            }
-
-            PacketResult<std::vector<std::string>> parts = SplitPayload(payload, PayloadDelimiter);
+            PacketResult<std::vector<std::string>> parts =
+                SplitPayloadLegacyAware(payload, PayloadDelimiter);
             if (!parts.HasValue()) {
                 PacketError error = parts.Error();
                 error.packetCode = PacketCode(Code);
@@ -1447,6 +1665,12 @@ namespace cg::packet::receive
             }
 
             std::vector<std::string> payloadParts = std::move(parts.Value());
+            if (payloadParts.empty() || !payloadParts.back().empty()) {
+                return PacketResult<CharacterProfile>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT("CharacterProfile payload 缺少尾随分隔符"),
+                    DataFieldIndex));
+            }
             payloadParts.pop_back();
             if (payloadParts.empty() || payloadParts.front().empty()) {
                 return PacketResult<CharacterProfile>::Failure(MakeFieldError(
@@ -1463,13 +1687,66 @@ namespace cg::packet::receive
                 return PacketResult<CharacterProfile>::Failure(std::move(error));
             }
 
-            std::vector<std::string> rawValues;
-            rawValues.reserve(payloadParts.size() - 1U);
-            for (std::size_t index = 1U; index < payloadParts.size(); ++index) {
-                rawValues.push_back(std::move(payloadParts[index]));
+            const std::uint32_t flagBits = static_cast<std::uint32_t>(decodedFlags.Value());
+            const std::size_t expectedValues = ExpectedValueCount(flagBits);
+            if (payloadParts.size() != expectedValues + 1U) {
+                return PacketResult<CharacterProfile>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    CG_PACKET_DIAGNOSTIC_TEXT("CharacterProfile payload 字段数量与 flags 不匹配"),
+                    DataFieldIndex));
             }
 
-            return PacketResult<CharacterProfile>::Success(CharacterProfile(decodedFlags.Value(), std::move(rawValues)));
+            CharacterProfile profile;
+            profile.flags = decodedFlags.Value();
+            std::size_t cursor = 1U;
+            const std::array<NumericMember, NumericFieldCount> numericMembers = NumericMembers();
+            for (std::size_t index = 0; index < numericMembers.size(); ++index) {
+                const std::size_t bit = index + FirstDataBit;
+                if (!IsSelected(flagBits, bit)) {
+                    continue;
+                }
+
+                PacketResult<int> value = ParseDecimalField(payloadParts[cursor], cursor);
+                if (!value.HasValue()) {
+                    return PacketResult<CharacterProfile>::Failure(value.Error());
+                }
+                profile.*numericMembers[index] = value.Value();
+                ++cursor;
+            }
+
+            if (IsSelected(flagBits, NameBit)) {
+                PacketResult<std::string> decoded = DecodeLegacyPayloadText(payloadParts[cursor]);
+                if (!decoded.HasValue()) {
+                    PacketError error = decoded.Error();
+                    error.packetCode = PacketCode(Code);
+                    error.fieldIndex = cursor;
+                    return PacketResult<CharacterProfile>::Failure(std::move(error));
+                }
+                profile.name = decoded.Value();
+                ++cursor;
+            }
+
+            if (IsSelected(flagBits, OwnTitleBit)) {
+                PacketResult<std::string> decoded = DecodeLegacyPayloadText(payloadParts[cursor]);
+                if (!decoded.HasValue()) {
+                    PacketError error = decoded.Error();
+                    error.packetCode = PacketCode(Code);
+                    error.fieldIndex = cursor;
+                    return PacketResult<CharacterProfile>::Failure(std::move(error));
+                }
+                profile.ownTitle = decoded.Value();
+                ++cursor;
+            }
+
+            if (IsSelected(flagBits, GoldBit)) {
+                PacketResult<int> value = ParseDecimalField(payloadParts[cursor], cursor);
+                if (!value.HasValue()) {
+                    return PacketResult<CharacterProfile>::Failure(value.Error());
+                }
+                profile.crystal = value.Value();
+            }
+
+            return PacketResult<CharacterProfile>::Success(std::move(profile));
         }
     };
 

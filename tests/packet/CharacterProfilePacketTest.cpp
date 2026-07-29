@@ -1,22 +1,29 @@
 #include "packet/PacketBuilder.hpp"
 #include "packet/Receive.hpp"
 
+#include <array>
 #include <cstddef>
+#include <cstdint>
+#include <initializer_list>
 #include <iostream>
+#include <limits>
+#include <optional>
 #include <string>
 #include <string_view>
 #include <vector>
 
 namespace {
 
+using CharacterProfile = cg::packet::receive::CharacterProfile;
+
 cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
 {
-    return cg::packet::ParsePacket(plainTokens, cg::packet::receive::CharacterProfile::Spec);
+    return cg::packet::ParsePacket(plainTokens, CharacterProfile::Spec);
 }
 
 cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
 {
-    return cg::packet::BuildPacket(packet, cg::packet::receive::CharacterProfile::Spec);
+    return cg::packet::BuildPacket(packet, CharacterProfile::Spec);
 }
 
 int Expect(bool condition, const char* message)
@@ -51,6 +58,31 @@ int ExpectError(
     return failures;
 }
 
+int FlagsFor(std::initializer_list<std::size_t> bits)
+{
+    std::uint32_t flags = 0;
+    for (const std::size_t bit : bits) {
+        flags |= 1U << bit;
+    }
+    return static_cast<int>(flags);
+}
+
+std::string BuildPayload(int flags, const std::vector<std::string>& values)
+{
+    const cg::packet::PacketResult<std::string> encodedFlags = cg::packet::EncodeInt62(flags);
+    if (!encodedFlags.HasValue()) {
+        return {};
+    }
+
+    std::string payload = encodedFlags.Value();
+    payload.push_back('|');
+    for (const std::string& value : values) {
+        payload.append(value);
+        payload.push_back('|');
+    }
+    return payload;
+}
+
 std::string BuildPlainApc(std::string_view payload)
 {
     const cg::packet::PacketResult<std::string> encoded = cg::packet::EncodeEscapedString(payload);
@@ -67,10 +99,11 @@ std::string BuildPlainApc(std::string_view payload)
 int ExpectCharacterProfilePacket(
     const cg::packet::Packet& packet,
     std::string_view value,
+    cg::packet::PacketFieldType fieldType,
     const char* message)
 {
     int failures = 0;
-    failures += Expect(packet.code == cg::packet::PacketCode(cg::packet::receive::CharacterProfile::Code), message);
+    failures += Expect(packet.code == cg::packet::PacketCode(CharacterProfile::Code), message);
     failures += Expect(packet.direction == cg::packet::PacketDirection::ServerToClient, message);
     failures += Expect(packet.fields.size() == 1U, message);
     if (packet.fields.size() != 1U) {
@@ -78,126 +111,228 @@ int ExpectCharacterProfilePacket(
     }
 
     failures += Expect(packet.fields[0].name == "data", message);
-    failures += Expect(packet.fields[0].type == cg::packet::PacketFieldType::EscapedString, message);
+    failures += Expect(packet.fields[0].type == fieldType, message);
     failures += Expect(packet.fields[0].value == value, message);
-    return failures;
-}
-
-int ExpectCharacterProfileValues(
-    const cg::packet::receive::CharacterProfile& profile,
-    int flags,
-    const std::vector<std::string>& values,
-    const char* message)
-{
-    int failures = 0;
-    failures += Expect(profile.flags == flags, message);
-    failures += Expect(profile.values.size() == values.size(), message);
-    if (profile.values.size() != values.size()) {
-        return failures;
-    }
-
-    for (std::size_t index = 0; index < values.size(); ++index) {
-        failures += Expect(profile.values[index] == values[index], message);
-    }
     return failures;
 }
 
 int TestParsePacketOuter()
 {
-    const std::string payload = "1|100|200|";
+    const int flags = FlagsFor({1U});
+    const std::string payload = BuildPayload(flags, {"100"});
     const cg::packet::PacketResult<cg::packet::Packet> parsed =
         ParsePacket(BuildPlainApc(payload));
 
     int failures = Expect(static_cast<bool>(parsed), "parse aPc outer");
     if (parsed.HasValue()) {
-        failures += ExpectCharacterProfilePacket(parsed.Value(), payload, "parse aPc outer packet");
+        failures += ExpectCharacterProfilePacket(
+            parsed.Value(),
+            payload,
+            cg::packet::PacketFieldType::EscapedString,
+            "parse aPc outer packet");
     }
     return failures;
 }
 
-int TestTypedParseRawValues()
+int TestPartialMask()
 {
-    const cg::packet::PacketResult<cg::packet::receive::CharacterProfile> parsed =
-        cg::packet::receive::CharacterProfile::Parse(BuildPlainApc("1|100|200|"));
+    const int flags = FlagsFor({1U, 27U, 29U});
+    const std::string payload = BuildPayload(flags, {"100", "500", "Hero\\zName", "25"});
+    const cg::packet::PacketResult<CharacterProfile> parsed =
+        CharacterProfile::Parse(BuildPlainApc(payload));
 
-    int failures = Expect(static_cast<bool>(parsed), "parse aPc raw values");
-    if (parsed.HasValue()) {
-        failures += ExpectCharacterProfileValues(parsed.Value(), 1, {"100", "200"}, "parse aPc values");
-        failures += Expect(parsed.Value().BuildData() == "1|100|200|", "parse aPc drops only trailing empty segment");
+    int failures = Expect(static_cast<bool>(parsed), "parse aPc partial mask");
+    if (!parsed.HasValue()) {
+        return failures;
+    }
+
+    const CharacterProfile& profile = parsed.Value();
+    failures += Expect(profile.flags == flags, "aPc partial flags");
+    failures += Expect(profile.hp == 100, "aPc partial hp");
+    failures += Expect(!profile.maxHp.has_value(), "aPc partial maxHp absent");
+    failures += Expect(profile.gold == 500, "aPc partial gold");
+    failures += Expect(profile.name == "Hero|Name", "aPc partial name");
+    failures += Expect(!profile.ownTitle.has_value(), "aPc partial ownTitle absent");
+    failures += Expect(profile.crystal == 25, "aPc partial crystal");
+    return failures;
+}
+
+int TestAllFields()
+{
+    std::vector<std::string> values;
+    values.reserve(31U);
+    for (int value = 1; value <= 28; ++value) {
+        values.push_back(std::to_string(value));
+    }
+    values.push_back("Hero");
+    values.push_back("OwnTitle");
+    values.push_back("31");
+
+    const std::string payload = BuildPayload(1, values);
+    const cg::packet::PacketResult<CharacterProfile> parsed =
+        CharacterProfile::Parse(BuildPlainApc(payload));
+
+    int failures = Expect(static_cast<bool>(parsed), "parse aPc ALL fields");
+    if (!parsed.HasValue()) {
+        return failures;
+    }
+
+    using NumericMember = std::optional<int> CharacterProfile::*;
+    constexpr std::array<NumericMember, 28U> members = {{
+        &CharacterProfile::hp,
+        &CharacterProfile::maxHp,
+        &CharacterProfile::forcePoint,
+        &CharacterProfile::maxForcePoint,
+        &CharacterProfile::vital,
+        &CharacterProfile::strength,
+        &CharacterProfile::toughness,
+        &CharacterProfile::quick,
+        &CharacterProfile::magic,
+        &CharacterProfile::stamina,
+        &CharacterProfile::dexterity,
+        &CharacterProfile::intelligence,
+        &CharacterProfile::experience,
+        &CharacterProfile::nextExperience,
+        &CharacterProfile::level,
+        &CharacterProfile::attack,
+        &CharacterProfile::defence,
+        &CharacterProfile::agility,
+        &CharacterProfile::magicPower,
+        &CharacterProfile::recovery,
+        &CharacterProfile::charm,
+        &CharacterProfile::fame,
+        &CharacterProfile::earth,
+        &CharacterProfile::water,
+        &CharacterProfile::fire,
+        &CharacterProfile::wind,
+        &CharacterProfile::gold,
+        &CharacterProfile::titleId,
+    }};
+
+    const CharacterProfile& profile = parsed.Value();
+    failures += Expect(profile.flags == 1, "aPc ALL flags");
+    for (std::size_t index = 0; index < members.size(); ++index) {
+        const std::optional<int>& value = profile.*members[index];
+        failures += Expect(
+            value.has_value() && *value == static_cast<int>(index + 1U),
+            "aPc ALL numeric field");
+    }
+    failures += Expect(profile.name == "Hero", "aPc ALL name");
+    failures += Expect(profile.ownTitle == "OwnTitle", "aPc ALL ownTitle");
+    failures += Expect(profile.crystal == 31, "aPc ALL crystal");
+
+    const cg::packet::PacketResult<std::string> rebuilt = profile.BuildData();
+    failures += Expect(static_cast<bool>(rebuilt), "build aPc ALL fields");
+    if (rebuilt.HasValue()) {
+        failures += Expect(rebuilt.Value() == payload, "roundtrip aPc ALL fields");
     }
     return failures;
 }
 
-int TestSingleFieldFlagsSample()
+int TestLegacyInnerEscape()
 {
-    const cg::packet::PacketResult<cg::packet::receive::CharacterProfile> parsed =
-        cg::packet::receive::CharacterProfile::Parse(BuildPlainApc("a|123|"));
+    const int flags = FlagsFor({29U, 30U});
+    const std::string payload = BuildPayload(
+        flags,
+        {"Line\\nComma\\cPipe\\zSlash\\yUnknown\\q", "Title\\zValue"});
+    const cg::packet::PacketResult<CharacterProfile> parsed =
+        CharacterProfile::Parse(BuildPlainApc(payload));
 
-    int failures = Expect(static_cast<bool>(parsed), "parse aPc flags 10 sample");
-    if (parsed.HasValue()) {
-        failures += ExpectCharacterProfileValues(parsed.Value(), 10, {"123"}, "parse aPc flags 10 value");
+    int failures = Expect(static_cast<bool>(parsed), "parse aPc inner escape");
+    if (!parsed.HasValue()) {
+        return failures;
+    }
+
+    const CharacterProfile& profile = parsed.Value();
+    failures += Expect(
+        profile.name == "Line\nComma,Pipe|Slash\\Unknownq",
+        "aPc inner name decoded");
+    failures += Expect(profile.ownTitle == "Title|Value", "aPc inner ownTitle decoded");
+
+    const std::string canonical = BuildPayload(
+        flags,
+        {"Line\\nComma\\cPipe\\zSlash\\yUnknownq", "Title\\zValue"});
+    const cg::packet::PacketResult<std::string> rebuilt = profile.BuildData();
+    failures += Expect(static_cast<bool>(rebuilt), "build aPc inner escape");
+    if (rebuilt.HasValue()) {
+        failures += Expect(rebuilt.Value() == canonical, "aPc inner escape canonical");
     }
     return failures;
 }
 
-int TestStringFieldsAreRawValues()
+int TestGbkDelimiterTrailByte()
 {
-    const cg::packet::PacketResult<cg::packet::receive::CharacterProfile> parsed =
-        cg::packet::receive::CharacterProfile::Parse(BuildPlainApc("1|Name|OwnTitle|"));
+    const int flags = FlagsFor({29U});
+    const std::string gbkCharacter {static_cast<char>(0x81), static_cast<char>(0x7c)};
+    const std::string payload = BuildPayload(flags, {gbkCharacter});
+    const cg::packet::PacketResult<CharacterProfile> parsed =
+        CharacterProfile::Parse(BuildPlainApc(payload));
 
-    int failures = Expect(static_cast<bool>(parsed), "parse aPc string values");
-    if (parsed.HasValue()) {
-        failures += ExpectCharacterProfileValues(parsed.Value(), 1, {"Name", "OwnTitle"}, "parse aPc string raw values");
+    int failures = Expect(static_cast<bool>(parsed), "parse aPc GBK 81 7C");
+    if (!parsed.HasValue()) {
+        return failures;
+    }
+
+    failures += Expect(parsed.Value().name == gbkCharacter, "aPc GBK name bytes");
+    const cg::packet::PacketResult<std::string> rebuilt = parsed.Value().BuildData();
+    failures += Expect(static_cast<bool>(rebuilt), "build aPc GBK 81 7C");
+    if (rebuilt.HasValue()) {
+        failures += Expect(rebuilt.Value() == payload, "roundtrip aPc GBK 81 7C");
     }
     return failures;
 }
 
-int TestMiddleEmptyValueIsPreserved()
+int TestBit31ConsumesNoValue()
 {
-    const cg::packet::PacketResult<cg::packet::receive::CharacterProfile> parsed =
-        cg::packet::receive::CharacterProfile::Parse(BuildPlainApc("1||200|"));
+    const int flags = std::numeric_limits<int>::min();
+    const std::string payload = BuildPayload(flags, {});
+    const cg::packet::PacketResult<CharacterProfile> parsed =
+        CharacterProfile::Parse(BuildPlainApc(payload));
 
-    int failures = Expect(static_cast<bool>(parsed), "parse aPc middle empty value");
-    if (parsed.HasValue()) {
-        failures += ExpectCharacterProfileValues(parsed.Value(), 1, {"", "200"}, "parse aPc keeps middle empty value");
-        failures += Expect(parsed.Value().BuildData() == "1||200|", "build aPc keeps middle empty value");
+    int failures = Expect(static_cast<bool>(parsed), "parse aPc bit31 no value");
+    if (!parsed.HasValue()) {
+        return failures;
     }
+
+    failures += Expect(parsed.Value().flags == flags, "aPc bit31 flags");
+    failures += Expect(!parsed.Value().hp.has_value(), "aPc bit31 hp absent");
+    failures += Expect(!parsed.Value().ownTitle.has_value(), "aPc bit31 ownTitle absent");
+    failures += Expect(!parsed.Value().crystal.has_value(), "aPc bit31 crystal absent");
     return failures;
 }
 
-int TestToPacketBuildPreservesTrailingDelimiter()
+int TestToPacketRoundTrip()
 {
-    const cg::packet::receive::CharacterProfile profile(10, {"123"});
-    const cg::packet::Packet packet = profile.ToPacket();
+    CharacterProfile profile;
+    profile.flags = FlagsFor({1U, 29U});
+    profile.hp = -10;
+    profile.name = "Hero|Name";
 
-    int failures = ExpectCharacterProfilePacket(packet, "a|123|", "aPc ToPacket data");
+    const cg::packet::PacketResult<cg::packet::Packet> packet = profile.ToPacket();
+    int failures = Expect(static_cast<bool>(packet), "aPc ToPacket");
+    if (!packet.HasValue()) {
+        return failures;
+    }
 
-    const cg::packet::PacketResult<std::string> built = BuildPacket(packet);
+    const std::string payload = BuildPayload(profile.flags, {"-10", "Hero\\zName"});
+    failures += ExpectCharacterProfilePacket(
+        packet.Value(),
+        payload,
+        cg::packet::PacketFieldType::SubPayload,
+        "aPc ToPacket data");
+
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
     failures += Expect(static_cast<bool>(built), "build aPc packet");
     if (!built.HasValue()) {
         return failures;
     }
+    failures += Expect(built.Value() == BuildPlainApc(payload), "build aPc wire");
 
-    failures += Expect(built.Value() == BuildPlainApc("a|123|"), "build aPc packet preserves trailing delimiter");
-
-    const cg::packet::PacketResult<cg::packet::receive::CharacterProfile> parsed =
-        cg::packet::receive::CharacterProfile::Parse(built.Value());
+    const cg::packet::PacketResult<CharacterProfile> parsed = CharacterProfile::Parse(built.Value());
     failures += Expect(static_cast<bool>(parsed), "roundtrip aPc packet");
     if (parsed.HasValue()) {
-        failures += ExpectCharacterProfileValues(parsed.Value(), 10, {"123"}, "roundtrip aPc values");
-    }
-    return failures;
-}
-
-int TestEmptyValuesBuild()
-{
-    const cg::packet::receive::CharacterProfile profile(1, {});
-
-    int failures = Expect(profile.BuildData() == "1|", "build aPc empty values");
-    const cg::packet::PacketResult<std::string> built = BuildPacket(profile.ToPacket());
-    failures += Expect(static_cast<bool>(built), "build aPc empty values packet");
-    if (built.HasValue()) {
-        failures += Expect(built.Value() == BuildPlainApc("1|"), "build aPc empty values packet value");
+        failures += Expect(parsed.Value().hp == -10, "roundtrip aPc hp");
+        failures += Expect(parsed.Value().name == "Hero|Name", "roundtrip aPc name");
     }
     return failures;
 }
@@ -211,7 +346,7 @@ int TestErrors()
         "aPc",
         "aPc missing data");
     failures += ExpectError(
-        cg::packet::receive::CharacterProfile::Parse("aPc"),
+        CharacterProfile::Parse("aPc"),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "aPc",
         "typed aPc missing data");
@@ -221,15 +356,48 @@ int TestErrors()
         "aPc",
         "aPc extra outer token");
     failures += ExpectError(
-        cg::packet::receive::CharacterProfile::Parse(BuildPlainApc("1|100")),
-        cg::packet::PacketErrorCode::DecodeFailed,
+        CharacterProfile::Parse(BuildPlainApc(BuildPayload(FlagsFor({1U}), {}))),
+        cg::packet::PacketErrorCode::FieldCountMismatch,
         "aPc",
-        "typed aPc missing trailing delimiter");
+        "aPc selected value missing");
     failures += ExpectError(
-        cg::packet::receive::CharacterProfile::Parse(BuildPlainApc("_|100|")),
+        CharacterProfile::Parse(BuildPlainApc(BuildPayload(0, {"100"}))),
+        cg::packet::PacketErrorCode::FieldCountMismatch,
+        "aPc",
+        "aPc unselected extra value");
+    failures += ExpectError(
+        CharacterProfile::Parse(BuildPlainApc(BuildPayload(FlagsFor({1U}), {"bad"}))),
         cg::packet::PacketErrorCode::DecodeFailed,
         "aPc",
-        "typed aPc bad flags");
+        "aPc bad decimal");
+    failures += ExpectError(
+        CharacterProfile::Parse(BuildPlainApc(BuildPayload(FlagsFor({29U}), {"Name\\"}))),
+        cg::packet::PacketErrorCode::DecodeFailed,
+        "aPc",
+        "aPc trailing inner escape");
+    failures += ExpectError(
+        CharacterProfile::Parse(BuildPlainApc(BuildPayload(
+            std::numeric_limits<int>::min(),
+            {"unused"}))),
+        cg::packet::PacketErrorCode::FieldCountMismatch,
+        "aPc",
+        "aPc bit31 consumes no value");
+
+    const std::string truncatedGbk(1U, static_cast<char>(0x81));
+    failures += Expect(
+        !cg::packet::DecodeLegacyPayloadText(truncatedGbk).HasValue(),
+        "aPc decode truncated GBK");
+    failures += Expect(
+        !cg::packet::EncodeLegacyPayloadText(truncatedGbk).HasValue(),
+        "aPc encode truncated GBK");
+
+    CharacterProfile missingSelected;
+    missingSelected.flags = FlagsFor({1U});
+    failures += ExpectError(
+        missingSelected.BuildData(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        "aPc",
+        "aPc build missing selected field");
     return failures;
 }
 
@@ -239,12 +407,12 @@ int main()
 {
     int failures = 0;
     failures += TestParsePacketOuter();
-    failures += TestTypedParseRawValues();
-    failures += TestSingleFieldFlagsSample();
-    failures += TestStringFieldsAreRawValues();
-    failures += TestMiddleEmptyValueIsPreserved();
-    failures += TestToPacketBuildPreservesTrailingDelimiter();
-    failures += TestEmptyValuesBuild();
+    failures += TestPartialMask();
+    failures += TestAllFields();
+    failures += TestLegacyInnerEscape();
+    failures += TestGbkDelimiterTrailByte();
+    failures += TestBit31ConsumesNoValue();
+    failures += TestToPacketRoundTrip();
     failures += TestErrors();
     if (failures != 0) {
         std::cerr << failures << " checks failed\n";

@@ -2733,6 +2733,55 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         failures += ExpectResolvedFieldsMatch(*objectDeleteSchema, packet, "uSB resolved/Spec field order");
     }
 
+    const PacketSchema* guildMemberAddedSchema = FindPacket(packets, "GC");
+    failures += Expect(guildMemberAddedSchema != nullptr, "GC schema exists");
+    if (guildMemberAddedSchema != nullptr) {
+        failures += Expect(
+            guildMemberAddedSchema->direction == "服务端->客户端",
+            "GC direction");
+        failures += Expect(guildMemberAddedSchema->legacyKind == "SEND", "GC legacyKind");
+        failures += Expect(
+            guildMemberAddedSchema->originalFormat == "GC",
+            "GC originalFormat");
+        failures += Expect(guildMemberAddedSchema->rawFormat.empty(), "GC rawFormat empty");
+        failures += Expect(!guildMemberAddedSchema->formatEmpty, "GC formatEmpty false");
+        failures += Expect(guildMemberAddedSchema->source == "xlsx", "GC raw source");
+        failures += Expect(guildMemberAddedSchema->fields.empty(), "GC raw fields empty");
+        failures += Expect(
+            guildMemberAddedSchema->hasResolvedFormat,
+            "GC resolvedFormat present");
+        failures += Expect(
+            guildMemberAddedSchema->resolvedFormat.empty(),
+            "GC resolvedFormat empty");
+        failures += Expect(
+            guildMemberAddedSchema->resolvedSource == "xlsx+ServerC+ClientIda",
+            "GC resolvedSource");
+        failures += Expect(
+            guildMemberAddedSchema->hasResolvedFields,
+            "GC resolvedFields present");
+        failures += Expect(
+            guildMemberAddedSchema->resolvedFields.empty(),
+            "GC resolvedFields empty");
+
+        bool hasSendTypedPacket = false;
+        for (const cg::packet::test::TypedPacketManifestEntry& entry :
+             cg::packet::test::SendTypedPackets) {
+            if (entry.spec != nullptr && entry.spec->code == "GC") {
+                hasSendTypedPacket = true;
+            }
+        }
+        failures += Expect(!hasSendTypedPacket, "GC absent from send typed manifest");
+
+        bool hasReceiveTypedPacket = false;
+        for (const cg::packet::test::TypedPacketManifestEntry& entry :
+             cg::packet::test::ReceiveTypedPackets) {
+            if (entry.spec != nullptr && entry.spec->code == "GC") {
+                hasReceiveTypedPacket = true;
+            }
+        }
+        failures += Expect(!hasReceiveTypedPacket, "GC absent from receive typed manifest");
+    }
+
     const PacketSchema* tradeOutcomeSchema = FindPacket(packets, "We");
     failures += Expect(tradeOutcomeSchema != nullptr, "We schema exists");
     if (tradeOutcomeSchema != nullptr) {

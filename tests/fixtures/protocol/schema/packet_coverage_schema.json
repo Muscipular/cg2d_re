@@ -2703,6 +2703,9 @@
       "originalFormat": "GC",
       "formatEmpty": false,
       "source": "xlsx",
+      "resolvedFormat": "",
+      "resolvedSource": "xlsx+ServerC+ClientIda",
+      "resolvedFields": [],
       "fields": []
     },
     {

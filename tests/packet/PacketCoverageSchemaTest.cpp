@@ -1124,11 +1124,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 29U, "send typed manifest count 29");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 30U, "send typed manifest count 30");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 67U, "receive typed manifest count 67");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 96U,
-        "typed manifest count 96");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 97U,
+        "typed manifest count 97");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1145,7 +1145,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 96U, "typed manifest unique code count 96");
+    failures += Expect(codes.size() == 97U, "typed manifest unique code count 97");
     return failures;
 }
 
@@ -1831,6 +1831,34 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             *echoRequestSchema,
             packet,
             "Or resolved field order");
+    }
+
+    const PacketSchema* keepAliveRequestSchema = FindPacket(packets, "DE");
+    failures += Expect(keepAliveRequestSchema != nullptr, "DE schema exists");
+    if (keepAliveRequestSchema != nullptr) {
+        const cg::packet::Packet packet = cg::packet::send::KeepAliveRequest {}.ToPacket();
+        failures += Expect(keepAliveRequestSchema->direction == "客户端->服务端", "DE direction");
+        failures += Expect(keepAliveRequestSchema->legacyKind == "RECV", "DE legacyKind");
+        failures += Expect(keepAliveRequestSchema->rawFormat.empty(), "DE rawFormat empty");
+        failures += Expect(keepAliveRequestSchema->originalFormat == "DE", "DE originalFormat");
+        failures += Expect(!keepAliveRequestSchema->formatEmpty, "DE formatEmpty false");
+        failures += Expect(keepAliveRequestSchema->hasResolvedFormat, "DE resolvedFormat present");
+        failures += Expect(keepAliveRequestSchema->resolvedFormat.empty(), "DE resolvedFormat empty");
+        failures += Expect(
+            keepAliveRequestSchema->resolvedSource
+                == "xlsx+ServerC+ClientIda+src/packet",
+            "DE resolvedSource");
+        failures += Expect(keepAliveRequestSchema->fields.empty(), "DE raw fields empty");
+        failures += Expect(keepAliveRequestSchema->hasResolvedFields, "DE resolvedFields present");
+        failures += Expect(keepAliveRequestSchema->resolvedFields.empty(), "DE resolvedFields empty");
+        failures += ExpectEffectiveFieldsMatch(
+            *keepAliveRequestSchema,
+            cg::packet::send::KeepAliveRequest::Spec,
+            "DE Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *keepAliveRequestSchema,
+            packet,
+            "DE resolved field order");
     }
 
     const PacketSchema* loginResultSchema = FindPacket(packets, "whV");

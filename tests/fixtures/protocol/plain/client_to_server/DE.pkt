@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=DE
+direction=client_to_server
+sample=keep-alive
+plain_hex=44 45
+canonical_hex=44 45 20
+end_sample

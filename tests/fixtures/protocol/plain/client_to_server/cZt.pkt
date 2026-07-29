@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=cZt
+direction=client_to_server
+sample=party-leave-position-sync
+plain_hex=63 5A 74 20 61 20 6B 20 37
+canonical_hex=63 5A 74 20 61 20 6B 20 37 20
+end_sample

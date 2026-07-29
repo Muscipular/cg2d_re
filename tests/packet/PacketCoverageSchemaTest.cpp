@@ -1124,11 +1124,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 41U, "send typed manifest count 41");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 42U, "send typed manifest count 42");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 82U, "receive typed manifest count 82");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 123U,
-        "typed manifest count 123");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 124U,
+        "typed manifest count 124");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1145,7 +1145,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 123U, "typed manifest unique code count 123");
+    failures += Expect(codes.size() == 124U, "typed manifest unique code count 124");
     return failures;
 }
 
@@ -2736,6 +2736,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     const PacketSchema* separationPositionSchema = FindPacket(packets, "cZt");
     failures += Expect(separationPositionSchema != nullptr, "cZt schema exists");
     if (separationPositionSchema != nullptr) {
+        const cg::packet::send::PartyLeavePositionSync positionSync(10, 20, 7);
+        const cg::packet::Packet packet = positionSync.ToPacket();
         failures += Expect(
             separationPositionSchema->direction == "客户端->服务端",
             "cZt direction");
@@ -2754,7 +2756,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             separationPositionSchema->resolvedFormat == "{x:i62} {y:i62} {dir:i62}",
             "cZt resolvedFormat");
         failures += Expect(
-            separationPositionSchema->resolvedSource == "xlsx+ServerC+ClientIda",
+            separationPositionSchema->resolvedSource
+                == "xlsx+ServerC+ClientIda+src/packet",
             "cZt resolvedSource");
         failures += Expect(
             separationPositionSchema->hasResolvedFields,
@@ -2776,25 +2779,14 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                         field.name == names[index] &&
                         field.typeToken == "i62" &&
                         field.rawSpec == specs[index] &&
-                        field.source == "xlsx+ServerC+ClientIda",
+                        field.source == "xlsx+ServerC+ClientIda+src/packet",
                     "cZt resolved field");
             }
         }
-
-        bool hasTypedPacket = false;
-        for (const cg::packet::test::TypedPacketManifestEntry& entry :
-             cg::packet::test::SendTypedPackets) {
-            if (entry.spec != nullptr && entry.spec->code == "cZt") {
-                hasTypedPacket = true;
-            }
-        }
-        for (const cg::packet::test::TypedPacketManifestEntry& entry :
-             cg::packet::test::ReceiveTypedPackets) {
-            if (entry.spec != nullptr && entry.spec->code == "cZt") {
-                hasTypedPacket = true;
-            }
-        }
-        failures += Expect(!hasTypedPacket, "cZt remains outside typed manifest");
+        failures += ExpectResolvedFieldsMatch(
+            *separationPositionSchema,
+            packet,
+            "cZt resolved/Spec field order");
     }
 
     const PacketSchema* createNewCharSchema = FindPacket(packets, "aSEl");

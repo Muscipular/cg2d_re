@@ -981,6 +981,172 @@ namespace cg::packet::receive
     };
 
     /**
+     * SEND_PV 单字段通知		PfM {TrialFlg:i62}
+     * Server 与 Client 对字段业务语义的命名不一致，因此 typed 类型使用中性命名。
+     */
+    struct PfMNotification
+    {
+        static constexpr std::string_view Code = "PfM";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("TrialFlg"), PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        int value = 0;
+
+        explicit PfMNotification(int value)
+            : value(value)
+        {
+        }
+
+#if CG_PACKET_ENABLE_TEST_HELPERS
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("TrialFlg"),
+                PacketFieldType::Int62,
+                std::to_string(value),
+            });
+            return packet;
+        }
+#endif
+
+        static PacketResult<PfMNotification> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
+            if (!parsed.HasValue()) {
+                return PacketResult<PfMNotification>::Failure(parsed.Error());
+            }
+
+            return FromPacket(parsed.Value());
+        }
+
+    private:
+        static constexpr std::size_t FieldCount = 1U;
+        static constexpr std::size_t ValueFieldIndex = 0U;
+
+        static PacketResult<PfMNotification> FromPacket(const Packet& packet)
+        {
+            if (packet.code.View() != Code) {
+                PacketError error = MakePacketError(
+                    PacketErrorCode::InvalidCode,
+                    CG_PACKET_DIAGNOSTIC_TEXT("PfMNotification Parse 收到非 PfM 封包"));
+                error.packetCode = packet.code;
+                return PacketResult<PfMNotification>::Failure(std::move(error));
+            }
+
+            if (packet.direction != Direction) {
+                return PacketResult<PfMNotification>::Failure(MakePacketError(
+                    PacketErrorCode::DecodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT("PfMNotification Parse 封包方向不匹配")));
+            }
+
+            if (packet.fields.size() != FieldCount) {
+                return PacketResult<PfMNotification>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    CG_PACKET_DIAGNOSTIC_TEXT("PfMNotification Parse 字段数量不匹配"),
+                    packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
+            }
+
+            const PacketField& valueField = packet.fields[ValueFieldIndex];
+            if (!CG_PACKET_FIELD_NAME_MATCHES(
+                    valueField.name,
+                    CG_PACKET_DIAGNOSTIC_TEXT("TrialFlg"))) {
+                return PacketResult<PfMNotification>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT("PfMNotification Parse TrialFlg 字段名不匹配"),
+                    ValueFieldIndex));
+            }
+
+            if (valueField.type != PacketFieldType::Int62) {
+                return PacketResult<PfMNotification>::Failure(MakeFieldError(
+                    PacketErrorCode::InvalidFieldType,
+                    CG_PACKET_DIAGNOSTIC_TEXT("PfMNotification Parse TrialFlg 字段类型不匹配"),
+                    ValueFieldIndex));
+            }
+
+            PacketResult<int> value = ParseValue(valueField.value);
+            if (!value.HasValue()) {
+                return PacketResult<PfMNotification>::Failure(value.Error());
+            }
+
+            return PacketResult<PfMNotification>::Success(PfMNotification(value.Value()));
+        }
+
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            return error;
+        }
+
+        [[nodiscard]] static PacketError MakeFieldError(
+            PacketErrorCode code,
+            std::string_view message,
+            std::size_t fieldIndex)
+        {
+            PacketError error = MakePacketError(code, std::move(message));
+            error.fieldIndex = fieldIndex;
+            return error;
+        }
+
+        [[nodiscard]] static PacketResult<int> ParseValue(std::string_view text)
+        {
+            bool negative = false;
+            std::size_t index = 0U;
+            if (!text.empty() && text.front() == '-') {
+                negative = true;
+                index = 1U;
+            }
+
+            if (index == text.size()) {
+                return PacketResult<int>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT("PfMNotification TrialFlg 为空"),
+                    ValueFieldIndex));
+            }
+
+            const std::int64_t maxValue = static_cast<std::int64_t>(std::numeric_limits<int>::max());
+            const std::int64_t minValue = static_cast<std::int64_t>(std::numeric_limits<int>::min());
+            const std::int64_t limit = negative ? (0 - minValue) : maxValue;
+            std::int64_t value = 0;
+
+            for (; index < text.size(); ++index) {
+                const char ch = text[index];
+                if (ch < '0' || ch > '9') {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        CG_PACKET_DIAGNOSTIC_TEXT("PfMNotification TrialFlg 包含非法字符"),
+                        ValueFieldIndex));
+                }
+
+                const int digit = ch - '0';
+                if (value > (limit - digit) / 10) {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        CG_PACKET_DIAGNOSTIC_TEXT("PfMNotification TrialFlg 超出 int 范围"),
+                        ValueFieldIndex));
+                }
+
+                value = (value * 10) + digit;
+            }
+
+            if (negative) {
+                value = -value;
+            }
+
+            return PacketResult<int>::Success(static_cast<int>(value));
+        }
+    };
+
+    /**
      * SEND_ProcGet 进程状态		cJzI {data:es}
      * data 为 outputNetProcLog 的 opaque 多行状态文本；不拆二级 payload。
      */

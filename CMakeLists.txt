@@ -600,6 +600,18 @@ add_test(
     COMMAND cg-packet-character-logout-request-test
 )
 
+add_executable(cg-packet-pfm-notification-test
+    tests/packet/PfMNotificationPacketTest.cpp
+)
+target_include_directories(cg-packet-pfm-notification-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+add_test(
+    NAME cg-packet-pfm-notification-test
+    COMMAND cg-packet-pfm-notification-test
+)
+
 add_executable(cg-packet-create-new-char-result-test
     tests/packet/CreateNewCharResultPacketTest.cpp
 )
@@ -1698,6 +1710,7 @@ if(MSVC)
     target_compile_options(cg-packet-types-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-character-list-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-character-logout-request-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-pfm-notification-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-create-new-char-result-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-create-new-char-send-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-character-delete-result-test PRIVATE /W4 /utf-8 /permissive-)
@@ -1822,6 +1835,7 @@ else()
     target_compile_options(cg-packet-types-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-character-list-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-character-logout-request-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-packet-pfm-notification-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-create-new-char-result-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-character-delete-result-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-process-status-test PRIVATE -Wall -Wextra -Wpedantic)

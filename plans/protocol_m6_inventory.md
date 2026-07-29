@@ -215,7 +215,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 5 | `lz` | 客户端->服务端 | 完成 | RECV_PRO CHAR_setProfileStatus 简介开关 | 否 | 否 | xlsx |
 | 6 | `WA` | 客户端->服务端 | 完成 | RECV_CharLogout 登出；零字段；`send::CharacterLogoutRequest`；NoStructuredPayload | 否 | 否 | xlsx+ServerC+ClientIda+src/packet |
 | 7 | `whV` | 服务端->客户端 | 完成 | SEND_ClientLogin 登录角色表结果 | 否 | 是 | xlsx + src/packet |
-| 8 | `PfM` | 服务端->客户端 | 完成 | SEND_PV 版本信息？ | 否 | 否 | xlsx |
+| 8 | `PfM` | 服务端->客户端 | 完成 | SEND_PV；单字段 `{TrialFlg:i62}`；`receive::PfMNotification` 中性建模为 `int value`；NoStructuredPayload；fixture `value-one` | 否 | 否 | xlsx+ServerC+ClientIda+src/packet |
 | 9 | `Daj` | 服务端->客户端 | 完成 | SEND_CharList 登录角色表；resolved `{result:i62} {data:es}`；成功 data 为角色列表 payload，失败 data/msg 原样保留 | 否 | 是 | xlsx+ServerC+ClientIda+src |
 | 10 | `HNP` | 服务端->客户端 | 完成 | SEND_PRV <br>CHAR_sendProfileVersion简介版本内容 | 否 | 是 | xlsx |
 | 11 | `Zd` | 服务端->客户端 | 完成 | SEND_STK  SYSTEMMSG 系统信息 | 否 | 是 | xlsx |

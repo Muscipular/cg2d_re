@@ -1125,10 +1125,10 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
     failures += Expect(cg::packet::test::SendTypedPackets.size() == 26U, "send typed manifest count 26");
-    failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 66U, "receive typed manifest count 66");
+    failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 67U, "receive typed manifest count 67");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 92U,
-        "typed manifest count 92");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 93U,
+        "typed manifest count 93");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1145,7 +1145,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 92U, "typed manifest unique code count 92");
+    failures += Expect(codes.size() == 93U, "typed manifest unique code count 93");
     return failures;
 }
 
@@ -1613,6 +1613,61 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         failures += Expect(loginResultSchema->direction == "服务端->客户端", "whV direction");
         failures += Expect(loginResultSchema->legacyKind == "SEND", "whV legacyKind");
         failures += ExpectPacketFieldsMatch(*loginResultSchema, loginResult.ToPacket(), "whV field order");
+    }
+
+    const PacketSchema* pfmNotificationSchema = FindPacket(packets, "PfM");
+    failures += Expect(pfmNotificationSchema != nullptr, "PfM schema exists");
+    if (pfmNotificationSchema != nullptr) {
+        const cg::packet::Packet packet = cg::packet::receive::PfMNotification(1).ToPacket();
+        failures += Expect(pfmNotificationSchema->direction == "服务端->客户端", "PfM direction");
+        failures += Expect(pfmNotificationSchema->legacyKind == "SEND", "PfM legacyKind");
+        failures += Expect(
+            pfmNotificationSchema->rawFormat == "{TrialFlg:i62}",
+            "PfM rawFormat");
+        failures += Expect(pfmNotificationSchema->fields.size() == 1U, "PfM raw field count");
+        if (pfmNotificationSchema->fields.size() == 1U) {
+            failures += Expect(
+                pfmNotificationSchema->fields[0].name == "TrialFlg",
+                "PfM raw field name");
+            failures += Expect(
+                pfmNotificationSchema->fields[0].typeToken == "i62",
+                "PfM raw field type");
+            failures += Expect(
+                pfmNotificationSchema->fields[0].source == "xlsx",
+                "PfM raw field source");
+        }
+        failures += Expect(pfmNotificationSchema->hasResolvedFormat, "PfM resolvedFormat present");
+        failures += Expect(
+            pfmNotificationSchema->resolvedFormat == "{TrialFlg:i62}",
+            "PfM resolvedFormat");
+        failures += Expect(
+            pfmNotificationSchema->resolvedSource
+                == "xlsx+ServerC+ClientIda+src/packet",
+            "PfM resolvedSource");
+        failures += Expect(pfmNotificationSchema->hasResolvedFields, "PfM resolvedFields present");
+        failures += Expect(
+            pfmNotificationSchema->resolvedFields.size() == 1U,
+            "PfM resolved field count");
+        if (pfmNotificationSchema->resolvedFields.size() == 1U) {
+            failures += Expect(
+                pfmNotificationSchema->resolvedFields[0].name == "TrialFlg",
+                "PfM resolved field name");
+            failures += Expect(
+                pfmNotificationSchema->resolvedFields[0].typeToken == "i62",
+                "PfM resolved field type");
+            failures += Expect(
+                pfmNotificationSchema->resolvedFields[0].source
+                    == "xlsx+ServerC+ClientIda+src/packet",
+                "PfM resolved field source");
+        }
+        failures += ExpectEffectiveFieldsMatch(
+            *pfmNotificationSchema,
+            cg::packet::receive::PfMNotification::Spec,
+            "PfM Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *pfmNotificationSchema,
+            packet,
+            "PfM resolved field order");
     }
 
     const PacketSchema* characterListSchema = FindPacket(packets, "Daj");

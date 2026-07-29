@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=PfM
+direction=server_to_client
+sample=value-one
+plain_hex=50 66 4D 20 31
+canonical_hex=50 66 4D 20 31 20
+end_sample

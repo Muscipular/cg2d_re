@@ -72,8 +72,9 @@ inline constexpr std::array<TypedPacketManifestEntry, 26U> SendTypedPackets = {{
     MakeSendManifestEntry<send::StallStart, send::StallStart::Spec>(),
 }};
 
-inline constexpr std::array<TypedPacketManifestEntry, 66U> ReceiveTypedPackets = {{
+inline constexpr std::array<TypedPacketManifestEntry, 67U> ReceiveTypedPackets = {{
     MakeReceiveManifestEntry<receive::ClientLoginResult, receive::ClientLoginResult::Spec>(),
+    MakeReceiveManifestEntry<receive::PfMNotification, receive::PfMNotification::Spec>(),
     MakeReceiveManifestEntry<receive::CharacterList, receive::CharacterList::Spec>(),
     MakeReceiveManifestEntry<receive::CreateNewCharResult, receive::CreateNewCharResult::Spec>(),
     MakeReceiveManifestEntry<receive::CharacterDeleteResult, receive::CharacterDeleteResult::Spec>(),

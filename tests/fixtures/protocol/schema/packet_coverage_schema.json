@@ -176,6 +176,17 @@
       "xlsxStatus": "完成",
       "description": "SEND_PV 版本信息？",
       "rawFormat": "{TrialFlg:i62}",
+      "resolvedFormat": "{TrialFlg:i62}",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "TrialFlg",
+          "typeToken": "i62",
+          "rawSpec": "{TrialFlg:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        }
+      ],
       "formatEmpty": false,
       "source": "xlsx",
       "fields": [

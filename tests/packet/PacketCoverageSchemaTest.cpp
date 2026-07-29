@@ -3109,6 +3109,94 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "fIM resolved/Spec field order");
     }
 
+    const PacketSchema* deprecatedBattleJoinSchema = FindPacket(packets, "cEj");
+    failures += Expect(deprecatedBattleJoinSchema != nullptr, "cEj schema exists");
+    if (deprecatedBattleJoinSchema != nullptr) {
+        failures += Expect(
+            deprecatedBattleJoinSchema->direction == "客户端->服务端",
+            "cEj direction");
+        failures += Expect(
+            deprecatedBattleJoinSchema->legacyKind == "RECV",
+            "cEj legacyKind");
+        failures += Expect(
+            deprecatedBattleJoinSchema->rawFormat == "{x} {y}",
+            "cEj rawFormat");
+        failures += Expect(
+            !deprecatedBattleJoinSchema->formatEmpty,
+            "cEj formatEmpty false");
+        failures += Expect(deprecatedBattleJoinSchema->source == "xlsx", "cEj raw source");
+        failures += Expect(
+            deprecatedBattleJoinSchema->fields.size() == 2U,
+            "cEj raw field count");
+        if (deprecatedBattleJoinSchema->fields.size() == 2U) {
+            constexpr std::array<std::string_view, 2U> names = {{"x", "y"}};
+            constexpr std::array<std::string_view, 2U> specs = {{"{x}", "{y}"}};
+            for (std::size_t index = 0U; index < names.size(); ++index) {
+                const FieldSchema& field = deprecatedBattleJoinSchema->fields[index];
+                failures += Expect(
+                    field.index == index &&
+                        field.name == names[index] &&
+                        field.typeToken == "unknown" &&
+                        field.rawSpec == specs[index] &&
+                        field.source == "xlsx",
+                    "cEj raw field");
+            }
+        }
+        failures += Expect(
+            deprecatedBattleJoinSchema->hasResolvedFormat,
+            "cEj resolvedFormat present");
+        failures += Expect(
+            deprecatedBattleJoinSchema->resolvedFormat == "{x:i62} {y:i62}",
+            "cEj resolvedFormat");
+        failures += Expect(
+            deprecatedBattleJoinSchema->resolvedSource == "xlsx+ServerC",
+            "cEj resolvedSource");
+        failures += Expect(
+            deprecatedBattleJoinSchema->resolvedSource.find("ClientIda") == std::string::npos,
+            "cEj resolvedSource excludes ClientIda");
+        failures += Expect(
+            deprecatedBattleJoinSchema->hasResolvedFields,
+            "cEj resolvedFields present");
+        failures += Expect(
+            deprecatedBattleJoinSchema->resolvedFields.size() == 2U,
+            "cEj resolved field count");
+        if (deprecatedBattleJoinSchema->resolvedFields.size() == 2U) {
+            constexpr std::array<std::string_view, 2U> names = {{"x", "y"}};
+            constexpr std::array<std::string_view, 2U> specs = {{
+                "{x:i62}",
+                "{y:i62}",
+            }};
+            for (std::size_t index = 0U; index < names.size(); ++index) {
+                const FieldSchema& field = deprecatedBattleJoinSchema->resolvedFields[index];
+                failures += Expect(
+                    field.index == index &&
+                        field.name == names[index] &&
+                        field.typeToken == "i62" &&
+                        field.rawSpec == specs[index] &&
+                        field.source == "xlsx+ServerC",
+                    "cEj resolved field");
+                failures += Expect(
+                    field.source.find("ClientIda") == std::string::npos,
+                    "cEj resolved field source excludes ClientIda");
+            }
+        }
+    }
+
+    const auto deprecatedBattleJoinManifestContains = [](const auto& entries) {
+        for (const cg::packet::test::TypedPacketManifestEntry& entry : entries) {
+            if (entry.spec != nullptr && entry.spec->code == "cEj") {
+                return true;
+            }
+        }
+        return false;
+    };
+    failures += Expect(
+        !deprecatedBattleJoinManifestContains(cg::packet::test::SendTypedPackets),
+        "cEj absent from send typed manifest");
+    failures += Expect(
+        !deprecatedBattleJoinManifestContains(cg::packet::test::ReceiveTypedPackets),
+        "cEj absent from receive typed manifest");
+
     const PacketSchema* battleWatchRequestSchema = FindPacket(packets, "IMv");
     failures += Expect(battleWatchRequestSchema != nullptr, "IMv schema exists");
     if (battleWatchRequestSchema != nullptr) {

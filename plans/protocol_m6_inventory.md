@@ -374,7 +374,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 164 | `Ukuy` | 客户端->服务端 | 完成 | RECV_MP PET_MovePet 移动宠物 | 否 | 否 | xlsx |
 | 165 | `iET` | 客户端->服务端 | 完成 | RECV_GFL CHAR_sendFrontCharList 技能角色列表 | 否 | 否 | xlsx |
 | 166 | `McVa` | 客户端->服务端 | 完成 | RECV_GPD CHAR_sendCharAndPetList 技能角色宠物列表 | 否 | 否 | xlsx |
-| 167 | `as` | 客户端->服务端 | 完成 | RECV_GFLI CHAR_sendFrontCharList 物品角色列表 | 否 | 否 | xlsx |
+| 167 | `as` | 客户端->服务端 | 完成 | RECV_GFLI 请求物品角色列表；严格零字段；`send::ItemFrontCharListRequest`；canonical `as `；NoStructuredPayload；fixture `item-front-character-list` | 否 | 否 | xlsx+ServerC+ClientIda+src/packet |
 | 168 | `mjCv` | 客户端->服务端 | 完成 | RECV_GPDI CHAR_sendCharAndPetList 物品角色宠物列表 | 否 | 否 | xlsx |
 | 169 | `BG` | 客户端->服务端 | 完成 | RECV_IH Item_useHanko 盖章 | 否 | 否 | xlsx |
 | 170 | `MIS` | 客户端->服务端 | 完成 | RECV_AC 角色动作 | 否 | 否 | xlsx |

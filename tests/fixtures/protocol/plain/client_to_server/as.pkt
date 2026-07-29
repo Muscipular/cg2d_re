@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=as
+direction=client_to_server
+sample=item-front-character-list
+plain_hex=61 73
+canonical_hex=61 73 20
+end_sample

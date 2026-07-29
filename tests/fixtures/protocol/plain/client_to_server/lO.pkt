@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=lO
+direction=client_to_server
+sample=return-to-login-point
+plain_hex=6C 4F
+canonical_hex=6C 4F 20
+end_sample

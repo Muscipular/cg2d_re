@@ -404,7 +404,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 194 | `rvb` | 客户端->服务端 | 暂缓 | RECV_PlayerNumGet | 是 | 否 | 待 C/IDA 补全 |
 | 195 | `IcE` | 客户端->服务端 | 完成 | RECV_Shutdown；旧 C `nrproto_Shutdown_recv` 补外层 `{passwd:es} {min:i62}`；无 payload，`passwd` 为普通外层 es 且不拆 `|`；IDA 未找到客户端触发 | 是 | 是 | ServerC + src/packet |
 | 196 | `PGXE` | 客户端->服务端 | 完成 | RECV_CH cheat 检测作弊 | 否 | 否 | xlsx |
-| 197 | `lO` | 客户端->服务端 | 完成 | RECV_CharLoginGate 回登陆点 | 否 | 否 | xlsx |
+| 197 | `lO` | 客户端->服务端 | 完成 | RECV_CharLoginGate 回城内登录点；严格零字段；`send::ReturnToLoginPointRequest`；canonical `lO `；与 `WA` 普通角色登出/服务器选择不同；NoStructuredPayload；fixture `return-to-login-point` | 否 | 否 | xlsx+ServerC+ClientIda+src/packet |
 | 198 | `Xoee` | 客户端->服务端 | 暂缓 | RECV_PVUP 历史迁移封包 | 否 | 否 | xlsx |
 | 199 | `ylGN` | 客户端->服务端 | 完成 | RECV_StallStart 开始摆摊请求；外层 `{stallName:es} {stallDescription:es} {stallList:es}`；stallList 固定 25 个 raw decimal price 且必须尾随 `|`；无 nested es | 否 | 是 | xlsx + ClientIda + src/packet |
 | 200 | `JMh` | 客户端->服务端 | 完成 | RECV_StallEnd 结束摆摊请求 | 否 | 否 | xlsx |

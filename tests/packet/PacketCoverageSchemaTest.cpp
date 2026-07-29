@@ -1124,11 +1124,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 38U, "send typed manifest count 38");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 39U, "send typed manifest count 39");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 69U, "receive typed manifest count 69");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 107U,
-        "typed manifest count 107");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 108U,
+        "typed manifest count 108");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1145,7 +1145,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 107U, "typed manifest unique code count 107");
+    failures += Expect(codes.size() == 108U, "typed manifest unique code count 108");
     return failures;
 }
 

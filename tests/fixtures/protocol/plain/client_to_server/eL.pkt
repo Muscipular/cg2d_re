@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=eL
+direction=client_to_server
+sample=client-zero
+plain_hex=65 4C 20 30
+canonical_hex=65 4C 20 30 20
+end_sample

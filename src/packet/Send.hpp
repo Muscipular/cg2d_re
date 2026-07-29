@@ -453,6 +453,42 @@ namespace cg::packet::send
     };
 
     /**
+     * RECV_EO 离开战斗界面 eL {dummy:i62}
+     * 客户端约定 dummy 固定为 0，服务端接收后忽略该值。
+     */
+    struct BattleExitRequest
+    {
+        static constexpr std::string_view Code = "eL";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr int Dummy = 0;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("dummy"), PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("dummy"),
+                PacketFieldType::Int62,
+                std::to_string(Dummy),
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket(), Spec);
+        }
+    };
+
+    /**
      * RECV_CreateNewChar 创建角色 aSEl
      * {dataPlace:i62} {name:es} {image:i62} {face:i62} {vital:i62} {strength:i62}
      * {tough:i62} {quick:i62} {magic:i62} {earth:i62} {water:i62} {fire:i62} {wind:i62}

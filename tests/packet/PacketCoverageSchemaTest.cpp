@@ -1124,11 +1124,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 32U, "send typed manifest count 32");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 33U, "send typed manifest count 33");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 67U, "receive typed manifest count 67");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 99U,
-        "typed manifest count 99");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 100U,
+        "typed manifest count 100");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1145,7 +1145,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 99U, "typed manifest unique code count 99");
+    failures += Expect(codes.size() == 100U, "typed manifest unique code count 100");
     return failures;
 }
 
@@ -1986,6 +1986,62 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             *duelRequestSchema,
             packet,
             "ik resolved field order");
+    }
+
+    const PacketSchema* battleExitRequestSchema = FindPacket(packets, "eL");
+    failures += Expect(battleExitRequestSchema != nullptr, "eL schema exists");
+    if (battleExitRequestSchema != nullptr) {
+        const cg::packet::Packet packet = cg::packet::send::BattleExitRequest {}.ToPacket();
+        constexpr std::string_view resolvedSource =
+            "xlsx+ServerC+ClientIda+src/packet";
+
+        failures += Expect(
+            battleExitRequestSchema->direction == "客户端->服务端",
+            "eL direction");
+        failures += Expect(battleExitRequestSchema->legacyKind == "RECV", "eL legacyKind");
+        failures += Expect(battleExitRequestSchema->rawFormat.empty(), "eL rawFormat empty");
+        failures += Expect(
+            battleExitRequestSchema->originalFormat == "eL 0",
+            "eL originalFormat");
+        failures += Expect(!battleExitRequestSchema->formatEmpty, "eL formatEmpty false");
+        failures += Expect(battleExitRequestSchema->fields.empty(), "eL raw fields empty");
+        failures += Expect(
+            battleExitRequestSchema->hasResolvedFormat,
+            "eL resolvedFormat present");
+        failures += Expect(
+            battleExitRequestSchema->resolvedFormat == "{dummy:i62}",
+            "eL resolvedFormat");
+        failures += Expect(
+            battleExitRequestSchema->resolvedSource == resolvedSource,
+            "eL resolvedSource");
+        failures += Expect(
+            battleExitRequestSchema->hasResolvedFields,
+            "eL resolvedFields present");
+        failures += Expect(
+            battleExitRequestSchema->resolvedFields.size() == 1U,
+            "eL resolved field count");
+        if (battleExitRequestSchema->resolvedFields.size() == 1U) {
+            failures += Expect(
+                battleExitRequestSchema->resolvedFields[0].name == "dummy",
+                "eL resolved field name");
+            failures += Expect(
+                battleExitRequestSchema->resolvedFields[0].typeToken == "i62",
+                "eL resolved field type");
+            failures += Expect(
+                battleExitRequestSchema->resolvedFields[0].rawSpec == "{dummy:i62}",
+                "eL resolved field spec");
+            failures += Expect(
+                battleExitRequestSchema->resolvedFields[0].source == resolvedSource,
+                "eL resolved field source");
+        }
+        failures += ExpectEffectiveFieldsMatch(
+            *battleExitRequestSchema,
+            cg::packet::send::BattleExitRequest::Spec,
+            "eL Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *battleExitRequestSchema,
+            packet,
+            "eL resolved field order");
     }
 
     const PacketSchema* loginResultSchema = FindPacket(packets, "whV");

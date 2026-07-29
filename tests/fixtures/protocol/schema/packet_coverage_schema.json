@@ -1692,7 +1692,18 @@
       "originalFormat": "eL 0",
       "formatEmpty": false,
       "source": "xlsx",
-      "fields": []
+      "resolvedFormat": "{dummy:i62}",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
+      "fields": [],
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "dummy",
+          "typeToken": "i62",
+          "rawSpec": "{dummy:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        }
+      ]
     },
     {
       "code": "NgMy",

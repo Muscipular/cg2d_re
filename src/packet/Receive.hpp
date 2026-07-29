@@ -3551,7 +3551,7 @@ namespace cg::packet::receive
 
     /**
      * SEND_PRM 迷你信件回执		ow {profileIndex:i62} {dtext:es} {color:i62}
-     * dtext 保存原始 es 字符串，不拆内部 sentTimeText|message|。
+     * dtext: sentTimeText|messageLegacyEscaped|，固定尾段为空。
      */
     struct ProfileMailReceipt
     {
@@ -3559,7 +3559,7 @@ namespace cg::packet::receive
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 3U> Fields = {{
             {CG_PACKET_DIAGNOSTIC_TEXT("profileIndex"), PacketFieldType::Int62},
-            {CG_PACKET_DIAGNOSTIC_TEXT("dtext"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("dtext"), PacketFieldType::SubPayload},
             {CG_PACKET_DIAGNOSTIC_TEXT("color"), PacketFieldType::Int62},
         }};
         static constexpr PacketSpec Spec {
@@ -3568,21 +3568,60 @@ namespace cg::packet::receive
             Fields.data(),
             Fields.size(),
         };
+        static constexpr std::string_view PayloadDelimiter = "|";
 
         int profileIndex = 0;
-        std::string text;
+        std::string sentTimeText;
+        std::string message;
         int color = 0;
 
-        ProfileMailReceipt(int profileIndex, std::string text, int color)
+        ProfileMailReceipt(
+            int profileIndex,
+            std::string sentTimeText,
+            std::string message,
+            int color)
             : profileIndex(profileIndex),
-              text(std::move(text)),
+              sentTimeText(std::move(sentTimeText)),
+              message(std::move(message)),
               color(color)
         {
         }
 
 #if CG_PACKET_ENABLE_TEST_HELPERS
-        [[nodiscard]] Packet ToPacket() const
+        [[nodiscard]] PacketResult<std::string> BuildData() const
         {
+            PacketResult<std::string> encodedMessage = EncodeLegacyPayloadText(message);
+            if (!encodedMessage.HasValue()) {
+                PacketError error = encodedMessage.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = MessagePayloadFieldIndex;
+                return PacketResult<std::string>::Failure(std::move(error));
+            }
+
+            std::array<std::string, PayloadFieldCount> values = {
+                sentTimeText,
+                std::move(encodedMessage.Value()),
+                std::string(),
+            };
+            PacketResult<std::string> payload = BuildPayload(
+                std::span<const std::string>(values.data(), values.size()),
+                PayloadDelimiter);
+            if (!payload.HasValue()) {
+                PacketError error = payload.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = DtextFieldIndex;
+                return PacketResult<std::string>::Failure(std::move(error));
+            }
+            return payload;
+        }
+
+        [[nodiscard]] PacketResult<Packet> ToPacket() const
+        {
+            PacketResult<std::string> data = BuildData();
+            if (!data.HasValue()) {
+                return PacketResult<Packet>::Failure(data.Error());
+            }
+
             Packet packet(PacketCode(Code), Direction);
             packet.fields.reserve(FieldCount);
             packet.fields.push_back(PacketField {
@@ -3592,15 +3631,15 @@ namespace cg::packet::receive
             });
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("dtext"),
-                PacketFieldType::EscapedString,
-                text,
+                PacketFieldType::SubPayload,
+                std::move(data.Value()),
             });
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("color"),
                 PacketFieldType::Int62,
                 std::to_string(color),
             });
-            return packet;
+            return PacketResult<Packet>::Success(std::move(packet));
         }
 #endif
 
@@ -3670,17 +3709,20 @@ namespace cg::packet::receive
                 return PacketResult<ProfileMailReceipt>::Failure(colorValue.Error());
             }
 
-            return PacketResult<ProfileMailReceipt>::Success(ProfileMailReceipt(
+            return ParseData(
                 profileIndexValue.Value(),
-                packet.fields[TextFieldIndex].value,
-                colorValue.Value()));
+                packet.fields[DtextFieldIndex].value,
+                colorValue.Value());
         }
 
     private:
         static constexpr std::size_t FieldCount = 3U;
         static constexpr std::size_t ProfileIndexFieldIndex = 0U;
-        static constexpr std::size_t TextFieldIndex = 1U;
+        static constexpr std::size_t DtextFieldIndex = 1U;
         static constexpr std::size_t ColorFieldIndex = 2U;
+        static constexpr std::size_t PayloadFieldCount = 3U;
+        static constexpr std::size_t MessagePayloadFieldIndex = 1U;
+        static constexpr std::size_t TrailingPayloadFieldIndex = 2U;
 
         [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
@@ -3697,6 +3739,51 @@ namespace cg::packet::receive
             PacketError error = MakePacketError(code, std::move(message));
             error.fieldIndex = fieldIndex;
             return error;
+        }
+
+        [[nodiscard]] static PacketResult<ProfileMailReceipt> ParseData(
+            int profileIndex,
+            std::string_view payload,
+            int color)
+        {
+            PacketResult<std::vector<std::string>> parts =
+                SplitPayloadLegacyAware(payload, PayloadDelimiter);
+            if (!parts.HasValue()) {
+                PacketError error = parts.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = DtextFieldIndex;
+                return PacketResult<ProfileMailReceipt>::Failure(std::move(error));
+            }
+
+            std::vector<std::string> payloadParts = std::move(parts.Value());
+            if (payloadParts.size() != PayloadFieldCount) {
+                return PacketResult<ProfileMailReceipt>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileMailReceipt payload 段数量不匹配"),
+                    DtextFieldIndex));
+            }
+
+            if (!payloadParts[TrailingPayloadFieldIndex].empty()) {
+                return PacketResult<ProfileMailReceipt>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileMailReceipt payload 尾段必须为空"),
+                    TrailingPayloadFieldIndex));
+            }
+
+            PacketResult<std::string> message =
+                DecodeLegacyPayloadText(payloadParts[MessagePayloadFieldIndex]);
+            if (!message.HasValue()) {
+                PacketError error = message.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = MessagePayloadFieldIndex;
+                return PacketResult<ProfileMailReceipt>::Failure(std::move(error));
+            }
+
+            return PacketResult<ProfileMailReceipt>::Success(ProfileMailReceipt(
+                profileIndex,
+                std::move(payloadParts[0]),
+                std::move(message.Value()),
+                color));
         }
 
         [[nodiscard]] static PacketResult<int> ParseDecimalField(std::string_view text, std::size_t fieldIndex)

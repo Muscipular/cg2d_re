@@ -813,9 +813,10 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     if (profileMailReceiptSchema != nullptr) {
         const cg::packet::receive::ProfileMailReceipt profileMailReceipt(
             1,
-            "2026/ 7/29 12:34|message\\zlegacy|",
+            "2026/ 7/29 12:34",
+            "message|legacy",
             2);
-        const cg::packet::Packet packet = profileMailReceipt.ToPacket();
+        const cg::packet::PacketResult<cg::packet::Packet> packet = profileMailReceipt.ToPacket();
         failures += Expect(profileMailReceiptSchema->direction == "服务端->客户端", "ow direction");
         failures += Expect(profileMailReceiptSchema->legacyKind == "SEND", "ow legacyKind");
         failures += Expect(
@@ -836,10 +837,13 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         failures += Expect(
             profileMailReceiptSchema->resolvedSource == "xlsx+ServerC+ClientIda+src/packet",
             "ow resolvedSource");
-        failures += ExpectResolvedFieldsMatch(
-            *profileMailReceiptSchema,
-            packet,
-            "ow resolved/ToPacket field order");
+        failures += Expect(static_cast<bool>(packet), "ow ToPacket");
+        if (packet.HasValue()) {
+            failures += ExpectResolvedFieldsMatch(
+                *profileMailReceiptSchema,
+                packet.Value(),
+                "ow resolved/ToPacket field order");
+        }
     }
 
     const PacketSchema* profileMailDeleteSchema = FindPacket(packets, "cNB");

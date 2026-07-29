@@ -17,6 +17,9 @@
 4. subAgent 完成后及时关闭；验证交由独立 subAgent
 
 
+# ida mcp
+ida分析实例为cg2d.exe;
+
 # 项目目录
 1. `plans/`：开发计划与阶段任务说明
    - [cg_engine_dev_plan.md](plans/cg_engine_dev_plan.md)：项目总规划

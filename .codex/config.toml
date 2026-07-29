@@ -3,12 +3,12 @@
 ################################################################################
 
 [mcp_servers]
-[mcp_servers.clion]
-enabled = true
-url = "http://127.0.0.1:64342/stream"
-
 [mcp_servers.ida]
-url = "http://127.0.0.1:13338/mcp"
+url = "http://127.0.0.1:13337/mcp"
+enabled = true
+
+[mcp_servers.codebase-memory-mcp]
+command = "C:/Users/Muscipular/.local/bin/codebase-memory-mcp.exe"
 enabled = true
 
 # --- Example: STDIO transport ---

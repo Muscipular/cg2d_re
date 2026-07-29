@@ -1124,11 +1124,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 43U, "send typed manifest count 43");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 44U, "send typed manifest count 44");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 83U, "receive typed manifest count 83");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 126U,
-        "typed manifest count 126");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 127U,
+        "typed manifest count 127");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1145,7 +1145,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 126U, "typed manifest unique code count 126");
+    failures += Expect(codes.size() == 127U, "typed manifest unique code count 127");
     return failures;
 }
 
@@ -2890,6 +2890,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     const PacketSchema* bagPageManagerSchema = FindPacket(packets, "SWITMM");
     failures += Expect(bagPageManagerSchema != nullptr, "SWITMM schema exists");
     if (bagPageManagerSchema != nullptr) {
+        const cg::packet::send::BagPageManagerRequest request;
+        const cg::packet::Packet packet = request.ToPacket();
         failures += Expect(
             bagPageManagerSchema->direction == "客户端->服务端",
             "SWITMM direction");
@@ -2914,7 +2916,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             bagPageManagerSchema->resolvedFormat.empty(),
             "SWITMM resolvedFormat empty");
         failures += Expect(
-            bagPageManagerSchema->resolvedSource == "xlsx+ServerC",
+            bagPageManagerSchema->resolvedSource == "xlsx+ServerC+src/packet",
             "SWITMM resolvedSource");
         failures += Expect(
             bagPageManagerSchema->resolvedSource.find("ClientIda") == std::string::npos,
@@ -2926,27 +2928,10 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             bagPageManagerSchema->resolvedFields.empty(),
             "SWITMM resolvedFields empty");
 
-        bool hasSendTypedPacket = false;
-        for (const cg::packet::test::TypedPacketManifestEntry& entry :
-             cg::packet::test::SendTypedPackets) {
-            if (entry.spec != nullptr && entry.spec->code == "SWITMM") {
-                hasSendTypedPacket = true;
-            }
-        }
-        failures += Expect(
-            !hasSendTypedPacket,
-            "SWITMM absent from send typed manifest");
-
-        bool hasReceiveTypedPacket = false;
-        for (const cg::packet::test::TypedPacketManifestEntry& entry :
-             cg::packet::test::ReceiveTypedPackets) {
-            if (entry.spec != nullptr && entry.spec->code == "SWITMM") {
-                hasReceiveTypedPacket = true;
-            }
-        }
-        failures += Expect(
-            !hasReceiveTypedPacket,
-            "SWITMM absent from receive typed manifest");
+        failures += ExpectResolvedFieldsMatch(
+            *bagPageManagerSchema,
+            packet,
+            "SWITMM resolved/Spec field order");
     }
 
     const PacketSchema* createNewCharSchema = FindPacket(packets, "aSEl");

@@ -415,5 +415,5 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 205 | `Cpa` | 客户端->服务端 | 完成 | RECV_PET_ITEM_MOVE 移动宠物装备 | 否 | 否 | xlsx |
 | 206 | `SWITM` | 客户端->服务端 | 完成 | RECV_BagPage 背包翻页 | 否 | 否 | xlsx |
 | 207 | `SWITMP` | 客户端->服务端 | 完成 | RECV_BagPageMove 移动物品 | 否 | 否 | xlsx |
-| 208 | `SWITMM` | 客户端->服务端 | 完成 | RECV_BagPageMgr 菜单型背包窗口；保留 xlsx original `SWITMM`、空 rawFormat/fields 与 formatEmpty=false 原貌，按 VERSION_TW/PACKETVER2 active Server dispatcher 补显式空 resolved format/fields；内建路径命中后直接调用 `nrproto_BagPageMgr_recv(fd)`，不读取字段，active handler 当前 no-op；Server 内建路径忽略额外 token，不代表严格零字段 arity，runtime Lua hook 理论可覆盖但仓库无专用注册；无二级 payload；cg2d 对 exact string/ASCII/UTF-16/immediate 均为 0 命中，仅能作为缺失证据，来源严禁标 ClientIda；typed/fixture 待后续独立小步 | 否 | 否 | xlsx+ServerC |
+| 208 | `SWITMM` | 客户端->服务端 | 完成 | RECV_BagPageMgr 菜单型背包窗口；保留 xlsx original `SWITMM`、空 rawFormat/fields 与 formatEmpty=false 原貌，resolved 显式零字段；`send::BagPageManagerRequest` 按客户端合同固定 exact0，canonical `SWITMM `；Server 内建 dispatcher 直接调用 `nrproto_BagPageMgr_recv(fd)` 且忽略额外 token，客户端 exact0 不代表 Server 严格 arity；active handler 当前 no-op，runtime Lua hook 理论可覆盖但仓库无专用注册；无二级 payload；cg2d 对 exact string/ASCII/UTF-16/immediate 均为 0 命中，来源严禁标 ClientIda；NoStructuredPayload；fixture `manager-request` | 否 | 否 | xlsx+ServerC+src/packet |
 | 209 | `SWITMP2` | 客户端->服务端 | 完成 | RECV_BagPageMoveEx 移动物品 | 否 | 否 | xlsx |

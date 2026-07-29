@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=SWITMM
+direction=client_to_server
+sample=manager-request
+plain_hex=53 57 49 54 4D 4D
+canonical_hex=53 57 49 54 4D 4D 20
+end_sample

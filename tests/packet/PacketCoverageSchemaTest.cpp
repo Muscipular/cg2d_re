@@ -2600,6 +2600,71 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         }
     }
 
+    const PacketSchema* movementRequestSchema = FindPacket(packets, "zA");
+    failures += Expect(movementRequestSchema != nullptr, "zA schema exists");
+    if (movementRequestSchema != nullptr) {
+        failures += Expect(movementRequestSchema->direction == "客户端->服务端", "zA direction");
+        failures += Expect(movementRequestSchema->legacyKind == "RECV", "zA legacyKind");
+        failures += Expect(
+            movementRequestSchema->rawFormat ==
+                "{x:i62} {y:i62} {direction:es} {warpnum::i62}",
+            "zA malformed rawFormat preserved");
+        failures += Expect(movementRequestSchema->source == "xlsx", "zA raw source");
+        failures += Expect(movementRequestSchema->fields.size() == 4U, "zA raw field count");
+        if (movementRequestSchema->fields.size() == 4U) {
+            const FieldSchema& rawWarpNumber = movementRequestSchema->fields[3];
+            failures += Expect(
+                rawWarpNumber.index == 3 &&
+                    rawWarpNumber.name == "warpnum" &&
+                    rawWarpNumber.typeToken == ":i62" &&
+                    rawWarpNumber.rawSpec == "{warpnum::i62}" &&
+                    rawWarpNumber.source == "xlsx",
+                "zA malformed raw warpnum field preserved");
+        }
+        failures += Expect(movementRequestSchema->hasResolvedFormat, "zA resolvedFormat present");
+        failures += Expect(
+            movementRequestSchema->resolvedFormat ==
+                "{x:i62} {y:i62} {direction:es} {warpnum:i62}",
+            "zA resolvedFormat");
+        failures += Expect(
+            movementRequestSchema->resolvedSource == "xlsx+ServerC+ClientIda",
+            "zA resolvedSource");
+        failures += Expect(movementRequestSchema->hasResolvedFields, "zA resolvedFields present");
+        failures += Expect(
+            movementRequestSchema->resolvedFields.size() == 4U,
+            "zA resolved field count");
+        if (movementRequestSchema->resolvedFields.size() == 4U) {
+            constexpr std::array<std::string_view, 4U> names = {{
+                "x",
+                "y",
+                "direction",
+                "warpnum",
+            }};
+            constexpr std::array<std::string_view, 4U> types = {{
+                "i62",
+                "i62",
+                "es",
+                "i62",
+            }};
+            constexpr std::array<std::string_view, 4U> specs = {{
+                "{x:i62}",
+                "{y:i62}",
+                "{direction:es}",
+                "{warpnum:i62}",
+            }};
+            for (std::size_t index = 0U; index < names.size(); ++index) {
+                const FieldSchema& field = movementRequestSchema->resolvedFields[index];
+                failures += Expect(
+                    field.index == index &&
+                        field.name == names[index] &&
+                        field.typeToken == types[index] &&
+                        field.rawSpec == specs[index] &&
+                        field.source == "xlsx+ServerC+ClientIda",
+                    "zA resolved field");
+            }
+        }
+    }
+
     const PacketSchema* objectDeleteSchema = FindPacket(packets, "uSB");
     failures += Expect(objectDeleteSchema != nullptr, "uSB schema exists");
     if (objectDeleteSchema != nullptr) {

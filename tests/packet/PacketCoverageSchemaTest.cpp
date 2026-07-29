@@ -1124,11 +1124,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 46U, "send typed manifest count 46");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 47U, "send typed manifest count 47");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 84U, "receive typed manifest count 84");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 130U,
-        "typed manifest count 130");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 131U,
+        "typed manifest count 131");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1145,7 +1145,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 130U, "typed manifest unique code count 130");
+    failures += Expect(codes.size() == 131U, "typed manifest unique code count 131");
     return failures;
 }
 
@@ -3112,6 +3112,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     const PacketSchema* battleWatchRequestSchema = FindPacket(packets, "IMv");
     failures += Expect(battleWatchRequestSchema != nullptr, "IMv schema exists");
     if (battleWatchRequestSchema != nullptr) {
+        const cg::packet::send::BattleWatchRequest request(10, 20);
+        const cg::packet::Packet packet = request.ToPacket();
         failures += Expect(
             battleWatchRequestSchema->direction == "客户端->服务端",
             "IMv direction");
@@ -3147,7 +3149,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             battleWatchRequestSchema->resolvedFormat == "{x:i62} {y:i62}",
             "IMv resolvedFormat");
         failures += Expect(
-            battleWatchRequestSchema->resolvedSource == "xlsx+ServerC+ClientIda",
+            battleWatchRequestSchema->resolvedSource == "xlsx+ServerC+ClientIda+src/packet",
             "IMv resolvedSource");
         failures += Expect(
             battleWatchRequestSchema->hasResolvedFields,
@@ -3168,25 +3170,19 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                         field.name == names[index] &&
                         field.typeToken == "i62" &&
                         field.rawSpec == specs[index] &&
-                        field.source == "xlsx+ServerC+ClientIda",
+                        field.source == "xlsx+ServerC+ClientIda+src/packet",
                     "IMv resolved field");
             }
         }
 
-        const auto manifestContains = [](const auto& entries) {
-            for (const cg::packet::test::TypedPacketManifestEntry& entry : entries) {
-                if (entry.spec != nullptr && entry.spec->code == "IMv") {
-                    return true;
-                }
-            }
-            return false;
-        };
-        failures += Expect(
-            !manifestContains(cg::packet::test::SendTypedPackets),
-            "IMv absent from send typed manifest");
-        failures += Expect(
-            !manifestContains(cg::packet::test::ReceiveTypedPackets),
-            "IMv absent from receive typed manifest");
+        failures += ExpectEffectiveFieldsMatch(
+            *battleWatchRequestSchema,
+            cg::packet::send::BattleWatchRequest::Spec,
+            "IMv Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *battleWatchRequestSchema,
+            packet,
+            "IMv resolved field order");
     }
 
     const PacketSchema* createNewCharSchema = FindPacket(packets, "aSEl");

@@ -768,6 +768,18 @@ add_test(
     COMMAND cg-packet-duel-request-test
 )
 
+add_executable(cg-packet-battle-watch-request-test
+    tests/packet/BattleWatchRequestPacketTest.cpp
+)
+target_include_directories(cg-packet-battle-watch-request-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+add_test(
+    NAME cg-packet-battle-watch-request-test
+    COMMAND cg-packet-battle-watch-request-test
+)
+
 add_executable(cg-packet-battle-exit-request-test
     tests/packet/BattleExitRequestPacketTest.cpp
 )
@@ -2168,6 +2180,7 @@ if(MSVC)
     target_compile_options(cg-packet-guild-join-notification-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-npc-event-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-duel-request-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-battle-watch-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-battle-exit-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-battle-watch-stop-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-npc-event-result-test PRIVATE /W4 /utf-8 /permissive-)
@@ -2330,6 +2343,7 @@ else()
     target_compile_options(cg-packet-guild-join-notification-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-npc-event-request-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-duel-request-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-packet-battle-watch-request-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-battle-exit-request-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-battle-watch-stop-request-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-npc-event-result-test PRIVATE -Wall -Wextra -Wpedantic)

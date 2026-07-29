@@ -699,6 +699,56 @@ namespace cg::packet::send
     };
 
     /**
+     * RECV_LB 请求观战 IMv {x:i62} {y:i62}
+     * 坐标保留完整 signed int，不增加运行时移动与地图业务约束。
+     */
+    struct BattleWatchRequest
+    {
+        static constexpr std::string_view Code = "IMv";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("x"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("y"), PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        int x = 0;
+        int y = 0;
+
+        BattleWatchRequest(int x, int y)
+            : x(x),
+              y(y)
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("x"),
+                PacketFieldType::Int62,
+                std::to_string(x),
+            });
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("y"),
+                PacketFieldType::Int62,
+                std::to_string(y),
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket(), Spec);
+        }
+    };
+
+    /**
      * RECV_BU 停止观战 NgMy {dummy:i62}
      * 客户端合同固定 dummy 为 0；服务端接收后忽略该值。
      */

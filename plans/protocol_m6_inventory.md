@@ -255,7 +255,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 45 | `sz` | 客户端->服务端 | 完成 | RECV_w 移动 | 否 | 否 | xlsx |
 | 46 | `pg` | 客户端->服务端 | 完成 | RECV_EV NPC 事件；严格五字段 `{event:i62} {seqno:i62} {x:i62} {y:i62} {dir:i62}`；`send::NpcEventRequest`；不增加事件、坐标或方向范围约束；NoStructuredPayload；fixture `distinct-i62-order` | 否 | 否 | xlsx+ServerC+ClientIda+src/packet |
 | 47 | `KeOX` | 客户端->服务端 | 完成 | RECV_EN 客户端遇敌 | 否 | 否 | xlsx |
-| 48 | `ik` | 客户端->服务端 | 完成 | RECV_DU PK请求 | 否 | 否 | xlsx |
+| 48 | `ik` | 客户端->服务端 | 完成 | RECV_DU PK 请求；resolved `{x:i62} {y:i62}`；`send::DuelRequest`；不增加坐标或 PK 业务约束；NoStructuredPayload；fixture `distinct-i62-order` | 否 | 否 | xlsx+ServerC+ClientIda+src/packet |
 | 49 | `eL` | 客户端->服务端 | 完成 | RECV_EO 离开战斗界面 | 否 | 否 | xlsx |
 | 50 | `NgMy` | 客户端->服务端 | 完成 | RECV_BU 停止观战 | 否 | 否 | xlsx |
 | 51 | `EZ` | 服务端->客户端 | 完成 | SEND_EV Revc_EV的返回 | 否 | 否 | xlsx |

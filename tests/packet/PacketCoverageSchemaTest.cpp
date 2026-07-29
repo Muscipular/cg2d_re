@@ -1124,11 +1124,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 31U, "send typed manifest count 31");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 32U, "send typed manifest count 32");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 67U, "receive typed manifest count 67");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 98U,
-        "typed manifest count 98");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 99U,
+        "typed manifest count 99");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1145,7 +1145,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 98U, "typed manifest unique code count 98");
+    failures += Expect(codes.size() == 99U, "typed manifest unique code count 99");
     return failures;
 }
 
@@ -1925,6 +1925,67 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             *npcEventRequestSchema,
             packet,
             "pg resolved field order");
+    }
+
+    const PacketSchema* duelRequestSchema = FindPacket(packets, "ik");
+    failures += Expect(duelRequestSchema != nullptr, "ik schema exists");
+    if (duelRequestSchema != nullptr) {
+        const cg::packet::Packet packet = cg::packet::send::DuelRequest(62, 124).ToPacket();
+        constexpr std::array<std::string_view, 2U> fieldNames = {"x", "y"};
+        constexpr std::string_view resolvedSource =
+            "xlsx+ServerC+ClientIda+src/packet";
+
+        failures += Expect(duelRequestSchema->direction == "客户端->服务端", "ik direction");
+        failures += Expect(duelRequestSchema->legacyKind == "RECV", "ik legacyKind");
+        failures += Expect(duelRequestSchema->rawFormat == "{x} {y}", "ik rawFormat");
+        failures += Expect(
+            duelRequestSchema->fields.size() == fieldNames.size(),
+            "ik raw field count");
+        if (duelRequestSchema->fields.size() == fieldNames.size()) {
+            for (std::size_t index = 0U; index < fieldNames.size(); ++index) {
+                failures += Expect(
+                    duelRequestSchema->fields[index].name == fieldNames[index],
+                    "ik raw field name");
+                failures += Expect(
+                    duelRequestSchema->fields[index].typeToken == "unknown",
+                    "ik raw field type");
+                failures += Expect(
+                    duelRequestSchema->fields[index].source == "xlsx",
+                    "ik raw field source");
+            }
+        }
+        failures += Expect(duelRequestSchema->hasResolvedFormat, "ik resolvedFormat present");
+        failures += Expect(
+            duelRequestSchema->resolvedFormat == "{x:i62} {y:i62}",
+            "ik resolvedFormat");
+        failures += Expect(
+            duelRequestSchema->resolvedSource == resolvedSource,
+            "ik resolvedSource");
+        failures += Expect(duelRequestSchema->hasResolvedFields, "ik resolvedFields present");
+        failures += Expect(
+            duelRequestSchema->resolvedFields.size() == fieldNames.size(),
+            "ik resolved field count");
+        if (duelRequestSchema->resolvedFields.size() == fieldNames.size()) {
+            for (std::size_t index = 0U; index < fieldNames.size(); ++index) {
+                failures += Expect(
+                    duelRequestSchema->resolvedFields[index].name == fieldNames[index],
+                    "ik resolved field name");
+                failures += Expect(
+                    duelRequestSchema->resolvedFields[index].typeToken == "i62",
+                    "ik resolved field type");
+                failures += Expect(
+                    duelRequestSchema->resolvedFields[index].source == resolvedSource,
+                    "ik resolved field source");
+            }
+        }
+        failures += ExpectEffectiveFieldsMatch(
+            *duelRequestSchema,
+            cg::packet::send::DuelRequest::Spec,
+            "ik Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *duelRequestSchema,
+            packet,
+            "ik resolved field order");
     }
 
     const PacketSchema* loginResultSchema = FindPacket(packets, "whV");

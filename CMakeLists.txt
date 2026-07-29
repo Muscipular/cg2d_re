@@ -876,6 +876,18 @@ add_test(
     COMMAND cg-packet-map-checksum-test
 )
 
+add_executable(cg-packet-fever-status-test
+    tests/packet/FeverStatusPacketTest.cpp
+)
+target_include_directories(cg-packet-fever-status-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+add_test(
+    NAME cg-packet-fever-status-test
+    COMMAND cg-packet-fever-status-test
+)
+
 add_executable(cg-packet-create-new-char-result-test
     tests/packet/CreateNewCharResultPacketTest.cpp
 )
@@ -1997,6 +2009,7 @@ if(MSVC)
     target_compile_options(cg-packet-encounter-probability-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-player-status-flags-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-map-checksum-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-fever-status-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-create-new-char-result-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-create-new-char-send-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-character-delete-result-test PRIVATE /W4 /utf-8 /permissive-)
@@ -2144,6 +2157,7 @@ else()
     target_compile_options(cg-packet-encounter-probability-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-player-status-flags-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-map-checksum-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-packet-fever-status-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-create-new-char-result-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-character-delete-result-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-process-status-test PRIVATE -Wall -Wextra -Wpedantic)

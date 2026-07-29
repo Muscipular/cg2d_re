@@ -86,7 +86,7 @@ inline constexpr std::array<TypedPacketManifestEntry, 40U> SendTypedPackets = {{
     MakeSendManifestEntry<send::StallStart, send::StallStart::Spec>(),
 }};
 
-inline constexpr std::array<TypedPacketManifestEntry, 75U> ReceiveTypedPackets = {{
+inline constexpr std::array<TypedPacketManifestEntry, 76U> ReceiveTypedPackets = {{
     MakeReceiveManifestEntry<receive::ClientLoginResult, receive::ClientLoginResult::Spec>(),
     MakeReceiveManifestEntry<receive::CharacterLoginResult, receive::CharacterLoginResult::Spec>(),
     MakeReceiveManifestEntry<receive::ClientIndex, receive::ClientIndex::Spec>(),
@@ -94,6 +94,7 @@ inline constexpr std::array<TypedPacketManifestEntry, 75U> ReceiveTypedPackets =
     MakeReceiveManifestEntry<receive::EncounterProbability, receive::EncounterProbability::Spec>(),
     MakeReceiveManifestEntry<receive::PlayerStatusFlags, receive::PlayerStatusFlags::Spec>(),
     MakeReceiveManifestEntry<receive::MapChecksum, receive::MapChecksum::Spec>(),
+    MakeReceiveManifestEntry<receive::FeverStatus, receive::FeverStatus::Spec>(),
     MakeReceiveManifestEntry<receive::PfMNotification, receive::PfMNotification::Spec>(),
     MakeReceiveManifestEntry<receive::NpcEventResult, receive::NpcEventResult::Spec>(),
     MakeReceiveManifestEntry<receive::BattleEntryNotification, receive::BattleEntryNotification::Spec>(),

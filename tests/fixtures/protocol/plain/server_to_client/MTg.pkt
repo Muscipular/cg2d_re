@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=MTg
+direction=server_to_client
+sample=time-62-flag-one
+plain_hex=4D 54 67 20 31 30 20 31
+canonical_hex=4D 54 67 20 31 30 20 31 20
+end_sample

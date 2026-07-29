@@ -1135,6 +1135,8 @@
       "rawFormat": "{FeverHaveTime:i62} {isFever:i62}",
       "formatEmpty": false,
       "source": "xlsx",
+      "resolvedFormat": "{FeverHaveTime:i62} {isFever:i62}",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
       "fields": [
         {
           "index": 0,
@@ -1149,6 +1151,22 @@
           "typeToken": "i62",
           "rawSpec": "{isFever:i62}",
           "source": "xlsx"
+        }
+      ],
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "FeverHaveTime",
+          "typeToken": "i62",
+          "rawSpec": "{FeverHaveTime:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 1,
+          "name": "isFever",
+          "typeToken": "i62",
+          "rawSpec": "{isFever:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         }
       ]
     },

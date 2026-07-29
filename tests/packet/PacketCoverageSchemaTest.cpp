@@ -2733,6 +2733,58 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         failures += ExpectResolvedFieldsMatch(*objectDeleteSchema, packet, "uSB resolved/Spec field order");
     }
 
+    const PacketSchema* tradeOutcomeSchema = FindPacket(packets, "We");
+    failures += Expect(tradeOutcomeSchema != nullptr, "We schema exists");
+    if (tradeOutcomeSchema != nullptr) {
+        failures += Expect(
+            tradeOutcomeSchema->direction == "服务端->客户端",
+            "We direction");
+        failures += Expect(tradeOutcomeSchema->legacyKind == "SEND", "We legacyKind");
+        failures += Expect(
+            tradeOutcomeSchema->originalFormat == "0终止 1确认 2完成",
+            "We originalFormat");
+        failures += Expect(tradeOutcomeSchema->rawFormat.empty(), "We rawFormat empty");
+        failures += Expect(!tradeOutcomeSchema->formatEmpty, "We formatEmpty false");
+        failures += Expect(tradeOutcomeSchema->source == "xlsx", "We raw source");
+        failures += Expect(tradeOutcomeSchema->fields.empty(), "We raw fields empty");
+        failures += Expect(tradeOutcomeSchema->hasResolvedFormat, "We resolvedFormat present");
+        failures += Expect(
+            tradeOutcomeSchema->resolvedFormat == "{status:i62}",
+            "We resolvedFormat");
+        failures += Expect(
+            tradeOutcomeSchema->resolvedSource == "xlsx+ServerC+ClientIda",
+            "We resolvedSource");
+        failures += Expect(tradeOutcomeSchema->hasResolvedFields, "We resolvedFields present");
+        failures += Expect(
+            tradeOutcomeSchema->resolvedFields.size() == 1U,
+            "We resolved field count");
+        if (tradeOutcomeSchema->resolvedFields.size() == 1U) {
+            const FieldSchema& field = tradeOutcomeSchema->resolvedFields[0];
+            failures += Expect(
+                field.index == 0 &&
+                    field.name == "status" &&
+                    field.typeToken == "i62" &&
+                    field.rawSpec == "{status:i62}" &&
+                    field.source == "xlsx+ServerC+ClientIda",
+                "We resolved field");
+        }
+
+        bool hasTypedPacket = false;
+        for (const cg::packet::test::TypedPacketManifestEntry& entry :
+             cg::packet::test::SendTypedPackets) {
+            if (entry.spec != nullptr && entry.spec->code == "We") {
+                hasTypedPacket = true;
+            }
+        }
+        for (const cg::packet::test::TypedPacketManifestEntry& entry :
+             cg::packet::test::ReceiveTypedPackets) {
+            if (entry.spec != nullptr && entry.spec->code == "We") {
+                hasTypedPacket = true;
+            }
+        }
+        failures += Expect(!hasTypedPacket, "We remains outside typed manifest");
+    }
+
     const PacketSchema* separationPositionSchema = FindPacket(packets, "cZt");
     failures += Expect(separationPositionSchema != nullptr, "cZt schema exists");
     if (separationPositionSchema != nullptr) {

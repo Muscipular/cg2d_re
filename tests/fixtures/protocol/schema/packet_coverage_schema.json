@@ -3944,6 +3944,17 @@
       "originalFormat": "0终止 1确认 2完成",
       "formatEmpty": false,
       "source": "xlsx",
+      "resolvedFormat": "{status:i62}",
+      "resolvedSource": "xlsx+ServerC+ClientIda",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "status",
+          "typeToken": "i62",
+          "rawSpec": "{status:i62}",
+          "source": "xlsx+ServerC+ClientIda"
+        }
+      ],
       "fields": []
     },
     {

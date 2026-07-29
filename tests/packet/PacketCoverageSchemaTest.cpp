@@ -842,6 +842,38 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         }
     }
 
+    const PacketSchema* characterIconSchema = FindPacket(packets, "NI");
+    failures += Expect(characterIconSchema != nullptr, "NI schema exists");
+    if (characterIconSchema != nullptr) {
+        const cg::packet::receive::CharacterIcon characterIcon(
+            std::vector<cg::packet::receive::CharacterIconEntry> {});
+        const cg::packet::Packet packet = characterIcon.ToPacket();
+        failures += Expect(characterIconSchema->direction == "服务端->客户端", "NI direction");
+        failures += Expect(characterIconSchema->legacyKind == "SEND", "NI legacyKind");
+        failures += Expect(
+            characterIconSchema->rawFormat == "{data:es} {caInfo:s}",
+            "NI rawFormat");
+        failures += Expect(characterIconSchema->fields.size() == 2U, "NI raw field count");
+        if (characterIconSchema->fields.size() == 2U) {
+            failures += Expect(
+                characterIconSchema->fields[0].name == "data" &&
+                    characterIconSchema->fields[0].typeToken == "es",
+                "NI raw data field");
+            failures += Expect(
+                characterIconSchema->fields[1].name == "caInfo" &&
+                    characterIconSchema->fields[1].typeToken == "s",
+                "NI raw caInfo conflict field");
+        }
+        failures += Expect(characterIconSchema->resolvedFormat == "{data:es}", "NI resolvedFormat");
+        failures += Expect(
+            characterIconSchema->resolvedSource == "xlsx+ServerC+ClientIda+src/packet",
+            "NI resolvedSource");
+        failures += ExpectResolvedFieldsMatch(
+            *characterIconSchema,
+            packet,
+            "NI resolved field order");
+    }
+
     const PacketSchema* createNewCharSchema = FindPacket(packets, "aSEl");
     failures += Expect(createNewCharSchema != nullptr, "aSEl schema exists");
     if (createNewCharSchema != nullptr) {

@@ -1022,6 +1022,8 @@
       "xlsxStatus": "完成",
       "description": "SEND_CA 发送头顶图标",
       "rawFormat": "{data:es} {caInfo:s}",
+      "resolvedFormat": "{data:es}",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
       "formatEmpty": false,
       "source": "xlsx",
       "fields": [
@@ -1038,6 +1040,15 @@
           "typeToken": "s",
           "rawSpec": "{caInfo:s}",
           "source": "xlsx"
+        }
+      ],
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "data",
+          "typeToken": "es",
+          "rawSpec": "{data:es}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         }
       ]
     },

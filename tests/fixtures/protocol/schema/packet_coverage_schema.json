@@ -602,6 +602,8 @@
       "xlsxStatus": "完成",
       "description": "SEND_TITLE",
       "rawFormat": "{data:es} {titleName:%s}",
+      "resolvedFormat": "{data:es}",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
       "formatEmpty": false,
       "source": "xlsx",
       "fields": [
@@ -618,6 +620,15 @@
           "typeToken": "%s",
           "rawSpec": "{titleName:%s}",
           "source": "xlsx"
+        }
+      ],
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "data",
+          "typeToken": "es",
+          "rawSpec": "{data:es}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         }
       ]
     },

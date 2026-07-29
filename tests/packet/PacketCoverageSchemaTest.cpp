@@ -806,6 +806,36 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         }
     }
 
+    const PacketSchema* titleListSchema = FindPacket(packets, "Sc");
+    failures += Expect(titleListSchema != nullptr, "Sc schema exists");
+    if (titleListSchema != nullptr) {
+        std::vector<cg::packet::receive::TitleSlot> slots;
+        slots.emplace_back("Hero", 1, 100);
+        const cg::packet::receive::TitleList titleList(std::move(slots));
+        const cg::packet::Packet packet = titleList.ToPacket();
+        failures += Expect(titleListSchema->direction == "服务端->客户端", "Sc direction");
+        failures += Expect(titleListSchema->legacyKind == "SEND", "Sc legacyKind");
+        failures += Expect(
+            titleListSchema->rawFormat == "{data:es} {titleName:%s}",
+            "Sc rawFormat");
+        failures += Expect(titleListSchema->fields.size() == 2U, "Sc raw field count");
+        if (titleListSchema->fields.size() == 2U) {
+            failures += Expect(
+                titleListSchema->fields[0].name == "data" &&
+                    titleListSchema->fields[0].typeToken == "es",
+                "Sc raw data field");
+            failures += Expect(
+                titleListSchema->fields[1].name == "titleName" &&
+                    titleListSchema->fields[1].typeToken == "%s",
+                "Sc raw titleName conflict field");
+        }
+        failures += Expect(titleListSchema->resolvedFormat == "{data:es}", "Sc resolvedFormat");
+        failures += Expect(
+            titleListSchema->resolvedSource == "xlsx+ServerC+ClientIda+src/packet",
+            "Sc resolvedSource");
+        failures += ExpectResolvedFieldsMatch(*titleListSchema, packet, "Sc resolved field order");
+    }
+
     const PacketSchema* createNewCharSchema = FindPacket(packets, "aSEl");
     failures += Expect(createNewCharSchema != nullptr, "aSEl schema exists");
     if (createNewCharSchema != nullptr) {

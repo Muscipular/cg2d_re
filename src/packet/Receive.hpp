@@ -3475,7 +3475,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketResult<ProfileMailDelete> ParseData(std::string_view payload)
         {
-            PacketResult<std::vector<std::string>> parts = SplitPayload(payload, PayloadDelimiter);
+            PacketResult<std::vector<std::string>> parts = SplitPayloadLegacyAware(payload, PayloadDelimiter);
             if (!parts.HasValue()) {
                 PacketError error = parts.Error();
                 error.packetCode = PacketCode(Code);

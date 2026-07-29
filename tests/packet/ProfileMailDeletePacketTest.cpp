@@ -174,6 +174,53 @@ int TestEmptyName()
     return failures;
 }
 
+int TestGbkTrailDelimiter()
+{
+    std::string name;
+    name.push_back(static_cast<char>(0x81));
+    name.push_back(static_cast<char>(0x7c));
+
+    std::string payload = "12|";
+    payload.append(name);
+    const cg::packet::PacketResult<cg::packet::receive::ProfileMailDelete> parsed =
+        cg::packet::receive::ProfileMailDelete::Parse(BuildPlainCnb(payload));
+
+    int failures = Expect(static_cast<bool>(parsed), "typed parse cNB GBK 81 7C");
+    if (!parsed.HasValue()) {
+        return failures;
+    }
+
+    failures += ExpectProfileMailDeleteValue(parsed.Value(), 12, name, "typed cNB GBK name bytes");
+    const cg::packet::PacketResult<std::string> built = BuildPacket(parsed.Value().ToPacket());
+    failures += Expect(static_cast<bool>(built), "build cNB GBK 81 7C");
+    if (built.HasValue()) {
+        failures += Expect(built.Value() == BuildPlainCnb(payload), "roundtrip cNB GBK 81 7C");
+    }
+    return failures;
+}
+
+int TestRawLegacyLookingName()
+{
+    constexpr std::string_view name = R"(\n/\c/\z/\y)";
+    std::string payload = "12|";
+    payload.append(name);
+    const cg::packet::PacketResult<cg::packet::receive::ProfileMailDelete> parsed =
+        cg::packet::receive::ProfileMailDelete::Parse(BuildPlainCnb(payload));
+
+    int failures = Expect(static_cast<bool>(parsed), "typed parse cNB raw legacy-looking name");
+    if (!parsed.HasValue()) {
+        return failures;
+    }
+
+    failures += ExpectProfileMailDeleteValue(parsed.Value(), 12, name, "typed cNB raw name unchanged");
+    const cg::packet::PacketResult<std::string> built = BuildPacket(parsed.Value().ToPacket());
+    failures += Expect(static_cast<bool>(built), "build cNB raw legacy-looking name");
+    if (built.HasValue()) {
+        failures += Expect(built.Value() == BuildPlainCnb(payload), "roundtrip cNB raw name unchanged");
+    }
+    return failures;
+}
+
 int TestErrors()
 {
     int failures = 0;
@@ -197,6 +244,14 @@ int TestErrors()
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "cNB",
         "typed cNB trailing empty segment");
+
+    std::string truncatedGbk = "cNB 12|";
+    truncatedGbk.push_back(static_cast<char>(0x81));
+    failures += ExpectError(
+        cg::packet::receive::ProfileMailDelete::Parse(truncatedGbk),
+        cg::packet::PacketErrorCode::DecodeFailed,
+        "cNB",
+        "typed cNB truncated GBK");
     return failures;
 }
 
@@ -210,6 +265,8 @@ int main()
     failures += TestEscapedNameRoundtrip();
     failures += TestBuildRoundtrip();
     failures += TestEmptyName();
+    failures += TestGbkTrailDelimiter();
+    failures += TestRawLegacyLookingName();
     failures += TestErrors();
     if (failures != 0) {
         std::cerr << failures << " checks failed\n";

@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=lz
+direction=client_to_server
+sample=profile-public
+plain_hex=6C 7A 20 31
+canonical_hex=6C 7A 20 31 20
+end_sample

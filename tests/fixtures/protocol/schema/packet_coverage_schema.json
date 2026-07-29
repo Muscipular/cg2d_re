@@ -140,6 +140,8 @@
       "rawFormat": "{0:i62}",
       "formatEmpty": false,
       "source": "xlsx",
+      "resolvedFormat": "{profileStatus:i62}",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
       "fields": [
         {
           "index": 0,
@@ -147,6 +149,15 @@
           "typeToken": "i62",
           "rawSpec": "{0:i62}",
           "source": "xlsx"
+        }
+      ],
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "profileStatus",
+          "typeToken": "i62",
+          "rawSpec": "{profileStatus:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         }
       ]
     },

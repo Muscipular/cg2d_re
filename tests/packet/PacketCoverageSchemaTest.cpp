@@ -1124,11 +1124,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 27U, "send typed manifest count 27");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 28U, "send typed manifest count 28");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 67U, "receive typed manifest count 67");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 94U,
-        "typed manifest count 94");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 95U,
+        "typed manifest count 95");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1145,7 +1145,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 94U, "typed manifest unique code count 94");
+    failures += Expect(codes.size() == 95U, "typed manifest unique code count 95");
     return failures;
 }
 
@@ -1702,6 +1702,79 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             *characterLoginRequestSchema,
             packet,
             "emRV resolved field order");
+    }
+
+    const PacketSchema* profileStatusUpdateRequestSchema = FindPacket(packets, "lz");
+    failures += Expect(profileStatusUpdateRequestSchema != nullptr, "lz schema exists");
+    if (profileStatusUpdateRequestSchema != nullptr) {
+        const cg::packet::Packet packet =
+            cg::packet::send::ProfileStatusUpdateRequest(1).ToPacket();
+        failures += Expect(
+            profileStatusUpdateRequestSchema->direction == "客户端->服务端",
+            "lz direction");
+        failures += Expect(
+            profileStatusUpdateRequestSchema->legacyKind == "RECV",
+            "lz legacyKind");
+        failures += Expect(
+            profileStatusUpdateRequestSchema->rawFormat == "{0:i62}",
+            "lz rawFormat");
+        failures += Expect(
+            profileStatusUpdateRequestSchema->fields.size() == 1U,
+            "lz raw field count");
+        if (profileStatusUpdateRequestSchema->fields.size() == 1U) {
+            failures += Expect(
+                profileStatusUpdateRequestSchema->fields[0].name == "0",
+                "lz raw field name");
+            failures += Expect(
+                profileStatusUpdateRequestSchema->fields[0].typeToken == "i62",
+                "lz raw field type");
+            failures += Expect(
+                profileStatusUpdateRequestSchema->fields[0].rawSpec == "{0:i62}",
+                "lz raw field spec");
+            failures += Expect(
+                profileStatusUpdateRequestSchema->fields[0].source == "xlsx",
+                "lz raw field source");
+        }
+        failures += Expect(
+            profileStatusUpdateRequestSchema->hasResolvedFormat,
+            "lz resolvedFormat present");
+        failures += Expect(
+            profileStatusUpdateRequestSchema->resolvedFormat == "{profileStatus:i62}",
+            "lz resolvedFormat");
+        failures += Expect(
+            profileStatusUpdateRequestSchema->resolvedSource
+                == "xlsx+ServerC+ClientIda+src/packet",
+            "lz resolvedSource");
+        failures += Expect(
+            profileStatusUpdateRequestSchema->hasResolvedFields,
+            "lz resolvedFields present");
+        failures += Expect(
+            profileStatusUpdateRequestSchema->resolvedFields.size() == 1U,
+            "lz resolved field count");
+        if (profileStatusUpdateRequestSchema->resolvedFields.size() == 1U) {
+            failures += Expect(
+                profileStatusUpdateRequestSchema->resolvedFields[0].name == "profileStatus",
+                "lz resolved field name");
+            failures += Expect(
+                profileStatusUpdateRequestSchema->resolvedFields[0].typeToken == "i62",
+                "lz resolved field type");
+            failures += Expect(
+                profileStatusUpdateRequestSchema->resolvedFields[0].rawSpec
+                    == "{profileStatus:i62}",
+                "lz resolved field spec");
+            failures += Expect(
+                profileStatusUpdateRequestSchema->resolvedFields[0].source
+                    == "xlsx+ServerC+ClientIda+src/packet",
+                "lz resolved field source");
+        }
+        failures += ExpectEffectiveFieldsMatch(
+            *profileStatusUpdateRequestSchema,
+            cg::packet::send::ProfileStatusUpdateRequest::Spec,
+            "lz Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *profileStatusUpdateRequestSchema,
+            packet,
+            "lz resolved field order");
     }
 
     const PacketSchema* loginResultSchema = FindPacket(packets, "whV");

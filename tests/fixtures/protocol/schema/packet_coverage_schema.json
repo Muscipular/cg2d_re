@@ -2788,6 +2788,8 @@
       "xlsxStatus": "进行中",
       "description": "SEND_PRAD 收到迷你信件",
       "rawFormat": "{data}",
+      "resolvedFormat": "{data:es}",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
       "formatEmpty": false,
       "source": "xlsx",
       "fields": [
@@ -2797,6 +2799,15 @@
           "typeToken": "unknown",
           "rawSpec": "{data}",
           "source": "xlsx"
+        }
+      ],
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "data",
+          "typeToken": "es",
+          "rawSpec": "{data:es}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         }
       ]
     },

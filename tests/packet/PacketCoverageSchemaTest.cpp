@@ -917,6 +917,56 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         }
     }
 
+    const PacketSchema* profileMailArriveSchema = FindPacket(packets, "KyN");
+    failures += Expect(profileMailArriveSchema != nullptr, "KyN schema exists");
+    if (profileMailArriveSchema != nullptr) {
+        const cg::packet::receive::ProfileMailArrive profileMailArrive(
+            1,
+            100,
+            50,
+            "Alice",
+            "Guild",
+            "Title",
+            2,
+            "2026/ 7/29 12:34",
+            "message",
+            3);
+        const cg::packet::Packet packet = profileMailArrive.ToPacket();
+        failures += Expect(profileMailArriveSchema->direction == "服务端->客户端", "KyN direction");
+        failures += Expect(profileMailArriveSchema->legacyKind == "SEND", "KyN legacyKind");
+        failures += Expect(profileMailArriveSchema->source == "xlsx", "KyN raw source");
+        failures += Expect(profileMailArriveSchema->rawFormat == "{data}", "KyN rawFormat");
+        failures += Expect(profileMailArriveSchema->fields.size() == 1U, "KyN raw field count");
+        if (profileMailArriveSchema->fields.size() == 1U) {
+            failures += Expect(profileMailArriveSchema->fields[0].index == 0, "KyN raw field index");
+            failures += Expect(profileMailArriveSchema->fields[0].name == "data", "KyN raw field name");
+            failures += Expect(profileMailArriveSchema->fields[0].typeToken == "unknown", "KyN raw field type");
+            failures += Expect(profileMailArriveSchema->fields[0].rawSpec == "{data}", "KyN raw field spec");
+            failures += Expect(profileMailArriveSchema->fields[0].source == "xlsx", "KyN raw field source");
+        }
+        failures += Expect(profileMailArriveSchema->resolvedFormat == "{data:es}", "KyN resolvedFormat");
+        failures += Expect(
+            profileMailArriveSchema->resolvedSource == "xlsx+ServerC+ClientIda+src/packet",
+            "KyN resolvedSource");
+        failures += Expect(profileMailArriveSchema->resolvedFields.size() == 1U, "KyN resolved field count");
+        if (profileMailArriveSchema->resolvedFields.size() == 1U) {
+            failures += Expect(profileMailArriveSchema->resolvedFields[0].index == 0, "KyN resolved field index");
+            failures += Expect(profileMailArriveSchema->resolvedFields[0].name == "data", "KyN resolved field name");
+            failures += Expect(profileMailArriveSchema->resolvedFields[0].typeToken == "es", "KyN resolved field type");
+            failures += Expect(
+                profileMailArriveSchema->resolvedFields[0].rawSpec == "{data:es}",
+                "KyN resolved field spec");
+            failures += Expect(
+                profileMailArriveSchema->resolvedFields[0].source ==
+                    "xlsx+ServerC+ClientIda+src/packet",
+                "KyN resolved field source");
+        }
+        failures += ExpectResolvedFieldsMatch(
+            *profileMailArriveSchema,
+            packet,
+            "KyN resolved/ToPacket field order");
+    }
+
     const PacketSchema* profileMailDeleteSchema = FindPacket(packets, "cNB");
     failures += Expect(profileMailDeleteSchema != nullptr, "cNB schema exists");
     if (profileMailDeleteSchema != nullptr) {

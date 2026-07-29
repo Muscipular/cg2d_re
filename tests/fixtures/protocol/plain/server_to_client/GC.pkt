@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=GC
+direction=server_to_client
+sample=guild-join
+plain_hex=47 43
+canonical_hex=47 43 20
+end_sample

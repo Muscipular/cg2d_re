@@ -16928,6 +16928,80 @@ namespace cg::packet::receive
     };
 
     /**
+     * SEND_GC 新成员成功加入家族通知 GC
+     * wire 固定零字段；不附加 UI 或成员数据语义。
+     */
+    struct GuildJoinNotification
+    {
+        static constexpr std::string_view Code = "GC";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 0U> Fields = {};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+#if CG_PACKET_ENABLE_TEST_HELPERS
+        [[nodiscard]] Packet ToPacket() const
+        {
+            return Packet(PacketCode(Code), Direction);
+        }
+#endif
+
+        static PacketResult<GuildJoinNotification> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
+            if (!parsed.HasValue()) {
+                return PacketResult<GuildJoinNotification>::Failure(parsed.Error());
+            }
+
+            return FromPacket(parsed.Value());
+        }
+
+        static PacketResult<GuildJoinNotification> FromPacket(const Packet& packet)
+        {
+            if (packet.code.View() != Code) {
+                PacketError error = MakePacketError(
+                    PacketErrorCode::InvalidCode,
+                    CG_PACKET_DIAGNOSTIC_TEXT(
+                        "GuildJoinNotification Parse 收到非 GC 封包"));
+                error.packetCode = packet.code;
+                return PacketResult<GuildJoinNotification>::Failure(std::move(error));
+            }
+
+            if (packet.direction != Direction) {
+                return PacketResult<GuildJoinNotification>::Failure(MakePacketError(
+                    PacketErrorCode::DecodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT(
+                        "GuildJoinNotification Parse 封包方向不匹配")));
+            }
+
+            if (!packet.fields.empty()) {
+                PacketError error = MakePacketError(
+                    PacketErrorCode::FieldCountMismatch,
+                    CG_PACKET_DIAGNOSTIC_TEXT(
+                        "GuildJoinNotification Parse 字段数量不匹配"));
+                error.fieldIndex = 0U;
+                return PacketResult<GuildJoinNotification>::Failure(std::move(error));
+            }
+
+            return PacketResult<GuildJoinNotification>::Success(GuildJoinNotification {});
+        }
+
+    private:
+        [[nodiscard]] static PacketError MakePacketError(
+            PacketErrorCode code,
+            std::string_view message)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            return error;
+        }
+    };
+
+    /**
      * SEND_GI guildinfo		aDn {data:es}
      * data: flag:i62|[fields...]|；除 flag 外数值为 raw decimal，字段由 flag bit 控制。
      */

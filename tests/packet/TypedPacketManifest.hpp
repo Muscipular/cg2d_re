@@ -90,7 +90,7 @@ inline constexpr std::array<TypedPacketManifestEntry, 44U> SendTypedPackets = {{
     MakeSendManifestEntry<send::StallStart, send::StallStart::Spec>(),
 }};
 
-inline constexpr std::array<TypedPacketManifestEntry, 83U> ReceiveTypedPackets = {{
+inline constexpr std::array<TypedPacketManifestEntry, 84U> ReceiveTypedPackets = {{
     MakeReceiveManifestEntry<receive::ClientLoginResult, receive::ClientLoginResult::Spec>(),
     MakeReceiveManifestEntry<receive::CharacterLoginResult, receive::CharacterLoginResult::Spec>(),
     MakeReceiveManifestEntry<receive::CharacterLogoutResult, receive::CharacterLogoutResult::Spec>(),
@@ -159,6 +159,7 @@ inline constexpr std::array<TypedPacketManifestEntry, 83U> ReceiveTypedPackets =
     MakeReceiveManifestEntry<receive::MapName, receive::MapName::Spec>(),
     MakeReceiveManifestEntry<receive::AddressBook, receive::AddressBook::Spec>(),
     MakeReceiveManifestEntry<receive::AddressBookInfo, receive::AddressBookInfo::Spec>(),
+    MakeReceiveManifestEntry<receive::GuildJoinNotification, receive::GuildJoinNotification::Spec>(),
     MakeReceiveManifestEntry<receive::GuildInfo, receive::GuildInfo::Spec>(),
     MakeReceiveManifestEntry<receive::GuildTitle, receive::GuildTitle::Spec>(),
     MakeReceiveManifestEntry<receive::GuildMember, receive::GuildMember::Spec>(),

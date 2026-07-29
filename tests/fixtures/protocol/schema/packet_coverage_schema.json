@@ -2701,6 +2701,8 @@
       "xlsxStatus": "进行中",
       "description": "SEND_PRW 交流版",
       "rawFormat": "{} {} {} {} {data}",
+      "resolvedFormat": "{windowType:i62} {buttonType:i62} {seqNo:i62} {objectIndex:i62} {data:es}",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
       "formatEmpty": false,
       "source": "xlsx",
       "fields": [
@@ -2738,6 +2740,43 @@
           "typeToken": "unknown",
           "rawSpec": "{data}",
           "source": "xlsx"
+        }
+      ],
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "windowType",
+          "typeToken": "i62",
+          "rawSpec": "{windowType:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 1,
+          "name": "buttonType",
+          "typeToken": "i62",
+          "rawSpec": "{buttonType:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 2,
+          "name": "seqNo",
+          "typeToken": "i62",
+          "rawSpec": "{seqNo:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 3,
+          "name": "objectIndex",
+          "typeToken": "i62",
+          "rawSpec": "{objectIndex:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 4,
+          "name": "data",
+          "typeToken": "es",
+          "rawSpec": "{data:es}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         }
       ]
     },

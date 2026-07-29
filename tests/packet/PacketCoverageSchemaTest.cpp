@@ -846,6 +846,74 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         }
     }
 
+    const PacketSchema* profileWindowSchema = FindPacket(packets, "DyAG");
+    failures += Expect(profileWindowSchema != nullptr, "DyAG schema exists");
+    if (profileWindowSchema != nullptr) {
+        const cg::packet::receive::ProfileWindow profileWindow(38, 0, 0, 0, std::vector<int> {});
+        const cg::packet::Packet packet = profileWindow.ToPacket();
+        const std::array<std::string_view, 5U> rawNames = {{"", "", "", "", "data"}};
+        const std::array<std::string_view, 5U> rawSpecs = {{"{}", "{}", "{}", "{}", "{data}"}};
+        const std::array<std::string_view, 5U> resolvedNames = {{
+            "windowType", "buttonType", "seqNo", "objectIndex", "data",
+        }};
+        const std::array<std::string_view, 5U> resolvedTypes = {{"i62", "i62", "i62", "i62", "es"}};
+        const std::array<std::string_view, 5U> resolvedSpecs = {{
+            "{windowType:i62}", "{buttonType:i62}", "{seqNo:i62}", "{objectIndex:i62}", "{data:es}",
+        }};
+        failures += Expect(profileWindowSchema->direction == "服务端->客户端", "DyAG direction");
+        failures += Expect(profileWindowSchema->legacyKind == "SEND", "DyAG legacyKind");
+        failures += Expect(profileWindowSchema->source == "xlsx", "DyAG raw source");
+        failures += Expect(profileWindowSchema->rawFormat == "{} {} {} {} {data}", "DyAG rawFormat");
+        failures += Expect(profileWindowSchema->fields.size() == rawNames.size(), "DyAG raw field count");
+        if (profileWindowSchema->fields.size() == rawNames.size()) {
+            for (std::size_t index = 0; index < rawNames.size(); ++index) {
+                failures += Expect(
+                    profileWindowSchema->fields[index].index == static_cast<int>(index),
+                    "DyAG raw field index");
+                failures += Expect(profileWindowSchema->fields[index].name == rawNames[index], "DyAG raw field name");
+                failures += Expect(profileWindowSchema->fields[index].typeToken == "unknown", "DyAG raw field type");
+                failures += Expect(
+                    profileWindowSchema->fields[index].rawSpec == rawSpecs[index],
+                    "DyAG raw field spec");
+                failures += Expect(profileWindowSchema->fields[index].source == "xlsx", "DyAG raw field source");
+            }
+        }
+        failures += Expect(
+            profileWindowSchema->resolvedFormat ==
+                "{windowType:i62} {buttonType:i62} {seqNo:i62} {objectIndex:i62} {data:es}",
+            "DyAG resolvedFormat");
+        failures += Expect(
+            profileWindowSchema->resolvedSource == "xlsx+ServerC+ClientIda+src/packet",
+            "DyAG resolvedSource");
+        failures += Expect(
+            profileWindowSchema->resolvedFields.size() == resolvedNames.size(),
+            "DyAG resolved field count");
+        if (profileWindowSchema->resolvedFields.size() == resolvedNames.size()) {
+            for (std::size_t index = 0; index < resolvedNames.size(); ++index) {
+                failures += Expect(
+                    profileWindowSchema->resolvedFields[index].index == static_cast<int>(index),
+                    "DyAG resolved field index");
+                failures += Expect(
+                    profileWindowSchema->resolvedFields[index].name == resolvedNames[index],
+                    "DyAG resolved field name");
+                failures += Expect(
+                    profileWindowSchema->resolvedFields[index].typeToken == resolvedTypes[index],
+                    "DyAG resolved field type");
+                failures += Expect(
+                    profileWindowSchema->resolvedFields[index].rawSpec == resolvedSpecs[index],
+                    "DyAG resolved field spec");
+                failures += Expect(
+                    profileWindowSchema->resolvedFields[index].source ==
+                        "xlsx+ServerC+ClientIda+src/packet",
+                    "DyAG resolved field source");
+            }
+        }
+        failures += ExpectResolvedFieldsMatch(
+            *profileWindowSchema,
+            packet,
+            "DyAG resolved/ToPacket field order");
+    }
+
     const PacketSchema* profileMailDeleteSchema = FindPacket(packets, "cNB");
     failures += Expect(profileMailDeleteSchema != nullptr, "cNB schema exists");
     if (profileMailDeleteSchema != nullptr) {

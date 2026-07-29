@@ -104,6 +104,7 @@ add_executable(cg-map-viewer
     src/resource/MapLoader.cpp
     src/resource/Palette.cpp
     src/resource/ResourceManager.cpp
+    src/platform/Console.cpp
 )
 
 add_executable(cg-asset-viewer
@@ -117,6 +118,7 @@ add_executable(cg-asset-viewer
     src/resource/HiddenPaletteQueue.cpp
     src/resource/Palette.cpp
     src/resource/ResourceManager.cpp
+    src/platform/Console.cpp
 )
 
 add_executable(cg-anim-viewer
@@ -130,6 +132,7 @@ add_executable(cg-anim-viewer
     src/resource/HiddenPaletteQueue.cpp
     src/resource/Palette.cpp
     src/resource/ResourceManager.cpp
+    src/platform/Console.cpp
 )
 
 add_executable(cg-anim-exporter
@@ -143,6 +146,7 @@ add_executable(cg-anim-exporter
     src/resource/HiddenPaletteQueue.cpp
     src/resource/Palette.cpp
     src/resource/ResourceManager.cpp
+    src/platform/Console.cpp
 )
 
 target_include_directories(cg-client

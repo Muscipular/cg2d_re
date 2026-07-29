@@ -4,6 +4,7 @@
 #include "resource/BinSetConfigLoader.hpp"
 #include "resource/MapLoader.hpp"
 #include "resource/ResourceManager.hpp"
+#include "platform/Console.hpp"
 
 #include <SDL3/SDL.h>
 
@@ -623,6 +624,7 @@ private:
 
 int main(int argc, char* argv[])
 {
+    cg::platform::ConfigureConsoleUtf8();
     if (argc != ExpectedArgCount) {
         PrintUsage();
         return 2;

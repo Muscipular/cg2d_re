@@ -1,6 +1,7 @@
 #include "resource/BinSetConfigLoader.hpp"
 #include "resource/Palette.hpp"
 #include "resource/ResourceManager.hpp"
+#include "platform/Console.hpp"
 
 #include <SDL3/SDL.h>
 #include <SDL3_image/SDL_image.h>
@@ -737,6 +738,7 @@ private:
 
 int main(int argc, char* argv[])
 {
+    cg::platform::ConfigureConsoleUtf8();
     if (argc == 2 && std::string_view { argv[1] } == "--help") {
         PrintUsage(std::cout);
         return 0;

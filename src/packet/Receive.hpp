@@ -1541,6 +1541,59 @@ namespace cg::packet::receive
         }
     };
 
+    /**
+     * Pong 回显响应 LOh
+     * VERSION_TW wire 固定单个外层 es；与 send::EchoRequest 对称。
+     */
+    struct EchoResponse
+    {
+        static constexpr std::string_view Code = "LOh";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("payload"), PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        std::string payload;
+
+        explicit EchoResponse(std::string payload)
+            : payload(std::move(payload))
+        {
+        }
+
+#if CG_PACKET_ENABLE_TEST_HELPERS
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("payload"),
+                PacketFieldType::EscapedString,
+                payload,
+            });
+            return packet;
+        }
+#endif
+
+        static PacketResult<EchoResponse> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
+            if (!parsed.HasValue()) {
+                return PacketResult<EchoResponse>::Failure(parsed.Error());
+            }
+
+            return PacketResult<EchoResponse>::Success(EchoResponse(
+                parsed.Value().fields[PayloadFieldIndex].value));
+        }
+
+    private:
+        static constexpr std::size_t PayloadFieldIndex = 0U;
+    };
+
     struct CharacterListRecord
     {
         std::string nameRaw;

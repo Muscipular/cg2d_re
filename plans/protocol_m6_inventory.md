@@ -245,7 +245,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 35 | `HMNy` | 服务端->客户端 | 完成 | SEND_CharLogout 角色登出结果；严格 `{result:es}→{msg:es}`，`receive::CharacterLogoutResult` 保留未知 result、空消息、外层 es 转义及 GBK 字节；不收窄 enum/bool，不限制 result 值或消息非空；NoStructuredPayload；fixture 含 failed-not-logged-in/failed-gbk-pair | 否 | 否 | xlsx+ServerC+ClientIda+src/packet |
 | 36 | `Or` | 客户端->服务端 | 完成 | RECV_Echo 回显心跳；resolved `{payload:es}`；`send::EchoRequest`；客户端每 30 秒发送 literal `nr`，服务端原样回送；NoStructuredPayload；fixture `client-heartbeat` | 否 | 否 | xlsx+ServerC+ClientIda+src/packet |
 | 37 | `DE` | 客户端->服务端 | 完成 | RECV_FCTime 定时心跳；resolved 零字段；`send::KeepAliveRequest`；客户端每 60 秒发送，服务端仅更新 FC 心跳状态；NoStructuredPayload；fixture `keep-alive` | 否 | 否 | xlsx+ServerC+ClientIda+src/packet |
-| 38 | `LOh` | 服务端->客户端 | 完成 | Pong | 否 | 否 | xlsx |
+| 38 | `LOh` | 服务端->客户端 | 完成 | Pong/回显响应；xlsx raw `{stamp:es}`，resolved `{payload:es}`；`receive::EchoResponse` 与 `send::EchoRequest` 对称，允许空/任意合法 es、转义及 GBK；不增加时间戳、非空、长度或 `nr` 固定值限制；NoStructuredPayload；fixture `heartbeat-echo` | 否 | 否 | xlsx+ServerC+ClientIda+src/packet |
 | 39 | `Ot` | 客户端->服务端 | 完成 | RECV_PRS SetProfileData 简介内容；外层 7 token，无二级 payload | 否 | 是 | xlsx + src/packet |
 | 40 | `aBS` | 服务端->客户端 | 完成 | SEND_MAP_DATA | 否 | 是 | xlsx |
 | 41 | `UUN` | 客户端->服务端 | 完成 | RECV_M MAP_getdataFromRECT 获取地图信息 | 否 | 是 | xlsx |

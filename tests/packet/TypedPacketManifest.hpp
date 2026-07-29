@@ -86,7 +86,7 @@ inline constexpr std::array<TypedPacketManifestEntry, 40U> SendTypedPackets = {{
     MakeSendManifestEntry<send::StallStart, send::StallStart::Spec>(),
 }};
 
-inline constexpr std::array<TypedPacketManifestEntry, 80U> ReceiveTypedPackets = {{
+inline constexpr std::array<TypedPacketManifestEntry, 81U> ReceiveTypedPackets = {{
     MakeReceiveManifestEntry<receive::ClientLoginResult, receive::ClientLoginResult::Spec>(),
     MakeReceiveManifestEntry<receive::CharacterLoginResult, receive::CharacterLoginResult::Spec>(),
     MakeReceiveManifestEntry<receive::CharacterLogoutResult, receive::CharacterLogoutResult::Spec>(),
@@ -99,6 +99,7 @@ inline constexpr std::array<TypedPacketManifestEntry, 80U> ReceiveTypedPackets =
     MakeReceiveManifestEntry<receive::BattlePosition, receive::BattlePosition::Spec>(),
     MakeReceiveManifestEntry<receive::ClientIpNotification, receive::ClientIpNotification::Spec>(),
     MakeReceiveManifestEntry<receive::MacroCheckConfig, receive::MacroCheckConfig::Spec>(),
+    MakeReceiveManifestEntry<receive::EchoResponse, receive::EchoResponse::Spec>(),
     MakeReceiveManifestEntry<receive::PfMNotification, receive::PfMNotification::Spec>(),
     MakeReceiveManifestEntry<receive::NpcEventResult, receive::NpcEventResult::Spec>(),
     MakeReceiveManifestEntry<receive::BattleEntryNotification, receive::BattleEntryNotification::Spec>(),

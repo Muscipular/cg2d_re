@@ -636,6 +636,18 @@ add_test(
     COMMAND cg-packet-echo-request-test
 )
 
+add_executable(cg-packet-echo-response-test
+    tests/packet/EchoResponsePacketTest.cpp
+)
+target_include_directories(cg-packet-echo-response-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+add_test(
+    NAME cg-packet-echo-response-test
+    COMMAND cg-packet-echo-response-test
+)
+
 add_executable(cg-packet-keep-alive-request-test
     tests/packet/KeepAliveRequestPacketTest.cpp
 )
@@ -2037,6 +2049,7 @@ if(MSVC)
     target_compile_options(cg-packet-character-login-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-profile-status-update-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-echo-request-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-echo-response-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-keep-alive-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-npc-event-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-duel-request-test PRIVATE /W4 /utf-8 /permissive-)
@@ -2189,6 +2202,7 @@ else()
     target_compile_options(cg-packet-character-login-request-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-profile-status-update-request-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-echo-request-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-packet-echo-response-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-keep-alive-request-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-npc-event-request-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-duel-request-test PRIVATE -Wall -Wextra -Wpedantic)

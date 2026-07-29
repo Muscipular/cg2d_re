@@ -1496,6 +1496,8 @@
       "rawFormat": "{stamp:es}",
       "formatEmpty": false,
       "source": "xlsx",
+      "resolvedFormat": "{payload:es}",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
       "fields": [
         {
           "index": 0,
@@ -1503,6 +1505,15 @@
           "typeToken": "es",
           "rawSpec": "{stamp:es}",
           "source": "xlsx"
+        }
+      ],
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "payload",
+          "typeToken": "es",
+          "rawSpec": "{payload:es}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         }
       ]
     },

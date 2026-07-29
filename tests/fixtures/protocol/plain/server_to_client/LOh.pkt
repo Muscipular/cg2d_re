@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=LOh
+direction=server_to_client
+sample=heartbeat-echo
+plain_hex=4C 4F 68 20 6E 72
+canonical_hex=4C 4F 68 20 6E 72 20
+end_sample

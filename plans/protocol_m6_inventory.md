@@ -394,7 +394,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 184 | `kjSK` | 客户端->服务端 | 完成 | RECV_PLVUP 宠物加点；xlsx rawFormat `{petSlot} {sqeno}`，旧 C + IDA 确认为 i62，无 payload | 否 | 是 | xlsx + 旧 C + IDA + src/packet |
 | 185 | `Noeb` | 客户端->服务端 | 完成 | RECV_SKSW SKILL_swap 人物技能移动 | 否 | 否 | xlsx |
 | 186 | `HJQp` | 客户端->服务端 | 完成 | RECV_PSSW SKILL_swapPetSkill 宠物技能移动；xlsx rawFormat `{petSlot} {from} {to}`，IDA `sub_5124E0` 确认三字段为 i62，无 payload | 否 | 否 | xlsx + IDA + src/packet |
-| 187 | `ih` | 客户端->服务端 | 完成 | RECV_POS CHAR_Position 战斗位置 | 否 | 否 | xlsx |
+| 187 | `ih` | 客户端->服务端 | 完成 | RECV_POS 切换战斗位置；严格零字段；`send::BattlePositionToggleRequest`；canonical `ih `；服务端 `CHAR_Position(ch, 0)` 的 0 是内部 toggle 模式，0/1 新位置仅在 `Ov` 回包，不是 `ih` 请求字段；NoStructuredPayload；fixture `without-trailing-space` | 否 | 否 | xlsx+ServerC+ClientIda+src/packet |
 | 188 | `ycX` | 客户端->服务端 | 完成 | RECV_KN CHAR_inputUserPetName 宠物姓名；外层 `{petSlot:i62} {name:es}`；无二级 payload；来源 xlsx + ServerC + ClientIda | 否 | 否 | xlsx + ServerC + ClientIda + src/packet |
 | 189 | `xD` | 客户端->服务端 | 完成 | RECV_WN 打开系统窗口；外层 `{x:i62} {y:i62} {seqno:i62} {objindex:i62} {select:i62} {data:es}`；无二级 payload；来源 xlsx + ServerC + ClientIda | 否 | 是 | xlsx + ServerC + ClientIda + src/packet |
 | 190 | `cZt` | 客户端->服务端 | 完成 | RECV_SP 离队时发送 | 否 | 否 | xlsx |

@@ -800,6 +800,34 @@ namespace cg::packet::send
     };
 
     /**
+     * RECV_POS 切换战斗位置 ih
+     * 服务端 CHAR_Position(ch, 0) 的 0 是内部 toggle 模式，不是 wire 字段；
+     * 新位置只出现在服务端 Ov 回包。
+     */
+    struct BattlePositionToggleRequest
+    {
+        static constexpr std::string_view Code = "ih";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 0U> Fields = {};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            return Packet(PacketCode(Code), Direction);
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket(), Spec);
+        }
+    };
+
+    /**
      * RECV_CreateNewChar 创建角色 aSEl
      * {dataPlace:i62} {name:es} {image:i62} {face:i62} {vital:i62} {strength:i62}
      * {tough:i62} {quick:i62} {magic:i62} {earth:i62} {water:i62} {fire:i62} {wind:i62}

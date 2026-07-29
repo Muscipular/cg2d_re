@@ -429,6 +429,201 @@ namespace cg::packet::receive
         }
     };
 
+    /**
+     * SEND_CC 坐标与地图状态 GmNM
+     * 当前 PUK2+VERSION_TW wire 固定 12 个 signed i62；旧宏组合不兼容。
+     */
+    struct CoordinateUpdate
+    {
+        static constexpr std::string_view Code = "GmNM";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 12U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("mapId"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("floor"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("maxX"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("maxY"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("x"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("y"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("configId"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("sequenceNumber"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("variant"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("bgm"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("cut"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("warpNumber"), PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        int mapId = 0;
+        int floor = 0;
+        int maxX = 0;
+        int maxY = 0;
+        int x = 0;
+        int y = 0;
+        int configId = 0;
+        int sequenceNumber = 0;
+        int variant = 0;
+        int bgm = 0;
+        int cut = 0;
+        int warpNumber = 0;
+
+        CoordinateUpdate(
+            int mapId,
+            int floor,
+            int maxX,
+            int maxY,
+            int x,
+            int y,
+            int configId,
+            int sequenceNumber,
+            int variant,
+            int bgm,
+            int cut,
+            int warpNumber)
+            : mapId(mapId),
+              floor(floor),
+              maxX(maxX),
+              maxY(maxY),
+              x(x),
+              y(y),
+              configId(configId),
+              sequenceNumber(sequenceNumber),
+              variant(variant),
+              bgm(bgm),
+              cut(cut),
+              warpNumber(warpNumber)
+        {
+        }
+
+#if CG_PACKET_ENABLE_TEST_HELPERS
+        [[nodiscard]] Packet ToPacket() const
+        {
+            const std::array<int, FieldCount> values = {{
+                mapId,
+                floor,
+                maxX,
+                maxY,
+                x,
+                y,
+                configId,
+                sequenceNumber,
+                variant,
+                bgm,
+                cut,
+                warpNumber,
+            }};
+
+            Packet packet(PacketCode(Code), Direction);
+            for (std::size_t index = 0U; index < FieldCount; ++index) {
+                packet.fields.push_back(PacketField {
+                    Fields[index].name,
+                    PacketFieldType::Int62,
+                    std::to_string(values[index]),
+                });
+            }
+            return packet;
+        }
+#endif
+
+        static PacketResult<CoordinateUpdate> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
+            if (!parsed.HasValue()) {
+                return PacketResult<CoordinateUpdate>::Failure(parsed.Error());
+            }
+
+            std::array<int, FieldCount> values {};
+            for (std::size_t index = 0U; index < FieldCount; ++index) {
+                PacketResult<int> value = ParseDecimalField(parsed.Value().fields[index].value, index);
+                if (!value.HasValue()) {
+                    return PacketResult<CoordinateUpdate>::Failure(value.Error());
+                }
+                values[index] = value.Value();
+            }
+
+            return PacketResult<CoordinateUpdate>::Success(CoordinateUpdate(
+                values[0],
+                values[1],
+                values[2],
+                values[3],
+                values[4],
+                values[5],
+                values[6],
+                values[7],
+                values[8],
+                values[9],
+                values[10],
+                values[11]));
+        }
+
+    private:
+        static constexpr std::size_t FieldCount = 12U;
+
+        [[nodiscard]] static PacketError MakeFieldError(
+            PacketErrorCode code,
+            std::string_view message,
+            std::size_t fieldIndex)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            error.fieldIndex = fieldIndex;
+            return error;
+        }
+
+        [[nodiscard]] static PacketResult<int> ParseDecimalField(
+            std::string_view text,
+            std::size_t fieldIndex)
+        {
+            bool negative = false;
+            std::size_t index = 0U;
+            if (!text.empty() && text.front() == '-') {
+                negative = true;
+                index = 1U;
+            }
+
+            if (index == text.size()) {
+                return PacketResult<int>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT("CoordinateUpdate i62 字段为空"),
+                    fieldIndex));
+            }
+
+            const std::int64_t maxValue = static_cast<std::int64_t>(std::numeric_limits<int>::max());
+            const std::int64_t minValue = static_cast<std::int64_t>(std::numeric_limits<int>::min());
+            const std::int64_t limit = negative ? (0 - minValue) : maxValue;
+            std::int64_t value = 0;
+
+            for (; index < text.size(); ++index) {
+                const char ch = text[index];
+                if (ch < '0' || ch > '9') {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        CG_PACKET_DIAGNOSTIC_TEXT("CoordinateUpdate i62 字段包含非法字符"),
+                        fieldIndex));
+                }
+
+                const int digit = ch - '0';
+                if (value > (limit - digit) / 10) {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        CG_PACKET_DIAGNOSTIC_TEXT("CoordinateUpdate i62 字段超出 int 范围"),
+                        fieldIndex));
+                }
+
+                value = (value * 10) + digit;
+            }
+
+            if (negative) {
+                value = -value;
+            }
+            return PacketResult<int>::Success(static_cast<int>(value));
+        }
+    };
+
     struct CharacterListRecord
     {
         std::string nameRaw;

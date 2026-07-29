@@ -448,6 +448,8 @@
       "rawFormat": "{mapid:i62} {floor:i62} {maxx:i62} {maxy:i62} {x:i62} {y:i62} {cfgid:i62} {seqno:i62} {var:i62} {bgm:i62} {cut:i62} {warpnum:i62}",
       "formatEmpty": false,
       "source": "xlsx",
+      "resolvedFormat": "{mapId:i62} {floor:i62} {maxX:i62} {maxY:i62} {x:i62} {y:i62} {configId:i62} {sequenceNumber:i62} {variant:i62} {bgm:i62} {cut:i62} {warpNumber:i62}",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
       "fields": [
         {
           "index": 0,
@@ -532,6 +534,92 @@
           "typeToken": "i62",
           "rawSpec": "{warpnum:i62}",
           "source": "xlsx"
+        }
+      ],
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "mapId",
+          "typeToken": "i62",
+          "rawSpec": "{mapId:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 1,
+          "name": "floor",
+          "typeToken": "i62",
+          "rawSpec": "{floor:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 2,
+          "name": "maxX",
+          "typeToken": "i62",
+          "rawSpec": "{maxX:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 3,
+          "name": "maxY",
+          "typeToken": "i62",
+          "rawSpec": "{maxY:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 4,
+          "name": "x",
+          "typeToken": "i62",
+          "rawSpec": "{x:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 5,
+          "name": "y",
+          "typeToken": "i62",
+          "rawSpec": "{y:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 6,
+          "name": "configId",
+          "typeToken": "i62",
+          "rawSpec": "{configId:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 7,
+          "name": "sequenceNumber",
+          "typeToken": "i62",
+          "rawSpec": "{sequenceNumber:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 8,
+          "name": "variant",
+          "typeToken": "i62",
+          "rawSpec": "{variant:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 9,
+          "name": "bgm",
+          "typeToken": "i62",
+          "rawSpec": "{bgm:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 10,
+          "name": "cut",
+          "typeToken": "i62",
+          "rawSpec": "{cut:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 11,
+          "name": "warpNumber",
+          "typeToken": "i62",
+          "rawSpec": "{warpNumber:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         }
       ]
     },

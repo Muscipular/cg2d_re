@@ -828,6 +828,18 @@ add_test(
     COMMAND cg-packet-client-index-test
 )
 
+add_executable(cg-packet-coordinate-update-test
+    tests/packet/CoordinateUpdatePacketTest.cpp
+)
+target_include_directories(cg-packet-coordinate-update-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+add_test(
+    NAME cg-packet-coordinate-update-test
+    COMMAND cg-packet-coordinate-update-test
+)
+
 add_executable(cg-packet-create-new-char-result-test
     tests/packet/CreateNewCharResultPacketTest.cpp
 )
@@ -1945,6 +1957,7 @@ if(MSVC)
     target_compile_options(cg-packet-pfm-notification-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-character-login-result-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-client-index-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-coordinate-update-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-create-new-char-result-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-create-new-char-send-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-character-delete-result-test PRIVATE /W4 /utf-8 /permissive-)
@@ -2088,6 +2101,7 @@ else()
     target_compile_options(cg-packet-pfm-notification-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-character-login-result-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-client-index-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-packet-coordinate-update-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-create-new-char-result-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-character-delete-result-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-process-status-test PRIVATE -Wall -Wextra -Wpedantic)

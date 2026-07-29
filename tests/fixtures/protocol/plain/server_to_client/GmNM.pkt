@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=GmNM
+direction=server_to_client
+sample=distinct-i62-order
+plain_hex=47 6D 4E 4D 20 31 20 32 20 33 20 34 20 35 20 36 20 37 20 38 20 39 20 61 20 41 20 2D 31
+canonical_hex=47 6D 4E 4D 20 31 20 32 20 33 20 34 20 35 20 36 20 37 20 38 20 39 20 61 20 41 20 2D 31 20
+end_sample

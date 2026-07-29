@@ -2887,6 +2887,68 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "nkda resolved/Spec field order");
     }
 
+    const PacketSchema* bagPageManagerSchema = FindPacket(packets, "SWITMM");
+    failures += Expect(bagPageManagerSchema != nullptr, "SWITMM schema exists");
+    if (bagPageManagerSchema != nullptr) {
+        failures += Expect(
+            bagPageManagerSchema->direction == "客户端->服务端",
+            "SWITMM direction");
+        failures += Expect(
+            bagPageManagerSchema->legacyKind == "RECV",
+            "SWITMM legacyKind");
+        failures += Expect(
+            bagPageManagerSchema->originalFormat == "SWITMM",
+            "SWITMM originalFormat");
+        failures += Expect(
+            bagPageManagerSchema->rawFormat.empty(),
+            "SWITMM rawFormat empty");
+        failures += Expect(
+            !bagPageManagerSchema->formatEmpty,
+            "SWITMM formatEmpty false");
+        failures += Expect(bagPageManagerSchema->source == "xlsx", "SWITMM raw source");
+        failures += Expect(bagPageManagerSchema->fields.empty(), "SWITMM raw fields empty");
+        failures += Expect(
+            bagPageManagerSchema->hasResolvedFormat,
+            "SWITMM resolvedFormat present");
+        failures += Expect(
+            bagPageManagerSchema->resolvedFormat.empty(),
+            "SWITMM resolvedFormat empty");
+        failures += Expect(
+            bagPageManagerSchema->resolvedSource == "xlsx+ServerC",
+            "SWITMM resolvedSource");
+        failures += Expect(
+            bagPageManagerSchema->resolvedSource.find("ClientIda") == std::string::npos,
+            "SWITMM resolvedSource excludes ClientIda");
+        failures += Expect(
+            bagPageManagerSchema->hasResolvedFields,
+            "SWITMM resolvedFields present");
+        failures += Expect(
+            bagPageManagerSchema->resolvedFields.empty(),
+            "SWITMM resolvedFields empty");
+
+        bool hasSendTypedPacket = false;
+        for (const cg::packet::test::TypedPacketManifestEntry& entry :
+             cg::packet::test::SendTypedPackets) {
+            if (entry.spec != nullptr && entry.spec->code == "SWITMM") {
+                hasSendTypedPacket = true;
+            }
+        }
+        failures += Expect(
+            !hasSendTypedPacket,
+            "SWITMM absent from send typed manifest");
+
+        bool hasReceiveTypedPacket = false;
+        for (const cg::packet::test::TypedPacketManifestEntry& entry :
+             cg::packet::test::ReceiveTypedPackets) {
+            if (entry.spec != nullptr && entry.spec->code == "SWITMM") {
+                hasReceiveTypedPacket = true;
+            }
+        }
+        failures += Expect(
+            !hasReceiveTypedPacket,
+            "SWITMM absent from receive typed manifest");
+    }
+
     const PacketSchema* createNewCharSchema = FindPacket(packets, "aSEl");
     failures += Expect(createNewCharSchema != nullptr, "aSEl schema exists");
     if (createNewCharSchema != nullptr) {

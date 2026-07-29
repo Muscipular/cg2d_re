@@ -7150,6 +7150,9 @@
       "originalFormat": "SWITMM",
       "formatEmpty": false,
       "source": "xlsx",
+      "resolvedFormat": "",
+      "resolvedSource": "xlsx+ServerC",
+      "resolvedFields": [],
       "fields": []
     },
     {

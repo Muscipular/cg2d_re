@@ -506,6 +506,8 @@ textureCache.LoadRgba8(key, image.width, image.height, image.pixels.data(), imag
 
 ## 9. M6：封包解析与全量协议支持
 
+> 当前严格补完工作以独立计划 [protocol_m6_completion_plan.md](protocol_m6_completion_plan.md) 为准；该计划从 91/209 个显式 typed struct 的实际基线继续推进，不把历史 88 个 payload 目标完成视为全量完成。
+
 ### 目标
 
 建立旧客户端封包解析层，支持 `plans/CG封包.xlsx` 中全部 209 个封包：客户端->服务端 100 个、服务端->客户端 109 个。M6 只负责封包编解码和内嵌 payload 结构化，不实现 TCP session、重连、网络线程；连接运行链路放到 M10。

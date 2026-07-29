@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=emRV
+direction=client_to_server
+sample=distinct-i62-order
+plain_hex=65 6D 52 56 20 31 30 20 2D 31 20 41
+canonical_hex=65 6D 52 56 20 31 30 20 2D 31 20 41 20
+end_sample

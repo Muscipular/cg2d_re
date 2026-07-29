@@ -210,7 +210,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 |---:|---|---|---|---|---|---|---|
 | 1 | `JFVf` | 客户端->服务端 | 完成 | 账号密码 | 否 | 否 | xlsx + src/packet |
 | 2 | `Gp` | 客户端->服务端 | 完成 | RECV_CharList 获取角色列表 | 否 | 否 | xlsx |
-| 3 | `emRV` | 客户端->服务端 | 完成 | RECV_CharLogin 登录 | 否 | 否 | xlsx |
+| 3 | `emRV` | 客户端->服务端 | 完成 | RECV_CharLogin 登录；三字段 `{registnumber:i62} {renewal:i62} {face:i62}`；`send::CharacterLoginRequest`；NoStructuredPayload；fixture `distinct-i62-order` | 否 | 否 | xlsx+ServerC+ClientIda+src/packet |
 | 4 | `CCL` | 客户端->服务端 | 完成 | RECV_CheckCommand 发送客户端时间 | 否 | 否 | xlsx |
 | 5 | `lz` | 客户端->服务端 | 完成 | RECV_PRO CHAR_setProfileStatus 简介开关 | 否 | 否 | xlsx |
 | 6 | `WA` | 客户端->服务端 | 完成 | RECV_CharLogout 登出；零字段；`send::CharacterLogoutRequest`；NoStructuredPayload | 否 | 否 | xlsx+ServerC+ClientIda+src/packet |

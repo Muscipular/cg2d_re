@@ -600,6 +600,18 @@ add_test(
     COMMAND cg-packet-character-logout-request-test
 )
 
+add_executable(cg-packet-character-login-request-test
+    tests/packet/CharacterLoginRequestPacketTest.cpp
+)
+target_include_directories(cg-packet-character-login-request-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+add_test(
+    NAME cg-packet-character-login-request-test
+    COMMAND cg-packet-character-login-request-test
+)
+
 add_executable(cg-packet-pfm-notification-test
     tests/packet/PfMNotificationPacketTest.cpp
 )
@@ -1710,6 +1722,7 @@ if(MSVC)
     target_compile_options(cg-packet-types-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-character-list-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-character-logout-request-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-character-login-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-pfm-notification-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-create-new-char-result-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-create-new-char-send-test PRIVATE /W4 /utf-8 /permissive-)
@@ -1835,6 +1848,7 @@ else()
     target_compile_options(cg-packet-types-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-character-list-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-character-logout-request-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-packet-character-login-request-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-pfm-notification-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-create-new-char-result-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-character-delete-result-test PRIVATE -Wall -Wextra -Wpedantic)

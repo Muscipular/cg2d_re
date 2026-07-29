@@ -1124,11 +1124,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 26U, "send typed manifest count 26");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 27U, "send typed manifest count 27");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 67U, "receive typed manifest count 67");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 93U,
-        "typed manifest count 93");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 94U,
+        "typed manifest count 94");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1145,7 +1145,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 93U, "typed manifest unique code count 93");
+    failures += Expect(codes.size() == 94U, "typed manifest unique code count 94");
     return failures;
 }
 
@@ -1604,6 +1604,104 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             *characterLogoutRequestSchema,
             packet,
             "WA resolved field order");
+    }
+
+    const PacketSchema* characterLoginRequestSchema = FindPacket(packets, "emRV");
+    failures += Expect(characterLoginRequestSchema != nullptr, "emRV schema exists");
+    if (characterLoginRequestSchema != nullptr) {
+        const cg::packet::Packet packet =
+            cg::packet::send::CharacterLoginRequest(62, -1, 36).ToPacket();
+        failures += Expect(
+            characterLoginRequestSchema->direction == "客户端->服务端",
+            "emRV direction");
+        failures += Expect(characterLoginRequestSchema->legacyKind == "RECV", "emRV legacyKind");
+        failures += Expect(
+            characterLoginRequestSchema->rawFormat
+                == "{registnumber:i62} {renewal:i62} {face:i62}",
+            "emRV rawFormat");
+        failures += Expect(characterLoginRequestSchema->fields.size() == 3U, "emRV raw field count");
+        if (characterLoginRequestSchema->fields.size() == 3U) {
+            failures += Expect(
+                characterLoginRequestSchema->fields[0].name == "registnumber",
+                "emRV raw registnumber name");
+            failures += Expect(
+                characterLoginRequestSchema->fields[0].typeToken == "i62",
+                "emRV raw registnumber type");
+            failures += Expect(
+                characterLoginRequestSchema->fields[0].source == "xlsx",
+                "emRV raw registnumber source");
+            failures += Expect(
+                characterLoginRequestSchema->fields[1].name == "renewal",
+                "emRV raw renewal name");
+            failures += Expect(
+                characterLoginRequestSchema->fields[1].typeToken == "i62",
+                "emRV raw renewal type");
+            failures += Expect(
+                characterLoginRequestSchema->fields[1].source == "xlsx",
+                "emRV raw renewal source");
+            failures += Expect(
+                characterLoginRequestSchema->fields[2].name == "face",
+                "emRV raw face name");
+            failures += Expect(
+                characterLoginRequestSchema->fields[2].typeToken == "i62",
+                "emRV raw face type");
+            failures += Expect(
+                characterLoginRequestSchema->fields[2].source == "xlsx",
+                "emRV raw face source");
+        }
+        failures += Expect(characterLoginRequestSchema->hasResolvedFormat, "emRV resolvedFormat present");
+        failures += Expect(
+            characterLoginRequestSchema->resolvedFormat
+                == "{registnumber:i62} {renewal:i62} {face:i62}",
+            "emRV resolvedFormat");
+        failures += Expect(
+            characterLoginRequestSchema->resolvedSource
+                == "xlsx+ServerC+ClientIda+src/packet",
+            "emRV resolvedSource");
+        failures += Expect(characterLoginRequestSchema->hasResolvedFields, "emRV resolvedFields present");
+        failures += Expect(
+            characterLoginRequestSchema->resolvedFields.size() == 3U,
+            "emRV resolved field count");
+        if (characterLoginRequestSchema->resolvedFields.size() == 3U) {
+            failures += Expect(
+                characterLoginRequestSchema->resolvedFields[0].name == "registnumber",
+                "emRV resolved registnumber name");
+            failures += Expect(
+                characterLoginRequestSchema->resolvedFields[0].typeToken == "i62",
+                "emRV resolved registnumber type");
+            failures += Expect(
+                characterLoginRequestSchema->resolvedFields[0].source
+                    == "xlsx+ServerC+ClientIda+src/packet",
+                "emRV resolved registnumber source");
+            failures += Expect(
+                characterLoginRequestSchema->resolvedFields[1].name == "renewal",
+                "emRV resolved renewal name");
+            failures += Expect(
+                characterLoginRequestSchema->resolvedFields[1].typeToken == "i62",
+                "emRV resolved renewal type");
+            failures += Expect(
+                characterLoginRequestSchema->resolvedFields[1].source
+                    == "xlsx+ServerC+ClientIda+src/packet",
+                "emRV resolved renewal source");
+            failures += Expect(
+                characterLoginRequestSchema->resolvedFields[2].name == "face",
+                "emRV resolved face name");
+            failures += Expect(
+                characterLoginRequestSchema->resolvedFields[2].typeToken == "i62",
+                "emRV resolved face type");
+            failures += Expect(
+                characterLoginRequestSchema->resolvedFields[2].source
+                    == "xlsx+ServerC+ClientIda+src/packet",
+                "emRV resolved face source");
+        }
+        failures += ExpectEffectiveFieldsMatch(
+            *characterLoginRequestSchema,
+            cg::packet::send::CharacterLoginRequest::Spec,
+            "emRV Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *characterLoginRequestSchema,
+            packet,
+            "emRV resolved field order");
     }
 
     const PacketSchema* loginResultSchema = FindPacket(packets, "whV");

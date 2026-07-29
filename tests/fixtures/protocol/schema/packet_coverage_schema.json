@@ -59,6 +59,31 @@
       "xlsxStatus": "完成",
       "description": "RECV_CharLogin 登录",
       "rawFormat": "{registnumber:i62} {renewal:i62} {face:i62}",
+      "resolvedFormat": "{registnumber:i62} {renewal:i62} {face:i62}",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "registnumber",
+          "typeToken": "i62",
+          "rawSpec": "{registnumber:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 1,
+          "name": "renewal",
+          "typeToken": "i62",
+          "rawSpec": "{renewal:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 2,
+          "name": "face",
+          "typeToken": "i62",
+          "rawSpec": "{face:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        }
+      ],
       "formatEmpty": false,
       "source": "xlsx",
       "fields": [

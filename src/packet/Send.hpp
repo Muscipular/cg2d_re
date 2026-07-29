@@ -99,6 +99,63 @@ namespace cg::packet::send
     };
 
     /**
+     * RECV_CharLogin 登录 emRV {registnumber:i62} {renewal:i62} {face:i62}
+     */
+    struct CharacterLoginRequest
+    {
+        static constexpr std::string_view Code = "emRV";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 3U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("registnumber"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("renewal"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("face"), PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        int registNumber = 0;
+        int renewal = 0;
+        int face = 0;
+
+        CharacterLoginRequest(int registNumber, int renewal, int face)
+            : registNumber(registNumber),
+              renewal(renewal),
+              face(face)
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("registnumber"),
+                PacketFieldType::Int62,
+                std::to_string(registNumber),
+            });
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("renewal"),
+                PacketFieldType::Int62,
+                std::to_string(renewal),
+            });
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("face"),
+                PacketFieldType::Int62,
+                std::to_string(face),
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket(), Spec);
+        }
+    };
+
+    /**
      * RECV_CharLogout 登出 WA
      */
     struct CharacterLogoutRequest

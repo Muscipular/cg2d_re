@@ -1124,11 +1124,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 25U, "send typed manifest count 25");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 26U, "send typed manifest count 26");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 66U, "receive typed manifest count 66");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 91U,
-        "typed manifest count 91");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 92U,
+        "typed manifest count 92");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1145,7 +1145,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 91U, "typed manifest unique code count 91");
+    failures += Expect(codes.size() == 92U, "typed manifest unique code count 92");
     return failures;
 }
 
@@ -1574,6 +1574,36 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         failures += Expect(clientLoginSchema->direction == "客户端->服务端", "JFVf direction");
         failures += Expect(clientLoginSchema->legacyKind == "RECV", "JFVf legacyKind");
         failures += ExpectPacketFieldsMatch(*clientLoginSchema, clientLogin.ToPacket(), "JFVf field order");
+    }
+
+    const PacketSchema* characterLogoutRequestSchema = FindPacket(packets, "WA");
+    failures += Expect(characterLogoutRequestSchema != nullptr, "WA schema exists");
+    if (characterLogoutRequestSchema != nullptr) {
+        const cg::packet::Packet packet = cg::packet::send::CharacterLogoutRequest {}.ToPacket();
+        failures += Expect(
+            characterLogoutRequestSchema->direction == "客户端->服务端",
+            "WA direction");
+        failures += Expect(characterLogoutRequestSchema->legacyKind == "RECV", "WA legacyKind");
+        failures += Expect(characterLogoutRequestSchema->rawFormat.empty(), "WA rawFormat empty");
+        failures += Expect(characterLogoutRequestSchema->originalFormat == "WA", "WA originalFormat");
+        failures += Expect(!characterLogoutRequestSchema->formatEmpty, "WA formatEmpty false");
+        failures += Expect(characterLogoutRequestSchema->hasResolvedFormat, "WA resolvedFormat present");
+        failures += Expect(characterLogoutRequestSchema->resolvedFormat.empty(), "WA resolvedFormat empty");
+        failures += Expect(
+            characterLogoutRequestSchema->resolvedSource
+                == "xlsx+ServerC+ClientIda+src/packet",
+            "WA resolvedSource");
+        failures += Expect(characterLogoutRequestSchema->fields.empty(), "WA raw fields empty");
+        failures += Expect(characterLogoutRequestSchema->hasResolvedFields, "WA resolvedFields present");
+        failures += Expect(characterLogoutRequestSchema->resolvedFields.empty(), "WA resolvedFields empty");
+        failures += ExpectEffectiveFieldsMatch(
+            *characterLogoutRequestSchema,
+            cg::packet::send::CharacterLogoutRequest::Spec,
+            "WA Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *characterLogoutRequestSchema,
+            packet,
+            "WA resolved field order");
     }
 
     const PacketSchema* loginResultSchema = FindPacket(packets, "whV");

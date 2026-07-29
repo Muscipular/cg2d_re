@@ -99,6 +99,32 @@ namespace cg::packet::send
     };
 
     /**
+     * RECV_CharLogout 登出 WA
+     */
+    struct CharacterLogoutRequest
+    {
+        static constexpr std::string_view Code = "WA";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 0U> Fields = {};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            return Packet(PacketCode(Code), Direction);
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket(), Spec);
+        }
+    };
+
+    /**
      * RECV_CheckCommand 发送客户端时间 CCL {time:i62}
      */
     struct CheckCommand

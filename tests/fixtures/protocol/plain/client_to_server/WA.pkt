@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=WA
+direction=client_to_server
+sample=without-trailing-space
+plain_hex=57 41
+canonical_hex=57 41 20
+end_sample

@@ -73,7 +73,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | M6.10.02 地图封包-nsY | `nsY` | 服务端->客户端 | 否 | 完成 | SEND_C ObjectList；按 `data` payload 最小结构拆 record |
 | M6.10.03 地图封包-NI | `NI` | 服务端->客户端 | 否 | 完成 | SEND_CA 发送头顶图标；外层 resolved 为单 `{data:es}`，`data` 使用 SubPayload，xlsx 多余 `{caInfo:s}` 仅保留 raw；payload 按 `,` 分记录，每条具名解析 `objectIndex(i62)/x/y/action/direction`，尾部仅保留无业务命名的 `options`；严格接受 options 0/1/3/7 项，即 5/6/8/12 字段四种 producer 形态；除 objectIndex 外均为 raw signed decimal int |
 | M6.10.04 地图封包-aBS | `aBS` | 服务端->客户端 | 否 | 完成 | SEND_MAP_DATA；外层 `{mapid:i62} {floor:i62} {x1:i62} {y1:i62} {x2:i62} {y2:i62} {data:es}`；`data` 拆 `tileData|objectData|eventDataRaw` 三段，每段按 `,` 拆 i62 网格，不拆业务事件语义 |
-| M6.10.05 地图封包-uSB | `uSB` | 服务端->客户端 | 否 | 完成 | SEND_CD 发送删除ObjectIndex列表；按旧 C 修正为单外层 `{data:es}`，不实现 xlsx 第二外层 `objectIndex:i62` 字段；`data` payload 按 `,` 拆 objectIndex i62 列表，允许空列表 |
+| M6.10.05 地图封包-uSB | `uSB` | 服务端->客户端 | 否 | 完成 | SEND_CD 发送删除ObjectIndex列表；M6R.0.2a 保留 xlsx raw `{data:es} {objectIndex:i62}`，按 Server C `nrproto_CD_send(int fd, char* data)` 与 `ObjectDelete::Spec` 修正 resolved 为单外层 `{data:es}`，resolved 来源仅 `ServerC+src/packet`；`data` payload 按 `,` 拆 objectIndex i62 列表，允许空列表 |
 | M6.10.06 地图封包-UUN | `UUN` | 客户端->服务端 | 否 | 完成 | RECV_M MAP_getdataFromRECT 获取地图信息；实现 `{mapid:i62} {floor:i62} {x1:i62} {y1:i62} {x2:i62} {y2:i62}` Encode；M6.10 地图组完成 |
 | M6.11.01 角色/Profile封包-HNP | `HNP` | 服务端->客户端 | 否 | 完成 | SEND_PRV  CHAR_sendProfileVersion简介版本内容；外层 `{data:es}`；payload 为 `profileVersion|aboutVersion|mailCharge|seekPos` 4 段 raw decimal，不用 i62 |
 | M6.11.02 角色/Profile封包-aPc | `aPc` | 服务端->客户端 | 否 | 完成 | SEND_CP CharData_1；单外层 `{data:es}`；payload 按 flags 将 bit1..30 解析为具名 optional 字段，bit0 选择全部、bit31 不消费值；数值为 raw signed decimal，name/ownTitle 做 legacy escape 还原，gold 选中时末尾追加 crystal；按旧双字节感知分隔 |
@@ -203,7 +203,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | `NI` | 服务端->客户端 | `cg::packet::receive::CharacterIcon` | `{data:es}` | M6.10.03 完成；外层 resolved 为单 `data:es`，`data` 使用 SubPayload，xlsx `caInfo:s` 仅保留 raw；`CharacterIconEntry` 具名保存 `objectIndex/x/y/action/direction` 与无业务命名的 `options`，严格接受 5/6/8/12 字段四种 producer 形态；objectIndex 使用 i62，其余字段严格按 raw signed decimal int；空 payload 与空 entries 均拒绝 |
 | `aBS` | 服务端->客户端 | `cg::packet::receive::MapData` | `{mapid:i62} {floor:i62} {x1:i62} {y1:i62} {x2:i62} {y2:i62} {data:es}` | M6.10.04 已实现；`data` 拆 `tileData|objectData|eventDataRaw`，每段元素数匹配 `(x2-x1)*(y2-y1)`；object/event 空字段按 0，保留业务事件 raw 值不拆 |
 | `UUN` | 客户端->服务端 | `cg::packet::send::MapDataRequest` | `{mapid:i62} {floor:i62} {x1:i62} {y1:i62} {x2:i62} {y2:i62}` | M6.10.06 已实现；无 payload，`Encode()` 通过 `BuildPacket(ToPacket())` 生成明文 token |
-| `uSB` | 服务端->客户端 | `cg::packet::receive::ObjectDelete` | `{data:es}` | M6.10.05 已实现；按旧 C `nrproto_CD_send(int fd, char* data)` 修正为单外层 `data`，不实现 xlsx 第二外层 `objectIndex:i62` 字段；`data` 按 `,` 拆 objectIndex i62 列表，允许空列表 |
+| `uSB` | 服务端->客户端 | `cg::packet::receive::ObjectDelete` | `{data:es}` | M6.10.05 已实现；M6R.0.2a 已完成 schema 证据修正：xlsx raw `{data:es} {objectIndex:i62}` 原样保留，Server C 与 `ObjectDelete::Spec` 共同确定 resolved 为单外层 `{data:es}`，resolved 来源仅 `ServerC+src/packet`；`data` 按 `,` 拆 objectIndex i62 列表，允许空列表 |
 
 ## 209 个封包清单
 | 序号 | code | 方向 | 状态 | 说明 | format 是否为空 | 是否疑似内嵌 payload | 来源 |
@@ -250,7 +250,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 40 | `aBS` | 服务端->客户端 | 完成 | SEND_MAP_DATA | 否 | 是 | xlsx |
 | 41 | `UUN` | 客户端->服务端 | 完成 | RECV_M MAP_getdataFromRECT 获取地图信息 | 否 | 是 | xlsx |
 | 42 | `zA` | 客户端->服务端 | 完成 | RECV_W 移动 | 否 | 否 | xlsx |
-| 43 | `uSB` | 服务端->客户端 | 完成 | SEND_CD 发送删除ObjectIndex列表 | 否 | 是 | xlsx |
+| 43 | `uSB` | 服务端->客户端 | 完成 | SEND_CD 发送删除ObjectIndex列表；M6R.0.2a 保留 xlsx raw 两字段，resolved 修正为单 `{data:es}` | 否 | 是 | xlsx(raw)+ServerC+src/packet |
 | 44 | `QBt` | 服务端->客户端 | 完成 | SEND_XYD | 否 | 否 | xlsx |
 | 45 | `sz` | 客户端->服务端 | 完成 | RECV_w 移动 | 否 | 否 | xlsx |
 | 46 | `pg` | 客户端->服务端 | 完成 | RECV_EV NPC事件 | 否 | 否 | xlsx |

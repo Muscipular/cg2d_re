@@ -1139,6 +1139,65 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         }
     }
 
+    const PacketSchema* objectDeleteSchema = FindPacket(packets, "uSB");
+    failures += Expect(objectDeleteSchema != nullptr, "uSB schema exists");
+    if (objectDeleteSchema != nullptr) {
+        const cg::packet::receive::ObjectDelete objectDelete({1});
+        const cg::packet::Packet packet = objectDelete.ToPacket();
+        const cg::packet::PacketSpec& spec = cg::packet::receive::ObjectDelete::Spec;
+        failures += Expect(objectDeleteSchema->direction == "服务端->客户端", "uSB direction");
+        failures += Expect(objectDeleteSchema->legacyKind == "SEND", "uSB legacyKind");
+        failures += Expect(
+            objectDeleteSchema->rawFormat == "{data:es} {objectIndex:i62}",
+            "uSB rawFormat");
+        failures += Expect(objectDeleteSchema->source == "xlsx", "uSB raw source");
+        failures += Expect(objectDeleteSchema->fields.size() == 2U, "uSB raw field count");
+        if (objectDeleteSchema->fields.size() == 2U) {
+            failures += Expect(
+                objectDeleteSchema->fields[0].index == 0 &&
+                    objectDeleteSchema->fields[0].name == "data" &&
+                    objectDeleteSchema->fields[0].typeToken == "es" &&
+                    objectDeleteSchema->fields[0].rawSpec == "{data:es}" &&
+                    objectDeleteSchema->fields[0].source == "xlsx",
+                "uSB raw data field");
+            failures += Expect(
+                objectDeleteSchema->fields[1].index == 1 &&
+                    objectDeleteSchema->fields[1].name == "objectIndex" &&
+                    objectDeleteSchema->fields[1].typeToken == "i62" &&
+                    objectDeleteSchema->fields[1].rawSpec == "{objectIndex:i62}" &&
+                    objectDeleteSchema->fields[1].source == "xlsx",
+                "uSB raw objectIndex conflict field");
+        }
+        failures += Expect(objectDeleteSchema->resolvedFormat == "{data:es}", "uSB resolvedFormat");
+        failures += Expect(
+            objectDeleteSchema->resolvedSource == "ServerC+src/packet",
+            "uSB resolvedSource");
+        failures += Expect(spec.code == "uSB", "uSB Spec code");
+        failures += Expect(
+            spec.direction == cg::packet::PacketDirection::ServerToClient,
+            "uSB Spec direction");
+        failures += Expect(spec.fieldCount == 1U, "uSB Spec field count");
+        if (spec.fieldCount == 1U) {
+            failures += Expect(spec.fields != nullptr, "uSB Spec fields");
+            if (spec.fields != nullptr) {
+                failures += Expect(spec.fields[0].name == "data", "uSB Spec field name");
+                failures += Expect(
+                    spec.fields[0].type == cg::packet::PacketFieldType::EscapedString,
+                    "uSB Spec field type");
+            }
+        }
+        failures += Expect(objectDeleteSchema->resolvedFields.size() == 1U, "uSB resolved field count");
+        if (objectDeleteSchema->resolvedFields.size() == 1U) {
+            failures += Expect(
+                objectDeleteSchema->resolvedFields[0].rawSpec == "{data:es}",
+                "uSB resolved field spec");
+            failures += Expect(
+                objectDeleteSchema->resolvedFields[0].source == "ServerC+src/packet",
+                "uSB resolved field source");
+        }
+        failures += ExpectResolvedFieldsMatch(*objectDeleteSchema, packet, "uSB resolved/Spec field order");
+    }
+
     const PacketSchema* createNewCharSchema = FindPacket(packets, "aSEl");
     failures += Expect(createNewCharSchema != nullptr, "aSEl schema exists");
     if (createNewCharSchema != nullptr) {

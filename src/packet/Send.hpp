@@ -699,6 +699,42 @@ namespace cg::packet::send
     };
 
     /**
+     * RECV_BU 停止观战 NgMy {dummy:i62}
+     * 客户端合同固定 dummy 为 0；服务端接收后忽略该值。
+     */
+    struct BattleWatchStopRequest
+    {
+        static constexpr std::string_view Code = "NgMy";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr int Dummy = 0;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("dummy"), PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("dummy"),
+                PacketFieldType::Int62,
+                std::to_string(Dummy),
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket(), Spec);
+        }
+    };
+
+    /**
      * RECV_B 战斗指令 Rg {command:es}
      * command 数值操作数沿用客户端 %X 语义，统一编码为大写十六进制。
      */

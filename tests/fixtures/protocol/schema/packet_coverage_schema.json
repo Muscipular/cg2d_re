@@ -2095,14 +2095,14 @@
       "formatEmpty": false,
       "source": "xlsx",
       "resolvedFormat": "{dummy:i62}",
-      "resolvedSource": "xlsx+ServerC",
+      "resolvedSource": "xlsx+ServerC+src/packet",
       "resolvedFields": [
         {
           "index": 0,
           "name": "dummy",
           "typeToken": "i62",
           "rawSpec": "{dummy:i62}",
-          "source": "xlsx+ServerC"
+          "source": "xlsx+ServerC+src/packet"
         }
       ],
       "fields": []

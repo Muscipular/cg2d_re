@@ -1124,11 +1124,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 45U, "send typed manifest count 45");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 46U, "send typed manifest count 46");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 84U, "receive typed manifest count 84");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 129U,
-        "typed manifest count 129");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 130U,
+        "typed manifest count 130");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1145,7 +1145,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 129U, "typed manifest unique code count 129");
+    failures += Expect(codes.size() == 130U, "typed manifest unique code count 130");
     return failures;
 }
 
@@ -2047,6 +2047,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     const PacketSchema* battleWatchStopSchema = FindPacket(packets, "NgMy");
     failures += Expect(battleWatchStopSchema != nullptr, "NgMy schema exists");
     if (battleWatchStopSchema != nullptr) {
+        const cg::packet::send::BattleWatchStopRequest request;
+        const cg::packet::Packet packet = request.ToPacket();
         failures += Expect(
             battleWatchStopSchema->direction == "客户端->服务端",
             "NgMy direction");
@@ -2075,7 +2077,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             battleWatchStopSchema->resolvedFormat == "{dummy:i62}",
             "NgMy resolvedFormat");
         failures += Expect(
-            battleWatchStopSchema->resolvedSource == "xlsx+ServerC",
+            battleWatchStopSchema->resolvedSource == "xlsx+ServerC+src/packet",
             "NgMy resolvedSource");
         failures += Expect(
             battleWatchStopSchema->resolvedSource.find("ClientIda") == std::string::npos,
@@ -2093,34 +2095,21 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                     field.name == "dummy" &&
                     field.typeToken == "i62" &&
                     field.rawSpec == "{dummy:i62}" &&
-                    field.source == "xlsx+ServerC",
+                    field.source == "xlsx+ServerC+src/packet",
                 "NgMy resolved field");
             failures += Expect(
                 field.source.find("ClientIda") == std::string::npos,
                 "NgMy resolved field source excludes ClientIda");
         }
 
-        bool hasSendTypedPacket = false;
-        for (const cg::packet::test::TypedPacketManifestEntry& entry :
-             cg::packet::test::SendTypedPackets) {
-            if (entry.spec != nullptr && entry.spec->code == "NgMy") {
-                hasSendTypedPacket = true;
-            }
-        }
-        failures += Expect(
-            !hasSendTypedPacket,
-            "NgMy absent from send typed manifest");
-
-        bool hasReceiveTypedPacket = false;
-        for (const cg::packet::test::TypedPacketManifestEntry& entry :
-             cg::packet::test::ReceiveTypedPackets) {
-            if (entry.spec != nullptr && entry.spec->code == "NgMy") {
-                hasReceiveTypedPacket = true;
-            }
-        }
-        failures += Expect(
-            !hasReceiveTypedPacket,
-            "NgMy absent from receive typed manifest");
+        failures += ExpectEffectiveFieldsMatch(
+            *battleWatchStopSchema,
+            cg::packet::send::BattleWatchStopRequest::Spec,
+            "NgMy Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *battleWatchStopSchema,
+            packet,
+            "NgMy resolved field order");
     }
 
     const PacketSchema* loginResultSchema = FindPacket(packets, "whV");

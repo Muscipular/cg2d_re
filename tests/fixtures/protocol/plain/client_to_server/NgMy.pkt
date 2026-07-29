@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=NgMy
+direction=client_to_server
+sample=server-contract-zero
+plain_hex=4E 67 4D 79 20 30
+canonical_hex=4E 67 4D 79 20 30 20
+end_sample

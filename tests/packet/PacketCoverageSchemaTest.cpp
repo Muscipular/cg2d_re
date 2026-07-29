@@ -808,6 +808,38 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         failures += ExpectResolvedFieldsMatch(*profileDataSchema, packet, "DpSY resolved/ToPacket field order");
     }
 
+    const PacketSchema* profileMailDeleteSchema = FindPacket(packets, "cNB");
+    failures += Expect(profileMailDeleteSchema != nullptr, "cNB schema exists");
+    if (profileMailDeleteSchema != nullptr) {
+        const cg::packet::receive::ProfileMailDelete profileMailDelete(1, "Alice");
+        const cg::packet::Packet packet = profileMailDelete.ToPacket();
+        failures += Expect(profileMailDeleteSchema->direction == "服务端->客户端", "cNB direction");
+        failures += Expect(profileMailDeleteSchema->legacyKind == "SEND", "cNB legacyKind");
+        failures += Expect(profileMailDeleteSchema->rawFormat == "{data}", "cNB rawFormat");
+        failures += Expect(profileMailDeleteSchema->fields.size() == 1U, "cNB raw field count");
+        if (profileMailDeleteSchema->fields.size() == 1U) {
+            failures += Expect(profileMailDeleteSchema->fields[0].name == "data", "cNB raw field name");
+            failures += Expect(profileMailDeleteSchema->fields[0].typeToken == "unknown", "cNB raw field type");
+            failures += Expect(profileMailDeleteSchema->fields[0].rawSpec == "{data}", "cNB raw field spec");
+        }
+        failures += Expect(profileMailDeleteSchema->resolvedFormat == "{data:es}", "cNB resolvedFormat");
+        failures += Expect(
+            profileMailDeleteSchema->resolvedSource == "xlsx+ServerC+ClientIda+src/packet",
+            "cNB resolvedSource");
+        failures += Expect(profileMailDeleteSchema->resolvedFields.size() == 1U, "cNB resolved field count");
+        if (profileMailDeleteSchema->resolvedFields.size() == 1U) {
+            failures += Expect(profileMailDeleteSchema->resolvedFields[0].name == "data", "cNB resolved field name");
+            failures += Expect(profileMailDeleteSchema->resolvedFields[0].typeToken == "es", "cNB resolved field type");
+            failures += Expect(
+                profileMailDeleteSchema->resolvedFields[0].rawSpec == "{data:es}",
+                "cNB resolved field spec");
+        }
+        failures += ExpectResolvedFieldsMatch(
+            *profileMailDeleteSchema,
+            packet,
+            "cNB resolved/ToPacket field order");
+    }
+
     const PacketSchema* characterProfileSchema = FindPacket(packets, "aPc");
     failures += Expect(characterProfileSchema != nullptr, "aPc schema exists");
     if (characterProfileSchema != nullptr) {

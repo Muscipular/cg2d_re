@@ -2611,6 +2611,8 @@
       "xlsxStatus": "进行中",
       "description": "SEND_PRE 删除迷你邮件成员",
       "rawFormat": "{data}",
+      "resolvedFormat": "{data:es}",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
       "formatEmpty": false,
       "source": "xlsx",
       "fields": [
@@ -2620,6 +2622,15 @@
           "typeToken": "unknown",
           "rawSpec": "{data}",
           "source": "xlsx"
+        }
+      ],
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "data",
+          "typeToken": "es",
+          "rawSpec": "{data:es}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         }
       ]
     },

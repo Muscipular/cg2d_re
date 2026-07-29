@@ -2833,6 +2833,71 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "cZt resolved/Spec field order");
     }
 
+    const PacketSchema* guildDissolveSchema = FindPacket(packets, "nkda");
+    failures += Expect(guildDissolveSchema != nullptr, "nkda schema exists");
+    if (guildDissolveSchema != nullptr) {
+        failures += Expect(
+            guildDissolveSchema->direction == "客户端->服务端",
+            "nkda direction");
+        failures += Expect(guildDissolveSchema->legacyKind == "RECV", "nkda legacyKind");
+        failures += Expect(
+            guildDissolveSchema->originalFormat == "nkda",
+            "nkda originalFormat");
+        failures += Expect(guildDissolveSchema->rawFormat.empty(), "nkda rawFormat empty");
+        failures += Expect(!guildDissolveSchema->formatEmpty, "nkda formatEmpty false");
+        failures += Expect(guildDissolveSchema->source == "xlsx", "nkda raw source");
+        failures += Expect(guildDissolveSchema->fields.empty(), "nkda raw fields empty");
+        failures += Expect(
+            guildDissolveSchema->hasResolvedFormat,
+            "nkda resolvedFormat present");
+        failures += Expect(
+            guildDissolveSchema->resolvedFormat == "{guildId:i62}",
+            "nkda resolvedFormat");
+        failures += Expect(
+            guildDissolveSchema->resolvedSource == "xlsx+ServerC",
+            "nkda resolvedSource");
+        failures += Expect(
+            guildDissolveSchema->resolvedSource.find("ClientIda") == std::string::npos,
+            "nkda resolvedSource excludes ClientIda");
+        failures += Expect(
+            guildDissolveSchema->hasResolvedFields,
+            "nkda resolvedFields present");
+        failures += Expect(
+            guildDissolveSchema->resolvedFields.size() == 1U,
+            "nkda resolved field count");
+        if (guildDissolveSchema->resolvedFields.size() == 1U) {
+            const FieldSchema& field = guildDissolveSchema->resolvedFields[0];
+            failures += Expect(
+                field.index == 0 &&
+                    field.name == "guildId" &&
+                    field.typeToken == "i62" &&
+                    field.rawSpec == "{guildId:i62}" &&
+                    field.source == "xlsx+ServerC",
+                "nkda resolved field");
+            failures += Expect(
+                field.source.find("ClientIda") == std::string::npos,
+                "nkda resolved field source excludes ClientIda");
+        }
+
+        bool hasSendTypedPacket = false;
+        for (const cg::packet::test::TypedPacketManifestEntry& entry :
+             cg::packet::test::SendTypedPackets) {
+            if (entry.spec != nullptr && entry.spec->code == "nkda") {
+                hasSendTypedPacket = true;
+            }
+        }
+        failures += Expect(!hasSendTypedPacket, "nkda absent from send typed manifest");
+
+        bool hasReceiveTypedPacket = false;
+        for (const cg::packet::test::TypedPacketManifestEntry& entry :
+             cg::packet::test::ReceiveTypedPackets) {
+            if (entry.spec != nullptr && entry.spec->code == "nkda") {
+                hasReceiveTypedPacket = true;
+            }
+        }
+        failures += Expect(!hasReceiveTypedPacket, "nkda absent from receive typed manifest");
+    }
+
     const PacketSchema* createNewCharSchema = FindPacket(packets, "aSEl");
     failures += Expect(createNewCharSchema != nullptr, "aSEl schema exists");
     if (createNewCharSchema != nullptr) {

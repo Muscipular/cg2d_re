@@ -360,7 +360,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 150 | `dbQC` | 客户端->服务端 | 进行中 | RECV_RGM 移除家族成员 | 否 | 否 | xlsx |
 | 151 | `uId` | 客户端->服务端 | 完成 | RECV_GML 家族邮件；resolved `{toregistNumber:i62} {text:es} {color:i62}`，resolvedSource `xlsx+src/packet`；无二级 payload，`text` 为普通外层 es 且允许空，不拆 `|`；`toregistNumber/color` 仅按 i62，不做范围或 bit 业务校验 | 否 | 是 | xlsx + src/packet |
 | 152 | `PfqV` | 客户端->服务端 | 完成 | RECV_PGML 宠邮登记；resolved `{toregist:i62} {petSlot:i62} {itemSlot:i62} {text:es} {color:i62}`，resolvedSource `xlsx+ServerC+ClientIda+src/packet`；无二级 payload，`text` 为普通外层 es，客户端不执行 `color | 0x100` | 否 | 是 | xlsx |
-| 153 | `nkda` | 客户端->服务端 | 进行中 | RECV_GD 解散家族 | 否 | 否 | xlsx |
+| 153 | `nkda` | 客户端->服务端 | 完成 | RECV_GD 解散家族；保留 xlsx original `nkda`、空 rawFormat/fields 与 formatEmpty=false 原貌，按 VERSION_TW/PACKETVER2 active Server dispatcher 补 resolved 单 `{guildId:i62}`；dispatcher 仅消费 token1 signed i62，PUK2 handler 将参数与当前 guild ID 比较且仅家族长 `titleID==0` 可执行 `GUILD_dissolveGuild`；Server 对缺失/额外 token 较宽松，未来 typed 合同仍固定 exact1；无二级 payload与静态数值范围；cg2d 对 exact code 字符串/字节/immediate 均为 0 命中，缺少 sender/字段来源证据，来源严禁标 ClientIda；typed/fixture 待后续独立小步 | 否 | 否 | xlsx+ServerC |
 | 154 | `HoW` | 客户端->服务端 | 待办 | RECV_PRV 获取profile | 否 | 否 | xlsx |
 | 155 | `TLKH` | 客户端->服务端 | 进行中 | RECV_PRD 关闭stall后发送 | 否 | 否 | xlsx |
 | 156 | `wD` | 客户端->服务端 | 完成 | RECV_PRE 删除迷你邮件好友；resolved `{profileIndex:i62} {name:es}`，resolvedSource `xlsx+src/packet`；无二级 payload，`name` 为普通外层 es 且允许空，不拆 `|`；`profileIndex` 仅按 i62 | 否 | 是 | xlsx + src/packet |

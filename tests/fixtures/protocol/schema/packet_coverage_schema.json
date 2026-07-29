@@ -2326,6 +2326,8 @@
       "xlsxStatus": "进行中",
       "description": "SEND_PRA 收到about list",
       "rawFormat": "{data}",
+      "resolvedFormat": "{data:es}",
+      "resolvedSource": "xlsx+ServerC+src/packet",
       "formatEmpty": false,
       "source": "xlsx",
       "fields": [
@@ -2335,6 +2337,15 @@
           "typeToken": "unknown",
           "rawSpec": "{data}",
           "source": "xlsx"
+        }
+      ],
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "data",
+          "typeToken": "es",
+          "rawSpec": "{data:es}",
+          "source": "xlsx+ServerC+src/packet"
         }
       ]
     },

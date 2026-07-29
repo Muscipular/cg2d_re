@@ -179,7 +179,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | `dM` | 服务端->客户端 | `cg::packet::receive::AlbumInfo` | `{albumId:i62} {imageNumber:i62} {catchFlag:i62} {rare:i62} {type:i62} {vital:i62} {strength:i62} {toughness:i62} {quick:i62} {magic:i62} {earth:i62} {water:i62} {fire:i62} {wind:i62} {slot:i62} {comment:es} {name:es}` | M6.12.06 已实现；旧 C `SEND_ALI/nrproto_ALI_send` + `CHAR_sendAlbumInfoData` + 客户端 IDA 补足；无二级 payload，`comment/name` 允许空字符串并保留外层 es 结果，不做 UI 展示用 `Unescape2` |
 | `Dn` | 服务端->客户端 | `cg::packet::receive::AlbumName` | `{albumId:i62} {name:es}` | M6.12.07 已实现；旧 C `SEND_ALN/nrproto_ALN_send` + `CHAR_sendAlbumPetNameData` + 客户端 IDA `network_dispatch` 补足；无二级 payload，`name` 允许空字符串并保留外层 es 结果，内部 `|` 不拆 |
 | `eZT` | 服务端->客户端 | `cg::packet::receive::ProfileList` | `{data:es}` | M6.11.06 已实现；xlsx 原 schema `{data}` 按旧 C `nrproto_mkstr_string(data)` 修正为 `data/es`；`data` 为 `version|itemId|graphicNo|itemName...`，无 count，`version/itemId/graphicNo` 为 raw decimal，`itemName` 保留 raw 字符串 |
-| `IUn` | 服务端->客户端 | `cg::packet::receive::AboutList` | `{data:es}` | M6.11.07 已实现；xlsx 原 schema `{data}` 按旧 C `nrproto_mkstr_string(data)` 修正为 `data/es`；`data` 为 `version|itemId|graphicNo|itemName...`，无 count，`version/itemId/graphicNo` 为 raw decimal，`itemName` 保留 raw 字符串 |
+| `IUn` | 服务端->客户端 | `cg::packet::receive::AboutList` | `{data:es}` | M6.11.07 已实现；Server C `nrproto_serv.c:161,2208-2212` 明确 `SEND_PRA="IUn"` 且唯一 `char* data` 走 `nrproto_mkstr_string`；`char/char_profile.c:476-507` 明确构造 `version|itemId|graphicNo|itemName...` 后裁掉尾随 `|`，无 count，`version/itemId/graphicNo` 为 raw decimal，`itemName` 保留 raw 字符串 |
 | `DpSY` | 服务端->客户端 | `cg::packet::receive::ProfileData` | `{name:es} {lv:i62} {job:es} {title:es} {guildName:es} {graphic:i62} {sid:i62} {smsg:es} {bid:i62} {bmsg:es} {aid:i62} {amsg:es} {pmsg:es}` | M6.11.08 已实现；按旧 C `SEND_PRD/nrproto_PRD_send` 修正为 13 个外层 token；`smsg/bmsg/amsg/pmsg` 保留 es 字符串，不拆二级 payload |
 | `cNB` | 服务端->客户端 | `cg::packet::receive::ProfileMailDelete` | `{data:es}` | M6.11.09 已实现；xlsx 原 schema `{data}` 按旧 C `nrproto_mkstr_string(data)` 修正为 `data/es`；`data` 为 `profileIndex|name` 两段，`profileIndex` 为 raw decimal，`name` 保留 raw 字符串且可为空，回写不生成 xlsx 尾随 `|` |
 | `ow` | 服务端->客户端 | `cg::packet::receive::ProfileMailReceipt` | `{profileIndex:i62} {dtext:es} {color:i62}` | M6.11.10 已实现；按旧 C `SEND_PRM/nrproto_PRM_send` 修正 `dtext` 为 es；`dtext` 保存 raw 字符串，不拆内部 `sentTimeText|message|` |
@@ -281,7 +281,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 71 | `Rll` | 服务端->客户端 | 完成 | SEND_GML 家族邮件；外层 `{fromregistseqnumber:i62} {text:es} {color:i62}`，payload 3/6 段；普通 marker literal `-1` | 否 | 是 | xlsx+src/packet |
 | 72 | `frQp` | 服务端->客户端 | 进行中 | SEND_GD 退出或解散家族 | 否 | 否 | xlsx |
 | 73 | `eZT` | 服务端->客户端 | 完成 | SEND_PRL 收到profile list | 否 | 是 | xlsx + src/packet |
-| 74 | `IUn` | 服务端->客户端 | 完成 | SEND_PRA 收到about list | 否 | 是 | xlsx + src/packet |
+| 74 | `IUn` | 服务端->客户端 | 完成 | SEND_PRA 收到 about list；resolved `{data:es}`，payload 为 `version|itemId|graphicNo|itemName...` 且无尾随 `|` | 否 | 是 | xlsx + ServerC + src/packet |
 | 75 | `DpSY` | 服务端->客户端 | 完成 | SEND_PRD profile data | 否 | 是 | xlsx + src/packet |
 | 76 | `cNB` | 服务端->客户端 | 完成 | SEND_PRE 删除迷你邮件成员；schema `{data}` 按旧 C 修正为 data/es，不生成 xlsx 尾随 `|` | 否 | 是 | xlsx + src/packet |
 | 77 | `ow` | 服务端->客户端 | 完成 | SEND_PRM 迷你信件回执；旧 C `{profileIndex:i62} {dtext:es} {color:i62}`，dtext 不拆内部 `|` | 否 | 是 | xlsx + src/packet |

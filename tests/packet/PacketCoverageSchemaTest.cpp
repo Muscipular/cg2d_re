@@ -724,6 +724,22 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         failures += ExpectResolvedFieldsMatch(*processStatusSchema, packet, "cJzI resolved field order");
     }
 
+    const PacketSchema* aboutListSchema = FindPacket(packets, "IUn");
+    failures += Expect(aboutListSchema != nullptr, "IUn schema exists");
+    if (aboutListSchema != nullptr) {
+        const cg::packet::receive::AboutList aboutList(1, {{10, 100, "Hero"}});
+        const cg::packet::Packet packet = aboutList.ToPacket();
+        failures += Expect(aboutListSchema->direction == "服务端->客户端", "IUn direction");
+        failures += Expect(aboutListSchema->legacyKind == "SEND", "IUn legacyKind");
+        failures += Expect(aboutListSchema->rawFormat == "{data}", "IUn rawFormat");
+        failures += Expect(aboutListSchema->fields.size() == 1U, "IUn raw field count");
+        failures += Expect(aboutListSchema->resolvedFormat == "{data:es}", "IUn resolvedFormat");
+        failures += Expect(
+            aboutListSchema->resolvedSource == "xlsx+ServerC+src/packet",
+            "IUn resolvedSource");
+        failures += ExpectResolvedFieldsMatch(*aboutListSchema, packet, "IUn resolved field order");
+    }
+
     const PacketSchema* createNewCharSchema = FindPacket(packets, "aSEl");
     failures += Expect(createNewCharSchema != nullptr, "aSEl schema exists");
     if (createNewCharSchema != nullptr) {

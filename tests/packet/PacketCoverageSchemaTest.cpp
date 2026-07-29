@@ -2733,6 +2733,70 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         failures += ExpectResolvedFieldsMatch(*objectDeleteSchema, packet, "uSB resolved/Spec field order");
     }
 
+    const PacketSchema* separationPositionSchema = FindPacket(packets, "cZt");
+    failures += Expect(separationPositionSchema != nullptr, "cZt schema exists");
+    if (separationPositionSchema != nullptr) {
+        failures += Expect(
+            separationPositionSchema->direction == "客户端->服务端",
+            "cZt direction");
+        failures += Expect(separationPositionSchema->legacyKind == "RECV", "cZt legacyKind");
+        failures += Expect(
+            separationPositionSchema->originalFormat == "cZt x:i62 y:i62 dir:i62",
+            "cZt originalFormat");
+        failures += Expect(separationPositionSchema->rawFormat.empty(), "cZt rawFormat empty");
+        failures += Expect(!separationPositionSchema->formatEmpty, "cZt formatEmpty false");
+        failures += Expect(separationPositionSchema->source == "xlsx", "cZt raw source");
+        failures += Expect(separationPositionSchema->fields.empty(), "cZt raw fields empty");
+        failures += Expect(
+            separationPositionSchema->hasResolvedFormat,
+            "cZt resolvedFormat present");
+        failures += Expect(
+            separationPositionSchema->resolvedFormat == "{x:i62} {y:i62} {dir:i62}",
+            "cZt resolvedFormat");
+        failures += Expect(
+            separationPositionSchema->resolvedSource == "xlsx+ServerC+ClientIda",
+            "cZt resolvedSource");
+        failures += Expect(
+            separationPositionSchema->hasResolvedFields,
+            "cZt resolvedFields present");
+        failures += Expect(
+            separationPositionSchema->resolvedFields.size() == 3U,
+            "cZt resolved field count");
+        if (separationPositionSchema->resolvedFields.size() == 3U) {
+            constexpr std::array<std::string_view, 3U> names = {{"x", "y", "dir"}};
+            constexpr std::array<std::string_view, 3U> specs = {{
+                "{x:i62}",
+                "{y:i62}",
+                "{dir:i62}",
+            }};
+            for (std::size_t index = 0U; index < names.size(); ++index) {
+                const FieldSchema& field = separationPositionSchema->resolvedFields[index];
+                failures += Expect(
+                    field.index == index &&
+                        field.name == names[index] &&
+                        field.typeToken == "i62" &&
+                        field.rawSpec == specs[index] &&
+                        field.source == "xlsx+ServerC+ClientIda",
+                    "cZt resolved field");
+            }
+        }
+
+        bool hasTypedPacket = false;
+        for (const cg::packet::test::TypedPacketManifestEntry& entry :
+             cg::packet::test::SendTypedPackets) {
+            if (entry.spec != nullptr && entry.spec->code == "cZt") {
+                hasTypedPacket = true;
+            }
+        }
+        for (const cg::packet::test::TypedPacketManifestEntry& entry :
+             cg::packet::test::ReceiveTypedPackets) {
+            if (entry.spec != nullptr && entry.spec->code == "cZt") {
+                hasTypedPacket = true;
+            }
+        }
+        failures += Expect(!hasTypedPacket, "cZt remains outside typed manifest");
+    }
+
     const PacketSchema* createNewCharSchema = FindPacket(packets, "aSEl");
     failures += Expect(createNewCharSchema != nullptr, "aSEl schema exists");
     if (createNewCharSchema != nullptr) {

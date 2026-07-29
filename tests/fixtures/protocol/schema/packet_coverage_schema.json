@@ -1287,6 +1287,8 @@
       "rawFormat": "{config.mouselist:i62} {config.mousecount:i62}",
       "formatEmpty": false,
       "source": "xlsx",
+      "resolvedFormat": "{listMax:i62} {repeatThreshold:i62}",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
       "fields": [
         {
           "index": 0,
@@ -1301,6 +1303,22 @@
           "typeToken": "i62",
           "rawSpec": "{config.mousecount:i62}",
           "source": "xlsx"
+        }
+      ],
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "listMax",
+          "typeToken": "i62",
+          "rawSpec": "{listMax:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 1,
+          "name": "repeatThreshold",
+          "typeToken": "i62",
+          "rawSpec": "{repeatThreshold:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         }
       ]
     },

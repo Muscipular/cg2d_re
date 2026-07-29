@@ -239,7 +239,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 29 | `Ov` | 服务端->客户端 | 完成 | SEND_POS 战斗前后排；严格 `{pos:i62}`，`receive::BattlePosition` 仅接受 0 前排/1 后排，拒绝其他值并保留错误上下文；不模拟客户端 int16 截断；NoStructuredPayload；fixture `back-row` | 否 | 否 | xlsx+ServerC+ClientIda+src/packet |
 | 30 | `Ilz` | 服务端->客户端 | 完成 | SEND_AL 图鉴？；外层 `{albumversion:i62} {data:es}`；payload page 为 raw decimal int | 否 | 是 | xlsx + 旧 C + IDA + src/packet |
 | 31 | `lSZ` | 服务端->客户端 | 完成 | SEND_IP 客户端 IP 通知；严格单 `{clientIP:es}`，`receive::ClientIpNotification` 允许空、外层 es 转义及合法 GBK 双字节；不增加 IPv4 格式、长度或非空限制，无二级 payload；NoStructuredPayload；fixture `ipv4-loopback` | 否 | 否 | xlsx+ServerC+ClientIda+src/packet |
-| 32 | `tq` | 服务端->客户端 | 完成 | SEND_MAC Mouse? | 否 | 否 | xlsx |
+| 32 | `tq` | 服务端->客户端 | 完成 | SEND_MAC 宏检查配置；严格 `{listMax:i62}→{repeatThreshold:i62}`，`receive::MacroCheckConfig` 保留任意 int；客户端对 listMax/repeatThreshold 的默认值归一化不属于 typed 解析层；NoStructuredPayload；fixture 含 active-default/client-lower-bound/client-normalization | 否 | 否 | xlsx+ServerC+ClientIda+src/packet |
 | 33 | `zzd` | 服务端->客户端 | 完成 | SEND_EF | 否 | 是 | xlsx |
 | 34 | `NI` | 服务端->客户端 | 完成 | SEND_CA；resolved 单 `{data:es}`；typed 记录具名保存 `objectIndex/x/y/action/direction`，可选尾部仅作为 `vector<int> options`，严格接受 5/6/8/12 字段；objectIndex 为 i62，其余均为 raw signed decimal int | 否 | 是 | xlsx + Server C + Client IDA + src/packet |
 | 35 | `HMNy` | 服务端->客户端 | 完成 | SEND_CharLogout | 否 | 否 | xlsx |

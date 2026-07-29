@@ -1,0 +1,15 @@
+pkt_fixture=1
+code=tq
+direction=server_to_client
+sample=active-default
+plain_hex=74 71 20 59 20 4F
+canonical_hex=74 71 20 59 20 4F 20
+end_sample
+sample=client-lower-bound
+plain_hex=74 71 20 61 20 35
+canonical_hex=74 71 20 61 20 35 20
+end_sample
+sample=client-normalization
+plain_hex=74 71 20 31 69 45 20 34
+canonical_hex=74 71 20 31 69 45 20 34 20
+end_sample

@@ -1357,6 +1357,149 @@ namespace cg::packet::receive
     };
 
     /**
+     * SEND_XYD 玩家位置同步 QBt
+     * wire 固定 x/y/dir 三个 signed i62；保留完整 int，不增加坐标或方向约束。
+     */
+    struct PlayerPositionSync
+    {
+        static constexpr std::string_view Code = "QBt";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 3U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("x"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("y"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("dir"), PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        int x = 0;
+        int y = 0;
+        int direction = 0;
+
+        PlayerPositionSync(int x, int y, int direction)
+            : x(x),
+              y(y),
+              direction(direction)
+        {
+        }
+
+#if CG_PACKET_ENABLE_TEST_HELPERS
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("x"),
+                PacketFieldType::Int62,
+                std::to_string(x),
+            });
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("y"),
+                PacketFieldType::Int62,
+                std::to_string(y),
+            });
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("dir"),
+                PacketFieldType::Int62,
+                std::to_string(direction),
+            });
+            return packet;
+        }
+#endif
+
+        static PacketResult<PlayerPositionSync> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
+            if (!parsed.HasValue()) {
+                return PacketResult<PlayerPositionSync>::Failure(parsed.Error());
+            }
+
+            std::array<int, FieldCount> values {};
+            for (std::size_t index = 0U; index < FieldCount; ++index) {
+                PacketResult<int> value = ParseDecimalField(parsed.Value().fields[index].value, index);
+                if (!value.HasValue()) {
+                    return PacketResult<PlayerPositionSync>::Failure(value.Error());
+                }
+                values[index] = value.Value();
+            }
+
+            return PacketResult<PlayerPositionSync>::Success(PlayerPositionSync(
+                values[XFieldIndex],
+                values[YFieldIndex],
+                values[DirectionFieldIndex]));
+        }
+
+    private:
+        static constexpr std::size_t FieldCount = 3U;
+        static constexpr std::size_t XFieldIndex = 0U;
+        static constexpr std::size_t YFieldIndex = 1U;
+        static constexpr std::size_t DirectionFieldIndex = 2U;
+
+        [[nodiscard]] static PacketError MakeFieldError(
+            PacketErrorCode code,
+            std::string_view message,
+            std::size_t fieldIndex)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            error.fieldIndex = fieldIndex;
+            return error;
+        }
+
+        [[nodiscard]] static PacketResult<int> ParseDecimalField(
+            std::string_view text,
+            std::size_t fieldIndex)
+        {
+            bool negative = false;
+            std::size_t index = 0U;
+            if (!text.empty() && text.front() == '-') {
+                negative = true;
+                index = 1U;
+            }
+
+            if (index == text.size()) {
+                return PacketResult<int>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT("PlayerPositionSync i62 字段为空"),
+                    fieldIndex));
+            }
+
+            const std::int64_t maxValue = static_cast<std::int64_t>(std::numeric_limits<int>::max());
+            const std::int64_t minValue = static_cast<std::int64_t>(std::numeric_limits<int>::min());
+            const std::int64_t limit = negative ? (0 - minValue) : maxValue;
+            std::int64_t value = 0;
+
+            for (; index < text.size(); ++index) {
+                const char ch = text[index];
+                if (ch < '0' || ch > '9') {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        CG_PACKET_DIAGNOSTIC_TEXT("PlayerPositionSync i62 字段包含非法字符"),
+                        fieldIndex));
+                }
+
+                const int digit = ch - '0';
+                if (value > (limit - digit) / 10) {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        CG_PACKET_DIAGNOSTIC_TEXT("PlayerPositionSync i62 字段超出 int 范围"),
+                        fieldIndex));
+                }
+
+                value = (value * 10) + digit;
+            }
+
+            if (negative) {
+                value = -value;
+            }
+            return PacketResult<int>::Success(static_cast<int>(value));
+        }
+    };
+
+    /**
      * SEND_IP 客户端 IP 通知 lSZ
      * wire 固定单个外层 es；协议层保留任意合法 legacy 字节串。
      */

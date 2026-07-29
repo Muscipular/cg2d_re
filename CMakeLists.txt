@@ -924,6 +924,18 @@ add_test(
     COMMAND cg-packet-battle-position-test
 )
 
+add_executable(cg-packet-player-position-sync-test
+    tests/packet/PlayerPositionSyncPacketTest.cpp
+)
+target_include_directories(cg-packet-player-position-sync-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+add_test(
+    NAME cg-packet-player-position-sync-test
+    COMMAND cg-packet-player-position-sync-test
+)
+
 add_executable(cg-packet-client-ip-notification-test
     tests/packet/ClientIpNotificationPacketTest.cpp
 )
@@ -2073,6 +2085,7 @@ if(MSVC)
     target_compile_options(cg-packet-map-checksum-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-fever-status-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-battle-position-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-player-position-sync-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-client-ip-notification-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-macro-check-config-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-create-new-char-result-test PRIVATE /W4 /utf-8 /permissive-)
@@ -2226,6 +2239,7 @@ else()
     target_compile_options(cg-packet-map-checksum-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-fever-status-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-battle-position-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-packet-player-position-sync-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-client-ip-notification-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-macro-check-config-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-create-new-char-result-test PRIVATE -Wall -Wextra -Wpedantic)

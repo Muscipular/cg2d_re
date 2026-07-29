@@ -251,7 +251,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 41 | `UUN` | 客户端->服务端 | 完成 | RECV_M MAP_getdataFromRECT 获取地图信息 | 否 | 是 | xlsx |
 | 42 | `zA` | 客户端->服务端 | 完成 | RECV_W 移动 | 否 | 否 | xlsx |
 | 43 | `uSB` | 服务端->客户端 | 完成 | SEND_CD 发送删除ObjectIndex列表；M6R.0.2a 保留 xlsx raw 两字段，resolved 修正为单 `{data:es}` | 否 | 是 | xlsx(raw)+ServerC+src/packet |
-| 44 | `QBt` | 服务端->客户端 | 完成 | SEND_XYD | 否 | 否 | xlsx |
+| 44 | `QBt` | 服务端->客户端 | 完成 | SEND_XYD 玩家位置同步；严格 `{x:i62} {y:i62} {dir:i62}`；`receive::PlayerPositionSync` 保留任意 signed int，不增加坐标范围、地图边界、移动距离或方向枚举/uint8 约束；NoStructuredPayload；fixture `distinct-i62-order` | 否 | 否 | xlsx+ServerC+ClientIda+src/packet |
 | 45 | `sz` | 客户端->服务端 | 完成 | RECV_w 移动 | 否 | 否 | xlsx |
 | 46 | `pg` | 客户端->服务端 | 完成 | RECV_EV NPC 事件；严格五字段 `{event:i62} {seqno:i62} {x:i62} {y:i62} {dir:i62}`；`send::NpcEventRequest`；不增加事件、坐标或方向范围约束；NoStructuredPayload；fixture `distinct-i62-order` | 否 | 否 | xlsx+ServerC+ClientIda+src/packet |
 | 47 | `KeOX` | 客户端->服务端 | 完成 | RECV_EN 客户端遇敌 | 否 | 否 | xlsx |

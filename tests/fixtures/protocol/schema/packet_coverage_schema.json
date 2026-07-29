@@ -1785,6 +1785,8 @@
       "rawFormat": "{x:i62} {y:i62} {dir:i62}",
       "formatEmpty": false,
       "source": "xlsx",
+      "resolvedFormat": "{x:i62} {y:i62} {dir:i62}",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
       "fields": [
         {
           "index": 0,
@@ -1806,6 +1808,29 @@
           "typeToken": "i62",
           "rawSpec": "{dir:i62}",
           "source": "xlsx"
+        }
+      ],
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "x",
+          "typeToken": "i62",
+          "rawSpec": "{x:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 1,
+          "name": "y",
+          "typeToken": "i62",
+          "rawSpec": "{y:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 2,
+          "name": "dir",
+          "typeToken": "i62",
+          "rawSpec": "{dir:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         }
       ]
     },

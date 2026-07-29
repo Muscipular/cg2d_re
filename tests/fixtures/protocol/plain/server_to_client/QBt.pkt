@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=QBt
+direction=server_to_client
+sample=distinct-i62-order
+plain_hex=51 42 74 20 61 20 2D 31 20 41
+canonical_hex=51 42 74 20 61 20 2D 31 20 41 20
+end_sample

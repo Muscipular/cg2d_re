@@ -846,8 +846,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     failures += Expect(characterIconSchema != nullptr, "NI schema exists");
     if (characterIconSchema != nullptr) {
         const cg::packet::receive::CharacterIcon characterIcon(
-            std::vector<cg::packet::receive::CharacterIconEntry> {});
-        const cg::packet::Packet packet = characterIcon.ToPacket();
+            {cg::packet::receive::CharacterIconEntry(1, 10, 20, 3, 4)});
+        const cg::packet::PacketResult<cg::packet::Packet> packet = characterIcon.ToPacket();
         failures += Expect(characterIconSchema->direction == "服务端->客户端", "NI direction");
         failures += Expect(characterIconSchema->legacyKind == "SEND", "NI legacyKind");
         failures += Expect(
@@ -868,10 +868,13 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         failures += Expect(
             characterIconSchema->resolvedSource == "xlsx+ServerC+ClientIda+src/packet",
             "NI resolvedSource");
-        failures += ExpectResolvedFieldsMatch(
-            *characterIconSchema,
-            packet,
-            "NI resolved field order");
+        failures += Expect(static_cast<bool>(packet), "NI ToPacket");
+        if (packet.HasValue()) {
+            failures += ExpectResolvedFieldsMatch(
+                *characterIconSchema,
+                packet.Value(),
+                "NI resolved field order");
+        }
     }
 
     const PacketSchema* createNewCharSchema = FindPacket(packets, "aSEl");

@@ -71,7 +71,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 |---|---|---|---|---|---|
 | M6.10.01 地图封包-TeD | `TeD` | 服务端->客户端 | 否 | 完成 | SEND_MN SendMapName；M6 仅实现 `{data:es}`，不拆二级 payload |
 | M6.10.02 地图封包-nsY | `nsY` | 服务端->客户端 | 否 | 完成 | SEND_C ObjectList；按 `data` payload 最小结构拆 record |
-| M6.10.03 地图封包-NI | `NI` | 服务端->客户端 | 否 | 需修正 | SEND_CA 发送头顶图标；外层 resolved 为单 `{data:es}`，xlsx 多余 `{caInfo:s}` 仅保留 raw；payload 按 `,` 分记录，每条为 `objectIndex(base62)\|x(dec)\|y(dec)\|action(dec)\|direction(dec)` 加可选尾部；Server producer 仅生成 5/6/8/12 字段四种形态，第 6 段起尾部均为 raw signed decimal。当前 producer 形态判断正确，但 `extra vector<string>` 未强类型，生产 surface helper 待查 |
+| M6.10.03 地图封包-NI | `NI` | 服务端->客户端 | 否 | 完成 | SEND_CA 发送头顶图标；外层 resolved 为单 `{data:es}`，`data` 使用 SubPayload，xlsx 多余 `{caInfo:s}` 仅保留 raw；payload 按 `,` 分记录，每条具名解析 `objectIndex(i62)/x/y/action/direction`，尾部仅保留无业务命名的 `options`；严格接受 options 0/1/3/7 项，即 5/6/8/12 字段四种 producer 形态；除 objectIndex 外均为 raw signed decimal int |
 | M6.10.04 地图封包-aBS | `aBS` | 服务端->客户端 | 否 | 完成 | SEND_MAP_DATA；外层 `{mapid:i62} {floor:i62} {x1:i62} {y1:i62} {x2:i62} {y2:i62} {data:es}`；`data` 拆 `tileData|objectData|eventDataRaw` 三段，每段按 `,` 拆 i62 网格，不拆业务事件语义 |
 | M6.10.05 地图封包-uSB | `uSB` | 服务端->客户端 | 否 | 完成 | SEND_CD 发送删除ObjectIndex列表；按旧 C 修正为单外层 `{data:es}`，不实现 xlsx 第二外层 `objectIndex:i62` 字段；`data` payload 按 `,` 拆 objectIndex i62 列表，允许空列表 |
 | M6.10.06 地图封包-UUN | `UUN` | 客户端->服务端 | 否 | 完成 | RECV_M MAP_getdataFromRECT 获取地图信息；实现 `{mapid:i62} {floor:i62} {x1:i62} {y1:i62} {x2:i62} {y2:i62}` Encode；M6.10 地图组完成 |
@@ -200,7 +200,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | `nFV` | 服务端->客户端 | `cg::packet::receive::ItemCharacterPetList` | `{data:es}` | M6.11.21 已实现；旧 C `nrproto_GPDI_send` + `CHAR_sendCharAndPetList` + IDA `sub_4E4020` 补足；`data` 为 0..6 条 `name|level|injury|hp|maxHp|forcePoint|maxForcePoint|` 记录，name 保留 raw escaped 字符串，数值为 raw decimal，整体保留尾随 `|` |
 | `TeD` | 服务端->客户端 | `cg::packet::receive::MapName` | `{data:es}` | M6.10.01 已实现；仅保留 `data`，不拆二级 payload |
 | `nsY` | 服务端->客户端 | `cg::packet::receive::ObjectList` | `{data:es}` | M6.10.02 已实现；`data` 按字面 `\t` 拆 object record，record 按 `|` 保留 raw fields；仅校验 4、7、>=16 字段和 objectIndex i62，不拆 ownTitle/petInfo suffix |
-| `NI` | 服务端->客户端 | `cg::packet::receive::CharacterIcon` | `{data:es}` | M6.10.03 状态需修正；外层 resolved 为单 `data:es`，xlsx `caInfo:s` 仅保留 raw；`data` 按 `,` 分记录，每条固定前五段为 `objectIndex(base62)\|x(dec)\|y(dec)\|action(dec)\|direction(dec)`，Server producer 仅有 5/6/8/12 字段四种形态，第 6 段起可选尾部均为 raw signed decimal。当前仅以 `vector<string>` 保存字段并校验形态/objectIndex，未强类型解析其余数值，生产 surface helper 待查 |
+| `NI` | 服务端->客户端 | `cg::packet::receive::CharacterIcon` | `{data:es}` | M6.10.03 完成；外层 resolved 为单 `data:es`，`data` 使用 SubPayload，xlsx `caInfo:s` 仅保留 raw；`CharacterIconEntry` 具名保存 `objectIndex/x/y/action/direction` 与无业务命名的 `options`，严格接受 5/6/8/12 字段四种 producer 形态；objectIndex 使用 i62，其余字段严格按 raw signed decimal int；空 payload 与空 entries 均拒绝 |
 | `aBS` | 服务端->客户端 | `cg::packet::receive::MapData` | `{mapid:i62} {floor:i62} {x1:i62} {y1:i62} {x2:i62} {y2:i62} {data:es}` | M6.10.04 已实现；`data` 拆 `tileData|objectData|eventDataRaw`，每段元素数匹配 `(x2-x1)*(y2-y1)`；object/event 空字段按 0，保留业务事件 raw 值不拆 |
 | `UUN` | 客户端->服务端 | `cg::packet::send::MapDataRequest` | `{mapid:i62} {floor:i62} {x1:i62} {y1:i62} {x2:i62} {y2:i62}` | M6.10.06 已实现；无 payload，`Encode()` 通过 `BuildPacket(ToPacket())` 生成明文 token |
 | `uSB` | 服务端->客户端 | `cg::packet::receive::ObjectDelete` | `{data:es}` | M6.10.05 已实现；按旧 C `nrproto_CD_send(int fd, char* data)` 修正为单外层 `data`，不实现 xlsx 第二外层 `objectIndex:i62` 字段；`data` 按 `,` 拆 objectIndex i62 列表，允许空列表 |
@@ -241,7 +241,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 31 | `lSZ` | 服务端->客户端 | 完成 | SEND_IP | 否 | 否 | xlsx |
 | 32 | `tq` | 服务端->客户端 | 完成 | SEND_MAC Mouse? | 否 | 否 | xlsx |
 | 33 | `zzd` | 服务端->客户端 | 完成 | SEND_EF | 否 | 是 | xlsx |
-| 34 | `NI` | 服务端->客户端 | 需修正 | SEND_CA；resolved 单 `{data:es}`；payload 为逗号分记录，记录固定前五段 `objectIndex(base62)/x/y/action/direction(raw signed decimal)`，Server producer 仅 5/6/8/12 字段，第 6 段起尾部全为 raw signed decimal；当前 extra 仍为 `vector<string>`，生产 surface helper 待查 | 否 | 是 | xlsx + Server C + Client IDA + src/packet |
+| 34 | `NI` | 服务端->客户端 | 完成 | SEND_CA；resolved 单 `{data:es}`；typed 记录具名保存 `objectIndex/x/y/action/direction`，可选尾部仅作为 `vector<int> options`，严格接受 5/6/8/12 字段；objectIndex 为 i62，其余均为 raw signed decimal int | 否 | 是 | xlsx + Server C + Client IDA + src/packet |
 | 35 | `HMNy` | 服务端->客户端 | 完成 | SEND_CharLogout | 否 | 否 | xlsx |
 | 36 | `Or` | 客户端->服务端 | 完成 | Ping | 否 | 否 | xlsx |
 | 37 | `DE` | 客户端->服务端 | 完成 | RECV_FCTime, 定时心跳包，视服务器setup.cf配置而定 {fctime}秒内心跳{fccount}次 | 否 | 否 | xlsx |

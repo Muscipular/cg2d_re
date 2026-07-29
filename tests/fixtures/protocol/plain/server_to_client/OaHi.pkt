@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=OaHi
+direction=server_to_client
+sample=distinct-i62-order
+plain_hex=4F 61 48 69 20 61 20 41
+canonical_hex=4F 61 48 69 20 61 20 41 20
+end_sample

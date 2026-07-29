@@ -229,7 +229,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 19 | `cNE` | 服务端->客户端 | 完成 | SEND_CS CHAR_sendSkillData | 否 | 是 | xlsx + 旧 C + IDA + src/packet |
 | 20 | `Sc` | 服务端->客户端 | 完成 | SEND_TITLE；resolved 单 `{data:es}`；typed 三字段 slot 使用 GBK-aware 分隔，名称做 legacy escape 还原/回写，ID 为 raw signed decimal，空三段为 Empty，允许 0..64 槽 | 否 | 是 | xlsx raw + ServerC+ClientIda+src/packet |
 | 21 | `rU` | 服务端->客户端 | 完成 | SEND_I CHAR_sendItemData；旧 C + IDA + SDLCG 确认 14 段 item record，外层 `{data:es}` | 否 | 是 | xlsx + 旧 C + IDA + SDLCG + src/packet |
-| 22 | `OaHi` | 服务端->客户端 | 完成 | SEND_EP 遇敌率 | 否 | 否 | xlsx |
+| 22 | `OaHi` | 服务端->客户端 | 完成 | SEND_EP 遇敌概率；严格 `{minimum:i62}→{maximum:i62}`，`receive::EncounterProbability` 保留任意 int，不限制 0..100，亦不检查 minimum<=maximum；NoStructuredPayload；fixture `distinct-i62-order` | 否 | 否 | xlsx+ServerC+ClientIda+src/packet |
 | 23 | `SkBD` | 服务端->客户端 | 完成 | SEND_FS 发送玩家状态开关 | 否 | 否 | xlsx |
 | 24 | `jmb` | 服务端->客户端 | 完成 | SEND_MC sendMapHash | 否 | 否 | xlsx |
 | 25 | `gnxd` | 服务端->客户端 | 完成 | SEND_AB SendAddressbook / AddressBook；固定 60 槽，每槽 7 段，空槽全空 | 否 | 是 | xlsx + src/packet |

@@ -852,6 +852,8 @@
       "rawFormat": "{min:i62} {max:i62}",
       "formatEmpty": false,
       "source": "xlsx",
+      "resolvedFormat": "{minimum:i62} {maximum:i62}",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
       "fields": [
         {
           "index": 0,
@@ -866,6 +868,22 @@
           "typeToken": "i62",
           "rawSpec": "{max:i62}",
           "source": "xlsx"
+        }
+      ],
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "minimum",
+          "typeToken": "i62",
+          "rawSpec": "{minimum:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 1,
+          "name": "maximum",
+          "typeToken": "i62",
+          "rawSpec": "{maximum:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         }
       ]
     },

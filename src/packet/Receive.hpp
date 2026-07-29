@@ -624,6 +624,139 @@ namespace cg::packet::receive
         }
     };
 
+    /**
+     * SEND_EP 遇敌概率 OaHi
+     * wire 固定两个 signed i62；保留完整 int，不增加百分比或区间顺序约束。
+     */
+    struct EncounterProbability
+    {
+        static constexpr std::string_view Code = "OaHi";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("minimum"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("maximum"), PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        int minimum = 0;
+        int maximum = 0;
+
+        EncounterProbability(int minimum, int maximum)
+            : minimum(minimum),
+              maximum(maximum)
+        {
+        }
+
+#if CG_PACKET_ENABLE_TEST_HELPERS
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("minimum"),
+                PacketFieldType::Int62,
+                std::to_string(minimum),
+            });
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("maximum"),
+                PacketFieldType::Int62,
+                std::to_string(maximum),
+            });
+            return packet;
+        }
+#endif
+
+        static PacketResult<EncounterProbability> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
+            if (!parsed.HasValue()) {
+                return PacketResult<EncounterProbability>::Failure(parsed.Error());
+            }
+
+            std::array<int, FieldCount> values {};
+            for (std::size_t index = 0U; index < FieldCount; ++index) {
+                PacketResult<int> value = ParseDecimalField(parsed.Value().fields[index].value, index);
+                if (!value.HasValue()) {
+                    return PacketResult<EncounterProbability>::Failure(value.Error());
+                }
+                values[index] = value.Value();
+            }
+
+            return PacketResult<EncounterProbability>::Success(EncounterProbability(
+                values[MinimumFieldIndex],
+                values[MaximumFieldIndex]));
+        }
+
+    private:
+        static constexpr std::size_t FieldCount = 2U;
+        static constexpr std::size_t MinimumFieldIndex = 0U;
+        static constexpr std::size_t MaximumFieldIndex = 1U;
+
+        [[nodiscard]] static PacketError MakeFieldError(
+            PacketErrorCode code,
+            std::string_view message,
+            std::size_t fieldIndex)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            error.fieldIndex = fieldIndex;
+            return error;
+        }
+
+        [[nodiscard]] static PacketResult<int> ParseDecimalField(
+            std::string_view text,
+            std::size_t fieldIndex)
+        {
+            bool negative = false;
+            std::size_t index = 0U;
+            if (!text.empty() && text.front() == '-') {
+                negative = true;
+                index = 1U;
+            }
+
+            if (index == text.size()) {
+                return PacketResult<int>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT("EncounterProbability i62 字段为空"),
+                    fieldIndex));
+            }
+
+            const std::int64_t maxValue = static_cast<std::int64_t>(std::numeric_limits<int>::max());
+            const std::int64_t minValue = static_cast<std::int64_t>(std::numeric_limits<int>::min());
+            const std::int64_t limit = negative ? (0 - minValue) : maxValue;
+            std::int64_t value = 0;
+
+            for (; index < text.size(); ++index) {
+                const char ch = text[index];
+                if (ch < '0' || ch > '9') {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        CG_PACKET_DIAGNOSTIC_TEXT("EncounterProbability i62 字段包含非法字符"),
+                        fieldIndex));
+                }
+
+                const int digit = ch - '0';
+                if (value > (limit - digit) / 10) {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        CG_PACKET_DIAGNOSTIC_TEXT("EncounterProbability i62 字段超出 int 范围"),
+                        fieldIndex));
+                }
+
+                value = (value * 10) + digit;
+            }
+
+            if (negative) {
+                value = -value;
+            }
+            return PacketResult<int>::Success(static_cast<int>(value));
+        }
+    };
+
     struct CharacterListRecord
     {
         std::string nameRaw;

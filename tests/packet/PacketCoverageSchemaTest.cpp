@@ -766,6 +766,41 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         }
     }
 
+    const PacketSchema* characterProfile2Schema = FindPacket(packets, "UU");
+    failures += Expect(characterProfile2Schema != nullptr, "UU schema exists");
+    if (characterProfile2Schema != nullptr) {
+        const cg::packet::receive::CharacterProfile2 characterProfile2(2, {"100"});
+        const cg::packet::Packet packet = characterProfile2.ToPacket();
+        failures += Expect(characterProfile2Schema->direction == "服务端->客户端", "UU direction");
+        failures += Expect(characterProfile2Schema->legacyKind == "SEND", "UU legacyKind");
+        failures += Expect(
+            characterProfile2Schema->rawFormat == "{data:es} {flag:%d} {flagValue:%d}",
+            "UU rawFormat");
+        failures += Expect(characterProfile2Schema->fields.size() == 3U, "UU raw field count");
+        if (characterProfile2Schema->fields.size() == 3U) {
+            failures += Expect(
+                characterProfile2Schema->fields[0].name == "data" &&
+                    characterProfile2Schema->fields[0].typeToken == "es",
+                "UU raw data field");
+            failures += Expect(
+                characterProfile2Schema->fields[1].name == "flag" &&
+                    characterProfile2Schema->fields[1].typeToken == "%d",
+                "UU raw flag conflict field");
+            failures += Expect(
+                characterProfile2Schema->fields[2].name == "flagValue" &&
+                    characterProfile2Schema->fields[2].typeToken == "%d",
+                "UU raw flagValue conflict field");
+        }
+        failures += Expect(characterProfile2Schema->resolvedFormat == "{data:es}", "UU resolvedFormat");
+        failures += Expect(
+            characterProfile2Schema->resolvedSource == "ServerC+ClientIda+src/packet",
+            "UU resolvedSource");
+        failures += ExpectResolvedFieldsMatch(
+            *characterProfile2Schema,
+            packet,
+            "UU resolved field order");
+    }
+
     const PacketSchema* createNewCharSchema = FindPacket(packets, "aSEl");
     failures += Expect(createNewCharSchema != nullptr, "aSEl schema exists");
     if (createNewCharSchema != nullptr) {

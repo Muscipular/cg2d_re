@@ -508,6 +508,8 @@
       "xlsxStatus": "完成",
       "description": "SEND_CP2 CharData_2",
       "rawFormat": "{data:es} {flag:%d} {flagValue:%d}",
+      "resolvedFormat": "{data:es}",
+      "resolvedSource": "ServerC+ClientIda+src/packet",
       "formatEmpty": false,
       "source": "xlsx",
       "fields": [
@@ -531,6 +533,15 @@
           "typeToken": "%d",
           "rawSpec": "{flagValue:%d}",
           "source": "xlsx"
+        }
+      ],
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "data",
+          "typeToken": "es",
+          "rawSpec": "{data:es}",
+          "source": "ServerC+ClientIda+src/packet"
         }
       ]
     },

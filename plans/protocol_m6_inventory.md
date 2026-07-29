@@ -77,7 +77,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | M6.10.06 地图封包-UUN | `UUN` | 客户端->服务端 | 否 | 完成 | RECV_M MAP_getdataFromRECT 获取地图信息；实现 `{mapid:i62} {floor:i62} {x1:i62} {y1:i62} {x2:i62} {y2:i62}` Encode；M6.10 地图组完成 |
 | M6.11.01 角色/Profile封包-HNP | `HNP` | 服务端->客户端 | 否 | 完成 | SEND_PRV  CHAR_sendProfileVersion简介版本内容；外层 `{data:es}`；payload 为 `profileVersion|aboutVersion|mailCharge|seekPos` 4 段 raw decimal，不用 i62 |
 | M6.11.02 角色/Profile封包-aPc | `aPc` | 服务端->客户端 | 否 | 完成 | SEND_CP CharData_1；单外层 `{data:es}`；payload 按 flags 将 bit1..30 解析为具名 optional 字段，bit0 选择全部、bit31 不消费值；数值为 raw signed decimal，name/ownTitle 做 legacy escape 还原，gold 选中时末尾追加 crystal；按旧双字节感知分隔 |
-| M6.11.03 角色/Profile封包-UU | `UU` | 服务端->客户端 | 否 | 完成 | SEND_CP2 CharData_2；按旧 C 修正为单外层 `{data:es}`；payload 最小解析 `flagMask|values...|`，flagMask 为 i62，后续 raw values 不允许中间空值，回写保留尾随 `|`，不拆业务 bit |
+| M6.11.03 角色/Profile封包-UU | `UU` | 服务端->客户端 | 否 | 需修正 | M6R.0.1b 证据确认单外层 `{data:es}`；xlsx 多余 `flag/flagValue` 仅保留 raw 冲突。实际启用 `VERSION_TW+PUK2+PET_RIDE`：`flagMask=1` 为 ALL，wire 固定先发 bit1..23 共 23 个 raw decimal，再附 `bankPage` 第 24 值；普通 mask 仅接受 bit1..23，值数严格等于 popcount。显式 bit31 无调用，`cnv10to62(INT_MIN)` wire 路径不可证明，typed 应拒绝。目标 `cg2d.exe` 只消费前 23 值并容忍剩余 `bankPage` token；现有 `vector<string>` 未校验数字、mask 与数量，标记为 typed 待修正 |
 | M6.11.04 角色/Profile封包-jv | `jv` | 服务端->客户端 | 否 | 完成 | SEND_CJ SendJobName；外层 `{jobassort:i62} {name:es}`，`name` 不拆二级 payload |
 | M6.11.05 角色/Profile封包-Sc | `Sc` | 服务端->客户端 | 否 | 完成 | SEND_TITLE；外层 `{data:es}`；payload 每 3 段为一个 title slot：`titleName|titleMakeId|titleId`，空 slot 为 `||`，不硬猜固定数量 |
 | M6.11.06 角色/Profile封包-eZT | `eZT` | 服务端->客户端 | 否 | 完成 | SEND_PRL 收到profile list；xlsx 原 schema `{data}` 按旧 C `nrproto_mkstr_string(data)` 修正为 `{data:es}`；payload 为 `version|itemId|graphicNo|itemName...`，前三类数值均为 raw decimal |
@@ -169,7 +169,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | `aSEl` | 客户端->服务端 | `cg::packet::send::CreateNewChar` | `{dataPlace:i62} {name:es} {image:i62} {face:i62} {vital:i62} {strength:i62} {tough:i62} {quick:i62} {magic:i62} {earth:i62} {water:i62} {fire:i62} {wind:i62}` | M6.15.06 已实现；`name` 为普通外层 es，可为空，不加入 nested es；不做 name length、分隔符、登录状态、点数范围或元素范围业务校验 |
 | `HNP` | 服务端->客户端 | `cg::packet::receive::ProfileVersion` | `{data:es}` | M6.11.01 已实现；`data` 按 `|` 拆 `profileVersion/aboutVersion/mailCharge/seekPos` 4 段，均为 raw decimal，不用 i62，`seekPos` 可为 `-1` |
 | `aPc` | 服务端->客户端 | `cg::packet::receive::CharacterProfile` | `{data:es}` | M6R.0.1a 完成；Server C `nrproto_serv.c:169,2293-2297` 为唯一 `char* data`，IDA `0x5148CD-0x514948` 只读 `protocolArgs[1]`；`data` 按 flags 强类型解析 bit1..30，bit0 选择全部、bit31 不消费值；数值为 raw signed decimal，`name/ownTitle` 做 `\n/\c/\z/\y` legacy escape 还原，gold 选中时末尾追加 `crystal`；分隔兼容 GBK trail byte `0x7c` |
-| `UU` | 服务端->客户端 | `cg::packet::receive::CharacterProfile2` | `{data:es}` | M6.11.03 已实现；按旧 C `nrproto_CP2_send(int fd, char* data)` 修正为单外层 `data`；`data` 最小解析 `flagMask|values...|`，flagMask 为 i62，values 保留 raw 字符串且拒绝中间空值，回写保留尾随 `|`，不拆业务 bit |
+| `UU` | 服务端->客户端 | `cg::packet::receive::CharacterProfile2` | `{data:es}` | M6R.0.1b 外层证据完成：Server C `nrproto_serv.c:170,2301-2305` 仅发送一个 `char* data`；实际 `VERSION_TW+PUK2+PET_RIDE` 下，`char/char_send.c:1185-1240` 对 `flagMask=1` 的 ALL 先发 bit1..23 共 23 值，再发 `bankPage` 第 24 值，普通 bits1..23 严格按 popcount 取值；显式 bit31 无调用且 `cnv10to62(INT_MIN)` wire 路径不可证明，typed 应拒绝。Client IDA `0x514949-0x5149B0` 只读 `protocolArgs[1]`，handler `0x509BA0-0x509E2E` 消费前 23 值并容忍剩余 token。现有 `vector<string>` 仍是 typed 待修正的最小 raw 模型 |
 | `jv` | 服务端->客户端 | `cg::packet::receive::JobName` | `{jobassort:i62} {name:es}` | M6.11.04 已实现；无二级 payload，`name` 按外层 `es` 解码后原样保存，不拆业务内容 |
 | `Sc` | 服务端->客户端 | `cg::packet::receive::TitleList` | `{data:es}` | M6.11.05 已实现；`data` 每 3 段为一个 title slot：`titleName/titleMakeId/titleId`，空 slot 三字段全空回写为 `||`，`titleMakeId/titleId` 为 raw decimal，不用 i62，不硬猜数量 |
 | `rU` | 服务端->客户端 | `cg::packet::receive::ItemData` | `{data:es}` | M6.12.02 已实现；旧 C `SEND_I/nrproto_I_send` + IDA `sub_50C260` + SDLCG 补足 14 段 item record；空 payload 为空 records，清空 slot 为 `slot|||||||||||||`，字符串字段保留 raw escaped |
@@ -224,7 +224,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 14 | `GmNM` | 服务端->客户端 | 完成 | SEND_CC CHAR_sendCoordinate | 否 | 否 | xlsx |
 | 15 | `TeD` | 服务端->客户端 | 完成 | SEND_MN SendMapName | 否 | 是 | xlsx |
 | 16 | `aPc` | 服务端->客户端 | 完成 | SEND_CP CharData_1；resolved `{data:es}`；payload 已按 flags 强类型并使用 GBK-aware 分隔，legacy 文本转义可逆 | 否 | 是 | ServerC+ClientIda+src/packet |
-| 17 | `UU` | 服务端->客户端 | 完成 | SEND_CP2 CharData_2 | 否 | 是 | xlsx + src/packet |
+| 17 | `UU` | 服务端->客户端 | 需修正 | SEND_CP2 CharData_2；resolved 单 `{data:es}`；ALL 为 bit1..23 共 23 值再附 `bankPage`，普通 mask 按 bits1..23 严格 popcount；显式 bit31 应拒绝；raw vector typed 待修正 | 否 | 是 | xlsx raw + ServerC+ClientIda+src/packet |
 | 18 | `jv` | 服务端->客户端 | 完成 | SEND_CJ SendJobName | 否 | 是 | xlsx + src/packet |
 | 19 | `cNE` | 服务端->客户端 | 完成 | SEND_CS CHAR_sendSkillData | 否 | 是 | xlsx + 旧 C + IDA + src/packet |
 | 20 | `Sc` | 服务端->客户端 | 完成 | SEND_TITLE | 否 | 是 | xlsx |

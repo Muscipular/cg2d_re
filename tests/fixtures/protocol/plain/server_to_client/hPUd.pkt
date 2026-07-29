@@ -1,0 +1,11 @@
+pkt_fixture=1
+code=hPUd
+direction=server_to_client
+sample=successful-empty-message
+plain_hex=68 50 55 64 20 73 75 63 63 65 73 73 66 75 6C 20 20
+canonical_hex=68 50 55 64 20 73 75 63 63 65 73 73 66 75 6C 20 20
+end_sample
+sample=failed-escaped-message
+plain_hex=68 50 55 64 20 66 61 69 6C 65 64 20 61 75 74 68 6F 72 69 7A 61 74 69 6F 6E 5C 53 72 65 71 75 69 72 65 64 5C 6E 20
+canonical_hex=68 50 55 64 20 66 61 69 6C 65 64 20 61 75 74 68 6F 72 69 7A 61 74 69 6F 6E 5C 53 72 65 71 75 69 72 65 64 5C 6E 20
+end_sample

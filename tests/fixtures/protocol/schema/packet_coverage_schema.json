@@ -330,6 +330,8 @@
       "rawFormat": "{result:es} {msg:es}",
       "formatEmpty": false,
       "source": "xlsx",
+      "resolvedFormat": "{result:es} {msg:es}",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
       "fields": [
         {
           "index": 0,
@@ -344,6 +346,22 @@
           "typeToken": "es",
           "rawSpec": "{msg:es}",
           "source": "xlsx"
+        }
+      ],
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "result",
+          "typeToken": "es",
+          "rawSpec": "{result:es}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 1,
+          "name": "msg",
+          "typeToken": "es",
+          "rawSpec": "{msg:es}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         }
       ]
     },

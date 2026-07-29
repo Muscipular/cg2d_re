@@ -219,7 +219,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 9 | `Daj` | 服务端->客户端 | 完成 | SEND_CharList 登录角色表；resolved `{result:i62} {data:es}`；成功 data 为角色列表 payload，失败 data/msg 原样保留 | 否 | 是 | xlsx+ServerC+ClientIda+src |
 | 10 | `HNP` | 服务端->客户端 | 完成 | SEND_PRV <br>CHAR_sendProfileVersion简介版本内容 | 否 | 是 | xlsx |
 | 11 | `Zd` | 服务端->客户端 | 完成 | SEND_STK  SYSTEMMSG 系统信息 | 否 | 是 | xlsx |
-| 12 | `hPUd` | 服务端->客户端 | 完成 | SEND_CharLogin 登录结果 | 否 | 否 | xlsx |
+| 12 | `hPUd` | 服务端->客户端 | 完成 | SEND_CharLogin 角色登录结果；严格 `{result:es} {msg:es}`；`receive::CharacterLoginResult` 保留 result 原始字符串与未知字面值，不收窄 bool/enum；msg 允许空、外层 es 转义及 GBK；NoStructuredPayload；fixture 含 successful 空消息与 failed 转义消息 | 否 | 否 | xlsx+ServerC+ClientIda+src/packet |
 | 13 | `PudO` | 服务端->客户端 | 完成 | SEND_ClientIndex | 否 | 否 | xlsx |
 | 14 | `GmNM` | 服务端->客户端 | 完成 | SEND_CC CHAR_sendCoordinate | 否 | 否 | xlsx |
 | 15 | `TeD` | 服务端->客户端 | 完成 | SEND_MN SendMapName | 否 | 是 | xlsx |

@@ -213,6 +213,69 @@ namespace cg::packet::receive
         }
     };
 
+    /**
+     * SEND_CharLogin 角色登录结果 hPUd {result:es} {msg:es}
+     * result 保留服务端原始字符串；仅业务层决定 successful 等字面值语义。
+     */
+    struct CharacterLoginResult
+    {
+        static constexpr std::string_view Code = "hPUd";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("result"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("msg"), PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        std::string result;
+        std::string message;
+
+        CharacterLoginResult(std::string result, std::string message)
+            : result(std::move(result)),
+              message(std::move(message))
+        {
+        }
+
+#if CG_PACKET_ENABLE_TEST_HELPERS
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("result"),
+                PacketFieldType::EscapedString,
+                result,
+            });
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("msg"),
+                PacketFieldType::EscapedString,
+                message,
+            });
+            return packet;
+        }
+#endif
+
+        static PacketResult<CharacterLoginResult> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
+            if (!parsed.HasValue()) {
+                return PacketResult<CharacterLoginResult>::Failure(parsed.Error());
+            }
+
+            return PacketResult<CharacterLoginResult>::Success(CharacterLoginResult(
+                parsed.Value().fields[ResultFieldIndex].value,
+                parsed.Value().fields[MessageFieldIndex].value));
+        }
+
+    private:
+        static constexpr std::size_t ResultFieldIndex = 0U;
+        static constexpr std::size_t MessageFieldIndex = 1U;
+    };
+
     struct CharacterListRecord
     {
         std::string nameRaw;

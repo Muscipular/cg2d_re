@@ -264,6 +264,47 @@ namespace cg::packet::send
     };
 
     /**
+     * RECV_Echo 回显心跳 Or {payload:es}
+     */
+    struct EchoRequest
+    {
+        static constexpr std::string_view Code = "Or";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("payload"), PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        std::string payload;
+
+        explicit EchoRequest(std::string payload)
+            : payload(std::move(payload))
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("payload"),
+                PacketFieldType::EscapedString,
+                payload,
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket(), Spec);
+        }
+    };
+
+    /**
      * RECV_CreateNewChar 创建角色 aSEl
      * {dataPlace:i62} {name:es} {image:i62} {face:i62} {vital:i62} {strength:i62}
      * {tough:i62} {quick:i62} {magic:i62} {earth:i62} {water:i62} {fire:i62} {wind:i62}

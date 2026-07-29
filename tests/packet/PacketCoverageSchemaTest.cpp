@@ -1124,11 +1124,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 28U, "send typed manifest count 28");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 29U, "send typed manifest count 29");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 67U, "receive typed manifest count 67");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 95U,
-        "typed manifest count 95");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 96U,
+        "typed manifest count 96");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1145,7 +1145,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 95U, "typed manifest unique code count 95");
+    failures += Expect(codes.size() == 96U, "typed manifest unique code count 96");
     return failures;
 }
 
@@ -1775,6 +1775,62 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             *profileStatusUpdateRequestSchema,
             packet,
             "lz resolved field order");
+    }
+
+    const PacketSchema* echoRequestSchema = FindPacket(packets, "Or");
+    failures += Expect(echoRequestSchema != nullptr, "Or schema exists");
+    if (echoRequestSchema != nullptr) {
+        const cg::packet::Packet packet = cg::packet::send::EchoRequest("nr").ToPacket();
+        failures += Expect(echoRequestSchema->direction == "客户端->服务端", "Or direction");
+        failures += Expect(echoRequestSchema->legacyKind == "RECV", "Or legacyKind");
+        failures += Expect(echoRequestSchema->rawFormat == "{stamp:es}", "Or rawFormat");
+        failures += Expect(echoRequestSchema->originalFormat.empty(), "Or originalFormat empty");
+        failures += Expect(echoRequestSchema->fields.size() == 1U, "Or raw field count");
+        if (echoRequestSchema->fields.size() == 1U) {
+            failures += Expect(echoRequestSchema->fields[0].name == "stamp", "Or raw field name");
+            failures += Expect(
+                echoRequestSchema->fields[0].typeToken == "es",
+                "Or raw field type");
+            failures += Expect(
+                echoRequestSchema->fields[0].rawSpec == "{stamp:es}",
+                "Or raw field spec");
+            failures += Expect(echoRequestSchema->fields[0].source == "xlsx", "Or raw field source");
+        }
+        failures += Expect(echoRequestSchema->hasResolvedFormat, "Or resolvedFormat present");
+        failures += Expect(
+            echoRequestSchema->resolvedFormat == "{payload:es}",
+            "Or resolvedFormat");
+        failures += Expect(
+            echoRequestSchema->resolvedSource
+                == "xlsx+ServerC+ClientIda+src/packet",
+            "Or resolvedSource");
+        failures += Expect(echoRequestSchema->hasResolvedFields, "Or resolvedFields present");
+        failures += Expect(
+            echoRequestSchema->resolvedFields.size() == 1U,
+            "Or resolved field count");
+        if (echoRequestSchema->resolvedFields.size() == 1U) {
+            failures += Expect(
+                echoRequestSchema->resolvedFields[0].name == "payload",
+                "Or resolved field name");
+            failures += Expect(
+                echoRequestSchema->resolvedFields[0].typeToken == "es",
+                "Or resolved field type");
+            failures += Expect(
+                echoRequestSchema->resolvedFields[0].rawSpec == "{payload:es}",
+                "Or resolved field spec");
+            failures += Expect(
+                echoRequestSchema->resolvedFields[0].source
+                    == "xlsx+ServerC+ClientIda+src/packet",
+                "Or resolved field source");
+        }
+        failures += ExpectEffectiveFieldsMatch(
+            *echoRequestSchema,
+            cg::packet::send::EchoRequest::Spec,
+            "Or Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *echoRequestSchema,
+            packet,
+            "Or resolved field order");
     }
 
     const PacketSchema* loginResultSchema = FindPacket(packets, "whV");

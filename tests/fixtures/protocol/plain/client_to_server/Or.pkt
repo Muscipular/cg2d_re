@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=Or
+direction=client_to_server
+sample=client-heartbeat
+plain_hex=4F 72 20 6E 72
+canonical_hex=4F 72 20 6E 72 20
+end_sample

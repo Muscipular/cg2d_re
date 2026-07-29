@@ -1,10 +1,13 @@
+#include "PacketFixtureInventory.hpp"
 #include "TypedPacketManifest.hpp"
 
 #include <charconv>
 #include <cstddef>
+#include <filesystem>
 #include <fstream>
 #include <iostream>
 #include <map>
+#include <optional>
 #include <set>
 #include <sstream>
 #include <string>
@@ -492,6 +495,375 @@ std::string ReadTextFile(const char* path)
     return buffer.str();
 }
 
+struct PacketFixtureSample
+{
+    std::string name;
+    std::string plain;
+    std::string canonical;
+    std::optional<std::size_t> payloadField;
+    std::string payload;
+};
+
+struct PacketFixture
+{
+    std::string code;
+    cg::packet::PacketDirection direction = cg::packet::PacketDirection::ClientToServer;
+    std::vector<PacketFixtureSample> samples;
+};
+
+class PacketFixtureParser
+{
+public:
+    explicit PacketFixtureParser(std::string_view text)
+        : text_(text)
+    {
+    }
+
+    [[nodiscard]] bool Parse(PacketFixture& fixture)
+    {
+        fixture = {};
+        lines_.clear();
+        error_.clear();
+
+        if (text_.empty() || text_.back() != '\n') {
+            return Fail("fixture 缺少最终 LF");
+        }
+        for (const unsigned char byte : text_) {
+            if (byte != '\n' && (byte < 0x20U || byte > 0x7eU)) {
+                return Fail("fixture 含非 ASCII printable/LF 字节");
+            }
+        }
+
+        std::size_t position = 0U;
+        while (position < text_.size()) {
+            const std::size_t newline = text_.find('\n', position);
+            if (newline == std::string_view::npos) {
+                return Fail("fixture 缺少 LF");
+            }
+            const std::string_view line = text_.substr(position, newline - position);
+            if (line.empty()) {
+                return Fail("fixture 含空行");
+            }
+            lines_.push_back(line);
+            position = newline + 1U;
+        }
+
+        std::size_t lineIndex = 0U;
+        if (!TakeExact(lineIndex, "pkt_fixture=1")) {
+            return false;
+        }
+
+        std::string_view value;
+        if (!TakeValue(lineIndex, "code=", false, value) || !IsCode(value)) {
+            return Fail("fixture code 非法");
+        }
+        fixture.code = value;
+
+        if (!TakeValue(lineIndex, "direction=", false, value)) {
+            return false;
+        }
+        if (value == "client_to_server") {
+            fixture.direction = cg::packet::PacketDirection::ClientToServer;
+        } else if (value == "server_to_client") {
+            fixture.direction = cg::packet::PacketDirection::ServerToClient;
+        } else {
+            return Fail("fixture direction 非法");
+        }
+
+        std::set<std::string, std::less<>> sampleNames;
+        while (lineIndex < lines_.size()) {
+            PacketFixtureSample sample;
+            if (!TakeValue(lineIndex, "sample=", false, value) || !IsSampleName(value)) {
+                return Fail("fixture sample 非法");
+            }
+            sample.name = value;
+            if (!sampleNames.emplace(sample.name).second) {
+                return Fail("fixture sample 重复");
+            }
+
+            if (!TakeValue(lineIndex, "plain_hex=", false, value)
+                || !DecodeHex(value, false, sample.plain)) {
+                return Fail("fixture plain_hex 非法");
+            }
+            if (!ValidatePlain(sample.plain)) {
+                return Fail("fixture plain 控制字节非法");
+            }
+
+            if (!TakeValue(lineIndex, "canonical_hex=", false, value)
+                || !DecodeHex(value, false, sample.canonical)) {
+                return Fail("fixture canonical_hex 非法");
+            }
+            if (!ValidateCanonical(sample.canonical)) {
+                return Fail("fixture canonical 控制字节或结尾非法");
+            }
+
+            if (lineIndex < lines_.size() && StartsWith(lines_[lineIndex], "payload_field=")) {
+                if (!TakeValue(lineIndex, "payload_field=", false, value)) {
+                    return false;
+                }
+                std::size_t fieldIndex = 0U;
+                if (!ParseFieldIndex(value, fieldIndex)) {
+                    return Fail("fixture payload_field 非法");
+                }
+                sample.payloadField = fieldIndex;
+
+                if (!TakeValue(lineIndex, "payload_hex=", true, value)
+                    || !DecodeHex(value, true, sample.payload)) {
+                    return Fail("fixture payload_hex 非法");
+                }
+            }
+
+            if (!TakeExact(lineIndex, "end_sample")) {
+                return false;
+            }
+            fixture.samples.push_back(std::move(sample));
+        }
+
+        if (fixture.samples.empty()) {
+            return Fail("fixture 至少需要一个 sample");
+        }
+        return true;
+    }
+
+    [[nodiscard]] std::string_view Error() const noexcept
+    {
+        return error_;
+    }
+
+private:
+    [[nodiscard]] static bool StartsWith(std::string_view text, std::string_view prefix) noexcept
+    {
+        return text.size() >= prefix.size() && text.substr(0U, prefix.size()) == prefix;
+    }
+
+    [[nodiscard]] bool TakeExact(std::size_t& lineIndex, std::string_view expected)
+    {
+        if (lineIndex >= lines_.size() || lines_[lineIndex] != expected) {
+            return Fail("fixture key 缺失、乱序或未知");
+        }
+        ++lineIndex;
+        return true;
+    }
+
+    [[nodiscard]] bool TakeValue(
+        std::size_t& lineIndex,
+        std::string_view prefix,
+        bool allowEmpty,
+        std::string_view& value)
+    {
+        if (lineIndex >= lines_.size() || !StartsWith(lines_[lineIndex], prefix)) {
+            return Fail("fixture key 缺失、乱序或未知");
+        }
+        value = lines_[lineIndex].substr(prefix.size());
+        if (!allowEmpty && value.empty()) {
+            return Fail("fixture value 为空");
+        }
+        ++lineIndex;
+        return true;
+    }
+
+    [[nodiscard]] static bool IsCode(std::string_view value) noexcept
+    {
+        if (value.empty()) {
+            return false;
+        }
+        for (const char ch : value) {
+            if (!((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z')
+                    || (ch >= '0' && ch <= '9'))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    [[nodiscard]] static bool IsSampleName(std::string_view value) noexcept
+    {
+        if (value.empty() || !((value.front() >= 'a' && value.front() <= 'z')
+                || (value.front() >= '0' && value.front() <= '9'))) {
+            return false;
+        }
+        for (const char ch : value) {
+            if (!((ch >= 'a' && ch <= 'z') || (ch >= '0' && ch <= '9')
+                    || ch == '_' || ch == '-')) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    [[nodiscard]] static int HexDigit(char ch) noexcept
+    {
+        if (ch >= '0' && ch <= '9') {
+            return ch - '0';
+        }
+        if (ch >= 'A' && ch <= 'F') {
+            return ch - 'A' + 10;
+        }
+        return -1;
+    }
+
+    [[nodiscard]] static bool DecodeHex(
+        std::string_view value,
+        bool allowEmpty,
+        std::string& bytes)
+    {
+        bytes.clear();
+        if (value.empty()) {
+            return allowEmpty;
+        }
+        if ((value.size() + 1U) % 3U != 0U) {
+            return false;
+        }
+
+        bytes.reserve((value.size() + 1U) / 3U);
+        for (std::size_t index = 0U; index < value.size(); index += 3U) {
+            const int high = HexDigit(value[index]);
+            const int low = HexDigit(value[index + 1U]);
+            if (high < 0 || low < 0) {
+                return false;
+            }
+            bytes.push_back(static_cast<char>((high << 4) | low));
+            if (index + 2U < value.size() && value[index + 2U] != ' ') {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    [[nodiscard]] static bool ParseFieldIndex(
+        std::string_view value,
+        std::size_t& fieldIndex) noexcept
+    {
+        if (value.empty() || (value.size() > 1U && value.front() == '0')) {
+            return false;
+        }
+        const char* const begin = value.data();
+        const char* const end = begin + value.size();
+        const auto [parsedEnd, error] = std::from_chars(begin, end, fieldIndex);
+        return error == std::errc() && parsedEnd == end;
+    }
+
+    [[nodiscard]] static bool ValidatePlain(std::string_view bytes) noexcept
+    {
+        std::size_t controlCount = 0U;
+        for (std::size_t index = 0U; index < bytes.size(); ++index) {
+            const unsigned char byte = static_cast<unsigned char>(bytes[index]);
+            if (byte == 0x00U || byte == 0x0aU || byte == 0x0dU) {
+                ++controlCount;
+                if (controlCount > 1U || index + 1U != bytes.size()) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    [[nodiscard]] static bool ValidateCanonical(std::string_view bytes) noexcept
+    {
+        if (bytes.empty() || static_cast<unsigned char>(bytes.back()) != 0x20U) {
+            return false;
+        }
+        for (const unsigned char byte : bytes) {
+            if (byte == 0x00U || byte == 0x0aU || byte == 0x0dU) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    [[nodiscard]] bool Fail(std::string_view error)
+    {
+        if (error_.empty()) {
+            error_ = error;
+        }
+        return false;
+    }
+
+    std::string_view text_;
+    std::vector<std::string_view> lines_;
+    std::string error_;
+};
+
+int TestFixtureParserGrammar()
+{
+    const std::string valid =
+        "pkt_fixture=1\n"
+        "code=SWITMP2\n"
+        "direction=client_to_server\n"
+        "sample=basic-0\n"
+        "plain_hex=53 57 49 54 4D 50 32\n"
+        "canonical_hex=53 57 49 54 4D 50 32 20\n"
+        "payload_field=0\n"
+        "payload_hex=\n"
+        "end_sample\n";
+
+    int failures = 0;
+    PacketFixture fixture;
+    PacketFixtureParser validParser(valid);
+    failures += Expect(validParser.Parse(fixture), "fixture grammar valid");
+
+    const std::string bom = std::string("\xef\xbb\xbf", 3U) + valid;
+    PacketFixtureParser bomParser(bom);
+    failures += Expect(!bomParser.Parse(fixture), "fixture grammar rejects BOM");
+
+    std::string crlf;
+    for (const char ch : valid) {
+        if (ch == '\n') {
+            crlf.append("\r\n");
+        } else {
+            crlf.push_back(ch);
+        }
+    }
+    PacketFixtureParser crlfParser(crlf);
+    failures += Expect(!crlfParser.Parse(fixture), "fixture grammar rejects CRLF");
+
+    PacketFixtureParser missingFinalLfParser(
+        std::string_view(valid).substr(0U, valid.size() - 1U));
+    failures += Expect(
+        !missingFinalLfParser.Parse(fixture),
+        "fixture grammar rejects missing final LF");
+
+    const std::string disordered =
+        "pkt_fixture=1\n"
+        "code=A1\n"
+        "direction=client_to_server\n"
+        "sample=basic\n"
+        "canonical_hex=41 31 20\n"
+        "plain_hex=41 31\n"
+        "end_sample\n";
+    PacketFixtureParser disorderedParser(disordered);
+    failures += Expect(!disorderedParser.Parse(fixture), "fixture grammar rejects disorder");
+
+    const std::string badHex =
+        "pkt_fixture=1\n"
+        "code=A1\n"
+        "direction=client_to_server\n"
+        "sample=basic\n"
+        "plain_hex=41 3a\n"
+        "canonical_hex=41 31 20\n"
+        "end_sample\n";
+    PacketFixtureParser badHexParser(badHex);
+    failures += Expect(!badHexParser.Parse(fixture), "fixture grammar rejects bad hex");
+
+    const std::string duplicateSample =
+        "pkt_fixture=1\n"
+        "code=A1\n"
+        "direction=client_to_server\n"
+        "sample=basic\n"
+        "plain_hex=41 31\n"
+        "canonical_hex=41 31 20\n"
+        "end_sample\n"
+        "sample=basic\n"
+        "plain_hex=41 31\n"
+        "canonical_hex=41 31 20\n"
+        "end_sample\n";
+    PacketFixtureParser duplicateSampleParser(duplicateSample);
+    failures += Expect(
+        !duplicateSampleParser.Parse(fixture),
+        "fixture grammar rejects duplicate sample");
+    return failures;
+}
+
 std::string TypeToken(cg::packet::PacketFieldType type)
 {
     switch (type) {
@@ -774,6 +1146,420 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "receive",
         codes);
     failures += Expect(codes.size() == 91U, "typed manifest unique code count 91");
+    return failures;
+}
+
+template <std::size_t Size>
+void AddTypedSpecs(
+    const std::array<cg::packet::test::TypedPacketManifestEntry, Size>& entries,
+    std::map<std::string, const cg::packet::PacketSpec*, std::less<>>& specs,
+    int& failures)
+{
+    for (const cg::packet::test::TypedPacketManifestEntry& entry : entries) {
+        failures += Expect(entry.spec != nullptr, "fixture inventory typed Spec exists");
+        if (entry.spec == nullptr) {
+            continue;
+        }
+        failures += Expect(
+            specs.emplace(std::string(entry.spec->code), entry.spec).second,
+            "fixture inventory typed code unique");
+    }
+}
+
+template <std::size_t Size>
+std::set<std::string, std::less<>> MakeCodeSet(
+    const std::array<std::string_view, Size>& codes,
+    int& failures,
+    const char* uniqueMessage)
+{
+    std::set<std::string, std::less<>> result;
+    for (const std::string_view code : codes) {
+        failures += Expect(result.emplace(code).second, uniqueMessage);
+    }
+    return result;
+}
+
+bool PacketsEqual(const cg::packet::Packet& lhs, const cg::packet::Packet& rhs)
+{
+    if (lhs.code.View() != rhs.code.View() || lhs.direction != rhs.direction
+        || lhs.fields.size() != rhs.fields.size()) {
+        return false;
+    }
+    for (std::size_t index = 0U; index < lhs.fields.size(); ++index) {
+        if (lhs.fields[index].name != rhs.fields[index].name
+            || lhs.fields[index].type != rhs.fields[index].type
+            || lhs.fields[index].value != rhs.fields[index].value) {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool IsPayloadMetadataAllowed(
+    const PacketFixtureSample& sample,
+    const cg::packet::test::FixturePayloadAudit& audit)
+{
+    if (audit.kind == cg::packet::test::FixturePayloadAuditKind::NoStructuredPayload) {
+        return !sample.payloadField.has_value();
+    }
+    return !sample.payloadField.has_value() || *sample.payloadField == audit.fieldIndex;
+}
+
+int TestFixtureRoundtrip(
+    const PacketFixture& fixture,
+    const cg::packet::PacketSpec& spec,
+    const cg::packet::test::FixturePayloadAudit& audit)
+{
+    int failures = 0;
+    bool hasStructuredPayloadSample = false;
+
+    if (audit.kind == cg::packet::test::FixturePayloadAuditKind::StructuredPayload) {
+        failures += Expect(audit.fieldIndex < spec.fieldCount, "structured payload field index in range");
+        if (audit.fieldIndex < spec.fieldCount) {
+            const cg::packet::PacketFieldType type = spec.fields[audit.fieldIndex].type;
+            failures += Expect(
+                type == cg::packet::PacketFieldType::EscapedString
+                    || type == cg::packet::PacketFieldType::SubPayload,
+                "structured payload Spec field is es/SubPayload");
+        }
+    }
+
+    for (const PacketFixtureSample& sample : fixture.samples) {
+        if (audit.kind == cg::packet::test::FixturePayloadAuditKind::NoStructuredPayload) {
+            failures += Expect(
+                IsPayloadMetadataAllowed(sample, audit),
+                "NoStructuredPayload sample forbids payload metadata");
+        } else if (sample.payloadField.has_value()) {
+            failures += Expect(
+                IsPayloadMetadataAllowed(sample, audit),
+                "structured payload sample field matches audit");
+            if (*sample.payloadField == audit.fieldIndex && !sample.payload.empty()) {
+                hasStructuredPayloadSample = true;
+            }
+        }
+
+        const cg::packet::PacketResult<cg::packet::Packet> parsedInput =
+            cg::packet::ParsePacket(sample.plain, spec);
+        failures += Expect(parsedInput.HasValue(), "fixture generic Parse(input, Spec)");
+        if (!parsedInput.HasValue()) {
+            continue;
+        }
+
+        const cg::packet::PacketResult<std::string> builtInput =
+            cg::packet::BuildPacket(parsedInput.Value(), spec);
+        failures += Expect(builtInput.HasValue(), "fixture generic Build(parsed input, Spec)");
+        if (!builtInput.HasValue()) {
+            continue;
+        }
+        failures += Expect(
+            builtInput.Value() == sample.canonical,
+            "fixture input generic canonical exact");
+
+        const cg::packet::PacketResult<cg::packet::Packet> parsedCanonical =
+            cg::packet::ParsePacket(sample.canonical, spec);
+        failures += Expect(
+            parsedCanonical.HasValue(),
+            "fixture generic Parse(canonical, Spec)");
+        if (!parsedCanonical.HasValue()) {
+            continue;
+        }
+
+        const cg::packet::PacketResult<std::string> rebuiltCanonical =
+            cg::packet::BuildPacket(parsedCanonical.Value(), spec);
+        failures += Expect(
+            rebuiltCanonical.HasValue(),
+            "fixture generic Build(parsed canonical, Spec)");
+        if (rebuiltCanonical.HasValue()) {
+            failures += Expect(
+                rebuiltCanonical.Value() == sample.canonical,
+                "fixture canonical generic rebuild exact");
+        }
+
+        failures += Expect(
+            PacketsEqual(parsedInput.Value(), parsedCanonical.Value()),
+            "fixture two generic Packet values identical");
+
+        if (audit.kind == cg::packet::test::FixturePayloadAuditKind::StructuredPayload
+            && sample.payloadField.has_value()
+            && *sample.payloadField == audit.fieldIndex
+            && audit.fieldIndex < parsedInput.Value().fields.size()) {
+            failures += Expect(
+                parsedInput.Value().fields[audit.fieldIndex].value == sample.payload,
+                "fixture parsed payload bytes exact");
+        }
+    }
+
+    if (audit.kind == cg::packet::test::FixturePayloadAuditKind::StructuredPayload) {
+        failures += Expect(
+            hasStructuredPayloadSample,
+            "structured payload audit has non-empty payload sample");
+    }
+    return failures;
+}
+
+int TestFixtureRoundtripMemory()
+{
+    int failures = 0;
+
+    PacketFixture noStructured;
+    noStructured.code = "jv";
+    noStructured.direction = cg::packet::PacketDirection::ServerToClient;
+    noStructured.samples.push_back({
+        "basic",
+        "jv 1 Soldier",
+        "jv 1 Soldier ",
+        std::nullopt,
+        {},
+    });
+    const cg::packet::test::FixturePayloadAudit noStructuredAudit {
+        "jv",
+        cg::packet::test::FixturePayloadAuditKind::NoStructuredPayload,
+        0U,
+    };
+    failures += Expect(
+        TestFixtureRoundtrip(
+            noStructured,
+            cg::packet::receive::JobName::Spec,
+            noStructuredAudit)
+            == 0,
+        "fixture memory NoStructured generic roundtrip");
+
+    PacketFixtureSample forbiddenPayloadMetadata {
+        "forbidden-payload",
+        "jv 1 Soldier",
+        "jv 1 Soldier ",
+        1U,
+        "Soldier",
+    };
+    failures += Expect(
+        !IsPayloadMetadataAllowed(forbiddenPayloadMetadata, noStructuredAudit),
+        "fixture memory NoStructured rejects payload metadata");
+
+    PacketFixture structured;
+    structured.code = "eZT";
+    structured.direction = cg::packet::PacketDirection::ServerToClient;
+    structured.samples.push_back({
+        "nonempty-payload",
+        "eZT payload",
+        "eZT payload ",
+        0U,
+        "payload",
+    });
+    structured.samples.push_back({
+        "empty-payload",
+        "eZT  ",
+        "eZT  ",
+        0U,
+        {},
+    });
+    structured.samples.push_back({
+        "payload-metadata-omitted",
+        "eZT other",
+        "eZT other ",
+        std::nullopt,
+        {},
+    });
+    const cg::packet::test::FixturePayloadAudit structuredAudit {
+        "eZT",
+        cg::packet::test::FixturePayloadAuditKind::StructuredPayload,
+        0U,
+    };
+    failures += Expect(
+        TestFixtureRoundtrip(
+            structured,
+            cg::packet::receive::ProfileList::Spec,
+            structuredAudit)
+            == 0,
+        "fixture memory Structured generic roundtrip");
+    return failures;
+}
+
+int TestFixtureInventory(const std::filesystem::path& root)
+{
+    int failures = 0;
+
+    std::map<std::string, const cg::packet::PacketSpec*, std::less<>> typedSpecs;
+    AddTypedSpecs(cg::packet::test::SendTypedPackets, typedSpecs, failures);
+    AddTypedSpecs(cg::packet::test::ReceiveTypedPackets, typedSpecs, failures);
+
+    const std::set<std::string, std::less<>> historicalCodes = MakeCodeSet(
+        cg::packet::test::HistoricalTypedBaselineCodes,
+        failures,
+        "historical typed baseline code unique");
+    const std::set<std::string, std::less<>> debtCodes = MakeCodeSet(
+        cg::packet::test::FixtureDebtCodes,
+        failures,
+        "fixture debt code unique");
+
+    std::set<std::string, std::less<>> typedCodes;
+    for (const auto& [code, spec] : typedSpecs) {
+        (void)spec;
+        typedCodes.emplace(code);
+    }
+    for (const std::string& code : historicalCodes) {
+        failures += Expect(
+            typedCodes.contains(code),
+            "historical typed baseline remains in typed manifest");
+    }
+    for (const std::string& code : debtCodes) {
+        failures += Expect(
+            historicalCodes.contains(code),
+            "fixture debt is subset of frozen historical baseline");
+    }
+
+    std::map<std::string, const cg::packet::test::FixturePayloadAudit*, std::less<>> audits;
+    for (const cg::packet::test::FixturePayloadAudit& audit :
+         cg::packet::test::FixturePayloadAudits) {
+        failures += Expect(!audit.code.empty(), "fixture payload audit code non-empty");
+        failures += Expect(
+            audits.emplace(std::string(audit.code), &audit).second,
+            "fixture payload audit code unique");
+    }
+
+    std::size_t expectedActualCount = 0U;
+    for (const std::string& code : typedCodes) {
+        if (!debtCodes.contains(code)) {
+            ++expectedActualCount;
+        }
+    }
+
+    std::error_code filesystemError;
+    const bool rootExists = std::filesystem::exists(root, filesystemError);
+    failures += Expect(!filesystemError, "fixture root exists check");
+    if (filesystemError) {
+        return failures;
+    }
+    std::map<std::string, PacketFixture, std::less<>> actualFixtures;
+    if (!rootExists) {
+        failures += Expect(
+            expectedActualCount == 0U,
+            "missing fixture root allowed only when expected actual count is zero");
+    } else {
+        const bool rootIsDirectory = std::filesystem::is_directory(root, filesystemError);
+        failures += Expect(rootIsDirectory, "fixture root is directory");
+        failures += Expect(!filesystemError, "fixture root directory check");
+        if (!filesystemError && rootIsDirectory) {
+            std::filesystem::recursive_directory_iterator iterator(root, filesystemError);
+            const std::filesystem::recursive_directory_iterator end;
+            failures += Expect(!filesystemError, "fixture root iteration starts");
+            while (!filesystemError && iterator != end) {
+                const std::filesystem::directory_entry& entry = *iterator;
+                const std::filesystem::path relative = entry.path().lexically_relative(root);
+                std::vector<std::string> components;
+                for (const std::filesystem::path& component : relative) {
+                    components.push_back(component.string());
+                }
+
+                const std::filesystem::file_status status = entry.symlink_status(filesystemError);
+                if (filesystemError) {
+                    break;
+                }
+                if (std::filesystem::is_directory(status)) {
+                    const bool validDirectionDirectory = components.size() == 1U
+                        && (components[0] == "client_to_server"
+                            || components[0] == "server_to_client");
+                    failures += Expect(
+                        validDirectionDirectory,
+                        "fixture directory is an exact direction directory");
+                    if (!validDirectionDirectory) {
+                        iterator.disable_recursion_pending();
+                    }
+                    iterator.increment(filesystemError);
+                    continue;
+                }
+
+                const bool validFilePath = std::filesystem::is_regular_file(status)
+                    && components.size() == 2U
+                    && (components[0] == "client_to_server"
+                        || components[0] == "server_to_client")
+                    && entry.path().extension() == ".pkt";
+                failures += Expect(validFilePath, "fixture file path and extension");
+                if (!validFilePath) {
+                    iterator.increment(filesystemError);
+                    continue;
+                }
+
+                std::ifstream file(entry.path(), std::ios::binary);
+                failures += Expect(file.is_open(), "fixture file opens");
+                if (!file.is_open()) {
+                    iterator.increment(filesystemError);
+                    continue;
+                }
+                std::ostringstream buffer;
+                buffer << file.rdbuf();
+                failures += Expect(file.good() || file.eof(), "fixture file reads");
+
+                const std::string fixtureText = buffer.str();
+                PacketFixture fixture;
+                PacketFixtureParser parser(fixtureText);
+                if (!parser.Parse(fixture)) {
+                    std::cerr << entry.path().string() << ": " << parser.Error() << '\n';
+                    ++failures;
+                    iterator.increment(filesystemError);
+                    continue;
+                }
+
+                failures += Expect(
+                    entry.path().filename().string() == fixture.code + ".pkt",
+                    "fixture code equals filename stem");
+                const cg::packet::PacketDirection pathDirection =
+                    components[0] == "client_to_server"
+                    ? cg::packet::PacketDirection::ClientToServer
+                    : cg::packet::PacketDirection::ServerToClient;
+                failures += Expect(
+                    fixture.direction == pathDirection,
+                    "fixture direction equals parent directory");
+                const std::string fixtureCode = fixture.code;
+                failures += Expect(
+                    actualFixtures.emplace(fixtureCode, std::move(fixture)).second,
+                    "fixture code has exactly one file");
+
+                iterator.increment(filesystemError);
+            }
+            failures += Expect(!filesystemError, "fixture root iteration completes");
+        }
+    }
+
+    std::set<std::string, std::less<>> actualCodes;
+    for (const auto& [code, fixture] : actualFixtures) {
+        actualCodes.emplace(code);
+        failures += Expect(
+            !debtCodes.contains(code),
+            "actual fixture and fixture debt are disjoint");
+
+        const auto specIt = typedSpecs.find(code);
+        failures += Expect(specIt != typedSpecs.end(), "actual fixture code exists in typed manifest");
+        const auto auditIt = audits.find(code);
+        failures += Expect(
+            auditIt != audits.end(),
+            "actual fixture code has exactly one payload audit");
+        if (specIt == typedSpecs.end() || auditIt == audits.end()) {
+            continue;
+        }
+
+        failures += Expect(
+            fixture.direction == specIt->second->direction,
+            "fixture direction equals typed Spec direction");
+        failures += TestFixtureRoundtrip(fixture, *specIt->second, *auditIt->second);
+    }
+
+    std::set<std::string, std::less<>> auditCodes;
+    for (const auto& [code, audit] : audits) {
+        (void)audit;
+        auditCodes.emplace(code);
+    }
+    failures += Expect(
+        auditCodes == actualCodes,
+        "payload audit codes equal actual fixture codes");
+
+    std::set<std::string, std::less<>> accountedCodes = debtCodes;
+    accountedCodes.insert(actualCodes.begin(), actualCodes.end());
+    failures += Expect(
+        accountedCodes == typedCodes,
+        "actual fixtures plus fixture debt equal typed manifest");
+    failures += Expect(
+        actualFixtures.size() == expectedActualCount,
+        "actual fixture count equals inventory expectation");
     return failures;
 }
 
@@ -2336,13 +3122,15 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
 
 int main(int argc, char** argv)
 {
-    if (argc != 2) {
-        std::cerr << "usage: cg-packet-coverage-schema-test <schema-json>\n";
+    if (argc != 3) {
+        std::cerr << "usage: cg-packet-coverage-schema-test <schema-json> <fixture-root>\n";
         return 1;
     }
 
     const std::string jsonText = ReadTextFile(argv[1]);
-    int failures = Expect(!jsonText.empty(), "schema file non-empty");
+    int failures = TestFixtureParserGrammar();
+    failures += TestFixtureRoundtripMemory();
+    failures += Expect(!jsonText.empty(), "schema file non-empty");
     if (jsonText.empty()) {
         return failures;
     }
@@ -2359,6 +3147,7 @@ int main(int argc, char** argv)
     failures += TestShape(root, packets);
     failures += TestCoverage(packets);
     failures += TestTypedManifest(packets);
+    failures += TestFixtureInventory(argv[2]);
     failures += TestKnownPackets(packets);
     if (failures != 0) {
         std::cerr << failures << " checks failed\n";

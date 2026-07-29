@@ -1,0 +1,85 @@
+#pragma once
+
+#include <array>
+#include <cstddef>
+#include <string_view>
+
+namespace cg::packet::test {
+
+enum class FixturePayloadAuditKind
+{
+    StructuredPayload,
+    NoStructuredPayload,
+};
+
+struct FixturePayloadAudit
+{
+    std::string_view code;
+    FixturePayloadAuditKind kind = FixturePayloadAuditKind::NoStructuredPayload;
+    std::size_t fieldIndex = 0U;
+};
+
+inline constexpr std::array<std::string_view, 91U> HistoricalTypedBaselineCodes = {{
+    "JFVf", "Gp", "CCL", "aSEl", "UUN", "Ot", "RXr", "Flvp", "kjSK", "HJQp", "ycX",
+    "CV", "uSr", "xD", "IcE", "rMsv", "PfqV", "woz", "Ufm", "GY", "uId", "wD", "GH",
+    "aiAb", "ylGN",
+    "whV", "Daj", "DZ", "oy", "cJzI", "HNP", "aPc", "UU", "Sc", "eZT", "IUn", "DpSY",
+    "cNB", "ow", "KyN", "TNT", "JJQj", "Rspn", "cNE", "rU", "iKe", "TgX", "ELoy",
+    "xmgQ", "Ilz", "dM", "Dn", "lDuJ", "IsSy", "AU", "JgO", "OBee", "Yo", "ysVc", "LY",
+    "ND", "nFV", "DyAG", "Zd", "zzd", "Gn", "hB", "LYIm", "Mhbt", "zdr", "BZ", "ft",
+    "jv", "TeD", "gnxd", "vI", "aDn", "znv", "yuD", "Kka", "Rll", "Cxo", "ms", "nUbJ",
+    "RwK", "Yq", "PhdQ", "nsY", "NI", "uSB", "aBS",
+}};
+
+inline constexpr std::array<std::string_view, 91U> FixtureDebtCodes = {{
+    "JFVf", "Gp", "CCL", "aSEl", "UUN", "Ot", "RXr", "Flvp", "kjSK", "HJQp", "ycX",
+    "CV", "uSr", "xD", "IcE", "rMsv", "PfqV", "woz", "Ufm", "GY", "uId", "wD", "GH",
+    "aiAb", "ylGN",
+    "whV", "Daj", "DZ", "oy", "cJzI", "HNP", "aPc", "UU", "Sc", "eZT", "IUn", "DpSY",
+    "cNB", "ow", "KyN", "TNT", "JJQj", "Rspn", "cNE", "rU", "iKe", "TgX", "ELoy",
+    "xmgQ", "Ilz", "dM", "Dn", "lDuJ", "IsSy", "AU", "JgO", "OBee", "Yo", "ysVc", "LY",
+    "ND", "nFV", "DyAG", "Zd", "zzd", "Gn", "hB", "LYIm", "Mhbt", "zdr", "BZ", "ft",
+    "jv", "TeD", "gnxd", "vI", "aDn", "znv", "yuD", "Kka", "Rll", "Cxo", "ms", "nUbJ",
+    "RwK", "Yq", "PhdQ", "nsY", "NI", "uSB", "aBS",
+}};
+
+inline constexpr std::array<FixturePayloadAudit, 0U> FixturePayloadAudits = {};
+
+template <std::size_t Size>
+consteval bool AreUnique(const std::array<std::string_view, Size>& codes)
+{
+    for (std::size_t lhs = 0U; lhs < Size; ++lhs) {
+        for (std::size_t rhs = lhs + 1U; rhs < Size; ++rhs) {
+            if (codes[lhs] == codes[rhs]) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+template <std::size_t SubsetSize, std::size_t SetSize>
+consteval bool IsSubset(
+    const std::array<std::string_view, SubsetSize>& subset,
+    const std::array<std::string_view, SetSize>& set)
+{
+    for (const std::string_view code : subset) {
+        bool found = false;
+        for (const std::string_view candidate : set) {
+            if (code == candidate) {
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            return false;
+        }
+    }
+    return true;
+}
+
+static_assert(AreUnique(HistoricalTypedBaselineCodes));
+static_assert(AreUnique(FixtureDebtCodes));
+static_assert(IsSubset(FixtureDebtCodes, HistoricalTypedBaselineCodes));
+
+} // namespace cg::packet::test

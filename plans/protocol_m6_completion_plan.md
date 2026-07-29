@@ -149,7 +149,28 @@ typed manifest 只存在于测试侧，不导出 API、不按 code 解析，也�
 
 ### 5.2 fixture 门禁
 
-M6R.0 先固定 fixture grammar，再开始批量添加。已确认统一使用以下约定：
+M6R.0 先固定 `.pkt` v1 grammar，再开始批量添加。文件严格按以下顺序书写，不允许
+Trim、空行、注释、未知 key、乱序、尾随空白或缺少最终 LF：
+
+```text
+pkt_fixture=1
+code=<[A-Za-z0-9]+>
+direction=<client_to_server|server_to_client>
+sample=<[a-z0-9][a-z0-9_-]*>
+plain_hex=<非空大写两位 hex，单空格分隔>
+canonical_hex=<非空大写两位 hex，单空格分隔>
+[payload_field=<非负十进制，无前导 0，0 合法>]
+[payload_hex=<大写两位 hex，单空格分隔，可空>]
+end_sample
+```
+
+- 每个文件至少 1 个 sample；`sample` 在文件内唯一。`payload_field/payload_hex` 只能成对出现，
+  且只能位于 `canonical_hex` 与 `end_sample` 之间；同一文件可继续追加下一完整 sample 块。
+- 物理字节只允许 ASCII `0x20..0x7E` 与 LF；BOM、CR、tab、空行和非 ASCII 字节均拒绝。
+- `code` 必须精确等于大小写敏感文件 stem，`direction` 必须精确等于父目录名。
+  code 不限制历史长度，`SWITMP2` 等字母数字 code 合法。
+- `canonical_hex` 还原后必须以 `0x20` 结尾，且全串禁止 `0x00/0x0A/0x0D`。
+  `plain_hex` 中这三种控制字节如存在，只能合计出现一次且位于最后一个字节。
 
 - 目录按方向分为：
   - `tests/fixtures/protocol/plain/client_to_server/`
@@ -159,9 +180,35 @@ M6R.0 先固定 fixture grammar，再开始批量添加。已确认统一使用�
 - `plain_hex`、`canonical_hex` 表达的旧协议明文字节统一按 GBK 解释；所有非 ASCII 文本样本均先编码为 GBK 字节，再写为 hex。
 - fixture reader 只把 hex 还原为精确字节，不做隐式转码；需要 UTF-8/GBK 转换时，只能在既有 `cg::text` 或协议边界显式执行。
 - `0x17`、包尾空格、反斜杠、换行和旧双字节内容均按原始字节写入 hex，避免编辑器改写。
-- 同一文件允许多个 sample，每个 sample 至少包含输入明文字节和期望 canonical 明文字节。
 - typed 语义断言仍放在单包 C++ 测试，不把业务字段期望塞进通用 fixture 解析器。
-- fixture inventory test 必须验证：209 个唯一文件、100/109 方向、文件 code 与 sample code 一致、每包至少 1 个 sample、含 payload 的包至少 1 个二级 payload sample。
+- 每条实际 sample 均执行 generic `ParsePacket(input, Spec) -> BuildPacket == canonical`，
+  再执行 `ParsePacket(canonical, Spec) -> BuildPacket == canonical`；两次 `Packet` 的
+  code、direction 及 fields 的 name/type/value 必须完全一致。此门禁只证明 generic
+  Spec roundtrip，不计入 typed `Encode/Parse` 运行覆盖。
+
+fixture inventory 以集合恒等式分阶段收紧。令 `H` 为冻结的 91 个历史 typed code，`D`
+为显式 fixture 债务，`A` 为实际 fixture code，`T` 为 typed manifest code，则始终要求：
+
+```text
+D ⊆ H
+A ∩ D = ∅
+A ∪ D = T
+payload audit codes = A
+```
+
+初始 `H=D=T=91`、`A=0`，因此 plain root 不存在仅在预期 `A=0` 时合法；新 typed code
+不能加入历史债务。最终必须达到 `D=0`、`A=T=209`，且方向精确为客户端→服务端 100、
+服务端→客户端 109。
+
+payload 状态只以 inventory audit 为权威，不从 `SubPayload` 类型推断：
+
+1. 债务 code 隐含为 `Unaudited`，没有实际 fixture 和 audit。
+2. 每个实际 fixture 必须恰有一个 `StructuredPayload(fieldIndex)` 或
+   `NoStructuredPayload` audit。
+3. `StructuredPayload` 要求 `fieldIndex` 对应 Spec 的 `EscapedString/SubPayload`，
+   至少一个 sample 使用相同 `payload_field` 且 `payload_hex` 非空；generic Parse 后该字段
+   value 必须逐字节等于 `payload_hex`。
+4. `NoStructuredPayload` 的所有 sample 禁止携带 payload 元数据。
 
 fixture 测试读取的是精确字节，不得对包尾空格、空字段或控制字节做 `Trim()`。
 

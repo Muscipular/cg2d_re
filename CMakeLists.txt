@@ -1605,6 +1605,7 @@ add_test(
     NAME cg-packet-coverage-schema-test
     COMMAND cg-packet-coverage-schema-test
         "${CMAKE_CURRENT_SOURCE_DIR}/tests/fixtures/protocol/schema/packet_coverage_schema.json"
+        "${CMAKE_CURRENT_SOURCE_DIR}/tests/fixtures/protocol/plain"
 )
 
 get_property(cg_targets DIRECTORY PROPERTY BUILDSYSTEM_TARGETS)

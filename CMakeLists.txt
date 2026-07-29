@@ -1608,6 +1608,44 @@ add_test(
         "${CMAKE_CURRENT_SOURCE_DIR}/tests/fixtures/protocol/plain"
 )
 
+add_executable(cg-protocol-production-surface-smoke
+    tests/packet/ProductionSurfaceSmoke.cpp
+)
+
+target_include_directories(cg-protocol-production-surface-smoke
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+
+target_compile_definitions(cg-protocol-production-surface-smoke
+    PRIVATE
+        CG_PACKET_ENABLE_DIAGNOSTIC_TEXT=0
+        CG_PACKET_ENABLE_TEST_HELPERS=0
+)
+
+if(MSVC)
+    target_compile_options(cg-protocol-production-surface-smoke
+        PRIVATE
+            /W4
+            /utf-8
+            /permissive-
+            /GR-
+    )
+else()
+    target_compile_options(cg-protocol-production-surface-smoke
+        PRIVATE
+            -Wall
+            -Wextra
+            -Wpedantic
+            -fno-rtti
+    )
+endif()
+
+add_test(
+    NAME cg-protocol-production-surface-smoke
+    COMMAND cg-protocol-production-surface-smoke
+)
+
 get_property(cg_targets DIRECTORY PROPERTY BUILDSYSTEM_TARGETS)
 foreach(cg_target IN LISTS cg_targets)
     if(cg_target MATCHES "^cg-packet-.*-test$")

@@ -375,6 +375,8 @@
       "rawFormat": "{Objlndex:i62} {servertime:i62} {servernumber:i62} {adjusttime:i62}",
       "formatEmpty": false,
       "source": "xlsx",
+      "resolvedFormat": "{objectIndex:i62} {serverTime:i62} {serverNumber:i62} {adjustTime:i62}",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
       "fields": [
         {
           "index": 0,
@@ -403,6 +405,36 @@
           "typeToken": "i62",
           "rawSpec": "{adjusttime:i62}",
           "source": "xlsx"
+        }
+      ],
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "objectIndex",
+          "typeToken": "i62",
+          "rawSpec": "{objectIndex:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 1,
+          "name": "serverTime",
+          "typeToken": "i62",
+          "rawSpec": "{serverTime:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 2,
+          "name": "serverNumber",
+          "typeToken": "i62",
+          "rawSpec": "{serverNumber:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 3,
+          "name": "adjustTime",
+          "typeToken": "i62",
+          "rawSpec": "{adjustTime:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         }
       ]
     },

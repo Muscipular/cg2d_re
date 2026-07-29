@@ -236,7 +236,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 26 | `PhdQ` | 服务端->客户端 | 完成 | SEND_ABG SendAddressbookGuildInfo / AddressBookGuildInfo；0..60 条记录，每条 2 段，空 data 为空列表 | 否 | 是 | xlsx + src/packet |
 | 27 | `nsY` | 服务端->客户端 | 完成 | SEND_C ObjectList | 否 | 是 | xlsx |
 | 28 | `MTg` | 服务端->客户端 | 完成 | CHAR_sendFeverStatus；严格 `{FeverHaveTime:i62}→{isFever:i62}`，`receive::FeverStatus` 保留任意 signed int；不限制 time>=0 或 flag 0/1，不做毫秒换算或客户端钳位；NoStructuredPayload；fixture `time-62-flag-one` | 否 | 否 | xlsx+ServerC+ClientIda+src/packet |
-| 29 | `Ov` | 服务端->客户端 | 完成 | SEND_POS 前后排 | 否 | 否 | xlsx |
+| 29 | `Ov` | 服务端->客户端 | 完成 | SEND_POS 战斗前后排；严格 `{pos:i62}`，`receive::BattlePosition` 仅接受 0 前排/1 后排，拒绝其他值并保留错误上下文；不模拟客户端 int16 截断；NoStructuredPayload；fixture `back-row` | 否 | 否 | xlsx+ServerC+ClientIda+src/packet |
 | 30 | `Ilz` | 服务端->客户端 | 完成 | SEND_AL 图鉴？；外层 `{albumversion:i62} {data:es}`；payload page 为 raw decimal int | 否 | 是 | xlsx + 旧 C + IDA + src/packet |
 | 31 | `lSZ` | 服务端->客户端 | 完成 | SEND_IP | 否 | 否 | xlsx |
 | 32 | `tq` | 服务端->客户端 | 完成 | SEND_MAC Mouse? | 否 | 否 | xlsx |

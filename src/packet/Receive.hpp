@@ -1177,6 +1177,122 @@ namespace cg::packet::receive
         }
     };
 
+    /**
+     * SEND_POS 战斗前后排 Ov
+     * wire 固定一个 signed i62；仅接受服务端 active 域 0/1。
+     */
+    struct BattlePosition
+    {
+        static constexpr std::string_view Code = "Ov";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("pos"), PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        int position = 0;
+
+        explicit BattlePosition(int position)
+            : position(position)
+        {
+        }
+
+#if CG_PACKET_ENABLE_TEST_HELPERS
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("pos"),
+                PacketFieldType::Int62,
+                std::to_string(position),
+            });
+            return packet;
+        }
+#endif
+
+        static PacketResult<BattlePosition> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
+            if (!parsed.HasValue()) {
+                return PacketResult<BattlePosition>::Failure(parsed.Error());
+            }
+
+            PacketResult<int> value = ParseDecimalField(
+                parsed.Value().fields[PositionFieldIndex].value);
+            if (!value.HasValue()) {
+                return PacketResult<BattlePosition>::Failure(value.Error());
+            }
+            if (value.Value() != 0 && value.Value() != 1) {
+                return PacketResult<BattlePosition>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT("BattlePosition pos 仅允许 0 或 1")));
+            }
+            return PacketResult<BattlePosition>::Success(BattlePosition(value.Value()));
+        }
+
+    private:
+        static constexpr std::size_t PositionFieldIndex = 0U;
+
+        [[nodiscard]] static PacketError MakeFieldError(
+            PacketErrorCode code,
+            std::string_view message)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            error.fieldIndex = PositionFieldIndex;
+            return error;
+        }
+
+        [[nodiscard]] static PacketResult<int> ParseDecimalField(std::string_view text)
+        {
+            bool negative = false;
+            std::size_t index = 0U;
+            if (!text.empty() && text.front() == '-') {
+                negative = true;
+                index = 1U;
+            }
+
+            if (index == text.size()) {
+                return PacketResult<int>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT("BattlePosition i62 字段为空")));
+            }
+
+            const std::int64_t maxValue = static_cast<std::int64_t>(std::numeric_limits<int>::max());
+            const std::int64_t minValue = static_cast<std::int64_t>(std::numeric_limits<int>::min());
+            const std::int64_t limit = negative ? (0 - minValue) : maxValue;
+            std::int64_t value = 0;
+
+            for (; index < text.size(); ++index) {
+                const char ch = text[index];
+                if (ch < '0' || ch > '9') {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        CG_PACKET_DIAGNOSTIC_TEXT("BattlePosition i62 字段包含非法字符")));
+                }
+
+                const int digit = ch - '0';
+                if (value > (limit - digit) / 10) {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        CG_PACKET_DIAGNOSTIC_TEXT("BattlePosition i62 字段超出 int 范围")));
+                }
+
+                value = (value * 10) + digit;
+            }
+
+            if (negative) {
+                value = -value;
+            }
+            return PacketResult<int>::Success(static_cast<int>(value));
+        }
+    };
+
     struct CharacterListRecord
     {
         std::string nameRaw;

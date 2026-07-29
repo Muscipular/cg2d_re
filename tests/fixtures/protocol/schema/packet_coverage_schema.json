@@ -1180,6 +1180,8 @@
       "rawFormat": "{pos:i62}",
       "formatEmpty": false,
       "source": "xlsx",
+      "resolvedFormat": "{pos:i62}",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
       "fields": [
         {
           "index": 0,
@@ -1187,6 +1189,15 @@
           "typeToken": "i62",
           "rawSpec": "{pos:i62}",
           "source": "xlsx"
+        }
+      ],
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "pos",
+          "typeToken": "i62",
+          "rawSpec": "{pos:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         }
       ]
     },

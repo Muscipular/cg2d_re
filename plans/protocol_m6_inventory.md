@@ -231,7 +231,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 21 | `rU` | 服务端->客户端 | 完成 | SEND_I CHAR_sendItemData；旧 C + IDA + SDLCG 确认 14 段 item record，外层 `{data:es}` | 否 | 是 | xlsx + 旧 C + IDA + SDLCG + src/packet |
 | 22 | `OaHi` | 服务端->客户端 | 完成 | SEND_EP 遇敌概率；严格 `{minimum:i62}→{maximum:i62}`，`receive::EncounterProbability` 保留任意 int，不限制 0..100，亦不检查 minimum<=maximum；NoStructuredPayload；fixture `distinct-i62-order` | 否 | 否 | xlsx+ServerC+ClientIda+src/packet |
 | 23 | `SkBD` | 服务端->客户端 | 完成 | SEND_FS 玩家状态标志；严格单 `{flags:i62}`，`receive::PlayerStatusFlags` 保留任意 int；不模拟客户端截低 16 位或清 bit1，不增加 public flag 常量/HasFlag/bit mask 限制；NoStructuredPayload；fixture `flags-125` | 否 | 否 | xlsx+ServerC+ClientIda+src/packet |
-| 24 | `jmb` | 服务端->客户端 | 完成 | SEND_MC sendMapHash | 否 | 否 | xlsx |
+| 24 | `jmb` | 服务端->客户端 | 完成 | SEND_MC 地图校验值；严格 9 个 signed i62，`receive::MapChecksum` 按 mapId/floor/x1/y1/x2/y2/tileChecksum/objectChecksum/eventChecksum 解析并保留完整 int；不限制 checksum 0..65535，不增加坐标几何/顺序约束；NoStructuredPayload；fixture `distinct-i62-order` | 否 | 否 | xlsx+ServerC+ClientIda+src/packet |
 | 25 | `gnxd` | 服务端->客户端 | 完成 | SEND_AB SendAddressbook / AddressBook；固定 60 槽，每槽 7 段，空槽全空 | 否 | 是 | xlsx + src/packet |
 | 26 | `PhdQ` | 服务端->客户端 | 完成 | SEND_ABG SendAddressbookGuildInfo / AddressBookGuildInfo；0..60 条记录，每条 2 段，空 data 为空列表 | 否 | 是 | xlsx + src/packet |
 | 27 | `nsY` | 服务端->客户端 | 完成 | SEND_C ObjectList | 否 | 是 | xlsx |

@@ -43,7 +43,7 @@ inline constexpr std::array<std::string_view, 91U> FixtureDebtCodes = {{
     "RwK", "Yq", "PhdQ", "nsY", "NI", "uSB", "aBS",
 }};
 
-inline constexpr std::array<FixturePayloadAudit, 23U> FixturePayloadAudits = {{
+inline constexpr std::array<FixturePayloadAudit, 24U> FixturePayloadAudits = {{
     {"WA", FixturePayloadAuditKind::NoStructuredPayload, 0U},
     {"PfM", FixturePayloadAuditKind::NoStructuredPayload, 0U},
     {"emRV", FixturePayloadAuditKind::NoStructuredPayload, 0U},
@@ -67,6 +67,7 @@ inline constexpr std::array<FixturePayloadAudit, 23U> FixturePayloadAudits = {{
     {"GmNM", FixturePayloadAuditKind::NoStructuredPayload, 0U},
     {"OaHi", FixturePayloadAuditKind::NoStructuredPayload, 0U},
     {"SkBD", FixturePayloadAuditKind::NoStructuredPayload, 0U},
+    {"jmb", FixturePayloadAuditKind::NoStructuredPayload, 0U},
 }};
 
 template <std::size_t Size>

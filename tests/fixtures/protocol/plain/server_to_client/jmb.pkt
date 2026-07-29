@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=jmb
+direction=server_to_client
+sample=distinct-i62-order
+plain_hex=6A 6D 62 20 31 20 31 30 20 32 20 2D 31 20 33 20 34 20 35 20 36 20 37
+canonical_hex=6A 6D 62 20 31 20 31 30 20 32 20 2D 31 20 33 20 34 20 35 20 36 20 37 20
+end_sample

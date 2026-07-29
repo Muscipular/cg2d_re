@@ -1707,7 +1707,7 @@
       "formatEmpty": false,
       "source": "xlsx",
       "resolvedFormat": "{x:i62} {y:i62} {direction:es} {warpnum:i62}",
-      "resolvedSource": "xlsx+ServerC+ClientIda",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
       "fields": [
         {
           "index": 0,
@@ -1744,28 +1744,28 @@
           "name": "x",
           "typeToken": "i62",
           "rawSpec": "{x:i62}",
-          "source": "xlsx+ServerC+ClientIda"
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         },
         {
           "index": 1,
           "name": "y",
           "typeToken": "i62",
           "rawSpec": "{y:i62}",
-          "source": "xlsx+ServerC+ClientIda"
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         },
         {
           "index": 2,
           "name": "direction",
           "typeToken": "es",
           "rawSpec": "{direction:es}",
-          "source": "xlsx+ServerC+ClientIda"
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         },
         {
           "index": 3,
           "name": "warpnum",
           "typeToken": "i62",
           "rawSpec": "{warpnum:i62}",
-          "source": "xlsx+ServerC+ClientIda"
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         }
       ]
     },

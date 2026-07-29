@@ -1124,11 +1124,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 40U, "send typed manifest count 40");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 41U, "send typed manifest count 41");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 82U, "receive typed manifest count 82");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 122U,
-        "typed manifest count 122");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 123U,
+        "typed manifest count 123");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1145,7 +1145,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 122U, "typed manifest unique code count 122");
+    failures += Expect(codes.size() == 123U, "typed manifest unique code count 123");
     return failures;
 }
 
@@ -2603,6 +2603,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     const PacketSchema* movementRequestSchema = FindPacket(packets, "zA");
     failures += Expect(movementRequestSchema != nullptr, "zA schema exists");
     if (movementRequestSchema != nullptr) {
+        const cg::packet::send::MoveRequest movementRequest(10, 20, "a", 256);
+        const cg::packet::PacketResult<cg::packet::Packet> packet = movementRequest.ToPacket();
         failures += Expect(movementRequestSchema->direction == "客户端->服务端", "zA direction");
         failures += Expect(movementRequestSchema->legacyKind == "RECV", "zA legacyKind");
         failures += Expect(
@@ -2627,7 +2629,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                 "{x:i62} {y:i62} {direction:es} {warpnum:i62}",
             "zA resolvedFormat");
         failures += Expect(
-            movementRequestSchema->resolvedSource == "xlsx+ServerC+ClientIda",
+            movementRequestSchema->resolvedSource == "xlsx+ServerC+ClientIda+src/packet",
             "zA resolvedSource");
         failures += Expect(movementRequestSchema->hasResolvedFields, "zA resolvedFields present");
         failures += Expect(
@@ -2659,9 +2661,16 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                         field.name == names[index] &&
                         field.typeToken == types[index] &&
                         field.rawSpec == specs[index] &&
-                        field.source == "xlsx+ServerC+ClientIda",
+                        field.source == "xlsx+ServerC+ClientIda+src/packet",
                     "zA resolved field");
             }
+        }
+        failures += Expect(packet.HasValue(), "zA ToPacket");
+        if (packet.HasValue()) {
+            failures += ExpectResolvedFieldsMatch(
+                *movementRequestSchema,
+                packet.Value(),
+                "zA resolved/Spec field order");
         }
     }
 

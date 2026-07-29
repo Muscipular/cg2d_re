@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=zA
+direction=client_to_server
+sample=move-with-warp
+plain_hex=7A 41 20 61 20 6B 20 61 20 34 38
+canonical_hex=7A 41 20 61 20 6B 20 61 20 34 38 20
+end_sample

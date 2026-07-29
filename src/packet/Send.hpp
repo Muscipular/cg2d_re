@@ -331,6 +331,100 @@ namespace cg::packet::send
     };
 
     /**
+     * RECV_W 移动 zA {x:i62} {y:i62} {direction:es} {warpnum:i62}
+     * direction 仅接受客户端 active producer 使用的单字节 ASCII [a-hA-H]。
+     */
+    struct MoveRequest
+    {
+        static constexpr std::string_view Code = "zA";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 4U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("x"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("y"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("direction"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("warpnum"), PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        int x = 0;
+        int y = 0;
+        std::string direction;
+        int warpNumber = 0;
+
+        MoveRequest(int x, int y, std::string direction, int warpNumber)
+            : x(x),
+              y(y),
+              direction(std::move(direction)),
+              warpNumber(warpNumber)
+        {
+        }
+
+        [[nodiscard]] PacketResult<Packet> ToPacket() const
+        {
+            if (!IsValidDirection(direction)) {
+                PacketError error = PacketError::Make(
+                    PacketErrorCode::EncodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT(
+                        "MoveRequest direction 必须是单字节 ASCII [a-hA-H]"));
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = DirectionFieldIndex;
+                return PacketResult<Packet>::Failure(std::move(error));
+            }
+
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("x"),
+                PacketFieldType::Int62,
+                std::to_string(x),
+            });
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("y"),
+                PacketFieldType::Int62,
+                std::to_string(y),
+            });
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("direction"),
+                PacketFieldType::EscapedString,
+                direction,
+            });
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("warpnum"),
+                PacketFieldType::Int62,
+                std::to_string(warpNumber),
+            });
+            return PacketResult<Packet>::Success(std::move(packet));
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            PacketResult<Packet> packet = ToPacket();
+            if (!packet.HasValue()) {
+                return PacketResult<std::string>::Failure(packet.Error());
+            }
+            return BuildPacket(packet.Value(), Spec);
+        }
+
+    private:
+        static constexpr std::size_t DirectionFieldIndex = 2U;
+
+        [[nodiscard]] static bool IsValidDirection(std::string_view value) noexcept
+        {
+            if (value.size() != 1U) {
+                return false;
+            }
+
+            const char direction = value.front();
+            return (direction >= 'a' && direction <= 'h')
+                || (direction >= 'A' && direction <= 'H');
+        }
+    };
+
+    /**
      * RECV_EV NPC 事件 pg {event:i62} {seqno:i62} {x:i62} {y:i62} {dir:i62}
      */
     struct NpcEventRequest

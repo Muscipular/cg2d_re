@@ -1256,6 +1256,8 @@
       "rawFormat": "{clientIP:es}",
       "formatEmpty": false,
       "source": "xlsx",
+      "resolvedFormat": "{clientIP:es}",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
       "fields": [
         {
           "index": 0,
@@ -1263,6 +1265,15 @@
           "typeToken": "es",
           "rawSpec": "{clientIP:es}",
           "source": "xlsx"
+        }
+      ],
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "clientIP",
+          "typeToken": "es",
+          "rawSpec": "{clientIP:es}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         }
       ]
     },

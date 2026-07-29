@@ -1293,6 +1293,59 @@ namespace cg::packet::receive
         }
     };
 
+    /**
+     * SEND_IP 客户端 IP 通知 lSZ
+     * wire 固定单个外层 es；协议层保留任意合法 legacy 字节串。
+     */
+    struct ClientIpNotification
+    {
+        static constexpr std::string_view Code = "lSZ";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("clientIP"), PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        std::string clientIp;
+
+        explicit ClientIpNotification(std::string clientIp)
+            : clientIp(std::move(clientIp))
+        {
+        }
+
+#if CG_PACKET_ENABLE_TEST_HELPERS
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("clientIP"),
+                PacketFieldType::EscapedString,
+                clientIp,
+            });
+            return packet;
+        }
+#endif
+
+        static PacketResult<ClientIpNotification> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
+            if (!parsed.HasValue()) {
+                return PacketResult<ClientIpNotification>::Failure(parsed.Error());
+            }
+
+            return PacketResult<ClientIpNotification>::Success(ClientIpNotification(
+                parsed.Value().fields[ClientIpFieldIndex].value));
+        }
+
+    private:
+        static constexpr std::size_t ClientIpFieldIndex = 0U;
+    };
+
     struct CharacterListRecord
     {
         std::string nameRaw;

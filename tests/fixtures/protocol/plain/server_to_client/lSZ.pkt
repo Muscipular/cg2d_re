@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=lSZ
+direction=server_to_client
+sample=ipv4-loopback
+plain_hex=6C 53 5A 20 31 32 37 2E 30 2E 30 2E 31
+canonical_hex=6C 53 5A 20 31 32 37 2E 30 2E 30 2E 31 20
+end_sample

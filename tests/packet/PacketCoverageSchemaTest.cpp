@@ -1124,11 +1124,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 44U, "send typed manifest count 44");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 45U, "send typed manifest count 45");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 84U, "receive typed manifest count 84");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 128U,
-        "typed manifest count 128");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 129U,
+        "typed manifest count 129");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1145,7 +1145,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 128U, "typed manifest unique code count 128");
+    failures += Expect(codes.size() == 129U, "typed manifest unique code count 129");
     return failures;
 }
 
@@ -2976,6 +2976,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     const PacketSchema* itemPickupSchema = FindPacket(packets, "fIM");
     failures += Expect(itemPickupSchema != nullptr, "fIM schema exists");
     if (itemPickupSchema != nullptr) {
+        const cg::packet::send::PickUpItem item(10, 20, 3);
+        const cg::packet::Packet packet = item.ToPacket();
         failures += Expect(
             itemPickupSchema->direction == "客户端->服务端",
             "fIM direction");
@@ -3007,7 +3009,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             itemPickupSchema->resolvedFormat == "{x:i62} {y:i62} {dir:i62}",
             "fIM resolvedFormat");
         failures += Expect(
-            itemPickupSchema->resolvedSource == "xlsx+ServerC+ClientIda",
+            itemPickupSchema->resolvedSource == "xlsx+ServerC+ClientIda+src/packet",
             "fIM resolvedSource");
         failures += Expect(
             itemPickupSchema->hasResolvedFields,
@@ -3029,28 +3031,14 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                         field.name == names[index] &&
                         field.typeToken == "i62" &&
                         field.rawSpec == specs[index] &&
-                        field.source == "xlsx+ServerC+ClientIda",
+                        field.source == "xlsx+ServerC+ClientIda+src/packet",
                     "fIM resolved field");
             }
         }
-
-        bool hasSendTypedPacket = false;
-        for (const cg::packet::test::TypedPacketManifestEntry& entry :
-             cg::packet::test::SendTypedPackets) {
-            if (entry.spec != nullptr && entry.spec->code == "fIM") {
-                hasSendTypedPacket = true;
-            }
-        }
-        failures += Expect(!hasSendTypedPacket, "fIM absent from send typed manifest");
-
-        bool hasReceiveTypedPacket = false;
-        for (const cg::packet::test::TypedPacketManifestEntry& entry :
-             cg::packet::test::ReceiveTypedPackets) {
-            if (entry.spec != nullptr && entry.spec->code == "fIM") {
-                hasReceiveTypedPacket = true;
-            }
-        }
-        failures += Expect(!hasReceiveTypedPacket, "fIM absent from receive typed manifest");
+        failures += ExpectResolvedFieldsMatch(
+            *itemPickupSchema,
+            packet,
+            "fIM resolved/Spec field order");
     }
 
     const PacketSchema* createNewCharSchema = FindPacket(packets, "aSEl");

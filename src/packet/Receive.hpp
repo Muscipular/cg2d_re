@@ -1752,14 +1752,14 @@ namespace cg::packet::receive
 
     /**
      * SEND_CP2 CharData_2		UU {data:es}
-     * data: flagMask|value...|，flagMask 为 i62；后续字段按 bit 顺序保留 raw 字符串。
+     * data: flagMask|按 bit 顺序的字段...|；flagMask 为 i62，字段值为 raw signed decimal。
      */
     struct CharacterProfile2
     {
         static constexpr std::string_view Code = "UU";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
-            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::SubPayload},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -1770,38 +1770,107 @@ namespace cg::packet::receive
         static constexpr std::string_view PayloadDelimiter = "|";
 
         int flagMask = 0;
-        std::vector<std::string> values;
-
-        CharacterProfile2(int flagMask, std::vector<std::string> values)
-            : flagMask(flagMask),
-              values(std::move(values))
-        {
-        }
+        std::optional<int> critical;
+        std::optional<int> counter;
+        std::optional<int> hitRate;
+        std::optional<int> avoid;
+        std::optional<int> poison;
+        std::optional<int> sleep;
+        std::optional<int> stone;
+        std::optional<int> drunk;
+        std::optional<int> confusion;
+        std::optional<int> amnesia;
+        std::optional<int> duelPoint;
+        std::optional<int> injury;
+        std::optional<int> tribe;
+        std::optional<int> penalty;
+        std::optional<int> rebirth;
+        std::optional<int> faceImage;
+        std::optional<int> skillSlot;
+        std::optional<int> walkSpeed;
+        std::optional<int> modAttack;
+        std::optional<int> modDefence;
+        std::optional<int> goldLimit;
+        std::optional<int> poolGoldLimit;
+        std::optional<int> poolGoldLimit2;
+        std::optional<int> bankPage;
 
 #if CG_PACKET_ENABLE_TEST_HELPERS
-        [[nodiscard]] std::string BuildData() const
+        [[nodiscard]] PacketResult<std::string> BuildData() const
         {
+            PacketResult<std::uint32_t> validatedFlagMask =
+                ValidateFlagMask(flagMask, PacketErrorCode::EncodeFailed);
+            if (!validatedFlagMask.HasValue()) {
+                return PacketResult<std::string>::Failure(validatedFlagMask.Error());
+            }
+
             PacketResult<std::string> encodedFlagMask = EncodeInt62(flagMask);
-            std::string payload = encodedFlagMask.HasValue() ? encodedFlagMask.Value() : std::string();
-            payload.push_back('|');
-            for (const std::string& value : values) {
-                payload.append(value);
-                payload.push_back('|');
+            if (!encodedFlagMask.HasValue()) {
+                PacketError error = encodedFlagMask.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = DataFieldIndex;
+                return PacketResult<std::string>::Failure(std::move(error));
+            }
+
+            const std::uint32_t flagBits = validatedFlagMask.Value();
+            const std::array<NumericMember, NumericFieldCount> numericMembers = NumericMembers();
+            std::vector<std::string> parts;
+            parts.reserve(1U + NumericFieldCount + 2U);
+            parts.push_back(encodedFlagMask.Value());
+
+            for (std::size_t index = 0; index < numericMembers.size(); ++index) {
+                const std::size_t bit = index + FirstDataBit;
+                const std::optional<int>& value = this->*numericMembers[index];
+                const bool selected = IsSelected(flagBits, bit);
+                if (selected != value.has_value()) {
+                    return PacketResult<std::string>::Failure(MakeFieldError(
+                        PacketErrorCode::EncodeFailed,
+                        CG_PACKET_DIAGNOSTIC_TEXT("CharacterProfile2 flagMask 与字段不匹配"),
+                        bit));
+                }
+                if (selected) {
+                    parts.push_back(std::to_string(*value));
+                }
+            }
+
+            const bool bankPageSelected = flagBits == AllFlag;
+            if (bankPageSelected != bankPage.has_value()) {
+                return PacketResult<std::string>::Failure(MakeFieldError(
+                    PacketErrorCode::EncodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT("CharacterProfile2 flagMask 与 bankPage 不匹配"),
+                    BankPageFieldIndex));
+            }
+            if (bankPageSelected) {
+                parts.push_back(std::to_string(*bankPage));
+            }
+
+            parts.emplace_back();
+            PacketResult<std::string> payload = BuildPayload(
+                std::span<const std::string>(parts.data(), parts.size()),
+                PayloadDelimiter);
+            if (!payload.HasValue()) {
+                PacketError error = payload.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = DataFieldIndex;
+                return PacketResult<std::string>::Failure(std::move(error));
             }
             return payload;
         }
-#endif
 
-#if CG_PACKET_ENABLE_TEST_HELPERS
-        [[nodiscard]] Packet ToPacket() const
+        [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
+            PacketResult<std::string> data = BuildData();
+            if (!data.HasValue()) {
+                return PacketResult<Packet>::Failure(data.Error());
+            }
+
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("data"),
-                PacketFieldType::EscapedString,
-                BuildData(),
+                PacketFieldType::SubPayload,
+                data.Value(),
             });
-            return packet;
+            return PacketResult<Packet>::Success(std::move(packet));
         }
 #endif
 
@@ -1851,8 +1920,67 @@ namespace cg::packet::receive
         }
 
     private:
+        using NumericMember = std::optional<int> CharacterProfile2::*;
+
         static constexpr std::size_t FieldCount = 1U;
         static constexpr std::size_t DataFieldIndex = 0U;
+        static constexpr std::size_t FirstDataBit = 1U;
+        static constexpr std::size_t LastDataBit = 23U;
+        static constexpr std::size_t NumericFieldCount = 23U;
+        static constexpr std::size_t BankPageFieldIndex = 24U;
+        static constexpr std::uint32_t AllFlag = 1U;
+        static constexpr std::uint32_t SupportedMask = 0x00fffffeU;
+
+        [[nodiscard]] static constexpr std::array<NumericMember, NumericFieldCount> NumericMembers() noexcept
+        {
+            return {{
+                &CharacterProfile2::critical,
+                &CharacterProfile2::counter,
+                &CharacterProfile2::hitRate,
+                &CharacterProfile2::avoid,
+                &CharacterProfile2::poison,
+                &CharacterProfile2::sleep,
+                &CharacterProfile2::stone,
+                &CharacterProfile2::drunk,
+                &CharacterProfile2::confusion,
+                &CharacterProfile2::amnesia,
+                &CharacterProfile2::duelPoint,
+                &CharacterProfile2::injury,
+                &CharacterProfile2::tribe,
+                &CharacterProfile2::penalty,
+                &CharacterProfile2::rebirth,
+                &CharacterProfile2::faceImage,
+                &CharacterProfile2::skillSlot,
+                &CharacterProfile2::walkSpeed,
+                &CharacterProfile2::modAttack,
+                &CharacterProfile2::modDefence,
+                &CharacterProfile2::goldLimit,
+                &CharacterProfile2::poolGoldLimit,
+                &CharacterProfile2::poolGoldLimit2,
+            }};
+        }
+
+        [[nodiscard]] static constexpr bool IsSelected(
+            std::uint32_t flagBits,
+            std::size_t bit) noexcept
+        {
+            return flagBits == AllFlag || (flagBits & (1U << bit)) != 0U;
+        }
+
+        [[nodiscard]] static std::size_t ExpectedValueCount(std::uint32_t flagBits) noexcept
+        {
+            if (flagBits == AllFlag) {
+                return NumericFieldCount + 1U;
+            }
+
+            std::size_t count = 0;
+            for (std::size_t bit = FirstDataBit; bit <= LastDataBit; ++bit) {
+                if (IsSelected(flagBits, bit)) {
+                    ++count;
+                }
+            }
+            return count;
+        }
 
         [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
@@ -1871,19 +1999,87 @@ namespace cg::packet::receive
             return error;
         }
 
+        [[nodiscard]] static PacketResult<std::uint32_t> ValidateFlagMask(
+            int value,
+            PacketErrorCode errorCode)
+        {
+            if (value < 0) {
+                return PacketResult<std::uint32_t>::Failure(MakeFieldError(
+                    errorCode,
+                    CG_PACKET_DIAGNOSTIC_TEXT("CharacterProfile2 flagMask 不允许负数或显式 bit31"),
+                    DataFieldIndex));
+            }
+
+            const std::uint32_t flagBits = static_cast<std::uint32_t>(value);
+            if (flagBits != AllFlag &&
+                ((flagBits & AllFlag) != 0U || (flagBits & ~SupportedMask) != 0U)) {
+                return PacketResult<std::uint32_t>::Failure(MakeFieldError(
+                    errorCode,
+                    CG_PACKET_DIAGNOSTIC_TEXT("CharacterProfile2 flagMask 包含不受支持的 bit"),
+                    DataFieldIndex));
+            }
+            return PacketResult<std::uint32_t>::Success(flagBits);
+        }
+
+        [[nodiscard]] static PacketResult<int> ParseDecimalField(
+            std::string_view text,
+            std::size_t fieldIndex)
+        {
+            if (text.empty()) {
+                return PacketResult<int>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT("CharacterProfile2 payload 十进制字段为空"),
+                    fieldIndex));
+            }
+
+            bool negative = false;
+            std::size_t index = 0;
+            if (text.front() == '-') {
+                negative = true;
+                index = 1U;
+            }
+            if (index == text.size()) {
+                return PacketResult<int>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT("CharacterProfile2 payload 十进制字段缺少数字"),
+                    fieldIndex));
+            }
+
+            const std::int64_t maxValue = static_cast<std::int64_t>(std::numeric_limits<int>::max());
+            const std::int64_t minValue = static_cast<std::int64_t>(std::numeric_limits<int>::min());
+            const std::int64_t limit = negative ? (0 - minValue) : maxValue;
+            std::int64_t parsed = 0;
+            for (; index < text.size(); ++index) {
+                const char ch = text[index];
+                if (ch < '0' || ch > '9') {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        CG_PACKET_DIAGNOSTIC_TEXT("CharacterProfile2 payload 十进制字段包含非法字符"),
+                        fieldIndex));
+                }
+
+                const int digit = ch - '0';
+                if (parsed > (limit - digit) / 10) {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        CG_PACKET_DIAGNOSTIC_TEXT("CharacterProfile2 payload 十进制字段超出 int 范围"),
+                        fieldIndex));
+                }
+                parsed = (parsed * 10) + digit;
+            }
+
+            if (negative) {
+                parsed = -parsed;
+            }
+            return PacketResult<int>::Success(static_cast<int>(parsed));
+        }
+
         [[nodiscard]] static PacketResult<CharacterProfile2> ParseData(std::string_view payload)
         {
             if (payload.empty()) {
                 return PacketResult<CharacterProfile2>::Failure(MakeFieldError(
                     PacketErrorCode::EmptyInput,
                     CG_PACKET_DIAGNOSTIC_TEXT("CharacterProfile2 payload 为空"),
-                    DataFieldIndex));
-            }
-
-            if (payload.back() != '|') {
-                return PacketResult<CharacterProfile2>::Failure(MakeFieldError(
-                    PacketErrorCode::DecodeFailed,
-                    CG_PACKET_DIAGNOSTIC_TEXT("CharacterProfile2 payload 缺少尾随分隔符"),
                     DataFieldIndex));
             }
 
@@ -1896,6 +2092,12 @@ namespace cg::packet::receive
             }
 
             std::vector<std::string> payloadParts = std::move(parts.Value());
+            if (payloadParts.empty() || !payloadParts.back().empty()) {
+                return PacketResult<CharacterProfile2>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT("CharacterProfile2 payload 缺少尾随分隔符"),
+                    DataFieldIndex));
+            }
             payloadParts.pop_back();
             if (payloadParts.empty() || payloadParts.front().empty()) {
                 return PacketResult<CharacterProfile2>::Failure(MakeFieldError(
@@ -1912,21 +2114,48 @@ namespace cg::packet::receive
                 return PacketResult<CharacterProfile2>::Failure(std::move(error));
             }
 
-            std::vector<std::string> rawValues;
-            rawValues.reserve(payloadParts.size() - 1U);
-            for (std::size_t index = 1U; index < payloadParts.size(); ++index) {
-                if (payloadParts[index].empty()) {
-                    return PacketResult<CharacterProfile2>::Failure(MakeFieldError(
-                        PacketErrorCode::DecodeFailed,
-                        CG_PACKET_DIAGNOSTIC_TEXT("CharacterProfile2 payload value 为空"),
-                        DataFieldIndex));
-                }
-
-                rawValues.push_back(std::move(payloadParts[index]));
+            PacketResult<std::uint32_t> validatedFlagMask =
+                ValidateFlagMask(decodedFlagMask.Value(), PacketErrorCode::DecodeFailed);
+            if (!validatedFlagMask.HasValue()) {
+                return PacketResult<CharacterProfile2>::Failure(validatedFlagMask.Error());
             }
 
-            return PacketResult<CharacterProfile2>::Success(
-                CharacterProfile2(decodedFlagMask.Value(), std::move(rawValues)));
+            const std::uint32_t flagBits = validatedFlagMask.Value();
+            const std::size_t expectedValues = ExpectedValueCount(flagBits);
+            if (payloadParts.size() != expectedValues + 1U) {
+                return PacketResult<CharacterProfile2>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    CG_PACKET_DIAGNOSTIC_TEXT("CharacterProfile2 payload 字段数量与 flagMask 不匹配"),
+                    DataFieldIndex));
+            }
+
+            CharacterProfile2 profile;
+            profile.flagMask = decodedFlagMask.Value();
+            std::size_t cursor = 1U;
+            const std::array<NumericMember, NumericFieldCount> numericMembers = NumericMembers();
+            for (std::size_t index = 0; index < numericMembers.size(); ++index) {
+                const std::size_t bit = index + FirstDataBit;
+                if (!IsSelected(flagBits, bit)) {
+                    continue;
+                }
+
+                PacketResult<int> value = ParseDecimalField(payloadParts[cursor], cursor);
+                if (!value.HasValue()) {
+                    return PacketResult<CharacterProfile2>::Failure(value.Error());
+                }
+                profile.*numericMembers[index] = value.Value();
+                ++cursor;
+            }
+
+            if (flagBits == AllFlag) {
+                PacketResult<int> value = ParseDecimalField(payloadParts[cursor], cursor);
+                if (!value.HasValue()) {
+                    return PacketResult<CharacterProfile2>::Failure(value.Error());
+                }
+                profile.bankPage = value.Value();
+            }
+
+            return PacketResult<CharacterProfile2>::Success(std::move(profile));
         }
     };
 

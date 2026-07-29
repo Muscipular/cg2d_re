@@ -2973,6 +2973,86 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "SWITMM resolved/Spec field order");
     }
 
+    const PacketSchema* itemPickupSchema = FindPacket(packets, "fIM");
+    failures += Expect(itemPickupSchema != nullptr, "fIM schema exists");
+    if (itemPickupSchema != nullptr) {
+        failures += Expect(
+            itemPickupSchema->direction == "客户端->服务端",
+            "fIM direction");
+        failures += Expect(itemPickupSchema->legacyKind == "RECV", "fIM legacyKind");
+        failures += Expect(
+            itemPickupSchema->rawFormat == "{x} {y} {dir}",
+            "fIM rawFormat");
+        failures += Expect(!itemPickupSchema->formatEmpty, "fIM formatEmpty false");
+        failures += Expect(itemPickupSchema->source == "xlsx", "fIM raw source");
+        failures += Expect(itemPickupSchema->fields.size() == 3U, "fIM raw field count");
+        if (itemPickupSchema->fields.size() == 3U) {
+            constexpr std::array<std::string_view, 3U> names = {{"x", "y", "dir"}};
+            constexpr std::array<std::string_view, 3U> specs = {{"{x}", "{y}", "{dir}"}};
+            for (std::size_t index = 0U; index < names.size(); ++index) {
+                const FieldSchema& field = itemPickupSchema->fields[index];
+                failures += Expect(
+                    field.index == index &&
+                        field.name == names[index] &&
+                        field.typeToken == "unknown" &&
+                        field.rawSpec == specs[index] &&
+                        field.source == "xlsx",
+                    "fIM raw field");
+            }
+        }
+        failures += Expect(
+            itemPickupSchema->hasResolvedFormat,
+            "fIM resolvedFormat present");
+        failures += Expect(
+            itemPickupSchema->resolvedFormat == "{x:i62} {y:i62} {dir:i62}",
+            "fIM resolvedFormat");
+        failures += Expect(
+            itemPickupSchema->resolvedSource == "xlsx+ServerC+ClientIda",
+            "fIM resolvedSource");
+        failures += Expect(
+            itemPickupSchema->hasResolvedFields,
+            "fIM resolvedFields present");
+        failures += Expect(
+            itemPickupSchema->resolvedFields.size() == 3U,
+            "fIM resolved field count");
+        if (itemPickupSchema->resolvedFields.size() == 3U) {
+            constexpr std::array<std::string_view, 3U> names = {{"x", "y", "dir"}};
+            constexpr std::array<std::string_view, 3U> specs = {{
+                "{x:i62}",
+                "{y:i62}",
+                "{dir:i62}",
+            }};
+            for (std::size_t index = 0U; index < names.size(); ++index) {
+                const FieldSchema& field = itemPickupSchema->resolvedFields[index];
+                failures += Expect(
+                    field.index == index &&
+                        field.name == names[index] &&
+                        field.typeToken == "i62" &&
+                        field.rawSpec == specs[index] &&
+                        field.source == "xlsx+ServerC+ClientIda",
+                    "fIM resolved field");
+            }
+        }
+
+        bool hasSendTypedPacket = false;
+        for (const cg::packet::test::TypedPacketManifestEntry& entry :
+             cg::packet::test::SendTypedPackets) {
+            if (entry.spec != nullptr && entry.spec->code == "fIM") {
+                hasSendTypedPacket = true;
+            }
+        }
+        failures += Expect(!hasSendTypedPacket, "fIM absent from send typed manifest");
+
+        bool hasReceiveTypedPacket = false;
+        for (const cg::packet::test::TypedPacketManifestEntry& entry :
+             cg::packet::test::ReceiveTypedPackets) {
+            if (entry.spec != nullptr && entry.spec->code == "fIM") {
+                hasReceiveTypedPacket = true;
+            }
+        }
+        failures += Expect(!hasReceiveTypedPacket, "fIM absent from receive typed manifest");
+    }
+
     const PacketSchema* createNewCharSchema = FindPacket(packets, "aSEl");
     failures += Expect(createNewCharSchema != nullptr, "aSEl schema exists");
     if (createNewCharSchema != nullptr) {

@@ -4282,6 +4282,8 @@
       "rawFormat": "{cmd:es}",
       "formatEmpty": false,
       "source": "xlsx",
+      "resolvedFormat": "{command:es}",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
       "fields": [
         {
           "index": 0,
@@ -4289,6 +4291,15 @@
           "typeToken": "es",
           "rawSpec": "{cmd:es}",
           "source": "xlsx"
+        }
+      ],
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "command",
+          "typeToken": "es",
+          "rawSpec": "{command:es}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         }
       ]
     },

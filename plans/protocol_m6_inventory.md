@@ -336,7 +336,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 126 | `TgX` | 服务端->客户端 | 完成 | SEND_EQUIP_SUIT；外层 `{data:es}`；payload 为 `nameRaw,skillNameRaw,specialTitleFlag,` 后接 24 个 raw signed decimal 属性字段，逗号分隔跳过旧双字节第二字节 | 否 | 是 | xlsx+ServerC+ClientIda+src/packet |
 | 127 | `cEj` | 客户端->服务端 | 完成 | RECV_JB | 否 | 否 | xlsx |
 | 128 | `IMv` | 客户端->服务端 | 完成 | RECV_LB WatchTry 触发一次Watch？会重置玩家位置到x, y, Δx,Δy>1时会发送XYD封包重置玩家位置 | 否 | 否 | xlsx |
-| 129 | `Rg` | 客户端->服务端 | 完成 | RECV_B BattleCommand 战斗指令 | 否 | 否 | xlsx |
+| 129 | `Rg` | 客户端->服务端 | 完成 | RECV_B BattleCommand 战斗指令；resolved 单外层 `{command:es}`，typed 使用 SubPayload；内层严格由 13 个语义 factory 生成 `S/W/H/Q/M/I/P/N/G/E/U/R` canonical，操作数按 `%X` 编码为大写十六进制，保留 `W\|FF` sentinel 与 `Q\|%X\|` 尾随；StructuredPayload field 0；fixture `pet-no-action-sentinel` | 否 | 是 | xlsx+ServerC+ClientIda+src/packet |
 | 130 | `Ak` | 客户端->服务端 | 完成 | RECV_ID ITEM_USE 使用物品 | 否 | 否 | xlsx |
 | 131 | `iVfo` | 客户端->服务端 | 完成 | RECV_IDF ITEM_useRecovery_Field 使用回复物品 | 否 | 否 | xlsx |
 | 132 | `fIM` | 客户端->服务端 | 完成 | RECV_PI PickUpItem 捡起物品 | 否 | 否 | xlsx |

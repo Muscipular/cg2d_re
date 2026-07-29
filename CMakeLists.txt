@@ -708,6 +708,18 @@ add_test(
     COMMAND cg-packet-battle-entry-notification-test
 )
 
+add_executable(cg-packet-battle-command-request-test
+    tests/packet/BattleCommandRequestPacketTest.cpp
+)
+target_include_directories(cg-packet-battle-command-request-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+add_test(
+    NAME cg-packet-battle-command-request-test
+    COMMAND cg-packet-battle-command-request-test
+)
+
 add_executable(cg-packet-pfm-notification-test
     tests/packet/PfMNotificationPacketTest.cpp
 )
@@ -1827,6 +1839,7 @@ if(MSVC)
     target_compile_options(cg-packet-battle-exit-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-npc-event-result-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-battle-entry-notification-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-battle-command-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-pfm-notification-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-create-new-char-result-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-create-new-char-send-test PRIVATE /W4 /utf-8 /permissive-)
@@ -1961,6 +1974,7 @@ else()
     target_compile_options(cg-packet-battle-exit-request-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-npc-event-result-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-battle-entry-notification-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-packet-battle-command-request-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-pfm-notification-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-create-new-char-result-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-character-delete-result-test PRIVATE -Wall -Wextra -Wpedantic)

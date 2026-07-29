@@ -489,6 +489,238 @@ namespace cg::packet::send
     };
 
     /**
+     * RECV_B 战斗指令 Rg {command:es}
+     * command 数值操作数沿用客户端 %X 语义，统一编码为大写十六进制。
+     */
+    class BattleCommandPayload
+    {
+    public:
+        using Operand = std::uint32_t;
+
+        [[nodiscard]] static BattleCommandPayload PlayerSkill(
+            Operand skillSlot,
+            Operand techniqueSlot,
+            Operand target)
+        {
+            return BattleCommandPayload(
+                Kind::PlayerSkill,
+                {skillSlot, techniqueSlot, target});
+        }
+
+        [[nodiscard]] static BattleCommandPayload PetSkill(
+            Operand skillSlot,
+            Operand target)
+        {
+            return BattleCommandPayload(Kind::PetSkill, {skillSlot, target, 0U});
+        }
+
+        [[nodiscard]] static BattleCommandPayload PetNoAction()
+        {
+            return BattleCommandPayload(Kind::PetNoAction);
+        }
+
+        [[nodiscard]] static BattleCommandPayload Attack(Operand target)
+        {
+            return BattleCommandPayload(Kind::Attack, {target, 0U, 0U});
+        }
+
+        [[nodiscard]] static BattleCommandPayload Equipment(Operand itemSlot)
+        {
+            return BattleCommandPayload(Kind::Equipment, {itemSlot, 0U, 0U});
+        }
+
+        [[nodiscard]] static BattleCommandPayload PetChange(Operand petSlot)
+        {
+            return BattleCommandPayload(Kind::PetChange, {petSlot, 0U, 0U});
+        }
+
+        [[nodiscard]] static BattleCommandPayload UseItem(
+            Operand itemSlot,
+            Operand target)
+        {
+            return BattleCommandPayload(Kind::UseItem, {itemSlot, target, 0U});
+        }
+
+        [[nodiscard]] static BattleCommandPayload Position()
+        {
+            return BattleCommandPayload(Kind::Position);
+        }
+
+        [[nodiscard]] static BattleCommandPayload NoAction()
+        {
+            return BattleCommandPayload(Kind::NoAction);
+        }
+
+        [[nodiscard]] static BattleCommandPayload Guard()
+        {
+            return BattleCommandPayload(Kind::Guard);
+        }
+
+        [[nodiscard]] static BattleCommandPayload Escape()
+        {
+            return BattleCommandPayload(Kind::Escape);
+        }
+
+        [[nodiscard]] static BattleCommandPayload WatchStop()
+        {
+            return BattleCommandPayload(Kind::WatchStop);
+        }
+
+        [[nodiscard]] static BattleCommandPayload Rebirth(Operand target)
+        {
+            return BattleCommandPayload(Kind::Rebirth, {target, 0U, 0U});
+        }
+
+        [[nodiscard]] std::string Encode() const
+        {
+            std::string command;
+            switch (kind_) {
+            case Kind::PlayerSkill:
+                command = "S|";
+                AppendHex(command, operands_[0]);
+                command.push_back('|');
+                AppendHex(command, operands_[1]);
+                command.push_back('|');
+                AppendHex(command, operands_[2]);
+                break;
+            case Kind::PetSkill:
+                command = "W|";
+                AppendHex(command, operands_[0]);
+                command.push_back('|');
+                AppendHex(command, operands_[1]);
+                break;
+            case Kind::PetNoAction:
+                command = "W|FF";
+                break;
+            case Kind::Attack:
+                command = "H|";
+                AppendHex(command, operands_[0]);
+                break;
+            case Kind::Equipment:
+                command = "Q|";
+                AppendHex(command, operands_[0]);
+                command.push_back('|');
+                break;
+            case Kind::PetChange:
+                command = "M|";
+                AppendHex(command, operands_[0]);
+                break;
+            case Kind::UseItem:
+                command = "I|";
+                AppendHex(command, operands_[0]);
+                command.push_back('|');
+                AppendHex(command, operands_[1]);
+                break;
+            case Kind::Position:
+                command = "P";
+                break;
+            case Kind::NoAction:
+                command = "N";
+                break;
+            case Kind::Guard:
+                command = "G";
+                break;
+            case Kind::Escape:
+                command = "E";
+                break;
+            case Kind::WatchStop:
+                command = "U";
+                break;
+            case Kind::Rebirth:
+                command = "R|";
+                AppendHex(command, operands_[0]);
+                break;
+            }
+            return command;
+        }
+
+    private:
+        enum class Kind
+        {
+            PlayerSkill,
+            PetSkill,
+            PetNoAction,
+            Attack,
+            Equipment,
+            PetChange,
+            UseItem,
+            Position,
+            NoAction,
+            Guard,
+            Escape,
+            WatchStop,
+            Rebirth,
+        };
+
+        Kind kind_ = Kind::NoAction;
+        std::array<Operand, 3U> operands_ {};
+
+        explicit BattleCommandPayload(
+            Kind kind,
+            std::array<Operand, 3U> operands = {})
+            : kind_(kind),
+              operands_(operands)
+        {
+        }
+
+        static void AppendHex(std::string& output, Operand value)
+        {
+            static constexpr std::string_view HexDigits = "0123456789ABCDEF";
+            std::array<char, 8U> reversed {};
+            std::size_t size = 0U;
+            do {
+                reversed[size++] = HexDigits[value & 0x0FU];
+                value >>= 4U;
+            } while (value != 0U);
+
+            while (size != 0U) {
+                output.push_back(reversed[--size]);
+            }
+        }
+    };
+
+    /**
+     * RECV_B 战斗指令 Rg {command:es}
+     */
+    struct BattleCommandRequest
+    {
+        static constexpr std::string_view Code = "Rg";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("command"), PacketFieldType::SubPayload},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        BattleCommandPayload command;
+
+        explicit BattleCommandRequest(BattleCommandPayload command)
+            : command(std::move(command))
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("command"),
+                PacketFieldType::EscapedString,
+                command.Encode(),
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket(), Spec);
+        }
+    };
+
+    /**
      * RECV_CreateNewChar 创建角色 aSEl
      * {dataPlace:i62} {name:es} {image:i62} {face:i62} {vital:i62} {strength:i62}
      * {tough:i62} {quick:i62} {magic:i62} {earth:i62} {water:i62} {fire:i62} {wind:i62}

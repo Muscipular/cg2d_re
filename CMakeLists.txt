@@ -816,6 +816,18 @@ add_test(
     COMMAND cg-packet-character-login-result-test
 )
 
+add_executable(cg-packet-character-logout-result-test
+    tests/packet/CharacterLogoutResultPacketTest.cpp
+)
+target_include_directories(cg-packet-character-logout-result-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+add_test(
+    NAME cg-packet-character-logout-result-test
+    COMMAND cg-packet-character-logout-result-test
+)
+
 add_executable(cg-packet-client-index-test
     tests/packet/ClientIndexPacketTest.cpp
 )
@@ -2040,6 +2052,7 @@ if(MSVC)
     target_compile_options(cg-packet-stall-end-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-pfm-notification-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-character-login-result-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-character-logout-result-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-client-index-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-coordinate-update-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-encounter-probability-test PRIVATE /W4 /utf-8 /permissive-)
@@ -2191,6 +2204,7 @@ else()
     target_compile_options(cg-packet-stall-end-request-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-pfm-notification-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-character-login-result-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-packet-character-logout-result-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-client-index-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-coordinate-update-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-encounter-probability-test PRIVATE -Wall -Wextra -Wpedantic)

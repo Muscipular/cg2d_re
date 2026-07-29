@@ -242,7 +242,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 32 | `tq` | 服务端->客户端 | 完成 | SEND_MAC 宏检查配置；严格 `{listMax:i62}→{repeatThreshold:i62}`，`receive::MacroCheckConfig` 保留任意 int；客户端对 listMax/repeatThreshold 的默认值归一化不属于 typed 解析层；NoStructuredPayload；fixture 含 active-default/client-lower-bound/client-normalization | 否 | 否 | xlsx+ServerC+ClientIda+src/packet |
 | 33 | `zzd` | 服务端->客户端 | 完成 | SEND_EF | 否 | 是 | xlsx |
 | 34 | `NI` | 服务端->客户端 | 完成 | SEND_CA；resolved 单 `{data:es}`；typed 记录具名保存 `objectIndex/x/y/action/direction`，可选尾部仅作为 `vector<int> options`，严格接受 5/6/8/12 字段；objectIndex 为 i62，其余均为 raw signed decimal int | 否 | 是 | xlsx + Server C + Client IDA + src/packet |
-| 35 | `HMNy` | 服务端->客户端 | 完成 | SEND_CharLogout | 否 | 否 | xlsx |
+| 35 | `HMNy` | 服务端->客户端 | 完成 | SEND_CharLogout 角色登出结果；严格 `{result:es}→{msg:es}`，`receive::CharacterLogoutResult` 保留未知 result、空消息、外层 es 转义及 GBK 字节；不收窄 enum/bool，不限制 result 值或消息非空；NoStructuredPayload；fixture 含 failed-not-logged-in/failed-gbk-pair | 否 | 否 | xlsx+ServerC+ClientIda+src/packet |
 | 36 | `Or` | 客户端->服务端 | 完成 | RECV_Echo 回显心跳；resolved `{payload:es}`；`send::EchoRequest`；客户端每 30 秒发送 literal `nr`，服务端原样回送；NoStructuredPayload；fixture `client-heartbeat` | 否 | 否 | xlsx+ServerC+ClientIda+src/packet |
 | 37 | `DE` | 客户端->服务端 | 完成 | RECV_FCTime 定时心跳；resolved 零字段；`send::KeepAliveRequest`；客户端每 60 秒发送，服务端仅更新 FC 心跳状态；NoStructuredPayload；fixture `keep-alive` | 否 | 否 | xlsx+ServerC+ClientIda+src/packet |
 | 38 | `LOh` | 服务端->客户端 | 完成 | Pong | 否 | 否 | xlsx |

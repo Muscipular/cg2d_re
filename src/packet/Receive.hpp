@@ -277,6 +277,69 @@ namespace cg::packet::receive
     };
 
     /**
+     * SEND_CharLogout 角色登出结果 HMNy {result:es} {msg:es}
+     * result 与消息均保留原始语义字节串，不收窄业务字面值。
+     */
+    struct CharacterLogoutResult
+    {
+        static constexpr std::string_view Code = "HMNy";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("result"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("msg"), PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        std::string result;
+        std::string message;
+
+        CharacterLogoutResult(std::string result, std::string message)
+            : result(std::move(result)),
+              message(std::move(message))
+        {
+        }
+
+#if CG_PACKET_ENABLE_TEST_HELPERS
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("result"),
+                PacketFieldType::EscapedString,
+                result,
+            });
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("msg"),
+                PacketFieldType::EscapedString,
+                message,
+            });
+            return packet;
+        }
+#endif
+
+        static PacketResult<CharacterLogoutResult> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
+            if (!parsed.HasValue()) {
+                return PacketResult<CharacterLogoutResult>::Failure(parsed.Error());
+            }
+
+            return PacketResult<CharacterLogoutResult>::Success(CharacterLogoutResult(
+                parsed.Value().fields[ResultFieldIndex].value,
+                parsed.Value().fields[MessageFieldIndex].value));
+        }
+
+    private:
+        static constexpr std::size_t ResultFieldIndex = 0U;
+        static constexpr std::size_t MessageFieldIndex = 1U;
+    };
+
+    /**
      * SEND_ClientIndex 客户端索引 PudO
      * 当前 PUK2 wire 固定四个 signed i62；陈旧非 PUK2 三字段分支不兼容当前签名。
      */

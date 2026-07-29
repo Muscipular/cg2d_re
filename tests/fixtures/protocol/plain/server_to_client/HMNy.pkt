@@ -1,0 +1,11 @@
+pkt_fixture=1
+code=HMNy
+direction=server_to_client
+sample=failed-not-logged-in
+plain_hex=48 4D 4E 79 20 66 61 69 6C 65 64 20 4E 6F 74 5C 53 4C 6F 67 67 65 64 5C 53 69 6E 5C 6E 20
+canonical_hex=48 4D 4E 79 20 66 61 69 6C 65 64 20 4E 6F 74 5C 53 4C 6F 67 67 65 64 5C 53 69 6E 5C 6E 20
+end_sample
+sample=failed-gbk-pair
+plain_hex=48 4D 4E 79 20 66 61 69 6C 65 64 20 81 7C 20
+canonical_hex=48 4D 4E 79 20 66 61 69 6C 65 64 20 81 7C 20
+end_sample

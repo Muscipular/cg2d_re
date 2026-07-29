@@ -757,6 +757,117 @@ namespace cg::packet::receive
         }
     };
 
+    /**
+     * SEND_FS 玩家状态标志 SkBD
+     * wire 固定一个 signed i62；保留完整 int，不模拟客户端位处理。
+     */
+    struct PlayerStatusFlags
+    {
+        static constexpr std::string_view Code = "SkBD";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("flags"), PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        int flags = 0;
+
+        explicit PlayerStatusFlags(int flags)
+            : flags(flags)
+        {
+        }
+
+#if CG_PACKET_ENABLE_TEST_HELPERS
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("flags"),
+                PacketFieldType::Int62,
+                std::to_string(flags),
+            });
+            return packet;
+        }
+#endif
+
+        static PacketResult<PlayerStatusFlags> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
+            if (!parsed.HasValue()) {
+                return PacketResult<PlayerStatusFlags>::Failure(parsed.Error());
+            }
+
+            PacketResult<int> value = ParseDecimalField(
+                parsed.Value().fields[FlagsFieldIndex].value);
+            if (!value.HasValue()) {
+                return PacketResult<PlayerStatusFlags>::Failure(value.Error());
+            }
+            return PacketResult<PlayerStatusFlags>::Success(PlayerStatusFlags(value.Value()));
+        }
+
+    private:
+        static constexpr std::size_t FlagsFieldIndex = 0U;
+
+        [[nodiscard]] static PacketError MakeFieldError(
+            PacketErrorCode code,
+            std::string_view message)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            error.fieldIndex = FlagsFieldIndex;
+            return error;
+        }
+
+        [[nodiscard]] static PacketResult<int> ParseDecimalField(std::string_view text)
+        {
+            bool negative = false;
+            std::size_t index = 0U;
+            if (!text.empty() && text.front() == '-') {
+                negative = true;
+                index = 1U;
+            }
+
+            if (index == text.size()) {
+                return PacketResult<int>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT("PlayerStatusFlags i62 字段为空")));
+            }
+
+            const std::int64_t maxValue = static_cast<std::int64_t>(std::numeric_limits<int>::max());
+            const std::int64_t minValue = static_cast<std::int64_t>(std::numeric_limits<int>::min());
+            const std::int64_t limit = negative ? (0 - minValue) : maxValue;
+            std::int64_t value = 0;
+
+            for (; index < text.size(); ++index) {
+                const char ch = text[index];
+                if (ch < '0' || ch > '9') {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        CG_PACKET_DIAGNOSTIC_TEXT("PlayerStatusFlags i62 字段包含非法字符")));
+                }
+
+                const int digit = ch - '0';
+                if (value > (limit - digit) / 10) {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        CG_PACKET_DIAGNOSTIC_TEXT("PlayerStatusFlags i62 字段超出 int 范围")));
+                }
+
+                value = (value * 10) + digit;
+            }
+
+            if (negative) {
+                value = -value;
+            }
+            return PacketResult<int>::Success(static_cast<int>(value));
+        }
+    };
+
     struct CharacterListRecord
     {
         std::string nameRaw;

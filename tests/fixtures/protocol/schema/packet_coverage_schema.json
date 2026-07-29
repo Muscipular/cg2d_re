@@ -897,6 +897,8 @@
       "rawFormat": "{flg:i62}",
       "formatEmpty": false,
       "source": "xlsx",
+      "resolvedFormat": "{flags:i62}",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
       "fields": [
         {
           "index": 0,
@@ -904,6 +906,15 @@
           "typeToken": "i62",
           "rawSpec": "{flg:i62}",
           "source": "xlsx"
+        }
+      ],
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "flags",
+          "typeToken": "i62",
+          "rawSpec": "{flags:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         }
       ]
     },

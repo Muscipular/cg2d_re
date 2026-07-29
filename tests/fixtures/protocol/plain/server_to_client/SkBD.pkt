@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=SkBD
+direction=server_to_client
+sample=flags-125
+plain_hex=53 6B 42 44 20 32 31
+canonical_hex=53 6B 42 44 20 32 31 20
+end_sample

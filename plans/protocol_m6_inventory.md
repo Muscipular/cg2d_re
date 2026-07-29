@@ -407,7 +407,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 197 | `lO` | 客户端->服务端 | 完成 | RECV_CharLoginGate 回城内登录点；严格零字段；`send::ReturnToLoginPointRequest`；canonical `lO `；与 `WA` 普通角色登出/服务器选择不同；NoStructuredPayload；fixture `return-to-login-point` | 否 | 否 | xlsx+ServerC+ClientIda+src/packet |
 | 198 | `Xoee` | 客户端->服务端 | 暂缓 | RECV_PVUP 历史迁移封包 | 否 | 否 | xlsx |
 | 199 | `ylGN` | 客户端->服务端 | 完成 | RECV_StallStart 开始摆摊请求；外层 `{stallName:es} {stallDescription:es} {stallList:es}`；stallList 固定 25 个 raw decimal price 且必须尾随 `|`；无 nested es | 否 | 是 | xlsx + ClientIda + src/packet |
-| 200 | `JMh` | 客户端->服务端 | 完成 | RECV_StallEnd 结束摆摊请求 | 否 | 否 | xlsx |
+| 200 | `JMh` | 客户端->服务端 | 完成 | RECV_StallEnd 结束摆摊请求；严格零字段；`send::StallEndRequest`，与既有 `StallStart` 配对并避免与未来 `KXhH` 服务端结果混淆；canonical `JMh `；NoStructuredPayload；fixture `stall-end` | 否 | 否 | xlsx+ServerC+ClientIda+src/packet |
 | 201 | `ElVN` | 客户端->服务端 | 完成 | RECV_StallBrowse 摆摊浏览请求 | 否 | 否 | xlsx |
 | 202 | `wAo` | 客户端->服务端 | 完成 | RECV_StallBuy 摆摊购买请求 | 否 | 否 | xlsx |
 | 203 | `IPy` | 客户端->服务端 | 完成 | RECV_ProduceTime 生产时间 | 否 | 否 | xlsx |

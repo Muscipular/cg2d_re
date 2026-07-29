@@ -1124,11 +1124,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 42U, "send typed manifest count 42");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 43U, "send typed manifest count 43");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 83U, "receive typed manifest count 83");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 125U,
-        "typed manifest count 125");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 126U,
+        "typed manifest count 126");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1145,7 +1145,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 125U, "typed manifest unique code count 125");
+    failures += Expect(codes.size() == 126U, "typed manifest unique code count 126");
     return failures;
 }
 
@@ -2836,6 +2836,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     const PacketSchema* guildDissolveSchema = FindPacket(packets, "nkda");
     failures += Expect(guildDissolveSchema != nullptr, "nkda schema exists");
     if (guildDissolveSchema != nullptr) {
+        const cg::packet::send::GuildDissolveRequest request(10);
+        const cg::packet::Packet packet = request.ToPacket();
         failures += Expect(
             guildDissolveSchema->direction == "客户端->服务端",
             "nkda direction");
@@ -2854,7 +2856,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             guildDissolveSchema->resolvedFormat == "{guildId:i62}",
             "nkda resolvedFormat");
         failures += Expect(
-            guildDissolveSchema->resolvedSource == "xlsx+ServerC",
+            guildDissolveSchema->resolvedSource == "xlsx+ServerC+src/packet",
             "nkda resolvedSource");
         failures += Expect(
             guildDissolveSchema->resolvedSource.find("ClientIda") == std::string::npos,
@@ -2872,30 +2874,17 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                     field.name == "guildId" &&
                     field.typeToken == "i62" &&
                     field.rawSpec == "{guildId:i62}" &&
-                    field.source == "xlsx+ServerC",
+                    field.source == "xlsx+ServerC+src/packet",
                 "nkda resolved field");
             failures += Expect(
                 field.source.find("ClientIda") == std::string::npos,
                 "nkda resolved field source excludes ClientIda");
         }
 
-        bool hasSendTypedPacket = false;
-        for (const cg::packet::test::TypedPacketManifestEntry& entry :
-             cg::packet::test::SendTypedPackets) {
-            if (entry.spec != nullptr && entry.spec->code == "nkda") {
-                hasSendTypedPacket = true;
-            }
-        }
-        failures += Expect(!hasSendTypedPacket, "nkda absent from send typed manifest");
-
-        bool hasReceiveTypedPacket = false;
-        for (const cg::packet::test::TypedPacketManifestEntry& entry :
-             cg::packet::test::ReceiveTypedPackets) {
-            if (entry.spec != nullptr && entry.spec->code == "nkda") {
-                hasReceiveTypedPacket = true;
-            }
-        }
-        failures += Expect(!hasReceiveTypedPacket, "nkda absent from receive typed manifest");
+        failures += ExpectResolvedFieldsMatch(
+            *guildDissolveSchema,
+            packet,
+            "nkda resolved/Spec field order");
     }
 
     const PacketSchema* createNewCharSchema = FindPacket(packets, "aSEl");

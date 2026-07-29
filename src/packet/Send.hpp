@@ -2119,6 +2119,48 @@ namespace cg::packet::send
     };
 
     /**
+     * RECV_GD 解散家族 nkda {guildId:i62}
+     * guildId 保留完整 signed int；权限与当前家族匹配由服务端校验。
+     */
+    struct GuildDissolveRequest
+    {
+        static constexpr std::string_view Code = "nkda";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("guildId"), PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        int guildId = 0;
+
+        explicit GuildDissolveRequest(int guildId)
+            : guildId(guildId)
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("guildId"),
+                PacketFieldType::Int62,
+                std::to_string(guildId),
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket(), Spec);
+        }
+    };
+
+    /**
      * RECV_GI 变更家族信息 Ufm {c:i62} {data:es}
      */
     struct GuildInfoChange

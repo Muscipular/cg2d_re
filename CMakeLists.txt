@@ -696,6 +696,18 @@ add_test(
     COMMAND cg-packet-trade-status-test
 )
 
+add_executable(cg-packet-guild-dissolve-request-test
+    tests/packet/GuildDissolveRequestPacketTest.cpp
+)
+target_include_directories(cg-packet-guild-dissolve-request-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+add_test(
+    NAME cg-packet-guild-dissolve-request-test
+    COMMAND cg-packet-guild-dissolve-request-test
+)
+
 add_executable(cg-packet-npc-event-request-test
     tests/packet/NpcEventRequestPacketTest.cpp
 )
@@ -2102,6 +2114,7 @@ if(MSVC)
     target_compile_options(cg-packet-move-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-party-leave-position-sync-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-trade-status-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-guild-dissolve-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-npc-event-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-duel-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-battle-exit-request-test PRIVATE /W4 /utf-8 /permissive-)
@@ -2259,6 +2272,7 @@ else()
     target_compile_options(cg-packet-move-request-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-party-leave-position-sync-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-trade-status-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-packet-guild-dissolve-request-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-npc-event-request-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-duel-request-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-battle-exit-request-test PRIVATE -Wall -Wextra -Wpedantic)

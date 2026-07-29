@@ -728,7 +728,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     failures += Expect(profileListSchema != nullptr, "eZT schema exists");
     if (profileListSchema != nullptr) {
         const cg::packet::receive::ProfileList profileList(1, {{10, 100, "Hero"}});
-        const cg::packet::Packet packet = profileList.ToPacket();
+        const cg::packet::PacketResult<cg::packet::Packet> packet = profileList.ToPacket();
         failures += Expect(profileListSchema->direction == "服务端->客户端", "eZT direction");
         failures += Expect(profileListSchema->legacyKind == "SEND", "eZT legacyKind");
         failures += Expect(profileListSchema->rawFormat == "{data}", "eZT rawFormat");
@@ -737,7 +737,13 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         failures += Expect(
             profileListSchema->resolvedSource == "xlsx+ServerC+ClientIda+src/packet",
             "eZT resolvedSource");
-        failures += ExpectResolvedFieldsMatch(*profileListSchema, packet, "eZT resolved field order");
+        failures += Expect(packet.HasValue(), "eZT ToPacket");
+        if (packet.HasValue()) {
+            failures += ExpectResolvedFieldsMatch(
+                *profileListSchema,
+                packet.Value(),
+                "eZT resolved field order");
+        }
     }
 
     const PacketSchema* aboutListSchema = FindPacket(packets, "IUn");

@@ -2494,7 +2494,7 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "eZT";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
-            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::SubPayload},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -2514,15 +2514,52 @@ namespace cg::packet::receive
         }
 
 #if CG_PACKET_ENABLE_TEST_HELPERS
-        [[nodiscard]] Packet ToPacket() const
+        [[nodiscard]] PacketResult<std::string> BuildData() const
         {
+            std::vector<std::string> values;
+            values.reserve(1U + (entries.size() * EntryFieldCount));
+            values.push_back(std::to_string(version));
+            for (std::size_t entryIndex = 0; entryIndex < entries.size(); ++entryIndex) {
+                const ProfileListEntry& entry = entries[entryIndex];
+                PacketResult<std::string> encodedItemName = EncodeLegacyPayloadText(entry.itemName);
+                if (!encodedItemName.HasValue()) {
+                    PacketError error = encodedItemName.Error();
+                    error.packetCode = PacketCode(Code);
+                    error.fieldIndex = 1U + (entryIndex * EntryFieldCount) + 2U;
+                    return PacketResult<std::string>::Failure(std::move(error));
+                }
+
+                values.push_back(std::to_string(entry.itemId));
+                values.push_back(std::to_string(entry.graphicNo));
+                values.push_back(std::move(encodedItemName.Value()));
+            }
+
+            PacketResult<std::string> payload = BuildPayload(
+                std::span<const std::string>(values.data(), values.size()),
+                PayloadDelimiter);
+            if (!payload.HasValue()) {
+                PacketError error = payload.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = DataFieldIndex;
+                return PacketResult<std::string>::Failure(std::move(error));
+            }
+            return payload;
+        }
+
+        [[nodiscard]] PacketResult<Packet> ToPacket() const
+        {
+            PacketResult<std::string> data = BuildData();
+            if (!data.HasValue()) {
+                return PacketResult<Packet>::Failure(data.Error());
+            }
+
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("data"),
-                PacketFieldType::EscapedString,
-                BuildData(),
+                PacketFieldType::SubPayload,
+                std::move(data.Value()),
             });
-            return packet;
+            return PacketResult<Packet>::Success(std::move(packet));
         }
 #endif
 
@@ -2576,29 +2613,6 @@ namespace cg::packet::receive
         static constexpr std::size_t DataFieldIndex = 0U;
         static constexpr std::size_t EntryFieldCount = 3U;
 
-#if CG_PACKET_ENABLE_TEST_HELPERS
-        [[nodiscard]] std::string BuildData() const
-        {
-            std::vector<std::string> values;
-            values.reserve(1U + (entries.size() * EntryFieldCount));
-            values.push_back(std::to_string(version));
-            for (const ProfileListEntry& entry : entries) {
-                values.push_back(std::to_string(entry.itemId));
-                values.push_back(std::to_string(entry.graphicNo));
-                values.push_back(entry.itemName);
-            }
-
-            PacketResult<std::string> payload = BuildPayload(
-                std::span<const std::string>(values.data(), values.size()),
-                PayloadDelimiter);
-            if (payload.HasValue()) {
-                return payload.Value();
-            }
-
-            return {};
-        }
-#endif
-
         [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
             PacketError error = PacketError::Make(code, std::move(message));
@@ -2625,7 +2639,8 @@ namespace cg::packet::receive
                     DataFieldIndex));
             }
 
-            PacketResult<std::vector<std::string>> parts = SplitPayload(payload, PayloadDelimiter);
+            PacketResult<std::vector<std::string>> parts =
+                SplitPayloadLegacyAware(payload, PayloadDelimiter);
             if (!parts.HasValue()) {
                 PacketError error = parts.Error();
                 error.packetCode = PacketCode(Code);
@@ -2659,7 +2674,19 @@ namespace cg::packet::receive
                     return PacketResult<ProfileList>::Failure(graphicNo.Error());
                 }
 
-                entries.emplace_back(itemId.Value(), graphicNo.Value(), std::move(payloadParts[index + 2U]));
+                PacketResult<std::string> itemName =
+                    DecodeLegacyPayloadText(payloadParts[index + 2U]);
+                if (!itemName.HasValue()) {
+                    PacketError error = itemName.Error();
+                    error.packetCode = PacketCode(Code);
+                    error.fieldIndex = index + 2U;
+                    return PacketResult<ProfileList>::Failure(std::move(error));
+                }
+
+                entries.emplace_back(
+                    itemId.Value(),
+                    graphicNo.Value(),
+                    std::move(itemName.Value()));
             }
 
             return PacketResult<ProfileList>::Success(ProfileList(versionValue.Value(), std::move(entries)));

@@ -310,7 +310,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 100 | `RwK` | 服务端->客户端 | 完成 | SEND_TRLP；旧 C 补外层 `{petPlace:i62} {data:es}`，payload 固定 23 字段且必须尾随 `|`，数值 raw signed decimal，字符串 raw escaped 保留 | 是 | 是 | 旧 C + src/packet |
 | 101 | `Yq` | 服务端->客户端 | 完成 | SEND_TRLPS；旧 C 补外层 `{petIndex:i62} {data:es}`，payload 为 0..10 条隐式技能名 raw escaped 字符串，空 data 表示 0 条，非空必须尾随 `|`，BuildData 输出尾随 `|` | 是 | 是 | 旧 C + src/packet |
 | 102 | `xEg` | 服务端->客户端 | 暂缓 | SEND_TRCL CHAR_Trade_closeItem | 是 | 否 | 待 C/IDA 补全 |
-| 103 | `We` | 服务端->客户端 | 完成 | SEND_TROC 交易结果；保留 xlsx original `0终止 1确认 2完成`、空 rawFormat/fields 与 formatEmpty=false 原貌，resolved 单 `{status:i62}`；当前 PUK2 dedicated producer 官方值域严格为 0 终止/失败/取消、1 对方已确认而本方未确认、2 交易完成，cg2d 对 0/2 关闭交易窗、1 标记对方确认、其他值无操作；generic Lua Send 理论可注入任意值，但仓库无 We/SEND_TROC Lua caller，不据此扩大官方 typed 域；无二级 payload；typed/fixture 待后续独立小步 | 否 | 否 | xlsx+ServerC+ClientIda |
+| 103 | `We` | 服务端->客户端 | 完成 | SEND_TROC 交易状态；保留 xlsx original `0终止 1确认 2完成`、空 rawFormat/fields 与 formatEmpty=false 原貌，resolved 单 `{status:i62}`；`receive::TradeStatus` 仅接受 `TradeStatusKind` 官方三值 0 终止/失败/取消、1 对方已确认而本方未确认、2 交易完成，无 Unknown 枚举；typed Parse/FromPacket 对其他值返回字段 0 DecodeFailed，generic `Packet` 仍保留并可 canonical 回写未知值；cg2d 对 0/2 关闭交易窗、1 标记对方确认；无二级 payload；NoStructuredPayload；fixture `terminated`/`counterparty-confirmed`/`completed` | 否 | 否 | xlsx+ServerC+ClientIda+src/packet |
 | 104 | `BHe` | 服务端->客户端 | 暂缓 | SEND_PS | 是 | 否 | 待 C/IDA 补全 |
 | 105 | `kg` | 服务端->客户端 | 完成 | SEND_LVUP | 是 | 否 | 待 C/IDA 补全 |
 | 106 | `sA` | 服务端->客户端 | 完成 | SEND_PLVUP | 是 | 否 | 待 C/IDA 补全 |

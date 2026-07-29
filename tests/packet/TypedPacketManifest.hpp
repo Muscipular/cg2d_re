@@ -88,7 +88,7 @@ inline constexpr std::array<TypedPacketManifestEntry, 42U> SendTypedPackets = {{
     MakeSendManifestEntry<send::StallStart, send::StallStart::Spec>(),
 }};
 
-inline constexpr std::array<TypedPacketManifestEntry, 82U> ReceiveTypedPackets = {{
+inline constexpr std::array<TypedPacketManifestEntry, 83U> ReceiveTypedPackets = {{
     MakeReceiveManifestEntry<receive::ClientLoginResult, receive::ClientLoginResult::Spec>(),
     MakeReceiveManifestEntry<receive::CharacterLoginResult, receive::CharacterLoginResult::Spec>(),
     MakeReceiveManifestEntry<receive::CharacterLogoutResult, receive::CharacterLogoutResult::Spec>(),
@@ -99,6 +99,7 @@ inline constexpr std::array<TypedPacketManifestEntry, 82U> ReceiveTypedPackets =
     MakeReceiveManifestEntry<receive::MapChecksum, receive::MapChecksum::Spec>(),
     MakeReceiveManifestEntry<receive::FeverStatus, receive::FeverStatus::Spec>(),
     MakeReceiveManifestEntry<receive::BattlePosition, receive::BattlePosition::Spec>(),
+    MakeReceiveManifestEntry<receive::TradeStatus, receive::TradeStatus::Spec>(),
     MakeReceiveManifestEntry<receive::PlayerPositionSync, receive::PlayerPositionSync::Spec>(),
     MakeReceiveManifestEntry<receive::ClientIpNotification, receive::ClientIpNotification::Spec>(),
     MakeReceiveManifestEntry<receive::MacroCheckConfig, receive::MacroCheckConfig::Spec>(),

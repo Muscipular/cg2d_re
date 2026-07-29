@@ -18602,6 +18602,193 @@ namespace cg::packet::receive
         }
     };
 
+    /**
+     * SEND_TROC 交易状态		We {status:i62}
+     * 官方状态仅为 0 终止、1 对方确认、2 完成。
+     */
+    enum class TradeStatusKind
+    {
+        Terminated = 0,
+        CounterpartyConfirmed = 1,
+        Completed = 2,
+    };
+
+    struct TradeStatus
+    {
+        static constexpr std::string_view Code = "We";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("status"), PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        TradeStatusKind status = TradeStatusKind::Terminated;
+
+        explicit TradeStatus(TradeStatusKind status)
+            : status(status)
+        {
+        }
+
+#if CG_PACKET_ENABLE_TEST_HELPERS
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("status"),
+                PacketFieldType::Int62,
+                std::to_string(static_cast<int>(status)),
+            });
+            return packet;
+        }
+#endif
+
+        static PacketResult<TradeStatus> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
+            if (!parsed.HasValue()) {
+                return PacketResult<TradeStatus>::Failure(parsed.Error());
+            }
+
+            return FromPacket(parsed.Value());
+        }
+
+        static PacketResult<TradeStatus> FromPacket(const Packet& packet)
+        {
+            if (packet.code.View() != Code) {
+                PacketError error = MakePacketError(
+                    PacketErrorCode::InvalidCode,
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradeStatus Parse 收到非 We 封包"));
+                error.packetCode = packet.code;
+                return PacketResult<TradeStatus>::Failure(std::move(error));
+            }
+
+            if (packet.direction != Direction) {
+                return PacketResult<TradeStatus>::Failure(MakePacketError(
+                    PacketErrorCode::DecodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradeStatus Parse 封包方向不匹配")));
+            }
+
+            if (packet.fields.size() != FieldCount) {
+                return PacketResult<TradeStatus>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradeStatus Parse 字段数量不匹配"),
+                    packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
+            }
+
+            const PacketField& field = packet.fields[StatusFieldIndex];
+            if (!CG_PACKET_FIELD_NAME_MATCHES(field.name, CG_PACKET_DIAGNOSTIC_TEXT("status"))) {
+                return PacketResult<TradeStatus>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradeStatus Parse 字段名不匹配"),
+                    StatusFieldIndex));
+            }
+
+            if (field.type != PacketFieldType::Int62) {
+                return PacketResult<TradeStatus>::Failure(MakeFieldError(
+                    PacketErrorCode::InvalidFieldType,
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradeStatus Parse 字段类型不匹配"),
+                    StatusFieldIndex));
+            }
+
+            PacketResult<int> statusValue = ParseDecimalField(field.value);
+            if (!statusValue.HasValue()) {
+                return PacketResult<TradeStatus>::Failure(statusValue.Error());
+            }
+
+            switch (statusValue.Value()) {
+            case static_cast<int>(TradeStatusKind::Terminated):
+                return PacketResult<TradeStatus>::Success(
+                    TradeStatus(TradeStatusKind::Terminated));
+            case static_cast<int>(TradeStatusKind::CounterpartyConfirmed):
+                return PacketResult<TradeStatus>::Success(
+                    TradeStatus(TradeStatusKind::CounterpartyConfirmed));
+            case static_cast<int>(TradeStatusKind::Completed):
+                return PacketResult<TradeStatus>::Success(
+                    TradeStatus(TradeStatusKind::Completed));
+            default:
+                return PacketResult<TradeStatus>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradeStatus status 仅允许 0、1 或 2"),
+                    StatusFieldIndex));
+            }
+        }
+
+    private:
+        static constexpr std::size_t FieldCount = 1U;
+        static constexpr std::size_t StatusFieldIndex = 0U;
+
+        [[nodiscard]] static PacketError MakePacketError(
+            PacketErrorCode code,
+            std::string_view message)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            return error;
+        }
+
+        [[nodiscard]] static PacketError MakeFieldError(
+            PacketErrorCode code,
+            std::string_view message,
+            std::size_t fieldIndex)
+        {
+            PacketError error = MakePacketError(code, std::move(message));
+            error.fieldIndex = fieldIndex;
+            return error;
+        }
+
+        [[nodiscard]] static PacketResult<int> ParseDecimalField(std::string_view text)
+        {
+            bool negative = false;
+            std::size_t index = 0U;
+            if (!text.empty() && text.front() == '-') {
+                negative = true;
+                index = 1U;
+            }
+
+            if (index == text.size()) {
+                return PacketResult<int>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradeStatus i62 字段为空"),
+                    StatusFieldIndex));
+            }
+
+            const std::int64_t maxValue = static_cast<std::int64_t>(std::numeric_limits<int>::max());
+            const std::int64_t minValue = static_cast<std::int64_t>(std::numeric_limits<int>::min());
+            const std::int64_t limit = negative ? (0 - minValue) : maxValue;
+            std::int64_t value = 0;
+
+            for (; index < text.size(); ++index) {
+                const char ch = text[index];
+                if (ch < '0' || ch > '9') {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        CG_PACKET_DIAGNOSTIC_TEXT("TradeStatus i62 字段包含非法字符"),
+                        StatusFieldIndex));
+                }
+
+                const int digit = ch - '0';
+                if (value > (limit - digit) / 10) {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        CG_PACKET_DIAGNOSTIC_TEXT("TradeStatus i62 字段超出 int 范围"),
+                        StatusFieldIndex));
+                }
+
+                value = (value * 10) + digit;
+            }
+
+            if (negative) {
+                value = -value;
+            }
+            return PacketResult<int>::Success(static_cast<int>(value));
+        }
+    };
+
     struct TradePlayerRecord
     {
         std::string nameRaw;

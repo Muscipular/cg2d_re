@@ -1125,10 +1125,10 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
     failures += Expect(cg::packet::test::SendTypedPackets.size() == 42U, "send typed manifest count 42");
-    failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 82U, "receive typed manifest count 82");
+    failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 83U, "receive typed manifest count 83");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 124U,
-        "typed manifest count 124");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 125U,
+        "typed manifest count 125");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1145,7 +1145,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 124U, "typed manifest unique code count 124");
+    failures += Expect(codes.size() == 125U, "typed manifest unique code count 125");
     return failures;
 }
 
@@ -2736,6 +2736,9 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     const PacketSchema* tradeOutcomeSchema = FindPacket(packets, "We");
     failures += Expect(tradeOutcomeSchema != nullptr, "We schema exists");
     if (tradeOutcomeSchema != nullptr) {
+        const cg::packet::receive::TradeStatus tradeStatus(
+            cg::packet::receive::TradeStatusKind::Terminated);
+        const cg::packet::Packet packet = tradeStatus.ToPacket();
         failures += Expect(
             tradeOutcomeSchema->direction == "服务端->客户端",
             "We direction");
@@ -2752,7 +2755,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             tradeOutcomeSchema->resolvedFormat == "{status:i62}",
             "We resolvedFormat");
         failures += Expect(
-            tradeOutcomeSchema->resolvedSource == "xlsx+ServerC+ClientIda",
+            tradeOutcomeSchema->resolvedSource == "xlsx+ServerC+ClientIda+src/packet",
             "We resolvedSource");
         failures += Expect(tradeOutcomeSchema->hasResolvedFields, "We resolvedFields present");
         failures += Expect(
@@ -2765,24 +2768,13 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                     field.name == "status" &&
                     field.typeToken == "i62" &&
                     field.rawSpec == "{status:i62}" &&
-                    field.source == "xlsx+ServerC+ClientIda",
+                    field.source == "xlsx+ServerC+ClientIda+src/packet",
                 "We resolved field");
         }
-
-        bool hasTypedPacket = false;
-        for (const cg::packet::test::TypedPacketManifestEntry& entry :
-             cg::packet::test::SendTypedPackets) {
-            if (entry.spec != nullptr && entry.spec->code == "We") {
-                hasTypedPacket = true;
-            }
-        }
-        for (const cg::packet::test::TypedPacketManifestEntry& entry :
-             cg::packet::test::ReceiveTypedPackets) {
-            if (entry.spec != nullptr && entry.spec->code == "We") {
-                hasTypedPacket = true;
-            }
-        }
-        failures += Expect(!hasTypedPacket, "We remains outside typed manifest");
+        failures += ExpectResolvedFieldsMatch(
+            *tradeOutcomeSchema,
+            packet,
+            "We resolved/Spec field order");
     }
 
     const PacketSchema* separationPositionSchema = FindPacket(packets, "cZt");

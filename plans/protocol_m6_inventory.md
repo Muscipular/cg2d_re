@@ -335,7 +335,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 125 | `kiG` | 服务端->客户端 | 待办 | SEND_PET_ITEM_SWAP 在人或宠物间移动装备 | 否 | 否 | xlsx |
 | 126 | `TgX` | 服务端->客户端 | 完成 | SEND_EQUIP_SUIT；外层 `{data:es}`；payload 为 `nameRaw,skillNameRaw,specialTitleFlag,` 后接 24 个 raw signed decimal 属性字段，逗号分隔跳过旧双字节第二字节 | 否 | 是 | xlsx+ServerC+ClientIda+src/packet |
 | 127 | `cEj` | 客户端->服务端 | 完成 | RECV_JB | 否 | 否 | xlsx |
-| 128 | `IMv` | 客户端->服务端 | 完成 | RECV_LB WatchTry 触发一次Watch？会重置玩家位置到x, y, Δx,Δy>1时会发送XYD封包重置玩家位置 | 否 | 否 | xlsx |
+| 128 | `IMv` | 客户端->服务端 | 完成 | RECV_LB BattleWatchRequest；保留 xlsx raw `{x} {y}` 与两个 unknown fields 原貌，resolved 严格 `{x:i62} {y:i62}`；dispatcher 固定 token1/2→x/y signed i62，handler 先同步位置，再从当前位置或同步失败时的原位置尝试观战；地图范围、每轴 delta≤1、floor 与前方一格均为运行时业务规则，不收窄 wire signed i62；cg2d sender `sub_510940` 按 x/y 顺序发送当前玩家坐标并有 500ms 节流，前方一格仅作资格检查；无二级 payload | 否 | 否 | xlsx+ServerC+ClientIda |
 | 129 | `Rg` | 客户端->服务端 | 完成 | RECV_B BattleCommand 战斗指令；resolved 单外层 `{command:es}`，typed 使用 SubPayload；内层严格由 13 个语义 factory 生成 `S/W/H/Q/M/I/P/N/G/E/U/R` canonical，操作数按 `%X` 编码为大写十六进制，保留 `W\|FF` sentinel 与 `Q\|%X\|` 尾随；StructuredPayload field 0；fixture `pet-no-action-sentinel` | 否 | 是 | xlsx+ServerC+ClientIda+src/packet |
 | 130 | `Ak` | 客户端->服务端 | 完成 | RECV_ID ITEM_USE 使用物品 | 否 | 否 | xlsx |
 | 131 | `iVfo` | 客户端->服务端 | 完成 | RECV_IDF ITEM_useRecovery_Field 使用回复物品 | 否 | 否 | xlsx |

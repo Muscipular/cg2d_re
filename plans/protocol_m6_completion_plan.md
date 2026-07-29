@@ -263,6 +263,9 @@ fixture 测试读取的是精确字节，不得对包尾空格、空字段或控
 
 ## 8. 验证节奏
 
+- M6 全阶段固定复用仓库既有 `build/` 作为 CMake configure/build 目录，不得按 code、sample 或 case 新建独立构建目录。
+- 逐包 case 只增加 target/CTest 条目；typed manifest、fixture inventory/roundtrip 与 production-surface smoke 使用共享目标。
+
 ### 每包
 
 1. CMake 变更后 configure。

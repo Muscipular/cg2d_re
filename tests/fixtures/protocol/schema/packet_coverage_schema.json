@@ -2412,6 +2412,8 @@
       "xlsxStatus": "进行中",
       "description": "SEND_PRD profile data",
       "rawFormat": "{name} {lv} {job} {title} {guildName} {graphic} {sid} {smsg} {bid} {bmsg} {aid} {amsg} {pmsg}",
+      "resolvedFormat": "{name:es} {lv:i62} {job:es} {title:es} {guildName:es} {graphic:i62} {sid:i62} {smsg:es} {bid:i62} {bmsg:es} {aid:i62} {amsg:es} {pmsg:es}",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
       "formatEmpty": false,
       "source": "xlsx",
       "fields": [
@@ -2505,6 +2507,99 @@
           "typeToken": "unknown",
           "rawSpec": "{pmsg}",
           "source": "xlsx"
+        }
+      ],
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "name",
+          "typeToken": "es",
+          "rawSpec": "{name:es}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 1,
+          "name": "lv",
+          "typeToken": "i62",
+          "rawSpec": "{lv:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 2,
+          "name": "job",
+          "typeToken": "es",
+          "rawSpec": "{job:es}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 3,
+          "name": "title",
+          "typeToken": "es",
+          "rawSpec": "{title:es}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 4,
+          "name": "guildName",
+          "typeToken": "es",
+          "rawSpec": "{guildName:es}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 5,
+          "name": "graphic",
+          "typeToken": "i62",
+          "rawSpec": "{graphic:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 6,
+          "name": "sid",
+          "typeToken": "i62",
+          "rawSpec": "{sid:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 7,
+          "name": "smsg",
+          "typeToken": "es",
+          "rawSpec": "{smsg:es}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 8,
+          "name": "bid",
+          "typeToken": "i62",
+          "rawSpec": "{bid:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 9,
+          "name": "bmsg",
+          "typeToken": "es",
+          "rawSpec": "{bmsg:es}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 10,
+          "name": "aid",
+          "typeToken": "i62",
+          "rawSpec": "{aid:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 11,
+          "name": "amsg",
+          "typeToken": "es",
+          "rawSpec": "{amsg:es}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 12,
+          "name": "pmsg",
+          "typeToken": "es",
+          "rawSpec": "{pmsg:es}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         }
       ]
     },

@@ -768,6 +768,46 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         }
     }
 
+    const PacketSchema* profileDataSchema = FindPacket(packets, "DpSY");
+    failures += Expect(profileDataSchema != nullptr, "DpSY schema exists");
+    if (profileDataSchema != nullptr) {
+        const cg::packet::receive::ProfileData profileData(
+            "Alice", 50, "Warrior", "Hero", "Guild", 100, 1, "sell", 2, "buy", 3, "about", "profile");
+        const cg::packet::Packet packet = profileData.ToPacket();
+        const std::vector<std::string_view> fieldNames {
+            "name", "lv", "job", "title", "guildName", "graphic", "sid",
+            "smsg", "bid", "bmsg", "aid", "amsg", "pmsg",
+        };
+        const std::vector<std::string_view> fieldTypes {
+            "unknown", "unknown", "unknown", "unknown", "unknown", "unknown", "unknown",
+            "unknown", "unknown", "unknown", "unknown", "unknown", "unknown",
+        };
+        failures += Expect(profileDataSchema->direction == "服务端->客户端", "DpSY direction");
+        failures += Expect(profileDataSchema->legacyKind == "SEND", "DpSY legacyKind");
+        failures += Expect(
+            profileDataSchema->rawFormat ==
+                "{name} {lv} {job} {title} {guildName} {graphic} {sid} "
+                "{smsg} {bid} {bmsg} {aid} {amsg} {pmsg}",
+            "DpSY rawFormat");
+        failures += Expect(profileDataSchema->fields.size() == fieldNames.size(), "DpSY raw field count");
+        if (profileDataSchema->fields.size() == fieldNames.size()) {
+            for (std::size_t index = 0; index < fieldNames.size(); ++index) {
+                failures += Expect(profileDataSchema->fields[index].index == static_cast<int>(index), "DpSY raw field index");
+                failures += Expect(profileDataSchema->fields[index].name == fieldNames[index], "DpSY raw field name");
+                failures += Expect(profileDataSchema->fields[index].typeToken == fieldTypes[index], "DpSY raw field type");
+            }
+        }
+        failures += Expect(
+            profileDataSchema->resolvedFormat ==
+                "{name:es} {lv:i62} {job:es} {title:es} {guildName:es} {graphic:i62} {sid:i62} "
+                "{smsg:es} {bid:i62} {bmsg:es} {aid:i62} {amsg:es} {pmsg:es}",
+            "DpSY resolvedFormat");
+        failures += Expect(
+            profileDataSchema->resolvedSource == "xlsx+ServerC+ClientIda+src/packet",
+            "DpSY resolvedSource");
+        failures += ExpectResolvedFieldsMatch(*profileDataSchema, packet, "DpSY resolved/ToPacket field order");
+    }
+
     const PacketSchema* characterProfileSchema = FindPacket(packets, "aPc");
     failures += Expect(characterProfileSchema != nullptr, "aPc schema exists");
     if (characterProfileSchema != nullptr) {

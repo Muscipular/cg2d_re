@@ -3845,7 +3845,7 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "KyN";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
-            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::SubPayload},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -3891,43 +3891,69 @@ namespace cg::packet::receive
         }
 
 #if CG_PACKET_ENABLE_TEST_HELPERS
-        [[nodiscard]] std::string BuildData() const
+        [[nodiscard]] PacketResult<std::string> BuildData() const
         {
-            const std::array<std::string, PayloadFieldCount> values = {
+            std::array<std::string, PayloadFieldCount> values = {
                 std::to_string(profileIndex),
                 std::to_string(faceImageNumber),
                 std::to_string(level),
+                {},
+                {},
+                {},
+                std::to_string(senderProfileIndex),
+                {},
+                {},
+                {},
+                std::to_string(color),
+            };
+
+            const std::array<std::string_view, 5U> textValues = {{
                 name,
                 guildName,
                 ownTitle,
-                std::to_string(senderProfileIndex),
                 sentTimeText,
                 message,
-                std::string(),
-                std::to_string(color),
-            };
+            }};
+            const std::array<std::size_t, 5U> textIndexes = {{
+                NamePayloadIndex,
+                GuildNamePayloadIndex,
+                OwnTitlePayloadIndex,
+                SentTimeTextPayloadIndex,
+                MessagePayloadIndex,
+            }};
+            for (std::size_t index = 0; index < textValues.size(); ++index) {
+                PacketResult<std::string> encoded = EncodeLegacyPayloadText(textValues[index]);
+                if (!encoded.HasValue()) {
+                    return PacketResult<std::string>::Failure(FillDataError(encoded.Error()));
+                }
+                values[textIndexes[index]] = std::move(encoded.Value());
+            }
 
             PacketResult<std::string> payload = BuildPayload(
                 std::span<const std::string>(values.data(), values.size()),
                 PayloadDelimiter);
-            if (payload.HasValue()) {
-                return payload.Value();
+            if (!payload.HasValue()) {
+                return PacketResult<std::string>::Failure(FillDataError(payload.Error()));
             }
-
-            return {};
+            return payload;
         }
 #endif
 
 #if CG_PACKET_ENABLE_TEST_HELPERS
-        [[nodiscard]] Packet ToPacket() const
+        [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
+            PacketResult<std::string> data = BuildData();
+            if (!data.HasValue()) {
+                return PacketResult<Packet>::Failure(data.Error());
+            }
+
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("data"),
-                PacketFieldType::EscapedString,
-                BuildData(),
+                PacketFieldType::SubPayload,
+                std::move(data.Value()),
             });
-            return packet;
+            return PacketResult<Packet>::Success(std::move(packet));
         }
 #endif
 
@@ -4009,14 +4035,19 @@ namespace cg::packet::receive
             return error;
         }
 
+        [[nodiscard]] static PacketError FillDataError(PacketError error)
+        {
+            error.packetCode = PacketCode(Code);
+            error.fieldIndex = DataFieldIndex;
+            return error;
+        }
+
         [[nodiscard]] static PacketResult<ProfileMailArrive> ParseData(std::string_view payload)
         {
-            PacketResult<std::vector<std::string>> parts = SplitPayload(payload, PayloadDelimiter);
+            PacketResult<std::vector<std::string>> parts =
+                SplitPayloadLegacyAware(payload, PayloadDelimiter);
             if (!parts.HasValue()) {
-                PacketError error = parts.Error();
-                error.packetCode = PacketCode(Code);
-                error.fieldIndex = DataFieldIndex;
-                return PacketResult<ProfileMailArrive>::Failure(std::move(error));
+                return PacketResult<ProfileMailArrive>::Failure(FillDataError(parts.Error()));
             }
 
             std::vector<std::string> payloadParts = std::move(parts.Value());
@@ -4065,16 +4096,33 @@ namespace cg::packet::receive
                 return PacketResult<ProfileMailArrive>::Failure(colorValue.Error());
             }
 
+            const std::array<std::size_t, 5U> textIndexes = {{
+                NamePayloadIndex,
+                GuildNamePayloadIndex,
+                OwnTitlePayloadIndex,
+                SentTimeTextPayloadIndex,
+                MessagePayloadIndex,
+            }};
+            std::array<std::string, 5U> textValues;
+            for (std::size_t index = 0; index < textIndexes.size(); ++index) {
+                PacketResult<std::string> decoded =
+                    DecodeLegacyPayloadText(payloadParts[textIndexes[index]]);
+                if (!decoded.HasValue()) {
+                    return PacketResult<ProfileMailArrive>::Failure(FillDataError(decoded.Error()));
+                }
+                textValues[index] = std::move(decoded.Value());
+            }
+
             return PacketResult<ProfileMailArrive>::Success(ProfileMailArrive(
                 profileIndexValue.Value(),
                 faceImageNumberValue.Value(),
                 levelValue.Value(),
-                std::move(payloadParts[NamePayloadIndex]),
-                std::move(payloadParts[GuildNamePayloadIndex]),
-                std::move(payloadParts[OwnTitlePayloadIndex]),
+                std::move(textValues[0]),
+                std::move(textValues[1]),
+                std::move(textValues[2]),
                 senderProfileIndexValue.Value(),
-                std::move(payloadParts[SentTimeTextPayloadIndex]),
-                std::move(payloadParts[MessagePayloadIndex]),
+                std::move(textValues[3]),
+                std::move(textValues[4]),
                 colorValue.Value()));
         }
 

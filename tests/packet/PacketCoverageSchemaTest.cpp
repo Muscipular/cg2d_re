@@ -931,7 +931,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "2026/ 7/29 12:34",
             "message",
             3);
-        const cg::packet::Packet packet = profileMailArrive.ToPacket();
+        const cg::packet::PacketResult<cg::packet::Packet> packet = profileMailArrive.ToPacket();
+        failures += Expect(packet.HasValue(), "KyN ToPacket");
         failures += Expect(profileMailArriveSchema->direction == "服务端->客户端", "KyN direction");
         failures += Expect(profileMailArriveSchema->legacyKind == "SEND", "KyN legacyKind");
         failures += Expect(profileMailArriveSchema->source == "xlsx", "KyN raw source");
@@ -961,10 +962,12 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                     "xlsx+ServerC+ClientIda+src/packet",
                 "KyN resolved field source");
         }
-        failures += ExpectResolvedFieldsMatch(
-            *profileMailArriveSchema,
-            packet,
-            "KyN resolved/ToPacket field order");
+        if (packet.HasValue()) {
+            failures += ExpectResolvedFieldsMatch(
+                *profileMailArriveSchema,
+                packet.Value(),
+                "KyN resolved/ToPacket field order");
+        }
     }
 
     const PacketSchema* profileMailDeleteSchema = FindPacket(packets, "cNB");

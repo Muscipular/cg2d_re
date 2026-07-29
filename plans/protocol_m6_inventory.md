@@ -258,7 +258,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 48 | `ik` | 客户端->服务端 | 完成 | RECV_DU PK 请求；resolved `{x:i62} {y:i62}`；`send::DuelRequest`；不增加坐标或 PK 业务约束；NoStructuredPayload；fixture `distinct-i62-order` | 否 | 否 | xlsx+ServerC+ClientIda+src/packet |
 | 49 | `eL` | 客户端->服务端 | 完成 | RECV_EO 离开战斗界面；resolved `{dummy:i62}`；`send::BattleExitRequest` 生产 API 固定写 0，通用 parser 保留普通 i62 语义；NoStructuredPayload；fixture `client-zero` | 否 | 否 | xlsx+ServerC+ClientIda+src/packet |
 | 50 | `NgMy` | 客户端->服务端 | 完成 | RECV_BU 停止观战 | 否 | 否 | xlsx |
-| 51 | `EZ` | 服务端->客户端 | 完成 | SEND_EV Revc_EV的返回 | 否 | 否 | xlsx |
+| 51 | `EZ` | 服务端->客户端 | 完成 | SEND_EV NPC 事件结果；严格双字段 `{seqno:i62} {result:i62}`；`receive::NpcEventResult`；result 保留完整 int，不收窄为 bool；NoStructuredPayload；fixture `distinct-i62-order` | 否 | 否 | xlsx+ServerC+ClientIda+src/packet |
 | 52 | `dAgg` | 服务端->客户端 | 完成 | SEND_EN 进入战斗 | 否 | 否 | xlsx |
 | 53 | `Gn` | 服务端->客户端 | 完成 | SEND_RS 战斗获得物品；外层 `{data:es}`；payload 20 段：4 actor、itemGroup、15 skill；itemGroup 3 项可空，nameRaw 保留 raw escaped | 是 | 是 | ClientIda+src；旧 C 未取得 |
 | 54 | `hB` | 服务端->客户端 | 完成 | SEND_RD BATTLE_GetDuelPoint；外层 `{data:es}`；payload 严格 `dpAdd:i62|duelPointNow:i62|` 三段且必须尾随 `|`，前两段支持负数 i62 | 是 | 是 | ServerC+ClientIda+src |

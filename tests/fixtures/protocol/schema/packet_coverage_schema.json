@@ -1728,6 +1728,8 @@
       "rawFormat": "{seqno:i62} {result:i62}",
       "formatEmpty": false,
       "source": "xlsx",
+      "resolvedFormat": "{seqno:i62} {result:i62}",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
       "fields": [
         {
           "index": 0,
@@ -1742,6 +1744,22 @@
           "typeToken": "i62",
           "rawSpec": "{result:i62}",
           "source": "xlsx"
+        }
+      ],
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "seqno",
+          "typeToken": "i62",
+          "rawSpec": "{seqno:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 1,
+          "name": "result",
+          "typeToken": "i62",
+          "rawSpec": "{result:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         }
       ]
     },

@@ -757,7 +757,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         failures += Expect(aboutListSchema->fields.size() == 1U, "IUn raw field count");
         failures += Expect(aboutListSchema->resolvedFormat == "{data:es}", "IUn resolvedFormat");
         failures += Expect(
-            aboutListSchema->resolvedSource == "xlsx+ServerC+src/packet",
+            aboutListSchema->resolvedSource == "xlsx+ServerC+ClientIda+src/packet",
             "IUn resolvedSource");
         failures += ExpectResolvedFieldsMatch(*aboutListSchema, packet, "IUn resolved field order");
     }

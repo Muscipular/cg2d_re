@@ -2382,7 +2382,7 @@
       "description": "SEND_PRA 收到about list",
       "rawFormat": "{data}",
       "resolvedFormat": "{data:es}",
-      "resolvedSource": "xlsx+ServerC+src/packet",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
       "formatEmpty": false,
       "source": "xlsx",
       "fields": [
@@ -2400,7 +2400,7 @@
           "name": "data",
           "typeToken": "es",
           "rawSpec": "{data:es}",
-          "source": "xlsx+ServerC+src/packet"
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         }
       ]
     },

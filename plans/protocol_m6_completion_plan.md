@@ -152,13 +152,16 @@ typed manifest 只存在于测试侧，不导出 API、不按 code 解析，也�
 
 ### 5.2 fixture 门禁
 
-M6R.0 先固定 fixture grammar，再开始批量添加。推荐：
+M6R.0 先固定 fixture grammar，再开始批量添加。已确认统一使用以下约定：
 
 - 目录按方向分为：
   - `tests/fixtures/protocol/plain/client_to_server/`
   - `tests/fixtures/protocol/plain/server_to_client/`
 - 一 code 一 `.pkt` 文件；文件名精确使用大小写敏感 code。
-- 文件本身只使用 ASCII 可见字符，legacy 明文字节、GBK/旧双字节和 `0x17` 统一写为 hex，避免 UTF-8 文本读写改写原始字节。
+- `.pkt` 文件物理内容只使用 ASCII 元数据、十六进制数字和 LF 换行，不直接写入非 ASCII 原始字节；ASCII 在 UTF-8 与 GBK 下的字节表示一致，文件本身不存在转码歧义。
+- `plain_hex`、`canonical_hex` 表达的旧协议明文字节统一按 GBK 解释；所有非 ASCII 文本样本均先编码为 GBK 字节，再写为 hex。
+- fixture reader 只把 hex 还原为精确字节，不做隐式转码；需要 UTF-8/GBK 转换时，只能在既有 `cg::text` 或协议边界显式执行。
+- `0x17`、包尾空格、反斜杠、换行和旧双字节内容均按原始字节写入 hex，避免编辑器改写。
 - 同一文件允许多个 sample，每个 sample 至少包含输入明文字节和期望 canonical 明文字节。
 - typed 语义断言仍放在单包 C++ 测试，不把业务字段期望塞进通用 fixture 解析器。
 - fixture inventory test 必须验证：209 个唯一文件、100/109 方向、文件 code 与 sample code 一致、每包至少 1 个 sample、含 payload 的包至少 1 个二级 payload sample。

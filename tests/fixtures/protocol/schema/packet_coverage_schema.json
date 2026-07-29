@@ -1773,6 +1773,8 @@
       "rawFormat": "{battletype:i62} {fieldno:i62}",
       "formatEmpty": false,
       "source": "xlsx",
+      "resolvedFormat": "{battletype:i62} {fieldno:i62}",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
       "fields": [
         {
           "index": 0,
@@ -1787,6 +1789,22 @@
           "typeToken": "i62",
           "rawSpec": "{fieldno:i62}",
           "source": "xlsx"
+        }
+      ],
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "battletype",
+          "typeToken": "i62",
+          "rawSpec": "{battletype:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 1,
+          "name": "fieldno",
+          "typeToken": "i62",
+          "rawSpec": "{fieldno:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         }
       ]
     },

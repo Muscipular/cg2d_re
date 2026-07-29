@@ -1282,6 +1282,141 @@ namespace cg::packet::receive
     };
 
     /**
+     * SEND_EN 进入战斗		dAgg {battletype:i62} {fieldno:i62}
+     * 战斗类型与场地编号由业务处理，协议层保留完整 int。
+     */
+    struct BattleEntryNotification
+    {
+        static constexpr std::string_view Code = "dAgg";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("battletype"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("fieldno"), PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        int battleType = 0;
+        int fieldNumber = 0;
+
+        BattleEntryNotification(int battleType, int fieldNumber)
+            : battleType(battleType)
+            , fieldNumber(fieldNumber)
+        {
+        }
+
+#if CG_PACKET_ENABLE_TEST_HELPERS
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("battletype"),
+                PacketFieldType::Int62,
+                std::to_string(battleType),
+            });
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("fieldno"),
+                PacketFieldType::Int62,
+                std::to_string(fieldNumber),
+            });
+            return packet;
+        }
+#endif
+
+        static PacketResult<BattleEntryNotification> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
+            if (!parsed.HasValue()) {
+                return PacketResult<BattleEntryNotification>::Failure(parsed.Error());
+            }
+
+            PacketResult<int> battleTypeValue =
+                ParseDecimalField(parsed.Value().fields[BattleTypeFieldIndex].value, BattleTypeFieldIndex);
+            if (!battleTypeValue.HasValue()) {
+                return PacketResult<BattleEntryNotification>::Failure(battleTypeValue.Error());
+            }
+
+            PacketResult<int> fieldNumberValue =
+                ParseDecimalField(parsed.Value().fields[FieldNumberFieldIndex].value, FieldNumberFieldIndex);
+            if (!fieldNumberValue.HasValue()) {
+                return PacketResult<BattleEntryNotification>::Failure(fieldNumberValue.Error());
+            }
+
+            return PacketResult<BattleEntryNotification>::Success(
+                BattleEntryNotification(battleTypeValue.Value(), fieldNumberValue.Value()));
+        }
+
+    private:
+        static constexpr std::size_t BattleTypeFieldIndex = 0U;
+        static constexpr std::size_t FieldNumberFieldIndex = 1U;
+
+        [[nodiscard]] static PacketError MakeFieldError(
+            PacketErrorCode code,
+            std::string_view message,
+            std::size_t fieldIndex)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            error.fieldIndex = fieldIndex;
+            return error;
+        }
+
+        [[nodiscard]] static PacketResult<int> ParseDecimalField(
+            std::string_view text,
+            std::size_t fieldIndex)
+        {
+            bool negative = false;
+            std::size_t index = 0U;
+            if (!text.empty() && text.front() == '-') {
+                negative = true;
+                index = 1U;
+            }
+
+            if (index == text.size()) {
+                return PacketResult<int>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT("BattleEntryNotification i62 字段为空"),
+                    fieldIndex));
+            }
+
+            const std::int64_t maxValue = static_cast<std::int64_t>(std::numeric_limits<int>::max());
+            const std::int64_t minValue = static_cast<std::int64_t>(std::numeric_limits<int>::min());
+            const std::int64_t limit = negative ? (0 - minValue) : maxValue;
+            std::int64_t value = 0;
+
+            for (; index < text.size(); ++index) {
+                const char ch = text[index];
+                if (ch < '0' || ch > '9') {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        CG_PACKET_DIAGNOSTIC_TEXT("BattleEntryNotification i62 字段包含非法字符"),
+                        fieldIndex));
+                }
+
+                const int digit = ch - '0';
+                if (value > (limit - digit) / 10) {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        CG_PACKET_DIAGNOSTIC_TEXT("BattleEntryNotification i62 字段超出 int 范围"),
+                        fieldIndex));
+                }
+
+                value = (value * 10) + digit;
+            }
+
+            if (negative) {
+                value = -value;
+            }
+
+            return PacketResult<int>::Success(static_cast<int>(value));
+        }
+    };
+
+    /**
      * SEND_ProcGet 进程状态		cJzI {data:es}
      * data 为 outputNetProcLog 的 opaque 多行状态文本；不拆二级 payload。
      */

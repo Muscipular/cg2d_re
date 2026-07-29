@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=dAgg
+direction=server_to_client
+sample=battle-type-2-field-62
+plain_hex=64 41 67 67 20 32 20 31 30
+canonical_hex=64 41 67 67 20 32 20 31 30 20
+end_sample

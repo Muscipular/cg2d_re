@@ -2642,6 +2642,8 @@
       "xlsxStatus": "进行中",
       "description": "SEND_PRM 迷你信件回执?",
       "rawFormat": "{profileIndex} {dtext} {color}",
+      "resolvedFormat": "{profileIndex:i62} {dtext:es} {color:i62}",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
       "formatEmpty": false,
       "source": "xlsx",
       "fields": [
@@ -2665,6 +2667,29 @@
           "typeToken": "unknown",
           "rawSpec": "{color}",
           "source": "xlsx"
+        }
+      ],
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "profileIndex",
+          "typeToken": "i62",
+          "rawSpec": "{profileIndex:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 1,
+          "name": "dtext",
+          "typeToken": "es",
+          "rawSpec": "{dtext:es}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 2,
+          "name": "color",
+          "typeToken": "i62",
+          "rawSpec": "{color:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         }
       ]
     },

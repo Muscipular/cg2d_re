@@ -808,6 +808,40 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         failures += ExpectResolvedFieldsMatch(*profileDataSchema, packet, "DpSY resolved/ToPacket field order");
     }
 
+    const PacketSchema* profileMailReceiptSchema = FindPacket(packets, "ow");
+    failures += Expect(profileMailReceiptSchema != nullptr, "ow schema exists");
+    if (profileMailReceiptSchema != nullptr) {
+        const cg::packet::receive::ProfileMailReceipt profileMailReceipt(
+            1,
+            "2026/ 7/29 12:34|message\\zlegacy|",
+            2);
+        const cg::packet::Packet packet = profileMailReceipt.ToPacket();
+        failures += Expect(profileMailReceiptSchema->direction == "服务端->客户端", "ow direction");
+        failures += Expect(profileMailReceiptSchema->legacyKind == "SEND", "ow legacyKind");
+        failures += Expect(
+            profileMailReceiptSchema->rawFormat == "{profileIndex} {dtext} {color}",
+            "ow rawFormat");
+        failures += Expect(profileMailReceiptSchema->fields.size() == 3U, "ow raw field count");
+        if (profileMailReceiptSchema->fields.size() == 3U) {
+            failures += Expect(profileMailReceiptSchema->fields[0].name == "profileIndex", "ow raw profileIndex");
+            failures += Expect(profileMailReceiptSchema->fields[1].name == "dtext", "ow raw dtext");
+            failures += Expect(profileMailReceiptSchema->fields[2].name == "color", "ow raw color");
+            failures += Expect(profileMailReceiptSchema->fields[0].typeToken == "unknown", "ow raw profileIndex type");
+            failures += Expect(profileMailReceiptSchema->fields[1].typeToken == "unknown", "ow raw dtext type");
+            failures += Expect(profileMailReceiptSchema->fields[2].typeToken == "unknown", "ow raw color type");
+        }
+        failures += Expect(
+            profileMailReceiptSchema->resolvedFormat == "{profileIndex:i62} {dtext:es} {color:i62}",
+            "ow resolvedFormat");
+        failures += Expect(
+            profileMailReceiptSchema->resolvedSource == "xlsx+ServerC+ClientIda+src/packet",
+            "ow resolvedSource");
+        failures += ExpectResolvedFieldsMatch(
+            *profileMailReceiptSchema,
+            packet,
+            "ow resolved/ToPacket field order");
+    }
+
     const PacketSchema* profileMailDeleteSchema = FindPacket(packets, "cNB");
     failures += Expect(profileMailDeleteSchema != nullptr, "cNB schema exists");
     if (profileMailDeleteSchema != nullptr) {

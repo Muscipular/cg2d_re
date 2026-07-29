@@ -32,7 +32,7 @@ M6R 只补协议编解码、协议证据和测试，不实现 TCP session、重�
 | `receive` typed / `Parse` | 66 | 109 | 43 |
 | packet 测试目标 | 95 | 非完成计数 | — |
 | 已有 typed code 的直接测试字面量 | 91/91 | 209/209 | 118 |
-| typed `Spec` 与 schema 显式交叉核对 | 45/91 | 209/209 | 164 |
+| typed manifest `Spec` 与 schema effective 显式交叉核对 | 91/91 | 209/209 | 118 |
 | 独立 `.pkt` 明文 fixture | 0/209 | 209/209 | 209 |
 
 历史 88 个“疑似内嵌 payload”code 已全部进入现有 91 个 typed 类型；另外 3 个是 `JFVf`、`Gp`、`CCL`。剩余 118 个均未被旧关键词规则标为 payload，但这只是启发式结果，不能替代逐包 `es/char*` 审计。
@@ -52,12 +52,9 @@ M6R 只补协议编解码、协议证据和测试，不实现 TCP session、重�
 ### 2.2 现有 91 包的遗留债务
 
 - 当前 91 个 typed code 均能在 packet 测试中找到直接 code 字面量，但不能据此证明 schema 字段形状和外部 fixture 已覆盖。
-- `PacketCoverageSchemaTest` 当前只对 45 个唯一 code 做 typed/schema 交叉核对，另有 46 个 typed code 未纳入该门禁。
+- `a205b34` 历史时点的 45 个唯一 code 只是 `PacketCoverageSchemaTest` 手写 `FindPacket` 分支数；M6R.0.1a-k 与 `uSB` 补证后该数为 57，二者均不是 manifest。本步从 0 建立 91 项显式 typed manifest，并完成 91/91 schema effective 交叉核对。
 - fixture 目录只有 `schema/packet_coverage_schema.json`，不存在 `.pkt` 明文样本。
-- 11 个已有 typed 包仍缺可追溯的 resolved 元数据：
-  - `aPc, UU, Sc, NI` 的 schema 原始类型含 `%d`、`%s`、`s`；
-  - `eZT, IUn, DpSY, cNB, ow, DyAG, KyN` 的 schema 原始字段类型仍为 `unknown`。
-- M6R.0 必须逐包复核这 11 个 code，不得直接把现有实现反向当作协议事实；若证据与现有 typed 定义冲突，按单包流程修正并独立提交。
+- M6R.0.1a-k 已逐包完成 `aPc, UU, Sc, NI, eZT, IUn, DpSY, cNB, ow, DyAG, KyN` 的证据闭环、resolved 元数据和必要 typed 修正；这 11 包不再属于遗留债务。
 
 ## 3. 协议证据规则
 
@@ -139,7 +136,7 @@ M6R.5 可在 M6R.1～M6R.4 等待 C/IDA 证据时穿插推进，但不能晚于 
 1. 新增测试侧 typed manifest，初始显式引用当前 91 个 `Type::Spec`。
 2. 用 C++20 `requires/static_assert` 检查：
    - `send` 类型有返回 `PacketResult<std::string>` 的 `Encode()`；
-   - `receive` 类型有 `Parse(std::string_view)`。
+   - `receive` 类型有精确返回 `PacketResult<T>` 的 `Parse(std::string_view)`。
 3. manifest code 必须唯一、方向正确，并与 schema 的 effective 字段形状交叉核对。
 4. 每完成一个新包，同一提交增加 typed 类型、manifest 条目、schema resolved 元数据、fixture 和单包测试。
 5. 新增不匹配 `^cg-packet-.*-test$` 的 production-surface smoke target，显式设置：
@@ -333,7 +330,7 @@ fixture X/209；Q0/Q1/Q2/Q3 剩余 X/X/X/X；
 ## 11. 首个执行序列
 
 1. `M6R.0.1a-k`：逐包复核 `aPc/UU/Sc/NI/eZT/IUn/DpSY/cNB/ow/DyAG/KyN` 的非标准或 unknown schema token，并补 resolved 来源；每个 code 分别验证、提交。
-2. `M6R.0.2`：建立当前 91 类型的测试侧 typed manifest 和 45→91 schema 交叉核对。
+2. `M6R.0.2`：从 0 建立当前 91 类型的测试侧显式 typed manifest，并完成 91/91 schema effective 交叉核对；45/57 仅是历史手写 `FindPacket` 分支数，不是 manifest 基线。
 3. `M6R.0.3`：确定 `.pkt` grammar，建立 fixture inventory/roundtrip 门禁。
 4. `M6R.0.4`：建立 diagnostics=0、test helpers=0、RTTI=off 的 production-surface smoke。
 5. `M6R.1.01`：`WA` 零字段 send。

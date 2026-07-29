@@ -1,5 +1,4 @@
-#include "packet/Receive.hpp"
-#include "packet/Send.hpp"
+#include "TypedPacketManifest.hpp"
 
 #include <charconv>
 #include <cstddef>
@@ -346,9 +345,11 @@ struct PacketSchema
     std::string originalFormat;
     bool formatEmpty = false;
     std::string source;
+    bool hasResolvedFormat = false;
     std::string resolvedFormat;
     std::string resolvedSource;
     std::vector<FieldSchema> fields;
+    bool hasResolvedFields = false;
     std::vector<FieldSchema> resolvedFields;
 };
 
@@ -447,8 +448,16 @@ PacketSchema ReadPacketSchema(const JsonValue& object, int& failures)
     packet.originalFormat = OptionalString(object, "originalFormat", failures);
     packet.formatEmpty = RequiredBool(object, "formatEmpty", failures);
     packet.source = RequiredString(object, "source", failures);
-    packet.resolvedFormat = OptionalString(object, "resolvedFormat", failures);
     packet.resolvedSource = OptionalString(object, "resolvedSource", failures);
+
+    const JsonValue* resolvedFormat = object.Find("resolvedFormat");
+    packet.hasResolvedFormat = resolvedFormat != nullptr;
+    if (resolvedFormat != nullptr) {
+        failures += Expect(resolvedFormat->kind == JsonValue::Kind::String, "resolvedFormat string");
+        if (resolvedFormat->kind == JsonValue::Kind::String) {
+            packet.resolvedFormat = resolvedFormat->text;
+        }
+    }
 
     const JsonValue* fields = RequiredMember(object, "fields", failures);
     if (fields != nullptr) {
@@ -462,6 +471,7 @@ PacketSchema ReadPacketSchema(const JsonValue& object, int& failures)
     }
 
     const JsonValue* resolvedFields = object.Find("resolvedFields");
+    packet.hasResolvedFields = resolvedFields != nullptr;
     if (resolvedFields != nullptr) {
         failures += Expect(resolvedFields->kind == JsonValue::Kind::Array, "resolvedFields array");
         if (resolvedFields->kind == JsonValue::Kind::Array) {
@@ -494,6 +504,59 @@ std::string TypeToken(cg::packet::PacketFieldType type)
         return "unknown";
     }
     return "unknown";
+}
+
+bool IsFormatWhitespace(char ch)
+{
+    return ch == ' ' || ch == '\t' || ch == '\r' || ch == '\n';
+}
+
+std::vector<FieldSchema> ParseResolvedFormat(std::string_view format, int& failures)
+{
+    std::vector<FieldSchema> fields;
+    std::size_t position = 0U;
+    while (position < format.size()) {
+        while (position < format.size() && IsFormatWhitespace(format[position])) {
+            ++position;
+        }
+        if (position == format.size()) {
+            break;
+        }
+
+        failures += Expect(format[position] == '{', "resolvedFormat field open");
+        if (format[position] != '{') {
+            return fields;
+        }
+
+        const std::size_t close = format.find('}', position + 1U);
+        failures += Expect(close != std::string_view::npos, "resolvedFormat field close");
+        if (close == std::string_view::npos) {
+            return fields;
+        }
+
+        const std::string_view token = format.substr(position + 1U, close - position - 1U);
+        const std::size_t colon = token.find(':');
+        failures += Expect(colon != std::string_view::npos, "resolvedFormat field type separator");
+        failures += Expect(colon != 0U, "resolvedFormat field name non-empty");
+        failures += Expect(
+            colon != std::string_view::npos && colon + 1U < token.size(),
+            "resolvedFormat field type non-empty");
+        failures += Expect(
+            colon == std::string_view::npos || token.find(':', colon + 1U) == std::string_view::npos,
+            "resolvedFormat field single type separator");
+        if (colon == std::string_view::npos || colon == 0U || colon + 1U >= token.size()
+            || token.find(':', colon + 1U) != std::string_view::npos) {
+            return fields;
+        }
+
+        FieldSchema field;
+        field.index = static_cast<int>(fields.size());
+        field.name = token.substr(0U, colon);
+        field.typeToken = token.substr(colon + 1U);
+        fields.push_back(std::move(field));
+        position = close + 1U;
+    }
+    return fields;
 }
 
 const PacketSchema* FindPacket(const std::vector<PacketSchema>& packets, std::string_view code)
@@ -532,6 +595,33 @@ int ExpectResolvedFieldsMatch(const PacketSchema& schema, const cg::packet::Pack
         failures += Expect(schema.resolvedFields[index].index == static_cast<int>(index), message);
         failures += Expect(schema.resolvedFields[index].name == packet.fields[index].name, message);
         failures += Expect(schema.resolvedFields[index].typeToken == TypeToken(packet.fields[index].type), message);
+    }
+    return failures;
+}
+
+int ExpectEffectiveFieldsMatch(
+    const PacketSchema& schema,
+    const cg::packet::PacketSpec& spec,
+    const char* message)
+{
+    int failures = 0;
+    std::vector<FieldSchema> parsedFields;
+    const std::vector<FieldSchema>* effectiveFields = &schema.fields;
+    if (schema.hasResolvedFields) {
+        effectiveFields = &schema.resolvedFields;
+    } else if (schema.hasResolvedFormat) {
+        parsedFields = ParseResolvedFormat(schema.resolvedFormat, failures);
+        effectiveFields = &parsedFields;
+    }
+
+    failures += Expect(effectiveFields->size() == spec.fieldCount, message);
+    if (effectiveFields->size() != spec.fieldCount) {
+        return failures;
+    }
+    for (std::size_t index = 0U; index < spec.fieldCount; ++index) {
+        failures += Expect((*effectiveFields)[index].index == static_cast<int>(index), message);
+        failures += Expect((*effectiveFields)[index].name == spec.fields[index].name, message);
+        failures += Expect((*effectiveFields)[index].typeToken == TypeToken(spec.fields[index].type), message);
     }
     return failures;
 }
@@ -622,6 +712,68 @@ int TestCoverage(const std::vector<PacketSchema>& packets)
     failures += Expect(FindPacket(packets, "TgX") != nullptr, "TgX exists");
     failures += Expect(FindPacket(packets, "JFVf") != nullptr, "JFVf exists");
     failures += Expect(FindPacket(packets, "whV") != nullptr, "whV exists");
+    return failures;
+}
+
+template <std::size_t Size>
+int TestTypedManifestGroup(
+    const std::vector<PacketSchema>& packets,
+    const std::array<cg::packet::test::TypedPacketManifestEntry, Size>& entries,
+    cg::packet::PacketDirection expectedDirection,
+    std::string_view expectedSchemaDirection,
+    std::string_view expectedNamespace,
+    std::set<std::string, std::less<>>& codes)
+{
+    int failures = 0;
+    for (const cg::packet::test::TypedPacketManifestEntry& entry : entries) {
+        failures += Expect(entry.spec != nullptr, "typed manifest Spec exists");
+        if (entry.spec == nullptr) {
+            continue;
+        }
+
+        const cg::packet::PacketSpec& spec = *entry.spec;
+        failures += Expect(!spec.code.empty(), "typed manifest code non-empty");
+        failures += Expect(spec.direction == expectedDirection, "typed manifest category matches Spec direction");
+        failures += Expect(codes.emplace(spec.code).second, "typed manifest code case-sensitive unique");
+
+        const PacketSchema* schema = FindPacket(packets, spec.code);
+        failures += Expect(schema != nullptr, "typed manifest schema exists");
+        if (schema == nullptr) {
+            continue;
+        }
+
+        failures += Expect(schema->direction == expectedSchemaDirection, "typed manifest schema direction");
+        failures += Expect(schema->clientNamespace == expectedNamespace, "typed manifest schema namespace");
+        failures += ExpectEffectiveFieldsMatch(*schema, spec, "typed manifest effective fields");
+    }
+    return failures;
+}
+
+int TestTypedManifest(const std::vector<PacketSchema>& packets)
+{
+    int failures = 0;
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 25U, "send typed manifest count 25");
+    failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 66U, "receive typed manifest count 66");
+    failures += Expect(
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 91U,
+        "typed manifest count 91");
+
+    std::set<std::string, std::less<>> codes;
+    failures += TestTypedManifestGroup(
+        packets,
+        cg::packet::test::SendTypedPackets,
+        cg::packet::PacketDirection::ClientToServer,
+        "客户端->服务端",
+        "send",
+        codes);
+    failures += TestTypedManifestGroup(
+        packets,
+        cg::packet::test::ReceiveTypedPackets,
+        cg::packet::PacketDirection::ServerToClient,
+        "服务端->客户端",
+        "receive",
+        codes);
+    failures += Expect(codes.size() == 91U, "typed manifest unique code count 91");
     return failures;
 }
 
@@ -2206,6 +2358,7 @@ int main(int argc, char** argv)
     std::vector<PacketSchema> packets;
     failures += TestShape(root, packets);
     failures += TestCoverage(packets);
+    failures += TestTypedManifest(packets);
     failures += TestKnownPackets(packets);
     if (failures != 0) {
         std::cerr << failures << " checks failed\n";

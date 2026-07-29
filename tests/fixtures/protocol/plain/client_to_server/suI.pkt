@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=suI
+direction=client_to_server
+sample=without-trailing-space
+plain_hex=73 75 49
+canonical_hex=73 75 49 20
+end_sample

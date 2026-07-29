@@ -384,7 +384,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 174 | `ixH` | 客户端->服务端 | 完成 | RECV_TRPL 请求交易玩家列表；严格零字段；`send::TradePlayerListRequest`；canonical `ixH `；NoStructuredPayload；fixture `without-trailing-space` | 否 | 否 | xlsx+ServerC+ClientIda+src/packet |
 | 175 | `QeuC` | 客户端->服务端 | 完成 | RECV_TRS CHAR_Trade_startTrade 从交易列表选择交易对象 | 否 | 否 | xlsx |
 | 176 | `aiAb` | 客户端->服务端 | 完成 | RECV_TROP CHAR_Trade_setTradeList 取出物品；resolved `{item:es} {pet:es} {gold:i62}`，resolvedSource `xlsx+src/packet`；`item/pet` 为普通外层 es，允许空且不拆 `|`，不要求尾随 `|`；`gold` 仅按普通 i62；`item/pet` 强类型解析 BLOCKED：缺服务端旧 C 或更明确语义证据解释两种格式差异 | 否 | 是 | xlsx + src/packet |
-| 177 | `suI` | 客户端->服务端 | 完成 | RECV_TRCL CHAR_Trade_closeItem 取消交易 | 否 | 否 | xlsx |
+| 177 | `suI` | 客户端->服务端 | 完成 | RECV_TRCL 取消交易选择；严格零字段；`send::TradeSelectionCancelRequest`；canonical `suI `；VERSION_TW 仅将 handler 改为内部 `nrproto_TROC_recv(fd, 0)`，硬编码 0 不是 wire 字段；NoStructuredPayload；fixture `without-trailing-space` | 否 | 否 | xlsx+ServerC+ClientIda+src/packet |
 | 178 | `OU` | 客户端->服务端 | 完成 | RECV_TROC CHAR_Trade_closeTrade 确认物品 | 否 | 否 | xlsx |
 | 179 | `Flvp` | 客户端->服务端 | 完成 | RECV_PS；旧 C `nrproto_serv.c/nrproto_serv.h` 补外层字段；`data` 为 opaque es；IDA 未找到客户端 Flvp wrapper | 是 | 是 | ServerC+src |
 | 180 | `zGp` | 客户端->服务端 | 完成 | RECV_ST CHAR_selectTitle 设置称号 | 否 | 否 | xlsx |

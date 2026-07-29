@@ -2161,6 +2161,7 @@ namespace cg::packet::receive
 
     /**
      * SEND_TITLE 称号列表 slot：titleName|titleMakeId|titleId，空 slot 为 ||。
+     * titleName 保存 legacy escape 还原后的语义字节串。
      */
     struct TitleSlot
     {
@@ -2196,7 +2197,7 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "Sc";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
-            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::SubPayload},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -2214,11 +2215,19 @@ namespace cg::packet::receive
         }
 
 #if CG_PACKET_ENABLE_TEST_HELPERS
-        [[nodiscard]] std::string BuildData() const
+        [[nodiscard]] PacketResult<std::string> BuildData() const
         {
+            if (slots.size() > MaxSlotCount) {
+                return PacketResult<std::string>::Failure(MakeFieldError(
+                    PacketErrorCode::EncodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT("TitleList slot 数量超过 64"),
+                    DataFieldIndex));
+            }
+
             std::vector<std::string> values;
             values.reserve(slots.size() * SlotFieldCount);
-            for (const TitleSlot& slot : slots) {
+            for (std::size_t slotIndex = 0; slotIndex < slots.size(); ++slotIndex) {
+                const TitleSlot& slot = slots[slotIndex];
                 if (slot.empty) {
                     values.emplace_back();
                     values.emplace_back();
@@ -2226,7 +2235,15 @@ namespace cg::packet::receive
                     continue;
                 }
 
-                values.push_back(slot.titleName);
+                PacketResult<std::string> encodedTitleName = EncodeLegacyPayloadText(slot.titleName);
+                if (!encodedTitleName.HasValue()) {
+                    PacketError error = encodedTitleName.Error();
+                    error.packetCode = PacketCode(Code);
+                    error.fieldIndex = slotIndex * SlotFieldCount;
+                    return PacketResult<std::string>::Failure(std::move(error));
+                }
+
+                values.push_back(std::move(encodedTitleName.Value()));
                 values.push_back(std::to_string(slot.titleMakeId));
                 values.push_back(std::to_string(slot.titleId));
             }
@@ -2234,24 +2251,31 @@ namespace cg::packet::receive
             PacketResult<std::string> payload = BuildPayload(
                 std::span<const std::string>(values.data(), values.size()),
                 PayloadDelimiter);
-            if (payload.HasValue()) {
-                return payload.Value();
+            if (!payload.HasValue()) {
+                PacketError error = payload.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = DataFieldIndex;
+                return PacketResult<std::string>::Failure(std::move(error));
             }
-
-            return {};
+            return payload;
         }
 #endif
 
 #if CG_PACKET_ENABLE_TEST_HELPERS
-        [[nodiscard]] Packet ToPacket() const
+        [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
+            PacketResult<std::string> data = BuildData();
+            if (!data.HasValue()) {
+                return PacketResult<Packet>::Failure(data.Error());
+            }
+
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("data"),
-                PacketFieldType::EscapedString,
-                BuildData(),
+                PacketFieldType::SubPayload,
+                std::move(data.Value()),
             });
-            return packet;
+            return PacketResult<Packet>::Success(std::move(packet));
         }
 #endif
 
@@ -2309,6 +2333,7 @@ namespace cg::packet::receive
         static constexpr std::size_t FieldCount = 1U;
         static constexpr std::size_t DataFieldIndex = 0U;
         static constexpr std::size_t SlotFieldCount = 3U;
+        static constexpr std::size_t MaxSlotCount = 64U;
 
         [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
@@ -2333,7 +2358,7 @@ namespace cg::packet::receive
                 return PacketResult<std::vector<TitleSlot>>::Success({});
             }
 
-            PacketResult<std::vector<std::string>> parts = SplitPayload(payload, PayloadDelimiter);
+            PacketResult<std::vector<std::string>> parts = SplitPayloadLegacyAware(payload, PayloadDelimiter);
             if (!parts.HasValue()) {
                 PacketError error = parts.Error();
                 error.packetCode = PacketCode(Code);
@@ -2348,8 +2373,16 @@ namespace cg::packet::receive
                     DataFieldIndex));
             }
 
+            const std::size_t slotCount = parts.Value().size() / SlotFieldCount;
+            if (slotCount > MaxSlotCount) {
+                return PacketResult<std::vector<TitleSlot>>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT("TitleList slot 数量超过 64"),
+                    DataFieldIndex));
+            }
+
             std::vector<TitleSlot> slots;
-            slots.reserve(parts.Value().size() / SlotFieldCount);
+            slots.reserve(slotCount);
             for (std::size_t index = 0; index < parts.Value().size(); index += SlotFieldCount) {
                 const std::string& titleName = parts.Value()[index];
                 const std::string& titleMakeIdText = parts.Value()[index + 1U];
@@ -2357,6 +2390,14 @@ namespace cg::packet::receive
                 if (titleName.empty() && titleMakeIdText.empty() && titleIdText.empty()) {
                     slots.push_back(TitleSlot::Empty());
                     continue;
+                }
+
+                PacketResult<std::string> decodedTitleName = DecodeLegacyPayloadText(titleName);
+                if (!decodedTitleName.HasValue()) {
+                    PacketError error = decodedTitleName.Error();
+                    error.packetCode = PacketCode(Code);
+                    error.fieldIndex = index;
+                    return PacketResult<std::vector<TitleSlot>>::Failure(std::move(error));
                 }
 
                 PacketResult<int> titleMakeId = ParseDecimalField(titleMakeIdText, index + 1U);
@@ -2369,7 +2410,10 @@ namespace cg::packet::receive
                     return PacketResult<std::vector<TitleSlot>>::Failure(titleId.Error());
                 }
 
-                slots.emplace_back(titleName, titleMakeId.Value(), titleId.Value());
+                slots.emplace_back(
+                    std::move(decodedTitleName.Value()),
+                    titleMakeId.Value(),
+                    titleId.Value());
             }
 
             return PacketResult<std::vector<TitleSlot>>::Success(std::move(slots));

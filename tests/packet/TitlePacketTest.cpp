@@ -67,6 +67,7 @@ std::string BuildPlainSc(std::string_view payload)
 
 int ExpectTitlePacket(
     const cg::packet::Packet& packet,
+    cg::packet::PacketFieldType fieldType,
     std::string_view value,
     const char* message)
 {
@@ -79,7 +80,7 @@ int ExpectTitlePacket(
     }
 
     failures += Expect(packet.fields[0].name == "data", message);
-    failures += Expect(packet.fields[0].type == cg::packet::PacketFieldType::EscapedString, message);
+    failures += Expect(packet.fields[0].type == fieldType, message);
     failures += Expect(packet.fields[0].value == value, message);
     return failures;
 }
@@ -104,6 +105,16 @@ int ExpectTitleSlot(
     return failures;
 }
 
+std::vector<cg::packet::receive::TitleSlot> MakeSlots(std::size_t count)
+{
+    std::vector<cg::packet::receive::TitleSlot> slots;
+    slots.reserve(count);
+    for (std::size_t index = 0; index < count; ++index) {
+        slots.emplace_back("T", static_cast<int>(index), -static_cast<int>(index));
+    }
+    return slots;
+}
+
 int TestParsePacketOuter()
 {
     const cg::packet::PacketResult<cg::packet::Packet> parsed =
@@ -111,12 +122,16 @@ int TestParsePacketOuter()
 
     int failures = Expect(static_cast<bool>(parsed), "parse Sc outer");
     if (parsed.HasValue()) {
-        failures += ExpectTitlePacket(parsed.Value(), "Hero|1|100|||", "parse Sc outer packet");
+        failures += ExpectTitlePacket(
+            parsed.Value(),
+            cg::packet::PacketFieldType::EscapedString,
+            "Hero|1|100|||",
+            "parse Sc outer packet");
     }
     return failures;
 }
 
-int TestTypedParseSlots()
+int TestTypedParseAndRoundtrip()
 {
     const cg::packet::PacketResult<cg::packet::receive::TitleList> parsed =
         cg::packet::receive::TitleList::Parse(BuildPlainSc("Hero|1|100|||"));
@@ -131,23 +146,20 @@ int TestTypedParseSlots()
         failures += ExpectTitleSlot(parsed.Value().slots[0], "Hero", 1, 100, false, "typed Sc filled slot");
         failures += ExpectTitleSlot(parsed.Value().slots[1], "", 0, 0, true, "typed Sc empty slot");
     }
-    return failures;
-}
 
-int TestRoundtripKeepsEmptySlot()
-{
-    const cg::packet::PacketResult<cg::packet::receive::TitleList> parsed =
-        cg::packet::receive::TitleList::Parse(BuildPlainSc("Hero|1|100|||"));
-
-    int failures = Expect(static_cast<bool>(parsed), "roundtrip Sc parse");
-    if (!parsed.HasValue()) {
+    const cg::packet::PacketResult<cg::packet::Packet> packet = parsed.Value().ToPacket();
+    failures += Expect(static_cast<bool>(packet), "Sc ToPacket");
+    if (!packet.HasValue()) {
         return failures;
     }
 
-    const cg::packet::Packet packet = parsed.Value().ToPacket();
-    failures += ExpectTitlePacket(packet, "Hero|1|100|||", "Sc ToPacket keeps empty slot");
+    failures += ExpectTitlePacket(
+        packet.Value(),
+        cg::packet::PacketFieldType::SubPayload,
+        "Hero|1|100|||",
+        "Sc ToPacket keeps empty slot");
 
-    const cg::packet::PacketResult<std::string> built = BuildPacket(packet);
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
     failures += Expect(static_cast<bool>(built), "build Sc packet");
     if (built.HasValue()) {
         failures += Expect(built.Value() == BuildPlainSc("Hero|1|100|||"), "roundtrip Sc empty slot text");
@@ -166,10 +178,21 @@ int TestEmptyPayload()
     }
 
     const cg::packet::receive::TitleList titleList({});
-    const cg::packet::Packet packet = titleList.ToPacket();
-    failures += ExpectTitlePacket(packet, "", "Sc empty ToPacket");
+    const cg::packet::PacketResult<std::string> data = titleList.BuildData();
+    failures += Expect(data.HasValue() && data.Value().empty(), "Sc empty BuildData");
 
-    const cg::packet::PacketResult<std::string> built = BuildPacket(packet);
+    const cg::packet::PacketResult<cg::packet::Packet> packet = titleList.ToPacket();
+    failures += Expect(static_cast<bool>(packet), "Sc empty ToPacket");
+    if (!packet.HasValue()) {
+        return failures;
+    }
+
+    failures += ExpectTitlePacket(
+        packet.Value(),
+        cg::packet::PacketFieldType::SubPayload,
+        "",
+        "Sc empty ToPacket value");
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
     failures += Expect(static_cast<bool>(built), "build Sc empty payload");
     if (built.HasValue()) {
         failures += Expect(built.Value() == BuildPlainSc(""), "build Sc empty payload text");
@@ -177,25 +200,125 @@ int TestEmptyPayload()
     return failures;
 }
 
-int TestBuildManualSlots()
+int TestLegacyTextCanonical()
 {
-    std::vector<cg::packet::receive::TitleSlot> slots;
-    slots.emplace_back("Hero", 1, 100);
-    slots.push_back(cg::packet::receive::TitleSlot::Empty());
+    constexpr std::string_view input =
+        "Line\\nComma\\cPipe\\zSlash\\yUnknown\\q|1|-2";
+    constexpr std::string_view canonical =
+        "Line\\nComma\\cPipe\\zSlash\\yUnknownq|1|-2";
+    constexpr std::string_view semantic =
+        "Line\nComma,Pipe|Slash\\Unknownq";
 
-    const cg::packet::receive::TitleList titleList(std::move(slots));
-    const cg::packet::Packet packet = titleList.ToPacket();
-    return ExpectTitlePacket(packet, "Hero|1|100|||", "Sc manual ToPacket");
+    const cg::packet::PacketResult<cg::packet::receive::TitleList> parsed =
+        cg::packet::receive::TitleList::Parse(BuildPlainSc(input));
+    int failures = Expect(static_cast<bool>(parsed), "parse Sc legacy title text");
+    if (!parsed.HasValue()) {
+        return failures;
+    }
+
+    failures += Expect(parsed.Value().slots.size() == 1U, "Sc legacy slot count");
+    if (parsed.Value().slots.size() == 1U) {
+        failures += ExpectTitleSlot(
+            parsed.Value().slots[0],
+            semantic,
+            1,
+            -2,
+            false,
+            "Sc legacy title semantic bytes");
+    }
+
+    const cg::packet::PacketResult<std::string> data = parsed.Value().BuildData();
+    failures += Expect(data.HasValue(), "build Sc legacy canonical data");
+    if (data.HasValue()) {
+        failures += Expect(data.Value() == canonical, "Sc unknown escape canonicalized");
+    }
+    return failures;
 }
 
-int TestErrors()
+int TestGbkDelimiterByte()
+{
+    std::string titleName;
+    titleName.push_back(static_cast<char>(0x81));
+    titleName.push_back(static_cast<char>(0x7c));
+
+    std::string payload = titleName;
+    payload.append("|1|2");
+
+    const cg::packet::PacketResult<cg::packet::receive::TitleList> parsed =
+        cg::packet::receive::TitleList::Parse(BuildPlainSc(payload));
+    int failures = Expect(static_cast<bool>(parsed), "parse Sc GBK trail delimiter byte");
+    if (!parsed.HasValue()) {
+        return failures;
+    }
+
+    failures += Expect(parsed.Value().slots.size() == 1U, "Sc GBK slot count");
+    if (parsed.Value().slots.size() == 1U) {
+        failures += ExpectTitleSlot(parsed.Value().slots[0], titleName, 1, 2, false, "Sc GBK title bytes");
+    }
+
+    const cg::packet::PacketResult<std::string> data = parsed.Value().BuildData();
+    failures += Expect(data.HasValue(), "build Sc GBK title");
+    if (data.HasValue()) {
+        failures += Expect(data.Value() == payload, "roundtrip Sc GBK title");
+    }
+    return failures;
+}
+
+int TestSlotLimits()
+{
+    int failures = 0;
+    const cg::packet::receive::TitleList maxList(MakeSlots(64U));
+    const cg::packet::PacketResult<std::string> maxData = maxList.BuildData();
+    failures += Expect(maxData.HasValue(), "build Sc 64 slots");
+    if (maxData.HasValue()) {
+        const cg::packet::PacketResult<cg::packet::receive::TitleList> parsed =
+            cg::packet::receive::TitleList::Parse(BuildPlainSc(maxData.Value()));
+        failures += Expect(parsed.HasValue(), "parse Sc 64 slots");
+        if (parsed.HasValue()) {
+            failures += Expect(parsed.Value().slots.size() == 64U, "Sc 64 slot count");
+        }
+    }
+
+    const cg::packet::receive::TitleList overList(MakeSlots(65U));
+    failures += ExpectError(
+        overList.BuildData(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        "Sc",
+        "build Sc 65 slots rejected");
+
+    std::string overPayload;
+    for (std::size_t index = 0; index < 65U; ++index) {
+        if (!overPayload.empty()) {
+            overPayload.push_back('|');
+        }
+        overPayload.append("T|0|0");
+    }
+    failures += ExpectError(
+        cg::packet::receive::TitleList::Parse(BuildPlainSc(overPayload)),
+        cg::packet::PacketErrorCode::DecodeFailed,
+        "Sc",
+        "parse Sc 65 slots rejected");
+    return failures;
+}
+
+int TestParseErrors()
 {
     int failures = 0;
     failures += ExpectError(
         cg::packet::receive::TitleList::Parse(BuildPlainSc("Hero|1")),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "Sc",
-        "typed Sc field count not multiple of three");
+        "typed Sc missing tail field");
+    failures += ExpectError(
+        cg::packet::receive::TitleList::Parse(BuildPlainSc("Hero|1|100|extra")),
+        cg::packet::PacketErrorCode::FieldCountMismatch,
+        "Sc",
+        "typed Sc extra field");
+    failures += ExpectError(
+        cg::packet::receive::TitleList::Parse(BuildPlainSc("Hero||")),
+        cg::packet::PacketErrorCode::DecodeFailed,
+        "Sc",
+        "typed Sc partial empty ids");
     failures += ExpectError(
         cg::packet::receive::TitleList::Parse(BuildPlainSc("Hero|a|100")),
         cg::packet::PacketErrorCode::DecodeFailed,
@@ -206,7 +329,64 @@ int TestErrors()
         cg::packet::PacketErrorCode::DecodeFailed,
         "Sc",
         "typed Sc titleId raw decimal");
+    failures += ExpectError(
+        cg::packet::receive::TitleList::Parse(BuildPlainSc("Hero|+1|100")),
+        cg::packet::PacketErrorCode::DecodeFailed,
+        "Sc",
+        "typed Sc signed decimal rejects plus");
+    failures += ExpectError(
+        cg::packet::receive::TitleList::Parse(BuildPlainSc("Hero|2147483648|100")),
+        cg::packet::PacketErrorCode::DecodeFailed,
+        "Sc",
+        "typed Sc titleMakeId overflow");
+    failures += ExpectError(
+        cg::packet::receive::TitleList::Parse(BuildPlainSc("Hero|1|-2147483649")),
+        cg::packet::PacketErrorCode::DecodeFailed,
+        "Sc",
+        "typed Sc titleId underflow");
     return failures;
+}
+
+int TestPartialEmptyName()
+{
+    const cg::packet::PacketResult<cg::packet::receive::TitleList> parsed =
+        cg::packet::receive::TitleList::Parse(BuildPlainSc("|1|100"));
+    int failures = Expect(parsed.HasValue(), "parse Sc empty titleName with ids");
+    if (!parsed.HasValue()) {
+        return failures;
+    }
+
+    failures += Expect(parsed.Value().slots.size() == 1U, "Sc partial empty slot count");
+    if (parsed.Value().slots.size() == 1U) {
+        failures += ExpectTitleSlot(
+            parsed.Value().slots[0],
+            "",
+            1,
+            100,
+            false,
+            "Sc empty titleName is non-empty slot");
+    }
+
+    const cg::packet::PacketResult<std::string> data = parsed.Value().BuildData();
+    failures += Expect(data.HasValue(), "build Sc empty titleName with ids");
+    if (data.HasValue()) {
+        failures += Expect(data.Value() == "|1|100", "roundtrip Sc empty titleName with ids");
+    }
+    return failures;
+}
+
+int TestBuildErrors()
+{
+    std::string truncatedGbk(1U, static_cast<char>(0x81));
+    const cg::packet::receive::TitleList truncatedList({
+        cg::packet::receive::TitleSlot(std::move(truncatedGbk), 1, 2),
+    });
+
+    return ExpectError(
+        truncatedList.BuildData(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        "Sc",
+        "build Sc truncated GBK title");
 }
 
 } // namespace
@@ -215,11 +395,14 @@ int main()
 {
     int failures = 0;
     failures += TestParsePacketOuter();
-    failures += TestTypedParseSlots();
-    failures += TestRoundtripKeepsEmptySlot();
+    failures += TestTypedParseAndRoundtrip();
     failures += TestEmptyPayload();
-    failures += TestBuildManualSlots();
-    failures += TestErrors();
+    failures += TestLegacyTextCanonical();
+    failures += TestGbkDelimiterByte();
+    failures += TestSlotLimits();
+    failures += TestParseErrors();
+    failures += TestPartialEmptyName();
+    failures += TestBuildErrors();
     if (failures != 0) {
         std::cerr << failures << " checks failed\n";
         return 1;

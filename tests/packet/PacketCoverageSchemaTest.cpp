@@ -812,7 +812,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         std::vector<cg::packet::receive::TitleSlot> slots;
         slots.emplace_back("Hero", 1, 100);
         const cg::packet::receive::TitleList titleList(std::move(slots));
-        const cg::packet::Packet packet = titleList.ToPacket();
+        const cg::packet::PacketResult<cg::packet::Packet> packet = titleList.ToPacket();
         failures += Expect(titleListSchema->direction == "服务端->客户端", "Sc direction");
         failures += Expect(titleListSchema->legacyKind == "SEND", "Sc legacyKind");
         failures += Expect(
@@ -833,7 +833,13 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         failures += Expect(
             titleListSchema->resolvedSource == "xlsx+ServerC+ClientIda+src/packet",
             "Sc resolvedSource");
-        failures += ExpectResolvedFieldsMatch(*titleListSchema, packet, "Sc resolved field order");
+        failures += Expect(static_cast<bool>(packet), "Sc ToPacket");
+        if (packet.HasValue()) {
+            failures += ExpectResolvedFieldsMatch(
+                *titleListSchema,
+                packet.Value(),
+                "Sc resolved field order");
+        }
     }
 
     const PacketSchema* createNewCharSchema = FindPacket(packets, "aSEl");

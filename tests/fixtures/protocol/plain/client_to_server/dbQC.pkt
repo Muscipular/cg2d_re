@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=dbQC
+direction=client_to_server
+sample=member-index-ten
+plain_hex=64 62 51 43 20 61
+canonical_hex=64 62 51 43 20 61 20
+end_sample

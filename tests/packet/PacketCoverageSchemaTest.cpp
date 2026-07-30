@@ -1213,11 +1213,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 62U, "send typed manifest count 62");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 63U, "send typed manifest count 63");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 84U, "receive typed manifest count 84");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 146U,
-        "typed manifest count 146");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 147U,
+        "typed manifest count 147");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1234,7 +1234,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 146U, "typed manifest unique code count 146");
+    failures += Expect(codes.size() == 147U, "typed manifest unique code count 147");
     return failures;
 }
 
@@ -4556,6 +4556,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         guildMemberRemoveRequestSchema != nullptr,
         "dbQC schema exists");
     if (guildMemberRemoveRequestSchema != nullptr) {
+        const cg::packet::send::GuildMemberRemoveRequest request(10);
+        const cg::packet::Packet packet = request.ToPacket();
         failures += Expect(
             guildMemberRemoveRequestSchema->direction == "客户端->服务端",
             "dbQC direction");
@@ -4599,7 +4601,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "dbQC resolvedFormat");
         failures += Expect(
             guildMemberRemoveRequestSchema->resolvedSource ==
-                "xlsx+ServerC+ClientIda",
+                "xlsx+ServerC+ClientIda+src/packet",
             "dbQC resolvedSource");
         failures += Expect(
             guildMemberRemoveRequestSchema->hasResolvedFields,
@@ -4615,13 +4617,21 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                     field.name == "index" &&
                     field.typeToken == "i62" &&
                     field.rawSpec == "{index:i62}" &&
-                    field.source == "xlsx+ServerC+ClientIda",
+                    field.source == "xlsx+ServerC+ClientIda+src/packet",
                 "dbQC resolved field");
         }
+        failures += ExpectEffectiveFieldsMatch(
+            *guildMemberRemoveRequestSchema,
+            cg::packet::send::GuildMemberRemoveRequest::Spec,
+            "dbQC Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *guildMemberRemoveRequestSchema,
+            packet,
+            "dbQC resolved field order");
     }
     failures += Expect(
-        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "dbQC"),
-        "dbQC absent from send typed manifest");
+        TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "dbQC"),
+        "dbQC present in send typed manifest");
     failures += Expect(
         !TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "dbQC"),
         "dbQC absent from receive typed manifest");

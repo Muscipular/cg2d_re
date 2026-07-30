@@ -3221,6 +3221,50 @@ namespace cg::packet::send
     };
 
     /**
+     * RECV_RGM 移除家族成员 dbQC {index:i62}
+     * 基础 packet 层保留完整 signed int 并严格按 exact1 编码；
+     * Server 宽松 arity、家族、目标、权限、在线状态与解散均为业务规则，
+     * 不兼容 legacy 0x17 异常。
+     */
+    struct GuildMemberRemoveRequest
+    {
+        static constexpr std::string_view Code = "dbQC";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("index"), PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        int index = 0;
+
+        explicit GuildMemberRemoveRequest(int index)
+            : index(index)
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("index"),
+                PacketFieldType::Int62,
+                std::to_string(index),
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket(), Spec);
+        }
+    };
+
+    /**
      * RECV_GML 家族邮件 uId {toregistNumber:i62} {text:es} {color:i62}
      */
     struct GuildMailSend

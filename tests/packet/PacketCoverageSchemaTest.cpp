@@ -4718,6 +4718,92 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         !TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "HoW"),
         "HoW absent from receive typed manifest");
 
+    const PacketSchema* profileDataRequestSchema = FindPacket(packets, "TLKH");
+    failures += Expect(profileDataRequestSchema != nullptr, "TLKH schema exists");
+    if (profileDataRequestSchema != nullptr) {
+        constexpr std::array<std::string_view, 2U> fieldNames = {{"flg", "index"}};
+        constexpr std::array<std::string_view, 2U> rawSpecs = {{
+            "{flg}",
+            "{index}",
+        }};
+        constexpr std::array<std::string_view, 2U> resolvedSpecs = {{
+            "{flg:i62}",
+            "{index:i62}",
+        }};
+
+        failures += Expect(
+            profileDataRequestSchema->direction == "客户端->服务端",
+            "TLKH direction");
+        failures += Expect(
+            profileDataRequestSchema->legacyKind == "RECV",
+            "TLKH legacyKind");
+        failures += Expect(
+            profileDataRequestSchema->clientNamespace == "send",
+            "TLKH namespace");
+        failures += Expect(
+            profileDataRequestSchema->xlsxStatus == "进行中",
+            "TLKH xlsxStatus");
+        failures += Expect(
+            profileDataRequestSchema->rawFormat == "{flg} {index}",
+            "TLKH rawFormat");
+        failures += Expect(
+            !profileDataRequestSchema->formatEmpty,
+            "TLKH formatEmpty false");
+        failures += Expect(
+            profileDataRequestSchema->source == "xlsx",
+            "TLKH raw source");
+        failures += Expect(
+            profileDataRequestSchema->fields.size() == fieldNames.size(),
+            "TLKH raw field count");
+        if (profileDataRequestSchema->fields.size() == fieldNames.size()) {
+            for (std::size_t index = 0U; index < fieldNames.size(); ++index) {
+                const FieldSchema& field = profileDataRequestSchema->fields[index];
+                failures += Expect(
+                    field.index == static_cast<int>(index) &&
+                        field.name == fieldNames[index] &&
+                        field.typeToken == "unknown" &&
+                        field.rawSpec == rawSpecs[index] &&
+                        field.source == "xlsx",
+                    "TLKH raw field");
+            }
+        }
+
+        failures += Expect(
+            profileDataRequestSchema->hasResolvedFormat,
+            "TLKH resolvedFormat present");
+        failures += Expect(
+            profileDataRequestSchema->resolvedFormat == "{flg:i62} {index:i62}",
+            "TLKH resolvedFormat");
+        failures += Expect(
+            profileDataRequestSchema->resolvedSource == "xlsx+ServerC+ClientIda",
+            "TLKH resolvedSource");
+        failures += Expect(
+            profileDataRequestSchema->hasResolvedFields,
+            "TLKH resolvedFields present");
+        failures += Expect(
+            profileDataRequestSchema->resolvedFields.size() == fieldNames.size(),
+            "TLKH resolved field count");
+        if (profileDataRequestSchema->resolvedFields.size() == fieldNames.size()) {
+            for (std::size_t index = 0U; index < fieldNames.size(); ++index) {
+                const FieldSchema& field =
+                    profileDataRequestSchema->resolvedFields[index];
+                failures += Expect(
+                    field.index == static_cast<int>(index) &&
+                        field.name == fieldNames[index] &&
+                        field.typeToken == "i62" &&
+                        field.rawSpec == resolvedSpecs[index] &&
+                        field.source == "xlsx+ServerC+ClientIda",
+                    "TLKH resolved field");
+            }
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "TLKH"),
+        "TLKH absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "TLKH"),
+        "TLKH absent from receive typed manifest");
+
     const PacketSchema* deprecatedBattleJoinSchema = FindPacket(packets, "cEj");
     failures += Expect(deprecatedBattleJoinSchema != nullptr, "cEj schema exists");
     if (deprecatedBattleJoinSchema != nullptr) {

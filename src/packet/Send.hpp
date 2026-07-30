@@ -1303,6 +1303,49 @@ namespace cg::packet::send
     };
 
     /**
+     * RECV_TRS 从交易列表选择交易对象 QeuC {tradeListSlot:i62}
+     * tradeListSlot 是交易候选列表槽位；基础 packet 层保留任意 signed int，
+     * 严格按 exact1 编码，不下沉槽有效性与交易业务规则。
+     */
+    struct TradeStartRequest
+    {
+        static constexpr std::string_view Code = "QeuC";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("tradeListSlot"), PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        int tradeListSlot = 0;
+
+        explicit TradeStartRequest(int tradeListSlot)
+            : tradeListSlot(tradeListSlot)
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("tradeListSlot"),
+                PacketFieldType::Int62,
+                std::to_string(tradeListSlot),
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket(), Spec);
+        }
+    };
+
+    /**
      * RECV_TRCL 取消交易选择 suI
      * VERSION_TW 服务端分支传入的 0 是 handler 业务参数，不是 wire 字段。
      */

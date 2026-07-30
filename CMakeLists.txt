@@ -912,6 +912,18 @@ add_test(
     COMMAND cg-packet-trade-player-list-request-test
 )
 
+add_executable(cg-packet-trade-start-request-test
+    tests/packet/TradeStartRequestPacketTest.cpp
+)
+target_include_directories(cg-packet-trade-start-request-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+add_test(
+    NAME cg-packet-trade-start-request-test
+    COMMAND cg-packet-trade-start-request-test
+)
+
 add_executable(cg-packet-trade-selection-cancel-request-test
     tests/packet/TradeSelectionCancelRequestPacketTest.cpp
 )
@@ -2575,6 +2587,7 @@ if(MSVC)
     target_compile_options(cg-packet-battle-command-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-item-front-char-list-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-trade-player-list-request-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-trade-start-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-trade-selection-cancel-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-battle-position-toggle-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-return-to-login-point-request-test PRIVATE /W4 /utf-8 /permissive-)

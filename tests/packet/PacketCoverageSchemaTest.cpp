@@ -1213,11 +1213,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 76U, "send typed manifest count 76");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 77U, "send typed manifest count 77");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 84U, "receive typed manifest count 84");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 160U,
-        "typed manifest count 160");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 161U,
+        "typed manifest count 161");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1234,7 +1234,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 160U, "typed manifest unique code count 160");
+    failures += Expect(codes.size() == 161U, "typed manifest unique code count 161");
     return failures;
 }
 
@@ -6090,7 +6090,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "QeuC resolvedFormat");
         failures += Expect(
             tradeStartRequestSchema->resolvedSource ==
-                "xlsx+ServerC+ClientIda",
+                "xlsx+ServerC+ClientIda+src/packet",
             "QeuC resolvedSource");
         failures += Expect(
             tradeStartRequestSchema->hasResolvedFields,
@@ -6106,15 +6106,26 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                     field.name == "tradeListSlot" &&
                     field.typeToken == "i62" &&
                     field.rawSpec == "{tradeListSlot:i62}" &&
-                    field.source == "xlsx+ServerC+ClientIda",
+                    field.source == "xlsx+ServerC+ClientIda+src/packet",
                 "QeuC resolved field");
         }
+
+        const cg::packet::send::TradeStartRequest request(10);
+        const cg::packet::Packet packet = request.ToPacket();
+        failures += ExpectEffectiveFieldsMatch(
+            *tradeStartRequestSchema,
+            cg::packet::send::TradeStartRequest::Spec,
+            "QeuC Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *tradeStartRequestSchema,
+            packet,
+            "QeuC resolved field order");
     }
     failures += Expect(
-        !TypedManifestContainsCode(
+        TypedManifestContainsCode(
             cg::packet::test::SendTypedPackets,
             "QeuC"),
-        "QeuC absent from send typed manifest");
+        "QeuC present in send typed manifest");
     failures += Expect(
         !TypedManifestContainsCode(
             cg::packet::test::ReceiveTypedPackets,

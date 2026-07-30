@@ -3724,6 +3724,87 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         !TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "FPkR"),
         "FPkR absent from receive typed manifest");
 
+    const PacketSchema* addressBookExchangeSchema = FindPacket(packets, "vcAz");
+    failures += Expect(addressBookExchangeSchema != nullptr, "vcAz schema exists");
+    if (addressBookExchangeSchema != nullptr) {
+        failures += Expect(
+            addressBookExchangeSchema->direction == "客户端->服务端",
+            "vcAz direction");
+        failures += Expect(
+            addressBookExchangeSchema->legacyKind == "RECV",
+            "vcAz legacyKind");
+        failures += Expect(
+            addressBookExchangeSchema->clientNamespace == "send",
+            "vcAz namespace");
+        failures += Expect(
+            addressBookExchangeSchema->rawFormat == "{x} {y}",
+            "vcAz rawFormat");
+        failures += Expect(
+            !addressBookExchangeSchema->formatEmpty,
+            "vcAz formatEmpty false");
+        failures += Expect(
+            addressBookExchangeSchema->source == "xlsx",
+            "vcAz raw source");
+        failures += Expect(
+            addressBookExchangeSchema->fields.size() == 2U,
+            "vcAz raw field count");
+        if (addressBookExchangeSchema->fields.size() == 2U) {
+            constexpr std::array<std::string_view, 2U> names = {{"x", "y"}};
+            constexpr std::array<std::string_view, 2U> specs = {{"{x}", "{y}"}};
+            for (std::size_t index = 0U; index < names.size(); ++index) {
+                const FieldSchema& field = addressBookExchangeSchema->fields[index];
+                failures += Expect(
+                    field.index == index &&
+                        field.name == names[index] &&
+                        field.typeToken == "unknown" &&
+                        field.rawSpec == specs[index] &&
+                        field.source == "xlsx",
+                    "vcAz raw field");
+            }
+        }
+
+        failures += Expect(
+            addressBookExchangeSchema->hasResolvedFormat,
+            "vcAz resolvedFormat present");
+        failures += Expect(
+            addressBookExchangeSchema->resolvedFormat == "{x:i62} {y:i62}",
+            "vcAz resolvedFormat");
+        failures += Expect(
+            addressBookExchangeSchema->resolvedSource ==
+                "xlsx+ServerC+ClientIda",
+            "vcAz resolvedSource");
+        failures += Expect(
+            addressBookExchangeSchema->hasResolvedFields,
+            "vcAz resolvedFields present");
+        failures += Expect(
+            addressBookExchangeSchema->resolvedFields.size() == 2U,
+            "vcAz resolved field count");
+        if (addressBookExchangeSchema->resolvedFields.size() == 2U) {
+            constexpr std::array<std::string_view, 2U> names = {{"x", "y"}};
+            constexpr std::array<std::string_view, 2U> specs = {{
+                "{x:i62}",
+                "{y:i62}",
+            }};
+            for (std::size_t index = 0U; index < names.size(); ++index) {
+                const FieldSchema& field =
+                    addressBookExchangeSchema->resolvedFields[index];
+                failures += Expect(
+                    field.index == index &&
+                        field.name == names[index] &&
+                        field.typeToken == "i62" &&
+                        field.rawSpec == specs[index] &&
+                        field.source == "xlsx+ServerC+ClientIda",
+                    "vcAz resolved field");
+            }
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "vcAz"),
+        "vcAz absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "vcAz"),
+        "vcAz absent from receive typed manifest");
+
     const PacketSchema* deprecatedBattleJoinSchema = FindPacket(packets, "cEj");
     failures += Expect(deprecatedBattleJoinSchema != nullptr, "cEj schema exists");
     if (deprecatedBattleJoinSchema != nullptr) {

@@ -3466,6 +3466,58 @@ namespace cg::packet::send
     };
 
     /**
+     * RECV_KS 宠物战斗状态
+     * LKQy {petStatus0:i62} {petStatus1:i62} {petStatus2:i62}
+     *      {petStatus3:i62} {petStatus4:i62}
+     * 状态值含义与组合由业务层解释；基础 packet 层保留任意 signed int，
+     * 严格按 exact5 编码，不兼容 legacy 宽松 arity 与 0x17 异常。
+     */
+    struct PetBattleStatusUpdateRequest
+    {
+        static constexpr std::string_view Code = "LKQy";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 5U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("petStatus0"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("petStatus1"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("petStatus2"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("petStatus3"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("petStatus4"), PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        std::array<int, 5U> petStatuses;
+
+        explicit PetBattleStatusUpdateRequest(std::array<int, 5U> petStatuses)
+            : petStatuses(std::move(petStatuses))
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.reserve(Fields.size());
+            for (std::size_t index = 0U; index < Fields.size(); ++index) {
+                packet.fields.push_back(PacketField {
+                    Fields[index].name,
+                    PacketFieldType::Int62,
+                    std::to_string(petStatuses[index]),
+                });
+            }
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket(), Spec);
+        }
+    };
+
+    /**
      * RECV_GML 家族邮件 uId {toregistNumber:i62} {text:es} {color:i62}
      */
     struct GuildMailSend

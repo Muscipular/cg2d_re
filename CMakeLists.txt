@@ -1614,6 +1614,20 @@ add_test(
     COMMAND cg-packet-party-membership-request-test
 )
 
+add_executable(cg-packet-pet-battle-status-update-request-test
+    tests/packet/PetBattleStatusUpdateRequestPacketTest.cpp
+)
+
+target_include_directories(cg-packet-pet-battle-status-update-request-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+
+add_test(
+    NAME cg-packet-pet-battle-status-update-request-test
+    COMMAND cg-packet-pet-battle-status-update-request-test
+)
+
 add_executable(cg-packet-guild-mail-send-test
     tests/packet/GuildMailSendPacketTest.cpp
 )
@@ -2509,6 +2523,7 @@ if(MSVC)
     target_compile_options(cg-packet-profile-data-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-player-status-flags-update-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-party-membership-request-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-pet-battle-status-update-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-guild-mail-send-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-profile-mail-friend-delete-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-profile-mini-mail-send-test PRIVATE /W4 /utf-8 /permissive-)
@@ -2689,6 +2704,7 @@ else()
     target_compile_options(cg-packet-profile-data-request-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-player-status-flags-update-request-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-party-membership-request-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-packet-pet-battle-status-update-request-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-guild-mail-send-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-profile-mail-friend-delete-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-profile-mini-mail-send-test PRIVATE -Wall -Wextra -Wpedantic)

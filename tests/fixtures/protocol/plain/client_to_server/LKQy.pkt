@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=LKQy
+direction=client_to_server
+sample=pet-status-and-walk-flag
+plain_hex=4C 4B 51 79 20 30 20 31 20 32 20 33 20 67
+canonical_hex=4C 4B 51 79 20 30 20 31 20 32 20 33 20 67 20
+end_sample

@@ -1213,11 +1213,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 67U, "send typed manifest count 67");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 68U, "send typed manifest count 68");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 84U, "receive typed manifest count 84");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 151U,
-        "typed manifest count 151");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 152U,
+        "typed manifest count 152");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1234,7 +1234,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 151U, "typed manifest unique code count 151");
+    failures += Expect(codes.size() == 152U, "typed manifest unique code count 152");
     return failures;
 }
 
@@ -5098,7 +5098,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "LKQy resolvedFormat");
         failures += Expect(
             petBattleStatusUpdateRequestSchema->resolvedSource ==
-                "xlsx+ServerC+ClientIda",
+                "xlsx+ServerC+ClientIda+src/packet",
             "LKQy resolvedSource");
         failures += Expect(
             petBattleStatusUpdateRequestSchema->hasResolvedFields,
@@ -5119,16 +5119,27 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                         field.name == resolvedFieldNames[index] &&
                         field.typeToken == "i62" &&
                         field.rawSpec == resolvedSpecs[index] &&
-                        field.source == "xlsx+ServerC+ClientIda",
+                        field.source == "xlsx+ServerC+ClientIda+src/packet",
                     "LKQy resolved field");
             }
         }
+        const cg::packet::send::PetBattleStatusUpdateRequest request(
+            std::array<int, 5U> {{0, 1, 2, 3, 16}});
+        const cg::packet::Packet packet = request.ToPacket();
+        failures += ExpectEffectiveFieldsMatch(
+            *petBattleStatusUpdateRequestSchema,
+            cg::packet::send::PetBattleStatusUpdateRequest::Spec,
+            "LKQy Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *petBattleStatusUpdateRequestSchema,
+            packet,
+            "LKQy resolved field order");
     }
     failures += Expect(
-        !TypedManifestContainsCode(
+        TypedManifestContainsCode(
             cg::packet::test::SendTypedPackets,
             "LKQy"),
-        "LKQy absent from send typed manifest");
+        "LKQy present in send typed manifest");
     failures += Expect(
         !TypedManifestContainsCode(
             cg::packet::test::ReceiveTypedPackets,

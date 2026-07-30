@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=HoW
+direction=client_to_server
+sample=profile-and-about
+plain_hex=48 6F 57 20 33
+canonical_hex=48 6F 57 20 33 20
+end_sample

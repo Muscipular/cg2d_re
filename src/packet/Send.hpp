@@ -3265,6 +3265,50 @@ namespace cg::packet::send
     };
 
     /**
+     * RECV_PRV 请求个人资料列表 HoW {flg:i62}
+     * 基础 packet 层保留完整 signed int 并严格按 exact1 编码；
+     * Server 宽松 arity、登录、配置、flags mask 与独立列表响应均为业务规则，
+     * 不兼容 legacy 0x17 异常。
+     */
+    struct ProfileListsRequest
+    {
+        static constexpr std::string_view Code = "HoW";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("flg"), PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        int flags = 0;
+
+        explicit ProfileListsRequest(int flags)
+            : flags(flags)
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("flg"),
+                PacketFieldType::Int62,
+                std::to_string(flags),
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket(), Spec);
+        }
+    };
+
+    /**
      * RECV_GML 家族邮件 uId {toregistNumber:i62} {text:es} {color:i62}
      */
     struct GuildMailSend

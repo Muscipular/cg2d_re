@@ -2971,6 +2971,57 @@ namespace cg::packet::send
     };
 
     /**
+     * RECV_BGT 变更家族成员职位 uHb {index:i62} {title:i62}
+     * 基础 packet 层保留两个完整 signed int 并严格按 exact2 编码；
+     * Server 宽松 arity、title 范围、权限、成员状态与独立通知均为业务规则，不兼容 legacy 0x17 异常。
+     */
+    struct GuildMemberTitleChangeRequest
+    {
+        static constexpr std::string_view Code = "uHb";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("index"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("title"), PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        int index = 0;
+        int titleId = 0;
+
+        GuildMemberTitleChangeRequest(int index, int titleId)
+            : index(index),
+              titleId(titleId)
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("index"),
+                PacketFieldType::Int62,
+                std::to_string(index),
+            });
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("title"),
+                PacketFieldType::Int62,
+                std::to_string(titleId),
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket(), Spec);
+        }
+    };
+
+    /**
      * RECV_GML 家族邮件 uId {toregistNumber:i62} {text:es} {color:i62}
      */
     struct GuildMailSend

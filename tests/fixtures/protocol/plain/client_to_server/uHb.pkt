@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=uHb
+direction=client_to_server
+sample=member-index-ten-title-twenty
+plain_hex=75 48 62 20 61 20 6B
+canonical_hex=75 48 62 20 61 20 6B 20
+end_sample

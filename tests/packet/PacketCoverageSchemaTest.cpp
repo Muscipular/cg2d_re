@@ -1124,11 +1124,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 57U, "send typed manifest count 57");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 58U, "send typed manifest count 58");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 84U, "receive typed manifest count 84");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 141U,
-        "typed manifest count 141");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 142U,
+        "typed manifest count 142");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1145,7 +1145,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 141U, "typed manifest unique code count 141");
+    failures += Expect(codes.size() == 142U, "typed manifest unique code count 142");
     return failures;
 }
 
@@ -3910,6 +3910,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         guildMemberTitleChangeRequestSchema != nullptr,
         "uHb schema exists");
     if (guildMemberTitleChangeRequestSchema != nullptr) {
+        const cg::packet::send::GuildMemberTitleChangeRequest request(10, 20);
+        const cg::packet::Packet packet = request.ToPacket();
         failures += Expect(
             guildMemberTitleChangeRequestSchema->direction == "客户端->服务端",
             "uHb direction");
@@ -3965,7 +3967,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "uHb resolvedFormat");
         failures += Expect(
             guildMemberTitleChangeRequestSchema->resolvedSource ==
-                "xlsx+ServerC+ClientIda",
+                "xlsx+ServerC+ClientIda+src/packet",
             "uHb resolvedSource");
         failures += Expect(
             guildMemberTitleChangeRequestSchema->hasResolvedFields,
@@ -3990,14 +3992,23 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                         field.name == names[index] &&
                         field.typeToken == "i62" &&
                         field.rawSpec == specs[index] &&
-                        field.source == "xlsx+ServerC+ClientIda",
+                        field.source == "xlsx+ServerC+ClientIda+src/packet",
                     "uHb resolved field");
             }
         }
+
+        failures += ExpectEffectiveFieldsMatch(
+            *guildMemberTitleChangeRequestSchema,
+            cg::packet::send::GuildMemberTitleChangeRequest::Spec,
+            "uHb Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *guildMemberTitleChangeRequestSchema,
+            packet,
+            "uHb resolved field order");
     }
     failures += Expect(
-        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "uHb"),
-        "uHb absent from send typed manifest");
+        TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "uHb"),
+        "uHb present in send typed manifest");
     failures += Expect(
         !TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "uHb"),
         "uHb absent from receive typed manifest");

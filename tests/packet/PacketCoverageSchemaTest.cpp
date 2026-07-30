@@ -6132,6 +6132,89 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "QeuC"),
         "QeuC absent from receive typed manifest");
 
+    const PacketSchema* tradeConfirmationRequestSchema =
+        FindPacket(packets, "OU");
+    failures += Expect(
+        tradeConfirmationRequestSchema != nullptr,
+        "OU schema exists");
+    if (tradeConfirmationRequestSchema != nullptr) {
+        failures += Expect(
+            tradeConfirmationRequestSchema->direction ==
+                "客户端->服务端",
+            "OU direction");
+        failures += Expect(
+            tradeConfirmationRequestSchema->legacyKind == "RECV",
+            "OU legacyKind");
+        failures += Expect(
+            tradeConfirmationRequestSchema->clientNamespace == "send",
+            "OU namespace");
+        failures += Expect(
+            tradeConfirmationRequestSchema->xlsxStatus == "完成",
+            "OU xlsxStatus");
+        failures += Expect(
+            tradeConfirmationRequestSchema->rawFormat == "{result}",
+            "OU rawFormat");
+        failures += Expect(
+            !tradeConfirmationRequestSchema->formatEmpty,
+            "OU formatEmpty false");
+        failures += Expect(
+            tradeConfirmationRequestSchema->source == "xlsx",
+            "OU raw source");
+        failures += Expect(
+            tradeConfirmationRequestSchema->fields.size() == 1U,
+            "OU raw field count");
+        if (tradeConfirmationRequestSchema->fields.size() == 1U) {
+            const FieldSchema& field =
+                tradeConfirmationRequestSchema->fields[0];
+            failures += Expect(
+                field.index == 0 &&
+                    field.name == "result" &&
+                    field.typeToken == "unknown" &&
+                    field.rawSpec == "{result}" &&
+                    field.source == "xlsx",
+                "OU raw field");
+        }
+
+        failures += Expect(
+            tradeConfirmationRequestSchema->hasResolvedFormat,
+            "OU resolvedFormat present");
+        failures += Expect(
+            tradeConfirmationRequestSchema->resolvedFormat ==
+                "{result:i62}",
+            "OU resolvedFormat");
+        failures += Expect(
+            tradeConfirmationRequestSchema->resolvedSource ==
+                "xlsx+ServerC+ClientIda",
+            "OU resolvedSource");
+        failures += Expect(
+            tradeConfirmationRequestSchema->hasResolvedFields,
+            "OU resolvedFields present");
+        failures += Expect(
+            tradeConfirmationRequestSchema->resolvedFields.size() == 1U,
+            "OU resolved field count");
+        if (tradeConfirmationRequestSchema->resolvedFields.size() == 1U) {
+            const FieldSchema& field =
+                tradeConfirmationRequestSchema->resolvedFields[0];
+            failures += Expect(
+                field.index == 0 &&
+                    field.name == "result" &&
+                    field.typeToken == "i62" &&
+                    field.rawSpec == "{result:i62}" &&
+                    field.source == "xlsx+ServerC+ClientIda",
+                "OU resolved field");
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "OU"),
+        "OU absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "OU"),
+        "OU absent from receive typed manifest");
+
     const PacketSchema* deprecatedBattleJoinSchema = FindPacket(packets, "cEj");
     failures += Expect(deprecatedBattleJoinSchema != nullptr, "cEj schema exists");
     if (deprecatedBattleJoinSchema != nullptr) {

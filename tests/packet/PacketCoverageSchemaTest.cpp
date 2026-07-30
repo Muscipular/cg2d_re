@@ -1213,11 +1213,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 70U, "send typed manifest count 70");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 71U, "send typed manifest count 71");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 84U, "receive typed manifest count 84");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 154U,
-        "typed manifest count 154");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 155U,
+        "typed manifest count 155");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1234,7 +1234,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 154U, "typed manifest unique code count 154");
+    failures += Expect(codes.size() == 155U, "typed manifest unique code count 155");
     return failures;
 }
 
@@ -5407,7 +5407,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "McVa resolvedFormat");
         failures += Expect(
             skillCharacterPetListRequestSchema->resolvedSource ==
-                "xlsx+ServerC+ClientIda",
+                "xlsx+ServerC+ClientIda+src/packet",
             "McVa resolvedSource");
         failures += Expect(
             skillCharacterPetListRequestSchema->hasResolvedFields,
@@ -5423,15 +5423,26 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                     field.name == "charSlot" &&
                     field.typeToken == "i62" &&
                     field.rawSpec == "{charSlot:i62}" &&
-                    field.source == "xlsx+ServerC+ClientIda",
+                    field.source == "xlsx+ServerC+ClientIda+src/packet",
                 "McVa resolved field");
         }
+
+        const cg::packet::send::SkillCharacterPetListRequest request(10);
+        const cg::packet::Packet packet = request.ToPacket();
+        failures += ExpectEffectiveFieldsMatch(
+            *skillCharacterPetListRequestSchema,
+            cg::packet::send::SkillCharacterPetListRequest::Spec,
+            "McVa Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *skillCharacterPetListRequestSchema,
+            packet,
+            "McVa resolved field order");
     }
     failures += Expect(
-        !TypedManifestContainsCode(
+        TypedManifestContainsCode(
             cg::packet::test::SendTypedPackets,
             "McVa"),
-        "McVa absent from send typed manifest");
+        "McVa present in send typed manifest");
     failures += Expect(
         !TypedManifestContainsCode(
             cg::packet::test::ReceiveTypedPackets,

@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=McVa
+direction=client_to_server
+sample=char-slot-ten
+plain_hex=4D 63 56 61 20 61
+canonical_hex=4D 63 56 61 20 61 20
+end_sample

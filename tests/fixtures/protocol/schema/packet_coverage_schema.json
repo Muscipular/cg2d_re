@@ -6401,14 +6401,14 @@
       "formatEmpty": false,
       "source": "xlsx",
       "resolvedFormat": "{charSlot:i62}",
-      "resolvedSource": "xlsx+ServerC+ClientIda",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
       "resolvedFields": [
         {
           "index": 0,
           "name": "charSlot",
           "typeToken": "i62",
           "rawSpec": "{charSlot:i62}",
-          "source": "xlsx+ServerC+ClientIda"
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         }
       ],
       "fields": [

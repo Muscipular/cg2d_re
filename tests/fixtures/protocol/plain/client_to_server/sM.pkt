@@ -1,0 +1,9 @@
+pkt_fixture=1
+code=sM
+direction=client_to_server
+sample=recipe-one-hundred-items-eighteen-nineteen
+plain_hex=73 4D 20 61 20 62 20 2D 31 20 31 30 30 7C 31 38 7C 31 39
+canonical_hex=73 4D 20 61 20 62 20 2D 31 20 31 30 30 7C 31 38 7C 31 39 20
+payload_field=3
+payload_hex=31 30 30 7C 31 38 7C 31 39
+end_sample

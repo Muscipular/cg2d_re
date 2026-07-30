@@ -6686,7 +6686,7 @@
       "formatEmpty": false,
       "source": "xlsx",
       "resolvedFormat": "{haveSkillIndex:i62} {haveTechIndex:i62} {toIndex:i62} {data:es}",
-      "resolvedSource": "xlsx+ServerC+ClientIda",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
       "fields": [
         {
           "index": 0,
@@ -6723,28 +6723,28 @@
           "name": "haveSkillIndex",
           "typeToken": "i62",
           "rawSpec": "{haveSkillIndex:i62}",
-          "source": "xlsx+ServerC+ClientIda"
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         },
         {
           "index": 1,
           "name": "haveTechIndex",
           "typeToken": "i62",
           "rawSpec": "{haveTechIndex:i62}",
-          "source": "xlsx+ServerC+ClientIda"
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         },
         {
           "index": 2,
           "name": "toIndex",
           "typeToken": "i62",
           "rawSpec": "{toIndex:i62}",
-          "source": "xlsx+ServerC+ClientIda"
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         },
         {
           "index": 3,
           "name": "data",
           "typeToken": "es",
           "rawSpec": "{data:es}",
-          "source": "xlsx+ServerC+ClientIda"
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         }
       ]
     },

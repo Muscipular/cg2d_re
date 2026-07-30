@@ -3868,6 +3868,78 @@ namespace cg::packet::send
     };
 
     /**
+     * RECV_TU 使用技能 sM
+     * {haveSkillIndex:i62} {haveTechIndex:i62} {toIndex:i62} {data:es}
+     * data 是由 handler 区分语义的 opaque legacy bytes；基础 packet 层不猜测 variant、
+     * 不按竖线拆分，也不下沉技能槽、目标与配方/材料/宝石等业务规则。
+     */
+    struct TechUseRequest
+    {
+        static constexpr std::string_view Code = "sM";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 4U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("haveSkillIndex"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("haveTechIndex"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("toIndex"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        int haveSkillIndex = 0;
+        int haveTechIndex = 0;
+        int toIndex = 0;
+        std::string data;
+
+        TechUseRequest(
+            int haveSkillIndex,
+            int haveTechIndex,
+            int toIndex,
+            std::string data)
+            : haveSkillIndex(haveSkillIndex)
+            , haveTechIndex(haveTechIndex)
+            , toIndex(toIndex)
+            , data(std::move(data))
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("haveSkillIndex"),
+                PacketFieldType::Int62,
+                std::to_string(haveSkillIndex),
+            });
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("haveTechIndex"),
+                PacketFieldType::Int62,
+                std::to_string(haveTechIndex),
+            });
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("toIndex"),
+                PacketFieldType::Int62,
+                std::to_string(toIndex),
+            });
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("data"),
+                PacketFieldType::EscapedString,
+                data,
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket(), Spec);
+        }
+    };
+
+    /**
      * RECV_GML 家族邮件 uId {toregistNumber:i62} {text:es} {color:i62}
      */
     struct GuildMailSend

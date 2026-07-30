@@ -1213,11 +1213,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 75U, "send typed manifest count 75");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 76U, "send typed manifest count 76");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 84U, "receive typed manifest count 84");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 159U,
-        "typed manifest count 159");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 160U,
+        "typed manifest count 160");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1234,7 +1234,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 159U, "typed manifest unique code count 159");
+    failures += Expect(codes.size() == 160U, "typed manifest unique code count 160");
     return failures;
 }
 
@@ -5904,6 +5904,12 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     const PacketSchema* techUseRequestSchema = FindPacket(packets, "sM");
     failures += Expect(techUseRequestSchema != nullptr, "sM schema exists");
     if (techUseRequestSchema != nullptr) {
+        const cg::packet::send::TechUseRequest request(
+            10,
+            11,
+            -1,
+            "100|18|19");
+        const cg::packet::Packet packet = request.ToPacket();
         constexpr std::array<std::string_view, 4U> rawFieldNames = {{
             "skill",
             "tech",
@@ -5987,7 +5993,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "sM resolvedFormat");
         failures += Expect(
             techUseRequestSchema->resolvedSource ==
-                "xlsx+ServerC+ClientIda",
+                "xlsx+ServerC+ClientIda+src/packet",
             "sM resolvedSource");
         failures += Expect(
             techUseRequestSchema->hasResolvedFields,
@@ -6008,16 +6014,25 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                         field.name == resolvedFieldNames[index] &&
                         field.typeToken == resolvedFieldTypes[index] &&
                         field.rawSpec == resolvedFieldSpecs[index] &&
-                        field.source == "xlsx+ServerC+ClientIda",
+                        field.source ==
+                            "xlsx+ServerC+ClientIda+src/packet",
                     "sM resolved field");
             }
         }
+        failures += ExpectEffectiveFieldsMatch(
+            *techUseRequestSchema,
+            cg::packet::send::TechUseRequest::Spec,
+            "sM Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *techUseRequestSchema,
+            packet,
+            "sM resolved field order");
     }
     failures += Expect(
-        !TypedManifestContainsCode(
+        TypedManifestContainsCode(
             cg::packet::test::SendTypedPackets,
             "sM"),
-        "sM absent from send typed manifest");
+        "sM present in send typed manifest");
     failures += Expect(
         !TypedManifestContainsCode(
             cg::packet::test::ReceiveTypedPackets,

@@ -4636,6 +4636,77 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         !TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "dbQC"),
         "dbQC absent from receive typed manifest");
 
+    const PacketSchema* profileListsRequestSchema = FindPacket(packets, "HoW");
+    failures += Expect(profileListsRequestSchema != nullptr, "HoW schema exists");
+    if (profileListsRequestSchema != nullptr) {
+        failures += Expect(
+            profileListsRequestSchema->direction == "客户端->服务端",
+            "HoW direction");
+        failures += Expect(
+            profileListsRequestSchema->legacyKind == "RECV",
+            "HoW legacyKind");
+        failures += Expect(
+            profileListsRequestSchema->clientNamespace == "send",
+            "HoW namespace");
+        failures += Expect(
+            profileListsRequestSchema->xlsxStatus == "待办",
+            "HoW xlsxStatus");
+        failures += Expect(
+            profileListsRequestSchema->rawFormat == "{flg}",
+            "HoW rawFormat");
+        failures += Expect(
+            !profileListsRequestSchema->formatEmpty,
+            "HoW formatEmpty false");
+        failures += Expect(
+            profileListsRequestSchema->source == "xlsx",
+            "HoW raw source");
+        failures += Expect(
+            profileListsRequestSchema->fields.size() == 1U,
+            "HoW raw field count");
+        if (profileListsRequestSchema->fields.size() == 1U) {
+            const FieldSchema& field = profileListsRequestSchema->fields[0];
+            failures += Expect(
+                field.index == 0 &&
+                    field.name == "flg" &&
+                    field.typeToken == "unknown" &&
+                    field.rawSpec == "{flg}" &&
+                    field.source == "xlsx",
+                "HoW raw field");
+        }
+
+        failures += Expect(
+            profileListsRequestSchema->hasResolvedFormat,
+            "HoW resolvedFormat present");
+        failures += Expect(
+            profileListsRequestSchema->resolvedFormat == "{flg:i62}",
+            "HoW resolvedFormat");
+        failures += Expect(
+            profileListsRequestSchema->resolvedSource == "xlsx+ServerC+ClientIda",
+            "HoW resolvedSource");
+        failures += Expect(
+            profileListsRequestSchema->hasResolvedFields,
+            "HoW resolvedFields present");
+        failures += Expect(
+            profileListsRequestSchema->resolvedFields.size() == 1U,
+            "HoW resolved field count");
+        if (profileListsRequestSchema->resolvedFields.size() == 1U) {
+            const FieldSchema& field = profileListsRequestSchema->resolvedFields[0];
+            failures += Expect(
+                field.index == 0 &&
+                    field.name == "flg" &&
+                    field.typeToken == "i62" &&
+                    field.rawSpec == "{flg:i62}" &&
+                    field.source == "xlsx+ServerC+ClientIda",
+                "HoW resolved field");
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "HoW"),
+        "HoW absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "HoW"),
+        "HoW absent from receive typed manifest");
+
     const PacketSchema* deprecatedBattleJoinSchema = FindPacket(packets, "cEj");
     failures += Expect(deprecatedBattleJoinSchema != nullptr, "cEj schema exists");
     if (deprecatedBattleJoinSchema != nullptr) {

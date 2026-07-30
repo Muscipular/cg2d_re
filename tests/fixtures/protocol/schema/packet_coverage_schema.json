@@ -5932,6 +5932,17 @@
       "rawFormat": "{flg}",
       "formatEmpty": false,
       "source": "xlsx",
+      "resolvedFormat": "{flg:i62}",
+      "resolvedSource": "xlsx+ServerC+ClientIda",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "flg",
+          "typeToken": "i62",
+          "rawSpec": "{flg:i62}",
+          "source": "xlsx+ServerC+ClientIda"
+        }
+      ],
       "fields": [
         {
           "index": 0,

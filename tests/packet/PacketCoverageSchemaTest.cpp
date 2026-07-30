@@ -348,6 +348,7 @@ struct PacketSchema
     std::string originalFormat;
     bool formatEmpty = false;
     std::string source;
+    std::string contractStatus;
     bool hasResolvedFormat = false;
     std::string resolvedFormat;
     std::string resolvedSource;
@@ -451,6 +452,7 @@ PacketSchema ReadPacketSchema(const JsonValue& object, int& failures)
     packet.originalFormat = OptionalString(object, "originalFormat", failures);
     packet.formatEmpty = RequiredBool(object, "formatEmpty", failures);
     packet.source = RequiredString(object, "source", failures);
+    packet.contractStatus = OptionalString(object, "contractStatus", failures);
     packet.resolvedSource = OptionalString(object, "resolvedSource", failures);
 
     const JsonValue* resolvedFormat = object.Find("resolvedFormat");
@@ -2754,6 +2756,78 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                 "zA resolved/Spec field order");
         }
     }
+
+    const PacketSchema* deprecatedMovementRequestSchema = FindPacket(packets, "sz");
+    failures += Expect(deprecatedMovementRequestSchema != nullptr, "sz schema exists");
+    if (deprecatedMovementRequestSchema != nullptr) {
+        constexpr std::array<std::string_view, 3U> fieldNames = {{
+            "x",
+            "y",
+            "direction",
+        }};
+        constexpr std::array<std::string_view, 3U> fieldTypes = {{
+            "i62",
+            "i62",
+            "es",
+        }};
+        constexpr std::array<std::string_view, 3U> fieldSpecs = {{
+            "{x:i62}",
+            "{y:i62}",
+            "{direction:es}",
+        }};
+
+        failures += Expect(
+            deprecatedMovementRequestSchema->direction == "客户端->服务端",
+            "sz direction");
+        failures += Expect(
+            deprecatedMovementRequestSchema->legacyKind == "RECV",
+            "sz legacyKind");
+        failures += Expect(
+            deprecatedMovementRequestSchema->clientNamespace == "send",
+            "sz namespace");
+        failures += Expect(
+            deprecatedMovementRequestSchema->xlsxStatus == "完成",
+            "sz xlsxStatus");
+        failures += Expect(
+            deprecatedMovementRequestSchema->rawFormat ==
+                "{x:i62} {y:i62} {direction:es}",
+            "sz rawFormat");
+        failures += Expect(deprecatedMovementRequestSchema->source == "xlsx", "sz raw source");
+        failures += Expect(
+            deprecatedMovementRequestSchema->contractStatus ==
+                "no-effective-wire-contract",
+            "sz no-effective-wire-contract sentinel");
+        failures += Expect(
+            deprecatedMovementRequestSchema->resolvedSource == "xlsx+ServerC",
+            "sz resolvedSource");
+        failures += Expect(
+            !deprecatedMovementRequestSchema->hasResolvedFormat,
+            "sz resolvedFormat absent");
+        failures += Expect(
+            !deprecatedMovementRequestSchema->hasResolvedFields,
+            "sz resolvedFields absent");
+        failures += Expect(
+            deprecatedMovementRequestSchema->fields.size() == fieldNames.size(),
+            "sz raw field count");
+        if (deprecatedMovementRequestSchema->fields.size() == fieldNames.size()) {
+            for (std::size_t index = 0U; index < fieldNames.size(); ++index) {
+                const FieldSchema& field = deprecatedMovementRequestSchema->fields[index];
+                failures += Expect(
+                    field.index == static_cast<int>(index) &&
+                        field.name == fieldNames[index] &&
+                        field.typeToken == fieldTypes[index] &&
+                        field.rawSpec == fieldSpecs[index] &&
+                        field.source == "xlsx",
+                    "sz raw field");
+            }
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "sz"),
+        "sz absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "sz"),
+        "sz absent from receive typed manifest");
 
     const PacketSchema* objectDeleteSchema = FindPacket(packets, "uSB");
     failures += Expect(objectDeleteSchema != nullptr, "uSB schema exists");

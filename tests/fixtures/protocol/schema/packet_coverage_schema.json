@@ -1876,6 +1876,8 @@
       "rawFormat": "{x:i62} {y:i62} {direction:es}",
       "formatEmpty": false,
       "source": "xlsx",
+      "contractStatus": "no-effective-wire-contract",
+      "resolvedSource": "xlsx+ServerC",
       "fields": [
         {
           "index": 0,

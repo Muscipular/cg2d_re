@@ -252,7 +252,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 42 | `zA` | 客户端->服务端 | 完成 | RECV_W 移动；保留 xlsx malformed raw `{x:i62} {y:i62} {direction:es} {warpnum::i62}`，resolved 严格四字段 `{x:i62} {y:i62} {direction:es} {warpnum:i62}`；`send::MoveRequest` 的 direction 仅接受单字节 ASCII `[a-hA-H]`，x/y/warpNumber 保留 signed int 且不增加业务范围；无二级 payload；NoStructuredPayload；fixture `move-with-warp` | 否 | 否 | xlsx+ServerC+ClientIda+src/packet |
 | 43 | `uSB` | 服务端->客户端 | 完成 | SEND_CD 发送删除ObjectIndex列表；M6R.0.2a 保留 xlsx raw 两字段，resolved 修正为单 `{data:es}` | 否 | 是 | xlsx(raw)+ServerC+src/packet |
 | 44 | `QBt` | 服务端->客户端 | 完成 | SEND_XYD 玩家位置同步；严格 `{x:i62} {y:i62} {dir:i62}`；`receive::PlayerPositionSync` 保留任意 signed int，不增加坐标范围、地图边界、移动距离或方向枚举/uint8 约束；NoStructuredPayload；fixture `distinct-i62-order` | 否 | 否 | xlsx+ServerC+ClientIda+src/packet |
-| 45 | `sz` | 客户端->服务端 | 完成 | RECV_w 移动 | 否 | 否 | xlsx |
+| 45 | `sz` | 客户端->服务端 | 完成 | RECV_w 移动；保留 xlsx raw exact3 `{x:i62} {y:i62} {direction:es}`。VERSION_TW/PACKETVER 2 dispatcher 历史上按 x→y→direction 取三字段，但活动 `nrproto_w_recv` 为空，唯一原实现位于 `#if 0`；cg2d 未找到 `sz` 协议字符串或 sender。用户裁决 `contractStatus=no-effective-wire-contract`，该 code 证据终止；不新增 typed、fixture 或 payload 判定 | 否 | 否 | xlsx+ServerC |
 | 46 | `pg` | 客户端->服务端 | 完成 | RECV_EV NPC 事件；严格五字段 `{event:i62} {seqno:i62} {x:i62} {y:i62} {dir:i62}`；`send::NpcEventRequest`；不增加事件、坐标或方向范围约束；NoStructuredPayload；fixture `distinct-i62-order` | 否 | 否 | xlsx+ServerC+ClientIda+src/packet |
 | 47 | `KeOX` | 客户端->服务端 | 完成 | RECV_EN 客户端遇敌 | 否 | 否 | xlsx |
 | 48 | `ik` | 客户端->服务端 | 完成 | RECV_DU PK 请求；resolved `{x:i62} {y:i62}`；`send::DuelRequest`；不增加坐标或 PK 业务约束；NoStructuredPayload；fixture `distinct-i62-order` | 否 | 否 | xlsx+ServerC+ClientIda+src/packet |

@@ -357,6 +357,8 @@ fixture X/209；Q0/Q1/Q2/Q3 剩余 X/X/X/X；
 
 Q0～Q3 统计对象是初始队列中的“未完成协议 code”，不是提交或子步骤数量。证据小步为某个 code 补齐 `resolvedFormat` 后，该队列剩余数只减少一次；后续 typed/fixture 小步不得再次扣减。每次记录均应以本节初始队列和当前 schema 的 `resolvedFormat` 实际状态重算，不能沿用上一行做手工递减。
 
+`contractStatus=no-effective-wire-contract` 表示该 code 已由用户裁决为无当前有效 wire 合同：它是证据终止状态，从 active Q 队列扣除，但不等价于 exact0，且不要求 `resolvedFormat` 或 `resolvedFields`。
+
 `来源未决` 与 `payload 未审计` 的历史账当前没有对应的固定 code 集合，暂时不能仅从 schema/fixture 独立重算；在补齐可执行门禁前，进度行必须注明为沿用值，不得把它们作为自动完成判据。
 
 提交粒度：

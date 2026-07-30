@@ -5660,6 +5660,115 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "BG"),
         "BG absent from receive typed manifest");
 
+    const PacketSchema* characterActionRequestSchema =
+        FindPacket(packets, "MIS");
+    failures += Expect(
+        characterActionRequestSchema != nullptr,
+        "MIS schema exists");
+    if (characterActionRequestSchema != nullptr) {
+        constexpr std::array<std::string_view, 3U> fieldNames = {{
+            "x",
+            "y",
+            "action",
+        }};
+        constexpr std::array<std::string_view, 3U> rawSpecs = {{
+            "{x}",
+            "{y}",
+            "{action}",
+        }};
+        constexpr std::array<std::string_view, 3U> resolvedSpecs = {{
+            "{x:i62}",
+            "{y:i62}",
+            "{action:i62}",
+        }};
+
+        failures += Expect(
+            characterActionRequestSchema->direction == "客户端->服务端",
+            "MIS direction");
+        failures += Expect(
+            characterActionRequestSchema->legacyKind == "RECV",
+            "MIS legacyKind");
+        failures += Expect(
+            characterActionRequestSchema->clientNamespace == "send",
+            "MIS namespace");
+        failures += Expect(
+            characterActionRequestSchema->xlsxStatus == "完成",
+            "MIS xlsxStatus");
+        failures += Expect(
+            characterActionRequestSchema->rawFormat == "{x} {y} {action}",
+            "MIS rawFormat");
+        failures += Expect(
+            !characterActionRequestSchema->formatEmpty,
+            "MIS formatEmpty false");
+        failures += Expect(
+            characterActionRequestSchema->source == "xlsx",
+            "MIS raw source");
+        failures += Expect(
+            characterActionRequestSchema->fields.size() == fieldNames.size(),
+            "MIS raw field count");
+        if (characterActionRequestSchema->fields.size() ==
+            fieldNames.size()) {
+            for (std::size_t index = 0U;
+                 index < fieldNames.size();
+                 ++index) {
+                const FieldSchema& field =
+                    characterActionRequestSchema->fields[index];
+                failures += Expect(
+                    field.index == static_cast<int>(index) &&
+                        field.name == fieldNames[index] &&
+                        field.typeToken == "unknown" &&
+                        field.rawSpec == rawSpecs[index] &&
+                        field.source == "xlsx",
+                    "MIS raw field");
+            }
+        }
+
+        failures += Expect(
+            characterActionRequestSchema->hasResolvedFormat,
+            "MIS resolvedFormat present");
+        failures += Expect(
+            characterActionRequestSchema->resolvedFormat ==
+                "{x:i62} {y:i62} {action:i62}",
+            "MIS resolvedFormat");
+        failures += Expect(
+            characterActionRequestSchema->resolvedSource ==
+                "xlsx+ServerC+ClientIda",
+            "MIS resolvedSource");
+        failures += Expect(
+            characterActionRequestSchema->hasResolvedFields,
+            "MIS resolvedFields present");
+        failures += Expect(
+            characterActionRequestSchema->resolvedFields.size() ==
+                fieldNames.size(),
+            "MIS resolved field count");
+        if (characterActionRequestSchema->resolvedFields.size() ==
+            fieldNames.size()) {
+            for (std::size_t index = 0U;
+                 index < fieldNames.size();
+                 ++index) {
+                const FieldSchema& field =
+                    characterActionRequestSchema->resolvedFields[index];
+                failures += Expect(
+                    field.index == static_cast<int>(index) &&
+                        field.name == fieldNames[index] &&
+                        field.typeToken == "i62" &&
+                        field.rawSpec == resolvedSpecs[index] &&
+                        field.source == "xlsx+ServerC+ClientIda",
+                    "MIS resolved field");
+            }
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "MIS"),
+        "MIS absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "MIS"),
+        "MIS absent from receive typed manifest");
+
     const PacketSchema* deprecatedBattleJoinSchema = FindPacket(packets, "cEj");
     failures += Expect(deprecatedBattleJoinSchema != nullptr, "cEj schema exists");
     if (deprecatedBattleJoinSchema != nullptr) {

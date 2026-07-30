@@ -3560,6 +3560,79 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         !TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "fS"),
         "fS absent from receive typed manifest");
 
+    const PacketSchema* albumNameRequestSchema = FindPacket(packets, "LaR");
+    failures += Expect(albumNameRequestSchema != nullptr, "LaR schema exists");
+    if (albumNameRequestSchema != nullptr) {
+        failures += Expect(
+            albumNameRequestSchema->direction == "客户端->服务端",
+            "LaR direction");
+        failures += Expect(
+            albumNameRequestSchema->legacyKind == "RECV",
+            "LaR legacyKind");
+        failures += Expect(
+            albumNameRequestSchema->clientNamespace == "send",
+            "LaR namespace");
+        failures += Expect(
+            albumNameRequestSchema->rawFormat == "{albumid}",
+            "LaR rawFormat");
+        failures += Expect(
+            !albumNameRequestSchema->formatEmpty,
+            "LaR formatEmpty false");
+        failures += Expect(
+            albumNameRequestSchema->source == "xlsx",
+            "LaR raw source");
+        failures += Expect(
+            albumNameRequestSchema->fields.size() == 1U,
+            "LaR raw field count");
+        if (albumNameRequestSchema->fields.size() == 1U) {
+            const FieldSchema& field = albumNameRequestSchema->fields[0];
+            failures += Expect(
+                field.index == 0 &&
+                    field.name == "albumid" &&
+                    field.typeToken == "unknown" &&
+                    field.rawSpec == "{albumid}" &&
+                    field.source == "xlsx",
+                "LaR raw field");
+        }
+
+        failures += Expect(
+            albumNameRequestSchema->hasResolvedFormat,
+            "LaR resolvedFormat present");
+        failures += Expect(
+            albumNameRequestSchema->resolvedFormat == "{albumid:i62}",
+            "LaR resolvedFormat");
+        failures += Expect(
+            albumNameRequestSchema->resolvedSource == "xlsx+ServerC",
+            "LaR resolvedSource");
+        failures += Expect(
+            albumNameRequestSchema->resolvedSource.find("ClientIda") ==
+                std::string::npos,
+            "LaR resolvedSource excludes ClientIda");
+        failures += Expect(
+            albumNameRequestSchema->hasResolvedFields,
+            "LaR resolvedFields present");
+        failures += Expect(
+            albumNameRequestSchema->resolvedFields.size() == 1U,
+            "LaR resolved field count");
+        if (albumNameRequestSchema->resolvedFields.size() == 1U) {
+            const FieldSchema& field = albumNameRequestSchema->resolvedFields[0];
+            failures += Expect(
+                field.index == 0 &&
+                    field.name == "albumid" &&
+                    field.typeToken == "i62" &&
+                    field.rawSpec == "{albumid:i62}" &&
+                    field.source == "xlsx+ServerC" &&
+                    field.source.find("ClientIda") == std::string::npos,
+                "LaR resolved field");
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "LaR"),
+        "LaR absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "LaR"),
+        "LaR absent from receive typed manifest");
+
     const PacketSchema* deprecatedBattleJoinSchema = FindPacket(packets, "cEj");
     failures += Expect(deprecatedBattleJoinSchema != nullptr, "cEj schema exists");
     if (deprecatedBattleJoinSchema != nullptr) {

@@ -5262,6 +5262,17 @@
       "rawFormat": "{albumid}",
       "formatEmpty": false,
       "source": "xlsx",
+      "resolvedFormat": "{albumid:i62}",
+      "resolvedSource": "xlsx+ServerC",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "albumid",
+          "typeToken": "i62",
+          "rawSpec": "{albumid:i62}",
+          "source": "xlsx+ServerC"
+        }
+      ],
       "fields": [
         {
           "index": 0,

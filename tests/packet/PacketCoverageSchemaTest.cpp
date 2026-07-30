@@ -5901,6 +5901,129 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "klF"),
         "klF absent from receive typed manifest");
 
+    const PacketSchema* techUseRequestSchema = FindPacket(packets, "sM");
+    failures += Expect(techUseRequestSchema != nullptr, "sM schema exists");
+    if (techUseRequestSchema != nullptr) {
+        constexpr std::array<std::string_view, 4U> rawFieldNames = {{
+            "skill",
+            "tech",
+            "to",
+            "receipe",
+        }};
+        constexpr std::array<std::string_view, 4U> rawFieldSpecs = {{
+            "{skill}",
+            "{tech}",
+            "{to}",
+            "{receipe}",
+        }};
+        constexpr std::array<std::string_view, 4U> resolvedFieldNames = {{
+            "haveSkillIndex",
+            "haveTechIndex",
+            "toIndex",
+            "data",
+        }};
+        constexpr std::array<std::string_view, 4U> resolvedFieldTypes = {{
+            "i62",
+            "i62",
+            "i62",
+            "es",
+        }};
+        constexpr std::array<std::string_view, 4U> resolvedFieldSpecs = {{
+            "{haveSkillIndex:i62}",
+            "{haveTechIndex:i62}",
+            "{toIndex:i62}",
+            "{data:es}",
+        }};
+
+        failures += Expect(
+            techUseRequestSchema->direction == "客户端->服务端",
+            "sM direction");
+        failures += Expect(
+            techUseRequestSchema->legacyKind == "RECV",
+            "sM legacyKind");
+        failures += Expect(
+            techUseRequestSchema->clientNamespace == "send",
+            "sM namespace");
+        failures += Expect(
+            techUseRequestSchema->xlsxStatus == "完成",
+            "sM xlsxStatus");
+        failures += Expect(
+            techUseRequestSchema->rawFormat ==
+                "{skill} {tech} {to} {receipe}",
+            "sM rawFormat");
+        failures += Expect(
+            !techUseRequestSchema->formatEmpty,
+            "sM formatEmpty false");
+        failures += Expect(
+            techUseRequestSchema->source == "xlsx",
+            "sM raw source");
+        failures += Expect(
+            techUseRequestSchema->fields.size() == rawFieldNames.size(),
+            "sM raw field count");
+        if (techUseRequestSchema->fields.size() ==
+            rawFieldNames.size()) {
+            for (std::size_t index = 0U;
+                 index < rawFieldNames.size();
+                 ++index) {
+                const FieldSchema& field =
+                    techUseRequestSchema->fields[index];
+                failures += Expect(
+                    field.index == static_cast<int>(index) &&
+                        field.name == rawFieldNames[index] &&
+                        field.typeToken == "unknown" &&
+                        field.rawSpec == rawFieldSpecs[index] &&
+                        field.source == "xlsx",
+                    "sM raw field");
+            }
+        }
+
+        failures += Expect(
+            techUseRequestSchema->hasResolvedFormat,
+            "sM resolvedFormat present");
+        failures += Expect(
+            techUseRequestSchema->resolvedFormat ==
+                "{haveSkillIndex:i62} {haveTechIndex:i62} "
+                "{toIndex:i62} {data:es}",
+            "sM resolvedFormat");
+        failures += Expect(
+            techUseRequestSchema->resolvedSource ==
+                "xlsx+ServerC+ClientIda",
+            "sM resolvedSource");
+        failures += Expect(
+            techUseRequestSchema->hasResolvedFields,
+            "sM resolvedFields present");
+        failures += Expect(
+            techUseRequestSchema->resolvedFields.size() ==
+                resolvedFieldNames.size(),
+            "sM resolved field count");
+        if (techUseRequestSchema->resolvedFields.size() ==
+            resolvedFieldNames.size()) {
+            for (std::size_t index = 0U;
+                 index < resolvedFieldNames.size();
+                 ++index) {
+                const FieldSchema& field =
+                    techUseRequestSchema->resolvedFields[index];
+                failures += Expect(
+                    field.index == static_cast<int>(index) &&
+                        field.name == resolvedFieldNames[index] &&
+                        field.typeToken == resolvedFieldTypes[index] &&
+                        field.rawSpec == resolvedFieldSpecs[index] &&
+                        field.source == "xlsx+ServerC+ClientIda",
+                    "sM resolved field");
+            }
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "sM"),
+        "sM absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "sM"),
+        "sM absent from receive typed manifest");
+
     const PacketSchema* deprecatedBattleJoinSchema = FindPacket(packets, "cEj");
     failures += Expect(deprecatedBattleJoinSchema != nullptr, "cEj schema exists");
     if (deprecatedBattleJoinSchema != nullptr) {

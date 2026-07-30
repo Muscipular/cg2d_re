@@ -3644,6 +3644,74 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         !TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "LaR"),
         "LaR absent from receive typed manifest");
 
+    const PacketSchema* addressBookDeleteSchema = FindPacket(packets, "FPkR");
+    failures += Expect(addressBookDeleteSchema != nullptr, "FPkR schema exists");
+    if (addressBookDeleteSchema != nullptr) {
+        failures += Expect(
+            addressBookDeleteSchema->direction == "客户端->服务端",
+            "FPkR direction");
+        failures += Expect(
+            addressBookDeleteSchema->legacyKind == "RECV",
+            "FPkR legacyKind");
+        failures += Expect(
+            addressBookDeleteSchema->clientNamespace == "send",
+            "FPkR namespace");
+        failures += Expect(
+            addressBookDeleteSchema->rawFormat == "{index}",
+            "FPkR rawFormat");
+        failures += Expect(
+            !addressBookDeleteSchema->formatEmpty,
+            "FPkR formatEmpty false");
+        failures += Expect(
+            addressBookDeleteSchema->source == "xlsx",
+            "FPkR raw source");
+        failures += Expect(
+            addressBookDeleteSchema->fields.size() == 1U,
+            "FPkR raw field count");
+        if (addressBookDeleteSchema->fields.size() == 1U) {
+            const FieldSchema& field = addressBookDeleteSchema->fields[0];
+            failures += Expect(
+                field.index == 0 &&
+                    field.name == "index" &&
+                    field.typeToken == "unknown" &&
+                    field.rawSpec == "{index}" &&
+                    field.source == "xlsx",
+                "FPkR raw field");
+        }
+
+        failures += Expect(
+            addressBookDeleteSchema->hasResolvedFormat,
+            "FPkR resolvedFormat present");
+        failures += Expect(
+            addressBookDeleteSchema->resolvedFormat == "{index:i62}",
+            "FPkR resolvedFormat");
+        failures += Expect(
+            addressBookDeleteSchema->resolvedSource == "xlsx+ServerC+ClientIda",
+            "FPkR resolvedSource");
+        failures += Expect(
+            addressBookDeleteSchema->hasResolvedFields,
+            "FPkR resolvedFields present");
+        failures += Expect(
+            addressBookDeleteSchema->resolvedFields.size() == 1U,
+            "FPkR resolved field count");
+        if (addressBookDeleteSchema->resolvedFields.size() == 1U) {
+            const FieldSchema& field = addressBookDeleteSchema->resolvedFields[0];
+            failures += Expect(
+                field.index == 0 &&
+                    field.name == "index" &&
+                    field.typeToken == "i62" &&
+                    field.rawSpec == "{index:i62}" &&
+                    field.source == "xlsx+ServerC+ClientIda",
+                "FPkR resolved field");
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "FPkR"),
+        "FPkR absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "FPkR"),
+        "FPkR absent from receive typed manifest");
+
     const PacketSchema* deprecatedBattleJoinSchema = FindPacket(packets, "cEj");
     failures += Expect(deprecatedBattleJoinSchema != nullptr, "cEj schema exists");
     if (deprecatedBattleJoinSchema != nullptr) {

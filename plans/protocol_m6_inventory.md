@@ -342,7 +342,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 132 | `fIM` | 客户端->服务端 | 完成 | RECV_PI PickUpItem 捡起物品；保留 xlsx raw `{x} {y} {dir}` 与三个 unknown fields 原貌，resolved 严格三字段 `{x:i62} {y:i62} {dir:i62}`；`send::PickUpItem` 保留任意 signed int，不增加地图、距离或方向 0..7 业务约束，ToPacket/Encode canonical 仅用普通空格；dispatcher 固定 token1/2/3→x/y/dir，handler 依次处理位置同步、战斗态拒绝、方向不同时转向，方向一致才拾取；cg2d sender `sub_510B80` 按 x/y/dir 顺序编码三 i62，caller 为 `World::CharaMove`；legacy sender 会随机把 x/y 或 y/dir 间空格替换为 `0x17`，Server splitter 使受影响前字段解为 0，而 cg3a strict DecodeInt62 分别在前字段 x/y 返回 DecodeFailed；generic fixture 禁止 `0x17`，两个变体仅由专属测试记录，不修改公共 parser；无二级 payload；NoStructuredPayload；fixture `distinct-i62-order` | 否 | 否 | xlsx+ServerC+ClientIda+src/packet |
 | 133 | `QpfE` | 客户端->服务端 | 完成 | RECV_DI DropItem 丢物品 | 否 | 否 | xlsx |
 | 134 | `woz` | 客户端->服务端 | 完成 | RECV_DG DropGold 丢金币；外层 `{x:i62} {y:i62} {amount:i62}`；无二级 payload | 否 | 否 | xlsx + src/packet |
-| 135 | `FvWm` | 客户端->服务端 | 完成 | RECV_DP DropPet 丢宠物 | 否 | 否 | xlsx |
+| 135 | `FvWm` | 客户端->服务端 | 完成 | RECV_DP DropPet 丢宠物；保留 xlsx raw `{x} {y} {petindex}` 与三个 unknown fields 原貌，resolved 严格 `{x:i62} {y:i62} {petindex:i62}`；VERSION_TW→PACKETVER 2 active dispatcher 固定 token1/2/3→x/y/petindex signed i62，handler 先同步位置，战斗中拒绝，非战斗调用 `PET_dropPet`；Server 仅接受持有宠物槽 0..4 且槽内必须有宠物，x/y 地图/会话合法性及其他宠物、地图、Lua 条件均为运行时业务规则，不收窄 wire signed i62；cg2d sender `sub_510E30` 与四个 caller 均按当前 x/y/selected pet index 顺序发送；无二级 payload；当前无 typed/fixture | 否 | 否 | xlsx+ServerC+ClientIda |
 | 136 | `yi` | 客户端->服务端 | 完成 | RECV_MI MoveItem 移动物品 | 否 | 否 | xlsx |
 | 137 | `fS` | 客户端->服务端 | 完成 | RECV_IR RequestItemRecipe 获取配方 | 否 | 否 | xlsx |
 | 138 | `CV` | 客户端->服务端 | 完成 | RECV_MSG 发送邮件信息 触发SEND_MSG | 否 | 是 | xlsx |

@@ -3109,6 +3109,93 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "fIM resolved/Spec field order");
     }
 
+    const PacketSchema* petDropSchema = FindPacket(packets, "FvWm");
+    failures += Expect(petDropSchema != nullptr, "FvWm schema exists");
+    if (petDropSchema != nullptr) {
+        failures += Expect(
+            petDropSchema->direction == "客户端->服务端",
+            "FvWm direction");
+        failures += Expect(petDropSchema->legacyKind == "RECV", "FvWm legacyKind");
+        failures += Expect(
+            petDropSchema->rawFormat == "{x} {y} {petindex}",
+            "FvWm rawFormat");
+        failures += Expect(!petDropSchema->formatEmpty, "FvWm formatEmpty false");
+        failures += Expect(petDropSchema->source == "xlsx", "FvWm raw source");
+        failures += Expect(petDropSchema->fields.size() == 3U, "FvWm raw field count");
+        if (petDropSchema->fields.size() == 3U) {
+            constexpr std::array<std::string_view, 3U> names = {{"x", "y", "petindex"}};
+            constexpr std::array<std::string_view, 3U> specs = {{
+                "{x}",
+                "{y}",
+                "{petindex}",
+            }};
+            for (std::size_t index = 0U; index < names.size(); ++index) {
+                const FieldSchema& field = petDropSchema->fields[index];
+                failures += Expect(
+                    field.index == index &&
+                        field.name == names[index] &&
+                        field.typeToken == "unknown" &&
+                        field.rawSpec == specs[index] &&
+                        field.source == "xlsx",
+                    "FvWm raw field");
+            }
+        }
+
+        failures += Expect(
+            petDropSchema->hasResolvedFormat,
+            "FvWm resolvedFormat present");
+        failures += Expect(
+            petDropSchema->resolvedFormat == "{x:i62} {y:i62} {petindex:i62}",
+            "FvWm resolvedFormat");
+        failures += Expect(
+            petDropSchema->resolvedSource == "xlsx+ServerC+ClientIda",
+            "FvWm resolvedSource");
+        failures += Expect(
+            petDropSchema->hasResolvedFields,
+            "FvWm resolvedFields present");
+        failures += Expect(
+            petDropSchema->resolvedFields.size() == 3U,
+            "FvWm resolved field count");
+        if (petDropSchema->resolvedFields.size() == 3U) {
+            constexpr std::array<std::string_view, 3U> names = {{"x", "y", "petindex"}};
+            constexpr std::array<std::string_view, 3U> specs = {{
+                "{x:i62}",
+                "{y:i62}",
+                "{petindex:i62}",
+            }};
+            for (std::size_t index = 0U; index < names.size(); ++index) {
+                const FieldSchema& field = petDropSchema->resolvedFields[index];
+                failures += Expect(
+                    field.index == index &&
+                        field.name == names[index] &&
+                        field.typeToken == "i62" &&
+                        field.rawSpec == specs[index] &&
+                        field.source == "xlsx+ServerC+ClientIda",
+                    "FvWm resolved field");
+            }
+        }
+
+        bool inSendManifest = false;
+        for (const cg::packet::test::TypedPacketManifestEntry& entry :
+             cg::packet::test::SendTypedPackets) {
+            if (entry.spec != nullptr && entry.spec->code == "FvWm") {
+                inSendManifest = true;
+                break;
+            }
+        }
+        failures += Expect(!inSendManifest, "FvWm absent from send typed manifest");
+
+        bool inReceiveManifest = false;
+        for (const cg::packet::test::TypedPacketManifestEntry& entry :
+             cg::packet::test::ReceiveTypedPackets) {
+            if (entry.spec != nullptr && entry.spec->code == "FvWm") {
+                inReceiveManifest = true;
+                break;
+            }
+        }
+        failures += Expect(!inReceiveManifest, "FvWm absent from receive typed manifest");
+    }
+
     const PacketSchema* deprecatedBattleJoinSchema = FindPacket(packets, "cEj");
     failures += Expect(deprecatedBattleJoinSchema != nullptr, "cEj schema exists");
     if (deprecatedBattleJoinSchema != nullptr) {

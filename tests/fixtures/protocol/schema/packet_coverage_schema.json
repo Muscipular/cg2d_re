@@ -4970,6 +4970,31 @@
       "rawFormat": "{x} {y} {petindex}",
       "formatEmpty": false,
       "source": "xlsx",
+      "resolvedFormat": "{x:i62} {y:i62} {petindex:i62}",
+      "resolvedSource": "xlsx+ServerC+ClientIda",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "x",
+          "typeToken": "i62",
+          "rawSpec": "{x:i62}",
+          "source": "xlsx+ServerC+ClientIda"
+        },
+        {
+          "index": 1,
+          "name": "y",
+          "typeToken": "i62",
+          "rawSpec": "{y:i62}",
+          "source": "xlsx+ServerC+ClientIda"
+        },
+        {
+          "index": 2,
+          "name": "petindex",
+          "typeToken": "i62",
+          "rawSpec": "{petindex:i62}",
+          "source": "xlsx+ServerC+ClientIda"
+        }
+      ],
       "fields": [
         {
           "index": 0,

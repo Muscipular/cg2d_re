@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=LaR
+direction=client_to_server
+sample=album-id-ten
+plain_hex=4C 61 52 20 61
+canonical_hex=4C 61 52 20 61 20
+end_sample

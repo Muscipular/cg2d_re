@@ -2635,6 +2635,49 @@ namespace cg::packet::send
     };
 
     /**
+     * RECV_ALN 请求图鉴名字 LaR {albumid:i62}
+     * 图鉴编号范围、解锁状态与模板存在性均为 Server handler 业务规则；
+     * 基础 packet 层保留完整 signed int，不实现 legacy 宽松 arity。
+     */
+    struct AlbumNameRequest
+    {
+        static constexpr std::string_view Code = "LaR";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("albumid"), PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        int albumId = 0;
+
+        explicit AlbumNameRequest(int albumId)
+            : albumId(albumId)
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("albumid"),
+                PacketFieldType::Int62,
+                std::to_string(albumId),
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket(), Spec);
+        }
+    };
+
+    /**
      * RECV_GD 解散家族 nkda {guildId:i62}
      * guildId 保留完整 signed int；权限与当前家族匹配由服务端校验。
      */

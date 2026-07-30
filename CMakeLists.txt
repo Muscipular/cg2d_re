@@ -1404,6 +1404,17 @@ target_include_directories(cg-packet-item-recipe-request-test
 
 add_test(NAME cg-packet-item-recipe-request-test COMMAND cg-packet-item-recipe-request-test)
 
+add_executable(cg-packet-album-name-request-test
+    tests/packet/AlbumNameRequestPacketTest.cpp
+)
+
+target_include_directories(cg-packet-album-name-request-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+
+add_test(NAME cg-packet-album-name-request-test COMMAND cg-packet-album-name-request-test)
+
 add_executable(cg-packet-guild-info-change-test
     tests/packet/GuildInfoChangePacketTest.cpp
 )
@@ -2305,6 +2316,7 @@ if(MSVC)
     target_compile_options(cg-packet-drop-pet-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-item-move-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-item-recipe-request-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-album-name-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-guild-info-change-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-guild-title-set-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-guild-mail-send-test PRIVATE /W4 /utf-8 /permissive-)
@@ -2471,6 +2483,7 @@ else()
     target_compile_options(cg-packet-drop-pet-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-item-move-request-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-item-recipe-request-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-packet-album-name-request-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-guild-info-change-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-guild-title-set-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-guild-mail-send-test PRIVATE -Wall -Wextra -Wpedantic)

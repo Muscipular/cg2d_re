@@ -5263,14 +5263,14 @@
       "formatEmpty": false,
       "source": "xlsx",
       "resolvedFormat": "{albumid:i62}",
-      "resolvedSource": "xlsx+ServerC",
+      "resolvedSource": "xlsx+ServerC+src/packet",
       "resolvedFields": [
         {
           "index": 0,
           "name": "albumid",
           "typeToken": "i62",
           "rawSpec": "{albumid:i62}",
-          "source": "xlsx+ServerC"
+          "source": "xlsx+ServerC+src/packet"
         }
       ],
       "fields": [

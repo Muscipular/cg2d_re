@@ -1124,11 +1124,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 53U, "send typed manifest count 53");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 54U, "send typed manifest count 54");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 84U, "receive typed manifest count 84");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 137U,
-        "typed manifest count 137");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 138U,
+        "typed manifest count 138");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1145,7 +1145,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 137U, "typed manifest unique code count 137");
+    failures += Expect(codes.size() == 138U, "typed manifest unique code count 138");
     return failures;
 }
 
@@ -3563,6 +3563,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     const PacketSchema* albumNameRequestSchema = FindPacket(packets, "LaR");
     failures += Expect(albumNameRequestSchema != nullptr, "LaR schema exists");
     if (albumNameRequestSchema != nullptr) {
+        const cg::packet::send::AlbumNameRequest request(10);
+        const cg::packet::Packet packet = request.ToPacket();
         failures += Expect(
             albumNameRequestSchema->direction == "客户端->服务端",
             "LaR direction");
@@ -3602,7 +3604,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             albumNameRequestSchema->resolvedFormat == "{albumid:i62}",
             "LaR resolvedFormat");
         failures += Expect(
-            albumNameRequestSchema->resolvedSource == "xlsx+ServerC",
+            albumNameRequestSchema->resolvedSource == "xlsx+ServerC+src/packet",
             "LaR resolvedSource");
         failures += Expect(
             albumNameRequestSchema->resolvedSource.find("ClientIda") ==
@@ -3621,14 +3623,23 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                     field.name == "albumid" &&
                     field.typeToken == "i62" &&
                     field.rawSpec == "{albumid:i62}" &&
-                    field.source == "xlsx+ServerC" &&
+                    field.source == "xlsx+ServerC+src/packet" &&
                     field.source.find("ClientIda") == std::string::npos,
                 "LaR resolved field");
         }
+
+        failures += ExpectEffectiveFieldsMatch(
+            *albumNameRequestSchema,
+            cg::packet::send::AlbumNameRequest::Spec,
+            "LaR Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *albumNameRequestSchema,
+            packet,
+            "LaR resolved field order");
     }
     failures += Expect(
-        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "LaR"),
-        "LaR absent from send typed manifest");
+        TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "LaR"),
+        "LaR present in send typed manifest");
     failures += Expect(
         !TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "LaR"),
         "LaR absent from receive typed manifest");

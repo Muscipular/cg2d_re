@@ -1213,11 +1213,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 69U, "send typed manifest count 69");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 70U, "send typed manifest count 70");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 84U, "receive typed manifest count 84");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 153U,
-        "typed manifest count 153");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 154U,
+        "typed manifest count 154");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1234,7 +1234,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 153U, "typed manifest unique code count 153");
+    failures += Expect(codes.size() == 154U, "typed manifest unique code count 154");
     return failures;
 }
 
@@ -5313,7 +5313,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "iET resolvedFormat");
         failures += Expect(
             skillFrontCharListRequestSchema->resolvedSource ==
-                "xlsx+ServerC+ClientIda",
+                "xlsx+ServerC+ClientIda+src/packet",
             "iET resolvedSource");
         failures += Expect(
             skillFrontCharListRequestSchema->hasResolvedFields,
@@ -5329,15 +5329,26 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                     field.name == "haveskillindex" &&
                     field.typeToken == "i62" &&
                     field.rawSpec == "{haveskillindex:i62}" &&
-                    field.source == "xlsx+ServerC+ClientIda",
+                    field.source == "xlsx+ServerC+ClientIda+src/packet",
                 "iET resolved field");
         }
+
+        const cg::packet::send::SkillFrontCharListRequest request(10);
+        const cg::packet::Packet packet = request.ToPacket();
+        failures += ExpectEffectiveFieldsMatch(
+            *skillFrontCharListRequestSchema,
+            cg::packet::send::SkillFrontCharListRequest::Spec,
+            "iET Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *skillFrontCharListRequestSchema,
+            packet,
+            "iET resolved field order");
     }
     failures += Expect(
-        !TypedManifestContainsCode(
+        TypedManifestContainsCode(
             cg::packet::test::SendTypedPackets,
             "iET"),
-        "iET absent from send typed manifest");
+        "iET present in send typed manifest");
     failures += Expect(
         !TypedManifestContainsCode(
             cg::packet::test::ReceiveTypedPackets,

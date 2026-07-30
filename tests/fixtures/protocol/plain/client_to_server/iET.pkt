@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=iET
+direction=client_to_server
+sample=skill-index-ten
+plain_hex=69 45 54 20 61
+canonical_hex=69 45 54 20 61 20
+end_sample

@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=Ufm
+direction=client_to_server
+sample=gbk-preescaped-guild-name
+plain_hex=55 66 6D 20 32 20 BC D2 D7 E5 5C 5C 7A 41
+canonical_hex=55 66 6D 20 32 20 BC D2 D7 E5 5C 5C 7A 41 20
+end_sample

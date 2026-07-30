@@ -4797,28 +4797,78 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         const cg::packet::Packet packet = guildInfoChange.ToPacket();
         failures += Expect(guildInfoChangeSchema->direction == "客户端->服务端", "Ufm direction");
         failures += Expect(guildInfoChangeSchema->legacyKind == "RECV", "Ufm legacyKind");
+        failures += Expect(guildInfoChangeSchema->clientNamespace == "send", "Ufm namespace");
+        failures += Expect(guildInfoChangeSchema->xlsxStatus == "进行中", "Ufm xlsxStatus");
         failures += Expect(guildInfoChangeSchema->rawFormat == "{c} {data:es}", "Ufm rawFormat");
+        failures += Expect(!guildInfoChangeSchema->formatEmpty, "Ufm formatEmpty false");
+        failures += Expect(guildInfoChangeSchema->source == "xlsx", "Ufm raw source");
+        failures += Expect(guildInfoChangeSchema->fields.size() == 2U, "Ufm raw field count");
+        if (guildInfoChangeSchema->fields.size() == 2U) {
+            constexpr std::array<std::string_view, 2U> names = {{"c", "data"}};
+            constexpr std::array<std::string_view, 2U> types = {{"unknown", "es"}};
+            constexpr std::array<std::string_view, 2U> specs = {{"{c}", "{data:es}"}};
+            for (std::size_t index = 0U; index < names.size(); ++index) {
+                const FieldSchema& field = guildInfoChangeSchema->fields[index];
+                failures += Expect(
+                    field.index == index &&
+                        field.name == names[index] &&
+                        field.typeToken == types[index] &&
+                        field.rawSpec == specs[index] &&
+                        field.source == "xlsx",
+                    "Ufm raw field");
+            }
+        }
+
+        failures += Expect(
+            guildInfoChangeSchema->hasResolvedFormat,
+            "Ufm resolvedFormat present");
         failures += Expect(
             guildInfoChangeSchema->resolvedFormat == "{c:i62} {data:es}",
             "Ufm resolvedFormat");
-        failures += Expect(guildInfoChangeSchema->resolvedSource == "xlsx+src/packet", "Ufm resolvedSource");
-        failures += Expect(guildInfoChangeSchema->fields.size() == 2U, "Ufm raw field count");
-        if (guildInfoChangeSchema->fields.size() == 2U) {
-            failures += Expect(guildInfoChangeSchema->fields[0].name == "c", "Ufm raw field c");
-            failures += Expect(guildInfoChangeSchema->fields[1].name == "data", "Ufm raw field data");
-            failures += Expect(guildInfoChangeSchema->fields[0].typeToken == "unknown", "Ufm raw c type");
-            failures += Expect(guildInfoChangeSchema->fields[1].typeToken == "es", "Ufm raw data type");
+        failures += Expect(
+            guildInfoChangeSchema->resolvedSource ==
+                "xlsx+ServerC+ClientIda+src/packet",
+            "Ufm resolvedSource");
+        failures += Expect(
+            guildInfoChangeSchema->hasResolvedFields,
+            "Ufm resolvedFields present");
+        failures += Expect(
+            guildInfoChangeSchema->resolvedFields.size() == 2U,
+            "Ufm resolved field count");
+        if (guildInfoChangeSchema->resolvedFields.size() == 2U) {
+            constexpr std::array<std::string_view, 2U> names = {{"c", "data"}};
+            constexpr std::array<std::string_view, 2U> types = {{"i62", "es"}};
+            constexpr std::array<std::string_view, 2U> specs = {{
+                "{c:i62}",
+                "{data:es}",
+            }};
+            for (std::size_t index = 0U; index < names.size(); ++index) {
+                const FieldSchema& field = guildInfoChangeSchema->resolvedFields[index];
+                failures += Expect(
+                    field.index == index &&
+                        field.name == names[index] &&
+                        field.typeToken == types[index] &&
+                        field.rawSpec == specs[index] &&
+                        field.source == "xlsx+ServerC+ClientIda+src/packet",
+                    "Ufm resolved field");
+            }
         }
-        failures += Expect(packet.fields.size() == 2U, "Ufm packet field count");
-        if (packet.fields.size() == 2U) {
-            failures += Expect(packet.fields[0].name == "c", "Ufm packet c field");
-            failures += Expect(packet.fields[0].type == cg::packet::PacketFieldType::Int62, "Ufm packet c type");
-            failures += Expect(packet.fields[1].name == "data", "Ufm packet data field");
-            failures += Expect(
-                packet.fields[1].type == cg::packet::PacketFieldType::EscapedString,
-                "Ufm packet data type");
-        }
+
+        failures += ExpectEffectiveFieldsMatch(
+            *guildInfoChangeSchema,
+            cg::packet::send::GuildInfoChange::Spec,
+            "Ufm Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *guildInfoChangeSchema,
+            packet,
+            "Ufm resolved field order");
     }
+    failures += Expect(
+        TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "Ufm"),
+        "Ufm present in send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "Ufm"),
+        "Ufm absent from receive typed manifest");
 
     const PacketSchema* guildTitleSetSchema = FindPacket(packets, "GY");
     failures += Expect(guildTitleSetSchema != nullptr, "GY schema exists");

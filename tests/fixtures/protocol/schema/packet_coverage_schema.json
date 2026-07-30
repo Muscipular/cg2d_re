@@ -5474,11 +5474,27 @@
       "direction": "客户端->服务端",
       "legacyKind": "RECV",
       "clientNamespace": "send",
-      "xlsxStatus": "完成",
+      "xlsxStatus": "进行中",
       "description": "RECV_GI 变更家族信息",
       "rawFormat": "{c} {data:es}",
       "resolvedFormat": "{c:i62} {data:es}",
-      "resolvedSource": "xlsx+src/packet",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "c",
+          "typeToken": "i62",
+          "rawSpec": "{c:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 1,
+          "name": "data",
+          "typeToken": "es",
+          "rawSpec": "{data:es}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        }
+      ],
       "formatEmpty": false,
       "source": "xlsx",
       "fields": [

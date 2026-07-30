@@ -2820,6 +2820,8 @@ namespace cg::packet::send
 
     /**
      * RECV_GI 变更家族信息 Ufm {c:i62} {data:es}
+     * data 是调用方先完成 legacy n/c/z/y 内容预转义、再由 packet 层按普通 outer es 编码的标量，
+     * 不是 SubPayload；packet 层不执行内容预转换，也不增加 c 枚举、范围或 handler 业务约束。
      */
     struct GuildInfoChange
     {

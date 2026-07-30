@@ -4551,6 +4551,81 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         !TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "XIsR"),
         "XIsR absent from receive typed manifest");
 
+    const PacketSchema* guildMemberRemoveRequestSchema = FindPacket(packets, "dbQC");
+    failures += Expect(
+        guildMemberRemoveRequestSchema != nullptr,
+        "dbQC schema exists");
+    if (guildMemberRemoveRequestSchema != nullptr) {
+        failures += Expect(
+            guildMemberRemoveRequestSchema->direction == "客户端->服务端",
+            "dbQC direction");
+        failures += Expect(
+            guildMemberRemoveRequestSchema->legacyKind == "RECV",
+            "dbQC legacyKind");
+        failures += Expect(
+            guildMemberRemoveRequestSchema->clientNamespace == "send",
+            "dbQC namespace");
+        failures += Expect(
+            guildMemberRemoveRequestSchema->xlsxStatus == "进行中",
+            "dbQC xlsxStatus");
+        failures += Expect(
+            guildMemberRemoveRequestSchema->rawFormat == "{index}",
+            "dbQC rawFormat");
+        failures += Expect(
+            !guildMemberRemoveRequestSchema->formatEmpty,
+            "dbQC formatEmpty false");
+        failures += Expect(
+            guildMemberRemoveRequestSchema->source == "xlsx",
+            "dbQC raw source");
+        failures += Expect(
+            guildMemberRemoveRequestSchema->fields.size() == 1U,
+            "dbQC raw field count");
+        if (guildMemberRemoveRequestSchema->fields.size() == 1U) {
+            const FieldSchema& field = guildMemberRemoveRequestSchema->fields[0];
+            failures += Expect(
+                field.index == 0 &&
+                    field.name == "index" &&
+                    field.typeToken == "unknown" &&
+                    field.rawSpec == "{index}" &&
+                    field.source == "xlsx",
+                "dbQC raw field");
+        }
+
+        failures += Expect(
+            guildMemberRemoveRequestSchema->hasResolvedFormat,
+            "dbQC resolvedFormat present");
+        failures += Expect(
+            guildMemberRemoveRequestSchema->resolvedFormat == "{index:i62}",
+            "dbQC resolvedFormat");
+        failures += Expect(
+            guildMemberRemoveRequestSchema->resolvedSource ==
+                "xlsx+ServerC+ClientIda",
+            "dbQC resolvedSource");
+        failures += Expect(
+            guildMemberRemoveRequestSchema->hasResolvedFields,
+            "dbQC resolvedFields present");
+        failures += Expect(
+            guildMemberRemoveRequestSchema->resolvedFields.size() == 1U,
+            "dbQC resolved field count");
+        if (guildMemberRemoveRequestSchema->resolvedFields.size() == 1U) {
+            const FieldSchema& field =
+                guildMemberRemoveRequestSchema->resolvedFields[0];
+            failures += Expect(
+                field.index == 0 &&
+                    field.name == "index" &&
+                    field.typeToken == "i62" &&
+                    field.rawSpec == "{index:i62}" &&
+                    field.source == "xlsx+ServerC+ClientIda",
+                "dbQC resolved field");
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "dbQC"),
+        "dbQC absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "dbQC"),
+        "dbQC absent from receive typed manifest");
+
     const PacketSchema* deprecatedBattleJoinSchema = FindPacket(packets, "cEj");
     failures += Expect(deprecatedBattleJoinSchema != nullptr, "cEj schema exists");
     if (deprecatedBattleJoinSchema != nullptr) {

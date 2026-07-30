@@ -5754,6 +5754,17 @@
       "rawFormat": "{index}",
       "formatEmpty": false,
       "source": "xlsx",
+      "resolvedFormat": "{index:i62}",
+      "resolvedSource": "xlsx+ServerC+ClientIda",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "index",
+          "typeToken": "i62",
+          "rawSpec": "{index:i62}",
+          "source": "xlsx+ServerC+ClientIda"
+        }
+      ],
       "fields": [
         {
           "index": 0,

@@ -4888,25 +4888,106 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     const PacketSchema* petMailSendSchema = FindPacket(packets, "rMsv");
     failures += Expect(petMailSendSchema != nullptr, "rMsv schema exists");
     if (petMailSendSchema != nullptr) {
+        const cg::packet::send::PetMailSend request(1, 2, 3, "message", 0);
+        const cg::packet::Packet packet = request.ToPacket();
         failures += Expect(petMailSendSchema->direction == "客户端->服务端", "rMsv direction");
         failures += Expect(petMailSendSchema->legacyKind == "RECV", "rMsv legacyKind");
+        failures += Expect(petMailSendSchema->clientNamespace == "send", "rMsv namespace");
+        failures += Expect(
+            petMailSendSchema->rawFormat ==
+                "{index} {petindex} {itemindex} {message} {color}",
+            "rMsv rawFormat");
+        failures += Expect(!petMailSendSchema->formatEmpty, "rMsv formatEmpty false");
+        failures += Expect(petMailSendSchema->source == "xlsx", "rMsv raw source");
         failures += Expect(
             petMailSendSchema->resolvedFormat == "{index:i62} {petindex:i62} {itemindex:i62} {message:es} {color:i62}",
             "rMsv resolvedFormat");
         failures += Expect(
             petMailSendSchema->resolvedSource == "xlsx+ServerC+ClientIda+src/packet",
             "rMsv resolvedSource");
-        failures += Expect(petMailSendSchema->fields.size() == 5U, "rMsv field count");
+        failures += Expect(petMailSendSchema->fields.size() == 5U, "rMsv raw field count");
         if (petMailSendSchema->fields.size() == 5U) {
-            failures += Expect(petMailSendSchema->fields[0].name == "index", "rMsv index field");
-            failures += Expect(petMailSendSchema->fields[1].name == "petindex", "rMsv petindex field");
-            failures += Expect(petMailSendSchema->fields[2].name == "itemindex", "rMsv itemindex field");
-            failures += Expect(petMailSendSchema->fields[3].name == "message", "rMsv message field");
-            failures += Expect(petMailSendSchema->fields[4].name == "color", "rMsv color field");
-            failures += Expect(petMailSendSchema->fields[0].typeToken == "unknown", "rMsv raw type");
-            failures += Expect(petMailSendSchema->fields[3].rawSpec == "{message}", "rMsv message rawSpec");
+            constexpr std::array<std::string_view, 5U> names = {{
+                "index",
+                "petindex",
+                "itemindex",
+                "message",
+                "color",
+            }};
+            constexpr std::array<std::string_view, 5U> specs = {{
+                "{index}",
+                "{petindex}",
+                "{itemindex}",
+                "{message}",
+                "{color}",
+            }};
+            for (std::size_t index = 0U; index < names.size(); ++index) {
+                const FieldSchema& field = petMailSendSchema->fields[index];
+                failures += Expect(
+                    field.index == index &&
+                        field.name == names[index] &&
+                        field.typeToken == "unknown" &&
+                        field.rawSpec == specs[index] &&
+                        field.source == "xlsx",
+                    "rMsv raw field");
+            }
         }
+
+        failures += Expect(
+            petMailSendSchema->hasResolvedFields,
+            "rMsv resolvedFields present");
+        failures += Expect(
+            petMailSendSchema->resolvedFields.size() == 5U,
+            "rMsv resolved field count");
+        if (petMailSendSchema->resolvedFields.size() == 5U) {
+            constexpr std::array<std::string_view, 5U> names = {{
+                "index",
+                "petindex",
+                "itemindex",
+                "message",
+                "color",
+            }};
+            constexpr std::array<std::string_view, 5U> types = {{
+                "i62",
+                "i62",
+                "i62",
+                "es",
+                "i62",
+            }};
+            constexpr std::array<std::string_view, 5U> specs = {{
+                "{index:i62}",
+                "{petindex:i62}",
+                "{itemindex:i62}",
+                "{message:es}",
+                "{color:i62}",
+            }};
+            for (std::size_t index = 0U; index < names.size(); ++index) {
+                const FieldSchema& field = petMailSendSchema->resolvedFields[index];
+                failures += Expect(
+                    field.index == index &&
+                        field.name == names[index] &&
+                        field.typeToken == types[index] &&
+                        field.rawSpec == specs[index] &&
+                        field.source == "xlsx+ServerC+ClientIda+src/packet",
+                    "rMsv resolved field");
+            }
+        }
+
+        failures += ExpectEffectiveFieldsMatch(
+            *petMailSendSchema,
+            cg::packet::send::PetMailSend::Spec,
+            "rMsv Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *petMailSendSchema,
+            packet,
+            "rMsv resolved field order");
     }
+    failures += Expect(
+        TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "rMsv"),
+        "rMsv present in send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "rMsv"),
+        "rMsv absent from receive typed manifest");
 
     const PacketSchema* petMailRegisterSchema = FindPacket(packets, "PfqV");
     failures += Expect(petMailRegisterSchema != nullptr, "PfqV schema exists");

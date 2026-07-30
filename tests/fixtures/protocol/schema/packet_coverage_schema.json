@@ -5295,6 +5295,43 @@
       "source": "xlsx",
       "resolvedFormat": "{index:i62} {petindex:i62} {itemindex:i62} {message:es} {color:i62}",
       "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "index",
+          "typeToken": "i62",
+          "rawSpec": "{index:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 1,
+          "name": "petindex",
+          "typeToken": "i62",
+          "rawSpec": "{petindex:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 2,
+          "name": "itemindex",
+          "typeToken": "i62",
+          "rawSpec": "{itemindex:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 3,
+          "name": "message",
+          "typeToken": "es",
+          "rawSpec": "{message:es}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 4,
+          "name": "color",
+          "typeToken": "i62",
+          "rawSpec": "{color:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        }
+      ],
       "fields": [
         {
           "index": 0,

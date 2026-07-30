@@ -2274,6 +2274,8 @@ namespace cg::packet::send
 
     /**
      * RECV_PMSG 发送宠邮 rMsv {index:i62} {petindex:i62} {itemindex:i62} {message:es} {color:i62}
+     * message 是调用方已完成 legacy n/c/z/y 内容预转义后的普通外层 es 标量，
+     * 不是 SubPayload；packet 层不执行该内容预转换。
      */
     struct PetMailSend
     {

@@ -3132,6 +3132,121 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "Ak resolved field order");
     }
 
+    const PacketSchema* fieldRecoveryUseSchema = FindPacket(packets, "iVfo");
+    failures += Expect(fieldRecoveryUseSchema != nullptr, "iVfo schema exists");
+    if (fieldRecoveryUseSchema != nullptr) {
+        failures += Expect(
+            fieldRecoveryUseSchema->direction == "客户端->服务端",
+            "iVfo direction");
+        failures += Expect(
+            fieldRecoveryUseSchema->legacyKind == "RECV",
+            "iVfo legacyKind");
+        failures += Expect(
+            fieldRecoveryUseSchema->rawFormat ==
+                "{x} {y} {haveitemindex} {toindex}",
+            "iVfo rawFormat");
+        failures += Expect(
+            !fieldRecoveryUseSchema->formatEmpty,
+            "iVfo formatEmpty false");
+        failures += Expect(
+            fieldRecoveryUseSchema->source == "xlsx",
+            "iVfo raw source");
+        failures += Expect(
+            fieldRecoveryUseSchema->fields.size() == 4U,
+            "iVfo raw field count");
+        if (fieldRecoveryUseSchema->fields.size() == 4U) {
+            constexpr std::array<std::string_view, 4U> names = {{
+                "x",
+                "y",
+                "haveitemindex",
+                "toindex",
+            }};
+            constexpr std::array<std::string_view, 4U> specs = {{
+                "{x}",
+                "{y}",
+                "{haveitemindex}",
+                "{toindex}",
+            }};
+            for (std::size_t index = 0U; index < names.size(); ++index) {
+                const FieldSchema& field = fieldRecoveryUseSchema->fields[index];
+                failures += Expect(
+                    field.index == index &&
+                        field.name == names[index] &&
+                        field.typeToken == "unknown" &&
+                        field.rawSpec == specs[index] &&
+                        field.source == "xlsx",
+                    "iVfo raw field");
+            }
+        }
+
+        failures += Expect(
+            fieldRecoveryUseSchema->hasResolvedFormat,
+            "iVfo resolvedFormat present");
+        failures += Expect(
+            fieldRecoveryUseSchema->resolvedFormat ==
+                "{x:i62} {y:i62} {haveitemindex:i62} {toindex:i62}",
+            "iVfo resolvedFormat");
+        failures += Expect(
+            fieldRecoveryUseSchema->resolvedSource ==
+                "xlsx+ServerC+ClientIda",
+            "iVfo resolvedSource");
+        failures += Expect(
+            fieldRecoveryUseSchema->hasResolvedFields,
+            "iVfo resolvedFields present");
+        failures += Expect(
+            fieldRecoveryUseSchema->resolvedFields.size() == 4U,
+            "iVfo resolved field count");
+        if (fieldRecoveryUseSchema->resolvedFields.size() == 4U) {
+            constexpr std::array<std::string_view, 4U> names = {{
+                "x",
+                "y",
+                "haveitemindex",
+                "toindex",
+            }};
+            constexpr std::array<std::string_view, 4U> specs = {{
+                "{x:i62}",
+                "{y:i62}",
+                "{haveitemindex:i62}",
+                "{toindex:i62}",
+            }};
+            for (std::size_t index = 0U; index < names.size(); ++index) {
+                const FieldSchema& field =
+                    fieldRecoveryUseSchema->resolvedFields[index];
+                failures += Expect(
+                    field.index == index &&
+                        field.name == names[index] &&
+                        field.typeToken == "i62" &&
+                        field.rawSpec == specs[index] &&
+                        field.source == "xlsx+ServerC+ClientIda",
+                    "iVfo resolved field");
+            }
+        }
+
+        bool inSendManifest = false;
+        for (const cg::packet::test::TypedPacketManifestEntry& entry :
+             cg::packet::test::SendTypedPackets) {
+            if (entry.spec != nullptr && entry.spec->code == "iVfo") {
+                inSendManifest = true;
+                break;
+            }
+        }
+        failures += Expect(
+            !inSendManifest,
+            "iVfo absent from send typed manifest");
+
+        bool inReceiveManifest = false;
+        for (const cg::packet::test::TypedPacketManifestEntry& entry :
+             cg::packet::test::ReceiveTypedPackets) {
+            if (entry.spec != nullptr && entry.spec->code == "iVfo") {
+                inReceiveManifest = true;
+                break;
+            }
+        }
+        failures += Expect(
+            !inReceiveManifest,
+            "iVfo absent from receive typed manifest");
+    }
+
     const PacketSchema* itemPickupSchema = FindPacket(packets, "fIM");
     failures += Expect(itemPickupSchema != nullptr, "fIM schema exists");
     if (itemPickupSchema != nullptr) {

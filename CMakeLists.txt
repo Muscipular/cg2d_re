@@ -1698,6 +1698,20 @@ add_test(
     COMMAND cg-packet-item-stamp-request-test
 )
 
+add_executable(cg-packet-character-action-request-test
+    tests/packet/CharacterActionRequestPacketTest.cpp
+)
+
+target_include_directories(cg-packet-character-action-request-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+
+add_test(
+    NAME cg-packet-character-action-request-test
+    COMMAND cg-packet-character-action-request-test
+)
+
 add_executable(cg-packet-guild-mail-send-test
     tests/packet/GuildMailSendPacketTest.cpp
 )
@@ -2599,6 +2613,7 @@ if(MSVC)
     target_compile_options(cg-packet-skill-character-pet-list-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-item-character-pet-list-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-item-stamp-request-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-character-action-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-guild-mail-send-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-profile-mail-friend-delete-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-profile-mini-mail-send-test PRIVATE /W4 /utf-8 /permissive-)
@@ -2785,6 +2800,7 @@ else()
     target_compile_options(cg-packet-skill-character-pet-list-request-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-item-character-pet-list-request-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-item-stamp-request-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-packet-character-action-request-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-guild-mail-send-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-profile-mail-friend-delete-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-profile-mini-mail-send-test PRIVATE -Wall -Wextra -Wpedantic)

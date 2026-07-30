@@ -3750,6 +3750,65 @@ namespace cg::packet::send
     };
 
     /**
+     * RECV_AC 角色动作 MIS {x:i62} {y:i62} {action:i62}
+     * 基础 packet 层保留坐标与动作的任意 signed int，严格按 x、y、action
+     * exact3 编码，不下沉坐标、XYD 与动作范围业务规则，不兼容 legacy 宽松 arity 与 0x17 异常。
+     */
+    struct CharacterActionRequest
+    {
+        static constexpr std::string_view Code = "MIS";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 3U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("x"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("y"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("action"), PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        int x = 0;
+        int y = 0;
+        int action = 0;
+
+        CharacterActionRequest(int x, int y, int action)
+            : x(x)
+            , y(y)
+            , action(action)
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("x"),
+                PacketFieldType::Int62,
+                std::to_string(x),
+            });
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("y"),
+                PacketFieldType::Int62,
+                std::to_string(y),
+            });
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("action"),
+                PacketFieldType::Int62,
+                std::to_string(action),
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket(), Spec);
+        }
+    };
+
+    /**
      * RECV_GML 家族邮件 uId {toregistNumber:i62} {text:es} {color:i62}
      */
     struct GuildMailSend

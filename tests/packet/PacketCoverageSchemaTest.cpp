@@ -1213,11 +1213,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 73U, "send typed manifest count 73");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 74U, "send typed manifest count 74");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 84U, "receive typed manifest count 84");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 157U,
-        "typed manifest count 157");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 158U,
+        "typed manifest count 158");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1234,7 +1234,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 157U, "typed manifest unique code count 157");
+    failures += Expect(codes.size() == 158U, "typed manifest unique code count 158");
     return failures;
 }
 
@@ -5732,7 +5732,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "MIS resolvedFormat");
         failures += Expect(
             characterActionRequestSchema->resolvedSource ==
-                "xlsx+ServerC+ClientIda",
+                "xlsx+ServerC+ClientIda+src/packet",
             "MIS resolvedSource");
         failures += Expect(
             characterActionRequestSchema->hasResolvedFields,
@@ -5753,16 +5753,28 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                         field.name == fieldNames[index] &&
                         field.typeToken == "i62" &&
                         field.rawSpec == resolvedSpecs[index] &&
-                        field.source == "xlsx+ServerC+ClientIda",
+                        field.source ==
+                            "xlsx+ServerC+ClientIda+src/packet",
                     "MIS resolved field");
             }
         }
+
+        const cg::packet::send::CharacterActionRequest request(10, 11, 12);
+        const cg::packet::Packet packet = request.ToPacket();
+        failures += ExpectEffectiveFieldsMatch(
+            *characterActionRequestSchema,
+            cg::packet::send::CharacterActionRequest::Spec,
+            "MIS Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *characterActionRequestSchema,
+            packet,
+            "MIS resolved field order");
     }
     failures += Expect(
-        !TypedManifestContainsCode(
+        TypedManifestContainsCode(
             cg::packet::test::SendTypedPackets,
             "MIS"),
-        "MIS absent from send typed manifest");
+        "MIS present in send typed manifest");
     failures += Expect(
         !TypedManifestContainsCode(
             cg::packet::test::ReceiveTypedPackets,

@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=MIS
+direction=client_to_server
+sample=position-ten-eleven-action-twelve
+plain_hex=4D 49 53 20 61 20 62 20 63
+canonical_hex=4D 49 53 20 61 20 62 20 63 20
+end_sample

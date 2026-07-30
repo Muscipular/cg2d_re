@@ -6524,28 +6524,28 @@
       "formatEmpty": false,
       "source": "xlsx",
       "resolvedFormat": "{x:i62} {y:i62} {action:i62}",
-      "resolvedSource": "xlsx+ServerC+ClientIda",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
       "resolvedFields": [
         {
           "index": 0,
           "name": "x",
           "typeToken": "i62",
           "rawSpec": "{x:i62}",
-          "source": "xlsx+ServerC+ClientIda"
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         },
         {
           "index": 1,
           "name": "y",
           "typeToken": "i62",
           "rawSpec": "{y:i62}",
-          "source": "xlsx+ServerC+ClientIda"
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         },
         {
           "index": 2,
           "name": "action",
           "typeToken": "i62",
           "rawSpec": "{action:i62}",
-          "source": "xlsx+ServerC+ClientIda"
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         }
       ],
       "fields": [

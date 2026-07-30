@@ -336,6 +336,12 @@ struct FieldSchema
     std::string source;
 };
 
+struct RepeatedTailSchema
+{
+    int fieldIndex = -1;
+    int countFieldIndex = -1;
+};
+
 struct PacketSchema
 {
     std::string code;
@@ -355,6 +361,8 @@ struct PacketSchema
     std::vector<FieldSchema> fields;
     bool hasResolvedFields = false;
     std::vector<FieldSchema> resolvedFields;
+    bool hasRepeatedTail = false;
+    RepeatedTailSchema repeatedTail;
 };
 
 int Expect(bool condition, const char* message)
@@ -484,6 +492,17 @@ PacketSchema ReadPacketSchema(const JsonValue& object, int& failures)
             for (const JsonValue& field : resolvedFields->array) {
                 packet.resolvedFields.push_back(ReadFieldSchema(field, failures));
             }
+        }
+    }
+
+    const JsonValue* repeatedTail = object.Find("repeatedTail");
+    packet.hasRepeatedTail = repeatedTail != nullptr;
+    if (repeatedTail != nullptr) {
+        failures += Expect(repeatedTail->kind == JsonValue::Kind::Object, "repeatedTail object");
+        if (repeatedTail->kind == JsonValue::Kind::Object) {
+            packet.repeatedTail.fieldIndex = RequiredInt(*repeatedTail, "fieldIndex", failures);
+            packet.repeatedTail.countFieldIndex =
+                RequiredInt(*repeatedTail, "countFieldIndex", failures);
         }
     }
     return packet;
@@ -1036,6 +1055,7 @@ int TestCoverage(const std::vector<PacketSchema>& packets)
     int serverToClient = 0;
     int emptyOriginalFormat = 0;
     int normalizedEmptyFormat = 0;
+    int repeatedTailCount = 0;
 
     for (const PacketSchema& packet : packets) {
         failures += Expect(!packet.code.empty(), "code non-empty");
@@ -1075,6 +1095,24 @@ int TestCoverage(const std::vector<PacketSchema>& packets)
             failures += Expect(!packet.fields[index].rawSpec.empty(), "field rawSpec non-empty");
             failures += Expect(packet.fields[index].source == "xlsx", "field source xlsx");
         }
+
+        if (packet.hasRepeatedTail) {
+            ++repeatedTailCount;
+            failures += Expect(packet.hasResolvedFields, "repeatedTail resolvedFields present");
+            failures += Expect(
+                packet.repeatedTail.fieldIndex >= 0 &&
+                    packet.repeatedTail.fieldIndex <
+                        static_cast<int>(packet.resolvedFields.size()),
+                "repeatedTail fieldIndex in resolved fields");
+            failures += Expect(
+                packet.repeatedTail.countFieldIndex >= 0 &&
+                    packet.repeatedTail.countFieldIndex <
+                        static_cast<int>(packet.resolvedFields.size()),
+                "repeatedTail countFieldIndex in resolved fields");
+            failures += Expect(
+                packet.repeatedTail.fieldIndex != packet.repeatedTail.countFieldIndex,
+                "repeatedTail field and count distinct");
+        }
     }
 
     failures += Expect(codes.size() == 209U, "unique code count 209");
@@ -1082,6 +1120,7 @@ int TestCoverage(const std::vector<PacketSchema>& packets)
     failures += Expect(serverToClient == 109, "server->client count 109");
     failures += Expect(emptyOriginalFormat == 53, "empty original format count 53");
     failures += Expect(normalizedEmptyFormat == 16, "normalized empty format count 16");
+    failures += Expect(repeatedTailCount == 1, "repeatedTail schema count 1");
     failures += Expect(FindPacket(packets, "CCL") != nullptr, "CCL exists");
     failures += Expect(FindPacket(packets, "TgX") != nullptr, "TgX exists");
     failures += Expect(FindPacket(packets, "JFVf") != nullptr, "JFVf exists");
@@ -3717,6 +3756,102 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     failures += Expect(
         !TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "fS"),
         "fS absent from receive typed manifest");
+
+    const PacketSchema* albumInfoRequestSchema = FindPacket(packets, "kza");
+    failures += Expect(albumInfoRequestSchema != nullptr, "kza schema exists");
+    if (albumInfoRequestSchema != nullptr) {
+        failures += Expect(
+            albumInfoRequestSchema->direction == "客户端->服务端",
+            "kza direction");
+        failures += Expect(
+            albumInfoRequestSchema->legacyKind == "RECV",
+            "kza legacyKind");
+        failures += Expect(
+            albumInfoRequestSchema->clientNamespace == "send",
+            "kza namespace");
+        failures += Expect(
+            albumInfoRequestSchema->xlsxStatus == "完成",
+            "kza xlsxStatus");
+        failures += Expect(
+            albumInfoRequestSchema->rawFormat == "{albumid}",
+            "kza rawFormat");
+        failures += Expect(
+            !albumInfoRequestSchema->formatEmpty,
+            "kza formatEmpty false");
+        failures += Expect(
+            albumInfoRequestSchema->source == "xlsx",
+            "kza raw source");
+        failures += Expect(
+            albumInfoRequestSchema->fields.size() == 1U,
+            "kza raw field count");
+        if (albumInfoRequestSchema->fields.size() == 1U) {
+            const FieldSchema& field = albumInfoRequestSchema->fields[0];
+            failures += Expect(
+                field.index == 0 &&
+                    field.name == "albumid" &&
+                    field.typeToken == "unknown" &&
+                    field.rawSpec == "{albumid}" &&
+                    field.source == "xlsx",
+                "kza raw field");
+        }
+
+        failures += Expect(
+            albumInfoRequestSchema->hasResolvedFormat,
+            "kza resolvedFormat present");
+        failures += Expect(
+            albumInfoRequestSchema->resolvedFormat ==
+                "{count:i62} {albumid:i62}",
+            "kza resolvedFormat");
+        failures += Expect(
+            albumInfoRequestSchema->resolvedSource == "xlsx+ClientIda",
+            "kza resolvedSource");
+        failures += Expect(
+            albumInfoRequestSchema->resolvedSource.find("ServerC") ==
+                std::string::npos,
+            "kza resolvedSource excludes ServerC");
+        failures += Expect(
+            albumInfoRequestSchema->hasResolvedFields,
+            "kza resolvedFields present");
+        failures += Expect(
+            albumInfoRequestSchema->resolvedFields.size() == 2U,
+            "kza resolved field count");
+        if (albumInfoRequestSchema->resolvedFields.size() == 2U) {
+            constexpr std::array<std::string_view, 2U> fieldNames = {{
+                "count",
+                "albumid",
+            }};
+            constexpr std::array<std::string_view, 2U> fieldSpecs = {{
+                "{count:i62}",
+                "{albumid:i62}",
+            }};
+            for (std::size_t index = 0U; index < fieldNames.size(); ++index) {
+                const FieldSchema& field = albumInfoRequestSchema->resolvedFields[index];
+                failures += Expect(
+                    field.index == static_cast<int>(index) &&
+                        field.name == fieldNames[index] &&
+                        field.typeToken == "i62" &&
+                        field.rawSpec == fieldSpecs[index] &&
+                        field.source == "xlsx+ClientIda",
+                    "kza resolved field");
+            }
+        }
+
+        failures += Expect(
+            albumInfoRequestSchema->hasRepeatedTail,
+            "kza repeatedTail present");
+        failures += Expect(
+            albumInfoRequestSchema->repeatedTail.fieldIndex == 1,
+            "kza repeatedTail fieldIndex");
+        failures += Expect(
+            albumInfoRequestSchema->repeatedTail.countFieldIndex == 0,
+            "kza repeatedTail countFieldIndex");
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "kza"),
+        "kza absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "kza"),
+        "kza absent from receive typed manifest");
 
     const PacketSchema* albumNameRequestSchema = FindPacket(packets, "LaR");
     failures += Expect(albumNameRequestSchema != nullptr, "LaR schema exists");

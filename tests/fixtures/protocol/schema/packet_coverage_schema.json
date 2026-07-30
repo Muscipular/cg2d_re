@@ -5285,6 +5285,28 @@
       "rawFormat": "{albumid}",
       "formatEmpty": false,
       "source": "xlsx",
+      "resolvedFormat": "{count:i62} {albumid:i62}",
+      "resolvedSource": "xlsx+ClientIda",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "count",
+          "typeToken": "i62",
+          "rawSpec": "{count:i62}",
+          "source": "xlsx+ClientIda"
+        },
+        {
+          "index": 1,
+          "name": "albumid",
+          "typeToken": "i62",
+          "rawSpec": "{albumid:i62}",
+          "source": "xlsx+ClientIda"
+        }
+      ],
+      "repeatedTail": {
+        "fieldIndex": 1,
+        "countFieldIndex": 0
+      },
       "fields": [
         {
           "index": 0,

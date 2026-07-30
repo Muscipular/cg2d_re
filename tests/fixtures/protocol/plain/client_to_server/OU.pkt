@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=OU
+direction=client_to_server
+sample=confirm
+plain_hex=4F 55 20 31
+canonical_hex=4F 55 20 31 20
+end_sample

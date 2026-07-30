@@ -43,7 +43,7 @@ inline constexpr std::array<std::string_view, 86U> FixtureDebtCodes = {{
     "RwK", "Yq", "PhdQ", "nsY", "NI", "uSB", "aBS",
 }};
 
-inline constexpr std::array<FixturePayloadAudit, 75U> FixturePayloadAudits = {{
+inline constexpr std::array<FixturePayloadAudit, 76U> FixturePayloadAudits = {{
     {"WA", FixturePayloadAuditKind::NoStructuredPayload, 0U},
     {"PfM", FixturePayloadAuditKind::NoStructuredPayload, 0U},
     {"emRV", FixturePayloadAuditKind::NoStructuredPayload, 0U},
@@ -60,6 +60,7 @@ inline constexpr std::array<FixturePayloadAudit, 75U> FixturePayloadAudits = {{
     {"as", FixturePayloadAuditKind::NoStructuredPayload, 0U},
     {"ixH", FixturePayloadAuditKind::NoStructuredPayload, 0U},
     {"QeuC", FixturePayloadAuditKind::NoStructuredPayload, 0U},
+    {"OU", FixturePayloadAuditKind::NoStructuredPayload, 0U},
     {"suI", FixturePayloadAuditKind::NoStructuredPayload, 0U},
     {"ih", FixturePayloadAuditKind::NoStructuredPayload, 0U},
     {"lO", FixturePayloadAuditKind::NoStructuredPayload, 0U},

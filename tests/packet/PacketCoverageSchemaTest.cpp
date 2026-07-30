@@ -1213,11 +1213,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 77U, "send typed manifest count 77");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 78U, "send typed manifest count 78");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 84U, "receive typed manifest count 84");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 161U,
-        "typed manifest count 161");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 162U,
+        "typed manifest count 162");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1234,7 +1234,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 161U, "typed manifest unique code count 161");
+    failures += Expect(codes.size() == 162U, "typed manifest unique code count 162");
     return failures;
 }
 
@@ -6184,7 +6184,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "OU resolvedFormat");
         failures += Expect(
             tradeConfirmationRequestSchema->resolvedSource ==
-                "xlsx+ServerC+ClientIda",
+                "xlsx+ServerC+ClientIda+src/packet",
             "OU resolvedSource");
         failures += Expect(
             tradeConfirmationRequestSchema->hasResolvedFields,
@@ -6200,15 +6200,26 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                     field.name == "result" &&
                     field.typeToken == "i62" &&
                     field.rawSpec == "{result:i62}" &&
-                    field.source == "xlsx+ServerC+ClientIda",
+                    field.source == "xlsx+ServerC+ClientIda+src/packet",
                 "OU resolved field");
         }
+
+        const cg::packet::send::TradeConfirmationRequest request(1);
+        const cg::packet::Packet packet = request.ToPacket();
+        failures += ExpectEffectiveFieldsMatch(
+            *tradeConfirmationRequestSchema,
+            cg::packet::send::TradeConfirmationRequest::Spec,
+            "OU Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *tradeConfirmationRequestSchema,
+            packet,
+            "OU resolved field order");
     }
     failures += Expect(
-        !TypedManifestContainsCode(
+        TypedManifestContainsCode(
             cg::packet::test::SendTypedPackets,
             "OU"),
-        "OU absent from send typed manifest");
+        "OU present in send typed manifest");
     failures += Expect(
         !TypedManifestContainsCode(
             cg::packet::test::ReceiveTypedPackets,

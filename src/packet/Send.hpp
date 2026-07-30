@@ -1346,6 +1346,49 @@ namespace cg::packet::send
     };
 
     /**
+     * RECV_TROC 确认或取消交易 OU {result:i62}
+     * legacy producer 当前只发送 0/1，但 wire 与服务端均按 signed int
+     * 的零/非零处理；基础 packet 层不收窄 enum，也不下沉交易规则。
+     */
+    struct TradeConfirmationRequest
+    {
+        static constexpr std::string_view Code = "OU";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("result"), PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        int result = 0;
+
+        explicit TradeConfirmationRequest(int result)
+            : result(result)
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("result"),
+                PacketFieldType::Int62,
+                std::to_string(result),
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket(), Spec);
+        }
+    };
+
+    /**
      * RECV_TRCL 取消交易选择 suI
      * VERSION_TW 服务端分支传入的 0 是 handler 业务参数，不是 wire 字段。
      */

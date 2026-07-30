@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=fS
+direction=client_to_server
+sample=skill-index-ten
+plain_hex=66 53 20 61
+canonical_hex=66 53 20 61 20
+end_sample

@@ -1124,11 +1124,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 52U, "send typed manifest count 52");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 53U, "send typed manifest count 53");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 84U, "receive typed manifest count 84");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 136U,
-        "typed manifest count 136");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 137U,
+        "typed manifest count 137");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1145,7 +1145,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 136U, "typed manifest unique code count 136");
+    failures += Expect(codes.size() == 137U, "typed manifest unique code count 137");
     return failures;
 }
 
@@ -3483,6 +3483,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     const PacketSchema* itemRecipeRequestSchema = FindPacket(packets, "fS");
     failures += Expect(itemRecipeRequestSchema != nullptr, "fS schema exists");
     if (itemRecipeRequestSchema != nullptr) {
+        const cg::packet::send::ItemRecipeRequest request(10);
+        const cg::packet::Packet packet = request.ToPacket();
         failures += Expect(
             itemRecipeRequestSchema->direction == "客户端->服务端",
             "fS direction");
@@ -3522,7 +3524,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             itemRecipeRequestSchema->resolvedFormat == "{haveskillindex:i62}",
             "fS resolvedFormat");
         failures += Expect(
-            itemRecipeRequestSchema->resolvedSource == "xlsx+ServerC+ClientIda",
+            itemRecipeRequestSchema->resolvedSource ==
+                "xlsx+ServerC+ClientIda+src/packet",
             "fS resolvedSource");
         failures += Expect(
             itemRecipeRequestSchema->hasResolvedFields,
@@ -3537,13 +3540,22 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                     field.name == "haveskillindex" &&
                     field.typeToken == "i62" &&
                     field.rawSpec == "{haveskillindex:i62}" &&
-                    field.source == "xlsx+ServerC+ClientIda",
+                    field.source == "xlsx+ServerC+ClientIda+src/packet",
                 "fS resolved field");
         }
+
+        failures += ExpectEffectiveFieldsMatch(
+            *itemRecipeRequestSchema,
+            cg::packet::send::ItemRecipeRequest::Spec,
+            "fS Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *itemRecipeRequestSchema,
+            packet,
+            "fS resolved field order");
     }
     failures += Expect(
-        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "fS"),
-        "fS absent from send typed manifest");
+        TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "fS"),
+        "fS present in send typed manifest");
     failures += Expect(
         !TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "fS"),
         "fS absent from receive typed manifest");

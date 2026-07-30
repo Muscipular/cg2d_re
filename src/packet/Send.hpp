@@ -2591,6 +2591,48 @@ namespace cg::packet::send
     };
 
     /**
+     * RECV_IR RequestItemRecipe 获取配方 fS {haveskillindex:i62}
+     * >=100 与 %100 是 Server handler 业务解释；wire 保留完整 signed int，不在 packet 层收窄。
+     */
+    struct ItemRecipeRequest
+    {
+        static constexpr std::string_view Code = "fS";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("haveskillindex"), PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        int haveSkillIndex = 0;
+
+        explicit ItemRecipeRequest(int haveSkillIndex)
+            : haveSkillIndex(haveSkillIndex)
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("haveskillindex"),
+                PacketFieldType::Int62,
+                std::to_string(haveSkillIndex),
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket(), Spec);
+        }
+    };
+
+    /**
      * RECV_GD 解散家族 nkda {guildId:i62}
      * guildId 保留完整 signed int；权限与当前家族匹配由服务端校验。
      */

@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=tj
+direction=client_to_server
+sample=title-slot-ten
+plain_hex=74 6A 20 61
+canonical_hex=74 6A 20 61 20
+end_sample

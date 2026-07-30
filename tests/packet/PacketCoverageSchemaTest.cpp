@@ -1213,11 +1213,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 79U, "send typed manifest count 79");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 80U, "send typed manifest count 80");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 84U, "receive typed manifest count 84");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 163U,
-        "typed manifest count 163");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 164U,
+        "typed manifest count 164");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1234,7 +1234,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 163U, "typed manifest unique code count 163");
+    failures += Expect(codes.size() == 164U, "typed manifest unique code count 164");
     return failures;
 }
 
@@ -6370,7 +6370,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "tj resolvedFormat");
         failures += Expect(
             titleDeletionRequestSchema->resolvedSource ==
-                "xlsx+ServerC+ClientIda",
+                "xlsx+ServerC+ClientIda+src/packet",
             "tj resolvedSource");
         failures += Expect(
             titleDeletionRequestSchema->hasResolvedFields,
@@ -6386,15 +6386,26 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                     field.name == "titleSlot" &&
                     field.typeToken == "i62" &&
                     field.rawSpec == "{titleSlot:i62}" &&
-                    field.source == "xlsx+ServerC+ClientIda",
+                    field.source == "xlsx+ServerC+ClientIda+src/packet",
                 "tj resolved field");
         }
+
+        const cg::packet::send::TitleDeletionRequest request(10);
+        const cg::packet::Packet packet = request.ToPacket();
+        failures += ExpectEffectiveFieldsMatch(
+            *titleDeletionRequestSchema,
+            cg::packet::send::TitleDeletionRequest::Spec,
+            "tj Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *titleDeletionRequestSchema,
+            packet,
+            "tj resolved field order");
     }
     failures += Expect(
-        !TypedManifestContainsCode(
+        TypedManifestContainsCode(
             cg::packet::test::SendTypedPackets,
             "tj"),
-        "tj absent from send typed manifest");
+        "tj present in send typed manifest");
     failures += Expect(
         !TypedManifestContainsCode(
             cg::packet::test::ReceiveTypedPackets,

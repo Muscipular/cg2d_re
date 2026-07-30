@@ -1213,11 +1213,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 71U, "send typed manifest count 71");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 72U, "send typed manifest count 72");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 84U, "receive typed manifest count 84");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 155U,
-        "typed manifest count 155");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 156U,
+        "typed manifest count 156");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1234,7 +1234,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 155U, "typed manifest unique code count 155");
+    failures += Expect(codes.size() == 156U, "typed manifest unique code count 156");
     return failures;
 }
 
@@ -5501,7 +5501,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "mjCv resolvedFormat");
         failures += Expect(
             itemCharacterPetListRequestSchema->resolvedSource ==
-                "xlsx+ServerC+ClientIda",
+                "xlsx+ServerC+ClientIda+src/packet",
             "mjCv resolvedSource");
         failures += Expect(
             itemCharacterPetListRequestSchema->hasResolvedFields,
@@ -5517,15 +5517,26 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                     field.name == "charSlot" &&
                     field.typeToken == "i62" &&
                     field.rawSpec == "{charSlot:i62}" &&
-                    field.source == "xlsx+ServerC+ClientIda",
+                    field.source == "xlsx+ServerC+ClientIda+src/packet",
                 "mjCv resolved field");
         }
+
+        const cg::packet::send::ItemCharacterPetListRequest request(10);
+        const cg::packet::Packet packet = request.ToPacket();
+        failures += ExpectEffectiveFieldsMatch(
+            *itemCharacterPetListRequestSchema,
+            cg::packet::send::ItemCharacterPetListRequest::Spec,
+            "mjCv Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *itemCharacterPetListRequestSchema,
+            packet,
+            "mjCv resolved field order");
     }
     failures += Expect(
-        !TypedManifestContainsCode(
+        TypedManifestContainsCode(
             cg::packet::test::SendTypedPackets,
             "mjCv"),
-        "mjCv absent from send typed manifest");
+        "mjCv present in send typed manifest");
     failures += Expect(
         !TypedManifestContainsCode(
             cg::packet::test::ReceiveTypedPackets,

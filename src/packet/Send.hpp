@@ -3656,6 +3656,49 @@ namespace cg::packet::send
     };
 
     /**
+     * RECV_GPDI 物品角色宠物列表 mjCv {charSlot:i62}
+     * charSlot 是临时列表槽位；基础 packet 层保留任意 signed int，
+     * 严格按 exact1 编码，不下沉槽有效性与目标业务规则。
+     */
+    struct ItemCharacterPetListRequest
+    {
+        static constexpr std::string_view Code = "mjCv";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("charSlot"), PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        int charSlot = 0;
+
+        explicit ItemCharacterPetListRequest(int charSlot)
+            : charSlot(charSlot)
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("charSlot"),
+                PacketFieldType::Int62,
+                std::to_string(charSlot),
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket(), Spec);
+        }
+    };
+
+    /**
      * RECV_GML 家族邮件 uId {toregistNumber:i62} {text:es} {color:i62}
      */
     struct GuildMailSend

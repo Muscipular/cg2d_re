@@ -1126,11 +1126,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 58U, "send typed manifest count 58");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 59U, "send typed manifest count 59");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 84U, "receive typed manifest count 84");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 142U,
-        "typed manifest count 142");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 143U,
+        "typed manifest count 143");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1147,7 +1147,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 142U, "typed manifest unique code count 142");
+    failures += Expect(codes.size() == 143U, "typed manifest unique code count 143");
     return failures;
 }
 
@@ -2832,6 +2832,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     const PacketSchema* encounterRequestSchema = FindPacket(packets, "KeOX");
     failures += Expect(encounterRequestSchema != nullptr, "KeOX schema exists");
     if (encounterRequestSchema != nullptr) {
+        const cg::packet::Packet packet = cg::packet::send::EncounterRequest(10, 20).ToPacket();
         constexpr std::array<std::string_view, 2U> fieldNames = {{"x", "y"}};
         constexpr std::array<std::string_view, 2U> rawSpecs = {{"{x}", "{y}"}};
         constexpr std::array<std::string_view, 2U> resolvedSpecs = {{
@@ -2873,14 +2874,11 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             encounterRequestSchema->resolvedFormat == "{x:i62} {y:i62}",
             "KeOX resolvedFormat");
         failures += Expect(
-            encounterRequestSchema->resolvedSource == "xlsx+ClientIda",
+            encounterRequestSchema->resolvedSource == "xlsx+ClientIda+src/packet",
             "KeOX resolvedSource");
         failures += Expect(
             encounterRequestSchema->resolvedSource.find("ServerC") == std::string::npos,
             "KeOX resolvedSource excludes ServerC");
-        failures += Expect(
-            encounterRequestSchema->resolvedSource.find("src/packet") == std::string::npos,
-            "KeOX resolvedSource excludes src/packet");
         failures += Expect(
             encounterRequestSchema->hasResolvedFields,
             "KeOX resolvedFields present");
@@ -2895,14 +2893,22 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                         field.name == fieldNames[index] &&
                         field.typeToken == "i62" &&
                         field.rawSpec == resolvedSpecs[index] &&
-                        field.source == "xlsx+ClientIda",
+                        field.source == "xlsx+ClientIda+src/packet",
                     "KeOX resolved field");
             }
         }
+        failures += ExpectEffectiveFieldsMatch(
+            *encounterRequestSchema,
+            cg::packet::send::EncounterRequest::Spec,
+            "KeOX Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *encounterRequestSchema,
+            packet,
+            "KeOX resolved field order");
     }
     failures += Expect(
-        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "KeOX"),
-        "KeOX absent from send typed manifest");
+        TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "KeOX"),
+        "KeOX present in send typed manifest");
     failures += Expect(
         !TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "KeOX"),
         "KeOX absent from receive typed manifest");

@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=KeOX
+direction=client_to_server
+sample=coordinates-ten-twenty
+plain_hex=4B 65 4F 58 20 61 20 6B
+canonical_hex=4B 65 4F 58 20 61 20 6B 20
+end_sample

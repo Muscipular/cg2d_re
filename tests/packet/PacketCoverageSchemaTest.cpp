@@ -1124,11 +1124,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 48U, "send typed manifest count 48");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 49U, "send typed manifest count 49");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 84U, "receive typed manifest count 84");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 132U,
-        "typed manifest count 132");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 133U,
+        "typed manifest count 133");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1145,7 +1145,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 132U, "typed manifest unique code count 132");
+    failures += Expect(codes.size() == 133U, "typed manifest unique code count 133");
     return failures;
 }
 
@@ -3112,6 +3112,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     const PacketSchema* petDropSchema = FindPacket(packets, "FvWm");
     failures += Expect(petDropSchema != nullptr, "FvWm schema exists");
     if (petDropSchema != nullptr) {
+        const cg::packet::send::DropPet request(10, 20, 0);
+        const cg::packet::Packet packet = request.ToPacket();
         failures += Expect(
             petDropSchema->direction == "客户端->服务端",
             "FvWm direction");
@@ -3148,7 +3150,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             petDropSchema->resolvedFormat == "{x:i62} {y:i62} {petindex:i62}",
             "FvWm resolvedFormat");
         failures += Expect(
-            petDropSchema->resolvedSource == "xlsx+ServerC+ClientIda",
+            petDropSchema->resolvedSource == "xlsx+ServerC+ClientIda+src/packet",
             "FvWm resolvedSource");
         failures += Expect(
             petDropSchema->hasResolvedFields,
@@ -3170,30 +3172,19 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                         field.name == names[index] &&
                         field.typeToken == "i62" &&
                         field.rawSpec == specs[index] &&
-                        field.source == "xlsx+ServerC+ClientIda",
+                        field.source == "xlsx+ServerC+ClientIda+src/packet",
                     "FvWm resolved field");
             }
         }
 
-        bool inSendManifest = false;
-        for (const cg::packet::test::TypedPacketManifestEntry& entry :
-             cg::packet::test::SendTypedPackets) {
-            if (entry.spec != nullptr && entry.spec->code == "FvWm") {
-                inSendManifest = true;
-                break;
-            }
-        }
-        failures += Expect(!inSendManifest, "FvWm absent from send typed manifest");
-
-        bool inReceiveManifest = false;
-        for (const cg::packet::test::TypedPacketManifestEntry& entry :
-             cg::packet::test::ReceiveTypedPackets) {
-            if (entry.spec != nullptr && entry.spec->code == "FvWm") {
-                inReceiveManifest = true;
-                break;
-            }
-        }
-        failures += Expect(!inReceiveManifest, "FvWm absent from receive typed manifest");
+        failures += ExpectEffectiveFieldsMatch(
+            *petDropSchema,
+            cg::packet::send::DropPet::Spec,
+            "FvWm Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *petDropSchema,
+            packet,
+            "FvWm resolved field order");
     }
 
     const PacketSchema* deprecatedBattleJoinSchema = FindPacket(packets, "cEj");

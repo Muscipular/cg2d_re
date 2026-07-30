@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=FvWm
+direction=client_to_server
+sample=pet-slot-zero
+plain_hex=46 76 57 6D 20 61 20 6B 20 30
+canonical_hex=46 76 57 6D 20 61 20 6B 20 30 20
+end_sample

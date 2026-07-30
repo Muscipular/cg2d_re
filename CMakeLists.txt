@@ -1347,6 +1347,17 @@ target_include_directories(cg-packet-drop-gold-test
 
 add_test(NAME cg-packet-drop-gold-test COMMAND cg-packet-drop-gold-test)
 
+add_executable(cg-packet-drop-pet-test
+    tests/packet/DropPetPacketTest.cpp
+)
+
+target_include_directories(cg-packet-drop-pet-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+
+add_test(NAME cg-packet-drop-pet-test COMMAND cg-packet-drop-pet-test)
+
 add_executable(cg-packet-guild-info-change-test
     tests/packet/GuildInfoChangePacketTest.cpp
 )
@@ -2243,6 +2254,7 @@ if(MSVC)
     target_compile_options(cg-packet-trade-pet-info-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-trade-pet-skill-info-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-drop-gold-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-drop-pet-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-guild-info-change-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-guild-title-set-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-guild-mail-send-test PRIVATE /W4 /utf-8 /permissive-)
@@ -2404,6 +2416,7 @@ else()
     target_compile_options(cg-packet-trade-item-info-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-trade-pet-skill-info-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-drop-gold-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-packet-drop-pet-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-guild-info-change-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-guild-title-set-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-guild-mail-send-test PRIVATE -Wall -Wextra -Wpedantic)

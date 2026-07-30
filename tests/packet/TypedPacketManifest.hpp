@@ -26,6 +26,7 @@ consteval TypedPacketManifestEntry MakeSendManifestEntry()
     static_assert(PacketT::Spec.direction == PacketT::Direction);
     static_assert(PacketT::Spec.fields == PacketT::Fields.data());
     static_assert(PacketT::Spec.fieldCount == PacketT::Fields.size());
+    static_assert(detail::IsRepeatedTailSpecValid(PacketT::Spec));
     return {&SpecValue};
 }
 
@@ -40,10 +41,11 @@ consteval TypedPacketManifestEntry MakeReceiveManifestEntry()
     static_assert(PacketT::Spec.direction == PacketT::Direction);
     static_assert(PacketT::Spec.fields == PacketT::Fields.data());
     static_assert(PacketT::Spec.fieldCount == PacketT::Fields.size());
+    static_assert(detail::IsRepeatedTailSpecValid(PacketT::Spec));
     return {&SpecValue};
 }
 
-inline constexpr std::array<TypedPacketManifestEntry, 59U> SendTypedPackets = {{
+inline constexpr std::array<TypedPacketManifestEntry, 60U> SendTypedPackets = {{
     MakeSendManifestEntry<send::ClientLogin, send::ClientLogin::Spec>(),
     MakeSendManifestEntry<send::CharacterListRequest, send::CharacterListRequest::Spec>(),
     MakeSendManifestEntry<send::CharacterLoginRequest, send::CharacterLoginRequest::Spec>(),
@@ -92,6 +94,7 @@ inline constexpr std::array<TypedPacketManifestEntry, 59U> SendTypedPackets = {{
     MakeSendManifestEntry<send::DropPet, send::DropPet::Spec>(),
     MakeSendManifestEntry<send::ItemMoveRequest, send::ItemMoveRequest::Spec>(),
     MakeSendManifestEntry<send::ItemRecipeRequest, send::ItemRecipeRequest::Spec>(),
+    MakeSendManifestEntry<send::AlbumInfoRequest, send::AlbumInfoRequest::Spec>(),
     MakeSendManifestEntry<send::AlbumNameRequest, send::AlbumNameRequest::Spec>(),
     MakeSendManifestEntry<
         send::AddressBookDeleteRequest,

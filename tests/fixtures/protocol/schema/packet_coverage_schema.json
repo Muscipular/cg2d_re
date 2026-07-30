@@ -5286,21 +5286,21 @@
       "formatEmpty": false,
       "source": "xlsx",
       "resolvedFormat": "{count:i62} {albumid:i62}",
-      "resolvedSource": "xlsx+ClientIda",
+      "resolvedSource": "xlsx+ClientIda+src/packet",
       "resolvedFields": [
         {
           "index": 0,
           "name": "count",
           "typeToken": "i62",
           "rawSpec": "{count:i62}",
-          "source": "xlsx+ClientIda"
+          "source": "xlsx+ClientIda+src/packet"
         },
         {
           "index": 1,
           "name": "albumid",
           "typeToken": "i62",
           "rawSpec": "{albumid:i62}",
-          "source": "xlsx+ClientIda"
+          "source": "xlsx+ClientIda+src/packet"
         }
       ],
       "repeatedTail": {

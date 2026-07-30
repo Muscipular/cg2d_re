@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=kza
+direction=client_to_server
+sample=album-ids-ten-twenty
+plain_hex=6B 7A 61 20 32 20 61 20 6B
+canonical_hex=6B 7A 61 20 32 20 61 20 6B 20
+end_sample

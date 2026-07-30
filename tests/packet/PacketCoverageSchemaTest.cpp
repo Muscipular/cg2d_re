@@ -992,6 +992,41 @@ int ExpectResolvedFieldsMatch(const PacketSchema& schema, const cg::packet::Pack
     return failures;
 }
 
+int ExpectRepeatedTailFieldsMatch(
+    const PacketSchema& schema,
+    const cg::packet::Packet& packet,
+    const char* message)
+{
+    int failures = 0;
+    failures += Expect(schema.hasRepeatedTail, message);
+    failures += Expect(!schema.resolvedFields.empty(), message);
+    if (!schema.hasRepeatedTail || schema.resolvedFields.empty()) {
+        return failures;
+    }
+
+    const std::size_t repeatedFieldIndex =
+        static_cast<std::size_t>(schema.repeatedTail.fieldIndex);
+    failures += Expect(repeatedFieldIndex + 1U == schema.resolvedFields.size(), message);
+    failures += Expect(packet.fields.size() >= repeatedFieldIndex, message);
+    if (repeatedFieldIndex + 1U != schema.resolvedFields.size() ||
+        packet.fields.size() < repeatedFieldIndex) {
+        return failures;
+    }
+
+    for (std::size_t index = 0U; index < packet.fields.size(); ++index) {
+        const std::size_t schemaIndex =
+            index < repeatedFieldIndex ? index : repeatedFieldIndex;
+        failures += Expect(
+            schema.resolvedFields[schemaIndex].name == packet.fields[index].name,
+            message);
+        failures += Expect(
+            schema.resolvedFields[schemaIndex].typeToken ==
+                TypeToken(packet.fields[index].type),
+            message);
+    }
+    return failures;
+}
+
 int ExpectEffectiveFieldsMatch(
     const PacketSchema& schema,
     const cg::packet::PacketSpec& spec,
@@ -1015,6 +1050,19 @@ int ExpectEffectiveFieldsMatch(
         failures += Expect((*effectiveFields)[index].index == static_cast<int>(index), message);
         failures += Expect((*effectiveFields)[index].name == spec.fields[index].name, message);
         failures += Expect((*effectiveFields)[index].typeToken == TypeToken(spec.fields[index].type), message);
+    }
+    failures += Expect(
+        schema.hasRepeatedTail == spec.repeatedTail.enabled,
+        message);
+    if (schema.hasRepeatedTail && spec.repeatedTail.enabled) {
+        failures += Expect(
+            schema.repeatedTail.fieldIndex ==
+                static_cast<int>(spec.fieldCount - 1U),
+            message);
+        failures += Expect(
+            schema.repeatedTail.countFieldIndex ==
+                static_cast<int>(spec.repeatedTail.countFieldIndex),
+            message);
     }
     return failures;
 }
@@ -1165,11 +1213,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 59U, "send typed manifest count 59");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 60U, "send typed manifest count 60");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 84U, "receive typed manifest count 84");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 143U,
-        "typed manifest count 143");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 144U,
+        "typed manifest count 144");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1186,7 +1234,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 143U, "typed manifest unique code count 143");
+    failures += Expect(codes.size() == 144U, "typed manifest unique code count 144");
     return failures;
 }
 
@@ -3760,6 +3808,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     const PacketSchema* albumInfoRequestSchema = FindPacket(packets, "kza");
     failures += Expect(albumInfoRequestSchema != nullptr, "kza schema exists");
     if (albumInfoRequestSchema != nullptr) {
+        const cg::packet::send::AlbumInfoRequest request({10, 20});
+        const cg::packet::Packet packet = request.ToPacket();
         failures += Expect(
             albumInfoRequestSchema->direction == "客户端->服务端",
             "kza direction");
@@ -3803,7 +3853,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                 "{count:i62} {albumid:i62}",
             "kza resolvedFormat");
         failures += Expect(
-            albumInfoRequestSchema->resolvedSource == "xlsx+ClientIda",
+            albumInfoRequestSchema->resolvedSource ==
+                "xlsx+ClientIda+src/packet",
             "kza resolvedSource");
         failures += Expect(
             albumInfoRequestSchema->resolvedSource.find("ServerC") ==
@@ -3831,7 +3882,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                         field.name == fieldNames[index] &&
                         field.typeToken == "i62" &&
                         field.rawSpec == fieldSpecs[index] &&
-                        field.source == "xlsx+ClientIda",
+                        field.source == "xlsx+ClientIda+src/packet",
                     "kza resolved field");
             }
         }
@@ -3845,10 +3896,24 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         failures += Expect(
             albumInfoRequestSchema->repeatedTail.countFieldIndex == 0,
             "kza repeatedTail countFieldIndex");
+        failures += ExpectEffectiveFieldsMatch(
+            *albumInfoRequestSchema,
+            cg::packet::send::AlbumInfoRequest::Spec,
+            "kza Spec matches repeated template");
+        failures += ExpectRepeatedTailFieldsMatch(
+            *albumInfoRequestSchema,
+            packet,
+            "kza runtime repeated field order");
+        failures += Expect(packet.fields.size() == 3U, "kza runtime field count");
+        if (packet.fields.size() == 3U) {
+            failures += Expect(packet.fields[0].value == "2", "kza runtime count");
+            failures += Expect(packet.fields[1].value == "10", "kza runtime first albumid");
+            failures += Expect(packet.fields[2].value == "20", "kza runtime second albumid");
+        }
     }
     failures += Expect(
-        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "kza"),
-        "kza absent from send typed manifest");
+        TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "kza"),
+        "kza present in send typed manifest");
     failures += Expect(
         !TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "kza"),
         "kza absent from receive typed manifest");

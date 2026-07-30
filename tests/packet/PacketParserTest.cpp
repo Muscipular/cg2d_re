@@ -192,6 +192,159 @@ int TestKnownPackets()
     return failures;
 }
 
+int TestRepeatedTail()
+{
+    int failures = 0;
+
+    const cg::packet::PacketResult<cg::packet::Packet> zero =
+        cg::packet::ParsePacket("kza 0", cg::packet::send::AlbumInfoRequest::Spec);
+    failures += Expect(static_cast<bool>(zero), "parse kza zero");
+    if (zero.HasValue()) {
+        failures += Expect(zero.Value().fields.size() == 1U, "kza zero field count");
+        failures += ExpectParsedField(
+            zero.Value(),
+            0U,
+            "count",
+            cg::packet::PacketFieldType::Int62,
+            "0",
+            "kza zero count");
+    }
+
+    const cg::packet::PacketResult<cg::packet::Packet> zeroTrailing =
+        cg::packet::ParsePacket("kza 0 ", cg::packet::send::AlbumInfoRequest::Spec);
+    failures += Expect(static_cast<bool>(zeroTrailing), "parse kza zero trailing");
+
+    const cg::packet::PacketResult<cg::packet::Packet> emptyCount =
+        cg::packet::ParsePacket("kza ", cg::packet::send::AlbumInfoRequest::Spec);
+    failures += Expect(static_cast<bool>(emptyCount), "parse kza empty count as zero");
+    if (emptyCount.HasValue()) {
+        failures += ExpectParsedField(
+            emptyCount.Value(),
+            0U,
+            "count",
+            cg::packet::PacketFieldType::Int62,
+            "0",
+            "kza empty count value");
+    }
+
+    const cg::packet::PacketResult<cg::packet::Packet> multiple =
+        cg::packet::ParsePacket("kza 2 a k ", cg::packet::send::AlbumInfoRequest::Spec);
+    failures += Expect(static_cast<bool>(multiple), "parse kza repeated tail");
+    if (multiple.HasValue()) {
+        failures += Expect(multiple.Value().fields.size() == 3U, "kza repeated field count");
+        failures += ExpectParsedField(
+            multiple.Value(),
+            0U,
+            "count",
+            cg::packet::PacketFieldType::Int62,
+            "2",
+            "kza repeated count");
+        failures += ExpectParsedField(
+            multiple.Value(),
+            1U,
+            "albumid",
+            cg::packet::PacketFieldType::Int62,
+            "10",
+            "kza first albumid");
+        failures += ExpectParsedField(
+            multiple.Value(),
+            2U,
+            "albumid",
+            cg::packet::PacketFieldType::Int62,
+            "20",
+            "kza second albumid");
+    }
+
+    const cg::packet::PacketResult<cg::packet::Packet> single =
+        cg::packet::ParsePacket("kza 1 a ", cg::packet::send::AlbumInfoRequest::Spec);
+    failures += Expect(static_cast<bool>(single), "parse kza single repeated tail");
+    if (single.HasValue()) {
+        failures += Expect(single.Value().fields.size() == 2U, "kza single field count");
+        failures += ExpectParsedField(
+            single.Value(),
+            1U,
+            "albumid",
+            cg::packet::PacketFieldType::Int62,
+            "10",
+            "kza single albumid");
+    }
+
+    const auto expectFieldError = [&](std::string_view text,
+                                      cg::packet::PacketErrorCode code,
+                                      std::size_t fieldIndex,
+                                      const char* message) {
+        const cg::packet::PacketResult<cg::packet::Packet> result =
+            cg::packet::ParsePacket(text, cg::packet::send::AlbumInfoRequest::Spec);
+        int localFailures = ExpectError(result, code, "kza", message);
+        if (result.HasError()) {
+            localFailures += Expect(
+                result.Error().fieldIndex == fieldIndex,
+                message);
+        }
+        return localFailures;
+    };
+
+    failures += expectFieldError(
+        "kza 2 a",
+        cg::packet::PacketErrorCode::FieldCountMismatch,
+        2U,
+        "kza repeated tail missing");
+    failures += expectFieldError(
+        "kza 2 a ",
+        cg::packet::PacketErrorCode::FieldCountMismatch,
+        2U,
+        "kza repeated tail missing with delimiter");
+    failures += expectFieldError(
+        "kza 1 a k",
+        cg::packet::PacketErrorCode::FieldCountMismatch,
+        2U,
+        "kza repeated tail extra");
+    failures += expectFieldError(
+        "kza -1",
+        cg::packet::PacketErrorCode::FieldCountMismatch,
+        0U,
+        "kza negative count");
+    failures += expectFieldError(
+        "kza _",
+        cg::packet::PacketErrorCode::DecodeFailed,
+        0U,
+        "kza invalid count");
+    failures += expectFieldError(
+        "kza 2lkCB2",
+        cg::packet::PacketErrorCode::DecodeFailed,
+        0U,
+        "kza overflow count");
+    failures += expectFieldError(
+        "kza 1 _",
+        cg::packet::PacketErrorCode::DecodeFailed,
+        1U,
+        "kza invalid albumid");
+    failures += expectFieldError(
+        "kza 1 2lkCB2",
+        cg::packet::PacketErrorCode::DecodeFailed,
+        1U,
+        "kza overflow albumid");
+
+    constexpr cg::packet::PacketSpec invalidSpec {
+        "bad",
+        cg::packet::PacketDirection::ClientToServer,
+        nullptr,
+        0U,
+        {true, 0U},
+    };
+    const cg::packet::PacketResult<cg::packet::Packet> invalidShape =
+        cg::packet::ParsePacket("bad", invalidSpec);
+    failures += ExpectError(
+        invalidShape,
+        cg::packet::PacketErrorCode::InvalidFieldType,
+        "bad",
+        "invalid repeated tail spec");
+    if (invalidShape.HasError()) {
+        failures += Expect(invalidShape.Error().fieldIndex == 0U, "invalid spec field index");
+    }
+    return failures;
+}
+
 int TestErrors()
 {
     int failures = 0;
@@ -262,6 +415,7 @@ int main()
 {
     int failures = 0;
     failures += TestKnownPackets();
+    failures += TestRepeatedTail();
     failures += TestErrors();
     if (failures != 0) {
         std::cerr << failures << " checks failed\n";

@@ -26,12 +26,21 @@ namespace cg::packet
         }
     };
 
+    struct PacketRepeatedTailSpec
+    {
+        // 默认关闭；启用后，最后一个模板字段按 countFieldIndex 指定的 Int62 数量重复。
+        bool enabled = false;
+        std::size_t countFieldIndex = 0U;
+    };
+
     struct PacketSpec
     {
         std::string_view code;
         PacketDirection direction = PacketDirection::ClientToServer;
         const PacketFieldSpec* fields = nullptr;
         std::size_t fieldCount = 0;
+        // 描述 PacketSpec 最后一个模板字段的可重复尾部规则。
+        PacketRepeatedTailSpec repeatedTail {};
     };
 
     namespace detail
@@ -47,6 +56,28 @@ namespace cg::packet
         {
             error.packetCode = PacketCode(code);
             error.fieldIndex = fieldIndex;
+        }
+
+        [[nodiscard]] constexpr bool IsRepeatedTailSpecValid(const PacketSpec& packetSpec) noexcept
+        {
+            if (!packetSpec.repeatedTail.enabled) {
+                return true;
+            }
+            return packetSpec.fields != nullptr &&
+                packetSpec.fieldCount >= 2U &&
+                packetSpec.repeatedTail.countFieldIndex < packetSpec.fieldCount - 1U &&
+                packetSpec.fields[packetSpec.repeatedTail.countFieldIndex].type ==
+                    PacketFieldType::Int62;
+        }
+
+        [[nodiscard]] constexpr std::size_t RuntimeFieldSpecIndex(
+            const PacketSpec& packetSpec,
+            std::size_t fieldIndex) noexcept
+        {
+            if (packetSpec.repeatedTail.enabled && fieldIndex >= packetSpec.fieldCount - 1U) {
+                return packetSpec.fieldCount - 1U;
+            }
+            return fieldIndex;
         }
 
         [[nodiscard]] inline PacketResult<std::string> DecodeNestedPayloadEscapedString(std::string_view text)
@@ -129,26 +160,81 @@ namespace cg::packet
         }
 
         std::size_t fieldTokenCount = tokens.size() - 1U;
-        if (fieldTokenCount == packetSpec.fieldCount + 1U && tokens.back().empty()) {
-            --fieldTokenCount;
-        }
+        if (!packetSpec.repeatedTail.enabled) {
+            if (fieldTokenCount == packetSpec.fieldCount + 1U && tokens.back().empty()) {
+                --fieldTokenCount;
+            }
 
-        if (fieldTokenCount != packetSpec.fieldCount) {
-            PacketError error = detail::MakeParserError(
-                PacketErrorCode::FieldCountMismatch,
-                CG_PACKET_DIAGNOSTIC_TEXT("封包字段数量不匹配"));
-            error.packetCode = PacketCode(code);
-            error.fieldIndex = fieldTokenCount < packetSpec.fieldCount
-                ? fieldTokenCount
-                : packetSpec.fieldCount;
-            return PacketResult<Packet>::Failure(std::move(error));
+            if (fieldTokenCount != packetSpec.fieldCount) {
+                PacketError error = detail::MakeParserError(
+                    PacketErrorCode::FieldCountMismatch,
+                    CG_PACKET_DIAGNOSTIC_TEXT("封包字段数量不匹配"));
+                error.packetCode = PacketCode(code);
+                error.fieldIndex = fieldTokenCount < packetSpec.fieldCount
+                    ? fieldTokenCount
+                    : packetSpec.fieldCount;
+                return PacketResult<Packet>::Failure(std::move(error));
+            }
+        } else {
+            if (!detail::IsRepeatedTailSpecValid(packetSpec)) {
+                PacketError error = detail::MakeParserError(
+                    PacketErrorCode::InvalidFieldType,
+                    CG_PACKET_DIAGNOSTIC_TEXT("重复尾字段定义无效"));
+                detail::FillErrorContext(
+                    error,
+                    code,
+                    packetSpec.repeatedTail.countFieldIndex);
+                return PacketResult<Packet>::Failure(std::move(error));
+            }
+
+            const std::size_t countFieldIndex = packetSpec.repeatedTail.countFieldIndex;
+            if (fieldTokenCount <= countFieldIndex) {
+                PacketError error = detail::MakeParserError(
+                    PacketErrorCode::FieldCountMismatch,
+                    CG_PACKET_DIAGNOSTIC_TEXT("封包字段数量不匹配"));
+                error.packetCode = PacketCode(code);
+                error.fieldIndex = fieldTokenCount;
+                return PacketResult<Packet>::Failure(std::move(error));
+            }
+
+            PacketResult<int> decodedCount = DecodeInt62(tokens[countFieldIndex + 1U]);
+            if (!decodedCount.HasValue()) {
+                PacketError error = decodedCount.Error();
+                detail::FillErrorContext(error, code, countFieldIndex);
+                return PacketResult<Packet>::Failure(std::move(error));
+            }
+            if (decodedCount.Value() < 0) {
+                PacketError error = detail::MakeParserError(
+                    PacketErrorCode::FieldCountMismatch,
+                    CG_PACKET_DIAGNOSTIC_TEXT("重复尾字段数量不能为负数"));
+                detail::FillErrorContext(error, code, countFieldIndex);
+                return PacketResult<Packet>::Failure(std::move(error));
+            }
+
+            const std::size_t fixedFieldCount = packetSpec.fieldCount - 1U;
+            const std::size_t expectedFieldCount =
+                fixedFieldCount + static_cast<std::size_t>(decodedCount.Value());
+            if (fieldTokenCount > fixedFieldCount && tokens.back().empty()) {
+                --fieldTokenCount;
+            }
+            if (fieldTokenCount != expectedFieldCount) {
+                PacketError error = detail::MakeParserError(
+                    PacketErrorCode::FieldCountMismatch,
+                    CG_PACKET_DIAGNOSTIC_TEXT("重复尾字段数量与 count 不匹配"));
+                error.packetCode = PacketCode(code);
+                error.fieldIndex = fieldTokenCount < expectedFieldCount
+                    ? fieldTokenCount
+                    : expectedFieldCount;
+                return PacketResult<Packet>::Failure(std::move(error));
+            }
         }
 
         Packet packet(PacketCode(code), packetSpec.direction);
-        packet.fields.reserve(packetSpec.fieldCount);
+        packet.fields.reserve(fieldTokenCount);
 
-        for (std::size_t index = 0; index < packetSpec.fieldCount; ++index) {
-            const PacketFieldSpec& fieldSpec = packetSpec.fields[index];
+        for (std::size_t index = 0; index < fieldTokenCount; ++index) {
+            const PacketFieldSpec& fieldSpec =
+                packetSpec.fields[detail::RuntimeFieldSpecIndex(packetSpec, index)];
             const std::string_view token = tokens[index + 1U];
 
             PacketField field;

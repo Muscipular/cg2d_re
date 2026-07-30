@@ -242,6 +242,143 @@ int TestInt62Values()
     return failures;
 }
 
+int TestRepeatedTail()
+{
+    int failures = 0;
+    failures += ExpectBuild(
+        PacketOf(
+            "kza",
+            cg::packet::PacketDirection::ClientToServer,
+            {Field("count", cg::packet::PacketFieldType::Int62, "0")}),
+        cg::packet::send::AlbumInfoRequest::Spec,
+        "kza 0 ",
+        "build kza zero");
+    failures += ExpectBuild(
+        PacketOf(
+            "kza",
+            cg::packet::PacketDirection::ClientToServer,
+            {
+                Field("count", cg::packet::PacketFieldType::Int62, "2"),
+                Field("albumid", cg::packet::PacketFieldType::Int62, "10"),
+                Field("albumid", cg::packet::PacketFieldType::Int62, "20"),
+            }),
+        cg::packet::send::AlbumInfoRequest::Spec,
+        "kza 2 a k ",
+        "build kza repeated tail");
+    failures += ExpectBuild(
+        PacketOf(
+            "kza",
+            cg::packet::PacketDirection::ClientToServer,
+            {
+                Field("count", cg::packet::PacketFieldType::Int62, "1"),
+                Field("albumid", cg::packet::PacketFieldType::Int62, "10"),
+            }),
+        cg::packet::send::AlbumInfoRequest::Spec,
+        "kza 1 a ",
+        "build kza single repeated tail");
+
+    const auto expectFieldError = [&](const cg::packet::Packet& packet,
+                                      cg::packet::PacketErrorCode code,
+                                      std::size_t fieldIndex,
+                                      const char* message) {
+        return ExpectError(
+            cg::packet::BuildPacket(packet, cg::packet::send::AlbumInfoRequest::Spec),
+            code,
+            "kza",
+            true,
+            fieldIndex,
+            message);
+    };
+
+    failures += expectFieldError(
+        PacketOf(
+            "kza",
+            cg::packet::PacketDirection::ClientToServer,
+            {
+                Field("count", cg::packet::PacketFieldType::Int62, "2"),
+                Field("albumid", cg::packet::PacketFieldType::Int62, "10"),
+            }),
+        cg::packet::PacketErrorCode::FieldCountMismatch,
+        2U,
+        "build kza repeated tail missing");
+    failures += expectFieldError(
+        PacketOf(
+            "kza",
+            cg::packet::PacketDirection::ClientToServer,
+            {
+                Field("count", cg::packet::PacketFieldType::Int62, "1"),
+                Field("albumid", cg::packet::PacketFieldType::Int62, "10"),
+                Field("albumid", cg::packet::PacketFieldType::Int62, "20"),
+            }),
+        cg::packet::PacketErrorCode::FieldCountMismatch,
+        2U,
+        "build kza repeated tail extra");
+    failures += expectFieldError(
+        PacketOf(
+            "kza",
+            cg::packet::PacketDirection::ClientToServer,
+            {Field("count", cg::packet::PacketFieldType::Int62, "-1")}),
+        cg::packet::PacketErrorCode::FieldCountMismatch,
+        0U,
+        "build kza negative count");
+    failures += expectFieldError(
+        PacketOf(
+            "kza",
+            cg::packet::PacketDirection::ClientToServer,
+            {Field("count", cg::packet::PacketFieldType::Int62, "a")}),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        0U,
+        "build kza invalid count");
+    failures += expectFieldError(
+        PacketOf(
+            "kza",
+            cg::packet::PacketDirection::ClientToServer,
+            {Field("count", cg::packet::PacketFieldType::Int62, "2147483648")}),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        0U,
+        "build kza overflow count");
+    failures += expectFieldError(
+        PacketOf(
+            "kza",
+            cg::packet::PacketDirection::ClientToServer,
+            {
+                Field("count", cg::packet::PacketFieldType::Int62, "1"),
+                Field("albumid", cg::packet::PacketFieldType::Int62, "a"),
+            }),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        1U,
+        "build kza invalid albumid");
+    failures += expectFieldError(
+        PacketOf(
+            "kza",
+            cg::packet::PacketDirection::ClientToServer,
+            {
+                Field("count", cg::packet::PacketFieldType::Int62, "1"),
+                Field("albumid", cg::packet::PacketFieldType::Int62, "2147483648"),
+            }),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        1U,
+        "build kza overflow albumid");
+
+    constexpr cg::packet::PacketSpec invalidSpec {
+        "bad",
+        cg::packet::PacketDirection::ClientToServer,
+        nullptr,
+        0U,
+        {true, 0U},
+    };
+    failures += ExpectError(
+        cg::packet::BuildPacket(
+            PacketOf("bad", cg::packet::PacketDirection::ClientToServer, {}),
+            invalidSpec),
+        cg::packet::PacketErrorCode::InvalidFieldType,
+        "bad",
+        true,
+        0U,
+        "build invalid repeated tail spec");
+    return failures;
+}
+
 int TestRoundTrip()
 {
     const cg::packet::Packet packet = PacketOf(
@@ -438,6 +575,7 @@ int main()
     failures += TestKnownPackets();
     failures += TestEscapedStringAndTailEmpty();
     failures += TestInt62Values();
+    failures += TestRepeatedTail();
     failures += TestRoundTrip();
     failures += TestErrors();
     if (failures != 0) {

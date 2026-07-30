@@ -2691,6 +2691,59 @@ namespace cg::packet::send
     };
 
     /**
+     * RECV_ALI 请求图鉴数据 kza {count:i62} {albumid:i62}...
+     * count 由 albumIds 数量派生；每个 albumid 都是独立 outer i62 token。
+     * 当前 Server 单 albumid 合同与 cg2d 不兼容，不作为此 typed 合同来源。
+     */
+    struct AlbumInfoRequest
+    {
+        static constexpr std::string_view Code = "kza";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("count"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("albumid"), PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+            {true, 0U},
+        };
+
+        std::vector<int> albumIds;
+
+        explicit AlbumInfoRequest(std::vector<int> albumIds)
+            : albumIds(std::move(albumIds))
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.reserve(albumIds.size() + 1U);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("count"),
+                PacketFieldType::Int62,
+                std::to_string(albumIds.size()),
+            });
+            for (const int albumId : albumIds) {
+                packet.fields.push_back(PacketField {
+                    CG_PACKET_DIAGNOSTIC_TEXT("albumid"),
+                    PacketFieldType::Int62,
+                    std::to_string(albumId),
+                });
+            }
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket(), Spec);
+        }
+    };
+
+    /**
      * RECV_ALN 请求图鉴名字 LaR {albumid:i62}
      * 图鉴编号范围、解锁状态与模板存在性均为 Server handler 业务规则；
      * 基础 packet 层保留完整 signed int，不实现 legacy 宽松 arity。

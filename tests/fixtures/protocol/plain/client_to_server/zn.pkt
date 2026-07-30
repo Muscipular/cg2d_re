@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=zn
+direction=client_to_server
+sample=join-at-ten-twenty
+plain_hex=7A 6E 20 61 20 6B 20 31
+canonical_hex=7A 6E 20 61 20 6B 20 31 20
+end_sample

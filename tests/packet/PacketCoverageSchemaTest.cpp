@@ -5010,6 +5010,131 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         !TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "zn"),
         "zn absent from receive typed manifest");
 
+    const PacketSchema* petBattleStatusUpdateRequestSchema =
+        FindPacket(packets, "LKQy");
+    failures += Expect(
+        petBattleStatusUpdateRequestSchema != nullptr,
+        "LKQy schema exists");
+    if (petBattleStatusUpdateRequestSchema != nullptr) {
+        constexpr std::array<std::string_view, 5U> rawFieldNames = {{
+            "statut0",
+            "statut1",
+            "statut2",
+            "statut3",
+            "statut4",
+        }};
+        constexpr std::array<std::string_view, 5U> rawSpecs = {{
+            "{statut0}",
+            "{statut1}",
+            "{statut2}",
+            "{statut3}",
+            "{statut4}",
+        }};
+        constexpr std::array<std::string_view, 5U> resolvedFieldNames = {{
+            "petStatus0",
+            "petStatus1",
+            "petStatus2",
+            "petStatus3",
+            "petStatus4",
+        }};
+        constexpr std::array<std::string_view, 5U> resolvedSpecs = {{
+            "{petStatus0:i62}",
+            "{petStatus1:i62}",
+            "{petStatus2:i62}",
+            "{petStatus3:i62}",
+            "{petStatus4:i62}",
+        }};
+
+        failures += Expect(
+            petBattleStatusUpdateRequestSchema->direction == "客户端->服务端",
+            "LKQy direction");
+        failures += Expect(
+            petBattleStatusUpdateRequestSchema->legacyKind == "RECV",
+            "LKQy legacyKind");
+        failures += Expect(
+            petBattleStatusUpdateRequestSchema->clientNamespace == "send",
+            "LKQy namespace");
+        failures += Expect(
+            petBattleStatusUpdateRequestSchema->xlsxStatus == "完成",
+            "LKQy xlsxStatus");
+        failures += Expect(
+            petBattleStatusUpdateRequestSchema->rawFormat ==
+                "{statut0} {statut1} {statut2} {statut3} {statut4}",
+            "LKQy rawFormat");
+        failures += Expect(
+            !petBattleStatusUpdateRequestSchema->formatEmpty,
+            "LKQy formatEmpty false");
+        failures += Expect(
+            petBattleStatusUpdateRequestSchema->source == "xlsx",
+            "LKQy raw source");
+        failures += Expect(
+            petBattleStatusUpdateRequestSchema->fields.size() ==
+                rawFieldNames.size(),
+            "LKQy raw field count");
+        if (petBattleStatusUpdateRequestSchema->fields.size() ==
+            rawFieldNames.size()) {
+            for (std::size_t index = 0U;
+                 index < rawFieldNames.size();
+                 ++index) {
+                const FieldSchema& field =
+                    petBattleStatusUpdateRequestSchema->fields[index];
+                failures += Expect(
+                    field.index == static_cast<int>(index) &&
+                        field.name == rawFieldNames[index] &&
+                        field.typeToken == "unknown" &&
+                        field.rawSpec == rawSpecs[index] &&
+                        field.source == "xlsx",
+                    "LKQy raw field");
+            }
+        }
+
+        failures += Expect(
+            petBattleStatusUpdateRequestSchema->hasResolvedFormat,
+            "LKQy resolvedFormat present");
+        failures += Expect(
+            petBattleStatusUpdateRequestSchema->resolvedFormat ==
+                "{petStatus0:i62} {petStatus1:i62} {petStatus2:i62} "
+                "{petStatus3:i62} {petStatus4:i62}",
+            "LKQy resolvedFormat");
+        failures += Expect(
+            petBattleStatusUpdateRequestSchema->resolvedSource ==
+                "xlsx+ServerC+ClientIda",
+            "LKQy resolvedSource");
+        failures += Expect(
+            petBattleStatusUpdateRequestSchema->hasResolvedFields,
+            "LKQy resolvedFields present");
+        failures += Expect(
+            petBattleStatusUpdateRequestSchema->resolvedFields.size() ==
+                resolvedFieldNames.size(),
+            "LKQy resolved field count");
+        if (petBattleStatusUpdateRequestSchema->resolvedFields.size() ==
+            resolvedFieldNames.size()) {
+            for (std::size_t index = 0U;
+                 index < resolvedFieldNames.size();
+                 ++index) {
+                const FieldSchema& field =
+                    petBattleStatusUpdateRequestSchema->resolvedFields[index];
+                failures += Expect(
+                    field.index == static_cast<int>(index) &&
+                        field.name == resolvedFieldNames[index] &&
+                        field.typeToken == "i62" &&
+                        field.rawSpec == resolvedSpecs[index] &&
+                        field.source == "xlsx+ServerC+ClientIda",
+                    "LKQy resolved field");
+            }
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "LKQy"),
+        "LKQy absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "LKQy"),
+        "LKQy absent from receive typed manifest");
+
     const PacketSchema* deprecatedBattleJoinSchema = FindPacket(packets, "cEj");
     failures += Expect(deprecatedBattleJoinSchema != nullptr, "cEj schema exists");
     if (deprecatedBattleJoinSchema != nullptr) {

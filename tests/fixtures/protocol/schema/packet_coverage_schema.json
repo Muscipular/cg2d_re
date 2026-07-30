@@ -6237,6 +6237,45 @@
       "rawFormat": "{statut0} {statut1} {statut2} {statut3} {statut4}",
       "formatEmpty": false,
       "source": "xlsx",
+      "resolvedFormat": "{petStatus0:i62} {petStatus1:i62} {petStatus2:i62} {petStatus3:i62} {petStatus4:i62}",
+      "resolvedSource": "xlsx+ServerC+ClientIda",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "petStatus0",
+          "typeToken": "i62",
+          "rawSpec": "{petStatus0:i62}",
+          "source": "xlsx+ServerC+ClientIda"
+        },
+        {
+          "index": 1,
+          "name": "petStatus1",
+          "typeToken": "i62",
+          "rawSpec": "{petStatus1:i62}",
+          "source": "xlsx+ServerC+ClientIda"
+        },
+        {
+          "index": 2,
+          "name": "petStatus2",
+          "typeToken": "i62",
+          "rawSpec": "{petStatus2:i62}",
+          "source": "xlsx+ServerC+ClientIda"
+        },
+        {
+          "index": 3,
+          "name": "petStatus3",
+          "typeToken": "i62",
+          "rawSpec": "{petStatus3:i62}",
+          "source": "xlsx+ServerC+ClientIda"
+        },
+        {
+          "index": 4,
+          "name": "petStatus4",
+          "typeToken": "i62",
+          "rawSpec": "{petStatus4:i62}",
+          "source": "xlsx+ServerC+ClientIda"
+        }
+      ],
       "fields": [
         {
           "index": 0,

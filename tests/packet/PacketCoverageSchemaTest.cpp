@@ -4901,6 +4901,105 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         !TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "dcMv"),
         "dcMv absent from receive typed manifest");
 
+    const PacketSchema* partyMembershipRequestSchema = FindPacket(packets, "zn");
+    failures += Expect(
+        partyMembershipRequestSchema != nullptr,
+        "zn schema exists");
+    if (partyMembershipRequestSchema != nullptr) {
+        constexpr std::array<std::string_view, 3U> fieldNames = {{
+            "x",
+            "y",
+            "join",
+        }};
+        constexpr std::array<std::string_view, 3U> rawSpecs = {{
+            "{x}",
+            "{y}",
+            "{join}",
+        }};
+        constexpr std::array<std::string_view, 3U> resolvedSpecs = {{
+            "{x:i62}",
+            "{y:i62}",
+            "{join:i62}",
+        }};
+
+        failures += Expect(
+            partyMembershipRequestSchema->direction == "客户端->服务端",
+            "zn direction");
+        failures += Expect(
+            partyMembershipRequestSchema->legacyKind == "RECV",
+            "zn legacyKind");
+        failures += Expect(
+            partyMembershipRequestSchema->clientNamespace == "send",
+            "zn namespace");
+        failures += Expect(
+            partyMembershipRequestSchema->xlsxStatus == "完成",
+            "zn xlsxStatus");
+        failures += Expect(
+            partyMembershipRequestSchema->rawFormat == "{x} {y} {join}",
+            "zn rawFormat");
+        failures += Expect(
+            !partyMembershipRequestSchema->formatEmpty,
+            "zn formatEmpty false");
+        failures += Expect(
+            partyMembershipRequestSchema->source == "xlsx",
+            "zn raw source");
+        failures += Expect(
+            partyMembershipRequestSchema->fields.size() == fieldNames.size(),
+            "zn raw field count");
+        if (partyMembershipRequestSchema->fields.size() == fieldNames.size()) {
+            for (std::size_t index = 0U; index < fieldNames.size(); ++index) {
+                const FieldSchema& field =
+                    partyMembershipRequestSchema->fields[index];
+                failures += Expect(
+                    field.index == static_cast<int>(index) &&
+                        field.name == fieldNames[index] &&
+                        field.typeToken == "unknown" &&
+                        field.rawSpec == rawSpecs[index] &&
+                        field.source == "xlsx",
+                    "zn raw field");
+            }
+        }
+
+        failures += Expect(
+            partyMembershipRequestSchema->hasResolvedFormat,
+            "zn resolvedFormat present");
+        failures += Expect(
+            partyMembershipRequestSchema->resolvedFormat ==
+                "{x:i62} {y:i62} {join:i62}",
+            "zn resolvedFormat");
+        failures += Expect(
+            partyMembershipRequestSchema->resolvedSource ==
+                "xlsx+ServerC+ClientIda",
+            "zn resolvedSource");
+        failures += Expect(
+            partyMembershipRequestSchema->hasResolvedFields,
+            "zn resolvedFields present");
+        failures += Expect(
+            partyMembershipRequestSchema->resolvedFields.size() ==
+                fieldNames.size(),
+            "zn resolved field count");
+        if (partyMembershipRequestSchema->resolvedFields.size() ==
+            fieldNames.size()) {
+            for (std::size_t index = 0U; index < fieldNames.size(); ++index) {
+                const FieldSchema& field =
+                    partyMembershipRequestSchema->resolvedFields[index];
+                failures += Expect(
+                    field.index == static_cast<int>(index) &&
+                        field.name == fieldNames[index] &&
+                        field.typeToken == "i62" &&
+                        field.rawSpec == resolvedSpecs[index] &&
+                        field.source == "xlsx+ServerC+ClientIda",
+                    "zn resolved field");
+            }
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "zn"),
+        "zn absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "zn"),
+        "zn absent from receive typed manifest");
+
     const PacketSchema* deprecatedBattleJoinSchema = FindPacket(packets, "cEj");
     failures += Expect(deprecatedBattleJoinSchema != nullptr, "cEj schema exists");
     if (deprecatedBattleJoinSchema != nullptr) {

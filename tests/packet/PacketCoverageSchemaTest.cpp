@@ -1213,11 +1213,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 80U, "send typed manifest count 80");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 81U, "send typed manifest count 81");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 84U, "receive typed manifest count 84");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 164U,
-        "typed manifest count 164");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 165U,
+        "typed manifest count 165");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1234,7 +1234,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 164U, "typed manifest unique code count 164");
+    failures += Expect(codes.size() == 165U, "typed manifest unique code count 165");
     return failures;
 }
 
@@ -6462,7 +6462,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "ACwB resolvedFormat");
         failures += Expect(
             customTitleInputRequestSchema->resolvedSource ==
-                "xlsx+ServerC+ClientIda",
+                "xlsx+ServerC+ClientIda+src/packet",
             "ACwB resolvedSource");
         failures += Expect(
             customTitleInputRequestSchema->hasResolvedFields,
@@ -6478,15 +6478,26 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                     field.name == "title" &&
                     field.typeToken == "es" &&
                     field.rawSpec == "{title:es}" &&
-                    field.source == "xlsx+ServerC+ClientIda",
+                    field.source == "xlsx+ServerC+ClientIda+src/packet",
                 "ACwB resolved field");
         }
+
+        const cg::packet::send::CustomTitleInputRequest request("title");
+        const cg::packet::Packet packet = request.ToPacket();
+        failures += ExpectEffectiveFieldsMatch(
+            *customTitleInputRequestSchema,
+            cg::packet::send::CustomTitleInputRequest::Spec,
+            "ACwB Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *customTitleInputRequestSchema,
+            packet,
+            "ACwB resolved field order");
     }
     failures += Expect(
-        !TypedManifestContainsCode(
+        TypedManifestContainsCode(
             cg::packet::test::SendTypedPackets,
             "ACwB"),
-        "ACwB absent from send typed manifest");
+        "ACwB present in send typed manifest");
     failures += Expect(
         !TypedManifestContainsCode(
             cg::packet::test::ReceiveTypedPackets,

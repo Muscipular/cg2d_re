@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=ACwB
+direction=client_to_server
+sample=gbk-custom-title
+plain_hex=41 43 77 42 20 D3 C2 D5 DF
+canonical_hex=41 43 77 42 20 D3 C2 D5 DF 20
+end_sample

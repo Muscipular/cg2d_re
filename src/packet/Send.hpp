@@ -1475,6 +1475,49 @@ namespace cg::packet::send
     };
 
     /**
+     * RECV_FT 输入自定义称号 ACwB {title:es}
+     * title 是单层 legacy escaped string；基础 packet 层不限制长度，
+     * 不承担 locale 转换、角色状态或广播等业务规则。
+     */
+    struct CustomTitleInputRequest
+    {
+        static constexpr std::string_view Code = "ACwB";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("title"), PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        std::string title;
+
+        explicit CustomTitleInputRequest(std::string title)
+            : title(std::move(title))
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("title"),
+                PacketFieldType::EscapedString,
+                title,
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket(), Spec);
+        }
+    };
+
+    /**
      * RECV_TRCL 取消交易选择 suI
      * VERSION_TW 服务端分支传入的 0 是 handler 业务参数，不是 wire 字段。
      */

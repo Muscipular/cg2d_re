@@ -5146,6 +5146,111 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "LKQy"),
         "LKQy absent from receive typed manifest");
 
+    const PacketSchema* petMoveRequestSchema = FindPacket(packets, "Ukuy");
+    failures += Expect(petMoveRequestSchema != nullptr, "Ukuy schema exists");
+    if (petMoveRequestSchema != nullptr) {
+        constexpr std::array<std::string_view, 2U> rawFieldNames = {{
+            "from",
+            "to",
+        }};
+        constexpr std::array<std::string_view, 2U> rawSpecs = {{
+            "{from}",
+            "{to}",
+        }};
+        constexpr std::array<std::string_view, 2U> resolvedFieldNames = {{
+            "fromindex",
+            "toindex",
+        }};
+        constexpr std::array<std::string_view, 2U> resolvedSpecs = {{
+            "{fromindex:i62}",
+            "{toindex:i62}",
+        }};
+
+        failures += Expect(
+            petMoveRequestSchema->direction == "客户端->服务端",
+            "Ukuy direction");
+        failures += Expect(
+            petMoveRequestSchema->legacyKind == "RECV",
+            "Ukuy legacyKind");
+        failures += Expect(
+            petMoveRequestSchema->clientNamespace == "send",
+            "Ukuy namespace");
+        failures += Expect(
+            petMoveRequestSchema->xlsxStatus == "完成",
+            "Ukuy xlsxStatus");
+        failures += Expect(
+            petMoveRequestSchema->rawFormat == "{from} {to}",
+            "Ukuy rawFormat");
+        failures += Expect(
+            !petMoveRequestSchema->formatEmpty,
+            "Ukuy formatEmpty false");
+        failures += Expect(
+            petMoveRequestSchema->source == "xlsx",
+            "Ukuy raw source");
+        failures += Expect(
+            petMoveRequestSchema->fields.size() == rawFieldNames.size(),
+            "Ukuy raw field count");
+        if (petMoveRequestSchema->fields.size() == rawFieldNames.size()) {
+            for (std::size_t index = 0U;
+                 index < rawFieldNames.size();
+                 ++index) {
+                const FieldSchema& field = petMoveRequestSchema->fields[index];
+                failures += Expect(
+                    field.index == static_cast<int>(index) &&
+                        field.name == rawFieldNames[index] &&
+                        field.typeToken == "unknown" &&
+                        field.rawSpec == rawSpecs[index] &&
+                        field.source == "xlsx",
+                    "Ukuy raw field");
+            }
+        }
+
+        failures += Expect(
+            petMoveRequestSchema->hasResolvedFormat,
+            "Ukuy resolvedFormat present");
+        failures += Expect(
+            petMoveRequestSchema->resolvedFormat ==
+                "{fromindex:i62} {toindex:i62}",
+            "Ukuy resolvedFormat");
+        failures += Expect(
+            petMoveRequestSchema->resolvedSource ==
+                "xlsx+ServerC+ClientIda",
+            "Ukuy resolvedSource");
+        failures += Expect(
+            petMoveRequestSchema->hasResolvedFields,
+            "Ukuy resolvedFields present");
+        failures += Expect(
+            petMoveRequestSchema->resolvedFields.size() ==
+                resolvedFieldNames.size(),
+            "Ukuy resolved field count");
+        if (petMoveRequestSchema->resolvedFields.size() ==
+            resolvedFieldNames.size()) {
+            for (std::size_t index = 0U;
+                 index < resolvedFieldNames.size();
+                 ++index) {
+                const FieldSchema& field =
+                    petMoveRequestSchema->resolvedFields[index];
+                failures += Expect(
+                    field.index == static_cast<int>(index) &&
+                        field.name == resolvedFieldNames[index] &&
+                        field.typeToken == "i62" &&
+                        field.rawSpec == resolvedSpecs[index] &&
+                        field.source == "xlsx+ServerC+ClientIda",
+                    "Ukuy resolved field");
+            }
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "Ukuy"),
+        "Ukuy absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "Ukuy"),
+        "Ukuy absent from receive typed manifest");
+
     const PacketSchema* deprecatedBattleJoinSchema = FindPacket(packets, "cEj");
     failures += Expect(deprecatedBattleJoinSchema != nullptr, "cEj schema exists");
     if (deprecatedBattleJoinSchema != nullptr) {

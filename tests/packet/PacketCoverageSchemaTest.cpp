@@ -4431,32 +4431,74 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         const cg::packet::Packet packet = dropGold.ToPacket();
         failures += Expect(dropGoldSchema->direction == "客户端->服务端", "woz direction");
         failures += Expect(dropGoldSchema->legacyKind == "RECV", "woz legacyKind");
+        failures += Expect(dropGoldSchema->clientNamespace == "send", "woz namespace");
+        failures += Expect(dropGoldSchema->xlsxStatus == "完成", "woz xlsxStatus");
         failures += Expect(dropGoldSchema->rawFormat == "{x} {y} {amount}", "woz rawFormat");
+        failures += Expect(!dropGoldSchema->formatEmpty, "woz formatEmpty false");
+        failures += Expect(dropGoldSchema->source == "xlsx", "woz raw source");
+        failures += Expect(dropGoldSchema->fields.size() == 3U, "woz raw field count");
+        if (dropGoldSchema->fields.size() == 3U) {
+            constexpr std::array<std::string_view, 3U> names = {{"x", "y", "amount"}};
+            constexpr std::array<std::string_view, 3U> specs = {{
+                "{x}",
+                "{y}",
+                "{amount}",
+            }};
+            for (std::size_t index = 0U; index < names.size(); ++index) {
+                const FieldSchema& field = dropGoldSchema->fields[index];
+                failures += Expect(
+                    field.index == index &&
+                        field.name == names[index] &&
+                        field.typeToken == "unknown" &&
+                        field.rawSpec == specs[index] &&
+                        field.source == "xlsx",
+                    "woz raw field");
+            }
+        }
+
+        failures += Expect(dropGoldSchema->hasResolvedFormat, "woz resolvedFormat present");
         failures += Expect(
             dropGoldSchema->resolvedFormat == "{x:i62} {y:i62} {amount:i62}",
             "woz resolvedFormat");
-        failures += Expect(dropGoldSchema->resolvedSource == "xlsx+src/packet", "woz resolvedSource");
-        failures += Expect(dropGoldSchema->fields.size() == 3U, "woz raw field count");
-        if (dropGoldSchema->fields.size() == 3U) {
-            failures += Expect(dropGoldSchema->fields[0].name == "x", "woz raw field x");
-            failures += Expect(dropGoldSchema->fields[1].name == "y", "woz raw field y");
-            failures += Expect(dropGoldSchema->fields[2].name == "amount", "woz raw field amount");
-            failures += Expect(dropGoldSchema->fields[0].typeToken == "unknown", "woz raw x type");
-            failures += Expect(dropGoldSchema->fields[1].typeToken == "unknown", "woz raw y type");
-            failures += Expect(dropGoldSchema->fields[2].typeToken == "unknown", "woz raw amount type");
+        failures += Expect(
+            dropGoldSchema->resolvedSource == "xlsx+ServerC+ClientIda+src/packet",
+            "woz resolvedSource");
+        failures += Expect(dropGoldSchema->hasResolvedFields, "woz resolvedFields present");
+        failures += Expect(dropGoldSchema->resolvedFields.size() == 3U, "woz resolved field count");
+        if (dropGoldSchema->resolvedFields.size() == 3U) {
+            constexpr std::array<std::string_view, 3U> names = {{"x", "y", "amount"}};
+            constexpr std::array<std::string_view, 3U> specs = {{
+                "{x:i62}",
+                "{y:i62}",
+                "{amount:i62}",
+            }};
+            for (std::size_t index = 0U; index < names.size(); ++index) {
+                const FieldSchema& field = dropGoldSchema->resolvedFields[index];
+                failures += Expect(
+                    field.index == index &&
+                        field.name == names[index] &&
+                        field.typeToken == "i62" &&
+                        field.rawSpec == specs[index] &&
+                        field.source == "xlsx+ServerC+ClientIda+src/packet",
+                    "woz resolved field");
+            }
         }
-        failures += Expect(packet.fields.size() == 3U, "woz packet field count");
-        if (packet.fields.size() == 3U) {
-            failures += Expect(packet.fields[0].name == "x", "woz packet x field");
-            failures += Expect(packet.fields[0].type == cg::packet::PacketFieldType::Int62, "woz packet x type");
-            failures += Expect(packet.fields[1].name == "y", "woz packet y field");
-            failures += Expect(packet.fields[1].type == cg::packet::PacketFieldType::Int62, "woz packet y type");
-            failures += Expect(packet.fields[2].name == "amount", "woz packet amount field");
-            failures += Expect(
-                packet.fields[2].type == cg::packet::PacketFieldType::Int62,
-                "woz packet amount type");
-        }
+
+        failures += ExpectEffectiveFieldsMatch(
+            *dropGoldSchema,
+            cg::packet::send::DropGold::Spec,
+            "woz Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *dropGoldSchema,
+            packet,
+            "woz resolved field order");
     }
+    failures += Expect(
+        TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "woz"),
+        "woz present in send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "woz"),
+        "woz absent from receive typed manifest");
 
     const PacketSchema* shutdownRequestSchema = FindPacket(packets, "IcE");
     failures += Expect(shutdownRequestSchema != nullptr, "IcE schema exists");

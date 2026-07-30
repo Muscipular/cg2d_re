@@ -2424,6 +2424,8 @@ namespace cg::packet::send
 
     /**
      * RECV_DG DropGold 丢金币 woz {x:i62} {y:i62} {amount:i62}
+     * Server 的坐标同步、战斗状态、amount/持有金币、地图与落点检查均为业务规则；
+     * wire 保留三个 signed int，固定 exact3，无二级 payload，不兼容 legacy 0x17 分隔异常。
      */
     struct DropGold
     {

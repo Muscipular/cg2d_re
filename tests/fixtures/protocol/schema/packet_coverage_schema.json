@@ -4999,7 +4999,30 @@
       "formatEmpty": false,
       "source": "xlsx",
       "resolvedFormat": "{x:i62} {y:i62} {amount:i62}",
-      "resolvedSource": "xlsx+src/packet",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "x",
+          "typeToken": "i62",
+          "rawSpec": "{x:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 1,
+          "name": "y",
+          "typeToken": "i62",
+          "rawSpec": "{y:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 2,
+          "name": "amount",
+          "typeToken": "i62",
+          "rawSpec": "{amount:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        }
+      ],
       "fields": [
         {
           "index": 0,

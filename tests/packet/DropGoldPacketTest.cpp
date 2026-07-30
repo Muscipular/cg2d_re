@@ -123,7 +123,7 @@ int TestToPacketAndEncode()
 
 int TestInt62Values()
 {
-    const cg::packet::send::DropGold request(10, -1, 62);
+    const cg::packet::send::DropGold request(-10, -20, -62);
     const cg::packet::PacketResult<std::string> encoded = request.Encode();
 
     int failures = Expect(static_cast<bool>(encoded), "woz Encode i62 values");
@@ -131,12 +131,17 @@ int TestInt62Values()
         return failures;
     }
 
-    failures += Expect(encoded.Value() == "woz a -1 10 ", "woz i62 encoded value");
+    failures += Expect(encoded.Value() == "woz -a -k -10 ", "woz signed i62 encoded value");
 
     const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(encoded.Value());
     failures += Expect(static_cast<bool>(parsed), "woz parse i62 values");
     if (parsed.HasValue()) {
-        failures += ExpectDropGoldPacket(parsed.Value(), "10", "-1", "62", "woz parsed i62 values");
+        failures += ExpectDropGoldPacket(
+            parsed.Value(),
+            "-10",
+            "-20",
+            "-62",
+            "woz parsed signed i62 values");
     }
     return failures;
 }

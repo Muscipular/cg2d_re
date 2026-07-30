@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=woz
+direction=client_to_server
+sample=coordinates-ten-twenty-amount-sixty-two
+plain_hex=77 6F 7A 20 61 20 6B 20 31 30
+canonical_hex=77 6F 7A 20 61 20 6B 20 31 30 20
+end_sample

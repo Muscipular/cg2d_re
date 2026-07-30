@@ -2532,6 +2532,65 @@ namespace cg::packet::send
     };
 
     /**
+     * RECV_MI MoveItem 移动物品 yi {fromindex:i62} {toindex:i62} {num:i62}
+     * Server legacy 不严格校验 arity；0x4885E5 仅能静态证明索引 <100，
+     * 基础 packet 层保留完整 signed int，不固化索引、页转换或数量业务规则。
+     */
+    struct ItemMoveRequest
+    {
+        static constexpr std::string_view Code = "yi";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 3U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("fromindex"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("toindex"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("num"), PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        int fromindex = 0;
+        int toindex = 0;
+        int num = 0;
+
+        ItemMoveRequest(int fromindex, int toindex, int num)
+            : fromindex(fromindex),
+              toindex(toindex),
+              num(num)
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("fromindex"),
+                PacketFieldType::Int62,
+                std::to_string(fromindex),
+            });
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("toindex"),
+                PacketFieldType::Int62,
+                std::to_string(toindex),
+            });
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("num"),
+                PacketFieldType::Int62,
+                std::to_string(num),
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket(), Spec);
+        }
+    };
+
+    /**
      * RECV_GD 解散家族 nkda {guildId:i62}
      * guildId 保留完整 signed int；权限与当前家族匹配由服务端校验。
      */

@@ -1124,11 +1124,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 51U, "send typed manifest count 51");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 52U, "send typed manifest count 52");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 84U, "receive typed manifest count 84");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 135U,
-        "typed manifest count 135");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 136U,
+        "typed manifest count 136");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1145,7 +1145,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 135U, "typed manifest unique code count 135");
+    failures += Expect(codes.size() == 136U, "typed manifest unique code count 136");
     return failures;
 }
 
@@ -3396,6 +3396,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     const PacketSchema* itemMoveSchema = FindPacket(packets, "yi");
     failures += Expect(itemMoveSchema != nullptr, "yi schema exists");
     if (itemMoveSchema != nullptr) {
+        const cg::packet::send::ItemMoveRequest request(10, 20, 3);
+        const cg::packet::Packet packet = request.ToPacket();
         failures += Expect(
             itemMoveSchema->direction == "客户端->服务端",
             "yi direction");
@@ -3437,7 +3439,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                 "{fromindex:i62} {toindex:i62} {num:i62}",
             "yi resolvedFormat");
         failures += Expect(
-            itemMoveSchema->resolvedSource == "xlsx+ServerC+ClientIda",
+            itemMoveSchema->resolvedSource == "xlsx+ServerC+ClientIda+src/packet",
             "yi resolvedSource");
         failures += Expect(
             itemMoveSchema->hasResolvedFields,
@@ -3463,17 +3465,20 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                         field.name == names[index] &&
                         field.typeToken == "i62" &&
                         field.rawSpec == specs[index] &&
-                        field.source == "xlsx+ServerC+ClientIda",
+                        field.source == "xlsx+ServerC+ClientIda+src/packet",
                     "yi resolved field");
             }
         }
+
+        failures += ExpectEffectiveFieldsMatch(
+            *itemMoveSchema,
+            cg::packet::send::ItemMoveRequest::Spec,
+            "yi Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *itemMoveSchema,
+            packet,
+            "yi resolved field order");
     }
-    failures += Expect(
-        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "yi"),
-        "yi absent from send typed manifest");
-    failures += Expect(
-        !TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "yi"),
-        "yi absent from receive typed manifest");
 
     const PacketSchema* deprecatedBattleJoinSchema = FindPacket(packets, "cEj");
     failures += Expect(deprecatedBattleJoinSchema != nullptr, "cEj schema exists");

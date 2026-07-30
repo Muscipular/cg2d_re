@@ -6504,6 +6504,87 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "ACwB"),
         "ACwB absent from receive typed manifest");
 
+    const PacketSchema* characterLevelUpPointSchema =
+        FindPacket(packets, "IHw");
+    failures += Expect(
+        characterLevelUpPointSchema != nullptr,
+        "IHw schema exists");
+    if (characterLevelUpPointSchema != nullptr) {
+        failures += Expect(
+            characterLevelUpPointSchema->direction == "客户端->服务端",
+            "IHw direction");
+        failures += Expect(
+            characterLevelUpPointSchema->legacyKind == "RECV",
+            "IHw legacyKind");
+        failures += Expect(
+            characterLevelUpPointSchema->clientNamespace == "send",
+            "IHw namespace");
+        failures += Expect(
+            characterLevelUpPointSchema->xlsxStatus == "完成",
+            "IHw xlsxStatus");
+        failures += Expect(
+            characterLevelUpPointSchema->rawFormat == "{sqeno}",
+            "IHw rawFormat");
+        failures += Expect(
+            !characterLevelUpPointSchema->formatEmpty,
+            "IHw formatEmpty false");
+        failures += Expect(
+            characterLevelUpPointSchema->source == "xlsx",
+            "IHw raw source");
+        failures += Expect(
+            characterLevelUpPointSchema->fields.size() == 1U,
+            "IHw raw field count");
+        if (characterLevelUpPointSchema->fields.size() == 1U) {
+            const FieldSchema& field =
+                characterLevelUpPointSchema->fields[0];
+            failures += Expect(
+                field.index == 0 &&
+                    field.name == "sqeno" &&
+                    field.typeToken == "unknown" &&
+                    field.rawSpec == "{sqeno}" &&
+                    field.source == "xlsx",
+                "IHw raw field");
+        }
+
+        failures += Expect(
+            characterLevelUpPointSchema->hasResolvedFormat,
+            "IHw resolvedFormat present");
+        failures += Expect(
+            characterLevelUpPointSchema->resolvedFormat == "{sqeno:i62}",
+            "IHw resolvedFormat");
+        failures += Expect(
+            characterLevelUpPointSchema->resolvedSource ==
+                "xlsx+ServerC+ClientIda",
+            "IHw resolvedSource");
+        failures += Expect(
+            characterLevelUpPointSchema->hasResolvedFields,
+            "IHw resolvedFields present");
+        failures += Expect(
+            characterLevelUpPointSchema->resolvedFields.size() == 1U,
+            "IHw resolved field count");
+        if (characterLevelUpPointSchema->resolvedFields.size() == 1U) {
+            const FieldSchema& field =
+                characterLevelUpPointSchema->resolvedFields[0];
+            failures += Expect(
+                field.index == 0 &&
+                    field.name == "sqeno" &&
+                    field.typeToken == "i62" &&
+                    field.rawSpec == "{sqeno:i62}" &&
+                    field.source == "xlsx+ServerC+ClientIda",
+                "IHw resolved field");
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "IHw"),
+        "IHw absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "IHw"),
+        "IHw absent from receive typed manifest");
+
     const PacketSchema* deprecatedBattleJoinSchema = FindPacket(packets, "cEj");
     failures += Expect(deprecatedBattleJoinSchema != nullptr, "cEj schema exists");
     if (deprecatedBattleJoinSchema != nullptr) {

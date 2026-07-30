@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=Ukuy
+direction=client_to_server
+sample=pet-slots-zero-one
+plain_hex=55 6B 75 79 20 30 20 31
+canonical_hex=55 6B 75 79 20 30 20 31 20
+end_sample

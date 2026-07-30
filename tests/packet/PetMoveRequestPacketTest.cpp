@@ -1,0 +1,307 @@
+#include "packet/Send.hpp"
+
+#include <array>
+#include <cstddef>
+#include <iostream>
+#include <limits>
+#include <string>
+#include <string_view>
+
+namespace {
+
+using cg::packet::send::PetMoveRequest;
+
+int Expect(bool condition, const char* message)
+{
+    if (condition) {
+        return 0;
+    }
+
+    std::cerr << "EXPECT failed: " << message << '\n';
+    return 1;
+}
+
+template <typename T>
+int ExpectError(
+    const cg::packet::PacketResult<T>& result,
+    cg::packet::PacketErrorCode code,
+    std::string_view packetCode,
+    bool hasFieldIndex,
+    std::size_t fieldIndex,
+    const char* message)
+{
+    int failures = Expect(result.HasError(), message);
+    if (!result.HasError()) {
+        return failures;
+    }
+
+    const cg::packet::PacketError& error = result.Error();
+    failures += Expect(error.code == code, message);
+    failures += Expect(error.packetCode.has_value(), message);
+    if (error.packetCode.has_value()) {
+        failures += Expect(error.packetCode->View() == packetCode, message);
+    }
+    failures += Expect(error.fieldIndex.has_value() == hasFieldIndex, message);
+    if (hasFieldIndex && error.fieldIndex.has_value()) {
+        failures += Expect(*error.fieldIndex == fieldIndex, message);
+    }
+    return failures;
+}
+
+int ExpectField(
+    const cg::packet::Packet& packet,
+    std::size_t index,
+    std::string_view name,
+    std::string_view value,
+    const char* message)
+{
+    int failures = Expect(index < packet.fields.size(), message);
+    if (index >= packet.fields.size()) {
+        return failures;
+    }
+    failures += Expect(packet.fields[index].name == name, message);
+    failures += Expect(
+        packet.fields[index].type == cg::packet::PacketFieldType::Int62,
+        message);
+    failures += Expect(packet.fields[index].value == value, message);
+    return failures;
+}
+
+int TestSpecAndEncode()
+{
+    const PetMoveRequest request(0, 1);
+    const cg::packet::Packet packet = request.ToPacket();
+
+    int failures = 0;
+    failures += Expect(PetMoveRequest::Code == "Ukuy", "Ukuy code");
+    failures += Expect(
+        PetMoveRequest::Direction ==
+            cg::packet::PacketDirection::ClientToServer,
+        "Ukuy direction");
+    failures += Expect(PetMoveRequest::Fields.size() == 2U, "Ukuy fields");
+    failures += Expect(
+        PetMoveRequest::Fields[0].name == "fromindex",
+        "Ukuy fromindex name");
+    failures += Expect(
+        PetMoveRequest::Fields[1].name == "toindex",
+        "Ukuy toindex name");
+    for (const cg::packet::PacketFieldSpec& field : PetMoveRequest::Fields) {
+        failures += Expect(
+            field.type == cg::packet::PacketFieldType::Int62,
+            "Ukuy field type");
+    }
+    failures += Expect(
+        PetMoveRequest::Spec.code == PetMoveRequest::Code,
+        "Ukuy Spec code");
+    failures += Expect(
+        PetMoveRequest::Spec.direction == PetMoveRequest::Direction,
+        "Ukuy Spec direction");
+    failures += Expect(
+        PetMoveRequest::Spec.fieldCount == 2U,
+        "Ukuy Spec field count");
+    failures += Expect(request.fromindex == 0, "Ukuy fromindex member");
+    failures += Expect(request.toindex == 1, "Ukuy toindex member");
+    failures += Expect(
+        packet.code == cg::packet::PacketCode("Ukuy"),
+        "Ukuy packet code");
+    failures += Expect(
+        packet.direction == cg::packet::PacketDirection::ClientToServer,
+        "Ukuy packet direction");
+    failures += Expect(packet.fields.size() == 2U, "Ukuy packet fields");
+    failures += ExpectField(packet, 0U, "fromindex", "0", "Ukuy fromindex field");
+    failures += ExpectField(packet, 1U, "toindex", "1", "Ukuy toindex field");
+
+    const cg::packet::PacketResult<std::string> encoded = request.Encode();
+    failures += Expect(encoded.HasValue(), "Ukuy Encode");
+    if (encoded.HasValue()) {
+        failures += Expect(
+            encoded.Value() == "Ukuy 0 1 ",
+            "Ukuy Encode canonical");
+    }
+    return failures;
+}
+
+int TestBusinessValuesRemainAllowed()
+{
+    struct Case
+    {
+        int fromindex;
+        int toindex;
+        std::string_view expected;
+    };
+
+    constexpr Case Cases[] = {
+        {1, 1, "Ukuy 1 1 "},
+        {-1, 5, "Ukuy -1 5 "},
+        {100, 0, "Ukuy 1C 0 "},
+        {
+            std::numeric_limits<int>::min(),
+            std::numeric_limits<int>::max(),
+            "Ukuy -2lkCB2 2lkCB1 ",
+        },
+        {
+            std::numeric_limits<int>::max(),
+            std::numeric_limits<int>::min(),
+            "Ukuy 2lkCB1 -2lkCB2 ",
+        },
+    };
+
+    int failures = 0;
+    for (const Case& testCase : Cases) {
+        const PetMoveRequest request(testCase.fromindex, testCase.toindex);
+        const cg::packet::Packet packet = request.ToPacket();
+        failures += ExpectField(
+            packet,
+            0U,
+            "fromindex",
+            std::to_string(testCase.fromindex),
+            "Ukuy signed fromindex");
+        failures += ExpectField(
+            packet,
+            1U,
+            "toindex",
+            std::to_string(testCase.toindex),
+            "Ukuy signed toindex");
+
+        const cg::packet::PacketResult<std::string> encoded = request.Encode();
+        failures += Expect(encoded.HasValue(), "Ukuy arbitrary Encode");
+        if (encoded.HasValue()) {
+            failures += Expect(
+                encoded.Value() == testCase.expected,
+                "Ukuy arbitrary canonical");
+        }
+    }
+    return failures;
+}
+
+int TestGenericRoundtrip()
+{
+    const cg::packet::PacketResult<cg::packet::Packet> parsed =
+        cg::packet::ParsePacket("Ukuy 0 1", PetMoveRequest::Spec);
+
+    int failures = Expect(parsed.HasValue(), "Ukuy generic parse");
+    if (!parsed.HasValue()) {
+        return failures;
+    }
+    failures += ExpectField(
+        parsed.Value(),
+        0U,
+        "fromindex",
+        "0",
+        "Ukuy parsed fromindex");
+    failures += ExpectField(
+        parsed.Value(),
+        1U,
+        "toindex",
+        "1",
+        "Ukuy parsed toindex");
+
+    const cg::packet::PacketResult<std::string> rebuilt =
+        cg::packet::BuildPacket(parsed.Value(), PetMoveRequest::Spec);
+    failures += Expect(rebuilt.HasValue(), "Ukuy generic build");
+    if (rebuilt.HasValue()) {
+        failures += Expect(
+            rebuilt.Value() == "Ukuy 0 1 ",
+            "Ukuy generic canonical");
+    }
+    return failures;
+}
+
+std::string BuildPlain(const std::array<std::string, 2U>& tokens)
+{
+    return "Ukuy " + tokens[0] + ' ' + tokens[1] + ' ';
+}
+
+int TestErrors()
+{
+    int failures = 0;
+    failures += ExpectError(
+        cg::packet::ParsePacket("bad 0 1 ", PetMoveRequest::Spec),
+        cg::packet::PacketErrorCode::InvalidCode,
+        "bad",
+        false,
+        0U,
+        "Ukuy wrong code");
+    failures += ExpectError(
+        cg::packet::ParsePacket("Ukuy", PetMoveRequest::Spec),
+        cg::packet::PacketErrorCode::FieldCountMismatch,
+        "Ukuy",
+        true,
+        0U,
+        "Ukuy missing both fields");
+    failures += ExpectError(
+        cg::packet::ParsePacket("Ukuy 0", PetMoveRequest::Spec),
+        cg::packet::PacketErrorCode::FieldCountMismatch,
+        "Ukuy",
+        true,
+        1U,
+        "Ukuy missing toindex");
+    failures += ExpectError(
+        cg::packet::ParsePacket("Ukuy 0 1 2 ", PetMoveRequest::Spec),
+        cg::packet::PacketErrorCode::FieldCountMismatch,
+        "Ukuy",
+        true,
+        2U,
+        "Ukuy extra field");
+
+    const std::array<std::string, 2U> validTokens = {{"0", "1"}};
+    for (std::size_t index = 0U; index < validTokens.size(); ++index) {
+        std::array<std::string, 2U> tokens = validTokens;
+        tokens[index] = "_";
+        failures += ExpectError(
+            cg::packet::ParsePacket(BuildPlain(tokens), PetMoveRequest::Spec),
+            cg::packet::PacketErrorCode::DecodeFailed,
+            "Ukuy",
+            true,
+            index,
+            "Ukuy invalid i62");
+
+        tokens = validTokens;
+        tokens[index] = "2lkCB2";
+        failures += ExpectError(
+            cg::packet::ParsePacket(BuildPlain(tokens), PetMoveRequest::Spec),
+            cg::packet::PacketErrorCode::DecodeFailed,
+            "Ukuy",
+            true,
+            index,
+            "Ukuy positive i62 overflow");
+
+        tokens = validTokens;
+        tokens[index] = "-2lkCB3";
+        failures += ExpectError(
+            cg::packet::ParsePacket(BuildPlain(tokens), PetMoveRequest::Spec),
+            cg::packet::PacketErrorCode::DecodeFailed,
+            "Ukuy",
+            true,
+            index,
+            "Ukuy negative i62 overflow");
+    }
+
+    const std::string pollutedCode = "Ukuy\x17" "0";
+    failures += ExpectError(
+        cg::packet::ParsePacket(
+            pollutedCode + " 1",
+            PetMoveRequest::Spec),
+        cg::packet::PacketErrorCode::InvalidCode,
+        pollutedCode,
+        false,
+        0U,
+        "Ukuy polluted code");
+    return failures;
+}
+
+} // namespace
+
+int main()
+{
+    const int failures =
+        TestSpecAndEncode()
+        + TestBusinessValuesRemainAllowed()
+        + TestGenericRoundtrip()
+        + TestErrors();
+    if (failures != 0) {
+        std::cerr << failures << " pet move request packet test(s) failed\n";
+        return 1;
+    }
+    return 0;
+}

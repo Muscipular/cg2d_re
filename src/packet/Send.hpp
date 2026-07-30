@@ -3518,6 +3518,58 @@ namespace cg::packet::send
     };
 
     /**
+     * RECV_MP 移动宠物 Ukuy {fromindex:i62} {toindex:i62}
+     * 槽位范围、有效性与宠物状态均为业务规则；基础 packet 层保留任意
+     * signed int 并严格按 exact2 编码，不兼容 legacy 宽松 arity 与 0x17 异常。
+     */
+    struct PetMoveRequest
+    {
+        static constexpr std::string_view Code = "Ukuy";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("fromindex"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("toindex"), PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        int fromindex = 0;
+        int toindex = 0;
+
+        PetMoveRequest(int fromindex, int toindex)
+            : fromindex(fromindex)
+            , toindex(toindex)
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.reserve(Fields.size());
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("fromindex"),
+                PacketFieldType::Int62,
+                std::to_string(fromindex),
+            });
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("toindex"),
+                PacketFieldType::Int62,
+                std::to_string(toindex),
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket(), Spec);
+        }
+    };
+
+    /**
      * RECV_GML 家族邮件 uId {toregistNumber:i62} {text:es} {color:i62}
      */
     struct GuildMailSend

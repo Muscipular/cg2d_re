@@ -5723,6 +5723,17 @@
       "rawFormat": "{id}",
       "formatEmpty": false,
       "source": "xlsx",
+      "resolvedFormat": "{guildId:i62}",
+      "resolvedSource": "xlsx+ServerC",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "guildId",
+          "typeToken": "i62",
+          "rawSpec": "{guildId:i62}",
+          "source": "xlsx+ServerC"
+        }
+      ],
       "fields": [
         {
           "index": 0,

@@ -4468,6 +4468,79 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         !TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "npzi"),
         "npzi absent from receive typed manifest");
 
+    const PacketSchema* guildLeaveRequestSchema = FindPacket(packets, "XIsR");
+    failures += Expect(guildLeaveRequestSchema != nullptr, "XIsR schema exists");
+    if (guildLeaveRequestSchema != nullptr) {
+        failures += Expect(
+            guildLeaveRequestSchema->direction == "客户端->服务端",
+            "XIsR direction");
+        failures += Expect(
+            guildLeaveRequestSchema->legacyKind == "RECV",
+            "XIsR legacyKind");
+        failures += Expect(
+            guildLeaveRequestSchema->clientNamespace == "send",
+            "XIsR namespace");
+        failures += Expect(
+            guildLeaveRequestSchema->xlsxStatus == "进行中",
+            "XIsR xlsxStatus");
+        failures += Expect(
+            guildLeaveRequestSchema->rawFormat == "{id}",
+            "XIsR rawFormat");
+        failures += Expect(
+            !guildLeaveRequestSchema->formatEmpty,
+            "XIsR formatEmpty false");
+        failures += Expect(guildLeaveRequestSchema->source == "xlsx", "XIsR raw source");
+        failures += Expect(
+            guildLeaveRequestSchema->fields.size() == 1U,
+            "XIsR raw field count");
+        if (guildLeaveRequestSchema->fields.size() == 1U) {
+            const FieldSchema& field = guildLeaveRequestSchema->fields[0];
+            failures += Expect(
+                field.index == 0 &&
+                    field.name == "id" &&
+                    field.typeToken == "unknown" &&
+                    field.rawSpec == "{id}" &&
+                    field.source == "xlsx",
+                "XIsR raw field");
+        }
+
+        failures += Expect(
+            guildLeaveRequestSchema->hasResolvedFormat,
+            "XIsR resolvedFormat present");
+        failures += Expect(
+            guildLeaveRequestSchema->resolvedFormat == "{guildId:i62}",
+            "XIsR resolvedFormat");
+        failures += Expect(
+            guildLeaveRequestSchema->resolvedSource == "xlsx+ServerC",
+            "XIsR resolvedSource");
+        failures += Expect(
+            guildLeaveRequestSchema->resolvedSource.find("ClientIda") ==
+                std::string::npos,
+            "XIsR resolvedSource excludes ClientIda");
+        failures += Expect(
+            guildLeaveRequestSchema->hasResolvedFields,
+            "XIsR resolvedFields present");
+        failures += Expect(
+            guildLeaveRequestSchema->resolvedFields.size() == 1U,
+            "XIsR resolved field count");
+        if (guildLeaveRequestSchema->resolvedFields.size() == 1U) {
+            const FieldSchema& field = guildLeaveRequestSchema->resolvedFields[0];
+            failures += Expect(
+                field.index == 0 &&
+                    field.name == "guildId" &&
+                    field.typeToken == "i62" &&
+                    field.rawSpec == "{guildId:i62}" &&
+                    field.source == "xlsx+ServerC",
+                "XIsR resolved field");
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "XIsR"),
+        "XIsR absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "XIsR"),
+        "XIsR absent from receive typed manifest");
+
     const PacketSchema* deprecatedBattleJoinSchema = FindPacket(packets, "cEj");
     failures += Expect(deprecatedBattleJoinSchema != nullptr, "cEj schema exists");
     if (deprecatedBattleJoinSchema != nullptr) {

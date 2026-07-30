@@ -1213,11 +1213,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 64U, "send typed manifest count 64");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 65U, "send typed manifest count 65");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 84U, "receive typed manifest count 84");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 148U,
-        "typed manifest count 148");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 149U,
+        "typed manifest count 149");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1234,7 +1234,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 148U, "typed manifest unique code count 148");
+    failures += Expect(codes.size() == 149U, "typed manifest unique code count 149");
     return failures;
 }
 
@@ -4721,6 +4721,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     const PacketSchema* profileDataRequestSchema = FindPacket(packets, "TLKH");
     failures += Expect(profileDataRequestSchema != nullptr, "TLKH schema exists");
     if (profileDataRequestSchema != nullptr) {
+        const cg::packet::send::ProfileDataRequest request(3, 10);
+        const cg::packet::Packet packet = request.ToPacket();
         constexpr std::array<std::string_view, 2U> fieldNames = {{"flg", "index"}};
         constexpr std::array<std::string_view, 2U> rawSpecs = {{
             "{flg}",
@@ -4775,7 +4777,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             profileDataRequestSchema->resolvedFormat == "{flg:i62} {index:i62}",
             "TLKH resolvedFormat");
         failures += Expect(
-            profileDataRequestSchema->resolvedSource == "xlsx+ServerC+ClientIda",
+            profileDataRequestSchema->resolvedSource ==
+                "xlsx+ServerC+ClientIda+src/packet",
             "TLKH resolvedSource");
         failures += Expect(
             profileDataRequestSchema->hasResolvedFields,
@@ -4792,14 +4795,23 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                         field.name == fieldNames[index] &&
                         field.typeToken == "i62" &&
                         field.rawSpec == resolvedSpecs[index] &&
-                        field.source == "xlsx+ServerC+ClientIda",
+                        field.source ==
+                            "xlsx+ServerC+ClientIda+src/packet",
                     "TLKH resolved field");
             }
         }
+        failures += ExpectEffectiveFieldsMatch(
+            *profileDataRequestSchema,
+            cg::packet::send::ProfileDataRequest::Spec,
+            "TLKH Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *profileDataRequestSchema,
+            packet,
+            "TLKH resolved field order");
     }
     failures += Expect(
-        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "TLKH"),
-        "TLKH absent from send typed manifest");
+        TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "TLKH"),
+        "TLKH present in send typed manifest");
     failures += Expect(
         !TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "TLKH"),
         "TLKH absent from receive typed manifest");

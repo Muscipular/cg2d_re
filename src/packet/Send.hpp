@@ -3309,6 +3309,58 @@ namespace cg::packet::send
     };
 
     /**
+     * RECV_PRD 请求个人资料 TLKH {flg:i62} {index:i62}
+     * 基础 packet 层保留两个字段的完整 signed int 并严格按 exact2 编码；
+     * Server 宽松 arity、stall、登录、索引、缓存与 flg 分派均为业务规则，
+     * 不兼容 legacy 0x17 异常。
+     */
+    struct ProfileDataRequest
+    {
+        static constexpr std::string_view Code = "TLKH";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("flg"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("index"), PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        int flg = 0;
+        int index = 0;
+
+        ProfileDataRequest(int flg, int index)
+            : flg(flg)
+            , index(index)
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("flg"),
+                PacketFieldType::Int62,
+                std::to_string(flg),
+            });
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("index"),
+                PacketFieldType::Int62,
+                std::to_string(index),
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket(), Spec);
+        }
+    };
+
+    /**
      * RECV_GML 家族邮件 uId {toregistNumber:i62} {text:es} {color:i62}
      */
     struct GuildMailSend

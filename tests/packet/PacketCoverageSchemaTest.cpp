@@ -5543,6 +5543,112 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "mjCv"),
         "mjCv absent from receive typed manifest");
 
+    const PacketSchema* itemStampRequestSchema = FindPacket(packets, "BG");
+    failures += Expect(itemStampRequestSchema != nullptr, "BG schema exists");
+    if (itemStampRequestSchema != nullptr) {
+        constexpr std::array<std::string_view, 2U> rawFieldNames = {{
+            "toslot",
+            "fromslot",
+        }};
+        constexpr std::array<std::string_view, 2U> rawSpecs = {{
+            "{toslot}",
+            "{fromslot}",
+        }};
+        constexpr std::array<std::string_view, 2U> resolvedFieldNames = {{
+            "targetItemSlot",
+            "stampItemSlot",
+        }};
+        constexpr std::array<std::string_view, 2U> resolvedSpecs = {{
+            "{targetItemSlot:i62}",
+            "{stampItemSlot:i62}",
+        }};
+
+        failures += Expect(
+            itemStampRequestSchema->direction == "客户端->服务端",
+            "BG direction");
+        failures += Expect(
+            itemStampRequestSchema->legacyKind == "RECV",
+            "BG legacyKind");
+        failures += Expect(
+            itemStampRequestSchema->clientNamespace == "send",
+            "BG namespace");
+        failures += Expect(
+            itemStampRequestSchema->xlsxStatus == "完成",
+            "BG xlsxStatus");
+        failures += Expect(
+            itemStampRequestSchema->rawFormat == "{toslot} {fromslot}",
+            "BG rawFormat");
+        failures += Expect(
+            !itemStampRequestSchema->formatEmpty,
+            "BG formatEmpty false");
+        failures += Expect(
+            itemStampRequestSchema->source == "xlsx",
+            "BG raw source");
+        failures += Expect(
+            itemStampRequestSchema->fields.size() == rawFieldNames.size(),
+            "BG raw field count");
+        if (itemStampRequestSchema->fields.size() == rawFieldNames.size()) {
+            for (std::size_t index = 0U;
+                 index < rawFieldNames.size();
+                 ++index) {
+                const FieldSchema& field =
+                    itemStampRequestSchema->fields[index];
+                failures += Expect(
+                    field.index == static_cast<int>(index) &&
+                        field.name == rawFieldNames[index] &&
+                        field.typeToken == "unknown" &&
+                        field.rawSpec == rawSpecs[index] &&
+                        field.source == "xlsx",
+                    "BG raw field");
+            }
+        }
+
+        failures += Expect(
+            itemStampRequestSchema->hasResolvedFormat,
+            "BG resolvedFormat present");
+        failures += Expect(
+            itemStampRequestSchema->resolvedFormat ==
+                "{targetItemSlot:i62} {stampItemSlot:i62}",
+            "BG resolvedFormat");
+        failures += Expect(
+            itemStampRequestSchema->resolvedSource ==
+                "xlsx+ServerC+ClientIda",
+            "BG resolvedSource");
+        failures += Expect(
+            itemStampRequestSchema->hasResolvedFields,
+            "BG resolvedFields present");
+        failures += Expect(
+            itemStampRequestSchema->resolvedFields.size() ==
+                resolvedFieldNames.size(),
+            "BG resolved field count");
+        if (itemStampRequestSchema->resolvedFields.size() ==
+            resolvedFieldNames.size()) {
+            for (std::size_t index = 0U;
+                 index < resolvedFieldNames.size();
+                 ++index) {
+                const FieldSchema& field =
+                    itemStampRequestSchema->resolvedFields[index];
+                failures += Expect(
+                    field.index == static_cast<int>(index) &&
+                        field.name == resolvedFieldNames[index] &&
+                        field.typeToken == "i62" &&
+                        field.rawSpec == resolvedSpecs[index] &&
+                        field.source == "xlsx+ServerC+ClientIda",
+                    "BG resolved field");
+            }
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "BG"),
+        "BG absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "BG"),
+        "BG absent from receive typed manifest");
+
     const PacketSchema* deprecatedBattleJoinSchema = FindPacket(packets, "cEj");
     failures += Expect(deprecatedBattleJoinSchema != nullptr, "cEj schema exists");
     if (deprecatedBattleJoinSchema != nullptr) {

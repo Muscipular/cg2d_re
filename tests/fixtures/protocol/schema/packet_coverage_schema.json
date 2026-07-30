@@ -6478,6 +6478,24 @@
       "rawFormat": "{toslot} {fromslot}",
       "formatEmpty": false,
       "source": "xlsx",
+      "resolvedFormat": "{targetItemSlot:i62} {stampItemSlot:i62}",
+      "resolvedSource": "xlsx+ServerC+ClientIda",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "targetItemSlot",
+          "typeToken": "i62",
+          "rawSpec": "{targetItemSlot:i62}",
+          "source": "xlsx+ServerC+ClientIda"
+        },
+        {
+          "index": 1,
+          "name": "stampItemSlot",
+          "typeToken": "i62",
+          "rawSpec": "{stampItemSlot:i62}",
+          "source": "xlsx+ServerC+ClientIda"
+        }
+      ],
       "fields": [
         {
           "index": 0,

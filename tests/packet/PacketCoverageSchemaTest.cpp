@@ -5355,6 +5355,89 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "iET"),
         "iET absent from receive typed manifest");
 
+    const PacketSchema* skillCharacterPetListRequestSchema =
+        FindPacket(packets, "McVa");
+    failures += Expect(
+        skillCharacterPetListRequestSchema != nullptr,
+        "McVa schema exists");
+    if (skillCharacterPetListRequestSchema != nullptr) {
+        failures += Expect(
+            skillCharacterPetListRequestSchema->direction ==
+                "客户端->服务端",
+            "McVa direction");
+        failures += Expect(
+            skillCharacterPetListRequestSchema->legacyKind == "RECV",
+            "McVa legacyKind");
+        failures += Expect(
+            skillCharacterPetListRequestSchema->clientNamespace == "send",
+            "McVa namespace");
+        failures += Expect(
+            skillCharacterPetListRequestSchema->xlsxStatus == "完成",
+            "McVa xlsxStatus");
+        failures += Expect(
+            skillCharacterPetListRequestSchema->rawFormat == "{charSlot}",
+            "McVa rawFormat");
+        failures += Expect(
+            !skillCharacterPetListRequestSchema->formatEmpty,
+            "McVa formatEmpty false");
+        failures += Expect(
+            skillCharacterPetListRequestSchema->source == "xlsx",
+            "McVa raw source");
+        failures += Expect(
+            skillCharacterPetListRequestSchema->fields.size() == 1U,
+            "McVa raw field count");
+        if (skillCharacterPetListRequestSchema->fields.size() == 1U) {
+            const FieldSchema& field =
+                skillCharacterPetListRequestSchema->fields[0];
+            failures += Expect(
+                field.index == 0 &&
+                    field.name == "charSlot" &&
+                    field.typeToken == "unknown" &&
+                    field.rawSpec == "{charSlot}" &&
+                    field.source == "xlsx",
+                "McVa raw field");
+        }
+
+        failures += Expect(
+            skillCharacterPetListRequestSchema->hasResolvedFormat,
+            "McVa resolvedFormat present");
+        failures += Expect(
+            skillCharacterPetListRequestSchema->resolvedFormat ==
+                "{charSlot:i62}",
+            "McVa resolvedFormat");
+        failures += Expect(
+            skillCharacterPetListRequestSchema->resolvedSource ==
+                "xlsx+ServerC+ClientIda",
+            "McVa resolvedSource");
+        failures += Expect(
+            skillCharacterPetListRequestSchema->hasResolvedFields,
+            "McVa resolvedFields present");
+        failures += Expect(
+            skillCharacterPetListRequestSchema->resolvedFields.size() == 1U,
+            "McVa resolved field count");
+        if (skillCharacterPetListRequestSchema->resolvedFields.size() == 1U) {
+            const FieldSchema& field =
+                skillCharacterPetListRequestSchema->resolvedFields[0];
+            failures += Expect(
+                field.index == 0 &&
+                    field.name == "charSlot" &&
+                    field.typeToken == "i62" &&
+                    field.rawSpec == "{charSlot:i62}" &&
+                    field.source == "xlsx+ServerC+ClientIda",
+                "McVa resolved field");
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "McVa"),
+        "McVa absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "McVa"),
+        "McVa absent from receive typed manifest");
+
     const PacketSchema* deprecatedBattleJoinSchema = FindPacket(packets, "cEj");
     failures += Expect(deprecatedBattleJoinSchema != nullptr, "cEj schema exists");
     if (deprecatedBattleJoinSchema != nullptr) {

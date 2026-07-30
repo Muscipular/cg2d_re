@@ -6400,6 +6400,17 @@
       "rawFormat": "{charSlot}",
       "formatEmpty": false,
       "source": "xlsx",
+      "resolvedFormat": "{charSlot:i62}",
+      "resolvedSource": "xlsx+ServerC+ClientIda",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "charSlot",
+          "typeToken": "i62",
+          "rawSpec": "{charSlot:i62}",
+          "source": "xlsx+ServerC+ClientIda"
+        }
+      ],
       "fields": [
         {
           "index": 0,

@@ -5262,6 +5262,88 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "Ukuy"),
         "Ukuy absent from receive typed manifest");
 
+    const PacketSchema* skillFrontCharListRequestSchema =
+        FindPacket(packets, "iET");
+    failures += Expect(
+        skillFrontCharListRequestSchema != nullptr,
+        "iET schema exists");
+    if (skillFrontCharListRequestSchema != nullptr) {
+        failures += Expect(
+            skillFrontCharListRequestSchema->direction == "客户端->服务端",
+            "iET direction");
+        failures += Expect(
+            skillFrontCharListRequestSchema->legacyKind == "RECV",
+            "iET legacyKind");
+        failures += Expect(
+            skillFrontCharListRequestSchema->clientNamespace == "send",
+            "iET namespace");
+        failures += Expect(
+            skillFrontCharListRequestSchema->xlsxStatus == "完成",
+            "iET xlsxStatus");
+        failures += Expect(
+            skillFrontCharListRequestSchema->rawFormat == "{skill}",
+            "iET rawFormat");
+        failures += Expect(
+            !skillFrontCharListRequestSchema->formatEmpty,
+            "iET formatEmpty false");
+        failures += Expect(
+            skillFrontCharListRequestSchema->source == "xlsx",
+            "iET raw source");
+        failures += Expect(
+            skillFrontCharListRequestSchema->fields.size() == 1U,
+            "iET raw field count");
+        if (skillFrontCharListRequestSchema->fields.size() == 1U) {
+            const FieldSchema& field =
+                skillFrontCharListRequestSchema->fields[0];
+            failures += Expect(
+                field.index == 0 &&
+                    field.name == "skill" &&
+                    field.typeToken == "unknown" &&
+                    field.rawSpec == "{skill}" &&
+                    field.source == "xlsx",
+                "iET raw field");
+        }
+
+        failures += Expect(
+            skillFrontCharListRequestSchema->hasResolvedFormat,
+            "iET resolvedFormat present");
+        failures += Expect(
+            skillFrontCharListRequestSchema->resolvedFormat ==
+                "{haveskillindex:i62}",
+            "iET resolvedFormat");
+        failures += Expect(
+            skillFrontCharListRequestSchema->resolvedSource ==
+                "xlsx+ServerC+ClientIda",
+            "iET resolvedSource");
+        failures += Expect(
+            skillFrontCharListRequestSchema->hasResolvedFields,
+            "iET resolvedFields present");
+        failures += Expect(
+            skillFrontCharListRequestSchema->resolvedFields.size() == 1U,
+            "iET resolved field count");
+        if (skillFrontCharListRequestSchema->resolvedFields.size() == 1U) {
+            const FieldSchema& field =
+                skillFrontCharListRequestSchema->resolvedFields[0];
+            failures += Expect(
+                field.index == 0 &&
+                    field.name == "haveskillindex" &&
+                    field.typeToken == "i62" &&
+                    field.rawSpec == "{haveskillindex:i62}" &&
+                    field.source == "xlsx+ServerC+ClientIda",
+                "iET resolved field");
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "iET"),
+        "iET absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "iET"),
+        "iET absent from receive typed manifest");
+
     const PacketSchema* deprecatedBattleJoinSchema = FindPacket(packets, "cEj");
     failures += Expect(deprecatedBattleJoinSchema != nullptr, "cEj schema exists");
     if (deprecatedBattleJoinSchema != nullptr) {

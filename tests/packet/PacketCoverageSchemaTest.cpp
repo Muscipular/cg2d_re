@@ -3904,6 +3904,104 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         !TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "CZ"),
         "CZ absent from receive typed manifest");
 
+    const PacketSchema* guildMemberTitleChangeRequestSchema =
+        FindPacket(packets, "uHb");
+    failures += Expect(
+        guildMemberTitleChangeRequestSchema != nullptr,
+        "uHb schema exists");
+    if (guildMemberTitleChangeRequestSchema != nullptr) {
+        failures += Expect(
+            guildMemberTitleChangeRequestSchema->direction == "客户端->服务端",
+            "uHb direction");
+        failures += Expect(
+            guildMemberTitleChangeRequestSchema->legacyKind == "RECV",
+            "uHb legacyKind");
+        failures += Expect(
+            guildMemberTitleChangeRequestSchema->clientNamespace == "send",
+            "uHb namespace");
+        failures += Expect(
+            guildMemberTitleChangeRequestSchema->xlsxStatus == "进行中",
+            "uHb xlsxStatus");
+        failures += Expect(
+            guildMemberTitleChangeRequestSchema->rawFormat == "{index} {title}",
+            "uHb rawFormat");
+        failures += Expect(
+            !guildMemberTitleChangeRequestSchema->formatEmpty,
+            "uHb formatEmpty false");
+        failures += Expect(
+            guildMemberTitleChangeRequestSchema->source == "xlsx",
+            "uHb raw source");
+        failures += Expect(
+            guildMemberTitleChangeRequestSchema->fields.size() == 2U,
+            "uHb raw field count");
+        if (guildMemberTitleChangeRequestSchema->fields.size() == 2U) {
+            constexpr std::array<std::string_view, 2U> names = {{
+                "index",
+                "title",
+            }};
+            constexpr std::array<std::string_view, 2U> specs = {{
+                "{index}",
+                "{title}",
+            }};
+            for (std::size_t index = 0U; index < names.size(); ++index) {
+                const FieldSchema& field =
+                    guildMemberTitleChangeRequestSchema->fields[index];
+                failures += Expect(
+                    field.index == index &&
+                        field.name == names[index] &&
+                        field.typeToken == "unknown" &&
+                        field.rawSpec == specs[index] &&
+                        field.source == "xlsx",
+                    "uHb raw field");
+            }
+        }
+
+        failures += Expect(
+            guildMemberTitleChangeRequestSchema->hasResolvedFormat,
+            "uHb resolvedFormat present");
+        failures += Expect(
+            guildMemberTitleChangeRequestSchema->resolvedFormat ==
+                "{index:i62} {title:i62}",
+            "uHb resolvedFormat");
+        failures += Expect(
+            guildMemberTitleChangeRequestSchema->resolvedSource ==
+                "xlsx+ServerC+ClientIda",
+            "uHb resolvedSource");
+        failures += Expect(
+            guildMemberTitleChangeRequestSchema->hasResolvedFields,
+            "uHb resolvedFields present");
+        failures += Expect(
+            guildMemberTitleChangeRequestSchema->resolvedFields.size() == 2U,
+            "uHb resolved field count");
+        if (guildMemberTitleChangeRequestSchema->resolvedFields.size() == 2U) {
+            constexpr std::array<std::string_view, 2U> names = {{
+                "index",
+                "title",
+            }};
+            constexpr std::array<std::string_view, 2U> specs = {{
+                "{index:i62}",
+                "{title:i62}",
+            }};
+            for (std::size_t index = 0U; index < names.size(); ++index) {
+                const FieldSchema& field =
+                    guildMemberTitleChangeRequestSchema->resolvedFields[index];
+                failures += Expect(
+                    field.index == index &&
+                        field.name == names[index] &&
+                        field.typeToken == "i62" &&
+                        field.rawSpec == specs[index] &&
+                        field.source == "xlsx+ServerC+ClientIda",
+                    "uHb resolved field");
+            }
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "uHb"),
+        "uHb absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "uHb"),
+        "uHb absent from receive typed manifest");
+
     const PacketSchema* deprecatedBattleJoinSchema = FindPacket(packets, "cEj");
     failures += Expect(deprecatedBattleJoinSchema != nullptr, "cEj schema exists");
     if (deprecatedBattleJoinSchema != nullptr) {

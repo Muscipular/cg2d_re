@@ -5093,6 +5093,31 @@
       "rawFormat": "{fromindex} {toindex} {num}",
       "formatEmpty": false,
       "source": "xlsx",
+      "resolvedFormat": "{fromindex:i62} {toindex:i62} {num:i62}",
+      "resolvedSource": "xlsx+ServerC+ClientIda",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "fromindex",
+          "typeToken": "i62",
+          "rawSpec": "{fromindex:i62}",
+          "source": "xlsx+ServerC+ClientIda"
+        },
+        {
+          "index": 1,
+          "name": "toindex",
+          "typeToken": "i62",
+          "rawSpec": "{toindex:i62}",
+          "source": "xlsx+ServerC+ClientIda"
+        },
+        {
+          "index": 2,
+          "name": "num",
+          "typeToken": "i62",
+          "rawSpec": "{num:i62}",
+          "source": "xlsx+ServerC+ClientIda"
+        }
+      ],
       "fields": [
         {
           "index": 0,

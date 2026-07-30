@@ -1150,6 +1150,19 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
 }
 
 template <std::size_t Size>
+bool TypedManifestContainsCode(
+    const std::array<cg::packet::test::TypedPacketManifestEntry, Size>& entries,
+    std::string_view code)
+{
+    for (const cg::packet::test::TypedPacketManifestEntry& entry : entries) {
+        if (entry.spec != nullptr && entry.spec->code == code) {
+            return true;
+        }
+    }
+    return false;
+}
+
+template <std::size_t Size>
 void AddTypedSpecs(
     const std::array<cg::packet::test::TypedPacketManifestEntry, Size>& entries,
     std::map<std::string, const cg::packet::PacketSpec*, std::less<>>& specs,
@@ -3379,6 +3392,88 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             packet,
             "FvWm resolved field order");
     }
+
+    const PacketSchema* itemMoveSchema = FindPacket(packets, "yi");
+    failures += Expect(itemMoveSchema != nullptr, "yi schema exists");
+    if (itemMoveSchema != nullptr) {
+        failures += Expect(
+            itemMoveSchema->direction == "客户端->服务端",
+            "yi direction");
+        failures += Expect(itemMoveSchema->legacyKind == "RECV", "yi legacyKind");
+        failures += Expect(
+            itemMoveSchema->rawFormat == "{fromindex} {toindex} {num}",
+            "yi rawFormat");
+        failures += Expect(!itemMoveSchema->formatEmpty, "yi formatEmpty false");
+        failures += Expect(itemMoveSchema->source == "xlsx", "yi raw source");
+        failures += Expect(itemMoveSchema->fields.size() == 3U, "yi raw field count");
+        if (itemMoveSchema->fields.size() == 3U) {
+            constexpr std::array<std::string_view, 3U> names = {{
+                "fromindex",
+                "toindex",
+                "num",
+            }};
+            constexpr std::array<std::string_view, 3U> specs = {{
+                "{fromindex}",
+                "{toindex}",
+                "{num}",
+            }};
+            for (std::size_t index = 0U; index < names.size(); ++index) {
+                const FieldSchema& field = itemMoveSchema->fields[index];
+                failures += Expect(
+                    field.index == index &&
+                        field.name == names[index] &&
+                        field.typeToken == "unknown" &&
+                        field.rawSpec == specs[index] &&
+                        field.source == "xlsx",
+                    "yi raw field");
+            }
+        }
+
+        failures += Expect(
+            itemMoveSchema->hasResolvedFormat,
+            "yi resolvedFormat present");
+        failures += Expect(
+            itemMoveSchema->resolvedFormat ==
+                "{fromindex:i62} {toindex:i62} {num:i62}",
+            "yi resolvedFormat");
+        failures += Expect(
+            itemMoveSchema->resolvedSource == "xlsx+ServerC+ClientIda",
+            "yi resolvedSource");
+        failures += Expect(
+            itemMoveSchema->hasResolvedFields,
+            "yi resolvedFields present");
+        failures += Expect(
+            itemMoveSchema->resolvedFields.size() == 3U,
+            "yi resolved field count");
+        if (itemMoveSchema->resolvedFields.size() == 3U) {
+            constexpr std::array<std::string_view, 3U> names = {{
+                "fromindex",
+                "toindex",
+                "num",
+            }};
+            constexpr std::array<std::string_view, 3U> specs = {{
+                "{fromindex:i62}",
+                "{toindex:i62}",
+                "{num:i62}",
+            }};
+            for (std::size_t index = 0U; index < names.size(); ++index) {
+                const FieldSchema& field = itemMoveSchema->resolvedFields[index];
+                failures += Expect(
+                    field.index == index &&
+                        field.name == names[index] &&
+                        field.typeToken == "i62" &&
+                        field.rawSpec == specs[index] &&
+                        field.source == "xlsx+ServerC+ClientIda",
+                    "yi resolved field");
+            }
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "yi"),
+        "yi absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "yi"),
+        "yi absent from receive typed manifest");
 
     const PacketSchema* deprecatedBattleJoinSchema = FindPacket(packets, "cEj");
     failures += Expect(deprecatedBattleJoinSchema != nullptr, "cEj schema exists");

@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=Ak
+direction=client_to_server
+sample=distinct-i62-order
+plain_hex=41 6B 20 61 20 6B 20 38 20 31
+canonical_hex=41 6B 20 61 20 6B 20 38 20 31 20
+end_sample

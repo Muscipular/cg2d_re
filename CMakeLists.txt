@@ -684,6 +684,18 @@ add_test(
     COMMAND cg-packet-party-leave-position-sync-test
 )
 
+add_executable(cg-packet-item-use-request-test
+    tests/packet/ItemUseRequestPacketTest.cpp
+)
+target_include_directories(cg-packet-item-use-request-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+add_test(
+    NAME cg-packet-item-use-request-test
+    COMMAND cg-packet-item-use-request-test
+)
+
 add_executable(cg-packet-pick-up-item-test
     tests/packet/PickUpItemPacketTest.cpp
 )
@@ -2196,6 +2208,7 @@ if(MSVC)
     target_compile_options(cg-packet-keep-alive-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-move-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-party-leave-position-sync-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-item-use-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-pick-up-item-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-trade-status-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-guild-dissolve-request-test PRIVATE /W4 /utf-8 /permissive-)
@@ -2361,6 +2374,7 @@ else()
     target_compile_options(cg-packet-keep-alive-request-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-move-request-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-party-leave-position-sync-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-packet-item-use-request-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-pick-up-item-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-trade-status-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-guild-dissolve-request-test PRIVATE -Wall -Wextra -Wpedantic)

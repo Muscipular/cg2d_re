@@ -483,6 +483,73 @@ namespace cg::packet::send
     };
 
     /**
+     * RECV_ID ITEM_USE 使用物品 Ak {x:i62} {y:i62} {haveitemindex:i62} {toindex:i62}
+     * Server legacy 不严格校验 arity，且 client/Server item-on-item 索引语义存在冲突；
+     * 基础 packet 层保持 raw signed i62，不做转换或业务范围校验。
+     */
+    struct ItemUseRequest
+    {
+        static constexpr std::string_view Code = "Ak";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 4U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("x"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("y"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("haveitemindex"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("toindex"), PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        int x = 0;
+        int y = 0;
+        int haveitemindex = 0;
+        int toindex = 0;
+
+        ItemUseRequest(int x, int y, int haveitemindex, int toindex)
+            : x(x),
+              y(y),
+              haveitemindex(haveitemindex),
+              toindex(toindex)
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("x"),
+                PacketFieldType::Int62,
+                std::to_string(x),
+            });
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("y"),
+                PacketFieldType::Int62,
+                std::to_string(y),
+            });
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("haveitemindex"),
+                PacketFieldType::Int62,
+                std::to_string(haveitemindex),
+            });
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("toindex"),
+                PacketFieldType::Int62,
+                std::to_string(toindex),
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket(), Spec);
+        }
+    };
+
+    /**
      * RECV_PI 捡起物品 fIM {x:i62} {y:i62} {dir:i62}
      * 三字段保留完整 signed int；canonical 仅使用普通空格分隔。
      */

@@ -1124,11 +1124,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 49U, "send typed manifest count 49");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 50U, "send typed manifest count 50");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 84U, "receive typed manifest count 84");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 133U,
-        "typed manifest count 133");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 134U,
+        "typed manifest count 134");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1145,7 +1145,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 133U, "typed manifest unique code count 133");
+    failures += Expect(codes.size() == 134U, "typed manifest unique code count 134");
     return failures;
 }
 
@@ -3044,6 +3044,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     const PacketSchema* itemUseSchema = FindPacket(packets, "Ak");
     failures += Expect(itemUseSchema != nullptr, "Ak schema exists");
     if (itemUseSchema != nullptr) {
+        const cg::packet::send::ItemUseRequest request(10, 20, 8, 1);
+        const cg::packet::Packet packet = request.ToPacket();
         failures += Expect(
             itemUseSchema->direction == "客户端->服务端",
             "Ak direction");
@@ -3087,7 +3089,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                 "{x:i62} {y:i62} {haveitemindex:i62} {toindex:i62}",
             "Ak resolvedFormat");
         failures += Expect(
-            itemUseSchema->resolvedSource == "xlsx+ServerC+ClientIda",
+            itemUseSchema->resolvedSource == "xlsx+ServerC+ClientIda+src/packet",
             "Ak resolvedSource");
         failures += Expect(
             itemUseSchema->hasResolvedFields,
@@ -3115,30 +3117,19 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                         field.name == names[index] &&
                         field.typeToken == "i62" &&
                         field.rawSpec == specs[index] &&
-                        field.source == "xlsx+ServerC+ClientIda",
+                        field.source == "xlsx+ServerC+ClientIda+src/packet",
                     "Ak resolved field");
             }
         }
 
-        bool inSendManifest = false;
-        for (const cg::packet::test::TypedPacketManifestEntry& entry :
-             cg::packet::test::SendTypedPackets) {
-            if (entry.spec != nullptr && entry.spec->code == "Ak") {
-                inSendManifest = true;
-                break;
-            }
-        }
-        failures += Expect(!inSendManifest, "Ak absent from send typed manifest");
-
-        bool inReceiveManifest = false;
-        for (const cg::packet::test::TypedPacketManifestEntry& entry :
-             cg::packet::test::ReceiveTypedPackets) {
-            if (entry.spec != nullptr && entry.spec->code == "Ak") {
-                inReceiveManifest = true;
-                break;
-            }
-        }
-        failures += Expect(!inReceiveManifest, "Ak absent from receive typed manifest");
+        failures += ExpectEffectiveFieldsMatch(
+            *itemUseSchema,
+            cg::packet::send::ItemUseRequest::Spec,
+            "Ak Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *itemUseSchema,
+            packet,
+            "Ak resolved field order");
     }
 
     const PacketSchema* itemPickupSchema = FindPacket(packets, "fIM");

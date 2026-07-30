@@ -1213,11 +1213,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 74U, "send typed manifest count 74");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 75U, "send typed manifest count 75");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 84U, "receive typed manifest count 84");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 158U,
-        "typed manifest count 158");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 159U,
+        "typed manifest count 159");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1234,7 +1234,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 158U, "typed manifest unique code count 158");
+    failures += Expect(codes.size() == 159U, "typed manifest unique code count 159");
     return failures;
 }
 
@@ -5787,6 +5787,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         actionSkillIconRequestSchema != nullptr,
         "klF schema exists");
     if (actionSkillIconRequestSchema != nullptr) {
+        const cg::packet::send::ActionSkillIconRequest request(10, 11, 12);
+        const cg::packet::Packet packet = request.ToPacket();
         constexpr std::array<std::string_view, 3U> fieldNames = {{
             "x",
             "y",
@@ -5853,7 +5855,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "klF resolvedFormat");
         failures += Expect(
             actionSkillIconRequestSchema->resolvedSource ==
-                "xlsx+ServerC+ClientIda",
+                "xlsx+ServerC+ClientIda+src/packet",
             "klF resolvedSource");
         failures += Expect(
             actionSkillIconRequestSchema->hasResolvedFields,
@@ -5874,16 +5876,25 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                         field.name == fieldNames[index] &&
                         field.typeToken == "i62" &&
                         field.rawSpec == resolvedSpecs[index] &&
-                        field.source == "xlsx+ServerC+ClientIda",
+                        field.source ==
+                            "xlsx+ServerC+ClientIda+src/packet",
                     "klF resolved field");
             }
         }
+        failures += ExpectEffectiveFieldsMatch(
+            *actionSkillIconRequestSchema,
+            cg::packet::send::ActionSkillIconRequest::Spec,
+            "klF Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *actionSkillIconRequestSchema,
+            packet,
+            "klF resolved field order");
     }
     failures += Expect(
-        !TypedManifestContainsCode(
+        TypedManifestContainsCode(
             cg::packet::test::SendTypedPackets,
             "klF"),
-        "klF absent from send typed manifest");
+        "klF present in send typed manifest");
     failures += Expect(
         !TypedManifestContainsCode(
             cg::packet::test::ReceiveTypedPackets,

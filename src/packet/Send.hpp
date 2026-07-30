@@ -3809,6 +3809,65 @@ namespace cg::packet::send
     };
 
     /**
+     * RECV_ACS 生产技能图标 klF {x:i62} {y:i62} {icon:i62}
+     * 基础 packet 层保留坐标与图标的任意 signed int，严格按 x、y、icon
+     * exact3 编码，不下沉坐标、技能图标映射与范围业务规则，不兼容 legacy 宽松 arity 与 0x17 异常。
+     */
+    struct ActionSkillIconRequest
+    {
+        static constexpr std::string_view Code = "klF";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 3U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("x"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("y"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("icon"), PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        int x = 0;
+        int y = 0;
+        int icon = 0;
+
+        ActionSkillIconRequest(int x, int y, int icon)
+            : x(x)
+            , y(y)
+            , icon(icon)
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("x"),
+                PacketFieldType::Int62,
+                std::to_string(x),
+            });
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("y"),
+                PacketFieldType::Int62,
+                std::to_string(y),
+            });
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("icon"),
+                PacketFieldType::Int62,
+                std::to_string(icon),
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket(), Spec);
+        }
+    };
+
+    /**
      * RECV_GML 家族邮件 uId {toregistNumber:i62} {text:es} {color:i62}
      */
     struct GuildMailSend

@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=klF
+direction=client_to_server
+sample=position-ten-eleven-icon-twelve
+plain_hex=6B 6C 46 20 61 20 62 20 63
+canonical_hex=6B 6C 46 20 61 20 62 20 63 20
+end_sample

@@ -1213,11 +1213,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 81U, "send typed manifest count 81");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 82U, "send typed manifest count 82");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 84U, "receive typed manifest count 84");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 165U,
-        "typed manifest count 165");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 166U,
+        "typed manifest count 166");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1234,7 +1234,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 165U, "typed manifest unique code count 165");
+    failures += Expect(codes.size() == 166U, "typed manifest unique code count 166");
     return failures;
 }
 
@@ -6554,7 +6554,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "IHw resolvedFormat");
         failures += Expect(
             characterLevelUpPointSchema->resolvedSource ==
-                "xlsx+ServerC+ClientIda",
+                "xlsx+ServerC+ClientIda+src/packet",
             "IHw resolvedSource");
         failures += Expect(
             characterLevelUpPointSchema->hasResolvedFields,
@@ -6570,15 +6570,26 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                     field.name == "sqeno" &&
                     field.typeToken == "i62" &&
                     field.rawSpec == "{sqeno:i62}" &&
-                    field.source == "xlsx+ServerC+ClientIda",
+                    field.source == "xlsx+ServerC+ClientIda+src/packet",
                 "IHw resolved field");
         }
+
+        const cg::packet::send::CharacterLevelUpPoint request(4);
+        const cg::packet::Packet packet = request.ToPacket();
+        failures += ExpectEffectiveFieldsMatch(
+            *characterLevelUpPointSchema,
+            cg::packet::send::CharacterLevelUpPoint::Spec,
+            "IHw Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *characterLevelUpPointSchema,
+            packet,
+            "IHw resolved field order");
     }
     failures += Expect(
-        !TypedManifestContainsCode(
+        TypedManifestContainsCode(
             cg::packet::test::SendTypedPackets,
             "IHw"),
-        "IHw absent from send typed manifest");
+        "IHw present in send typed manifest");
     failures += Expect(
         !TypedManifestContainsCode(
             cg::packet::test::ReceiveTypedPackets,

@@ -972,6 +972,18 @@ add_test(
     COMMAND cg-packet-custom-title-input-request-test
 )
 
+add_executable(cg-packet-character-level-up-point-test
+    tests/packet/CharacterLevelUpPointPacketTest.cpp
+)
+target_include_directories(cg-packet-character-level-up-point-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+add_test(
+    NAME cg-packet-character-level-up-point-test
+    COMMAND cg-packet-character-level-up-point-test
+)
+
 add_executable(cg-packet-trade-selection-cancel-request-test
     tests/packet/TradeSelectionCancelRequestPacketTest.cpp
 )
@@ -2640,6 +2652,7 @@ if(MSVC)
     target_compile_options(cg-packet-title-selection-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-title-deletion-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-custom-title-input-request-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-character-level-up-point-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-trade-selection-cancel-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-battle-position-toggle-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-return-to-login-point-request-test PRIVATE /W4 /utf-8 /permissive-)
@@ -2836,6 +2849,7 @@ else()
     target_compile_options(cg-packet-title-selection-request-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-title-deletion-request-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-custom-title-input-request-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-packet-character-level-up-point-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-trade-selection-cancel-request-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-battle-position-toggle-request-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-return-to-login-point-request-test PRIVATE -Wall -Wextra -Wpedantic)

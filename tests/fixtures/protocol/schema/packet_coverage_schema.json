@@ -7026,7 +7026,7 @@
       "formatEmpty": false,
       "source": "xlsx",
       "resolvedFormat": "{sqeno:i62}",
-      "resolvedSource": "xlsx+ServerC+ClientIda",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
       "fields": [
         {
           "index": 0,
@@ -7042,7 +7042,7 @@
           "name": "sqeno",
           "typeToken": "i62",
           "rawSpec": "{sqeno:i62}",
-          "source": "xlsx+ServerC+ClientIda"
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         }
       ]
     },

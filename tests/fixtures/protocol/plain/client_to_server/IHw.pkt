@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=IHw
+direction=client_to_server
+sample=magic
+plain_hex=49 48 77 20 34
+canonical_hex=49 48 77 20 34 20
+end_sample

@@ -2829,6 +2829,84 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         !TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "sz"),
         "sz absent from receive typed manifest");
 
+    const PacketSchema* encounterRequestSchema = FindPacket(packets, "KeOX");
+    failures += Expect(encounterRequestSchema != nullptr, "KeOX schema exists");
+    if (encounterRequestSchema != nullptr) {
+        constexpr std::array<std::string_view, 2U> fieldNames = {{"x", "y"}};
+        constexpr std::array<std::string_view, 2U> rawSpecs = {{"{x}", "{y}"}};
+        constexpr std::array<std::string_view, 2U> resolvedSpecs = {{
+            "{x:i62}",
+            "{y:i62}",
+        }};
+
+        failures += Expect(
+            encounterRequestSchema->direction == "客户端->服务端",
+            "KeOX direction");
+        failures += Expect(encounterRequestSchema->legacyKind == "RECV", "KeOX legacyKind");
+        failures += Expect(encounterRequestSchema->clientNamespace == "send", "KeOX namespace");
+        failures += Expect(encounterRequestSchema->xlsxStatus == "完成", "KeOX xlsxStatus");
+        failures += Expect(
+            encounterRequestSchema->rawFormat == "{x} {y}",
+            "KeOX rawFormat");
+        failures += Expect(!encounterRequestSchema->formatEmpty, "KeOX formatEmpty false");
+        failures += Expect(encounterRequestSchema->source == "xlsx", "KeOX raw source");
+        failures += Expect(
+            encounterRequestSchema->fields.size() == fieldNames.size(),
+            "KeOX raw field count");
+        if (encounterRequestSchema->fields.size() == fieldNames.size()) {
+            for (std::size_t index = 0U; index < fieldNames.size(); ++index) {
+                const FieldSchema& field = encounterRequestSchema->fields[index];
+                failures += Expect(
+                    field.index == static_cast<int>(index) &&
+                        field.name == fieldNames[index] &&
+                        field.typeToken == "unknown" &&
+                        field.rawSpec == rawSpecs[index] &&
+                        field.source == "xlsx",
+                    "KeOX raw field");
+            }
+        }
+
+        failures += Expect(
+            encounterRequestSchema->hasResolvedFormat,
+            "KeOX resolvedFormat present");
+        failures += Expect(
+            encounterRequestSchema->resolvedFormat == "{x:i62} {y:i62}",
+            "KeOX resolvedFormat");
+        failures += Expect(
+            encounterRequestSchema->resolvedSource == "xlsx+ClientIda",
+            "KeOX resolvedSource");
+        failures += Expect(
+            encounterRequestSchema->resolvedSource.find("ServerC") == std::string::npos,
+            "KeOX resolvedSource excludes ServerC");
+        failures += Expect(
+            encounterRequestSchema->resolvedSource.find("src/packet") == std::string::npos,
+            "KeOX resolvedSource excludes src/packet");
+        failures += Expect(
+            encounterRequestSchema->hasResolvedFields,
+            "KeOX resolvedFields present");
+        failures += Expect(
+            encounterRequestSchema->resolvedFields.size() == fieldNames.size(),
+            "KeOX resolved field count");
+        if (encounterRequestSchema->resolvedFields.size() == fieldNames.size()) {
+            for (std::size_t index = 0U; index < fieldNames.size(); ++index) {
+                const FieldSchema& field = encounterRequestSchema->resolvedFields[index];
+                failures += Expect(
+                    field.index == static_cast<int>(index) &&
+                        field.name == fieldNames[index] &&
+                        field.typeToken == "i62" &&
+                        field.rawSpec == resolvedSpecs[index] &&
+                        field.source == "xlsx+ClientIda",
+                    "KeOX resolved field");
+            }
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "KeOX"),
+        "KeOX absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "KeOX"),
+        "KeOX absent from receive typed manifest");
+
     const PacketSchema* objectDeleteSchema = FindPacket(packets, "uSB");
     failures += Expect(objectDeleteSchema != nullptr, "uSB schema exists");
     if (objectDeleteSchema != nullptr) {

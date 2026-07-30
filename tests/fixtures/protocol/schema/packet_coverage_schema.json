@@ -1999,6 +1999,8 @@
       "rawFormat": "{x} {y}",
       "formatEmpty": false,
       "source": "xlsx",
+      "resolvedFormat": "{x:i62} {y:i62}",
+      "resolvedSource": "xlsx+ClientIda",
       "fields": [
         {
           "index": 0,
@@ -2013,6 +2015,22 @@
           "typeToken": "unknown",
           "rawSpec": "{y}",
           "source": "xlsx"
+        }
+      ],
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "x",
+          "typeToken": "i62",
+          "rawSpec": "{x:i62}",
+          "source": "xlsx+ClientIda"
+        },
+        {
+          "index": 1,
+          "name": "y",
+          "typeToken": "i62",
+          "rawSpec": "{y:i62}",
+          "source": "xlsx+ClientIda"
         }
       ]
     },

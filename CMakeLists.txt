@@ -1465,6 +1465,20 @@ target_include_directories(cg-packet-guild-title-set-test
 
 add_test(NAME cg-packet-guild-title-set-test COMMAND cg-packet-guild-title-set-test)
 
+add_executable(cg-packet-guild-member-list-request-test
+    tests/packet/GuildMemberListRequestPacketTest.cpp
+)
+
+target_include_directories(cg-packet-guild-member-list-request-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+
+add_test(
+    NAME cg-packet-guild-member-list-request-test
+    COMMAND cg-packet-guild-member-list-request-test
+)
+
 add_executable(cg-packet-guild-mail-send-test
     tests/packet/GuildMailSendPacketTest.cpp
 )
@@ -2349,6 +2363,7 @@ if(MSVC)
     target_compile_options(cg-packet-address-book-exchange-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-guild-info-change-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-guild-title-set-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-guild-member-list-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-guild-mail-send-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-profile-mail-friend-delete-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-profile-mini-mail-send-test PRIVATE /W4 /utf-8 /permissive-)
@@ -2518,6 +2533,7 @@ else()
     target_compile_options(cg-packet-address-book-exchange-request-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-guild-info-change-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-guild-title-set-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-packet-guild-member-list-request-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-guild-mail-send-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-profile-mail-friend-delete-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-profile-mini-mail-send-test PRIVATE -Wall -Wextra -Wpedantic)

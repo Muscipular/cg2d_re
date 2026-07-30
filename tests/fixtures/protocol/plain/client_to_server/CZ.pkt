@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=CZ
+direction=client_to_server
+sample=time-ten
+plain_hex=43 5A 20 61
+canonical_hex=43 5A 20 61 20
+end_sample

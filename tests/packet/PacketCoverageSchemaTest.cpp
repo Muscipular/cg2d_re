@@ -1124,11 +1124,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 56U, "send typed manifest count 56");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 57U, "send typed manifest count 57");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 84U, "receive typed manifest count 84");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 140U,
-        "typed manifest count 140");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 141U,
+        "typed manifest count 141");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1145,7 +1145,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 140U, "typed manifest unique code count 140");
+    failures += Expect(codes.size() == 141U, "typed manifest unique code count 141");
     return failures;
 }
 
@@ -3819,6 +3819,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     const PacketSchema* guildMemberListRequestSchema = FindPacket(packets, "CZ");
     failures += Expect(guildMemberListRequestSchema != nullptr, "CZ schema exists");
     if (guildMemberListRequestSchema != nullptr) {
+        const cg::packet::send::GuildMemberListRequest request(10);
+        const cg::packet::Packet packet = request.ToPacket();
         failures += Expect(
             guildMemberListRequestSchema->direction == "客户端->服务端",
             "CZ direction");
@@ -3861,7 +3863,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             guildMemberListRequestSchema->resolvedFormat == "{time:i62}",
             "CZ resolvedFormat");
         failures += Expect(
-            guildMemberListRequestSchema->resolvedSource == "xlsx+ServerC",
+            guildMemberListRequestSchema->resolvedSource ==
+                "xlsx+ServerC+src/packet",
             "CZ resolvedSource");
         failures += Expect(
             guildMemberListRequestSchema->resolvedSource.find("ClientIda") ==
@@ -3880,14 +3883,23 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                     field.name == "time" &&
                     field.typeToken == "i62" &&
                     field.rawSpec == "{time:i62}" &&
-                    field.source == "xlsx+ServerC" &&
+                    field.source == "xlsx+ServerC+src/packet" &&
                     field.source.find("ClientIda") == std::string::npos,
                 "CZ resolved field");
         }
+
+        failures += ExpectEffectiveFieldsMatch(
+            *guildMemberListRequestSchema,
+            cg::packet::send::GuildMemberListRequest::Spec,
+            "CZ Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *guildMemberListRequestSchema,
+            packet,
+            "CZ resolved field order");
     }
     failures += Expect(
-        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "CZ"),
-        "CZ absent from send typed manifest");
+        TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "CZ"),
+        "CZ present in send typed manifest");
     failures += Expect(
         !TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "CZ"),
         "CZ absent from receive typed manifest");

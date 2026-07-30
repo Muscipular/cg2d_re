@@ -2925,6 +2925,50 @@ namespace cg::packet::send
     };
 
     /**
+     * RECV_GMR 请求家族成员列表 CZ {time:i62}
+     * Server 的宽松 arity、家族状态与缓存时间比较均为业务规则；
+     * 基础 packet 层保留完整 signed int，不把独立 GI/GM 当作 ACK 或二级 payload，
+     * 也不兼容 legacy 0x17 异常。
+     */
+    struct GuildMemberListRequest
+    {
+        static constexpr std::string_view Code = "CZ";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("time"), PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        int time = 0;
+
+        explicit GuildMemberListRequest(int time)
+            : time(time)
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("time"),
+                PacketFieldType::Int62,
+                std::to_string(time),
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket(), Spec);
+        }
+    };
+
+    /**
      * RECV_GML 家族邮件 uId {toregistNumber:i62} {text:es} {color:i62}
      */
     struct GuildMailSend

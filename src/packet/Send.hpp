@@ -2722,6 +2722,57 @@ namespace cg::packet::send
     };
 
     /**
+     * RECV_AAB 交互名片 vcAz {x:i62} {y:i62}
+     * 坐标、距离、地图、状态、目标与名片规则均由服务端处理；
+     * 基础 packet 层保留完整 signed int，不复刻 legacy 宽松 arity。
+     */
+    struct AddressBookExchangeRequest
+    {
+        static constexpr std::string_view Code = "vcAz";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("x"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("y"), PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        int x = 0;
+        int y = 0;
+
+        AddressBookExchangeRequest(int x, int y)
+            : x(x),
+              y(y)
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("x"),
+                PacketFieldType::Int62,
+                std::to_string(x),
+            });
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("y"),
+                PacketFieldType::Int62,
+                std::to_string(y),
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket(), Spec);
+        }
+    };
+
+    /**
      * RECV_GD 解散家族 nkda {guildId:i62}
      * guildId 保留完整 signed int；权限与当前家族匹配由服务端校验。
      */

@@ -1124,11 +1124,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 55U, "send typed manifest count 55");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 56U, "send typed manifest count 56");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 84U, "receive typed manifest count 84");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 139U,
-        "typed manifest count 139");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 140U,
+        "typed manifest count 140");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1145,7 +1145,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 139U, "typed manifest unique code count 139");
+    failures += Expect(codes.size() == 140U, "typed manifest unique code count 140");
     return failures;
 }
 
@@ -3727,6 +3727,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     const PacketSchema* addressBookExchangeSchema = FindPacket(packets, "vcAz");
     failures += Expect(addressBookExchangeSchema != nullptr, "vcAz schema exists");
     if (addressBookExchangeSchema != nullptr) {
+        const cg::packet::send::AddressBookExchangeRequest request(10, 20);
+        const cg::packet::Packet packet = request.ToPacket();
         failures += Expect(
             addressBookExchangeSchema->direction == "客户端->服务端",
             "vcAz direction");
@@ -3771,7 +3773,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "vcAz resolvedFormat");
         failures += Expect(
             addressBookExchangeSchema->resolvedSource ==
-                "xlsx+ServerC+ClientIda",
+                "xlsx+ServerC+ClientIda+src/packet",
             "vcAz resolvedSource");
         failures += Expect(
             addressBookExchangeSchema->hasResolvedFields,
@@ -3793,14 +3795,23 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                         field.name == names[index] &&
                         field.typeToken == "i62" &&
                         field.rawSpec == specs[index] &&
-                        field.source == "xlsx+ServerC+ClientIda",
+                        field.source == "xlsx+ServerC+ClientIda+src/packet",
                     "vcAz resolved field");
             }
         }
+
+        failures += ExpectEffectiveFieldsMatch(
+            *addressBookExchangeSchema,
+            cg::packet::send::AddressBookExchangeRequest::Spec,
+            "vcAz Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *addressBookExchangeSchema,
+            packet,
+            "vcAz resolved field order");
     }
     failures += Expect(
-        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "vcAz"),
-        "vcAz absent from send typed manifest");
+        TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "vcAz"),
+        "vcAz present in send typed manifest");
     failures += Expect(
         !TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "vcAz"),
         "vcAz absent from receive typed manifest");

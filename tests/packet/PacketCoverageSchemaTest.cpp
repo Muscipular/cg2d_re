@@ -1124,11 +1124,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 54U, "send typed manifest count 54");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 55U, "send typed manifest count 55");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 84U, "receive typed manifest count 84");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 138U,
-        "typed manifest count 138");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 139U,
+        "typed manifest count 139");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1145,7 +1145,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 138U, "typed manifest unique code count 138");
+    failures += Expect(codes.size() == 139U, "typed manifest unique code count 139");
     return failures;
 }
 
@@ -3647,6 +3647,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     const PacketSchema* addressBookDeleteSchema = FindPacket(packets, "FPkR");
     failures += Expect(addressBookDeleteSchema != nullptr, "FPkR schema exists");
     if (addressBookDeleteSchema != nullptr) {
+        const cg::packet::send::AddressBookDeleteRequest request(10);
+        const cg::packet::Packet packet = request.ToPacket();
         failures += Expect(
             addressBookDeleteSchema->direction == "客户端->服务端",
             "FPkR direction");
@@ -3686,7 +3688,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             addressBookDeleteSchema->resolvedFormat == "{index:i62}",
             "FPkR resolvedFormat");
         failures += Expect(
-            addressBookDeleteSchema->resolvedSource == "xlsx+ServerC+ClientIda",
+            addressBookDeleteSchema->resolvedSource ==
+                "xlsx+ServerC+ClientIda+src/packet",
             "FPkR resolvedSource");
         failures += Expect(
             addressBookDeleteSchema->hasResolvedFields,
@@ -3701,13 +3704,22 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                     field.name == "index" &&
                     field.typeToken == "i62" &&
                     field.rawSpec == "{index:i62}" &&
-                    field.source == "xlsx+ServerC+ClientIda",
+                    field.source == "xlsx+ServerC+ClientIda+src/packet",
                 "FPkR resolved field");
         }
+
+        failures += ExpectEffectiveFieldsMatch(
+            *addressBookDeleteSchema,
+            cg::packet::send::AddressBookDeleteRequest::Spec,
+            "FPkR Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *addressBookDeleteSchema,
+            packet,
+            "FPkR resolved field order");
     }
     failures += Expect(
-        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "FPkR"),
-        "FPkR absent from send typed manifest");
+        TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "FPkR"),
+        "FPkR present in send typed manifest");
     failures += Expect(
         !TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "FPkR"),
         "FPkR absent from receive typed manifest");

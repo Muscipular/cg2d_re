@@ -2678,6 +2678,48 @@ namespace cg::packet::send
     };
 
     /**
+     * RECV_DAB 删除名片 FPkR {index:i62}
+     * index 保留完整 signed int；地址簿范围、登录状态、删除与回复均由服务端处理。
+     */
+    struct AddressBookDeleteRequest
+    {
+        static constexpr std::string_view Code = "FPkR";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("index"), PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        int index = 0;
+
+        explicit AddressBookDeleteRequest(int index)
+            : index(index)
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("index"),
+                PacketFieldType::Int62,
+                std::to_string(index),
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket(), Spec);
+        }
+    };
+
+    /**
      * RECV_GD 解散家族 nkda {guildId:i62}
      * guildId 保留完整 signed int；权限与当前家族匹配由服务端校验。
      */

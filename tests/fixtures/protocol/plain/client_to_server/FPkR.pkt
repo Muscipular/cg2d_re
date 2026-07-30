@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=FPkR
+direction=client_to_server
+sample=addressbook-index-ten
+plain_hex=46 50 6B 52 20 61
+canonical_hex=46 50 6B 52 20 61 20
+end_sample

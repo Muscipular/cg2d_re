@@ -5724,14 +5724,14 @@
       "formatEmpty": false,
       "source": "xlsx",
       "resolvedFormat": "{guildId:i62}",
-      "resolvedSource": "xlsx+ServerC",
+      "resolvedSource": "xlsx+ServerC+src/packet",
       "resolvedFields": [
         {
           "index": 0,
           "name": "guildId",
           "typeToken": "i62",
           "rawSpec": "{guildId:i62}",
-          "source": "xlsx+ServerC"
+          "source": "xlsx+ServerC+src/packet"
         }
       ],
       "fields": [

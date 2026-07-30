@@ -3177,6 +3177,50 @@ namespace cg::packet::send
     };
 
     /**
+     * RECV_LG 离开家族 XIsR {guildId:i62}
+     * 基础 packet 层保留完整 signed int 并严格按 exact1 编码；
+     * Server 宽松 arity、当前家族匹配、家族长、成员状态与独立通知均为业务规则，
+     * 不兼容 legacy 0x17 异常。
+     */
+    struct GuildLeaveRequest
+    {
+        static constexpr std::string_view Code = "XIsR";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("guildId"), PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        int guildId = 0;
+
+        explicit GuildLeaveRequest(int guildId)
+            : guildId(guildId)
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("guildId"),
+                PacketFieldType::Int62,
+                std::to_string(guildId),
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket(), Spec);
+        }
+    };
+
+    /**
      * RECV_GML 家族邮件 uId {toregistNumber:i62} {text:es} {color:i62}
      */
     struct GuildMailSend

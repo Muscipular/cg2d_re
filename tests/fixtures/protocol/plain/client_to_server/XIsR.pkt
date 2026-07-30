@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=XIsR
+direction=client_to_server
+sample=guild-id-ten
+plain_hex=58 49 73 52 20 61
+canonical_hex=58 49 73 52 20 61 20
+end_sample

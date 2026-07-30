@@ -1213,11 +1213,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 61U, "send typed manifest count 61");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 62U, "send typed manifest count 62");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 84U, "receive typed manifest count 84");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 145U,
-        "typed manifest count 145");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 146U,
+        "typed manifest count 146");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1234,7 +1234,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 145U, "typed manifest unique code count 145");
+    failures += Expect(codes.size() == 146U, "typed manifest unique code count 146");
     return failures;
 }
 
@@ -4471,6 +4471,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     const PacketSchema* guildLeaveRequestSchema = FindPacket(packets, "XIsR");
     failures += Expect(guildLeaveRequestSchema != nullptr, "XIsR schema exists");
     if (guildLeaveRequestSchema != nullptr) {
+        const cg::packet::send::GuildLeaveRequest request(10);
+        const cg::packet::Packet packet = request.ToPacket();
         failures += Expect(
             guildLeaveRequestSchema->direction == "客户端->服务端",
             "XIsR direction");
@@ -4511,7 +4513,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             guildLeaveRequestSchema->resolvedFormat == "{guildId:i62}",
             "XIsR resolvedFormat");
         failures += Expect(
-            guildLeaveRequestSchema->resolvedSource == "xlsx+ServerC",
+            guildLeaveRequestSchema->resolvedSource == "xlsx+ServerC+src/packet",
             "XIsR resolvedSource");
         failures += Expect(
             guildLeaveRequestSchema->resolvedSource.find("ClientIda") ==
@@ -4530,13 +4532,21 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                     field.name == "guildId" &&
                     field.typeToken == "i62" &&
                     field.rawSpec == "{guildId:i62}" &&
-                    field.source == "xlsx+ServerC",
+                    field.source == "xlsx+ServerC+src/packet",
                 "XIsR resolved field");
         }
+        failures += ExpectEffectiveFieldsMatch(
+            *guildLeaveRequestSchema,
+            cg::packet::send::GuildLeaveRequest::Spec,
+            "XIsR Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *guildLeaveRequestSchema,
+            packet,
+            "XIsR resolved field order");
     }
     failures += Expect(
-        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "XIsR"),
-        "XIsR absent from send typed manifest");
+        TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "XIsR"),
+        "XIsR present in send typed manifest");
     failures += Expect(
         !TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "XIsR"),
         "XIsR absent from receive typed manifest");

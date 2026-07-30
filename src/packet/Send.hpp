@@ -2004,6 +2004,8 @@ namespace cg::packet::send
 
     /**
      * RECV_MSG 发送邮件信息 CV {index:i62} {message:es} {color:i62}
+     * 调用方负责 legacy n/c/z/y 内容预转义；message 在此仅是普通外层 es 标量，
+     * 不拆 SubPayload，也不增加组标记、索引或颜色业务约束。
      */
     struct MailMessageSend
     {

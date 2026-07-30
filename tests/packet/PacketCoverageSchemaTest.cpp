@@ -4051,26 +4051,94 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     const PacketSchema* mailMessageSendSchema = FindPacket(packets, "CV");
     failures += Expect(mailMessageSendSchema != nullptr, "CV schema exists");
     if (mailMessageSendSchema != nullptr) {
+        const cg::packet::send::MailMessageSend request(10, "message", 0);
+        const cg::packet::Packet packet = request.ToPacket();
         failures += Expect(mailMessageSendSchema->direction == "客户端->服务端", "CV direction");
         failures += Expect(mailMessageSendSchema->legacyKind == "RECV", "CV legacyKind");
+        failures += Expect(mailMessageSendSchema->clientNamespace == "send", "CV namespace");
         failures += Expect(
             mailMessageSendSchema->rawFormat == "{index} {message:es} {color}",
             "CV rawFormat");
+        failures += Expect(!mailMessageSendSchema->formatEmpty, "CV formatEmpty false");
+        failures += Expect(mailMessageSendSchema->source == "xlsx", "CV raw source");
         failures += Expect(
             mailMessageSendSchema->resolvedFormat == "{index:i62} {message:es} {color:i62}",
             "CV resolvedFormat");
         failures += Expect(
-            mailMessageSendSchema->resolvedSource == "xlsx+ServerC+ClientIda+src",
+            mailMessageSendSchema->resolvedSource ==
+                "xlsx+ServerC+ClientIda+src/packet",
             "CV resolvedSource");
         failures += Expect(mailMessageSendSchema->fields.size() == 3U, "CV raw field count");
         if (mailMessageSendSchema->fields.size() == 3U) {
-            failures += Expect(mailMessageSendSchema->fields[0].name == "index", "CV raw field index");
-            failures += Expect(mailMessageSendSchema->fields[1].name == "message", "CV raw field message");
-            failures += Expect(mailMessageSendSchema->fields[2].name == "color", "CV raw field color");
-            failures += Expect(mailMessageSendSchema->fields[0].typeToken == "unknown", "CV raw type unknown");
-            failures += Expect(mailMessageSendSchema->fields[1].typeToken == "es", "CV raw message type");
-            failures += Expect(mailMessageSendSchema->fields[2].typeToken == "unknown", "CV raw color type");
+            constexpr std::array<std::string_view, 3U> names = {{
+                "index",
+                "message",
+                "color",
+            }};
+            constexpr std::array<std::string_view, 3U> types = {{
+                "unknown",
+                "es",
+                "unknown",
+            }};
+            constexpr std::array<std::string_view, 3U> specs = {{
+                "{index}",
+                "{message:es}",
+                "{color}",
+            }};
+            for (std::size_t index = 0U; index < names.size(); ++index) {
+                const FieldSchema& field = mailMessageSendSchema->fields[index];
+                failures += Expect(
+                    field.index == index &&
+                        field.name == names[index] &&
+                        field.typeToken == types[index] &&
+                        field.rawSpec == specs[index] &&
+                        field.source == "xlsx",
+                    "CV raw field");
+            }
         }
+
+        failures += Expect(
+            mailMessageSendSchema->hasResolvedFields,
+            "CV resolvedFields present");
+        failures += Expect(
+            mailMessageSendSchema->resolvedFields.size() == 3U,
+            "CV resolved field count");
+        if (mailMessageSendSchema->resolvedFields.size() == 3U) {
+            constexpr std::array<std::string_view, 3U> names = {{
+                "index",
+                "message",
+                "color",
+            }};
+            constexpr std::array<std::string_view, 3U> types = {{
+                "i62",
+                "es",
+                "i62",
+            }};
+            constexpr std::array<std::string_view, 3U> specs = {{
+                "{index:i62}",
+                "{message:es}",
+                "{color:i62}",
+            }};
+            for (std::size_t index = 0U; index < names.size(); ++index) {
+                const FieldSchema& field = mailMessageSendSchema->resolvedFields[index];
+                failures += Expect(
+                    field.index == index &&
+                        field.name == names[index] &&
+                        field.typeToken == types[index] &&
+                        field.rawSpec == specs[index] &&
+                        field.source == "xlsx+ServerC+ClientIda+src/packet",
+                    "CV resolved field");
+            }
+        }
+
+        failures += ExpectEffectiveFieldsMatch(
+            *mailMessageSendSchema,
+            cg::packet::send::MailMessageSend::Spec,
+            "CV Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *mailMessageSendSchema,
+            packet,
+            "CV resolved field order");
     }
 
     const PacketSchema* chatMessageSendSchema = FindPacket(packets, "uSr");

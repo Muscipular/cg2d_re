@@ -162,6 +162,7 @@ int TestEscapedMessageRoundtrip()
 
 int TestPipeMessageRoundtrip()
 {
+    // 仅证明普通 es codec 可无损保留 "|"；不表示 CV 存在 SubPayload。
     const cg::packet::send::MailMessageSend request(1, "A|B|C", 4);
     const cg::packet::PacketResult<std::string> encoded = request.Encode();
 

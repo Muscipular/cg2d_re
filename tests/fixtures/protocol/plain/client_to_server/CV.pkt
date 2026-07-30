@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=CV
+direction=client_to_server
+sample=gbk-mail-text
+plain_hex=43 56 20 31 20 D3 CA BC FE 20 30
+canonical_hex=43 56 20 31 20 D3 CA BC FE 20 30 20
+end_sample

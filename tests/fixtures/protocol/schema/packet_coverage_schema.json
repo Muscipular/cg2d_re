@@ -5184,7 +5184,30 @@
       "formatEmpty": false,
       "source": "xlsx",
       "resolvedFormat": "{index:i62} {message:es} {color:i62}",
-      "resolvedSource": "xlsx+ServerC+ClientIda+src",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "index",
+          "typeToken": "i62",
+          "rawSpec": "{index:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 1,
+          "name": "message",
+          "typeToken": "es",
+          "rawSpec": "{message:es}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 2,
+          "name": "color",
+          "typeToken": "i62",
+          "rawSpec": "{color:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        }
+      ],
       "fields": [
         {
           "index": 0,

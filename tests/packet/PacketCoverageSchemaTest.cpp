@@ -5781,6 +5781,115 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "MIS"),
         "MIS absent from receive typed manifest");
 
+    const PacketSchema* actionSkillIconRequestSchema =
+        FindPacket(packets, "klF");
+    failures += Expect(
+        actionSkillIconRequestSchema != nullptr,
+        "klF schema exists");
+    if (actionSkillIconRequestSchema != nullptr) {
+        constexpr std::array<std::string_view, 3U> fieldNames = {{
+            "x",
+            "y",
+            "icon",
+        }};
+        constexpr std::array<std::string_view, 3U> rawSpecs = {{
+            "{x}",
+            "{y}",
+            "{icon}",
+        }};
+        constexpr std::array<std::string_view, 3U> resolvedSpecs = {{
+            "{x:i62}",
+            "{y:i62}",
+            "{icon:i62}",
+        }};
+
+        failures += Expect(
+            actionSkillIconRequestSchema->direction == "客户端->服务端",
+            "klF direction");
+        failures += Expect(
+            actionSkillIconRequestSchema->legacyKind == "RECV",
+            "klF legacyKind");
+        failures += Expect(
+            actionSkillIconRequestSchema->clientNamespace == "send",
+            "klF namespace");
+        failures += Expect(
+            actionSkillIconRequestSchema->xlsxStatus == "完成",
+            "klF xlsxStatus");
+        failures += Expect(
+            actionSkillIconRequestSchema->rawFormat == "{x} {y} {icon}",
+            "klF rawFormat");
+        failures += Expect(
+            !actionSkillIconRequestSchema->formatEmpty,
+            "klF formatEmpty false");
+        failures += Expect(
+            actionSkillIconRequestSchema->source == "xlsx",
+            "klF raw source");
+        failures += Expect(
+            actionSkillIconRequestSchema->fields.size() == fieldNames.size(),
+            "klF raw field count");
+        if (actionSkillIconRequestSchema->fields.size() ==
+            fieldNames.size()) {
+            for (std::size_t index = 0U;
+                 index < fieldNames.size();
+                 ++index) {
+                const FieldSchema& field =
+                    actionSkillIconRequestSchema->fields[index];
+                failures += Expect(
+                    field.index == static_cast<int>(index) &&
+                        field.name == fieldNames[index] &&
+                        field.typeToken == "unknown" &&
+                        field.rawSpec == rawSpecs[index] &&
+                        field.source == "xlsx",
+                    "klF raw field");
+            }
+        }
+
+        failures += Expect(
+            actionSkillIconRequestSchema->hasResolvedFormat,
+            "klF resolvedFormat present");
+        failures += Expect(
+            actionSkillIconRequestSchema->resolvedFormat ==
+                "{x:i62} {y:i62} {icon:i62}",
+            "klF resolvedFormat");
+        failures += Expect(
+            actionSkillIconRequestSchema->resolvedSource ==
+                "xlsx+ServerC+ClientIda",
+            "klF resolvedSource");
+        failures += Expect(
+            actionSkillIconRequestSchema->hasResolvedFields,
+            "klF resolvedFields present");
+        failures += Expect(
+            actionSkillIconRequestSchema->resolvedFields.size() ==
+                fieldNames.size(),
+            "klF resolved field count");
+        if (actionSkillIconRequestSchema->resolvedFields.size() ==
+            fieldNames.size()) {
+            for (std::size_t index = 0U;
+                 index < fieldNames.size();
+                 ++index) {
+                const FieldSchema& field =
+                    actionSkillIconRequestSchema->resolvedFields[index];
+                failures += Expect(
+                    field.index == static_cast<int>(index) &&
+                        field.name == fieldNames[index] &&
+                        field.typeToken == "i62" &&
+                        field.rawSpec == resolvedSpecs[index] &&
+                        field.source == "xlsx+ServerC+ClientIda",
+                    "klF resolved field");
+            }
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "klF"),
+        "klF absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "klF"),
+        "klF absent from receive typed manifest");
+
     const PacketSchema* deprecatedBattleJoinSchema = FindPacket(packets, "cEj");
     failures += Expect(deprecatedBattleJoinSchema != nullptr, "cEj schema exists");
     if (deprecatedBattleJoinSchema != nullptr) {

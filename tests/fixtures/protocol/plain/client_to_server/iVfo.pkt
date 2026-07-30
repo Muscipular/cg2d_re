@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=iVfo
+direction=client_to_server
+sample=field-recovery-item-use
+plain_hex=69 56 66 6F 20 61 20 6B 20 38 20 31
+canonical_hex=69 56 66 6F 20 61 20 6B 20 38 20 31 20
+end_sample

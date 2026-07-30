@@ -1124,11 +1124,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 50U, "send typed manifest count 50");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 51U, "send typed manifest count 51");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 84U, "receive typed manifest count 84");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 134U,
-        "typed manifest count 134");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 135U,
+        "typed manifest count 135");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1145,7 +1145,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 134U, "typed manifest unique code count 134");
+    failures += Expect(codes.size() == 135U, "typed manifest unique code count 135");
     return failures;
 }
 
@@ -3135,6 +3135,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     const PacketSchema* fieldRecoveryUseSchema = FindPacket(packets, "iVfo");
     failures += Expect(fieldRecoveryUseSchema != nullptr, "iVfo schema exists");
     if (fieldRecoveryUseSchema != nullptr) {
+        const cg::packet::send::FieldRecoveryItemUseRequest request(10, 20, 8, 1);
+        const cg::packet::Packet packet = request.ToPacket();
         failures += Expect(
             fieldRecoveryUseSchema->direction == "客户端->服务端",
             "iVfo direction");
@@ -3188,7 +3190,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "iVfo resolvedFormat");
         failures += Expect(
             fieldRecoveryUseSchema->resolvedSource ==
-                "xlsx+ServerC+ClientIda",
+                "xlsx+ServerC+ClientIda+src/packet",
             "iVfo resolvedSource");
         failures += Expect(
             fieldRecoveryUseSchema->hasResolvedFields,
@@ -3217,34 +3219,19 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                         field.name == names[index] &&
                         field.typeToken == "i62" &&
                         field.rawSpec == specs[index] &&
-                        field.source == "xlsx+ServerC+ClientIda",
+                        field.source == "xlsx+ServerC+ClientIda+src/packet",
                     "iVfo resolved field");
             }
         }
 
-        bool inSendManifest = false;
-        for (const cg::packet::test::TypedPacketManifestEntry& entry :
-             cg::packet::test::SendTypedPackets) {
-            if (entry.spec != nullptr && entry.spec->code == "iVfo") {
-                inSendManifest = true;
-                break;
-            }
-        }
-        failures += Expect(
-            !inSendManifest,
-            "iVfo absent from send typed manifest");
-
-        bool inReceiveManifest = false;
-        for (const cg::packet::test::TypedPacketManifestEntry& entry :
-             cg::packet::test::ReceiveTypedPackets) {
-            if (entry.spec != nullptr && entry.spec->code == "iVfo") {
-                inReceiveManifest = true;
-                break;
-            }
-        }
-        failures += Expect(
-            !inReceiveManifest,
-            "iVfo absent from receive typed manifest");
+        failures += ExpectEffectiveFieldsMatch(
+            *fieldRecoveryUseSchema,
+            cg::packet::send::FieldRecoveryItemUseRequest::Spec,
+            "iVfo Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *fieldRecoveryUseSchema,
+            packet,
+            "iVfo resolved field order");
     }
 
     const PacketSchema* itemPickupSchema = FindPacket(packets, "fIM");

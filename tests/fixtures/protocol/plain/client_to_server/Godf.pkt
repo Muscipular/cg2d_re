@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=Godf
+direction=client_to_server
+sample=regist-number-ten
+plain_hex=47 6F 64 66 20 61
+canonical_hex=47 6F 64 66 20 61 20
+end_sample

@@ -1612,6 +1612,49 @@ namespace cg::packet::send
     };
 
     /**
+     * RECV_CharDelete 删除角色 Godf {registNumber:i62}
+     * registNumber 是角色注册号；登录态、授权、账号归属与数据库删除结果
+     * 属于服务端业务层，基础 packet 层保留任意 signed int。
+     */
+    struct CharacterDeleteRequest
+    {
+        static constexpr std::string_view Code = "Godf";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("registNumber"), PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        int registNumber = 0;
+
+        explicit CharacterDeleteRequest(int registNumber)
+            : registNumber(registNumber)
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("registNumber"),
+                PacketFieldType::Int62,
+                std::to_string(registNumber),
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket(), Spec);
+        }
+    };
+
+    /**
      * RECV_TRCL 取消交易选择 suI
      * VERSION_TW 服务端分支传入的 0 是 handler 业务参数，不是 wire 字段。
      */

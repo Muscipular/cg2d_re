@@ -7605,7 +7605,7 @@
       "formatEmpty": false,
       "source": "xlsx",
       "resolvedFormat": "{registNumber:i62}",
-      "resolvedSource": "xlsx+ServerC+ClientIda",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
       "fields": [
         {
           "index": 0,
@@ -7621,7 +7621,7 @@
           "name": "registNumber",
           "typeToken": "i62",
           "rawSpec": "{registNumber:i62}",
-          "source": "xlsx+ServerC+ClientIda"
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         }
       ]
     },

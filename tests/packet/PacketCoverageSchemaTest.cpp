@@ -1213,11 +1213,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 83U, "send typed manifest count 83");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 84U, "send typed manifest count 84");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 84U, "receive typed manifest count 84");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 167U,
-        "typed manifest count 167");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 168U,
+        "typed manifest count 168");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1234,7 +1234,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 167U, "typed manifest unique code count 167");
+    failures += Expect(codes.size() == 168U, "typed manifest unique code count 168");
     return failures;
 }
 
@@ -6760,7 +6760,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "Godf resolvedFormat");
         failures += Expect(
             characterDeleteRequestSchema->resolvedSource ==
-                "xlsx+ServerC+ClientIda",
+                "xlsx+ServerC+ClientIda+src/packet",
             "Godf resolvedSource");
         failures += Expect(
             characterDeleteRequestSchema->hasResolvedFields,
@@ -6776,15 +6776,26 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                     field.name == "registNumber" &&
                     field.typeToken == "i62" &&
                     field.rawSpec == "{registNumber:i62}" &&
-                    field.source == "xlsx+ServerC+ClientIda",
+                    field.source == "xlsx+ServerC+ClientIda+src/packet",
                 "Godf resolved field");
         }
+
+        const cg::packet::send::CharacterDeleteRequest request(10);
+        const cg::packet::Packet packet = request.ToPacket();
+        failures += ExpectEffectiveFieldsMatch(
+            *characterDeleteRequestSchema,
+            cg::packet::send::CharacterDeleteRequest::Spec,
+            "Godf Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *characterDeleteRequestSchema,
+            packet,
+            "Godf resolved field order");
     }
     failures += Expect(
-        !TypedManifestContainsCode(
+        TypedManifestContainsCode(
             cg::packet::test::SendTypedPackets,
             "Godf"),
-        "Godf absent from send typed manifest");
+        "Godf present in send typed manifest");
     failures += Expect(
         !TypedManifestContainsCode(
             cg::packet::test::ReceiveTypedPackets,

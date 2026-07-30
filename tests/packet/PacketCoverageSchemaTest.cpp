@@ -3480,6 +3480,74 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "yi resolved field order");
     }
 
+    const PacketSchema* itemRecipeRequestSchema = FindPacket(packets, "fS");
+    failures += Expect(itemRecipeRequestSchema != nullptr, "fS schema exists");
+    if (itemRecipeRequestSchema != nullptr) {
+        failures += Expect(
+            itemRecipeRequestSchema->direction == "客户端->服务端",
+            "fS direction");
+        failures += Expect(
+            itemRecipeRequestSchema->legacyKind == "RECV",
+            "fS legacyKind");
+        failures += Expect(
+            itemRecipeRequestSchema->clientNamespace == "send",
+            "fS namespace");
+        failures += Expect(
+            itemRecipeRequestSchema->rawFormat == "{haveskillindex}",
+            "fS rawFormat");
+        failures += Expect(
+            !itemRecipeRequestSchema->formatEmpty,
+            "fS formatEmpty false");
+        failures += Expect(
+            itemRecipeRequestSchema->source == "xlsx",
+            "fS raw source");
+        failures += Expect(
+            itemRecipeRequestSchema->fields.size() == 1U,
+            "fS raw field count");
+        if (itemRecipeRequestSchema->fields.size() == 1U) {
+            const FieldSchema& field = itemRecipeRequestSchema->fields[0];
+            failures += Expect(
+                field.index == 0 &&
+                    field.name == "haveskillindex" &&
+                    field.typeToken == "unknown" &&
+                    field.rawSpec == "{haveskillindex}" &&
+                    field.source == "xlsx",
+                "fS raw field");
+        }
+
+        failures += Expect(
+            itemRecipeRequestSchema->hasResolvedFormat,
+            "fS resolvedFormat present");
+        failures += Expect(
+            itemRecipeRequestSchema->resolvedFormat == "{haveskillindex:i62}",
+            "fS resolvedFormat");
+        failures += Expect(
+            itemRecipeRequestSchema->resolvedSource == "xlsx+ServerC+ClientIda",
+            "fS resolvedSource");
+        failures += Expect(
+            itemRecipeRequestSchema->hasResolvedFields,
+            "fS resolvedFields present");
+        failures += Expect(
+            itemRecipeRequestSchema->resolvedFields.size() == 1U,
+            "fS resolved field count");
+        if (itemRecipeRequestSchema->resolvedFields.size() == 1U) {
+            const FieldSchema& field = itemRecipeRequestSchema->resolvedFields[0];
+            failures += Expect(
+                field.index == 0 &&
+                    field.name == "haveskillindex" &&
+                    field.typeToken == "i62" &&
+                    field.rawSpec == "{haveskillindex:i62}" &&
+                    field.source == "xlsx+ServerC+ClientIda",
+                "fS resolved field");
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "fS"),
+        "fS absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "fS"),
+        "fS absent from receive typed manifest");
+
     const PacketSchema* deprecatedBattleJoinSchema = FindPacket(packets, "cEj");
     failures += Expect(deprecatedBattleJoinSchema != nullptr, "cEj schema exists");
     if (deprecatedBattleJoinSchema != nullptr) {

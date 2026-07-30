@@ -5152,6 +5152,17 @@
       "rawFormat": "{haveskillindex}",
       "formatEmpty": false,
       "source": "xlsx",
+      "resolvedFormat": "{haveskillindex:i62}",
+      "resolvedSource": "xlsx+ServerC+ClientIda",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "haveskillindex",
+          "typeToken": "i62",
+          "rawSpec": "{haveskillindex:i62}",
+          "source": "xlsx+ServerC+ClientIda"
+        }
+      ],
       "fields": [
         {
           "index": 0,

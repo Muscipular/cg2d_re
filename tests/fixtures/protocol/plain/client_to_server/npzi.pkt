@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=npzi
+direction=client_to_server
+sample=coordinates-ten-twenty
+plain_hex=6E 70 7A 69 20 61 20 6B
+canonical_hex=6E 70 7A 69 20 61 20 6B 20
+end_sample

@@ -1213,11 +1213,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 60U, "send typed manifest count 60");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 61U, "send typed manifest count 61");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 84U, "receive typed manifest count 84");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 144U,
-        "typed manifest count 144");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 145U,
+        "typed manifest count 145");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1234,7 +1234,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 144U, "typed manifest unique code count 144");
+    failures += Expect(codes.size() == 145U, "typed manifest unique code count 145");
     return failures;
 }
 
@@ -4376,6 +4376,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         guildMemberInviteRequestSchema != nullptr,
         "npzi schema exists");
     if (guildMemberInviteRequestSchema != nullptr) {
+        const cg::packet::send::GuildMemberInviteRequest request(10, 20);
+        const cg::packet::Packet packet = request.ToPacket();
         failures += Expect(
             guildMemberInviteRequestSchema->direction == "客户端->服务端",
             "npzi direction");
@@ -4422,7 +4424,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             guildMemberInviteRequestSchema->resolvedFormat == "{x:i62} {y:i62}",
             "npzi resolvedFormat");
         failures += Expect(
-            guildMemberInviteRequestSchema->resolvedSource == "xlsx+ServerC+ClientIda",
+            guildMemberInviteRequestSchema->resolvedSource ==
+                "xlsx+ServerC+ClientIda+src/packet",
             "npzi resolvedSource");
         failures += Expect(
             guildMemberInviteRequestSchema->hasResolvedFields,
@@ -4444,14 +4447,23 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                         field.name == names[index] &&
                         field.typeToken == "i62" &&
                         field.rawSpec == specs[index] &&
-                        field.source == "xlsx+ServerC+ClientIda",
+                        field.source == "xlsx+ServerC+ClientIda+src/packet",
                     "npzi resolved field");
             }
         }
+
+        failures += ExpectEffectiveFieldsMatch(
+            *guildMemberInviteRequestSchema,
+            cg::packet::send::GuildMemberInviteRequest::Spec,
+            "npzi Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *guildMemberInviteRequestSchema,
+            packet,
+            "npzi resolved field order");
     }
     failures += Expect(
-        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "npzi"),
-        "npzi absent from send typed manifest");
+        TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "npzi"),
+        "npzi present in send typed manifest");
     failures += Expect(
         !TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "npzi"),
         "npzi absent from receive typed manifest");

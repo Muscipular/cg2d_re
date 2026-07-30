@@ -3125,6 +3125,58 @@ namespace cg::packet::send
     };
 
     /**
+     * RECV_AGM 家族邀请 npzi {x:i62} {y:i62}
+     * 基础 packet 层保留两个完整 signed int 并严格按 exact2 编码；
+     * Server 宽松 arity、坐标、地图、距离、邻格、家族、权限、状态与独立通知均为业务规则，
+     * 不兼容 legacy 0x17 异常。
+     */
+    struct GuildMemberInviteRequest
+    {
+        static constexpr std::string_view Code = "npzi";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("x"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("y"), PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        int x = 0;
+        int y = 0;
+
+        GuildMemberInviteRequest(int x, int y)
+            : x(x),
+              y(y)
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("x"),
+                PacketFieldType::Int62,
+                std::to_string(x),
+            });
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("y"),
+                PacketFieldType::Int62,
+                std::to_string(y),
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket(), Spec);
+        }
+    };
+
+    /**
      * RECV_GML 家族邮件 uId {toregistNumber:i62} {text:es} {color:i62}
      */
     struct GuildMailSend

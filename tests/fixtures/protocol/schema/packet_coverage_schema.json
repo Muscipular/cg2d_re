@@ -6994,6 +6994,8 @@
       "rawFormat": "{title}",
       "formatEmpty": false,
       "source": "xlsx",
+      "resolvedFormat": "{title:es}",
+      "resolvedSource": "xlsx+ServerC+ClientIda",
       "fields": [
         {
           "index": 0,
@@ -7001,6 +7003,15 @@
           "typeToken": "unknown",
           "rawSpec": "{title}",
           "source": "xlsx"
+        }
+      ],
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "title",
+          "typeToken": "es",
+          "rawSpec": "{title:es}",
+          "source": "xlsx+ServerC+ClientIda"
         }
       ]
     },

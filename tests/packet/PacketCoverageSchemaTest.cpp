@@ -6412,6 +6412,87 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "tj"),
         "tj absent from receive typed manifest");
 
+    const PacketSchema* customTitleInputRequestSchema =
+        FindPacket(packets, "ACwB");
+    failures += Expect(
+        customTitleInputRequestSchema != nullptr,
+        "ACwB schema exists");
+    if (customTitleInputRequestSchema != nullptr) {
+        failures += Expect(
+            customTitleInputRequestSchema->direction == "客户端->服务端",
+            "ACwB direction");
+        failures += Expect(
+            customTitleInputRequestSchema->legacyKind == "RECV",
+            "ACwB legacyKind");
+        failures += Expect(
+            customTitleInputRequestSchema->clientNamespace == "send",
+            "ACwB namespace");
+        failures += Expect(
+            customTitleInputRequestSchema->xlsxStatus == "完成",
+            "ACwB xlsxStatus");
+        failures += Expect(
+            customTitleInputRequestSchema->rawFormat == "{title}",
+            "ACwB rawFormat");
+        failures += Expect(
+            !customTitleInputRequestSchema->formatEmpty,
+            "ACwB formatEmpty false");
+        failures += Expect(
+            customTitleInputRequestSchema->source == "xlsx",
+            "ACwB raw source");
+        failures += Expect(
+            customTitleInputRequestSchema->fields.size() == 1U,
+            "ACwB raw field count");
+        if (customTitleInputRequestSchema->fields.size() == 1U) {
+            const FieldSchema& field =
+                customTitleInputRequestSchema->fields[0];
+            failures += Expect(
+                field.index == 0 &&
+                    field.name == "title" &&
+                    field.typeToken == "unknown" &&
+                    field.rawSpec == "{title}" &&
+                    field.source == "xlsx",
+                "ACwB raw field");
+        }
+
+        failures += Expect(
+            customTitleInputRequestSchema->hasResolvedFormat,
+            "ACwB resolvedFormat present");
+        failures += Expect(
+            customTitleInputRequestSchema->resolvedFormat == "{title:es}",
+            "ACwB resolvedFormat");
+        failures += Expect(
+            customTitleInputRequestSchema->resolvedSource ==
+                "xlsx+ServerC+ClientIda",
+            "ACwB resolvedSource");
+        failures += Expect(
+            customTitleInputRequestSchema->hasResolvedFields,
+            "ACwB resolvedFields present");
+        failures += Expect(
+            customTitleInputRequestSchema->resolvedFields.size() == 1U,
+            "ACwB resolved field count");
+        if (customTitleInputRequestSchema->resolvedFields.size() == 1U) {
+            const FieldSchema& field =
+                customTitleInputRequestSchema->resolvedFields[0];
+            failures += Expect(
+                field.index == 0 &&
+                    field.name == "title" &&
+                    field.typeToken == "es" &&
+                    field.rawSpec == "{title:es}" &&
+                    field.source == "xlsx+ServerC+ClientIda",
+                "ACwB resolved field");
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "ACwB"),
+        "ACwB absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "ACwB"),
+        "ACwB absent from receive typed manifest");
+
     const PacketSchema* deprecatedBattleJoinSchema = FindPacket(packets, "cEj");
     failures += Expect(deprecatedBattleJoinSchema != nullptr, "cEj schema exists");
     if (deprecatedBattleJoinSchema != nullptr) {

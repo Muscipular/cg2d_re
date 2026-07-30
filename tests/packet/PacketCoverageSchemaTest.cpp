@@ -6319,6 +6319,88 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "zGp"),
         "zGp absent from receive typed manifest");
 
+    const PacketSchema* titleDeletionRequestSchema =
+        FindPacket(packets, "tj");
+    failures += Expect(
+        titleDeletionRequestSchema != nullptr,
+        "tj schema exists");
+    if (titleDeletionRequestSchema != nullptr) {
+        failures += Expect(
+            titleDeletionRequestSchema->direction == "客户端->服务端",
+            "tj direction");
+        failures += Expect(
+            titleDeletionRequestSchema->legacyKind == "RECV",
+            "tj legacyKind");
+        failures += Expect(
+            titleDeletionRequestSchema->clientNamespace == "send",
+            "tj namespace");
+        failures += Expect(
+            titleDeletionRequestSchema->xlsxStatus == "完成",
+            "tj xlsxStatus");
+        failures += Expect(
+            titleDeletionRequestSchema->rawFormat == "{slot}",
+            "tj rawFormat");
+        failures += Expect(
+            !titleDeletionRequestSchema->formatEmpty,
+            "tj formatEmpty false");
+        failures += Expect(
+            titleDeletionRequestSchema->source == "xlsx",
+            "tj raw source");
+        failures += Expect(
+            titleDeletionRequestSchema->fields.size() == 1U,
+            "tj raw field count");
+        if (titleDeletionRequestSchema->fields.size() == 1U) {
+            const FieldSchema& field =
+                titleDeletionRequestSchema->fields[0];
+            failures += Expect(
+                field.index == 0 &&
+                    field.name == "slot" &&
+                    field.typeToken == "unknown" &&
+                    field.rawSpec == "{slot}" &&
+                    field.source == "xlsx",
+                "tj raw field");
+        }
+
+        failures += Expect(
+            titleDeletionRequestSchema->hasResolvedFormat,
+            "tj resolvedFormat present");
+        failures += Expect(
+            titleDeletionRequestSchema->resolvedFormat ==
+                "{titleSlot:i62}",
+            "tj resolvedFormat");
+        failures += Expect(
+            titleDeletionRequestSchema->resolvedSource ==
+                "xlsx+ServerC+ClientIda",
+            "tj resolvedSource");
+        failures += Expect(
+            titleDeletionRequestSchema->hasResolvedFields,
+            "tj resolvedFields present");
+        failures += Expect(
+            titleDeletionRequestSchema->resolvedFields.size() == 1U,
+            "tj resolved field count");
+        if (titleDeletionRequestSchema->resolvedFields.size() == 1U) {
+            const FieldSchema& field =
+                titleDeletionRequestSchema->resolvedFields[0];
+            failures += Expect(
+                field.index == 0 &&
+                    field.name == "titleSlot" &&
+                    field.typeToken == "i62" &&
+                    field.rawSpec == "{titleSlot:i62}" &&
+                    field.source == "xlsx+ServerC+ClientIda",
+                "tj resolved field");
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "tj"),
+        "tj absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "tj"),
+        "tj absent from receive typed manifest");
+
     const PacketSchema* deprecatedBattleJoinSchema = FindPacket(packets, "cEj");
     failures += Expect(deprecatedBattleJoinSchema != nullptr, "cEj schema exists");
     if (deprecatedBattleJoinSchema != nullptr) {

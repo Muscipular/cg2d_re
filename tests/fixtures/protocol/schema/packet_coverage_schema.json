@@ -6774,6 +6774,8 @@
       "rawFormat": "{slot}",
       "formatEmpty": false,
       "source": "xlsx",
+      "resolvedFormat": "{tradeListSlot:i62}",
+      "resolvedSource": "xlsx+ServerC+ClientIda",
       "fields": [
         {
           "index": 0,
@@ -6781,6 +6783,15 @@
           "typeToken": "unknown",
           "rawSpec": "{slot}",
           "source": "xlsx"
+        }
+      ],
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "tradeListSlot",
+          "typeToken": "i62",
+          "rawSpec": "{tradeListSlot:i62}",
+          "source": "xlsx+ServerC+ClientIda"
         }
       ]
     },

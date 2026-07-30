@@ -6039,6 +6039,88 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "sM"),
         "sM absent from receive typed manifest");
 
+    const PacketSchema* tradeStartRequestSchema =
+        FindPacket(packets, "QeuC");
+    failures += Expect(
+        tradeStartRequestSchema != nullptr,
+        "QeuC schema exists");
+    if (tradeStartRequestSchema != nullptr) {
+        failures += Expect(
+            tradeStartRequestSchema->direction == "客户端->服务端",
+            "QeuC direction");
+        failures += Expect(
+            tradeStartRequestSchema->legacyKind == "RECV",
+            "QeuC legacyKind");
+        failures += Expect(
+            tradeStartRequestSchema->clientNamespace == "send",
+            "QeuC namespace");
+        failures += Expect(
+            tradeStartRequestSchema->xlsxStatus == "完成",
+            "QeuC xlsxStatus");
+        failures += Expect(
+            tradeStartRequestSchema->rawFormat == "{slot}",
+            "QeuC rawFormat");
+        failures += Expect(
+            !tradeStartRequestSchema->formatEmpty,
+            "QeuC formatEmpty false");
+        failures += Expect(
+            tradeStartRequestSchema->source == "xlsx",
+            "QeuC raw source");
+        failures += Expect(
+            tradeStartRequestSchema->fields.size() == 1U,
+            "QeuC raw field count");
+        if (tradeStartRequestSchema->fields.size() == 1U) {
+            const FieldSchema& field =
+                tradeStartRequestSchema->fields[0];
+            failures += Expect(
+                field.index == 0 &&
+                    field.name == "slot" &&
+                    field.typeToken == "unknown" &&
+                    field.rawSpec == "{slot}" &&
+                    field.source == "xlsx",
+                "QeuC raw field");
+        }
+
+        failures += Expect(
+            tradeStartRequestSchema->hasResolvedFormat,
+            "QeuC resolvedFormat present");
+        failures += Expect(
+            tradeStartRequestSchema->resolvedFormat ==
+                "{tradeListSlot:i62}",
+            "QeuC resolvedFormat");
+        failures += Expect(
+            tradeStartRequestSchema->resolvedSource ==
+                "xlsx+ServerC+ClientIda",
+            "QeuC resolvedSource");
+        failures += Expect(
+            tradeStartRequestSchema->hasResolvedFields,
+            "QeuC resolvedFields present");
+        failures += Expect(
+            tradeStartRequestSchema->resolvedFields.size() == 1U,
+            "QeuC resolved field count");
+        if (tradeStartRequestSchema->resolvedFields.size() == 1U) {
+            const FieldSchema& field =
+                tradeStartRequestSchema->resolvedFields[0];
+            failures += Expect(
+                field.index == 0 &&
+                    field.name == "tradeListSlot" &&
+                    field.typeToken == "i62" &&
+                    field.rawSpec == "{tradeListSlot:i62}" &&
+                    field.source == "xlsx+ServerC+ClientIda",
+                "QeuC resolved field");
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "QeuC"),
+        "QeuC absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "QeuC"),
+        "QeuC absent from receive typed manifest");
+
     const PacketSchema* deprecatedBattleJoinSchema = FindPacket(packets, "cEj");
     failures += Expect(deprecatedBattleJoinSchema != nullptr, "cEj schema exists");
     if (deprecatedBattleJoinSchema != nullptr) {

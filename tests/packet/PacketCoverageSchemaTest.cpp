@@ -1124,11 +1124,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 47U, "send typed manifest count 47");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 48U, "send typed manifest count 48");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 84U, "receive typed manifest count 84");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 131U,
-        "typed manifest count 131");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 132U,
+        "typed manifest count 132");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1145,7 +1145,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 131U, "typed manifest unique code count 131");
+    failures += Expect(codes.size() == 132U, "typed manifest unique code count 132");
     return failures;
 }
 
@@ -3112,6 +3112,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     const PacketSchema* deprecatedBattleJoinSchema = FindPacket(packets, "cEj");
     failures += Expect(deprecatedBattleJoinSchema != nullptr, "cEj schema exists");
     if (deprecatedBattleJoinSchema != nullptr) {
+        const cg::packet::send::BattleJoinRequest request(10, 20);
+        const cg::packet::Packet packet = request.ToPacket();
         failures += Expect(
             deprecatedBattleJoinSchema->direction == "客户端->服务端",
             "cEj direction");
@@ -3149,7 +3151,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             deprecatedBattleJoinSchema->resolvedFormat == "{x:i62} {y:i62}",
             "cEj resolvedFormat");
         failures += Expect(
-            deprecatedBattleJoinSchema->resolvedSource == "xlsx+ServerC",
+            deprecatedBattleJoinSchema->resolvedSource == "xlsx+ServerC+src/packet",
             "cEj resolvedSource");
         failures += Expect(
             deprecatedBattleJoinSchema->resolvedSource.find("ClientIda") == std::string::npos,
@@ -3173,29 +3175,23 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                         field.name == names[index] &&
                         field.typeToken == "i62" &&
                         field.rawSpec == specs[index] &&
-                        field.source == "xlsx+ServerC",
+                        field.source == "xlsx+ServerC+src/packet",
                     "cEj resolved field");
                 failures += Expect(
                     field.source.find("ClientIda") == std::string::npos,
                     "cEj resolved field source excludes ClientIda");
             }
         }
-    }
 
-    const auto deprecatedBattleJoinManifestContains = [](const auto& entries) {
-        for (const cg::packet::test::TypedPacketManifestEntry& entry : entries) {
-            if (entry.spec != nullptr && entry.spec->code == "cEj") {
-                return true;
-            }
-        }
-        return false;
-    };
-    failures += Expect(
-        !deprecatedBattleJoinManifestContains(cg::packet::test::SendTypedPackets),
-        "cEj absent from send typed manifest");
-    failures += Expect(
-        !deprecatedBattleJoinManifestContains(cg::packet::test::ReceiveTypedPackets),
-        "cEj absent from receive typed manifest");
+        failures += ExpectEffectiveFieldsMatch(
+            *deprecatedBattleJoinSchema,
+            cg::packet::send::BattleJoinRequest::Spec,
+            "cEj Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *deprecatedBattleJoinSchema,
+            packet,
+            "cEj resolved field order");
+    }
 
     const PacketSchema* battleWatchRequestSchema = FindPacket(packets, "IMv");
     failures += Expect(battleWatchRequestSchema != nullptr, "IMv schema exists");

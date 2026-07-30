@@ -699,6 +699,56 @@ namespace cg::packet::send
     };
 
     /**
+     * RECV_JB deprecated compatibility BattleJoin cEj {x:i62} {y:i62}
+     * 当前服务端 handler 为 no-op；仅保留协议兼容，不恢复旧 #if 0 业务逻辑。
+     */
+    struct BattleJoinRequest
+    {
+        static constexpr std::string_view Code = "cEj";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("x"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("y"), PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        int x = 0;
+        int y = 0;
+
+        BattleJoinRequest(int x, int y)
+            : x(x),
+              y(y)
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("x"),
+                PacketFieldType::Int62,
+                std::to_string(x),
+            });
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("y"),
+                PacketFieldType::Int62,
+                std::to_string(y),
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket(), Spec);
+        }
+    };
+
+    /**
      * RECV_LB 请求观战 IMv {x:i62} {y:i62}
      * 坐标保留完整 signed int，不增加运行时移动与地图业务约束。
      */

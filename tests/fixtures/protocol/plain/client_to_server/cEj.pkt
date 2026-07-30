@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=cEj
+direction=client_to_server
+sample=deprecated-compatibility
+plain_hex=63 45 6A 20 61 20 6B
+canonical_hex=63 45 6A 20 61 20 6B 20
+end_sample

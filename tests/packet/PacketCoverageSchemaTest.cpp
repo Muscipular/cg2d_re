@@ -4816,6 +4816,81 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         !TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "TLKH"),
         "TLKH absent from receive typed manifest");
 
+    const PacketSchema* playerStatusFlagsUpdateRequestSchema = FindPacket(packets, "dcMv");
+    failures += Expect(
+        playerStatusFlagsUpdateRequestSchema != nullptr,
+        "dcMv schema exists");
+    if (playerStatusFlagsUpdateRequestSchema != nullptr) {
+        failures += Expect(
+            playerStatusFlagsUpdateRequestSchema->direction == "客户端->服务端",
+            "dcMv direction");
+        failures += Expect(
+            playerStatusFlagsUpdateRequestSchema->legacyKind == "RECV",
+            "dcMv legacyKind");
+        failures += Expect(
+            playerStatusFlagsUpdateRequestSchema->clientNamespace == "send",
+            "dcMv namespace");
+        failures += Expect(
+            playerStatusFlagsUpdateRequestSchema->xlsxStatus == "完成",
+            "dcMv xlsxStatus");
+        failures += Expect(
+            playerStatusFlagsUpdateRequestSchema->rawFormat == "{status}",
+            "dcMv rawFormat");
+        failures += Expect(
+            !playerStatusFlagsUpdateRequestSchema->formatEmpty,
+            "dcMv formatEmpty false");
+        failures += Expect(
+            playerStatusFlagsUpdateRequestSchema->source == "xlsx",
+            "dcMv raw source");
+        failures += Expect(
+            playerStatusFlagsUpdateRequestSchema->fields.size() == 1U,
+            "dcMv raw field count");
+        if (playerStatusFlagsUpdateRequestSchema->fields.size() == 1U) {
+            const FieldSchema& field = playerStatusFlagsUpdateRequestSchema->fields[0];
+            failures += Expect(
+                field.index == 0 &&
+                    field.name == "status" &&
+                    field.typeToken == "unknown" &&
+                    field.rawSpec == "{status}" &&
+                    field.source == "xlsx",
+                "dcMv raw field");
+        }
+
+        failures += Expect(
+            playerStatusFlagsUpdateRequestSchema->hasResolvedFormat,
+            "dcMv resolvedFormat present");
+        failures += Expect(
+            playerStatusFlagsUpdateRequestSchema->resolvedFormat == "{flags:i62}",
+            "dcMv resolvedFormat");
+        failures += Expect(
+            playerStatusFlagsUpdateRequestSchema->resolvedSource ==
+                "xlsx+ServerC+ClientIda",
+            "dcMv resolvedSource");
+        failures += Expect(
+            playerStatusFlagsUpdateRequestSchema->hasResolvedFields,
+            "dcMv resolvedFields present");
+        failures += Expect(
+            playerStatusFlagsUpdateRequestSchema->resolvedFields.size() == 1U,
+            "dcMv resolved field count");
+        if (playerStatusFlagsUpdateRequestSchema->resolvedFields.size() == 1U) {
+            const FieldSchema& field =
+                playerStatusFlagsUpdateRequestSchema->resolvedFields[0];
+            failures += Expect(
+                field.index == 0 &&
+                    field.name == "flags" &&
+                    field.typeToken == "i62" &&
+                    field.rawSpec == "{flags:i62}" &&
+                    field.source == "xlsx+ServerC+ClientIda",
+                "dcMv resolved field");
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "dcMv"),
+        "dcMv absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "dcMv"),
+        "dcMv absent from receive typed manifest");
+
     const PacketSchema* deprecatedBattleJoinSchema = FindPacket(packets, "cEj");
     failures += Expect(deprecatedBattleJoinSchema != nullptr, "cEj schema exists");
     if (deprecatedBattleJoinSchema != nullptr) {

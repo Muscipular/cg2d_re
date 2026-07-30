@@ -6135,6 +6135,17 @@
       "rawFormat": "{status}",
       "formatEmpty": false,
       "source": "xlsx",
+      "resolvedFormat": "{flags:i62}",
+      "resolvedSource": "xlsx+ServerC+ClientIda",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "flags",
+          "typeToken": "i62",
+          "rawSpec": "{flags:i62}",
+          "source": "xlsx+ServerC+ClientIda"
+        }
+      ],
       "fields": [
         {
           "index": 0,

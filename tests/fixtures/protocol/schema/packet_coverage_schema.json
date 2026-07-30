@@ -7604,6 +7604,8 @@
       "rawFormat": "{registNumber}",
       "formatEmpty": false,
       "source": "xlsx",
+      "resolvedFormat": "{registNumber:i62}",
+      "resolvedSource": "xlsx+ServerC+ClientIda",
       "fields": [
         {
           "index": 0,
@@ -7611,6 +7613,15 @@
           "typeToken": "unknown",
           "rawSpec": "{registNumber}",
           "source": "xlsx"
+        }
+      ],
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "registNumber",
+          "typeToken": "i62",
+          "rawSpec": "{registNumber:i62}",
+          "source": "xlsx+ServerC+ClientIda"
         }
       ]
     },

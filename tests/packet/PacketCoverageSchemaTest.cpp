@@ -6709,6 +6709,88 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "Noeb"),
         "Noeb absent from receive typed manifest");
 
+    const PacketSchema* characterDeleteRequestSchema =
+        FindPacket(packets, "Godf");
+    failures += Expect(
+        characterDeleteRequestSchema != nullptr,
+        "Godf schema exists");
+    if (characterDeleteRequestSchema != nullptr) {
+        failures += Expect(
+            characterDeleteRequestSchema->direction == "客户端->服务端",
+            "Godf direction");
+        failures += Expect(
+            characterDeleteRequestSchema->legacyKind == "RECV",
+            "Godf legacyKind");
+        failures += Expect(
+            characterDeleteRequestSchema->clientNamespace == "send",
+            "Godf namespace");
+        failures += Expect(
+            characterDeleteRequestSchema->xlsxStatus == "完成",
+            "Godf xlsxStatus");
+        failures += Expect(
+            characterDeleteRequestSchema->rawFormat == "{registNumber}",
+            "Godf rawFormat");
+        failures += Expect(
+            !characterDeleteRequestSchema->formatEmpty,
+            "Godf formatEmpty false");
+        failures += Expect(
+            characterDeleteRequestSchema->source == "xlsx",
+            "Godf raw source");
+        failures += Expect(
+            characterDeleteRequestSchema->fields.size() == 1U,
+            "Godf raw field count");
+        if (characterDeleteRequestSchema->fields.size() == 1U) {
+            const FieldSchema& field =
+                characterDeleteRequestSchema->fields[0];
+            failures += Expect(
+                field.index == 0 &&
+                    field.name == "registNumber" &&
+                    field.typeToken == "unknown" &&
+                    field.rawSpec == "{registNumber}" &&
+                    field.source == "xlsx",
+                "Godf raw field");
+        }
+
+        failures += Expect(
+            characterDeleteRequestSchema->hasResolvedFormat,
+            "Godf resolvedFormat present");
+        failures += Expect(
+            characterDeleteRequestSchema->resolvedFormat ==
+                "{registNumber:i62}",
+            "Godf resolvedFormat");
+        failures += Expect(
+            characterDeleteRequestSchema->resolvedSource ==
+                "xlsx+ServerC+ClientIda",
+            "Godf resolvedSource");
+        failures += Expect(
+            characterDeleteRequestSchema->hasResolvedFields,
+            "Godf resolvedFields present");
+        failures += Expect(
+            characterDeleteRequestSchema->resolvedFields.size() == 1U,
+            "Godf resolved field count");
+        if (characterDeleteRequestSchema->resolvedFields.size() == 1U) {
+            const FieldSchema& field =
+                characterDeleteRequestSchema->resolvedFields[0];
+            failures += Expect(
+                field.index == 0 &&
+                    field.name == "registNumber" &&
+                    field.typeToken == "i62" &&
+                    field.rawSpec == "{registNumber:i62}" &&
+                    field.source == "xlsx+ServerC+ClientIda",
+                "Godf resolved field");
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "Godf"),
+        "Godf absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "Godf"),
+        "Godf absent from receive typed manifest");
+
     const PacketSchema* deprecatedBattleJoinSchema = FindPacket(packets, "cEj");
     failures += Expect(deprecatedBattleJoinSchema != nullptr, "cEj schema exists");
     if (deprecatedBattleJoinSchema != nullptr) {

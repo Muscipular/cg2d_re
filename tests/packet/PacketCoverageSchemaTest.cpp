@@ -6226,6 +6226,88 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "OU"),
         "OU absent from receive typed manifest");
 
+    const PacketSchema* titleSelectionRequestSchema =
+        FindPacket(packets, "zGp");
+    failures += Expect(
+        titleSelectionRequestSchema != nullptr,
+        "zGp schema exists");
+    if (titleSelectionRequestSchema != nullptr) {
+        failures += Expect(
+            titleSelectionRequestSchema->direction == "客户端->服务端",
+            "zGp direction");
+        failures += Expect(
+            titleSelectionRequestSchema->legacyKind == "RECV",
+            "zGp legacyKind");
+        failures += Expect(
+            titleSelectionRequestSchema->clientNamespace == "send",
+            "zGp namespace");
+        failures += Expect(
+            titleSelectionRequestSchema->xlsxStatus == "完成",
+            "zGp xlsxStatus");
+        failures += Expect(
+            titleSelectionRequestSchema->rawFormat == "{slot}",
+            "zGp rawFormat");
+        failures += Expect(
+            !titleSelectionRequestSchema->formatEmpty,
+            "zGp formatEmpty false");
+        failures += Expect(
+            titleSelectionRequestSchema->source == "xlsx",
+            "zGp raw source");
+        failures += Expect(
+            titleSelectionRequestSchema->fields.size() == 1U,
+            "zGp raw field count");
+        if (titleSelectionRequestSchema->fields.size() == 1U) {
+            const FieldSchema& field =
+                titleSelectionRequestSchema->fields[0];
+            failures += Expect(
+                field.index == 0 &&
+                    field.name == "slot" &&
+                    field.typeToken == "unknown" &&
+                    field.rawSpec == "{slot}" &&
+                    field.source == "xlsx",
+                "zGp raw field");
+        }
+
+        failures += Expect(
+            titleSelectionRequestSchema->hasResolvedFormat,
+            "zGp resolvedFormat present");
+        failures += Expect(
+            titleSelectionRequestSchema->resolvedFormat ==
+                "{titleSlot:i62}",
+            "zGp resolvedFormat");
+        failures += Expect(
+            titleSelectionRequestSchema->resolvedSource ==
+                "xlsx+ServerC+ClientIda",
+            "zGp resolvedSource");
+        failures += Expect(
+            titleSelectionRequestSchema->hasResolvedFields,
+            "zGp resolvedFields present");
+        failures += Expect(
+            titleSelectionRequestSchema->resolvedFields.size() == 1U,
+            "zGp resolved field count");
+        if (titleSelectionRequestSchema->resolvedFields.size() == 1U) {
+            const FieldSchema& field =
+                titleSelectionRequestSchema->resolvedFields[0];
+            failures += Expect(
+                field.index == 0 &&
+                    field.name == "titleSlot" &&
+                    field.typeToken == "i62" &&
+                    field.rawSpec == "{titleSlot:i62}" &&
+                    field.source == "xlsx+ServerC+ClientIda",
+                "zGp resolved field");
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "zGp"),
+        "zGp absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "zGp"),
+        "zGp absent from receive typed manifest");
+
     const PacketSchema* deprecatedBattleJoinSchema = FindPacket(packets, "cEj");
     failures += Expect(deprecatedBattleJoinSchema != nullptr, "cEj schema exists");
     if (deprecatedBattleJoinSchema != nullptr) {

@@ -1213,11 +1213,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 65U, "send typed manifest count 65");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 66U, "send typed manifest count 66");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 84U, "receive typed manifest count 84");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 149U,
-        "typed manifest count 149");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 150U,
+        "typed manifest count 150");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1234,7 +1234,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 149U, "typed manifest unique code count 149");
+    failures += Expect(codes.size() == 150U, "typed manifest unique code count 150");
     return failures;
 }
 
@@ -4864,7 +4864,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "dcMv resolvedFormat");
         failures += Expect(
             playerStatusFlagsUpdateRequestSchema->resolvedSource ==
-                "xlsx+ServerC+ClientIda",
+                "xlsx+ServerC+ClientIda+src/packet",
             "dcMv resolvedSource");
         failures += Expect(
             playerStatusFlagsUpdateRequestSchema->hasResolvedFields,
@@ -4880,13 +4880,23 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                     field.name == "flags" &&
                     field.typeToken == "i62" &&
                     field.rawSpec == "{flags:i62}" &&
-                    field.source == "xlsx+ServerC+ClientIda",
+                    field.source == "xlsx+ServerC+ClientIda+src/packet",
                 "dcMv resolved field");
         }
+        const cg::packet::send::PlayerStatusFlagsUpdateRequest request(125);
+        const cg::packet::Packet packet = request.ToPacket();
+        failures += ExpectEffectiveFieldsMatch(
+            *playerStatusFlagsUpdateRequestSchema,
+            cg::packet::send::PlayerStatusFlagsUpdateRequest::Spec,
+            "dcMv Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *playerStatusFlagsUpdateRequestSchema,
+            packet,
+            "dcMv resolved field order");
     }
     failures += Expect(
-        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "dcMv"),
-        "dcMv absent from send typed manifest");
+        TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "dcMv"),
+        "dcMv present in send typed manifest");
     failures += Expect(
         !TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "dcMv"),
         "dcMv absent from receive typed manifest");

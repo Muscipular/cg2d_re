@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=dcMv
+direction=client_to_server
+sample=flags-125
+plain_hex=64 63 4D 76 20 32 31
+canonical_hex=64 63 4D 76 20 32 31 20
+end_sample

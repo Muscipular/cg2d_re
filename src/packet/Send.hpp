@@ -1389,6 +1389,49 @@ namespace cg::packet::send
     };
 
     /**
+     * RECV_ST 设置或清除称号 zGp {titleSlot:i62}
+     * titleSlot 是持有称号槽位，legacy producer 以 -1 表示清除；
+     * 基础 packet 层保留任意 signed int，不下沉称号业务规则。
+     */
+    struct TitleSelectionRequest
+    {
+        static constexpr std::string_view Code = "zGp";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("titleSlot"), PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        int titleSlot = 0;
+
+        explicit TitleSelectionRequest(int titleSlot)
+            : titleSlot(titleSlot)
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("titleSlot"),
+                PacketFieldType::Int62,
+                std::to_string(titleSlot),
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket(), Spec);
+        }
+    };
+
+    /**
      * RECV_TRCL 取消交易选择 suI
      * VERSION_TW 服务端分支传入的 0 是 handler 业务参数，不是 wire 字段。
      */

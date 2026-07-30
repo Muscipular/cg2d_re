@@ -1213,11 +1213,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 78U, "send typed manifest count 78");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 79U, "send typed manifest count 79");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 84U, "receive typed manifest count 84");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 162U,
-        "typed manifest count 162");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 163U,
+        "typed manifest count 163");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1234,7 +1234,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 162U, "typed manifest unique code count 162");
+    failures += Expect(codes.size() == 163U, "typed manifest unique code count 163");
     return failures;
 }
 
@@ -6277,7 +6277,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "zGp resolvedFormat");
         failures += Expect(
             titleSelectionRequestSchema->resolvedSource ==
-                "xlsx+ServerC+ClientIda",
+                "xlsx+ServerC+ClientIda+src/packet",
             "zGp resolvedSource");
         failures += Expect(
             titleSelectionRequestSchema->hasResolvedFields,
@@ -6293,15 +6293,26 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                     field.name == "titleSlot" &&
                     field.typeToken == "i62" &&
                     field.rawSpec == "{titleSlot:i62}" &&
-                    field.source == "xlsx+ServerC+ClientIda",
+                    field.source == "xlsx+ServerC+ClientIda+src/packet",
                 "zGp resolved field");
         }
+
+        const cg::packet::send::TitleSelectionRequest request(-1);
+        const cg::packet::Packet packet = request.ToPacket();
+        failures += ExpectEffectiveFieldsMatch(
+            *titleSelectionRequestSchema,
+            cg::packet::send::TitleSelectionRequest::Spec,
+            "zGp Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *titleSelectionRequestSchema,
+            packet,
+            "zGp resolved field order");
     }
     failures += Expect(
-        !TypedManifestContainsCode(
+        TypedManifestContainsCode(
             cg::packet::test::SendTypedPackets,
             "zGp"),
-        "zGp absent from send typed manifest");
+        "zGp present in send typed manifest");
     failures += Expect(
         !TypedManifestContainsCode(
             cg::packet::test::ReceiveTypedPackets,

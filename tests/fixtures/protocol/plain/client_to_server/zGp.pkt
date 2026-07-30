@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=zGp
+direction=client_to_server
+sample=clear-title
+plain_hex=7A 47 70 20 2D 31
+canonical_hex=7A 47 70 20 2D 31 20
+end_sample

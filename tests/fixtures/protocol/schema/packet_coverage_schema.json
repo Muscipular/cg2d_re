@@ -6933,7 +6933,7 @@
       "formatEmpty": false,
       "source": "xlsx",
       "resolvedFormat": "{titleSlot:i62}",
-      "resolvedSource": "xlsx+ServerC+ClientIda",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
       "fields": [
         {
           "index": 0,
@@ -6949,7 +6949,7 @@
           "name": "titleSlot",
           "typeToken": "i62",
           "rawSpec": "{titleSlot:i62}",
-          "source": "xlsx+ServerC+ClientIda"
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         }
       ]
     },

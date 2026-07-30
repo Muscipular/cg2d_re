@@ -3816,6 +3816,82 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         !TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "vcAz"),
         "vcAz absent from receive typed manifest");
 
+    const PacketSchema* guildMemberListRequestSchema = FindPacket(packets, "CZ");
+    failures += Expect(guildMemberListRequestSchema != nullptr, "CZ schema exists");
+    if (guildMemberListRequestSchema != nullptr) {
+        failures += Expect(
+            guildMemberListRequestSchema->direction == "客户端->服务端",
+            "CZ direction");
+        failures += Expect(
+            guildMemberListRequestSchema->legacyKind == "RECV",
+            "CZ legacyKind");
+        failures += Expect(
+            guildMemberListRequestSchema->clientNamespace == "send",
+            "CZ namespace");
+        failures += Expect(
+            guildMemberListRequestSchema->xlsxStatus == "进行中",
+            "CZ xlsxStatus");
+        failures += Expect(
+            guildMemberListRequestSchema->rawFormat == "{time}",
+            "CZ rawFormat");
+        failures += Expect(
+            !guildMemberListRequestSchema->formatEmpty,
+            "CZ formatEmpty false");
+        failures += Expect(
+            guildMemberListRequestSchema->source == "xlsx",
+            "CZ raw source");
+        failures += Expect(
+            guildMemberListRequestSchema->fields.size() == 1U,
+            "CZ raw field count");
+        if (guildMemberListRequestSchema->fields.size() == 1U) {
+            const FieldSchema& field = guildMemberListRequestSchema->fields[0];
+            failures += Expect(
+                field.index == 0 &&
+                    field.name == "time" &&
+                    field.typeToken == "unknown" &&
+                    field.rawSpec == "{time}" &&
+                    field.source == "xlsx",
+                "CZ raw field");
+        }
+
+        failures += Expect(
+            guildMemberListRequestSchema->hasResolvedFormat,
+            "CZ resolvedFormat present");
+        failures += Expect(
+            guildMemberListRequestSchema->resolvedFormat == "{time:i62}",
+            "CZ resolvedFormat");
+        failures += Expect(
+            guildMemberListRequestSchema->resolvedSource == "xlsx+ServerC",
+            "CZ resolvedSource");
+        failures += Expect(
+            guildMemberListRequestSchema->resolvedSource.find("ClientIda") ==
+                std::string::npos,
+            "CZ resolvedSource excludes ClientIda");
+        failures += Expect(
+            guildMemberListRequestSchema->hasResolvedFields,
+            "CZ resolvedFields present");
+        failures += Expect(
+            guildMemberListRequestSchema->resolvedFields.size() == 1U,
+            "CZ resolved field count");
+        if (guildMemberListRequestSchema->resolvedFields.size() == 1U) {
+            const FieldSchema& field = guildMemberListRequestSchema->resolvedFields[0];
+            failures += Expect(
+                field.index == 0 &&
+                    field.name == "time" &&
+                    field.typeToken == "i62" &&
+                    field.rawSpec == "{time:i62}" &&
+                    field.source == "xlsx+ServerC" &&
+                    field.source.find("ClientIda") == std::string::npos,
+                "CZ resolved field");
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "CZ"),
+        "CZ absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "CZ"),
+        "CZ absent from receive typed manifest");
+
     const PacketSchema* deprecatedBattleJoinSchema = FindPacket(packets, "cEj");
     failures += Expect(deprecatedBattleJoinSchema != nullptr, "cEj schema exists");
     if (deprecatedBattleJoinSchema != nullptr) {

@@ -5544,6 +5544,17 @@
       "rawFormat": "{time}",
       "formatEmpty": false,
       "source": "xlsx",
+      "resolvedFormat": "{time:i62}",
+      "resolvedSource": "xlsx+ServerC",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "time",
+          "typeToken": "i62",
+          "rawSpec": "{time:i62}",
+          "source": "xlsx+ServerC"
+        }
+      ],
       "fields": [
         {
           "index": 0,

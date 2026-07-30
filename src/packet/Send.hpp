@@ -1561,6 +1561,57 @@ namespace cg::packet::send
     };
 
     /**
+     * RECV_SKSW 人物技能移动 Noeb {from:i62} {to:i62}
+     * to=-1 是服务端自动整理语义；技能槽范围与技能状态属于业务层，
+     * 基础 packet 层保留两个字段的任意 signed int。
+     */
+    struct CharacterSkillSwap
+    {
+        static constexpr std::string_view Code = "Noeb";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("from"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("to"), PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        int from = 0;
+        int to = 0;
+
+        CharacterSkillSwap(int from, int to)
+            : from(from),
+              to(to)
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("from"),
+                PacketFieldType::Int62,
+                std::to_string(from),
+            });
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("to"),
+                PacketFieldType::Int62,
+                std::to_string(to),
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket(), Spec);
+        }
+    };
+
+    /**
      * RECV_TRCL 取消交易选择 suI
      * VERSION_TW 服务端分支传入的 0 是 handler 业务参数，不是 wire 字段。
      */

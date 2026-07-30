@@ -1213,11 +1213,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 82U, "send typed manifest count 82");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 83U, "send typed manifest count 83");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 84U, "receive typed manifest count 84");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 166U,
-        "typed manifest count 166");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 167U,
+        "typed manifest count 167");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1234,7 +1234,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 166U, "typed manifest unique code count 166");
+    failures += Expect(codes.size() == 167U, "typed manifest unique code count 167");
     return failures;
 }
 
@@ -6657,7 +6657,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "Noeb resolvedFormat");
         failures += Expect(
             characterSkillSwapSchema->resolvedSource ==
-                "xlsx+ServerC+ClientIda",
+                "xlsx+ServerC+ClientIda+src/packet",
             "Noeb resolvedSource");
         failures += Expect(
             characterSkillSwapSchema->hasResolvedFields,
@@ -6682,16 +6682,27 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                         field.name == names[index] &&
                         field.typeToken == "i62" &&
                         field.rawSpec == specs[index] &&
-                        field.source == "xlsx+ServerC+ClientIda",
+                        field.source == "xlsx+ServerC+ClientIda+src/packet",
                     "Noeb resolved field");
             }
         }
+
+        const cg::packet::send::CharacterSkillSwap request(0, -1);
+        const cg::packet::Packet packet = request.ToPacket();
+        failures += ExpectEffectiveFieldsMatch(
+            *characterSkillSwapSchema,
+            cg::packet::send::CharacterSkillSwap::Spec,
+            "Noeb Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *characterSkillSwapSchema,
+            packet,
+            "Noeb resolved field order");
     }
     failures += Expect(
-        !TypedManifestContainsCode(
+        TypedManifestContainsCode(
             cg::packet::test::SendTypedPackets,
             "Noeb"),
-        "Noeb absent from send typed manifest");
+        "Noeb present in send typed manifest");
     failures += Expect(
         !TypedManifestContainsCode(
             cg::packet::test::ReceiveTypedPackets,

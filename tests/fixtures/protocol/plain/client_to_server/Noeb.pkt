@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=Noeb
+direction=client_to_server
+sample=auto-reorder-slot-zero
+plain_hex=4E 6F 65 62 20 30 20 2D 31
+canonical_hex=4E 6F 65 62 20 30 20 2D 31 20
+end_sample

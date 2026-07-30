@@ -6596,6 +6596,108 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "IHw"),
         "IHw absent from receive typed manifest");
 
+    const PacketSchema* characterSkillSwapSchema =
+        FindPacket(packets, "Noeb");
+    failures += Expect(
+        characterSkillSwapSchema != nullptr,
+        "Noeb schema exists");
+    if (characterSkillSwapSchema != nullptr) {
+        failures += Expect(
+            characterSkillSwapSchema->direction == "客户端->服务端",
+            "Noeb direction");
+        failures += Expect(
+            characterSkillSwapSchema->legacyKind == "RECV",
+            "Noeb legacyKind");
+        failures += Expect(
+            characterSkillSwapSchema->clientNamespace == "send",
+            "Noeb namespace");
+        failures += Expect(
+            characterSkillSwapSchema->xlsxStatus == "完成",
+            "Noeb xlsxStatus");
+        failures += Expect(
+            characterSkillSwapSchema->rawFormat == "{from} {to}",
+            "Noeb rawFormat");
+        failures += Expect(
+            !characterSkillSwapSchema->formatEmpty,
+            "Noeb formatEmpty false");
+        failures += Expect(
+            characterSkillSwapSchema->source == "xlsx",
+            "Noeb raw source");
+        failures += Expect(
+            characterSkillSwapSchema->fields.size() == 2U,
+            "Noeb raw field count");
+        if (characterSkillSwapSchema->fields.size() == 2U) {
+            constexpr std::array<std::string_view, 2U> names = {{
+                "from",
+                "to",
+            }};
+            constexpr std::array<std::string_view, 2U> specs = {{
+                "{from}",
+                "{to}",
+            }};
+            for (std::size_t index = 0U; index < names.size(); ++index) {
+                const FieldSchema& field =
+                    characterSkillSwapSchema->fields[index];
+                failures += Expect(
+                    field.index == index &&
+                        field.name == names[index] &&
+                        field.typeToken == "unknown" &&
+                        field.rawSpec == specs[index] &&
+                        field.source == "xlsx",
+                    "Noeb raw field");
+            }
+        }
+
+        failures += Expect(
+            characterSkillSwapSchema->hasResolvedFormat,
+            "Noeb resolvedFormat present");
+        failures += Expect(
+            characterSkillSwapSchema->resolvedFormat ==
+                "{from:i62} {to:i62}",
+            "Noeb resolvedFormat");
+        failures += Expect(
+            characterSkillSwapSchema->resolvedSource ==
+                "xlsx+ServerC+ClientIda",
+            "Noeb resolvedSource");
+        failures += Expect(
+            characterSkillSwapSchema->hasResolvedFields,
+            "Noeb resolvedFields present");
+        failures += Expect(
+            characterSkillSwapSchema->resolvedFields.size() == 2U,
+            "Noeb resolved field count");
+        if (characterSkillSwapSchema->resolvedFields.size() == 2U) {
+            constexpr std::array<std::string_view, 2U> names = {{
+                "from",
+                "to",
+            }};
+            constexpr std::array<std::string_view, 2U> specs = {{
+                "{from:i62}",
+                "{to:i62}",
+            }};
+            for (std::size_t index = 0U; index < names.size(); ++index) {
+                const FieldSchema& field =
+                    characterSkillSwapSchema->resolvedFields[index];
+                failures += Expect(
+                    field.index == index &&
+                        field.name == names[index] &&
+                        field.typeToken == "i62" &&
+                        field.rawSpec == specs[index] &&
+                        field.source == "xlsx+ServerC+ClientIda",
+                    "Noeb resolved field");
+            }
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "Noeb"),
+        "Noeb absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "Noeb"),
+        "Noeb absent from receive typed manifest");
+
     const PacketSchema* deprecatedBattleJoinSchema = FindPacket(packets, "cEj");
     failures += Expect(deprecatedBattleJoinSchema != nullptr, "cEj schema exists");
     if (deprecatedBattleJoinSchema != nullptr) {

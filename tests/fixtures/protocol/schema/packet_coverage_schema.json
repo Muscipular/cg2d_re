@@ -7101,6 +7101,8 @@
       "rawFormat": "{from} {to}",
       "formatEmpty": false,
       "source": "xlsx",
+      "resolvedFormat": "{from:i62} {to:i62}",
+      "resolvedSource": "xlsx+ServerC+ClientIda",
       "fields": [
         {
           "index": 0,
@@ -7115,6 +7117,22 @@
           "typeToken": "unknown",
           "rawSpec": "{to}",
           "source": "xlsx"
+        }
+      ],
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "from",
+          "typeToken": "i62",
+          "rawSpec": "{from:i62}",
+          "source": "xlsx+ServerC+ClientIda"
+        },
+        {
+          "index": 1,
+          "name": "to",
+          "typeToken": "i62",
+          "rawSpec": "{to:i62}",
+          "source": "xlsx+ServerC+ClientIda"
         }
       ]
     },

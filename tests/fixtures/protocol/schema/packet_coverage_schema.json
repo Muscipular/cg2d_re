@@ -4752,6 +4752,38 @@
       "rawFormat": "{x} {y} {haveitemindex} {toindex}",
       "formatEmpty": false,
       "source": "xlsx",
+      "resolvedFormat": "{x:i62} {y:i62} {haveitemindex:i62} {toindex:i62}",
+      "resolvedSource": "xlsx+ServerC+ClientIda",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "x",
+          "typeToken": "i62",
+          "rawSpec": "{x:i62}",
+          "source": "xlsx+ServerC+ClientIda"
+        },
+        {
+          "index": 1,
+          "name": "y",
+          "typeToken": "i62",
+          "rawSpec": "{y:i62}",
+          "source": "xlsx+ServerC+ClientIda"
+        },
+        {
+          "index": 2,
+          "name": "haveitemindex",
+          "typeToken": "i62",
+          "rawSpec": "{haveitemindex:i62}",
+          "source": "xlsx+ServerC+ClientIda"
+        },
+        {
+          "index": 3,
+          "name": "toindex",
+          "typeToken": "i62",
+          "rawSpec": "{toindex:i62}",
+          "source": "xlsx+ServerC+ClientIda"
+        }
+      ],
       "fields": [
         {
           "index": 0,

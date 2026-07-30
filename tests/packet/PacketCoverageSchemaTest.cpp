@@ -3041,6 +3041,106 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "SWITMM resolved/Spec field order");
     }
 
+    const PacketSchema* itemUseSchema = FindPacket(packets, "Ak");
+    failures += Expect(itemUseSchema != nullptr, "Ak schema exists");
+    if (itemUseSchema != nullptr) {
+        failures += Expect(
+            itemUseSchema->direction == "客户端->服务端",
+            "Ak direction");
+        failures += Expect(itemUseSchema->legacyKind == "RECV", "Ak legacyKind");
+        failures += Expect(
+            itemUseSchema->rawFormat == "{x} {y} {haveitemindex} {toindex}",
+            "Ak rawFormat");
+        failures += Expect(!itemUseSchema->formatEmpty, "Ak formatEmpty false");
+        failures += Expect(itemUseSchema->source == "xlsx", "Ak raw source");
+        failures += Expect(itemUseSchema->fields.size() == 4U, "Ak raw field count");
+        if (itemUseSchema->fields.size() == 4U) {
+            constexpr std::array<std::string_view, 4U> names = {{
+                "x",
+                "y",
+                "haveitemindex",
+                "toindex",
+            }};
+            constexpr std::array<std::string_view, 4U> specs = {{
+                "{x}",
+                "{y}",
+                "{haveitemindex}",
+                "{toindex}",
+            }};
+            for (std::size_t index = 0U; index < names.size(); ++index) {
+                const FieldSchema& field = itemUseSchema->fields[index];
+                failures += Expect(
+                    field.index == index &&
+                        field.name == names[index] &&
+                        field.typeToken == "unknown" &&
+                        field.rawSpec == specs[index] &&
+                        field.source == "xlsx",
+                    "Ak raw field");
+            }
+        }
+
+        failures += Expect(
+            itemUseSchema->hasResolvedFormat,
+            "Ak resolvedFormat present");
+        failures += Expect(
+            itemUseSchema->resolvedFormat ==
+                "{x:i62} {y:i62} {haveitemindex:i62} {toindex:i62}",
+            "Ak resolvedFormat");
+        failures += Expect(
+            itemUseSchema->resolvedSource == "xlsx+ServerC+ClientIda",
+            "Ak resolvedSource");
+        failures += Expect(
+            itemUseSchema->hasResolvedFields,
+            "Ak resolvedFields present");
+        failures += Expect(
+            itemUseSchema->resolvedFields.size() == 4U,
+            "Ak resolved field count");
+        if (itemUseSchema->resolvedFields.size() == 4U) {
+            constexpr std::array<std::string_view, 4U> names = {{
+                "x",
+                "y",
+                "haveitemindex",
+                "toindex",
+            }};
+            constexpr std::array<std::string_view, 4U> specs = {{
+                "{x:i62}",
+                "{y:i62}",
+                "{haveitemindex:i62}",
+                "{toindex:i62}",
+            }};
+            for (std::size_t index = 0U; index < names.size(); ++index) {
+                const FieldSchema& field = itemUseSchema->resolvedFields[index];
+                failures += Expect(
+                    field.index == index &&
+                        field.name == names[index] &&
+                        field.typeToken == "i62" &&
+                        field.rawSpec == specs[index] &&
+                        field.source == "xlsx+ServerC+ClientIda",
+                    "Ak resolved field");
+            }
+        }
+
+        bool inSendManifest = false;
+        for (const cg::packet::test::TypedPacketManifestEntry& entry :
+             cg::packet::test::SendTypedPackets) {
+            if (entry.spec != nullptr && entry.spec->code == "Ak") {
+                inSendManifest = true;
+                break;
+            }
+        }
+        failures += Expect(!inSendManifest, "Ak absent from send typed manifest");
+
+        bool inReceiveManifest = false;
+        for (const cg::packet::test::TypedPacketManifestEntry& entry :
+             cg::packet::test::ReceiveTypedPackets) {
+            if (entry.spec != nullptr && entry.spec->code == "Ak") {
+                inReceiveManifest = true;
+                break;
+            }
+        }
+        failures += Expect(!inReceiveManifest, "Ak absent from receive typed manifest");
+    }
+
     const PacketSchema* itemPickupSchema = FindPacket(packets, "fIM");
     failures += Expect(itemPickupSchema != nullptr, "fIM schema exists");
     if (itemPickupSchema != nullptr) {

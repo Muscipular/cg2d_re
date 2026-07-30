@@ -5666,13 +5666,50 @@
       "direction": "客户端->服务端",
       "legacyKind": "RECV",
       "clientNamespace": "send",
-      "xlsxStatus": "完成",
+      "xlsxStatus": "进行中",
       "description": "RECV_PGML 宠邮",
       "rawFormat": "{toregist} {petSlot} {itemSlot} {text} {color}",
       "formatEmpty": false,
       "source": "xlsx",
       "resolvedFormat": "{toregist:i62} {petSlot:i62} {itemSlot:i62} {text:es} {color:i62}",
       "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "toregist",
+          "typeToken": "i62",
+          "rawSpec": "{toregist:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 1,
+          "name": "petSlot",
+          "typeToken": "i62",
+          "rawSpec": "{petSlot:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 2,
+          "name": "itemSlot",
+          "typeToken": "i62",
+          "rawSpec": "{itemSlot:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 3,
+          "name": "text",
+          "typeToken": "es",
+          "rawSpec": "{text:es}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 4,
+          "name": "color",
+          "typeToken": "i62",
+          "rawSpec": "{color:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        }
+      ],
       "fields": [
         {
           "index": 0,

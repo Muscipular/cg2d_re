@@ -164,6 +164,8 @@ int TestEscapedTextRoundtrip()
 
 int TestPipeTextRoundtrip()
 {
+    // 这里只验证普通外层 es 可保留 raw pipe；legacy UI caller 会先将 pipe 预转义为 \z，
+    // packet 层不负责该内容转换，color | 0x100 由 Server handler 处理。
     const cg::packet::send::PetMailRegister request(1, 2, 3, "A|B|C", 4);
     const cg::packet::PacketResult<std::string> encoded = request.Encode();
 

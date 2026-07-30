@@ -2349,6 +2349,8 @@ namespace cg::packet::send
 
     /**
      * RECV_PGML 宠邮登记 PfqV {toregist:i62} {petSlot:i62} {itemSlot:i62} {text:es} {color:i62}
+     * text 是调用方已完成 legacy n/c/z/y 内容预转义后的普通外层 es 标量，不是 SubPayload；
+     * packet 层不执行该内容预转换，color | 0x100 由 Server handler 处理。
      */
     struct PetMailRegister
     {

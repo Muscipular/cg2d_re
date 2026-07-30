@@ -5084,8 +5084,18 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     const PacketSchema* petMailRegisterSchema = FindPacket(packets, "PfqV");
     failures += Expect(petMailRegisterSchema != nullptr, "PfqV schema exists");
     if (petMailRegisterSchema != nullptr) {
+        const cg::packet::send::PetMailRegister request(1, 2, 3, "text", 0);
+        const cg::packet::Packet packet = request.ToPacket();
         failures += Expect(petMailRegisterSchema->direction == "客户端->服务端", "PfqV direction");
         failures += Expect(petMailRegisterSchema->legacyKind == "RECV", "PfqV legacyKind");
+        failures += Expect(petMailRegisterSchema->clientNamespace == "send", "PfqV namespace");
+        failures += Expect(petMailRegisterSchema->xlsxStatus == "进行中", "PfqV xlsxStatus");
+        failures += Expect(
+            petMailRegisterSchema->rawFormat ==
+                "{toregist} {petSlot} {itemSlot} {text} {color}",
+            "PfqV rawFormat");
+        failures += Expect(!petMailRegisterSchema->formatEmpty, "PfqV formatEmpty false");
+        failures += Expect(petMailRegisterSchema->source == "xlsx", "PfqV raw source");
         failures += Expect(
             petMailRegisterSchema->resolvedFormat ==
                 "{toregist:i62} {petSlot:i62} {itemSlot:i62} {text:es} {color:i62}",
@@ -5093,17 +5103,89 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         failures += Expect(
             petMailRegisterSchema->resolvedSource == "xlsx+ServerC+ClientIda+src/packet",
             "PfqV resolvedSource");
-        failures += Expect(petMailRegisterSchema->fields.size() == 5U, "PfqV field count");
+        failures += Expect(petMailRegisterSchema->fields.size() == 5U, "PfqV raw field count");
         if (petMailRegisterSchema->fields.size() == 5U) {
-            failures += Expect(petMailRegisterSchema->fields[0].name == "toregist", "PfqV toregist field");
-            failures += Expect(petMailRegisterSchema->fields[1].name == "petSlot", "PfqV petSlot field");
-            failures += Expect(petMailRegisterSchema->fields[2].name == "itemSlot", "PfqV itemSlot field");
-            failures += Expect(petMailRegisterSchema->fields[3].name == "text", "PfqV text field");
-            failures += Expect(petMailRegisterSchema->fields[4].name == "color", "PfqV color field");
-            failures += Expect(petMailRegisterSchema->fields[0].typeToken == "unknown", "PfqV raw type");
-            failures += Expect(petMailRegisterSchema->fields[3].rawSpec == "{text}", "PfqV text rawSpec");
+            constexpr std::array<std::string_view, 5U> names = {{
+                "toregist",
+                "petSlot",
+                "itemSlot",
+                "text",
+                "color",
+            }};
+            constexpr std::array<std::string_view, 5U> specs = {{
+                "{toregist}",
+                "{petSlot}",
+                "{itemSlot}",
+                "{text}",
+                "{color}",
+            }};
+            for (std::size_t index = 0U; index < names.size(); ++index) {
+                const FieldSchema& field = petMailRegisterSchema->fields[index];
+                failures += Expect(
+                    field.index == index &&
+                        field.name == names[index] &&
+                        field.typeToken == "unknown" &&
+                        field.rawSpec == specs[index] &&
+                        field.source == "xlsx",
+                    "PfqV raw field");
+            }
         }
+
+        failures += Expect(
+            petMailRegisterSchema->hasResolvedFields,
+            "PfqV resolvedFields present");
+        failures += Expect(
+            petMailRegisterSchema->resolvedFields.size() == 5U,
+            "PfqV resolved field count");
+        if (petMailRegisterSchema->resolvedFields.size() == 5U) {
+            constexpr std::array<std::string_view, 5U> names = {{
+                "toregist",
+                "petSlot",
+                "itemSlot",
+                "text",
+                "color",
+            }};
+            constexpr std::array<std::string_view, 5U> types = {{
+                "i62",
+                "i62",
+                "i62",
+                "es",
+                "i62",
+            }};
+            constexpr std::array<std::string_view, 5U> specs = {{
+                "{toregist:i62}",
+                "{petSlot:i62}",
+                "{itemSlot:i62}",
+                "{text:es}",
+                "{color:i62}",
+            }};
+            for (std::size_t index = 0U; index < names.size(); ++index) {
+                const FieldSchema& field = petMailRegisterSchema->resolvedFields[index];
+                failures += Expect(
+                    field.index == index &&
+                        field.name == names[index] &&
+                        field.typeToken == types[index] &&
+                        field.rawSpec == specs[index] &&
+                        field.source == "xlsx+ServerC+ClientIda+src/packet",
+                    "PfqV resolved field");
+            }
+        }
+
+        failures += ExpectEffectiveFieldsMatch(
+            *petMailRegisterSchema,
+            cg::packet::send::PetMailRegister::Spec,
+            "PfqV Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *petMailRegisterSchema,
+            packet,
+            "PfqV resolved field order");
     }
+    failures += Expect(
+        TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "PfqV"),
+        "PfqV present in send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "PfqV"),
+        "PfqV absent from receive typed manifest");
     return failures;
 }
 

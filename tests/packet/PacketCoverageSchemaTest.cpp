@@ -4371,6 +4371,91 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         !TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "uHb"),
         "uHb absent from receive typed manifest");
 
+    const PacketSchema* guildMemberInviteRequestSchema = FindPacket(packets, "npzi");
+    failures += Expect(
+        guildMemberInviteRequestSchema != nullptr,
+        "npzi schema exists");
+    if (guildMemberInviteRequestSchema != nullptr) {
+        failures += Expect(
+            guildMemberInviteRequestSchema->direction == "客户端->服务端",
+            "npzi direction");
+        failures += Expect(
+            guildMemberInviteRequestSchema->legacyKind == "RECV",
+            "npzi legacyKind");
+        failures += Expect(
+            guildMemberInviteRequestSchema->clientNamespace == "send",
+            "npzi namespace");
+        failures += Expect(
+            guildMemberInviteRequestSchema->xlsxStatus == "完成",
+            "npzi xlsxStatus");
+        failures += Expect(
+            guildMemberInviteRequestSchema->rawFormat == "{x} {y}",
+            "npzi rawFormat");
+        failures += Expect(
+            !guildMemberInviteRequestSchema->formatEmpty,
+            "npzi formatEmpty false");
+        failures += Expect(
+            guildMemberInviteRequestSchema->source == "xlsx",
+            "npzi raw source");
+        failures += Expect(
+            guildMemberInviteRequestSchema->fields.size() == 2U,
+            "npzi raw field count");
+        if (guildMemberInviteRequestSchema->fields.size() == 2U) {
+            constexpr std::array<std::string_view, 2U> names = {{"x", "y"}};
+            constexpr std::array<std::string_view, 2U> specs = {{"{x}", "{y}"}};
+            for (std::size_t index = 0U; index < names.size(); ++index) {
+                const FieldSchema& field = guildMemberInviteRequestSchema->fields[index];
+                failures += Expect(
+                    field.index == static_cast<int>(index) &&
+                        field.name == names[index] &&
+                        field.typeToken == "unknown" &&
+                        field.rawSpec == specs[index] &&
+                        field.source == "xlsx",
+                    "npzi raw field");
+            }
+        }
+
+        failures += Expect(
+            guildMemberInviteRequestSchema->hasResolvedFormat,
+            "npzi resolvedFormat present");
+        failures += Expect(
+            guildMemberInviteRequestSchema->resolvedFormat == "{x:i62} {y:i62}",
+            "npzi resolvedFormat");
+        failures += Expect(
+            guildMemberInviteRequestSchema->resolvedSource == "xlsx+ServerC+ClientIda",
+            "npzi resolvedSource");
+        failures += Expect(
+            guildMemberInviteRequestSchema->hasResolvedFields,
+            "npzi resolvedFields present");
+        failures += Expect(
+            guildMemberInviteRequestSchema->resolvedFields.size() == 2U,
+            "npzi resolved field count");
+        if (guildMemberInviteRequestSchema->resolvedFields.size() == 2U) {
+            constexpr std::array<std::string_view, 2U> names = {{"x", "y"}};
+            constexpr std::array<std::string_view, 2U> specs = {{
+                "{x:i62}",
+                "{y:i62}",
+            }};
+            for (std::size_t index = 0U; index < names.size(); ++index) {
+                const FieldSchema& field =
+                    guildMemberInviteRequestSchema->resolvedFields[index];
+                failures += Expect(
+                    field.index == static_cast<int>(index) &&
+                        field.name == names[index] &&
+                        field.typeToken == "i62" &&
+                        field.rawSpec == specs[index] &&
+                        field.source == "xlsx+ServerC+ClientIda",
+                    "npzi resolved field");
+            }
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "npzi"),
+        "npzi absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "npzi"),
+        "npzi absent from receive typed manifest");
+
     const PacketSchema* deprecatedBattleJoinSchema = FindPacket(packets, "cEj");
     failures += Expect(deprecatedBattleJoinSchema != nullptr, "cEj schema exists");
     if (deprecatedBattleJoinSchema != nullptr) {

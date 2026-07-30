@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=BG
+direction=client_to_server
+sample=target-slot-ten-stamp-slot-twenty
+plain_hex=42 47 20 61 20 6B
+canonical_hex=42 47 20 61 20 6B 20
+end_sample

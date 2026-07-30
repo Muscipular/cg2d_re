@@ -1213,11 +1213,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 72U, "send typed manifest count 72");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 73U, "send typed manifest count 73");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 84U, "receive typed manifest count 84");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 156U,
-        "typed manifest count 156");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 157U,
+        "typed manifest count 157");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1234,7 +1234,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 156U, "typed manifest unique code count 156");
+    failures += Expect(codes.size() == 157U, "typed manifest unique code count 157");
     return failures;
 }
 
@@ -5612,7 +5612,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "BG resolvedFormat");
         failures += Expect(
             itemStampRequestSchema->resolvedSource ==
-                "xlsx+ServerC+ClientIda",
+                "xlsx+ServerC+ClientIda+src/packet",
             "BG resolvedSource");
         failures += Expect(
             itemStampRequestSchema->hasResolvedFields,
@@ -5633,16 +5633,27 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                         field.name == resolvedFieldNames[index] &&
                         field.typeToken == "i62" &&
                         field.rawSpec == resolvedSpecs[index] &&
-                        field.source == "xlsx+ServerC+ClientIda",
+                        field.source == "xlsx+ServerC+ClientIda+src/packet",
                     "BG resolved field");
             }
         }
+
+        const cg::packet::send::ItemStampRequest request(10, 20);
+        const cg::packet::Packet packet = request.ToPacket();
+        failures += ExpectEffectiveFieldsMatch(
+            *itemStampRequestSchema,
+            cg::packet::send::ItemStampRequest::Spec,
+            "BG Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *itemStampRequestSchema,
+            packet,
+            "BG resolved field order");
     }
     failures += Expect(
-        !TypedManifestContainsCode(
+        TypedManifestContainsCode(
             cg::packet::test::SendTypedPackets,
             "BG"),
-        "BG absent from send typed manifest");
+        "BG present in send typed manifest");
     failures += Expect(
         !TypedManifestContainsCode(
             cg::packet::test::ReceiveTypedPackets,

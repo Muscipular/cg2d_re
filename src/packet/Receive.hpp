@@ -2260,6 +2260,205 @@ namespace cg::packet::receive
     };
 
     /**
+     * SEND_SE 播放音效 TFCu {senumber:i62}
+     * 封包协议 wire 与 generic Packet 保留 signed i62；typed Parse/FromPacket 仅接受 0..8。
+     */
+    struct SoundEffectNotification
+    {
+        static constexpr std::string_view Code = "TFCu";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("senumber"), PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        int soundNumber = 0;
+
+        explicit SoundEffectNotification(int soundNumber)
+            : soundNumber(soundNumber)
+        {
+        }
+
+#if CG_PACKET_ENABLE_TEST_HELPERS
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("senumber"),
+                PacketFieldType::Int62,
+                std::to_string(soundNumber),
+            });
+            return packet;
+        }
+#endif
+
+        static PacketResult<SoundEffectNotification> Parse(
+            std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
+            if (!parsed.HasValue()) {
+                return PacketResult<SoundEffectNotification>::Failure(
+                    parsed.Error());
+            }
+
+            return FromPacket(parsed.Value());
+        }
+
+        static PacketResult<SoundEffectNotification> FromPacket(
+            const Packet& packet)
+        {
+            if (packet.code.View() != Code) {
+                PacketError error = MakePacketError(
+                    PacketErrorCode::InvalidCode,
+                    CG_PACKET_DIAGNOSTIC_TEXT(
+                        "SoundEffectNotification Parse 收到非 TFCu 封包"));
+                error.packetCode = packet.code;
+                return PacketResult<SoundEffectNotification>::Failure(
+                    std::move(error));
+            }
+
+            if (packet.direction != Direction) {
+                return PacketResult<SoundEffectNotification>::Failure(
+                    MakePacketError(
+                        PacketErrorCode::DecodeFailed,
+                        CG_PACKET_DIAGNOSTIC_TEXT(
+                            "SoundEffectNotification Parse 封包方向不匹配")));
+            }
+
+            if (packet.fields.size() != FieldCount) {
+                return PacketResult<SoundEffectNotification>::Failure(
+                    MakeFieldError(
+                        PacketErrorCode::FieldCountMismatch,
+                        CG_PACKET_DIAGNOSTIC_TEXT(
+                            "SoundEffectNotification Parse 字段数量不匹配"),
+                        packet.fields.size() < FieldCount
+                            ? packet.fields.size()
+                            : FieldCount));
+            }
+
+            const PacketField& field = packet.fields[SoundNumberFieldIndex];
+            if (!CG_PACKET_FIELD_NAME_MATCHES(field.name, Fields[0].name)) {
+                return PacketResult<SoundEffectNotification>::Failure(
+                    MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        CG_PACKET_DIAGNOSTIC_TEXT(
+                            "SoundEffectNotification Parse 字段名不匹配"),
+                        SoundNumberFieldIndex));
+            }
+
+            if (field.type != Fields[0].type) {
+                return PacketResult<SoundEffectNotification>::Failure(
+                    MakeFieldError(
+                        PacketErrorCode::InvalidFieldType,
+                        CG_PACKET_DIAGNOSTIC_TEXT(
+                            "SoundEffectNotification Parse 字段类型不匹配"),
+                        SoundNumberFieldIndex));
+            }
+
+            PacketResult<int> value =
+                ParseDecimalField(field.value, SoundNumberFieldIndex);
+            if (!value.HasValue()) {
+                return PacketResult<SoundEffectNotification>::Failure(
+                    value.Error());
+            }
+
+            if (value.Value() < 0 || value.Value() > 8) {
+                return PacketResult<SoundEffectNotification>::Failure(
+                    MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        CG_PACKET_DIAGNOSTIC_TEXT(
+                            "SoundEffectNotification senumber 仅允许 0..8"),
+                        SoundNumberFieldIndex));
+            }
+
+            return PacketResult<SoundEffectNotification>::Success(
+                SoundEffectNotification(value.Value()));
+        }
+
+    private:
+        static constexpr std::size_t FieldCount = 1U;
+        static constexpr std::size_t SoundNumberFieldIndex = 0U;
+
+        [[nodiscard]] static PacketError MakePacketError(
+            PacketErrorCode code,
+            std::string_view message)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            return error;
+        }
+
+        [[nodiscard]] static PacketError MakeFieldError(
+            PacketErrorCode code,
+            std::string_view message,
+            std::size_t fieldIndex)
+        {
+            PacketError error = MakePacketError(code, std::move(message));
+            error.fieldIndex = fieldIndex;
+            return error;
+        }
+
+        [[nodiscard]] static PacketResult<int> ParseDecimalField(
+            std::string_view text,
+            std::size_t fieldIndex)
+        {
+            bool negative = false;
+            std::size_t index = 0U;
+            if (!text.empty() && text.front() == '-') {
+                negative = true;
+                index = 1U;
+            }
+
+            if (index == text.size()) {
+                return PacketResult<int>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT(
+                        "SoundEffectNotification i62 字段为空"),
+                    fieldIndex));
+            }
+
+            const std::int64_t maxValue =
+                static_cast<std::int64_t>(std::numeric_limits<int>::max());
+            const std::int64_t minValue =
+                static_cast<std::int64_t>(std::numeric_limits<int>::min());
+            const std::int64_t limit = negative ? (0 - minValue) : maxValue;
+            std::int64_t value = 0;
+
+            for (; index < text.size(); ++index) {
+                const char ch = text[index];
+                if (ch < '0' || ch > '9') {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        CG_PACKET_DIAGNOSTIC_TEXT(
+                            "SoundEffectNotification i62 字段包含非法字符"),
+                        fieldIndex));
+                }
+
+                const int digit = ch - '0';
+                if (value > (limit - digit) / 10) {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        CG_PACKET_DIAGNOSTIC_TEXT(
+                            "SoundEffectNotification i62 字段超出 int 范围"),
+                        fieldIndex));
+                }
+
+                value = (value * 10) + digit;
+            }
+
+            if (negative) {
+                value = -value;
+            }
+            return PacketResult<int>::Success(static_cast<int>(value));
+        }
+    };
+
+    /**
      * SEND_MC 地图校验值 jmb
      * wire 固定九个 signed i62；保留完整 int，不增加校验值或坐标约束。
      */

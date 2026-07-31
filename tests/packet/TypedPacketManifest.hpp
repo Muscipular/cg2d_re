@@ -196,7 +196,7 @@ inline constexpr std::array<TypedPacketManifestEntry, 98U> SendTypedPackets = {{
     MakeSendManifestEntry<send::StallStart, send::StallStart::Spec>(),
 }};
 
-inline constexpr std::array<TypedPacketManifestEntry, 103U> ReceiveTypedPackets = {{
+inline constexpr std::array<TypedPacketManifestEntry, 104U> ReceiveTypedPackets = {{
     MakeReceiveManifestEntry<receive::ClientLoginResult, receive::ClientLoginResult::Spec>(),
     MakeReceiveManifestEntry<receive::CharacterLoginResult, receive::CharacterLoginResult::Spec>(),
     MakeReceiveManifestEntry<receive::CharacterLogoutResult, receive::CharacterLogoutResult::Spec>(),
@@ -222,6 +222,9 @@ inline constexpr std::array<TypedPacketManifestEntry, 103U> ReceiveTypedPackets 
     MakeReceiveManifestEntry<
         receive::PetLevelUpPoints,
         receive::PetLevelUpPoints::Spec>(),
+    MakeReceiveManifestEntry<
+        receive::SoundEffectNotification,
+        receive::SoundEffectNotification::Spec>(),
     MakeReceiveManifestEntry<receive::MapChecksum, receive::MapChecksum::Spec>(),
     MakeReceiveManifestEntry<receive::FeverStatus, receive::FeverStatus::Spec>(),
     MakeReceiveManifestEntry<receive::BattlePosition, receive::BattlePosition::Spec>(),

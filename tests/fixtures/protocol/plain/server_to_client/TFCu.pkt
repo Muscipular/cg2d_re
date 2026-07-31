@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=TFCu
+direction=server_to_client
+sample=pickup-item
+plain_hex=54 46 43 75 20 32
+canonical_hex=54 46 43 75 20 32 20
+end_sample

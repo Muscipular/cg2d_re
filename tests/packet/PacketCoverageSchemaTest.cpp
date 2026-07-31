@@ -1247,10 +1247,10 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
     failures += Expect(cg::packet::test::SendTypedPackets.size() == 98U, "send typed manifest count 98");
-    failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 103U, "receive typed manifest count 103");
+    failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 104U, "receive typed manifest count 104");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 201U,
-        "typed manifest count 201");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 202U,
+        "typed manifest count 202");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1267,7 +1267,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 201U, "typed manifest unique code count 201");
+    failures += Expect(codes.size() == 202U, "typed manifest unique code count 202");
     return failures;
 }
 
@@ -10646,6 +10646,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         soundEffectNotificationSchema != nullptr,
         "TFCu schema exists");
     if (soundEffectNotificationSchema != nullptr) {
+        const cg::packet::receive::SoundEffectNotification value(2);
+        const cg::packet::Packet packet = value.ToPacket();
         failures += Expect(
             soundEffectNotificationSchema->direction == "服务端->客户端",
             "TFCu direction");
@@ -10682,7 +10684,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "TFCu resolvedFormat");
         failures += Expect(
             soundEffectNotificationSchema->resolvedSource ==
-                "ServerC+ClientIda",
+                "ServerC+ClientIda+src/packet",
             "TFCu resolvedSource");
         failures += Expect(
             soundEffectNotificationSchema->hasResolvedFields,
@@ -10698,9 +10700,20 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                     field.name == "senumber" &&
                     field.typeToken == "i62" &&
                     field.rawSpec == "{senumber:i62}" &&
-                    field.source == "ServerC+ClientIda",
+                    field.source == "ServerC+ClientIda+src/packet",
                 "TFCu resolved field");
         }
+        failures += ExpectEffectiveFieldsMatch(
+            *soundEffectNotificationSchema,
+            cg::packet::receive::SoundEffectNotification::Spec,
+            "TFCu Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *soundEffectNotificationSchema,
+            packet,
+            "TFCu resolved field order");
+        failures += Expect(
+            value.soundNumber == 2,
+            "TFCu typed member");
     }
     failures += Expect(
         !TypedManifestContainsCode(
@@ -10708,10 +10721,10 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "TFCu"),
         "TFCu absent from send typed manifest");
     failures += Expect(
-        !TypedManifestContainsCode(
+        TypedManifestContainsCode(
             cg::packet::test::ReceiveTypedPackets,
             "TFCu"),
-        "TFCu absent from receive typed manifest");
+        "TFCu present in receive typed manifest");
 
     const PacketSchema* checkCommandSchema = FindPacket(packets, "CCL");
     failures += Expect(checkCommandSchema != nullptr, "CCL schema exists");

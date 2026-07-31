@@ -4283,14 +4283,14 @@
       "formatEmpty": true,
       "source": "xlsx",
       "resolvedFormat": "{senumber:i62}",
-      "resolvedSource": "ServerC+ClientIda",
+      "resolvedSource": "ServerC+ClientIda+src/packet",
       "resolvedFields": [
         {
           "index": 0,
           "name": "senumber",
           "typeToken": "i62",
           "rawSpec": "{senumber:i62}",
-          "source": "ServerC+ClientIda"
+          "source": "ServerC+ClientIda+src/packet"
         }
       ],
       "fields": []

@@ -6802,6 +6802,106 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "Godf"),
         "Godf absent from receive typed manifest");
 
+    const PacketSchema* versionUpgradeRequestSchema =
+        FindPacket(packets, "Xoee");
+    failures += Expect(
+        versionUpgradeRequestSchema != nullptr,
+        "Xoee schema exists");
+    if (versionUpgradeRequestSchema != nullptr) {
+        failures += Expect(
+            versionUpgradeRequestSchema->direction == "客户端->服务端",
+            "Xoee direction");
+        failures += Expect(
+            versionUpgradeRequestSchema->legacyKind == "RECV",
+            "Xoee legacyKind");
+        failures += Expect(
+            versionUpgradeRequestSchema->clientNamespace == "send",
+            "Xoee namespace");
+        failures += Expect(
+            versionUpgradeRequestSchema->xlsxStatus == "暂缓",
+            "Xoee xlsxStatus");
+        failures += Expect(
+            versionUpgradeRequestSchema->rawFormat == "{mode} {productkey}",
+            "Xoee rawFormat");
+        failures += Expect(
+            !versionUpgradeRequestSchema->formatEmpty,
+            "Xoee formatEmpty false");
+        failures += Expect(
+            versionUpgradeRequestSchema->source == "xlsx",
+            "Xoee raw source");
+        failures += Expect(
+            versionUpgradeRequestSchema->fields.size() == 2U,
+            "Xoee raw field count");
+        if (versionUpgradeRequestSchema->fields.size() == 2U) {
+            const FieldSchema& mode =
+                versionUpgradeRequestSchema->fields[0];
+            const FieldSchema& productKey =
+                versionUpgradeRequestSchema->fields[1];
+            failures += Expect(
+                mode.index == 0 &&
+                    mode.name == "mode" &&
+                    mode.typeToken == "unknown" &&
+                    mode.rawSpec == "{mode}" &&
+                    mode.source == "xlsx",
+                "Xoee raw mode field");
+            failures += Expect(
+                productKey.index == 1 &&
+                    productKey.name == "productkey" &&
+                    productKey.typeToken == "unknown" &&
+                    productKey.rawSpec == "{productkey}" &&
+                    productKey.source == "xlsx",
+                "Xoee raw productkey field");
+        }
+
+        failures += Expect(
+            versionUpgradeRequestSchema->hasResolvedFormat,
+            "Xoee resolvedFormat present");
+        failures += Expect(
+            versionUpgradeRequestSchema->resolvedFormat ==
+                "{mode:i62} {productKey:es}",
+            "Xoee resolvedFormat");
+        failures += Expect(
+            versionUpgradeRequestSchema->resolvedSource ==
+                "xlsx+ServerC+ClientIda",
+            "Xoee resolvedSource");
+        failures += Expect(
+            versionUpgradeRequestSchema->hasResolvedFields,
+            "Xoee resolvedFields present");
+        failures += Expect(
+            versionUpgradeRequestSchema->resolvedFields.size() == 2U,
+            "Xoee resolved field count");
+        if (versionUpgradeRequestSchema->resolvedFields.size() == 2U) {
+            const FieldSchema& mode =
+                versionUpgradeRequestSchema->resolvedFields[0];
+            const FieldSchema& productKey =
+                versionUpgradeRequestSchema->resolvedFields[1];
+            failures += Expect(
+                mode.index == 0 &&
+                    mode.name == "mode" &&
+                    mode.typeToken == "i62" &&
+                    mode.rawSpec == "{mode:i62}" &&
+                    mode.source == "xlsx+ServerC+ClientIda",
+                "Xoee resolved mode field");
+            failures += Expect(
+                productKey.index == 1 &&
+                    productKey.name == "productKey" &&
+                    productKey.typeToken == "es" &&
+                    productKey.rawSpec == "{productKey:es}" &&
+                    productKey.source == "xlsx+ServerC+ClientIda",
+                "Xoee resolved productKey field");
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "Xoee"),
+        "Xoee absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "Xoee"),
+        "Xoee absent from receive typed manifest");
+
     const PacketSchema* deprecatedBattleJoinSchema = FindPacket(packets, "cEj");
     failures += Expect(deprecatedBattleJoinSchema != nullptr, "cEj schema exists");
     if (deprecatedBattleJoinSchema != nullptr) {

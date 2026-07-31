@@ -1763,6 +1763,34 @@ namespace cg::packet::send
     };
 
     /**
+     * RECV_PlayerNumGet 在线人数请求 rvb
+     * 服务端仅接收零字段请求；不启用已禁用的统计响应逻辑，
+     * 也不复用独立 Bi 响应的字段。
+     */
+    struct PlayerCountRequest
+    {
+        static constexpr std::string_view Code = "rvb";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 0U> Fields = {};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            return Packet(PacketCode(Code), Direction);
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket(), Spec);
+        }
+    };
+
+    /**
      * RECV_PVUP 历史迁移 Xoee {mode:i62} {productKey:es}
      * 迁移模式、鉴权与数据库队列属于服务端业务层；基础 packet 层
      * 保留任意 signed int mode 与单层 legacy productKey bytes。

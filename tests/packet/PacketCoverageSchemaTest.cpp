@@ -1246,11 +1246,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 95U, "send typed manifest count 95");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 96U, "send typed manifest count 96");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 94U, "receive typed manifest count 94");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 189U,
-        "typed manifest count 189");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 190U,
+        "typed manifest count 190");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1267,7 +1267,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 189U, "typed manifest unique code count 189");
+    failures += Expect(codes.size() == 190U, "typed manifest unique code count 190");
     return failures;
 }
 
@@ -6899,6 +6899,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         playerCountRequestSchema != nullptr,
         "rvb schema exists");
     if (playerCountRequestSchema != nullptr) {
+        const cg::packet::send::PlayerCountRequest request;
+        const cg::packet::Packet packet = request.ToPacket();
         failures += Expect(
             playerCountRequestSchema->direction == "客户端->服务端",
             "rvb direction");
@@ -6930,7 +6932,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             playerCountRequestSchema->resolvedFormat.empty(),
             "rvb resolvedFormat empty");
         failures += Expect(
-            playerCountRequestSchema->resolvedSource == "xlsx+ServerC",
+            playerCountRequestSchema->resolvedSource == "xlsx+ServerC+src/packet",
             "rvb resolvedSource");
         failures += Expect(
             playerCountRequestSchema->hasResolvedFields,
@@ -6938,12 +6940,20 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         failures += Expect(
             playerCountRequestSchema->resolvedFields.empty(),
             "rvb resolvedFields empty");
+        failures += ExpectEffectiveFieldsMatch(
+            *playerCountRequestSchema,
+            cg::packet::send::PlayerCountRequest::Spec,
+            "rvb Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *playerCountRequestSchema,
+            packet,
+            "rvb resolved field order");
     }
     failures += Expect(
-        !TypedManifestContainsCode(
+        TypedManifestContainsCode(
             cg::packet::test::SendTypedPackets,
             "rvb"),
-        "rvb absent from send typed manifest");
+        "rvb present in send typed manifest");
     failures += Expect(
         !TypedManifestContainsCode(
             cg::packet::test::ReceiveTypedPackets,

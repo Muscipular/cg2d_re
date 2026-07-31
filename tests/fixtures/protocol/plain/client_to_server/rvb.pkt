@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=rvb
+direction=client_to_server
+sample=player-count-request
+plain_hex=72 76 62
+canonical_hex=72 76 62 20
+end_sample

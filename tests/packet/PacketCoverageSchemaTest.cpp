@@ -1247,10 +1247,10 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
     failures += Expect(cg::packet::test::SendTypedPackets.size() == 85U, "send typed manifest count 85");
-    failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 87U, "receive typed manifest count 87");
+    failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 88U, "receive typed manifest count 88");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 172U,
-        "typed manifest count 172");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 173U,
+        "typed manifest count 173");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1267,7 +1267,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 172U, "typed manifest unique code count 172");
+    failures += Expect(codes.size() == 173U, "typed manifest unique code count 173");
     return failures;
 }
 
@@ -7258,7 +7258,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "Yx resolvedFormat");
         failures += Expect(
             stallBuyResultSchema->resolvedSource ==
-                "xlsx+ServerC+ClientIda",
+                "xlsx+ServerC+ClientIda+src/packet",
             "Yx resolvedSource");
         failures += Expect(
             stallBuyResultSchema->hasResolvedFields,
@@ -7274,9 +7274,20 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                     result.name == "result" &&
                     result.typeToken == "i62" &&
                     result.rawSpec == "{result:i62}" &&
-                    result.source == "xlsx+ServerC+ClientIda",
+                    result.source == "xlsx+ServerC+ClientIda+src/packet",
                 "Yx resolved result field order");
         }
+
+        const cg::packet::receive::StallBuyResult result(0);
+        const cg::packet::Packet packet = result.ToPacket();
+        failures += ExpectEffectiveFieldsMatch(
+            *stallBuyResultSchema,
+            cg::packet::receive::StallBuyResult::Spec,
+            "Yx Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *stallBuyResultSchema,
+            packet,
+            "Yx resolved field order");
     }
     failures += Expect(
         !TypedManifestContainsCode(
@@ -7284,10 +7295,10 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "Yx"),
         "Yx absent from send typed manifest");
     failures += Expect(
-        !TypedManifestContainsCode(
+        TypedManifestContainsCode(
             cg::packet::test::ReceiveTypedPackets,
             "Yx"),
-        "Yx absent from receive typed manifest");
+        "Yx present in receive typed manifest");
 
     const PacketSchema* versionUpgradeRequestSchema =
         FindPacket(packets, "Xoee");

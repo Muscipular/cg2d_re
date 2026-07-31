@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=Yx
+direction=server_to_client
+sample=success
+plain_hex=59 78 20 30
+canonical_hex=59 78 20 30 20
+end_sample

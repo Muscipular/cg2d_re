@@ -10290,6 +10290,67 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "hJq"),
         "hJq present in receive typed manifest");
 
+    const PacketSchema* tradeSelectionCancelSchema = FindPacket(packets, "xEg");
+    failures += Expect(
+        tradeSelectionCancelSchema != nullptr,
+        "xEg schema exists");
+    if (tradeSelectionCancelSchema != nullptr) {
+        failures += Expect(
+            tradeSelectionCancelSchema->direction == "服务端->客户端",
+            "xEg direction");
+        failures += Expect(
+            tradeSelectionCancelSchema->legacyKind == "SEND",
+            "xEg legacyKind");
+        failures += Expect(
+            tradeSelectionCancelSchema->clientNamespace == "receive",
+            "xEg namespace");
+        failures += Expect(
+            tradeSelectionCancelSchema->xlsxStatus == "暂缓",
+            "xEg xlsxStatus");
+        failures += Expect(
+            tradeSelectionCancelSchema->description ==
+                "SEND_TRCL CHAR_Trade_closeItem",
+            "xEg description");
+        failures += Expect(
+            tradeSelectionCancelSchema->rawFormat.empty(),
+            "xEg rawFormat empty");
+        failures += Expect(
+            tradeSelectionCancelSchema->formatEmpty,
+            "xEg formatEmpty true");
+        failures += Expect(
+            tradeSelectionCancelSchema->source == "xlsx",
+            "xEg raw source");
+        failures += Expect(
+            tradeSelectionCancelSchema->fields.empty(),
+            "xEg raw fields empty");
+        failures += Expect(
+            tradeSelectionCancelSchema->hasResolvedFormat,
+            "xEg resolvedFormat present");
+        failures += Expect(
+            tradeSelectionCancelSchema->resolvedFormat.empty(),
+            "xEg resolvedFormat empty");
+        failures += Expect(
+            tradeSelectionCancelSchema->resolvedSource ==
+                "ServerC+ClientIda",
+            "xEg resolvedSource");
+        failures += Expect(
+            tradeSelectionCancelSchema->hasResolvedFields,
+            "xEg resolvedFields present");
+        failures += Expect(
+            tradeSelectionCancelSchema->resolvedFields.empty(),
+            "xEg resolvedFields empty");
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "xEg"),
+        "xEg absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "xEg"),
+        "xEg absent from receive typed manifest");
+
     const PacketSchema* checkCommandSchema = FindPacket(packets, "CCL");
     failures += Expect(checkCommandSchema != nullptr, "CCL schema exists");
     if (checkCommandSchema != nullptr) {

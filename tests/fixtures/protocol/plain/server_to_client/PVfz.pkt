@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=PVfz
+direction=server_to_client
+sample=negative-ship-action-wire-values
+plain_hex=50 56 66 7A 20 2D 31 45 20 67 38 20 61 20 6B 20 75
+canonical_hex=50 56 66 7A 20 2D 31 45 20 67 38 20 61 20 6B 20 75 20
+end_sample

@@ -1247,10 +1247,10 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
     failures += Expect(cg::packet::test::SendTypedPackets.size() == 95U, "send typed manifest count 95");
-    failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 92U, "receive typed manifest count 92");
+    failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 93U, "receive typed manifest count 93");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 187U,
-        "typed manifest count 187");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 188U,
+        "typed manifest count 188");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1267,7 +1267,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 187U, "typed manifest unique code count 187");
+    failures += Expect(codes.size() == 188U, "typed manifest unique code count 188");
     return failures;
 }
 
@@ -10186,7 +10186,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                 == "{type:i62} {mapId:i62} {floorId:i62} {x:i62} {y:i62}",
             "PVfz resolvedFormat");
         failures += Expect(
-            shipActionSchema->resolvedSource == "xlsx+ServerC+ClientIda",
+            shipActionSchema->resolvedSource ==
+                "xlsx+ServerC+ClientIda+src/packet",
             "PVfz resolvedSource");
         failures += Expect(
             shipActionSchema->hasResolvedFields,
@@ -10210,17 +10211,41 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                         && field.name == RawNames[index]
                         && field.typeToken == "i62"
                         && field.rawSpec == ResolvedSpecs[index]
-                        && field.source == "xlsx+ServerC+ClientIda",
+                        && field.source ==
+                            "xlsx+ServerC+ClientIda+src/packet",
                     "PVfz resolved field order");
             }
         }
+
+        const cg::packet::receive::ShipAction shipAction(
+            -102,
+            1000,
+            10,
+            20,
+            30);
+        const cg::packet::Packet packet = shipAction.ToPacket();
+        failures += ExpectEffectiveFieldsMatch(
+            *shipActionSchema,
+            cg::packet::receive::ShipAction::Spec,
+            "PVfz Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *shipActionSchema,
+            packet,
+            "PVfz resolved field order");
+        failures += Expect(
+            shipAction.type == -102 &&
+                shipAction.mapId == 1000 &&
+                shipAction.floorId == 10 &&
+                shipAction.x == 20 &&
+                shipAction.y == 30,
+            "PVfz typed members");
     }
     failures += Expect(
         !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "PVfz"),
         "PVfz absent from send typed manifest");
     failures += Expect(
-        !TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "PVfz"),
-        "PVfz absent from receive typed manifest");
+        TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "PVfz"),
+        "PVfz present in receive typed manifest");
 
     const PacketSchema* petMailSendSchema = FindPacket(packets, "rMsv");
     failures += Expect(petMailSendSchema != nullptr, "rMsv schema exists");

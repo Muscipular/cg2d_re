@@ -6125,7 +6125,30 @@
       "description": "RECV_GT 设置家族职位信息",
       "rawFormat": "{index} {bitflag} {data:es}",
       "resolvedFormat": "{index:i62} {bitflag:i62} {data:es}",
-      "resolvedSource": "xlsx+src/packet",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "index",
+          "typeToken": "i62",
+          "rawSpec": "{index:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 1,
+          "name": "bitflag",
+          "typeToken": "i62",
+          "rawSpec": "{bitflag:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 2,
+          "name": "data",
+          "typeToken": "es",
+          "rawSpec": "{data:es}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        }
+      ],
       "formatEmpty": false,
       "source": "xlsx",
       "fields": [

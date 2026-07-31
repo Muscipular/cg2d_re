@@ -10421,34 +10421,75 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         const cg::packet::Packet packet = guildTitleSet.ToPacket();
         failures += Expect(guildTitleSetSchema->direction == "客户端->服务端", "GY direction");
         failures += Expect(guildTitleSetSchema->legacyKind == "RECV", "GY legacyKind");
+        failures += Expect(guildTitleSetSchema->clientNamespace == "send", "GY namespace");
+        failures += Expect(guildTitleSetSchema->xlsxStatus == "完成", "GY xlsxStatus");
+        failures += Expect(
+            guildTitleSetSchema->description == "RECV_GT 设置家族职位信息",
+            "GY description");
         failures += Expect(guildTitleSetSchema->rawFormat == "{index} {bitflag} {data:es}", "GY rawFormat");
+        failures += Expect(!guildTitleSetSchema->formatEmpty, "GY formatEmpty false");
+        failures += Expect(guildTitleSetSchema->source == "xlsx", "GY raw source");
         failures += Expect(
             guildTitleSetSchema->resolvedFormat == "{index:i62} {bitflag:i62} {data:es}",
             "GY resolvedFormat");
-        failures += Expect(guildTitleSetSchema->resolvedSource == "xlsx+src/packet", "GY resolvedSource");
+        failures += Expect(
+            guildTitleSetSchema->resolvedSource
+                == "xlsx+ServerC+ClientIda+src/packet",
+            "GY resolvedSource");
         failures += Expect(guildTitleSetSchema->fields.size() == 3U, "GY raw field count");
         if (guildTitleSetSchema->fields.size() == 3U) {
-            failures += Expect(guildTitleSetSchema->fields[0].name == "index", "GY raw field index");
-            failures += Expect(guildTitleSetSchema->fields[1].name == "bitflag", "GY raw field bitflag");
-            failures += Expect(guildTitleSetSchema->fields[2].name == "data", "GY raw field data");
-            failures += Expect(guildTitleSetSchema->fields[0].typeToken == "unknown", "GY raw index type");
-            failures += Expect(guildTitleSetSchema->fields[1].typeToken == "unknown", "GY raw bitflag type");
-            failures += Expect(guildTitleSetSchema->fields[2].typeToken == "es", "GY raw data type");
+            const std::array<std::string_view, 3U> names = {{"index", "bitflag", "data"}};
+            const std::array<std::string_view, 3U> types = {{"unknown", "unknown", "es"}};
+            const std::array<std::string_view, 3U> rawSpecs = {{
+                "{index}",
+                "{bitflag}",
+                "{data:es}",
+            }};
+            for (std::size_t index = 0U; index < names.size(); ++index) {
+                failures += Expect(
+                    guildTitleSetSchema->fields[index].index == index &&
+                        guildTitleSetSchema->fields[index].name == names[index] &&
+                        guildTitleSetSchema->fields[index].typeToken == types[index] &&
+                        guildTitleSetSchema->fields[index].rawSpec == rawSpecs[index] &&
+                        guildTitleSetSchema->fields[index].source == "xlsx",
+                    "GY raw field");
+            }
         }
-        failures += Expect(packet.fields.size() == 3U, "GY packet field count");
-        if (packet.fields.size() == 3U) {
-            failures += Expect(packet.fields[0].name == "index", "GY packet index field");
-            failures += Expect(packet.fields[0].type == cg::packet::PacketFieldType::Int62, "GY packet index type");
-            failures += Expect(packet.fields[1].name == "bitflag", "GY packet bitflag field");
+        failures += Expect(
+            guildTitleSetSchema->hasResolvedFields,
+            "GY resolvedFields present");
+        failures += Expect(
+            guildTitleSetSchema->resolvedFields.size() == 3U,
+            "GY resolved field count");
+        for (const FieldSchema& field : guildTitleSetSchema->resolvedFields) {
             failures += Expect(
-                packet.fields[1].type == cg::packet::PacketFieldType::Int62,
-                "GY packet bitflag type");
-            failures += Expect(packet.fields[2].name == "data", "GY packet data field");
-            failures += Expect(
-                packet.fields[2].type == cg::packet::PacketFieldType::EscapedString,
-                "GY packet data type");
+                field.source == "xlsx+ServerC+ClientIda+src/packet",
+                "GY resolved field source");
         }
+        failures += ExpectEffectiveFieldsMatch(
+            *guildTitleSetSchema,
+            cg::packet::send::GuildTitleSet::Spec,
+            "GY Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *guildTitleSetSchema,
+            packet,
+            "GY resolved field order");
+        failures += Expect(
+            guildTitleSet.index == 10 &&
+                guildTitleSet.bitflag == 128 &&
+                guildTitleSet.data == "data",
+            "GY typed members");
     }
+    failures += Expect(
+        TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "GY"),
+        "GY present in send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "GY"),
+        "GY absent from receive typed manifest");
 
     const PacketSchema* guildMailSendSchema = FindPacket(packets, "uId");
     failures += Expect(guildMailSendSchema != nullptr, "uId schema exists");

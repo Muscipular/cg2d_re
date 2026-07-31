@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=GY
+direction=client_to_server
+sample=gbk-guild-title
+plain_hex=47 59 20 31 20 76 20 B8 B1 D7 E5 B3 A4
+canonical_hex=47 59 20 31 20 76 20 B8 B1 D7 E5 B3 A4 20
+end_sample

@@ -9719,6 +9719,74 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "nB"),
         "nB absent from receive typed manifest");
 
+    const PacketSchema* battleHelpModeRequestSchema =
+        FindPacket(packets, "FVm");
+    failures += Expect(
+        battleHelpModeRequestSchema != nullptr,
+        "FVm schema exists");
+    if (battleHelpModeRequestSchema != nullptr) {
+        failures += Expect(
+            battleHelpModeRequestSchema->direction == "客户端->服务端",
+            "FVm direction");
+        failures += Expect(
+            battleHelpModeRequestSchema->legacyKind == "RECV",
+            "FVm legacyKind");
+        failures += Expect(
+            battleHelpModeRequestSchema->clientNamespace == "send",
+            "FVm namespace");
+        failures += Expect(
+            battleHelpModeRequestSchema->xlsxStatus == "暂缓",
+            "FVm xlsxStatus");
+        failures += Expect(
+            battleHelpModeRequestSchema->rawFormat.empty(),
+            "FVm rawFormat empty");
+        failures += Expect(
+            battleHelpModeRequestSchema->formatEmpty,
+            "FVm formatEmpty true");
+        failures += Expect(
+            battleHelpModeRequestSchema->source == "xlsx",
+            "FVm raw source");
+        failures += Expect(
+            battleHelpModeRequestSchema->fields.empty(),
+            "FVm raw fields empty");
+        failures += Expect(
+            battleHelpModeRequestSchema->hasResolvedFormat,
+            "FVm resolvedFormat present");
+        failures += Expect(
+            battleHelpModeRequestSchema->resolvedFormat == "{flg:i62}",
+            "FVm resolvedFormat");
+        failures += Expect(
+            battleHelpModeRequestSchema->resolvedSource == "ServerC",
+            "FVm resolvedSource");
+        failures += Expect(
+            battleHelpModeRequestSchema->hasResolvedFields,
+            "FVm resolvedFields present");
+        failures += Expect(
+            battleHelpModeRequestSchema->resolvedFields.size() == 1U,
+            "FVm resolved field count");
+        if (battleHelpModeRequestSchema->resolvedFields.size() == 1U) {
+            const FieldSchema& field =
+                battleHelpModeRequestSchema->resolvedFields[0];
+            failures += Expect(
+                field.index == 0 &&
+                    field.name == "flg" &&
+                    field.typeToken == "i62" &&
+                    field.rawSpec == "{flg:i62}" &&
+                    field.source == "ServerC",
+                "FVm resolved field");
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "FVm"),
+        "FVm absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "FVm"),
+        "FVm absent from receive typed manifest");
+
     const PacketSchema* checkCommandSchema = FindPacket(packets, "CCL");
     failures += Expect(checkCommandSchema != nullptr, "CCL schema exists");
     if (checkCommandSchema != nullptr) {

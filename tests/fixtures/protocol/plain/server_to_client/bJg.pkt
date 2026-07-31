@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=bJg
+direction=server_to_client
+sample=palette-thirteen-frame-one-eighty
+plain_hex=62 4A 67 20 64 20 32 55
+canonical_hex=62 4A 67 20 64 20 32 55 20
+end_sample

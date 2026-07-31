@@ -792,6 +792,18 @@ add_test(
     COMMAND cg-packet-guild-departure-notification-test
 )
 
+add_executable(cg-packet-palette-change-test
+    tests/packet/PaletteChangePacketTest.cpp
+)
+target_include_directories(cg-packet-palette-change-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+add_test(
+    NAME cg-packet-palette-change-test
+    COMMAND cg-packet-palette-change-test
+)
+
 add_executable(cg-packet-npc-event-request-test
     tests/packet/NpcEventRequestPacketTest.cpp
 )
@@ -2877,6 +2889,7 @@ if(MSVC)
     target_compile_options(cg-packet-guild-join-notification-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-guild-member-removal-notification-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-guild-departure-notification-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-palette-change-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-npc-event-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-encounter-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-duel-request-test PRIVATE /W4 /utf-8 /permissive-)
@@ -3095,6 +3108,7 @@ else()
     target_compile_options(cg-packet-guild-join-notification-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-guild-member-removal-notification-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-guild-departure-notification-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-packet-palette-change-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-npc-event-request-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-encounter-request-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-duel-request-test PRIVATE -Wall -Wextra -Wpedantic)

@@ -1247,10 +1247,10 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
     failures += Expect(cg::packet::test::SendTypedPackets.size() == 95U, "send typed manifest count 95");
-    failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 91U, "receive typed manifest count 91");
+    failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 92U, "receive typed manifest count 92");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 186U,
-        "typed manifest count 186");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 187U,
+        "typed manifest count 187");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1267,7 +1267,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 186U, "typed manifest unique code count 186");
+    failures += Expect(codes.size() == 187U, "typed manifest unique code count 187");
     return failures;
 }
 
@@ -10073,7 +10073,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "bJg resolvedFormat");
         failures += Expect(
             paletteChangeSchema->resolvedSource ==
-                "xlsx+ServerC+ClientIda",
+                "xlsx+ServerC+ClientIda+src/packet",
             "bJg resolvedSource");
         failures += Expect(
             paletteChangeSchema->hasResolvedFields,
@@ -10099,10 +10099,26 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                         field.name == RawNames[index] &&
                         field.typeToken == "i62" &&
                         field.rawSpec == ResolvedSpecs[index] &&
-                        field.source == "xlsx+ServerC+ClientIda",
+                        field.source ==
+                            "xlsx+ServerC+ClientIda+src/packet",
                     "bJg resolved field order");
             }
         }
+
+        const cg::packet::receive::PaletteChange paletteChange(13, 180);
+        const cg::packet::Packet packet = paletteChange.ToPacket();
+        failures += ExpectEffectiveFieldsMatch(
+            *paletteChangeSchema,
+            cg::packet::receive::PaletteChange::Spec,
+            "bJg Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *paletteChangeSchema,
+            packet,
+            "bJg resolved field order");
+        failures += Expect(
+            paletteChange.palNumber == 13 &&
+                paletteChange.frameCount == 180,
+            "bJg typed members");
     }
     failures += Expect(
         !TypedManifestContainsCode(
@@ -10110,10 +10126,10 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "bJg"),
         "bJg absent from send typed manifest");
     failures += Expect(
-        !TypedManifestContainsCode(
+        TypedManifestContainsCode(
             cg::packet::test::ReceiveTypedPackets,
             "bJg"),
-        "bJg absent from receive typed manifest");
+        "bJg present in receive typed manifest");
 
     const PacketSchema* petMailSendSchema = FindPacket(packets, "rMsv");
     failures += Expect(petMailSendSchema != nullptr, "rMsv schema exists");

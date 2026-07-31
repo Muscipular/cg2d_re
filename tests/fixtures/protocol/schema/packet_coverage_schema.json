@@ -6280,7 +6280,18 @@
       "rawFormat": "",
       "formatEmpty": true,
       "source": "xlsx",
-      "fields": []
+      "resolvedFormat": "{dir:i62}",
+      "resolvedSource": "ServerC",
+      "fields": [],
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "dir",
+          "typeToken": "i62",
+          "rawSpec": "{dir:i62}",
+          "source": "ServerC"
+        }
+      ]
     },
     {
       "code": "uSr",

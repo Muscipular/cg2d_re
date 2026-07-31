@@ -9641,6 +9641,73 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         }
     }
 
+    const PacketSchema* characterLookRequestSchema = FindPacket(packets, "nB");
+    failures += Expect(
+        characterLookRequestSchema != nullptr,
+        "nB schema exists");
+    if (characterLookRequestSchema != nullptr) {
+        failures += Expect(
+            characterLookRequestSchema->direction == "客户端->服务端",
+            "nB direction");
+        failures += Expect(
+            characterLookRequestSchema->legacyKind == "RECV",
+            "nB legacyKind");
+        failures += Expect(
+            characterLookRequestSchema->clientNamespace == "send",
+            "nB namespace");
+        failures += Expect(
+            characterLookRequestSchema->xlsxStatus == "暂缓",
+            "nB xlsxStatus");
+        failures += Expect(
+            characterLookRequestSchema->rawFormat.empty(),
+            "nB rawFormat empty");
+        failures += Expect(
+            characterLookRequestSchema->formatEmpty,
+            "nB formatEmpty true");
+        failures += Expect(
+            characterLookRequestSchema->source == "xlsx",
+            "nB raw source");
+        failures += Expect(
+            characterLookRequestSchema->fields.empty(),
+            "nB raw fields empty");
+        failures += Expect(
+            characterLookRequestSchema->hasResolvedFormat,
+            "nB resolvedFormat present");
+        failures += Expect(
+            characterLookRequestSchema->resolvedFormat == "{dir:i62}",
+            "nB resolvedFormat");
+        failures += Expect(
+            characterLookRequestSchema->resolvedSource == "ServerC",
+            "nB resolvedSource");
+        failures += Expect(
+            characterLookRequestSchema->hasResolvedFields,
+            "nB resolvedFields present");
+        failures += Expect(
+            characterLookRequestSchema->resolvedFields.size() == 1U,
+            "nB resolved field count");
+        if (characterLookRequestSchema->resolvedFields.size() == 1U) {
+            const FieldSchema& field =
+                characterLookRequestSchema->resolvedFields[0];
+            failures += Expect(
+                field.index == 0 &&
+                    field.name == "dir" &&
+                    field.typeToken == "i62" &&
+                    field.rawSpec == "{dir:i62}" &&
+                    field.source == "ServerC",
+                "nB resolved field");
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "nB"),
+        "nB absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "nB"),
+        "nB absent from receive typed manifest");
+
     const PacketSchema* checkCommandSchema = FindPacket(packets, "CCL");
     failures += Expect(checkCommandSchema != nullptr, "CCL schema exists");
     if (checkCommandSchema != nullptr) {

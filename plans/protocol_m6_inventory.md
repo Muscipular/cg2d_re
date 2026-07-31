@@ -317,7 +317,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 107 | `BZ` | 服务端->客户端 | 完成 | SEND_WN；外层 `{windowtype:i62} {buttontype:i62} {seqno:i62} {objindex:i62} {data:es}`，`data` opaque | 否 | 是 | xlsx+ServerC+ClientIda+src |
 | 108 | `TFCu` | 服务端->客户端 | 完成 | SEND_SE | 是 | 否 | 待 C/IDA 补全 |
 | 109 | `wiB` | 服务端->客户端 | 完成 | SEND_BGMW | 是 | 否 | 待 C/IDA 补全 |
-| 110 | `bJg` | 服务端->客户端 | 完成 | SEND_PC send_palette 变换调色板 | 否 | 否 | xlsx |
+| 110 | `bJg` | 服务端->客户端 | 完成 | SEND_PC send_palette 变换调色板；保留 xlsx raw `{palnumber} {frameCnt}` 与两个 unknown/xlsx 字段原貌，resolved strict exact2 `{palnumber:i62} {frameCnt:i62}`、总/字段来源 `xlsx+ServerC+ClientIda`；active Server `nrproto_serv.c:209,2647-2652` 依次发送 palnumber/frame_cnt 两个 signed i62，活动 NPC/Lua caller 保持同序；cg2d `bJg@0x58B430`、dispatch `0x515C88` 在 `0x515CCB/0x515CDC` 依次解码 protocolArgs[1]/[2]，再调用 `sub_50E630`；`sub_450B70` 的 palNumber<39、资源检查及 frameCount<=0 改 1 均属客户端业务层，future `receive::PaletteChange(int palNumber, int frameCount)` 保留两个任意 signed int，不复刻 legacy 宽松 arity，不兼容 `0x17`；NoStructuredPayload；future fixture `bJg.pkt/palette-thirteen-frame-one-eighty` plain `62 4A 67 20 64 20 32 55`、canonical 追加 `20`，物理 ASCII hex/LF、语义 GBK；typed 186/209、Encode 95/100、Parse 91/109、fixture/audit 100/209，剩余 23 | 否 | 否 | xlsx+ServerC+ClientIda |
 | 111 | `PVfz` | 服务端->客户端 | 完成 | SEND_SH 可移动动画（船，鲸鱼） | 否 | 否 | xlsx |
 | 112 | `murD` | 服务端->客户端 | 完成 | SEND_PLAYSE | 是 | 否 | 待 C/IDA 补全 |
 | 113 | `ftaN` | 服务端->客户端 | 完成 | SEND_ES NPC_sePlayMySePlay | 否 | 否 | xlsx |

@@ -10008,6 +10008,113 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "frQp"),
         "frQp present in receive typed manifest");
 
+    const PacketSchema* paletteChangeSchema =
+        FindPacket(packets, "bJg");
+    failures += Expect(
+        paletteChangeSchema != nullptr,
+        "bJg schema exists");
+    if (paletteChangeSchema != nullptr) {
+        failures += Expect(
+            paletteChangeSchema->direction == "服务端->客户端",
+            "bJg direction");
+        failures += Expect(
+            paletteChangeSchema->legacyKind == "SEND",
+            "bJg legacyKind");
+        failures += Expect(
+            paletteChangeSchema->clientNamespace == "receive",
+            "bJg namespace");
+        failures += Expect(
+            paletteChangeSchema->xlsxStatus == "完成",
+            "bJg xlsxStatus");
+        failures += Expect(
+            paletteChangeSchema->rawFormat ==
+                "{palnumber} {frameCnt}",
+            "bJg rawFormat");
+        failures += Expect(
+            !paletteChangeSchema->formatEmpty,
+            "bJg formatEmpty false");
+        failures += Expect(
+            paletteChangeSchema->source == "xlsx",
+            "bJg raw source");
+
+        constexpr std::array<std::string_view, 2U> RawNames = {{
+            "palnumber",
+            "frameCnt",
+        }};
+        constexpr std::array<std::string_view, 2U> RawSpecs = {{
+            "{palnumber}",
+            "{frameCnt}",
+        }};
+        failures += Expect(
+            paletteChangeSchema->fields.size() == RawNames.size(),
+            "bJg raw field count");
+        if (paletteChangeSchema->fields.size() == RawNames.size()) {
+            for (std::size_t index = 0U;
+                 index < RawNames.size();
+                 ++index) {
+                const FieldSchema& field =
+                    paletteChangeSchema->fields[index];
+                failures += Expect(
+                    field.index == static_cast<int>(index) &&
+                        field.name == RawNames[index] &&
+                        field.typeToken == "unknown" &&
+                        field.rawSpec == RawSpecs[index] &&
+                        field.source == "xlsx",
+                    "bJg raw field order");
+            }
+        }
+
+        failures += Expect(
+            paletteChangeSchema->hasResolvedFormat,
+            "bJg resolvedFormat present");
+        failures += Expect(
+            paletteChangeSchema->resolvedFormat ==
+                "{palnumber:i62} {frameCnt:i62}",
+            "bJg resolvedFormat");
+        failures += Expect(
+            paletteChangeSchema->resolvedSource ==
+                "xlsx+ServerC+ClientIda",
+            "bJg resolvedSource");
+        failures += Expect(
+            paletteChangeSchema->hasResolvedFields,
+            "bJg resolvedFields present");
+
+        constexpr std::array<std::string_view, 2U> ResolvedSpecs = {{
+            "{palnumber:i62}",
+            "{frameCnt:i62}",
+        }};
+        failures += Expect(
+            paletteChangeSchema->resolvedFields.size() ==
+                RawNames.size(),
+            "bJg resolved field count");
+        if (paletteChangeSchema->resolvedFields.size() ==
+            RawNames.size()) {
+            for (std::size_t index = 0U;
+                 index < RawNames.size();
+                 ++index) {
+                const FieldSchema& field =
+                    paletteChangeSchema->resolvedFields[index];
+                failures += Expect(
+                    field.index == static_cast<int>(index) &&
+                        field.name == RawNames[index] &&
+                        field.typeToken == "i62" &&
+                        field.rawSpec == ResolvedSpecs[index] &&
+                        field.source == "xlsx+ServerC+ClientIda",
+                    "bJg resolved field order");
+            }
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "bJg"),
+        "bJg absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "bJg"),
+        "bJg absent from receive typed manifest");
+
     const PacketSchema* petMailSendSchema = FindPacket(packets, "rMsv");
     failures += Expect(petMailSendSchema != nullptr, "rMsv schema exists");
     if (petMailSendSchema != nullptr) {

@@ -4168,6 +4168,24 @@
       "xlsxStatus": "完成",
       "description": "SEND_PC send_palette 变换调色板",
       "rawFormat": "{palnumber} {frameCnt}",
+      "resolvedFormat": "{palnumber:i62} {frameCnt:i62}",
+      "resolvedSource": "xlsx+ServerC+ClientIda",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "palnumber",
+          "typeToken": "i62",
+          "rawSpec": "{palnumber:i62}",
+          "source": "xlsx+ServerC+ClientIda"
+        },
+        {
+          "index": 1,
+          "name": "frameCnt",
+          "typeToken": "i62",
+          "rawSpec": "{frameCnt:i62}",
+          "source": "xlsx+ServerC+ClientIda"
+        }
+      ],
       "formatEmpty": false,
       "source": "xlsx",
       "fields": [

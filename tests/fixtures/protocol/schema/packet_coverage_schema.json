@@ -1697,6 +1697,8 @@
       "rawFormat": "{mapid:i62} {floor:i62} {x1:i62} {y1:i62} {x2:i62} {y2:i62}",
       "formatEmpty": false,
       "source": "xlsx",
+      "resolvedFormat": "{mapid:i62} {floor:i62} {x1:i62} {y1:i62} {x2:i62} {y2:i62}",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
       "fields": [
         {
           "index": 0,
@@ -1739,6 +1741,50 @@
           "typeToken": "i62",
           "rawSpec": "{y2:i62}",
           "source": "xlsx"
+        }
+      ],
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "mapid",
+          "typeToken": "i62",
+          "rawSpec": "{mapid:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 1,
+          "name": "floor",
+          "typeToken": "i62",
+          "rawSpec": "{floor:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 2,
+          "name": "x1",
+          "typeToken": "i62",
+          "rawSpec": "{x1:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 3,
+          "name": "y1",
+          "typeToken": "i62",
+          "rawSpec": "{y1:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 4,
+          "name": "x2",
+          "typeToken": "i62",
+          "rawSpec": "{x2:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 5,
+          "name": "y2",
+          "typeToken": "i62",
+          "rawSpec": "{y2:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         }
       ]
     },

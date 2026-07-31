@@ -8906,6 +8906,73 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "aSEl"),
         "aSEl absent from receive typed manifest");
 
+    const PacketSchema* mapDataRequestSchema = FindPacket(packets, "UUN");
+    failures += Expect(mapDataRequestSchema != nullptr, "UUN schema exists");
+    if (mapDataRequestSchema != nullptr) {
+        const cg::packet::send::MapDataRequest value(1, 2, 1, 2, 3, 4);
+        const cg::packet::Packet packet = value.ToPacket();
+        failures += Expect(mapDataRequestSchema->direction == "客户端->服务端", "UUN direction");
+        failures += Expect(mapDataRequestSchema->legacyKind == "RECV", "UUN legacyKind");
+        failures += Expect(mapDataRequestSchema->clientNamespace == "send", "UUN namespace");
+        failures += Expect(mapDataRequestSchema->xlsxStatus == "完成", "UUN xlsxStatus");
+        failures += Expect(
+            mapDataRequestSchema->description == "RECV_M MAP_getdataFromRECT 获取地图信息",
+            "UUN description");
+        failures += Expect(
+            mapDataRequestSchema->rawFormat
+                == "{mapid:i62} {floor:i62} {x1:i62} {y1:i62} {x2:i62} {y2:i62}",
+            "UUN rawFormat");
+        failures += Expect(!mapDataRequestSchema->formatEmpty, "UUN formatEmpty false");
+        failures += Expect(mapDataRequestSchema->source == "xlsx", "UUN raw source");
+        failures += Expect(mapDataRequestSchema->fields.size() == 6U, "UUN raw field count");
+        for (const FieldSchema& field : mapDataRequestSchema->fields) {
+            failures += Expect(field.source == "xlsx", "UUN raw field source");
+        }
+        failures += Expect(mapDataRequestSchema->hasResolvedFormat, "UUN resolvedFormat present");
+        failures += Expect(
+            mapDataRequestSchema->resolvedFormat
+                == "{mapid:i62} {floor:i62} {x1:i62} {y1:i62} {x2:i62} {y2:i62}",
+            "UUN resolvedFormat");
+        failures += Expect(
+            mapDataRequestSchema->resolvedSource == "xlsx+ServerC+ClientIda+src/packet",
+            "UUN resolvedSource");
+        failures += Expect(mapDataRequestSchema->hasResolvedFields, "UUN resolvedFields present");
+        failures += Expect(
+            mapDataRequestSchema->resolvedFields.size() == 6U,
+            "UUN resolved field count");
+        for (const FieldSchema& field : mapDataRequestSchema->resolvedFields) {
+            failures += Expect(
+                field.source == "xlsx+ServerC+ClientIda+src/packet",
+                "UUN resolved field source");
+        }
+        failures += ExpectEffectiveFieldsMatch(
+            *mapDataRequestSchema,
+            cg::packet::send::MapDataRequest::Spec,
+            "UUN Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *mapDataRequestSchema,
+            packet,
+            "UUN resolved field order");
+        failures += Expect(
+            value.mapId == 1 &&
+                value.floor == 2 &&
+                value.x1 == 1 &&
+                value.y1 == 2 &&
+                value.x2 == 3 &&
+                value.y2 == 4,
+            "UUN typed members");
+    }
+    failures += Expect(
+        TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "UUN"),
+        "UUN present in send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "UUN"),
+        "UUN absent from receive typed manifest");
+
     const PacketSchema* magicUseSchema = FindPacket(packets, "RXr");
     failures += Expect(magicUseSchema != nullptr, "RXr schema exists");
     if (magicUseSchema != nullptr) {

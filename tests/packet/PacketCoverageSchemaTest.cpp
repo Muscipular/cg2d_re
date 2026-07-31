@@ -10247,6 +10247,90 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "PVfz"),
         "PVfz present in receive typed manifest");
 
+    const PacketSchema* npcSoundEffectSchema = FindPacket(packets, "ftaN");
+    failures += Expect(npcSoundEffectSchema != nullptr, "ftaN schema exists");
+    if (npcSoundEffectSchema != nullptr) {
+        failures += Expect(
+            npcSoundEffectSchema->direction == "服务端->客户端",
+            "ftaN direction");
+        failures += Expect(npcSoundEffectSchema->legacyKind == "SEND", "ftaN legacyKind");
+        failures += Expect(
+            npcSoundEffectSchema->clientNamespace == "receive",
+            "ftaN namespace");
+        failures += Expect(npcSoundEffectSchema->xlsxStatus == "完成", "ftaN xlsxStatus");
+        failures += Expect(
+            npcSoundEffectSchema->rawFormat == "{seno} {x} {y}",
+            "ftaN rawFormat");
+        failures += Expect(!npcSoundEffectSchema->formatEmpty, "ftaN formatEmpty false");
+        failures += Expect(npcSoundEffectSchema->source == "xlsx", "ftaN raw source");
+
+        constexpr std::array<std::string_view, 3U> RawNames = {{
+            "seno",
+            "x",
+            "y",
+        }};
+        constexpr std::array<std::string_view, 3U> RawSpecs = {{
+            "{seno}",
+            "{x}",
+            "{y}",
+        }};
+        failures += Expect(
+            npcSoundEffectSchema->fields.size() == RawNames.size(),
+            "ftaN raw field count");
+        if (npcSoundEffectSchema->fields.size() == RawNames.size()) {
+            for (std::size_t index = 0U; index < RawNames.size(); ++index) {
+                const FieldSchema& field = npcSoundEffectSchema->fields[index];
+                failures += Expect(
+                    field.index == static_cast<int>(index)
+                        && field.name == RawNames[index]
+                        && field.typeToken == "unknown"
+                        && field.rawSpec == RawSpecs[index]
+                        && field.source == "xlsx",
+                    "ftaN raw field order");
+            }
+        }
+
+        failures += Expect(
+            npcSoundEffectSchema->hasResolvedFormat,
+            "ftaN resolvedFormat present");
+        failures += Expect(
+            npcSoundEffectSchema->resolvedFormat == "{seno:i62} {x:i62} {y:i62}",
+            "ftaN resolvedFormat");
+        failures += Expect(
+            npcSoundEffectSchema->resolvedSource == "xlsx+ServerC+ClientIda",
+            "ftaN resolvedSource");
+        failures += Expect(
+            npcSoundEffectSchema->hasResolvedFields,
+            "ftaN resolvedFields present");
+
+        constexpr std::array<std::string_view, 3U> ResolvedSpecs = {{
+            "{seno:i62}",
+            "{x:i62}",
+            "{y:i62}",
+        }};
+        failures += Expect(
+            npcSoundEffectSchema->resolvedFields.size() == RawNames.size(),
+            "ftaN resolved field count");
+        if (npcSoundEffectSchema->resolvedFields.size() == RawNames.size()) {
+            for (std::size_t index = 0U; index < RawNames.size(); ++index) {
+                const FieldSchema& field = npcSoundEffectSchema->resolvedFields[index];
+                failures += Expect(
+                    field.index == static_cast<int>(index)
+                        && field.name == RawNames[index]
+                        && field.typeToken == "i62"
+                        && field.rawSpec == ResolvedSpecs[index]
+                        && field.source == "xlsx+ServerC+ClientIda",
+                    "ftaN resolved field order");
+            }
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "ftaN"),
+        "ftaN absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "ftaN"),
+        "ftaN absent from receive typed manifest");
+
     const PacketSchema* petMailSendSchema = FindPacket(packets, "rMsv");
     failures += Expect(petMailSendSchema != nullptr, "rMsv schema exists");
     if (petMailSendSchema != nullptr) {

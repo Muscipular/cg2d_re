@@ -10498,36 +10498,106 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         const cg::packet::Packet packet = guildMailSend.ToPacket();
         failures += Expect(guildMailSendSchema->direction == "客户端->服务端", "uId direction");
         failures += Expect(guildMailSendSchema->legacyKind == "RECV", "uId legacyKind");
+        failures += Expect(guildMailSendSchema->clientNamespace == "send", "uId namespace");
+        failures += Expect(guildMailSendSchema->xlsxStatus == "完成", "uId xlsxStatus");
+        failures += Expect(
+            guildMailSendSchema->description == "RECV_GML 家族邮件",
+            "uId description");
         failures += Expect(
             guildMailSendSchema->rawFormat == "{toregistNumber} {text} {color}",
             "uId rawFormat");
+        failures += Expect(!guildMailSendSchema->formatEmpty, "uId formatEmpty false");
+        failures += Expect(guildMailSendSchema->source == "xlsx", "uId raw source");
+        failures += Expect(
+            guildMailSendSchema->hasResolvedFormat,
+            "uId resolvedFormat present");
         failures += Expect(
             guildMailSendSchema->resolvedFormat == "{toregistNumber:i62} {text:es} {color:i62}",
             "uId resolvedFormat");
-        failures += Expect(guildMailSendSchema->resolvedSource == "xlsx+src/packet", "uId resolvedSource");
+        failures += Expect(
+            guildMailSendSchema->resolvedSource
+                == "xlsx+ServerC+ClientIda+src/packet",
+            "uId resolvedSource");
         failures += Expect(guildMailSendSchema->fields.size() == 3U, "uId raw field count");
         if (guildMailSendSchema->fields.size() == 3U) {
-            failures += Expect(guildMailSendSchema->fields[0].name == "toregistNumber", "uId raw field toregistNumber");
-            failures += Expect(guildMailSendSchema->fields[1].name == "text", "uId raw field text");
-            failures += Expect(guildMailSendSchema->fields[2].name == "color", "uId raw field color");
-            failures += Expect(guildMailSendSchema->fields[0].typeToken == "unknown", "uId raw toregistNumber type");
-            failures += Expect(guildMailSendSchema->fields[1].typeToken == "unknown", "uId raw text type");
-            failures += Expect(guildMailSendSchema->fields[2].typeToken == "unknown", "uId raw color type");
+            constexpr std::array<std::string_view, 3U> names = {{
+                "toregistNumber",
+                "text",
+                "color",
+            }};
+            constexpr std::array<std::string_view, 3U> rawSpecs = {{
+                "{toregistNumber}",
+                "{text}",
+                "{color}",
+            }};
+            for (std::size_t index = 0U; index < names.size(); ++index) {
+                const FieldSchema& field = guildMailSendSchema->fields[index];
+                failures += Expect(
+                    field.index == index &&
+                        field.name == names[index] &&
+                        field.typeToken == "unknown" &&
+                        field.rawSpec == rawSpecs[index] &&
+                        field.source == "xlsx",
+                    "uId raw field");
+            }
         }
-        failures += Expect(packet.fields.size() == 3U, "uId packet field count");
-        if (packet.fields.size() == 3U) {
-            failures += Expect(packet.fields[0].name == "toregistNumber", "uId packet toregistNumber field");
-            failures += Expect(
-                packet.fields[0].type == cg::packet::PacketFieldType::Int62,
-                "uId packet toregistNumber type");
-            failures += Expect(packet.fields[1].name == "text", "uId packet text field");
-            failures += Expect(
-                packet.fields[1].type == cg::packet::PacketFieldType::EscapedString,
-                "uId packet text type");
-            failures += Expect(packet.fields[2].name == "color", "uId packet color field");
-            failures += Expect(packet.fields[2].type == cg::packet::PacketFieldType::Int62, "uId packet color type");
+        failures += Expect(
+            guildMailSendSchema->hasResolvedFields,
+            "uId resolvedFields present");
+        failures += Expect(
+            guildMailSendSchema->resolvedFields.size() == 3U,
+            "uId resolved field count");
+        if (guildMailSendSchema->resolvedFields.size() == 3U) {
+            constexpr std::array<std::string_view, 3U> names = {{
+                "toregistNumber",
+                "text",
+                "color",
+            }};
+            constexpr std::array<std::string_view, 3U> types = {{
+                "i62",
+                "es",
+                "i62",
+            }};
+            constexpr std::array<std::string_view, 3U> rawSpecs = {{
+                "{toregistNumber:i62}",
+                "{text:es}",
+                "{color:i62}",
+            }};
+            for (std::size_t index = 0U; index < names.size(); ++index) {
+                const FieldSchema& field = guildMailSendSchema->resolvedFields[index];
+                failures += Expect(
+                    field.index == index &&
+                        field.name == names[index] &&
+                        field.typeToken == types[index] &&
+                        field.rawSpec == rawSpecs[index] &&
+                        field.source == "xlsx+ServerC+ClientIda+src/packet",
+                    "uId resolved field");
+            }
         }
+        failures += ExpectEffectiveFieldsMatch(
+            *guildMailSendSchema,
+            cg::packet::send::GuildMailSend::Spec,
+            "uId Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *guildMailSendSchema,
+            packet,
+            "uId resolved field order");
+        failures += Expect(
+            guildMailSend.toregistNumber == 10 &&
+                guildMailSend.text == "text" &&
+                guildMailSend.color == 6,
+            "uId typed members");
     }
+    failures += Expect(
+        TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "uId"),
+        "uId present in send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "uId"),
+        "uId absent from receive typed manifest");
 
     const PacketSchema* profileMailFriendDeleteSchema = FindPacket(packets, "wD");
     failures += Expect(profileMailFriendDeleteSchema != nullptr, "wD schema exists");

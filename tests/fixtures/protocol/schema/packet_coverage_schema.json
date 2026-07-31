@@ -6367,7 +6367,30 @@
       "description": "RECV_GML 家族邮件",
       "rawFormat": "{toregistNumber} {text} {color}",
       "resolvedFormat": "{toregistNumber:i62} {text:es} {color:i62}",
-      "resolvedSource": "xlsx+src/packet",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "toregistNumber",
+          "typeToken": "i62",
+          "rawSpec": "{toregistNumber:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 1,
+          "name": "text",
+          "typeToken": "es",
+          "rawSpec": "{text:es}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 2,
+          "name": "color",
+          "typeToken": "i62",
+          "rawSpec": "{color:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        }
+      ],
       "formatEmpty": false,
       "source": "xlsx",
       "fields": [

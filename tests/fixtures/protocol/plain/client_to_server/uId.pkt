@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=uId
+direction=client_to_server
+sample=gbk-preescaped-guild-mail-text
+plain_hex=75 49 64 20 61 20 BC D2 D7 E5 5C 5C 7A D3 CA BC FE 20 30
+canonical_hex=75 49 64 20 61 20 BC D2 D7 E5 5C 5C 7A D3 CA BC FE 20 30 20
+end_sample

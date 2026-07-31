@@ -1655,6 +1655,57 @@ namespace cg::packet::send
     };
 
     /**
+     * RECV_PVUP 历史迁移 Xoee {mode:i62} {productKey:es}
+     * 迁移模式、鉴权与数据库队列属于服务端业务层；基础 packet 层
+     * 保留任意 signed int mode 与单层 legacy productKey bytes。
+     */
+    struct VersionUpgradeRequest
+    {
+        static constexpr std::string_view Code = "Xoee";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("mode"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("productKey"), PacketFieldType::EscapedString},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        int mode = 0;
+        std::string productKey;
+
+        VersionUpgradeRequest(int mode, std::string productKey)
+            : mode(mode),
+              productKey(std::move(productKey))
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("mode"),
+                PacketFieldType::Int62,
+                std::to_string(mode),
+            });
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("productKey"),
+                PacketFieldType::EscapedString,
+                productKey,
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket(), Spec);
+        }
+    };
+
+    /**
      * RECV_TRCL 取消交易选择 suI
      * VERSION_TW 服务端分支传入的 0 是 handler 业务参数，不是 wire 字段。
      */

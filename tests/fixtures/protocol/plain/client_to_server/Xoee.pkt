@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=Xoee
+direction=client_to_server
+sample=mode-two-product-key-20031229-20
+plain_hex=58 6F 65 65 20 32 20 32 30 30 33 31 32 32 39 5F 32 30
+canonical_hex=58 6F 65 65 20 32 20 32 30 30 33 31 32 32 39 5F 32 30 20
+end_sample

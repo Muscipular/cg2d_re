@@ -1008,6 +1008,18 @@ add_test(
     COMMAND cg-packet-character-delete-request-test
 )
 
+add_executable(cg-packet-version-upgrade-request-test
+    tests/packet/VersionUpgradeRequestPacketTest.cpp
+)
+target_include_directories(cg-packet-version-upgrade-request-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+add_test(
+    NAME cg-packet-version-upgrade-request-test
+    COMMAND cg-packet-version-upgrade-request-test
+)
+
 add_executable(cg-packet-trade-selection-cancel-request-test
     tests/packet/TradeSelectionCancelRequestPacketTest.cpp
 )
@@ -2679,6 +2691,7 @@ if(MSVC)
     target_compile_options(cg-packet-character-level-up-point-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-character-skill-swap-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-character-delete-request-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-version-upgrade-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-trade-selection-cancel-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-battle-position-toggle-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-return-to-login-point-request-test PRIVATE /W4 /utf-8 /permissive-)
@@ -2878,6 +2891,7 @@ else()
     target_compile_options(cg-packet-character-level-up-point-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-character-skill-swap-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-character-delete-request-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-packet-version-upgrade-request-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-trade-selection-cancel-request-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-battle-position-toggle-request-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-return-to-login-point-request-test PRIVATE -Wall -Wextra -Wpedantic)

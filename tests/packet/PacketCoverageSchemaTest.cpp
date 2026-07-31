@@ -1213,11 +1213,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 84U, "send typed manifest count 84");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 85U, "send typed manifest count 85");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 84U, "receive typed manifest count 84");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 168U,
-        "typed manifest count 168");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 169U,
+        "typed manifest count 169");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1234,7 +1234,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 168U, "typed manifest unique code count 168");
+    failures += Expect(codes.size() == 169U, "typed manifest unique code count 169");
     return failures;
 }
 
@@ -6862,7 +6862,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "Xoee resolvedFormat");
         failures += Expect(
             versionUpgradeRequestSchema->resolvedSource ==
-                "xlsx+ServerC+ClientIda",
+                "xlsx+ServerC+ClientIda+src/packet",
             "Xoee resolvedSource");
         failures += Expect(
             versionUpgradeRequestSchema->hasResolvedFields,
@@ -6880,22 +6880,35 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                     mode.name == "mode" &&
                     mode.typeToken == "i62" &&
                     mode.rawSpec == "{mode:i62}" &&
-                    mode.source == "xlsx+ServerC+ClientIda",
+                    mode.source == "xlsx+ServerC+ClientIda+src/packet",
                 "Xoee resolved mode field");
             failures += Expect(
                 productKey.index == 1 &&
                     productKey.name == "productKey" &&
                     productKey.typeToken == "es" &&
                     productKey.rawSpec == "{productKey:es}" &&
-                    productKey.source == "xlsx+ServerC+ClientIda",
+                    productKey.source == "xlsx+ServerC+ClientIda+src/packet",
                 "Xoee resolved productKey field");
         }
+
+        const cg::packet::send::VersionUpgradeRequest request(
+            2,
+            "20031229_20");
+        const cg::packet::Packet packet = request.ToPacket();
+        failures += ExpectEffectiveFieldsMatch(
+            *versionUpgradeRequestSchema,
+            cg::packet::send::VersionUpgradeRequest::Spec,
+            "Xoee Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *versionUpgradeRequestSchema,
+            packet,
+            "Xoee resolved field order");
     }
     failures += Expect(
-        !TypedManifestContainsCode(
+        TypedManifestContainsCode(
             cg::packet::test::SendTypedPackets,
             "Xoee"),
-        "Xoee absent from send typed manifest");
+        "Xoee present in send typed manifest");
     failures += Expect(
         !TypedManifestContainsCode(
             cg::packet::test::ReceiveTypedPackets,

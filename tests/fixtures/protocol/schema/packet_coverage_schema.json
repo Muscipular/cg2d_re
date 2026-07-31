@@ -7726,7 +7726,7 @@
       "formatEmpty": false,
       "source": "xlsx",
       "resolvedFormat": "{mode:i62} {productKey:es}",
-      "resolvedSource": "xlsx+ServerC+ClientIda",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
       "fields": [
         {
           "index": 0,
@@ -7749,14 +7749,14 @@
           "name": "mode",
           "typeToken": "i62",
           "rawSpec": "{mode:i62}",
-          "source": "xlsx+ServerC+ClientIda"
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         },
         {
           "index": 1,
           "name": "productKey",
           "typeToken": "es",
           "rawSpec": "{productKey:es}",
-          "source": "xlsx+ServerC+ClientIda"
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         }
       ]
     },

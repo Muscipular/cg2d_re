@@ -9331,6 +9331,87 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "HJQp"),
         "HJQp absent from receive typed manifest");
 
+    const PacketSchema* userPetNameSchema = FindPacket(packets, "ycX");
+    failures += Expect(userPetNameSchema != nullptr, "ycX schema exists");
+    if (userPetNameSchema != nullptr) {
+        const cg::packet::send::UserPetNameInput value(1, "Pet");
+        const cg::packet::Packet packet = value.ToPacket();
+        failures += Expect(
+            userPetNameSchema->direction == "客户端->服务端",
+            "ycX direction");
+        failures += Expect(userPetNameSchema->legacyKind == "RECV", "ycX legacyKind");
+        failures += Expect(userPetNameSchema->clientNamespace == "send", "ycX namespace");
+        failures += Expect(userPetNameSchema->xlsxStatus == "完成", "ycX xlsxStatus");
+        failures += Expect(
+            userPetNameSchema->description
+                == "RECV_KN CHAR_inputUserPetName 宠物姓名",
+            "ycX description");
+        failures += Expect(
+            userPetNameSchema->rawFormat == "{petSlot} {name}",
+            "ycX rawFormat");
+        failures += Expect(!userPetNameSchema->formatEmpty, "ycX formatEmpty false");
+        failures += Expect(userPetNameSchema->source == "xlsx", "ycX raw source");
+        failures += Expect(userPetNameSchema->fields.size() == 2U, "ycX raw field count");
+        if (userPetNameSchema->fields.size() == 2U) {
+            failures += Expect(
+                userPetNameSchema->fields[0].index == 0U &&
+                    userPetNameSchema->fields[0].name == "petSlot" &&
+                    userPetNameSchema->fields[0].typeToken == "unknown" &&
+                    userPetNameSchema->fields[0].rawSpec == "{petSlot}" &&
+                    userPetNameSchema->fields[0].source == "xlsx",
+                "ycX raw petSlot field");
+            failures += Expect(
+                userPetNameSchema->fields[1].index == 1U &&
+                    userPetNameSchema->fields[1].name == "name" &&
+                    userPetNameSchema->fields[1].typeToken == "unknown" &&
+                    userPetNameSchema->fields[1].rawSpec == "{name}" &&
+                    userPetNameSchema->fields[1].source == "xlsx",
+                "ycX raw name field");
+        }
+        failures += Expect(
+            userPetNameSchema->hasResolvedFormat,
+            "ycX resolvedFormat present");
+        failures += Expect(
+            userPetNameSchema->resolvedFormat == "{petSlot:i62} {name:es}",
+            "ycX resolvedFormat");
+        failures += Expect(
+            userPetNameSchema->resolvedSource
+                == "xlsx+ServerC+ClientIda+src/packet",
+            "ycX resolvedSource");
+        failures += Expect(
+            userPetNameSchema->hasResolvedFields,
+            "ycX resolvedFields present");
+        failures += Expect(
+            userPetNameSchema->resolvedFields.size() == 2U,
+            "ycX resolved field count");
+        for (const FieldSchema& field : userPetNameSchema->resolvedFields) {
+            failures += Expect(
+                field.source == "xlsx+ServerC+ClientIda+src/packet",
+                "ycX resolved field source");
+        }
+        failures += ExpectEffectiveFieldsMatch(
+            *userPetNameSchema,
+            cg::packet::send::UserPetNameInput::Spec,
+            "ycX Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *userPetNameSchema,
+            packet,
+            "ycX resolved field order");
+        failures += Expect(
+            value.petSlot == 1 && value.name == "Pet",
+            "ycX typed members");
+    }
+    failures += Expect(
+        TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "ycX"),
+        "ycX present in send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "ycX"),
+        "ycX absent from receive typed manifest");
+
     const PacketSchema* effectSchema = FindPacket(packets, "zzd");
     failures += Expect(effectSchema != nullptr, "zzd schema exists");
     if (effectSchema != nullptr) {

@@ -7804,21 +7804,21 @@
       "formatEmpty": false,
       "source": "xlsx",
       "resolvedFormat": "{petSlot:i62} {name:es}",
-      "resolvedSource": "ServerC+IDA+src",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
       "resolvedFields": [
         {
           "index": 0,
           "name": "petSlot",
           "typeToken": "i62",
           "rawSpec": "{petSlot:i62}",
-          "source": "ServerC+IDA+src"
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         },
         {
           "index": 1,
           "name": "name",
           "typeToken": "es",
           "rawSpec": "{name:es}",
-          "source": "ServerC+IDA+src"
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         }
       ],
       "fields": [

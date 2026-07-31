@@ -5103,7 +5103,8 @@ namespace cg::packet::send
 
     /**
      * RECV_PRM 发送迷你邮件 GH {data:es} {color:i62}
-     * data: profileIndex|name|msg|；profileIndex 为 raw signed decimal，不使用 i62。
+     * data 语义为 profileIndex|name|msg，无尾随分隔符；整体先做 legacy 内容转义。
+     * profileIndex 为 raw signed decimal，不使用 i62。
      */
     struct ProfileMiniMailSend
     {
@@ -5157,14 +5158,21 @@ namespace cg::packet::send
                 return PacketResult<std::string>::Failure(messageValue.Error());
             }
 
-            std::string payload;
-            payload.append(std::to_string(profileIndex));
-            payload.push_back('|');
-            payload.append(name);
-            payload.push_back('|');
-            payload.append(message);
-            payload.push_back('|');
-            return PacketResult<std::string>::Success(std::move(payload));
+            std::string semanticPayload;
+            semanticPayload.append(std::to_string(profileIndex));
+            semanticPayload.push_back('|');
+            semanticPayload.append(name);
+            semanticPayload.push_back('|');
+            semanticPayload.append(message);
+
+            PacketResult<std::string> encoded = EncodeLegacyPayloadText(semanticPayload);
+            if (!encoded.HasValue()) {
+                PacketError error = encoded.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = DataFieldIndex;
+                return PacketResult<std::string>::Failure(std::move(error));
+            }
+            return encoded;
         }
 
         [[nodiscard]] PacketResult<Packet> ToPacket() const
@@ -5281,11 +5289,10 @@ namespace cg::packet::send
         static constexpr std::size_t FieldCount = 2U;
         static constexpr std::size_t DataFieldIndex = 0U;
         static constexpr std::size_t ColorFieldIndex = 1U;
-        static constexpr std::size_t PayloadPartCount = 4U;
+        static constexpr std::size_t PayloadPartCount = 3U;
         static constexpr std::size_t ProfileIndexPayloadIndex = 0U;
         static constexpr std::size_t NamePayloadIndex = 1U;
         static constexpr std::size_t MessagePayloadIndex = 2U;
-        static constexpr std::size_t TailPayloadIndex = 3U;
 
         [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
@@ -5314,14 +5321,16 @@ namespace cg::packet::send
                     DataFieldIndex));
             }
 
-            if (payload.back() != '|') {
-                return PacketResult<ProfileMiniMailPayload>::Failure(MakeFieldError(
-                    PacketErrorCode::DecodeFailed,
-                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileMiniMailSend payload 缺少尾随分隔符"),
-                    DataFieldIndex));
+            PacketResult<std::string> decoded = DecodeLegacyPayloadText(payload);
+            if (!decoded.HasValue()) {
+                PacketError error = decoded.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = DataFieldIndex;
+                return PacketResult<ProfileMiniMailPayload>::Failure(std::move(error));
             }
 
-            PacketResult<std::vector<std::string>> split = SplitPayload(payload, PayloadDelimiter);
+            PacketResult<std::vector<std::string>> split =
+                SplitPayload(decoded.Value(), PayloadDelimiter);
             if (!split.HasValue()) {
                 PacketError error = split.Error();
                 error.packetCode = PacketCode(Code);
@@ -5330,7 +5339,7 @@ namespace cg::packet::send
             }
 
             const std::vector<std::string>& parts = split.Value();
-            if (parts.size() != PayloadPartCount || !parts[TailPayloadIndex].empty()) {
+            if (parts.size() != PayloadPartCount) {
                 return PacketResult<ProfileMiniMailPayload>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
                     CG_PACKET_DIAGNOSTIC_TEXT("ProfileMiniMailSend payload 段数量不匹配"),
@@ -5387,13 +5396,6 @@ namespace cg::packet::send
             std::string_view text,
             std::size_t fieldIndex)
         {
-            if (text.find('|') != std::string_view::npos || text.find("\\z") != std::string_view::npos) {
-                return PacketResult<std::string>::Failure(MakeFieldError(
-                    PacketErrorCode::DecodeFailed,
-                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileMiniMailSend raw 字符串包含非法分隔符"),
-                    fieldIndex));
-            }
-
             for (std::size_t index = 0; index < text.size(); ++index) {
                 if (!cg::packet::detail::IsLegacyDoubleByteLead(text[index])) {
                     continue;
@@ -5423,7 +5425,7 @@ namespace cg::packet::send
                     fieldIndex));
             }
 
-            if (text.find('|') != std::string_view::npos || text.find("\\z") != std::string_view::npos) {
+            if (text.find('|') != std::string_view::npos) {
                 return PacketResult<std::string>::Failure(MakeFieldError(
                     PacketErrorCode::EncodeFailed,
                     CG_PACKET_DIAGNOSTIC_TEXT("ProfileMiniMailSend BuildData raw 字符串包含非法分隔符"),

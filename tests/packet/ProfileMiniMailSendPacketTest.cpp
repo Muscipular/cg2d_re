@@ -176,7 +176,7 @@ int TestToPacketAndEncode()
     const cg::packet::PacketResult<std::string> data = request.BuildData();
     failures += Expect(static_cast<bool>(data), "GH BuildData");
     if (data.HasValue()) {
-        failures += Expect(data.Value() == "12|Alice|hello|", "GH BuildData value");
+        failures += Expect(data.Value() == "12\\zAlice\\zhello", "GH BuildData value");
     }
 
     const cg::packet::PacketResult<cg::packet::Packet> packet = request.ToPacket();
@@ -185,18 +185,26 @@ int TestToPacketAndEncode()
         return failures;
     }
 
-    failures += ExpectProfileMiniMailSendPacket(packet.Value(), "12|Alice|hello|", "12", "GH ToPacket value");
+    failures += ExpectProfileMiniMailSendPacket(
+        packet.Value(),
+        "12\\zAlice\\zhello",
+        "12",
+        "GH ToPacket value");
 
     const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
     failures += Expect(static_cast<bool>(built), "GH BuildPacket");
     if (built.HasValue()) {
-        failures += Expect(built.Value() == "GH 12|Alice|hello| c ", "GH BuildPacket value");
+        failures += Expect(
+            built.Value() == "GH 12\\\\zAlice\\\\zhello c ",
+            "GH BuildPacket value");
     }
 
     const cg::packet::PacketResult<std::string> encoded = request.Encode();
     failures += Expect(static_cast<bool>(encoded), "GH Encode");
     if (encoded.HasValue()) {
-        failures += Expect(encoded.Value() == "GH 12|Alice|hello| c ", "GH Encode value");
+        failures += Expect(
+            encoded.Value() == "GH 12\\\\zAlice\\\\zhello c ",
+            "GH Encode value");
     }
     return failures;
 }
@@ -204,11 +212,15 @@ int TestToPacketAndEncode()
 int TestParsePacketOuter()
 {
     const cg::packet::PacketResult<cg::packet::Packet> parsed =
-        ParsePacket(BuildPlainGh("12|Alice|hello|", 3));
+        ParsePacket(BuildPlainGh("12\\zAlice\\zhello", 3));
 
     int failures = Expect(static_cast<bool>(parsed), "GH parse outer");
     if (parsed.HasValue()) {
-        failures += ExpectProfileMiniMailSendPacket(parsed.Value(), "12|Alice|hello|", "3", "GH parse outer packet");
+        failures += ExpectProfileMiniMailSendPacket(
+            parsed.Value(),
+            "12\\zAlice\\zhello",
+            "3",
+            "GH parse outer packet");
     }
     return failures;
 }
@@ -216,7 +228,7 @@ int TestParsePacketOuter()
 int TestTypedParse()
 {
     const cg::packet::PacketResult<ProfileMiniMailSend> parsed =
-        ProfileMiniMailSend::Parse(BuildPlainGh("12|Alice|hello|", 3));
+        ProfileMiniMailSend::Parse(BuildPlainGh("12\\zAlice\\zhello", 3));
 
     int failures = Expect(static_cast<bool>(parsed), "GH typed parse");
     if (parsed.HasValue()) {
@@ -235,7 +247,9 @@ int TestMessageWithSpace()
         return failures;
     }
 
-    failures += Expect(encoded.Value() == "GH 12|Alice|hello\\Sworld| 3 ", "GH space message encoded value");
+    failures += Expect(
+        encoded.Value() == "GH 12\\\\zAlice\\\\zhello\\Sworld 3 ",
+        "GH space message encoded value");
 
     const cg::packet::PacketResult<ProfileMiniMailSend> parsed = ProfileMiniMailSend::Parse(encoded.Value());
     failures += Expect(static_cast<bool>(parsed), "GH space message parse");
@@ -251,25 +265,75 @@ int TestMessageWithSpace()
     return failures;
 }
 
-int TestRawEscapesPreserved()
+int TestLegacyContentEscapes()
 {
-    const std::string message = "line\\nred\\cblue\\y";
+    const std::string message = "line\nred,blue\\z";
     const ProfileMiniMailSend request(12, "Alice", message, 3);
     const cg::packet::PacketResult<std::string> encoded = request.Encode();
 
-    int failures = Expect(static_cast<bool>(encoded), "GH raw escape encode");
+    int failures = Expect(static_cast<bool>(encoded), "GH legacy content escape encode");
     if (!encoded.HasValue()) {
         return failures;
     }
 
     failures += Expect(
-        encoded.Value() == "GH 12|Alice|line\\\\nred\\\\cblue\\\\y| 3 ",
-        "GH raw escape encoded value");
+        encoded.Value() == "GH 12\\\\zAlice\\\\zline\\\\nred\\\\cblue\\\\yz 3 ",
+        "GH legacy content escape encoded value");
 
     const cg::packet::PacketResult<ProfileMiniMailSend> parsed = ProfileMiniMailSend::Parse(encoded.Value());
-    failures += Expect(static_cast<bool>(parsed), "GH raw escape parse");
+    failures += Expect(static_cast<bool>(parsed), "GH legacy content escape parse");
     if (parsed.HasValue()) {
-        failures += ExpectProfileMiniMailSendValue(parsed.Value(), 12, "Alice", message, 3, "GH raw escape value");
+        failures += ExpectProfileMiniMailSendValue(
+            parsed.Value(),
+            12,
+            "Alice",
+            message,
+            3,
+            "GH legacy content escape value");
+    }
+    return failures;
+}
+
+int TestGbkPayload()
+{
+    const std::string name = Bytes({0xBAU, 0xC3U, 0xD3U, 0xD1U});
+    const std::string message = Bytes({0xD3U, 0xCAU, 0xBCU, 0xFEU});
+    const ProfileMiniMailSend request(12, name, message, 0);
+
+    const cg::packet::PacketResult<std::string> data = request.BuildData();
+    int failures = Expect(static_cast<bool>(data), "GH GBK BuildData");
+    if (data.HasValue()) {
+        std::string expectedData = "12\\z";
+        expectedData.append(name);
+        expectedData.append("\\z");
+        expectedData.append(message);
+        failures += Expect(data.Value() == expectedData, "GH GBK BuildData value");
+    }
+
+    const cg::packet::PacketResult<std::string> encoded = request.Encode();
+    failures += Expect(static_cast<bool>(encoded), "GH GBK encode");
+    if (!encoded.HasValue()) {
+        return failures;
+    }
+
+    std::string expected = "GH 12\\\\z";
+    expected.append(name);
+    expected.append("\\\\z");
+    expected.append(message);
+    expected.append(" 0 ");
+    failures += Expect(encoded.Value() == expected, "GH GBK encoded value");
+
+    const cg::packet::PacketResult<ProfileMiniMailSend> parsed =
+        ProfileMiniMailSend::Parse(encoded.Value());
+    failures += Expect(static_cast<bool>(parsed), "GH GBK parse");
+    if (parsed.HasValue()) {
+        failures += ExpectProfileMiniMailSendValue(
+            parsed.Value(),
+            12,
+            name,
+            message,
+            0,
+            "GH GBK value");
     }
     return failures;
 }
@@ -284,7 +348,9 @@ int TestRawSignedDecimalProfileIndex()
         return failures;
     }
 
-    failures += Expect(encoded.Value() == "GH -12|Alice|hello| 3 ", "GH signed profileIndex encoded value");
+    failures += Expect(
+        encoded.Value() == "GH -12\\\\zAlice\\\\zhello 3 ",
+        "GH signed profileIndex encoded value");
 
     const cg::packet::PacketResult<ProfileMiniMailSend> parsed = ProfileMiniMailSend::Parse(encoded.Value());
     failures += Expect(static_cast<bool>(parsed), "GH signed profileIndex parse");
@@ -298,17 +364,17 @@ int TestParseErrors()
 {
     int failures = 0;
     failures += ExpectError(
-        ProfileMiniMailSend::Parse("GH 12|Alice|hello| _ "),
+        ProfileMiniMailSend::Parse(BuildPlainGh("12\\zAlice\\zhello", "_")),
         cg::packet::PacketErrorCode::DecodeFailed,
         "GH",
         "GH bad color");
     failures += ExpectError(
-        ProfileMiniMailSend::Parse("GH 12|Alice|hello|"),
+        ProfileMiniMailSend::Parse("GH 12\\\\zAlice\\\\zhello"),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "GH",
         "GH missing color");
     failures += ExpectError(
-        ProfileMiniMailSend::Parse("GH 12|Alice|hello| 3 extra "),
+        ProfileMiniMailSend::Parse("GH 12\\\\zAlice\\\\zhello 3 extra "),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "GH",
         "GH extra outer field");
@@ -318,47 +384,42 @@ int TestParseErrors()
         "GH",
         "GH empty data");
     failures += ExpectError(
-        ProfileMiniMailSend::Parse(BuildPlainGh("12|Alice|hello", 3)),
-        cg::packet::PacketErrorCode::DecodeFailed,
-        "GH",
-        "GH missing payload tail");
-    failures += ExpectError(
-        ProfileMiniMailSend::Parse(BuildPlainGh("12|Alice|hello||", 3)),
+        ProfileMiniMailSend::Parse(BuildPlainGh("12\\zAlice", 3)),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "GH",
-        "GH extra trailing payload");
+        "GH missing message");
     failures += ExpectError(
-        ProfileMiniMailSend::Parse(BuildPlainGh("|Alice|hello|", 3)),
+        ProfileMiniMailSend::Parse(BuildPlainGh("12\\zAlice\\zhello\\z", 3)),
+        cg::packet::PacketErrorCode::FieldCountMismatch,
+        "GH",
+        "GH trailing payload delimiter");
+    failures += ExpectError(
+        ProfileMiniMailSend::Parse(BuildPlainGh("\\zAlice\\zhello", 3)),
         cg::packet::PacketErrorCode::DecodeFailed,
         "GH",
         "GH empty profileIndex");
     failures += ExpectError(
-        ProfileMiniMailSend::Parse(BuildPlainGh("12||hello|", 3)),
+        ProfileMiniMailSend::Parse(BuildPlainGh("12\\z\\zhello", 3)),
         cg::packet::PacketErrorCode::DecodeFailed,
         "GH",
         "GH empty name");
     failures += ExpectError(
-        ProfileMiniMailSend::Parse(BuildPlainGh("12|Alice||", 3)),
+        ProfileMiniMailSend::Parse(BuildPlainGh("12\\zAlice\\z", 3)),
         cg::packet::PacketErrorCode::DecodeFailed,
         "GH",
         "GH empty message");
     failures += ExpectError(
-        ProfileMiniMailSend::Parse(BuildPlainGh("c|Alice|hello|", 3)),
+        ProfileMiniMailSend::Parse(BuildPlainGh("c\\zAlice\\zhello", 3)),
         cg::packet::PacketErrorCode::DecodeFailed,
         "GH",
         "GH bad profileIndex raw decimal");
     failures += ExpectError(
-        ProfileMiniMailSend::Parse(BuildPlainGh("2147483648|Alice|hello|", 3)),
+        ProfileMiniMailSend::Parse(BuildPlainGh("2147483648\\zAlice\\zhello", 3)),
         cg::packet::PacketErrorCode::DecodeFailed,
         "GH",
         "GH profileIndex overflow");
     failures += ExpectError(
-        ProfileMiniMailSend::Parse(BuildPlainGh("12|Alice|hello\\zbad|", 3)),
-        cg::packet::PacketErrorCode::DecodeFailed,
-        "GH",
-        "GH message literal z delimiter");
-    failures += ExpectError(
-        ProfileMiniMailSend::Parse(BuildPlainGh("12|Alice|Bob|hello|", 3)),
+        ProfileMiniMailSend::Parse(BuildPlainGh("12\\zAlice\\zBob\\zhello", 3)),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "GH",
         "GH name literal pipe");
@@ -384,10 +445,10 @@ int TestBuildErrors()
         "GH",
         "GH build name pipe");
     failures += ExpectError(
-        ProfileMiniMailSend(12, "Alice", "hello\\zbad", 3).BuildData(),
+        ProfileMiniMailSend(12, "Alice", "hello|bad", 3).BuildData(),
         cg::packet::PacketErrorCode::EncodeFailed,
         "GH",
-        "GH build message z delimiter");
+        "GH build message pipe");
     failures += ExpectError(
         ProfileMiniMailSend(12, "Alice", Bytes({0x81U}), 3).BuildData(),
         cg::packet::PacketErrorCode::EncodeFailed,
@@ -397,7 +458,7 @@ int TestBuildErrors()
     cg::packet::Packet wrongDirection = PacketOf(
         cg::packet::PacketDirection::ServerToClient,
         {
-            Field("data", cg::packet::PacketFieldType::EscapedString, "12|Alice|hello|"),
+            Field("data", cg::packet::PacketFieldType::EscapedString, "12\\zAlice\\zhello"),
             Field("color", cg::packet::PacketFieldType::Int62, "3"),
         });
     failures += ExpectError(
@@ -410,7 +471,7 @@ int TestBuildErrors()
         ProfileMiniMailSend::FromPacket(PacketOf(
             cg::packet::PacketDirection::ClientToServer,
             {
-                Field("data", cg::packet::PacketFieldType::EscapedString, "12|Alice|hello|"),
+                Field("data", cg::packet::PacketFieldType::EscapedString, "12\\zAlice\\zhello"),
             })),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "GH",
@@ -420,7 +481,7 @@ int TestBuildErrors()
         ProfileMiniMailSend::FromPacket(PacketOf(
             cg::packet::PacketDirection::ClientToServer,
             {
-                Field("payload", cg::packet::PacketFieldType::EscapedString, "12|Alice|hello|"),
+                Field("payload", cg::packet::PacketFieldType::EscapedString, "12\\zAlice\\zhello"),
                 Field("color", cg::packet::PacketFieldType::Int62, "3"),
             })),
         cg::packet::PacketErrorCode::DecodeFailed,
@@ -431,7 +492,7 @@ int TestBuildErrors()
         ProfileMiniMailSend::FromPacket(PacketOf(
             cg::packet::PacketDirection::ClientToServer,
             {
-                Field("data", cg::packet::PacketFieldType::Unknown, "12|Alice|hello|"),
+                Field("data", cg::packet::PacketFieldType::Unknown, "12\\zAlice\\zhello"),
                 Field("color", cg::packet::PacketFieldType::Int62, "3"),
             })),
         cg::packet::PacketErrorCode::InvalidFieldType,
@@ -442,7 +503,7 @@ int TestBuildErrors()
         ProfileMiniMailSend::FromPacket(PacketOf(
             cg::packet::PacketDirection::ClientToServer,
             {
-                Field("data", cg::packet::PacketFieldType::EscapedString, "12|Alice|hello|"),
+                Field("data", cg::packet::PacketFieldType::EscapedString, "12\\zAlice\\zhello"),
                 Field("color", cg::packet::PacketFieldType::Int62, "bad"),
             })),
         cg::packet::PacketErrorCode::DecodeFailed,
@@ -460,7 +521,8 @@ int main()
     failures += TestParsePacketOuter();
     failures += TestTypedParse();
     failures += TestMessageWithSpace();
-    failures += TestRawEscapesPreserved();
+    failures += TestLegacyContentEscapes();
+    failures += TestGbkPayload();
     failures += TestRawSignedDecimalProfileIndex();
     failures += TestParseErrors();
     failures += TestBuildErrors();

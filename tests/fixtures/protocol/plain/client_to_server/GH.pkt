@@ -1,0 +1,9 @@
+pkt_fixture=1
+code=GH
+direction=client_to_server
+sample=gbk-profile-mail
+plain_hex=47 48 20 31 32 5C 5C 7A BA C3 D3 D1 5C 5C 7A D3 CA BC FE 20 30
+canonical_hex=47 48 20 31 32 5C 5C 7A BA C3 D3 D1 5C 5C 7A D3 CA BC FE 20 30 20
+payload_field=0
+payload_hex=31 32 5C 7A BA C3 D3 D1 5C 7A D3 CA BC FE
+end_sample

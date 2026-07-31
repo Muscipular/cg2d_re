@@ -10695,35 +10695,103 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     if (profileMiniMailSendSchema != nullptr) {
         const cg::packet::send::ProfileMiniMailSend profileMiniMailSend(12, "Alice", "hello", 3);
         const cg::packet::PacketResult<cg::packet::Packet> packet = profileMiniMailSend.ToPacket();
+        const cg::packet::PacketResult<std::string> data = profileMiniMailSend.BuildData();
         failures += Expect(profileMiniMailSendSchema->direction == "客户端->服务端", "GH direction");
         failures += Expect(profileMiniMailSendSchema->legacyKind == "RECV", "GH legacyKind");
+        failures += Expect(profileMiniMailSendSchema->clientNamespace == "send", "GH namespace");
+        failures += Expect(profileMiniMailSendSchema->xlsxStatus == "完成", "GH xlsxStatus");
+        failures += Expect(
+            profileMiniMailSendSchema->description == "RECV_PRM 发送迷你邮件",
+            "GH description");
         failures += Expect(profileMiniMailSendSchema->rawFormat == "{data} {color}", "GH rawFormat");
+        failures += Expect(!profileMiniMailSendSchema->formatEmpty, "GH formatEmpty false");
+        failures += Expect(profileMiniMailSendSchema->source == "xlsx", "GH raw source");
+        failures += Expect(
+            profileMiniMailSendSchema->hasResolvedFormat,
+            "GH resolvedFormat present");
         failures += Expect(
             profileMiniMailSendSchema->resolvedFormat == "{data:es} {color:i62}",
             "GH resolvedFormat");
-        failures += Expect(profileMiniMailSendSchema->resolvedSource == "xlsx+src/packet", "GH resolvedSource");
+        failures += Expect(
+            profileMiniMailSendSchema->resolvedSource
+                == "xlsx+ServerC+ClientIda+src/packet",
+            "GH resolvedSource");
         failures += Expect(profileMiniMailSendSchema->fields.size() == 2U, "GH raw field count");
         if (profileMiniMailSendSchema->fields.size() == 2U) {
-            failures += Expect(profileMiniMailSendSchema->fields[0].name == "data", "GH raw field data");
-            failures += Expect(profileMiniMailSendSchema->fields[1].name == "color", "GH raw field color");
-            failures += Expect(profileMiniMailSendSchema->fields[0].typeToken == "unknown", "GH raw data type");
-            failures += Expect(profileMiniMailSendSchema->fields[1].typeToken == "unknown", "GH raw color type");
+            constexpr std::array<std::string_view, 2U> names = {{"data", "color"}};
+            constexpr std::array<std::string_view, 2U> rawSpecs = {{
+                "{data}",
+                "{color}",
+            }};
+            for (std::size_t index = 0U; index < names.size(); ++index) {
+                const FieldSchema& field = profileMiniMailSendSchema->fields[index];
+                failures += Expect(
+                    field.index == index &&
+                        field.name == names[index] &&
+                        field.typeToken == "unknown" &&
+                        field.rawSpec == rawSpecs[index] &&
+                        field.source == "xlsx",
+                    "GH raw field");
+            }
+        }
+        failures += Expect(
+            profileMiniMailSendSchema->hasResolvedFields,
+            "GH resolvedFields present");
+        failures += Expect(
+            profileMiniMailSendSchema->resolvedFields.size() == 2U,
+            "GH resolved field count");
+        if (profileMiniMailSendSchema->resolvedFields.size() == 2U) {
+            constexpr std::array<std::string_view, 2U> names = {{"data", "color"}};
+            constexpr std::array<std::string_view, 2U> types = {{"es", "i62"}};
+            constexpr std::array<std::string_view, 2U> rawSpecs = {{
+                "{data:es}",
+                "{color:i62}",
+            }};
+            for (std::size_t index = 0U; index < names.size(); ++index) {
+                const FieldSchema& field = profileMiniMailSendSchema->resolvedFields[index];
+                failures += Expect(
+                    field.index == index &&
+                        field.name == names[index] &&
+                        field.typeToken == types[index] &&
+                        field.rawSpec == rawSpecs[index] &&
+                        field.source == "xlsx+ServerC+ClientIda+src/packet",
+                    "GH resolved field");
+            }
+        }
+        failures += ExpectEffectiveFieldsMatch(
+            *profileMiniMailSendSchema,
+            cg::packet::send::ProfileMiniMailSend::Spec,
+            "GH Spec matches effective fields");
+        failures += Expect(static_cast<bool>(data), "GH data build");
+        if (data.HasValue()) {
+            failures += Expect(
+                data.Value() == "12\\zAlice\\zhello",
+                "GH data exact3 legacy escape");
         }
         failures += Expect(static_cast<bool>(packet), "GH packet build");
         if (packet.HasValue()) {
-            failures += Expect(packet.Value().fields.size() == 2U, "GH packet field count");
-            if (packet.Value().fields.size() == 2U) {
-                failures += Expect(packet.Value().fields[0].name == "data", "GH packet data field");
-                failures += Expect(
-                    packet.Value().fields[0].type == cg::packet::PacketFieldType::EscapedString,
-                    "GH packet data type");
-                failures += Expect(packet.Value().fields[1].name == "color", "GH packet color field");
-                failures += Expect(
-                    packet.Value().fields[1].type == cg::packet::PacketFieldType::Int62,
-                    "GH packet color type");
-            }
+            failures += ExpectResolvedFieldsMatch(
+                *profileMiniMailSendSchema,
+                packet.Value(),
+                "GH resolved field order");
         }
+        failures += Expect(
+            profileMiniMailSend.profileIndex == 12 &&
+                profileMiniMailSend.name == "Alice" &&
+                profileMiniMailSend.message == "hello" &&
+                profileMiniMailSend.color == 3,
+            "GH typed members");
     }
+    failures += Expect(
+        TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "GH"),
+        "GH present in send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "GH"),
+        "GH absent from receive typed manifest");
 
     const PacketSchema* characterLookRequestSchema = FindPacket(packets, "nB");
     failures += Expect(

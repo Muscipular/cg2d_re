@@ -2432,13 +2432,28 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         failures += Expect(characterListSchema->fields.size() == 2U, "Daj raw field count");
         failures += Expect(characterListSchema->resolvedFormat == "{result:i62} {data:es}", "Daj resolvedFormat");
         failures += Expect(
-            characterListSchema->resolvedSource == "xlsx+ServerC+ClientIda+src",
+            characterListSchema->resolvedSource == "xlsx+ServerC+ClientIda+src/packet",
             "Daj resolvedSource");
+        for (const FieldSchema& field : characterListSchema->resolvedFields) {
+            failures += Expect(
+                field.source == "xlsx+ServerC+ClientIda+src/packet",
+                "Daj resolved field source");
+        }
+        failures += ExpectEffectiveFieldsMatch(
+            *characterListSchema,
+            cg::packet::receive::CharacterList::Spec,
+            "Daj Spec matches effective fields");
         failures += Expect(packet.HasValue(), "Daj packet exists");
         if (packet.HasValue()) {
             failures += ExpectResolvedFieldsMatch(*characterListSchema, packet.Value(), "Daj resolved field order");
         }
     }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "Daj"),
+        "Daj absent from send typed manifest");
+    failures += Expect(
+        TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "Daj"),
+        "Daj present in receive typed manifest");
 
     const PacketSchema* createNewCharResultSchema = FindPacket(packets, "DZ");
     failures += Expect(createNewCharResultSchema != nullptr, "DZ schema exists");

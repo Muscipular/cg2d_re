@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=SWITMP
+direction=client_to_server
+sample=slot-ten-to-page-one-auto
+plain_hex=53 57 49 54 4D 50 20 61 20 31 20 2D 31
+canonical_hex=53 57 49 54 4D 50 20 61 20 31 20 2D 31 20
+end_sample

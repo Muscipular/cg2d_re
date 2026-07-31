@@ -10048,14 +10048,14 @@ namespace cg::packet::receive
 
     /**
      * SEND_CS CHAR_sendSkillData		cNE {data:es}
-     * data: 每条 11 段，数值为 raw decimal，name 保留二级转义 raw 字符串，整体回写保留尾随 `|`。
+     * data: 每条 11 段，数值为 raw decimal，name 保存 legacy escape 还原后的语义字节串；规范回写保留尾随 `|`，解析兼容省略最终 `|`。
      */
     struct CharacterSkillData
     {
         static constexpr std::string_view Code = "cNE";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
-            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::SubPayload},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -10073,10 +10073,12 @@ namespace cg::packet::receive
         }
 
 #if CG_PACKET_ENABLE_TEST_HELPERS
-        [[nodiscard]] std::string BuildData() const
+        [[nodiscard]] PacketResult<std::string> BuildData() const
         {
             std::string payload;
-            for (const CharacterSkillRecord& record : records) {
+            for (std::size_t recordIndex = 0; recordIndex < records.size(); ++recordIndex) {
+                const CharacterSkillRecord& record = records[recordIndex];
+                const std::size_t baseIndex = recordIndex * RecordFieldCount;
                 payload.append(std::to_string(record.skillSlot));
                 payload.push_back('|');
 
@@ -10087,9 +10089,17 @@ namespace cg::packet::receive
                     continue;
                 }
 
+                PacketResult<std::string> encodedName = EncodeLegacyPayloadText(record.name);
+                if (!encodedName.HasValue()) {
+                    PacketError error = encodedName.Error();
+                    error.packetCode = PacketCode(Code);
+                    error.fieldIndex = baseIndex + 2U;
+                    return PacketResult<std::string>::Failure(std::move(error));
+                }
+
                 payload.append(std::to_string(record.skillId));
                 payload.push_back('|');
-                payload.append(record.name);
+                payload.append(encodedName.Value());
                 payload.push_back('|');
                 payload.append(std::to_string(record.level));
                 payload.push_back('|');
@@ -10108,20 +10118,25 @@ namespace cg::packet::receive
                 payload.append(std::to_string(record.seqNo));
                 payload.push_back('|');
             }
-            return payload;
+            return PacketResult<std::string>::Success(std::move(payload));
         }
 #endif
 
 #if CG_PACKET_ENABLE_TEST_HELPERS
-        [[nodiscard]] Packet ToPacket() const
+        [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
+            PacketResult<std::string> data = BuildData();
+            if (!data.HasValue()) {
+                return PacketResult<Packet>::Failure(data.Error());
+            }
+
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("data"),
-                PacketFieldType::EscapedString,
-                BuildData(),
+                PacketFieldType::SubPayload,
+                std::move(data.Value()),
             });
-            return packet;
+            return PacketResult<Packet>::Success(std::move(packet));
         }
 #endif
 
@@ -10206,7 +10221,7 @@ namespace cg::packet::receive
                 return PacketResult<std::vector<CharacterSkillRecord>>::Success({});
             }
 
-            PacketResult<std::vector<std::string>> split = SplitPayload(payload, PayloadDelimiter);
+            PacketResult<std::vector<std::string>> split = SplitPayloadLegacyAware(payload, PayloadDelimiter);
             if (!split.HasValue()) {
                 PacketError error = split.Error();
                 error.packetCode = PacketCode(Code);
@@ -10285,10 +10300,18 @@ namespace cg::packet::receive
                     return PacketResult<std::vector<CharacterSkillRecord>>::Failure(seqNo.Error());
                 }
 
+                PacketResult<std::string> name = DecodeLegacyPayloadText(parts[baseIndex + 2U]);
+                if (!name.HasValue()) {
+                    PacketError error = name.Error();
+                    error.packetCode = PacketCode(Code);
+                    error.fieldIndex = baseIndex + 2U;
+                    return PacketResult<std::vector<CharacterSkillRecord>>::Failure(std::move(error));
+                }
+
                 records.push_back(CharacterSkillRecord {
                     skillSlot.Value(),
                     skillId.Value(),
-                    parts[baseIndex + 2U],
+                    std::move(name.Value()),
                     level.Value(),
                     exp.Value(),
                     maxLevel.Value(),

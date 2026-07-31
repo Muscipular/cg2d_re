@@ -2880,6 +2880,81 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "Rspn"),
         "Rspn present in receive typed manifest");
 
+    const PacketSchema* characterSkillDataSchema = FindPacket(packets, "cNE");
+    failures += Expect(characterSkillDataSchema != nullptr, "cNE schema exists");
+    if (characterSkillDataSchema != nullptr) {
+        std::vector<cg::packet::receive::CharacterSkillRecord> records;
+        records.push_back(cg::packet::receive::CharacterSkillRecord {
+            0,
+            61,
+            "Fire",
+            1,
+            0,
+            3,
+            500,
+            1,
+            0,
+            100,
+            1,
+            false,
+        });
+        const cg::packet::receive::CharacterSkillData characterSkillData(std::move(records));
+        const cg::packet::PacketResult<cg::packet::Packet> packet = characterSkillData.ToPacket();
+        failures += Expect(packet.HasValue(), "cNE ToPacket");
+        failures += Expect(characterSkillDataSchema->direction == "服务端->客户端", "cNE direction");
+        failures += Expect(characterSkillDataSchema->legacyKind == "SEND", "cNE legacyKind");
+        failures += Expect(characterSkillDataSchema->clientNamespace == "receive", "cNE namespace");
+        failures += Expect(characterSkillDataSchema->rawFormat == "{data:es}", "cNE rawFormat");
+        failures += Expect(!characterSkillDataSchema->formatEmpty, "cNE formatEmpty false");
+        failures += Expect(characterSkillDataSchema->source == "xlsx", "cNE raw source");
+        failures += Expect(characterSkillDataSchema->fields.size() == 1U, "cNE raw field count");
+        if (characterSkillDataSchema->fields.size() == 1U) {
+            const FieldSchema& field = characterSkillDataSchema->fields[0];
+            failures += Expect(field.index == 0, "cNE raw field index");
+            failures += Expect(field.name == "data", "cNE raw field name");
+            failures += Expect(field.typeToken == "es", "cNE raw field type");
+            failures += Expect(field.rawSpec == "{data:es}", "cNE raw field spec");
+            failures += Expect(field.source == "xlsx", "cNE raw field source");
+        }
+        failures += Expect(characterSkillDataSchema->hasResolvedFormat, "cNE resolvedFormat present");
+        failures += Expect(
+            characterSkillDataSchema->resolvedFormat == "{data:es}",
+            "cNE resolvedFormat");
+        failures += Expect(
+            characterSkillDataSchema->resolvedSource == "xlsx+ServerC+ClientIda+src/packet",
+            "cNE resolvedSource");
+        failures += Expect(characterSkillDataSchema->hasResolvedFields, "cNE resolvedFields present");
+        failures += Expect(
+            characterSkillDataSchema->resolvedFields.size() == 1U,
+            "cNE resolved field count");
+        if (characterSkillDataSchema->resolvedFields.size() == 1U) {
+            const FieldSchema& field = characterSkillDataSchema->resolvedFields[0];
+            failures += Expect(field.index == 0, "cNE resolved field index");
+            failures += Expect(field.name == "data", "cNE resolved field name");
+            failures += Expect(field.typeToken == "es", "cNE resolved field type");
+            failures += Expect(field.rawSpec == "{data:es}", "cNE resolved field spec");
+            failures += Expect(
+                field.source == "xlsx+ServerC+ClientIda+src/packet",
+                "cNE resolved field source");
+        }
+        failures += ExpectEffectiveFieldsMatch(
+            *characterSkillDataSchema,
+            cg::packet::receive::CharacterSkillData::Spec,
+            "cNE Spec matches effective fields");
+        if (packet.HasValue()) {
+            failures += ExpectResolvedFieldsMatch(
+                *characterSkillDataSchema,
+                packet.Value(),
+                "cNE resolved field order");
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "cNE"),
+        "cNE absent from send typed manifest");
+    failures += Expect(
+        TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "cNE"),
+        "cNE present in receive typed manifest");
+
     const PacketSchema* profileMailDeleteSchema = FindPacket(packets, "cNB");
     failures += Expect(profileMailDeleteSchema != nullptr, "cNB schema exists");
     if (profileMailDeleteSchema != nullptr) {

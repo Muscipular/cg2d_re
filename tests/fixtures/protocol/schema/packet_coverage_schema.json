@@ -7471,35 +7471,35 @@
       "formatEmpty": true,
       "source": "xlsx",
       "resolvedFormat": "{havepetindex:i62} {havepetskill:i62} {toindex:i62} {data:es}",
-      "resolvedSource": "ServerC+src",
+      "resolvedSource": "ServerC+src/packet",
       "resolvedFields": [
         {
           "index": 0,
           "name": "havepetindex",
           "typeToken": "i62",
           "rawSpec": "{havepetindex:i62}",
-          "source": "ServerC+src"
+          "source": "ServerC+src/packet"
         },
         {
           "index": 1,
           "name": "havepetskill",
           "typeToken": "i62",
           "rawSpec": "{havepetskill:i62}",
-          "source": "ServerC+src"
+          "source": "ServerC+src/packet"
         },
         {
           "index": 2,
           "name": "toindex",
           "typeToken": "i62",
           "rawSpec": "{toindex:i62}",
-          "source": "ServerC+src"
+          "source": "ServerC+src/packet"
         },
         {
           "index": 3,
           "name": "data",
           "typeToken": "es",
           "rawSpec": "{data:es}",
-          "source": "ServerC+src"
+          "source": "ServerC+src/packet"
         }
       ],
       "fields": []

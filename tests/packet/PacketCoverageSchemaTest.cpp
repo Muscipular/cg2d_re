@@ -9097,6 +9097,69 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "RXr"),
         "RXr absent from receive typed manifest");
 
+    const PacketSchema* petSkillUseSchema = FindPacket(packets, "Flvp");
+    failures += Expect(petSkillUseSchema != nullptr, "Flvp schema exists");
+    if (petSkillUseSchema != nullptr) {
+        const cg::packet::send::PetSkillUseRequest value(1, 2, 3, "option");
+        const cg::packet::Packet packet = value.ToPacket();
+        failures += Expect(
+            petSkillUseSchema->direction == "客户端->服务端",
+            "Flvp direction");
+        failures += Expect(petSkillUseSchema->legacyKind == "RECV", "Flvp legacyKind");
+        failures += Expect(petSkillUseSchema->clientNamespace == "send", "Flvp namespace");
+        failures += Expect(petSkillUseSchema->xlsxStatus == "完成", "Flvp xlsxStatus");
+        failures += Expect(petSkillUseSchema->description == "RECV_PS", "Flvp description");
+        failures += Expect(petSkillUseSchema->rawFormat.empty(), "Flvp rawFormat empty");
+        failures += Expect(petSkillUseSchema->formatEmpty, "Flvp formatEmpty");
+        failures += Expect(petSkillUseSchema->source == "xlsx", "Flvp raw source");
+        failures += Expect(petSkillUseSchema->fields.empty(), "Flvp raw fields empty");
+        failures += Expect(
+            petSkillUseSchema->hasResolvedFormat,
+            "Flvp resolvedFormat present");
+        failures += Expect(
+            petSkillUseSchema->resolvedFormat
+                == "{havepetindex:i62} {havepetskill:i62} {toindex:i62} {data:es}",
+            "Flvp resolvedFormat");
+        failures += Expect(
+            petSkillUseSchema->resolvedSource == "ServerC+src/packet",
+            "Flvp resolvedSource");
+        failures += Expect(
+            petSkillUseSchema->hasResolvedFields,
+            "Flvp resolvedFields present");
+        failures += Expect(
+            petSkillUseSchema->resolvedFields.size() == 4U,
+            "Flvp resolved field count");
+        for (const FieldSchema& field : petSkillUseSchema->resolvedFields) {
+            failures += Expect(
+                field.source == "ServerC+src/packet",
+                "Flvp resolved field source");
+        }
+        failures += ExpectEffectiveFieldsMatch(
+            *petSkillUseSchema,
+            cg::packet::send::PetSkillUseRequest::Spec,
+            "Flvp Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *petSkillUseSchema,
+            packet,
+            "Flvp resolved field order");
+        failures += Expect(
+            value.havepetindex == 1 &&
+                value.havepetskill == 2 &&
+                value.toindex == 3 &&
+                value.data == "option",
+            "Flvp typed members");
+    }
+    failures += Expect(
+        TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "Flvp"),
+        "Flvp present in send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "Flvp"),
+        "Flvp absent from receive typed manifest");
+
     const PacketSchema* effectSchema = FindPacket(packets, "zzd");
     failures += Expect(effectSchema != nullptr, "zzd schema exists");
     if (effectSchema != nullptr) {

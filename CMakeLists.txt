@@ -2424,6 +2424,21 @@ target_include_directories(cg-packet-item-info-list-test
 
 add_test(NAME cg-packet-item-info-list-test COMMAND cg-packet-item-info-list-test)
 
+add_executable(cg-packet-item-move-notification-test
+    tests/packet/ItemMoveNotificationPacketTest.cpp
+)
+
+target_include_directories(cg-packet-item-move-notification-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+
+add_test(
+    NAME cg-packet-item-move-notification-test
+    COMMAND cg-packet-item-move-notification-test
+        "${CMAKE_CURRENT_SOURCE_DIR}/tests/fixtures/protocol/plain/server_to_client/vWpn.pkt"
+)
+
 add_executable(cg-packet-item-recipe-test
     tests/packet/ItemRecipePacketTest.cpp
 )
@@ -3094,6 +3109,7 @@ if(MSVC)
     target_compile_options(cg-packet-pet-item-data-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-equip-suit-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-item-info-list-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-item-move-notification-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-item-recipe-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-album-flags-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-album-info-test PRIVATE /W4 /utf-8 /permissive-)
@@ -3314,6 +3330,7 @@ else()
     target_compile_options(cg-packet-pet-item-data-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-equip-suit-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-item-info-list-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-packet-item-move-notification-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-item-recipe-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-album-flags-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-album-info-test PRIVATE -Wall -Wextra -Wpedantic)

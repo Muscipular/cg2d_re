@@ -1247,10 +1247,10 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
     failures += Expect(cg::packet::test::SendTypedPackets.size() == 98U, "send typed manifest count 98");
-    failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 94U, "receive typed manifest count 94");
+    failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 95U, "receive typed manifest count 95");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 192U,
-        "typed manifest count 192");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 193U,
+        "typed manifest count 193");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1267,7 +1267,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 192U, "typed manifest unique code count 192");
+    failures += Expect(codes.size() == 193U, "typed manifest unique code count 193");
     return failures;
 }
 
@@ -9804,6 +9804,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         itemMoveNotificationSchema != nullptr,
         "vWpn schema exists");
     if (itemMoveNotificationSchema != nullptr) {
+        const cg::packet::receive::ItemMoveNotification notification(0, 1);
+        const cg::packet::Packet packet = notification.ToPacket();
         failures += Expect(
             itemMoveNotificationSchema->direction == "服务端->客户端",
             "vWpn direction");
@@ -9840,7 +9842,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "vWpn resolvedFormat");
         failures += Expect(
             itemMoveNotificationSchema->resolvedSource ==
-                "ServerC+ClientIda",
+                "ServerC+ClientIda+src/packet",
             "vWpn resolvedSource");
         failures += Expect(
             itemMoveNotificationSchema->hasResolvedFields,
@@ -9858,16 +9860,27 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                     fromField.name == "fromindex" &&
                     fromField.typeToken == "i62" &&
                     fromField.rawSpec == "{fromindex:i62}" &&
-                    fromField.source == "ServerC+ClientIda",
+                    fromField.source == "ServerC+ClientIda+src/packet",
                 "vWpn resolved from field");
             failures += Expect(
                 toField.index == 1 &&
                     toField.name == "toindex" &&
                     toField.typeToken == "i62" &&
                     toField.rawSpec == "{toindex:i62}" &&
-                    toField.source == "ServerC+ClientIda",
+                    toField.source == "ServerC+ClientIda+src/packet",
                 "vWpn resolved to field");
         }
+        failures += ExpectEffectiveFieldsMatch(
+            *itemMoveNotificationSchema,
+            cg::packet::receive::ItemMoveNotification::Spec,
+            "vWpn Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *itemMoveNotificationSchema,
+            packet,
+            "vWpn resolved field order");
+        failures += Expect(
+            notification.fromIndex == 0 && notification.toIndex == 1,
+            "vWpn typed members");
     }
     failures += Expect(
         !TypedManifestContainsCode(
@@ -9875,10 +9888,10 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "vWpn"),
         "vWpn absent from send typed manifest");
     failures += Expect(
-        !TypedManifestContainsCode(
+        TypedManifestContainsCode(
             cg::packet::test::ReceiveTypedPackets,
             "vWpn"),
-        "vWpn absent from receive typed manifest");
+        "vWpn present in receive typed manifest");
 
     const PacketSchema* checkCommandSchema = FindPacket(packets, "CCL");
     failures += Expect(checkCommandSchema != nullptr, "CCL schema exists");

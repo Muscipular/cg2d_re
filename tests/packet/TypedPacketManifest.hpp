@@ -196,7 +196,7 @@ inline constexpr std::array<TypedPacketManifestEntry, 98U> SendTypedPackets = {{
     MakeSendManifestEntry<send::StallStart, send::StallStart::Spec>(),
 }};
 
-inline constexpr std::array<TypedPacketManifestEntry, 94U> ReceiveTypedPackets = {{
+inline constexpr std::array<TypedPacketManifestEntry, 95U> ReceiveTypedPackets = {{
     MakeReceiveManifestEntry<receive::ClientLoginResult, receive::ClientLoginResult::Spec>(),
     MakeReceiveManifestEntry<receive::CharacterLoginResult, receive::CharacterLoginResult::Spec>(),
     MakeReceiveManifestEntry<receive::CharacterLogoutResult, receive::CharacterLogoutResult::Spec>(),
@@ -250,6 +250,7 @@ inline constexpr std::array<TypedPacketManifestEntry, 94U> ReceiveTypedPackets =
     MakeReceiveManifestEntry<receive::PetItemData, receive::PetItemData::Spec>(),
     MakeReceiveManifestEntry<receive::EquipSuit, receive::EquipSuit::Spec>(),
     MakeReceiveManifestEntry<receive::ItemInfoList, receive::ItemInfoList::Spec>(),
+    MakeReceiveManifestEntry<receive::ItemMoveNotification, receive::ItemMoveNotification::Spec>(),
     MakeReceiveManifestEntry<receive::ItemRecipe, receive::ItemRecipe::Spec>(),
     MakeReceiveManifestEntry<receive::AlbumFlags, receive::AlbumFlags::Spec>(),
     MakeReceiveManifestEntry<receive::AlbumInfo, receive::AlbumInfo::Spec>(),

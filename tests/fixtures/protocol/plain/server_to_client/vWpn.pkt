@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=vWpn
+direction=server_to_client
+sample=item-slots-zero-one
+plain_hex=76 57 70 6E 20 30 20 31
+canonical_hex=76 57 70 6E 20 30 20 31 20
+end_sample

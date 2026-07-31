@@ -9833,6 +9833,205 @@ namespace cg::packet::receive
     };
 
     /**
+     * SEND_SI 物品槽移动通知 vWpn {fromindex:i62} {toindex:i62}
+     * 槽位范围、跨页与刷新行为属于业务层，封包协议保留完整 signed int。
+     */
+    struct ItemMoveNotification
+    {
+        static constexpr std::string_view Code = "vWpn";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("fromindex"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("toindex"), PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        int fromIndex = 0;
+        int toIndex = 0;
+
+        ItemMoveNotification(int fromIndex, int toIndex)
+            : fromIndex(fromIndex),
+              toIndex(toIndex)
+        {
+        }
+
+#if CG_PACKET_ENABLE_TEST_HELPERS
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("fromindex"),
+                PacketFieldType::Int62,
+                std::to_string(fromIndex),
+            });
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("toindex"),
+                PacketFieldType::Int62,
+                std::to_string(toIndex),
+            });
+            return packet;
+        }
+#endif
+
+        static PacketResult<ItemMoveNotification> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
+            if (!parsed.HasValue()) {
+                return PacketResult<ItemMoveNotification>::Failure(parsed.Error());
+            }
+
+            return FromPacket(parsed.Value());
+        }
+
+        static PacketResult<ItemMoveNotification> FromPacket(const Packet& packet)
+        {
+            if (packet.code.View() != Code) {
+                PacketError error = MakePacketError(
+                    PacketErrorCode::InvalidCode,
+                    CG_PACKET_DIAGNOSTIC_TEXT(
+                        "ItemMoveNotification Parse 收到非 vWpn 封包"));
+                error.packetCode = packet.code;
+                return PacketResult<ItemMoveNotification>::Failure(std::move(error));
+            }
+
+            if (packet.direction != Direction) {
+                return PacketResult<ItemMoveNotification>::Failure(MakePacketError(
+                    PacketErrorCode::DecodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT(
+                        "ItemMoveNotification Parse 封包方向不匹配")));
+            }
+
+            if (packet.fields.size() != FieldCount) {
+                return PacketResult<ItemMoveNotification>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    CG_PACKET_DIAGNOSTIC_TEXT(
+                        "ItemMoveNotification Parse 字段数量不匹配"),
+                    packet.fields.size() < FieldCount
+                        ? packet.fields.size()
+                        : FieldCount));
+            }
+
+            std::array<int, FieldCount> values {};
+            for (std::size_t index = 0U; index < FieldCount; ++index) {
+                const PacketField& field = packet.fields[index];
+                if (!CG_PACKET_FIELD_NAME_MATCHES(
+                        field.name,
+                        Fields[index].name)) {
+                    return PacketResult<ItemMoveNotification>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        CG_PACKET_DIAGNOSTIC_TEXT(
+                            "ItemMoveNotification Parse 字段名不匹配"),
+                        index));
+                }
+
+                if (field.type != Fields[index].type) {
+                    return PacketResult<ItemMoveNotification>::Failure(MakeFieldError(
+                        PacketErrorCode::InvalidFieldType,
+                        CG_PACKET_DIAGNOSTIC_TEXT(
+                            "ItemMoveNotification Parse 字段类型不匹配"),
+                        index));
+                }
+
+                PacketResult<int> value =
+                    ParseDecimalField(field.value, index);
+                if (!value.HasValue()) {
+                    return PacketResult<ItemMoveNotification>::Failure(value.Error());
+                }
+                values[index] = value.Value();
+            }
+
+            return PacketResult<ItemMoveNotification>::Success(
+                ItemMoveNotification(
+                    values[FromIndexFieldIndex],
+                    values[ToIndexFieldIndex]));
+        }
+
+    private:
+        static constexpr std::size_t FieldCount = 2U;
+        static constexpr std::size_t FromIndexFieldIndex = 0U;
+        static constexpr std::size_t ToIndexFieldIndex = 1U;
+
+        [[nodiscard]] static PacketError MakePacketError(
+            PacketErrorCode code,
+            std::string_view message)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            return error;
+        }
+
+        [[nodiscard]] static PacketError MakeFieldError(
+            PacketErrorCode code,
+            std::string_view message,
+            std::size_t fieldIndex)
+        {
+            PacketError error = MakePacketError(code, std::move(message));
+            error.fieldIndex = fieldIndex;
+            return error;
+        }
+
+        [[nodiscard]] static PacketResult<int> ParseDecimalField(
+            std::string_view text,
+            std::size_t fieldIndex)
+        {
+            bool negative = false;
+            std::size_t index = 0U;
+            if (!text.empty() && text.front() == '-') {
+                negative = true;
+                index = 1U;
+            }
+
+            if (index == text.size()) {
+                return PacketResult<int>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT(
+                        "ItemMoveNotification i62 字段为空"),
+                    fieldIndex));
+            }
+
+            const std::int64_t maxValue =
+                static_cast<std::int64_t>(std::numeric_limits<int>::max());
+            const std::int64_t minValue =
+                static_cast<std::int64_t>(std::numeric_limits<int>::min());
+            const std::int64_t limit = negative ? (0 - minValue) : maxValue;
+            std::int64_t value = 0;
+
+            for (; index < text.size(); ++index) {
+                const char ch = text[index];
+                if (ch < '0' || ch > '9') {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        CG_PACKET_DIAGNOSTIC_TEXT(
+                            "ItemMoveNotification i62 字段包含非法字符"),
+                        fieldIndex));
+                }
+
+                const int digit = ch - '0';
+                if (value > (limit - digit) / 10) {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        CG_PACKET_DIAGNOSTIC_TEXT(
+                            "ItemMoveNotification i62 字段超出 int 范围"),
+                        fieldIndex));
+                }
+
+                value = (value * 10) + digit;
+            }
+
+            if (negative) {
+                value = -value;
+            }
+
+            return PacketResult<int>::Success(static_cast<int>(value));
+        }
+    };
+
+    /**
      * SEND_IR 配方材料：materialItemId|materialName|required。
      */
     struct ItemRecipeMaterial

@@ -6893,6 +6893,63 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "yp"),
         "yp absent from receive typed manifest");
 
+    const PacketSchema* playerCountRequestSchema =
+        FindPacket(packets, "rvb");
+    failures += Expect(
+        playerCountRequestSchema != nullptr,
+        "rvb schema exists");
+    if (playerCountRequestSchema != nullptr) {
+        failures += Expect(
+            playerCountRequestSchema->direction == "客户端->服务端",
+            "rvb direction");
+        failures += Expect(
+            playerCountRequestSchema->legacyKind == "RECV",
+            "rvb legacyKind");
+        failures += Expect(
+            playerCountRequestSchema->clientNamespace == "send",
+            "rvb namespace");
+        failures += Expect(
+            playerCountRequestSchema->xlsxStatus == "暂缓",
+            "rvb xlsxStatus");
+        failures += Expect(
+            playerCountRequestSchema->rawFormat.empty(),
+            "rvb rawFormat empty");
+        failures += Expect(
+            playerCountRequestSchema->formatEmpty,
+            "rvb formatEmpty true");
+        failures += Expect(
+            playerCountRequestSchema->source == "xlsx",
+            "rvb raw source");
+        failures += Expect(
+            playerCountRequestSchema->fields.empty(),
+            "rvb raw fields empty");
+        failures += Expect(
+            playerCountRequestSchema->hasResolvedFormat,
+            "rvb resolvedFormat present");
+        failures += Expect(
+            playerCountRequestSchema->resolvedFormat.empty(),
+            "rvb resolvedFormat empty");
+        failures += Expect(
+            playerCountRequestSchema->resolvedSource == "xlsx+ServerC",
+            "rvb resolvedSource");
+        failures += Expect(
+            playerCountRequestSchema->hasResolvedFields,
+            "rvb resolvedFields present");
+        failures += Expect(
+            playerCountRequestSchema->resolvedFields.empty(),
+            "rvb resolvedFields empty");
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "rvb"),
+        "rvb absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "rvb"),
+        "rvb absent from receive typed manifest");
+
     const PacketSchema* versionUpgradeResultSchema =
         FindPacket(packets, "ed");
     failures += Expect(

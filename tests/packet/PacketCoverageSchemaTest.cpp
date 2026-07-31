@@ -9799,29 +9799,97 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     const PacketSchema* chatMessageSendSchema = FindPacket(packets, "uSr");
     failures += Expect(chatMessageSendSchema != nullptr, "uSr schema exists");
     if (chatMessageSendSchema != nullptr) {
+        const cg::packet::send::ChatMessageSend value(1, 2, "P|hello", 4, 5, 16);
+        const cg::packet::Packet packet = value.ToPacket();
         failures += Expect(chatMessageSendSchema->direction == "客户端->服务端", "uSr direction");
         failures += Expect(chatMessageSendSchema->legacyKind == "RECV", "uSr legacyKind");
+        failures += Expect(chatMessageSendSchema->clientNamespace == "send", "uSr namespace");
+        failures += Expect(chatMessageSendSchema->xlsxStatus == "完成", "uSr xlsxStatus");
+        failures += Expect(
+            chatMessageSendSchema->description == "RECV_TK 发送聊天",
+            "uSr description");
         failures += Expect(
             chatMessageSendSchema->rawFormat == "{x} {y} {msg} {color} {area} {fontSize}",
             "uSr rawFormat");
+        failures += Expect(!chatMessageSendSchema->formatEmpty, "uSr formatEmpty false");
+        failures += Expect(chatMessageSendSchema->source == "xlsx", "uSr raw source");
         failures += Expect(
             chatMessageSendSchema->resolvedFormat ==
                 "{x:i62} {y:i62} {msg:es} {color:i62} {area:i62} {fontSize:i62}",
             "uSr resolvedFormat");
         failures += Expect(
-            chatMessageSendSchema->resolvedSource == "xlsx+ServerC+ClientIda+src",
+            chatMessageSendSchema->resolvedSource
+                == "xlsx+ServerC+ClientIda+src/packet",
             "uSr resolvedSource");
         failures += Expect(chatMessageSendSchema->fields.size() == 6U, "uSr raw field count");
         if (chatMessageSendSchema->fields.size() == 6U) {
-            failures += Expect(chatMessageSendSchema->fields[0].name == "x", "uSr raw field x");
-            failures += Expect(chatMessageSendSchema->fields[1].name == "y", "uSr raw field y");
-            failures += Expect(chatMessageSendSchema->fields[2].name == "msg", "uSr raw field msg");
-            failures += Expect(chatMessageSendSchema->fields[3].name == "color", "uSr raw field color");
-            failures += Expect(chatMessageSendSchema->fields[4].name == "area", "uSr raw field area");
-            failures += Expect(chatMessageSendSchema->fields[5].name == "fontSize", "uSr raw field fontSize");
-            failures += Expect(chatMessageSendSchema->fields[2].typeToken == "unknown", "uSr raw msg type");
+            const std::array<std::string_view, 6U> names = {{
+                "x",
+                "y",
+                "msg",
+                "color",
+                "area",
+                "fontSize",
+            }};
+            const std::array<std::string_view, 6U> rawSpecs = {{
+                "{x}",
+                "{y}",
+                "{msg}",
+                "{color}",
+                "{area}",
+                "{fontSize}",
+            }};
+            for (std::size_t index = 0U; index < names.size(); ++index) {
+                failures += Expect(
+                    chatMessageSendSchema->fields[index].index == index &&
+                        chatMessageSendSchema->fields[index].name == names[index] &&
+                        chatMessageSendSchema->fields[index].typeToken == "unknown" &&
+                        chatMessageSendSchema->fields[index].rawSpec == rawSpecs[index] &&
+                        chatMessageSendSchema->fields[index].source == "xlsx",
+                    "uSr raw field");
+            }
         }
+        failures += Expect(
+            chatMessageSendSchema->hasResolvedFormat,
+            "uSr resolvedFormat present");
+        failures += Expect(
+            chatMessageSendSchema->hasResolvedFields,
+            "uSr resolvedFields present");
+        failures += Expect(
+            chatMessageSendSchema->resolvedFields.size() == 6U,
+            "uSr resolved field count");
+        for (const FieldSchema& field : chatMessageSendSchema->resolvedFields) {
+            failures += Expect(
+                field.source == "xlsx+ServerC+ClientIda+src/packet",
+                "uSr resolved field source");
+        }
+        failures += ExpectEffectiveFieldsMatch(
+            *chatMessageSendSchema,
+            cg::packet::send::ChatMessageSend::Spec,
+            "uSr Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *chatMessageSendSchema,
+            packet,
+            "uSr resolved field order");
+        failures += Expect(
+            value.x == 1 &&
+                value.y == 2 &&
+                value.msg == "P|hello" &&
+                value.color == 4 &&
+                value.area == 5 &&
+                value.fontSize == 16,
+            "uSr typed members");
     }
+    failures += Expect(
+        TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "uSr"),
+        "uSr present in send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "uSr"),
+        "uSr absent from receive typed manifest");
 
     const PacketSchema* dropItemSchema = FindPacket(packets, "QpfE");
     failures += Expect(dropItemSchema != nullptr, "QpfE schema exists");

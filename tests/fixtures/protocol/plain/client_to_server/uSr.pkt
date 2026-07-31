@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=uSr
+direction=client_to_server
+sample=chat-pipe-hello
+plain_hex=75 53 72 20 31 20 32 20 50 7C 68 65 6C 6C 6F 20 34 20 35 20 67
+canonical_hex=75 53 72 20 31 20 32 20 50 7C 68 65 6C 6C 6F 20 34 20 35 20 67 20
+end_sample

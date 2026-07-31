@@ -4213,6 +4213,45 @@
       "xlsxStatus": "完成",
       "description": "SEND_SH 可移动动画（船，鲸鱼）",
       "rawFormat": "{type} {mapId} {floorId} {x} {y}",
+      "resolvedFormat": "{type:i62} {mapId:i62} {floorId:i62} {x:i62} {y:i62}",
+      "resolvedSource": "xlsx+ServerC+ClientIda",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "type",
+          "typeToken": "i62",
+          "rawSpec": "{type:i62}",
+          "source": "xlsx+ServerC+ClientIda"
+        },
+        {
+          "index": 1,
+          "name": "mapId",
+          "typeToken": "i62",
+          "rawSpec": "{mapId:i62}",
+          "source": "xlsx+ServerC+ClientIda"
+        },
+        {
+          "index": 2,
+          "name": "floorId",
+          "typeToken": "i62",
+          "rawSpec": "{floorId:i62}",
+          "source": "xlsx+ServerC+ClientIda"
+        },
+        {
+          "index": 3,
+          "name": "x",
+          "typeToken": "i62",
+          "rawSpec": "{x:i62}",
+          "source": "xlsx+ServerC+ClientIda"
+        },
+        {
+          "index": 4,
+          "name": "y",
+          "typeToken": "i62",
+          "rawSpec": "{y:i62}",
+          "source": "xlsx+ServerC+ClientIda"
+        }
+      ],
       "formatEmpty": false,
       "source": "xlsx",
       "fields": [

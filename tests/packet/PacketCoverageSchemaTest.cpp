@@ -10131,6 +10131,97 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "bJg"),
         "bJg present in receive typed manifest");
 
+    const PacketSchema* shipActionSchema = FindPacket(packets, "PVfz");
+    failures += Expect(shipActionSchema != nullptr, "PVfz schema exists");
+    if (shipActionSchema != nullptr) {
+        failures += Expect(
+            shipActionSchema->direction == "服务端->客户端",
+            "PVfz direction");
+        failures += Expect(shipActionSchema->legacyKind == "SEND", "PVfz legacyKind");
+        failures += Expect(
+            shipActionSchema->clientNamespace == "receive",
+            "PVfz namespace");
+        failures += Expect(shipActionSchema->xlsxStatus == "完成", "PVfz xlsxStatus");
+        failures += Expect(
+            shipActionSchema->rawFormat == "{type} {mapId} {floorId} {x} {y}",
+            "PVfz rawFormat");
+        failures += Expect(!shipActionSchema->formatEmpty, "PVfz formatEmpty false");
+        failures += Expect(shipActionSchema->source == "xlsx", "PVfz raw source");
+
+        constexpr std::array<std::string_view, 5U> RawNames = {{
+            "type",
+            "mapId",
+            "floorId",
+            "x",
+            "y",
+        }};
+        constexpr std::array<std::string_view, 5U> RawSpecs = {{
+            "{type}",
+            "{mapId}",
+            "{floorId}",
+            "{x}",
+            "{y}",
+        }};
+        failures += Expect(
+            shipActionSchema->fields.size() == RawNames.size(),
+            "PVfz raw field count");
+        if (shipActionSchema->fields.size() == RawNames.size()) {
+            for (std::size_t index = 0U; index < RawNames.size(); ++index) {
+                const FieldSchema& field = shipActionSchema->fields[index];
+                failures += Expect(
+                    field.index == static_cast<int>(index)
+                        && field.name == RawNames[index]
+                        && field.typeToken == "unknown"
+                        && field.rawSpec == RawSpecs[index]
+                        && field.source == "xlsx",
+                    "PVfz raw field order");
+            }
+        }
+
+        failures += Expect(
+            shipActionSchema->hasResolvedFormat,
+            "PVfz resolvedFormat present");
+        failures += Expect(
+            shipActionSchema->resolvedFormat
+                == "{type:i62} {mapId:i62} {floorId:i62} {x:i62} {y:i62}",
+            "PVfz resolvedFormat");
+        failures += Expect(
+            shipActionSchema->resolvedSource == "xlsx+ServerC+ClientIda",
+            "PVfz resolvedSource");
+        failures += Expect(
+            shipActionSchema->hasResolvedFields,
+            "PVfz resolvedFields present");
+
+        constexpr std::array<std::string_view, 5U> ResolvedSpecs = {{
+            "{type:i62}",
+            "{mapId:i62}",
+            "{floorId:i62}",
+            "{x:i62}",
+            "{y:i62}",
+        }};
+        failures += Expect(
+            shipActionSchema->resolvedFields.size() == RawNames.size(),
+            "PVfz resolved field count");
+        if (shipActionSchema->resolvedFields.size() == RawNames.size()) {
+            for (std::size_t index = 0U; index < RawNames.size(); ++index) {
+                const FieldSchema& field = shipActionSchema->resolvedFields[index];
+                failures += Expect(
+                    field.index == static_cast<int>(index)
+                        && field.name == RawNames[index]
+                        && field.typeToken == "i62"
+                        && field.rawSpec == ResolvedSpecs[index]
+                        && field.source == "xlsx+ServerC+ClientIda",
+                    "PVfz resolved field order");
+            }
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "PVfz"),
+        "PVfz absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "PVfz"),
+        "PVfz absent from receive typed manifest");
+
     const PacketSchema* petMailSendSchema = FindPacket(packets, "rMsv");
     failures += Expect(petMailSendSchema != nullptr, "rMsv schema exists");
     if (petMailSendSchema != nullptr) {

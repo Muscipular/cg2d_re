@@ -11484,6 +11484,84 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "PVfz"),
         "PVfz present in receive typed manifest");
 
+    const PacketSchema* soundPlaybackSchema = FindPacket(packets, "murD");
+    failures += Expect(soundPlaybackSchema != nullptr, "murD schema exists");
+    if (soundPlaybackSchema != nullptr) {
+        failures += Expect(
+            soundPlaybackSchema->direction == "服务端->客户端",
+            "murD direction");
+        failures += Expect(
+            soundPlaybackSchema->legacyKind == "SEND",
+            "murD legacyKind");
+        failures += Expect(
+            soundPlaybackSchema->clientNamespace == "receive",
+            "murD namespace");
+        failures += Expect(
+            soundPlaybackSchema->xlsxStatus == "完成",
+            "murD xlsxStatus");
+        failures += Expect(
+            soundPlaybackSchema->description == "SEND_PLAYSE",
+            "murD description");
+        failures += Expect(
+            soundPlaybackSchema->rawFormat.empty(),
+            "murD rawFormat empty");
+        failures += Expect(
+            soundPlaybackSchema->formatEmpty,
+            "murD formatEmpty true");
+        failures += Expect(
+            soundPlaybackSchema->source == "xlsx",
+            "murD raw source");
+        failures += Expect(
+            soundPlaybackSchema->fields.empty(),
+            "murD raw fields empty");
+        failures += Expect(
+            soundPlaybackSchema->hasResolvedFormat,
+            "murD resolvedFormat present");
+        failures += Expect(
+            soundPlaybackSchema->resolvedFormat ==
+                "{seno:i62} {x:i62} {y:i62}",
+            "murD resolvedFormat");
+        failures += Expect(
+            soundPlaybackSchema->resolvedSource == "ServerC+ClientIda",
+            "murD resolvedSource");
+        failures += Expect(
+            soundPlaybackSchema->hasResolvedFields,
+            "murD resolvedFields present");
+
+        constexpr std::array<std::string_view, 3U> Names = {{
+            "seno",
+            "x",
+            "y",
+        }};
+        failures += Expect(
+            soundPlaybackSchema->resolvedFields.size() == Names.size(),
+            "murD resolved field count");
+        if (soundPlaybackSchema->resolvedFields.size() == Names.size()) {
+            for (std::size_t index = 0U; index < Names.size(); ++index) {
+                const FieldSchema& field =
+                    soundPlaybackSchema->resolvedFields[index];
+                failures += Expect(
+                    field.index == static_cast<int>(index) &&
+                        field.name == Names[index] &&
+                        field.typeToken == "i62" &&
+                        field.rawSpec ==
+                            ("{" + std::string(Names[index]) + ":i62}") &&
+                        field.source == "ServerC+ClientIda",
+                    "murD resolved field order");
+            }
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "murD"),
+        "murD absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "murD"),
+        "murD absent from receive typed manifest");
+
     const PacketSchema* npcSoundEffectSchema = FindPacket(packets, "ftaN");
     failures += Expect(npcSoundEffectSchema != nullptr, "ftaN schema exists");
     if (npcSoundEffectSchema != nullptr) {

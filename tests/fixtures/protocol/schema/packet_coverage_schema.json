@@ -8184,6 +8184,31 @@
       "xlsxStatus": "完成",
       "description": "RECV_BagPageMove 移动物品",
       "rawFormat": "{fromSlot} {toPage} {toSlot}",
+      "resolvedFormat": "{fromSlot:i62} {toPage:i62} {toSlot:i62}",
+      "resolvedSource": "xlsx+ServerC+HookCpp",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "fromSlot",
+          "typeToken": "i62",
+          "rawSpec": "{fromSlot:i62}",
+          "source": "xlsx+ServerC+HookCpp"
+        },
+        {
+          "index": 1,
+          "name": "toPage",
+          "typeToken": "i62",
+          "rawSpec": "{toPage:i62}",
+          "source": "xlsx+ServerC+HookCpp"
+        },
+        {
+          "index": 2,
+          "name": "toSlot",
+          "typeToken": "i62",
+          "rawSpec": "{toSlot:i62}",
+          "source": "xlsx+ServerC+HookCpp"
+        }
+      ],
       "formatEmpty": false,
       "source": "xlsx",
       "fields": [

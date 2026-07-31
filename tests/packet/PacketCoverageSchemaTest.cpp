@@ -8089,6 +8089,116 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "SWITM"),
         "SWITM absent from receive typed manifest");
 
+    const PacketSchema* bagPageMoveRequestSchema =
+        FindPacket(packets, "SWITMP");
+    failures += Expect(
+        bagPageMoveRequestSchema != nullptr,
+        "SWITMP schema exists");
+    if (bagPageMoveRequestSchema != nullptr) {
+        failures += Expect(
+            bagPageMoveRequestSchema->direction == "客户端->服务端",
+            "SWITMP direction");
+        failures += Expect(
+            bagPageMoveRequestSchema->legacyKind == "RECV",
+            "SWITMP legacyKind");
+        failures += Expect(
+            bagPageMoveRequestSchema->clientNamespace == "send",
+            "SWITMP namespace");
+        failures += Expect(
+            bagPageMoveRequestSchema->xlsxStatus == "完成",
+            "SWITMP xlsxStatus");
+        failures += Expect(
+            bagPageMoveRequestSchema->rawFormat ==
+                "{fromSlot} {toPage} {toSlot}",
+            "SWITMP rawFormat");
+        failures += Expect(
+            !bagPageMoveRequestSchema->formatEmpty,
+            "SWITMP formatEmpty false");
+        failures += Expect(
+            bagPageMoveRequestSchema->source == "xlsx",
+            "SWITMP raw source");
+
+        constexpr std::array<std::string_view, 3U> RawNames = {{
+            "fromSlot",
+            "toPage",
+            "toSlot",
+        }};
+        constexpr std::array<std::string_view, 3U> RawSpecs = {{
+            "{fromSlot}",
+            "{toPage}",
+            "{toSlot}",
+        }};
+        failures += Expect(
+            bagPageMoveRequestSchema->fields.size() == RawNames.size(),
+            "SWITMP raw field count");
+        if (bagPageMoveRequestSchema->fields.size() == RawNames.size()) {
+            for (std::size_t index = 0U;
+                 index < RawNames.size();
+                 ++index) {
+                const FieldSchema& field =
+                    bagPageMoveRequestSchema->fields[index];
+                failures += Expect(
+                    field.index == static_cast<int>(index) &&
+                        field.name == RawNames[index] &&
+                        field.typeToken == "unknown" &&
+                        field.rawSpec == RawSpecs[index] &&
+                        field.source == "xlsx",
+                    "SWITMP raw field order");
+            }
+        }
+
+        failures += Expect(
+            bagPageMoveRequestSchema->hasResolvedFormat,
+            "SWITMP resolvedFormat present");
+        failures += Expect(
+            bagPageMoveRequestSchema->resolvedFormat ==
+                "{fromSlot:i62} {toPage:i62} {toSlot:i62}",
+            "SWITMP resolvedFormat");
+        failures += Expect(
+            bagPageMoveRequestSchema->resolvedSource ==
+                "xlsx+ServerC+HookCpp",
+            "SWITMP resolvedSource");
+        failures += Expect(
+            bagPageMoveRequestSchema->hasResolvedFields,
+            "SWITMP resolvedFields present");
+
+        constexpr std::array<std::string_view, 3U> ResolvedSpecs = {{
+            "{fromSlot:i62}",
+            "{toPage:i62}",
+            "{toSlot:i62}",
+        }};
+        failures += Expect(
+            bagPageMoveRequestSchema->resolvedFields.size() ==
+                RawNames.size(),
+            "SWITMP resolved field count");
+        if (bagPageMoveRequestSchema->resolvedFields.size() ==
+            RawNames.size()) {
+            for (std::size_t index = 0U;
+                 index < RawNames.size();
+                 ++index) {
+                const FieldSchema& field =
+                    bagPageMoveRequestSchema->resolvedFields[index];
+                failures += Expect(
+                    field.index == static_cast<int>(index) &&
+                        field.name == RawNames[index] &&
+                        field.typeToken == "i62" &&
+                        field.rawSpec == ResolvedSpecs[index] &&
+                        field.source == "xlsx+ServerC+HookCpp",
+                    "SWITMP resolved field order");
+            }
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "SWITMP"),
+        "SWITMP absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "SWITMP"),
+        "SWITMP absent from receive typed manifest");
+
     const PacketSchema* versionUpgradeRequestSchema =
         FindPacket(packets, "Xoee");
     failures += Expect(

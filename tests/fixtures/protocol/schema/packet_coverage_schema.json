@@ -7799,14 +7799,14 @@
       "description": "RECV_CH cheat 检测作弊",
       "rawFormat": "{type}",
       "resolvedFormat": "{type:i62}",
-      "resolvedSource": "xlsx+ServerC+ClientIda",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
       "resolvedFields": [
         {
           "index": 0,
           "name": "type",
           "typeToken": "i62",
           "rawSpec": "{type:i62}",
-          "source": "xlsx+ServerC+ClientIda"
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         }
       ],
       "formatEmpty": false,

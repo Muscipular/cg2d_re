@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=PGXE
+direction=client_to_server
+sample=macro-user
+plain_hex=50 47 58 45 20 31
+canonical_hex=50 47 58 45 20 31 20
+end_sample

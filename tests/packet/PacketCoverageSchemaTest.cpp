@@ -1246,11 +1246,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 86U, "send typed manifest count 86");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 87U, "send typed manifest count 87");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 89U, "receive typed manifest count 89");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 175U,
-        "typed manifest count 175");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 176U,
+        "typed manifest count 176");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1267,7 +1267,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 175U, "typed manifest unique code count 175");
+    failures += Expect(codes.size() == 176U, "typed manifest unique code count 176");
     return failures;
 }
 
@@ -7428,6 +7428,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         cheatDetectionReportSchema != nullptr,
         "PGXE schema exists");
     if (cheatDetectionReportSchema != nullptr) {
+        const cg::packet::send::CheatDetectionReport report(1);
         failures += Expect(
             cheatDetectionReportSchema->direction == "客户端->服务端",
             "PGXE direction");
@@ -7472,7 +7473,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "PGXE resolvedFormat");
         failures += Expect(
             cheatDetectionReportSchema->resolvedSource ==
-                "xlsx+ServerC+ClientIda",
+                "xlsx+ServerC+ClientIda+src/packet",
             "PGXE resolvedSource");
         failures += Expect(
             cheatDetectionReportSchema->hasResolvedFields,
@@ -7488,15 +7489,22 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                     type.name == "type" &&
                     type.typeToken == "i62" &&
                     type.rawSpec == "{type:i62}" &&
-                    type.source == "xlsx+ServerC+ClientIda",
+                    type.source == "xlsx+ServerC+ClientIda+src/packet",
                 "PGXE resolved type field order");
         }
+        failures += ExpectEffectiveFieldsMatch(
+            *cheatDetectionReportSchema,
+            cg::packet::send::CheatDetectionReport::Spec,
+            "PGXE Spec matches effective fields");
+        failures += Expect(
+            report.type == 1,
+            "PGXE typed member");
     }
     failures += Expect(
-        !TypedManifestContainsCode(
+        TypedManifestContainsCode(
             cg::packet::test::SendTypedPackets,
             "PGXE"),
-        "PGXE absent from send typed manifest");
+        "PGXE present in send typed manifest");
     failures += Expect(
         !TypedManifestContainsCode(
             cg::packet::test::ReceiveTypedPackets,

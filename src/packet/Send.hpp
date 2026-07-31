@@ -741,6 +741,48 @@ namespace cg::packet::send
     };
 
     /**
+     * RECV_CH 作弊检测 PGXE {type:i62}
+     * type 的分支语义属于业务层；封包协议保留任意 signed int。
+     */
+    struct CheatDetectionReport
+    {
+        static constexpr std::string_view Code = "PGXE";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("type"), PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        int type = 0;
+
+        explicit CheatDetectionReport(int type)
+            : type(type)
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("type"),
+                PacketFieldType::Int62,
+                std::to_string(type),
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket(), Spec);
+        }
+    };
+
+    /**
      * RECV_EV NPC 事件 pg {event:i62} {seqno:i62} {x:i62} {y:i62} {dir:i62}
      */
     struct NpcEventRequest

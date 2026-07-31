@@ -1,0 +1,9 @@
+pkt_fixture=1
+code=IUn
+direction=server_to_client
+sample=gbk-about-name-two-layer-escapes
+plain_hex=49 55 6E 20 37 7C 31 30 7C 32 30 7C 96 7C 5C 5C 7A BD A3 5C 5C 6E CF A1 D3 D0 5C 5C 63 B1 B8 D7 A2 5C 5C 79 BC D7
+canonical_hex=49 55 6E 20 37 7C 31 30 7C 32 30 7C 96 7C 5C 5C 7A BD A3 5C 5C 6E CF A1 D3 D0 5C 5C 63 B1 B8 D7 A2 5C 5C 79 BC D7 20
+payload_field=0
+payload_hex=37 7C 31 30 7C 32 30 7C 96 7C 5C 7A BD A3 5C 6E CF A1 D3 D0 5C 63 B1 B8 D7 A2 5C 79 BC D7
+end_sample

@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=kg
+direction=server_to_client
+sample=available-points-one-hundred
+plain_hex=6B 67 20 31 43
+canonical_hex=6B 67 20 31 43 20
+end_sample

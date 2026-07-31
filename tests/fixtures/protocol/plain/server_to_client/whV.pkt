@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=whV
+direction=server_to_client
+sample=busy
+plain_hex=77 68 56 20 39 20 62 75 73 79
+canonical_hex=77 68 56 20 39 20 62 75 73 79 20
+end_sample

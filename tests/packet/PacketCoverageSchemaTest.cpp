@@ -2327,10 +2327,43 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     failures += Expect(loginResultSchema != nullptr, "whV schema exists");
     if (loginResultSchema != nullptr) {
         const cg::packet::receive::ClientLoginResult loginResult(0, "busy");
+        const cg::packet::Packet packet = loginResult.ToPacket();
         failures += Expect(loginResultSchema->direction == "服务端->客户端", "whV direction");
         failures += Expect(loginResultSchema->legacyKind == "SEND", "whV legacyKind");
-        failures += ExpectPacketFieldsMatch(*loginResultSchema, loginResult.ToPacket(), "whV field order");
+        failures += Expect(loginResultSchema->clientNamespace == "receive", "whV namespace");
+        failures += Expect(loginResultSchema->rawFormat == "{result:i62} {data:es}", "whV rawFormat");
+        failures += Expect(!loginResultSchema->formatEmpty, "whV formatEmpty false");
+        failures += Expect(loginResultSchema->source == "xlsx", "whV raw source");
+        failures += ExpectPacketFieldsMatch(*loginResultSchema, packet, "whV raw field order");
+        failures += Expect(loginResultSchema->hasResolvedFormat, "whV resolvedFormat present");
+        failures += Expect(
+            loginResultSchema->resolvedFormat == "{result:i62} {data:es}",
+            "whV resolvedFormat");
+        failures += Expect(
+            loginResultSchema->resolvedSource == "xlsx+ServerC+ClientIda+src/packet",
+            "whV resolvedSource");
+        failures += Expect(loginResultSchema->hasResolvedFields, "whV resolvedFields present");
+        failures += Expect(loginResultSchema->resolvedFields.size() == 2U, "whV resolved field count");
+        for (const FieldSchema& field : loginResultSchema->resolvedFields) {
+            failures += Expect(
+                field.source == "xlsx+ServerC+ClientIda+src/packet",
+                "whV resolved field source");
+        }
+        failures += ExpectEffectiveFieldsMatch(
+            *loginResultSchema,
+            cg::packet::receive::ClientLoginResult::Spec,
+            "whV Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *loginResultSchema,
+            packet,
+            "whV resolved field order");
     }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "whV"),
+        "whV absent from send typed manifest");
+    failures += Expect(
+        TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "whV"),
+        "whV present in receive typed manifest");
 
     const PacketSchema* pfmNotificationSchema = FindPacket(packets, "PfM");
     failures += Expect(pfmNotificationSchema != nullptr, "PfM schema exists");

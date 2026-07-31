@@ -7601,6 +7601,86 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "ElVN"),
         "ElVN absent from receive typed manifest");
 
+    const PacketSchema* stallBuyRequestSchema =
+        FindPacket(packets, "wAo");
+    failures += Expect(
+        stallBuyRequestSchema != nullptr,
+        "wAo schema exists");
+    if (stallBuyRequestSchema != nullptr) {
+        failures += Expect(
+            stallBuyRequestSchema->direction == "客户端->服务端",
+            "wAo direction");
+        failures += Expect(
+            stallBuyRequestSchema->legacyKind == "RECV",
+            "wAo legacyKind");
+        failures += Expect(
+            stallBuyRequestSchema->clientNamespace == "send",
+            "wAo namespace");
+        failures += Expect(
+            stallBuyRequestSchema->xlsxStatus == "完成",
+            "wAo xlsxStatus");
+        failures += Expect(
+            stallBuyRequestSchema->rawFormat == "{slot}",
+            "wAo rawFormat");
+        failures += Expect(
+            !stallBuyRequestSchema->formatEmpty,
+            "wAo formatEmpty false");
+        failures += Expect(
+            stallBuyRequestSchema->source == "xlsx",
+            "wAo raw source");
+        failures += Expect(
+            stallBuyRequestSchema->fields.size() == 1U,
+            "wAo raw field count");
+        if (stallBuyRequestSchema->fields.size() == 1U) {
+            const FieldSchema& slot = stallBuyRequestSchema->fields[0];
+            failures += Expect(
+                slot.index == 0 &&
+                    slot.name == "slot" &&
+                    slot.typeToken == "unknown" &&
+                    slot.rawSpec == "{slot}" &&
+                    slot.source == "xlsx",
+                "wAo raw slot field");
+        }
+
+        failures += Expect(
+            stallBuyRequestSchema->hasResolvedFormat,
+            "wAo resolvedFormat present");
+        failures += Expect(
+            stallBuyRequestSchema->resolvedFormat == "{position:i62}",
+            "wAo resolvedFormat");
+        failures += Expect(
+            stallBuyRequestSchema->resolvedSource ==
+                "xlsx+ServerC+ClientIda",
+            "wAo resolvedSource");
+        failures += Expect(
+            stallBuyRequestSchema->hasResolvedFields,
+            "wAo resolvedFields present");
+        failures += Expect(
+            stallBuyRequestSchema->resolvedFields.size() == 1U,
+            "wAo resolved field count");
+        if (stallBuyRequestSchema->resolvedFields.size() == 1U) {
+            const FieldSchema& position =
+                stallBuyRequestSchema->resolvedFields[0];
+            failures += Expect(
+                position.index == 0 &&
+                    position.name == "position" &&
+                    position.typeToken == "i62" &&
+                    position.rawSpec == "{position:i62}" &&
+                    position.source == "xlsx+ServerC+ClientIda",
+                "wAo resolved position field order");
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "wAo"),
+        "wAo absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "wAo"),
+        "wAo absent from receive typed manifest");
+
     const PacketSchema* versionUpgradeRequestSchema =
         FindPacket(packets, "Xoee");
     failures += Expect(

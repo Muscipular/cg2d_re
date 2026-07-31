@@ -7208,6 +7208,87 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "KXhH"),
         "KXhH present in receive typed manifest");
 
+    const PacketSchema* stallBuyResultSchema =
+        FindPacket(packets, "Yx");
+    failures += Expect(
+        stallBuyResultSchema != nullptr,
+        "Yx schema exists");
+    if (stallBuyResultSchema != nullptr) {
+        failures += Expect(
+            stallBuyResultSchema->direction == "服务端->客户端",
+            "Yx direction");
+        failures += Expect(
+            stallBuyResultSchema->legacyKind == "SEND",
+            "Yx legacyKind");
+        failures += Expect(
+            stallBuyResultSchema->clientNamespace == "receive",
+            "Yx namespace");
+        failures += Expect(
+            stallBuyResultSchema->xlsxStatus == "完成",
+            "Yx xlsxStatus");
+        failures += Expect(
+            stallBuyResultSchema->rawFormat == "{result}",
+            "Yx rawFormat");
+        failures += Expect(
+            !stallBuyResultSchema->formatEmpty,
+            "Yx formatEmpty false");
+        failures += Expect(
+            stallBuyResultSchema->source == "xlsx",
+            "Yx raw source");
+        failures += Expect(
+            stallBuyResultSchema->fields.size() == 1U,
+            "Yx raw field count");
+        if (stallBuyResultSchema->fields.size() == 1U) {
+            const FieldSchema& result =
+                stallBuyResultSchema->fields[0];
+            failures += Expect(
+                result.index == 0 &&
+                    result.name == "result" &&
+                    result.typeToken == "unknown" &&
+                    result.rawSpec == "{result}" &&
+                    result.source == "xlsx",
+                "Yx raw result field");
+        }
+
+        failures += Expect(
+            stallBuyResultSchema->hasResolvedFormat,
+            "Yx resolvedFormat present");
+        failures += Expect(
+            stallBuyResultSchema->resolvedFormat == "{result:i62}",
+            "Yx resolvedFormat");
+        failures += Expect(
+            stallBuyResultSchema->resolvedSource ==
+                "xlsx+ServerC+ClientIda",
+            "Yx resolvedSource");
+        failures += Expect(
+            stallBuyResultSchema->hasResolvedFields,
+            "Yx resolvedFields present");
+        failures += Expect(
+            stallBuyResultSchema->resolvedFields.size() == 1U,
+            "Yx resolved field count");
+        if (stallBuyResultSchema->resolvedFields.size() == 1U) {
+            const FieldSchema& result =
+                stallBuyResultSchema->resolvedFields[0];
+            failures += Expect(
+                result.index == 0 &&
+                    result.name == "result" &&
+                    result.typeToken == "i62" &&
+                    result.rawSpec == "{result:i62}" &&
+                    result.source == "xlsx+ServerC+ClientIda",
+                "Yx resolved result field order");
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "Yx"),
+        "Yx absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "Yx"),
+        "Yx absent from receive typed manifest");
+
     const PacketSchema* versionUpgradeRequestSchema =
         FindPacket(packets, "Xoee");
     failures += Expect(

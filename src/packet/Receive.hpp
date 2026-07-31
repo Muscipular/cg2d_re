@@ -1311,6 +1311,87 @@ namespace cg::packet::receive
     };
 
     /**
+     * SEND_TROP 对方交易清单变更通知 NdM
+     * 封包协议固定零字段；交易清空、状态与 UI 更新留在业务层。
+     */
+    struct TradeCounterpartyOfferChanged
+    {
+        static constexpr std::string_view Code = "NdM";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 0U> Fields = {};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+#if CG_PACKET_ENABLE_TEST_HELPERS
+        [[nodiscard]] Packet ToPacket() const
+        {
+            return Packet(PacketCode(Code), Direction);
+        }
+#endif
+
+        static PacketResult<TradeCounterpartyOfferChanged> Parse(
+            std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
+            if (!parsed.HasValue()) {
+                return PacketResult<TradeCounterpartyOfferChanged>::Failure(
+                    parsed.Error());
+            }
+
+            return FromPacket(parsed.Value());
+        }
+
+        static PacketResult<TradeCounterpartyOfferChanged> FromPacket(
+            const Packet& packet)
+        {
+            if (packet.code.View() != Code) {
+                PacketError error = MakePacketError(
+                    PacketErrorCode::InvalidCode,
+                    CG_PACKET_DIAGNOSTIC_TEXT(
+                        "TradeCounterpartyOfferChanged Parse 收到非 NdM 封包"));
+                error.packetCode = packet.code;
+                return PacketResult<TradeCounterpartyOfferChanged>::Failure(
+                    std::move(error));
+            }
+
+            if (packet.direction != Direction) {
+                return PacketResult<TradeCounterpartyOfferChanged>::Failure(
+                    MakePacketError(
+                        PacketErrorCode::DecodeFailed,
+                        CG_PACKET_DIAGNOSTIC_TEXT(
+                            "TradeCounterpartyOfferChanged Parse 封包方向不匹配")));
+            }
+
+            if (!packet.fields.empty()) {
+                PacketError error = MakePacketError(
+                    PacketErrorCode::FieldCountMismatch,
+                    CG_PACKET_DIAGNOSTIC_TEXT(
+                        "TradeCounterpartyOfferChanged Parse 字段数量不匹配"));
+                error.fieldIndex = 0U;
+                return PacketResult<TradeCounterpartyOfferChanged>::Failure(
+                    std::move(error));
+            }
+
+            return PacketResult<TradeCounterpartyOfferChanged>::Success(
+                TradeCounterpartyOfferChanged {});
+        }
+
+    private:
+        [[nodiscard]] static PacketError MakePacketError(
+            PacketErrorCode code,
+            std::string_view message)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            return error;
+        }
+    };
+
+    /**
      * SEND_MC 地图校验值 jmb
      * wire 固定九个 signed i62；保留完整 int，不增加校验值或坐标约束。
      */

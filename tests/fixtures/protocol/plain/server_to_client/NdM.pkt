@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=NdM
+direction=server_to_client
+sample=counterparty-offer-changed
+plain_hex=4E 64 4D
+canonical_hex=4E 64 4D 20
+end_sample

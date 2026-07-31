@@ -1247,10 +1247,10 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
     failures += Expect(cg::packet::test::SendTypedPackets.size() == 98U, "send typed manifest count 98");
-    failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 97U, "receive typed manifest count 97");
+    failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 98U, "receive typed manifest count 98");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 195U,
-        "typed manifest count 195");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 196U,
+        "typed manifest count 196");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1267,7 +1267,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 195U, "typed manifest unique code count 195");
+    failures += Expect(codes.size() == 196U, "typed manifest unique code count 196");
     return failures;
 }
 
@@ -10143,6 +10143,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         tradeCounterpartyOfferChangedSchema != nullptr,
         "NdM schema exists");
     if (tradeCounterpartyOfferChangedSchema != nullptr) {
+        const cg::packet::receive::TradeCounterpartyOfferChanged value;
+        const cg::packet::Packet packet = value.ToPacket();
         failures += Expect(
             tradeCounterpartyOfferChangedSchema->direction == "服务端->客户端",
             "NdM direction");
@@ -10179,7 +10181,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "NdM resolvedFormat empty");
         failures += Expect(
             tradeCounterpartyOfferChangedSchema->resolvedSource ==
-                "ServerC+ClientIda",
+                "ServerC+ClientIda+src/packet",
             "NdM resolvedSource");
         failures += Expect(
             tradeCounterpartyOfferChangedSchema->hasResolvedFields,
@@ -10187,6 +10189,15 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         failures += Expect(
             tradeCounterpartyOfferChangedSchema->resolvedFields.empty(),
             "NdM resolvedFields empty");
+        failures += ExpectEffectiveFieldsMatch(
+            *tradeCounterpartyOfferChangedSchema,
+            cg::packet::receive::TradeCounterpartyOfferChanged::Spec,
+            "NdM Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *tradeCounterpartyOfferChangedSchema,
+            packet,
+            "NdM resolved field order");
+        failures += Expect(packet.fields.empty(), "NdM typed packet fields empty");
     }
     failures += Expect(
         !TypedManifestContainsCode(
@@ -10194,10 +10205,10 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "NdM"),
         "NdM absent from send typed manifest");
     failures += Expect(
-        !TypedManifestContainsCode(
+        TypedManifestContainsCode(
             cg::packet::test::ReceiveTypedPackets,
             "NdM"),
-        "NdM absent from receive typed manifest");
+        "NdM present in receive typed manifest");
 
     const PacketSchema* checkCommandSchema = FindPacket(packets, "CCL");
     failures += Expect(checkCommandSchema != nullptr, "CCL schema exists");

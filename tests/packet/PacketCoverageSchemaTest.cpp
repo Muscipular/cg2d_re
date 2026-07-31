@@ -1705,10 +1705,50 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     const PacketSchema* clientLoginSchema = FindPacket(packets, "JFVf");
     failures += Expect(clientLoginSchema != nullptr, "JFVf schema exists");
     if (clientLoginSchema != nullptr) {
-        const cg::packet::send::ClientLogin clientLogin("hash", "account", "password");
         failures += Expect(clientLoginSchema->direction == "客户端->服务端", "JFVf direction");
         failures += Expect(clientLoginSchema->legacyKind == "RECV", "JFVf legacyKind");
-        failures += ExpectPacketFieldsMatch(*clientLoginSchema, clientLogin.ToPacket(), "JFVf field order");
+        failures += Expect(
+            clientLoginSchema->rawFormat == "{clientHash:es} {password:es} {account:es}",
+            "JFVf rawFormat preserved");
+        failures += Expect(clientLoginSchema->fields.size() == 3U, "JFVf raw field count");
+        if (clientLoginSchema->fields.size() == 3U) {
+            failures += Expect(
+                clientLoginSchema->fields[0].name == "clientHash"
+                    && clientLoginSchema->fields[0].typeToken == "es"
+                    && clientLoginSchema->fields[0].source == "xlsx",
+                "JFVf raw clientHash preserved");
+            failures += Expect(
+                clientLoginSchema->fields[1].name == "password"
+                    && clientLoginSchema->fields[1].typeToken == "es"
+                    && clientLoginSchema->fields[1].source == "xlsx",
+                "JFVf raw password preserved");
+            failures += Expect(
+                clientLoginSchema->fields[2].name == "account"
+                    && clientLoginSchema->fields[2].typeToken == "es"
+                    && clientLoginSchema->fields[2].source == "xlsx",
+                "JFVf raw account preserved");
+        }
+        failures += Expect(clientLoginSchema->hasResolvedFormat, "JFVf resolvedFormat present");
+        failures += Expect(
+            clientLoginSchema->resolvedFormat
+                == "{clientHash:es} {account:es} {password:es} {macAddress:es}",
+            "JFVf resolvedFormat");
+        failures += Expect(
+            clientLoginSchema->resolvedSource == "ServerC+ClientIda+src/packet",
+            "JFVf resolvedSource");
+        failures += Expect(clientLoginSchema->hasResolvedFields, "JFVf resolvedFields present");
+        failures += Expect(
+            clientLoginSchema->resolvedFields.size() == 4U,
+            "JFVf resolved field count");
+        for (const FieldSchema& field : clientLoginSchema->resolvedFields) {
+            failures += Expect(
+                field.source == "ServerC+ClientIda+src/packet",
+                "JFVf resolved field source");
+        }
+        failures += ExpectEffectiveFieldsMatch(
+            *clientLoginSchema,
+            cg::packet::send::ClientLogin::Spec,
+            "JFVf effective field order");
     }
 
     const PacketSchema* characterLogoutRequestSchema = FindPacket(packets, "WA");

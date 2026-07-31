@@ -63,13 +63,15 @@ int TestKnownPackets()
     int failures = 0;
 
     const cg::packet::PacketResult<cg::packet::Packet> login =
-        cg::packet::ParsePacket("JFVf hash pass account ", cg::packet::send::ClientLogin::Spec);
+        cg::packet::ParsePacket(
+            "JFVf hash account password 001122334455 ",
+            cg::packet::send::ClientLogin::Spec);
     failures += Expect(static_cast<bool>(login), "parse JFVf");
     if (login.HasValue()) {
         const cg::packet::Packet& packet = login.Value();
         failures += Expect(packet.code == cg::packet::PacketCode("JFVf"), "JFVf code");
         failures += Expect(packet.direction == cg::packet::PacketDirection::ClientToServer, "JFVf direction");
-        failures += Expect(packet.fields.size() == 3U, "JFVf field count");
+        failures += Expect(packet.fields.size() == 4U, "JFVf field count");
         failures += ExpectParsedField(
             packet,
             0U,
@@ -80,22 +82,31 @@ int TestKnownPackets()
         failures += ExpectParsedField(
             packet,
             1U,
-            "password",
-            cg::packet::PacketFieldType::EscapedString,
-            "pass",
-            "JFVf password");
-        failures += ExpectParsedField(
-            packet,
-            2U,
             "account",
             cg::packet::PacketFieldType::EscapedString,
             "account",
             "JFVf account");
+        failures += ExpectParsedField(
+            packet,
+            2U,
+            "password",
+            cg::packet::PacketFieldType::EscapedString,
+            "password",
+            "JFVf password");
+        failures += ExpectParsedField(
+            packet,
+            3U,
+            "macAddress",
+            cg::packet::PacketFieldType::EscapedString,
+            "001122334455",
+            "JFVf macAddress");
     }
 
     const cg::packet::PacketResult<cg::packet::Packet> loginSample =
-        cg::packet::ParsePacket("JFVf aassdd u01 b42e99e808dc ", cg::packet::send::ClientLogin::Spec);
-    failures += Expect(static_cast<bool>(loginSample), "parse JFVf packet log sample");
+        cg::packet::ParsePacket(
+            "JFVf aassdd u01 b42e99e808dc 001122334455 ",
+            cg::packet::send::ClientLogin::Spec);
+    failures += Expect(static_cast<bool>(loginSample), "parse JFVf cg2d-order sample");
     if (loginSample.HasValue()) {
         failures += ExpectParsedField(
             loginSample.Value(),
@@ -107,17 +118,24 @@ int TestKnownPackets()
         failures += ExpectParsedField(
             loginSample.Value(),
             1U,
-            "password",
+            "account",
             cg::packet::PacketFieldType::EscapedString,
             "u01",
-            "JFVf packet log password");
+            "JFVf cg2d-order account");
         failures += ExpectParsedField(
             loginSample.Value(),
             2U,
-            "account",
+            "password",
             cg::packet::PacketFieldType::EscapedString,
             "b42e99e808dc",
-            "JFVf packet log account");
+            "JFVf cg2d-order password");
+        failures += ExpectParsedField(
+            loginSample.Value(),
+            3U,
+            "macAddress",
+            cg::packet::PacketFieldType::EscapedString,
+            "001122334455",
+            "JFVf cg2d-order macAddress");
     }
 
     const cg::packet::PacketResult<cg::packet::Packet> checkCommand =
@@ -384,6 +402,36 @@ int TestErrors()
         "field count extra");
     if (extraField.HasError()) {
         failures += Expect(extraField.Error().fieldIndex == 0U, "extra field index");
+    }
+
+    const cg::packet::PacketResult<cg::packet::Packet> clientLoginMissingMac =
+        cg::packet::ParsePacket(
+            "JFVf hash account password",
+            cg::packet::send::ClientLogin::Spec);
+    failures += ExpectError(
+        clientLoginMissingMac,
+        cg::packet::PacketErrorCode::FieldCountMismatch,
+        "JFVf",
+        "JFVf missing macAddress");
+    if (clientLoginMissingMac.HasError()) {
+        failures += Expect(
+            clientLoginMissingMac.Error().fieldIndex == 3U,
+            "JFVf missing macAddress field index");
+    }
+
+    const cg::packet::PacketResult<cg::packet::Packet> clientLoginExtraField =
+        cg::packet::ParsePacket(
+            "JFVf hash account password 001122334455 extra ",
+            cg::packet::send::ClientLogin::Spec);
+    failures += ExpectError(
+        clientLoginExtraField,
+        cg::packet::PacketErrorCode::FieldCountMismatch,
+        "JFVf",
+        "JFVf extra field");
+    if (clientLoginExtraField.HasError()) {
+        failures += Expect(
+            clientLoginExtraField.Error().fieldIndex == 4U,
+            "JFVf extra field index");
     }
 
     const cg::packet::PacketResult<cg::packet::Packet> intDecode =

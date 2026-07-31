@@ -47,7 +47,7 @@
 ## 现有 `src/packet/` 覆盖
 | 文件 | 命名空间 | 方向语义 | 当前内容 | M6 影响 |
 |---|---|---|---|---|
-| `src/packet/send.hpp` | `cg::packet::send` | 客户端发送给服务端，对应旧 C `RECV_*` | `ClientLogin`，code `JFVf`，字段 `{clientHash:es} {password:es} {account:es}`，`Encode()` 未实现 | M6 应保留客户端视角命名；生产代码参考当前 per-packet struct 风格，字段顺序以注释/xlsx 为准，不以构造函数参数顺序推断 |
+| `src/packet/send.hpp` | `cg::packet::send` | 客户端发送给服务端，对应旧 C `RECV_*` | `ClientLogin`，code `JFVf`，resolved 字段 `{clientHash:es} {account:es} {password:es} {macAddress:es}`，`Encode()` 已实现 | M6R.5.06 已按活动 Server 与 cg2d sender 修正四字段顺序；xlsx 三字段 raw 只保留作冲突审计 |
 | `src/packet/receive.hpp` | `cg::packet::receive` | 客户端接收服务端封包，对应旧 C `SEND_*` | `ClientLoginResult`，code `whV`，字段 `{result:i62} {data:es}`，含登录结果枚举，`Parse()` 已实现；`data` 按普通外层 es 原样保存，注释出现空值、`fail`、`block`、`busy` | M6.15 登录/角色管理封包以该结构为第一批迁移对象 |
 | `src/packet/utils.hpp` | `cg::packet` | 基础 codec | base62 与字符串 encode/decode 为 TODO | M6.2/M6.3 应先落地到独立 codec，再由具体封包复用 |
 | `src/packet/packet.hpp` | `cg::packet` | 聚合头 | 引入 `utils.hpp`、`receive.hpp`、`send.hpp` | M6 继续使用 `src/packet` 作为协议模块目录，M10 再接入 `src/net` 连接层 |
@@ -161,7 +161,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 ## 现有 `src/packet/` 封包清单
 | code | 方向 | 现有类型 | format | 当前状态 |
 |---|---|---|---|---|
-| `JFVf` | 客户端->服务端 | `cg::packet::send::ClientLogin` | `{clientHash:es} {password:es} {account:es}` | 结构已存在，Encode 待实现 |
+| `JFVf` | 客户端->服务端 | `cg::packet::send::ClientLogin` | `{clientHash:es} {account:es} {password:es} {macAddress:es}` | M6R.5.06 已按 Server token1..4 与 cg2d `sub_512800` 修正并补 fixture |
 | `whV` | 服务端->客户端 | `cg::packet::receive::ClientLoginResult` | `{result:i62} {data:es}` | M6.15.01 已实现 Parse；`data` 可能为空或为 `fail/block/busy`，本步不强校验、不拆 payload，强类型拆分 BLOCKED：旧 C/IDA/xlsx 对 data 语义冲突 |
 | `DZ` | 服务端->客户端 | `cg::packet::receive::CreateNewCharResult` | `{result:es} {registnumber:i62} {data:es}` | M6.15.03 已实现；result 为字符串，不做枚举/range 校验；registnumber 允许 `-1`；data 为普通外层 es/opaque，不加入 nested es，不拆 payload，强类型拆分 BLOCKED：客户端 IDA 解码 data 但丢弃，当前证据不足 |
 | `oy` | 服务端->客户端 | `cg::packet::receive::CharacterDeleteResult` | `{result:es} {data:es}` | M6.15.04 已实现；result 为字符串，不做枚举/range 校验；data 为普通外层 es/opaque message/DB result，可为空，不加入 nested es，不拆 payload，强类型拆分 BLOCKED：当前仅确认外层结果与消息，缺少稳定业务 payload 语义证据 |
@@ -208,7 +208,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 ## 209 个封包清单
 | 序号 | code | 方向 | 状态 | 说明 | format 是否为空 | 是否疑似内嵌 payload | 来源 |
 |---:|---|---|---|---|---|---|---|
-| 1 | `JFVf` | 客户端->服务端 | 完成 | 账号密码 | 否 | 否 | xlsx + src/packet |
+| 1 | `JFVf` | 客户端->服务端 | 完成 | 账号登录；xlsx raw 三字段保留；resolved 为 `clientHash→account→password→macAddress` 四个 es；NoStructuredPayload；fixture `cg2d-four-fields` | 否 | 否 | ServerC+ClientIda+src/packet |
 | 2 | `Gp` | 客户端->服务端 | 完成 | RECV_CharList 获取角色列表 | 否 | 否 | xlsx |
 | 3 | `emRV` | 客户端->服务端 | 完成 | RECV_CharLogin 登录；三字段 `{registnumber:i62} {renewal:i62} {face:i62}`；`send::CharacterLoginRequest`；NoStructuredPayload；fixture `distinct-i62-order` | 否 | 否 | xlsx+ServerC+ClientIda+src/packet |
 | 4 | `CCL` | 客户端->服务端 | 完成 | RECV_CheckCommand 发送客户端时间 | 否 | 否 | xlsx |

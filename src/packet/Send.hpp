@@ -16,16 +16,18 @@
 namespace cg::packet::send
 {
     /**
-     * RECV_ClientLogin 账号密码 JFVf {clientHash:es} {password:es} {account:es}
+     * RECV_ClientLogin 账号密码
+     * JFVf {clientHash:es} {account:es} {password:es} {macAddress:es}
      */
     struct ClientLogin
     {
         static constexpr std::string_view Code = "JFVf";
         static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
-        static constexpr std::array<PacketFieldSpec, 3U> Fields = {{
+        static constexpr std::array<PacketFieldSpec, 4U> Fields = {{
             {CG_PACKET_DIAGNOSTIC_TEXT("clientHash"), PacketFieldType::EscapedString},
-            {CG_PACKET_DIAGNOSTIC_TEXT("password"), PacketFieldType::EscapedString},
             {CG_PACKET_DIAGNOSTIC_TEXT("account"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("password"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("macAddress"), PacketFieldType::EscapedString},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -35,13 +37,19 @@ namespace cg::packet::send
         };
 
         std::string clientHash;
-        std::string password;
         std::string account;
+        std::string password;
+        std::string macAddress;
 
-        ClientLogin(const std::string& client_hash, const std::string& account, const std::string& password)
+        ClientLogin(
+            const std::string& client_hash,
+            const std::string& account,
+            const std::string& password,
+            const std::string& mac_address)
             : clientHash(client_hash),
+              account(account),
               password(password),
-              account(account)
+              macAddress(mac_address)
         {
         }
 
@@ -54,14 +62,19 @@ namespace cg::packet::send
                 clientHash,
             });
             packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("account"),
+                PacketFieldType::EscapedString,
+                account,
+            });
+            packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("password"),
                 PacketFieldType::EscapedString,
                 password,
             });
             packet.fields.push_back(PacketField {
-                CG_PACKET_DIAGNOSTIC_TEXT("account"),
+                CG_PACKET_DIAGNOSTIC_TEXT("macAddress"),
                 PacketFieldType::EscapedString,
-                account,
+                macAddress,
             });
             return packet;
         }

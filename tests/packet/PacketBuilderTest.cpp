@@ -138,11 +138,12 @@ int TestKnownPackets()
             cg::packet::PacketDirection::ClientToServer,
             {
                 Field("clientHash", cg::packet::PacketFieldType::EscapedString, "hash"),
-                Field("password", cg::packet::PacketFieldType::EscapedString, "pass"),
                 Field("account", cg::packet::PacketFieldType::EscapedString, "account"),
+                Field("password", cg::packet::PacketFieldType::EscapedString, "pass"),
+                Field("macAddress", cg::packet::PacketFieldType::EscapedString, "001122334455"),
             }),
         cg::packet::send::ClientLogin::Spec,
-        "JFVf hash pass account ",
+        "JFVf hash account pass 001122334455 ",
         "build JFVf");
 
     failures += ExpectBuild(
@@ -183,11 +184,12 @@ int TestEscapedStringAndTailEmpty()
             cg::packet::PacketDirection::ClientToServer,
             {
                 Field("clientHash", cg::packet::PacketFieldType::EscapedString, "a b"),
-                Field("password", cg::packet::PacketFieldType::EscapedString, "line\nret\rslash\\"),
-                Field("account", cg::packet::PacketFieldType::EscapedString, ""),
+                Field("account", cg::packet::PacketFieldType::EscapedString, "line\nret\rslash\\"),
+                Field("password", cg::packet::PacketFieldType::EscapedString, "p a\\s"),
+                Field("macAddress", cg::packet::PacketFieldType::EscapedString, ""),
             }),
         cg::packet::send::ClientLogin::Spec,
-        "JFVf a\\Sb line\\nret\\rslash\\\\  ",
+        "JFVf a\\Sb line\\nret\\rslash\\\\ p\\Sa\\\\s  ",
         "build JFVf escaped and tail empty");
 
     failures += ExpectBuild(
@@ -481,8 +483,9 @@ int TestErrors()
             cg::packet::PacketDirection::ClientToServer,
             {
                 Field("wrong", cg::packet::PacketFieldType::EscapedString, "hash"),
-                Field("password", cg::packet::PacketFieldType::EscapedString, "pass"),
                 Field("account", cg::packet::PacketFieldType::EscapedString, "account"),
+                Field("password", cg::packet::PacketFieldType::EscapedString, "pass"),
+                Field("macAddress", cg::packet::PacketFieldType::EscapedString, "001122334455"),
             }),
             cg::packet::send::ClientLogin::Spec),
         cg::packet::PacketErrorCode::EncodeFailed,
@@ -496,8 +499,9 @@ int TestErrors()
             cg::packet::PacketDirection::ClientToServer,
             {
                 Field("clientHash", cg::packet::PacketFieldType::Unknown, "hash"),
-                Field("password", cg::packet::PacketFieldType::EscapedString, "pass"),
                 Field("account", cg::packet::PacketFieldType::EscapedString, "account"),
+                Field("password", cg::packet::PacketFieldType::EscapedString, "pass"),
+                Field("macAddress", cg::packet::PacketFieldType::EscapedString, "001122334455"),
             }),
             cg::packet::send::ClientLogin::Spec),
         cg::packet::PacketErrorCode::InvalidFieldType,
@@ -555,8 +559,9 @@ int TestErrors()
             cg::packet::PacketDirection::ClientToServer,
             {
                 Field("clientHash", cg::packet::PacketFieldType::EscapedString, Bytes({0x81U})),
-                Field("password", cg::packet::PacketFieldType::EscapedString, "pass"),
                 Field("account", cg::packet::PacketFieldType::EscapedString, "account"),
+                Field("password", cg::packet::PacketFieldType::EscapedString, "pass"),
+                Field("macAddress", cg::packet::PacketFieldType::EscapedString, "001122334455"),
             }),
             cg::packet::send::ClientLogin::Spec),
         cg::packet::PacketErrorCode::EncodeFailed,

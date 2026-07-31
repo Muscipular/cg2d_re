@@ -56,13 +56,13 @@ int ExpectError(
 int TestPacketExpression()
 {
     int failures = 0;
-    cg::packet::send::ClientLogin login("hash", "account", "password");
+    cg::packet::send::ClientLogin login("hash", "account", "password", "001122334455");
     const cg::packet::Packet packet = login.ToPacket();
 
     failures += Expect(packet.code == cg::packet::PacketCode("JFVf"), "ClientLogin code");
     failures += Expect(packet.direction == cg::packet::PacketDirection::ClientToServer, "ClientLogin direction");
-    failures += Expect(packet.fields.size() == 3, "ClientLogin field count");
-    if (packet.fields.size() != 3) {
+    failures += Expect(packet.fields.size() == 4, "ClientLogin field count");
+    if (packet.fields.size() != 4) {
         return failures;
     }
 
@@ -70,8 +70,12 @@ int TestPacketExpression()
     failures += Expect(
         packet.fields[0].type == cg::packet::PacketFieldType::EscapedString,
         "ClientLogin clientHash type");
-    failures += Expect(packet.fields[1].name == "password", "ClientLogin password name");
-    failures += Expect(packet.fields[2].name == "account", "ClientLogin account name");
+    failures += Expect(packet.fields[1].name == "account", "ClientLogin account name");
+    failures += Expect(packet.fields[1].value == "account", "ClientLogin account value");
+    failures += Expect(packet.fields[2].name == "password", "ClientLogin password name");
+    failures += Expect(packet.fields[2].value == "password", "ClientLogin password value");
+    failures += Expect(packet.fields[3].name == "macAddress", "ClientLogin macAddress name");
+    failures += Expect(packet.fields[3].value == "001122334455", "ClientLogin macAddress value");
     return failures;
 }
 
@@ -276,11 +280,13 @@ int TestClientLoginEncode()
             "ClientLoginResult empty parse error code");
     }
 
-    const cg::packet::send::ClientLogin login("hash", "account", "password");
+    const cg::packet::send::ClientLogin login("hash", "account", "password", "001122334455");
     const cg::packet::PacketResult<std::string> encoded = login.Encode();
     failures += Expect(static_cast<bool>(encoded), "ClientLogin encode success");
     if (encoded.HasValue()) {
-        failures += Expect(encoded.Value() == "JFVf hash password account ", "ClientLogin encode value");
+        failures += Expect(
+            encoded.Value() == "JFVf hash account password 001122334455 ",
+            "ClientLogin encode value");
     }
     return failures;
 }

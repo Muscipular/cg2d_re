@@ -1246,11 +1246,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 96U, "send typed manifest count 96");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 97U, "send typed manifest count 97");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 94U, "receive typed manifest count 94");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 190U,
-        "typed manifest count 190");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 191U,
+        "typed manifest count 191");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1267,7 +1267,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 190U, "typed manifest unique code count 190");
+    failures += Expect(codes.size() == 191U, "typed manifest unique code count 191");
     return failures;
 }
 
@@ -9646,6 +9646,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         characterLookRequestSchema != nullptr,
         "nB schema exists");
     if (characterLookRequestSchema != nullptr) {
+        const cg::packet::send::CharacterLookRequest request(0);
+        const cg::packet::Packet packet = request.ToPacket();
         failures += Expect(
             characterLookRequestSchema->direction == "客户端->服务端",
             "nB direction");
@@ -9677,7 +9679,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             characterLookRequestSchema->resolvedFormat == "{dir:i62}",
             "nB resolvedFormat");
         failures += Expect(
-            characterLookRequestSchema->resolvedSource == "ServerC",
+            characterLookRequestSchema->resolvedSource == "ServerC+src/packet",
             "nB resolvedSource");
         failures += Expect(
             characterLookRequestSchema->hasResolvedFields,
@@ -9693,15 +9695,24 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                     field.name == "dir" &&
                     field.typeToken == "i62" &&
                     field.rawSpec == "{dir:i62}" &&
-                    field.source == "ServerC",
+                    field.source == "ServerC+src/packet",
                 "nB resolved field");
         }
+        failures += ExpectEffectiveFieldsMatch(
+            *characterLookRequestSchema,
+            cg::packet::send::CharacterLookRequest::Spec,
+            "nB Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *characterLookRequestSchema,
+            packet,
+            "nB resolved field order");
+        failures += Expect(request.direction == 0, "nB typed member");
     }
     failures += Expect(
-        !TypedManifestContainsCode(
+        TypedManifestContainsCode(
             cg::packet::test::SendTypedPackets,
             "nB"),
-        "nB absent from send typed manifest");
+        "nB present in send typed manifest");
     failures += Expect(
         !TypedManifestContainsCode(
             cg::packet::test::ReceiveTypedPackets,

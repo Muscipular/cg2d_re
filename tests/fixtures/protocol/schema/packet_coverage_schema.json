@@ -6281,7 +6281,7 @@
       "formatEmpty": true,
       "source": "xlsx",
       "resolvedFormat": "{dir:i62}",
-      "resolvedSource": "ServerC",
+      "resolvedSource": "ServerC+src/packet",
       "fields": [],
       "resolvedFields": [
         {
@@ -6289,7 +6289,7 @@
           "name": "dir",
           "typeToken": "i62",
           "rawSpec": "{dir:i62}",
-          "source": "ServerC"
+          "source": "ServerC+src/packet"
         }
       ]
     },

@@ -2475,6 +2475,21 @@ target_include_directories(cg-packet-mail-message-send-test
 
 add_test(NAME cg-packet-mail-message-send-test COMMAND cg-packet-mail-message-send-test)
 
+add_executable(cg-packet-character-look-request-test
+    tests/packet/CharacterLookRequestPacketTest.cpp
+)
+
+target_include_directories(cg-packet-character-look-request-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+
+add_test(
+    NAME cg-packet-character-look-request-test
+    COMMAND cg-packet-character-look-request-test
+        "${CMAKE_CURRENT_SOURCE_DIR}/tests/fixtures/protocol/plain/client_to_server/nB.pkt"
+)
+
 add_executable(cg-packet-chat-message-send-test
     tests/packet/ChatMessageSendPacketTest.cpp
 )
@@ -3069,6 +3084,7 @@ if(MSVC)
     target_compile_options(cg-packet-album-name-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-pet-mail-animation-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-mail-message-send-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-character-look-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-chat-message-send-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-window-open-send-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-shutdown-request-test PRIVATE /W4 /utf-8 /permissive-)
@@ -3287,6 +3303,7 @@ else()
     target_compile_options(cg-packet-album-name-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-pet-mail-animation-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-mail-message-send-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-packet-character-look-request-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-chat-message-send-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-window-open-send-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-shutdown-request-test PRIVATE -Wall -Wextra -Wpedantic)

@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=nB
+direction=client_to_server
+sample=direction-zero
+plain_hex=6E 42 20 30
+canonical_hex=6E 42 20 30 20
+end_sample

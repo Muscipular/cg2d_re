@@ -45,7 +45,7 @@ consteval TypedPacketManifestEntry MakeReceiveManifestEntry()
     return {&SpecValue};
 }
 
-inline constexpr std::array<TypedPacketManifestEntry, 96U> SendTypedPackets = {{
+inline constexpr std::array<TypedPacketManifestEntry, 97U> SendTypedPackets = {{
     MakeSendManifestEntry<send::ClientLogin, send::ClientLogin::Spec>(),
     MakeSendManifestEntry<send::CharacterListRequest, send::CharacterListRequest::Spec>(),
     MakeSendManifestEntry<send::CharacterLoginRequest, send::CharacterLoginRequest::Spec>(),
@@ -123,6 +123,7 @@ inline constexpr std::array<TypedPacketManifestEntry, 96U> SendTypedPackets = {{
     MakeSendManifestEntry<send::PetSkillSwap, send::PetSkillSwap::Spec>(),
     MakeSendManifestEntry<send::UserPetNameInput, send::UserPetNameInput::Spec>(),
     MakeSendManifestEntry<send::MailMessageSend, send::MailMessageSend::Spec>(),
+    MakeSendManifestEntry<send::CharacterLookRequest, send::CharacterLookRequest::Spec>(),
     MakeSendManifestEntry<send::ChatMessageSend, send::ChatMessageSend::Spec>(),
     MakeSendManifestEntry<send::WindowOpenSend, send::WindowOpenSend::Spec>(),
     MakeSendManifestEntry<send::ShutdownRequest, send::ShutdownRequest::Spec>(),

@@ -3071,6 +3071,48 @@ namespace cg::packet::send
     };
 
     /**
+     * RECV_L 角色朝向请求 nB {dir:i62}
+     * direction 保留任意 signed int；方向范围与 CHAR_Look 行为属于业务层。
+     */
+    struct CharacterLookRequest
+    {
+        static constexpr std::string_view Code = "nB";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("dir"), PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        int direction = 0;
+
+        explicit CharacterLookRequest(int direction)
+            : direction(direction)
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("dir"),
+                PacketFieldType::Int62,
+                std::to_string(direction),
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket(), Spec);
+        }
+    };
+
+    /**
      * RECV_TK 发送聊天 uSr {x:i62} {y:i62} {msg:es} {color:i62} {area:i62} {fontSize:i62}
      */
     struct ChatMessageSend

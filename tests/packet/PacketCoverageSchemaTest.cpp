@@ -2773,6 +2773,53 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         }
     }
 
+    const PacketSchema* partyParamSchema = FindPacket(packets, "TNT");
+    failures += Expect(partyParamSchema != nullptr, "TNT schema exists");
+    if (partyParamSchema != nullptr) {
+        std::vector<cg::packet::receive::PartyParamEntry> entries;
+        entries.push_back(cg::packet::receive::PartyParamEntry {10, 100, 120, 30, 40});
+        const cg::packet::receive::PartyParam partyParam(std::move(entries));
+        const cg::packet::Packet packet = partyParam.ToPacket();
+        failures += Expect(partyParamSchema->direction == "服务端->客户端", "TNT direction");
+        failures += Expect(partyParamSchema->legacyKind == "SEND", "TNT legacyKind");
+        failures += Expect(partyParamSchema->clientNamespace == "receive", "TNT namespace");
+        failures += Expect(partyParamSchema->rawFormat.empty(), "TNT rawFormat empty");
+        failures += Expect(partyParamSchema->formatEmpty, "TNT formatEmpty true");
+        failures += Expect(partyParamSchema->source == "xlsx", "TNT raw source");
+        failures += Expect(partyParamSchema->fields.empty(), "TNT raw fields empty");
+        failures += Expect(partyParamSchema->hasResolvedFormat, "TNT resolvedFormat present");
+        failures += Expect(partyParamSchema->resolvedFormat == "{data:es}", "TNT resolvedFormat");
+        failures += Expect(
+            partyParamSchema->resolvedSource == "ServerC+ClientIda+src/packet",
+            "TNT resolvedSource");
+        failures += Expect(partyParamSchema->hasResolvedFields, "TNT resolvedFields present");
+        failures += Expect(partyParamSchema->resolvedFields.size() == 1U, "TNT resolved field count");
+        if (partyParamSchema->resolvedFields.size() == 1U) {
+            const FieldSchema& field = partyParamSchema->resolvedFields[0];
+            failures += Expect(field.index == 0, "TNT resolved field index");
+            failures += Expect(field.name == "data", "TNT resolved field name");
+            failures += Expect(field.typeToken == "es", "TNT resolved field type");
+            failures += Expect(field.rawSpec == "{data:es}", "TNT resolved field spec");
+            failures += Expect(
+                field.source == "ServerC+ClientIda+src/packet",
+                "TNT resolved field source");
+        }
+        failures += ExpectEffectiveFieldsMatch(
+            *partyParamSchema,
+            cg::packet::receive::PartyParam::Spec,
+            "TNT Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *partyParamSchema,
+            packet,
+            "TNT resolved field order");
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "TNT"),
+        "TNT absent from send typed manifest");
+    failures += Expect(
+        TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "TNT"),
+        "TNT present in receive typed manifest");
+
     const PacketSchema* profileMailDeleteSchema = FindPacket(packets, "cNB");
     failures += Expect(profileMailDeleteSchema != nullptr, "cNB schema exists");
     if (profileMailDeleteSchema != nullptr) {

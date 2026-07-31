@@ -7864,6 +7864,127 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "rh"),
         "rh absent from receive typed manifest");
 
+    const PacketSchema* petItemMoveRequestSchema =
+        FindPacket(packets, "Cpa");
+    failures += Expect(
+        petItemMoveRequestSchema != nullptr,
+        "Cpa schema exists");
+    if (petItemMoveRequestSchema != nullptr) {
+        failures += Expect(
+            petItemMoveRequestSchema->direction == "客户端->服务端",
+            "Cpa direction");
+        failures += Expect(
+            petItemMoveRequestSchema->legacyKind == "RECV",
+            "Cpa legacyKind");
+        failures += Expect(
+            petItemMoveRequestSchema->clientNamespace == "send",
+            "Cpa namespace");
+        failures += Expect(
+            petItemMoveRequestSchema->xlsxStatus == "完成",
+            "Cpa xlsxStatus");
+        failures += Expect(
+            petItemMoveRequestSchema->rawFormat ==
+                "{fromChar} {fromItem} {toChar} {toItem} {pile}",
+            "Cpa rawFormat");
+        failures += Expect(
+            !petItemMoveRequestSchema->formatEmpty,
+            "Cpa formatEmpty false");
+        failures += Expect(
+            petItemMoveRequestSchema->source == "xlsx",
+            "Cpa raw source");
+
+        constexpr std::array<std::string_view, 5U> RawNames = {{
+            "fromChar",
+            "fromItem",
+            "toChar",
+            "toItem",
+            "pile",
+        }};
+        constexpr std::array<std::string_view, 5U> RawSpecs = {{
+            "{fromChar}",
+            "{fromItem}",
+            "{toChar}",
+            "{toItem}",
+            "{pile}",
+        }};
+        failures += Expect(
+            petItemMoveRequestSchema->fields.size() == RawNames.size(),
+            "Cpa raw field count");
+        if (petItemMoveRequestSchema->fields.size() == RawNames.size()) {
+            for (std::size_t index = 0U; index < RawNames.size(); ++index) {
+                const FieldSchema& field =
+                    petItemMoveRequestSchema->fields[index];
+                failures += Expect(
+                    field.index == static_cast<int>(index) &&
+                        field.name == RawNames[index] &&
+                        field.typeToken == "unknown" &&
+                        field.rawSpec == RawSpecs[index] &&
+                        field.source == "xlsx",
+                    "Cpa raw field order");
+            }
+        }
+
+        failures += Expect(
+            petItemMoveRequestSchema->hasResolvedFormat,
+            "Cpa resolvedFormat present");
+        failures += Expect(
+            petItemMoveRequestSchema->resolvedFormat ==
+                "{petSlotFrom:i62} {itemSlotFrom:i62} {petSlotTo:i62} {itemSlotTo:i62} {pile:i62}",
+            "Cpa resolvedFormat");
+        failures += Expect(
+            petItemMoveRequestSchema->resolvedSource ==
+                "xlsx+ServerC+ClientIda",
+            "Cpa resolvedSource");
+        failures += Expect(
+            petItemMoveRequestSchema->hasResolvedFields,
+            "Cpa resolvedFields present");
+
+        constexpr std::array<std::string_view, 5U> ResolvedNames = {{
+            "petSlotFrom",
+            "itemSlotFrom",
+            "petSlotTo",
+            "itemSlotTo",
+            "pile",
+        }};
+        constexpr std::array<std::string_view, 5U> ResolvedSpecs = {{
+            "{petSlotFrom:i62}",
+            "{itemSlotFrom:i62}",
+            "{petSlotTo:i62}",
+            "{itemSlotTo:i62}",
+            "{pile:i62}",
+        }};
+        failures += Expect(
+            petItemMoveRequestSchema->resolvedFields.size() ==
+                ResolvedNames.size(),
+            "Cpa resolved field count");
+        if (petItemMoveRequestSchema->resolvedFields.size() ==
+            ResolvedNames.size()) {
+            for (std::size_t index = 0U;
+                 index < ResolvedNames.size();
+                 ++index) {
+                const FieldSchema& field =
+                    petItemMoveRequestSchema->resolvedFields[index];
+                failures += Expect(
+                    field.index == static_cast<int>(index) &&
+                        field.name == ResolvedNames[index] &&
+                        field.typeToken == "i62" &&
+                        field.rawSpec == ResolvedSpecs[index] &&
+                        field.source == "xlsx+ServerC+ClientIda",
+                    "Cpa resolved field order");
+            }
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "Cpa"),
+        "Cpa absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "Cpa"),
+        "Cpa absent from receive typed manifest");
+
     const PacketSchema* versionUpgradeRequestSchema =
         FindPacket(packets, "Xoee");
     failures += Expect(

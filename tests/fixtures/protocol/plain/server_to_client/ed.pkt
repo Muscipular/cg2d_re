@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=ed
+direction=server_to_client
+sample=success
+plain_hex=65 64 20 30
+canonical_hex=65 64 20 30 20
+end_sample

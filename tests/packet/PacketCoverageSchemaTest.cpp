@@ -1214,10 +1214,10 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
     failures += Expect(cg::packet::test::SendTypedPackets.size() == 85U, "send typed manifest count 85");
-    failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 84U, "receive typed manifest count 84");
+    failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 85U, "receive typed manifest count 85");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 169U,
-        "typed manifest count 169");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 170U,
+        "typed manifest count 170");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1234,7 +1234,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 169U, "typed manifest unique code count 169");
+    failures += Expect(codes.size() == 170U, "typed manifest unique code count 170");
     return failures;
 }
 
@@ -6840,7 +6840,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "ed resolvedFormat");
         failures += Expect(
             versionUpgradeResultSchema->resolvedSource ==
-                "ServerC+ClientIda",
+                "ServerC+ClientIda+src/packet",
             "ed resolvedSource");
         failures += Expect(
             versionUpgradeResultSchema->hasResolvedFields,
@@ -6856,9 +6856,20 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                     result.name == "result" &&
                     result.typeToken == "i62" &&
                     result.rawSpec == "{result:i62}" &&
-                    result.source == "ServerC+ClientIda",
+                    result.source == "ServerC+ClientIda+src/packet",
                 "ed resolved result field");
         }
+
+        const cg::packet::receive::VersionUpgradeResult result(0);
+        const cg::packet::Packet packet = result.ToPacket();
+        failures += ExpectEffectiveFieldsMatch(
+            *versionUpgradeResultSchema,
+            cg::packet::receive::VersionUpgradeResult::Spec,
+            "ed Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *versionUpgradeResultSchema,
+            packet,
+            "ed resolved field order");
     }
     failures += Expect(
         !TypedManifestContainsCode(
@@ -6866,10 +6877,10 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "ed"),
         "ed absent from send typed manifest");
     failures += Expect(
-        !TypedManifestContainsCode(
+        TypedManifestContainsCode(
             cg::packet::test::ReceiveTypedPackets,
             "ed"),
-        "ed absent from receive typed manifest");
+        "ed present in receive typed manifest");
 
     const PacketSchema* versionUpgradeRequestSchema =
         FindPacket(packets, "Xoee");

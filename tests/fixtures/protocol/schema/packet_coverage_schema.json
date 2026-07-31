@@ -5056,7 +5056,7 @@
       "formatEmpty": false,
       "source": "xlsx",
       "resolvedFormat": "{x:i62} {y:i62} {who:i62} {itemindex:i62}",
-      "resolvedSource": "xlsx+ServerC+ClientIda",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
       "fields": [
         {
           "index": 0,
@@ -5093,28 +5093,28 @@
           "name": "x",
           "typeToken": "i62",
           "rawSpec": "{x:i62}",
-          "source": "xlsx+ServerC+ClientIda"
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         },
         {
           "index": 1,
           "name": "y",
           "typeToken": "i62",
           "rawSpec": "{y:i62}",
-          "source": "xlsx+ServerC+ClientIda"
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         },
         {
           "index": 2,
           "name": "who",
           "typeToken": "i62",
           "rawSpec": "{who:i62}",
-          "source": "xlsx+ServerC+ClientIda"
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         },
         {
           "index": 3,
           "name": "itemindex",
           "typeToken": "i62",
           "rawSpec": "{itemindex:i62}",
-          "source": "xlsx+ServerC+ClientIda"
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         }
       ]
     },

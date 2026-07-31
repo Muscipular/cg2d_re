@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=QpfE
+direction=client_to_server
+sample=position-ten-twenty-player-item-slot-62
+plain_hex=51 70 66 45 20 61 20 6B 20 30 20 31 30
+canonical_hex=51 70 66 45 20 61 20 6B 20 30 20 31 30 20
+end_sample

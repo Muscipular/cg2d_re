@@ -1246,11 +1246,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 85U, "send typed manifest count 85");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 86U, "send typed manifest count 86");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 89U, "receive typed manifest count 89");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 174U,
-        "typed manifest count 174");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 175U,
+        "typed manifest count 175");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1267,7 +1267,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 174U, "typed manifest unique code count 174");
+    failures += Expect(codes.size() == 175U, "typed manifest unique code count 175");
     return failures;
 }
 
@@ -8146,6 +8146,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     const PacketSchema* dropItemSchema = FindPacket(packets, "QpfE");
     failures += Expect(dropItemSchema != nullptr, "QpfE schema exists");
     if (dropItemSchema != nullptr) {
+        const cg::packet::send::DropItem dropItem(10, 20, 0, 62);
+        const cg::packet::Packet packet = dropItem.ToPacket();
         failures += Expect(
             dropItemSchema->direction == "客户端->服务端",
             "QpfE direction");
@@ -8204,7 +8206,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "QpfE resolvedFormat");
         failures += Expect(
             dropItemSchema->resolvedSource ==
-                "xlsx+ServerC+ClientIda",
+                "xlsx+ServerC+ClientIda+src/packet",
             "QpfE resolvedSource");
         failures += Expect(
             dropItemSchema->hasResolvedFields,
@@ -8233,16 +8235,25 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                         field.name == names[index] &&
                         field.typeToken == "i62" &&
                         field.rawSpec == specs[index] &&
-                        field.source == "xlsx+ServerC+ClientIda",
+                        field.source == "xlsx+ServerC+ClientIda+src/packet",
                     "QpfE resolved field order");
             }
         }
+
+        failures += ExpectEffectiveFieldsMatch(
+            *dropItemSchema,
+            cg::packet::send::DropItem::Spec,
+            "QpfE Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *dropItemSchema,
+            packet,
+            "QpfE resolved field order");
     }
     failures += Expect(
-        !TypedManifestContainsCode(
+        TypedManifestContainsCode(
             cg::packet::test::SendTypedPackets,
             "QpfE"),
-        "QpfE absent from send typed manifest");
+        "QpfE present in send typed manifest");
     failures += Expect(
         !TypedManifestContainsCode(
             cg::packet::test::ReceiveTypedPackets,

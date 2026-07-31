@@ -675,6 +675,72 @@ namespace cg::packet::send
     };
 
     /**
+     * RECV_DI 丢物品 QpfE {x:i62} {y:i62} {who:i62} {itemindex:i62}
+     * 四字段保留完整 signed int；物品页与人物/宠物槽位规则不下沉封包协议层。
+     */
+    struct DropItem
+    {
+        static constexpr std::string_view Code = "QpfE";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 4U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("x"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("y"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("who"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("itemindex"), PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        int x = 0;
+        int y = 0;
+        int who = 0;
+        int itemIndex = 0;
+
+        DropItem(int x, int y, int who, int itemIndex)
+            : x(x),
+              y(y),
+              who(who),
+              itemIndex(itemIndex)
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("x"),
+                PacketFieldType::Int62,
+                std::to_string(x),
+            });
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("y"),
+                PacketFieldType::Int62,
+                std::to_string(y),
+            });
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("who"),
+                PacketFieldType::Int62,
+                std::to_string(who),
+            });
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("itemindex"),
+                PacketFieldType::Int62,
+                std::to_string(itemIndex),
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket(), Spec);
+        }
+    };
+
+    /**
      * RECV_EV NPC 事件 pg {event:i62} {seqno:i62} {x:i62} {y:i62} {dir:i62}
      */
     struct NpcEventRequest

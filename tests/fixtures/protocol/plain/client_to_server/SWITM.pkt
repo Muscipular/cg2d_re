@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=SWITM
+direction=client_to_server
+sample=page-one
+plain_hex=53 57 49 54 4D 20 31
+canonical_hex=53 57 49 54 4D 20 31 20
+end_sample

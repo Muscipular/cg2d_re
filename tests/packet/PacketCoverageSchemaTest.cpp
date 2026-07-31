@@ -1246,11 +1246,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 92U, "send typed manifest count 92");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 93U, "send typed manifest count 93");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 89U, "receive typed manifest count 89");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 181U,
-        "typed manifest count 181");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 182U,
+        "typed manifest count 182");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1267,7 +1267,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 181U, "typed manifest unique code count 181");
+    failures += Expect(codes.size() == 182U, "typed manifest unique code count 182");
     return failures;
 }
 
@@ -8009,6 +8009,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         bagPageRequestSchema != nullptr,
         "SWITM schema exists");
     if (bagPageRequestSchema != nullptr) {
+        const cg::packet::send::BagPageRequest request(1);
         failures += Expect(
             bagPageRequestSchema->direction == "客户端->服务端",
             "SWITM direction");
@@ -8051,7 +8052,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             bagPageRequestSchema->resolvedFormat == "{page:i62}",
             "SWITM resolvedFormat");
         failures += Expect(
-            bagPageRequestSchema->resolvedSource == "xlsx+ServerC",
+            bagPageRequestSchema->resolvedSource ==
+                "xlsx+ServerC+src/packet",
             "SWITM resolvedSource");
         failures += Expect(
             bagPageRequestSchema->hasResolvedFields,
@@ -8067,15 +8069,20 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                     page.name == "page" &&
                     page.typeToken == "i62" &&
                     page.rawSpec == "{page:i62}" &&
-                    page.source == "xlsx+ServerC",
+                    page.source == "xlsx+ServerC+src/packet",
                 "SWITM resolved page field");
         }
+        failures += ExpectEffectiveFieldsMatch(
+            *bagPageRequestSchema,
+            cg::packet::send::BagPageRequest::Spec,
+            "SWITM Spec matches effective fields");
+        failures += Expect(request.page == 1, "SWITM typed member");
     }
     failures += Expect(
-        !TypedManifestContainsCode(
+        TypedManifestContainsCode(
             cg::packet::test::SendTypedPackets,
             "SWITM"),
-        "SWITM absent from send typed manifest");
+        "SWITM present in send typed manifest");
     failures += Expect(
         !TypedManifestContainsCode(
             cg::packet::test::ReceiveTypedPackets,

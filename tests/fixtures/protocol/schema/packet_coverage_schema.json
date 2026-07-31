@@ -8154,14 +8154,14 @@
       "description": "RECV_BagPage 背包翻页",
       "rawFormat": "{page}",
       "resolvedFormat": "{page:i62}",
-      "resolvedSource": "xlsx+ServerC",
+      "resolvedSource": "xlsx+ServerC+src/packet",
       "resolvedFields": [
         {
           "index": 0,
           "name": "page",
           "typeToken": "i62",
           "rawSpec": "{page:i62}",
-          "source": "xlsx+ServerC"
+          "source": "xlsx+ServerC+src/packet"
         }
       ],
       "formatEmpty": false,

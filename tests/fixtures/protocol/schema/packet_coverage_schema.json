@@ -7942,6 +7942,17 @@
       "xlsxStatus": "完成",
       "description": "RECV_StallBrowse 摆摊浏览请求",
       "rawFormat": "{objIndex}",
+      "resolvedFormat": "{objIndex:i62}",
+      "resolvedSource": "xlsx+ServerC+ClientIda",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "objIndex",
+          "typeToken": "i62",
+          "rawSpec": "{objIndex:i62}",
+          "source": "xlsx+ServerC+ClientIda"
+        }
+      ],
       "formatEmpty": false,
       "source": "xlsx",
       "fields": [

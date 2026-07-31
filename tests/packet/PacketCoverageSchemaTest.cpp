@@ -7511,6 +7511,88 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "PGXE"),
         "PGXE absent from receive typed manifest");
 
+    const PacketSchema* stallBrowseRequestSchema =
+        FindPacket(packets, "ElVN");
+    failures += Expect(
+        stallBrowseRequestSchema != nullptr,
+        "ElVN schema exists");
+    if (stallBrowseRequestSchema != nullptr) {
+        failures += Expect(
+            stallBrowseRequestSchema->direction == "客户端->服务端",
+            "ElVN direction");
+        failures += Expect(
+            stallBrowseRequestSchema->legacyKind == "RECV",
+            "ElVN legacyKind");
+        failures += Expect(
+            stallBrowseRequestSchema->clientNamespace == "send",
+            "ElVN namespace");
+        failures += Expect(
+            stallBrowseRequestSchema->xlsxStatus == "完成",
+            "ElVN xlsxStatus");
+        failures += Expect(
+            stallBrowseRequestSchema->rawFormat == "{objIndex}",
+            "ElVN rawFormat");
+        failures += Expect(
+            !stallBrowseRequestSchema->formatEmpty,
+            "ElVN formatEmpty false");
+        failures += Expect(
+            stallBrowseRequestSchema->source == "xlsx",
+            "ElVN raw source");
+        failures += Expect(
+            stallBrowseRequestSchema->fields.size() == 1U,
+            "ElVN raw field count");
+        if (stallBrowseRequestSchema->fields.size() == 1U) {
+            const FieldSchema& objIndex =
+                stallBrowseRequestSchema->fields[0];
+            failures += Expect(
+                objIndex.index == 0 &&
+                    objIndex.name == "objIndex" &&
+                    objIndex.typeToken == "unknown" &&
+                    objIndex.rawSpec == "{objIndex}" &&
+                    objIndex.source == "xlsx",
+                "ElVN raw objIndex field");
+        }
+
+        failures += Expect(
+            stallBrowseRequestSchema->hasResolvedFormat,
+            "ElVN resolvedFormat present");
+        failures += Expect(
+            stallBrowseRequestSchema->resolvedFormat ==
+                "{objIndex:i62}",
+            "ElVN resolvedFormat");
+        failures += Expect(
+            stallBrowseRequestSchema->resolvedSource ==
+                "xlsx+ServerC+ClientIda",
+            "ElVN resolvedSource");
+        failures += Expect(
+            stallBrowseRequestSchema->hasResolvedFields,
+            "ElVN resolvedFields present");
+        failures += Expect(
+            stallBrowseRequestSchema->resolvedFields.size() == 1U,
+            "ElVN resolved field count");
+        if (stallBrowseRequestSchema->resolvedFields.size() == 1U) {
+            const FieldSchema& objIndex =
+                stallBrowseRequestSchema->resolvedFields[0];
+            failures += Expect(
+                objIndex.index == 0 &&
+                    objIndex.name == "objIndex" &&
+                    objIndex.typeToken == "i62" &&
+                    objIndex.rawSpec == "{objIndex:i62}" &&
+                    objIndex.source == "xlsx+ServerC+ClientIda",
+                "ElVN resolved objIndex field order");
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "ElVN"),
+        "ElVN absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "ElVN"),
+        "ElVN absent from receive typed manifest");
+
     const PacketSchema* versionUpgradeRequestSchema =
         FindPacket(packets, "Xoee");
     failures += Expect(

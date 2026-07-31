@@ -4406,6 +4406,48 @@ namespace cg::packet::send
     };
 
     /**
+     * RECV_HL 助战模式请求 FVm {flg:i62}
+     * helpFlag 保留任意 signed int；助战标志、聊天与效果均属于业务层或独立封包。
+     */
+    struct BattleHelpModeRequest
+    {
+        static constexpr std::string_view Code = "FVm";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("flg"), PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        int helpFlag = 0;
+
+        explicit BattleHelpModeRequest(int helpFlag)
+            : helpFlag(helpFlag)
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("flg"),
+                PacketFieldType::Int62,
+                std::to_string(helpFlag),
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket(), Spec);
+        }
+    };
+
+    /**
      * RECV_PR 进出队伍 zn {x:i62} {y:i62} {join:i62}
      * request 0/1 的离队/入队语义及位置、资格、队伍检查均为业务规则；
      * 基础 packet 层保留完整 signed int 并严格按 exact3 编码，

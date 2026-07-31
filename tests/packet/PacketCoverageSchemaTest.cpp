@@ -1246,11 +1246,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 97U, "send typed manifest count 97");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 98U, "send typed manifest count 98");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 94U, "receive typed manifest count 94");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 191U,
-        "typed manifest count 191");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 192U,
+        "typed manifest count 192");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1267,7 +1267,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 191U, "typed manifest unique code count 191");
+    failures += Expect(codes.size() == 192U, "typed manifest unique code count 192");
     return failures;
 }
 
@@ -9725,6 +9725,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         battleHelpModeRequestSchema != nullptr,
         "FVm schema exists");
     if (battleHelpModeRequestSchema != nullptr) {
+        const cg::packet::send::BattleHelpModeRequest request(1);
+        const cg::packet::Packet packet = request.ToPacket();
         failures += Expect(
             battleHelpModeRequestSchema->direction == "客户端->服务端",
             "FVm direction");
@@ -9756,7 +9758,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             battleHelpModeRequestSchema->resolvedFormat == "{flg:i62}",
             "FVm resolvedFormat");
         failures += Expect(
-            battleHelpModeRequestSchema->resolvedSource == "ServerC",
+            battleHelpModeRequestSchema->resolvedSource == "ServerC+src/packet",
             "FVm resolvedSource");
         failures += Expect(
             battleHelpModeRequestSchema->hasResolvedFields,
@@ -9772,15 +9774,24 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                     field.name == "flg" &&
                     field.typeToken == "i62" &&
                     field.rawSpec == "{flg:i62}" &&
-                    field.source == "ServerC",
+                    field.source == "ServerC+src/packet",
                 "FVm resolved field");
         }
+        failures += ExpectEffectiveFieldsMatch(
+            *battleHelpModeRequestSchema,
+            cg::packet::send::BattleHelpModeRequest::Spec,
+            "FVm Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *battleHelpModeRequestSchema,
+            packet,
+            "FVm resolved field order");
+        failures += Expect(request.helpFlag == 1, "FVm typed member");
     }
     failures += Expect(
-        !TypedManifestContainsCode(
+        TypedManifestContainsCode(
             cg::packet::test::SendTypedPackets,
             "FVm"),
-        "FVm absent from send typed manifest");
+        "FVm present in send typed manifest");
     failures += Expect(
         !TypedManifestContainsCode(
             cg::packet::test::ReceiveTypedPackets,

@@ -6392,7 +6392,7 @@
       "formatEmpty": true,
       "source": "xlsx",
       "resolvedFormat": "{flg:i62}",
-      "resolvedSource": "ServerC",
+      "resolvedSource": "ServerC+src/packet",
       "fields": [],
       "resolvedFields": [
         {
@@ -6400,7 +6400,7 @@
           "name": "flg",
           "typeToken": "i62",
           "rawSpec": "{flg:i62}",
-          "source": "ServerC"
+          "source": "ServerC+src/packet"
         }
       ]
     },

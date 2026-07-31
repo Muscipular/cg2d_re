@@ -1961,6 +1961,21 @@ add_test(
     COMMAND cg-packet-player-status-flags-update-request-test
 )
 
+add_executable(cg-packet-battle-help-mode-request-test
+    tests/packet/BattleHelpModeRequestPacketTest.cpp
+)
+
+target_include_directories(cg-packet-battle-help-mode-request-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+
+add_test(
+    NAME cg-packet-battle-help-mode-request-test
+    COMMAND cg-packet-battle-help-mode-request-test
+        "${CMAKE_CURRENT_SOURCE_DIR}/tests/fixtures/protocol/plain/client_to_server/FVm.pkt"
+)
+
 add_executable(cg-packet-party-membership-request-test
     tests/packet/PartyMembershipRequestPacketTest.cpp
 )
@@ -3040,6 +3055,7 @@ if(MSVC)
     target_compile_options(cg-packet-profile-lists-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-profile-data-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-player-status-flags-update-request-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-battle-help-mode-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-party-membership-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-pet-battle-status-update-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-pet-move-request-test PRIVATE /W4 /utf-8 /permissive-)
@@ -3259,6 +3275,7 @@ else()
     target_compile_options(cg-packet-profile-lists-request-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-profile-data-request-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-player-status-flags-update-request-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-packet-battle-help-mode-request-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-party-membership-request-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-pet-battle-status-update-request-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-pet-move-request-test PRIVATE -Wall -Wextra -Wpedantic)

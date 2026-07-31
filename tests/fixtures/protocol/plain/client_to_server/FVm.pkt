@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=FVm
+direction=client_to_server
+sample=help-flag-one
+plain_hex=46 56 6D 20 31
+canonical_hex=46 56 6D 20 31 20
+end_sample

@@ -1573,6 +1573,8 @@
       "rawFormat": "{sellFlag:i62} {sellMsg:es} {buyFlag:i62} {buyMsg:es} {aboutFlg:i62} {aboutMsg:es} {ProfileMsg:es}",
       "formatEmpty": false,
       "source": "xlsx",
+      "resolvedFormat": "{sellFlag:i62} {sellMsg:es} {buyFlag:i62} {buyMsg:es} {aboutFlg:i62} {aboutMsg:es} {ProfileMsg:es}",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
       "fields": [
         {
           "index": 0,
@@ -1622,6 +1624,57 @@
           "typeToken": "es",
           "rawSpec": "{ProfileMsg:es}",
           "source": "xlsx"
+        }
+      ],
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "sellFlag",
+          "typeToken": "i62",
+          "rawSpec": "{sellFlag:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 1,
+          "name": "sellMsg",
+          "typeToken": "es",
+          "rawSpec": "{sellMsg:es}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 2,
+          "name": "buyFlag",
+          "typeToken": "i62",
+          "rawSpec": "{buyFlag:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 3,
+          "name": "buyMsg",
+          "typeToken": "es",
+          "rawSpec": "{buyMsg:es}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 4,
+          "name": "aboutFlg",
+          "typeToken": "i62",
+          "rawSpec": "{aboutFlg:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 5,
+          "name": "aboutMsg",
+          "typeToken": "es",
+          "rawSpec": "{aboutMsg:es}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 6,
+          "name": "ProfileMsg",
+          "typeToken": "es",
+          "rawSpec": "{ProfileMsg:es}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         }
       ]
     },

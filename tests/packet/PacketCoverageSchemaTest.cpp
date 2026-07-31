@@ -8973,6 +8973,81 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "UUN"),
         "UUN absent from receive typed manifest");
 
+    const PacketSchema* setProfileDataSchema = FindPacket(packets, "Ot");
+    failures += Expect(setProfileDataSchema != nullptr, "Ot schema exists");
+    if (setProfileDataSchema != nullptr) {
+        const cg::packet::send::SetProfileData value(
+            1,
+            "Sell",
+            2,
+            "Buy",
+            3,
+            "About",
+            "Profile");
+        const cg::packet::Packet packet = value.ToPacket();
+        failures += Expect(setProfileDataSchema->direction == "客户端->服务端", "Ot direction");
+        failures += Expect(setProfileDataSchema->legacyKind == "RECV", "Ot legacyKind");
+        failures += Expect(setProfileDataSchema->clientNamespace == "send", "Ot namespace");
+        failures += Expect(setProfileDataSchema->xlsxStatus == "完成", "Ot xlsxStatus");
+        failures += Expect(
+            setProfileDataSchema->description == "RECV_PRS SetProfileData 简介内容",
+            "Ot description");
+        failures += Expect(
+            setProfileDataSchema->rawFormat
+                == "{sellFlag:i62} {sellMsg:es} {buyFlag:i62} {buyMsg:es} {aboutFlg:i62} {aboutMsg:es} {ProfileMsg:es}",
+            "Ot rawFormat");
+        failures += Expect(!setProfileDataSchema->formatEmpty, "Ot formatEmpty false");
+        failures += Expect(setProfileDataSchema->source == "xlsx", "Ot raw source");
+        failures += Expect(setProfileDataSchema->fields.size() == 7U, "Ot raw field count");
+        for (const FieldSchema& field : setProfileDataSchema->fields) {
+            failures += Expect(field.source == "xlsx", "Ot raw field source");
+        }
+        failures += Expect(setProfileDataSchema->hasResolvedFormat, "Ot resolvedFormat present");
+        failures += Expect(
+            setProfileDataSchema->resolvedFormat
+                == "{sellFlag:i62} {sellMsg:es} {buyFlag:i62} {buyMsg:es} {aboutFlg:i62} {aboutMsg:es} {ProfileMsg:es}",
+            "Ot resolvedFormat");
+        failures += Expect(
+            setProfileDataSchema->resolvedSource == "xlsx+ServerC+ClientIda+src/packet",
+            "Ot resolvedSource");
+        failures += Expect(setProfileDataSchema->hasResolvedFields, "Ot resolvedFields present");
+        failures += Expect(
+            setProfileDataSchema->resolvedFields.size() == 7U,
+            "Ot resolved field count");
+        for (const FieldSchema& field : setProfileDataSchema->resolvedFields) {
+            failures += Expect(
+                field.source == "xlsx+ServerC+ClientIda+src/packet",
+                "Ot resolved field source");
+        }
+        failures += ExpectEffectiveFieldsMatch(
+            *setProfileDataSchema,
+            cg::packet::send::SetProfileData::Spec,
+            "Ot Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *setProfileDataSchema,
+            packet,
+            "Ot resolved field order");
+        failures += Expect(
+            value.sellFlag == 1 &&
+                value.sellMessage == "Sell" &&
+                value.buyFlag == 2 &&
+                value.buyMessage == "Buy" &&
+                value.aboutFlag == 3 &&
+                value.aboutMessage == "About" &&
+                value.profileMessage == "Profile",
+            "Ot typed members");
+    }
+    failures += Expect(
+        TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "Ot"),
+        "Ot present in send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "Ot"),
+        "Ot absent from receive typed manifest");
+
     const PacketSchema* magicUseSchema = FindPacket(packets, "RXr");
     failures += Expect(magicUseSchema != nullptr, "RXr schema exists");
     if (magicUseSchema != nullptr) {

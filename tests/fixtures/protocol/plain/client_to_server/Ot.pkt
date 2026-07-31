@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=Ot
+direction=client_to_server
+sample=private-profile-defaults
+plain_hex=4F 74 20 30 20 B2 BB B9 AB BF AA 20 30 20 B2 BB B9 AB BF AA 20 30 20 B2 BB B9 AB BF AA 20 CE B4 C9 E8 B6 A8
+canonical_hex=4F 74 20 30 20 B2 BB B9 AB BF AA 20 30 20 B2 BB B9 AB BF AA 20 30 20 B2 BB B9 AB BF AA 20 CE B4 C9 E8 B6 A8 20
+end_sample

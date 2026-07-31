@@ -155,6 +155,8 @@
       "rawFormat": "{time:i62}",
       "formatEmpty": false,
       "source": "xlsx",
+      "resolvedFormat": "{time:i62}",
+      "resolvedSource": "xlsx+ClientIda+src/packet",
       "fields": [
         {
           "index": 0,
@@ -162,6 +164,15 @@
           "typeToken": "i62",
           "rawSpec": "{time:i62}",
           "source": "xlsx"
+        }
+      ],
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "time",
+          "typeToken": "i62",
+          "rawSpec": "{time:i62}",
+          "source": "xlsx+ClientIda+src/packet"
         }
       ]
     },

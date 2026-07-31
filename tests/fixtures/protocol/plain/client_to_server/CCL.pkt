@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=CCL
+direction=client_to_server
+sample=client-tick-16719
+plain_hex=43 43 4C 20 34 6C 46
+canonical_hex=43 43 4C 20 34 6C 46 20
+end_sample

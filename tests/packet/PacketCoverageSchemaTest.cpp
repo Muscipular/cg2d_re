@@ -11003,7 +11003,20 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     const PacketSchema* checkCommandSchema = FindPacket(packets, "CCL");
     failures += Expect(checkCommandSchema != nullptr, "CCL schema exists");
     if (checkCommandSchema != nullptr) {
+        const cg::packet::send::CheckCommand value(16719);
+        const cg::packet::Packet packet = value.ToPacket();
+        failures += Expect(
+            checkCommandSchema->direction == "客户端->服务端",
+            "CCL direction");
+        failures += Expect(checkCommandSchema->legacyKind == "RECV", "CCL legacyKind");
+        failures += Expect(checkCommandSchema->clientNamespace == "send", "CCL namespace");
+        failures += Expect(checkCommandSchema->xlsxStatus == "完成", "CCL xlsxStatus");
+        failures += Expect(
+            checkCommandSchema->description == "RECV_CheckCommand 发送客户端时间",
+            "CCL description");
         failures += Expect(checkCommandSchema->rawFormat == "{time:i62}", "CCL rawFormat");
+        failures += Expect(!checkCommandSchema->formatEmpty, "CCL formatEmpty false");
+        failures += Expect(checkCommandSchema->source == "xlsx", "CCL raw source");
         failures += Expect(checkCommandSchema->fields.size() == 1U, "CCL field count");
         if (checkCommandSchema->fields.size() == 1U) {
             failures += Expect(checkCommandSchema->fields[0].name == "time", "CCL field name");
@@ -11011,7 +11024,47 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             failures += Expect(checkCommandSchema->fields[0].rawSpec == "{time:i62}", "CCL rawSpec");
             failures += Expect(checkCommandSchema->fields[0].source == "xlsx", "CCL field source");
         }
+        failures += Expect(checkCommandSchema->hasResolvedFormat, "CCL resolvedFormat present");
+        failures += Expect(
+            checkCommandSchema->resolvedFormat == "{time:i62}",
+            "CCL resolvedFormat");
+        failures += Expect(
+            checkCommandSchema->resolvedSource == "xlsx+ClientIda+src/packet",
+            "CCL resolvedSource");
+        failures += Expect(checkCommandSchema->hasResolvedFields, "CCL resolvedFields present");
+        failures += Expect(
+            checkCommandSchema->resolvedFields.size() == 1U,
+            "CCL resolved field count");
+        if (checkCommandSchema->resolvedFields.size() == 1U) {
+            const FieldSchema& field = checkCommandSchema->resolvedFields[0];
+            failures += Expect(
+                field.index == 0 &&
+                    field.name == "time" &&
+                    field.typeToken == "i62" &&
+                    field.rawSpec == "{time:i62}" &&
+                    field.source == "xlsx+ClientIda+src/packet",
+                "CCL resolved field");
+        }
+        failures += ExpectEffectiveFieldsMatch(
+            *checkCommandSchema,
+            cg::packet::send::CheckCommand::Spec,
+            "CCL Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *checkCommandSchema,
+            packet,
+            "CCL resolved field order");
+        failures += Expect(value.time == 16719, "CCL typed member");
     }
+    failures += Expect(
+        TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "CCL"),
+        "CCL present in send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "CCL"),
+        "CCL absent from receive typed manifest");
 
     const PacketSchema* profileVersionSchema = FindPacket(packets, "HNP");
     failures += Expect(profileVersionSchema != nullptr, "HNP schema exists");

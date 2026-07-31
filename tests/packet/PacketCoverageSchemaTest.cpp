@@ -354,7 +354,10 @@ struct PacketSchema
     std::string originalFormat;
     bool formatEmpty = false;
     std::string source;
+    bool hasContractStatus = false;
     std::string contractStatus;
+    bool hasExecutionStatus = false;
+    std::string executionStatus;
     bool hasResolvedFormat = false;
     std::string resolvedFormat;
     std::string resolvedSource;
@@ -460,7 +463,10 @@ PacketSchema ReadPacketSchema(const JsonValue& object, int& failures)
     packet.originalFormat = OptionalString(object, "originalFormat", failures);
     packet.formatEmpty = RequiredBool(object, "formatEmpty", failures);
     packet.source = RequiredString(object, "source", failures);
+    packet.hasContractStatus = object.Find("contractStatus") != nullptr;
     packet.contractStatus = OptionalString(object, "contractStatus", failures);
+    packet.hasExecutionStatus = object.Find("executionStatus") != nullptr;
+    packet.executionStatus = OptionalString(object, "executionStatus", failures);
     packet.resolvedSource = OptionalString(object, "resolvedSource", failures);
 
     const JsonValue* resolvedFormat = object.Find("resolvedFormat");
@@ -1104,11 +1110,32 @@ int TestCoverage(const std::vector<PacketSchema>& packets)
     int emptyOriginalFormat = 0;
     int normalizedEmptyFormat = 0;
     int repeatedTailCount = 0;
+    std::set<std::string> terminalCodes;
+    std::set<std::string> userSkippedCodes;
 
     for (const PacketSchema& packet : packets) {
         failures += Expect(!packet.code.empty(), "code non-empty");
         failures += Expect(codes.insert(packet.code).second, "code unique");
         failures += Expect(packet.source == "xlsx", "packet source xlsx");
+        failures += Expect(
+            !(packet.hasContractStatus && packet.hasExecutionStatus),
+            "packet terminal and execution status mutually exclusive");
+        if (packet.hasContractStatus) {
+            failures += Expect(
+                packet.contractStatus == "no-effective-wire-contract",
+                "contractStatus known");
+            terminalCodes.insert(packet.code);
+        } else {
+            failures += Expect(packet.contractStatus.empty(), "contractStatus absent is empty");
+        }
+        if (packet.hasExecutionStatus) {
+            failures += Expect(
+                packet.executionStatus == "user-skipped",
+                "executionStatus known");
+            userSkippedCodes.insert(packet.code);
+        } else {
+            failures += Expect(packet.executionStatus.empty(), "executionStatus absent is empty");
+        }
 
         if (packet.direction == "客户端->服务端") {
             ++clientToServer;
@@ -1169,6 +1196,12 @@ int TestCoverage(const std::vector<PacketSchema>& packets)
     failures += Expect(emptyOriginalFormat == 53, "empty original format count 53");
     failures += Expect(normalizedEmptyFormat == 16, "normalized empty format count 16");
     failures += Expect(repeatedTailCount == 1, "repeatedTail schema count 1");
+    failures += Expect(
+        terminalCodes == std::set<std::string>({"Expire", "sz"}),
+        "terminal codes exactly Expire and sz");
+    failures += Expect(
+        userSkippedCodes == std::set<std::string>({"yp"}),
+        "user-skipped code exactly yp");
     failures += Expect(FindPacket(packets, "CCL") != nullptr, "CCL exists");
     failures += Expect(FindPacket(packets, "TgX") != nullptr, "TgX exists");
     failures += Expect(FindPacket(packets, "JFVf") != nullptr, "JFVf exists");
@@ -6801,6 +6834,64 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             cg::packet::test::ReceiveTypedPackets,
             "Godf"),
         "Godf absent from receive typed manifest");
+
+    const PacketSchema* processStatusRequestSchema =
+        FindPacket(packets, "yp");
+    failures += Expect(
+        processStatusRequestSchema != nullptr,
+        "yp schema exists");
+    if (processStatusRequestSchema != nullptr) {
+        failures += Expect(
+            processStatusRequestSchema->direction == "客户端->服务端",
+            "yp direction");
+        failures += Expect(
+            processStatusRequestSchema->legacyKind == "RECV",
+            "yp legacyKind");
+        failures += Expect(
+            processStatusRequestSchema->clientNamespace == "send",
+            "yp namespace");
+        failures += Expect(
+            processStatusRequestSchema->xlsxStatus == "暂缓",
+            "yp xlsxStatus");
+        failures += Expect(
+            processStatusRequestSchema->rawFormat.empty(),
+            "yp rawFormat empty");
+        failures += Expect(
+            processStatusRequestSchema->formatEmpty,
+            "yp formatEmpty true");
+        failures += Expect(
+            processStatusRequestSchema->source == "xlsx",
+            "yp raw source");
+        failures += Expect(
+            processStatusRequestSchema->fields.empty(),
+            "yp raw fields empty");
+        failures += Expect(
+            !processStatusRequestSchema->hasContractStatus,
+            "yp contract status absent");
+        failures += Expect(
+            processStatusRequestSchema->hasExecutionStatus &&
+                processStatusRequestSchema->executionStatus == "user-skipped",
+            "yp user-skipped execution status");
+        failures += Expect(
+            !processStatusRequestSchema->hasResolvedFormat,
+            "yp resolvedFormat absent");
+        failures += Expect(
+            processStatusRequestSchema->resolvedSource.empty(),
+            "yp resolvedSource absent");
+        failures += Expect(
+            !processStatusRequestSchema->hasResolvedFields,
+            "yp resolvedFields absent");
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "yp"),
+        "yp absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "yp"),
+        "yp absent from receive typed manifest");
 
     const PacketSchema* versionUpgradeResultSchema =
         FindPacket(packets, "ed");

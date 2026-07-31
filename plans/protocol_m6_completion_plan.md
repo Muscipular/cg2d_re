@@ -7,33 +7,42 @@
 
 M6R 只补协议编解码、协议证据和测试，不实现 TCP session、重连、网络线程或业务事件分发；网络运行链路仍属于 M10。
 
-以 `tests/fixtures/protocol/schema/packet_coverage_schema.json` 的 209 个大小写敏感唯一 code 为全集，完成必须同时满足：
+以 `tests/fixtures/protocol/schema/packet_coverage_schema.json` 的 209 个大小写敏感唯一 code 为全集 `U`。原计划要求 `U` 全部进入 typed/fixture；用户现明确增加 3 个执行例外：
 
-1. 100 个客户端→服务端封包全部有显式 `cg::packet::send::*` 类型和生产 `Encode()`。
-2. 109 个服务端→客户端封包全部有显式 `cg::packet::receive::*` 类型和生产 `Parse()`。
+- `contractStatus=no-effective-wire-contract`：`sz`、`Expire`，表示当前无有效封包协议；
+- `executionStatus=user-skipped`：`yp`，仅表示用户明确跳过本轮执行，不表示不存在有效封包协议、exact0、已 resolved 或证据终止；
+- 有效完成集合 `E = U - terminal - user-skipped = 209 - 2 - 1 = 206`。
+
+schema 全集和方向基线仍为 209、100/109，不删除例外 code。M6R 有效完成必须同时满足：
+
+1. `E` 中 98 个客户端→服务端封包有显式 `cg::packet::send::*` 类型和生产 `Encode()`。
+2. `E` 中 108 个服务端→客户端封包有显式 `cg::packet::receive::*` 类型和生产 `Parse()`。
 3. 每个类型显式声明 `Code`、`Direction`、`Fields`、`Spec`，字段数量、顺序、名称和类型均有可追溯来源。
 4. 不允许完成态 `Spec` 使用 `PacketFieldType::Unknown`，不允许用 `unknownN`、异常 token 或猜测字段冒充完成。
 5. 每个 `es/char*` 字段都完成普通字符串、结构化 payload 或有证据的不透明文本三选一判定；结构化 payload 必须完成 parse/build 和无损回写。
-6. 每个 code 至少有 1 条独立明文 fixture；最终 fixture 恰好覆盖 209 个 code、100/109 两个方向。
-7. 测试侧 typed manifest 显式引用 209 个具体类型，并验证 100 个 `Encode`、109 个 `Parse`；不得把 schema 的 209 行等同于 typed 覆盖。
+6. `E` 中每个 code 至少有 1 条独立明文 fixture；最终 fixture 恰好覆盖 206 个 code、98/108 两个方向。
+7. 测试侧 typed manifest 显式引用 206 个具体类型，并验证 98 个 `Encode`、108 个 `Parse`；不得把 schema 的 209 行等同于 typed 覆盖。
 8. 禁用诊断文本和 test helper 后，生产协议表面仍可编译并运行最小 smoke。
 9. 不恢复生产侧 `PacketRegistry`、无 `Spec` 的 Parse/Build、按 code 自动分发或 schema 驱动生产类型。
 10. 不引入 RTTI、SDL 类型、外部依赖或新的协议目录。
+11. `sz`、`Expire`、`yp` 保留在 schema，但不得进入 typed manifest、fixture inventory 或 payload audit；三者的状态字段必须保持精确且互斥。
 
 ## 2. 已核实基线
+
+下表“当前”保留 M6R 建立时的初始基线；完成目标按有效集合 `E` 修订，最新状态见 2.3。
 
 | 指标 | 当前 | 完成目标 | 缺口 |
 |---|---:|---:|---:|
 | schema 唯一 code | 209 | 209 | 0 |
 | 客户端→服务端 | 100 | 100 | 0 |
 | 服务端→客户端 | 109 | 109 | 0 |
-| 显式 typed struct | 91 | 209 | 118 |
-| `send` typed / `Encode` | 25 | 100 | 75 |
-| `receive` typed / `Parse` | 66 | 109 | 43 |
+| 显式 typed struct | 91 | 206 | 115 |
+| `send` typed / `Encode` | 25 | 98 | 73 |
+| `receive` typed / `Parse` | 66 | 108 | 42 |
 | packet 测试目标 | 95 | 非完成计数 | — |
-| 已有 typed code 的直接测试字面量 | 91/91 | 209/209 | 118 |
-| typed manifest `Spec` 与 schema effective 显式交叉核对 | 91/91 | 209/209 | 118 |
-| 独立 `.pkt` 明文 fixture | 0/209 | 209/209 | 209 |
+| 已有 typed code 的直接测试字面量 | 91/91 | 206/206 | 115 |
+| typed manifest `Spec` 与 schema effective 显式交叉核对 | 91/91 | 206/206 | 115 |
+| 独立 `.pkt` 明文 fixture | 0/209 | 206/209 | 206 |
 
 历史 88 个“疑似内嵌 payload”code 已全部进入现有 91 个 typed 类型；另外 3 个是 `JFVf`、`Gp`、`CCL`。剩余 118 个均未被旧关键词规则标为 payload，但这只是启发式结果，不能替代逐包 `es/char*` 审计。
 
@@ -55,6 +64,17 @@ M6R 只补协议编解码、协议证据和测试，不实现 TCP session、重�
 - `a205b34` 历史时点的 45 个唯一 code 只是 `PacketCoverageSchemaTest` 手写 `FindPacket` 分支数；M6R.0.1a-k 与 `uSB` 补证后该数为 57，二者均不是 manifest。本步从 0 建立 91 项显式 typed manifest，并完成 91/91 schema effective 交叉核对。
 - fixture 目录只有 `schema/packet_coverage_schema.json`，不存在 `.pkt` 明文样本。
 - M6R.0.1a-k 已逐包完成 `aPc, UU, Sc, NI, eZT, IUn, DpSY, cNB, ow, DyAG, KyN` 的证据闭环、resolved 元数据和必要 typed 修正；这 11 包不再属于遗留债务。
+
+### 2.3 当前有效范围快照
+
+截至 `Tmrx` 完成，schema 仍为 209 个 code、100/109 两个方向；typed/manifest 为 171/209（send 85/100、receive 86/109），fixture/audit 为 85/209，历史 fixture 债务为 86。
+
+- terminal：`sz`、`Expire`，共 2；
+- user-skipped：`yp`，共 1；
+- active Q0/Q1/Q2/Q3：`0/18/17/0`，其中 Q2 从原始 20 中扣除已完成的 `ed`、terminal `Expire` 和 user-skipped `yp`；
+- 原始 typed 缺口：`209 - 171 = 38`；
+- 有效 typed 缺口：`206 - 171 = 35`；
+- 来源未决 12、payload 未审计 22，均沿用现有历史账，暂不作为可独立重算门禁。
 
 ## 3. 协议证据规则
 
@@ -125,9 +145,9 @@ M6R 只补协议编解码、协议证据和测试，不实现 TCP session、重�
 | M6R.1 | 完成 Q0 外层定义可审计的 30 包 | typed 121/209 | 30 包逐包 DoR/DoD 完成，无 payload 漏判 |
 | M6R.2 | 查证并完成 Q3 异常定义 8 包 | typed 129/209 | 8 个异常均有 resolved 证据和 typed 实现 |
 | M6R.3 | 查证并完成 Q1 unknown 类型 60 包 | typed 189/209 | 119 个 unknown 字段全部消除 |
-| M6R.4 | 逆向并完成 Q2 空 format 20 包 | typed 209/209 | 20 包均有 C/IDA 来源，不以“暂缓/废弃”跳过 |
-| M6R.5 | 给现有 91 包补 fixture 与完整 typed/schema 核对 | fixture 209/209 | 91 个历史 typed 包逐包补齐 fixture 债务 |
-| M6R.6 | Debug/Release 全量一致性审计 | 209/209 | 100 Encode、109 Parse、209 fixture、来源和 payload 全闭环 |
+| M6R.4 | 逆向并完成 active Q2；保留 3 个显式例外 | typed 206/209 | 有效集合达到 send 98、receive 108；`sz/Expire/yp` 保持无 typed/fixture |
+| M6R.5 | 补齐剩余历史 fixture 债务与完整 typed/schema 核对 | fixture 206/209 | 历史 fixture 债务归零，实际 fixture 与有效 typed 集合一致 |
+| M6R.6 | Debug/Release 全量一致性审计 | 有效 206/209 + 3 例外 | 98 Encode、108 Parse、206 fixture；`sz/Expire/yp` 状态和排除关系精确 |
 
 M6R.5 可在 M6R.1～M6R.4 等待 C/IDA 证据时穿插推进，但不能晚于 M6R.6。每个 packet 始终是独立完成单位，不以分组通过代替单包通过。
 
@@ -197,8 +217,8 @@ payload audit codes = A
 ```
 
 初始 `H=D=T=91`、`A=0`，因此 plain root 不存在仅在预期 `A=0` 时合法；新 typed code
-不能加入历史债务。最终必须达到 `D=0`、`A=T=209`，且方向精确为客户端→服务端 100、
-服务端→客户端 109。
+不能加入历史债务。最终必须达到 `D=0`、`A=T=E=206`，且方向精确为客户端→服务端 98、
+服务端→客户端 108；`sz`、`Expire`、`yp` 均不得进入 `A/T`。
 
 payload 状态只以 inventory audit 为权威，不从 `SubPayload` 类型推断：
 
@@ -232,12 +252,14 @@ fixture 测试读取的是精确字节，不得对包尾空格、空字段或控
 - 服务端→客户端，9：
   `oRut, frQp, bJg, PVfz, ftaN, Tmrx, KXhH, Yx, kiG`
 
-### Q2：format 为空，20
+### Q2：format 为空，原始 20，当前 active 17
 
 - 客户端→服务端，4：
-  `nB, FVm, yp, rvb`
+  `nB, FVm, rvb`；`yp` 为 `executionStatus=user-skipped`，封包协议状态仍未裁决，不进入 active Q
 - 服务端→客户端，16：
   `vWpn, IYo, sZWu, bNY, NdM, hJq, xEg, BHe, kg, sA, TFCu, wiB, murD, Bi, ed, Expire`
+
+其中 `ed` 已完成，`Expire` 已按 `contractStatus=no-effective-wire-contract` 终止；二者与 `yp` 一同从当前 active Q2 扣除，但保留在原始 20 包历史清单中。
 
 ### Q3：异常定义，8
 
@@ -334,10 +356,12 @@ fixture 测试读取的是精确字节，不得对包尾空格、空字段或控
 ### 最终 M6R.6
 
 - schema：209 唯一 code，100/109 方向。
-- typed manifest：209 唯一 `Spec`，100 个 Encode，109 个 Parse。
-- fixture：209 个 code，每包至少 1 条；payload 包有二级样本。
-- schema effective format/source 无空缺、无 `Unknown`、无 malformed token。
-- 全部 payload 结构化，或有证据证明为不透明文本并能无损回写。
+- typed manifest：有效集合 206 个唯一 `Spec`，98 个 Encode，108 个 Parse。
+- fixture：有效集合 206 个 code，每包至少 1 条；payload 包有二级样本。
+- 有效集合的 schema effective format/source 无空缺、无 `Unknown`、无 malformed token。
+- 有效集合的全部 payload 结构化，或有证据证明为不透明文本并能无损回写。
+- terminal 集合精确为 `sz/Expire` 且状态为 `no-effective-wire-contract`；user-skipped 集合精确为 `yp` 且状态为 `user-skipped`。
+- terminal/user-skipped code 均无 typed manifest、fixture 和 payload audit；不要求其 resolved format/source/fields 完成。
 - Debug 全量 packet CTest 通过。
 - Release 构建 `cg-client` 和 production-surface smoke；诊断/test helper 均关闭。
 - typed packet 无 `TODO/NotImplemented` 残留。
@@ -352,12 +376,15 @@ fixture 测试读取的是精确字节，不得对包尾空格、空字段或控
 ```text
 typed X/209；Encode X/100；Parse X/109；
 fixture X/209；Q0/Q1/Q2/Q3 剩余 X/X/X/X；
+terminal X；user-skipped X；有效 typed 缺口 X；原始 typed 缺口 X；
 来源未决 X；payload 未审计 X。
 ```
 
 Q0～Q3 统计对象是初始队列中的“未完成协议 code”，不是提交或子步骤数量。证据小步为某个 code 补齐 `resolvedFormat` 后，该队列剩余数只减少一次；后续 typed/fixture 小步不得再次扣减。每次记录均应以本节初始队列和当前 schema 的 `resolvedFormat` 实际状态重算，不能沿用上一行做手工递减。
 
 `contractStatus=no-effective-wire-contract` 表示该 code 已由用户裁决为无当前有效 wire 合同：它是证据终止状态，从 active Q 队列扣除，但不等价于 exact0，且不要求 `resolvedFormat` 或 `resolvedFields`。
+
+`executionStatus=user-skipped` 只表示用户明确跳过本轮执行：它从 active Q 队列和有效完成集合扣除，但不等价于 exact0、terminal、resolved 或无有效封包协议；除 `yp` 外不得使用该状态。
 
 `来源未决` 与 `payload 未审计` 的历史账当前没有对应的固定 code 集合，暂时不能仅从 schema/fixture 独立重算；在补齐可执行门禁前，进度行必须注明为沿用值，不得把它们作为自动完成判据。
 

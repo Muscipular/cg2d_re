@@ -1247,10 +1247,10 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
     failures += Expect(cg::packet::test::SendTypedPackets.size() == 85U, "send typed manifest count 85");
-    failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 88U, "receive typed manifest count 88");
+    failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 89U, "receive typed manifest count 89");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 173U,
-        "typed manifest count 173");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 174U,
+        "typed manifest count 174");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1267,7 +1267,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 173U, "typed manifest unique code count 173");
+    failures += Expect(codes.size() == 174U, "typed manifest unique code count 174");
     return failures;
 }
 
@@ -7366,7 +7366,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "kiG resolvedFormat");
         failures += Expect(
             petItemSwapSchema->resolvedSource ==
-                "xlsx+ServerC+ClientIda",
+                "xlsx+ServerC+ClientIda+src/packet",
             "kiG resolvedSource");
         failures += Expect(
             petItemSwapSchema->hasResolvedFields,
@@ -7395,10 +7395,21 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                         field.name == names[index] &&
                         field.typeToken == "i62" &&
                         field.rawSpec == specs[index] &&
-                        field.source == "xlsx+ServerC+ClientIda",
+                        field.source == "xlsx+ServerC+ClientIda+src/packet",
                     "kiG resolved field order");
             }
         }
+
+        const cg::packet::receive::PetItemSwap swap(0, 27, 2, 5);
+        const cg::packet::Packet packet = swap.ToPacket();
+        failures += ExpectEffectiveFieldsMatch(
+            *petItemSwapSchema,
+            cg::packet::receive::PetItemSwap::Spec,
+            "kiG Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *petItemSwapSchema,
+            packet,
+            "kiG resolved field order");
     }
     failures += Expect(
         !TypedManifestContainsCode(
@@ -7406,10 +7417,10 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "kiG"),
         "kiG absent from send typed manifest");
     failures += Expect(
-        !TypedManifestContainsCode(
+        TypedManifestContainsCode(
             cg::packet::test::ReceiveTypedPackets,
             "kiG"),
-        "kiG absent from receive typed manifest");
+        "kiG present in receive typed manifest");
 
     const PacketSchema* versionUpgradeRequestSchema =
         FindPacket(packets, "Xoee");

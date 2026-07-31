@@ -1246,11 +1246,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 91U, "send typed manifest count 91");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 92U, "send typed manifest count 92");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 89U, "receive typed manifest count 89");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 180U,
-        "typed manifest count 180");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 181U,
+        "typed manifest count 181");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1267,7 +1267,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 180U, "typed manifest unique code count 180");
+    failures += Expect(codes.size() == 181U, "typed manifest unique code count 181");
     return failures;
 }
 
@@ -7870,6 +7870,12 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         petItemMoveRequestSchema != nullptr,
         "Cpa schema exists");
     if (petItemMoveRequestSchema != nullptr) {
+        const cg::packet::send::PetItemMoveRequest request(
+            0,
+            9,
+            2,
+            1,
+            -1);
         failures += Expect(
             petItemMoveRequestSchema->direction == "客户端->服务端",
             "Cpa direction");
@@ -7933,7 +7939,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "Cpa resolvedFormat");
         failures += Expect(
             petItemMoveRequestSchema->resolvedSource ==
-                "xlsx+ServerC+ClientIda",
+                "xlsx+ServerC+ClientIda+src/packet",
             "Cpa resolvedSource");
         failures += Expect(
             petItemMoveRequestSchema->hasResolvedFields,
@@ -7969,16 +7975,28 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                         field.name == ResolvedNames[index] &&
                         field.typeToken == "i62" &&
                         field.rawSpec == ResolvedSpecs[index] &&
-                        field.source == "xlsx+ServerC+ClientIda",
+                        field.source ==
+                            "xlsx+ServerC+ClientIda+src/packet",
                     "Cpa resolved field order");
             }
         }
+        failures += ExpectEffectiveFieldsMatch(
+            *petItemMoveRequestSchema,
+            cg::packet::send::PetItemMoveRequest::Spec,
+            "Cpa Spec matches effective fields");
+        failures += Expect(
+            request.petSlotFrom == 0 &&
+                request.itemSlotFrom == 9 &&
+                request.petSlotTo == 2 &&
+                request.itemSlotTo == 1 &&
+                request.pile == -1,
+            "Cpa typed members");
     }
     failures += Expect(
-        !TypedManifestContainsCode(
+        TypedManifestContainsCode(
             cg::packet::test::SendTypedPackets,
             "Cpa"),
-        "Cpa absent from send typed manifest");
+        "Cpa present in send typed manifest");
     failures += Expect(
         !TypedManifestContainsCode(
             cg::packet::test::ReceiveTypedPackets,

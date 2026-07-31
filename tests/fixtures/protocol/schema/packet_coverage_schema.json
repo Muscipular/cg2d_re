@@ -8067,42 +8067,42 @@
       "description": "RECV_PET_ITEM_MOVE 移动宠物装备",
       "rawFormat": "{fromChar} {fromItem} {toChar} {toItem} {pile}",
       "resolvedFormat": "{petSlotFrom:i62} {itemSlotFrom:i62} {petSlotTo:i62} {itemSlotTo:i62} {pile:i62}",
-      "resolvedSource": "xlsx+ServerC+ClientIda",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
       "resolvedFields": [
         {
           "index": 0,
           "name": "petSlotFrom",
           "typeToken": "i62",
           "rawSpec": "{petSlotFrom:i62}",
-          "source": "xlsx+ServerC+ClientIda"
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         },
         {
           "index": 1,
           "name": "itemSlotFrom",
           "typeToken": "i62",
           "rawSpec": "{itemSlotFrom:i62}",
-          "source": "xlsx+ServerC+ClientIda"
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         },
         {
           "index": 2,
           "name": "petSlotTo",
           "typeToken": "i62",
           "rawSpec": "{petSlotTo:i62}",
-          "source": "xlsx+ServerC+ClientIda"
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         },
         {
           "index": 3,
           "name": "itemSlotTo",
           "typeToken": "i62",
           "rawSpec": "{itemSlotTo:i62}",
-          "source": "xlsx+ServerC+ClientIda"
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         },
         {
           "index": 4,
           "name": "pile",
           "typeToken": "i62",
           "rawSpec": "{pile:i62}",
-          "source": "xlsx+ServerC+ClientIda"
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         }
       ],
       "formatEmpty": false,

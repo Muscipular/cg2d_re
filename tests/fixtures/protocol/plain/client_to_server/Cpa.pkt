@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=Cpa
+direction=client_to_server
+sample=pet-zero-item-nine-to-pet-two-slot-one
+plain_hex=43 70 61 20 30 20 39 20 32 20 31 20 2D 31
+canonical_hex=43 70 61 20 30 20 39 20 32 20 31 20 2D 31 20
+end_sample

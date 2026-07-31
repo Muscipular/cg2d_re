@@ -2091,6 +2091,86 @@ namespace cg::packet::send
     };
 
     /**
+     * RECV_PET_ITEM_MOVE 移动宠物装备 Cpa
+     * {petSlotFrom:i62} {itemSlotFrom:i62} {petSlotTo:i62} {itemSlotTo:i62} {pile:i62}
+     * 当前服务端业务忽略 pile，但 cg2d 固定发送该字段。
+     */
+    struct PetItemMoveRequest
+    {
+        static constexpr std::string_view Code = "Cpa";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 5U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("petSlotFrom"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("itemSlotFrom"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("petSlotTo"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("itemSlotTo"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("pile"), PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        int petSlotFrom = 0;
+        int itemSlotFrom = 0;
+        int petSlotTo = 0;
+        int itemSlotTo = 0;
+        int pile = 0;
+
+        PetItemMoveRequest(
+            int petSlotFrom,
+            int itemSlotFrom,
+            int petSlotTo,
+            int itemSlotTo,
+            int pile)
+            : petSlotFrom(petSlotFrom),
+              itemSlotFrom(itemSlotFrom),
+              petSlotTo(petSlotTo),
+              itemSlotTo(itemSlotTo),
+              pile(pile)
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("petSlotFrom"),
+                PacketFieldType::Int62,
+                std::to_string(petSlotFrom),
+            });
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("itemSlotFrom"),
+                PacketFieldType::Int62,
+                std::to_string(itemSlotFrom),
+            });
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("petSlotTo"),
+                PacketFieldType::Int62,
+                std::to_string(petSlotTo),
+            });
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("itemSlotTo"),
+                PacketFieldType::Int62,
+                std::to_string(itemSlotTo),
+            });
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("pile"),
+                PacketFieldType::Int62,
+                std::to_string(pile),
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket(), Spec);
+        }
+    };
+
+    /**
      * RECV_BagPageMgr 菜单型背包窗口请求 SWITMM
      * 客户端合同固定零字段；Server 内建路径对额外 token 较宽松。
      */

@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=bNY
+direction=server_to_client
+sample=party-join-failure
+plain_hex=62 4E 59 20 31 20 30
+canonical_hex=62 4E 59 20 31 20 30 20
+end_sample

@@ -1334,6 +1334,19 @@ add_test(
         "${CMAKE_CURRENT_SOURCE_DIR}/tests/fixtures/protocol/plain/server_to_client/sZWu.pkt"
 )
 
+add_executable(cg-packet-party-membership-result-test
+    tests/packet/PartyMembershipResultPacketTest.cpp
+)
+target_include_directories(cg-packet-party-membership-result-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+add_test(
+    NAME cg-packet-party-membership-result-test
+    COMMAND cg-packet-party-membership-result-test
+        "${CMAKE_CURRENT_SOURCE_DIR}/tests/fixtures/protocol/plain/server_to_client/bNY.pkt"
+)
+
 add_executable(cg-packet-map-checksum-test
     tests/packet/MapChecksumPacketTest.cpp
 )
@@ -3029,6 +3042,7 @@ if(MSVC)
     target_compile_options(cg-packet-encounter-probability-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-player-status-flags-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-battle-help-mode-status-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-party-membership-result-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-map-checksum-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-fever-status-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-battle-position-test PRIVATE /W4 /utf-8 /permissive-)
@@ -3254,6 +3268,7 @@ else()
     target_compile_options(cg-packet-encounter-probability-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-player-status-flags-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-battle-help-mode-status-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-packet-party-membership-result-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-map-checksum-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-fever-status-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-battle-position-test PRIVATE -Wall -Wextra -Wpedantic)

@@ -1247,10 +1247,10 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
     failures += Expect(cg::packet::test::SendTypedPackets.size() == 98U, "send typed manifest count 98");
-    failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 96U, "receive typed manifest count 96");
+    failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 97U, "receive typed manifest count 97");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 194U,
-        "typed manifest count 194");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 195U,
+        "typed manifest count 195");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1267,7 +1267,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 194U, "typed manifest unique code count 194");
+    failures += Expect(codes.size() == 195U, "typed manifest unique code count 195");
     return failures;
 }
 
@@ -10048,6 +10048,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         partyMembershipResultSchema != nullptr,
         "bNY schema exists");
     if (partyMembershipResultSchema != nullptr) {
+        const cg::packet::receive::PartyMembershipResult value(1, 0);
+        const cg::packet::Packet packet = value.ToPacket();
         failures += Expect(
             partyMembershipResultSchema->direction == "服务端->客户端",
             "bNY direction");
@@ -10084,7 +10086,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "bNY resolvedFormat");
         failures += Expect(
             partyMembershipResultSchema->resolvedSource ==
-                "ServerC+ClientIda",
+                "ServerC+ClientIda+src/packet",
             "bNY resolvedSource");
         failures += Expect(
             partyMembershipResultSchema->hasResolvedFields,
@@ -10109,10 +10111,20 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                         field.name == names[index] &&
                         field.typeToken == "i62" &&
                         field.rawSpec == specs[index] &&
-                        field.source == "ServerC+ClientIda",
+                        field.source == "ServerC+ClientIda+src/packet",
                     "bNY resolved field");
             }
         }
+        failures += ExpectEffectiveFieldsMatch(
+            *partyMembershipResultSchema,
+            cg::packet::receive::PartyMembershipResult::Spec,
+            "bNY Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *partyMembershipResultSchema,
+            packet,
+            "bNY resolved field order");
+        failures += Expect(value.request == 1, "bNY request member");
+        failures += Expect(value.result == 0, "bNY result member");
     }
     failures += Expect(
         !TypedManifestContainsCode(
@@ -10120,10 +10132,10 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "bNY"),
         "bNY absent from send typed manifest");
     failures += Expect(
-        !TypedManifestContainsCode(
+        TypedManifestContainsCode(
             cg::packet::test::ReceiveTypedPackets,
             "bNY"),
-        "bNY absent from receive typed manifest");
+        "bNY present in receive typed manifest");
 
     const PacketSchema* checkCommandSchema = FindPacket(packets, "CCL");
     failures += Expect(checkCommandSchema != nullptr, "CCL schema exists");

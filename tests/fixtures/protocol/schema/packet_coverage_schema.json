@@ -3727,7 +3727,7 @@
       "formatEmpty": true,
       "source": "xlsx",
       "resolvedFormat": "{request:i62} {result:i62}",
-      "resolvedSource": "ServerC+ClientIda",
+      "resolvedSource": "ServerC+ClientIda+src/packet",
       "fields": [],
       "resolvedFields": [
         {
@@ -3735,14 +3735,14 @@
           "name": "request",
           "typeToken": "i62",
           "rawSpec": "{request:i62}",
-          "source": "ServerC+ClientIda"
+          "source": "ServerC+ClientIda+src/packet"
         },
         {
           "index": 1,
           "name": "result",
           "typeToken": "i62",
           "rawSpec": "{result:i62}",
-          "source": "ServerC+ClientIda"
+          "source": "ServerC+ClientIda+src/packet"
         }
       ]
     },

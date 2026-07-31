@@ -10726,6 +10726,78 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "TFCu"),
         "TFCu present in receive typed manifest");
 
+    const PacketSchema* backgroundMusicChangeSchema =
+        FindPacket(packets, "wiB");
+    failures += Expect(
+        backgroundMusicChangeSchema != nullptr,
+        "wiB schema exists");
+    if (backgroundMusicChangeSchema != nullptr) {
+        failures += Expect(
+            backgroundMusicChangeSchema->direction == "服务端->客户端",
+            "wiB direction");
+        failures += Expect(
+            backgroundMusicChangeSchema->legacyKind == "SEND",
+            "wiB legacyKind");
+        failures += Expect(
+            backgroundMusicChangeSchema->clientNamespace == "receive",
+            "wiB namespace");
+        failures += Expect(
+            backgroundMusicChangeSchema->xlsxStatus == "完成",
+            "wiB xlsxStatus");
+        failures += Expect(
+            backgroundMusicChangeSchema->description == "SEND_BGMW",
+            "wiB description");
+        failures += Expect(
+            backgroundMusicChangeSchema->rawFormat.empty(),
+            "wiB rawFormat empty");
+        failures += Expect(
+            backgroundMusicChangeSchema->formatEmpty,
+            "wiB formatEmpty true");
+        failures += Expect(
+            backgroundMusicChangeSchema->source == "xlsx",
+            "wiB raw source");
+        failures += Expect(
+            backgroundMusicChangeSchema->fields.empty(),
+            "wiB raw fields empty");
+        failures += Expect(
+            backgroundMusicChangeSchema->hasResolvedFormat,
+            "wiB resolvedFormat present");
+        failures += Expect(
+            backgroundMusicChangeSchema->resolvedFormat == "{sw:i62}",
+            "wiB resolvedFormat");
+        failures += Expect(
+            backgroundMusicChangeSchema->resolvedSource ==
+                "ServerC+ClientIda",
+            "wiB resolvedSource");
+        failures += Expect(
+            backgroundMusicChangeSchema->hasResolvedFields,
+            "wiB resolvedFields present");
+        failures += Expect(
+            backgroundMusicChangeSchema->resolvedFields.size() == 1U,
+            "wiB resolved field count");
+        if (backgroundMusicChangeSchema->resolvedFields.size() == 1U) {
+            const FieldSchema& field =
+                backgroundMusicChangeSchema->resolvedFields[0];
+            failures += Expect(
+                field.index == 0 &&
+                    field.name == "sw" &&
+                    field.typeToken == "i62" &&
+                    field.rawSpec == "{sw:i62}" &&
+                    field.source == "ServerC+ClientIda",
+                "wiB resolved field");
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "wiB"),
+        "wiB absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "wiB"),
+        "wiB absent from receive typed manifest");
+
     const PacketSchema* checkCommandSchema = FindPacket(packets, "CCL");
     failures += Expect(checkCommandSchema != nullptr, "CCL schema exists");
     if (checkCommandSchema != nullptr) {

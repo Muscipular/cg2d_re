@@ -1272,6 +1272,18 @@ add_test(
     COMMAND cg-packet-version-upgrade-result-test
 )
 
+add_executable(cg-packet-stall-start-result-test
+    tests/packet/StallStartResultPacketTest.cpp
+)
+target_include_directories(cg-packet-stall-start-result-test
+    PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/src
+)
+add_test(
+    NAME cg-packet-stall-start-result-test
+    COMMAND cg-packet-stall-start-result-test
+)
+
 add_executable(cg-packet-int62-codec-test
     tests/packet/Int62CodecTest.cpp
 )
@@ -2726,6 +2738,7 @@ if(MSVC)
     target_compile_options(cg-packet-character-delete-result-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-process-status-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-version-upgrade-result-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-stall-start-result-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-int62-codec-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-es-string-codec-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-token-codec-test PRIVATE /W4 /utf-8 /permissive-)
@@ -2926,6 +2939,7 @@ else()
     target_compile_options(cg-packet-character-delete-result-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-process-status-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-version-upgrade-result-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-packet-stall-start-result-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-int62-codec-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-es-string-codec-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-token-codec-test PRIVATE -Wall -Wextra -Wpedantic)

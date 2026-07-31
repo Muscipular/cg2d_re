@@ -4371,7 +4371,18 @@
       "rawFormat": "",
       "formatEmpty": true,
       "source": "xlsx",
-      "fields": []
+      "resolvedFormat": "{result:i62}",
+      "resolvedSource": "ServerC+ClientIda",
+      "fields": [],
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "result",
+          "typeToken": "i62",
+          "rawSpec": "{result:i62}",
+          "source": "ServerC+ClientIda"
+        }
+      ]
     },
     {
       "code": "Expire",

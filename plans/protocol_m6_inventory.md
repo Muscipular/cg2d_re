@@ -325,7 +325,7 @@ schema 定位：不作为生产代码构成，不用于生成或替代 `send.hpp
 | 115 | `oy` | 服务端->客户端 | 完成 | SEND_CharDelete；resolved `{result:es} {data:es}`；data 为普通外层 es/opaque message/DB result，可为空，不加入 nested es，不拆 payload，强类型拆分 BLOCKED：当前仅确认外层结果与消息，缺少稳定业务 payload 语义证据 | 是 | 是 | ServerC+ClientIda+src/packet |
 | 116 | `cJzI` | 服务端->客户端 | 完成 | SEND_ProcGet；resolved `{data:es}`；data 为 outputNetProcLog opaque 多行状态文本，可为空、可含换行/逗号/竖线，不拆 payload，不加入 nested es，不自动添加或裁剪 newline；关联请求 `yp` 不实现 | 是 | 是 | ServerC+src/packet |
 | 117 | `Bi` | 服务端->客户端 | 暂缓 | SEND_PlayerNumGet | 是 | 否 | 待 C/IDA 补全 |
-| 118 | `ed` | 服务端->客户端 | 暂缓 | SEND_PVUP 历史迁移封包 | 是 | 否 | 待 C/IDA 补全 |
+| 118 | `ed` | 服务端->客户端 | 暂缓 | SEND_PVUP 历史迁移封包；保留 xlsx `封包!A119:G119` 暂缓状态、空 raw format 与 fields 原貌，resolved strict exact1 `{result:i62}`、来源 `ServerC+ClientIda`；active Server `nrproto_serv.c:226,2837-2842` 固定单 result signed i62；cg2d `ed@0x58B3D0`、dispatch `0x5166A9`、token1 parse `0x5166EC`、handler `0x5166FA/sub_50E780`；header/字段使用普通空格，发送层追加 LF；0..7 枚举、DB/场景处理与低字节截断均属业务层，future typed 保留任意 signed int；strict exact1 不复刻缺失/非法字段退化为 0 或 extra token 忽略，不兼容 `0x17`；future `receive::VersionUpgradeResult`；future success fixture plain `65 64 20 30`、canonical 追加 `20`；typed 169/209、Encode 85/100、Parse 84/109、fixture/audit 83/209，剩余 40 | 是 | 否 | xlsx+ServerC+ClientIda |
 | 119 | `Expire` | 服务端->客户端 | 暂缓 | SEND_Expire | 是 | 否 | 待 C/IDA 补全 |
 | 120 | `Tmrx` | 服务端->客户端 | 完成 | SEND_StallStart | 否 | 否 | xlsx |
 | 121 | `KXhH` | 服务端->客户端 | 完成 | SEND_StallEnd | 否 | 否 | xlsx |

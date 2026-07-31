@@ -6802,6 +6802,75 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "Godf"),
         "Godf absent from receive typed manifest");
 
+    const PacketSchema* versionUpgradeResultSchema =
+        FindPacket(packets, "ed");
+    failures += Expect(
+        versionUpgradeResultSchema != nullptr,
+        "ed schema exists");
+    if (versionUpgradeResultSchema != nullptr) {
+        failures += Expect(
+            versionUpgradeResultSchema->direction == "服务端->客户端",
+            "ed direction");
+        failures += Expect(
+            versionUpgradeResultSchema->legacyKind == "SEND",
+            "ed legacyKind");
+        failures += Expect(
+            versionUpgradeResultSchema->clientNamespace == "receive",
+            "ed namespace");
+        failures += Expect(
+            versionUpgradeResultSchema->xlsxStatus == "暂缓",
+            "ed xlsxStatus");
+        failures += Expect(
+            versionUpgradeResultSchema->rawFormat.empty(),
+            "ed rawFormat empty");
+        failures += Expect(
+            versionUpgradeResultSchema->formatEmpty,
+            "ed formatEmpty true");
+        failures += Expect(
+            versionUpgradeResultSchema->source == "xlsx",
+            "ed raw source");
+        failures += Expect(
+            versionUpgradeResultSchema->fields.empty(),
+            "ed raw fields empty");
+        failures += Expect(
+            versionUpgradeResultSchema->hasResolvedFormat,
+            "ed resolvedFormat present");
+        failures += Expect(
+            versionUpgradeResultSchema->resolvedFormat == "{result:i62}",
+            "ed resolvedFormat");
+        failures += Expect(
+            versionUpgradeResultSchema->resolvedSource ==
+                "ServerC+ClientIda",
+            "ed resolvedSource");
+        failures += Expect(
+            versionUpgradeResultSchema->hasResolvedFields,
+            "ed resolvedFields present");
+        failures += Expect(
+            versionUpgradeResultSchema->resolvedFields.size() == 1U,
+            "ed resolved field count");
+        if (versionUpgradeResultSchema->resolvedFields.size() == 1U) {
+            const FieldSchema& result =
+                versionUpgradeResultSchema->resolvedFields[0];
+            failures += Expect(
+                result.index == 0 &&
+                    result.name == "result" &&
+                    result.typeToken == "i62" &&
+                    result.rawSpec == "{result:i62}" &&
+                    result.source == "ServerC+ClientIda",
+                "ed resolved result field");
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "ed"),
+        "ed absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "ed"),
+        "ed absent from receive typed manifest");
+
     const PacketSchema* versionUpgradeRequestSchema =
         FindPacket(packets, "Xoee");
     failures += Expect(

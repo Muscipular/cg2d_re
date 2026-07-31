@@ -3938,6 +3938,9 @@
       "rawFormat": "",
       "formatEmpty": true,
       "source": "xlsx",
+      "resolvedFormat": "",
+      "resolvedSource": "ServerC+ClientIda",
+      "resolvedFields": [],
       "fields": []
     },
     {

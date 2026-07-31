@@ -10137,6 +10137,68 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "bNY"),
         "bNY present in receive typed manifest");
 
+    const PacketSchema* tradeCounterpartyOfferChangedSchema =
+        FindPacket(packets, "NdM");
+    failures += Expect(
+        tradeCounterpartyOfferChangedSchema != nullptr,
+        "NdM schema exists");
+    if (tradeCounterpartyOfferChangedSchema != nullptr) {
+        failures += Expect(
+            tradeCounterpartyOfferChangedSchema->direction == "服务端->客户端",
+            "NdM direction");
+        failures += Expect(
+            tradeCounterpartyOfferChangedSchema->legacyKind == "SEND",
+            "NdM legacyKind");
+        failures += Expect(
+            tradeCounterpartyOfferChangedSchema->clientNamespace == "receive",
+            "NdM namespace");
+        failures += Expect(
+            tradeCounterpartyOfferChangedSchema->xlsxStatus == "完成",
+            "NdM xlsxStatus");
+        failures += Expect(
+            tradeCounterpartyOfferChangedSchema->description ==
+                "SEND_TROP CHAR_Trade_setTradeList 对方取出物品",
+            "NdM description");
+        failures += Expect(
+            tradeCounterpartyOfferChangedSchema->rawFormat.empty(),
+            "NdM rawFormat empty");
+        failures += Expect(
+            tradeCounterpartyOfferChangedSchema->formatEmpty,
+            "NdM formatEmpty true");
+        failures += Expect(
+            tradeCounterpartyOfferChangedSchema->source == "xlsx",
+            "NdM raw source");
+        failures += Expect(
+            tradeCounterpartyOfferChangedSchema->fields.empty(),
+            "NdM raw fields empty");
+        failures += Expect(
+            tradeCounterpartyOfferChangedSchema->hasResolvedFormat,
+            "NdM resolvedFormat present");
+        failures += Expect(
+            tradeCounterpartyOfferChangedSchema->resolvedFormat.empty(),
+            "NdM resolvedFormat empty");
+        failures += Expect(
+            tradeCounterpartyOfferChangedSchema->resolvedSource ==
+                "ServerC+ClientIda",
+            "NdM resolvedSource");
+        failures += Expect(
+            tradeCounterpartyOfferChangedSchema->hasResolvedFields,
+            "NdM resolvedFields present");
+        failures += Expect(
+            tradeCounterpartyOfferChangedSchema->resolvedFields.empty(),
+            "NdM resolvedFields empty");
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "NdM"),
+        "NdM absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "NdM"),
+        "NdM absent from receive typed manifest");
+
     const PacketSchema* checkCommandSchema = FindPacket(packets, "CCL");
     failures += Expect(checkCommandSchema != nullptr, "CCL schema exists");
     if (checkCommandSchema != nullptr) {

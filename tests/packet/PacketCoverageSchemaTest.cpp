@@ -1247,10 +1247,10 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
     failures += Expect(cg::packet::test::SendTypedPackets.size() == 98U, "send typed manifest count 98");
-    failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 99U, "receive typed manifest count 99");
+    failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 100U, "receive typed manifest count 100");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 197U,
-        "typed manifest count 197");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 198U,
+        "typed manifest count 198");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1267,7 +1267,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 197U, "typed manifest unique code count 197");
+    failures += Expect(codes.size() == 198U, "typed manifest unique code count 198");
     return failures;
 }
 
@@ -10295,6 +10295,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         tradeSelectionCancelSchema != nullptr,
         "xEg schema exists");
     if (tradeSelectionCancelSchema != nullptr) {
+        const cg::packet::receive::TradeSelectionCancelNotification value;
+        const cg::packet::Packet packet = value.ToPacket();
         failures += Expect(
             tradeSelectionCancelSchema->direction == "服务端->客户端",
             "xEg direction");
@@ -10331,7 +10333,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "xEg resolvedFormat empty");
         failures += Expect(
             tradeSelectionCancelSchema->resolvedSource ==
-                "ServerC+ClientIda",
+                "ServerC+ClientIda+src/packet",
             "xEg resolvedSource");
         failures += Expect(
             tradeSelectionCancelSchema->hasResolvedFields,
@@ -10339,6 +10341,15 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         failures += Expect(
             tradeSelectionCancelSchema->resolvedFields.empty(),
             "xEg resolvedFields empty");
+        failures += ExpectEffectiveFieldsMatch(
+            *tradeSelectionCancelSchema,
+            cg::packet::receive::TradeSelectionCancelNotification::Spec,
+            "xEg Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *tradeSelectionCancelSchema,
+            packet,
+            "xEg resolved field order");
+        failures += Expect(packet.fields.empty(), "xEg typed packet fields empty");
     }
     failures += Expect(
         !TypedManifestContainsCode(
@@ -10346,10 +10357,10 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "xEg"),
         "xEg absent from send typed manifest");
     failures += Expect(
-        !TypedManifestContainsCode(
+        TypedManifestContainsCode(
             cg::packet::test::ReceiveTypedPackets,
             "xEg"),
-        "xEg absent from receive typed manifest");
+        "xEg present in receive typed manifest");
 
     const PacketSchema* checkCommandSchema = FindPacket(packets, "CCL");
     failures += Expect(checkCommandSchema != nullptr, "CCL schema exists");

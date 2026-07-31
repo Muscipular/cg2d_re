@@ -1373,6 +1373,19 @@ add_test(
         "${CMAKE_CURRENT_SOURCE_DIR}/tests/fixtures/protocol/plain/server_to_client/hJq.pkt"
 )
 
+add_executable(cg-packet-trade-selection-cancel-notification-test
+    tests/packet/TradeSelectionCancelNotificationPacketTest.cpp
+)
+target_include_directories(cg-packet-trade-selection-cancel-notification-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+add_test(
+    NAME cg-packet-trade-selection-cancel-notification-test
+    COMMAND cg-packet-trade-selection-cancel-notification-test
+        "${CMAKE_CURRENT_SOURCE_DIR}/tests/fixtures/protocol/plain/server_to_client/xEg.pkt"
+)
+
 add_executable(cg-packet-map-checksum-test
     tests/packet/MapChecksumPacketTest.cpp
 )
@@ -3071,6 +3084,7 @@ if(MSVC)
     target_compile_options(cg-packet-party-membership-result-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-trade-counterparty-offer-changed-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-trade-gold-info-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-trade-selection-cancel-notification-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-map-checksum-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-fever-status-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-battle-position-test PRIVATE /W4 /utf-8 /permissive-)
@@ -3299,6 +3313,7 @@ else()
     target_compile_options(cg-packet-party-membership-result-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-trade-counterparty-offer-changed-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-trade-gold-info-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-packet-trade-selection-cancel-notification-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-map-checksum-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-fever-status-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-battle-position-test PRIVATE -Wall -Wextra -Wpedantic)

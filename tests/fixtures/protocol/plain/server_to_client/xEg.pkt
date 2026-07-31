@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=xEg
+direction=server_to_client
+sample=trade-selection-cancelled
+plain_hex=78 45 67
+canonical_hex=78 45 67 20
+end_sample

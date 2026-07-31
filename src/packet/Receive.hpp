@@ -1571,6 +1571,87 @@ namespace cg::packet::receive
     };
 
     /**
+     * SEND_TRCL 交易选择取消通知 xEg
+     * 封包协议固定零字段；关闭交易窗与交易状态更新留在业务层。
+     */
+    struct TradeSelectionCancelNotification
+    {
+        static constexpr std::string_view Code = "xEg";
+        static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
+        static constexpr std::array<PacketFieldSpec, 0U> Fields = {};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+#if CG_PACKET_ENABLE_TEST_HELPERS
+        [[nodiscard]] Packet ToPacket() const
+        {
+            return Packet(PacketCode(Code), Direction);
+        }
+#endif
+
+        static PacketResult<TradeSelectionCancelNotification> Parse(
+            std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
+            if (!parsed.HasValue()) {
+                return PacketResult<TradeSelectionCancelNotification>::Failure(
+                    parsed.Error());
+            }
+
+            return FromPacket(parsed.Value());
+        }
+
+        static PacketResult<TradeSelectionCancelNotification> FromPacket(
+            const Packet& packet)
+        {
+            if (packet.code.View() != Code) {
+                PacketError error = MakePacketError(
+                    PacketErrorCode::InvalidCode,
+                    CG_PACKET_DIAGNOSTIC_TEXT(
+                        "TradeSelectionCancelNotification Parse 收到非 xEg 封包"));
+                error.packetCode = packet.code;
+                return PacketResult<TradeSelectionCancelNotification>::Failure(
+                    std::move(error));
+            }
+
+            if (packet.direction != Direction) {
+                return PacketResult<TradeSelectionCancelNotification>::Failure(
+                    MakePacketError(
+                        PacketErrorCode::DecodeFailed,
+                        CG_PACKET_DIAGNOSTIC_TEXT(
+                            "TradeSelectionCancelNotification Parse 封包方向不匹配")));
+            }
+
+            if (!packet.fields.empty()) {
+                PacketError error = MakePacketError(
+                    PacketErrorCode::FieldCountMismatch,
+                    CG_PACKET_DIAGNOSTIC_TEXT(
+                        "TradeSelectionCancelNotification Parse 字段数量不匹配"));
+                error.fieldIndex = 0U;
+                return PacketResult<TradeSelectionCancelNotification>::Failure(
+                    std::move(error));
+            }
+
+            return PacketResult<TradeSelectionCancelNotification>::Success(
+                TradeSelectionCancelNotification {});
+        }
+
+    private:
+        [[nodiscard]] static PacketError MakePacketError(
+            PacketErrorCode code,
+            std::string_view message)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            return error;
+        }
+    };
+
+    /**
      * SEND_MC 地图校验值 jmb
      * wire 固定九个 signed i62；保留完整 int，不增加校验值或坐标约束。
      */

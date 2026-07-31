@@ -1,0 +1,9 @@
+pkt_fixture=1
+code=cNB
+direction=server_to_client
+sample=gbk-name-trail-delimiter
+plain_hex=63 4E 42 20 31 32 7C 81 7C
+canonical_hex=63 4E 42 20 31 32 7C 81 7C 20
+payload_field=0
+payload_hex=31 32 7C 81 7C
+end_sample

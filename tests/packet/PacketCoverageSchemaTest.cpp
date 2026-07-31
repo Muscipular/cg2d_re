@@ -10362,6 +10362,92 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "xEg"),
         "xEg present in receive typed manifest");
 
+    const PacketSchema* petSkillUseResultSchema = FindPacket(packets, "BHe");
+    failures += Expect(
+        petSkillUseResultSchema != nullptr,
+        "BHe schema exists");
+    if (petSkillUseResultSchema != nullptr) {
+        failures += Expect(
+            petSkillUseResultSchema->direction == "服务端->客户端",
+            "BHe direction");
+        failures += Expect(
+            petSkillUseResultSchema->legacyKind == "SEND",
+            "BHe legacyKind");
+        failures += Expect(
+            petSkillUseResultSchema->clientNamespace == "receive",
+            "BHe namespace");
+        failures += Expect(
+            petSkillUseResultSchema->xlsxStatus == "暂缓",
+            "BHe xlsxStatus");
+        failures += Expect(
+            petSkillUseResultSchema->description == "SEND_PS",
+            "BHe description");
+        failures += Expect(
+            petSkillUseResultSchema->rawFormat.empty(),
+            "BHe rawFormat empty");
+        failures += Expect(
+            petSkillUseResultSchema->formatEmpty,
+            "BHe formatEmpty true");
+        failures += Expect(
+            petSkillUseResultSchema->source == "xlsx",
+            "BHe raw source");
+        failures += Expect(
+            petSkillUseResultSchema->fields.empty(),
+            "BHe raw fields empty");
+        failures += Expect(
+            petSkillUseResultSchema->hasResolvedFormat,
+            "BHe resolvedFormat present");
+        failures += Expect(
+            petSkillUseResultSchema->resolvedFormat ==
+                "{result:i62} {havepetindex:i62} {havepetskill:i62} {toindex:i62}",
+            "BHe resolvedFormat");
+        failures += Expect(
+            petSkillUseResultSchema->resolvedSource ==
+                "ServerC+ClientIda",
+            "BHe resolvedSource");
+        failures += Expect(
+            petSkillUseResultSchema->hasResolvedFields,
+            "BHe resolvedFields present");
+        failures += Expect(
+            petSkillUseResultSchema->resolvedFields.size() == 4U,
+            "BHe resolved field count");
+        if (petSkillUseResultSchema->resolvedFields.size() == 4U) {
+            constexpr std::array<std::string_view, 4U> names = {{
+                "result",
+                "havepetindex",
+                "havepetskill",
+                "toindex",
+            }};
+            constexpr std::array<std::string_view, 4U> specs = {{
+                "{result:i62}",
+                "{havepetindex:i62}",
+                "{havepetskill:i62}",
+                "{toindex:i62}",
+            }};
+            for (std::size_t index = 0U; index < names.size(); ++index) {
+                const FieldSchema& field =
+                    petSkillUseResultSchema->resolvedFields[index];
+                failures += Expect(
+                    field.index == static_cast<int>(index) &&
+                        field.name == names[index] &&
+                        field.typeToken == "i62" &&
+                        field.rawSpec == specs[index] &&
+                        field.source == "ServerC+ClientIda",
+                    "BHe resolved field");
+            }
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "BHe"),
+        "BHe absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "BHe"),
+        "BHe absent from receive typed manifest");
+
     const PacketSchema* checkCommandSchema = FindPacket(packets, "CCL");
     failures += Expect(checkCommandSchema != nullptr, "CCL schema exists");
     if (checkCommandSchema != nullptr) {

@@ -8210,6 +8210,120 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "SWITMP"),
         "SWITMP absent from receive typed manifest");
 
+    const PacketSchema* bagPageMoveExRequestSchema =
+        FindPacket(packets, "SWITMP2");
+    failures += Expect(
+        bagPageMoveExRequestSchema != nullptr,
+        "SWITMP2 schema exists");
+    if (bagPageMoveExRequestSchema != nullptr) {
+        failures += Expect(
+            bagPageMoveExRequestSchema->direction == "客户端->服务端",
+            "SWITMP2 direction");
+        failures += Expect(
+            bagPageMoveExRequestSchema->legacyKind == "RECV",
+            "SWITMP2 legacyKind");
+        failures += Expect(
+            bagPageMoveExRequestSchema->clientNamespace == "send",
+            "SWITMP2 namespace");
+        failures += Expect(
+            bagPageMoveExRequestSchema->xlsxStatus == "完成",
+            "SWITMP2 xlsxStatus");
+        failures += Expect(
+            bagPageMoveExRequestSchema->rawFormat ==
+                "{fromPage} {fromSlot} {toPage} {toSlot}",
+            "SWITMP2 rawFormat");
+        failures += Expect(
+            !bagPageMoveExRequestSchema->formatEmpty,
+            "SWITMP2 formatEmpty false");
+        failures += Expect(
+            bagPageMoveExRequestSchema->source == "xlsx",
+            "SWITMP2 raw source");
+
+        constexpr std::array<std::string_view, 4U> RawNames = {{
+            "fromPage",
+            "fromSlot",
+            "toPage",
+            "toSlot",
+        }};
+        constexpr std::array<std::string_view, 4U> RawSpecs = {{
+            "{fromPage}",
+            "{fromSlot}",
+            "{toPage}",
+            "{toSlot}",
+        }};
+        failures += Expect(
+            bagPageMoveExRequestSchema->fields.size() == RawNames.size(),
+            "SWITMP2 raw field count");
+        if (bagPageMoveExRequestSchema->fields.size() ==
+            RawNames.size()) {
+            for (std::size_t index = 0U;
+                 index < RawNames.size();
+                 ++index) {
+                const FieldSchema& field =
+                    bagPageMoveExRequestSchema->fields[index];
+                failures += Expect(
+                    field.index == static_cast<int>(index) &&
+                        field.name == RawNames[index] &&
+                        field.typeToken == "unknown" &&
+                        field.rawSpec == RawSpecs[index] &&
+                        field.source == "xlsx",
+                    "SWITMP2 raw field order");
+            }
+        }
+
+        failures += Expect(
+            bagPageMoveExRequestSchema->hasResolvedFormat,
+            "SWITMP2 resolvedFormat present");
+        failures += Expect(
+            bagPageMoveExRequestSchema->resolvedFormat ==
+                "{fromPage:i62} {fromSlot:i62} {toPage:i62} {toSlot:i62}",
+            "SWITMP2 resolvedFormat");
+        failures += Expect(
+            bagPageMoveExRequestSchema->resolvedSource ==
+                "xlsx+ServerC",
+            "SWITMP2 resolvedSource");
+        failures += Expect(
+            bagPageMoveExRequestSchema->hasResolvedFields,
+            "SWITMP2 resolvedFields present");
+
+        constexpr std::array<std::string_view, 4U> ResolvedSpecs = {{
+            "{fromPage:i62}",
+            "{fromSlot:i62}",
+            "{toPage:i62}",
+            "{toSlot:i62}",
+        }};
+        failures += Expect(
+            bagPageMoveExRequestSchema->resolvedFields.size() ==
+                RawNames.size(),
+            "SWITMP2 resolved field count");
+        if (bagPageMoveExRequestSchema->resolvedFields.size() ==
+            RawNames.size()) {
+            for (std::size_t index = 0U;
+                 index < RawNames.size();
+                 ++index) {
+                const FieldSchema& field =
+                    bagPageMoveExRequestSchema->resolvedFields[index];
+                failures += Expect(
+                    field.index == static_cast<int>(index) &&
+                        field.name == RawNames[index] &&
+                        field.typeToken == "i62" &&
+                        field.rawSpec == ResolvedSpecs[index] &&
+                        field.source == "xlsx+ServerC",
+                    "SWITMP2 resolved field order");
+            }
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "SWITMP2"),
+        "SWITMP2 absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "SWITMP2"),
+        "SWITMP2 absent from receive typed manifest");
+
     const PacketSchema* versionUpgradeRequestSchema =
         FindPacket(packets, "Xoee");
     failures += Expect(

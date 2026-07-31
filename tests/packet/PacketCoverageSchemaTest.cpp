@@ -7778,6 +7778,86 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "IPy"),
         "IPy absent from receive typed manifest");
 
+    const PacketSchema* bankPageRequestSchema =
+        FindPacket(packets, "rh");
+    failures += Expect(
+        bankPageRequestSchema != nullptr,
+        "rh schema exists");
+    if (bankPageRequestSchema != nullptr) {
+        failures += Expect(
+            bankPageRequestSchema->direction == "客户端->服务端",
+            "rh direction");
+        failures += Expect(
+            bankPageRequestSchema->legacyKind == "RECV",
+            "rh legacyKind");
+        failures += Expect(
+            bankPageRequestSchema->clientNamespace == "send",
+            "rh namespace");
+        failures += Expect(
+            bankPageRequestSchema->xlsxStatus == "完成",
+            "rh xlsxStatus");
+        failures += Expect(
+            bankPageRequestSchema->rawFormat == "{page}",
+            "rh rawFormat");
+        failures += Expect(
+            !bankPageRequestSchema->formatEmpty,
+            "rh formatEmpty false");
+        failures += Expect(
+            bankPageRequestSchema->source == "xlsx",
+            "rh raw source");
+        failures += Expect(
+            bankPageRequestSchema->fields.size() == 1U,
+            "rh raw field count");
+        if (bankPageRequestSchema->fields.size() == 1U) {
+            const FieldSchema& page = bankPageRequestSchema->fields[0];
+            failures += Expect(
+                page.index == 0 &&
+                    page.name == "page" &&
+                    page.typeToken == "unknown" &&
+                    page.rawSpec == "{page}" &&
+                    page.source == "xlsx",
+                "rh raw page field");
+        }
+
+        failures += Expect(
+            bankPageRequestSchema->hasResolvedFormat,
+            "rh resolvedFormat present");
+        failures += Expect(
+            bankPageRequestSchema->resolvedFormat == "{page:i62}",
+            "rh resolvedFormat");
+        failures += Expect(
+            bankPageRequestSchema->resolvedSource ==
+                "xlsx+ServerC+ClientIda",
+            "rh resolvedSource");
+        failures += Expect(
+            bankPageRequestSchema->hasResolvedFields,
+            "rh resolvedFields present");
+        failures += Expect(
+            bankPageRequestSchema->resolvedFields.size() == 1U,
+            "rh resolved field count");
+        if (bankPageRequestSchema->resolvedFields.size() == 1U) {
+            const FieldSchema& page =
+                bankPageRequestSchema->resolvedFields[0];
+            failures += Expect(
+                page.index == 0 &&
+                    page.name == "page" &&
+                    page.typeToken == "i62" &&
+                    page.rawSpec == "{page:i62}" &&
+                    page.source == "xlsx+ServerC+ClientIda",
+                "rh resolved page field order");
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "rh"),
+        "rh absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "rh"),
+        "rh absent from receive typed manifest");
+
     const PacketSchema* versionUpgradeRequestSchema =
         FindPacket(packets, "Xoee");
     failures += Expect(

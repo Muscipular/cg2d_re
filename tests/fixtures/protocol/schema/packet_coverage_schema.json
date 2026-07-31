@@ -8035,6 +8035,17 @@
       "xlsxStatus": "完成",
       "description": "RECV_BankPage 银行翻页",
       "rawFormat": "{page}",
+      "resolvedFormat": "{page:i62}",
+      "resolvedSource": "xlsx+ServerC+ClientIda",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "page",
+          "typeToken": "i62",
+          "rawSpec": "{page:i62}",
+          "source": "xlsx+ServerC+ClientIda"
+        }
+      ],
       "formatEmpty": false,
       "source": "xlsx",
       "fields": [

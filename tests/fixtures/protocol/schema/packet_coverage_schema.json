@@ -6613,7 +6613,23 @@
       "description": "RECV_PRE 删除迷你邮件好友",
       "rawFormat": "{} {name}",
       "resolvedFormat": "{profileIndex:i62} {name:es}",
-      "resolvedSource": "xlsx+src/packet",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "profileIndex",
+          "typeToken": "i62",
+          "rawSpec": "{profileIndex:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 1,
+          "name": "name",
+          "typeToken": "es",
+          "rawSpec": "{name:es}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        }
+      ],
       "formatEmpty": false,
       "source": "xlsx",
       "fields": [

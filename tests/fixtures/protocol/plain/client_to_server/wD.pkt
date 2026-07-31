@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=wD
+direction=client_to_server
+sample=gbk-profile-friend-name
+plain_hex=77 44 20 63 20 D0 A1 C3 F7
+canonical_hex=77 44 20 63 20 D0 A1 C3 F7 20
+end_sample

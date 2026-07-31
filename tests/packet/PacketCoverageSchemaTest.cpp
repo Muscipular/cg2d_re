@@ -10606,30 +10606,89 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         const cg::packet::Packet packet = profileMailFriendDelete.ToPacket();
         failures += Expect(profileMailFriendDeleteSchema->direction == "客户端->服务端", "wD direction");
         failures += Expect(profileMailFriendDeleteSchema->legacyKind == "RECV", "wD legacyKind");
+        failures += Expect(profileMailFriendDeleteSchema->clientNamespace == "send", "wD namespace");
+        failures += Expect(profileMailFriendDeleteSchema->xlsxStatus == "完成", "wD xlsxStatus");
+        failures += Expect(
+            profileMailFriendDeleteSchema->description == "RECV_PRE 删除迷你邮件好友",
+            "wD description");
         failures += Expect(profileMailFriendDeleteSchema->rawFormat == "{} {name}", "wD rawFormat");
+        failures += Expect(!profileMailFriendDeleteSchema->formatEmpty, "wD formatEmpty false");
+        failures += Expect(profileMailFriendDeleteSchema->source == "xlsx", "wD raw source");
+        failures += Expect(
+            profileMailFriendDeleteSchema->hasResolvedFormat,
+            "wD resolvedFormat present");
         failures += Expect(
             profileMailFriendDeleteSchema->resolvedFormat == "{profileIndex:i62} {name:es}",
             "wD resolvedFormat");
-        failures += Expect(profileMailFriendDeleteSchema->resolvedSource == "xlsx+src/packet", "wD resolvedSource");
+        failures += Expect(
+            profileMailFriendDeleteSchema->resolvedSource
+                == "xlsx+ServerC+ClientIda+src/packet",
+            "wD resolvedSource");
         failures += Expect(profileMailFriendDeleteSchema->fields.size() == 2U, "wD raw field count");
         if (profileMailFriendDeleteSchema->fields.size() == 2U) {
-            failures += Expect(profileMailFriendDeleteSchema->fields[0].name.empty(), "wD raw field profileIndex");
-            failures += Expect(profileMailFriendDeleteSchema->fields[1].name == "name", "wD raw field name");
-            failures += Expect(profileMailFriendDeleteSchema->fields[0].typeToken == "unknown", "wD raw profileIndex type");
-            failures += Expect(profileMailFriendDeleteSchema->fields[1].typeToken == "unknown", "wD raw name type");
+            constexpr std::array<std::string_view, 2U> names = {{"", "name"}};
+            constexpr std::array<std::string_view, 2U> rawSpecs = {{"{}", "{name}"}};
+            for (std::size_t index = 0U; index < names.size(); ++index) {
+                const FieldSchema& field = profileMailFriendDeleteSchema->fields[index];
+                failures += Expect(
+                    field.index == index &&
+                        field.name == names[index] &&
+                        field.typeToken == "unknown" &&
+                        field.rawSpec == rawSpecs[index] &&
+                        field.source == "xlsx",
+                    "wD raw field");
+            }
         }
-        failures += Expect(packet.fields.size() == 2U, "wD packet field count");
-        if (packet.fields.size() == 2U) {
-            failures += Expect(packet.fields[0].name == "profileIndex", "wD packet profileIndex field");
-            failures += Expect(
-                packet.fields[0].type == cg::packet::PacketFieldType::Int62,
-                "wD packet profileIndex type");
-            failures += Expect(packet.fields[1].name == "name", "wD packet name field");
-            failures += Expect(
-                packet.fields[1].type == cg::packet::PacketFieldType::EscapedString,
-                "wD packet name type");
+        failures += Expect(
+            profileMailFriendDeleteSchema->hasResolvedFields,
+            "wD resolvedFields present");
+        failures += Expect(
+            profileMailFriendDeleteSchema->resolvedFields.size() == 2U,
+            "wD resolved field count");
+        if (profileMailFriendDeleteSchema->resolvedFields.size() == 2U) {
+            constexpr std::array<std::string_view, 2U> names = {{
+                "profileIndex",
+                "name",
+            }};
+            constexpr std::array<std::string_view, 2U> types = {{"i62", "es"}};
+            constexpr std::array<std::string_view, 2U> rawSpecs = {{
+                "{profileIndex:i62}",
+                "{name:es}",
+            }};
+            for (std::size_t index = 0U; index < names.size(); ++index) {
+                const FieldSchema& field = profileMailFriendDeleteSchema->resolvedFields[index];
+                failures += Expect(
+                    field.index == index &&
+                        field.name == names[index] &&
+                        field.typeToken == types[index] &&
+                        field.rawSpec == rawSpecs[index] &&
+                        field.source == "xlsx+ServerC+ClientIda+src/packet",
+                    "wD resolved field");
+            }
         }
+        failures += ExpectEffectiveFieldsMatch(
+            *profileMailFriendDeleteSchema,
+            cg::packet::send::ProfileMailFriendDelete::Spec,
+            "wD Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *profileMailFriendDeleteSchema,
+            packet,
+            "wD resolved field order");
+        failures += Expect(
+            profileMailFriendDelete.profileIndex == 12 &&
+                profileMailFriendDelete.name == "Alice",
+            "wD typed members");
     }
+    failures += Expect(
+        TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "wD"),
+        "wD present in send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "wD"),
+        "wD absent from receive typed manifest");
 
     const PacketSchema* profileMiniMailSendSchema = FindPacket(packets, "GH");
     failures += Expect(profileMiniMailSendSchema != nullptr, "GH schema exists");

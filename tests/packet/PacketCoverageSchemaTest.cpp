@@ -1247,10 +1247,10 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
     failures += Expect(cg::packet::test::SendTypedPackets.size() == 98U, "send typed manifest count 98");
-    failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 100U, "receive typed manifest count 100");
+    failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 101U, "receive typed manifest count 101");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 198U,
-        "typed manifest count 198");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 199U,
+        "typed manifest count 199");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1267,7 +1267,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 198U, "typed manifest unique code count 198");
+    failures += Expect(codes.size() == 199U, "typed manifest unique code count 199");
     return failures;
 }
 
@@ -10367,6 +10367,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         petSkillUseResultSchema != nullptr,
         "BHe schema exists");
     if (petSkillUseResultSchema != nullptr) {
+        const cg::packet::receive::PetSkillUseResult value(1, 0, 2, 3);
+        const cg::packet::Packet packet = value.ToPacket();
         failures += Expect(
             petSkillUseResultSchema->direction == "服务端->客户端",
             "BHe direction");
@@ -10403,7 +10405,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "BHe resolvedFormat");
         failures += Expect(
             petSkillUseResultSchema->resolvedSource ==
-                "ServerC+ClientIda",
+                "ServerC+ClientIda+src/packet",
             "BHe resolvedSource");
         failures += Expect(
             petSkillUseResultSchema->hasResolvedFields,
@@ -10432,10 +10434,24 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                         field.name == names[index] &&
                         field.typeToken == "i62" &&
                         field.rawSpec == specs[index] &&
-                        field.source == "ServerC+ClientIda",
+                        field.source == "ServerC+ClientIda+src/packet",
                     "BHe resolved field");
             }
         }
+        failures += ExpectEffectiveFieldsMatch(
+            *petSkillUseResultSchema,
+            cg::packet::receive::PetSkillUseResult::Spec,
+            "BHe Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *petSkillUseResultSchema,
+            packet,
+            "BHe resolved field order");
+        failures += Expect(
+            value.result == 1 &&
+                value.havePetIndex == 0 &&
+                value.havePetSkill == 2 &&
+                value.toIndex == 3,
+            "BHe typed member order");
     }
     failures += Expect(
         !TypedManifestContainsCode(
@@ -10443,10 +10459,10 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "BHe"),
         "BHe absent from send typed manifest");
     failures += Expect(
-        !TypedManifestContainsCode(
+        TypedManifestContainsCode(
             cg::packet::test::ReceiveTypedPackets,
             "BHe"),
-        "BHe absent from receive typed manifest");
+        "BHe present in receive typed manifest");
 
     const PacketSchema* checkCommandSchema = FindPacket(packets, "CCL");
     failures += Expect(checkCommandSchema != nullptr, "CCL schema exists");

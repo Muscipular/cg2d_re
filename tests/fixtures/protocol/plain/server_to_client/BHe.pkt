@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=BHe
+direction=server_to_client
+sample=pet-skill-use-result
+plain_hex=42 48 65 20 31 20 30 20 32 20 33
+canonical_hex=42 48 65 20 31 20 30 20 32 20 33 20
+end_sample

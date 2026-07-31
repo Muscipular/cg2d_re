@@ -4099,35 +4099,35 @@
       "formatEmpty": true,
       "source": "xlsx",
       "resolvedFormat": "{result:i62} {havepetindex:i62} {havepetskill:i62} {toindex:i62}",
-      "resolvedSource": "ServerC+ClientIda",
+      "resolvedSource": "ServerC+ClientIda+src/packet",
       "resolvedFields": [
         {
           "index": 0,
           "name": "result",
           "typeToken": "i62",
           "rawSpec": "{result:i62}",
-          "source": "ServerC+ClientIda"
+          "source": "ServerC+ClientIda+src/packet"
         },
         {
           "index": 1,
           "name": "havepetindex",
           "typeToken": "i62",
           "rawSpec": "{havepetindex:i62}",
-          "source": "ServerC+ClientIda"
+          "source": "ServerC+ClientIda+src/packet"
         },
         {
           "index": 2,
           "name": "havepetskill",
           "typeToken": "i62",
           "rawSpec": "{havepetskill:i62}",
-          "source": "ServerC+ClientIda"
+          "source": "ServerC+ClientIda+src/packet"
         },
         {
           "index": 3,
           "name": "toindex",
           "typeToken": "i62",
           "rawSpec": "{toindex:i62}",
-          "source": "ServerC+ClientIda"
+          "source": "ServerC+ClientIda+src/packet"
         }
       ],
       "fields": []

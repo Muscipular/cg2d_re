@@ -1247,10 +1247,10 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
     failures += Expect(cg::packet::test::SendTypedPackets.size() == 98U, "send typed manifest count 98");
-    failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 98U, "receive typed manifest count 98");
+    failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 99U, "receive typed manifest count 99");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 196U,
-        "typed manifest count 196");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 197U,
+        "typed manifest count 197");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1267,7 +1267,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 196U, "typed manifest unique code count 196");
+    failures += Expect(codes.size() == 197U, "typed manifest unique code count 197");
     return failures;
 }
 
@@ -10213,6 +10213,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     const PacketSchema* tradeGoldInfoSchema = FindPacket(packets, "hJq");
     failures += Expect(tradeGoldInfoSchema != nullptr, "hJq schema exists");
     if (tradeGoldInfoSchema != nullptr) {
+        const cg::packet::receive::TradeGoldInfo value(100);
+        const cg::packet::Packet packet = value.ToPacket();
         failures += Expect(
             tradeGoldInfoSchema->direction == "服务端->客户端",
             "hJq direction");
@@ -10248,7 +10250,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             tradeGoldInfoSchema->resolvedFormat == "{gold:i62}",
             "hJq resolvedFormat");
         failures += Expect(
-            tradeGoldInfoSchema->resolvedSource == "ServerC+ClientIda",
+            tradeGoldInfoSchema->resolvedSource ==
+                "ServerC+ClientIda+src/packet",
             "hJq resolvedSource");
         failures += Expect(
             tradeGoldInfoSchema->hasResolvedFields,
@@ -10263,9 +10266,18 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                     field.name == "gold" &&
                     field.typeToken == "i62" &&
                     field.rawSpec == "{gold:i62}" &&
-                    field.source == "ServerC+ClientIda",
+                    field.source == "ServerC+ClientIda+src/packet",
                 "hJq resolved field");
         }
+        failures += ExpectEffectiveFieldsMatch(
+            *tradeGoldInfoSchema,
+            cg::packet::receive::TradeGoldInfo::Spec,
+            "hJq Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *tradeGoldInfoSchema,
+            packet,
+            "hJq resolved field order");
+        failures += Expect(value.gold == 100, "hJq gold member");
     }
     failures += Expect(
         !TypedManifestContainsCode(
@@ -10273,10 +10285,10 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "hJq"),
         "hJq absent from send typed manifest");
     failures += Expect(
-        !TypedManifestContainsCode(
+        TypedManifestContainsCode(
             cg::packet::test::ReceiveTypedPackets,
             "hJq"),
-        "hJq absent from receive typed manifest");
+        "hJq present in receive typed manifest");
 
     const PacketSchema* checkCommandSchema = FindPacket(packets, "CCL");
     failures += Expect(checkCommandSchema != nullptr, "CCL schema exists");

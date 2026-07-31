@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=hJq
+direction=server_to_client
+sample=counterparty-gold-one-hundred
+plain_hex=68 4A 71 20 31 43
+canonical_hex=68 4A 71 20 31 43 20
+end_sample

@@ -1923,6 +1923,48 @@ namespace cg::packet::send
     };
 
     /**
+     * RECV_StallBrowse 摆摊浏览请求 ElVN {objIndex:i62}
+     * objIndex 是摊位所属世界对象索引；业务有效性不下沉封包协议层。
+     */
+    struct StallBrowseRequest
+    {
+        static constexpr std::string_view Code = "ElVN";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("objIndex"), PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        int objectIndex = 0;
+
+        explicit StallBrowseRequest(int objectIndex)
+            : objectIndex(objectIndex)
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("objIndex"),
+                PacketFieldType::Int62,
+                std::to_string(objectIndex),
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket(), Spec);
+        }
+    };
+
+    /**
      * RECV_BagPageMgr 菜单型背包窗口请求 SWITMM
      * 客户端合同固定零字段；Server 内建路径对额外 token 较宽松。
      */

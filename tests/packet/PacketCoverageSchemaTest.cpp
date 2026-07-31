@@ -1246,11 +1246,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 87U, "send typed manifest count 87");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 88U, "send typed manifest count 88");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 89U, "receive typed manifest count 89");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 176U,
-        "typed manifest count 176");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 177U,
+        "typed manifest count 177");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1267,7 +1267,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 176U, "typed manifest unique code count 176");
+    failures += Expect(codes.size() == 177U, "typed manifest unique code count 177");
     return failures;
 }
 
@@ -7517,6 +7517,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         stallBrowseRequestSchema != nullptr,
         "ElVN schema exists");
     if (stallBrowseRequestSchema != nullptr) {
+        const cg::packet::send::StallBrowseRequest request(10);
         failures += Expect(
             stallBrowseRequestSchema->direction == "客户端->服务端",
             "ElVN direction");
@@ -7562,7 +7563,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "ElVN resolvedFormat");
         failures += Expect(
             stallBrowseRequestSchema->resolvedSource ==
-                "xlsx+ServerC+ClientIda",
+                "xlsx+ServerC+ClientIda+src/packet",
             "ElVN resolvedSource");
         failures += Expect(
             stallBrowseRequestSchema->hasResolvedFields,
@@ -7578,15 +7579,22 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                     objIndex.name == "objIndex" &&
                     objIndex.typeToken == "i62" &&
                     objIndex.rawSpec == "{objIndex:i62}" &&
-                    objIndex.source == "xlsx+ServerC+ClientIda",
+                    objIndex.source == "xlsx+ServerC+ClientIda+src/packet",
                 "ElVN resolved objIndex field order");
         }
+        failures += ExpectEffectiveFieldsMatch(
+            *stallBrowseRequestSchema,
+            cg::packet::send::StallBrowseRequest::Spec,
+            "ElVN Spec matches effective fields");
+        failures += Expect(
+            request.objectIndex == 10,
+            "ElVN typed member");
     }
     failures += Expect(
-        !TypedManifestContainsCode(
+        TypedManifestContainsCode(
             cg::packet::test::SendTypedPackets,
             "ElVN"),
-        "ElVN absent from send typed manifest");
+        "ElVN present in send typed manifest");
     failures += Expect(
         !TypedManifestContainsCode(
             cg::packet::test::ReceiveTypedPackets,

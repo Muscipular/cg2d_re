@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=ElVN
+direction=client_to_server
+sample=object-index-ten
+plain_hex=45 6C 56 4E 20 61
+canonical_hex=45 6C 56 4E 20 61 20
+end_sample

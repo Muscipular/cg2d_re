@@ -7943,14 +7943,14 @@
       "description": "RECV_StallBrowse 摆摊浏览请求",
       "rawFormat": "{objIndex}",
       "resolvedFormat": "{objIndex:i62}",
-      "resolvedSource": "xlsx+ServerC+ClientIda",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
       "resolvedFields": [
         {
           "index": 0,
           "name": "objIndex",
           "typeToken": "i62",
           "rawSpec": "{objIndex:i62}",
-          "source": "xlsx+ServerC+ClientIda"
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         }
       ],
       "formatEmpty": false,

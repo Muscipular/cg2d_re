@@ -2007,6 +2007,48 @@ namespace cg::packet::send
     };
 
     /**
+     * RECV_ProduceTime 生产耗时请求 IPy {time:i62}
+     * time 是预期生产耗时的整数秒，不是时间戳。
+     */
+    struct ProduceTimeRequest
+    {
+        static constexpr std::string_view Code = "IPy";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("time"), PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        int timeSeconds = 0;
+
+        explicit ProduceTimeRequest(int timeSeconds)
+            : timeSeconds(timeSeconds)
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("time"),
+                PacketFieldType::Int62,
+                std::to_string(timeSeconds),
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket(), Spec);
+        }
+    };
+
+    /**
      * RECV_BagPageMgr 菜单型背包窗口请求 SWITMM
      * 客户端合同固定零字段；Server 内建路径对额外 token 较宽松。
      */

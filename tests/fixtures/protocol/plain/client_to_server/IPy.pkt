@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=IPy
+direction=client_to_server
+sample=time-ten-seconds
+plain_hex=49 50 79 20 61
+canonical_hex=49 50 79 20 61 20
+end_sample

@@ -1246,11 +1246,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 89U, "send typed manifest count 89");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 90U, "send typed manifest count 90");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 89U, "receive typed manifest count 89");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 178U,
-        "typed manifest count 178");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 179U,
+        "typed manifest count 179");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1267,7 +1267,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 178U, "typed manifest unique code count 178");
+    failures += Expect(codes.size() == 179U, "typed manifest unique code count 179");
     return failures;
 }
 
@@ -7695,6 +7695,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         produceTimeRequestSchema != nullptr,
         "IPy schema exists");
     if (produceTimeRequestSchema != nullptr) {
+        const cg::packet::send::ProduceTimeRequest request(10);
         failures += Expect(
             produceTimeRequestSchema->direction == "客户端->服务端",
             "IPy direction");
@@ -7739,7 +7740,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "IPy resolvedFormat");
         failures += Expect(
             produceTimeRequestSchema->resolvedSource ==
-                "xlsx+ServerC+ClientIda",
+                "xlsx+ServerC+ClientIda+src/packet",
             "IPy resolvedSource");
         failures += Expect(
             produceTimeRequestSchema->hasResolvedFields,
@@ -7755,15 +7756,22 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                     time.name == "time" &&
                     time.typeToken == "i62" &&
                     time.rawSpec == "{time:i62}" &&
-                    time.source == "xlsx+ServerC+ClientIda",
+                    time.source == "xlsx+ServerC+ClientIda+src/packet",
                 "IPy resolved time field order");
         }
+        failures += ExpectEffectiveFieldsMatch(
+            *produceTimeRequestSchema,
+            cg::packet::send::ProduceTimeRequest::Spec,
+            "IPy Spec matches effective fields");
+        failures += Expect(
+            request.timeSeconds == 10,
+            "IPy typed member");
     }
     failures += Expect(
-        !TypedManifestContainsCode(
+        TypedManifestContainsCode(
             cg::packet::test::SendTypedPackets,
             "IPy"),
-        "IPy absent from send typed manifest");
+        "IPy present in send typed manifest");
     failures += Expect(
         !TypedManifestContainsCode(
             cg::packet::test::ReceiveTypedPackets,

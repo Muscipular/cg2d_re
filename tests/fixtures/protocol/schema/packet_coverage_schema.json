@@ -8005,14 +8005,14 @@
       "description": "RECV_ProduceTime 生产时间",
       "rawFormat": "{time(s)}",
       "resolvedFormat": "{time:i62}",
-      "resolvedSource": "xlsx+ServerC+ClientIda",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
       "resolvedFields": [
         {
           "index": 0,
           "name": "time",
           "typeToken": "i62",
           "rawSpec": "{time:i62}",
-          "source": "xlsx+ServerC+ClientIda"
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         }
       ],
       "formatEmpty": false,

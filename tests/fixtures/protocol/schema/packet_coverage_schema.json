@@ -4439,6 +4439,8 @@
       "rawFormat": "{result}",
       "formatEmpty": false,
       "source": "xlsx",
+      "resolvedFormat": "{result:i62}",
+      "resolvedSource": "xlsx+ServerC+ClientIda",
       "fields": [
         {
           "index": 0,
@@ -4446,6 +4448,15 @@
           "typeToken": "unknown",
           "rawSpec": "{result}",
           "source": "xlsx"
+        }
+      ],
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "result",
+          "typeToken": "i62",
+          "rawSpec": "{result:i62}",
+          "source": "xlsx+ServerC+ClientIda"
         }
       ]
     },

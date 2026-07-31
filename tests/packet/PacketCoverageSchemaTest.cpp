@@ -2506,11 +2506,26 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             processStatusSchema->resolvedFormat == "{data:es}",
             "cJzI resolvedFormat");
         failures += Expect(
-            processStatusSchema->resolvedSource == "ServerC+src/packet",
+            processStatusSchema->resolvedSource == "ServerC+ClientIda+src/packet",
             "cJzI resolvedSource");
+        failures += Expect(
+            processStatusSchema->resolvedFields.size() == 1U &&
+                processStatusSchema->resolvedFields[0].source ==
+                    "ServerC+ClientIda+src/packet",
+            "cJzI resolved field source");
         failures += Expect(processStatusSchema->fields.empty(), "cJzI raw fields empty");
+        failures += ExpectEffectiveFieldsMatch(
+            *processStatusSchema,
+            cg::packet::receive::ProcessStatus::Spec,
+            "cJzI Spec matches effective fields");
         failures += ExpectResolvedFieldsMatch(*processStatusSchema, packet, "cJzI resolved field order");
     }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "cJzI"),
+        "cJzI absent from send typed manifest");
+    failures += Expect(
+        TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "cJzI"),
+        "cJzI present in receive typed manifest");
 
     const PacketSchema* profileListSchema = FindPacket(packets, "eZT");
     failures += Expect(profileListSchema != nullptr, "eZT schema exists");

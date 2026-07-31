@@ -9702,7 +9702,8 @@ namespace cg::packet::receive
 
     /**
      * SEND_CT 技能列表		Rspn {skillIndex:i62} {data:es}
-     * data: 每条 6 段，数值为 raw decimal，整体保留尾随 `|`；空 data 表示无记录。
+     * data: 每条 6 段，techName/comment 使用 legacy 文本编码，数值为 raw decimal；
+     * 整体保留尾随 `|`，空 data 表示无记录。
      */
     struct TechList
     {
@@ -9710,7 +9711,7 @@ namespace cg::packet::receive
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
             {CG_PACKET_DIAGNOSTIC_TEXT("skillIndex"), PacketFieldType::Int62},
-            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::SubPayload},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -9730,13 +9731,31 @@ namespace cg::packet::receive
         }
 
 #if CG_PACKET_ENABLE_TEST_HELPERS
-        [[nodiscard]] std::string BuildData() const
+        [[nodiscard]] PacketResult<std::string> BuildData() const
         {
             std::string payload;
-            for (const TechRecord& record : records) {
-                payload.append(record.techName);
+            for (std::size_t recordIndex = 0; recordIndex < records.size(); ++recordIndex) {
+                const TechRecord& record = records[recordIndex];
+                const std::size_t baseIndex = recordIndex * RecordFieldCount;
+                PacketResult<std::string> encodedTechName = EncodeLegacyPayloadText(record.techName);
+                if (!encodedTechName.HasValue()) {
+                    PacketError error = encodedTechName.Error();
+                    error.packetCode = PacketCode(Code);
+                    error.fieldIndex = baseIndex;
+                    return PacketResult<std::string>::Failure(std::move(error));
+                }
+
+                PacketResult<std::string> encodedComment = EncodeLegacyPayloadText(record.comment);
+                if (!encodedComment.HasValue()) {
+                    PacketError error = encodedComment.Error();
+                    error.packetCode = PacketCode(Code);
+                    error.fieldIndex = baseIndex + 1U;
+                    return PacketResult<std::string>::Failure(std::move(error));
+                }
+
+                payload.append(encodedTechName.Value());
                 payload.push_back('|');
-                payload.append(record.comment);
+                payload.append(encodedComment.Value());
                 payload.push_back('|');
                 payload.append(std::to_string(record.forcePoint));
                 payload.push_back('|');
@@ -9747,13 +9766,18 @@ namespace cg::packet::receive
                 payload.append(std::to_string(record.canUse));
                 payload.push_back('|');
             }
-            return payload;
+            return PacketResult<std::string>::Success(std::move(payload));
         }
 #endif
 
 #if CG_PACKET_ENABLE_TEST_HELPERS
-        [[nodiscard]] Packet ToPacket() const
+        [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
+            PacketResult<std::string> data = BuildData();
+            if (!data.HasValue()) {
+                return PacketResult<Packet>::Failure(data.Error());
+            }
+
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("skillIndex"),
@@ -9762,10 +9786,10 @@ namespace cg::packet::receive
             });
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("data"),
-                PacketFieldType::EscapedString,
-                BuildData(),
+                PacketFieldType::SubPayload,
+                std::move(data.Value()),
             });
-            return packet;
+            return PacketResult<Packet>::Success(std::move(packet));
         }
 #endif
 
@@ -9868,14 +9892,7 @@ namespace cg::packet::receive
                 return PacketResult<std::vector<TechRecord>>::Success({});
             }
 
-            if (payload.back() != '|') {
-                return PacketResult<std::vector<TechRecord>>::Failure(MakeFieldError(
-                    PacketErrorCode::DecodeFailed,
-                    CG_PACKET_DIAGNOSTIC_TEXT("TechList payload 缺少尾随分隔符"),
-                    DataFieldIndex));
-            }
-
-            PacketResult<std::vector<std::string>> split = SplitPayload(payload, PayloadDelimiter);
+            PacketResult<std::vector<std::string>> split = SplitPayloadLegacyAware(payload, PayloadDelimiter);
             if (!split.HasValue()) {
                 PacketError error = split.Error();
                 error.packetCode = PacketCode(Code);
@@ -9884,6 +9901,12 @@ namespace cg::packet::receive
             }
 
             std::vector<std::string> parts = std::move(split.Value());
+            if (parts.empty() || !parts.back().empty()) {
+                return PacketResult<std::vector<TechRecord>>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT("TechList payload 缺少尾随分隔符"),
+                    DataFieldIndex));
+            }
             parts.pop_back();
             if (parts.empty() || (parts.size() % RecordFieldCount) != 0U) {
                 return PacketResult<std::vector<TechRecord>>::Failure(MakeFieldError(
@@ -9916,9 +9939,27 @@ namespace cg::packet::receive
                     return PacketResult<std::vector<TechRecord>>::Failure(canUse.Error());
                 }
 
+                PacketResult<std::string> techName =
+                    DecodeLegacyPayloadText(parts[baseIndex]);
+                if (!techName.HasValue()) {
+                    PacketError error = techName.Error();
+                    error.packetCode = PacketCode(Code);
+                    error.fieldIndex = baseIndex;
+                    return PacketResult<std::vector<TechRecord>>::Failure(std::move(error));
+                }
+
+                PacketResult<std::string> comment =
+                    DecodeLegacyPayloadText(parts[baseIndex + 1U]);
+                if (!comment.HasValue()) {
+                    PacketError error = comment.Error();
+                    error.packetCode = PacketCode(Code);
+                    error.fieldIndex = baseIndex + 1U;
+                    return PacketResult<std::vector<TechRecord>>::Failure(std::move(error));
+                }
+
                 records.push_back(TechRecord {
-                    parts[baseIndex],
-                    parts[baseIndex + 1U],
+                    std::move(techName.Value()),
+                    std::move(comment.Value()),
                     forcePoint.Value(),
                     field.Value(),
                     targetFlag.Value(),

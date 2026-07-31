@@ -2820,6 +2820,66 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "TNT"),
         "TNT present in receive typed manifest");
 
+    const PacketSchema* techListSchema = FindPacket(packets, "Rspn");
+    failures += Expect(techListSchema != nullptr, "Rspn schema exists");
+    if (techListSchema != nullptr) {
+        std::vector<cg::packet::receive::TechRecord> records;
+        records.push_back(cg::packet::receive::TechRecord {"Fire", "Burn", 10, 2, 3, 1});
+        const cg::packet::receive::TechList techList(1, std::move(records));
+        const cg::packet::PacketResult<cg::packet::Packet> packet = techList.ToPacket();
+        failures += Expect(packet.HasValue(), "Rspn ToPacket");
+        failures += Expect(techListSchema->direction == "服务端->客户端", "Rspn direction");
+        failures += Expect(techListSchema->legacyKind == "SEND", "Rspn legacyKind");
+        failures += Expect(techListSchema->clientNamespace == "receive", "Rspn namespace");
+        failures += Expect(techListSchema->rawFormat.empty(), "Rspn rawFormat empty");
+        failures += Expect(techListSchema->formatEmpty, "Rspn formatEmpty true");
+        failures += Expect(techListSchema->source == "xlsx", "Rspn raw source");
+        failures += Expect(techListSchema->fields.empty(), "Rspn raw fields empty");
+        failures += Expect(techListSchema->hasResolvedFormat, "Rspn resolvedFormat present");
+        failures += Expect(
+            techListSchema->resolvedFormat == "{skillIndex:i62} {data:es}",
+            "Rspn resolvedFormat");
+        failures += Expect(
+            techListSchema->resolvedSource == "ServerC+ClientIda+src/packet",
+            "Rspn resolvedSource");
+        failures += Expect(techListSchema->hasResolvedFields, "Rspn resolvedFields present");
+        failures += Expect(techListSchema->resolvedFields.size() == 2U, "Rspn resolved field count");
+        if (techListSchema->resolvedFields.size() == 2U) {
+            const std::array<std::string_view, 2U> names = {{"skillIndex", "data"}};
+            const std::array<std::string_view, 2U> types = {{"i62", "es"}};
+            const std::array<std::string_view, 2U> specs = {{
+                "{skillIndex:i62}",
+                "{data:es}",
+            }};
+            for (std::size_t index = 0; index < names.size(); ++index) {
+                const FieldSchema& field = techListSchema->resolvedFields[index];
+                failures += Expect(field.index == static_cast<int>(index), "Rspn resolved field index");
+                failures += Expect(field.name == names[index], "Rspn resolved field name");
+                failures += Expect(field.typeToken == types[index], "Rspn resolved field type");
+                failures += Expect(field.rawSpec == specs[index], "Rspn resolved field spec");
+                failures += Expect(
+                    field.source == "ServerC+ClientIda+src/packet",
+                    "Rspn resolved field source");
+            }
+        }
+        failures += ExpectEffectiveFieldsMatch(
+            *techListSchema,
+            cg::packet::receive::TechList::Spec,
+            "Rspn Spec matches effective fields");
+        if (packet.HasValue()) {
+            failures += ExpectResolvedFieldsMatch(
+                *techListSchema,
+                packet.Value(),
+                "Rspn resolved field order");
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "Rspn"),
+        "Rspn absent from send typed manifest");
+    failures += Expect(
+        TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "Rspn"),
+        "Rspn present in receive typed manifest");
+
     const PacketSchema* profileMailDeleteSchema = FindPacket(packets, "cNB");
     failures += Expect(profileMailDeleteSchema != nullptr, "cNB schema exists");
     if (profileMailDeleteSchema != nullptr) {

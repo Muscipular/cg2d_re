@@ -1,0 +1,9 @@
+pkt_fixture=1
+code=Rspn
+direction=server_to_client
+sample=gbk-two-inner-legacy
+plain_hex=52 73 70 6E 20 31 20 96 7C 5C 5C 7A CA F5 7C CB B5 C3 F7 5C 5C 63 D7 A2 7C 31 30 7C 32 7C 34 32 32 31 7C 31 7C
+canonical_hex=52 73 70 6E 20 31 20 96 7C 5C 5C 7A CA F5 7C CB B5 C3 F7 5C 5C 63 D7 A2 7C 31 30 7C 32 7C 34 32 32 31 7C 31 7C 20
+payload_field=1
+payload_hex=96 7C 5C 7A CA F5 7C CB B5 C3 F7 5C 63 D7 A2 7C 31 30 7C 32 7C 34 32 32 31 7C 31 7C
+end_sample

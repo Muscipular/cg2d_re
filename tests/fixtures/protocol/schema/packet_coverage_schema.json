@@ -4625,6 +4625,8 @@
       "rawFormat": "{fromChar} {fromSlot} {toChar} {toSlot}",
       "formatEmpty": false,
       "source": "xlsx",
+      "resolvedFormat": "{fromChar:i62} {fromSlot:i62} {toChar:i62} {toSlot:i62}",
+      "resolvedSource": "xlsx+ServerC+ClientIda",
       "fields": [
         {
           "index": 0,
@@ -4653,6 +4655,36 @@
           "typeToken": "unknown",
           "rawSpec": "{toSlot}",
           "source": "xlsx"
+        }
+      ],
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "fromChar",
+          "typeToken": "i62",
+          "rawSpec": "{fromChar:i62}",
+          "source": "xlsx+ServerC+ClientIda"
+        },
+        {
+          "index": 1,
+          "name": "fromSlot",
+          "typeToken": "i62",
+          "rawSpec": "{fromSlot:i62}",
+          "source": "xlsx+ServerC+ClientIda"
+        },
+        {
+          "index": 2,
+          "name": "toChar",
+          "typeToken": "i62",
+          "rawSpec": "{toChar:i62}",
+          "source": "xlsx+ServerC+ClientIda"
+        },
+        {
+          "index": 3,
+          "name": "toSlot",
+          "typeToken": "i62",
+          "rawSpec": "{toSlot:i62}",
+          "source": "xlsx+ServerC+ClientIda"
         }
       ]
     },

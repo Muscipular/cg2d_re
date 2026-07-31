@@ -7300,6 +7300,117 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "Yx"),
         "Yx present in receive typed manifest");
 
+    const PacketSchema* petItemSwapSchema =
+        FindPacket(packets, "kiG");
+    failures += Expect(
+        petItemSwapSchema != nullptr,
+        "kiG schema exists");
+    if (petItemSwapSchema != nullptr) {
+        failures += Expect(
+            petItemSwapSchema->direction == "服务端->客户端",
+            "kiG direction");
+        failures += Expect(
+            petItemSwapSchema->legacyKind == "SEND",
+            "kiG legacyKind");
+        failures += Expect(
+            petItemSwapSchema->clientNamespace == "receive",
+            "kiG namespace");
+        failures += Expect(
+            petItemSwapSchema->xlsxStatus == "待办",
+            "kiG xlsxStatus");
+        failures += Expect(
+            petItemSwapSchema->rawFormat ==
+                "{fromChar} {fromSlot} {toChar} {toSlot}",
+            "kiG rawFormat");
+        failures += Expect(
+            !petItemSwapSchema->formatEmpty,
+            "kiG formatEmpty false");
+        failures += Expect(
+            petItemSwapSchema->source == "xlsx",
+            "kiG raw source");
+        failures += Expect(
+            petItemSwapSchema->fields.size() == 4U,
+            "kiG raw field count");
+        if (petItemSwapSchema->fields.size() == 4U) {
+            constexpr std::array<std::string_view, 4U> names = {{
+                "fromChar",
+                "fromSlot",
+                "toChar",
+                "toSlot",
+            }};
+            constexpr std::array<std::string_view, 4U> specs = {{
+                "{fromChar}",
+                "{fromSlot}",
+                "{toChar}",
+                "{toSlot}",
+            }};
+            for (std::size_t index = 0U; index < names.size(); ++index) {
+                const FieldSchema& field =
+                    petItemSwapSchema->fields[index];
+                failures += Expect(
+                    field.index == static_cast<int>(index) &&
+                        field.name == names[index] &&
+                        field.typeToken == "unknown" &&
+                        field.rawSpec == specs[index] &&
+                        field.source == "xlsx",
+                    "kiG raw field order");
+            }
+        }
+
+        failures += Expect(
+            petItemSwapSchema->hasResolvedFormat,
+            "kiG resolvedFormat present");
+        failures += Expect(
+            petItemSwapSchema->resolvedFormat ==
+                "{fromChar:i62} {fromSlot:i62} {toChar:i62} {toSlot:i62}",
+            "kiG resolvedFormat");
+        failures += Expect(
+            petItemSwapSchema->resolvedSource ==
+                "xlsx+ServerC+ClientIda",
+            "kiG resolvedSource");
+        failures += Expect(
+            petItemSwapSchema->hasResolvedFields,
+            "kiG resolvedFields present");
+        failures += Expect(
+            petItemSwapSchema->resolvedFields.size() == 4U,
+            "kiG resolved field count");
+        if (petItemSwapSchema->resolvedFields.size() == 4U) {
+            constexpr std::array<std::string_view, 4U> names = {{
+                "fromChar",
+                "fromSlot",
+                "toChar",
+                "toSlot",
+            }};
+            constexpr std::array<std::string_view, 4U> specs = {{
+                "{fromChar:i62}",
+                "{fromSlot:i62}",
+                "{toChar:i62}",
+                "{toSlot:i62}",
+            }};
+            for (std::size_t index = 0U; index < names.size(); ++index) {
+                const FieldSchema& field =
+                    petItemSwapSchema->resolvedFields[index];
+                failures += Expect(
+                    field.index == static_cast<int>(index) &&
+                        field.name == names[index] &&
+                        field.typeToken == "i62" &&
+                        field.rawSpec == specs[index] &&
+                        field.source == "xlsx+ServerC+ClientIda",
+                    "kiG resolved field order");
+            }
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "kiG"),
+        "kiG absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "kiG"),
+        "kiG absent from receive typed manifest");
+
     const PacketSchema* versionUpgradeRequestSchema =
         FindPacket(packets, "Xoee");
     failures += Expect(

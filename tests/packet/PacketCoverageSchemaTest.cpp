@@ -10547,6 +10547,85 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "kg"),
         "kg present in receive typed manifest");
 
+    const PacketSchema* petLevelUpPointsSchema = FindPacket(packets, "sA");
+    failures += Expect(petLevelUpPointsSchema != nullptr, "sA schema exists");
+    if (petLevelUpPointsSchema != nullptr) {
+        failures += Expect(
+            petLevelUpPointsSchema->direction == "服务端->客户端",
+            "sA direction");
+        failures += Expect(
+            petLevelUpPointsSchema->legacyKind == "SEND",
+            "sA legacyKind");
+        failures += Expect(
+            petLevelUpPointsSchema->clientNamespace == "receive",
+            "sA namespace");
+        failures += Expect(
+            petLevelUpPointsSchema->xlsxStatus == "完成",
+            "sA xlsxStatus");
+        failures += Expect(
+            petLevelUpPointsSchema->description == "SEND_PLVUP",
+            "sA description");
+        failures += Expect(
+            petLevelUpPointsSchema->rawFormat.empty(),
+            "sA rawFormat empty");
+        failures += Expect(
+            petLevelUpPointsSchema->formatEmpty,
+            "sA formatEmpty true");
+        failures += Expect(
+            petLevelUpPointsSchema->source == "xlsx",
+            "sA raw source");
+        failures += Expect(
+            petLevelUpPointsSchema->fields.empty(),
+            "sA raw fields empty");
+        failures += Expect(
+            petLevelUpPointsSchema->hasResolvedFormat,
+            "sA resolvedFormat present");
+        failures += Expect(
+            petLevelUpPointsSchema->resolvedFormat ==
+                "{petSlot:i62} {levelUpPoints:i62}",
+            "sA resolvedFormat");
+        failures += Expect(
+            petLevelUpPointsSchema->resolvedSource == "ServerC+ClientIda",
+            "sA resolvedSource");
+        failures += Expect(
+            petLevelUpPointsSchema->hasResolvedFields,
+            "sA resolvedFields present");
+        failures += Expect(
+            petLevelUpPointsSchema->resolvedFields.size() == 2U,
+            "sA resolved field count");
+        if (petLevelUpPointsSchema->resolvedFields.size() == 2U) {
+            constexpr std::array<std::string_view, 2U> names = {{
+                "petSlot",
+                "levelUpPoints",
+            }};
+            constexpr std::array<std::string_view, 2U> specs = {{
+                "{petSlot:i62}",
+                "{levelUpPoints:i62}",
+            }};
+            for (std::size_t index = 0U; index < names.size(); ++index) {
+                const FieldSchema& field =
+                    petLevelUpPointsSchema->resolvedFields[index];
+                failures += Expect(
+                    field.index == static_cast<int>(index) &&
+                        field.name == names[index] &&
+                        field.typeToken == "i62" &&
+                        field.rawSpec == specs[index] &&
+                        field.source == "ServerC+ClientIda",
+                    "sA resolved field");
+            }
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "sA"),
+        "sA absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "sA"),
+        "sA absent from receive typed manifest");
+
     const PacketSchema* checkCommandSchema = FindPacket(packets, "CCL");
     failures += Expect(checkCommandSchema != nullptr, "CCL schema exists");
     if (checkCommandSchema != nullptr) {

@@ -4165,6 +4165,24 @@
       "rawFormat": "",
       "formatEmpty": true,
       "source": "xlsx",
+      "resolvedFormat": "{petSlot:i62} {levelUpPoints:i62}",
+      "resolvedSource": "ServerC+ClientIda",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "petSlot",
+          "typeToken": "i62",
+          "rawSpec": "{petSlot:i62}",
+          "source": "ServerC+ClientIda"
+        },
+        {
+          "index": 1,
+          "name": "levelUpPoints",
+          "typeToken": "i62",
+          "rawSpec": "{levelUpPoints:i62}",
+          "source": "ServerC+ClientIda"
+        }
+      ],
       "fields": []
     },
     {

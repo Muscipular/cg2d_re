@@ -8143,6 +8143,112 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         }
     }
 
+    const PacketSchema* dropItemSchema = FindPacket(packets, "QpfE");
+    failures += Expect(dropItemSchema != nullptr, "QpfE schema exists");
+    if (dropItemSchema != nullptr) {
+        failures += Expect(
+            dropItemSchema->direction == "客户端->服务端",
+            "QpfE direction");
+        failures += Expect(
+            dropItemSchema->legacyKind == "RECV",
+            "QpfE legacyKind");
+        failures += Expect(
+            dropItemSchema->clientNamespace == "send",
+            "QpfE namespace");
+        failures += Expect(
+            dropItemSchema->xlsxStatus == "完成",
+            "QpfE xlsxStatus");
+        failures += Expect(
+            dropItemSchema->rawFormat == "{x} {y} {who} {itemindex}",
+            "QpfE rawFormat");
+        failures += Expect(
+            !dropItemSchema->formatEmpty,
+            "QpfE formatEmpty false");
+        failures += Expect(
+            dropItemSchema->source == "xlsx",
+            "QpfE raw source");
+        failures += Expect(
+            dropItemSchema->fields.size() == 4U,
+            "QpfE raw field count");
+        if (dropItemSchema->fields.size() == 4U) {
+            constexpr std::array<std::string_view, 4U> names = {{
+                "x",
+                "y",
+                "who",
+                "itemindex",
+            }};
+            constexpr std::array<std::string_view, 4U> specs = {{
+                "{x}",
+                "{y}",
+                "{who}",
+                "{itemindex}",
+            }};
+            for (std::size_t index = 0U; index < names.size(); ++index) {
+                const FieldSchema& field = dropItemSchema->fields[index];
+                failures += Expect(
+                    field.index == static_cast<int>(index) &&
+                        field.name == names[index] &&
+                        field.typeToken == "unknown" &&
+                        field.rawSpec == specs[index] &&
+                        field.source == "xlsx",
+                    "QpfE raw field order");
+            }
+        }
+
+        failures += Expect(
+            dropItemSchema->hasResolvedFormat,
+            "QpfE resolvedFormat present");
+        failures += Expect(
+            dropItemSchema->resolvedFormat ==
+                "{x:i62} {y:i62} {who:i62} {itemindex:i62}",
+            "QpfE resolvedFormat");
+        failures += Expect(
+            dropItemSchema->resolvedSource ==
+                "xlsx+ServerC+ClientIda",
+            "QpfE resolvedSource");
+        failures += Expect(
+            dropItemSchema->hasResolvedFields,
+            "QpfE resolvedFields present");
+        failures += Expect(
+            dropItemSchema->resolvedFields.size() == 4U,
+            "QpfE resolved field count");
+        if (dropItemSchema->resolvedFields.size() == 4U) {
+            constexpr std::array<std::string_view, 4U> names = {{
+                "x",
+                "y",
+                "who",
+                "itemindex",
+            }};
+            constexpr std::array<std::string_view, 4U> specs = {{
+                "{x:i62}",
+                "{y:i62}",
+                "{who:i62}",
+                "{itemindex:i62}",
+            }};
+            for (std::size_t index = 0U; index < names.size(); ++index) {
+                const FieldSchema& field =
+                    dropItemSchema->resolvedFields[index];
+                failures += Expect(
+                    field.index == static_cast<int>(index) &&
+                        field.name == names[index] &&
+                        field.typeToken == "i62" &&
+                        field.rawSpec == specs[index] &&
+                        field.source == "xlsx+ServerC+ClientIda",
+                    "QpfE resolved field order");
+            }
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "QpfE"),
+        "QpfE absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "QpfE"),
+        "QpfE absent from receive typed manifest");
+
     const PacketSchema* dropGoldSchema = FindPacket(packets, "woz");
     failures += Expect(dropGoldSchema != nullptr, "woz schema exists");
     if (dropGoldSchema != nullptr) {

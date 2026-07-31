@@ -8860,18 +8860,51 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         const cg::packet::Packet packet = createNewChar.ToPacket();
         failures += Expect(createNewCharSchema->direction == "客户端->服务端", "aSEl direction");
         failures += Expect(createNewCharSchema->legacyKind == "RECV", "aSEl legacyKind");
+        failures += Expect(createNewCharSchema->clientNamespace == "send", "aSEl namespace");
+        failures += Expect(createNewCharSchema->xlsxStatus == "完成", "aSEl xlsxStatus");
+        failures += Expect(
+            createNewCharSchema->description == "RECV_CreateNewChar 创建角色",
+            "aSEl description");
         failures += Expect(
             createNewCharSchema->rawFormat ==
                 "{dataPlace} {name} {image} {face} {vital} {strength} {tough} {quick} {magic} {earth} {water} {fire} {wind}",
             "aSEl rawFormat");
+        failures += Expect(!createNewCharSchema->formatEmpty, "aSEl formatEmpty false");
+        failures += Expect(createNewCharSchema->source == "xlsx", "aSEl raw source");
         failures += Expect(createNewCharSchema->fields.size() == 13U, "aSEl raw field count");
+        failures += Expect(createNewCharSchema->hasResolvedFormat, "aSEl resolvedFormat present");
         failures += Expect(
             createNewCharSchema->resolvedFormat ==
                 "{dataPlace:i62} {name:es} {image:i62} {face:i62} {vital:i62} {strength:i62} {tough:i62} {quick:i62} {magic:i62} {earth:i62} {water:i62} {fire:i62} {wind:i62}",
             "aSEl resolvedFormat");
-        failures += Expect(createNewCharSchema->resolvedSource == "xlsx+src/packet", "aSEl resolvedSource");
+        failures += Expect(
+            createNewCharSchema->resolvedSource == "xlsx+ServerC+ClientIda+src/packet",
+            "aSEl resolvedSource");
+        failures += Expect(createNewCharSchema->hasResolvedFields, "aSEl resolvedFields present");
+        failures += Expect(
+            createNewCharSchema->resolvedFields.size() == 13U,
+            "aSEl resolved field count");
+        for (const FieldSchema& field : createNewCharSchema->resolvedFields) {
+            failures += Expect(
+                field.source == "xlsx+ServerC+ClientIda+src/packet",
+                "aSEl resolved field source");
+        }
+        failures += ExpectEffectiveFieldsMatch(
+            *createNewCharSchema,
+            cg::packet::send::CreateNewChar::Spec,
+            "aSEl Spec matches effective fields");
         failures += ExpectResolvedFieldsMatch(*createNewCharSchema, packet, "aSEl resolved field order");
     }
+    failures += Expect(
+        TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "aSEl"),
+        "aSEl present in send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "aSEl"),
+        "aSEl absent from receive typed manifest");
 
     const PacketSchema* magicUseSchema = FindPacket(packets, "RXr");
     failures += Expect(magicUseSchema != nullptr, "RXr schema exists");

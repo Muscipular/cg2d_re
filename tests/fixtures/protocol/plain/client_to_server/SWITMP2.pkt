@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=SWITMP2
+direction=client_to_server
+sample=page-zero-slot-eight-to-page-one-auto-slot
+plain_hex=53 57 49 54 4D 50 32 20 30 20 38 20 31 20 2D 31
+canonical_hex=53 57 49 54 4D 50 32 20 30 20 38 20 31 20 2D 31 20
+end_sample

@@ -8260,35 +8260,35 @@
       "description": "RECV_BagPageMoveEx 移动物品",
       "rawFormat": "{fromPage} {fromSlot} {toPage} {toSlot}",
       "resolvedFormat": "{fromPage:i62} {fromSlot:i62} {toPage:i62} {toSlot:i62}",
-      "resolvedSource": "xlsx+ServerC",
+      "resolvedSource": "xlsx+ServerC+src/packet",
       "resolvedFields": [
         {
           "index": 0,
           "name": "fromPage",
           "typeToken": "i62",
           "rawSpec": "{fromPage:i62}",
-          "source": "xlsx+ServerC"
+          "source": "xlsx+ServerC+src/packet"
         },
         {
           "index": 1,
           "name": "fromSlot",
           "typeToken": "i62",
           "rawSpec": "{fromSlot:i62}",
-          "source": "xlsx+ServerC"
+          "source": "xlsx+ServerC+src/packet"
         },
         {
           "index": 2,
           "name": "toPage",
           "typeToken": "i62",
           "rawSpec": "{toPage:i62}",
-          "source": "xlsx+ServerC"
+          "source": "xlsx+ServerC+src/packet"
         },
         {
           "index": 3,
           "name": "toSlot",
           "typeToken": "i62",
           "rawSpec": "{toSlot:i62}",
-          "source": "xlsx+ServerC"
+          "source": "xlsx+ServerC+src/packet"
         }
       ],
       "formatEmpty": false,

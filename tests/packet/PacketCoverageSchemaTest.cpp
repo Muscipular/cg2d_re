@@ -1246,11 +1246,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 94U, "send typed manifest count 94");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 95U, "send typed manifest count 95");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 89U, "receive typed manifest count 89");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 183U,
-        "typed manifest count 183");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 184U,
+        "typed manifest count 184");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1267,7 +1267,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 183U, "typed manifest unique code count 183");
+    failures += Expect(codes.size() == 184U, "typed manifest unique code count 184");
     return failures;
 }
 
@@ -8216,6 +8216,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         bagPageMoveExRequestSchema != nullptr,
         "SWITMP2 schema exists");
     if (bagPageMoveExRequestSchema != nullptr) {
+        const cg::packet::send::BagPageMoveExRequest request(0, 8, 1, -1);
         failures += Expect(
             bagPageMoveExRequestSchema->direction == "客户端->服务端",
             "SWITMP2 direction");
@@ -8280,7 +8281,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "SWITMP2 resolvedFormat");
         failures += Expect(
             bagPageMoveExRequestSchema->resolvedSource ==
-                "xlsx+ServerC",
+                "xlsx+ServerC+src/packet",
             "SWITMP2 resolvedSource");
         failures += Expect(
             bagPageMoveExRequestSchema->hasResolvedFields,
@@ -8308,16 +8309,26 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                         field.name == RawNames[index] &&
                         field.typeToken == "i62" &&
                         field.rawSpec == ResolvedSpecs[index] &&
-                        field.source == "xlsx+ServerC",
+                        field.source == "xlsx+ServerC+src/packet",
                     "SWITMP2 resolved field order");
             }
         }
+        failures += ExpectEffectiveFieldsMatch(
+            *bagPageMoveExRequestSchema,
+            cg::packet::send::BagPageMoveExRequest::Spec,
+            "SWITMP2 Spec matches effective fields");
+        failures += Expect(
+            request.fromPage == 0 &&
+                request.fromSlot == 8 &&
+                request.toPage == 1 &&
+                request.toSlot == -1,
+            "SWITMP2 typed members");
     }
     failures += Expect(
-        !TypedManifestContainsCode(
+        TypedManifestContainsCode(
             cg::packet::test::SendTypedPackets,
             "SWITMP2"),
-        "SWITMP2 absent from send typed manifest");
+        "SWITMP2 present in send typed manifest");
     failures += Expect(
         !TypedManifestContainsCode(
             cg::packet::test::ReceiveTypedPackets,

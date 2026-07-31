@@ -2272,6 +2272,77 @@ namespace cg::packet::send
     };
 
     /**
+     * RECV_BagPageMoveEx 背包扩展移物请求 SWITMP2
+     * {fromPage:i62} {fromSlot:i62} {toPage:i62} {toSlot:i62}
+     * 槽位、页码钳位与自动选择空位属于业务层。
+     */
+    struct BagPageMoveExRequest
+    {
+        static constexpr std::string_view Code = "SWITMP2";
+        static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
+        static constexpr std::array<PacketFieldSpec, 4U> Fields = {{
+            {CG_PACKET_DIAGNOSTIC_TEXT("fromPage"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("fromSlot"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("toPage"), PacketFieldType::Int62},
+            {CG_PACKET_DIAGNOSTIC_TEXT("toSlot"), PacketFieldType::Int62},
+        }};
+        static constexpr PacketSpec Spec {
+            Code,
+            Direction,
+            Fields.data(),
+            Fields.size(),
+        };
+
+        int fromPage = 0;
+        int fromSlot = 0;
+        int toPage = 0;
+        int toSlot = 0;
+
+        BagPageMoveExRequest(
+            int fromPage,
+            int fromSlot,
+            int toPage,
+            int toSlot)
+            : fromPage(fromPage),
+              fromSlot(fromSlot),
+              toPage(toPage),
+              toSlot(toSlot)
+        {
+        }
+
+        [[nodiscard]] Packet ToPacket() const
+        {
+            Packet packet(PacketCode(Code), Direction);
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("fromPage"),
+                PacketFieldType::Int62,
+                std::to_string(fromPage),
+            });
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("fromSlot"),
+                PacketFieldType::Int62,
+                std::to_string(fromSlot),
+            });
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("toPage"),
+                PacketFieldType::Int62,
+                std::to_string(toPage),
+            });
+            packet.fields.push_back(PacketField {
+                CG_PACKET_DIAGNOSTIC_TEXT("toSlot"),
+                PacketFieldType::Int62,
+                std::to_string(toSlot),
+            });
+            return packet;
+        }
+
+        [[nodiscard]] PacketResult<std::string> Encode() const
+        {
+            return BuildPacket(ToPacket(), Spec);
+        }
+    };
+
+    /**
      * RECV_BagPageMgr 菜单型背包窗口请求 SWITMM
      * 客户端合同固定零字段；Server 内建路径对额外 token 较宽松。
      */

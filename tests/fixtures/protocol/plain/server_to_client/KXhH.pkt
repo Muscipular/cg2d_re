@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=KXhH
+direction=server_to_client
+sample=success
+plain_hex=4B 58 68 48 20 30
+canonical_hex=4B 58 68 48 20 30 20
+end_sample

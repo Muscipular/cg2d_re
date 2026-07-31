@@ -8153,6 +8153,17 @@
       "xlsxStatus": "完成",
       "description": "RECV_BagPage 背包翻页",
       "rawFormat": "{page}",
+      "resolvedFormat": "{page:i62}",
+      "resolvedSource": "xlsx+ServerC",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "page",
+          "typeToken": "i62",
+          "rawSpec": "{page:i62}",
+          "source": "xlsx+ServerC"
+        }
+      ],
       "formatEmpty": false,
       "source": "xlsx",
       "fields": [

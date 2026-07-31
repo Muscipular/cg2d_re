@@ -8003,6 +8003,85 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "Cpa"),
         "Cpa absent from receive typed manifest");
 
+    const PacketSchema* bagPageRequestSchema =
+        FindPacket(packets, "SWITM");
+    failures += Expect(
+        bagPageRequestSchema != nullptr,
+        "SWITM schema exists");
+    if (bagPageRequestSchema != nullptr) {
+        failures += Expect(
+            bagPageRequestSchema->direction == "客户端->服务端",
+            "SWITM direction");
+        failures += Expect(
+            bagPageRequestSchema->legacyKind == "RECV",
+            "SWITM legacyKind");
+        failures += Expect(
+            bagPageRequestSchema->clientNamespace == "send",
+            "SWITM namespace");
+        failures += Expect(
+            bagPageRequestSchema->xlsxStatus == "完成",
+            "SWITM xlsxStatus");
+        failures += Expect(
+            bagPageRequestSchema->rawFormat == "{page}",
+            "SWITM rawFormat");
+        failures += Expect(
+            !bagPageRequestSchema->formatEmpty,
+            "SWITM formatEmpty false");
+        failures += Expect(
+            bagPageRequestSchema->source == "xlsx",
+            "SWITM raw source");
+        failures += Expect(
+            bagPageRequestSchema->fields.size() == 1U,
+            "SWITM raw field count");
+        if (bagPageRequestSchema->fields.size() == 1U) {
+            const FieldSchema& page = bagPageRequestSchema->fields[0];
+            failures += Expect(
+                page.index == 0 &&
+                    page.name == "page" &&
+                    page.typeToken == "unknown" &&
+                    page.rawSpec == "{page}" &&
+                    page.source == "xlsx",
+                "SWITM raw page field");
+        }
+
+        failures += Expect(
+            bagPageRequestSchema->hasResolvedFormat,
+            "SWITM resolvedFormat present");
+        failures += Expect(
+            bagPageRequestSchema->resolvedFormat == "{page:i62}",
+            "SWITM resolvedFormat");
+        failures += Expect(
+            bagPageRequestSchema->resolvedSource == "xlsx+ServerC",
+            "SWITM resolvedSource");
+        failures += Expect(
+            bagPageRequestSchema->hasResolvedFields,
+            "SWITM resolvedFields present");
+        failures += Expect(
+            bagPageRequestSchema->resolvedFields.size() == 1U,
+            "SWITM resolved field count");
+        if (bagPageRequestSchema->resolvedFields.size() == 1U) {
+            const FieldSchema& page =
+                bagPageRequestSchema->resolvedFields[0];
+            failures += Expect(
+                page.index == 0 &&
+                    page.name == "page" &&
+                    page.typeToken == "i62" &&
+                    page.rawSpec == "{page:i62}" &&
+                    page.source == "xlsx+ServerC",
+                "SWITM resolved page field");
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "SWITM"),
+        "SWITM absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "SWITM"),
+        "SWITM absent from receive typed manifest");
+
     const PacketSchema* versionUpgradeRequestSchema =
         FindPacket(packets, "Xoee");
     failures += Expect(

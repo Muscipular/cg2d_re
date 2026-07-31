@@ -1247,10 +1247,10 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
     failures += Expect(cg::packet::test::SendTypedPackets.size() == 98U, "send typed manifest count 98");
-    failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 104U, "receive typed manifest count 104");
+    failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 105U, "receive typed manifest count 105");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 202U,
-        "typed manifest count 202");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 203U,
+        "typed manifest count 203");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1267,7 +1267,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 202U, "typed manifest unique code count 202");
+    failures += Expect(codes.size() == 203U, "typed manifest unique code count 203");
     return failures;
 }
 
@@ -10732,6 +10732,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         backgroundMusicChangeSchema != nullptr,
         "wiB schema exists");
     if (backgroundMusicChangeSchema != nullptr) {
+        const cg::packet::receive::BackgroundMusicChange value(200);
+        const cg::packet::Packet packet = value.ToPacket();
         failures += Expect(
             backgroundMusicChangeSchema->direction == "服务端->客户端",
             "wiB direction");
@@ -10767,7 +10769,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "wiB resolvedFormat");
         failures += Expect(
             backgroundMusicChangeSchema->resolvedSource ==
-                "ServerC+ClientIda",
+                "ServerC+ClientIda+src/packet",
             "wiB resolvedSource");
         failures += Expect(
             backgroundMusicChangeSchema->hasResolvedFields,
@@ -10783,9 +10785,20 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                     field.name == "sw" &&
                     field.typeToken == "i62" &&
                     field.rawSpec == "{sw:i62}" &&
-                    field.source == "ServerC+ClientIda",
+                    field.source == "ServerC+ClientIda+src/packet",
                 "wiB resolved field");
         }
+        failures += ExpectEffectiveFieldsMatch(
+            *backgroundMusicChangeSchema,
+            cg::packet::receive::BackgroundMusicChange::Spec,
+            "wiB Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *backgroundMusicChangeSchema,
+            packet,
+            "wiB resolved field order");
+        failures += Expect(
+            value.backgroundMusicNumber == 200,
+            "wiB typed member");
     }
     failures += Expect(
         !TypedManifestContainsCode(
@@ -10793,10 +10806,10 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "wiB"),
         "wiB absent from send typed manifest");
     failures += Expect(
-        !TypedManifestContainsCode(
+        TypedManifestContainsCode(
             cg::packet::test::ReceiveTypedPackets,
             "wiB"),
-        "wiB absent from receive typed manifest");
+        "wiB present in receive typed manifest");
 
     const PacketSchema* checkCommandSchema = FindPacket(packets, "CCL");
     failures += Expect(checkCommandSchema != nullptr, "CCL schema exists");

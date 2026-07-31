@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=wiB
+direction=server_to_client
+sample=background-music-lower-bound
+plain_hex=77 69 42 20 33 65
+canonical_hex=77 69 42 20 33 65 20
+end_sample

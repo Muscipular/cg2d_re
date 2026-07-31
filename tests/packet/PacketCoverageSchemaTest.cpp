@@ -6882,6 +6882,57 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "ed"),
         "ed present in receive typed manifest");
 
+    const PacketSchema* expireSchema = FindPacket(packets, "Expire");
+    failures += Expect(expireSchema != nullptr, "Expire schema exists");
+    if (expireSchema != nullptr) {
+        failures += Expect(
+            expireSchema->direction == "服务端->客户端",
+            "Expire direction");
+        failures += Expect(
+            expireSchema->legacyKind == "SEND",
+            "Expire legacyKind");
+        failures += Expect(
+            expireSchema->clientNamespace == "receive",
+            "Expire namespace");
+        failures += Expect(
+            expireSchema->xlsxStatus == "暂缓",
+            "Expire xlsxStatus");
+        failures += Expect(
+            expireSchema->rawFormat.empty(),
+            "Expire rawFormat empty");
+        failures += Expect(
+            expireSchema->formatEmpty,
+            "Expire formatEmpty true");
+        failures += Expect(
+            expireSchema->source == "xlsx",
+            "Expire raw source");
+        failures += Expect(
+            expireSchema->fields.empty(),
+            "Expire raw fields empty");
+        failures += Expect(
+            expireSchema->contractStatus == "no-effective-wire-contract",
+            "Expire no-effective-wire-contract sentinel");
+        failures += Expect(
+            expireSchema->resolvedSource == "xlsx+ServerC",
+            "Expire resolvedSource");
+        failures += Expect(
+            !expireSchema->hasResolvedFormat,
+            "Expire resolvedFormat absent");
+        failures += Expect(
+            !expireSchema->hasResolvedFields,
+            "Expire resolvedFields absent");
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "Expire"),
+        "Expire absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "Expire"),
+        "Expire absent from receive typed manifest");
+
     const PacketSchema* versionUpgradeRequestSchema =
         FindPacket(packets, "Xoee");
     failures += Expect(

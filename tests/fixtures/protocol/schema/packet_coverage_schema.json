@@ -4394,6 +4394,8 @@
       "rawFormat": "",
       "formatEmpty": true,
       "source": "xlsx",
+      "contractStatus": "no-effective-wire-contract",
+      "resolvedSource": "xlsx+ServerC",
       "fields": []
     },
     {

@@ -2581,7 +2581,18 @@
       "rawFormat": "",
       "formatEmpty": true,
       "source": "xlsx",
-      "fields": []
+      "resolvedFormat": "{albumId:i62}",
+      "resolvedSource": "ServerC+ClientIda",
+      "fields": [],
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "albumId",
+          "typeToken": "i62",
+          "rawSpec": "{albumId:i62}",
+          "source": "ServerC+ClientIda"
+        }
+      ]
     },
     {
       "code": "lDuJ",

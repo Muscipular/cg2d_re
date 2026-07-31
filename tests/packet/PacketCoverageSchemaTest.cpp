@@ -9893,6 +9893,74 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "vWpn"),
         "vWpn present in receive typed manifest");
 
+    const PacketSchema* albumIdNotificationSchema = FindPacket(packets, "IYo");
+    failures += Expect(albumIdNotificationSchema != nullptr, "IYo schema exists");
+    if (albumIdNotificationSchema != nullptr) {
+        failures += Expect(
+            albumIdNotificationSchema->direction == "服务端->客户端",
+            "IYo direction");
+        failures += Expect(
+            albumIdNotificationSchema->legacyKind == "SEND",
+            "IYo legacyKind");
+        failures += Expect(
+            albumIdNotificationSchema->clientNamespace == "receive",
+            "IYo namespace");
+        failures += Expect(
+            albumIdNotificationSchema->xlsxStatus == "完成",
+            "IYo xlsxStatus");
+        failures += Expect(
+            albumIdNotificationSchema->description == "SEND_ALO",
+            "IYo description");
+        failures += Expect(
+            albumIdNotificationSchema->rawFormat.empty(),
+            "IYo rawFormat empty");
+        failures += Expect(
+            albumIdNotificationSchema->formatEmpty,
+            "IYo formatEmpty true");
+        failures += Expect(
+            albumIdNotificationSchema->source == "xlsx",
+            "IYo raw source");
+        failures += Expect(
+            albumIdNotificationSchema->fields.empty(),
+            "IYo raw fields empty");
+        failures += Expect(
+            albumIdNotificationSchema->hasResolvedFormat,
+            "IYo resolvedFormat present");
+        failures += Expect(
+            albumIdNotificationSchema->resolvedFormat == "{albumId:i62}",
+            "IYo resolvedFormat");
+        failures += Expect(
+            albumIdNotificationSchema->resolvedSource == "ServerC+ClientIda",
+            "IYo resolvedSource");
+        failures += Expect(
+            albumIdNotificationSchema->hasResolvedFields,
+            "IYo resolvedFields present");
+        failures += Expect(
+            albumIdNotificationSchema->resolvedFields.size() == 1U,
+            "IYo resolved field count");
+        if (albumIdNotificationSchema->resolvedFields.size() == 1U) {
+            const FieldSchema& field =
+                albumIdNotificationSchema->resolvedFields[0];
+            failures += Expect(
+                field.index == 0 &&
+                    field.name == "albumId" &&
+                    field.typeToken == "i62" &&
+                    field.rawSpec == "{albumId:i62}" &&
+                    field.source == "ServerC+ClientIda",
+                "IYo resolved field");
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "IYo"),
+        "IYo absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "IYo"),
+        "IYo absent from receive typed manifest");
+
     const PacketSchema* checkCommandSchema = FindPacket(packets, "CCL");
     failures += Expect(checkCommandSchema != nullptr, "CCL schema exists");
     if (checkCommandSchema != nullptr) {

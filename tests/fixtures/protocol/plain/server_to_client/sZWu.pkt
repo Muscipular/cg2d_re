@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=sZWu
+direction=server_to_client
+sample=help-flag-one
+plain_hex=73 5A 57 75 20 31
+canonical_hex=73 5A 57 75 20 31 20
+end_sample

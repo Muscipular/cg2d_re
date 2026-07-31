@@ -1247,10 +1247,10 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
     failures += Expect(cg::packet::test::SendTypedPackets.size() == 98U, "send typed manifest count 98");
-    failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 95U, "receive typed manifest count 95");
+    failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 96U, "receive typed manifest count 96");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 193U,
-        "typed manifest count 193");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 194U,
+        "typed manifest count 194");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1267,7 +1267,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 193U, "typed manifest unique code count 193");
+    failures += Expect(codes.size() == 194U, "typed manifest unique code count 194");
     return failures;
 }
 
@@ -9966,6 +9966,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         battleHelpModeStatusSchema != nullptr,
         "sZWu schema exists");
     if (battleHelpModeStatusSchema != nullptr) {
+        const cg::packet::receive::BattleHelpModeStatus status(1);
+        const cg::packet::Packet packet = status.ToPacket();
         failures += Expect(
             battleHelpModeStatusSchema->direction == "服务端->客户端",
             "sZWu direction");
@@ -10000,7 +10002,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             battleHelpModeStatusSchema->resolvedFormat == "{flg:i62}",
             "sZWu resolvedFormat");
         failures += Expect(
-            battleHelpModeStatusSchema->resolvedSource == "ServerC+ClientIda",
+            battleHelpModeStatusSchema->resolvedSource ==
+                "ServerC+ClientIda+src/packet",
             "sZWu resolvedSource");
         failures += Expect(
             battleHelpModeStatusSchema->hasResolvedFields,
@@ -10015,9 +10018,18 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                     field.name == "flg" &&
                     field.typeToken == "i62" &&
                     field.rawSpec == "{flg:i62}" &&
-                    field.source == "ServerC+ClientIda",
+                    field.source == "ServerC+ClientIda+src/packet",
                 "sZWu resolved field");
         }
+        failures += ExpectEffectiveFieldsMatch(
+            *battleHelpModeStatusSchema,
+            cg::packet::receive::BattleHelpModeStatus::Spec,
+            "sZWu Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *battleHelpModeStatusSchema,
+            packet,
+            "sZWu resolved field order");
+        failures += Expect(status.helpFlag == 1, "sZWu typed member");
     }
     failures += Expect(
         !TypedManifestContainsCode(
@@ -10025,10 +10037,10 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "sZWu"),
         "sZWu absent from send typed manifest");
     failures += Expect(
-        !TypedManifestContainsCode(
+        TypedManifestContainsCode(
             cg::packet::test::ReceiveTypedPackets,
             "sZWu"),
-        "sZWu absent from receive typed manifest");
+        "sZWu present in receive typed manifest");
 
     const PacketSchema* checkCommandSchema = FindPacket(packets, "CCL");
     failures += Expect(checkCommandSchema != nullptr, "CCL schema exists");

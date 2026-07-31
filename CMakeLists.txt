@@ -1321,6 +1321,19 @@ add_test(
     COMMAND cg-packet-player-status-flags-test
 )
 
+add_executable(cg-packet-battle-help-mode-status-test
+    tests/packet/BattleHelpModeStatusPacketTest.cpp
+)
+target_include_directories(cg-packet-battle-help-mode-status-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+add_test(
+    NAME cg-packet-battle-help-mode-status-test
+    COMMAND cg-packet-battle-help-mode-status-test
+        "${CMAKE_CURRENT_SOURCE_DIR}/tests/fixtures/protocol/plain/server_to_client/sZWu.pkt"
+)
+
 add_executable(cg-packet-map-checksum-test
     tests/packet/MapChecksumPacketTest.cpp
 )
@@ -3015,6 +3028,7 @@ if(MSVC)
     target_compile_options(cg-packet-coordinate-update-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-encounter-probability-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-player-status-flags-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-battle-help-mode-status-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-map-checksum-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-fever-status-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-battle-position-test PRIVATE /W4 /utf-8 /permissive-)
@@ -3239,6 +3253,7 @@ else()
     target_compile_options(cg-packet-coordinate-update-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-encounter-probability-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-player-status-flags-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-packet-battle-help-mode-status-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-map-checksum-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-fever-status-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-battle-position-test PRIVATE -Wall -Wextra -Wpedantic)

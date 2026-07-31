@@ -196,7 +196,7 @@ inline constexpr std::array<TypedPacketManifestEntry, 98U> SendTypedPackets = {{
     MakeSendManifestEntry<send::StallStart, send::StallStart::Spec>(),
 }};
 
-inline constexpr std::array<TypedPacketManifestEntry, 95U> ReceiveTypedPackets = {{
+inline constexpr std::array<TypedPacketManifestEntry, 96U> ReceiveTypedPackets = {{
     MakeReceiveManifestEntry<receive::ClientLoginResult, receive::ClientLoginResult::Spec>(),
     MakeReceiveManifestEntry<receive::CharacterLoginResult, receive::CharacterLoginResult::Spec>(),
     MakeReceiveManifestEntry<receive::CharacterLogoutResult, receive::CharacterLogoutResult::Spec>(),
@@ -204,6 +204,7 @@ inline constexpr std::array<TypedPacketManifestEntry, 95U> ReceiveTypedPackets =
     MakeReceiveManifestEntry<receive::CoordinateUpdate, receive::CoordinateUpdate::Spec>(),
     MakeReceiveManifestEntry<receive::EncounterProbability, receive::EncounterProbability::Spec>(),
     MakeReceiveManifestEntry<receive::PlayerStatusFlags, receive::PlayerStatusFlags::Spec>(),
+    MakeReceiveManifestEntry<receive::BattleHelpModeStatus, receive::BattleHelpModeStatus::Spec>(),
     MakeReceiveManifestEntry<receive::MapChecksum, receive::MapChecksum::Spec>(),
     MakeReceiveManifestEntry<receive::FeverStatus, receive::FeverStatus::Spec>(),
     MakeReceiveManifestEntry<receive::BattlePosition, receive::BattlePosition::Spec>(),

@@ -1,0 +1,9 @@
+pkt_fixture=1
+code=eZT
+direction=server_to_client
+sample=gbk-trail-pipe-legacy
+plain_hex=65 5A 54 20 31 32 7C 33 34 7C 35 36 7C 96 7C 5C 5C 7A C3 FB
+canonical_hex=65 5A 54 20 31 32 7C 33 34 7C 35 36 7C 96 7C 5C 5C 7A C3 FB 20
+payload_field=0
+payload_hex=31 32 7C 33 34 7C 35 36 7C 96 7C 5C 7A C3 FB
+end_sample

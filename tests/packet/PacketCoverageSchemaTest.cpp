@@ -1247,10 +1247,10 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
     failures += Expect(cg::packet::test::SendTypedPackets.size() == 95U, "send typed manifest count 95");
-    failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 93U, "receive typed manifest count 93");
+    failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 94U, "receive typed manifest count 94");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 188U,
-        "typed manifest count 188");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 189U,
+        "typed manifest count 189");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1267,7 +1267,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 188U, "typed manifest unique code count 188");
+    failures += Expect(codes.size() == 189U, "typed manifest unique code count 189");
     return failures;
 }
 
@@ -10297,7 +10297,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             npcSoundEffectSchema->resolvedFormat == "{seno:i62} {x:i62} {y:i62}",
             "ftaN resolvedFormat");
         failures += Expect(
-            npcSoundEffectSchema->resolvedSource == "xlsx+ServerC+ClientIda",
+            npcSoundEffectSchema->resolvedSource ==
+                "xlsx+ServerC+ClientIda+src/packet",
             "ftaN resolvedSource");
         failures += Expect(
             npcSoundEffectSchema->hasResolvedFields,
@@ -10319,17 +10320,34 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                         && field.name == RawNames[index]
                         && field.typeToken == "i62"
                         && field.rawSpec == ResolvedSpecs[index]
-                        && field.source == "xlsx+ServerC+ClientIda",
+                        && field.source ==
+                            "xlsx+ServerC+ClientIda+src/packet",
                     "ftaN resolved field order");
             }
         }
+
+        const cg::packet::receive::NpcSoundEffect soundEffect(13, 27, 30);
+        const cg::packet::Packet packet = soundEffect.ToPacket();
+        failures += ExpectEffectiveFieldsMatch(
+            *npcSoundEffectSchema,
+            cg::packet::receive::NpcSoundEffect::Spec,
+            "ftaN Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *npcSoundEffectSchema,
+            packet,
+            "ftaN resolved field order");
+        failures += Expect(
+            soundEffect.soundNumber == 13 &&
+                soundEffect.x == 27 &&
+                soundEffect.y == 30,
+            "ftaN typed members");
     }
     failures += Expect(
         !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "ftaN"),
         "ftaN absent from send typed manifest");
     failures += Expect(
-        !TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "ftaN"),
-        "ftaN absent from receive typed manifest");
+        TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "ftaN"),
+        "ftaN present in receive typed manifest");
 
     const PacketSchema* petMailSendSchema = FindPacket(packets, "rMsv");
     failures += Expect(petMailSendSchema != nullptr, "rMsv schema exists");

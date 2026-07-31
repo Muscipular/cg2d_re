@@ -12176,10 +12176,54 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     const PacketSchema* profileVersionSchema = FindPacket(packets, "HNP");
     failures += Expect(profileVersionSchema != nullptr, "HNP schema exists");
     if (profileVersionSchema != nullptr) {
+        const cg::packet::receive::ProfileVersion profileVersion(1, 2, 100, -1);
+        const cg::packet::Packet packet = profileVersion.ToPacket();
+        failures += Expect(
+            profileVersionSchema->direction == "服务端->客户端",
+            "HNP direction");
+        failures += Expect(profileVersionSchema->legacyKind == "SEND", "HNP legacyKind");
         failures += Expect(
             profileVersionSchema->description == "SEND_PRV \nCHAR_sendProfileVersion简介版本内容",
             "HNP description newline");
+        failures += Expect(profileVersionSchema->rawFormat == "{data:es}", "HNP rawFormat");
+        failures += Expect(!profileVersionSchema->formatEmpty, "HNP raw format non-empty");
+        failures += Expect(profileVersionSchema->source == "xlsx", "HNP raw source");
+        failures += Expect(profileVersionSchema->fields.size() == 1U, "HNP raw field count");
+        if (profileVersionSchema->fields.size() == 1U) {
+            failures += Expect(
+                profileVersionSchema->fields[0].index == 0U &&
+                    profileVersionSchema->fields[0].name == "data" &&
+                    profileVersionSchema->fields[0].typeToken == "es" &&
+                    profileVersionSchema->fields[0].rawSpec == "{data:es}" &&
+                    profileVersionSchema->fields[0].source == "xlsx",
+                "HNP raw data field");
+        }
+        failures += Expect(
+            profileVersionSchema->resolvedFormat == "{data:es}",
+            "HNP resolvedFormat");
+        failures += Expect(
+            profileVersionSchema->resolvedSource == "xlsx+ServerC+ClientIda+src/packet",
+            "HNP resolvedSource");
+        failures += Expect(
+            profileVersionSchema->resolvedFields.size() == 1U &&
+                profileVersionSchema->resolvedFields[0].source ==
+                    "xlsx+ServerC+ClientIda+src/packet",
+            "HNP resolved field source");
+        failures += ExpectEffectiveFieldsMatch(
+            *profileVersionSchema,
+            cg::packet::receive::ProfileVersion::Spec,
+            "HNP Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *profileVersionSchema,
+            packet,
+            "HNP resolved field order");
     }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "HNP"),
+        "HNP absent from send typed manifest");
+    failures += Expect(
+        TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "HNP"),
+        "HNP present in receive typed manifest");
 
     const PacketSchema* equipSuitSchema = FindPacket(packets, "TgX");
     failures += Expect(equipSuitSchema != nullptr, "TgX schema exists");

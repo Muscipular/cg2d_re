@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=Gp
+direction=client_to_server
+sample=without-trailing-space
+plain_hex=47 70
+canonical_hex=47 70 20
+end_sample

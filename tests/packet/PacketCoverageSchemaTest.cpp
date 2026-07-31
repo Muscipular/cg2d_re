@@ -1751,6 +1751,42 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "JFVf effective field order");
     }
 
+    const PacketSchema* characterListRequestSchema = FindPacket(packets, "Gp");
+    failures += Expect(characterListRequestSchema != nullptr, "Gp schema exists");
+    if (characterListRequestSchema != nullptr) {
+        const cg::packet::Packet packet = cg::packet::send::CharacterListRequest {}.ToPacket();
+        failures += Expect(
+            characterListRequestSchema->direction == "客户端->服务端",
+            "Gp direction");
+        failures += Expect(characterListRequestSchema->legacyKind == "RECV", "Gp legacyKind");
+        failures += Expect(characterListRequestSchema->clientNamespace == "send", "Gp namespace");
+        failures += Expect(characterListRequestSchema->xlsxStatus == "完成", "Gp xlsxStatus");
+        failures += Expect(
+            characterListRequestSchema->description == "RECV_CharList 获取角色列表",
+            "Gp description");
+        failures += Expect(characterListRequestSchema->rawFormat.empty(), "Gp rawFormat empty");
+        failures += Expect(characterListRequestSchema->originalFormat == "Gp", "Gp originalFormat");
+        failures += Expect(!characterListRequestSchema->formatEmpty, "Gp formatEmpty false");
+        failures += Expect(characterListRequestSchema->source == "xlsx", "Gp raw source");
+        failures += Expect(characterListRequestSchema->fields.empty(), "Gp raw fields empty");
+        failures += Expect(characterListRequestSchema->hasResolvedFormat, "Gp resolvedFormat present");
+        failures += Expect(characterListRequestSchema->resolvedFormat.empty(), "Gp resolvedFormat empty");
+        failures += Expect(
+            characterListRequestSchema->resolvedSource
+                == "xlsx+ServerC+ClientIda+src/packet",
+            "Gp resolvedSource");
+        failures += Expect(characterListRequestSchema->hasResolvedFields, "Gp resolvedFields present");
+        failures += Expect(characterListRequestSchema->resolvedFields.empty(), "Gp resolvedFields empty");
+        failures += ExpectEffectiveFieldsMatch(
+            *characterListRequestSchema,
+            cg::packet::send::CharacterListRequest::Spec,
+            "Gp Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *characterListRequestSchema,
+            packet,
+            "Gp resolved field order");
+    }
+
     const PacketSchema* characterLogoutRequestSchema = FindPacket(packets, "WA");
     failures += Expect(characterLogoutRequestSchema != nullptr, "WA schema exists");
     if (characterLogoutRequestSchema != nullptr) {

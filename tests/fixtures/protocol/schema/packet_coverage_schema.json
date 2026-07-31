@@ -7974,14 +7974,14 @@
       "description": "RECV_StallBuy 摆摊购买请求",
       "rawFormat": "{slot}",
       "resolvedFormat": "{position:i62}",
-      "resolvedSource": "xlsx+ServerC+ClientIda",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
       "resolvedFields": [
         {
           "index": 0,
           "name": "position",
           "typeToken": "i62",
           "rawSpec": "{position:i62}",
-          "source": "xlsx+ServerC+ClientIda"
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         }
       ],
       "formatEmpty": false,

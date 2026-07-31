@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=wAo
+direction=client_to_server
+sample=item-slot-eight
+plain_hex=77 41 6F 20 38
+canonical_hex=77 41 6F 20 38 20
+end_sample

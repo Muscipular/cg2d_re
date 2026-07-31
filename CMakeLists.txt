@@ -1080,6 +1080,18 @@ add_test(
     COMMAND cg-packet-stall-browse-request-test
 )
 
+add_executable(cg-packet-stall-buy-request-test
+    tests/packet/StallBuyRequestPacketTest.cpp
+)
+target_include_directories(cg-packet-stall-buy-request-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+add_test(
+    NAME cg-packet-stall-buy-request-test
+    COMMAND cg-packet-stall-buy-request-test
+)
+
 add_executable(cg-packet-pfm-notification-test
     tests/packet/PfMNotificationPacketTest.cpp
 )
@@ -2793,6 +2805,7 @@ if(MSVC)
     target_compile_options(cg-packet-return-to-login-point-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-stall-end-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-stall-browse-request-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-stall-buy-request-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-pfm-notification-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-character-login-result-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-character-logout-result-test PRIVATE /W4 /utf-8 /permissive-)
@@ -3001,6 +3014,7 @@ else()
     target_compile_options(cg-packet-return-to-login-point-request-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-stall-end-request-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-stall-browse-request-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-packet-stall-buy-request-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-pfm-notification-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-character-login-result-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-character-logout-result-test PRIVATE -Wall -Wextra -Wpedantic)

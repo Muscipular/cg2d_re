@@ -10640,6 +10640,79 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "sA"),
         "sA present in receive typed manifest");
 
+    const PacketSchema* soundEffectNotificationSchema =
+        FindPacket(packets, "TFCu");
+    failures += Expect(
+        soundEffectNotificationSchema != nullptr,
+        "TFCu schema exists");
+    if (soundEffectNotificationSchema != nullptr) {
+        failures += Expect(
+            soundEffectNotificationSchema->direction == "服务端->客户端",
+            "TFCu direction");
+        failures += Expect(
+            soundEffectNotificationSchema->legacyKind == "SEND",
+            "TFCu legacyKind");
+        failures += Expect(
+            soundEffectNotificationSchema->clientNamespace == "receive",
+            "TFCu namespace");
+        failures += Expect(
+            soundEffectNotificationSchema->xlsxStatus == "完成",
+            "TFCu xlsxStatus");
+        failures += Expect(
+            soundEffectNotificationSchema->description == "SEND_SE",
+            "TFCu description");
+        failures += Expect(
+            soundEffectNotificationSchema->rawFormat.empty(),
+            "TFCu rawFormat empty");
+        failures += Expect(
+            soundEffectNotificationSchema->formatEmpty,
+            "TFCu formatEmpty true");
+        failures += Expect(
+            soundEffectNotificationSchema->source == "xlsx",
+            "TFCu raw source");
+        failures += Expect(
+            soundEffectNotificationSchema->fields.empty(),
+            "TFCu raw fields empty");
+        failures += Expect(
+            soundEffectNotificationSchema->hasResolvedFormat,
+            "TFCu resolvedFormat present");
+        failures += Expect(
+            soundEffectNotificationSchema->resolvedFormat ==
+                "{senumber:i62}",
+            "TFCu resolvedFormat");
+        failures += Expect(
+            soundEffectNotificationSchema->resolvedSource ==
+                "ServerC+ClientIda",
+            "TFCu resolvedSource");
+        failures += Expect(
+            soundEffectNotificationSchema->hasResolvedFields,
+            "TFCu resolvedFields present");
+        failures += Expect(
+            soundEffectNotificationSchema->resolvedFields.size() == 1U,
+            "TFCu resolved field count");
+        if (soundEffectNotificationSchema->resolvedFields.size() == 1U) {
+            const FieldSchema& field =
+                soundEffectNotificationSchema->resolvedFields[0];
+            failures += Expect(
+                field.index == 0 &&
+                    field.name == "senumber" &&
+                    field.typeToken == "i62" &&
+                    field.rawSpec == "{senumber:i62}" &&
+                    field.source == "ServerC+ClientIda",
+                "TFCu resolved field");
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "TFCu"),
+        "TFCu absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "TFCu"),
+        "TFCu absent from receive typed manifest");
+
     const PacketSchema* checkCommandSchema = FindPacket(packets, "CCL");
     failures += Expect(checkCommandSchema != nullptr, "CCL schema exists");
     if (checkCommandSchema != nullptr) {

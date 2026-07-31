@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=sA
+direction=server_to_client
+sample=pet-slot-two-points-four
+plain_hex=73 41 20 32 20 34
+canonical_hex=73 41 20 32 20 34 20
+end_sample

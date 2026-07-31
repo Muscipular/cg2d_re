@@ -1247,10 +1247,10 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
     failures += Expect(cg::packet::test::SendTypedPackets.size() == 98U, "send typed manifest count 98");
-    failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 102U, "receive typed manifest count 102");
+    failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 103U, "receive typed manifest count 103");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 200U,
-        "typed manifest count 200");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 201U,
+        "typed manifest count 201");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1267,7 +1267,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 200U, "typed manifest unique code count 200");
+    failures += Expect(codes.size() == 201U, "typed manifest unique code count 201");
     return failures;
 }
 
@@ -10550,6 +10550,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     const PacketSchema* petLevelUpPointsSchema = FindPacket(packets, "sA");
     failures += Expect(petLevelUpPointsSchema != nullptr, "sA schema exists");
     if (petLevelUpPointsSchema != nullptr) {
+        const cg::packet::receive::PetLevelUpPoints value(2, 4);
+        const cg::packet::Packet packet = value.ToPacket();
         failures += Expect(
             petLevelUpPointsSchema->direction == "服务端->客户端",
             "sA direction");
@@ -10585,7 +10587,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                 "{petSlot:i62} {levelUpPoints:i62}",
             "sA resolvedFormat");
         failures += Expect(
-            petLevelUpPointsSchema->resolvedSource == "ServerC+ClientIda",
+            petLevelUpPointsSchema->resolvedSource ==
+                "ServerC+ClientIda+src/packet",
             "sA resolvedSource");
         failures += Expect(
             petLevelUpPointsSchema->hasResolvedFields,
@@ -10610,10 +10613,21 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                         field.name == names[index] &&
                         field.typeToken == "i62" &&
                         field.rawSpec == specs[index] &&
-                        field.source == "ServerC+ClientIda",
+                        field.source == "ServerC+ClientIda+src/packet",
                     "sA resolved field");
             }
         }
+        failures += ExpectEffectiveFieldsMatch(
+            *petLevelUpPointsSchema,
+            cg::packet::receive::PetLevelUpPoints::Spec,
+            "sA Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *petLevelUpPointsSchema,
+            packet,
+            "sA resolved field order");
+        failures += Expect(
+            value.petSlot == 2 && value.levelUpPoints == 4,
+            "sA typed member order");
     }
     failures += Expect(
         !TypedManifestContainsCode(
@@ -10621,10 +10635,10 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "sA"),
         "sA absent from send typed manifest");
     failures += Expect(
-        !TypedManifestContainsCode(
+        TypedManifestContainsCode(
             cg::packet::test::ReceiveTypedPackets,
             "sA"),
-        "sA absent from receive typed manifest");
+        "sA present in receive typed manifest");
 
     const PacketSchema* checkCommandSchema = FindPacket(packets, "CCL");
     failures += Expect(checkCommandSchema != nullptr, "CCL schema exists");

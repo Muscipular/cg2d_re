@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=frQp
+direction=server_to_client
+sample=guild-id-ten
+plain_hex=66 72 51 70 20 61
+canonical_hex=66 72 51 70 20 61 20
+end_sample

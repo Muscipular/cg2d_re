@@ -1247,10 +1247,10 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
     failures += Expect(cg::packet::test::SendTypedPackets.size() == 95U, "send typed manifest count 95");
-    failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 90U, "receive typed manifest count 90");
+    failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 91U, "receive typed manifest count 91");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 185U,
-        "typed manifest count 185");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 186U,
+        "typed manifest count 186");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1267,7 +1267,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 185U, "typed manifest unique code count 185");
+    failures += Expect(codes.size() == 186U, "typed manifest unique code count 186");
     return failures;
 }
 
@@ -9921,6 +9921,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         guildDepartureNotificationSchema != nullptr,
         "frQp schema exists");
     if (guildDepartureNotificationSchema != nullptr) {
+        const cg::packet::receive::GuildDepartureNotification notification(10);
         failures += Expect(
             guildDepartureNotificationSchema->direction ==
                 "服务端->客户端",
@@ -9968,7 +9969,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "frQp resolvedFormat");
         failures += Expect(
             guildDepartureNotificationSchema->resolvedSource ==
-                "xlsx+ServerC+ClientIda",
+                "xlsx+ServerC+ClientIda+src/packet",
             "frQp resolvedSource");
         failures += Expect(
             guildDepartureNotificationSchema->hasResolvedFields,
@@ -9984,9 +9985,17 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                     field.name == "guildId" &&
                     field.typeToken == "i62" &&
                     field.rawSpec == "{guildId:i62}" &&
-                    field.source == "xlsx+ServerC+ClientIda",
+                    field.source ==
+                        "xlsx+ServerC+ClientIda+src/packet",
                 "frQp resolved field");
         }
+        failures += ExpectEffectiveFieldsMatch(
+            *guildDepartureNotificationSchema,
+            cg::packet::receive::GuildDepartureNotification::Spec,
+            "frQp Spec matches effective fields");
+        failures += Expect(
+            notification.guildId == 10,
+            "frQp typed member");
     }
     failures += Expect(
         !TypedManifestContainsCode(
@@ -9994,10 +10003,10 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "frQp"),
         "frQp absent from send typed manifest");
     failures += Expect(
-        !TypedManifestContainsCode(
+        TypedManifestContainsCode(
             cg::packet::test::ReceiveTypedPackets,
             "frQp"),
-        "frQp absent from receive typed manifest");
+        "frQp present in receive typed manifest");
 
     const PacketSchema* petMailSendSchema = FindPacket(packets, "rMsv");
     failures += Expect(petMailSendSchema != nullptr, "rMsv schema exists");

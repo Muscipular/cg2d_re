@@ -2933,14 +2933,14 @@
       "description": "SEND_GD 退出或解散家族",
       "rawFormat": "{guildId}",
       "resolvedFormat": "{guildId:i62}",
-      "resolvedSource": "xlsx+ServerC+ClientIda",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
       "resolvedFields": [
         {
           "index": 0,
           "name": "guildId",
           "typeToken": "i62",
           "rawSpec": "{guildId:i62}",
-          "source": "xlsx+ServerC+ClientIda"
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         }
       ],
       "formatEmpty": false,

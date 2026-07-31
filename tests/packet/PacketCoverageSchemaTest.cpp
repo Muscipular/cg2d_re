@@ -10200,15 +10200,52 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         const cg::packet::Packet packet = shutdownRequest.ToPacket();
         failures += Expect(shutdownRequestSchema->direction == "客户端->服务端", "IcE direction");
         failures += Expect(shutdownRequestSchema->legacyKind == "RECV", "IcE legacyKind");
+        failures += Expect(shutdownRequestSchema->clientNamespace == "send", "IcE namespace");
+        failures += Expect(shutdownRequestSchema->xlsxStatus == "暂缓", "IcE xlsxStatus");
+        failures += Expect(
+            shutdownRequestSchema->description == "RECV_Shutdown",
+            "IcE description");
         failures += Expect(shutdownRequestSchema->rawFormat.empty(), "IcE rawFormat empty");
         failures += Expect(shutdownRequestSchema->formatEmpty, "IcE formatEmpty");
+        failures += Expect(shutdownRequestSchema->source == "xlsx", "IcE raw source");
+        failures += Expect(shutdownRequestSchema->fields.empty(), "IcE raw fields empty");
+        failures += Expect(
+            shutdownRequestSchema->hasResolvedFormat,
+            "IcE resolvedFormat present");
         failures += Expect(
             shutdownRequestSchema->resolvedFormat == "{passwd:es} {min:i62}",
             "IcE resolvedFormat");
         failures += Expect(shutdownRequestSchema->resolvedSource == "ServerC+src/packet", "IcE resolvedSource");
-        failures += Expect(shutdownRequestSchema->fields.empty(), "IcE raw fields empty");
+        failures += Expect(
+            shutdownRequestSchema->hasResolvedFields,
+            "IcE resolvedFields present");
+        failures += Expect(
+            shutdownRequestSchema->resolvedFields.size() == 2U,
+            "IcE resolved field count");
+        for (const FieldSchema& field : shutdownRequestSchema->resolvedFields) {
+            failures += Expect(
+                field.source == "ServerC+src/packet",
+                "IcE resolved field source");
+        }
+        failures += ExpectEffectiveFieldsMatch(
+            *shutdownRequestSchema,
+            cg::packet::send::ShutdownRequest::Spec,
+            "IcE Spec matches effective fields");
         failures += ExpectResolvedFieldsMatch(*shutdownRequestSchema, packet, "IcE resolved field order");
+        failures += Expect(
+            shutdownRequest.passwd == "pass" && shutdownRequest.min == 10,
+            "IcE typed members");
     }
+    failures += Expect(
+        TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "IcE"),
+        "IcE present in send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "IcE"),
+        "IcE absent from receive typed manifest");
 
     const PacketSchema* tradeTakeOutSchema = FindPacket(packets, "aiAb");
     failures += Expect(tradeTakeOutSchema != nullptr, "aiAb schema exists");

@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=IcE
+direction=client_to_server
+sample=shutdown-in-ten-minutes
+plain_hex=49 63 45 20 68 6F 67 65 68 6F 67 65 20 61
+canonical_hex=49 63 45 20 68 6F 67 65 68 6F 67 65 20 61 20
+end_sample

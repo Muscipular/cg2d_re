@@ -10290,49 +10290,119 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     if (stallStartSchema != nullptr) {
         const cg::packet::send::StallStart stallStart("Shop", "Desc");
         const cg::packet::PacketResult<cg::packet::Packet> packet = stallStart.ToPacket();
+        const cg::packet::PacketResult<std::string> data = stallStart.BuildData();
         failures += Expect(stallStartSchema->direction == "客户端->服务端", "ylGN direction");
         failures += Expect(stallStartSchema->legacyKind == "RECV", "ylGN legacyKind");
+        failures += Expect(stallStartSchema->clientNamespace == "send", "ylGN namespace");
+        failures += Expect(stallStartSchema->xlsxStatus == "完成", "ylGN xlsxStatus");
+        failures += Expect(
+            stallStartSchema->description == "RECV_StallStart 开始摆摊请求",
+            "ylGN description");
         failures += Expect(
             stallStartSchema->rawFormat == "{stallName} {stallDescription} {stallList}",
             "ylGN rawFormat");
+        failures += Expect(!stallStartSchema->formatEmpty, "ylGN formatEmpty false");
+        failures += Expect(stallStartSchema->source == "xlsx", "ylGN raw source");
+        failures += Expect(
+            stallStartSchema->hasResolvedFormat,
+            "ylGN resolvedFormat present");
         failures += Expect(
             stallStartSchema->resolvedFormat == "{stallName:es} {stallDescription:es} {stallList:es}",
             "ylGN resolvedFormat");
-        failures += Expect(stallStartSchema->resolvedSource == "xlsx+src/packet", "ylGN resolvedSource");
+        failures += Expect(
+            stallStartSchema->resolvedSource
+                == "xlsx+ServerC+ClientIda+src/packet",
+            "ylGN resolvedSource");
         failures += Expect(stallStartSchema->fields.size() == 3U, "ylGN raw field count");
         if (stallStartSchema->fields.size() == 3U) {
-            failures += Expect(stallStartSchema->fields[0].name == "stallName", "ylGN raw field stallName");
-            failures += Expect(
-                stallStartSchema->fields[1].name == "stallDescription",
-                "ylGN raw field stallDescription");
-            failures += Expect(stallStartSchema->fields[2].name == "stallList", "ylGN raw field stallList");
-            failures += Expect(stallStartSchema->fields[0].typeToken == "unknown", "ylGN raw stallName type");
-            failures += Expect(
-                stallStartSchema->fields[1].typeToken == "unknown",
-                "ylGN raw stallDescription type");
-            failures += Expect(stallStartSchema->fields[2].typeToken == "unknown", "ylGN raw stallList type");
+            constexpr std::array<std::string_view, 3U> names = {{
+                "stallName",
+                "stallDescription",
+                "stallList",
+            }};
+            constexpr std::array<std::string_view, 3U> rawSpecs = {{
+                "{stallName}",
+                "{stallDescription}",
+                "{stallList}",
+            }};
+            for (std::size_t index = 0U; index < names.size(); ++index) {
+                const FieldSchema& field = stallStartSchema->fields[index];
+                failures += Expect(
+                    field.index == index &&
+                        field.name == names[index] &&
+                        field.typeToken == "unknown" &&
+                        field.rawSpec == rawSpecs[index] &&
+                        field.source == "xlsx",
+                    "ylGN raw field");
+            }
+        }
+        failures += Expect(
+            stallStartSchema->hasResolvedFields,
+            "ylGN resolvedFields present");
+        failures += Expect(
+            stallStartSchema->resolvedFields.size() == 3U,
+            "ylGN resolved field count");
+        if (stallStartSchema->resolvedFields.size() == 3U) {
+            constexpr std::array<std::string_view, 3U> names = {{
+                "stallName",
+                "stallDescription",
+                "stallList",
+            }};
+            constexpr std::array<std::string_view, 3U> rawSpecs = {{
+                "{stallName:es}",
+                "{stallDescription:es}",
+                "{stallList:es}",
+            }};
+            for (std::size_t index = 0U; index < names.size(); ++index) {
+                const FieldSchema& field = stallStartSchema->resolvedFields[index];
+                failures += Expect(
+                    field.index == index &&
+                        field.name == names[index] &&
+                        field.typeToken == "es" &&
+                        field.rawSpec == rawSpecs[index] &&
+                        field.source == "xlsx+ServerC+ClientIda+src/packet",
+                    "ylGN resolved field");
+            }
+        }
+        failures += ExpectEffectiveFieldsMatch(
+            *stallStartSchema,
+            cg::packet::send::StallStart::Spec,
+            "ylGN Spec matches effective fields");
+        std::string zeroPrices;
+        for (std::size_t index = 0U; index < cg::packet::send::StallStart::PriceCount; ++index) {
+            zeroPrices.append("0\\z");
+        }
+        failures += Expect(static_cast<bool>(data), "ylGN data build");
+        if (data.HasValue()) {
+            failures += Expect(data.Value() == zeroPrices, "ylGN normalized zero prices");
         }
         failures += Expect(static_cast<bool>(packet), "ylGN packet build");
         if (packet.HasValue()) {
-            failures += Expect(packet.Value().fields.size() == 3U, "ylGN packet field count");
-            if (packet.Value().fields.size() == 3U) {
-                failures += Expect(packet.Value().fields[0].name == "stallName", "ylGN packet stallName field");
-                failures += Expect(
-                    packet.Value().fields[0].type == cg::packet::PacketFieldType::EscapedString,
-                    "ylGN packet stallName type");
-                failures += Expect(
-                    packet.Value().fields[1].name == "stallDescription",
-                    "ylGN packet stallDescription field");
-                failures += Expect(
-                    packet.Value().fields[1].type == cg::packet::PacketFieldType::EscapedString,
-                    "ylGN packet stallDescription type");
-                failures += Expect(packet.Value().fields[2].name == "stallList", "ylGN packet stallList field");
-                failures += Expect(
-                    packet.Value().fields[2].type == cg::packet::PacketFieldType::EscapedString,
-                    "ylGN packet stallList type");
-            }
+            failures += ExpectResolvedFieldsMatch(
+                *stallStartSchema,
+                packet.Value(),
+                "ylGN resolved field order");
         }
+        bool pricesAreZero = true;
+        for (const int price : stallStart.prices) {
+            pricesAreZero = pricesAreZero && price == 0;
+        }
+        failures += Expect(
+            stallStart.stallName == "Shop" &&
+                stallStart.stallDescription == "Desc" &&
+                pricesAreZero,
+            "ylGN typed members");
     }
+    failures += Expect(
+        TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "ylGN"),
+        "ylGN present in send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "ylGN"),
+        "ylGN absent from receive typed manifest");
 
     const PacketSchema* guildInfoChangeSchema = FindPacket(packets, "Ufm");
     failures += Expect(guildInfoChangeSchema != nullptr, "Ufm schema exists");

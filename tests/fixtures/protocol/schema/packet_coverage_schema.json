@@ -8488,7 +8488,30 @@
       "description": "RECV_StallStart 开始摆摊请求",
       "rawFormat": "{stallName} {stallDescription} {stallList}",
       "resolvedFormat": "{stallName:es} {stallDescription:es} {stallList:es}",
-      "resolvedSource": "xlsx+src/packet",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "stallName",
+          "typeToken": "es",
+          "rawSpec": "{stallName:es}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 1,
+          "name": "stallDescription",
+          "typeToken": "es",
+          "rawSpec": "{stallDescription:es}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 2,
+          "name": "stallList",
+          "typeToken": "es",
+          "rawSpec": "{stallList:es}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        }
+      ],
       "formatEmpty": false,
       "source": "xlsx",
       "fields": [

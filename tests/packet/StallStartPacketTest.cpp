@@ -108,6 +108,20 @@ std::string BuildStallList(const std::array<int, StallStart::PriceCount>& prices
     return payload;
 }
 
+std::string EncodeLegacyStallList(std::string_view semanticPayload)
+{
+    std::string encoded;
+    encoded.reserve(semanticPayload.size() + StallStart::PriceCount);
+    for (const char ch : semanticPayload) {
+        if (ch == '|') {
+            encoded.append("\\z");
+        } else {
+            encoded.push_back(ch);
+        }
+    }
+    return encoded;
+}
+
 std::string BuildStallListWithPrice(
     const std::array<int, StallStart::PriceCount>& prices,
     std::size_t priceIndex,
@@ -210,13 +224,14 @@ int TestToPacketAndEncode()
 {
     const std::array<int, StallStart::PriceCount> prices = MakeSequentialPrices();
     const std::string stallList = BuildStallList(prices);
+    const std::string encodedStallList = EncodeLegacyStallList(stallList);
     const StallStart request("Shop", "Desc", prices);
     int failures = 0;
 
     const cg::packet::PacketResult<std::string> data = request.BuildData();
     failures += Expect(static_cast<bool>(data), "ylGN BuildData");
     if (data.HasValue()) {
-        failures += Expect(data.Value() == stallList, "ylGN BuildData value");
+        failures += Expect(data.Value() == encodedStallList, "ylGN BuildData value");
     }
 
     const cg::packet::PacketResult<cg::packet::Packet> packet = request.ToPacket();
@@ -225,18 +240,27 @@ int TestToPacketAndEncode()
         return failures;
     }
 
-    failures += ExpectStallStartPacket(packet.Value(), "Shop", "Desc", stallList, "ylGN ToPacket value");
+    failures += ExpectStallStartPacket(
+        packet.Value(),
+        "Shop",
+        "Desc",
+        encodedStallList,
+        "ylGN ToPacket value");
 
     const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
     failures += Expect(static_cast<bool>(built), "ylGN BuildPacket");
     if (built.HasValue()) {
-        failures += Expect(built.Value() == BuildPlainYlGn("Shop", "Desc", stallList), "ylGN BuildPacket value");
+        failures += Expect(
+            built.Value() == BuildPlainYlGn("Shop", "Desc", encodedStallList),
+            "ylGN BuildPacket value");
     }
 
     const cg::packet::PacketResult<std::string> encoded = request.Encode();
     failures += Expect(static_cast<bool>(encoded), "ylGN Encode");
     if (encoded.HasValue()) {
-        failures += Expect(encoded.Value() == BuildPlainYlGn("Shop", "Desc", stallList), "ylGN Encode value");
+        failures += Expect(
+            encoded.Value() == BuildPlainYlGn("Shop", "Desc", encodedStallList),
+            "ylGN Encode value");
     }
     return failures;
 }
@@ -272,6 +296,7 @@ int TestEmptyNameDescription()
 {
     const std::array<int, StallStart::PriceCount> prices = MakeSequentialPrices();
     const std::string stallList = BuildStallList(prices);
+    const std::string encodedStallList = EncodeLegacyStallList(stallList);
     const StallStart request("", "", prices);
     const cg::packet::PacketResult<std::string> encoded = request.Encode();
 
@@ -280,7 +305,9 @@ int TestEmptyNameDescription()
         return failures;
     }
 
-    failures += Expect(encoded.Value() == BuildPlainYlGn("", "", stallList), "ylGN empty name desc value");
+    failures += Expect(
+        encoded.Value() == BuildPlainYlGn("", "", encodedStallList),
+        "ylGN empty name desc value");
 
     const cg::packet::PacketResult<StallStart> parsed = StallStart::Parse(encoded.Value());
     failures += Expect(static_cast<bool>(parsed), "ylGN empty name desc parse");
@@ -301,7 +328,9 @@ int TestDefaultZeroPrices()
     }
 
     const std::array<int, StallStart::PriceCount> prices = StallStart::MakeZeroPrices();
-    failures += Expect(data.Value() == BuildStallList(prices), "ylGN zero price payload");
+    failures += Expect(
+        data.Value() == EncodeLegacyStallList(BuildStallList(prices)),
+        "ylGN zero price payload");
 
     const cg::packet::PacketResult<StallStart> parsed =
         StallStart::Parse(BuildPlainYlGn("Shop", "Desc", data.Value()));
@@ -316,12 +345,18 @@ int TestParsePacketOuterFields()
 {
     const std::array<int, StallStart::PriceCount> prices = MakeSequentialPrices();
     const std::string stallList = BuildStallList(prices);
+    const std::string encodedStallList = EncodeLegacyStallList(stallList);
     const cg::packet::PacketResult<cg::packet::Packet> parsed =
-        ParsePacket(BuildPlainYlGn("Shop", "Desc", stallList));
+        ParsePacket(BuildPlainYlGn("Shop", "Desc", encodedStallList));
 
     int failures = Expect(static_cast<bool>(parsed), "ylGN ParsePacket outer");
     if (parsed.HasValue()) {
-        failures += ExpectStallStartPacket(parsed.Value(), "Shop", "Desc", stallList, "ylGN ParsePacket fields");
+        failures += ExpectStallStartPacket(
+            parsed.Value(),
+            "Shop",
+            "Desc",
+            encodedStallList,
+            "ylGN ParsePacket fields");
     }
     return failures;
 }
@@ -334,7 +369,7 @@ int TestPayloadParseErrors()
     std::string missingTail = BuildStallList(prices);
     missingTail.pop_back();
     failures += ExpectError(
-        StallStart::Parse(BuildPlainYlGn("Shop", "Desc", missingTail)),
+        StallStart::Parse(BuildPlainYlGn("Shop", "Desc", EncodeLegacyStallList(missingTail))),
         cg::packet::PacketErrorCode::DecodeFailed,
         "ylGN",
         true,
@@ -347,7 +382,7 @@ int TestPayloadParseErrors()
         shortPayload.push_back('|');
     }
     failures += ExpectError(
-        StallStart::Parse(BuildPlainYlGn("Shop", "Desc", shortPayload)),
+        StallStart::Parse(BuildPlainYlGn("Shop", "Desc", EncodeLegacyStallList(shortPayload))),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "ylGN",
         true,
@@ -357,7 +392,7 @@ int TestPayloadParseErrors()
     std::string longPayload = BuildStallList(prices);
     longPayload.append("26|");
     failures += ExpectError(
-        StallStart::Parse(BuildPlainYlGn("Shop", "Desc", longPayload)),
+        StallStart::Parse(BuildPlainYlGn("Shop", "Desc", EncodeLegacyStallList(longPayload))),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "ylGN",
         true,
@@ -366,7 +401,7 @@ int TestPayloadParseErrors()
 
     const std::string emptyPricePayload = BuildStallListWithPrice(prices, 4U, "");
     failures += ExpectError(
-        StallStart::Parse(BuildPlainYlGn("Shop", "Desc", emptyPricePayload)),
+        StallStart::Parse(BuildPlainYlGn("Shop", "Desc", EncodeLegacyStallList(emptyPricePayload))),
         cg::packet::PacketErrorCode::DecodeFailed,
         "ylGN",
         true,
@@ -375,7 +410,7 @@ int TestPayloadParseErrors()
 
     const std::string badDecimalPayload = BuildStallListWithPrice(prices, 20U, "12a");
     failures += ExpectError(
-        StallStart::Parse(BuildPlainYlGn("Shop", "Desc", badDecimalPayload)),
+        StallStart::Parse(BuildPlainYlGn("Shop", "Desc", EncodeLegacyStallList(badDecimalPayload))),
         cg::packet::PacketErrorCode::DecodeFailed,
         "ylGN",
         true,
@@ -384,7 +419,7 @@ int TestPayloadParseErrors()
 
     const std::string signedPayload = BuildStallListWithPrice(prices, 20U, "-1");
     failures += ExpectError(
-        StallStart::Parse(BuildPlainYlGn("Shop", "Desc", signedPayload)),
+        StallStart::Parse(BuildPlainYlGn("Shop", "Desc", EncodeLegacyStallList(signedPayload))),
         cg::packet::PacketErrorCode::DecodeFailed,
         "ylGN",
         true,
@@ -413,6 +448,7 @@ int TestBuildPacketErrors()
 {
     const std::array<int, StallStart::PriceCount> prices = MakeSequentialPrices();
     const std::string stallList = BuildStallList(prices);
+    const std::string encodedStallList = EncodeLegacyStallList(stallList);
     int failures = 0;
 
     failures += ExpectError(
@@ -421,7 +457,7 @@ int TestBuildPacketErrors()
             {
                 Field("stallName", cg::packet::PacketFieldType::EscapedString, "Shop"),
                 Field("stallDescription", cg::packet::PacketFieldType::EscapedString, "Desc"),
-                Field("stallList", cg::packet::PacketFieldType::EscapedString, stallList),
+                Field("stallList", cg::packet::PacketFieldType::EscapedString, encodedStallList),
             })),
         cg::packet::PacketErrorCode::EncodeFailed,
         "ylGN",
@@ -435,7 +471,7 @@ int TestBuildPacketErrors()
             {
                 Field("stallName", cg::packet::PacketFieldType::EscapedString, "Shop"),
                 Field("description", cg::packet::PacketFieldType::EscapedString, "Desc"),
-                Field("stallList", cg::packet::PacketFieldType::EscapedString, stallList),
+                Field("stallList", cg::packet::PacketFieldType::EscapedString, encodedStallList),
             })),
         cg::packet::PacketErrorCode::EncodeFailed,
         "ylGN",
@@ -449,7 +485,7 @@ int TestBuildPacketErrors()
             {
                 Field("stallName", cg::packet::PacketFieldType::EscapedString, "Shop"),
                 Field("stallDescription", cg::packet::PacketFieldType::EscapedString, "Desc"),
-                Field("stallList", cg::packet::PacketFieldType::Unknown, stallList),
+                Field("stallList", cg::packet::PacketFieldType::Unknown, encodedStallList),
             })),
         cg::packet::PacketErrorCode::InvalidFieldType,
         "ylGN",

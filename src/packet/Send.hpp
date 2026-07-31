@@ -5560,7 +5560,8 @@ namespace cg::packet::send
 
     /**
      * RECV_StallStart 开始摆摊请求 ylGN {stallName:es} {stallDescription:es} {stallList:es}
-     * stallList 为 25 个 raw decimal 价格并带尾随 `|`，price0..19 为背包，price20..24 为宠物。
+     * stallList 语义为 25 个 raw decimal 价格并带尾随 `|`，整体先做 legacy 内容转义。
+     * price0..19 为背包，price20..24 为宠物。
      */
     struct StallStart
     {
@@ -5569,7 +5570,7 @@ namespace cg::packet::send
         static constexpr std::array<PacketFieldSpec, 3U> Fields = {{
             {CG_PACKET_DIAGNOSTIC_TEXT("stallName"), PacketFieldType::EscapedString},
             {CG_PACKET_DIAGNOSTIC_TEXT("stallDescription"), PacketFieldType::EscapedString},
-            {CG_PACKET_DIAGNOSTIC_TEXT("stallList"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("stallList"), PacketFieldType::SubPayload},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -5614,7 +5615,7 @@ namespace cg::packet::send
 
         [[nodiscard]] PacketResult<std::string> BuildData() const
         {
-            std::string payload;
+            std::string semanticPayload;
             for (std::size_t index = 0; index < prices.size(); ++index) {
                 PacketResult<std::string> price = ValidateRawDecimalPrice(
                     prices[index],
@@ -5625,11 +5626,18 @@ namespace cg::packet::send
                     return PacketResult<std::string>::Failure(price.Error());
                 }
 
-                payload.append(price.Value());
-                payload.push_back('|');
+                semanticPayload.append(price.Value());
+                semanticPayload.push_back('|');
             }
 
-            return PacketResult<std::string>::Success(std::move(payload));
+            PacketResult<std::string> encoded = EncodeLegacyPayloadText(semanticPayload);
+            if (!encoded.HasValue()) {
+                PacketError error = encoded.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = StallListFieldIndex;
+                return PacketResult<std::string>::Failure(std::move(error));
+            }
+            return encoded;
         }
 
         [[nodiscard]] PacketResult<Packet> ToPacket() const
@@ -5789,14 +5797,23 @@ namespace cg::packet::send
                     StallListFieldIndex));
             }
 
-            if (payload.back() != '|') {
+            PacketResult<std::string> decoded = DecodeLegacyPayloadText(payload);
+            if (!decoded.HasValue()) {
+                PacketError error = decoded.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = StallListFieldIndex;
+                return PacketResult<std::array<int, PriceCount>>::Failure(std::move(error));
+            }
+
+            if (decoded.Value().back() != '|') {
                 return PacketResult<std::array<int, PriceCount>>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
                     CG_PACKET_DIAGNOSTIC_TEXT("StallStart stallList 缺少尾随分隔符"),
                     StallListFieldIndex));
             }
 
-            PacketResult<std::vector<std::string>> split = SplitPayload(payload, PayloadDelimiter);
+            PacketResult<std::vector<std::string>> split =
+                SplitPayload(decoded.Value(), PayloadDelimiter);
             if (!split.HasValue()) {
                 PacketError error = split.Error();
                 error.packetCode = PacketCode(Code);

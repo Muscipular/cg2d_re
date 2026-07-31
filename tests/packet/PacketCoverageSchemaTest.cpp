@@ -1246,11 +1246,11 @@ int TestTypedManifestGroup(
 int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
-    failures += Expect(cg::packet::test::SendTypedPackets.size() == 90U, "send typed manifest count 90");
+    failures += Expect(cg::packet::test::SendTypedPackets.size() == 91U, "send typed manifest count 91");
     failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 89U, "receive typed manifest count 89");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 179U,
-        "typed manifest count 179");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 180U,
+        "typed manifest count 180");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1267,7 +1267,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 179U, "typed manifest unique code count 179");
+    failures += Expect(codes.size() == 180U, "typed manifest unique code count 180");
     return failures;
 }
 
@@ -7784,6 +7784,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         bankPageRequestSchema != nullptr,
         "rh schema exists");
     if (bankPageRequestSchema != nullptr) {
+        const cg::packet::send::BankPageRequest request(2);
         failures += Expect(
             bankPageRequestSchema->direction == "客户端->服务端",
             "rh direction");
@@ -7827,7 +7828,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "rh resolvedFormat");
         failures += Expect(
             bankPageRequestSchema->resolvedSource ==
-                "xlsx+ServerC+ClientIda",
+                "xlsx+ServerC+ClientIda+src/packet",
             "rh resolvedSource");
         failures += Expect(
             bankPageRequestSchema->hasResolvedFields,
@@ -7843,15 +7844,20 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                     page.name == "page" &&
                     page.typeToken == "i62" &&
                     page.rawSpec == "{page:i62}" &&
-                    page.source == "xlsx+ServerC+ClientIda",
+                    page.source == "xlsx+ServerC+ClientIda+src/packet",
                 "rh resolved page field order");
         }
+        failures += ExpectEffectiveFieldsMatch(
+            *bankPageRequestSchema,
+            cg::packet::send::BankPageRequest::Spec,
+            "rh Spec matches effective fields");
+        failures += Expect(request.page == 2, "rh typed member");
     }
     failures += Expect(
-        !TypedManifestContainsCode(
+        TypedManifestContainsCode(
             cg::packet::test::SendTypedPackets,
             "rh"),
-        "rh absent from send typed manifest");
+        "rh present in send typed manifest");
     failures += Expect(
         !TypedManifestContainsCode(
             cg::packet::test::ReceiveTypedPackets,

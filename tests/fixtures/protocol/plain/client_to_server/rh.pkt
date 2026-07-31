@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=rh
+direction=client_to_server
+sample=page-two
+plain_hex=72 68 20 32
+canonical_hex=72 68 20 32 20
+end_sample

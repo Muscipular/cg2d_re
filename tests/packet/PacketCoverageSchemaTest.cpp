@@ -9248,6 +9248,89 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "kjSK"),
         "kjSK absent from receive typed manifest");
 
+    const PacketSchema* petSkillSwapSchema = FindPacket(packets, "HJQp");
+    failures += Expect(petSkillSwapSchema != nullptr, "HJQp schema exists");
+    if (petSkillSwapSchema != nullptr) {
+        const cg::packet::send::PetSkillSwap value(1, 2, -1);
+        const cg::packet::Packet packet = value.ToPacket();
+        failures += Expect(
+            petSkillSwapSchema->direction == "客户端->服务端",
+            "HJQp direction");
+        failures += Expect(petSkillSwapSchema->legacyKind == "RECV", "HJQp legacyKind");
+        failures += Expect(petSkillSwapSchema->clientNamespace == "send", "HJQp namespace");
+        failures += Expect(petSkillSwapSchema->xlsxStatus == "完成", "HJQp xlsxStatus");
+        failures += Expect(
+            petSkillSwapSchema->description
+                == "RECV_PSSW SKILL_swapPetSkill 宠物技能移动",
+            "HJQp description");
+        failures += Expect(
+            petSkillSwapSchema->rawFormat == "{petSlot} {from} {to}",
+            "HJQp rawFormat");
+        failures += Expect(!petSkillSwapSchema->formatEmpty, "HJQp formatEmpty false");
+        failures += Expect(petSkillSwapSchema->source == "xlsx", "HJQp raw source");
+        failures += Expect(petSkillSwapSchema->fields.size() == 3U, "HJQp raw field count");
+        if (petSkillSwapSchema->fields.size() == 3U) {
+            const std::array<std::string_view, 3U> names = {{"petSlot", "from", "to"}};
+            const std::array<std::string_view, 3U> rawSpecs = {{
+                "{petSlot}",
+                "{from}",
+                "{to}",
+            }};
+            for (std::size_t index = 0U; index < names.size(); ++index) {
+                failures += Expect(
+                    petSkillSwapSchema->fields[index].index == index &&
+                        petSkillSwapSchema->fields[index].name == names[index] &&
+                        petSkillSwapSchema->fields[index].typeToken == "unknown" &&
+                        petSkillSwapSchema->fields[index].rawSpec == rawSpecs[index] &&
+                        petSkillSwapSchema->fields[index].source == "xlsx",
+                    "HJQp raw field");
+            }
+        }
+        failures += Expect(
+            petSkillSwapSchema->hasResolvedFormat,
+            "HJQp resolvedFormat present");
+        failures += Expect(
+            petSkillSwapSchema->resolvedFormat
+                == "{petSlot:i62} {from:i62} {to:i62}",
+            "HJQp resolvedFormat");
+        failures += Expect(
+            petSkillSwapSchema->resolvedSource
+                == "xlsx+ServerC+ClientIda+src/packet",
+            "HJQp resolvedSource");
+        failures += Expect(
+            petSkillSwapSchema->hasResolvedFields,
+            "HJQp resolvedFields present");
+        failures += Expect(
+            petSkillSwapSchema->resolvedFields.size() == 3U,
+            "HJQp resolved field count");
+        for (const FieldSchema& field : petSkillSwapSchema->resolvedFields) {
+            failures += Expect(
+                field.source == "xlsx+ServerC+ClientIda+src/packet",
+                "HJQp resolved field source");
+        }
+        failures += ExpectEffectiveFieldsMatch(
+            *petSkillSwapSchema,
+            cg::packet::send::PetSkillSwap::Spec,
+            "HJQp Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *petSkillSwapSchema,
+            packet,
+            "HJQp resolved field order");
+        failures += Expect(
+            value.petSlot == 1 && value.from == 2 && value.to == -1,
+            "HJQp typed members");
+    }
+    failures += Expect(
+        TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "HJQp"),
+        "HJQp present in send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "HJQp"),
+        "HJQp absent from receive typed manifest");
+
     const PacketSchema* effectSchema = FindPacket(packets, "zzd");
     failures += Expect(effectSchema != nullptr, "zzd schema exists");
     if (effectSchema != nullptr) {

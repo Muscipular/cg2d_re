@@ -2842,6 +2842,17 @@
       "xlsxStatus": "进行中",
       "description": "SEND_RGM 开除回执",
       "rawFormat": "{registseqnumber}",
+      "resolvedFormat": "{registSeqNumber:i62}",
+      "resolvedSource": "xlsx+ServerC+ClientIda",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "registSeqNumber",
+          "typeToken": "i62",
+          "rawSpec": "{registSeqNumber:i62}",
+          "source": "xlsx+ServerC+ClientIda"
+        }
+      ],
       "formatEmpty": false,
       "source": "xlsx",
       "fields": [

@@ -9776,6 +9776,93 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         }
     }
 
+    const PacketSchema* guildMemberRemovalNotificationSchema =
+        FindPacket(packets, "oRut");
+    failures += Expect(
+        guildMemberRemovalNotificationSchema != nullptr,
+        "oRut schema exists");
+    if (guildMemberRemovalNotificationSchema != nullptr) {
+        failures += Expect(
+            guildMemberRemovalNotificationSchema->direction ==
+                "服务端->客户端",
+            "oRut direction");
+        failures += Expect(
+            guildMemberRemovalNotificationSchema->legacyKind == "SEND",
+            "oRut legacyKind");
+        failures += Expect(
+            guildMemberRemovalNotificationSchema->clientNamespace ==
+                "receive",
+            "oRut namespace");
+        failures += Expect(
+            guildMemberRemovalNotificationSchema->xlsxStatus == "进行中",
+            "oRut xlsxStatus");
+        failures += Expect(
+            guildMemberRemovalNotificationSchema->rawFormat ==
+                "{registseqnumber}",
+            "oRut rawFormat");
+        failures += Expect(
+            !guildMemberRemovalNotificationSchema->formatEmpty,
+            "oRut formatEmpty false");
+        failures += Expect(
+            guildMemberRemovalNotificationSchema->source == "xlsx",
+            "oRut raw source");
+        failures += Expect(
+            guildMemberRemovalNotificationSchema->fields.size() == 1U,
+            "oRut raw field count");
+        if (guildMemberRemovalNotificationSchema->fields.size() == 1U) {
+            const FieldSchema& field =
+                guildMemberRemovalNotificationSchema->fields[0];
+            failures += Expect(
+                field.index == 0 &&
+                    field.name == "registseqnumber" &&
+                    field.typeToken == "unknown" &&
+                    field.rawSpec == "{registseqnumber}" &&
+                    field.source == "xlsx",
+                "oRut raw field");
+        }
+
+        failures += Expect(
+            guildMemberRemovalNotificationSchema->hasResolvedFormat,
+            "oRut resolvedFormat present");
+        failures += Expect(
+            guildMemberRemovalNotificationSchema->resolvedFormat ==
+                "{registSeqNumber:i62}",
+            "oRut resolvedFormat");
+        failures += Expect(
+            guildMemberRemovalNotificationSchema->resolvedSource ==
+                "xlsx+ServerC+ClientIda",
+            "oRut resolvedSource");
+        failures += Expect(
+            guildMemberRemovalNotificationSchema->hasResolvedFields,
+            "oRut resolvedFields present");
+        failures += Expect(
+            guildMemberRemovalNotificationSchema->resolvedFields.size() ==
+                1U,
+            "oRut resolved field count");
+        if (guildMemberRemovalNotificationSchema->resolvedFields.size() ==
+            1U) {
+            const FieldSchema& field =
+                guildMemberRemovalNotificationSchema->resolvedFields[0];
+            failures += Expect(
+                field.index == 0 &&
+                    field.name == "registSeqNumber" &&
+                    field.typeToken == "i62" &&
+                    field.rawSpec == "{registSeqNumber:i62}" &&
+                    field.source == "xlsx+ServerC+ClientIda",
+                "oRut resolved field");
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "oRut"),
+        "oRut absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "oRut"),
+        "oRut absent from receive typed manifest");
+
     const PacketSchema* guildMailSchema = FindPacket(packets, "Rll");
     failures += Expect(guildMailSchema != nullptr, "Rll schema exists");
     if (guildMailSchema != nullptr) {

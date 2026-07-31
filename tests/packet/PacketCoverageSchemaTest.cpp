@@ -6933,6 +6933,87 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "Expire"),
         "Expire absent from receive typed manifest");
 
+    const PacketSchema* stallStartResultSchema =
+        FindPacket(packets, "Tmrx");
+    failures += Expect(
+        stallStartResultSchema != nullptr,
+        "Tmrx schema exists");
+    if (stallStartResultSchema != nullptr) {
+        failures += Expect(
+            stallStartResultSchema->direction == "服务端->客户端",
+            "Tmrx direction");
+        failures += Expect(
+            stallStartResultSchema->legacyKind == "SEND",
+            "Tmrx legacyKind");
+        failures += Expect(
+            stallStartResultSchema->clientNamespace == "receive",
+            "Tmrx namespace");
+        failures += Expect(
+            stallStartResultSchema->xlsxStatus == "完成",
+            "Tmrx xlsxStatus");
+        failures += Expect(
+            stallStartResultSchema->rawFormat == "{result}",
+            "Tmrx rawFormat");
+        failures += Expect(
+            !stallStartResultSchema->formatEmpty,
+            "Tmrx formatEmpty false");
+        failures += Expect(
+            stallStartResultSchema->source == "xlsx",
+            "Tmrx raw source");
+        failures += Expect(
+            stallStartResultSchema->fields.size() == 1U,
+            "Tmrx raw field count");
+        if (stallStartResultSchema->fields.size() == 1U) {
+            const FieldSchema& result =
+                stallStartResultSchema->fields[0];
+            failures += Expect(
+                result.index == 0 &&
+                    result.name == "result" &&
+                    result.typeToken == "unknown" &&
+                    result.rawSpec == "{result}" &&
+                    result.source == "xlsx",
+                "Tmrx raw result field");
+        }
+
+        failures += Expect(
+            stallStartResultSchema->hasResolvedFormat,
+            "Tmrx resolvedFormat present");
+        failures += Expect(
+            stallStartResultSchema->resolvedFormat == "{result:i62}",
+            "Tmrx resolvedFormat");
+        failures += Expect(
+            stallStartResultSchema->resolvedSource ==
+                "xlsx+ServerC+ClientIda",
+            "Tmrx resolvedSource");
+        failures += Expect(
+            stallStartResultSchema->hasResolvedFields,
+            "Tmrx resolvedFields present");
+        failures += Expect(
+            stallStartResultSchema->resolvedFields.size() == 1U,
+            "Tmrx resolved field count");
+        if (stallStartResultSchema->resolvedFields.size() == 1U) {
+            const FieldSchema& result =
+                stallStartResultSchema->resolvedFields[0];
+            failures += Expect(
+                result.index == 0 &&
+                    result.name == "result" &&
+                    result.typeToken == "i62" &&
+                    result.rawSpec == "{result:i62}" &&
+                    result.source == "xlsx+ServerC+ClientIda",
+                "Tmrx resolved result field");
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "Tmrx"),
+        "Tmrx absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "Tmrx"),
+        "Tmrx absent from receive typed manifest");
+
     const PacketSchema* versionUpgradeRequestSchema =
         FindPacket(packets, "Xoee");
     failures += Expect(

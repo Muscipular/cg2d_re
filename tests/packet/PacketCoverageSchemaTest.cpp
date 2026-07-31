@@ -9055,15 +9055,47 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         const cg::packet::Packet packet = magicUse.ToPacket();
         failures += Expect(magicUseSchema->direction == "客户端->服务端", "RXr direction");
         failures += Expect(magicUseSchema->legacyKind == "RECV", "RXr legacyKind");
+        failures += Expect(magicUseSchema->clientNamespace == "send", "RXr namespace");
+        failures += Expect(magicUseSchema->xlsxStatus == "完成", "RXr xlsxStatus");
+        failures += Expect(magicUseSchema->description == "RECV_MU", "RXr description");
         failures += Expect(magicUseSchema->rawFormat.empty(), "RXr rawFormat empty");
         failures += Expect(magicUseSchema->formatEmpty, "RXr formatEmpty");
+        failures += Expect(magicUseSchema->source == "xlsx", "RXr raw source");
+        failures += Expect(magicUseSchema->fields.empty(), "RXr raw fields empty");
+        failures += Expect(magicUseSchema->hasResolvedFormat, "RXr resolvedFormat present");
         failures += Expect(
             magicUseSchema->resolvedFormat == "{x:i62} {y:i62} {array:i62} {toindex:i62}",
             "RXr resolvedFormat");
         failures += Expect(magicUseSchema->resolvedSource == "ServerC+src/packet", "RXr resolvedSource");
-        failures += Expect(magicUseSchema->fields.empty(), "RXr raw fields empty");
+        failures += Expect(magicUseSchema->hasResolvedFields, "RXr resolvedFields present");
+        failures += Expect(magicUseSchema->resolvedFields.size() == 4U, "RXr resolved field count");
+        for (const FieldSchema& field : magicUseSchema->resolvedFields) {
+            failures += Expect(
+                field.source == "ServerC+src/packet",
+                "RXr resolved field source");
+        }
+        failures += ExpectEffectiveFieldsMatch(
+            *magicUseSchema,
+            cg::packet::send::MagicUseRequest::Spec,
+            "RXr Spec matches effective fields");
         failures += ExpectResolvedFieldsMatch(*magicUseSchema, packet, "RXr resolved field order");
+        failures += Expect(
+            magicUse.x == 1 &&
+                magicUse.y == 2 &&
+                magicUse.array == 3 &&
+                magicUse.toindex == 4,
+            "RXr typed members");
     }
+    failures += Expect(
+        TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "RXr"),
+        "RXr present in send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "RXr"),
+        "RXr absent from receive typed manifest");
 
     const PacketSchema* effectSchema = FindPacket(packets, "zzd");
     failures += Expect(effectSchema != nullptr, "zzd schema exists");

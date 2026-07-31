@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=RXr
+direction=client_to_server
+sample=magic-use
+plain_hex=52 58 72 20 31 20 32 20 33 20 34
+canonical_hex=52 58 72 20 31 20 32 20 33 20 34 20
+end_sample

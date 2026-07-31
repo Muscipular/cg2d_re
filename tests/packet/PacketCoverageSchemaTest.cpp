@@ -10210,6 +10210,74 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "NdM"),
         "NdM present in receive typed manifest");
 
+    const PacketSchema* tradeGoldInfoSchema = FindPacket(packets, "hJq");
+    failures += Expect(tradeGoldInfoSchema != nullptr, "hJq schema exists");
+    if (tradeGoldInfoSchema != nullptr) {
+        failures += Expect(
+            tradeGoldInfoSchema->direction == "服务端->客户端",
+            "hJq direction");
+        failures += Expect(
+            tradeGoldInfoSchema->legacyKind == "SEND",
+            "hJq legacyKind");
+        failures += Expect(
+            tradeGoldInfoSchema->clientNamespace == "receive",
+            "hJq namespace");
+        failures += Expect(
+            tradeGoldInfoSchema->xlsxStatus == "完成",
+            "hJq xlsxStatus");
+        failures += Expect(
+            tradeGoldInfoSchema->description ==
+                "SEND_TRLG CHAR_Trade_setTradeList 对方金币信息",
+            "hJq description");
+        failures += Expect(
+            tradeGoldInfoSchema->rawFormat.empty(),
+            "hJq rawFormat empty");
+        failures += Expect(
+            tradeGoldInfoSchema->formatEmpty,
+            "hJq formatEmpty true");
+        failures += Expect(
+            tradeGoldInfoSchema->source == "xlsx",
+            "hJq raw source");
+        failures += Expect(
+            tradeGoldInfoSchema->fields.empty(),
+            "hJq raw fields empty");
+        failures += Expect(
+            tradeGoldInfoSchema->hasResolvedFormat,
+            "hJq resolvedFormat present");
+        failures += Expect(
+            tradeGoldInfoSchema->resolvedFormat == "{gold:i62}",
+            "hJq resolvedFormat");
+        failures += Expect(
+            tradeGoldInfoSchema->resolvedSource == "ServerC+ClientIda",
+            "hJq resolvedSource");
+        failures += Expect(
+            tradeGoldInfoSchema->hasResolvedFields,
+            "hJq resolvedFields present");
+        failures += Expect(
+            tradeGoldInfoSchema->resolvedFields.size() == 1U,
+            "hJq resolved field count");
+        if (tradeGoldInfoSchema->resolvedFields.size() == 1U) {
+            const FieldSchema& field = tradeGoldInfoSchema->resolvedFields[0];
+            failures += Expect(
+                field.index == 0 &&
+                    field.name == "gold" &&
+                    field.typeToken == "i62" &&
+                    field.rawSpec == "{gold:i62}" &&
+                    field.source == "ServerC+ClientIda",
+                "hJq resolved field");
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "hJq"),
+        "hJq absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "hJq"),
+        "hJq absent from receive typed manifest");
+
     const PacketSchema* checkCommandSchema = FindPacket(packets, "CCL");
     failures += Expect(checkCommandSchema != nullptr, "CCL schema exists");
     if (checkCommandSchema != nullptr) {

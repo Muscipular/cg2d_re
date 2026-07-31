@@ -3976,6 +3976,17 @@
       "rawFormat": "",
       "formatEmpty": true,
       "source": "xlsx",
+      "resolvedFormat": "{gold:i62}",
+      "resolvedSource": "ServerC+ClientIda",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "gold",
+          "typeToken": "i62",
+          "rawSpec": "{gold:i62}",
+          "source": "ServerC+ClientIda"
+        }
+      ],
       "fields": []
     },
     {

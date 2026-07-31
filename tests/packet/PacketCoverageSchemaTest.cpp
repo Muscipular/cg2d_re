@@ -9160,6 +9160,94 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "Flvp"),
         "Flvp absent from receive typed manifest");
 
+    const PacketSchema* petLevelUpPointSchema = FindPacket(packets, "kjSK");
+    failures += Expect(petLevelUpPointSchema != nullptr, "kjSK schema exists");
+    if (petLevelUpPointSchema != nullptr) {
+        const cg::packet::send::PetLevelUpPoint value(2, 4);
+        const cg::packet::Packet packet = value.ToPacket();
+        failures += Expect(
+            petLevelUpPointSchema->direction == "客户端->服务端",
+            "kjSK direction");
+        failures += Expect(
+            petLevelUpPointSchema->legacyKind == "RECV",
+            "kjSK legacyKind");
+        failures += Expect(
+            petLevelUpPointSchema->clientNamespace == "send",
+            "kjSK namespace");
+        failures += Expect(
+            petLevelUpPointSchema->xlsxStatus == "完成",
+            "kjSK xlsxStatus");
+        failures += Expect(
+            petLevelUpPointSchema->description == "RECV_PLVUP 宠物加点",
+            "kjSK description");
+        failures += Expect(
+            petLevelUpPointSchema->rawFormat == "{petSlot} {sqeno}",
+            "kjSK rawFormat");
+        failures += Expect(
+            !petLevelUpPointSchema->formatEmpty,
+            "kjSK formatEmpty false");
+        failures += Expect(petLevelUpPointSchema->source == "xlsx", "kjSK raw source");
+        failures += Expect(petLevelUpPointSchema->fields.size() == 2U, "kjSK raw field count");
+        if (petLevelUpPointSchema->fields.size() == 2U) {
+            failures += Expect(
+                petLevelUpPointSchema->fields[0].index == 0U &&
+                    petLevelUpPointSchema->fields[0].name == "petSlot" &&
+                    petLevelUpPointSchema->fields[0].typeToken == "unknown" &&
+                    petLevelUpPointSchema->fields[0].rawSpec == "{petSlot}" &&
+                    petLevelUpPointSchema->fields[0].source == "xlsx",
+                "kjSK raw petSlot field");
+            failures += Expect(
+                petLevelUpPointSchema->fields[1].index == 1U &&
+                    petLevelUpPointSchema->fields[1].name == "sqeno" &&
+                    petLevelUpPointSchema->fields[1].typeToken == "unknown" &&
+                    petLevelUpPointSchema->fields[1].rawSpec == "{sqeno}" &&
+                    petLevelUpPointSchema->fields[1].source == "xlsx",
+                "kjSK raw sqeno field");
+        }
+        failures += Expect(
+            petLevelUpPointSchema->hasResolvedFormat,
+            "kjSK resolvedFormat present");
+        failures += Expect(
+            petLevelUpPointSchema->resolvedFormat == "{petSlot:i62} {sqeno:i62}",
+            "kjSK resolvedFormat");
+        failures += Expect(
+            petLevelUpPointSchema->resolvedSource
+                == "xlsx+ServerC+ClientIda+src/packet",
+            "kjSK resolvedSource");
+        failures += Expect(
+            petLevelUpPointSchema->hasResolvedFields,
+            "kjSK resolvedFields present");
+        failures += Expect(
+            petLevelUpPointSchema->resolvedFields.size() == 2U,
+            "kjSK resolved field count");
+        for (const FieldSchema& field : petLevelUpPointSchema->resolvedFields) {
+            failures += Expect(
+                field.source == "xlsx+ServerC+ClientIda+src/packet",
+                "kjSK resolved field source");
+        }
+        failures += ExpectEffectiveFieldsMatch(
+            *petLevelUpPointSchema,
+            cg::packet::send::PetLevelUpPoint::Spec,
+            "kjSK Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *petLevelUpPointSchema,
+            packet,
+            "kjSK resolved field order");
+        failures += Expect(
+            value.petSlot == 2 && value.sqeno == 4,
+            "kjSK typed members");
+    }
+    failures += Expect(
+        TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "kjSK"),
+        "kjSK present in send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "kjSK"),
+        "kjSK absent from receive typed manifest");
+
     const PacketSchema* effectSchema = FindPacket(packets, "zzd");
     failures += Expect(effectSchema != nullptr, "zzd schema exists");
     if (effectSchema != nullptr) {

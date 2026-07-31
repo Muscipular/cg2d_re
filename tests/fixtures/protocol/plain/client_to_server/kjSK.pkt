@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=kjSK
+direction=client_to_server
+sample=pet-slot-two-sequence-four
+plain_hex=6B 6A 53 4B 20 32 20 34
+canonical_hex=6B 6A 53 4B 20 32 20 34 20
+end_sample

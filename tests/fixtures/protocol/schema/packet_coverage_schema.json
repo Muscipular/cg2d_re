@@ -7639,21 +7639,21 @@
         "formatEmpty": false,
         "source": "xlsx",
         "resolvedFormat": "{petSlot:i62} {sqeno:i62}",
-        "resolvedSource": "xlsx+ServerC+IDA+src",
+        "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
         "resolvedFields": [
           {
             "index": 0,
             "name": "petSlot",
             "typeToken": "i62",
             "rawSpec": "{petSlot:i62}",
-            "source": "xlsx+ServerC+IDA+src"
+            "source": "xlsx+ServerC+ClientIda+src/packet"
           },
           {
             "index": 1,
             "name": "sqeno",
             "typeToken": "i62",
             "rawSpec": "{sqeno:i62}",
-            "source": "xlsx+ServerC+IDA+src"
+            "source": "xlsx+ServerC+ClientIda+src/packet"
           }
         ],
         "fields": [

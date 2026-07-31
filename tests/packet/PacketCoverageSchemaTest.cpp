@@ -7689,6 +7689,87 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "wAo"),
         "wAo absent from receive typed manifest");
 
+    const PacketSchema* produceTimeRequestSchema =
+        FindPacket(packets, "IPy");
+    failures += Expect(
+        produceTimeRequestSchema != nullptr,
+        "IPy schema exists");
+    if (produceTimeRequestSchema != nullptr) {
+        failures += Expect(
+            produceTimeRequestSchema->direction == "客户端->服务端",
+            "IPy direction");
+        failures += Expect(
+            produceTimeRequestSchema->legacyKind == "RECV",
+            "IPy legacyKind");
+        failures += Expect(
+            produceTimeRequestSchema->clientNamespace == "send",
+            "IPy namespace");
+        failures += Expect(
+            produceTimeRequestSchema->xlsxStatus == "完成",
+            "IPy xlsxStatus");
+        failures += Expect(
+            produceTimeRequestSchema->rawFormat == "{time(s)}",
+            "IPy rawFormat");
+        failures += Expect(
+            !produceTimeRequestSchema->formatEmpty,
+            "IPy formatEmpty false");
+        failures += Expect(
+            produceTimeRequestSchema->source == "xlsx",
+            "IPy raw source");
+        failures += Expect(
+            produceTimeRequestSchema->fields.size() == 1U,
+            "IPy raw field count");
+        if (produceTimeRequestSchema->fields.size() == 1U) {
+            const FieldSchema& time =
+                produceTimeRequestSchema->fields[0];
+            failures += Expect(
+                time.index == 0 &&
+                    time.name == "time(s)" &&
+                    time.typeToken == "unknown" &&
+                    time.rawSpec == "{time(s)}" &&
+                    time.source == "xlsx",
+                "IPy raw time field");
+        }
+
+        failures += Expect(
+            produceTimeRequestSchema->hasResolvedFormat,
+            "IPy resolvedFormat present");
+        failures += Expect(
+            produceTimeRequestSchema->resolvedFormat == "{time:i62}",
+            "IPy resolvedFormat");
+        failures += Expect(
+            produceTimeRequestSchema->resolvedSource ==
+                "xlsx+ServerC+ClientIda",
+            "IPy resolvedSource");
+        failures += Expect(
+            produceTimeRequestSchema->hasResolvedFields,
+            "IPy resolvedFields present");
+        failures += Expect(
+            produceTimeRequestSchema->resolvedFields.size() == 1U,
+            "IPy resolved field count");
+        if (produceTimeRequestSchema->resolvedFields.size() == 1U) {
+            const FieldSchema& time =
+                produceTimeRequestSchema->resolvedFields[0];
+            failures += Expect(
+                time.index == 0 &&
+                    time.name == "time" &&
+                    time.typeToken == "i62" &&
+                    time.rawSpec == "{time:i62}" &&
+                    time.source == "xlsx+ServerC+ClientIda",
+                "IPy resolved time field order");
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "IPy"),
+        "IPy absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "IPy"),
+        "IPy absent from receive typed manifest");
+
     const PacketSchema* versionUpgradeRequestSchema =
         FindPacket(packets, "Xoee");
     failures += Expect(

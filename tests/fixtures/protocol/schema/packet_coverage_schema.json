@@ -3726,7 +3726,25 @@
       "rawFormat": "",
       "formatEmpty": true,
       "source": "xlsx",
-      "fields": []
+      "resolvedFormat": "{request:i62} {result:i62}",
+      "resolvedSource": "ServerC+ClientIda",
+      "fields": [],
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "request",
+          "typeToken": "i62",
+          "rawSpec": "{request:i62}",
+          "source": "ServerC+ClientIda"
+        },
+        {
+          "index": 1,
+          "name": "result",
+          "typeToken": "i62",
+          "rawSpec": "{result:i62}",
+          "source": "ServerC+ClientIda"
+        }
+      ]
     },
     {
       "code": "ysVc",

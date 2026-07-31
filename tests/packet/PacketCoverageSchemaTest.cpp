@@ -10042,6 +10042,89 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "sZWu"),
         "sZWu present in receive typed manifest");
 
+    const PacketSchema* partyMembershipResultSchema =
+        FindPacket(packets, "bNY");
+    failures += Expect(
+        partyMembershipResultSchema != nullptr,
+        "bNY schema exists");
+    if (partyMembershipResultSchema != nullptr) {
+        failures += Expect(
+            partyMembershipResultSchema->direction == "服务端->客户端",
+            "bNY direction");
+        failures += Expect(
+            partyMembershipResultSchema->legacyKind == "SEND",
+            "bNY legacyKind");
+        failures += Expect(
+            partyMembershipResultSchema->clientNamespace == "receive",
+            "bNY namespace");
+        failures += Expect(
+            partyMembershipResultSchema->xlsxStatus == "完成",
+            "bNY xlsxStatus");
+        failures += Expect(
+            partyMembershipResultSchema->description == "SEND_PR",
+            "bNY description");
+        failures += Expect(
+            partyMembershipResultSchema->rawFormat.empty(),
+            "bNY rawFormat empty");
+        failures += Expect(
+            partyMembershipResultSchema->formatEmpty,
+            "bNY formatEmpty true");
+        failures += Expect(
+            partyMembershipResultSchema->source == "xlsx",
+            "bNY raw source");
+        failures += Expect(
+            partyMembershipResultSchema->fields.empty(),
+            "bNY raw fields empty");
+        failures += Expect(
+            partyMembershipResultSchema->hasResolvedFormat,
+            "bNY resolvedFormat present");
+        failures += Expect(
+            partyMembershipResultSchema->resolvedFormat ==
+                "{request:i62} {result:i62}",
+            "bNY resolvedFormat");
+        failures += Expect(
+            partyMembershipResultSchema->resolvedSource ==
+                "ServerC+ClientIda",
+            "bNY resolvedSource");
+        failures += Expect(
+            partyMembershipResultSchema->hasResolvedFields,
+            "bNY resolvedFields present");
+        failures += Expect(
+            partyMembershipResultSchema->resolvedFields.size() == 2U,
+            "bNY resolved field count");
+        if (partyMembershipResultSchema->resolvedFields.size() == 2U) {
+            constexpr std::array<std::string_view, 2U> names = {{
+                "request",
+                "result",
+            }};
+            constexpr std::array<std::string_view, 2U> specs = {{
+                "{request:i62}",
+                "{result:i62}",
+            }};
+            for (std::size_t index = 0U; index < names.size(); ++index) {
+                const FieldSchema& field =
+                    partyMembershipResultSchema->resolvedFields[index];
+                failures += Expect(
+                    field.index == static_cast<int>(index) &&
+                        field.name == names[index] &&
+                        field.typeToken == "i62" &&
+                        field.rawSpec == specs[index] &&
+                        field.source == "ServerC+ClientIda",
+                    "bNY resolved field");
+            }
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "bNY"),
+        "bNY absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "bNY"),
+        "bNY absent from receive typed manifest");
+
     const PacketSchema* checkCommandSchema = FindPacket(packets, "CCL");
     failures += Expect(checkCommandSchema != nullptr, "CCL schema exists");
     if (checkCommandSchema != nullptr) {

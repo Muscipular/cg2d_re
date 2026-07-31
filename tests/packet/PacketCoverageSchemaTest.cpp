@@ -9798,6 +9798,88 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "FVm"),
         "FVm absent from receive typed manifest");
 
+    const PacketSchema* itemMoveNotificationSchema =
+        FindPacket(packets, "vWpn");
+    failures += Expect(
+        itemMoveNotificationSchema != nullptr,
+        "vWpn schema exists");
+    if (itemMoveNotificationSchema != nullptr) {
+        failures += Expect(
+            itemMoveNotificationSchema->direction == "服务端->客户端",
+            "vWpn direction");
+        failures += Expect(
+            itemMoveNotificationSchema->legacyKind == "SEND",
+            "vWpn legacyKind");
+        failures += Expect(
+            itemMoveNotificationSchema->clientNamespace == "receive",
+            "vWpn namespace");
+        failures += Expect(
+            itemMoveNotificationSchema->xlsxStatus == "完成",
+            "vWpn xlsxStatus");
+        failures += Expect(
+            itemMoveNotificationSchema->description == "SEND_SI moveitem",
+            "vWpn description");
+        failures += Expect(
+            itemMoveNotificationSchema->rawFormat.empty(),
+            "vWpn rawFormat empty");
+        failures += Expect(
+            itemMoveNotificationSchema->formatEmpty,
+            "vWpn formatEmpty true");
+        failures += Expect(
+            itemMoveNotificationSchema->source == "xlsx",
+            "vWpn raw source");
+        failures += Expect(
+            itemMoveNotificationSchema->fields.empty(),
+            "vWpn raw fields empty");
+        failures += Expect(
+            itemMoveNotificationSchema->hasResolvedFormat,
+            "vWpn resolvedFormat present");
+        failures += Expect(
+            itemMoveNotificationSchema->resolvedFormat ==
+                "{fromindex:i62} {toindex:i62}",
+            "vWpn resolvedFormat");
+        failures += Expect(
+            itemMoveNotificationSchema->resolvedSource ==
+                "ServerC+ClientIda",
+            "vWpn resolvedSource");
+        failures += Expect(
+            itemMoveNotificationSchema->hasResolvedFields,
+            "vWpn resolvedFields present");
+        failures += Expect(
+            itemMoveNotificationSchema->resolvedFields.size() == 2U,
+            "vWpn resolved field count");
+        if (itemMoveNotificationSchema->resolvedFields.size() == 2U) {
+            const FieldSchema& fromField =
+                itemMoveNotificationSchema->resolvedFields[0];
+            const FieldSchema& toField =
+                itemMoveNotificationSchema->resolvedFields[1];
+            failures += Expect(
+                fromField.index == 0 &&
+                    fromField.name == "fromindex" &&
+                    fromField.typeToken == "i62" &&
+                    fromField.rawSpec == "{fromindex:i62}" &&
+                    fromField.source == "ServerC+ClientIda",
+                "vWpn resolved from field");
+            failures += Expect(
+                toField.index == 1 &&
+                    toField.name == "toindex" &&
+                    toField.typeToken == "i62" &&
+                    toField.rawSpec == "{toindex:i62}" &&
+                    toField.source == "ServerC+ClientIda",
+                "vWpn resolved to field");
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "vWpn"),
+        "vWpn absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "vWpn"),
+        "vWpn absent from receive typed manifest");
+
     const PacketSchema* checkCommandSchema = FindPacket(packets, "CCL");
     failures += Expect(checkCommandSchema != nullptr, "CCL schema exists");
     if (checkCommandSchema != nullptr) {

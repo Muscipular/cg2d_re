@@ -9915,6 +9915,90 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         }
     }
 
+    const PacketSchema* guildDepartureNotificationSchema =
+        FindPacket(packets, "frQp");
+    failures += Expect(
+        guildDepartureNotificationSchema != nullptr,
+        "frQp schema exists");
+    if (guildDepartureNotificationSchema != nullptr) {
+        failures += Expect(
+            guildDepartureNotificationSchema->direction ==
+                "服务端->客户端",
+            "frQp direction");
+        failures += Expect(
+            guildDepartureNotificationSchema->legacyKind == "SEND",
+            "frQp legacyKind");
+        failures += Expect(
+            guildDepartureNotificationSchema->clientNamespace ==
+                "receive",
+            "frQp namespace");
+        failures += Expect(
+            guildDepartureNotificationSchema->xlsxStatus == "进行中",
+            "frQp xlsxStatus");
+        failures += Expect(
+            guildDepartureNotificationSchema->rawFormat == "{guildId}",
+            "frQp rawFormat");
+        failures += Expect(
+            !guildDepartureNotificationSchema->formatEmpty,
+            "frQp formatEmpty false");
+        failures += Expect(
+            guildDepartureNotificationSchema->source == "xlsx",
+            "frQp raw source");
+        failures += Expect(
+            guildDepartureNotificationSchema->fields.size() == 1U,
+            "frQp raw field count");
+        if (guildDepartureNotificationSchema->fields.size() == 1U) {
+            const FieldSchema& field =
+                guildDepartureNotificationSchema->fields[0];
+            failures += Expect(
+                field.index == 0 &&
+                    field.name == "guildId" &&
+                    field.typeToken == "unknown" &&
+                    field.rawSpec == "{guildId}" &&
+                    field.source == "xlsx",
+                "frQp raw field");
+        }
+
+        failures += Expect(
+            guildDepartureNotificationSchema->hasResolvedFormat,
+            "frQp resolvedFormat present");
+        failures += Expect(
+            guildDepartureNotificationSchema->resolvedFormat ==
+                "{guildId:i62}",
+            "frQp resolvedFormat");
+        failures += Expect(
+            guildDepartureNotificationSchema->resolvedSource ==
+                "xlsx+ServerC+ClientIda",
+            "frQp resolvedSource");
+        failures += Expect(
+            guildDepartureNotificationSchema->hasResolvedFields,
+            "frQp resolvedFields present");
+        failures += Expect(
+            guildDepartureNotificationSchema->resolvedFields.size() == 1U,
+            "frQp resolved field count");
+        if (guildDepartureNotificationSchema->resolvedFields.size() == 1U) {
+            const FieldSchema& field =
+                guildDepartureNotificationSchema->resolvedFields[0];
+            failures += Expect(
+                field.index == 0 &&
+                    field.name == "guildId" &&
+                    field.typeToken == "i62" &&
+                    field.rawSpec == "{guildId:i62}" &&
+                    field.source == "xlsx+ServerC+ClientIda",
+                "frQp resolved field");
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "frQp"),
+        "frQp absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "frQp"),
+        "frQp absent from receive typed manifest");
+
     const PacketSchema* petMailSendSchema = FindPacket(packets, "rMsv");
     failures += Expect(petMailSendSchema != nullptr, "rMsv schema exists");
     if (petMailSendSchema != nullptr) {

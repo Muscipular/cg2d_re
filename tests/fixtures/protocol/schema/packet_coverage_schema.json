@@ -7893,49 +7893,49 @@
       "formatEmpty": false,
       "source": "xlsx",
       "resolvedFormat": "{x:i62} {y:i62} {seqno:i62} {objindex:i62} {select:i62} {data:es}",
-      "resolvedSource": "xlsx+ServerC+ClientIda+src",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
       "resolvedFields": [
         {
           "index": 0,
           "name": "x",
           "typeToken": "i62",
           "rawSpec": "{x:i62}",
-          "source": "xlsx+ServerC+ClientIda+src"
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         },
         {
           "index": 1,
           "name": "y",
           "typeToken": "i62",
           "rawSpec": "{y:i62}",
-          "source": "xlsx+ServerC+ClientIda+src"
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         },
         {
           "index": 2,
           "name": "seqno",
           "typeToken": "i62",
           "rawSpec": "{seqno:i62}",
-          "source": "xlsx+ServerC+ClientIda+src"
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         },
         {
           "index": 3,
           "name": "objindex",
           "typeToken": "i62",
           "rawSpec": "{objindex:i62}",
-          "source": "xlsx+ServerC+ClientIda+src"
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         },
         {
           "index": 4,
           "name": "select",
           "typeToken": "i62",
           "rawSpec": "{select:i62}",
-          "source": "xlsx+ServerC+ClientIda+src"
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         },
         {
           "index": 5,
           "name": "data",
           "typeToken": "es",
           "rawSpec": "{data:es}",
-          "source": "xlsx+ServerC+ClientIda+src"
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         }
       ],
       "fields": [

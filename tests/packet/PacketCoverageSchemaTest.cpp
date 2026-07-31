@@ -9891,6 +9891,115 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "uSr"),
         "uSr absent from receive typed manifest");
 
+    const PacketSchema* windowOpenSchema = FindPacket(packets, "xD");
+    failures += Expect(windowOpenSchema != nullptr, "xD schema exists");
+    if (windowOpenSchema != nullptr) {
+        const cg::packet::send::WindowOpenSend value(
+            10,
+            20,
+            3,
+            -1,
+            0,
+            "I\\z8\\z9\\z1");
+        const cg::packet::Packet packet = value.ToPacket();
+        failures += Expect(
+            windowOpenSchema->direction == "客户端->服务端",
+            "xD direction");
+        failures += Expect(windowOpenSchema->legacyKind == "RECV", "xD legacyKind");
+        failures += Expect(windowOpenSchema->clientNamespace == "send", "xD namespace");
+        failures += Expect(windowOpenSchema->xlsxStatus == "完成", "xD xlsxStatus");
+        failures += Expect(
+            windowOpenSchema->description == "RECV_WN 打开系统窗口",
+            "xD description");
+        failures += Expect(
+            windowOpenSchema->rawFormat
+                == "{x} {y} {seqno} {objindex} {select} {data:es}",
+            "xD rawFormat");
+        failures += Expect(!windowOpenSchema->formatEmpty, "xD formatEmpty false");
+        failures += Expect(windowOpenSchema->source == "xlsx", "xD raw source");
+        failures += Expect(windowOpenSchema->fields.size() == 6U, "xD raw field count");
+        if (windowOpenSchema->fields.size() == 6U) {
+            const std::array<std::string_view, 6U> names = {{
+                "x",
+                "y",
+                "seqno",
+                "objindex",
+                "select",
+                "data",
+            }};
+            const std::array<std::string_view, 6U> types = {{
+                "unknown",
+                "unknown",
+                "unknown",
+                "unknown",
+                "unknown",
+                "es",
+            }};
+            const std::array<std::string_view, 6U> rawSpecs = {{
+                "{x}",
+                "{y}",
+                "{seqno}",
+                "{objindex}",
+                "{select}",
+                "{data:es}",
+            }};
+            for (std::size_t index = 0U; index < names.size(); ++index) {
+                failures += Expect(
+                    windowOpenSchema->fields[index].index == index &&
+                        windowOpenSchema->fields[index].name == names[index] &&
+                        windowOpenSchema->fields[index].typeToken == types[index] &&
+                        windowOpenSchema->fields[index].rawSpec == rawSpecs[index] &&
+                        windowOpenSchema->fields[index].source == "xlsx",
+                    "xD raw field");
+            }
+        }
+        failures += Expect(
+            windowOpenSchema->resolvedFormat
+                == "{x:i62} {y:i62} {seqno:i62} {objindex:i62} {select:i62} {data:es}",
+            "xD resolvedFormat");
+        failures += Expect(
+            windowOpenSchema->resolvedSource
+                == "xlsx+ServerC+ClientIda+src/packet",
+            "xD resolvedSource");
+        failures += Expect(
+            windowOpenSchema->hasResolvedFields,
+            "xD resolvedFields present");
+        failures += Expect(
+            windowOpenSchema->resolvedFields.size() == 6U,
+            "xD resolved field count");
+        for (const FieldSchema& field : windowOpenSchema->resolvedFields) {
+            failures += Expect(
+                field.source == "xlsx+ServerC+ClientIda+src/packet",
+                "xD resolved field source");
+        }
+        failures += ExpectEffectiveFieldsMatch(
+            *windowOpenSchema,
+            cg::packet::send::WindowOpenSend::Spec,
+            "xD Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *windowOpenSchema,
+            packet,
+            "xD resolved field order");
+        failures += Expect(
+            value.x == 10 &&
+                value.y == 20 &&
+                value.seqno == 3 &&
+                value.objindex == -1 &&
+                value.select == 0 &&
+                value.data == "I\\z8\\z9\\z1",
+            "xD typed members");
+    }
+    failures += Expect(
+        TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "xD"),
+        "xD present in send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "xD"),
+        "xD absent from receive typed manifest");
+
     const PacketSchema* dropItemSchema = FindPacket(packets, "QpfE");
     failures += Expect(dropItemSchema != nullptr, "QpfE schema exists");
     if (dropItemSchema != nullptr) {

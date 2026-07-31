@@ -1,0 +1,9 @@
+pkt_fixture=1
+code=xD
+direction=client_to_server
+sample=window-item-move
+plain_hex=78 44 20 61 20 6B 20 33 20 2D 31 20 30 20 49 5C 5C 7A 38 5C 5C 7A 39 5C 5C 7A 31
+canonical_hex=78 44 20 61 20 6B 20 33 20 2D 31 20 30 20 49 5C 5C 7A 38 5C 5C 7A 39 5C 5C 7A 31 20
+payload_field=5
+payload_hex=49 5C 7A 38 5C 7A 39 5C 7A 31
+end_sample

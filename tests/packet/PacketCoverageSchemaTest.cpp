@@ -1247,10 +1247,10 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
     failures += Expect(cg::packet::test::SendTypedPackets.size() == 98U, "send typed manifest count 98");
-    failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 105U, "receive typed manifest count 105");
+    failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 106U, "receive typed manifest count 106");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 203U,
-        "typed manifest count 203");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 204U,
+        "typed manifest count 204");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1267,7 +1267,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 203U, "typed manifest unique code count 203");
+    failures += Expect(codes.size() == 204U, "typed manifest unique code count 204");
     return failures;
 }
 
@@ -11522,7 +11522,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                 "{seno:i62} {x:i62} {y:i62}",
             "murD resolvedFormat");
         failures += Expect(
-            soundPlaybackSchema->resolvedSource == "ServerC+ClientIda",
+            soundPlaybackSchema->resolvedSource ==
+                "ServerC+ClientIda+src/packet",
             "murD resolvedSource");
         failures += Expect(
             soundPlaybackSchema->hasResolvedFields,
@@ -11546,10 +11547,26 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                         field.typeToken == "i62" &&
                         field.rawSpec ==
                             ("{" + std::string(Names[index]) + ":i62}") &&
-                        field.source == "ServerC+ClientIda",
+                        field.source == "ServerC+ClientIda+src/packet",
                     "murD resolved field order");
             }
         }
+
+        const cg::packet::receive::SoundPlayback soundPlayback(13, 27, 30);
+        const cg::packet::Packet packet = soundPlayback.ToPacket();
+        failures += ExpectEffectiveFieldsMatch(
+            *soundPlaybackSchema,
+            cg::packet::receive::SoundPlayback::Spec,
+            "murD Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *soundPlaybackSchema,
+            packet,
+            "murD resolved field order");
+        failures += Expect(
+            soundPlayback.soundNumber == 13 &&
+                soundPlayback.x == 27 &&
+                soundPlayback.y == 30,
+            "murD typed members");
     }
     failures += Expect(
         !TypedManifestContainsCode(
@@ -11557,10 +11574,10 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "murD"),
         "murD absent from send typed manifest");
     failures += Expect(
-        !TypedManifestContainsCode(
+        TypedManifestContainsCode(
             cg::packet::test::ReceiveTypedPackets,
             "murD"),
-        "murD absent from receive typed manifest");
+        "murD present in receive typed manifest");
 
     const PacketSchema* npcSoundEffectSchema = FindPacket(packets, "ftaN");
     failures += Expect(npcSoundEffectSchema != nullptr, "ftaN schema exists");

@@ -7422,6 +7422,87 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "kiG"),
         "kiG present in receive typed manifest");
 
+    const PacketSchema* cheatDetectionReportSchema =
+        FindPacket(packets, "PGXE");
+    failures += Expect(
+        cheatDetectionReportSchema != nullptr,
+        "PGXE schema exists");
+    if (cheatDetectionReportSchema != nullptr) {
+        failures += Expect(
+            cheatDetectionReportSchema->direction == "客户端->服务端",
+            "PGXE direction");
+        failures += Expect(
+            cheatDetectionReportSchema->legacyKind == "RECV",
+            "PGXE legacyKind");
+        failures += Expect(
+            cheatDetectionReportSchema->clientNamespace == "send",
+            "PGXE namespace");
+        failures += Expect(
+            cheatDetectionReportSchema->xlsxStatus == "完成",
+            "PGXE xlsxStatus");
+        failures += Expect(
+            cheatDetectionReportSchema->rawFormat == "{type}",
+            "PGXE rawFormat");
+        failures += Expect(
+            !cheatDetectionReportSchema->formatEmpty,
+            "PGXE formatEmpty false");
+        failures += Expect(
+            cheatDetectionReportSchema->source == "xlsx",
+            "PGXE raw source");
+        failures += Expect(
+            cheatDetectionReportSchema->fields.size() == 1U,
+            "PGXE raw field count");
+        if (cheatDetectionReportSchema->fields.size() == 1U) {
+            const FieldSchema& type =
+                cheatDetectionReportSchema->fields[0];
+            failures += Expect(
+                type.index == 0 &&
+                    type.name == "type" &&
+                    type.typeToken == "unknown" &&
+                    type.rawSpec == "{type}" &&
+                    type.source == "xlsx",
+                "PGXE raw type field");
+        }
+
+        failures += Expect(
+            cheatDetectionReportSchema->hasResolvedFormat,
+            "PGXE resolvedFormat present");
+        failures += Expect(
+            cheatDetectionReportSchema->resolvedFormat == "{type:i62}",
+            "PGXE resolvedFormat");
+        failures += Expect(
+            cheatDetectionReportSchema->resolvedSource ==
+                "xlsx+ServerC+ClientIda",
+            "PGXE resolvedSource");
+        failures += Expect(
+            cheatDetectionReportSchema->hasResolvedFields,
+            "PGXE resolvedFields present");
+        failures += Expect(
+            cheatDetectionReportSchema->resolvedFields.size() == 1U,
+            "PGXE resolved field count");
+        if (cheatDetectionReportSchema->resolvedFields.size() == 1U) {
+            const FieldSchema& type =
+                cheatDetectionReportSchema->resolvedFields[0];
+            failures += Expect(
+                type.index == 0 &&
+                    type.name == "type" &&
+                    type.typeToken == "i62" &&
+                    type.rawSpec == "{type:i62}" &&
+                    type.source == "xlsx+ServerC+ClientIda",
+                "PGXE resolved type field order");
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "PGXE"),
+        "PGXE absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "PGXE"),
+        "PGXE absent from receive typed manifest");
+
     const PacketSchema* versionUpgradeRequestSchema =
         FindPacket(packets, "Xoee");
     failures += Expect(

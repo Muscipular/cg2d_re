@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=oRut
+direction=server_to_client
+sample=member-registration-sequence-ten
+plain_hex=6F 52 75 74 20 61
+canonical_hex=6F 52 75 74 20 61 20
+end_sample

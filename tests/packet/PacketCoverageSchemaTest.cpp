@@ -1247,10 +1247,10 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
     failures += Expect(cg::packet::test::SendTypedPackets.size() == 95U, "send typed manifest count 95");
-    failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 89U, "receive typed manifest count 89");
+    failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 90U, "receive typed manifest count 90");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 184U,
-        "typed manifest count 184");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 185U,
+        "typed manifest count 185");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1267,7 +1267,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 184U, "typed manifest unique code count 184");
+    failures += Expect(codes.size() == 185U, "typed manifest unique code count 185");
     return failures;
 }
 
@@ -9782,6 +9782,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         guildMemberRemovalNotificationSchema != nullptr,
         "oRut schema exists");
     if (guildMemberRemovalNotificationSchema != nullptr) {
+        const cg::packet::receive::GuildMemberRemovalNotification
+            notification(10);
         failures += Expect(
             guildMemberRemovalNotificationSchema->direction ==
                 "服务端->客户端",
@@ -9830,7 +9832,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "oRut resolvedFormat");
         failures += Expect(
             guildMemberRemovalNotificationSchema->resolvedSource ==
-                "xlsx+ServerC+ClientIda",
+                "xlsx+ServerC+ClientIda+src/packet",
             "oRut resolvedSource");
         failures += Expect(
             guildMemberRemovalNotificationSchema->hasResolvedFields,
@@ -9848,9 +9850,17 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                     field.name == "registSeqNumber" &&
                     field.typeToken == "i62" &&
                     field.rawSpec == "{registSeqNumber:i62}" &&
-                    field.source == "xlsx+ServerC+ClientIda",
+                    field.source ==
+                        "xlsx+ServerC+ClientIda+src/packet",
                 "oRut resolved field");
         }
+        failures += ExpectEffectiveFieldsMatch(
+            *guildMemberRemovalNotificationSchema,
+            cg::packet::receive::GuildMemberRemovalNotification::Spec,
+            "oRut Spec matches effective fields");
+        failures += Expect(
+            notification.registSeqNumber == 10,
+            "oRut typed member");
     }
     failures += Expect(
         !TypedManifestContainsCode(
@@ -9858,10 +9868,10 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "oRut"),
         "oRut absent from send typed manifest");
     failures += Expect(
-        !TypedManifestContainsCode(
+        TypedManifestContainsCode(
             cg::packet::test::ReceiveTypedPackets,
             "oRut"),
-        "oRut absent from receive typed manifest");
+        "oRut present in receive typed manifest");
 
     const PacketSchema* guildMailSchema = FindPacket(packets, "Rll");
     failures += Expect(guildMailSchema != nullptr, "Rll schema exists");

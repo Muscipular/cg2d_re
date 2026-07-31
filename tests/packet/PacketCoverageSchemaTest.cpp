@@ -9961,6 +9961,75 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "IYo"),
         "IYo absent from receive typed manifest");
 
+    const PacketSchema* battleHelpModeStatusSchema = FindPacket(packets, "sZWu");
+    failures += Expect(
+        battleHelpModeStatusSchema != nullptr,
+        "sZWu schema exists");
+    if (battleHelpModeStatusSchema != nullptr) {
+        failures += Expect(
+            battleHelpModeStatusSchema->direction == "服务端->客户端",
+            "sZWu direction");
+        failures += Expect(
+            battleHelpModeStatusSchema->legacyKind == "SEND",
+            "sZWu legacyKind");
+        failures += Expect(
+            battleHelpModeStatusSchema->clientNamespace == "receive",
+            "sZWu namespace");
+        failures += Expect(
+            battleHelpModeStatusSchema->xlsxStatus == "暂缓",
+            "sZWu xlsxStatus");
+        failures += Expect(
+            battleHelpModeStatusSchema->description == "SEND_HL",
+            "sZWu description");
+        failures += Expect(
+            battleHelpModeStatusSchema->rawFormat.empty(),
+            "sZWu rawFormat empty");
+        failures += Expect(
+            battleHelpModeStatusSchema->formatEmpty,
+            "sZWu formatEmpty true");
+        failures += Expect(
+            battleHelpModeStatusSchema->source == "xlsx",
+            "sZWu raw source");
+        failures += Expect(
+            battleHelpModeStatusSchema->fields.empty(),
+            "sZWu raw fields empty");
+        failures += Expect(
+            battleHelpModeStatusSchema->hasResolvedFormat,
+            "sZWu resolvedFormat present");
+        failures += Expect(
+            battleHelpModeStatusSchema->resolvedFormat == "{flg:i62}",
+            "sZWu resolvedFormat");
+        failures += Expect(
+            battleHelpModeStatusSchema->resolvedSource == "ServerC+ClientIda",
+            "sZWu resolvedSource");
+        failures += Expect(
+            battleHelpModeStatusSchema->hasResolvedFields,
+            "sZWu resolvedFields present");
+        failures += Expect(
+            battleHelpModeStatusSchema->resolvedFields.size() == 1U,
+            "sZWu resolved field count");
+        if (battleHelpModeStatusSchema->resolvedFields.size() == 1U) {
+            const FieldSchema& field = battleHelpModeStatusSchema->resolvedFields[0];
+            failures += Expect(
+                field.index == 0 &&
+                    field.name == "flg" &&
+                    field.typeToken == "i62" &&
+                    field.rawSpec == "{flg:i62}" &&
+                    field.source == "ServerC+ClientIda",
+                "sZWu resolved field");
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "sZWu"),
+        "sZWu absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "sZWu"),
+        "sZWu absent from receive typed manifest");
+
     const PacketSchema* checkCommandSchema = FindPacket(packets, "CCL");
     failures += Expect(checkCommandSchema != nullptr, "CCL schema exists");
     if (checkCommandSchema != nullptr) {

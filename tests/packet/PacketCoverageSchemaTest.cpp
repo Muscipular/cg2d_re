@@ -6960,6 +6960,93 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "rvb"),
         "rvb absent from receive typed manifest");
 
+    const PacketSchema* playerCountResponseSchema =
+        FindPacket(packets, "Bi");
+    failures += Expect(
+        playerCountResponseSchema != nullptr,
+        "Bi schema exists");
+    if (playerCountResponseSchema != nullptr) {
+        failures += Expect(
+            playerCountResponseSchema->direction == "服务端->客户端",
+            "Bi direction");
+        failures += Expect(
+            playerCountResponseSchema->legacyKind == "SEND",
+            "Bi legacyKind");
+        failures += Expect(
+            playerCountResponseSchema->clientNamespace == "receive",
+            "Bi namespace");
+        failures += Expect(
+            playerCountResponseSchema->xlsxStatus == "暂缓",
+            "Bi xlsxStatus");
+        failures += Expect(
+            playerCountResponseSchema->description ==
+                "SEND_PlayerNumGet",
+            "Bi description");
+        failures += Expect(
+            playerCountResponseSchema->rawFormat.empty(),
+            "Bi rawFormat empty");
+        failures += Expect(
+            playerCountResponseSchema->formatEmpty,
+            "Bi formatEmpty true");
+        failures += Expect(
+            playerCountResponseSchema->source == "xlsx",
+            "Bi raw source");
+        failures += Expect(
+            playerCountResponseSchema->fields.empty(),
+            "Bi raw fields empty");
+        failures += Expect(
+            playerCountResponseSchema->hasResolvedFormat,
+            "Bi resolvedFormat present");
+        failures += Expect(
+            playerCountResponseSchema->resolvedFormat ==
+                "{logincount:i62} {player:i62}",
+            "Bi resolvedFormat");
+        failures += Expect(
+            playerCountResponseSchema->resolvedSource ==
+                "ServerC+ClientIda",
+            "Bi resolvedSource");
+        failures += Expect(
+            playerCountResponseSchema->hasResolvedFields,
+            "Bi resolvedFields present");
+
+        constexpr std::array<std::string_view, 2U> Names = {{
+            "logincount",
+            "player",
+        }};
+        constexpr std::array<std::string_view, 2U> Specs = {{
+            "{logincount:i62}",
+            "{player:i62}",
+        }};
+        failures += Expect(
+            playerCountResponseSchema->resolvedFields.size() ==
+                Names.size(),
+            "Bi resolved field count");
+        if (playerCountResponseSchema->resolvedFields.size() ==
+            Names.size()) {
+            for (std::size_t index = 0U; index < Names.size(); ++index) {
+                const FieldSchema& field =
+                    playerCountResponseSchema->resolvedFields[index];
+                failures += Expect(
+                    field.index == static_cast<int>(index) &&
+                        field.name == Names[index] &&
+                        field.typeToken == "i62" &&
+                        field.rawSpec == Specs[index] &&
+                        field.source == "ServerC+ClientIda",
+                    "Bi resolved field order");
+            }
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "Bi"),
+        "Bi absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "Bi"),
+        "Bi absent from receive typed manifest");
+
     const PacketSchema* versionUpgradeResultSchema =
         FindPacket(packets, "ed");
     failures += Expect(

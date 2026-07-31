@@ -1477,6 +1477,19 @@ add_test(
         "${CMAKE_CURRENT_SOURCE_DIR}/tests/fixtures/protocol/plain/server_to_client/Bi.pkt"
 )
 
+add_executable(cg-packet-album-registration-notification-test
+    tests/packet/AlbumRegistrationNotificationPacketTest.cpp
+)
+target_include_directories(cg-packet-album-registration-notification-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+add_test(
+    NAME cg-packet-album-registration-notification-test
+    COMMAND cg-packet-album-registration-notification-test
+        "${CMAKE_CURRENT_SOURCE_DIR}/tests/fixtures/protocol/plain/server_to_client/IYo.pkt"
+)
+
 add_executable(cg-packet-map-checksum-test
     tests/packet/MapChecksumPacketTest.cpp
 )
@@ -3183,6 +3196,7 @@ if(MSVC)
     target_compile_options(cg-packet-background-music-change-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-sound-playback-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-player-count-response-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-album-registration-notification-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-map-checksum-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-fever-status-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-battle-position-test PRIVATE /W4 /utf-8 /permissive-)
@@ -3419,6 +3433,7 @@ else()
     target_compile_options(cg-packet-background-music-change-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-sound-playback-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-player-count-response-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-packet-album-registration-notification-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-map-checksum-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-fever-status-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-battle-position-test PRIVATE -Wall -Wextra -Wpedantic)

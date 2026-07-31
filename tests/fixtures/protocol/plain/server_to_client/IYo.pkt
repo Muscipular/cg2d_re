@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=IYo
+direction=server_to_client
+sample=album-id-one
+plain_hex=49 59 6F 20 31
+canonical_hex=49 59 6F 20 31 20
+end_sample

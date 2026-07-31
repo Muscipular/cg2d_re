@@ -2582,7 +2582,7 @@
       "formatEmpty": true,
       "source": "xlsx",
       "resolvedFormat": "{albumId:i62}",
-      "resolvedSource": "ServerC+ClientIda",
+      "resolvedSource": "ServerC+ClientIda+src/packet",
       "fields": [],
       "resolvedFields": [
         {
@@ -2590,7 +2590,7 @@
           "name": "albumId",
           "typeToken": "i62",
           "rawSpec": "{albumId:i62}",
-          "source": "ServerC+ClientIda"
+          "source": "ServerC+ClientIda+src/packet"
         }
       ]
     },

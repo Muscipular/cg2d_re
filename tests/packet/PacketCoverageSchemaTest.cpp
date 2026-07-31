@@ -1247,10 +1247,10 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
     failures += Expect(cg::packet::test::SendTypedPackets.size() == 98U, "send typed manifest count 98");
-    failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 107U, "receive typed manifest count 107");
+    failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 108U, "receive typed manifest count 108");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 205U,
-        "typed manifest count 205");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 206U,
+        "typed manifest count 206");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1267,7 +1267,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 205U, "typed manifest unique code count 205");
+    failures += Expect(codes.size() == 206U, "typed manifest unique code count 206");
     return failures;
 }
 
@@ -9998,6 +9998,8 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     const PacketSchema* albumIdNotificationSchema = FindPacket(packets, "IYo");
     failures += Expect(albumIdNotificationSchema != nullptr, "IYo schema exists");
     if (albumIdNotificationSchema != nullptr) {
+        const cg::packet::receive::AlbumRegistrationNotification notification(1);
+        const cg::packet::Packet packet = notification.ToPacket();
         failures += Expect(
             albumIdNotificationSchema->direction == "服务端->客户端",
             "IYo direction");
@@ -10032,7 +10034,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             albumIdNotificationSchema->resolvedFormat == "{albumId:i62}",
             "IYo resolvedFormat");
         failures += Expect(
-            albumIdNotificationSchema->resolvedSource == "ServerC+ClientIda",
+            albumIdNotificationSchema->resolvedSource == "ServerC+ClientIda+src/packet",
             "IYo resolvedSource");
         failures += Expect(
             albumIdNotificationSchema->hasResolvedFields,
@@ -10048,9 +10050,18 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                     field.name == "albumId" &&
                     field.typeToken == "i62" &&
                     field.rawSpec == "{albumId:i62}" &&
-                    field.source == "ServerC+ClientIda",
+                    field.source == "ServerC+ClientIda+src/packet",
                 "IYo resolved field");
         }
+        failures += ExpectEffectiveFieldsMatch(
+            *albumIdNotificationSchema,
+            cg::packet::receive::AlbumRegistrationNotification::Spec,
+            "IYo Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *albumIdNotificationSchema,
+            packet,
+            "IYo resolved field order");
+        failures += Expect(notification.albumId == 1, "IYo typed member");
     }
     failures += Expect(
         !TypedManifestContainsCode(
@@ -10058,10 +10069,10 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "IYo"),
         "IYo absent from send typed manifest");
     failures += Expect(
-        !TypedManifestContainsCode(
+        TypedManifestContainsCode(
             cg::packet::test::ReceiveTypedPackets,
             "IYo"),
-        "IYo absent from receive typed manifest");
+        "IYo present in receive typed manifest");
 
     const PacketSchema* battleHelpModeStatusSchema = FindPacket(packets, "sZWu");
     failures += Expect(

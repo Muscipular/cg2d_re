@@ -4142,6 +4142,17 @@
       "rawFormat": "",
       "formatEmpty": true,
       "source": "xlsx",
+      "resolvedFormat": "{point:i62}",
+      "resolvedSource": "ServerC+ClientIda",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "point",
+          "typeToken": "i62",
+          "rawSpec": "{point:i62}",
+          "source": "ServerC+ClientIda"
+        }
+      ],
       "fields": []
     },
     {

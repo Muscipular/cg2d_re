@@ -10464,6 +10464,78 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "BHe"),
         "BHe present in receive typed manifest");
 
+    const PacketSchema* characterLevelUpPointStatusSchema =
+        FindPacket(packets, "kg");
+    failures += Expect(
+        characterLevelUpPointStatusSchema != nullptr,
+        "kg schema exists");
+    if (characterLevelUpPointStatusSchema != nullptr) {
+        failures += Expect(
+            characterLevelUpPointStatusSchema->direction == "服务端->客户端",
+            "kg direction");
+        failures += Expect(
+            characterLevelUpPointStatusSchema->legacyKind == "SEND",
+            "kg legacyKind");
+        failures += Expect(
+            characterLevelUpPointStatusSchema->clientNamespace == "receive",
+            "kg namespace");
+        failures += Expect(
+            characterLevelUpPointStatusSchema->xlsxStatus == "完成",
+            "kg xlsxStatus");
+        failures += Expect(
+            characterLevelUpPointStatusSchema->description == "SEND_LVUP",
+            "kg description");
+        failures += Expect(
+            characterLevelUpPointStatusSchema->rawFormat.empty(),
+            "kg rawFormat empty");
+        failures += Expect(
+            characterLevelUpPointStatusSchema->formatEmpty,
+            "kg formatEmpty true");
+        failures += Expect(
+            characterLevelUpPointStatusSchema->source == "xlsx",
+            "kg raw source");
+        failures += Expect(
+            characterLevelUpPointStatusSchema->fields.empty(),
+            "kg raw fields empty");
+        failures += Expect(
+            characterLevelUpPointStatusSchema->hasResolvedFormat,
+            "kg resolvedFormat present");
+        failures += Expect(
+            characterLevelUpPointStatusSchema->resolvedFormat == "{point:i62}",
+            "kg resolvedFormat");
+        failures += Expect(
+            characterLevelUpPointStatusSchema->resolvedSource ==
+                "ServerC+ClientIda",
+            "kg resolvedSource");
+        failures += Expect(
+            characterLevelUpPointStatusSchema->hasResolvedFields,
+            "kg resolvedFields present");
+        failures += Expect(
+            characterLevelUpPointStatusSchema->resolvedFields.size() == 1U,
+            "kg resolved field count");
+        if (characterLevelUpPointStatusSchema->resolvedFields.size() == 1U) {
+            const FieldSchema& field =
+                characterLevelUpPointStatusSchema->resolvedFields[0];
+            failures += Expect(
+                field.index == 0 &&
+                    field.name == "point" &&
+                    field.typeToken == "i62" &&
+                    field.rawSpec == "{point:i62}" &&
+                    field.source == "ServerC+ClientIda",
+                "kg resolved field");
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "kg"),
+        "kg absent from send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "kg"),
+        "kg absent from receive typed manifest");
+
     const PacketSchema* checkCommandSchema = FindPacket(packets, "CCL");
     failures += Expect(checkCommandSchema != nullptr, "CCL schema exists");
     if (checkCommandSchema != nullptr) {

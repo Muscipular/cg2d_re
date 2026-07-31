@@ -1247,10 +1247,10 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
 {
     int failures = 0;
     failures += Expect(cg::packet::test::SendTypedPackets.size() == 98U, "send typed manifest count 98");
-    failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 106U, "receive typed manifest count 106");
+    failures += Expect(cg::packet::test::ReceiveTypedPackets.size() == 107U, "receive typed manifest count 107");
     failures += Expect(
-        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 204U,
-        "typed manifest count 204");
+        cg::packet::test::SendTypedPackets.size() + cg::packet::test::ReceiveTypedPackets.size() == 205U,
+        "typed manifest count 205");
 
     std::set<std::string, std::less<>> codes;
     failures += TestTypedManifestGroup(
@@ -1267,7 +1267,7 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "服务端->客户端",
         "receive",
         codes);
-    failures += Expect(codes.size() == 204U, "typed manifest unique code count 204");
+    failures += Expect(codes.size() == 205U, "typed manifest unique code count 205");
     return failures;
 }
 
@@ -7003,7 +7003,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "Bi resolvedFormat");
         failures += Expect(
             playerCountResponseSchema->resolvedSource ==
-                "ServerC+ClientIda",
+                "ServerC+ClientIda+src/packet",
             "Bi resolvedSource");
         failures += Expect(
             playerCountResponseSchema->hasResolvedFields,
@@ -7031,10 +7031,25 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                         field.name == Names[index] &&
                         field.typeToken == "i62" &&
                         field.rawSpec == Specs[index] &&
-                        field.source == "ServerC+ClientIda",
+                        field.source == "ServerC+ClientIda+src/packet",
                     "Bi resolved field order");
             }
         }
+
+        const cg::packet::receive::PlayerCountResponse playerCountResponse(2, 1);
+        const cg::packet::Packet packet = playerCountResponse.ToPacket();
+        failures += ExpectEffectiveFieldsMatch(
+            *playerCountResponseSchema,
+            cg::packet::receive::PlayerCountResponse::Spec,
+            "Bi Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *playerCountResponseSchema,
+            packet,
+            "Bi resolved field order");
+        failures += Expect(
+            playerCountResponse.clientConnectionCount == 2 &&
+                playerCountResponse.playerCount == 1,
+            "Bi typed members");
     }
     failures += Expect(
         !TypedManifestContainsCode(
@@ -7042,10 +7057,10 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "Bi"),
         "Bi absent from send typed manifest");
     failures += Expect(
-        !TypedManifestContainsCode(
+        TypedManifestContainsCode(
             cg::packet::test::ReceiveTypedPackets,
             "Bi"),
-        "Bi absent from receive typed manifest");
+        "Bi present in receive typed manifest");
 
     const PacketSchema* versionUpgradeResultSchema =
         FindPacket(packets, "ed");

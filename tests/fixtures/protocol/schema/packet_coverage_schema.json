@@ -4647,21 +4647,21 @@
       "formatEmpty": true,
       "source": "xlsx",
       "resolvedFormat": "{logincount:i62} {player:i62}",
-      "resolvedSource": "ServerC+ClientIda",
+      "resolvedSource": "ServerC+ClientIda+src/packet",
       "resolvedFields": [
         {
           "index": 0,
           "name": "logincount",
           "typeToken": "i62",
           "rawSpec": "{logincount:i62}",
-          "source": "ServerC+ClientIda"
+          "source": "ServerC+ClientIda+src/packet"
         },
         {
           "index": 1,
           "name": "player",
           "typeToken": "i62",
           "rawSpec": "{player:i62}",
-          "source": "ServerC+ClientIda"
+          "source": "ServerC+ClientIda+src/packet"
         }
       ],
       "fields": []

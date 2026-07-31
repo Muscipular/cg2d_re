@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=Bi
+direction=server_to_client
+sample=two-clients-one-player
+plain_hex=42 69 20 32 20 31
+canonical_hex=42 69 20 32 20 31 20
+end_sample

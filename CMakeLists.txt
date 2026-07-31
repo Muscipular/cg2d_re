@@ -1464,6 +1464,19 @@ add_test(
         "${CMAKE_CURRENT_SOURCE_DIR}/tests/fixtures/protocol/plain/server_to_client/murD.pkt"
 )
 
+add_executable(cg-packet-player-count-response-test
+    tests/packet/PlayerCountResponsePacketTest.cpp
+)
+target_include_directories(cg-packet-player-count-response-test
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+)
+add_test(
+    NAME cg-packet-player-count-response-test
+    COMMAND cg-packet-player-count-response-test
+        "${CMAKE_CURRENT_SOURCE_DIR}/tests/fixtures/protocol/plain/server_to_client/Bi.pkt"
+)
+
 add_executable(cg-packet-map-checksum-test
     tests/packet/MapChecksumPacketTest.cpp
 )
@@ -3169,6 +3182,7 @@ if(MSVC)
     target_compile_options(cg-packet-sound-effect-notification-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-background-music-change-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-sound-playback-test PRIVATE /W4 /utf-8 /permissive-)
+    target_compile_options(cg-packet-player-count-response-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-map-checksum-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-fever-status-test PRIVATE /W4 /utf-8 /permissive-)
     target_compile_options(cg-packet-battle-position-test PRIVATE /W4 /utf-8 /permissive-)
@@ -3404,6 +3418,7 @@ else()
     target_compile_options(cg-packet-sound-effect-notification-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-background-music-change-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-sound-playback-test PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(cg-packet-player-count-response-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-map-checksum-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-fever-status-test PRIVATE -Wall -Wextra -Wpedantic)
     target_compile_options(cg-packet-battle-position-test PRIVATE -Wall -Wextra -Wpedantic)

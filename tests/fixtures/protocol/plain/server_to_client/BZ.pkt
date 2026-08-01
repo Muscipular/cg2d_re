@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=BZ
+direction=server_to_client
+sample=five-fields-plain-outer-es
+plain_hex=42 5A 20 30 20 31 20 32 20 2D 31 20 68 65 6C 6C 6F
+canonical_hex=42 5A 20 30 20 31 20 32 20 2D 31 20 68 65 6C 6C 6F 20
+end_sample

@@ -25198,6 +25198,7 @@ namespace cg::packet::receive
     /**
      * SEND_TRLI 交易窗口物品信息：
      * tradeWindowIndex|nameRaw|color|descriptionRaw|imageNo|canUseInField|battleUseFlag|target|level|flag|itemId|itemType|count|memoRaw。
+     * 三个 *Raw 历史名称保留，值为 legacy 解码后的 GBK 语义字节。
      */
     struct TradeItemInfoRecord
     {
@@ -25219,7 +25220,8 @@ namespace cg::packet::receive
 
     /**
      * SEND_TRLI CHAR_Trade_setTradeList 对方物品信息		nUbJ {data:es}
-     * data: 1..20 条 14 段记录；payload 兼容无尾随 `|`，BuildData 固定输出尾随 `|`。
+     * data: 零条或多条 strict 14 段记录；Server canonical 每记录尾随 `|`，Parse 兼容最后一条无尾随 `|`。
+     * 封包协议不下沉交易槽记录数量业务限制。
      */
     struct TradeItemInfo
     {
@@ -25236,7 +25238,6 @@ namespace cg::packet::receive
         };
         static constexpr std::string_view PayloadDelimiter = "|";
         static constexpr std::size_t RecordFieldCount = 14U;
-        static constexpr std::size_t MaxRecordCount = 20U;
 
         std::vector<TradeItemInfoRecord> records;
 
@@ -25250,34 +25251,42 @@ namespace cg::packet::receive
 #if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] PacketResult<std::string> BuildData() const
         {
-            if (records.empty()) {
-                return PacketResult<std::string>::Failure(MakeFieldError(
-                    PacketErrorCode::EncodeFailed,
-                    CG_PACKET_DIAGNOSTIC_TEXT("TradeItemInfo BuildData records 为空"),
-                    DataFieldIndex));
-            }
-
-            if (records.size() > MaxRecordCount) {
-                return PacketResult<std::string>::Failure(MakeFieldError(
-                    PacketErrorCode::EncodeFailed,
-                    CG_PACKET_DIAGNOSTIC_TEXT("TradeItemInfo BuildData records 超过 20 条"),
-                    DataFieldIndex));
-            }
-
             std::string payload;
-            for (const TradeItemInfoRecord& record : records) {
-                PacketResult<bool> strings = ValidateBuildStrings(record);
-                if (!strings.HasValue()) {
-                    return PacketResult<std::string>::Failure(strings.Error());
+            for (std::size_t recordIndex = 0; recordIndex < records.size(); ++recordIndex) {
+                const TradeItemInfoRecord& record = records[recordIndex];
+                const std::size_t baseIndex = recordIndex * RecordFieldCount;
+
+                PacketResult<std::string> encodedName = EncodeLegacyPayloadText(record.nameRaw);
+                if (!encodedName.HasValue()) {
+                    PacketError error = encodedName.Error();
+                    error.packetCode = PacketCode(Code);
+                    error.fieldIndex = baseIndex + 1U;
+                    return PacketResult<std::string>::Failure(std::move(error));
+                }
+
+                PacketResult<std::string> encodedDescription = EncodeLegacyPayloadText(record.descriptionRaw);
+                if (!encodedDescription.HasValue()) {
+                    PacketError error = encodedDescription.Error();
+                    error.packetCode = PacketCode(Code);
+                    error.fieldIndex = baseIndex + 3U;
+                    return PacketResult<std::string>::Failure(std::move(error));
+                }
+
+                PacketResult<std::string> encodedMemo = EncodeLegacyPayloadText(record.memoRaw);
+                if (!encodedMemo.HasValue()) {
+                    PacketError error = encodedMemo.Error();
+                    error.packetCode = PacketCode(Code);
+                    error.fieldIndex = baseIndex + 13U;
+                    return PacketResult<std::string>::Failure(std::move(error));
                 }
 
                 payload.append(std::to_string(record.tradeWindowIndex));
                 payload.push_back('|');
-                payload.append(record.nameRaw);
+                payload.append(encodedName.Value());
                 payload.push_back('|');
                 payload.append(std::to_string(record.color));
                 payload.push_back('|');
-                payload.append(record.descriptionRaw);
+                payload.append(encodedDescription.Value());
                 payload.push_back('|');
                 payload.append(std::to_string(record.imageNo));
                 payload.push_back('|');
@@ -25297,7 +25306,7 @@ namespace cg::packet::receive
                 payload.push_back('|');
                 payload.append(std::to_string(record.count));
                 payload.push_back('|');
-                payload.append(record.memoRaw);
+                payload.append(encodedMemo.Value());
                 payload.push_back('|');
             }
 
@@ -25316,7 +25325,7 @@ namespace cg::packet::receive
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("data"),
-                PacketFieldType::EscapedString,
+                PacketFieldType::SubPayload,
                 data.Value(),
             });
             return PacketResult<Packet>::Success(std::move(packet));
@@ -25403,13 +25412,10 @@ namespace cg::packet::receive
         [[nodiscard]] static PacketResult<std::vector<TradeItemInfoRecord>> ParseRecords(std::string_view payload)
         {
             if (payload.empty()) {
-                return PacketResult<std::vector<TradeItemInfoRecord>>::Failure(MakeFieldError(
-                    PacketErrorCode::EmptyInput,
-                    CG_PACKET_DIAGNOSTIC_TEXT("TradeItemInfo payload 为空"),
-                    DataFieldIndex));
+                return PacketResult<std::vector<TradeItemInfoRecord>>::Success({});
             }
 
-            PacketResult<std::vector<std::string>> split = SplitPayload(payload, PayloadDelimiter);
+            PacketResult<std::vector<std::string>> split = SplitPayloadLegacyAware(payload, PayloadDelimiter);
             if (!split.HasValue()) {
                 PacketError error = split.Error();
                 error.packetCode = PacketCode(Code);
@@ -25418,13 +25424,6 @@ namespace cg::packet::receive
             }
 
             std::vector<std::string> parts = std::move(split.Value());
-            if (parts.size() == 1U && parts.front().empty()) {
-                return PacketResult<std::vector<TradeItemInfoRecord>>::Failure(MakeFieldError(
-                    PacketErrorCode::EmptyInput,
-                    CG_PACKET_DIAGNOSTIC_TEXT("TradeItemInfo payload 为空"),
-                    DataFieldIndex));
-            }
-
             if ((parts.size() % RecordFieldCount) == 1U && !parts.empty() && parts.back().empty()) {
                 parts.pop_back();
             }
@@ -25437,13 +25436,6 @@ namespace cg::packet::receive
             }
 
             const std::size_t recordCount = parts.size() / RecordFieldCount;
-            if (recordCount > MaxRecordCount) {
-                return PacketResult<std::vector<TradeItemInfoRecord>>::Failure(MakeFieldError(
-                    PacketErrorCode::FieldCountMismatch,
-                    CG_PACKET_DIAGNOSTIC_TEXT("TradeItemInfo payload records 超过 20 条"),
-                    DataFieldIndex));
-            }
-
             std::vector<TradeItemInfoRecord> records;
             records.reserve(recordCount);
             for (std::size_t recordIndex = 0; recordIndex < recordCount; ++recordIndex) {
@@ -25468,9 +25460,12 @@ namespace cg::packet::receive
                 return PacketResult<TradeItemInfoRecord>::Failure(tradeWindowIndex.Error());
             }
 
-            PacketResult<std::string> nameRaw = ValidatePayloadTextField(parts[baseIndex + 1U], baseIndex + 1U);
+            PacketResult<std::string> nameRaw = DecodeLegacyPayloadText(parts[baseIndex + 1U]);
             if (!nameRaw.HasValue()) {
-                return PacketResult<TradeItemInfoRecord>::Failure(nameRaw.Error());
+                PacketError error = nameRaw.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = baseIndex + 1U;
+                return PacketResult<TradeItemInfoRecord>::Failure(std::move(error));
             }
 
             PacketResult<int> color = ParseDecimalField(parts[baseIndex + 2U], baseIndex + 2U);
@@ -25478,10 +25473,12 @@ namespace cg::packet::receive
                 return PacketResult<TradeItemInfoRecord>::Failure(color.Error());
             }
 
-            PacketResult<std::string> descriptionRaw =
-                ValidatePayloadTextField(parts[baseIndex + 3U], baseIndex + 3U);
+            PacketResult<std::string> descriptionRaw = DecodeLegacyPayloadText(parts[baseIndex + 3U]);
             if (!descriptionRaw.HasValue()) {
-                return PacketResult<TradeItemInfoRecord>::Failure(descriptionRaw.Error());
+                PacketError error = descriptionRaw.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = baseIndex + 3U;
+                return PacketResult<TradeItemInfoRecord>::Failure(std::move(error));
             }
 
             PacketResult<int> imageNo = ParseDecimalField(parts[baseIndex + 4U], baseIndex + 4U);
@@ -25529,9 +25526,12 @@ namespace cg::packet::receive
                 return PacketResult<TradeItemInfoRecord>::Failure(count.Error());
             }
 
-            PacketResult<std::string> memoRaw = ValidatePayloadTextField(parts[baseIndex + 13U], baseIndex + 13U);
+            PacketResult<std::string> memoRaw = DecodeLegacyPayloadText(parts[baseIndex + 13U]);
             if (!memoRaw.HasValue()) {
-                return PacketResult<TradeItemInfoRecord>::Failure(memoRaw.Error());
+                PacketError error = memoRaw.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = baseIndex + 13U;
+                return PacketResult<TradeItemInfoRecord>::Failure(std::move(error));
             }
 
             return PacketResult<TradeItemInfoRecord>::Success(TradeItemInfoRecord {
@@ -25550,41 +25550,6 @@ namespace cg::packet::receive
                 count.Value(),
                 std::move(memoRaw.Value()),
             });
-        }
-
-        [[nodiscard]] static PacketResult<std::string> ValidatePayloadTextField(
-            std::string_view text,
-            std::size_t fieldIndex)
-        {
-            for (std::size_t index = 0; index < text.size(); ++index) {
-                if (!cg::packet::detail::IsLegacyDoubleByteLead(text[index])) {
-                    continue;
-                }
-
-                if (index + 1U >= text.size()) {
-                    return PacketResult<std::string>::Failure(MakeFieldError(
-                        PacketErrorCode::DecodeFailed,
-                        CG_PACKET_DIAGNOSTIC_TEXT("TradeItemInfo raw 字符串旧双字节字符被截断"),
-                        fieldIndex));
-                }
-                ++index;
-            }
-
-            return PacketResult<std::string>::Success(std::string(text));
-        }
-
-        [[nodiscard]] static PacketResult<bool> ValidateBuildStrings(const TradeItemInfoRecord& record)
-        {
-            if (record.nameRaw.find('|') != std::string::npos ||
-                record.descriptionRaw.find('|') != std::string::npos ||
-                record.memoRaw.find('|') != std::string::npos) {
-                return PacketResult<bool>::Failure(MakeFieldError(
-                    PacketErrorCode::EncodeFailed,
-                    CG_PACKET_DIAGNOSTIC_TEXT("TradeItemInfo BuildData raw 字符串包含 literal |"),
-                    DataFieldIndex));
-            }
-
-            return PacketResult<bool>::Success(true);
         }
 
         [[nodiscard]] static PacketResult<int> ParseDecimalField(std::string_view text, std::size_t fieldIndex)

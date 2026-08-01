@@ -10848,22 +10848,60 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         const cg::packet::PacketResult<cg::packet::Packet> packet = tradeItemInfo.ToPacket();
         failures += Expect(tradeItemInfoSchema->direction == "服务端->客户端", "nUbJ direction");
         failures += Expect(tradeItemInfoSchema->legacyKind == "SEND", "nUbJ legacyKind");
+        failures += Expect(tradeItemInfoSchema->clientNamespace == "receive", "nUbJ namespace");
+        failures += Expect(tradeItemInfoSchema->xlsxStatus == "完成", "nUbJ xlsxStatus");
+        failures += Expect(
+            tradeItemInfoSchema->description == "SEND_TRLI CHAR_Trade_setTradeList 对方物品信息",
+            "nUbJ description");
         failures += Expect(tradeItemInfoSchema->rawFormat.empty(), "nUbJ rawFormat empty");
         failures += Expect(tradeItemInfoSchema->formatEmpty, "nUbJ formatEmpty");
-        failures += Expect(tradeItemInfoSchema->resolvedFormat == "{data:es}", "nUbJ resolvedFormat");
-        failures += Expect(tradeItemInfoSchema->resolvedSource == "ServerC+src/packet", "nUbJ resolvedSource");
+        failures += Expect(tradeItemInfoSchema->source == "xlsx", "nUbJ raw source");
         failures += Expect(tradeItemInfoSchema->fields.empty(), "nUbJ raw fields empty");
-        failures += Expect(packet.HasValue(), "nUbJ packet build");
+        failures += Expect(tradeItemInfoSchema->hasResolvedFormat, "nUbJ resolvedFormat present");
+        failures += Expect(tradeItemInfoSchema->resolvedFormat == "{data:es}", "nUbJ resolvedFormat");
+        failures += Expect(
+            tradeItemInfoSchema->resolvedSource == "ServerC+ClientIda+src/packet",
+            "nUbJ resolvedSource");
+        failures += Expect(tradeItemInfoSchema->hasResolvedFields, "nUbJ resolvedFields present");
+        failures += Expect(tradeItemInfoSchema->resolvedFields.size() == 1U, "nUbJ resolved field count");
+        if (tradeItemInfoSchema->resolvedFields.size() == 1U) {
+            const FieldSchema& dataField = tradeItemInfoSchema->resolvedFields[0];
+            failures += Expect(
+                dataField.index == 0U &&
+                    dataField.name == "data" &&
+                    dataField.typeToken == "es" &&
+                    dataField.rawSpec == "{data:es}" &&
+                    dataField.source == "ServerC+ClientIda+src/packet",
+                "nUbJ resolved data field");
+        }
+        failures += Expect(
+            cg::packet::receive::TradeItemInfo::Spec.fieldCount == 1U,
+            "nUbJ Spec exact1");
+        failures += ExpectEffectiveFieldsMatch(
+            *tradeItemInfoSchema,
+            cg::packet::receive::TradeItemInfo::Spec,
+            "nUbJ Spec matches effective fields");
+        failures += Expect(packet.HasValue(), "nUbJ ToPacket");
         if (packet.HasValue()) {
-            failures += Expect(packet.Value().fields.size() == 1U, "nUbJ packet field count");
+            failures += Expect(packet.Value().fields.size() == 1U, "nUbJ ToPacket exact1");
             if (packet.Value().fields.size() == 1U) {
                 failures += Expect(packet.Value().fields[0].name == "data", "nUbJ packet data field");
                 failures += Expect(
-                    packet.Value().fields[0].type == cg::packet::PacketFieldType::EscapedString,
+                    packet.Value().fields[0].type == cg::packet::PacketFieldType::SubPayload,
                     "nUbJ packet data type");
             }
+            failures += ExpectResolvedFieldsMatch(
+                *tradeItemInfoSchema,
+                packet.Value(),
+                "nUbJ ToPacket field order");
         }
     }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "nUbJ"),
+        "nUbJ absent from send typed manifest");
+    failures += Expect(
+        TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "nUbJ"),
+        "nUbJ present in receive typed manifest");
 
     const PacketSchema* tradePetInfoSchema = FindPacket(packets, "RwK");
     failures += Expect(tradePetInfoSchema != nullptr, "RwK schema exists");

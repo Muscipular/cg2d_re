@@ -102,7 +102,7 @@ std::vector<std::string> BuildRecordParts(
     return {
         std::move(tradeWindowIndex),
         std::move(nameRaw),
-        "2",
+        "-2",
         "Line1\\nLine2",
         "1001",
         "1",
@@ -173,8 +173,8 @@ int ExpectRecord(
     int failures = 0;
     failures += Expect(record.tradeWindowIndex == tradeWindowIndex, message);
     failures += Expect(record.nameRaw == nameRaw, message);
-    failures += Expect(record.color == 2, message);
-    failures += Expect(record.descriptionRaw == "Line1\\nLine2", message);
+    failures += Expect(record.color == -2, message);
+    failures += Expect(record.descriptionRaw == "Line1\nLine2", message);
     failures += Expect(record.imageNo == 1001, message);
     failures += Expect(record.canUseInField == 1, message);
     failures += Expect(record.battleUseFlag == 0, message);
@@ -184,7 +184,7 @@ int ExpectRecord(
     failures += Expect(record.itemId == 10001, message);
     failures += Expect(record.itemType == 9, message);
     failures += Expect(record.count == 12, message);
-    failures += Expect(record.memoRaw == "Memo\\cRaw", message);
+    failures += Expect(record.memoRaw == "Memo,Raw", message);
     return failures;
 }
 
@@ -193,7 +193,11 @@ int TestParsePacketOuter()
     const std::string payload = BuildPayload(1U, true);
     const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(BuildPlain(payload));
 
-    int failures = Expect(static_cast<bool>(parsed), "parse nUbJ outer");
+    int failures = Expect(TradeItemInfo::Spec.fieldCount == 1U, "nUbJ Spec exact1");
+    failures += Expect(
+        TradeItemInfo::Fields[0].type == cg::packet::PacketFieldType::SubPayload,
+        "nUbJ Spec data SubPayload");
+    failures += Expect(static_cast<bool>(parsed), "parse nUbJ outer");
     if (parsed.HasValue()) {
         failures += ExpectTradeItemInfoPacket(parsed.Value(), payload, "parse nUbJ packet");
     }
@@ -212,7 +216,7 @@ int TestSingleRecordRoundtrip()
 
     failures += Expect(parsed.Value().records.size() == 1U, "nUbJ single count");
     if (!parsed.Value().records.empty()) {
-        failures += ExpectRecord(parsed.Value().records[0], 0, "Potion\\zSmall", "nUbJ single record");
+        failures += ExpectRecord(parsed.Value().records[0], 0, "Potion|Small", "nUbJ single record");
     }
 
     const cg::packet::PacketResult<std::string> data = parsed.Value().BuildData();
@@ -225,6 +229,13 @@ int TestSingleRecordRoundtrip()
     failures += Expect(static_cast<bool>(packet), "nUbJ ToPacket");
     if (!packet.HasValue()) {
         return failures;
+    }
+
+    failures += Expect(packet.Value().fields.size() == 1U, "nUbJ ToPacket exact1");
+    if (packet.Value().fields.size() == 1U) {
+        failures += Expect(
+            packet.Value().fields[0].type == cg::packet::PacketFieldType::SubPayload,
+            "nUbJ ToPacket data SubPayload");
     }
 
     const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
@@ -248,7 +259,7 @@ int TestTwoRecordsWithoutTrailingDelimiter()
 
     failures += Expect(parsed.Value().records.size() == 2U, "nUbJ two record count");
     if (parsed.Value().records.size() == 2U) {
-        failures += ExpectRecord(parsed.Value().records[0], 0, "Potion\\zSmall", "nUbJ first record");
+        failures += ExpectRecord(parsed.Value().records[0], 0, "Potion|Small", "nUbJ first record");
         failures += ExpectRecord(parsed.Value().records[1], 1, "Ether", "nUbJ second record");
     }
 
@@ -260,31 +271,71 @@ int TestTwoRecordsWithoutTrailingDelimiter()
     return failures;
 }
 
-int TestRawEscapesPreserved()
+int TestLegacyTextRoundtrip()
 {
-    const std::string raw = "A\\zB\\cC\\nD\\yE";
-    std::vector<std::string> parts = BuildRecordParts("0", raw);
-    parts[3] = raw;
-    parts[13] = raw;
-    const std::string payload = JoinParts(parts, true);
-    const cg::packet::PacketResult<TradeItemInfo> parsed = TradeItemInfo::Parse(BuildRawPlain(payload));
+    std::string semanticName;
+    semanticName.push_back(static_cast<char>(0x81U));
+    semanticName.push_back(static_cast<char>(0x7CU));
+    semanticName.append("Name|Comma,Path\\Line\nEnd");
 
-    int failures = Expect(static_cast<bool>(parsed), "parse nUbJ raw escaped strings");
+    std::string semanticDescription;
+    semanticDescription.push_back(static_cast<char>(0x81U));
+    semanticDescription.push_back(static_cast<char>(0x5CU));
+    semanticDescription.append("Description|Comma,Path\\Line\nEnd");
+
+    const std::string semanticMemo = "Memo|Comma,Path\\Line\nEnd";
+
+    std::string encodedName;
+    encodedName.push_back(static_cast<char>(0x81U));
+    encodedName.push_back(static_cast<char>(0x7CU));
+    encodedName.append("Name\\zComma\\cPath\\yLine\\nEnd");
+
+    std::string encodedDescription;
+    encodedDescription.push_back(static_cast<char>(0x81U));
+    encodedDescription.push_back(static_cast<char>(0x5CU));
+    encodedDescription.append("Description\\zComma\\cPath\\yLine\\nEnd");
+
+    const std::string encodedMemo = "Memo\\zComma\\cPath\\yLine\\nEnd";
+    std::vector<std::string> parts = BuildRecordParts("0", encodedName);
+    parts[3] = encodedDescription;
+    parts[13] = encodedMemo;
+    const std::string payload = JoinParts(parts, true);
+
+    const TradeItemInfo info({TradeItemInfoRecord {
+        0,
+        semanticName,
+        -2,
+        semanticDescription,
+        1001,
+        1,
+        0,
+        3,
+        5,
+        7,
+        10001,
+        9,
+        12,
+        semanticMemo,
+    }});
+    const cg::packet::PacketResult<std::string> data = info.BuildData();
+
+    int failures = Expect(static_cast<bool>(data), "nUbJ semantic BuildData");
+    if (data.HasValue()) {
+        failures += Expect(data.Value() == payload, "nUbJ semantic canonical payload");
+    }
+
+    const cg::packet::PacketResult<TradeItemInfo> parsed = TradeItemInfo::Parse(BuildPlain(payload));
+    failures += Expect(static_cast<bool>(parsed), "parse nUbJ semantic text");
     if (!parsed.HasValue()) {
         return failures;
     }
 
-    failures += Expect(parsed.Value().records.size() == 1U, "nUbJ raw escaped count");
+    failures += Expect(parsed.Value().records.size() == 1U, "nUbJ semantic record count");
     if (!parsed.Value().records.empty()) {
-        failures += Expect(parsed.Value().records[0].nameRaw == raw, "nUbJ raw name");
-        failures += Expect(parsed.Value().records[0].descriptionRaw == raw, "nUbJ raw description");
-        failures += Expect(parsed.Value().records[0].memoRaw == raw, "nUbJ raw memo");
-    }
-
-    const cg::packet::PacketResult<std::string> data = parsed.Value().BuildData();
-    failures += Expect(static_cast<bool>(data), "nUbJ raw BuildData");
-    if (data.HasValue()) {
-        failures += Expect(data.Value() == payload, "nUbJ raw payload");
+        const TradeItemInfoRecord& record = parsed.Value().records[0];
+        failures += Expect(record.nameRaw == semanticName, "nUbJ semantic name");
+        failures += Expect(record.descriptionRaw == semanticDescription, "nUbJ semantic description");
+        failures += Expect(record.memoRaw == semanticMemo, "nUbJ semantic memo");
     }
     return failures;
 }
@@ -315,15 +366,47 @@ int TestEmptyMemoWithoutTrailingDelimiter()
     return failures;
 }
 
+int TestEmptyAndTwentyOneRecords()
+{
+    const cg::packet::PacketResult<TradeItemInfo> empty = TradeItemInfo::Parse("nUbJ  ");
+    int failures = Expect(static_cast<bool>(empty), "parse nUbJ empty payload");
+    if (empty.HasValue()) {
+        failures += Expect(empty.Value().records.empty(), "nUbJ empty record list");
+        const cg::packet::PacketResult<std::string> emptyData = empty.Value().BuildData();
+        failures += Expect(static_cast<bool>(emptyData), "nUbJ empty BuildData");
+        if (emptyData.HasValue()) {
+            failures += Expect(emptyData.Value().empty(), "nUbJ empty canonical payload");
+        }
+    }
+
+    std::vector<TradeItemInfoRecord> records;
+    records.reserve(21U);
+    for (std::size_t index = 0; index < 21U; ++index) {
+        records.push_back(TradeItemInfoRecord {0, "Potion"});
+    }
+
+    const TradeItemInfo info(std::move(records));
+    const cg::packet::PacketResult<std::string> data = info.BuildData();
+    failures += Expect(static_cast<bool>(data), "nUbJ 21 records BuildData");
+    if (!data.HasValue()) {
+        return failures;
+    }
+    failures += Expect(!data.Value().empty() && data.Value().back() == '|', "nUbJ 21 records canonical tail");
+
+    const cg::packet::PacketResult<TradeItemInfo> parsed = TradeItemInfo::Parse(BuildPlain(data.Value()));
+    failures += Expect(static_cast<bool>(parsed), "parse nUbJ 21 records");
+    if (parsed.HasValue()) {
+        failures += Expect(parsed.Value().records.size() == 21U, "nUbJ 21 record count");
+        for (const TradeItemInfoRecord& record : parsed.Value().records) {
+            failures += Expect(record.tradeWindowIndex == 0, "nUbJ repeated slot preserved");
+        }
+    }
+    return failures;
+}
+
 int TestPayloadErrors()
 {
     int failures = 0;
-
-    failures += ExpectError(
-        TradeItemInfo::Parse("nUbJ  "),
-        cg::packet::PacketErrorCode::EmptyInput,
-        "nUbJ",
-        "nUbJ empty payload");
 
     std::vector<std::string> parts = BuildRecordParts("0", "Potion");
     parts.pop_back();
@@ -370,11 +453,18 @@ int TestPayloadErrors()
         "nUbJ",
         "nUbJ decimal overflow");
 
+    parts = BuildRecordParts("0", "Potion");
+    parts[13].assign(1U, static_cast<char>(0x81U));
     failures += ExpectError(
-        TradeItemInfo::Parse(BuildPlain(BuildPayload(21U, true))),
-        cg::packet::PacketErrorCode::FieldCountMismatch,
+        TradeItemInfo::FromPacket(PacketOf(
+            cg::packet::PacketDirection::ServerToClient,
+            {Field(
+                "data",
+                cg::packet::PacketFieldType::EscapedString,
+                JoinParts(parts, false))})),
+        cg::packet::PacketErrorCode::DecodeFailed,
         "nUbJ",
-        "nUbJ too many records");
+        "nUbJ truncated GBK payload");
 
     return failures;
 }
@@ -421,30 +511,55 @@ int TestPacketErrors()
     return failures;
 }
 
-int TestBuildErrors()
+int TestTextEncodingErrors()
 {
+    const std::string truncatedGbk(1U, static_cast<char>(0x81U));
     int failures = 0;
+
+    TradeItemInfoRecord badName {0, truncatedGbk};
+    const cg::packet::PacketResult<std::string> badNameResult =
+        TradeItemInfo({badName}).BuildData();
     failures += ExpectError(
-        TradeItemInfo().BuildData(),
+        badNameResult,
         cg::packet::PacketErrorCode::EncodeFailed,
         "nUbJ",
-        "nUbJ build empty records");
-
-    std::vector<TradeItemInfoRecord> records;
-    for (std::size_t index = 0; index < 21U; ++index) {
-        records.push_back(TradeItemInfoRecord {static_cast<int>(index), "Potion"});
+        "nUbJ build truncated name");
+    if (badNameResult.HasError()) {
+        failures += Expect(
+            badNameResult.Error().fieldIndex.has_value() && badNameResult.Error().fieldIndex.value() == 1U,
+            "nUbJ truncated name field index");
     }
-    failures += ExpectError(
-        TradeItemInfo(std::move(records)).BuildData(),
-        cg::packet::PacketErrorCode::EncodeFailed,
-        "nUbJ",
-        "nUbJ build too many records");
 
+    TradeItemInfoRecord badDescription {0, "Potion"};
+    badDescription.descriptionRaw = truncatedGbk;
+    const cg::packet::PacketResult<std::string> badDescriptionResult =
+        TradeItemInfo({badDescription}).BuildData();
     failures += ExpectError(
-        TradeItemInfo(std::vector<TradeItemInfoRecord> {{0, "A|B"}}).BuildData(),
+        badDescriptionResult,
         cg::packet::PacketErrorCode::EncodeFailed,
         "nUbJ",
-        "nUbJ build literal delimiter");
+        "nUbJ build truncated description");
+    if (badDescriptionResult.HasError()) {
+        failures += Expect(
+            badDescriptionResult.Error().fieldIndex.has_value() &&
+                badDescriptionResult.Error().fieldIndex.value() == 3U,
+            "nUbJ truncated description field index");
+    }
+
+    TradeItemInfoRecord badMemo {0, "Potion"};
+    badMemo.memoRaw = truncatedGbk;
+    const cg::packet::PacketResult<std::string> badMemoResult =
+        TradeItemInfo({badMemo}).BuildData();
+    failures += ExpectError(
+        badMemoResult,
+        cg::packet::PacketErrorCode::EncodeFailed,
+        "nUbJ",
+        "nUbJ build truncated memo");
+    if (badMemoResult.HasError()) {
+        failures += Expect(
+            badMemoResult.Error().fieldIndex.has_value() && badMemoResult.Error().fieldIndex.value() == 13U,
+            "nUbJ truncated memo field index");
+    }
     return failures;
 }
 
@@ -456,11 +571,12 @@ int main()
     failures += TestParsePacketOuter();
     failures += TestSingleRecordRoundtrip();
     failures += TestTwoRecordsWithoutTrailingDelimiter();
-    failures += TestRawEscapesPreserved();
+    failures += TestLegacyTextRoundtrip();
     failures += TestEmptyMemoWithoutTrailingDelimiter();
+    failures += TestEmptyAndTwentyOneRecords();
     failures += TestPayloadErrors();
     failures += TestPacketErrors();
-    failures += TestBuildErrors();
+    failures += TestTextEncodingErrors();
     if (failures != 0) {
         std::cerr << failures << " checks failed\n";
         return 1;

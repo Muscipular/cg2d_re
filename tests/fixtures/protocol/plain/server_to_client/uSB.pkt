@@ -1,0 +1,9 @@
+pkt_fixture=1
+code=uSB
+direction=server_to_client
+sample=four-object-index-i62-alphabet-boundaries
+plain_hex=75 53 42 20 31 2C 61 2C 5A 2C 31 30
+canonical_hex=75 53 42 20 31 2C 61 2C 5A 2C 31 30 20
+payload_field=0
+payload_hex=31 2C 61 2C 5A 2C 31 30
+end_sample

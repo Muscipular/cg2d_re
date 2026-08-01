@@ -4132,7 +4132,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         }
         failures += Expect(objectDeleteSchema->resolvedFormat == "{data:es}", "uSB resolvedFormat");
         failures += Expect(
-            objectDeleteSchema->resolvedSource == "ServerC+src/packet",
+            objectDeleteSchema->resolvedSource == "ServerC+ClientIda+src/packet",
             "uSB resolvedSource");
         failures += Expect(spec.code == "uSB", "uSB Spec code");
         failures += Expect(
@@ -4154,7 +4154,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                 objectDeleteSchema->resolvedFields[0].rawSpec == "{data:es}",
                 "uSB resolved field spec");
             failures += Expect(
-                objectDeleteSchema->resolvedFields[0].source == "ServerC+src/packet",
+                objectDeleteSchema->resolvedFields[0].source == "ServerC+ClientIda+src/packet",
                 "uSB resolved field source");
         }
         failures += ExpectResolvedFieldsMatch(*objectDeleteSchema, packet, "uSB resolved/Spec field order");

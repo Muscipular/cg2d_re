@@ -2,6 +2,7 @@
 #include "packet/Receive.hpp"
 
 #include <cstddef>
+#include <initializer_list>
 #include <iostream>
 #include <string>
 #include <string_view>
@@ -50,6 +51,33 @@ int ExpectError(
         failures += Expect(error.packetCode->View() == packetCode, message);
     }
     return failures;
+}
+
+template <typename T>
+int ExpectErrorAt(
+    const cg::packet::PacketResult<T>& result,
+    cg::packet::PacketErrorCode code,
+    std::size_t fieldIndex,
+    const char* message)
+{
+    int failures = ExpectError(result, code, "ELoy", message);
+    if (result.HasError()) {
+        failures += Expect(result.Error().fieldIndex.has_value(), message);
+        if (result.Error().fieldIndex.has_value()) {
+            failures += Expect(result.Error().fieldIndex.value() == fieldIndex, message);
+        }
+    }
+    return failures;
+}
+
+std::string Bytes(std::initializer_list<unsigned int> values)
+{
+    std::string bytes;
+    bytes.reserve(values.size());
+    for (const unsigned int value : values) {
+        bytes.push_back(static_cast<char>(value));
+    }
+    return bytes;
 }
 
 std::string BuildPlain(std::string_view code, std::string_view payload)
@@ -109,6 +137,26 @@ std::vector<std::string> BuildItemSlotParts()
     };
 }
 
+cg::packet::receive::ItemInfoSlot BuildSemanticItemSlot()
+{
+    return {
+        "Potion|Small",
+        2,
+        "Line1\nLine2",
+        1001,
+        1,
+        0,
+        3,
+        5,
+        7,
+        10001,
+        9,
+        12,
+        "Memo,Raw",
+        false,
+    };
+}
+
 std::vector<std::string> BuildPayloadParts(
     std::string ignored0,
     const std::vector<std::string>& firstSlot)
@@ -134,6 +182,7 @@ std::string BuildOneItemPayload()
 int ExpectItemInfoListPacket(
     const cg::packet::Packet& packet,
     std::string_view value,
+    cg::packet::PacketFieldType dataFieldType,
     const char* message)
 {
     int failures = 0;
@@ -145,7 +194,7 @@ int ExpectItemInfoListPacket(
     }
 
     failures += Expect(packet.fields[0].name == "data", message);
-    failures += Expect(packet.fields[0].type == cg::packet::PacketFieldType::EscapedString, message);
+    failures += Expect(packet.fields[0].type == dataFieldType, message);
     failures += Expect(packet.fields[0].value == value, message);
     return failures;
 }
@@ -192,8 +241,15 @@ int TestParsePacketOuter()
 
     int failures = Expect(static_cast<bool>(parsed), "parse ELoy outer");
     if (parsed.HasValue()) {
-        failures += ExpectItemInfoListPacket(parsed.Value(), payload, "parse ELoy outer packet");
+        failures += ExpectItemInfoListPacket(
+            parsed.Value(),
+            payload,
+            cg::packet::PacketFieldType::EscapedString,
+            "parse ELoy outer packet");
     }
+    failures += Expect(
+        cg::packet::receive::ItemInfoList::Fields[0].type == cg::packet::PacketFieldType::SubPayload,
+        "ELoy data spec is SubPayload");
     return failures;
 }
 
@@ -211,7 +267,11 @@ int TestEmptyPayloadClearsSlots()
     for (const cg::packet::receive::ItemInfoSlot& slot : parsed.Value().slots) {
         failures += Expect(slot.emptySlot, "ELoy empty slot");
     }
-    failures += Expect(parsed.Value().BuildData().empty(), "ELoy empty BuildData");
+    const cg::packet::PacketResult<std::string> data = parsed.Value().BuildData();
+    failures += Expect(static_cast<bool>(data), "ELoy empty BuildData");
+    if (data.HasValue()) {
+        failures += Expect(data.Value().empty(), "ELoy empty BuildData value");
+    }
     return failures;
 }
 
@@ -230,9 +290,9 @@ int TestSingleItemRoundtrip()
     failures += Expect(parsed.Value().slots.size() == cg::packet::receive::ItemInfoList::SlotCount, "ELoy slot count");
     failures += ExpectSlot(
         parsed.Value().slots[0],
-        "Potion\\zSmall",
+        "Potion|Small",
         2,
-        "Line1\\nLine2",
+        "Line1\nLine2",
         1001,
         1,
         0,
@@ -242,43 +302,86 @@ int TestSingleItemRoundtrip()
         10001,
         9,
         12,
-        "Memo\\cRaw",
+        "Memo,Raw",
         "ELoy first slot");
     for (std::size_t index = 1U; index < parsed.Value().slots.size(); ++index) {
         failures += Expect(parsed.Value().slots[index].emptySlot, "ELoy trailing empty slot");
     }
-    failures += Expect(parsed.Value().BuildData() == payload, "ELoy BuildData");
-    failures += ExpectItemInfoListPacket(parsed.Value().ToPacket(), payload, "ELoy ToPacket");
+    const cg::packet::PacketResult<std::string> data = parsed.Value().BuildData();
+    failures += Expect(static_cast<bool>(data), "ELoy BuildData");
+    if (data.HasValue()) {
+        failures += Expect(data.Value() == payload, "ELoy BuildData value");
+    }
 
-    const cg::packet::PacketResult<std::string> built = BuildPacket(parsed.Value().ToPacket());
-    failures += Expect(static_cast<bool>(built), "build ELoy packet");
-    if (built.HasValue()) {
-        failures += Expect(built.Value() == BuildPlainELoy(payload), "ELoy packet roundtrip");
+    const cg::packet::PacketResult<cg::packet::Packet> packet = parsed.Value().ToPacket();
+    failures += Expect(static_cast<bool>(packet), "ELoy ToPacket");
+    if (packet.HasValue()) {
+        failures += ExpectItemInfoListPacket(
+            packet.Value(),
+            payload,
+            cg::packet::PacketFieldType::SubPayload,
+            "ELoy ToPacket value");
+
+        const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
+        failures += Expect(static_cast<bool>(built), "build ELoy packet");
+        if (built.HasValue()) {
+            failures += Expect(built.Value() == BuildPlainELoy(payload), "ELoy packet roundtrip");
+        }
     }
     return failures;
 }
 
-int TestRawInnerEscapesPreserved()
+int TestLegacyTextCanonical()
 {
-    const std::string raw = "A\\zB\\cC\\nD\\yE";
-    std::vector<std::string> slot = BuildItemSlotParts();
-    slot[0] = raw;
-    slot[2] = raw;
-    slot[12] = raw;
-    const std::string payload = JoinParts(BuildPayloadParts("ignored0", slot));
+    const std::string gbkEast = Bytes({0x96U, 0x7cU});
+    std::string legacyText = gbkEast;
+    legacyText.append("\\nline\\ccomma\\zpipe\\yslash\\q");
+    std::string semanticText = gbkEast;
+    semanticText.append("\nline,comma|pipe\\slashq");
+    std::string canonicalText = gbkEast;
+    canonicalText.append("\\nline\\ccomma\\zpipe\\yslashq");
+
+    std::vector<std::string> legacySlot = BuildItemSlotParts();
+    legacySlot[0] = legacyText;
+    legacySlot[2] = legacyText;
+    legacySlot[12] = legacyText;
+    const std::string ignored0 = "ignored\\q";
+    const std::string payload = JoinParts(BuildPayloadParts(ignored0, legacySlot));
+
+    std::vector<std::string> canonicalSlot = BuildItemSlotParts();
+    canonicalSlot[0] = canonicalText;
+    canonicalSlot[2] = canonicalText;
+    canonicalSlot[12] = canonicalText;
+    const std::string canonicalPayload = JoinParts(BuildPayloadParts(ignored0, canonicalSlot));
 
     const cg::packet::PacketResult<cg::packet::receive::ItemInfoList> parsed =
         cg::packet::receive::ItemInfoList::Parse(BuildPlainELoy(payload));
 
-    int failures = Expect(static_cast<bool>(parsed), "parse ELoy raw inner escapes");
+    int failures = Expect(static_cast<bool>(parsed), "parse ELoy legacy text");
     if (!parsed.HasValue()) {
         return failures;
     }
 
-    failures += Expect(parsed.Value().slots[0].nameRaw == raw, "ELoy raw name");
-    failures += Expect(parsed.Value().slots[0].descriptionRaw == raw, "ELoy raw description");
-    failures += Expect(parsed.Value().slots[0].memoRaw == raw, "ELoy raw memo");
-    failures += Expect(parsed.Value().BuildData() == payload, "ELoy raw BuildData");
+    failures += Expect(parsed.Value().ignored0 == ignored0, "ELoy ignored0 opaque");
+    failures += Expect(parsed.Value().slots[0].nameRaw == semanticText, "ELoy legacy name semantic");
+    failures += Expect(parsed.Value().slots[0].descriptionRaw == semanticText, "ELoy legacy description semantic");
+    failures += Expect(parsed.Value().slots[0].memoRaw == semanticText, "ELoy legacy memo semantic");
+
+    const cg::packet::PacketResult<std::string> data = parsed.Value().BuildData();
+    failures += Expect(static_cast<bool>(data), "ELoy legacy canonical BuildData");
+    if (data.HasValue()) {
+        failures += Expect(data.Value() == canonicalPayload, "ELoy legacy canonical BuildData value");
+    }
+
+    const cg::packet::PacketResult<cg::packet::Packet> packet = parsed.Value().ToPacket();
+    failures += Expect(static_cast<bool>(packet), "ELoy legacy canonical ToPacket");
+    if (packet.HasValue()) {
+        failures += ExpectItemInfoListPacket(
+            packet.Value(),
+            canonicalPayload,
+            cg::packet::PacketFieldType::SubPayload,
+            "ELoy legacy canonical ToPacket value");
+    }
     return failures;
 }
 
@@ -288,27 +391,44 @@ int TestErrors()
 
     std::vector<std::string> parts = BuildPayloadParts("ignored0", BuildItemSlotParts());
     parts.pop_back();
-    failures += ExpectError(
+    failures += ExpectErrorAt(
         cg::packet::receive::ItemInfoList::Parse(BuildPlainELoy(JoinParts(parts))),
         cg::packet::PacketErrorCode::FieldCountMismatch,
-        "ELoy",
+        0U,
         "ELoy missing payload field");
 
     parts = BuildPayloadParts("ignored0", BuildItemSlotParts());
+    parts.emplace_back("extra");
+    failures += ExpectErrorAt(
+        cg::packet::receive::ItemInfoList::Parse(BuildPlainELoy(JoinParts(parts))),
+        cg::packet::PacketErrorCode::FieldCountMismatch,
+        0U,
+        "ELoy extra payload field");
+
+    parts = BuildPayloadParts("ignored0", BuildItemSlotParts());
     parts[2] = "x";
-    failures += ExpectError(
+    failures += ExpectErrorAt(
         cg::packet::receive::ItemInfoList::Parse(BuildPlainELoy(JoinParts(parts))),
         cg::packet::PacketErrorCode::DecodeFailed,
-        "ELoy",
+        2U,
         "ELoy bad decimal");
 
     parts = BuildPayloadParts("ignored0", BuildItemSlotParts());
     parts[4] = "2147483648";
-    failures += ExpectError(
+    failures += ExpectErrorAt(
         cg::packet::receive::ItemInfoList::Parse(BuildPlainELoy(JoinParts(parts))),
         cg::packet::PacketErrorCode::DecodeFailed,
-        "ELoy",
+        4U,
         "ELoy decimal overflow");
+
+    std::vector<std::string> partialSlot = BuildEmptySlotParts();
+    partialSlot[0] = "Name";
+    parts = BuildPayloadParts("ignored0", partialSlot);
+    failures += ExpectErrorAt(
+        cg::packet::receive::ItemInfoList::Parse(BuildPlainELoy(JoinParts(parts))),
+        cg::packet::PacketErrorCode::DecodeFailed,
+        2U,
+        "ELoy partial slot is not empty");
 
     failures += ExpectError(
         cg::packet::receive::ItemInfoList::Parse(BuildPlain("rU", BuildOneItemPayload())),
@@ -338,13 +458,69 @@ int TestErrors()
         "ELoy outer es truncated");
 
     parts = BuildPayloadParts("ignored0", BuildItemSlotParts());
-    parts[1].push_back(static_cast<char>(0x80U));
-    failures += ExpectError(
+    parts[1].push_back('\\');
+    failures += ExpectErrorAt(
         cg::packet::receive::ItemInfoList::Parse(BuildPlainELoy(JoinParts(parts))),
         cg::packet::PacketErrorCode::DecodeFailed,
-        "ELoy",
-        "ELoy nested raw string truncated");
+        1U,
+        "ELoy name trailing backslash");
 
+    parts = BuildPayloadParts("ignored0", BuildItemSlotParts());
+    parts[3].push_back('\\');
+    failures += ExpectErrorAt(
+        cg::packet::receive::ItemInfoList::Parse(BuildPlainELoy(JoinParts(parts))),
+        cg::packet::PacketErrorCode::DecodeFailed,
+        3U,
+        "ELoy description trailing backslash");
+
+    parts = BuildPayloadParts("ignored0", BuildItemSlotParts());
+    parts[13].push_back('\\');
+    failures += ExpectErrorAt(
+        cg::packet::receive::ItemInfoList::Parse(BuildPlainELoy(JoinParts(parts))),
+        cg::packet::PacketErrorCode::DecodeFailed,
+        13U,
+        "ELoy memo trailing backslash");
+
+    return failures;
+}
+
+int TestBuildAndToPacketErrors()
+{
+    const std::string truncatedGbk = Bytes({0x81U});
+    int failures = 0;
+
+    cg::packet::receive::ItemInfoList badName("", {});
+    badName.slots[0] = BuildSemanticItemSlot();
+    badName.slots[0].nameRaw = truncatedGbk;
+    failures += ExpectErrorAt(
+        badName.BuildData(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        1U,
+        "ELoy BuildData name truncated GBK context");
+
+    cg::packet::receive::ItemInfoList badDescription("", {});
+    badDescription.slots[0] = BuildSemanticItemSlot();
+    badDescription.slots[0].descriptionRaw = truncatedGbk;
+    failures += ExpectErrorAt(
+        badDescription.BuildData(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        3U,
+        "ELoy BuildData description truncated GBK context");
+
+    cg::packet::receive::ItemInfoList badSecondMemo("", {});
+    badSecondMemo.slots[0] = BuildSemanticItemSlot();
+    badSecondMemo.slots[1] = BuildSemanticItemSlot();
+    badSecondMemo.slots[1].memoRaw = truncatedGbk;
+    failures += ExpectErrorAt(
+        badSecondMemo.BuildData(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        26U,
+        "ELoy BuildData second memo truncated GBK context");
+    failures += ExpectErrorAt(
+        badSecondMemo.ToPacket(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        26U,
+        "ELoy ToPacket second memo truncated GBK context");
     return failures;
 }
 
@@ -356,8 +532,9 @@ int main()
     failures += TestParsePacketOuter();
     failures += TestEmptyPayloadClearsSlots();
     failures += TestSingleItemRoundtrip();
-    failures += TestRawInnerEscapesPreserved();
+    failures += TestLegacyTextCanonical();
     failures += TestErrors();
+    failures += TestBuildAndToPacketErrors();
     if (failures != 0) {
         std::cerr << failures << " checks failed\n";
         return 1;

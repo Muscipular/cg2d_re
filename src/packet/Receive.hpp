@@ -11618,7 +11618,7 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "ELoy";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
-            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::SubPayload},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -11640,17 +11640,18 @@ namespace cg::packet::receive
         }
 
 #if CG_PACKET_ENABLE_TEST_HELPERS
-        [[nodiscard]] std::string BuildData() const
+        [[nodiscard]] PacketResult<std::string> BuildData() const
         {
             if (ignored0.empty() && IsAllSlotsEmpty()) {
-                return {};
+                return PacketResult<std::string>::Success(std::string {});
             }
 
             std::vector<std::string> parts;
             parts.reserve(1U + (SlotCount * SlotFieldCount));
             parts.push_back(ignored0);
 
-            for (const ItemInfoSlot& slot : slots) {
+            for (std::size_t slotIndex = 0; slotIndex < slots.size(); ++slotIndex) {
+                const ItemInfoSlot& slot = slots[slotIndex];
                 if (slot.emptySlot) {
                     for (std::size_t index = 0; index < SlotFieldCount; ++index) {
                         parts.emplace_back();
@@ -11658,9 +11659,34 @@ namespace cg::packet::receive
                     continue;
                 }
 
-                parts.push_back(slot.nameRaw);
+                const std::size_t baseIndex = 1U + (slotIndex * SlotFieldCount);
+                PacketResult<std::string> encodedName = EncodeLegacyPayloadText(slot.nameRaw);
+                if (!encodedName.HasValue()) {
+                    PacketError error = encodedName.Error();
+                    error.packetCode = PacketCode(Code);
+                    error.fieldIndex = baseIndex;
+                    return PacketResult<std::string>::Failure(std::move(error));
+                }
+
+                PacketResult<std::string> encodedDescription = EncodeLegacyPayloadText(slot.descriptionRaw);
+                if (!encodedDescription.HasValue()) {
+                    PacketError error = encodedDescription.Error();
+                    error.packetCode = PacketCode(Code);
+                    error.fieldIndex = baseIndex + 2U;
+                    return PacketResult<std::string>::Failure(std::move(error));
+                }
+
+                PacketResult<std::string> encodedMemo = EncodeLegacyPayloadText(slot.memoRaw);
+                if (!encodedMemo.HasValue()) {
+                    PacketError error = encodedMemo.Error();
+                    error.packetCode = PacketCode(Code);
+                    error.fieldIndex = baseIndex + 12U;
+                    return PacketResult<std::string>::Failure(std::move(error));
+                }
+
+                parts.push_back(std::move(encodedName.Value()));
                 parts.push_back(std::to_string(slot.color));
-                parts.push_back(slot.descriptionRaw);
+                parts.push_back(std::move(encodedDescription.Value()));
                 parts.push_back(std::to_string(slot.imageNo));
                 parts.push_back(std::to_string(slot.canUseInField));
                 parts.push_back(std::to_string(slot.battleUseFlag));
@@ -11670,30 +11696,38 @@ namespace cg::packet::receive
                 parts.push_back(std::to_string(slot.itemId));
                 parts.push_back(std::to_string(slot.itemType));
                 parts.push_back(std::to_string(slot.count));
-                parts.push_back(slot.memoRaw);
+                parts.push_back(std::move(encodedMemo.Value()));
             }
 
             PacketResult<std::string> payload = BuildPayload(
                 std::span<const std::string>(parts.data(), parts.size()),
                 PayloadDelimiter);
-            if (payload.HasValue()) {
-                return payload.Value();
+            if (!payload.HasValue()) {
+                PacketError error = payload.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = DataFieldIndex;
+                return PacketResult<std::string>::Failure(std::move(error));
             }
 
-            return {};
+            return payload;
         }
 #endif
 
 #if CG_PACKET_ENABLE_TEST_HELPERS
-        [[nodiscard]] Packet ToPacket() const
+        [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
+            PacketResult<std::string> data = BuildData();
+            if (!data.HasValue()) {
+                return PacketResult<Packet>::Failure(data.Error());
+            }
+
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("data"),
-                PacketFieldType::EscapedString,
-                BuildData(),
+                PacketFieldType::SubPayload,
+                std::move(data.Value()),
             });
-            return packet;
+            return PacketResult<Packet>::Success(std::move(packet));
         }
 #endif
 
@@ -11780,7 +11814,7 @@ namespace cg::packet::receive
                 return PacketResult<ItemInfoList>::Success(ItemInfoList(std::string(), {}));
             }
 
-            PacketResult<std::vector<std::string>> split = SplitPayload(payload, PayloadDelimiter);
+            PacketResult<std::vector<std::string>> split = SplitPayloadLegacyAware(payload, PayloadDelimiter);
             if (!split.HasValue()) {
                 PacketError error = split.Error();
                 error.packetCode = PacketCode(Code);
@@ -11877,19 +11911,28 @@ namespace cg::packet::receive
                 return PacketResult<ItemInfoSlot>::Failure(count.Error());
             }
 
-            PacketResult<std::string> nameRaw = ValidatePayloadTextField(parts[baseIndex], baseIndex);
+            PacketResult<std::string> nameRaw = DecodeLegacyPayloadText(parts[baseIndex]);
             if (!nameRaw.HasValue()) {
-                return PacketResult<ItemInfoSlot>::Failure(nameRaw.Error());
+                PacketError error = nameRaw.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = baseIndex;
+                return PacketResult<ItemInfoSlot>::Failure(std::move(error));
             }
 
-            PacketResult<std::string> descriptionRaw = ValidatePayloadTextField(parts[baseIndex + 2U], baseIndex + 2U);
+            PacketResult<std::string> descriptionRaw = DecodeLegacyPayloadText(parts[baseIndex + 2U]);
             if (!descriptionRaw.HasValue()) {
-                return PacketResult<ItemInfoSlot>::Failure(descriptionRaw.Error());
+                PacketError error = descriptionRaw.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = baseIndex + 2U;
+                return PacketResult<ItemInfoSlot>::Failure(std::move(error));
             }
 
-            PacketResult<std::string> memoRaw = ValidatePayloadTextField(parts[baseIndex + 12U], baseIndex + 12U);
+            PacketResult<std::string> memoRaw = DecodeLegacyPayloadText(parts[baseIndex + 12U]);
             if (!memoRaw.HasValue()) {
-                return PacketResult<ItemInfoSlot>::Failure(memoRaw.Error());
+                PacketError error = memoRaw.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = baseIndex + 12U;
+                return PacketResult<ItemInfoSlot>::Failure(std::move(error));
             }
 
             return PacketResult<ItemInfoSlot>::Success(ItemInfoSlot {
@@ -11908,27 +11951,6 @@ namespace cg::packet::receive
                 std::move(memoRaw.Value()),
                 false,
             });
-        }
-
-        [[nodiscard]] static PacketResult<std::string> ValidatePayloadTextField(
-            std::string_view text,
-            std::size_t fieldIndex)
-        {
-            for (std::size_t index = 0; index < text.size(); ++index) {
-                if (!cg::packet::detail::IsLegacyDoubleByteLead(text[index])) {
-                    continue;
-                }
-
-                if (index + 1U >= text.size()) {
-                    return PacketResult<std::string>::Failure(MakeFieldError(
-                        PacketErrorCode::DecodeFailed,
-                        CG_PACKET_DIAGNOSTIC_TEXT("ItemInfoList raw 字符串旧双字节字符被截断"),
-                        fieldIndex));
-                }
-                ++index;
-            }
-
-            return PacketResult<std::string>::Success(std::string(text));
         }
 
         [[nodiscard]] static PacketResult<int> ParseDecimalField(std::string_view text, std::size_t fieldIndex)

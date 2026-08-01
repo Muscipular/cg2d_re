@@ -1,0 +1,21 @@
+pkt_fixture=1
+code=TeD
+direction=server_to_client
+sample=active-map-00101-name-palette
+plain_hex=54 65 44 20 A5 D0 A5 ED A5 B9 5C 5C 7A 31 32
+canonical_hex=54 65 44 20 A5 D0 A5 ED A5 B9 5C 5C 7A 31 32 20
+payload_field=0
+payload_hex=A5 D0 A5 ED A5 B9 5C 7A 31 32
+end_sample
+sample=gbk-two-legacy-name-boundaries
+plain_hex=54 65 44 20 C3 FB 81 7C 81 5C 41 5C 5C 79 7A 42 5C 5C 79 63 43 5C 5C 79 79 44 5C 5C 79 6E 45 5C 5C 7A 31 32
+canonical_hex=54 65 44 20 C3 FB 81 7C 81 5C 41 5C 5C 79 7A 42 5C 5C 79 63 43 5C 5C 79 79 44 5C 5C 79 6E 45 5C 5C 7A 31 32 20
+payload_field=0
+payload_hex=C3 FB 81 7C 81 5C 41 5C 79 7A 42 5C 79 63 43 5C 79 79 44 5C 79 6E 45 5C 7A 31 32
+end_sample
+sample=empty-client-compatible
+plain_hex=54 65 44 20
+canonical_hex=54 65 44 20 20
+payload_field=0
+payload_hex=
+end_sample

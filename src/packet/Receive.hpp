@@ -20423,13 +20423,14 @@ namespace cg::packet::receive
 
     /**
      * SEND_MN SendMapName		TeD {data:es}
+     * data: 整体 legacy 解码后为 `name[|palette]`；name 再做一层 legacy 文本解码。
      */
     struct MapName
     {
         static constexpr std::string_view Code = "TeD";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
-            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::SubPayload},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -20438,23 +20439,42 @@ namespace cg::packet::receive
             Fields.size(),
         };
 
-        std::string data;
+        static constexpr std::string_view PayloadDelimiter = "|";
 
-        explicit MapName(std::string data)
-            : data(std::move(data))
+        std::string name;
+        std::optional<int> palette;
+
+        explicit MapName(std::string name, std::optional<int> palette = std::nullopt)
+            : name(std::move(name)), palette(palette)
         {
         }
 
 #if CG_PACKET_ENABLE_TEST_HELPERS
-        [[nodiscard]] Packet ToPacket() const
+        [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
+            PacketResult<std::string> encodedName = EncodeLegacyPayloadText(name);
+            if (!encodedName.HasValue()) {
+                return PacketResult<Packet>::Failure(FillDataError(encodedName.Error()));
+            }
+
+            std::string payload = std::move(encodedName.Value());
+            if (palette.has_value()) {
+                payload.append(PayloadDelimiter);
+                payload.append(std::to_string(*palette));
+            }
+
+            PacketResult<std::string> encodedPayload = EncodeLegacyPayloadText(payload);
+            if (!encodedPayload.HasValue()) {
+                return PacketResult<Packet>::Failure(FillDataError(encodedPayload.Error()));
+            }
+
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("data"),
-                PacketFieldType::EscapedString,
-                data,
+                PacketFieldType::SubPayload,
+                std::move(encodedPayload.Value()),
             });
-            return packet;
+            return PacketResult<Packet>::Success(std::move(packet));
         }
 #endif
 
@@ -20500,7 +20520,118 @@ namespace cg::packet::receive
                 return PacketResult<MapName>::Failure(std::move(error));
             }
 
-            return PacketResult<MapName>::Success(MapName(field.value));
+            PacketResult<std::string> decodedPayload = DecodeLegacyPayloadText(field.value);
+            if (!decodedPayload.HasValue()) {
+                return PacketResult<MapName>::Failure(FillDataError(decodedPayload.Error()));
+            }
+
+            PacketResult<std::vector<std::string>> split =
+                SplitPayloadLegacyAware(decodedPayload.Value(), PayloadDelimiter);
+            if (!split.HasValue()) {
+                return PacketResult<MapName>::Failure(FillDataError(split.Error()));
+            }
+
+            const std::vector<std::string>& parts = split.Value();
+            if (parts.empty() || parts.size() > 2U) {
+                return PacketResult<MapName>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    CG_PACKET_DIAGNOSTIC_TEXT("MapName payload 字段数量不匹配"),
+                    DataFieldIndex));
+            }
+
+            PacketResult<std::string> nameValue = DecodeLegacyPayloadText(parts.front());
+            if (!nameValue.HasValue()) {
+                return PacketResult<MapName>::Failure(FillDataError(nameValue.Error()));
+            }
+
+            std::optional<int> paletteValue;
+            if (parts.size() == 2U) {
+                PacketResult<int> parsedPalette = ParsePalette(parts[1U]);
+                if (!parsedPalette.HasValue()) {
+                    return PacketResult<MapName>::Failure(parsedPalette.Error());
+                }
+                paletteValue = parsedPalette.Value();
+            }
+
+            return PacketResult<MapName>::Success(
+                MapName(std::move(nameValue.Value()), paletteValue));
+        }
+
+    private:
+        static constexpr std::size_t DataFieldIndex = 0U;
+
+        [[nodiscard]] static PacketError MakeFieldError(
+            PacketErrorCode code,
+            std::string_view message,
+            std::size_t fieldIndex)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            error.fieldIndex = fieldIndex;
+            return error;
+        }
+
+        [[nodiscard]] static PacketError FillDataError(PacketError error)
+        {
+            error.packetCode = PacketCode(Code);
+            error.fieldIndex = DataFieldIndex;
+            return error;
+        }
+
+        [[nodiscard]] static bool IsAsciiSpace(char ch) noexcept
+        {
+            return ch == ' ';
+        }
+
+        [[nodiscard]] static PacketResult<int> ParsePalette(std::string_view text)
+        {
+            if (text.empty()) {
+                return PacketResult<int>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT("MapName palette 为空"),
+                    DataFieldIndex));
+            }
+
+            std::size_t index = 0U;
+            const bool negative = text.front() == '-';
+            if (negative) {
+                index = 1U;
+            }
+            if (index == text.size() || text[index] < '0' || text[index] > '9') {
+                return PacketResult<int>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT("MapName palette 不是严格十进制整数"),
+                    DataFieldIndex));
+            }
+
+            const std::int64_t limit = negative
+                ? -static_cast<std::int64_t>(std::numeric_limits<int>::min())
+                : static_cast<std::int64_t>(std::numeric_limits<int>::max());
+            std::int64_t value = 0;
+            for (; index < text.size() && text[index] >= '0' && text[index] <= '9'; ++index) {
+                const int digit = text[index] - '0';
+                if (value > (limit - digit) / 10) {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        CG_PACKET_DIAGNOSTIC_TEXT("MapName palette 超出 int 范围"),
+                        DataFieldIndex));
+                }
+                value = (value * 10) + digit;
+            }
+
+            for (; index < text.size(); ++index) {
+                if (!IsAsciiSpace(text[index])) {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        CG_PACKET_DIAGNOSTIC_TEXT("MapName palette 含非十进制尾部字符"),
+                        DataFieldIndex));
+                }
+            }
+
+            if (negative) {
+                value = -value;
+            }
+            return PacketResult<int>::Success(static_cast<int>(value));
         }
     };
 

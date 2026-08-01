@@ -3670,6 +3670,70 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "cNB resolved/ToPacket field order");
     }
 
+    const PacketSchema* mapNameSchema = FindPacket(packets, "TeD");
+    failures += Expect(mapNameSchema != nullptr, "TeD schema exists");
+    if (mapNameSchema != nullptr) {
+        const cg::packet::receive::MapName mapName("Map", 12);
+        const cg::packet::PacketResult<cg::packet::Packet> packet = mapName.ToPacket();
+        failures += Expect(mapNameSchema->direction == "服务端->客户端", "TeD direction");
+        failures += Expect(mapNameSchema->legacyKind == "SEND", "TeD legacyKind");
+        failures += Expect(mapNameSchema->clientNamespace == "receive", "TeD namespace");
+        failures += Expect(mapNameSchema->xlsxStatus == "完成", "TeD xlsxStatus");
+        failures += Expect(mapNameSchema->description == "SEND_MN SendMapName", "TeD description");
+        failures += Expect(mapNameSchema->rawFormat == "{data:es}", "TeD rawFormat");
+        failures += Expect(!mapNameSchema->formatEmpty, "TeD formatEmpty false");
+        failures += Expect(mapNameSchema->source == "xlsx", "TeD raw source");
+        failures += Expect(mapNameSchema->fields.size() == 1U, "TeD raw field count");
+        if (mapNameSchema->fields.size() == 1U) {
+            const FieldSchema& field = mapNameSchema->fields[0];
+            failures += Expect(
+                field.index == 0U &&
+                    field.name == "data" &&
+                    field.typeToken == "es" &&
+                    field.rawSpec == "{data:es}" &&
+                    field.source == "xlsx",
+                "TeD raw field");
+        }
+        failures += Expect(mapNameSchema->hasResolvedFormat, "TeD resolvedFormat present");
+        failures += Expect(mapNameSchema->resolvedFormat == "{data:es}", "TeD resolvedFormat");
+        failures += Expect(
+            mapNameSchema->resolvedSource == "xlsx+ServerC+ClientIda+src/packet",
+            "TeD resolvedSource");
+        failures += Expect(mapNameSchema->hasResolvedFields, "TeD resolvedFields present");
+        failures += Expect(mapNameSchema->resolvedFields.size() == 1U, "TeD resolved field count");
+        if (mapNameSchema->resolvedFields.size() == 1U) {
+            const FieldSchema& field = mapNameSchema->resolvedFields[0];
+            failures += Expect(
+                field.index == 0U &&
+                    field.name == "data" &&
+                    field.typeToken == "es" &&
+                    field.rawSpec == "{data:es}" &&
+                    field.source == "xlsx+ServerC+ClientIda+src/packet",
+                "TeD resolved field");
+        }
+        failures += ExpectEffectiveFieldsMatch(
+            *mapNameSchema,
+            cg::packet::receive::MapName::Spec,
+            "TeD Spec matches effective fields");
+        failures += Expect(packet.HasValue(), "TeD ToPacket");
+        if (packet.HasValue()) {
+            failures += Expect(
+                packet.Value().fields.size() == 1U &&
+                    packet.Value().fields[0].type == cg::packet::PacketFieldType::SubPayload,
+                "TeD ToPacket payload type");
+            failures += ExpectResolvedFieldsMatch(
+                *mapNameSchema,
+                packet.Value(),
+                "TeD ToPacket field order");
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "TeD"),
+        "TeD absent from send typed manifest");
+    failures += Expect(
+        TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "TeD"),
+        "TeD present in receive typed manifest");
+
     const PacketSchema* characterProfileSchema = FindPacket(packets, "aPc");
     failures += Expect(characterProfileSchema != nullptr, "aPc schema exists");
     if (characterProfileSchema != nullptr) {

@@ -12677,7 +12677,7 @@ namespace cg::packet::receive
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
             {CG_PACKET_DIAGNOSTIC_TEXT("albumversion"), PacketFieldType::Int62},
-            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::SubPayload},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -12719,7 +12719,7 @@ namespace cg::packet::receive
             });
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("data"),
-                PacketFieldType::EscapedString,
+                PacketFieldType::SubPayload,
                 BuildData(),
             });
             return packet;
@@ -12802,6 +12802,7 @@ namespace cg::packet::receive
         static constexpr std::size_t FieldCount = 2U;
         static constexpr std::size_t AlbumVersionFieldIndex = 0U;
         static constexpr std::size_t DataFieldIndex = 1U;
+        static constexpr std::size_t MaxPageCount = 30U;
 
         [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
@@ -12837,6 +12838,13 @@ namespace cg::packet::receive
             std::vector<std::string> parts = std::move(split.Value());
             if (!parts.empty() && parts.back().empty()) {
                 parts.pop_back();
+            }
+
+            if (parts.size() > MaxPageCount) {
+                return PacketResult<std::vector<int>>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    CG_PACKET_DIAGNOSTIC_TEXT("AlbumFlags page 数量超过 30"),
+                    DataFieldIndex));
             }
 
             std::vector<int> pages;

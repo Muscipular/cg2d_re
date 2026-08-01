@@ -1,0 +1,15 @@
+pkt_fixture=1
+code=Ilz
+direction=server_to_client
+sample=version-sixtytwo-signed-pages-server-trailing
+plain_hex=49 6C 7A 20 31 30 20 31 7C 30 7C 2D 31 7C
+canonical_hex=49 6C 7A 20 31 30 20 31 7C 30 7C 2D 31 7C 20
+payload_field=1
+payload_hex=31 7C 30 7C 2D 31 7C
+end_sample
+sample=empty-pages
+plain_hex=49 6C 7A 20 32 20 20
+canonical_hex=49 6C 7A 20 32 20 20
+payload_field=1
+payload_hex=
+end_sample

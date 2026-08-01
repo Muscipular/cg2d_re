@@ -51,6 +51,23 @@ int ExpectError(
     return failures;
 }
 
+template <typename T>
+int ExpectErrorAt(
+    const cg::packet::PacketResult<T>& result,
+    cg::packet::PacketErrorCode code,
+    std::size_t fieldIndex,
+    const char* message)
+{
+    int failures = ExpectError(result, code, "Ilz", message);
+    if (result.HasError()) {
+        failures += Expect(result.Error().fieldIndex.has_value(), message);
+        if (result.Error().fieldIndex.has_value()) {
+            failures += Expect(result.Error().fieldIndex.value() == fieldIndex, message);
+        }
+    }
+    return failures;
+}
+
 std::string BuildPlain(std::string_view code, std::string_view albumVersion, std::string_view payload)
 {
     const cg::packet::PacketResult<std::string> encodedPayload = cg::packet::EncodeEscapedString(payload);
@@ -74,6 +91,7 @@ int ExpectAlbumFlagsPacket(
     const cg::packet::Packet& packet,
     std::string_view albumVersion,
     std::string_view data,
+    cg::packet::PacketFieldType dataFieldType,
     const char* message)
 {
     int failures = 0;
@@ -88,7 +106,7 @@ int ExpectAlbumFlagsPacket(
     failures += Expect(packet.fields[0].type == cg::packet::PacketFieldType::Int62, message);
     failures += Expect(packet.fields[0].value == albumVersion, message);
     failures += Expect(packet.fields[1].name == "data", message);
-    failures += Expect(packet.fields[1].type == cg::packet::PacketFieldType::EscapedString, message);
+    failures += Expect(packet.fields[1].type == dataFieldType, message);
     failures += Expect(packet.fields[1].value == data, message);
     return failures;
 }
@@ -116,8 +134,16 @@ int TestParsePacketOuter()
 
     int failures = Expect(static_cast<bool>(parsed), "parse Ilz outer");
     if (parsed.HasValue()) {
-        failures += ExpectAlbumFlagsPacket(parsed.Value(), "2", "1|0|-1|", "parse Ilz outer packet");
+        failures += ExpectAlbumFlagsPacket(
+            parsed.Value(),
+            "2",
+            "1|0|-1|",
+            cg::packet::PacketFieldType::EscapedString,
+            "parse Ilz outer packet");
     }
+    failures += Expect(
+        cg::packet::receive::AlbumFlags::Fields[1].type == cg::packet::PacketFieldType::SubPayload,
+        "Ilz data spec is SubPayload");
     return failures;
 }
 
@@ -134,7 +160,12 @@ int TestRoundtrip()
     failures += Expect(parsed.Value().albumVersion == 2, "Ilz albumVersion");
     failures += ExpectPages(parsed.Value().pages, {1, 0, -1}, "Ilz pages");
     failures += Expect(parsed.Value().BuildData() == "1|0|-1|", "Ilz BuildData");
-    failures += ExpectAlbumFlagsPacket(parsed.Value().ToPacket(), "2", "1|0|-1|", "Ilz ToPacket");
+    failures += ExpectAlbumFlagsPacket(
+        parsed.Value().ToPacket(),
+        "2",
+        "1|0|-1|",
+        cg::packet::PacketFieldType::SubPayload,
+        "Ilz ToPacket");
 
     const cg::packet::PacketResult<std::string> built = BuildPacket(parsed.Value().ToPacket());
     failures += Expect(static_cast<bool>(built), "build Ilz packet");
@@ -187,13 +218,47 @@ int TestNoTrailingDelimiter()
 int TestConstructAndBuild()
 {
     const cg::packet::receive::AlbumFlags albumFlags(2, {1, 0, -1});
-    int failures = ExpectAlbumFlagsPacket(albumFlags.ToPacket(), "2", "1|0|-1|", "Ilz construct ToPacket");
+    int failures = ExpectAlbumFlagsPacket(
+        albumFlags.ToPacket(),
+        "2",
+        "1|0|-1|",
+        cg::packet::PacketFieldType::SubPayload,
+        "Ilz construct ToPacket");
 
     const cg::packet::PacketResult<std::string> built = BuildPacket(albumFlags.ToPacket());
     failures += Expect(static_cast<bool>(built), "build constructed Ilz");
     if (built.HasValue()) {
         failures += Expect(built.Value() == BuildPlainIlz("2", "1|0|-1|"), "constructed Ilz plain");
     }
+    return failures;
+}
+
+int TestPageLimit()
+{
+    std::string exact30;
+    std::vector<int> expected;
+    expected.reserve(30U);
+    for (int page = 0; page < 30; ++page) {
+        exact30.append(std::to_string(page));
+        exact30.push_back('|');
+        expected.push_back(page);
+    }
+
+    const cg::packet::PacketResult<cg::packet::receive::AlbumFlags> parsed =
+        cg::packet::receive::AlbumFlags::Parse(BuildPlainIlz("2", exact30));
+    int failures = Expect(static_cast<bool>(parsed), "parse Ilz exact 30 pages");
+    if (parsed.HasValue()) {
+        failures += ExpectPages(parsed.Value().pages, expected, "Ilz exact 30 page values");
+        failures += Expect(parsed.Value().BuildData() == exact30, "Ilz exact 30 canonical BuildData");
+    }
+
+    std::string tooMany = exact30;
+    tooMany.append("30|");
+    failures += ExpectErrorAt(
+        cg::packet::receive::AlbumFlags::Parse(BuildPlainIlz("2", tooMany)),
+        cg::packet::PacketErrorCode::FieldCountMismatch,
+        1U,
+        "Ilz 31 pages");
     return failures;
 }
 
@@ -259,6 +324,7 @@ int main()
     failures += TestEmptyData();
     failures += TestNoTrailingDelimiter();
     failures += TestConstructAndBuild();
+    failures += TestPageLimit();
     failures += TestErrors();
     if (failures != 0) {
         std::cerr << failures << " checks failed\n";

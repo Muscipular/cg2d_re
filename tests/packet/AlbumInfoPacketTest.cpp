@@ -3,9 +3,11 @@
 
 #include <array>
 #include <cstddef>
+#include <initializer_list>
 #include <iostream>
 #include <string>
 #include <string_view>
+#include <utility>
 #include <vector>
 
 namespace {
@@ -54,11 +56,38 @@ int ExpectError(
     return failures;
 }
 
+template <typename T>
+int ExpectErrorAt(
+    const cg::packet::PacketResult<T>& result,
+    cg::packet::PacketErrorCode code,
+    std::size_t fieldIndex,
+    const char* message)
+{
+    int failures = ExpectError(result, code, "dM", message);
+    if (result.HasError()) {
+        failures += Expect(result.Error().fieldIndex.has_value(), message);
+        if (result.Error().fieldIndex.has_value()) {
+            failures += Expect(result.Error().fieldIndex.value() == fieldIndex, message);
+        }
+    }
+    return failures;
+}
+
+std::string Bytes(std::initializer_list<unsigned int> values)
+{
+    std::string bytes;
+    bytes.reserve(values.size());
+    for (const unsigned int value : values) {
+        bytes.push_back(static_cast<char>(value));
+    }
+    return bytes;
+}
+
 std::array<int, NumericFieldCount> BuildValues()
 {
     return {
         62,
-        2,
+        -2,
         1,
         4,
         5,
@@ -223,7 +252,7 @@ int TestParsePacketOuter()
 int TestTypedRoundtrip()
 {
     const std::array<int, NumericFieldCount> values = BuildValues();
-    const std::string comment = "A B\\C\nD";
+    const std::string comment = "A B C D";
     const std::string name = "Name With Space";
     const cg::packet::PacketResult<cg::packet::receive::AlbumInfo> parsed =
         cg::packet::receive::AlbumInfo::Parse(BuildPlain(values, comment, name));
@@ -234,28 +263,67 @@ int TestTypedRoundtrip()
     }
 
     failures += ExpectAlbumInfoValue(parsed.Value(), values, comment, name, "dM typed values");
-    failures += ExpectAlbumInfoPacket(parsed.Value().ToPacket(), values, comment, name, "dM ToPacket");
-
-    const cg::packet::PacketResult<std::string> built = BuildPacket(parsed.Value().ToPacket());
-    failures += Expect(static_cast<bool>(built), "build dM");
-    if (built.HasValue()) {
-        failures += Expect(built.Value() == BuildPlain(values, comment, name), "dM roundtrip");
+    const cg::packet::PacketResult<cg::packet::Packet> packet = parsed.Value().ToPacket();
+    failures += Expect(static_cast<bool>(packet), "dM ToPacket");
+    if (packet.HasValue()) {
+        failures += ExpectAlbumInfoPacket(packet.Value(), values, comment, name, "dM ToPacket value");
+        const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
+        failures += Expect(static_cast<bool>(built), "build dM");
+        if (built.HasValue()) {
+            failures += Expect(built.Value() == BuildPlain(values, comment, name), "dM roundtrip");
+        }
     }
     return failures;
 }
 
-int TestRawDisplayEscapesPreserved()
+int TestCommentLegacyNameRaw()
 {
     const std::array<int, NumericFieldCount> values = BuildValues();
-    const std::string comment = "raw\\z/red\\c/yellow\\y";
-    const std::string name = "name\\z";
+    const std::string gbkTrailPipe = Bytes({0x96U, 0x7cU});
+    std::string legacyComment = gbkTrailPipe;
+    legacyComment.append("\\zpipe\\ccomma\\nline\\yslash\\q");
+    std::string semanticComment = gbkTrailPipe;
+    semanticComment.append("|pipe,comma\nline\\slashq");
+    std::string canonicalComment = gbkTrailPipe;
+    canonicalComment.append("\\zpipe\\ccomma\\nline\\yslashq");
+    std::string nameRaw = gbkTrailPipe;
+    nameRaw.append("name\\z\\q");
     const cg::packet::PacketResult<cg::packet::receive::AlbumInfo> parsed =
-        cg::packet::receive::AlbumInfo::Parse(BuildPlain(values, comment, name));
+        cg::packet::receive::AlbumInfo::Parse(BuildPlain(values, legacyComment, nameRaw));
 
-    int failures = Expect(static_cast<bool>(parsed), "parse dM raw display escapes");
-    if (parsed.HasValue()) {
-        failures += Expect(parsed.Value().comment == comment, "dM raw comment preserved");
-        failures += Expect(parsed.Value().name == name, "dM raw name preserved");
+    int failures = Expect(static_cast<bool>(parsed), "parse dM comment legacy and name raw");
+    if (!parsed.HasValue()) {
+        return failures;
+    }
+
+    failures += Expect(parsed.Value().comment == semanticComment, "dM comment legacy semantic");
+    failures += Expect(parsed.Value().name == nameRaw, "dM name raw preserved");
+
+    const cg::packet::PacketResult<cg::packet::Packet> packet = parsed.Value().ToPacket();
+    failures += Expect(static_cast<bool>(packet), "dM legacy ToPacket");
+    if (packet.HasValue()) {
+        failures += ExpectAlbumInfoPacket(
+            packet.Value(),
+            values,
+            canonicalComment,
+            nameRaw,
+            "dM legacy ToPacket value");
+
+        const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
+        failures += Expect(static_cast<bool>(built), "build dM legacy packet");
+        if (built.HasValue()) {
+            const std::string canonicalPlain = BuildPlain(values, canonicalComment, nameRaw);
+            failures += Expect(built.Value() == canonicalPlain, "dM legacy canonical wire");
+            const cg::packet::PacketResult<cg::packet::receive::AlbumInfo> reparsed =
+                cg::packet::receive::AlbumInfo::Parse(built.Value());
+            failures += Expect(static_cast<bool>(reparsed), "reparse dM legacy canonical wire");
+            if (reparsed.HasValue()) {
+                failures += Expect(
+                    reparsed.Value().comment == semanticComment,
+                    "dM reparsed comment semantic");
+                failures += Expect(reparsed.Value().name == nameRaw, "dM reparsed name raw");
+            }
+        }
     }
     return failures;
 }
@@ -282,8 +350,14 @@ int TestEmptyCommentAndName()
         "",
         "");
 
-    const cg::packet::PacketResult<std::string> built = BuildPacket(albumInfo.ToPacket());
-    int failures = Expect(static_cast<bool>(built), "build dM empty strings");
+    const cg::packet::PacketResult<cg::packet::Packet> packet = albumInfo.ToPacket();
+    int failures = Expect(static_cast<bool>(packet), "dM empty ToPacket");
+    if (!packet.HasValue()) {
+        return failures;
+    }
+
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
+    failures += Expect(static_cast<bool>(built), "build dM empty strings");
     if (!built.HasValue()) {
         return failures;
     }
@@ -351,6 +425,37 @@ int TestErrors()
         cg::packet::PacketErrorCode::DecodeFailed,
         "dM",
         "dM truncated comment es");
+
+    failures += ExpectErrorAt(
+        cg::packet::receive::AlbumInfo::Parse(BuildPlain(BuildValues(), "comment\\", "name")),
+        cg::packet::PacketErrorCode::DecodeFailed,
+        15U,
+        "dM trailing comment legacy escape");
+
+    const std::array<int, NumericFieldCount> values = BuildValues();
+    const cg::packet::receive::AlbumInfo invalidComment(
+        values[0],
+        values[1],
+        values[2],
+        values[3],
+        values[4],
+        values[5],
+        values[6],
+        values[7],
+        values[8],
+        values[9],
+        values[10],
+        values[11],
+        values[12],
+        values[13],
+        values[14],
+        Bytes({0x81U}),
+        "name");
+    failures += ExpectErrorAt(
+        invalidComment.ToPacket(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        15U,
+        "dM truncated GBK comment build context");
     return failures;
 }
 
@@ -361,7 +466,7 @@ int main()
     int failures = 0;
     failures += TestParsePacketOuter();
     failures += TestTypedRoundtrip();
-    failures += TestRawDisplayEscapesPreserved();
+    failures += TestCommentLegacyNameRaw();
     failures += TestEmptyCommentAndName();
     failures += TestErrors();
     if (failures != 0) {

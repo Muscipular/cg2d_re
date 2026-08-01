@@ -13001,8 +13001,16 @@ namespace cg::packet::receive
         }
 
 #if CG_PACKET_ENABLE_TEST_HELPERS
-        [[nodiscard]] Packet ToPacket() const
+        [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
+            PacketResult<std::string> encodedComment = EncodeLegacyPayloadText(comment);
+            if (!encodedComment.HasValue()) {
+                PacketError error = encodedComment.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = CommentFieldIndex;
+                return PacketResult<Packet>::Failure(std::move(error));
+            }
+
             Packet packet(PacketCode(Code), Direction);
             packet.fields.reserve(FieldCount);
 
@@ -13034,14 +13042,14 @@ namespace cg::packet::receive
             packet.fields.push_back(PacketField {
                 std::string(FieldNames[CommentFieldIndex]),
                 PacketFieldType::EscapedString,
-                comment,
+                std::move(encodedComment.Value()),
             });
             packet.fields.push_back(PacketField {
                 std::string(FieldNames[NameFieldIndex]),
                 PacketFieldType::EscapedString,
                 name,
             });
-            return packet;
+            return PacketResult<Packet>::Success(std::move(packet));
         }
 #endif
 
@@ -13099,6 +13107,14 @@ namespace cg::packet::receive
                 values[index] = value.Value();
             }
 
+            PacketResult<std::string> comment = DecodeLegacyPayloadText(packet.fields[CommentFieldIndex].value);
+            if (!comment.HasValue()) {
+                PacketError error = comment.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = CommentFieldIndex;
+                return PacketResult<AlbumInfo>::Failure(std::move(error));
+            }
+
             return PacketResult<AlbumInfo>::Success(AlbumInfo(
                 values[0],
                 values[1],
@@ -13115,7 +13131,7 @@ namespace cg::packet::receive
                 values[12],
                 values[13],
                 values[14],
-                packet.fields[CommentFieldIndex].value,
+                std::move(comment.Value()),
                 packet.fields[NameFieldIndex].value));
         }
 

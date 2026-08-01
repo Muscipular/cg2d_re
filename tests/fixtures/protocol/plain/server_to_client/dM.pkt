@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=dM
+direction=server_to_client
+sample=gbk-comment-legacy-name-outer-only
+plain_hex=64 4D 20 31 30 20 32 20 31 20 34 20 35 20 36 20 37 20 38 20 39 20 61 20 62 20 63 20 64 20 65 20 66 20 96 7C 5C 5C 7A BC D7 5C 5C 63 D7 A2 5C 5C 6E 5C 5C 79 20 C3 FB 5C 5C 7A CE B2
+canonical_hex=64 4D 20 31 30 20 32 20 31 20 34 20 35 20 36 20 37 20 38 20 39 20 61 20 62 20 63 20 64 20 65 20 66 20 96 7C 5C 5C 7A BC D7 5C 5C 63 D7 A2 5C 5C 6E 5C 5C 79 20 C3 FB 5C 5C 7A CE B2 20
+end_sample

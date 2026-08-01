@@ -3175,6 +3175,56 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "OBee"),
         "OBee present in receive typed manifest");
 
+    const PacketSchema* profileStatusSchema = FindPacket(packets, "Yo");
+    failures += Expect(profileStatusSchema != nullptr, "Yo schema exists");
+    if (profileStatusSchema != nullptr) {
+        const cg::packet::receive::ProfileStatus profileStatus("opaque|data");
+        const cg::packet::Packet packet = profileStatus.ToPacket();
+        constexpr std::string_view resolvedSource = "ServerC+ClientIda+src/packet";
+        const std::array<std::string_view, 1U> names = {{"data"}};
+        const std::array<std::string_view, 1U> types = {{"es"}};
+        const std::array<std::string_view, 1U> specs = {{"{data:es}"}};
+
+        failures += Expect(profileStatusSchema->direction == "服务端->客户端", "Yo direction");
+        failures += Expect(profileStatusSchema->legacyKind == "SEND", "Yo legacyKind");
+        failures += Expect(profileStatusSchema->clientNamespace == "receive", "Yo namespace");
+        failures += Expect(profileStatusSchema->rawFormat.empty(), "Yo rawFormat empty");
+        failures += Expect(profileStatusSchema->formatEmpty, "Yo formatEmpty true");
+        failures += Expect(profileStatusSchema->source == "xlsx", "Yo raw source");
+        failures += Expect(profileStatusSchema->fields.empty(), "Yo raw fields empty");
+        failures += Expect(profileStatusSchema->hasResolvedFormat, "Yo resolvedFormat present");
+        failures += Expect(profileStatusSchema->resolvedFormat == "{data:es}", "Yo resolvedFormat");
+        failures += Expect(profileStatusSchema->resolvedSource == resolvedSource, "Yo resolvedSource");
+        failures += Expect(profileStatusSchema->hasResolvedFields, "Yo resolvedFields present");
+        failures += Expect(
+            profileStatusSchema->resolvedFields.size() == names.size(),
+            "Yo resolved field count");
+        if (profileStatusSchema->resolvedFields.size() == names.size()) {
+            for (std::size_t index = 0U; index < names.size(); ++index) {
+                const FieldSchema& field = profileStatusSchema->resolvedFields[index];
+                failures += Expect(field.index == static_cast<int>(index), "Yo resolved field index");
+                failures += Expect(field.name == names[index], "Yo resolved field name");
+                failures += Expect(field.typeToken == types[index], "Yo resolved field type");
+                failures += Expect(field.rawSpec == specs[index], "Yo resolved field spec");
+                failures += Expect(field.source == resolvedSource, "Yo resolved field source");
+            }
+        }
+        failures += ExpectEffectiveFieldsMatch(
+            *profileStatusSchema,
+            cg::packet::receive::ProfileStatus::Spec,
+            "Yo Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *profileStatusSchema,
+            packet,
+            "Yo resolved field order");
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "Yo"),
+        "Yo absent from send typed manifest");
+    failures += Expect(
+        TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "Yo"),
+        "Yo present in receive typed manifest");
+
     const PacketSchema* techListSchema = FindPacket(packets, "Rspn");
     failures += Expect(techListSchema != nullptr, "Rspn schema exists");
     if (techListSchema != nullptr) {

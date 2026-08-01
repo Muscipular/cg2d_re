@@ -15281,6 +15281,7 @@ namespace cg::packet::receive
         int injuryFlag = 0;
         int itemImageNumber = 0;
         int value = 0; // type=3 语义 unknown，按原字段保留。
+        // 历史 Raw 命名为兼容既有 API 保留，字段值为 legacy escape 还原后的语义字节串。
         std::vector<std::string> deleteAtomsRaw;
         std::string itemNameRaw;
         bool hasPetHelpFlag = false;
@@ -15289,7 +15290,7 @@ namespace cg::packet::receive
 
     /**
      * SEND_TU techuse 技能使用结果		JgO {result:i62} {type:i62} {data:es}
-     * data 内数值为 raw signed decimal；字符串字段保留 raw escaped，不做二次 unescape。
+     * data 内数值为 raw signed decimal；type1 atom 与 type4 itemName 使用单层 legacy 文本编解码。
      */
     struct TechUseResult
     {
@@ -15298,7 +15299,7 @@ namespace cg::packet::receive
         static constexpr std::array<PacketFieldSpec, 3U> Fields = {{
             {CG_PACKET_DIAGNOSTIC_TEXT("result"), PacketFieldType::Int62},
             {CG_PACKET_DIAGNOSTIC_TEXT("type"), PacketFieldType::Int62},
-            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::SubPayload},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -15320,18 +15321,39 @@ namespace cg::packet::receive
         }
 
 #if CG_PACKET_ENABLE_TEST_HELPERS
-        [[nodiscard]] std::string BuildData() const
+        [[nodiscard]] PacketResult<std::string> BuildData() const
         {
             std::vector<std::string> parts;
             if (type == 1) {
+                if (payload.deleteAtomsRaw.size() > Type1MaxAtomCount) {
+                    return PacketResult<std::string>::Failure(MakeFieldError(
+                        PacketErrorCode::EncodeFailed,
+                        CG_PACKET_DIAGNOSTIC_TEXT("TechUseResult type1 atom 数量超过 6"),
+                        DataFieldIndex));
+                }
+
                 parts.reserve(8U + payload.deleteAtomsRaw.size());
                 AppendBaseStats(parts);
                 parts.push_back(std::to_string(payload.injuryFlag));
                 parts.push_back(std::to_string(payload.itemImageNumber));
-                for (const std::string& atom : payload.deleteAtomsRaw) {
-                    parts.push_back(atom);
+                for (std::size_t index = 0U; index < payload.deleteAtomsRaw.size(); ++index) {
+                    PacketResult<std::string> encoded =
+                        EncodeLegacyPayloadText(payload.deleteAtomsRaw[index]);
+                    if (!encoded.HasValue()) {
+                        PacketError error = encoded.Error();
+                        error.packetCode = PacketCode(Code);
+                        error.fieldIndex = Type1AtomFieldIndex + index;
+                        return PacketResult<std::string>::Failure(std::move(error));
+                    }
+                    parts.push_back(std::move(encoded.Value()));
                 }
-                return JoinParts(parts);
+
+                PacketResult<std::string> data = JoinParts(parts);
+                if (!data.HasValue()) {
+                    return data;
+                }
+                data.Value().push_back('|');
+                return data;
             }
 
             if (type == 2) {
@@ -15352,20 +15374,36 @@ namespace cg::packet::receive
                 parts.reserve(payload.hasPetHelpFlag ? 9U : 8U);
                 AppendBaseStats(parts);
                 parts.push_back(std::to_string(payload.itemImageNumber));
-                parts.push_back(payload.itemNameRaw);
+                PacketResult<std::string> encodedItemName =
+                    EncodeLegacyPayloadText(payload.itemNameRaw);
+                if (!encodedItemName.HasValue()) {
+                    PacketError error = encodedItemName.Error();
+                    error.packetCode = PacketCode(Code);
+                    error.fieldIndex = Type4ItemNameFieldIndex;
+                    return PacketResult<std::string>::Failure(std::move(error));
+                }
+                parts.push_back(std::move(encodedItemName.Value()));
                 if (payload.hasPetHelpFlag) {
                     parts.push_back(std::to_string(payload.petHelpFlag));
                 }
                 return JoinParts(parts);
             }
 
-            return {};
+            return PacketResult<std::string>::Failure(MakeFieldError(
+                PacketErrorCode::EncodeFailed,
+                CG_PACKET_DIAGNOSTIC_TEXT("TechUseResult type 不在 1..4 范围内"),
+                TypeFieldIndex));
         }
 #endif
 
 #if CG_PACKET_ENABLE_TEST_HELPERS
-        [[nodiscard]] Packet ToPacket() const
+        [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
+            PacketResult<std::string> data = BuildData();
+            if (!data.HasValue()) {
+                return PacketResult<Packet>::Failure(data.Error());
+            }
+
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("result"),
@@ -15379,10 +15417,10 @@ namespace cg::packet::receive
             });
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("data"),
-                PacketFieldType::EscapedString,
-                BuildData(),
+                PacketFieldType::SubPayload,
+                std::move(data.Value()),
             });
-            return packet;
+            return PacketResult<Packet>::Success(std::move(packet));
         }
 #endif
 
@@ -15473,12 +15511,15 @@ namespace cg::packet::receive
         static constexpr std::size_t ResultFieldIndex = 0U;
         static constexpr std::size_t TypeFieldIndex = 1U;
         static constexpr std::size_t DataFieldIndex = 2U;
-        static constexpr std::size_t Type1BaseFieldCount = 8U;
-        static constexpr std::size_t Type1MaxFieldCount = 14U;
+        static constexpr std::size_t Type1MinSplitFieldCount = 9U;
+        static constexpr std::size_t Type1MaxSplitFieldCount = 15U;
+        static constexpr std::size_t Type1MaxAtomCount = 6U;
+        static constexpr std::size_t Type1AtomFieldIndex = 8U;
         static constexpr std::size_t Type2FieldCount = 7U;
         static constexpr std::size_t Type3FieldCount = 7U;
         static constexpr std::size_t Type4MinFieldCount = 8U;
         static constexpr std::size_t Type4MaxFieldCount = 9U;
+        static constexpr std::size_t Type4ItemNameFieldIndex = 7U;
 
         [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
@@ -15507,16 +15548,18 @@ namespace cg::packet::receive
             parts.push_back(std::to_string(payload.intelligence));
         }
 
-        [[nodiscard]] static std::string JoinParts(const std::vector<std::string>& parts)
+        [[nodiscard]] static PacketResult<std::string> JoinParts(const std::vector<std::string>& parts)
         {
-            PacketResult<std::string> payload = BuildPayload(
+            PacketResult<std::string> data = BuildPayload(
                 std::span<const std::string>(parts.data(), parts.size()),
                 PayloadDelimiter);
-            if (payload.HasValue()) {
-                return payload.Value();
+            if (!data.HasValue()) {
+                PacketError error = data.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = DataFieldIndex;
+                return PacketResult<std::string>::Failure(std::move(error));
             }
-
-            return {};
+            return data;
         }
 
         [[nodiscard]] static PacketResult<TechUsePayload> ParsePayload(int type, std::string_view text)
@@ -15528,7 +15571,15 @@ namespace cg::packet::receive
                     DataFieldIndex));
             }
 
-            PacketResult<std::vector<std::string>> split = SplitPayload(text, PayloadDelimiter);
+            if (type == 1 && text.back() != '|') {
+                return PacketResult<TechUsePayload>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT("TechUseResult type1 payload 缺少尾随分隔符"),
+                    DataFieldIndex));
+            }
+
+            PacketResult<std::vector<std::string>> split =
+                SplitPayloadLegacyAware(text, PayloadDelimiter);
             if (!split.HasValue()) {
                 PacketError error = split.Error();
                 error.packetCode = PacketCode(Code);
@@ -15551,7 +15602,9 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketResult<TechUsePayload> ParseType1(const std::vector<std::string>& parts)
         {
-            if (parts.size() < Type1BaseFieldCount || parts.size() > Type1MaxFieldCount) {
+            if (parts.size() < Type1MinSplitFieldCount ||
+                parts.size() > Type1MaxSplitFieldCount ||
+                !parts.back().empty()) {
                 return PacketResult<TechUsePayload>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
                     CG_PACKET_DIAGNOSTIC_TEXT("TechUseResult type1 payload 字段数量不匹配"),
@@ -15575,30 +15628,16 @@ namespace cg::packet::receive
 
             payload.injuryFlag = injuryFlag.Value();
             payload.itemImageNumber = itemImageNumber.Value();
-            payload.deleteAtomsRaw.reserve(parts.size() - Type1BaseFieldCount);
-
-            bool seenEmptyAtom = false;
-            std::size_t nonEmptyAtomCount = 0;
-            for (std::size_t index = Type1BaseFieldCount; index < parts.size(); ++index) {
-                if (parts[index].empty()) {
-                    seenEmptyAtom = true;
-                } else {
-                    if (seenEmptyAtom) {
-                        return PacketResult<TechUsePayload>::Failure(MakeFieldError(
-                            PacketErrorCode::DecodeFailed,
-                            CG_PACKET_DIAGNOSTIC_TEXT("TechUseResult type1 deleteAtomRaw 中间空段后仍有内容"),
-                            index));
-                    }
-                    ++nonEmptyAtomCount;
+            payload.deleteAtomsRaw.reserve(parts.size() - Type1MinSplitFieldCount);
+            for (std::size_t index = Type1AtomFieldIndex; index + 1U < parts.size(); ++index) {
+                PacketResult<std::string> atom = DecodeLegacyPayloadText(parts[index]);
+                if (!atom.HasValue()) {
+                    PacketError error = atom.Error();
+                    error.packetCode = PacketCode(Code);
+                    error.fieldIndex = index;
+                    return PacketResult<TechUsePayload>::Failure(std::move(error));
                 }
-                payload.deleteAtomsRaw.push_back(parts[index]);
-            }
-
-            if (nonEmptyAtomCount > 6U) {
-                return PacketResult<TechUsePayload>::Failure(MakeFieldError(
-                    PacketErrorCode::FieldCountMismatch,
-                    CG_PACKET_DIAGNOSTIC_TEXT("TechUseResult type1 deleteAtomRaw 非空数量超过 6"),
-                    DataFieldIndex));
+                payload.deleteAtomsRaw.push_back(std::move(atom.Value()));
             }
 
             return PacketResult<TechUsePayload>::Success(std::move(payload));
@@ -15670,7 +15709,15 @@ namespace cg::packet::receive
                 return PacketResult<TechUsePayload>::Failure(itemImageNumber.Error());
             }
             payload.itemImageNumber = itemImageNumber.Value();
-            payload.itemNameRaw = parts[7];
+            PacketResult<std::string> itemName =
+                DecodeLegacyPayloadText(parts[Type4ItemNameFieldIndex]);
+            if (!itemName.HasValue()) {
+                PacketError error = itemName.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = Type4ItemNameFieldIndex;
+                return PacketResult<TechUsePayload>::Failure(std::move(error));
+            }
+            payload.itemNameRaw = std::move(itemName.Value());
 
             if (parts.size() == Type4MaxFieldCount) {
                 PacketResult<int> petHelpFlag = ParseDecimalField(parts[8], 8U);

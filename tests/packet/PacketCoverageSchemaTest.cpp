@@ -3040,6 +3040,70 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "AU"),
         "AU present in receive typed manifest");
 
+    const PacketSchema* techUseResultSchema = FindPacket(packets, "JgO");
+    failures += Expect(techUseResultSchema != nullptr, "JgO schema exists");
+    if (techUseResultSchema != nullptr) {
+        const cg::packet::receive::TechUseResult techUseResult(
+            1,
+            2,
+            cg::packet::receive::TechUsePayload {});
+        const cg::packet::PacketResult<cg::packet::Packet> packet = techUseResult.ToPacket();
+        constexpr std::string_view resolvedSource = "ServerC+ClientIda+src/packet";
+        const std::array<std::string_view, 3U> names = {{"result", "type", "data"}};
+        const std::array<std::string_view, 3U> types = {{"i62", "i62", "es"}};
+        const std::array<std::string_view, 3U> specs = {{
+            "{result:i62}",
+            "{type:i62}",
+            "{data:es}",
+        }};
+
+        failures += Expect(techUseResultSchema->direction == "服务端->客户端", "JgO direction");
+        failures += Expect(techUseResultSchema->legacyKind == "SEND", "JgO legacyKind");
+        failures += Expect(techUseResultSchema->clientNamespace == "receive", "JgO namespace");
+        failures += Expect(techUseResultSchema->rawFormat.empty(), "JgO rawFormat empty");
+        failures += Expect(techUseResultSchema->formatEmpty, "JgO formatEmpty true");
+        failures += Expect(techUseResultSchema->source == "xlsx", "JgO raw source");
+        failures += Expect(techUseResultSchema->fields.empty(), "JgO raw fields empty");
+        failures += Expect(techUseResultSchema->hasResolvedFormat, "JgO resolvedFormat present");
+        failures += Expect(
+            techUseResultSchema->resolvedFormat == "{result:i62} {type:i62} {data:es}",
+            "JgO resolvedFormat");
+        failures += Expect(
+            techUseResultSchema->resolvedSource == resolvedSource,
+            "JgO resolvedSource");
+        failures += Expect(techUseResultSchema->hasResolvedFields, "JgO resolvedFields present");
+        failures += Expect(
+            techUseResultSchema->resolvedFields.size() == names.size(),
+            "JgO resolved field count");
+        if (techUseResultSchema->resolvedFields.size() == names.size()) {
+            for (std::size_t index = 0; index < names.size(); ++index) {
+                const FieldSchema& field = techUseResultSchema->resolvedFields[index];
+                failures += Expect(field.index == static_cast<int>(index), "JgO resolved field index");
+                failures += Expect(field.name == names[index], "JgO resolved field name");
+                failures += Expect(field.typeToken == types[index], "JgO resolved field type");
+                failures += Expect(field.rawSpec == specs[index], "JgO resolved field spec");
+                failures += Expect(field.source == resolvedSource, "JgO resolved field source");
+            }
+        }
+        failures += ExpectEffectiveFieldsMatch(
+            *techUseResultSchema,
+            cg::packet::receive::TechUseResult::Spec,
+            "JgO Spec matches effective fields");
+        failures += Expect(packet.HasValue(), "JgO ToPacket");
+        if (packet.HasValue()) {
+            failures += ExpectResolvedFieldsMatch(
+                *techUseResultSchema,
+                packet.Value(),
+                "JgO resolved field order");
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "JgO"),
+        "JgO absent from send typed manifest");
+    failures += Expect(
+        TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "JgO"),
+        "JgO present in receive typed manifest");
+
     const PacketSchema* techListSchema = FindPacket(packets, "Rspn");
     failures += Expect(techListSchema != nullptr, "Rspn schema exists");
     if (techListSchema != nullptr) {

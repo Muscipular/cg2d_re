@@ -3276,6 +3276,57 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "ysVc"),
         "ysVc present in receive typed manifest");
 
+    const PacketSchema* itemFrontCharListSchema = FindPacket(packets, "LY");
+    failures += Expect(itemFrontCharListSchema != nullptr, "LY schema exists");
+    if (itemFrontCharListSchema != nullptr) {
+        const cg::packet::receive::ItemFrontCharList itemFrontCharList(
+            std::vector<cg::packet::receive::FrontCharRecord> {});
+        const cg::packet::PacketResult<cg::packet::Packet> packet = itemFrontCharList.ToPacket();
+        constexpr std::string_view resolvedSource = "ServerC+ClientIda+src/packet";
+
+        failures += Expect(itemFrontCharListSchema->direction == "服务端->客户端", "LY direction");
+        failures += Expect(itemFrontCharListSchema->legacyKind == "SEND", "LY legacyKind");
+        failures += Expect(itemFrontCharListSchema->clientNamespace == "receive", "LY namespace");
+        failures += Expect(itemFrontCharListSchema->rawFormat.empty(), "LY rawFormat empty");
+        failures += Expect(itemFrontCharListSchema->formatEmpty, "LY formatEmpty true");
+        failures += Expect(itemFrontCharListSchema->source == "xlsx", "LY raw source");
+        failures += Expect(itemFrontCharListSchema->fields.empty(), "LY raw fields empty");
+        failures += Expect(itemFrontCharListSchema->hasResolvedFormat, "LY resolvedFormat present");
+        failures += Expect(itemFrontCharListSchema->resolvedFormat == "{data:es}", "LY resolvedFormat");
+        failures += Expect(
+            itemFrontCharListSchema->resolvedSource == resolvedSource,
+            "LY resolvedSource");
+        failures += Expect(itemFrontCharListSchema->hasResolvedFields, "LY resolvedFields present");
+        failures += Expect(
+            itemFrontCharListSchema->resolvedFields.size() == 1U,
+            "LY resolved field count");
+        if (itemFrontCharListSchema->resolvedFields.size() == 1U) {
+            const FieldSchema& field = itemFrontCharListSchema->resolvedFields[0U];
+            failures += Expect(field.index == 0, "LY resolved field index");
+            failures += Expect(field.name == "data", "LY resolved field name");
+            failures += Expect(field.typeToken == "es", "LY resolved field type");
+            failures += Expect(field.rawSpec == "{data:es}", "LY resolved field spec");
+            failures += Expect(field.source == resolvedSource, "LY resolved field source");
+        }
+        failures += ExpectEffectiveFieldsMatch(
+            *itemFrontCharListSchema,
+            cg::packet::receive::ItemFrontCharList::Spec,
+            "LY Spec matches effective fields");
+        failures += Expect(packet.HasValue(), "LY ToPacket");
+        if (packet.HasValue()) {
+            failures += ExpectResolvedFieldsMatch(
+                *itemFrontCharListSchema,
+                packet.Value(),
+                "LY resolved field order");
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "LY"),
+        "LY absent from send typed manifest");
+    failures += Expect(
+        TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "LY"),
+        "LY present in receive typed manifest");
+
     const PacketSchema* techListSchema = FindPacket(packets, "Rspn");
     failures += Expect(techListSchema != nullptr, "Rspn schema exists");
     if (techListSchema != nullptr) {

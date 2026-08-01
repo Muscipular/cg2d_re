@@ -25607,6 +25607,7 @@ namespace cg::packet::receive
      */
     struct TradePetInfoData
     {
+        // 历史 Raw 后缀保留；Parse 后为 cg2d 单层 legacy 解码后的 GBK 语义字节，BuildData 按 Server raw 原样写入。
         std::string freeNameRaw;
         int level = 0;
         int tribe = 0;
@@ -25634,7 +25635,8 @@ namespace cg::packet::receive
 
     /**
      * SEND_TRLP CHAR_Trade_setTradeList 对方宠物信息		RwK {petPlace:i62} {data:es}
-     * data: 固定 23 字段并必须尾随 `|`；数值为 raw signed decimal，字符串 raw escaped 保留。
+     * data: 固定 23 字段并必须尾随 `|`；数值为 raw signed decimal。
+     * Server 对下标 0/12 文本按 raw 原样拼接，cg2d 接收时单层 legacy 解码，封包协议两方向非对称。
      */
     struct TradePetInfo
     {
@@ -25734,8 +25736,8 @@ namespace cg::packet::receive
             });
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("data"),
-                PacketFieldType::EscapedString,
-                payload.Value(),
+                PacketFieldType::SubPayload,
+                std::move(payload.Value()),
             });
             return PacketResult<Packet>::Success(std::move(packet));
         }
@@ -25849,7 +25851,8 @@ namespace cg::packet::receive
                     DataFieldIndex));
             }
 
-            PacketResult<std::vector<std::string>> split = SplitPayload(payload, PayloadDelimiter);
+            PacketResult<std::vector<std::string>> split =
+                SplitPayloadLegacyAware(payload, PayloadDelimiter);
             if (!split.HasValue()) {
                 PacketError error = split.Error();
                 error.packetCode = PacketCode(Code);
@@ -25865,16 +25868,21 @@ namespace cg::packet::receive
                     DataFieldIndex));
             }
 
-            PacketResult<std::string> freeNameRaw = ValidatePayloadTextField(
-                parts[FreeNameFieldIndex],
-                FreeNameFieldIndex);
+            PacketResult<std::string> freeNameRaw =
+                DecodeLegacyPayloadText(parts[FreeNameFieldIndex]);
             if (!freeNameRaw.HasValue()) {
-                return PacketResult<TradePetInfoData>::Failure(freeNameRaw.Error());
+                PacketError error = freeNameRaw.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = FreeNameFieldIndex;
+                return PacketResult<TradePetInfoData>::Failure(std::move(error));
             }
 
-            PacketResult<std::string> nameRaw = ValidatePayloadTextField(parts[NameFieldIndex], NameFieldIndex);
+            PacketResult<std::string> nameRaw = DecodeLegacyPayloadText(parts[NameFieldIndex]);
             if (!nameRaw.HasValue()) {
-                return PacketResult<TradePetInfoData>::Failure(nameRaw.Error());
+                PacketError error = nameRaw.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = NameFieldIndex;
+                return PacketResult<TradePetInfoData>::Failure(std::move(error));
             }
 
             std::array<int, PayloadFieldCount> numericValues = {};
@@ -25940,21 +25948,20 @@ namespace cg::packet::receive
             std::string_view text,
             std::size_t fieldIndex)
         {
-            if (text.find('|') != std::string_view::npos) {
-                return PacketResult<std::string>::Failure(MakeFieldError(
-                    PacketErrorCode::EncodeFailed,
-                    CG_PACKET_DIAGNOSTIC_TEXT("TradePetInfo raw 字符串包含 literal |"),
-                    fieldIndex));
-            }
-
             for (std::size_t index = 0; index < text.size(); ++index) {
                 if (!cg::packet::detail::IsLegacyDoubleByteLead(text[index])) {
+                    if (text[index] == '|') {
+                        return PacketResult<std::string>::Failure(MakeFieldError(
+                            PacketErrorCode::EncodeFailed,
+                            CG_PACKET_DIAGNOSTIC_TEXT("TradePetInfo raw 字符串包含 literal ASCII |"),
+                            fieldIndex));
+                    }
                     continue;
                 }
 
                 if (index + 1U >= text.size()) {
                     return PacketResult<std::string>::Failure(MakeFieldError(
-                        PacketErrorCode::DecodeFailed,
+                        PacketErrorCode::EncodeFailed,
                         CG_PACKET_DIAGNOSTIC_TEXT("TradePetInfo raw 字符串旧双字节字符被截断"),
                         fieldIndex));
                 }

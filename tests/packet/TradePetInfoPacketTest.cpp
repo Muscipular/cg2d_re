@@ -3,6 +3,7 @@
 #include <cstddef>
 #include <initializer_list>
 #include <iostream>
+#include <limits>
 #include <string>
 #include <string_view>
 #include <utility>
@@ -76,6 +77,15 @@ cg::packet::Packet PacketOf(
         direction);
     packet.fields.assign(fields.begin(), fields.end());
     return packet;
+}
+
+std::string LegacyDoubleByteText(unsigned char trail, std::string_view suffix)
+{
+    std::string text;
+    text.push_back(static_cast<char>(0x81));
+    text.push_back(static_cast<char>(trail));
+    text.append(suffix);
+    return text;
 }
 
 std::vector<std::string> BuildParts()
@@ -184,6 +194,7 @@ int ExpectTradePetInfoPacket(
     const cg::packet::Packet& packet,
     int petPlace,
     std::string_view payload,
+    cg::packet::PacketFieldType dataType,
     const char* message)
 {
     int failures = 0;
@@ -198,7 +209,7 @@ int ExpectTradePetInfoPacket(
     failures += Expect(packet.fields[0].type == cg::packet::PacketFieldType::Int62, message);
     failures += Expect(packet.fields[0].value == std::to_string(petPlace), message);
     failures += Expect(packet.fields[1].name == "data", message);
-    failures += Expect(packet.fields[1].type == cg::packet::PacketFieldType::EscapedString, message);
+    failures += Expect(packet.fields[1].type == dataType, message);
     failures += Expect(packet.fields[1].value == payload, message);
     return failures;
 }
@@ -206,7 +217,7 @@ int ExpectTradePetInfoPacket(
 int ExpectData(const TradePetInfoData& data, const char* message)
 {
     int failures = 0;
-    failures += Expect(data.freeNameRaw == "Free\\zName", message);
+    failures += Expect(data.freeNameRaw == "Free|Name", message);
     failures += Expect(data.level == 12, message);
     failures += Expect(data.tribe == 3, message);
     failures += Expect(data.maxHp == 100, message);
@@ -218,7 +229,7 @@ int ExpectData(const TradePetInfoData& data, const char* message)
     failures += Expect(data.magic == 5, message);
     failures += Expect(data.loyalty == 80, message);
     failures += Expect(data.skillSlot == 8, message);
-    failures += Expect(data.nameRaw == "Pet\\nName", message);
+    failures += Expect(data.nameRaw == "Pet\nName", message);
     failures += Expect(data.imageId == 1001, message);
     failures += Expect(data.attack == 50, message);
     failures += Expect(data.defense == 40, message);
@@ -237,9 +248,21 @@ int TestParsePacketOuter()
     const std::string payload = BuildPayload();
     const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(BuildPlain(2, payload));
 
-    int failures = Expect(static_cast<bool>(parsed), "parse RwK outer");
+    int failures = Expect(TradePetInfo::Spec.fieldCount == 2U, "RwK Spec exact2");
+    failures += Expect(
+        TradePetInfo::Fields[0].type == cg::packet::PacketFieldType::Int62,
+        "RwK Spec petPlace i62");
+    failures += Expect(
+        TradePetInfo::Fields[1].type == cg::packet::PacketFieldType::SubPayload,
+        "RwK Spec data SubPayload");
+    failures += Expect(static_cast<bool>(parsed), "parse RwK outer");
     if (parsed.HasValue()) {
-        failures += ExpectTradePetInfoPacket(parsed.Value(), 2, payload, "parse RwK packet");
+        failures += ExpectTradePetInfoPacket(
+            parsed.Value(),
+            2,
+            payload,
+            cg::packet::PacketFieldType::EscapedString,
+            "parse RwK packet");
     }
     return failures;
 }
@@ -261,7 +284,12 @@ int TestBuildRoundtrip()
         return failures;
     }
 
-    failures += ExpectTradePetInfoPacket(typedPacket.Value(), 2, payload, "RwK ToPacket fields");
+    failures += ExpectTradePetInfoPacket(
+        typedPacket.Value(),
+        2,
+        payload,
+        cg::packet::PacketFieldType::SubPayload,
+        "RwK ToPacket fields");
 
     const cg::packet::PacketResult<std::string> built = BuildPacket(typedPacket.Value());
     failures += Expect(static_cast<bool>(built), "build RwK packet");
@@ -278,7 +306,7 @@ int TestBuildRoundtrip()
     return failures;
 }
 
-int TestRawEscapesPreserved()
+int TestLegacyDecodeAndRawBuild()
 {
     const std::string raw = "A\\zB\\cC\\yD\\nE";
     std::vector<std::string> parts = BuildParts();
@@ -286,37 +314,110 @@ int TestRawEscapesPreserved()
     parts[12] = raw;
     const std::string payload = JoinParts(parts, true);
 
-    const cg::packet::PacketResult<TradePetInfo> parsed = TradePetInfo::Parse(BuildRawPlain(2, payload));
+    const cg::packet::PacketResult<TradePetInfo> parsed = TradePetInfo::Parse(BuildPlain(2, payload));
 
-    int failures = Expect(static_cast<bool>(parsed), "parse RwK raw escaped strings");
+    int failures = Expect(static_cast<bool>(parsed), "parse RwK legacy escaped strings");
     if (!parsed.HasValue()) {
         return failures;
     }
 
-    failures += Expect(parsed.Value().data.freeNameRaw == raw, "RwK raw freeName");
-    failures += Expect(parsed.Value().data.nameRaw == raw, "RwK raw name");
+    const std::string semantic = "A|B,C\\D\nE";
+    failures += Expect(parsed.Value().data.freeNameRaw == semantic, "RwK decoded freeName");
+    failures += Expect(parsed.Value().data.nameRaw == semantic, "RwK decoded name");
+    failures += ExpectError(
+        parsed.Value().BuildData(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        "RwK",
+        "RwK decoded literal pipe is not Server raw");
 
-    const cg::packet::PacketResult<std::string> data = parsed.Value().BuildData();
-    failures += Expect(static_cast<bool>(data), "RwK raw BuildData");
+    TradePetInfoData rawData = BuildData();
+    rawData.freeNameRaw = "A\\zB";
+    rawData.nameRaw = "C\\nD";
+    std::vector<std::string> rawParts = BuildParts();
+    rawParts[0] = rawData.freeNameRaw;
+    rawParts[12] = rawData.nameRaw;
+    const std::string rawPayload = JoinParts(rawParts, true);
+
+    const TradePetInfo rawPacket(2, std::move(rawData));
+    const cg::packet::PacketResult<std::string> data = rawPacket.BuildData();
+    failures += Expect(static_cast<bool>(data), "RwK Server raw BuildData");
     if (data.HasValue()) {
-        failures += Expect(data.Value() == payload, "RwK raw payload");
+        failures += Expect(data.Value() == rawPayload, "RwK BuildData preserves raw legacy tokens");
+    }
+
+    const cg::packet::PacketResult<TradePetInfo> reparsed =
+        TradePetInfo::Parse(BuildPlain(2, rawPayload));
+    failures += Expect(static_cast<bool>(reparsed), "RwK reparses Server raw payload");
+    if (reparsed.HasValue()) {
+        failures += Expect(reparsed.Value().data.freeNameRaw == "A|B", "RwK raw freeName decodes once");
+        failures += Expect(reparsed.Value().data.nameRaw == "C\nD", "RwK raw name decodes once");
     }
     return failures;
 }
 
-int TestNegativeNumbers()
+int TestGbkRawRoundtrip()
+{
+    const std::string freeName = LegacyDoubleByteText(0x7C, "Free");
+    const std::string name = LegacyDoubleByteText(0x5C, "Pet");
+    std::vector<std::string> parts = BuildParts();
+    parts[0] = freeName;
+    parts[12] = name;
+    const std::string payload = JoinParts(parts, true);
+
+    const cg::packet::PacketResult<TradePetInfo> parsed = TradePetInfo::Parse(BuildPlain(2, payload));
+    int failures = Expect(static_cast<bool>(parsed), "parse RwK GBK trail bytes");
+    if (!parsed.HasValue()) {
+        return failures;
+    }
+
+    failures += Expect(parsed.Value().data.freeNameRaw == freeName, "RwK GBK trail 0x7C preserved");
+    failures += Expect(parsed.Value().data.nameRaw == name, "RwK GBK trail 0x5C preserved");
+    const cg::packet::PacketResult<std::string> rebuilt = parsed.Value().BuildData();
+    failures += Expect(static_cast<bool>(rebuilt), "RwK GBK raw rebuild");
+    if (rebuilt.HasValue()) {
+        failures += Expect(rebuilt.Value() == payload, "RwK GBK raw roundtrip");
+    }
+    return failures;
+}
+
+int TestEmptyTexts()
 {
     std::vector<std::string> parts = BuildParts();
-    parts[1] = "-1";
-    parts[22] = "-4";
+    parts[0].clear();
+    parts[12].clear();
+    const std::string payload = JoinParts(parts, true);
+    const cg::packet::PacketResult<TradePetInfo> parsed = TradePetInfo::Parse(BuildPlain(2, payload));
+
+    int failures = Expect(static_cast<bool>(parsed), "parse RwK empty texts");
+    if (parsed.HasValue()) {
+        failures += Expect(parsed.Value().data.freeNameRaw.empty(), "RwK empty freeName");
+        failures += Expect(parsed.Value().data.nameRaw.empty(), "RwK empty name");
+        const cg::packet::PacketResult<std::string> rebuilt = parsed.Value().BuildData();
+        failures += Expect(rebuilt.HasValue(), "RwK empty texts rebuild");
+        if (rebuilt.HasValue()) {
+            failures += Expect(rebuilt.Value() == payload, "RwK empty texts raw roundtrip");
+        }
+    }
+    return failures;
+}
+
+int TestSignedNumbers()
+{
+    std::vector<std::string> parts = BuildParts();
+    parts[1] = "-2147483648";
+    parts[22] = "2147483647";
     const cg::packet::PacketResult<TradePetInfo> parsed =
         TradePetInfo::Parse(BuildPlain(-3, JoinParts(parts, true)));
 
-    int failures = Expect(static_cast<bool>(parsed), "parse RwK negative numbers");
+    int failures = Expect(static_cast<bool>(parsed), "parse RwK signed decimal boundaries");
     if (parsed.HasValue()) {
         failures += Expect(parsed.Value().petPlace == -3, "RwK negative petPlace");
-        failures += Expect(parsed.Value().data.level == -1, "RwK negative level");
-        failures += Expect(parsed.Value().data.wind == -4, "RwK negative wind");
+        failures += Expect(
+            parsed.Value().data.level == std::numeric_limits<int>::min(),
+            "RwK minimum level decimal");
+        failures += Expect(
+            parsed.Value().data.wind == std::numeric_limits<int>::max(),
+            "RwK maximum wind decimal");
     }
     return failures;
 }
@@ -381,6 +482,35 @@ int TestPayloadErrors()
         cg::packet::PacketErrorCode::EncodeFailed,
         "RwK",
         "RwK build literal delimiter");
+
+    TradePetInfoData truncatedFreeName = BuildData();
+    truncatedFreeName.freeNameRaw.assign(1U, static_cast<char>(0x81));
+    failures += ExpectError(
+        TradePetInfo(2, std::move(truncatedFreeName)).BuildData(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        "RwK",
+        "RwK build truncated freeName GBK");
+
+    TradePetInfoData truncatedName = BuildData();
+    truncatedName.nameRaw.assign(1U, static_cast<char>(0x81));
+    failures += ExpectError(
+        TradePetInfo(2, std::move(truncatedName)).BuildData(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        "RwK",
+        "RwK build truncated name GBK");
+
+    std::string truncatedPayload = BuildPayload();
+    truncatedPayload.push_back(static_cast<char>(0x81));
+    failures += ExpectError(
+        TradePetInfo::FromPacket(PacketOf(
+            cg::packet::PacketDirection::ServerToClient,
+            {
+                Field("petPlace", cg::packet::PacketFieldType::Int62, "2"),
+                Field("data", cg::packet::PacketFieldType::EscapedString, std::move(truncatedPayload)),
+            })),
+        cg::packet::PacketErrorCode::DecodeFailed,
+        "RwK",
+        "RwK parse truncated GBK");
 
     return failures;
 }
@@ -457,8 +587,10 @@ int main()
     int failures = 0;
     failures += TestParsePacketOuter();
     failures += TestBuildRoundtrip();
-    failures += TestRawEscapesPreserved();
-    failures += TestNegativeNumbers();
+    failures += TestLegacyDecodeAndRawBuild();
+    failures += TestGbkRawRoundtrip();
+    failures += TestEmptyTexts();
+    failures += TestSignedNumbers();
     failures += TestPayloadErrors();
     failures += TestOuterErrors();
     if (failures != 0) {

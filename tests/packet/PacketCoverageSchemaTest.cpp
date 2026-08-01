@@ -10937,14 +10937,45 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         failures += Expect(tradePetInfoSchema->legacyKind == "SEND", "RwK legacyKind");
         failures += Expect(tradePetInfoSchema->rawFormat.empty(), "RwK rawFormat empty");
         failures += Expect(tradePetInfoSchema->formatEmpty, "RwK formatEmpty");
+        failures += Expect(tradePetInfoSchema->source == "xlsx", "RwK raw source");
+        failures += Expect(tradePetInfoSchema->fields.empty(), "RwK raw fields empty");
+        failures += Expect(tradePetInfoSchema->hasResolvedFormat, "RwK resolvedFormat present");
         failures += Expect(
             tradePetInfoSchema->resolvedFormat == "{petPlace:i62} {data:es}",
             "RwK resolvedFormat");
-        failures += Expect(tradePetInfoSchema->resolvedSource == "ServerC+src/packet", "RwK resolvedSource");
-        failures += Expect(tradePetInfoSchema->fields.empty(), "RwK raw fields empty");
-        failures += Expect(packet.HasValue(), "RwK packet build");
+        failures += Expect(
+            tradePetInfoSchema->resolvedSource == "ServerC+ClientIda+src/packet",
+            "RwK resolvedSource");
+        failures += Expect(tradePetInfoSchema->hasResolvedFields, "RwK resolvedFields present");
+        failures += Expect(tradePetInfoSchema->resolvedFields.size() == 2U, "RwK resolved field count");
+        if (tradePetInfoSchema->resolvedFields.size() == 2U) {
+            const FieldSchema& petPlaceField = tradePetInfoSchema->resolvedFields[0];
+            failures += Expect(
+                petPlaceField.index == 0U &&
+                    petPlaceField.name == "petPlace" &&
+                    petPlaceField.typeToken == "i62" &&
+                    petPlaceField.rawSpec == "{petPlace:i62}" &&
+                    petPlaceField.source == "ServerC+ClientIda+src/packet",
+                "RwK resolved petPlace field");
+            const FieldSchema& dataField = tradePetInfoSchema->resolvedFields[1];
+            failures += Expect(
+                dataField.index == 1U &&
+                    dataField.name == "data" &&
+                    dataField.typeToken == "es" &&
+                    dataField.rawSpec == "{data:es}" &&
+                    dataField.source == "ServerC+ClientIda+src/packet",
+                "RwK resolved data field");
+        }
+        failures += Expect(
+            cg::packet::receive::TradePetInfo::Spec.fieldCount == 2U,
+            "RwK Spec exact2");
+        failures += ExpectEffectiveFieldsMatch(
+            *tradePetInfoSchema,
+            cg::packet::receive::TradePetInfo::Spec,
+            "RwK Spec matches effective fields");
+        failures += Expect(packet.HasValue(), "RwK ToPacket");
         if (packet.HasValue()) {
-            failures += Expect(packet.Value().fields.size() == 2U, "RwK packet field count");
+            failures += Expect(packet.Value().fields.size() == 2U, "RwK ToPacket exact2");
             if (packet.Value().fields.size() == 2U) {
                 failures += Expect(packet.Value().fields[0].name == "petPlace", "RwK packet petPlace field");
                 failures += Expect(
@@ -10952,11 +10983,21 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                     "RwK packet petPlace type");
                 failures += Expect(packet.Value().fields[1].name == "data", "RwK packet data field");
                 failures += Expect(
-                    packet.Value().fields[1].type == cg::packet::PacketFieldType::EscapedString,
+                    packet.Value().fields[1].type == cg::packet::PacketFieldType::SubPayload,
                     "RwK packet data type");
             }
+            failures += ExpectResolvedFieldsMatch(
+                *tradePetInfoSchema,
+                packet.Value(),
+                "RwK ToPacket field order");
         }
     }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "RwK"),
+        "RwK absent from send typed manifest");
+    failures += Expect(
+        TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "RwK"),
+        "RwK present in receive typed manifest");
 
     const PacketSchema* tradePetSkillInfoSchema = FindPacket(packets, "Yq");
     failures += Expect(tradePetSkillInfoSchema != nullptr, "Yq schema exists");

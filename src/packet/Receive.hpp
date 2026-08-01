@@ -23822,7 +23822,8 @@ namespace cg::packet::receive
 
     /**
      * SEND_GMI guildmemberinfo		Kka {index:i62} {data:es}
-     * data: flag|registSeqNumber|nameTitleRaw|registSeqNumberAgain|level|online|graphicsNo|toGuildTitleID|。
+     * data: flag|registSeqNumber|nameTitleEscaped|registSeqNumberAgain|level|online|graphicsNo|toGuildTitleID|。
+     * nameTitleEscaped 由已编码名字、原始称号组成两段，再整体执行 legacy 编码。
      */
     struct GuildMemberInfo
     {
@@ -23843,7 +23844,9 @@ namespace cg::packet::receive
         int index = 0;
         int flag = 0;
         int registSeqNumber = 0;
-        std::string nameTitleRaw;
+        // 历史 Raw 后缀保留；值为 cg2d 两层解码后使用的 GBK 语义字节。
+        std::string charNameRaw;
+        std::string ownTitleRaw;
         int registSeqNumberAgain = 0;
         int level = 0;
         int online = 0;
@@ -23856,7 +23859,8 @@ namespace cg::packet::receive
             int index,
             int flag,
             int registSeqNumber,
-            std::string nameTitleRaw,
+            std::string charNameRaw,
+            std::string ownTitleRaw,
             int registSeqNumberAgain,
             int level,
             int online,
@@ -23865,7 +23869,8 @@ namespace cg::packet::receive
             : index(index),
               flag(flag),
               registSeqNumber(registSeqNumber),
-              nameTitleRaw(std::move(nameTitleRaw)),
+              charNameRaw(std::move(charNameRaw)),
+              ownTitleRaw(std::move(ownTitleRaw)),
               registSeqNumberAgain(registSeqNumberAgain),
               level(level),
               online(online),
@@ -23877,10 +23882,32 @@ namespace cg::packet::receive
 #if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] PacketResult<std::string> BuildData() const
         {
+            PacketResult<std::string> encodedName = EncodeLegacyPayloadText(charNameRaw);
+            if (!encodedName.HasValue()) {
+                PacketError error = encodedName.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = NameTitlePayloadIndex;
+                return PacketResult<std::string>::Failure(std::move(error));
+            }
+
+            std::string nameTitle;
+            nameTitle.reserve(encodedName.Value().size() + 1U + ownTitleRaw.size());
+            nameTitle.append(encodedName.Value());
+            nameTitle.append(PayloadDelimiter);
+            nameTitle.append(ownTitleRaw);
+
+            PacketResult<std::string> encodedNameTitle = EncodeLegacyPayloadText(nameTitle);
+            if (!encodedNameTitle.HasValue()) {
+                PacketError error = encodedNameTitle.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = NameTitlePayloadIndex;
+                return PacketResult<std::string>::Failure(std::move(error));
+            }
+
             const std::array<std::string, PayloadFieldCount + 1U> parts = {
                 std::to_string(flag),
                 std::to_string(registSeqNumber),
-                nameTitleRaw,
+                std::move(encodedNameTitle.Value()),
                 std::to_string(registSeqNumberAgain),
                 std::to_string(level),
                 std::to_string(online),
@@ -23909,8 +23936,8 @@ namespace cg::packet::receive
             });
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("data"),
-                PacketFieldType::EscapedString,
-                data.Value(),
+                PacketFieldType::SubPayload,
+                std::move(data.Value()),
             });
             return PacketResult<Packet>::Success(std::move(packet));
         }
@@ -23997,6 +24024,7 @@ namespace cg::packet::receive
         static constexpr std::size_t IndexFieldIndex = 0U;
         static constexpr std::size_t DataFieldIndex = 1U;
         static constexpr std::size_t PayloadFieldCount = 8U;
+        static constexpr std::size_t NameTitleFieldCount = 2U;
         static constexpr std::size_t FlagPayloadIndex = 0U;
         static constexpr std::size_t RegistSeqNumberPayloadIndex = 1U;
         static constexpr std::size_t NameTitlePayloadIndex = 2U;
@@ -24049,6 +24077,47 @@ namespace cg::packet::receive
             }
             parts.pop_back();
 
+            PacketResult<std::string> decodedNameTitle = DecodeLegacyPayloadText(
+                parts[NameTitlePayloadIndex]);
+            if (!decodedNameTitle.HasValue()) {
+                PacketError error = decodedNameTitle.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = NameTitlePayloadIndex;
+                return PacketResult<GuildMemberInfo>::Failure(std::move(error));
+            }
+
+            PacketResult<std::vector<std::string>> nameTitleParts = SplitPayloadLegacyAware(
+                decodedNameTitle.Value(),
+                PayloadDelimiter);
+            if (!nameTitleParts.HasValue()) {
+                PacketError error = nameTitleParts.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = NameTitlePayloadIndex;
+                return PacketResult<GuildMemberInfo>::Failure(std::move(error));
+            }
+            if (nameTitleParts.Value().size() != NameTitleFieldCount) {
+                return PacketResult<GuildMemberInfo>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    CG_PACKET_DIAGNOSTIC_TEXT("GuildMemberInfo nameTitle 子段数量不匹配"),
+                    NameTitlePayloadIndex));
+            }
+
+            PacketResult<std::string> charName = DecodeLegacyPayloadText(nameTitleParts.Value()[0U]);
+            if (!charName.HasValue()) {
+                PacketError error = charName.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = NameTitlePayloadIndex;
+                return PacketResult<GuildMemberInfo>::Failure(std::move(error));
+            }
+
+            PacketResult<std::string> ownTitle = DecodeLegacyPayloadText(nameTitleParts.Value()[1U]);
+            if (!ownTitle.HasValue()) {
+                PacketError error = ownTitle.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = NameTitlePayloadIndex;
+                return PacketResult<GuildMemberInfo>::Failure(std::move(error));
+            }
+
             PacketResult<int> flag = ParseDecimalField(parts[FlagPayloadIndex], FlagPayloadIndex);
             if (!flag.HasValue()) {
                 return PacketResult<GuildMemberInfo>::Failure(flag.Error());
@@ -24094,7 +24163,8 @@ namespace cg::packet::receive
                 0,
                 flag.Value(),
                 registSeqNumber.Value(),
-                std::move(parts[NameTitlePayloadIndex]),
+                std::move(charName.Value()),
+                std::move(ownTitle.Value()),
                 registSeqNumberAgain.Value(),
                 level.Value(),
                 online.Value(),

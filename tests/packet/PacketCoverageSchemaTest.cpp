@@ -14050,23 +14050,73 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     const PacketSchema* guildMemberInfoSchema = FindPacket(packets, "Kka");
     failures += Expect(guildMemberInfoSchema != nullptr, "Kka schema exists");
     if (guildMemberInfoSchema != nullptr) {
-        const cg::packet::receive::GuildMemberInfo guildMemberInfo(10, 1, 123, "Alice", 123, 45, 1, 987, 2);
+        const cg::packet::receive::GuildMemberInfo guildMemberInfo(
+            10, 1, 123, "Alice", "Leader", 123, 45, 1, 987, 2);
         const cg::packet::PacketResult<cg::packet::Packet> packet = guildMemberInfo.ToPacket();
         failures += Expect(guildMemberInfoSchema->direction == "服务端->客户端", "Kka direction");
         failures += Expect(guildMemberInfoSchema->legacyKind == "SEND", "Kka legacyKind");
+        failures += Expect(guildMemberInfoSchema->clientNamespace == "receive", "Kka namespace");
+        failures += Expect(guildMemberInfoSchema->xlsxStatus == "进行中", "Kka xlsxStatus");
+        failures += Expect(
+            guildMemberInfoSchema->description == "SEND_GMI guildmemberinfo",
+            "Kka description");
         failures += Expect(guildMemberInfoSchema->rawFormat == "{index} {data}", "Kka rawFormat");
-        failures += Expect(guildMemberInfoSchema->resolvedFormat == "{index:i62} {data:es}", "Kka resolvedFormat");
-        failures += Expect(guildMemberInfoSchema->resolvedSource == "xlsx+ServerC+src", "Kka resolvedSource");
-        failures += Expect(guildMemberInfoSchema->fields.size() == 2U, "Kka field count");
-        failures += Expect(packet.HasValue(), "Kka packet build");
+        failures += Expect(!guildMemberInfoSchema->formatEmpty, "Kka formatEmpty false");
+        failures += Expect(guildMemberInfoSchema->source == "xlsx", "Kka raw source");
+        failures += Expect(guildMemberInfoSchema->fields.size() == 2U, "Kka raw field count");
         if (guildMemberInfoSchema->fields.size() == 2U) {
-            failures += Expect(guildMemberInfoSchema->fields[0].name == "index", "Kka index field");
-            failures += Expect(guildMemberInfoSchema->fields[1].name == "data", "Kka data field");
-            failures += Expect(guildMemberInfoSchema->fields[0].typeToken == "unknown", "Kka raw index type");
-            failures += Expect(guildMemberInfoSchema->fields[1].typeToken == "unknown", "Kka raw data type");
+            const FieldSchema& indexField = guildMemberInfoSchema->fields[0];
+            failures += Expect(
+                indexField.index == 0U &&
+                    indexField.name == "index" &&
+                    indexField.typeToken == "unknown" &&
+                    indexField.rawSpec == "{index}" &&
+                    indexField.source == "xlsx",
+                "Kka raw index field");
+            const FieldSchema& dataField = guildMemberInfoSchema->fields[1];
+            failures += Expect(
+                dataField.index == 1U &&
+                    dataField.name == "data" &&
+                    dataField.typeToken == "unknown" &&
+                    dataField.rawSpec == "{data}" &&
+                    dataField.source == "xlsx",
+                "Kka raw data field");
         }
+        failures += Expect(guildMemberInfoSchema->hasResolvedFormat, "Kka resolvedFormat present");
+        failures += Expect(guildMemberInfoSchema->resolvedFormat == "{index:i62} {data:es}", "Kka resolvedFormat");
+        failures += Expect(
+            guildMemberInfoSchema->resolvedSource == "xlsx+ServerC+ClientIda+src/packet",
+            "Kka resolvedSource");
+        failures += Expect(guildMemberInfoSchema->hasResolvedFields, "Kka resolvedFields present");
+        failures += Expect(guildMemberInfoSchema->resolvedFields.size() == 2U, "Kka resolved field count");
+        if (guildMemberInfoSchema->resolvedFields.size() == 2U) {
+            const FieldSchema& indexField = guildMemberInfoSchema->resolvedFields[0];
+            failures += Expect(
+                indexField.index == 0U &&
+                    indexField.name == "index" &&
+                    indexField.typeToken == "i62" &&
+                    indexField.rawSpec == "{index:i62}" &&
+                    indexField.source == "xlsx+ServerC+ClientIda+src/packet",
+                "Kka resolved index field");
+            const FieldSchema& dataField = guildMemberInfoSchema->resolvedFields[1];
+            failures += Expect(
+                dataField.index == 1U &&
+                    dataField.name == "data" &&
+                    dataField.typeToken == "es" &&
+                    dataField.rawSpec == "{data:es}" &&
+                    dataField.source == "xlsx+ServerC+ClientIda+src/packet",
+                "Kka resolved data field");
+        }
+        failures += Expect(
+            cg::packet::receive::GuildMemberInfo::Spec.fieldCount == 2U,
+            "Kka Spec exact2");
+        failures += ExpectEffectiveFieldsMatch(
+            *guildMemberInfoSchema,
+            cg::packet::receive::GuildMemberInfo::Spec,
+            "Kka Spec matches effective fields");
+        failures += Expect(packet.HasValue(), "Kka packet build");
         if (packet.HasValue()) {
-            failures += Expect(packet.Value().fields.size() == 2U, "Kka packet field count");
+            failures += Expect(packet.Value().fields.size() == 2U, "Kka ToPacket exact2");
             if (packet.Value().fields.size() == 2U) {
                 failures += Expect(packet.Value().fields[0].name == "index", "Kka packet index field");
                 failures += Expect(
@@ -14074,11 +14124,21 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
                     "Kka packet index type");
                 failures += Expect(packet.Value().fields[1].name == "data", "Kka packet data field");
                 failures += Expect(
-                    packet.Value().fields[1].type == cg::packet::PacketFieldType::EscapedString,
+                    packet.Value().fields[1].type == cg::packet::PacketFieldType::SubPayload,
                     "Kka packet data type");
             }
+            failures += ExpectResolvedFieldsMatch(
+                *guildMemberInfoSchema,
+                packet.Value(),
+                "Kka ToPacket field order");
         }
     }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "Kka"),
+        "Kka absent from send typed manifest");
+    failures += Expect(
+        TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "Kka"),
+        "Kka present in receive typed manifest");
 
     const PacketSchema* guildMemberRemovalNotificationSchema =
         FindPacket(packets, "oRut");

@@ -2919,6 +2919,68 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "lDuJ"),
         "lDuJ present in receive typed manifest");
 
+    const PacketSchema* ridePetDataSchema = FindPacket(packets, "IsSy");
+    failures += Expect(ridePetDataSchema != nullptr, "IsSy schema exists");
+    if (ridePetDataSchema != nullptr) {
+        const cg::packet::receive::RidePetData ridePetData(
+            2,
+            cg::packet::receive::RidePetPayload::Clear());
+        const cg::packet::PacketResult<cg::packet::Packet> packet = ridePetData.ToPacket();
+        constexpr std::string_view resolvedSource = "ServerC+ClientIda+src/packet";
+        const std::array<std::string_view, 2U> names = {{"petIndex", "data"}};
+        const std::array<std::string_view, 2U> types = {{"i62", "es"}};
+        const std::array<std::string_view, 2U> specs = {{
+            "{petIndex:i62}",
+            "{data:es}",
+        }};
+
+        failures += Expect(ridePetDataSchema->direction == "服务端->客户端", "IsSy direction");
+        failures += Expect(ridePetDataSchema->legacyKind == "SEND", "IsSy legacyKind");
+        failures += Expect(ridePetDataSchema->clientNamespace == "receive", "IsSy namespace");
+        failures += Expect(ridePetDataSchema->rawFormat.empty(), "IsSy rawFormat empty");
+        failures += Expect(ridePetDataSchema->formatEmpty, "IsSy formatEmpty true");
+        failures += Expect(ridePetDataSchema->source == "xlsx", "IsSy raw source");
+        failures += Expect(ridePetDataSchema->fields.empty(), "IsSy raw fields empty");
+        failures += Expect(ridePetDataSchema->hasResolvedFormat, "IsSy resolvedFormat present");
+        failures += Expect(
+            ridePetDataSchema->resolvedFormat == "{petIndex:i62} {data:es}",
+            "IsSy resolvedFormat");
+        failures += Expect(
+            ridePetDataSchema->resolvedSource == resolvedSource,
+            "IsSy resolvedSource");
+        failures += Expect(ridePetDataSchema->hasResolvedFields, "IsSy resolvedFields present");
+        failures += Expect(
+            ridePetDataSchema->resolvedFields.size() == names.size(),
+            "IsSy resolved field count");
+        if (ridePetDataSchema->resolvedFields.size() == names.size()) {
+            for (std::size_t index = 0; index < names.size(); ++index) {
+                const FieldSchema& field = ridePetDataSchema->resolvedFields[index];
+                failures += Expect(field.index == static_cast<int>(index), "IsSy resolved field index");
+                failures += Expect(field.name == names[index], "IsSy resolved field name");
+                failures += Expect(field.typeToken == types[index], "IsSy resolved field type");
+                failures += Expect(field.rawSpec == specs[index], "IsSy resolved field spec");
+                failures += Expect(field.source == resolvedSource, "IsSy resolved field source");
+            }
+        }
+        failures += ExpectEffectiveFieldsMatch(
+            *ridePetDataSchema,
+            cg::packet::receive::RidePetData::Spec,
+            "IsSy Spec matches effective fields");
+        failures += Expect(packet.HasValue(), "IsSy ToPacket");
+        if (packet.HasValue()) {
+            failures += ExpectResolvedFieldsMatch(
+                *ridePetDataSchema,
+                packet.Value(),
+                "IsSy resolved field order");
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "IsSy"),
+        "IsSy absent from send typed manifest");
+    failures += Expect(
+        TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "IsSy"),
+        "IsSy present in receive typed manifest");
+
     const PacketSchema* techListSchema = FindPacket(packets, "Rspn");
     failures += Expect(techListSchema != nullptr, "Rspn schema exists");
     if (techListSchema != nullptr) {

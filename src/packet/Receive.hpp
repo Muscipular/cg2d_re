@@ -14251,7 +14251,7 @@ namespace cg::packet::receive
 
     /**
      * SEND_KP CHAR_send_KP_String 骑宠资料		IsSy {petIndex:i62} {data:es}
-     * data: literal `0` 表示清空；`1|` 表示 full/all marker；partial 为 `flags|field...|`。
+     * data: literal `0` 表示清空；`flags == 1` 为 all marker，但必须携带全部 25 个字段；partial 仅允许 bit1..bit25。
      */
     struct RidePetData
     {
@@ -14259,7 +14259,7 @@ namespace cg::packet::receive
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
             {CG_PACKET_DIAGNOSTIC_TEXT("petIndex"), PacketFieldType::Int62},
-            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::SubPayload},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -14279,18 +14279,43 @@ namespace cg::packet::receive
         }
 
 #if CG_PACKET_ENABLE_TEST_HELPERS
-        [[nodiscard]] std::string BuildData() const
+        [[nodiscard]] PacketResult<std::string> BuildData() const
         {
             if (payload.clear) {
-                return "0";
+                return PacketResult<std::string>::Success("0");
             }
 
-            if (payload.fullMarker) {
-                return "1|";
+            if (payload.flags == 0) {
+                return PacketResult<std::string>::Failure(MakeFieldError(
+                    PacketErrorCode::EncodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT("RidePetData active flags 不能为 0"),
+                    DataFieldIndex));
+            }
+            if (payload.flags != RidePetPayload::FullMarkerFlag &&
+                (payload.flags & RidePetPayload::FullMarkerFlag) != 0) {
+                return PacketResult<std::string>::Failure(MakeFieldError(
+                    PacketErrorCode::EncodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT("RidePetData partial flags 不允许 bit0"),
+                    DataFieldIndex));
+            }
+            if (payload.flags < 0 ||
+                (payload.flags != RidePetPayload::FullMarkerFlag &&
+                    (payload.flags & ~PartialFlagsMask) != 0)) {
+                return PacketResult<std::string>::Failure(MakeFieldError(
+                    PacketErrorCode::EncodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT("RidePetData flags 包含未知 bit"),
+                    DataFieldIndex));
             }
 
             PacketResult<std::string> encodedFlags = EncodeInt62(payload.flags);
-            std::string data = encodedFlags.HasValue() ? encodedFlags.Value() : std::string();
+            if (!encodedFlags.HasValue()) {
+                PacketError error = encodedFlags.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = DataFieldIndex;
+                return PacketResult<std::string>::Failure(std::move(error));
+            }
+
+            std::string data = std::move(encodedFlags.Value());
             data.push_back('|');
             AppendNumberField(data, payload.flags, BaseImageNumberFlag, payload.baseImageNumber);
             AppendNumberField(data, payload.flags, TribeFlag, payload.tribe);
@@ -14313,17 +14338,38 @@ namespace cg::packet::receive
             AppendNumberField(data, payload.flags, WindFlag, payload.wind);
             AppendNumberField(data, payload.flags, SlotFlag, payload.slot);
             AppendNumberField(data, payload.flags, ChangeNameFlag, payload.changeNameFlag);
-            AppendStringField(data, payload.flags, NameFlag, payload.name);
-            AppendStringField(data, payload.flags, UserPetNameFlag, payload.userPetName);
+            PacketResult<bool> appended = AppendStringField(
+                data,
+                payload.flags,
+                NameFlag,
+                NamePayloadFieldIndex,
+                payload.name);
+            if (!appended.HasValue()) {
+                return PacketResult<std::string>::Failure(appended.Error());
+            }
+            appended = AppendStringField(
+                data,
+                payload.flags,
+                UserPetNameFlag,
+                UserPetNamePayloadFieldIndex,
+                payload.userPetName);
+            if (!appended.HasValue()) {
+                return PacketResult<std::string>::Failure(appended.Error());
+            }
             AppendNumberField(data, payload.flags, DepartureBattleStatusFlag, payload.departureBattleStatus);
             AppendNumberField(data, payload.flags, InjuryFlag, payload.injury);
-            return data;
+            return PacketResult<std::string>::Success(std::move(data));
         }
 #endif
 
 #if CG_PACKET_ENABLE_TEST_HELPERS
-        [[nodiscard]] Packet ToPacket() const
+        [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
+            PacketResult<std::string> data = BuildData();
+            if (!data.HasValue()) {
+                return PacketResult<Packet>::Failure(data.Error());
+            }
+
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("petIndex"),
@@ -14332,10 +14378,10 @@ namespace cg::packet::receive
             });
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("data"),
-                PacketFieldType::EscapedString,
-                BuildData(),
+                PacketFieldType::SubPayload,
+                std::move(data.Value()),
             });
-            return packet;
+            return PacketResult<Packet>::Success(std::move(packet));
         }
 #endif
 
@@ -14413,6 +14459,8 @@ namespace cg::packet::receive
         static constexpr std::size_t FieldCount = 2U;
         static constexpr std::size_t PetIndexFieldIndex = 0U;
         static constexpr std::size_t DataFieldIndex = 1U;
+        static constexpr std::size_t NamePayloadFieldIndex = 22U;
+        static constexpr std::size_t UserPetNamePayloadFieldIndex = 23U;
         static constexpr int BaseImageNumberFlag = 1 << 1;
         static constexpr int TribeFlag = 1 << 2;
         static constexpr int HpFlag = 1 << 3;
@@ -14439,6 +14487,7 @@ namespace cg::packet::receive
         static constexpr int DepartureBattleStatusFlag = 1 << 24;
         static constexpr int InjuryFlag = 1 << 25;
         static constexpr int PartialFlagsMask = (1 << 26) - 2;
+        static constexpr std::size_t PayloadFieldCount = 25U;
 
         [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
@@ -14457,9 +14506,14 @@ namespace cg::packet::receive
             return error;
         }
 
+        [[nodiscard]] static bool ShouldAppendField(int flags, int flag) noexcept
+        {
+            return flags == RidePetPayload::FullMarkerFlag || (flags & flag) != 0;
+        }
+
         static void AppendNumberField(std::string& data, int flags, int flag, int value)
         {
-            if ((flags & flag) == 0) {
+            if (!ShouldAppendField(flags, flag)) {
                 return;
             }
 
@@ -14467,14 +14521,28 @@ namespace cg::packet::receive
             data.push_back('|');
         }
 
-        static void AppendStringField(std::string& data, int flags, int flag, const std::string& value)
+        [[nodiscard]] static PacketResult<bool> AppendStringField(
+            std::string& data,
+            int flags,
+            int flag,
+            std::size_t fieldIndex,
+            const std::string& value)
         {
-            if ((flags & flag) == 0) {
-                return;
+            if (!ShouldAppendField(flags, flag)) {
+                return PacketResult<bool>::Success(true);
             }
 
-            data.append(value);
+            PacketResult<std::string> encoded = EncodeLegacyPayloadText(value);
+            if (!encoded.HasValue()) {
+                PacketError error = encoded.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = fieldIndex;
+                return PacketResult<bool>::Failure(std::move(error));
+            }
+
+            data.append(encoded.Value());
             data.push_back('|');
+            return PacketResult<bool>::Success(true);
         }
 
         [[nodiscard]] static std::size_t CountPayloadFields(int flags) noexcept
@@ -14508,7 +14576,8 @@ namespace cg::packet::receive
                     DataFieldIndex));
             }
 
-            PacketResult<std::vector<std::string>> split = SplitPayload(text, PayloadDelimiter);
+            PacketResult<std::vector<std::string>> split =
+                SplitPayloadLegacyAware(text, PayloadDelimiter);
             if (!split.HasValue()) {
                 PacketError error = split.Error();
                 error.packetCode = PacketCode(Code);
@@ -14547,24 +14616,25 @@ namespace cg::packet::receive
                     DataFieldIndex));
             }
 
+            std::size_t expectedPartCount = 0U;
             if (flags.Value() == RidePetPayload::FullMarkerFlag) {
-                if (parts.size() != 1U) {
+                expectedPartCount = 1U + PayloadFieldCount;
+            } else {
+                if ((flags.Value() & RidePetPayload::FullMarkerFlag) != 0) {
                     return PacketResult<RidePetPayload>::Failure(MakeFieldError(
-                        PacketErrorCode::FieldCountMismatch,
-                        CG_PACKET_DIAGNOSTIC_TEXT("RidePetData full marker 不应携带字段"),
+                        PacketErrorCode::DecodeFailed,
+                        CG_PACKET_DIAGNOSTIC_TEXT("RidePetData partial flags 不允许 bit0"),
                         DataFieldIndex));
                 }
-                return PacketResult<RidePetPayload>::Success(RidePetPayload::FullMarker());
+                if ((flags.Value() & ~PartialFlagsMask) != 0) {
+                    return PacketResult<RidePetPayload>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        CG_PACKET_DIAGNOSTIC_TEXT("RidePetData flags 包含未知 bit"),
+                        DataFieldIndex));
+                }
+                expectedPartCount = 1U + CountPayloadFields(flags.Value());
             }
 
-            if ((flags.Value() & ~PartialFlagsMask) != 0) {
-                return PacketResult<RidePetPayload>::Failure(MakeFieldError(
-                    PacketErrorCode::DecodeFailed,
-                    CG_PACKET_DIAGNOSTIC_TEXT("RidePetData flags 包含未知 bit"),
-                    DataFieldIndex));
-            }
-
-            const std::size_t expectedPartCount = 1U + CountPayloadFields(flags.Value());
             if (parts.size() != expectedPartCount) {
                 return PacketResult<RidePetPayload>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
@@ -14574,6 +14644,7 @@ namespace cg::packet::receive
 
             RidePetPayload payload;
             payload.flags = flags.Value();
+            payload.fullMarker = flags.Value() == RidePetPayload::FullMarkerFlag;
             std::size_t partIndex = 1U;
             PacketResult<bool> parsed = ParseNumberField(parts, partIndex, flags.Value(), BaseImageNumberFlag, &RidePetPayload::baseImageNumber, payload);
             if (!parsed.HasValue()) {
@@ -14659,8 +14730,28 @@ namespace cg::packet::receive
             if (!parsed.HasValue()) {
                 return PacketResult<RidePetPayload>::Failure(parsed.Error());
             }
-            ParseStringField(parts, partIndex, flags.Value(), NameFlag, &RidePetPayload::name, payload);
-            ParseStringField(parts, partIndex, flags.Value(), UserPetNameFlag, &RidePetPayload::userPetName, payload);
+            parsed = ParseStringField(
+                parts,
+                partIndex,
+                flags.Value(),
+                NameFlag,
+                NamePayloadFieldIndex,
+                &RidePetPayload::name,
+                payload);
+            if (!parsed.HasValue()) {
+                return PacketResult<RidePetPayload>::Failure(parsed.Error());
+            }
+            parsed = ParseStringField(
+                parts,
+                partIndex,
+                flags.Value(),
+                UserPetNameFlag,
+                UserPetNamePayloadFieldIndex,
+                &RidePetPayload::userPetName,
+                payload);
+            if (!parsed.HasValue()) {
+                return PacketResult<RidePetPayload>::Failure(parsed.Error());
+            }
             parsed = ParseNumberField(parts, partIndex, flags.Value(), DepartureBattleStatusFlag, &RidePetPayload::departureBattleStatus, payload);
             if (!parsed.HasValue()) {
                 return PacketResult<RidePetPayload>::Failure(parsed.Error());
@@ -14681,7 +14772,7 @@ namespace cg::packet::receive
             int RidePetPayload::* member,
             RidePetPayload& payload)
         {
-            if ((flags & flag) == 0) {
+            if (!ShouldAppendField(flags, flag)) {
                 return PacketResult<bool>::Success(true);
             }
 
@@ -14695,20 +14786,30 @@ namespace cg::packet::receive
             return PacketResult<bool>::Success(true);
         }
 
-        static void ParseStringField(
+        [[nodiscard]] static PacketResult<bool> ParseStringField(
             const std::vector<std::string>& parts,
             std::size_t& partIndex,
             int flags,
             int flag,
+            std::size_t fieldIndex,
             std::string RidePetPayload::* member,
             RidePetPayload& payload)
         {
-            if ((flags & flag) == 0) {
-                return;
+            if (!ShouldAppendField(flags, flag)) {
+                return PacketResult<bool>::Success(true);
             }
 
-            payload.*member = parts[partIndex];
+            PacketResult<std::string> decoded = DecodeLegacyPayloadText(parts[partIndex]);
+            if (!decoded.HasValue()) {
+                PacketError error = decoded.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = fieldIndex;
+                return PacketResult<bool>::Failure(std::move(error));
+            }
+
+            payload.*member = std::move(decoded.Value());
             ++partIndex;
+            return PacketResult<bool>::Success(true);
         }
 
         [[nodiscard]] static PacketResult<int> ParseDecimalField(std::string_view text, std::size_t fieldIndex)

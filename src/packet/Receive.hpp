@@ -16293,20 +16293,21 @@ namespace cg::packet::receive
 
     struct FrontCharRecord
     {
+        // legacy payload text 解码后的语义字节串。
         std::string name;
         int nonPlayerFlag = 0;
     };
 
     /**
      * SEND_GFL CHAR_sendFrontCharList		ysVc {data:es}
-     * data: `name|nonPlayerFlag|` 重复记录，空 data 表示空列表；name 保留 makeEscapeString 后的 raw 字符串。
+     * data: `name|nonPlayerFlag|` 重复 0..10 条记录，固定尾随 `|`；name 使用单层 legacy 编解码。
      */
     struct FrontCharList
     {
         static constexpr std::string_view Code = "ysVc";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
-            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::SubPayload},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -16315,6 +16316,7 @@ namespace cg::packet::receive
             Fields.size(),
         };
         static constexpr std::string_view PayloadDelimiter = "|";
+        static constexpr std::size_t MaxRecordCount = 10U;
 
         std::vector<FrontCharRecord> records;
 
@@ -16326,21 +16328,33 @@ namespace cg::packet::receive
 #if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] PacketResult<std::string> BuildData() const
         {
-            return Codec::BuildData(records, Code, CG_PACKET_DIAGNOSTIC_TEXT("FrontCharList"));
+            return Codec::BuildData(
+                records,
+                Code,
+                CG_PACKET_DIAGNOSTIC_TEXT("FrontCharList"),
+                MaxRecordCount);
         }
 #endif
 
 #if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
-            return Codec::ToPacket(records, Code, CG_PACKET_DIAGNOSTIC_TEXT("FrontCharList"));
+            return Codec::ToPacket(
+                records,
+                Code,
+                CG_PACKET_DIAGNOSTIC_TEXT("FrontCharList"),
+                MaxRecordCount);
         }
 #endif
 
         static PacketResult<FrontCharList> Parse(std::string_view view)
         {
             PacketResult<std::vector<FrontCharRecord>> records =
-                Codec::Parse(view, Spec, CG_PACKET_DIAGNOSTIC_TEXT("FrontCharList"));
+                Codec::Parse(
+                    view,
+                    Spec,
+                    CG_PACKET_DIAGNOSTIC_TEXT("FrontCharList"),
+                    MaxRecordCount);
             if (!records.HasValue()) {
                 return PacketResult<FrontCharList>::Failure(records.Error());
             }
@@ -16363,20 +16377,38 @@ namespace cg::packet::receive
             [[nodiscard]] static PacketResult<std::string> BuildData(
                 std::span<const FrontCharRecord> records,
                 std::string_view code,
-                std::string_view packetName)
+                std::string_view packetName,
+                std::size_t maxRecordCount)
             {
+                if (records.size() > maxRecordCount) {
+                    return PacketResult<std::string>::Failure(MakeFieldError(
+                        code,
+                        PacketErrorCode::EncodeFailed,
+                        MakeMessage(packetName, CG_PACKET_DIAGNOSTIC_TEXT("record 数量超过协议上限")),
+                        DataFieldIndex));
+                }
+
                 std::string payload;
                 for (std::size_t recordIndex = 0; recordIndex < records.size(); ++recordIndex) {
                     const FrontCharRecord& record = records[recordIndex];
+                    const std::size_t baseIndex = recordIndex * RecordFieldCount;
+                    PacketResult<std::string> encodedName = EncodeLegacyPayloadText(record.name);
+                    if (!encodedName.HasValue()) {
+                        PacketError error = encodedName.Error();
+                        error.packetCode = PacketCode(code);
+                        error.fieldIndex = baseIndex;
+                        return PacketResult<std::string>::Failure(std::move(error));
+                    }
+
                     if (record.nonPlayerFlag != 0 && record.nonPlayerFlag != 1) {
                         return PacketResult<std::string>::Failure(MakeFieldError(
                             code,
                             PacketErrorCode::EncodeFailed,
                             MakeMessage(packetName, CG_PACKET_DIAGNOSTIC_TEXT("nonPlayerFlag 只能为 0 或 1")),
-                            (recordIndex * RecordFieldCount) + 1U));
+                            baseIndex + 1U));
                     }
 
-                    payload.append(record.name);
+                    payload.append(encodedName.Value());
                     payload.push_back('|');
                     payload.append(std::to_string(record.nonPlayerFlag));
                     payload.push_back('|');
@@ -16389,9 +16421,11 @@ namespace cg::packet::receive
             [[nodiscard]] static PacketResult<Packet> ToPacket(
                 std::span<const FrontCharRecord> records,
                 std::string_view code,
-                std::string_view packetName)
+                std::string_view packetName,
+                std::size_t maxRecordCount)
             {
-                PacketResult<std::string> data = BuildData(records, code, packetName);
+                PacketResult<std::string> data =
+                    BuildData(records, code, packetName, maxRecordCount);
                 if (!data.HasValue()) {
                     return PacketResult<Packet>::Failure(data.Error());
                 }
@@ -16399,8 +16433,8 @@ namespace cg::packet::receive
                 Packet packet(PacketCode(code), Direction);
                 packet.fields.push_back(PacketField {
                     CG_PACKET_DIAGNOSTIC_TEXT("data"),
-                    PacketFieldType::EscapedString,
-                    data.Value(),
+                    PacketFieldType::SubPayload,
+                    std::move(data.Value()),
                 });
                 return PacketResult<Packet>::Success(std::move(packet));
             }
@@ -16409,7 +16443,8 @@ namespace cg::packet::receive
             [[nodiscard]] static PacketResult<std::vector<FrontCharRecord>> Parse(
                 std::string_view view,
                 const PacketSpec& packetSpec,
-                std::string_view packetName)
+                std::string_view packetName,
+                std::size_t maxRecordCount)
             {
                 const std::string_view code = packetSpec.code;
                 PacketResult<Packet> parsed = ParsePacket(view, packetSpec);
@@ -16459,7 +16494,7 @@ namespace cg::packet::receive
                         DataFieldIndex));
                 }
 
-                return ParseRecords(field.value, code, packetName);
+                return ParseRecords(field.value, code, packetName, maxRecordCount);
             }
 
         private:
@@ -16495,7 +16530,8 @@ namespace cg::packet::receive
             [[nodiscard]] static PacketResult<std::vector<FrontCharRecord>> ParseRecords(
                 std::string_view payload,
                 std::string_view code,
-                std::string_view packetName)
+                std::string_view packetName,
+                std::size_t maxRecordCount)
             {
                 if (payload.empty()) {
                     return PacketResult<std::vector<FrontCharRecord>>::Success({});
@@ -16509,7 +16545,8 @@ namespace cg::packet::receive
                         DataFieldIndex));
                 }
 
-                PacketResult<std::vector<std::string>> split = SplitPayload(payload, PayloadDelimiter);
+                PacketResult<std::vector<std::string>> split =
+                    SplitPayloadLegacyAware(payload, PayloadDelimiter);
                 if (!split.HasValue()) {
                     PacketError error = split.Error();
                     error.packetCode = PacketCode(code);
@@ -16517,20 +16554,30 @@ namespace cg::packet::receive
                     return PacketResult<std::vector<FrontCharRecord>>::Failure(std::move(error));
                 }
 
-                std::vector<std::string> parts = std::move(split.Value());
-                parts.pop_back();
-                if ((parts.size() % RecordFieldCount) != 0U) {
+                const std::vector<std::string>& parts = split.Value();
+                if (parts.size() > (maxRecordCount * RecordFieldCount) + 1U ||
+                    ((parts.size() - 1U) % RecordFieldCount) != 0U ||
+                    !parts.back().empty()) {
                     return PacketResult<std::vector<FrontCharRecord>>::Failure(MakeFieldError(
                         code,
                         PacketErrorCode::FieldCountMismatch,
-                        MakeMessage(packetName, CG_PACKET_DIAGNOSTIC_TEXT("payload 段数量不是 2 的倍数")),
+                        MakeMessage(packetName, CG_PACKET_DIAGNOSTIC_TEXT("payload 不符合固定 2 段记录或协议数量上限")),
                         DataFieldIndex));
                 }
 
                 std::vector<FrontCharRecord> records;
-                records.reserve(parts.size() / RecordFieldCount);
-                for (std::size_t recordIndex = 0; recordIndex < parts.size() / RecordFieldCount; ++recordIndex) {
+                const std::size_t recordCount = (parts.size() - 1U) / RecordFieldCount;
+                records.reserve(recordCount);
+                for (std::size_t recordIndex = 0; recordIndex < recordCount; ++recordIndex) {
                     const std::size_t baseIndex = recordIndex * RecordFieldCount;
+                    PacketResult<std::string> name = DecodeLegacyPayloadText(parts[baseIndex]);
+                    if (!name.HasValue()) {
+                        PacketError error = name.Error();
+                        error.packetCode = PacketCode(code);
+                        error.fieldIndex = baseIndex;
+                        return PacketResult<std::vector<FrontCharRecord>>::Failure(std::move(error));
+                    }
+
                     PacketResult<int> nonPlayerFlag =
                         ParseNonPlayerFlag(parts[baseIndex + 1U], baseIndex + 1U, code, packetName);
                     if (!nonPlayerFlag.HasValue()) {
@@ -16538,7 +16585,7 @@ namespace cg::packet::receive
                     }
 
                     records.push_back(FrontCharRecord {
-                        parts[baseIndex],
+                        std::move(name.Value()),
                         nonPlayerFlag.Value(),
                     });
                 }
@@ -16598,14 +16645,14 @@ namespace cg::packet::receive
 
     /**
      * SEND_GFLI CHAR_sendFrontCharList		LY {data:es}
-     * data: `name|nonPlayerFlag|` 重复记录，空 data 表示空列表；name 保留 makeEscapeString 后的 raw 字符串。
+     * data: `name|nonPlayerFlag|` 重复 0..9 条记录，固定尾随 `|`；name 使用单层 legacy 编解码。
      */
     struct ItemFrontCharList
     {
         static constexpr std::string_view Code = "LY";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
-            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::SubPayload},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -16614,6 +16661,7 @@ namespace cg::packet::receive
             Fields.size(),
         };
         static constexpr std::string_view PayloadDelimiter = "|";
+        static constexpr std::size_t MaxRecordCount = 9U;
 
         std::vector<FrontCharRecord> records;
 
@@ -16625,21 +16673,33 @@ namespace cg::packet::receive
 #if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] PacketResult<std::string> BuildData() const
         {
-            return FrontCharList::Codec::BuildData(records, Code, CG_PACKET_DIAGNOSTIC_TEXT("ItemFrontCharList"));
+            return FrontCharList::Codec::BuildData(
+                records,
+                Code,
+                CG_PACKET_DIAGNOSTIC_TEXT("ItemFrontCharList"),
+                MaxRecordCount);
         }
 #endif
 
 #if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
-            return FrontCharList::Codec::ToPacket(records, Code, CG_PACKET_DIAGNOSTIC_TEXT("ItemFrontCharList"));
+            return FrontCharList::Codec::ToPacket(
+                records,
+                Code,
+                CG_PACKET_DIAGNOSTIC_TEXT("ItemFrontCharList"),
+                MaxRecordCount);
         }
 #endif
 
         static PacketResult<ItemFrontCharList> Parse(std::string_view view)
         {
             PacketResult<std::vector<FrontCharRecord>> records =
-                FrontCharList::Codec::Parse(view, Spec, CG_PACKET_DIAGNOSTIC_TEXT("ItemFrontCharList"));
+                FrontCharList::Codec::Parse(
+                    view,
+                    Spec,
+                    CG_PACKET_DIAGNOSTIC_TEXT("ItemFrontCharList"),
+                    MaxRecordCount);
             if (!records.HasValue()) {
                 return PacketResult<ItemFrontCharList>::Failure(records.Error());
             }

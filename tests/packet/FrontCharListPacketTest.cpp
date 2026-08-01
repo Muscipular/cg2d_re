@@ -1,6 +1,7 @@
 #include "packet/PacketBuilder.hpp"
 #include "packet/Receive.hpp"
 
+#include <cstddef>
 #include <iostream>
 #include <string>
 #include <string_view>
@@ -51,6 +52,54 @@ int ExpectError(
     return failures;
 }
 
+template <typename T>
+int ExpectFieldError(
+    const cg::packet::PacketResult<T>& result,
+    cg::packet::PacketErrorCode code,
+    std::string_view packetCode,
+    std::size_t fieldIndex,
+    const char* message)
+{
+    int failures = ExpectError(result, code, packetCode, message);
+    if (!result.HasError()) {
+        return failures;
+    }
+
+    failures += Expect(result.Error().fieldIndex.has_value(), message);
+    if (result.Error().fieldIndex.has_value()) {
+        failures += Expect(result.Error().fieldIndex.value() == fieldIndex, message);
+    }
+    return failures;
+}
+
+std::string EncodeLegacy(std::string_view value)
+{
+    const cg::packet::PacketResult<std::string> encoded =
+        cg::packet::EncodeLegacyPayloadText(value);
+    return encoded.HasValue() ? encoded.Value() : std::string();
+}
+
+std::string WithGbkTrailPipe(std::string_view prefix)
+{
+    std::string value(prefix);
+    value.push_back(static_cast<char>(0x96));
+    value.push_back(static_cast<char>(0x7C));
+    return value;
+}
+
+std::string BuildRecordsData(
+    const std::vector<cg::packet::receive::FrontCharRecord>& records)
+{
+    std::string data;
+    for (const cg::packet::receive::FrontCharRecord& record : records) {
+        data.append(EncodeLegacy(record.name));
+        data.push_back('|');
+        data.append(std::to_string(record.nonPlayerFlag));
+        data.push_back('|');
+    }
+    return data;
+}
+
 std::string BuildPlainYsVc(std::string_view payload)
 {
     const cg::packet::PacketResult<std::string> encodedPayload = cg::packet::EncodeEscapedString(payload);
@@ -67,6 +116,7 @@ std::string BuildPlainYsVc(std::string_view payload)
 int ExpectFrontCharListPacket(
     const cg::packet::Packet& packet,
     std::string_view value,
+    cg::packet::PacketFieldType dataType,
     const char* message)
 {
     int failures = 0;
@@ -78,7 +128,7 @@ int ExpectFrontCharListPacket(
     }
 
     failures += Expect(packet.fields[0].name == "data", message);
-    failures += Expect(packet.fields[0].type == cg::packet::PacketFieldType::EscapedString, message);
+    failures += Expect(packet.fields[0].type == dataType, message);
     failures += Expect(packet.fields[0].value == value, message);
     return failures;
 }
@@ -86,11 +136,12 @@ int ExpectFrontCharListPacket(
 int ExpectFrontCharListPacket(
     const cg::packet::PacketResult<cg::packet::Packet>& packet,
     std::string_view value,
+    cg::packet::PacketFieldType dataType,
     const char* message)
 {
     int failures = Expect(static_cast<bool>(packet), message);
     if (packet.HasValue()) {
-        failures += ExpectFrontCharListPacket(packet.Value(), value, message);
+        failures += ExpectFrontCharListPacket(packet.Value(), value, dataType, message);
     }
     return failures;
 }
@@ -125,9 +176,17 @@ int TestParsePacketOuter()
     const std::string payload = "Alice|0|Pet|1|";
     const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(BuildPlainYsVc(payload));
 
-    int failures = Expect(static_cast<bool>(parsed), "parse ysVc outer");
+    int failures = Expect(
+        cg::packet::receive::FrontCharList::Fields[0U].type ==
+            cg::packet::PacketFieldType::SubPayload,
+        "ysVc data spec SubPayload");
+    failures += Expect(static_cast<bool>(parsed), "parse ysVc outer");
     if (parsed.HasValue()) {
-        failures += ExpectFrontCharListPacket(parsed.Value(), payload, "parse ysVc outer packet");
+        failures += ExpectFrontCharListPacket(
+            parsed.Value(),
+            payload,
+            cg::packet::PacketFieldType::EscapedString,
+            "parse ysVc outer packet");
     }
     return failures;
 }
@@ -141,6 +200,11 @@ int TestEmptyData()
     if (parsed.HasValue()) {
         failures += Expect(parsed.Value().records.empty(), "ysVc empty data record count");
         failures += ExpectBuildData(parsed.Value(), "", "ysVc empty data BuildData");
+        failures += ExpectFrontCharListPacket(
+            parsed.Value().ToPacket(),
+            "",
+            cg::packet::PacketFieldType::SubPayload,
+            "ysVc empty data ToPacket");
     }
     return failures;
 }
@@ -165,33 +229,85 @@ int TestTwoRecords()
     return failures;
 }
 
-int TestRawNamePreserved()
+int TestTenRecords()
 {
-    const std::string payload = "A\\zB\\cC\\yD\\nE|0|";
-    const cg::packet::PacketResult<cg::packet::receive::FrontCharList> parsed =
-        cg::packet::receive::FrontCharList::Parse(BuildPlainYsVc(payload));
-
-    int failures = Expect(static_cast<bool>(parsed), "parse ysVc raw name");
-    if (!parsed.HasValue()) {
-        return failures;
+    std::vector<cg::packet::receive::FrontCharRecord> records;
+    records.reserve(10U);
+    for (int index = 0; index < 10; ++index) {
+        records.push_back(cg::packet::receive::FrontCharRecord {
+            index == 9 ? WithGbkTrailPipe("Name9") : "Name" + std::to_string(index),
+            index % 2,
+        });
     }
+    const std::string lastName = records.back().name;
+    const std::string payload = BuildRecordsData(records);
+    const cg::packet::receive::FrontCharList value(std::move(records));
 
-    failures += Expect(parsed.Value().records.size() == 1U, "ysVc raw name record count");
-    if (parsed.Value().records.size() == 1U) {
-        failures += ExpectRecord(parsed.Value().records[0], "A\\zB\\cC\\yD\\nE", 0, "ysVc raw name record");
-    }
-    failures += ExpectBuildData(parsed.Value(), payload, "ysVc raw name BuildData");
-
-    const cg::packet::PacketResult<cg::packet::Packet> packet = parsed.Value().ToPacket();
-    failures += ExpectFrontCharListPacket(packet, payload, "ysVc raw name ToPacket");
+    int failures = ExpectBuildData(value, payload, "ysVc ten records BuildData");
+    const cg::packet::PacketResult<cg::packet::Packet> packet = value.ToPacket();
+    failures += ExpectFrontCharListPacket(
+        packet,
+        payload,
+        cg::packet::PacketFieldType::SubPayload,
+        "ysVc ten records ToPacket");
     if (!packet.HasValue()) {
         return failures;
     }
 
     const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
-    failures += Expect(static_cast<bool>(built), "build ysVc raw name packet");
+    failures += Expect(static_cast<bool>(built), "build ysVc ten records packet");
+    if (!built.HasValue()) {
+        return failures;
+    }
+    const cg::packet::PacketResult<cg::packet::receive::FrontCharList> parsed =
+        cg::packet::receive::FrontCharList::Parse(built.Value());
+    failures += Expect(static_cast<bool>(parsed), "parse ysVc ten records");
+    if (parsed.HasValue()) {
+        failures += Expect(parsed.Value().records.size() == 10U, "ysVc ten-record upper bound");
+        if (parsed.Value().records.size() == 10U) {
+            failures += ExpectRecord(parsed.Value().records[9], lastName, 1, "ysVc tenth semantic record");
+        }
+    }
+    return failures;
+}
+
+int TestSemanticNameRoundtrip()
+{
+    std::string name = "A|B,C\\D\nE";
+    name.push_back(static_cast<char>(0x96));
+    name.push_back(static_cast<char>(0x7C));
+    std::string payload = "A\\zB\\cC\\yD\\nE";
+    payload.push_back(static_cast<char>(0x96));
+    payload.push_back(static_cast<char>(0x7C));
+    payload.append("|0|");
+    const cg::packet::PacketResult<cg::packet::receive::FrontCharList> parsed =
+        cg::packet::receive::FrontCharList::Parse(BuildPlainYsVc(payload));
+
+    int failures = Expect(static_cast<bool>(parsed), "parse ysVc semantic GBK/legacy name");
+    if (!parsed.HasValue()) {
+        return failures;
+    }
+
+    failures += Expect(parsed.Value().records.size() == 1U, "ysVc one record count");
+    if (parsed.Value().records.size() == 1U) {
+        failures += ExpectRecord(parsed.Value().records[0], name, 0, "ysVc semantic name record");
+    }
+    failures += ExpectBuildData(parsed.Value(), payload, "ysVc semantic name BuildData");
+
+    const cg::packet::PacketResult<cg::packet::Packet> packet = parsed.Value().ToPacket();
+    failures += ExpectFrontCharListPacket(
+        packet,
+        payload,
+        cg::packet::PacketFieldType::SubPayload,
+        "ysVc semantic name ToPacket");
+    if (!packet.HasValue()) {
+        return failures;
+    }
+
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
+    failures += Expect(static_cast<bool>(built), "build ysVc semantic name packet");
     if (built.HasValue()) {
-        failures += Expect(built.Value() == BuildPlainYsVc(payload), "ysVc raw name roundtrip");
+        failures += Expect(built.Value() == BuildPlainYsVc(payload), "ysVc semantic name roundtrip");
     }
     return failures;
 }
@@ -205,7 +321,11 @@ int TestConstructRoundtrip()
     const std::string payload = "Alice|0|Pet|1|";
 
     const cg::packet::PacketResult<cg::packet::Packet> packet = frontCharList.ToPacket();
-    int failures = ExpectFrontCharListPacket(packet, payload, "ysVc ToPacket");
+    int failures = ExpectFrontCharListPacket(
+        packet,
+        payload,
+        cg::packet::PacketFieldType::SubPayload,
+        "ysVc ToPacket");
     if (!packet.HasValue()) {
         return failures;
     }
@@ -229,36 +349,83 @@ int TestConstructRoundtrip()
 int TestErrors()
 {
     int failures = 0;
-    failures += ExpectError(
+    failures += ExpectFieldError(
         cg::packet::receive::FrontCharList::Parse(BuildPlainYsVc("Alice|0")),
         cg::packet::PacketErrorCode::DecodeFailed,
         "ysVc",
+        0U,
         "ysVc missing trailing delimiter");
-    failures += ExpectError(
+    failures += ExpectFieldError(
         cg::packet::receive::FrontCharList::Parse(BuildPlainYsVc("Alice|0|Pet|")),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "ysVc",
+        0U,
         "ysVc odd payload fields");
-    failures += ExpectError(
+    failures += ExpectFieldError(
         cg::packet::receive::FrontCharList::Parse(BuildPlainYsVc("Alice|x|")),
         cg::packet::PacketErrorCode::DecodeFailed,
         "ysVc",
+        1U,
         "ysVc nonPlayerFlag non-decimal");
-    failures += ExpectError(
+    failures += ExpectFieldError(
         cg::packet::receive::FrontCharList::Parse(BuildPlainYsVc("Alice||")),
         cg::packet::PacketErrorCode::DecodeFailed,
         "ysVc",
+        1U,
         "ysVc nonPlayerFlag rejects empty");
-    failures += ExpectError(
+    failures += ExpectFieldError(
         cg::packet::receive::FrontCharList::Parse(BuildPlainYsVc("Alice|2|")),
         cg::packet::PacketErrorCode::DecodeFailed,
         "ysVc",
+        1U,
         "ysVc nonPlayerFlag rejects 2");
-    failures += ExpectError(
+    failures += ExpectFieldError(
         cg::packet::receive::FrontCharList::Parse(BuildPlainYsVc("Alice|-1|")),
         cg::packet::PacketErrorCode::DecodeFailed,
         "ysVc",
+        1U,
         "ysVc nonPlayerFlag rejects -1");
+    failures += ExpectFieldError(
+        cg::packet::receive::FrontCharList::Parse("ysVc"),
+        cg::packet::PacketErrorCode::FieldCountMismatch,
+        "ysVc",
+        0U,
+        "ysVc outer missing data index");
+    failures += ExpectFieldError(
+        cg::packet::receive::FrontCharList::Parse("ysVc data extra "),
+        cg::packet::PacketErrorCode::FieldCountMismatch,
+        "ysVc",
+        1U,
+        "ysVc outer extra field index");
+    failures += ExpectFieldError(
+        cg::packet::receive::FrontCharList::Parse(BuildPlainYsVc("Alice|0|Pet|2|")),
+        cg::packet::PacketErrorCode::DecodeFailed,
+        "ysVc",
+        3U,
+        "ysVc second flag field index");
+    failures += ExpectFieldError(
+        cg::packet::receive::FrontCharList::Parse(BuildPlainYsVc("Name\\|0|")),
+        cg::packet::PacketErrorCode::DecodeFailed,
+        "ysVc",
+        0U,
+        "ysVc first name legacy truncated index");
+    failures += ExpectFieldError(
+        cg::packet::receive::FrontCharList::Parse(BuildPlainYsVc("Alice|0|Name\\|1|")),
+        cg::packet::PacketErrorCode::DecodeFailed,
+        "ysVc",
+        2U,
+        "ysVc second name legacy truncated index");
+
+    const std::vector<cg::packet::receive::FrontCharRecord> elevenRecords(
+        11U,
+        cg::packet::receive::FrontCharRecord {"Name", 0});
+    failures += ExpectFieldError(
+        cg::packet::receive::FrontCharList::Parse(
+            BuildPlainYsVc(BuildRecordsData(elevenRecords))),
+        cg::packet::PacketErrorCode::FieldCountMismatch,
+        "ysVc",
+        0U,
+        "ysVc parse eleven records rejected");
     return failures;
 }
 
@@ -266,29 +433,68 @@ int TestBuildRejectsInvalidNonPlayerFlag()
 {
     int failures = 0;
     const cg::packet::receive::FrontCharList frontCharListWithTwo({cg::packet::receive::FrontCharRecord {"Alice", 2}});
-    failures += ExpectError(
+    failures += ExpectFieldError(
         frontCharListWithTwo.BuildData(),
         cg::packet::PacketErrorCode::EncodeFailed,
         "ysVc",
+        1U,
         "ysVc BuildData rejects 2");
-    failures += ExpectError(
+    failures += ExpectFieldError(
         frontCharListWithTwo.ToPacket(),
         cg::packet::PacketErrorCode::EncodeFailed,
         "ysVc",
+        1U,
         "ysVc ToPacket rejects 2");
 
     const cg::packet::receive::FrontCharList frontCharListWithNegative(
         {cg::packet::receive::FrontCharRecord {"Alice", -1}});
-    failures += ExpectError(
+    failures += ExpectFieldError(
         frontCharListWithNegative.BuildData(),
         cg::packet::PacketErrorCode::EncodeFailed,
         "ysVc",
+        1U,
         "ysVc BuildData rejects -1");
-    failures += ExpectError(
+    failures += ExpectFieldError(
         frontCharListWithNegative.ToPacket(),
         cg::packet::PacketErrorCode::EncodeFailed,
         "ysVc",
+        1U,
         "ysVc ToPacket rejects -1");
+
+    std::string truncatedName(1U, static_cast<char>(0x96));
+    const cg::packet::receive::FrontCharList frontCharListWithTruncatedName({
+        cg::packet::receive::FrontCharRecord {"Alice", 0},
+        cg::packet::receive::FrontCharRecord {std::move(truncatedName), 1},
+    });
+    failures += ExpectFieldError(
+        frontCharListWithTruncatedName.BuildData(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        "ysVc",
+        2U,
+        "ysVc second name BuildData encoding failure index");
+    failures += ExpectFieldError(
+        frontCharListWithTruncatedName.ToPacket(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        "ysVc",
+        2U,
+        "ysVc second name ToPacket encoding failure index");
+
+    const std::vector<cg::packet::receive::FrontCharRecord> elevenRecords(
+        11U,
+        cg::packet::receive::FrontCharRecord {"Name", 0});
+    const cg::packet::receive::FrontCharList frontCharListWithEleven(elevenRecords);
+    failures += ExpectFieldError(
+        frontCharListWithEleven.BuildData(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        "ysVc",
+        0U,
+        "ysVc BuildData rejects eleven records");
+    failures += ExpectFieldError(
+        frontCharListWithEleven.ToPacket(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        "ysVc",
+        0U,
+        "ysVc ToPacket rejects eleven records");
     return failures;
 }
 
@@ -300,7 +506,8 @@ int main()
     failures += TestParsePacketOuter();
     failures += TestEmptyData();
     failures += TestTwoRecords();
-    failures += TestRawNamePreserved();
+    failures += TestTenRecords();
+    failures += TestSemanticNameRoundtrip();
     failures += TestConstructRoundtrip();
     failures += TestErrors();
     failures += TestBuildRejectsInvalidNonPlayerFlag();

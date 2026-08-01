@@ -3225,6 +3225,57 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "Yo"),
         "Yo present in receive typed manifest");
 
+    const PacketSchema* frontCharListSchema = FindPacket(packets, "ysVc");
+    failures += Expect(frontCharListSchema != nullptr, "ysVc schema exists");
+    if (frontCharListSchema != nullptr) {
+        const cg::packet::receive::FrontCharList frontCharList(
+            std::vector<cg::packet::receive::FrontCharRecord> {});
+        const cg::packet::PacketResult<cg::packet::Packet> packet = frontCharList.ToPacket();
+        constexpr std::string_view resolvedSource = "ServerC+ClientIda+src/packet";
+
+        failures += Expect(frontCharListSchema->direction == "服务端->客户端", "ysVc direction");
+        failures += Expect(frontCharListSchema->legacyKind == "SEND", "ysVc legacyKind");
+        failures += Expect(frontCharListSchema->clientNamespace == "receive", "ysVc namespace");
+        failures += Expect(frontCharListSchema->rawFormat.empty(), "ysVc rawFormat empty");
+        failures += Expect(frontCharListSchema->formatEmpty, "ysVc formatEmpty true");
+        failures += Expect(frontCharListSchema->source == "xlsx", "ysVc raw source");
+        failures += Expect(frontCharListSchema->fields.empty(), "ysVc raw fields empty");
+        failures += Expect(frontCharListSchema->hasResolvedFormat, "ysVc resolvedFormat present");
+        failures += Expect(frontCharListSchema->resolvedFormat == "{data:es}", "ysVc resolvedFormat");
+        failures += Expect(
+            frontCharListSchema->resolvedSource == resolvedSource,
+            "ysVc resolvedSource");
+        failures += Expect(frontCharListSchema->hasResolvedFields, "ysVc resolvedFields present");
+        failures += Expect(
+            frontCharListSchema->resolvedFields.size() == 1U,
+            "ysVc resolved field count");
+        if (frontCharListSchema->resolvedFields.size() == 1U) {
+            const FieldSchema& field = frontCharListSchema->resolvedFields[0U];
+            failures += Expect(field.index == 0, "ysVc resolved field index");
+            failures += Expect(field.name == "data", "ysVc resolved field name");
+            failures += Expect(field.typeToken == "es", "ysVc resolved field type");
+            failures += Expect(field.rawSpec == "{data:es}", "ysVc resolved field spec");
+            failures += Expect(field.source == resolvedSource, "ysVc resolved field source");
+        }
+        failures += ExpectEffectiveFieldsMatch(
+            *frontCharListSchema,
+            cg::packet::receive::FrontCharList::Spec,
+            "ysVc Spec matches effective fields");
+        failures += Expect(packet.HasValue(), "ysVc ToPacket");
+        if (packet.HasValue()) {
+            failures += ExpectResolvedFieldsMatch(
+                *frontCharListSchema,
+                packet.Value(),
+                "ysVc resolved field order");
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "ysVc"),
+        "ysVc absent from send typed manifest");
+    failures += Expect(
+        TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "ysVc"),
+        "ysVc present in receive typed manifest");
+
     const PacketSchema* techListSchema = FindPacket(packets, "Rspn");
     failures += Expect(techListSchema != nullptr, "Rspn schema exists");
     if (techListSchema != nullptr) {

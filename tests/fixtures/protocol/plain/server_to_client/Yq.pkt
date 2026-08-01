@@ -1,0 +1,9 @@
+pkt_fixture=1
+code=Yq
+direction=server_to_client
+sample=trade-pet-skills-gbk-raw-legacy-boundaries
+plain_hex=59 71 20 32 20 81 7C 41 5C 5C 7A 42 7C 7C 81 5C 43 5C 5C 63 44 5C 5C 79 45 5C 5C 6E 46 7C
+canonical_hex=59 71 20 32 20 81 7C 41 5C 5C 7A 42 7C 7C 81 5C 43 5C 5C 63 44 5C 5C 79 45 5C 5C 6E 46 7C 20
+payload_field=1
+payload_hex=81 7C 41 5C 7A 42 7C 7C 81 5C 43 5C 63 44 5C 79 45 5C 6E 46 7C
+end_sample

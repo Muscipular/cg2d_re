@@ -26023,6 +26023,7 @@ namespace cg::packet::receive
     /**
      * SEND_TRLPS CHAR_Trade_setTradeList 对方宠物技能信息		Yq {petIndex:i62} {data:es}
      * data: 0..10 条隐式技能名 `skillNameRaw|...|`；空 data 表示 0 条，非空必须尾随 `|`。
+     * Server 按 raw 原样拼接技能名，cg2d 接收时逐项单层 legacy 解码，封包协议两方向非对称。
      */
     struct TradePetSkillInfo
     {
@@ -26042,6 +26043,7 @@ namespace cg::packet::receive
         static constexpr std::size_t MaxSkillCount = 10U;
 
         int petIndex = 0;
+        // 历史 Raw 后缀保留；Parse 后为 cg2d 单层 legacy 解码后的 GBK 语义字节，BuildData 按 Server raw 原样写入。
         std::vector<std::string> skillNameRaws;
 
         TradePetSkillInfo() = default;
@@ -26093,8 +26095,8 @@ namespace cg::packet::receive
             });
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("data"),
-                PacketFieldType::EscapedString,
-                payload.Value(),
+                PacketFieldType::SubPayload,
+                std::move(payload.Value()),
             });
             return PacketResult<Packet>::Success(std::move(packet));
         }
@@ -26203,14 +26205,8 @@ namespace cg::packet::receive
                 return PacketResult<std::vector<std::string>>::Success({});
             }
 
-            if (payload.back() != '|') {
-                return PacketResult<std::vector<std::string>>::Failure(MakeFieldError(
-                    PacketErrorCode::DecodeFailed,
-                    CG_PACKET_DIAGNOSTIC_TEXT("TradePetSkillInfo payload 缺少尾随分隔符"),
-                    DataFieldIndex));
-            }
-
-            PacketResult<std::vector<std::string>> split = SplitPayload(payload, PayloadDelimiter);
+            PacketResult<std::vector<std::string>> split =
+                SplitPayloadLegacyAware(payload, PayloadDelimiter);
             if (!split.HasValue()) {
                 PacketError error = split.Error();
                 error.packetCode = PacketCode(Code);
@@ -26219,6 +26215,12 @@ namespace cg::packet::receive
             }
 
             std::vector<std::string> skillNameRaws = std::move(split.Value());
+            if (skillNameRaws.empty() || !skillNameRaws.back().empty()) {
+                return PacketResult<std::vector<std::string>>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradePetSkillInfo payload 缺少最终空段"),
+                    DataFieldIndex));
+            }
             skillNameRaws.pop_back();
             if (skillNameRaws.size() > MaxSkillCount) {
                 return PacketResult<std::vector<std::string>>::Failure(MakeFieldError(
@@ -26228,10 +26230,14 @@ namespace cg::packet::receive
             }
 
             for (std::size_t index = 0; index < skillNameRaws.size(); ++index) {
-                PacketResult<std::string> skillNameRaw = ValidatePayloadTextField(skillNameRaws[index], index);
-                if (!skillNameRaw.HasValue()) {
-                    return PacketResult<std::vector<std::string>>::Failure(skillNameRaw.Error());
+                PacketResult<std::string> skillName = DecodeLegacyPayloadText(skillNameRaws[index]);
+                if (!skillName.HasValue()) {
+                    PacketError error = skillName.Error();
+                    error.packetCode = PacketCode(Code);
+                    error.fieldIndex = index;
+                    return PacketResult<std::vector<std::string>>::Failure(std::move(error));
                 }
+                skillNameRaws[index] = std::move(skillName.Value());
             }
 
             return PacketResult<std::vector<std::string>>::Success(std::move(skillNameRaws));
@@ -26241,21 +26247,20 @@ namespace cg::packet::receive
             std::string_view text,
             std::size_t fieldIndex)
         {
-            if (text.find('|') != std::string_view::npos) {
-                return PacketResult<std::string>::Failure(MakeFieldError(
-                    PacketErrorCode::EncodeFailed,
-                    CG_PACKET_DIAGNOSTIC_TEXT("TradePetSkillInfo raw 字符串包含 literal |"),
-                    fieldIndex));
-            }
-
             for (std::size_t index = 0; index < text.size(); ++index) {
                 if (!cg::packet::detail::IsLegacyDoubleByteLead(text[index])) {
+                    if (text[index] == '|') {
+                        return PacketResult<std::string>::Failure(MakeFieldError(
+                            PacketErrorCode::EncodeFailed,
+                            CG_PACKET_DIAGNOSTIC_TEXT("TradePetSkillInfo raw 字符串包含 literal ASCII |"),
+                            fieldIndex));
+                    }
                     continue;
                 }
 
                 if (index + 1U >= text.size()) {
                     return PacketResult<std::string>::Failure(MakeFieldError(
-                        PacketErrorCode::DecodeFailed,
+                        PacketErrorCode::EncodeFailed,
                         CG_PACKET_DIAGNOSTIC_TEXT("TradePetSkillInfo raw 字符串旧双字节字符被截断"),
                         fieldIndex));
                 }

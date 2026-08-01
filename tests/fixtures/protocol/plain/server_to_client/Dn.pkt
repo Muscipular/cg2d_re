@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=Dn
+direction=server_to_client
+sample=gbk-outer-only-literal-legacy
+plain_hex=44 6E 20 31 30 20 C3 FB 5C 5C 7A CE B2
+canonical_hex=44 6E 20 31 30 20 C3 FB 5C 5C 7A CE B2 20
+end_sample

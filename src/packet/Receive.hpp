@@ -12212,7 +12212,7 @@ namespace cg::packet::receive
     };
 
     /**
-     * SEND_IR 道具配方记录：22 段，字符串字段为内层 makeEscapeString 后的 raw 字符串。
+     * SEND_IR 道具配方记录：22 段；历史 Raw 字段名保留，值为 legacy payload text 语义字节串。
      */
     struct ItemRecipeRecord
     {
@@ -12236,7 +12236,7 @@ namespace cg::packet::receive
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
             {CG_PACKET_DIAGNOSTIC_TEXT("haveskillindex"), PacketFieldType::Int62},
-            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::SubPayload},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -12256,40 +12256,98 @@ namespace cg::packet::receive
         }
 
 #if CG_PACKET_ENABLE_TEST_HELPERS
-        [[nodiscard]] std::string BuildData() const
+        [[nodiscard]] PacketResult<std::string> BuildData() const
         {
-            std::string payload;
-            for (const ItemRecipeRecord& record : records) {
-                payload.append(std::to_string(record.recipeId));
-                payload.push_back('|');
-                payload.append(std::to_string(record.itemLevel));
-                payload.push_back('|');
-                payload.append(std::to_string(record.recipeItemId));
-                payload.push_back('|');
-                payload.append(record.itemNameRaw);
-                payload.push_back('|');
-                payload.append(record.itemInfoRaw);
-                payload.push_back('|');
-                payload.append(std::to_string(record.forcePoint));
-                payload.push_back('|');
-                payload.append(std::to_string(record.usable));
-                payload.push_back('|');
-                for (const ItemRecipeMaterial& material : record.materials) {
-                    payload.append(std::to_string(material.itemId));
-                    payload.push_back('|');
-                    payload.append(material.nameRaw);
-                    payload.push_back('|');
-                    payload.append(std::to_string(material.required));
-                    payload.push_back('|');
+            if (records.empty()) {
+                return PacketResult<std::string>::Failure(MakeFieldError(
+                    PacketErrorCode::EncodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT("ItemRecipe BuildData records 为空"),
+                    DataFieldIndex));
+            }
+
+            if (records.size() > MaxRecordCount) {
+                return PacketResult<std::string>::Failure(MakeFieldError(
+                    PacketErrorCode::EncodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT("ItemRecipe BuildData records 超过 56 条"),
+                    DataFieldIndex));
+            }
+
+            std::vector<std::string> parts;
+            parts.reserve(records.size() * RecordFieldCount);
+            for (std::size_t recordIndex = 0; recordIndex < records.size(); ++recordIndex) {
+                const ItemRecipeRecord& record = records[recordIndex];
+                const std::size_t baseIndex = recordIndex * RecordFieldCount;
+                if (record.usable != 0 && record.usable != 1) {
+                    return PacketResult<std::string>::Failure(MakeFieldError(
+                        PacketErrorCode::EncodeFailed,
+                        CG_PACKET_DIAGNOSTIC_TEXT("ItemRecipe BuildData usable 只能为 0/1"),
+                        baseIndex + 6U));
+                }
+
+                PacketResult<std::string> encodedItemName = EncodeLegacyPayloadText(record.itemNameRaw);
+                if (!encodedItemName.HasValue()) {
+                    PacketError error = encodedItemName.Error();
+                    error.packetCode = PacketCode(Code);
+                    error.fieldIndex = baseIndex + 3U;
+                    return PacketResult<std::string>::Failure(std::move(error));
+                }
+
+                PacketResult<std::string> encodedItemInfo = EncodeLegacyPayloadText(record.itemInfoRaw);
+                if (!encodedItemInfo.HasValue()) {
+                    PacketError error = encodedItemInfo.Error();
+                    error.packetCode = PacketCode(Code);
+                    error.fieldIndex = baseIndex + 4U;
+                    return PacketResult<std::string>::Failure(std::move(error));
+                }
+
+                parts.push_back(std::to_string(record.recipeId));
+                parts.push_back(std::to_string(record.itemLevel));
+                parts.push_back(std::to_string(record.recipeItemId));
+                parts.push_back(std::move(encodedItemName.Value()));
+                parts.push_back(std::move(encodedItemInfo.Value()));
+                parts.push_back(std::to_string(record.forcePoint));
+                parts.push_back(std::to_string(record.usable));
+
+                for (std::size_t materialIndex = 0; materialIndex < record.materials.size(); ++materialIndex) {
+                    const ItemRecipeMaterial& material = record.materials[materialIndex];
+                    const std::size_t nameIndex = baseIndex + 8U + (materialIndex * MaterialFieldCount);
+                    PacketResult<std::string> encodedName = EncodeLegacyPayloadText(material.nameRaw);
+                    if (!encodedName.HasValue()) {
+                        PacketError error = encodedName.Error();
+                        error.packetCode = PacketCode(Code);
+                        error.fieldIndex = nameIndex;
+                        return PacketResult<std::string>::Failure(std::move(error));
+                    }
+
+                    parts.push_back(std::to_string(material.itemId));
+                    parts.push_back(std::move(encodedName.Value()));
+                    parts.push_back(std::to_string(material.required));
                 }
             }
+
+            PacketResult<std::string> payload = BuildPayload(
+                std::span<const std::string>(parts.data(), parts.size()),
+                PayloadDelimiter);
+            if (!payload.HasValue()) {
+                PacketError error = payload.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = DataFieldIndex;
+                return PacketResult<std::string>::Failure(std::move(error));
+            }
+
+            payload.Value().push_back('|');
             return payload;
         }
 #endif
 
 #if CG_PACKET_ENABLE_TEST_HELPERS
-        [[nodiscard]] Packet ToPacket() const
+        [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
+            PacketResult<std::string> data = BuildData();
+            if (!data.HasValue()) {
+                return PacketResult<Packet>::Failure(data.Error());
+            }
+
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("haveskillindex"),
@@ -12298,10 +12356,10 @@ namespace cg::packet::receive
             });
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("data"),
-                PacketFieldType::EscapedString,
-                BuildData(),
+                PacketFieldType::SubPayload,
+                std::move(data.Value()),
             });
-            return packet;
+            return PacketResult<Packet>::Success(std::move(packet));
         }
 #endif
 
@@ -12421,7 +12479,7 @@ namespace cg::packet::receive
                     DataFieldIndex));
             }
 
-            PacketResult<std::vector<std::string>> split = SplitPayload(payload, PayloadDelimiter);
+            PacketResult<std::vector<std::string>> split = SplitPayloadLegacyAware(payload, PayloadDelimiter);
             if (!split.HasValue()) {
                 PacketError error = split.Error();
                 error.packetCode = PacketCode(Code);
@@ -12478,14 +12536,20 @@ namespace cg::packet::receive
                 return PacketResult<ItemRecipeRecord>::Failure(recipeItemId.Error());
             }
 
-            PacketResult<std::string> itemNameRaw = ValidatePayloadTextField(parts[baseIndex + 3U], baseIndex + 3U);
+            PacketResult<std::string> itemNameRaw = DecodeLegacyPayloadText(parts[baseIndex + 3U]);
             if (!itemNameRaw.HasValue()) {
-                return PacketResult<ItemRecipeRecord>::Failure(itemNameRaw.Error());
+                PacketError error = itemNameRaw.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = baseIndex + 3U;
+                return PacketResult<ItemRecipeRecord>::Failure(std::move(error));
             }
 
-            PacketResult<std::string> itemInfoRaw = ValidatePayloadTextField(parts[baseIndex + 4U], baseIndex + 4U);
+            PacketResult<std::string> itemInfoRaw = DecodeLegacyPayloadText(parts[baseIndex + 4U]);
             if (!itemInfoRaw.HasValue()) {
-                return PacketResult<ItemRecipeRecord>::Failure(itemInfoRaw.Error());
+                PacketError error = itemInfoRaw.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = baseIndex + 4U;
+                return PacketResult<ItemRecipeRecord>::Failure(std::move(error));
             }
 
             PacketResult<int> forcePoint = ParseDecimalField(parts[baseIndex + 5U], baseIndex + 5U);
@@ -12534,9 +12598,12 @@ namespace cg::packet::receive
                 return PacketResult<ItemRecipeMaterial>::Failure(itemId.Error());
             }
 
-            PacketResult<std::string> nameRaw = ValidatePayloadTextField(parts[baseIndex + 1U], baseIndex + 1U);
+            PacketResult<std::string> nameRaw = DecodeLegacyPayloadText(parts[baseIndex + 1U]);
             if (!nameRaw.HasValue()) {
-                return PacketResult<ItemRecipeMaterial>::Failure(nameRaw.Error());
+                PacketError error = nameRaw.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = baseIndex + 1U;
+                return PacketResult<ItemRecipeMaterial>::Failure(std::move(error));
             }
 
             PacketResult<int> required = ParseDecimalField(parts[baseIndex + 2U], baseIndex + 2U);
@@ -12549,27 +12616,6 @@ namespace cg::packet::receive
                 std::move(nameRaw.Value()),
                 required.Value(),
             });
-        }
-
-        [[nodiscard]] static PacketResult<std::string> ValidatePayloadTextField(
-            std::string_view text,
-            std::size_t fieldIndex)
-        {
-            for (std::size_t index = 0; index < text.size(); ++index) {
-                if (!cg::packet::detail::IsLegacyDoubleByteLead(text[index])) {
-                    continue;
-                }
-
-                if (index + 1U >= text.size()) {
-                    return PacketResult<std::string>::Failure(MakeFieldError(
-                        PacketErrorCode::DecodeFailed,
-                        CG_PACKET_DIAGNOSTIC_TEXT("ItemRecipe raw 字符串旧双字节字符被截断"),
-                        fieldIndex));
-                }
-                ++index;
-            }
-
-            return PacketResult<std::string>::Success(std::string(text));
         }
 
         [[nodiscard]] static PacketResult<int> ParseDecimalField(std::string_view text, std::size_t fieldIndex)

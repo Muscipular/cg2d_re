@@ -7865,7 +7865,7 @@ namespace cg::packet::receive
 
     /**
      * SEND_PRD ProfileData		DpSY {name:es} {lv:i62} {job:es} {title:es} {guildName:es} {graphic:i62} {sid:i62} {smsg:es} {bid:i62} {bmsg:es} {aid:i62} {amsg:es} {pmsg:es}
-     * smsg/bmsg/amsg/pmsg 按外层 es 保存，不拆二级 payload。
+     * 8 个文本字段保持独立 outer es，并按 legacy escape 还原/回写；不拆二级 payload。
      */
     struct ProfileData
     {
@@ -7938,14 +7938,37 @@ namespace cg::packet::receive
         }
 
 #if CG_PACKET_ENABLE_TEST_HELPERS
-        [[nodiscard]] Packet ToPacket() const
+        [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
+            const std::array<std::string_view, TextFieldCount> textValues = {{
+                name,
+                jobName,
+                title,
+                guildName,
+                sellMessage,
+                buyMessage,
+                aboutMessage,
+                profileMessage,
+            }};
+            std::array<std::string, TextFieldCount> encodedTextValues;
+            for (std::size_t index = 0; index < TextFieldCount; ++index) {
+                PacketResult<std::string> encoded = EncodeLegacyPayloadText(textValues[index]);
+                if (!encoded.HasValue()) {
+                    PacketError error = encoded.Error();
+                    error.packetCode = PacketCode(Code);
+                    error.fieldIndex = TextFieldIndexes[index];
+                    return PacketResult<Packet>::Failure(std::move(error));
+                }
+
+                encodedTextValues[index] = std::move(encoded.Value());
+            }
+
             Packet packet(PacketCode(Code), Direction);
             packet.fields.reserve(FieldCount);
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("name"),
                 PacketFieldType::EscapedString,
-                name,
+                std::move(encodedTextValues[0U]),
             });
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("lv"),
@@ -7955,17 +7978,17 @@ namespace cg::packet::receive
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("job"),
                 PacketFieldType::EscapedString,
-                jobName,
+                std::move(encodedTextValues[1U]),
             });
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("title"),
                 PacketFieldType::EscapedString,
-                title,
+                std::move(encodedTextValues[2U]),
             });
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("guildName"),
                 PacketFieldType::EscapedString,
-                guildName,
+                std::move(encodedTextValues[3U]),
             });
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("graphic"),
@@ -7980,7 +8003,7 @@ namespace cg::packet::receive
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("smsg"),
                 PacketFieldType::EscapedString,
-                sellMessage,
+                std::move(encodedTextValues[4U]),
             });
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("bid"),
@@ -7990,7 +8013,7 @@ namespace cg::packet::receive
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("bmsg"),
                 PacketFieldType::EscapedString,
-                buyMessage,
+                std::move(encodedTextValues[5U]),
             });
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("aid"),
@@ -8000,14 +8023,14 @@ namespace cg::packet::receive
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("amsg"),
                 PacketFieldType::EscapedString,
-                aboutMessage,
+                std::move(encodedTextValues[6U]),
             });
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("pmsg"),
                 PacketFieldType::EscapedString,
-                profileMessage,
+                std::move(encodedTextValues[7U]),
             });
-            return packet;
+            return PacketResult<Packet>::Success(std::move(packet));
         }
 #endif
 
@@ -8106,24 +8129,39 @@ namespace cg::packet::receive
                 return PacketResult<ProfileData>::Failure(aboutFlagValue.Error());
             }
 
+            std::array<std::string, TextFieldCount> decodedTextValues;
+            for (std::size_t index = 0; index < TextFieldCount; ++index) {
+                PacketResult<std::string> decoded =
+                    DecodeLegacyPayloadText(packet.fields[TextFieldIndexes[index]].value);
+                if (!decoded.HasValue()) {
+                    PacketError error = decoded.Error();
+                    error.packetCode = PacketCode(Code);
+                    error.fieldIndex = TextFieldIndexes[index];
+                    return PacketResult<ProfileData>::Failure(std::move(error));
+                }
+
+                decodedTextValues[index] = std::move(decoded.Value());
+            }
+
             return PacketResult<ProfileData>::Success(ProfileData(
-                packet.fields[NameFieldIndex].value,
+                std::move(decodedTextValues[0U]),
                 levelValue.Value(),
-                packet.fields[JobNameFieldIndex].value,
-                packet.fields[TitleFieldIndex].value,
-                packet.fields[GuildNameFieldIndex].value,
+                std::move(decodedTextValues[1U]),
+                std::move(decodedTextValues[2U]),
+                std::move(decodedTextValues[3U]),
                 graphicValue.Value(),
                 sellFlagValue.Value(),
-                packet.fields[SellMessageFieldIndex].value,
+                std::move(decodedTextValues[4U]),
                 buyFlagValue.Value(),
-                packet.fields[BuyMessageFieldIndex].value,
+                std::move(decodedTextValues[5U]),
                 aboutFlagValue.Value(),
-                packet.fields[AboutMessageFieldIndex].value,
-                packet.fields[ProfileMessageFieldIndex].value));
+                std::move(decodedTextValues[6U]),
+                std::move(decodedTextValues[7U])));
         }
 
     private:
         static constexpr std::size_t FieldCount = 13U;
+        static constexpr std::size_t TextFieldCount = 8U;
         static constexpr std::size_t NameFieldIndex = 0U;
         static constexpr std::size_t LevelFieldIndex = 1U;
         static constexpr std::size_t JobNameFieldIndex = 2U;
@@ -8137,6 +8175,16 @@ namespace cg::packet::receive
         static constexpr std::size_t AboutFlagFieldIndex = 10U;
         static constexpr std::size_t AboutMessageFieldIndex = 11U;
         static constexpr std::size_t ProfileMessageFieldIndex = 12U;
+        static constexpr std::array<std::size_t, TextFieldCount> TextFieldIndexes = {{
+            NameFieldIndex,
+            JobNameFieldIndex,
+            TitleFieldIndex,
+            GuildNameFieldIndex,
+            SellMessageFieldIndex,
+            BuyMessageFieldIndex,
+            AboutMessageFieldIndex,
+            ProfileMessageFieldIndex,
+        }};
 
         [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {

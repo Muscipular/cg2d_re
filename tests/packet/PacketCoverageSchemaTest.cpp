@@ -2576,7 +2576,7 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     if (profileDataSchema != nullptr) {
         const cg::packet::receive::ProfileData profileData(
             "Alice", 50, "Warrior", "Hero", "Guild", 100, 1, "sell", 2, "buy", 3, "about", "profile");
-        const cg::packet::Packet packet = profileData.ToPacket();
+        const cg::packet::PacketResult<cg::packet::Packet> packet = profileData.ToPacket();
         const std::vector<std::string_view> fieldNames {
             "name", "lv", "job", "title", "guildName", "graphic", "sid",
             "smsg", "bid", "bmsg", "aid", "amsg", "pmsg",
@@ -2608,7 +2608,13 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         failures += Expect(
             profileDataSchema->resolvedSource == "xlsx+ServerC+ClientIda+src/packet",
             "DpSY resolvedSource");
-        failures += ExpectResolvedFieldsMatch(*profileDataSchema, packet, "DpSY resolved/ToPacket field order");
+        failures += Expect(static_cast<bool>(packet), "DpSY ToPacket");
+        if (packet.HasValue()) {
+            failures += ExpectResolvedFieldsMatch(
+                *profileDataSchema,
+                packet.Value(),
+                "DpSY resolved/ToPacket field order");
+        }
     }
 
     const PacketSchema* profileMailReceiptSchema = FindPacket(packets, "ow");

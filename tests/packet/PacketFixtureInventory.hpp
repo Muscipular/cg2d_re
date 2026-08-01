@@ -31,9 +31,8 @@ inline constexpr std::array<std::string_view, 91U> HistoricalTypedBaselineCodes 
     "RwK", "Yq", "PhdQ", "nsY", "NI", "uSB", "aBS",
 }};
 
-inline constexpr std::array<std::string_view, 48U> FixtureDebtCodes = {{
+inline constexpr std::array<std::string_view, 47U> FixtureDebtCodes = {{
     "aiAb",
-    "DpSY",
     "JJQj", "TgX", "ELoy",
     "xmgQ", "Ilz", "dM", "Dn", "lDuJ", "IsSy", "AU", "JgO", "OBee", "Yo", "ysVc", "LY",
     "ND", "nFV", "DyAG", "Zd", "zzd", "Gn", "hB", "LYIm", "Mhbt", "zdr", "BZ", "ft",
@@ -41,7 +40,7 @@ inline constexpr std::array<std::string_view, 48U> FixtureDebtCodes = {{
     "RwK", "Yq", "PhdQ", "nsY", "NI", "uSB", "aBS",
 }};
 
-inline constexpr std::array<FixturePayloadAudit, 158U> FixturePayloadAudits = {{
+inline constexpr std::array<FixturePayloadAudit, 159U> FixturePayloadAudits = {{
     {"WA", FixturePayloadAuditKind::NoStructuredPayload, 0U},
     {"PfM", FixturePayloadAuditKind::NoStructuredPayload, 0U},
     {"emRV", FixturePayloadAuditKind::NoStructuredPayload, 0U},
@@ -192,6 +191,7 @@ inline constexpr std::array<FixturePayloadAudit, 158U> FixturePayloadAudits = {{
     {"Sc", FixturePayloadAuditKind::StructuredPayload, 0U},
     {"eZT", FixturePayloadAuditKind::StructuredPayload, 0U},
     {"IUn", FixturePayloadAuditKind::StructuredPayload, 0U},
+    {"DpSY", FixturePayloadAuditKind::NoStructuredPayload, 0U},
     {"cNB", FixturePayloadAuditKind::StructuredPayload, 0U},
     {"ow", FixturePayloadAuditKind::StructuredPayload, 1U},
     {"KyN", FixturePayloadAuditKind::StructuredPayload, 0U},

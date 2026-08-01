@@ -1,7 +1,9 @@
 #include "packet/PacketBuilder.hpp"
 #include "packet/Receive.hpp"
 
+#include <array>
 #include <cstddef>
+#include <initializer_list>
 #include <iostream>
 #include <string>
 #include <string_view>
@@ -53,6 +55,90 @@ int ExpectError(
         failures += Expect(*error.fieldIndex == fieldIndex, message);
     }
     return failures;
+}
+
+using ProfileTextValues = std::array<std::string, 8U>;
+
+constexpr std::array<std::size_t, 8U> ProfileTextFieldIndexes = {{
+    0U, 2U, 3U, 4U, 7U, 9U, 11U, 12U,
+}};
+
+std::string Bytes(std::initializer_list<unsigned int> values)
+{
+    std::string bytes;
+    bytes.reserve(values.size());
+    for (const unsigned int value : values) {
+        bytes.push_back(static_cast<char>(value));
+    }
+    return bytes;
+}
+
+ProfileTextValues DefaultProfileTextValues()
+{
+    return {{"Hero", "Job", "Title", "Guild", "Sell", "Buy", "About", "Profile"}};
+}
+
+cg::packet::Packet BuildOuterProfilePacket(const ProfileTextValues& values)
+{
+    cg::packet::Packet packet(
+        cg::packet::PacketCode(cg::packet::receive::ProfileData::Code),
+        cg::packet::PacketDirection::ServerToClient);
+    packet.fields = {
+        {"name", cg::packet::PacketFieldType::EscapedString, values[0U]},
+        {"lv", cg::packet::PacketFieldType::Int62, "10"},
+        {"job", cg::packet::PacketFieldType::EscapedString, values[1U]},
+        {"title", cg::packet::PacketFieldType::EscapedString, values[2U]},
+        {"guildName", cg::packet::PacketFieldType::EscapedString, values[3U]},
+        {"graphic", cg::packet::PacketFieldType::Int62, "1000"},
+        {"sid", cg::packet::PacketFieldType::Int62, "1"},
+        {"smsg", cg::packet::PacketFieldType::EscapedString, values[4U]},
+        {"bid", cg::packet::PacketFieldType::Int62, "2"},
+        {"bmsg", cg::packet::PacketFieldType::EscapedString, values[5U]},
+        {"aid", cg::packet::PacketFieldType::Int62, "3"},
+        {"amsg", cg::packet::PacketFieldType::EscapedString, values[6U]},
+        {"pmsg", cg::packet::PacketFieldType::EscapedString, values[7U]},
+    };
+    return packet;
+}
+
+cg::packet::PacketResult<std::string> BuildOuterProfilePlain(const ProfileTextValues& values)
+{
+    return BuildPacket(BuildOuterProfilePacket(values));
+}
+
+cg::packet::receive::ProfileData BuildProfileDataValue(const ProfileTextValues& values)
+{
+    return cg::packet::receive::ProfileData(
+        values[0U],
+        10,
+        values[1U],
+        values[2U],
+        values[3U],
+        1000,
+        1,
+        values[4U],
+        2,
+        values[5U],
+        3,
+        values[6U],
+        values[7U]);
+}
+
+std::string_view GetProfileTextValue(
+    const cg::packet::receive::ProfileData& data,
+    std::size_t index)
+{
+    const std::array<std::string_view, 8U> values = {{
+        data.name,
+        data.jobName,
+        data.title,
+        data.guildName,
+        data.sellMessage,
+        data.buyMessage,
+        data.aboutMessage,
+        data.profileMessage,
+    }};
+    return values[index];
 }
 
 int ExpectField(
@@ -144,13 +230,16 @@ int TestTypedParseAndBuild()
     }
 
     failures += ExpectProfileDataValue(parsed.Value(), "typed DpSY value");
-    const cg::packet::Packet packet = parsed.Value().ToPacket();
-    failures += ExpectProfileDataPacket(packet, "typed DpSY ToPacket");
+    const cg::packet::PacketResult<cg::packet::Packet> packet = parsed.Value().ToPacket();
+    failures += Expect(static_cast<bool>(packet), "typed DpSY ToPacket");
+    if (packet.HasValue()) {
+        failures += ExpectProfileDataPacket(packet.Value(), "typed DpSY ToPacket value");
 
-    const cg::packet::PacketResult<std::string> built = BuildPacket(packet);
-    failures += Expect(static_cast<bool>(built), "build DpSY");
-    if (built.HasValue()) {
-        failures += Expect(built.Value() == plain, "build DpSY value");
+        const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
+        failures += Expect(static_cast<bool>(built), "build DpSY");
+        if (built.HasValue()) {
+            failures += Expect(built.Value() == plain, "build DpSY value");
+        }
     }
     return failures;
 }
@@ -172,8 +261,14 @@ int TestEscapedFieldsRoundtrip()
         "About message",
         "Profile \\ line\nnext");
 
-    const cg::packet::PacketResult<std::string> built = BuildPacket(data.ToPacket());
-    int failures = Expect(static_cast<bool>(built), "build DpSY escaped fields");
+    const cg::packet::PacketResult<cg::packet::Packet> packet = data.ToPacket();
+    int failures = Expect(static_cast<bool>(packet), "DpSY escaped ToPacket");
+    if (!packet.HasValue()) {
+        return failures;
+    }
+
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
+    failures += Expect(static_cast<bool>(built), "build DpSY escaped fields");
     if (!built.HasValue()) {
         return failures;
     }
@@ -195,6 +290,124 @@ int TestEscapedFieldsRoundtrip()
     failures += Expect(parsed.Value().buyMessage == data.buyMessage, "roundtrip DpSY bmsg");
     failures += Expect(parsed.Value().aboutMessage == data.aboutMessage, "roundtrip DpSY amsg");
     failures += Expect(parsed.Value().profileMessage == data.profileMessage, "roundtrip DpSY pmsg");
+    return failures;
+}
+
+int TestLegacyTextFields()
+{
+    const std::string gbkEast = Bytes({0x96U, 0x7cU});
+    std::string legacy = gbkEast;
+    legacy.append("\\nline\\ccomma\\zpipe\\yslash\\qunknown outer space");
+    std::string semantic = gbkEast;
+    semantic.append("\nline,comma|pipe\\slashqunknown outer space");
+    std::string canonical = gbkEast;
+    canonical.append("\\nline\\ccomma\\zpipe\\yslashqunknown outer space");
+
+    int failures = 0;
+    for (std::size_t textIndex = 0; textIndex < ProfileTextFieldIndexes.size(); ++textIndex) {
+        ProfileTextValues inputValues = DefaultProfileTextValues();
+        inputValues[textIndex] = legacy;
+        const cg::packet::PacketResult<std::string> plain = BuildOuterProfilePlain(inputValues);
+        failures += Expect(static_cast<bool>(plain), "build DpSY legacy outer input");
+        if (!plain.HasValue()) {
+            continue;
+        }
+
+        failures += Expect(
+            plain.Value().find("\\S") != std::string::npos,
+            "DpSY legacy outer space encoded");
+        const cg::packet::PacketResult<cg::packet::receive::ProfileData> parsed =
+            cg::packet::receive::ProfileData::Parse(plain.Value());
+        failures += Expect(static_cast<bool>(parsed), "parse DpSY legacy text field");
+        if (!parsed.HasValue()) {
+            continue;
+        }
+
+        failures += Expect(
+            GetProfileTextValue(parsed.Value(), textIndex) == semantic,
+            "DpSY legacy semantic text field");
+        const cg::packet::PacketResult<cg::packet::Packet> packet = parsed.Value().ToPacket();
+        failures += Expect(static_cast<bool>(packet), "DpSY legacy canonical ToPacket");
+        if (!packet.HasValue()) {
+            continue;
+        }
+
+        failures += Expect(
+            packet.Value().fields[ProfileTextFieldIndexes[textIndex]].value == canonical,
+            "DpSY legacy canonical text field");
+        const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
+        failures += Expect(static_cast<bool>(built), "build DpSY legacy canonical packet");
+
+        ProfileTextValues canonicalValues = DefaultProfileTextValues();
+        canonicalValues[textIndex] = canonical;
+        const cg::packet::PacketResult<std::string> expected = BuildOuterProfilePlain(canonicalValues);
+        failures += Expect(static_cast<bool>(expected), "build expected DpSY legacy canonical packet");
+        if (built.HasValue() && expected.HasValue()) {
+            failures += Expect(
+                built.Value() == expected.Value(),
+                "DpSY unknown legacy escape canonicalized");
+        }
+    }
+    return failures;
+}
+
+int TestEmptyTitle()
+{
+    ProfileTextValues values = DefaultProfileTextValues();
+    values[2U].clear();
+    const cg::packet::receive::ProfileData data = BuildProfileDataValue(values);
+    const cg::packet::PacketResult<cg::packet::Packet> packet = data.ToPacket();
+
+    int failures = Expect(static_cast<bool>(packet), "DpSY empty title ToPacket");
+    if (!packet.HasValue()) {
+        return failures;
+    }
+
+    failures += Expect(packet.Value().fields[3U].value.empty(), "DpSY empty title packet field");
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
+    failures += Expect(static_cast<bool>(built), "build DpSY empty title");
+    if (!built.HasValue()) {
+        return failures;
+    }
+
+    const cg::packet::PacketResult<cg::packet::receive::ProfileData> parsed =
+        cg::packet::receive::ProfileData::Parse(built.Value());
+    failures += Expect(static_cast<bool>(parsed), "parse DpSY empty title");
+    if (parsed.HasValue()) {
+        failures += Expect(parsed.Value().title.empty(), "DpSY empty title semantic value");
+    }
+    return failures;
+}
+
+int TestLegacyTextErrors()
+{
+    int failures = 0;
+    for (std::size_t textIndex = 0; textIndex < ProfileTextFieldIndexes.size(); ++textIndex) {
+        ProfileTextValues values = DefaultProfileTextValues();
+        values[textIndex] = "truncated\\";
+        const cg::packet::PacketResult<std::string> plain = BuildOuterProfilePlain(values);
+        failures += Expect(static_cast<bool>(plain), "build DpSY truncated legacy input");
+        if (plain.HasValue()) {
+            failures += ExpectError(
+                cg::packet::receive::ProfileData::Parse(plain.Value()),
+                cg::packet::PacketErrorCode::DecodeFailed,
+                "DpSY",
+                ProfileTextFieldIndexes[textIndex],
+                "DpSY trailing legacy escape context");
+        }
+    }
+
+    const std::string truncatedGbk(1U, static_cast<char>(0x81));
+    for (std::size_t textIndex = 0; textIndex < ProfileTextFieldIndexes.size(); ++textIndex) {
+        ProfileTextValues values = DefaultProfileTextValues();
+        values[textIndex] = truncatedGbk;
+        failures += ExpectError(
+            BuildProfileDataValue(values).ToPacket(),
+            cg::packet::PacketErrorCode::EncodeFailed,
+            "DpSY",
+            ProfileTextFieldIndexes[textIndex],
+            "DpSY truncated GBK encode context");
+    }
     return failures;
 }
 
@@ -254,6 +467,9 @@ int main()
     failures += TestParsePacketOuter();
     failures += TestTypedParseAndBuild();
     failures += TestEscapedFieldsRoundtrip();
+    failures += TestLegacyTextFields();
+    failures += TestEmptyTitle();
+    failures += TestLegacyTextErrors();
     failures += TestErrors();
     if (failures != 0) {
         std::cerr << failures << " checks failed\n";

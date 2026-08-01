@@ -20242,6 +20242,7 @@ namespace cg::packet::receive
         };
 
         int jobAssort = 0;
+        // outer es 解码后，再按客户端 Unescape2 还原的 GBK 语义字节。
         std::string name;
 
         JobName(int jobAssort, std::string name)
@@ -20251,9 +20252,18 @@ namespace cg::packet::receive
         }
 
 #if CG_PACKET_ENABLE_TEST_HELPERS
-        [[nodiscard]] Packet ToPacket() const
+        [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
+            PacketResult<std::string> encodedName = EncodeLegacyPayloadText(name);
+            if (!encodedName.HasValue()) {
+                PacketError error = encodedName.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = NameFieldIndex;
+                return PacketResult<Packet>::Failure(std::move(error));
+            }
+
             Packet packet(PacketCode(Code), Direction);
+            packet.fields.reserve(FieldCount);
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("jobassort"),
                 PacketFieldType::Int62,
@@ -20262,9 +20272,9 @@ namespace cg::packet::receive
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("name"),
                 PacketFieldType::EscapedString,
-                name,
+                std::move(encodedName.Value()),
             });
-            return packet;
+            return PacketResult<Packet>::Success(std::move(packet));
         }
 #endif
 
@@ -20327,9 +20337,17 @@ namespace cg::packet::receive
                 return PacketResult<JobName>::Failure(jobAssortValue.Error());
             }
 
+            PacketResult<std::string> nameValue = DecodeLegacyPayloadText(packet.fields[NameFieldIndex].value);
+            if (!nameValue.HasValue()) {
+                PacketError error = nameValue.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = NameFieldIndex;
+                return PacketResult<JobName>::Failure(std::move(error));
+            }
+
             return PacketResult<JobName>::Success(JobName(
                 jobAssortValue.Value(),
-                packet.fields[NameFieldIndex].value));
+                std::move(nameValue.Value())));
         }
 
     private:

@@ -1,0 +1,15 @@
+pkt_fixture=1
+code=yuD
+direction=server_to_client
+sample=empty-member-list
+plain_hex=79 75 44 20
+canonical_hex=79 75 44 20 20
+payload_field=0
+payload_hex=
+end_sample
+sample=active-opaque-whole-legacy-gbk-trail-backslash
+plain_hex=79 75 44 20 31 7C 31 30 30 7C C3 FB 96 5C 41 5C 5C 79 7A 42 5C 5C 7A 54 69 74 6C 65 5C 5C 79 63 54 61 69 6C 7C 31 30 31 7C 33 30 7C 31 7C 32 30 30 30 7C 32
+canonical_hex=79 75 44 20 31 7C 31 30 30 7C C3 FB 96 5C 41 5C 5C 79 7A 42 5C 5C 7A 54 69 74 6C 65 5C 5C 79 63 54 61 69 6C 7C 31 30 31 7C 33 30 7C 31 7C 32 30 30 30 7C 32 20
+payload_field=0
+payload_hex=31 7C 31 30 30 7C C3 FB 96 5C 41 5C 79 7A 42 5C 7A 54 69 74 6C 65 5C 79 63 54 61 69 6C 7C 31 30 31 7C 33 30 7C 31 7C 32 30 30 30 7C 32
+end_sample

@@ -1,6 +1,7 @@
 #include "packet/PacketBuilder.hpp"
 #include "packet/Receive.hpp"
 
+#include <initializer_list>
 #include <iostream>
 #include <string>
 #include <string_view>
@@ -53,6 +54,16 @@ int ExpectError(
     return failures;
 }
 
+std::string Bytes(std::initializer_list<unsigned int> values)
+{
+    std::string output;
+    output.reserve(values.size());
+    for (const unsigned int value : values) {
+        output.push_back(static_cast<char>(value));
+    }
+    return output;
+}
+
 std::string BuildPlain(std::string_view payload)
 {
     const cg::packet::PacketResult<std::string> encoded = cg::packet::EncodeEscapedString(payload);
@@ -79,6 +90,7 @@ std::string BuildRawPlain(std::string_view payload)
 int ExpectGuildMemberPacket(
     const cg::packet::Packet& packet,
     std::string_view payload,
+    cg::packet::PacketFieldType payloadType,
     const char* message)
 {
     int failures = 0;
@@ -90,7 +102,7 @@ int ExpectGuildMemberPacket(
     }
 
     failures += Expect(packet.fields[0].name == "data", message);
-    failures += Expect(packet.fields[0].type == cg::packet::PacketFieldType::EscapedString, message);
+    failures += Expect(packet.fields[0].type == payloadType, message);
     failures += Expect(packet.fields[0].value == payload, message);
     return failures;
 }
@@ -102,7 +114,11 @@ int TestParsePacketOuter()
 
     int failures = Expect(static_cast<bool>(parsed), "parse yuD outer");
     if (parsed.HasValue()) {
-        failures += ExpectGuildMemberPacket(parsed.Value(), "1|100|Alice|101|30|1|2000|2", "parse yuD outer packet");
+        failures += ExpectGuildMemberPacket(
+            parsed.Value(),
+            "1|100|Alice|101|30|1|2000|2",
+            cg::packet::PacketFieldType::EscapedString,
+            "parse yuD outer packet");
     }
     return failures;
 }
@@ -126,7 +142,11 @@ int TestEmptyData()
     const cg::packet::PacketResult<cg::packet::Packet> packet = parsed.Value().ToPacket();
     failures += Expect(static_cast<bool>(packet), "yuD empty ToPacket");
     if (packet.HasValue()) {
-        failures += ExpectGuildMemberPacket(packet.Value(), "", "yuD empty packet");
+        failures += ExpectGuildMemberPacket(
+            packet.Value(),
+            "",
+            cg::packet::PacketFieldType::SubPayload,
+            "yuD empty packet");
     }
     return failures;
 }
@@ -168,7 +188,11 @@ int TestOneAndTwoRecords()
     if (!packet.HasValue()) {
         return failures;
     }
-    failures += ExpectGuildMemberPacket(packet.Value(), twoPayload, "yuD two packet");
+    failures += ExpectGuildMemberPacket(
+        packet.Value(),
+        twoPayload,
+        cg::packet::PacketFieldType::SubPayload,
+        "yuD two packet");
 
     const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
     failures += Expect(static_cast<bool>(built), "build yuD two packet");
@@ -194,35 +218,64 @@ int TestFinalEmptyTail()
     return failures;
 }
 
-int TestRawEscapePreserved()
+int TestOpaqueWholeLegacyRoundtrip()
 {
-    const std::string payload = "1|100|A\\zB\\cC\\yD\\nE|101|30|1|2000|2";
-    const cg::packet::PacketResult<GuildMember> parsed = GuildMember::Parse(BuildRawPlain(payload));
+    std::string rawComposite = Bytes({0xC3, 0xFB, 0x96, 0x5C});
+    rawComposite.append("A\\yzB\\zTitle\\ycTail");
+    const std::string payload = "1|100|" + rawComposite + "|101|30|1|2000|2";
+    const cg::packet::PacketResult<GuildMember> parsed = GuildMember::Parse(BuildPlain(payload));
 
-    int failures = Expect(static_cast<bool>(parsed), "parse yuD raw escape");
+    int failures = Expect(static_cast<bool>(parsed), "parse yuD opaque whole legacy");
     if (!parsed.HasValue()) {
         return failures;
     }
 
-    failures += Expect(parsed.Value().records.size() == 1U, "yuD raw escape count");
+    failures += Expect(parsed.Value().records.size() == 1U, "yuD opaque whole legacy count");
     if (parsed.Value().records.size() == 1U) {
-        failures += Expect(
-            parsed.Value().records[0].nameTitleRaw == "A\\zB\\cC\\yD\\nE",
-            "yuD raw escape nameTitleRaw");
+        failures += Expect(parsed.Value().records[0].nameTitleRaw == rawComposite, "yuD opaque raw preserved");
     }
 
+    const cg::packet::PacketResult<std::string> data = parsed.Value().BuildData();
+    failures += Expect(data.HasValue() && data.Value() == payload, "yuD opaque raw BuildData");
+
     const cg::packet::PacketResult<cg::packet::Packet> packet = parsed.Value().ToPacket();
-    failures += Expect(static_cast<bool>(packet), "yuD raw escape ToPacket");
+    failures += Expect(static_cast<bool>(packet), "yuD opaque raw ToPacket");
     if (!packet.HasValue()) {
         return failures;
     }
+    failures += ExpectGuildMemberPacket(
+        packet.Value(),
+        payload,
+        cg::packet::PacketFieldType::SubPayload,
+        "yuD opaque raw packet");
 
     const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
-    failures += Expect(static_cast<bool>(built), "build yuD raw escape");
+    failures += Expect(static_cast<bool>(built), "build yuD opaque raw");
     if (built.HasValue()) {
-        failures += Expect(
-            built.Value() == "yuD 1|100|A\\\\zB\\\\cC\\\\yD\\\\nE|101|30|1|2000|2 ",
-            "build yuD raw escaped value");
+        failures += Expect(built.Value() == BuildPlain(payload), "build yuD opaque raw value");
+    }
+    return failures;
+}
+
+int TestTruncatedRawBuildPreserved()
+{
+    const std::string truncatedRaw = "tail\\";
+    const GuildMember guildMember(std::vector<GuildMemberRecord> {
+        {1, 100, truncatedRaw, 101, 30, 1, 2000, 2},
+    });
+    const std::string payload = "1|100|tail\\|101|30|1|2000|2";
+
+    const cg::packet::PacketResult<std::string> data = guildMember.BuildData();
+    int failures = Expect(data.HasValue() && data.Value() == payload, "yuD truncated raw BuildData preserved");
+
+    const cg::packet::PacketResult<cg::packet::Packet> packet = guildMember.ToPacket();
+    failures += Expect(static_cast<bool>(packet), "yuD truncated raw ToPacket");
+    if (packet.HasValue()) {
+        failures += ExpectGuildMemberPacket(
+            packet.Value(),
+            payload,
+            cg::packet::PacketFieldType::SubPayload,
+            "yuD truncated raw packet preserved");
     }
     return failures;
 }
@@ -287,7 +340,8 @@ int main()
     failures += TestEmptyData();
     failures += TestOneAndTwoRecords();
     failures += TestFinalEmptyTail();
-    failures += TestRawEscapePreserved();
+    failures += TestOpaqueWholeLegacyRoundtrip();
+    failures += TestTruncatedRawBuildPreserved();
     failures += TestSeqMismatchAllowed();
     failures += TestErrors();
     if (failures != 0) {

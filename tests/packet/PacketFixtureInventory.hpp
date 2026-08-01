@@ -31,14 +31,14 @@ inline constexpr std::array<std::string_view, 91U> HistoricalTypedBaselineCodes 
     "RwK", "Yq", "PhdQ", "nsY", "NI", "uSB", "aBS",
 }};
 
-inline constexpr std::array<std::string_view, 15U> FixtureDebtCodes = {{
+inline constexpr std::array<std::string_view, 14U> FixtureDebtCodes = {{
     "aiAb",
     "JJQj",
-    "yuD", "Kka", "Rll", "Cxo", "ms", "nUbJ",
+    "Kka", "Rll", "Cxo", "ms", "nUbJ",
     "RwK", "Yq", "PhdQ", "nsY", "NI", "uSB", "aBS",
 }};
 
-inline constexpr std::array<FixturePayloadAudit, 191U> FixturePayloadAudits = {{
+inline constexpr std::array<FixturePayloadAudit, 192U> FixturePayloadAudits = {{
     {"WA", FixturePayloadAuditKind::NoStructuredPayload, 0U},
     {"PfM", FixturePayloadAuditKind::NoStructuredPayload, 0U},
     {"emRV", FixturePayloadAuditKind::NoStructuredPayload, 0U},
@@ -230,6 +230,7 @@ inline constexpr std::array<FixturePayloadAudit, 191U> FixturePayloadAudits = {{
     {"vI", FixturePayloadAuditKind::StructuredPayload, 1U},
     {"aDn", FixturePayloadAuditKind::StructuredPayload, 0U},
     {"znv", FixturePayloadAuditKind::StructuredPayload, 0U},
+    {"yuD", FixturePayloadAuditKind::StructuredPayload, 0U},
 }};
 
 template <std::size_t Size>

@@ -23597,8 +23597,8 @@ namespace cg::packet::receive
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("data"),
-                PacketFieldType::EscapedString,
-                data.Value(),
+                PacketFieldType::SubPayload,
+                std::move(data.Value()),
             });
             return PacketResult<Packet>::Success(std::move(packet));
         }

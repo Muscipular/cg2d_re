@@ -13792,26 +13792,57 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         const cg::packet::PacketResult<cg::packet::Packet> packet = guildMember.ToPacket();
         failures += Expect(guildMemberSchema->direction == "服务端->客户端", "yuD direction");
         failures += Expect(guildMemberSchema->legacyKind == "SEND", "yuD legacyKind");
+        failures += Expect(guildMemberSchema->clientNamespace == "receive", "yuD namespace");
+        failures += Expect(guildMemberSchema->xlsxStatus == "进行中", "yuD xlsx status");
+        failures += Expect(guildMemberSchema->description == "SEND_GM guildmember", "yuD description");
         failures += Expect(guildMemberSchema->rawFormat == "{data}", "yuD rawFormat");
+        failures += Expect(!guildMemberSchema->formatEmpty, "yuD raw format non-empty");
+        failures += Expect(guildMemberSchema->source == "xlsx", "yuD raw source");
         failures += Expect(guildMemberSchema->resolvedFormat == "{data:es}", "yuD resolvedFormat");
-        failures += Expect(guildMemberSchema->resolvedSource == "xlsx+src/packet", "yuD resolvedSource");
+        failures += Expect(
+            guildMemberSchema->resolvedSource == "xlsx+ServerC+ClientIda+src/packet",
+            "yuD resolvedSource");
         failures += Expect(guildMemberSchema->fields.size() == 1U, "yuD field count");
-        failures += Expect(packet.HasValue(), "yuD packet build");
         if (guildMemberSchema->fields.size() == 1U) {
-            failures += Expect(guildMemberSchema->fields[0].name == "data", "yuD data field");
-            failures += Expect(guildMemberSchema->fields[0].typeToken == "unknown", "yuD raw data type");
-            failures += Expect(guildMemberSchema->fields[0].rawSpec == "{data}", "yuD rawSpec");
+            const FieldSchema& field = guildMemberSchema->fields[0];
+            failures += Expect(
+                field.index == 0U &&
+                    field.name == "data" &&
+                    field.typeToken == "unknown" &&
+                    field.rawSpec == "{data}" &&
+                    field.source == "xlsx",
+                "yuD raw field");
         }
+        failures += Expect(guildMemberSchema->resolvedFields.size() == 1U, "yuD resolved field count");
+        if (guildMemberSchema->resolvedFields.size() == 1U) {
+            const FieldSchema& field = guildMemberSchema->resolvedFields[0];
+            failures += Expect(
+                field.index == 0U &&
+                    field.name == "data" &&
+                    field.typeToken == "es" &&
+                    field.rawSpec == "{data:es}" &&
+                    field.source == "xlsx+ServerC+ClientIda+src/packet",
+                "yuD resolved field");
+        }
+        failures += ExpectEffectiveFieldsMatch(
+            *guildMemberSchema,
+            cg::packet::receive::GuildMember::Spec,
+            "yuD Spec matches effective fields");
+        failures += Expect(packet.HasValue(), "yuD packet build");
         if (packet.HasValue()) {
-            failures += Expect(packet.Value().fields.size() == 1U, "yuD packet field count");
-            if (packet.Value().fields.size() == 1U) {
-                failures += Expect(packet.Value().fields[0].name == "data", "yuD packet data field");
-                failures += Expect(
-                    packet.Value().fields[0].type == cg::packet::PacketFieldType::EscapedString,
-                    "yuD packet data type");
-            }
+            failures += Expect(
+                packet.Value().fields.size() == 1U &&
+                    packet.Value().fields[0].type == cg::packet::PacketFieldType::SubPayload,
+                "yuD ToPacket payload type");
+            failures += ExpectResolvedFieldsMatch(*guildMemberSchema, packet.Value(), "yuD resolved field order");
         }
     }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "yuD"),
+        "yuD absent from send typed manifest");
+    failures += Expect(
+        TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "yuD"),
+        "yuD present in receive typed manifest");
 
     const PacketSchema* guildMemberInfoSchema = FindPacket(packets, "Kka");
     failures += Expect(guildMemberInfoSchema != nullptr, "Kka schema exists");

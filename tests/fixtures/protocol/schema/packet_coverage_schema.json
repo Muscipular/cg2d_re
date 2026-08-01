@@ -2971,7 +2971,23 @@
       "formatEmpty": false,
       "source": "xlsx",
       "resolvedFormat": "{registry:i62} {data:es}",
-      "resolvedSource": "xlsx+ClientIda+src/packet",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "registry",
+          "typeToken": "i62",
+          "rawSpec": "{registry:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 1,
+          "name": "data",
+          "typeToken": "es",
+          "rawSpec": "{data:es}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        }
+      ],
       "fields": [
         {
           "index": 0,

@@ -21047,36 +21047,72 @@ namespace cg::packet::receive
         }
 
 #if CG_PACKET_ENABLE_TEST_HELPERS
-        [[nodiscard]] std::string BuildData() const
+        [[nodiscard]] PacketResult<std::string> BuildData() const
         {
             std::array<std::string, PayloadFieldCount> parts = {};
-            parts[UsePayloadIndex] = std::to_string(use);
-
             if (IsActive()) {
-                parts[CharNamePayloadIndex] = charNameRaw;
-                parts[OwnTitlePayloadIndex] = ownTitleRaw;
+                parts[UsePayloadIndex] = std::to_string(use);
+
+                PacketResult<std::string> charName =
+                    EncodePayloadTextField(charNameRaw, CharNamePayloadIndex);
+                if (!charName.HasValue()) {
+                    return PacketResult<std::string>::Failure(charName.Error());
+                }
+                parts[CharNamePayloadIndex] = std::move(charName.Value());
+
+                PacketResult<std::string> ownTitle =
+                    EncodePayloadTextField(ownTitleRaw, OwnTitlePayloadIndex);
+                if (!ownTitle.HasValue()) {
+                    return PacketResult<std::string>::Failure(ownTitle.Error());
+                }
+                parts[OwnTitlePayloadIndex] = std::move(ownTitle.Value());
+
                 parts[RegistSeqNumberPayloadIndex] = std::to_string(registSeqNumber);
                 parts[LevelPayloadIndex] = std::to_string(level);
                 parts[OnlinePayloadIndex] = std::to_string(online);
                 parts[GraphicsNoPayloadIndex] = std::to_string(graphicsNo);
                 parts[ClearGraphicsFlagPayloadIndex] = std::to_string(clearGraphicsFlag);
-                parts[Field9PayloadIndex] = field9Raw;
-                parts[Field10PayloadIndex] = field10Raw;
+
+                PacketResult<std::string> field9 =
+                    EncodePayloadTextField(field9Raw, Field9PayloadIndex);
+                if (!field9.HasValue()) {
+                    return PacketResult<std::string>::Failure(field9.Error());
+                }
+                parts[Field9PayloadIndex] = std::move(field9.Value());
+
+                PacketResult<std::string> field10 =
+                    EncodePayloadTextField(field10Raw, Field10PayloadIndex);
+                if (!field10.HasValue()) {
+                    return PacketResult<std::string>::Failure(field10.Error());
+                }
+                parts[Field10PayloadIndex] = std::move(field10.Value());
             }
 
             PacketResult<std::string> payload = BuildPayload(
                 std::span<const std::string>(parts.data(), parts.size()),
                 PayloadDelimiter);
-            if (payload.HasValue()) {
-                return payload.Value();
+            if (!payload.HasValue()) {
+                PacketError error = payload.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = DataFieldIndex;
+                return PacketResult<std::string>::Failure(std::move(error));
             }
-            return {};
+
+            if (IsActive() && field9Raw.empty() && field10Raw.empty()) {
+                payload.Value().push_back('|');
+            }
+            return payload;
         }
 #endif
 
 #if CG_PACKET_ENABLE_TEST_HELPERS
-        [[nodiscard]] Packet ToPacket() const
+        [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
+            PacketResult<std::string> data = BuildData();
+            if (!data.HasValue()) {
+                return PacketResult<Packet>::Failure(data.Error());
+            }
+
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("registry"),
@@ -21085,10 +21121,10 @@ namespace cg::packet::receive
             });
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("data"),
-                PacketFieldType::EscapedString,
-                BuildData(),
+                PacketFieldType::SubPayload,
+                std::move(data.Value()),
             });
-            return packet;
+            return PacketResult<Packet>::Success(std::move(packet));
         }
 #endif
 
@@ -21206,11 +21242,19 @@ namespace cg::packet::receive
                 parts.pop_back();
             }
 
-            if (parts.size() != PayloadFieldCount) {
+            if (parts.size() != 8U && parts.size() != PayloadFieldCount) {
                 return PacketResult<AddressBookInfo>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
                     CG_PACKET_DIAGNOSTIC_TEXT("AddressBookInfo payload 段数量不匹配"),
                     DataFieldIndex));
+            }
+
+            parts.resize(PayloadFieldCount);
+
+            AddressBookInfo info;
+            info.registry = registry;
+            if (parts[UsePayloadIndex].empty()) {
+                return PacketResult<AddressBookInfo>::Success(std::move(info));
             }
 
             PacketResult<int> useValue = ParseDecimalField(parts[UsePayloadIndex], UsePayloadIndex);
@@ -21218,16 +21262,33 @@ namespace cg::packet::receive
                 return PacketResult<AddressBookInfo>::Failure(useValue.Error());
             }
 
-            AddressBookInfo info;
-            info.registry = registry;
             info.use = useValue.Value();
-            info.charNameRaw = parts[CharNamePayloadIndex];
-            info.ownTitleRaw = parts[OwnTitlePayloadIndex];
-            info.field9Raw = parts[Field9PayloadIndex];
-            info.field10Raw = parts[Field10PayloadIndex];
-
             if (!info.IsActive()) {
                 return PacketResult<AddressBookInfo>::Success(std::move(info));
+            }
+
+            PacketResult<std::string> charName =
+                DecodePayloadTextField(parts[CharNamePayloadIndex], CharNamePayloadIndex);
+            if (!charName.HasValue()) {
+                return PacketResult<AddressBookInfo>::Failure(charName.Error());
+            }
+
+            PacketResult<std::string> ownTitle =
+                DecodePayloadTextField(parts[OwnTitlePayloadIndex], OwnTitlePayloadIndex);
+            if (!ownTitle.HasValue()) {
+                return PacketResult<AddressBookInfo>::Failure(ownTitle.Error());
+            }
+
+            PacketResult<std::string> field9 =
+                DecodePayloadTextField(parts[Field9PayloadIndex], Field9PayloadIndex);
+            if (!field9.HasValue()) {
+                return PacketResult<AddressBookInfo>::Failure(field9.Error());
+            }
+
+            PacketResult<std::string> field10 =
+                DecodePayloadTextField(parts[Field10PayloadIndex], Field10PayloadIndex);
+            if (!field10.HasValue()) {
+                return PacketResult<AddressBookInfo>::Failure(field10.Error());
             }
 
             PacketResult<int> registSeqNumber =
@@ -21262,7 +21323,39 @@ namespace cg::packet::receive
             info.online = online.Value();
             info.graphicsNo = graphicsNo.Value();
             info.clearGraphicsFlag = clearGraphicsFlag.Value();
+            info.charNameRaw = std::move(charName.Value());
+            info.ownTitleRaw = std::move(ownTitle.Value());
+            info.field9Raw = std::move(field9.Value());
+            info.field10Raw = std::move(field10.Value());
             return PacketResult<AddressBookInfo>::Success(std::move(info));
+        }
+
+        [[nodiscard]] static PacketResult<std::string> EncodePayloadTextField(
+            std::string_view text,
+            std::size_t fieldIndex)
+        {
+            PacketResult<std::string> encoded = EncodeLegacyPayloadText(text);
+            if (!encoded.HasValue()) {
+                PacketError error = encoded.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = fieldIndex;
+                return PacketResult<std::string>::Failure(std::move(error));
+            }
+            return encoded;
+        }
+
+        [[nodiscard]] static PacketResult<std::string> DecodePayloadTextField(
+            std::string_view text,
+            std::size_t fieldIndex)
+        {
+            PacketResult<std::string> decoded = DecodeLegacyPayloadText(text);
+            if (!decoded.HasValue()) {
+                PacketError error = decoded.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = fieldIndex;
+                return PacketResult<std::string>::Failure(std::move(error));
+            }
+            return decoded;
         }
 
         [[nodiscard]] static PacketResult<int> ParseDecimalField(std::string_view text, std::size_t fieldIndex)

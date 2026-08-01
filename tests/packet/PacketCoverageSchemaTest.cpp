@@ -13593,20 +13593,79 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     failures += Expect(addressBookInfoSchema != nullptr, "vI schema exists");
     if (addressBookInfoSchema != nullptr) {
         const cg::packet::receive::AddressBookInfo info;
-        const cg::packet::Packet packet = info.ToPacket();
+        const cg::packet::PacketResult<cg::packet::Packet> packet = info.ToPacket();
         failures += Expect(addressBookInfoSchema->direction == "服务端->客户端", "vI direction");
         failures += Expect(addressBookInfoSchema->legacyKind == "SEND", "vI legacyKind");
+        failures += Expect(addressBookInfoSchema->clientNamespace == "receive", "vI namespace");
+        failures += Expect(addressBookInfoSchema->xlsxStatus == "完成", "vI xlsx status");
+        failures += Expect(
+            addressBookInfoSchema->description == "SEND_ABI ADDRESSBOOK_sendAddressbookTableOne",
+            "vI description");
         failures += Expect(addressBookInfoSchema->rawFormat == "{registry} {data}", "vI rawFormat");
+        failures += Expect(!addressBookInfoSchema->formatEmpty, "vI raw format non-empty");
+        failures += Expect(addressBookInfoSchema->source == "xlsx", "vI raw source");
         failures += Expect(addressBookInfoSchema->resolvedFormat == "{registry:i62} {data:es}", "vI resolvedFormat");
-        failures += Expect(addressBookInfoSchema->resolvedSource == "xlsx+ClientIda+src/packet", "vI resolvedSource");
+        failures += Expect(
+            addressBookInfoSchema->resolvedSource == "xlsx+ServerC+ClientIda+src/packet",
+            "vI resolvedSource");
         failures += Expect(addressBookInfoSchema->fields.size() == 2U, "vI field count");
         if (addressBookInfoSchema->fields.size() == 2U) {
-            failures += Expect(addressBookInfoSchema->fields[0].name == packet.fields[0].name, "vI registry field");
-            failures += Expect(addressBookInfoSchema->fields[1].name == packet.fields[1].name, "vI data field");
-            failures += Expect(addressBookInfoSchema->fields[0].typeToken == "unknown", "vI raw registry type");
-            failures += Expect(addressBookInfoSchema->fields[1].typeToken == "unknown", "vI raw data type");
+            const FieldSchema& registryField = addressBookInfoSchema->fields[0];
+            const FieldSchema& dataField = addressBookInfoSchema->fields[1];
+            failures += Expect(
+                registryField.index == 0U &&
+                    registryField.name == "registry" &&
+                    registryField.typeToken == "unknown" &&
+                    registryField.rawSpec == "{registry}" &&
+                    registryField.source == "xlsx",
+                "vI raw registry field");
+            failures += Expect(
+                dataField.index == 1U &&
+                    dataField.name == "data" &&
+                    dataField.typeToken == "unknown" &&
+                    dataField.rawSpec == "{data}" &&
+                    dataField.source == "xlsx",
+                "vI raw data field");
+        }
+        failures += Expect(addressBookInfoSchema->resolvedFields.size() == 2U, "vI resolved field count");
+        if (addressBookInfoSchema->resolvedFields.size() == 2U) {
+            const FieldSchema& registryField = addressBookInfoSchema->resolvedFields[0];
+            const FieldSchema& dataField = addressBookInfoSchema->resolvedFields[1];
+            failures += Expect(
+                registryField.index == 0U &&
+                    registryField.name == "registry" &&
+                    registryField.typeToken == "i62" &&
+                    registryField.rawSpec == "{registry:i62}" &&
+                    registryField.source == "xlsx+ServerC+ClientIda+src/packet",
+                "vI resolved registry field");
+            failures += Expect(
+                dataField.index == 1U &&
+                    dataField.name == "data" &&
+                    dataField.typeToken == "es" &&
+                    dataField.rawSpec == "{data:es}" &&
+                    dataField.source == "xlsx+ServerC+ClientIda+src/packet",
+                "vI resolved data field");
+        }
+        failures += ExpectEffectiveFieldsMatch(
+            *addressBookInfoSchema,
+            cg::packet::receive::AddressBookInfo::Spec,
+            "vI Spec matches effective fields");
+        failures += Expect(packet.HasValue(), "vI packet build");
+        if (packet.HasValue()) {
+            failures += Expect(
+                packet.Value().fields.size() == 2U &&
+                    packet.Value().fields[0].type == cg::packet::PacketFieldType::Int62 &&
+                    packet.Value().fields[1].type == cg::packet::PacketFieldType::SubPayload,
+                "vI ToPacket field types");
+            failures += ExpectResolvedFieldsMatch(*addressBookInfoSchema, packet.Value(), "vI resolved field order");
         }
     }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "vI"),
+        "vI absent from send typed manifest");
+    failures += Expect(
+        TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "vI"),
+        "vI present in receive typed manifest");
 
     const PacketSchema* guildInfoSchema = FindPacket(packets, "aDn");
     failures += Expect(guildInfoSchema != nullptr, "aDn schema exists");

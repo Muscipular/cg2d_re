@@ -1,0 +1,15 @@
+pkt_fixture=1
+code=znv
+direction=server_to_client
+sample=active-legacy-title-gbk-boundaries
+plain_hex=7A 6E 76 20 31 7C 31 7C 32 7C C3 FB 96 7C 96 5C 41 5C 5C 7A 42 5C 5C 63 43 5C 5C 79 44 5C 5C 6E 45 7C
+canonical_hex=7A 6E 76 20 31 7C 31 7C 32 7C C3 FB 96 7C 96 5C 41 5C 5C 7A 42 5C 5C 63 43 5C 5C 79 44 5C 5C 6E 45 7C 20
+payload_field=0
+payload_hex=31 7C 31 7C 32 7C C3 FB 96 7C 96 5C 41 5C 7A 42 5C 63 43 5C 79 44 5C 6E 45 7C
+end_sample
+sample=server-clear-empty-commition-title
+plain_hex=7A 6E 76 20 31 7C 38 7C 7C 7C
+canonical_hex=7A 6E 76 20 31 7C 38 7C 7C 7C 20
+payload_field=0
+payload_hex=31 7C 38 7C 7C 7C
+end_sample

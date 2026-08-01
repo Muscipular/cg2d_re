@@ -23210,7 +23210,7 @@ namespace cg::packet::receive
     {
         int seq = 0;
         int commition = 0;
-        std::string titleNameRaw;
+        std::string titleNameRaw; // 历史 Raw 命名；值为单层 legacy 解码后的 GBK 语义字节。
     };
 
     /**
@@ -23243,41 +23243,63 @@ namespace cg::packet::receive
         }
 
 #if CG_PACKET_ENABLE_TEST_HELPERS
-        [[nodiscard]] std::string BuildData() const
+        [[nodiscard]] PacketResult<std::string> BuildData() const
         {
             if (records.empty()) {
-                return "0";
+                return PacketResult<std::string>::Success("0");
             }
 
             std::vector<std::string> parts;
-            parts.reserve(1U + (records.size() * RecordFieldCount));
+            parts.reserve(2U + (records.size() * RecordFieldCount));
             parts.push_back(std::to_string(records.size()));
             for (const GuildTitleRecord& record : records) {
                 parts.push_back(std::to_string(record.seq));
+                if (record.commition == -1) {
+                    parts.emplace_back();
+                    parts.emplace_back();
+                    continue;
+                }
+
                 parts.push_back(std::to_string(record.commition));
-                parts.push_back(record.titleNameRaw);
+                PacketResult<std::string> title = EncodeLegacyPayloadText(record.titleNameRaw);
+                if (!title.HasValue()) {
+                    PacketError error = title.Error();
+                    error.packetCode = PacketCode(Code);
+                    error.fieldIndex = parts.size();
+                    return PacketResult<std::string>::Failure(std::move(error));
+                }
+                parts.push_back(std::move(title.Value()));
             }
+
+            parts.emplace_back();
 
             PacketResult<std::string> payload =
                 BuildPayload(std::span<const std::string>(parts.data(), parts.size()), PayloadDelimiter);
-            if (payload.HasValue()) {
-                return payload.Value();
+            if (!payload.HasValue()) {
+                PacketError error = payload.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = DataFieldIndex;
+                return PacketResult<std::string>::Failure(std::move(error));
             }
-
-            return {};
+            return payload;
         }
 #endif
 
 #if CG_PACKET_ENABLE_TEST_HELPERS
-        [[nodiscard]] Packet ToPacket() const
+        [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
+            PacketResult<std::string> data = BuildData();
+            if (!data.HasValue()) {
+                return PacketResult<Packet>::Failure(data.Error());
+            }
+
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("data"),
-                PacketFieldType::EscapedString,
-                BuildData(),
+                PacketFieldType::SubPayload,
+                std::move(data.Value()),
             });
-            return packet;
+            return PacketResult<Packet>::Success(std::move(packet));
         }
 #endif
 
@@ -23380,7 +23402,17 @@ namespace cg::packet::receive
 
             const std::size_t recordCount = static_cast<std::size_t>(countValue.Value());
             const std::size_t expectedFieldCount = 1U + (recordCount * RecordFieldCount);
-            if (parts.size() == expectedFieldCount + 1U && !parts.empty() && parts.back().empty()) {
+            if (recordCount == 0U) {
+                if (parts.size() == 2U && parts.back().empty()) {
+                    parts.pop_back();
+                }
+            } else {
+                if (parts.size() != expectedFieldCount + 1U || parts.back() != "") {
+                    return PacketResult<GuildTitle>::Failure(MakeFieldError(
+                        PacketErrorCode::FieldCountMismatch,
+                        CG_PACKET_DIAGNOSTIC_TEXT("GuildTitle payload 非空记录缺少最终空段"),
+                        DataFieldIndex));
+                }
                 parts.pop_back();
             }
 
@@ -23399,15 +23431,38 @@ namespace cg::packet::receive
                     return PacketResult<GuildTitle>::Failure(seq.Error());
                 }
 
-                PacketResult<int> commition = ParseDecimalField(parts[index + 1U], index + 1U);
-                if (!commition.HasValue()) {
-                    return PacketResult<GuildTitle>::Failure(commition.Error());
+                int commitionValue = -1;
+                if (!parts[index + 1U].empty()) {
+                    PacketResult<int> commition = ParseDecimalField(parts[index + 1U], index + 1U);
+                    if (!commition.HasValue()) {
+                        return PacketResult<GuildTitle>::Failure(commition.Error());
+                    }
+                    commitionValue = commition.Value();
+                }
+
+                std::string title;
+                if (commitionValue == -1) {
+                    if (!parts[index + 2U].empty()) {
+                        return PacketResult<GuildTitle>::Failure(MakeFieldError(
+                            PacketErrorCode::DecodeFailed,
+                            CG_PACKET_DIAGNOSTIC_TEXT("GuildTitle clear 记录 title 必须为空"),
+                            index + 2U));
+                    }
+                } else {
+                    PacketResult<std::string> decodedTitle = DecodeLegacyPayloadText(parts[index + 2U]);
+                    if (!decodedTitle.HasValue()) {
+                        PacketError error = decodedTitle.Error();
+                        error.packetCode = PacketCode(Code);
+                        error.fieldIndex = index + 2U;
+                        return PacketResult<GuildTitle>::Failure(std::move(error));
+                    }
+                    title = std::move(decodedTitle.Value());
                 }
 
                 records.push_back(GuildTitleRecord {
                     seq.Value(),
-                    commition.Value(),
-                    std::move(parts[index + 2U]),
+                    commitionValue,
+                    std::move(title),
                 });
             }
 

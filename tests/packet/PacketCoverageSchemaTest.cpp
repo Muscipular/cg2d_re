@@ -13730,26 +13730,60 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     failures += Expect(guildTitleSchema != nullptr, "znv schema exists");
     if (guildTitleSchema != nullptr) {
         const cg::packet::receive::GuildTitle guildTitle;
-        const cg::packet::Packet packet = guildTitle.ToPacket();
+        const cg::packet::PacketResult<cg::packet::Packet> packet = guildTitle.ToPacket();
         failures += Expect(guildTitleSchema->direction == "服务端->客户端", "znv direction");
         failures += Expect(guildTitleSchema->legacyKind == "SEND", "znv legacyKind");
+        failures += Expect(guildTitleSchema->clientNamespace == "receive", "znv namespace");
+        failures += Expect(guildTitleSchema->xlsxStatus == "进行中", "znv xlsx status");
+        failures += Expect(guildTitleSchema->description == "SEND_GT guildtitle", "znv description");
         failures += Expect(guildTitleSchema->rawFormat == "{data}", "znv rawFormat");
+        failures += Expect(!guildTitleSchema->formatEmpty, "znv raw format non-empty");
+        failures += Expect(guildTitleSchema->source == "xlsx", "znv raw source");
         failures += Expect(guildTitleSchema->resolvedFormat == "{data:es}", "znv resolvedFormat");
-        failures += Expect(guildTitleSchema->resolvedSource == "xlsx+src/packet", "znv resolvedSource");
+        failures += Expect(
+            guildTitleSchema->resolvedSource == "xlsx+ServerC+ClientIda+src/packet",
+            "znv resolvedSource");
         failures += Expect(guildTitleSchema->fields.size() == 1U, "znv field count");
         if (guildTitleSchema->fields.size() == 1U) {
-            failures += Expect(guildTitleSchema->fields[0].name == "data", "znv data field");
-            failures += Expect(guildTitleSchema->fields[0].typeToken == "unknown", "znv raw data type");
-            failures += Expect(guildTitleSchema->fields[0].rawSpec == "{data}", "znv rawSpec");
-        }
-        failures += Expect(packet.fields.size() == 1U, "znv packet field count");
-        if (packet.fields.size() == 1U) {
-            failures += Expect(packet.fields[0].name == "data", "znv packet data field");
+            const FieldSchema& field = guildTitleSchema->fields[0];
             failures += Expect(
-                packet.fields[0].type == cg::packet::PacketFieldType::EscapedString,
-                "znv packet data type");
+                field.index == 0U &&
+                    field.name == "data" &&
+                    field.typeToken == "unknown" &&
+                    field.rawSpec == "{data}" &&
+                    field.source == "xlsx",
+                "znv raw field");
+        }
+        failures += Expect(guildTitleSchema->resolvedFields.size() == 1U, "znv resolved field count");
+        if (guildTitleSchema->resolvedFields.size() == 1U) {
+            const FieldSchema& field = guildTitleSchema->resolvedFields[0];
+            failures += Expect(
+                field.index == 0U &&
+                    field.name == "data" &&
+                    field.typeToken == "es" &&
+                    field.rawSpec == "{data:es}" &&
+                    field.source == "xlsx+ServerC+ClientIda+src/packet",
+                "znv resolved field");
+        }
+        failures += ExpectEffectiveFieldsMatch(
+            *guildTitleSchema,
+            cg::packet::receive::GuildTitle::Spec,
+            "znv Spec matches effective fields");
+        failures += Expect(packet.HasValue(), "znv packet build");
+        if (packet.HasValue()) {
+            failures += Expect(
+                packet.Value().fields.size() == 1U &&
+                    packet.Value().fields[0].type == cg::packet::PacketFieldType::SubPayload,
+                "znv ToPacket payload type");
+            failures += ExpectResolvedFieldsMatch(*guildTitleSchema, packet.Value(), "znv resolved field order");
         }
     }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "znv"),
+        "znv absent from send typed manifest");
+    failures += Expect(
+        TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "znv"),
+        "znv present in receive typed manifest");
 
     const PacketSchema* guildMemberSchema = FindPacket(packets, "yuD");
     failures += Expect(guildMemberSchema != nullptr, "yuD schema exists");

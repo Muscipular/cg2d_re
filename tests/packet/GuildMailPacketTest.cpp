@@ -19,9 +19,6 @@ cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& pack
     return cg::packet::BuildPacket(packet, cg::packet::receive::GuildMail::Spec);
 }
 
-using GuildMail = cg::packet::receive::GuildMail;
-using GuildMailPayload = cg::packet::receive::GuildMailPayload;
-
 int Expect(bool condition, const char* message)
 {
     if (condition) {
@@ -82,40 +79,89 @@ cg::packet::Packet PacketOf(
     std::initializer_list<cg::packet::PacketField> fields)
 {
     cg::packet::Packet packet(
-        cg::packet::PacketCode(GuildMail::Code),
+        cg::packet::PacketCode(cg::packet::receive::GuildMail::Code),
         direction);
     packet.fields.assign(fields.begin(), fields.end());
     return packet;
 }
 
-std::string BuildRawPlainRll(std::string_view fromRegistSeqNumber, std::string_view text, std::string_view color)
+std::string Bytes(std::initializer_list<unsigned char> bytes)
 {
-    std::string plain = "Rll ";
-    plain.append(fromRegistSeqNumber);
-    plain.push_back(' ');
-    plain.append(text);
-    plain.push_back(' ');
-    plain.append(color);
-    plain.push_back(' ');
-    return plain;
+    std::string value;
+    value.reserve(bytes.size());
+    for (const unsigned char byte : bytes) {
+        value.push_back(static_cast<char>(byte));
+    }
+    return value;
+}
+
+std::string SemanticMessage()
+{
+    std::string message = Bytes({0xC3, 0xFB, 0x96, 0x7C, 0x96, 0x5C});
+    message.append("A|B,C\\D\nE");
+    return message;
+}
+
+std::string EncodedMessage()
+{
+    std::string message = Bytes({0xC3, 0xFB, 0x96, 0x7C, 0x96, 0x5C});
+    message.append("A\\zB\\cC\\yD\\nE");
+    return message;
+}
+
+std::string SemanticPetName()
+{
+    std::string name = Bytes({0xD0, 0xA1, 0xC3, 0xFB, 0x96, 0x7C, 0x96, 0x5C});
+    name.append("A|B");
+    return name;
+}
+
+std::string EncodedPetName()
+{
+    std::string name = Bytes({0xD0, 0xA1, 0xC3, 0xFB, 0x96, 0x7C, 0x96, 0x5C});
+    name.append("A\\zB");
+    return name;
+}
+
+std::string NormalPayloadText()
+{
+    std::string text = "2026/ 8/ 1 12:34|";
+    text.append(EncodedMessage());
+    text.append("|-1");
+    return text;
+}
+
+std::string PetPayloadText()
+{
+    std::string text = "2026/ 8/01 12:34|";
+    text.append(EncodedMessage());
+    text.append("|7300|10|");
+    text.append(EncodedPetName());
+    text.append("|-1");
+    return text;
 }
 
 std::string BuildPlainRll(std::string_view text)
 {
     const cg::packet::PacketResult<std::string> encoded = cg::packet::EncodeEscapedString(text);
     if (!encoded.HasValue()) {
-        return BuildRawPlainRll("1", "", "3");
+        return "Rll 1  3 ";
     }
-    return BuildRawPlainRll("1", encoded.Value(), "3");
+
+    std::string plain = "Rll 1 ";
+    plain.append(encoded.Value());
+    plain.append(" 3 ");
+    return plain;
 }
 
 int ExpectGuildMailPacket(
     const cg::packet::Packet& packet,
     std::string_view text,
+    cg::packet::PacketFieldType textType,
     const char* message)
 {
     int failures = 0;
-    failures += Expect(packet.code == cg::packet::PacketCode(GuildMail::Code), message);
+    failures += Expect(packet.code == cg::packet::PacketCode(cg::packet::receive::GuildMail::Code), message);
     failures += Expect(packet.direction == cg::packet::PacketDirection::ServerToClient, message);
     failures += Expect(packet.fields.size() == 3U, message);
     if (packet.fields.size() != 3U) {
@@ -126,7 +172,7 @@ int ExpectGuildMailPacket(
     failures += Expect(packet.fields[0].type == cg::packet::PacketFieldType::Int62, message);
     failures += Expect(packet.fields[0].value == "1", message);
     failures += Expect(packet.fields[1].name == "text", message);
-    failures += Expect(packet.fields[1].type == cg::packet::PacketFieldType::EscapedString, message);
+    failures += Expect(packet.fields[1].type == textType, message);
     failures += Expect(packet.fields[1].value == text, message);
     failures += Expect(packet.fields[2].name == "color", message);
     failures += Expect(packet.fields[2].type == cg::packet::PacketFieldType::Int62, message);
@@ -135,7 +181,7 @@ int ExpectGuildMailPacket(
 }
 
 int ExpectNormalMail(
-    const GuildMail& value,
+    const cg::packet::receive::GuildMail& value,
     std::string_view messageRaw,
     const char* message)
 {
@@ -143,14 +189,14 @@ int ExpectNormalMail(
     failures += Expect(value.fromRegistSeqNumber == 1, message);
     failures += Expect(value.color == 3, message);
     failures += Expect(!value.payload.isPetMail, message);
-    failures += Expect(value.payload.sentTimeText == "2026/ 6/02 12:34", message);
+    failures += Expect(value.payload.sentTimeText == "2026/ 8/ 1 12:34", message);
     failures += Expect(value.payload.messageRaw == messageRaw, message);
     failures += Expect(value.payload.petBaseImageNumberOrMarker == -1, message);
     return failures;
 }
 
 int ExpectPetMail(
-    const GuildMail& value,
+    const cg::packet::receive::GuildMail& value,
     std::string_view messageRaw,
     std::string_view petNameRaw,
     const char* message)
@@ -159,9 +205,9 @@ int ExpectPetMail(
     failures += Expect(value.fromRegistSeqNumber == 1, message);
     failures += Expect(value.color == 3, message);
     failures += Expect(value.payload.isPetMail, message);
-    failures += Expect(value.payload.sentTimeText == "2026/ 6/02 12:34", message);
+    failures += Expect(value.payload.sentTimeText == "2026/ 8/01 12:34", message);
     failures += Expect(value.payload.messageRaw == messageRaw, message);
-    failures += Expect(value.payload.petBaseImageNumberOrMarker == 62, message);
+    failures += Expect(value.payload.petBaseImageNumberOrMarker == 7300, message);
     failures += Expect(value.payload.petLevel == 10, message);
     failures += Expect(value.payload.petNameRaw == petNameRaw, message);
     failures += Expect(value.payload.itemBaseImageNumber == -1, message);
@@ -170,77 +216,132 @@ int ExpectPetMail(
 
 int TestParsePacketOuter()
 {
-    const std::string text = "2026/ 6/02 12:34|hello|-1";
+    const std::string text = NormalPayloadText();
     const cg::packet::PacketResult<cg::packet::Packet> parsed = ParsePacket(BuildPlainRll(text));
 
     int failures = Expect(static_cast<bool>(parsed), "parse Rll outer");
     if (parsed.HasValue()) {
-        failures += ExpectGuildMailPacket(parsed.Value(), text, "parse Rll packet");
+        failures += ExpectGuildMailPacket(
+            parsed.Value(),
+            text,
+            cg::packet::PacketFieldType::EscapedString,
+            "parse Rll packet");
     }
     return failures;
 }
 
 int TestNormalMailTypedParse()
 {
-    const cg::packet::PacketResult<GuildMail> parsed =
-        GuildMail::Parse(BuildPlainRll("2026/ 6/02 12:34|hello|-1"));
+    const cg::packet::PacketResult<cg::packet::receive::GuildMail> parsed =
+        cg::packet::receive::GuildMail::Parse(BuildPlainRll(NormalPayloadText()));
 
     int failures = Expect(static_cast<bool>(parsed), "typed parse Rll normal mail");
     if (parsed.HasValue()) {
-        failures += ExpectNormalMail(parsed.Value(), "hello", "typed Rll normal mail value");
-        failures += Expect(parsed.Value().BuildData() == "2026/ 6/02 12:34|hello|-1", "build normal text");
+        failures += ExpectNormalMail(parsed.Value(), SemanticMessage(), "typed Rll normal mail value");
+        const cg::packet::PacketResult<std::string> text = parsed.Value().BuildData();
+        failures += Expect(text.HasValue(), "build normal text");
+        if (text.HasValue()) {
+            failures += Expect(text.Value() == NormalPayloadText(), "build normal text value");
+        }
     }
     return failures;
 }
 
 int TestPetMailTypedParse()
 {
-    const cg::packet::PacketResult<GuildMail> parsed =
-        GuildMail::Parse(BuildPlainRll("2026/ 6/02 12:34|pet mail|62|10|Pochi|-1"));
+    const cg::packet::PacketResult<cg::packet::receive::GuildMail> parsed =
+        cg::packet::receive::GuildMail::Parse(BuildPlainRll(PetPayloadText()));
 
     int failures = Expect(static_cast<bool>(parsed), "typed parse Rll pet mail");
     if (parsed.HasValue()) {
-        failures += ExpectPetMail(parsed.Value(), "pet mail", "Pochi", "typed Rll pet mail value");
-        failures += Expect(
-            parsed.Value().BuildData() == "2026/ 6/02 12:34|pet mail|62|10|Pochi|-1",
-            "build pet text");
+        failures += ExpectPetMail(
+            parsed.Value(),
+            SemanticMessage(),
+            SemanticPetName(),
+            "typed Rll pet mail value");
+        const cg::packet::PacketResult<std::string> text = parsed.Value().BuildData();
+        failures += Expect(text.HasValue(), "build pet text");
+        if (text.HasValue()) {
+            failures += Expect(text.Value() == PetPayloadText(), "build pet text value");
+        }
     }
     return failures;
 }
 
-int TestNestedRawEscapesPreserved()
+int TestLegacyRoundtrip()
 {
-    const std::string text = "2026/06/02|A\\zB\\cC\\yD\\nE|62|10|P\\zName|-1";
-    const cg::packet::PacketResult<GuildMail> parsed = GuildMail::Parse(BuildRawPlainRll("1", text, "3"));
+    cg::packet::receive::GuildMailPayload payload;
+    payload.isPetMail = true;
+    payload.sentTimeText = "2026/ 8/01 12:34";
+    payload.messageRaw = SemanticMessage();
+    payload.petBaseImageNumberOrMarker = 7300;
+    payload.petLevel = 10;
+    payload.petNameRaw = SemanticPetName();
+    payload.itemBaseImageNumber = -1;
+    const cg::packet::receive::GuildMail message(1, std::move(payload), 3);
 
-    int failures = Expect(static_cast<bool>(parsed), "parse Rll raw nested escapes");
+    const cg::packet::PacketResult<cg::packet::Packet> packet = message.ToPacket();
+    int failures = Expect(packet.HasValue(), "Rll ToPacket legacy payload");
+    if (!packet.HasValue()) {
+        return failures;
+    }
+    failures += ExpectGuildMailPacket(
+        packet.Value(),
+        PetPayloadText(),
+        cg::packet::PacketFieldType::SubPayload,
+        "Rll ToPacket legacy payload fields");
+
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
+    failures += Expect(static_cast<bool>(built), "build Rll legacy payload");
+    if (!built.HasValue()) {
+        return failures;
+    }
+    failures += Expect(built.Value() == BuildPlainRll(PetPayloadText()), "Rll legacy canonical plain");
+
+    const cg::packet::PacketResult<cg::packet::receive::GuildMail> parsed =
+        cg::packet::receive::GuildMail::Parse(built.Value());
+    failures += Expect(static_cast<bool>(parsed), "parse Rll legacy payload");
     if (parsed.HasValue()) {
-        failures += Expect(parsed.Value().payload.messageRaw == "A\\zB\\cC\\yD\\nE", "Rll raw message escapes");
-        failures += Expect(parsed.Value().payload.petNameRaw == "P\\zName", "Rll raw pet name escapes");
-        failures += Expect(parsed.Value().BuildData() == text, "Rll raw escape BuildData");
+        failures += ExpectPetMail(
+            parsed.Value(),
+            SemanticMessage(),
+            SemanticPetName(),
+            "Rll legacy roundtrip value");
     }
     return failures;
 }
 
 int TestBuildRoundtrip()
 {
-    GuildMailPayload payload;
-    payload.sentTimeText = "2026/ 6/02 12:34";
-    payload.messageRaw = "hello";
-    payload.petBaseImageNumberOrMarker = 0;
-    const GuildMail message(1, std::move(payload), 3);
+    cg::packet::receive::GuildMailPayload payload;
+    payload.sentTimeText = "2026/ 8/ 1 12:34";
+    payload.messageRaw = SemanticMessage();
+    payload.petBaseImageNumberOrMarker = -1;
+    const cg::packet::receive::GuildMail message(1, std::move(payload), 3);
 
-    const cg::packet::PacketResult<std::string> built = BuildPacket(message.ToPacket());
-    int failures = Expect(static_cast<bool>(built), "build Rll normal mail");
+    const cg::packet::PacketResult<cg::packet::Packet> packet = message.ToPacket();
+    int failures = Expect(packet.HasValue(), "Rll normal ToPacket");
+    if (!packet.HasValue()) {
+        return failures;
+    }
+
+    failures += ExpectGuildMailPacket(
+        packet.Value(),
+        NormalPayloadText(),
+        cg::packet::PacketFieldType::SubPayload,
+        "Rll normal ToPacket fields");
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
+    failures += Expect(static_cast<bool>(built), "build Rll normal mail");
     if (!built.HasValue()) {
         return failures;
     }
 
-    failures += Expect(built.Value() == BuildPlainRll("2026/ 6/02 12:34|hello|-1"), "Rll normal build plain");
-    const cg::packet::PacketResult<GuildMail> parsed = GuildMail::Parse(built.Value());
+    failures += Expect(built.Value() == BuildPlainRll(NormalPayloadText()), "Rll normal build plain");
+    const cg::packet::PacketResult<cg::packet::receive::GuildMail> parsed =
+        cg::packet::receive::GuildMail::Parse(built.Value());
     failures += Expect(static_cast<bool>(parsed), "roundtrip Rll normal mail");
     if (parsed.HasValue()) {
-        failures += ExpectNormalMail(parsed.Value(), "hello", "roundtrip Rll normal value");
+        failures += ExpectNormalMail(parsed.Value(), SemanticMessage(), "roundtrip Rll normal value");
     }
     return failures;
 }
@@ -256,7 +357,7 @@ int TestOuterParseErrors()
         2U,
         "Rll missing color");
     failures += ExpectError(
-        GuildMail::Parse("Rll 1 text"),
+        cg::packet::receive::GuildMail::Parse("Rll 1 text"),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "Rll",
         true,
@@ -275,18 +376,18 @@ int TestOuterParseErrors()
         "Rll",
         true,
         0U,
-        "Rll bad fromregistseqnumber");
+        "Rll bad aindex");
     failures += ExpectError(
-        GuildMail::Parse("Rll 1 time|msg|-1 _ "),
+        cg::packet::receive::GuildMail::Parse("Rll 1 text _ "),
         cg::packet::PacketErrorCode::DecodeFailed,
         "Rll",
         true,
         2U,
         "typed Rll bad color");
     failures += ExpectError(
-        GuildMail::Parse("yuD time|msg|-1 "),
+        cg::packet::receive::GuildMail::Parse("LYIm BU "),
         cg::packet::PacketErrorCode::InvalidCode,
-        "yuD",
+        "LYIm",
         false,
         0U,
         "typed Rll wrong code");
@@ -297,54 +398,47 @@ int TestPayloadFieldCountErrors()
 {
     int failures = 0;
     failures += ExpectError(
-        GuildMail::Parse(BuildPlainRll("")),
-        cg::packet::PacketErrorCode::EmptyInput,
-        "Rll",
-        true,
-        1U,
-        "Rll empty text");
-    failures += ExpectError(
-        GuildMail::Parse(BuildPlainRll("one")),
+        cg::packet::receive::GuildMail::Parse(BuildPlainRll("one")),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "Rll",
         true,
         1U,
         "Rll payload 1 segment");
     failures += ExpectError(
-        GuildMail::Parse(BuildPlainRll("one|two")),
+        cg::packet::receive::GuildMail::Parse(BuildPlainRll("one|two")),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "Rll",
         true,
         1U,
         "Rll payload 2 segments");
     failures += ExpectError(
-        GuildMail::Parse(BuildPlainRll("time|message|-1|")),
-        cg::packet::PacketErrorCode::FieldCountMismatch,
-        "Rll",
-        true,
-        1U,
-        "Rll normal trailing empty segment");
-    failures += ExpectError(
-        GuildMail::Parse(BuildPlainRll("one|two|3|4")),
+        cg::packet::receive::GuildMail::Parse(BuildPlainRll("one|two|3|4")),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "Rll",
         true,
         1U,
         "Rll payload 4 segments");
     failures += ExpectError(
-        GuildMail::Parse(BuildPlainRll("one|two|3|4|five")),
+        cg::packet::receive::GuildMail::Parse(BuildPlainRll("one|two|3|4|five")),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "Rll",
         true,
         1U,
         "Rll payload 5 segments");
     failures += ExpectError(
-        GuildMail::Parse(BuildPlainRll("one|two|3|4|five|6|7")),
+        cg::packet::receive::GuildMail::Parse(BuildPlainRll("time|message|-1|")),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "Rll",
         true,
         1U,
-        "Rll payload 7 segments");
+        "Rll normal trailing segment");
+    failures += ExpectError(
+        cg::packet::receive::GuildMail::Parse(BuildPlainRll("time|message|7300|10|pet|-1|")),
+        cg::packet::PacketErrorCode::FieldCountMismatch,
+        "Rll",
+        true,
+        1U,
+        "Rll pet trailing segment");
     return failures;
 }
 
@@ -352,40 +446,82 @@ int TestPayloadNumberErrors()
 {
     int failures = 0;
     failures += ExpectError(
-        GuildMail::Parse(BuildPlainRll("time|message|0")),
+        cg::packet::receive::GuildMail::Parse(BuildPlainRll("time|message|bad")),
+        cg::packet::PacketErrorCode::DecodeFailed,
+        "Rll",
+        true,
+        2U,
+        "Rll normal bad marker");
+    failures += ExpectError(
+        cg::packet::receive::GuildMail::Parse(BuildPlainRll("time|message|2147483648")),
+        cg::packet::PacketErrorCode::DecodeFailed,
+        "Rll",
+        true,
+        2U,
+        "Rll normal marker overflow");
+    failures += ExpectError(
+        cg::packet::receive::GuildMail::Parse(BuildPlainRll("time|message|0")),
         cg::packet::PacketErrorCode::DecodeFailed,
         "Rll",
         true,
         2U,
         "Rll normal marker must be -1");
     failures += ExpectError(
-        GuildMail::Parse(BuildPlainRll("time|message|-01")),
+        cg::packet::receive::GuildMail::Parse(BuildPlainRll("time|message|-01")),
         cg::packet::PacketErrorCode::DecodeFailed,
         "Rll",
         true,
         2U,
         "Rll normal marker must be literal -1");
     failures += ExpectError(
-        GuildMail::Parse(BuildPlainRll("time|message||10|Pochi|-1")),
-        cg::packet::PacketErrorCode::DecodeFailed,
-        "Rll",
-        true,
-        2U,
-        "Rll pet empty petBaseImageNumber");
-    failures += ExpectError(
-        GuildMail::Parse(BuildPlainRll("time|message|62|x|Pochi|-1")),
+        cg::packet::receive::GuildMail::Parse(BuildPlainRll("time|message|62|x|Pochi|-1")),
         cg::packet::PacketErrorCode::DecodeFailed,
         "Rll",
         true,
         3U,
         "Rll pet bad level");
     failures += ExpectError(
-        GuildMail::Parse(BuildPlainRll("time|message|62|10|Pochi|999999999999")),
+        cg::packet::receive::GuildMail::Parse(BuildPlainRll("time|message|62|10|Pochi|999999999999")),
         cg::packet::PacketErrorCode::DecodeFailed,
         "Rll",
         true,
         5U,
         "Rll pet item overflow");
+    return failures;
+}
+
+int TestLegacyErrors()
+{
+    int failures = 0;
+    std::string truncatedGbk = "time|message|-1";
+    truncatedGbk.append(Bytes({0x96}));
+    failures += ExpectError(
+        cg::packet::receive::GuildMail::FromPacket(PacketOf(
+            cg::packet::PacketDirection::ServerToClient,
+            {
+                Field("fromregistseqnumber", cg::packet::PacketFieldType::Int62, "1"),
+                Field("text", cg::packet::PacketFieldType::EscapedString, truncatedGbk),
+                Field("color", cg::packet::PacketFieldType::Int62, "3"),
+            })),
+        cg::packet::PacketErrorCode::DecodeFailed,
+        "Rll",
+        true,
+        1U,
+        "Rll payload truncated GBK");
+    failures += ExpectError(
+        cg::packet::receive::GuildMail::Parse(BuildPlainRll("time|message\\|-1")),
+        cg::packet::PacketErrorCode::DecodeFailed,
+        "Rll",
+        true,
+        1U,
+        "Rll message truncated legacy escape");
+    failures += ExpectError(
+        cg::packet::receive::GuildMail::Parse(BuildPlainRll("time|message|7300|10|pet\\|-1")),
+        cg::packet::PacketErrorCode::DecodeFailed,
+        "Rll",
+        true,
+        1U,
+        "Rll pet name truncated legacy escape");
     return failures;
 }
 
@@ -404,7 +540,7 @@ int TestBuildErrors()
             cg::packet::PacketDirection::ClientToServer,
             {
                 Field("fromregistseqnumber", cg::packet::PacketFieldType::Int62, "1"),
-                Field("text", cg::packet::PacketFieldType::EscapedString, "time|msg|-1"),
+                Field("text", cg::packet::PacketFieldType::SubPayload, "time|msg|-1"),
                 Field("color", cg::packet::PacketFieldType::Int62, "3"),
             })),
         cg::packet::PacketErrorCode::EncodeFailed,
@@ -416,8 +552,8 @@ int TestBuildErrors()
         BuildPacket(PacketOf(
             cg::packet::PacketDirection::ServerToClient,
             {
-                Field("fromRegistSeqNumber", cg::packet::PacketFieldType::Int62, "1"),
-                Field("text", cg::packet::PacketFieldType::EscapedString, "time|msg|-1"),
+                Field("index", cg::packet::PacketFieldType::Int62, "1"),
+                Field("text", cg::packet::PacketFieldType::SubPayload, "time|msg|-1"),
                 Field("color", cg::packet::PacketFieldType::Int62, "3"),
             })),
         cg::packet::PacketErrorCode::EncodeFailed,
@@ -438,6 +574,65 @@ int TestBuildErrors()
         true,
         1U,
         "Rll build wrong field type");
+
+    cg::packet::receive::GuildMailPayload payload;
+    payload.sentTimeText = "time";
+    payload.messageRaw = "message";
+    payload.petBaseImageNumberOrMarker = 0;
+    cg::packet::receive::GuildMail message(1, std::move(payload), 3);
+    failures += ExpectError(
+        message.BuildData(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        "Rll",
+        true,
+        1U,
+        "Rll build normal marker must be -1");
+    failures += ExpectError(
+        message.ToPacket(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        "Rll",
+        true,
+        1U,
+        "Rll ToPacket normal marker must be -1");
+
+    payload = {};
+    payload.sentTimeText = "time|extra";
+    payload.messageRaw = "message";
+    message = cg::packet::receive::GuildMail(1, std::move(payload), 3);
+    failures += ExpectError(
+        message.BuildData(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        "Rll",
+        true,
+        1U,
+        "Rll build time delimiter");
+
+    payload = {};
+    payload.sentTimeText = "time";
+    payload.messageRaw = Bytes({0x96});
+    message = cg::packet::receive::GuildMail(1, std::move(payload), 3);
+    failures += ExpectError(
+        message.ToPacket(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        "Rll",
+        true,
+        1U,
+        "Rll build truncated message GBK");
+
+    payload = {};
+    payload.isPetMail = true;
+    payload.sentTimeText = "time";
+    payload.messageRaw = "message";
+    payload.petBaseImageNumberOrMarker = 7300;
+    payload.petNameRaw = Bytes({0x96});
+    message = cg::packet::receive::GuildMail(1, std::move(payload), 3);
+    failures += ExpectError(
+        message.ToPacket(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        "Rll",
+        true,
+        1U,
+        "Rll build truncated pet name GBK");
     return failures;
 }
 
@@ -449,11 +644,12 @@ int main()
     failures += TestParsePacketOuter();
     failures += TestNormalMailTypedParse();
     failures += TestPetMailTypedParse();
-    failures += TestNestedRawEscapesPreserved();
+    failures += TestLegacyRoundtrip();
     failures += TestBuildRoundtrip();
     failures += TestOuterParseErrors();
     failures += TestPayloadFieldCountErrors();
     failures += TestPayloadNumberErrors();
+    failures += TestLegacyErrors();
     failures += TestBuildErrors();
     if (failures != 0) {
         std::cerr << failures << " checks failed\n";

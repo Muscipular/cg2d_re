@@ -14136,39 +14136,94 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         payload.messageRaw = "message";
         payload.petBaseImageNumberOrMarker = -1;
         const cg::packet::receive::GuildMail guildMail(1, std::move(payload), 3);
-        const cg::packet::Packet packet = guildMail.ToPacket();
+        const cg::packet::PacketResult<cg::packet::Packet> packet = guildMail.ToPacket();
         failures += Expect(guildMailSchema->direction == "服务端->客户端", "Rll direction");
         failures += Expect(guildMailSchema->legacyKind == "SEND", "Rll legacyKind");
+        failures += Expect(guildMailSchema->clientNamespace == "receive", "Rll namespace");
+        failures += Expect(guildMailSchema->xlsxStatus == "完成", "Rll xlsxStatus");
+        failures += Expect(guildMailSchema->description == "SEND_GML 家族邮件", "Rll description");
         failures += Expect(guildMailSchema->rawFormat == "{fromregistseqnumber} {text} {color}", "Rll rawFormat");
+        failures += Expect(!guildMailSchema->formatEmpty, "Rll formatEmpty false");
+        failures += Expect(guildMailSchema->source == "xlsx", "Rll raw source");
+        failures += Expect(guildMailSchema->fields.size() == 3U, "Rll raw field count");
+        if (guildMailSchema->fields.size() == 3U) {
+            constexpr std::array<std::string_view, 3U> Names = {
+                "fromregistseqnumber",
+                "text",
+                "color",
+            };
+            constexpr std::array<std::string_view, 3U> RawSpecs = {
+                "{fromregistseqnumber}",
+                "{text}",
+                "{color}",
+            };
+            for (std::size_t index = 0U; index < Names.size(); ++index) {
+                const FieldSchema& field = guildMailSchema->fields[index];
+                failures += Expect(
+                    field.index == index &&
+                        field.name == Names[index] &&
+                        field.typeToken == "unknown" &&
+                        field.rawSpec == RawSpecs[index] &&
+                        field.source == "xlsx",
+                    "Rll raw field");
+            }
+        }
+
+        failures += Expect(guildMailSchema->hasResolvedFormat, "Rll resolvedFormat present");
         failures += Expect(
             guildMailSchema->resolvedFormat == "{fromregistseqnumber:i62} {text:es} {color:i62}",
             "Rll resolvedFormat");
-        failures += Expect(guildMailSchema->resolvedSource == "xlsx+src/packet", "Rll resolvedSource");
-        failures += Expect(guildMailSchema->fields.size() == 3U, "Rll field count");
-        if (guildMailSchema->fields.size() == 3U) {
-            failures += Expect(guildMailSchema->fields[0].name == "fromregistseqnumber", "Rll from field");
-            failures += Expect(guildMailSchema->fields[1].name == "text", "Rll text field");
-            failures += Expect(guildMailSchema->fields[2].name == "color", "Rll color field");
-            failures += Expect(guildMailSchema->fields[0].typeToken == "unknown", "Rll raw from type");
-            failures += Expect(guildMailSchema->fields[1].typeToken == "unknown", "Rll raw text type");
-            failures += Expect(guildMailSchema->fields[2].typeToken == "unknown", "Rll raw color type");
+        failures += Expect(
+            guildMailSchema->resolvedSource == "xlsx+ServerC+ClientIda+src/packet",
+            "Rll resolvedSource");
+        failures += Expect(guildMailSchema->hasResolvedFields, "Rll resolvedFields present");
+        failures += Expect(guildMailSchema->resolvedFields.size() == 3U, "Rll resolved field count");
+        if (guildMailSchema->resolvedFields.size() == 3U) {
+            constexpr std::array<std::string_view, 3U> Names = {
+                "fromregistseqnumber",
+                "text",
+                "color",
+            };
+            constexpr std::array<std::string_view, 3U> Types = {"i62", "es", "i62"};
+            constexpr std::array<std::string_view, 3U> RawSpecs = {
+                "{fromregistseqnumber:i62}",
+                "{text:es}",
+                "{color:i62}",
+            };
+            for (std::size_t index = 0U; index < Names.size(); ++index) {
+                const FieldSchema& field = guildMailSchema->resolvedFields[index];
+                failures += Expect(
+                    field.index == index &&
+                        field.name == Names[index] &&
+                        field.typeToken == Types[index] &&
+                        field.rawSpec == RawSpecs[index] &&
+                        field.source == "xlsx+ServerC+ClientIda+src/packet",
+                    "Rll resolved field");
+            }
         }
-        failures += Expect(packet.fields.size() == 3U, "Rll packet field count");
-        if (packet.fields.size() == 3U) {
-            failures += Expect(packet.fields[0].name == "fromregistseqnumber", "Rll packet from field");
+
+        failures += ExpectEffectiveFieldsMatch(
+            *guildMailSchema,
+            cg::packet::receive::GuildMail::Spec,
+            "Rll Spec matches effective fields");
+        failures += Expect(packet.HasValue(), "Rll ToPacket");
+        if (packet.HasValue()) {
             failures += Expect(
-                packet.fields[0].type == cg::packet::PacketFieldType::Int62,
-                "Rll packet from type");
-            failures += Expect(packet.fields[1].name == "text", "Rll packet text field");
-            failures += Expect(
-                packet.fields[1].type == cg::packet::PacketFieldType::EscapedString,
-                "Rll packet text type");
-            failures += Expect(packet.fields[2].name == "color", "Rll packet color field");
-            failures += Expect(
-                packet.fields[2].type == cg::packet::PacketFieldType::Int62,
-                "Rll packet color type");
+                packet.Value().fields.size() == 3U &&
+                    packet.Value().fields[1].type == cg::packet::PacketFieldType::SubPayload,
+                "Rll ToPacket payload type");
+            failures += ExpectResolvedFieldsMatch(
+                *guildMailSchema,
+                packet.Value(),
+                "Rll ToPacket field order");
         }
     }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "Rll"),
+        "Rll absent from send typed manifest");
+    failures += Expect(
+        TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "Rll"),
+        "Rll present in receive typed manifest");
 
     const PacketSchema* guildDepartureNotificationSchema =
         FindPacket(packets, "frQp");

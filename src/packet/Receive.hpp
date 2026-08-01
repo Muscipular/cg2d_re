@@ -24160,9 +24160,11 @@ namespace cg::packet::receive
     {
         bool isPetMail = false;
         std::string sentTimeText;
+        // 历史字段名保留；值为单层 legacy 解码后的 GBK 语义字节。
         std::string messageRaw;
         int petBaseImageNumberOrMarker = -1;
         int petLevel = 0;
+        // 历史字段名保留；值为单层 legacy 解码后的 GBK 语义字节。
         std::string petNameRaw;
         int itemBaseImageNumber = 0;
     };
@@ -24200,33 +24202,75 @@ namespace cg::packet::receive
         }
 
 #if CG_PACKET_ENABLE_TEST_HELPERS
-        [[nodiscard]] std::string BuildData() const
+        [[nodiscard]] PacketResult<std::string> BuildData() const
         {
-            std::string text;
-            text.append(payload.sentTimeText);
-            text.push_back('|');
-            text.append(payload.messageRaw);
-            text.push_back('|');
-            if (!payload.isPetMail) {
-                text.append("-1");
-                return text;
+            if (!payload.isPetMail && payload.petBaseImageNumberOrMarker != -1) {
+                return PacketResult<std::string>::Failure(MakeFieldError(
+                    PacketErrorCode::EncodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT("GuildMail 普通邮件标记必须为 -1"),
+                    TextFieldIndex));
             }
 
-            text.append(std::to_string(payload.petBaseImageNumberOrMarker));
-            text.push_back('|');
-            text.append(std::to_string(payload.petLevel));
-            text.push_back('|');
-            text.append(payload.petNameRaw);
-            text.push_back('|');
-            text.append(std::to_string(payload.itemBaseImageNumber));
-            return text;
+            PacketResult<std::vector<std::string>> sentTimeParts =
+                SplitPayloadLegacyAware(payload.sentTimeText, PayloadDelimiter);
+            if (!sentTimeParts.HasValue() || sentTimeParts.Value().size() != 1U) {
+                return PacketResult<std::string>::Failure(MakeFieldError(
+                    PacketErrorCode::EncodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT("GuildMail 时间文本包含 payload 分隔符或截断旧双字节字符"),
+                    TextFieldIndex));
+            }
+
+            PacketResult<std::string> encodedMessage = EncodeLegacyPayloadText(payload.messageRaw);
+            if (!encodedMessage.HasValue()) {
+                PacketError error = encodedMessage.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = TextFieldIndex;
+                return PacketResult<std::string>::Failure(std::move(error));
+            }
+
+            std::vector<std::string> parts;
+            parts.reserve(payload.isPetMail ? PetPayloadFieldCount : NormalPayloadFieldCount);
+            parts.push_back(payload.sentTimeText);
+            parts.push_back(std::move(encodedMessage.Value()));
+            parts.push_back(std::to_string(payload.petBaseImageNumberOrMarker));
+
+            if (payload.isPetMail) {
+                PacketResult<std::string> encodedPetName = EncodeLegacyPayloadText(payload.petNameRaw);
+                if (!encodedPetName.HasValue()) {
+                    PacketError error = encodedPetName.Error();
+                    error.packetCode = PacketCode(Code);
+                    error.fieldIndex = TextFieldIndex;
+                    return PacketResult<std::string>::Failure(std::move(error));
+                }
+
+                parts.push_back(std::to_string(payload.petLevel));
+                parts.push_back(std::move(encodedPetName.Value()));
+                parts.push_back(std::to_string(payload.itemBaseImageNumber));
+            }
+
+            PacketResult<std::string> data = BuildPayload(
+                std::span<const std::string>(parts.data(), parts.size()),
+                PayloadDelimiter);
+            if (!data.HasValue()) {
+                PacketError error = data.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = TextFieldIndex;
+                return PacketResult<std::string>::Failure(std::move(error));
+            }
+            return data;
         }
 #endif
 
 #if CG_PACKET_ENABLE_TEST_HELPERS
-        [[nodiscard]] Packet ToPacket() const
+        [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
+            PacketResult<std::string> data = BuildData();
+            if (!data.HasValue()) {
+                return PacketResult<Packet>::Failure(data.Error());
+            }
+
             Packet packet(PacketCode(Code), Direction);
+            packet.fields.reserve(FieldCount);
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("fromregistseqnumber"),
                 PacketFieldType::Int62,
@@ -24234,15 +24278,15 @@ namespace cg::packet::receive
             });
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("text"),
-                PacketFieldType::EscapedString,
-                BuildData(),
+                PacketFieldType::SubPayload,
+                std::move(data.Value()),
             });
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("color"),
                 PacketFieldType::Int62,
                 std::to_string(color),
             });
-            return packet;
+            return PacketResult<Packet>::Success(std::move(packet));
         }
 #endif
 
@@ -24357,14 +24401,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketResult<GuildMailPayload> ParsePayloadText(std::string_view text)
         {
-            if (text.empty()) {
-                return PacketResult<GuildMailPayload>::Failure(MakeFieldError(
-                    PacketErrorCode::EmptyInput,
-                    CG_PACKET_DIAGNOSTIC_TEXT("GuildMail payload 为空"),
-                    TextFieldIndex));
-            }
-
-            PacketResult<std::vector<std::string>> split = SplitPayload(text, PayloadDelimiter);
+            PacketResult<std::vector<std::string>> split = SplitPayloadLegacyAware(text, PayloadDelimiter);
             if (!split.HasValue()) {
                 PacketError error = split.Error();
                 error.packetCode = PacketCode(Code);
@@ -24380,43 +24417,58 @@ namespace cg::packet::receive
                     TextFieldIndex));
             }
 
+            if (parts.size() == NormalPayloadFieldCount && parts[PetBaseImageFieldIndex] != "-1") {
+                return PacketResult<GuildMailPayload>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT("GuildMail 普通邮件标记必须为 -1"),
+                    PetBaseImageFieldIndex));
+            }
+
+            PacketResult<int> petBaseImageNumberOrMarker =
+                ParseDecimalField(parts[PetBaseImageFieldIndex], PetBaseImageFieldIndex);
+            if (!petBaseImageNumberOrMarker.HasValue()) {
+                return PacketResult<GuildMailPayload>::Failure(petBaseImageNumberOrMarker.Error());
+            }
+
             GuildMailPayload payload;
             payload.isPetMail = parts.size() == PetPayloadFieldCount;
             payload.sentTimeText = parts[0];
-            payload.messageRaw = parts[1];
+            payload.petBaseImageNumberOrMarker = petBaseImageNumberOrMarker.Value();
 
-            if (!payload.isPetMail) {
-                if (parts[PetBaseImageFieldIndex] != "-1") {
-                    return PacketResult<GuildMailPayload>::Failure(MakeFieldError(
-                        PacketErrorCode::DecodeFailed,
-                        CG_PACKET_DIAGNOSTIC_TEXT("GuildMail 普通邮件标记必须为 -1"),
-                        PetBaseImageFieldIndex));
+            PacketResult<std::string> message = DecodeLegacyPayloadText(parts[1]);
+            if (!message.HasValue()) {
+                PacketError error = message.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = TextFieldIndex;
+                return PacketResult<GuildMailPayload>::Failure(std::move(error));
+            }
+            payload.messageRaw = std::move(message.Value());
+
+            if (payload.isPetMail) {
+                PacketResult<int> petLevel = ParseDecimalField(parts[PetLevelFieldIndex], PetLevelFieldIndex);
+                if (!petLevel.HasValue()) {
+                    return PacketResult<GuildMailPayload>::Failure(petLevel.Error());
                 }
-                payload.petBaseImageNumberOrMarker = -1;
-                return PacketResult<GuildMailPayload>::Success(std::move(payload));
+
+                PacketResult<int> itemBaseImageNumber =
+                    ParseDecimalField(parts[ItemBaseImageFieldIndex], ItemBaseImageFieldIndex);
+                if (!itemBaseImageNumber.HasValue()) {
+                    return PacketResult<GuildMailPayload>::Failure(itemBaseImageNumber.Error());
+                }
+
+                PacketResult<std::string> petName = DecodeLegacyPayloadText(parts[PetNameFieldIndex]);
+                if (!petName.HasValue()) {
+                    PacketError error = petName.Error();
+                    error.packetCode = PacketCode(Code);
+                    error.fieldIndex = TextFieldIndex;
+                    return PacketResult<GuildMailPayload>::Failure(std::move(error));
+                }
+
+                payload.petLevel = petLevel.Value();
+                payload.petNameRaw = std::move(petName.Value());
+                payload.itemBaseImageNumber = itemBaseImageNumber.Value();
             }
 
-            PacketResult<int> petBaseImageNumber =
-                ParseDecimalField(parts[PetBaseImageFieldIndex], PetBaseImageFieldIndex);
-            if (!petBaseImageNumber.HasValue()) {
-                return PacketResult<GuildMailPayload>::Failure(petBaseImageNumber.Error());
-            }
-
-            PacketResult<int> petLevel = ParseDecimalField(parts[PetLevelFieldIndex], PetLevelFieldIndex);
-            if (!petLevel.HasValue()) {
-                return PacketResult<GuildMailPayload>::Failure(petLevel.Error());
-            }
-
-            PacketResult<int> itemBaseImageNumber =
-                ParseDecimalField(parts[ItemBaseImageFieldIndex], ItemBaseImageFieldIndex);
-            if (!itemBaseImageNumber.HasValue()) {
-                return PacketResult<GuildMailPayload>::Failure(itemBaseImageNumber.Error());
-            }
-
-            payload.petBaseImageNumberOrMarker = petBaseImageNumber.Value();
-            payload.petLevel = petLevel.Value();
-            payload.petNameRaw = parts[PetNameFieldIndex];
-            payload.itemBaseImageNumber = itemBaseImageNumber.Value();
             return PacketResult<GuildMailPayload>::Success(std::move(payload));
         }
 

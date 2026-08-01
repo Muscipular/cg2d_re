@@ -15820,6 +15820,7 @@ namespace cg::packet::receive
 
     /**
      * SEND_PT 宠物技能记录：skillSlot|techId|name|description|forcePoint|techField|target|seqNo。
+     * name 与 description 为 legacy payload text 解码后的语义字节串。
      */
     struct PetTechRecord
     {
@@ -15843,7 +15844,7 @@ namespace cg::packet::receive
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
             {CG_PACKET_DIAGNOSTIC_TEXT("petIndex"), PacketFieldType::Int62},
-            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::SubPayload},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -15863,17 +15864,42 @@ namespace cg::packet::receive
         }
 
 #if CG_PACKET_ENABLE_TEST_HELPERS
-        [[nodiscard]] std::string BuildData() const
+        [[nodiscard]] PacketResult<std::string> BuildData() const
         {
+            if (records.empty() || records.size() > MaxRecordCount) {
+                return PacketResult<std::string>::Failure(MakeFieldError(
+                    PacketErrorCode::EncodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT("PetTechData record 数量不在 1..10 范围内"),
+                    DataFieldIndex));
+            }
+
             std::string payload;
-            for (const PetTechRecord& record : records) {
+            for (std::size_t recordIndex = 0U; recordIndex < records.size(); ++recordIndex) {
+                const PetTechRecord& record = records[recordIndex];
+                const std::size_t baseIndex = recordIndex * RecordFieldCount;
+                PacketResult<std::string> encodedName = EncodeLegacyPayloadText(record.name);
+                if (!encodedName.HasValue()) {
+                    PacketError error = encodedName.Error();
+                    error.packetCode = PacketCode(Code);
+                    error.fieldIndex = baseIndex + NameFieldOffset;
+                    return PacketResult<std::string>::Failure(std::move(error));
+                }
+                PacketResult<std::string> encodedDescription =
+                    EncodeLegacyPayloadText(record.description);
+                if (!encodedDescription.HasValue()) {
+                    PacketError error = encodedDescription.Error();
+                    error.packetCode = PacketCode(Code);
+                    error.fieldIndex = baseIndex + DescriptionFieldOffset;
+                    return PacketResult<std::string>::Failure(std::move(error));
+                }
+
                 payload.append(std::to_string(record.skillSlot));
                 payload.push_back('|');
                 payload.append(std::to_string(record.techId));
                 payload.push_back('|');
-                payload.append(record.name);
+                payload.append(encodedName.Value());
                 payload.push_back('|');
-                payload.append(record.description);
+                payload.append(encodedDescription.Value());
                 payload.push_back('|');
                 payload.append(std::to_string(record.forcePoint));
                 payload.push_back('|');
@@ -15884,13 +15910,18 @@ namespace cg::packet::receive
                 payload.append(std::to_string(record.seqNo));
                 payload.push_back('|');
             }
-            return payload;
+            return PacketResult<std::string>::Success(std::move(payload));
         }
 #endif
 
 #if CG_PACKET_ENABLE_TEST_HELPERS
-        [[nodiscard]] Packet ToPacket() const
+        [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
+            PacketResult<std::string> data = BuildData();
+            if (!data.HasValue()) {
+                return PacketResult<Packet>::Failure(data.Error());
+            }
+
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("petIndex"),
@@ -15899,10 +15930,10 @@ namespace cg::packet::receive
             });
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("data"),
-                PacketFieldType::EscapedString,
-                BuildData(),
+                PacketFieldType::SubPayload,
+                std::move(data.Value()),
             });
-            return packet;
+            return PacketResult<Packet>::Success(std::move(packet));
         }
 #endif
 
@@ -15981,6 +16012,9 @@ namespace cg::packet::receive
         static constexpr std::size_t PetIndexFieldIndex = 0U;
         static constexpr std::size_t DataFieldIndex = 1U;
         static constexpr std::size_t RecordFieldCount = 8U;
+        static constexpr std::size_t MaxRecordCount = 10U;
+        static constexpr std::size_t NameFieldOffset = 2U;
+        static constexpr std::size_t DescriptionFieldOffset = 3U;
 
         [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
@@ -16015,7 +16049,8 @@ namespace cg::packet::receive
                     DataFieldIndex));
             }
 
-            PacketResult<std::vector<std::string>> split = SplitPayload(payload, PayloadDelimiter);
+            PacketResult<std::vector<std::string>> split =
+                SplitPayloadLegacyAware(payload, PayloadDelimiter);
             if (!split.HasValue()) {
                 PacketError error = split.Error();
                 error.packetCode = PacketCode(Code);
@@ -16023,18 +16058,21 @@ namespace cg::packet::receive
                 return PacketResult<std::vector<PetTechRecord>>::Failure(std::move(error));
             }
 
-            std::vector<std::string> parts = std::move(split.Value());
-            parts.pop_back();
-            if (parts.empty() || (parts.size() % RecordFieldCount) != 0U) {
+            const std::vector<std::string>& parts = split.Value();
+            if (parts.size() < RecordFieldCount + 1U ||
+                parts.size() > (MaxRecordCount * RecordFieldCount) + 1U ||
+                ((parts.size() - 1U) % RecordFieldCount) != 0U ||
+                !parts.back().empty()) {
                 return PacketResult<std::vector<PetTechRecord>>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    CG_PACKET_DIAGNOSTIC_TEXT("PetTechData payload 段数量不是 8 的倍数"),
+                    CG_PACKET_DIAGNOSTIC_TEXT("PetTechData payload 段数量不符合 1..10 条固定 8 段记录"),
                     DataFieldIndex));
             }
 
             std::vector<PetTechRecord> records;
-            records.reserve(parts.size() / RecordFieldCount);
-            for (std::size_t recordIndex = 0; recordIndex < parts.size() / RecordFieldCount; ++recordIndex) {
+            const std::size_t recordCount = (parts.size() - 1U) / RecordFieldCount;
+            records.reserve(recordCount);
+            for (std::size_t recordIndex = 0; recordIndex < recordCount; ++recordIndex) {
                 const std::size_t baseIndex = recordIndex * RecordFieldCount;
                 PacketResult<int> skillSlot = ParseDecimalField(parts[baseIndex], baseIndex);
                 if (!skillSlot.HasValue()) {
@@ -16044,6 +16082,24 @@ namespace cg::packet::receive
                 PacketResult<int> techId = ParseDecimalField(parts[baseIndex + 1U], baseIndex + 1U);
                 if (!techId.HasValue()) {
                     return PacketResult<std::vector<PetTechRecord>>::Failure(techId.Error());
+                }
+
+                PacketResult<std::string> name =
+                    DecodeLegacyPayloadText(parts[baseIndex + NameFieldOffset]);
+                if (!name.HasValue()) {
+                    PacketError error = name.Error();
+                    error.packetCode = PacketCode(Code);
+                    error.fieldIndex = baseIndex + NameFieldOffset;
+                    return PacketResult<std::vector<PetTechRecord>>::Failure(std::move(error));
+                }
+
+                PacketResult<std::string> description =
+                    DecodeLegacyPayloadText(parts[baseIndex + DescriptionFieldOffset]);
+                if (!description.HasValue()) {
+                    PacketError error = description.Error();
+                    error.packetCode = PacketCode(Code);
+                    error.fieldIndex = baseIndex + DescriptionFieldOffset;
+                    return PacketResult<std::vector<PetTechRecord>>::Failure(std::move(error));
                 }
 
                 PacketResult<int> forcePoint = ParseDecimalField(parts[baseIndex + 4U], baseIndex + 4U);
@@ -16069,8 +16125,8 @@ namespace cg::packet::receive
                 records.push_back(PetTechRecord {
                     skillSlot.Value(),
                     techId.Value(),
-                    parts[baseIndex + 2U],
-                    parts[baseIndex + 3U],
+                    std::move(name.Value()),
+                    std::move(description.Value()),
                     forcePoint.Value(),
                     techField.Value(),
                     target.Value(),

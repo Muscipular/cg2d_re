@@ -52,6 +52,73 @@ int ExpectError(
     return failures;
 }
 
+template <typename T>
+int ExpectFieldError(
+    const cg::packet::PacketResult<T>& result,
+    cg::packet::PacketErrorCode code,
+    std::string_view packetCode,
+    std::size_t fieldIndex,
+    const char* message)
+{
+    int failures = ExpectError(result, code, packetCode, message);
+    if (!result.HasError()) {
+        return failures;
+    }
+
+    failures += Expect(result.Error().fieldIndex.has_value(), message);
+    if (result.Error().fieldIndex.has_value()) {
+        failures += Expect(result.Error().fieldIndex.value() == fieldIndex, message);
+    }
+    return failures;
+}
+
+std::string EncodeLegacy(std::string_view value)
+{
+    const cg::packet::PacketResult<std::string> encoded =
+        cg::packet::EncodeLegacyPayloadText(value);
+    return encoded.HasValue() ? encoded.Value() : std::string();
+}
+
+std::string WithGbkTrailPipe(std::string_view prefix)
+{
+    std::string value(prefix);
+    value.push_back(static_cast<char>(0x96));
+    value.push_back(static_cast<char>(0x7C));
+    return value;
+}
+
+void AppendRecordData(
+    std::string& data,
+    const cg::packet::receive::PetTechRecord& record)
+{
+    data.append(std::to_string(record.skillSlot));
+    data.push_back('|');
+    data.append(std::to_string(record.techId));
+    data.push_back('|');
+    data.append(EncodeLegacy(record.name));
+    data.push_back('|');
+    data.append(EncodeLegacy(record.description));
+    data.push_back('|');
+    data.append(std::to_string(record.forcePoint));
+    data.push_back('|');
+    data.append(std::to_string(record.techField));
+    data.push_back('|');
+    data.append(std::to_string(record.target));
+    data.push_back('|');
+    data.append(std::to_string(record.seqNo));
+    data.push_back('|');
+}
+
+std::string BuildRecordsData(
+    const std::vector<cg::packet::receive::PetTechRecord>& records)
+{
+    std::string data;
+    for (const cg::packet::receive::PetTechRecord& record : records) {
+        AppendRecordData(data, record);
+    }
+    return data;
+}
+
 std::string BuildPlainObee(int petIndex, std::string_view payload)
 {
     const cg::packet::PacketResult<std::string> encodedPetIndex = cg::packet::EncodeInt62(petIndex);
@@ -72,6 +139,7 @@ int ExpectPetTechDataPacket(
     const cg::packet::Packet& packet,
     int petIndex,
     std::string_view value,
+    cg::packet::PacketFieldType dataType,
     const char* message)
 {
     int failures = 0;
@@ -86,7 +154,7 @@ int ExpectPetTechDataPacket(
     failures += Expect(packet.fields[0].type == cg::packet::PacketFieldType::Int62, message);
     failures += Expect(packet.fields[0].value == std::to_string(petIndex), message);
     failures += Expect(packet.fields[1].name == "data", message);
-    failures += Expect(packet.fields[1].type == cg::packet::PacketFieldType::EscapedString, message);
+    failures += Expect(packet.fields[1].type == dataType, message);
     failures += Expect(packet.fields[1].value == value, message);
     return failures;
 }
@@ -121,16 +189,30 @@ int TestParsePacketOuter()
     const cg::packet::PacketResult<cg::packet::Packet> parsed =
         ParsePacket("OBee 2 0|100|Bite|desc|30|1|2|7| ");
 
-    int failures = Expect(static_cast<bool>(parsed), "parse OBee outer");
+    int failures = Expect(
+        cg::packet::receive::PetTechData::Fields[1U].type ==
+            cg::packet::PacketFieldType::SubPayload,
+        "OBee data spec SubPayload");
+    failures += Expect(static_cast<bool>(parsed), "parse OBee outer");
     if (parsed.HasValue()) {
-        failures += ExpectPetTechDataPacket(parsed.Value(), 2, payload, "parse OBee outer packet");
+        failures += ExpectPetTechDataPacket(
+            parsed.Value(),
+            2,
+            payload,
+            cg::packet::PacketFieldType::EscapedString,
+            "parse OBee outer packet");
     }
     return failures;
 }
 
 int TestSingleRecord()
 {
-    const std::string payload = "0|100|Bite|desc|30|1|2|7|";
+    const std::string name = WithGbkTrailPipe("Name|Pet,Line\\Tail\n");
+    const std::string description = WithGbkTrailPipe("Desc,Pet|Line\\Tail\n");
+    const std::vector<cg::packet::receive::PetTechRecord> expectedRecords = {
+        {0, 100, name, description, -30, 1, 2, 7},
+    };
+    const std::string payload = BuildRecordsData(expectedRecords);
     const cg::packet::PacketResult<cg::packet::receive::PetTechData> parsed =
         cg::packet::receive::PetTechData::Parse(BuildPlainObee(2, payload));
 
@@ -142,23 +224,59 @@ int TestSingleRecord()
     failures += Expect(parsed.Value().petIndex == 2, "parse OBee petIndex");
     failures += Expect(parsed.Value().records.size() == 1U, "parse OBee record count");
     if (parsed.Value().records.size() == 1U) {
-        failures += ExpectRecord(parsed.Value().records[0], 0, 100, "Bite", "desc", 30, 1, 2, 7, "parse OBee record");
+        failures += ExpectRecord(
+            parsed.Value().records[0],
+            0,
+            100,
+            name,
+            description,
+            -30,
+            1,
+            2,
+            7,
+            "parse OBee semantic GBK/legacy record");
     }
-    failures += Expect(parsed.Value().BuildData() == payload, "build OBee payload");
+    const cg::packet::PacketResult<std::string> builtData = parsed.Value().BuildData();
+    failures += Expect(static_cast<bool>(builtData), "build OBee single payload");
+    if (builtData.HasValue()) {
+        failures += Expect(builtData.Value() == payload, "build OBee single payload value");
+        failures += Expect(builtData.Value().back() == '|', "build OBee fixed trailing delimiter");
+    }
     return failures;
 }
 
 int TestMultiRecordRoundtrip()
 {
     std::vector<cg::packet::receive::PetTechRecord> records;
-    records.push_back(cg::packet::receive::PetTechRecord {0, 100, "Bite", "desc", 30, 1, 2, 7});
-    records.push_back(cg::packet::receive::PetTechRecord {1, 101, "Heal", "", 20, 3, 4, 8});
-    const cg::packet::receive::PetTechData petTechData(5, std::move(records));
-    const std::string payload = "0|100|Bite|desc|30|1|2|7|1|101|Heal||20|3|4|8|";
+    records.reserve(10U);
+    for (int index = 0; index < 10; ++index) {
+        records.push_back(cg::packet::receive::PetTechRecord {
+            index,
+            100 + index,
+            index == 9 ? WithGbkTrailPipe("Name9") : "Name" + std::to_string(index),
+            index == 0 ? "Desc|0,Line\\Tail\n" : "Desc" + std::to_string(index),
+            -30 + index,
+            1 + index,
+            2 + index,
+            7 + index,
+        });
+    }
+    const std::string payload = BuildRecordsData(records);
+    const cg::packet::receive::PetTechData petTechData(-5, std::move(records));
 
-    int failures = ExpectPetTechDataPacket(petTechData.ToPacket(), 5, payload, "OBee multi ToPacket");
+    const cg::packet::PacketResult<cg::packet::Packet> packet = petTechData.ToPacket();
+    int failures = Expect(static_cast<bool>(packet), "OBee ten-record ToPacket");
+    if (!packet.HasValue()) {
+        return failures;
+    }
+    failures += ExpectPetTechDataPacket(
+        packet.Value(),
+        -5,
+        payload,
+        cg::packet::PacketFieldType::SubPayload,
+        "OBee ten-record ToPacket fields");
 
-    const cg::packet::PacketResult<std::string> built = BuildPacket(petTechData.ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
     failures += Expect(static_cast<bool>(built), "build OBee packet");
     if (!built.HasValue()) {
         return failures;
@@ -168,116 +286,252 @@ int TestMultiRecordRoundtrip()
         cg::packet::receive::PetTechData::Parse(built.Value());
     failures += Expect(static_cast<bool>(parsed), "roundtrip OBee packet");
     if (parsed.HasValue()) {
-        failures += Expect(parsed.Value().petIndex == 5, "roundtrip OBee petIndex");
-        failures += Expect(parsed.Value().BuildData() == payload, "roundtrip OBee payload");
-        failures += Expect(parsed.Value().records.size() == 2U, "roundtrip OBee record count");
+        failures += Expect(parsed.Value().petIndex == -5, "roundtrip OBee signed petIndex");
+        failures += Expect(parsed.Value().records.size() == 10U, "roundtrip OBee ten-record upper bound");
+        const cg::packet::PacketResult<std::string> builtData = parsed.Value().BuildData();
+        failures += Expect(static_cast<bool>(builtData), "roundtrip OBee BuildData");
+        if (builtData.HasValue()) {
+            failures += Expect(builtData.Value() == payload, "roundtrip OBee payload");
+        }
     }
     return failures;
 }
 
-int TestRawTextPreserved()
+int TestKnownLegacyText()
 {
-    const std::string payload = "0|100|Name\\zPet|Desc\\nLine|30|1|2|7|";
+    const std::string payload =
+        "0|100|Name\\zPet\\cLine\\yTail\\n|Desc\\nLine\\zTail\\cEnd\\y|30|1|2|7|";
     const cg::packet::PacketResult<cg::packet::receive::PetTechData> parsed =
         cg::packet::receive::PetTechData::Parse(BuildPlainObee(2, payload));
 
-    int failures = Expect(static_cast<bool>(parsed), "parse OBee raw text");
+    int failures = Expect(static_cast<bool>(parsed), "parse OBee known legacy text");
     if (!parsed.HasValue()) {
         return failures;
     }
 
-    failures += Expect(parsed.Value().records.size() == 1U, "parse OBee raw text record count");
+    failures += Expect(parsed.Value().records.size() == 1U, "parse OBee known legacy record count");
     if (parsed.Value().records.size() == 1U) {
         failures += ExpectRecord(
             parsed.Value().records[0],
             0,
             100,
-            "Name\\zPet",
-            "Desc\\nLine",
+            "Name|Pet,Line\\Tail\n",
+            "Desc\nLine|Tail,End\\",
             30,
             1,
             2,
             7,
-            "parse OBee raw text record");
+            "parse OBee known legacy semantic record");
     }
-    failures += Expect(parsed.Value().BuildData() == payload, "build OBee raw text");
+    const cg::packet::PacketResult<std::string> builtData = parsed.Value().BuildData();
+    failures += Expect(static_cast<bool>(builtData), "build OBee known legacy text");
+    if (builtData.HasValue()) {
+        failures += Expect(builtData.Value() == payload, "build OBee known legacy wire text");
+    }
     return failures;
 }
 
-int TestPacketLogSample()
+int TestTwoRecordTextOffsets()
 {
-    const std::string payload =
-        "0|7300|攻击|能以普通物理攻击给与打击|0|1|1141|7|"
-        "1|7400|防御|能防守来自物理攻击的打击|0|1|72|9|"
-        "2|412|活杀气功弹Ⅲ|以赤手空拳来攻击敌人|59|1|117|8|"
-        "5|634|战栗袭心-Ⅲ|可减少敌人的魔法力.|22|1|1141|10|"
-        "6|534|崩击-Ⅲ|能给与正在防御的敌人很大的打击|11|1|1141|11|";
+    const std::string secondName = WithGbkTrailPipe("Second|Name");
+    const std::string secondDescription = "Second,Description\\Line\n";
+    const std::vector<cg::packet::receive::PetTechRecord> records = {
+        {0, 100, "First", "Description", 30, 1, 2, 7},
+        {1, 101, secondName, secondDescription, 20, 3, 4, 8},
+    };
+    const std::string payload = BuildRecordsData(records);
     const cg::packet::PacketResult<cg::packet::receive::PetTechData> parsed =
         cg::packet::receive::PetTechData::Parse(BuildPlainObee(0, payload));
 
-    int failures = Expect(static_cast<bool>(parsed), "parse OBee packet log sample");
+    int failures = Expect(static_cast<bool>(parsed), "parse OBee two records");
     if (!parsed.HasValue()) {
         return failures;
     }
 
-    failures += Expect(parsed.Value().petIndex == 0, "OBee packet log petIndex");
-    failures += Expect(parsed.Value().records.size() == 5U, "OBee packet log record count");
-    if (parsed.Value().records.size() == 5U) {
+    failures += Expect(parsed.Value().records.size() == 2U, "OBee two-record count");
+    if (parsed.Value().records.size() == 2U) {
         failures += ExpectRecord(
-            parsed.Value().records[0],
-            0,
-            7300,
-            "攻击",
-            "能以普通物理攻击给与打击",
-            0,
+            parsed.Value().records[1],
             1,
-            1141,
-            7,
-            "OBee packet log first record");
-        failures += ExpectRecord(
-            parsed.Value().records[4],
-            6,
-            534,
-            "崩击-Ⅲ",
-            "能给与正在防御的敌人很大的打击",
-            11,
-            1,
-            1141,
-            11,
-            "OBee packet log last record");
+            101,
+            secondName,
+            secondDescription,
+            20,
+            3,
+            4,
+            8,
+            "OBee second semantic record");
     }
-    failures += Expect(parsed.Value().BuildData() == payload, "OBee packet log BuildData");
     return failures;
 }
 
 int TestErrors()
 {
     int failures = 0;
-    failures += ExpectError(
+    failures += ExpectFieldError(
         cg::packet::receive::PetTechData::Parse(BuildPlainObee(2, "")),
         cg::packet::PacketErrorCode::EmptyInput,
         "OBee",
+        1U,
         "OBee empty data");
-    failures += ExpectError(
+    failures += ExpectFieldError(
         cg::packet::receive::PetTechData::Parse(BuildPlainObee(2, "0|100|Bite|desc|30|1|2|7")),
         cg::packet::PacketErrorCode::DecodeFailed,
         "OBee",
+        1U,
         "OBee missing trailing delimiter");
-    failures += ExpectError(
+    failures += ExpectFieldError(
         cg::packet::receive::PetTechData::Parse(BuildPlainObee(2, "0|100|Bite|desc|30|1|2|")),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "OBee",
+        1U,
         "OBee payload field count");
-    failures += ExpectError(
+    failures += ExpectFieldError(
         cg::packet::receive::PetTechData::Parse("OBee _ 0|100|Bite|desc|30|1|2|7| "),
         cg::packet::PacketErrorCode::DecodeFailed,
         "OBee",
+        0U,
         "OBee bad petIndex i62");
-    failures += ExpectError(
+    failures += ExpectFieldError(
         cg::packet::receive::PetTechData::Parse(BuildPlainObee(2, "0|100|Bite|desc|x|1|2|7|")),
         cg::packet::PacketErrorCode::DecodeFailed,
         "OBee",
+        4U,
         "OBee bad raw decimal");
+
+    failures += ExpectError(
+        cg::packet::receive::PetTechData::Parse("JgO 0 data "),
+        cg::packet::PacketErrorCode::InvalidCode,
+        "JgO",
+        "OBee wrong code");
+    failures += ExpectFieldError(
+        cg::packet::receive::PetTechData::Parse("OBee 0"),
+        cg::packet::PacketErrorCode::FieldCountMismatch,
+        "OBee",
+        1U,
+        "OBee outer missing data index");
+    failures += ExpectFieldError(
+        cg::packet::receive::PetTechData::Parse("OBee 0 data extra "),
+        cg::packet::PacketErrorCode::FieldCountMismatch,
+        "OBee",
+        2U,
+        "OBee outer extra field index");
+
+    const std::vector<std::string> badDecimalPayloads = {
+        "x|100|Name|Desc|30|1|2|7|",
+        "0|x|Name|Desc|30|1|2|7|",
+        "0|100|Name|Desc|x|1|2|7|",
+        "0|100|Name|Desc|30|x|2|7|",
+        "0|100|Name|Desc|30|1|x|7|",
+        "0|100|Name|Desc|30|1|2|x|",
+    };
+    const std::vector<std::size_t> badDecimalIndexes = {0U, 1U, 4U, 5U, 6U, 7U};
+    for (std::size_t index = 0U; index < badDecimalPayloads.size(); ++index) {
+        failures += ExpectFieldError(
+            cg::packet::receive::PetTechData::Parse(
+                BuildPlainObee(2, badDecimalPayloads[index])),
+            cg::packet::PacketErrorCode::DecodeFailed,
+            "OBee",
+            badDecimalIndexes[index],
+            "OBee raw decimal local field index");
+    }
+
+    failures += ExpectFieldError(
+        cg::packet::receive::PetTechData::Parse(
+            BuildPlainObee(2, "0|100|Name\\|Desc|30|1|2|7|")),
+        cg::packet::PacketErrorCode::DecodeFailed,
+        "OBee",
+        2U,
+        "OBee name legacy truncated index");
+    failures += ExpectFieldError(
+        cg::packet::receive::PetTechData::Parse(BuildPlainObee(
+            2,
+            "0|100|Name|Desc|30|1|2|7|1|101|Name|Desc\\|20|3|4|8|")),
+        cg::packet::PacketErrorCode::DecodeFailed,
+        "OBee",
+        11U,
+        "OBee second description legacy truncated index");
+    failures += ExpectFieldError(
+        cg::packet::receive::PetTechData::Parse(BuildPlainObee(
+            2,
+            "0|100|Name|Desc|30|1|2|7|1|101|Name|Desc|20|3|4|x|")),
+        cg::packet::PacketErrorCode::DecodeFailed,
+        "OBee",
+        15U,
+        "OBee second seqNo local field index");
+
+    std::vector<cg::packet::receive::PetTechRecord> elevenRecords(
+        11U,
+        cg::packet::receive::PetTechRecord {0, 100, "Name", "Desc", 30, 1, 2, 7});
+    const std::string elevenData = BuildRecordsData(elevenRecords);
+    failures += ExpectFieldError(
+        cg::packet::receive::PetTechData::Parse(BuildPlainObee(2, elevenData)),
+        cg::packet::PacketErrorCode::FieldCountMismatch,
+        "OBee",
+        1U,
+        "OBee parse eleven records rejected");
+    const cg::packet::receive::PetTechData elevenValue(2, std::move(elevenRecords));
+    failures += ExpectFieldError(
+        elevenValue.BuildData(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        "OBee",
+        1U,
+        "OBee build eleven records rejected");
+
+    const cg::packet::receive::PetTechData emptyValue(
+        2,
+        std::vector<cg::packet::receive::PetTechRecord> {});
+    failures += ExpectFieldError(
+        emptyValue.BuildData(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        "OBee",
+        1U,
+        "OBee build empty records rejected");
+    failures += ExpectFieldError(
+        emptyValue.ToPacket(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        "OBee",
+        1U,
+        "OBee ToPacket empty records propagation");
+
+    cg::packet::receive::PetTechRecord badNameRecord {0, 100, "", "Desc", 30, 1, 2, 7};
+    badNameRecord.name.assign(1U, static_cast<char>(0x96));
+    const cg::packet::receive::PetTechData badNameValue(
+        2,
+        std::vector<cg::packet::receive::PetTechRecord> {std::move(badNameRecord)});
+    failures += ExpectFieldError(
+        badNameValue.BuildData(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        "OBee",
+        2U,
+        "OBee build name truncated GBK");
+    failures += ExpectFieldError(
+        badNameValue.ToPacket(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        "OBee",
+        2U,
+        "OBee ToPacket name encoding propagation");
+
+    cg::packet::receive::PetTechRecord badDescriptionRecord {1, 101, "Name", "", 20, 3, 4, 8};
+    badDescriptionRecord.description.assign(1U, static_cast<char>(0x96));
+    const cg::packet::receive::PetTechData badDescriptionValue(
+        2,
+        std::vector<cg::packet::receive::PetTechRecord> {
+            {0, 100, "Name", "Desc", 30, 1, 2, 7},
+            std::move(badDescriptionRecord),
+        });
+    failures += ExpectFieldError(
+        badDescriptionValue.BuildData(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        "OBee",
+        11U,
+        "OBee build second description truncated GBK");
+    failures += ExpectFieldError(
+        badDescriptionValue.ToPacket(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        "OBee",
+        11U,
+        "OBee ToPacket description encoding propagation");
     return failures;
 }
 
@@ -289,8 +543,8 @@ int main()
     failures += TestParsePacketOuter();
     failures += TestSingleRecord();
     failures += TestMultiRecordRoundtrip();
-    failures += TestRawTextPreserved();
-    failures += TestPacketLogSample();
+    failures += TestKnownLegacyText();
+    failures += TestTwoRecordTextOffsets();
     failures += TestErrors();
     if (failures != 0) {
         std::cerr << failures << " checks failed\n";

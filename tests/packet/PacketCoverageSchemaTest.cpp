@@ -3104,6 +3104,77 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "JgO"),
         "JgO present in receive typed manifest");
 
+    const PacketSchema* petTechDataSchema = FindPacket(packets, "OBee");
+    failures += Expect(petTechDataSchema != nullptr, "OBee schema exists");
+    if (petTechDataSchema != nullptr) {
+        std::vector<cg::packet::receive::PetTechRecord> records;
+        records.push_back(cg::packet::receive::PetTechRecord {
+            0,
+            7300,
+            "Name",
+            "Description",
+            0,
+            1,
+            1141,
+            7,
+        });
+        const cg::packet::receive::PetTechData petTechData(0, std::move(records));
+        const cg::packet::PacketResult<cg::packet::Packet> packet = petTechData.ToPacket();
+        constexpr std::string_view resolvedSource = "ServerC+ClientIda+src/packet";
+        const std::array<std::string_view, 2U> names = {{"petIndex", "data"}};
+        const std::array<std::string_view, 2U> types = {{"i62", "es"}};
+        const std::array<std::string_view, 2U> specs = {{
+            "{petIndex:i62}",
+            "{data:es}",
+        }};
+
+        failures += Expect(petTechDataSchema->direction == "服务端->客户端", "OBee direction");
+        failures += Expect(petTechDataSchema->legacyKind == "SEND", "OBee legacyKind");
+        failures += Expect(petTechDataSchema->clientNamespace == "receive", "OBee namespace");
+        failures += Expect(petTechDataSchema->rawFormat.empty(), "OBee rawFormat empty");
+        failures += Expect(petTechDataSchema->formatEmpty, "OBee formatEmpty true");
+        failures += Expect(petTechDataSchema->source == "xlsx", "OBee raw source");
+        failures += Expect(petTechDataSchema->fields.empty(), "OBee raw fields empty");
+        failures += Expect(petTechDataSchema->hasResolvedFormat, "OBee resolvedFormat present");
+        failures += Expect(
+            petTechDataSchema->resolvedFormat == "{petIndex:i62} {data:es}",
+            "OBee resolvedFormat");
+        failures += Expect(
+            petTechDataSchema->resolvedSource == resolvedSource,
+            "OBee resolvedSource");
+        failures += Expect(petTechDataSchema->hasResolvedFields, "OBee resolvedFields present");
+        failures += Expect(
+            petTechDataSchema->resolvedFields.size() == names.size(),
+            "OBee resolved field count");
+        if (petTechDataSchema->resolvedFields.size() == names.size()) {
+            for (std::size_t index = 0; index < names.size(); ++index) {
+                const FieldSchema& field = petTechDataSchema->resolvedFields[index];
+                failures += Expect(field.index == static_cast<int>(index), "OBee resolved field index");
+                failures += Expect(field.name == names[index], "OBee resolved field name");
+                failures += Expect(field.typeToken == types[index], "OBee resolved field type");
+                failures += Expect(field.rawSpec == specs[index], "OBee resolved field spec");
+                failures += Expect(field.source == resolvedSource, "OBee resolved field source");
+            }
+        }
+        failures += ExpectEffectiveFieldsMatch(
+            *petTechDataSchema,
+            cg::packet::receive::PetTechData::Spec,
+            "OBee Spec matches effective fields");
+        failures += Expect(packet.HasValue(), "OBee ToPacket");
+        if (packet.HasValue()) {
+            failures += ExpectResolvedFieldsMatch(
+                *petTechDataSchema,
+                packet.Value(),
+                "OBee resolved field order");
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "OBee"),
+        "OBee absent from send typed manifest");
+    failures += Expect(
+        TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "OBee"),
+        "OBee present in receive typed manifest");
+
     const PacketSchema* techListSchema = FindPacket(packets, "Rspn");
     failures += Expect(techListSchema != nullptr, "Rspn schema exists");
     if (techListSchema != nullptr) {

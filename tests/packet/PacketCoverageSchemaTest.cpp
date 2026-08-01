@@ -10861,28 +10861,117 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     const PacketSchema* stallBrowseSchema = FindPacket(packets, "ft");
     failures += Expect(stallBrowseSchema != nullptr, "ft schema exists");
     if (stallBrowseSchema != nullptr) {
+        const cg::packet::receive::StallBrowse stallBrowse(
+            0,
+            62,
+            "name",
+            "description",
+            "0|",
+            "0|");
+        const cg::packet::Packet packet = stallBrowse.ToPacket();
         failures += Expect(stallBrowseSchema->direction == "服务端->客户端", "ft direction");
         failures += Expect(stallBrowseSchema->legacyKind == "SEND", "ft legacyKind");
+        failures += Expect(stallBrowseSchema->clientNamespace == "receive", "ft namespace");
+        failures += Expect(stallBrowseSchema->xlsxStatus == "完成", "ft xlsxStatus");
+        failures += Expect(stallBrowseSchema->description == "SEND_StallBrowse", "ft description");
         failures += Expect(
             stallBrowseSchema->rawFormat == "{result} {name} {description} {item} {pet}",
             "ft rawFormat");
+        failures += Expect(!stallBrowseSchema->formatEmpty, "ft formatEmpty false");
+        failures += Expect(stallBrowseSchema->source == "xlsx", "ft raw source");
         failures += Expect(
             stallBrowseSchema->resolvedFormat ==
                 "{result:i62} {objIndex:i62} {name:es} {description:es} {item:es} {pet:es}",
             "ft resolvedFormat");
         failures += Expect(
-            stallBrowseSchema->resolvedSource == "xlsx+ServerC+ClientIda+src",
+            stallBrowseSchema->resolvedSource == "xlsx+ServerC+ClientIda+src/packet",
             "ft resolvedSource");
         failures += Expect(stallBrowseSchema->fields.size() == 5U, "ft raw field count");
         if (stallBrowseSchema->fields.size() == 5U) {
-            failures += Expect(stallBrowseSchema->fields[0].name == "result", "ft raw field result");
-            failures += Expect(stallBrowseSchema->fields[1].name == "name", "ft raw field name");
-            failures += Expect(stallBrowseSchema->fields[2].name == "description", "ft raw field description");
-            failures += Expect(stallBrowseSchema->fields[3].name == "item", "ft raw field item");
-            failures += Expect(stallBrowseSchema->fields[4].name == "pet", "ft raw field pet");
-            failures += Expect(stallBrowseSchema->fields[1].typeToken == "unknown", "ft raw type unknown");
+            constexpr std::array<std::string_view, 5U> Names = {
+                "result",
+                "name",
+                "description",
+                "item",
+                "pet",
+            };
+            constexpr std::array<std::string_view, 5U> RawSpecs = {
+                "{result}",
+                "{name}",
+                "{description}",
+                "{item}",
+                "{pet}",
+            };
+            for (std::size_t index = 0U; index < Names.size(); ++index) {
+                const FieldSchema& field = stallBrowseSchema->fields[index];
+                failures += Expect(
+                    field.index == index &&
+                        field.name == Names[index] &&
+                        field.typeToken == "unknown" &&
+                        field.rawSpec == RawSpecs[index] &&
+                        field.source == "xlsx",
+                    "ft raw field");
+            }
         }
+        failures += Expect(stallBrowseSchema->hasResolvedFormat, "ft resolvedFormat present");
+        failures += Expect(stallBrowseSchema->hasResolvedFields, "ft resolvedFields present");
+        failures += Expect(stallBrowseSchema->resolvedFields.size() == 6U, "ft resolved field count");
+        if (stallBrowseSchema->resolvedFields.size() == 6U) {
+            constexpr std::array<std::string_view, 6U> Names = {
+                "result",
+                "objIndex",
+                "name",
+                "description",
+                "item",
+                "pet",
+            };
+            constexpr std::array<std::string_view, 6U> Types = {
+                "i62",
+                "i62",
+                "es",
+                "es",
+                "es",
+                "es",
+            };
+            constexpr std::array<std::string_view, 6U> RawSpecs = {
+                "{result:i62}",
+                "{objIndex:i62}",
+                "{name:es}",
+                "{description:es}",
+                "{item:es}",
+                "{pet:es}",
+            };
+            for (std::size_t index = 0U; index < Names.size(); ++index) {
+                const FieldSchema& field = stallBrowseSchema->resolvedFields[index];
+                failures += Expect(
+                    field.index == index &&
+                        field.name == Names[index] &&
+                        field.typeToken == Types[index] &&
+                        field.rawSpec == RawSpecs[index] &&
+                        field.source == "xlsx+ServerC+ClientIda+src/packet",
+                    "ft resolved field");
+            }
+        }
+        failures += ExpectEffectiveFieldsMatch(
+            *stallBrowseSchema,
+            cg::packet::receive::StallBrowse::Spec,
+            "ft Spec matches effective fields");
+        failures += Expect(
+            packet.fields.size() == 6U &&
+                packet.fields[4].type == cg::packet::PacketFieldType::EscapedString &&
+                packet.fields[5].type == cg::packet::PacketFieldType::EscapedString,
+            "ft ToPacket payload fields remain outer es");
+        failures += ExpectResolvedFieldsMatch(
+            *stallBrowseSchema,
+            packet,
+            "ft ToPacket field order");
     }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "ft"),
+        "ft absent from send typed manifest");
+    failures += Expect(
+        TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "ft"),
+        "ft present in receive typed manifest");
 
     const PacketSchema* mailMessageSendSchema = FindPacket(packets, "CV");
     failures += Expect(mailMessageSendSchema != nullptr, "CV schema exists");

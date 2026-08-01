@@ -1,0 +1,9 @@
+pkt_fixture=1
+code=ft
+direction=server_to_client
+sample=success-empty-sale-gbk-boundaries
+plain_hex=66 74 20 30 20 31 30 20 C3 FB 20 96 7C 5C 53 81 5C 20 30 7C 20 30 7C
+canonical_hex=66 74 20 30 20 31 30 20 C3 FB 20 96 7C 5C 53 81 5C 20 30 7C 20 30 7C 20
+payload_field=4
+payload_hex=30 7C
+end_sample

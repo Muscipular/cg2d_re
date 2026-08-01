@@ -1,0 +1,9 @@
+pkt_fixture=1
+code=hB
+direction=server_to_client
+sample=signed-i62-boundaries-trailing
+plain_hex=68 42 20 2D 32 6C 6B 43 42 32 7C 32 6C 6B 43 42 31 7C
+canonical_hex=68 42 20 2D 32 6C 6B 43 42 32 7C 32 6C 6B 43 42 31 7C 20
+payload_field=0
+payload_hex=2D 32 6C 6B 43 42 32 7C 32 6C 6B 43 42 31 7C
+end_sample

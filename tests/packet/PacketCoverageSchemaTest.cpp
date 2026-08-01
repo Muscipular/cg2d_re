@@ -10448,14 +10448,47 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     const PacketSchema* duelPointSchema = FindPacket(packets, "hB");
     failures += Expect(duelPointSchema != nullptr, "hB schema exists");
     if (duelPointSchema != nullptr) {
+        const cg::packet::receive::DuelPoint duelPoint(-1, 100);
+        const cg::packet::Packet packet = duelPoint.ToPacket();
         failures += Expect(duelPointSchema->direction == "服务端->客户端", "hB direction");
         failures += Expect(duelPointSchema->legacyKind == "SEND", "hB legacyKind");
+        failures += Expect(duelPointSchema->clientNamespace == "receive", "hB namespace");
+        failures += Expect(duelPointSchema->xlsxStatus == "完成", "hB xlsxStatus");
+        failures += Expect(
+            duelPointSchema->description == "SEND_RD BATTLE_GetDuelPoint",
+            "hB description");
         failures += Expect(duelPointSchema->rawFormat.empty(), "hB rawFormat empty");
         failures += Expect(duelPointSchema->formatEmpty, "hB formatEmpty");
-        failures += Expect(duelPointSchema->resolvedFormat == "{data:es}", "hB resolvedFormat");
-        failures += Expect(duelPointSchema->resolvedSource == "ServerC+ClientIda+src", "hB resolvedSource");
+        failures += Expect(duelPointSchema->source == "xlsx", "hB raw source");
         failures += Expect(duelPointSchema->fields.empty(), "hB raw fields empty");
+        failures += Expect(duelPointSchema->hasResolvedFormat, "hB resolvedFormat present");
+        failures += Expect(duelPointSchema->resolvedFormat == "{data:es}", "hB resolvedFormat");
+        failures += Expect(
+            duelPointSchema->resolvedSource == "ServerC+ClientIda+src/packet",
+            "hB resolvedSource");
+        failures += Expect(duelPointSchema->hasResolvedFields, "hB resolvedFields present");
+        failures += Expect(duelPointSchema->resolvedFields.size() == 1U, "hB resolved field count");
+        if (duelPointSchema->resolvedFields.size() == 1U) {
+            failures += Expect(
+                duelPointSchema->resolvedFields[0].source
+                    == "ServerC+ClientIda+src/packet",
+                "hB resolved field source");
+        }
+        failures += ExpectEffectiveFieldsMatch(
+            *duelPointSchema,
+            cg::packet::receive::DuelPoint::Spec,
+            "hB Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *duelPointSchema,
+            packet,
+            "hB ToPacket field order");
     }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "hB"),
+        "hB absent from send typed manifest");
+    failures += Expect(
+        TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "hB"),
+        "hB present in receive typed manifest");
 
     const PacketSchema* tradePlayerListSchema = FindPacket(packets, "Cxo");
     failures += Expect(tradePlayerListSchema != nullptr, "Cxo schema exists");

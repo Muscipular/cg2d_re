@@ -67,7 +67,7 @@ schema 全集和方向基线仍为 209、100/109，不删除例外 code。M6R �
 
 ### 2.3 当前有效范围快照
 
-截至 `Gn` 完成，schema 仍为 209 个 code、100/109 两个方向；typed/manifest 为 206/209（send 98/100、receive 108/109），fixture/audit 为 179/209，历史 fixture 债务为 27，M6R.5 完成 64/91。
+截至 `hB` 完成，schema 仍为 209 个 code、100/109 两个方向；typed/manifest 为 206/209（send 98/100、receive 108/109），fixture/audit 为 180/209，历史 fixture 债务为 26，M6R.5 完成 65/91。
 
 - terminal：`sz`、`Expire`，共 2；
 - user-skipped：`yp`，共 1；

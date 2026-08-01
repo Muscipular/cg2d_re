@@ -19088,9 +19088,11 @@ namespace cg::packet::receive
     {
         bool isPetMail = false;
         std::string sentTimeText;
+        // 历史字段名保留；值为单层 legacy 解码后的 GBK 语义字节。
         std::string messageRaw;
         int petBaseImageNumberOrMarker = -1;
         int petLevel = 0;
+        // 历史字段名保留；值为单层 legacy 解码后的 GBK 语义字节。
         std::string petNameRaw;
         int itemBaseImageNumber = 0;
     };
@@ -19105,7 +19107,7 @@ namespace cg::packet::receive
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 3U> Fields = {{
             {CG_PACKET_DIAGNOSTIC_TEXT("aindex"), PacketFieldType::Int62},
-            {CG_PACKET_DIAGNOSTIC_TEXT("text"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("text"), PacketFieldType::SubPayload},
             {CG_PACKET_DIAGNOSTIC_TEXT("color"), PacketFieldType::Int62},
         }};
         static constexpr PacketSpec Spec {
@@ -19127,29 +19129,74 @@ namespace cg::packet::receive
         {
         }
 
-        [[nodiscard]] std::string BuildText() const
+        [[nodiscard]] PacketResult<std::string> BuildText() const
         {
-            std::string text;
-            text.append(payload.sentTimeText);
-            text.push_back('|');
-            text.append(payload.messageRaw);
-            text.push_back('|');
-            text.append(std::to_string(payload.petBaseImageNumberOrMarker));
+            if (!payload.isPetMail && payload.petBaseImageNumberOrMarker != -1) {
+                return PacketResult<std::string>::Failure(MakeFieldError(
+                    PacketErrorCode::EncodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileMailMessage 普通邮件标记必须为 -1"),
+                    TextFieldIndex));
+            }
+
+            PacketResult<std::vector<std::string>> sentTimeParts =
+                SplitPayloadLegacyAware(payload.sentTimeText, PayloadDelimiter);
+            if (!sentTimeParts.HasValue() || sentTimeParts.Value().size() != 1U) {
+                return PacketResult<std::string>::Failure(MakeFieldError(
+                    PacketErrorCode::EncodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT("ProfileMailMessage 时间文本包含 payload 分隔符或截断旧双字节字符"),
+                    TextFieldIndex));
+            }
+
+            PacketResult<std::string> encodedMessage = EncodeLegacyPayloadText(payload.messageRaw);
+            if (!encodedMessage.HasValue()) {
+                PacketError error = encodedMessage.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = TextFieldIndex;
+                return PacketResult<std::string>::Failure(std::move(error));
+            }
+
+            std::vector<std::string> parts;
+            parts.reserve(payload.isPetMail ? PetPayloadFieldCount : NormalPayloadFieldCount);
+            parts.push_back(payload.sentTimeText);
+            parts.push_back(std::move(encodedMessage.Value()));
+            parts.push_back(std::to_string(payload.petBaseImageNumberOrMarker));
+
             if (payload.isPetMail) {
-                text.push_back('|');
-                text.append(std::to_string(payload.petLevel));
-                text.push_back('|');
-                text.append(payload.petNameRaw);
-                text.push_back('|');
-                text.append(std::to_string(payload.itemBaseImageNumber));
+                PacketResult<std::string> encodedPetName = EncodeLegacyPayloadText(payload.petNameRaw);
+                if (!encodedPetName.HasValue()) {
+                    PacketError error = encodedPetName.Error();
+                    error.packetCode = PacketCode(Code);
+                    error.fieldIndex = TextFieldIndex;
+                    return PacketResult<std::string>::Failure(std::move(error));
+                }
+
+                parts.push_back(std::to_string(payload.petLevel));
+                parts.push_back(std::move(encodedPetName.Value()));
+                parts.push_back(std::to_string(payload.itemBaseImageNumber));
+            }
+
+            PacketResult<std::string> text = BuildPayload(
+                std::span<const std::string>(parts.data(), parts.size()),
+                PayloadDelimiter);
+            if (!text.HasValue()) {
+                PacketError error = text.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = TextFieldIndex;
+                return PacketResult<std::string>::Failure(std::move(error));
             }
             return text;
         }
 
 #if CG_PACKET_ENABLE_TEST_HELPERS
-        [[nodiscard]] Packet ToPacket() const
+        [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
+            PacketResult<std::string> text = BuildText();
+            if (!text.HasValue()) {
+                return PacketResult<Packet>::Failure(text.Error());
+            }
+
             Packet packet(PacketCode(Code), Direction);
+            packet.fields.reserve(FieldCount);
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("aindex"),
                 PacketFieldType::Int62,
@@ -19157,15 +19204,15 @@ namespace cg::packet::receive
             });
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("text"),
-                PacketFieldType::EscapedString,
-                BuildText(),
+                PacketFieldType::SubPayload,
+                std::move(text.Value()),
             });
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("color"),
                 PacketFieldType::Int62,
                 std::to_string(color),
             });
-            return packet;
+            return PacketResult<Packet>::Success(std::move(packet));
         }
 #endif
 
@@ -19274,7 +19321,7 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketResult<ProfileMailMessagePayload> ParsePayloadText(std::string_view text)
         {
-            PacketResult<std::vector<std::string>> split = SplitPayload(text, PayloadDelimiter);
+            PacketResult<std::vector<std::string>> split = SplitPayloadLegacyAware(text, PayloadDelimiter);
             if (!split.HasValue()) {
                 PacketError error = split.Error();
                 error.packetCode = PacketCode(Code);
@@ -19307,8 +19354,16 @@ namespace cg::packet::receive
             ProfileMailMessagePayload payload;
             payload.isPetMail = parts.size() == PetPayloadFieldCount;
             payload.sentTimeText = parts[0];
-            payload.messageRaw = parts[1];
             payload.petBaseImageNumberOrMarker = petBaseImageNumberOrMarker.Value();
+
+            PacketResult<std::string> message = DecodeLegacyPayloadText(parts[1]);
+            if (!message.HasValue()) {
+                PacketError error = message.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = TextFieldIndex;
+                return PacketResult<ProfileMailMessagePayload>::Failure(std::move(error));
+            }
+            payload.messageRaw = std::move(message.Value());
 
             if (payload.isPetMail) {
                 PacketResult<int> petLevel = ParseDecimalField(parts[PetLevelFieldIndex], PetLevelFieldIndex);
@@ -19323,8 +19378,16 @@ namespace cg::packet::receive
                     return PacketResult<ProfileMailMessagePayload>::Failure(itemBaseImageNumber.Error());
                 }
 
+                PacketResult<std::string> petName = DecodeLegacyPayloadText(parts[4]);
+                if (!petName.HasValue()) {
+                    PacketError error = petName.Error();
+                    error.packetCode = PacketCode(Code);
+                    error.fieldIndex = TextFieldIndex;
+                    return PacketResult<ProfileMailMessagePayload>::Failure(std::move(error));
+                }
+
                 payload.petLevel = petLevel.Value();
-                payload.petNameRaw = parts[4];
+                payload.petNameRaw = std::move(petName.Value());
                 payload.itemBaseImageNumber = itemBaseImageNumber.Value();
             }
 

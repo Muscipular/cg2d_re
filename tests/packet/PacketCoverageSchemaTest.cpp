@@ -10686,18 +10686,74 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     const PacketSchema* profileMailMessageSchema = FindPacket(packets, "Mhbt");
     failures += Expect(profileMailMessageSchema != nullptr, "Mhbt schema exists");
     if (profileMailMessageSchema != nullptr) {
+        cg::packet::receive::ProfileMailMessagePayload payload;
+        payload.sentTimeText = "2026/ 8/ 1 12:34";
+        payload.messageRaw = "message";
+        payload.petBaseImageNumberOrMarker = -1;
+        const cg::packet::receive::ProfileMailMessage profileMailMessage(
+            1,
+            std::move(payload),
+            3);
+        const cg::packet::PacketResult<cg::packet::Packet> packet = profileMailMessage.ToPacket();
         failures += Expect(profileMailMessageSchema->direction == "服务端->客户端", "Mhbt direction");
         failures += Expect(profileMailMessageSchema->legacyKind == "SEND", "Mhbt legacyKind");
+        failures += Expect(profileMailMessageSchema->clientNamespace == "receive", "Mhbt namespace");
+        failures += Expect(profileMailMessageSchema->xlsxStatus == "完成", "Mhbt xlsxStatus");
+        failures += Expect(profileMailMessageSchema->description == "SEND_MSG recvmsg", "Mhbt description");
         failures += Expect(profileMailMessageSchema->rawFormat.empty(), "Mhbt rawFormat empty");
         failures += Expect(profileMailMessageSchema->formatEmpty, "Mhbt formatEmpty");
+        failures += Expect(profileMailMessageSchema->source == "xlsx", "Mhbt raw source");
+        failures += Expect(profileMailMessageSchema->fields.empty(), "Mhbt raw fields empty");
+        failures += Expect(profileMailMessageSchema->hasResolvedFormat, "Mhbt resolvedFormat present");
         failures += Expect(
             profileMailMessageSchema->resolvedFormat == "{aindex:i62} {text:es} {color:i62}",
             "Mhbt resolvedFormat");
         failures += Expect(
-            profileMailMessageSchema->resolvedSource == "ServerC+ClientIda+src",
+            profileMailMessageSchema->resolvedSource == "ServerC+ClientIda+src/packet",
             "Mhbt resolvedSource");
-        failures += Expect(profileMailMessageSchema->fields.empty(), "Mhbt raw fields empty");
+        failures += Expect(profileMailMessageSchema->hasResolvedFields, "Mhbt resolvedFields present");
+        failures += Expect(profileMailMessageSchema->resolvedFields.size() == 3U, "Mhbt resolved field count");
+        if (profileMailMessageSchema->resolvedFields.size() == 3U) {
+            constexpr std::array<std::string_view, 3U> Names = {"aindex", "text", "color"};
+            constexpr std::array<std::string_view, 3U> Types = {"i62", "es", "i62"};
+            constexpr std::array<std::string_view, 3U> RawSpecs = {
+                "{aindex:i62}",
+                "{text:es}",
+                "{color:i62}",
+            };
+            for (std::size_t index = 0U; index < Names.size(); ++index) {
+                const FieldSchema& field = profileMailMessageSchema->resolvedFields[index];
+                failures += Expect(
+                    field.index == index &&
+                        field.name == Names[index] &&
+                        field.typeToken == Types[index] &&
+                        field.rawSpec == RawSpecs[index] &&
+                        field.source == "ServerC+ClientIda+src/packet",
+                    "Mhbt resolved field");
+            }
+        }
+        failures += ExpectEffectiveFieldsMatch(
+            *profileMailMessageSchema,
+            cg::packet::receive::ProfileMailMessage::Spec,
+            "Mhbt Spec matches effective fields");
+        failures += Expect(packet.HasValue(), "Mhbt ToPacket");
+        if (packet.HasValue()) {
+            failures += Expect(
+                packet.Value().fields.size() == 3U &&
+                    packet.Value().fields[1].type == cg::packet::PacketFieldType::SubPayload,
+                "Mhbt ToPacket payload type");
+            failures += ExpectResolvedFieldsMatch(
+                *profileMailMessageSchema,
+                packet.Value(),
+                "Mhbt ToPacket field order");
+        }
     }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "Mhbt"),
+        "Mhbt absent from send typed manifest");
+    failures += Expect(
+        TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "Mhbt"),
+        "Mhbt present in receive typed manifest");
 
     const PacketSchema* chatMessageSchema = FindPacket(packets, "zdr");
     failures += Expect(chatMessageSchema != nullptr, "zdr schema exists");

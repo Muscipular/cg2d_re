@@ -13519,14 +13519,59 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         const cg::packet::PacketResult<cg::packet::Packet> packet = addressBook.ToPacket();
         failures += Expect(addressBookSchema->direction == "服务端->客户端", "gnxd direction");
         failures += Expect(addressBookSchema->legacyKind == "SEND", "gnxd legacyKind");
+        failures += Expect(addressBookSchema->clientNamespace == "receive", "gnxd namespace");
+        failures += Expect(addressBookSchema->xlsxStatus == "完成", "gnxd xlsxStatus");
+        failures += Expect(addressBookSchema->description == "SEND_AB SendAddressbook", "gnxd description");
         failures += Expect(addressBookSchema->rawFormat == "{data:es}", "gnxd rawFormat");
+        failures += Expect(!addressBookSchema->formatEmpty, "gnxd formatEmpty false");
+        failures += Expect(addressBookSchema->source == "xlsx", "gnxd raw source");
+        failures += Expect(addressBookSchema->fields.size() == 1U, "gnxd raw field count");
+        if (addressBookSchema->fields.size() == 1U) {
+            const FieldSchema& field = addressBookSchema->fields[0];
+            failures += Expect(
+                field.index == 0U &&
+                    field.name == "data" &&
+                    field.typeToken == "es" &&
+                    field.rawSpec == "{data:es}" &&
+                    field.source == "xlsx",
+                "gnxd raw field");
+        }
+        failures += Expect(addressBookSchema->hasResolvedFormat, "gnxd resolvedFormat present");
         failures += Expect(addressBookSchema->resolvedFormat == "{data:es}", "gnxd resolvedFormat");
-        failures += Expect(addressBookSchema->resolvedSource == "xlsx+src/packet", "gnxd resolvedSource");
+        failures += Expect(
+            addressBookSchema->resolvedSource == "xlsx+ServerC+ClientIda+src/packet",
+            "gnxd resolvedSource");
+        failures += Expect(addressBookSchema->hasResolvedFields, "gnxd resolvedFields present");
+        failures += Expect(addressBookSchema->resolvedFields.size() == 1U, "gnxd resolved field count");
+        if (addressBookSchema->resolvedFields.size() == 1U) {
+            const FieldSchema& field = addressBookSchema->resolvedFields[0];
+            failures += Expect(
+                field.index == 0U &&
+                    field.name == "data" &&
+                    field.typeToken == "es" &&
+                    field.rawSpec == "{data:es}" &&
+                    field.source == "xlsx+ServerC+ClientIda+src/packet",
+                "gnxd resolved field");
+        }
+        failures += ExpectEffectiveFieldsMatch(
+            *addressBookSchema,
+            cg::packet::receive::AddressBook::Spec,
+            "gnxd Spec matches effective fields");
         failures += Expect(packet.HasValue(), "gnxd packet build");
         if (packet.HasValue()) {
-            failures += ExpectPacketFieldsMatch(*addressBookSchema, packet.Value(), "gnxd field order");
+            failures += Expect(
+                packet.Value().fields.size() == 1U &&
+                    packet.Value().fields[0].type == cg::packet::PacketFieldType::SubPayload,
+                "gnxd ToPacket payload type");
+            failures += ExpectResolvedFieldsMatch(*addressBookSchema, packet.Value(), "gnxd resolved field order");
         }
     }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "gnxd"),
+        "gnxd absent from send typed manifest");
+    failures += Expect(
+        TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "gnxd"),
+        "gnxd present in receive typed manifest");
 
     const PacketSchema* addressBookGuildInfoSchema = FindPacket(packets, "PhdQ");
     failures += Expect(addressBookGuildInfoSchema != nullptr, "PhdQ schema exists");

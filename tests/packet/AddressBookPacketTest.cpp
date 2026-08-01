@@ -3,6 +3,7 @@
 
 #include <array>
 #include <cstddef>
+#include <initializer_list>
 #include <iostream>
 #include <span>
 #include <string>
@@ -57,6 +58,62 @@ int ExpectError(
     return failures;
 }
 
+template <typename T>
+int ExpectFieldError(
+    const cg::packet::PacketResult<T>& result,
+    cg::packet::PacketErrorCode code,
+    std::string_view packetCode,
+    std::size_t fieldIndex,
+    const char* message)
+{
+    int failures = ExpectError(result, code, packetCode, message);
+    if (result.HasError()) {
+        failures += Expect(result.Error().fieldIndex.has_value(), message);
+        if (result.Error().fieldIndex.has_value()) {
+            failures += Expect(*result.Error().fieldIndex == fieldIndex, message);
+        }
+    }
+    return failures;
+}
+
+std::string Bytes(std::initializer_list<unsigned int> values)
+{
+    std::string output;
+    output.reserve(values.size());
+    for (const unsigned int value : values) {
+        output.push_back(static_cast<char>(value));
+    }
+    return output;
+}
+
+std::string SemanticCharName()
+{
+    std::string value = Bytes({0xC3, 0xFB, 0x96, 0x7C});
+    value.append("A|B,C\\D\nE");
+    return value;
+}
+
+std::string EncodedCharName()
+{
+    std::string value = Bytes({0xC3, 0xFB, 0x96, 0x7C});
+    value.append("A\\zB\\cC\\yD\\nE");
+    return value;
+}
+
+std::string SemanticOwnTitle()
+{
+    std::string value = Bytes({0xD3, 0xC2, 0x96, 0x5C});
+    value.append("F\nG,H|I\\J");
+    return value;
+}
+
+std::string EncodedOwnTitle()
+{
+    std::string value = Bytes({0xD3, 0xC2, 0x96, 0x5C});
+    value.append("F\\nG\\cH\\zI\\yJ");
+    return value;
+}
+
 std::string JoinParts(const std::array<std::string, AddressBook::PayloadFieldCount>& parts)
 {
     const cg::packet::PacketResult<std::string> payload = cg::packet::BuildPayload(
@@ -96,14 +153,6 @@ std::string BuildPlain(std::string_view payload)
     return plain;
 }
 
-std::string BuildRawPlain(std::string_view payload)
-{
-    std::string plain = "gnxd ";
-    plain.append(payload);
-    plain.push_back(' ');
-    return plain;
-}
-
 std::string BuildPlainVi(std::string_view registry, std::string_view payload)
 {
     const cg::packet::PacketResult<std::string> encodedPayload = cg::packet::EncodeEscapedString(payload);
@@ -132,6 +181,7 @@ std::string BuildRawPlainVi(std::string_view registry, std::string_view payload)
 int ExpectAddressBookPacket(
     const cg::packet::Packet& packet,
     std::string_view payload,
+    cg::packet::PacketFieldType payloadType,
     const char* message)
 {
     int failures = 0;
@@ -143,7 +193,7 @@ int ExpectAddressBookPacket(
     }
 
     failures += Expect(packet.fields[0].name == "data", message);
-    failures += Expect(packet.fields[0].type == cg::packet::PacketFieldType::EscapedString, message);
+    failures += Expect(packet.fields[0].type == payloadType, message);
     failures += Expect(packet.fields[0].value == payload, message);
     return failures;
 }
@@ -151,11 +201,12 @@ int ExpectAddressBookPacket(
 int ExpectAddressBookPacket(
     const cg::packet::PacketResult<cg::packet::Packet>& packet,
     std::string_view payload,
+    cg::packet::PacketFieldType payloadType,
     const char* message)
 {
     int failures = Expect(static_cast<bool>(packet), message);
     if (packet.HasValue()) {
-        failures += ExpectAddressBookPacket(packet.Value(), payload, message);
+        failures += ExpectAddressBookPacket(packet.Value(), payload, payloadType, message);
     }
     return failures;
 }
@@ -255,7 +306,11 @@ int TestParsePacketOuter()
 
     int failures = Expect(static_cast<bool>(parsed), "parse gnxd outer");
     if (parsed.HasValue()) {
-        failures += ExpectAddressBookPacket(parsed.Value(), payload, "parse gnxd outer packet");
+        failures += ExpectAddressBookPacket(
+            parsed.Value(),
+            payload,
+            cg::packet::PacketFieldType::EscapedString,
+            "parse gnxd outer packet");
     }
     return failures;
 }
@@ -280,7 +335,11 @@ int TestOneActiveRoundtrip()
     }
 
     const cg::packet::PacketResult<cg::packet::Packet> packet = addressBook.ToPacket();
-    failures += ExpectAddressBookPacket(packet, payload, "gnxd one active ToPacket");
+    failures += ExpectAddressBookPacket(
+        packet,
+        payload,
+        cg::packet::PacketFieldType::SubPayload,
+        "gnxd one active ToPacket");
     if (!packet.HasValue()) {
         return failures;
     }
@@ -322,46 +381,57 @@ int TestAllEmptyTable()
     return failures;
 }
 
-int TestLegacyTrailingEmptyCompatible()
+int TestStrictPayloadFieldCount()
 {
     const std::string payload = BuildOneActivePayload();
-    const cg::packet::PacketResult<AddressBook> parsed = AddressBook::Parse(BuildPlain(payload + "|"));
-
-    int failures = Expect(static_cast<bool>(parsed), "parse gnxd 421 trailing empty");
-    if (parsed.HasValue()) {
-        const cg::packet::PacketResult<std::string> data = parsed.Value().BuildData();
-        failures += Expect(data.HasValue(), "gnxd 421 canonical BuildData");
-        if (data.HasValue()) {
-            failures += Expect(data.Value() == payload, "gnxd 421 drops extra empty tail");
-        }
-    }
-    return failures;
+    return ExpectFieldError(
+        AddressBook::Parse(BuildPlain(payload + "|")),
+        cg::packet::PacketErrorCode::FieldCountMismatch,
+        "gnxd",
+        0U,
+        "gnxd rejects 421st empty field");
 }
 
-int TestRawEscapePreserved()
+int TestLegacyTextRoundtrip()
 {
     std::array<std::string, AddressBook::PayloadFieldCount> parts = BuildEmptyParts();
     parts[0] = "3";
-    parts[1] = "A\\zB";
-    parts[2] = "T\\cD";
+    parts[1] = EncodedCharName();
+    parts[2] = EncodedOwnTitle();
     parts[3] = "1";
     parts[4] = "2";
     parts[5] = "0";
     parts[6] = "4";
     const std::string payload = JoinParts(parts);
 
-    const cg::packet::PacketResult<AddressBook> parsed = AddressBook::Parse(BuildRawPlain(payload));
-    int failures = Expect(static_cast<bool>(parsed), "parse gnxd raw escape");
+    const cg::packet::PacketResult<AddressBook> parsed = AddressBook::Parse(BuildPlain(payload));
+    int failures = Expect(static_cast<bool>(parsed), "parse gnxd legacy text");
     if (!parsed.HasValue()) {
         return failures;
     }
 
-    failures += ExpectActiveSlot(parsed.Value().slots[0], 3, "A\\zB", "T\\cD", 1, 2, 0, 4, "gnxd raw slot");
+    failures += ExpectActiveSlot(
+        parsed.Value().slots[0],
+        3,
+        SemanticCharName(),
+        SemanticOwnTitle(),
+        1,
+        2,
+        0,
+        4,
+        "gnxd legacy semantic slot");
     const cg::packet::PacketResult<std::string> data = parsed.Value().BuildData();
-    failures += Expect(data.HasValue(), "gnxd raw BuildData");
+    failures += Expect(data.HasValue(), "gnxd legacy BuildData");
     if (data.HasValue()) {
-        failures += Expect(data.Value() == payload, "gnxd raw escape BuildData");
+        failures += Expect(data.Value() == payload, "gnxd legacy canonical BuildData");
     }
+
+    const cg::packet::PacketResult<cg::packet::Packet> packet = parsed.Value().ToPacket();
+    failures += ExpectAddressBookPacket(
+        packet,
+        payload,
+        cg::packet::PacketFieldType::SubPayload,
+        "gnxd legacy ToPacket type");
     return failures;
 }
 
@@ -527,6 +597,47 @@ int TestErrors()
         "gnxd active numeric x");
 
     parts = BuildEmptyParts();
+    parts[0] = "1";
+    parts[1] = "name\\";
+    parts[2] = "title";
+    parts[3] = "1";
+    parts[4] = "2";
+    parts[5] = "0";
+    parts[6] = "4";
+    failures += ExpectFieldError(
+        AddressBook::Parse(BuildPlain(JoinParts(parts))),
+        cg::packet::PacketErrorCode::DecodeFailed,
+        "gnxd",
+        1U,
+        "gnxd truncated charName legacy");
+
+    parts[1] = "name";
+    parts[2] = "title\\";
+    failures += ExpectFieldError(
+        AddressBook::Parse(BuildPlain(JoinParts(parts))),
+        cg::packet::PacketErrorCode::DecodeFailed,
+        "gnxd",
+        2U,
+        "gnxd truncated ownTitle legacy");
+
+    std::array<AddressBookSlot, AddressBook::SlotCount> invalidSlots = {};
+    invalidSlots[0] = AddressBookSlot {1, Bytes({0x96}), "title", 1, 2, 0, 4};
+    failures += ExpectFieldError(
+        AddressBook(invalidSlots).BuildData(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        "gnxd",
+        1U,
+        "gnxd truncated charName GBK");
+
+    invalidSlots[0] = AddressBookSlot {1, "name", Bytes({0x96}), 1, 2, 0, 4};
+    failures += ExpectFieldError(
+        AddressBook(invalidSlots).BuildData(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        "gnxd",
+        2U,
+        "gnxd truncated ownTitle GBK");
+
+    parts = BuildEmptyParts();
     parts[1] = "Alice";
     failures += ExpectError(
         AddressBook::Parse(BuildPlain(JoinParts(parts))),
@@ -562,8 +673,8 @@ int main()
     failures += TestParsePacketOuter();
     failures += TestOneActiveRoundtrip();
     failures += TestAllEmptyTable();
-    failures += TestLegacyTrailingEmptyCompatible();
-    failures += TestRawEscapePreserved();
+    failures += TestStrictPayloadFieldCount();
+    failures += TestLegacyTextRoundtrip();
     failures += TestAddressBookInfoActiveRoundtrip();
     failures += TestAddressBookInfoInactive();
     failures += TestAddressBookInfoRawEscapePreserved();

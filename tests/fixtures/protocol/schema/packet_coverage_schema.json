@@ -1176,7 +1176,16 @@
       "formatEmpty": false,
       "source": "xlsx",
       "resolvedFormat": "{data:es}",
-      "resolvedSource": "xlsx+src/packet",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "data",
+          "typeToken": "es",
+          "rawSpec": "{data:es}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        }
+      ],
       "fields": [
         {
           "index": 0,

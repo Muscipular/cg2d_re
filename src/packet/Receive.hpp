@@ -20638,7 +20638,9 @@ namespace cg::packet::receive
     struct AddressBookSlot
     {
         int use = 0;
+        // 历史字段名保留；值为单层 legacy 解码后的 GBK 语义字节。
         std::string charNameRaw;
+        // 历史字段名保留；值为单层 legacy 解码后的 GBK 语义字节。
         std::string ownTitleRaw;
         int registSeqNumber = 0;
         int level = 0;
@@ -20700,9 +20702,25 @@ namespace cg::packet::receive
                         baseIndex));
                 }
 
+                PacketResult<std::string> encodedCharName = EncodeLegacyPayloadText(slot.charNameRaw);
+                if (!encodedCharName.HasValue()) {
+                    PacketError error = encodedCharName.Error();
+                    error.packetCode = PacketCode(Code);
+                    error.fieldIndex = baseIndex + 1U;
+                    return PacketResult<std::string>::Failure(std::move(error));
+                }
+
+                PacketResult<std::string> encodedOwnTitle = EncodeLegacyPayloadText(slot.ownTitleRaw);
+                if (!encodedOwnTitle.HasValue()) {
+                    PacketError error = encodedOwnTitle.Error();
+                    error.packetCode = PacketCode(Code);
+                    error.fieldIndex = baseIndex + 2U;
+                    return PacketResult<std::string>::Failure(std::move(error));
+                }
+
                 parts[baseIndex] = std::to_string(slot.use);
-                parts[baseIndex + 1U] = slot.charNameRaw;
-                parts[baseIndex + 2U] = slot.ownTitleRaw;
+                parts[baseIndex + 1U] = std::move(encodedCharName.Value());
+                parts[baseIndex + 2U] = std::move(encodedOwnTitle.Value());
                 parts[baseIndex + 3U] = std::to_string(slot.registSeqNumber);
                 parts[baseIndex + 4U] = std::to_string(slot.level);
                 parts[baseIndex + 5U] = std::to_string(slot.online);
@@ -20724,8 +20742,8 @@ namespace cg::packet::receive
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("data"),
-                PacketFieldType::EscapedString,
-                data.Value(),
+                PacketFieldType::SubPayload,
+                std::move(data.Value()),
             });
             return PacketResult<Packet>::Success(std::move(packet));
         }
@@ -20818,11 +20836,7 @@ namespace cg::packet::receive
                 return PacketResult<AddressBook>::Failure(std::move(error));
             }
 
-            std::vector<std::string> parts = std::move(split.Value());
-            if (parts.size() == PayloadFieldCount + 1U && !parts.empty() && parts.back().empty()) {
-                parts.pop_back();
-            }
-
+            const std::vector<std::string>& parts = split.Value();
             if (parts.size() != PayloadFieldCount) {
                 return PacketResult<AddressBook>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
@@ -20875,10 +20889,26 @@ namespace cg::packet::receive
                     return PacketResult<AddressBook>::Failure(graphicsNo.Error());
                 }
 
+                PacketResult<std::string> charName = DecodeLegacyPayloadText(parts[baseIndex + 1U]);
+                if (!charName.HasValue()) {
+                    PacketError error = charName.Error();
+                    error.packetCode = PacketCode(Code);
+                    error.fieldIndex = baseIndex + 1U;
+                    return PacketResult<AddressBook>::Failure(std::move(error));
+                }
+
+                PacketResult<std::string> ownTitle = DecodeLegacyPayloadText(parts[baseIndex + 2U]);
+                if (!ownTitle.HasValue()) {
+                    PacketError error = ownTitle.Error();
+                    error.packetCode = PacketCode(Code);
+                    error.fieldIndex = baseIndex + 2U;
+                    return PacketResult<AddressBook>::Failure(std::move(error));
+                }
+
                 slots[slotIndex] = AddressBookSlot {
                     use.Value(),
-                    parts[baseIndex + 1U],
-                    parts[baseIndex + 2U],
+                    std::move(charName.Value()),
+                    std::move(ownTitle.Value()),
                     registSeqNumber.Value(),
                     level.Value(),
                     online.Value(),

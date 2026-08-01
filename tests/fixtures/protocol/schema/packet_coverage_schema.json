@@ -913,9 +913,18 @@
       "description": "SEND_I CHAR_sendItemData",
       "rawFormat": "{data:es}",
       "resolvedFormat": "{data:es}",
-      "resolvedSource": "xlsx+ServerC+IDA+SDLCG+src",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
       "formatEmpty": false,
       "source": "xlsx",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "data",
+          "typeToken": "es",
+          "rawSpec": "{data:es}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        }
+      ],
       "fields": [
         {
           "index": 0,

@@ -2,9 +2,11 @@
 #include "packet/Receive.hpp"
 
 #include <cstddef>
+#include <initializer_list>
 #include <iostream>
 #include <string>
 #include <string_view>
+#include <utility>
 #include <vector>
 
 namespace {
@@ -49,6 +51,33 @@ int ExpectError(
         failures += Expect(error.packetCode->View() == packetCode, message);
     }
     return failures;
+}
+
+template <typename T>
+int ExpectErrorAt(
+    const cg::packet::PacketResult<T>& result,
+    cg::packet::PacketErrorCode code,
+    std::size_t fieldIndex,
+    const char* message)
+{
+    int failures = ExpectError(result, code, "iKe", message);
+    if (result.HasError()) {
+        failures += Expect(result.Error().fieldIndex.has_value(), message);
+        if (result.Error().fieldIndex.has_value()) {
+            failures += Expect(result.Error().fieldIndex.value() == fieldIndex, message);
+        }
+    }
+    return failures;
+}
+
+std::string Bytes(std::initializer_list<unsigned int> values)
+{
+    std::string bytes;
+    bytes.reserve(values.size());
+    for (const unsigned int value : values) {
+        bytes.push_back(static_cast<char>(value));
+    }
+    return bytes;
 }
 
 std::string BuildPlainIKe(int petSlot, std::string_view payload)
@@ -129,6 +158,7 @@ int ExpectPetItemPacket(
     const cg::packet::Packet& packet,
     int petSlot,
     std::string_view value,
+    cg::packet::PacketFieldType dataFieldType,
     const char* message)
 {
     int failures = 0;
@@ -143,7 +173,7 @@ int ExpectPetItemPacket(
     failures += Expect(packet.fields[0].type == cg::packet::PacketFieldType::Int62, message);
     failures += Expect(packet.fields[0].value == std::to_string(petSlot), message);
     failures += Expect(packet.fields[1].name == "data", message);
-    failures += Expect(packet.fields[1].type == cg::packet::PacketFieldType::EscapedString, message);
+    failures += Expect(packet.fields[1].type == dataFieldType, message);
     failures += Expect(packet.fields[1].value == value, message);
     return failures;
 }
@@ -203,8 +233,16 @@ int TestParsePacketOuter()
 
     int failures = Expect(static_cast<bool>(parsed), "parse iKe outer");
     if (parsed.HasValue()) {
-        failures += ExpectPetItemPacket(parsed.Value(), 3, payload, "parse iKe outer packet");
+        failures += ExpectPetItemPacket(
+            parsed.Value(),
+            3,
+            payload,
+            cg::packet::PacketFieldType::EscapedString,
+            "parse iKe outer packet");
     }
+    failures += Expect(
+        cg::packet::receive::PetItemData::Fields[1].type == cg::packet::PacketFieldType::SubPayload,
+        "iKe data spec is SubPayload");
     return failures;
 }
 
@@ -225,9 +263,9 @@ int TestSingleItemRoundtrip()
         failures += ExpectRecord(
             parsed.Value().records[0],
             1,
-            "Pet\\zHelm",
+            "Pet|Helm",
             2,
-            "Line1\\nLine2",
+            "Line1\nLine2",
             1001,
             1,
             0,
@@ -237,16 +275,29 @@ int TestSingleItemRoundtrip()
             10001,
             9,
             12,
-            "Memo\\cRaw",
+            "Memo,Raw",
             "iKe single record");
     }
-    failures += Expect(parsed.Value().BuildData() == payload, "iKe single BuildData");
-    failures += ExpectPetItemPacket(parsed.Value().ToPacket(), 3, payload, "iKe single ToPacket");
+    const cg::packet::PacketResult<std::string> data = parsed.Value().BuildData();
+    failures += Expect(static_cast<bool>(data), "iKe single BuildData");
+    if (data.HasValue()) {
+        failures += Expect(data.Value() == payload, "iKe single BuildData value");
+    }
 
-    const cg::packet::PacketResult<std::string> built = BuildPacket(parsed.Value().ToPacket());
-    failures += Expect(static_cast<bool>(built), "build iKe single packet");
-    if (built.HasValue()) {
-        failures += Expect(built.Value() == BuildPlainIKe(3, payload), "roundtrip iKe single packet");
+    const cg::packet::PacketResult<cg::packet::Packet> packet = parsed.Value().ToPacket();
+    failures += Expect(static_cast<bool>(packet), "iKe single ToPacket");
+    if (packet.HasValue()) {
+        failures += ExpectPetItemPacket(
+            packet.Value(),
+            3,
+            payload,
+            cg::packet::PacketFieldType::SubPayload,
+            "iKe single ToPacket value");
+        const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
+        failures += Expect(static_cast<bool>(built), "build iKe single packet");
+        if (built.HasValue()) {
+            failures += Expect(built.Value() == BuildPlainIKe(3, payload), "roundtrip iKe single packet");
+        }
     }
     return failures;
 }
@@ -266,7 +317,11 @@ int TestClearSlot()
     if (parsed.Value().records.size() == 1U) {
         failures += ExpectClearRecord(parsed.Value().records[0], 0, "iKe clear slot record");
     }
-    failures += Expect(parsed.Value().BuildData() == "0|||||||||||||", "iKe clear slot BuildData");
+    const cg::packet::PacketResult<std::string> data = parsed.Value().BuildData();
+    failures += Expect(static_cast<bool>(data), "iKe clear slot BuildData");
+    if (data.HasValue()) {
+        failures += Expect(data.Value() == "0|||||||||||||", "iKe clear slot BuildData value");
+    }
     return failures;
 }
 
@@ -288,18 +343,28 @@ int TestMultiRecordRoundtrip()
     if (parsed.Value().records.size() == 2U) {
         failures += ExpectClearRecord(parsed.Value().records[1], 0, "iKe multi clear record");
     }
-    failures += Expect(parsed.Value().BuildData() == payload, "iKe multi BuildData");
+    const cg::packet::PacketResult<std::string> data = parsed.Value().BuildData();
+    failures += Expect(static_cast<bool>(data), "iKe multi BuildData");
+    if (data.HasValue()) {
+        failures += Expect(data.Value() == payload, "iKe multi BuildData value");
+    }
     return failures;
 }
 
-int TestRawInnerEscapesPreserved()
+int TestLegacyTextCanonical()
 {
-    const std::string raw = "A\\zB\\nC\\cD";
+    const std::string gbkEast = Bytes({0x96U, 0x7cU});
+    std::string legacy = gbkEast;
+    legacy.append("\\zpipe\\ccomma\\yslash\\nline\\q");
+    std::string semantic = gbkEast;
+    semantic.append("|pipe,comma\\slash\nlineq");
+    std::string canonicalText = gbkEast;
+    canonicalText.append("\\zpipe\\ccomma\\yslash\\nlineq");
     const std::string payload = JoinParts({
         "1",
-        raw,
+        legacy,
         "3",
-        raw,
+        legacy,
         "1002",
         "1",
         "1",
@@ -309,23 +374,43 @@ int TestRawInnerEscapesPreserved()
         "10002",
         "10",
         "13",
-        raw,
+        legacy,
+    });
+    const std::string canonical = JoinParts({
+        "1",
+        canonicalText,
+        "3",
+        canonicalText,
+        "1002",
+        "1",
+        "1",
+        "4",
+        "6",
+        "8",
+        "10002",
+        "10",
+        "13",
+        canonicalText,
     });
     const cg::packet::PacketResult<cg::packet::receive::PetItemData> parsed =
         cg::packet::receive::PetItemData::Parse(BuildPlainIKe(4, payload));
 
-    int failures = Expect(static_cast<bool>(parsed), "parse iKe raw inner escapes");
+    int failures = Expect(static_cast<bool>(parsed), "parse iKe legacy text");
     if (!parsed.HasValue()) {
         return failures;
     }
 
-    failures += Expect(parsed.Value().records.size() == 1U, "iKe raw inner count");
+    failures += Expect(parsed.Value().records.size() == 1U, "iKe legacy text count");
     if (parsed.Value().records.size() == 1U) {
-        failures += Expect(parsed.Value().records[0].nameRaw == raw, "iKe raw name");
-        failures += Expect(parsed.Value().records[0].explanationRaw == raw, "iKe raw explanation");
-        failures += Expect(parsed.Value().records[0].memoRaw == raw, "iKe raw memo");
+        failures += Expect(parsed.Value().records[0].nameRaw == semantic, "iKe semantic name");
+        failures += Expect(parsed.Value().records[0].explanationRaw == semantic, "iKe semantic explanation");
+        failures += Expect(parsed.Value().records[0].memoRaw == semantic, "iKe semantic memo");
     }
-    failures += Expect(parsed.Value().BuildData() == payload, "iKe raw inner BuildData");
+    const cg::packet::PacketResult<std::string> data = parsed.Value().BuildData();
+    failures += Expect(static_cast<bool>(data), "iKe canonical legacy BuildData");
+    if (data.HasValue()) {
+        failures += Expect(data.Value() == canonical, "iKe canonical legacy BuildData value");
+    }
     return failures;
 }
 
@@ -337,7 +422,11 @@ int TestEmptyPayload()
     int failures = Expect(static_cast<bool>(parsed), "parse iKe empty payload");
     if (parsed.HasValue()) {
         failures += Expect(parsed.Value().records.empty(), "iKe empty payload records");
-        failures += Expect(parsed.Value().BuildData().empty(), "iKe empty payload BuildData");
+        const cg::packet::PacketResult<std::string> data = parsed.Value().BuildData();
+        failures += Expect(static_cast<bool>(data), "iKe empty payload BuildData");
+        if (data.HasValue()) {
+            failures += Expect(data.Value().empty(), "iKe empty payload BuildData value");
+        }
     }
     return failures;
 }
@@ -396,11 +485,48 @@ int TestErrors()
 
     parts = BuildItemParts();
     parts[1].clear();
-    failures += ExpectError(
+    failures += ExpectErrorAt(
         cg::packet::receive::PetItemData::Parse(BuildPlainIKe(2, JoinParts(parts))),
         cg::packet::PacketErrorCode::DecodeFailed,
-        "iKe",
+        1U,
         "iKe empty name with non-empty fields");
+
+    parts = BuildItemParts();
+    parts[1] = "Name\\";
+    failures += ExpectErrorAt(
+        cg::packet::receive::PetItemData::Parse(BuildPlainIKe(2, JoinParts(parts))),
+        cg::packet::PacketErrorCode::DecodeFailed,
+        1U,
+        "iKe truncated name escape");
+
+    parts = BuildItemParts();
+    parts[3] = "Explanation\\";
+    failures += ExpectErrorAt(
+        cg::packet::receive::PetItemData::Parse(BuildPlainIKe(2, JoinParts(parts))),
+        cg::packet::PacketErrorCode::DecodeFailed,
+        3U,
+        "iKe truncated explanation escape");
+
+    parts = BuildItemParts();
+    parts[13] = "Memo\\";
+    failures += ExpectErrorAt(
+        cg::packet::receive::PetItemData::Parse(BuildPlainIKe(2, JoinParts(parts))),
+        cg::packet::PacketErrorCode::DecodeFailed,
+        13U,
+        "iKe truncated memo escape");
+
+    parts = BuildItemParts();
+    parts[1] = "Name";
+    parts[3] = "Explanation";
+    parts[13] = "Memo";
+    std::string truncatedGbk = "iKe 2 ";
+    truncatedGbk.append(JoinParts(parts));
+    truncatedGbk.push_back(static_cast<char>(0x81));
+    failures += ExpectErrorAt(
+        cg::packet::receive::PetItemData::Parse(truncatedGbk),
+        cg::packet::PacketErrorCode::DecodeFailed,
+        1U,
+        "iKe truncated GBK payload");
 
     failures += ExpectError(
         cg::packet::receive::PetItemData::Parse("rU data "),
@@ -453,6 +579,44 @@ int TestErrors()
     return failures;
 }
 
+int TestBuildAndToPacketErrors()
+{
+    const cg::packet::receive::ItemRecord valid {
+        0, "Name", 2, "Explanation", 1001, 1, 0, 3, 5, 7, 10001, 9, 12, "Memo", false,
+    };
+    const std::string truncatedGbk(1U, static_cast<char>(0x81));
+    cg::packet::receive::ItemRecord invalidName = valid;
+    invalidName.nameRaw = truncatedGbk;
+    cg::packet::receive::ItemRecord invalidExplanation = valid;
+    invalidExplanation.explanationRaw = truncatedGbk;
+    cg::packet::receive::ItemRecord invalidMemo = valid;
+    invalidMemo.memoRaw = truncatedGbk;
+
+    int failures = 0;
+    failures += ExpectErrorAt(
+        cg::packet::receive::PetItemData(2, {invalidName}).BuildData(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        1U,
+        "iKe BuildData name encode context");
+    failures += ExpectErrorAt(
+        cg::packet::receive::PetItemData(2, {invalidExplanation}).BuildData(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        3U,
+        "iKe BuildData explanation encode context");
+    const cg::packet::receive::PetItemData memoData(2, {valid, invalidMemo});
+    failures += ExpectErrorAt(
+        memoData.BuildData(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        27U,
+        "iKe BuildData second memo encode context");
+    failures += ExpectErrorAt(
+        memoData.ToPacket(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        27U,
+        "iKe ToPacket second memo encode context");
+    return failures;
+}
+
 } // namespace
 
 int main()
@@ -462,9 +626,10 @@ int main()
     failures += TestSingleItemRoundtrip();
     failures += TestClearSlot();
     failures += TestMultiRecordRoundtrip();
-    failures += TestRawInnerEscapesPreserved();
+    failures += TestLegacyTextCanonical();
     failures += TestEmptyPayload();
     failures += TestErrors();
+    failures += TestBuildAndToPacketErrors();
     if (failures != 0) {
         std::cerr << failures << " checks failed\n";
         return 1;

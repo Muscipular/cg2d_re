@@ -10388,6 +10388,7 @@ namespace cg::packet::receive
 
     /**
      * SEND_I 道具记录：slot|nameRaw|nameColor|explanationRaw|imageId|ableUseField|battleUseFlag|target|level|flag|itemId|type|remain|memoRaw。
+     * 三个 *Raw 字段名为兼容既有 API 保留，字段值为 legacy escape 还原后的语义字节串。
      */
     struct ItemRecord
     {
@@ -10418,7 +10419,7 @@ namespace cg::packet::receive
 
     /**
      * SEND_I CHAR_sendItemData		rU {data:es}
-     * data: 每条 14 段，数值为 raw decimal，name/explanation/memo 保留二级转义 raw 字符串。
+     * data: 每条 14 段，数值为 raw decimal，name/explanation/memo 按 legacy escape 编解码。
      */
     struct ItemData
     {
@@ -10439,11 +10440,15 @@ namespace cg::packet::receive
             static constexpr std::size_t ClearFieldCount = RecordFieldCount - 1U;
 
 #if CG_PACKET_ENABLE_TEST_HELPERS
-            [[nodiscard]] static std::string BuildData(const std::vector<ItemRecord>& records)
+            [[nodiscard]] static PacketResult<std::string> BuildData(
+                const std::vector<ItemRecord>& records,
+                const CodecContext& context)
             {
                 std::vector<std::string> parts;
                 parts.reserve(records.size() * RecordFieldCount);
-                for (const ItemRecord& record : records) {
+                for (std::size_t recordIndex = 0; recordIndex < records.size(); ++recordIndex) {
+                    const ItemRecord& record = records[recordIndex];
+                    const std::size_t baseIndex = recordIndex * RecordFieldCount;
                     parts.push_back(std::to_string(record.slot));
                     if (record.clearSlot) {
                         for (std::size_t index = 0; index < ClearFieldCount; ++index) {
@@ -10452,9 +10457,34 @@ namespace cg::packet::receive
                         continue;
                     }
 
-                    parts.push_back(record.nameRaw);
+                    PacketResult<std::string> encodedName = EncodeLegacyPayloadText(record.nameRaw);
+                    if (!encodedName.HasValue()) {
+                        PacketError error = encodedName.Error();
+                        error.packetCode = PacketCode(context.code);
+                        error.fieldIndex = baseIndex + 1U;
+                        return PacketResult<std::string>::Failure(std::move(error));
+                    }
+
+                    PacketResult<std::string> encodedExplanation =
+                        EncodeLegacyPayloadText(record.explanationRaw);
+                    if (!encodedExplanation.HasValue()) {
+                        PacketError error = encodedExplanation.Error();
+                        error.packetCode = PacketCode(context.code);
+                        error.fieldIndex = baseIndex + 3U;
+                        return PacketResult<std::string>::Failure(std::move(error));
+                    }
+
+                    PacketResult<std::string> encodedMemo = EncodeLegacyPayloadText(record.memoRaw);
+                    if (!encodedMemo.HasValue()) {
+                        PacketError error = encodedMemo.Error();
+                        error.packetCode = PacketCode(context.code);
+                        error.fieldIndex = baseIndex + 13U;
+                        return PacketResult<std::string>::Failure(std::move(error));
+                    }
+
+                    parts.push_back(std::move(encodedName.Value()));
                     parts.push_back(std::to_string(record.nameColor));
-                    parts.push_back(record.explanationRaw);
+                    parts.push_back(std::move(encodedExplanation.Value()));
                     parts.push_back(std::to_string(record.imageId));
                     parts.push_back(std::to_string(record.ableUseField));
                     parts.push_back(std::to_string(record.battleUseFlag));
@@ -10464,17 +10494,19 @@ namespace cg::packet::receive
                     parts.push_back(std::to_string(record.itemId));
                     parts.push_back(std::to_string(record.type));
                     parts.push_back(std::to_string(record.remain));
-                    parts.push_back(record.memoRaw);
+                    parts.push_back(std::move(encodedMemo.Value()));
                 }
 
                 PacketResult<std::string> payload = BuildPayload(
                     std::span<const std::string>(parts.data(), parts.size()),
                     PayloadDelimiter);
-                if (payload.HasValue()) {
-                    return payload.Value();
+                if (!payload.HasValue()) {
+                    PacketError error = payload.Error();
+                    error.packetCode = PacketCode(context.code);
+                    error.fieldIndex = context.dataFieldIndex;
+                    return PacketResult<std::string>::Failure(std::move(error));
                 }
-
-                return {};
+                return payload;
             }
 #endif
 
@@ -10486,7 +10518,7 @@ namespace cg::packet::receive
                     return PacketResult<std::vector<ItemRecord>>::Success({});
                 }
 
-                PacketResult<std::vector<std::string>> split = SplitPayload(payload, PayloadDelimiter);
+                PacketResult<std::vector<std::string>> split = SplitPayloadLegacyAware(payload, PayloadDelimiter);
                 if (!split.HasValue()) {
                     PacketError error = split.Error();
                     error.packetCode = PacketCode(context.code);
@@ -10575,11 +10607,36 @@ namespace cg::packet::receive
                         return PacketResult<std::vector<ItemRecord>>::Failure(remain.Error());
                     }
 
+                    PacketResult<std::string> name = DecodeLegacyPayloadText(parts[baseIndex + 1U]);
+                    if (!name.HasValue()) {
+                        PacketError error = name.Error();
+                        error.packetCode = PacketCode(context.code);
+                        error.fieldIndex = baseIndex + 1U;
+                        return PacketResult<std::vector<ItemRecord>>::Failure(std::move(error));
+                    }
+
+                    PacketResult<std::string> explanation =
+                        DecodeLegacyPayloadText(parts[baseIndex + 3U]);
+                    if (!explanation.HasValue()) {
+                        PacketError error = explanation.Error();
+                        error.packetCode = PacketCode(context.code);
+                        error.fieldIndex = baseIndex + 3U;
+                        return PacketResult<std::vector<ItemRecord>>::Failure(std::move(error));
+                    }
+
+                    PacketResult<std::string> memo = DecodeLegacyPayloadText(parts[baseIndex + 13U]);
+                    if (!memo.HasValue()) {
+                        PacketError error = memo.Error();
+                        error.packetCode = PacketCode(context.code);
+                        error.fieldIndex = baseIndex + 13U;
+                        return PacketResult<std::vector<ItemRecord>>::Failure(std::move(error));
+                    }
+
                     records.push_back(ItemRecord {
                         slot.Value(),
-                        parts[baseIndex + 1U],
+                        std::move(name.Value()),
                         nameColor.Value(),
-                        parts[baseIndex + 3U],
+                        std::move(explanation.Value()),
                         imageId.Value(),
                         ableUseField.Value(),
                         battleUseFlag.Value(),
@@ -10589,7 +10646,7 @@ namespace cg::packet::receive
                         itemId.Value(),
                         type.Value(),
                         remain.Value(),
-                        parts[baseIndex + 13U],
+                        std::move(memo.Value()),
                         false,
                     });
                 }
@@ -10695,7 +10752,7 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "rU";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
-            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::SubPayload},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -10713,22 +10770,29 @@ namespace cg::packet::receive
         }
 
 #if CG_PACKET_ENABLE_TEST_HELPERS
-        [[nodiscard]] std::string BuildData() const
+        [[nodiscard]] PacketResult<std::string> BuildData() const
         {
-            return Codec::BuildData(records);
+            return Codec::BuildData(
+                records,
+                CodecContext {Code, CG_PACKET_DIAGNOSTIC_TEXT("ItemData"), DataFieldIndex});
         }
 #endif
 
 #if CG_PACKET_ENABLE_TEST_HELPERS
-        [[nodiscard]] Packet ToPacket() const
+        [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
+            PacketResult<std::string> data = BuildData();
+            if (!data.HasValue()) {
+                return PacketResult<Packet>::Failure(data.Error());
+            }
+
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("data"),
-                PacketFieldType::EscapedString,
-                BuildData(),
+                PacketFieldType::SubPayload,
+                std::move(data.Value()),
             });
-            return packet;
+            return PacketResult<Packet>::Success(std::move(packet));
         }
 #endif
 
@@ -10816,7 +10880,7 @@ namespace cg::packet::receive
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
             {CG_PACKET_DIAGNOSTIC_TEXT("petSlot"), PacketFieldType::Int62},
-            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::SubPayload},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -10836,15 +10900,22 @@ namespace cg::packet::receive
         }
 
 #if CG_PACKET_ENABLE_TEST_HELPERS
-        [[nodiscard]] std::string BuildData() const
+        [[nodiscard]] PacketResult<std::string> BuildData() const
         {
-            return ItemData::Codec::BuildData(records);
+            return ItemData::Codec::BuildData(
+                records,
+                ItemData::CodecContext {Code, CG_PACKET_DIAGNOSTIC_TEXT("PetItemData"), DataFieldIndex});
         }
 #endif
 
 #if CG_PACKET_ENABLE_TEST_HELPERS
-        [[nodiscard]] Packet ToPacket() const
+        [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
+            PacketResult<std::string> data = BuildData();
+            if (!data.HasValue()) {
+                return PacketResult<Packet>::Failure(data.Error());
+            }
+
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("petSlot"),
@@ -10853,10 +10924,10 @@ namespace cg::packet::receive
             });
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("data"),
-                PacketFieldType::EscapedString,
-                BuildData(),
+                PacketFieldType::SubPayload,
+                std::move(data.Value()),
             });
-            return packet;
+            return PacketResult<Packet>::Success(std::move(packet));
         }
 #endif
 

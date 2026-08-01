@@ -2,9 +2,11 @@
 #include "packet/Receive.hpp"
 
 #include <cstddef>
+#include <initializer_list>
 #include <iostream>
 #include <string>
 #include <string_view>
+#include <utility>
 #include <vector>
 
 namespace {
@@ -49,6 +51,73 @@ int ExpectError(
         failures += Expect(error.packetCode->View() == packetCode, message);
     }
     return failures;
+}
+
+template <typename T>
+int ExpectErrorAt(
+    const cg::packet::PacketResult<T>& result,
+    cg::packet::PacketErrorCode code,
+    std::size_t fieldIndex,
+    const char* message)
+{
+    int failures = ExpectError(result, code, "rU", message);
+    if (result.HasError()) {
+        failures += Expect(result.Error().fieldIndex.has_value(), message);
+        if (result.Error().fieldIndex.has_value()) {
+            failures += Expect(result.Error().fieldIndex.value() == fieldIndex, message);
+        }
+    }
+    return failures;
+}
+
+std::string Bytes(std::initializer_list<unsigned int> values)
+{
+    std::string bytes;
+    bytes.reserve(values.size());
+    for (const unsigned int value : values) {
+        bytes.push_back(static_cast<char>(value));
+    }
+    return bytes;
+}
+
+std::string BuildPacketLogExplanation(std::string_view lineBreak)
+{
+    std::string value = "$1";
+    value.append(Bytes({0xb7U, 0xc0U, 0xd3U, 0xf9U}));
+    value.append(" +51 $2");
+    value.append(Bytes({0xbbU, 0xe8U, 0xcbU, 0xafU}));
+    value.append(" +20 ");
+    value.append(Bytes({0xbeU, 0xc6U, 0xd7U, 0xedU}));
+    value.append(" +20");
+    value.append(lineBreak);
+    value.append("$2");
+    value.append(Bytes({0xd2U, 0xc5U, 0xcdU, 0xfcU}));
+    value.append(" +20 $8");
+    value.append(Bytes({0xc9U, 0xc1U, 0xb6U, 0xe3U}));
+    value.append(" +10 $4");
+    value.append(Bytes({0xb5U, 0xc8U, 0xbcU, 0xb6U}));
+    value.append(" 11");
+    value.append(lineBreak);
+    value.append("$4");
+    value.append(Bytes({0xc4U, 0xcdU, 0xbeU, 0xc3U}));
+    value.append(" 0168/0241 $0");
+    value.append(Bytes({0xd6U, 0xd6U, 0xc0U, 0xe0U}));
+    value.push_back(' ');
+    value.append(Bytes({0xc3U, 0xb1U, 0xd7U, 0xd3U}));
+    for (std::size_t index = 0; index < 6U; ++index) {
+        value.append(lineBreak);
+    }
+    value.append("$4");
+    value.append(Bytes({
+        0xc4U, 0xdcU, 0xb9U, 0xbbU, 0xcaU, 0xb5U, 0xcfU, 0xd6U,
+        0xc5U, 0xe4U, 0xb4U, 0xf7U, 0xd5U, 0xdfU, 0xd6U, 0xaeU,
+        0xd3U, 0xfbU, 0xcdU, 0xfbU, 0xb5U, 0xc4U, 0xc3U, 0xb1U,
+        0xd7U, 0xd3U,
+    }));
+    value.push_back('.');
+    value.append(lineBreak);
+    value.append(lineBreak);
+    return value;
 }
 
 std::string BuildPlain(std::string_view code, std::string_view payload)
@@ -114,6 +183,7 @@ std::vector<std::string> BuildClearParts(int slot)
 int ExpectItemDataPacket(
     const cg::packet::Packet& packet,
     std::string_view value,
+    cg::packet::PacketFieldType dataFieldType,
     const char* message)
 {
     int failures = 0;
@@ -125,7 +195,7 @@ int ExpectItemDataPacket(
     }
 
     failures += Expect(packet.fields[0].name == "data", message);
-    failures += Expect(packet.fields[0].type == cg::packet::PacketFieldType::EscapedString, message);
+    failures += Expect(packet.fields[0].type == dataFieldType, message);
     failures += Expect(packet.fields[0].value == value, message);
     return failures;
 }
@@ -185,8 +255,15 @@ int TestParsePacketOuter()
 
     int failures = Expect(static_cast<bool>(parsed), "parse rU outer");
     if (parsed.HasValue()) {
-        failures += ExpectItemDataPacket(parsed.Value(), payload, "parse rU outer packet");
+        failures += ExpectItemDataPacket(
+            parsed.Value(),
+            payload,
+            cg::packet::PacketFieldType::EscapedString,
+            "parse rU outer packet");
     }
+    failures += Expect(
+        cg::packet::receive::ItemData::Fields[0].type == cg::packet::PacketFieldType::SubPayload,
+        "rU data spec is SubPayload");
     return failures;
 }
 
@@ -206,9 +283,9 @@ int TestSingleItemRoundtrip()
         failures += ExpectRecord(
             parsed.Value().records[0],
             0,
-            "Potion\\zSmall",
+            "Potion|Small",
             2,
-            "Line1\\nLine2",
+            "Line1\nLine2",
             1001,
             1,
             0,
@@ -218,16 +295,28 @@ int TestSingleItemRoundtrip()
             10001,
             9,
             12,
-            "Memo\\cRaw",
+            "Memo,Raw",
             "rU single record");
     }
-    failures += Expect(parsed.Value().BuildData() == payload, "rU single BuildData");
-    failures += ExpectItemDataPacket(parsed.Value().ToPacket(), payload, "rU single ToPacket");
+    const cg::packet::PacketResult<std::string> data = parsed.Value().BuildData();
+    failures += Expect(static_cast<bool>(data), "rU single BuildData");
+    if (data.HasValue()) {
+        failures += Expect(data.Value() == payload, "rU single BuildData value");
+    }
 
-    const cg::packet::PacketResult<std::string> built = BuildPacket(parsed.Value().ToPacket());
-    failures += Expect(static_cast<bool>(built), "build rU single packet");
-    if (built.HasValue()) {
-        failures += Expect(built.Value() == BuildPlainRu(payload), "roundtrip rU single packet");
+    const cg::packet::PacketResult<cg::packet::Packet> packet = parsed.Value().ToPacket();
+    failures += Expect(static_cast<bool>(packet), "rU single ToPacket");
+    if (packet.HasValue()) {
+        failures += ExpectItemDataPacket(
+            packet.Value(),
+            payload,
+            cg::packet::PacketFieldType::SubPayload,
+            "rU single ToPacket value");
+        const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
+        failures += Expect(static_cast<bool>(built), "build rU single packet");
+        if (built.HasValue()) {
+            failures += Expect(built.Value() == BuildPlainRu(payload), "roundtrip rU single packet");
+        }
     }
     return failures;
 }
@@ -247,7 +336,11 @@ int TestClearSlot()
     if (parsed.Value().records.size() == 1U) {
         failures += ExpectClearRecord(parsed.Value().records[0], 8, "rU clear slot record");
     }
-    failures += Expect(parsed.Value().BuildData() == "8|||||||||||||", "rU clear slot BuildData");
+    const cg::packet::PacketResult<std::string> data = parsed.Value().BuildData();
+    failures += Expect(static_cast<bool>(data), "rU clear slot BuildData");
+    if (data.HasValue()) {
+        failures += Expect(data.Value() == "8|||||||||||||", "rU clear slot BuildData value");
+    }
     return failures;
 }
 
@@ -269,18 +362,28 @@ int TestMultiRecordRoundtrip()
     if (parsed.Value().records.size() == 2U) {
         failures += ExpectClearRecord(parsed.Value().records[1], 8, "rU multi clear record");
     }
-    failures += Expect(parsed.Value().BuildData() == payload, "rU multi BuildData");
+    const cg::packet::PacketResult<std::string> data = parsed.Value().BuildData();
+    failures += Expect(static_cast<bool>(data), "rU multi BuildData");
+    if (data.HasValue()) {
+        failures += Expect(data.Value() == payload, "rU multi BuildData value");
+    }
     return failures;
 }
 
-int TestRawInnerEscapesPreserved()
+int TestLegacyTextCanonical()
 {
-    const std::string raw = "A\\zB\\cC\\yD\\nE";
+    const std::string gbkEast = Bytes({0x96U, 0x7cU});
+    std::string legacy = gbkEast;
+    legacy.append("\\zpipe\\ccomma\\yslash\\nline\\q");
+    std::string semantic = gbkEast;
+    semantic.append("|pipe,comma\\slash\nlineq");
+    std::string canonicalText = gbkEast;
+    canonicalText.append("\\zpipe\\ccomma\\yslash\\nlineq");
     const std::string payload = JoinParts({
         "1",
-        raw,
+        legacy,
         "3",
-        raw,
+        legacy,
         "1002",
         "1",
         "1",
@@ -290,23 +393,43 @@ int TestRawInnerEscapesPreserved()
         "10002",
         "10",
         "13",
-        raw,
+        legacy,
+    });
+    const std::string canonical = JoinParts({
+        "1",
+        canonicalText,
+        "3",
+        canonicalText,
+        "1002",
+        "1",
+        "1",
+        "4",
+        "6",
+        "8",
+        "10002",
+        "10",
+        "13",
+        canonicalText,
     });
     const cg::packet::PacketResult<cg::packet::receive::ItemData> parsed =
         cg::packet::receive::ItemData::Parse(BuildPlainRu(payload));
 
-    int failures = Expect(static_cast<bool>(parsed), "parse rU raw inner escapes");
+    int failures = Expect(static_cast<bool>(parsed), "parse rU legacy text");
     if (!parsed.HasValue()) {
         return failures;
     }
 
-    failures += Expect(parsed.Value().records.size() == 1U, "rU raw inner count");
+    failures += Expect(parsed.Value().records.size() == 1U, "rU legacy text count");
     if (parsed.Value().records.size() == 1U) {
-        failures += Expect(parsed.Value().records[0].nameRaw == raw, "rU raw name");
-        failures += Expect(parsed.Value().records[0].explanationRaw == raw, "rU raw explanation");
-        failures += Expect(parsed.Value().records[0].memoRaw == raw, "rU raw memo");
+        failures += Expect(parsed.Value().records[0].nameRaw == semantic, "rU semantic name");
+        failures += Expect(parsed.Value().records[0].explanationRaw == semantic, "rU semantic explanation");
+        failures += Expect(parsed.Value().records[0].memoRaw == semantic, "rU semantic memo");
     }
-    failures += Expect(parsed.Value().BuildData() == payload, "rU raw inner BuildData");
+    const cg::packet::PacketResult<std::string> data = parsed.Value().BuildData();
+    failures += Expect(static_cast<bool>(data), "rU canonical legacy BuildData");
+    if (data.HasValue()) {
+        failures += Expect(data.Value() == canonical, "rU canonical legacy BuildData value");
+    }
     return failures;
 }
 
@@ -318,18 +441,23 @@ int TestEmptyPayload()
     int failures = Expect(static_cast<bool>(parsed), "parse rU empty payload");
     if (parsed.HasValue()) {
         failures += Expect(parsed.Value().records.empty(), "rU empty payload records");
-        failures += Expect(parsed.Value().BuildData().empty(), "rU empty payload BuildData");
+        const cg::packet::PacketResult<std::string> data = parsed.Value().BuildData();
+        failures += Expect(static_cast<bool>(data), "rU empty payload BuildData");
+        if (data.HasValue()) {
+            failures += Expect(data.Value().empty(), "rU empty payload BuildData value");
+        }
     }
     return failures;
 }
 
 int TestPacketLogSample()
 {
-    const std::string explanation =
-        R"($1防御\S+51\S$2昏睡\S+20\S酒醉\S+20\\n$2遗忘\S+20\S$8闪躲\S+10\S$4等级\S11\\n$4耐久\S0168/0241\S$0种类\S帽子\\n\\n\\n\\n\\n\\n$4能够实现配戴者之欲望的帽子.\\n\\n)";
+    const std::string name = Bytes({0xb1U, 0xb4U, 0xcbU, 0xb9U, 0xc9U, 0xf1U, 0xc3U, 0xb1U});
+    const std::string explanation = BuildPacketLogExplanation("\\n");
+    const std::string semanticExplanation = BuildPacketLogExplanation("\n");
     const std::string payload = JoinParts({
         "0",
-        "贝斯神帽",
+        name,
         "0",
         explanation,
         "21511",
@@ -356,9 +484,9 @@ int TestPacketLogSample()
         failures += ExpectRecord(
             parsed.Value().records[0],
             0,
-            "贝斯神帽",
+            name,
             0,
-            explanation,
+            semanticExplanation,
             21511,
             1,
             2,
@@ -371,7 +499,11 @@ int TestPacketLogSample()
             "",
             "rU packet log record");
     }
-    failures += Expect(parsed.Value().BuildData() == payload, "rU packet log BuildData");
+    const cg::packet::PacketResult<std::string> data = parsed.Value().BuildData();
+    failures += Expect(static_cast<bool>(data), "rU packet log BuildData");
+    if (data.HasValue()) {
+        failures += Expect(data.Value() == payload, "rU packet log BuildData value");
+    }
     return failures;
 }
 
@@ -429,11 +561,48 @@ int TestErrors()
 
     parts = BuildItemParts();
     parts[1].clear();
-    failures += ExpectError(
+    failures += ExpectErrorAt(
         cg::packet::receive::ItemData::Parse(BuildPlainRu(JoinParts(parts))),
         cg::packet::PacketErrorCode::DecodeFailed,
-        "rU",
+        1U,
         "rU empty name with non-empty fields");
+
+    parts = BuildItemParts();
+    parts[1] = "Name\\";
+    failures += ExpectErrorAt(
+        cg::packet::receive::ItemData::Parse(BuildPlainRu(JoinParts(parts))),
+        cg::packet::PacketErrorCode::DecodeFailed,
+        1U,
+        "rU truncated name escape");
+
+    parts = BuildItemParts();
+    parts[3] = "Explanation\\";
+    failures += ExpectErrorAt(
+        cg::packet::receive::ItemData::Parse(BuildPlainRu(JoinParts(parts))),
+        cg::packet::PacketErrorCode::DecodeFailed,
+        3U,
+        "rU truncated explanation escape");
+
+    parts = BuildItemParts();
+    parts[13] = "Memo\\";
+    failures += ExpectErrorAt(
+        cg::packet::receive::ItemData::Parse(BuildPlainRu(JoinParts(parts))),
+        cg::packet::PacketErrorCode::DecodeFailed,
+        13U,
+        "rU truncated memo escape");
+
+    parts = BuildItemParts();
+    parts[1] = "Name";
+    parts[3] = "Explanation";
+    parts[13] = "Memo";
+    std::string truncatedGbk = "rU ";
+    truncatedGbk.append(JoinParts(parts));
+    truncatedGbk.push_back(static_cast<char>(0x81));
+    failures += ExpectErrorAt(
+        cg::packet::receive::ItemData::Parse(truncatedGbk),
+        cg::packet::PacketErrorCode::DecodeFailed,
+        0U,
+        "rU truncated GBK payload");
 
     failures += ExpectError(
         cg::packet::receive::ItemData::Parse("rU"),
@@ -450,6 +619,44 @@ int TestErrors()
     return failures;
 }
 
+int TestBuildAndToPacketErrors()
+{
+    const cg::packet::receive::ItemRecord valid {
+        0, "Name", 2, "Explanation", 1001, 1, 0, 3, 5, 7, 10001, 9, 12, "Memo", false,
+    };
+    const std::string truncatedGbk(1U, static_cast<char>(0x81));
+    cg::packet::receive::ItemRecord invalidName = valid;
+    invalidName.nameRaw = truncatedGbk;
+    cg::packet::receive::ItemRecord invalidExplanation = valid;
+    invalidExplanation.explanationRaw = truncatedGbk;
+    cg::packet::receive::ItemRecord invalidMemo = valid;
+    invalidMemo.memoRaw = truncatedGbk;
+
+    int failures = 0;
+    failures += ExpectErrorAt(
+        cg::packet::receive::ItemData({invalidName}).BuildData(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        1U,
+        "rU BuildData name encode context");
+    failures += ExpectErrorAt(
+        cg::packet::receive::ItemData({invalidExplanation}).BuildData(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        3U,
+        "rU BuildData explanation encode context");
+    const cg::packet::receive::ItemData memoData({invalidMemo});
+    failures += ExpectErrorAt(
+        memoData.BuildData(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        13U,
+        "rU BuildData memo encode context");
+    failures += ExpectErrorAt(
+        memoData.ToPacket(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        13U,
+        "rU ToPacket memo encode context");
+    return failures;
+}
+
 } // namespace
 
 int main()
@@ -459,10 +666,11 @@ int main()
     failures += TestSingleItemRoundtrip();
     failures += TestClearSlot();
     failures += TestMultiRecordRoundtrip();
-    failures += TestRawInnerEscapesPreserved();
+    failures += TestLegacyTextCanonical();
     failures += TestEmptyPayload();
     failures += TestPacketLogSample();
     failures += TestErrors();
+    failures += TestBuildAndToPacketErrors();
     if (failures != 0) {
         std::cerr << failures << " checks failed\n";
         return 1;

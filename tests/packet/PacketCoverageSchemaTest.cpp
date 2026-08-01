@@ -2955,6 +2955,80 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "cNE"),
         "cNE present in receive typed manifest");
 
+    const PacketSchema* itemDataSchema = FindPacket(packets, "rU");
+    failures += Expect(itemDataSchema != nullptr, "rU schema exists");
+    if (itemDataSchema != nullptr) {
+        std::vector<cg::packet::receive::ItemRecord> records;
+        records.push_back(cg::packet::receive::ItemRecord {
+            0,
+            "Potion",
+            2,
+            "Heal",
+            100,
+            1,
+            0,
+            3,
+            1,
+            0,
+            500,
+            7,
+            2,
+            "Memo",
+            false,
+        });
+        const cg::packet::receive::ItemData itemData(std::move(records));
+        const cg::packet::PacketResult<cg::packet::Packet> packet = itemData.ToPacket();
+        failures += Expect(packet.HasValue(), "rU ToPacket");
+        failures += Expect(itemDataSchema->direction == "服务端->客户端", "rU direction");
+        failures += Expect(itemDataSchema->legacyKind == "SEND", "rU legacyKind");
+        failures += Expect(itemDataSchema->clientNamespace == "receive", "rU namespace");
+        failures += Expect(itemDataSchema->rawFormat == "{data:es}", "rU rawFormat");
+        failures += Expect(!itemDataSchema->formatEmpty, "rU formatEmpty false");
+        failures += Expect(itemDataSchema->source == "xlsx", "rU raw source");
+        failures += Expect(itemDataSchema->fields.size() == 1U, "rU raw field count");
+        if (itemDataSchema->fields.size() == 1U) {
+            const FieldSchema& field = itemDataSchema->fields[0];
+            failures += Expect(field.index == 0, "rU raw field index");
+            failures += Expect(field.name == "data", "rU raw field name");
+            failures += Expect(field.typeToken == "es", "rU raw field type");
+            failures += Expect(field.rawSpec == "{data:es}", "rU raw field spec");
+            failures += Expect(field.source == "xlsx", "rU raw field source");
+        }
+        failures += Expect(itemDataSchema->hasResolvedFormat, "rU resolvedFormat present");
+        failures += Expect(itemDataSchema->resolvedFormat == "{data:es}", "rU resolvedFormat");
+        failures += Expect(
+            itemDataSchema->resolvedSource == "xlsx+ServerC+ClientIda+src/packet",
+            "rU resolvedSource");
+        failures += Expect(itemDataSchema->hasResolvedFields, "rU resolvedFields present");
+        failures += Expect(itemDataSchema->resolvedFields.size() == 1U, "rU resolved field count");
+        if (itemDataSchema->resolvedFields.size() == 1U) {
+            const FieldSchema& field = itemDataSchema->resolvedFields[0];
+            failures += Expect(field.index == 0, "rU resolved field index");
+            failures += Expect(field.name == "data", "rU resolved field name");
+            failures += Expect(field.typeToken == "es", "rU resolved field type");
+            failures += Expect(field.rawSpec == "{data:es}", "rU resolved field spec");
+            failures += Expect(
+                field.source == "xlsx+ServerC+ClientIda+src/packet",
+                "rU resolved field source");
+        }
+        failures += ExpectEffectiveFieldsMatch(
+            *itemDataSchema,
+            cg::packet::receive::ItemData::Spec,
+            "rU Spec matches effective fields");
+        if (packet.HasValue()) {
+            failures += ExpectResolvedFieldsMatch(
+                *itemDataSchema,
+                packet.Value(),
+                "rU resolved field order");
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "rU"),
+        "rU absent from send typed manifest");
+    failures += Expect(
+        TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "rU"),
+        "rU present in receive typed manifest");
+
     const PacketSchema* profileMailDeleteSchema = FindPacket(packets, "cNB");
     failures += Expect(profileMailDeleteSchema != nullptr, "cNB schema exists");
     if (profileMailDeleteSchema != nullptr) {

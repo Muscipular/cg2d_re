@@ -2491,14 +2491,14 @@
       "formatEmpty": true,
       "source": "xlsx",
       "resolvedFormat": "{command:es}",
-      "resolvedSource": "ServerC+ClientIda+src",
+      "resolvedSource": "ServerC+ClientIda+src/packet",
       "resolvedFields": [
         {
           "index": 0,
           "name": "command",
           "typeToken": "es",
           "rawSpec": "{command:es}",
-          "source": "ServerC+ClientIda+src"
+          "source": "ServerC+ClientIda+src/packet"
         }
       ],
       "fields": []

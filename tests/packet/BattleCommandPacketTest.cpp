@@ -85,6 +85,18 @@ cg::packet::Packet PacketOf(
     return packet;
 }
 
+std::string BuildOpaqueCommand()
+{
+    std::string command;
+    command.push_back(static_cast<char>(0xC3));
+    command.push_back(static_cast<char>(0xFB));
+    command.append(" A|B\\zC\n");
+    command.push_back(static_cast<char>(0x81));
+    command.push_back(static_cast<char>(0x5C));
+    command.push_back('D');
+    return command;
+}
+
 int ExpectBattleCommandPacket(
     const cg::packet::Packet& packet,
     std::string_view command,
@@ -182,6 +194,38 @@ int TestEmptyCommand()
     return failures;
 }
 
+int TestOpaqueOuterRoundtrip()
+{
+    const std::string command = BuildOpaqueCommand();
+    const cg::packet::receive::BattleCommand battleCommand(command);
+    const cg::packet::Packet packet = battleCommand.ToPacket();
+
+    int failures = ExpectBattleCommandPacket(packet, command, "LYIm ToPacket opaque command");
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet);
+    failures += Expect(static_cast<bool>(built), "build LYIm opaque command");
+    if (!built.HasValue()) {
+        return failures;
+    }
+
+    const cg::packet::PacketResult<std::string> encoded = cg::packet::EncodeEscapedString(command);
+    failures += Expect(static_cast<bool>(encoded), "encode LYIm opaque command");
+    if (!encoded.HasValue()) {
+        return failures;
+    }
+
+    failures += Expect(
+        built.Value() == std::string("LYIm ") + encoded.Value() + " ",
+        "build LYIm preserves GBK and outer-only command");
+
+    const cg::packet::PacketResult<cg::packet::receive::BattleCommand> parsed =
+        cg::packet::receive::BattleCommand::Parse(built.Value());
+    failures += Expect(static_cast<bool>(parsed), "parse LYIm opaque command");
+    if (parsed.HasValue()) {
+        failures += Expect(parsed.Value().command == command, "roundtrip LYIm opaque command");
+    }
+    return failures;
+}
+
 int TestParseErrors()
 {
     int failures = 0;
@@ -258,6 +302,7 @@ int main()
     failures += TestPipeRoundtrip();
     failures += TestEscapedSpaceRoundtrip();
     failures += TestEmptyCommand();
+    failures += TestOpaqueOuterRoundtrip();
     failures += TestParseErrors();
     failures += TestBuildErrors();
     if (failures != 0) {

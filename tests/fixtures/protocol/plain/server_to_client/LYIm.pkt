@@ -1,0 +1,15 @@
+pkt_fixture=1
+code=LYIm
+direction=server_to_client
+sample=active-timeout-battle-unlock
+plain_hex=4C 59 49 6D 20 42 55
+canonical_hex=4C 59 49 6D 20 42 55 20
+payload_field=0
+payload_hex=42 55
+end_sample
+sample=gbk-outer-es-command-bytes
+plain_hex=4C 59 49 6D 20 C3 FB 5C 53 41 7C 42 5C 5C 7A 43 5C 6E 81 5C 44
+canonical_hex=4C 59 49 6D 20 C3 FB 5C 53 41 7C 42 5C 5C 7A 43 5C 6E 81 5C 44 20
+payload_field=0
+payload_hex=C3 FB 20 41 7C 42 5C 7A 43 0A 81 5C 44
+end_sample

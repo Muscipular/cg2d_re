@@ -10386,16 +10386,49 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     const PacketSchema* battleCommandSchema = FindPacket(packets, "LYIm");
     failures += Expect(battleCommandSchema != nullptr, "LYIm schema exists");
     if (battleCommandSchema != nullptr) {
+        const cg::packet::receive::BattleCommand battleCommand("BU");
+        const cg::packet::Packet packet = battleCommand.ToPacket();
         failures += Expect(battleCommandSchema->direction == "服务端->客户端", "LYIm direction");
         failures += Expect(battleCommandSchema->legacyKind == "SEND", "LYIm legacyKind");
+        failures += Expect(battleCommandSchema->clientNamespace == "receive", "LYIm namespace");
+        failures += Expect(battleCommandSchema->xlsxStatus == "完成", "LYIm xlsxStatus");
+        failures += Expect(battleCommandSchema->description == "SEND_B", "LYIm description");
         failures += Expect(battleCommandSchema->rawFormat.empty(), "LYIm rawFormat empty");
         failures += Expect(battleCommandSchema->formatEmpty, "LYIm formatEmpty");
+        failures += Expect(battleCommandSchema->source == "xlsx", "LYIm raw source");
+        failures += Expect(battleCommandSchema->fields.empty(), "LYIm raw fields empty");
+        failures += Expect(battleCommandSchema->hasResolvedFormat, "LYIm resolvedFormat present");
         failures += Expect(battleCommandSchema->resolvedFormat == "{command:es}", "LYIm resolvedFormat");
         failures += Expect(
-            battleCommandSchema->resolvedSource == "ServerC+ClientIda+src",
+            battleCommandSchema->resolvedSource == "ServerC+ClientIda+src/packet",
             "LYIm resolvedSource");
-        failures += Expect(battleCommandSchema->fields.empty(), "LYIm raw fields empty");
+        failures += Expect(battleCommandSchema->hasResolvedFields, "LYIm resolvedFields present");
+        failures += Expect(battleCommandSchema->resolvedFields.size() == 1U, "LYIm resolved field count");
+        if (battleCommandSchema->resolvedFields.size() == 1U) {
+            const FieldSchema& field = battleCommandSchema->resolvedFields[0];
+            failures += Expect(
+                field.index == 0U &&
+                    field.name == "command" &&
+                    field.typeToken == "es" &&
+                    field.rawSpec == "{command:es}" &&
+                    field.source == "ServerC+ClientIda+src/packet",
+                "LYIm resolved command field");
+        }
+        failures += ExpectEffectiveFieldsMatch(
+            *battleCommandSchema,
+            cg::packet::receive::BattleCommand::Spec,
+            "LYIm Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *battleCommandSchema,
+            packet,
+            "LYIm ToPacket field order");
     }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "LYIm"),
+        "LYIm absent from send typed manifest");
+    failures += Expect(
+        TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "LYIm"),
+        "LYIm present in receive typed manifest");
 
     const PacketSchema* battleRewardSchema = FindPacket(packets, "Gn");
     failures += Expect(battleRewardSchema != nullptr, "Gn schema exists");

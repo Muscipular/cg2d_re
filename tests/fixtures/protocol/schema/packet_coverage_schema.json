@@ -2795,7 +2795,7 @@
       "description": "SEND_PME 宠邮动画",
       "rawFormat": "{objIndex} {graphicsno} {x} {y} {dir} {flg} {no} {data}",
       "resolvedFormat": "{objIndex:i62} {graphicsno:i62} {x:i62} {y:i62} {dir:i62} {flg:i62} {no:i62} {data:es}",
-      "resolvedSource": "xlsx+ClientIda+src",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
       "formatEmpty": false,
       "source": "xlsx",
       "resolvedFields": [
@@ -2804,56 +2804,56 @@
           "name": "objIndex",
           "typeToken": "i62",
           "rawSpec": "{objIndex:i62}",
-          "source": "xlsx+ClientIda+src"
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         },
         {
           "index": 1,
           "name": "graphicsno",
           "typeToken": "i62",
           "rawSpec": "{graphicsno:i62}",
-          "source": "xlsx+ClientIda+src"
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         },
         {
           "index": 2,
           "name": "x",
           "typeToken": "i62",
           "rawSpec": "{x:i62}",
-          "source": "xlsx+ClientIda+src"
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         },
         {
           "index": 3,
           "name": "y",
           "typeToken": "i62",
           "rawSpec": "{y:i62}",
-          "source": "xlsx+ClientIda+src"
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         },
         {
           "index": 4,
           "name": "dir",
           "typeToken": "i62",
           "rawSpec": "{dir:i62}",
-          "source": "xlsx+ClientIda+src"
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         },
         {
           "index": 5,
           "name": "flg",
           "typeToken": "i62",
           "rawSpec": "{flg:i62}",
-          "source": "xlsx+ClientIda+src"
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         },
         {
           "index": 6,
           "name": "no",
           "typeToken": "i62",
           "rawSpec": "{no:i62}",
-          "source": "xlsx+ClientIda+src"
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         },
         {
           "index": 7,
           "name": "data",
           "typeToken": "es",
           "rawSpec": "{data:es}",
-          "source": "xlsx+ClientIda+src"
+          "source": "xlsx+ServerC+ClientIda+src/packet"
         }
       ],
       "fields": [

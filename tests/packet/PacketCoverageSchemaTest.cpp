@@ -2826,6 +2826,99 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "TNT"),
         "TNT present in receive typed manifest");
 
+    const PacketSchema* petMailAnimationSchema = FindPacket(packets, "lDuJ");
+    failures += Expect(petMailAnimationSchema != nullptr, "lDuJ schema exists");
+    if (petMailAnimationSchema != nullptr) {
+        const cg::packet::receive::PetMailAnimation petMailAnimation(
+            1,
+            62,
+            -3,
+            4,
+            5,
+            0,
+            7,
+            std::string {});
+        const cg::packet::PacketResult<cg::packet::Packet> packet = petMailAnimation.ToPacket();
+        const std::array<std::string_view, 8U> names = {{
+            "objIndex", "graphicsno", "x", "y", "dir", "flg", "no", "data",
+        }};
+        const std::array<std::string_view, 8U> types = {{
+            "i62", "i62", "i62", "i62", "i62", "i62", "i62", "es",
+        }};
+        const std::array<std::string_view, 8U> rawSpecs = {{
+            "{objIndex}", "{graphicsno}", "{x}", "{y}", "{dir}", "{flg}", "{no}", "{data}",
+        }};
+        const std::array<std::string_view, 8U> resolvedSpecs = {{
+            "{objIndex:i62}",
+            "{graphicsno:i62}",
+            "{x:i62}",
+            "{y:i62}",
+            "{dir:i62}",
+            "{flg:i62}",
+            "{no:i62}",
+            "{data:es}",
+        }};
+        constexpr std::string_view resolvedSource = "xlsx+ServerC+ClientIda+src/packet";
+
+        failures += Expect(petMailAnimationSchema->direction == "服务端->客户端", "lDuJ direction");
+        failures += Expect(petMailAnimationSchema->legacyKind == "SEND", "lDuJ legacyKind");
+        failures += Expect(petMailAnimationSchema->clientNamespace == "receive", "lDuJ namespace");
+        failures += Expect(petMailAnimationSchema->source == "xlsx", "lDuJ raw source");
+        failures += Expect(
+            petMailAnimationSchema->rawFormat ==
+                "{objIndex} {graphicsno} {x} {y} {dir} {flg} {no} {data}",
+            "lDuJ rawFormat");
+        failures += Expect(!petMailAnimationSchema->formatEmpty, "lDuJ formatEmpty false");
+        failures += Expect(petMailAnimationSchema->fields.size() == names.size(), "lDuJ raw field count");
+        if (petMailAnimationSchema->fields.size() == names.size()) {
+            for (std::size_t index = 0; index < names.size(); ++index) {
+                const FieldSchema& field = petMailAnimationSchema->fields[index];
+                failures += Expect(field.index == static_cast<int>(index), "lDuJ raw field index");
+                failures += Expect(field.name == names[index], "lDuJ raw field name");
+                failures += Expect(field.typeToken == "unknown", "lDuJ raw field type");
+                failures += Expect(field.rawSpec == rawSpecs[index], "lDuJ raw field spec");
+                failures += Expect(field.source == "xlsx", "lDuJ raw field source");
+            }
+        }
+        failures += Expect(
+            petMailAnimationSchema->resolvedFormat ==
+                "{objIndex:i62} {graphicsno:i62} {x:i62} {y:i62} {dir:i62} {flg:i62} {no:i62} {data:es}",
+            "lDuJ resolvedFormat");
+        failures += Expect(
+            petMailAnimationSchema->resolvedSource == resolvedSource,
+            "lDuJ resolvedSource");
+        failures += Expect(
+            petMailAnimationSchema->resolvedFields.size() == names.size(),
+            "lDuJ resolved field count");
+        if (petMailAnimationSchema->resolvedFields.size() == names.size()) {
+            for (std::size_t index = 0; index < names.size(); ++index) {
+                const FieldSchema& field = petMailAnimationSchema->resolvedFields[index];
+                failures += Expect(field.index == static_cast<int>(index), "lDuJ resolved field index");
+                failures += Expect(field.name == names[index], "lDuJ resolved field name");
+                failures += Expect(field.typeToken == types[index], "lDuJ resolved field type");
+                failures += Expect(field.rawSpec == resolvedSpecs[index], "lDuJ resolved field spec");
+                failures += Expect(field.source == resolvedSource, "lDuJ resolved field source");
+            }
+        }
+        failures += ExpectEffectiveFieldsMatch(
+            *petMailAnimationSchema,
+            cg::packet::receive::PetMailAnimation::Spec,
+            "lDuJ Spec matches effective fields");
+        failures += Expect(packet.HasValue(), "lDuJ ToPacket");
+        if (packet.HasValue()) {
+            failures += ExpectResolvedFieldsMatch(
+                *petMailAnimationSchema,
+                packet.Value(),
+                "lDuJ resolved field order");
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "lDuJ"),
+        "lDuJ absent from send typed manifest");
+    failures += Expect(
+        TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "lDuJ"),
+        "lDuJ present in receive typed manifest");
+
     const PacketSchema* techListSchema = FindPacket(packets, "Rspn");
     failures += Expect(techListSchema != nullptr, "Rspn schema exists");
     if (techListSchema != nullptr) {

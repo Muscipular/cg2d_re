@@ -13599,7 +13599,19 @@ namespace cg::packet::receive
     };
 
     /**
-     * SEND_PME 宠邮动画 payload：typeMb|objectIndex|x|y|dir|imageNo|lv|field40|nameRaw|titleDataRaw|flg1|flg2。
+     * SEND_PME 宠邮动画 titleData：freeName|guildName|guildTitle。
+     * guildName/guildTitle 额外使用一层 legacy 文本编码，freeName 仅使用 titleData 整体 legacy 编码。
+     */
+    struct PetMailAnimationTitleData
+    {
+        std::string freeName;
+        std::string guildName;
+        std::string guildTitle;
+    };
+
+    /**
+     * SEND_PME 宠邮动画 payload：typeMb|objectIndex|x|y|dir|imageNo|lv|field40|nameRaw|titleData|flg1|flg2|ignoredTailRaw...。
+     * nameRaw 字段名为兼容既有 API 保留，字段值为 legacy escape 还原后的语义字节串。
      */
     struct PetMailAnimationPayload
     {
@@ -13610,16 +13622,17 @@ namespace cg::packet::receive
         int dir = 0;
         int imageNo = 0;
         int lv = 0;
-        int field40 = 0;
+        int field40 = 0; // Server nameColor。
         std::string nameRaw;
-        std::string titleDataRaw;
+        PetMailAnimationTitleData titleData;
         int flg1 = 0;
         int flg2 = 0;
+        std::vector<std::string> ignoredTailRaw;
     };
 
     /**
      * SEND_PME 宠邮动画		lDuJ {objIndex:i62} {graphicsno:i62} {x:i62} {y:i62} {dir:i62} {flg:i62} {no:i62} {data:es}
-     * flg 为 0 时忽略 data；非 0 时 data 必须为 12 段 payload，raw 字符串保留 \c/\z/\y/\n。
+     * flg 为 0 时 data 保持 opaque；非 0 时解析前 12 段，并原样保留后续 Server 扩展段。
      */
     struct PetMailAnimation
     {
@@ -13693,16 +13706,79 @@ namespace cg::packet::receive
               hasPayload(true),
               payload(std::move(payload))
         {
-            data = BuildData();
         }
 
-        [[nodiscard]] std::string BuildData() const
+        [[nodiscard]] PacketResult<std::string> BuildData() const
         {
             if (!hasPayload) {
-                return data;
+                if (flg != 0) {
+                    return PacketResult<std::string>::Failure(MakeFieldError(
+                        PacketErrorCode::EncodeFailed,
+                        CG_PACKET_DIAGNOSTIC_TEXT("PetMailAnimation 非零 flg 缺少 payload"),
+                        DataFieldIndex));
+                }
+                return PacketResult<std::string>::Success(data);
             }
 
-            const std::array<std::string, PayloadFieldCount> values = {
+            PacketResult<std::string> encodedName = EncodeLegacyPayloadText(payload.nameRaw);
+            if (!encodedName.HasValue()) {
+                PacketError error = encodedName.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = NamePayloadFieldIndex;
+                return PacketResult<std::string>::Failure(std::move(error));
+            }
+
+            PacketResult<std::string> encodedGuildName =
+                EncodeLegacyPayloadText(payload.titleData.guildName);
+            if (!encodedGuildName.HasValue()) {
+                PacketError error = encodedGuildName.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = TitlePayloadFieldIndex;
+                return PacketResult<std::string>::Failure(std::move(error));
+            }
+
+            PacketResult<std::string> encodedGuildTitle =
+                EncodeLegacyPayloadText(payload.titleData.guildTitle);
+            if (!encodedGuildTitle.HasValue()) {
+                PacketError error = encodedGuildTitle.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = TitlePayloadFieldIndex;
+                return PacketResult<std::string>::Failure(std::move(error));
+            }
+
+            const std::array<std::string, TitleFieldCount> titleValues = {
+                payload.titleData.freeName,
+                std::move(encodedGuildName.Value()),
+                std::move(encodedGuildTitle.Value()),
+            };
+            PacketResult<std::string> titlePayload = BuildPayload(
+                std::span<const std::string>(titleValues.data(), titleValues.size()),
+                PayloadDelimiter);
+            if (!titlePayload.HasValue()) {
+                PacketError error = titlePayload.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = TitlePayloadFieldIndex;
+                return PacketResult<std::string>::Failure(std::move(error));
+            }
+
+            PacketResult<std::vector<std::string>> validatedTitle =
+                SplitPayloadLegacyAware(titlePayload.Value(), PayloadDelimiter);
+            if (!validatedTitle.HasValue() || validatedTitle.Value().size() != TitleFieldCount) {
+                return PacketResult<std::string>::Failure(MakeFieldError(
+                    PacketErrorCode::EncodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT("PetMailAnimation titleData 无法规范编码为 3 段"),
+                    TitlePayloadFieldIndex));
+            }
+
+            PacketResult<std::string> encodedTitle = EncodeLegacyPayloadText(titlePayload.Value());
+            if (!encodedTitle.HasValue()) {
+                PacketError error = encodedTitle.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = TitlePayloadFieldIndex;
+                return PacketResult<std::string>::Failure(std::move(error));
+            }
+
+            std::vector<std::string> values = {
                 std::to_string(payload.typeMb),
                 EncodeInt62OrEmpty(payload.objectIndex),
                 std::to_string(payload.x),
@@ -13711,21 +13787,33 @@ namespace cg::packet::receive
                 std::to_string(payload.imageNo),
                 std::to_string(payload.lv),
                 std::to_string(payload.field40),
-                payload.nameRaw,
-                payload.titleDataRaw,
+                std::move(encodedName.Value()),
+                std::move(encodedTitle.Value()),
                 std::to_string(payload.flg1),
                 std::to_string(payload.flg2),
             };
+            values.insert(values.end(), payload.ignoredTailRaw.begin(), payload.ignoredTailRaw.end());
 
             PacketResult<std::string> built = BuildPayload(
                 std::span<const std::string>(values.data(), values.size()),
                 PayloadDelimiter);
-            return built.HasValue() ? built.Value() : std::string();
+            if (!built.HasValue()) {
+                PacketError error = built.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = DataFieldIndex;
+                return PacketResult<std::string>::Failure(std::move(error));
+            }
+            return built;
         }
 
 #if CG_PACKET_ENABLE_TEST_HELPERS
-        [[nodiscard]] Packet ToPacket() const
+        [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
+            PacketResult<std::string> builtData = BuildData();
+            if (!builtData.HasValue()) {
+                return PacketResult<Packet>::Failure(builtData.Error());
+            }
+
             Packet packet(PacketCode(Code), Direction);
             packet.fields.reserve(FieldCount);
             packet.fields.push_back(PacketField {
@@ -13765,10 +13853,10 @@ namespace cg::packet::receive
             });
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("data"),
-                PacketFieldType::EscapedString,
-                BuildData(),
+                PacketFieldType::SubPayload,
+                std::move(builtData.Value()),
             });
-            return packet;
+            return PacketResult<Packet>::Success(std::move(packet));
         }
 #endif
 
@@ -13879,6 +13967,9 @@ namespace cg::packet::receive
         static constexpr std::size_t FlgFieldIndex = 5U;
         static constexpr std::size_t DataFieldIndex = 7U;
         static constexpr std::size_t PayloadFieldCount = 12U;
+        static constexpr std::size_t NamePayloadFieldIndex = 8U;
+        static constexpr std::size_t TitlePayloadFieldIndex = 9U;
+        static constexpr std::size_t TitleFieldCount = 3U;
 
         [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
@@ -13912,7 +14003,8 @@ namespace cg::packet::receive
                     DataFieldIndex));
             }
 
-            PacketResult<std::vector<std::string>> split = SplitPayload(text, PayloadDelimiter);
+            PacketResult<std::vector<std::string>> split =
+                SplitPayloadLegacyAware(text, PayloadDelimiter);
             if (!split.HasValue()) {
                 PacketError error = split.Error();
                 error.packetCode = PacketCode(Code);
@@ -13921,10 +14013,10 @@ namespace cg::packet::receive
             }
 
             const std::vector<std::string>& parts = split.Value();
-            if (parts.size() != PayloadFieldCount) {
+            if (parts.size() < PayloadFieldCount) {
                 return PacketResult<PetMailAnimationPayload>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    CG_PACKET_DIAGNOSTIC_TEXT("PetMailAnimation payload 段数量不匹配"),
+                    CG_PACKET_DIAGNOSTIC_TEXT("PetMailAnimation payload 少于 12 段"),
                     DataFieldIndex));
             }
 
@@ -13970,6 +14062,56 @@ namespace cg::packet::receive
                 return PacketResult<PetMailAnimationPayload>::Failure(flg2.Error());
             }
 
+            PacketResult<std::string> name = DecodeLegacyPayloadText(parts[NamePayloadFieldIndex]);
+            if (!name.HasValue()) {
+                PacketError error = name.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = NamePayloadFieldIndex;
+                return PacketResult<PetMailAnimationPayload>::Failure(std::move(error));
+            }
+
+            PacketResult<std::string> titlePayload =
+                DecodeLegacyPayloadText(parts[TitlePayloadFieldIndex]);
+            if (!titlePayload.HasValue()) {
+                PacketError error = titlePayload.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = TitlePayloadFieldIndex;
+                return PacketResult<PetMailAnimationPayload>::Failure(std::move(error));
+            }
+
+            PacketResult<std::vector<std::string>> titleSplit =
+                SplitPayloadLegacyAware(titlePayload.Value(), PayloadDelimiter);
+            if (!titleSplit.HasValue()) {
+                PacketError error = titleSplit.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = TitlePayloadFieldIndex;
+                return PacketResult<PetMailAnimationPayload>::Failure(std::move(error));
+            }
+
+            std::vector<std::string> titleParts = std::move(titleSplit.Value());
+            if (titleParts.size() != TitleFieldCount) {
+                return PacketResult<PetMailAnimationPayload>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    CG_PACKET_DIAGNOSTIC_TEXT("PetMailAnimation titleData 必须为 3 段"),
+                    TitlePayloadFieldIndex));
+            }
+
+            PacketResult<std::string> guildName = DecodeLegacyPayloadText(titleParts[1U]);
+            if (!guildName.HasValue()) {
+                PacketError error = guildName.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = TitlePayloadFieldIndex;
+                return PacketResult<PetMailAnimationPayload>::Failure(std::move(error));
+            }
+
+            PacketResult<std::string> guildTitle = DecodeLegacyPayloadText(titleParts[2U]);
+            if (!guildTitle.HasValue()) {
+                PacketError error = guildTitle.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = TitlePayloadFieldIndex;
+                return PacketResult<PetMailAnimationPayload>::Failure(std::move(error));
+            }
+
             parsed.typeMb = typeMb.Value();
             parsed.objectIndex = objectIndex.Value();
             parsed.x = x.Value();
@@ -13978,10 +14120,13 @@ namespace cg::packet::receive
             parsed.imageNo = imageNo.Value();
             parsed.lv = lv.Value();
             parsed.field40 = field40.Value();
-            parsed.nameRaw = parts[8];
-            parsed.titleDataRaw = parts[9];
+            parsed.nameRaw = std::move(name.Value());
+            parsed.titleData.freeName = std::move(titleParts[0U]);
+            parsed.titleData.guildName = std::move(guildName.Value());
+            parsed.titleData.guildTitle = std::move(guildTitle.Value());
             parsed.flg1 = flg1.Value();
             parsed.flg2 = flg2.Value();
+            parsed.ignoredTailRaw.assign(parts.begin() + PayloadFieldCount, parts.end());
             return PacketResult<PetMailAnimationPayload>::Success(std::move(parsed));
         }
 

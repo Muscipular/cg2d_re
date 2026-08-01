@@ -11128,14 +11128,14 @@ namespace cg::packet::receive
 
     /**
      * SEND_EQUIP_SUIT 装备套装		TgX {data:es}
-     * data: 空值表示 inactive；非空为 27 段逗号 payload，字符串字段保留 raw escaped。
+     * data: 空值表示 inactive；非空为 27 段逗号 payload，前两个 *Raw 字段名为兼容保留，值为 legacy 还原后的语义字节串。
      */
     struct EquipSuit
     {
         static constexpr std::string_view Code = "TgX";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
-            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::SubPayload},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -11236,15 +11236,31 @@ namespace cg::packet::receive
         }
 
 #if CG_PACKET_ENABLE_TEST_HELPERS
-        [[nodiscard]] std::string BuildData() const
+        [[nodiscard]] PacketResult<std::string> BuildData() const
         {
             if (!active) {
-                return {};
+                return PacketResult<std::string>::Success(std::string {});
             }
 
-            const std::array<std::string, PayloadFieldCount> values = {
-                nameRaw,
-                skillNameRaw,
+            PacketResult<std::string> encodedName = EncodeLegacyPayloadText(nameRaw);
+            if (!encodedName.HasValue()) {
+                PacketError error = encodedName.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = 0U;
+                return PacketResult<std::string>::Failure(std::move(error));
+            }
+
+            PacketResult<std::string> encodedSkillName = EncodeLegacyPayloadText(skillNameRaw);
+            if (!encodedSkillName.HasValue()) {
+                PacketError error = encodedSkillName.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = 1U;
+                return PacketResult<std::string>::Failure(std::move(error));
+            }
+
+            std::array<std::string, PayloadFieldCount> values = {
+                std::move(encodedName.Value()),
+                std::move(encodedSkillName.Value()),
                 std::to_string(specialTitleFlag),
                 std::to_string(attackPercent),
                 std::to_string(attackValue),
@@ -11275,24 +11291,32 @@ namespace cg::packet::receive
             PacketResult<std::string> payload = BuildPayload(
                 std::span<const std::string>(values.data(), values.size()),
                 PayloadDelimiter);
-            if (payload.HasValue()) {
-                return payload.Value();
+            if (!payload.HasValue()) {
+                PacketError error = payload.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = DataFieldIndex;
+                return PacketResult<std::string>::Failure(std::move(error));
             }
 
-            return {};
+            return payload;
         }
 #endif
 
 #if CG_PACKET_ENABLE_TEST_HELPERS
-        [[nodiscard]] Packet ToPacket() const
+        [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
+            PacketResult<std::string> data = BuildData();
+            if (!data.HasValue()) {
+                return PacketResult<Packet>::Failure(data.Error());
+            }
+
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("data"),
-                PacketFieldType::EscapedString,
-                BuildData(),
+                PacketFieldType::SubPayload,
+                std::move(data.Value()),
             });
-            return packet;
+            return PacketResult<Packet>::Success(std::move(packet));
         }
 #endif
 
@@ -11401,10 +11425,26 @@ namespace cg::packet::receive
                     2U));
             }
 
+            PacketResult<std::string> name = DecodeLegacyPayloadText(parts[0U]);
+            if (!name.HasValue()) {
+                PacketError error = name.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = 0U;
+                return PacketResult<EquipSuit>::Failure(std::move(error));
+            }
+
+            PacketResult<std::string> skillName = DecodeLegacyPayloadText(parts[1U]);
+            if (!skillName.HasValue()) {
+                PacketError error = skillName.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = 1U;
+                return PacketResult<EquipSuit>::Failure(std::move(error));
+            }
+
             EquipSuit equipSuit;
             equipSuit.active = true;
-            equipSuit.nameRaw = parts[0U];
-            equipSuit.skillNameRaw = parts[1U];
+            equipSuit.nameRaw = std::move(name.Value());
+            equipSuit.skillNameRaw = std::move(skillName.Value());
             equipSuit.specialTitleFlag = flag.Value();
 
             for (std::size_t index = 0; index < StatFieldCount; ++index) {

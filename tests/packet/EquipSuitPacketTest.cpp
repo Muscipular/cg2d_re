@@ -2,6 +2,7 @@
 #include "packet/Receive.hpp"
 
 #include <cstddef>
+#include <initializer_list>
 #include <iostream>
 #include <string>
 #include <string_view>
@@ -49,6 +50,33 @@ int ExpectError(
         failures += Expect(error.packetCode->View() == packetCode, message);
     }
     return failures;
+}
+
+template <typename T>
+int ExpectErrorAt(
+    const cg::packet::PacketResult<T>& result,
+    cg::packet::PacketErrorCode code,
+    std::size_t fieldIndex,
+    const char* message)
+{
+    int failures = ExpectError(result, code, "TgX", message);
+    if (result.HasError()) {
+        failures += Expect(result.Error().fieldIndex.has_value(), message);
+        if (result.Error().fieldIndex.has_value()) {
+            failures += Expect(result.Error().fieldIndex.value() == fieldIndex, message);
+        }
+    }
+    return failures;
+}
+
+std::string Bytes(std::initializer_list<unsigned int> values)
+{
+    std::string bytes;
+    bytes.reserve(values.size());
+    for (const unsigned int value : values) {
+        bytes.push_back(static_cast<char>(value));
+    }
+    return bytes;
 }
 
 std::string BuildPlain(std::string_view payload)
@@ -115,6 +143,7 @@ std::vector<std::string> BuildEquipSuitParts()
 int ExpectEquipSuitPacket(
     const cg::packet::Packet& packet,
     std::string_view value,
+    cg::packet::PacketFieldType dataFieldType,
     const char* message)
 {
     int failures = 0;
@@ -126,7 +155,7 @@ int ExpectEquipSuitPacket(
     }
 
     failures += Expect(packet.fields[0].name == "data", message);
-    failures += Expect(packet.fields[0].type == cg::packet::PacketFieldType::EscapedString, message);
+    failures += Expect(packet.fields[0].type == dataFieldType, message);
     failures += Expect(packet.fields[0].value == value, message);
     return failures;
 }
@@ -135,7 +164,7 @@ int ExpectSampleValue(const cg::packet::receive::EquipSuit& equipSuit, const cha
 {
     int failures = 0;
     failures += Expect(equipSuit.active, message);
-    failures += Expect(equipSuit.nameRaw == "Name\\cComma", message);
+    failures += Expect(equipSuit.nameRaw == "Name,Comma", message);
     failures += Expect(equipSuit.skillNameRaw == " ", message);
     failures += Expect(equipSuit.specialTitleFlag == 1, message);
     failures += Expect(equipSuit.attackPercent == 10, message);
@@ -172,8 +201,15 @@ int TestParsePacketOuter()
 
     int failures = Expect(static_cast<bool>(parsed), "parse TgX outer");
     if (parsed.HasValue()) {
-        failures += ExpectEquipSuitPacket(parsed.Value(), payload, "parse TgX outer packet");
+        failures += ExpectEquipSuitPacket(
+            parsed.Value(),
+            payload,
+            cg::packet::PacketFieldType::EscapedString,
+            "parse TgX outer packet");
     }
+    failures += Expect(
+        cg::packet::receive::EquipSuit::Fields[0].type == cg::packet::PacketFieldType::SubPayload,
+        "TgX data spec is SubPayload");
     return failures;
 }
 
@@ -189,15 +225,27 @@ int TestFullRoundtrip()
     }
 
     failures += ExpectSampleValue(parsed.Value(), "TgX sample fields");
-    failures += Expect(parsed.Value().BuildData() == payload, "TgX BuildData");
-    failures += Expect(!parsed.Value().BuildData().empty(), "TgX BuildData non-empty");
-    failures += Expect(parsed.Value().BuildData().back() != ',', "TgX BuildData no trailing comma");
-    failures += ExpectEquipSuitPacket(parsed.Value().ToPacket(), payload, "TgX ToPacket");
+    const cg::packet::PacketResult<std::string> data = parsed.Value().BuildData();
+    failures += Expect(static_cast<bool>(data), "TgX BuildData");
+    if (data.HasValue()) {
+        failures += Expect(data.Value() == payload, "TgX BuildData value");
+        failures += Expect(!data.Value().empty(), "TgX BuildData non-empty");
+        failures += Expect(data.Value().back() != ',', "TgX BuildData no trailing comma");
+    }
 
-    const cg::packet::PacketResult<std::string> built = BuildPacket(parsed.Value().ToPacket());
-    failures += Expect(static_cast<bool>(built), "build TgX packet");
-    if (built.HasValue()) {
-        failures += Expect(built.Value() == BuildPlain(payload), "roundtrip TgX packet");
+    const cg::packet::PacketResult<cg::packet::Packet> packet = parsed.Value().ToPacket();
+    failures += Expect(static_cast<bool>(packet), "TgX ToPacket");
+    if (packet.HasValue()) {
+        failures += ExpectEquipSuitPacket(
+            packet.Value(),
+            payload,
+            cg::packet::PacketFieldType::SubPayload,
+            "TgX ToPacket value");
+        const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
+        failures += Expect(static_cast<bool>(built), "build TgX packet");
+        if (built.HasValue()) {
+            failures += Expect(built.Value() == BuildPlain(payload), "roundtrip TgX packet");
+        }
     }
     return failures;
 }
@@ -213,8 +261,20 @@ int TestEmptyPayload()
     }
 
     failures += Expect(!parsed.Value().active, "TgX empty inactive");
-    failures += Expect(parsed.Value().BuildData().empty(), "TgX empty BuildData");
-    failures += ExpectEquipSuitPacket(parsed.Value().ToPacket(), "", "TgX empty ToPacket");
+    const cg::packet::PacketResult<std::string> data = parsed.Value().BuildData();
+    failures += Expect(static_cast<bool>(data), "TgX empty BuildData");
+    if (data.HasValue()) {
+        failures += Expect(data.Value().empty(), "TgX empty BuildData value");
+    }
+    const cg::packet::PacketResult<cg::packet::Packet> packet = parsed.Value().ToPacket();
+    failures += Expect(static_cast<bool>(packet), "TgX empty ToPacket");
+    if (packet.HasValue()) {
+        failures += ExpectEquipSuitPacket(
+            packet.Value(),
+            "",
+            cg::packet::PacketFieldType::SubPayload,
+            "TgX empty ToPacket value");
+    }
     return failures;
 }
 
@@ -234,7 +294,56 @@ int TestLegacyDoubleByteComma()
     int failures = Expect(static_cast<bool>(parsed), "parse TgX legacy comma");
     if (parsed.HasValue()) {
         failures += Expect(parsed.Value().nameRaw == legacyName, "TgX legacy comma name");
-        failures += Expect(parsed.Value().BuildData() == payload, "TgX legacy comma BuildData");
+        const cg::packet::PacketResult<std::string> data = parsed.Value().BuildData();
+        failures += Expect(static_cast<bool>(data), "TgX legacy comma BuildData");
+        if (data.HasValue()) {
+            failures += Expect(data.Value() == payload, "TgX legacy comma BuildData value");
+        }
+    }
+    return failures;
+}
+
+int TestLegacyTextCanonical()
+{
+    const std::string gbkEast = Bytes({0x96U, 0x7cU});
+    std::string legacy = gbkEast;
+    legacy.append("\\nline\\ccomma\\zpipe\\yslash\\q");
+    std::string semantic = gbkEast;
+    semantic.append("\nline,comma|pipe\\slashq");
+    std::string canonicalText = gbkEast;
+    canonicalText.append("\\nline\\ccomma\\zpipe\\yslashq");
+
+    std::vector<std::string> parts = BuildEquipSuitParts();
+    parts[0U] = legacy;
+    parts[1U] = legacy;
+    const std::string payload = JoinParts(parts);
+    parts[0U] = canonicalText;
+    parts[1U] = canonicalText;
+    const std::string canonical = JoinParts(parts);
+
+    const cg::packet::PacketResult<cg::packet::receive::EquipSuit> parsed =
+        cg::packet::receive::EquipSuit::Parse(BuildPlain(payload));
+    int failures = Expect(static_cast<bool>(parsed), "parse TgX legacy text");
+    if (!parsed.HasValue()) {
+        return failures;
+    }
+
+    failures += Expect(parsed.Value().nameRaw == semantic, "TgX semantic name");
+    failures += Expect(parsed.Value().skillNameRaw == semantic, "TgX semantic skill name");
+    const cg::packet::PacketResult<std::string> data = parsed.Value().BuildData();
+    failures += Expect(static_cast<bool>(data), "TgX canonical legacy BuildData");
+    if (data.HasValue()) {
+        failures += Expect(data.Value() == canonical, "TgX canonical legacy BuildData value");
+    }
+
+    const cg::packet::PacketResult<cg::packet::Packet> packet = parsed.Value().ToPacket();
+    failures += Expect(static_cast<bool>(packet), "TgX canonical legacy ToPacket");
+    if (packet.HasValue()) {
+        failures += ExpectEquipSuitPacket(
+            packet.Value(),
+            canonical,
+            cg::packet::PacketFieldType::SubPayload,
+            "TgX canonical legacy ToPacket value");
     }
     return failures;
 }
@@ -291,6 +400,22 @@ int TestErrors()
         "TgX",
         "TgX numeric overflow");
 
+    parts = BuildEquipSuitParts();
+    parts[0U] = "Name\\";
+    failures += ExpectErrorAt(
+        cg::packet::receive::EquipSuit::Parse(BuildPlain(JoinParts(parts))),
+        cg::packet::PacketErrorCode::DecodeFailed,
+        0U,
+        "TgX truncated name legacy escape");
+
+    parts = BuildEquipSuitParts();
+    parts[1U] = "Skill\\";
+    failures += ExpectErrorAt(
+        cg::packet::receive::EquipSuit::Parse(BuildPlain(JoinParts(parts))),
+        cg::packet::PacketErrorCode::DecodeFailed,
+        1U,
+        "TgX truncated skill name legacy escape");
+
     failures += ExpectError(
         cg::packet::receive::EquipSuit::Parse("rU data "),
         cg::packet::PacketErrorCode::InvalidCode,
@@ -342,6 +467,44 @@ int TestErrors()
     return failures;
 }
 
+int TestBuildErrors()
+{
+    const cg::packet::PacketResult<cg::packet::receive::EquipSuit> parsed =
+        cg::packet::receive::EquipSuit::Parse(BuildPlain(JoinParts(BuildEquipSuitParts())));
+    int failures = Expect(static_cast<bool>(parsed), "parse TgX build error base");
+    if (!parsed.HasValue()) {
+        return failures;
+    }
+
+    const std::string truncatedGbk(1U, static_cast<char>(0x81));
+    cg::packet::receive::EquipSuit invalidName = parsed.Value();
+    invalidName.nameRaw = truncatedGbk;
+    failures += ExpectErrorAt(
+        invalidName.BuildData(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        0U,
+        "TgX name BuildData encode context");
+    failures += ExpectErrorAt(
+        invalidName.ToPacket(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        0U,
+        "TgX name ToPacket encode context");
+
+    cg::packet::receive::EquipSuit invalidSkillName = parsed.Value();
+    invalidSkillName.skillNameRaw = truncatedGbk;
+    failures += ExpectErrorAt(
+        invalidSkillName.BuildData(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        1U,
+        "TgX skill name BuildData encode context");
+    failures += ExpectErrorAt(
+        invalidSkillName.ToPacket(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        1U,
+        "TgX skill name ToPacket encode context");
+    return failures;
+}
+
 } // namespace
 
 int main()
@@ -351,7 +514,9 @@ int main()
     failures += TestFullRoundtrip();
     failures += TestEmptyPayload();
     failures += TestLegacyDoubleByteComma();
+    failures += TestLegacyTextCanonical();
     failures += TestErrors();
+    failures += TestBuildErrors();
     if (failures != 0) {
         std::cerr << failures << " checks failed\n";
         return 1;

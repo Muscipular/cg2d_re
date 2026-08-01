@@ -13903,14 +13903,52 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         const cg::packet::PacketResult<cg::packet::Packet> packet = guildInfo.ToPacket();
         failures += Expect(addressBookGuildInfoSchema->direction == "服务端->客户端", "PhdQ direction");
         failures += Expect(addressBookGuildInfoSchema->legacyKind == "SEND", "PhdQ legacyKind");
+        failures += Expect(addressBookGuildInfoSchema->clientNamespace == "receive", "PhdQ namespace");
+        failures += Expect(addressBookGuildInfoSchema->xlsxStatus == "完成", "PhdQ xlsx status");
+        failures += Expect(
+            addressBookGuildInfoSchema->description == "SEND_ABG SendAddressbookGuildInfo",
+            "PhdQ description");
         failures += Expect(addressBookGuildInfoSchema->rawFormat == "{data:es}", "PhdQ rawFormat");
+        failures += Expect(!addressBookGuildInfoSchema->formatEmpty, "PhdQ raw format non-empty");
+        failures += Expect(addressBookGuildInfoSchema->source == "xlsx", "PhdQ raw source");
+        failures += Expect(addressBookGuildInfoSchema->fields.size() == 1U, "PhdQ raw field count");
+        if (addressBookGuildInfoSchema->fields.size() == 1U) {
+            const FieldSchema& dataField = addressBookGuildInfoSchema->fields[0];
+            failures += Expect(
+                dataField.index == 0U &&
+                    dataField.name == "data" &&
+                    dataField.typeToken == "es" &&
+                    dataField.rawSpec == "{data:es}" &&
+                    dataField.source == "xlsx",
+                "PhdQ raw data field");
+        }
+        failures += Expect(addressBookGuildInfoSchema->hasResolvedFormat, "PhdQ resolvedFormat present");
         failures += Expect(addressBookGuildInfoSchema->resolvedFormat == "{data:es}", "PhdQ resolvedFormat");
-        failures += Expect(addressBookGuildInfoSchema->resolvedSource == "xlsx+src/packet", "PhdQ resolvedSource");
-        failures += Expect(packet.HasValue(), "PhdQ packet build");
+        failures += Expect(
+            addressBookGuildInfoSchema->resolvedSource == "xlsx+ServerC+ClientIda+src/packet",
+            "PhdQ resolvedSource");
+        failures += Expect(
+            cg::packet::receive::AddressBookGuildInfo::Spec.fieldCount == 1U,
+            "PhdQ Spec exact1");
+        failures += ExpectEffectiveFieldsMatch(
+            *addressBookGuildInfoSchema,
+            cg::packet::receive::AddressBookGuildInfo::Spec,
+            "PhdQ Spec matches effective fields");
+        failures += Expect(packet.HasValue(), "PhdQ ToPacket");
         if (packet.HasValue()) {
-            failures += ExpectPacketFieldsMatch(*addressBookGuildInfoSchema, packet.Value(), "PhdQ field order");
+            failures += Expect(
+                packet.Value().fields.size() == 1U &&
+                    packet.Value().fields[0].name == "data" &&
+                    packet.Value().fields[0].type == cg::packet::PacketFieldType::SubPayload,
+                "PhdQ ToPacket field order and payload type");
         }
     }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "PhdQ"),
+        "PhdQ absent from send typed manifest");
+    failures += Expect(
+        TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "PhdQ"),
+        "PhdQ present in receive typed manifest");
 
     const PacketSchema* addressBookInfoSchema = FindPacket(packets, "vI");
     failures += Expect(addressBookInfoSchema != nullptr, "vI schema exists");

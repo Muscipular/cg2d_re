@@ -26327,7 +26327,7 @@ namespace cg::packet::receive
 
     /**
      * SEND_ABG SendAddressbookGuildInfo		PhdQ {data:es}
-     * data: 0..60 条家族地址簿记录；每条 guildNameRaw|guildTitleRaw。
+     * data: 固定 60 槽，每槽 guildNameRaw|guildTitleRaw，共 120 字段。
      */
     struct AddressBookGuildInfo
     {
@@ -26343,14 +26343,17 @@ namespace cg::packet::receive
             Fields.size(),
         };
         static constexpr std::string_view PayloadDelimiter = "|";
-        static constexpr std::size_t MaxRecordCount = 60U;
+        static constexpr std::size_t SlotCount = 60U;
+        static constexpr std::size_t MaxRecordCount = SlotCount;
         static constexpr std::size_t RecordFieldCount = 2U;
+        static constexpr std::size_t PayloadFieldCount = SlotCount * RecordFieldCount;
 
-        std::vector<AddressBookGuildInfoRecord> records;
+        // 历史 Raw 后缀保留；值为单层 legacy 解码后的 GBK 语义字节。
+        std::array<AddressBookGuildInfoRecord, SlotCount> records = {};
 
         AddressBookGuildInfo() = default;
 
-        explicit AddressBookGuildInfo(std::vector<AddressBookGuildInfoRecord> records)
+        explicit AddressBookGuildInfo(std::array<AddressBookGuildInfoRecord, SlotCount> records)
             : records(std::move(records))
         {
         }
@@ -26358,21 +26361,42 @@ namespace cg::packet::receive
 #if CG_PACKET_ENABLE_TEST_HELPERS
         [[nodiscard]] PacketResult<std::string> BuildData() const
         {
-            if (records.size() > MaxRecordCount) {
-                return PacketResult<std::string>::Failure(MakeFieldError(
-                    PacketErrorCode::EncodeFailed,
-                    CG_PACKET_DIAGNOSTIC_TEXT("AddressBookGuildInfo BuildData 记录数超过上限"),
-                    DataFieldIndex));
-            }
-
             std::vector<std::string> parts;
-            parts.reserve(records.size() * RecordFieldCount);
-            for (const AddressBookGuildInfoRecord& record : records) {
-                parts.push_back(record.guildNameRaw);
-                parts.push_back(record.guildTitleRaw);
+            parts.reserve(PayloadFieldCount);
+            for (std::size_t slotIndex = 0U; slotIndex < records.size(); ++slotIndex) {
+                const AddressBookGuildInfoRecord& record = records[slotIndex];
+                const std::size_t nameFieldIndex = slotIndex * RecordFieldCount;
+                const std::size_t titleFieldIndex = nameFieldIndex + 1U;
+
+                PacketResult<std::string> guildName = EncodeLegacyPayloadText(record.guildNameRaw);
+                if (!guildName.HasValue()) {
+                    PacketError error = guildName.Error();
+                    error.packetCode = PacketCode(Code);
+                    error.fieldIndex = nameFieldIndex;
+                    return PacketResult<std::string>::Failure(std::move(error));
+                }
+
+                PacketResult<std::string> guildTitle = EncodeLegacyPayloadText(record.guildTitleRaw);
+                if (!guildTitle.HasValue()) {
+                    PacketError error = guildTitle.Error();
+                    error.packetCode = PacketCode(Code);
+                    error.fieldIndex = titleFieldIndex;
+                    return PacketResult<std::string>::Failure(std::move(error));
+                }
+
+                parts.push_back(std::move(guildName.Value()));
+                parts.push_back(std::move(guildTitle.Value()));
             }
 
-            return BuildPayload(std::span<const std::string>(parts.data(), parts.size()), PayloadDelimiter);
+            PacketResult<std::string> payload =
+                BuildPayload(std::span<const std::string>(parts.data(), parts.size()), PayloadDelimiter);
+            if (!payload.HasValue()) {
+                PacketError error = payload.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = DataFieldIndex;
+                return PacketResult<std::string>::Failure(std::move(error));
+            }
+            return payload;
         }
 #endif
 
@@ -26387,8 +26411,8 @@ namespace cg::packet::receive
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("data"),
-                PacketFieldType::EscapedString,
-                data.Value(),
+                PacketFieldType::SubPayload,
+                std::move(data.Value()),
             });
             return PacketResult<Packet>::Success(std::move(packet));
         }
@@ -26473,32 +26497,40 @@ namespace cg::packet::receive
             }
 
             std::vector<std::string> parts = std::move(split.Value());
-            if ((parts.size() % RecordFieldCount) != 0U && !parts.empty() && parts.back().empty()) {
-                parts.pop_back();
-            }
-
-            if ((parts.size() % RecordFieldCount) != 0U) {
+            if (parts.size() != PayloadFieldCount) {
                 return PacketResult<AddressBookGuildInfo>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
                     CG_PACKET_DIAGNOSTIC_TEXT("AddressBookGuildInfo payload 段数量不匹配"),
                     DataFieldIndex));
             }
 
-            const std::size_t recordCount = parts.size() / RecordFieldCount;
-            if (recordCount > MaxRecordCount) {
-                return PacketResult<AddressBookGuildInfo>::Failure(MakeFieldError(
-                    PacketErrorCode::DecodeFailed,
-                    CG_PACKET_DIAGNOSTIC_TEXT("AddressBookGuildInfo payload 记录数超过上限"),
-                    DataFieldIndex));
-            }
+            std::array<AddressBookGuildInfoRecord, SlotCount> records = {};
+            for (std::size_t slotIndex = 0U; slotIndex < records.size(); ++slotIndex) {
+                const std::size_t nameFieldIndex = slotIndex * RecordFieldCount;
+                const std::size_t titleFieldIndex = nameFieldIndex + 1U;
 
-            std::vector<AddressBookGuildInfoRecord> records;
-            records.reserve(recordCount);
-            for (std::size_t index = 0; index < parts.size(); index += RecordFieldCount) {
-                records.push_back(AddressBookGuildInfoRecord {
-                    parts[index],
-                    parts[index + 1U],
-                });
+                PacketResult<std::string> guildName =
+                    DecodeLegacyPayloadText(parts[nameFieldIndex]);
+                if (!guildName.HasValue()) {
+                    PacketError error = guildName.Error();
+                    error.packetCode = PacketCode(Code);
+                    error.fieldIndex = nameFieldIndex;
+                    return PacketResult<AddressBookGuildInfo>::Failure(std::move(error));
+                }
+
+                PacketResult<std::string> guildTitle =
+                    DecodeLegacyPayloadText(parts[titleFieldIndex]);
+                if (!guildTitle.HasValue()) {
+                    PacketError error = guildTitle.Error();
+                    error.packetCode = PacketCode(Code);
+                    error.fieldIndex = titleFieldIndex;
+                    return PacketResult<AddressBookGuildInfo>::Failure(std::move(error));
+                }
+
+                records[slotIndex] = AddressBookGuildInfoRecord {
+                    std::move(guildName.Value()),
+                    std::move(guildTitle.Value()),
+                };
             }
 
             return PacketResult<AddressBookGuildInfo>::Success(AddressBookGuildInfo(std::move(records)));

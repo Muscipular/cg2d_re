@@ -1,29 +1,20 @@
-#include "packet/PacketBuilder.hpp"
-#include "packet/Receive.hpp"
+#include "packet/Packet.hpp"
 
+#include <algorithm>
+#include <array>
 #include <cstddef>
 #include <iostream>
-#include <initializer_list>
 #include <string>
 #include <string_view>
-#include <span>
 #include <utility>
 #include <vector>
 
 namespace {
 
-cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
-{
-    return cg::packet::ParsePacket(plainTokens, cg::packet::receive::AddressBookGuildInfo::Spec);
-}
-
-cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
-{
-    return cg::packet::BuildPacket(packet, cg::packet::receive::AddressBookGuildInfo::Spec);
-}
-
 using AddressBookGuildInfo = cg::packet::receive::AddressBookGuildInfo;
 using AddressBookGuildInfoRecord = cg::packet::receive::AddressBookGuildInfoRecord;
+using AddressBookGuildInfoRecords =
+    std::array<AddressBookGuildInfoRecord, AddressBookGuildInfo::SlotCount>;
 
 int Expect(bool condition, const char* message)
 {
@@ -42,273 +33,284 @@ int ExpectError(
     std::string_view packetCode,
     const char* message)
 {
-    int failures = Expect(!static_cast<bool>(result), message);
+    int failures = Expect(!result.HasValue(), message);
     failures += Expect(result.HasError(), message);
     if (!result.HasError()) {
         return failures;
     }
 
-    const cg::packet::PacketError& error = result.Error();
-    failures += Expect(error.code == code, message);
-    failures += Expect(error.packetCode.has_value(), message);
-    if (error.packetCode.has_value()) {
-        failures += Expect(error.packetCode->View() == packetCode, message);
+    failures += Expect(result.Error().code == code, message);
+    failures += Expect(result.Error().packetCode.has_value(), message);
+    if (result.Error().packetCode.has_value()) {
+        failures += Expect(result.Error().packetCode->View() == packetCode, message);
     }
     return failures;
 }
 
-cg::packet::PacketField Field(
-    std::string_view name,
-    cg::packet::PacketFieldType type,
-    std::string value)
+template <typename T>
+int ExpectFieldError(
+    const cg::packet::PacketResult<T>& result,
+    cg::packet::PacketErrorCode code,
+    std::size_t fieldIndex,
+    const char* message)
 {
-    cg::packet::PacketField field;
-    field.name = std::string(name);
-    field.type = type;
-    field.value = std::move(value);
-    return field;
+    int failures = ExpectError(result, code, AddressBookGuildInfo::Code, message);
+    if (!result.HasError()) {
+        return failures;
+    }
+
+    failures += Expect(result.Error().fieldIndex.has_value(), message);
+    if (result.Error().fieldIndex.has_value()) {
+        failures += Expect(result.Error().fieldIndex.value() == fieldIndex, message);
+    }
+    return failures;
 }
 
-cg::packet::Packet PacketOf(
-    cg::packet::PacketDirection direction,
-    std::initializer_list<cg::packet::PacketField> fields)
+std::string LegacyDoubleByteText(unsigned char trail, std::string_view suffix)
 {
-    cg::packet::Packet packet(
-        cg::packet::PacketCode(AddressBookGuildInfo::Code),
-        direction);
-    packet.fields.assign(fields.begin(), fields.end());
-    return packet;
+    std::string text;
+    text.push_back(static_cast<char>(0x81U));
+    text.push_back(static_cast<char>(trail));
+    text.append(suffix);
+    return text;
+}
+
+std::string JoinParts(const std::vector<std::string>& parts)
+{
+    std::string payload;
+    for (std::size_t index = 0U; index < parts.size(); ++index) {
+        if (index != 0U) {
+            payload.push_back('|');
+        }
+        payload.append(parts[index]);
+    }
+    return payload;
 }
 
 std::string BuildRawPlain(std::string_view payload)
 {
-    std::string plain = "PhdQ ";
+    std::string plain("PhdQ ");
     plain.append(payload);
     plain.push_back(' ');
     return plain;
 }
 
-std::string BuildPayload(std::size_t recordCount)
+std::string BuildPlain(std::string_view payload)
 {
-    std::vector<std::string> parts;
-    parts.reserve(recordCount * AddressBookGuildInfo::RecordFieldCount);
-    for (std::size_t index = 0; index < recordCount; ++index) {
-        parts.push_back("Guild");
-        parts.push_back("Title");
+    const cg::packet::PacketResult<std::string> encoded =
+        cg::packet::EncodeEscapedString(payload);
+    if (!encoded.HasValue()) {
+        return BuildRawPlain("");
     }
-
-    const cg::packet::PacketResult<std::string> payload =
-        cg::packet::BuildPayload(std::span<const std::string>(parts.data(), parts.size()), "|");
-    return payload.HasValue() ? payload.Value() : std::string();
+    return BuildRawPlain(encoded.Value());
 }
 
-int ExpectAddressBookGuildInfoPacket(
-    const cg::packet::Packet& packet,
-    std::string_view payload,
-    const char* message)
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plain)
 {
-    int failures = 0;
-    failures += Expect(packet.code == cg::packet::PacketCode(AddressBookGuildInfo::Code), message);
-    failures += Expect(packet.direction == cg::packet::PacketDirection::ServerToClient, message);
-    failures += Expect(packet.fields.size() == 1U, message);
-    if (packet.fields.size() != 1U) {
+    return cg::packet::ParsePacket(plain, AddressBookGuildInfo::Spec);
+}
+
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
+{
+    return cg::packet::BuildPacket(packet, AddressBookGuildInfo::Spec);
+}
+
+int TestSpecAndRoundtrip()
+{
+    AddressBookGuildInfoRecords records = {};
+    records[0].guildNameRaw = "Guild";
+    const AddressBookGuildInfo value(std::move(records));
+    const cg::packet::PacketResult<std::string> data = value.BuildData();
+
+    int failures = Expect(AddressBookGuildInfo::Spec.fieldCount == 1U, "PhdQ Spec exact1");
+    failures += Expect(
+        AddressBookGuildInfo::Fields[0].type == cg::packet::PacketFieldType::SubPayload,
+        "PhdQ Spec data SubPayload");
+    failures += Expect(data.HasValue(), "PhdQ BuildData");
+    if (!data.HasValue()) {
         return failures;
     }
 
-    failures += Expect(packet.fields[0].name == "data", message);
-    failures += Expect(packet.fields[0].type == cg::packet::PacketFieldType::EscapedString, message);
-    failures += Expect(packet.fields[0].value == payload, message);
-    return failures;
-}
+    failures += Expect(
+        std::count(data.Value().begin(), data.Value().end(), '|') ==
+            static_cast<std::ptrdiff_t>(AddressBookGuildInfo::PayloadFieldCount - 1U),
+        "PhdQ fixed 119 delimiters");
 
-int TestParsePacketOuter()
-{
-    const cg::packet::PacketResult<cg::packet::Packet> parsed =
-        ParsePacket("PhdQ Guild|Leader ");
-
-    int failures = Expect(static_cast<bool>(parsed), "parse PhdQ outer");
-    if (parsed.HasValue()) {
-        failures += ExpectAddressBookGuildInfoPacket(parsed.Value(), "Guild|Leader", "parse PhdQ outer packet");
-    }
-    return failures;
-}
-
-int TestOneRecordRoundtrip()
-{
-    const AddressBookGuildInfo guildInfo(std::vector<AddressBookGuildInfoRecord> {{"Guild", "Leader"}});
-
-    const cg::packet::PacketResult<std::string> data = guildInfo.BuildData();
-    int failures = Expect(static_cast<bool>(data), "PhdQ one record BuildData");
-    if (data.HasValue()) {
-        failures += Expect(data.Value() == "Guild|Leader", "PhdQ one record payload");
-    }
-
-    const cg::packet::PacketResult<cg::packet::Packet> packet = guildInfo.ToPacket();
-    failures += Expect(static_cast<bool>(packet), "PhdQ one record ToPacket");
+    const cg::packet::PacketResult<cg::packet::Packet> packet = value.ToPacket();
+    failures += Expect(packet.HasValue(), "PhdQ ToPacket");
     if (!packet.HasValue()) {
         return failures;
     }
-    failures += ExpectAddressBookGuildInfoPacket(packet.Value(), "Guild|Leader", "PhdQ one record packet");
+
+    failures += Expect(packet.Value().fields.size() == 1U, "PhdQ ToPacket exact1");
+    if (packet.Value().fields.size() == 1U) {
+        failures += Expect(packet.Value().fields[0].name == "data", "PhdQ data name");
+        failures += Expect(
+            packet.Value().fields[0].type == cg::packet::PacketFieldType::SubPayload,
+            "PhdQ ToPacket data SubPayload");
+        failures += Expect(packet.Value().fields[0].value == data.Value(), "PhdQ ToPacket data value");
+    }
 
     const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
-    failures += Expect(static_cast<bool>(built), "build PhdQ packet");
+    failures += Expect(built.HasValue(), "PhdQ generic build");
     if (!built.HasValue()) {
         return failures;
     }
-    failures += Expect(built.Value() == "PhdQ Guild|Leader ", "build PhdQ value");
 
-    const cg::packet::PacketResult<AddressBookGuildInfo> parsed = AddressBookGuildInfo::Parse(built.Value());
-    failures += Expect(static_cast<bool>(parsed), "roundtrip PhdQ packet");
-    if (parsed.HasValue()) {
-        failures += Expect(parsed.Value().records.size() == 1U, "PhdQ roundtrip count");
-        if (parsed.Value().records.size() == 1U) {
-            failures += Expect(parsed.Value().records[0].guildNameRaw == "Guild", "PhdQ guild name");
-            failures += Expect(parsed.Value().records[0].guildTitleRaw == "Leader", "PhdQ guild title");
-        }
-    }
-    return failures;
-}
-
-int TestFinalDelimiterCompatible()
-{
-    int failures = 0;
-    const cg::packet::PacketResult<AddressBookGuildInfo> one =
-        AddressBookGuildInfo::Parse(BuildRawPlain("Guild|Title|"));
-    failures += Expect(static_cast<bool>(one), "PhdQ final delimiter one record");
-    if (one.HasValue()) {
-        failures += Expect(one.Value().records.size() == 1U, "PhdQ final delimiter count");
-        const cg::packet::PacketResult<std::string> data = one.Value().BuildData();
-        failures += Expect(data.HasValue(), "PhdQ final delimiter BuildData");
-        if (data.HasValue()) {
-            failures += Expect(data.Value() == "Guild|Title", "PhdQ drops extra final delimiter");
-        }
+    const cg::packet::PacketResult<cg::packet::Packet> generic = ParsePacket(built.Value());
+    failures += Expect(generic.HasValue(), "PhdQ generic parse");
+    if (generic.HasValue() && generic.Value().fields.size() == 1U) {
+        failures += Expect(
+            generic.Value().fields[0].type == cg::packet::PacketFieldType::EscapedString,
+            "PhdQ runtime data EscapedString");
     }
 
-    const cg::packet::PacketResult<AddressBookGuildInfo> two =
-        AddressBookGuildInfo::Parse(BuildRawPlain("Guild|Title|Other|"));
-    failures += Expect(static_cast<bool>(two), "PhdQ two records with empty title");
-    if (two.HasValue()) {
-        failures += Expect(two.Value().records.size() == 2U, "PhdQ two record count");
-        if (two.Value().records.size() == 2U) {
-            failures += Expect(two.Value().records[1].guildNameRaw == "Other", "PhdQ second guild name");
-            failures += Expect(two.Value().records[1].guildTitleRaw.empty(), "PhdQ second empty title");
-        }
-    }
-    return failures;
-}
-
-int TestEmptyDataAndSlot()
-{
-    int failures = 0;
-    const cg::packet::PacketResult<AddressBookGuildInfo> empty = AddressBookGuildInfo::Parse("PhdQ  ");
-    failures += Expect(static_cast<bool>(empty), "PhdQ empty data");
-    if (empty.HasValue()) {
-        failures += Expect(empty.Value().records.empty(), "PhdQ empty record count");
-        const cg::packet::PacketResult<std::string> data = empty.Value().BuildData();
-        failures += Expect(data.HasValue(), "PhdQ empty BuildData");
-        if (data.HasValue()) {
-            failures += Expect(data.Value().empty(), "PhdQ empty payload");
-        }
-    }
-
-    const cg::packet::PacketResult<AddressBookGuildInfo> emptySlot = AddressBookGuildInfo::Parse(BuildRawPlain("|"));
-    failures += Expect(static_cast<bool>(emptySlot), "PhdQ empty slot");
-    if (emptySlot.HasValue()) {
-        failures += Expect(emptySlot.Value().records.size() == 1U, "PhdQ empty slot count");
-        if (emptySlot.Value().records.size() == 1U) {
-            failures += Expect(emptySlot.Value().records[0].guildNameRaw.empty(), "PhdQ empty slot name");
-            failures += Expect(emptySlot.Value().records[0].guildTitleRaw.empty(), "PhdQ empty slot title");
-        }
-        const cg::packet::PacketResult<std::string> data = emptySlot.Value().BuildData();
-        failures += Expect(data.HasValue(), "PhdQ empty slot BuildData");
-        if (data.HasValue()) {
-            failures += Expect(data.Value() == "|", "PhdQ empty slot payload");
-        }
-    }
-    return failures;
-}
-
-int TestRawEscapePreserved()
-{
     const cg::packet::PacketResult<AddressBookGuildInfo> parsed =
-        AddressBookGuildInfo::Parse(BuildRawPlain("A\\zB|C\\cD"));
-    int failures = Expect(static_cast<bool>(parsed), "PhdQ raw escape parse");
-    if (!parsed.HasValue()) {
-        return failures;
-    }
-
-    failures += Expect(parsed.Value().records.size() == 1U, "PhdQ raw record count");
-    if (parsed.Value().records.size() != 1U) {
-        return failures;
-    }
-
-    failures += Expect(parsed.Value().records[0].guildNameRaw == "A\\zB", "PhdQ raw guild name");
-    failures += Expect(parsed.Value().records[0].guildTitleRaw == "C\\cD", "PhdQ raw guild title");
-
-    const cg::packet::PacketResult<cg::packet::Packet> packet = parsed.Value().ToPacket();
-    failures += Expect(static_cast<bool>(packet), "PhdQ raw ToPacket");
-    if (!packet.HasValue()) {
-        return failures;
-    }
-
-    const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
-    failures += Expect(static_cast<bool>(built), "PhdQ raw BuildPacket");
-    if (built.HasValue()) {
-        failures += Expect(built.Value() == "PhdQ A\\\\zB|C\\\\cD ", "PhdQ raw escaped BuildPacket");
+        AddressBookGuildInfo::Parse(built.Value());
+    failures += Expect(parsed.HasValue(), "PhdQ typed roundtrip");
+    if (parsed.HasValue()) {
+        failures += Expect(parsed.Value().records.size() == AddressBookGuildInfo::SlotCount, "PhdQ 60 slots");
+        failures += Expect(parsed.Value().records[0].guildNameRaw == "Guild", "PhdQ first guild name");
+        failures += Expect(parsed.Value().records[0].guildTitleRaw.empty(), "PhdQ Server title empty");
     }
     return failures;
 }
 
-int TestErrors()
+int TestFixedSlots()
+{
+    const AddressBookGuildInfo empty;
+    const cg::packet::PacketResult<std::string> emptyData = empty.BuildData();
+    int failures = Expect(emptyData.HasValue(), "PhdQ all-empty BuildData");
+    if (emptyData.HasValue()) {
+        failures += Expect(
+            emptyData.Value() == std::string(AddressBookGuildInfo::PayloadFieldCount - 1U, '|'),
+            "PhdQ all-empty fixed table");
+        const cg::packet::PacketResult<AddressBookGuildInfo> parsed =
+            AddressBookGuildInfo::Parse(BuildPlain(emptyData.Value()));
+        failures += Expect(parsed.HasValue(), "PhdQ all-empty Parse");
+        if (parsed.HasValue()) {
+            failures += Expect(parsed.Value().records[59].guildNameRaw.empty(), "PhdQ last empty name");
+            failures += Expect(parsed.Value().records[59].guildTitleRaw.empty(), "PhdQ last empty title");
+        }
+    }
+
+    AddressBookGuildInfoRecords records = {};
+    records[59] = AddressBookGuildInfoRecord {"LastGuild", "ConsumerTitle"};
+    const AddressBookGuildInfo last(std::move(records));
+    const cg::packet::PacketResult<std::string> lastData = last.BuildData();
+    failures += Expect(lastData.HasValue(), "PhdQ last slot BuildData");
+    if (lastData.HasValue()) {
+        failures += Expect(
+            lastData.Value().ends_with("LastGuild|ConsumerTitle"),
+            "PhdQ last slot field order");
+        const cg::packet::PacketResult<AddressBookGuildInfo> parsed =
+            AddressBookGuildInfo::Parse(BuildPlain(lastData.Value()));
+        failures += Expect(parsed.HasValue(), "PhdQ last slot Parse");
+        if (parsed.HasValue()) {
+            failures += Expect(parsed.Value().records[59].guildNameRaw == "LastGuild", "PhdQ last name");
+            failures += Expect(
+                parsed.Value().records[59].guildTitleRaw == "ConsumerTitle",
+                "PhdQ nonempty title consumer compatibility");
+        }
+    }
+    return failures;
+}
+
+int TestLegacyTextRoundtrip()
+{
+    const std::string semanticName =
+        LegacyDoubleByteText(0x7CU, "A|B,C\\D\nE");
+    const std::string semanticTitle =
+        LegacyDoubleByteText(0x5CU, "T|U");
+    AddressBookGuildInfoRecords records = {};
+    records[0] = AddressBookGuildInfoRecord {semanticName, semanticTitle};
+    const AddressBookGuildInfo value(std::move(records));
+
+    const cg::packet::PacketResult<std::string> data = value.BuildData();
+    int failures = Expect(data.HasValue(), "PhdQ legacy BuildData");
+    if (!data.HasValue()) {
+        return failures;
+    }
+
+    failures += Expect(data.Value().find("\\z") != std::string::npos, "PhdQ legacy pipe encoded");
+    failures += Expect(data.Value().find("\\c") != std::string::npos, "PhdQ legacy comma encoded");
+    failures += Expect(data.Value().find("\\y") != std::string::npos, "PhdQ legacy slash encoded");
+    failures += Expect(data.Value().find("\\n") != std::string::npos, "PhdQ legacy newline encoded");
+
+    const cg::packet::PacketResult<AddressBookGuildInfo> parsed =
+        AddressBookGuildInfo::Parse(BuildPlain(data.Value()));
+    failures += Expect(parsed.HasValue(), "PhdQ legacy Parse");
+    if (parsed.HasValue()) {
+        failures += Expect(parsed.Value().records[0].guildNameRaw == semanticName, "PhdQ semantic name");
+        failures += Expect(parsed.Value().records[0].guildTitleRaw == semanticTitle, "PhdQ semantic title");
+    }
+    return failures;
+}
+
+int TestStrictFieldCount()
 {
     int failures = 0;
+    for (const std::size_t fieldCount : {0U, 119U, 121U}) {
+        const std::vector<std::string> parts(fieldCount);
+        failures += ExpectError(
+            AddressBookGuildInfo::Parse(BuildPlain(JoinParts(parts))),
+            cg::packet::PacketErrorCode::FieldCountMismatch,
+            "PhdQ",
+            "PhdQ rejects non-120 field payload");
+    }
+
+    std::string extraDelimiter(AddressBookGuildInfo::PayloadFieldCount - 1U, '|');
+    extraDelimiter.push_back('|');
     failures += ExpectError(
-        AddressBookGuildInfo::Parse("gnxd  "),
+        AddressBookGuildInfo::Parse(BuildPlain(extraDelimiter)),
+        cg::packet::PacketErrorCode::FieldCountMismatch,
+        "PhdQ",
+        "PhdQ rejects extra trailing delimiter");
+    return failures;
+}
+
+int TestLegacyErrors()
+{
+    AddressBookGuildInfoRecords badName = {};
+    badName[0].guildNameRaw.assign(1U, static_cast<char>(0x81U));
+    int failures = ExpectFieldError(
+        AddressBookGuildInfo(std::move(badName)).BuildData(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        0U,
+        "PhdQ build truncated guild name");
+
+    AddressBookGuildInfoRecords badTitle = {};
+    badTitle[59].guildTitleRaw.assign(1U, static_cast<char>(0x81U));
+    failures += ExpectFieldError(
+        AddressBookGuildInfo(std::move(badTitle)).BuildData(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        119U,
+        "PhdQ build truncated guild title");
+
+    std::vector<std::string> trailingEscape(AddressBookGuildInfo::PayloadFieldCount);
+    trailingEscape[0] = "Bad\\";
+    failures += ExpectFieldError(
+        AddressBookGuildInfo::Parse(BuildPlain(JoinParts(trailingEscape))),
+        cg::packet::PacketErrorCode::DecodeFailed,
+        0U,
+        "PhdQ parse truncated legacy escape");
+    return failures;
+}
+
+int TestOuterErrors()
+{
+    const std::string payload(AddressBookGuildInfo::PayloadFieldCount - 1U, '|');
+    int failures = ExpectError(
+        AddressBookGuildInfo::Parse("gnxd "),
         cg::packet::PacketErrorCode::InvalidCode,
         "gnxd",
         "PhdQ wrong code");
-    failures += ExpectError(
-        AddressBookGuildInfo::Parse("PhdQ"),
-        cg::packet::PacketErrorCode::FieldCountMismatch,
-        "PhdQ",
-        "PhdQ missing field");
-    failures += ExpectError(
-        AddressBookGuildInfo::Parse("PhdQ a b"),
-        cg::packet::PacketErrorCode::FieldCountMismatch,
-        "PhdQ",
-        "PhdQ extra field");
-    failures += ExpectError(
-        AddressBookGuildInfo::Parse(BuildRawPlain("A|B|C")),
-        cg::packet::PacketErrorCode::FieldCountMismatch,
-        "PhdQ",
-        "PhdQ odd payload fields");
-    failures += ExpectError(
-        AddressBookGuildInfo::Parse(BuildRawPlain(BuildPayload(AddressBookGuildInfo::MaxRecordCount + 1U))),
-        cg::packet::PacketErrorCode::DecodeFailed,
-        "PhdQ",
-        "PhdQ too many records");
-
-    failures += ExpectError(
-        BuildPacket(PacketOf(
-            cg::packet::PacketDirection::ClientToServer,
-            {Field("data", cg::packet::PacketFieldType::EscapedString, "Guild|Leader")})),
-        cg::packet::PacketErrorCode::EncodeFailed,
-        "PhdQ",
-        "PhdQ manual direction mismatch");
-    failures += ExpectError(
-        BuildPacket(PacketOf(
-            cg::packet::PacketDirection::ServerToClient,
-            {Field("wrong", cg::packet::PacketFieldType::EscapedString, "Guild|Leader")})),
-        cg::packet::PacketErrorCode::EncodeFailed,
-        "PhdQ",
-        "PhdQ manual field name mismatch");
-    failures += ExpectError(
-        BuildPacket(PacketOf(
-            cg::packet::PacketDirection::ServerToClient,
-            {Field("data", cg::packet::PacketFieldType::Unknown, "Guild|Leader")})),
-        cg::packet::PacketErrorCode::InvalidFieldType,
-        "PhdQ",
-        "PhdQ manual field type mismatch");
+    failures += Expect(
+        !AddressBookGuildInfo::Parse("PhdQ").HasValue(),
+        "PhdQ missing data");
+    failures += Expect(
+        !AddressBookGuildInfo::Parse(BuildPlain(payload) + "extra ").HasValue(),
+        "PhdQ extra outer field");
     return failures;
 }
 
@@ -317,16 +319,15 @@ int TestErrors()
 int main()
 {
     int failures = 0;
-    failures += TestParsePacketOuter();
-    failures += TestOneRecordRoundtrip();
-    failures += TestFinalDelimiterCompatible();
-    failures += TestEmptyDataAndSlot();
-    failures += TestRawEscapePreserved();
-    failures += TestErrors();
+    failures += TestSpecAndRoundtrip();
+    failures += TestFixedSlots();
+    failures += TestLegacyTextRoundtrip();
+    failures += TestStrictFieldCount();
+    failures += TestLegacyErrors();
+    failures += TestOuterErrors();
     if (failures != 0) {
-        std::cerr << failures << " checks failed\n";
+        std::cerr << failures << " PhdQ expectations failed\n";
         return 1;
     }
-
     return 0;
 }

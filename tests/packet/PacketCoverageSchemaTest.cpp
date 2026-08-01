@@ -3327,6 +3327,57 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "LY"),
         "LY present in receive typed manifest");
 
+    const PacketSchema* characterPetListSchema = FindPacket(packets, "ND");
+    failures += Expect(characterPetListSchema != nullptr, "ND schema exists");
+    if (characterPetListSchema != nullptr) {
+        const cg::packet::receive::CharacterPetList characterPetList(
+            std::vector<cg::packet::receive::CharacterPetRecord> {});
+        const cg::packet::PacketResult<cg::packet::Packet> packet = characterPetList.ToPacket();
+        constexpr std::string_view resolvedSource = "ServerC+ClientIda+src/packet";
+
+        failures += Expect(characterPetListSchema->direction == "服务端->客户端", "ND direction");
+        failures += Expect(characterPetListSchema->legacyKind == "SEND", "ND legacyKind");
+        failures += Expect(characterPetListSchema->clientNamespace == "receive", "ND namespace");
+        failures += Expect(characterPetListSchema->rawFormat.empty(), "ND rawFormat empty");
+        failures += Expect(characterPetListSchema->formatEmpty, "ND formatEmpty true");
+        failures += Expect(characterPetListSchema->source == "xlsx", "ND raw source");
+        failures += Expect(characterPetListSchema->fields.empty(), "ND raw fields empty");
+        failures += Expect(characterPetListSchema->hasResolvedFormat, "ND resolvedFormat present");
+        failures += Expect(characterPetListSchema->resolvedFormat == "{data:es}", "ND resolvedFormat");
+        failures += Expect(
+            characterPetListSchema->resolvedSource == resolvedSource,
+            "ND resolvedSource");
+        failures += Expect(characterPetListSchema->hasResolvedFields, "ND resolvedFields present");
+        failures += Expect(
+            characterPetListSchema->resolvedFields.size() == 1U,
+            "ND resolved field count");
+        if (characterPetListSchema->resolvedFields.size() == 1U) {
+            const FieldSchema& field = characterPetListSchema->resolvedFields[0U];
+            failures += Expect(field.index == 0, "ND resolved field index");
+            failures += Expect(field.name == "data", "ND resolved field name");
+            failures += Expect(field.typeToken == "es", "ND resolved field type");
+            failures += Expect(field.rawSpec == "{data:es}", "ND resolved field spec");
+            failures += Expect(field.source == resolvedSource, "ND resolved field source");
+        }
+        failures += ExpectEffectiveFieldsMatch(
+            *characterPetListSchema,
+            cg::packet::receive::CharacterPetList::Spec,
+            "ND Spec matches effective fields");
+        failures += Expect(packet.HasValue(), "ND ToPacket");
+        if (packet.HasValue()) {
+            failures += ExpectResolvedFieldsMatch(
+                *characterPetListSchema,
+                packet.Value(),
+                "ND resolved field order");
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "ND"),
+        "ND absent from send typed manifest");
+    failures += Expect(
+        TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "ND"),
+        "ND present in receive typed manifest");
+
     const PacketSchema* techListSchema = FindPacket(packets, "Rspn");
     failures += Expect(techListSchema != nullptr, "Rspn schema exists");
     if (techListSchema != nullptr) {

@@ -3,12 +3,18 @@
 
 #include <cstddef>
 #include <iostream>
+#include <limits>
 #include <string>
 #include <string_view>
 #include <utility>
 #include <vector>
 
 namespace {
+
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
+{
+    return cg::packet::ParsePacket(plainTokens, cg::packet::receive::ItemCharacterPetList::Spec);
+}
 
 cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
 {
@@ -43,6 +49,26 @@ int ExpectError(
     failures += Expect(error.packetCode.has_value(), message);
     if (error.packetCode.has_value()) {
         failures += Expect(error.packetCode->View() == packetCode, message);
+    }
+    return failures;
+}
+
+template <typename T>
+int ExpectFieldError(
+    const cg::packet::PacketResult<T>& result,
+    cg::packet::PacketErrorCode code,
+    std::string_view packetCode,
+    std::size_t fieldIndex,
+    const char* message)
+{
+    int failures = ExpectError(result, code, packetCode, message);
+    if (!result.HasError()) {
+        return failures;
+    }
+
+    failures += Expect(result.Error().fieldIndex.has_value(), message);
+    if (result.Error().fieldIndex.has_value()) {
+        failures += Expect(result.Error().fieldIndex.value() == fieldIndex, message);
     }
     return failures;
 }
@@ -82,7 +108,7 @@ int ExpectItemCharacterPetListPacket(
     }
 
     failures += Expect(packet.fields[0].name == "data", message);
-    failures += Expect(packet.fields[0].type == cg::packet::PacketFieldType::EscapedString, message);
+    failures += Expect(packet.fields[0].type == cg::packet::PacketFieldType::SubPayload, message);
     failures += Expect(packet.fields[0].value == value, message);
     return failures;
 }
@@ -181,10 +207,21 @@ std::vector<cg::packet::receive::CharacterPetRecord> BuildRecords(int count)
 int TestParseRecordsInParse()
 {
     const std::string payload = "Alice|35|0|120|150|40|80|";
+    const cg::packet::PacketResult<cg::packet::Packet> outer = ParsePacket(BuildPlainNfv(payload));
     const cg::packet::PacketResult<cg::packet::receive::ItemCharacterPetList> parsed =
         cg::packet::receive::ItemCharacterPetList::Parse(BuildPlainNfv(payload));
 
-    int failures = Expect(static_cast<bool>(parsed), "parse nFV records in typed Parse");
+    int failures = Expect(
+        cg::packet::receive::ItemCharacterPetList::Fields[0U].type ==
+            cg::packet::PacketFieldType::SubPayload,
+        "nFV data spec SubPayload");
+    failures += Expect(static_cast<bool>(outer), "parse nFV outer");
+    if (outer.HasValue() && outer.Value().fields.size() == 1U) {
+        failures += Expect(
+            outer.Value().fields[0U].type == cg::packet::PacketFieldType::EscapedString,
+            "nFV generic Parse runtime EscapedString");
+    }
+    failures += Expect(static_cast<bool>(parsed), "parse nFV records in typed Parse");
     if (parsed.HasValue()) {
         failures += Expect(parsed.Value().records.size() == 1U, "parse nFV records count");
     }
@@ -203,6 +240,7 @@ int TestEmptyData()
     if (parsed.HasValue()) {
         failures += Expect(parsed.Value().records.empty(), "nFV empty data record count");
         failures += ExpectBuildData(parsed.Value(), "", "nFV empty data BuildData");
+        failures += ExpectItemCharacterPetListPacket(parsed.Value().ToPacket(), "", "nFV empty data ToPacket");
     }
     return failures;
 }
@@ -270,42 +308,97 @@ int TestSixRecordsRoundtrip()
     return failures;
 }
 
-int TestRawNamePreserved()
+int TestSemanticNameRoundtrip()
 {
-    const std::string payload = "A\\zB\\cC\\yD\\nE|35|0|120|150|40|80|";
+    std::string name = "A|B,C\\D\nE";
+    name.push_back(static_cast<char>(0x96));
+    name.push_back(static_cast<char>(0x7C));
+    std::string payload = "A\\zB\\cC\\yD\\nE";
+    payload.push_back(static_cast<char>(0x96));
+    payload.push_back(static_cast<char>(0x7C));
+    payload.append("|35|0|120|150|40|80|");
     const cg::packet::PacketResult<cg::packet::receive::ItemCharacterPetList> parsed =
         cg::packet::receive::ItemCharacterPetList::Parse(BuildPlainNfv(payload));
 
-    int failures = Expect(static_cast<bool>(parsed), "parse nFV raw name");
+    int failures = Expect(static_cast<bool>(parsed), "parse nFV semantic GBK/legacy name");
     if (!parsed.HasValue()) {
         return failures;
     }
 
-    failures += Expect(parsed.Value().records.size() == 1U, "nFV raw name record count");
+    failures += Expect(parsed.Value().records.size() == 1U, "nFV semantic name record count");
     if (parsed.Value().records.size() == 1U) {
         failures += ExpectRecord(
             parsed.Value().records[0],
-            "A\\zB\\cC\\yD\\nE",
+            name,
             35,
             0,
             120,
             150,
             40,
             80,
-            "nFV raw name record");
+            "nFV semantic name record");
     }
-    failures += ExpectBuildData(parsed.Value(), payload, "nFV raw name BuildData");
+    failures += ExpectBuildData(parsed.Value(), payload, "nFV semantic name BuildData");
 
     const cg::packet::PacketResult<cg::packet::Packet> packet = parsed.Value().ToPacket();
-    failures += ExpectItemCharacterPetListPacket(packet, payload, "nFV raw name ToPacket");
+    failures += ExpectItemCharacterPetListPacket(packet, payload, "nFV semantic name ToPacket");
     if (!packet.HasValue()) {
         return failures;
     }
 
     const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
-    failures += Expect(static_cast<bool>(built), "build nFV raw name packet");
+    failures += Expect(static_cast<bool>(built), "build nFV semantic name packet");
     if (built.HasValue()) {
-        failures += Expect(built.Value() == BuildPlainNfv(payload), "nFV raw name roundtrip");
+        failures += Expect(built.Value() == BuildPlainNfv(payload), "nFV semantic name roundtrip");
+    }
+    return failures;
+}
+
+int TestSignedBoundaries()
+{
+    const std::string payload = "Bounds|-2147483648|2147483647|-1|0|-20|20|";
+    const cg::packet::receive::ItemCharacterPetList value({
+        cg::packet::receive::CharacterPetRecord {
+            "Bounds",
+            std::numeric_limits<int>::min(),
+            std::numeric_limits<int>::max(),
+            -1,
+            0,
+            -20,
+            20,
+        },
+    });
+
+    int failures = ExpectBuildData(value, payload, "nFV signed boundaries BuildData");
+    const cg::packet::PacketResult<cg::packet::Packet> packet = value.ToPacket();
+    failures += ExpectItemCharacterPetListPacket(packet, payload, "nFV signed boundaries ToPacket");
+    if (!packet.HasValue()) {
+        return failures;
+    }
+
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
+    failures += Expect(static_cast<bool>(built), "build nFV signed boundaries packet");
+    if (!built.HasValue()) {
+        return failures;
+    }
+
+    const cg::packet::PacketResult<cg::packet::receive::ItemCharacterPetList> parsed =
+        cg::packet::receive::ItemCharacterPetList::Parse(built.Value());
+    failures += Expect(static_cast<bool>(parsed), "parse nFV signed boundaries");
+    if (parsed.HasValue()) {
+        failures += Expect(parsed.Value().records.size() == 1U, "nFV signed boundary record count");
+    }
+    if (parsed.HasValue() && parsed.Value().records.size() == 1U) {
+        failures += ExpectRecord(
+            parsed.Value().records[0U],
+            "Bounds",
+            std::numeric_limits<int>::min(),
+            std::numeric_limits<int>::max(),
+            -1,
+            0,
+            -20,
+            20,
+            "nFV signed boundary record");
     }
     return failures;
 }
@@ -313,51 +406,86 @@ int TestRawNamePreserved()
 int TestErrors()
 {
     int failures = 0;
-    failures += ExpectError(
-        cg::packet::receive::ItemCharacterPetList::Parse("nFV Alice extra "),
+    failures += ExpectFieldError(
+        cg::packet::receive::ItemCharacterPetList::Parse("nFV"),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "nFV",
-        "nFV outer field count");
-    failures += ExpectError(
+        0U,
+        "nFV outer missing data index");
+    failures += ExpectFieldError(
+        cg::packet::receive::ItemCharacterPetList::Parse("nFV data extra "),
+        cg::packet::PacketErrorCode::FieldCountMismatch,
+        "nFV",
+        1U,
+        "nFV outer extra field index");
+    failures += ExpectFieldError(
         cg::packet::receive::ItemCharacterPetList::Parse(BuildPlainNfv("Alice|35|0|120|150|40|80")),
         cg::packet::PacketErrorCode::DecodeFailed,
         "nFV",
+        0U,
         "nFV missing trailing delimiter");
-    failures += ExpectError(
+    failures += ExpectFieldError(
         cg::packet::receive::ItemCharacterPetList::Parse(BuildPlainNfv("Alice|35|0|120|150|40|")),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "nFV",
+        0U,
         "nFV six payload fields");
-    failures += ExpectError(
+    failures += ExpectFieldError(
         cg::packet::receive::ItemCharacterPetList::Parse(BuildPlainNfv("Alice|35|0|120|150|40|80|extra|")),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "nFV",
+        0U,
         "nFV eight payload fields");
-    failures += ExpectError(
+    failures += ExpectFieldError(
         cg::packet::receive::ItemCharacterPetList::Parse(BuildPlainNfv(BuildRecordsPayload(7))),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "nFV",
+        0U,
         "nFV record count over 6");
-    failures += ExpectError(
+    failures += ExpectFieldError(
         cg::packet::receive::ItemCharacterPetList::Parse(BuildPlainNfv("Alice||0|120|150|40|80|")),
         cg::packet::PacketErrorCode::DecodeFailed,
         "nFV",
+        1U,
         "nFV empty decimal");
-    failures += ExpectError(
-        cg::packet::receive::ItemCharacterPetList::Parse(BuildPlainNfv("Alice|x|0|120|150|40|80|")),
+    failures += ExpectFieldError(
+        cg::packet::receive::ItemCharacterPetList::Parse(BuildPlainNfv("Alice|35x|0|120|150|40|80|")),
         cg::packet::PacketErrorCode::DecodeFailed,
         "nFV",
+        1U,
         "nFV non-decimal");
-    failures += ExpectError(
-        cg::packet::receive::ItemCharacterPetList::Parse(BuildPlainNfv("Alice|-1|0|120|150|40|80|")),
-        cg::packet::PacketErrorCode::DecodeFailed,
-        "nFV",
-        "nFV negative decimal");
-    failures += ExpectError(
+    failures += ExpectFieldError(
         cg::packet::receive::ItemCharacterPetList::Parse(BuildPlainNfv("Alice|2147483648|0|120|150|40|80|")),
         cg::packet::PacketErrorCode::DecodeFailed,
         "nFV",
-        "nFV decimal overflow");
+        1U,
+        "nFV positive decimal overflow");
+    failures += ExpectFieldError(
+        cg::packet::receive::ItemCharacterPetList::Parse(BuildPlainNfv("Alice|-2147483649|0|120|150|40|80|")),
+        cg::packet::PacketErrorCode::DecodeFailed,
+        "nFV",
+        1U,
+        "nFV negative decimal overflow");
+    failures += ExpectFieldError(
+        cg::packet::receive::ItemCharacterPetList::Parse(BuildPlainNfv("Name\\|35|0|120|150|40|80|")),
+        cg::packet::PacketErrorCode::DecodeFailed,
+        "nFV",
+        0U,
+        "nFV first name legacy truncation index");
+    failures += ExpectFieldError(
+        cg::packet::receive::ItemCharacterPetList::Parse(BuildPlainNfv(
+            "Alice|35|0|120|150|40|80|Name\\|1|0|2|3|4|5|")),
+        cg::packet::PacketErrorCode::DecodeFailed,
+        "nFV",
+        7U,
+        "nFV second name legacy truncation index");
+    failures += ExpectFieldError(
+        cg::packet::receive::ItemCharacterPetList::Parse(BuildPlainNfv(
+            "Alice|35|0|120|150|40|80|Pet|1|0|2|3|4|bad|")),
+        cg::packet::PacketErrorCode::DecodeFailed,
+        "nFV",
+        13U,
+        "nFV second maxForcePoint field index");
     failures += ExpectError(
         cg::packet::receive::ItemCharacterPetList::Parse(BuildPlain("ND", "Alice|35|0|120|150|40|80|")),
         cg::packet::PacketErrorCode::InvalidCode,
@@ -370,30 +498,36 @@ int TestBuildRejectsInvalidRecords()
 {
     int failures = 0;
     const cg::packet::receive::ItemCharacterPetList tooMany(BuildRecords(7));
-    failures += ExpectError(
+    failures += ExpectFieldError(
         tooMany.BuildData(),
         cg::packet::PacketErrorCode::EncodeFailed,
         "nFV",
+        0U,
         "nFV BuildData rejects seven records");
-    failures += ExpectError(
+    failures += ExpectFieldError(
         tooMany.ToPacket(),
         cg::packet::PacketErrorCode::EncodeFailed,
         "nFV",
+        0U,
         "nFV ToPacket rejects seven records");
 
-    const cg::packet::receive::ItemCharacterPetList negative({
-        cg::packet::receive::CharacterPetRecord {"Alice", -1, 0, 120, 150, 40, 80},
+    std::string truncatedName(1U, static_cast<char>(0x96));
+    const cg::packet::receive::ItemCharacterPetList invalidName({
+        cg::packet::receive::CharacterPetRecord {"Alice", 1, 0, 120, 150, 40, 80},
+        cg::packet::receive::CharacterPetRecord {std::move(truncatedName), 2, 0, 120, 150, 40, 80},
     });
-    failures += ExpectError(
-        negative.BuildData(),
+    failures += ExpectFieldError(
+        invalidName.BuildData(),
         cg::packet::PacketErrorCode::EncodeFailed,
         "nFV",
-        "nFV BuildData rejects negative decimal");
-    failures += ExpectError(
-        negative.ToPacket(),
+        7U,
+        "nFV second name BuildData encoding failure index");
+    failures += ExpectFieldError(
+        invalidName.ToPacket(),
         cg::packet::PacketErrorCode::EncodeFailed,
         "nFV",
-        "nFV ToPacket rejects negative decimal");
+        7U,
+        "nFV second name ToPacket encoding failure index");
     return failures;
 }
 
@@ -407,7 +541,8 @@ int main()
     failures += TestSingleRecord();
     failures += TestEmptyName();
     failures += TestSixRecordsRoundtrip();
-    failures += TestRawNamePreserved();
+    failures += TestSemanticNameRoundtrip();
+    failures += TestSignedBoundaries();
     failures += TestErrors();
     failures += TestBuildRejectsInvalidRecords();
     if (failures != 0) {

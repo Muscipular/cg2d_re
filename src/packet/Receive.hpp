@@ -16710,6 +16710,7 @@ namespace cg::packet::receive
 
     struct CharacterPetRecord
     {
+        // legacy payload text 解码后的语义字节串。
         std::string name;
         int level = 0;
         int injury = 0;
@@ -16721,14 +16722,14 @@ namespace cg::packet::receive
 
     /**
      * SEND_GPD CHAR_sendCharAndPetList		ND {data:es}
-     * data: `name|level|injury|hp|maxHp|forcePoint|maxForcePoint|`，0..6 条记录；name 保留 raw escaped 字符串。
+     * data: `name|level|injury|hp|maxHp|forcePoint|maxForcePoint|` 重复 0..6 条记录，固定尾随 `|`；name 使用单层 legacy 编解码。
      */
     struct CharacterPetList
     {
         static constexpr std::string_view Code = "ND";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
-            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::SubPayload},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -16800,7 +16801,15 @@ namespace cg::packet::receive
                 for (std::size_t recordIndex = 0; recordIndex < records.size(); ++recordIndex) {
                     const CharacterPetRecord& record = records[recordIndex];
                     const std::size_t baseIndex = recordIndex * RecordFieldCount;
-                    payload.append(record.name);
+                    PacketResult<std::string> encodedName = EncodeLegacyPayloadText(record.name);
+                    if (!encodedName.HasValue()) {
+                        PacketError error = encodedName.Error();
+                        error.packetCode = PacketCode(code);
+                        error.fieldIndex = baseIndex;
+                        return PacketResult<std::string>::Failure(std::move(error));
+                    }
+
+                    payload.append(encodedName.Value());
                     payload.push_back('|');
 
                     const std::array<int, 6> values = {{
@@ -16812,13 +16821,7 @@ namespace cg::packet::receive
                         record.maxForcePoint,
                     }};
                     for (std::size_t valueIndex = 0; valueIndex < values.size(); ++valueIndex) {
-                        PacketResult<int> value =
-                            ValidateDecimalField(values[valueIndex], baseIndex + valueIndex + 1U, code, packetName);
-                        if (!value.HasValue()) {
-                            return PacketResult<std::string>::Failure(value.Error());
-                        }
-
-                        payload.append(std::to_string(value.Value()));
+                        payload.append(std::to_string(values[valueIndex]));
                         payload.push_back('|');
                     }
                 }
@@ -16840,8 +16843,8 @@ namespace cg::packet::receive
                 Packet packet(PacketCode(code), Direction);
                 packet.fields.push_back(PacketField {
                     CG_PACKET_DIAGNOSTIC_TEXT("data"),
-                    PacketFieldType::EscapedString,
-                    data.Value(),
+                    PacketFieldType::SubPayload,
+                    std::move(data.Value()),
                 });
                 return PacketResult<Packet>::Success(std::move(packet));
             }
@@ -16950,7 +16953,8 @@ namespace cg::packet::receive
                         DataFieldIndex));
                 }
 
-                PacketResult<std::vector<std::string>> split = SplitPayload(payload, PayloadDelimiter);
+                PacketResult<std::vector<std::string>> split =
+                    SplitPayloadLegacyAware(payload, PayloadDelimiter);
                 if (!split.HasValue()) {
                     PacketError error = split.Error();
                     error.packetCode = PacketCode(code);
@@ -16958,29 +16962,30 @@ namespace cg::packet::receive
                     return PacketResult<std::vector<CharacterPetRecord>>::Failure(std::move(error));
                 }
 
-                std::vector<std::string> parts = std::move(split.Value());
-                parts.pop_back();
-                if ((parts.size() % RecordFieldCount) != 0U) {
+                const std::vector<std::string>& parts = split.Value();
+                if (parts.size() > (MaxRecordCount * RecordFieldCount) + 1U ||
+                    ((parts.size() - 1U) % RecordFieldCount) != 0U ||
+                    !parts.back().empty()) {
                     return PacketResult<std::vector<CharacterPetRecord>>::Failure(MakeFieldError(
                         code,
                         PacketErrorCode::FieldCountMismatch,
-                        MakeMessage(packetName, CG_PACKET_DIAGNOSTIC_TEXT("payload 段数量不是 7 的倍数")),
+                        MakeMessage(packetName, CG_PACKET_DIAGNOSTIC_TEXT("payload 不符合固定 7 段记录或封包协议数量上限")),
                         DataFieldIndex));
                 }
 
-                const std::size_t recordCount = parts.size() / RecordFieldCount;
-                if (recordCount > MaxRecordCount) {
-                    return PacketResult<std::vector<CharacterPetRecord>>::Failure(MakeFieldError(
-                        code,
-                        PacketErrorCode::FieldCountMismatch,
-                        MakeMessage(packetName, CG_PACKET_DIAGNOSTIC_TEXT("payload 记录数超过 6")),
-                        DataFieldIndex));
-                }
-
+                const std::size_t recordCount = (parts.size() - 1U) / RecordFieldCount;
                 std::vector<CharacterPetRecord> records;
                 records.reserve(recordCount);
                 for (std::size_t recordIndex = 0; recordIndex < recordCount; ++recordIndex) {
                     const std::size_t baseIndex = recordIndex * RecordFieldCount;
+                    PacketResult<std::string> name = DecodeLegacyPayloadText(parts[baseIndex]);
+                    if (!name.HasValue()) {
+                        PacketError error = name.Error();
+                        error.packetCode = PacketCode(code);
+                        error.fieldIndex = baseIndex;
+                        return PacketResult<std::vector<CharacterPetRecord>>::Failure(std::move(error));
+                    }
+
                     PacketResult<int> level =
                         ParseDecimalField(parts[baseIndex + 1U], baseIndex + 1U, code, packetName);
                     if (!level.HasValue()) {
@@ -17018,7 +17023,7 @@ namespace cg::packet::receive
                     }
 
                     records.push_back(CharacterPetRecord {
-                        parts[baseIndex],
+                        std::move(name.Value()),
                         level.Value(),
                         injury.Value(),
                         hp.Value(),
@@ -17037,7 +17042,14 @@ namespace cg::packet::receive
                 std::string_view code,
                 std::string_view packetName)
             {
-                if (text.empty()) {
+                bool negative = false;
+                std::size_t index = 0U;
+                if (!text.empty() && text.front() == '-') {
+                    negative = true;
+                    index = 1U;
+                }
+
+                if (index == text.size()) {
                     return PacketResult<int>::Failure(MakeFieldError(
                         code,
                         PacketErrorCode::DecodeFailed,
@@ -17046,8 +17058,11 @@ namespace cg::packet::receive
                 }
 
                 const std::int64_t maxValue = static_cast<std::int64_t>(std::numeric_limits<int>::max());
+                const std::int64_t minValue = static_cast<std::int64_t>(std::numeric_limits<int>::min());
+                const std::int64_t limit = negative ? (0 - minValue) : maxValue;
                 std::int64_t value = 0;
-                for (const char ch : text) {
+                for (; index < text.size(); ++index) {
+                    const char ch = text[index];
                     if (ch < '0' || ch > '9') {
                         return PacketResult<int>::Failure(MakeFieldError(
                             code,
@@ -17057,7 +17072,7 @@ namespace cg::packet::receive
                     }
 
                     const int digit = ch - '0';
-                    if (value > (maxValue - digit) / 10) {
+                    if (value > (limit - digit) / 10) {
                         return PacketResult<int>::Failure(MakeFieldError(
                             code,
                             PacketErrorCode::DecodeFailed,
@@ -17068,38 +17083,25 @@ namespace cg::packet::receive
                     value = (value * 10) + digit;
                 }
 
-                return PacketResult<int>::Success(static_cast<int>(value));
-            }
-
-            [[nodiscard]] static PacketResult<int> ValidateDecimalField(
-                int value,
-                std::size_t fieldIndex,
-                std::string_view code,
-                std::string_view packetName)
-            {
-                if (value < 0) {
-                    return PacketResult<int>::Failure(MakeFieldError(
-                        code,
-                        PacketErrorCode::EncodeFailed,
-                        MakeMessage(packetName, CG_PACKET_DIAGNOSTIC_TEXT("十进制字段不能为负")),
-                        fieldIndex));
+                if (negative) {
+                    value = -value;
                 }
 
-                return PacketResult<int>::Success(value);
+                return PacketResult<int>::Success(static_cast<int>(value));
             }
         };
     };
 
     /**
      * SEND_GPDI CHAR_sendCharAndPetList		nFV {data:es}
-     * data: `name|level|injury|hp|maxHp|forcePoint|maxForcePoint|`，0..6 条记录；name 保留 raw escaped 字符串。
+     * data: `name|level|injury|hp|maxHp|forcePoint|maxForcePoint|` 重复 0..6 条记录，固定尾随 `|`；name 使用单层 legacy 编解码。
      */
     struct ItemCharacterPetList
     {
         static constexpr std::string_view Code = "nFV";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
-            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::SubPayload},
         }};
         static constexpr PacketSpec Spec {
             Code,

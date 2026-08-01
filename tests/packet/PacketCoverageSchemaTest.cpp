@@ -2981,6 +2981,65 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "IsSy"),
         "IsSy present in receive typed manifest");
 
+    const PacketSchema* ridePetExtraDataSchema = FindPacket(packets, "AU");
+    failures += Expect(ridePetExtraDataSchema != nullptr, "AU schema exists");
+    if (ridePetExtraDataSchema != nullptr) {
+        const cg::packet::receive::RidePetExtraData ridePetExtraData(
+            2,
+            cg::packet::receive::RidePetExtraPayload::Clear());
+        const cg::packet::Packet packet = ridePetExtraData.ToPacket();
+        constexpr std::string_view resolvedSource = "ServerC+ClientIda+src/packet";
+        const std::array<std::string_view, 2U> names = {{"petIndex", "data"}};
+        const std::array<std::string_view, 2U> types = {{"i62", "es"}};
+        const std::array<std::string_view, 2U> specs = {{
+            "{petIndex:i62}",
+            "{data:es}",
+        }};
+
+        failures += Expect(ridePetExtraDataSchema->direction == "服务端->客户端", "AU direction");
+        failures += Expect(ridePetExtraDataSchema->legacyKind == "SEND", "AU legacyKind");
+        failures += Expect(ridePetExtraDataSchema->clientNamespace == "receive", "AU namespace");
+        failures += Expect(ridePetExtraDataSchema->rawFormat.empty(), "AU rawFormat empty");
+        failures += Expect(ridePetExtraDataSchema->formatEmpty, "AU formatEmpty true");
+        failures += Expect(ridePetExtraDataSchema->source == "xlsx", "AU raw source");
+        failures += Expect(ridePetExtraDataSchema->fields.empty(), "AU raw fields empty");
+        failures += Expect(ridePetExtraDataSchema->hasResolvedFormat, "AU resolvedFormat present");
+        failures += Expect(
+            ridePetExtraDataSchema->resolvedFormat == "{petIndex:i62} {data:es}",
+            "AU resolvedFormat");
+        failures += Expect(
+            ridePetExtraDataSchema->resolvedSource == resolvedSource,
+            "AU resolvedSource");
+        failures += Expect(ridePetExtraDataSchema->hasResolvedFields, "AU resolvedFields present");
+        failures += Expect(
+            ridePetExtraDataSchema->resolvedFields.size() == names.size(),
+            "AU resolved field count");
+        if (ridePetExtraDataSchema->resolvedFields.size() == names.size()) {
+            for (std::size_t index = 0; index < names.size(); ++index) {
+                const FieldSchema& field = ridePetExtraDataSchema->resolvedFields[index];
+                failures += Expect(field.index == static_cast<int>(index), "AU resolved field index");
+                failures += Expect(field.name == names[index], "AU resolved field name");
+                failures += Expect(field.typeToken == types[index], "AU resolved field type");
+                failures += Expect(field.rawSpec == specs[index], "AU resolved field spec");
+                failures += Expect(field.source == resolvedSource, "AU resolved field source");
+            }
+        }
+        failures += ExpectEffectiveFieldsMatch(
+            *ridePetExtraDataSchema,
+            cg::packet::receive::RidePetExtraData::Spec,
+            "AU Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(
+            *ridePetExtraDataSchema,
+            packet,
+            "AU resolved field order");
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "AU"),
+        "AU absent from send typed manifest");
+    failures += Expect(
+        TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "AU"),
+        "AU present in receive typed manifest");
+
     const PacketSchema* techListSchema = FindPacket(packets, "Rspn");
     failures += Expect(techListSchema != nullptr, "Rspn schema exists");
     if (techListSchema != nullptr) {

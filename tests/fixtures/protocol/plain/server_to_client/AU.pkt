@@ -1,0 +1,9 @@
+pkt_fixture=1
+code=AU
+direction=server_to_client
+sample=all-marker-nineteen-fields
+plain_hex=41 55 20 32 20 31 7C 31 30 7C 31 31 7C 31 32 7C 31 33 7C 31 34 7C 30 7C 30 7C 30 7C 30 7C 30 7C 30 7C 30 7C 30 7C 30 7C 30 7C 30 7C 30 7C 30 7C 35 7C
+canonical_hex=41 55 20 32 20 31 7C 31 30 7C 31 31 7C 31 32 7C 31 33 7C 31 34 7C 30 7C 30 7C 30 7C 30 7C 30 7C 30 7C 30 7C 30 7C 30 7C 30 7C 30 7C 30 7C 30 7C 35 7C 20
+payload_field=1
+payload_hex=31 7C 31 30 7C 31 31 7C 31 32 7C 31 33 7C 31 34 7C 30 7C 30 7C 30 7C 30 7C 30 7C 30 7C 30 7C 30 7C 30 7C 30 7C 30 7C 30 7C 30 7C 35 7C
+end_sample

@@ -127,9 +127,14 @@ int TestTypedRoundtrip()
     }
 
     failures += Expect(parsed.Value().message == "hello", "Zd message");
-    failures += ExpectSystemMessagePacket(parsed.Value().ToPacket(), "hello", "Zd ToPacket");
+    const cg::packet::PacketResult<cg::packet::Packet> packet = parsed.Value().ToPacket();
+    failures += Expect(static_cast<bool>(packet), "Zd ToPacket");
+    if (!packet.HasValue()) {
+        return failures;
+    }
+    failures += ExpectSystemMessagePacket(packet.Value(), "hello", "Zd ToPacket value");
 
-    const cg::packet::PacketResult<std::string> built = BuildPacket(parsed.Value().ToPacket());
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
     failures += Expect(static_cast<bool>(built), "build Zd packet");
     if (built.HasValue()) {
         failures += Expect(built.Value() == "Zd hello ", "roundtrip Zd packet");
@@ -140,9 +145,15 @@ int TestTypedRoundtrip()
 int TestEmptyMessage()
 {
     const cg::packet::receive::SystemMessage systemMessage("");
-    const cg::packet::PacketResult<std::string> built = BuildPacket(systemMessage.ToPacket());
+    const cg::packet::PacketResult<cg::packet::Packet> packet = systemMessage.ToPacket();
 
-    int failures = Expect(static_cast<bool>(built), "build Zd empty message");
+    int failures = Expect(static_cast<bool>(packet), "Zd empty ToPacket");
+    if (!packet.HasValue()) {
+        return failures;
+    }
+
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
+    failures += Expect(static_cast<bool>(built), "build Zd empty message");
     if (!built.HasValue()) {
         return failures;
     }
@@ -160,16 +171,28 @@ int TestEmptyMessage()
 
 int TestEscapedRoundtrip()
 {
-    const std::string message = "hello world\npath\\to\\z|tail";
+    const std::string message = "hello world\ncomma,pipe|slash\\tail";
     const cg::packet::receive::SystemMessage systemMessage(message);
-    const cg::packet::PacketResult<std::string> built = BuildPacket(systemMessage.ToPacket());
+    const cg::packet::PacketResult<cg::packet::Packet> packet = systemMessage.ToPacket();
 
-    int failures = Expect(static_cast<bool>(built), "build Zd escaped message");
+    int failures = Expect(static_cast<bool>(packet), "Zd legacy ToPacket");
+    if (!packet.HasValue()) {
+        return failures;
+    }
+    failures += ExpectSystemMessagePacket(
+        packet.Value(),
+        "hello world\\ncomma\\cpipe\\zslash\\ytail",
+        "Zd legacy ToPacket value");
+
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
+    failures += Expect(static_cast<bool>(built), "build Zd escaped message");
     if (!built.HasValue()) {
         return failures;
     }
 
-    failures += Expect(built.Value() == "Zd hello\\Sworld\\npath\\\\to\\\\z|tail ", "Zd escaped plain");
+    failures += Expect(
+        built.Value() == "Zd hello\\Sworld\\\\ncomma\\\\cpipe\\\\zslash\\\\ytail ",
+        "Zd escaped plain");
 
     const cg::packet::PacketResult<cg::packet::receive::SystemMessage> parsed =
         cg::packet::receive::SystemMessage::Parse(built.Value());
@@ -177,6 +200,96 @@ int TestEscapedRoundtrip()
     if (parsed.HasValue()) {
         failures += Expect(parsed.Value().message == message, "Zd escaped message value");
     }
+    return failures;
+}
+
+int TestLegacyGbkRoundtrip()
+{
+    std::string message;
+    message.append("\xC3\xFB\x81\x7C\x81\x5C", 6U);
+    message.append("A B|C,D\\E\nF");
+
+    std::string encodedMessage;
+    encodedMessage.append("\xC3\xFB\x81\x7C\x81\x5C", 6U);
+    encodedMessage.append("A B\\zC\\cD\\yE\\nF");
+
+    std::string canonical = "Zd ";
+    canonical.append("\xC3\xFB\x81\x7C\x81\x5C", 6U);
+    canonical.append("A\\SB\\\\zC\\\\cD\\\\yE\\\\nF ");
+
+    const cg::packet::receive::SystemMessage systemMessage(message);
+    const cg::packet::PacketResult<cg::packet::Packet> packet = systemMessage.ToPacket();
+    int failures = Expect(static_cast<bool>(packet), "Zd GBK ToPacket");
+    if (!packet.HasValue()) {
+        return failures;
+    }
+    failures += ExpectSystemMessagePacket(packet.Value(), encodedMessage, "Zd GBK ToPacket value");
+
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
+    failures += Expect(static_cast<bool>(built), "build Zd GBK message");
+    if (!built.HasValue()) {
+        return failures;
+    }
+    failures += Expect(built.Value() == canonical, "Zd GBK canonical");
+
+    const cg::packet::PacketResult<cg::packet::receive::SystemMessage> parsed =
+        cg::packet::receive::SystemMessage::Parse(canonical);
+    failures += Expect(static_cast<bool>(parsed), "parse Zd GBK message");
+    if (parsed.HasValue()) {
+        failures += Expect(parsed.Value().message == message, "Zd GBK message value");
+    }
+    return failures;
+}
+
+int TestLegacyCanonicalAndBusinessBoundary()
+{
+    int failures = 0;
+    const cg::packet::PacketResult<cg::packet::receive::SystemMessage> unknown =
+        cg::packet::receive::SystemMessage::Parse("Zd A\\\\q ");
+    failures += Expect(static_cast<bool>(unknown), "parse Zd unknown legacy escape");
+    if (unknown.HasValue()) {
+        failures += Expect(unknown.Value().message == "Aq", "Zd unknown legacy canonical value");
+        const cg::packet::PacketResult<cg::packet::Packet> packet = unknown.Value().ToPacket();
+        failures += Expect(static_cast<bool>(packet), "Zd unknown legacy ToPacket");
+        if (packet.HasValue()) {
+            const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
+            failures += Expect(static_cast<bool>(built), "build Zd unknown legacy message");
+            if (built.HasValue()) {
+                failures += Expect(built.Value() == "Zd Aq ", "Zd unknown legacy canonical");
+            }
+        }
+    }
+
+    constexpr std::string_view findLevelMessage = "@FIND_LV1@SE:278@MSG:hello";
+    const cg::packet::PacketResult<cg::packet::receive::SystemMessage> findLevel =
+        cg::packet::receive::SystemMessage::Parse("Zd @FIND_LV1@SE:278@MSG:hello ");
+    failures += Expect(static_cast<bool>(findLevel), "parse Zd FIND_LV1 message");
+    if (findLevel.HasValue()) {
+        failures += Expect(findLevel.Value().message == findLevelMessage, "Zd FIND_LV1 stays business text");
+    }
+    return failures;
+}
+
+int TestLegacyErrors()
+{
+    int failures = 0;
+    failures += ExpectError(
+        cg::packet::receive::SystemMessage::Parse("Zd tail\\\\ "),
+        cg::packet::PacketErrorCode::DecodeFailed,
+        "Zd",
+        true,
+        0U,
+        "reject Zd truncated inner legacy escape");
+
+    std::string truncatedGbk(1U, static_cast<char>(0x81));
+    const cg::packet::receive::SystemMessage systemMessage(std::move(truncatedGbk));
+    failures += ExpectError(
+        systemMessage.ToPacket(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        "Zd",
+        true,
+        0U,
+        "reject Zd truncated GBK build");
     return failures;
 }
 
@@ -282,6 +395,9 @@ int main()
     failures += TestTypedRoundtrip();
     failures += TestEmptyMessage();
     failures += TestEscapedRoundtrip();
+    failures += TestLegacyGbkRoundtrip();
+    failures += TestLegacyCanonicalAndBusinessBoundary();
+    failures += TestLegacyErrors();
     failures += TestParseErrors();
     failures += TestBuildErrors();
     if (failures != 0) {

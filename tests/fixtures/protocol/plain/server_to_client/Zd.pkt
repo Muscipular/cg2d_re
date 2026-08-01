@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=Zd
+direction=server_to_client
+sample=gbk-two-layer-legacy-outer-space
+plain_hex=5A 64 20 C3 FB 81 7C 81 5C 41 5C 53 42 5C 5C 7A 43 5C 5C 63 44 5C 5C 79 45 5C 5C 6E 46
+canonical_hex=5A 64 20 C3 FB 81 7C 81 5C 41 5C 53 42 5C 5C 7A 43 5C 5C 63 44 5C 5C 79 45 5C 5C 6E 46 20
+end_sample

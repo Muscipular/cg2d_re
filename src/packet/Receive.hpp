@@ -17909,7 +17909,8 @@ namespace cg::packet::receive
 
     /**
      * SEND_STK SYSTEMMSG 系统信息		Zd {message:es}
-     * message 仅按外层 es 处理，不拆二级 payload。
+     * message 在 outer es 后无条件按客户端 Unescape2 处理第二层 legacy 文本；
+     * @FIND_LV1/@SE:/@MSG: 属客户端 UI/音效业务约定，不下沉为结构化 payload。
      */
     struct SystemMessage
     {
@@ -17933,15 +17934,20 @@ namespace cg::packet::receive
         }
 
 #if CG_PACKET_ENABLE_TEST_HELPERS
-        [[nodiscard]] Packet ToPacket() const
+        [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
+            PacketResult<std::string> encoded = EncodeLegacyPayloadText(message);
+            if (!encoded.HasValue()) {
+                return PacketResult<Packet>::Failure(FillMessageError(encoded.Error()));
+            }
+
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("message"),
                 PacketFieldType::EscapedString,
-                message,
+                std::move(encoded.Value()),
             });
-            return packet;
+            return PacketResult<Packet>::Success(std::move(packet));
         }
 #endif
 
@@ -17987,12 +17993,24 @@ namespace cg::packet::receive
                 return PacketResult<SystemMessage>::Failure(std::move(error));
             }
 
-            return PacketResult<SystemMessage>::Success(SystemMessage(field.value));
+            PacketResult<std::string> decoded = DecodeLegacyPayloadText(field.value);
+            if (!decoded.HasValue()) {
+                return PacketResult<SystemMessage>::Failure(FillMessageError(decoded.Error()));
+            }
+
+            return PacketResult<SystemMessage>::Success(SystemMessage(std::move(decoded.Value())));
         }
 
     private:
         static constexpr std::size_t FieldCount = 1U;
         static constexpr std::size_t MessageFieldIndex = 0U;
+
+        [[nodiscard]] static PacketError FillMessageError(PacketError error)
+        {
+            error.packetCode = PacketCode(Code);
+            error.fieldIndex = MessageFieldIndex;
+            return error;
+        }
     };
 
     /**

@@ -1,9 +1,13 @@
 #include "packet/PacketBuilder.hpp"
 #include "packet/Receive.hpp"
 
+#include <array>
+#include <initializer_list>
 #include <iostream>
+#include <span>
 #include <string>
 #include <string_view>
+#include <vector>
 
 namespace {
 
@@ -51,6 +55,48 @@ int ExpectError(
     return failures;
 }
 
+template <typename T>
+int ExpectFieldError(
+    const cg::packet::PacketResult<T>& result,
+    cg::packet::PacketErrorCode code,
+    std::string_view packetCode,
+    std::size_t fieldIndex,
+    const char* message)
+{
+    int failures = ExpectError(result, code, packetCode, message);
+    if (result.HasError()) {
+        failures += Expect(result.Error().fieldIndex.has_value(), message);
+        if (result.Error().fieldIndex.has_value()) {
+            failures += Expect(result.Error().fieldIndex.value() == fieldIndex, message);
+        }
+    }
+    return failures;
+}
+
+std::string Bytes(std::initializer_list<unsigned int> values)
+{
+    std::string output;
+    output.reserve(values.size());
+    for (const unsigned int value : values) {
+        output.push_back(static_cast<char>(value));
+    }
+    return output;
+}
+
+std::string SemanticText(std::initializer_list<unsigned int> prefix, std::string_view suffix)
+{
+    std::string value = Bytes(prefix);
+    value.append(suffix);
+    return value;
+}
+
+std::string EncodedText(std::initializer_list<unsigned int> prefix, std::string_view suffix)
+{
+    std::string value = Bytes(prefix);
+    value.append(suffix);
+    return value;
+}
+
 std::string BuildPlain(std::string_view payload)
 {
     const cg::packet::PacketResult<std::string> encoded = cg::packet::EncodeEscapedString(payload);
@@ -65,24 +111,24 @@ std::string BuildPlain(std::string_view payload)
     return plain;
 }
 
-std::string BuildRawPlain(std::string_view payload)
-{
-    std::string plain(GuildInfo::Code);
-    plain.push_back(' ');
-    plain.append(payload);
-    plain.push_back(' ');
-    return plain;
-}
-
 std::string EncodeFlag(int flag)
 {
     const cg::packet::PacketResult<std::string> encoded = cg::packet::EncodeInt62(flag);
     return encoded.HasValue() ? encoded.Value() : std::string();
 }
 
+std::string JoinPayload(const std::vector<std::string>& parts)
+{
+    const cg::packet::PacketResult<std::string> payload = cg::packet::BuildPayload(
+        std::span<const std::string>(parts.data(), parts.size()),
+        GuildInfo::PayloadDelimiter);
+    return payload.HasValue() ? payload.Value() : std::string();
+}
+
 int ExpectGuildInfoPacket(
     const cg::packet::Packet& packet,
     std::string_view payload,
+    cg::packet::PacketFieldType payloadType,
     const char* message)
 {
     int failures = 0;
@@ -94,8 +140,21 @@ int ExpectGuildInfoPacket(
     }
 
     failures += Expect(packet.fields[0].name == "data", message);
-    failures += Expect(packet.fields[0].type == cg::packet::PacketFieldType::EscapedString, message);
+    failures += Expect(packet.fields[0].type == payloadType, message);
     failures += Expect(packet.fields[0].value == payload, message);
+    return failures;
+}
+
+int ExpectGuildInfoPacket(
+    const cg::packet::PacketResult<cg::packet::Packet>& packet,
+    std::string_view payload,
+    cg::packet::PacketFieldType payloadType,
+    const char* message)
+{
+    int failures = Expect(static_cast<bool>(packet), message);
+    if (packet.HasValue()) {
+        failures += ExpectGuildInfoPacket(packet.Value(), payload, payloadType, message);
+    }
     return failures;
 }
 
@@ -142,7 +201,11 @@ int TestParsePacketOuter()
 
     int failures = Expect(static_cast<bool>(parsed), "parse aDn outer");
     if (parsed.HasValue()) {
-        failures += ExpectGuildInfoPacket(parsed.Value(), "0|", "parse aDn outer packet");
+        failures += ExpectGuildInfoPacket(
+            parsed.Value(),
+            "0|",
+            cg::packet::PacketFieldType::EscapedString,
+            "parse aDn outer packet");
     }
     return failures;
 }
@@ -174,7 +237,11 @@ int TestFullFieldsRoundtrip()
     if (!packet.HasValue()) {
         return failures;
     }
-    failures += ExpectGuildInfoPacket(packet.Value(), payload, "aDn full packet");
+    failures += ExpectGuildInfoPacket(
+        packet.Value(),
+        payload,
+        cg::packet::PacketFieldType::SubPayload,
+        "aDn full packet");
 
     const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
     failures += Expect(static_cast<bool>(built), "build aDn full packet");
@@ -233,31 +300,73 @@ int TestGuildIdNegativeOne()
     return failures;
 }
 
-int TestRawEscapePreserved()
+int TestLegacyTextRoundtrip()
 {
-    const std::string payload = "4|A\\zB\\cC\\yD\\nE|";
-    const cg::packet::PacketResult<GuildInfo> parsed = GuildInfo::Parse(BuildRawPlain(payload));
+    const std::string guildName = SemanticText({0xC3, 0xFB, 0x96, 0x7C}, "A|B,C\\D\nE");
+    const std::string roomName = SemanticText({0xB7, 0xBF, 0x96, 0x5C}, "F\nG,H|I\\J");
+    const std::string breeding0 = SemanticText({0xD1, 0xF8, 0x96, 0x7C}, "K|L,M\\N\nO");
+    const std::string breeding1 = SemanticText({0xD6, 0xB3, 0x96, 0x5C}, "P\nQ,R|S\\T");
+    const std::string breeding2 = SemanticText({0xC9, 0xFA, 0x96, 0x7C}, "U|V,W\\X\nY");
+    const std::string encodedGuildName = EncodedText({0xC3, 0xFB, 0x96, 0x7C}, "A\\zB\\cC\\yD\\nE");
+    const std::string encodedRoomName = EncodedText({0xB7, 0xBF, 0x96, 0x5C}, "F\\nG\\cH\\zI\\yJ");
+    const std::string encodedBreeding0 = EncodedText({0xD1, 0xF8, 0x96, 0x7C}, "K\\zL\\cM\\yN\\nO");
+    const std::string encodedBreeding1 = EncodedText({0xD6, 0xB3, 0x96, 0x5C}, "P\\nQ\\cR\\zS\\yT");
+    const std::string encodedBreeding2 = EncodedText({0xC9, 0xFA, 0x96, 0x7C}, "U\\zV\\cW\\yX\\nY");
 
-    int failures = Expect(static_cast<bool>(parsed), "parse aDn raw escape");
+    std::string payload = "1|123|";
+    payload.append(encodedGuildName);
+    payload.push_back('|');
+    payload.append(encodedRoomName);
+    payload.append("|5|6|7|8|9|");
+    payload.append(encodedBreeding0);
+    payload.push_back('|');
+    payload.append(encodedBreeding1);
+    payload.push_back('|');
+    payload.append(encodedBreeding2);
+    payload.append("|10|");
+
+    const cg::packet::PacketResult<GuildInfo> parsed = GuildInfo::Parse(BuildPlain(payload));
+
+    int failures = Expect(static_cast<bool>(parsed), "parse aDn five legacy text fields");
     if (!parsed.HasValue()) {
         return failures;
     }
 
-    failures += Expect(parsed.Value().guildNameRaw.has_value(), "aDn raw escape guildName present");
-    if (parsed.Value().guildNameRaw.has_value()) {
-        failures += Expect(parsed.Value().guildNameRaw.value() == "A\\zB\\cC\\yD\\nE", "aDn raw escape value");
+    failures += Expect(
+        parsed.Value().guildNameRaw.has_value() && parsed.Value().guildNameRaw.value() == guildName,
+        "aDn guildName semantic value");
+    failures += Expect(
+        parsed.Value().roomNameRaw.has_value() && parsed.Value().roomNameRaw.value() == roomName,
+        "aDn roomName semantic value");
+    failures += Expect(
+        parsed.Value().breeding0Raw.has_value() && parsed.Value().breeding0Raw.value() == breeding0,
+        "aDn breeding0 semantic value");
+    failures += Expect(
+        parsed.Value().breeding1Raw.has_value() && parsed.Value().breeding1Raw.value() == breeding1,
+        "aDn breeding1 semantic value");
+    failures += Expect(
+        parsed.Value().breeding2Raw.has_value() && parsed.Value().breeding2Raw.value() == breeding2,
+        "aDn breeding2 semantic value");
+
+    const cg::packet::PacketResult<std::string> data = parsed.Value().BuildData();
+    failures += Expect(data.HasValue(), "aDn five legacy BuildData");
+    if (data.HasValue()) {
+        failures += Expect(data.Value() == payload, "aDn five legacy canonical payload");
     }
 
     const cg::packet::PacketResult<cg::packet::Packet> packet = parsed.Value().ToPacket();
-    failures += Expect(static_cast<bool>(packet), "aDn raw escape ToPacket");
+    failures += ExpectGuildInfoPacket(
+        packet,
+        payload,
+        cg::packet::PacketFieldType::SubPayload,
+        "aDn five legacy ToPacket SubPayload");
     if (!packet.HasValue()) {
         return failures;
     }
-
     const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
-    failures += Expect(static_cast<bool>(built), "aDn raw escape BuildPacket");
+    failures += Expect(static_cast<bool>(built), "aDn five legacy BuildPacket");
     if (built.HasValue()) {
-        failures += Expect(built.Value() == "aDn 4|A\\\\zB\\\\cC\\\\yD\\\\nE| ", "aDn raw escape BuildPacket value");
+        failures += Expect(built.Value() == BuildPlain(payload), "aDn five legacy BuildPacket value");
     }
     return failures;
 }
@@ -295,6 +404,58 @@ int TestPayloadErrors()
         cg::packet::PacketErrorCode::DecodeFailed,
         "aDn",
         "aDn unknown flag bit");
+    return failures;
+}
+
+int TestLegacyTextErrors()
+{
+    int failures = 0;
+    const std::vector<std::string> validParts = {
+        "1", "123", "Guild", "Room", "5", "6", "7", "8", "9", "Breed0", "Breed1", "Breed2", "10", "",
+    };
+    const std::array<std::size_t, 5U> textFieldIndices = {2U, 3U, 9U, 10U, 11U};
+
+    for (const std::size_t fieldIndex : textFieldIndices) {
+        std::vector<std::string> parts = validParts;
+        parts[fieldIndex] = "truncated\\";
+        failures += ExpectFieldError(
+            GuildInfo::Parse(BuildPlain(JoinPayload(parts))),
+            cg::packet::PacketErrorCode::DecodeFailed,
+            "aDn",
+            fieldIndex,
+            "aDn truncated inner legacy text");
+    }
+
+    for (const std::size_t fieldIndex : textFieldIndices) {
+        GuildInfo invalid = MakeFullGuildInfo();
+        if (fieldIndex == 2U) {
+            invalid.guildNameRaw = Bytes({0x96});
+        } else if (fieldIndex == 3U) {
+            invalid.roomNameRaw = Bytes({0x96});
+        } else if (fieldIndex == 9U) {
+            invalid.breeding0Raw = Bytes({0x96});
+        } else if (fieldIndex == 10U) {
+            invalid.breeding1Raw = Bytes({0x96});
+        } else {
+            invalid.breeding2Raw = Bytes({0x96});
+        }
+
+        failures += ExpectFieldError(
+            invalid.BuildData(),
+            cg::packet::PacketErrorCode::EncodeFailed,
+            "aDn",
+            fieldIndex,
+            "aDn truncated semantic GBK text");
+    }
+
+    GuildInfo invalidPacket = MakeFullGuildInfo();
+    invalidPacket.guildNameRaw = Bytes({0x96});
+    failures += ExpectFieldError(
+        invalidPacket.ToPacket(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        "aDn",
+        2U,
+        "aDn ToPacket propagates text encode error");
     return failures;
 }
 
@@ -337,8 +498,9 @@ int main()
     failures += TestFullFieldsRoundtrip();
     failures += TestSingleFieldsAndEmpty();
     failures += TestGuildIdNegativeOne();
-    failures += TestRawEscapePreserved();
+    failures += TestLegacyTextRoundtrip();
     failures += TestPayloadErrors();
+    failures += TestLegacyTextErrors();
     failures += TestOuterAndBuildErrors();
     if (failures != 0) {
         std::cerr << failures << " checks failed\n";

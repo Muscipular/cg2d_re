@@ -22733,16 +22733,16 @@ namespace cg::packet::receive
 
         int flag = 0;
         std::optional<int> guildId;
-        std::optional<std::string> guildNameRaw;
-        std::optional<std::string> roomNameRaw;
+        std::optional<std::string> guildNameRaw; // 历史 Raw 命名；值为单层 legacy 解码后的 GBK 语义字节。
+        std::optional<std::string> roomNameRaw; // 历史 Raw 命名；值为单层 legacy 解码后的 GBK 语义字节。
         std::optional<int> titleId;
         std::optional<int> lastUpdate;
         std::optional<int> sortType;
         std::optional<int> serverNo;
         std::optional<int> commition;
-        std::optional<std::string> breeding0Raw;
-        std::optional<std::string> breeding1Raw;
-        std::optional<std::string> breeding2Raw;
+        std::optional<std::string> breeding0Raw; // 历史 Raw 命名；值为单层 legacy 解码后的 GBK 语义字节。
+        std::optional<std::string> breeding1Raw; // 历史 Raw 命名；值为单层 legacy 解码后的 GBK 语义字节。
+        std::optional<std::string> breeding2Raw; // 历史 Raw 命名；值为单层 legacy 解码后的 GBK 语义字节。
         std::optional<int> registSeqNumber;
 
         GuildInfo() = default;
@@ -22829,8 +22829,8 @@ namespace cg::packet::receive
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("data"),
-                PacketFieldType::EscapedString,
-                data.Value(),
+                PacketFieldType::SubPayload,
+                std::move(data.Value()),
             });
             return PacketResult<Packet>::Success(std::move(packet));
         }
@@ -22961,7 +22961,15 @@ namespace cg::packet::receive
                 return MakeFieldError(PacketErrorCode::EncodeFailed, std::move(message), parts.size());
             }
 
-            parts.push_back(value.value());
+            PacketResult<std::string> encoded = EncodeLegacyPayloadText(value.value());
+            if (!encoded.HasValue()) {
+                PacketError error = encoded.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = parts.size();
+                return error;
+            }
+
+            parts.push_back(std::move(encoded.Value()));
             return std::nullopt;
         }
 
@@ -23009,11 +23017,19 @@ namespace cg::packet::receive
                 ++payloadIndex;
             }
             if (IsFieldSelected(info.flag, GuildNameFlag)) {
-                info.guildNameRaw = std::move(parts[payloadIndex]);
+                PacketResult<std::string> value = ParseTextField(parts[payloadIndex], payloadIndex);
+                if (!value.HasValue()) {
+                    return PacketResult<GuildInfo>::Failure(value.Error());
+                }
+                info.guildNameRaw = std::move(value.Value());
                 ++payloadIndex;
             }
             if (IsFieldSelected(info.flag, RoomNameFlag)) {
-                info.roomNameRaw = std::move(parts[payloadIndex]);
+                PacketResult<std::string> value = ParseTextField(parts[payloadIndex], payloadIndex);
+                if (!value.HasValue()) {
+                    return PacketResult<GuildInfo>::Failure(value.Error());
+                }
+                info.roomNameRaw = std::move(value.Value());
                 ++payloadIndex;
             }
             if (IsFieldSelected(info.flag, TitleIdFlag)) {
@@ -23057,15 +23073,27 @@ namespace cg::packet::receive
                 ++payloadIndex;
             }
             if (IsFieldSelected(info.flag, Breeding0Flag)) {
-                info.breeding0Raw = std::move(parts[payloadIndex]);
+                PacketResult<std::string> value = ParseTextField(parts[payloadIndex], payloadIndex);
+                if (!value.HasValue()) {
+                    return PacketResult<GuildInfo>::Failure(value.Error());
+                }
+                info.breeding0Raw = std::move(value.Value());
                 ++payloadIndex;
             }
             if (IsFieldSelected(info.flag, Breeding1Flag)) {
-                info.breeding1Raw = std::move(parts[payloadIndex]);
+                PacketResult<std::string> value = ParseTextField(parts[payloadIndex], payloadIndex);
+                if (!value.HasValue()) {
+                    return PacketResult<GuildInfo>::Failure(value.Error());
+                }
+                info.breeding1Raw = std::move(value.Value());
                 ++payloadIndex;
             }
             if (IsFieldSelected(info.flag, Breeding2Flag)) {
-                info.breeding2Raw = std::move(parts[payloadIndex]);
+                PacketResult<std::string> value = ParseTextField(parts[payloadIndex], payloadIndex);
+                if (!value.HasValue()) {
+                    return PacketResult<GuildInfo>::Failure(value.Error());
+                }
+                info.breeding2Raw = std::move(value.Value());
                 ++payloadIndex;
             }
             if (IsFieldSelected(info.flag, RegistSeqNumberFlag)) {
@@ -23077,6 +23105,20 @@ namespace cg::packet::receive
             }
 
             return PacketResult<GuildInfo>::Success(std::move(info));
+        }
+
+        [[nodiscard]] static PacketResult<std::string> ParseTextField(
+            std::string_view text,
+            std::size_t fieldIndex)
+        {
+            PacketResult<std::string> decoded = DecodeLegacyPayloadText(text);
+            if (!decoded.HasValue()) {
+                PacketError error = decoded.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = fieldIndex;
+                return PacketResult<std::string>::Failure(std::move(error));
+            }
+            return decoded;
         }
 
         [[nodiscard]] static PacketResult<int> ParseFlagField(std::string_view text)

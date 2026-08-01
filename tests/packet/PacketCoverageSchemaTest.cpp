@@ -10758,18 +10758,80 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     const PacketSchema* chatMessageSchema = FindPacket(packets, "zdr");
     failures += Expect(chatMessageSchema != nullptr, "zdr schema exists");
     if (chatMessageSchema != nullptr) {
+        cg::packet::receive::ChatMessagePayload payload;
+        payload.textRaw = "message";
+        const cg::packet::receive::ChatMessage chatMessage(-1, std::move(payload), 4, 16);
+        const cg::packet::PacketResult<cg::packet::Packet> packet = chatMessage.ToPacket();
         failures += Expect(chatMessageSchema->direction == "服务端->客户端", "zdr direction");
         failures += Expect(chatMessageSchema->legacyKind == "SEND", "zdr legacyKind");
+        failures += Expect(chatMessageSchema->clientNamespace == "receive", "zdr namespace");
+        failures += Expect(chatMessageSchema->xlsxStatus == "完成", "zdr xlsxStatus");
+        failures += Expect(chatMessageSchema->description == "SEND_TK", "zdr description");
         failures += Expect(chatMessageSchema->rawFormat.empty(), "zdr rawFormat empty");
         failures += Expect(chatMessageSchema->formatEmpty, "zdr formatEmpty");
+        failures += Expect(chatMessageSchema->source == "xlsx", "zdr raw source");
+        failures += Expect(chatMessageSchema->fields.empty(), "zdr raw fields empty");
+        failures += Expect(chatMessageSchema->hasResolvedFormat, "zdr resolvedFormat present");
         failures += Expect(
             chatMessageSchema->resolvedFormat == "{objectIndex:i62} {message:es} {color:i62} {fontSize:i62}",
             "zdr resolvedFormat");
         failures += Expect(
             chatMessageSchema->resolvedSource == "ServerC+ClientIda+src",
             "zdr resolvedSource");
-        failures += Expect(chatMessageSchema->fields.empty(), "zdr raw fields empty");
+        failures += Expect(chatMessageSchema->hasResolvedFields, "zdr resolvedFields present");
+        failures += Expect(chatMessageSchema->resolvedFields.size() == 4U, "zdr resolved field count");
+        if (chatMessageSchema->resolvedFields.size() == 4U) {
+            constexpr std::array<std::string_view, 4U> Names = {
+                "objectIndex",
+                "message",
+                "color",
+                "fontSize",
+            };
+            constexpr std::array<std::string_view, 4U> Types = {
+                "i62",
+                "es",
+                "i62",
+                "i62",
+            };
+            constexpr std::array<std::string_view, 4U> RawSpecs = {
+                "{objectIndex:i62}",
+                "{message:es}",
+                "{color:i62}",
+                "{fontSize:i62}",
+            };
+            for (std::size_t index = 0U; index < Names.size(); ++index) {
+                const FieldSchema& field = chatMessageSchema->resolvedFields[index];
+                failures += Expect(
+                    field.index == index &&
+                        field.name == Names[index] &&
+                        field.typeToken == Types[index] &&
+                        field.rawSpec == RawSpecs[index] &&
+                        field.source == "ServerC+ClientIda+src",
+                    "zdr resolved field");
+            }
+        }
+        failures += ExpectEffectiveFieldsMatch(
+            *chatMessageSchema,
+            cg::packet::receive::ChatMessage::Spec,
+            "zdr Spec matches effective fields");
+        failures += Expect(packet.HasValue(), "zdr ToPacket");
+        if (packet.HasValue()) {
+            failures += Expect(
+                packet.Value().fields.size() == 4U &&
+                    packet.Value().fields[1].type == cg::packet::PacketFieldType::SubPayload,
+                "zdr ToPacket payload type");
+            failures += ExpectResolvedFieldsMatch(
+                *chatMessageSchema,
+                packet.Value(),
+                "zdr ToPacket field order");
+        }
     }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "zdr"),
+        "zdr absent from send typed manifest");
+    failures += Expect(
+        TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "zdr"),
+        "zdr present in receive typed manifest");
 
     const PacketSchema* windowPacketSchema = FindPacket(packets, "BZ");
     failures += Expect(windowPacketSchema != nullptr, "BZ schema exists");

@@ -19445,12 +19445,14 @@ namespace cg::packet::receive
 
     struct ChatMessagePayload
     {
+        // 历史字段名保留；值为单层 legacy 解码后的 GBK 语义字节。
         std::string textRaw;
     };
 
     /**
      * SEND_TK 聊天消息		zdr {objectIndex:i62} {message:es} {color:i62} {fontSize:i62}
-     * message: `P|textRaw`，textRaw 保留 raw escaped 内容，不做业务显示还原。
+     * message 接受 `P|textLegacyEscaped` 与活动 producer 的 `P:|textLegacyEscaped`，
+     * 构建时统一输出 `P|textLegacyEscaped`。
      */
     struct ChatMessage
     {
@@ -19483,17 +19485,42 @@ namespace cg::packet::receive
         {
         }
 
-        [[nodiscard]] std::string BuildMessage() const
+        [[nodiscard]] PacketResult<std::string> BuildMessage() const
         {
-            std::string message = "P|";
-            message.append(payload.textRaw);
+            PacketResult<std::string> encodedText = EncodeLegacyPayloadText(payload.textRaw);
+            if (!encodedText.HasValue()) {
+                PacketError error = encodedText.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = MessageFieldIndex;
+                return PacketResult<std::string>::Failure(std::move(error));
+            }
+
+            std::array<std::string, PayloadFieldCount> parts = {
+                "P",
+                std::move(encodedText.Value()),
+            };
+            PacketResult<std::string> message = BuildPayload(
+                std::span<const std::string>(parts.data(), parts.size()),
+                PayloadDelimiter);
+            if (!message.HasValue()) {
+                PacketError error = message.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = MessageFieldIndex;
+                return PacketResult<std::string>::Failure(std::move(error));
+            }
             return message;
         }
 
 #if CG_PACKET_ENABLE_TEST_HELPERS
-        [[nodiscard]] Packet ToPacket() const
+        [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
+            PacketResult<std::string> message = BuildMessage();
+            if (!message.HasValue()) {
+                return PacketResult<Packet>::Failure(message.Error());
+            }
+
             Packet packet(PacketCode(Code), Direction);
+            packet.fields.reserve(FieldCount);
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("objectIndex"),
                 PacketFieldType::Int62,
@@ -19501,8 +19528,8 @@ namespace cg::packet::receive
             });
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("message"),
-                PacketFieldType::EscapedString,
-                BuildMessage(),
+                PacketFieldType::SubPayload,
+                std::move(message.Value()),
             });
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("color"),
@@ -19514,7 +19541,7 @@ namespace cg::packet::receive
                 PacketFieldType::Int62,
                 std::to_string(fontSize),
             });
-            return packet;
+            return PacketResult<Packet>::Success(std::move(packet));
         }
 #endif
 
@@ -19634,7 +19661,8 @@ namespace cg::packet::receive
 
         [[nodiscard]] static PacketResult<ChatMessagePayload> ParseMessage(std::string_view message)
         {
-            PacketResult<std::vector<std::string>> split = SplitPayload(message, PayloadDelimiter);
+            PacketResult<std::vector<std::string>> split =
+                SplitPayloadLegacyAware(message, PayloadDelimiter);
             if (!split.HasValue()) {
                 PacketError error = split.Error();
                 error.packetCode = PacketCode(Code);
@@ -19650,15 +19678,23 @@ namespace cg::packet::receive
                     MessageFieldIndex));
             }
 
-            if (parts[MarkerPayloadIndex] != "P") {
+            if (parts[MarkerPayloadIndex] != "P" && parts[MarkerPayloadIndex] != "P:") {
                 return PacketResult<ChatMessagePayload>::Failure(MakeFieldError(
                     PacketErrorCode::DecodeFailed,
-                    CG_PACKET_DIAGNOSTIC_TEXT("ChatMessage payload marker 必须为 P"),
+                    CG_PACKET_DIAGNOSTIC_TEXT("ChatMessage payload marker 必须为 P 或 P:"),
                     MessageFieldIndex));
             }
 
+            PacketResult<std::string> text = DecodeLegacyPayloadText(parts[TextPayloadIndex]);
+            if (!text.HasValue()) {
+                PacketError error = text.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = MessageFieldIndex;
+                return PacketResult<ChatMessagePayload>::Failure(std::move(error));
+            }
+
             ChatMessagePayload payload;
-            payload.textRaw = parts[TextPayloadIndex];
+            payload.textRaw = std::move(text.Value());
             return PacketResult<ChatMessagePayload>::Success(std::move(payload));
         }
 

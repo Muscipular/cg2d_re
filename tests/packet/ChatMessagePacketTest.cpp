@@ -92,6 +92,30 @@ cg::packet::Packet PacketOf(
     return packet;
 }
 
+std::string Bytes(std::initializer_list<unsigned char> bytes)
+{
+    std::string value;
+    value.reserve(bytes.size());
+    for (const unsigned char byte : bytes) {
+        value.push_back(static_cast<char>(byte));
+    }
+    return value;
+}
+
+std::string SemanticText()
+{
+    std::string text = Bytes({0xC3, 0xFB, 0x96, 0x7C});
+    text.append("A|B,C\\D\nE");
+    return text;
+}
+
+std::string EncodedText()
+{
+    std::string text = Bytes({0xC3, 0xFB, 0x96, 0x7C});
+    text.append("A\\zB\\cC\\yD\\nE");
+    return text;
+}
+
 std::string BuildPlainZdr(
     std::string_view message,
     std::string_view objectIndex = "-1",
@@ -138,6 +162,7 @@ int ExpectChatPacket(
     std::string_view message,
     std::string_view color,
     std::string_view fontSize,
+    cg::packet::PacketFieldType messageType,
     const char* label)
 {
     int failures = 0;
@@ -149,7 +174,7 @@ int ExpectChatPacket(
     }
 
     failures += ExpectField(packet, 0U, "objectIndex", cg::packet::PacketFieldType::Int62, objectIndex, label);
-    failures += ExpectField(packet, 1U, "message", cg::packet::PacketFieldType::EscapedString, message, label);
+    failures += ExpectField(packet, 1U, "message", messageType, message, label);
     failures += ExpectField(packet, 2U, "color", cg::packet::PacketFieldType::Int62, color, label);
     failures += ExpectField(packet, 3U, "fontSize", cg::packet::PacketFieldType::Int62, fontSize, label);
     return failures;
@@ -168,7 +193,13 @@ int ExpectChatMessage(
     failures += Expect(value.payload.textRaw == textRaw, message);
     failures += Expect(value.color == color, message);
     failures += Expect(value.fontSize == fontSize, message);
-    failures += Expect(value.BuildMessage() == std::string("P|").append(textRaw), message);
+    const cg::packet::PacketResult<std::string> encoded = cg::packet::EncodeLegacyPayloadText(textRaw);
+    const cg::packet::PacketResult<std::string> built = value.BuildMessage();
+    failures += Expect(encoded.HasValue(), message);
+    failures += Expect(built.HasValue(), message);
+    if (encoded.HasValue() && built.HasValue()) {
+        failures += Expect(built.Value() == std::string("P|").append(encoded.Value()), message);
+    }
     return failures;
 }
 
@@ -179,7 +210,14 @@ int TestSuggestedPacket()
 
     int failures = Expect(static_cast<bool>(parsed), "parse zdr suggested packet");
     if (parsed.HasValue()) {
-        failures += ExpectChatPacket(parsed.Value(), "-1", "P|hello", "4", "16", "zdr suggested packet fields");
+        failures += ExpectChatPacket(
+            parsed.Value(),
+            "-1",
+            "P|hello",
+            "4",
+            "16",
+            cg::packet::PacketFieldType::EscapedString,
+            "zdr suggested packet fields");
     }
 
     const cg::packet::PacketResult<cg::packet::receive::ChatMessage> typed =
@@ -194,9 +232,23 @@ int TestSuggestedPacket()
 int TestBuildRoundtrip()
 {
     const cg::packet::receive::ChatMessage message(-1, Payload("hello"), 4, 16);
-    const cg::packet::PacketResult<std::string> built = BuildPacket(message.ToPacket());
+    const cg::packet::PacketResult<cg::packet::Packet> packet = message.ToPacket();
 
-    int failures = Expect(static_cast<bool>(built), "build zdr packet");
+    int failures = Expect(packet.HasValue(), "zdr ToPacket");
+    if (!packet.HasValue()) {
+        return failures;
+    }
+    failures += ExpectChatPacket(
+        packet.Value(),
+        "-1",
+        "P|hello",
+        "4",
+        "16",
+        cg::packet::PacketFieldType::SubPayload,
+        "zdr ToPacket fields");
+
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
+    failures += Expect(static_cast<bool>(built), "build zdr packet");
     if (!built.HasValue()) {
         return failures;
     }
@@ -224,7 +276,12 @@ int TestSpaceTextRoundtrip()
 
     failures += ExpectChatMessage(parsed.Value(), -1, "hello world", 4, 16, "zdr space text values");
 
-    const cg::packet::PacketResult<std::string> built = BuildPacket(parsed.Value().ToPacket());
+    const cg::packet::PacketResult<cg::packet::Packet> packet = parsed.Value().ToPacket();
+    failures += Expect(packet.HasValue(), "zdr space ToPacket");
+    if (!packet.HasValue()) {
+        return failures;
+    }
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
     failures += Expect(static_cast<bool>(built), "build zdr space text");
     if (built.HasValue()) {
         failures += Expect(built.Value() == "zdr -1 P|hello\\Sworld 4 g ", "zdr space text plain");
@@ -232,39 +289,55 @@ int TestSpaceTextRoundtrip()
     return failures;
 }
 
-int TestInternalEscapesPreserved()
+int TestLegacyRoundtrip()
 {
-    const std::string textRaw = R"(name\zmsg\cmark\ybell\nliteral)";
-    const cg::packet::receive::ChatMessage message(-1, Payload(textRaw), 4, 16);
-    const cg::packet::PacketResult<std::string> built = BuildPacket(message.ToPacket());
+    const cg::packet::receive::ChatMessage message(-1, Payload(SemanticText()), 4, 16);
+    const cg::packet::PacketResult<cg::packet::Packet> packet = message.ToPacket();
 
-    int failures = Expect(static_cast<bool>(built), "build zdr internal escapes");
+    int failures = Expect(packet.HasValue(), "zdr legacy ToPacket");
+    if (!packet.HasValue()) {
+        return failures;
+    }
+    failures += ExpectChatPacket(
+        packet.Value(),
+        "-1",
+        std::string("P|").append(EncodedText()),
+        "4",
+        "16",
+        cg::packet::PacketFieldType::SubPayload,
+        "zdr legacy ToPacket fields");
+
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
+    failures += Expect(built.HasValue(), "build zdr legacy text");
     if (!built.HasValue()) {
         return failures;
     }
-
-    failures += Expect(
-        built.Value() == "zdr -1 P|name\\\\zmsg\\\\cmark\\\\ybell\\\\nliteral 4 g ",
-        "zdr internal escapes plain");
+    failures += Expect(built.Value() == BuildPlainZdr(std::string("P|").append(EncodedText())), "zdr legacy plain");
 
     const cg::packet::PacketResult<cg::packet::receive::ChatMessage> parsed =
         cg::packet::receive::ChatMessage::Parse(built.Value());
-    failures += Expect(static_cast<bool>(parsed), "parse zdr internal escapes");
+    failures += Expect(static_cast<bool>(parsed), "parse zdr legacy text");
     if (parsed.HasValue()) {
-        failures += ExpectChatMessage(parsed.Value(), -1, textRaw, 4, 16, "zdr internal escapes preserved");
+        failures += ExpectChatMessage(parsed.Value(), -1, SemanticText(), 4, 16, "zdr legacy semantic text");
     }
     return failures;
 }
 
-int TestRawEscapesPreserved()
+int TestActivePColon()
 {
-    const std::string textRaw = R"(name\zmsg\cmark\ybell\nliteral)";
     const cg::packet::PacketResult<cg::packet::receive::ChatMessage> parsed =
-        cg::packet::receive::ChatMessage::Parse("zdr -1 P|name\\zmsg\\cmark\\ybell\\nliteral 4 g ");
+        cg::packet::receive::ChatMessage::Parse(
+            BuildPlainZdr(std::string("P:|").append(EncodedText())));
 
-    int failures = Expect(static_cast<bool>(parsed), "parse zdr raw escapes");
+    int failures = Expect(static_cast<bool>(parsed), "parse zdr active P colon");
     if (parsed.HasValue()) {
-        failures += Expect(parsed.Value().payload.textRaw == textRaw, "zdr raw escapes preserved");
+        failures += ExpectChatMessage(
+            parsed.Value(),
+            -1,
+            SemanticText(),
+            4,
+            16,
+            "zdr active P colon semantic text");
     }
     return failures;
 }
@@ -280,7 +353,12 @@ int TestEmptyText()
     }
 
     const cg::packet::receive::ChatMessage message(-1, Payload(""), 4, 16);
-    const cg::packet::PacketResult<std::string> built = BuildPacket(message.ToPacket());
+    const cg::packet::PacketResult<cg::packet::Packet> packet = message.ToPacket();
+    failures += Expect(packet.HasValue(), "zdr empty ToPacket");
+    if (!packet.HasValue()) {
+        return failures;
+    }
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
     failures += Expect(static_cast<bool>(built), "build zdr empty text");
     if (built.HasValue()) {
         failures += Expect(built.Value() == "zdr -1 P| 4 g ", "zdr empty text plain");
@@ -348,6 +426,13 @@ int TestParseErrors()
         1U,
         "typed zdr payload extra delimiter");
     failures += ExpectError(
+        cg::packet::receive::ChatMessage::Parse(BuildPlainZdr("P|message\\")),
+        cg::packet::PacketErrorCode::DecodeFailed,
+        "zdr",
+        true,
+        1U,
+        "typed zdr truncated legacy escape");
+    failures += ExpectError(
         cg::packet::receive::ChatMessage::Parse("Zd hello "),
         cg::packet::PacketErrorCode::InvalidCode,
         "Zd",
@@ -372,7 +457,7 @@ int TestBuildErrors()
             cg::packet::PacketDirection::ClientToServer,
             {
                 Field("objectIndex", cg::packet::PacketFieldType::Int62, "-1"),
-                Field("message", cg::packet::PacketFieldType::EscapedString, "P|hello"),
+                Field("message", cg::packet::PacketFieldType::SubPayload, "P|hello"),
                 Field("color", cg::packet::PacketFieldType::Int62, "4"),
                 Field("fontSize", cg::packet::PacketFieldType::Int62, "16"),
             })),
@@ -386,7 +471,7 @@ int TestBuildErrors()
             cg::packet::PacketDirection::ServerToClient,
             {
                 Field("objIndex", cg::packet::PacketFieldType::Int62, "-1"),
-                Field("message", cg::packet::PacketFieldType::EscapedString, "P|hello"),
+                Field("message", cg::packet::PacketFieldType::SubPayload, "P|hello"),
                 Field("color", cg::packet::PacketFieldType::Int62, "4"),
                 Field("fontSize", cg::packet::PacketFieldType::Int62, "16"),
             })),
@@ -409,6 +494,18 @@ int TestBuildErrors()
         true,
         1U,
         "zdr build wrong field type");
+    const cg::packet::receive::ChatMessage invalidMessage(
+        -1,
+        Payload(Bytes({0x96})),
+        4,
+        16);
+    failures += ExpectError(
+        invalidMessage.ToPacket(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        "zdr",
+        true,
+        1U,
+        "zdr build truncated GBK");
     return failures;
 }
 
@@ -420,8 +517,8 @@ int main()
     failures += TestSuggestedPacket();
     failures += TestBuildRoundtrip();
     failures += TestSpaceTextRoundtrip();
-    failures += TestInternalEscapesPreserved();
-    failures += TestRawEscapesPreserved();
+    failures += TestLegacyRoundtrip();
+    failures += TestActivePColon();
     failures += TestEmptyText();
     failures += TestParseErrors();
     failures += TestBuildErrors();

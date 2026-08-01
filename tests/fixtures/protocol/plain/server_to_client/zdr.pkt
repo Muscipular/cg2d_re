@@ -1,0 +1,9 @@
+pkt_fixture=1
+code=zdr
+direction=server_to_client
+sample=gbk-two-layer-chat-text
+plain_hex=7A 64 72 20 2D 31 20 50 7C C3 FB 96 7C 41 5C 5C 7A 42 5C 5C 63 43 5C 5C 79 44 5C 5C 6E 45 20 34 20 67
+canonical_hex=7A 64 72 20 2D 31 20 50 7C C3 FB 96 7C 41 5C 5C 7A 42 5C 5C 63 43 5C 5C 79 44 5C 5C 6E 45 20 34 20 67 20
+payload_field=1
+payload_hex=50 7C C3 FB 96 7C 41 5C 7A 42 5C 63 43 5C 79 44 5C 6E 45
+end_sample

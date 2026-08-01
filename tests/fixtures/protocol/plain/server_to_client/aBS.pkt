@@ -1,0 +1,9 @@
+pkt_fixture=1
+code=aBS
+direction=server_to_client
+sample=rectangle-2x2-base62-empty-cells
+plain_hex=61 42 53 20 31 20 32 20 31 20 32 20 33 20 34 20 30 2C 39 2C 61 2C 5A 7C 2C 31 30 2C 2C 5A 5A 7C 31 2C 32 2C 2C 5A
+canonical_hex=61 42 53 20 31 20 32 20 31 20 32 20 33 20 34 20 30 2C 39 2C 61 2C 5A 7C 2C 31 30 2C 2C 5A 5A 7C 31 2C 32 2C 2C 5A 20
+payload_field=6
+payload_hex=30 2C 39 2C 61 2C 5A 7C 2C 31 30 2C 2C 5A 5A 7C 31 2C 32 2C 2C 5A
+end_sample

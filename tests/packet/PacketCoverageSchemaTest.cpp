@@ -9898,6 +9898,123 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
             "aSEl"),
         "aSEl absent from receive typed manifest");
 
+    const PacketSchema* mapDataSchema = FindPacket(packets, "aBS");
+    failures += Expect(mapDataSchema != nullptr, "aBS schema exists");
+    if (mapDataSchema != nullptr) {
+        const cg::packet::receive::MapData value(
+            1,
+            2,
+            1,
+            2,
+            3,
+            4,
+            {0, 9, 10, 61},
+            {0, 62, 0, 3843},
+            {1, 2, 0, 61});
+        const cg::packet::Packet packet = value.ToPacket();
+        constexpr std::array<std::string_view, 7U> fieldNames = {{
+            "mapid",
+            "floor",
+            "x1",
+            "y1",
+            "x2",
+            "y2",
+            "data",
+        }};
+        constexpr std::array<std::string_view, 7U> typeTokens = {{
+            "i62",
+            "i62",
+            "i62",
+            "i62",
+            "i62",
+            "i62",
+            "es",
+        }};
+        constexpr std::array<std::string_view, 7U> fieldSpecs = {{
+            "{mapid:i62}",
+            "{floor:i62}",
+            "{x1:i62}",
+            "{y1:i62}",
+            "{x2:i62}",
+            "{y2:i62}",
+            "{data:es}",
+        }};
+        constexpr std::string_view format =
+            "{mapid:i62} {floor:i62} {x1:i62} {y1:i62} {x2:i62} {y2:i62} {data:es}";
+        constexpr std::string_view resolvedSource =
+            "xlsx+ServerC+ClientIda+src/packet";
+
+        failures += Expect(mapDataSchema->direction == "服务端->客户端", "aBS direction");
+        failures += Expect(mapDataSchema->legacyKind == "SEND", "aBS legacyKind");
+        failures += Expect(mapDataSchema->clientNamespace == "receive", "aBS namespace");
+        failures += Expect(mapDataSchema->xlsxStatus == "完成", "aBS xlsxStatus");
+        failures += Expect(mapDataSchema->description == "SEND_MAP_DATA", "aBS description");
+        failures += Expect(mapDataSchema->rawFormat == format, "aBS rawFormat");
+        failures += Expect(!mapDataSchema->formatEmpty, "aBS formatEmpty false");
+        failures += Expect(mapDataSchema->source == "xlsx", "aBS raw source");
+        failures += Expect(mapDataSchema->fields.size() == fieldNames.size(), "aBS raw field count");
+        if (mapDataSchema->fields.size() == fieldNames.size()) {
+            for (std::size_t index = 0U; index < fieldNames.size(); ++index) {
+                const FieldSchema& field = mapDataSchema->fields[index];
+                failures += Expect(
+                    field.index == static_cast<int>(index) &&
+                        field.name == fieldNames[index] &&
+                        field.typeToken == typeTokens[index] &&
+                        field.rawSpec == fieldSpecs[index] &&
+                        field.source == "xlsx",
+                    "aBS raw field");
+            }
+        }
+        failures += Expect(mapDataSchema->hasResolvedFormat, "aBS resolvedFormat present");
+        failures += Expect(mapDataSchema->resolvedFormat == format, "aBS resolvedFormat");
+        failures += Expect(
+            mapDataSchema->resolvedSource == resolvedSource,
+            "aBS resolvedSource");
+        failures += Expect(mapDataSchema->hasResolvedFields, "aBS resolvedFields present");
+        failures += Expect(
+            mapDataSchema->resolvedFields.size() == fieldNames.size(),
+            "aBS resolved field count");
+        if (mapDataSchema->resolvedFields.size() == fieldNames.size()) {
+            for (std::size_t index = 0U; index < fieldNames.size(); ++index) {
+                const FieldSchema& field = mapDataSchema->resolvedFields[index];
+                failures += Expect(
+                    field.index == static_cast<int>(index) &&
+                        field.name == fieldNames[index] &&
+                        field.typeToken == typeTokens[index] &&
+                        field.rawSpec == fieldSpecs[index] &&
+                        field.source == resolvedSource,
+                    "aBS resolved field");
+            }
+        }
+        failures += Expect(
+            cg::packet::receive::MapData::Spec.fieldCount == fieldNames.size(),
+            "aBS Spec exact7");
+        failures += ExpectEffectiveFieldsMatch(
+            *mapDataSchema,
+            cg::packet::receive::MapData::Spec,
+            "aBS Spec matches effective fields");
+        failures += Expect(packet.fields.size() == fieldNames.size(), "aBS ToPacket exact7");
+        if (packet.fields.size() == fieldNames.size()) {
+            failures += Expect(
+                packet.fields[6].value == "0,9,a,Z|,10,,ZZ|1,2,,Z",
+                "aBS ToPacket payload");
+        }
+        failures += ExpectResolvedFieldsMatch(
+            *mapDataSchema,
+            packet,
+            "aBS resolved field order");
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(
+            cg::packet::test::SendTypedPackets,
+            "aBS"),
+        "aBS absent from send typed manifest");
+    failures += Expect(
+        TypedManifestContainsCode(
+            cg::packet::test::ReceiveTypedPackets,
+            "aBS"),
+        "aBS present in receive typed manifest");
+
     const PacketSchema* mapDataRequestSchema = FindPacket(packets, "UUN");
     failures += Expect(mapDataRequestSchema != nullptr, "UUN schema exists");
     if (mapDataRequestSchema != nullptr) {

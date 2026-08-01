@@ -24658,12 +24658,13 @@ namespace cg::packet::receive
 
     struct TradePlayerRecord
     {
+        // 历史字段名保留；值为单层 legacy 解码后的 GBK 语义字节。
         std::string nameRaw;
     };
 
     /**
      * SEND_TRPL CHAR_Trade_getPlayerList 获得可交易人员列表		Cxo {data:es}
-     * data: `nameRaw|` 重复记录，空 data 表示空列表；nameRaw 保留 makeEscapeString 后的 raw 字符串。
+     * data: `nameLegacyEscaped|` 重复记录，空 data 表示空列表；非空列表必须尾随 `|`。
      */
     struct TradePlayerList
     {
@@ -24701,14 +24702,15 @@ namespace cg::packet::receive
                         DataFieldIndex));
                 }
 
-                if (record.nameRaw.find('|') != std::string::npos) {
-                    return PacketResult<std::string>::Failure(MakeFieldError(
-                        PacketErrorCode::EncodeFailed,
-                        CG_PACKET_DIAGNOSTIC_TEXT("TradePlayerList BuildData nameRaw 包含 literal |"),
-                        DataFieldIndex));
+                PacketResult<std::string> encodedName = EncodeLegacyPayloadText(record.nameRaw);
+                if (!encodedName.HasValue()) {
+                    PacketError error = encodedName.Error();
+                    error.packetCode = PacketCode(Code);
+                    error.fieldIndex = DataFieldIndex;
+                    return PacketResult<std::string>::Failure(std::move(error));
                 }
 
-                payload.append(record.nameRaw);
+                payload.append(encodedName.Value());
                 payload.push_back('|');
             }
 
@@ -24727,7 +24729,7 @@ namespace cg::packet::receive
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("data"),
-                PacketFieldType::EscapedString,
+                PacketFieldType::SubPayload,
                 data.Value(),
             });
             return PacketResult<Packet>::Success(std::move(packet));
@@ -24824,7 +24826,8 @@ namespace cg::packet::receive
                     DataFieldIndex));
             }
 
-            PacketResult<std::vector<std::string>> split = SplitPayload(payload, PayloadDelimiter);
+            PacketResult<std::vector<std::string>> split =
+                SplitPayloadLegacyAware(payload, PayloadDelimiter);
             if (!split.HasValue()) {
                 PacketError error = split.Error();
                 error.packetCode = PacketCode(Code);
@@ -24843,15 +24846,23 @@ namespace cg::packet::receive
 
             std::vector<TradePlayerRecord> records;
             records.reserve(parts.size());
-            for (std::string& nameRaw : parts) {
-                if (nameRaw.empty()) {
+            for (const std::string& encodedName : parts) {
+                if (encodedName.empty()) {
                     return PacketResult<std::vector<TradePlayerRecord>>::Failure(MakeFieldError(
                         PacketErrorCode::DecodeFailed,
                         CG_PACKET_DIAGNOSTIC_TEXT("TradePlayerList payload 包含空 nameRaw"),
                         DataFieldIndex));
                 }
 
-                records.push_back(TradePlayerRecord {std::move(nameRaw)});
+                PacketResult<std::string> decodedName = DecodeLegacyPayloadText(encodedName);
+                if (!decodedName.HasValue()) {
+                    PacketError error = decodedName.Error();
+                    error.packetCode = PacketCode(Code);
+                    error.fieldIndex = DataFieldIndex;
+                    return PacketResult<std::vector<TradePlayerRecord>>::Failure(std::move(error));
+                }
+
+                records.push_back(TradePlayerRecord {std::move(decodedName.Value())});
             }
 
             return PacketResult<std::vector<TradePlayerRecord>>::Success(std::move(records));

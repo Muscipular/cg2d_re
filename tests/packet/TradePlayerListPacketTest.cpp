@@ -55,6 +55,36 @@ int ExpectError(
     return failures;
 }
 
+template <typename T>
+int ExpectFieldError(
+    const cg::packet::PacketResult<T>& result,
+    cg::packet::PacketErrorCode code,
+    std::string_view packetCode,
+    std::size_t fieldIndex,
+    const char* message)
+{
+    int failures = ExpectError(result, code, packetCode, message);
+    if (!result.HasError()) {
+        return failures;
+    }
+
+    failures += Expect(result.Error().fieldIndex.has_value(), message);
+    if (result.Error().fieldIndex.has_value()) {
+        failures += Expect(result.Error().fieldIndex.value() == fieldIndex, message);
+    }
+    return failures;
+}
+
+std::string Bytes(std::initializer_list<unsigned int> values)
+{
+    std::string output;
+    output.reserve(values.size());
+    for (const unsigned int value : values) {
+        output.push_back(static_cast<char>(value));
+    }
+    return output;
+}
+
 cg::packet::PacketField Field(
     std::string_view name,
     cg::packet::PacketFieldType type,
@@ -162,36 +192,48 @@ int TestTwoRecordsRoundtrip()
     return failures;
 }
 
-int TestRawEscapesPreserved()
+int TestSemanticLegacyRoundtrip()
 {
-    const std::string payload = "A\\zB|C\\cD|E\\nF|Y\\yZ|";
-    const cg::packet::PacketResult<TradePlayerList> parsed = TradePlayerList::Parse(BuildRawPlain(payload));
+    const std::string firstName = Bytes({0x81U, 0x7CU, 0x41U, 0x7CU, 0x42U});
+    const std::string secondName = Bytes({0x81U, 0x5CU, 0x43U, 0x5CU, 0x44U});
+    std::string payload = Bytes({0x81U, 0x7CU, 0x41U, 0x5CU, 0x7AU, 0x42U, 0x7CU});
+    payload.append(Bytes({0x81U, 0x5CU, 0x43U, 0x5CU, 0x79U, 0x44U, 0x7CU}));
+    const cg::packet::PacketResult<TradePlayerList> parsed = TradePlayerList::Parse(BuildPlain(payload));
 
-    int failures = Expect(static_cast<bool>(parsed), "parse Cxo raw escaped names");
+    int failures = Expect(static_cast<bool>(parsed), "parse Cxo semantic legacy names");
     if (!parsed.HasValue()) {
         return failures;
     }
 
-    failures += Expect(parsed.Value().records.size() == 4U, "Cxo raw escaped count");
-    if (parsed.Value().records.size() != 4U) {
+    failures += Expect(parsed.Value().records.size() == 2U, "Cxo semantic legacy count");
+    if (parsed.Value().records.size() != 2U) {
         return failures;
     }
 
-    failures += Expect(parsed.Value().records[0].nameRaw == "A\\zB", "Cxo keep z escape");
-    failures += Expect(parsed.Value().records[1].nameRaw == "C\\cD", "Cxo keep c escape");
-    failures += Expect(parsed.Value().records[2].nameRaw == "E\\nF", "Cxo keep n escape");
-    failures += Expect(parsed.Value().records[3].nameRaw == "Y\\yZ", "Cxo keep y escape");
-    failures += Expect(parsed.Value().BuildData().Value() == payload, "Cxo raw escaped BuildData");
+    failures += Expect(parsed.Value().records[0].nameRaw == firstName, "Cxo first semantic name");
+    failures += Expect(parsed.Value().records[1].nameRaw == secondName, "Cxo second semantic name");
+
+    const cg::packet::PacketResult<std::string> data = parsed.Value().BuildData();
+    failures += Expect(static_cast<bool>(data), "Cxo semantic BuildData");
+    if (data.HasValue()) {
+        failures += Expect(data.Value() == payload, "Cxo semantic BuildData value");
+    }
 
     const cg::packet::PacketResult<cg::packet::Packet> packet = parsed.Value().ToPacket();
-    failures += Expect(static_cast<bool>(packet), "Cxo raw escaped ToPacket");
+    failures += Expect(static_cast<bool>(packet), "Cxo semantic ToPacket");
     if (packet.HasValue()) {
-        const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
-        failures += Expect(static_cast<bool>(built), "Cxo raw escaped BuildPacket");
-        if (built.HasValue()) {
+        failures += Expect(packet.Value().fields.size() == 1U, "Cxo semantic ToPacket field count");
+        if (packet.Value().fields.size() == 1U) {
             failures += Expect(
-                built.Value() == "Cxo A\\\\zB|C\\\\cD|E\\\\nF|Y\\\\yZ| ",
-                "Cxo raw escaped BuildPacket value");
+                packet.Value().fields[0].type == cg::packet::PacketFieldType::SubPayload,
+                "Cxo semantic ToPacket field type");
+            failures += Expect(packet.Value().fields[0].value == payload, "Cxo semantic ToPacket value");
+        }
+
+        const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
+        failures += Expect(static_cast<bool>(built), "Cxo semantic BuildPacket");
+        if (built.HasValue()) {
+            failures += Expect(built.Value() == BuildPlain(payload), "Cxo semantic BuildPacket value");
         }
     }
     return failures;
@@ -282,11 +324,12 @@ int TestBuildErrors()
         cg::packet::PacketErrorCode::EncodeFailed,
         "Cxo",
         "Cxo build empty name");
-    failures += ExpectError(
-        TradePlayerList(std::vector<TradePlayerRecord> {{"Alice|Bob"}}).BuildData(),
+    failures += ExpectFieldError(
+        TradePlayerList(std::vector<TradePlayerRecord> {{Bytes({0x81U})}}).BuildData(),
         cg::packet::PacketErrorCode::EncodeFailed,
         "Cxo",
-        "Cxo build literal delimiter");
+        0U,
+        "Cxo build truncated GBK name");
     failures += ExpectError(
         BuildPacket(PacketOf(
             cg::packet::PacketDirection::ClientToServer,
@@ -304,7 +347,7 @@ int main()
     int failures = 0;
     failures += TestParsePacketOuter();
     failures += TestTwoRecordsRoundtrip();
-    failures += TestRawEscapesPreserved();
+    failures += TestSemanticLegacyRoundtrip();
     failures += TestEmptyData();
     failures += TestPayloadErrors();
     failures += TestPacketErrors();

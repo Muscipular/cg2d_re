@@ -10711,24 +10711,61 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         const cg::packet::PacketResult<cg::packet::Packet> packet = tradePlayerList.ToPacket();
         failures += Expect(tradePlayerListSchema->direction == "服务端->客户端", "Cxo direction");
         failures += Expect(tradePlayerListSchema->legacyKind == "SEND", "Cxo legacyKind");
+        failures += Expect(tradePlayerListSchema->clientNamespace == "receive", "Cxo namespace");
+        failures += Expect(tradePlayerListSchema->xlsxStatus == "完成", "Cxo xlsxStatus");
+        failures += Expect(
+            tradePlayerListSchema->description ==
+                "SEND_TRPL CHAR_Trade_getPlayerList 获得可交易人员列表",
+            "Cxo description");
         failures += Expect(tradePlayerListSchema->rawFormat.empty(), "Cxo rawFormat empty");
         failures += Expect(tradePlayerListSchema->formatEmpty, "Cxo formatEmpty");
+        failures += Expect(tradePlayerListSchema->source == "xlsx", "Cxo raw source");
+        failures += Expect(tradePlayerListSchema->fields.empty(), "Cxo raw fields empty");
+        failures += Expect(tradePlayerListSchema->hasResolvedFormat, "Cxo resolvedFormat present");
         failures += Expect(tradePlayerListSchema->resolvedFormat == "{data:es}", "Cxo resolvedFormat");
         failures += Expect(
-            tradePlayerListSchema->resolvedSource == "ServerC+src/packet",
+            tradePlayerListSchema->resolvedSource == "ServerC+ClientIda+src/packet",
             "Cxo resolvedSource");
-        failures += Expect(tradePlayerListSchema->fields.empty(), "Cxo raw fields empty");
+        failures += Expect(tradePlayerListSchema->hasResolvedFields, "Cxo resolvedFields present");
+        failures += Expect(tradePlayerListSchema->resolvedFields.size() == 1U, "Cxo resolved field count");
+        if (tradePlayerListSchema->resolvedFields.size() == 1U) {
+            const FieldSchema& field = tradePlayerListSchema->resolvedFields[0];
+            failures += Expect(
+                field.index == 0U &&
+                    field.name == "data" &&
+                    field.typeToken == "es" &&
+                    field.rawSpec == "{data:es}" &&
+                    field.source == "ServerC+ClientIda+src/packet",
+                "Cxo resolved field");
+        }
+        failures += Expect(
+            cg::packet::receive::TradePlayerList::Spec.fieldCount == 1U,
+            "Cxo Spec exact1");
+        failures += ExpectEffectiveFieldsMatch(
+            *tradePlayerListSchema,
+            cg::packet::receive::TradePlayerList::Spec,
+            "Cxo Spec matches effective fields");
         failures += Expect(packet.HasValue(), "Cxo packet build");
         if (packet.HasValue()) {
-            failures += Expect(packet.Value().fields.size() == 1U, "Cxo packet field count");
+            failures += Expect(packet.Value().fields.size() == 1U, "Cxo ToPacket exact1");
             if (packet.Value().fields.size() == 1U) {
                 failures += Expect(packet.Value().fields[0].name == "data", "Cxo packet data field");
                 failures += Expect(
-                    packet.Value().fields[0].type == cg::packet::PacketFieldType::EscapedString,
+                    packet.Value().fields[0].type == cg::packet::PacketFieldType::SubPayload,
                     "Cxo packet data type");
             }
+            failures += ExpectResolvedFieldsMatch(
+                *tradePlayerListSchema,
+                packet.Value(),
+                "Cxo ToPacket field order");
         }
     }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "Cxo"),
+        "Cxo absent from send typed manifest");
+    failures += Expect(
+        TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "Cxo"),
+        "Cxo present in receive typed manifest");
 
     const PacketSchema* tradeStartSchema = FindPacket(packets, "ms");
     failures += Expect(tradeStartSchema != nullptr, "ms schema exists");

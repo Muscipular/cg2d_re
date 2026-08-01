@@ -1,0 +1,9 @@
+pkt_fixture=1
+code=Cxo
+direction=server_to_client
+sample=two-player-names-gbk-inner-legacy-boundaries
+plain_hex=43 78 6F 20 81 7C 41 5C 5C 7A 42 7C 81 5C 43 5C 5C 79 44 7C
+canonical_hex=43 78 6F 20 81 7C 41 5C 5C 7A 42 7C 81 5C 43 5C 5C 79 44 7C 20
+payload_field=0
+payload_hex=81 7C 41 5C 7A 42 7C 81 5C 43 5C 79 44 7C
+end_sample

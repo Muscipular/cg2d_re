@@ -26557,7 +26557,7 @@ namespace cg::packet::receive
         static constexpr std::string_view Code = "nsY";
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 1U> Fields = {{
-            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::SubPayload},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -26565,7 +26565,7 @@ namespace cg::packet::receive
             Fields.data(),
             Fields.size(),
         };
-        static constexpr std::string_view RecordDelimiter = "\\t";
+        static constexpr std::string_view RecordDelimiter = "\t";
         static constexpr std::string_view FieldDelimiter = "|";
 
         std::string data;
@@ -26580,42 +26580,55 @@ namespace cg::packet::receive
         explicit ObjectList(std::vector<ObjectListRecord> records)
             : records(std::move(records))
         {
-            data = BuildData();
         }
 
-        [[nodiscard]] std::string BuildData() const
+        [[nodiscard]] PacketResult<std::string> BuildData() const
         {
+            if (records.empty()) {
+                return PacketResult<std::string>::Failure(MakePayloadError(
+                    PacketErrorCode::EncodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT("ObjectList records 不能为空"),
+                    0U));
+            }
+
             std::vector<std::string> recordPayloads;
             recordPayloads.reserve(records.size());
-            for (const ObjectListRecord& record : records) {
-                PacketResult<std::string> payload = BuildPayload(
-                    std::span<const std::string>(record.fields.data(), record.fields.size()),
-                    FieldDelimiter);
-                if (payload.HasValue()) {
-                    recordPayloads.push_back(payload.Value());
+            for (std::size_t recordIndex = 0U; recordIndex < records.size(); ++recordIndex) {
+                PacketResult<std::string> payload =
+                    BuildRecordPayload(records[recordIndex], recordIndex);
+                if (!payload.HasValue()) {
+                    return PacketResult<std::string>::Failure(payload.Error());
                 }
+                recordPayloads.push_back(std::move(payload.Value()));
             }
 
             PacketResult<std::string> payload = BuildPayload(
                 std::span<const std::string>(recordPayloads.data(), recordPayloads.size()),
                 RecordDelimiter);
-            if (payload.HasValue()) {
-                return payload.Value();
+            if (!payload.HasValue()) {
+                PacketError error = payload.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = 0U;
+                return PacketResult<std::string>::Failure(std::move(error));
             }
-
-            return {};
+            return payload;
         }
 
 #if CG_PACKET_ENABLE_TEST_HELPERS
-        [[nodiscard]] Packet ToPacket() const
+        [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
+            PacketResult<std::string> payload = BuildData();
+            if (!payload.HasValue()) {
+                return PacketResult<Packet>::Failure(payload.Error());
+            }
+
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("data"),
-                PacketFieldType::EscapedString,
-                BuildData(),
+                PacketFieldType::SubPayload,
+                std::move(payload.Value()),
             });
-            return packet;
+            return PacketResult<Packet>::Success(std::move(packet));
         }
 #endif
 
@@ -26666,19 +26679,18 @@ namespace cg::packet::receive
                 return PacketResult<ObjectList>::Failure(records.Error());
             }
 
-            return PacketResult<ObjectList>::Success(ObjectList(field.value, records.Value()));
+            return PacketResult<ObjectList>::Success(ObjectList(
+                field.value,
+                std::move(records.Value())));
         }
 
     private:
-        [[nodiscard]] static bool IsKnownRecordFieldCount(std::size_t fieldCount) noexcept
+        enum class RecordKind
         {
-            return fieldCount == 4U || fieldCount == 7U || fieldCount >= 16U;
-        }
-
-        [[nodiscard]] static std::size_t ObjectIndexFieldIndex(std::size_t fieldCount) noexcept
-        {
-            return fieldCount >= 16U ? 1U : 0U;
-        }
+            Role,
+            Item,
+            Gold,
+        };
 
         [[nodiscard]] static PacketError MakePayloadError(
             PacketErrorCode code,
@@ -26691,31 +26703,164 @@ namespace cg::packet::receive
             return error;
         }
 
+        [[nodiscard]] static PacketResult<RecordKind> ClassifyRecord(
+            const std::vector<std::string>& fields,
+            PacketErrorCode errorCode,
+            std::size_t recordIndex)
+        {
+            if (fields.size() > 10U && !fields[10U].empty()) {
+                if (fields.size() >= 17U) {
+                    return PacketResult<RecordKind>::Success(RecordKind::Role);
+                }
+            } else if (fields.size() > 5U && !fields[5U].empty()) {
+                if (fields.size() == 7U) {
+                    return PacketResult<RecordKind>::Success(RecordKind::Item);
+                }
+            } else if (fields.size() > 3U && !fields[3U].empty()) {
+                if (fields.size() == 4U) {
+                    return PacketResult<RecordKind>::Success(RecordKind::Gold);
+                }
+            }
+
+            return PacketResult<RecordKind>::Failure(MakePayloadError(
+                errorCode,
+                CG_PACKET_DIAGNOSTIC_TEXT("ObjectList record 分类或字段数量不匹配"),
+                recordIndex));
+        }
+
+        [[nodiscard]] static std::size_t ObjectIndexFieldIndex(RecordKind kind) noexcept
+        {
+            return kind == RecordKind::Role ? 1U : 0U;
+        }
+
+        [[nodiscard]] static PacketResult<std::string> ValidateRawField(
+            std::string_view text,
+            std::size_t recordIndex)
+        {
+            for (std::size_t index = 0U; index < text.size(); ++index) {
+                if (cg::packet::detail::IsLegacyDoubleByteLead(text[index])) {
+                    if (index + 1U >= text.size()) {
+                        return PacketResult<std::string>::Failure(MakePayloadError(
+                            PacketErrorCode::EncodeFailed,
+                            CG_PACKET_DIAGNOSTIC_TEXT("ObjectList raw 字段旧双字节字符被截断"),
+                            recordIndex));
+                    }
+                    ++index;
+                    continue;
+                }
+
+                if (text[index] == '|' || text[index] == '\t') {
+                    return PacketResult<std::string>::Failure(MakePayloadError(
+                        PacketErrorCode::EncodeFailed,
+                        CG_PACKET_DIAGNOSTIC_TEXT("ObjectList raw 字段包含结构分隔符"),
+                        recordIndex));
+                }
+            }
+
+            return PacketResult<std::string>::Success(std::string(text));
+        }
+
+        [[nodiscard]] static PacketResult<std::string> BuildRecordPayload(
+            const ObjectListRecord& record,
+            std::size_t recordIndex)
+        {
+            PacketResult<RecordKind> kind =
+                ClassifyRecord(record.fields, PacketErrorCode::EncodeFailed, recordIndex);
+            if (!kind.HasValue()) {
+                return PacketResult<std::string>::Failure(kind.Error());
+            }
+
+            const std::size_t objectIndexFieldIndex = ObjectIndexFieldIndex(kind.Value());
+            PacketResult<int> objectIndex = DecodeInt62(record.fields[objectIndexFieldIndex]);
+            if (!objectIndex.HasValue()) {
+                PacketError error = objectIndex.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = recordIndex;
+                return PacketResult<std::string>::Failure(std::move(error));
+            }
+
+            std::vector<std::string> fields = record.fields;
+            if (kind.Value() == RecordKind::Role) {
+                constexpr std::array<std::size_t, 3U> RoleTextFieldIndexes = {8U, 9U, 13U};
+                for (const std::size_t fieldIndex : RoleTextFieldIndexes) {
+                    PacketResult<std::string> encoded =
+                        EncodeLegacyPayloadText(fields[fieldIndex]);
+                    if (!encoded.HasValue()) {
+                        PacketError error = encoded.Error();
+                        error.packetCode = PacketCode(Code);
+                        error.fieldIndex = recordIndex;
+                        return PacketResult<std::string>::Failure(std::move(error));
+                    }
+                    fields[fieldIndex] = std::move(encoded.Value());
+                }
+            }
+
+            for (std::string& field : fields) {
+                PacketResult<std::string> validated =
+                    ValidateRawField(field, recordIndex);
+                if (!validated.HasValue()) {
+                    return PacketResult<std::string>::Failure(validated.Error());
+                }
+                field = std::move(validated.Value());
+            }
+
+            PacketResult<std::string> payload = BuildPayload(
+                std::span<const std::string>(fields.data(), fields.size()),
+                FieldDelimiter);
+            if (!payload.HasValue()) {
+                PacketError error = payload.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = recordIndex;
+                return PacketResult<std::string>::Failure(std::move(error));
+            }
+            return payload;
+        }
+
         [[nodiscard]] static PacketResult<std::vector<ObjectListRecord>> ParseRecords(std::string_view payload)
         {
-            PacketResult<std::vector<std::string>> recordPayloads = SplitPayload(payload, RecordDelimiter);
+            if (payload.empty()) {
+                return PacketResult<std::vector<ObjectListRecord>>::Failure(MakePayloadError(
+                    PacketErrorCode::EmptyInput,
+                    CG_PACKET_DIAGNOSTIC_TEXT("ObjectList payload 为空"),
+                    0U));
+            }
+
+            PacketResult<std::vector<std::string>> recordPayloads =
+                SplitPayloadLegacyAware(payload, RecordDelimiter);
             if (!recordPayloads.HasValue()) {
-                return PacketResult<std::vector<ObjectListRecord>>::Failure(recordPayloads.Error());
+                PacketError error = recordPayloads.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = 0U;
+                return PacketResult<std::vector<ObjectListRecord>>::Failure(std::move(error));
             }
 
             std::vector<ObjectListRecord> parsedRecords;
             parsedRecords.reserve(recordPayloads.Value().size());
             for (std::size_t recordIndex = 0; recordIndex < recordPayloads.Value().size(); ++recordIndex) {
-                PacketResult<std::vector<std::string>> fields = SplitPayload(
-                    recordPayloads.Value()[recordIndex],
-                    FieldDelimiter);
-                if (!fields.HasValue()) {
-                    return PacketResult<std::vector<ObjectListRecord>>::Failure(fields.Error());
-                }
-
-                if (!IsKnownRecordFieldCount(fields.Value().size())) {
+                if (recordPayloads.Value()[recordIndex].empty()) {
                     return PacketResult<std::vector<ObjectListRecord>>::Failure(MakePayloadError(
                         PacketErrorCode::FieldCountMismatch,
-                        CG_PACKET_DIAGNOSTIC_TEXT("ObjectList record 字段数量不匹配"),
+                        CG_PACKET_DIAGNOSTIC_TEXT("ObjectList record 为空"),
                         recordIndex));
                 }
 
-                const std::size_t objectIndexFieldIndex = ObjectIndexFieldIndex(fields.Value().size());
+                PacketResult<std::vector<std::string>> fields = SplitPayloadLegacyAware(
+                    recordPayloads.Value()[recordIndex],
+                    FieldDelimiter);
+                if (!fields.HasValue()) {
+                    PacketError error = fields.Error();
+                    error.packetCode = PacketCode(Code);
+                    error.fieldIndex = recordIndex;
+                    return PacketResult<std::vector<ObjectListRecord>>::Failure(std::move(error));
+                }
+
+                PacketResult<RecordKind> kind =
+                    ClassifyRecord(fields.Value(), PacketErrorCode::FieldCountMismatch, recordIndex);
+                if (!kind.HasValue()) {
+                    return PacketResult<std::vector<ObjectListRecord>>::Failure(kind.Error());
+                }
+
+                const std::size_t objectIndexFieldIndex = ObjectIndexFieldIndex(kind.Value());
                 PacketResult<int> objectIndex = DecodeInt62(fields.Value()[objectIndexFieldIndex]);
                 if (!objectIndex.HasValue()) {
                     PacketError error = objectIndex.Error();
@@ -26724,7 +26869,33 @@ namespace cg::packet::receive
                     return PacketResult<std::vector<ObjectListRecord>>::Failure(std::move(error));
                 }
 
-                parsedRecords.emplace_back(fields.Value(), objectIndex.Value());
+                std::vector<std::string> parsedFields = std::move(fields.Value());
+                if (kind.Value() == RecordKind::Role) {
+                    constexpr std::array<std::size_t, 3U> RoleTextFieldIndexes = {8U, 9U, 13U};
+                    for (const std::size_t fieldIndex : RoleTextFieldIndexes) {
+                        PacketResult<std::string> decoded =
+                            DecodeLegacyPayloadText(parsedFields[fieldIndex]);
+                        if (!decoded.HasValue()) {
+                            PacketError error = decoded.Error();
+                            error.packetCode = PacketCode(Code);
+                            error.fieldIndex = recordIndex;
+                            return PacketResult<std::vector<ObjectListRecord>>::Failure(std::move(error));
+                        }
+                        parsedFields[fieldIndex] = std::move(decoded.Value());
+                    }
+                } else if (kind.Value() == RecordKind::Item) {
+                    PacketResult<std::string> decoded =
+                        DecodeLegacyPayloadText(parsedFields[5U]);
+                    if (!decoded.HasValue()) {
+                        PacketError error = decoded.Error();
+                        error.packetCode = PacketCode(Code);
+                        error.fieldIndex = recordIndex;
+                        return PacketResult<std::vector<ObjectListRecord>>::Failure(std::move(error));
+                    }
+                    parsedFields[5U] = std::move(decoded.Value());
+                }
+
+                parsedRecords.emplace_back(std::move(parsedFields), objectIndex.Value());
             }
 
             return PacketResult<std::vector<ObjectListRecord>>::Success(std::move(parsedRecords));

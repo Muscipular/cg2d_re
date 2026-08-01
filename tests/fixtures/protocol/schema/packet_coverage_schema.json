@@ -1228,6 +1228,8 @@
       "rawFormat": "{data:es}",
       "formatEmpty": false,
       "source": "xlsx",
+      "resolvedFormat": "{data:es}",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
       "fields": [
         {
           "index": 0,

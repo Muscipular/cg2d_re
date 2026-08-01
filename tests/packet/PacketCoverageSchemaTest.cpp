@@ -13950,6 +13950,61 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "PhdQ"),
         "PhdQ present in receive typed manifest");
 
+    const PacketSchema* objectListSchema = FindPacket(packets, "nsY");
+    failures += Expect(objectListSchema != nullptr, "nsY schema exists");
+    if (objectListSchema != nullptr) {
+        std::vector<std::string> goldFields = {"a", "1", "2", "3"};
+        const cg::packet::receive::ObjectList objectList({
+            cg::packet::receive::ObjectListRecord(std::move(goldFields), 10),
+        });
+        const cg::packet::PacketResult<cg::packet::Packet> packet = objectList.ToPacket();
+        failures += Expect(objectListSchema->direction == "服务端->客户端", "nsY direction");
+        failures += Expect(objectListSchema->legacyKind == "SEND", "nsY legacyKind");
+        failures += Expect(objectListSchema->clientNamespace == "receive", "nsY namespace");
+        failures += Expect(objectListSchema->xlsxStatus == "完成", "nsY xlsx status");
+        failures += Expect(objectListSchema->description == "SEND_C ObjectList", "nsY description");
+        failures += Expect(objectListSchema->rawFormat == "{data:es}", "nsY rawFormat");
+        failures += Expect(!objectListSchema->formatEmpty, "nsY raw format non-empty");
+        failures += Expect(objectListSchema->source == "xlsx", "nsY raw source");
+        failures += Expect(objectListSchema->fields.size() == 1U, "nsY raw field count");
+        if (objectListSchema->fields.size() == 1U) {
+            const FieldSchema& dataField = objectListSchema->fields[0];
+            failures += Expect(
+                dataField.index == 0U &&
+                    dataField.name == "data" &&
+                    dataField.typeToken == "es" &&
+                    dataField.rawSpec == "{data:es}" &&
+                    dataField.source == "xlsx",
+                "nsY raw data field");
+        }
+        failures += Expect(objectListSchema->hasResolvedFormat, "nsY resolvedFormat present");
+        failures += Expect(objectListSchema->resolvedFormat == "{data:es}", "nsY resolvedFormat");
+        failures += Expect(
+            objectListSchema->resolvedSource == "xlsx+ServerC+ClientIda+src/packet",
+            "nsY resolvedSource");
+        failures += Expect(
+            cg::packet::receive::ObjectList::Spec.fieldCount == 1U,
+            "nsY Spec exact1");
+        failures += ExpectEffectiveFieldsMatch(
+            *objectListSchema,
+            cg::packet::receive::ObjectList::Spec,
+            "nsY Spec matches effective fields");
+        failures += Expect(packet.HasValue(), "nsY ToPacket");
+        if (packet.HasValue()) {
+            failures += Expect(
+                packet.Value().fields.size() == 1U &&
+                    packet.Value().fields[0].name == "data" &&
+                    packet.Value().fields[0].type == cg::packet::PacketFieldType::SubPayload,
+                "nsY ToPacket field order and payload type");
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "nsY"),
+        "nsY absent from send typed manifest");
+    failures += Expect(
+        TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "nsY"),
+        "nsY present in receive typed manifest");
+
     const PacketSchema* addressBookInfoSchema = FindPacket(packets, "vI");
     failures += Expect(addressBookInfoSchema != nullptr, "vI schema exists");
     if (addressBookInfoSchema != nullptr) {

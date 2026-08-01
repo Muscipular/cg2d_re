@@ -1,23 +1,16 @@
-#include "packet/PacketBuilder.hpp"
-#include "packet/Receive.hpp"
+#include "packet/Packet.hpp"
 
 #include <cstddef>
 #include <iostream>
 #include <string>
 #include <string_view>
+#include <utility>
 #include <vector>
 
 namespace {
 
-cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
-{
-    return cg::packet::ParsePacket(plainTokens, cg::packet::receive::ObjectList::Spec);
-}
-
-cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
-{
-    return cg::packet::BuildPacket(packet, cg::packet::receive::ObjectList::Spec);
-}
+using ObjectList = cg::packet::receive::ObjectList;
+using ObjectListRecord = cg::packet::receive::ObjectListRecord;
 
 int Expect(bool condition, const char* message)
 {
@@ -36,250 +29,415 @@ int ExpectError(
     std::string_view packetCode,
     const char* message)
 {
-    int failures = Expect(!static_cast<bool>(result), message);
+    int failures = Expect(!result.HasValue(), message);
     failures += Expect(result.HasError(), message);
     if (!result.HasError()) {
         return failures;
     }
 
-    const cg::packet::PacketError& error = result.Error();
-    failures += Expect(error.code == code, message);
-    failures += Expect(error.packetCode.has_value(), message);
-    if (error.packetCode.has_value()) {
-        failures += Expect(error.packetCode->View() == packetCode, message);
+    failures += Expect(result.Error().code == code, message);
+    failures += Expect(result.Error().packetCode.has_value(), message);
+    if (result.Error().packetCode.has_value()) {
+        failures += Expect(result.Error().packetCode->View() == packetCode, message);
     }
     return failures;
 }
 
-std::string BuildPlainNsY(std::string_view payload)
+template <typename T>
+int ExpectFieldError(
+    const cg::packet::PacketResult<T>& result,
+    cg::packet::PacketErrorCode code,
+    std::size_t recordIndex,
+    const char* message)
 {
-    const cg::packet::PacketResult<std::string> encoded = cg::packet::EncodeEscapedString(payload);
-    if (!encoded.HasValue()) {
-        return "nsY ";
+    int failures = ExpectError(result, code, ObjectList::Code, message);
+    if (!result.HasError()) {
+        return failures;
     }
 
-    std::string plain = "nsY ";
-    plain.append(encoded.Value());
+    failures += Expect(result.Error().fieldIndex.has_value(), message);
+    if (result.Error().fieldIndex.has_value()) {
+        failures += Expect(result.Error().fieldIndex.value() == recordIndex, message);
+    }
+    return failures;
+}
+
+std::string LegacyDoubleByteText(unsigned char trail, std::string_view suffix)
+{
+    std::string text;
+    text.push_back(static_cast<char>(0x81U));
+    text.push_back(static_cast<char>(trail));
+    text.append(suffix);
+    return text;
+}
+
+std::string JoinFields(const std::vector<std::string>& fields)
+{
+    std::string payload;
+    for (std::size_t index = 0U; index < fields.size(); ++index) {
+        if (index != 0U) {
+            payload.push_back('|');
+        }
+        payload.append(fields[index]);
+    }
+    return payload;
+}
+
+std::string JoinRecords(const std::vector<std::string>& records)
+{
+    std::string payload;
+    for (std::size_t index = 0U; index < records.size(); ++index) {
+        if (index != 0U) {
+            payload.push_back('\t');
+        }
+        payload.append(records[index]);
+    }
+    return payload;
+}
+
+std::string BuildRawPlain(std::string_view payload)
+{
+    std::string plain("nsY ");
+    plain.append(payload);
     plain.push_back(' ');
     return plain;
 }
 
-int ExpectObjectListPacket(
-    const cg::packet::Packet& packet,
-    std::string_view value,
-    const char* message)
+std::string BuildPlain(std::string_view payload)
 {
-    int failures = 0;
-    failures += Expect(packet.code == cg::packet::PacketCode(cg::packet::receive::ObjectList::Code), message);
-    failures += Expect(packet.direction == cg::packet::PacketDirection::ServerToClient, message);
-    failures += Expect(packet.fields.size() == 1U, message);
-    if (packet.fields.size() != 1U) {
-        return failures;
+    const cg::packet::PacketResult<std::string> encoded =
+        cg::packet::EncodeEscapedString(payload);
+    if (!encoded.HasValue()) {
+        return BuildRawPlain("");
     }
-
-    failures += Expect(packet.fields[0].name == "data", message);
-    failures += Expect(packet.fields[0].type == cg::packet::PacketFieldType::EscapedString, message);
-    failures += Expect(packet.fields[0].value == value, message);
-    return failures;
+    return BuildRawPlain(encoded.Value());
 }
 
-int ExpectRecord(
-    const cg::packet::receive::ObjectListRecord& record,
-    int objectIndex,
-    const std::vector<std::string>& fields,
-    const char* message)
+cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plain)
 {
-    int failures = 0;
-    failures += Expect(record.objectIndex == objectIndex, message);
-    failures += Expect(record.fields.size() == fields.size(), message);
-    if (record.fields.size() != fields.size()) {
-        return failures;
-    }
-
-    for (std::size_t index = 0; index < fields.size(); ++index) {
-        failures += Expect(record.fields[index] == fields[index], message);
-    }
-    return failures;
+    return cg::packet::ParsePacket(plain, ObjectList::Spec);
 }
 
-int TestParsePacketOuter()
+cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
 {
-    const std::string payload = "1|20|30|500";
-    const cg::packet::PacketResult<cg::packet::Packet> parsed =
-        ParsePacket(BuildPlainNsY(payload));
-
-    int failures = Expect(static_cast<bool>(parsed), "parse nsY outer");
-    if (parsed.HasValue()) {
-        failures += ExpectObjectListPacket(parsed.Value(), payload, "parse nsY outer packet");
-    }
-    return failures;
+    return cg::packet::BuildPacket(packet, ObjectList::Spec);
 }
 
-int TestTypedSingleRecords()
+std::vector<std::string> RoleFields()
 {
-    int failures = 0;
-
-    const std::string gold = "1|20|30|500";
-    const cg::packet::PacketResult<cg::packet::receive::ObjectList> goldParsed =
-        cg::packet::receive::ObjectList::Parse(BuildPlainNsY(gold));
-    failures += Expect(static_cast<bool>(goldParsed), "parse nsY gold");
-    if (goldParsed.HasValue()) {
-        failures += Expect(goldParsed.Value().data == gold, "parse nsY gold data");
-        failures += Expect(goldParsed.Value().records.size() == 1U, "parse nsY gold record count");
-        if (goldParsed.Value().records.size() == 1U) {
-            failures += ExpectRecord(goldParsed.Value().records[0], 1, {"1", "20", "30", "500"}, "parse nsY gold record");
-        }
-    }
-
-    const std::string item = "2|21|31|1000|4|Potion\\zSmall|remain";
-    const cg::packet::PacketResult<cg::packet::receive::ObjectList> itemParsed =
-        cg::packet::receive::ObjectList::Parse(BuildPlainNsY(item));
-    failures += Expect(static_cast<bool>(itemParsed), "parse nsY item");
-    if (itemParsed.HasValue()) {
-        failures += Expect(itemParsed.Value().records.size() == 1U, "parse nsY item record count");
-        if (itemParsed.Value().records.size() == 1U) {
-            failures += ExpectRecord(
-                itemParsed.Value().records[0],
-                2,
-                {"2", "21", "31", "1000", "4", "Potion\\zSmall", "remain"},
-                "parse nsY item record");
-        }
-    }
-
-    const std::string character = "7|3|22|32|4|5000|12|5|Alice|Title\\zRaw|0|1|6|Hero|tw0|tw1|petbit\\zmore";
-    const cg::packet::PacketResult<cg::packet::receive::ObjectList> characterParsed =
-        cg::packet::receive::ObjectList::Parse(BuildPlainNsY(character));
-    failures += Expect(static_cast<bool>(characterParsed), "parse nsY character");
-    if (characterParsed.HasValue()) {
-        failures += Expect(characterParsed.Value().records.size() == 1U, "parse nsY character record count");
-        if (characterParsed.Value().records.size() == 1U) {
-            failures += ExpectRecord(
-                characterParsed.Value().records[0],
-                3,
-                {
-                    "7",
-                    "3",
-                    "22",
-                    "32",
-                    "4",
-                    "5000",
-                    "12",
-                    "5",
-                    "Alice",
-                    "Title\\zRaw",
-                    "0",
-                    "1",
-                    "6",
-                    "Hero",
-                    "tw0",
-                    "tw1",
-                    "petbit\\zmore",
-                },
-                "parse nsY character record");
-        }
-    }
-
-    return failures;
+    return {
+        "0",
+        "a",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "RoleName",
+        "OwnTitle",
+        "1",
+        "7",
+        "8",
+        "TitleName",
+        "9",
+        "10",
+        "0",
+    };
 }
 
-int TestMultiRecordRoundTrip()
+std::vector<std::string> ItemFields()
 {
-    const std::string payload =
-        "1|20|30|500\\t"
-        "2|21|31|1000|4|Potion|remain\\t"
-        "7|3|22|32|4|5000|12|5|Alice|Title|0|1|6|Hero|tw0|tw1|petbit";
+    return {"b", "1", "2", "3", "4", "ItemName", "6"};
+}
 
-    const cg::packet::PacketResult<cg::packet::receive::ObjectList> parsed =
-        cg::packet::receive::ObjectList::Parse(BuildPlainNsY(payload));
-    int failures = Expect(static_cast<bool>(parsed), "parse nsY multi record");
+std::vector<std::string> GoldFields()
+{
+    return {"c", "1", "2", "3"};
+}
+
+int TestSpecAndThreeRecordParse()
+{
+    const std::string role = JoinFields(RoleFields());
+    const std::string item = JoinFields(ItemFields());
+    const std::string gold = JoinFields(GoldFields());
+    const std::string payload = JoinRecords({role, item, gold});
+
+    int failures = Expect(ObjectList::Spec.fieldCount == 1U, "nsY Spec exact1");
+    failures += Expect(
+        ObjectList::Fields[0].type == cg::packet::PacketFieldType::SubPayload,
+        "nsY Spec data SubPayload");
+    failures += Expect(ObjectList::RecordDelimiter == "\t", "nsY actual TAB delimiter");
+
+    const cg::packet::PacketResult<cg::packet::Packet> generic =
+        ParsePacket(BuildPlain(payload));
+    failures += Expect(generic.HasValue(), "nsY generic parse");
+    if (generic.HasValue() && generic.Value().fields.size() == 1U) {
+        failures += Expect(
+            generic.Value().fields[0].type == cg::packet::PacketFieldType::EscapedString,
+            "nsY runtime data EscapedString");
+    }
+
+    const cg::packet::PacketResult<ObjectList> parsed =
+        ObjectList::Parse(BuildPlain(payload));
+    failures += Expect(parsed.HasValue(), "nsY three-record Parse");
     if (!parsed.HasValue()) {
         return failures;
     }
 
-    failures += Expect(parsed.Value().records.size() == 3U, "parse nsY multi record count");
-    failures += Expect(parsed.Value().BuildData() == payload, "build nsY payload data");
-
-    const cg::packet::Packet packet = parsed.Value().ToPacket();
-    failures += ExpectObjectListPacket(packet, payload, "nsY ToPacket");
-
-    const cg::packet::PacketResult<std::string> built = BuildPacket(packet);
-    failures += Expect(static_cast<bool>(built), "build nsY packet");
-    if (!built.HasValue()) {
-        return failures;
-    }
-
-    const cg::packet::PacketResult<cg::packet::receive::ObjectList> parsedAgain =
-        cg::packet::receive::ObjectList::Parse(built.Value());
-    failures += Expect(static_cast<bool>(parsedAgain), "parse nsY built packet");
-    if (parsedAgain.HasValue()) {
-        failures += Expect(parsedAgain.Value().BuildData() == payload, "roundtrip nsY payload data");
-        failures += Expect(parsedAgain.Value().records.size() == 3U, "roundtrip nsY record count");
+    failures += Expect(parsed.Value().records.size() == 3U, "nsY three records");
+    if (parsed.Value().records.size() == 3U) {
+        failures += Expect(parsed.Value().records[0].fields.size() == 17U, "nsY role exact17");
+        failures += Expect(parsed.Value().records[1].fields.size() == 7U, "nsY item exact7");
+        failures += Expect(parsed.Value().records[2].fields.size() == 4U, "nsY gold exact4");
+        failures += Expect(parsed.Value().records[0].objectIndex == 10, "nsY role objectIndex field1");
+        failures += Expect(parsed.Value().records[1].objectIndex == 11, "nsY item objectIndex field0");
+        failures += Expect(parsed.Value().records[2].objectIndex == 12, "nsY gold objectIndex field0");
     }
     return failures;
 }
 
-int TestPayloadZPreserved()
+int TestBuildAndOuterRoundtrip()
 {
-    const std::string payload = "2|21|31|1000|4|Potion\\zSmall|remain";
-    const cg::packet::PacketResult<cg::packet::receive::ObjectList> parsed =
-        cg::packet::receive::ObjectList::Parse(BuildPlainNsY(payload));
+    std::vector<ObjectListRecord> records;
+    records.emplace_back(RoleFields(), 10);
+    records.emplace_back(ItemFields(), 11);
+    records.emplace_back(GoldFields(), 12);
+    const ObjectList value(std::move(records));
 
-    int failures = Expect(static_cast<bool>(parsed), "parse nsY z payload");
-    if (!parsed.HasValue()) {
+    const cg::packet::PacketResult<std::string> data = value.BuildData();
+    int failures = Expect(data.HasValue(), "nsY BuildData");
+    if (!data.HasValue()) {
         return failures;
     }
 
-    failures += Expect(parsed.Value().records.size() == 1U, "parse nsY z record count");
-    if (parsed.Value().records.size() == 1U) {
-        failures += Expect(parsed.Value().records[0].fields[5] == "Potion\\zSmall", "preserve nsY z field");
+    failures += Expect(data.Value().find('\t') != std::string::npos, "nsY BuildData actual TAB");
+    failures += Expect(!data.Value().ends_with("\t"), "nsY BuildData no trailing TAB");
+
+    const cg::packet::PacketResult<cg::packet::Packet> packet = value.ToPacket();
+    failures += Expect(packet.HasValue(), "nsY ToPacket");
+    if (!packet.HasValue()) {
+        return failures;
     }
 
-    const cg::packet::PacketResult<std::string> built = BuildPacket(parsed.Value().ToPacket());
-    failures += Expect(static_cast<bool>(built), "build nsY z payload");
+    failures += Expect(packet.Value().fields.size() == 1U, "nsY ToPacket exact1");
+    if (packet.Value().fields.size() == 1U) {
+        failures += Expect(packet.Value().fields[0].name == "data", "nsY ToPacket data name");
+        failures += Expect(
+            packet.Value().fields[0].type == cg::packet::PacketFieldType::SubPayload,
+            "nsY ToPacket data SubPayload");
+        failures += Expect(packet.Value().fields[0].value == data.Value(), "nsY ToPacket data value");
+    }
+
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
+    failures += Expect(built.HasValue(), "nsY generic build");
     if (built.HasValue()) {
-        const cg::packet::PacketResult<cg::packet::receive::ObjectList> parsedAgain =
-            cg::packet::receive::ObjectList::Parse(built.Value());
-        failures += Expect(static_cast<bool>(parsedAgain), "parse rebuilt nsY z payload");
-        if (parsedAgain.HasValue()) {
-            failures += Expect(parsedAgain.Value().BuildData() == payload, "roundtrip nsY z payload");
+        const cg::packet::PacketResult<ObjectList> parsed = ObjectList::Parse(built.Value());
+        failures += Expect(parsed.HasValue(), "nsY outer roundtrip");
+        if (parsed.HasValue()) {
+            failures += Expect(parsed.Value().records.size() == 3U, "nsY outer record count");
         }
     }
     return failures;
 }
 
-int TestErrors()
+int TestRoleLegacyAndOpaqueSuffix()
+{
+    const std::string semanticName =
+        LegacyDoubleByteText(0x7CU, "A|B,C\\D\nE");
+    const std::string semanticOwnTitle =
+        LegacyDoubleByteText(0x5CU, "Own|Guild");
+    std::vector<std::string> role = RoleFields();
+    role[8] = semanticName;
+    role[9] = semanticOwnTitle;
+    role[13] = "Title|Name";
+    role.push_back("opaque\\zsuffix\\ttext");
+
+    const ObjectList value({ObjectListRecord(role, 10)});
+    const cg::packet::PacketResult<std::string> data = value.BuildData();
+    int failures = Expect(data.HasValue(), "nsY role semantic BuildData");
+    if (!data.HasValue()) {
+        return failures;
+    }
+
+    failures += Expect(data.Value().find("\\z") != std::string::npos, "nsY role pipe encoded");
+    failures += Expect(data.Value().find("\\c") != std::string::npos, "nsY role comma encoded");
+    failures += Expect(data.Value().find("\\y") != std::string::npos, "nsY role slash encoded");
+    failures += Expect(data.Value().find("\\n") != std::string::npos, "nsY role newline encoded");
+    failures += Expect(data.Value().find("\\t") != std::string::npos, "nsY literal slash-t preserved");
+
+    const cg::packet::PacketResult<ObjectList> parsed =
+        ObjectList::Parse(BuildPlain(data.Value()));
+    failures += Expect(parsed.HasValue(), "nsY role semantic Parse");
+    if (parsed.HasValue() && parsed.Value().records.size() == 1U) {
+        const std::vector<std::string>& fields = parsed.Value().records[0].fields;
+        failures += Expect(fields.size() == 18U, "nsY role opaque suffix retained");
+        failures += Expect(fields[8] == semanticName, "nsY role name semantic");
+        failures += Expect(fields[9] == semanticOwnTitle, "nsY role ownTitle semantic");
+        failures += Expect(fields[13] == "Title|Name", "nsY role title semantic");
+        failures += Expect(fields[17] == "opaque\\zsuffix\\ttext", "nsY role suffix stays raw");
+    }
+    return failures;
+}
+
+int TestItemRawSemanticAsymmetry()
+{
+    const std::string rawName =
+        LegacyDoubleByteText(0x7CU, "A\\zB") +
+        LegacyDoubleByteText(0x5CU, "C");
+    std::vector<std::string> item = ItemFields();
+    item[5] = rawName;
+    const ObjectList value({ObjectListRecord(item, 11)});
+
+    const cg::packet::PacketResult<std::string> data = value.BuildData();
+    int failures = Expect(data.HasValue(), "nsY item Server raw BuildData");
+    if (!data.HasValue()) {
+        return failures;
+    }
+    failures += Expect(data.Value().find("\\z") != std::string::npos, "nsY item raw token preserved");
+
+    const cg::packet::PacketResult<ObjectList> parsed =
+        ObjectList::Parse(BuildPlain(data.Value()));
+    failures += Expect(parsed.HasValue(), "nsY item raw Parse");
+    if (!parsed.HasValue() || parsed.Value().records.size() != 1U) {
+        return failures;
+    }
+
+    const std::string expectedSemantic =
+        LegacyDoubleByteText(0x7CU, "A|B") +
+        LegacyDoubleByteText(0x5CU, "C");
+    failures += Expect(
+        parsed.Value().records[0].fields[5] == expectedSemantic,
+        "nsY item name decodes once");
+    failures += ExpectFieldError(
+        parsed.Value().BuildData(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        0U,
+        "nsY parsed item literal pipe cannot raw BuildData");
+    return failures;
+}
+
+int TestStrictRecordGrammar()
+{
+    int failures = ExpectError(
+        ObjectList::Parse(BuildPlain("")),
+        cg::packet::PacketErrorCode::EmptyInput,
+        "nsY",
+        "nsY empty payload");
+    failures += ExpectError(
+        ObjectList::Parse(BuildPlain("\t" + JoinFields(GoldFields()))),
+        cg::packet::PacketErrorCode::FieldCountMismatch,
+        "nsY",
+        "nsY leading TAB");
+    failures += ExpectError(
+        ObjectList::Parse(BuildPlain(JoinFields(GoldFields()) + "\t\t" + JoinFields(ItemFields()))),
+        cg::packet::PacketErrorCode::FieldCountMismatch,
+        "nsY",
+        "nsY consecutive TAB");
+    failures += ExpectError(
+        ObjectList::Parse(BuildPlain(JoinFields(GoldFields()) + "\t")),
+        cg::packet::PacketErrorCode::FieldCountMismatch,
+        "nsY",
+        "nsY trailing TAB");
+    failures += ExpectError(
+        ObjectList(std::vector<ObjectListRecord> {}).BuildData(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        "nsY",
+        "nsY empty records BuildData");
+    return failures;
+}
+
+int TestShapeAndBranchErrors()
 {
     int failures = 0;
+    for (std::size_t fieldCount : {3U, 5U, 6U, 8U, 16U}) {
+        std::vector<std::string> fields(fieldCount, "1");
+        failures += ExpectError(
+            ObjectList::Parse(BuildPlain(JoinFields(fields))),
+            cg::packet::PacketErrorCode::FieldCountMismatch,
+            "nsY",
+            "nsY rejects noncanonical record shape");
+    }
+
+    std::vector<std::string> role = RoleFields();
+    role[10].clear();
     failures += ExpectError(
-        ParsePacket("nsY"),
+        ObjectList::Parse(BuildPlain(JoinFields(role))),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "nsY",
-        "nsY missing data");
+        "nsY role predicate required");
+
+    std::vector<std::string> item = ItemFields();
+    item[5].clear();
     failures += ExpectError(
-        cg::packet::receive::ObjectList::Parse("nsY"),
+        ObjectList::Parse(BuildPlain(JoinFields(item))),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "nsY",
-        "typed nsY missing data");
+        "nsY item predicate required");
+
+    std::vector<std::string> gold = GoldFields();
+    gold[3].clear();
     failures += ExpectError(
-        ParsePacket("nsY one two "),
+        ObjectList::Parse(BuildPlain(JoinFields(gold))),
         cg::packet::PacketErrorCode::FieldCountMismatch,
         "nsY",
-        "nsY extra data field");
-    failures += ExpectError(
-        cg::packet::receive::ObjectList::Parse("nsY one two "),
-        cg::packet::PacketErrorCode::FieldCountMismatch,
-        "nsY",
-        "typed nsY extra data field");
-    failures += ExpectError(
-        cg::packet::receive::ObjectList::Parse(BuildPlainNsY("1|2|3|4|5")),
-        cg::packet::PacketErrorCode::FieldCountMismatch,
-        "nsY",
-        "typed nsY bad record field count");
-    failures += ExpectError(
-        cg::packet::receive::ObjectList::Parse(BuildPlainNsY("_|2|3|4")),
+        "nsY gold predicate required");
+    return failures;
+}
+
+int TestBuildAndDecodeErrors()
+{
+    std::vector<std::string> badDelimiter = GoldFields();
+    badDelimiter[2] = "bad|field";
+    int failures = ExpectFieldError(
+        ObjectList({ObjectListRecord(std::move(badDelimiter), 12)}).BuildData(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        0U,
+        "nsY BuildData literal pipe");
+
+    std::vector<std::string> badTab = GoldFields();
+    badTab[2] = "bad\tfield";
+    failures += ExpectFieldError(
+        ObjectList({ObjectListRecord(std::move(badTab), 12)}).BuildData(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        0U,
+        "nsY BuildData literal TAB");
+
+    std::vector<std::string> truncated = GoldFields();
+    truncated[2].assign(1U, static_cast<char>(0x81U));
+    failures += ExpectFieldError(
+        ObjectList({ObjectListRecord(std::move(truncated), 12)}).BuildData(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        0U,
+        "nsY BuildData truncated GBK");
+
+    std::vector<std::string> badRoleText = RoleFields();
+    badRoleText[8] = "Bad\\";
+    failures += ExpectFieldError(
+        ObjectList::Parse(BuildPlain(JoinFields(badRoleText))),
         cg::packet::PacketErrorCode::DecodeFailed,
-        "nsY",
-        "typed nsY bad object index");
+        0U,
+        "nsY Parse truncated role legacy");
+
+    std::vector<std::string> badIndex = GoldFields();
+    badIndex[0] = "_";
+    failures += ExpectFieldError(
+        ObjectList::Parse(BuildPlain(JoinFields(badIndex))),
+        cg::packet::PacketErrorCode::DecodeFailed,
+        0U,
+        "nsY invalid objectIndex i62");
+    return failures;
+}
+
+int TestOuterErrors()
+{
+    int failures = ExpectError(
+        ObjectList::Parse("NI data "),
+        cg::packet::PacketErrorCode::InvalidCode,
+        "NI",
+        "nsY wrong code");
+    failures += Expect(!ObjectList::Parse("nsY").HasValue(), "nsY missing data");
+    failures += Expect(!ObjectList::Parse("nsY one two ").HasValue(), "nsY extra outer field");
     return failures;
 }
 
@@ -288,15 +446,17 @@ int TestErrors()
 int main()
 {
     int failures = 0;
-    failures += TestParsePacketOuter();
-    failures += TestTypedSingleRecords();
-    failures += TestMultiRecordRoundTrip();
-    failures += TestPayloadZPreserved();
-    failures += TestErrors();
+    failures += TestSpecAndThreeRecordParse();
+    failures += TestBuildAndOuterRoundtrip();
+    failures += TestRoleLegacyAndOpaqueSuffix();
+    failures += TestItemRawSemanticAsymmetry();
+    failures += TestStrictRecordGrammar();
+    failures += TestShapeAndBranchErrors();
+    failures += TestBuildAndDecodeErrors();
+    failures += TestOuterErrors();
     if (failures != 0) {
-        std::cerr << failures << " checks failed\n";
+        std::cerr << failures << " nsY expectations failed\n";
         return 1;
     }
-
     return 0;
 }

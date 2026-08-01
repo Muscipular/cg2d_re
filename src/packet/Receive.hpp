@@ -24923,7 +24923,7 @@ namespace cg::packet::receive
 
     /**
      * SEND_TRS CHAR_Trade_startTrade 被交易		ms {name:es} {level:i62}
-     * nameRaw 保留 makeEscapeString 后的 raw 字符串；本层不做 Unescape2/GBK。
+     * nameRaw 为单层 legacy 解码后的 GBK 语义字节；历史字段名保留。
      */
     struct TradeStart
     {
@@ -24950,20 +24950,28 @@ namespace cg::packet::receive
         }
 
 #if CG_PACKET_ENABLE_TEST_HELPERS
-        [[nodiscard]] Packet ToPacket() const
+        [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
+            PacketResult<std::string> encodedName = EncodeLegacyPayloadText(nameRaw);
+            if (!encodedName.HasValue()) {
+                PacketError error = encodedName.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = NameFieldIndex;
+                return PacketResult<Packet>::Failure(std::move(error));
+            }
+
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("name"),
-                PacketFieldType::EscapedString,
-                nameRaw,
+                PacketFieldType::SubPayload,
+                std::move(encodedName.Value()),
             });
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("level"),
                 PacketFieldType::Int62,
                 std::to_string(level),
             });
-            return packet;
+            return PacketResult<Packet>::Success(std::move(packet));
         }
 #endif
 
@@ -25025,6 +25033,15 @@ namespace cg::packet::receive
                 }
             }
 
+            PacketResult<std::string> decodedName = DecodeLegacyPayloadText(
+                packet.fields[NameFieldIndex].value);
+            if (!decodedName.HasValue()) {
+                PacketError error = decodedName.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = NameFieldIndex;
+                return PacketResult<TradeStart>::Failure(std::move(error));
+            }
+
             PacketResult<int> levelValue = ParseDecimalField(
                 packet.fields[LevelFieldIndex].value,
                 LevelFieldIndex);
@@ -25033,7 +25050,7 @@ namespace cg::packet::receive
             }
 
             return PacketResult<TradeStart>::Success(TradeStart(
-                packet.fields[NameFieldIndex].value,
+                std::move(decodedName.Value()),
                 levelValue.Value()));
         }
 

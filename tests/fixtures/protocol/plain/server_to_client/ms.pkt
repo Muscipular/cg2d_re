@@ -1,0 +1,7 @@
+pkt_fixture=1
+code=ms
+direction=server_to_client
+sample=gbk-two-layer-trade-name
+plain_hex=6D 73 20 81 7C 81 5C 41 5C 5C 7A 42 5C 5C 63 43 5C 5C 79 44 5C 5C 6E 45 20 61
+canonical_hex=6D 73 20 81 7C 81 5C 41 5C 5C 7A 42 5C 5C 63 43 5C 5C 79 44 5C 5C 6E 45 20 61 20
+end_sample

@@ -87,6 +87,33 @@ cg::packet::Packet PacketOf(
     return packet;
 }
 
+std::string Bytes(std::initializer_list<unsigned int> values)
+{
+    std::string output;
+    output.reserve(values.size());
+    for (const unsigned int value : values) {
+        output.push_back(static_cast<char>(value));
+    }
+    return output;
+}
+
+std::string SemanticName()
+{
+    return Bytes({
+        0x81U, 0x7CU, 0x81U, 0x5CU,
+        0x41U, 0x7CU, 0x42U, 0x2CU, 0x43U, 0x5CU, 0x44U, 0x0AU, 0x45U,
+    });
+}
+
+std::string EncodedName()
+{
+    return Bytes({
+        0x81U, 0x7CU, 0x81U, 0x5CU,
+        0x41U, 0x5CU, 0x7AU, 0x42U, 0x5CU, 0x63U,
+        0x43U, 0x5CU, 0x79U, 0x44U, 0x5CU, 0x6EU, 0x45U,
+    });
+}
+
 std::string BuildRawPlain(std::string_view nameToken, std::string_view levelToken)
 {
     std::string plain = "ms ";
@@ -97,10 +124,21 @@ std::string BuildRawPlain(std::string_view nameToken, std::string_view levelToke
     return plain;
 }
 
+std::string BuildPlain(std::string_view encodedName, std::string_view levelToken)
+{
+    const cg::packet::PacketResult<std::string> encodedOuter =
+        cg::packet::EncodeEscapedString(encodedName);
+    if (!encodedOuter.HasValue()) {
+        return BuildRawPlain("", levelToken);
+    }
+    return BuildRawPlain(encodedOuter.Value(), levelToken);
+}
+
 int ExpectTradeStartPacket(
     const cg::packet::Packet& packet,
     std::string_view nameRaw,
     std::string_view level,
+    cg::packet::PacketFieldType nameType,
     const char* message)
 {
     int failures = 0;
@@ -112,7 +150,7 @@ int ExpectTradeStartPacket(
     }
 
     failures += Expect(packet.fields[0].name == "name", message);
-    failures += Expect(packet.fields[0].type == cg::packet::PacketFieldType::EscapedString, message);
+    failures += Expect(packet.fields[0].type == nameType, message);
     failures += Expect(packet.fields[0].value == nameRaw, message);
     failures += Expect(packet.fields[1].name == "level", message);
     failures += Expect(packet.fields[1].type == cg::packet::PacketFieldType::Int62, message);
@@ -123,59 +161,49 @@ int ExpectTradeStartPacket(
 int TestParsePacketOuter()
 {
     const cg::packet::PacketResult<cg::packet::Packet> parsed =
-        ParsePacket("ms Alice a ");
+        ParsePacket(BuildPlain(EncodedName(), "a"));
 
     int failures = Expect(static_cast<bool>(parsed), "parse ms outer");
     if (parsed.HasValue()) {
-        failures += ExpectTradeStartPacket(parsed.Value(), "Alice", "10", "parse ms packet");
+        failures += ExpectTradeStartPacket(
+            parsed.Value(),
+            EncodedName(),
+            "10",
+            cg::packet::PacketFieldType::EscapedString,
+            "parse ms packet");
     }
     return failures;
 }
 
-int TestTypedRoundtrip()
+int TestSemanticRoundtrip()
 {
-    const TradeStart start("Alice", 10);
-    const cg::packet::Packet packet = start.ToPacket();
+    const TradeStart start(SemanticName(), -10);
+    const cg::packet::PacketResult<cg::packet::Packet> packet = start.ToPacket();
 
-    int failures = ExpectTradeStartPacket(packet, "Alice", "10", "ms ToPacket");
-    const cg::packet::PacketResult<std::string> built = BuildPacket(packet);
+    int failures = Expect(packet.HasValue(), "ms semantic ToPacket");
+    if (!packet.HasValue()) {
+        return failures;
+    }
+
+    failures += ExpectTradeStartPacket(
+        packet.Value(),
+        EncodedName(),
+        "-10",
+        cg::packet::PacketFieldType::SubPayload,
+        "ms semantic ToPacket fields");
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
     failures += Expect(static_cast<bool>(built), "build ms packet");
     if (!built.HasValue()) {
         return failures;
     }
 
-    failures += Expect(built.Value() == "ms Alice a ", "ms build value");
+    failures += Expect(built.Value() == BuildPlain(EncodedName(), "-a"), "ms semantic build value");
 
     const cg::packet::PacketResult<TradeStart> parsed = TradeStart::Parse(built.Value());
     failures += Expect(static_cast<bool>(parsed), "parse built ms");
     if (parsed.HasValue()) {
-        failures += Expect(parsed.Value().nameRaw == "Alice", "ms parsed nameRaw");
-        failures += Expect(parsed.Value().level == 10, "ms parsed level");
-    }
-    return failures;
-}
-
-int TestRawEscapesPreserved()
-{
-    const std::string nameRaw = "A\\zB\\cC\\yD\\nE";
-    const cg::packet::PacketResult<TradeStart> parsed =
-        TradeStart::Parse(BuildRawPlain(nameRaw, "a"));
-
-    int failures = Expect(static_cast<bool>(parsed), "parse ms raw escaped name");
-    if (!parsed.HasValue()) {
-        return failures;
-    }
-
-    failures += Expect(parsed.Value().nameRaw == nameRaw, "ms keep raw escaped name");
-    failures += Expect(parsed.Value().level == 10, "ms raw escaped level");
-
-    const cg::packet::PacketResult<std::string> built =
-        BuildPacket(parsed.Value().ToPacket());
-    failures += Expect(static_cast<bool>(built), "build ms raw escaped");
-    if (built.HasValue()) {
-        failures += Expect(
-            built.Value() == "ms A\\\\zB\\\\cC\\\\yD\\\\nE a ",
-            "ms raw escaped build value");
+        failures += Expect(parsed.Value().nameRaw == SemanticName(), "ms semantic nameRaw");
+        failures += Expect(parsed.Value().level == -10, "ms semantic signed level");
     }
     return failures;
 }
@@ -192,8 +220,13 @@ int TestEmptyNameAllowed()
     failures += Expect(parsed.Value().nameRaw.empty(), "ms empty nameRaw");
     failures += Expect(parsed.Value().level == 10, "ms empty name level");
 
-    const cg::packet::PacketResult<std::string> built =
-        BuildPacket(parsed.Value().ToPacket());
+    const cg::packet::PacketResult<cg::packet::Packet> packet = parsed.Value().ToPacket();
+    failures += Expect(packet.HasValue(), "ms empty ToPacket");
+    if (!packet.HasValue()) {
+        return failures;
+    }
+
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
     failures += Expect(static_cast<bool>(built), "build ms empty name");
     if (built.HasValue()) {
         failures += Expect(built.Value() == "ms  a ", "ms empty name build value");
@@ -289,17 +322,42 @@ int TestManualPacketErrors()
     return failures;
 }
 
+int TestLegacyErrors()
+{
+    int failures = 0;
+    failures += ExpectError(
+        TradeStart::FromPacket(PacketOf(
+            cg::packet::PacketDirection::ServerToClient,
+            {
+                Field("name", cg::packet::PacketFieldType::EscapedString, Bytes({0x81U})),
+                Field("level", cg::packet::PacketFieldType::Int62, "10"),
+            })),
+        cg::packet::PacketErrorCode::DecodeFailed,
+        "ms",
+        true,
+        0U,
+        "ms truncated GBK decode");
+    failures += ExpectError(
+        TradeStart(Bytes({0x81U}), 10).ToPacket(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        "ms",
+        true,
+        0U,
+        "ms truncated GBK encode");
+    return failures;
+}
+
 } // namespace
 
 int main()
 {
     int failures = 0;
     failures += TestParsePacketOuter();
-    failures += TestTypedRoundtrip();
-    failures += TestRawEscapesPreserved();
+    failures += TestSemanticRoundtrip();
     failures += TestEmptyNameAllowed();
     failures += TestParseErrors();
     failures += TestManualPacketErrors();
+    failures += TestLegacyErrors();
     if (failures != 0) {
         std::cerr << failures << " checks failed\n";
         return 1;

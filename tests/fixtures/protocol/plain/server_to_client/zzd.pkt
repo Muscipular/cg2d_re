@@ -1,0 +1,11 @@
+pkt_fixture=1
+code=zzd
+direction=server_to_client
+sample=active-clear-empty-option
+plain_hex=7A 7A 64 20 30 20 30 20
+canonical_hex=7A 7A 64 20 30 20 30 20 20
+end_sample
+sample=signed-gbk-outer-es-opaque-data
+plain_hex=7A 7A 64 20 77 20 2D 31 20 C3 FB 5C 53 41 7C 42 5C 5C 7A 43 5C 6E 81 5C 44
+canonical_hex=7A 7A 64 20 77 20 2D 31 20 C3 FB 5C 53 41 7C 42 5C 5C 7A 43 5C 6E 81 5C 44 20
+end_sample

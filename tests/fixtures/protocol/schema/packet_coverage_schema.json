@@ -1423,6 +1423,31 @@
       "xlsxStatus": "完成",
       "description": "SEND_EF",
       "rawFormat": "{EffType:i62} {TM_EffSize:i62} {data:es}",
+      "resolvedFormat": "{EffType:i62} {TM_EffSize:i62} {data:es}",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
+      "resolvedFields": [
+        {
+          "index": 0,
+          "name": "EffType",
+          "typeToken": "i62",
+          "rawSpec": "{EffType:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 1,
+          "name": "TM_EffSize",
+          "typeToken": "i62",
+          "rawSpec": "{TM_EffSize:i62}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        },
+        {
+          "index": 2,
+          "name": "data",
+          "typeToken": "es",
+          "rawSpec": "{data:es}",
+          "source": "xlsx+ServerC+ClientIda+src/packet"
+        }
+      ],
       "formatEmpty": false,
       "source": "xlsx",
       "fields": [

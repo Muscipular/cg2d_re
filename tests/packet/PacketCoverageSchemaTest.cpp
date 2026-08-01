@@ -10343,12 +10343,45 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     const PacketSchema* effectSchema = FindPacket(packets, "zzd");
     failures += Expect(effectSchema != nullptr, "zzd schema exists");
     if (effectSchema != nullptr) {
-        const cg::packet::receive::Effect effect(1, 2, "data");
+        const cg::packet::receive::Effect effect(32, -1, "data");
+        const cg::packet::Packet packet = effect.ToPacket();
         failures += Expect(effectSchema->direction == "服务端->客户端", "zzd direction");
         failures += Expect(effectSchema->legacyKind == "SEND", "zzd legacyKind");
-        failures += Expect(effectSchema->rawFormat == "{EffType:i62} {TM_EffSize:i62} {data:es}", "zzd rawFormat");
-        failures += ExpectPacketFieldsMatch(*effectSchema, effect.ToPacket(), "zzd field order");
+        failures += Expect(effectSchema->clientNamespace == "receive", "zzd namespace");
+        failures += Expect(
+            effectSchema->rawFormat == "{EffType:i62} {TM_EffSize:i62} {data:es}",
+            "zzd rawFormat");
+        failures += Expect(!effectSchema->formatEmpty, "zzd raw format non-empty");
+        failures += Expect(effectSchema->source == "xlsx", "zzd raw source");
+        failures += Expect(effectSchema->fields.size() == 3U, "zzd raw field count");
+        for (const FieldSchema& field : effectSchema->fields) {
+            failures += Expect(field.source == "xlsx", "zzd raw field source");
+        }
+        failures += ExpectPacketFieldsMatch(*effectSchema, packet, "zzd raw field order");
+        failures += Expect(
+            effectSchema->resolvedFormat == "{EffType:i62} {TM_EffSize:i62} {data:es}",
+            "zzd resolvedFormat");
+        failures += Expect(
+            effectSchema->resolvedSource == "xlsx+ServerC+ClientIda+src/packet",
+            "zzd resolvedSource");
+        failures += Expect(effectSchema->resolvedFields.size() == 3U, "zzd resolved field count");
+        for (const FieldSchema& field : effectSchema->resolvedFields) {
+            failures += Expect(
+                field.source == "xlsx+ServerC+ClientIda+src/packet",
+                "zzd resolved field source");
+        }
+        failures += ExpectEffectiveFieldsMatch(
+            *effectSchema,
+            cg::packet::receive::Effect::Spec,
+            "zzd Spec matches effective fields");
+        failures += ExpectResolvedFieldsMatch(*effectSchema, packet, "zzd ToPacket field order");
     }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "zzd"),
+        "zzd absent from send typed manifest");
+    failures += Expect(
+        TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "zzd"),
+        "zzd present in receive typed manifest");
 
     const PacketSchema* battleCommandSchema = FindPacket(packets, "LYIm");
     failures += Expect(battleCommandSchema != nullptr, "LYIm schema exists");

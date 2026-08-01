@@ -18212,10 +18212,12 @@ namespace cg::packet::receive
 
     /**
      * SEND_RS 战斗获得物品 Gn {data:es}
-     * data: actor0,actor1,actor2,actor3,itemGroup,skill0,...,skill14。
+     * data: 4 个 actor 槽、1 个含 3 个 item 槽的 itemGroup、15 个 skill 槽，
+     * itemGroup 与 data 均保留最终空段。
      */
     struct BattleRewardActor
     {
+        bool hasData = false;
         int targetIndex = 0;
         int levelUpFlag = 0;
         int expDelta = 0;
@@ -18226,11 +18228,13 @@ namespace cg::packet::receive
         bool hasItem = false;
         int imageNumber = 0;
         bool hasNameRaw = false;
+        // 历史字段名保留；值为两层 legacy 解码后的 GBK 语义字节。
         std::string nameRaw;
     };
 
     struct BattleRewardSkill
     {
+        bool hasData = false;
         int levelUpFlag = 0;
         int expDelta = 0;
     };
@@ -18250,7 +18254,6 @@ namespace cg::packet::receive
         };
         static constexpr std::string_view TopLevelDelimiter = ",";
         static constexpr std::string_view SegmentDelimiter = "|";
-        static constexpr std::string_view ItemNameMarker = "\\z";
         static constexpr std::size_t ActorCount = 4U;
         static constexpr std::size_t ItemCount = 3U;
         static constexpr std::size_t SkillCount = 15U;
@@ -18272,39 +18275,59 @@ namespace cg::packet::receive
         }
 
 #if CG_PACKET_ENABLE_TEST_HELPERS
-        [[nodiscard]] std::string BuildData() const
+        [[nodiscard]] PacketResult<std::string> BuildData() const
         {
             std::vector<std::string> parts;
-            parts.reserve(PayloadFieldCount);
+            parts.reserve(PayloadSplitFieldCount);
 
-            for (const BattleRewardActor& actor : actors) {
-                parts.push_back(BuildActor(actor));
+            for (std::size_t index = 0; index < actors.size(); ++index) {
+                PacketResult<std::string> actor = BuildActor(actors[index]);
+                if (!actor.HasValue()) {
+                    return actor;
+                }
+                parts.push_back(std::move(actor.Value()));
             }
-            parts.push_back(BuildItemGroup());
-            for (const BattleRewardSkill& skill : skills) {
-                parts.push_back(BuildSkill(skill));
+
+            PacketResult<std::string> itemGroup = BuildItemGroup();
+            if (!itemGroup.HasValue()) {
+                return itemGroup;
             }
+            parts.push_back(std::move(itemGroup.Value()));
+
+            for (std::size_t index = 0; index < skills.size(); ++index) {
+                PacketResult<std::string> skill = BuildSkill(skills[index]);
+                if (!skill.HasValue()) {
+                    return skill;
+                }
+                parts.push_back(std::move(skill.Value()));
+            }
+            parts.emplace_back();
 
             PacketResult<std::string> payload = BuildPayload(
                 std::span<const std::string>(parts.data(), parts.size()),
                 TopLevelDelimiter);
-            if (payload.HasValue()) {
-                return payload.Value();
+            if (!payload.HasValue()) {
+                return PacketResult<std::string>::Failure(FillDataError(payload.Error()));
             }
-            return {};
+            return payload;
         }
 #endif
 
 #if CG_PACKET_ENABLE_TEST_HELPERS
-        [[nodiscard]] Packet ToPacket() const
+        [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
+            PacketResult<std::string> data = BuildData();
+            if (!data.HasValue()) {
+                return PacketResult<Packet>::Failure(data.Error());
+            }
+
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("data"),
-                PacketFieldType::EscapedString,
-                BuildData(),
+                PacketFieldType::SubPayload,
+                std::move(data.Value()),
             });
-            return packet;
+            return PacketResult<Packet>::Success(std::move(packet));
         }
 #endif
 
@@ -18363,7 +18386,10 @@ namespace cg::packet::receive
         static constexpr std::size_t ItemGroupIndex = 4U;
         static constexpr std::size_t SkillStartIndex = 5U;
         static constexpr std::size_t PayloadFieldCount = ActorCount + 1U + SkillCount;
+        static constexpr std::size_t PayloadSplitFieldCount = PayloadFieldCount + 1U;
         static constexpr std::size_t ActorFieldCount = 3U;
+        static constexpr std::size_t ItemFieldCount = 2U;
+        static constexpr std::size_t ItemGroupSplitFieldCount = ItemCount + 1U;
         static constexpr std::size_t SkillFieldCount = 2U;
 
         [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
@@ -18383,85 +18409,115 @@ namespace cg::packet::receive
             return error;
         }
 
-        [[nodiscard]] static std::string BuildActor(const BattleRewardActor& actor)
+        [[nodiscard]] static PacketError FillDataError(PacketError error)
         {
+            error.packetCode = PacketCode(Code);
+            error.fieldIndex = DataFieldIndex;
+            return error;
+        }
+
+        [[nodiscard]] static PacketResult<std::string> BuildActor(const BattleRewardActor& actor)
+        {
+            if (!actor.hasData) {
+                return PacketResult<std::string>::Success({});
+            }
+
+            PacketResult<std::string> expDelta = EncodeInt62(actor.expDelta);
+            if (!expDelta.HasValue()) {
+                return PacketResult<std::string>::Failure(FillDataError(expDelta.Error()));
+            }
+
             const std::array<std::string, ActorFieldCount> parts = {
                 std::to_string(actor.targetIndex),
                 std::to_string(actor.levelUpFlag),
-                BuildInt62(actor.expDelta),
+                std::move(expDelta.Value()),
             };
             return JoinParts(parts);
         }
 
-        [[nodiscard]] std::string BuildItemGroup() const
+        [[nodiscard]] PacketResult<std::string> BuildItemGroup() const
         {
-            const std::array<std::string, ItemCount> parts = {
-                BuildItem(items[0]),
-                BuildItem(items[1]),
-                BuildItem(items[2]),
-            };
+            std::array<std::string, ItemGroupSplitFieldCount> parts = {};
+            for (std::size_t index = 0; index < items.size(); ++index) {
+                PacketResult<std::string> item = BuildItem(items[index]);
+                if (!item.HasValue()) {
+                    return item;
+                }
+                parts[index] = std::move(item.Value());
+            }
             return JoinParts(parts);
         }
 
-        [[nodiscard]] static std::string BuildItem(const BattleRewardItem& item)
+        [[nodiscard]] static PacketResult<std::string> BuildItem(const BattleRewardItem& item)
         {
             if (!item.hasItem) {
-                return {};
+                return PacketResult<std::string>::Success({});
             }
 
-            std::string data = std::to_string(item.imageNumber);
-            if (item.hasNameRaw || !item.nameRaw.empty()) {
-                data.append(ItemNameMarker);
-                data.append(item.nameRaw);
+            PacketResult<std::string> encodedName = EncodeLegacyPayloadText(item.nameRaw);
+            if (!encodedName.HasValue()) {
+                return PacketResult<std::string>::Failure(FillDataError(encodedName.Error()));
             }
-            return data;
+
+            const std::array<std::string, ItemFieldCount> parts = {
+                std::to_string(item.imageNumber),
+                std::move(encodedName.Value()),
+            };
+            PacketResult<std::string> itemData = JoinParts(parts);
+            if (!itemData.HasValue()) {
+                return itemData;
+            }
+
+            PacketResult<std::string> encodedItem = EncodeLegacyPayloadText(itemData.Value());
+            if (!encodedItem.HasValue()) {
+                return PacketResult<std::string>::Failure(FillDataError(encodedItem.Error()));
+            }
+            return encodedItem;
         }
 
-        [[nodiscard]] static std::string BuildSkill(const BattleRewardSkill& skill)
+        [[nodiscard]] static PacketResult<std::string> BuildSkill(const BattleRewardSkill& skill)
         {
+            if (!skill.hasData) {
+                return PacketResult<std::string>::Success({});
+            }
+
+            PacketResult<std::string> expDelta = EncodeInt62(skill.expDelta);
+            if (!expDelta.HasValue()) {
+                return PacketResult<std::string>::Failure(FillDataError(expDelta.Error()));
+            }
+
             const std::array<std::string, SkillFieldCount> parts = {
                 std::to_string(skill.levelUpFlag),
-                BuildInt62(skill.expDelta),
+                std::move(expDelta.Value()),
             };
             return JoinParts(parts);
         }
 
         template <std::size_t Count>
-        [[nodiscard]] static std::string JoinParts(const std::array<std::string, Count>& parts)
+        [[nodiscard]] static PacketResult<std::string> JoinParts(const std::array<std::string, Count>& parts)
         {
             PacketResult<std::string> payload = BuildPayload(
                 std::span<const std::string>(parts.data(), parts.size()),
                 SegmentDelimiter);
-            if (payload.HasValue()) {
-                return payload.Value();
+            if (!payload.HasValue()) {
+                return PacketResult<std::string>::Failure(FillDataError(payload.Error()));
             }
-            return {};
-        }
-
-        [[nodiscard]] static std::string BuildInt62(int value)
-        {
-            PacketResult<std::string> encoded = EncodeInt62(value);
-            if (encoded.HasValue()) {
-                return encoded.Value();
-            }
-            return {};
+            return payload;
         }
 
         [[nodiscard]] static PacketResult<BattleReward> ParseData(std::string_view payload)
         {
-            PacketResult<std::vector<std::string>> split = SplitPayload(payload, TopLevelDelimiter);
+            PacketResult<std::vector<std::string>> split =
+                SplitPayloadLegacyAware(payload, TopLevelDelimiter);
             if (!split.HasValue()) {
-                PacketError error = split.Error();
-                error.packetCode = PacketCode(Code);
-                error.fieldIndex = DataFieldIndex;
-                return PacketResult<BattleReward>::Failure(std::move(error));
+                return PacketResult<BattleReward>::Failure(FillDataError(split.Error()));
             }
 
             const std::vector<std::string>& parts = split.Value();
-            if (parts.size() != PayloadFieldCount) {
+            if (parts.size() != PayloadSplitFieldCount || !parts.back().empty()) {
                 return PacketResult<BattleReward>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    CG_PACKET_DIAGNOSTIC_TEXT("BattleReward payload 顶层段数量不匹配"),
+                    CG_PACKET_DIAGNOSTIC_TEXT("BattleReward payload 顶层段数量或尾随空段不匹配"),
                     DataFieldIndex));
             }
 
@@ -18496,9 +18552,14 @@ namespace cg::packet::receive
             std::string_view text,
             std::size_t payloadIndex)
         {
-            PacketResult<std::vector<std::string>> split = SplitPayload(text, SegmentDelimiter);
+            if (text.empty()) {
+                return PacketResult<BattleRewardActor>::Success({});
+            }
+
+            PacketResult<std::vector<std::string>> split =
+                SplitPayloadLegacyAware(text, SegmentDelimiter);
             if (!split.HasValue()) {
-                return PacketResult<BattleRewardActor>::Failure(split.Error());
+                return PacketResult<BattleRewardActor>::Failure(FillDataError(split.Error()));
             }
 
             const std::vector<std::string>& parts = split.Value();
@@ -18523,6 +18584,7 @@ namespace cg::packet::receive
             }
 
             return PacketResult<BattleRewardActor>::Success(BattleRewardActor {
+                true,
                 targetIndex.Value(),
                 levelUpFlag.Value(),
                 expDelta.Value(),
@@ -18532,16 +18594,18 @@ namespace cg::packet::receive
         [[nodiscard]] static PacketResult<std::array<BattleRewardItem, ItemCount>> ParseItemGroup(
             std::string_view text)
         {
-            PacketResult<std::vector<std::string>> split = SplitPayload(text, SegmentDelimiter);
+            PacketResult<std::vector<std::string>> split =
+                SplitPayloadLegacyAware(text, SegmentDelimiter);
             if (!split.HasValue()) {
-                return PacketResult<std::array<BattleRewardItem, ItemCount>>::Failure(split.Error());
+                return PacketResult<std::array<BattleRewardItem, ItemCount>>::Failure(
+                    FillDataError(split.Error()));
             }
 
             const std::vector<std::string>& parts = split.Value();
-            if (parts.size() != ItemCount) {
+            if (parts.size() != ItemGroupSplitFieldCount || !parts.back().empty()) {
                 return PacketResult<std::array<BattleRewardItem, ItemCount>>::Failure(MakeFieldError(
                     PacketErrorCode::FieldCountMismatch,
-                    CG_PACKET_DIAGNOSTIC_TEXT("BattleReward itemGroup 项数量不匹配"),
+                    CG_PACKET_DIAGNOSTIC_TEXT("BattleReward itemGroup 项数量或尾随空段不匹配"),
                     ItemGroupIndex));
             }
 
@@ -18563,22 +18627,39 @@ namespace cg::packet::receive
                 return PacketResult<BattleRewardItem>::Success(std::move(item));
             }
 
-            const std::size_t markerPos = text.find(ItemNameMarker);
-            const std::string_view imageText = markerPos == std::string_view::npos
-                ? text
-                : text.substr(0, markerPos);
+            PacketResult<std::string> decodedItem = DecodeLegacyPayloadText(text);
+            if (!decodedItem.HasValue()) {
+                return PacketResult<BattleRewardItem>::Failure(FillDataError(decodedItem.Error()));
+            }
 
-            PacketResult<int> imageNumber = ParseDecimalField(imageText, ItemGroupIndex);
+            PacketResult<std::vector<std::string>> split =
+                SplitPayloadLegacyAware(decodedItem.Value(), SegmentDelimiter);
+            if (!split.HasValue()) {
+                return PacketResult<BattleRewardItem>::Failure(FillDataError(split.Error()));
+            }
+
+            const std::vector<std::string>& parts = split.Value();
+            if (parts.size() != ItemFieldCount) {
+                return PacketResult<BattleRewardItem>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    CG_PACKET_DIAGNOSTIC_TEXT("BattleReward item 段数量不匹配"),
+                    ItemGroupIndex));
+            }
+
+            PacketResult<int> imageNumber = ParseDecimalField(parts[0], ItemGroupIndex);
             if (!imageNumber.HasValue()) {
                 return PacketResult<BattleRewardItem>::Failure(imageNumber.Error());
             }
 
+            PacketResult<std::string> nameRaw = DecodeLegacyPayloadText(parts[1]);
+            if (!nameRaw.HasValue()) {
+                return PacketResult<BattleRewardItem>::Failure(FillDataError(nameRaw.Error()));
+            }
+
             item.hasItem = true;
             item.imageNumber = imageNumber.Value();
-            item.hasNameRaw = markerPos != std::string_view::npos;
-            if (item.hasNameRaw) {
-                item.nameRaw = std::string(text.substr(markerPos + ItemNameMarker.size()));
-            }
+            item.hasNameRaw = true;
+            item.nameRaw = std::move(nameRaw.Value());
             return PacketResult<BattleRewardItem>::Success(std::move(item));
         }
 
@@ -18586,9 +18667,14 @@ namespace cg::packet::receive
             std::string_view text,
             std::size_t payloadIndex)
         {
-            PacketResult<std::vector<std::string>> split = SplitPayload(text, SegmentDelimiter);
+            if (text.empty()) {
+                return PacketResult<BattleRewardSkill>::Success({});
+            }
+
+            PacketResult<std::vector<std::string>> split =
+                SplitPayloadLegacyAware(text, SegmentDelimiter);
             if (!split.HasValue()) {
-                return PacketResult<BattleRewardSkill>::Failure(split.Error());
+                return PacketResult<BattleRewardSkill>::Failure(FillDataError(split.Error()));
             }
 
             const std::vector<std::string>& parts = split.Value();
@@ -18609,6 +18695,7 @@ namespace cg::packet::receive
             }
 
             return PacketResult<BattleRewardSkill>::Success(BattleRewardSkill {
+                true,
                 levelUpFlag.Value(),
                 expDelta.Value(),
             });

@@ -2,6 +2,7 @@
 #include "packet/Receive.hpp"
 
 #include <cstddef>
+#include <initializer_list>
 #include <iostream>
 #include <string>
 #include <string_view>
@@ -9,14 +10,16 @@
 
 namespace {
 
+using BattleReward = cg::packet::receive::BattleReward;
+
 cg::packet::PacketResult<cg::packet::Packet> ParsePacket(std::string_view plainTokens)
 {
-    return cg::packet::ParsePacket(plainTokens, cg::packet::receive::BattleReward::Spec);
+    return cg::packet::ParsePacket(plainTokens, BattleReward::Spec);
 }
 
 cg::packet::PacketResult<std::string> BuildPacket(const cg::packet::Packet& packet)
 {
-    return cg::packet::BuildPacket(packet, cg::packet::receive::BattleReward::Spec);
+    return cg::packet::BuildPacket(packet, BattleReward::Spec);
 }
 
 int Expect(bool condition, const char* message)
@@ -51,6 +54,60 @@ int ExpectError(
     return failures;
 }
 
+template <typename T>
+int ExpectErrorAt(
+    const cg::packet::PacketResult<T>& result,
+    cg::packet::PacketErrorCode code,
+    std::size_t fieldIndex,
+    const char* message)
+{
+    int failures = ExpectError(result, code, BattleReward::Code, message);
+    if (result.HasError()) {
+        failures += Expect(result.Error().fieldIndex.has_value(), message);
+        if (result.Error().fieldIndex.has_value()) {
+            failures += Expect(result.Error().fieldIndex.value() == fieldIndex, message);
+        }
+    }
+    return failures;
+}
+
+std::string Bytes(std::initializer_list<unsigned int> values)
+{
+    std::string bytes;
+    bytes.reserve(values.size());
+    for (const unsigned int value : values) {
+        bytes.push_back(static_cast<char>(value));
+    }
+    return bytes;
+}
+
+std::string SemanticItemName()
+{
+    return Bytes({
+        0xC3U,
+        0xFBU,
+        0x96U,
+        0x7CU,
+        0x41U,
+        0x7CU,
+        0x42U,
+        0x2CU,
+        0x43U,
+        0x5CU,
+        0x44U,
+        0x0AU,
+        0x45U,
+    });
+}
+
+std::string EncodedItemGroup()
+{
+    std::string itemGroup = "7300\\z";
+    itemGroup.append(Bytes({0xC3U, 0xFBU, 0x96U, 0x7CU}));
+    itemGroup.append("A\\yzB\\ycC\\yyD\\ynE|||");
+    return itemGroup;
+}
+
 std::string JoinComma(const std::vector<std::string>& parts)
 {
     std::string payload;
@@ -66,32 +123,31 @@ std::string JoinComma(const std::vector<std::string>& parts)
 std::vector<std::string> BuildSampleParts()
 {
     std::vector<std::string> parts = {
-        "-1|1|a",
-        "-2|0|-1",
-        "3|0|10",
-        "0|0|0",
-        "100\\zName\\cRaw||200\\zOther\\nRaw",
+        "-2|1|10",
+        "",
+        "",
+        "",
+        EncodedItemGroup(),
+        "1|10",
     };
 
-    parts.reserve(cg::packet::receive::BattleReward::ActorCount +
-        1U + cg::packet::receive::BattleReward::SkillCount);
-    parts.push_back("1|a");
-    parts.push_back("0|-1");
-    parts.push_back("1|10");
-    for (std::size_t index = 3U; index < cg::packet::receive::BattleReward::SkillCount; ++index) {
-        parts.push_back(std::to_string(index % 2U) + "|0");
+    for (std::size_t index = 1U; index + 1U < BattleReward::SkillCount; ++index) {
+        parts.emplace_back();
     }
+    parts.emplace_back("0|z");
+    parts.emplace_back();
     return parts;
 }
 
 std::string BuildPlain(std::string_view payload)
 {
-    const cg::packet::PacketResult<std::string> encodedPayload = cg::packet::EncodeEscapedString(payload);
+    const cg::packet::PacketResult<std::string> encodedPayload =
+        cg::packet::EncodeEscapedString(payload);
     if (!encodedPayload.HasValue()) {
         return "Gn  ";
     }
 
-    std::string plain(cg::packet::receive::BattleReward::Code);
+    std::string plain(BattleReward::Code);
     plain.push_back(' ');
     plain.append(encodedPayload.Value());
     plain.push_back(' ');
@@ -100,11 +156,12 @@ std::string BuildPlain(std::string_view payload)
 
 int ExpectBattleRewardPacket(
     const cg::packet::Packet& packet,
+    cg::packet::PacketFieldType fieldType,
     std::string_view data,
     const char* message)
 {
     int failures = 0;
-    failures += Expect(packet.code == cg::packet::PacketCode(cg::packet::receive::BattleReward::Code), message);
+    failures += Expect(packet.code == cg::packet::PacketCode(BattleReward::Code), message);
     failures += Expect(packet.direction == cg::packet::PacketDirection::ServerToClient, message);
     failures += Expect(packet.fields.size() == 1U, message);
     if (packet.fields.size() != 1U) {
@@ -112,7 +169,7 @@ int ExpectBattleRewardPacket(
     }
 
     failures += Expect(packet.fields[0].name == "data", message);
-    failures += Expect(packet.fields[0].type == cg::packet::PacketFieldType::EscapedString, message);
+    failures += Expect(packet.fields[0].type == fieldType, message);
     failures += Expect(packet.fields[0].value == data, message);
     return failures;
 }
@@ -124,7 +181,11 @@ int TestParsePacketOuter()
 
     int failures = Expect(static_cast<bool>(parsed), "parse Gn outer");
     if (parsed.HasValue()) {
-        failures += ExpectBattleRewardPacket(parsed.Value(), payload, "parse Gn outer packet");
+        failures += ExpectBattleRewardPacket(
+            parsed.Value(),
+            cg::packet::PacketFieldType::EscapedString,
+            payload,
+            "parse Gn outer packet");
     }
     return failures;
 }
@@ -132,84 +193,100 @@ int TestParsePacketOuter()
 int TestFullRoundtrip()
 {
     const std::string payload = JoinComma(BuildSampleParts());
-    const cg::packet::PacketResult<cg::packet::receive::BattleReward> parsed =
-        cg::packet::receive::BattleReward::Parse(BuildPlain(payload));
+    const cg::packet::PacketResult<BattleReward> parsed = BattleReward::Parse(BuildPlain(payload));
 
     int failures = Expect(static_cast<bool>(parsed), "parse Gn full");
     if (!parsed.HasValue()) {
         return failures;
     }
 
-    const cg::packet::receive::BattleReward& reward = parsed.Value();
-    failures += Expect(reward.actors[0].targetIndex == -1, "Gn actor0 target");
+    const BattleReward& reward = parsed.Value();
+    failures += Expect(reward.actors[0].hasData, "Gn actor0 exists");
+    failures += Expect(reward.actors[0].targetIndex == -2, "Gn actor0 target");
     failures += Expect(reward.actors[0].levelUpFlag == 1, "Gn actor0 levelUp");
-    failures += Expect(reward.actors[0].expDelta == 10, "Gn actor0 exp i62 a");
-    failures += Expect(reward.actors[1].targetIndex == -2, "Gn actor1 target");
-    failures += Expect(reward.actors[1].expDelta == -1, "Gn actor1 exp -1");
-    failures += Expect(reward.actors[2].targetIndex == 3, "Gn actor2 pet index");
-    failures += Expect(reward.actors[2].expDelta == 62, "Gn actor2 exp 10");
+    failures += Expect(reward.actors[0].expDelta == 62, "Gn actor0 exp i62");
+    for (std::size_t index = 1U; index < reward.actors.size(); ++index) {
+        failures += Expect(!reward.actors[index].hasData, "Gn empty actor");
+    }
 
     failures += Expect(reward.items[0].hasItem, "Gn item0 exists");
-    failures += Expect(reward.items[0].imageNumber == 100, "Gn item0 image");
-    failures += Expect(reward.items[0].hasNameRaw, "Gn item0 has raw name");
-    failures += Expect(reward.items[0].nameRaw == "Name\\cRaw", "Gn item0 raw name");
+    failures += Expect(reward.items[0].imageNumber == 7300, "Gn item0 image");
+    failures += Expect(reward.items[0].hasNameRaw, "Gn item0 has name");
+    failures += Expect(reward.items[0].nameRaw == SemanticItemName(), "Gn item0 semantic GBK name");
     failures += Expect(!reward.items[1].hasItem, "Gn item1 empty");
-    failures += Expect(reward.items[2].hasItem, "Gn item2 exists");
-    failures += Expect(reward.items[2].nameRaw == "Other\\nRaw", "Gn item2 raw name");
+    failures += Expect(!reward.items[2].hasItem, "Gn item2 empty");
 
+    failures += Expect(reward.skills[0].hasData, "Gn skill0 exists");
     failures += Expect(reward.skills[0].levelUpFlag == 1, "Gn skill0 levelUp");
-    failures += Expect(reward.skills[0].expDelta == 10, "Gn skill0 exp a");
-    failures += Expect(reward.skills[1].expDelta == -1, "Gn skill1 exp -1");
-    failures += Expect(reward.skills[2].expDelta == 62, "Gn skill2 exp 10");
-    failures += Expect(reward.BuildData() == payload, "Gn BuildData exact");
-    failures += Expect(!reward.BuildData().empty() && reward.BuildData().back() != ',', "Gn BuildData no trailing comma");
-    failures += ExpectBattleRewardPacket(reward.ToPacket(), payload, "Gn ToPacket");
+    failures += Expect(reward.skills[0].expDelta == 62, "Gn skill0 exp i62");
+    for (std::size_t index = 1U; index + 1U < reward.skills.size(); ++index) {
+        failures += Expect(!reward.skills[index].hasData, "Gn empty skill");
+    }
+    failures += Expect(reward.skills.back().hasData, "Gn last skill exists");
+    failures += Expect(reward.skills.back().levelUpFlag == 0, "Gn last skill levelUp");
+    failures += Expect(reward.skills.back().expDelta == 35, "Gn last skill exp i62");
 
-    const cg::packet::PacketResult<std::string> built = BuildPacket(reward.ToPacket());
+    const cg::packet::PacketResult<std::string> data = reward.BuildData();
+    failures += Expect(static_cast<bool>(data), "Gn BuildData");
+    if (data.HasValue()) {
+        failures += Expect(data.Value() == payload, "Gn BuildData exact");
+        failures += Expect(!data.Value().empty() && data.Value().back() == ',', "Gn BuildData trailing comma");
+    }
+
+    const cg::packet::PacketResult<cg::packet::Packet> packet = reward.ToPacket();
+    failures += Expect(static_cast<bool>(packet), "Gn ToPacket");
+    if (!packet.HasValue()) {
+        return failures;
+    }
+    failures += ExpectBattleRewardPacket(
+        packet.Value(),
+        cg::packet::PacketFieldType::SubPayload,
+        payload,
+        "Gn ToPacket value");
+
+    const cg::packet::PacketResult<std::string> built = BuildPacket(packet.Value());
     failures += Expect(static_cast<bool>(built), "build Gn packet");
     if (!built.HasValue()) {
         return failures;
     }
 
     failures += Expect(built.Value() == BuildPlain(payload), "build Gn plain");
-    const cg::packet::PacketResult<cg::packet::receive::BattleReward> roundtrip =
-        cg::packet::receive::BattleReward::Parse(built.Value());
+    const cg::packet::PacketResult<BattleReward> roundtrip = BattleReward::Parse(built.Value());
     failures += Expect(static_cast<bool>(roundtrip), "roundtrip Gn");
     if (roundtrip.HasValue()) {
-        failures += Expect(roundtrip.Value().items[0].nameRaw == "Name\\cRaw", "roundtrip Gn raw item name");
+        failures += Expect(
+            roundtrip.Value().items[0].nameRaw == SemanticItemName(),
+            "roundtrip Gn semantic item name");
     }
     return failures;
 }
 
-int TestEmptyItems()
+int TestEmptySlots()
 {
-    std::vector<std::string> parts = BuildSampleParts();
-    parts[4] = "||";
+    std::vector<std::string> parts(BattleReward::ActorCount + 1U + BattleReward::SkillCount + 1U);
+    parts[BattleReward::ActorCount] = "|||";
     const std::string payload = JoinComma(parts);
-    const cg::packet::PacketResult<cg::packet::receive::BattleReward> parsed =
-        cg::packet::receive::BattleReward::Parse(BuildPlain(payload));
+    const cg::packet::PacketResult<BattleReward> parsed = BattleReward::Parse(BuildPlain(payload));
 
-    int failures = Expect(static_cast<bool>(parsed), "parse Gn empty items");
-    if (parsed.HasValue()) {
-        failures += Expect(!parsed.Value().items[0].hasItem, "Gn empty item0");
-        failures += Expect(!parsed.Value().items[1].hasItem, "Gn empty item1");
-        failures += Expect(!parsed.Value().items[2].hasItem, "Gn empty item2");
-        failures += Expect(parsed.Value().BuildData() == payload, "Gn empty items BuildData");
+    int failures = Expect(static_cast<bool>(parsed), "parse Gn empty slots");
+    if (!parsed.HasValue()) {
+        return failures;
     }
-    return failures;
-}
 
-int TestRawOuterEscapes()
-{
-    const std::string payload = JoinComma(BuildSampleParts());
-    const std::string plain = std::string(cg::packet::receive::BattleReward::Code) + " " + payload + " ";
-    const cg::packet::PacketResult<cg::packet::receive::BattleReward> parsed =
-        cg::packet::receive::BattleReward::Parse(plain);
+    for (const cg::packet::receive::BattleRewardActor& actor : parsed.Value().actors) {
+        failures += Expect(!actor.hasData, "Gn empty actor slot");
+    }
+    for (const cg::packet::receive::BattleRewardItem& item : parsed.Value().items) {
+        failures += Expect(!item.hasItem, "Gn empty item slot");
+    }
+    for (const cg::packet::receive::BattleRewardSkill& skill : parsed.Value().skills) {
+        failures += Expect(!skill.hasData, "Gn empty skill slot");
+    }
 
-    int failures = Expect(static_cast<bool>(parsed), "parse Gn raw outer escapes");
-    if (parsed.HasValue()) {
-        failures += Expect(parsed.Value().items[0].nameRaw == "Name\\cRaw", "Gn raw outer keeps c");
-        failures += Expect(parsed.Value().items[2].nameRaw == "Other\\nRaw", "Gn raw outer keeps n");
+    const cg::packet::PacketResult<std::string> data = parsed.Value().BuildData();
+    failures += Expect(static_cast<bool>(data), "Gn empty slots BuildData");
+    if (data.HasValue()) {
+        failures += Expect(data.Value() == payload, "Gn empty slots canonical");
     }
     return failures;
 }
@@ -219,75 +296,104 @@ int TestPayloadErrors()
     int failures = 0;
     std::vector<std::string> parts = BuildSampleParts();
     parts.pop_back();
-    failures += ExpectError(
-        cg::packet::receive::BattleReward::Parse(BuildPlain(JoinComma(parts))),
+    failures += ExpectErrorAt(
+        BattleReward::Parse(BuildPlain(JoinComma(parts))),
         cg::packet::PacketErrorCode::FieldCountMismatch,
-        "Gn",
-        "Gn top-level 19 parts");
+        0U,
+        "Gn missing top trailing segment");
 
     parts = BuildSampleParts();
-    parts.push_back("0|0");
-    failures += ExpectError(
-        cg::packet::receive::BattleReward::Parse(BuildPlain(JoinComma(parts))),
+    parts.emplace_back();
+    failures += ExpectErrorAt(
+        BattleReward::Parse(BuildPlain(JoinComma(parts))),
         cg::packet::PacketErrorCode::FieldCountMismatch,
-        "Gn",
-        "Gn top-level 21 parts");
+        0U,
+        "Gn extra top segment");
 
     parts = BuildSampleParts();
-    parts[0] = "-1|1";
+    parts[0] = "-2|1";
     failures += ExpectError(
-        cg::packet::receive::BattleReward::Parse(BuildPlain(JoinComma(parts))),
+        BattleReward::Parse(BuildPlain(JoinComma(parts))),
         cg::packet::PacketErrorCode::FieldCountMismatch,
-        "Gn",
+        BattleReward::Code,
         "Gn actor segment count");
 
     parts = BuildSampleParts();
-    parts[5] = "1";
+    parts[4].pop_back();
     failures += ExpectError(
-        cg::packet::receive::BattleReward::Parse(BuildPlain(JoinComma(parts))),
+        BattleReward::Parse(BuildPlain(JoinComma(parts))),
         cg::packet::PacketErrorCode::FieldCountMismatch,
-        "Gn",
-        "Gn skill segment count");
+        BattleReward::Code,
+        "Gn itemGroup missing trailing segment");
 
     parts = BuildSampleParts();
-    parts[0] = "x|1|a";
+    parts[4] = "7300|||";
     failures += ExpectError(
-        cg::packet::receive::BattleReward::Parse(BuildPlain(JoinComma(parts))),
+        BattleReward::Parse(BuildPlain(JoinComma(parts))),
+        cg::packet::PacketErrorCode::FieldCountMismatch,
+        BattleReward::Code,
+        "Gn item missing name segment");
+
+    parts = BuildSampleParts();
+    parts[0] = "x|1|10";
+    failures += ExpectError(
+        BattleReward::Parse(BuildPlain(JoinComma(parts))),
         cg::packet::PacketErrorCode::DecodeFailed,
-        "Gn",
+        BattleReward::Code,
         "Gn invalid actor decimal");
 
     parts = BuildSampleParts();
-    parts[0] = "-1|1|_";
+    parts[0] = "-2|1|_";
     failures += ExpectError(
-        cg::packet::receive::BattleReward::Parse(BuildPlain(JoinComma(parts))),
+        BattleReward::Parse(BuildPlain(JoinComma(parts))),
         cg::packet::PacketErrorCode::DecodeFailed,
-        "Gn",
+        BattleReward::Code,
         "Gn invalid actor i62");
 
     parts = BuildSampleParts();
-    parts[4] = "x\\zName||";
+    parts[4] = "x\\zName|||";
     failures += ExpectError(
-        cg::packet::receive::BattleReward::Parse(BuildPlain(JoinComma(parts))),
+        BattleReward::Parse(BuildPlain(JoinComma(parts))),
         cg::packet::PacketErrorCode::DecodeFailed,
-        "Gn",
+        BattleReward::Code,
         "Gn invalid item image");
 
     parts = BuildSampleParts();
-    parts[5] = "x|a";
+    parts[5] = "x|10";
     failures += ExpectError(
-        cg::packet::receive::BattleReward::Parse(BuildPlain(JoinComma(parts))),
+        BattleReward::Parse(BuildPlain(JoinComma(parts))),
         cg::packet::PacketErrorCode::DecodeFailed,
-        "Gn",
+        BattleReward::Code,
         "Gn invalid skill decimal");
 
     parts = BuildSampleParts();
     parts[5] = "1|_";
     failures += ExpectError(
-        cg::packet::receive::BattleReward::Parse(BuildPlain(JoinComma(parts))),
+        BattleReward::Parse(BuildPlain(JoinComma(parts))),
         cg::packet::PacketErrorCode::DecodeFailed,
-        "Gn",
+        BattleReward::Code,
         "Gn invalid skill i62");
+    return failures;
+}
+
+int TestBuildErrors()
+{
+    BattleReward reward;
+    reward.items[0].hasItem = true;
+    reward.items[0].imageNumber = 7300;
+    reward.items[0].hasNameRaw = true;
+    reward.items[0].nameRaw = Bytes({0x81U});
+
+    int failures = ExpectErrorAt(
+        reward.BuildData(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        0U,
+        "Gn truncated GBK BuildData");
+    failures += ExpectErrorAt(
+        reward.ToPacket(),
+        cg::packet::PacketErrorCode::EncodeFailed,
+        0U,
+        "Gn truncated GBK ToPacket");
     return failures;
 }
 
@@ -296,22 +402,23 @@ int TestOuterErrors()
     int failures = 0;
     const std::string payload = JoinComma(BuildSampleParts());
     failures += ExpectError(
-        cg::packet::receive::BattleReward::Parse("LYIm BU "),
+        BattleReward::Parse("LYIm BU "),
         cg::packet::PacketErrorCode::InvalidCode,
         "LYIm",
         "Gn wrong code");
     failures += ExpectError(
-        cg::packet::receive::BattleReward::Parse("Gn"),
+        BattleReward::Parse("Gn"),
         cg::packet::PacketErrorCode::FieldCountMismatch,
-        "Gn",
+        BattleReward::Code,
         "Gn missing outer data");
     failures += ExpectError(
-        cg::packet::receive::BattleReward::Parse("Gn data extra "),
+        BattleReward::Parse("Gn data extra "),
         cg::packet::PacketErrorCode::FieldCountMismatch,
-        "Gn",
+        BattleReward::Code,
         "Gn extra outer data");
 
-    cg::packet::Packet manual(cg::packet::PacketCode(cg::packet::receive::BattleReward::Code),
+    cg::packet::Packet manual(
+        cg::packet::PacketCode(BattleReward::Code),
         cg::packet::PacketDirection::ClientToServer);
     manual.fields.push_back(cg::packet::PacketField {
         "data",
@@ -319,26 +426,34 @@ int TestOuterErrors()
         payload,
     });
     failures += ExpectError(
-        cg::packet::receive::BattleReward::FromPacket(manual),
+        BattleReward::FromPacket(manual),
         cg::packet::PacketErrorCode::DecodeFailed,
-        "Gn",
+        BattleReward::Code,
         "Gn wrong direction");
 
     manual.direction = cg::packet::PacketDirection::ServerToClient;
     manual.fields[0].name = "payload";
     failures += ExpectError(
-        cg::packet::receive::BattleReward::FromPacket(manual),
+        BattleReward::FromPacket(manual),
         cg::packet::PacketErrorCode::DecodeFailed,
-        "Gn",
+        BattleReward::Code,
         "Gn wrong field name");
 
     manual.fields[0].name = "data";
     manual.fields[0].type = cg::packet::PacketFieldType::Int62;
     failures += ExpectError(
-        cg::packet::receive::BattleReward::FromPacket(manual),
+        BattleReward::FromPacket(manual),
         cg::packet::PacketErrorCode::InvalidFieldType,
-        "Gn",
+        BattleReward::Code,
         "Gn wrong field type");
+
+    manual.fields[0].type = cg::packet::PacketFieldType::EscapedString;
+    manual.fields[0].value = Bytes({0x81U});
+    failures += ExpectErrorAt(
+        BattleReward::FromPacket(manual),
+        cg::packet::PacketErrorCode::DecodeFailed,
+        0U,
+        "Gn truncated GBK payload");
     return failures;
 }
 
@@ -349,9 +464,9 @@ int main()
     int failures = 0;
     failures += TestParsePacketOuter();
     failures += TestFullRoundtrip();
-    failures += TestEmptyItems();
-    failures += TestRawOuterEscapes();
+    failures += TestEmptySlots();
     failures += TestPayloadErrors();
+    failures += TestBuildErrors();
     failures += TestOuterErrors();
     if (failures != 0) {
         std::cerr << failures << " checks failed\n";

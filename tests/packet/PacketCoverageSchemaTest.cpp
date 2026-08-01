@@ -10400,14 +10400,50 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     const PacketSchema* battleRewardSchema = FindPacket(packets, "Gn");
     failures += Expect(battleRewardSchema != nullptr, "Gn schema exists");
     if (battleRewardSchema != nullptr) {
+        const cg::packet::receive::BattleReward reward;
+        const cg::packet::PacketResult<cg::packet::Packet> packet = reward.ToPacket();
         failures += Expect(battleRewardSchema->direction == "服务端->客户端", "Gn direction");
         failures += Expect(battleRewardSchema->legacyKind == "SEND", "Gn legacyKind");
+        failures += Expect(battleRewardSchema->clientNamespace == "receive", "Gn namespace");
+        failures += Expect(battleRewardSchema->xlsxStatus == "完成", "Gn xlsxStatus");
+        failures += Expect(
+            battleRewardSchema->description == "SEND_RS 战斗获得物品",
+            "Gn description");
         failures += Expect(battleRewardSchema->rawFormat.empty(), "Gn rawFormat empty");
         failures += Expect(battleRewardSchema->formatEmpty, "Gn formatEmpty");
-        failures += Expect(battleRewardSchema->resolvedFormat == "{data:es}", "Gn resolvedFormat");
-        failures += Expect(battleRewardSchema->resolvedSource == "ClientIda+src", "Gn resolvedSource");
+        failures += Expect(battleRewardSchema->source == "xlsx", "Gn raw source");
         failures += Expect(battleRewardSchema->fields.empty(), "Gn raw fields empty");
+        failures += Expect(battleRewardSchema->hasResolvedFormat, "Gn resolvedFormat present");
+        failures += Expect(battleRewardSchema->resolvedFormat == "{data:es}", "Gn resolvedFormat");
+        failures += Expect(
+            battleRewardSchema->resolvedSource == "ServerC+ClientIda+src/packet",
+            "Gn resolvedSource");
+        failures += Expect(battleRewardSchema->hasResolvedFields, "Gn resolvedFields present");
+        failures += Expect(battleRewardSchema->resolvedFields.size() == 1U, "Gn resolved field count");
+        if (battleRewardSchema->resolvedFields.size() == 1U) {
+            failures += Expect(
+                battleRewardSchema->resolvedFields[0].source
+                    == "ServerC+ClientIda+src/packet",
+                "Gn resolved field source");
+        }
+        failures += ExpectEffectiveFieldsMatch(
+            *battleRewardSchema,
+            cg::packet::receive::BattleReward::Spec,
+            "Gn Spec matches effective fields");
+        failures += Expect(packet.HasValue(), "Gn ToPacket");
+        if (packet.HasValue()) {
+            failures += ExpectResolvedFieldsMatch(
+                *battleRewardSchema,
+                packet.Value(),
+                "Gn ToPacket field order");
+        }
     }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "Gn"),
+        "Gn absent from send typed manifest");
+    failures += Expect(
+        TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "Gn"),
+        "Gn present in receive typed manifest");
 
     const PacketSchema* duelPointSchema = FindPacket(packets, "hB");
     failures += Expect(duelPointSchema != nullptr, "hB schema exists");

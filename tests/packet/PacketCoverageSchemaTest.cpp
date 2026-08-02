@@ -11907,40 +11907,71 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
     const PacketSchema* tradeTakeOutSchema = FindPacket(packets, "aiAb");
     failures += Expect(tradeTakeOutSchema != nullptr, "aiAb schema exists");
     if (tradeTakeOutSchema != nullptr) {
-        const cg::packet::send::TradeTakeOut tradeTakeOut("8|12", "0|2", 10);
-        const cg::packet::Packet packet = tradeTakeOut.ToPacket();
+        const cg::packet::send::TradeTakeOut tradeTakeOut({{8, 0}, {9, 1}}, {{0, 0}}, 10);
+        const cg::packet::PacketResult<cg::packet::Packet> packet = tradeTakeOut.ToPacket();
         failures += Expect(tradeTakeOutSchema->direction == "客户端->服务端", "aiAb direction");
         failures += Expect(tradeTakeOutSchema->legacyKind == "RECV", "aiAb legacyKind");
+        failures += Expect(tradeTakeOutSchema->clientNamespace == "send", "aiAb namespace");
+        failures += Expect(tradeTakeOutSchema->xlsxStatus == "完成", "aiAb xlsxStatus");
+        failures += Expect(
+            tradeTakeOutSchema->description == "RECV_TROP CHAR_Trade_setTradeList 取出物品",
+            "aiAb description");
         failures += Expect(tradeTakeOutSchema->rawFormat == "{item} {pet} {gold}", "aiAb rawFormat");
+        failures += Expect(!tradeTakeOutSchema->formatEmpty, "aiAb formatEmpty false");
+        failures += Expect(tradeTakeOutSchema->source == "xlsx", "aiAb raw source");
+        failures += Expect(tradeTakeOutSchema->hasResolvedFormat, "aiAb resolvedFormat present");
         failures += Expect(
             tradeTakeOutSchema->resolvedFormat == "{item:es} {pet:es} {gold:i62}",
             "aiAb resolvedFormat");
-        failures += Expect(tradeTakeOutSchema->resolvedSource == "xlsx+src/packet", "aiAb resolvedSource");
+        failures += Expect(
+            tradeTakeOutSchema->resolvedSource == "xlsx+ServerC+ClientIda+src/packet",
+            "aiAb resolvedSource");
         failures += Expect(tradeTakeOutSchema->fields.size() == 3U, "aiAb raw field count");
         if (tradeTakeOutSchema->fields.size() == 3U) {
-            failures += Expect(tradeTakeOutSchema->fields[0].name == "item", "aiAb raw field item");
-            failures += Expect(tradeTakeOutSchema->fields[1].name == "pet", "aiAb raw field pet");
-            failures += Expect(tradeTakeOutSchema->fields[2].name == "gold", "aiAb raw field gold");
-            failures += Expect(tradeTakeOutSchema->fields[0].typeToken == "unknown", "aiAb raw item type");
-            failures += Expect(tradeTakeOutSchema->fields[1].typeToken == "unknown", "aiAb raw pet type");
-            failures += Expect(tradeTakeOutSchema->fields[2].typeToken == "unknown", "aiAb raw gold type");
+            constexpr std::array<std::string_view, 3U> names = {{"item", "pet", "gold"}};
+            constexpr std::array<std::string_view, 3U> rawSpecs = {{"{item}", "{pet}", "{gold}"}};
+            for (std::size_t index = 0U; index < names.size(); ++index) {
+                const FieldSchema& field = tradeTakeOutSchema->fields[index];
+                failures += Expect(
+                    field.index == index &&
+                        field.name == names[index] &&
+                        field.typeToken == "unknown" &&
+                        field.rawSpec == rawSpecs[index] &&
+                        field.source == "xlsx",
+                    "aiAb raw field");
+            }
         }
-        failures += Expect(packet.fields.size() == 3U, "aiAb packet field count");
-        if (packet.fields.size() == 3U) {
-            failures += Expect(packet.fields[0].name == "item", "aiAb packet item field");
+        failures += ExpectEffectiveFieldsMatch(
+            *tradeTakeOutSchema,
+            cg::packet::send::TradeTakeOut::Spec,
+            "aiAb Spec matches effective fields");
+        failures += Expect(static_cast<bool>(packet), "aiAb packet build");
+        if (packet.HasValue()) {
+            failures += Expect(packet.Value().fields.size() == 3U, "aiAb packet field count");
+        }
+        if (packet.HasValue() && packet.Value().fields.size() == 3U) {
+            failures += Expect(packet.Value().fields[0].name == "item", "aiAb packet item field");
             failures += Expect(
-                packet.fields[0].type == cg::packet::PacketFieldType::EscapedString,
+                packet.Value().fields[0].type == cg::packet::PacketFieldType::SubPayload,
                 "aiAb packet item type");
-            failures += Expect(packet.fields[1].name == "pet", "aiAb packet pet field");
+            failures += Expect(packet.Value().fields[0].value == "8|0|9|1", "aiAb packet item value");
+            failures += Expect(packet.Value().fields[1].name == "pet", "aiAb packet pet field");
             failures += Expect(
-                packet.fields[1].type == cg::packet::PacketFieldType::EscapedString,
+                packet.Value().fields[1].type == cg::packet::PacketFieldType::SubPayload,
                 "aiAb packet pet type");
-            failures += Expect(packet.fields[2].name == "gold", "aiAb packet gold field");
+            failures += Expect(packet.Value().fields[1].value == "0|0", "aiAb packet pet value");
+            failures += Expect(packet.Value().fields[2].name == "gold", "aiAb packet gold field");
             failures += Expect(
-                packet.fields[2].type == cg::packet::PacketFieldType::Int62,
+                packet.Value().fields[2].type == cg::packet::PacketFieldType::Int62,
                 "aiAb packet gold type");
         }
     }
+    failures += Expect(
+        TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "aiAb"),
+        "aiAb present in send typed manifest");
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "aiAb"),
+        "aiAb absent from receive typed manifest");
 
     const PacketSchema* stallStartSchema = FindPacket(packets, "ylGN");
     failures += Expect(stallStartSchema != nullptr, "ylGN schema exists");

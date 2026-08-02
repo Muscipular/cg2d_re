@@ -5500,17 +5500,24 @@ namespace cg::packet::send
 #endif
     };
 
+    /** PUK2 交易列表条目：持有槽索引与交易窗口索引。 */
+    struct TradeTakeOutSelection
+    {
+        int sourceIndex = 0;
+        int tradeWindowIndex = 0;
+    };
+
     /**
      * RECV_TROP CHAR_Trade_setTradeList 取出物品 aiAb {item:es} {pet:es} {gold:i62}
-     * item/pet 为普通外层 es；内部 `|` 保持 opaque，不在此处拆解。
+     * PUK2 item/pet 均按 `sourceIndex|tradeWindowIndex` 成对排列，不带尾随分隔符。
      */
     struct TradeTakeOut
     {
         static constexpr std::string_view Code = "aiAb";
         static constexpr PacketDirection Direction = PacketDirection::ClientToServer;
         static constexpr std::array<PacketFieldSpec, 3U> Fields = {{
-            {CG_PACKET_DIAGNOSTIC_TEXT("item"), PacketFieldType::EscapedString},
-            {CG_PACKET_DIAGNOSTIC_TEXT("pet"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("item"), PacketFieldType::SubPayload},
+            {CG_PACKET_DIAGNOSTIC_TEXT("pet"), PacketFieldType::SubPayload},
             {CG_PACKET_DIAGNOSTIC_TEXT("gold"), PacketFieldType::Int62},
         }};
         static constexpr PacketSpec Spec {
@@ -5519,43 +5526,333 @@ namespace cg::packet::send
             Fields.data(),
             Fields.size(),
         };
+        static constexpr std::string_view PayloadDelimiter = "|";
+        static constexpr std::size_t MaxItemCount = 20U;
+        static constexpr std::size_t MaxPetCount = 5U;
 
-        std::string item;
-        std::string pet;
+        std::vector<TradeTakeOutSelection> items;
+        std::vector<TradeTakeOutSelection> pets;
         int gold = 0;
 
-        TradeTakeOut(std::string item, std::string pet, int gold)
-            : item(std::move(item)),
-              pet(std::move(pet)),
+        TradeTakeOut(
+            std::vector<TradeTakeOutSelection> items,
+            std::vector<TradeTakeOutSelection> pets,
+            int gold)
+            : items(std::move(items)),
+              pets(std::move(pets)),
               gold(gold)
         {
         }
 
-        [[nodiscard]] Packet ToPacket() const
+        [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
+            PacketResult<std::string> itemPayload = BuildSelectionPayload(
+                items,
+                MaxItemCount,
+                ItemFieldIndex);
+            if (!itemPayload.HasValue()) {
+                return PacketResult<Packet>::Failure(itemPayload.Error());
+            }
+
+            PacketResult<std::string> petPayload = BuildSelectionPayload(
+                pets,
+                MaxPetCount,
+                PetFieldIndex);
+            if (!petPayload.HasValue()) {
+                return PacketResult<Packet>::Failure(petPayload.Error());
+            }
+
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("item"),
-                PacketFieldType::EscapedString,
-                item,
+                PacketFieldType::SubPayload,
+                std::move(itemPayload.Value()),
             });
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("pet"),
-                PacketFieldType::EscapedString,
-                pet,
+                PacketFieldType::SubPayload,
+                std::move(petPayload.Value()),
             });
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("gold"),
                 PacketFieldType::Int62,
                 std::to_string(gold),
             });
-            return packet;
+            return PacketResult<Packet>::Success(std::move(packet));
         }
 
         [[nodiscard]] PacketResult<std::string> Encode() const
         {
-            return BuildPacket(ToPacket(), Spec);
+            PacketResult<Packet> packet = ToPacket();
+            if (!packet.HasValue()) {
+                return PacketResult<std::string>::Failure(packet.Error());
+            }
+            return BuildPacket(packet.Value(), Spec);
         }
+
+#if CG_PACKET_ENABLE_TEST_HELPERS
+        static PacketResult<TradeTakeOut> Parse(std::string_view view)
+        {
+            PacketResult<Packet> parsed = ParsePacket(view, Spec);
+            if (!parsed.HasValue()) {
+                return PacketResult<TradeTakeOut>::Failure(parsed.Error());
+            }
+
+            return FromPacket(parsed.Value());
+        }
+
+        static PacketResult<TradeTakeOut> FromPacket(const Packet& packet)
+        {
+            if (packet.code.View() != Code) {
+                PacketError error = MakePacketError(
+                    PacketErrorCode::InvalidCode,
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradeTakeOut Parse 收到非 aiAb 封包"));
+                error.packetCode = packet.code;
+                return PacketResult<TradeTakeOut>::Failure(std::move(error));
+            }
+
+            if (packet.direction != Direction) {
+                return PacketResult<TradeTakeOut>::Failure(MakePacketError(
+                    PacketErrorCode::DecodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradeTakeOut Parse 封包方向不匹配")));
+            }
+
+            if (packet.fields.size() != FieldCount) {
+                return PacketResult<TradeTakeOut>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradeTakeOut Parse 字段数量不匹配"),
+                    packet.fields.size() < FieldCount ? packet.fields.size() : FieldCount));
+            }
+
+            const PacketField& itemField = packet.fields[ItemFieldIndex];
+            if (!CG_PACKET_FIELD_NAME_MATCHES(itemField.name, CG_PACKET_DIAGNOSTIC_TEXT("item"))) {
+                return PacketResult<TradeTakeOut>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradeTakeOut Parse item 字段名不匹配"),
+                    ItemFieldIndex));
+            }
+            if (itemField.type != PacketFieldType::EscapedString) {
+                return PacketResult<TradeTakeOut>::Failure(MakeFieldError(
+                    PacketErrorCode::InvalidFieldType,
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradeTakeOut Parse item 字段类型不匹配"),
+                    ItemFieldIndex));
+            }
+
+            const PacketField& petField = packet.fields[PetFieldIndex];
+            if (!CG_PACKET_FIELD_NAME_MATCHES(petField.name, CG_PACKET_DIAGNOSTIC_TEXT("pet"))) {
+                return PacketResult<TradeTakeOut>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradeTakeOut Parse pet 字段名不匹配"),
+                    PetFieldIndex));
+            }
+            if (petField.type != PacketFieldType::EscapedString) {
+                return PacketResult<TradeTakeOut>::Failure(MakeFieldError(
+                    PacketErrorCode::InvalidFieldType,
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradeTakeOut Parse pet 字段类型不匹配"),
+                    PetFieldIndex));
+            }
+
+            const PacketField& goldField = packet.fields[GoldFieldIndex];
+            if (!CG_PACKET_FIELD_NAME_MATCHES(goldField.name, CG_PACKET_DIAGNOSTIC_TEXT("gold"))) {
+                return PacketResult<TradeTakeOut>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradeTakeOut Parse gold 字段名不匹配"),
+                    GoldFieldIndex));
+            }
+            if (goldField.type != PacketFieldType::Int62) {
+                return PacketResult<TradeTakeOut>::Failure(MakeFieldError(
+                    PacketErrorCode::InvalidFieldType,
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradeTakeOut Parse gold 字段类型不匹配"),
+                    GoldFieldIndex));
+            }
+
+            PacketResult<std::vector<TradeTakeOutSelection>> parsedItems = ParseSelectionPayload(
+                itemField.value,
+                MaxItemCount,
+                ItemFieldIndex);
+            if (!parsedItems.HasValue()) {
+                return PacketResult<TradeTakeOut>::Failure(parsedItems.Error());
+            }
+
+            PacketResult<std::vector<TradeTakeOutSelection>> parsedPets = ParseSelectionPayload(
+                petField.value,
+                MaxPetCount,
+                PetFieldIndex);
+            if (!parsedPets.HasValue()) {
+                return PacketResult<TradeTakeOut>::Failure(parsedPets.Error());
+            }
+
+            PacketResult<int> parsedGold = ParseDecimalField(goldField.value, GoldFieldIndex);
+            if (!parsedGold.HasValue()) {
+                return PacketResult<TradeTakeOut>::Failure(parsedGold.Error());
+            }
+
+            return PacketResult<TradeTakeOut>::Success(TradeTakeOut(
+                std::move(parsedItems.Value()),
+                std::move(parsedPets.Value()),
+                parsedGold.Value()));
+        }
+#endif
+
+    private:
+        static constexpr std::size_t FieldCount = 3U;
+        static constexpr std::size_t ItemFieldIndex = 0U;
+        static constexpr std::size_t PetFieldIndex = 1U;
+        static constexpr std::size_t GoldFieldIndex = 2U;
+
+        [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
+        {
+            PacketError error = PacketError::Make(code, std::move(message));
+            error.packetCode = PacketCode(Code);
+            return error;
+        }
+
+        [[nodiscard]] static PacketError MakeFieldError(
+            PacketErrorCode code,
+            std::string_view message,
+            std::size_t fieldIndex)
+        {
+            PacketError error = MakePacketError(code, std::move(message));
+            error.fieldIndex = fieldIndex;
+            return error;
+        }
+
+        [[nodiscard]] static PacketResult<std::string> BuildSelectionPayload(
+            const std::vector<TradeTakeOutSelection>& selections,
+            std::size_t maxCount,
+            std::size_t fieldIndex)
+        {
+            if (selections.size() > maxCount) {
+                return PacketResult<std::string>::Failure(MakeFieldError(
+                    PacketErrorCode::EncodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradeTakeOut PUK2 条目数量超过上限"),
+                    fieldIndex));
+            }
+
+            std::vector<std::string> parts;
+            parts.reserve(selections.size() * 2U);
+            for (const TradeTakeOutSelection& selection : selections) {
+                parts.push_back(std::to_string(selection.sourceIndex));
+                parts.push_back(std::to_string(selection.tradeWindowIndex));
+            }
+
+            PacketResult<std::string> payload = BuildPayload(parts, PayloadDelimiter);
+            if (!payload.HasValue()) {
+                PacketError error = payload.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = fieldIndex;
+                return PacketResult<std::string>::Failure(std::move(error));
+            }
+            return payload;
+        }
+
+#if CG_PACKET_ENABLE_TEST_HELPERS
+        [[nodiscard]] static PacketResult<std::vector<TradeTakeOutSelection>> ParseSelectionPayload(
+            std::string_view payload,
+            std::size_t maxCount,
+            std::size_t fieldIndex)
+        {
+            if (payload.empty()) {
+                return PacketResult<std::vector<TradeTakeOutSelection>>::Success(
+                    std::vector<TradeTakeOutSelection>{});
+            }
+
+            PacketResult<std::vector<std::string>> split = SplitPayload(payload, PayloadDelimiter);
+            if (!split.HasValue()) {
+                PacketError error = split.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = fieldIndex;
+                return PacketResult<std::vector<TradeTakeOutSelection>>::Failure(std::move(error));
+            }
+
+            const std::vector<std::string>& parts = split.Value();
+            if ((parts.size() % 2U) != 0U) {
+                return PacketResult<std::vector<TradeTakeOutSelection>>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradeTakeOut PUK2 条目必须由两个十进制字段组成"),
+                    fieldIndex));
+            }
+
+            const std::size_t selectionCount = parts.size() / 2U;
+            if (selectionCount > maxCount) {
+                return PacketResult<std::vector<TradeTakeOutSelection>>::Failure(MakeFieldError(
+                    PacketErrorCode::FieldCountMismatch,
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradeTakeOut PUK2 条目数量超过上限"),
+                    fieldIndex));
+            }
+
+            std::vector<TradeTakeOutSelection> selections;
+            selections.reserve(selectionCount);
+            for (std::size_t index = 0U; index < parts.size(); index += 2U) {
+                PacketResult<int> sourceIndex = ParseDecimalField(parts[index], fieldIndex);
+                if (!sourceIndex.HasValue()) {
+                    return PacketResult<std::vector<TradeTakeOutSelection>>::Failure(sourceIndex.Error());
+                }
+
+                PacketResult<int> tradeWindowIndex = ParseDecimalField(parts[index + 1U], fieldIndex);
+                if (!tradeWindowIndex.HasValue()) {
+                    return PacketResult<std::vector<TradeTakeOutSelection>>::Failure(tradeWindowIndex.Error());
+                }
+
+                selections.push_back(TradeTakeOutSelection {
+                    sourceIndex.Value(),
+                    tradeWindowIndex.Value(),
+                });
+            }
+
+            return PacketResult<std::vector<TradeTakeOutSelection>>::Success(std::move(selections));
+        }
+
+        [[nodiscard]] static PacketResult<int> ParseDecimalField(
+            std::string_view text,
+            std::size_t fieldIndex)
+        {
+            bool negative = false;
+            std::size_t index = 0U;
+            if (!text.empty() && text.front() == '-') {
+                negative = true;
+                index = 1U;
+            }
+
+            if (index == text.size()) {
+                return PacketResult<int>::Failure(MakeFieldError(
+                    PacketErrorCode::DecodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT("TradeTakeOut 十进制字段为空"),
+                    fieldIndex));
+            }
+
+            const std::int64_t maxValue = static_cast<std::int64_t>(std::numeric_limits<int>::max());
+            const std::int64_t minValue = static_cast<std::int64_t>(std::numeric_limits<int>::min());
+            const std::int64_t limit = negative ? (0 - minValue) : maxValue;
+            std::int64_t value = 0;
+
+            for (; index < text.size(); ++index) {
+                const char ch = text[index];
+                if (ch < '0' || ch > '9') {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        CG_PACKET_DIAGNOSTIC_TEXT("TradeTakeOut 十进制字段包含非法字符"),
+                        fieldIndex));
+                }
+
+                const int digit = ch - '0';
+                if (value > (limit - digit) / 10) {
+                    return PacketResult<int>::Failure(MakeFieldError(
+                        PacketErrorCode::DecodeFailed,
+                        CG_PACKET_DIAGNOSTIC_TEXT("TradeTakeOut 十进制字段超出 int 范围"),
+                        fieldIndex));
+                }
+
+                value = (value * 10) + digit;
+            }
+
+            if (negative) {
+                value = -value;
+            }
+
+            return PacketResult<int>::Success(static_cast<int>(value));
+        }
+#endif
     };
 
     /**

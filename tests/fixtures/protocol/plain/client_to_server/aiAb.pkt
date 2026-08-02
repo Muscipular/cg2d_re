@@ -1,0 +1,9 @@
+pkt_fixture=1
+code=aiAb
+direction=client_to_server
+sample=puk2-item-pet-pairs-no-trailing
+plain_hex=61 69 41 62 20 38 7C 30 7C 39 7C 31 20 30 7C 30 20 61
+canonical_hex=61 69 41 62 20 38 7C 30 7C 39 7C 31 20 30 7C 30 20 61 20
+payload_field=0
+payload_hex=38 7C 30 7C 39 7C 31
+end_sample

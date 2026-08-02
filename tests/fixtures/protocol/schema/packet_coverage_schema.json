@@ -7716,7 +7716,7 @@
       "formatEmpty": false,
       "source": "xlsx",
       "resolvedFormat": "{item:es} {pet:es} {gold:i62}",
-      "resolvedSource": "xlsx+src/packet",
+      "resolvedSource": "xlsx+ServerC+ClientIda+src/packet",
       "fields": [
         {
           "index": 0,

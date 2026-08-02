@@ -9369,7 +9369,7 @@ namespace cg::packet::receive
     };
 
     /**
-     * SEND_CN 队伍成员完整状态：objectIndexllevel|maxHp|hp|forcePoint|name。
+     * SEND_CN 队伍成员完整状态：objectIndex|level|maxHp|hp|forcePoint|name|。
      */
     struct PartyMemberStatusEntry
     {
@@ -9378,12 +9378,13 @@ namespace cg::packet::receive
         int maxHp = 0;
         int hp = 0;
         int forcePoint = 0;
+        // Parse 后为单层 legacy 解码的 GBK 语义字节；BuildData 按 Server producer 原样写入。
         std::string name;
     };
 
     /**
      * SEND_CN 队伍成员状态		JJQj {partySlot:i62} {data:es}
-     * data: `0|` 表示空队员/离队；`1|objectIndexllevel|maxHp|hp|forcePoint|name|` 表示完整状态。
+     * data 使用 fieldMask 0/1；完整状态按 objectIndex、level、maxHp、hp、forcePoint、name 独立段传输。
      */
     struct PartyMemberStatus
     {
@@ -9391,7 +9392,7 @@ namespace cg::packet::receive
         static constexpr PacketDirection Direction = PacketDirection::ServerToClient;
         static constexpr std::array<PacketFieldSpec, 2U> Fields = {{
             {CG_PACKET_DIAGNOSTIC_TEXT("partySlot"), PacketFieldType::Int62},
-            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::EscapedString},
+            {CG_PACKET_DIAGNOSTIC_TEXT("data"), PacketFieldType::SubPayload},
         }};
         static constexpr PacketSpec Spec {
             Code,
@@ -9418,15 +9419,30 @@ namespace cg::packet::receive
         }
 
 #if CG_PACKET_ENABLE_TEST_HELPERS
-        [[nodiscard]] std::string BuildData() const
+        [[nodiscard]] PacketResult<std::string> BuildData() const
         {
             if (kind == PartyMemberStatusKind::EmptyOrRemove) {
-                return "0|";
+                return PacketResult<std::string>::Success("0|");
+            }
+
+            PacketResult<std::vector<std::string>> nameParts =
+                SplitPayloadLegacyAware(member.name, PayloadDelimiter);
+            if (!nameParts.HasValue()) {
+                return PacketResult<std::string>::Failure(MakeFieldError(
+                    PacketErrorCode::EncodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT("PartyMemberStatus name 包含截断旧双字节字符"),
+                    NamePayloadFieldIndex));
+            }
+            if (nameParts.Value().size() != 1U) {
+                return PacketResult<std::string>::Failure(MakeFieldError(
+                    PacketErrorCode::EncodeFailed,
+                    CG_PACKET_DIAGNOSTIC_TEXT("PartyMemberStatus name 包含 ASCII payload 分隔符"),
+                    NamePayloadFieldIndex));
             }
 
             std::string payload = "1|";
             payload.append(std::to_string(member.objectIndex));
-            payload.push_back('l');
+            payload.push_back('|');
             payload.append(std::to_string(member.level));
             payload.push_back('|');
             payload.append(std::to_string(member.maxHp));
@@ -9437,13 +9453,18 @@ namespace cg::packet::receive
             payload.push_back('|');
             payload.append(member.name);
             payload.push_back('|');
-            return payload;
+            return PacketResult<std::string>::Success(std::move(payload));
         }
 #endif
 
 #if CG_PACKET_ENABLE_TEST_HELPERS
-        [[nodiscard]] Packet ToPacket() const
+        [[nodiscard]] PacketResult<Packet> ToPacket() const
         {
+            PacketResult<std::string> data = BuildData();
+            if (!data.HasValue()) {
+                return PacketResult<Packet>::Failure(data.Error());
+            }
+
             Packet packet(PacketCode(Code), Direction);
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("partySlot"),
@@ -9452,10 +9473,10 @@ namespace cg::packet::receive
             });
             packet.fields.push_back(PacketField {
                 CG_PACKET_DIAGNOSTIC_TEXT("data"),
-                PacketFieldType::EscapedString,
-                BuildData(),
+                PacketFieldType::SubPayload,
+                std::move(data.Value()),
             });
-            return packet;
+            return PacketResult<Packet>::Success(std::move(packet));
         }
 #endif
 
@@ -9530,8 +9551,13 @@ namespace cg::packet::receive
         static constexpr std::size_t FieldCount = 2U;
         static constexpr std::size_t PartySlotFieldIndex = 0U;
         static constexpr std::size_t DataFieldIndex = 1U;
-        static constexpr std::size_t AllPayloadFieldCount = 6U;
-        static constexpr std::size_t ObjectLevelFieldIndex = 1U;
+        static constexpr std::size_t AllPayloadFieldCount = 7U;
+        static constexpr std::size_t ObjectIndexPayloadFieldIndex = 1U;
+        static constexpr std::size_t LevelPayloadFieldIndex = 2U;
+        static constexpr std::size_t MaxHpPayloadFieldIndex = 3U;
+        static constexpr std::size_t HpPayloadFieldIndex = 4U;
+        static constexpr std::size_t ForcePointPayloadFieldIndex = 5U;
+        static constexpr std::size_t NamePayloadFieldIndex = 6U;
 
         [[nodiscard]] static PacketError MakePacketError(PacketErrorCode code, std::string_view message)
         {
@@ -9566,7 +9592,8 @@ namespace cg::packet::receive
                     DataFieldIndex));
             }
 
-            PacketResult<std::vector<std::string>> split = SplitPayload(payload, PayloadDelimiter);
+            PacketResult<std::vector<std::string>> split =
+                SplitPayloadLegacyAware(payload, PayloadDelimiter);
             if (!split.HasValue()) {
                 PacketError error = split.Error();
                 error.packetCode = PacketCode(Code);
@@ -9635,45 +9662,45 @@ namespace cg::packet::receive
         [[nodiscard]] static PacketResult<PartyMemberStatusEntry> ParseAllPayload(
             const std::vector<std::string>& parts)
         {
-            const std::string& objectAndLevel = parts[ObjectLevelFieldIndex];
-            const std::size_t separator = objectAndLevel.find('l');
-            if (separator == std::string::npos ||
-                separator == 0U ||
-                separator + 1U == objectAndLevel.size() ||
-                objectAndLevel.find('l', separator + 1U) != std::string::npos) {
-                return PacketResult<PartyMemberStatusEntry>::Failure(MakeFieldError(
-                    PacketErrorCode::DecodeFailed,
-                    CG_PACKET_DIAGNOSTIC_TEXT("PartyMemberStatus objectIndexllevel 格式不匹配"),
-                    ObjectLevelFieldIndex));
-            }
-
             PacketResult<int> objectIndex = ParseDecimalField(
-                std::string_view(objectAndLevel).substr(0U, separator),
-                ObjectLevelFieldIndex);
+                parts[ObjectIndexPayloadFieldIndex],
+                ObjectIndexPayloadFieldIndex);
             if (!objectIndex.HasValue()) {
                 return PacketResult<PartyMemberStatusEntry>::Failure(objectIndex.Error());
             }
 
             PacketResult<int> level = ParseDecimalField(
-                std::string_view(objectAndLevel).substr(separator + 1U),
-                ObjectLevelFieldIndex);
+                parts[LevelPayloadFieldIndex],
+                LevelPayloadFieldIndex);
             if (!level.HasValue()) {
                 return PacketResult<PartyMemberStatusEntry>::Failure(level.Error());
             }
 
-            PacketResult<int> maxHp = ParseDecimalField(parts[2], 2U);
+            PacketResult<int> maxHp = ParseDecimalField(
+                parts[MaxHpPayloadFieldIndex],
+                MaxHpPayloadFieldIndex);
             if (!maxHp.HasValue()) {
                 return PacketResult<PartyMemberStatusEntry>::Failure(maxHp.Error());
             }
 
-            PacketResult<int> hp = ParseDecimalField(parts[3], 3U);
+            PacketResult<int> hp = ParseDecimalField(parts[HpPayloadFieldIndex], HpPayloadFieldIndex);
             if (!hp.HasValue()) {
                 return PacketResult<PartyMemberStatusEntry>::Failure(hp.Error());
             }
 
-            PacketResult<int> forcePoint = ParseDecimalField(parts[4], 4U);
+            PacketResult<int> forcePoint = ParseDecimalField(
+                parts[ForcePointPayloadFieldIndex],
+                ForcePointPayloadFieldIndex);
             if (!forcePoint.HasValue()) {
                 return PacketResult<PartyMemberStatusEntry>::Failure(forcePoint.Error());
+            }
+
+            PacketResult<std::string> name = DecodeLegacyPayloadText(parts[NamePayloadFieldIndex]);
+            if (!name.HasValue()) {
+                PacketError error = name.Error();
+                error.packetCode = PacketCode(Code);
+                error.fieldIndex = NamePayloadFieldIndex;
+                return PacketResult<PartyMemberStatusEntry>::Failure(std::move(error));
             }
 
             return PacketResult<PartyMemberStatusEntry>::Success(PartyMemberStatusEntry {
@@ -9682,7 +9709,7 @@ namespace cg::packet::receive
                 maxHp.Value(),
                 hp.Value(),
                 forcePoint.Value(),
-                parts[5],
+                std::move(name.Value()),
             });
         }
 

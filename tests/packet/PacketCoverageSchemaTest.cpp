@@ -2826,6 +2826,88 @@ int TestKnownPackets(const std::vector<PacketSchema>& packets)
         TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "TNT"),
         "TNT present in receive typed manifest");
 
+    const PacketSchema* partyMemberStatusSchema = FindPacket(packets, "JJQj");
+    failures += Expect(partyMemberStatusSchema != nullptr, "JJQj schema exists");
+    if (partyMemberStatusSchema != nullptr) {
+        const cg::packet::receive::PartyMemberStatus partyMemberStatus(
+            2,
+            cg::packet::receive::PartyMemberStatusEntry {10, 20, 30, 25, 15, "Alice"});
+        const cg::packet::PacketResult<cg::packet::Packet> packet =
+            partyMemberStatus.ToPacket();
+        constexpr std::string_view resolvedSource =
+            "xlsx+ServerC+ClientIda+src/packet";
+
+        failures += Expect(
+            partyMemberStatusSchema->direction == "服务端->客户端",
+            "JJQj direction");
+        failures += Expect(partyMemberStatusSchema->legacyKind == "SEND", "JJQj legacyKind");
+        failures += Expect(
+            partyMemberStatusSchema->clientNamespace == "receive",
+            "JJQj namespace");
+        failures += Expect(partyMemberStatusSchema->rawFormat.empty(), "JJQj rawFormat empty");
+        failures += Expect(partyMemberStatusSchema->formatEmpty, "JJQj formatEmpty true");
+        failures += Expect(partyMemberStatusSchema->source == "xlsx", "JJQj raw source");
+        failures += Expect(partyMemberStatusSchema->fields.empty(), "JJQj raw fields empty");
+        failures += Expect(
+            partyMemberStatusSchema->hasResolvedFormat,
+            "JJQj resolvedFormat present");
+        failures += Expect(
+            partyMemberStatusSchema->resolvedFormat == "{partySlot:i62} {data:es}",
+            "JJQj resolvedFormat");
+        failures += Expect(
+            partyMemberStatusSchema->resolvedSource == resolvedSource,
+            "JJQj resolvedSource");
+        failures += Expect(
+            partyMemberStatusSchema->hasResolvedFields,
+            "JJQj resolvedFields present");
+        failures += Expect(
+            partyMemberStatusSchema->resolvedFields.size() == 2U,
+            "JJQj resolved field count");
+        if (partyMemberStatusSchema->resolvedFields.size() == 2U) {
+            constexpr std::array<std::string_view, 2U> names = {{"partySlot", "data"}};
+            constexpr std::array<std::string_view, 2U> types = {{"i62", "es"}};
+            constexpr std::array<std::string_view, 2U> specs = {{
+                "{partySlot:i62}",
+                "{data:es}",
+            }};
+            for (std::size_t index = 0U; index < names.size(); ++index) {
+                const FieldSchema& field = partyMemberStatusSchema->resolvedFields[index];
+                failures += Expect(
+                    field.index == static_cast<int>(index),
+                    "JJQj resolved field index");
+                failures += Expect(field.name == names[index], "JJQj resolved field name");
+                failures += Expect(field.typeToken == types[index], "JJQj resolved field type");
+                failures += Expect(field.rawSpec == specs[index], "JJQj resolved field spec");
+                failures += Expect(field.source == resolvedSource, "JJQj resolved field source");
+            }
+        }
+        failures += Expect(
+            cg::packet::receive::PartyMemberStatus::Fields[1U].type ==
+                cg::packet::PacketFieldType::SubPayload,
+            "JJQj Spec data SubPayload");
+        failures += ExpectEffectiveFieldsMatch(
+            *partyMemberStatusSchema,
+            cg::packet::receive::PartyMemberStatus::Spec,
+            "JJQj Spec matches effective fields");
+        failures += Expect(packet.HasValue(), "JJQj ToPacket");
+        if (packet.HasValue()) {
+            failures += Expect(
+                packet.Value().fields.size() == 2U &&
+                    packet.Value().fields[1U].type == cg::packet::PacketFieldType::SubPayload,
+                "JJQj ToPacket data SubPayload");
+            failures += ExpectResolvedFieldsMatch(
+                *partyMemberStatusSchema,
+                packet.Value(),
+                "JJQj resolved field order");
+        }
+    }
+    failures += Expect(
+        !TypedManifestContainsCode(cg::packet::test::SendTypedPackets, "JJQj"),
+        "JJQj absent from send typed manifest");
+    failures += Expect(
+        TypedManifestContainsCode(cg::packet::test::ReceiveTypedPackets, "JJQj"),
+        "JJQj present in receive typed manifest");
+
     const PacketSchema* petMailAnimationSchema = FindPacket(packets, "lDuJ");
     failures += Expect(petMailAnimationSchema != nullptr, "lDuJ schema exists");
     if (petMailAnimationSchema != nullptr) {

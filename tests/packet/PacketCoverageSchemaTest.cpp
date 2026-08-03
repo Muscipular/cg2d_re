@@ -1039,24 +1039,54 @@ int ExpectEffectiveFieldsMatch(
     const char* message)
 {
     int failures = 0;
-    std::vector<FieldSchema> parsedFields;
-    const std::vector<FieldSchema>* effectiveFields = &schema.fields;
-    if (schema.hasResolvedFields) {
-        effectiveFields = &schema.resolvedFields;
-    } else if (schema.hasResolvedFormat) {
-        parsedFields = ParseResolvedFormat(schema.resolvedFormat, failures);
-        effectiveFields = &parsedFields;
+    const std::string_view effectiveFormat =
+        schema.hasResolvedFormat ? schema.resolvedFormat : schema.rawFormat;
+    const std::vector<FieldSchema> parsedFields =
+        ParseResolvedFormat(effectiveFormat, failures);
+
+    failures += Expect(parsedFields.size() == spec.fieldCount, message);
+    if (parsedFields.size() == spec.fieldCount) {
+        for (std::size_t index = 0U; index < spec.fieldCount; ++index) {
+            failures += Expect(parsedFields[index].index == static_cast<int>(index), message);
+            failures += Expect(parsedFields[index].name == spec.fields[index].name, message);
+            failures += Expect(
+                parsedFields[index].typeToken == TypeToken(spec.fields[index].type),
+                message);
+        }
     }
 
-    failures += Expect(effectiveFields->size() == spec.fieldCount, message);
-    if (effectiveFields->size() != spec.fieldCount) {
-        return failures;
-    }
     for (std::size_t index = 0U; index < spec.fieldCount; ++index) {
-        failures += Expect((*effectiveFields)[index].index == static_cast<int>(index), message);
-        failures += Expect((*effectiveFields)[index].name == spec.fields[index].name, message);
-        failures += Expect((*effectiveFields)[index].typeToken == TypeToken(spec.fields[index].type), message);
+        failures += Expect(
+            spec.fields[index].type != cg::packet::PacketFieldType::Unknown,
+            "typed manifest Spec field type known");
     }
+
+    const bool hasResolvedMetadata =
+        schema.hasResolvedFormat || schema.hasResolvedFields || !schema.resolvedSource.empty();
+    const std::vector<FieldSchema>& sourceFields =
+        schema.hasResolvedFields ? schema.resolvedFields : schema.fields;
+    if (hasResolvedMetadata) {
+        failures += Expect(!schema.resolvedSource.empty(), "effective resolvedSource non-empty");
+    } else {
+        failures += Expect(!schema.source.empty(), "effective raw source non-empty");
+    }
+    for (const FieldSchema& field : sourceFields) {
+        failures += Expect(!field.source.empty(), "effective field source non-empty");
+    }
+
+    if (schema.hasResolvedFields || !schema.hasResolvedFormat) {
+        failures += Expect(sourceFields.size() == spec.fieldCount, message);
+        if (sourceFields.size() == spec.fieldCount) {
+            for (std::size_t index = 0U; index < spec.fieldCount; ++index) {
+                failures += Expect(sourceFields[index].index == static_cast<int>(index), message);
+                failures += Expect(sourceFields[index].name == spec.fields[index].name, message);
+                failures += Expect(
+                    sourceFields[index].typeToken == TypeToken(spec.fields[index].type),
+                    message);
+            }
+        }
+    }
+
     failures += Expect(
         schema.hasRepeatedTail == spec.repeatedTail.enabled,
         message);
@@ -1268,6 +1298,16 @@ int TestTypedManifest(const std::vector<PacketSchema>& packets)
         "receive",
         codes);
     failures += Expect(codes.size() == 206U, "typed manifest unique code count 206");
+
+    std::set<std::string, std::less<>> effectiveCodes;
+    for (const PacketSchema& packet : packets) {
+        if (!packet.hasContractStatus && !packet.hasExecutionStatus) {
+            effectiveCodes.emplace(packet.code);
+        }
+    }
+    failures += Expect(
+        codes == effectiveCodes,
+        "typed manifest codes exactly effective schema codes");
     return failures;
 }
 

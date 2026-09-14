@@ -9,4 +9,6 @@
 
 入口：[执行计划](plan/cg2d_full_reconstruction_plan.md)、[独立进度](plan/cg2d_full_reconstruction_progress.md)。
 
+已验证：[当前 IDA 基线记录](doc/cg2d_reconstruction_baseline.md)，覆盖输入识别与初步字节指纹，不代表完整资源和运行环境已冻结。
+
 当前为目录与文档骨架，尚无构建配置或可运行实现；旧工程仅供参考，目标 ABI、布局、文本编码及驱动策略仍遵循计划中的未决门禁。

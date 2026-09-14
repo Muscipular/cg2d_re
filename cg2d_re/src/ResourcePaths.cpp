@@ -6,7 +6,23 @@
 
 namespace cg::resource {
 
-char gBinPath[128] = "Bin";
+CursorPathStorage gCursorPathStorage {
+    {
+        {0x6B, 0x0003BE9B, 0xFFE2FFEC},
+        {0x6C, 0x0003BE9C, 0x00000000},
+        {0x6D, 0x0003C3A8, 0xFFEAFFE9},
+        {0x75, 0x0003C3A1, 0xFFE7FFF0},
+        {0x6F, 0x0003C3A2, 0xFFEAFFF7},
+        {0x70, 0x0003C3A3, 0xFFF0FFF9},
+        {0x71, 0x0003C3A4, 0xFFF6FFF7},
+        {0x72, 0x0003C3A5, 0xFFF9FFF0},
+        {0x73, 0x0003C3A6, 0xFFF6FFE9},
+        {0x74, 0x0003C3A7, 0xFFF0FFE7},
+    },
+    0x6E,
+    "Bin",
+};
+char (&gBinPath)[128] = gCursorPathStorage.binPath;
 
 char gGraphicPathStorage[9][256] {};
 char gGraphicInfoPathStorage[9][256] {};

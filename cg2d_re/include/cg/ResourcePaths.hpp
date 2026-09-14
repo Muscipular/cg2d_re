@@ -1,9 +1,32 @@
 #pragma once
 
+#include <cstddef>
+#include <cstdint>
+
 namespace cg::resource {
 
-// 原 0x55CF04：资源根目录，保留 128 字节可写字符槽。
-extern char gBinPath[128];
+// 原 0x55CE88 的 12 字节记录；WinMain 仅读取 resourceId 的低 16 位。
+struct CursorRecord {
+    std::uint32_t resourceId;
+    std::uint32_t value04;
+    std::uint32_t value08;
+};
+
+// 原 [0x55CE88,0x55CF84)：第十一条光标记录的后八字节与 binPath 前八字节重叠。
+struct CursorPathStorage {
+    CursorRecord cursor[10];
+    std::uint32_t lastCursorResourceId;
+    char binPath[128];
+};
+static_assert(sizeof(CursorRecord) == 12);
+static_assert(offsetof(CursorPathStorage, lastCursorResourceId) == 0x78);
+static_assert(offsetof(CursorPathStorage, binPath) == 0x7C);
+static_assert(sizeof(CursorPathStorage) == 0xFC);
+
+extern CursorPathStorage gCursorPathStorage;
+
+// 原 0x55CF04 的 128 字节可写字符槽；数组引用保留与上述连续存储的别名。
+extern char (&gBinPath)[128];
 
 // 原 sub_456050 建立的六组九槽路径；各字符槽仍为 256 字节。
 extern char gGraphicPathStorage[9][256];

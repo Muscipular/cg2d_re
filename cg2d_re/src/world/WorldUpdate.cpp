@@ -2,6 +2,7 @@
 
 #include "WorldUpdateDependencies.hpp"
 
+#include "cg/LoginScene.hpp"
 #include "cg/LoginState.hpp"
 #include "cg/Palette.hpp"
 #include "cg/platform/MainLoop.hpp"
@@ -53,7 +54,7 @@ void Update()
     }
     case 2:
         platform::gValue73ECC0 = 0;
-        detail::LoginSceneProcess_45FEA0();
+        login::ProcessScene_45FEA0();
         detail::YobiUpdateAll_404C50();
         detail::RenderChara_521F20();
         return;

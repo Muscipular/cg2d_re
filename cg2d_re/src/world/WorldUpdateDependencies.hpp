@@ -15,7 +15,6 @@ std::int32_t YobiUpdateAll_404C50();       // 原 Yobi::UpdateAll@0x404C50。
 void RenderChara_521F20();                 // 原 World::RenderChara@0x521F20。
 void RenderInput_4590E0();                 // 原 World::RenderInput@0x4590E0。
 void Sub_44A410();                         // 原 0x44A410。
-std::int32_t LoginSceneProcess_45FEA0();   // 原 LoginScene::Process@0x45FEA0。
 std::int32_t Sub_460FF0();                 // 原 0x460FF0。
 void Sub_4626A0();                         // 原 0x4626A0。
 std::int32_t Sub_462330();                 // 原 0x462330。

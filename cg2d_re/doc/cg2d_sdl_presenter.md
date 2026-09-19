@@ -1,0 +1,54 @@
+# SDL3 最终帧提交适配器
+
+任务：R4.2.1.C。范围仅为 `SdlPresenter.hpp`、`SdlPresenter.cpp` 和本文档。
+
+这是 Windows/x64 上的 SDL 底层适配，不是原函数还原，也不代表原渲染替换已接通。
+API、属性名和返回值依据本地 `third_party/sdl/SDL3-3.4.8/include/SDL3/` 头文件核对；
+不推断其他 SDK 版本，不下载依赖，不复用旧 `SdlRendererBackend` 框架。
+
+## 接口与所有权
+
+- 公开类型为 `cg::render::SdlPresenter`，接口只使用标准 C++ 类型，不暴露 SDL 或 Win32 类型。
+- `Create(nativeWindow, width, height, driver)` 的窗口引用是未截断的外部既有 Win32 窗口；调用者保证它有效、属于当前进程的主线程，并一直存活到呈现器销毁。
+- `width/height` 是固定的最终帧尺寸，必须为正且一行字节数能放入 SDL 的 `int pitch`。不在这里调整原生窗口尺寸。
+- `driver` 没有默认参数，非空字符串原样传给 `SDL_CreateRenderer`；空字符串报错，只有显式 `nullptr` 表示交由 SDL 自行选择。适配器不指定 `direct3d11`，不构造驱动候选列表，不自行重试或回退；SDL 自身对传入字符串和运行环境的处理仍由 SDL 决定。
+- 仅接受 SDL 的 Windows VIDEO 后端，不修改全局 hint 或强制切换 VIDEO 后端。这不是 renderer 驱动选择策略。
+- 使用 `SDL_PROP_WINDOW_CREATE_WIN32_HWND_POINTER` 包装窗口，并检查 `SDL_WINDOW_EXTERNAL` 标记。本类仅拥有 SDL wrapper、renderer、texture，不拥有外部原生窗口，不调用 Win32 `DestroyWindow`。
+- 每个实例无论 VIDEO 是否已被其他模块初始化，都调用一次 `SDL_InitSubSystem(SDL_INIT_VIDEO)`；仅成功后记录自己持有的引用。最终只配对一次 `SDL_QuitSubSystem(SDL_INIT_VIDEO)`，不调用全局 `SDL_Quit`，不释放其他模块的引用。
+
+## 生命周期与错误
+
+`Create` 在临时 PIMPL 中依次持有 VIDEO 引用、窗口属性组、窗口 wrapper、renderer 和 texture。
+窗口属性组在包装成功后立即释放；若任一步失败，先保存失败阶段及 SDL 错误，再由 RAII 清理全部已获得的资源。
+只有所有配置成功才发布实例状态。已创建时再次 `Create` 会报错并保留现有资源，修改尺寸或驱动须先 `Destroy` 再 `Create`。
+
+`Destroy` 按 texture、renderer、window wrapper、VIDEO 引用的顺序释放资源，未创建、创建失败后或已销毁时均可重复调用。
+析构自动执行销毁；实例禁止复制和移动。外部模块不得在呈现器仍存活时强制关闭 SDL 或提前销毁原生窗口。
+
+所有操作和析构均为 main-thread-only，不提供互斥、后台派发或事件循环。
+`Create/Present/Destroy` 使用 `SDL_IsMainThread` 拒绝 SDL 已识别的非主线程调用；有资源的 `Destroy` 在线程错误时保留资源并返回 `false`。
+首次初始化 VIDEO 前，SDL 不能替代调用者识别原 Win32 入口和窗口所属线程，这一前提仍由调用者保证。
+持有资源却在错误线程析构属于违反接口约定，触发 `std::terminate`，不会在错误线程强行释放或静默泄漏资源。
+
+`LastError()` 指向对象自己的固定 UTF-8 缓冲区，包含操作阶段及原因，最多保存 1023 字节，过长内容按 UTF-8 字符边界截断。
+失败清理及成功 `Destroy` 不会覆盖最近错误；`Create/Present` 成功后清空错误。
+诊断路径不分配内存，PIMPL 分配失败也返回 `false`。SDL 提交失败保留实例供主线程销毁或后续重新提交，不自动重建或切换驱动。
+
+## 帧格式与提交
+
+- 仅接受自上而下的 `std::uint32_t` 完整帧，每像素数值为 `0x00RRGGBB`。创建格式固定为 `SDL_PIXELFORMAT_XRGB8888`，占 4 字节，高 8 位不作为 alpha；不扫描或改写像素值。
+- texture 使用 `SDL_TEXTUREACCESS_STREAMING`、`SDL_BLENDMODE_NONE`、`SDL_SCALEMODE_NEAREST`。不增加调色板转换、sprite 混合、图形排序或 colorkey 算法。
+- `pitchBytes` 为正、为 4 的倍数且至少为 `width * 4`；允许行间 padding，不支持负 pitch 或倒置帧。
+- `pixels` 必须至少覆盖 `(height - 1) * pitchBytes + width * 4` 个字节，不要求最后一行尾部 padding。实现按像素数使用先减后除的等价式校验，避免尺寸乘加或 `span::size_bytes()` 溢出；所有校验先于 SDL 上传。
+- 每次调用依次执行整纹理 `SDL_UpdateTexture`、`SDL_RenderClear`、`SDL_RenderTexture`、`SDL_RenderPresent`，逐步检查 `bool` 返回值，任一步失败即停止后续调用。SDL 3.4.8 头文件明确允许 `SDL_UpdateTexture` 更新 streaming texture；这里不混用锁定接口。
+- 渲染使用完整源纹理和完整默认输出区域；尺寸不一致时按 nearest 拉伸，不实现额外的宽高比、留黑或 DPI 策略。清屏后覆盖整个输出，不依赖上一帧 backbuffer 内容。
+- 调用期间源数据须有效且不被并发修改，适配器不保留源 span。提交失败不承诺回滚已经上传的纹理或已执行的渲染操作。
+
+## 尚未接入
+
+本步没有调用者、空窗口或交互 demo，没有伪造原 `MainLoop`、窗口事件链或图形排序。
+原调用点、renderer driver 策略、最终帧来源、尺寸与颜色语义、窗口缩放/DPI、设备丢失及重置事件仍待接入和运行验证。
+本适配器不替代应用入口的 SDL 启动约定，不处理事件，也不声称满足原客户端画面语义。
+
+未修改计划、进度或 CMake，未编译、运行、编写测试或提交。
+当前仅完成实现和本地头文件静态核对，不代表已通过链接、外部窗口生命周期或真实画面的运行验收。

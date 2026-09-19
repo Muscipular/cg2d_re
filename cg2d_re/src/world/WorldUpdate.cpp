@@ -2,6 +2,7 @@
 
 #include "WorldUpdateDependencies.hpp"
 
+#include "cg/CharacterSelectScene.hpp"
 #include "cg/LoginScene.hpp"
 #include "cg/LoginState.hpp"
 #include "cg/Palette.hpp"
@@ -60,7 +61,7 @@ void Update()
         return;
     case 3:
         platform::gValue73ECC0 = 0;
-        detail::Sub_460FF0();
+        character_select::ProcessScene_460FF0();
         detail::YobiUpdateAll_404C50();
         detail::RenderChara_521F20();
         return;

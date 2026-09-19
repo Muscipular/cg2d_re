@@ -54,6 +54,7 @@ add_library(cg2d_re_startup STATIC
     src/LoginMessage.cpp
     src/LoginRequest.cpp
     src/LoginScene.cpp
+    src/CharacterSelectScene.cpp
     src/LoginState.cpp
     src/world/GameTime.cpp
     src/world/SceneState.cpp

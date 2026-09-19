@@ -39,6 +39,7 @@
 - 已确认 `D:\Source\STONAGE` 包含源码、头文件、工程文件及映射文件，文本按用户指定统一以 GBK 显式读取；`GAMEMAIN.CPP:759-785` 可严格 GBK 解码，`MAIN.CPP:238-266` 因第 262 行一处历史坏字节无法严格解码，仅以 GBK replacement 展示。自 2026-09-20 起仅将其用于大概架构理解以及命名、检索候选，不把其中任何内容计入 cg2d 的行为、地址、语义或验收证据。
 - 当前树已完成独立 x64 Debug 配置与构建验证，`cg2d_re_core`、`cg2d_re_render`、`cg2d_re_startup` 三个静态库均成功，修正后的 `ClientShutdown.cpp` 已进入启动库；未执行 Release、测试或客户端。
 - 用户最新优先级是基本状态 loop 与登录相关 scene；`MainLoop` 三处单次全局采样差异已修正并通过独立复核，当前依据 `World::Update@0x51C430` 的 cg2d 地址级证据拆分 R6 后续小步，不把启动作为前置目标。
+- R6.1.1a 已实现四个独立 32 位场景状态槽和三个直接切换原语，其中 `0xFF0D40` 复用参数解析的既有存储；当前 IDA 独立静态复核及 x64 Debug 构建通过。完整 `World::Update`、状态分发与任何 scene 均未实现，当前不计基本状态 loop 完成。
 
 ## 推进记录
 
@@ -74,3 +75,4 @@
 | 2026-09-20 | RPLAN.10 基本状态 loop 与登录 scene 优先 | 按用户要求将启动继续后置；`MainLoop` 收口后优先分析并实现基本状态 loop/状态分发，再沿真实分支推进登录相关 scene | 已启动以 `World::Update@0x51C430` 为入口的只读分析；实际结论只核对当前 cg2d IDA、二进制与资源，GBK STONAGE 仅可提供待核对候选 | 状态字段、分发表和登录 scene 的准确入口尚待地址级证据，不预建框架或猜测业务逻辑 |
 | 2026-09-20 | RPLAN.11 STONAGE 参考边界澄清 | 按用户最新澄清，将 STONAGE 统一限定为大概架构思路以及命名、检索候选线索；移除其作为行为、地址、语义、验收或通过依据的表述，并保留 GBK 显式读取要求 | 已同步子项目规则、计划、进度及受影响证据文档；既有 R2 参数、时间、主循环和退出的通过结论明确只基于当前 cg2d IDA、二进制、资源与当前实现源码 | 当前优先级不变：先收口 R2 `MainLoop`，再做 R6 基础状态 loop/状态分发与登录相关 scene；STONAGE 候选必须经 cg2d 自身证据独立核实 |
 | 2026-09-20 | R2.2 `MainLoop@0x457020` 限定静态收口 | 完整复核 325 条指令、65 个基本块和 61 个调用点；按当前 cg2d IDA 修正 `gWindowActiveState`、`gCatchUpCount`、`gWindowReportDeadline` 三处本应单次读取却被源码重复读取的差异，不改变其他控制流或依赖边界 | 独立代理再次核对三处采样与证据文档通过；主线程及独立代理的 x64 Debug 构建均成功，`MainLoop.obj` 已进入 `cg2d_re_startup.lib`；未执行 Release、测试或客户端 | 仅完成文档限定范围内的静态语义与编译验证；大量真实直接依赖、完整链接、窗口/渲染绑定和运行行为仍未完成；STONAGE 不参与本项验证 |
+| 2026-09-20 | R6.1.1a 场景状态槽与切换原语 | 新增四槽公开映射与三个直接写入函数；`gCurrentSceneType` 以引用别名复用 `platform::gValueFF0D40`，另建 `0xFF0D60/64/6C` 三个独立 32 位存储；纳入 `cg2d_re_startup` | 独立代理仅依据当前 `ida-32980` 核对三个函数共 13 条指令、四槽静态零值和单一存储归属，源码完全对应；x64 Debug 配置与构建退出码 0、无警告错误，`SceneState.obj` 已进入 `cg2d_re_startup.lib`；未执行 Release、测试或客户端 | `World::Update@0x51C430`、状态消费与分发表留给 R6.1.1b；登录相关 scene 留给 R6.1.2；本步不计基本状态 loop 完成 |

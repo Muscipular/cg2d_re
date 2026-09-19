@@ -21,7 +21,8 @@ extern std::int32_t gNoDelay;            // 原 0x55CE68，静态值 1；nodelay
 extern std::uint32_t gRendererFlags;    // 原 0x9A6EC0，32 位标志；onlyactive 设置位 0x10。
 extern std::int32_t gEnableSound;       // 原 0x58D3B8，静态值 1；soundoff 将其清零。
 extern std::int32_t gEnableMusic;       // 原 0x58D3BC，静态值 1；musicoff 将其清零。
-extern std::int32_t gValueFF0D40;        // 原 0xFF0D40，本函数写入 1；状态枚举语义未决。
+// 原 0xFF0D40，本函数写入 1；world::gCurrentSceneType 引用同一份存储，枚举语义未决。
+extern std::int32_t gValueFF0D40;
 
 // 原 [0x62A640,0x62A644)：首字节为模式，后三字节为 IDA 对齐区。
 // 3Ddevice: 的 %d 写满四字节，默认值及 Setup.ini 覆盖只改首字节。

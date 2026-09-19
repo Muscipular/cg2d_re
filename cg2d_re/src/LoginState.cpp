@@ -2,6 +2,7 @@
 
 #include "LoginStateDependencies.hpp"
 
+#include "cg/LoginRequest.hpp"
 #include "cg/world/SceneState.hpp"
 
 #include <cstring>
@@ -124,10 +125,10 @@ std::int32_t UpdateLoginProgress()
     }
 
     if (phase == 1) {
-        detail::Sub_508AF0();
+        StartLoginRequest();
         ++gLoginProgressPhase;
     } else if (phase == 2) {
-        result = detail::Sub_508B50();
+        result = PollLoginRequest();
         if (result != 0) {
             if (gLoginProgressAction != nullptr) {
                 detail::MarkDeath(gLoginProgressAction);

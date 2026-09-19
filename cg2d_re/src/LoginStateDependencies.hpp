@@ -24,8 +24,6 @@ YobiAction* Sub_5044E0(
     std::int32_t height,
     std::int32_t value4,
     std::int32_t value5);
-std::uint32_t Sub_508AF0();
-std::int32_t Sub_508B50();
 std::int32_t DrawText3(
     std::int16_t x,
     std::int16_t y,

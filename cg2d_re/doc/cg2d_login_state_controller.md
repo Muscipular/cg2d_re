@@ -73,4 +73,5 @@
 - 场景子状态复用 `cg::world::gCurrentSceneState@0xFF0D64`，场景切换复用 `SetCurrentSceneType@0x51C770`；不建立第二份状态。
 - `sub_45EA50`、`sub_45EA60` 已由 `cg::login` 中各自唯一的原函数实现直接替代，`ProcessState_45E960` 不经过包装层。
 - 控制器仍未实现的真实直接依赖为 `sub_532D80`、`sub_534290`、`sub_45CE00`、`sub_45CE10`。
-- 进度更新仍未实现的真实直接依赖为 `sub_5044E0`、`sub_508AF0`、`sub_508B50`、`Renderer::DrawText3`、`Yobi::MarkDeath`，以及唯一的 x64 readiness 适配边界。只保留当前 IDA 可证实的参数、返回类型与返回值使用，不提供空实现或固定返回值。
+- `sub_508AF0`、`sub_508B50` 已由 `cg::login` 请求模块中的唯一实现直接替代；进度更新不经过包装层。
+- 进度更新仍未实现的真实直接依赖为 `sub_5044E0`、`Renderer::DrawText3`、`Yobi::MarkDeath`，以及唯一的 x64 readiness 适配边界。请求模块仍只声明 `sub_512B00`。这些声明不提供空实现或固定返回值。

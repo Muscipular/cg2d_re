@@ -2,6 +2,7 @@
 
 #include "WorldUpdateDependencies.hpp"
 
+#include "cg/LoginState.hpp"
 #include "cg/Palette.hpp"
 #include "cg/platform/MainLoop.hpp"
 
@@ -105,7 +106,7 @@ void Update()
         return;
     case 6:
         platform::gValue73ECC0 = 0;
-        detail::Sub_45E960();
+        login::ProcessState_45E960();
         goto sceneSixTail;
     case 7:
         detail::Sub_45EBB0();

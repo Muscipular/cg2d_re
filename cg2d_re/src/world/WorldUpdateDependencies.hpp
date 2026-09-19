@@ -42,7 +42,6 @@ void Sub_518780();                         // 原 0x518780。
 std::int8_t Sub_503E80();                  // 原 0x503E80，IDA 原型 char()。
 void Sub_43F220();                         // 原 0x43F220。
 std::uint32_t Sub_52B990();                // 原 0x52B990。
-std::int32_t Sub_45E960();                 // 原 0x45E960。
 std::int32_t Sub_45EBB0();                 // 原 0x45EBB0。
 void DrawNormalScene_51C7D0();             // 原 World::DrawNormalScene@0x51C7D0。
 std::int8_t Sub_519D50();                  // 原 0x519D50，IDA 原型 char()。

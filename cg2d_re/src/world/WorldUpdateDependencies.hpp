@@ -1,0 +1,61 @@
+#pragma once
+
+#include <cstdint>
+#include <cstdio>
+
+namespace cg::world::detail {
+
+// World::Update@0x51C430 的未实现直接目标。只保留当前 IDA 地址和调用契约，不提供空体。
+void Sub_4596D0();                         // 原 0x4596D0。
+std::int32_t Sub_45C5A0();                 // 原 0x45C5A0。
+void Sub_45C2D0();                         // 原 0x45C2D0。
+std::int32_t Sub_45F190();                 // 原 0x45F190。
+std::int32_t Sub_464840();                 // 原 0x464840。
+std::int32_t YobiUpdateAll_404C50();       // 原 Yobi::UpdateAll@0x404C50。
+void RenderChara_521F20();                 // 原 World::RenderChara@0x521F20。
+void RenderInput_4590E0();                 // 原 World::RenderInput@0x4590E0。
+void Sub_44A410();                         // 原 0x44A410。
+std::int32_t LoginSceneProcess_45FEA0();   // 原 LoginScene::Process@0x45FEA0。
+std::int32_t Sub_460FF0();                 // 原 0x460FF0。
+void Sub_4626A0();                         // 原 0x4626A0。
+std::int32_t Sub_462330();                 // 原 0x462330。
+std::int32_t Sub_45E3D0();                 // 原 0x45E3D0。
+std::int32_t Sub_4590A0();                 // 原 0x4590A0，IDA 原型 BOOL()。
+void Sub_449DA0();                         // 原 0x449DA0。
+std::int32_t Sub_46A9E0();                 // 原 0x46A9E0。
+std::int32_t* Sub_467F30();                // 原 0x467F30。
+struct RecipeItemData;
+RecipeItemData* Sub_5199A0();              // 原 0x5199A0。
+struct YobiAction;
+YobiAction** Sub_446470();                 // 原 0x446470。
+void Sub_4D3170();                         // 原 0x4D3170。
+std::int32_t Sub_455BD0();                 // 原 0x455BD0。
+std::uint32_t* Sub_46E2A0();               // 原 0x46E2A0。
+std::int32_t Sub_46BD40();                 // 原 0x46BD40。
+std::int32_t Sub_504A30();                 // 原 0x504A30。
+std::int32_t Sub_43C8F0();                 // 原 0x43C8F0。
+std::int32_t Sub_504100();                 // 原 0x504100。
+std::int32_t Sub_518C80();                 // 原 0x518C80。
+std::FILE* Sub_518CB0();                   // 原 0x518CB0。
+void NullSub_509080();                     // 原 nullsub_1@0x509080。
+void Sub_518780();                         // 原 0x518780。
+std::int8_t Sub_503E80();                  // 原 0x503E80，IDA 原型 char()。
+void Sub_43F220();                         // 原 0x43F220。
+std::uint32_t Sub_52B990();                // 原 0x52B990。
+std::int32_t Sub_45E960();                 // 原 0x45E960。
+std::int32_t Sub_45EBB0();                 // 原 0x45EBB0。
+void DrawNormalScene_51C7D0();             // 原 World::DrawNormalScene@0x51C7D0。
+std::int8_t Sub_519D50();                  // 原 0x519D50，IDA 原型 char()。
+void YobiClearUp_404D30();                 // 原 YobiClearUp@0x404D30。
+std::int8_t Sub_51D750();                  // 原 0x51D750，IDA 原型 char()。
+std::int32_t Sub_520160();                 // 原 0x520160，IDA 原型 BOOL()。
+void Sub_5081A0();                         // 原 0x5081A0。
+void DrawBattleScene_43CBB0();             // 原 World::DrawBattleScene@0x43CBB0。
+
+// 原 0x51FDE0；第三槽保持原 32 位载荷，selector 2 才把该位模式解释为 float。
+std::int32_t Sub_51FDE0(
+    std::int32_t selector, std::int32_t value, std::uint32_t payloadBits);
+std::int32_t Sub_455C90();                 // 原 0x455C90，返回值按任意非零判断。
+std::int32_t Sub_45C970();                 // 原 0x45C970，返回值写入 0x9A7F64。
+
+} // namespace cg::world::detail

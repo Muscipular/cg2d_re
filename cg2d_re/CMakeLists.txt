@@ -53,6 +53,7 @@ add_library(cg2d_re_startup STATIC
     src/platform/LegacyTime.cpp
     src/world/GameTime.cpp
     src/world/SceneState.cpp
+    src/world/WorldUpdate.cpp
 )
 set_target_properties(cg2d_re_startup PROPERTIES CXX_EXTENSIONS OFF)
 target_compile_options(cg2d_re_startup PRIVATE /GR- /utf-8 /W4 /fp:strict)

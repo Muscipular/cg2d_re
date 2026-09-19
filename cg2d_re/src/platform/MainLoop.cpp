@@ -5,6 +5,7 @@
 #include "cg/platform/MainLoop.hpp"
 #include "cg/platform/Startup.hpp"
 #include "cg/world/GameTime.hpp"
+#include "cg/world/SceneState.hpp"
 
 #include <bit>
 
@@ -49,7 +50,7 @@ int MainLoop()
         render::ResetGraphicCache_456D30();
         NetworkLoop_507DF0();
         Sub_52CD30(gValue58D3C0);
-        UpdateWorld_51C430();
+        world::Update();
         if (gWindowActiveState != 0) {
             UpdateCursor_506E00();
             render::SortTextures_520790();

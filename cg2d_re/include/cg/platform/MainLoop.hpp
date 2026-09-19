@@ -37,4 +37,7 @@ static_assert(offsetof(SystemTimeWords, high) == 4);
 extern SystemTimeWords gLastSystemTime;
 extern std::uint32_t gPeriodicReportSeconds; // 原 0x73ED18，阈值比较按 signed32。
 
+// Win32 GetTickCount 的最小平台边界；保留原 32 位回绕值，不向 world 公开 Win32 类型。
+std::uint32_t ReadTickCount32() noexcept;
+
 } // namespace cg::platform

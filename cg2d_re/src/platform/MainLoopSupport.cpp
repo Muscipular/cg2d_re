@@ -9,6 +9,11 @@ namespace cg::platform {
 
 std::uint32_t gRandomSeed = 1; // 原 0x58F870，共享随机源，不改用本机 CRT 的私有状态。
 
+std::uint32_t ReadTickCount32() noexcept
+{
+    return static_cast<std::uint32_t>(GetTickCount());
+}
+
 std::uint32_t SeedRandom_53B4BF(std::uint32_t seed)
 {
     gRandomSeed = seed;

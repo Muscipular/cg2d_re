@@ -37,7 +37,6 @@ void ShowModeChange_458A40();
 void KeepAlive_457AB0();
 std::uint8_t NetworkLoop_507DF0();
 int Sub_52CD30(std::int32_t value);
-void UpdateWorld_51C430();
 void UpdateCursor_506E00();
 void Sub_507140();
 void Sub_449160();

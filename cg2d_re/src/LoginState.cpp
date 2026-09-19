@@ -2,6 +2,7 @@
 
 #include "LoginStateDependencies.hpp"
 
+#include "cg/LoginMessage.hpp"
 #include "cg/LoginRequest.hpp"
 #include "cg/world/SceneState.hpp"
 
@@ -218,7 +219,7 @@ std::int32_t ProcessState_45E960()
     }
 
     if (world::gCurrentSceneState == 100) {
-        detail::Sub_45CE00();
+        ResetLoginMessage();
         ++world::gCurrentSceneState;
     }
 
@@ -227,7 +228,7 @@ std::int32_t ProcessState_45E960()
         return sceneState;
     }
 
-    const std::int32_t result = detail::Sub_45CE10(gValue9A5348);
+    const std::int32_t result = UpdateLoginMessage(gValue9A5348);
     if (result == 0) {
         return 0;
     }

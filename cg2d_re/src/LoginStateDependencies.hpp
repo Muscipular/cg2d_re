@@ -13,8 +13,6 @@ struct UIWindowInstance;
 UIWindowInstance* Sub_532D80();
 
 std::int32_t Sub_534290();
-void Sub_45CE00();
-std::int32_t Sub_45CE10(const char* text);
 
 // sub_45D990@0x45D990 的直接目标。
 std::int32_t TextMeasure(const char* text, std::int32_t fontType);

@@ -51,6 +51,7 @@ add_library(cg2d_re_startup STATIC
     src/platform/MainLoopState.cpp
     src/platform/MainLoopSupport.cpp
     src/platform/LegacyTime.cpp
+    src/LoginState.cpp
     src/world/GameTime.cpp
     src/world/SceneState.cpp
     src/world/WorldUpdate.cpp

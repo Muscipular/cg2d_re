@@ -154,8 +154,8 @@ Puk 始终保持 `uint8`。
 原 x86 `+0x170` 偏移。
 
 `sub_5044E0`、死亡标记和 readiness 适配已接入统一 Yobi runtime；
-`sub_508910/sub_508950` 与 `DrawText3` 仍只保留真实声明，不提供空实现或固定
-成功桩。
+`sub_508910/sub_508950` 仍只保留真实声明，不提供空实现或固定成功桩；
+`DrawText3` 已通过登录侧薄适配接入唯一文本提交实现。
 
 ## 登录认证失败提示 `sub_45D7D0/sub_45D7E0`
 
@@ -208,8 +208,8 @@ Puk 始终保持 `uint8`。
 `action+0x170`，也不把指针截入 32 位整数。图形描述复用既有定宽
 `GraphicDescriptor16`，鼠标只读取共享 W32 的低 8 位。
 
-`sub_5044E0`、死亡标记与 readiness 已接入统一 Yobi runtime；按钮检测、声音、
-文字与图形绘制仍复用真实未定义声明。本模块不提供空体或固定返回桩，也不复用
+`sub_5044E0`、死亡标记、readiness 与 `DrawText3` 已接入唯一实现；按钮检测、
+声音与图形绘制仍复用真实未定义声明。本模块不提供空体或固定返回桩，也不复用
 `LoginMessage` 的阶段、对象或布局状态。
 
 ## 角色删除进度 `sub_45DBF0/sub_45DC00`
@@ -263,8 +263,8 @@ Puk 始终保持 `uint8`。
 x64 指针。IDA 已确认 `sub_508F70` 与 `sub_508FC0` 均无参数；前者按实际
 `DWORD` 返回声明为 `std::uint32_t`，后者按 signed32 结果声明为
 `std::int32_t`。两者本步只保留真实声明，不展开协议逻辑；对象创建、死亡标记、
-readiness 与原生 x64 `YobiAction` 承载已接入统一 runtime，文字绘制仍保持真实
-未定义依赖，不提供空体或固定返回桩。
+readiness 与原生 x64 `YobiAction` 承载已接入统一 runtime，`DrawText3` 已接入
+唯一文本提交实现。
 
 ## 两槽角色记录与动作
 
@@ -592,9 +592,9 @@ W8 `cmp` 后接无符号 `ja` 比较；在 `0x404B2F` 以 W32 读取 `yobiSize`�
 
 ### x64 边界与剩余依赖
 
-`Renderer::DrawText`、`Renderer::DrawText3` 复用已有
-`login::detail` 强类型声明；`Renderer::DrawText2@0x456670` 已接入
-`render::DrawText2_456670` 的唯一文本链实现，不再保留重复未实现声明。
+`Renderer::DrawText`、`Renderer::DrawText3` 均通过已有 `login::detail` 强类型
+薄适配接入唯一实现；`DrawText3_456560` 固定 `fontType=0` 复用
+`render::DrawText2_456670` 的文本链逻辑，不再保留未实现声明。
 `action+0x2B0` 写入已接入统一 Yobi runtime；`sub_51B110@0x51B110`、
 `sub_517880@0x517880` 与 `0x9A4EAC` 动态文本仍只保留真实窄依赖，没有空实现
 或固定返回桩。

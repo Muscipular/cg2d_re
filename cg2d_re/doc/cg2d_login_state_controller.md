@@ -149,6 +149,6 @@ IDA 显示为“伺服器連接中”。新端按项目约定保存 UTF-8 文本
 - `sub_45EA50`、`sub_45EA60` 已由 `cg::login` 中各自唯一的原函数实现直接替代，`ProcessState_45E960` 不经过包装层。
 - `sub_45CE00`、`sub_45CE10` 已由 `cg::login` 消息模块中的唯一实现直接替代；控制器仍未实现的真实直接依赖为 `sub_532D80`、`sub_534290`。
 - `sub_508AF0`、`sub_508B50` 已由 `cg::login` 请求模块中的唯一实现直接替代；进度更新不经过包装层。
-- 进度更新的 `sub_5044E0`、`Yobi::MarkDeath` 与 x64 readiness 边界已接入统一 Yobi runtime；仍未实现的真实直接依赖为 `Renderer::DrawText3`。请求模块仍只声明 `sub_512B00`，不提供空实现或固定返回值。
+- 进度更新的 `sub_5044E0`、`Yobi::MarkDeath` 与 x64 readiness 边界已接入统一 Yobi runtime；`Renderer::DrawText3` 已通过薄适配接入唯一文本提交实现。请求模块仍只声明 `sub_512B00`，不提供空实现或固定返回值。
 - 服务器连接更新仍未实现的真实直接依赖为 `TextMeasure`、`sub_50FC30`、`sub_50FE30`、`sub_50FF10`、`sub_50FF70`、`sub_510120`、`sub_5081A0`、`sub_401000`、`sub_508140`、`sub_508350`、`sub_508360`、`sub_401030` 和 8 参数 `Renderer::DrawText`；共享的创建、死亡标记与 readiness 已由统一 runtime 提供。
 - 消息更新复用统一 runtime 的 `sub_5044E0`、`Yobi::MarkDeath` 与 readiness；`TextMeasure`、8 参数 `Renderer::DrawText`、`sub_45D7A0`、`PlaySe`、`sub_5049A0`、`DrawGraphic` 及三个共享系统值仍只有真实声明，不提供空实现、固定成功或包装实现。

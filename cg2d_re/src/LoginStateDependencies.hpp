@@ -48,12 +48,21 @@ inline std::int32_t DrawText(
 }
 
 // sub_45EA60@0x45EA60 的绘制目标。
-std::int32_t DrawText3(
-    std::int16_t x,
-    std::int16_t y,
-    std::int8_t value2,
-    std::int8_t value3,
-    const char* text,
-    std::int8_t value5);
+inline std::int32_t DrawText3(
+    const std::int16_t x,
+    const std::int16_t y,
+    const std::int8_t renderMode,
+    const std::int8_t color,
+    const char* const text,
+    const std::int8_t value7)
+{
+    return cg::render::DrawText3_456560(
+        x,
+        y,
+        renderMode,
+        color,
+        text,
+        value7);
+}
 
 } // namespace cg::login::detail

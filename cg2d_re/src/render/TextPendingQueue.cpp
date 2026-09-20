@@ -60,6 +60,17 @@ std::int32_t QueueText_521A30(
     return result;
 }
 
+std::int32_t DrawText3_456560(
+    const std::int16_t x,
+    const std::int16_t y,
+    const std::int8_t renderMode,
+    const std::int8_t color,
+    const char* const text,
+    const std::int8_t value7)
+{
+    return DrawText2_456670(x, y, renderMode, 0, color, text, value7);
+}
+
 std::int32_t DrawText2_456670(
     const std::int16_t x,
     const std::int16_t y,

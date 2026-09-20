@@ -53,6 +53,15 @@ extern std::array<TextFontLayerRecord, 6> gTextFontLayerRecords;
 // Renderer::QueueText@[0x521A30,0x521A98)。headToken 为文本记录的一基令牌。
 std::int32_t QueueText_521A30(std::uint32_t headToken, std::uint8_t layer);
 
+// Renderer::DrawText3@[0x456560,0x456668)。
+std::int32_t DrawText3_456560(
+    std::int16_t x,
+    std::int16_t y,
+    std::int8_t renderMode,
+    std::int8_t color,
+    const char* text,
+    std::int8_t value7);
+
 // Renderer::DrawText2@[0x456670,0x45677B)。
 std::int32_t DrawText2_456670(
     std::int16_t x,

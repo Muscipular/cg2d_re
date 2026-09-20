@@ -17,8 +17,9 @@
   `sub_45CE10`、`ShellExecuteA`、`sub_45EFD0`、`hasIDirect3D7`、
   `sub_45F090`、`Renderer::DrawText3`。其中 `sub_5203E0/sub_520440` 已由
   `ReadInputValueFF494F_5203E0/ReadInputValueFF4982_520440` 的唯一公共实现
-  承接，登录场景不再保留重复占位声明；新端只把无界 `sprintf` 改为
-  256 字节标题缓冲上的 `snprintf`，其余未实现目标只保留真实声明。
+  承接，`Renderer::DrawText3` 已由唯一文本提交实现承接，登录场景不再保留这些
+  重复占位声明；新端只把无界 `sprintf` 改为 256 字节标题缓冲上的 `snprintf`，
+  其余未实现目标只保留真实声明。
 
 ## 顺序状态处理
 

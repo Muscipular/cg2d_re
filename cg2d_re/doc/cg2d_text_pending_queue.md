@@ -2,6 +2,11 @@
 
 ## 目标与证据
 
+- `Renderer::DrawText3@[0x456560,0x456668)`：大小 `0x108`，79 条指令、
+  5 个基本块，cdecl 原型为
+  `int32 DrawText3(int16 x,int16 y,int8 renderMode,int8 color,const char* text,int8 value7)`；
+  15 个直接调用点来自 14 个 caller，唯一直接 callee 为
+  `Renderer::QueueText@0x521A30`。
 - `Renderer::DrawText2@[0x456670,0x45677B)`：大小 `0x10B`，80 条指令、
   5 个基本块，cdecl 原型为
   `(int16,int16,int8,int8,int8,const char*,int8)`。
@@ -18,8 +23,8 @@
 ## 文本记录与令牌
 
 `TextPendingRecord` 严格保持原偏移：`+0/+2` 为 S16 坐标，`+4/+5/+6/+7`
-依次为颜色、字体、模式和值 7，`+8` 由 `DrawText2` 固定写 `0xF9`、由
-`DrawText` 写入第八参数的低 8 位，`+9` 为 255 字节文本，`+0x108` 为本目标
+依次为颜色、字体、模式和值 7，`+8` 由 `DrawText2/DrawText3` 固定写 `0xF9`、
+由 `DrawText` 写入第八参数的低 8 位，`+9` 为 255 字节文本，`+0x108` 为本目标
 不写的 S32 字段，`+0x10C` 为下一项令牌。记录总长 `0x110`。
 
 `gGraphicCache4Queue` 保留六个 W32 槽，但不存 x64 指针：0 表示空链，令牌
@@ -56,6 +61,19 @@
 不写 `marker` 与 `field108`，且使用入口捕获的文本计数更新尾令牌和计数，不复制
 `DrawText2` 的重读计数分支。完整行为与安全门禁见 `cg2d_input_text_draw.md`。
 
+## `DrawText3` 固定字体包装
+
+`DrawText3_456560` 与 `DrawText2_456670` 的唯一语义差异是少一个字体参数，并把
+记录的 `fontType` 固定写为 0。其唯一实现严格收敛为
+`return DrawText2_456670(x, y, renderMode, 0, color, text, value7);`，不复制队列
+逻辑，也不转发到按无符号模式索引的 `DrawText_456780`。
+
+因此它完整继承 `DrawText2` 的写入与排队顺序：
+`x、y、mode、color、font0、value7、0xF9、含 NUL 文本、next`，尾槽按 signed8
+模式选择，空链调用
+`QueueText`，非空链续接旧尾，末尾重读 W32 文本计数、加一并返回旧值；也继承
+负计数、非法模式、空或超长文本、损坏尾令牌与续链后损坏重读计数的安全门禁。
+
 ## `DrawText` 差异
 
 `DrawText_456780` 与 `DrawText2_456670` 使用同一组记录、尾队列、字体层和两个
@@ -82,3 +100,10 @@
 
 它不写图形记录的坐标、描述符或尾字节，也不写 `GraphicCache3+3`。通过范围
 检查的 `headToken` 按 W32 位模式原样保存。
+
+## 当前未闭合项
+
+主循环依赖的 `Renderer::CacheReset@0x456D30`（当前声明名
+`ResetGraphicCache_456D30`）和最终队列消费入口
+`Renderer::DrawAllQueued@0x520DD0` 仍只有真实声明。因此六槽文本尾链的逐帧重置
+及文本链的最终消费、呈现仍未闭合；本项只闭合 `DrawText3` 的提交入口。

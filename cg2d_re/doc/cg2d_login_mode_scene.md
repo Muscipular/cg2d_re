@@ -72,6 +72,6 @@
 - `PlaySe(...)` / `World::PlaySe@0x52C450`；
 - `PostMessageA_54D2F0(...)` / `PostMessageA@0x54D2F0`。
 
-此外，已实现的 `ProcessLoginInput_45CA20` 仍传递依赖其文档记录的
-`Renderer::DrawText3@0x456560` 窄声明。本项不为空函数、音频、窗口消息、文字
-绘制或登录请求补占位实现。
+此外，已实现的 `ProcessLoginInput_45CA20` 对
+`Renderer::DrawText3@0x456560` 的传递依赖已接入唯一文本提交实现。本项仍不为
+空函数、音频、窗口消息或登录请求补占位实现。

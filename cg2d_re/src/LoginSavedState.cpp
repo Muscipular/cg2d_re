@@ -82,6 +82,25 @@ namespace cg::login::detail {
 std::int32_t& gSelectedSavedSlot105C394 = gSavedState.selected;
 std::int32_t& gVisibleSavedSlotCount105C364 = gSavedState.visibleCount;
 
+void Sub_533570(
+    const char* const source,
+    const std::int32_t logicalSlot)
+{
+    if (source == nullptr) {
+        return;
+    }
+
+    for (std::int32_t index = 0; index < 51; ++index) {
+        const std::int32_t physicalSlot =
+            gSavedState.logicalToPhysical[logicalSlot];
+        gSavedState.records[physicalSlot].parts[0].text[index] =
+            source[index];
+        if (source[index] == '\0') {
+            return;
+        }
+    }
+}
+
 char* Sub_5335F0(
     char* const output,
     const std::int32_t logicalSlot)

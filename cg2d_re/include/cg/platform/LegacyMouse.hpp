@@ -58,4 +58,34 @@ std::int32_t ResetLegacyMouseState_506870();
 // 原 MouseEvent::Reset_0@[0x506890,0x5068FF)，严格先赋 X、后赋 Y。
 void ResetLegacyMousePosition_506890(std::int32_t x, std::int32_t y);
 
+// 原 MouseEvent::UpdateLDown@[0x506900,0x5069DD)。
+std::int32_t UpdateLegacyMouseLeftDown_506900(
+    std::int32_t x,
+    std::int32_t y);
+
+// 原 MouseEvent::UpdateLUp@[0x5069E0,0x506A8B)。
+std::int32_t UpdateLegacyMouseLeftUp_5069E0(
+    std::int32_t x,
+    std::int32_t y);
+
+// 原 MouseEvent::UpdateLDbClick@[0x506A90,0x506B44)。
+std::uint32_t UpdateLegacyMouseLeftDoubleClick_506A90(
+    std::int32_t x,
+    std::int32_t y);
+
+// 原 MouseEvent::UpdateRDown@[0x506B50,0x506C32)。
+std::int32_t UpdateLegacyMouseRightDown_506B50(
+    std::int32_t x,
+    std::int32_t y);
+
+// 原 sub_506C40@[0x506C40,0x506CEB)，对应右键抬起。
+std::int32_t UpdateLegacyMouseRightUp_506C40(
+    std::int32_t x,
+    std::int32_t y);
+
+// 原 sub_506CF0@[0x506CF0,0x506DA4)，对应右键双击。
+std::uint32_t UpdateLegacyMouseRightDoubleClick_506CF0(
+    std::int32_t x,
+    std::int32_t y);
+
 } // namespace cg::platform

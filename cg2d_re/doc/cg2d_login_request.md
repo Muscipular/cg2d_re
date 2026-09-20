@@ -1,4 +1,4 @@
-# 登录与角色列表请求启动、轮询证据
+# 登录、角色列表与角色删除请求启动、轮询证据
 
 ## 范围
 
@@ -121,3 +121,64 @@ UTF-8“取得角色列表逾時。”，正文为 27 字节、含 NUL 为 28 �
 回复码 0。该响应写者是当前角色列表请求唯一未决接线，不能在启动或轮询函数中
 伪造状态 2 或成功回复。下层发送实现 `sub_512B90` 也仍只保留真实声明，不提供
 空体或固定成功返回。
+
+## 角色删除请求 `sub_508F70/sub_508FC0`
+
+`sub_508F70@[0x508F70,0x508FB3)` 为 14 条指令、1 个基本块；
+`sub_508FC0@[0x508FC0,0x509011)` 为 21 条指令、5 个基本块。新端分别以
+`StartCharacterDeletionRequest()` 与 `PollCharacterDeletionRequest()` 承接，角色删除
+进度的阶段 1 发起请求并递增阶段，阶段 2 才开始轮询，因此不会在发起请求的同次
+更新中轮询。场景仍只处理返回 1 和 -2，-1 超时保持忽略；超时后状态不清，后续
+轮询仍可接受迟到响应。
+
+### 启动顺序与前置条件
+
+1. 以有符号 `int16_t` 读取 `gSelectedCharacterIndex`。有效值位于 `[0,1]` 是调用
+   前提；原函数不检查范围，新端不增加分支或钳制。
+2. 以 W16 把独立回复码 `gCharacterDeletionReplyCode@0xDA3B28` 写为 0。
+3. 先从 `platform::gConnectionSocket` 快照 `uintptr_t` socket，再选择对应的 `0x94`
+   字节角色记录，以 `memcpy` 从记录 `+0x4C` 读取有符号 `int32_t registNumber`。
+4. 调用 `sub_512AB0(socket, registNumber)` 并忽略返回值；发送失败也继续推进状态。
+   该发送目标的名义协议为 `Godf`，唯一字段是 signed `Int62`；协议标识字节为
+   `47 6F 64 66 00`。新端只新增保留 x64 指针宽度的真实声明，不实现发送目标。
+5. 以 W32 把共享 `gRequestStatus@0xDA3B34` 写为 1，调用
+   `ReadTickCount32()`，把完整 `uint32_t` tick 写入共享
+   `gRequestStartTick@0xDA3B38` 并原样返回。
+
+启动不清角色记录、共享消息、登录回复码或角色列表回复码。
+
+### 共享与独立存储
+
+| 原地址 | 新端存储 | 所有权与本请求访问 |
+|---|---|---|
+| `[0xFF03E0,0xFF0508)` | `gCharacterRecords` | 复用两条固定角色记录；只读取所选记录的 `+0x4C`，不清记录。 |
+| `0xFF0C08` | `gSelectedCharacterIndex`，`int16_t` | 复用有符号选择值；启动首步读取。 |
+| `0xDA3B28` | `gCharacterDeletionReplyCode`，`uint16_t` | 删除请求独立公开存储；启动 W16=0，完成轮询先快照再清共享状态。 |
+| `0xDA3B34` | `gRequestStatus`，`int32_t` | 与其他网络请求共享；启动写 1，完成轮询写 0。 |
+| `0xDA3B38` | `gRequestStartTick`，`uint32_t` | 共享完整 32 位 tick；轮询保留自然回绕。 |
+| `0xDA34DC` | `gRequestMessage[1024]` | 共享消息；仅超时路径复制文本与 NUL。 |
+| `0xD9B2B8` | `platform::gConnectionSocket`，`uintptr_t` | 读取字段前快照；x64 不截断为 32 位。 |
+
+### 轮询状态与返回
+
+| 条件 | 顺序与返回 |
+|---|---|
+| `gRequestStatus == 2` 且删除回复码非 0 | 先快照 W16 回复码，再把状态写 0，返回 1。 |
+| `gRequestStatus == 2` 且删除回复码为 0 | 同样先快照再清状态，返回 -2；回复码本身不清。 |
+| 状态不是 2，`uint32(now-start) <= 600000` | 无条件读取当前 tick，以无符号回绕减法计算 elapsed，返回 0。 |
+| 状态不是 2，`uint32(now-start) > 600000` | 复制超时 UTF-8 文本及 NUL，返回 -1；不清状态、回复码或起始 tick。 |
+
+删除轮询不检查 `gRequestPollingEnabled`，也不写 `gRequestOutcomeFlag`。它复用
+`gCharacterRecords`、`gSelectedCharacterIndex`、`gRequestStatus`、
+`gRequestStartTick`、`gRequestMessage`，只为原 `0xDA3B28` 建立独立 `uint16_t`
+回复码存储，不建立第二份共享状态。
+
+原超时文本的 CP950 字节（含 NUL）为
+`A7 52 B0 A3 A8 A4 A6 E2 B9 4F AE C9 A1 43 00`。源码使用 UTF-8
+“刪除角色逾時。”，正文为 21 字节、含 NUL 为 22 字节；静态断言确认长度并保证
+不超过共享 1024 字节缓冲，复制固定包含 NUL，不清空余部。
+
+异步响应写者 `sub_509020`（名义响应 `oy`）本步不实现。当前已确认：它仅在共享
+状态为 1 时接受响应，先把状态写为 2；结果文本精确等于 `successful` 时写删除
+回复码 1，其他结果保持启动时的 0，`fd/data` 被忽略。该 handler 仍是未决真实
+依赖；启动或轮询入口不得伪造状态 2 或成功回复。

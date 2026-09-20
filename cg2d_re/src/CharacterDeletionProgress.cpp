@@ -1,5 +1,7 @@
 #include "cg/CharacterSelectScene.hpp"
 
+#include "cg/CharacterDeletionRequest.hpp"
+
 #include "CharacterSelectSceneDependencies.hpp"
 
 #include <cstdint>
@@ -53,10 +55,10 @@ std::int32_t UpdateCharacterDeletionProgress_45DC00()
     }
 
     if (stage == 1) {
-        detail::Sub_508F70();
+        login::StartCharacterDeletionRequest();
         ++gCharacterDeletionProgressStage;
     } else if (stage == 2) {
-        result = detail::Sub_508FC0();
+        result = login::PollCharacterDeletionRequest();
         if (result != 0) {
             login::YobiAction* const action = gCharacterDeletionProgressAction;
             if (action != nullptr) {

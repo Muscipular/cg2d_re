@@ -27,6 +27,7 @@ std::uint32_t gCurrentClientWidth = 0;
 std::uint32_t gCurrentClientHeight = 0;
 std::uint32_t gWindowResizePhase = 0;
 
+char gImeDescription[100] {};
 std::uintptr_t gImeContext = 0;
 std::uintptr_t gPreviousImeContext = 0;
 char gImeComposition[256] {};
@@ -35,6 +36,7 @@ std::int32_t gImeCompositionCursorPosition = 0;
 std::uint32_t gImeConversionMode = 0;
 std::uint32_t gImeSentenceMode = 0;
 void* gImeCandidateList = nullptr;
+std::uint8_t gImeState73EFF0 = 0;
 
 int ClearKeyFlags_459760() noexcept
 {

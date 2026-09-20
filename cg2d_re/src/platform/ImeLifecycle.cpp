@@ -1,0 +1,54 @@
+#include "ImeLifecycle.hpp"
+
+#include "StartupNative.hpp"
+#include "WindowProcedureState.hpp"
+
+#include "cg/platform/LegacyWindow.hpp"
+
+#include <imm.h>
+
+#include <cstdlib>
+#include <cstring>
+
+namespace cg::platform {
+
+// 原 sub_458FD0@[0x458FD0,0x459032)。调用顺序与旧端一致。
+int InitializeIme_458FD0()
+{
+    gImeComposition[0] = '\0';
+    gImeAttributes[0] = 0;
+    gImeState73EFF0 = 0;
+    if (gImeContext != 0) {
+        ShutdownIme_459040();
+    }
+
+    gImeContext = reinterpret_cast<std::uintptr_t>(ImmCreateContext());
+    gPreviousImeContext = reinterpret_cast<std::uintptr_t>(ImmAssociateContext(
+        reinterpret_cast<HWND>(gLegacyWindow),
+        reinterpret_cast<HIMC>(gImeContext)));
+
+    static_assert(sizeof(DWORD) == sizeof(gImeConversionMode));
+    ImmGetConversionStatus(
+        reinterpret_cast<HIMC>(gImeContext),
+        reinterpret_cast<DWORD*>(&gImeConversionMode),
+        reinterpret_cast<DWORD*>(&gImeSentenceMode));
+    std::memset(gImeDescription, 0, sizeof(gImeDescription));
+    return 0;
+}
+
+// 原 sub_459040@[0x459040,0x459081)。原函数不销毁或清空 IME context。
+void ShutdownIme_459040()
+{
+    ImmReleaseContext(
+        reinterpret_cast<HWND>(gLegacyWindow),
+        reinterpret_cast<HIMC>(gImeContext));
+    ImmAssociateContext(
+        reinterpret_cast<HWND>(gLegacyWindow),
+        reinterpret_cast<HIMC>(gPreviousImeContext));
+    if (gImeCandidateList != nullptr) {
+        std::free(gImeCandidateList);
+        gImeCandidateList = nullptr;
+    }
+}
+
+} // namespace cg::platform

@@ -48,6 +48,7 @@ add_library(cg2d_re_startup STATIC
     src/platform/CommandOptions.cpp
     src/platform/WindowLifecycle.cpp
     src/platform/WindowProcedure.cpp
+    src/platform/ImeLifecycle.cpp
     src/platform/ImeComposition.cpp
     src/platform/ClientShutdown.cpp
     src/platform/MainLoop.cpp

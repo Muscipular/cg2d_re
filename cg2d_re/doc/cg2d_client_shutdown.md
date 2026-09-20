@@ -54,13 +54,14 @@
 | `0x457A6D` | `sub_45A6C0` / `FILE*` | 直接调用已实现 `resource::CloseGraphicFiles()`；原返回被忽略，新实现为 `void` |
 | `0x457A72` | `sub_457670` / `void` | 未实现，真实签名声明 |
 | `0x457A77` | `sub_456530` / `HFONT` | 未实现，真实签名声明 |
-| `0x457A7C` | `sub_459040` / `void` | 未实现，真实签名声明 |
+| `0x457A7C` | `sub_459040` / `void` | 已接入 `platform::ShutdownIme_459040()` |
 | `0x457A81` | `sub_404D60` / `void` | 已接入 Yobi runtime；其内部 `sub_46DD40` 注册表后端仍为真实未定义依赖 |
 | `0x457A86` | `sub_5081A0` / `void` | 未实现，真实签名声明 |
 | `0x457A8B` | `sub_5066D0` / `int` | 未实现，真实签名声明 |
 
 `sub_459040` 的实际内容是 `ImmReleaseContext`、`ImmAssociateContext` 及候选列表释放，
-不是 GraphicInfo 清理。现有 `GraphicInfo` 模块没有对应本链的已实现 callee，不能按地址邻近替代。
+现已按原顺序实现，证据见 `cg2d_ime_lifecycle.md`；它不是 GraphicInfo 清理。
+现有 `GraphicInfo` 模块没有对应本链的 callee，不能按地址邻近替代。
 现有 `SdlPresenter::Destroy()` 也没有与原 `gCRenderer` 建立可证明的对象绑定，故不替代
 `Renderer::Destroy@0x44C3C0`。
 
@@ -82,6 +83,9 @@
 
 ## 未完成边界
 
-除 `resource::CloseGraphicFiles@0x45A6C0` 外，其余十五个原 callee 只有带地址和
-IDA 类型证据的声明，没有空函数、固定成功返回或替代清理。Windows SDK 类型和 API
-只出现在平台实现文件；私有头仅暴露 `int ShutdownClient_457A40()`。
+`resource::CloseGraphicFiles@0x45A6C0` 与 `ShutdownIme_459040@0x459040` 已实现；
+`login::detail::Sub_404D60@0x404D60` 已接入 Yobi runtime；其余十三个原 callee
+只有带地址和 IDA 类型证据的声明，没有空函数、固定成功返回或
+替代清理。Windows SDK 类型和 API 只出现在平台实现文件；
+`ClientShutdown.hpp` 仍仅暴露 `int ShutdownClient_457A40()`，IME 生命周期接口位于
+独立私有头 `ImeLifecycle.hpp`。

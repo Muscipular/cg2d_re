@@ -52,21 +52,6 @@ std::int32_t Sub_503A20(
 
 // sub_460FF0@0x460FF0 尚未实现的真实直接目标；不提供空体或固定返回。
 std::int32_t Sub_45C970();
-std::int32_t Sub_45E0C0(std::int32_t x, std::int32_t y);
-
-// IDA 将返回值误标为 YobiAction*；调用方实际只比较 0、1、2。
-std::int32_t Sub_45E090(
-    std::int32_t x,
-    std::int32_t y,
-    const char* text,
-    std::int8_t value3);
-std::int32_t Sub_45DEE0(
-    std::int32_t x,
-    std::int32_t y,
-    const char* text,
-    std::int8_t value3,
-    std::int32_t width,
-    std::int32_t height);
 
 std::int32_t Sub_51B3B0(std::uint32_t selectedIndex);
 void NullSub_509080();

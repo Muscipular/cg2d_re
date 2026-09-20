@@ -64,4 +64,10 @@ bool IsYobiActionReady(YobiAction* action, std::int32_t threshold);
 // 与上述 gte readiness 判定语义不同，只作严格相等比较。
 bool IsYobiActionStateEqual(YobiAction* action, std::int32_t expected);
 
+// x64 窄边界：封装原 action+0x170 上的 CryptInt::Lte(..., maximum)。
+// 与 gte readiness 和严格相等判定分别保留原比较语义。
+bool IsYobiActionStateLessOrEqual(
+    YobiAction* action,
+    std::int32_t maximum);
+
 } // namespace cg::login::detail

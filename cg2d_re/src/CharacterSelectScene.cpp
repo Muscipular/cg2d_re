@@ -319,7 +319,8 @@ std::int32_t ProcessScene_460FF0()
             interactive = 0;
             break;
         case 12: {
-            const std::int32_t result = detail::Sub_45E0C0(320, 240);
+            const std::int32_t result =
+                ProcessCharacterDeletionWarning_45E0C0(320, 240);
             if (result == 1) {
                 world::gCurrentSceneState = 13;
                 gDeleteConfirmationAction =
@@ -331,7 +332,11 @@ std::int32_t ProcessScene_460FF0()
         }
         case 13: {
             const std::int32_t result =
-                detail::Sub_45E090(320, 240, kDeleteQuestion, 0);
+                ProcessDefaultConfirmationDialog_45E090(
+                    320,
+                    240,
+                    kDeleteQuestion,
+                    0);
             if (login::detail::IsYobiActionReady(gDeleteConfirmationAction, 1)) {
                 login::detail::DrawText3(166, 326, 2, 4, kDeleteWithControl, 0);
                 login::detail::DrawText3(166, 346, 2, 4, kClickYesAgain, 0);
@@ -387,7 +392,13 @@ std::int32_t ProcessScene_460FF0()
             break;
         case 18: {
             const std::int32_t result =
-                detail::Sub_45DEE0(320, 240, kUpdateQuestion, 0, 384, 96);
+                ProcessConfirmationDialog_45DEE0(
+                    320,
+                    240,
+                    kUpdateQuestion,
+                    0,
+                    384,
+                    96);
             if (result == 1) {
                 world::SetCurrentSceneType(13);
             } else if (result == 2) {

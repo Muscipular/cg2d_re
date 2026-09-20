@@ -22,6 +22,27 @@ void ResetCharacterDeletionProgress_45DBF0();
 // 原 sub_45DC00@[0x45DC00,0x45DD45)。
 std::int32_t UpdateCharacterDeletionProgress_45DC00();
 
+// 原 sub_45DEE0@[0x45DEE0,0x45E089)。
+std::int32_t ProcessConfirmationDialog_45DEE0(
+    std::int32_t x,
+    std::int32_t y,
+    const char* text,
+    std::int8_t color,
+    std::int32_t width,
+    std::int32_t height);
+
+// 原 sub_45E090@[0x45E090,0x45E0B1)。
+std::int32_t ProcessDefaultConfirmationDialog_45E090(
+    std::int32_t x,
+    std::int32_t y,
+    const char* text,
+    std::int8_t color);
+
+// 原 sub_45E0C0@[0x45E0C0,0x45E3C1)。
+std::int32_t ProcessCharacterDeletionWarning_45E0C0(
+    std::int32_t x,
+    std::int32_t y);
+
 // 原 sub_460D00@[0x460D00,0x460FD8)；前置条件是 slot 位于 [0, 1]。
 std::int32_t ProcessCharacterPreview_460D00(std::uint32_t slot);
 

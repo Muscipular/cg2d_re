@@ -712,4 +712,70 @@ char* Sub_533680(
     return output;
 }
 
+void Sub_533730()
+{
+    SavedPhysicalRecord localRecord;
+    std::uint8_t encoded[0xA20];
+    std::int32_t encodedBytes;
+    char path[0x400];
+
+    for (std::int32_t physicalSlot = 0;
+         physicalSlot < 10;
+         ++physicalSlot) {
+        if (gSavedState.active[physicalSlot] != 1) {
+            continue;
+        }
+
+        const auto* const recordBytes =
+            reinterpret_cast<const std::uint8_t*>(
+                &gSavedState.records[physicalSlot]);
+        if (recordBytes[0x6A] == 0) {
+            continue;
+        }
+        if (recordBytes[0x37] == 0) {
+            continue;
+        }
+
+        std::memcpy(
+            &localRecord,
+            &gSavedState.records[physicalSlot],
+            sizeof(localRecord));
+        auto* const localBytes =
+            reinterpret_cast<std::uint8_t*>(&localRecord);
+        std::memset(localBytes + 0x37, 0, 0x33);
+        localBytes[0x37] = 0;
+
+        EncodeLegacyBytes_52D310(
+            localBytes,
+            0x510,
+            0,
+            encoded,
+            &encodedBytes,
+            0xA20);
+        std::sprintf(
+            path,
+            "%s\\%s",
+            gSavedState.paths[physicalSlot].text,
+            "save.dat");
+
+        std::FILE* const file = std::fopen(path, "wb+");
+        if (file == nullptr) {
+            return;
+        }
+
+        const std::size_t bytesWritten = std::fwrite(
+            encoded,
+            1,
+            static_cast<std::uint32_t>(encodedBytes),
+            file);
+        const std::uint32_t expectedBytes =
+            static_cast<std::uint32_t>(encodedBytes);
+        if (bytesWritten < expectedBytes) {
+            std::fclose(file);
+            return;
+        }
+        std::fclose(file);
+    }
+}
+
 } // namespace cg::login::detail

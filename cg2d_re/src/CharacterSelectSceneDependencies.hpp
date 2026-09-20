@@ -50,6 +50,7 @@ std::int32_t Sub_503A20(
 
 std::int32_t Sub_51B3B0(std::uint32_t selectedIndex);
 void NullSub_509080();
+// 原 sub_520200@0x520200：共享当前记录持久化核心的角色选择侧薄包装。
 std::int32_t Sub_520200();
 
 // sub_460D00@0x460D00 与 sub_461B30@0x461B30 共享的真实直接目标。

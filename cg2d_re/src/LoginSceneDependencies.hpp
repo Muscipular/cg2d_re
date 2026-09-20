@@ -30,6 +30,7 @@ std::uint8_t ReadNegativeSelectionAvailability(
 
 // sub_45C2D0 的剩余未闭合直接目标；不提供空体或固定返回。
 void NullSub_509080();
+// 原 sub_520200@0x520200：共享当前记录持久化核心的登录侧薄包装。
 std::int32_t Sub_520200();
 
 } // namespace cg::login::detail

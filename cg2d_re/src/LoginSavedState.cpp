@@ -1,4 +1,6 @@
+#include "CharacterSelectSceneDependencies.hpp"
 #include "LoginInputDependencies.hpp"
+#include "LoginSceneDependencies.hpp"
 
 #include "cg/platform/CommandOptions.hpp"
 #include "cg/platform/Startup.hpp"
@@ -625,9 +627,63 @@ FindFreeSavedPhysicalSlot_5338F0() noexcept
     return std::bit_cast<std::int32_t>(resultBits);
 }
 
+// 原 sub_520200@[0x520200,0x5202DE)：持久化当前保存记录。
+std::int32_t PersistCurrentSavedRecord_520200()
+{
+    SavedPhysicalRecord localRecord;
+    char path[0x400];
+    std::uint8_t encoded[0xA20];
+    std::int32_t encodedBytes;
+
+    std::memcpy(
+        &localRecord,
+        &gCurrentSavedRecord,
+        sizeof(localRecord));
+    auto* const localBytes =
+        reinterpret_cast<std::uint8_t*>(&localRecord);
+    std::memset(localBytes + 0x37, 0, 0x33);
+    EncodeLegacyBytes_52D310(
+        localBytes,
+        0x510,
+        0,
+        encoded,
+        &encodedBytes,
+        0xA20);
+
+    const std::int32_t selected = gSavedState.selected;
+    const std::int32_t physicalSlot =
+        gSavedState.logicalToPhysical[selected];
+    std::sprintf(
+        path,
+        "%s\\%s",
+        gSavedState.paths[physicalSlot].text,
+        "save.dat");
+
+    std::FILE* const file = std::fopen(path, "wb+");
+    std::int32_t result = file != nullptr ? 1 : 0;
+    const std::size_t bytesWritten = std::fwrite(
+        encoded,
+        1,
+        static_cast<std::uint32_t>(encodedBytes),
+        file);
+    const std::uint32_t expectedBytes =
+        static_cast<std::uint32_t>(encodedBytes);
+    if (bytesWritten < expectedBytes) {
+        result = 0;
+    }
+    std::fclose(file);
+    (void)StoreCurrentRecordToSelectedPhysical_533700();
+    return result;
+}
+
 } // namespace
 
 namespace cg::login::detail {
+
+std::int32_t Sub_520200()
+{
+    return PersistCurrentSavedRecord_520200();
+}
 
 char* GetCurrentSavedInputValueFF494F()
 {
@@ -818,3 +874,12 @@ void Sub_533730()
 }
 
 } // namespace cg::login::detail
+
+namespace cg::character_select::detail {
+
+std::int32_t Sub_520200()
+{
+    return PersistCurrentSavedRecord_520200();
+}
+
+} // namespace cg::character_select::detail

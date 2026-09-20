@@ -742,6 +742,16 @@ std::int32_t PersistCurrentSavedRecord_520200()
     return source;
 }
 
+// 原 sub_520700@[0x520700,0x520712)：从记录恢复单字节状态。
+[[maybe_unused]] std::uint32_t RestoreSavedByteState_520700(
+    const std::uint8_t* const source)
+{
+    const std::uint32_t value =
+        static_cast<std::uint32_t>(source[0x313]);
+    cg::platform::gValueD67CD0 = value;
+    return value;
+}
+
 } // namespace
 
 namespace cg::platform {

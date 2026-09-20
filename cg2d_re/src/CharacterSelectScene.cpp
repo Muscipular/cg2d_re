@@ -269,11 +269,11 @@ std::int32_t ProcessScene_460FF0()
             }
             break;
         case 7:
-            detail::Sub_45D7D0();
+            ResetAuthenticationFailure_45D7D0();
             world::gCurrentSceneState = 8;
             break;
         case 8:
-            if (detail::Sub_45D7E0() != 0) {
+            if (UpdateAuthenticationFailure_45D7E0() != 0) {
                 world::SetCurrentSceneType(2);
             }
             break;

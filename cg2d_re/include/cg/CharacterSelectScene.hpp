@@ -10,6 +10,12 @@ void ResetCharacterListProgress_45DD50();
 // 原 sub_45DD60@[0x45DD60,0x45DED9)。
 std::int32_t UpdateCharacterListProgress_45DD60();
 
+// 原 sub_45D7D0@[0x45D7D0,0x45D7DA)；只清认证失败提示阶段。
+void ResetAuthenticationFailure_45D7D0();
+
+// 原 sub_45D7E0@[0x45D7E0,0x45D97D)。
+std::int32_t UpdateAuthenticationFailure_45D7E0();
+
 // 原 sub_460D00@[0x460D00,0x460FD8)；前置条件是 slot 位于 [0, 1]。
 std::int32_t ProcessCharacterPreview_460D00(std::uint32_t slot);
 

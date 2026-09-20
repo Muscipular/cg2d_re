@@ -424,7 +424,8 @@ std::int32_t ProcessScene_460FF0()
     for (std::uint32_t slot = 0; slot < login::CharacterRecordCount; ++slot) {
         login::CharacterRecordBytes& record =
             login::gCharacterRecords[static_cast<std::size_t>(slot)];
-        const std::int32_t action = detail::Sub_461B30(slot, interactive);
+        const std::int32_t action =
+            ProcessCharacterSlot_461B30(slot, interactive);
         const std::uint32_t actionIndex = UnsignedBits(action);
         if (actionIndex > 6u) {
             continue;

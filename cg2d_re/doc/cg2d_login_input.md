@@ -16,9 +16,11 @@
 - `sub_520440@[0x520440,0x520469)`：21 条指令、6 个基本块，读取
   `[0xFF4982,0xFF49B5)`。
 
-当前实现为两个槽各保留唯一私有存储，并提供对应的公共读写入口与上下文
-初始化器。本项只补两个写入入口，不改现有 caller，也不实现或接线
-`sub_45CA20`；登录提交和网络链仍不在本项范围。
+当前实现把两个输入槽映射到 `LoginSavedState.cpp` 内唯一的完整当前保存记录
+`gCurrentSavedRecord`，`LoginInput.cpp` 只经私有窄 accessor 取得槽指针，不再保存
+独立 `char[51]` 副本。公共读写入口与上下文初始化器保持不变；现有 caller 未改，
+`sub_45CA20` 及登录提交和网络链仍未实现或接线。完整 owner 证据见
+[`cg2d_current_saved_record.md`](cg2d_current_saved_record.md)。
 
 登录控件命中与鼠标位打包的独立证据见
 [`cg2d_login_control_hit.md`](cg2d_login_control_hit.md)；该单项只提供
@@ -39,9 +41,12 @@
 
 ## 唯一存储与读写边界
 
-原 `0xFF494F`、`0xFF4982` 各为 51 字节零填充槽。新端在
-`LoginInput.cpp` 中各保留一个私有 `char[51]`，不从登录场景复制或另建同义
-存储。两个公开写入函数分别映射原 `sub_5203B0`、`sub_520410`：
+原 `0xFF494F`、`0xFF4982` 各为当前保存记录内的 51 字节槽：分别对应
+`gCurrentSavedRecord.parts[0].text+0x33`（记录 `+0x37`）与
+`text+0x66`（记录 `+0x6A`）。唯一 owner 位于 `LoginSavedState.cpp`；私有
+`GetCurrentSavedInputValueFF494F/FF4982` 只返回这两个子区间的原生 `char*`，
+不公开记录类型，也不建立第二份存储。两个公开写入函数分别映射原
+`sub_5203B0`、`sub_520410`：
 
 1. `source == nullptr` 时返回空指针，对应槽不写入。
 2. 输入非空时按索引 `0..50` 逐字节读取并写入对应槽。

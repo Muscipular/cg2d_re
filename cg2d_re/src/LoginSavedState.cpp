@@ -73,6 +73,9 @@ static_assert(offsetof(SavedStateStorage, selected) == 0x3CFC);
 // 原连续区间 [0x1058698,0x105C398)，PE 中为 virtual-only 零填充。
 SavedStateStorage gSavedState {};
 
+// 原当前保存记录 [0xFF4918,0xFF4E28)，完整 0x510 字节，PE virtual-only 零填充。
+SavedPhysicalRecord gCurrentSavedRecord {};
+
 // 原 sub_52D310@[0x52D310,0x52D457)：编码旧保存数据字节流。
 [[maybe_unused]] void EncodeLegacyBytes_52D310(
     std::uint8_t* const source,
@@ -599,6 +602,16 @@ FindFreeSavedPhysicalSlot_5338F0() noexcept
 } // namespace
 
 namespace cg::login::detail {
+
+char* GetCurrentSavedInputValueFF494F()
+{
+    return gCurrentSavedRecord.parts[0].text + 0x33;
+}
+
+char* GetCurrentSavedInputValueFF4982()
+{
+    return gCurrentSavedRecord.parts[0].text + 0x66;
+}
 
 std::int32_t& gSelectedSavedSlot105C394 = gSavedState.selected;
 std::int32_t& gVisibleSavedSlotCount105C364 = gSavedState.visibleCount;

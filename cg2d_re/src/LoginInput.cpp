@@ -92,12 +92,9 @@ void DrawCapability4SavedSlotGraphic(
         -1));
 }
 
-char gValueFF494F[kStoredInputValueSize] {};
-char gValueFF4982[kStoredInputValueSize] {};
-
 char* WriteStoredInputValue(
     char* const source,
-    char (&storedValue)[kStoredInputValueSize])
+    char* const storedValue)
 {
     if (source == nullptr) {
         return nullptr;
@@ -116,7 +113,7 @@ char* WriteStoredInputValue(
 
 char* ReadStoredInputValue(
     char* const output,
-    const char (&storedValue)[kStoredInputValueSize])
+    const char* const storedValue)
 {
     for (std::size_t index = 0; index < kStoredInputValueSize; ++index) {
         const char value = storedValue[index];
@@ -132,7 +129,9 @@ char* ReadStoredInputValue(
 
 char* WriteInputValueFF494F_5203B0(char* const source)
 {
-    return WriteStoredInputValue(source, gValueFF494F);
+    return WriteStoredInputValue(
+        source,
+        detail::GetCurrentSavedInputValueFF494F());
 }
 
 char* ReadInputValueFF494F_5203E0(char* const output)
@@ -140,12 +139,16 @@ char* ReadInputValueFF494F_5203E0(char* const output)
     if (output == nullptr) {
         return nullptr;
     }
-    return ReadStoredInputValue(output, gValueFF494F);
+    return ReadStoredInputValue(
+        output,
+        detail::GetCurrentSavedInputValueFF494F());
 }
 
 char* WriteInputValueFF4982_520410(char* const source)
 {
-    return WriteStoredInputValue(source, gValueFF4982);
+    return WriteStoredInputValue(
+        source,
+        detail::GetCurrentSavedInputValueFF4982());
 }
 
 char* ReadInputValueFF4982_520440(char* const output)
@@ -153,7 +156,9 @@ char* ReadInputValueFF4982_520440(char* const output)
     if (output == nullptr) {
         return nullptr;
     }
-    return ReadStoredInputValue(output, gValueFF4982);
+    return ReadStoredInputValue(
+        output,
+        detail::GetCurrentSavedInputValueFF4982());
 }
 
 std::int32_t QueryLoginControlState_5036F0(

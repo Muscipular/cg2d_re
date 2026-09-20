@@ -74,9 +74,9 @@ std::uint32_t Sub_52B990();
 std::int32_t Sub_45F100(const CharacterSelectUiRecord* uiRecord);
 void Sub_45EFD0(
     const CharacterSelectUiRecord* uiRecord,
-    std::int8_t layer,
-    std::int32_t value2,
-    std::int32_t value3,
+    std::uint8_t layer,
+    std::int32_t overlayMode,
+    std::int32_t overlayImageNo,
     std::int32_t style);
 std::int32_t Sub_45F090(
     std::int32_t x,

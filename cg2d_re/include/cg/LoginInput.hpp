@@ -70,6 +70,9 @@ void InitializeInputContexts_45C7C0();
 // 原 sub_45F970@[0x45F970,0x45FA6C)：能力 3 登录输入初始化。
 void InitializeCapabilityInput_45F970();
 
+// 原 sub_465320@[0x465320,0x465429)：能力 4 登录输入初始化。
+void InitializeCapability4Input_465320();
+
 // 原 sub_45CA20@[0x45CA20,0x45CDF6)：登录输入与两个提交控件控制器。
 std::int32_t ProcessLoginInput_45CA20(std::int32_t mode);
 

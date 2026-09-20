@@ -5,7 +5,7 @@
 
 namespace cg::world::detail {
 
-// World::Update@0x51C430 的未实现直接目标。只保留当前 IDA 地址和调用契约，不提供空体。
+// World::Update@0x51C430 的直接目标声明；未实现项只保留 IDA 地址和调用契约。
 void Sub_4596D0();                         // 原 0x4596D0。
 std::int32_t Sub_45C5A0();                 // 原 0x45C5A0。
 void Sub_45C2D0();                         // 原 0x45C2D0。
@@ -13,7 +13,7 @@ std::int32_t Sub_45F190();                 // 原 0x45F190。
 std::int32_t Sub_464840();                 // 原 0x464840。
 void RenderChara_521F20();                 // 原 World::RenderChara@0x521F20。
 void RenderInput_4590E0();                 // 原 World::RenderInput@0x4590E0。
-void Sub_44A410();                         // 原 0x44A410。
+void Sub_44A410();                         // 原 0x44A410，输入光标闪烁/排队。
 void Sub_4626A0();                         // 原 0x4626A0。
 std::int32_t Sub_45E3D0();                 // 原 0x45E3D0。
 std::int32_t Sub_4590A0();                 // 原 0x4590A0，IDA 原型 BOOL()。

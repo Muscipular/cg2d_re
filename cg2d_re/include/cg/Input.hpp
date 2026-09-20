@@ -46,8 +46,13 @@ static_assert(sizeof(InputContext) == 0x15C);
 // 原 0x626C04：当前输入上下文；允许由 SetContext 写为 nullptr。
 extern InputContext* gCurrentInputData;
 
-// 下列状态只保留本函数已取证的读写语义，不扩展业务命名。
-extern std::int32_t gValue626C0C; // 接受路径最终写 20。
+// 原 stru_626AA0@0x626AA0：本项只保留地址身份与映像零初始化。
+extern InputContext gInputContext626AA0;
+// 原 dword_C9A96C@0xC9A96C：该特殊上下文的外部控制值，映像初值为零。
+extern std::int32_t gValueC9A96C;
+
+// 下列状态只保留当前已取证的读写语义，不扩展业务命名。
+extern std::int32_t gValue626C0C; // 输入相位计数；接受字符后写 20。
 extern std::int32_t gValue626C20; // 超过 maxLine 时选择截断或回滚分支。
 extern std::int32_t gValue626C28; // 特定回滚路径写 1。
 

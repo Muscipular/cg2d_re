@@ -9,6 +9,10 @@
 #include <cstring>
 #include <type_traits>
 
+#define WIN32_LEAN_AND_MEAN
+#define NOMINMAX
+#include <Windows.h>
+
 namespace {
 
 struct SavedPath final {
@@ -358,6 +362,23 @@ FindFreeSavedPhysicalSlot_5338F0() noexcept
 
     const std::int32_t finalMappingCount = gSavedState.mappingCount;
     return finalMappingCount > 0 ? 1 : 0;
+}
+
+// 原 sub_533530@[0x533530,0x533563)：迁移三份旧保存文件。
+[[maybe_unused]] std::int32_t MigrateLegacySavedFiles_533530()
+{
+    (void)::CopyFileA(
+        "data\\save.dat",
+        "data\\0\\save.dat",
+        FALSE);
+    (void)::CopyFileA(
+        "data\\mail.dat",
+        "data\\0\\mail.dat",
+        FALSE);
+    return static_cast<std::int32_t>(::CopyFileA(
+        "data\\guildmail.dat",
+        "data\\0\\guildmail.dat",
+        FALSE));
 }
 
 } // namespace

@@ -451,7 +451,7 @@ std::int32_t ProcessScene_460FF0()
             detail::Sub_519550();
             world::SetCurrentSceneType(4);
             login::detail::PlaySe(53, 320, 240);
-            detail::YobiClearUp_404D30();
+            login::detail::YobiClearUp_404D30();
             ClearPreviewActions();
             break;
         case 1:
@@ -462,7 +462,7 @@ std::int32_t ProcessScene_460FF0()
             login::detail::PlaySe(59, 320, 240);
             state::gCharacterEntryState = 0;
             detail::Sub_52B990();
-            detail::YobiClearUp_404D30();
+            login::detail::YobiClearUp_404D30();
             ClearPreviewActions();
             break;
         case 2: {
@@ -518,7 +518,7 @@ std::int32_t ProcessScene_460FF0()
     if (uiStyle == 0
         && world::gCurrentSceneState == 11
         && (detail::Sub_45F100(&gReturnUi) & 1) != 0) {
-        detail::YobiClearUp_404D30();
+        login::detail::YobiClearUp_404D30();
         ClearPreviewActions();
         login::detail::Sub_5081A0();
         world::SetCurrentSceneType(2);

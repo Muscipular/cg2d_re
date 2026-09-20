@@ -1,11 +1,9 @@
 #pragma once
 
+#include "cg/YobiRuntime.hpp"
+
 #include <array>
 #include <cstdint>
-
-namespace cg::login {
-struct YobiAction;
-}
 
 namespace cg::character_select::state {
 

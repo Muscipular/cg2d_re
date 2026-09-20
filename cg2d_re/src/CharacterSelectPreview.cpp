@@ -96,7 +96,7 @@ std::int32_t SelectGraphicIndex(std::int32_t converted)
 
 } // namespace
 
-std::int32_t ProcessCharacterPreview_460D00(std::uint32_t slot)
+void ProcessCharacterPreview_460D00(std::uint32_t slot)
 {
     const std::size_t slotIndex = static_cast<std::size_t>(slot);
     login::YobiAction* const actionToDestroy =
@@ -107,13 +107,13 @@ std::int32_t ProcessCharacterPreview_460D00(std::uint32_t slot)
     }
 
     if (detail::Sub_51B110(slot) == 0) {
-        return 0;
+        return;
     }
 
     login::YobiAction* const existingAction =
         state::gPreviewActions[slotIndex];
     if (existingAction != nullptr) {
-        return detail::GetYobiActionLegacyPointerBits32(existingAction);
+        return;
     }
 
     login::CharacterRecordBytes& record = login::gCharacterRecords[slotIndex];
@@ -146,43 +146,43 @@ std::int32_t ProcessCharacterPreview_460D00(std::uint32_t slot)
     const std::array<std::int32_t, kPreviewGraphicCount>& graphics =
         SelectGraphicTable(previewState);
 
-    login::YobiAction* const action = detail::NewYobiAction_404AE0(
+    login::YobiAction* const action = login::detail::NewYobiAction_404AE0(
         std::uint8_t{2},
         std::uint32_t{0});
     state::gPreviewActions[slotIndex] = action;
     if (action == nullptr) {
-        return 0;
+        return;
     }
 
     const std::int32_t graphicIndex = SelectGraphicIndex(converted);
     const std::int32_t normalizedGraphic =
         ReadRecordInt32(record, kGraphicNoOffset);
     if (normalizedGraphic == 33100) {
-        detail::SetYobiActionField2A8(action, 100900);
+        login::detail::SetYobiActionField2A8(action, 100900);
     } else if (normalizedGraphic == 33101) {
-        detail::SetYobiActionField2A8(action, 100901);
+        login::detail::SetYobiActionField2A8(action, 100901);
     } else {
-        detail::SetYobiActionField2A8(
+        login::detail::SetYobiActionField2A8(
             action,
             graphics[static_cast<std::size_t>(graphicIndex)]);
         const std::int32_t baseGraphic =
-            detail::GetYobiActionField2A8(action);
-        detail::SetYobiActionField2A8(
+            login::detail::GetYobiActionField2A8(action);
+        login::detail::SetYobiActionField2A8(
             action,
             baseGraphic + 6 * ((converted % 100) / 25));
     }
 
-    detail::SetYobiActionField2B0(action, 0);
-    detail::SetYobiActionField15(action, 10);
-    detail::SetYobiActionField30(
+    login::detail::SetYobiActionField2B0(action, 0);
+    login::detail::SetYobiActionField15(action, 10);
+    login::detail::SetYobiActionField30(
         action,
         315 * static_cast<std::int32_t>(slot) + 163);
-    detail::SetYobiActionField34(action, 292);
-    detail::SetYobiActionField2B8(action, 5);
+    login::detail::SetYobiActionField34(action, 292);
+    login::detail::SetYobiActionField2B8(action, 5);
 
     login::YobiAction* const actionForFrameMove =
         state::gPreviewActions[slotIndex];
-    return detail::Sub_517880(actionForFrameMove, 100, 0, 0);
+    detail::Sub_517880(actionForFrameMove, 100, 0, 0);
 }
 
 } // namespace cg::character_select

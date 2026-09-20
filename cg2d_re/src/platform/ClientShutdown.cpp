@@ -1,6 +1,7 @@
 #include "ClientShutdown.hpp"
 
 #include "cg/GraphicRead.hpp"
+#include "cg/YobiRuntime.hpp"
 #include "cg/platform/Startup.hpp"
 
 #define WIN32_LEAN_AND_MEAN
@@ -25,7 +26,6 @@ int Sub_45BF20();                          // 原 0x45BF20：int()。
 void Sub_457670();                         // 原 0x457670：void()。
 HFONT Sub_456530();                        // 原 0x456530：HFONT()。
 void Sub_459040();                         // 原 0x459040：void()。
-void Sub_404D60();                         // 原 0x404D60：void()。
 void Sub_5081A0();                         // 原 0x5081A0：void()。
 int Sub_5066D0();                          // 原 0x5066D0：int()。
 
@@ -48,7 +48,7 @@ int ShutdownClient_457A40()
     shutdown_detail::Sub_457670();
     shutdown_detail::Sub_456530();
     shutdown_detail::Sub_459040();
-    shutdown_detail::Sub_404D60();
+    login::detail::Sub_404D60();
     shutdown_detail::Sub_5081A0();
     shutdown_detail::Sub_5066D0();
 

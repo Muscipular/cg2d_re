@@ -2,6 +2,8 @@
 
 #include "LoginStateDependencies.hpp"
 
+#include "cg/render/GraphicPendingQueue.hpp"
+
 #include <array>
 #include <cstdint>
 
@@ -26,11 +28,7 @@ std::int32_t Sub_5049A0(
     std::int32_t bottom,
     std::int32_t layer);
 
-struct GraphicDescriptor16 {
-    std::array<std::uint8_t, 16> bytes;
-};
-
-static_assert(sizeof(GraphicDescriptor16) == 16);
+using GraphicDescriptor16 = render::GraphicDescriptor16;
 
 std::int32_t DrawGraphic(
     std::int32_t x,

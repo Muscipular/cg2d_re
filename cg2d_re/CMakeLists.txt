@@ -59,6 +59,7 @@ add_library(cg2d_re_startup STATIC
     src/LegacyHitTest.cpp
     src/DrawGraphic.cpp
     src/DrawGraphicHover.cpp
+    src/YobiRuntime.cpp
     src/render/GraphicPendingQueue.cpp
     src/LoginMessage.cpp
     src/LoginRequest.cpp

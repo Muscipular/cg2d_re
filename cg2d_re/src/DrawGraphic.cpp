@@ -7,6 +7,125 @@
 #include <bit>
 #include <cstddef>
 #include <cstdint>
+#include <cstring>
+#include <type_traits>
+
+namespace cg::render {
+namespace {
+
+struct GraphicModeFields {
+    std::int16_t sourceX;
+    std::int16_t sourceY;
+    std::int16_t width;
+    std::int16_t height;
+    std::int32_t color;
+    std::uint8_t clip;
+    std::uint8_t mixMode;
+    std::uint16_t paletteCacheIndex;
+};
+
+static_assert(std::is_standard_layout_v<GraphicModeFields>);
+static_assert(std::is_trivially_copyable_v<GraphicModeFields>);
+static_assert(sizeof(GraphicModeFields) == 0x10);
+static_assert(offsetof(GraphicModeFields, sourceX) == 0x00);
+static_assert(offsetof(GraphicModeFields, sourceY) == 0x02);
+static_assert(offsetof(GraphicModeFields, width) == 0x04);
+static_assert(offsetof(GraphicModeFields, height) == 0x06);
+static_assert(offsetof(GraphicModeFields, color) == 0x08);
+static_assert(offsetof(GraphicModeFields, clip) == 0x0C);
+static_assert(offsetof(GraphicModeFields, mixMode) == 0x0D);
+static_assert(offsetof(GraphicModeFields, paletteCacheIndex) == 0x0E);
+
+std::int16_t SubtractSigned16Wrapping(
+    const std::int16_t value,
+    const std::int16_t offset)
+{
+    const std::uint16_t result = static_cast<std::uint16_t>(
+        std::bit_cast<std::uint16_t>(value)
+        - std::bit_cast<std::uint16_t>(offset));
+    return std::bit_cast<std::int16_t>(result);
+}
+
+} // namespace
+
+std::int32_t DrawGraphic3_520970(
+    const std::int32_t x,
+    const std::int32_t y,
+    const std::uint8_t layer,
+    const std::int32_t imageNo,
+    const std::int32_t value4,
+    const std::int32_t isGraphicNo,
+    const std::uint8_t batchType,
+    const GraphicDescriptor16* const descriptor)
+{
+    const std::int16_t initialCount =
+        std::bit_cast<std::int16_t>(platform::gPendingGraphicCount);
+    if (initialCount < 0 || initialCount >= 4096) {
+        return -2;
+    }
+
+    // 原函数复用 isGraphicNo 参数槽作为 map 输出；若底层不写出，保留入参位模式。
+    std::int32_t graphicIndex = isGraphicNo;
+    std::int16_t offsetX = 0;
+    std::int16_t offsetY = 0;
+    if (imageNo < -1) {
+        graphicIndex = imageNo;
+    } else {
+        if (imageNo <= 999) {
+            return -2;
+        }
+
+        if (static_cast<std::uint8_t>(isGraphicNo) != 0) {
+            resource::GetGraphicMapNoIndex(imageNo, &graphicIndex);
+        } else {
+            graphicIndex = imageNo;
+        }
+        resource::GetGraphicXY(
+            std::bit_cast<std::uint32_t>(graphicIndex),
+            &offsetX,
+            &offsetY);
+    }
+
+    const std::size_t queueIndex = static_cast<std::size_t>(initialCount);
+    GraphicCache3& cache3 = gLegacyPendingStorage.cache3[queueIndex];
+    cache3.layer = layer;
+    cache3.cacheIndex =
+        std::bit_cast<std::int16_t>(platform::gPendingGraphicCount);
+
+    GraphicCacheItem32& item = gLegacyPendingStorage.records[queueIndex];
+    item.x = x;
+    item.y = y;
+    item.imageNo = graphicIndex;
+    item.value4 = value4;
+    item.dataBits = 0;
+
+    GraphicModeFields mode {};
+    if (descriptor != nullptr) {
+        std::memcpy(&mode, descriptor->bytes.data(), sizeof(mode));
+    } else {
+        mode.color = -1;
+    }
+    mode.sourceX = SubtractSigned16Wrapping(mode.sourceX, offsetX);
+    mode.sourceY = SubtractSigned16Wrapping(mode.sourceY, offsetY);
+    std::memcpy(item.descriptor.data(), &mode, sizeof(mode));
+
+    item.batchType = batchType;
+    if (mode.clip == 1) {
+        item.batchType = 1;
+    }
+
+    if (graphicIndex >= 0xC18 && graphicIndex <= 0xC21) {
+        gSpecialGraphicPending = 1;
+    }
+
+    const std::uint16_t resultBits = platform::gPendingGraphicCount;
+    const std::int32_t result = static_cast<std::int32_t>(
+        std::bit_cast<std::int16_t>(resultBits));
+    platform::gPendingGraphicCount = static_cast<std::uint16_t>(resultBits + 1U);
+    return result;
+}
+
+} // namespace cg::render
 
 namespace cg::login::detail {
 namespace {

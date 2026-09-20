@@ -67,9 +67,9 @@ IDA 中 `CryptInt` 大小为 16 字节：
 
 旧鼠标 X/Y 已由 `LegacyMouseState` 中的真实 `LegacyCryptInt` 承载；
 `World::CursorUpdate` 的四处坐标加 16 已改接 `Add_401E10`，每处各保留一次读取
-副作用。`YobiAction` 路径仍以强类型窄依赖声明承接，尚未实现其 x64 实际对象
-布局。尤其原 Yobi 字段位于对象 `+0x170`，当前新端没有可证明会在该位置
-构造 `LegacyCryptInt` 并写入 `0x0054D3A0` token 的生产者；因此本项不能把
-`IsYobiActionReady`、相等/小于等于判断直接改接此后端。后续接线前
-必须先还原相应对象创建、字段构造和生命周期，不能只把 16 字节载荷强行嵌入
-现有不透明指针。
+副作用。`YobiAction` 现由 `cg2d_yobi_runtime.md` 所述的原生 x64 runtime
+承载；原 `+0x170` 只作为语义字段证据，不在新端复制 x86 偏移。创建时该
+`LegacyCryptInt` 与原 `calloc` 对象一致保持全零，modal callback 再按原
+`0x50483C/0x5048B0/0x5048EA` 的临时对象赋值形态调用 `AssignFromInt`。
+`IsYobiActionReady`、相等与小于等于窄接口均已直接接入本后端，且每次比较只读取
+一次。

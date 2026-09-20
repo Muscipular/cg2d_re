@@ -11,7 +11,6 @@ std::int32_t Sub_45C5A0();                 // 原 0x45C5A0。
 void Sub_45C2D0();                         // 原 0x45C2D0。
 std::int32_t Sub_45F190();                 // 原 0x45F190。
 std::int32_t Sub_464840();                 // 原 0x464840。
-std::int32_t YobiUpdateAll_404C50();       // 原 Yobi::UpdateAll@0x404C50。
 void RenderChara_521F20();                 // 原 World::RenderChara@0x521F20。
 void RenderInput_4590E0();                 // 原 World::RenderInput@0x4590E0。
 void Sub_44A410();                         // 原 0x44A410。
@@ -42,7 +41,6 @@ std::uint32_t Sub_52B990();                // 原 0x52B990。
 std::int32_t Sub_45EBB0();                 // 原 0x45EBB0。
 void DrawNormalScene_51C7D0();             // 原 World::DrawNormalScene@0x51C7D0。
 std::int8_t Sub_519D50();                  // 原 0x519D50，IDA 原型 char()。
-void YobiClearUp_404D30();                 // 原 YobiClearUp@0x404D30。
 std::int8_t Sub_51D750();                  // 原 0x51D750，IDA 原型 char()。
 std::int32_t Sub_520160();                 // 原 0x520160，IDA 原型 BOOL()。
 void Sub_5081A0();                         // 原 0x5081A0。

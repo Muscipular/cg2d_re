@@ -6,6 +6,13 @@
 
 namespace cg::render {
 
+// 原 KRECT/GraphicMode 的 16 字节逐字节描述；字段解释由具体绘制入口负责。
+struct GraphicDescriptor16 {
+    std::array<std::uint8_t, 16> bytes;
+};
+
+static_assert(sizeof(GraphicDescriptor16) == 0x10);
+
 // 原 [0xFF4EB8,0x101CEB8) 的 4096 项待提交图形记录；字段名只表达已确认宽度。
 struct GraphicCacheItem32 {
     std::int32_t x;
@@ -57,5 +64,16 @@ extern LegacyPendingStorage gLegacyPendingStorage;
 
 // 原 0x1020EDC：特殊图形进入待提交队列后的单字节标志。
 extern std::uint8_t gSpecialGraphicPending;
+
+// 原 Renderer::DrawGraphic3@[0x520970,0x520ACE)。
+std::int32_t DrawGraphic3_520970(
+    std::int32_t x,
+    std::int32_t y,
+    std::uint8_t layer,
+    std::int32_t imageNo,
+    std::int32_t value4,
+    std::int32_t isGraphicNo,
+    std::uint8_t batchType,
+    const GraphicDescriptor16* descriptor);
 
 } // namespace cg::render

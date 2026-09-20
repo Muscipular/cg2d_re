@@ -116,7 +116,7 @@ std::int32_t ProcessScene_462330()
         break;
     case 101:
         if (login::UpdateLoginMessage(kUpgradeSucceededText) != 0) {
-            detail::YobiClearUp_404D30();
+            login::detail::YobiClearUp_404D30();
             if (state::gPreviewActions[0] != nullptr) {
                 state::gPreviewActions[0] = nullptr;
             }

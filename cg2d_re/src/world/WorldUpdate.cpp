@@ -6,6 +6,7 @@
 #include "cg/LoginScene.hpp"
 #include "cg/LoginState.hpp"
 #include "cg/Palette.hpp"
+#include "cg/YobiRuntime.hpp"
 #include "cg/platform/MainLoop.hpp"
 
 #include <bit>
@@ -47,7 +48,7 @@ void Update()
         default:
             break;
         }
-        detail::YobiUpdateAll_404C50();
+        login::detail::YobiUpdateAll_404C50();
         detail::RenderChara_521F20();
         detail::RenderInput_4590E0();
         detail::Sub_44A410();
@@ -56,20 +57,20 @@ void Update()
     case 2:
         platform::gValue73ECC0 = 0;
         login::ProcessScene_45FEA0();
-        detail::YobiUpdateAll_404C50();
+        login::detail::YobiUpdateAll_404C50();
         detail::RenderChara_521F20();
         return;
     case 3:
         platform::gValue73ECC0 = 0;
         character_select::ProcessScene_460FF0();
-        detail::YobiUpdateAll_404C50();
+        login::detail::YobiUpdateAll_404C50();
         detail::RenderChara_521F20();
         return;
     case 4:
         platform::gValue73ECC0 = 0;
         detail::Sub_4596D0();
         detail::Sub_4626A0();
-        detail::YobiUpdateAll_404C50();
+        login::detail::YobiUpdateAll_404C50();
         detail::RenderChara_521F20();
         detail::RenderInput_4590E0();
         detail::Sub_44A410();
@@ -112,7 +113,7 @@ void Update()
         goto sceneSixTail;
     case 7:
         detail::Sub_45EBB0();
-        detail::YobiUpdateAll_404C50();
+        login::detail::YobiUpdateAll_404C50();
         return;
     case 8:
         return;
@@ -127,7 +128,7 @@ void Update()
         if (sceneState == 0) {
             detail::Sub_519D50();
             detail::Sub_446470();
-            detail::YobiClearUp_404D30();
+            login::detail::YobiClearUp_404D30();
             detail::Sub_503E80();
             detail::Sub_43F220();
             gValue58B6D0 = 1;
@@ -156,7 +157,7 @@ void Update()
         render::gPaletteCapability = capability;
         render::SelectPalette(capability == 3 ? 27 : 0, 0);
         SetCurrentSceneType(2);
-        detail::YobiClearUp_404D30();
+        login::detail::YobiClearUp_404D30();
         gValueD9F2CA = 0;
         return;
     }
@@ -170,7 +171,7 @@ void Update()
         } else {
             character_select::ProcessScene_462330();
         }
-        detail::YobiUpdateAll_404C50();
+        login::detail::YobiUpdateAll_404C50();
         detail::RenderChara_521F20();
         detail::RenderInput_4590E0();
         detail::Sub_44A410();
@@ -180,7 +181,7 @@ void Update()
     }
 
 sceneSixTail:
-    detail::YobiUpdateAll_404C50();
+    login::detail::YobiUpdateAll_404C50();
     detail::RenderChara_521F20();
 }
 

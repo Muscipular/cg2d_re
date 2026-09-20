@@ -66,4 +66,7 @@ void DrawLoginControl_503780(
 // 原 sub_45C7C0@[0x45C7C0,0x45C96E)。
 void InitializeInputContexts_45C7C0();
 
+// 原 sub_45CA20@[0x45CA20,0x45CDF6)：登录输入与两个提交控件控制器。
+std::int32_t ProcessLoginInput_45CA20(std::int32_t mode);
+
 } // namespace cg::login

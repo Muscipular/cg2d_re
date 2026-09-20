@@ -34,8 +34,7 @@ std::uint8_t ReadNegativeSelectionAvailability(
     std::int32_t page,
     std::int32_t slot);
 
-// sub_45C2D0 的未闭合直接目标；参数、返回宽度保持当前 IDA 调用契约。
-std::int32_t Sub_45CA20(std::int32_t value);
+// sub_45C2D0 的剩余未闭合直接目标；不提供空体或固定返回。
 void NullSub_509080();
 std::int32_t Sub_520200();
 

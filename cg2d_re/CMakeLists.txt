@@ -65,6 +65,7 @@ add_library(cg2d_re_startup STATIC
     src/InputKeyDispatch.cpp
     src/InputCaret.cpp
     src/LoginInput.cpp
+    src/LoginInputController.cpp
     src/DrawGraphic.cpp
     src/DrawGraphicHover.cpp
     src/YobiRuntime.cpp

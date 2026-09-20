@@ -113,7 +113,7 @@ void ProcessOuterScene_45C2D0()
         return;
     }
 
-    const std::int32_t result = detail::Sub_45CA20(0);
+    const std::int32_t result = ProcessLoginInput_45CA20(0);
     if (result == 1) {
         detail::NullSub_509080();
         static_cast<void>(

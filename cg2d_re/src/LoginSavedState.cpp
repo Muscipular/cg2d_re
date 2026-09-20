@@ -704,6 +704,25 @@ std::int32_t PersistCurrentSavedRecord_520200()
     return static_cast<std::int32_t>(::DeleteFileA(path));
 }
 
+// 原 sub_5204C0@[0x5204C0,0x520502)：从记录恢复音频设置。
+[[maybe_unused]] std::int32_t RestoreAudioSettings_5204C0(
+    const std::uint8_t* const currentBytes)
+{
+    cg::platform::gUseStereo =
+        static_cast<std::int32_t>(currentBytes[0x9D]);
+    cg::platform::gEffectVolume =
+        static_cast<std::int32_t>(currentBytes[0x9E]);
+    cg::platform::gMusicVolume =
+        static_cast<std::int32_t>(currentBytes[0x9F]);
+
+    std::int32_t index = 0;
+    for (; index < 16; ++index) {
+        const std::uint8_t value = currentBytes[0xA0 + index];
+        cg::platform::gBgmFrequencySelectionPrefix[index] = value;
+    }
+    return index;
+}
+
 } // namespace
 
 namespace cg::platform {

@@ -78,13 +78,7 @@ void Sub_45EFD0(
     std::int32_t overlayMode,
     std::int32_t overlayImageNo,
     std::int32_t style);
-std::int32_t Sub_45F090(
-    std::int32_t x,
-    std::int32_t y,
-    std::int8_t layer,
-    std::int32_t imageNo,
-    std::int32_t value4,
-    std::int32_t value5);
+using cg::render::Sub_45F090;
 std::int32_t Sub_512D30(
     std::uintptr_t socket,
     std::int32_t version,

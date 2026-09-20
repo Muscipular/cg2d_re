@@ -19,13 +19,7 @@ void Sub_45EFD0(
     std::int32_t overlayImageNo,
     std::int32_t style);
 std::int32_t HasIDirect3D7();
-std::int32_t Sub_45F090(
-    std::int32_t x,
-    std::int32_t y,
-    std::int8_t layer,
-    std::int32_t imageNo,
-    std::int32_t value4,
-    std::int32_t value5);
+using cg::render::Sub_45F090;
 
 // x64 安全兼容边界：原尾部在分类选择为 -1 时，以服务器表基址做负索引，
 // 实际采样落在 20 个其他宿主对象的字节中。适配器只映射 page 0/1、slot 0..9

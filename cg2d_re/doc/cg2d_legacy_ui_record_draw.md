@@ -49,7 +49,7 @@
 
 随后重新读取 Y、X，并在 `0x45F01A` 调用当前命名空间对应的
 `Sub_45F090(x,y,low8(layer),imageNo,1,-1)`。两个公开入口的 layer 参数统一为
-`std::uint8_t`；调用现有 `std::int8_t` 窄声明时只按位传递该低字节。
+`std::uint8_t`；两处场景命名空间均引用唯一的 `cg::render::Sub_45F090`。
 
 ## 命中与覆盖图顺序
 
@@ -81,10 +81,9 @@ bottom = Y + height + 2
 ## 实现与未决依赖
 
 共享核心位于 `src/LegacyUiRecord.cpp`，加入 `cg2d_re_startup`；没有新增公共
-结构、状态或外部依赖。以下四个原直接目标继续只有真实声明，本项不提供空实现或
-固定返回：
+结构、状态或外部依赖。`Sub_45F090` 已收敛到唯一渲染入口，证据见
+[`cg2d_legacy_graphic_wrapper.md`](cg2d_legacy_graphic_wrapper.md)。以下两个
+`Sub_45F100` 直接目标继续只有真实声明，不提供空实现或固定返回：
 
 - `cg::login::detail::Sub_45F100`；
-- `cg::login::detail::Sub_45F090`；
-- `cg::character_select::detail::Sub_45F100`；
-- `cg::character_select::detail::Sub_45F090`。
+- `cg::character_select::detail::Sub_45F100`。

@@ -125,6 +125,30 @@ std::int32_t DrawGraphic3_520970(
     return result;
 }
 
+std::int32_t Sub_45F090(
+    const std::int32_t x,
+    const std::int32_t y,
+    const std::uint8_t layer,
+    const std::int32_t imageNo,
+    const std::int32_t value4,
+    const std::int32_t color)
+{
+    GraphicModeFields mode {};
+    mode.color = color;
+    mode.mixMode = 4;
+    const GraphicDescriptor16 descriptor =
+        std::bit_cast<GraphicDescriptor16>(mode);
+    return DrawGraphic3_520970(
+        x,
+        y,
+        layer,
+        imageNo,
+        value4,
+        1,
+        0,
+        &descriptor);
+}
+
 } // namespace cg::render
 
 namespace cg::login::detail {

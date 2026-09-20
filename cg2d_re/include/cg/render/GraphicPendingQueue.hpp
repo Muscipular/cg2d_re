@@ -79,4 +79,13 @@ std::int32_t DrawGraphic3_520970(
     std::uint8_t batchType,
     const GraphicDescriptor16* descriptor);
 
+// 原 sub_45F090@[0x45F090,0x45F0FA)：固定混合模式的 legacy 图形提交包装。
+std::int32_t Sub_45F090(
+    std::int32_t x,
+    std::int32_t y,
+    std::uint8_t layer,
+    std::int32_t imageNo,
+    std::int32_t value4,
+    std::int32_t color);
+
 } // namespace cg::render

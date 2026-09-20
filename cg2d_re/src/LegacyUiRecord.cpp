@@ -12,7 +12,7 @@ using QueryStateFunction = std::int32_t (*)(const void* uiRecord);
 using DrawBaseFunction = std::int32_t (*)(
     std::int32_t x,
     std::int32_t y,
-    std::int8_t layer,
+    std::uint8_t layer,
     std::int32_t imageNo,
     std::int32_t value4,
     std::int32_t value5);
@@ -86,7 +86,7 @@ void DrawLegacyUiRecord_45EFD0(
     static_cast<void>(drawBase(
         baseX,
         baseY,
-        std::bit_cast<std::int8_t>(layer),
+        layer,
         imageNo,
         1,
         -1));

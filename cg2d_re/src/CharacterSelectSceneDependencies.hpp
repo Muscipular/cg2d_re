@@ -35,7 +35,6 @@ std::int32_t Sub_45DD60();
 void Sub_45D7D0();
 std::int32_t Sub_45D7E0();
 std::int32_t Sub_45C970();
-login::YobiAction* Sub_460D00(std::uint32_t slot);
 std::int32_t Sub_45E0C0(std::int32_t x, std::int32_t y);
 
 // IDA 将返回值误标为 YobiAction*；调用方实际只比较 0、1、2。
@@ -59,7 +58,7 @@ void NullSub_509080();
 std::int32_t Sub_520200();
 std::int32_t Sub_462090(std::int32_t x, std::int32_t y);
 
-// sub_461B30@0x461B30 中尚未实现的真实直接目标。
+// sub_460D00@0x460D00 与 sub_461B30@0x461B30 共享的真实直接目标。
 std::int32_t Sub_51B110(std::uint32_t slot);
 std::int32_t Sub_517880(
     login::YobiAction* action,
@@ -67,9 +66,34 @@ std::int32_t Sub_517880(
     std::int32_t value2,
     std::uint32_t value3);
 
-// x64 窄布局适配：封装原 0x461F79 对 action+0x2B0 写入 signed32 1。
-// 上层只传强类型对象，不重建或硬编码 x86 对象布局。
-void SetYobiActionField2B0ToOne(login::YobiAction* action);
+// YobiAction::new@0x404AE0；按原 W8/W32 无符号参数承接 x64 对象。
+login::YobiAction* NewYobiAction_404AE0(
+    std::uint8_t priority,
+    std::uint32_t yobiSize);
+
+// x64 返回适配：承接原 0x460D42 将 x86 指针位模式留在 EAX 的路径。
+std::int32_t GetYobiActionLegacyPointerBits32(login::YobiAction* action);
+
+// x64 窄布局适配：上层只传强类型对象，不重建或硬编码 x86 对象布局。
+std::int32_t GetYobiActionField2A8(login::YobiAction* action);
+void SetYobiActionField2A8(
+    login::YobiAction* action,
+    std::int32_t value);
+void SetYobiActionField2B0(
+    login::YobiAction* action,
+    std::int32_t value);
+void SetYobiActionField15(
+    login::YobiAction* action,
+    std::uint8_t value);
+void SetYobiActionField30(
+    login::YobiAction* action,
+    std::int32_t value);
+void SetYobiActionField34(
+    login::YobiAction* action,
+    std::int32_t value);
+void SetYobiActionField2B8(
+    login::YobiAction* action,
+    std::int32_t value);
 
 void Sub_518BE0();
 std::int32_t Sub_519290();

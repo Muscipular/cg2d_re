@@ -313,8 +313,8 @@ std::int32_t ProcessScene_460FF0()
         }
         case 10:
             world::gCurrentSceneState = 11;
-            detail::Sub_460D00(0);
-            detail::Sub_460D00(1);
+            ProcessCharacterPreview_460D00(0);
+            ProcessCharacterPreview_460D00(1);
             break;
         case 11:
             interactive = 0;
@@ -484,7 +484,7 @@ std::int32_t ProcessScene_460FF0()
             }
             state::gPreviewToggleState =
                 ReadRecordInt32(record, kPreviewToggleOffset);
-            detail::Sub_460D00(slot);
+            ProcessCharacterPreview_460D00(slot);
             login::detail::PlaySe(51, 320, 240);
             break;
         }

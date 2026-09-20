@@ -612,6 +612,19 @@ FindFreeSavedPhysicalSlot_5338F0() noexcept
     return std::bit_cast<std::int32_t>(resultBits);
 }
 
+// 原 sub_533700@[0x533700,0x533725)：把当前记录写回选中物理记录。
+[[maybe_unused]] std::int32_t StoreCurrentRecordToSelectedPhysical_533700()
+{
+    const std::int32_t selected = gSavedState.selected;
+    const std::uint32_t resultBits =
+        std::bit_cast<std::uint32_t>(selected) * 9U;
+    std::memcpy(
+        &gSavedState.records[selected],
+        &gCurrentSavedRecord,
+        sizeof(gCurrentSavedRecord));
+    return std::bit_cast<std::int32_t>(resultBits);
+}
+
 } // namespace
 
 namespace cg::login::detail {

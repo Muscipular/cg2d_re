@@ -279,6 +279,119 @@ SavedStateStorage gSavedState {};
         : 0;
 }
 
+// 原 sub_532FC0@[0x532FC0,0x53319A)：写出一份默认保存记录。
+[[maybe_unused]] std::int32_t WriteDefaultSavedFile_532FC0(
+    const char* const fileName)
+{
+    SavedPhysicalRecord raw;
+    std::memset(&raw, 0, sizeof(raw));
+    auto* const rawBytes = reinterpret_cast<std::uint8_t*>(&raw);
+
+    raw.parts[0].value0 = 0x7002;
+    rawBytes[0x6A] = 0;
+    rawBytes[0x37] = 0;
+
+    const std::uint8_t effectVolume =
+        static_cast<std::uint8_t>(cg::platform::gEffectVolume);
+    const std::uint8_t musicVolume =
+        static_cast<std::uint8_t>(cg::platform::gMusicVolume);
+    rawBytes[0x04] = 0;
+
+    const std::uint8_t useStereo =
+        static_cast<std::uint8_t>(cg::platform::gUseStereo);
+    rawBytes[0x9E] = effectVolume;
+
+    std::uint32_t bgmDwordAt4;
+    std::memcpy(
+        &bgmDwordAt4,
+        cg::platform::gBgmFrequencySelectionPrefix + 4,
+        sizeof(bgmDwordAt4));
+    rawBytes[0x9D] = useStereo;
+
+    std::uint32_t bgmDwordAt0;
+    std::memcpy(
+        &bgmDwordAt0,
+        cg::platform::gBgmFrequencySelectionPrefix,
+        sizeof(bgmDwordAt0));
+    rawBytes[0x9F] = musicVolume;
+
+    std::uint32_t bgmDwordAt8;
+    std::memcpy(
+        &bgmDwordAt8,
+        cg::platform::gBgmFrequencySelectionPrefix + 8,
+        sizeof(bgmDwordAt8));
+    std::memcpy(
+        rawBytes + 0xA0,
+        &bgmDwordAt0,
+        sizeof(bgmDwordAt0));
+
+    std::uint32_t bgmDwordAt12;
+    std::memcpy(
+        &bgmDwordAt12,
+        cg::platform::gBgmFrequencySelectionPrefix + 12,
+        sizeof(bgmDwordAt12));
+    std::memcpy(
+        rawBytes + 0xA4,
+        &bgmDwordAt4,
+        sizeof(bgmDwordAt4));
+
+    const std::uint8_t scanlineSyncMode =
+        static_cast<std::uint8_t>(cg::platform::gScanlineSyncMode);
+    std::memcpy(
+        rawBytes + 0xA8,
+        &bgmDwordAt8,
+        sizeof(bgmDwordAt8));
+    std::memcpy(
+        rawBytes + 0xAC,
+        &bgmDwordAt12,
+        sizeof(bgmDwordAt12));
+    rawBytes[0xB0] = 0;
+    rawBytes[0xB1] = 0;
+    rawBytes[0x31A] = scanlineSyncMode;
+
+    for (std::int32_t index = 0; index < 2; ++index) {
+        rawBytes[0x30C + index] = 8;
+        rawBytes[0x30E + index] = 5;
+        rawBytes[0x310 + index] = 1;
+    }
+
+    std::uint8_t* cursor = rawBytes + 0xB2;
+    for (std::int32_t index = 0; index < 24; ++index) {
+        *cursor = 0;
+        cursor += 0x19;
+    }
+    rawBytes[0x312] = 0;
+    rawBytes[0x313] = 0;
+    rawBytes[0x314] = 0;
+
+    std::uint8_t encoded[0xA20];
+    std::int32_t encodedBytes;
+    EncodeLegacyBytes_52D310(
+        rawBytes,
+        0x510,
+        0,
+        encoded,
+        &encodedBytes,
+        0xA20);
+
+    std::FILE* const file = std::fopen(fileName, "wb+");
+    if (file == nullptr) {
+        return 0;
+    }
+
+    const std::size_t bytesWritten = std::fwrite(
+        encoded,
+        1,
+        static_cast<std::uint32_t>(encodedBytes),
+        file);
+    if (bytesWritten < static_cast<std::uint32_t>(encodedBytes)) {
+        return 0;
+    }
+
+    std::fclose(file);
+    return 1;
+}
+
 // 原 sub_5331A0@[0x5331A0,0x5332F6)：初始化一条物理保存记录。
 [[maybe_unused]] char* InitializeSavedPhysicalRecord_5331A0(
     const std::int32_t physicalSlot)

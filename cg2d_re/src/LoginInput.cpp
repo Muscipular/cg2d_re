@@ -5,6 +5,7 @@
 
 #include "cg/GraphicInfo.hpp"
 #include "cg/Palette.hpp"
+#include "cg/render/GraphicPendingQueue.hpp"
 
 #include <bit>
 #include <cstddef>
@@ -31,6 +32,65 @@ input::InputContext* gInputContextFocusTable[3] {
 namespace {
 
 inline constexpr std::size_t kStoredInputValueSize = 51;
+
+struct Capability4SavedSlotGeometry final {
+    std::int32_t x;
+    std::int32_t y;
+    std::int32_t width;
+    std::int32_t height;
+};
+
+static_assert(offsetof(Capability4SavedSlotGeometry, x) == 0x00);
+static_assert(offsetof(Capability4SavedSlotGeometry, y) == 0x04);
+static_assert(offsetof(Capability4SavedSlotGeometry, width) == 0x08);
+static_assert(offsetof(Capability4SavedSlotGeometry, height) == 0x0C);
+static_assert(sizeof(Capability4SavedSlotGeometry) == 0x10);
+
+// 原 unk_55C4E0：能力 4 的十个持久槽命中/绘制几何。
+inline constexpr Capability4SavedSlotGeometry
+    kCapability4SavedSlotGeometry[10] {
+        {80, 335, 44, 20},
+        {124, 335, 44, 20},
+        {168, 335, 44, 20},
+        {212, 335, 44, 20},
+        {256, 335, 44, 20},
+        {300, 335, 44, 20},
+        {344, 335, 44, 20},
+        {388, 335, 44, 20},
+        {432, 335, 44, 20},
+        {476, 335, 44, 20},
+    };
+
+std::int32_t AddW32(
+    const std::int32_t left,
+    const std::int32_t right) noexcept
+{
+    return std::bit_cast<std::int32_t>(
+        std::bit_cast<std::uint32_t>(left)
+        + std::bit_cast<std::uint32_t>(right));
+}
+
+void DrawCapability4SavedSlotGraphic(
+    const std::int32_t slotIndex,
+    const std::int32_t offsetX,
+    const std::int32_t offsetY,
+    const std::uint8_t layer,
+    const std::int32_t imageNo)
+{
+    const std::int32_t drawX = AddW32(
+        kCapability4SavedSlotGeometry[slotIndex].x,
+        offsetX);
+    const std::int32_t drawY = AddW32(
+        kCapability4SavedSlotGeometry[slotIndex].y,
+        offsetY);
+    static_cast<void>(render::Sub_45F090(
+        drawX,
+        drawY,
+        layer,
+        imageNo,
+        0,
+        -1));
+}
 
 char gValueFF494F[kStoredInputValueSize] {};
 char gValueFF4982[kStoredInputValueSize] {};
@@ -486,6 +546,95 @@ void SaveAndSwitchCapability4InputSlot_465740(
     detail::Sub_533730();
     detail::gSelectedSavedSlot105C394 = newSlot;
     InitializeCapability4Input_465320();
+}
+
+std::int32_t ProcessCapability4SavedSlotSelector_465430()
+{
+    std::int32_t visibleCount =
+        detail::gVisibleSavedSlotCount105C364;
+    std::int32_t hoveredSlot = -1;
+    std::int32_t slotIndex = 0;
+    if (visibleCount <= 0) {
+        return visibleCount;
+    }
+
+    do {
+        const Capability4SavedSlotGeometry& geometry =
+            kCapability4SavedSlotGeometry[slotIndex];
+        if (geometry.x < detail::ReadLegacyMouseX()
+            && detail::ReadLegacyMouseX()
+                < AddW32(geometry.x, geometry.width)
+            && geometry.y < detail::ReadLegacyMouseY()
+            && detail::ReadLegacyMouseY()
+                < AddW32(geometry.y, geometry.height)) {
+            const std::uint8_t click =
+                static_cast<std::uint8_t>(detail::gValueD68D9C);
+            hoveredSlot = slotIndex;
+            if ((click & 0x01U) != 0) {
+                detail::PlaySe(51, 320, 240);
+                SaveAndSwitchCapability4InputSlot_465740(slotIndex);
+            }
+        }
+
+        visibleCount = detail::gVisibleSavedSlotCount105C364;
+        slotIndex = AddW32(slotIndex, 1);
+    } while (slotIndex < visibleCount);
+
+    if (visibleCount <= 0) {
+        return visibleCount;
+    }
+
+    slotIndex = 0;
+    do {
+        const std::int32_t selectedSlot =
+            detail::gSelectedSavedSlot105C394;
+        std::int32_t digitBase = 245540;
+        std::int32_t frameImageNo = 246678;
+        std::uint8_t frameLayer = 206;
+        if (slotIndex == selectedSlot) {
+            frameImageNo = 246677;
+            frameLayer = 207;
+        } else if (slotIndex == hoveredSlot) {
+            digitBase = 245560;
+            frameImageNo = 246679;
+        }
+
+        const std::int32_t oneBased = AddW32(slotIndex, 1);
+        if (oneBased < 10) {
+            DrawCapability4SavedSlotGraphic(
+                slotIndex,
+                18,
+                3,
+                207,
+                AddW32(digitBase, oneBased));
+        } else {
+            const std::int32_t tens = oneBased / 10;
+            DrawCapability4SavedSlotGraphic(
+                slotIndex,
+                15,
+                3,
+                207,
+                AddW32(digitBase, tens));
+            const std::int32_t ones = oneBased % 10;
+            DrawCapability4SavedSlotGraphic(
+                slotIndex,
+                21,
+                3,
+                207,
+                AddW32(digitBase, ones));
+        }
+        DrawCapability4SavedSlotGraphic(
+            slotIndex,
+            0,
+            0,
+            frameLayer,
+            frameImageNo);
+
+        visibleCount = detail::gVisibleSavedSlotCount105C364;
+        slotIndex = AddW32(slotIndex, 1);
+    } while (slotIndex < visibleCount);
+
+    return visibleCount;
 }
 
 } // namespace cg::login

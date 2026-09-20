@@ -79,6 +79,9 @@ void InitializeCapability4Input_465320();
 // 原 sub_465740@[0x465740,0x465788)：保存能力 4 输入并切换持久槽。
 void SaveAndSwitchCapability4InputSlot_465740(std::int32_t newSlot);
 
+// 原 sub_465430@[0x465430,0x46573D)：能力 4 持久槽选择器。
+std::int32_t ProcessCapability4SavedSlotSelector_465430();
+
 // 原 sub_45CA20@[0x45CA20,0x45CDF6)：登录输入与两个提交控件控制器。
 std::int32_t ProcessLoginInput_45CA20(std::int32_t mode);
 

@@ -68,5 +68,6 @@ SavedStateStorage gSavedState {};
 namespace cg::login::detail {
 
 std::int32_t& gSelectedSavedSlot105C394 = gSavedState.selected;
+std::int32_t& gVisibleSavedSlotCount105C364 = gSavedState.visibleCount;
 
 } // namespace cg::login::detail

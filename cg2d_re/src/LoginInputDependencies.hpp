@@ -18,5 +18,7 @@ void Sub_533730();
 
 // 原 dword_105C394@0x105C394：当前选中的持久槽索引，引用唯一共享存储。
 extern std::int32_t& gSelectedSavedSlot105C394;
+// 原 dword_105C364@0x105C364：能力 4 当前可见持久槽数量。
+extern std::int32_t& gVisibleSavedSlotCount105C364;
 
 } // namespace cg::login::detail

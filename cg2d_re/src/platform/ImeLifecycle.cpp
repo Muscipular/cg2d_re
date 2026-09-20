@@ -60,4 +60,24 @@ std::int32_t IsImeKeyboardLayout_459090() noexcept
     return std::bit_cast<std::int32_t>(result);
 }
 
+std::int32_t ResetImeOpenStatus_4590A0() noexcept
+{
+    const std::int32_t isIme = IsImeKeyboardLayout_459090();
+    if (isIme != 1) {
+        return isIme;
+    }
+
+    const std::uintptr_t closeContext = gImeContext;
+    static_cast<void>(ImmSetOpenStatus(
+        reinterpret_cast<HIMC>(closeContext),
+        FALSE));
+
+    const std::uintptr_t openContext = gImeContext;
+    const BOOL result = ImmSetOpenStatus(
+        reinterpret_cast<HIMC>(openContext),
+        TRUE);
+    static_assert(sizeof(result) == sizeof(std::int32_t));
+    return std::bit_cast<std::int32_t>(result);
+}
+
 } // namespace cg::platform

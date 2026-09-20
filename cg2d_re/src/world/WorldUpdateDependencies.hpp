@@ -16,7 +16,6 @@ void RenderInput_4590E0();                 // 原 World::RenderInput@0x4590E0，
 void Sub_44A410();                         // 原 0x44A410，输入光标闪烁/排队。
 void Sub_4626A0();                         // 原 0x4626A0。
 std::int32_t Sub_45E3D0();                 // 原 0x45E3D0。
-std::int32_t Sub_4590A0();                 // 原 0x4590A0，IDA 原型 BOOL()。
 void Sub_449DA0();                         // 原 0x449DA0。
 std::int32_t Sub_46A9E0();                 // 原 0x46A9E0。
 std::int32_t* Sub_467F30();                // 原 0x467F30。

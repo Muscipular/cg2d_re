@@ -1,5 +1,6 @@
 #include "cg/world/SceneState.hpp"
 
+#include "../platform/ImeLifecycle.hpp"
 #include "WorldUpdateDependencies.hpp"
 
 #include "cg/CharacterSelectScene.hpp"
@@ -78,7 +79,7 @@ void Update()
         return;
     case 5:
         platform::gValue73ECC0 = 0;
-        detail::Sub_4590A0();
+        static_cast<void>(platform::ResetImeOpenStatus_4590A0());
         detail::Sub_449DA0();
         detail::Sub_46A9E0();
         detail::Sub_467F30();

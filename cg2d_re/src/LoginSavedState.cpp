@@ -101,6 +101,25 @@ void Sub_533570(
     }
 }
 
+void Sub_5335B0(
+    const char* const source,
+    const std::int32_t logicalSlot)
+{
+    if (source == nullptr) {
+        return;
+    }
+
+    for (std::int32_t index = 0; index < 51; ++index) {
+        const std::int32_t physicalSlot =
+            gSavedState.logicalToPhysical[logicalSlot];
+        gSavedState.records[physicalSlot].parts[0].text[0x33 + index] =
+            source[index];
+        if (source[index] == '\0') {
+            return;
+        }
+    }
+}
+
 char* Sub_5335F0(
     char* const output,
     const std::int32_t logicalSlot)

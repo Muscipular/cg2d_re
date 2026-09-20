@@ -723,6 +723,25 @@ std::int32_t PersistCurrentSavedRecord_520200()
     return index;
 }
 
+// 原 sub_5205E0@[0x5205E0,0x52063B)：从记录恢复六项标量设置。
+[[maybe_unused]] std::uint8_t* RestoreSavedScalarSettings_5205E0(
+    std::uint8_t* const source)
+{
+    cg::platform::gValueD67AE4 =
+        static_cast<std::uint32_t>(source[0xB0]);
+    cg::platform::gValue73ECBC =
+        static_cast<std::int32_t>(source[0xB1]);
+    cg::platform::gValueD67AE8 =
+        static_cast<std::uint32_t>(source[0x312]);
+    cg::platform::gValue5F974C =
+        static_cast<std::int16_t>(source[0x314]);
+    cg::platform::gScanlineSyncMode =
+        static_cast<std::uint16_t>(source[0x31A]);
+    cg::platform::gValueD68858 =
+        static_cast<std::uint32_t>(source[0x31B]);
+    return source;
+}
+
 } // namespace
 
 namespace cg::platform {

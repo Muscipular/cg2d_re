@@ -9,6 +9,7 @@
 namespace cg::render {
 
 LegacyPendingStorage gLegacyPendingStorage {};
+std::uint8_t gSpecialGraphicPending = 0;
 
 } // namespace cg::render
 

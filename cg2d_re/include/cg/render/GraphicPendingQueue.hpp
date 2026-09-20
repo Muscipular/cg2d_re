@@ -55,4 +55,7 @@ static_assert(sizeof(LegacyPendingStorage) == 0x2C088);
 // 上述 legacy 区间的唯一零初始化承载；不得另建文本区或队列副本。
 extern LegacyPendingStorage gLegacyPendingStorage;
 
+// 原 0x1020EDC：特殊图形进入待提交队列后的单字节标志。
+extern std::uint8_t gSpecialGraphicPending;
+
 } // namespace cg::render

@@ -97,6 +97,9 @@ std::int32_t GetGraphicFlag2(std::uint32_t index, std::uint16_t* flag);
 // 原 [0x45A8B0, 0x45A8C9)：不检查 index；调用者必须保证 gGraphicMapNoIndex[index] 可访问。
 // 直接写入查表结果并返回 1，不以 gMaxGraphicCount 检查此索引。
 std::int32_t GetGraphicMapNoIndex(std::int32_t index, std::int32_t* outSeqNo);
+// 原 [0x45C970, 0x45CA1B)：按固定五个图号两阶段探测，返回 -1 或 4-index。
+// 首轮命中后从同一索引重新查询；调用者负责保存返回值。
+std::int32_t ProbePaletteCapability_45C970();
 // 原 [0x45A8D0, 0x45A8F2)：有符号 index < 0 或 index >= gMaxGraphicCount 返回 -1；
 // 否则直接返回 mapNo 的 32 位位模式。
 std::int32_t GetGraphicMapNo(std::int32_t index);

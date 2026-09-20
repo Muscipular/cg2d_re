@@ -1,9 +1,9 @@
 # 图形元信息结构与查询函数
 
-日期：2026-09-14。任务：R3.2.2。状态：实现完成，独立静态复核及 x64 Debug/Release 编译通过。
+日期：2026-09-14；2026-09-20 补充 R6.1.3.31。状态：实现完成；R3.2.2 曾独立静态复核及 x64 Debug/Release 编译通过，本次补充仅作静态检查。
 
-范围仅为 `include/cg/GraphicInfo.hpp`、`src/GraphicInfo.cpp` 中的两种布局、三个全局状态及七个查询函数，命名空间为 `cg::resource`。
-布局依据主线程已逐指令核对的 `GraphicInit@0x459960` 证据；本次在 `ida-30904`（`cg2d.exe`）只读复查了下列七个查询函数的完整指令范围，未改动 IDA。
+范围仅为 `include/cg/GraphicInfo.hpp`、`src/GraphicInfo.cpp` 中的两种布局、三个全局状态、七个查询函数及一个调色板能力探测入口，命名空间为 `cg::resource`。
+布局依据主线程已逐指令核对的 `GraphicInit@0x459960` 证据；七个查询函数曾在 `ida-30904`（`cg2d.exe`）只读复查，本次探测入口在 `ida-17524`（`D:\SOFTSTAR\cg2d.exe`）只读复查，均未改动 IDA。
 
 ## 运行时布局
 
@@ -63,11 +63,14 @@
 | `GetGraphicFlag1` | `[0x45A810, 0x45A851)` | 无符号索引比较；零扩展 `flag` 后 `% 100`，输出 `uint16_t` |
 | `GetGraphicFlag2` | `[0x45A860, 0x45A8A8)` | 无符号索引比较；零扩展 `flag` 后 `/ 100`，输出 `uint16_t` |
 | `GetGraphicMapNoIndex` | `[0x45A8B0, 0x45A8C9)` | 不检查索引，直接写 `gGraphicMapNoIndex[index]`，返回 `1` |
+| `ProbePaletteCapability_45C970` | `[0x45C970, 0x45CA1B)` | 按 `99657,245151,22311,22212,22002` 两阶段探测，返回 `-1` 或 `4-index` |
 | `GetGraphicMapNo` | `[0x45A8D0, 0x45A8F2)` | 有符号负索引或不小于有符号上界时返回 `-1`，否则返回 `mapNo` |
 
 前五个函数使用 `index < static_cast<uint32_t>(gMaxGraphicCount)`，成功返回 `1`；失败按参数顺序写零并返回 `0`，不把负计数修复为零。
 双输出函数不预取两个字段或缓存整条记录，先完成首个输出写入，再从全局表表达式读取第二字段，对应 `0x45A733/0x45A783/0x45A7D4`。
 `sx/sy` 的零扩展对应 `0x45A7C7/0x45A7DE`。Flag1 的 `xor ecx, ecx`、`mov cx` 与 `idiv 100` 对应 `0x45A824/0x45A829/0x45A836`；Flag2 对应 `0x45A874/0x45A879` 的零扩展及 `0x45A87E` 起的乘常数除以 100。
+
+`ProbePaletteCapability_45C970` 首轮从索引 0 查找首个非零映射；全零返回 `-1`。命中后第二轮从同一索引重新调用 `GetGraphicMapNoIndex`，稳定表下首项因此读取两次；若第二轮结果动态变零则继续后移，首个非零返回 `4-index`。`0x45C9B7/0x45C9EA` 的 `test` 后接 `ja` 等价于按任意非零判断，负非零同样命中。函数不写 `gPaletteCapability`；本次接入的两个 caller 各自保存返回值，其余原调用者留待所在函数还原。
 
 ## 调用前提与未覆盖项
 

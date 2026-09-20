@@ -60,9 +60,6 @@ std::int32_t Sub_503A20(
     std::uint32_t hoverImageSequence,
     std::uint8_t layer);
 
-// sub_460FF0@0x460FF0 尚未实现的真实直接目标；不提供空体或固定返回。
-std::int32_t Sub_45C970();
-
 std::int32_t Sub_51B3B0(std::uint32_t selectedIndex);
 void NullSub_509080();
 std::int32_t Sub_520200();

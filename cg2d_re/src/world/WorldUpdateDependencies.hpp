@@ -50,6 +50,5 @@ void DrawBattleScene_43CBB0();             // 原 World::DrawBattleScene@0x43CBB
 std::int32_t Sub_51FDE0(
     std::int32_t selector, std::int32_t value, std::uint32_t payloadBits);
 std::int32_t Sub_455C90();                 // 原 0x455C90，返回值按任意非零判断。
-std::int32_t Sub_45C970();                 // 原 0x45C970，返回值写入 0x9A7F64。
 
 } // namespace cg::world::detail

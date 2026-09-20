@@ -68,7 +68,7 @@
 | 6 | 显示“目前伺服器正在停機維護中。”；确认后切场景 2。 |
 | 7 | `ResetAuthenticationFailure_45D7D0` 后写状态 8。 |
 | 8 | `UpdateAuthenticationFailure_45D7E0` 非零时切场景 2。 |
-| 9 | 读取 signed32 capability，写共享调色板能力；按 capability/Puk 矩阵写状态 10、19 和私有更新标志。 |
+| 9 | 调用 `resource::ProbePaletteCapability_45C970` 读取 signed32 capability，写共享调色板能力；按 capability/Puk 矩阵写状态 10、19 和私有更新标志。 |
 | 10 | 先写状态 11，再依次调用 `sub_460D00(0/1)` 建立两枚预览。 |
 | 11 | 只把本帧交互标志从 1 改为 0。 |
 | 12 | `sub_45E0C0(320,240)`：1→状态 13 并建立私有确认窗口；2→状态 10。 |
@@ -95,6 +95,11 @@ Puk 1 在这些条件之前直接进入状态 10。未拒绝时，更新标志�
 capability 1 且 Puk 0/2；capability 至少 2 且 Puk 0/2；capability 至少 3
 且 Puk 5/6；capability 4 且 Puk 7。capability 与图号比较均保持 signed32，
 Puk 始终保持 `uint8`。
+
+状态 9 的 `0x4610A7` 已直接接入 `resource::ProbePaletteCapability_45C970`，
+先在 `0x4610AC` 对应位置读取 Puk，再由 caller 在 `0x4610B2` 对应位置写
+`render::gPaletteCapability`；
+`CharacterSelectSceneDependencies.hpp` 不再保留该函数的重复占位声明。
 
 所有切场景调用之后都继续执行原函数规定的本帧剩余逻辑；没有把
 `SetCurrentSceneType` 误改成即时函数返回。

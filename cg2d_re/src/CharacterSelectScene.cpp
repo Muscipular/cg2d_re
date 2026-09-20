@@ -3,6 +3,7 @@
 #include "CharacterSelectSceneDependencies.hpp"
 #include "CharacterSelectState.hpp"
 
+#include "cg/GraphicInfo.hpp"
 #include "cg/LoginMessage.hpp"
 #include "cg/LoginRequest.hpp"
 #include "cg/Palette.hpp"
@@ -279,9 +280,9 @@ std::int32_t ProcessScene_460FF0()
             }
             break;
         case 9: {
-            const std::int32_t capability = detail::Sub_45C970();
-            render::gPaletteCapability = capability;
+            const std::int32_t capability = resource::ProbePaletteCapability_45C970();
             const std::uint8_t pukVersion = state::gPukVersion;
+            render::gPaletteCapability = capability;
             if (pukVersion == 1u) {
                 world::gCurrentSceneState = 10;
                 break;

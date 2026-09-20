@@ -70,7 +70,7 @@
 - 状态 1：调用 `51FDE0(2,0,0x3F19999A)`；只有返回值严格等于 1 时才清 `gValue73ECC0` 并递增当前状态。第三参数在新端保持 `uint32_t` 位载荷，不使用截断十进制浮点字面量。
 - 其他状态：不执行上述两段。
 
-所有路径随后恰调用一次 `sub_455C90@0x455C90`。返回 0 时进入类型 6 的 `0x404C50→0x521F20` 公共尾部；返回非零时执行 `520160→519D50→446470→5081A0`，把 `45C970` 返回值写入 `gPaletteCapability`，调用 `SelectPalette(capability==3 ? 27 : 0, 0)`，切到类型 2，调用 `404D30` 并清 `W8[D9F2CA]`。
+所有路径随后恰调用一次 `sub_455C90@0x455C90`。返回 0 时进入类型 6 的 `0x404C50→0x521F20` 公共尾部；返回非零时执行 `520160→519D50→446470→5081A0`，调用 `resource::ProbePaletteCapability_45C970`，先按 `0x51C6EA` 比较返回值是否为 3，再由 caller 在 `0x51C6ED` 对应位置把返回值写入 `gPaletteCapability`，调用 `SelectPalette(capability==3 ? 27 : 0, 0)`，切到类型 2，调用 `404D30` 并清 `W8[D9F2CA]`。
 
 ## 6. 新增原全局存储
 
@@ -86,6 +86,6 @@
 
 ## 7. 依赖与当前完成边界
 
-49 个唯一直接目标中，`SetCurrentSceneType`、`SelectPalette` 已有实现，`GetTickCount` 由平台边界适配；其余目标只在 `WorldUpdateDependencies.hpp` 保留带原地址与当前 IDA 调用契约的声明，没有空函数或固定返回实现。`MainLoop` 的原唯一调用点已直接改接 `cg::world::Update()`，旧 `cg::platform::UpdateWorld_51C430` 声明已移除。
+49 个唯一直接目标中，`SetCurrentSceneType`、`SelectPalette` 与 `ProbePaletteCapability_45C970` 已有实现，`GetTickCount` 由平台边界适配；其余目标只在 `WorldUpdateDependencies.hpp` 保留带原地址与当前 IDA 调用契约的声明，没有空函数或固定返回实现。`WorldUpdate` 已直接调用唯一公共探测入口并移除重复占位声明；`MainLoop` 的原唯一调用点已直接改接 `cg::world::Update()`，旧 `cg::platform::UpdateWorld_51C430` 声明已移除。
 
 本步实现的是基础状态消费、分发和函数内两条内嵌链；`LoginScene::Process@0x45FEA0`、`sub_460FF0`、`sub_4626A0`、`sub_45E960`、`sub_45EBB0` 以及正常世界、战斗目标都仍未实现。登录相关 scene 继续属于 R6.1.2；静态库允许保留这些未解析依赖，完整链接和运行不属于本步完成范围。

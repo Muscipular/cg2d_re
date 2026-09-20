@@ -78,6 +78,40 @@ std::int32_t GetGraphicMapNoIndex(std::int32_t index, std::int32_t* outSeqNo)
     return 1;
 }
 
+std::int32_t ProbePaletteCapability_45C970()
+{
+    constexpr std::int32_t kGraphicNos[5] {
+        99657,
+        245151,
+        22311,
+        22212,
+        22002,
+    };
+
+    std::int32_t mappedGraphicNo = 0;
+    std::int32_t candidateIndex = 0;
+    for (; candidateIndex < 5; ++candidateIndex) {
+        GetGraphicMapNoIndex(kGraphicNos[candidateIndex], &mappedGraphicNo);
+        if (mappedGraphicNo != 0) {
+            break;
+        }
+    }
+
+    if (candidateIndex >= 5) {
+        return -1;
+    }
+
+    // 原 0x45C9D2：从首轮命中的同一索引重新读取，不能复用首轮输出。
+    for (; candidateIndex < 5; ++candidateIndex) {
+        GetGraphicMapNoIndex(kGraphicNos[candidateIndex], &mappedGraphicNo);
+        if (mappedGraphicNo != 0) {
+            return 4 - candidateIndex;
+        }
+    }
+
+    return -1;
+}
+
 std::int32_t GetGraphicMapNo(std::int32_t index)
 {
     if (index < 0 || index >= gMaxGraphicCount) {

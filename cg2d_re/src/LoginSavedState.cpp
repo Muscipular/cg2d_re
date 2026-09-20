@@ -599,6 +599,19 @@ FindFreeSavedPhysicalSlot_5338F0() noexcept
         FALSE));
 }
 
+// 原 sub_5336D0@[0x5336D0,0x5336F5)：载入当前选中物理记录。
+[[maybe_unused]] std::int32_t LoadSelectedPhysicalRecord_5336D0()
+{
+    const std::int32_t selected = gSavedState.selected;
+    const std::uint32_t resultBits =
+        std::bit_cast<std::uint32_t>(selected) * 9U;
+    std::memcpy(
+        &gCurrentSavedRecord,
+        &gSavedState.records[selected],
+        sizeof(gCurrentSavedRecord));
+    return std::bit_cast<std::int32_t>(resultBits);
+}
+
 } // namespace
 
 namespace cg::login::detail {

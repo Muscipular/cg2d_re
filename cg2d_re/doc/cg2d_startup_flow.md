@@ -34,7 +34,7 @@
 | `0x4659B7` | `0x465A80` | `ReadSetupIni` | 已实现，详见配置证据 |
 | `0x4659BC` | `0x4659F0` | `ParseClientVersion` | 已实现 |
 | `0x4659C1` | `0x532E70` | `CreateSaveDirectories` | 已实现，未执行 |
-| `0x4659C6` | `0x533300` | `InitializeSavedState_533300` | 未实现，真实声明 |
+| `0x4659C6` | `0x533300` | `InitializeSavedState_533300` | 已实现，直接入口 |
 | `0x4659CB` | `0x465F00` | `ParseCommandOptions` | 函数体已实现，独立复核中；IP 依赖和一处存储仍未实现 |
 | `0x4659D0` | `0x456050` | `resource::BuildResourcePaths` | 已实现 |
 | `0x4659D5` | `0x4669F0` | `InitializeWindow` | 已实现，详见窗口证据 |

@@ -678,6 +678,33 @@ std::int32_t PersistCurrentSavedRecord_520200()
 
 } // namespace
 
+namespace cg::platform {
+
+std::int32_t InitializeSavedState_533300()
+{
+    (void)ResetSavedState_533360();
+    const std::int32_t location = ProbeSavedStateLocation_5333D0();
+    if (location == 0) {
+        (void)RebuildSavedSlotMap_533470();
+    } else if (location == 1) {
+        (void)MigrateLegacySavedFiles_533530();
+        (void)RebuildSavedSlotMap_533470();
+    } else if (location == 2) {
+        (void)WriteDefaultSavedFile_532FC0("data\\0\\save.dat");
+        (void)RebuildSavedSlotMap_533470();
+    }
+
+    const std::int32_t physicalSlot =
+        gSavedState.logicalToPhysical[0];
+    std::memcpy(
+        &gCurrentSavedRecord,
+        &gSavedState.records[physicalSlot],
+        sizeof(gCurrentSavedRecord));
+    return 1;
+}
+
+} // namespace cg::platform
+
 namespace cg::login::detail {
 
 std::int32_t Sub_520200()

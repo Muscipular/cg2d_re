@@ -2,7 +2,7 @@
 
 ## 范围与调用
 
-本文只记录当前 `ida-32980/cg2d.exe` 中 `LoginScene::Process@0x45FEA0` 的证据。
+本文只记录当前 `ida-17524/cg2d.exe` 中 `LoginScene::Process@0x45FEA0` 的证据。
 
 - 精确边界：`[0x45FEA0,0x460C98)`，大小 `0xDF8`。
 - 规模：1135 条指令、132 个基本块、53 个直接调用点。
@@ -15,8 +15,10 @@
   `sub_5203E0`、`sub_520440`、`sub_45D980`、`sub_45D990`、
   `SetCurrentSceneType@0x51C770`、`sub_5081A0`、`sub_45CE00`、
   `sub_45CE10`、`ShellExecuteA`、`sub_45EFD0`、`hasIDirect3D7`、
-  `sub_45F090`、`Renderer::DrawText3`。新端只把无界 `sprintf` 改为
-  256 字节标题缓冲上的 `snprintf`；其余未实现目标只保留真实声明。
+  `sub_45F090`、`Renderer::DrawText3`。其中 `sub_5203E0/sub_520440` 已由
+  `ReadInputValueFF494F_5203E0/ReadInputValueFF4982_520440` 的唯一公共实现
+  承接，登录场景不再保留重复占位声明；新端只把无界 `sprintf` 改为
+  256 字节标题缓冲上的 `snprintf`，其余未实现目标只保留真实声明。
 
 ## 顺序状态处理
 
@@ -72,8 +74,9 @@
 `+0x14` 写为 `A+2+2*j`。服务器输入只检测第一页的 10 个同位置记录；
 低字节 bit 6 先更新槽位，低字节 bit 7 再检测服务器表可用标志。接受后依次
 更新标题、写 W16 服务器索引、写槽位、播放 `(53,320,240)`，再调用
-`sub_5202E0(0xDA3A1C)`、`sub_5203E0(0xDA38DC)`、
-`sub_520440(0xDA3A5C)`。
+`sub_5202E0(0xDA3A1C)`、`ReadInputValueFF494F_5203E0(0xDA38DC)`、
+`ReadInputValueFF4982_520440(0xDA3A5C)`；后两者分别承接原
+`sub_5203E0/sub_520440`。
 
 分类标题原表从 `0x559958` 起，每项 64 字节，共 25 项；服务器标号原表从
 `0x559F98` 起，每项 5 字节，共 20 项。新端标题文本使用 UTF-8，但索引、

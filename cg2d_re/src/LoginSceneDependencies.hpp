@@ -12,8 +12,6 @@ std::int32_t LoadAndPlayBGM(std::uint32_t bgmId);
 std::int32_t Sub_45F100(const void* uiRecord);
 std::uint32_t Sub_52B990();
 char* Sub_5202E0(char* value);
-char* Sub_5203E0(char* value);
-char* Sub_520440(char* value);
 void Sub_45EFD0(
     const void* uiRecord,
     std::int8_t value1,

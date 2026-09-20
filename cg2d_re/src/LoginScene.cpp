@@ -2,6 +2,7 @@
 
 #include "LoginSceneDependencies.hpp"
 
+#include "cg/LoginInput.hpp"
 #include "cg/LoginMessage.hpp"
 #include "cg/LoginState.hpp"
 #include "cg/platform/LegacyWindow.hpp"
@@ -391,8 +392,8 @@ std::int32_t ProcessScene_45FEA0()
                         gSelectedServerGroup = slot;
                         detail::PlaySe(53, 320, 240);
                         detail::Sub_5202E0(gValueDA3A1C);
-                        detail::Sub_5203E0(gValueDA38DC);
-                        detail::Sub_520440(gValueDA3A5C);
+                        ReadInputValueFF494F_5203E0(gValueDA38DC);
+                        ReadInputValueFF4982_520440(gValueDA3A5C);
                         IncrementSceneState();
                         break;
                     }

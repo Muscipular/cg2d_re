@@ -37,6 +37,9 @@ static_assert(offsetof(InputContext, maxCharPerLine) == 0x148);
 static_assert(offsetof(InputContext, encrypt) == 0x150);
 static_assert(sizeof(InputContext) == 0x15C);
 
+// 原 sub_404060@[0x404060,0x40411E)，返回 true 表示拒绝输入文本。
+[[nodiscard]] bool IsRejectedInputText_404060(const char* legacyText);
+
 // 原 0x626C04：当前输入上下文；允许由 SetContext 写为 nullptr。
 extern InputContext* gCurrentInputData;
 

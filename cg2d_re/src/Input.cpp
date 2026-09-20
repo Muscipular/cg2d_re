@@ -2,6 +2,7 @@
 
 #include <array>
 #include <bit>
+#include <cctype>
 #include <cstring>
 
 namespace cg::input {
@@ -134,6 +135,54 @@ void LoadInitialText_44A160(const char* const initialText)
 }
 
 } // namespace
+
+bool IsRejectedInputText_404060(const char* const legacyText)
+{
+    const std::size_t length = std::strlen(legacyText);
+    if (std::strstr(legacyText, "\xA1\x40") != nullptr) {
+        return true;
+    }
+    if (length == 0) {
+        return true;
+    }
+
+    for (std::size_t index = 0; index < length; ++index) {
+        const std::uint8_t firstByte = static_cast<std::uint8_t>(
+            static_cast<unsigned char>(legacyText[index]));
+        if ((firstByte & 0x80U) != 0U) {
+            const std::uint8_t secondByte = static_cast<std::uint8_t>(
+                static_cast<unsigned char>(legacyText[index + 1]));
+            const std::uint16_t legacyUnit = static_cast<std::uint16_t>(
+                (static_cast<std::uint16_t>(firstByte) << 8U)
+                | static_cast<std::uint16_t>(secondByte));
+            if ((legacyUnit >= 0xA140U && legacyUnit <= 0xA1FEU)
+                || (legacyUnit >= 0xA240U && legacyUnit <= 0xA2FEU)
+                || (legacyUnit >= 0xA340U && legacyUnit <= 0xA3E0U)) {
+                return true;
+            }
+            ++index;
+            continue;
+        }
+
+        if (firstByte == static_cast<std::uint8_t>('|')) {
+            return true;
+        }
+        if (firstByte == static_cast<std::uint8_t>('\\')) {
+            return true;
+        }
+        if (firstByte == static_cast<std::uint8_t>('/')) {
+            return true;
+        }
+        if (std::isspace(static_cast<unsigned char>(firstByte)) != 0) {
+            return true;
+        }
+        if (std::iscntrl(static_cast<unsigned char>(firstByte)) != 0) {
+            return true;
+        }
+    }
+
+    return std::strstr(legacyText, "[GP]") != nullptr;
+}
 
 void AppendChar_44ADB0(const char character)
 {

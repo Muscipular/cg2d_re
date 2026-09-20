@@ -48,7 +48,7 @@
 - `gWindowResizePhase` 唯一承接原 `0x9A7F68`；五处引用为 `0x466F19、0x466F2A、0x466F3D、0x466F9F、0x46722B`。
 - `platform::gKeyStates[256]` 唯一承接原 `0x73EFF8`；`ClearKeyFlags_459760` 逐项 `&=EAh`，`ResetKeyState_459780` 逐项 `&=E8h`。CharacterSelect 索引 17 已改读此存储。
 - `render::gGraphicDirty` 唯一承接原 `0x1020EE8`，与 pending count 和 special flag 分立；IDA 还显示未来 `FillDirtyArea@520AD0`、`DrawAllQueued@520DD0` 会复用。
-- IME 唯一 owner 位于 platform 内部状态：`HIMC@73EDD8`、保留但未接入的 previous HIMC `73EDDC`、composition `[256]@73EDE0`、attribute `[256]@73EEE0`、length `73EFE0`、conversion `73EFE4`、sentence `73EFE8`、candidate owner `73EFEC`。内部头仅暴露 `uintptr_t`/定宽值/owner 指针，不向业务层泄漏 `HIMC`。
+- IME 唯一 owner 位于 platform 内部状态：`HIMC@73EDD8`、保留但未接入的 previous HIMC `73EDDC`、composition `[256]@73EDE0`、attribute `[256]@73EEE0`、cursor position `73EFE0`、conversion `73EFE4`、sentence `73EFE8`、candidate owner `73EFEC`。内部头仅暴露 `uintptr_t`/定宽值/owner 指针，不向业务层泄漏 `HIMC`。
 - 滚轮入口 `sub_506DB0@[0x506DB0,0x506DC3)` 只对既有 `gLegacyMouseState.tailReset` 做 W32 回绕加法并返回原 delta。
 
 ## x64 适配与安全边界
@@ -66,5 +66,5 @@
 
 - `render::IsLost_4536D0()`：IDA 原型为独立无参 `int()`，本项不把它并入 `TestCooperativeLevel@44C6B0`。
 - `input::AppendChar_44ADB0(char)`：已按 `Input::AppendChar@[0x44ADB0,0x44B044)` 实现并由 `WM_CHAR` 接入；保持旧 ANSI/DBCS 字节逻辑，证据与安全边界见 `cg2d_input_append.md`。
-- `platform::Sub_459580(int16 flags)`：IDA 原型为 `char __cdecl(__int16)`，本项只保留真实窄声明。
+- `platform::Sub_459580(int16 flags)`：已按 `sub_459580@[0x459580,0x4596C8)` 实现并由 `WM_IME_COMPOSITION` 接入；四段独立 flags、返回低字节及安全边界见 `cg2d_ime_composition.md`。
 - `WIN_PROC` 的 892 条指令中不存在 `SetCapture`、`ReleaseCapture`、拖拽复位或 DPI/偏移/裁剪/`ScreenToClient` 坐标变换；本实现不补这些行为。

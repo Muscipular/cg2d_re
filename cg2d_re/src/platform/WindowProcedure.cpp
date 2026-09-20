@@ -1,5 +1,6 @@
 #include "StartupNative.hpp"
 
+#include "ImeComposition.hpp"
 #include "MainLoopDependencies.hpp"
 #include "WindowProcedureDependencies.hpp"
 #include "WindowProcedureState.hpp"
@@ -30,7 +31,7 @@ std::uintptr_t gImeContext = 0;
 std::uintptr_t gPreviousImeContext = 0;
 char gImeComposition[256] {};
 std::uint8_t gImeAttributes[256] {};
-std::int32_t gImeCompositionLength = 0;
+std::int32_t gImeCompositionCursorPosition = 0;
 std::uint32_t gImeConversionMode = 0;
 std::uint32_t gImeSentenceMode = 0;
 void* gImeCandidateList = nullptr;

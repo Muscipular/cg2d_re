@@ -16,7 +16,7 @@ extern std::uintptr_t gImeContext;
 extern std::uintptr_t gPreviousImeContext; // 原 0x73EDDC；本项不接入生产逻辑。
 extern char gImeComposition[256];
 extern std::uint8_t gImeAttributes[256];
-extern std::int32_t gImeCompositionLength;
+extern std::int32_t gImeCompositionCursorPosition;
 extern std::uint32_t gImeConversionMode;
 extern std::uint32_t gImeSentenceMode;
 extern void* gImeCandidateList;

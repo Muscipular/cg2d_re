@@ -13,10 +13,12 @@ namespace {
 constexpr std::size_t kRegistNumberOffset = 0x4C;
 constexpr std::uint32_t kRequestTimeoutMilliseconds = 600000;
 constexpr char kRequestTimeoutMessage[] = "刪除角色逾時。";
+constexpr char kSuccessfulResult[] = "successful";
 
 static_assert(kRegistNumberOffset + sizeof(std::int32_t) <= cg::login::CharacterRecordSize);
 static_assert(sizeof(kRequestTimeoutMessage) == 22);
 static_assert(sizeof(kRequestTimeoutMessage) <= cg::login::RequestMessageCapacity);
+static_assert(sizeof(kSuccessfulResult) == 11);
 
 } // namespace
 
@@ -63,6 +65,32 @@ std::int32_t PollCharacterDeletionRequest()
 
     std::memcpy(gRequestMessage, kRequestTimeoutMessage, sizeof(kRequestTimeoutMessage));
     return -1;
+}
+
+void HandleCharacterDeletionResponse_509020(
+    const std::uintptr_t,
+    const char* const result,
+    const char* const)
+{
+    if (gRequestStatus != 1) {
+        return;
+    }
+
+    gRequestStatus = 2;
+
+    std::size_t index = 0;
+    for (;;) {
+        const char expected = kSuccessfulResult[index];
+        if (result[index] != expected) {
+            return;
+        }
+        if (expected == '\0') {
+            break;
+        }
+        ++index;
+    }
+
+    gCharacterDeletionReplyCode = 1;
 }
 
 } // namespace cg::login

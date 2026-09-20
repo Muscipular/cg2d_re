@@ -13,4 +13,10 @@ std::uint32_t StartCharacterDeletionRequest();
 // 原 sub_508FC0@[0x508FC0,0x509011)；轮询回复或 600000 ms 超时。
 std::int32_t PollCharacterDeletionRequest();
 
+// 原 sub_509020@[0x509020,0x50907B)；仅在请求状态为 1 时发布删除响应。
+void HandleCharacterDeletionResponse_509020(
+    std::uintptr_t fd,
+    const char* result,
+    const char* data);
+
 } // namespace cg::login

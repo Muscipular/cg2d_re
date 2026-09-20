@@ -13,4 +13,10 @@ std::uint32_t StartCharacterListRequest();
 // 原 sub_508950@[0x508950,0x5089B0)；轮询回复或 600000 ms 超时。
 std::int32_t PollCharacterListRequest();
 
+// 原 sub_5089B0@[0x5089B0,0x508AE9)；发布角色列表响应并固定处理两组记录。
+std::int32_t HandleCharacterListResponse_5089B0(
+    std::uintptr_t fd,
+    std::int32_t result,
+    const char* data);
+
 } // namespace cg::login

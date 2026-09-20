@@ -261,6 +261,56 @@ FindFreeSavedPhysicalSlot_5338F0() noexcept
     return -1;
 }
 
+// 原 sub_533470@[0x533470,0x533528)：重建逻辑槽到物理槽映射。
+[[maybe_unused]] std::int32_t RebuildSavedSlotMap_533470()
+{
+    for (std::int32_t physicalSlot = 0;
+         physicalSlot < 10;
+         ++physicalSlot) {
+        if (LoadSavedPhysicalRecord_532ED0(physicalSlot) != 0) {
+            const std::int32_t mappingIndex = gSavedState.mappingCount;
+            gSavedState.logicalToPhysical[mappingIndex] = physicalSlot;
+            gSavedState.active[physicalSlot] = 1;
+
+            const std::int32_t currentMappingCount =
+                gSavedState.mappingCount;
+            const std::int32_t currentVisibleCount =
+                gSavedState.visibleCount;
+            const std::int32_t nextMappingCount = currentMappingCount + 1;
+            const std::int32_t nextVisibleCount = currentVisibleCount + 1;
+            gSavedState.mappingCount = nextMappingCount;
+            gSavedState.visibleCount = nextVisibleCount;
+        } else {
+            gSavedState.active[physicalSlot] = 0;
+        }
+    }
+
+    const bool skipAllocation = gSavedState.mappingCount > 10;
+    if (!skipAllocation) {
+        const std::int32_t freePhysicalSlot =
+            FindFreeSavedPhysicalSlot_5338F0();
+        if (freePhysicalSlot != -1) {
+            const std::int32_t mappingIndex = gSavedState.mappingCount;
+            gSavedState.logicalToPhysical[mappingIndex] = freePhysicalSlot;
+            gSavedState.active[freePhysicalSlot] = 1;
+            (void)InitializeSavedPhysicalRecord_5331A0(freePhysicalSlot);
+
+            const std::int32_t currentMappingCount =
+                gSavedState.mappingCount;
+            const std::int32_t currentVisibleCount =
+                gSavedState.visibleCount;
+            const std::int32_t nextMappingCount = currentMappingCount + 1;
+            const std::int32_t nextVisibleCount = currentVisibleCount + 1;
+            gSavedState.newPhysical = freePhysicalSlot;
+            gSavedState.mappingCount = nextMappingCount;
+            gSavedState.visibleCount = nextVisibleCount;
+        }
+    }
+
+    const std::int32_t finalMappingCount = gSavedState.mappingCount;
+    return finalMappingCount > 0 ? 1 : 0;
+}
+
 } // namespace
 
 namespace cg::login::detail {

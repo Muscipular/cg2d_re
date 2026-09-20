@@ -32,6 +32,25 @@ inline constexpr std::size_t kStoredInputValueSize = 51;
 char gValueFF494F[kStoredInputValueSize] {};
 char gValueFF4982[kStoredInputValueSize] {};
 
+char* WriteStoredInputValue(
+    char* const source,
+    char (&storedValue)[kStoredInputValueSize])
+{
+    if (source == nullptr) {
+        return nullptr;
+    }
+
+    for (std::size_t index = 0; index < kStoredInputValueSize; ++index) {
+        char* const cursor = source + index;
+        const char value = *cursor;
+        storedValue[index] = value;
+        if (value == '\0') {
+            return cursor;
+        }
+    }
+    return source + kStoredInputValueSize;
+}
+
 char* ReadStoredInputValue(
     char* const output,
     const char (&storedValue)[kStoredInputValueSize])
@@ -48,12 +67,22 @@ char* ReadStoredInputValue(
 
 } // namespace
 
+char* WriteInputValueFF494F_5203B0(char* const source)
+{
+    return WriteStoredInputValue(source, gValueFF494F);
+}
+
 char* ReadInputValueFF494F_5203E0(char* const output)
 {
     if (output == nullptr) {
         return nullptr;
     }
     return ReadStoredInputValue(output, gValueFF494F);
+}
+
+char* WriteInputValueFF4982_520410(char* const source)
+{
+    return WriteStoredInputValue(source, gValueFF4982);
 }
 
 char* ReadInputValueFF4982_520440(char* const output)

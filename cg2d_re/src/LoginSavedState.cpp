@@ -66,6 +66,68 @@ static_assert(offsetof(SavedStateStorage, selected) == 0x3CFC);
 // 原连续区间 [0x1058698,0x105C398)，PE 中为 virtual-only 零填充。
 SavedStateStorage gSavedState {};
 
+// 原 sub_52D460@[0x52D460,0x52D569)：解码旧保存数据字节流。
+[[maybe_unused]] std::int32_t DecodeLegacyBytes_52D460(
+    const std::uint8_t* const source,
+    const std::int32_t sourceBytes,
+    const std::int32_t mode,
+    std::uint8_t* const destination,
+    std::int32_t* const decodedBytes)
+{
+    const std::int32_t outputBytes = sourceBytes - 1;
+    const std::int32_t remainder = mode % outputBytes;
+    *decodedBytes = outputBytes;
+
+    const std::int32_t controlIndex =
+        remainder < 0 ? -remainder : remainder;
+    const std::uint8_t control = source[controlIndex];
+
+    for (std::int32_t index = 0; index < sourceBytes; ++index) {
+        const std::int32_t firstRemainder = mode % *decodedBytes;
+        const std::int32_t firstControlIndex =
+            firstRemainder < 0 ? -firstRemainder : firstRemainder;
+        if (index < firstControlIndex) {
+            destination[index] = static_cast<std::uint8_t>(
+                source[index] -
+                control * ((index * index) % 3));
+        }
+
+        const std::int32_t secondRemainder = mode % *decodedBytes;
+        const std::int32_t secondControlIndex =
+            secondRemainder < 0 ? -secondRemainder : secondRemainder;
+        if (index > secondControlIndex) {
+            destination[index - 1] = static_cast<std::uint8_t>(
+                source[index] -
+                control * ((index * index) % 7));
+        }
+    }
+
+    std::int32_t lastDecodedBytes = *decodedBytes;
+    std::int32_t index = 0;
+    if (lastDecodedBytes <= 0) {
+        return lastDecodedBytes;
+    }
+
+    const std::int32_t modeModulo7 = mode % 7;
+    do {
+        const std::int32_t indexModulo5 = index % 5;
+        bool shouldInvert = modeModulo7 == indexModulo5;
+        if (!shouldInvert) {
+            const std::int32_t indexModulo2 = index % 2;
+            const std::int32_t modeModulo2 = mode % 2;
+            shouldInvert = modeModulo2 == indexModulo2;
+        }
+        if (shouldInvert) {
+            destination[index] =
+                static_cast<std::uint8_t>(~destination[index]);
+        }
+
+        lastDecodedBytes = *decodedBytes;
+        ++index;
+    } while (index < lastDecodedBytes);
+    return lastDecodedBytes;
+}
+
 // 原 sub_5331A0@[0x5331A0,0x5332F6)：初始化一条物理保存记录。
 [[maybe_unused]] char* InitializeSavedPhysicalRecord_5331A0(
     const std::int32_t physicalSlot)

@@ -230,12 +230,12 @@ std::int32_t ProcessScene_460FF0()
         case 0:
             world::gCurrentSceneState = 1;
             state::gPukVersion = 0;
-            detail::Sub_45DD50();
+            ResetCharacterListProgress_45DD50();
             gUpdateAvailable = 0;
             render::SelectPalette(0, 0);
             break;
         case 1: {
-            const std::int32_t result = detail::Sub_45DD60();
+            const std::int32_t result = UpdateCharacterListProgress_45DD60();
             if (result == 1) {
                 world::gCurrentSceneState = 9;
             } else if (result == -3) {

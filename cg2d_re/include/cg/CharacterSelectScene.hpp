@@ -4,6 +4,12 @@
 
 namespace cg::character_select {
 
+// 原 sub_45DD50@[0x45DD50,0x45DD5A)。
+void ResetCharacterListProgress_45DD50();
+
+// 原 sub_45DD60@[0x45DD60,0x45DED9)。
+std::int32_t UpdateCharacterListProgress_45DD60();
+
 // 原 sub_460D00@[0x460D00,0x460FD8)；前置条件是 slot 位于 [0, 1]。
 std::int32_t ProcessCharacterPreview_460D00(std::uint32_t slot);
 

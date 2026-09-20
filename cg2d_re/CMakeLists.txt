@@ -55,6 +55,7 @@ add_library(cg2d_re_startup STATIC
     src/LoginRequest.cpp
     src/LoginScene.cpp
     src/CharacterSelectScene.cpp
+    src/CharacterListProgress.cpp
     src/CharacterSelectModal.cpp
     src/CharacterSelectPreview.cpp
     src/CharacterSelectSlot.cpp

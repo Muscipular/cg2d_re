@@ -50,9 +50,11 @@ std::int32_t Sub_503A20(
     std::uint32_t hoverImageSequence,
     std::uint8_t layer);
 
+// sub_45DD60@0x45DD60 尚未实现的真实直接目标；不提供空体或固定返回。
+std::uint32_t Sub_508910();
+std::int32_t Sub_508950();
+
 // sub_460FF0@0x460FF0 尚未实现的真实直接目标；不提供空体或固定返回。
-void Sub_45DD50();
-std::int32_t Sub_45DD60();
 void Sub_45D7D0();
 std::int32_t Sub_45D7E0();
 std::int32_t Sub_45C970();

@@ -56,7 +56,7 @@ std::int32_t DrawText3(
     const char* text,
     std::int8_t value5);
 
-// x64 窄边界：封装原两个函数各自 action+0x170 上的 CryptInt::gte(..., 1)。
+// x64 窄边界：封装原相关函数各自 action+0x170 上的 CryptInt::gte(..., 1)。
 // 上层只传强类型对象，不依赖或重建 x86 对象字段偏移。
 bool IsYobiActionReady(YobiAction* action, std::int32_t threshold);
 

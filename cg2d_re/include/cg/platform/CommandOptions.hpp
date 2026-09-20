@@ -12,9 +12,9 @@ extern char gNewestText[128];
 // 原 [0x55DA00,0x55DA80) 的可写路径快照；初值 map，区间内未见其他引用。
 extern char gMapPath[128];
 
-// 原 0xFF4E30；IDA item 为 128 字节、类型标注为 char[144]，完整布局未决。
-// 本项只声明原写入目标，不分配猜测容量；解析时写入 data\0\save.dat。
-extern char gTextFF4E30[];
+// 原 [0xFF4E30,0xFF4EB8)；实际为待提交图形存储的 0x88 字节前缀。
+// IDA 的 char[144] 旧类型会越过 0xFF4EB8 队列边界，不能作为容量证据。
+extern char (&gTextFF4E30)[0x88];
 
 extern std::int32_t gDeviceBitsPerPixel; // 原 0x554B70，静态值 8；保存设备查询结果。
 extern std::int32_t gNoDelay;            // 原 0x55CE68，静态值 1；nodelay 将其清零。

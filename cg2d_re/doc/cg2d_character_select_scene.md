@@ -728,8 +728,21 @@ step 0/1/2 分别把 `0xA0000000/0x90000000/0xC0000000` 以按位或写入图号
 `DrawGraphic` 返回的 signed32 legacy 索引随后无条件把对应记录的
 `batchType` 写为 2。原目标即使返回 -2，旧函数仍会写到原队列基址之前的
 `0xFF4E8C`；新端禁止用负数组下标表达这项行为，也不吞掉 -2，而是无条件调用
-`SetPendingGraphicBatchTypeAtLegacyIndex(index,2)`。实际 `DrawGraphic`、队列布局
-和这个 x64 窄适配仍是未决真实依赖；本项不伪造队列、返回值或失败过滤。
+`SetPendingGraphicBatchTypeAtLegacyIndex(index,2)`。实际 `DrawGraphic` 仍是未决真实依赖；
+待提交队列与这个 x64 窄适配现已按下述固定布局承载，本项不伪造返回值或失败过滤。
+
+待提交存储唯一覆盖原 `[0xFF4E30,0x1020EB8)`：前缀
+`[0xFF4E30,0xFF4EB8)` 为 `0x88` 字节；其后是 4096 项、步长 `0x28` 的
+`GraphicCacheItem32`，再后是从 `0x101CEB8` 起 4096 项、步长 4 的
+`GraphicCache3`。`GraphicCacheItem32` 的 `batchType` 位于项内 `+0x24`；
+`GraphicCache3` 只确认 `+0` 的 S16 cacheIndex 与 `+2` 的 U8 layer。
+原 `0x1020EB8` 的 W16 计数继续复用 `platform::gPendingGraphicCount`，不并入或复制
+这份存储；`platform::gTextFF4E30` 同址绑定前缀的完整 `0x88` 字节。
+
+适配入口只承诺原调用前提：索引是 `-2` 或 `[0,4095]`。`-2` 显式写
+`prefix[0x5C]`，即原 `0xFF4E8C`；有效非负索引只写对应记录的 `batchType`，
+不清理 `+0x25..+0x27` 尾字节。其他损坏索引在 x64 新端安全拒绝，不通过负指针
+或越界访问复现旧端内存破坏。
 
 ### 原字符串字节
 
@@ -744,9 +757,9 @@ step 0/1/2 分别把 `0xA0000000/0x90000000/0xC0000000` 以按位或写入图号
 | `0x55CDB4` | `再進行刪除。` | `A6 41 B6 69 A6 E6 A7 52 B0 A3 A1 43 00` |
 
 `sub_503990`、`sub_503A20`、`sub_5049A0` 与 `DrawGraphic_Hover` 的控制流现已
-还原；鼠标状态生产者、底层 `DrawGraphic`、待提交队列写入适配、文字绘制、
+还原；鼠标状态生产者、底层 `DrawGraphic`、文字绘制、
 对象创建、死亡标记及 readiness 适配仍只保留真实窄声明。实际输入、渲染、
-队列布局和 `YobiAction` x64 布局留给对应目标实现，未以空体或固定返回补齐。
+排序提交和 `YobiAction` x64 布局留给对应目标实现，未以空体或固定返回补齐。
 共享槽的另两个消费者已在下节分别还原。
 
 ## 删除确认 UI `sub_45DEE0/sub_45E090/sub_45E0C0`

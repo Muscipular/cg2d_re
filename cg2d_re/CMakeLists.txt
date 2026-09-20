@@ -54,6 +54,7 @@ add_library(cg2d_re_startup STATIC
     src/platform/LegacyTime.cpp
     src/LegacyHitTest.cpp
     src/DrawGraphicHover.cpp
+    src/render/GraphicPendingQueue.cpp
     src/LoginMessage.cpp
     src/LoginRequest.cpp
     src/CharacterListRequest.cpp

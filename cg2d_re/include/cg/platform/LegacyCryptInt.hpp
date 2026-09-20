@@ -1,0 +1,59 @@
+#pragma once
+
+#include <cstddef>
+#include <cstdint>
+
+namespace cg::platform {
+
+// 原 x86 CryptInt 的固定内存布局。legacyVftToken 保存原 32 位地址位模式，
+// 不是新端可解引用的虚表指针。
+struct LegacyCryptInt {
+    std::uint32_t legacyVftToken;
+    std::uint32_t encoded;
+    std::uint32_t mask;
+    std::uint8_t readCount;
+    std::uint8_t reserved[3];
+};
+static_assert(sizeof(LegacyCryptInt) == 16);
+static_assert(offsetof(LegacyCryptInt, legacyVftToken) == 0x00);
+static_assert(offsetof(LegacyCryptInt, encoded) == 0x04);
+static_assert(offsetof(LegacyCryptInt, mask) == 0x08);
+static_assert(offsetof(LegacyCryptInt, readCount) == 0x0C);
+static_assert(offsetof(LegacyCryptInt, reserved) == 0x0D);
+
+inline constexpr std::uint32_t kLegacyCryptIntVftToken = 0x0054D3A0u;
+
+namespace legacy_crypt_int {
+
+// 原 sub_401C70@[0x401C70,0x401C92)。storage 必须指向可写的 16 字节对象。
+LegacyCryptInt* ConstructZero_401C70(LegacyCryptInt* storage);
+
+// 原 CryptInt_Init@[0x401CC0,0x401CE7)。
+LegacyCryptInt* ConstructFromInt_401CC0(
+    LegacyCryptInt* storage,
+    std::int32_t value);
+
+// 原 CryptInt_delete@[0x401CF0,0x401CF7)，只恢复 legacyVftToken。
+void Destroy_401CF0(LegacyCryptInt* value);
+
+// 原 CryptInt::SetNorVal@[0x401F50,0x401F5F)，不更新 mask 或 readCount。
+void SetNorVal_401F50(LegacyCryptInt* target, std::int32_t value);
+
+// 原赋值展开只复制 +0x04、+0x08、+0x0C；保留目标 token 与 reserved。
+void CopyPayload(LegacyCryptInt* target, const LegacyCryptInt* source);
+
+// 对应原“构造 int 临时量、复制载荷、析构临时量”的赋值形态。
+void AssignFromInt(LegacyCryptInt* target, std::int32_t value);
+
+// 原 sub_401EC0@[0x401EC0,0x401F45)，读取会修改 readCount，必要时换 mask。
+std::int32_t Read_401EC0(LegacyCryptInt* value);
+
+// 下列比较均只调用 Read_401EC0 一次，并按有符号 int32 比较。
+bool Equal_401D00(LegacyCryptInt* value, std::int32_t expected);
+bool GreaterEqual_401D70(LegacyCryptInt* value, std::int32_t minimum);
+bool LessEqual_401DA0(LegacyCryptInt* value, std::int32_t maximum);
+bool Less_401DB0(LegacyCryptInt* value, std::int32_t maximum);
+bool IntLessEqualCrypt_401FC0(std::int32_t lhs, LegacyCryptInt* rhs);
+
+} // namespace legacy_crypt_int
+} // namespace cg::platform

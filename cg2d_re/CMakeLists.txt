@@ -51,6 +51,7 @@ add_library(cg2d_re_startup STATIC
     src/platform/MainLoop.cpp
     src/platform/MainLoopState.cpp
     src/platform/MainLoopSupport.cpp
+    src/platform/LegacyCryptInt.cpp
     src/platform/LegacyTime.cpp
     src/LegacyHitTest.cpp
     src/DrawGraphic.cpp

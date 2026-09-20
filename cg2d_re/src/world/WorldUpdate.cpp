@@ -168,7 +168,7 @@ void Update()
         if (render::gPaletteCapability < 3) {
             detail::Sub_45E3D0();
         } else {
-            detail::Sub_462330();
+            character_select::ProcessScene_462330();
         }
         detail::YobiUpdateAll_404C50();
         detail::RenderChara_521F20();

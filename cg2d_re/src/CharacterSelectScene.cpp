@@ -45,8 +45,6 @@ constexpr char kCannotDeleteCharacter[] = "無法刪除此角色。";
 constexpr char kUpdateQuestion[] = "要進行更新嗎？";
 constexpr char kExpansionOnlyAccount[] =
     "這個帳號僅適用於資料片版本，請將用戶端的版本更新至資料片。";
-constexpr char kVersion20[] = "20031229_20";
-constexpr char kVersion30[] = "20031229_30";
 
 constexpr std::size_t kNameOffset = 0x00;
 constexpr std::size_t kGraphicNoOffset = 0x18;
@@ -526,12 +524,12 @@ std::int32_t ProcessScene_460FF0()
         case 0:
         case 2:
             result = detail::Sub_512D30(
-                platform::gConnectionSocket, 2, kVersion20);
+                platform::gConnectionSocket, 2, state::kVersion20);
             break;
         case 5:
         case 6:
             result = detail::Sub_512D30(
-                platform::gConnectionSocket, 4, kVersion30);
+                platform::gConnectionSocket, 4, state::kVersion30);
             break;
         case 7:
             result = detail::Sub_512D30(

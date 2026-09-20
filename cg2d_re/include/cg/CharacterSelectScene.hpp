@@ -18,6 +18,9 @@ std::int32_t ProcessCharacterModal_462090(
     std::int32_t x,
     std::int32_t y);
 
+// 原 sub_462330@[0x462330,0x4625A0)。
+std::int32_t ProcessScene_462330();
+
 // 原 sub_460FF0@[0x460FF0,0x461A77)。
 std::int32_t ProcessScene_460FF0();
 

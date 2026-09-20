@@ -23,6 +23,7 @@ add_library(cg2d_re_core STATIC
     src/GraphicInfo.cpp
     src/GraphicRead.cpp
     src/Palette.cpp
+    src/render/GraphicCacheState.cpp
     src/platform/LegacyWindow.cpp
 )
 
@@ -57,6 +58,7 @@ add_library(cg2d_re_startup STATIC
     src/CharacterSelectScene.cpp
     src/CharacterListProgress.cpp
     src/CharacterSelectModal.cpp
+    src/CharacterVersionUpgrade.cpp
     src/CharacterSelectPreview.cpp
     src/CharacterSelectSlot.cpp
     src/LoginState.cpp

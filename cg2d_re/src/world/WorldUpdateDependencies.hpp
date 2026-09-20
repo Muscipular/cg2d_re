@@ -16,7 +16,6 @@ void RenderChara_521F20();                 // 原 World::RenderChara@0x521F20。
 void RenderInput_4590E0();                 // 原 World::RenderInput@0x4590E0。
 void Sub_44A410();                         // 原 0x44A410。
 void Sub_4626A0();                         // 原 0x4626A0。
-std::int32_t Sub_462330();                 // 原 0x462330。
 std::int32_t Sub_45E3D0();                 // 原 0x45E3D0。
 std::int32_t Sub_4590A0();                 // 原 0x4590A0，IDA 原型 BOOL()。
 void Sub_449DA0();                         // 原 0x449DA0。

@@ -3,6 +3,7 @@
 #include "LoginMessageDependencies.hpp"
 
 #include <array>
+#include <cstddef>
 #include <cstdint>
 #include <cstdio>
 
@@ -40,7 +41,16 @@ struct CharacterModalUiRecord {
     const char* text;
 };
 
-// sub_462090@0x462090 尚未实现的真实直接目标。
+static_assert(offsetof(CharacterModalUiRecord, textX) == 0x00);
+static_assert(offsetof(CharacterModalUiRecord, textY) == 0x04);
+static_assert(offsetof(CharacterModalUiRecord, left) == 0x08);
+static_assert(offsetof(CharacterModalUiRecord, top) == 0x0C);
+static_assert(offsetof(CharacterModalUiRecord, width) == 0x10);
+static_assert(offsetof(CharacterModalUiRecord, height) == 0x14);
+static_assert(offsetof(CharacterModalUiRecord, text) == 0x18);
+static_assert(sizeof(CharacterModalUiRecord) == 0x20);
+
+// sub_503990@0x503990 与 sub_503A20@0x503A20 的还原入口。
 std::int32_t Sub_503990(const CharacterModalUiRecord* uiRecord);
 std::int32_t Sub_503A20(
     const CharacterModalUiRecord* uiRecord,

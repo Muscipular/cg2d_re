@@ -1,9 +1,15 @@
-# Font::measure 字体字节度量
+# 字体字节度量
 
 ## IDA 证据
 
 本项只依据当前 `ida-17524 / D:\SOFTSTAR\cg2d.exe`：
 
+- `TextMeasure@[0x44B2A0,0x44B2DC)` 共 `0x3C`（60）字节、24 条指令、8 个基本块，没有 callee；IDA 原型为 `int32 __cdecl(const char* text, int32 fontType)`。
+- 该函数共有 147 个代码引用，逐项核对均为直接 `call`，归属 85 个唯一 caller；无需在本文抄录全部地址。
+- `0x44B2A7..0x44B2AB` 先读取首字节并检查 NUL；空串由此直接返回 0，尚未读取 `fontType` 或字体表。非空后，`0x44B2AD` 才按完整 W32 读取 `fontType`。
+- `0x44B2B2..0x44B2CA` 只检查当前首字节 bit 7：bit 7 为 0 时游标加 1 并读取 `sWidth`，bit 7 为 1 时游标加 2 并读取 `doubleWidth`，完全不读取或校验第二字节。
+- `0x44B2D1..0x44B2D7` 在推进后读取新边界首字节，以 W32 加法累计宽度，再按新边界是否为 NUL 决定继续。
+- `[0x44B2DC,0x44B2E0)` 是 4 个 NOP；其后的三参数 `Font::measure@0x44B2E0` 是独立函数，不是 `TextMeasure` 的延续或包装。
 - `Font::measure@[0x44B2E0,0x44B32A)` 共 `0x4A` 字节、33 条指令、8 个基本块，没有 callee；IDA 原型为 `int32 __cdecl(const char* text, int32 fontType, int32 maxBytes)`。
 - 六个直接调用点为 `0x44A4E1`、`0x456B8B`、`0x456C8A`、`0x456CFB`、`0x4A7603`、`0x4A76AA`。
 - `0x44B2EC..0x44B2EE` 对 `maxBytes` 作有符号 `<= 0` 判断并直接返回 0；此路径尚未读取 `text` 或字体表。
@@ -11,7 +17,17 @@
 - `0x44B303..0x44B31E` 的双字节分支直接把游标和计数各加 2，并读取 `doubleWidth`；不读取或校验第二字节，预算只剩 1 字节时仍加入完整双字节宽度。单字节分支对应各加 1 并读取 `sWidth`。
 - `0x44B31E..0x44B323` 以 W32 加法累计宽度和已消费字节，尾部用有符号 `consumed < maxBytes` 决定是否继续。
 
-`TextMeasure@[0x44B2A0,0x44B2DC)` 是不同的两参数函数，没有 `maxBytes` 预算；本项不实现或代替它。
+## 两参数 TextMeasure 算法
+
+1. `text == nullptr` 时按新端最窄安全行为返回 0；否则必须先读取首字节。
+2. 首字节为 NUL 时立即返回 0，不访问字体表；因此空串即使携带域外 `fontType` 也返回 0。
+3. 仅在非空首字节之后检查 `fontType`，有效域为 0..13，域外按新端最窄安全行为返回 0。
+4. 每个非 NUL 字符边界只看当前 W8 首字节：`0x01..0x7F` 推进 1 字节并取 `gFontMetrics[fontType].sWidth`，`0x80..0xFF` 推进 2 字节并取 `doubleWidth`。
+5. 推进后读取新边界首字节，再以无符号 W32 累加宽度；新边界非 NUL 时继续，最终按有符号 W32 返回。
+
+它与三参数 `Font::measure` 的关键差异是没有 `maxBytes`、消费计数和预算停止条件；不得通过传入 `INT32_MAX` 复用三参数函数。有效输入域内，两者都沿用 bit 7 判定的旧双字节规则，均不执行 UTF-8、GBK 或 Big5 解码。
+
+当前源码共有 5 个翻译单元的 21 个调用点：`CharacterSelectModal.cpp` 4 个、`CharacterDeletionConfirmation.cpp` 5 个、`CharacterVersionUpgrade.cpp` 2 个、`LoginState.cpp` 2 个、`LoginMessage.cpp` 8 个；其 `fontType` 均为 0，本项不移动或改写这些消费者。
 
 ## 地址中性度量表
 
@@ -38,7 +54,9 @@
 
 ## 新端边界
 
-- 有效 `fontType` 为 0..13。`maxBytes > 0` 时，空 `text` 或越界 `fontType` 采用最窄安全行为返回 0；原函数在这些输入上没有安全保证。
-- `maxBytes <= 0` 严格先返回 0，不读取 `text` 或度量表。
+- 两参数 `TextMeasure` 对空指针采用最窄安全行为返回 0；非空时仍先读取首字节，空串在检查 `fontType` 前返回。只有非空首字节之后才检查 0..13，有效域外返回 0。原函数对空指针或域外字体索引没有安全保证。
+- 三参数 `Font::measure` 在 `maxBytes <= 0` 时严格先返回 0，不读取 `text` 或度量表；`maxBytes > 0` 时，空 `text` 或越界 `fontType` 采用最窄安全行为返回 0。
 - 任意 `0x80..0xFF` 首字节均按双字节处理；不进行 UTF-8、GBK 或 Big5 转换，也不增加尾字节校验。
-- 宽度和消费计数均以无符号 W32 执行回绕，再按有符号 W32 做循环比较或返回，避免宿主 C++ 有符号溢出。
+- 即使调用方源码与内部字符串采用 UTF-8，传入的仍是原始 UTF-8 字节；每个边界上的高位字节都会按上述规则与后一字节盲目配对。这不保证 UTF-8 的视觉测宽正确，多字节 UTF-8 还可能被跨码点或跨 NUL 配对。
+- 两参数有效域不得增加尾字节检查或长度预算；孤立高位字节、尾字节为 NUL 或缺少可访问后续字节均保留为原函数的未定义/越界输入前提，不在本项修正。
+- 宽度和三参数函数的消费计数均以无符号 W32 执行回绕，再按有符号 W32 做循环比较或返回，避免宿主 C++ 有符号溢出。

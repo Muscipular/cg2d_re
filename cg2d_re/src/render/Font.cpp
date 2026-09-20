@@ -70,6 +70,45 @@ std::int32_t Font::measure(
 
 namespace cg::login::detail {
 
+// 原 TextMeasure@[0x44B2A0,0x44B2DC)：无字节预算的旧编码文本测宽。
+std::int32_t TextMeasure(const char* text, std::int32_t fontType)
+{
+    if (text == nullptr) {
+        return 0;
+    }
+
+    const auto* cursor = reinterpret_cast<const std::uint8_t*>(text);
+    std::uint8_t firstByte = *cursor;
+    if (firstByte == 0) {
+        return 0;
+    }
+    if (fontType < 0
+        || fontType >= static_cast<std::int32_t>(cg::render::kFontTypeCount)) {
+        return 0;
+    }
+
+    const auto index = static_cast<std::size_t>(fontType);
+    std::uint32_t totalWidth = 0;
+    for (;;) {
+        std::int32_t width;
+        if ((firstByte & 0x80U) == 0) {
+            ++cursor;
+            width = cg::render::gFontMetrics[index].sWidth;
+        } else {
+            cursor += 2;
+            width = cg::render::gFontMetrics[index].doubleWidth;
+        }
+
+        firstByte = *cursor;
+        totalWidth += static_cast<std::uint32_t>(width);
+        if (firstByte == 0) {
+            break;
+        }
+    }
+
+    return std::bit_cast<std::int32_t>(totalWidth);
+}
+
 std::int32_t& gValue558F78 = cg::render::gFontMetrics[0].doubleHeight;
 
 } // namespace cg::login::detail

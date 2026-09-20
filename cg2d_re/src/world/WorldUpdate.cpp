@@ -37,7 +37,7 @@ void Update()
         switch (capability) {
         case 0:
         case 1:
-            detail::Sub_45C5A0();
+            login::ProcessModeScene_45C5A0();
             break;
         case 2:
             login::ProcessOuterScene_45C2D0();

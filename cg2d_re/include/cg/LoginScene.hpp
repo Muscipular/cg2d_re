@@ -28,4 +28,7 @@ std::int32_t ProcessScene_45FEA0();
 // 原 sub_45C2D0@[0x45C2D0,0x45C566)：登录入口外层子状态机。
 void ProcessOuterScene_45C2D0();
 
+// 原 sub_45C5A0@[0x45C5A0,0x45C7C0)：能力 0/1 的登录场景子状态机。
+void ProcessModeScene_45C5A0();
+
 } // namespace cg::login

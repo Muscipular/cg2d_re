@@ -86,6 +86,13 @@ std::int32_t Read_401EC0(LegacyCryptInt* value)
     return FromBits(value->encoded ^ value->mask);
 }
 
+std::int32_t Add_401E10(LegacyCryptInt* value, const std::int32_t amount)
+{
+    const std::uint32_t result =
+        ToBits(Read_401EC0(value)) + ToBits(amount);
+    return FromBits(result);
+}
+
 bool Equal_401D00(LegacyCryptInt* value, std::int32_t expected)
 {
     return Read_401EC0(value) == expected;

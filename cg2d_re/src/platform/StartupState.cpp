@@ -20,6 +20,7 @@ std::int32_t gWindowActiveState = 2;
 std::int32_t gStartX = 0;
 std::int32_t gStartY = 0;
 std::uint32_t gDesktopColor = 0;
+std::uint32_t gValueD67AE4 = 0;
 std::uint32_t gValueD68DC4 = 0;
 std::uint32_t gValue9A6F44 = 0;
 std::int32_t gVersionMajor = 0;

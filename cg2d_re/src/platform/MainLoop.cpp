@@ -2,6 +2,7 @@
 #include "ClientShutdown.hpp"
 #include "MainLoopDependencies.hpp"
 
+#include "cg/platform/LegacyCursor.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/platform/Startup.hpp"
 #include "cg/world/GameTime.hpp"

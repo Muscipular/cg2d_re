@@ -86,7 +86,11 @@ Hex-Rays 的 `char*` 推断不能作为新端指针返回契约。
   溢出、失效指针、旧栈布局及 x86 地址回绕不在本项已覆盖范围内，也没有获批排除。
 - `CreateSaveDirectories` 会改变 CWD、创建目录；窗口化 helper 会改变系统桌面颜色。
   本次只编译和静态核对，不执行这些副作用，完整恢复和退出依赖仍待接通。
-- `gValueD68DC4`、`gValue9A6F44` 仅核对入口写零，不把中性字段名当作完整业务布局证据。
+- `gValueD67AE4@0xD67AE4` 是映像零值 W32；`World::CursorUpdate` 以零选择
+  表驱动光标分支、非零选择原生光标分支。其余生产者仍按各自函数逐项还原。
+- `gValueD68DC4@0xD68DC4` 是逐帧光标状态请求；`World::CursorUpdate` 尾部
+  重新读取后清零，并把旧值写入 `gValue9A6F44@0x9A6F44`。两者仍由
+  `StartupState.cpp` 唯一持有，入口写零行为不变。
 - 函数体和静态库编译不证明参数、存档、窗口回调、资源初始化、主循环或退出已经贯通。
 - `InitializeWindow` 与 `MainLoop` 新声明显式保留机器返回值，分别为尾部
   `UpdateWindow` 结果与两个正常出口的 0。原源码返回类型未知，原入口仍忽略这两个结果。

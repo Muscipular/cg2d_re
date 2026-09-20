@@ -2,9 +2,10 @@
 
 ## 范围
 
-本项只还原原 `cg2d.exe` 的旧鼠标核心存储、CRT 静态构造、启动清零、当前位置
-赋值，以及登录/角色选择代码已经依赖的坐标读取和三个位域引用。暂不还原
-`WIN_PROC`、各按键更新函数或 `World::CursorUpdate`。
+本项还原原 `cg2d.exe` 的旧鼠标核心存储、CRT 静态构造、启动清零、当前位置
+赋值，以及登录/角色选择代码已经依赖的坐标读取和三个位域引用。
+`World::CursorUpdate` 已在后续单项还原，见 `cg2d_legacy_cursor_update.md`；
+`WIN_PROC` 与各按键更新函数仍未还原。
 
 ## 连续布局
 
@@ -55,5 +56,6 @@
 依赖虚构的第二份全局量。本项没有定义 `gValueD69768`。
 
 尚未把 `ResetLegacyMouseState_506870` 接入 `InitializeClient`，也未把
-`ResetLegacyMousePosition_506890` 接入 `WIN_PROC`；按键事件更新、拖拽状态和
-`World::CursorUpdate` 留待后续逐项还原。
+`ResetLegacyMousePosition_506890` 接入 `WIN_PROC`；按键事件更新和拖拽状态留待
+后续逐项还原。逐帧光标更新已经直接复用本结构的计时、脉冲、抑制和尾字段，
+没有建立第二份鼠标状态。

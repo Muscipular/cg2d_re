@@ -22,8 +22,9 @@ extern std::int32_t gWindowActiveState; // 原 0x55CE70，初值 2。
 extern std::int32_t gStartX;           // 原 0x9A7F50。
 extern std::int32_t gStartY;           // 原 0x9A7F54。
 extern std::uint32_t gDesktopColor;    // 原 0x9A6F40。
-extern std::uint32_t gValueD68DC4;     // 原入口写零；后续字段角色仍待核对。
-extern std::uint32_t gValue9A6F44;     // 原入口写零；后续字段角色仍待核对。
+extern std::uint32_t gValueD67AE4;     // 原 bShow；0 走表驱动光标，非零走原生光标分支。
+extern std::uint32_t gValueD68DC4;     // 原逐帧光标状态请求；CursorUpdate 尾部消费后清零。
+extern std::uint32_t gValue9A6F44;     // 原 CursorUpdate 尾部保存的本帧已消费光标状态。
 extern std::int32_t gVersionMajor;    // 原 0x9A7F58。
 extern std::int32_t gVersionMinor;    // 原 0x9A7F5C。
 extern std::int32_t gVersionPatch;    // 原 0x9A7F60。

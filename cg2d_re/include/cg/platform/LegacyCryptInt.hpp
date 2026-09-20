@@ -48,6 +48,9 @@ void AssignFromInt(LegacyCryptInt* target, std::int32_t value);
 // 原 sub_401EC0@[0x401EC0,0x401F45)，读取会修改 readCount，必要时换 mask。
 std::int32_t Read_401EC0(LegacyCryptInt* value);
 
+// 原 CryptInt::add@[0x401E10,0x401E1C)，只读取一次后作 int32 位模式回绕加法。
+std::int32_t Add_401E10(LegacyCryptInt* value, std::int32_t amount);
+
 // 下列比较均只调用 Read_401EC0 一次，并按有符号 int32 比较。
 bool Equal_401D00(LegacyCryptInt* value, std::int32_t expected);
 bool GreaterEqual_401D70(LegacyCryptInt* value, std::int32_t minimum);

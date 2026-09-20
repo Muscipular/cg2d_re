@@ -11,6 +11,7 @@
 
 namespace cg::login {
 
+input::InputContext gInputContext9A4D20 {};
 input::InputContext gInputContext9A5960 {};
 input::InputContext gInputContext9A5678 {};
 

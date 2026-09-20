@@ -29,6 +29,9 @@ static_assert(offsetof(LoginSceneControl32, normalImageNo) == 0x18);
 static_assert(offsetof(LoginSceneControl32, activeImageNo) == 0x1C);
 static_assert(sizeof(LoginSceneControl32) == 0x20);
 
+// 原 stru_9A4D20@[0x9A4D20,0x9A4E7C)，完整 0x15C 字节；PE 虚拟零填充。
+extern input::InputContext gInputContext9A4D20;
+
 // 两个上下文会被多个场景函数共享，只按原地址区分，不固定账号或密码语义。
 extern input::InputContext gInputContext9A5960;
 extern input::InputContext gInputContext9A5678;

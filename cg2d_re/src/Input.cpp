@@ -116,6 +116,23 @@ bool HasSafeLegacyState(const InputContext& context)
             <= static_cast<std::size_t>(context.totalByteLength);
 }
 
+// 原 sub_44A160。
+void LoadInitialText_44A160(const char* const initialText)
+{
+    if (gCurrentInputData == nullptr) {
+        return;
+    }
+
+    std::size_t length = std::strlen(initialText);
+    if (length >= InputTextCapacity) {
+        length = InputTextCapacity - 1;
+    }
+
+    for (std::size_t index = 0; index < length; ++index) {
+        AppendChar_44ADB0(initialText[index]);
+    }
+}
+
 } // namespace
 
 void AppendChar_44ADB0(const char character)
@@ -229,6 +246,47 @@ void AppendChar_44ADB0(const char character)
     }
 
     gValue626C0C = 20;
+}
+
+void SetContext_44B330(InputContext* const context)
+{
+    gCurrentInputData = context;
+}
+
+void InitializeContext_449CF0(
+    InputContext* const context,
+    const std::int32_t field130,
+    const std::int32_t field134,
+    const std::int32_t renderMode,
+    const std::int32_t fontType,
+    const std::int32_t color,
+    const char* const initialText,
+    const std::int32_t maxLine,
+    const std::int32_t maxCharPerLine,
+    const std::int32_t field14C,
+    const std::int32_t encrypt)
+{
+    context->field130 = field130;
+    std::memcpy(context->field138, &renderMode, sizeof(renderMode));
+    context->field140 = color;
+    context->field134 = field134;
+    context->maxCharPerLine = maxCharPerLine;
+    context->field13C = fontType;
+    context->encrypt = encrypt;
+    context->maxLine = maxLine;
+    context->field14C = field14C;
+    context->text[0] = '\0';
+    context->totalByteLength = 0;
+    context->caretByteOffset = 0;
+    context->field154 = 0;
+    context->field158 = 0;
+
+    if (initialText != nullptr) {
+        InputContext* const savedContext = gCurrentInputData;
+        SetContext_44B330(context);
+        LoadInitialText_44A160(initialText);
+        SetContext_44B330(savedContext);
+    }
 }
 
 } // namespace cg::input

@@ -37,13 +37,30 @@ static_assert(offsetof(InputContext, maxCharPerLine) == 0x148);
 static_assert(offsetof(InputContext, encrypt) == 0x150);
 static_assert(sizeof(InputContext) == 0x15C);
 
-// 原 0x626C04：当前输入上下文；本项不负责建立或切换上下文。
+// 原 0x626C04：当前输入上下文；允许由 SetContext 写为 nullptr。
 extern InputContext* gCurrentInputData;
 
 // 下列状态只保留本函数已取证的读写语义，不扩展业务命名。
 extern std::int32_t gValue626C0C; // 接受路径最终写 20。
 extern std::int32_t gValue626C20; // 超过 maxLine 时选择截断或回滚分支。
 extern std::int32_t gValue626C28; // 特定回滚路径写 1。
+
+// 原 Input::SetContext@[0x44B330,0x44B33A)。
+void SetContext_44B330(InputContext* context);
+
+// 原 sub_449CF0@[0x449CF0,0x449D92)。
+void InitializeContext_449CF0(
+    InputContext* context,
+    std::int32_t field130,
+    std::int32_t field134,
+    std::int32_t renderMode,
+    std::int32_t fontType,
+    std::int32_t color,
+    const char* initialText,
+    std::int32_t maxLine,
+    std::int32_t maxCharPerLine,
+    std::int32_t field14C,
+    std::int32_t encrypt);
 
 // 原 Input::AppendChar@[0x44ADB0,0x44B044)。
 void AppendChar_44ADB0(char character);

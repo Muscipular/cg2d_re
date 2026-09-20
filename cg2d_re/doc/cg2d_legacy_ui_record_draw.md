@@ -78,12 +78,11 @@ bottom = Y + height + 2
 字段值。所有 signed W32 加减均先转为 `uint32_t` 位型运算，再恢复 signed W32，
 不触发 C++ signed overflow。
 
-## 实现与未决依赖
+## 实现与依赖
 
 共享核心位于 `src/LegacyUiRecord.cpp`，加入 `cg2d_re_startup`；没有新增公共
 结构、状态或外部依赖。`Sub_45F090` 已收敛到唯一渲染入口，证据见
-[`cg2d_legacy_graphic_wrapper.md`](cg2d_legacy_graphic_wrapper.md)。以下两个
-`Sub_45F100` 直接目标继续只有真实声明，不提供空实现或固定返回：
-
-- `cg::login::detail::Sub_45F100`；
-- `cg::character_select::detail::Sub_45F100`。
+[`cg2d_legacy_graphic_wrapper.md`](cg2d_legacy_graphic_wrapper.md)。两处
+`Sub_45F100` 也已转发到同一份状态查询实现，证据见
+[`cg2d_legacy_ui_record_state.md`](cg2d_legacy_ui_record_state.md)。本函数当前
+没有未决直接依赖。

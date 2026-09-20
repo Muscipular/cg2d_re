@@ -1,0 +1,64 @@
+# cg2d 旧 UI 记录状态查询证据
+
+## 范围与引用
+
+本文只记录当前 `ida-17524/D:\SOFTSTAR\cg2d.exe` 中
+`sub_45F100@[0x45F100,0x45F18D)`：大小 `0x8D`，共 55 条指令、20 个基本块，
+唯一直接目标为 `sub_5049A0@0x5049A0`。
+
+IDA 共确认 17 个直接 callsite，按 caller 汇总如下：
+
+| caller | callsite 数 |
+|---|---:|
+| `sub_45EFD0` | 1 |
+| `sub_45FA70` | 2 |
+| `LoginScene::Process@0x45FEA0` | 7 |
+| `sub_460FF0` | 2 |
+| `sub_461B30` | 3 |
+| `sub_464E30` | 2 |
+
+当前实现不改任何 caller。`cg::login::detail::Sub_45F100(const void*)` 与
+`cg::character_select::detail::Sub_45F100(const CharacterSelectUiRecord*)` 均只转发
+到私有 `QueryLegacyUiRecordState_45F100(const void*)`，不复制行为控制流。
+
+## 字段与复用边界
+
+空记录在 `0x45F109` 检查后直接返回 0。非空路径严格按以下顺序各读取一个
+signed W32：
+
+| 顺序 | 偏移 | 用途 |
+|---:|---:|---|
+| 1 | `+0x04` | Y / top |
+| 2 | `+0x00` | X / left |
+| 3 | `+0x0C` | height |
+| 4 | `+0x08` | width |
+
+共享实现使用既有 `ReadRecordW32` 逐项 `memcpy` 读取，避免未对齐和严格别名
+未定义行为。随后构造零初始化的 `login::LoginSceneControl32`，只映射
+`top/left/height/width`；其 `drawX/drawY/normalImageNo/activeImageNo` 保持 0，
+调用唯一 `login::QueryLoginControlState_5036F0` 并原样返回。
+
+命中矩形 W32 回绕、`Sub_5049A0(...,-1)`、三个鼠标全局低字节快照和位打包均
+由该既有入口完成；本函数不复制命中测试、鼠标状态或打包逻辑。
+
+## 九位返回位图
+
+未命中返回 0；命中后先置基础位 `0x040`，再按既有共享鼠标快照累计：
+
+| 来源 | 返回位 |
+|---|---:|
+| `edge & 0x01` | `0x001` |
+| `held & 0x01` | `0x002` |
+| `edge & 0x02` | `0x004` |
+| `held & 0x02` | `0x008` |
+| `pulse & 0x01` | `0x010` |
+| `pulse & 0x02` | `0x020` |
+| 命中基础位 | `0x040` |
+| `edge & 0x10` | `0x080` |
+| `edge & 0x20` | `0x100` |
+
+`edge/held/pulse` 分别复用 `0xD68D9C/0xD68D98/0xD68DA0` 的唯一共享存储，
+本函数不写入或初始化它们。三项位于 `.data` 的无文件后备虚拟尾部，均由 PE
+装载器零填充；IDA 对该区域返回的 `0xFF` 占位字节不是文件初值。若新端启动时的
+共享鼠标初值或重置时点仍与原启动链存在差异，应由未来启动接线收口，不能在本
+函数内补清零、固定值或额外门禁。

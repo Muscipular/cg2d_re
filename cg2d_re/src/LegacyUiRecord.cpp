@@ -1,6 +1,8 @@
 #include "CharacterSelectSceneDependencies.hpp"
 #include "LoginSceneDependencies.hpp"
 
+#include "cg/LoginInput.hpp"
+
 #include <bit>
 #include <cstddef>
 #include <cstdint>
@@ -32,6 +34,21 @@ std::int32_t ReadRecordW32(
     const auto* const bytes = static_cast<const std::byte*>(uiRecord);
     std::memcpy(&value, bytes + offset, sizeof(value));
     return value;
+}
+
+std::int32_t QueryLegacyUiRecordState_45F100(
+    const void* const uiRecord)
+{
+    if (uiRecord == nullptr) {
+        return 0;
+    }
+
+    cg::login::LoginSceneControl32 control {};
+    control.top = ReadRecordW32(uiRecord, kYOffset);
+    control.left = ReadRecordW32(uiRecord, kXOffset);
+    control.height = ReadRecordW32(uiRecord, kHeightOffset);
+    control.width = ReadRecordW32(uiRecord, kWidthOffset);
+    return cg::login::QueryLoginControlState_5036F0(&control);
 }
 
 std::int32_t AddW32(
@@ -142,6 +159,11 @@ void DrawLegacyUiRecord_45EFD0(
 
 namespace cg::login::detail {
 
+std::int32_t Sub_45F100(const void* const uiRecord)
+{
+    return QueryLegacyUiRecordState_45F100(uiRecord);
+}
+
 void Sub_45EFD0(
     const void* const uiRecord,
     const std::uint8_t layer,
@@ -162,6 +184,12 @@ void Sub_45EFD0(
 } // namespace cg::login::detail
 
 namespace cg::character_select::detail {
+
+std::int32_t Sub_45F100(
+    const CharacterSelectUiRecord* const uiRecord)
+{
+    return QueryLegacyUiRecordState_45F100(uiRecord);
+}
 
 void Sub_45EFD0(
     const CharacterSelectUiRecord* const uiRecord,

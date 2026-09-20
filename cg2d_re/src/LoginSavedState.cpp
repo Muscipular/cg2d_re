@@ -2,6 +2,7 @@
 #include "LoginInputDependencies.hpp"
 #include "LoginSceneDependencies.hpp"
 
+#include "cg/Input.hpp"
 #include "cg/platform/CommandOptions.hpp"
 #include "cg/platform/Startup.hpp"
 
@@ -740,6 +741,40 @@ std::int32_t PersistCurrentSavedRecord_520200()
     cg::platform::gValueD68858 =
         static_cast<std::uint32_t>(source[0x31B]);
     return source;
+}
+
+// 原 sub_520690@[0x520690,0x5206EE)：恢复 24 项保存输入文本。
+[[maybe_unused]] std::int32_t RestoreSavedInputContexts_520690(
+    const std::uint8_t* const source)
+{
+    const std::uint8_t* sourceText = source + 0xB2;
+    for (std::size_t contextIndex = 0; contextIndex < 24;
+         ++contextIndex, sourceText += 0x19) {
+        const std::uint8_t* sourceEnd = sourceText;
+        while (*sourceEnd != 0) {
+            ++sourceEnd;
+        }
+
+        const std::size_t sourceBytes =
+            static_cast<std::size_t>(sourceEnd - sourceText) + 1;
+        cg::input::InputContext& context =
+            cg::input::gInputContexts5F9758[contextIndex];
+        for (std::size_t byteIndex = 0; byteIndex < sourceBytes;
+             ++byteIndex) {
+            context.text[byteIndex] =
+                static_cast<char>(sourceText[byteIndex]);
+        }
+
+        const char* destinationEnd = context.text;
+        while (*destinationEnd != '\0') {
+            ++destinationEnd;
+        }
+        const std::int32_t destinationLength =
+            static_cast<std::int32_t>(destinationEnd - context.text);
+        context.totalByteLength = destinationLength;
+        context.caretByteOffset = destinationLength;
+    }
+    return 0;
 }
 
 // 原 sub_520700@[0x520700,0x520712)：从记录恢复单字节状态。

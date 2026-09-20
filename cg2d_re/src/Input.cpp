@@ -8,11 +8,14 @@
 namespace cg::input {
 
 InputContext gInputContext626AA0 {};
+InputContext gInputContexts5F9758[24] {};
 InputContext* gCurrentInputData = nullptr;
 std::int32_t gValueC9A96C = 0;
 std::int32_t gValue626C0C = 0;
 std::int32_t gValue626C20 = 0;
 std::int32_t gValue626C28 = 0;
+
+static_assert(sizeof(gInputContexts5F9758) == 0x20A0);
 
 namespace {
 

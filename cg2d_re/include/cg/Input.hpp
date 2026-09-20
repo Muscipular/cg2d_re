@@ -48,6 +48,8 @@ extern InputContext* gCurrentInputData;
 
 // 原 stru_626AA0@0x626AA0：本项只保留地址身份与映像零初始化。
 extern InputContext gInputContext626AA0;
+// 原连续区间 [0x5F9758,0x5FB7F8)：24 项 InputContext 的唯一 owner。
+extern InputContext gInputContexts5F9758[24];
 // 原 dword_C9A96C@0xC9A96C：该特殊上下文的外部控制值，映像初值为零。
 extern std::int32_t gValueC9A96C;
 

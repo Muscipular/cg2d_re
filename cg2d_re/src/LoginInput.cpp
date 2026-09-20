@@ -468,4 +468,24 @@ void InitializeCapability4Input_465320()
     gValue9A6200 = 255;
 }
 
+void SaveAndSwitchCapability4InputSlot_465740(
+    const std::int32_t newSlot)
+{
+    const std::int32_t firstSavedSlot =
+        detail::gSelectedSavedSlot105C394;
+    detail::Sub_533570(gInputContext9A4D20.text, firstSavedSlot);
+
+    const std::int32_t secondSavedSlot =
+        detail::gSelectedSavedSlot105C394;
+    detail::Sub_5335B0(gInputContext9A5960.text, secondSavedSlot);
+
+    const std::int32_t thirdSavedSlot =
+        detail::gSelectedSavedSlot105C394;
+    detail::Sub_533640(gInputContext9A5678.text, thirdSavedSlot);
+
+    detail::Sub_533730();
+    detail::gSelectedSavedSlot105C394 = newSlot;
+    InitializeCapability4Input_465320();
+}
+
 } // namespace cg::login

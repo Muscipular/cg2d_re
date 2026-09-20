@@ -676,6 +676,34 @@ std::int32_t PersistCurrentSavedRecord_520200()
     return result;
 }
 
+// 原 sub_533860@[0x533860,0x5338E1)：删除一组物理槽保存文件。
+[[maybe_unused]] std::int32_t DeleteSavedFiles_533860(
+    const std::int32_t physicalSlot)
+{
+    char path[0x400];
+
+    std::sprintf(
+        path,
+        "%s\\%s",
+        gSavedState.paths[physicalSlot].text,
+        "save.dat");
+    (void)::DeleteFileA(path);
+
+    std::sprintf(
+        path,
+        "%s\\%s",
+        gSavedState.paths[physicalSlot].text,
+        "mail.dat");
+    (void)::DeleteFileA(path);
+
+    std::sprintf(
+        path,
+        "%s\\%s",
+        gSavedState.paths[physicalSlot].text,
+        "guildmail.dat");
+    return static_cast<std::int32_t>(::DeleteFileA(path));
+}
+
 } // namespace
 
 namespace cg::platform {

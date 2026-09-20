@@ -249,6 +249,32 @@ SavedStateStorage gSavedState {};
     return cursor;
 }
 
+// 原 sub_5333D0@[0x5333D0,0x533461)：探测当前与旧版保存位置。
+[[maybe_unused]] std::int32_t ProbeSavedStateLocation_5333D0()
+{
+    char path[0x400];
+    for (std::int32_t index = 0; index < 10; ++index) {
+        std::sprintf(
+            path,
+            "%s\\%s",
+            gSavedState.paths[index].text,
+            "save.dat");
+        std::FILE* const file = std::fopen(path, "rb+");
+        if (file != nullptr) {
+            std::fclose(file);
+            return 0;
+        }
+    }
+
+    std::FILE* const legacyFile =
+        std::fopen("data\\save.dat", "rb+");
+    if (legacyFile != nullptr) {
+        std::fclose(legacyFile);
+        return 1;
+    }
+    return 2;
+}
+
 // 原 sub_5338F0@[0x5338F0,0x53390C)：查找首个未占用物理槽。
 [[maybe_unused]] std::int32_t
 FindFreeSavedPhysicalSlot_5338F0() noexcept

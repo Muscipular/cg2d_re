@@ -1,11 +1,9 @@
-#include "platform/StartupNative.hpp"
+#include "platform/ImeLifecycle.hpp"
 #include "platform/WindowProcedureState.hpp"
 
 #include "cg/Input.hpp"
 #include "cg/render/Font.hpp"
 #include "cg/render/TextPendingQueue.hpp"
-
-#include <imm.h>
 
 #include <array>
 #include <bit>
@@ -61,12 +59,6 @@ bool IsValidFontType(const std::int32_t fontType) noexcept
 {
     return fontType >= 0
         && fontType < static_cast<std::int32_t>(render::kFontTypeCount);
-}
-
-bool IsImeKeyboardLayout_459090() noexcept
-{
-    const HKL keyboardLayout = GetKeyboardLayout(0);
-    return ImmIsIME(keyboardLayout) != FALSE;
 }
 
 bool CanMeasureImeComposition(const std::int32_t maxBytes) noexcept
@@ -217,8 +209,8 @@ void Sub_44A410()
     }
 
     if (input::gValue626C0C >= 20) {
-        const bool isIme = IsImeKeyboardLayout_459090();
-        if (!isIme) {
+        const std::int32_t isIme = platform::IsImeKeyboardLayout_459090();
+        if (isIme == 0) {
             DrawBasicCaret();
         } else {
             const char firstCompositionByte =

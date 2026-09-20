@@ -7,6 +7,7 @@
 
 #include <imm.h>
 
+#include <bit>
 #include <cstdlib>
 #include <cstring>
 
@@ -49,6 +50,14 @@ void ShutdownIme_459040()
         std::free(gImeCandidateList);
         gImeCandidateList = nullptr;
     }
+}
+
+std::int32_t IsImeKeyboardLayout_459090() noexcept
+{
+    const HKL keyboardLayout = GetKeyboardLayout(0);
+    const BOOL result = ImmIsIME(keyboardLayout);
+    static_assert(sizeof(result) == sizeof(std::int32_t));
+    return std::bit_cast<std::int32_t>(result);
 }
 
 } // namespace cg::platform

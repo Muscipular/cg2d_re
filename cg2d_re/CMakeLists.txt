@@ -88,6 +88,7 @@ add_library(cg2d_re_startup STATIC
     src/LoginState.cpp
     src/world/GameTime.cpp
     src/world/SceneState.cpp
+    src/world/RenderInput.cpp
     src/world/WorldUpdate.cpp
 )
 set_target_properties(cg2d_re_startup PROPERTIES CXX_EXTENSIONS OFF)

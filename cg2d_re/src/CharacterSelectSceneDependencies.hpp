@@ -54,6 +54,10 @@ std::int32_t Sub_503A20(
 std::uint32_t Sub_508910();
 std::int32_t Sub_508950();
 
+// sub_45DC00@0x45DC00 尚未实现的真实直接目标；均无参数。
+std::uint32_t Sub_508F70();
+std::int32_t Sub_508FC0();
+
 // sub_460FF0@0x460FF0 尚未实现的真实直接目标；不提供空体或固定返回。
 std::int32_t Sub_45C970();
 std::int32_t Sub_45E0C0(std::int32_t x, std::int32_t y);
@@ -72,8 +76,6 @@ std::int32_t Sub_45DEE0(
     std::int32_t width,
     std::int32_t height);
 
-void Sub_45DBF0();
-std::int32_t Sub_45DC00();
 std::int32_t Sub_51B3B0(std::uint32_t selectedIndex);
 void NullSub_509080();
 std::int32_t Sub_520200();

@@ -58,6 +58,7 @@ add_library(cg2d_re_startup STATIC
     src/CharacterSelectScene.cpp
     src/CharacterListProgress.cpp
     src/CharacterAuthenticationFailure.cpp
+    src/CharacterDeletionProgress.cpp
     src/CharacterSelectModal.cpp
     src/CharacterVersionUpgrade.cpp
     src/CharacterSelectPreview.cpp

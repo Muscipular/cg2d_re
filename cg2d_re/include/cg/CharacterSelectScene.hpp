@@ -16,6 +16,12 @@ void ResetAuthenticationFailure_45D7D0();
 // 原 sub_45D7E0@[0x45D7E0,0x45D97D)。
 std::int32_t UpdateAuthenticationFailure_45D7E0();
 
+// 原 sub_45DBF0@[0x45DBF0,0x45DBFA)；只清角色删除进度阶段。
+void ResetCharacterDeletionProgress_45DBF0();
+
+// 原 sub_45DC00@[0x45DC00,0x45DD45)。
+std::int32_t UpdateCharacterDeletionProgress_45DC00();
+
 // 原 sub_460D00@[0x460D00,0x460FD8)；前置条件是 slot 位于 [0, 1]。
 std::int32_t ProcessCharacterPreview_460D00(std::uint32_t slot);
 

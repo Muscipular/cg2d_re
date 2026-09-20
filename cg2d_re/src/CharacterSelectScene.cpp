@@ -343,7 +343,7 @@ std::int32_t ProcessScene_460FF0()
                             login::detail::MarkDeath(gDeleteConfirmationAction);
                             gDeleteConfirmationAction = nullptr;
                         }
-                        detail::Sub_45DBF0();
+                        ResetCharacterDeletionProgress_45DBF0();
                         world::gCurrentSceneState = 14;
                     }
                 } else if (result == 2) {
@@ -357,7 +357,7 @@ std::int32_t ProcessScene_460FF0()
             break;
         }
         case 14: {
-            const std::int32_t result = detail::Sub_45DC00();
+            const std::int32_t result = UpdateCharacterDeletionProgress_45DC00();
             if (result == 1) {
                 detail::Sub_51B3B0(static_cast<std::uint32_t>(
                     static_cast<std::int32_t>(login::gSelectedCharacterIndex)));

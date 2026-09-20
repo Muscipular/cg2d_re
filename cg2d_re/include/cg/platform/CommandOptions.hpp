@@ -17,10 +17,18 @@ extern char gMapPath[128];
 extern char (&gTextFF4E30)[0x88];
 
 extern std::int32_t gDeviceBitsPerPixel; // 原 0x554B70，静态值 8；保存设备查询结果。
+// 原 0x554B74，W16，静态初值 1；0 表示同步，1 表示非同步。
+extern std::uint16_t gScanlineSyncMode;
 extern std::int32_t gNoDelay;            // 原 0x55CE68，静态值 1；nodelay 将其清零。
 extern std::uint32_t gRendererFlags;    // 原 0x9A6EC0，32 位标志；onlyactive 设置位 0x10。
 extern std::int32_t gEnableSound;       // 原 0x58D3B8，静态值 1；soundoff 将其清零。
 extern std::int32_t gEnableMusic;       // 原 0x58D3BC，静态值 1；musicoff 将其清零。
+extern std::int32_t gUseStereo;         // 原 0x58D3C4，W32，静态初值 1。
+extern std::int32_t gEffectVolume;      // 原 0x58D3C8，W32，静态初值 15。
+extern std::int32_t gMusicVolume;       // 原 0x58D3CC，W32，静态初值 15。
+// 原持久化前缀 [0x1050840,0x1050850)，恰为 16 字节、虚拟零填充初值；
+// 只建立已确认前缀，不据此声明后续完整 BGM 表边界。
+extern std::uint8_t gBgmFrequencySelectionPrefix[16];
 // 原 0xFF0D40，本函数写入 1；world::gCurrentSceneType 引用同一份存储，枚举语义未决。
 extern std::int32_t gValueFF0D40;
 

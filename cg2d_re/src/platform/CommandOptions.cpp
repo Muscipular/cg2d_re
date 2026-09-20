@@ -14,10 +14,15 @@ namespace cg::platform {
 char gNewestText[128] = "/update/newestV2.txt";
 char gMapPath[128] = "map";
 std::int32_t gDeviceBitsPerPixel = 8;
+std::uint16_t gScanlineSyncMode = 1;
 std::int32_t gNoDelay = 1;
 std::uint32_t gRendererFlags = 0;
 std::int32_t gEnableSound = 1;
 std::int32_t gEnableMusic = 1;
+std::int32_t gUseStereo = 1;
+std::int32_t gEffectVolume = 15;
+std::int32_t gMusicVolume = 15;
+std::uint8_t gBgmFrequencySelectionPrefix[16] {};
 std::int32_t gValueFF0D40 = 0;
 std::int32_t gRendererModeStorage = 0;
 std::uint8_t& gRendererMode = reinterpret_cast<std::uint8_t*>(&gRendererModeStorage)[0];

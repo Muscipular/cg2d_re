@@ -1,0 +1,43 @@
+# cg2d 保存状态复位证据
+
+## 函数边界与调用关系
+
+- 原函数：`sub_533360@[0x533360,0x5333CF)`，共 111 字节、35 条指令、
+  4 个基本块。
+- 唯一 caller 是 `sub_533300@0x533300`。
+- 唯一真实 callee/callsite 是 `sprintf@0x533399`；该 callsite 位于十轮循环中，
+  因而一次正常调用会执行十次。
+- 源码只在 `LoginSavedState.cpp` 匿名命名空间增加私有
+  `[[maybe_unused]] ResetSavedState_533360()`；本项不接 caller。
+
+## 写入顺序
+
+进入函数后严格按以下顺序写四个 W32：
+
+1. `newPhysical=-1`（原 `0x105C368`）；
+2. `visibleCount=0`（原 `0x105C364`）；
+3. `selected=0`（原 `0x105C394`）；
+4. `mappingCount=0`（原 `0x105C360`）。
+
+随后以有符号 `std::int32_t index` 从 0 到 9 执行十轮，每轮顺序固定为：
+
+1. `sprintf(paths[index].text, "data\\%d", index)`；
+2. `active[index]=0`；
+3. `logicalToPhysical[index]=-1`；
+4. 清零 `records[0]` 的完整 `0x510` 字节。
+
+十轮完成后返回 0。函数不清理或写入上述范围之外的其他状态。
+
+## 路径尾部与固定记录缺陷
+
+每个 0x100 字节路径槽只由 `sprintf` 写入 `data\\N` 及结尾 NUL；NUL 之后的槽尾
+字节不会被清零。正常下标 `0..9` 的文本可容纳于路径槽，但实现不改用
+`snprintf`，也不添加额外尾部清理。
+
+记录清零目标在每轮都固定为 `records[0]`，因此同一 `0x510` 字节区域连续清零
+十次；`records[1..9]` 完全不由本函数写入。这是原二进制实际控制流，而不是按循环
+下标清十条记录。当前实现刻意保留该缺陷，避免把逆向还原擅自修正成
+`records[index]` 并改变后续可观察状态。
+
+本项不接 `sub_533300`，不修改公开声明、CMake、进度或其他保存流程。行为证据
+只取自当前 `ida-17524 / cg2d.exe`，STONAGE 不参与结论。

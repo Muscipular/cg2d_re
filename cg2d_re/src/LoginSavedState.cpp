@@ -249,6 +249,29 @@ SavedStateStorage gSavedState {};
     return cursor;
 }
 
+// 原 sub_533360@[0x533360,0x5333CF)：复位保存状态。
+[[maybe_unused]] std::int32_t ResetSavedState_533360()
+{
+    gSavedState.newPhysical = -1;
+    gSavedState.visibleCount = 0;
+    gSavedState.selected = 0;
+    gSavedState.mappingCount = 0;
+
+    for (std::int32_t index = 0; index < 10; ++index) {
+        std::sprintf(
+            gSavedState.paths[index].text,
+            "data\\%d",
+            index);
+        gSavedState.active[index] = 0;
+        gSavedState.logicalToPhysical[index] = -1;
+        std::memset(
+            &gSavedState.records[0],
+            0,
+            sizeof(gSavedState.records[0]));
+    }
+    return 0;
+}
+
 // 原 sub_5333D0@[0x5333D0,0x533461)：探测当前与旧版保存位置。
 [[maybe_unused]] std::int32_t ProbeSavedStateLocation_5333D0()
 {

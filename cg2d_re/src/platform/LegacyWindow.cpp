@@ -13,4 +13,9 @@ int ShowLegacyMessage(const char* text, const char* caption, std::uint32_t flags
     return MessageBoxA(reinterpret_cast<HWND>(gLegacyWindow), text, caption, flags);
 }
 
+std::int32_t ShowLegacyCursor(const std::int32_t show)
+{
+    return static_cast<std::int32_t>(::ShowCursor(show));
+}
+
 } // namespace cg::platform

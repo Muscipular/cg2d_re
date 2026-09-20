@@ -858,6 +858,37 @@ std::int32_t Sub_520200()
     return PersistCurrentSavedRecord_520200();
 }
 
+std::int32_t ReadNewSavedPhysicalSlot105C368()
+{
+    return gSavedState.newPhysical;
+}
+
+std::int32_t ReadMappedSavedPhysicalSlot105C36C(
+    const std::int32_t index)
+{
+    return gSavedState.logicalToPhysical[index];
+}
+
+std::int32_t Sub_5336D0()
+{
+    return LoadSelectedPhysicalRecord_5336D0();
+}
+
+std::int32_t Sub_533860(const std::int32_t physicalSlot)
+{
+    return DeleteSavedFiles_533860(physicalSlot);
+}
+
+void RestoreCapability4CurrentSavedRecord()
+{
+    auto* const currentBytes =
+        reinterpret_cast<std::uint8_t*>(&gCurrentSavedRecord);
+    (void)RestoreAudioSettings_5204C0(currentBytes);
+    (void)RestoreSavedScalarSettings_5205E0(currentBytes);
+    (void)RestoreSavedInputContexts_520690(currentBytes);
+    (void)RestoreSavedByteState_520700(currentBytes);
+}
+
 char* GetCurrentSavedInputValueFF494F()
 {
     return gCurrentSavedRecord.parts[0].text + 0x33;

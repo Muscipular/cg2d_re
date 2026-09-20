@@ -69,6 +69,7 @@ add_library(cg2d_re_startup STATIC
     src/LoginSavedState.cpp
     src/LoginInputController.cpp
     src/LoginCapability4Modal.cpp
+    src/LoginCapability4Scene.cpp
     src/DrawGraphic.cpp
     src/DrawGraphicHover.cpp
     src/YobiRuntime.cpp

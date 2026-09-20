@@ -19,6 +19,17 @@ void Sub_533640(const char* text, std::int32_t selectedSlot);
 // 原 sub_533730@0x533730：把记录系统持久化到文件；调用方忽略返回值。
 void Sub_533730();
 
+// 能力 4 主场景所需的保存槽窄读取边界；直接读取唯一保存状态 owner。
+std::int32_t ReadNewSavedPhysicalSlot105C368();
+std::int32_t ReadMappedSavedPhysicalSlot105C36C(std::int32_t index);
+
+// 原 sub_5336D0/sub_533860：载入当前记录与删除指定物理槽文件。
+std::int32_t Sub_5336D0();
+std::int32_t Sub_533860(std::int32_t physicalSlot);
+
+// 能力 4 切场景专用恢复：严格调用 5204C0/5205E0/520690/520700。
+void RestoreCapability4CurrentSavedRecord();
+
 // 原 [0xFF494F,0xFF4982)：当前保存记录内的第二输入槽。
 char* GetCurrentSavedInputValueFF494F();
 // 原 [0xFF4982,0xFF49B5)：当前保存记录内的第三输入槽。

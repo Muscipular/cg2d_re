@@ -13,12 +13,18 @@ std::int32_t PlaySe(
     std::int32_t value0,
     std::int32_t value1,
     std::int32_t value2);
+
+// 原 mouseX@0xD68CF8 与 mouseY@0xD68D08 的单次 CryptInt 读取边界。
+std::int32_t ReadLegacyMouseX();
+std::int32_t ReadLegacyMouseY();
+
+// 原 sub_5049A0@[0x5049A0,0x504A25)。
 std::int32_t Sub_5049A0(
     std::int32_t left,
     std::int32_t top,
     std::int32_t right,
     std::int32_t bottom,
-    std::int32_t value4);
+    std::int32_t layer);
 
 struct GraphicDescriptor16 {
     std::array<std::uint8_t, 16> bytes;

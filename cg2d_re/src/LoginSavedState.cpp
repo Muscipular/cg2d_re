@@ -3,6 +3,7 @@
 #include "cg/platform/CommandOptions.hpp"
 #include "cg/platform/Startup.hpp"
 
+#include <bit>
 #include <cstddef>
 #include <cstdio>
 #include <cstdint>
@@ -71,6 +72,107 @@ static_assert(offsetof(SavedStateStorage, selected) == 0x3CFC);
 
 // 原连续区间 [0x1058698,0x105C398)，PE 中为 virtual-only 零填充。
 SavedStateStorage gSavedState {};
+
+// 原 sub_52D310@[0x52D310,0x52D457)：编码旧保存数据字节流。
+[[maybe_unused]] void EncodeLegacyBytes_52D310(
+    std::uint8_t* const source,
+    const std::int32_t sourceBytes,
+    const std::int32_t mode,
+    std::uint8_t* const destination,
+    std::int32_t* const encodedBytes,
+    const std::int32_t destinationCapacity)
+{
+    const std::uint32_t requiredBits =
+        std::bit_cast<std::uint32_t>(sourceBytes) + 1U;
+    const std::int32_t required =
+        std::bit_cast<std::int32_t>(requiredBits);
+    std::uint8_t control = 0;
+
+    if (required > destinationCapacity) {
+        *encodedBytes = destinationCapacity;
+        if (destinationCapacity > 0) {
+            std::int32_t index = 0;
+            do {
+                const std::uint8_t value = source[index];
+                destination[index] = value;
+
+                ++index;
+                const std::int32_t currentEncodedBytes = *encodedBytes;
+                if (index >= currentEncodedBytes) {
+                    break;
+                }
+            } while (true);
+        }
+        return;
+    }
+
+    *encodedBytes = required;
+    if (sourceBytes > 0) {
+        const std::int32_t modeModulo7 = mode % 7;
+        for (std::int32_t index = 0; index < sourceBytes; ++index) {
+            const std::uint8_t original = source[index];
+            control = static_cast<std::uint8_t>(
+                static_cast<std::uint32_t>(control) +
+                static_cast<std::uint32_t>(original));
+
+            const std::int32_t indexModulo5 = index % 5;
+            bool shouldInvert = modeModulo7 == indexModulo5;
+            if (!shouldInvert) {
+                const std::int32_t indexModulo2 = index % 2;
+                const std::int32_t modeModulo2 = mode % 2;
+                shouldInvert = modeModulo2 == indexModulo2;
+            }
+            if (shouldInvert) {
+                source[index] = static_cast<std::uint8_t>(~original);
+            }
+        }
+    }
+
+    const std::int32_t initialEncodedBytes = *encodedBytes;
+    if (initialEncodedBytes <= 0) {
+        return;
+    }
+
+    const std::int32_t remainder = mode % sourceBytes;
+    const std::int32_t controlIndex =
+        remainder < 0 ? -remainder : remainder;
+    std::int32_t index = 0;
+    do {
+        if (index < controlIndex) {
+            const std::uint32_t indexBits =
+                std::bit_cast<std::uint32_t>(index);
+            const std::int32_t square = std::bit_cast<std::int32_t>(
+                indexBits * indexBits);
+            const std::int32_t factor = square % 3;
+            const std::uint32_t adjustment =
+                static_cast<std::uint32_t>(control) *
+                std::bit_cast<std::uint32_t>(factor);
+            const std::uint8_t value = source[index];
+            destination[index] = static_cast<std::uint8_t>(
+                static_cast<std::uint32_t>(value) + adjustment);
+        } else if (index == controlIndex) {
+            destination[index] = control;
+        } else {
+            const std::uint32_t indexBits =
+                std::bit_cast<std::uint32_t>(index);
+            const std::int32_t square = std::bit_cast<std::int32_t>(
+                indexBits * indexBits);
+            const std::int32_t factor = square % 7;
+            const std::uint32_t adjustment =
+                static_cast<std::uint32_t>(control) *
+                std::bit_cast<std::uint32_t>(factor);
+            const std::uint8_t value = source[index - 1];
+            destination[index] = static_cast<std::uint8_t>(
+                static_cast<std::uint32_t>(value) + adjustment);
+        }
+
+        ++index;
+        const std::int32_t currentEncodedBytes = *encodedBytes;
+        if (index >= currentEncodedBytes) {
+            break;
+        }
+    } while (true);
+}
 
 // 原 sub_52D460@[0x52D460,0x52D569)：解码旧保存数据字节流。
 [[maybe_unused]] std::int32_t DecodeLegacyBytes_52D460(

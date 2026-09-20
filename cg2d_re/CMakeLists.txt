@@ -23,6 +23,7 @@ add_library(cg2d_re_core STATIC
     src/GraphicInfo.cpp
     src/GraphicRead.cpp
     src/Palette.cpp
+    src/render/Font.cpp
     src/render/GraphicCacheState.cpp
     src/platform/LegacyWindow.cpp
 )

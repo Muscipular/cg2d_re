@@ -2,6 +2,7 @@
 
 #include "LoginStateDependencies.hpp"
 
+#include "cg/render/Font.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 
 #include <array>
@@ -60,6 +61,6 @@ extern std::uint32_t gValueD69768;
 extern std::uint32_t& gValueD68D9C; // 原 0xD68D9C，本函数读取低 8 位。
 extern std::uint32_t& gValueD68D98; // 原 0xD68D98，sub_503990 读取低 8 位。
 extern std::uint32_t& gValueD68DA0; // 原 0xD68DA0，sub_503990 读取低 8 位。
-extern std::int32_t gValue558F78;  // 原 gFontList.doubleHeight@0x558F78，R32。
+extern std::int32_t& gValue558F78; // 原 gFontList[0].doubleHeight@0x558F78 的引用别名。
 
 } // namespace cg::login::detail

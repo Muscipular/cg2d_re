@@ -1,8 +1,10 @@
 #include "LoginInputDependencies.hpp"
 
 #include "cg/platform/CommandOptions.hpp"
+#include "cg/platform/Startup.hpp"
 
 #include <cstddef>
+#include <cstdio>
 #include <cstdint>
 #include <cstring>
 #include <type_traits>
@@ -126,6 +128,49 @@ SavedStateStorage gSavedState {};
         ++index;
     } while (index < lastDecodedBytes);
     return lastDecodedBytes;
+}
+
+// 原 sub_532ED0@[0x532ED0,0x532FB9)：载入一条物理保存记录。
+[[maybe_unused]] std::int32_t LoadSavedPhysicalRecord_532ED0(
+    const std::int32_t physicalSlot)
+{
+    cg::platform::gValueFF4E28 = 0;
+
+    char path[0x400];
+    std::uint8_t encoded[0xA20];
+    std::int32_t decodedBytes;
+    std::sprintf(
+        path,
+        "%s\\%s",
+        gSavedState.paths[physicalSlot].text,
+        "save.dat");
+
+    std::FILE* const file = std::fopen(path, "rb+");
+    if (file == nullptr) {
+        return 0;
+    }
+
+    const std::size_t bytesRead =
+        std::fread(encoded, 1, 0xA20, file);
+    if (std::ferror(file) != 0) {
+        std::fclose(file);
+        return 0;
+    }
+
+    std::fclose(file);
+    (void)DecodeLegacyBytes_52D460(
+        encoded,
+        static_cast<std::int32_t>(bytesRead),
+        0,
+        reinterpret_cast<std::uint8_t*>(
+            &gSavedState.records[physicalSlot]),
+        &decodedBytes);
+    if (decodedBytes != 0x510) {
+        return 0;
+    }
+    return gSavedState.records[physicalSlot].parts[0].value0 == 0x7002
+        ? 1
+        : 0;
 }
 
 // 原 sub_5331A0@[0x5331A0,0x5332F6)：初始化一条物理保存记录。

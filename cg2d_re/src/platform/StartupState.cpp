@@ -7,6 +7,7 @@ char gCommandLineStorage[4096] {};
 char gDataPath[128] = "data";
 std::int32_t gMonitorKeyboard = 0;
 std::uint8_t gRequestedRenderMode = 0;
+std::uint8_t gValueFF4E28 = 0;
 
 std::uintptr_t gInstance = 0;
 std::uintptr_t gStartupMutex = 0;

@@ -9,6 +9,8 @@ extern char gCommandLineStorage[4096];    // 原 0x9A6F48，ReadSetupIni 的持�
 extern char gDataPath[128];               // 原 0x55CF84，静态初值 data。
 extern std::int32_t gMonitorKeyboard;     // 原 0x9A6EC8。
 extern std::uint8_t gRequestedRenderMode; // 原 0x628FE0。
+// 原 0xFF4E28，W8；PE virtual-zero 初值；loader 入口清零，未来 InitializeClient 读取。
+extern std::uint8_t gValueFF4E28;
 
 extern std::uintptr_t gInstance;       // 原 0x9A6F38，HINSTANCE 的原生承载。
 extern std::uintptr_t gStartupMutex;   // 原 0x9A6F3C。

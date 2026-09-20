@@ -40,6 +40,9 @@ static_assert(sizeof(InputContext) == 0x15C);
 // 原 sub_404060@[0x404060,0x40411E)，返回 true 表示拒绝输入文本。
 [[nodiscard]] bool IsRejectedInputText_404060(const char* legacyText);
 
+// 原 sub_44B190@[0x44B190,0x44B1C5)，判断零结尾旧 ANSI 串的末单元。
+[[nodiscard]] std::int32_t ClassifyLastAnsiUnit_44B190(const char* text);
+
 // 原 0x626C04：当前输入上下文；允许由 SetContext 写为 nullptr。
 extern InputContext* gCurrentInputData;
 

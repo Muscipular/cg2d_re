@@ -48,6 +48,11 @@
 重读文本计数已越出合法索引域，也安全返回 `-2`，不再生成域外尾令牌；此前已按
 原顺序完成的新记录写入和旧尾连接保持不回滚。
 
+`DrawInputText_4568A0` 的多行路径复用本入口逐段入队；单行路径则按原
+`0x456A8D..0x456C4C` 直接写同一 `gTextPendingRecords`、六个尾令牌和字体层状态，
+不写 `marker` 与 `field108`，且使用入口捕获的文本计数更新尾令牌和计数，不复制
+`DrawText2` 的重读计数分支。完整行为与安全门禁见 `cg2d_input_text_draw.md`。
+
 ## `QueueText` 写入
 
 入口先把 `platform::gPendingGraphicCount` 的 W16 按 signed16 解释；负值或至少

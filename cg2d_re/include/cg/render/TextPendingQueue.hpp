@@ -4,6 +4,12 @@
 #include <cstddef>
 #include <cstdint>
 
+namespace cg::input {
+
+struct InputContext;
+
+} // namespace cg::input
+
 namespace cg::render {
 
 // 原 GraphicCache4@[0x62ECB8,0x73ECB8) 的 4096 项文本链记录。
@@ -56,5 +62,8 @@ std::int32_t DrawText2_456670(
     std::int8_t color,
     const char* text,
     std::int8_t value7);
+
+// 原 Renderer::DrawInputText@[0x4568A0,0x456D27)。
+void DrawInputText_4568A0(input::InputContext* context);
 
 } // namespace cg::render

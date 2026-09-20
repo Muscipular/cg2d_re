@@ -24,6 +24,8 @@ std::int8_t SignedByte(const char value)
     return std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(value));
 }
 
+} // namespace
+
 // 原 sub_44B190@[0x44B190,0x44B1C5)。
 std::int32_t ClassifyLastAnsiUnit_44B190(const char* text)
 {
@@ -43,6 +45,8 @@ std::int32_t ClassifyLastAnsiUnit_44B190(const char* text)
     }
     return result;
 }
+
+namespace {
 
 // 原 sub_44B1D0@[0x44B1D0,0x44B244)。
 std::int32_t ClassifyAnsiBoundary_44B1D0(

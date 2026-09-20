@@ -1,5 +1,6 @@
 #pragma once
 
+#include "cg/render/TextPendingQueue.hpp"
 #include "cg/YobiRuntime.hpp"
 
 #include <cstdint>
@@ -25,15 +26,26 @@ std::int32_t Sub_508140();
 std::int32_t Sub_508350();
 std::int32_t Sub_508360();
 std::int8_t Sub_401030(std::int32_t value);
-std::int32_t DrawText(
-    std::int16_t x,
-    std::int16_t y,
-    std::uint8_t value2,
-    std::int8_t value3,
-    std::int8_t value4,
-    const char* text,
-    std::int8_t value6,
-    std::int8_t value7);
+inline std::int32_t DrawText(
+    const std::int16_t x,
+    const std::int16_t y,
+    const std::uint8_t value2,
+    const std::int8_t value3,
+    const std::int8_t value4,
+    const char* const text,
+    const std::int8_t value6,
+    const std::int8_t value7)
+{
+    return cg::render::DrawText_456780(
+        x,
+        y,
+        value2,
+        value3,
+        value4,
+        text,
+        value6,
+        value7);
+}
 
 // sub_45EA60@0x45EA60 的绘制目标。
 std::int32_t DrawText3(

@@ -63,6 +63,17 @@ std::int32_t DrawText2_456670(
     const char* text,
     std::int8_t value7);
 
+// Renderer::DrawText@[0x456780,0x456891)。
+std::int32_t DrawText_456780(
+    std::int16_t x,
+    std::int16_t y,
+    std::uint8_t renderMode,
+    std::int8_t fontType,
+    std::int8_t color,
+    const char* text,
+    std::int8_t value7,
+    std::int8_t marker);
+
 // 原 Renderer::DrawInputText@[0x4568A0,0x456D27)。
 void DrawInputText_4568A0(input::InputContext* context);
 

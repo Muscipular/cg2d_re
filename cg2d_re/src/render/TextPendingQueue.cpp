@@ -136,4 +136,80 @@ std::int32_t DrawText2_456670(
     return result;
 }
 
+std::int32_t DrawText_456780(
+    const std::int16_t x,
+    const std::int16_t y,
+    const std::uint8_t renderMode,
+    const std::int8_t fontType,
+    const std::int8_t color,
+    const char* const text,
+    const std::int8_t value7,
+    const std::int8_t marker)
+{
+    const std::uint32_t initialCountBits = platform::gPendingGraphicCount2;
+    const std::int32_t initialCount =
+        std::bit_cast<std::int32_t>(initialCountBits);
+    if (initialCount < 0 || initialCount >= kPendingCapacity) {
+        return -2;
+    }
+
+    if (renderMode >= 6U || text == nullptr) {
+        return -2;
+    }
+
+    std::size_t textLength = 0;
+    while (textLength < kTextCapacity && text[textLength] != '\0') {
+        ++textLength;
+    }
+    if (textLength == kTextCapacity) {
+        return -2;
+    }
+
+    const std::size_t entryIndex = static_cast<std::size_t>(initialCount);
+    TextPendingRecord& entry = gTextPendingRecords[entryIndex];
+    entry.x = x;
+    entry.y = y;
+    entry.renderMode = renderMode;
+    entry.color = std::bit_cast<std::uint8_t>(color);
+    entry.fontType = std::bit_cast<std::uint8_t>(fontType);
+    entry.value7 = std::bit_cast<std::uint8_t>(value7);
+    entry.marker = std::bit_cast<std::uint8_t>(marker);
+    for (std::size_t byteIndex = 0; byteIndex <= textLength; ++byteIndex) {
+        entry.text[byteIndex] = text[byteIndex];
+    }
+
+    const std::size_t queueIndex = static_cast<std::size_t>(renderMode);
+    const std::uint32_t tailToken = gGraphicCache4Queue[queueIndex];
+    entry.nextToken = 0;
+    if (tailToken > static_cast<std::uint32_t>(kPendingCapacity)) {
+        return -2;
+    }
+
+    const std::uint32_t currentToken = initialCountBits + 1U;
+    if (tailToken == 0) {
+        gGraphicCache4Queue[queueIndex] = currentToken;
+        static_cast<void>(QueueText_521A30(
+            currentToken,
+            gTextFontLayerRecords[queueIndex].layer));
+
+        const std::uint32_t resultBits = platform::gPendingGraphicCount2;
+        const std::int32_t result = std::bit_cast<std::int32_t>(resultBits);
+        platform::gPendingGraphicCount2 = resultBits + 1U;
+        return result;
+    }
+
+    gTextPendingRecords[static_cast<std::size_t>(tailToken - 1U)].nextToken =
+        currentToken;
+
+    const std::uint32_t resultBits = platform::gPendingGraphicCount2;
+    const std::int32_t result = std::bit_cast<std::int32_t>(resultBits);
+    if (result < 0 || result >= kPendingCapacity) {
+        return -2;
+    }
+
+    gGraphicCache4Queue[queueIndex] = resultBits + 1U;
+    platform::gPendingGraphicCount2 = resultBits + 1U;
+    return result;
+}
+
 } // namespace cg::render

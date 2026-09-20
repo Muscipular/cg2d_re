@@ -1,8 +1,11 @@
 #include "cg/LoginInput.hpp"
 
+#include "LoginMessageDependencies.hpp"
+
 #include "cg/GraphicInfo.hpp"
 #include "cg/Palette.hpp"
 
+#include <bit>
 #include <cstddef>
 
 namespace cg::login {
@@ -59,6 +62,63 @@ char* ReadInputValueFF4982_520440(char* const output)
         return nullptr;
     }
     return ReadStoredInputValue(output, gValueFF4982);
+}
+
+std::int32_t QueryLoginControlState_5036F0(
+    const LoginSceneControl32* const control)
+{
+    if (control == nullptr) {
+        return 0;
+    }
+
+    const std::int32_t top = control->top;
+    const std::int32_t left = control->left;
+    const std::int32_t height = control->height;
+    const std::int32_t width = control->width;
+    const std::int32_t bottom = std::bit_cast<std::int32_t>(
+        std::bit_cast<std::uint32_t>(top)
+        + std::bit_cast<std::uint32_t>(height));
+    const std::int32_t right = std::bit_cast<std::int32_t>(
+        std::bit_cast<std::uint32_t>(left)
+        + std::bit_cast<std::uint32_t>(width));
+    if (detail::Sub_5049A0(left, top, right, bottom, -1) == 0) {
+        return 0;
+    }
+
+    const std::uint8_t edge =
+        static_cast<std::uint8_t>(detail::gValueD68D9C);
+    std::uint32_t result = 0x40U;
+    if ((edge & 0x01U) != 0) {
+        result |= 0x01U;
+    }
+    if ((edge & 0x02U) != 0) {
+        result |= 0x04U;
+    }
+
+    const std::uint8_t held =
+        static_cast<std::uint8_t>(detail::gValueD68D98);
+    if ((held & 0x01U) != 0) {
+        result |= 0x02U;
+    }
+    if ((held & 0x02U) != 0) {
+        result |= 0x08U;
+    }
+
+    const std::uint8_t pulse =
+        static_cast<std::uint8_t>(detail::gValueD68DA0);
+    if ((pulse & 0x01U) != 0) {
+        result |= 0x10U;
+    }
+    if ((pulse & 0x02U) != 0) {
+        result |= 0x20U;
+    }
+    if ((edge & 0x10U) != 0) {
+        result |= 0x80U;
+    }
+    if ((edge & 0x20U) != 0) {
+        result |= 0x100U;
+    }
+    return static_cast<std::int32_t>(result);
 }
 
 void InitializeInputContexts_45C7C0()

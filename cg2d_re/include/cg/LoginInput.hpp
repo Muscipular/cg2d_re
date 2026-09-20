@@ -2,9 +2,32 @@
 
 #include "cg/Input.hpp"
 
+#include <cstddef>
 #include <cstdint>
 
 namespace cg::login {
+
+// 原登录控件固定 8×W32 布局；未确认语义的字段仅按偏移命名。
+struct LoginSceneControl32 {
+    std::int32_t unknownOffset00;
+    std::int32_t unknownOffset04;
+    std::int32_t left;
+    std::int32_t top;
+    std::int32_t width;
+    std::int32_t height;
+    std::int32_t unknownOffset18;
+    std::int32_t unknownOffset1C;
+};
+
+static_assert(offsetof(LoginSceneControl32, unknownOffset00) == 0x00);
+static_assert(offsetof(LoginSceneControl32, unknownOffset04) == 0x04);
+static_assert(offsetof(LoginSceneControl32, left) == 0x08);
+static_assert(offsetof(LoginSceneControl32, top) == 0x0C);
+static_assert(offsetof(LoginSceneControl32, width) == 0x10);
+static_assert(offsetof(LoginSceneControl32, height) == 0x14);
+static_assert(offsetof(LoginSceneControl32, unknownOffset18) == 0x18);
+static_assert(offsetof(LoginSceneControl32, unknownOffset1C) == 0x1C);
+static_assert(sizeof(LoginSceneControl32) == 0x20);
 
 // 两个上下文会被多个场景函数共享，只按原地址区分，不固定账号或密码语义。
 extern input::InputContext gInputContext9A5960;
@@ -23,6 +46,10 @@ extern input::InputContext* gInputContextFocusTable[3];
 char* ReadInputValueFF494F_5203E0(char* output);
 // 原 sub_520440@[0x520440,0x520469)，读取 0xFF4982 的 51 字节槽。
 char* ReadInputValueFF4982_520440(char* output);
+
+// 原 sub_5036F0@[0x5036F0,0x50377E)：登录控件命中与鼠标状态位打包。
+std::int32_t QueryLoginControlState_5036F0(
+    const LoginSceneControl32* control);
 
 // 原 sub_45C7C0@[0x45C7C0,0x45C96E)。
 void InitializeInputContexts_45C7C0();

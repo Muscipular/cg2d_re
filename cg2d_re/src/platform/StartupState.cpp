@@ -26,6 +26,7 @@ std::int32_t gValue73ECBC = 0;
 std::uint32_t gValueD67AE8 = 0;
 std::int16_t gValue5F974C = 0;
 std::uint32_t gValueD67CD0 = 0;
+std::int32_t gValue553438 = 10;
 std::uint32_t gValueD68858 = 0;
 std::uint32_t gValueD68DC4 = 0;
 std::uint32_t gValue9A6F44 = 0;

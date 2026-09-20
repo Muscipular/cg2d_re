@@ -29,6 +29,8 @@ extern std::int32_t gValue73ECBC;      // 原 0x73ECBC，W32，virtual-zero 初�
 extern std::uint32_t gValueD67AE8;     // 原 0xD67AE8，W32，virtual-zero 初值。
 extern std::int16_t gValue5F974C;      // 原 0x5F974C，W16，virtual-zero 初值。
 extern std::uint32_t gValueD67CD0;     // 原 0xD67CD0，W32；保存记录 +0x313 的 live 状态。
+// 原 0x553438，signed W32；sub_520730 按当前记录 +0x315 条件恢复，映像初值 10。
+extern std::int32_t gValue553438;
 extern std::uint32_t gValueD68858;     // 原 0xD68858，W32，virtual-zero 初值。
 extern std::uint32_t gValueD68DC4;     // 原逐帧光标状态请求；CursorUpdate 尾部消费后清零。
 extern std::uint32_t gValue9A6F44;     // 原 CursorUpdate 尾部保存的本帧已消费光标状态。

@@ -787,6 +787,18 @@ std::int32_t PersistCurrentSavedRecord_520200()
     return value;
 }
 
+// 原 sub_520730@[0x520730,0x520744)：从当前记录恢复条件式单字节值。
+[[maybe_unused]] std::uint8_t RestoreCurrentSavedValue_520730()
+{
+    const auto* const currentBytes =
+        reinterpret_cast<const std::uint8_t*>(&gCurrentSavedRecord);
+    const std::uint8_t value = currentBytes[0x315];
+    if (value != 0) {
+        cg::platform::gValue553438 = static_cast<std::int32_t>(value);
+    }
+    return value;
+}
+
 } // namespace
 
 namespace cg::platform {

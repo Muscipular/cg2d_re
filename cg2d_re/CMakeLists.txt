@@ -47,6 +47,7 @@ add_library(cg2d_re_startup STATIC
     src/platform/SetupIni.cpp
     src/platform/CommandOptions.cpp
     src/platform/WindowLifecycle.cpp
+    src/platform/WindowProcedure.cpp
     src/platform/ClientShutdown.cpp
     src/platform/MainLoop.cpp
     src/platform/MainLoopState.cpp
@@ -84,7 +85,7 @@ add_library(cg2d_re_startup STATIC
 set_target_properties(cg2d_re_startup PROPERTIES CXX_EXTENSIONS OFF)
 target_compile_options(cg2d_re_startup PRIVATE /GR- /utf-8 /W4 /fp:strict)
 target_compile_definitions(cg2d_re_startup PRIVATE _CRT_SECURE_NO_WARNINGS)
-target_link_libraries(cg2d_re_startup PUBLIC cg2d_re_core PRIVATE user32 gdi32)
+target_link_libraries(cg2d_re_startup PUBLIC cg2d_re_core PRIVATE user32 gdi32 imm32)
 
 add_library(cg2d_re_render STATIC
     src/render/SdlPresenter.cpp

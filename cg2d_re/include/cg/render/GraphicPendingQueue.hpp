@@ -65,6 +65,9 @@ extern LegacyPendingStorage gLegacyPendingStorage;
 // 原 0x1020EDC：特殊图形进入待提交队列后的单字节标志。
 extern std::uint8_t gSpecialGraphicPending;
 
+// 原 gGraphicDirty@0x1020EE8；窗口消息仅在值严格等于 1 时消费并重建渲染器。
+extern std::int32_t gGraphicDirty;
+
 // 原 Renderer::DrawGraphic3@[0x520970,0x520ACE)。
 std::int32_t DrawGraphic3_520970(
     std::int32_t x,

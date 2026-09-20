@@ -6,6 +6,7 @@
 #include "cg/LoginMessage.hpp"
 #include "cg/LoginRequest.hpp"
 #include "cg/Palette.hpp"
+#include "cg/platform/KeyState.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/world/SceneState.hpp"
 
@@ -341,7 +342,7 @@ std::int32_t ProcessScene_460FF0()
                 login::detail::DrawText3(166, 326, 2, 4, kDeleteWithControl, 0);
                 login::detail::DrawText3(166, 346, 2, 4, kClickYesAgain, 0);
                 if (result == 1) {
-                    if ((detail::gKeyStates[17] & 2u) != 0) {
+                    if ((platform::gKeyStates[17] & 2u) != 0) {
                         world::gCurrentSceneState = 14;
                         login::detail::PlaySe(284, 320, 240);
                         if (gDeleteConfirmationAction != nullptr) {

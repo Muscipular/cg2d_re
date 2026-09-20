@@ -105,9 +105,6 @@ std::int32_t Sub_512D30(
     std::int32_t version,
     const char* payload);
 
-// 原 gKeyState.states；本控制器只读取索引 17 的 bit 1。
-extern std::uint8_t gKeyStates[];
-
 // 原 0x9A5C10 的容量未决，只保留未定长外部数组声明。
 extern char gVersionPayload9A5C10[];
 

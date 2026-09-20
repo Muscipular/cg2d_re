@@ -88,4 +88,7 @@ std::uint32_t UpdateLegacyMouseRightDoubleClick_506CF0(
     std::int32_t x,
     std::int32_t y);
 
+// 原 sub_506DB0@[0x506DB0,0x506DC3)；按 32 位回绕累加滚轮增量并返回原增量。
+std::int32_t AddLegacyMouseWheelDelta_506DB0(std::int32_t delta) noexcept;
+
 } // namespace cg::platform

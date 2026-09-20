@@ -187,6 +187,12 @@ std::uint32_t UpdateLegacyMouseRightDoubleClick_506CF0(
     return tick;
 }
 
+std::int32_t AddLegacyMouseWheelDelta_506DB0(const std::int32_t delta) noexcept
+{
+    gLegacyMouseState.tailReset += static_cast<std::uint32_t>(delta);
+    return delta;
+}
+
 } // namespace cg::platform
 
 namespace cg::login::detail {

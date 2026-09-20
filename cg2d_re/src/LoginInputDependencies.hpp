@@ -4,6 +4,9 @@
 
 namespace cg::login::detail {
 
+// 原 sub_534AB0@0x534AB0：调用外部键盘对话框并向 output 写回旧字节串。
+std::int32_t Sub_534AB0(std::uintptr_t window, char* output);
+
 // 原 sub_533680@0x533680：按选中槽读取第一项登录输入。
 char* Sub_533680(char* output, std::int32_t selectedSlot);
 // 原 sub_5335F0@0x5335F0：按选中槽读取第二项登录输入。

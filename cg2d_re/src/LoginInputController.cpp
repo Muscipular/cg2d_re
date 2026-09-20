@@ -1,13 +1,20 @@
 #include "cg/LoginInput.hpp"
 
+#include "LoginInputDependencies.hpp"
 #include "LoginMessageDependencies.hpp"
+#include "LoginSceneDependencies.hpp"
+#include "platform/WindowProcedureState.hpp"
 
 #include "cg/GraphicInfo.hpp"
 #include "cg/Palette.hpp"
 #include "cg/platform/KeyState.hpp"
+#include "cg/platform/LegacyWindow.hpp"
+#include "cg/platform/Startup.hpp"
+#include "cg/render/Font.hpp"
 #include "cg/render/TextPendingQueue.hpp"
 
 #include <array>
+#include <bit>
 #include <cstddef>
 #include <cstdint>
 #include <cstring>
@@ -34,11 +41,256 @@ constexpr std::array<std::int32_t, 4> kBackgroundImages {
 };
 constexpr char kVersion[] = "7.1.00";
 
+// 原 sub_464E30 栈上按钮记录，固定 7×W32；末项只在点击后覆盖常态图号。
+struct Capability4InputButton32 final {
+    std::int32_t x;
+    std::int32_t y;
+    std::int32_t width;
+    std::int32_t height;
+    std::int32_t normalImageNo;
+    std::int32_t activeImageNo;
+    std::int32_t clickedImageNo;
+};
+
+static_assert(offsetof(Capability4InputButton32, x) == 0x00);
+static_assert(offsetof(Capability4InputButton32, y) == 0x04);
+static_assert(offsetof(Capability4InputButton32, width) == 0x08);
+static_assert(offsetof(Capability4InputButton32, height) == 0x0C);
+static_assert(offsetof(Capability4InputButton32, normalImageNo) == 0x10);
+static_assert(offsetof(Capability4InputButton32, activeImageNo) == 0x14);
+static_assert(offsetof(Capability4InputButton32, clickedImageNo) == 0x18);
+static_assert(sizeof(Capability4InputButton32) == 0x1C);
+
+constexpr Capability4InputButton32 kCapability4LoginButton {
+    240, 421, 64, 16, 243048, 243050, 243049,
+};
+constexpr Capability4InputButton32 kCapability4ExitButton {
+    332, 421, 64, 16, 245153, 245155, 245154,
+};
+
+std::int32_t AddW32(
+    const std::int32_t left,
+    const std::int32_t right) noexcept
+{
+    return std::bit_cast<std::int32_t>(
+        std::bit_cast<std::uint32_t>(left)
+        + std::bit_cast<std::uint32_t>(right));
+}
+
+std::int32_t SubtractW32(
+    const std::int32_t left,
+    const std::int32_t right) noexcept
+{
+    return std::bit_cast<std::int32_t>(
+        std::bit_cast<std::uint32_t>(left)
+        - std::bit_cast<std::uint32_t>(right));
+}
+
+std::uint16_t LowW16(const std::int32_t value) noexcept
+{
+    return static_cast<std::uint16_t>(
+        std::bit_cast<std::uint32_t>(value));
+}
+
 // 原 dword_55A048@0x55A048 与 dword_9A6E28@0x9A6E28；仅本函数引用。
 std::int32_t gFocus55A048 = 1;
 std::int32_t gPending9A6E28 = 0;
 
 } // namespace
+
+std::int32_t ProcessCapability4Input_464E30()
+{
+    Capability4InputButton32 loginButton = kCapability4LoginButton;
+    Capability4InputButton32 exitButton = kCapability4ExitButton;
+    std::int32_t result = 0;
+
+    if ((detail::Sub_45F100(&loginButton) & 1) != 0) {
+        loginButton.normalImageNo = loginButton.clickedImageNo;
+        if (std::strlen(gInputContext9A5678.text) != 0
+            && std::strlen(gInputContext9A5960.text) != 0) {
+            result = 1;
+            gInputContext9A5678.text[static_cast<std::size_t>(
+                gInputContext9A5678.totalByteLength)] = '\0';
+            gInputContext9A5960.text[static_cast<std::size_t>(
+                gInputContext9A5960.totalByteLength)] = '\0';
+        } else if (std::strlen(gInputContext9A5678.text) != 0
+            || std::strlen(gInputContext9A5960.text) != 0) {
+            result = -1;
+        } else {
+            result = -2;
+        }
+    } else if ((detail::Sub_45F100(&exitButton) & 1) != 0) {
+        exitButton.normalImageNo = exitButton.clickedImageNo;
+        result = 2;
+    }
+
+    const std::int32_t measureFontType =
+        input::gCurrentInputData->field13C;
+    const std::int32_t compositionWidth = detail::TextMeasure(
+        platform::gImeComposition,
+        measureFontType);
+    input::InputContext* const drawContext = input::gCurrentInputData;
+    const std::int32_t drawY = drawContext->y;
+    const std::int32_t drawX = drawContext->x;
+    const std::int32_t drawFontType = drawContext->field13C;
+    const std::int32_t compositionRight =
+        AddW32(drawX, compositionWidth);
+    const std::int32_t compositionBottom = AddW32(
+        drawY,
+        render::gFontMetrics.data()[drawFontType].doubleHeight);
+    detail::DrawGraphicHover(
+        LowW16(SubtractW32(drawX, 1)),
+        LowW16(SubtractW32(drawY, 1)),
+        LowW16(compositionRight),
+        LowW16(compositionBottom),
+        211,
+        0,
+        1);
+    render::DrawInputText_4568A0(&gInputContext9A5960);
+    render::DrawInputText_4568A0(&gInputContext9A5678);
+
+    bool keyTriggered = platform::ReadKeyPressFlag_4597B0(9) != 0;
+    if (!keyTriggered) {
+        keyTriggered = platform::ReadKeyPressFlag_4597B0(13) != 0;
+    }
+    if (keyTriggered) {
+        const std::int32_t focus = gValue9A6E20;
+        if (focus == 0) {
+            if (platform::ReadKeyPressFlag_4597B0(13) != 0
+                && std::strlen(gInputContext9A5960.text) != 0
+                && std::strlen(gInputContext9A5678.text) != 0
+                && !input::IsRejectedInputText_404060(
+                    gInputContext9A5960.text)
+                && !input::IsRejectedInputText_404060(
+                    gInputContext9A5678.text)) {
+                result = 1;
+                gInputContext9A5960.text[static_cast<std::size_t>(
+                    gInputContext9A5960.totalByteLength)] = '\0';
+                gInputContext9A5678.text[static_cast<std::size_t>(
+                    gInputContext9A5678.totalByteLength)] = '\0';
+            } else {
+                gValue9A6E20 = 1;
+            }
+        } else if (focus == 1) {
+            if (platform::gMonitorKeyboard == 1) {
+                char keyboardText[68];
+                const std::int32_t keyboardResult = detail::Sub_534AB0(
+                    platform::gLegacyWindow,
+                    keyboardText);
+                if (keyboardResult == 1) {
+                    std::strncpy(
+                        gInputContext9A5960.text,
+                        keyboardText,
+                        sizeof(gInputContext9A5960.text));
+                    gInputContext9A5960.totalByteLength =
+                        static_cast<std::int32_t>(
+                            std::strlen(gInputContext9A5960.text));
+                    if (std::strlen(gInputContext9A5960.text) != 0
+                        && std::strlen(gInputContext9A5678.text) != 0
+                        && !input::IsRejectedInputText_404060(
+                            gInputContext9A5960.text)
+                        && !input::IsRejectedInputText_404060(
+                            gInputContext9A5678.text)) {
+                        result = 1;
+                        gInputContext9A5960.text[
+                            static_cast<std::size_t>(
+                                gInputContext9A5960.totalByteLength)] = '\0';
+                        gInputContext9A5678.text[
+                            static_cast<std::size_t>(
+                                gInputContext9A5678.totalByteLength)] = '\0';
+                        gValue9A6E20 = 1;
+                        goto key_processing_complete;
+                    }
+                } else if (keyboardResult == -1) {
+                    platform::gMonitorKeyboard = 0;
+                }
+                gValue9A6E20 = 1;
+            } else {
+                gValue9A6E20 = 0;
+            }
+        }
+    }
+
+key_processing_complete:
+    if (platform::gMonitorKeyboard == 0) {
+        if (static_cast<std::int32_t>(gInputContext9A5678X)
+                < detail::ReadLegacyMouseX()
+            && detail::ReadLegacyMouseX()
+                < AddW32(
+                    static_cast<std::int32_t>(gInputContext9A5678X),
+                    372)
+            && static_cast<std::int32_t>(gInputContext9A5678Y)
+                < detail::ReadLegacyMouseY()
+            && detail::ReadLegacyMouseY()
+                < AddW32(
+                    static_cast<std::int32_t>(gInputContext9A5678Y),
+                    26)
+            && (static_cast<std::uint8_t>(detail::gValueD68D9C)
+                    & 1U)
+                != 0) {
+            static_cast<void>(detail::PlaySe(51, 320, 240));
+            gValue9A6E20 = 1;
+        }
+        if (static_cast<std::int32_t>(gInputContext9A5960X)
+                < detail::ReadLegacyMouseX()
+            && detail::ReadLegacyMouseX()
+                < AddW32(
+                    static_cast<std::int32_t>(gInputContext9A5960X),
+                    372)
+            && static_cast<std::int32_t>(gInputContext9A5960Y)
+                < detail::ReadLegacyMouseY()
+            && detail::ReadLegacyMouseY()
+                < AddW32(
+                    static_cast<std::int32_t>(gInputContext9A5960Y),
+                    26)
+            && (static_cast<std::uint8_t>(detail::gValueD68D9C)
+                    & 1U)
+                != 0) {
+            static_cast<void>(detail::PlaySe(51, 320, 240));
+            gValue9A6E20 = 0;
+        }
+
+        input::SetContext_44B330(
+            gInputContextFocusTable[gValue9A6E20]);
+
+        const std::int32_t accountTop = SubtractW32(
+            static_cast<std::int32_t>(gInputContext9A5678Y),
+            4);
+        const std::int32_t accountLeft = SubtractW32(
+            static_cast<std::int32_t>(gInputContext9A5678X),
+            5);
+        static_cast<void>(detail::Sub_5049A0(
+            accountLeft,
+            accountTop,
+            AddW32(accountLeft, 372),
+            AddW32(accountTop, 26),
+            206));
+
+        const std::int32_t passwordTop = SubtractW32(
+            static_cast<std::int32_t>(gInputContext9A5960Y),
+            4);
+        const std::int32_t passwordLeft = SubtractW32(
+            static_cast<std::int32_t>(gInputContext9A5960X),
+            5);
+        static_cast<void>(detail::Sub_5049A0(
+            passwordLeft,
+            passwordTop,
+            AddW32(passwordLeft, 372),
+            AddW32(passwordTop, 26),
+            206));
+    }
+
+    detail::Sub_45EFD0(&loginButton, 207, 0, 0, 0);
+    detail::Sub_45EFD0(&exitButton, 207, 0, 0, 0);
+    static_cast<void>(render::DrawText3_456560(
+        460,
+        462,
+        0,
+        render::gPaletteCapability >= 1 ? 3 : 0,
+        kVersion,
+        0));
+    return result;
+}
 
 std::int32_t ProcessLoginInput_45CA20(const std::int32_t mode)
 {

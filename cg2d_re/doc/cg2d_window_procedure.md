@@ -62,9 +62,9 @@
 - 两个 `RECT` 局部量清零初始化，只约束 Win32 API 失败后的未定义局部读取；API 成功路径不变。
 - 候选表分配保持原行为：`calloc(1,size)` 后不增加失败分支，仍调用 `ImmGetCandidateListA`。
 
-## 尚未实现的真实依赖与否定结论
+## 依赖状态与否定结论
 
 - `render::IsLost_4536D0()`：IDA 原型为独立无参 `int()`，本项不把它并入 `TestCooperativeLevel@44C6B0`。
-- `input::AppendChar_44ADB0(char)`：IDA 原型为 `void __cdecl(char)`，本项只保留真实窄声明。
+- `input::AppendChar_44ADB0(char)`：已按 `Input::AppendChar@[0x44ADB0,0x44B044)` 实现并由 `WM_CHAR` 接入；保持旧 ANSI/DBCS 字节逻辑，证据与安全边界见 `cg2d_input_append.md`。
 - `platform::Sub_459580(int16 flags)`：IDA 原型为 `char __cdecl(__int16)`，本项只保留真实窄声明。
 - `WIN_PROC` 的 892 条指令中不存在 `SetCapture`、`ReleaseCapture`、拖拽复位或 DPI/偏移/裁剪/`ScreenToClient` 坐标变换；本实现不补这些行为。

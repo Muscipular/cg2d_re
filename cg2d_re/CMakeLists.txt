@@ -58,6 +58,7 @@ add_library(cg2d_re_startup STATIC
     src/platform/LegacyCursor.cpp
     src/platform/LegacyTime.cpp
     src/LegacyHitTest.cpp
+    src/Input.cpp
     src/DrawGraphic.cpp
     src/DrawGraphicHover.cpp
     src/YobiRuntime.cpp

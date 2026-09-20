@@ -4,6 +4,7 @@
 #include "WindowProcedureDependencies.hpp"
 #include "WindowProcedureState.hpp"
 
+#include "cg/Input.hpp"
 #include "cg/Palette.hpp"
 #include "cg/platform/CommandOptions.hpp"
 #include "cg/platform/KeyState.hpp"

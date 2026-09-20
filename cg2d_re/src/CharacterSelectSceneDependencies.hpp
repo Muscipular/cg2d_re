@@ -2,24 +2,12 @@
 
 #include "LoginMessageDependencies.hpp"
 
+#include "cg/render/TextPendingQueue.hpp"
+
 #include <array>
 #include <cstddef>
 #include <cstdint>
 #include <cstdio>
-
-namespace cg::login::detail {
-
-// Renderer::DrawText2@0x456670 尚未实现的真实目标。
-std::int32_t DrawText2(
-    std::int16_t x,
-    std::int16_t y,
-    std::int8_t value2,
-    std::int8_t value3,
-    std::int8_t value4,
-    const char* text,
-    std::int8_t value6);
-
-} // namespace cg::login::detail
 
 namespace cg::character_select::detail {
 

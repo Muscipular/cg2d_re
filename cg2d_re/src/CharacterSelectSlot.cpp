@@ -154,7 +154,7 @@ std::int32_t ProcessCharacterSlot_461B30(
 
         char buffer[256];
         std::sprintf(buffer, "%4d", ReadRecordInt16(record, kValue12Offset));
-        login::detail::DrawText2(
+        render::DrawText2_456670(
             static_cast<std::int16_t>(coordinates[1].x),
             static_cast<std::int16_t>(coordinates[1].y),
             0,
@@ -168,7 +168,7 @@ std::int32_t ProcessCharacterSlot_461B30(
             value14 = 9999;
         }
         std::sprintf(buffer, "%4d", value14);
-        login::detail::DrawText2(
+        render::DrawText2_456670(
             static_cast<std::int16_t>(coordinates[2].x),
             static_cast<std::int16_t>(coordinates[2].y),
             0,
@@ -180,7 +180,7 @@ std::int32_t ProcessCharacterSlot_461B30(
         const char* const text54 =
             reinterpret_cast<const char*>(record.data() + kText54Offset);
         std::sprintf(buffer, "%s", text54);
-        login::detail::DrawText2(
+        render::DrawText2_456670(
             static_cast<std::int16_t>(coordinates[3].x),
             static_cast<std::int16_t>(coordinates[3].y),
             0,

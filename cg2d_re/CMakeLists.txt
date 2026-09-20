@@ -67,6 +67,7 @@ add_library(cg2d_re_startup STATIC
     src/DrawGraphicHover.cpp
     src/YobiRuntime.cpp
     src/render/GraphicPendingQueue.cpp
+    src/render/TextPendingQueue.cpp
     src/LoginMessage.cpp
     src/LoginRequest.cpp
     src/CharacterListRequest.cpp

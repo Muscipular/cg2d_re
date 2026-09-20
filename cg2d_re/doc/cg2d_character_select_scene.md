@@ -590,11 +590,11 @@ W8 `cmp` 后接无符号 `ja` 比较；在 `0x404B2F` 以 W32 读取 `yobiSize`�
 - 绘制 style 在第一次采样存在时为 `mode`，不存在时为 `mode + 1`；只有
   style 为 0 才检测点击，后项仍可覆盖前项返回值。
 
-### x64 边界与未实现依赖
+### x64 边界与剩余依赖
 
 `Renderer::DrawText`、`Renderer::DrawText3` 复用已有
-`login::detail` 强类型声明；`Renderer::DrawText2@0x456670` 按已核对的
-`(int16,int16,int8,int8,int8,const char*,int8)` 原型只增加声明。
+`login::detail` 强类型声明；`Renderer::DrawText2@0x456670` 已接入
+`render::DrawText2_456670` 的唯一文本链实现，不再保留重复未实现声明。
 `action+0x2B0` 写入已接入统一 Yobi runtime；`sub_51B110@0x51B110`、
 `sub_517880@0x517880` 与 `0x9A4EAC` 动态文本仍只保留真实窄依赖，没有空实现
 或固定返回桩。
@@ -787,7 +787,7 @@ step 0/1/2 分别把 `0xA0000000/0x90000000/0xC0000000` 以按位或写入图号
 
 `sub_503990`、`sub_503A20`、`sub_5049A0`、`DrawGraphic_Hover`、底层
 `DrawGraphic`、对象创建、死亡标记及 readiness 适配均已还原；鼠标状态生产者
-与文字绘制仍是真实窄依赖。实际输入、渲染和排序提交留给对应目标实现，未以
+与其余文字绘制仍是真实窄依赖。实际输入、渲染和排序提交留给对应目标实现，未以
 空体或固定返回补齐。
 共享槽的另两个消费者已在下节分别还原。
 

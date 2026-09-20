@@ -16,4 +16,7 @@ int ClearKeyFlags_459760() noexcept;
 // 原 resetKeyState@0x459780；逐项保留 0xE8 位，返回处理项数 256。
 int ResetKeyState_459780() noexcept;
 
+// 原 sub_4597B0；读取按键状态的 0x10 位，返回 0 或 0x10，不修改状态。
+int ReadKeyPressFlag_4597B0(std::uint8_t key) noexcept;
+
 } // namespace cg::platform

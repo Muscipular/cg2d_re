@@ -1,0 +1,61 @@
+#pragma once
+
+#include "cg/platform/LegacyCryptInt.hpp"
+
+#include <cstddef>
+#include <cstdint>
+#include <type_traits>
+
+namespace cg::platform {
+
+// 原 [0xD68CF8,0xD68DC4) 的旧鼠标状态。末尾 0xD68DC4 由 Startup.hpp
+// 中的既有唯一存储承接，不属于本结构。
+struct LegacyMouseState {
+    LegacyCryptInt mouseX;
+    LegacyCryptInt mouseY;
+    LegacyCryptInt buttonCoordinates[8];
+    std::uint32_t heldButtons;
+    std::uint32_t edgeButtons;
+    std::uint32_t pulseButtons;
+    std::uint32_t leftDownTick;
+    std::uint32_t leftElapsed;
+    std::uint32_t rightDownTick;
+    std::uint32_t rightElapsed;
+    std::uint32_t valueD68DB4;
+    std::int32_t valueD68DB8;
+    std::uint32_t drawingSuppression;
+    std::uint32_t tailReset;
+};
+
+static_assert(std::is_standard_layout_v<LegacyMouseState>);
+static_assert(std::is_trivially_copyable_v<LegacyMouseState>);
+static_assert(sizeof(LegacyMouseState) == 0xCC);
+static_assert(offsetof(LegacyMouseState, mouseX) == 0x00);
+static_assert(offsetof(LegacyMouseState, mouseY) == 0x10);
+static_assert(offsetof(LegacyMouseState, buttonCoordinates) == 0x20);
+static_assert(sizeof(LegacyMouseState::buttonCoordinates) == 0x80);
+static_assert(offsetof(LegacyMouseState, heldButtons) == 0xA0);
+static_assert(offsetof(LegacyMouseState, edgeButtons) == 0xA4);
+static_assert(offsetof(LegacyMouseState, pulseButtons) == 0xA8);
+static_assert(offsetof(LegacyMouseState, leftDownTick) == 0xAC);
+static_assert(offsetof(LegacyMouseState, leftElapsed) == 0xB0);
+static_assert(offsetof(LegacyMouseState, rightDownTick) == 0xB4);
+static_assert(offsetof(LegacyMouseState, rightElapsed) == 0xB8);
+static_assert(offsetof(LegacyMouseState, valueD68DB4) == 0xBC);
+static_assert(offsetof(LegacyMouseState, valueD68DB8) == 0xC0);
+static_assert(offsetof(LegacyMouseState, drawingSuppression) == 0xC4);
+static_assert(offsetof(LegacyMouseState, tailReset) == 0xC8);
+
+extern LegacyMouseState gLegacyMouseState;
+
+// 原右锚 0xD68BF0 与左锚 0xD68DC8；不并入中间连续状态。
+extern std::uint32_t gValueD68BF0;
+extern std::uint32_t gValueD68DC8;
+
+// 原 sub_506870@[0x506870,0x50688B)。返回值保持为 0。
+std::int32_t ResetLegacyMouseState_506870();
+
+// 原 MouseEvent::Reset_0@[0x506890,0x5068FF)，严格先赋 X、后赋 Y。
+void ResetLegacyMousePosition_506890(std::int32_t x, std::int32_t y);
+
+} // namespace cg::platform

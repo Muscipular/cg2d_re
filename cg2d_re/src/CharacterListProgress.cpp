@@ -2,6 +2,8 @@
 
 #include "CharacterSelectSceneDependencies.hpp"
 
+#include "cg/CharacterListRequest.hpp"
+
 #include <cstdint>
 #include <cstring>
 
@@ -63,10 +65,10 @@ std::int32_t UpdateCharacterListProgress_45DD60()
     }
 
     if (stage == 1) {
-        detail::Sub_508910();
+        login::StartCharacterListRequest();
         ++gCharacterListProgressStage;
     } else if (stage == 2) {
-        result = detail::Sub_508950();
+        result = login::PollCharacterListRequest();
         if (result != 0) {
             login::YobiAction* const action = gCharacterListProgressAction;
             if (action != nullptr) {

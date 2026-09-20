@@ -54,6 +54,7 @@ add_library(cg2d_re_startup STATIC
     src/platform/LegacyTime.cpp
     src/LoginMessage.cpp
     src/LoginRequest.cpp
+    src/CharacterListRequest.cpp
     src/LoginScene.cpp
     src/CharacterSelectScene.cpp
     src/CharacterListProgress.cpp

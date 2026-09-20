@@ -705,6 +705,13 @@ std::int32_t PersistCurrentSavedRecord_520200()
     return static_cast<std::int32_t>(::DeleteFileA(path));
 }
 
+// 原 sub_4A4210@[0x4A4210,0x4A4216)：当前恒返回 1；原地址另有 34 个
+// UI 原型回调字段的 direct data xref，本项不实现或接线这些表。
+std::int32_t ReturnOne_4A4210() noexcept
+{
+    return 1;
+}
+
 // 原 sub_5204C0@[0x5204C0,0x520502)：从记录恢复音频设置。
 [[maybe_unused]] std::int32_t RestoreAudioSettings_5204C0(
     const std::uint8_t* const currentBytes)
@@ -802,6 +809,22 @@ std::int32_t PersistCurrentSavedRecord_520200()
 } // namespace
 
 namespace cg::platform {
+
+std::int32_t RestoreCurrentSavedState_5201B0()
+{
+    if (ReturnOne_4A4210() == 0) {
+        return 0;
+    }
+
+    auto* const currentBytes =
+        reinterpret_cast<std::uint8_t*>(&gCurrentSavedRecord);
+    (void)RestoreAudioSettings_5204C0(currentBytes);
+    (void)RestoreSavedScalarSettings_5205E0(currentBytes);
+    (void)RestoreSavedInputContexts_520690(currentBytes);
+    (void)RestoreSavedByteState_520700(currentBytes);
+    (void)RestoreCurrentSavedValue_520730();
+    return 1;
+}
 
 std::int32_t InitializeSavedState_533300()
 {

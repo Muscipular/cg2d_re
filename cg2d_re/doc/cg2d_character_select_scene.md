@@ -714,6 +714,23 @@ x64 不重建原 16 字节 `CryptInt`，而由 `ReadLegacyMouseX/ReadLegacyMouse
 `gHoverImageSeq@0xD69768` 的完整 32 位与固定 step 0，忽略绘图结果后返回 1。
 当前登录相关六个源码调用都传 `layer=-1`，但实现仍保留了非负层的原绘图路径。
 
+### 悬停图形编码辅助 `Renderer::DrawGraphic_Hover`
+
+`Renderer::DrawGraphic_Hover@[0x522180,0x52220B)` 共 41 条指令、8 个基本块，
+原函数是 `void` 契约。四个 W16 坐标分别打包为
+`packedX=(uint32(left)<<16)|right` 和
+`packedY=(uint32(top)<<16)|bottom`；层只转交低 8 位，图号保留完整 32 位。
+step 0/1/2 分别把 `0xA0000000/0x90000000/0xC0000000` 以按位或写入图号，
+其他 step 不改图号。三个 W32 位模式均以 `bit_cast<int32_t>` 转交
+`DrawGraphic(packedXBits,packedYBits,layer,encodedImageBits,0,nullptr)`，
+不把高位或负数位模式改作数值转换。
+
+`DrawGraphic` 返回的 signed32 legacy 索引随后无条件把对应记录的
+`batchType` 写为 2。原目标即使返回 -2，旧函数仍会写到原队列基址之前的
+`0xFF4E8C`；新端禁止用负数组下标表达这项行为，也不吞掉 -2，而是无条件调用
+`SetPendingGraphicBatchTypeAtLegacyIndex(index,2)`。实际 `DrawGraphic`、队列布局
+和这个 x64 窄适配仍是未决真实依赖；本项不伪造队列、返回值或失败过滤。
+
 ### 原字符串字节
 
 以下五段原资源均为 Big5 字节，源码只使用对应 UTF-8 文本：
@@ -726,10 +743,11 @@ x64 不重建原 16 字节 `CryptInt`，而由 `ReadLegacyMouseX/ReadLegacyMouse
 | `0x55CDC4` | `請在退出此家族之後，` | `BD D0 A6 62 B0 68 A5 58 A6 B9 AE 61 B1 DA A4 A7 AB E1 A1 41 00` |
 | `0x55CDB4` | `再進行刪除。` | `A6 41 B6 69 A6 E6 A7 52 B0 A3 A1 43 00` |
 
-`sub_503990`、`sub_503A20` 与 `sub_5049A0` 的控制流现已还原；鼠标状态
-生产者、`DrawGraphic_Hover`、文字绘制、对象创建、死亡标记及 readiness 适配
-仍只保留真实窄声明。实际输入、渲染和 `YobiAction` x64 布局留给对应目标实现，
-未以空体或固定返回补齐。共享槽的另两个消费者已在下节分别还原。
+`sub_503990`、`sub_503A20`、`sub_5049A0` 与 `DrawGraphic_Hover` 的控制流现已
+还原；鼠标状态生产者、底层 `DrawGraphic`、待提交队列写入适配、文字绘制、
+对象创建、死亡标记及 readiness 适配仍只保留真实窄声明。实际输入、渲染、
+队列布局和 `YobiAction` x64 布局留给对应目标实现，未以空体或固定返回补齐。
+共享槽的另两个消费者已在下节分别还原。
 
 ## 删除确认 UI `sub_45DEE0/sub_45E090/sub_45E0C0`
 
@@ -895,8 +913,9 @@ x64 不重建原 16 字节 `CryptInt`，而由 `ReadLegacyMouseX/ReadLegacyMouse
 - `gKeyState.states` 只按索引 17 的 W8 bit 1 声明为窄外部依赖，尚未重建
   整体键盘状态结构。
 - 状态 21 modal 与共享 `0x9A6E64` 的三个消费者控制流均已完成；
-  `sub_503990/sub_503A20` 已还原，三个鼠标输入生产者、命中/渲染目标及
-  action 状态比较边界仍是未实现的真实窄依赖。
+  `sub_503990/sub_503A20/sub_5049A0/DrawGraphic_Hover` 已还原，三个鼠标输入
+  生产者、底层 `DrawGraphic`、队列写入适配及 action 状态比较边界仍是
+  未实现的真实窄依赖。
 - `0x9A5C10` 的真实容量和生产者未决，因此禁止将其声明成固定长度数组。
 - 版本升级场景控制流已经还原；严格相等适配、对象/渲染/网络等真实目标仍待
   各自实现，六槽图形缓存的其余生产消费关系也不由本函数推定。

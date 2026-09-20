@@ -39,6 +39,8 @@ std::int32_t DrawGraphic(
     std::int32_t imageNo,
     std::int32_t value4,
     const GraphicDescriptor16* descriptor);
+
+// Renderer::DrawGraphic_Hover@0x522180 的还原入口。
 void DrawGraphicHover(
     std::uint16_t left,
     std::uint16_t top,
@@ -47,6 +49,12 @@ void DrawGraphicHover(
     std::uint8_t layer,
     std::uint32_t imageNo,
     std::int32_t step);
+
+// x64 队列适配：以原 DrawGraphic 返回的 legacy 索引写待提交记录的 batchType。
+// index 包括原失败值 -2；调用层不得将其改成数组下标或提前过滤。
+void SetPendingGraphicBatchTypeAtLegacyIndex(
+    std::int32_t index,
+    std::uint8_t type);
 
 // 原共享系统存储；本模块只按注释所列宽度读取，不建立第二份定义。
 // 原 0xD69768；角色选择 modal 完整转交 R32，既有登录消息消费者只读低 8 位。

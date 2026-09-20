@@ -53,6 +53,7 @@ add_library(cg2d_re_startup STATIC
     src/platform/MainLoopSupport.cpp
     src/platform/LegacyTime.cpp
     src/LegacyHitTest.cpp
+    src/DrawGraphicHover.cpp
     src/LoginMessage.cpp
     src/LoginRequest.cpp
     src/CharacterListRequest.cpp

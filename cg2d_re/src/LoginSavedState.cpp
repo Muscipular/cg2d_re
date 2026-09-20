@@ -63,6 +63,18 @@ static_assert(offsetof(SavedStateStorage, selected) == 0x3CFC);
 // 原连续区间 [0x1058698,0x105C398)，PE 中为 virtual-only 零填充。
 SavedStateStorage gSavedState {};
 
+// 原 sub_5338F0@[0x5338F0,0x53390C)：查找首个未占用物理槽。
+[[maybe_unused]] std::int32_t
+FindFreeSavedPhysicalSlot_5338F0() noexcept
+{
+    for (std::int32_t index = 0; index < 10; ++index) {
+        if (gSavedState.active[index] == 0) {
+            return index;
+        }
+    }
+    return -1;
+}
+
 } // namespace
 
 namespace cg::login::detail {

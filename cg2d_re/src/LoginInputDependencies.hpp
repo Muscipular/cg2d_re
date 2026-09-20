@@ -16,7 +16,7 @@ void Sub_533640(const char* text, std::int32_t selectedSlot);
 // 原 sub_533730@0x533730：把记录系统持久化到文件；调用方忽略返回值。
 void Sub_533730();
 
-// 原 dword_105C394@0x105C394：当前选中的持久槽索引。
-extern std::int32_t gSelectedSavedSlot105C394;
+// 原 dword_105C394@0x105C394：当前选中的持久槽索引，引用唯一共享存储。
+extern std::int32_t& gSelectedSavedSlot105C394;
 
 } // namespace cg::login::detail

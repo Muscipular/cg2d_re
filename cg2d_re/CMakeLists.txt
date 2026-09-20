@@ -66,6 +66,7 @@ add_library(cg2d_re_startup STATIC
     src/InputKeyDispatch.cpp
     src/InputCaret.cpp
     src/LoginInput.cpp
+    src/LoginSavedState.cpp
     src/LoginInputController.cpp
     src/LoginCapability4Modal.cpp
     src/DrawGraphic.cpp

@@ -182,7 +182,7 @@ void ProcessCharacterPreview_460D00(std::uint32_t slot)
 
     login::YobiAction* const actionForFrameMove =
         state::gPreviewActions[slotIndex];
-    detail::Sub_517880(actionForFrameMove, 100, 0, 0);
+    login::detail::Sub_517880(actionForFrameMove, 100, 0, 0);
 }
 
 } // namespace cg::character_select

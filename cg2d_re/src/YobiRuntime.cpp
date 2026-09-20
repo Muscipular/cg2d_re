@@ -873,11 +873,21 @@ void SetYobiActionField15(
     action->displayPriority = value;
 }
 
+std::int32_t GetYobiActionField30(YobiAction* const action)
+{
+    return action->x;
+}
+
 void SetYobiActionField30(
     YobiAction* const action,
     const std::int32_t value)
 {
     action->x = value;
+}
+
+std::int32_t GetYobiActionField34(YobiAction* const action)
+{
+    return action->y;
 }
 
 void SetYobiActionField34(
@@ -892,6 +902,37 @@ void SetYobiActionField2B8(
     const std::int32_t value)
 {
     action->direction = value;
+}
+
+void SetYobiActionField308(
+    YobiAction* const action,
+    const std::uint8_t value)
+{
+    action->batchType = value;
+}
+
+void SetYobiActionField30C(
+    YobiAction* const action,
+    const std::int32_t value)
+{
+    action->color2 = value;
+}
+
+std::uint8_t GetYobiActionField30F(YobiAction* const action)
+{
+    const std::uint32_t bits = std::bit_cast<std::uint32_t>(action->color2);
+    return static_cast<std::uint8_t>(bits >> 24U);
+}
+
+void SetYobiActionField30F(
+    YobiAction* const action,
+    const std::uint8_t value)
+{
+    const std::uint32_t bits =
+        std::bit_cast<std::uint32_t>(action->color2);
+    const std::uint32_t updated =
+        (bits & 0x00FFFFFFU) | (std::uint32_t{value} << 24U);
+    action->color2 = std::bit_cast<std::int32_t>(updated);
 }
 
 } // namespace detail

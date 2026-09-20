@@ -195,7 +195,7 @@ std::int32_t ProcessCharacterSlot_461B30(
             login::detail::SetYobiActionField2B0(actionForFieldWrite, 1);
             login::YobiAction* const actionForFrameMove =
                 state::gPreviewActions[static_cast<std::size_t>(slot)];
-            detail::Sub_517880(actionForFrameMove, 100, 0, 0);
+            login::detail::Sub_517880(actionForFrameMove, 100, 0, 0);
         }
     } else {
         detail::Sub_45EFD0(&uiRecords[0], 5, 0, 0, mode);

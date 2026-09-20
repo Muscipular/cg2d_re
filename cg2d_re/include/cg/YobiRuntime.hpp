@@ -54,9 +54,22 @@ std::int32_t GetYobiActionField2A8(YobiAction* action);
 void SetYobiActionField2A8(YobiAction* action, std::int32_t value);
 void SetYobiActionField2B0(YobiAction* action, std::int32_t value);
 void SetYobiActionField15(YobiAction* action, std::uint8_t value);
+std::int32_t GetYobiActionField30(YobiAction* action);
 void SetYobiActionField30(YobiAction* action, std::int32_t value);
+std::int32_t GetYobiActionField34(YobiAction* action);
 void SetYobiActionField34(YobiAction* action, std::int32_t value);
 void SetYobiActionField2B8(YobiAction* action, std::int32_t value);
+void SetYobiActionField308(YobiAction* action, std::uint8_t value);
+void SetYobiActionField30C(YobiAction* action, std::int32_t value);
+std::uint8_t GetYobiActionField30F(YobiAction* action);
+void SetYobiActionField30F(YobiAction* action, std::uint8_t value);
+
+// 原 Yobi::FrameMove@[0x517880,0x517D9D)；当前仅保留唯一真实依赖声明。
+std::int32_t Sub_517880(
+    YobiAction* action,
+    std::int32_t value1,
+    std::int32_t value2,
+    std::uint32_t value3);
 
 } // namespace detail
 } // namespace cg::login

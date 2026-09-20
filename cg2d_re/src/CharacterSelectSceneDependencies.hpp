@@ -55,11 +55,6 @@ std::int32_t Sub_520200();
 
 // sub_460D00@0x460D00 与 sub_461B30@0x461B30 共享的真实直接目标。
 std::int32_t Sub_51B110(std::uint32_t slot);
-std::int32_t Sub_517880(
-    login::YobiAction* action,
-    std::int32_t value1,
-    std::int32_t value2,
-    std::uint32_t value3);
 
 void Sub_518BE0();
 std::int32_t Sub_519290();

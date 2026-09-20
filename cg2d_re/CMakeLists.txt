@@ -62,6 +62,7 @@ add_library(cg2d_re_startup STATIC
     src/platform/LegacyTime.cpp
     src/LegacyHitTest.cpp
     src/Input.cpp
+    src/InputKeyDispatch.cpp
     src/InputCaret.cpp
     src/LoginInput.cpp
     src/DrawGraphic.cpp

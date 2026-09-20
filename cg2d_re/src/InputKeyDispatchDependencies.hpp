@@ -1,0 +1,26 @@
+#pragma once
+
+#include <cstdint>
+
+namespace cg::input::detail {
+
+// sub_4596D0@0x4596D0 的未实现直接目标；只保留原地址与调用契约。
+void Sub_44A5D0();
+void Sub_44A7D0();
+void Sub_44A540();
+void Sub_44A580();
+void Sub_44A990();
+void Sub_44AA90();
+void Sub_44AB60();
+std::int32_t Sub_5043D0(std::int32_t value);
+std::int32_t Sub_5042D0(std::uint32_t value);
+std::int32_t Sub_504180(std::uint32_t value);
+
+} // namespace cg::input::detail
+
+namespace cg::world::detail {
+
+// 原 nullsub_1@0x509080；与 World::Update 复用同一未实现符号。
+void NullSub_509080();
+
+} // namespace cg::world::detail

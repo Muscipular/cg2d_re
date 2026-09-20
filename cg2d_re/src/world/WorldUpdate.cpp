@@ -5,6 +5,7 @@
 
 #include "cg/CharacterSelectScene.hpp"
 #include "cg/GraphicInfo.hpp"
+#include "cg/Input.hpp"
 #include "cg/LoginScene.hpp"
 #include "cg/LoginState.hpp"
 #include "cg/Palette.hpp"
@@ -31,7 +32,7 @@ void Update()
     switch (sceneType) {
     case 1: {
         platform::gValue73ECC0 = 0;
-        detail::Sub_4596D0();
+        input::ProcessKeyInput_4596D0();
         const std::int32_t capability = render::gPaletteCapability;
         switch (capability) {
         case 0:
@@ -70,7 +71,7 @@ void Update()
         return;
     case 4:
         platform::gValue73ECC0 = 0;
-        detail::Sub_4596D0();
+        input::ProcessKeyInput_4596D0();
         detail::Sub_4626A0();
         login::detail::YobiUpdateAll_404C50();
         detail::RenderChara_521F20();
@@ -168,7 +169,7 @@ void Update()
         return;
     case 13:
         platform::gValue73ECC0 = 0;
-        detail::Sub_4596D0();
+        input::ProcessKeyInput_4596D0();
         if (render::gPaletteCapability < 3) {
             detail::Sub_45E3D0();
         } else {

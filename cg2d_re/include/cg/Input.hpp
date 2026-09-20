@@ -76,4 +76,7 @@ void InitializeContext_449CF0(
 // 原 Input::AppendChar@[0x44ADB0,0x44B044)。
 void AppendChar_44ADB0(char character);
 
+// 原 sub_4596D0：按唯一旧键状态表分派输入编辑及尾部音频动作。
+void ProcessKeyInput_4596D0();
+
 } // namespace cg::input

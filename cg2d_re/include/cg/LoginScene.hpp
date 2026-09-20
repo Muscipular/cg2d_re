@@ -25,4 +25,7 @@ extern std::int16_t gValueDA3B24;                       // 原 0xDA3B24，映像
 // 原 LoginScene::Process@0x45FEA0。
 std::int32_t ProcessScene_45FEA0();
 
+// 原 sub_45C2D0@[0x45C2D0,0x45C566)：登录入口外层子状态机。
+void ProcessOuterScene_45C2D0();
+
 } // namespace cg::login

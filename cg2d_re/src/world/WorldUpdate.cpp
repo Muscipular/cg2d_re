@@ -40,7 +40,7 @@ void Update()
             detail::Sub_45C5A0();
             break;
         case 2:
-            detail::Sub_45C2D0();
+            login::ProcessOuterScene_45C2D0();
             break;
         case 3:
             detail::Sub_45F190();

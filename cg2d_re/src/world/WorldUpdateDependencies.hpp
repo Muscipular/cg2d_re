@@ -7,7 +7,6 @@ namespace cg::world::detail {
 
 // World::Update@0x51C430 的直接目标声明；未实现项只保留 IDA 地址和调用契约。
 std::int32_t Sub_45C5A0();                 // 原 0x45C5A0。
-void Sub_45C2D0();                         // 原 0x45C2D0。
 std::int32_t Sub_45F190();                 // 原 0x45F190。
 std::int32_t Sub_464840();                 // 原 0x464840。
 void RenderChara_521F20();                 // 原 World::RenderChara@0x521F20。

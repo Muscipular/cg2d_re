@@ -6,7 +6,7 @@
 
 namespace cg::login::detail {
 
-// LoginScene::Process@0x45FEA0 尚未实现的真实直接目标；不提供空体或固定返回。
+// 登录场景控制器尚未实现的真实直接目标；不提供空体或固定返回。
 std::int32_t Sub_450B70(std::int32_t value0, std::int32_t value1);
 std::int32_t LoadAndPlayBGM(std::uint32_t bgmId);
 std::int32_t Sub_45F100(const void* uiRecord);
@@ -33,6 +33,11 @@ std::int32_t Sub_45F090(
 std::uint8_t ReadNegativeSelectionAvailability(
     std::int32_t page,
     std::int32_t slot);
+
+// sub_45C2D0 的未闭合直接目标；参数、返回宽度保持当前 IDA 调用契约。
+std::int32_t Sub_45CA20(std::int32_t value);
+void NullSub_509080();
+std::int32_t Sub_520200();
 
 } // namespace cg::login::detail
 

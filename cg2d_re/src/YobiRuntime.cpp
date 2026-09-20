@@ -6,11 +6,13 @@
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 
+#include <array>
 #include <bit>
 #include <cstddef>
 #include <cstdint>
 #include <cstdlib>
 #include <cstring>
+#include <tuple>
 #include <type_traits>
 
 namespace cg::login {
@@ -55,14 +57,26 @@ static_assert(std::is_trivially_copyable_v<YobiAction>);
 
 namespace detail {
 
-// sub_46DD40@[0x46DD40,0x46DD82) 的真实窄依赖；其注册表后端尚未还原。
-// 此处只声明，不建立第二份 399 列状态，也不提供空实现。
-void Sub_46DD40();
-
 std::int32_t gYobiUpdateGateMode = 0;
 std::int32_t gYobiUpdatePhaseCounter = 0;
 
 namespace {
+
+constexpr std::size_t kYobiRegistryRowCount = 399;
+constexpr std::size_t kYobiRegistryColumnCount = 399;
+constexpr std::size_t kYobiRegistryEntryCount =
+    kYobiRegistryRowCount * kYobiRegistryColumnCount;
+
+// 原 byte_B65A80/dword_B8C864；按行展开，指针不拥有 action。
+std::array<std::uint8_t, kYobiRegistryEntryCount> gYobiRegistryFlags {};
+std::array<YobiAction*, kYobiRegistryEntryCount> gYobiRegistryActions {};
+
+static_assert(
+    std::tuple_size_v<decltype(gYobiRegistryFlags)>
+    == std::size_t{399} * std::size_t{399});
+static_assert(
+    std::tuple_size_v<decltype(gYobiRegistryActions)>
+    == std::size_t{399} * std::size_t{399});
 
 constexpr std::uint32_t kFourPhaseFlag = 0x00040000U;
 constexpr std::uint8_t kModalPriority = 3;
@@ -560,6 +574,23 @@ bool ShouldDeferForFourPhaseGate(const YobiAction* const action)
 }
 
 } // namespace
+
+void Sub_46DD40()
+{
+    for (std::size_t row = 0; row < kYobiRegistryRowCount; ++row) {
+        const std::size_t rowOffset = row * kYobiRegistryColumnCount;
+        for (std::size_t column = 0;
+             column < kYobiRegistryColumnCount;
+             ++column) {
+            const std::size_t index = rowOffset + column;
+            if (gYobiRegistryFlags[index] == std::uint8_t{1}) {
+                gYobiRegistryFlags[index] = std::uint8_t{0};
+                YobiAction* const action = gYobiRegistryActions[index];
+                MarkDeath(action);
+            }
+        }
+    }
+}
 
 YobiAction* Sub_404A40()
 {

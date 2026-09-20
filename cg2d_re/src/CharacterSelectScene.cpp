@@ -19,6 +19,7 @@ namespace cg::character_select::state {
 
 std::uint8_t gPukVersion = 0;
 std::array<login::YobiAction*, 2> gPreviewActions {};
+login::YobiAction* gCharacterModalAction = nullptr;
 std::int16_t gPendingCharacterCount = 0;
 std::int32_t gSelectedGraphicNo = 0;
 std::uint16_t gCharacterEntryState = 0;
@@ -406,7 +407,7 @@ std::int32_t ProcessScene_460FF0()
             }
             break;
         case 21:
-            if (detail::Sub_462090(320, 240) == 1) {
+            if (ProcessCharacterModal_462090(320, 240) == 1) {
                 world::gCurrentSceneState = 10;
             }
             break;

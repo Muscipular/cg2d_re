@@ -35,7 +35,8 @@ std::int32_t DrawGraphic(
     const GraphicDescriptor16* descriptor);
 
 // 原共享系统存储；本模块只按注释所列宽度读取，不建立第二份定义。
-extern std::uint32_t gValueD69768; // 原 0xD69768，本函数读取低 8 位。
+// 原 0xD69768；角色选择 modal 完整转交 R32，既有登录消息消费者只读低 8 位。
+extern std::uint32_t gValueD69768;
 extern std::uint32_t gValueD68D9C; // 原 0xD68D9C，本函数读取低 8 位。
 extern std::int32_t gValue558F78;  // 原 gFontList.doubleHeight@0x558F78，R32。
 

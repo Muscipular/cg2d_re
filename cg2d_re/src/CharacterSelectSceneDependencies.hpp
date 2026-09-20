@@ -29,6 +29,27 @@ struct CharacterSelectUiRecord {
 
 static_assert(sizeof(CharacterSelectUiRecord) == 0x1C);
 
+// sub_462090 的六个定宽坐标字段和一个原生文本指针。
+struct CharacterModalUiRecord {
+    std::int32_t textX;
+    std::int32_t textY;
+    std::int32_t left;
+    std::int32_t top;
+    std::int32_t width;
+    std::int32_t height;
+    const char* text;
+};
+
+// sub_462090@0x462090 尚未实现的真实直接目标。
+std::int32_t Sub_503990(const CharacterModalUiRecord* uiRecord);
+std::int32_t Sub_503A20(
+    const CharacterModalUiRecord* uiRecord,
+    std::uint8_t renderMode,
+    std::int8_t color,
+    std::int32_t hoverMode,
+    std::uint32_t hoverImageSequence,
+    std::uint8_t layer);
+
 // sub_460FF0@0x460FF0 尚未实现的真实直接目标；不提供空体或固定返回。
 void Sub_45DD50();
 std::int32_t Sub_45DD60();
@@ -56,7 +77,6 @@ std::int32_t Sub_45DC00();
 std::int32_t Sub_51B3B0(std::uint32_t selectedIndex);
 void NullSub_509080();
 std::int32_t Sub_520200();
-std::int32_t Sub_462090(std::int32_t x, std::int32_t y);
 
 // sub_460D00@0x460D00 与 sub_461B30@0x461B30 共享的真实直接目标。
 std::int32_t Sub_51B110(std::uint32_t slot);

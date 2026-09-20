@@ -5,23 +5,24 @@
 本文只记录当前 `ida-17524/D:\SOFTSTAR\cg2d.exe` 中
 `sub_5036F0@[0x5036F0,0x50377E)`：共 55 条指令、20 个基本块。其唯一
 caller 为 `sub_45CA20@0x45CA20`，共有两处调用；本项不实现或接线
-`sub_45CA20`，也不实现相邻的 `sub_503780`。
+`sub_45CA20`。相邻 `sub_503780` 的独立还原见
+[`cg2d_login_control_draw.md`](cg2d_login_control_draw.md)。
 
 ## 参数与固定布局
 
 函数接收一个记录指针并返回 W32 位域。空指针在读取记录前直接返回 0。记录
-严格由 8 个 signed W32 字段组成，总长 `0x20`；只有命中矩形四项已确认语义：
+严格由 8 个 signed W32 字段组成，总长 `0x20`：
 
 | 偏移 | 新端字段 | 语义 |
 |---|---|---|
-| `+0x00` | `unknownOffset00` | 未确认 |
-| `+0x04` | `unknownOffset04` | 未确认 |
+| `+0x00` | `drawX` | 基础图绘制 X |
+| `+0x04` | `drawY` | 基础图绘制 Y |
 | `+0x08` | `left` | 命中矩形左边界 |
 | `+0x0C` | `top` | 命中矩形上边界 |
 | `+0x10` | `width` | 宽度 |
 | `+0x14` | `height` | 高度 |
-| `+0x18` | `unknownOffset18` | 未确认 |
-| `+0x1C` | `unknownOffset1C` | 未确认 |
+| `+0x18` | `normalImageNo` | 常态基础图号 |
+| `+0x1C` | `activeImageNo` | 激活基础图号 |
 
 `LoginSceneControl32` 的每个字段偏移和总大小均有静态断言。它不含原生指针，
 所以 x64 构建仍保持原 `0x20` 布局；实现不把它强转为包含文本指针的
@@ -71,5 +72,5 @@ login::detail::Sub_5049A0(left, top, right, bottom, -1)
 - 实现：`src/LoginInput.cpp`；
 - 命中测试与三项鼠标状态均复用 `src/LoginMessageDependencies.hpp` 的既有声明，
   不复制共享状态；
-- 当前只提供 `QueryLoginControlState_5036F0`，剩余 `sub_45CA20` 场景接线留待其
+- 当前提供 `QueryLoginControlState_5036F0`；`sub_45CA20` 场景接线留待其
   独立单项。

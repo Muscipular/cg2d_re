@@ -121,6 +121,112 @@ std::int32_t QueryLoginControlState_5036F0(
     return static_cast<std::int32_t>(result);
 }
 
+void DrawLoginControl_503780(
+    const LoginSceneControl32* const control,
+    const std::uint8_t layer,
+    const std::int32_t state,
+    const std::uint32_t overlayImageNo,
+    const std::int32_t renderMode)
+{
+    const render::GraphicDescriptor16 descriptor {{
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0xFF,
+        0xFF,
+        0xFF,
+        0xFF,
+        0,
+        0,
+        0,
+        0,
+    }};
+    if (control == nullptr) {
+        return;
+    }
+
+    std::int32_t imageNo = 0;
+    const std::int32_t baseRenderMode = renderMode;
+    if (baseRenderMode == 1) {
+        imageNo = control->normalImageNo;
+    } else if (baseRenderMode == 2) {
+        imageNo = control->activeImageNo;
+    } else {
+        const std::int32_t top = control->top;
+        const std::int32_t height = control->height;
+        const std::int32_t left = control->left;
+        const std::int32_t width = control->width;
+        const std::int32_t bottom = std::bit_cast<std::int32_t>(
+            std::bit_cast<std::uint32_t>(top)
+            + std::bit_cast<std::uint32_t>(height));
+        const std::int32_t right = std::bit_cast<std::int32_t>(
+            std::bit_cast<std::uint32_t>(left)
+            + std::bit_cast<std::uint32_t>(width));
+        if (detail::Sub_5049A0(left, top, right, bottom, -1) != 0) {
+            imageNo = control->activeImageNo;
+        } else {
+            imageNo = control->normalImageNo;
+        }
+    }
+
+    const std::int32_t drawX = control->drawX;
+    const std::int32_t drawY = control->drawY;
+    detail::DrawGraphic(drawX, drawY, layer, imageNo, 1, &descriptor);
+
+    const std::int32_t sampledState = state;
+    if (sampledState == 0) {
+        return;
+    }
+
+    const std::int32_t hitTop = control->top;
+    const std::int32_t hitHeight = control->height;
+    const std::int32_t hitLeft = control->left;
+    const std::int32_t hitWidth = control->width;
+    const std::int32_t hitBottom = std::bit_cast<std::int32_t>(
+        std::bit_cast<std::uint32_t>(hitTop)
+        + std::bit_cast<std::uint32_t>(hitHeight));
+    const std::int32_t hitRight = std::bit_cast<std::int32_t>(
+        std::bit_cast<std::uint32_t>(hitLeft)
+        + std::bit_cast<std::uint32_t>(hitWidth));
+    if (detail::Sub_5049A0(
+            hitLeft,
+            hitTop,
+            hitRight,
+            hitBottom,
+            -1)
+        == 0) {
+        return;
+    }
+
+    const std::int32_t overlayRenderMode = renderMode;
+    if (overlayRenderMode != 0) {
+        return;
+    }
+
+    const std::int32_t step = sampledState == 2 ? 1 : 0;
+    const std::uint32_t overlayLeft =
+        std::bit_cast<std::uint32_t>(control->left);
+    const std::uint32_t overlayTop =
+        std::bit_cast<std::uint32_t>(control->top);
+    const std::uint32_t overlayWidth =
+        std::bit_cast<std::uint32_t>(control->width);
+    const std::uint32_t overlayHeight =
+        std::bit_cast<std::uint32_t>(control->height);
+    detail::DrawGraphicHover(
+        static_cast<std::uint16_t>(overlayLeft - 2U),
+        static_cast<std::uint16_t>(overlayTop - 2U),
+        static_cast<std::uint16_t>(overlayLeft + overlayWidth + 2U),
+        static_cast<std::uint16_t>(overlayTop + overlayHeight + 2U),
+        layer,
+        overlayImageNo,
+        step);
+}
+
 void InitializeInputContexts_45C7C0()
 {
     char firstInitialText[256] {};

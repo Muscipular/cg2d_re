@@ -17,7 +17,20 @@
 
 登录控件命中与鼠标位打包的独立证据见
 [`cg2d_login_control_hit.md`](cg2d_login_control_hit.md)；该单项只提供
-`sub_5036F0` 的公共入口，仍不接线 `sub_45CA20`。
+`sub_5036F0` 的公共入口。登录控件绘制 `sub_503780` 的独立证据见
+[`cg2d_login_control_draw.md`](cg2d_login_control_draw.md)；两项均不接线
+`sub_45CA20`。两个函数共享的 `LoginSceneControl32` 字段为：
+
+| 偏移 | 字段 | 语义 |
+|---|---|---|
+| `+0x00` | `drawX` | 基础图绘制 X |
+| `+0x04` | `drawY` | 基础图绘制 Y |
+| `+0x08` | `left` | 命中矩形左边界 |
+| `+0x0C` | `top` | 命中矩形上边界 |
+| `+0x10` | `width` | 宽度 |
+| `+0x14` | `height` | 高度 |
+| `+0x18` | `normalImageNo` | 常态基础图号 |
+| `+0x1C` | `activeImageNo` | 激活基础图号 |
 
 ## 唯一存储与读取边界
 

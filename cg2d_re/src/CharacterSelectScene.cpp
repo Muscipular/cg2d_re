@@ -8,6 +8,7 @@
 #include "cg/LoginMessage.hpp"
 #include "cg/LoginRequest.hpp"
 #include "cg/Palette.hpp"
+#include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/KeyState.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/world/SceneState.hpp"
@@ -241,13 +242,13 @@ std::int32_t ProcessScene_460FF0()
                 world::gCurrentSceneState = 9;
             } else if (result == -3) {
                 world::gCurrentSceneState = 2;
-                login::detail::Sub_5081A0();
+                cg::network::ShutdownNetworkRuntime_5081A0();
             } else if (result == -4) {
                 world::gCurrentSceneState = 7;
-                login::detail::Sub_5081A0();
+                cg::network::ShutdownNetworkRuntime_5081A0();
             } else if (result < 0) {
                 world::gCurrentSceneState = 4;
-                login::detail::Sub_5081A0();
+                cg::network::ShutdownNetworkRuntime_5081A0();
             }
             break;
         }
@@ -523,7 +524,7 @@ std::int32_t ProcessScene_460FF0()
         && (detail::Sub_45F100(&gReturnUi) & 1) != 0) {
         login::detail::YobiClearUp_404D30();
         ClearPreviewActions();
-        login::detail::Sub_5081A0();
+        cg::network::ShutdownNetworkRuntime_5081A0();
         world::SetCurrentSceneType(2);
         login::detail::PlaySe(54, 320, 240);
     }

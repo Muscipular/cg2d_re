@@ -1,19 +1,22 @@
-# 网络协议运行时创建链还原证据
+# 网络协议运行时创建与清理链还原证据
 
 ## 范围与当前边界
 
-本步实现并接入以下三个函数：
+本模块当前实现并接入以下四个函数：
 
 - `sub_4037D0@0x4037D0`：恢复八个协议 W32 常量并清零六项短状态；
 - `sub_516B60@0x516B60`：安装三参数回调，复用既有 `sub_516DA0`，再分配
   18 项网络工作区；
 - `sub_508140@0x508140`：启动 Winsock 1.1，创建网络工作区并设置活动门禁。
+- `sub_5081A0@0x5081A0`：按活动门禁关闭 socket/Winsock、重置协议状态并释放
+  九项协议缓冲及 18 槽网络工作区。
 
 既有 `AllocateProtocolBuffers_516DA0` 保持为九项协议缓冲的唯一生产者。本步只扩展
 `src/network/NetworkRuntime.cpp` 匿名 namespace 中原有的唯一
 `NetworkRuntimeState`，没有复制九缓冲状态，也没有并入 `LoginState`、
 `LoginConnection` 或其他 owner。新加协议短状态、回调槽、18 槽工作区外层指针及活动
-门禁均使用地址中性私有字段名；`login::gValue593FC0` 是独立 W32，不在本模块读写。
+门禁和仅按地址确认的 W32 `0xD9F2D0` 均使用地址中性私有字段名；
+`login::gValue593FC0` 是独立 W32，不在本模块读写。
 
 ## `sub_4037D0` 协议状态重置
 
@@ -31,8 +34,8 @@
 | 8 | `0x593FAC` | `0x259F4C5E` |
 
 随后无条件依次清零 W16 `0x593FCC`、`0x593FCE`、`0x593FC4`、`0x593FC8`，
-再依次清零 W8 `0x593FC6`、`0x593FCA`，最终返回 `0`。本入口当前只建立真实状态
-生产者；`sub_5081A0` 尚未实现，因此尚未接入其清理编排。
+再依次清零 W8 `0x593FC6`、`0x593FCA`，最终返回 `0`。网络关闭入口已在关闭
+Winsock 后调用本函数并忽略返回值。
 
 ## `sub_516B60` 回调与 18 槽工作区
 
@@ -104,8 +107,37 @@ platform::gConnectionSocket)` 并忽略其返回值，再严格先把私有 W8 �
 
 `LoginState.cpp` 已直接调用唯一的
 `cg::network::InitializeNetworkRuntime_508140()`，并删除旧私有声明；主阶段仍保持
-`Sub_5081A0 -> blacklist::PersistAndReset_401000 -> InitializeNetworkRuntime_508140`
-的原顺序。startup 静态库仅新增 `ws2_32` 链接，`/GR-` 保持不变。
+`ShutdownNetworkRuntime_5081A0 -> blacklist::PersistAndReset_401000 ->
+InitializeNetworkRuntime_508140` 的原顺序。startup 静态库既有 `ws2_32` 链接和
+`/GR-` 保持不变。
+
+## `sub_5081A0` 网络运行期关闭
+
+原函数由 2 个 chunk 组成，共 59 条指令、6 个基本块；全程序共有 12 个原直接
+callsite。入口先读取 W8 活动门禁 `0xD9F2C8`，值为 0 时立即返回，不写状态、不调用
+系统 API、不重置协议状态，也不释放任何内存。
+
+活动路径严格先后执行：把仅地址型 W32 `0xD9F2D0` 写为 0、把活动门禁写为 0、把
+`login::gRequestPollingEnabled@0xD9F2C9` 写为 0、把
+`world::gValueD9F2CA@0xD9F2CA` 写为 0，随后调用
+`closesocket(static_cast<SOCKET>(platform::gConnectionSocket))`、`WSACleanup()`、
+`ResetProtocolState_4037D0()`；后三项返回值全部忽略。
+
+正常清理先严格按 `58B5F0 -> 58B5F4 -> 58B5F8 -> 58B5FC -> 58B614 ->
+58B604 -> 58B608 -> 58B60C -> 58B610` 调用九次 `free`，再按索引 0 至 17 逐项
+`free(workspaceSlots[index])`，最后 `free(workspaceSlots)`，因此动态执行 28 次
+`free`。关闭函数不清 socket、回调、buffer length、九个指针、18 个元素或外层表
+指针，也不增加有效性检查、RAII 或错误恢复。
+
+用户已明确裁决“先保留” `workspaceSlots` 为空或悬空时的异常域。新端正常路径仍直接
+索引该表，不增加判空、悬空跟踪或 `std::terminate()`；该异常域不获得新的可移植
+保证。
+
+当前源码中 11 个对应调用表达式均已直接改接唯一公共入口：`LoginState.cpp` 1 处、
+`LoginScene.cpp` 4 处、`CharacterSelectScene.cpp` 4 处、
+`platform/ClientShutdown.cpp` 1 处、`world/WorldUpdate.cpp` 1 处。12 个原 callsite 中
+剩余路径位于尚未实现的 `sub_45EBB0`；该函数原有四个内部 callsite 整体留待其未来
+还原，本项不猜测或修改。
 
 ## x64 适配与故意保留的缺陷
 
@@ -119,16 +151,15 @@ platform::gConnectionSocket)` 并忽略其返回值，再严格先把私有 W8 �
   保留外层表、其他元素以及悬空/空槽；
 - 九缓冲正容量空分配仍按已确认策略在原清零位置 `std::terminate()`；零长度结果继续
   取决于当前 C 运行库的 `malloc(0)`；
-- 本步不增加失败回滚、`WSACleanup`、指针清理、版本协商校验或其他保护。
+- 关闭入口按原顺序调用 `WSACleanup`，但不增加失败回滚、指针清理、重复清理保护、
+  版本协商校验或其他保护。
 
 ## 未实现边界
 
 - `sub_403E50@0x403E50` 只保留真实声明，协议发送实现仍未落地；
-- `sub_5081A0@0x5081A0` 仍未实现，后续必须复用本模块的活动门禁、协议状态、九缓冲
-  与 18 槽工作区完成原清理链；
 - `sub_508360@0x508360` 仍未实现；
-- 本步没有为上述边界提供空体或替代实现，不能据此宣称网络生产、
-  发送、轮询与清理生命周期已经闭合。
+- 本步没有为上述边界提供空体或替代实现，不能据此宣称网络生产、发送与轮询生命
+  周期已经闭合。
 
 行为证据仅来自当前 `ida-17524/cg2d.exe` 及当前实现源码；STONAGE 未参与事实、语义或
 验收判断。

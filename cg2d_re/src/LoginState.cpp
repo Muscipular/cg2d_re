@@ -121,7 +121,7 @@ std::int32_t UpdateServerConnection()
     }
 
     if (phase == 2) {
-        detail::Sub_5081A0();
+        cg::network::ShutdownNetworkRuntime_5081A0();
         cg::blacklist::PersistAndReset_401000(gValue55A054);
         if (cg::network::InitializeNetworkRuntime_508140() != 0) {
             gValue9A6E3C = 3;

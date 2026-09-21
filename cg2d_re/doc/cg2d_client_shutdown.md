@@ -56,7 +56,7 @@
 | `0x457A77` | `sub_456530` / `HFONT` | 未实现，真实签名声明 |
 | `0x457A7C` | `sub_459040` / `void` | 已接入 `platform::ShutdownIme_459040()` |
 | `0x457A81` | `sub_404D60` / `void` | 已接入 Yobi runtime；其内部 `sub_46DD40` 注册表后端仍为真实未定义依赖 |
-| `0x457A86` | `sub_5081A0` / `void` | 未实现，真实签名声明 |
+| `0x457A86` | `sub_5081A0` / `void` | 已直接接入 `network::ShutdownNetworkRuntime_5081A0()` |
 | `0x457A8B` | `sub_5066D0` / `int` | 未实现，真实签名声明 |
 
 `sub_459040` 的实际内容是 `ImmReleaseContext`、`ImmAssociateContext` 及候选列表释放，
@@ -64,6 +64,14 @@
 现有 `GraphicInfo` 模块没有对应本链的 callee，不能按地址邻近替代。
 现有 `SdlPresenter::Destroy()` 也没有与原 `gCRenderer` 建立可证明的对象绑定，故不替代
 `Renderer::Destroy@0x44C3C0`。
+
+`sub_5081A0` 的完整证据为 2 个 chunk、59 条指令、6 个基本块及全程序 12 个原
+callsite。退出链当前这一处不再保留 `shutdown_detail` 私有声明，而是直接调用网络
+运行时唯一公共关闭入口；该入口的四项状态写入、socket/Winsock/协议重置以及 28 次
+动态 `free` 顺序见 [网络协议运行时创建与清理链还原证据](cg2d_network_runtime.md)。
+当前源码共映射 11 个调用表达式；尚未实现的 `sub_45EBB0` 路径及其原四个内部
+callsite 留待该函数未来还原，不在退出链中猜测补齐。`workspaceSlots` 空/悬空异常域
+按用户“先保留”裁决不增加保护；`sub_508360` 仍未实现。
 
 ## 互斥量与共享尾块
 
@@ -84,7 +92,8 @@
 ## 未完成边界
 
 `resource::CloseGraphicFiles@0x45A6C0` 与 `ShutdownIme_459040@0x459040` 已实现；
-`login::detail::Sub_404D60@0x404D60` 已接入 Yobi runtime；其余十三个原 callee
+`login::detail::Sub_404D60@0x404D60` 已接入 Yobi runtime，
+`network::ShutdownNetworkRuntime_5081A0@0x5081A0` 已接入网络运行时；其余十二个原 callee
 只有带地址和 IDA 类型证据的声明，没有空函数、固定成功返回或
 替代清理。Windows SDK 类型和 API 只出现在平台实现文件；
 `ClientShutdown.hpp` 仍仅暴露 `int ShutdownClient_457A40()`，IME 生命周期接口位于

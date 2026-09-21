@@ -3,6 +3,7 @@
 
 #include "cg/GraphicRead.hpp"
 #include "cg/YobiRuntime.hpp"
+#include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/Startup.hpp"
 
 #define WIN32_LEAN_AND_MEAN
@@ -26,7 +27,6 @@ int AnimeUnload_45BEF0();                  // 原 AnimeUnload@0x45BEF0：int()�
 int Sub_45BF20();                          // 原 0x45BF20：int()。
 void Sub_457670();                         // 原 0x457670：void()。
 HFONT Sub_456530();                        // 原 0x456530：HFONT()。
-void Sub_5081A0();                         // 原 0x5081A0：void()。
 int Sub_5066D0();                          // 原 0x5066D0：int()。
 
 } // namespace shutdown_detail
@@ -49,7 +49,7 @@ int ShutdownClient_457A40()
     shutdown_detail::Sub_456530();
     ShutdownIme_459040();
     login::detail::Sub_404D60();
-    shutdown_detail::Sub_5081A0();
+    cg::network::ShutdownNetworkRuntime_5081A0();
     shutdown_detail::Sub_5066D0();
 
     ReleaseMutex(reinterpret_cast<HANDLE>(gStartupMutex));

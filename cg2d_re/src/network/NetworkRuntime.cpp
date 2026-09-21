@@ -2,6 +2,7 @@
 
 #include "NetworkRuntimeDependencies.hpp"
 
+#include "cg/LoginRequest.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/world/SceneState.hpp"
 
@@ -63,6 +64,7 @@ struct NetworkRuntimeState {
     std::uint8_t* tripleBuffer58B610;
     void** workspaceSlots; // 原 0xDA3F98，18 个本机指针槽。
     std::uint8_t active;   // 原 0xD9F2C8，网络运行期活动门禁。
+    std::uint32_t valueD9F2D0; // 原 0xD9F2D0，仅保留地址身份的 W32。
 };
 
 NetworkRuntimeState gNetworkRuntimeState {};
@@ -313,6 +315,36 @@ std::int32_t InitializeNetworkRuntime_508140()
     gNetworkRuntimeState.active = 1;
     world::gValueD9F2CA = 0;
     return 1;
+}
+
+void ShutdownNetworkRuntime_5081A0()
+{
+    if (gNetworkRuntimeState.active == 0) {
+        return;
+    }
+
+    gNetworkRuntimeState.valueD9F2D0 = 0;
+    gNetworkRuntimeState.active = 0;
+    login::gRequestPollingEnabled = 0;
+    world::gValueD9F2CA = 0;
+    static_cast<void>(::closesocket(
+        static_cast<SOCKET>(platform::gConnectionSocket)));
+    static_cast<void>(::WSACleanup());
+    static_cast<void>(ResetProtocolState_4037D0());
+
+    std::free(gNetworkRuntimeState.buffer58B5F0);
+    std::free(gNetworkRuntimeState.buffer58B5F4);
+    std::free(gNetworkRuntimeState.buffer58B5F8);
+    std::free(gNetworkRuntimeState.buffer58B5FC);
+    std::free(gNetworkRuntimeState.pointerTable58B614);
+    std::free(gNetworkRuntimeState.tripleBuffer58B604);
+    std::free(gNetworkRuntimeState.tripleBuffer58B608);
+    std::free(gNetworkRuntimeState.tripleBuffer58B60C);
+    std::free(gNetworkRuntimeState.tripleBuffer58B610);
+    for (std::size_t index = 0; index < kWorkspaceSlotCount; ++index) {
+        std::free(gNetworkRuntimeState.workspaceSlots[index]);
+    }
+    std::free(gNetworkRuntimeState.workspaceSlots);
 }
 
 } // namespace cg::network

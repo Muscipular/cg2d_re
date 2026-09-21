@@ -83,9 +83,23 @@ W32 数组并返回首个相等元素的零基下标，无匹配返回 -1。新�
 2. 主阶段 1、次阶段 0：`sub_50FC30@0x50FC30` 返回负值时结果为 -4；否则 `sub_50FE30@0x50FE30` 只有返回 1 才调用 `sub_50FF10@0x50FF10`、把次阶段写为 1 并同帧继续，其他值都令结果为 -3。
 3. 主阶段 1、次阶段 1：`sub_50FF70@0x50FF70` 返回 1 时先把次阶段写为 2，再调用一次 `sub_510120@0x510120`、把主阶段写为 2，并同帧进入主阶段 2；返回 -1 时结果为 -3，其他值均继续等待。这里不能因刚写入次阶段 2 而再次调用 `sub_510120`。
 4. 进入函数时次阶段已为 2：调用一次 `sub_510120`、把主阶段写为 2，并同帧继续。
-5. 主阶段 2：严格依次调用 `sub_5081A0@0x5081A0`、`cg::blacklist::PersistAndReset_401000(gValue55A054)`、`sub_508140@0x508140`。中间调用对应原 `sub_401000@0x401000`，返回值保持忽略。最后一项返回 0 时结果为 -1；任意非零时依次写主阶段 3、调用 `sub_508350@0x508350`、写主阶段 4，并同帧轮询。
+5. 主阶段 2：严格依次调用唯一实现 `cg::network::ShutdownNetworkRuntime_5081A0()`、`cg::blacklist::PersistAndReset_401000(gValue55A054)`、`cg::network::InitializeNetworkRuntime_508140()`。三者分别对应原 `sub_5081A0@0x5081A0`、`sub_401000@0x401000`、`sub_508140@0x508140`；前两项返回值保持忽略。最后一项返回 0 时结果为 -1；任意非零时依次写主阶段 3、调用 `sub_508350@0x508350`、写主阶段 4，并同帧轮询。
 6. 主阶段 3：调用 `sub_508350`、写主阶段 4，并同帧轮询。
 7. 主阶段 4：`sub_508360@0x508360` 返回 1 时结果为 1；任意负值统一映射为 -2；0 或大于 1 的值继续等待。其他主阶段仍可进入绘制尾部并返回 0。
+
+### 网络运行期关闭接线
+
+`sub_5081A0` 的闭合证据为 2 个 chunk、59 条指令、6 个基本块及全程序 12 个原
+callsite。当前 11 个对应源码表达式已全部直接调用网络运行时唯一公共入口，其中本
+控制器 1 处、`LoginScene` 4 处、`CharacterSelectScene` 4 处、客户端退出 1 处、
+`World::Update` 1 处。剩余原路径位于尚未实现的 `sub_45EBB0`；其原四个内部
+callsite 留待该函数未来还原，本项不猜测其控制流。
+
+关闭入口以活动门禁为 0 时零副作用返回；活动路径完成四项状态写入、关闭 socket、
+清理 Winsock、重置协议状态，并按原顺序动态执行 28 次 `free`。用户已明确裁决
+“先保留” `workspaceSlots` 为空或悬空时的异常域，因此不增加判空、悬空跟踪或
+`std::terminate()`。完整顺序与保留字段见
+[网络协议运行时创建与清理链还原证据](cg2d_network_runtime.md)。
 
 ### newest 检查链的用户范围排除
 
@@ -217,5 +231,5 @@ IDA 显示为“伺服器連接中”。新端按项目约定保存 UTF-8 文本
 - `sub_45CE00`、`sub_45CE10` 已由 `cg::login` 消息模块中的唯一实现直接替代；控制器仍未实现的真实直接依赖为 `sub_532D80`、`sub_534290`。
 - `sub_508AF0`、`sub_508B50` 已由 `cg::login` 请求模块中的唯一实现直接替代；进度更新不经过包装层。
 - 进度更新的 `sub_5044E0`、`Yobi::MarkDeath` 与 x64 readiness 边界已接入统一 Yobi runtime；`Renderer::DrawText3` 已通过薄适配接入唯一文本提交实现。请求模块仍只声明 `sub_512B00`，不提供空实现或固定返回值。
-- 服务器连接更新所用 `TextMeasure` 已由物理位于 `src/render/Font.cpp` 的唯一 `cg::login::detail::TextMeasure` 实现解析，8 参数 `Renderer::DrawText` 已通过薄适配接入唯一文本提交实现；`sub_508140` 已由 `cg::network::InitializeNetworkRuntime_508140` 的唯一实现直接替代，其间接回调 `sub_403E50` 仍只有真实声明。当前仍未实现的真实直接依赖为 `sub_5081A0`、`sub_508360`；`sub_50FC30`、`sub_50FE30`、`sub_50FF10`、`sub_50FF70`、`sub_510120` 的原行为继续留作历史证据，但五函数链已按用户裁决范围排除，当前新端不保留活动调用或依赖声明，不能记为已实现。共享的创建、死亡标记与 readiness 已由统一 runtime 提供，`sub_508350` 已由 `LoginConnection` 的唯一实现直接替代，`sub_401000` 已由 `cg::blacklist::PersistAndReset_401000` 直接替代，`sub_401030` 已由 `cg::blacklist::LoadBlacklistFile` 直接替代；两个黑名单入口各自复用 `cg::blacklist` 的唯一共享状态。
+- 服务器连接更新所用 `TextMeasure` 已由物理位于 `src/render/Font.cpp` 的唯一 `cg::login::detail::TextMeasure` 实现解析，8 参数 `Renderer::DrawText` 已通过薄适配接入唯一文本提交实现；`sub_5081A0`、`sub_508140` 已分别由 `cg::network::ShutdownNetworkRuntime_5081A0`、`cg::network::InitializeNetworkRuntime_508140` 的唯一实现直接替代，其间接回调 `sub_403E50` 仍只有真实声明。当前仍未实现的真实直接依赖为 `sub_508360`；`sub_50FC30`、`sub_50FE30`、`sub_50FF10`、`sub_50FF70`、`sub_510120` 的原行为继续留作历史证据，但五函数链已按用户裁决范围排除，当前新端不保留活动调用或依赖声明，不能记为已实现。共享的创建、死亡标记与 readiness 已由统一 runtime 提供，`sub_508350` 已由 `LoginConnection` 的唯一实现直接替代，`sub_401000` 已由 `cg::blacklist::PersistAndReset_401000` 直接替代，`sub_401030` 已由 `cg::blacklist::LoadBlacklistFile` 直接替代；两个黑名单入口各自复用 `cg::blacklist` 的唯一共享状态。
 - 消息更新复用统一 runtime 的 `sub_5044E0`、`Yobi::MarkDeath` 与 readiness，并直接调用文本待提交模块中 `sub_45D7A0` 的唯一实现；其所用 `TextMeasure` 已由物理位于 `src/render/Font.cpp` 的唯一 `cg::login::detail::TextMeasure` 实现解析；8 参数 `Renderer::DrawText`、`PlaySe`、`sub_5049A0`、`DrawGraphic` 及三个共享系统值仍只有真实声明，不提供空实现、固定成功或包装实现。`dword_D68BEC` 的真实生产者 `sub_507140` 仍未实现。

@@ -10,6 +10,7 @@
 #include "cg/LoginState.hpp"
 #include "cg/Palette.hpp"
 #include "cg/YobiRuntime.hpp"
+#include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/MainLoop.hpp"
 
 #include <bit>
@@ -155,7 +156,7 @@ void Update()
         detail::Sub_520160();
         detail::Sub_519D50();
         detail::Sub_446470();
-        detail::Sub_5081A0();
+        cg::network::ShutdownNetworkRuntime_5081A0();
         const std::int32_t capability = resource::ProbePaletteCapability_45C970();
         const std::int32_t paletteIndex = capability == 3 ? 27 : 0;
         render::gPaletteCapability = capability;

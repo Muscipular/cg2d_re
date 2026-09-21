@@ -6,6 +6,7 @@
 #include "cg/LoginMessage.hpp"
 #include "cg/LoginState.hpp"
 #include "cg/Palette.hpp"
+#include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/LegacyModuleDigest.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/world/SceneState.hpp"
@@ -418,7 +419,7 @@ std::int32_t ProcessScene_45FEA0()
         case -1:
             world::gCurrentSceneState = 100;
             CopyText(gLoginSceneMessage, kNetworkNotReady);
-            detail::Sub_5081A0();
+            cg::network::ShutdownNetworkRuntime_5081A0();
             break;
         case -2: {
             world::gCurrentSceneState = 100;
@@ -536,18 +537,18 @@ std::int32_t ProcessScene_45FEA0()
                     break;
                 }
             }
-            detail::Sub_5081A0();
+            cg::network::ShutdownNetworkRuntime_5081A0();
             break;
         }
         case -3:
             world::gCurrentSceneState = 100;
             CopyText(gLoginSceneMessage, kCannotConnectUpdate);
-            detail::Sub_5081A0();
+            cg::network::ShutdownNetworkRuntime_5081A0();
             break;
         case -4:
             world::gCurrentSceneState = 100;
             CopyText(gLoginSceneMessage, kRestartForVersion);
-            detail::Sub_5081A0();
+            cg::network::ShutdownNetworkRuntime_5081A0();
             break;
         default:
             break;

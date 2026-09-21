@@ -40,7 +40,6 @@ void DrawNormalScene_51C7D0();             // 原 World::DrawNormalScene@0x51C7D
 std::int8_t Sub_519D50();                  // 原 0x519D50，IDA 原型 char()。
 std::int8_t Sub_51D750();                  // 原 0x51D750，IDA 原型 char()。
 std::int32_t Sub_520160();                 // 原 0x520160，IDA 原型 BOOL()。
-void Sub_5081A0();                         // 原 0x5081A0。
 void DrawBattleScene_43CBB0();             // 原 World::DrawBattleScene@0x43CBB0。
 
 // 原 0x51FDE0；第三槽保持原 32 位载荷，selector 2 才把该位模式解释为 float。

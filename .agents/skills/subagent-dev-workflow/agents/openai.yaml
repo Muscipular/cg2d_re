@@ -1,0 +1,7 @@
+interface:
+  display_name: "SubAgent 开发执行"
+  short_description: "以分析、编码、审查和独立验证闭环推进项目开发执行流程"
+  default_prompt: "使用 $subagent-dev-workflow 按项目规则推进这个开发任务。"
+
+policy:
+  allow_implicit_invocation: false

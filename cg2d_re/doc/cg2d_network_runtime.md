@@ -11,6 +11,9 @@
 - `sub_5081A0@0x5081A0`：按活动门禁关闭 socket/Winsock、重置协议状态并释放
   九项协议缓冲及 18 槽网络工作区。
 
+此外，`sub_5170D0@[0x5170D0,0x51711C)` 已完成公共声明与实现，但当前源码没有调用；
+它不属于上述运行期创建与清理接线。
+
 既有 `AllocateProtocolBuffers_516DA0` 保持为九项协议缓冲的唯一生产者。本步只扩展
 `src/network/NetworkRuntime.cpp` 匿名 namespace 中原有的唯一
 `NetworkRuntimeState`，没有复制九缓冲状态，也没有并入 `LoginState`、
@@ -54,6 +57,23 @@ Winsock 后调用本函数并忽略返回值。
 
 第三个 socket 形参由 `sub_508140` 实际压栈，但 `sub_516B60` 函数体不读取；新端保留
 该参数并使用 `std::uintptr_t` 承载本机宽度。
+
+## `sub_5170D0` 有界协议文本追加
+
+完整函数范围为 `[0x5170D0,0x51711C)`，共 76 字节、39 条指令和 11 个基本块；函数
+没有 callee，也不访问全局。原 x86 `__cdecl` 逻辑参数顺序为 `destination`、
+`source`、`capacity`；前两项分别是读写和只读本机指针，`capacity` 保持精确的有符号
+W32。
+
+`capacity <= 1` 时不读写任何缓冲，直接返回原 `capacity`。否则只在
+`destination[0]` 至 `destination[capacity - 2]` 中寻找 NUL；未找到时不写入并返回
+`capacity`。找到后从该位置顺序追加 `source`，追加字节最远写至
+`destination[capacity - 2]`，随后在最终位置写 NUL，并返回该 NUL 的有符号 W32
+下标。
+
+实现不增加空指针、重叠、容量或异常保护，不把容量改成 `size_t` 或 `uint32_t`，也不
+使用固定成功返回值。当前只存在一处公共声明和一处定义，没有源码调用点，接线留待
+取得对应 caller 证据后处理。
 
 ## 九项分配、清零与检查
 

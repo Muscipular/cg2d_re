@@ -268,6 +268,35 @@ allocationFailure:
     return -1;
 }
 
+std::int32_t AppendProtocolText_5170D0(
+    char* const destination,
+    const char* const source,
+    const std::int32_t capacity)
+{
+    if (capacity <= 1) {
+        return capacity;
+    }
+
+    const std::int32_t limit = capacity - 1;
+    std::int32_t destinationIndex = 0;
+    while (destinationIndex < limit
+           && destination[destinationIndex] != '\0') {
+        ++destinationIndex;
+    }
+    if (destinationIndex == limit) {
+        return capacity;
+    }
+
+    std::int32_t sourceIndex = 0;
+    while (destinationIndex < limit && source[sourceIndex] != '\0') {
+        destination[destinationIndex] = source[sourceIndex];
+        ++destinationIndex;
+        ++sourceIndex;
+    }
+    destination[destinationIndex] = '\0';
+    return destinationIndex;
+}
+
 std::int32_t AllocateNetworkWorkspace_516B60(
     const NetworkCallback callback,
     const std::uint32_t bufferLength,

@@ -11,8 +11,9 @@
 - `sub_5081A0@0x5081A0`：按活动门禁关闭 socket/Winsock、重置协议状态并释放
   九项协议缓冲及 18 槽网络工作区。
 
-此外，`sub_5170D0@[0x5170D0,0x51711C)` 已完成公共声明与实现，但当前源码没有调用；
-它不属于上述运行期创建与清理接线。
+此外，`sub_517080@[0x517080,0x5170C1)` 与
+`sub_5170D0@[0x5170D0,0x51711C)` 均已完成公共声明与实现，但当前源码没有调用；
+它们不属于上述运行期创建与清理接线。
 
 既有 `AllocateProtocolBuffers_516DA0` 保持为九项协议缓冲的唯一生产者。本步只扩展
 `src/network/NetworkRuntime.cpp` 匿名 namespace 中原有的唯一
@@ -57,6 +58,41 @@ Winsock 后调用本函数并忽略返回值。
 
 第三个 socket 形参由 `sub_508140` 实际压栈，但 `sub_516B60` 函数体不读取；新端保留
 该参数并使用 `std::uintptr_t` 承载本机宽度。
+
+## `sub_517080` 有界协议字节复制
+
+完整函数范围为 `[0x517080,0x5170C1)`，共 65 字节、32 条指令和 6 个基本块；函数没有
+callee，不访问全局或字符串。IDA 识别出 5 个 caller、6 个直接 callsite，六处均不消费
+返回值。原 x86 ABI 为 `__cdecl`，参数依次为可写 `destination` 指针、只读 `source`
+指针和有符号 W32 `capacity`；新端在 MSVC/x64 默认 ABI 下公开为
+`void CopyProtocolBytes_517080(std::uint8_t*, const std::uint8_t*, std::int32_t)`，只把两项
+指针适配为本机宽度，容量和下标仍保持有符号 W32，返回类型保持 `void`。
+
+入口先按位模式计算
+`limit = signed32(W32(capacity_bits - 1))`。实现使用 C++20 `std::bit_cast` 在
+`std::uint32_t` 中完成减一后再解释为 `std::int32_t`，因此不以可能溢出的有符号
+`capacity - 1` 代替。通常 `capacity >= 2` 时 `limit == capacity - 1`；
+`capacity == INT32_MIN` 时 W32 回绕得到 `INT32_MAX`，而
+`capacity` 位于 `[INT32_MIN + 1, 1]` 时 `limit <= 0`。复制下标从有符号 W32 的 0
+开始；正 `limit` 路径最多递增到 `limit`，不转换为 `size_t` 或无符号容量合同。
+
+控制流严格分为四类：
+
+1. `limit <= 0`：完全不读取 `source`，仍无条件写 `destination[0] = 0`；
+2. `limit > 0` 且首字节为 NUL：先读 `source[0]` 写入 `destination[0]`，再重读
+   `source[0]` 判零，退出后再次把 `destination[0]` 写为 NUL；
+3. 在正上限内遇到后续 NUL：每轮先读源字节并写目标，再重读同一源位置判零；命中
+   位置的 NUL 已被复制，退出后在同一下标再次写 NUL；
+4. 上限内没有 NUL：每个非 NUL 字节写入后递增有符号 W32 下标，仅当
+   `index < limit` 时继续，最终在 `destination[limit]` 写 NUL。
+
+逐字节访问顺序故意保留原函数的前向重叠行为，不使用 `memcpy`、`memmove` 或
+`strncpy`；目标写入可能影响随后对同一源位置的第二次读取，或后续尚未读取的源字节。
+实现不增加空指针、容量、范围或重叠保护：`limit <= 0` 仍要求 `destination[0]` 可写；正上限
+路径要求实际访问到的源区间可读、目标区间可写。违反这些前置条件，以及极端容量对应的
+超大访问，均保留在原合同的异常域，没有新的可移植保证。当前源码只有一处
+公共声明和一处定义，调用点为零；六个原二进制 callsite 的接线留待各 caller 还原时
+处理。
 
 ## `sub_5170D0` 有界协议文本追加
 

@@ -9,6 +9,7 @@
 #include <winsock2.h>
 
 #include <algorithm>
+#include <bit>
 #include <cstddef>
 #include <cstdint>
 #include <cstdlib>
@@ -266,6 +267,27 @@ allocationFailure:
     std::free(gNetworkRuntimeState.tripleBuffer58B60C);
     std::free(gNetworkRuntimeState.tripleBuffer58B610);
     return -1;
+}
+
+void CopyProtocolBytes_517080(
+    std::uint8_t* const destination,
+    const std::uint8_t* const source,
+    const std::int32_t capacity)
+{
+    const std::uint32_t capacityBits =
+        std::bit_cast<std::uint32_t>(capacity);
+    const std::int32_t limit = std::bit_cast<std::int32_t>(
+        capacityBits - 1U);
+
+    std::int32_t index = 0;
+    while (index < limit) {
+        destination[index] = source[index];
+        if (source[index] == 0U) {
+            break;
+        }
+        ++index;
+    }
+    destination[index] = 0;
 }
 
 std::int32_t AppendProtocolText_5170D0(

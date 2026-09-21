@@ -15,6 +15,12 @@ std::int32_t ResetProtocolState_4037D0();
 // 原 sub_516DA0@[0x516DA0,0x517038)：分配并清零九项协议缓冲。
 std::int32_t AllocateProtocolBuffers_516DA0(std::uint32_t bufferLength);
 
+// 原 sub_517080@[0x517080,0x5170C1)：按有符号 W32 上限复制协议字节并补 NUL。
+void CopyProtocolBytes_517080(
+    std::uint8_t* destination,
+    const std::uint8_t* source,
+    std::int32_t capacity);
+
 // 原 sub_5170D0@[0x5170D0,0x51711C)：在有符号 W32 容量内追加协议文本。
 std::int32_t AppendProtocolText_5170D0(
     char* destination,

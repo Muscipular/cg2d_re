@@ -21,6 +21,12 @@ void CopyProtocolBytes_517080(
     const std::uint8_t* source,
     std::int32_t capacity);
 
+// 原 sub_517690@[0x517690,0x5176AC)：复制协议字节并返回原目标指针。
+std::uint8_t* CopyProtocolBytesAndReturn_517690(
+    std::uint8_t* destination,
+    std::int32_t capacity,
+    const std::uint8_t* source);
+
 // 原 sub_5170D0@[0x5170D0,0x51711C)：在有符号 W32 容量内追加协议文本。
 std::int32_t AppendProtocolText_5170D0(
     char* destination,

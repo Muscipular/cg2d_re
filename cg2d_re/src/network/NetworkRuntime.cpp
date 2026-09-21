@@ -290,6 +290,15 @@ void CopyProtocolBytes_517080(
     destination[index] = 0;
 }
 
+std::uint8_t* CopyProtocolBytesAndReturn_517690(
+    std::uint8_t* const destination,
+    const std::int32_t capacity,
+    const std::uint8_t* const source)
+{
+    CopyProtocolBytes_517080(destination, source, capacity);
+    return destination;
+}
+
 std::int32_t AppendProtocolText_5170D0(
     char* const destination,
     const char* const source,

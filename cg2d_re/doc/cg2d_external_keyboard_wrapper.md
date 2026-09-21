@@ -6,6 +6,9 @@ R6.1.3.96 还原 `sub_534AB0@[0x534AB0,0x534B7E)`，大小 `0xCE`，
 共 79 条指令；R6.1.3.97 接续还原
 `DialogFunc@[0x534B80,0x534EEA)`，主范围共 260 条指令、22 个基本块，
 IDA 计入异地 EH 节点时为 267 条指令、25 个基本块。
+R6.1.3.98 接续实现 `sub_537DC0@[0x537DC0,0x537DD8)` 的 6 条指令和
+`sub_5354C0@[0x5354C0,0x5354C7)` 的 2 条指令所对应的两个叶语义；构造、
+析构及 UI 写者仍未实现。
 证据取自当前只读 IDA 实例 `ida-17524` 的
 `D:\SOFTSTAR\cg2d.exe`（x86），SHA-256 为
 `e7c2790f479862635932e043b2d7e93b9e791a1edc276a960af05f1454c54010`。
@@ -118,20 +121,74 @@ x64 将包装层窗口查询适配为 `GetWindowLongPtrA(parent,GWLP_HINSTANCE)`
 旧对象的 `0x2C8` 分配大小、字段偏移和虚表字节偏移仅为证据，不用于访问原生对象；
 Win32 类型仅位于平台实现，私有对象依赖头使用 `uintptr_t` 传递句柄。
 
-## 四个真实对象依赖
+## 真实对象依赖与两个叶实现
 
 `src/platform/LegacyExternalKeyboardDependencies.hpp` 只声明最窄对象边界，
 不提供空实现、固定值或 fallback：
 
-| 私有接口 | 地址依据与待实现契约 |
+| 私有接口 | 地址依据与实现状态 |
 | --- | --- |
-| `CreateExternalKeyboard_535090(instance,window,initialText)` | 组合 `0x534D56` raw 分配、`0x535090` 构造及 `0x54BC30` 构造异常释放；按真实原生布局分配，并保留空分配与异常传播语义 |
-| `DeleteExternalKeyboardVirtual_535290(object,flags)` | `0x535180` 安装的虚表 `0x54F85C` 首项为 `0x535290`；`0x535293` 析构，`0x535298` 检查 flags bit 0，`0x5352A0` 释放，返回原对象指针；边界必须执行真实虚调用 |
-| `QueryExternalKeyboardSizeVirtual_537DC0(object,output)` | 同虚表 `+0x20` 即 `0x54F87C` 项为 `0x537DC0`；真实实现从对象 `+0x17C/+0x180` 取两项 W32 并返回输出指针；边界保留真实虚调用及实际返回指针 |
-| `GetExternalKeyboardResult_5354C0(object)` | `0x5354C0` 返回对象真实结果串，原 x86 为 `this+0x190`；原生对象层需映射真实存储，不在回调内套用旧偏移 |
+| `CreateExternalKeyboard_535090(instance,window,initialText)` | 未实现。组合 `0x534D56` raw 分配、`0x535090` 构造及 `0x54BC30` 构造异常释放；按真实原生布局分配，并保留空分配与异常传播语义 |
+| `DeleteExternalKeyboardVirtual_535290(object,flags)` | 未实现。`0x535180` 安装的虚表 `0x54F85C` 首项为 `0x535290`；`0x535293` 析构，`0x535298` 检查 flags bit 0，`0x5352A0` 释放，返回原对象指针；边界必须执行真实虚调用 |
+| `QueryExternalKeyboardSizeVirtual_537DC0(object,output)` | 叶语义已实现。同虚表 `+0x20` 即 `0x54F87C` 项为 `0x537DC0`；adapter 真实虚调用唯一 native owner 的 `QuerySize`，保留实际返回指针 |
+| `GetExternalKeyboardResult_5354C0(object)` | 叶语义已实现。返回同一 native owner 的真实结果存储；原 x86 为 `this+0x190`，新端不套用旧偏移 |
 
-`ExternalKeyboard` 仅作前向声明；`ExternalKeyboardSize{width,height}` 仅表达
-尺寸输出的两个 W32，不虚构 `JoyparkKeyboard` 完整布局或资源状态。
+依赖头仍只前向声明 `ExternalKeyboard`。私有
+`src/platform/LegacyExternalKeyboardObject.hpp` 定义唯一原生 owner，仅持有
+`ExternalKeyboardSize size` 的两个 W32 和 `char result[0x104]`；对应 `.cpp`
+实现两个叶语义并加入 `cg2d_re_startup`。未来 Create/Delete 及 UI 写者必须共用
+该定义，不另建状态副本。原三参构造器和 `sub_535310` 对应的非虚析构器仅声明，
+没有可用默认构造、空析构或删除实现；字段均不设默认初值。原生虚方法不使用 RTTI，
+也不把原虚表 `+0x20` 当作 x64 字节偏移。
+该私有 native owner 只承载具体 `JoyparkKeyboard`，不提供派生扩展，因此声明为
+`final`；保留虚方法调用语义，不为消除析构警告添加空虚析构。MSVC 的
+[C4265 默认关闭](https://learn.microsoft.com/en-us/cpp/error-messages/compiler-warnings/compiler-warning-level-3-c4265?view=msvc-170)，
+仅现有 `/W4` 不启用该警告；`final` 也排除了把非虚析构类型作为可继承基类的
+[警告条件](https://devblogs.microsoft.com/oldnewthing/20200618-00/?p=103874)。
+此处为源码和官方文档静态核对，没有执行编译确认。
+
+尺寸叶函数的全部指令为：
+
+```asm
+537DC0 mov eax, [esp+4]
+537DC4 mov edx, [ecx+17Ch]
+537DCA mov [eax], edx
+537DCC mov ecx, [ecx+180h]
+537DD2 mov [eax+4], ecx
+537DD5 retn 4
+```
+
+原叶函数严格按读宽、写宽、读高、写高的顺序执行，返回同一 output。新方法保留
+该顺序，不提前复制整个尺寸；adapter 仍返回虚调用实际结果，不把所有虚实现的
+返回值硬编码为 output。函数无直接调用引用，四个虚表引用为
+`0x54F87C/0x54F8B0/0x54F8E4/0x54F918`；Dialog 两次调用仍独立保留。
+
+基构造 `sub_537E60` 的两次清零在 `+0x174` 前结束，派生构造 `sub_535090`
+也不直接初始化 `+0x17C/+0x180`。实际来源是 `WM_CREATE` 处理尾部
+`0x5368E7` 的虚表 `+0x24` 调用：`sub_537DE0` 在 `0x537E06` 调 MoveWindow，
+仅成功时在 `0x537E20/0x537E26` 写两项 W32。窗口注册、创建或移动失败留下的
+未初始化尺寸仍属未闭合异常域，不能以默认零尺寸替代。
+
+结果叶函数的全部指令为：
+
+```asm
+5354C0 lea eax, [ecx+190h]
+5354C6 retn
+```
+
+唯一直接 caller 为 `DialogFunc:0x534CB8`。原构造 `0x5351A3..0x5351BF`
+只把空串复制到结果起点，不清整个区；`+0x294` 在 `0x5350CF` 独立初始化，
+并在析构 `0x535351` 及 UI 构造局部作为容器成员基址。因此新端保留
+`[+0x190,+0x294)` 的 `0x104` 字节物理跨度；它不是已证逻辑输入上限，
+也不据此声称恢复了原源语言数组声明。
+
+`sub_536970` 普通字符路径在 `0x536B0F` 比较长度 `0x40`，
+`sub_536C30` 的字母、数字和小键盘数字路径也执行相同门禁；但前者的 F9 空格
+和 FD Tab 路径绕过该检查。已核对跳表实际指针
+`0x536C08→0x536AD0`、`0x536C18→0x536A85`；分别从
+`0x55C9BC` 的 `20 00`、`0x58F7D4` 的 `09 00` 无界追加到结果末尾。
+因此不能宣称结果始终至多 64 字节，或缩成 65 字节存储；持续追加还能越过
+`+0x294`。本项只实现结果地址获取，不改写尚未实现的消息写者或裁决溢出策略。
 
 ## CP950 与异常域
 
@@ -149,12 +206,16 @@ Win32 类型仅位于平台实现，私有对象依赖头使用 `uintptr_t` 传�
 空值、目标容量、重叠或源终止零；错误及其他正返回路径不清空 output。调用者的
 68 字节局部缓冲是否足够仍取决于真实对象结果契约，本项不追加截断或输入校验。
 窗口查询、游标计数、释放模块及错误框的返回值均按原行为忽略。
+两个叶实现也不追加空对象或空输出门禁。Getter 原 x86 LEA 对空 this 只形成
+地址 `0x190`，native C++ 的空对象成员访问属于非法域，不宣称保留该机器级
+偶然行为。未初始化尺寸、失效对象、缺少终止 NUL 和越界追加均不因叶实现而闭合。
 
 ## 未闭合项
 
 包装层和 `DialogFunc@0x534B80` 已按地址证据补齐源码，`JoyparkKeyboard`
-对象闭包及外部 `idguardlibr.dll` 的真实资源和行为仍未闭合。原来的一个未解析
-回调符号由定义消除，但引入上述四个真实未解析对象符号；就本次替换边界而言，
-未解析符号净增加三个，最终链接仍未闭合，不代表屏幕键盘可用。
-本项仅进行源码与 IDA 的静态自查，未执行编译、运行、测试、lint、格式化或
-编译产物检查；独立复核结论另记进度。
+对象闭包及外部 `idguardlibr.dll` 的真实资源和行为仍未闭合。R6.1.3.98 仅为
+四个对象边界中的 Query/Get 提供了真实字段叶实现；两个剩余对象依赖为
+Create/Delete，原生构造和析构也仍只有声明。尺寸初始化、结果 UI 写者、逻辑容量
+及异常域策略均未闭合，最终链接仍未闭合，不代表屏幕键盘可用。
+本项仅进行源码与 IDA 的静态自查，未执行编译、运行、测试、lint、格式化、
+代码生成或编译产物检查；尚未据此声称独立验收通过。

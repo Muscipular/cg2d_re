@@ -62,6 +62,7 @@ add_library(cg2d_re_startup STATIC
     src/platform/LegacyCursor.cpp
     src/platform/LegacyTime.cpp
     src/platform/LegacyExternalKeyboard.cpp
+    src/platform/LegacyExternalKeyboardObject.cpp
     src/LegacyHitTest.cpp
     src/LegacyUiRecord.cpp
     src/Input.cpp

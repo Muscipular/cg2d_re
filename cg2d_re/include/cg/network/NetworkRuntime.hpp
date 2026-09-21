@@ -48,6 +48,9 @@ std::int32_t ParseProtocolInteger_517190(const char* text);
 // 原 sub_5171F0@[0x5171F0,0x5172CE)：向共享缓冲逐字节转义协议文本。
 std::uint8_t* EscapeProtocolText_5171F0(const char* text);
 
+// 原 sub_5172D0@[0x5172D0,0x5173A6)：向共享缓冲逐字节反转义协议文本。
+std::uint8_t* UnescapeProtocolText_5172D0(const char* text);
+
 // 原 sub_516B60@0x516B60：安装回调并分配 18 项网络工作区。
 std::int32_t AllocateNetworkWorkspace_516B60(
     NetworkCallback callback,

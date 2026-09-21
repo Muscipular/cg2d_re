@@ -18,11 +18,14 @@
   `sub_45F090`、`Renderer::DrawText3`。其中 `SetWindowTextA/PostMessageA` 已由
   `LegacyWindow` 的唯一原生边界 `SetLegacyWindowText/PostLegacyWindowMessage`
   承接，`ShellExecuteA` 已由同模块的地址中性边界 `ExecuteLegacyShell` 承接；
-  `sub_5203E0/sub_520440` 已由
+  `sub_5202E0` 已由平台模块的唯一摘要边界
+  `ComputeExecutableDigest_5202E0` 承接，`sub_5203E0/sub_520440` 已由
   `ReadInputValueFF494F_5203E0/ReadInputValueFF4982_520440` 的唯一公共实现承接，
   `SelectPalette` 与 `Renderer::DrawText3` 也已分别由唯一调色板选择和文本提交实现
-  承接，登录场景不再保留这些重复占位声明；新端只把无界 `sprintf` 改为 256 字节
-  标题缓冲上的 `snprintf`，除上述已闭合目标外，其余未实现目标只保留真实声明。
+  承接，登录场景不再保留这些重复占位声明。模块摘要的文件读取、MD5、输出契约
+  与非法域风险见 [登录模块摘要证据](cg2d_login_module_digest.md)；新端只把无界
+  `sprintf` 改为 256 字节标题缓冲上的 `snprintf`，除上述已闭合目标外，其余
+  未实现目标只保留真实声明。
 
 `SelectPalette` 的直接证据边界为 `[0x450B70,0x450BAD)`：16 条指令、5 个
 基本块。登录场景仅有两处 caller：`0x45FF0A` 传 `(27,0)`，`0x45FF7D`
@@ -92,9 +95,11 @@
 `+0x14` 写为 `A+2+2*j`。服务器输入只检测第一页的 10 个同位置记录；
 低字节 bit 6 先更新槽位，低字节 bit 7 再检测服务器表可用标志。接受后依次
 更新标题、写 W16 服务器索引、写槽位、播放 `(53,320,240)`，再调用
-`sub_5202E0(0xDA3A1C)`、`ReadInputValueFF494F_5203E0(0xDA38DC)`、
+`ComputeExecutableDigest_5202E0(0xDA3A1C)`、
+`ReadInputValueFF494F_5203E0(0xDA38DC)`、
 `ReadInputValueFF4982_520440(0xDA3A5C)`；后两者分别承接原
-`sub_5203E0/sub_520440`。
+`sub_5203E0/sub_520440`。摘要调用返回值仍被丢弃，随后才递增场景状态；
+因此 `PlaySe → 摘要 → 5203E0 → 520440 → 状态递增` 的原顺序不变。
 
 分类标题原表从 `0x559958` 起，每项 64 字节，共 25 项；服务器标号原表从
 `0x559F98` 起，每项 5 字节，共 20 项。新端标题文本使用 UTF-8，但索引、

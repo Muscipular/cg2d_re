@@ -57,6 +57,7 @@ add_library(cg2d_re_startup STATIC
     src/platform/MainLoopState.cpp
     src/platform/MainLoopSupport.cpp
     src/platform/LegacyCryptInt.cpp
+    src/platform/LegacyModuleDigest.cpp
     src/platform/LegacyMouse.cpp
     src/platform/LegacyMouseTracker.cpp
     src/platform/LegacyCursor.cpp

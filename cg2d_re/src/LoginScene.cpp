@@ -6,6 +6,7 @@
 #include "cg/LoginMessage.hpp"
 #include "cg/LoginState.hpp"
 #include "cg/Palette.hpp"
+#include "cg/platform/LegacyModuleDigest.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/world/SceneState.hpp"
 
@@ -392,7 +393,7 @@ std::int32_t ProcessScene_45FEA0()
                         gValue58AD94 = static_cast<std::int16_t>(serverIndex);
                         gSelectedServerGroup = slot;
                         detail::PlaySe(53, 320, 240);
-                        detail::Sub_5202E0(gValueDA3A1C);
+                        platform::ComputeExecutableDigest_5202E0(gValueDA3A1C);
                         ReadInputValueFF494F_5203E0(gValueDA38DC);
                         ReadInputValueFF4982_520440(gValueDA3A5C);
                         IncrementSceneState();

@@ -75,7 +75,7 @@ W32 数组并返回首个相等元素的零基下标，无匹配返回 -1。新�
 
 - 精确边界为 `[0x45D990,0x45DBEF)`，共 165 条指令、38 个基本块，原型为无参数并返回 32 位整数。
 - 唯一调用点是 `LoginScene::Process@0x45FEA0` 的 `0x4601B5`。调用者在 `0x460197` 执行 `sub_45D980` 并把场景子状态增至 3 后，会在同次调用中继续执行本函数。
-- 原函数共有 17 个唯一直接目标。新端复用已有 `sub_5044E0`、`Yobi::MarkDeath` 和唯一 readiness 适配边界，直接调用 `sub_508350` 与 `sub_401000` 的唯一实现；无格式参数的 `sprintf` 拷贝改为等价的定长有界复制；其他尚未还原目标只保留真实声明，不提供空实现或固定返回。
+- 原函数共有 17 个唯一直接目标。新端复用已有 `sub_5044E0`、`Yobi::MarkDeath` 和唯一 readiness 适配边界，直接调用 `sub_508350` 与 `sub_401000` 的唯一实现；无格式参数的 `sprintf` 拷贝改为等价的定长有界复制；仍在当前范围内且尚未还原的目标只保留真实声明，不提供空实现或固定返回。`sub_50FC30`、`sub_50FE30`、`sub_50FF10`、`sub_50FF70`、`sub_510120` 另按下述用户范围排除处理。
 
 主阶段 `word_9A6E3C` 与次阶段 `word_9A6E3E` 均按 16 位访问：
 
@@ -86,6 +86,12 @@ W32 数组并返回首个相等元素的零基下标，无匹配返回 -1。新�
 5. 主阶段 2：严格依次调用 `sub_5081A0@0x5081A0`、`cg::blacklist::PersistAndReset_401000(gValue55A054)`、`sub_508140@0x508140`。中间调用对应原 `sub_401000@0x401000`，返回值保持忽略。最后一项返回 0 时结果为 -1；任意非零时依次写主阶段 3、调用 `sub_508350@0x508350`、写主阶段 4，并同帧轮询。
 6. 主阶段 3：调用 `sub_508350`、写主阶段 4，并同帧轮询。
 7. 主阶段 4：`sub_508360@0x508360` 返回 1 时结果为 1；任意负值统一映射为 -2；0 或大于 1 的值继续等待。其他主阶段仍可进入绘制尾部并返回 0。
+
+### newest 检查链的用户范围排除
+
+上列主阶段 1 的第 2 至 4 项继续作为原端 IDA 行为的历史证据保留，不改写为原函数不存在。2026-09-21 用户明确登录无需再处理该 `newest` HTTP/raw-socket 请求，当前不再使用；因此 R6.1.3.115–119 对应的 `sub_50FC30`、`sub_50FE30`、`sub_50FF10`、`sub_50FF70`、`sub_510120` 五函数链登记为用户范围排除，不实现，也不计为已实现。
+
+新端的明确旁路差异仅位于 `UpdateServerConnection` 的主阶段 1：写 `gValue9A6E3C = 2`，再令本次调用的局部 `phase = 2`，从而同帧继续执行原主阶段 2。旁路不读写 `gValue9A6E3E`，不调用上述五函数，不执行该链的清理，也不改变主阶段 0、2、3、4 或 `ResetValues_45D980`；次阶段仍只由既有重置入口按原宽度清零。后续连接初始化、轮询、结果清理与绘制尾部保持原接线。
 
 结果非零时，原端在 `0x45DB4D` 读取对象；对象非空则先在 `0x45DB57` 调用 `Yobi::MarkDeath`，再在 `0x45DB5F` 清空指针。无论对象是否为空，之后都在 `0x45DB70` 调用 `sub_401030(gValue55A054)`。结果为 0 时不执行清理。
 
@@ -211,5 +217,5 @@ IDA 显示为“伺服器連接中”。新端按项目约定保存 UTF-8 文本
 - `sub_45CE00`、`sub_45CE10` 已由 `cg::login` 消息模块中的唯一实现直接替代；控制器仍未实现的真实直接依赖为 `sub_532D80`、`sub_534290`。
 - `sub_508AF0`、`sub_508B50` 已由 `cg::login` 请求模块中的唯一实现直接替代；进度更新不经过包装层。
 - 进度更新的 `sub_5044E0`、`Yobi::MarkDeath` 与 x64 readiness 边界已接入统一 Yobi runtime；`Renderer::DrawText3` 已通过薄适配接入唯一文本提交实现。请求模块仍只声明 `sub_512B00`，不提供空实现或固定返回值。
-- 服务器连接更新所用 `TextMeasure` 已由物理位于 `src/render/Font.cpp` 的唯一 `cg::login::detail::TextMeasure` 实现解析；仍未实现的真实直接依赖为 `sub_50FC30`、`sub_50FE30`、`sub_50FF10`、`sub_50FF70`、`sub_510120`、`sub_5081A0`、`sub_508140`、`sub_508360` 和 8 参数 `Renderer::DrawText`；共享的创建、死亡标记与 readiness 已由统一 runtime 提供，`sub_508350` 已由 `LoginConnection` 的唯一实现直接替代，`sub_401000` 已由 `cg::blacklist::PersistAndReset_401000` 直接替代，`sub_401030` 已由 `cg::blacklist::LoadBlacklistFile` 直接替代；两个黑名单入口各自复用 `cg::blacklist` 的唯一共享状态。
+- 服务器连接更新所用 `TextMeasure` 已由物理位于 `src/render/Font.cpp` 的唯一 `cg::login::detail::TextMeasure` 实现解析；仍在当前范围内且未实现的真实直接依赖为 `sub_5081A0`、`sub_508140`、`sub_508360` 和 8 参数 `Renderer::DrawText`；`sub_50FC30`、`sub_50FE30`、`sub_50FF10`、`sub_50FF70`、`sub_510120` 的原行为继续留作历史证据，但五函数链已按用户裁决范围排除，当前新端不保留活动调用或依赖声明，不能记为已实现。共享的创建、死亡标记与 readiness 已由统一 runtime 提供，`sub_508350` 已由 `LoginConnection` 的唯一实现直接替代，`sub_401000` 已由 `cg::blacklist::PersistAndReset_401000` 直接替代，`sub_401030` 已由 `cg::blacklist::LoadBlacklistFile` 直接替代；两个黑名单入口各自复用 `cg::blacklist` 的唯一共享状态。
 - 消息更新复用统一 runtime 的 `sub_5044E0`、`Yobi::MarkDeath` 与 readiness，并直接调用文本待提交模块中 `sub_45D7A0` 的唯一实现；其所用 `TextMeasure` 已由物理位于 `src/render/Font.cpp` 的唯一 `cg::login::detail::TextMeasure` 实现解析；8 参数 `Renderer::DrawText`、`PlaySe`、`sub_5049A0`、`DrawGraphic` 及三个共享系统值仍只有真实声明，不提供空实现、固定成功或包装实现。`dword_D68BEC` 的真实生产者 `sub_507140` 仍未实现。

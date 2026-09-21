@@ -115,31 +115,8 @@ std::int32_t UpdateServerConnection()
     }
 
     if (phase == 1) {
-        if (gValue9A6E3E == 0) {
-            if (detail::Sub_50FC30() < 0) {
-                result = -4;
-            } else if (detail::Sub_50FE30() == 1) {
-                detail::Sub_50FF10();
-                gValue9A6E3E = 1;
-            } else {
-                result = -3;
-            }
-        }
-
-        if (gValue9A6E3E == 1) {
-            const std::int32_t updateResult = detail::Sub_50FF70();
-            if (updateResult == 1) {
-                gValue9A6E3E = 2;
-                detail::Sub_510120();
-                gValue9A6E3C = 2;
-            } else if (updateResult == -1) {
-                result = -3;
-            }
-        } else if (gValue9A6E3E == 2) {
-            detail::Sub_510120();
-            gValue9A6E3C = 2;
-        }
-        phase = gValue9A6E3C;
+        gValue9A6E3C = 2;
+        phase = 2;
     }
 
     if (phase == 2) {

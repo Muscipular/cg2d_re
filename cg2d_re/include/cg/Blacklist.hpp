@@ -32,4 +32,7 @@ std::int8_t LoadBlacklistFile(std::int32_t fileId);
 // 原 sub_401000@0x401000：callee 返回非零后依次重置文件 ID 与游标。
 std::int8_t PersistAndReset_401000(std::int32_t fileId);
 
+// 原 sub_401270@0x401270：向首个空槽插入含 NUL 的记录，非早退路径按当前文件 ID 持久化。
+std::int8_t AddBlacklistRecord_401270(const char* name);
+
 } // namespace cg::blacklist

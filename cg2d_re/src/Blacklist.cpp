@@ -112,4 +112,37 @@ std::int8_t PersistAndReset_401000(const std::int32_t fileId)
     return 1;
 }
 
+std::int8_t AddBlacklistRecord_401270(const char* const name)
+{
+    if (gCursor == static_cast<std::int32_t>(kRecordCount)) {
+        return 0;
+    }
+
+    for (Record& record : gRecords) {
+        if (record[0] != 0) {
+            continue;
+        }
+
+        std::size_t byteCount = 0;
+        do {
+            ++byteCount;
+        } while (name[byteCount - 1] != '\0');
+
+        std::uint8_t* const destination = record.data();
+        for (std::size_t i = 0; i < byteCount; ++i) {
+            destination[i] = static_cast<std::uint8_t>(name[i]);
+        }
+
+        const std::uint32_t cursorBits = std::bit_cast<std::uint32_t>(gCursor);
+        gCursor = std::bit_cast<std::int32_t>(cursorBits + std::uint32_t {1});
+        break;
+    }
+
+    const std::int32_t fileId = gCurrentFileId;
+    if (fileId >= 0) {
+        PersistBlacklistFile_4011A0(fileId);
+    }
+    return 1;
+}
+
 } // namespace cg::blacklist

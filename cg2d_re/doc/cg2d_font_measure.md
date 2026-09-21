@@ -27,7 +27,23 @@
 
 它与三参数 `Font::measure` 的关键差异是没有 `maxBytes`、消费计数和预算停止条件；不得通过传入 `INT32_MAX` 复用三参数函数。有效输入域内，两者都沿用 bit 7 判定的旧双字节规则，均不执行 UTF-8、GBK 或 Big5 解码。
 
-当前源码共有 5 个翻译单元的 21 个调用点：`CharacterSelectModal.cpp` 4 个、`CharacterDeletionConfirmation.cpp` 5 个、`CharacterVersionUpgrade.cpp` 2 个、`LoginState.cpp` 2 个、`LoginMessage.cpp` 8 个；其 `fontType` 均为 0，本项不移动或改写这些消费者。
+## 当前源码 owner 与调用拓扑
+
+当前唯一函数符号和 owner 是 `cg::login::detail::TextMeasure`。唯一声明位于 `src/LoginStateDependencies.hpp`，唯一实现物理位于 `src/render/Font.cpp`；物理目录不等于 C++ namespace，该定义明确处于 `cg::login::detail`。当前不存在 `cg::render::TextMeasure`，也不存在 `TextMeasure` adapter。`src/render/Font.cpp` 中的实现对原函数有效输入域保持等价；`text == nullptr` 与域外 `fontType` 返回 0 是既有的最窄安全适配，不改变原有效域算法。
+
+当前源码共有 9 个翻译单元的 27 个调用点。它们与原 `TextMeasure@0x44B2A0` 直接调用点的映射如下；这些消费者均直接调用上述唯一 owner，本项不移动或改写声明、定义与调用：
+
+| 翻译单元 | 数量 | 原调用地址 |
+|---|---:|---|
+| `CharacterDeletionConfirmation.cpp` | 5 | `0x45E055`、`0x45E264`、`0x45E2C5`、`0x45E320`、`0x45E381` |
+| `CharacterSelectModal.cpp` | 4 | `0x4621D0`、`0x46222E`、`0x462289`、`0x4622E7` |
+| `CharacterVersionUpgrade.cpp` | 2 | `0x4623ED`、`0x462472` |
+| `LoginCapability3InputController.cpp` | 1 | `0x45FB93` |
+| `LoginCapability4Modal.cpp` | 2 | `0x4644D9`、`0x464509` |
+| `LoginInputController.cpp` | 1 | `0x464F50` |
+| `LoginMessage.cpp` | 8 | `0x45CE94`、`0x45CEBE`、`0x45CF2B`、`0x45D011`、`0x45D11F`、`0x45D1D8`、`0x45D2BB`、`0x45D4C8` |
+| `LoginState.cpp` | 2 | `0x45D9B7`、`0x45DB99` |
+| `world/RenderInput.cpp` | 2 | `0x459248`、`0x4594C2` |
 
 ## 地址中性度量表
 

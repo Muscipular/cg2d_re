@@ -65,6 +65,7 @@ add_library(cg2d_re_startup STATIC
     src/platform/LegacyExternalKeyboardObject.cpp
     src/LegacyHitTest.cpp
     src/LegacyUiRecord.cpp
+    src/LegacyAudio.cpp
     src/Input.cpp
     src/InputKeyDispatch.cpp
     src/InputCaret.cpp

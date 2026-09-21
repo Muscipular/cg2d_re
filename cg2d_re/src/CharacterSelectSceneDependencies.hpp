@@ -2,6 +2,7 @@
 
 #include "LoginMessageDependencies.hpp"
 
+#include "cg/LegacyAudio.hpp"
 #include "cg/render/TextPendingQueue.hpp"
 
 #include <array>
@@ -64,7 +65,7 @@ std::int32_t Sub_51BF00(std::int32_t imageNo);
 std::int32_t Sub_51BAC0(std::int32_t imageNo);
 std::int32_t Sub_51BFF0(std::int32_t imageNo);
 std::int32_t Sub_51BB80(std::int32_t imageNo);
-std::uint32_t Sub_52B990();
+using cg::audio::Sub_52B990;
 
 std::int32_t Sub_45F100(const CharacterSelectUiRecord* uiRecord);
 void Sub_45EFD0(

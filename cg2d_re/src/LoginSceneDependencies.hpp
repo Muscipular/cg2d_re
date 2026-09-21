@@ -2,6 +2,8 @@
 
 #include "LoginMessageDependencies.hpp"
 
+#include "cg/LegacyAudio.hpp"
+
 #include <cstdint>
 
 namespace cg::login::detail {
@@ -9,7 +11,7 @@ namespace cg::login::detail {
 // 登录场景控制器尚未实现的真实直接目标；不提供空体或固定返回。
 std::int32_t LoadAndPlayBGM(std::uint32_t bgmId);
 std::int32_t Sub_45F100(const void* uiRecord);
-std::uint32_t Sub_52B990();
+using cg::audio::Sub_52B990;
 char* Sub_5202E0(char* value);
 void Sub_45EFD0(
     const void* uiRecord,

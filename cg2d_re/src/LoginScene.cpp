@@ -5,6 +5,7 @@
 #include "cg/LoginInput.hpp"
 #include "cg/LoginMessage.hpp"
 #include "cg/LoginState.hpp"
+#include "cg/Palette.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/world/SceneState.hpp"
 
@@ -327,7 +328,7 @@ std::int32_t ProcessScene_45FEA0()
         world::gValueD9F2CA = 0;
         world::gValue58B6D0 = 1;
         gSelectedServerGroup = 0;
-        detail::Sub_450B70(27, 0);
+        static_cast<void>(render::SelectPalette(27, 0));
         detail::LoadAndPlayBGM(17);
     }
 
@@ -339,7 +340,7 @@ std::int32_t ProcessScene_45FEA0()
                 platform::gLegacyWindow, 0x10, 0, 0);
         } else if ((detail::Sub_45F100(&gSwitchSceneUi) & 1) != 0) {
             world::SetPendingSceneType(1);
-            detail::Sub_450B70(20, 1);
+            static_cast<void>(render::SelectPalette(20, 1));
             detail::PlaySe(54, 320, 240);
             detail::Sub_52B990();
         } else if ((detail::Sub_45F100(SelectedCategoryControl()) & 1) != 0) {

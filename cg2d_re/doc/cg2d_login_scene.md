@@ -9,7 +9,7 @@
 - 原型：无参数，返回 32 位整数；最终返回
   `Renderer::DrawText3(540, 424, 0, 0, "7.1.00", 0)` 的原值。
 - 唯一调用者：`World::Update@0x51C430` 的场景类型 2 分支。
-- 23 个唯一直接目标：`sprintf`、`SetWindowTextA`、`sub_450B70`、
+- 23 个唯一直接目标：`sprintf`、`SetWindowTextA`、`SelectPalette@0x450B70`、
   `World::LoadAndPlayBGM`、`sub_45F100`、`World::PlaySe`、`PostMessageA`、
   `SetPendingSceneType@0x51C7B0`、`sub_52B990`、`sub_5202E0`、
   `sub_5203E0`、`sub_520440`、`sub_45D980`、`sub_45D990`、
@@ -17,9 +17,14 @@
   `sub_45CE10`、`ShellExecuteA`、`sub_45EFD0`、`hasIDirect3D7`、
   `sub_45F090`、`Renderer::DrawText3`。其中 `sub_5203E0/sub_520440` 已由
   `ReadInputValueFF494F_5203E0/ReadInputValueFF4982_520440` 的唯一公共实现
-  承接，`Renderer::DrawText3` 已由唯一文本提交实现承接，登录场景不再保留这些
-  重复占位声明；新端只把无界 `sprintf` 改为 256 字节标题缓冲上的 `snprintf`，
-  其余未实现目标只保留真实声明。
+  承接，`SelectPalette` 与 `Renderer::DrawText3` 也已分别由唯一调色板选择和文本
+  提交实现承接，登录场景不再保留这些重复占位声明；新端只把无界 `sprintf`
+  改为 256 字节标题缓冲上的 `snprintf`，其余未实现目标只保留真实声明。
+
+`SelectPalette` 的直接证据边界为 `[0x450B70,0x450BAD)`：16 条指令、5 个
+基本块。登录场景仅有两处 caller：`0x45FF0A` 传 `(27,0)`，`0x45FF7D`
+传 `(20,1)`；两处返回值均未消费。新端均直接调用公开
+`cg::render::SelectPalette`，不在登录依赖层保留重复声明。
 
 ## 顺序状态处理
 
@@ -28,11 +33,12 @@
 不会反向重入本帧已经执行过的状态 1。
 
 1. 状态 0：先写状态 1，再更新基础标题；依次清 `0xD9F2CA`、写
-   `0x58B6D0=1`、清 `0x9A5B04`，调用 `sub_450B70(27,0)` 和
+   `0x58B6D0=1`、清 `0x9A5B04`，调用 `SelectPalette(27,0)` 和
    `LoadAndPlayBGM(17)`，随后同帧进入状态 1。
 2. 状态 1：把本帧尾部标志写为 1。输入检测严格依次为关闭、切换场景、
-   返回分类、60 项分类扫描、10 项服务器扫描。接受服务器后把状态增至 2，
-   同帧继续。
+   返回分类、60 项分类扫描、10 项服务器扫描；切换场景时先调用
+   `SetPendingSceneType(1)`，再调用 `SelectPalette(20,1)`。接受服务器后把状态
+   增至 2，同帧继续。
 3. 状态 2：调用 `ResetValues_45D980` 后把状态增至 3，同帧继续。
 4. 状态 3：调用 `UpdateServerConnection`。返回 1 时立即
    `SetCurrentSceneType(3)`；返回 -1/-2/-3/-4 时写状态 100、生成消息并

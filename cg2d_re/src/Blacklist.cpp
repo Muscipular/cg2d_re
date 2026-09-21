@@ -1,9 +1,36 @@
 #include "cg/Blacklist.hpp"
 
+#include <cstdio>
+#include <cstring>
+
 namespace cg::blacklist {
 
-// sub_4011A0@0x4011A0 尚未还原；保留真实外部依赖，不提供桩。
-std::int8_t PersistBlacklistFile_4011A0(std::int32_t fileId);
+namespace {
+
+std::int8_t PersistBlacklistFile_4011A0(const std::int32_t fileId)
+{
+    PathBuffer localPath {};
+    std::sprintf(localPath.data(), "data\\blacklist_%d.txt", static_cast<int>(fileId));
+
+    if (std::strcmp(gPath.data(), localPath.data()) != 0) {
+        return 0;
+    }
+
+    std::FILE* const file = std::fopen(gPath.data(), "w");
+    for (const Record& record : gRecords) {
+        if (record[0] == 0) {
+            break;
+        }
+
+        std::fputs(reinterpret_cast<const char*>(record.data()), file);
+        std::fputs("\n", file);
+    }
+
+    std::fclose(file);
+    return std::int8_t {1};
+}
+
+} // namespace
 
 RecordTable gRecords {};
 PathBuffer gPath {};

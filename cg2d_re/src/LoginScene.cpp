@@ -228,7 +228,7 @@ void IncrementSceneState()
 void SetBaseWindowTitle(char (&buffer)[256])
 {
     std::snprintf(buffer, sizeof(buffer), "%s %s", kWindowName, kVersion);
-    cg::platform::detail::SetWindowTextA_54D2E0(cg::platform::gLegacyWindow, buffer);
+    cg::platform::SetLegacyWindowText(cg::platform::gLegacyWindow, buffer);
 }
 
 const char* CategoryTitle(std::int32_t categoryIndex)
@@ -267,7 +267,7 @@ void SetServerWindowTitle(
             kVersion,
             category);
     }
-    cg::platform::detail::SetWindowTextA_54D2E0(cg::platform::gLegacyWindow, buffer);
+    cg::platform::SetLegacyWindowText(cg::platform::gLegacyWindow, buffer);
 }
 
 void CopyAccountHelpLines()
@@ -336,7 +336,7 @@ std::int32_t ProcessScene_45FEA0()
         interactiveTail = 1;
         if ((detail::Sub_45F100(&gCloseUi) & 1) != 0) {
             detail::PlaySe(54, 320, 240);
-            platform::detail::PostMessageA_54D2F0(
+            platform::PostLegacyWindowMessage(
                 platform::gLegacyWindow, 0x10, 0, 0);
         } else if ((detail::Sub_45F100(&gSwitchSceneUi) & 1) != 0) {
             world::SetPendingSceneType(1);

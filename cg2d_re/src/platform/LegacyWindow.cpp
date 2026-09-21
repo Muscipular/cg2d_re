@@ -18,4 +18,23 @@ std::int32_t ShowLegacyCursor(const std::int32_t show)
     return static_cast<std::int32_t>(::ShowCursor(show));
 }
 
+std::int32_t SetLegacyWindowText(const std::uintptr_t window, const char* const text)
+{
+    return static_cast<std::int32_t>(
+        ::SetWindowTextA(reinterpret_cast<HWND>(window), text));
+}
+
+std::int32_t PostLegacyWindowMessage(
+    const std::uintptr_t window,
+    const std::uint32_t message,
+    const std::uintptr_t wParam,
+    const std::intptr_t lParam)
+{
+    return static_cast<std::int32_t>(::PostMessageA(
+        reinterpret_cast<HWND>(window),
+        static_cast<UINT>(message),
+        static_cast<WPARAM>(wParam),
+        static_cast<LPARAM>(lParam)));
+}
+
 } // namespace cg::platform

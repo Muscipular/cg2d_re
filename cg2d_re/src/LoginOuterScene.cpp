@@ -128,7 +128,7 @@ void ProcessOuterScene_45C2D0()
         world::gCurrentSceneState = 10;
     } else if (result == 2) {
         static_cast<void>(detail::PlaySe(54, 320, 240));
-        static_cast<void>(platform::detail::PostMessageA_54D2F0(
+        static_cast<void>(platform::PostLegacyWindowMessage(
             platform::gLegacyWindow, 0x10, 0, 0));
     } else if (result < 0) {
         world::gCurrentSceneState = 8;

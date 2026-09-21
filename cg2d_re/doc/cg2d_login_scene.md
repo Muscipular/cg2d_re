@@ -15,11 +15,13 @@
   `sub_5203E0`、`sub_520440`、`sub_45D980`、`sub_45D990`、
   `SetCurrentSceneType@0x51C770`、`sub_5081A0`、`sub_45CE00`、
   `sub_45CE10`、`ShellExecuteA`、`sub_45EFD0`、`hasIDirect3D7`、
-  `sub_45F090`、`Renderer::DrawText3`。其中 `sub_5203E0/sub_520440` 已由
-  `ReadInputValueFF494F_5203E0/ReadInputValueFF4982_520440` 的唯一公共实现
-  承接，`SelectPalette` 与 `Renderer::DrawText3` 也已分别由唯一调色板选择和文本
-  提交实现承接，登录场景不再保留这些重复占位声明；新端只把无界 `sprintf`
-  改为 256 字节标题缓冲上的 `snprintf`，其余未实现目标只保留真实声明。
+  `sub_45F090`、`Renderer::DrawText3`。其中 `SetWindowTextA/PostMessageA` 已由
+  `LegacyWindow` 的唯一原生边界 `SetLegacyWindowText/PostLegacyWindowMessage`
+  承接；`sub_5203E0/sub_520440` 已由
+  `ReadInputValueFF494F_5203E0/ReadInputValueFF4982_520440` 的唯一公共实现承接，
+  `SelectPalette` 与 `Renderer::DrawText3` 也已分别由唯一调色板选择和文本提交实现
+  承接，登录场景不再保留这些重复占位声明；新端只把无界 `sprintf` 改为 256 字节
+  标题缓冲上的 `snprintf`，除上述已闭合目标外，其余未实现目标只保留真实声明。
 
 `SelectPalette` 的直接证据边界为 `[0x450B70,0x450BAD)`：16 条指令、5 个
 基本块。登录场景仅有两处 caller：`0x45FF0A` 传 `(27,0)`，`0x45FF7D`

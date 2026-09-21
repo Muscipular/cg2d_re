@@ -66,12 +66,13 @@
 
 能力探测、输入初始化与控制器、调色板、两个持久槽、场景切换、登录消息及原生
 窗口存储均复用现有唯一实现。`nullsub_1@0x509080` 已直接改接唯一
-`cg::NullSub_509080()` 空操作实现。目标函数的直接依赖中，以下仍只有真实窄声明：
+`cg::NullSub_509080()` 空操作实现。`PostMessageA@0x54D2F0` 已由地址中性的
+`PostLegacyWindowMessage(...)` 原生边界承接。目标函数的直接依赖中，以下仍
+只有真实窄声明：
 
 - `Sub_520200()` / `sub_520200@0x520200`；
-- `PlaySe(...)` / `World::PlaySe@0x52C450`；
-- `PostMessageA_54D2F0(...)` / `PostMessageA@0x54D2F0`。
+- `PlaySe(...)` / `World::PlaySe@0x52C450`。
 
 此外，已实现的 `ProcessLoginInput_45CA20` 对
 `Renderer::DrawText3@0x456560` 的传递依赖已接入唯一文本提交实现。本项仍不为
-音频、窗口消息或登录请求补占位实现。
+音频或登录请求补占位实现。

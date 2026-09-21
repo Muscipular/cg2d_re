@@ -13,4 +13,14 @@ int ShowLegacyMessage(const char* text, const char* caption, std::uint32_t flags
 // 原 ShowCursor 边界：保留调用方传入的完整 W32，不归一化为 bool。
 std::int32_t ShowLegacyCursor(std::int32_t show);
 
+// 原 SetWindowTextA 边界：原样传递原生宽度窗口引用与窄字节串。
+std::int32_t SetLegacyWindowText(std::uintptr_t window, const char* text);
+
+// 原 PostMessageA 边界：保留 HWND/WPARAM/LPARAM 的原生宽度与 BOOL 返回值。
+std::int32_t PostLegacyWindowMessage(
+    std::uintptr_t window,
+    std::uint32_t message,
+    std::uintptr_t wParam,
+    std::intptr_t lParam);
+
 } // namespace cg::platform

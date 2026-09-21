@@ -153,7 +153,7 @@ std::int32_t ProcessCapability3InputAndDraw()
         cg::world::gCurrentSceneState = 10;
     } else if (result == 2) {
         static_cast<void>(cg::login::detail::PlaySe(54, 320, 240));
-        static_cast<void>(cg::platform::detail::PostMessageA_54D2F0(
+        static_cast<void>(cg::platform::PostLegacyWindowMessage(
             cg::platform::gLegacyWindow,
             0x10,
             0,

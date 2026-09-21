@@ -40,7 +40,6 @@ int Sub_52CD30(std::int32_t value);
 void Sub_507140();
 void Sub_449160();
 std::uint8_t CheckProtection_4043B0(const char* functionName);
-int QueryConnectionState_510140();
 int Report_512CA0(std::uintptr_t socket, std::int32_t value);
 std::int32_t CheckWindows_4048E0();
 void Sub_423640();

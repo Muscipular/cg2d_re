@@ -2,6 +2,7 @@
 #include "ClientShutdown.hpp"
 #include "MainLoopDependencies.hpp"
 
+#include "cg/LoginRequest.hpp"
 #include "cg/platform/LegacyCursor.hpp"
 #include "cg/platform/KeyState.hpp"
 #include "cg/platform/MainLoop.hpp"
@@ -99,11 +100,11 @@ int MainLoop()
             }
         }
 
-        if (CheckProtection_4043B0("GetTickCount") != 0 && QueryConnectionState_510140() == 1) {
+        if (CheckProtection_4043B0("GetTickCount") != 0 && login::ReadRequestOutcomeFlag() == 1) {
             Report_512CA0(gConnectionSocket, 4);
         }
         const std::int32_t report = CheckWindows_4048E0();
-        if (report > 0 && QueryConnectionState_510140() == 1) {
+        if (report > 0 && login::ReadRequestOutcomeFlag() == 1) {
             Report_512CA0(gConnectionSocket, report);
         }
         const std::int32_t clearMode = gValue73ECC0;
@@ -144,7 +145,7 @@ int MainLoop()
             const std::uint32_t nextTick = getTickCount();
             gWindowReportDeadline += 60000u * (nextTick % 10u + 10u);
         }
-        if (gWindowReportValue > 0 && QueryConnectionState_510140() == 1) {
+        if (gWindowReportValue > 0 && login::ReadRequestOutcomeFlag() == 1) {
             const std::uint32_t reportTick = getTickCount();
             const std::uint32_t reportDeadline = gWindowReportDeadline;
             if (reportTick > reportDeadline
@@ -155,7 +156,7 @@ int MainLoop()
         }
 
         bool initializeSystemTime = false;
-        if (QueryConnectionState_510140() == 1) {
+        if (login::ReadRequestOutcomeFlag() == 1) {
             const std::uint32_t low = gLastSystemTime.low;
             const std::uint32_t high = gLastSystemTime.high;
             initializeSystemTime = (low | high) == 0;
@@ -170,7 +171,7 @@ int MainLoop()
             gPeriodicReportSeconds = static_cast<std::uint32_t>(seconds);
         } else {
             bool resetSystemTime = false;
-            if (QueryConnectionState_510140() == 0) {
+            if (login::ReadRequestOutcomeFlag() == 0) {
                 const std::uint32_t high = gLastSystemTime.high;
                 if (high != 0) {
                     resetSystemTime = true;

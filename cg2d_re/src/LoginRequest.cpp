@@ -37,6 +37,11 @@ char gRequestMessage[RequestMessageCapacity] {};
 static_assert(sizeof(gCharacterRecords) == 0x128);
 static_assert(sizeof(gRequestMessage) == RequestMessageCapacity);
 
+std::int32_t ReadRequestOutcomeFlag()
+{
+    return gRequestOutcomeFlag;
+}
+
 std::uint32_t StartLoginRequest()
 {
     const std::int16_t selected = gSelectedCharacterIndex;

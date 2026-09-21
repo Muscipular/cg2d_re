@@ -63,6 +63,7 @@ struct NetworkRuntimeState {
     std::uint8_t* tripleBuffer58B608;
     std::uint8_t* tripleBuffer58B60C;
     std::uint8_t* tripleBuffer58B610;
+    std::uint8_t integerFormatScratch[64]; // 原 [0xDA3F58,0xDA3F98)。
     void** workspaceSlots; // 原 0xDA3F98，18 个本机指针槽。
     std::uint8_t active;   // 原 0xD9F2C8，网络运行期活动门禁。
     std::uint32_t valueD9F2D0; // 原 0xD9F2D0，仅保留地址身份的 W32。
@@ -337,6 +338,13 @@ void CopyProtocolBytes_517080(
         ++index;
     }
     destination[index] = 0;
+}
+
+std::uint8_t* FormatProtocolInteger_517670(const std::int32_t value)
+{
+    static_cast<void>(
+        detail::Sub_517730(value, gNetworkRuntimeState.integerFormatScratch, 64));
+    return gNetworkRuntimeState.integerFormatScratch;
 }
 
 std::uint8_t* CopyProtocolBytesAndReturn_517690(

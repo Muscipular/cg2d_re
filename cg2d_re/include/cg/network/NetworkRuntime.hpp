@@ -21,6 +21,9 @@ void CopyProtocolBytes_517080(
     const std::uint8_t* source,
     std::int32_t capacity);
 
+// 原 sub_517670@[0x517670,0x51768A)：格式化有符号 W32 到共享协议缓冲。
+std::uint8_t* FormatProtocolInteger_517670(std::int32_t value);
+
 // 原 sub_517690@[0x517690,0x5176AC)：复制协议字节并返回原目标指针。
 std::uint8_t* CopyProtocolBytesAndReturn_517690(
     std::uint8_t* destination,

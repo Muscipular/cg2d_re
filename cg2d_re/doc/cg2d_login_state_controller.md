@@ -105,11 +105,17 @@ caller 是本控制器中的 `0x45DAE1`。该函数调用 callee 恰好一次：
 两个状态也不属于这四项。
 
 原 `sub_4011A0` 会格式化 `data\blacklist_%d.txt`，仅在结果与共享路径相等时
-以 `w` 模式持久化记录；新端仍只保留真实未解析声明
-`PersistBlacklistFile_4011A0`，不提供桩。因此当前只完成 `sub_401000` 外层语义，
-最终链接、磁盘持久化和服务器连接链均未完成。`sub_401030` 必须复用同一组 owner，
-但它是独立加载任务，本项不合并、不修改。完整布局见
+以 `w` 模式持久化记录；新端已由 cpp 私有的
+`PersistBlacklistFile_4011A0` 实现，并由 `PersistAndReset_401000` 保持原外层
+重置语义。原 `sub_401030@[0x401030,0x401167)` 也已由地址中立公开入口
+`cg::blacklist::LoadBlacklistFile` 独立实现：先清路径和记录表，以 `rb+` 打开，
+再按 `feof`、17 字节 `fgets` 和 signed W32 回绕游标规则加载；所有路径最终写入
+当前文件 ID 并返回 W8 的 1。本控制器在结果非零路径保持原顺序调用该入口并
+忽略返回值。加载与持久化实现不合并。完整布局与异常域见
 [黑名单共享状态证据](cg2d_blacklist_state.md)。
+
+上述黑名单边界的闭合不代表最终链接、服务器连接链或整体客户端已经闭合；本
+控制器仍有下文列出的其他真实依赖尚未实现。
 
 对象非空且 readiness 阈值 1 成立时，`0x45DB99` 每帧重新测量提示文本；绘制坐标保持原有两次有符号向零截断计算：
 
@@ -205,5 +211,5 @@ IDA 显示为“伺服器連接中”。新端按项目约定保存 UTF-8 文本
 - `sub_45CE00`、`sub_45CE10` 已由 `cg::login` 消息模块中的唯一实现直接替代；控制器仍未实现的真实直接依赖为 `sub_532D80`、`sub_534290`。
 - `sub_508AF0`、`sub_508B50` 已由 `cg::login` 请求模块中的唯一实现直接替代；进度更新不经过包装层。
 - 进度更新的 `sub_5044E0`、`Yobi::MarkDeath` 与 x64 readiness 边界已接入统一 Yobi runtime；`Renderer::DrawText3` 已通过薄适配接入唯一文本提交实现。请求模块仍只声明 `sub_512B00`，不提供空实现或固定返回值。
-- 服务器连接更新仍未实现的真实直接依赖为 `TextMeasure`、`sub_50FC30`、`sub_50FE30`、`sub_50FF10`、`sub_50FF70`、`sub_510120`、`sub_5081A0`、`sub_508140`、`sub_508360`、`sub_401030` 和 8 参数 `Renderer::DrawText`；共享的创建、死亡标记与 readiness 已由统一 runtime 提供，`sub_508350` 已由 `LoginConnection` 的唯一实现直接替代，`sub_401000` 已由 `cg::blacklist::PersistAndReset_401000` 直接替代。后者内部的真实 `sub_4011A0` 仍以 `PersistBlacklistFile_4011A0` 保持未解析。
+- 服务器连接更新仍未实现的真实直接依赖为 `TextMeasure`、`sub_50FC30`、`sub_50FE30`、`sub_50FF10`、`sub_50FF70`、`sub_510120`、`sub_5081A0`、`sub_508140`、`sub_508360` 和 8 参数 `Renderer::DrawText`；共享的创建、死亡标记与 readiness 已由统一 runtime 提供，`sub_508350` 已由 `LoginConnection` 的唯一实现直接替代，`sub_401000` 已由 `cg::blacklist::PersistAndReset_401000` 直接替代，`sub_401030` 已由 `cg::blacklist::LoadBlacklistFile` 直接替代；两个黑名单入口各自复用 `cg::blacklist` 的唯一共享状态。
 - 消息更新复用统一 runtime 的 `sub_5044E0`、`Yobi::MarkDeath` 与 readiness，并直接调用文本待提交模块中 `sub_45D7A0` 的唯一实现；`TextMeasure`、8 参数 `Renderer::DrawText`、`PlaySe`、`sub_5049A0`、`DrawGraphic` 及三个共享系统值仍只有真实声明，不提供空实现、固定成功或包装实现。`dword_D68BEC` 的真实生产者 `sub_507140` 仍未实现。

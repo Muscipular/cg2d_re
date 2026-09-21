@@ -23,7 +23,6 @@ std::int32_t Sub_510120();
 void Sub_5081A0();
 std::int32_t Sub_508140();
 std::int32_t Sub_508360();
-std::int8_t Sub_401030(std::int32_t value);
 inline std::int32_t DrawText(
     const std::int16_t x,
     const std::int16_t y,

@@ -26,6 +26,9 @@ extern std::int32_t gCursor;
 // 原 0x5531A0，按有符号 32 位访问的当前文件 ID。
 extern std::int32_t gCurrentFileId;
 
+// 原 sub_401030@0x401030：从指定文件加载黑名单记录。
+std::int8_t LoadBlacklistFile(std::int32_t fileId);
+
 // 原 sub_401000@0x401000：callee 返回非零后依次重置文件 ID 与游标。
 std::int8_t PersistAndReset_401000(std::int32_t fileId);
 

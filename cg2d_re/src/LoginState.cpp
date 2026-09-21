@@ -175,7 +175,7 @@ std::int32_t UpdateServerConnection()
             detail::MarkDeath(gServerConnectionAction);
             gServerConnectionAction = nullptr;
         }
-        detail::Sub_401030(gValue55A054);
+        cg::blacklist::LoadBlacklistFile(gValue55A054);
     }
 
     YobiAction* const action = gServerConnectionAction;

@@ -190,6 +190,24 @@ void UpdateNativeCursor()
 
 } // namespace
 
+std::int32_t RequestCursorState_506DE0(
+    const std::int32_t requestedState,
+    const std::int32_t force) noexcept
+{
+    if (force != 0) {
+        gValueD68DC4 = std::bit_cast<std::uint32_t>(requestedState);
+        return requestedState;
+    }
+
+    const std::uint32_t currentState = gValueD68DC4;
+    if (currentState != 0) {
+        return std::bit_cast<std::int32_t>(currentState);
+    }
+
+    gValueD68DC4 = std::bit_cast<std::uint32_t>(requestedState);
+    return requestedState;
+}
+
 void ResetLegacyMouseTail_506DD0()
 {
     gLegacyMouseState.tailReset = 0;

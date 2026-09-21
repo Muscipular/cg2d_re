@@ -13,6 +13,22 @@
 `e7c2790f479862635932e043b2d7e93b9e791a1edc276a960af05f1454c54010`。
 本项未修改 IDA，未读取或使用 STONAGE 作为证据。
 
+## 请求状态写入 helper
+
+`sub_506DE0@[0x506DE0,0x506DFB)` 共 9 条指令、4 个基本块，没有 callee，
+11 个 caller 共用原 `dword_D68DC4@0xD68DC4`。新端直接复用唯一 owner
+`platform::gValueD68DC4`，不建立第二份请求状态。
+
+函数先在 `0x506DE0..0x506DE6` 检查 `force`。`force` 非零时不读取当前状态，
+直接把 `requestedState` 的 W32 位型写入 owner 并返回原参数；`force` 为零时才在
+`0x506DE8` 单次采样当前状态，非零则按相同 W32 位型返回旧值，为零则写入并返回
+`requestedState`。owner 使用 `uint32_t`，接口返回 `int32_t`，两者之间只用
+`bit_cast` 保留位型，不依赖域外无符号到有符号转换，也不增加状态范围门禁。
+
+尚未实现的 `sub_507140` 在 `0x5079D7`、`0x507A1F`、`0x507A49`、
+`0x507A74` 四次以 `(requestedState=1, force=0)` 调用并忽略返回值。本步只实现
+这个真实叶函数，不截取或伪造 `sub_507140` 的文本、图形或 Yobi 路径。
+
 ## 按键边沿、计时与脉冲
 
 入口 `0x506E14` 先把 `edgeButtons@0xD68D9C` 完整 W32 清零，再分别处理左、

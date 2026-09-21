@@ -31,16 +31,3 @@ std::uint8_t ReadNegativeSelectionAvailability(
 std::int32_t Sub_520200();
 
 } // namespace cg::login::detail
-
-namespace cg::platform::detail {
-
-// 原 ShellExecuteA 直接目标的窄声明；公开业务接口不暴露 HWND 或 HINSTANCE。
-std::intptr_t ShellExecuteA_54D224(
-    std::uintptr_t window,
-    const char* operation,
-    const char* file,
-    const char* parameters,
-    const char* directory,
-    std::int32_t showCommand);
-
-} // namespace cg::platform::detail

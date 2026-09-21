@@ -3,6 +3,7 @@
 #define WIN32_LEAN_AND_MEAN
 #define NOMINMAX
 #include <Windows.h>
+#include <shellapi.h>
 
 namespace cg::platform {
 
@@ -35,6 +36,23 @@ std::int32_t PostLegacyWindowMessage(
         static_cast<UINT>(message),
         static_cast<WPARAM>(wParam),
         static_cast<LPARAM>(lParam)));
+}
+
+std::intptr_t ExecuteLegacyShell(
+    const std::uintptr_t window,
+    const char* const operation,
+    const char* const file,
+    const char* const parameters,
+    const char* const directory,
+    const std::int32_t showCommand)
+{
+    return reinterpret_cast<std::intptr_t>(::ShellExecuteA(
+        reinterpret_cast<HWND>(window),
+        operation,
+        file,
+        parameters,
+        directory,
+        static_cast<int>(showCommand)));
 }
 
 } // namespace cg::platform

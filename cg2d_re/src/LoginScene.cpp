@@ -560,7 +560,7 @@ std::int32_t ProcessScene_45FEA0()
 
     if (world::gCurrentSceneState == 101 && UpdateLoginMessage(gLoginSceneMessage) != 0) {
         if (gOpenUrlAfterMessage != 0) {
-            platform::detail::ShellExecuteA_54D224(
+            platform::ExecuteLegacyShell(
                 platform::gLegacyWindow,
                 nullptr,
                 kPasswordExpiredUrl,

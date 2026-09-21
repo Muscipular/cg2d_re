@@ -23,4 +23,13 @@ std::int32_t PostLegacyWindowMessage(
     std::uintptr_t wParam,
     std::intptr_t lParam);
 
+// 原 ShellExecuteA 边界：保留 HWND/HINSTANCE 的原生宽度，不解释返回的错误码。
+std::intptr_t ExecuteLegacyShell(
+    std::uintptr_t window,
+    const char* operation,
+    const char* file,
+    const char* parameters,
+    const char* directory,
+    std::int32_t showCommand);
+
 } // namespace cg::platform

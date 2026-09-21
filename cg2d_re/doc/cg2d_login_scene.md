@@ -17,7 +17,8 @@
   `sub_45CE10`、`ShellExecuteA`、`sub_45EFD0`、`hasIDirect3D7`、
   `sub_45F090`、`Renderer::DrawText3`。其中 `SetWindowTextA/PostMessageA` 已由
   `LegacyWindow` 的唯一原生边界 `SetLegacyWindowText/PostLegacyWindowMessage`
-  承接；`sub_5203E0/sub_520440` 已由
+  承接，`ShellExecuteA` 已由同模块的地址中性边界 `ExecuteLegacyShell` 承接；
+  `sub_5203E0/sub_520440` 已由
   `ReadInputValueFF494F_5203E0/ReadInputValueFF4982_520440` 的唯一公共实现承接，
   `SelectPalette` 与 `Renderer::DrawText3` 也已分别由唯一调色板选择和文本提交实现
   承接，登录场景不再保留这些重复占位声明；新端只把无界 `sprintf` 改为 256 字节
@@ -51,6 +52,14 @@
    写状态 1 并更新基础标题。
 7. 状态 102：每次都调用 `UpdateLoginMessage`；任意非零时写状态 1，随后
    无条件更新基础标题。
+
+`ShellExecuteA` 的 IAT 槽为 `0x54D224`，导入模块为 `SHELL32`；唯一代码
+调用点 `0x460939` 位于 `LoginScene::Process`。`0x46092B..0x460938` 从右到左
+压入六个参数，依次对应
+`(hWnd, nullptr, 0x55CAA4, nullptr, nullptr, 1)`，其中 `0x55CAA4` 是密码
+过期 URL。调用后的 `0x46093F` 直接为后续 `sub_51C7B0(1)` 压参，未读取
+`EAX`，因此新端保留 `HINSTANCE` 的完整指针位型但调用方仍丢弃返回值；边界
+直接调用 `ShellExecuteA`，不解释 `<= 32` 的返回值。
 
 ## 状态 1 的数据与 UI
 

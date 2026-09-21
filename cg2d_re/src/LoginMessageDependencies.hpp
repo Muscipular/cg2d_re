@@ -11,7 +11,6 @@
 namespace cg::login::detail {
 
 // sub_45CE10@0x45CE10 尚未实现的直接目标。
-std::int32_t Sub_45D7A0(const std::int32_t* values, std::int32_t count);
 std::int32_t PlaySe(
     std::int32_t value0,
     std::int32_t value1,

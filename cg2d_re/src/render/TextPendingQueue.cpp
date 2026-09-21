@@ -1,5 +1,6 @@
 #include "cg/render/TextPendingQueue.hpp"
 
+#include "cg/platform/LegacyMouse.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/render/GraphicCacheState.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
@@ -25,6 +26,29 @@ std::array<TextFontLayerRecord, 6> gTextFontLayerRecords {{
     {0xE2, {}},
     {0xE6, {}},
 }};
+std::int32_t gHoveredTextPendingIndex = 0;
+
+std::int32_t FindClickedTextIndex_45D7A0(
+    const std::int32_t* const values,
+    const std::int32_t count)
+{
+    const std::uint8_t edgeButtons = static_cast<std::uint8_t>(
+        platform::gLegacyMouseState.edgeButtons);
+    if ((edgeButtons & 1U) == 0U) {
+        return -1;
+    }
+    if (count <= 0) {
+        return -1;
+    }
+
+    const std::int32_t hoveredTextIndex = gHoveredTextPendingIndex;
+    for (std::int32_t index = 0; index < count; ++index) {
+        if (values[index] == hoveredTextIndex) {
+            return index;
+        }
+    }
+    return -1;
+}
 
 std::int32_t QueueText_521A30(
     const std::uint32_t headToken,

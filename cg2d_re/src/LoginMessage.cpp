@@ -109,7 +109,7 @@ std::int32_t UpdateLoginMessage(const char* text)
                 1);
         }
 
-        if (detail::Sub_45D7A0(&gMessageResult, 1) == 0) {
+        if (cg::render::FindClickedTextIndex_45D7A0(&gMessageResult, 1) == 0) {
             detail::PlaySe(79, 320, 240);
             if (gMessageAction != nullptr) {
                 detail::MarkDeath(gMessageAction);
@@ -175,7 +175,7 @@ std::int32_t UpdateLoginMessage(const char* text)
                 1);
         }
 
-        if (detail::Sub_45D7A0(&gMessageResult, 1) == 0) {
+        if (cg::render::FindClickedTextIndex_45D7A0(&gMessageResult, 1) == 0) {
             detail::PlaySe(79, 320, 240);
             if (gMessageAction != nullptr) {
                 detail::MarkDeath(gMessageAction);

@@ -50,6 +50,15 @@ static_assert(offsetof(TextFontLayerRecord, layer) == 0x00);
 extern std::array<TextPendingRecord, 4096> gTextPendingRecords;
 extern std::array<TextFontLayerRecord, 6> gTextFontLayerRecords;
 
+// 原 dword_D68BEC@0xD68BEC；当前悬停的零基文本待提交索引。
+extern std::int32_t gHoveredTextPendingIndex;
+
+// 原 sub_45D7A0@[0x45D7A0,0x45D7CF)。
+// 左键按下时返回 values 中首个等于当前悬停文本索引的元素下标，否则返回 -1。
+std::int32_t FindClickedTextIndex_45D7A0(
+    const std::int32_t* values,
+    std::int32_t count);
+
 // Renderer::QueueText@[0x521A30,0x521A98)。headToken 为文本记录的一基令牌。
 std::int32_t QueueText_521A30(std::uint32_t headToken, std::uint8_t layer);
 

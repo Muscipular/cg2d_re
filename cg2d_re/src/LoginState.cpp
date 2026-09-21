@@ -6,6 +6,7 @@
 #include "cg/LoginConnection.hpp"
 #include "cg/LoginMessage.hpp"
 #include "cg/LoginRequest.hpp"
+#include "cg/network/NetworkRuntime.hpp"
 #include "cg/world/SceneState.hpp"
 
 #include <cstring>
@@ -122,7 +123,7 @@ std::int32_t UpdateServerConnection()
     if (phase == 2) {
         detail::Sub_5081A0();
         cg::blacklist::PersistAndReset_401000(gValue55A054);
-        if (detail::Sub_508140() != 0) {
+        if (cg::network::InitializeNetworkRuntime_508140() != 0) {
             gValue9A6E3C = 3;
             ResetServerConnectionState_508350();
             gValue9A6E3C = 4;

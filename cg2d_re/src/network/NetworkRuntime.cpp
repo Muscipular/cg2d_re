@@ -1,5 +1,12 @@
 #include "cg/network/NetworkRuntime.hpp"
 
+#include "NetworkRuntimeDependencies.hpp"
+
+#include "cg/platform/MainLoop.hpp"
+#include "cg/world/SceneState.hpp"
+
+#include <winsock2.h>
+
 #include <algorithm>
 #include <cstddef>
 #include <cstdint>
@@ -10,8 +17,40 @@
 namespace cg::network {
 namespace {
 
-// 原全局协议缓冲的唯一原生 x64 owner；状态不跨模块公开。
+constexpr std::size_t kWorkspaceSlotCount = 18;
+
+std::int32_t DefaultNetworkCallback(
+    std::uint32_t,
+    const void*,
+    std::uint32_t)
+{
+    return 0;
+}
+
+// 原网络运行期全局的唯一原生 x64 owner；状态不跨模块公开。
 struct NetworkRuntimeState {
+    // 原 0x593FB0、0x593FB4、0x593FB8、0x593FBC、
+    // 0x593FA0、0x593FA4、0x593FA8、0x593FAC，均为 W32。
+    std::uint32_t protocolWord0;
+    std::uint32_t protocolWord1;
+    std::uint32_t protocolWord2;
+    std::uint32_t protocolWord3;
+    std::uint32_t protocolWord4;
+    std::uint32_t protocolWord5;
+    std::uint32_t protocolWord6;
+    std::uint32_t protocolWord7;
+
+    // 原 0x593FCC、0x593FCE、0x593FC4、0x593FC8，均为 W16。
+    std::uint16_t protocolHalfWord0;
+    std::uint16_t protocolHalfWord1;
+    std::uint16_t protocolHalfWord2;
+    std::uint16_t protocolHalfWord3;
+
+    // 原 0x593FC6、0x593FCA，均为 W8。
+    std::uint8_t protocolByte0;
+    std::uint8_t protocolByte1;
+
+    NetworkCallback callback; // 原 0x58B5E8。
     std::uint32_t bufferLength;
     std::uint8_t* buffer58B5F0;
     std::uint8_t* buffer58B5F4;
@@ -22,11 +61,49 @@ struct NetworkRuntimeState {
     std::uint8_t* tripleBuffer58B608;
     std::uint8_t* tripleBuffer58B60C;
     std::uint8_t* tripleBuffer58B610;
+    void** workspaceSlots; // 原 0xDA3F98，18 个本机指针槽。
+    std::uint8_t active;   // 原 0xD9F2C8，网络运行期活动门禁。
 };
 
 NetworkRuntimeState gNetworkRuntimeState {};
 
 } // namespace
+
+std::int32_t ResetProtocolState_4037D0()
+{
+    if (gNetworkRuntimeState.protocolWord0 != 0x1B768BA7U) {
+        gNetworkRuntimeState.protocolWord0 = 0x1B768BA7U;
+    }
+    if (gNetworkRuntimeState.protocolWord1 != 0x25957EF9U) {
+        gNetworkRuntimeState.protocolWord1 = 0x25957EF9U;
+    }
+    if (gNetworkRuntimeState.protocolWord2 != 0x0FB1BFB8U) {
+        gNetworkRuntimeState.protocolWord2 = 0x0FB1BFB8U;
+    }
+    if (gNetworkRuntimeState.protocolWord3 != 0x3039EA46U) {
+        gNetworkRuntimeState.protocolWord3 = 0x3039EA46U;
+    }
+    if (gNetworkRuntimeState.protocolWord4 != 0x135D42BAU) {
+        gNetworkRuntimeState.protocolWord4 = 0x135D42BAU;
+    }
+    if (gNetworkRuntimeState.protocolWord5 != 0x3947BF98U) {
+        gNetworkRuntimeState.protocolWord5 = 0x3947BF98U;
+    }
+    if (gNetworkRuntimeState.protocolWord6 != 0x0F1A0485U) {
+        gNetworkRuntimeState.protocolWord6 = 0x0F1A0485U;
+    }
+    if (gNetworkRuntimeState.protocolWord7 != 0x259F4C5EU) {
+        gNetworkRuntimeState.protocolWord7 = 0x259F4C5EU;
+    }
+
+    gNetworkRuntimeState.protocolHalfWord0 = 0;
+    gNetworkRuntimeState.protocolHalfWord1 = 0;
+    gNetworkRuntimeState.protocolHalfWord2 = 0;
+    gNetworkRuntimeState.protocolHalfWord3 = 0;
+    gNetworkRuntimeState.protocolByte0 = 0;
+    gNetworkRuntimeState.protocolByte1 = 0;
+    return 0;
+}
 
 std::int32_t AllocateProtocolBuffers_516DA0(
     const std::uint32_t bufferLength)
@@ -187,6 +264,55 @@ allocationFailure:
     std::free(gNetworkRuntimeState.tripleBuffer58B60C);
     std::free(gNetworkRuntimeState.tripleBuffer58B610);
     return -1;
+}
+
+std::int32_t AllocateNetworkWorkspace_516B60(
+    const NetworkCallback callback,
+    const std::uint32_t bufferLength,
+    const std::uintptr_t)
+{
+    gNetworkRuntimeState.callback = &DefaultNetworkCallback;
+    if (callback != nullptr) {
+        gNetworkRuntimeState.callback = callback;
+    }
+
+    static_cast<void>(AllocateProtocolBuffers_516DA0(bufferLength));
+
+    gNetworkRuntimeState.workspaceSlots = static_cast<void**>(
+        std::malloc(kWorkspaceSlotCount * sizeof(void*)));
+    if (gNetworkRuntimeState.workspaceSlots == nullptr) {
+        return -1;
+    }
+
+    std::fill_n(
+        gNetworkRuntimeState.workspaceSlots,
+        kWorkspaceSlotCount,
+        nullptr);
+    for (std::size_t index = 0; index < kWorkspaceSlotCount; ++index) {
+        gNetworkRuntimeState.workspaceSlots[index] =
+            std::malloc(static_cast<std::size_t>(bufferLength));
+        if (gNetworkRuntimeState.workspaceSlots[index] == nullptr) {
+            std::free(gNetworkRuntimeState.workspaceSlots[0]);
+            return -1;
+        }
+    }
+    return 0;
+}
+
+std::int32_t InitializeNetworkRuntime_508140()
+{
+    WSADATA data;
+    if (::WSAStartup(MAKEWORD(1, 1), &data) != 0) {
+        return 0;
+    }
+
+    static_cast<void>(AllocateNetworkWorkspace_516B60(
+        &detail::Sub_403E50,
+        0x10000U,
+        platform::gConnectionSocket));
+    gNetworkRuntimeState.active = 1;
+    world::gValueD9F2CA = 0;
+    return 1;
 }
 
 } // namespace cg::network

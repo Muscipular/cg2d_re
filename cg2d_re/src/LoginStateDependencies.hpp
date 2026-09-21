@@ -16,7 +16,6 @@ std::int32_t Sub_534290();
 // sub_45D990@0x45D990 的直接目标。
 std::int32_t TextMeasure(const char* text, std::int32_t fontType);
 void Sub_5081A0();
-std::int32_t Sub_508140();
 std::int32_t Sub_508360();
 inline std::int32_t DrawText(
     const std::int16_t x,

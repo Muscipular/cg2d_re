@@ -17,10 +17,3 @@ std::int32_t Sub_5042D0(std::uint32_t value);
 std::int32_t Sub_504180(std::uint32_t value);
 
 } // namespace cg::input::detail
-
-namespace cg::world::detail {
-
-// 原 nullsub_1@0x509080；与 World::Update 复用同一未实现符号。
-void NullSub_509080();
-
-} // namespace cg::world::detail

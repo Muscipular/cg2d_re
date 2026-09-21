@@ -3,6 +3,13 @@
 #include <cstddef>
 #include <cstdint>
 
+namespace cg {
+
+// 原 nullsub_1@[0x509080,0x509081)：唯一指令为 retn，不读取参数且不定义返回值。
+void NullSub_509080() noexcept;
+
+} // namespace cg
+
 namespace cg::input {
 
 inline constexpr std::size_t InputTextCapacity = 0x120;

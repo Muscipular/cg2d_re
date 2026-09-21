@@ -33,7 +33,7 @@ void ProcessKeyInput_4596D0()
         detail::Sub_44AA90();
     }
     if ((platform::gKeyStates[9] & 0x10u) != 0) {
-        world::detail::NullSub_509080();
+        cg::NullSub_509080();
     }
     if ((platform::gKeyStates[13] & 0x10u) != 0) {
         detail::Sub_44AB60();

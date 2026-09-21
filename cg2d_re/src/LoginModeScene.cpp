@@ -3,6 +3,7 @@
 #include "LoginSceneDependencies.hpp"
 
 #include "cg/GraphicInfo.hpp"
+#include "cg/Input.hpp"
 #include "cg/LoginInput.hpp"
 #include "cg/LoginMessage.hpp"
 #include "cg/Palette.hpp"
@@ -72,7 +73,7 @@ void ProcessModeScene_45C5A0()
 
     const std::int32_t result = ProcessLoginInput_45CA20(inputMode);
     if (result == 1) {
-        detail::NullSub_509080();
+        cg::NullSub_509080();
         static_cast<void>(
             WriteInputValueFF494F_5203B0(gInputContext9A5960.text));
         static_cast<void>(

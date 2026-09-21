@@ -77,7 +77,8 @@ value | ((value | (value << 8)) << 8)
 三个 `InputContext::text` 保持原 `0x120` 字节旧输入/持久槽边界，不对保存内容
 执行 UTF-8 转换。提示文本在新端以 UTF-8 保存，传给已经以 UTF-8 为内部边界的
 `UpdateLoginMessage`。原 `nullsub_1` 调用点携带 `gInputContext9A4D20` 指针，
-新端以局部窄适配显式接收该指针后转调现有零参数真实边界，不改写共享声明。
+但函数体只有 `retn` 且不读取该指针；新端直接调用唯一零参数
+`cg::NullSub_509080()`，不再保留仅丢弃参数的局部包装。
 
 两个 action 均复用 `cg::login::YobiAction` 的唯一 owner/访问器。场景只保存非拥有
 观察者；`MarkDeath` 后按原顺序清槽。`Yobi::FrameMove@[0x517880,0x517D9D)`

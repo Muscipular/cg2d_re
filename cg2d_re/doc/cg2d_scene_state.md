@@ -86,6 +86,6 @@
 
 ## 7. 依赖与当前完成边界
 
-49 个唯一直接目标中，`SetCurrentSceneType`、`SelectPalette` 与 `ProbePaletteCapability_45C970` 已有实现，`GetTickCount` 由平台边界适配；其余目标只在 `WorldUpdateDependencies.hpp` 保留带原地址与当前 IDA 调用契约的声明，没有空函数或固定返回实现。`WorldUpdate` 已直接调用唯一公共探测入口并移除重复占位声明；`MainLoop` 的原唯一调用点已直接改接 `cg::world::Update()`，旧 `cg::platform::UpdateWorld_51C430` 声明已移除。
+49 个唯一直接目标中，`SetCurrentSceneType`、`SelectPalette` 与 `ProbePaletteCapability_45C970` 已有实现，`GetTickCount` 由平台边界适配；`nullsub_1@0x509080` 已按唯一 `retn` 改接 `cg::NullSub_509080()`，其余未实现目标只在 `WorldUpdateDependencies.hpp` 保留带原地址与当前 IDA 调用契约的声明，不提供固定返回实现。`WorldUpdate` 已直接调用唯一公共探测入口并移除重复占位声明；`MainLoop` 的原唯一调用点已直接改接 `cg::world::Update()`，旧 `cg::platform::UpdateWorld_51C430` 声明已移除。
 
 本步实现的是基础状态消费、分发和函数内两条内嵌链；`LoginScene::Process@0x45FEA0`、`sub_460FF0`、`sub_4626A0`、`sub_45E960`、`sub_45EBB0` 以及正常世界、战斗目标都仍未实现。登录相关 scene 继续属于 R6.1.2；静态库允许保留这些未解析依赖，完整链接和运行不属于本步完成范围。

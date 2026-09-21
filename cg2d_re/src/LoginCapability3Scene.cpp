@@ -76,12 +76,6 @@ bool Sub_45EF80()
     return static_cast<double>(tick) > deadline;
 }
 
-void InvokeNullSub_509080(cg::input::InputContext* const context)
-{
-    static_cast<void>(context);
-    cg::login::detail::NullSub_509080();
-}
-
 void DrawFiveCapability3Images()
 {
     static_cast<void>(
@@ -148,7 +142,7 @@ std::int32_t ProcessCapability3InputAndDraw()
 {
     const std::int32_t result = cg::login::ProcessCapability3Input_45FA70(0);
     if (result == 1) {
-        InvokeNullSub_509080(&cg::login::gInputContext9A4D20);
+        cg::NullSub_509080();
         static_cast<void>(cg::login::WriteInputValueFF494F_5203B0(
             cg::login::gInputContext9A5678.text));
         static_cast<void>(cg::login::WriteInputValueFF4982_520410(

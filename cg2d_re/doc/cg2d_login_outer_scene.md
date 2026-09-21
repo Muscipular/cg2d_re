@@ -68,8 +68,9 @@
 
 `sub_45CA20` 已由唯一公开入口 `ProcessLoginInput_45CA20(std::int32_t)` 承接；
 返回分派不再依赖旧地址占位。`Sub_520200()`、`PlaySe(...)`、
-`PostMessageA(...)` 与 `NullSub_509080()` 仍只有真实窄声明；控制器尾部的
-`DrawText3(...)` 已通过薄适配接入唯一文本提交实现。
+`PostMessageA(...)` 仍只有真实窄声明；`nullsub_1@0x509080` 已由唯一
+`cg::NullSub_509080()` 空操作实现直接承接。控制器尾部的 `DrawText3(...)`
+已通过薄适配接入唯一文本提交实现。
 
 `sub_45CA20` 的 x64 越界策略已经接入：背景图表合法索引为 0..3，palette
 capability 为 -1、4 或其他越界值时仅在实际表访问前归一到 0；焦点表越界

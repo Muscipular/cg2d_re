@@ -29,7 +29,6 @@ std::int32_t Sub_43C8F0();                 // 原 0x43C8F0。
 std::int32_t Sub_504100();                 // 原 0x504100。
 std::int32_t Sub_518C80();                 // 原 0x518C80。
 std::FILE* Sub_518CB0();                   // 原 0x518CB0。
-void NullSub_509080();                     // 原 nullsub_1@0x509080。
 void Sub_518780();                         // 原 0x518780。
 std::int8_t Sub_503E80();                  // 原 0x503E80，IDA 原型 char()。
 void Sub_43F220();                         // 原 0x43F220。

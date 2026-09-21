@@ -5,6 +5,14 @@
 #include <cctype>
 #include <cstring>
 
+namespace cg {
+
+void NullSub_509080() noexcept
+{
+}
+
+} // namespace cg
+
 namespace cg::input {
 
 InputContext gInputContext626AA0 {};

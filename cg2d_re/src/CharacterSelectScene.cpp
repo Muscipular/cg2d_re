@@ -4,6 +4,7 @@
 #include "CharacterSelectState.hpp"
 
 #include "cg/GraphicInfo.hpp"
+#include "cg/Input.hpp"
 #include "cg/LoginMessage.hpp"
 #include "cg/LoginRequest.hpp"
 #include "cg/Palette.hpp"
@@ -104,7 +105,7 @@ void CopyRecordName(char* destination, const login::CharacterRecordBytes& record
 {
     char name[kLegacyNameCapacity];
     std::strcpy(name, ReadRecordName(record));
-    detail::NullSub_509080();
+    cg::NullSub_509080();
     std::strcpy(destination, name);
 }
 
@@ -368,7 +369,7 @@ std::int32_t ProcessScene_460FF0()
             if (result == 1) {
                 detail::Sub_51B3B0(static_cast<std::uint32_t>(
                     static_cast<std::int32_t>(login::gSelectedCharacterIndex)));
-                detail::NullSub_509080();
+                cg::NullSub_509080();
                 detail::Sub_520200();
                 if (state::gPendingCharacterCount > 0) {
                     --state::gPendingCharacterCount;
@@ -472,7 +473,7 @@ std::int32_t ProcessScene_460FF0()
             if (ReadRecordInt32(record, kDeleteFlagOffset) != 0) {
                 char name[kLegacyNameCapacity];
                 std::strcpy(name, ReadRecordName(record));
-                detail::NullSub_509080();
+                cg::NullSub_509080();
                 world::gCurrentSceneState = 12;
                 std::strcpy(state::gDeleteCharacterName, name);
             } else {

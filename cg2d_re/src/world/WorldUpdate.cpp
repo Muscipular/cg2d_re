@@ -100,7 +100,7 @@ void Update()
         gValueFF0D5C = 0xFFFFFFFFu;
         gValueFF0D58 = 0;
         gValueD67E78 = 0;
-        detail::NullSub_509080();
+        cg::NullSub_509080();
         detail::Sub_518780();
         detail::Sub_503E80();
         detail::Sub_43F220();

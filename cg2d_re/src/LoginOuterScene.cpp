@@ -115,7 +115,7 @@ void ProcessOuterScene_45C2D0()
 
     const std::int32_t result = ProcessLoginInput_45CA20(0);
     if (result == 1) {
-        detail::NullSub_509080();
+        cg::NullSub_509080();
         static_cast<void>(
             WriteInputValueFF494F_5203B0(gInputContext9A5960.text));
         static_cast<void>(

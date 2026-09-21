@@ -33,6 +33,9 @@ std::int32_t AppendProtocolText_5170D0(
     const char* source,
     std::int32_t capacity);
 
+// 原 sub_517190@[0x517190,0x5171A3)：空指针返回 0，否则委派协议整数解析。
+std::int32_t ParseProtocolInteger_517190(const char* text);
+
 // 原 sub_516B60@0x516B60：安装回调并分配 18 项网络工作区。
 std::int32_t AllocateNetworkWorkspace_516B60(
     NetworkCallback callback,

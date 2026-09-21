@@ -328,6 +328,14 @@ std::int32_t AppendProtocolText_5170D0(
     return destinationIndex;
 }
 
+std::int32_t ParseProtocolInteger_517190(const char* const text)
+{
+    if (text == nullptr) {
+        return 0;
+    }
+    return detail::Sub_5176B0(text);
+}
+
 std::int32_t AllocateNetworkWorkspace_516B60(
     const NetworkCallback callback,
     const std::uint32_t bufferLength,

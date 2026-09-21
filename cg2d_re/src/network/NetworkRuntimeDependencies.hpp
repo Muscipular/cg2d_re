@@ -10,4 +10,7 @@ std::int32_t Sub_403E50(
     const void* data,
     std::uint32_t size);
 
+// 原 sub_5176B0@0x5176B0 尚未实现；只保留真实 W32 返回合同，最终链接仍未闭合。
+std::int32_t Sub_5176B0(const char* text);
+
 } // namespace cg::network::detail

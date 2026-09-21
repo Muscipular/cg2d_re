@@ -385,6 +385,29 @@ std::int32_t AppendProtocolText_5170D0(
     return destinationIndex;
 }
 
+std::uint8_t* FormatProtocolIntegerToken_517120(const std::int32_t value)
+{
+    static constexpr std::uint8_t kSpace[] {' ', '\0'};
+
+    const std::int32_t firstCapacity = std::bit_cast<std::int32_t>(
+        gNetworkRuntimeState.bufferLength);
+    std::uint8_t* const formatted = FormatProtocolInteger_517670(value);
+    std::uint8_t* const firstDestination =
+        gNetworkRuntimeState.buffer58B5FC;
+    CopyProtocolBytes_517080(firstDestination, formatted, firstCapacity);
+
+    const std::int32_t secondCapacity = std::bit_cast<std::int32_t>(
+        gNetworkRuntimeState.bufferLength);
+    std::uint8_t* const secondDestination =
+        gNetworkRuntimeState.buffer58B5FC;
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(secondDestination),
+        reinterpret_cast<const char*>(kSpace),
+        secondCapacity));
+
+    return gNetworkRuntimeState.buffer58B5FC;
+}
+
 std::int32_t ParseProtocolInteger_517190(const char* const text)
 {
     if (text == nullptr) {

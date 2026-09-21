@@ -2,6 +2,7 @@
 
 #include "LoginStateDependencies.hpp"
 
+#include "cg/LoginConnection.hpp"
 #include "cg/LoginMessage.hpp"
 #include "cg/LoginRequest.hpp"
 #include "cg/world/SceneState.hpp"
@@ -145,7 +146,7 @@ std::int32_t UpdateServerConnection()
         detail::Sub_401000(gValue55A054);
         if (detail::Sub_508140() != 0) {
             gValue9A6E3C = 3;
-            detail::Sub_508350();
+            ResetServerConnectionState_508350();
             gValue9A6E3C = 4;
             phase = 4;
         } else {
@@ -154,7 +155,7 @@ std::int32_t UpdateServerConnection()
     }
 
     if (phase == 3) {
-        detail::Sub_508350();
+        ResetServerConnectionState_508350();
         gValue9A6E3C = 4;
         phase = 4;
     }

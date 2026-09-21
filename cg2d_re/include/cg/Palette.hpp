@@ -30,19 +30,50 @@ extern PaletteEntry gPalette[256];       // 原 0x629B20，当前调色板。
 extern PaletteEntry gPaletteBackup[256]; // 原 0x629F2C，首次文件读取后的副本。
 extern std::uint32_t gPaletteAutoMap[256]; // 原 0x628BC0，0x00RRGGBB 查色表。
 
-// 原 0x5562E8 的三个通道指针，x64 仅扩大实际指针；通道值仍为字节。
+// 原 0x5562E8 的三个通道指针依次为红、绿、蓝；x64 仅扩大实际指针。
 struct ColorChannelMaps {
-    std::uint8_t* blue;
-    std::uint8_t* green;
     std::uint8_t* red;
+    std::uint8_t* green;
+    std::uint8_t* blue;
 };
 extern ColorChannelMaps gColorChannelMaps;
+
+// 原 0x5562E0 的 RGB 色调，第四字节静态为零；tColor@0x5562E4 可指向别处。
+struct PaletteTone {
+    std::uint8_t red;
+    std::uint8_t green;
+    std::uint8_t blue;
+    std::uint8_t reserved;
+};
+static_assert(sizeof(PaletteTone) == 4);
+extern PaletteTone gPaletteTone;
+extern PaletteTone* gPaletteTonePointer;
+extern std::uint8_t gPaletteToneTargets[45][3]; // 原 0x556254：每项 R/G/B，步长 3。
 
 extern std::int32_t gPaletteInitialized;     // 原 0x628FD8。
 extern std::int32_t gActivePalette;          // 原 0x628FD0。
 extern std::int32_t gPaletteTransitionSteps; // 原 0x628FD4。
 extern std::int32_t gPaletteCapability;      // 原 0x9A7F64；业务含义仍待上游取证。
 extern std::int32_t gPaletteChanging;        // 原 0x628FEC。
+extern std::int32_t gLoadedPalette;          // 原 0x5562F4，初值 -1。
+extern std::int32_t gPaletteTransitionActive; // 原 0x62B0A0，初值 0。
+extern std::int32_t gPaletteTransitionFrame; // 原 0x62B09C，初值 0。
+extern PaletteEntry gPaletteTarget[256];     // 原 0x626C60，目标色的 flags 不由更新函数写入。
+extern float gPaletteBlueCurrent[256];       // 原 0x62A664。
+extern float gPaletteGreenCurrent[256];      // 原 0x629720。
+extern float gPaletteRedCurrent[256];        // 原 0x629318。
+extern float gPaletteBlueStep[256];          // 原 0x6287B4。
+extern float gPaletteGreenStep[256];         // 原 0x6283A8。
+extern float gPaletteRedStep[256];           // 原 0x62AA64。
+extern float gPaletteToneBlueCurrent;        // 原 0x629F28。
+extern float gPaletteToneGreenCurrent;       // 原 0x629F24。
+extern float gPaletteToneRedCurrent;         // 原 0x629F20。
+extern float gPaletteToneBlueStep;           // 原 0x628FF8。
+extern float gPaletteToneGreenStep;          // 原 0x628FF4。
+extern float gPaletteToneRedStep;            // 原 0x628FF0。
+extern std::int32_t gPaletteToneTargetIndex; // 原 0x628BBC。
+extern std::int32_t gPaletteFrameVersion;    // 原 0x628FDC。
+extern std::int32_t gPaletteVersionThrottle; // 原 0x629310。
 
 // 原 InitPalette@0x450470 的共享逻辑及 32 位分支；DX7 原生调色板对象被 CPU 查色表替代。
 // 保留固定颜色、672 字节文件消费、首次备份、168 号置黑、通道初始化与错误返回。
@@ -55,6 +86,9 @@ int ReadPalette(std::int32_t index, PaletteEntry* output);
 // 原 0x450B70；不增加负数索引处理，调用者须保证 index 非负。
 // 返回原 EAX：拒绝时为 index，接受时为 steps，而非成功布尔值。
 std::int32_t SelectPalette(std::int32_t index, std::int32_t steps) noexcept;
+
+// 原 0x450BB0：按活动索引加载目标并逐帧过渡；保持原 EAX 各路径值。
+int UpdatePalette_450BB0();
 
 // 原 0x451220；非零索引的纯黑映射为 1，索引 0 最后单独清零；返回 0x400。
 int RebuildPalette32() noexcept;

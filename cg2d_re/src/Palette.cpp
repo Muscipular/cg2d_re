@@ -3,6 +3,8 @@
 #include "cg/ResourcePaths.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 
+#include <bit>
+#include <cmath>
 #include <cstdio>
 #include <cstring>
 
@@ -37,16 +39,91 @@ PaletteFile gPaletteFiles[45] {
 PaletteEntry gPalette[256] {};
 PaletteEntry gPaletteBackup[256] {};
 std::uint32_t gPaletteAutoMap[256] {};
+PaletteEntry gPaletteTarget[256] {};
+
+// 原 [0x556254,0x5562DB)：45 项、每项连续 R/G/B 三字节。
+std::uint8_t gPaletteToneTargets[45][3] {
+    {128, 128, 128}, {90, 120, 150}, {128, 86, 86}, {128, 120, 120},
+    {128, 160, 128}, {160, 160, 128}, {160, 128, 128}, {160, 128, 160},
+    {128, 128, 160}, {96, 144, 160}, {128, 160, 160}, {128, 160, 144},
+    {112, 112, 112}, {96, 96, 96}, {128, 192, 255}, {255, 255, 255},
+    {128, 192, 255}, {128, 128, 128}, {128, 128, 128}, {0, 0, 0},
+    {255, 255, 255}, {128, 128, 128}, {128, 128, 128}, {128, 128, 128},
+    {128, 128, 128}, {128, 128, 128}, {128, 128, 128}, {128, 128, 128},
+    {128, 128, 128}, {128, 128, 128}, {128, 128, 128}, {128, 128, 128},
+    {128, 128, 128}, {128, 128, 128}, {128, 128, 128}, {128, 128, 128},
+    {128, 128, 128}, {128, 128, 128}, {128, 160, 160}, {160, 128, 128},
+    {128, 128, 160}, {128, 160, 128}, {128, 192, 255}, {255, 255, 255},
+    {128, 128, 128},
+};
+
+PaletteTone gPaletteTone {128, 128, 128, 0};
+PaletteTone* gPaletteTonePointer = &gPaletteTone;
+std::int32_t gLoadedPalette = -1;
+std::int32_t gPaletteTransitionActive = 0;
+std::int32_t gPaletteTransitionFrame = 0;
+float gPaletteBlueCurrent[256] {};
+float gPaletteGreenCurrent[256] {};
+float gPaletteRedCurrent[256] {};
+float gPaletteBlueStep[256] {};
+float gPaletteGreenStep[256] {};
+float gPaletteRedStep[256] {};
+float gPaletteToneBlueCurrent = 0.0f;
+float gPaletteToneGreenCurrent = 0.0f;
+float gPaletteToneRedCurrent = 0.0f;
+float gPaletteToneBlueStep = 0.0f;
+float gPaletteToneGreenStep = 0.0f;
+float gPaletteToneRedStep = 0.0f;
+std::int32_t gPaletteToneTargetIndex = 0;
+std::int32_t gPaletteFrameVersion = 0;
+std::int32_t gPaletteVersionThrottle = 0;
 
 namespace {
 
-std::uint8_t blueMap[256] {};  // 原 0x628FFC。
-std::uint8_t greenMap[256] {}; // 原 0x6290FC。
-std::uint8_t redMap[256] {};   // 原 0x629200。
+std::uint8_t redMap[256] {};   // 原 0x628FFC，gBGR_Data.r。
+std::uint8_t greenMap[256] {}; // 原 0x6290FC，gBGR_Data.g。
+std::uint8_t blueMap[256] {};  // 原 0x629200，gBGR_Data.b。
+
+std::int32_t Add32(std::int32_t value, std::uint32_t increment) noexcept
+{
+    return std::bit_cast<std::int32_t>(std::bit_cast<std::uint32_t>(value) + increment);
+}
+
+// 原 __ftol@0x53B498 向零截断为 int64，再只写 AL；不可用 uint8 浮点直转。
+std::uint8_t TruncatedLowByte(double value) noexcept
+{
+    if (!std::isfinite(value) || value < -9223372036854775808.0
+        || value >= 9223372036854775808.0) {
+        return 0; // x87 FISTP 非法转换的整数不定值低字节为零。
+    }
+    return static_cast<std::uint8_t>(static_cast<std::int64_t>(value));
+}
+
+// 原 0x451084..0x45117E：按红、绿、蓝指针顺序分别建立 256 字节表。
+int RebuildToneMap(
+    std::uint8_t* ColorChannelMaps::* map, std::uint8_t PaletteTone::* component) noexcept
+{
+    if ((gPaletteTonePointer->*component) == 0x80) {
+        for (int i = 0; i < 256; ++i) {
+            (gColorChannelMaps.*map)[i] = static_cast<std::uint8_t>(i);
+        }
+        return 256;
+    }
+
+    int result = 0;
+    for (int i = 0; i < 256; ++i) {
+        result = (i * (gPaletteTonePointer->*component)) >> 7;
+        if (result > 255) {
+            result = 255;
+        }
+        (gColorChannelMaps.*map)[i] = static_cast<std::uint8_t>(result);
+    }
+    return result;
+}
 
 } // namespace
 
-ColorChannelMaps gColorChannelMaps {blueMap, greenMap, redMap};
+ColorChannelMaps gColorChannelMaps {redMap, greenMap, blueMap};
 std::int32_t gPaletteInitialized = 0;
 std::int32_t gActivePalette = 0;
 std::int32_t gPaletteTransitionSteps = 0;
@@ -174,6 +251,158 @@ std::int32_t SelectPalette(std::int32_t index, std::int32_t steps) noexcept
         gPaletteTransitionSteps = 1;
     }
     return steps;
+}
+
+int UpdatePalette_450BB0()
+{
+    const std::int32_t previousVersion = gPaletteFrameVersion;
+    const std::int32_t previousActivePalette = gActivePalette;
+    std::int32_t previousFrame = 0;
+    std::int32_t toneTargetIndex;
+
+    if (gLoadedPalette == previousActivePalette) {
+        if (gPaletteTransitionActive == 0) {
+            return 0; // 原 0x450BD6..0x450BDF 的 EAX。
+        }
+        previousFrame = gPaletteTransitionFrame;
+        toneTargetIndex = gPaletteToneTargetIndex;
+    } else {
+        const std::int32_t paletteOffset = std::bit_cast<std::int32_t>(
+            std::bit_cast<std::uint32_t>(previousActivePalette) * 130u);
+        // 原端只比较门槛，不额外处理负索引。
+        if (gPaletteFiles[previousActivePalette].threshold > gPaletteCapability) {
+            return paletteOffset;
+        }
+
+        char path[512];
+        std::sprintf(path, "%s\\%s", resource::gBinPath, gPaletteFiles[previousActivePalette].path);
+        std::FILE* file = std::fopen(path, "rb");
+        if (file == nullptr) {
+            return 0; // 失败不更新已加载索引；下一帧继续尝试打开。
+        }
+
+        for (int i = 16; i < 240; ++i) {
+            gPaletteTarget[i].blue = static_cast<std::uint8_t>(std::fgetc(file));
+            gPaletteTarget[i].green = static_cast<std::uint8_t>(std::fgetc(file));
+            gPaletteTarget[i].red = static_cast<std::uint8_t>(std::fgetc(file));
+            if (i == 168) {
+                gPaletteTarget[i].blue = 0;
+                gPaletteTarget[i].green = 0;
+                gPaletteTarget[i].red = 0;
+            }
+
+            gPaletteBlueCurrent[i] = static_cast<float>(gPalette[i].blue);
+            gPaletteGreenCurrent[i] = static_cast<float>(gPalette[i].green);
+            gPaletteRedCurrent[i] = static_cast<float>(gPalette[i].red);
+            const std::int32_t blueDifference =
+                static_cast<std::int32_t>(gPaletteTarget[i].blue) - gPalette[i].blue;
+            const std::int32_t greenDifference =
+                static_cast<std::int32_t>(gPaletteTarget[i].green) - gPalette[i].green;
+            const std::int32_t redDifference =
+                static_cast<std::int32_t>(gPaletteTarget[i].red) - gPalette[i].red;
+            const double steps = static_cast<double>(gPaletteTransitionSteps);
+            gPaletteBlueStep[i] = static_cast<float>(static_cast<double>(blueDifference) / steps);
+            gPaletteGreenStep[i] = static_cast<float>(static_cast<double>(greenDifference) / steps);
+            gPaletteRedStep[i] = static_cast<float>(static_cast<double>(redDifference) / steps);
+        }
+        std::fclose(file);
+
+        const std::int32_t loadedActivePalette = gActivePalette;
+        gPaletteTransitionActive = 1;
+        gPaletteFrameVersion = 1;
+        gPaletteVersionThrottle = 0;
+        gLoadedPalette = loadedActivePalette;
+        if (gPaletteTonePointer == &gPaletteTone) {
+            toneTargetIndex = loadedActivePalette;
+            gPaletteToneBlueCurrent = static_cast<float>(gPaletteTone.blue);
+            gPaletteToneTargetIndex = toneTargetIndex;
+            gPaletteToneGreenCurrent = static_cast<float>(gPaletteTone.green);
+            gPaletteToneRedCurrent = static_cast<float>(gPaletteTone.red);
+            const double steps = static_cast<double>(gPaletteTransitionSteps);
+            gPaletteToneBlueStep = static_cast<float>(
+                (static_cast<double>(gPaletteToneTargets[toneTargetIndex][2]) - gPaletteTone.blue)
+                / steps);
+            gPaletteToneGreenStep = static_cast<float>(
+                (static_cast<double>(gPaletteToneTargets[toneTargetIndex][1]) - gPaletteTone.green)
+                / steps);
+            gPaletteToneRedStep = static_cast<float>(
+                (static_cast<double>(gPaletteToneTargets[toneTargetIndex][0]) - gPaletteTone.red)
+                / steps);
+        } else {
+            gPaletteToneRedCurrent = 0.0f;
+            gPaletteToneGreenCurrent = 0.0f;
+            gPaletteToneBlueCurrent = 0.0f;
+            gPaletteToneRedStep = 0.0f;
+            gPaletteToneGreenStep = 0.0f;
+            gPaletteToneBlueStep = 0.0f;
+            toneTargetIndex = gPaletteToneTargetIndex;
+        }
+    }
+
+    gPaletteTransitionFrame = Add32(previousFrame, 1u);
+    if (gPaletteTransitionFrame > gPaletteTransitionSteps) {
+        for (int i = 16; i < 240; ++i) {
+            gPalette[i].blue = gPaletteTarget[i].blue;
+            gPalette[i].green = gPaletteTarget[i].green;
+            gPalette[i].red = gPaletteTarget[i].red;
+        }
+        if (gPaletteTonePointer == &gPaletteTone) {
+            gPaletteTone.blue = gPaletteToneTargets[toneTargetIndex][2];
+            gPaletteTone.green = gPaletteToneTargets[toneTargetIndex][1];
+            gPaletteTone.red = gPaletteToneTargets[toneTargetIndex][0];
+        }
+        gPaletteTransitionActive = 0;
+        gPaletteChanging = 0;
+        gPaletteFrameVersion = Add32(gPaletteFrameVersion, 10u);
+    } else {
+        for (int i = 16; i < 240; ++i) {
+            // 蓝通道的原 __ftol 使用尚未舍入到 float 的 x87 加法值；绿/红使用已存 float。
+            const double blue = static_cast<double>(gPaletteBlueStep[i])
+                + static_cast<double>(gPaletteBlueCurrent[i]);
+            gPaletteBlueCurrent[i] = static_cast<float>(blue);
+            const float green = static_cast<float>(
+                static_cast<double>(gPaletteGreenStep[i]) + gPaletteGreenCurrent[i]);
+            gPaletteGreenCurrent[i] = green;
+            const float red = static_cast<float>(
+                static_cast<double>(gPaletteRedStep[i]) + gPaletteRedCurrent[i]);
+            gPaletteRedCurrent[i] = red;
+            gPalette[i].blue = TruncatedLowByte(blue);
+            gPalette[i].green = TruncatedLowByte(green);
+            gPalette[i].red = TruncatedLowByte(red);
+        }
+        if (gPaletteTonePointer == &gPaletteTone) {
+            gPaletteToneBlueCurrent = static_cast<float>(
+                static_cast<double>(gPaletteToneBlueStep) + gPaletteToneBlueCurrent);
+            gPaletteToneGreenCurrent = static_cast<float>(
+                static_cast<double>(gPaletteToneGreenStep) + gPaletteToneGreenCurrent);
+            gPaletteToneRedCurrent = static_cast<float>(
+                static_cast<double>(gPaletteToneRedStep) + gPaletteToneRedCurrent);
+            gPaletteTone.blue = TruncatedLowByte(gPaletteToneBlueCurrent);
+            gPaletteTone.green = TruncatedLowByte(gPaletteToneGreenCurrent);
+            gPaletteTone.red = TruncatedLowByte(gPaletteToneRedCurrent);
+        }
+        gPaletteChanging = 1;
+    }
+
+    // 8/16/24 位渲染分支已按范围排除；保留已实现的 32 位 CPU 查色表路径。
+    RebuildPalette32();
+    gPaletteVersionThrottle = Add32(gPaletteVersionThrottle, 1u);
+    if (gPaletteTransitionSteps <= 120) {
+        if (gPaletteVersionThrottle >= 2) {
+            gPaletteVersionThrottle = 0;
+        }
+        gPaletteFrameVersion = Add32(gPaletteFrameVersion, 1u);
+    } else if (gPaletteVersionThrottle >= gPaletteTransitionSteps / 20) {
+        gPaletteVersionThrottle = 0;
+        gPaletteFrameVersion = Add32(gPaletteFrameVersion, 1u);
+    }
+
+    if (previousActivePalette == gActivePalette && previousVersion == gPaletteFrameVersion) {
+        return previousVersion;
+    }
+    RebuildToneMap(&ColorChannelMaps::red, &PaletteTone::blue);
+    RebuildToneMap(&ColorChannelMaps::green, &PaletteTone::green);
+    return RebuildToneMap(&ColorChannelMaps::blue, &PaletteTone::red);
 }
 
 int RebuildPalette32() noexcept

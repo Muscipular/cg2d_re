@@ -82,7 +82,9 @@
 13. 无条件 `sub_459760()`。
 14. `0x45714A` R32 `0x73ECE4`。非零直接去实际绘制路径 `0x457246`，跳过下面全部 inactive/active 时间分流。
 
-`sub_450BB0` 是有资源读取及调色板计算副作用的真实调用；`sub_459760` 对 256 个按键状态逐字节 `&=0xEA`。二者均不是可以省略的占位调用。
+`sub_450BB0` 是有资源读取及调色板计算副作用的真实调用，现已接入
+`render::UpdatePalette_450BB0` 的共享逻辑和 32 位路径；`sub_459760` 对 256 个按键状态逐字节 `&=0xEA`。
+二者均不是可以省略的占位调用。调色板函数返回的 EAX 在本调用点仍被忽略。
 
 `World::Update`、消息泵、重建及其内部调用可改变截止时间、状态与队列。共用工作执行完才作时间/渲染分流，不能把“是否要画”提到其前面。
 
@@ -683,7 +685,9 @@ case 1 内 `51C48C` 查 `51C75C + 4*u32(9A7F64)`，索引大于 4 去 `51C4AD`�
   因而使用 `CommandOptions.cpp` 中四字节存储的首字节引用；请求模式和支持模式仍独立。
 - `gConnectionSocket` 使用 `uintptr_t` 承载 Windows x64 的原生 SOCKET，
   原协议数值和 tick 没有一起扩大；完整网络链的此项 ABI 适配仍须继续核对。
-- `MainLoopDependencies.hpp` 保留真实被调函数声明，尚未实现的函数不提供空体。
+- `MainLoopDependencies.hpp` 保留其他真实被调函数声明，尚未实现的函数不提供空体。
+  `UpdatePalette_450BB0` 已改由 `Palette.hpp` 的唯一公开声明提供，其加载、逐帧过渡、
+  版本节流及三通道表详见[调色板证据](cg2d_resource_implementation.md)第 4.1 节。
   `GameTime`、退出链分别按原独立函数推进，不能以调用存在代替后继实现。
 
 原渲染对象尚未完成 x64/SDL 映射，因此当前仅声明不透明 `RendererResources`、

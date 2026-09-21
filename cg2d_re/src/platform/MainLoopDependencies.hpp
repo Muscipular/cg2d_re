@@ -20,7 +20,6 @@ void RebuildRenderer_466B80();
 int TestCooperativeLevel_44C6B0();
 std::uint32_t ResetGraphicCache_456D30();
 void SortTextures_520790();
-int UpdatePalette_450BB0();
 std::int32_t ClearSurface_4512C0();
 void DrawAllQueued_520DD0();
 void Flip_44C560();

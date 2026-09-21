@@ -72,6 +72,55 @@ NetworkRuntimeState gNetworkRuntimeState {};
 
 } // namespace
 
+namespace detail {
+
+std::int32_t Sub_5176B0(const char* const text)
+{
+    const auto* cursor =
+        reinterpret_cast<const unsigned char*>(text);
+    const bool negative = *cursor == static_cast<unsigned char>('-');
+    if (negative) {
+        ++cursor;
+    }
+
+    unsigned char currentByte = *cursor;
+    std::uint32_t accumulator = 0;
+    while (currentByte != 0U) {
+        accumulator *= 62U;
+
+        std::uint32_t digit = 0;
+        if (currentByte >= static_cast<unsigned char>('0')
+            && currentByte <= static_cast<unsigned char>('9')) {
+            digit = static_cast<std::uint32_t>(
+                currentByte - static_cast<unsigned char>('0'));
+        }
+        else if (currentByte >= static_cast<unsigned char>('a')
+                 && currentByte <= static_cast<unsigned char>('z')) {
+            digit = static_cast<std::uint32_t>(
+                currentByte - static_cast<unsigned char>('a')) + 10U;
+        }
+        else if (currentByte >= static_cast<unsigned char>('A')
+                 && currentByte <= static_cast<unsigned char>('Z')) {
+            digit = static_cast<std::uint32_t>(
+                currentByte - static_cast<unsigned char>('A')) + 36U;
+        }
+        else {
+            return 0;
+        }
+
+        accumulator += digit;
+        currentByte = cursor[1];
+        ++cursor;
+    }
+
+    const std::uint32_t resultBits = negative
+        ? std::uint32_t {0} - accumulator
+        : accumulator;
+    return std::bit_cast<std::int32_t>(resultBits);
+}
+
+} // namespace detail
+
 std::int32_t ResetProtocolState_4037D0()
 {
     if (gNetworkRuntimeState.protocolWord0 != 0x1B768BA7U) {

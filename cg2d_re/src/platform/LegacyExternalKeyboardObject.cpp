@@ -1,6 +1,25 @@
 #include "LegacyExternalKeyboardObject.hpp"
 
+#include <new>
+
 namespace cg::platform {
+
+ExternalKeyboard* ExternalKeyboard::Delete(std::uint32_t flags)
+{
+    ExternalKeyboard* const object = this;
+    // 原 0x535293：析构异常直接传播，不继续到 0x5352A0 的存储释放。
+    object->~ExternalKeyboard();
+    if ((flags & 1u) != 0) {
+        ::operator delete(object);
+    }
+    return object;
+}
+
+ExternalKeyboard* DeleteExternalKeyboardVirtual_535290(
+    ExternalKeyboard* object, std::uint32_t flags)
+{
+    return object->Delete(flags);
+}
 
 ExternalKeyboardSize* ExternalKeyboard::QuerySize(ExternalKeyboardSize* output)
 {

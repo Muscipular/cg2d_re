@@ -8,7 +8,9 @@ R6.1.3.96 还原 `sub_534AB0@[0x534AB0,0x534B7E)`，大小 `0xCE`，
 IDA 计入异地 EH 节点时为 267 条指令、25 个基本块。
 R6.1.3.98 接续实现 `sub_537DC0@[0x537DC0,0x537DD8)` 的 6 条指令和
 `sub_5354C0@[0x5354C0,0x5354C7)` 的 2 条指令所对应的两个叶语义；构造、
-析构及 UI 写者仍未实现。
+析构及 UI 写者仍未实现。R6.1.3.99 接续实现
+`sub_535290@[0x535290,0x5352AE)` 的 11 条指令、3 个基本块所对应的删除外层；
+`sub_535310` 析构主体继续保留为真实未解析依赖。
 证据取自当前只读 IDA 实例 `ida-17524` 的
 `D:\SOFTSTAR\cg2d.exe`（x86），SHA-256 为
 `e7c2790f479862635932e043b2d7e93b9e791a1edc276a960af05f1454c54010`。
@@ -121,7 +123,7 @@ x64 将包装层窗口查询适配为 `GetWindowLongPtrA(parent,GWLP_HINSTANCE)`
 旧对象的 `0x2C8` 分配大小、字段偏移和虚表字节偏移仅为证据，不用于访问原生对象；
 Win32 类型仅位于平台实现，私有对象依赖头使用 `uintptr_t` 传递句柄。
 
-## 真实对象依赖与两个叶实现
+## 真实对象依赖、删除外层与两个叶实现
 
 `src/platform/LegacyExternalKeyboardDependencies.hpp` 只声明最窄对象边界，
 不提供空实现、固定值或 fallback：
@@ -129,16 +131,16 @@ Win32 类型仅位于平台实现，私有对象依赖头使用 `uintptr_t` 传�
 | 私有接口 | 地址依据与实现状态 |
 | --- | --- |
 | `CreateExternalKeyboard_535090(instance,window,initialText)` | 未实现。组合 `0x534D56` raw 分配、`0x535090` 构造及 `0x54BC30` 构造异常释放；按真实原生布局分配，并保留空分配与异常传播语义 |
-| `DeleteExternalKeyboardVirtual_535290(object,flags)` | 未实现。`0x535180` 安装的虚表 `0x54F85C` 首项为 `0x535290`；`0x535293` 析构，`0x535298` 检查 flags bit 0，`0x5352A0` 释放，返回原对象指针；边界必须执行真实虚调用 |
+| `DeleteExternalKeyboardVirtual_535290(object,flags)` | 外层已实现。`0x535180` 安装的虚表 `0x54F85C` 首项为 `0x535290`；adapter 真实虚调用唯一 native owner 的 `Delete`，先显式调用尚未定义的析构，flags 低字节 bit 0 决定释放，返回原对象指针 |
 | `QueryExternalKeyboardSizeVirtual_537DC0(object,output)` | 叶语义已实现。同虚表 `+0x20` 即 `0x54F87C` 项为 `0x537DC0`；adapter 真实虚调用唯一 native owner 的 `QuerySize`，保留实际返回指针 |
 | `GetExternalKeyboardResult_5354C0(object)` | 叶语义已实现。返回同一 native owner 的真实结果存储；原 x86 为 `this+0x190`，新端不套用旧偏移 |
 
 依赖头仍只前向声明 `ExternalKeyboard`。私有
 `src/platform/LegacyExternalKeyboardObject.hpp` 定义唯一原生 owner，仅持有
 `ExternalKeyboardSize size` 的两个 W32 和 `char result[0x104]`；对应 `.cpp`
-实现两个叶语义并加入 `cg2d_re_startup`。未来 Create/Delete 及 UI 写者必须共用
+实现删除外层与两个叶语义并加入 `cg2d_re_startup`。未来 Create、析构及 UI 写者必须共用
 该定义，不另建状态副本。原三参构造器和 `sub_535310` 对应的非虚析构器仅声明，
-没有可用默认构造、空析构或删除实现；字段均不设默认初值。原生虚方法不使用 RTTI，
+没有可用默认构造或空析构；字段均不设默认初值。原生虚方法不使用 RTTI，
 也不把原虚表 `+0x20` 当作 x64 字节偏移。
 该私有 native owner 只承载具体 `JoyparkKeyboard`，不提供派生扩展，因此声明为
 `final`；保留虚方法调用语义，不为消除析构警告添加空虚析构。MSVC 的
@@ -146,6 +148,23 @@ Win32 类型仅位于平台实现，私有对象依赖头使用 `uintptr_t` 传�
 仅现有 `/W4` 不启用该警告；`final` 也排除了把非虚析构类型作为可继承基类的
 [警告条件](https://devblogs.microsoft.com/oldnewthing/20200618-00/?p=103874)。
 此处为源码和官方文档静态核对，没有执行编译确认。
+
+删除外层在 `0x535293` 无条件调用析构；`0x535298` 的原字节
+`F6 44 24 08 01` 只测试参数低字节 bit 0，其他位不参与判断。
+`0x5352A0` 仅在该位非零时调用 `delete@0x53B4E7` 释放存储；
+`0x5352A8` 在两条正常路径均返回保存的原 this。新端对应为显式析构调用、
+`flags & 1u`、单参数全局 `::operator delete(object)` 和返回原指针；
+不使用再次调用析构的 delete 表达式，不套用旧对象大小或虚表字节偏移。
+未来 Create 必须提供与该全局释放函数匹配的原生分配。
+
+原外层没有捕获或异常释放路径，析构抛出时不会执行存储释放。
+析构主体的 `FuncInfo@0x550DD8` 为 4 个 unwind state、零 try/catch；
+`0x550DF8` 的清理表依次关联基 Window、第一组指针容器、第二组指针容器和树。
+因此析构声明使用 `noexcept(false)`，Delete 方法及 adapter 不添加 `noexcept`，
+保留异常向外传播。当前不定义析构主体，不提前添加或初始化其资源字段。
+主体涉及 `0x535347` 的窗口销毁、`0x53537B/0x5353D1` 的两组子对象虚删、
+`0x53542B` 的树清理、`0x535447..0x53545D` 的共享计数与哨兵释放、
+两组 backing storage 释放及 `0x5354A8` 的基 Window 析构，均仍待还原。
 
 尺寸叶函数的全部指令为：
 
@@ -214,8 +233,10 @@ Win32 类型仅位于平台实现，私有对象依赖头使用 `uintptr_t` 传�
 
 包装层和 `DialogFunc@0x534B80` 已按地址证据补齐源码，`JoyparkKeyboard`
 对象闭包及外部 `idguardlibr.dll` 的真实资源和行为仍未闭合。R6.1.3.98 仅为
-四个对象边界中的 Query/Get 提供了真实字段叶实现；两个剩余对象依赖为
-Create/Delete，原生构造和析构也仍只有声明。尺寸初始化、结果 UI 写者、逻辑容量
-及异常域策略均未闭合，最终链接仍未闭合，不代表屏幕键盘可用。
+四个对象边界中的 Query/Get 提供了真实字段叶实现；R6.1.3.99 补齐 Delete 外层，
+以真实未解析的 `ExternalKeyboard::~ExternalKeyboard` 取代未解析 Delete adapter，
+未解析符号净数量不变。Create 仍未实现，原生构造和析构也仍只有声明。
+尺寸初始化、结果 UI 写者、逻辑容量及异常域策略均未闭合，
+最终链接仍未闭合，不代表屏幕键盘可用。
 本项仅进行源码与 IDA 的静态自查，未执行编译、运行、测试、lint、格式化、
 代码生成或编译产物检查；尚未据此声称独立验收通过。

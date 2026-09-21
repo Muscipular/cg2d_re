@@ -67,8 +67,8 @@
 `Sub_534AB0` 的外部键盘包装层已在 `src/platform/LegacyExternalKeyboard.cpp`
 还原，仍沿用既有地址中性接口；具体证据见
 [`cg2d_external_keyboard_wrapper.md`](cg2d_external_keyboard_wrapper.md)。
-`DialogFunc@0x534B80` 消息回调也已还原；尺寸与结果两个叶语义已实现，未闭合项为
-Create/Delete 两个剩余对象依赖所承接的
+`DialogFunc@0x534B80` 消息回调、尺寸与结果两个叶语义及 Delete 外层已实现；
+Create 与真实析构主体仍为未解析依赖，继续承接尚未还原的
 `JoyparkKeyboard` 对象闭包，以及外部 DLL 的真实资源和行为。外部键盘路径及
 最终链接仍未闭合。
 

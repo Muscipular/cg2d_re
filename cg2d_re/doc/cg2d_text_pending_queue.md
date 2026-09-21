@@ -115,7 +115,12 @@ signed W32 `count <= 0`；通过后单次采样上述悬停索引，按顺序返
 
 ## 当前未闭合项
 
-主循环依赖的 `Renderer::CacheReset@0x456D30`（当前声明名
-`ResetGraphicCache_456D30`）和最终队列消费入口
-`Renderer::DrawAllQueued@0x520DD0` 仍只有真实声明。因此六槽文本尾链的逐帧重置
-及文本链的最终消费、呈现仍未闭合；本项只闭合 `DrawText3` 的提交入口。
+主循环依赖的 `Renderer::CacheReset@[0x456D30,0x456D41)`（声明名
+`ResetGraphicCache_456D30`）已闭合：原函数 17 字节、7 条指令、1 个基本块，
+字节为 `57 B9 06 00 00 00 33 C0 BF A0 EC 62 00 F3 AB 5F C3`；
+`ECX=6`、`EAX=0`、`EDI=0x62ECA0` 后执行 `rep stosd`，恰清
+`[0x62ECA0,0x62ECB8)` 的六个 W32 尾槽并返回 W32 零。新端只清
+`gGraphicCache4Queue`，不清文本记录或任何计数。
+
+最终队列消费入口 `Renderer::DrawAllQueued@0x520DD0` 仍只有真实声明，
+文本链的最终消费、呈现尚未闭合。

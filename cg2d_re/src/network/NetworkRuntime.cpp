@@ -416,6 +416,71 @@ std::int32_t ParseProtocolInteger_517190(const char* const text)
     return detail::Sub_5176B0(text);
 }
 
+std::uint8_t* EscapeProtocolText_5171F0(const char* const text)
+{
+    gNetworkRuntimeState.buffer58B5F8[0] = 0;
+    if (*text == '\0') {
+        gNetworkRuntimeState.buffer58B5F8[0] = 0;
+        return gNetworkRuntimeState.buffer58B5F8;
+    }
+
+    const auto* cursor = reinterpret_cast<const unsigned char*>(text);
+    std::uint32_t destinationIndex = 0;
+    for (;;) {
+        const unsigned char currentByte = *cursor;
+        if (currentByte >= 0x80U) {
+            std::uint8_t* const firstDestination =
+                gNetworkRuntimeState.buffer58B5F8;
+            ++destinationIndex;
+            ++cursor;
+            firstDestination[destinationIndex - 1U] = currentByte;
+            const unsigned char secondByte = *cursor;
+            gNetworkRuntimeState.buffer58B5F8[destinationIndex] = secondByte;
+        }
+        else if (currentByte == static_cast<unsigned char>('\\')) {
+            std::uint8_t* const firstDestination =
+                gNetworkRuntimeState.buffer58B5F8;
+            ++destinationIndex;
+            firstDestination[destinationIndex - 1U] = '\\';
+            gNetworkRuntimeState.buffer58B5F8[destinationIndex] = '\\';
+        }
+        else if (currentByte == static_cast<unsigned char>(' ')) {
+            std::uint8_t* const firstDestination =
+                gNetworkRuntimeState.buffer58B5F8;
+            ++destinationIndex;
+            firstDestination[destinationIndex - 1U] = '\\';
+            gNetworkRuntimeState.buffer58B5F8[destinationIndex] = 'S';
+        }
+        else if (currentByte == static_cast<unsigned char>('\n')) {
+            std::uint8_t* const firstDestination =
+                gNetworkRuntimeState.buffer58B5F8;
+            ++destinationIndex;
+            firstDestination[destinationIndex - 1U] = '\\';
+            gNetworkRuntimeState.buffer58B5F8[destinationIndex] = 'n';
+        }
+        else if (currentByte == static_cast<unsigned char>('\r')) {
+            std::uint8_t* const firstDestination =
+                gNetworkRuntimeState.buffer58B5F8;
+            ++destinationIndex;
+            firstDestination[destinationIndex - 1U] = '\\';
+            gNetworkRuntimeState.buffer58B5F8[destinationIndex] = 'r';
+        }
+        else {
+            gNetworkRuntimeState.buffer58B5F8[destinationIndex] = currentByte;
+        }
+
+        const unsigned char nextByte = cursor[1];
+        ++destinationIndex;
+        ++cursor;
+        if (nextByte == 0U) {
+            std::uint8_t* const finalDestination =
+                gNetworkRuntimeState.buffer58B5F8;
+            finalDestination[destinationIndex] = 0;
+            return gNetworkRuntimeState.buffer58B5F8;
+        }
+    }
+}
+
 std::int32_t AllocateNetworkWorkspace_516B60(
     const NetworkCallback callback,
     const std::uint32_t bufferLength,

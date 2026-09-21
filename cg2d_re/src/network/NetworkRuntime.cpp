@@ -408,6 +408,18 @@ std::uint8_t* FormatProtocolIntegerToken_517120(const std::int32_t value)
     return gNetworkRuntimeState.buffer58B5FC;
 }
 
+std::uint8_t* FormatProtocolTextToken_517160(const char* const text)
+{
+    static constexpr char kSpace[] {' ', '\0'};
+
+    std::uint8_t* const escaped = EscapeProtocolText_5171F0(text);
+    const std::int32_t capacity = std::bit_cast<std::int32_t>(
+        gNetworkRuntimeState.bufferLength);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(escaped), kSpace, capacity));
+    return escaped;
+}
+
 std::int32_t ParseProtocolInteger_517190(const char* const text)
 {
     if (text == nullptr) {

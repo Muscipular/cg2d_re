@@ -23,6 +23,7 @@
 | 2026-07-29 | 安装项目级代码库图谱分析技能 | 将 `codebase-memory-analysis` 以实体文件安装至 `.agents/skills`，包含 `SKILL.md` 与 `agents/openai.yaml`；未使用 `mklink` 或符号链接 | 源与目标 UTF-8 文本内容一致；目标文件 `LinkType` 为空；`git diff --check` 通过 | 本次仅安装技能，未修改 MCP 配置 |
 | 2026-07-29 | 初始化代码库知识图谱 | 使用 `codebase-memory-mcp 0.9.0` 对当前仓库执行 `index_repository` | `index_status` 为 `ready`，图谱包含 6715 个节点、33122 条边；`search_graph` 成功定位 `WorldRenderer` | 本次通过 CLI 调用；未修改当前被注释的 MCP 配置 |
 | 2026-09-21 | 创建项目级 SubAgent 开发执行技能 | 新增显式调用的 `subagent-dev-workflow`，固化分析、编码与独立 review 循环、独立验证、三轮停止门禁、结构化交接及同任务同角色复用策略；仅主 Agent 更新进度并精确提交 | 独立 reviewer 第 2 轮通过；`python -X utf8` 执行 `quick_validate.py` 通过；严格 UTF-8、元数据、触发边界、目录范围与空白检查通过；`git diff --check` 通过；未编译 | Windows 默认 GBK 模式直接运行验证器会读取中文失败，需显式启用 UTF-8；无功能遗留 |
+| 2026-09-21 | 将 SubAgent 开发执行技能迁移至全局 | 将 `.agents/skills/subagent-dev-workflow` 原样移动到 `C:\Users\Muscipular\.codex\skills\subagent-dev-workflow`，项目仓库不再保存技能实体；调用策略和内容保持不变 | 移动前后 2 个文件 SHA-256 一致；全局目录执行 `python -X utf8 quick_validate.py` 通过；严格 UTF-8 与项目删除差异检查通过；未编译 | 全局技能不受本项目 Git 管理；无功能遗留 |
 
 ## M1：platform 层
 

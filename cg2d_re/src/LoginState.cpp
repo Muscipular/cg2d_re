@@ -2,6 +2,7 @@
 
 #include "LoginStateDependencies.hpp"
 
+#include "cg/Blacklist.hpp"
 #include "cg/LoginConnection.hpp"
 #include "cg/LoginMessage.hpp"
 #include "cg/LoginRequest.hpp"
@@ -143,7 +144,7 @@ std::int32_t UpdateServerConnection()
 
     if (phase == 2) {
         detail::Sub_5081A0();
-        detail::Sub_401000(gValue55A054);
+        cg::blacklist::PersistAndReset_401000(gValue55A054);
         if (detail::Sub_508140() != 0) {
             gValue9A6E3C = 3;
             ResetServerConnectionState_508350();

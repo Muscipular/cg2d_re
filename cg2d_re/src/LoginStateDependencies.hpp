@@ -21,7 +21,6 @@ std::int32_t Sub_50FF10();
 std::int32_t Sub_50FF70();
 std::int32_t Sub_510120();
 void Sub_5081A0();
-std::int8_t Sub_401000(std::int32_t value);
 std::int32_t Sub_508140();
 std::int32_t Sub_508360();
 std::int8_t Sub_401030(std::int32_t value);

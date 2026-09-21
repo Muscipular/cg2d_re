@@ -64,6 +64,12 @@
   0；返回 -1 也不关闭 `gMonitorKeyboard`。
 - 其他索引不处理，也不归一化。
 
+`Sub_534AB0` 的外部键盘包装层已在 `src/platform/LegacyExternalKeyboard.cpp`
+还原，仍沿用既有地址中性接口；具体证据见
+[`cg2d_external_keyboard_wrapper.md`](cg2d_external_keyboard_wrapper.md)。
+未闭合项是 `DialogFunc@0x534B80`、`JoyparkKeyboard` 与外部 DLL 的真实资源及
+行为；包装层完成尚未闭合外部键盘路径或最终链接。
+
 ## 鼠标、上下文与尾部
 
 键盘阶段之后，只有 `gMonitorKeyboard==0 && mode==0` 执行鼠标命中，且严格先

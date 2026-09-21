@@ -103,11 +103,13 @@
 
 按钮先产生的 -2、-1、0、1 或 2 都可能被键盘成功路径覆盖为 1。
 
-`sub_534AB0@[0x534AB0,0x534B7E)` 当前仍未实现。IDA 原型为
-`int __stdcall(HWND,char*)`，目标通过外部 `idguardlibr.dll` 对话框返回 -1、0 或
-1；返回 1 时向输出缓冲复制旧字节串。本项只在既有内部依赖头声明地址中性的窄
-边界 `std::int32_t Sub_534AB0(std::uintptr_t window,char* output)`，不提供空实现、
-固定返回或替代对话框。
+`sub_534AB0@[0x534AB0,0x534B7E)` 的外部键盘包装层已在
+`src/platform/LegacyExternalKeyboard.cpp` 还原，沿用既有地址中性边界
+`std::int32_t Sub_534AB0(std::uintptr_t window,char* output)`。包装层通过外部
+`idguardlibr.dll` 对话框返回 -1、0 或 1；仅返回 1 时无界复制结果旧字节串。
+证据见 [`cg2d_external_keyboard_wrapper.md`](cg2d_external_keyboard_wrapper.md)。
+未闭合项仍为 `DialogFunc@0x534B80`、`JoyparkKeyboard` 与外部 DLL 的真实资源及
+行为；未提供替代回调或键盘界面，外部键盘路径及最终链接仍未闭合。
 
 ## 鼠标、焦点与尾部绘制
 
@@ -145,4 +147,3 @@
   `TextPendingQueue` 的唯一状态和入口；没有新增翻译单元或外部依赖。
 - `D:\Source\STONAGE` 仅允许帮助理解“表单状态与外部输入分层”的架构候选；本文
   的地址、顺序、字段、返回值和验收结论均不以 STONAGE 为行为证据。
-

@@ -61,6 +61,7 @@ add_library(cg2d_re_startup STATIC
     src/platform/LegacyMouseTracker.cpp
     src/platform/LegacyCursor.cpp
     src/platform/LegacyTime.cpp
+    src/platform/LegacyExternalKeyboard.cpp
     src/LegacyHitTest.cpp
     src/LegacyUiRecord.cpp
     src/Input.cpp

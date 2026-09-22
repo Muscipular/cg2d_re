@@ -112,6 +112,12 @@ std::int8_t PersistAndReset_401000(const std::int32_t fileId)
     return 1;
 }
 
+// 原 sub_401190@0x401190：直接返回黑名单记录游标的完整有符号 32 位值。
+std::int32_t GetBlacklistCount_401190()
+{
+    return gCursor;
+}
+
 std::int8_t AddBlacklistRecord_401270(const char* const name)
 {
     if (gCursor == static_cast<std::int32_t>(kRecordCount)) {

@@ -1,8 +1,26 @@
 #include "cg/world/SceneState.hpp"
 
 #include "cg/platform/CommandOptions.hpp"
+#include "cg/platform/LegacyCryptInt.hpp"
+
+#include <bit>
 
 namespace cg::world {
+namespace {
+
+// 原 0x9A7FA8；由 LegacyMouse.cpp 的 CRT 顺序适配显式构造、析构。
+platform::LegacyCryptInt gRippleGate {};
+
+constexpr std::array<std::int32_t, 6> kAllowedMapFloors {
+    59000,
+    59001,
+    59100,
+    37623,
+    37619,
+    37631,
+};
+
+} // namespace
 
 std::int32_t& gCurrentSceneType = platform::gValueFF0D40;
 std::int32_t gPendingSceneState = 0;
@@ -30,7 +48,63 @@ std::uint32_t gWorldProjectionSnapshotB = 0;
 std::uint32_t gWorldProjectionSnapshotC = 0;
 std::uint32_t gWorldProjectionSnapshotD = 0;
 
+volatile std::int32_t gMapFloor = 0; // 原 0x9EE8F0。
+volatile std::uint32_t gWorldCurrentXBits = 0; // 原 0x9DAD4C。
+volatile std::uint32_t gWorldCurrentYBits = 0; // 原 0x9DAD50。
+volatile std::uint32_t gWorldProjectionReferenceXBits = 0; // 原 0xC751A8。
+volatile std::uint32_t gWorldProjectionReferenceYBits = 0; // 原 0xC751A4。
+
 static_assert(sizeof(gValueD67B08) == 7 * sizeof(std::uint32_t));
+
+void ConstructRippleGate()
+{
+    platform::legacy_crypt_int::ConstructZero_401C70(&gRippleGate);
+}
+
+void DestroyRippleGate()
+{
+    platform::legacy_crypt_int::Destroy_401CF0(&gRippleGate);
+}
+
+std::int32_t ReadRippleGateOnce()
+{
+    return platform::legacy_crypt_int::Read_401EC0(&gRippleGate);
+}
+
+std::int32_t IsMapFloorAllowed_448240() noexcept
+{
+    const std::int32_t mapFloor = gMapFloor;
+    if (mapFloor >= 40000 && mapFloor <= 41999) {
+        return 1;
+    }
+    for (const std::int32_t allowedFloor : kAllowedMapFloors) {
+        if (mapFloor == allowedFloor) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+void ProjectWorldToScreen_46CE30(
+    const float worldX,
+    const float worldY,
+    float* const outX,
+    float* const outY) noexcept
+{
+    const std::uint32_t referenceXBits = gWorldProjectionReferenceXBits;
+    const std::uint32_t referenceYBits = gWorldProjectionReferenceYBits;
+    const float referenceX = std::bit_cast<float>(referenceXBits);
+    const float referenceY = std::bit_cast<float>(referenceYBits);
+
+    const double u =
+        (static_cast<double>(worldX) - static_cast<double>(referenceX))
+        * 0.015625;
+    const double v =
+        (static_cast<double>(worldY) - static_cast<double>(referenceY))
+        * 0.015625;
+    *outX = static_cast<float>((v + u) * 32.0 + 320.0);
+    *outY = static_cast<float>((v - u) * 24.0 + 240.0);
+}
 
 std::int32_t SetCurrentSceneType(std::int32_t sceneType)
 {

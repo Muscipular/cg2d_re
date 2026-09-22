@@ -20,7 +20,7 @@
 | 九宫格 | `[0x49BE00,0x49C4C7)` | 525 / 35 | 角、边、中心及尾块 source rect 裁剪 |
 | `Renderer::DrawGraphic3` | `[0x520970,0x520ACE)` | 114 / 20 | descriptor 版本的唯一待提交队列写入 |
 | `sub_423640` | `[0x423640,0x4237D5)` | — / — | 更新随机屏幕偏移、幅度并将共享 Temp 裁剪回拷 Back |
-| `sub_521870` | `[0x521870,0x5219B5)` | 98 / — | 通过门禁后尝试 Back→共享 Temp 快照及 60 条带回拷 |
+| `sub_521870` | `[0x521870,0x5219B5)` | 98 / 10 | 已实现门禁、Back→共享 Temp 快照及 60 条带裁剪回拷 |
 | 注册表清理 | `[0x46DD40,0x46DD82)` | 24 / 7 | 399×399 标志/非拥有指针表按行清理已实现 |
 
 关键指令证据如下：
@@ -181,7 +181,8 @@ descriptor 固定为 `clip=1,mixMode=4,paletteCacheIndex=0`。
 默认屏蔽浮点异常下，NaN 在两次比较中均进入加 64 路径并无限循环；
 正无穷在减法路径、负无穷在加法路径无限循环；极大有限值也可能因减去 64
 后数值不变而不进展。未添加 `fmod`、钳位、保护、超时或额外状态。
-这两个相位叶均未接入原 caller、consumer 或后缓冲路径，主循环波纹链仍未闭合。
+`Sub_520930` 已由 `Sub_521870` 按原位置调用；`Sub_520910` 的原 caller、
+`DrawAllQueued` type 8 consumer 与主循环提交链仍未闭合。
 
 ## sub_423640 屏幕偏移回拷
 
@@ -221,17 +222,17 @@ DX7 表面操作已按 2026-09-22 用户裁决映射为同步 CPU 像素复制�
 请求返回 false 且不修改 Temp。`Sub_423640` 已接入该共享 owner，调用后忽略 bool，
 没有改动 `MainLoop`。
 
-当前只闭合 owner、严格 blit 与 `sub_423640`。Back/Temp 的真实内容生产、
-`DrawAllQueued` 的 case 6/7/8、波纹 `sub_521870`、`Flip`/`Present` 转换与提交仍未
+当前已闭合 owner、严格 blit、`sub_423640` 与波纹 `sub_521870` 本体。Back/Temp 的
+真实内容生产、`DrawAllQueued` 的 case 6/7/8 触发以及 `Flip`/`Present` 转换与提交仍未
 闭合；在这些生产者接入前，零初始化 owner 不代表已有可呈现画面。
 
-## 波纹后缓冲链证据、已批准替换边界与待实现项（部分基础 owner 已实现）
+## 波纹后缓冲函数、已批准替换边界与未接线项
 
 2026-09-22 用户裁决：`sub_521870` 波纹后缓冲链采用 CPU 像素缓冲，不采用 GPU
-render-target Texture；后续实现按用户指定保留原版后缓冲画面快照与逐条带回拷语义，
-再通过既有最终呈现边界上传。该裁决只适用于此波纹链，不推广到其他渲染功能；
-也不改变 SDL3 `SDL_Renderer`、仅 32 位色范围。`sub_521870`、caller/consumer 及
-后缓冲链在新端仍未实现。
+render-target Texture；当前实现按用户指定保留原版后缓冲画面快照与逐条带回拷语义，
+后续再通过既有最终呈现边界上传。该裁决只适用于此波纹链，不推广到其他渲染功能；
+也不改变 SDL3 `SDL_Renderer`、仅 32 位色范围。`Sub_521870` 本体及其最窄
+world helper、状态 owner、CRT 门禁依赖已经实现；caller/consumer 与最终提交链仍未接线。
 
 同日用户另行批准：DX7 `Blt`、`BltFast` 等底层操作可直接映射为等价 SDL/CPU
 行为，不要求逐项复刻 `HRESULT`、显存 caps、`DDBLTFAST_WAIT`、surface
@@ -260,6 +261,23 @@ Back/Temp 裁决保持不变。
 成功。这是原端 IDA 事实；按上述用户裁决，新端不需要仿真对应 `HRESULT` 或 surface
 状态，也不得因等价 SDL/CPU 操作的后端结果新增原上层不存在的分支或状态写入。
 
+新端 `Sub_521870` 先单次读取 `0x9A7FA8` 的私有 `LegacyCryptInt` 门禁；门禁非零或
+楼层不在 `40000..41999` 与六个离散允许值内时只清强度并短路。正常路径独立再次读取
+楼层，楼层变化时按缓存后强度的顺序写入，随后将 307200 个 `0x00RRGGBB` Back 像素
+同步位复制到唯一共享 Temp。世界当前 X/Y、投影 reference X/Y、楼层、整数相位、
+上帧 X/Y、强度及楼层缓存均由带原地址注释的唯一状态承载；投影 helper 保持 reference
+X/Y 先读、输出 X 后 Y，坐标差 helper 保持旧 Y、旧 X、投影、当前 Y、当前 X、投影的
+读取次序。坐标 X 差保持加宽直至乘 `0.125f` 后最终落 F32；Y 差先显式落 F32；两差
+均完成计算后才按 X、Y 顺序写出，因此输出指针别名时最终仍为 Y。私有门禁由 CRT
+顺序适配先于十个鼠标 `CryptInt` 构造；退出时鼠标按钮坐标严格按 `[7..0]`、再 mouseY、
+mouseX 调用析构，最后才析构门禁。该门禁尚未扩展到其余 19 个 reader。
+
+相位路径继续复用唯一 `gFloat1020EF0` 与 `Sub_520930`，在 `phase-yDelta` 的加宽中间值
+后显式落回 F32，再以向零截断写整数相位。60 条带各自严格按 phase、表项、strength
+顺序独立采样，使用唯一 64 项有符号近似表；乘积以 W32 低位计算，除以 100 采用
+C++ signed32 向零截断。
+所有条带完成后才重新读取强度，小于 100 时按 W32 加 2，因此本帧像素只使用更新前值。
+
 `DrawAllQueued` 的 type 8 分支在 `0x52181E` 调用本函数。`SortTextures` 可选的
 layer 2/type 8 与原有 layer 5/type 6、layer 6/type 7、layer 20/type 9 均属于
 待提交队列；case 6/7 也可读写共享 Temp。因此波纹不能改为局部 scratch，也不能
@@ -279,15 +297,20 @@ IDA 核证共享 `gTempSurface` 的请求内容尺寸是 640×480：原端首选
 
 强度为 0 时，最后一条带的源 `y` 区间为 `[484,492)`，超过首选 480 高度。原端不
 检查 blit 返回值；新端不再复刻 caps 放大或未知驱动失败行为，但必须保留该源坐标
-计算，并按所选等价 SDL/CPU 操作对实际共享 Back/Temp 边界执行明确、可验证的裁剪，
-不得用填充、回绕或改写坐标掩盖越界。
+计算。当前实现采用用户批准的新端确定性 CPU 裁剪：对目标 `d=8n`、请求源顶
+`s=8n+12+offset`、条带高 `h=8`、表面高 `H=480`，计算
+`begin=max(0,-s,-d)`、`end=min(h,H-s,H-d)`；空区间跳过，否则立即同步调用既有
+`BlitTempToBack(0,d+begin,0,s+begin,640,s+end)`。未覆盖目标保留入口 Back 像素，
+不填充、不回绕、不重复边缘、不清色，也不修改 Temp。该裁剪是用户批准的新端等价映射，
+不冒充原 DX7 对非法 RECT、驱动失败或 caps 放大表面的行为。
 
-以下仍是实现与独立验证须闭合的边界，不再是 DX7 caps/`HRESULT` 复刻待裁决项：
+以下仍是后续须闭合的接线边界，不再是 `Sub_521870` 本体或 DX7
+caps/`HRESULT` 复刻待裁决项：
 
-1. 共享 CPU Back/Temp 的内容生产及与 `DrawAllQueued` case 6/7/8 的生命周期边界。
-2. Back/Temp 与最终 `Present` 之间的像素格式转换边界。
-3. 越界条带采用的等价 SDL/CPU 裁剪规则及其确定性像素结果。
-4. `DrawAllQueued` 内原触发位置、后续 `sub_468FF0` 与 `Flip` 之间的提交顺序接线。
+1. `DrawAllQueued` type 8 的原触发位置；case 6/7 的共享 Temp 生命周期也仍未闭合。
+2. `BackupValues_5208F0` 对上帧 X/Y 等状态的真实生产与调用接线。
+3. 同一 `0x9A7FA8` 门禁的其余 19 个 reader。
+4. 共享 CPU Back 的真实内容生产，以及 Back/Temp 到 `Flip`/`Present` 的像素转换与提交。
 
 ## 注册表清理与当前未闭合项
 

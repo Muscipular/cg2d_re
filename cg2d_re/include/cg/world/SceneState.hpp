@@ -35,6 +35,28 @@ extern std::uint32_t gWorldProjectionSnapshotB; // 原 0xAF10CC，W32。
 extern std::uint32_t gWorldProjectionSnapshotC; // 原 0xAF10D0，W32。
 extern std::uint32_t gWorldProjectionSnapshotD; // 原 0xAF10D4，W32。
 
+// 原波纹路径的世界状态；浮点坐标以 F32 位模式保存，映像初值均为 0。
+extern volatile std::int32_t gMapFloor;                    // 原 0x9EE8F0，S32。
+extern volatile std::uint32_t gWorldCurrentXBits;          // 原 0x9DAD4C，F32。
+extern volatile std::uint32_t gWorldCurrentYBits;          // 原 0x9DAD50，F32。
+extern volatile std::uint32_t gWorldProjectionReferenceXBits; // 原 0xC751A8，F32。
+extern volatile std::uint32_t gWorldProjectionReferenceYBits; // 原 0xC751A4，F32。
+
+// 原 0x9A7FA8 CryptInt 的唯一私有存储由 SceneState.cpp 持有。
+void ConstructRippleGate();
+void DestroyRippleGate();
+std::int32_t ReadRippleGateOnce();
+
+// 原 sub_448240@0x448240；只采样一次 gMapFloor。
+std::int32_t IsMapFloorAllowed_448240() noexcept;
+
+// 原 sub_46CE30@0x46CE30；X 先写、Y 后写，不检查输出指针。
+void ProjectWorldToScreen_46CE30(
+    float worldX,
+    float worldY,
+    float* outX,
+    float* outY) noexcept;
+
 // 原 sub_51C770@0x51C770；先清当前场景状态，再写当前场景类型，返回 sceneType。
 std::int32_t SetCurrentSceneType(std::int32_t sceneType);
 

@@ -70,14 +70,28 @@ extern std::uint8_t gSpecialGraphicPending;
 // 原 gGraphicDirty@0x1020EE8；窗口消息仅在值严格等于 1 时消费并重建渲染器。
 extern std::int32_t gGraphicDirty;
 
+// 原波纹后缓冲状态；W32/S32 字段以无符号位模式承载回绕语义。
+extern volatile std::uint32_t gRippleIntegerPhaseBits; // 原 0x1020EEC。
+
 // 原 flt_1020EF0@0x1020EF0；浮点相位的唯一零初始化存储。
 extern float gFloat1020EF0;
+
+extern volatile std::uint32_t gRipplePreviousWorldXBits; // 原 0x1020EF4，F32。
+extern volatile std::uint32_t gRipplePreviousWorldYBits; // 原 0x1020EF8，F32。
+extern volatile std::uint32_t gRippleStrengthBits; // 原 0x1020EFC。
+extern volatile std::int32_t gRippleMapFloorCache; // 原 0x1020F00，S32。
+
+// 原 0x58B6E0 的 64 项有符号正弦近似表。
+extern const std::array<std::int32_t, 64> gRippleSineTable;
 
 // 原 sub_520910@[0x520910,0x520923)：单次累加原浮点常量 0.25f。
 void Sub_520910();
 
 // 原 sub_520930@[0x520930,0x52096B)：原位逐次加减 64.0f 的浮点相位叶。
 void Sub_520930(float* value);
+
+// 原 sub_521870@[0x521870,0x5219B5)：共享 CPU Back/Temp 的波纹条带回拷。
+std::int32_t Sub_521870();
 
 // 原 Renderer::SortTextures@[0x520790,0x5208E8)；只重排 cache3 索引记录。
 void SortTextures_520790();

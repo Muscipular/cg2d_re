@@ -5,6 +5,7 @@
 #include "cg/platform/LegacyMouseTracker.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/platform/Startup.hpp"
+#include "cg/world/SceneState.hpp"
 
 #include <cstring>
 
@@ -16,6 +17,20 @@ std::uint32_t gValueD68DC8 = 0;
 
 namespace {
 
+struct RippleGateStaticInitializer {
+    RippleGateStaticInitializer()
+    {
+        cg::world::ConstructRippleGate();
+    }
+
+    ~RippleGateStaticInitializer()
+    {
+        cg::world::DestroyRippleGate();
+    }
+};
+
+const RippleGateStaticInitializer gRippleGateStaticInitializer;
+
 struct LegacyMouseStaticInitializer {
     LegacyMouseStaticInitializer()
     {
@@ -24,6 +39,16 @@ struct LegacyMouseStaticInitializer {
         for (LegacyCryptInt& coordinate : gLegacyMouseState.buttonCoordinates) {
             legacy_crypt_int::ConstructZero_401C70(&coordinate);
         }
+    }
+
+    ~LegacyMouseStaticInitializer()
+    {
+        for (std::size_t index = 8; index != 0; --index) {
+            legacy_crypt_int::Destroy_401CF0(
+                &gLegacyMouseState.buttonCoordinates[index - 1]);
+        }
+        legacy_crypt_int::Destroy_401CF0(&gLegacyMouseState.mouseY);
+        legacy_crypt_int::Destroy_401CF0(&gLegacyMouseState.mouseX);
     }
 };
 

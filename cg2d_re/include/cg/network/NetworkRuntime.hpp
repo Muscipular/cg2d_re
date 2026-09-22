@@ -60,6 +60,9 @@ std::int32_t AllocateNetworkWorkspace_516B60(
 // 原 sub_508140@0x508140：启动 Winsock 并创建网络运行期工作区。
 std::int32_t InitializeNetworkRuntime_508140();
 
+// 只读原 W8 0xD9F2C8 活动门禁；状态仍由网络运行期唯一持有。
+std::uint8_t ReadNetworkRuntimeActive() noexcept;
+
 // 原 sub_5081A0@0x5081A0：关闭 Winsock 并释放网络运行期工作区。
 void ShutdownNetworkRuntime_5081A0();
 

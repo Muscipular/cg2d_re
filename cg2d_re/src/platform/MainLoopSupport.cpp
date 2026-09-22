@@ -2,9 +2,16 @@
 #include "MainLoopDependencies.hpp"
 
 #include "cg/LegacyAudio.hpp"
+#include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/MainLoop.hpp"
 
 #include <bit>
+
+namespace cg::network {
+
+std::int32_t Sub_512C60(std::uintptr_t socket); // 原 0x512C60；真实发送实现尚缺。
+
+} // namespace cg::network
 
 namespace cg::audio {
 
@@ -13,6 +20,13 @@ void Sub_52CCA0(); // 原 0x52CCA0，IDA 为 void __cdecl()；真实实现尚缺
 } // namespace cg::audio
 
 namespace cg::platform {
+namespace {
+
+// 原 0x73ED1C、0x73ED20；volatile 保留两个独立 W32 全局写入。
+volatile std::uint32_t gKeepAliveBaselineTick = 0;
+volatile std::uint32_t gKeepAliveRecentTick = 0;
+
+} // namespace
 
 std::uint32_t gRandomSeed = 1; // 原 0x58F870，共享随机源，不改用本机 CRT 的私有状态。
 
@@ -27,6 +41,33 @@ int Sub_52CD30(std::int32_t)
 std::uint32_t ReadTickCount32() noexcept
 {
     return static_cast<std::uint32_t>(GetTickCount());
+}
+
+// 原 KeepAlive@[0x457AB0,0x457B03)：保留零基线哨兵及 signed32 差值门槛。
+void KeepAlive_457AB0()
+{
+    if (network::ReadNetworkRuntimeActive() == 0) {
+        return;
+    }
+
+    if (gKeepAliveBaselineTick == 0) {
+        const std::uint32_t tick = ReadTickCount32();
+        gKeepAliveRecentTick = tick;
+        gKeepAliveBaselineTick = tick;
+        return;
+    }
+
+    const std::uint32_t tick = ReadTickCount32();
+    const std::uint32_t baselineTick = gKeepAliveBaselineTick;
+    const std::uint32_t elapsedBits = tick - baselineTick;
+    gKeepAliveRecentTick = tick;
+    if (std::bit_cast<std::int32_t>(elapsedBits) < 60000) {
+        return;
+    }
+
+    const std::uintptr_t socket = gConnectionSocket;
+    gKeepAliveBaselineTick = tick;
+    static_cast<void>(network::Sub_512C60(socket));
 }
 
 std::uint32_t SeedRandom_53B4BF(std::uint32_t seed)

@@ -611,6 +611,11 @@ std::int32_t InitializeNetworkRuntime_508140()
     return 1;
 }
 
+std::uint8_t ReadNetworkRuntimeActive() noexcept
+{
+    return gNetworkRuntimeState.active;
+}
+
 void ShutdownNetworkRuntime_5081A0()
 {
     if (gNetworkRuntimeState.active == 0) {

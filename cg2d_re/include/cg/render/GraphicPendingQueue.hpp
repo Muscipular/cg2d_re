@@ -68,6 +68,12 @@ extern std::uint8_t gSpecialGraphicPending;
 // 原 gGraphicDirty@0x1020EE8；窗口消息仅在值严格等于 1 时消费并重建渲染器。
 extern std::int32_t gGraphicDirty;
 
+// 原 flt_1020EF0@0x1020EF0；浮点相位的唯一零初始化存储。
+extern float gFloat1020EF0;
+
+// 原 sub_520910@[0x520910,0x520923)：单次累加原浮点常量 0.25f。
+void Sub_520910();
+
 // 原 Renderer::DrawGraphic3@[0x520970,0x520ACE)。
 std::int32_t DrawGraphic3_520970(
     std::int32_t x,

@@ -11,6 +11,12 @@ namespace cg::render {
 LegacyPendingStorage gLegacyPendingStorage {};
 std::uint8_t gSpecialGraphicPending = 0;
 std::int32_t gGraphicDirty = 0;
+float gFloat1020EF0 = 0.0f;
+
+void Sub_520910()
+{
+    gFloat1020EF0 += 0.25f;
+}
 
 } // namespace cg::render
 

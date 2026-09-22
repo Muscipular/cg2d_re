@@ -45,19 +45,57 @@ constexpr char kRestartForVersion[] = "版本錯誤，請重新啟動魔力寶�
 constexpr char kMultiline[] = "Multiline";
 constexpr char kMultilineNew[] = "Multiline_New";
 
-constexpr char kAccountHelp0[] = "您可能遇到以下 3 種情形之一：";
-constexpr char kAccountHelp1[] = "1.密碼錯誤，請查明後重新輸入";
-constexpr char kAccountHelp2[] = "2.未儲值，請至 SOFTSTAR 網站儲值";
-constexpr char kAccountHelp3[] = "3.新會員系統中查無此帳號";
-constexpr char kAccountHelp4[] = "--->請速回 SOFTSTAR 網站";
-constexpr char kAccountHelp5[] = "--->註冊新帳號並移轉舊帳號";
+// 原 0x55C798「您可能遇到以下 3 種情形之一：」正文 29 字节；字符串字面量隐式追加 NUL。
+constexpr char kAccountHelp0[] =
+    "\xB1\x7A\xA5\x69\xAF\xE0\xB9\x4A\xA8\xEC\xA5\x48\xA4\x55\x20\x33\x20\xBA\xD8\xB1\xA1\xA7\xCE\xA4\xA7\xA4\x40\xA1\x47";
+// 原 0x55C778「1.密碼錯誤，請查明後重新輸入」正文 28 字节；字符串字面量隐式追加 NUL。
+constexpr char kAccountHelp1[] =
+    "\x31\x2E\xB1\x4B\xBD\x58\xBF\xF9\xBB\x7E\xA1\x41\xBD\xD0\xAC\x64\xA9\xFA\xAB\xE1\xAD\xAB\xB7\x73\xBF\xE9\xA4\x4A";
+// 原 0x55C754「2.未儲值，請至 SOFTSTAR 網站儲值」正文 32 字节；字符串字面量隐式追加 NUL。
+constexpr char kAccountHelp2[] =
+    "\x32\x2E\xA5\xBC\xC0\x78\xAD\xC8\xA1\x41\xBD\xD0\xA6\xDC\x20\x53\x4F\x46\x54\x53\x54\x41\x52\x20\xBA\xF4\xAF\xB8\xC0\x78\xAD\xC8";
+// 原 0x55C738「3.新會員系統中查無此帳號」正文 24 字节；字符串字面量隐式追加 NUL。
+constexpr char kAccountHelp3[] =
+    "\x33\x2E\xB7\x73\xB7\x7C\xAD\xFB\xA8\x74\xB2\xCE\xA4\xA4\xAC\x64\xB5\x4C\xA6\xB9\xB1\x62\xB8\xB9";
+// 原 0x55C71C「--->請速回 SOFTSTAR 網站」正文 24 字节；字符串字面量隐式追加 NUL。
+constexpr char kAccountHelp4[] =
+    "\x2D\x2D\x2D\x3E\xBD\xD0\xB3\x74\xA6\x5E\x20\x53\x4F\x46\x54\x53\x54\x41\x52\x20\xBA\xF4\xAF\xB8";
+// 原 0x55C700「--->註冊新帳號並移轉舊帳號」正文 26 字节；字符串字面量隐式追加 NUL。
+constexpr char kAccountHelp5[] =
+    "\x2D\x2D\x2D\x3E\xB5\xF9\xA5\x55\xB7\x73\xB1\x62\xB8\xB9\xA8\xC3\xB2\xBE\xC2\xE0\xC2\xC2\xB1\x62\xB8\xB9";
 
-constexpr char kPasswordChange0[] = "＝＝＝＝ 為了維護玩家帳號安全性 ＝＝＝＝";
-constexpr char kPasswordChange1[] = "大宇資訊已於２００５／０５／１３全面變更";
-constexpr char kPasswordChange2[] = "所有玩家會員密碼、以及魔力寶貝遊戲密碼，";
-constexpr char kPasswordChange3[] = "請玩家至SOFTSTAR會員中心領取新的密碼，";
-constexpr char kPasswordChange4[] = "詳情請參閱SOFTSTAR官方網站資訊：";
-constexpr char kPasswordChange5[] = "　　　　http://www.softstar.com.tw";
+static_assert(sizeof(kAccountHelp0) == 30);
+static_assert(sizeof(kAccountHelp1) == 29);
+static_assert(sizeof(kAccountHelp2) == 33);
+static_assert(sizeof(kAccountHelp3) == 25);
+static_assert(sizeof(kAccountHelp4) == 25);
+static_assert(sizeof(kAccountHelp5) == 27);
+
+// 原 0x55CCEC「＝＝＝＝ 為了維護玩家帳號安全性 ＝＝＝＝」正文 40 字节；字符串字面量隐式追加 NUL。
+constexpr char kPasswordChange0[] =
+    "\xA1\xD7\xA1\xD7\xA1\xD7\xA1\xD7\x20\xAC\xB0\xA4\x46\xBA\xFB\xC5\x40\xAA\xB1\xAE\x61\xB1\x62\xB8\xB9\xA6\x77\xA5\xFE\xA9\xCA\x20\xA1\xD7\xA1\xD7\xA1\xD7\xA1\xD7";
+// 原 0x55CCC0「大宇資訊已於２００５／０５／１３全面變更」正文 40 字节；字符串字面量隐式追加 NUL。
+constexpr char kPasswordChange1[] =
+    "\xA4\x6A\xA6\x74\xB8\xEA\xB0\x54\xA4\x77\xA9\xF3\xA2\xB1\xA2\xAF\xA2\xAF\xA2\xB4\xA1\xFE\xA2\xAF\xA2\xB4\xA1\xFE\xA2\xB0\xA2\xB2\xA5\xFE\xAD\xB1\xC5\xDC\xA7\xF3";
+// 原 0x55CC94「所有玩家會員密碼、以及魔力寶貝遊戲密碼，」正文 40 字节；字符串字面量隐式追加 NUL。
+constexpr char kPasswordChange2[] =
+    "\xA9\xD2\xA6\xB3\xAA\xB1\xAE\x61\xB7\x7C\xAD\xFB\xB1\x4B\xBD\x58\xA1\x42\xA5\x48\xA4\xCE\xC5\x5D\xA4\x4F\xC4\x5F\xA8\xA9\xB9\x43\xC0\xB8\xB1\x4B\xBD\x58\xA1\x41";
+// 原 0x55CC6C「請玩家至SOFTSTAR會員中心領取新的密碼，」正文 38 字节；字符串字面量隐式追加 NUL。
+constexpr char kPasswordChange3[] =
+    "\xBD\xD0\xAA\xB1\xAE\x61\xA6\xDC\x53\x4F\x46\x54\x53\x54\x41\x52\xB7\x7C\xAD\xFB\xA4\xA4\xA4\xDF\xBB\xE2\xA8\xFA\xB7\x73\xAA\xBA\xB1\x4B\xBD\x58\xA1\x41";
+// 原 0x55CC48「詳情請參閱SOFTSTAR官方網站資訊：」正文 32 字节；字符串字面量隐式追加 NUL。
+constexpr char kPasswordChange4[] =
+    "\xB8\xD4\xB1\xA1\xBD\xD0\xB0\xD1\xBE\x5C\x53\x4F\x46\x54\x53\x54\x41\x52\xA9\x78\xA4\xE8\xBA\xF4\xAF\xB8\xB8\xEA\xB0\x54\xA1\x47";
+// 原 0x55CC24「　　　　http://www.softstar.com.tw」正文 34 字节；字符串字面量隐式追加 NUL。
+constexpr char kPasswordChange5[] =
+    "\xA1\x40\xA1\x40\xA1\x40\xA1\x40\x68\x74\x74\x70\x3A\x2F\x2F\x77\x77\x77\x2E\x73\x6F\x66\x74\x73\x74\x61\x72\x2E\x63\x6F\x6D\x2E\x74\x77";
+
+static_assert(sizeof(kPasswordChange0) == 41);
+static_assert(sizeof(kPasswordChange1) == 41);
+static_assert(sizeof(kPasswordChange2) == 41);
+static_assert(sizeof(kPasswordChange3) == 39);
+static_assert(sizeof(kPasswordChange4) == 33);
+static_assert(sizeof(kPasswordChange5) == 35);
 
 // 原 0x55CBE8「本台機器之機碼已停用。」正文 22 字节；字符串字面量隐式追加 NUL。
 constexpr char kMachineCode0[] =

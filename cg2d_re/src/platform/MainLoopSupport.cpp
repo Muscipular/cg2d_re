@@ -1,13 +1,28 @@
 #include "StartupNative.hpp"
 #include "MainLoopDependencies.hpp"
 
+#include "cg/LegacyAudio.hpp"
 #include "cg/platform/MainLoop.hpp"
 
 #include <bit>
 
+namespace cg::audio {
+
+void Sub_52CCA0(); // 原 0x52CCA0，IDA 为 void __cdecl()；真实实现尚缺。
+
+} // namespace cg::audio
+
 namespace cg::platform {
 
 std::uint32_t gRandomSeed = 1; // 原 0x58F870，共享随机源，不改用本机 CRT 的私有状态。
+
+// 原 0x52CD30：先调用 0x52CCA0，再将 0x103DE80 置 1；不读取实参。
+int Sub_52CD30(std::int32_t)
+{
+    cg::audio::Sub_52CCA0();
+    cg::audio::gValue103DE80 = 1;
+    return 1;
+}
 
 std::uint32_t ReadTickCount32() noexcept
 {

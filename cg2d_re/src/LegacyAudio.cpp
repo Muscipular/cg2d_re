@@ -30,6 +30,8 @@ static_assert(sizeof(gRecords) == 0x2600);
 
 namespace cg::audio {
 
+std::uint32_t gValue103DE80 = 0;
+
 std::uint32_t Sub_52B990() noexcept
 {
     const std::int32_t index = gRecordIndex;

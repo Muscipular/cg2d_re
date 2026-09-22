@@ -51,6 +51,11 @@ std::uint8_t* EscapeProtocolText_5171F0(const char* text);
 // 原 sub_5172D0@[0x5172D0,0x5173A6)：向共享缓冲逐字节反转义协议文本。
 std::uint8_t* UnescapeProtocolText_5172D0(const char* text);
 
+// 原 sub_517480@[0x517480,0x517502)：记录、观察并发送协议行缓冲。
+std::int32_t SendProtocolBuffer_517480(
+    std::uint32_t socketValue,
+    char* buffer);
+
 // 原 sub_516B60@0x516B60：安装回调并分配 18 项网络工作区。
 std::int32_t AllocateNetworkWorkspace_516B60(
     NetworkCallback callback,

@@ -11,6 +11,7 @@
 #include <algorithm>
 #include <bit>
 #include <cstddef>
+#include <cstdio>
 #include <cstdint>
 #include <cstdlib>
 #include <cstring>
@@ -20,6 +21,10 @@ namespace cg::network {
 namespace {
 
 constexpr std::size_t kWorkspaceSlotCount = 18;
+
+using SendProtocolObserver = void (*)(
+    std::uint32_t direction,
+    char* buffer);
 
 std::int32_t DefaultNetworkCallback(
     std::uint32_t,
@@ -63,6 +68,8 @@ struct NetworkRuntimeState {
     std::uint8_t* tripleBuffer58B608;
     std::uint8_t* tripleBuffer58B60C;
     std::uint8_t* tripleBuffer58B610;
+    SendProtocolObserver sendObserver58B61C;
+    char sendLogPathDA3B58[0x400];
     std::uint8_t integerFormatScratch[64]; // 原 [0xDA3F58,0xDA3F98)。
     void** workspaceSlots; // 原 0xDA3F98，18 个本机指针槽。
     std::uint8_t active;   // 原 0xD9F2C8，网络运行期活动门禁。
@@ -560,6 +567,40 @@ std::uint8_t* UnescapeProtocolText_5172D0(const char* const text)
             return gNetworkRuntimeState.buffer58B5F8;
         }
     }
+}
+
+std::int32_t SendProtocolBuffer_517480(
+    const std::uint32_t socketValue,
+    char* const buffer)
+{
+    if (gNetworkRuntimeState.sendLogPathDA3B58[0] != '\0') {
+        std::FILE* const file = std::fopen(
+            gNetworkRuntimeState.sendLogPathDA3B58,
+            "a+");
+        if (file != nullptr) {
+            static_cast<void>(std::fprintf(file, "->%s\n", buffer));
+            static_cast<void>(std::fclose(file));
+        }
+    }
+
+    const SendProtocolObserver observer =
+        gNetworkRuntimeState.sendObserver58B61C;
+    if (observer != nullptr) {
+        observer(1U, buffer);
+    }
+
+    std::uint32_t length =
+        static_cast<std::uint32_t>(std::strlen(buffer));
+    const std::uint32_t bufferLength =
+        gNetworkRuntimeState.bufferLength;
+    const std::uint32_t threshold = bufferLength * 3U;
+    if (length < threshold) {
+        buffer[length] = '\n';
+        buffer[length + 1U] = '\0';
+        ++length;
+    }
+
+    return gNetworkRuntimeState.callback(socketValue, buffer, length);
 }
 
 std::int32_t AllocateNetworkWorkspace_516B60(

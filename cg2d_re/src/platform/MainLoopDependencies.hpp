@@ -42,7 +42,6 @@ std::uint8_t CheckProtection_4043B0(const char* functionName);
 int Report_512CA0(std::uintptr_t socket, std::int32_t value);
 std::int32_t CheckWindows_4048E0();
 void Sub_423640();
-std::uint32_t Sub_468FF0();
 std::uint32_t BackupValues_5208F0();
 int EnumerateWindows_4587D0();
 extern std::uint32_t gRandomSeed; // 原 0x58F870；所有原播种与 rand 调用共享。

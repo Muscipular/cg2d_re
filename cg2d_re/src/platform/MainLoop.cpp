@@ -115,7 +115,7 @@ int MainLoop()
             Sub_423640();
         }
         render::DrawAllQueued_520DD0();
-        Sub_468FF0();
+        world::CopyWorldProjectionState_468FF0();
         render::Flip_44C560();
 
         auto tick = getTickCount();

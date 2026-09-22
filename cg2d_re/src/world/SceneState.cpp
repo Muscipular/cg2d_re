@@ -20,6 +20,14 @@ constexpr std::array<std::int32_t, 6> kAllowedMapFloors {
     37631,
 };
 
+// 原 0x5541F4；Sub_4493C0 按原顺序匹配的四项地图楼层表。
+constexpr std::array<std::int32_t, 4> kMapFloors5541F4 {
+    59000,
+    59001,
+    37623,
+    37619,
+};
+
 } // namespace
 
 std::int32_t& gCurrentSceneType = platform::gValueFF0D40;
@@ -78,6 +86,21 @@ std::int32_t IsMapFloorAllowed_448240() noexcept
         return 1;
     }
     for (const std::int32_t allowedFloor : kAllowedMapFloors) {
+        if (mapFloor == allowedFloor) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+// 原 sub_4493C0@[0x4493C0, 0x4493F2)；先判断闭区间，再按原表顺序匹配。
+std::int32_t Sub_4493C0() noexcept
+{
+    const std::int32_t mapFloor = gMapFloor;
+    if (mapFloor >= 40000 && mapFloor <= 40999) {
+        return 1;
+    }
+    for (const std::int32_t allowedFloor : kMapFloors5541F4) {
         if (mapFloor == allowedFloor) {
             return 1;
         }

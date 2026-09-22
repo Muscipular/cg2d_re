@@ -372,3 +372,252 @@ DX 条目 `+0x08` 可以指向上述不同来源；不能对每个图号的该�
 - 仅在本文原 240 行之后追加 Raman G1a 交接事实，不修改其他文件，不写进度，不暂存或提交；不执行 IDA/hash/图谱、编译、运行、测试，不引入外依赖，不委派。
 - 自查仅涉及转录完整性、写入范围及引用目标；格式转录完成不称源码通过或源码 READY。
 - 独立 review 与独立文件验证由他人完成，本开发单项不代替或宣称其通过；进度仅随交接提供草稿，后续由主线程处理。
+
+## 16. G2a 证据来源与继承边界
+
+- 本次追加任务：`R6.1.3.160.3.D`（G2a 证据落盘）；主线程提供的基线为 `HEAD b585ba2`，不重新计算或核对 hash，原第 1 至 374 行不变。
+- 原端事实仅转录 Erdos 完整交接，不重新查询 IDA 或复核已过证据。`READY` 仅指 Erdos 的原端证据，不表示源码通过、布局/预算获批或 owner/API 已确定。
+- 新增范围为 `GraphicAlloc@0x4574E0` 的 ABI、文件探测、前置标量写序、四块分配及联合失败路径、另外三块初始化、调用者近邻提示，以及源码归属与未决边界。
+- DX 槽 `0x103CFA4`、容量 `0x103CFA0`、`M << 4` 分配的 `35200000` 字节、DX 初次清零、失败释放不清槽及唯一直接 caller `0x457782` 均继承第 2 节；下文仅将其放回完整顺序，不重复计作新增成果。
+- 第 16 至 22 节局部记号：`N = [0x9A4A4C]`、`M = [0x103CFA0]`，均为 W32；这里的 N 是计数，不是第 11 节的纹理节点引用。`P1` 至 `P4` 仅为报告代号，不是已批准的源码命名或类型。
+- 仅保存证据与待决边界，不新增 SPEC、编码或设计决策。32B DX 候选 A、`70.4MB` 预算及 owner/API 均未批准；后述 P3 的原端 `70400000` 字节不是对该 DX 候选预算的批准。
+
+## 17. G2a 函数 ABI 与文件探测
+
+### 17.1 函数范围、寄存器与返回值
+
+| 项目 | 已证事实 |
+|---|---|
+| 函数范围 | 单连续半开区间 `[0x004574E0, 0x00457667)`，`0x187 = 391` 字节 |
+| 输入 | 无栈参数、入口寄存器参数或 `this` |
+| 寄存器保存 | `0x4574E0/0x4574E1` 保存 ESI/EDI；各返回路径恢复；EBX/EBP 不改 |
+| 有效返回 | 完整 W32 EAX，失败 `0`、成功 `1`；caller `0x457787: test eax, eax`，不是 AL 返回 |
+| 源码调用约定 | IDA 类型为 `int()`，`CM_CC_UNKNOWN`；无参数加普通 `ret` 不足以唯一判定源码 `cdecl/stdcall`，不伪造约定 |
+
+callee 仅核到符号 ABI，不包含 CRT 内部分析；原端指针、`size_t` 和栈参数均为 W32：
+
+| callee | 交接中的符号 ABI |
+|---|---|
+| `fopen@0x53B2F1` | `FILE* __cdecl(const char*, const char*)` |
+| `fclose@0x53B1D0` | `int __cdecl(FILE*)` |
+| `malloc@0x53C3AC` | `void* __cdecl(size_t)` |
+| `free@0x53C0A9` | `void __cdecl(LPVOID)` |
+
+### 17.2 九个 GraphicInfo 路径槽的探测顺序
+
+```asm
+0x4574E2  mov esi, 62DA74h
+0x4574E7  mov eax, [esi]
+0x4574E9  push 554920h
+0x4574EE  push eax
+0x4574EF  call fopen
+0x4574F4  add esp, 8
+0x4574F7  test eax, eax
+0x4574F9  jz 457504h
+0x4574FB  push eax
+0x4574FC  call fclose
+0x457501  add esp, 4
+0x457504  add esi, 4
+0x457507  cmp esi, 62DA98h
+0x45750D  jl 4574E7h
+```
+
+- 遍历半开区间 `[0x62DA74, 0x62DA98)` 内九个 W32 路径指针槽，步长 `4`，终界分支为 signed `jl`；`0x554920` 的 mode 为 `rb`。
+- 路径身份继承 [资源来源证据](cg2d_resource_sources.md) 第 72 行起；这是 GraphicInfo 路径槽，不是文件句柄表，不填充 `gGraphicFiles`。
+- `fopen` 非空才立即 `fclose`，忽略 close 返回值；打开失败仍继续探测及后续分配，不因此使本函数返回失败。
+
+## 18. G2a 前置写序与四块分配
+
+### 18.1 首次 malloc 之前的顺序
+
+| 顺序 | 地址与操作 | 边界 |
+|---|---|---|
+| 1 | `0x45750F: push 0B42D0h` | 先压入 P1 的 W32 size，十进制 `738000` |
+| 2 | `0x457514: mov dword [0x9A4A4C], 20500` | N，十进制 `20500` |
+| 3 | `0x45751E: mov dword [0x9A4A50], 10412000` | 十进制 `10412000`，业务语义未知 |
+| 4 | `0x457528: mov dword [0x103CFA0], 2200000` | M，十进制 `2200000`；容量写值继承第 2 节 |
+| 5 | `0x457532: mov dword [0xD2D5FC], 3C0h` | 业务语义未知 |
+| 6 | `0x45753C: mov dword [0xCC3E68], 40h` | 业务语义未知 |
+
+五个标量写入均发生在四次分配之前；`0x9A4A50/0xD2D5FC/0xCC3E68` 不补业务名称。
+
+### 18.2 分配参数、发布槽与读取时点
+
+四次均调用 `malloc@0x53C3AC`；返回值包括空值均按 W32 发布到槽，发布前不释放旧槽。
+
+| 代号与槽 | size 来源及当前字节数 | 调用、读取与发布顺序 | 对象边界 |
+|---|---|---|---|
+| P1：`0x9A4A58` | `0x45750F` 的立即数 `0xB42D0 = 738000`，分配参数不读 N | `0x457546: call malloc`；`0x45754B: mov ecx, [0x103CFA0]`；`0x457551: mov [0x9A4A58], eax` | `gAnimate` 标签，仅证动画相关堆块，不猜字段 |
+| P2：`0x103CFA4` | `0x45754B` 读 M；`0x457556: shl ecx, 4`；`0x457559: push ecx`；`35200000` 字节 | `0x45755A: call malloc`；`0x45755F: mov edx, [0x103CFA0]`；`0x457565: mov [0x103CFA4], eax` | DX 表；分配本身继承第 2 节 |
+| P3：`0x9A2970` | `0x45755F` 重读 M；`0x45756A: shl edx, 5`；`0x45756D: push edx`；`70400000` 字节 | `0x45756E: call malloc`；`0x457573: mov [0x9A2970], eax` | 运行时 GraphicInfo 表，非 P2 |
+| P4：`0x9A4A5C` | `0x457578: mov eax, [0x9A4A4C]`；`0x45757D: lea eax, [eax+eax*8]`；`0x457580: shl eax, 2`；`0x457583: push eax`；`36N = 738000` 字节 | `0x457584: call malloc`；`0x457594: mov [0x9A4A5C], eax` | `gAnimateCacheUnk` 标签，按 N 定长的另一块，字段业务未证 |
+
+无分配中途失败短路。四个 size 参数在 `0x45758F: add esp, 10h` 一次清理；P4 返回后到首次失败跳转的顺序为：
+
+```asm
+0x457589  mov edi, [9A4A58h]
+0x45758F  add esp, 10h
+0x457592  test edi, edi
+0x457594  mov [9A4A5Ch], eax
+0x457599  jz 4575BCh
+```
+
+`0x457594` 发布 P4 不改 flags，所以 `0x457599` 仍按 P1 判空；四槽全部发布后才发生失败跳转。
+
+## 19. G2a 联合判空、失败释放与本次残留
+
+### 19.1 完整联合判空与失败路径
+
+首个 P1 判空及跳转见第 18.2 节，其后完整顺序如下。各 `free` 均为 `0x53C0A9`：
+
+```asm
+0x45759B  mov ecx, [103CFA4h]
+0x4575A1  test ecx, ecx
+0x4575A3  jz 4575B3h
+0x4575A5  mov ecx, [9A2970h]
+0x4575AB  test ecx, ecx
+0x4575AD  jz 4575B3h
+0x4575AF  test eax, eax
+0x4575B1  jnz 4575E5h
+0x4575B3  push edi
+0x4575B4  call free
+0x4575B9  add esp, 4
+0x4575BC  mov eax, [103CFA4h]
+0x4575C1  test eax, eax
+0x4575C3  jz 4575CEh
+0x4575C5  push eax
+0x4575C6  call free
+0x4575CB  add esp, 4
+0x4575CE  mov eax, [9A2970h]
+0x4575D3  test eax, eax
+0x4575D5  jz 4575E0h
+0x4575D7  push eax
+0x4575D8  call free
+0x4575DD  add esp, 4
+0x4575E0  pop edi
+0x4575E1  xor eax, eax
+0x4575E3  pop esi
+0x4575E4  ret
+```
+
+### 19.2 失败短路矩阵与释放读取来源
+
+| 联合判空条件 | 跳转与后续释放顺序 |
+|---|---|
+| P1 为 `0`，其余任意 | `0x457599 -> 0x4575BC`，跳过 P1 释放，重读并判空释放 P2，再重读并判空释放 P3 |
+| P1 非空、P2 为 `0`，P3/P4 任意 | `0x4575A3 -> 0x4575B3`，释放 P1，再分别重读并判空释放 P2、P3 |
+| P1/P2 非空、P3 为 `0`，P4 任意 | `0x4575AD -> 0x4575B3`，释放 P1，再分别重读并判空释放 P2、P3 |
+| P1/P2/P3 非空、P4 为 `0` | `0x4575B1` 不跳转，落入 `0x4575B3`，释放 P1，再分别重读并判空释放 P2、P3 |
+| P1/P2/P3/P4 全非空 | `0x4575B1 -> 0x4575E5`，进入成功初始化，无上述失败释放 |
+
+- P1 的释放参数沿用 `0x457589` 缓存的 EDI，到释放处不重读槽；P2/P3 分别在 `0x4575BC/0x4575CE` 重读全局，再判空释放，不是统一指针快照。
+- 三处 `free(null)` 均由本函数跳过。P4 从不进入失败释放，也不在失败路径清零或清槽。
+- P4 若分配成功而联合判空失败，本次失败返回时仍残留且未经初始化；P1 至 P3 释放后槽不清，分配所得空值仍为空槽。
+- 五个初始标量不回退、容量不清；旧槽在发布前未释放。只证明本次调用返回的残留状态，不推定永久泄漏，也不推定重复调用可达性。
+
+## 20. G2a 成功初始化范围、宽度与时序
+
+### 20.1 四段半开范围
+
+仅四块全部非空才按 `P1 -> P2 -> P3 -> P4` 清零。每段以 W32 计算 size，`EAX = 0`，先按 `size >> 2` 执行 W32 `rep stosd`，再按 `size & 3` 执行 W8 `rep stosb`。原 ABI 的 `DF = 0` 前提下写址分别步进 `4/1`；本函数没有 `cld`。
+
+| 顺序 | 半开清零范围 | 当前字节数 / W32 次数 | 容量与基址读取时点 |
+|---|---|---|---|
+| P1 | `[P1, P1 + 36N)` | `738000 / 184500` | `0x4575E5` 重读 N；基址沿用 `0x457589` 的 EDI，不重读 P1 槽 |
+| P2 | `[P2, P2 + (M << 4))` | `35200000 / 8800000` | `0x457600` 重读 M，`0x457606` 重读 P2 槽；在 P1 之后、P3 之前；段 `0x457600..0x45761D` 继承第 2.2 节 |
+| P3 | `[P3, P3 + (M << 5))` | `70400000 / 17600000` | `0x45761F` 重读 M，`0x457625` 重读 P3 槽 |
+| P4 | `[P4, P4 + 36N)` | `738000 / 184500` | `0x45763E` 重读 N，`0x457643` 重读 P4 槽 |
+
+四段在当前常量下尾字节数均为 `0`，但掩码及尾指令保留；清零时重读容量，不能表述成复用全部 malloc size 快照。尤其 P1 分配用立即数，清零长度却重读 N。
+
+### 20.2 新增三段的关键指令
+
+```asm
+0x4575E5  mov eax, [9A4A4Ch]
+0x4575EA  lea ecx, [eax+eax*8]
+0x4575ED  xor eax, eax
+0x4575EF  shl ecx, 2
+0x4575F2  mov edx, ecx
+0x4575F4  shr ecx, 2
+0x4575F7  rep stosd
+0x4575F9  mov ecx, edx
+0x4575FB  and ecx, 3
+0x4575FE  rep stosb
+
+0x45761F  mov ecx, [103CFA0h]
+0x457625  mov edi, [9A2970h]
+0x45762B  shl ecx, 5
+0x45762E  mov edx, ecx
+0x457630  xor eax, eax
+0x457632  shr ecx, 2
+0x457635  rep stosd
+0x457637  mov ecx, edx
+0x457639  and ecx, 3
+0x45763C  rep stosb
+
+0x45763E  mov eax, [9A4A4Ch]
+0x457643  mov edi, [9A4A5Ch]
+0x457649  lea ecx, [eax+eax*8]
+0x45764C  xor eax, eax
+0x45764E  shl ecx, 2
+0x457651  mov edx, ecx
+0x457653  shr ecx, 2
+0x457656  rep stosd
+0x457658  mov ecx, edx
+0x45765A  and ecx, 3
+0x45765D  rep stosb
+
+0x45765F  pop edi
+0x457660  mov eax, 1
+0x457665  pop esi
+0x457666  ret
+```
+
+新增三段的 `rep stosd/rep stosb` 原字节分别为 `F3 AB/F3 AA`。四段之外无其他逐项填值、`-1` 哨兵或成功初始化后的调用。
+
+## 21. G2a 函数本体与 caller 提示边界
+
+`GraphicAlloc` 本体没有日志或错误对话；失败提示属于唯一直接 caller 的近邻，不展开完整 caller：
+
+| 地址 | 交接事实 |
+|---|---|
+| `0x457787` | `test eax, eax` 消费完整返回值 |
+| `0x45778B` | 失败分支读取 `hWnd@0x9A6F34` |
+| `0x457790/0x457792/0x457797/0x45779C` | 依次压入 `10h/5536B8h/559314h/hWnd` |
+| `0x45779D` | `call esi -> MessageBoxA`；ESI 来自 `0x4576C7` 的导入 `0x54D254` |
+| `0x4577A0/0x4577A9` | EAX 置 `0`，随后 `ret`；该段无追加回收 |
+
+| 字符串地址 | IDA 显示 | 原字节（含终止零） |
+|---|---|---|
+| `0x5536B8`（标题） | `確認` | `BD 54 BB 7B 00` |
+| `0x559314`（内容） | `配置錯誤` | `B0 74 B8 6D BF F9 BB 7E 00` |
+
+这里只记录显示与原字节，不由显示推定编码。
+
+## 22. G2a 源码定位、未决项与交付边界
+
+### 22.1 现有源码定位
+
+仅核对交接指定位置及符号，不重审算法；“未找到”项继承 Erdos 对当前 `src/include` 的地址、名称及表符号搜索，不宣称本次重新扫描仓库。
+
+| 位置 | 已定位内容 | 归属边界 |
+|---|---|---|
+| [GraphicInfo.cpp](../src/GraphicInfo.cpp) 第 5/6 行；[GraphicInfo.hpp](../include/cg/GraphicInfo.hpp) 第 11、78/80 行 | `cg::resource::gMaxGraphicCount/gGraphicInfo` 的定义与声明；运行时 `GraphicInfo` 类型为 `0x20` | 已有容量与 P3 表符号，不表示 `GraphicAlloc` 已实现 |
+| [ResourcePaths.cpp](../src/ResourcePaths.cpp) 第 35/45 行；[ResourcePaths.hpp](../include/cg/ResourcePaths.hpp) 第 41 行 | `gGraphicInfoPaths[9]`、路径存储绑定及接口 | 对应前置探测的路径，非持久文件句柄 |
+| [GraphicRead.cpp](../src/GraphicRead.cpp) 第 11 行起；[GraphicRead.hpp](../include/cg/GraphicRead.hpp) 第 22/30 行 | `gGraphicFiles`、共享缓冲、读取与关闭接口 | 不作为本次四块分配的替代物 |
+
+交接搜索未找到 `GraphicAlloc` 声明或实现，也未找到 P1/P4、动画计数及三个未知标量的 owner；P2 的已批准 owner/API 仍缺失。IDA 的 `AnimateInfo*`、`AnimeCacheUnk*` 仅是类型标签，不是布局证明，不把 `36N` 强作现代结构。
+
+### 22.2 待决边界与后续拆项
+
+- S1 依赖尚未闭合；32B DX 候选 A、`70.4MB` 预算、owner/API 尚未批准，证据追加不越过这些边界。
+- G2b、重复初始化/清理、G3/G4 仍待办；`0x523350` 与重复初始化/清理须分别作为后续小项。本单项不承接这些工作，G2a 证据落盘或单项完成不等于整个 G2 完成。
+- 不自动补 cleanup、事务回滚、清槽、幂等或 allocator 策略，不将本次残留改写为已经批准的现代内存处理方案。
+- 数值 overflow、专项回绕及令牌耗尽不处理、不新增门槛；正常位宽、掩码、取模保留。字符串越界、非法指针、栈破坏、除零不自动豁免。
+- `RPLAN.15` 仅限底层 DX7 调用的等价 SDL/CPU 适配，不豁免上层行为、分配发布顺序、失败残留或生命周期。
+
+### 22.3 本单项交付范围
+
+- 仅在原 374 行之后追加证据；不改其他文件，不编码、不新定设计，不写进度，不暂存或提交。
+- 自查只校转录、链接及修改范围，不执行 IDA/hash/代码图谱、编译、测试或客户端运行，不引入外依赖，不委派或另建任务。
+- 独立 review 与独立验证由其他角色完成；本开发角色不宣称其通过。仅交付进度草稿，主线程须在两者完成后处理 PASS、进度与提交。

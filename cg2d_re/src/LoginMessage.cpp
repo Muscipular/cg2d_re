@@ -13,7 +13,8 @@ namespace {
 
 constexpr char kMultilineToken[] = "Multiline";
 constexpr char kMultilineNewToken[] = "Multiline_New";
-constexpr char kConfirmText[] = "確定";
+// 原 0x55C5D4：“確定”，4 字节正文，字符串字面量隐式追加唯一 NUL。
+constexpr char kConfirmText[] = "\xBD\x54\xA9\x77";
 
 constexpr std::int32_t kScreenWidth = 640;
 constexpr std::int32_t kScreenHeight = 480;
@@ -50,7 +51,7 @@ char gValue9A620C[12][256] {};
 
 static_assert(sizeof(gValue9A620C) == 12 * 256);
 static_assert(sizeof(gValue9A620C[0]) == 256);
-static_assert(sizeof(kConfirmText) == 7);
+static_assert(sizeof(kConfirmText) == 5);
 
 void ResetLoginMessage()
 {

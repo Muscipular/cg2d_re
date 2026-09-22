@@ -1,5 +1,7 @@
 #pragma once
 
+#include "cg/render/QueueCapacity.hpp"
+
 #include <array>
 #include <cstddef>
 #include <cstdint>
@@ -50,8 +52,8 @@ static_assert(offsetof(GraphicCache3, unwrittenByte) == 0x03);
 // 原 [0xFF4E30,0x1020EB8)；0x1020EB8 的 W16 计数复用 platform 既有存储。
 struct LegacyPendingStorage {
     char prefix[0x88];
-    std::array<GraphicCacheItem32, 4096> records;
-    std::array<GraphicCache3, 4096> cache3;
+    std::array<GraphicCacheItem32, MAX_QUEUE_SIZE> records;
+    std::array<GraphicCache3, MAX_QUEUE_SIZE> cache3;
 };
 
 static_assert(offsetof(LegacyPendingStorage, prefix) == 0x00000);
@@ -76,6 +78,9 @@ void Sub_520910();
 
 // 原 sub_520930@[0x520930,0x52096B)：原位逐次加减 64.0f 的浮点相位叶。
 void Sub_520930(float* value);
+
+// 原 Renderer::SortTextures@[0x520790,0x5208E8)；只重排 cache3 索引记录。
+void SortTextures_520790();
 
 // 原 Renderer::DrawGraphic3@[0x520970,0x520ACE)。
 std::int32_t DrawGraphic3_520970(

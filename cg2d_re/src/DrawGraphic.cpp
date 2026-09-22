@@ -60,7 +60,7 @@ std::int32_t DrawGraphic3_520970(
 {
     const std::int16_t initialCount =
         std::bit_cast<std::int16_t>(platform::gPendingGraphicCount);
-    if (initialCount < 0 || initialCount >= 4096) {
+    if (initialCount < 0 || initialCount >= MAX_QUEUE_SIZE) {
         return -2;
     }
 
@@ -176,7 +176,7 @@ std::int32_t DrawGraphic(
 {
     const std::int16_t initialCount =
         std::bit_cast<std::int16_t>(platform::gPendingGraphicCount);
-    if (initialCount < 0 || initialCount >= 4096) {
+    if (initialCount < 0 || initialCount >= MAX_QUEUE_SIZE) {
         return -2;
     }
 

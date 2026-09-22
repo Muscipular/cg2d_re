@@ -14,7 +14,6 @@
 namespace cg::render {
 namespace {
 
-inline constexpr std::int32_t kPendingCapacity = 4096;
 inline constexpr std::int32_t kMaximumInputOffset =
     static_cast<std::int32_t>(input::InputTextCapacity) - 1;
 inline constexpr std::uint32_t kMaximumDestinationBytes = 255;
@@ -58,7 +57,7 @@ bool IsInputOffset(const std::int32_t value) noexcept
 bool IsPendingIndex(const std::uint32_t countBits) noexcept
 {
     const std::int32_t count = std::bit_cast<std::int32_t>(countBits);
-    return count >= 0 && count < kPendingCapacity;
+    return count >= 0 && count < MAX_QUEUE_SIZE;
 }
 
 bool CanMeasureInputText(
@@ -113,7 +112,7 @@ void DrawInputText_4568A0(input::InputContext* const context)
         platform::gPendingGraphicCount2;
     const std::int32_t initialCount =
         std::bit_cast<std::int32_t>(initialCountBits);
-    if (initialCount >= kPendingCapacity) {
+    if (initialCount >= MAX_QUEUE_SIZE) {
         return;
     }
     if (initialCount < 0 || context == nullptr) {
@@ -395,7 +394,7 @@ void DrawInputText_4568A0(input::InputContext* const context)
         queueEntry.nextToken = 0;
 
         const std::uint32_t tailToken = gGraphicCache4Queue[modeIndex];
-        if (tailToken > static_cast<std::uint32_t>(kPendingCapacity)) {
+        if (tailToken > static_cast<std::uint32_t>(MAX_QUEUE_SIZE)) {
             return;
         }
         const std::uint32_t currentToken = queueCountBits + 1U;

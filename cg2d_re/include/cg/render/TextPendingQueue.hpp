@@ -1,5 +1,7 @@
 #pragma once
 
+#include "cg/render/QueueCapacity.hpp"
+
 #include <array>
 #include <cstddef>
 #include <cstdint>
@@ -47,7 +49,7 @@ struct TextFontLayerRecord {
 static_assert(sizeof(TextFontLayerRecord) == 0x04);
 static_assert(offsetof(TextFontLayerRecord, layer) == 0x00);
 
-extern std::array<TextPendingRecord, 4096> gTextPendingRecords;
+extern std::array<TextPendingRecord, MAX_QUEUE_SIZE> gTextPendingRecords;
 extern std::array<TextFontLayerRecord, 6> gTextFontLayerRecords;
 
 // 原 dword_D68BEC@0xD68BEC；当前悬停的零基文本待提交索引。

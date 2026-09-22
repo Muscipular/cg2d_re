@@ -12,12 +12,11 @@
 namespace cg::render {
 namespace {
 
-constexpr std::int32_t kPendingCapacity = 4096;
 constexpr std::size_t kTextCapacity = 255;
 
 } // namespace
 
-std::array<TextPendingRecord, 4096> gTextPendingRecords {};
+std::array<TextPendingRecord, MAX_QUEUE_SIZE> gTextPendingRecords {};
 std::array<TextFontLayerRecord, 6> gTextFontLayerRecords {{
     {0xD2, {}},
     {0xD4, {}},
@@ -57,11 +56,11 @@ std::int32_t QueueText_521A30(
     const std::uint16_t initialCountBits = platform::gPendingGraphicCount;
     const std::int16_t initialCount =
         std::bit_cast<std::int16_t>(initialCountBits);
-    if (initialCount < 0 || initialCount >= kPendingCapacity) {
+    if (initialCount < 0 || initialCount >= MAX_QUEUE_SIZE) {
         return -2;
     }
     if (headToken == 0
-        || headToken > static_cast<std::uint32_t>(kPendingCapacity)) {
+        || headToken > static_cast<std::uint32_t>(MAX_QUEUE_SIZE)) {
         return -2;
     }
 
@@ -107,7 +106,7 @@ std::int32_t DrawText2_456670(
     const std::uint32_t initialCountBits = platform::gPendingGraphicCount2;
     const std::int32_t initialCount =
         std::bit_cast<std::int32_t>(initialCountBits);
-    if (initialCount < 0 || initialCount >= kPendingCapacity) {
+    if (initialCount < 0 || initialCount >= MAX_QUEUE_SIZE) {
         return -2;
     }
 
@@ -140,7 +139,7 @@ std::int32_t DrawText2_456670(
     const std::size_t queueIndex = static_cast<std::size_t>(modeIndex);
     const std::uint32_t tailToken = gGraphicCache4Queue[queueIndex];
     entry.nextToken = 0;
-    if (tailToken > static_cast<std::uint32_t>(kPendingCapacity)) {
+    if (tailToken > static_cast<std::uint32_t>(MAX_QUEUE_SIZE)) {
         return -2;
     }
 
@@ -162,7 +161,7 @@ std::int32_t DrawText2_456670(
 
     const std::uint32_t resultBits = platform::gPendingGraphicCount2;
     const std::int32_t result = std::bit_cast<std::int32_t>(resultBits);
-    if (result < 0 || result >= kPendingCapacity) {
+    if (result < 0 || result >= MAX_QUEUE_SIZE) {
         return -2;
     }
 
@@ -184,7 +183,7 @@ std::int32_t DrawText_456780(
     const std::uint32_t initialCountBits = platform::gPendingGraphicCount2;
     const std::int32_t initialCount =
         std::bit_cast<std::int32_t>(initialCountBits);
-    if (initialCount < 0 || initialCount >= kPendingCapacity) {
+    if (initialCount < 0 || initialCount >= MAX_QUEUE_SIZE) {
         return -2;
     }
 
@@ -216,7 +215,7 @@ std::int32_t DrawText_456780(
     const std::size_t queueIndex = static_cast<std::size_t>(renderMode);
     const std::uint32_t tailToken = gGraphicCache4Queue[queueIndex];
     entry.nextToken = 0;
-    if (tailToken > static_cast<std::uint32_t>(kPendingCapacity)) {
+    if (tailToken > static_cast<std::uint32_t>(MAX_QUEUE_SIZE)) {
         return -2;
     }
 
@@ -238,7 +237,7 @@ std::int32_t DrawText_456780(
 
     const std::uint32_t resultBits = platform::gPendingGraphicCount2;
     const std::int32_t result = std::bit_cast<std::int32_t>(resultBits);
-    if (result < 0 || result >= kPendingCapacity) {
+    if (result < 0 || result >= MAX_QUEUE_SIZE) {
         return -2;
     }
 

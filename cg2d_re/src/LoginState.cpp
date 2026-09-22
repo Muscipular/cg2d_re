@@ -13,11 +13,13 @@
 
 namespace {
 
-// 原端对应文本是旧编码字节；新端内部文本按项目约定使用 UTF-8。
+// 其余登录提示仍沿用当前 UTF-8 历史方案，待按编码 SPEC 逐项处理。
 constexpr char kLoginTimeoutMessage[] = "處理登入逾時。";
 constexpr char kLoginFailureMessage[] = "登入處理失敗，或斷線後，數分鐘內無法登入。";
 constexpr char kLoginProgressText[] = "登入中";
-constexpr char kServerConnectingText[] = "伺服器連接中";
+// 原 asc_55C7F0 正文 12 字节；字符串字面量隐式追加 NUL。
+constexpr char kServerConnectingText[] =
+    "\xA6\xF8\xAA\x41\xBE\xB9\xB3\x73\xB1\xB5\xA4\xA4";
 
 // 原 0x9A4E80、0x9A5958、0x9A50D4、0x9A4B90 只由 sub_45EA60 读写。
 struct LoginProgressLayout {
@@ -48,7 +50,7 @@ constexpr std::int16_t kProgressTextY = 232;
 
 static_assert(sizeof(kLoginTimeoutMessage) == 22);
 static_assert(sizeof(kLoginFailureMessage) == 64);
-static_assert(sizeof(kServerConnectingText) == 19);
+static_assert(sizeof(kServerConnectingText) == 13);
 
 } // namespace
 

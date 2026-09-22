@@ -10,7 +10,7 @@
 
 入口：[执行计划](plan/cg2d_full_reconstruction_plan.md)、[独立进度](plan/cg2d_full_reconstruction_progress.md)。
 
-已批准方案：[文本编码边界 SPEC](doc/cg2d_text_encoding_spec.md)。还原核心以原编码字节为权威，Unicode 仅在确有需求的现代边界集中转换；源码文件仍为 UTF-8。当前实现尚待按 SPEC 对齐，首项为服务器连接提示链，不计为编码问题已修复。
+已批准方案：[文本编码边界 SPEC](doc/cg2d_text_encoding_spec.md)。还原核心以原编码字节为权威，Unicode 仅在确有需求的现代边界集中转换；源码文件仍为 UTF-8。服务器连接提示链的原字节源码已对齐；验证结论见[独立进度](plan/cg2d_full_reconstruction_progress.md)。其他编码债务仍保留，不代表运行或整体编码完成。
 
 已验证：[当前 IDA 基线记录](doc/cg2d_reconstruction_baseline.md)、[资源来源](doc/cg2d_resource_sources.md)、[资源名初值与布局](doc/cg2d_reconstruction_inventory.md)。
 

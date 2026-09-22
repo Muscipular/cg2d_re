@@ -74,6 +74,9 @@ extern float gFloat1020EF0;
 // 原 sub_520910@[0x520910,0x520923)：单次累加原浮点常量 0.25f。
 void Sub_520910();
 
+// 原 sub_520930@[0x520930,0x52096B)：原位逐次加减 64.0f 的浮点相位叶。
+void Sub_520930(float* value);
+
 // 原 Renderer::DrawGraphic3@[0x520970,0x520ACE)。
 std::int32_t DrawGraphic3_520970(
     std::int32_t x,

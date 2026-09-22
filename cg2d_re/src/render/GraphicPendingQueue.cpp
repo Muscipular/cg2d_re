@@ -18,6 +18,20 @@ void Sub_520910()
     gFloat1020EF0 += 0.25f;
 }
 
+void Sub_520930(float* value)
+{
+    for (;;) {
+        if (*value >= 64.0f) {
+            *value = *value - 64.0f;
+            continue;
+        }
+        if (*value >= 0.0f) {
+            return;
+        }
+        *value = *value + 64.0f;
+    }
+}
+
 } // namespace cg::render
 
 namespace cg::platform {

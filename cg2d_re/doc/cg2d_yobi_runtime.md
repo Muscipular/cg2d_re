@@ -182,13 +182,22 @@ descriptor 固定为 `clip=1,mixMode=4,paletteCacheIndex=0`。
 后数值不变而不进展。未添加 `fmod`、钳位、保护、超时或额外状态。
 这两个相位叶均未接入原 caller、consumer 或后缓冲路径，主循环波纹链仍未闭合。
 
-## 波纹后缓冲链证据、方案裁决与未决边界（未实现）
+## 波纹后缓冲链证据、已批准替换边界与待实现项（未实现）
 
 2026-09-22 用户裁决：`sub_521870` 波纹后缓冲链采用 CPU 像素缓冲，不采用 GPU
 render-target Texture；后续实现按用户指定保留原版后缓冲画面快照与逐条带回拷语义，
 再通过既有最终呈现边界上传。该裁决只适用于此波纹链，不推广到其他渲染功能；
 也不改变 SDL3 `SDL_Renderer`、仅 32 位色范围。`sub_521870`、caller/consumer 及
 后缓冲链在新端仍未实现。
+
+同日用户另行批准：DX7 `Blt`、`BltFast` 等底层操作可直接映射为等价 SDL/CPU
+行为，不要求逐项复刻 `HRESULT`、显存 caps、`DDBLTFAST_WAIT`、surface
+lost/busy/restore、原失败码，也不要求复刻被替换 DX7 原生 API 边界的 COM 接口 ABI、
+对象/vtable 布局及其调用约定。该批准是新端底层替换差异，不是新增 IDA 事实；ABI
+豁免严格限于被 SDL/CPU 替换的 DX7 原生 API 边界，不适用于其上层函数或其他外部
+ABI。上层触发时点、既有 `RAND` 消费、状态读写、`W32`/`S16` 规则、坐标与裁剪、
+像素内容、共享 Back/Temp 生命周期及提交顺序仍是替换验收约束。既有共享 CPU
+Back/Temp 裁决保持不变。
 
 当前独立 IDA 只读分析核证 `sub_521870@[0x521870,0x5219B5)` 共 98 条指令：
 
@@ -204,7 +213,9 @@ render-target Texture；后续实现按用户指定保留原版后缓冲画面�
 - 强度小于 100 时，函数末尾将强度加 2。该变化不改变本次先快照、再逐条回拷的
   顺序。
 
-`0x5218E1` 和 `0x521981` 两处 blit 返回值均未检查，不能保证快照或条带实际成功。
+`0x5218E1` 和 `0x521981` 两处 blit 返回值均未检查，不能保证原 DX7 快照或条带实际
+成功。这是原端 IDA 事实；按上述用户裁决，新端不需要仿真对应 `HRESULT` 或 surface
+状态，也不得因等价 SDL/CPU 操作的后端结果新增原上层不存在的分支或状态写入。
 
 `DrawAllQueued` 的 type 8 分支在 `0x52181E` 调用本函数。`SortTextures` 可选的
 layer 2/type 8 与原有 layer 5/type 6、layer 6/type 7、layer 20/type 9 均属于
@@ -213,21 +224,27 @@ layer 2/type 8 与原有 layer 5/type 6、layer 6/type 7、layer 20/type 9 均�
 `DrawAllQueued` → `sub_468FF0@0x4572B9` → `Flip`；中间调用不可与
 `sub_5208F0@0x457351` 混同。
 
-共享 `gTempSurface` 的请求内容尺寸是 640×480：首选 `CreateSurface`，失败后走
-`MakeSurface`；后者的 3D/caps 路径可能放大物理表面尺寸，不能断言所有情况下的物理
-尺寸都恒为 640×480。原 32bpp mask 在运行时由 Back 的 `GetPixelFormat` 取得，
-不能直接宣称与新端 `SdlPresenter` 的 `0x00RRGGBB` 布局相同。新端尚无真实 Back/Temp
-owner，`DrawAllQueued`、`Flip` 未实现，`Present` 也尚未接入这条链。
+IDA 核证共享 `gTempSurface` 的请求内容尺寸是 640×480：原端首选 `CreateSurface`，
+失败后走 `MakeSurface`，后者的 3D/caps 路径可能放大物理表面尺寸。该 caps 相关物理
+表面选择只保留为原端证据，新端获准不复刻，可按共享 CPU Back/Temp 的逻辑尺寸执行
+等价 SDL/CPU 像素操作。
+
+原 32bpp mask 在运行时由 Back 的 `GetPixelFormat` 取得，不能直接宣称与新端
+`SdlPresenter` 的 `0x00RRGGBB` 布局相同。新端仍须明确 CPU Back/Temp 的 32 位像素
+格式及到最终 `Present` 的转换边界，以保持像素内容；当前尚无真实 Back/Temp owner，
+`DrawAllQueued`、`Flip` 未实现，`Present` 也尚未接入这条链。
 
 强度为 0 时，最后一条带的源 `y` 区间为 `[484,492)`，超过首选 480 高度。原端不
-检查 blit 返回值；具体驱动行为与放大后的物理表面行为尚未确定，不能在实现中暗中
-裁剪或填充。
+检查 blit 返回值；新端不再复刻 caps 放大或未知驱动失败行为，但必须保留该源坐标
+计算，并按所选等价 SDL/CPU 操作对实际共享 Back/Temp 边界执行明确、可验证的裁剪，
+不得用填充、回绕或改写坐标掩盖越界。
 
-仍需用户裁决，本文不预设答案：
+以下仍是实现与独立验证须闭合的边界，不再是 DX7 caps/`HRESULT` 复刻待裁决项：
 
 1. 共享 CPU Temp 的 owner 及与 Back、case 6/7 的生命周期边界。
 2. Back/Temp 与最终 `Present` 之间的像素格式转换边界。
-3. 越界条带在新端应呈现的确定性结果。
+3. 越界条带采用的等价 SDL/CPU 裁剪规则及其确定性像素结果。
+4. `DrawAllQueued` 内原触发位置、后续 `sub_468FF0` 与 `Flip` 之间的提交顺序接线。
 
 ## 注册表清理与当前未闭合项
 

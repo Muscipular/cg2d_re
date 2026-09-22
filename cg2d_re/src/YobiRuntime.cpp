@@ -59,6 +59,11 @@ namespace detail {
 
 std::int32_t gYobiUpdateGateMode = 0;
 std::int32_t gYobiUpdatePhaseCounter = 0;
+volatile std::uint32_t gYobiScreenOffsetRising = 0; // 原 0x59F9F4。
+volatile std::uint32_t gYobiScreenOffsetX = 0; // 原 0x59F9FC。
+volatile std::uint32_t gYobiScreenOffsetY = 0; // 原 0x59FA00。
+volatile std::uint32_t gYobiScreenOffsetAmplitude = 0; // 原 0x59FA04。
+volatile std::uint32_t gYobiScreenOffsetMaximumAmplitude = 4; // 原 0x553C58。
 
 namespace {
 

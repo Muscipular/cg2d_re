@@ -14,6 +14,14 @@ namespace detail {
 extern std::int32_t gYobiUpdateGateMode;
 extern std::int32_t gYobiUpdatePhaseCounter;
 
+// 原 0x59F9F4/0x59F9FC/0x59FA00/0x59FA04/0x553C58；
+// volatile 保留 sub_423640 的独立 W32 读取及越界值、钳位值两次写入。
+extern volatile std::uint32_t gYobiScreenOffsetRising;
+extern volatile std::uint32_t gYobiScreenOffsetX;
+extern volatile std::uint32_t gYobiScreenOffsetY;
+extern volatile std::uint32_t gYobiScreenOffsetAmplitude;
+extern volatile std::uint32_t gYobiScreenOffsetMaximumAmplitude;
+
 // 原 sub_404A40@[0x404A40,0x404AD1)；初始化首尾哨兵并返回尾哨兵。
 // 与原端相同，调用前提是尚未初始化，且不注册进程退出析构。
 YobiAction* Sub_404A40();

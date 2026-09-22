@@ -41,6 +41,10 @@ YobiAction* MarkDeath(YobiAction* action);
 void YobiClearUp_404D30();
 void Sub_404D60();
 
+// 原 sub_448370@[0x448370,0x44839C)；查找首个 callback 匹配且 deathFlag 为零的普通节点。
+// 调用前提为已初始化的有效链；允许空 callback，返回非拥有指针，未命中返回空。
+YobiAction* Sub_448370(void (*callback)(YobiAction*));
+
 // 原 modal creator sub_5044E0@[0x5044E0,0x5046C6)。
 YobiAction* Sub_5044E0(
     std::int32_t x,

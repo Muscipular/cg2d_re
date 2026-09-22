@@ -743,6 +743,21 @@ void Sub_404D60()
     std::free(gYobiActionEnd);
 }
 
+YobiAction* Sub_448370(void (*callback)(YobiAction*))
+{
+    // 原 0x448370/0x448379/0x448380：先读首槽、缓存尾槽，再读 start->next。
+    YobiAction* const start = gYobiActionStart;
+    YobiAction* const end = gYobiActionEnd;
+    YobiAction* current = start->next;
+    while (current != end) {
+        if (current->callback == callback && current->deathFlag == 0) {
+            return current;
+        }
+        current = current->next;
+    }
+    return nullptr;
+}
+
 YobiAction* Sub_5044E0(
     const std::int32_t x,
     const std::int32_t y,

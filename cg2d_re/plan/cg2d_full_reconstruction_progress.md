@@ -23,6 +23,8 @@
 - **R6.1.3.154 回调查重叶静态落位。** `Sub_448370` 复用既有 Yobi 链与字段，先缓存首尾指针再取首节点，排除哨兵；callback 匹配后才读完整 W32 死亡标志，返回首个标志为零的非拥有对象指针，允许空 callback。一次新增差异 review、三文件独立格式与链接验证通过；有效初始化链仍为调用前提，坏链及非法内存域不计通过，不解除 `.151/.153` 的待批归属，详见[Yobi 证据](../doc/cg2d_yobi_runtime.md)。
 - **R6.1.3.155 模式切换提示仅分析。** `ShowModeChange_458A40@[458A40,458AD4)` 为无参 void，148 字节、36 条指令、单块、8 次调用，唯一 caller `457062` 随后才重建渲染器。先清 W16 `1020EB8`、W32 `73ECB8`，`ResetGraphicCache` 后调用 `DrawText2(250,223,3,0,0,text,0)` 和九宫格 `(245310,196,180,256,96,223,-1,0x80FFFFFF,74,54)`；依序排序、清表面、写 `103CF10=0`、消费队列、固定写 `103CF10=1`，再清同两计数、重置六尾槽，最后 Flip。原文本 `559390` 为含 NUL 的 19 字节：`A5 BF A6 62 A7 EF C5 DC B4 79 C3 B8 BC D2 A6 A1 A1 43 00`；不转码，不加 MessageBox、重试或返回值检查。
 - **`.155` 两项接线 SPEC 待批。** `103CF10` 零初值、23 个直接引用，拟由既有 `render::GraphicCacheState` 持有唯一 `volatile uint32_t`，不能作为函数局部槽；九宫格 `DrawNineGrid_49BE00` 与 `DrawGraphic3_520970` 均已有实现，前者仅因匿名命名空间内部链接无法跨文件调用。拟只把九宫格定义置于 `cg::login::detail` 外部链接范围，并在 `MainLoopDependencies.hpp` 声明，保留函数名、签名与函数体；第 9/10 参数继续现有 S16 接口及既有低字节处理，不另写副本或新 S8 接口。`ClearSurface/DrawAllQueued/Flip` 仍未闭合，未声称提示已呈现。
+- **R6.1.3.156 完整命中入口仅分析。** `Sub_507140@[507140,507C7A)` 为 2874 字节、799 条指令、135 块，同时由 MainLoop 和 InitLoading 调用，包含文本扫描、图形逆序命中、场景 9/10 对象描述和黑名单按键分支，不仅是文本悬停生产者。必须保留焦点早退残留、CryptInt 短路读取次数、排序后从原槽重读 layer、鼠标槽仅写 W8 等合同；不能只实现文本分支交付。完整事实及九组已得原字节见[命中处理证据](../doc/cg2d_sub_507140.md)。
+- **`.156` 的实施门禁未解除。** `dataBits` 对象解析与生命周期、DX cache 绑定、新共享状态和两字符串缓冲、四个玩家 CryptInt 及 Yobi 私有访问接口仍须完成归属方案；IDA 项长不等于容量合同，零填充不等于运行期已初始化。`5532EC` 工具输出截断，只有项长 21 的元数据，完整字节、末尾 NUL 与格式尚未确认，不补猜。`401190` 已由 `.157` 补齐，其余 `522570/507090/4013D0/4012F0/44B050` 依赖及一般内存域仍未闭合；文档通过不代表源码 READY。
 - **R6.1.3.157 黑名单游标读取静态落位。** `GetBlacklistCount_401190` 对应原两条指令，仅返回现有 `gCursor@59384C` 的完整 S32 当前值；不扫描记录、不缓存或钳制，也不把 caller 的 72 门槛搬入本函数。一次新增差异 review、三文件独立格式与链接验证通过；`4014B0/507140` caller 尚未实现或接线，详见[黑名单证据](../doc/cg2d_blacklist_state.md)。
 
 | 重点边界 | 当前缺口与证据 |
@@ -33,7 +35,7 @@
 | 渲染与后端 | 图文入队、排序、调色板、共享 CPU Back/Temp 及波纹本体已有实现；真实内容生产、`ClearSurface`、`DrawAllQueued`、`Flip` 与最终 `Present` 未接通。R6.1.3.108 缺真实后端生命周期 owner，仍 BLOCKED。[呈现器](../doc/cg2d_sdl_presenter.md)、[登录依赖](../doc/cg2d_login_scene.md) |
 | 波纹接线 | `.146` 的 `BackupValues_5208F0` 已在主循环原时点接入；`.137` 相位推进叶与 `.145` 波纹本体仍无源码调用。队列 type 8、case 6/7 共用 Temp、同一门禁其余 19 个 reader 仍未闭合。[波纹证据](../doc/cg2d_yobi_runtime.md) |
 | 网络 | owner、分配、创建和清理已有实现，`.109` 阻塞已由 `.120–122` 解除；`NetworkLoop_507DF0`、`Sub_508360`、`Sub_403E50`、保活发送 `Sub_512C60` 与响应 dispatch 未闭合。连接 sockaddr、第五字符串及未获豁免的异常域仍待裁决。[网络](../doc/cg2d_network_runtime.md)、[连接控制器](../doc/cg2d_login_state_controller.md) |
-| 输入与存档 | 直接编辑/提交、音频等依赖、IME 与保存设置恢复的初始化接线仍缺；文本悬停生产者 `sub_507140` 及图形对象令牌解析未闭合。保存槽/映射异常域不能计为已解决。[输入分派](../doc/cg2d_input_key_dispatch.md)、[恢复入口](../doc/cg2d_restore_current_saved_state.md)、[存储](../doc/cg2d_login_saved_state_storage.md) |
+| 输入与存档 | 直接编辑/提交、音频等依赖、IME 与保存设置恢复的初始化接线仍缺；`sub_507140` 的完整图文命中、对象描述、黑名单按键及对象令牌解析未闭合，不缩减为文本分支。保存槽/映射异常域不能计为已解决。[命中处理](../doc/cg2d_sub_507140.md)、[输入分派](../doc/cg2d_input_key_dispatch.md)、[恢复入口](../doc/cg2d_restore_current_saved_state.md)、[存储](../doc/cg2d_login_saved_state_storage.md) |
 
 以上不是全部债务清单；其他未接调用者、共享状态生产/消费、生命周期、异常域和局部验收前提，继续以各证据文档及固定历史日志为准，不因未在本表逐项列出而变为完成或排除。
 
@@ -117,6 +119,7 @@
 | 09-22 | R6.1.3.150 | `Sub_517730` 函数体与依赖声明注释落位，正常数值、字符边界、容量及写序经一次独立差异 review 通过；四文件格式与链接验证通过。仅数值 overflow 域按 RPLAN.20 不专项处理，不代表整个网络链完成 | [整数格式化核心](../doc/cg2d_network_runtime.md) |
 | 09-22 | R6.1.3.152 | `Sub_4493C0` 单读楼层、闭区间和独立四项表静态落位；一次独立差异 review、三文件格式与链接验证通过。`449160` 未实现，MainLoop 链仍未闭合 | [地图门禁](../doc/cg2d_scene_state.md) |
 | 09-22 | R6.1.3.154 | `Sub_448370` 查重接口与函数体静态落位，保留尾指针快照、callback 优先短路、首个活对象返回及空 callback 语义；一次独立差异 review、文件验证通过，无上游接线 | [回调查重](../doc/cg2d_yobi_runtime.md) |
+| 09-22 | R6.1.3.156.D | 仅保存 `507140` 完整控制流、共享数据、原字节与未决门禁；文档局部修正后第 2 轮 review、独立文件验证通过。函数仍 NEEDS_CLARIFICATION，未编码 | [命中处理证据](../doc/cg2d_sub_507140.md) |
 | 09-22 | R6.1.3.157 | `GetBlacklistCount_401190` 无参读取既有 S32 游标，保留原值及 caller 自行判断门槛；一次独立差异 review、文件验证通过，不代表调用链完成 | [黑名单读取](../doc/cg2d_blacklist_state.md) |
 
 ## 4. 规划沿革与历史追溯
@@ -153,3 +156,4 @@ git -c i18n.logOutputEncoding=utf-8 show 3808ef2:cg2d_re/plan/cg2d_full_reconstr
 - 2026-09-22，R6.1.3.154：Leibniz 完成本叶取证并给出 READY；Avicenna 编码、Euclid 补证据，Singer 第 1 轮新增差异 review PASS，Tesla 独立文件验证 PASS。仅新增 `YobiRuntime.cpp/.hpp` 的查询接口和函数体及对应文档新节，未改旧 runtime、字段 owner 或 caller，未编译、测试或运行；复核不外推为 `.151/.153` 或整体 MainLoop 完成。
 - 2026-09-22，R6.1.3.155：Kant 完成 `458A40` 只读取证；首次“九宫格缺失”结论经符号定位纠正为“已有私有实现、需开放链接可见性”，仅补查签名与命名空间，未重审既有算法或重查本函数 IDA。共享 owner 与接口 SPEC 待批准，状态 NEEDS_CLARIFICATION，无生产代码修改。`.154` 已提交 `18c05a2`，对应文件已释放；本记录由主线程登记，不计源码或独立 review 通过。
 - 2026-09-22，R6.1.3.157：Newton 完成计数读取叶分析并给出 READY；Ampere 编码、Aristotle 补证据，Franklin 第 1 轮新增差异 review PASS，Gauss 独立文件验证 PASS。仅新增 `Blacklist.cpp/.hpp` 的读取入口与对应证据，不改旧黑名单函数、共享 owner 或 caller，不编译、测试或运行，不代决其他未批 SPEC。
+- 2026-09-22，R6.1.3.156.D：Hilbert 完成单函数分析并仅从既有输出补交常量证据，Heisenberg 新建事实文档。Ptolemy 第 1 轮要求纠正伴随标量分类及初值/宽度漏项；原开发仅修 5 行，补齐主线程未传完整的常量材料后，第 2 轮仅核修复及此前未验部分并 PASS，已通过内容不复检。McClintock 对新文档全文做独立文件验证 PASS，未用默认 diff 的空输出代替未跟踪文件检查。依赖表固定为 `41a9414` 分析快照，当前落实以本进度为准；`.157` 已提交 `91af67c`。本步无生产代码改动、编译、测试或运行，不解除源码门禁。

@@ -859,3 +859,169 @@ xref 数量不是不重入证明；无记录 xref 不能排除消息分发或动
 本次只在本文原 741 行之后追加 §30–35，并更新 [x64 SPEC](cg2d_graphic_dx_cache_x64_spec.md) 原第 121 行 G2 的事实状态；本文前 741 行与 SPEC 其他 153 行保持不变，不修改源码、方案、授权状态或其他文档。`cg2d_main_loop.md` 的用户改动只作引用，不修改。
 
 本开发角色仅做转录自查；不执行 IDA/hash/图谱、编译、测试或运行，不引入外依赖，不委派、另起任务或执行 `codex exec`，不写进度、不暂存或提交。独立 review 与文件验证后置，本次不预称通过。
+
+## 36. G2c.2 证据来源与有界结论
+
+以下仅转录 Zeno 已完成的清理返回路径报告，对应 `R6.1.3.160.6.D`；不重新查询 IDA、xref、CRT 或外部 callback。分析快照 `ba29d78` 至交接 HEAD `6b13bff` 仅两份文档及进度改变、相关源码未改这一背景按交接继承，不作为本次重新核验的成果。
+
+- G2a 四分配、G2b `0x523350`、G2c.1 初始化显式回边及上层返回直接继承本文 §16–35，不重审旧算法。
+- `ShutdownClient` 内部退出顺序、释放 DX 表但不清 base/capacity、原四处直接调用及末尾 `SetSysColors` 的完整 `EAX32` 结果，继承本文 §7 与[客户端退出清理还原](cg2d_client_shutdown.md)，不作为本次重新通过的内容。
+- [MainLoop 原循环实现合同](cg2d_main_loop.md)、[IME 生命周期还原](cg2d_ime_lifecycle.md)、[窗口过程还原](cg2d_window_procedure.md) 仅作既有事实引用；本次新增的是四处清理调用之后的精确返回传播、`0x4042B0` 及已交接的 CRT 后继边界。
+
+结论仅限四条应用层返回链：已读显式路径未发现二次 `ShutdownClient` 或继续消费 DX 表；不是“全进程绝无重入、二次清理或释放后访问”的证明。以下尾部描述以调用返回至所列续址为边界，不假定被调用函数必然返回，也不封闭其传递 callback。CRT 与外部 callback 边仍未闭合。
+
+## 37. 四处清理调用后的完整指令矩阵
+
+### 37.1 调用入口、逐条尾部与返回消费
+
+| 调用链与进入条件 | 清理调用 | 返回后的全部本层指令 | 上层消费 |
+|---|---|---|---|
+| `MainLoop`，消息泵返回 0 | `0x4574C6: call ShutdownClient` | `0x4574CB: call 0x4042B0`；`0x4574D0: pop edi`；`0x4574D1: pop esi`；`0x4574D2: pop ebp`；`0x4574D3: xor eax, eax`；`0x4574D5: pop ebx`；`0x4574D6: add esp, 30h`；`0x4574D9: ret` | 以 `EAX32=0` 返回 `WinMain`，本层无回边 |
+| `InitLoading`，消息泵返回 0 经 `0x457B52` | `0x4582EF: call ShutdownClient` | `0x4582F4: pop edi`；`0x4582F5: pop esi`；`0x4582F6: pop ebp`；`0x4582F7: xor eax, eax`；`0x4582F9: pop ebx`；`0x4582FA: add esp, 34h`；`0x4582FD: ret` | `0x4578A5: test eax, eax`；`0x4578A7: jz 0x457A31` 必取 |
+| 淡入，消息泵返回 0 经 `0x45841F` | `0x4585DE: call ShutdownClient` | `0x4585E3: pop edi`；`0x4585E4: pop esi`；`0x4585E5: pop ebp`；`0x4585E6: xor eax, eax`；`0x4585E8: pop ebx`；`0x4585E9: add esp, 24h`；`0x4585EC: ret` | `0x4578BF: test eax, eax`；`0x4578C1: jz 0x457A31` 必取 |
+| 淡出，消息泵返回 0 经 `0x45862A` | `0x4587B7: call ShutdownClient` | `0x4587BC: pop edi`；`0x4587BD: pop esi`；`0x4587BE: pop ebp`；`0x4587BF: xor eax, eax`；`0x4587C1: pop ebx`；`0x4587C2: add esp, 24h`；`0x4587C5: ret` | `0x457996: test eax, eax`；`0x457998: jz 0x457A31` 必取 |
+
+### 37.2 结果与栈传播边界
+
+四处调用均不检查 `ShutdownClient` 由末尾 `SetSysColors` 留下的 `BOOL/EAX32`。三个加载段直接将完整 `EAX32` 覆盖为 0；`MainLoop` 先调用额外清理 `0x4042B0`，其返回也被忽略，再将完整 `EAX32` 覆盖为 0。因此上层分支消费的是这些调用者写出的 0，不是 `SetSysColors` 的结果。
+
+表中逐条保留寄存器恢复、局部栈回收与 `ret`；三个加载尾部回收量分别为 `34h/24h/24h`，`MainLoop` 该尾部为 `30h`，不据此新增函数签名或现代 API。除已列出的 `0x4042B0` 调用边外，已读尾部没有更新阶段状态、再次 pump/draw 或直接 DX 表访存；该局部结论不代替 callee 或 callback 分析。
+
+## 38. 三加载链汇合与跳过清理的另一失败
+
+### 38.1 初始化返回尾及 MainLoop 前导出口
+
+三个加载段的上述返回均汇合至以下 `InitializeClient` 尾部：
+
+```asm
+457A31 pop edi
+457A32 xor eax,eax
+457A34 pop esi
+457A35 add esp,408h
+457A3B ret
+```
+
+完整 `EAX32=0` 返回至 `MainLoop` 后，`0x457028: test eax, eax` / `0x45702A: jnz 0x457030` 不跳转，继而执行 `0x45702C: add esp, 30h`、`0x45702F: ret`。这条前导失败出口不再调用 `ShutdownClient`，也不调用 `0x4042B0`，不进入主循环；不能把它与 §37 的主循环消息泵退出尾部合并。
+
+### 38.2 返回 0 不等于已经清理
+
+`InitLoading` 另有 `0x45815E: cmp eax, 1` / `0x458161: jz 0x4582F4`。条件成立时直接进入恢复寄存器的返回尾，跳过 `0x4582EF` 的清理调用，随后仍将 `EAX32` 清 0 并在 `0x4582FD` 返回。
+
+因此“加载函数返回 0”不能替换为“已执行清理”。本项只保存该分支差异，不添加 cleanup、提前 return 或失败回收策略。
+
+## 39. 唯一额外应用层 callee：0x4042B0
+
+四条清理返回链中，只有 `MainLoop` 在 `0x4574CB` 额外调用 `0x4042B0`：
+
+| 地址 | 已交接指令行为 |
+|---|---|
+| `0x4042B0` | 读取模块槽 `[0x59E55C]` |
+| `0x4042B5` / `0x4042B7` | `test` 后，槽值为 0 时转至 `0x4042C0: ret` |
+| `0x4042B9` / `0x4042BA` | 非 0 时先 `push eax`，再调用 `FreeLibrary`，随后到 `0x4042C0: ret` |
+
+本体不清模块槽，返回值被 `MainLoop` 忽略。不根据 `FreeLibrary` 名字断言实际卸载已经发生或必然触发 callback；该调用的后续目标及传递行为未闭合。
+
+## 40. 两类 MainLoop 出口到 WinMain 与 CRT 入口
+
+主循环消息泵退出与初始化返回 0 的前导出口，均返回同一 `WinMain` 尾部：
+
+```asm
+4659DF pop edi
+4659E0 pop esi
+4659E1 xor eax,eax
+4659E3 pop ebx
+4659E4 add esp,1444h
+4659EA ret 10h
+```
+
+`WinMain` 再次将完整 `EAX32` 写为 0，按上述 `pop`、`add esp, 1444h` 和 `ret 10h` 返回。启动层在 `0x53DE83` 保存 EAX，`0x53DE86` 压入退出码 0，`0x53DE87` 调用 IDA 标签 `_exit@0x53C8FA`。
+
+`_exit` 按原记录标签书写，不根据名称推定标准 CRT 语义；具体后继以下列指令为准。应用层返回链无显式回边不等于退出后继中没有循环或 callback。
+
+## 41. CRT 实际 flags、回调表与回边
+
+### 41.1 _exit 到 _doexit 的实参及前置分支
+
+- `0x53C8FA`、`0x53C8FC` 各执行 `push 0`，`0x53C8FE` 压入退出码，`0x53C902` 调用 `_doexit@0x53C91C`；因此本条退出链的退出码为 0，`arg_4=0`、`arg_8=0`。
+- `0x53C920` 比较 `[0x1086028] == 1`；成立时先经 `0x53C92C: GetCurrentProcess`、`0x53C933: TerminateProcess`。若该调用返回，仍接续到 `0x53C939`，不把 API 名称当作必不返回的路径证明。
+
+### 41.2 运行期退出回调表
+
+本链 `arg_4=0` 使 `0x53C94F` 不跳过 callback 段。`0x53C951` 读取首指针槽 `[0x1087AF4]`；非 0 时再取尾指针槽 `[0x1087AF0]`，从尾减 4 逆序遍历，遇非 0 条目在 `0x53C96E: call eax` 调用。
+
+该遍历的真实回边为 `0x53C979 -> 0x53C968`。运行时条目目标未闭合，不能宣称本链没有 CRT callback，也不能据此断言 callback 已实际重入清理或消费 DX 表。
+
+### 41.3 两段静态表与 __initterm 间接调用
+
+| 调用指令与 callee | 遍历的半开区间 | 当前 IDB 中的非零项 |
+|---|---|---|
+| `0x53C986 -> __initterm@0x53C9B5` | `[0x553184, 0x553190)` | `0x553188 -> 0x53EA4A`；`0x55318C -> 0x54B20C` |
+| `0x53C997 -> __initterm@0x53C9B5` | `[0x553194, 0x55319C)` | `0x553198 -> 0x545091` |
+
+`__initterm` 在 `0x53C9C6: call eax` 间接调用条目，真实回边为 `0x53C9CB -> 0x53C9BA`。三处已知静态目标的内部未展开，不虚构其业务，不由静态表目标已知推定传递调用已闭合；这些表值仅转录 Zeno 的当前 IDB 记录，不是本次重新查表或运行观测。
+
+### 41.4 本链最终退出分支
+
+本链 `arg_8=0` 使 `0x53C9A1` 不走返回支；随后 `0x53C9A7` 写 `[0x1086028]=1`，`0x53C9AD` 调用 `ExitProcess`。
+
+因此可以保留“四条应用层返回链未见回边”的局部结论，不能改写成“清理后全部代码无回边”或“CRT 没有 callback”。本次不继续展开 CRT、三处静态目标或外部回调。
+
+## 42. xref 覆盖与仍未闭合的具体边
+
+### 42.1 本次入向引用补证的限度
+
+Zeno 的 xref 补查覆盖 `ShutdownClient` 主区间及共享 tail 的 29 个已定义指令头，仅记录 §37 所列四处外部直接 call，未发现额外外部跳入内部指令或 data xref。本次只转录覆盖结果，不重新扫描。
+
+该覆盖不能排除计算目标、未定义位置或 callback 重入；无 xref 不等于不存在动态路径。
+
+### 42.2 继承的清理内部未决边
+
+以下先后关系沿用既有退出与 IME 文档，不重新审查清理顺序：
+
+| 阶段 | 仍需保留的调用边 |
+|---|---|
+| DX 表 free 之前，清理进行中 | `0x457A4F -> 0x44C423: call [ecx + 8]` |
+| DX 表 free 之后 | `0x457A7C -> 0x45904D: ImmReleaseContext` / `0x45905F: ImmAssociateContext` |
+| DX 表 free 之后 | `0x457A96: ReleaseMutex`；`0x465A75: SetSysColors` |
+
+这些调用的传递 callback 是否重入仍未闭合，不宣称其必然发生；其他清理 callee 内部也未在本项展开。
+
+### 42.3 继承的消息、动态调用与潜在 DX 消费者
+
+- 加载消息泵 `0x466D8E: call ebx` 到已登记 `WndProc@0x466DC0` 的消息分发边沿用 §34.1；`0x458257: call [edx + 18h]`、`0x458525` / `0x458731: call [ecx + 18h]` 的目标仍未穷尽。嵌套 call 返回后是否恢复外层 pump/draw，不能由无 xref 排除。
+- 既有窗口过程中的潜在 DX 消费者继续保留：`0x4670D2`、`0x467158`、`0x467194`、`0x4673EB` 在 `gGraphicDirty == 1` 时重建；`0x46720E` 为模式切换重建。
+- 既有重建链为 `0x466B80 -> 0x466C11` 调用 `BuildSurfaceCache`，再经 `0x5232DC -> 0x523350`。没有证明清理后这些消息实际到达，也没有证明它们已经被禁止。
+
+以上是继承的未决可达性与消费者边界，不是本次重新通过的算法，不把潜在路径写成已发生故障。
+
+### 42.4 本次明确的下一条具体边
+
+1. `0x4042BA: FreeLibrary` 的后续目标与传递 callback。
+2. `0x53C96E: call eax` 的运行期退出 callback 目标。
+3. `0x53C9C6: call eax` 对应的三处已知静态目标 `0x53EA4A`、`0x54B20C`、`0x545091` 及其未展开内部。
+
+这些边与继承的回调/动态调用未闭合前，不判定全进程无二次 cleanup 或释放后 DX 消费；本项只记录具体剩余项，不扩查，也不要求用户给出笼统“正常输入”豁免。
+
+## 43. 源码定位与尚未贯通的实现
+
+以下仅转录 Zeno 的源码定位及搜索结果，不重扫 `src/include`，不重审已有实现：
+
+| 位置或搜索范围 | 已交接事实与边界 |
+|---|---|
+| [MainLoop.cpp](../src/platform/MainLoop.cpp) 第 21、45 行 | 初始化失败直接 return；消息泵退出为 `ShutdownClient -> ReleaseProtection -> return 0` |
+| [ClientEntry.cpp](../src/platform/ClientEntry.cpp) 第 96 行 | `MainLoop` 后 `return 0` |
+| [ClientShutdown.cpp](../src/platform/ClientShutdown.cpp) 第 36 行 | 既有退出实现只作定位，不重审 |
+| [MainLoopDependencies.hpp](../src/platform/MainLoopDependencies.hpp) 第 32、51 行 | 初始化与 `ReleaseProtection` 仍仅为声明 |
+| 本子项目 `src` / `include` 搜索范围 | 未找到三个加载阶段实现 |
+| [ClientShutdown.cpp](../src/platform/ClientShutdown.cpp) 第 19–30 行 | 十二项依赖仍为真实声明，不能视为底层实现已接通 |
+
+原端返回证据不等于源码全链贯通，不使用旧静态库或声明充当实现依据。
+
+## 44. G2 状态、授权与本项交付边界
+
+- §34.2 的 G2c.2 待办在本次追加后具体更新为“四条应用层清理返回链已补证”；G2a/G2b/G2c.1 的既有结论保持，G2c.2 的 callback、动态调用、`FreeLibrary`、CRT 退出回调及释放后消费可达性等剩余边仍未闭合，整个 G2 不判完成。
+- 32B DX 候选 A、`70.4MB`、分离 owner/API 仍未批准，自动续行不构成批准；本项 `READY` 仅是证据转录就绪，不是源码授权。不增加 guard、提前 return、清槽、幂等或故障策略，不改变设计。
+- 数值 overflow、专项回绕、令牌耗尽仍排除；正常位宽、掩码及取模保留。其他非法内存、栈破坏、除零不自动豁免，不以未证实的可能性裁定故障。
+- `RPLAN.15` 仅限底层 DX7 等价适配，不豁免应用层状态、生命周期或引用失效。
+- 本次仅在本文原 861 行后追加 §36–44，并同步 [x64 SPEC](cg2d_graphic_dx_cache_x64_spec.md) 原第 121 行 G2 事实状态，保留该行原 G2a/G2b/G2c.1 链接；本文原 861 行及 SPEC 其他 153 行不改，不修改源码、设计或其他文件。
+- 本开发角色仅做转录、范围与引用自查；不执行 IDA/hash/图谱、编译、测试或运行，不引入外依赖，不委派、另起侧栏任务或执行 `codex exec`，不写进度、不暂存或提交。独立 review 与文件验证后置，不预称 PASS；仅交付进度草稿，由主线程处理进度及提交。

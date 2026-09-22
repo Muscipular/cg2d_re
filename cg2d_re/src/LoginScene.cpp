@@ -59,10 +59,23 @@ constexpr char kPasswordChange3[] = "請玩家至SOFTSTAR會員中心領取新�
 constexpr char kPasswordChange4[] = "詳情請參閱SOFTSTAR官方網站資訊：";
 constexpr char kPasswordChange5[] = "　　　　http://www.softstar.com.tw";
 
-constexpr char kMachineCode0[] = "本台機器之機碼已停用。";
-constexpr char kMachineCode1[] = "請檢查遊戲點數。";
-constexpr char kMachineCode2[] = "可能是點數不足導致登錄之機碼停用。";
-constexpr char kMachineCode3[] = "儲值後請稍待數分鐘系統處理時間。";
+// 原 0x55CBE8「本台機器之機碼已停用。」正文 22 字节；字符串字面量隐式追加 NUL。
+constexpr char kMachineCode0[] =
+    "\xA5\xBB\xA5\x78\xBE\xF7\xBE\xB9\xA4\xA7\xBE\xF7\xBD\x58\xA4\x77\xB0\xB1\xA5\xCE\xA1\x43";
+// 原 0x55CBD4「請檢查遊戲點數。」正文 16 字节；字符串字面量隐式追加 NUL。
+constexpr char kMachineCode1[] =
+    "\xBD\xD0\xC0\xCB\xAC\x64\xB9\x43\xC0\xB8\xC2\x49\xBC\xC6\xA1\x43";
+// 原 0x55CBB0「可能是點數不足導致登錄之機碼停用。」正文 34 字节；字符串字面量隐式追加 NUL。
+constexpr char kMachineCode2[] =
+    "\xA5\x69\xAF\xE0\xAC\x4F\xC2\x49\xBC\xC6\xA4\xA3\xA8\xAC\xBE\xC9\xAD\x50\xB5\x6E\xBF\xFD\xA4\xA7\xBE\xF7\xBD\x58\xB0\xB1\xA5\xCE\xA1\x43";
+// 原 0x55CB8C「儲值後請稍待數分鐘系統處理時間。」正文 32 字节；字符串字面量隐式追加 NUL。
+constexpr char kMachineCode3[] =
+    "\xC0\x78\xAD\xC8\xAB\xE1\xBD\xD0\xB5\x79\xAB\xDD\xBC\xC6\xA4\xC0\xC4\xC1\xA8\x74\xB2\xCE\xB3\x42\xB2\x7A\xAE\xC9\xB6\xA1\xA1\x43";
+
+static_assert(sizeof(kMachineCode0) == 23);
+static_assert(sizeof(kMachineCode1) == 17);
+static_assert(sizeof(kMachineCode2) == 35);
+static_assert(sizeof(kMachineCode3) == 33);
 
 constexpr char kPasswordExpiredMessage[] =
     "親愛的玩家您好：\n"

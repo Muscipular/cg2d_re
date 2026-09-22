@@ -7,6 +7,7 @@
 #include "cg/platform/KeyState.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/platform/Startup.hpp"
+#include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/world/GameTime.hpp"
 #include "cg/world/SceneState.hpp"
 
@@ -133,7 +134,7 @@ int MainLoop()
         gCatchUpCount = 1;
         gFrameCount = frame + 1;
         gLastRenderDt = deadline;
-        BackupValues_5208F0();
+        render::BackupValues_5208F0();
 
         if (GetAsyncKeyState(VK_F10) < 0) {
             gWindowReportRequested = 1;

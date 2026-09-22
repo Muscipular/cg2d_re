@@ -304,13 +304,16 @@ IDA 核证共享 `gTempSurface` 的请求内容尺寸是 640×480：原端首选
 不填充、不回绕、不重复边缘、不清色，也不修改 Temp。该裁剪是用户批准的新端等价映射，
 不冒充原 DX7 对非法 RECT、驱动失败或 caps 放大表面的行为。
 
+`BackupValues_5208F0` 已在 `MainLoop` 原调用点 `0x457351` 接线：严格按 current X、
+current Y 顺序读取原始 F32 位模式，再按 previous X、previous Y 顺序复制到唯一
+owner；函数返回缓存的 X 位模式，`MainLoop` 按原 caller 忽略该返回值。
+
 以下仍是后续须闭合的接线边界，不再是 `Sub_521870` 本体或 DX7
 caps/`HRESULT` 复刻待裁决项：
 
 1. `DrawAllQueued` type 8 的原触发位置；case 6/7 的共享 Temp 生命周期也仍未闭合。
-2. `BackupValues_5208F0` 对上帧 X/Y 等状态的真实生产与调用接线。
-3. 同一 `0x9A7FA8` 门禁的其余 19 个 reader。
-4. 共享 CPU Back 的真实内容生产，以及 Back/Temp 到 `Flip`/`Present` 的像素转换与提交。
+2. 同一 `0x9A7FA8` 门禁的其余 19 个 reader。
+3. 共享 CPU Back 的真实内容生产，以及 Back/Temp 到 `Flip`/`Present` 的像素转换与提交。
 
 ## 注册表清理与当前未闭合项
 

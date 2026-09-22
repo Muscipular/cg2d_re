@@ -84,6 +84,10 @@ extern volatile std::int32_t gRippleMapFloorCache; // 原 0x1020F00，S32。
 // 原 0x58B6E0 的 64 项有符号正弦近似表。
 extern const std::array<std::int32_t, 64> gRippleSineTable;
 
+// 原 sub_5208F0@[0x5208F0,0x520907)：原始 F32 位模式严格按
+// R current X -> R current Y -> W previous X -> W previous Y 执行。
+std::uint32_t BackupValues_5208F0();
+
 // 原 sub_520910@[0x520910,0x520923)：单次累加原浮点常量 0.25f。
 void Sub_520910();
 

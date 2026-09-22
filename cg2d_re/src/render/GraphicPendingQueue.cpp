@@ -102,6 +102,15 @@ const std::array<std::int32_t, 64> gRippleSineTable {
     -12, -12, -11, -11, -11, -10, -9, -9, -8, -7, -6, -5, -4, -3, -2, -1,
 };
 
+std::uint32_t BackupValues_5208F0()
+{
+    const std::uint32_t currentXBits = world::gWorldCurrentXBits;
+    const std::uint32_t currentYBits = world::gWorldCurrentYBits;
+    gRipplePreviousWorldXBits = currentXBits;
+    gRipplePreviousWorldYBits = currentYBits;
+    return currentXBits;
+}
+
 void Sub_520910()
 {
     gFloat1020EF0 += 0.25f;

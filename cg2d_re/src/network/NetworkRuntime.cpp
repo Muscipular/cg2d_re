@@ -127,6 +127,72 @@ std::int32_t Sub_5176B0(const char* const text)
     return std::bit_cast<std::int32_t>(resultBits);
 }
 
+std::uint8_t* Sub_517730(
+    const std::int32_t value,
+    std::uint8_t* const destination,
+    const std::int32_t capacity)
+{
+    // 原 0x58B644 表复制 63 字节（含 NUL），局部第 64 字节不清零。
+    std::uint8_t alphabet[64];
+    std::memcpy(
+        alphabet,
+        "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
+        63);
+    std::int32_t remainders[64];
+
+    const bool negative = value < 0;
+    std::int32_t magnitude = value;
+    if (negative) {
+        magnitude = -magnitude;
+    }
+
+    // 单字符路径先读表，再写输出，不读取 capacity。
+    if (magnitude < 62) {
+        const std::uint8_t digit = alphabet[magnitude];
+        if (negative) {
+            destination[0] = '-';
+            destination[1] = digit;
+            destination[2] = 0;
+        }
+        else {
+            destination[0] = digit;
+            destination[1] = 0;
+        }
+        return destination;
+    }
+
+    std::int32_t remainderIndex = 0;
+    do {
+        remainders[remainderIndex] = magnitude % 62;
+        magnitude /= 62;
+        ++remainderIndex;
+    } while (magnitude >= 62);
+    --remainderIndex;
+
+    std::int32_t destinationIndex;
+    if (negative) {
+        destination[1] = alphabet[magnitude];
+        destination[0] = '-';
+        destinationIndex = 2;
+    }
+    else {
+        destination[0] = alphabet[magnitude];
+        destinationIndex = 1;
+    }
+
+    // 前缀已写入；容量不足时保留已有字节，不补 NUL。
+    while (remainderIndex >= 0) {
+        if (destinationIndex > capacity - 2) {
+            return nullptr;
+        }
+        destination[destinationIndex] = alphabet[remainders[remainderIndex]];
+        ++destinationIndex;
+        --remainderIndex;
+    }
+    destination[destinationIndex] = 0;
+    return destination;
+}
+
 } // namespace detail
 
 std::int32_t ResetProtocolState_4037D0()

@@ -14,7 +14,8 @@ std::int32_t Sub_403E50(
 // 此处只保留 detail 边界的唯一声明。
 std::int32_t Sub_5176B0(const char* text);
 
-// sub_517730@0x517730 尚未实现；只保留协议整数格式化依赖的真实合同。
+// 原 sub_517730@0x517730 已在 NetworkRuntime.cpp 还原；
+// 此处只保留 detail 边界的唯一声明。
 std::uint8_t* Sub_517730(
     std::int32_t value,
     std::uint8_t* destination,

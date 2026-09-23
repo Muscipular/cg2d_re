@@ -233,6 +233,12 @@ std::uint32_t gValue9A7F78 = 0;
 std::int32_t gValueD2F788 = 0;
 std::uint16_t gValueFF0C10 = 0;
 
+// 原 0x5ABB70/0x5ABB6C/0x553F90/0x553F84；43C8F0 顺序重置的独立 S32 槽。
+std::int32_t gValue5ABB70 = 0;
+std::int32_t gValue5ABB6C = 0;
+std::int32_t gValue553F90 = -1;
+std::int32_t gValue553F84 = -1;
+
 // 原 0xC82230/0xC82234/0xC82236；供 46A9E0 初始化和后续消费者共享。
 std::uint32_t gValueC82230 = 0;
 std::int16_t gValueC82234 = 0;
@@ -468,6 +474,16 @@ std::int32_t Sub_504A30()
     gValueD2F788 = 0;
     gValueFF0C10 = 0;
     return 0;
+}
+
+// 原 [0x43C8F0,0x43C90A)；按序写四个独立 S32 槽并返回完整 -1。
+std::int32_t Sub_43C8F0()
+{
+    gValue5ABB70 = 0;
+    gValue5ABB6C = 0;
+    gValue553F90 = -1;
+    gValue553F84 = -1;
+    return -1;
 }
 
 } // namespace detail

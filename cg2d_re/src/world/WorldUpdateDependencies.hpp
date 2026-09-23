@@ -5,6 +5,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <cstdio>
+#include <type_traits>
 
 namespace cg::input {
 struct InputContext;
@@ -78,6 +79,48 @@ extern std::int32_t gValue9DAD58;
 extern std::int32_t gValue9DAD60;
 extern std::int32_t gValue9DAD64;
 
+// 原 [0x9FB954,0xAEFB94)：.cut 记录 50,000 项，每项仅前 18 字节由文件读取。
+struct CutRecord9FB954 {
+    std::int32_t value00;
+    std::int16_t value04;
+    std::int16_t value06;
+    std::int16_t value08;
+    std::int16_t value0A;
+    std::int16_t value0C;
+    std::int16_t value0E;
+    std::int16_t value10;
+    std::uint8_t reserved12[2];
+};
+
+// 原 [0x9FB948,0xAEFB94)：十二字节头与 50,000 项定长记录的唯一共享数据。
+struct CutData9FB948 {
+    std::uint8_t unknown00[6];
+    std::int16_t count06;
+    std::int16_t count08;
+    std::int16_t count0A;
+    CutRecord9FB954 records[50000];
+};
+
+static_assert(std::is_standard_layout_v<CutRecord9FB954> && std::is_trivial_v<CutRecord9FB954>);
+static_assert(std::is_standard_layout_v<CutData9FB948> && std::is_trivial_v<CutData9FB948>);
+static_assert(offsetof(CutRecord9FB954, value00) == 0x00);
+static_assert(offsetof(CutRecord9FB954, value04) == 0x04);
+static_assert(offsetof(CutRecord9FB954, value06) == 0x06);
+static_assert(offsetof(CutRecord9FB954, value08) == 0x08);
+static_assert(offsetof(CutRecord9FB954, value0A) == 0x0A);
+static_assert(offsetof(CutRecord9FB954, value0C) == 0x0C);
+static_assert(offsetof(CutRecord9FB954, value0E) == 0x0E);
+static_assert(offsetof(CutRecord9FB954, value10) == 0x10);
+static_assert(offsetof(CutRecord9FB954, reserved12) == 0x12);
+static_assert(sizeof(CutRecord9FB954) == 0x14);
+static_assert(offsetof(CutData9FB948, count06) == 0x06);
+static_assert(offsetof(CutData9FB948, count08) == 0x08);
+static_assert(offsetof(CutData9FB948, count0A) == 0x0A);
+static_assert(offsetof(CutData9FB948, records) == 0x0C);
+static_assert(sizeof(CutData9FB948) == 1000012);
+
+extern CutData9FB948 gCutData9FB948;
+
 // 原 [0xC35010, 0xC75010)；46CF20 顺序填值，C75010 尾槽另存。
 extern std::int32_t gValuesC35010[65536];
 
@@ -95,7 +138,8 @@ void __cdecl Sub_46DA80(
     std::int32_t a2,
     std::int32_t a3,
     std::uint32_t a4); // 原 [0x46DA80,0x46DAF5)，音频重置与模式分支。
-std::int32_t __cdecl Sub_46DB00(std::int32_t selected); // 原 .cut 加载器，尚未实现。
+std::int32_t __cdecl Sub_46DB00(std::int32_t selected); // 原 [0x46DB00,0x46DC55)，.cut 加载器。
+void __cdecl Sub_46DC60(); // 原 [0x46DC60,0x46DC85)，先整块清零再逐项写哨兵。
 std::int32_t __cdecl Sub_46DC90(std::int32_t selected); // 原 .aut 加载器，尚未实现。
 
 void Sub_44B050(const char* text, std::int32_t color, std::int32_t fontType);

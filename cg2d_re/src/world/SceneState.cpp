@@ -2,9 +2,12 @@
 
 #include "cg/platform/CommandOptions.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
+#include "cg/platform/LegacyWindow.hpp"
 #include "WorldUpdateDependencies.hpp"
 
 #include <bit>
+#include <cstdio>
+#include <cstring>
 
 namespace cg::world {
 namespace {
@@ -28,6 +31,25 @@ constexpr std::array<std::int32_t, 4> kMapFloors5541F4 {
     37623,
     37619,
 };
+
+// 原 0x55DE50/0x554920；.cut 文件使用当前目录下的原相对路径。
+constexpr char kCutPath55DE50[] = "bin\\PUK2\\cutdat\\%d.cut";
+constexpr char kCutReadMode554920[] = "rb";
+
+// 原提示窄字节，不转换编码；两个正文与各自标题按调用顺序配对。
+constexpr char kCutMessage55DE3C[] =
+    "\x63\x75\x74\xA6\x61\xB9\xCF\xC0\xC9\xB6\x7D\xB1\xD2\xA5\xA2\xB1\xD1\xA1\x43";
+constexpr char kCutCaption5536B8[] = "\xBD\x54\xBB\x7B";
+constexpr char kCutMessage55DE20[] =
+    "\xAD\x6E\xC0\xCB\xB5\xF8\x46\x41\x51\xB6\xDC\xA1\x48";
+constexpr char kCutCaption55DE30[] = "\xC0\xC9\xAE\xD7\xBF\xF9\xBB\x7E";
+
+static_assert(sizeof(kCutPath55DE50) == 23);
+static_assert(sizeof(kCutReadMode554920) == 3);
+static_assert(sizeof(kCutMessage55DE3C) == 20);
+static_assert(sizeof(kCutCaption5536B8) == 5);
+static_assert(sizeof(kCutMessage55DE20) == 14);
+static_assert(sizeof(kCutCaption55DE30) == 9);
 
 } // namespace
 
@@ -191,9 +213,57 @@ std::int32_t gValue9DAD58 = 0;
 std::int32_t gValue9DAD60 = 0;
 std::int32_t gValue9DAD64 = 0;
 
+// 原 [0x9FB948,0xAEFB94)；供 .cut 重置、加载及后续 46CF60 共享。
+CutData9FB948 gCutData9FB948 {};
+
 // 原 [0xC35010, 0xC75010)；尾地址的 gValueC75010 是独立标量。
 std::int32_t gValuesC35010[65536] {};
 static_assert(sizeof(gValuesC35010) == 0x40000);
+
+// 原 [0x46DC60,0x46DC85)；整块清零完成后才逐项写 +4 哨兵。
+void __cdecl Sub_46DC60()
+{
+    std::memset(&gCutData9FB948, 0, sizeof(gCutData9FB948));
+    for (CutRecord9FB954& record : gCutData9FB948.records) {
+        record.value04 = -1;
+    }
+}
+
+// 原 [0x46DB00,0x46DC55)；保留短读后继续、失败消息及完整返回值。
+std::int32_t __cdecl Sub_46DB00(std::int32_t selected)
+{
+    Sub_46DC60();
+    char path[256];
+    std::sprintf(path, kCutPath55DE50, selected);
+    std::FILE* const file = std::fopen(path, kCutReadMode554920);
+    if (file == nullptr) {
+        platform::ShowLegacyMessage(kCutMessage55DE3C, kCutCaption5536B8, 0x10);
+        const std::int32_t response =
+            platform::ShowLegacyMessage(kCutMessage55DE20, kCutCaption55DE30, 0x11);
+        if (response != 1) {
+            return response;
+        }
+        return platform::PostLegacyWindowMessage(platform::gLegacyWindow, 0x10, 0, 0);
+    }
+
+    std::fread(&gCutData9FB948, 12, 1, file);
+    const std::int32_t count0A = static_cast<std::int32_t>(gCutData9FB948.count0A);
+    const std::int32_t count08 = static_cast<std::int32_t>(gCutData9FB948.count08);
+    const std::int32_t count06 = static_cast<std::int32_t>(gCutData9FB948.count06);
+    const std::int32_t count = count0A + count08 + count06;
+    for (std::int32_t index = 0; index < count; ++index) {
+        CutRecord9FB954& record = gCutData9FB948.records[index];
+        std::fread(&record.value00, 4, 1, file);
+        std::fread(&record.value04, 2, 1, file);
+        std::fread(&record.value06, 2, 1, file);
+        std::fread(&record.value08, 2, 1, file);
+        std::fread(&record.value0A, 2, 1, file);
+        std::fread(&record.value0C, 2, 1, file);
+        std::fread(&record.value0E, 2, 1, file);
+        std::fread(&record.value10, 2, 1, file);
+    }
+    return std::fclose(file);
+}
 
 // 原 [0x4682E0, 0x468330)；六次写入后传递四个原参数。
 void __cdecl Sub_4682E0(

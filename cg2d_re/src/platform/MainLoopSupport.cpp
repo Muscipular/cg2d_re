@@ -33,6 +33,9 @@ volatile std::uint32_t gKeepAliveRecentTick = 0;
 volatile std::uint32_t gValue59E544 = 0;
 volatile std::uint32_t gValue593FD0 = 0;
 
+// 原 R32 0x59E55C；使用原生句柄宽度，供未来 0x4041E0/0x4043B0 在本文件共享。
+HMODULE gProtectionModule = nullptr;
+
 std::uint32_t RandomSymmetricW32(const std::uint32_t amplitudeBits)
 {
     const std::uint32_t lowerBits = std::uint32_t{0} - amplitudeBits;
@@ -61,6 +64,15 @@ std::int32_t SignedLowWord(const std::uint32_t valueBits) noexcept
 } // namespace
 
 std::uint32_t gRandomSeed = 1; // 原 0x58F870，共享随机源，不改用本机 CRT 的私有状态。
+
+int ReleaseProtection_4042B0()
+{
+    const HMODULE module = gProtectionModule;
+    if (module == nullptr) {
+        return 0;
+    }
+    return static_cast<int>(FreeLibrary(module));
+}
 
 // 原 0x52CD30：先调用 0x52CCA0，再将 0x103DE80 置 1；不读取实参。
 int Sub_52CD30(std::int32_t)

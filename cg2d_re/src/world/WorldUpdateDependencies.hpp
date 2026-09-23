@@ -121,6 +121,20 @@ static_assert(sizeof(CutData9FB948) == 1000012);
 
 extern CutData9FB948 gCutData9FB948;
 
+// 原 [0xAF10D8,0xB65A7B)；.aut 每项三个原始字节，供地图颜色消费者共享。
+struct AutRecordAF10D8 {
+    std::uint8_t value00; // 原 +0。
+    std::uint8_t value01; // 原 +1。
+    std::uint8_t value02; // 原 +2。
+};
+
+static_assert(offsetof(AutRecordAF10D8, value00) == 0);
+static_assert(offsetof(AutRecordAF10D8, value01) == 1);
+static_assert(offsetof(AutRecordAF10D8, value02) == 2);
+static_assert(sizeof(AutRecordAF10D8) == 3);
+
+extern AutRecordAF10D8 gAutDataAF10D8[159201];
+
 // 原 [0xC35010, 0xC75010)；46CF20 顺序填值，C75010 尾槽另存。
 extern std::int32_t gValuesC35010[65536];
 
@@ -140,7 +154,7 @@ void __cdecl Sub_46DA80(
     std::uint32_t a4); // 原 [0x46DA80,0x46DAF5)，音频重置与模式分支。
 std::int32_t __cdecl Sub_46DB00(std::int32_t selected); // 原 [0x46DB00,0x46DC55)，.cut 加载器。
 void __cdecl Sub_46DC60(); // 原 [0x46DC60,0x46DC85)，先整块清零再逐项写哨兵。
-std::int32_t __cdecl Sub_46DC90(std::int32_t selected); // 原 .aut 加载器，尚未实现。
+std::int32_t __cdecl Sub_46DC90(std::int32_t selected); // 原 [0x46DC90,0x46DD35)，.aut 加载器。
 
 void Sub_44B050(const char* text, std::int32_t color, std::int32_t fontType);
 std::int32_t Sub_4A76E0();

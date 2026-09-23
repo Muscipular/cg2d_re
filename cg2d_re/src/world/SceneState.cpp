@@ -44,12 +44,19 @@ constexpr char kCutMessage55DE20[] =
     "\xAD\x6E\xC0\xCB\xB5\xF8\x46\x41\x51\xB6\xDC\xA1\x48";
 constexpr char kCutCaption55DE30[] = "\xC0\xC9\xAE\xD7\xBF\xF9\xBB\x7E";
 
+// 原 0x55DE7C/0x55DE68；.aut 相对路径与打开失败的第一正文。
+constexpr char kAutPath55DE7C[] = "bin\\PUK2\\cutdat\\%d.aut";
+constexpr char kAutMessage55DE68[] =
+    "\x61\x75\x74\xA6\x61\xB9\xCF\xC0\xC9\xB6\x7D\xB1\xD2\xA5\xA2\xB1\xD1\xA1\x43";
+
 static_assert(sizeof(kCutPath55DE50) == 23);
 static_assert(sizeof(kCutReadMode554920) == 3);
 static_assert(sizeof(kCutMessage55DE3C) == 20);
 static_assert(sizeof(kCutCaption5536B8) == 5);
 static_assert(sizeof(kCutMessage55DE20) == 14);
 static_assert(sizeof(kCutCaption55DE30) == 9);
+static_assert(sizeof(kAutPath55DE7C) == 23);
+static_assert(sizeof(kAutMessage55DE68) == 20);
 
 } // namespace
 
@@ -216,6 +223,10 @@ std::int32_t gValue9DAD64 = 0;
 // 原 [0x9FB948,0xAEFB94)；供 .cut 重置、加载及后续 46CF60 共享。
 CutData9FB948 gCutData9FB948 {};
 
+// 原 [0xAF10D8,0xB65A7B)；.aut 单次读取的唯一共享表。
+AutRecordAF10D8 gAutDataAF10D8[159201] {};
+static_assert(sizeof(gAutDataAF10D8) == 477603);
+
 // 原 [0xC35010, 0xC75010)；尾地址的 gValueC75010 是独立标量。
 std::int32_t gValuesC35010[65536] {};
 static_assert(sizeof(gValuesC35010) == 0x40000);
@@ -262,6 +273,26 @@ std::int32_t __cdecl Sub_46DB00(std::int32_t selected)
         std::fread(&record.value0E, 2, 1, file);
         std::fread(&record.value10, 2, 1, file);
     }
+    return std::fclose(file);
+}
+
+// 原 [0x46DC90,0x46DD35)；失败保留表，成功单次读取并返回完整关闭结果。
+std::int32_t __cdecl Sub_46DC90(std::int32_t selected)
+{
+    char path[256];
+    std::sprintf(path, kAutPath55DE7C, selected);
+    std::FILE* const file = std::fopen(path, kCutReadMode554920);
+    if (file == nullptr) {
+        platform::ShowLegacyMessage(kAutMessage55DE68, kCutCaption5536B8, 0x10);
+        const std::int32_t response =
+            platform::ShowLegacyMessage(kCutMessage55DE20, kCutCaption55DE30, 0x11);
+        if (response != 1) {
+            return response;
+        }
+        return platform::PostLegacyWindowMessage(platform::gLegacyWindow, 0x10, 0, 0);
+    }
+
+    std::fread(gAutDataAF10D8, 1, 477603, file);
     return std::fclose(file);
 }
 

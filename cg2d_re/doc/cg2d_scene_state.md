@@ -1014,3 +1014,97 @@ dstRow     = buffer + 2 * (dst0 + row * dstW)
 后续落地门禁为：三个全局 `MapBuffer`、四边界 `S16[9DEF64/9DEF60/9DEF62/9DEF5E]` 与两跨度 `S16[9A86E0/9ED43C]` 必须由同一 owner 持有；复用既有 `gMapFloor` 与 `W32[9A86DC]`，不得建立本链私有副本。路径槽 `W32[9E0434]` 保持中性，待其唯一 owner 与业务归属另行批准。
 
 本节仅追加原端事实、装载合同和共享 owner 门禁；未修改源码、进度或构建文件，未访问 IDA，未编译、测试、运行、暂存或提交，也不冒称源码完成。
+
+## 39. Sub_46AD00 地图分类与 W16[9DAD4A] owner 门禁
+
+日期：2026-09-23。任务：`cg2d:46AD00:D`。本节仅追加已完成的 `46AD00` 函数事实、短路 caller 顺序、分类表及 `W16[9DAD4A]` 待批 owner 门禁，不重新取证，不修改前节结论，也不代表新端源码已经实现或验证。
+
+### 39.1 函数合同、索引与执行顺序
+
+`Sub_46AD00@[0x46AD00,0x46AD97)` 接收两个完整 S32 参数并返回 BOOL；唯一 caller 为 `0x46AA91`，唯一 callee 为已实现的 `GetCate_458EC0`。索引严格以三个局部量构造：
+
+```text
+localX = a1 - S16[9DEF64]
+localY = a2 - S16[9DEF60]
+width  = S16[9A86E0]
+index  = localX + width * localY
+```
+
+实际执行顺序为：先读取左、上边界 `S16[9DEF64/9DEF60]` 并得到 `localX/localY`，再调用 `GetCate_458EC0(&gCgTime)` 得到 `cate`；返回后才读取宽度 `S16[9A86E0]`、构造 `index`，并从 `MapBuffer@9ED44C` 的 `WORD[index]` 仅读取低 U8 为 `value`，不把完整 WORD 用作分类值。`0x46AD44` 先比较 `value == 3`，`0x46AD48` 再无条件执行完整 W16 写入 `W16[9DAD4A] = W16(value)`，因此高字节明确为 0，之后继续按 `value` 与 `cate` 完成分类。本项不对索引越界、整数溢出或其他异常域作专项处理。
+
+### 39.2 分类表与 caller 短路顺序
+
+| `value` | BOOL 返回条件 |
+| --- | --- |
+| `3/9/11/13/10` | `1` |
+| `6` | `cate == 3` |
+| `7` | `cate == 0 || cate == 1` |
+| `8` | `cate == 2` |
+| 其他 | `0` |
+
+唯一 caller 路径严格先调用 `Sub_46AE60`；其返回非零时直接跳过 `Sub_46AD00`，因此该路径不会更新 `W16[9DAD4A]`。只有 `Sub_46AE60` 返回 0 时才在 `0x46AA91` 调用 `Sub_46AD00`，并按上一小节顺序无条件写入该槽后再完成分类。
+
+### 39.3 复用与待批准 owner 门禁
+
+后续实现必须复用既有 `gCgTime` 与 `GetCate_458EC0`，不得复制时间分类逻辑；`S16[9DEF64/9DEF60/9DEF62/9DEF5E/9A86E0/9ED43C]` 六槽及 `MapBuffer` 继续与既有生产者、写者和消费者共享同一状态，不为本函数建立副本。
+
+新增 `W16[9DAD4A]` 当前仅证 `Sub_46AD00` 写、`Sub_46ADA0` 读，但它不是 `PendingAction` 的原子 payload，也不得快照进 pending。待批首选是由同一世界移动 owner 持有独立字段 `lastDetectedCode`，与 `C82230/C82234/C82236` 对应的 `PendingAction` 三槽分离；该归属仍需用户批准，不归 `MapData` 或 packet，本节不授权实现。
+
+本节仅追加函数事实、短路顺序、分类表与待批 owner 门禁；未修改源码、进度或构建文件，未访问 IDA，未编译、测试、运行、暂存或提交，也不冒称源码完成。
+
+## 40. Sub_46ADA0 消费链与 W16[9DAD4A] owner 待批候选
+
+日期：2026-09-23。任务：`cg2d:46ADA0:D`。本节仅记录既有报告中的 `46ADA0` 函数合同、消费时序及 `W16[9DAD4A]` owner 待批候选，不重新取证，不修改前节其他结论，也不代表新端源码已经实现或验证。
+
+### 40.1 函数合同与返回值
+
+`Sub_46ADA0@[0x46ADA0,0x46AE53)` 无参数；既有 A 报告给出的末指令地址为 `0x46AE52`，故此处采用末址排他的函数范围。其唯一 caller 为 `0x46ABAC`，返回值为 `Sub_51D5B0` 返回的 `EAX`。
+
+### 40.2 严格消费时序
+
+`Sub_46ADA0` 内部时序严格为：
+
+1. 执行 `CAFEA0` 延迟初始化。
+2. 调用 `Sub_4681B0`。
+3. 写入 `9A86D8 = 1` 与 `C82220 = 1`。
+4. 将 `C8221C` 的低 16 位写入 `W16[9DAD54]`。
+5. 依次读取玩家 `Y`、`X`。
+6. 以 `movsx` 将 `W16[9DAD4A]` 扩展后作为 `Sub_510630` 的第二参数。
+7. 写入 `SceneState = 200`。
+8. 执行 `C8221C++`。
+9. 调用 `Sub_51D5B0`。
+10. 更新 `C82208..C82218`。
+
+### 40.3 生产消费关系与 owner 门禁
+
+`W16[9DAD4A]` 唯一由 `Sub_46AD00` 写入、由 `Sub_46ADA0` 读取；生产值域为 `0..255`，消费端按 S16 执行符号扩展。倒计时尚未结束时，caller 仍可再次进入 `0x46AA00` 路径并覆盖 `W16[9DAD4A]`，因此该值不会因 pending active 而锁存稳定到消费。`Sub_46AB60` 分发及清理时不清该槽；`type == 1` 调用 `Sub_46ADA0` 时读取的是调用当时的 `lastDetectedCode`。
+
+owner 结论仍仅作为待用户批准的候选：首选为同一世界移动 owner 下的独立 `lastDetectedCode` 字段，与 `PendingAction` 三槽分离；不归 `MapData` 或 packet，也不授权实现。
+
+本节仅追加消费链事实与待批 owner 候选；未修改源码、进度或构建文件，未访问 IDA，未编译、测试、运行、暂存或提交，也不冒称源码完成。
+
+## 41. Sub_46AB60 pending 消费合同与待批 SPEC
+
+日期：2026-09-23。任务：`cg2d:46AB60:D`。本节仅记录既有新证据中的 `46AB60` pending 消费合同、caller 关系及待批实施候选，不重新取证，不修改前节其他已审事实，也不代表新端源码已经实现或验证。
+
+### 41.1 函数合同、状态槽与分发
+
+`Sub_46AB60@[0x46AB60,0x46ABCD)` 采用末地址排他范围，大小为 `0x6D`；函数无参数，`EAX` 返回 `0/1`，唯一 caller 为 `0x46A007`。`PendingAction` 三槽为：`active = S32[C82230]`、`countdown = S16[C82234]`、`type = S16[C82236]`。
+
+进入分发时，`type == 1` 调用 `Sub_46ADA0`，`type == 2` 调用 `Sub_46AC90`，`type == 3` 调用 `Sub_46AEA0`；三个 callee 的返回值均被丢弃。无效 `type` 不调用任何 callee，但仍执行清理并返回 `1`。
+
+### 41.2 倒计时、分发与清理顺序
+
+`active == 0` 时立即返回 `0`，不递减、不分发、也不清理。仅在 `active != 0` 时继续：若 `C8222E != 0` 且原 `countdown > 0`，先执行 `countdown--`；减后仍 `> 0` 则返回 `0`，减到 `0` 则同一轮分发。若 `C8222E == 0` 且原 `countdown > 0`，不递减并返回 `0`。仅当进入时 `countdown <= 0`，或本轮递减后恰为 `0`，才进入分发。
+
+顺序严格为先分发、后清理；清理只写 `active = 0`、`countdown = 0`，不清 `type`、`C8222E` 或 `W16[9DAD4A]`。
+
+### 41.3 caller 尾部与全初始化
+
+唯一 caller 在 `0x46A007` 调用本函数：返回 `0` 时继续到 caller 尾部 `0x46A153` 清 `C8222E`；返回 `1` 时立即返回，不经过该尾部。全初始化 `Sub_46A9E0` 清零 `active/countdown/type` 三槽。
+
+### 41.4 待批准实施 SPEC
+
+待批候选仅为：`PendingAction` 的 `active/countdown/type` 三槽由同一 owner 持有；`lastDetectedCode` 是同一世界移动 owner 下与三槽分离的独立字段，不是 pending 原子 payload。新检测允许覆盖既有 `active` 与 `lastDetectedCode`；禁止把 `lastDetectedCode` 擅自快照进 pending，也禁止因 pending active 而阻止覆盖。
+
+本 SPEC 仍需用户批准，不授权编码或结构落地。本节未修改源码、进度或构建文件，未访问 IDA，未编译、测试、运行、暂存或提交，也不冒称实现完成。

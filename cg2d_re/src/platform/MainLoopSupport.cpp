@@ -112,6 +112,18 @@ int NextRandom_53B4C9()
     return static_cast<int>((seed >> 16) & 0x7FFFu);
 }
 
+// 原 0x46FAF0：上界为 -1 时不消费随机数；否则先取随机数，再计算有符号区间。
+std::int32_t RandomRange_46FAF0(std::int32_t lower, std::int32_t upper)
+{
+    if (upper == -1) {
+        return 0;
+    }
+
+    const std::int32_t random = NextRandom_53B4C9();
+    const std::int32_t divisor = upper - lower + 1;
+    return random % divisor + lower;
+}
+
 // 原 sub_423640@[0x423640,0x4237D5)：更新偏移/幅度后，将共享 Temp 裁剪回拷 Back。
 void Sub_423640()
 {

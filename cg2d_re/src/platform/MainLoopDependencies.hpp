@@ -47,6 +47,8 @@ extern std::uint32_t gRandomSeed; // 原 0x58F870；所有原播种与 rand 调�
 std::uint32_t SeedRandom_53B4BF(std::uint32_t seed);
 std::uint64_t ReadSystemSeconds_4589D0();
 int NextRandom_53B4C9();
+// 原 0x46FAF0：按有符号上下界生成随机值。
+std::int32_t RandomRange_46FAF0(std::int32_t lower, std::int32_t upper);
 int CheckSystemSeconds_458A10(std::int32_t seconds);
 int ReleaseProtection_4042B0();
 

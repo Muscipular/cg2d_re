@@ -160,3 +160,34 @@ R6.1.3.151 中玩家指针、Yobi 与 GameTime 的归属仍待 SPEC；本叶无�
 唯一直接 caller 为 `World::Update@0x51C430` 的 `51C56D`；原顺序 `51C563→4590A0`、`51C568→449DA0`、`51C56D→46A9E0`、`51C572→467F30`，caller 不消费返回值。既有 `WorldUpdate.cpp` 接线不改。
 
 本项仅验收无参 `S32` 零返回、`W32/S16/S16` 唯一三槽及初值、三次独立按序清零、私有声明与既有调用关系；未实现消费者及类型 5 的其他依赖不属于本项完成范围。本节没有编译、测试、运行结果，不据此宣布 case 5 或 `MainLoop` 全链闭合。
+
+## 10. Sub_468F30 投影状态清零叶
+
+日期：2026-09-23。任务：R6.1.3.179.1.C+D。依据 `.179` 已取证的调用链及 `.179.1.A READY` 叶函数合同；本节记录本次实现，不预记独立审查或验证通过。
+
+### 10.1 原指令顺序与共享映射
+
+`Sub_468F30@[0x468F30,0x468F6F)` 共 63 字节、14 条指令：`xor eax,eax`，接着按下表顺序执行十二次独立 W32 写零，最后 `retn`。无参数读取、输入全局读取或 callee，返回完整 `EAX32=0`。新端在 `cg::world::detail` 实现 `std::int32_t __cdecl Sub_468F30()`，不将写入重排为来源与快照各一组。
+
+| 写序 | 原地址 | 新端唯一存储 |
+| ---: | --- | --- |
+| 1 | `C3500C` | 新增 `std::uint32_t gValueC3500C` |
+| 2 | `C75010` | 新增 `std::uint32_t gValueC75010` |
+| 3 | `9EE908` | 复用 `gWorldProjectionSourceA` |
+| 4 | `9EE90C` | 复用 `gWorldProjectionSourceB` |
+| 5 | `AF10C4` | 复用 `gWorldProjectionSnapshotA` |
+| 6 | `AF10CC` | 复用 `gWorldProjectionSnapshotB` |
+| 7 | `9EE8A0` | 新增 `std::uint32_t gValue9EE8A0` |
+| 8 | `9ED438` | 新增 `std::uint32_t gValue9ED438` |
+| 9 | `9EE904` | 复用 `gWorldProjectionSourceC` |
+| 10 | `9EE8F4` | 复用 `gWorldProjectionSourceD` |
+| 11 | `AF10D0` | 复用 `gWorldProjectionSnapshotC` |
+| 12 | `AF10D4` | 复用 `gWorldProjectionSnapshotD` |
+
+四个新增槽在 `SceneState.cpp` 的 `world::detail` 唯一定义，零初值依据此前已通过的 [PE 零填充合同](cg2d_graphic_dx_cache.md) `[0x593000,0x1087B08)`；不以 IDA 未加载字节显示值推断文件初值。八个投影槽直接复用现有 `world` owner，不创建副本，不合并整组清零或触碰邻存储。`C75010` 仅作独立标量槽；尚未实现的 `46CF20` 填充 `[C35010,C75010)` 的 65,536 个 W32 表项，不写尾槽。本次不建表，也不推断全部别名或消费语义。
+
+### 10.2 调用、适配与未验收范围
+
+唯一直接代码 xref 为 `467F30` 内的 `0x468182`，调用方不消费返回值；无参 `retn` 本身不能唯证原 `__cdecl` 与无参 `__stdcall`，`__cdecl` 仅为现有内部调用边界适配，不能据此断言原 ABI。私有 `WorldUpdateDependencies.hpp` 只补本叶声明和四槽 `extern`，既有 caller 不变。
+
+父项 `467F30` 已取证但尚无实现：其链包含 `4682E0→468330`、`CryptInt` 临时构造/复制/析构及清理、`468200→468F30→46CF20`。泛参入口不能按本次传入的全零参数特化；全局 `CryptInt` 构造链尚未闭合。本项只承接 `468F30` 十二次清零及返回，不实现父函数、其他依赖或表，不宣布父项、case 5 全链、链接或运行通过。没有编译、测试或运行结果。

@@ -171,12 +171,36 @@ std::uint32_t gValueC82230 = 0;
 std::int16_t gValueC82234 = 0;
 std::int16_t gValueC82236 = 0;
 
+// 原 0xC3500C/0xC75010/0x9EE8A0/0x9ED438；468F30 的独立 W32 槽。
+std::uint32_t gValueC3500C = 0;
+std::uint32_t gValueC75010 = 0;
+std::uint32_t gValue9EE8A0 = 0;
+std::uint32_t gValue9ED438 = 0;
+
 // 原 [0x46A9E0, 0x46A9F4)；依次清三槽并返回完整 32 位零。
 std::int32_t __cdecl Sub_46A9E0()
 {
     gValueC82230 = 0;
     gValueC82234 = 0;
     gValueC82236 = 0;
+    return 0;
+}
+
+// 原 [0x468F30, 0x468F6F)；保持十二次 W32 写入的指令顺序。
+std::int32_t __cdecl Sub_468F30()
+{
+    gValueC3500C = 0;
+    gValueC75010 = 0;
+    gWorldProjectionSourceA = 0;
+    gWorldProjectionSourceB = 0;
+    gWorldProjectionSnapshotA = 0;
+    gWorldProjectionSnapshotB = 0;
+    gValue9EE8A0 = 0;
+    gValue9ED438 = 0;
+    gWorldProjectionSourceC = 0;
+    gWorldProjectionSourceD = 0;
+    gWorldProjectionSnapshotC = 0;
+    gWorldProjectionSnapshotD = 0;
     return 0;
 }
 

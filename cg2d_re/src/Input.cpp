@@ -9,6 +9,7 @@
 #include <cstdint>
 #include <cstdio>
 #include <cstring>
+#include <direct.h>
 
 namespace cg {
 
@@ -370,8 +371,172 @@ char gLogPath62699C[260] {};
 std::FILE* volatile gLogStream626C1C = nullptr;
 volatile std::int32_t gCountC9A944 = 0;
 volatile std::uint32_t gValue626C10 = 0;
+input::InputContext gInputContext626840 {};
+std::uint32_t gValue626C18 = 0;
+std::uint32_t gValue626BFC = 0;
+char gLogFileName554648[16] = "chat_000000.txt";
 
 static_assert(sizeof(gRecords5FB7F8) == 512 * 0x134);
+static_assert(sizeof(gInputContext626840) == 0x15C);
+static_assert(sizeof(gLogFileName554648) == 16);
+
+namespace {
+
+constexpr char kLogDirectory_554658[] = "Log";
+constexpr char kFileFormat_55351C[] = "chat_%02d%02d%02d.txt";
+constexpr char kPathFormat_553514[] = "%s\\%s";
+constexpr char kReadMode_554908[] = "r";
+constexpr char kAppendMode_554904[] = "a";
+
+constexpr auto kFirstSeparator_5548CC = [] {
+    std::array<char, 56> text {};
+    for (std::size_t i = 0; i < 8; ++i) {
+        text[i] = ' ';
+    }
+    for (std::size_t i = 8; i < 31; ++i) {
+        text[i] = '>';
+    }
+    for (std::size_t i = 31; i < 54; ++i) {
+        text[i] = '<';
+    }
+    text[54] = '\n';
+    return text;
+}();
+
+constexpr char kDateTitle_55488C[] =
+    "        >>  \xC5\x5D \xA4\x4F \xC4\x5F \xA8\xA9 \xAB\x5F "
+    "\xC0\x49 \xAA\xCC \xA4\xE9 \xBB\x78 [ %02d/%02d/%02d ]  <<\n";
+
+constexpr auto kBeforeSession_554848 = [] {
+    std::array<char, 65> text {};
+    text[0] = '\n';
+    text[1] = ' ';
+    text[2] = ' ';
+    for (std::size_t i = 3; i < 63; ++i) {
+        text[i] = '-';
+    }
+    text[63] = '\n';
+    return text;
+}();
+
+constexpr char kSessionTime_554820[] =
+    " \xA1\xBD %02d/%02d/%02d %02d:%02d:%02d \xAC\xF6\xBF\xFD\n";
+
+constexpr auto kAfterSession_5547DC = [] {
+    std::array<char, 65> text {};
+    text[0] = ' ';
+    text[1] = ' ';
+    for (std::size_t i = 2; i < 63; ++i) {
+        text[i] = '-';
+    }
+    text[63] = '\n';
+    return text;
+}();
+
+static_assert(sizeof(kLogDirectory_554658) == 4);
+static_assert(sizeof(kFileFormat_55351C) == 22);
+static_assert(sizeof(kPathFormat_553514) == 6);
+static_assert(sizeof(kReadMode_554908) == 2);
+static_assert(sizeof(kAppendMode_554904) == 2);
+static_assert(sizeof(kDateTitle_55488C) == 63);
+static_assert(sizeof(kSessionTime_554820) == 40);
+
+} // namespace
+
+// 原 sub_449DA0@[0x449DA0,0x449F9C)：输入记录与聊天日志初始化。
+void __cdecl Sub_449DA0()
+{
+    std::memset(gRecords5FB7F8, 0, sizeof(gRecords5FB7F8));
+    std::memset(&input::gInputContext626AA0, 0, sizeof(input::gInputContext626AA0));
+    input::InitializeContext_449CF0(
+        &input::gInputContext626AA0, 8, 440, 0, 1, 0, nullptr, 1, 78, 0, 0);
+    std::memcpy(
+        &gInputContext626840,
+        &input::gInputContext626AA0,
+        sizeof(gInputContext626840));
+
+    for (std::size_t index = 0; index < 19; ++index) {
+        gRecords5FB7F8[index].state = 1;
+    }
+    gValue626C18 = 0;
+    gValue626BFC = 0;
+
+    std::int32_t timeValue = 0;
+    std::FILE* const existingStream = gLogStream626C1C;
+    if (existingStream != nullptr) {
+        return;
+    }
+
+    ::_mkdir(kLogDirectory_554658);
+    platform::ReadLegacyTime32_53BA26(&timeValue);
+    const platform::LegacyTm53B8C6* const legacyTime =
+        platform::LocalTime_53B8C6(&timeValue);
+    const auto* const timeBytes =
+        reinterpret_cast<const unsigned char*>(legacyTime);
+    const auto readTimeField = [timeBytes](const std::size_t offset) {
+        std::int32_t value;
+        std::memcpy(&value, timeBytes + offset, sizeof(value));
+        return value;
+    };
+
+    const std::int32_t fileMonth = readTimeField(0x10);
+    const std::int32_t fileDay = readTimeField(0x0C);
+    const std::int32_t fileYear = readTimeField(0x14);
+    std::sprintf(
+        gLogFileName554648,
+        kFileFormat_55351C,
+        fileYear % 100, fileMonth + 1, fileDay);
+    std::sprintf(
+        gLogPath62699C,
+        kPathFormat_553514,
+        kLogDirectory_554658,
+        gLogFileName554648);
+
+    std::FILE* const readStream =
+        std::fopen(gLogPath62699C, kReadMode_554908);
+    gLogStream626C1C = readStream;
+    std::FILE* gate;
+    if (readStream == nullptr) {
+        std::FILE* const appendStream =
+            std::fopen(gLogPath62699C, kAppendMode_554904);
+        gLogStream626C1C = appendStream;
+        std::fprintf(appendStream, kFirstSeparator_5548CC.data());
+
+        const std::int32_t titleMonth = readTimeField(0x10);
+        const std::int32_t titleDay = readTimeField(0x0C);
+        const std::int32_t titleYear = readTimeField(0x14);
+        std::fprintf(
+            gLogStream626C1C,
+            kDateTitle_55488C,
+            titleYear % 100, titleMonth + 1, titleDay);
+        std::fprintf(gLogStream626C1C, kFirstSeparator_5548CC.data());
+        gate = gLogStream626C1C;
+    } else {
+        std::fclose(readStream);
+        std::FILE* const appendStream =
+            std::fopen(gLogPath62699C, kAppendMode_554904);
+        gLogStream626C1C = appendStream;
+        gate = appendStream;
+    }
+
+    if (gate != nullptr) {
+        std::fprintf(gate, kBeforeSession_554848.data());
+
+        const std::int32_t sessionSecond = readTimeField(0x00);
+        const std::int32_t sessionMinute = readTimeField(0x04);
+        const std::int32_t sessionHour = readTimeField(0x08);
+        const std::int32_t sessionDay = readTimeField(0x0C);
+        const std::int32_t sessionMonth = readTimeField(0x10);
+        const std::int32_t sessionYear = readTimeField(0x14);
+        std::fprintf(
+            gLogStream626C1C,
+            kSessionTime_554820,
+            sessionYear % 100, sessionMonth + 1, sessionDay,
+            sessionHour, sessionMinute, sessionSecond);
+        std::fprintf(gLogStream626C1C, kAfterSession_5547DC.data());
+    }
+    std::fflush(gLogStream626C1C);
+}
 
 // 原 sub_4A76E0@[0x4A76E0,0x4A76FD)：先写未封顶值，超过 512 再写封顶值。
 std::int32_t Sub_4A76E0()

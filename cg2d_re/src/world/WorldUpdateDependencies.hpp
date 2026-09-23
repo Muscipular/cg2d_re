@@ -6,9 +6,13 @@
 #include <cstdint>
 #include <cstdio>
 
+namespace cg::input {
+struct InputContext;
+} // namespace cg::input
+
 namespace cg::platform {
 
-// 原 0x53B8C6 的返回对象仅确认开头三个 S32 槽；实际时间边界尚未实现。
+// 原 0x53B8C6 返回九个 S32 槽；调用方按已确认偏移读取时间字段。
 struct LegacyTm53B8C6;
 LegacyTm53B8C6* __cdecl LocalTime_53B8C6(std::int32_t* timeValue);
 
@@ -38,6 +42,10 @@ extern char gLogPath62699C[260];
 extern std::FILE* volatile gLogStream626C1C;
 extern volatile std::int32_t gCountC9A944;
 extern volatile std::uint32_t gValue626C10;
+extern input::InputContext gInputContext626840;
+extern std::uint32_t gValue626C18;
+extern std::uint32_t gValue626BFC;
+extern char gLogFileName554648[16];
 
 void Sub_44B050(const char* text, std::int32_t color, std::int32_t fontType);
 std::int32_t Sub_4A76E0();
@@ -50,7 +58,7 @@ void RenderInput_4590E0();                 // 原 World::RenderInput@0x4590E0，
 void Sub_44A410();                         // 原 0x44A410，输入光标闪烁/排队。
 void Sub_4626A0();                         // 原 0x4626A0。
 std::int32_t Sub_45E3D0();                 // 原 0x45E3D0。
-void Sub_449DA0();                         // 原 0x449DA0。
+void __cdecl Sub_449DA0();                 // 原 [0x449DA0,0x449F9C)。
 std::int32_t Sub_46A9E0();                 // 原 0x46A9E0。
 std::int32_t* Sub_467F30();                // 原 0x467F30。
 struct RecipeItemData;

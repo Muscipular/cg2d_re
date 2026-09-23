@@ -29,6 +29,10 @@ namespace {
 volatile std::uint32_t gKeepAliveBaselineTick = 0;
 volatile std::uint32_t gKeepAliveRecentTick = 0;
 
+// 原 W32 0x59E544、0x593FD0；供未来 0x4043B0/0x4048E0 在本文件共享。
+volatile std::uint32_t gValue59E544 = 0;
+volatile std::uint32_t gValue593FD0 = 0;
+
 std::uint32_t RandomSymmetricW32(const std::uint32_t amplitudeBits)
 {
     const std::uint32_t lowerBits = std::uint32_t{0} - amplitudeBits;
@@ -64,6 +68,14 @@ int Sub_52CD30(std::int32_t)
     cg::audio::Sub_52CCA0();
     cg::audio::gValue103DE80 = 1;
     return 1;
+}
+
+// 原 0x4048D0：依次清零两个共享 W32 状态。
+int ResetProtection_4048D0()
+{
+    gValue59E544 = 0;
+    gValue593FD0 = 0;
+    return 0;
 }
 
 std::uint32_t ReadTickCount32() noexcept

@@ -194,6 +194,45 @@ std::int32_t CheckDebugger_404880()
     return gIsDebuggerPresent() != FALSE ? 3 : 0;
 }
 
+BOOL CALLBACK CheckWindowsCallback_404940(HWND window, LPARAM)
+{
+    char title[128];
+    static_cast<void>(GetWindowTextA(
+        window,
+        title,
+        static_cast<int>(sizeof(title))));
+    if (title[0] == '\0') {
+        return TRUE;
+    }
+
+    const std::uint32_t recordCountBits =
+        gProtectionAuxiliaryRecordCount;
+    const std::int32_t recordCount =
+        std::bit_cast<std::int32_t>(recordCountBits);
+    if (recordCount <= 0) {
+        return TRUE;
+    }
+
+    for (std::int32_t index = 0; index < recordCount; ++index) {
+        const ProtectionAuxiliaryRecord& record =
+            gProtectionAuxiliaryRecords[index];
+        bool matched = false;
+        if (record.flagA == 0) {
+            const std::size_t length = std::strlen(record.text);
+            matched = _strnicmp(title, record.text, length) == 0;
+        } else if (record.flagA == 1) {
+            matched = std::strcmp(title, record.text) == 0;
+        }
+
+        if (matched) {
+            gValue59E544 = record.number;
+            return FALSE;
+        }
+    }
+
+    return TRUE;
+}
+
 } // namespace
 
 std::uint32_t gRandomSeed = 1; // 原 0x58F870，共享随机源，不改用本机 CRT 的私有状态。
@@ -465,6 +504,32 @@ int ResetProtection_4048D0()
 std::uint32_t ReadTickCount32() noexcept
 {
     return static_cast<std::uint32_t>(GetTickCount());
+}
+
+std::int32_t CheckWindows_4048E0()
+{
+    const std::uint32_t counter = gValue593FD0;
+    const std::uint32_t incremented = counter + std::uint32_t{1};
+    gValue593FD0 = incremented;
+    if (std::bit_cast<std::int32_t>(incremented) < 1020) {
+        return 0;
+    }
+
+    const std::uint32_t tick = ReadTickCount32();
+    static_cast<void>(SeedRandom_53B4BF(tick));
+    const std::int32_t randomizedCounter =
+        static_cast<std::int32_t>(NextRandom_53B4C9()) % 300;
+    gValue593FD0 = std::bit_cast<std::uint32_t>(randomizedCounter);
+    static_cast<void>(EnumWindows(CheckWindowsCallback_404940, 0));
+
+    const std::uint32_t resultBits = gValue59E544;
+    const std::int32_t result = std::bit_cast<std::int32_t>(resultBits);
+    if (result <= 0) {
+        return 0;
+    }
+
+    gValue59E544 = 0;
+    return result;
 }
 
 // 原 KeepAlive@[0x457AB0,0x457B03)：保留零基线哨兵及 signed32 差值门槛。

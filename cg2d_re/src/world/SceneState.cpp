@@ -425,6 +425,25 @@ std::int32_t* __cdecl Sub_46CF20()
     return gValuesC35010 + 65536;
 }
 
+// 原 [0x46F8F0,0x46F92B)；每轮按 360 上界、0 下界顺序重读并原地修正。
+void __cdecl Sub_46F8F0(float* const value)
+{
+    constexpr float kFullTurn = 360.0F;
+    for (;;) {
+        const float upperValue = *value;
+        if (static_cast<double>(upperValue) >= 360.0) {
+            *value = upperValue - kFullTurn;
+            continue;
+        }
+
+        const float lowerValue = *value;
+        if (static_cast<double>(lowerValue) >= 0.0) {
+            return;
+        }
+        *value = lowerValue + kFullTurn;
+    }
+}
+
 // 原 [0x4D3170,0x4D317B)：仅将 0x581800 写为 -1 后返回。
 void Sub_4D3170()
 {

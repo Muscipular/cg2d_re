@@ -31,6 +31,7 @@ namespace cg::platform {
 // 原 MainLoop 的直接依赖，不提供占位函数；每个后续实现仍须对照其完整原函数。
 int InitializeClient_4576B0();
 void InitializeProtection_4041E0(const char* moduleName);
+void ParseProtectionTables_404600(const char* input);
 int ResetProtection_4048D0();
 void ShowModeChange_458A40();
 void KeepAlive_457AB0();

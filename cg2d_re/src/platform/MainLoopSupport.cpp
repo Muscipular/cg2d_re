@@ -43,13 +43,28 @@ std::uint32_t gProtectionPlatformState = 0;
 HMODULE gProtectionModule = nullptr;
 
 LegacyCryptInt gProtectionProcessState{kLegacyCryptIntVftToken};
+LegacyCryptInt gProtectionChecksum1{kLegacyCryptIntVftToken};
+LegacyCryptInt gProtectionChecksum2{kLegacyCryptIntVftToken};
 std::uint8_t gProtectionBuffer1[0x5000]{};
 std::uint8_t gProtectionBuffer2[0x5000]{};
+
+struct ProtectionAuxiliaryRecord {
+    char text[0x20];
+    std::uint32_t number;
+    std::uint16_t flagA;
+    std::uint16_t flagB;
+};
+
+ProtectionAuxiliaryRecord gProtectionAuxiliaryRecords[30]{};
+std::uint32_t gProtectionAuxiliaryRecordCount = 0;
 OSVERSIONINFOA gProtectionVersionInfo{};
 
 static_assert(sizeof(gProtectionProcessState) == 16);
+static_assert(sizeof(gProtectionChecksum1) == 16);
+static_assert(sizeof(gProtectionChecksum2) == 16);
 static_assert(sizeof(gProtectionBuffer1) == 0x5000);
 static_assert(sizeof(gProtectionBuffer2) == 0x5000);
+static_assert(sizeof(ProtectionAuxiliaryRecord) == 0x28);
 static_assert(sizeof(gProtectionVersionInfo) == 0x94);
 
 std::uint32_t RandomSymmetricW32(const std::uint32_t amplitudeBits)
@@ -75,6 +90,38 @@ std::int32_t SignedLowWord(const std::uint32_t valueBits) noexcept
     return static_cast<std::int32_t>(
         std::bit_cast<std::int16_t>(
             static_cast<std::uint16_t>(valueBits)));
+}
+
+void AddAssignLegacyCryptInt_401E20(
+    LegacyCryptInt* value,
+    const std::int32_t amount)
+{
+    const std::int32_t result = legacy_crypt_int::Add_401E10(value, amount);
+    legacy_crypt_int::SetNorVal_401F50(value, result);
+}
+
+void UpdateProtectionChecksum(
+    LegacyCryptInt* checksum,
+    const std::uint8_t* table)
+{
+    for (std::size_t slotIndex = 0; slotIndex < 20; ++slotIndex) {
+        const std::uint8_t* slot = table + slotIndex * 0x400;
+        if (slot[0] == 0) {
+            break;
+        }
+
+        for (std::size_t byteIndex = 0; byteIndex < 0x400; ++byteIndex) {
+            const std::uint8_t byte = slot[byteIndex];
+            if (byte == 0) {
+                break;
+            }
+
+            AddAssignLegacyCryptInt_401E20(
+                checksum,
+                static_cast<std::int32_t>(
+                    std::bit_cast<std::int8_t>(byte)));
+        }
+    }
 }
 
 // 原 0x4042D0：按快照模块所属 PID 选择对应的模块名表。
@@ -156,6 +203,95 @@ void InitializeProtection_4041E0(const char* moduleName)
     legacy_crypt_int::AssignFromInt(
         &gProtectionProcessState,
         std::bit_cast<std::int32_t>(processIdBits));
+}
+
+void ParseProtectionTables_404600(const char* input)
+{
+    std::memset(gProtectionBuffer1, 0, sizeof(gProtectionBuffer1));
+    std::memset(gProtectionBuffer2, 0, sizeof(gProtectionBuffer2));
+    legacy_crypt_int::AssignFromInt(&gProtectionChecksum1, 0);
+    legacy_crypt_int::AssignFromInt(&gProtectionChecksum2, 0);
+    gProtectionAuxiliaryRecordCount = 0;
+    for (ProtectionAuxiliaryRecord& record : gProtectionAuxiliaryRecords) {
+        record.flagA = 0;
+        record.flagB = 1;
+    }
+
+    std::size_t table1Index = 0;
+    std::size_t table2Index = 0;
+    const char* segmentStart = input + 1;
+    if (*segmentStart != '\n') {
+        while (*segmentStart != '\0') {
+            const char* cursor = segmentStart;
+            while (*cursor != ','
+                   && *cursor != ';'
+                   && *cursor != '\n'
+                   && *cursor != '\0') {
+                ++cursor;
+            }
+
+            const std::size_t segmentLength =
+                static_cast<std::size_t>(cursor - segmentStart);
+            if (*cursor == ',') {
+                std::memcpy(
+                    gProtectionBuffer1 + table1Index * 0x400,
+                    segmentStart,
+                    segmentLength);
+                ++table1Index;
+
+                if (gProtectionAuxiliaryRecordCount < 30) {
+                    const std::uint32_t recordIndex =
+                        gProtectionAuxiliaryRecordCount;
+                    ProtectionAuxiliaryRecord& record =
+                        gProtectionAuxiliaryRecords[recordIndex];
+                    std::memset(record.text, 0, sizeof(record.text));
+                    std::memcpy(record.text, segmentStart, segmentLength);
+                    record.number = 1001 + recordIndex;
+                    if (record.flagB == 0) {
+                        record.number += 10000;
+                    }
+                    ++gProtectionAuxiliaryRecordCount;
+                }
+
+                segmentStart = cursor + 1;
+                continue;
+            }
+
+            if (*cursor == ';') {
+                std::memcpy(
+                    gProtectionBuffer2 + table2Index * 0x400,
+                    segmentStart,
+                    segmentLength);
+                ++table2Index;
+
+                ProtectionAuxiliaryRecord& record =
+                    gProtectionAuxiliaryRecords[
+                        gProtectionAuxiliaryRecordCount];
+                const char flag = cursor[-1];
+                if (flag == '1') {
+                    record.flagA = 1;
+                } else if (flag == '2') {
+                    record.flagB = 0;
+                } else if (flag == '3') {
+                    record.flagA = 1;
+                    record.flagB = 0;
+                }
+
+                segmentStart = cursor + 1;
+                continue;
+            }
+
+            std::memcpy(
+                gProtectionBuffer1 + table1Index * 0x400,
+                segmentStart,
+                segmentLength);
+            ++table1Index;
+            break;
+        }
+    }
+
+    UpdateProtectionChecksum(&gProtectionChecksum1, gProtectionBuffer1);
+    UpdateProtectionChecksum(&gProtectionChecksum2, gProtectionBuffer2);
 }
 
 int ReleaseProtection_4042B0()

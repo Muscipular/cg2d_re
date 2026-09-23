@@ -15,7 +15,7 @@ char Sub_4038A0(
 
 // sub_403E50@0x403E50 尚未实现；只保留当前 IDA 的真实回调契约。
 std::int32_t Sub_403E50(
-    std::uint32_t value,
+    std::uintptr_t socket,
     const void* data,
     std::uint32_t size);
 

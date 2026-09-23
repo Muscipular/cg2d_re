@@ -1,6 +1,7 @@
 #pragma once
 
 #include "cg/Palette.hpp"
+#include "cg/network/NetworkRuntime.hpp"
 
 #include <cstdint>
 
@@ -28,6 +29,8 @@ void Flip_44C560();
 
 namespace cg::platform {
 
+using cg::network::Report_512CA0;
+
 // 原 MainLoop 的直接依赖，不提供占位函数；每个后续实现仍须对照其完整原函数。
 int InitializeClient_4576B0();
 void InitializeProtection_4041E0(const char* moduleName);
@@ -40,7 +43,6 @@ int Sub_52CD30(std::int32_t value);
 void Sub_507140();
 void Sub_449160();
 std::uint8_t CheckProtection_4043B0(const char* functionName);
-int Report_512CA0(std::uintptr_t socket, std::int32_t value);
 std::int32_t CheckWindows_4048E0();
 void Sub_423640();
 int EnumerateWindows_4587D0();

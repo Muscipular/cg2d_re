@@ -3,12 +3,14 @@
 #include "NetworkRuntimeDependencies.hpp"
 
 #include "cg/LoginRequest.hpp"
+#include "cg/LoginScene.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/world/SceneState.hpp"
 
 #include <winsock2.h>
 
 #include <algorithm>
+#include <array>
 #include <bit>
 #include <cstddef>
 #include <cstdio>
@@ -27,7 +29,7 @@ using SendProtocolObserver = void (*)(
     char* buffer);
 
 std::int32_t DefaultNetworkCallback(
-    std::uint32_t,
+    std::uintptr_t,
     const void*,
     std::uint32_t)
 {
@@ -47,15 +49,10 @@ struct NetworkRuntimeState {
     std::uint32_t protocolWord6;
     std::uint32_t protocolWord7;
 
-    // 原 0x593FCC、0x593FCE、0x593FC4、0x593FC8，均为 W16。
-    std::uint16_t protocolHalfWord0;
-    std::uint16_t protocolHalfWord1;
-    std::uint16_t protocolHalfWord2;
-    std::uint16_t protocolHalfWord3;
-
-    // 原 0x593FC6、0x593FCA，均为 W8。
-    std::uint8_t protocolByte0;
-    std::uint8_t protocolByte1;
+    // 原 [0x593FC4,0x593FD0) 连续协议短状态。
+    std::array<std::uint8_t, 12> protocolState593FC4;
+    std::uint16_t protocolModeDA3B22;
+    std::uint8_t protocolByte593850;
 
     NetworkCallback callback; // 原 0x58B5E8。
     std::uint32_t bufferLength;
@@ -77,6 +74,34 @@ struct NetworkRuntimeState {
 };
 
 NetworkRuntimeState gNetworkRuntimeState {};
+
+std::uint16_t ReadProtocolStateW16(const std::size_t offset)
+{
+    std::uint16_t value;
+    std::memcpy(
+        &value,
+        gNetworkRuntimeState.protocolState593FC4.data() + offset,
+        sizeof(value));
+    return value;
+}
+
+void WriteProtocolStateW16(
+    const std::size_t offset,
+    const std::uint16_t value)
+{
+    std::memcpy(
+        gNetworkRuntimeState.protocolState593FC4.data() + offset,
+        &value,
+        sizeof(value));
+}
+
+struct ProtocolOutputAccess {
+    char* data() const noexcept
+    {
+        return reinterpret_cast<char*>(
+            gNetworkRuntimeState.buffer58B5F0);
+    }
+};
 
 } // namespace
 
@@ -277,6 +302,121 @@ std::uint8_t* Sub_517730(
 
 } // namespace detail
 
+namespace {
+
+std::int32_t BuildProtocolCommand_517510(
+    char* const buffer,
+    const char* const command)
+{
+    std::array<char, 8> temp;
+    temp[0] = static_cast<char>(
+        gNetworkRuntimeState.protocolByte593850);
+    const std::size_t commandLength = std::strlen(command);
+
+    const std::uint32_t clearedBytes = 0;
+    std::memcpy(temp.data() + 1, &clearedBytes, sizeof(clearedBytes));
+
+    const std::size_t dwordLength = commandLength & ~std::size_t {3};
+    std::size_t copyOffset = 0;
+    while (copyOffset < dwordLength) {
+        std::uint32_t commandDword;
+        std::memcpy(
+            &commandDword,
+            command + copyOffset,
+            sizeof(commandDword));
+        std::memcpy(
+            temp.data() + copyOffset,
+            &commandDword,
+            sizeof(commandDword));
+        copyOffset += sizeof(commandDword);
+    }
+
+    const std::uint16_t firstMode =
+        gNetworkRuntimeState.protocolModeDA3B22;
+    while (copyOffset < commandLength) {
+        temp[copyOffset] = command[copyOffset];
+        ++copyOffset;
+    }
+
+    if (firstMode == 0) {
+        static_cast<void>(detail::Sub_4038A0(
+            temp.data(), 25, "uCYPWdjs", 120, "MsItMVhgbWP"));
+    } else {
+        static_cast<void>(detail::Sub_4038A0(
+            temp.data(),
+            31,
+            login::gValueDA3A5C,
+            121,
+            login::gValueDA38DC));
+    }
+
+    static_cast<void>(std::sprintf(buffer, "%s ", temp.data()));
+
+    std::array<char, 8> checksumSlot;
+    checksumSlot[0] = static_cast<char>(
+        gNetworkRuntimeState.protocolByte593850);
+    const std::int32_t passwordLength = static_cast<std::int32_t>(
+        std::strlen(login::gValueDA3A5C));
+
+    WriteProtocolStateW16(0, 0);
+    checksumSlot[1] = 0;
+    checksumSlot[2] = 0;
+    gNetworkRuntimeState.protocolState593FC4[2] = 0;
+
+    if (temp[0] != '\0') {
+        std::size_t index = 0;
+        do {
+            std::uint16_t sum = ReadProtocolStateW16(0);
+            sum = static_cast<std::uint16_t>(
+                sum
+                + (static_cast<std::uint8_t>(temp[index]) & 0x7FU));
+            if (sum > 255U) {
+                sum = static_cast<std::uint16_t>(sum - 255U);
+            }
+            WriteProtocolStateW16(0, sum);
+            ++index;
+        } while (temp[index] != '\0');
+    }
+
+    std::uint16_t checksum = ReadProtocolStateW16(0);
+    const std::uint16_t secondMode =
+        gNetworkRuntimeState.protocolModeDA3B22;
+    if (secondMode == 0) {
+        checksum = static_cast<std::uint16_t>(checksum ^ 59U);
+    } else {
+        const std::int32_t divisor = passwordLength == 0
+            ? 1 : passwordLength;
+        const std::int32_t passwordIndex = 82 % divisor;
+        const std::int8_t passwordByte = std::bit_cast<std::int8_t>(
+            static_cast<std::uint8_t>(
+                login::gValueDA3A5C[passwordIndex]));
+        const std::int16_t widenedPasswordByte =
+            static_cast<std::int16_t>(passwordByte);
+        const std::uint32_t passwordValue = static_cast<std::uint32_t>(
+            std::bit_cast<std::uint16_t>(widenedPasswordByte));
+        checksum = static_cast<std::uint16_t>(
+            static_cast<std::uint32_t>(checksum) ^ passwordValue);
+    }
+    WriteProtocolStateW16(0, checksum);
+
+    static_cast<void>(::_itoa(
+        static_cast<int>(ReadProtocolStateW16(0)),
+        checksumSlot.data(),
+        16));
+    const std::size_t checksumLength = std::strlen(checksumSlot.data());
+    std::memcpy(
+        gNetworkRuntimeState.protocolState593FC4.data(),
+        checksumSlot.data(),
+        checksumLength);
+    const std::size_t storedLength = std::strlen(
+        reinterpret_cast<const char*>(
+            gNetworkRuntimeState.protocolState593FC4.data()));
+    WriteProtocolStateW16(8, static_cast<std::uint16_t>(storedLength));
+    return 0;
+}
+
+} // namespace
+
 std::int32_t ResetProtocolState_4037D0()
 {
     if (gNetworkRuntimeState.protocolWord0 != 0x1B768BA7U) {
@@ -304,12 +444,12 @@ std::int32_t ResetProtocolState_4037D0()
         gNetworkRuntimeState.protocolWord7 = 0x259F4C5EU;
     }
 
-    gNetworkRuntimeState.protocolHalfWord0 = 0;
-    gNetworkRuntimeState.protocolHalfWord1 = 0;
-    gNetworkRuntimeState.protocolHalfWord2 = 0;
-    gNetworkRuntimeState.protocolHalfWord3 = 0;
-    gNetworkRuntimeState.protocolByte0 = 0;
-    gNetworkRuntimeState.protocolByte1 = 0;
+    WriteProtocolStateW16(8, 0);
+    WriteProtocolStateW16(10, 0);
+    WriteProtocolStateW16(0, 0);
+    WriteProtocolStateW16(4, 0);
+    gNetworkRuntimeState.protocolState593FC4[2] = 0;
+    gNetworkRuntimeState.protocolState593FC4[6] = 0;
     return 0;
 }
 
@@ -718,7 +858,7 @@ std::uint8_t* UnescapeProtocolText_5172D0(const char* const text)
 }
 
 std::int32_t SendProtocolBuffer_517480(
-    const std::uint32_t socketValue,
+    const std::uintptr_t socket,
     char* const buffer)
 {
     if (gNetworkRuntimeState.sendLogPathDA3B58[0] != '\0') {
@@ -748,7 +888,24 @@ std::int32_t SendProtocolBuffer_517480(
         ++length;
     }
 
-    return gNetworkRuntimeState.callback(socketValue, buffer, length);
+    return gNetworkRuntimeState.callback(socket, buffer, length);
+}
+
+std::int32_t Report_512CA0(
+    const std::uintptr_t socket,
+    const std::int32_t value)
+{
+    const ProtocolOutputAccess output;
+    static_cast<void>(BuildProtocolCommand_517510(
+        output.data(), "PGXE"));
+    const std::uint32_t bufferLength =
+        gNetworkRuntimeState.bufferLength;
+    std::uint8_t* const token = FormatProtocolIntegerToken_517120(value);
+    static_cast<void>(AppendProtocolText_5170D0(
+        output.data(),
+        reinterpret_cast<const char*>(token),
+        std::bit_cast<std::int32_t>(bufferLength)));
+    return SendProtocolBuffer_517480(socket, output.data());
 }
 
 std::int32_t AllocateNetworkWorkspace_516B60(

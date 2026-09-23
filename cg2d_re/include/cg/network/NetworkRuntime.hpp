@@ -5,7 +5,7 @@
 namespace cg::network {
 
 using NetworkCallback = std::int32_t (*)(
-    std::uint32_t value,
+    std::uintptr_t socket,
     const void* data,
     std::uint32_t size);
 
@@ -53,8 +53,13 @@ std::uint8_t* UnescapeProtocolText_5172D0(const char* text);
 
 // 原 sub_517480@[0x517480,0x517502)：记录、观察并发送协议行缓冲。
 std::int32_t SendProtocolBuffer_517480(
-    std::uint32_t socketValue,
+    std::uintptr_t socket,
     char* buffer);
+
+// 原 Report_512CA0@[0x512CA0,0x512CE8)：构造并发送 PGXE 上报协议行。
+std::int32_t Report_512CA0(
+    std::uintptr_t socket,
+    std::int32_t value);
 
 // 原 sub_516B60@0x516B60：安装回调并分配 18 项网络工作区。
 std::int32_t AllocateNetworkWorkspace_516B60(

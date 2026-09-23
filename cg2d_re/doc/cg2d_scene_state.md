@@ -611,3 +611,13 @@ X、Y 各发生三次 `Read_401EC0`：旧坐标 helper、新坐标 helper、浮�
 缺失文件生成入口 `519300`、`519550` **各自再次独立**读取 `105C394`、`105C36C` 并重构对应路径，以 `wb` 打开；打开失败返回完整 EAX32 零。打开成功时分别对同一段缓冲以大小 1、数量 `0x5DC00` 或 `0x139480` 执行一次 `fwrite`，忽略实际写入数，然后关闭并返回各自 `fclose` 的整数结果；不重试，不加窗口消息、保护或编码转换。因此父入口首文件缺失、次文件缺失时分别透传对应 helper 的整数返回；两文件正常打开时返回第二次关闭的整数结果。原 `World::Update@51C5B5` 调用后不消费返回；现有 [WorldUpdate.cpp](../src/world/WorldUpdate.cpp) 调度不改。
 
 保存路径、选中槽及映射的唯一现存 owner 为 [LoginSavedState.cpp](../src/LoginSavedState.cpp) 私有 `gSavedState.paths[10]`（每项 `0x100` 字节）、`selected`、`logicalToPhysical`；尚未批准新的跨文件窄接口。两段持久缓冲的唯一 owner、生命周期、表示及布局仍受第 25 节 `.189` 条件 SPEC 约束，不能在本项另建副本或凭文件读写推断全部字段类型。现有私有 [WorldUpdateDependencies.hpp](../src/world/WorldUpdateDependencies.hpp) 和 [CharacterSelectSceneDependencies.hpp](../src/CharacterSelectSceneDependencies.hpp) 仍只是未实现的候选声明，不改签名、源码或 caller。`518CB0` 及两个 helper 的本体控制流已取证，但整项落位 **NEEDS_CLARIFICATION**；不解除 `.184/.189` 门禁，不声称间接别名已穷尽。后续静态验收须逐项覆盖两文件均存在、仅首文件缺失、仅次文件缺失、短读四种路径及返回、长度、顺序和共享 owner。本节仅追加证据，不预记独立 R/V、编码、链接或运行通过；未访问 IDA、校验 EXE/i64 hash、用图谱、引入依赖、编译、测试或运行。
+
+## 27. Sub_518780 相册文件加载与共享缓冲证据
+
+日期：2026-09-23。任务：R6.1.3.191.D。依据独立 `.191.A` 的已查合同，`518780@[0x518780,0x518865)` 无参数，IDA 候选原型为 `void()`。唯一已核直接 caller 是 `World::Update@51C5D5`，随后在 `51C5DA` 调用 `503E80`，中间不读取 EAX；新端 [WorldUpdate.cpp](../src/world/WorldUpdate.cpp) 已有调度，[WorldUpdateDependencies.hpp](../src/world/WorldUpdateDependencies.hpp) 尚只有声明，不代表本体已实现。
+
+`5187B9–5187E8` 使用已有 `gDataPath` 拼接 `album.dat`，以 `rb` 打开，`fread` 最多读取 **4 字节**。`rb` 打开失败在 `5187D6` 调用 `5186A0`；打开后若 `ferror` 置位，则关闭文件并早退，不能把所有短读一概视为读取错误。无读取错误时，`518823` 调用 `sub_52D460(源, 实读字节数, 0, 临时目标, &长度)` 并弃其 EAX；若解码输出长度不等于 `0x3C00C`，则在 `518836` 调用 `5186A0`。仅当长度匹配时，`51882F–518849` 以 `0xF003` 次 `rep movsd` 覆盖同一共享相册 `[DA43E8,DE03F4)`，总长 `0x3C00C` 字节。按已查正常路径，读取上限为 4 字节，可继续解码的输入至多输出 3 字节，因此正常路径不会触发该覆盖；这不授权删除原分支，也不证明任何替代 codec 已获批准。对异常输入不增加新的保护或失败策略。
+
+回退入口 `5186A0` 从该共享相册复制 `0x3C00C` 字节，调用 `sub_52D310`，在已查容量不足路径得到输出的前 4 字节，再以 `wb` 写出 `album.dat`；本项不凭局部证据推定未查明的返回宽度、其余错误处理或写入策略。原 `518C20@518C2E` 清零整个相册区，`518C4A/518C51` 写入原字节 `CCA\0`，直接 caller 为 `457951`。相册装载零初值继承已证 [PE 零填充合同](cg2d_graphic_dx_cache.md) `[593000,1087B08)`，不等于每次加载前必为零。另有基址直接引用 `51870D/518844`；这些局部 xref 不足以排除区间内别名或指针字段。相册区不与第 25–26 节 `.189/.190` 的两段邮件缓冲重合，不能借用邮件缓冲的待批 owner。
+
+现有 `sub_52D460/sub_52D310` 位于 [LoginSavedState.cpp](../src/LoginSavedState.cpp) 匿名命名空间；后续须确认跨模块窄调用方式，不复制另一套 codec。`[DA43E8,DE03F4)` 的唯一 owner、生命周期，以及 `518C20` 初始化、`518780/5186A0` 加载与回写共用同一实例的接线，均须经 SPEC 确认；是否接用现有解码器或以正常域证据提出等价接线，也尚未获批。本体取证 **READY**，整项落位 **NEEDS_CLARIFICATION**；不实现源码或链接，不解除 `.184/.189/.190` 门禁，也不预记独立 R/V、编译或运行通过。本项仅追加证据文档，未访问 IDA、校验 EXE/i64 hash、用图谱、引入依赖、编译、测试或运行。

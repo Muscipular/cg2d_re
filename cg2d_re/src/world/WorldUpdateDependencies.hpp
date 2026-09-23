@@ -2,10 +2,45 @@
 
 #include "cg/LegacyAudio.hpp"
 
+#include <cstddef>
 #include <cstdint>
 #include <cstdio>
 
+namespace cg::platform {
+
+// 原 0x53B8C6 的返回对象仅确认开头三个 S32 槽；实际时间边界尚未实现。
+struct LegacyTm53B8C6;
+LegacyTm53B8C6* __cdecl LocalTime_53B8C6(std::int32_t* timeValue);
+
+} // namespace cg::platform
+
 namespace cg::world::detail {
+
+// 原 [0x5FB7F8, 0x621FF8)：512 项、每项 0x134 字节，保留未明字段。
+struct Record5FB7F8 {
+    char text[0x124];
+    std::int32_t color;
+    std::int32_t state;
+    std::int32_t field12C;
+    std::int32_t fontType;
+};
+
+static_assert(offsetof(Record5FB7F8, text) == 0x000);
+static_assert(offsetof(Record5FB7F8, color) == 0x124);
+static_assert(offsetof(Record5FB7F8, state) == 0x128);
+static_assert(offsetof(Record5FB7F8, field12C) == 0x12C);
+static_assert(offsetof(Record5FB7F8, fontType) == 0x130);
+static_assert(sizeof(Record5FB7F8) == 0x134);
+
+extern Record5FB7F8 gRecords5FB7F8[512];
+extern volatile std::int32_t gWriteIndex626C08;
+extern char gLogPath62699C[260];
+extern std::FILE* volatile gLogStream626C1C;
+extern volatile std::int32_t gCountC9A944;
+extern volatile std::uint32_t gValue626C10;
+
+void Sub_44B050(const char* text, std::int32_t color, std::int32_t fontType);
+std::int32_t Sub_4A76E0();
 
 // World::Update@0x51C430 的直接目标声明；未实现项只保留 IDA 地址和调用契约。
 std::int32_t Sub_45F190();                 // 原 0x45F190。

@@ -1,8 +1,13 @@
 #include "cg/Input.hpp"
+#include "cg/platform/LegacyTime.hpp"
+
+#include "world/WorldUpdateDependencies.hpp"
 
 #include <array>
 #include <bit>
 #include <cctype>
+#include <cstdint>
+#include <cstdio>
 #include <cstring>
 
 namespace cg {
@@ -356,3 +361,95 @@ void InitializeContext_449CF0(
 }
 
 } // namespace cg::input
+
+namespace cg::world::detail {
+
+Record5FB7F8 gRecords5FB7F8[512] {};
+volatile std::int32_t gWriteIndex626C08 = 0;
+char gLogPath62699C[260] {};
+std::FILE* volatile gLogStream626C1C = nullptr;
+volatile std::int32_t gCountC9A944 = 0;
+volatile std::uint32_t gValue626C10 = 0;
+
+static_assert(sizeof(gRecords5FB7F8) == 512 * 0x134);
+
+// 原 sub_4A76E0@[0x4A76E0,0x4A76FD)：先写未封顶值，超过 512 再写封顶值。
+std::int32_t Sub_4A76E0()
+{
+    const std::int32_t increased = gCountC9A944 + 1;
+    gCountC9A944 = increased;
+    if (increased > 512) {
+        gCountC9A944 = 512;
+    }
+    return increased;
+}
+
+// 原 sub_44B050@[0x44B050,0x44B170)。
+void Sub_44B050(
+    const char* const text,
+    const std::int32_t color,
+    const std::int32_t fontType)
+{
+    if (color >= 13) {
+        return;
+    }
+    if (fontType >= 14) {
+        return;
+    }
+
+    std::int32_t index = gWriteIndex626C08;
+    char* const destination = gRecords5FB7F8[index].text;
+    const std::size_t length = std::strlen(text) + 1;
+    const std::size_t wordCount = length / sizeof(std::uint32_t);
+    for (std::size_t word = 0; word < wordCount; ++word) {
+        const std::size_t offset = word * sizeof(std::uint32_t);
+        std::uint32_t copied;
+        std::memcpy(&copied, text + offset, sizeof(copied));
+        std::memcpy(destination + offset, &copied, sizeof(copied));
+    }
+
+    const std::FILE* const gate = gLogStream626C1C;
+    for (std::size_t offset = wordCount * sizeof(std::uint32_t);
+         offset < length; ++offset) {
+        destination[offset] = text[offset];
+    }
+
+    if (gate != nullptr) {
+        std::int32_t timeValue = color;
+        platform::ReadLegacyTime32_53BA26(&timeValue);
+        const platform::LegacyTm53B8C6* const legacyTime =
+            platform::LocalTime_53B8C6(&timeValue);
+        index = gWriteIndex626C08;
+        const auto* const timeBytes =
+            reinterpret_cast<const unsigned char*>(legacyTime);
+        std::int32_t second;
+        std::int32_t minute;
+        std::int32_t hour;
+        std::memcpy(&second, timeBytes, sizeof(second));
+        std::memcpy(&minute, timeBytes + 4, sizeof(minute));
+        std::memcpy(&hour, timeBytes + 8, sizeof(hour));
+
+        std::fprintf(
+            gLogStream626C1C,
+            " %02d:%02d:%02d\x81\x40%s\n",
+            hour, minute, second, gRecords5FB7F8[index].text);
+        std::fclose(gLogStream626C1C);
+        std::FILE* const newStream = std::fopen(gLogPath62699C, "a");
+        index = gWriteIndex626C08;
+        gLogStream626C1C = newStream;
+    }
+
+    Record5FB7F8& record = gRecords5FB7F8[index];
+    record.color = color;
+    record.fontType = fontType;
+    record.state = 0;
+    const std::int32_t nextIndex = index + 1;
+    gWriteIndex626C08 = nextIndex;
+    if (nextIndex >= 512) {
+        gWriteIndex626C08 = 0;
+    }
+    Sub_4A76E0();
+    gValue626C10 = 20;
+}
+
+} // namespace cg::world::detail

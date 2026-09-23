@@ -488,10 +488,42 @@ LegacyTm53B8C6* __cdecl LocalTime_53B8C6(std::int32_t* timeValue)
     return result;
 }
 
-// 原 __loctotime_t@0x541160 的七个 int32 参数；时区转换依赖尚未实现，不回退本机 CRT。
-std::int32_t ConvertLocalTime_541160(
+// 原 __loctotime_t@0x541160：本地七字段换算为原 32 位时间值。
+std::int32_t __cdecl ConvertLocalTime_541160(
     std::int32_t year, std::int32_t month, std::int32_t day,
-    std::int32_t hour, std::int32_t minute, std::int32_t second, std::int32_t daylight);
+    std::int32_t hour, std::int32_t minute, std::int32_t second, std::int32_t daylight)
+{
+    const std::int32_t yearMinus1900 = year - 1900;
+    if (yearMinus1900 < 70 || yearMinus1900 > 138) {
+        return -1;
+    }
+
+    std::int32_t yearDay = kPlainDays_592224[month - 1] + day;
+    if ((yearMinus1900 & 3) == 0 && month > 2) {
+        ++yearDay;
+    }
+
+    TzSet_540B08();
+    LegacyTm53B8C6 candidate;
+    candidate.yearDay0based = yearDay;
+    candidate.yearMinus1900 = yearMinus1900;
+    candidate.hours = hour;
+
+    const std::int32_t epochDay =
+        365 * (yearMinus1900 - 70) + ((yearMinus1900 - 1) >> 2) - 17 + yearDay;
+    std::int32_t result = ((epochDay * 24 + hour) * 60 + minute) * 60;
+    result += gTimezone_58FB78;
+    candidate.month0based = month - 1;
+    result += second;
+
+    if (daylight == 1) {
+        return result + gDstBias_58FB80;
+    }
+    if (daylight == -1 && gDaylight_58FB7C != 0 && IsDst_540D7B(&candidate) != 0) {
+        return result + gDstBias_58FB80;
+    }
+    return result;
+}
 
 std::int32_t ReadLegacyTime32_53BA26(std::int32_t* output)
 {

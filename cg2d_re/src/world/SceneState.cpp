@@ -177,9 +177,66 @@ std::uint32_t gValueC75010 = 0;
 std::uint32_t gValue9EE8A0 = 0;
 std::uint32_t gValue9ED438 = 0;
 
+// 原 0xC35008/0x9DAD2C/0x9FB930/0xC821D4/0x9A86DC；4682E0 的 W32 目标。
+std::uint32_t gValueC35008 = 0;
+std::uint32_t gValue9DAD2C = 0;
+std::uint32_t gValue9FB930 = 0;
+std::uint32_t gValueC821D4 = 0;
+std::uint32_t gValue9A86DC = 0;
+
+// 原 0x9DAD5C/0x9DAD68/0x9DAD58/0x9DAD60/0x9DAD64；46DA80 的 W32 目标。
+std::uint32_t gValue9DAD5C = 0;
+std::uint32_t gValue9DAD68 = 0;
+std::int32_t gValue9DAD58 = 0;
+std::int32_t gValue9DAD60 = 0;
+std::int32_t gValue9DAD64 = 0;
+
 // 原 [0xC35010, 0xC75010)；尾地址的 gValueC75010 是独立标量。
 std::int32_t gValuesC35010[65536] {};
 static_assert(sizeof(gValuesC35010) == 0x40000);
+
+// 原 [0x4682E0, 0x468330)；六次写入后传递四个原参数。
+void __cdecl Sub_4682E0(
+    std::uint32_t a1,
+    std::int32_t a2,
+    std::uint32_t a3,
+    std::uint32_t a4,
+    std::uint32_t a5,
+    std::uint32_t a6,
+    std::uint32_t a7,
+    std::int32_t a8)
+{
+    gValueC35008 = a5;
+    gValue9DAD2C = a6;
+    gValue9FB930 = a3;
+    gValueC821D4 = a4;
+    gValue9A86DC = a1;
+    gMapFloor = a2;
+    Sub_46DA80(a1, a2, a8, a7);
+}
+
+// 原 [0x46DA80, 0x46DAF5)；模式 1 的加载器必须保留调用次序。
+void __cdecl Sub_46DA80(
+    std::uint32_t a1,
+    std::int32_t a2,
+    std::int32_t a3,
+    std::uint32_t a4)
+{
+    audio::Sub_52CD40();
+    gValue9DAD5C = a1;
+    gValue9DAD68 = a4;
+    gValue9DAD58 = a2;
+    if (a4 != 1) {
+        return;
+    }
+
+    const std::int32_t selected = a3 == -1 ? a2 : a3;
+    gValue9DAD60 = selected;
+    gValue9DAD64 = selected;
+    Sub_46DB00(selected);
+    Sub_46DC90(selected);
+    login::detail::Sub_46DD40();
+}
 
 // 原 [0x46A9E0, 0x46A9F4)；依次清三槽并返回完整 32 位零。
 std::int32_t __cdecl Sub_46A9E0()

@@ -18,6 +18,12 @@ LegacyTm53B8C6* __cdecl LocalTime_53B8C6(std::int32_t* timeValue);
 
 } // namespace cg::platform
 
+namespace cg::login::detail {
+
+void Sub_46DD40(); // 原 0x46DD40；复用 YobiRuntime.cpp 的外部定义。
+
+} // namespace cg::login::detail
+
 namespace cg::world::detail {
 
 // 原 [0x5FB7F8, 0x621FF8)：512 项、每项 0x134 字节，保留未明字段。
@@ -58,8 +64,39 @@ extern std::uint32_t gValueC75010;
 extern std::uint32_t gValue9EE8A0;
 extern std::uint32_t gValue9ED438;
 
+// 原 0xC35008/0x9DAD2C/0x9FB930/0xC821D4/0x9A86DC；4682E0 顺序写入。
+extern std::uint32_t gValueC35008;
+extern std::uint32_t gValue9DAD2C;
+extern std::uint32_t gValue9FB930;
+extern std::uint32_t gValueC821D4;
+extern std::uint32_t gValue9A86DC;
+
+// 原 0x9DAD5C/0x9DAD68/0x9DAD58/0x9DAD60/0x9DAD64；46DA80 共享状态。
+extern std::uint32_t gValue9DAD5C;
+extern std::uint32_t gValue9DAD68;
+extern std::int32_t gValue9DAD58;
+extern std::int32_t gValue9DAD60;
+extern std::int32_t gValue9DAD64;
+
 // 原 [0xC35010, 0xC75010)；46CF20 顺序填值，C75010 尾槽另存。
 extern std::int32_t gValuesC35010[65536];
+
+void __cdecl Sub_4682E0(
+    std::uint32_t a1,
+    std::int32_t a2,
+    std::uint32_t a3,
+    std::uint32_t a4,
+    std::uint32_t a5,
+    std::uint32_t a6,
+    std::uint32_t a7,
+    std::int32_t a8); // 原 [0x4682E0,0x468330)，六槽赋值与参数分发。
+void __cdecl Sub_46DA80(
+    std::uint32_t a1,
+    std::int32_t a2,
+    std::int32_t a3,
+    std::uint32_t a4); // 原 [0x46DA80,0x46DAF5)，音频重置与模式分支。
+std::int32_t __cdecl Sub_46DB00(std::int32_t selected); // 原 .cut 加载器，尚未实现。
+std::int32_t __cdecl Sub_46DC90(std::int32_t selected); // 原 .aut 加载器，尚未实现。
 
 void Sub_44B050(const char* text, std::int32_t color, std::int32_t fontType);
 std::int32_t Sub_4A76E0();

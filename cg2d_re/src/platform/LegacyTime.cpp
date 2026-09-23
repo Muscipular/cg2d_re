@@ -36,8 +36,12 @@ static_assert(offsetof(LegacyTm53B8C6, yearDay0based) == 0x1C);
 static_assert(offsetof(LegacyTm53B8C6, dst) == 0x20);
 static_assert(sizeof(LegacyTm53B8C6) == 0x24);
 
-// GetEnv 的原环境依赖尚待还原，保留原调用边界。
-char* __cdecl GetEnv_54518B(const char* name);
+// 按用户裁决使用标准库环境入口，返回由标准库持有的借用指针。
+char* __cdecl GetEnv_54518B(const char* name)
+{
+    return std::getenv(name);
+}
+
 // 以下三入口按用户裁决使用现代标准库。
 std::int32_t __cdecl Atol_53C5BE(const char* text)
 {

@@ -4,11 +4,13 @@
 #include "cg/LegacyAudio.hpp"
 #include "cg/YobiRuntime.hpp"
 #include "cg/network/NetworkRuntime.hpp"
+#include "cg/platform/LegacyCryptInt.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/render/SurfaceState.hpp"
 
 #include <bit>
 #include <cstdint>
+#include <cstring>
 
 namespace cg::network {
 
@@ -33,8 +35,21 @@ volatile std::uint32_t gKeepAliveRecentTick = 0;
 volatile std::uint32_t gValue59E544 = 0;
 volatile std::uint32_t gValue593FD0 = 0;
 
+// 原 W32 0x59E558；0x4041E0 仅更新低 W8。
+std::uint32_t gProtectionPlatformState = 0;
+
 // 原 R32 0x59E55C；使用原生句柄宽度，供未来 0x4041E0/0x4043B0 在本文件共享。
 HMODULE gProtectionModule = nullptr;
+
+LegacyCryptInt gProtectionProcessState{kLegacyCryptIntVftToken};
+std::uint8_t gProtectionBuffer1[0x5000]{};
+std::uint8_t gProtectionBuffer2[0x5000]{};
+OSVERSIONINFOA gProtectionVersionInfo{};
+
+static_assert(sizeof(gProtectionProcessState) == 16);
+static_assert(sizeof(gProtectionBuffer1) == 0x5000);
+static_assert(sizeof(gProtectionBuffer2) == 0x5000);
+static_assert(sizeof(gProtectionVersionInfo) == 0x94);
 
 std::uint32_t RandomSymmetricW32(const std::uint32_t amplitudeBits)
 {
@@ -64,6 +79,40 @@ std::int32_t SignedLowWord(const std::uint32_t valueBits) noexcept
 } // namespace
 
 std::uint32_t gRandomSeed = 1; // 原 0x58F870，共享随机源，不改用本机 CRT 的私有状态。
+
+void InitializeProtection_4041E0(const char* moduleName)
+{
+    if (gProtectionModule == nullptr) {
+        gProtectionModule = LoadLibraryA(moduleName);
+    }
+
+    std::memset(gProtectionBuffer1, 0, sizeof(gProtectionBuffer1));
+    std::memset(gProtectionBuffer2, 0, sizeof(gProtectionBuffer2));
+    std::memset(
+        &gProtectionVersionInfo,
+        0,
+        sizeof(gProtectionVersionInfo));
+    gProtectionVersionInfo.dwOSVersionInfoSize = 0x94;
+    static_cast<void>(GetVersionExA(&gProtectionVersionInfo));
+
+    const DWORD platformId = gProtectionVersionInfo.dwPlatformId;
+    const DWORD majorVersion = gProtectionVersionInfo.dwMajorVersion;
+    const DWORD minorVersion = gProtectionVersionInfo.dwMinorVersion;
+    const std::uint32_t isLegacyWindows =
+        platformId == DWORD{1}
+        && majorVersion <= DWORD{4}
+        && (majorVersion != DWORD{4} || minorVersion == DWORD{0})
+        ? std::uint32_t{1}
+        : std::uint32_t{0};
+    gProtectionPlatformState =
+        (gProtectionPlatformState & 0xFFFFFF00u) | isLegacyWindows;
+
+    const std::uint32_t processIdBits =
+        static_cast<std::uint32_t>(GetCurrentProcessId());
+    legacy_crypt_int::AssignFromInt(
+        &gProtectionProcessState,
+        std::bit_cast<std::int32_t>(processIdBits));
+}
 
 int ReleaseProtection_4042B0()
 {

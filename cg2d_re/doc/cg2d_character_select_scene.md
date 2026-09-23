@@ -255,13 +255,33 @@ token 是一基记录索引，记录不保留源文本指针；队列副本有�
    返回 1。该路径不绘制，且对象为空时仍返回 1。
 4. 非点击路径中，对象为空或 `CryptInt::gte(action+0x170,1)` 不成立均返回
    0。就绪时先调用
-   `DrawText3(int16(x+140),int16(y+20),2,6,"登入認證失敗。",0)`，再调用
+   `DrawText3(int16(x+140),int16(y+20),2,6,kAuthenticationFailedText,0)`，再调用
    `DrawGraphic(x+width/2,y+123,uint8(0xDF),hover?243050:243048,0,descriptor)`，
    最后返回 0。
 
 原字符串的 CP950 字节（含首个 NUL）为
-`B5 6E A4 4A BB 7B C3 D2 A5 A2 B1 D1 A1 43 00`。源码只保存对应 UTF-8
-文本，固定坐标和尺寸不通过 UTF-8 字节数重算。
+`B5 6E A4 4A BB 7B C3 D2 A5 A2 B1 D1 A1 43 00`。原字节来源绑定
+`UpdateAuthenticationFailure_45D7E0`，不另猜字符串的独立 RVA。
+“源码只保存对应 UTF-8 文本”仅描述历史阶段；源码文件仍为 UTF-8，本次 C
+限定恢复 `CharacterAuthenticationFailure.cpp` 的 `kAuthenticationFailedText`
+为上述原 CP950 14 字节正文，仅由字符串字面量唯一的隐式 NUL 终止，
+`sizeof(kAuthenticationFailedText)` 为 15，不额外写入显式 NUL。固定坐标和
+尺寸不通过 UTF-8 字节数重算，不测宽；C 完成状态以主线程后续交接为准。
+
+### R6.1.2.19.D 最小链级合同
+
+- `kAuthenticationFailedText` 是唯一静态源，直接传入 `DrawText3`；调用层与
+  薄桥无中间 buffer 或复制。X/Y 为 S16，分别取 `low16(gX+140)`、
+  `low16(gY+20)`；初始布局 `x=64/y=168/width=512/height=144` 时为
+  `204/188`，不将公式改成固定坐标。`mode/color/value7` 为 S8，值为 `2/6/0`。
+- 实际链路为 `LoginStateDependencies.hpp:41` 薄桥 →
+  `DrawText3_456560` → `DrawText2_456670(font0)`，marker 为 `0xF9`。
+  `render/TextPendingQueue.cpp:86-94` 是 `DrawText3` 转发；继承 `.17/.14`
+  已 PASS 的合同，不当作普通 `DrawText` 的 marker 0 / U8 mode。
+- 既有队列容量为 4096，每条 `text[255]` 独立持有文本，同步复制 15 字节
+  （含 NUL），尾部 240 字节不清零，不保存源指针；token 为 1 基，0 表示空。
+  先写字段和文本，再检查尾 token，失败可能已经写入，不宣称所有失败均无写入。
+  其余既有消费者合同继承，不在本步重审。
 
 ### x64 边界与未决依赖
 
@@ -270,9 +290,11 @@ token 是一基记录索引，记录不保留源文本指针；队列副本有�
 `action+0x170`，也不把指针截入 32 位整数。图形描述复用既有定宽
 `GraphicDescriptor16`，鼠标只读取共享 W32 的低 8 位。
 
-`sub_5044E0`、死亡标记、readiness 与 `DrawText3` 已接入唯一实现；按钮检测、
-声音与图形绘制仍复用真实未定义声明。本模块不提供空体或固定返回桩，也不复用
-`LoginMessage` 的阶段、对象或布局状态。
+历史阶段记录为：`sub_5044E0`、死亡标记、readiness 与 `DrawText3` 已接入唯一
+实现；按钮检测、声音与图形绘制当时仍复用真实未定义声明。该记录不判定其他依赖
+的当前状态，本步不重扫其他依赖，仅记录认证文本与实际薄桥/队列合同，不宣称字形、
+完整认证流程或运行通过。初始化、点击、readiness 与 `DrawGraphic` 顺序不变。
+本模块不提供空体或固定返回桩，也不复用 `LoginMessage` 的阶段、对象或布局状态。
 
 ## 角色删除进度 `sub_45DBF0/sub_45DC00`
 

@@ -7,7 +7,10 @@
 namespace cg::character_select {
 namespace {
 
-constexpr char kAuthenticationFailedText[] = "登入認證失敗。";
+// 原 UpdateAuthenticationFailure_45D7E0 使用的 CP950 字节；常量独立地址未交接。
+constexpr char kAuthenticationFailedText[] =
+    "\xB5\x6E\xA4\x4A\xBB\x7B\xC3\xD2\xA5\xA2\xB1\xD1\xA1\x43";
+static_assert(sizeof(kAuthenticationFailedText) == 15);
 
 // 下列原存储的全部引用都只在 sub_45D7D0/sub_45D7E0 内。
 std::uint16_t gAuthenticationFailureStage = 0; // 原 0x9A6E34，R/W16。

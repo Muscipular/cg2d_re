@@ -730,7 +730,7 @@ W8 `cmp` 后接无符号 `ja` 比较；在 `0x404B2F` 以 W32 读取 `yobiSize`�
 | `top` | `y + 48` | `int32_t` |
 | `width` | `54` | `int32_t` |
 | `height` | `18` | `int32_t` |
-| `text` | UTF-8“返回”的真实地址 | `const char*` |
+| `text` | `kReturnText` 原字节的真实地址 | `const char*` |
 
 原 x86 记录为 `0x1C` 字节；新端前六项仍占偏移 `0x00..0x17`，原生指针
 位于偏移 `0x18`，x64 自然大小为 32 字节，因此不保留 `sizeof==0x1C` 的
@@ -898,7 +898,8 @@ W16 加法回绕而跳过裁剪。
 
 ### 原字符串字节
 
-以下五段原资源均为 Big5 字节，源码只使用对应 UTF-8 文本：
+以下五段原资源均为 Big5 字节；“源码只使用对应 UTF-8 文本”仅描述历史实现。
+R6.1.2.18 已将五常量改为表中原字节；表内 UTF-8 文本只作释义，不作为编码依据：
 
 | 地址 | UTF-8 文本 | 原字节（含首个 NUL） |
 |---|---|---|
@@ -908,10 +909,58 @@ W16 加法回绕而跳过裁剪。
 | `0x55CDC4` | `請在退出此家族之後，` | `BD D0 A6 62 B0 68 A5 58 A6 B9 AE 61 B1 DA A4 A7 AB E1 A1 41 00` |
 | `0x55CDB4` | `再進行刪除。` | `A6 41 B6 69 A6 E6 A7 52 B0 A3 A1 43 00` |
 
+### R6.1.2.18 文字提交合同
+
+[CharacterSelectModal.cpp](../src/CharacterSelectModal.cpp) 中五个 `constexpr char[]`
+是本次五条文本的唯一静态字节源，逐字节沿用上表，不转码、不新增文本所有者。
+含首个 NUL 的长度分别由对应 `sizeof` 断言约束：
+
+| 常量 | 原地址 | 含 NUL 字节数 | `textBuffer[256]` 未覆盖尾部 | 队列 `text[255]` 未覆盖尾部 |
+|---|---|---:|---:|---:|
+| `kReturnText` | `0x55CE04` | 5 | 不经缓冲 | 250 |
+| `kCannotDeleteFamilyLeader` | `0x55CDEC` | 21 | 235 | 234 |
+| `kDisbandFamilyFirst` | `0x55CDDC` | 15 | 241 | 240 |
+| `kLeaveFamilyFirst` | `0x55CDC4` | 21 | 235 | 234 |
+| `kDeleteAfterLeaving` | `0x55CDB4` | 13 | 243 | 242 |
+
+返回按钮记录的 `text` 直接保存 `kReturnText` 原生指针，再传入 `Sub_503A20`，
+不经过中间文本缓冲。该调用实参为 `mode:U8=2`、`color:S8=4`、
+`hoverMode:S32=1`、图号 `U32(gValueD69768)`、hover 层 `U8=214`。
+[CharacterModalButton.cpp](../src/CharacterModalButton.cpp) 中实际提交为
+`DrawText(low16(x-27),low16(y+48),2,0,4,text,0,0)`；坐标低 16 位按 S16 解释，
+不测宽。214 只属于 hover 图形层，不是 font 或 marker。
+
+四条正文按上表顺序共用一份未初始化的 `char textBuffer[256]`，各次 `strcpy`
+仅写入正文及首个 NUL，覆盖及保留字节数见表。未覆盖区可能保留栈未初始化字节
+或前次复制内容，但不属于当前文本，不清尾。每次复制后各调用
+`TextMeasure(textBuffer,0)`，以所得 `width` 计算
+`X=x-192+(384-width)/2`；四次 `Y` 依次为 `y-76`、`y-44`、`y-20`、`y+4`。
+X、Y 均转为 S16，再提交 `DrawText(X,Y,2,0,0,textBuffer,0,0)`，
+不把测宽结果或居中坐标硬编码。
+
+[LoginStateDependencies.hpp](../src/LoginStateDependencies.hpp) 的 `DrawText`
+薄桥逐参数直达 `render::DrawText_456780`：`x/y` 为 S16、`mode` 为 U8，
+`font/color/value7/marker` 为 S8，文本为 `const char*`；不转码、不增加缓冲。
+本次五条提交的 `mode=2`，`font/value7/marker` 全为 0；返回按钮 `color=4`，
+四正文 `color=0`，不走 `DrawText3` 的 `marker=0xF9` 路径。
+
+队列行为继承下文“调用桥与队列”的既有合同，本项不重新核查消费者。
+已有队列容量为 4096 条，每条独立 `text[255]` 在提交时同步复制正文及 NUL，
+本次覆盖字节数依次为 5/21/15/21/13，尾部 250/234/240/234/242 字节保留原值。
+队列不持有源指针；后续栈缓冲覆写不改变已入队副本，副本有效至对应记录被覆写，
+不新增分配或释放。
+
+[TextPendingQueue.cpp](../src/render/TextPendingQueue.cpp) 的既有写入顺序为：
+先检查计数、mode、指针以及前 255 字节内是否有 NUL，再写记录字段及文本，
+随后清本记录 `nextToken`，最后才检查尾 token。token 为一基索引，0 表示空，
+大于 4096 拒绝；`field108` 不改。因此不能声称“提交失败总是不写记录”。
+本项只记录五个原字节输入及其提交合同，不构成源码独立验证或运行结论；
+真实字形呈现尚未验收。
+
 `sub_503990`、`sub_503A20`、`sub_5049A0`、`DrawGraphic_Hover`、底层
 `DrawGraphic`、对象创建、死亡标记及 readiness 适配均已还原；鼠标状态生产者
-与其余文字绘制仍是真实窄依赖。待提交索引排序已还原；实际输入与渲染消费仍留给
-对应目标实现，未以空体或固定返回补齐。
+仍是真实窄依赖，文字提交薄桥与文本队列已有实现，但真实字形呈现尚未验收。
+待提交索引排序已还原；实际输入与渲染消费仍留给对应目标实现，未以空体或固定返回补齐。
 共享槽的另两个消费者已在下节分别还原。
 
 ## 删除确认 UI `sub_45DEE0/sub_45E090/sub_45E0C0`

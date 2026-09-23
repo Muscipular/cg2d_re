@@ -9,11 +9,16 @@
 namespace cg::character_select {
 namespace {
 
-constexpr char kReturnText[] = "返回";
-constexpr char kCannotDeleteFamilyLeader[] = "無法刪除家族負責人。";
-constexpr char kDisbandFamilyFirst[] = "若要解散家族，";
-constexpr char kLeaveFamilyFirst[] = "請在退出此家族之後，";
-constexpr char kDeleteAfterLeaving[] = "再進行刪除。";
+constexpr char kReturnText[] = "\xAA\xF0\xA6\x5E"; // 原地址：0x55CE04
+constexpr char kCannotDeleteFamilyLeader[] = "\xB5\x4C\xAA\x6B\xA7\x52\xB0\xA3\xAE\x61\xB1\xDA\xAD\x74\xB3\x64\xA4\x48\xA1\x43"; // 原地址：0x55CDEC
+constexpr char kDisbandFamilyFirst[] = "\xAD\x59\xAD\x6E\xB8\xD1\xB4\xB2\xAE\x61\xB1\xDA\xA1\x41"; // 原地址：0x55CDDC
+constexpr char kLeaveFamilyFirst[] = "\xBD\xD0\xA6\x62\xB0\x68\xA5\x58\xA6\xB9\xAE\x61\xB1\xDA\xA4\xA7\xAB\xE1\xA1\x41"; // 原地址：0x55CDC4
+constexpr char kDeleteAfterLeaving[] = "\xA6\x41\xB6\x69\xA6\xE6\xA7\x52\xB0\xA3\xA1\x43"; // 原地址：0x55CDB4
+static_assert(sizeof(kReturnText) == 5);
+static_assert(sizeof(kCannotDeleteFamilyLeader) == 21);
+static_assert(sizeof(kDisbandFamilyFirst) == 15);
+static_assert(sizeof(kLeaveFamilyFirst) == 21);
+static_assert(sizeof(kDeleteAfterLeaving) == 13);
 
 } // namespace
 

@@ -9,7 +9,10 @@
 namespace cg::character_select {
 namespace {
 
-constexpr char kCharacterDeletionProgressText[] = "角色刪除中";
+// 原 0x55ABE8：正文 10 字节，含隐式 NUL 共 11 字节。
+constexpr char kCharacterDeletionProgressText[] =
+    "\xA8\xA4\xA6\xE2\xA7\x52\xB0\xA3\xA4\xA4";
+static_assert(sizeof(kCharacterDeletionProgressText) == 11);
 constexpr std::int32_t kLegacyTextBytes = 10;
 constexpr std::int32_t kColumnWidth = 64;
 constexpr std::int32_t kRowHeight = 48;

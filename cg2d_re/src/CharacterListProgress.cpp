@@ -10,7 +10,10 @@
 namespace cg::character_select {
 namespace {
 
-constexpr char kCharacterListProgressText[] = "登入成功，開始計費！";
+// 原 0x55C864：正文 20 字节，含隐式 NUL 共 21 字节。
+constexpr char kCharacterListProgressText[] =
+    "\xB5\x6E\xA4\x4A\xA6\xA8\xA5\x5C\xA1\x41"
+    "\xB6\x7D\xA9\x6C\xAD\x70\xB6\x4F\xA1\x49";
 constexpr std::int32_t kLegacyTextLength = 20;
 constexpr std::int32_t kLegacyGlyphWidth = 8;
 constexpr std::int32_t kColumnWidth = 64;
@@ -27,7 +30,7 @@ std::int32_t gCharacterListProgressRows = 0;
 std::int32_t gCharacterListProgressX = 0;
 std::int32_t gCharacterListProgressY = 0;
 
-static_assert(sizeof(kCharacterListProgressText) == 31);
+static_assert(sizeof(kCharacterListProgressText) == 21);
 static_assert(sizeof(gCharacterListProgressText) == 256);
 
 } // namespace

@@ -198,6 +198,31 @@ namespace detail {
 // 原 0x581800：World::OpenDialog 共用的独立 W32 槽，原始初值 -1。
 std::int32_t gValue581800 = -1;
 
+// 原 455BD0 的 23 个独立 W16/W32 共享槽；仅两个 556C 槽的映像初值为 1。
+std::uint16_t gValue556C14 = 1;
+std::uint16_t gValue62B34E = 0;
+std::uint16_t gValue62B34C = 0;
+std::uint16_t gValue62B318 = 0;
+std::uint32_t gValue62B328 = 0;
+std::uint16_t gValue62B3B0 = 0;
+std::uint16_t gValue556C34 = 1;
+std::uint16_t gValue62B5AA = 0;
+std::uint16_t gValue62B5A8 = 0;
+std::uint32_t gValue62B5B0 = 0;
+std::uint32_t gValue62B308 = 0;
+std::uint32_t gValue62B358 = 0;
+std::uint32_t gValue62B384 = 0;
+std::uint32_t gValue62B310 = 0;
+std::uint32_t gValue62B364 = 0;
+std::uint32_t gValue62B338 = 0;
+std::uint32_t gValue62B36C = 0;
+std::uint32_t gValue62B2F8 = 0;
+std::uint32_t gValue62B324 = 0;
+std::uint32_t gValue62B30C = 0;
+std::uint32_t gValue62B388 = 0;
+std::uint32_t gValue62B3A0 = 0;
+std::uint32_t gValue62B38C = 0;
+
 // 原 0xC82230/0xC82234/0xC82236；供 46A9E0 初始化和后续消费者共享。
 std::uint32_t gValueC82230 = 0;
 std::int16_t gValueC82234 = 0;
@@ -385,6 +410,35 @@ std::int32_t* __cdecl Sub_46CF20()
 void Sub_4D3170()
 {
     gValue581800 = -1;
+}
+
+// 原 [0x455BD0,0x455C56)：按指令顺序写 23 个独立槽，返回完整 EAX32 零。
+std::int32_t Sub_455BD0()
+{
+    gValue556C14 = 1;
+    gValue62B34E = 0;
+    gValue62B34C = 0;
+    gValue62B318 = 0;
+    gValue62B328 = 0;
+    gValue62B3B0 = 1;
+    gValue556C34 = 1;
+    gValue62B5AA = 0;
+    gValue62B5A8 = 0;
+    gValue62B5B0 = 0;
+    gValue62B308 = 0;
+    gValue62B358 = 0;
+    gValue62B384 = 0;
+    gValue62B310 = 0;
+    gValue62B364 = 0;
+    gValue62B338 = 0;
+    gValue62B36C = 0;
+    gValue62B2F8 = 0;
+    gValue62B324 = 0;
+    gValue62B30C = 0;
+    gValue62B388 = 0;
+    gValue62B3A0 = 0;
+    gValue62B38C = 0;
+    return 0;
 }
 
 } // namespace detail

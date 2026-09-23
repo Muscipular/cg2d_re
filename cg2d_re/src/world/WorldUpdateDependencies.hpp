@@ -82,6 +82,31 @@ extern std::int32_t gValue9DAD64;
 // 原 0x581800：4D3170 重置、World::OpenDialog 读写的独立 W32 槽。
 extern std::int32_t gValue581800;
 
+// 原 455BD0 的 23 个独立共享槽；W16/W32 类型仅承载原位模式。
+extern std::uint16_t gValue556C14;
+extern std::uint16_t gValue62B34E;
+extern std::uint16_t gValue62B34C;
+extern std::uint16_t gValue62B318;
+extern std::uint32_t gValue62B328;
+extern std::uint16_t gValue62B3B0;
+extern std::uint16_t gValue556C34;
+extern std::uint16_t gValue62B5AA;
+extern std::uint16_t gValue62B5A8;
+extern std::uint32_t gValue62B5B0;
+extern std::uint32_t gValue62B308;
+extern std::uint32_t gValue62B358;
+extern std::uint32_t gValue62B384;
+extern std::uint32_t gValue62B310;
+extern std::uint32_t gValue62B364;
+extern std::uint32_t gValue62B338;
+extern std::uint32_t gValue62B36C;
+extern std::uint32_t gValue62B2F8;
+extern std::uint32_t gValue62B324;
+extern std::uint32_t gValue62B30C;
+extern std::uint32_t gValue62B388;
+extern std::uint32_t gValue62B3A0;
+extern std::uint32_t gValue62B38C;
+
 // 原 [0x9FB954,0xAEFB94)：.cut 记录 50,000 项，每项仅前 18 字节由文件读取。
 struct CutRecord9FB954 {
     std::int32_t value00;
@@ -180,7 +205,7 @@ RecipeItemData* Sub_5199A0();              // 原 0x5199A0。
 struct YobiAction;
 YobiAction** Sub_446470();                 // 原 0x446470。
 void Sub_4D3170();                         // 原 [0x4D3170,0x4D317B)，重置 0x581800 为 -1。
-std::int32_t Sub_455BD0();                 // 原 0x455BD0。
+std::int32_t Sub_455BD0();                 // 原 [0x455BD0,0x455C56)，顺序重置 23 槽并返回 0。
 std::uint32_t* Sub_46E2A0();               // 原 0x46E2A0。
 std::int32_t Sub_46BD40();                 // 原 0x46BD40。
 std::int32_t Sub_504A30();                 // 原 0x504A30。

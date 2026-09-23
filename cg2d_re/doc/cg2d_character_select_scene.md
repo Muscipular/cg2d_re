@@ -383,8 +383,9 @@ Puk 7   -> sub_512D30(socket, 5, 0x9A5C10)
 ## 原字符串字节
 
 以下 10 段是本函数直接引用的原字符串区域字节，均列到首个 NUL。前八段为
-Big5 文本，最后两段为 ASCII（也是 Big5 兼容子集）；源码使用对应 UTF-8
-文本，不直接嵌入旧编码字节。
+Big5 文本，最后两段为 ASCII（也是 Big5 兼容子集）；首轮重建时源码使用对应
+UTF-8 文本、不直接嵌入旧编码字节，这一实现口径仅属首轮历史。八常量的现行
+约束见文末“R6.1.2.16 主控制器八常量合同”。
 
 | 地址 | UTF-8 文本 | 原字节 |
 |---|---|---|
@@ -984,3 +985,140 @@ W16 加法回绕而跳过裁剪。
 - 版本升级场景控制流和严格相等适配已经还原；渲染/网络等真实目标仍待各自
   实现，六槽图形缓存的其余生产消费关系也不由本函数推定。
 - 本项不运行客户端，不用运行现象替代静态证据。
+
+## R6.1.2.16 主控制器八常量合同
+
+### 范围与字节
+
+本节为 `R6.1.2.16.D` 文档项，复用已获主线程放行的 Bohr READY 分析合同，
+不查询 IDA、不重审消费者。`RPLAN16` 已批准，本项不引入新设计；仅恢复
+[CharacterSelectScene.cpp](../src/CharacterSelectScene.cpp) 的下列八个文本
+输入，源码变更范围限定为常量、原地址注释和八个长度断言，不修改消费者算法。
+其他角色子功能仍使用 UTF-8 的既有描述不变，原十条字节表及末两条 ASCII
+载荷不变。
+
+文件编码仍为 UTF-8；八常量以原字节转义表示为 `constexpr char[]`，具有静态
+存储期。下表字节直接复用前文“原字符串字节”的前八条，不重新取证；末尾
+`00` 表示数组隐式补入的唯一 NUL，字面量不显式追加 NUL。长度断言逐项约束
+含 NUL 的数组大小。
+
+| 常量 | 原地址 | 正文字节数 | 含 NUL 字节数 | 原字节（含唯一 NUL） |
+|---|---|---:|---:|---|
+| `kCharacterDataReadFailed` | `0x55CD68` | 18 | 19 | `A8 A4 A6 E2 B8 EA AE C6 C5 AA A8 FA A5 A2 B1 D1 A1 43 00` |
+| `kServerMaintenance` | `0x55CD4C` | 26 | 27 | `A5 D8 AB 65 A6 F8 AA 41 BE B9 A5 BF A6 62 B0 B1 BE F7 BA FB C5 40 A4 A4 A1 43 00` |
+| `kDeleteQuestion` | `0x55C854` | 14 | 15 | `AF 75 AA BA AD 6E A7 52 B0 A3 B6 DC A1 48 00` |
+| `kDeleteWithControl` | `0x55CD94` | 29 | 30 | `B7 51 AD 6E A7 52 B0 A3 AE C9 A1 41 BD D0 AB F6 B5 DB 20 43 54 52 4C C1 E4 A4 A3 A9 F1 00` |
+| `kClickYesAgain` | `0x55CD7C` | 22 | 23 | `A6 41 C2 49 BF EF A1 79 AC 4F A1 7A A1 43 20 20 20 20 20 20 20 20 00` |
+| `kCannotDeleteCharacter` | `0x55CD38` | 16 | 17 | `B5 4C AA 6B A7 52 B0 A3 A6 B9 A8 A4 A6 E2 A1 43 00` |
+| `kUpdateQuestion` | `0x55CD28` | 14 | 15 | `AD 6E B6 69 A6 E6 A7 F3 B7 73 B6 DC A1 48 00` |
+| `kExpansionOnlyAccount` | `0x55C818` | 58 | 59 | `B3 6F AD D3 B1 62 B8 B9 B6 C8 BE 41 A5 CE A9 F3 B8 EA AE C6 A4 F9 AA A9 A5 BB A1 41 BD D0 B1 4E A5 CE A4 E1 BA DD AA BA AA A9 A5 BB A7 F3 B7 73 A6 DC B8 EA AE C6 A4 F9 A1 43 00` |
+
+`kClickYesAgain` 的零基索引 `14..21` 必须保留八个 `0x20`，索引 22 为
+NUL；`kDeleteWithControl` 中的空格及 ASCII `CTRL` 原样保留，不裁剪、
+归一化或转码。
+
+### 四条通用消息
+
+以下跃迁只重置消息阶段，不清消息对象、结果或布局：
+
+| 常量 | 消费状态 | 重置阶段的跃迁 | 本次栈复制字节数 | 本次栈初始化为零的剩余字节数 |
+|---|---:|---|---:|---:|
+| `kCharacterDataReadFailed` | 5 | `4 → 5` | 19 | 237 |
+| `kServerMaintenance` | 6 | `2 → 6` | 27 | 229 |
+| `kCannotDeleteCharacter` | 16 | `15 → 16` | 17 | 239 |
+| `kExpansionOnlyAccount` | 20 | `19 → 20` | 59 | 197 |
+
+[LoginMessage.cpp](../src/LoginMessage.cpp) 每次建立零初始化的 `char[256]`
+栈副本，按 `strlen(text)+1` 同步复制正文和 NUL。上表剩余区域为本次栈
+初始化得到的零，不是队列记录尾部保留的旧字节。四条输入均无 LF、均非特殊
+token，进入单行分支，不读写 `gValue9A620C[12][256]`。
+
+每次调用同步执行 `TextMeasure(text,0)`；阶段 0 建窗。设测宽结果为 `w`，
+窗口宽度 `W=((w+95)/64)*64`、左边界 `X=(640-W)/2`，均按既有整型除法，
+高度为 96、Y 为 192。字体 0 初始双字节字宽为 17 时，静态推导如下：
+
+| 常量 | `w` | `W` | `X` | 文字 X |
+|---|---:|---:|---:|---:|
+| `kCharacterDataReadFailed` | 153 | 192 | 224 | 243 |
+| `kServerMaintenance` | 221 | 256 | 192 | 209 |
+| `kCannotDeleteCharacter` | 136 | 192 | 224 | 252 |
+| `kExpansionOnlyAccount` | 493 | 576 | 32 | 73 |
+
+对象 ready 且未点击完成时提交
+`DrawText(int16(X+(W-w)/2),222,2,0,0,text,0,0)`。表中数值仅为上述初始
+字体条件下的静态推导，不硬编码到源码，也不代替每次同步测宽。
+
+### 两条确认正文
+
+状态 13 的 `kDeleteQuestion` 经 `0x45E090 → 0x45DEE0` 使用默认
+`192×96` 窗口；状态 18 的 `kUpdateQuestion` 直接调用 `0x45DEE0`，
+窗口为 `384×96`；两条的 `color` 均为 0。
+
+[CharacterDeletionConfirmation.cpp](../src/CharacterDeletionConfirmation.cpp)
+的包装层将 `(x,y,text,color,0,0)` 转交通用实现；正文提交为
+`DrawText(int16(left+(width-TextMeasure(text,0))/2),int16(top+24),2,0,color,text,0,0)`。
+字体 0 初始双字节字宽为 17 时，两条正文测宽均为 119，文字坐标均为
+`(260,216)`；保留测宽与居中公式，不硬编码推导值。
+
+文本直接借用静态常量同步测宽并提交，不经过栈分行缓冲或共享 12 行槽。
+确认框 modal 的唯一槽为 `0x9A6E64`，不与删除提示私有槽 `0x9A6EB0`
+合并。
+
+### 两条固定提示
+
+状态 13 先处理确认框；私有提示窗的 ready 阈值 1 通过后，依次提交
+`DrawText3(166,326,2,4,kDeleteWithControl,0)` 与
+`DrawText3(166,346,2,4,kClickYesAgain,0)`，随后才处理确认返回值与 CTRL
+bit 1。两条提示使用固定坐标，不按文本长度重新计算位置。
+
+### 调用桥与队列
+
+调用桥依次为
+[CharacterSelectSceneDependencies.hpp](../src/CharacterSelectSceneDependencies.hpp) →
+[LoginMessageDependencies.hpp](../src/LoginMessageDependencies.hpp) →
+[LoginStateDependencies.hpp](../src/LoginStateDependencies.hpp)。
+`DrawText` 为薄适配，逐参数转交 `render::DrawText_456780`：
+`x/y` 为 `int16`、`mode` 为 `uint8`、其余数字参数为 `int8`，文本为
+`const char*`；不转码、不重排参数、不截断指针。
+
+四条通用消息和两条确认正文均通过 `DrawText`，`marker/font=0/0`；
+确认正文的 `renderMode=2`、`color/value7=0`。两条固定提示经
+`DrawText3_456560 → DrawText2_456670`，`marker/font=0xF9/0`。
+
+八条输入共用容量 4096 条的文本队列，每条记录含独立 `text[255]`，
+同步复制正文及 NUL；此次复制范围外的记录尾部保留原值：
+
+| 输入 | 覆盖字节数（含 NUL） | `text[255]` 尾部保留字节数 |
+|---|---:|---:|
+| `kCharacterDataReadFailed` | 19 | 236 |
+| `kServerMaintenance` | 27 | 228 |
+| `kCannotDeleteCharacter` | 17 | 238 |
+| `kExpansionOnlyAccount` | 59 | 196 |
+| `kDeleteQuestion`、`kUpdateQuestion` | 各 15 | 各 240 |
+| `kDeleteWithControl` | 30 | 225 |
+| `kClickYesAgain` | 23 | 232 |
+
+独立副本有效至该记录被覆写；队列保存一基记录令牌，不保留源指针，
+不引入新的分配或释放。本记录 `nextToken` 先置 0，`field108` 不改。
+前置计数、模式、指针及长度检查通过后，先写记录字段和文本，再检查尾
+令牌，因此不能概括为“所有提交失败都不写记录”。本项继承既有算法，
+不修改这些顺序、字段或生命周期规则。
+
+证据路径沿用
+[TextPendingQueue.cpp](../src/render/TextPendingQueue.cpp)（合同定位 183、202）、
+[TextPendingQueue.hpp](../include/cg/render/TextPendingQueue.hpp)（合同定位 18）
+与上述 `LoginStateDependencies.hpp`（合同定位 19）；确认正文包装与绘制
+沿用上述 `CharacterDeletionConfirmation.cpp`（合同定位 120、107）。
+旧合同见 [cg2d_login_state_controller.md](cg2d_login_state_controller.md)
+（合同定位 318、333）。这些定位来自已放行合同，链接指向实际文件，不表示
+本项重新审阅或验证了消费者。
+
+### 验收边界
+
+本项仅约束八个输入的原字节恢复，不宣称 Font、Queue、状态机或确认框
+重新验收。最终渲染、命中、音频与网络真实依赖仍缺，不能据此宣称完整
+显示或登录完成。
+
+overflow 与专项回绕不在本项处理范围；正常位宽、掩码和取模保持原样，
+其他异常、ABI 与 owner 约束不获豁免。本节不预记尚未发生的 review 或
+验证 PASS；文档自查不替代源码验证或运行验收。

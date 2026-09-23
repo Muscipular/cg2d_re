@@ -40,15 +40,45 @@ static_assert(sizeof(gDeleteCharacterName) == 132);
 namespace cg::character_select {
 namespace {
 
-constexpr char kCharacterDataReadFailed[] = "角色資料讀取失敗。";
-constexpr char kServerMaintenance[] = "目前伺服器正在停機維護中。";
-constexpr char kDeleteQuestion[] = "真的要刪除嗎？";
-constexpr char kDeleteWithControl[] = "想要刪除時，請按著 CTRL鍵不放";
-constexpr char kClickYesAgain[] = "再點選『是』。        ";
-constexpr char kCannotDeleteCharacter[] = "無法刪除此角色。";
-constexpr char kUpdateQuestion[] = "要進行更新嗎？";
+// 原 0x55CD68: 角色资料读取失败提示。
+constexpr char kCharacterDataReadFailed[] =
+    "\xA8\xA4\xA6\xE2\xB8\xEA\xAE\xC6\xC5\xAA\xA8\xFA\xA5\xA2\xB1\xD1\xA1\x43";
+// 原 0x55CD4C: 服务器维护提示。
+constexpr char kServerMaintenance[] =
+    "\xA5\xD8\xAB\x65\xA6\xF8\xAA\x41\xBE\xB9\xA5\xBF\xA6\x62\xB0\xB1"
+    "\xBE\xF7\xBA\xFB\xC5\x40\xA4\xA4\xA1\x43";
+// 原 0x55C854: 删除角色确认提示。
+constexpr char kDeleteQuestion[] =
+    "\xAF\x75\xAA\xBA\xAD\x6E\xA7\x52\xB0\xA3\xB6\xDC\xA1\x48";
+// 原 0x55CD94: 按住 CTRL 删除角色提示。
+constexpr char kDeleteWithControl[] =
+    "\xB7\x51\xAD\x6E\xA7\x52\xB0\xA3\xAE\xC9\xA1\x41\xBD\xD0\xAB\xF6"
+    "\xB5\xDB\x20\x43\x54\x52\x4C\xC1\xE4\xA4\xA3\xA9\xF1";
+// 原 0x55CD7C: 再次点击“是”的提示，保留八个尾空格。
+constexpr char kClickYesAgain[] =
+    "\xA6\x41\xC2\x49\xBF\xEF\xA1\x79\xAC\x4F\xA1\x7A\xA1\x43"
+    "\x20\x20\x20\x20\x20\x20\x20\x20";
+// 原 0x55CD38: 无法删除角色提示。
+constexpr char kCannotDeleteCharacter[] =
+    "\xB5\x4C\xAA\x6B\xA7\x52\xB0\xA3\xA6\xB9\xA8\xA4\xA6\xE2\xA1\x43";
+// 原 0x55CD28: 更新确认提示。
+constexpr char kUpdateQuestion[] =
+    "\xAD\x6E\xB6\x69\xA6\xE6\xA7\xF3\xB7\x73\xB6\xDC\xA1\x48";
+// 原 0x55C818: 资料片专用账号及客户端更新提示。
 constexpr char kExpansionOnlyAccount[] =
-    "這個帳號僅適用於資料片版本，請將用戶端的版本更新至資料片。";
+    "\xB3\x6F\xAD\xD3\xB1\x62\xB8\xB9\xB6\xC8\xBE\x41\xA5\xCE\xA9\xF3"
+    "\xB8\xEA\xAE\xC6\xA4\xF9\xAA\xA9\xA5\xBB\xA1\x41\xBD\xD0\xB1\x4E"
+    "\xA5\xCE\xA4\xE1\xBA\xDD\xAA\xBA\xAA\xA9\xA5\xBB\xA7\xF3\xB7\x73"
+    "\xA6\xDC\xB8\xEA\xAE\xC6\xA4\xF9\xA1\x43";
+
+static_assert(sizeof(kCharacterDataReadFailed) == 19);
+static_assert(sizeof(kServerMaintenance) == 27);
+static_assert(sizeof(kDeleteQuestion) == 15);
+static_assert(sizeof(kDeleteWithControl) == 30);
+static_assert(sizeof(kClickYesAgain) == 23);
+static_assert(sizeof(kCannotDeleteCharacter) == 17);
+static_assert(sizeof(kUpdateQuestion) == 15);
+static_assert(sizeof(kExpansionOnlyAccount) == 59);
 
 constexpr std::size_t kNameOffset = 0x00;
 constexpr std::size_t kGraphicNoOffset = 0x18;

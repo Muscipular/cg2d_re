@@ -151,4 +151,61 @@ std::int8_t AddBlacklistRecord_401270(const char* const name)
     return 1;
 }
 
+std::int8_t RemoveBlacklistRecord_4012F0(const char* const name)
+{
+    std::size_t i = 0;
+    for (; i < kRecordCount; ++i) {
+        bool equal = true;
+        for (std::size_t byteIndex = 0;; ++byteIndex) {
+            const std::uint8_t byte = gRecords[i].data()[byteIndex];
+            if (byte != static_cast<std::uint8_t>(name[byteIndex])) {
+                equal = false;
+                break;
+            }
+            if (byte == 0) {
+                break;
+            }
+        }
+        if (equal) {
+            break;
+        }
+    }
+
+    if (i >= kRecordCount) {
+        return 0;
+    }
+
+    const std::int32_t oldCursor = gCursor;
+    while (static_cast<std::int32_t>(i) != oldCursor) {
+        // 原记录表尾的下一槽起点是共享路径起点。
+        const std::uint8_t* const source = i + 1 == kRecordCount
+            ? reinterpret_cast<const std::uint8_t*>(gPath.data())
+            : gRecords[i + 1].data();
+        std::size_t byteCount = 0;
+        do {
+            ++byteCount;
+        } while (source[byteCount - 1] != 0);
+
+        std::uint8_t* const destination = gRecords[i].data();
+        for (std::size_t byteIndex = 0; byteIndex < byteCount; ++byteIndex) {
+            destination[byteIndex] = source[byteIndex];
+        }
+
+        ++i;
+        if (i >= kRecordCount) {
+            return 0;
+        }
+    }
+
+    const std::uint32_t cursorBits = std::bit_cast<std::uint32_t>(oldCursor);
+    gCursor = std::bit_cast<std::int32_t>(cursorBits - std::uint32_t {1});
+    std::memset(gRecords[i].data(), 0, kRecordSize);
+
+    const std::int32_t fileId = gCurrentFileId;
+    if (fileId >= 0) {
+        PersistBlacklistFile_4011A0(fileId);
+    }
+    return 1;
+}
+
 } // namespace cg::blacklist

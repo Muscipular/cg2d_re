@@ -38,4 +38,7 @@ std::int32_t GetBlacklistCount_401190();
 // 原 sub_401270@0x401270：向首个空槽插入含 NUL 的记录，非早退路径按当前文件 ID 持久化。
 std::int8_t AddBlacklistRecord_401270(const char* name);
 
+// 原 sub_4012F0@0x4012F0：删除首个同名记录，按旧游标压移，正常完成后仅当文件 ID 非负时调用持久化，忽略其返回值。
+std::int8_t RemoveBlacklistRecord_4012F0(const char* name);
+
 } // namespace cg::blacklist

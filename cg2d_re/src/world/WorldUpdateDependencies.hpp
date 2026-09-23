@@ -207,7 +207,7 @@ YobiAction** Sub_446470();                 // 原 0x446470。
 void Sub_4D3170();                         // 原 [0x4D3170,0x4D317B)，重置 0x581800 为 -1。
 std::int32_t Sub_455BD0();                 // 原 [0x455BD0,0x455C56)，顺序重置 23 槽并返回 0。
 std::uint32_t* Sub_46E2A0();               // 原 0x46E2A0。
-std::int32_t Sub_46BD40();                 // 原 0x46BD40。
+std::int32_t Sub_46BD40();                 // 原 [0x46BD40,0x46BD57)，依次清四个独立 W32 槽并返回 0。
 std::int32_t Sub_504A30();                 // 原 0x504A30。
 std::int32_t Sub_43C8F0();                 // 原 0x43C8F0。
 std::int32_t Sub_504100();                 // 原 0x504100。

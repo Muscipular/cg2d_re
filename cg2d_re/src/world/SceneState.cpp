@@ -223,6 +223,12 @@ std::uint32_t gValue62B388 = 0;
 std::uint32_t gValue62B3A0 = 0;
 std::uint32_t gValue62B38C = 0;
 
+// 原 46BD40 的四个独立 W32 计数槽；仅承载原位模式。
+std::uint32_t gValue9FB934 = 0;
+std::uint32_t gValue9FB928 = 0;
+std::uint32_t gValue9A86C0 = 0;
+std::uint32_t gValue9A7F78 = 0;
+
 // 原 0xC82230/0xC82234/0xC82236；供 46A9E0 初始化和后续消费者共享。
 std::uint32_t gValueC82230 = 0;
 std::int16_t gValueC82234 = 0;
@@ -438,6 +444,16 @@ std::int32_t Sub_455BD0()
     gValue62B388 = 0;
     gValue62B3A0 = 0;
     gValue62B38C = 0;
+    return 0;
+}
+
+// 原 [0x46BD40,0x46BD57)：按指令顺序清四个独立 W32 槽，返回完整 EAX32 零。
+std::int32_t Sub_46BD40()
+{
+    gValue9FB934 = 0;
+    gValue9FB928 = 0;
+    gValue9A86C0 = 0;
+    gValue9A7F78 = 0;
     return 0;
 }
 

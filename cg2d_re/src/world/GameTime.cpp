@@ -2,6 +2,8 @@
 
 #include "cg/platform/LegacyTime.hpp"
 
+#include <bit>
+
 namespace cg::world {
 
 GameTime gCgTime {};
@@ -34,6 +36,25 @@ int UpdateGameTime(GameTime* output)
     const std::uint32_t phase = 192u * (time % 7200u) / 7200u + 168u;
     output->sTick = phase % 192u;
     return static_cast<int>(phase / 192u);
+}
+
+std::int32_t GetCate_458EC0(const GameTime* time)
+{
+    // 保留 hours 的原位模式，后续仅按有符号值判断。
+    const std::int32_t h = std::bit_cast<std::int32_t>(time->hours);
+    if (19 <= h && h < 24) {
+        return 2;
+    }
+    if (0 <= h && h < 4) {
+        return 2;
+    }
+    if (h < 7) {
+        return 3;
+    }
+    if (h >= 16) {
+        return 1;
+    }
+    return 0;
 }
 
 } // namespace cg::world

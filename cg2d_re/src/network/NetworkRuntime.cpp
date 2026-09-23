@@ -82,6 +82,88 @@ NetworkRuntimeState gNetworkRuntimeState {};
 
 namespace detail {
 
+char Sub_4038A0(
+    char* const text,
+    const std::int32_t,
+    const char* const key3,
+    const std::int32_t,
+    const char* const key5)
+{
+    // 0x4038AB..0x40392C：先各扫描一次，再以完整长度复查空密钥。
+    const std::size_t textLength = std::strlen(text);
+    const std::size_t initialKey3Length = std::strlen(key3);
+    const std::size_t initialKey5Length = std::strlen(key5);
+    const bool hasKey3 = std::strlen(key3) != 0U;
+    const bool hasBothKeys = hasKey3 && std::strlen(key5) != 0U;
+    const std::int32_t length3 = hasBothKeys
+        ? static_cast<std::uint16_t>(initialKey3Length) : 1;
+    const std::int32_t length5 = hasBothKeys
+        ? static_cast<std::uint16_t>(initialKey5Length) : 1;
+    const std::int32_t count = static_cast<std::uint16_t>(textLength);
+
+    char lastDirection = 0;
+    for (std::int32_t index = 0; index < count; ++index) {
+        // 0x403948..0x403970：先取 key5，再取 key3；按 S8 扩展后掩码。
+        const std::int32_t key5Byte = std::bit_cast<std::int8_t>(
+            static_cast<std::uint8_t>(key5[(index + 84) % length5]));
+        const std::int32_t b = (key5Byte & 0x0CAB) + index;
+        const std::int32_t key3Byte = std::bit_cast<std::int8_t>(
+            static_cast<std::uint8_t>(key3[(index + 56) % length3]));
+        const std::int32_t a = (key3Byte & 0xBBCC) + index;
+
+        // 0x40398E..0x4039DD：目标表四项，方向区只提供当轮 '+'/'-'。
+        std::int32_t target = 0;
+        switch ((a + b) % 4) {
+        case 0:
+            target = a & b & index;
+            break;
+        case 1:
+            target = (a ^ b) | index;
+            break;
+        case 2:
+            target = a * b + index;
+            break;
+        case 3:
+            target = (a | b) ^ index;
+            break;
+        default:
+            target = (a - b) & index;
+            break;
+        }
+        std::int32_t delta = target & 7;
+        if (delta == 7) {
+            delta = 6;
+        }
+        const char direction = static_cast<char>((a & 2) + 43);
+
+        // 0x4039ED..0x403A37：文本逐字节 S8 读取，按 U32 比较并写回低 W8。
+        std::int32_t value = std::bit_cast<std::int8_t>(
+            static_cast<std::uint8_t>(text[index]));
+        if (direction == '+') {
+            value += delta;
+            const std::uint32_t unsignedValue =
+                static_cast<std::uint32_t>(value);
+            if (unsignedValue > 122U
+                || (unsignedValue > 90U && unsignedValue < 97U)) {
+                value -= 26;
+            }
+        }
+        else {
+            value -= delta;
+            const std::uint32_t unsignedValue =
+                static_cast<std::uint32_t>(value);
+            if (unsignedValue < 65U
+                || (unsignedValue > 90U && unsignedValue < 97U)) {
+                value += 26;
+            }
+        }
+        text[index] = std::bit_cast<char>(
+            static_cast<std::uint8_t>(value));
+        lastDirection = direction;
+    }
+    return lastDirection;
+}
+
 std::int32_t Sub_5176B0(const char* const text)
 {
     const auto* cursor =

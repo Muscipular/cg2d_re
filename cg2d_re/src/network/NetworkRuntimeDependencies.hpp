@@ -4,6 +4,15 @@
 
 namespace cg::network::detail {
 
+// 原 sub_4038A0@0x4038A0：就地变换 text；key3/key5 参与逐轮计算，
+// 第二、四参数未读取；返回末轮方向，零轮返回 0。
+char Sub_4038A0(
+    char* text,
+    std::int32_t,
+    const char* key3,
+    std::int32_t,
+    const char* key5);
+
 // sub_403E50@0x403E50 尚未实现；只保留当前 IDA 的真实回调契约。
 std::int32_t Sub_403E50(
     std::uint32_t value,

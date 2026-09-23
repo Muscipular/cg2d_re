@@ -79,6 +79,9 @@ extern std::int32_t gValue9DAD58;
 extern std::int32_t gValue9DAD60;
 extern std::int32_t gValue9DAD64;
 
+// 原 0x581800：4D3170 重置、World::OpenDialog 读写的独立 W32 槽。
+extern std::int32_t gValue581800;
+
 // 原 [0x9FB954,0xAEFB94)：.cut 记录 50,000 项，每项仅前 18 字节由文件读取。
 struct CutRecord9FB954 {
     std::int32_t value00;
@@ -176,7 +179,7 @@ struct RecipeItemData;
 RecipeItemData* Sub_5199A0();              // 原 0x5199A0。
 struct YobiAction;
 YobiAction** Sub_446470();                 // 原 0x446470。
-void Sub_4D3170();                         // 原 0x4D3170。
+void Sub_4D3170();                         // 原 [0x4D3170,0x4D317B)，重置 0x581800 为 -1。
 std::int32_t Sub_455BD0();                 // 原 0x455BD0。
 std::uint32_t* Sub_46E2A0();               // 原 0x46E2A0。
 std::int32_t Sub_46BD40();                 // 原 0x46BD40。

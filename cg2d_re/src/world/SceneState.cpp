@@ -195,6 +195,9 @@ std::uint32_t CopyWorldProjectionState_468FF0()
 
 namespace detail {
 
+// 原 0x581800：World::OpenDialog 共用的独立 W32 槽，原始初值 -1。
+std::int32_t gValue581800 = -1;
+
 // 原 0xC82230/0xC82234/0xC82236；供 46A9E0 初始化和后续消费者共享。
 std::uint32_t gValueC82230 = 0;
 std::int16_t gValueC82234 = 0;
@@ -376,6 +379,12 @@ std::int32_t* __cdecl Sub_46CF20()
         gValuesC35010[index] = index + 200000;
     }
     return gValuesC35010 + 65536;
+}
+
+// 原 [0x4D3170,0x4D317B)：仅将 0x581800 写为 -1 后返回。
+void Sub_4D3170()
+{
+    gValue581800 = -1;
 }
 
 } // namespace detail

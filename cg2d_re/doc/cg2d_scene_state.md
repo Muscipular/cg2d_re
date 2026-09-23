@@ -408,3 +408,11 @@ X、Y 各发生三次 `Read_401EC0`：旧坐标 helper、新坐标 helper、浮�
 `5199A0/519950/520550/520770` 本体、宽度、次序和局部范围的**取证 READY**；`.180` 整项存储映射 **NEEDS_CLARIFICATION**。既有 `.151` 证实玩家非拥有原指针 `FF02B4` 位于首块 `[FDA700,FF02E0)`，原 `rep stosd` 会清它；既有 `.164` 的 `FDA880` 玩家时间共享归属亦位于首块且未批准。不能因没有单独的指针写指令便视作纯字节布局、用 opaque backing 掩盖 x64 指针清零语义，或预建复制 owner。须先裁决这两项既有 owner 与 x64 存储映射，再放行整项源码；此前“无需新指针 ABI SPEC”的建议已撤回。`.151/.164/.179.4/.161` 的各自门禁均不因此解除。
 
 本节仅追加证据，没有修改源码或进度；不声称 `.180` 已实现、可链接、可运行或独立审查/文件验证通过。未访问 IDA，未编译、测试或运行，也未做 EXE/i64 hash、图谱或外部依赖操作。按用户约束不新增越界、数学溢出等异常处理或专项回绕语义。
+
+## 18. Sub_4D3170 与 0x581800 共享槽
+
+`4D3170@[4D3170,4D317B)` 共 11 字节，原字节 `C7 05 00 18 58 00 FF FF FF FF C3`：`4D3170` 向独立 `W32[581800]` 写入 `FFFFFFFF`（S32 `-1`），`4D317A` 直接 `retn`。没有读取、参数、callee 或分支；不定义 `EAX` 返回值，也不能仅凭 `retn` 判定 `cdecl/stdcall`。原 `.data` 中 `581800` 是独立四字节项，初值 `FFFFFFFF`；相邻 `5817FC/581804` 各属别项，不合并存储。
+
+新端由 [SceneState.cpp](../src/world/SceneState.cpp) 中 `cg::world::detail::gValue581800` 唯一持有，初值 `-1`；`Sub_4D3170()` 只写该槽为 `-1`，其声明及共享槽声明位于私有 [WorldUpdateDependencies.hpp](../src/world/WorldUpdateDependencies.hpp)，不进入公开接口。`WorldUpdate@51C581` 在 `446470` 后、`455BD0` 前调用该叶；`DrawNormalScene@51C82F/51CF93` 另有两处调用，三处 caller 均弃返回值。新端现有 `WorldUpdate` 调用点保持不变，不假接尚未实现的 `DrawNormalScene`。
+
+后续共享消费者包括 `World::OpenDialog@49D2E1/49D330/49D441` 对同一槽的读写，`4D3259` 亦将它重置为 `-1`；本节只约定槽身份，不声称这些函数已接线。`DrawNormalScene`、`OpenDialog` 和父级 case 5 仍未闭合；本节不预记 `.182` 的独立 R/V 通过，也不以该叶完成替代其上层验收。

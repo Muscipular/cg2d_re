@@ -2,6 +2,7 @@
 
 #include "cg/platform/CommandOptions.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
+#include "WorldUpdateDependencies.hpp"
 
 #include <bit>
 
@@ -162,5 +163,23 @@ std::uint32_t CopyWorldProjectionState_468FF0()
     gWorldProjectionSnapshotD = d;
     return d;
 }
+
+namespace detail {
+
+// 原 0xC82230/0xC82234/0xC82236；供 46A9E0 初始化和后续消费者共享。
+std::uint32_t gValueC82230 = 0;
+std::int16_t gValueC82234 = 0;
+std::int16_t gValueC82236 = 0;
+
+// 原 [0x46A9E0, 0x46A9F4)；依次清三槽并返回完整 32 位零。
+std::int32_t __cdecl Sub_46A9E0()
+{
+    gValueC82230 = 0;
+    gValueC82234 = 0;
+    gValueC82236 = 0;
+    return 0;
+}
+
+} // namespace detail
 
 } // namespace cg::world

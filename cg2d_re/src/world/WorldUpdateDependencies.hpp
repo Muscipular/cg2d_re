@@ -47,6 +47,11 @@ extern std::uint32_t gValue626C18;
 extern std::uint32_t gValue626BFC;
 extern char gLogFileName554648[16];
 
+// 原 0xC82230/0xC82234/0xC82236；46A9E0 清零，后续 46AA00/46AB60 共用。
+extern std::uint32_t gValueC82230;
+extern std::int16_t gValueC82234;
+extern std::int16_t gValueC82236;
+
 void Sub_44B050(const char* text, std::int32_t color, std::int32_t fontType);
 std::int32_t Sub_4A76E0();
 
@@ -59,7 +64,7 @@ void Sub_44A410();                         // 原 0x44A410，输入光标闪烁/
 void Sub_4626A0();                         // 原 0x4626A0。
 std::int32_t Sub_45E3D0();                 // 原 0x45E3D0。
 void __cdecl Sub_449DA0();                 // 原 [0x449DA0,0x449F9C)。
-std::int32_t Sub_46A9E0();                 // 原 0x46A9E0。
+std::int32_t __cdecl Sub_46A9E0();         // 原 [0x46A9E0,0x46A9F4)，清三槽、返回 0。
 std::int32_t* Sub_467F30();                // 原 0x467F30。
 struct RecipeItemData;
 RecipeItemData* Sub_5199A0();              // 原 0x5199A0。

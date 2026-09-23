@@ -233,6 +233,9 @@ std::uint32_t gValue9A7F78 = 0;
 std::int32_t gValueD2F788 = 0;
 std::uint16_t gValueFF0C10 = 0;
 
+// 原 0xCAFEA0：504100 清零的独立 W32 状态槽。
+std::uint32_t gValueCAFEA0 = 0;
+
 // 原 0x5ABB70/0x5ABB6C/0x553F90/0x553F84；43C8F0 顺序重置的独立 S32 槽。
 std::int32_t gValue5ABB70 = 0;
 std::int32_t gValue5ABB6C = 0;
@@ -484,6 +487,15 @@ std::int32_t Sub_43C8F0()
     gValue553F90 = -1;
     gValue553F84 = -1;
     return -1;
+}
+
+// 原 [0x504100,0x504113)；依次清 W32/W16/W32 三槽并返回完整 EAX32 零。
+std::int32_t Sub_504100()
+{
+    gValueD2F788 = 0;
+    gValueFF0C10 = 0;
+    gValueCAFEA0 = 0;
+    return 0;
 }
 
 } // namespace detail

@@ -111,6 +111,9 @@ extern std::uint32_t gValue62B38C;
 extern std::int32_t gValueD2F788;
 extern std::uint16_t gValueFF0C10;
 
+// 原 0xCAFEA0：504100 重置的独立 W32 槽。
+extern std::uint32_t gValueCAFEA0;
+
 // 原 0x5ABB70/0x5ABB6C/0x553F90/0x553F84：43C8F0 顺序重置的独立 S32 槽。
 extern std::int32_t gValue5ABB70;
 extern std::int32_t gValue5ABB6C;
@@ -221,7 +224,7 @@ std::int32_t Sub_46BD40();                 // 原 [0x46BD40,0x46BD57)，依次�
 std::int32_t Sub_44A090();                 // 原 [0x44A090,0x44A15B)，读取或创建 chathis.dat。
 std::int32_t Sub_504A30();                 // 原 [0x504A30,0x504A43)，调用 44A090、清两槽并返回 0。
 std::int32_t Sub_43C8F0();                 // 原 [0x43C8F0,0x43C90A)，四槽顺序写入并返回 -1。
-std::int32_t Sub_504100();                 // 原 0x504100。
+std::int32_t Sub_504100();                 // 原 [0x504100,0x504113)，顺序清三槽、返回 0。
 std::int32_t Sub_518C80();                 // 原 0x518C80。
 std::FILE* Sub_518CB0();                   // 原 0x518CB0。
 void Sub_518780();                         // 原 0x518780。

@@ -1487,3 +1487,29 @@ ConvertLocalTime、UTC wrapper 或其他调用者。
 独立文档 review 交固定 Nietzsche；本 D 不代行 review，不预记 PASS，保留返修可能。
 未改源码、进度或额外文件，未执行 git、子代理、IDA、hash、编译、测试、模拟、
 客户端运行、图谱或全仓扫描。进度草稿仅随回复交接，不写进度、不提交。
+
+## R6.1.3.175.C：TZ 三个 CRT 入口的用户指定替代合同（2026-09-23）
+
+用户经侧对话 `01a0cd2d-a92d-7dc2-b668-ff561d8cf747` 应用同步指定：
+“Malloc、Free 、Atol直接用std，告诉主线程”。本 C 仅收到同步，未回读侧对话。
+Euler `.175.A` 为 READY，无接口未决；此处按上述用户裁决实施，不把现代标准库替代
+冒称为原 CRT 行为的全面等价证明。此裁决覆盖此前对这三入口的 heapmode、
+new-handler、ctype、locale 恢复要求；`.170/.173` 对当时状态的记录仍保留原文。
+
+实现仅位于 [LegacyTime.cpp](../src/platform/LegacyTime.cpp) 的 `cg::platform`：
+
+| 原入口与 ABI | 本次定义 |
+| --- | --- |
+| `Atol_53C5BE(const char*) -> std::int32_t` | `static_cast<std::int32_t>(std::atol(text))` |
+| `Malloc_53C3AC(std::uint32_t) -> void*` | `std::malloc(static_cast<std::size_t>(size))` |
+| `Free_53C0A9(void*) -> void` | `std::free(memory)` |
+
+三者保持原外部链接与 `__cdecl`；仅增加已有标准库的 `<cstdlib>`，不设
+`static`、匿名 namespace、`noexcept`、新 helper/owner、公开头接口或保护、
+重试与异常策略，不引入外部依赖。调用点和既有顺序不变：释放旧缓存、
+计算源长度、分配并发布新缓存、原有空指针早退、复制；三次 Atol 调用仍按原
+借用源、游标推进与偏移发布次序执行。原有失败分支保持，未新增溢出处理。
+
+`GetEnv_54518B` 仍仅声明，环境链未闭合；不使用 `std::getenv`，不扩至 Realloc
+等其他入口。此项不计完整时间链、链接或客户端通过。本 C 仅做源码与追加文档
+的静态自查，尚待独立 R、DR、V，可能返修；不预记 PASS，也不写进度或提交。

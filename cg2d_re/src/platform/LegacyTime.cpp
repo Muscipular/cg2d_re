@@ -3,6 +3,7 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <cstdlib>
 #include <cstring>
 
 namespace cg::platform {
@@ -35,11 +36,24 @@ static_assert(offsetof(LegacyTm53B8C6, yearDay0based) == 0x1C);
 static_assert(offsetof(LegacyTm53B8C6, dst) == 0x20);
 static_assert(sizeof(LegacyTm53B8C6) == 0x24);
 
-// 原 CRT 依赖尚待各自还原；声明保留原调用边界，不替换为本机 CRT。
+// GetEnv 的原环境依赖尚待还原，保留原调用边界。
 char* __cdecl GetEnv_54518B(const char* name);
-std::int32_t __cdecl Atol_53C5BE(const char* text);
-void* __cdecl Malloc_53C3AC(std::uint32_t size);
-void __cdecl Free_53C0A9(void* memory);
+// 以下三入口按用户裁决使用现代标准库。
+std::int32_t __cdecl Atol_53C5BE(const char* text)
+{
+    return static_cast<std::int32_t>(std::atol(text));
+}
+
+void* __cdecl Malloc_53C3AC(std::uint32_t size)
+{
+    return std::malloc(static_cast<std::size_t>(size));
+}
+
+void __cdecl Free_53C0A9(void* memory)
+{
+    std::free(memory);
+}
+
 // 原 [0x5450F0,0x545174)：左侧按 1/2/4 字节对齐读取，右侧逐字节比较。
 std::int32_t __cdecl StrCmp_5450F0(const char* left, const char* right)
 {

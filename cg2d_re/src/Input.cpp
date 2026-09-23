@@ -1,15 +1,18 @@
 #include "cg/Input.hpp"
 #include "cg/platform/LegacyTime.hpp"
+#include "cg/platform/Startup.hpp"
 
 #include "world/WorldUpdateDependencies.hpp"
 
 #include <array>
 #include <bit>
 #include <cctype>
+#include <cstddef>
 #include <cstdint>
 #include <cstdio>
 #include <cstring>
 #include <direct.h>
+#include <type_traits>
 
 namespace cg {
 
@@ -376,9 +379,24 @@ std::uint32_t gValue626C18 = 0;
 std::uint32_t gValue626BFC = 0;
 char gLogFileName554648[16] = "chat_000000.txt";
 
+// 原 [0x621FF8,0x62683C)：64 项记录与尾槽一次传输，游标不在文件块内。
+struct ChatHistory621FF8 {
+    char records[64][0x121];
+    std::uint32_t tail626838;
+};
+
+ChatHistory621FF8 gChatHistory621FF8 {};
+std::int32_t gCursor62683C = 0;
+
 static_assert(sizeof(gRecords5FB7F8) == 512 * 0x134);
 static_assert(sizeof(gInputContext626840) == 0x15C);
 static_assert(sizeof(gLogFileName554648) == 16);
+static_assert(std::is_standard_layout_v<ChatHistory621FF8>);
+static_assert(std::is_trivially_copyable_v<ChatHistory621FF8>);
+static_assert(sizeof(gChatHistory621FF8.records[0]) == 0x121);
+static_assert(sizeof(gChatHistory621FF8.records) == 0x4840);
+static_assert(offsetof(ChatHistory621FF8, tail626838) == 0x4840);
+static_assert(sizeof(ChatHistory621FF8) == 0x4844);
 
 namespace {
 
@@ -387,6 +405,9 @@ constexpr char kFileFormat_55351C[] = "chat_%02d%02d%02d.txt";
 constexpr char kPathFormat_553514[] = "%s\\%s";
 constexpr char kReadMode_554908[] = "r";
 constexpr char kAppendMode_554904[] = "a";
+constexpr char kChatHistoryName554910[] = "chathis.dat";
+constexpr char kChatHistoryReadMode[] = "rb";
+constexpr char kChatHistoryWriteMode[] = "wb";
 
 constexpr auto kFirstSeparator_5548CC = [] {
     std::array<char, 56> text {};
@@ -438,10 +459,38 @@ static_assert(sizeof(kFileFormat_55351C) == 22);
 static_assert(sizeof(kPathFormat_553514) == 6);
 static_assert(sizeof(kReadMode_554908) == 2);
 static_assert(sizeof(kAppendMode_554904) == 2);
+static_assert(sizeof(kChatHistoryName554910) == 12);
+static_assert(sizeof(kChatHistoryReadMode) == 3);
+static_assert(sizeof(kChatHistoryWriteMode) == 3);
 static_assert(sizeof(kDateTitle_55488C) == 63);
 static_assert(sizeof(kSessionTime_554820) == 40);
 
 } // namespace
+
+// 原 [0x44A090,0x44A15B)：保留短读已写入的字节及 rb 失败后创建文件的顺序。
+std::int32_t Sub_44A090()
+{
+    gCursor62683C = -1;
+    char path[128];
+    std::sprintf(
+        path, kPathFormat_553514, platform::gDataPath, kChatHistoryName554910);
+
+    std::FILE* const readStream = std::fopen(path, kChatHistoryReadMode);
+    if (readStream != nullptr) {
+        const std::size_t count =
+            std::fread(&gChatHistory621FF8, 0x4844, 1, readStream);
+        std::fclose(readStream);
+        return count == 1 ? 1 : 0;
+    }
+
+    std::FILE* const writeStream = std::fopen(path, kChatHistoryWriteMode);
+    if (writeStream != nullptr) {
+        std::fwrite(&gChatHistory621FF8, 0x4844, 1, writeStream);
+        std::fclose(writeStream);
+    }
+    gCursor62683C = 63;
+    return 0;
+}
 
 // 原 sub_449DA0@[0x449DA0,0x449F9C)：输入记录与聊天日志初始化。
 void __cdecl Sub_449DA0()

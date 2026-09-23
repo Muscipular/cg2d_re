@@ -229,6 +229,10 @@ std::uint32_t gValue9FB928 = 0;
 std::uint32_t gValue9A86C0 = 0;
 std::uint32_t gValue9A7F78 = 0;
 
+// 原 0xD2F788/0xFF0C10：504A30 清零的独立 S32/W16 状态槽。
+std::int32_t gValueD2F788 = 0;
+std::uint16_t gValueFF0C10 = 0;
+
 // 原 0xC82230/0xC82234/0xC82236；供 46A9E0 初始化和后续消费者共享。
 std::uint32_t gValueC82230 = 0;
 std::int16_t gValueC82234 = 0;
@@ -454,6 +458,15 @@ std::int32_t Sub_46BD40()
     gValue9FB928 = 0;
     gValue9A86C0 = 0;
     gValue9A7F78 = 0;
+    return 0;
+}
+
+// 原 [0x504A30,0x504A43)：先加载记录，弃返回，再清两槽并返回完整零。
+std::int32_t Sub_504A30()
+{
+    Sub_44A090();
+    gValueD2F788 = 0;
+    gValueFF0C10 = 0;
     return 0;
 }
 

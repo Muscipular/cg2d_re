@@ -107,6 +107,10 @@ extern std::uint32_t gValue62B388;
 extern std::uint32_t gValue62B3A0;
 extern std::uint32_t gValue62B38C;
 
+// 原 0xD2F788/0xFF0C10：504A30 重置的独立 S32/W16 槽。
+extern std::int32_t gValueD2F788;
+extern std::uint16_t gValueFF0C10;
+
 // 原 [0x9FB954,0xAEFB94)：.cut 记录 50,000 项，每项仅前 18 字节由文件读取。
 struct CutRecord9FB954 {
     std::int32_t value00;
@@ -208,7 +212,8 @@ void Sub_4D3170();                         // 原 [0x4D3170,0x4D317B)，重置 0
 std::int32_t Sub_455BD0();                 // 原 [0x455BD0,0x455C56)，顺序重置 23 槽并返回 0。
 std::uint32_t* Sub_46E2A0();               // 原 0x46E2A0。
 std::int32_t Sub_46BD40();                 // 原 [0x46BD40,0x46BD57)，依次清四个独立 W32 槽并返回 0。
-std::int32_t Sub_504A30();                 // 原 0x504A30。
+std::int32_t Sub_44A090();                 // 原 [0x44A090,0x44A15B)，读取或创建 chathis.dat。
+std::int32_t Sub_504A30();                 // 原 [0x504A30,0x504A43)，调用 44A090、清两槽并返回 0。
 std::int32_t Sub_43C8F0();                 // 原 0x43C8F0。
 std::int32_t Sub_504100();                 // 原 0x504100。
 std::int32_t Sub_518C80();                 // 原 0x518C80。

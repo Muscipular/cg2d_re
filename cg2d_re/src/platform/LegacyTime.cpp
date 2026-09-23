@@ -2,6 +2,7 @@
 #include "StartupNative.hpp"
 
 #include <cstddef>
+#include <cstdint>
 #include <cstring>
 
 namespace cg::platform {
@@ -34,6 +35,16 @@ static_assert(offsetof(LegacyTm53B8C6, yearDay0based) == 0x1C);
 static_assert(offsetof(LegacyTm53B8C6, dst) == 0x20);
 static_assert(sizeof(LegacyTm53B8C6) == 0x24);
 
+// 原 CRT 依赖尚待各自还原；声明保留原调用边界，不替换为本机 CRT。
+char* __cdecl GetEnv_54518B(const char* name);
+std::int32_t __cdecl Atol_53C5BE(const char* text);
+void* __cdecl Malloc_53C3AC(std::uint32_t size);
+void __cdecl Free_53C0A9(void* memory);
+std::int32_t __cdecl StrCmp_5450F0(const char* left, const char* right);
+std::uint32_t __cdecl StrLen_53F9E0(const char* text);
+char* __cdecl StrCpy_544DB0(char* target, const char* source);
+char* __cdecl StrNCpy_53BEC0(char* target, const char* source, std::uint32_t count);
+
 namespace {
 
 // GMT@0x541158 恒返回这一份共享对象；原运行初值不由未加载区字节推断。
@@ -44,6 +55,25 @@ std::int32_t gTimezone_58FB78 = 28800;
 std::int32_t gDaylight_58FB7C = 1;
 std::int32_t gDstBias_58FB80 = -3600;
 
+char gStandardName_58FB84[64] = "PST";
+char gDaylightName_58FBC4[64] = "PDT";
+char* gStandardNamePointer_58FC04 = gStandardName_58FB84;
+char* gDaylightNamePointer_58FC08 = gDaylightName_58FBC4;
+
+struct LegacyDstDate {
+    std::int32_t year;
+    std::int32_t yearDay;
+    std::int32_t milliseconds;
+};
+
+LegacyDstDate gDstStartDate_58FC10 {-1, 0, 0};
+LegacyDstDate gDstEndDate_58FC20 {-1, 0, 0};
+std::int32_t gSystemTzValid_1086068 = 0;
+TIME_ZONE_INFORMATION gTimeZoneInformation_1086070 {};
+char* gTzCache_108611C = nullptr;
+std::int32_t gTzSetCount_1086120 = 0;
+UINT gConversionCodePage_1086170 = 0;
+
 // 原 0x5921F0 与 0x592224（末项 0x592254），供同文件转换入口复用。
 constexpr std::int32_t kLeapDays_5921F0[13] = {
     -1, 30, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334, 365
@@ -51,6 +81,125 @@ constexpr std::int32_t kLeapDays_5921F0[13] = {
 constexpr std::int32_t kPlainDays_592224[13] = {
     -1, 30, 58, 89, 119, 150, 180, 211, 242, 272, 303, 333, 364
 };
+
+// 原 [0x540B1D,0x540D7B)：共享槽按原分支与调用次序逐次发布。
+void RefreshTz_540B1D()
+{
+    gSystemTzValid_1086068 = 0;
+    gDstEndDate_58FC20.year = -1;
+    gDstStartDate_58FC10.year = -1;
+
+    char* tz = GetEnv_54518B("TZ");
+    if (tz == nullptr) {
+        if (GetTimeZoneInformation(&gTimeZoneInformation_1086070) == TIME_ZONE_ID_INVALID) {
+            return;
+        }
+
+        const std::int32_t bias = gTimeZoneInformation_1086070.Bias;
+        const std::int32_t standardBias = gTimeZoneInformation_1086070.StandardBias;
+        const WORD standardMonth = gTimeZoneInformation_1086070.StandardDate.wMonth;
+        gTimezone_58FB78 = bias * 60;
+        gSystemTzValid_1086068 = 1;
+        if (standardMonth != 0) {
+            gTimezone_58FB78 = gTimezone_58FB78 + standardBias * 60;
+        }
+
+        if (gTimeZoneInformation_1086070.DaylightDate.wMonth != 0
+            && gTimeZoneInformation_1086070.DaylightBias != 0) {
+            gDaylight_58FB7C = 1;
+            gDstBias_58FB80 =
+                (gTimeZoneInformation_1086070.DaylightBias - standardBias) * 60;
+        } else {
+            gDaylight_58FB7C = 0;
+            gDstBias_58FB80 = 0;
+        }
+
+        BOOL usedDefault = FALSE;
+        char* standardName = gStandardNamePointer_58FC04;
+        const UINT standardCodePage = gConversionCodePage_1086170;
+        const int standardLength = WideCharToMultiByte(
+            standardCodePage, 0x220, gTimeZoneInformation_1086070.StandardName, -1,
+            standardName, 63, nullptr, &usedDefault);
+        if (standardLength == 0 || usedDefault != FALSE) {
+            gStandardNamePointer_58FC04[0] = '\0';
+        } else {
+            gStandardNamePointer_58FC04[63] = '\0';
+        }
+
+        char* daylightName = gDaylightNamePointer_58FC08;
+        const UINT daylightCodePage = gConversionCodePage_1086170;
+        const int daylightLength = WideCharToMultiByte(
+            daylightCodePage, 0x220, gTimeZoneInformation_1086070.DaylightName, -1,
+            daylightName, 63, nullptr, &usedDefault);
+        if (daylightLength == 0 || usedDefault != FALSE) {
+            gDaylightNamePointer_58FC08[0] = '\0';
+        } else {
+            gDaylightNamePointer_58FC08[63] = '\0';
+        }
+        return;
+    }
+
+    if (*tz == '\0') {
+        return;
+    }
+    if (gTzCache_108611C != nullptr && StrCmp_5450F0(gTzCache_108611C, tz) == 0) {
+        return;
+    }
+
+    Free_53C0A9(gTzCache_108611C);
+    const std::uint32_t length = StrLen_53F9E0(tz);
+    gTzCache_108611C = static_cast<char*>(Malloc_53C3AC(length + 1));
+    if (gTzCache_108611C == nullptr) {
+        return;
+    }
+    StrCpy_544DB0(gTzCache_108611C, tz);
+
+    StrNCpy_53BEC0(gStandardNamePointer_58FC04, tz, 3);
+    gStandardNamePointer_58FC04[3] = '\0';
+    const char* cursor = tz + 3;
+    bool negative = false;
+    if (*cursor == '-') {
+        negative = true;
+        ++cursor;
+    }
+
+    std::int32_t offset = Atol_53C5BE(cursor) * 3600;
+    gTimezone_58FB78 = offset;
+    while (*cursor == '+' || (*cursor >= '0' && *cursor <= '9')) {
+        ++cursor;
+    }
+    if (*cursor == ':') {
+        ++cursor;
+        const std::int32_t minutes = Atol_53C5BE(cursor) * 60;
+        offset = gTimezone_58FB78 + minutes;
+        gTimezone_58FB78 = offset;
+        while (*cursor >= '0' && *cursor <= '9') {
+            ++cursor;
+        }
+        if (*cursor == ':') {
+            ++cursor;
+            const std::int32_t seconds = Atol_53C5BE(cursor);
+            offset = gTimezone_58FB78 + seconds;
+            gTimezone_58FB78 = offset;
+            while (*cursor >= '0' && *cursor <= '9') {
+                ++cursor;
+            }
+        }
+    }
+    if (negative) {
+        offset = -offset;
+        gTimezone_58FB78 = offset;
+    }
+
+    const std::int32_t daylight = static_cast<std::int8_t>(*cursor);
+    gDaylight_58FB7C = daylight;
+    if (daylight != 0) {
+        StrNCpy_53BEC0(gDaylightNamePointer_58FC08, cursor, 3);
+        gDaylightNamePointer_58FC08[3] = '\0';
+    } else {
+        gDaylightNamePointer_58FC08[0] = '\0';
+    }
+}
 
 // 原 [0x541067,0x541160)：负值不写共享对象；正值按原九次写入顺序覆盖。
 LegacyTm53B8C6* GmTime_541067(const std::int32_t* timeValue)
@@ -102,9 +251,17 @@ LegacyTm53B8C6* GmTime_541067(const std::int32_t* timeValue)
 
 } // namespace
 
-// 原 0x540B08 惰性时区入口与 0x540D7B DST 判定尚未实现。
-// 后者读取 +14/+1C/+08/+04/+00，内部先检查共享 daylight；禁用时返回 0。
-void __cdecl TzSet_540B08();
+// 原 0x540B08 惰性时区入口；刷新早退也只增加一次共享计数。
+void __cdecl TzSet_540B08()
+{
+    if (gTzSetCount_1086120 != 0) {
+        return;
+    }
+    RefreshTz_540B1D();
+    ++gTzSetCount_1086120;
+}
+
+// 原 0x540D7B DST 判定尚未实现；内部先检查共享 daylight，禁用时返回 0。
 std::int32_t __cdecl IsDst_540D7B(LegacyTm53B8C6* time);
 
 // 原 [0x53B8C6,0x53BA26)：两端区间保留 GMT 共享对象上的原字段修正次序。

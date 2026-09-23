@@ -13,10 +13,16 @@
 
 namespace {
 
-// 其余登录提示仍沿用当前 UTF-8 历史方案，待按编码 SPEC 逐项处理。
-constexpr char kLoginTimeoutMessage[] = "處理登入逾時。";
-constexpr char kLoginFailureMessage[] = "登入處理失敗，或斷線後，數分鐘內無法登入。";
-constexpr char kLoginProgressText[] = "登入中";
+// 原 0x55C9F8「處理登入逾時。」正文 14 字节；字符串字面量隐式追加唯一 NUL。
+constexpr char kLoginTimeoutMessage[] =
+    "\xB3\x42\xB2\x7A\xB5\x6E\xA4\x4A\xB9\x4F\xAE\xC9\xA1\x43";
+// 原 0x55C9CC「登入處理失敗，或斷線後，數分鐘內無法登入。」正文 42 字节；字符串字面量隐式追加唯一 NUL。
+constexpr char kLoginFailureMessage[] =
+    "\xB5\x6E\xA4\x4A\xB3\x42\xB2\x7A\xA5\xA2\xB1\xD1\xA1\x41"
+    "\xA9\xCE\xC2\x5F\xBD\x75\xAB\xE1\xA1\x41\xBC\xC6\xA4\xC0"
+    "\xC4\xC1\xA4\xBA\xB5\x4C\xAA\x6B\xB5\x6E\xA4\x4A\xA1\x43";
+// 原 0x55BAD8「登入中」正文 6 字节；字符串字面量隐式追加唯一 NUL。
+constexpr char kLoginProgressText[] = "\xB5\x6E\xA4\x4A\xA4\xA4";
 // 原 asc_55C7F0 正文 12 字节；字符串字面量隐式追加 NUL。
 constexpr char kServerConnectingText[] =
     "\xA6\xF8\xAA\x41\xBE\xB9\xB3\x73\xB1\xB5\xA4\xA4";
@@ -48,8 +54,9 @@ constexpr std::int32_t kProgressActionHeight = 96;
 constexpr std::int16_t kProgressTextX = 296;
 constexpr std::int16_t kProgressTextY = 232;
 
-static_assert(sizeof(kLoginTimeoutMessage) == 22);
-static_assert(sizeof(kLoginFailureMessage) == 64);
+static_assert(sizeof(kLoginTimeoutMessage) == 15);
+static_assert(sizeof(kLoginFailureMessage) == 43);
+static_assert(sizeof(kLoginProgressText) == 7);
 static_assert(sizeof(kServerConnectingText) == 13);
 
 } // namespace

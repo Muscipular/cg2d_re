@@ -82,6 +82,62 @@ constexpr std::int32_t kPlainDays_592224[13] = {
     -1, 30, 58, 89, 119, 150, 180, 211, 242, 272, 303, 333, 364
 };
 
+// 原 [0x540F27,0x541067)：计算 DST 边界，分别发布开始或结束缓存。
+std::int32_t __cdecl CvtDate_540F27(
+    std::int32_t start, std::int32_t format, std::int32_t year,
+    std::int32_t month, std::int32_t week, std::int32_t weekDay,
+    std::int32_t day, std::int32_t hour, std::int32_t minute,
+    std::int32_t second, std::int32_t millisecond)
+{
+    const std::int32_t* days = (year & 3) == 0 ? kLeapDays_5921F0 : kPlainDays_592224;
+    std::int32_t yearDay;
+    if (format == 1) {
+        const std::int32_t firstDay = days[month - 1] + 1;
+        const std::int32_t firstWeekDay =
+            (365 * year + ((year - 1) >> 2) + firstDay - 25563) % 7;
+        yearDay = firstDay + 7 * week - firstWeekDay + weekDay;
+        if (firstWeekDay <= weekDay) {
+            yearDay -= 7;
+        }
+        if (week == 5 && yearDay > days[month]) {
+            yearDay -= 7;
+        }
+    } else {
+        yearDay = days[month - 1] + day;
+    }
+
+    if (start == 1) {
+        const std::int32_t startHour = hour;
+        gDstStartDate_58FC10.yearDay = yearDay;
+        const std::int32_t hourMinute = startHour * 60 + minute;
+        gDstStartDate_58FC10.year = year;
+        const std::int32_t milliseconds =
+            ((hourMinute * 60 + second) * 1000) + millisecond;
+        gDstStartDate_58FC10.milliseconds = milliseconds;
+        return milliseconds;
+    }
+
+    const std::int32_t endHour = hour;
+    gDstEndDate_58FC20.yearDay = yearDay;
+    const std::int32_t hourSeconds = (endHour * 60 + minute) * 60;
+    std::int32_t milliseconds =
+        ((hourSeconds + gDstBias_58FB80 + second) * 1000) + millisecond;
+    gDstEndDate_58FC20.milliseconds = milliseconds;
+    if (milliseconds < 0) {
+        milliseconds += 86400000;
+        --yearDay;
+        gDstEndDate_58FC20.milliseconds = milliseconds;
+        gDstEndDate_58FC20.yearDay = yearDay;
+    } else if (milliseconds >= 86400000) {
+        milliseconds -= 86400000;
+        ++yearDay;
+        gDstEndDate_58FC20.milliseconds = milliseconds;
+        gDstEndDate_58FC20.yearDay = yearDay;
+    }
+    gDstEndDate_58FC20.year = year;
+    return milliseconds;
+}
+
 // 原 [0x540B1D,0x540D7B)：共享槽按原分支与调用次序逐次发布。
 void RefreshTz_540B1D()
 {
@@ -261,8 +317,110 @@ void __cdecl TzSet_540B08()
     ++gTzSetCount_1086120;
 }
 
-// 原 0x540D7B DST 判定尚未实现；内部先检查共享 daylight，禁用时返回 0。
-std::int32_t __cdecl IsDst_540D7B(LegacyTm53B8C6* time);
+// 原 [0x540D7B,0x540F27)：双年份缓存命中时直接判定，否则重算两端边界。
+std::int32_t __cdecl IsDst_540D7B(LegacyTm53B8C6* time)
+{
+    if (gDaylight_58FB7C == 0) {
+        return 0;
+    }
+
+    const std::int32_t year = time->yearMinus1900;
+    if (gDstStartDate_58FC10.year != year || gDstEndDate_58FC20.year != year) {
+        if (gSystemTzValid_1086068 != 0) {
+            const std::int32_t startMillisecond =
+                gTimeZoneInformation_1086070.DaylightDate.wMilliseconds;
+            const bool startRelative = gTimeZoneInformation_1086070.DaylightDate.wYear == 0;
+            const std::int32_t startSecond =
+                gTimeZoneInformation_1086070.DaylightDate.wSecond;
+            const std::int32_t startMinute =
+                gTimeZoneInformation_1086070.DaylightDate.wMinute;
+            const std::int32_t startHour =
+                gTimeZoneInformation_1086070.DaylightDate.wHour;
+            if (startRelative) {
+                const std::int32_t startWeekDay =
+                    gTimeZoneInformation_1086070.DaylightDate.wDayOfWeek;
+                const std::int32_t startWeek =
+                    gTimeZoneInformation_1086070.DaylightDate.wDay;
+                const std::int32_t startMonth =
+                    gTimeZoneInformation_1086070.DaylightDate.wMonth;
+                CvtDate_540F27(
+                    1, 1, year, startMonth, startWeek, startWeekDay, 0,
+                    startHour, startMinute, startSecond, startMillisecond);
+            } else {
+                const std::int32_t startDay =
+                    gTimeZoneInformation_1086070.DaylightDate.wDay;
+                const std::int32_t startMonth =
+                    gTimeZoneInformation_1086070.DaylightDate.wMonth;
+                CvtDate_540F27(
+                    1, 0, year, startMonth, 0, 0, startDay,
+                    startHour, startMinute, startSecond, startMillisecond);
+            }
+
+            const std::int32_t endMillisecond =
+                gTimeZoneInformation_1086070.StandardDate.wMilliseconds;
+            const bool endRelative = gTimeZoneInformation_1086070.StandardDate.wYear == 0;
+            const std::int32_t endSecond =
+                gTimeZoneInformation_1086070.StandardDate.wSecond;
+            const std::int32_t endMinute =
+                gTimeZoneInformation_1086070.StandardDate.wMinute;
+            const std::int32_t endHour =
+                gTimeZoneInformation_1086070.StandardDate.wHour;
+            if (endRelative) {
+                const std::int32_t endWeekDay =
+                    gTimeZoneInformation_1086070.StandardDate.wDayOfWeek;
+                const std::int32_t endWeek =
+                    gTimeZoneInformation_1086070.StandardDate.wDay;
+                const std::int32_t endMonth =
+                    gTimeZoneInformation_1086070.StandardDate.wMonth;
+                const std::int32_t endYear = time->yearMinus1900;
+                CvtDate_540F27(
+                    0, 1, endYear, endMonth, endWeek, endWeekDay, 0,
+                    endHour, endMinute, endSecond, endMillisecond);
+            } else {
+                const std::int32_t endDay =
+                    gTimeZoneInformation_1086070.StandardDate.wDay;
+                const std::int32_t endMonth =
+                    gTimeZoneInformation_1086070.StandardDate.wMonth;
+                const std::int32_t endYear = time->yearMinus1900;
+                CvtDate_540F27(
+                    0, 0, endYear, endMonth, 0, 0, endDay,
+                    endHour, endMinute, endSecond, endMillisecond);
+            }
+        } else {
+            CvtDate_540F27(1, 1, year, 4, 1, 0, 0, 2, 0, 0, 0);
+            const std::int32_t endYear = time->yearMinus1900;
+            CvtDate_540F27(0, 1, endYear, 10, 5, 0, 0, 2, 0, 0, 0);
+        }
+    }
+
+    const std::int32_t startDay = gDstStartDate_58FC10.yearDay;
+    const std::int32_t endDay = gDstEndDate_58FC20.yearDay;
+    const std::int32_t yearDay = time->yearDay0based;
+    if (startDay < endDay) {
+        if (yearDay < startDay || yearDay > endDay) {
+            return 0;
+        }
+        if (yearDay > startDay && yearDay < endDay) {
+            return 1;
+        }
+    } else {
+        if (yearDay < endDay || yearDay > startDay) {
+            return 1;
+        }
+        if (yearDay > endDay && yearDay < startDay) {
+            return 0;
+        }
+    }
+
+    const std::int32_t hour = time->hours;
+    const std::int32_t minute = time->minutes;
+    const std::int32_t second = time->seconds;
+    const std::int32_t milliseconds = ((hour * 60 + minute) * 60 + second) * 1000;
+    if (yearDay == startDay) {
+        return milliseconds >= gDstStartDate_58FC10.milliseconds ? 1 : 0;
+    }
+    return milliseconds < gDstEndDate_58FC20.milliseconds ? 1 : 0;
+}
 
 // 原 [0x53B8C6,0x53BA26)：两端区间保留 GMT 共享对象上的原字段修正次序。
 LegacyTm53B8C6* __cdecl LocalTime_53B8C6(std::int32_t* timeValue)

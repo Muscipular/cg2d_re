@@ -12,12 +12,13 @@ constexpr std::size_t kRequestField18Offset = 0x18;
 constexpr std::size_t kRequestField4COffset = 0x4C;
 constexpr std::size_t kRequestField50Offset = 0x50;
 constexpr std::uint32_t kRequestTimeoutMilliseconds = 600000;
-constexpr char kRequestTimeoutMessage[] = "處理登入逾時。";
+// 0x55C9F8 原文：處理登入逾時。
+constexpr char kRequestTimeoutMessage[] = "\xB3\x42\xB2\x7A\xB5\x6E\xA4\x4A\xB9\x4F\xAE\xC9\xA1\x43";
 
 static_assert(kRequestField18Offset + sizeof(std::int32_t) <= cg::login::CharacterRecordSize);
 static_assert(kRequestField4COffset + sizeof(std::int32_t) <= cg::login::CharacterRecordSize);
 static_assert(kRequestField50Offset + sizeof(std::int32_t) <= cg::login::CharacterRecordSize);
-static_assert(sizeof(kRequestTimeoutMessage) == 22);
+static_assert(sizeof(kRequestTimeoutMessage) == 15);
 static_assert(sizeof(kRequestTimeoutMessage) <= cg::login::RequestMessageCapacity);
 
 } // namespace

@@ -39,7 +39,7 @@
 1. `0x508B50` 首先只读一次 `0xD9F2C9` 的低 8 位；为 0 时立即返回 0。
 2. 请求状态 `0xDA3B34` 等于 2 时，`0x508B67` 先将其清零，再以 16 位读取 `0xDA3B2C`：等于 1 时把 `0xDA3B30` 写为 1 并返回 1，否则返回 -2。
 3. 状态不等于 2 时读取当前 32 位 tick，以无符号 32 位减法计算 `now - start`。结果严格大于 600000 才超时；恰好 600000 仍返回 0，减法自然保留 32 位回绕语义。
-4. 超时时原端把 `0x55C9F8` 的旧编码字符串写入 `0xDA34DC` 并返回 -1，不清请求状态。原字节为 `B3 42 B2 7A B5 6E A4 4A B9 4F AE C9 A1 43 00`。新端消息使用 UTF-8 “處理登入逾時。”，有界复制 22 字节（含 NUL）到 1024 字节缓冲，不清空余部。
+4. 超时时原端把 `0x55C9F8` 的旧编码字符串写入 `0xDA34DC` 并返回 -1，不清请求状态。原字节为 `B3 42 B2 7A B5 6E A4 4A B9 4F AE C9 A1 43 00`。修复前新端消息使用 UTF-8 “處理登入逾時。”，有界复制 22 字节（含 NUL）到 1024 字节缓冲，不清空余部；`R6.1.2.13` 恢复原字节后的 15 字节复制合同见文末。
 
 ## 共享存储
 
@@ -280,3 +280,61 @@ const char* data)`。IDA 当前显示的两参数原型遗漏了完全未读取�
 `6F 79 00`，成功文本字节为
 `73 75 63 63 65 73 73 66 75 6C 00`。当前只提供语义 handler，尚未接入现代
 `NetworkLoop` 或 dispatcher。
+
+## 登录请求超时原字节合同（R6.1.2.13）
+
+基线 `f981ad8`；本节为文档任务 `R6.1.2.13.D`，沿用已 `READY` 的分析交接及
+`RPLAN.16` 已批准的[文本编码边界 SPEC](cg2d_text_encoding_spec.md)，无新设计。
+并行源码变更仅限 `LoginRequest.cpp` 的超时常量、注释与长度断言，不改消费者。
+
+### 字节、所有权与覆盖范围
+
+`0x55C9F8` 原文为“處理登入逾時。”，精确字节（含 NUL）为
+`B3 42 B2 7A B5 6E A4 4A B9 4F AE C9 A1 43 00`：正文 14 字节、含 NUL 15 字节。
+[LoginRequest.cpp](../src/LoginRequest.cpp) 的 `kRequestTimeoutMessage` 使用
+`"\xB3\x42\xB2\x7A\xB5\x6E\xA4\x4A\xB9\x4F\xAE\xC9\xA1\x43"`，
+14 个 `\xHH` 后由字符串字面量隐式追加唯一 NUL；长度断言为
+`sizeof(kRequestTimeoutMessage) == 15`，原容量断言保留，不经转码生成或猜定编码名称。
+修复前 UTF-8 表示为正文 21 字节、含 NUL 22 字节，仅作为历史差异。
+
+`gRequestMessage@0xDA34DC` 仍由 `LoginRequest.cpp` 唯一定义，为静态存储期、
+零初始化的 1024 字节数组；[LoginRequest.hpp](../include/cg/LoginRequest.hpp)
+只公开该存储及 `RequestMessageCapacity = 1024`，不建立副本。既有
+`memcpy(..., sizeof(kRequestTimeoutMessage))` 现在只覆盖 `[0,15)`，索引 14 为
+NUL；`[15,1024)` 的 1009 字节保持原值，特别是不再覆盖的索引 15..21 不新增清零。
+
+### 继承的启动与轮询顺序
+
+- `StartLoginRequest()` 先清回复码，发送后再写状态 1、读取并保存起始 tick；
+  不清 `gRequestMessage`。
+- `PollLoginRequest()` 首先检查轮询开关，为 0 立即返回 0；状态为 2 时先清
+  status 再读 reply，回复码为 1 才写 outcome 为 1 并返回 1，否则返回 -2。
+- 非完成路径仍按现有 `uint32_t` elapsed 严格大于 600000 判定超时。超时先复制
+  15 字节再返回 -1，不清 status、reply、startTick 或 outcome。上述顺序及旧算法
+  直接继承，本项不重新审查或改写。
+
+### 请求缓冲与显示缓冲分离
+
+分析交接的 `src/include` 检索只发现 `gRequestMessage` 的定义、声明、断言及
+登录、角色列表、删除请求三个写点，没有读取点。`Sub_512B00`、`Sub_532D80`、
+`Sub_534290` 仍只有依赖声明，不推定未实现处会消费该缓冲。
+
+[LoginState.cpp](../src/LoginState.cpp) 的 `UpdateLoginProgress()` 调用轮询；
+结果非 0 时，对非空进度对象先标死再清指针，随后原样返回，不读取请求消息。
+控制器遇到 -1 先写状态 100，再从本文件独立的 `kLoginTimeoutMessage` 复制到
+`gValue9A5348[256]`；随后 `ResetLoginMessage()`、递增至 101，再把该显示缓冲
+传给 `UpdateLoginMessage()`。这个独立显示常量及其长度断言仍为 UTF-8 含 NUL
+22 字节，不属于本项修复。
+
+沿用[登录消息既有合同](cg2d_login_state_controller.md#L48)与
+[文字队列既有合同](cg2d_text_pending_queue.md#L89)：`ResetLoginMessage()` 只清
+消息状态；消息入口把含 NUL 的输入复制到零初始化的 256 字节分行栈副本，按既有
+测宽与布局公式处理，文字入队时再独立复制。本项请求缓冲未接入这些消费者，
+不据此宣称测宽、窗口、队列或显示已经完成验收，也不重新核对这些算法。
+
+### 保留范围与未验证项
+
+角色列表、删除请求的 UTF-8 超时文本及上文对应记录保持不变，显示侧常量亦未修。
+数值溢出与专项回绕不在本项范围，正常位宽、掩码及取模语义保留，不重写旧数值描述。
+本项未编译、测试或运行；独立 review 与仅格式、链接的文件验证由主线程后续安排，
+不预记通过，不重查 IDA，也不将本文档计为整条计时、网络或显示链通过。

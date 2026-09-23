@@ -40,10 +40,198 @@ char* __cdecl GetEnv_54518B(const char* name);
 std::int32_t __cdecl Atol_53C5BE(const char* text);
 void* __cdecl Malloc_53C3AC(std::uint32_t size);
 void __cdecl Free_53C0A9(void* memory);
-std::int32_t __cdecl StrCmp_5450F0(const char* left, const char* right);
-std::uint32_t __cdecl StrLen_53F9E0(const char* text);
-char* __cdecl StrCpy_544DB0(char* target, const char* source);
-char* __cdecl StrNCpy_53BEC0(char* target, const char* source, std::uint32_t count);
+// 原 [0x5450F0,0x545174)：左侧按 1/2/4 字节对齐读取，右侧逐字节比较。
+std::int32_t __cdecl StrCmp_5450F0(const char* left, const char* right)
+{
+    const auto* lhs = reinterpret_cast<const unsigned char*>(left);
+    const auto* rhs = reinterpret_cast<const unsigned char*>(right);
+    for (;;) {
+        const std::uintptr_t alignment = reinterpret_cast<std::uintptr_t>(lhs) & 3u;
+        const std::uint32_t width = (alignment & 1u) != 0 ? 1u
+            : alignment != 0 ? 2u : 4u;
+        std::uint32_t block = 0;
+        std::memcpy(&block, lhs, width);
+        for (std::uint32_t index = 0; index < width; ++index) {
+            const unsigned char value =
+                static_cast<unsigned char>((block >> (index * 8)) & 0xFFu);
+            const unsigned char other = rhs[index];
+            if (value != other) {
+                return value < other ? -1 : 1;
+            }
+            if (value == 0) {
+                return 0;
+            }
+        }
+        lhs += width;
+        rhs += width;
+    }
+}
+
+// 原 [0x53F9E0,0x53FA5B)：候选块复读后才定位首个 NUL。
+std::uint32_t __cdecl StrLen_53F9E0(const char* text)
+{
+    const auto* start = reinterpret_cast<const unsigned char*>(text);
+    const auto* cursor = start;
+    while ((reinterpret_cast<std::uintptr_t>(cursor) & 3u) != 0) {
+        const unsigned char value = *cursor++;
+        if (value == 0) {
+            return static_cast<std::uint32_t>(cursor - start - 1);
+        }
+    }
+
+    for (;;) {
+        std::uint32_t probe;
+        std::memcpy(&probe, cursor, sizeof(probe));
+        cursor += 4;
+        if (((probe + 0x7EFEFEFFu) ^ ~probe) & 0x81010100u) {
+            std::uint32_t block;
+            std::memcpy(&block, cursor - 4, sizeof(block));
+            for (std::uint32_t index = 0; index < 4; ++index) {
+                if (((block >> (index * 8)) & 0xFFu) == 0) {
+                    return static_cast<std::uint32_t>(cursor - start - 4 + index);
+                }
+            }
+        }
+    }
+}
+
+// 原 0x544DB0 直接进入共享复制主体，不执行 0x544DC0 的入口。
+char* __cdecl StrCpy_544DB0(char* target, const char* source)
+{
+    auto* destination = reinterpret_cast<unsigned char*>(target);
+    const auto* cursor = reinterpret_cast<const unsigned char*>(source);
+    while ((reinterpret_cast<std::uintptr_t>(cursor) & 3u) != 0) {
+        const unsigned char value = *cursor;
+        if (value == 0) {
+            *destination = 0;
+            return target;
+        }
+        *destination++ = value;
+        ++cursor;
+    }
+
+    for (;;) {
+        std::uint32_t probe;
+        std::memcpy(&probe, cursor, sizeof(probe));
+        std::uint32_t block;
+        std::memcpy(&block, cursor, sizeof(block));
+        cursor += 4;
+        if (((probe + 0x7EFEFEFFu) ^ ~probe) & 0x81010100u) {
+            for (std::uint32_t index = 0; index < 4; ++index) {
+                if (((block >> (index * 8)) & 0xFFu) != 0) {
+                    continue;
+                }
+                if (index == 0) {
+                    *destination = 0;
+                } else if (index == 1) {
+                    const std::uint16_t prefix = static_cast<std::uint16_t>(block);
+                    std::memcpy(destination, &prefix, sizeof(prefix));
+                } else if (index == 2) {
+                    const std::uint16_t prefix = static_cast<std::uint16_t>(block);
+                    std::memcpy(destination, &prefix, sizeof(prefix));
+                    char* result = target;
+                    destination[2] = 0;
+                    return result;
+                } else {
+                    std::memcpy(destination, &block, sizeof(block));
+                }
+                return target;
+            }
+        }
+        std::memcpy(destination, &block, sizeof(block));
+        destination += 4;
+    }
+}
+
+// 原 [0x53BEC0,0x53BFBE)：保留源对齐块读取与遇 NUL 后的分段补零。
+char* __cdecl StrNCpy_53BEC0(char* target, const char* source, std::uint32_t count)
+{
+    if (count == 0) {
+        return target;
+    }
+
+    auto* destination = reinterpret_cast<unsigned char*>(target);
+    const auto* cursor = reinterpret_cast<const unsigned char*>(source);
+    std::uint32_t remaining = count;
+    const std::uint32_t zero = 0;
+    while ((reinterpret_cast<std::uintptr_t>(cursor) & 3u) != 0) {
+        const unsigned char value = *cursor++;
+        *destination++ = value;
+        if (--remaining == 0) {
+            return target;
+        }
+        if (value == 0) {
+            while (remaining != 0
+                   && (reinterpret_cast<std::uintptr_t>(destination) & 3u) != 0) {
+                *destination++ = 0;
+                --remaining;
+            }
+            while (remaining >= 4) {
+                std::memcpy(destination, &zero, sizeof(zero));
+                destination += 4;
+                remaining -= 4;
+            }
+            while (remaining != 0) {
+                *destination++ = 0;
+                --remaining;
+            }
+            return target;
+        }
+    }
+
+    while (remaining >= 4) {
+        std::uint32_t probe;
+        std::memcpy(&probe, cursor, sizeof(probe));
+        std::uint32_t block;
+        std::memcpy(&block, cursor, sizeof(block));
+        cursor += 4;
+        if (((probe + 0x7EFEFEFFu) ^ ~probe) & 0x81010100u) {
+            for (std::uint32_t index = 0; index < 4; ++index) {
+                if (((block >> (index * 8)) & 0xFFu) != 0) {
+                    continue;
+                }
+                if (index == 0) {
+                    block = 0;
+                } else if (index == 1) {
+                    block &= 0xFFu;
+                } else if (index == 2) {
+                    block &= 0xFFFFu;
+                }
+                std::memcpy(destination, &block, sizeof(block));
+                destination += 4;
+                remaining -= 4;
+                while (remaining >= 4) {
+                    std::memcpy(destination, &zero, sizeof(zero));
+                    destination += 4;
+                    remaining -= 4;
+                }
+                while (remaining != 0) {
+                    *destination++ = 0;
+                    --remaining;
+                }
+                return target;
+            }
+        }
+        std::memcpy(destination, &block, sizeof(block));
+        destination += 4;
+        remaining -= 4;
+    }
+
+    while (remaining != 0) {
+        const unsigned char value = *cursor++;
+        *destination++ = value;
+        if (value == 0) {
+            --remaining;
+            while (remaining != 0) {
+                *destination++ = 0;
+                --remaining;
+            }
+            return target;
+        }
+        --remaining;
+    }
+    return target;
+}
 
 namespace {
 

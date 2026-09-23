@@ -12,11 +12,12 @@ namespace {
 
 constexpr std::size_t kRegistNumberOffset = 0x4C;
 constexpr std::uint32_t kRequestTimeoutMilliseconds = 600000;
-constexpr char kRequestTimeoutMessage[] = "刪除角色逾時。";
+// 原 sub_508FC0 超时文案“刪除角色逾時。”的原字节，正文 14B，含隐式 NUL 共 15B。
+constexpr char kRequestTimeoutMessage[] = "\xA7\x52\xB0\xA3\xA8\xA4\xA6\xE2\xB9\x4F\xAE\xC9\xA1\x43";
 constexpr char kSuccessfulResult[] = "successful";
 
 static_assert(kRegistNumberOffset + sizeof(std::int32_t) <= cg::login::CharacterRecordSize);
-static_assert(sizeof(kRequestTimeoutMessage) == 22);
+static_assert(sizeof(kRequestTimeoutMessage) == 15);
 static_assert(sizeof(kRequestTimeoutMessage) <= cg::login::RequestMessageCapacity);
 static_assert(sizeof(kSuccessfulResult) == 11);
 

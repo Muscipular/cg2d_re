@@ -177,6 +177,10 @@ std::uint32_t gValueC75010 = 0;
 std::uint32_t gValue9EE8A0 = 0;
 std::uint32_t gValue9ED438 = 0;
 
+// 原 [0xC35010, 0xC75010)；尾地址的 gValueC75010 是独立标量。
+std::int32_t gValuesC35010[65536] {};
+static_assert(sizeof(gValuesC35010) == 0x40000);
+
 // 原 [0x46A9E0, 0x46A9F4)；依次清三槽并返回完整 32 位零。
 std::int32_t __cdecl Sub_46A9E0()
 {
@@ -202,6 +206,18 @@ std::int32_t __cdecl Sub_468F30()
     gWorldProjectionSnapshotC = 0;
     gWorldProjectionSnapshotD = 0;
     return 0;
+}
+
+// 原 [0x46CF20, 0x46CF57)；两段顺序填值，返回原生表一过尾指针。
+std::int32_t* __cdecl Sub_46CF20()
+{
+    for (std::int32_t index = 0; index < 20000; ++index) {
+        gValuesC35010[index] = index;
+    }
+    for (std::int32_t index = 20000; index < 65536; ++index) {
+        gValuesC35010[index] = index + 200000;
+    }
+    return gValuesC35010 + 65536;
 }
 
 } // namespace detail

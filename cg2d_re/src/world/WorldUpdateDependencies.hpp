@@ -58,6 +58,9 @@ extern std::uint32_t gValueC75010;
 extern std::uint32_t gValue9EE8A0;
 extern std::uint32_t gValue9ED438;
 
+// 原 [0xC35010, 0xC75010)；46CF20 顺序填值，C75010 尾槽另存。
+extern std::int32_t gValuesC35010[65536];
+
 void Sub_44B050(const char* text, std::int32_t color, std::int32_t fontType);
 std::int32_t Sub_4A76E0();
 
@@ -73,6 +76,7 @@ void __cdecl Sub_449DA0();                 // 原 [0x449DA0,0x449F9C)。
 std::int32_t __cdecl Sub_46A9E0();         // 原 [0x46A9E0,0x46A9F4)，清三槽、返回 0。
 std::int32_t* Sub_467F30();                // 原 0x467F30。
 std::int32_t __cdecl Sub_468F30();         // 原 [0x468F30,0x468F6F)，按序清十二槽、返回 0。
+std::int32_t* __cdecl Sub_46CF20();        // 原 [0x46CF20,0x46CF57)，填表并返回一过尾指针。
 struct RecipeItemData;
 RecipeItemData* Sub_5199A0();              // 原 0x5199A0。
 struct YobiAction;

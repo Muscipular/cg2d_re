@@ -11,6 +11,7 @@
 #include <bit>
 #include <cstdint>
 #include <cstring>
+#include <tlhelp32.h>
 
 namespace cg::network {
 
@@ -74,6 +75,49 @@ std::int32_t SignedLowWord(const std::uint32_t valueBits) noexcept
     return static_cast<std::int32_t>(
         std::bit_cast<std::int16_t>(
             static_cast<std::uint16_t>(valueBits)));
+}
+
+// 原 0x4042D0：按快照模块所属 PID 选择对应的模块名表。
+[[maybe_unused]] char CheckProcessModules_4042D0(const DWORD processId)
+{
+    MODULEENTRY32A moduleEntry{};
+    const HANDLE snapshot =
+        CreateToolhelp32Snapshot(TH32CS_SNAPMODULE, processId);
+    if (snapshot == INVALID_HANDLE_VALUE) {
+        return 0;
+    }
+
+    char result = 0;
+    moduleEntry.dwSize = static_cast<DWORD>(sizeof(moduleEntry));
+    BOOL hasModule = Module32FirstA(snapshot, &moduleEntry);
+    while (hasModule != FALSE) {
+        const DWORD currentProcessId = static_cast<DWORD>(
+            legacy_crypt_int::Read_401EC0(&gProtectionProcessState));
+        const std::uint8_t* moduleNameTable =
+            moduleEntry.th32ProcessID == currentProcessId
+            ? gProtectionBuffer2
+            : gProtectionBuffer1;
+
+        for (std::size_t index = 0; index < 20; ++index) {
+            const char* moduleName = reinterpret_cast<const char*>(
+                moduleNameTable + index * 0x400);
+            if (moduleName[0] == '\0') {
+                break;
+            }
+            if (_stricmp(moduleEntry.szModule, moduleName) == 0) {
+                result = 1;
+                break;
+            }
+        }
+
+        if (result != 0) {
+            break;
+        }
+        hasModule = Module32NextA(snapshot, &moduleEntry);
+    }
+
+    CloseHandle(snapshot);
+    return result;
 }
 
 } // namespace

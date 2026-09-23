@@ -36,11 +36,17 @@ volatile std::uint32_t gKeepAliveRecentTick = 0;
 volatile std::uint32_t gValue59E544 = 0;
 volatile std::uint32_t gValue593FD0 = 0;
 
+// 原 W32 0x59E564；0x4043B0 独立使用，不能与其他防护计数槽复用。
+volatile std::uint32_t gProtectionCheckCounter = 0;
+
 // 原 W32 0x59E558；0x4041E0 仅更新低 W8。
 std::uint32_t gProtectionPlatformState = 0;
 
 // 原 R32 0x59E55C；使用原生句柄宽度，供未来 0x4041E0/0x4043B0 在本文件共享。
 HMODULE gProtectionModule = nullptr;
+
+using IsDebuggerPresentFunction = BOOL (WINAPI*)();
+IsDebuggerPresentFunction gIsDebuggerPresent = nullptr;
 
 LegacyCryptInt gProtectionProcessState{kLegacyCryptIntVftToken};
 LegacyCryptInt gProtectionChecksum1{kLegacyCryptIntVftToken};
@@ -167,6 +173,27 @@ void UpdateProtectionChecksum(
     return result;
 }
 
+// 原 0x404880：初始化失败后不重试，缓存使用本机函数指针宽度。
+std::int32_t CheckDebugger_404880()
+{
+    auto* const platformStateBytes =
+        reinterpret_cast<std::uint8_t*>(&gProtectionPlatformState);
+    if (platformStateBytes[1] == 0) {
+        platformStateBytes[1] = 1;
+        const HMODULE kernel32 = GetModuleHandleA("KERNEL32");
+        if (kernel32 != nullptr) {
+            gIsDebuggerPresent =
+                reinterpret_cast<IsDebuggerPresentFunction>(
+                    GetProcAddress(kernel32, "IsDebuggerPresent"));
+        }
+    }
+
+    if (gIsDebuggerPresent == nullptr) {
+        return 0;
+    }
+    return gIsDebuggerPresent() != FALSE ? 3 : 0;
+}
+
 } // namespace
 
 std::uint32_t gRandomSeed = 1; // 原 0x58F870，共享随机源，不改用本机 CRT 的私有状态。
@@ -203,6 +230,122 @@ void InitializeProtection_4041E0(const char* moduleName)
     legacy_crypt_int::AssignFromInt(
         &gProtectionProcessState,
         std::bit_cast<std::int32_t>(processIdBits));
+}
+
+std::uint8_t CheckProtection_4043B0(const char* functionName)
+{
+    const std::uint32_t nextCounter =
+        gProtectionCheckCounter + std::uint32_t{1};
+    gProtectionCheckCounter = nextCounter;
+    if (nextCounter < std::uint32_t{1380}) {
+        return 0;
+    }
+    gProtectionCheckCounter = 0;
+
+    constexpr std::uint64_t kFrameThresholdBits = 0x4030AAAAAAAAAAABull;
+    constexpr double kFrameThreshold =
+        std::bit_cast<double>(kFrameThresholdBits);
+    if (network::ReadNetworkRuntimeActive() == 1
+        && (gFrameThreshold != kFrameThreshold
+            || gFrameIncrement < gFrameThreshold)) {
+        static_cast<void>(Report_512CA0(gConnectionSocket, 3));
+        gFrameThreshold = kFrameThreshold;
+        gFrameIncrement = kFrameThreshold;
+    }
+
+    if (gProtectionModule != nullptr) {
+        const FARPROC procedure =
+            GetProcAddress(gProtectionModule, functionName);
+        const auto* const code = reinterpret_cast<const std::uint8_t*>(
+            reinterpret_cast<std::uintptr_t>(procedure));
+        if (code[0] != 0) {
+            for (std::size_t index = 0; index < 10; ++index) {
+                if (code[index] == 0xE9) {
+                    return 1;
+                }
+            }
+        }
+    }
+
+    const HANDLE mutex =
+        OpenMutexA(MUTEX_ALL_ACCESS, FALSE, "XZYDRaEvyPQC");
+    if (mutex == nullptr) {
+        return 1;
+    }
+    CloseHandle(mutex);
+
+    PROCESSENTRY32A processEntry{};
+    std::uint8_t processResult = 0;
+    const HANDLE snapshot =
+        CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+    if (snapshot == INVALID_HANDLE_VALUE) {
+        return 0;
+    }
+
+    processEntry.dwSize = static_cast<DWORD>(sizeof(processEntry));
+    BOOL hasProcess = Process32FirstA(snapshot, &processEntry);
+    while (hasProcess != FALSE) {
+        if (CheckProcessModules_4042D0(processEntry.th32ProcessID) == 1) {
+            processResult = 1;
+            break;
+        }
+        hasProcess = Process32NextA(snapshot, &processEntry);
+    }
+    CloseHandle(snapshot);
+
+    std::int32_t checksum = 0;
+    for (std::size_t slotIndex = 0; slotIndex < 20; ++slotIndex) {
+        const std::uint8_t* const slot =
+            gProtectionBuffer1 + slotIndex * 0x400;
+        if (slot[0] == 0) {
+            break;
+        }
+
+        for (std::size_t byteIndex = 0; byteIndex < 0x400; ++byteIndex) {
+            const std::uint8_t byte = slot[byteIndex];
+            if (byte == 0) {
+                break;
+            }
+            checksum += static_cast<std::int32_t>(
+                std::bit_cast<std::int8_t>(byte));
+        }
+    }
+    if (legacy_crypt_int::Read_401EC0(&gProtectionChecksum1) != checksum) {
+        return 1;
+    }
+
+    checksum = 0;
+    for (std::size_t slotIndex = 0; slotIndex < 20; ++slotIndex) {
+        const std::uint8_t* const slot =
+            gProtectionBuffer2 + slotIndex * 0x400;
+        if (slot[0] == 0) {
+            break;
+        }
+
+        for (std::size_t byteIndex = 0; byteIndex < 0x400; ++byteIndex) {
+            const std::uint8_t byte = slot[byteIndex];
+            if (byte == 0) {
+                break;
+            }
+            checksum += static_cast<std::int32_t>(
+                std::bit_cast<std::int8_t>(byte));
+        }
+    }
+    if (legacy_crypt_int::Read_401EC0(&gProtectionChecksum2) != checksum) {
+        return 1;
+    }
+
+    if (network::ReadNetworkRuntimeActive() == 1) {
+        const std::int32_t debuggerResult = CheckDebugger_404880();
+        if (debuggerResult == 3) {
+            static_cast<void>(Report_512CA0(gConnectionSocket, 2));
+        } else if (debuggerResult == 1) {
+            OutputDebugStringA("Scan Error 2");
+            return processResult;
+        }
+    }
+
+    return processResult;
 }
 
 void ParseProtectionTables_404600(const char* input)

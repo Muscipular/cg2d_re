@@ -24,24 +24,80 @@ constexpr char kWindowName[] = "魔力寶貝";
 constexpr char kVersion[] = "7.1.00";
 constexpr char kPasswordExpiredUrl[] = "http://www.softstar.com.tw/Game/Index.aspx";
 
-constexpr char kNetworkNotReady[] = "NETWORK還沒準備好。";
-constexpr char kCannotConnect[] = "無法連上伺服器。 ";
-constexpr char kServerCrowded[] = "此伺服器很擁擠。";
-constexpr char kVersionError[] = "版本錯誤";
-constexpr char kInsufficientPoints[] = "點數不足";
-constexpr char kAlreadyOnline[] = "此帳號已在線上";
-constexpr char kLoginServerError[] = "登入伺服器發生錯誤";
-constexpr char kStoredTimeExpired[] = "儲值時間已到";
-constexpr char kBillingError[] = "計費方式有問題";
-constexpr char kSuspended[] = "目前停權中";
-constexpr char kUnknownError[] = "未知的錯誤";
-constexpr char kServerBusy[] = "伺服器負荷過重，請稍候再試。";
-constexpr char kWaitBeforeRetry[] = "請休息一下滑鼠，數秒後再嘗試。";
-constexpr char kNoTrialService[] = "此伺服器不提供試玩服務";
-constexpr char kMachineLocked[] = "此電腦沒有權限登入。（行動鎖上鎖）";
-constexpr char kAccountFrozen[] = "此帳號已使用行動鎖凍結。";
-constexpr char kCannotConnectUpdate[] = "無法連上更新伺服器";
-constexpr char kRestartForVersion[] = "版本錯誤，請重新啟動魔力寶貝。";
+// 原 0x55C7C4「NETWORK還沒準備好。」正文 19 字节；字符串字面量隐式追加 NUL。
+constexpr char kNetworkNotReady[] =
+    "\x4E\x45\x54\x57\x4F\x52\x4B\xC1\xD9\xA8\x53\xB7\xC7\xB3\xC6\xA6\x6E\xA1\x43";
+// 原 0x55C62C「無法連上伺服器。 」正文 17 字节；字符串字面量隐式追加 NUL。
+constexpr char kCannotConnect[] =
+    "\xB5\x4C\xAA\x6B\xB3\x73\xA4\x57\xA6\xF8\xAA\x41\xBE\xB9\xA1\x43\x20";
+// 原 0x55CAD0「此伺服器很擁擠。」正文 16 字节；字符串字面量隐式追加 NUL。
+constexpr char kServerCrowded[] =
+    "\xA6\xB9\xA6\xF8\xAA\x41\xBE\xB9\xAB\xDC\xBE\xD6\xC0\xBD\xA1\x43";
+// 原 0x55C7B8「版本錯誤」正文 8 字节；字符串字面量隐式追加 NUL。
+constexpr char kVersionError[] =
+    "\xAA\xA9\xA5\xBB\xBF\xF9\xBB\x7E";
+// 原 0x55C6F4「點數不足」正文 8 字节；字符串字面量隐式追加 NUL。
+constexpr char kInsufficientPoints[] =
+    "\xC2\x49\xBC\xC6\xA4\xA3\xA8\xAC";
+// 原 0x55C6E4「此帳號已在線上」正文 14 字节；字符串字面量隐式追加 NUL。
+constexpr char kAlreadyOnline[] =
+    "\xA6\xB9\xB1\x62\xB8\xB9\xA4\x77\xA6\x62\xBD\x75\xA4\x57";
+// 原 0x55C6D0「登入伺服器發生錯誤」正文 18 字节；字符串字面量隐式追加 NUL。
+constexpr char kLoginServerError[] =
+    "\xB5\x6E\xA4\x4A\xA6\xF8\xAA\x41\xBE\xB9\xB5\x6F\xA5\xCD\xBF\xF9\xBB\x7E";
+// 原 0x55C6C0「儲值時間已到」正文 12 字节；字符串字面量隐式追加 NUL。
+constexpr char kStoredTimeExpired[] =
+    "\xC0\x78\xAD\xC8\xAE\xC9\xB6\xA1\xA4\x77\xA8\xEC";
+// 原 0x55C6B0「計費方式有問題」正文 14 字节；字符串字面量隐式追加 NUL。
+constexpr char kBillingError[] =
+    "\xAD\x70\xB6\x4F\xA4\xE8\xA6\xA1\xA6\xB3\xB0\xDD\xC3\x44";
+// 原 0x55C6A4「目前停權中」正文 10 字节；字符串字面量隐式追加 NUL。
+constexpr char kSuspended[] =
+    "\xA5\xD8\xAB\x65\xB0\xB1\xC5\x76\xA4\xA4";
+// 原 0x55C698「未知的錯誤」正文 10 字节；字符串字面量隐式追加 NUL。
+constexpr char kUnknownError[] =
+    "\xA5\xBC\xAA\xBE\xAA\xBA\xBF\xF9\xBB\x7E";
+// 原 0x55C678「伺服器負荷過重，請稍候再試。」正文 28 字节；字符串字面量隐式追加 NUL。
+constexpr char kServerBusy[] =
+    "\xA6\xF8\xAA\x41\xBE\xB9\xAD\x74\xB2\xFC\xB9\x4C\xAD\xAB\xA1\x41\xBD\xD0\xB5\x79\xAD\xD4\xA6\x41\xB8\xD5\xA1\x43";
+// 原 0x55C658「請休息一下滑鼠，數秒後再嘗試。」正文 30 字节；字符串字面量隐式追加 NUL。
+constexpr char kWaitBeforeRetry[] =
+    "\xBD\xD0\xA5\xF0\xAE\xA7\xA4\x40\xA4\x55\xB7\xC6\xB9\xAB\xA1\x41\xBC\xC6\xAC\xED\xAB\xE1\xA6\x41\xB9\xC1\xB8\xD5\xA1\x43";
+// 原 0x55C640「此伺服器不提供試玩服務」正文 22 字节；字符串字面量隐式追加 NUL。
+constexpr char kNoTrialService[] =
+    "\xA6\xB9\xA6\xF8\xAA\x41\xBE\xB9\xA4\xA3\xB4\xA3\xA8\xD1\xB8\xD5\xAA\xB1\xAA\x41\xB0\xC8";
+// 原 0x55CC00「此電腦沒有權限登入。（行動鎖上鎖）」正文 34 字节；字符串字面量隐式追加 NUL。
+constexpr char kMachineLocked[] =
+    "\xA6\xB9\xB9\x71\xB8\xA3\xA8\x53\xA6\xB3\xC5\x76\xAD\xAD\xB5\x6E\xA4\x4A\xA1\x43\xA1\x5D\xA6\xE6\xB0\xCA\xC2\xEA\xA4\x57\xC2\xEA\xA1\x5E";
+// 原 0x55CB70「此帳號已使用行動鎖凍結。」正文 24 字节；字符串字面量隐式追加 NUL。
+constexpr char kAccountFrozen[] =
+    "\xA6\xB9\xB1\x62\xB8\xB9\xA4\x77\xA8\xCF\xA5\xCE\xA6\xE6\xB0\xCA\xC2\xEA\xAD\xE1\xB5\xB2\xA1\x43";
+// 原 0x55C618「無法連上更新伺服器」正文 18 字节；字符串字面量隐式追加 NUL。
+constexpr char kCannotConnectUpdate[] =
+    "\xB5\x4C\xAA\x6B\xB3\x73\xA4\x57\xA7\xF3\xB7\x73\xA6\xF8\xAA\x41\xBE\xB9";
+// 原 0x55C5F8「版本錯誤，請重新啟動魔力寶貝。」正文 30 字节；字符串字面量隐式追加 NUL。
+constexpr char kRestartForVersion[] =
+    "\xAA\xA9\xA5\xBB\xBF\xF9\xBB\x7E\xA1\x41\xBD\xD0\xAD\xAB\xB7\x73\xB1\xD2\xB0\xCA\xC5\x5D\xA4\x4F\xC4\x5F\xA8\xA9\xA1\x43";
+
+static_assert(sizeof(kNetworkNotReady) == 20);
+static_assert(sizeof(kCannotConnect) == 18);
+static_assert(sizeof(kServerCrowded) == 17);
+static_assert(sizeof(kVersionError) == 9);
+static_assert(sizeof(kInsufficientPoints) == 9);
+static_assert(sizeof(kAlreadyOnline) == 15);
+static_assert(sizeof(kLoginServerError) == 19);
+static_assert(sizeof(kStoredTimeExpired) == 13);
+static_assert(sizeof(kBillingError) == 15);
+static_assert(sizeof(kSuspended) == 11);
+static_assert(sizeof(kUnknownError) == 11);
+static_assert(sizeof(kServerBusy) == 29);
+static_assert(sizeof(kWaitBeforeRetry) == 31);
+static_assert(sizeof(kNoTrialService) == 23);
+static_assert(sizeof(kMachineLocked) == 35);
+static_assert(sizeof(kAccountFrozen) == 25);
+static_assert(sizeof(kCannotConnectUpdate) == 19);
+static_assert(sizeof(kRestartForVersion) == 31);
+
 constexpr char kMultiline[] = "Multiline";
 constexpr char kMultilineNew[] = "Multiline_New";
 

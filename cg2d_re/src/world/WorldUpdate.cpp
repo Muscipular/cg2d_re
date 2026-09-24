@@ -215,8 +215,8 @@ std::int32_t Sub_51FDE0(
     case 15: return Sub_51E0D0(7, value, payloadBits);
     case 16: return Sub_51D790(8, value, payloadBits);
     case 17: return Sub_51E0D0(8, value, payloadBits);
-    case 18: return Sub_51EC10(0, value, 0);
-    case 19: return Sub_51EC10(1, value, 0);
+    case 18: return Sub_51EC10(0, value);
+    case 19: return Sub_51EC10(1, value);
     case 20: return Sub_51EF80(0, value, 0);
     case 21: return Sub_51EF80(1, value, 0);
     case 22: return Sub_51EF80(2, value, payloadBits);
@@ -227,18 +227,18 @@ std::int32_t Sub_51FDE0(
             std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(value));
         const std::int32_t selected = signedLow != 0
             ? signedLow : (selector == 24 ? -1 : 1);
-        return Sub_51F610(selected, 0, 0);
+        return Sub_51F610(selected);
     }
     case 26:
-    case 28: return Sub_51F860(-1, value, 0);
+    case 28: return Sub_51F860(-1, value);
     case 27:
-    case 33: return Sub_51F860(1, value, 0);
+    case 33: return Sub_51F860(1, value);
     case 29:
-    case 31: return Sub_51FA70(1, value, 0);
+    case 31: return Sub_51FA70(1, value);
     case 30:
-    case 32: return Sub_51FA70(-1, value, 0);
-    case 34: return Sub_51FC90(0, value, 0);
-    case 35: return Sub_51FC90(1, value, 0);
+    case 32: return Sub_51FA70(-1, value);
+    case 34: return Sub_51FC90(0, value);
+    case 35: return Sub_51FC90(1, value);
     default: return 1;
     }
 }

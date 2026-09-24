@@ -241,23 +241,18 @@ void DrawBattleScene_43CBB0();             // 原 World::DrawBattleScene@0x43CBB
 // 原 0x51FDE0；第三槽保持原 32 位载荷，浮点目标自行解释位模式。
 std::int32_t Sub_51FDE0(
     std::int32_t selector, std::int32_t value, std::uint32_t payloadBits);
-// 51FDE0 的八个直接目标；原调用均压入三个 W32 槽，浮点解释留给目标本体。
+// 51FDE0 原调用均压入三个 W32 槽；新端声明只保留目标实际读取的逻辑参数。
 std::int32_t Sub_51D790(
     std::int32_t index, std::int32_t value, std::uint32_t payloadBits);
 std::int32_t Sub_51E0D0(
     std::int32_t index, std::int32_t value, std::uint32_t payloadBits);
-std::int32_t Sub_51EC10(
-    std::int32_t index, std::int32_t value, std::uint32_t payloadBits);
+std::int32_t Sub_51EC10(std::int32_t index, std::int32_t value);
 std::int32_t Sub_51EF80(
     std::int32_t index, std::int32_t value, std::uint32_t payloadBits);
-std::int32_t Sub_51F610(
-    std::int32_t value, std::int32_t unused, std::uint32_t unusedBits);
-std::int32_t Sub_51F860(
-    std::int32_t index, std::int32_t value, std::uint32_t payloadBits);
-std::int32_t Sub_51FA70(
-    std::int32_t index, std::int32_t value, std::uint32_t payloadBits);
-std::int32_t Sub_51FC90(
-    std::int32_t index, std::int32_t value, std::uint32_t payloadBits);
+std::int32_t Sub_51F610(std::int32_t value);
+std::int32_t Sub_51F860(std::int32_t index, std::int32_t value);
+std::int32_t Sub_51FA70(std::int32_t index, std::int32_t value);
+std::int32_t Sub_51FC90(std::int32_t index, std::int32_t value);
 std::int32_t Sub_455C90();                 // 原 0x455C90，返回值按任意非零判断。
 
 // 原 dword_D460C8@0xD460C8；只保留地址身份和 W32 宽度。

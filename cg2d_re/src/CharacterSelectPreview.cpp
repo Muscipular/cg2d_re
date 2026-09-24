@@ -251,6 +251,36 @@ std::int32_t Sub_51BFF0(const std::int32_t imageNo)
     return imageNo;
 }
 
+std::int32_t* Sub_4C56E0(
+    const std::int32_t imageNo,
+    std::int32_t* const outBase,
+    std::int32_t* const outClass,
+    std::int32_t* const outQuarter,
+    std::int32_t* const outFifth,
+    std::int32_t* const outOnes)
+{
+    const std::int32_t imageClass = Sub_51BA10(imageNo);
+    *outClass = 0;
+    if (imageClass >= 1) {
+        *outClass = 1;
+    }
+    if (imageClass >= 4) {
+        *outClass = 2;
+    }
+
+    const std::int32_t converted = Sub_51BFF0(Sub_51BB80(imageNo));
+    const std::int32_t ones = converted % 5;
+    *outOnes = ones;
+    const std::int32_t withoutOnes = converted - ones;
+    const std::int32_t fifth = (withoutOnes / 5) % 5;
+    *outFifth = fifth;
+    const std::int32_t withoutFifth = withoutOnes - 5 * fifth;
+    const std::int32_t quarter = (withoutFifth / 25) % 4;
+    *outQuarter = quarter;
+    *outBase = withoutFifth - 25 * quarter;
+    return outBase;
+}
+
 } // namespace detail
 
 void ProcessCharacterPreview_460D00(std::uint32_t slot)

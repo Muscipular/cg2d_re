@@ -927,6 +927,17 @@ std::uint32_t Sub_520640()
     return result;
 }
 
+// 原 sub_5206F0@[0x5206F0,0x5206FB)：保存单字节状态并返回 AL。
+std::uint8_t Sub_5206F0()
+{
+    const std::uint8_t value =
+        static_cast<std::uint8_t>(cg::platform::gValueD67CD0);
+    auto* const currentBytes =
+        reinterpret_cast<std::uint8_t*>(&gCurrentSavedRecord);
+    currentBytes[0x313] = value;
+    return value;
+}
+
 std::int32_t Sub_520200()
 {
     return PersistCurrentSavedRecord_520200();

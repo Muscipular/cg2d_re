@@ -773,6 +773,23 @@ YobiAction* Sub_448370(void (*callback)(YobiAction*))
     return nullptr;
 }
 
+// 原 [0x49C5C0,0x49C5DB)：S16 宽度先减 48，再按有符号商加 2。
+std::int32_t Sub_49C5C0(const std::int16_t width)
+{
+    return (static_cast<std::int32_t>(width) - 48) / 9 + 2;
+}
+
+// 原 [0x49C5E0,0x49C5FD)：非零标志扣 24，再扣 32 并用 idiv 求商。
+std::int32_t Sub_49C5E0(
+    const std::int16_t height,
+    const std::int32_t marginFlag,
+    const std::int32_t divisor)
+{
+    return (static_cast<std::int32_t>(height)
+            - (marginFlag != 0 ? 24 : 0) - 32)
+        / divisor;
+}
+
 YobiAction* Sub_5044E0(
     const std::int32_t x,
     const std::int32_t y,

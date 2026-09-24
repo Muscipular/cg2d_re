@@ -65,6 +65,7 @@ std::FILE* Sub_519300();
 std::FILE* Sub_519550();
 std::int32_t Sub_51BF00(std::int32_t imageNo);
 std::int32_t Sub_51BAC0(std::int32_t imageNo);
+// 原 [0x51BFF0,0x51C0CA)：14 项类别查找及特殊区间转换。
 std::int32_t Sub_51BFF0(std::int32_t imageNo);
 std::int32_t Sub_51BB80(std::int32_t imageNo);
 using cg::audio::Sub_52B990;

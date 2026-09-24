@@ -96,6 +96,30 @@ std::int32_t SelectGraphicIndex(std::int32_t converted)
 
 } // namespace
 
+namespace detail {
+
+std::int32_t Sub_51BFF0(const std::int32_t imageNo)
+{
+    if (imageNo >= 202800 && imageNo <= 204200) {
+        return imageNo + 37200;
+    }
+
+    const std::int32_t category = imageNo / 100;
+    const std::array<std::int32_t, 14> categories {
+        2000, 2002, 2008, 2010, 2012, 2014, 2016,
+        2004, 2006, 2018, 2020, 2022, 2024, 2026
+    };
+    for (std::size_t index = 0; index < categories.size(); ++index) {
+        if (category == categories[index]) {
+            return imageNo % 100
+                + 20 * (5 * static_cast<std::int32_t>(index) + 12070);
+        }
+    }
+    return imageNo;
+}
+
+} // namespace detail
+
 void ProcessCharacterPreview_460D00(std::uint32_t slot)
 {
     const std::size_t slotIndex = static_cast<std::size_t>(slot);

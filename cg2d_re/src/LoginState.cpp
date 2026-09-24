@@ -115,6 +115,18 @@ YobiAction* gServerConnectionAction = nullptr;
 
 namespace detail {
 
+// 原 0x44B5C0：日志打开失败返回零；成功返回 fclose 的 W32 位模式。
+std::uint32_t Sub_44B5C0(const char* text)
+{
+    std::FILE* const file = std::fopen("systemlog.txt", "a");
+    if (file == nullptr) {
+        return 0;
+    }
+
+    static_cast<void>(std::fprintf(file, "%s\n", text));
+    return static_cast<std::uint32_t>(std::fclose(file));
+}
+
 std::int32_t Sub_508360()
 {
     if (network::ReadNetworkRuntimeActive() == 0) {

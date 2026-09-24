@@ -1,6 +1,6 @@
 # cg2d 完整复刻独立进度
 
-> 更新日期：2026-09-23。对应[总计划](cg2d_full_reconstruction_plan.md)、[子项目规则](../AGENTS.md)。
+> 更新日期：2026-09-24。对应[总计划](cg2d_full_reconstruction_plan.md)、[子项目规则](../AGENTS.md)。
 > 本文件是新线唯一执行进度；旧 `M` 系列及根 `plans/progess.md` 仅供参考，不沿用其完成度。
 > RPLAN.17 仅压缩历史记录，不重新验收源码；后续小步单独记录。完整旧日志固定在 `3808ef2d309e1f407117bfe47390f36e7b8a4786`，查阅命令见末节。
 
@@ -130,7 +130,7 @@
 | 登录、角色与 Yobi | `RenderChara_521F20`、完整 `Sub_517880/FrameMove`、动画/图形装载和注册表生产链未闭合；负分类选择的原 20 字节越界别名按 RPLAN.24 不再阻塞，不计故障等价通过。[登录](../doc/cg2d_login_scene.md)、[能力 3 边界](../doc/cg2d_capability3_yobi_support.md)、[Yobi](../doc/cg2d_yobi_runtime.md) |
 | 渲染与后端 | 图文入队、排序、调色板、共享 CPU Back/Temp 及波纹本体已有实现；真实内容生产、`ClearSurface`、`DrawAllQueued`、`Flip` 与最终 `Present` 未接通。DX cache 整表与双池生产绑定已取证，现代承载及实现未完成。R6.1.3.108 缺真实后端生命周期 owner，仍 BLOCKED。[呈现器](../doc/cg2d_sdl_presenter.md)、[登录依赖](../doc/cg2d_login_scene.md)、[DX cache](../doc/cg2d_graphic_dx_cache.md) |
 | 波纹接线 | `.146` 的 `BackupValues_5208F0` 已在主循环原时点接入；`.137` 相位推进叶与 `.145` 波纹本体仍无源码调用。队列 type 8、case 6/7 共用 Temp、同一门禁其余 19 个 reader 仍未闭合。[波纹证据](../doc/cg2d_yobi_runtime.md) |
-| 网络 | owner、分配、创建和清理已有实现，`.109` 阻塞已由 `.120–122` 解除；`Sub_508360` 与 `GetServerAddressInfo_507D90` 本体已静态落位，但 `Sub_44B5C0`、`Sub_534EF0`、`Sub_512800` 仍仅有真实声明。`NetworkLoop_507DF0`、保活发送 `Sub_512C60` 与响应 dispatch 未闭合；`Sub_403E50` 及网络加密链按用户最新裁决不再推进。`ParseIpOptions_507C80` 已取证、待独立标量 `D69794` 归属 SPEC；连接配置生产及正常调用链仍待落实；越界等异常按 RPLAN.24 不再单独阻塞。[网络](../doc/cg2d_network_runtime.md)、[连接控制器](../doc/cg2d_login_state_controller.md) |
+| 网络 | owner、分配、创建和清理已有实现，`.109` 阻塞已由 `.120–122` 解除；`Sub_508360`、`GetServerAddressInfo_507D90` 与日志叶 `Sub_44B5C0` 本体已静态落位，`Sub_534EF0`、`Sub_512800` 仍仅有真实声明。`NetworkLoop_507DF0`、保活发送 `Sub_512C60` 与响应 dispatch 未闭合；`Sub_403E50` 及网络加密链按用户最新裁决不再推进。`ParseIpOptions_507C80` 已取证、待独立标量 `D69794` 归属 SPEC；连接配置生产及正常调用链仍待落实；越界等异常按 RPLAN.24 不再单独阻塞。[网络](../doc/cg2d_network_runtime.md)、[连接控制器](../doc/cg2d_login_state_controller.md) |
 | 输入与存档 | 直接编辑/提交、音频等依赖、IME 与保存设置恢复的初始化接线仍缺；`sub_507140` 的完整图文命中、对象描述、黑名单按键及对象令牌解析未闭合，不缩减为文本分支。保存槽/映射异常域不能计为已解决。[命中处理](../doc/cg2d_sub_507140.md)、[输入分派](../doc/cg2d_input_key_dispatch.md)、[恢复入口](../doc/cg2d_restore_current_saved_state.md)、[存储](../doc/cg2d_login_saved_state_storage.md) |
 
 以上不是全部债务清单；其他未接调用者、共享状态生产/消费、生命周期及局部验收前提，继续以各证据文档及固定历史日志为准。异常域执行口径统一由 RPLAN.24 覆盖旧限制，不将忽略异常记为完成其复刻。
@@ -443,3 +443,4 @@ git -c i18n.logOutputEncoding=utf-8 show 3808ef2:cg2d_re/plan/cg2d_full_reconstr
 - 2026-09-24，`507D90`：`LoginScene.cpp` 复用唯一 800×`0xC1` 服务器表实现地址与端口查询。负索引及 `>=800` 返回 `-1` 且不写输出；合法索引复制含 NUL 的地址，从 `+0x80` 作 `atoi` 后只写端口低 16 位，空记录仍成功，不读取可用标志。Sol/high 独立增量 review 与文件验证 PASS：源码、头注释及登录场景合同共三文件，严格 UTF-8 无 BOM/LF，限定 `diff --check` 通过；`507C80` 表生产者和其余连接依赖仍未闭合。未复核旧项、编译、测试、运行或校验 EXE/i64 哈希。
 - 2026-09-24，RPLAN.28：仅同步四类 subAgent 职责、强度与提交边界到总计划及本进度；不改变已通过源码结论，不复检旧项。`cg2d_re/AGENTS.md` 有独立未提交改动，本步不纳入；未编译、测试、运行、访问 IDA 或校验 EXE/i64 哈希。
 - 2026-09-24，`507C80.A`：独立 Sol/xhigh 只读取证正常 `IP:<索引>:<地址>:<端口>` 解析，先清 800×`0xC1` 表并清独立 `D69794`，保留 60 项计数；每项最多写 127/63 字节加 NUL，置可用标志后按 `索引/20` 累计，重复索引覆盖记录但再次计数。端口扫描只以空格、TAB、NUL 终止，不擅改旧 `argument.ini` 的 CR/LF；越界索引提前结束并返回本次扫描结果。`D69794` 已查仅见一次写入，新端归属未批，故本项 NEEDS_CLARIFICATION，不实施或计为连接配置完成；旧文件样本未取。未改 IDA、源码，未编译、测试、运行或校验 EXE/i64 哈希。
+- 2026-09-24，`44B5C0`：`LoginState.cpp` 复用既有声明落位 `systemlog.txt` 相对路径追加日志叶；打开失败返回零，成功按原 `%s\n` 输出、忽略输出结果并返回 `fclose` 的 W32 位模式，两个既有连接调用不改。当前 IDA 地址、原字节及返回证据见[网络文档](../doc/cg2d_network_runtime.md)；独立 Sol/high 增量 review 第 2 轮限项修正文档压栈顺序后 PASS，另一独立 Sol/high 文件验证 PASS：两文件严格 UTF-8 无 BOM/LF、限定差异及 `git diff --check` 通过。`507C80` 的 `D69794` 归属仍待用户批准，其他日志 caller 与完整网络链未接；未编译、链接、测试或运行客户端。

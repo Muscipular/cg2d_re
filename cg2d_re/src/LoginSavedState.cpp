@@ -938,6 +938,17 @@ std::uint8_t Sub_5206F0()
     return value;
 }
 
+// 原 sub_520720@[0x520720,0x52072B)：保存 +0x315 的低字节并返回 AL。
+std::uint8_t Sub_520720()
+{
+    const std::uint8_t value =
+        static_cast<std::uint8_t>(cg::platform::gValue553438);
+    auto* const currentBytes =
+        reinterpret_cast<std::uint8_t*>(&gCurrentSavedRecord);
+    currentBytes[0x315] = value;
+    return value;
+}
+
 std::int32_t Sub_520200()
 {
     return PersistCurrentSavedRecord_520200();

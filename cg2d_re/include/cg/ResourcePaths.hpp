@@ -48,4 +48,7 @@ extern char* gCoordinateInfoPaths[9];
 // 调用前须已完成原参数改名及星号别名展开，且拼接结果含 NUL 不超过 256 字节。
 int BuildResourcePaths();
 
+// 原 sub_45A130@[0x45A130,0x45A184)：尝试读取自动地图颜色缓存，失败时重建并写回。
+std::int32_t LoadAutoMapColor_45A130(char* const* graphicInfoPaths);
+
 } // namespace cg::resource

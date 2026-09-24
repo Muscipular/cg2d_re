@@ -1,8 +1,18 @@
 #include "cg/ResourcePaths.hpp"
 
 #include "cg/ResourceNames.hpp"
+#include "cg/platform/Startup.hpp"
 
 #include <cstdio>
+
+namespace cg::resource::detail {
+
+// 原 45A420/45A190/45A290；缓存载荷和地图颜色表仍待唯一 owner。
+std::int32_t Sub_45A420(const char* fileName, char* const* graphicInfoPaths);
+void Sub_45A190();
+std::int32_t Sub_45A290(const char* fileName, char* const* graphicInfoPaths);
+
+} // namespace cg::resource::detail
 
 namespace cg::resource {
 
@@ -60,6 +70,21 @@ int BuildResourcePaths()
             gCoordinateInfoPaths[slot], "%s\\%s", gBinPath, gResourceNames[CoordinateInfoNames][slot]);
     }
     return result;
+}
+
+std::int32_t LoadAutoMapColor_45A130(char* const* const graphicInfoPaths)
+{
+    char fileName[128];
+    std::sprintf(fileName, "%s\\%s", platform::gDataPath, "auto.dat");
+
+    const std::int32_t loaded =
+        detail::Sub_45A420(fileName, graphicInfoPaths);
+    if (loaded != 0) {
+        return loaded;
+    }
+
+    detail::Sub_45A190();
+    return detail::Sub_45A290(fileName, graphicInfoPaths);
 }
 
 } // namespace cg::resource

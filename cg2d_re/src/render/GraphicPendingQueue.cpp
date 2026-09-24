@@ -66,10 +66,12 @@ void CalculateRippleScreenDelta(float* const outX, float* const outY) noexcept
 }
 
 // 原 SortTextures_520790 的单个保留槽；未列出的记录字段保持原值。
-void AppendReservedGraphic(const std::uint8_t layer, const std::uint8_t batchType)
+void AppendReservedGraphic(
+    const std::size_t index,
+    const std::uint8_t layer,
+    const std::uint8_t batchType)
 {
     const std::uint16_t countBits = platform::gPendingGraphicCount;
-    const std::size_t index = static_cast<std::size_t>(countBits);
     GraphicCache3& cache3 = gLegacyPendingStorage.cache3[index];
     cache3.layer = layer;
     cache3.cacheIndex = std::bit_cast<std::int16_t>(countBits);
@@ -211,6 +213,7 @@ std::int32_t Sub_521870()
 
 void SortTextures_520790()
 {
+    const bool hasSpecialGraphic = gSpecialGraphicPending != 0;
     const std::int16_t initialCount =
         std::bit_cast<std::int16_t>(platform::gPendingGraphicCount);
     if (initialCount < 0) {
@@ -218,7 +221,6 @@ void SortTextures_520790()
         return;
     }
 
-    const bool hasSpecialGraphic = gSpecialGraphicPending != 0;
     const std::int32_t reserveCount = hasSpecialGraphic ? 4 : 3;
     if (static_cast<std::int32_t>(initialCount) + reserveCount
         >= MAX_QUEUE_SIZE) {
@@ -226,12 +228,16 @@ void SortTextures_520790()
             MAX_QUEUE_SIZE - reserveCount);
     }
 
+    std::size_t firstIndex = initialCount < MAX_QUEUE_SIZE
+        ? static_cast<std::size_t>(initialCount)
+        : static_cast<std::size_t>(platform::gPendingGraphicCount);
     if (hasSpecialGraphic) {
-        AppendReservedGraphic(2, 8);
+        AppendReservedGraphic(firstIndex, 2, 8);
+        firstIndex = platform::gPendingGraphicCount;
     }
-    AppendReservedGraphic(5, 6);
-    AppendReservedGraphic(6, 7);
-    AppendReservedGraphic(20, 9);
+    AppendReservedGraphic(firstIndex, 5, 6);
+    AppendReservedGraphic(platform::gPendingGraphicCount, 6, 7);
+    AppendReservedGraphic(platform::gPendingGraphicCount, 20, 9);
 
     std::qsort(
         gLegacyPendingStorage.cache3.data(),

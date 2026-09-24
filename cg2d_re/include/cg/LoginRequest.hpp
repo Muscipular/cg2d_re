@@ -20,6 +20,9 @@ static_assert(sizeof(CharacterRecordArray) == 0x128);
 extern CharacterRecordArray gCharacterRecords;
 extern std::int16_t gSelectedCharacterIndex;
 
+// 原 sub_51B3B0@[0x51B3B0,0x51B3DC)：只清合法的 0/1 角色记录。
+std::int32_t Sub_51B3B0(std::uint32_t selectedIndex);
+
 // 登录请求与其他网络处理函数共享的固定宽度存储，映像初值均为 0。
 extern std::uint16_t gRequestReplyCode;        // 原 0xDA3B2C，R/W16。
 extern std::int32_t gRequestStatus;            // 原 0xDA3B34，R/W32。

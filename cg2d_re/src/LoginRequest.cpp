@@ -45,6 +45,15 @@ char gRequestMessage[RequestMessageCapacity] {};
 static_assert(sizeof(gCharacterRecords) == 0x128);
 static_assert(sizeof(gRequestMessage) == RequestMessageCapacity);
 
+std::int32_t Sub_51B3B0(const std::uint32_t selectedIndex)
+{
+    if (selectedIndex >= CharacterRecordCount) {
+        return -1;
+    }
+    gCharacterRecords[selectedIndex].fill(std::byte{0});
+    return 0;
+}
+
 std::int32_t ReadRequestOutcomeFlag()
 {
     return gRequestOutcomeFlag;

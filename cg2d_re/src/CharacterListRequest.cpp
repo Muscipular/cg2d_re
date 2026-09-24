@@ -280,8 +280,8 @@ std::uint16_t gCharacterListReplyCode = 0;
 
 std::uint32_t StartCharacterListRequest()
 {
-    gCharacterRecords[0].fill(std::byte{0});
-    gCharacterRecords[1].fill(std::byte{0});
+    static_cast<void>(Sub_51B3B0(0));
+    static_cast<void>(Sub_51B3B0(1));
 
     const std::uintptr_t socket = platform::gConnectionSocket;
     gCharacterListReplyCode = 0;

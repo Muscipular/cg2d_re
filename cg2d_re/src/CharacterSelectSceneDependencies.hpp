@@ -3,6 +3,7 @@
 #include "LoginMessageDependencies.hpp"
 
 #include "cg/LegacyAudio.hpp"
+#include "cg/LoginRequest.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/render/TextPendingQueue.hpp"
 
@@ -50,7 +51,7 @@ std::int32_t Sub_503A20(
     std::uint32_t hoverImageSequence,
     std::uint8_t layer);
 
-std::int32_t Sub_51B3B0(std::uint32_t selectedIndex);
+using cg::login::Sub_51B3B0;
 // 原 sub_520200@0x520200：共享当前记录持久化核心的角色选择侧薄包装。
 std::int32_t Sub_520200();
 

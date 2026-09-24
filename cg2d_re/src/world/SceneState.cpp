@@ -436,6 +436,18 @@ std::int32_t __cdecl Sub_468F30()
     return 0;
 }
 
+// 原 [0x46CF00, 0x46CF1A)；上界外返回入口位模式，上界内读唯一共享表。
+std::int32_t __cdecl Sub_46CF00(const std::int32_t value)
+{
+    if (static_cast<std::uint32_t>(value) >= 65536u) {
+        return value;
+    }
+    if (value < 0) {
+        return 0;
+    }
+    return gValuesC35010[static_cast<std::size_t>(value)];
+}
+
 // 原 [0x46CF20, 0x46CF57)；两段顺序填值，返回原生表一过尾指针。
 std::int32_t* __cdecl Sub_46CF20()
 {

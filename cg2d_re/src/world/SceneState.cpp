@@ -9,6 +9,7 @@
 #include "WorldUpdateDependencies.hpp"
 
 #include <bit>
+#include <cstddef>
 #include <cstdio>
 #include <cstring>
 
@@ -55,6 +56,11 @@ constexpr char kAutMessage55DE68[] =
 // 原 0x55BAE0 的可写八字节区，正文六字节、NUL 后保留零填充。
 char gText55BAE0[8] = "\xB5\x6E\xA5\x58\xA4\xA4";
 
+// 原 0x55DF10：保留可写数据身份，不以运行期三角函数重算原表。
+std::array<std::uint64_t, 360> gAngleTableBits55DF10 {
+#include "SceneAngleTable55DF10.inc"
+};
+
 static_assert(sizeof(kCutPath55DE50) == 23);
 static_assert(sizeof(kCutReadMode554920) == 3);
 static_assert(sizeof(kCutMessage55DE3C) == 20);
@@ -64,6 +70,7 @@ static_assert(sizeof(kCutCaption55DE30) == 9);
 static_assert(sizeof(kAutPath55DE7C) == 23);
 static_assert(sizeof(kAutMessage55DE68) == 20);
 static_assert(sizeof(gText55BAE0) == 8);
+static_assert(sizeof(gAngleTableBits55DF10) == 2880);
 
 } // namespace
 
@@ -458,6 +465,22 @@ void __cdecl Sub_46F8F0(float* const value)
         }
         *value = lowerValue + kFullTurn;
     }
+}
+
+// 原 [0x46F930,0x46F94E)：F32 归一化、向零截断索引，原表 F64 位型返回。
+double __cdecl Sub_46F930(float angle)
+{
+    Sub_46F8F0(&angle);
+    const std::int32_t index = static_cast<std::int32_t>(angle);
+    return std::bit_cast<double>(
+        gAngleTableBits55DF10[static_cast<std::size_t>(index)]);
+}
+
+// 原 [0x46F950,0x46F967)：先将 +90 的结果写为 F32，再透传表读取结果。
+double __cdecl Sub_46F950(const float angle)
+{
+    const float shifted = angle + 90.0F;
+    return Sub_46F930(shifted);
 }
 
 // 原 [0x4D3170,0x4D317B)：仅将 0x581800 写为 -1 后返回。

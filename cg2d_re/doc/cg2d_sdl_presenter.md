@@ -52,3 +52,27 @@ API、属性名和返回值依据本地 `third_party/sdl/SDL3-3.4.8/include/SDL3
 
 未修改计划、进度或 CMake，未编译、运行、编写测试或提交。
 当前仅完成实现和本地头文件静态核对，不代表已通过链接、外部窗口生命周期或真实画面的运行验收。
+
+## ClearSurface@0x4512C0：原端证据与待批统一逻辑 Back SPEC
+
+状态：**NEEDS_CLARIFICATION**。本节仅记录已核实原端事实及待批候选，不构成实现授权。
+
+### 原端已核实事实
+
+- `Renderer::ClearSurface@[0x4512C0,0x451306)` 为单块函数，无显式参数、无 `this`；末尾 `retn`，`EAX` 原样返回间接 `Blt` 的结果，不作成功常量替换。
+- `0x4512C4–0x4512E4` 构造局部 `DDBLTFX`：100 字节清零，`dwSize=100`，从 `gBackgroundColor@0x62B0A8` 读取完整 W32 写入颜色字段。
+- `0x4512D6–0x4512FE` 从 `renderer@0x627360` 的 `+0x0C` 取 Back，经其 vtable `+0x14` 间接调用 `Blt`；目标矩形、源 surface、源矩形均为 null，传入上述颜色 fx，flags 为 `0x01000400`。本体不改 Temp 或 dirty，不设置失败分支；这不等于已审完所有调用方的返回处理。
+- Back 创建证据位于 `0x44B946–0x44B951`，释放位于 `0x44C4E5–0x44C4F8`；其新端统一 owner 与创建、重建、销毁接线尚未裁决。
+- `MainLoop` 在 `0x457294` 先读取 `0x73ECC0`，`0x457299` 再清 `0x73ECE4`；读得 0 时于 `0x4572AF` 调用本函数，读得 3 时于 `0x4572A8` 调用 `sub_423640`，其他值不走这两个调用。汇合后依次为 `DrawAllQueued@0x4572B4`、`sub_468FF0@0x4572B9`、`Flip@0x4572BE`；这里弃置 ClearSurface 返回值。本函数共 23 处直接 caller，除 MainLoop 外其余 22 处的返回消费尚未全审，不能把此处弃置推广到全部调用方。当前接线及声明见 [MainLoop.cpp](../src/platform/MainLoop.cpp) 和 [MainLoopDependencies.hpp](../src/platform/MainLoopDependencies.hpp)。
+
+### 与当前 SDL/CPU 边界的区别
+
+- [SdlPresenter.cpp](../src/render/SdlPresenter.cpp) 的 `SDL_RenderClear` 发生在整帧上传后的最终输出阶段，随后绘制完整纹理并提交；它不清空上层逻辑 Back，不能代替 `ClearSurface` 的当次 Back 颜色填充。
+- [SurfaceState.hpp](../include/cg/render/SurfaceState.hpp) / [SurfaceState.cpp](../src/render/SurfaceState.cpp) 的 640×480 CPU Back/Temp 目前仅按已批准波纹链使用；[GraphicPendingQueue.cpp](../src/render/GraphicPendingQueue.cpp) 在波纹路径快照 Back 到 Temp 并逐条带回拷。该局部批准不自动授予全部画面统一 Back 的 owner 或生命周期，也不证明画面链已完成。
+- 已批准 DX7 底层 `Blt` 等价映射 SDL/CPU，不要求逐码复刻 DX7 `HRESULT` 或 COM vtable；但上层触发、W32 颜色、像素内容、共享 Back/Temp 生命周期与提交顺序仍受 [渲染替换约束](../plan/cg2d_full_reconstruction_plan.md) 约束。
+
+### 待用户批准的 SPEC 候选
+
+- **候选行为，未批准：**将 `ClearSurface` 映射为对统一逻辑 Back 的 640×480 区域按每次调用时读取的完整 W32 背景色填充；保留调用时点及后续绘制、提交顺序。不预设最终画面已接通，不使用固定成功返回伪造原上层返回合同。
+- **必须另行裁决：**统一 Back 的唯一 owner、与现有波纹专用 CPU Back/Temp 的共享关系，以及创建、重建、销毁时点；其余直接 caller 的返回消费核对后，再确定替换后的返回与失败策略。SDL renderer driver 选择及失败处理也须独立裁决，不从本函数的原 DX7 `Blt` 结果推定新后端策略。
+- 用户批准上述 SPEC 前，不实施源码或接线，不预记 `ClearSurface` 已实现或原画面链完成；事实进度登记不受此限。

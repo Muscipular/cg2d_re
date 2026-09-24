@@ -77,6 +77,8 @@ std::int32_t Sub_51BFF0(std::int32_t imageNo);
 std::int32_t Sub_51BB80(std::int32_t imageNo);
 // 原 [0x51B7D0,0x51B90F)：图号的有序区间类别判定，供 51B740 消费。
 std::int32_t Sub_51B7D0(std::int32_t imageNo);
+// 原 [0x51B910,0x51BA08)：图号映射至 100900/100901/100902/110598 或 -1。
+std::int32_t Sub_51B910(std::int32_t imageNo);
 // 原 [0x4C56E0,0x4C5789)：依序写类别、余数及三层分解，返回首个输出指针。
 std::int32_t* Sub_4C56E0(
     std::int32_t imageNo,

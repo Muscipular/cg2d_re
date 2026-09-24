@@ -304,6 +304,47 @@ std::int32_t Sub_51B7D0(const std::int32_t imageNo)
     return 6;
 }
 
+std::int32_t Sub_51B910(const std::int32_t imageNo)
+{
+    if (imageNo >= 106000 && imageNo <= 106048) {
+        return 100900;
+    }
+    if (imageNo >= 106050 && imageNo <= 106173) {
+        return 100900;
+    }
+    if (imageNo >= 106250 && imageNo <= 106298) {
+        return 100901;
+    }
+    if (imageNo >= 106300 && imageNo <= 106423) {
+        return 100901;
+    }
+    if (imageNo >= 107000 && imageNo < 107999) {
+        return 100902;
+    }
+    if (imageNo >= 106425 && imageNo < 106570) {
+        return 100900;
+    }
+    if (imageNo >= 106600 && imageNo < 106755) {
+        return 100901;
+    }
+    if (imageNo >= 110300 && imageNo < 110350) {
+        return 100902;
+    }
+    if (imageNo >= 110376 && imageNo < 110400) {
+        return 100902;
+    }
+    if (imageNo >= 110505 && imageNo <= 110599) {
+        return 110598;
+    }
+    if (imageNo >= 110770 && imageNo < 110799) {
+        return 110598;
+    }
+    if (imageNo < 110504 || imageNo >= 114999) {
+        return -1;
+    }
+    return 100902;
+}
+
 std::int32_t* Sub_4C56E0(
     const std::int32_t imageNo,
     std::int32_t* const outBase,

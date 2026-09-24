@@ -1,8 +1,11 @@
 #include "cg/world/SceneState.hpp"
 
+#include "../LoginRequestDependencies.hpp"
 #include "cg/platform/CommandOptions.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
 #include "cg/platform/LegacyWindow.hpp"
+#include "cg/YobiRuntime.hpp"
+#include "cg/render/TextPendingQueue.hpp"
 #include "WorldUpdateDependencies.hpp"
 
 #include <bit>
@@ -49,6 +52,9 @@ constexpr char kAutPath55DE7C[] = "bin\\PUK2\\cutdat\\%d.aut";
 constexpr char kAutMessage55DE68[] =
     "\x61\x75\x74\xA6\x61\xB9\xCF\xC0\xC9\xB6\x7D\xB1\xD2\xA5\xA2\xB1\xD1\xA1\x43";
 
+// 原 0x55BAE0 的可写八字节区，正文六字节、NUL 后保留零填充。
+char gText55BAE0[8] = "\xB5\x6E\xA5\x58\xA4\xA4";
+
 static_assert(sizeof(kCutPath55DE50) == 23);
 static_assert(sizeof(kCutReadMode554920) == 3);
 static_assert(sizeof(kCutMessage55DE3C) == 20);
@@ -57,6 +63,7 @@ static_assert(sizeof(kCutMessage55DE20) == 14);
 static_assert(sizeof(kCutCaption55DE30) == 9);
 static_assert(sizeof(kAutPath55DE7C) == 23);
 static_assert(sizeof(kAutMessage55DE68) == 20);
+static_assert(sizeof(gText55BAE0) == 8);
 
 } // namespace
 
@@ -238,6 +245,12 @@ std::uint32_t gValueCAFEA0 = 0;
 
 // 原 0x9A6204：45ED80 重置、45ED90 读取并推进的场景 7 W32 状态。
 std::uint32_t gValue9A6204 = 0;
+// 原 45ED90 的四个布局 W32 与非拥有 action 槽，均只由本体直接读写。
+std::int32_t gValue9A5674 = 0;
+std::int32_t gValue9A594C = 0;
+std::int32_t gValue9A61F8 = 0;
+std::int32_t gValue9A5AC0 = 0;
+login::YobiAction* gAction9A6E98 = nullptr;
 
 // 原 0x5ABB70/0x5ABB6C/0x553F90/0x553F84；43C8F0 顺序重置的独立 S32 槽。
 std::int32_t gValue5ABB70 = 0;
@@ -524,6 +537,61 @@ std::int32_t Sub_504100()
 void Sub_45ED80()
 {
     gValue9A6204 = 0;
+}
+
+// 原 [0x45ED90,0x45EEDA)：场景 7 请求进度与结果展示。
+std::int32_t Sub_45ED90()
+{
+    std::int32_t result = 0;
+    if (gValue9A6204 == 0) {
+        const std::uint32_t textLength =
+            static_cast<std::uint32_t>(std::strlen(gText55BAE0));
+        const std::int32_t columns = static_cast<std::int32_t>(
+            ((textLength * 9U) >> 6) + 2U);
+        gValue9A6204 = 1;
+        gValue9A5674 = 2;
+        gValue9A594C = columns;
+        const std::int32_t left = ((10 - columns) * 64) / 2;
+        gValue9A61F8 = 192;
+        gValue9A5AC0 = left;
+        gAction9A6E98 = login::detail::Sub_5044E0(
+            left, 192, columns * 64, 96, 4, 1);
+    }
+
+    const std::uint32_t phase = gValue9A6204;
+    if (phase == 1) {
+        if (login::detail::gReplyCodeDA3B2E != 2) {
+            static_cast<void>(login::detail::Sub_508C40());
+        }
+        ++gValue9A6204;
+    } else if (phase == 2) {
+        result = login::detail::Sub_508C90();
+        if (result != 0) {
+            if (gAction9A6E98 != nullptr) {
+                login::detail::MarkDeath(gAction9A6E98);
+                gAction9A6E98 = nullptr;
+            }
+            return result;
+        }
+    }
+
+    login::YobiAction* const action = gAction9A6E98;
+    if (action != nullptr && login::detail::IsYobiActionReady(action, 1)) {
+        const std::int32_t rows = gValue9A5674;
+        const std::int32_t top = gValue9A61F8;
+        const std::int32_t drawY = top + (48 * rows - 16) / 2;
+        const std::int32_t textLength =
+            static_cast<std::int32_t>(std::strlen(gText55BAE0));
+        const std::int32_t columns = gValue9A594C;
+        const std::int32_t left = gValue9A5AC0;
+        const std::int32_t drawX =
+            left + (8 * (8 * columns - textLength)) / 2;
+        static_cast<void>(render::DrawText3_456560(
+            static_cast<std::int16_t>(drawX),
+            static_cast<std::int16_t>(drawY),
+            2, 0, gText55BAE0, 0));
+    }
+    return result;
 }
 
 } // namespace detail

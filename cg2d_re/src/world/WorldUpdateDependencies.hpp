@@ -14,6 +14,7 @@ struct InputContext;
 namespace cg::login::detail {
 
 std::int32_t Sub_508C90(); // 原 [0x508C90,0x508CF0)，登出回复与超时轮询。
+std::uint32_t Sub_508C40(); // 原 [0x508C40,0x508C81)，真实请求启动依赖。
 
 } // namespace cg::login::detail
 
@@ -245,6 +246,7 @@ using cg::audio::Sub_52B990;               // 原 0x52B990。
 std::int32_t Sub_45EBB0();                 // 原 0x45EBB0。
 void Sub_45ED80();                        // 原 [0x45ED80,0x45ED8B)，重置 9A6204。
 extern std::uint32_t gValue9A6204;         // 原 0x9A6204；45ED90 后续复用。
+std::int32_t Sub_45ED90();                 // 原 [0x45ED90,0x45EEDA)，场景 7 请求与展示。
 void DrawNormalScene_51C7D0();             // 原 World::DrawNormalScene@0x51C7D0。
 std::int8_t Sub_519D50();                  // 原 0x519D50，IDA 原型 char()。
 std::int8_t Sub_51D750();                  // 原 0x51D750，IDA 原型 char()。

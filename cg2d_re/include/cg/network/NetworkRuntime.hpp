@@ -121,6 +121,15 @@ std::int32_t Sub_511A50(
     std::int32_t second,
     std::int32_t third);
 
+// 原 sub_511AE0@[0x511AE0,0x511BB4)：构造 LKQy、追加五个整数并发送。
+std::int32_t Sub_511AE0(
+    std::uintptr_t socket,
+    std::int32_t first,
+    std::int32_t second,
+    std::int32_t third,
+    std::int32_t fourth,
+    std::int32_t fifth);
+
 // 原 sub_512BD0@[0x512BD0,0x512C0C)：构造 WA 命令并发送；593850 文本 owner 未闭合。
 std::int32_t Sub_512BD0(std::uintptr_t socket);
 

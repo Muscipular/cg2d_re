@@ -96,6 +96,30 @@ std::uint8_t ClassifyLegacyBoundary_44B440(
         || (current >= 0xE0u && current <= 0xFCu));
 }
 
+// 原 [0x44B4A0,0x44B561)：目标首字节经 movsx 后，双字节目标分支对 W8 输入不可达。
+char* FindLegacyByte_44B4A0(char* const text, const char* const target)
+{
+    const std::int32_t wanted = SignedByte(target[0]);
+    bool trailingByte = false;
+    for (char* current = text; *current != '\0'; ++current) {
+        if (trailingByte) {
+            trailingByte = false;
+            continue;
+        }
+
+        const auto byte = static_cast<std::uint8_t>(*current);
+        if ((byte >= 0x81u && byte <= 0x9Fu)
+            || (byte >= 0xE0u && byte <= 0xFCu)) {
+            trailingByte = true;
+            continue;
+        }
+        if (static_cast<std::int32_t>(byte) == wanted) {
+            return current;
+        }
+    }
+    return nullptr;
+}
+
 namespace {
 
 // 原 sub_44B1D0@[0x44B1D0,0x44B244)。

@@ -54,6 +54,9 @@ static_assert(sizeof(InputContext) == 0x15C);
 [[nodiscard]] std::uint8_t ClassifyLegacyBoundary_44B440(
     const char* text, std::int16_t byteOffset);
 
+// 原 sub_44B4A0@[0x44B4A0,0x44B561)：跳过旧双字节尾字节，返回可写的首个匹配位置。
+[[nodiscard]] char* FindLegacyByte_44B4A0(char* text, const char* target);
+
 // 原 0x626C04：当前输入上下文；允许由 SetContext 写为 nullptr。
 extern InputContext* gCurrentInputData;
 

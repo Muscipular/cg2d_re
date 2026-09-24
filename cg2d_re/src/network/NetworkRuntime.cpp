@@ -1268,6 +1268,72 @@ std::int32_t Sub_5128C0(
         reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
 }
 
+// 原 [0x511900,0x5119F7)：六项各自先读容量，格式化后重读输出缓冲。
+std::int32_t Sub_511900(
+    const std::uintptr_t socket,
+    const std::int32_t first,
+    const std::int32_t second,
+    const char* const text,
+    const std::int32_t fourth,
+    const std::int32_t fifth,
+    const std::int32_t sixth)
+{
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0), "uSr"));
+
+    const std::int32_t firstCapacity = std::bit_cast<std::int32_t>(
+        gNetworkRuntimeState.bufferLength);
+    std::uint8_t* const firstToken = FormatProtocolIntegerToken_517120(first);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
+        reinterpret_cast<const char*>(firstToken),
+        firstCapacity));
+
+    const std::int32_t secondCapacity = std::bit_cast<std::int32_t>(
+        gNetworkRuntimeState.bufferLength);
+    std::uint8_t* const secondToken = FormatProtocolIntegerToken_517120(second);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
+        reinterpret_cast<const char*>(secondToken),
+        secondCapacity));
+
+    const std::int32_t textCapacity = std::bit_cast<std::int32_t>(
+        gNetworkRuntimeState.bufferLength);
+    std::uint8_t* const textToken = FormatProtocolTextToken_517160(text);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
+        reinterpret_cast<const char*>(textToken),
+        textCapacity));
+
+    const std::int32_t fourthCapacity = std::bit_cast<std::int32_t>(
+        gNetworkRuntimeState.bufferLength);
+    std::uint8_t* const fourthToken = FormatProtocolIntegerToken_517120(fourth);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
+        reinterpret_cast<const char*>(fourthToken),
+        fourthCapacity));
+
+    const std::int32_t fifthCapacity = std::bit_cast<std::int32_t>(
+        gNetworkRuntimeState.bufferLength);
+    std::uint8_t* const fifthToken = FormatProtocolIntegerToken_517120(fifth);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
+        reinterpret_cast<const char*>(fifthToken),
+        fifthCapacity));
+
+    const std::int32_t sixthCapacity = std::bit_cast<std::int32_t>(
+        gNetworkRuntimeState.bufferLength);
+    std::uint8_t* const sixthToken = FormatProtocolIntegerToken_517120(sixth);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
+        reinterpret_cast<const char*>(sixthToken),
+        sixthCapacity));
+
+    return SendProtocolBuffer_517480(
+        socket,
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
+}
+
 std::int32_t AllocateNetworkWorkspace_516B60(
     const NetworkCallback callback,
     const std::uint32_t bufferLength,

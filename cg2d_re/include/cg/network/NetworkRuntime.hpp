@@ -101,6 +101,16 @@ std::int32_t Sub_5128C0(
     std::int32_t field12,
     std::int32_t field13);
 
+// 原 sub_511900@[0x511900,0x5119F7)：组装 uSr 的两整数、文本、三整数并发送。
+std::int32_t Sub_511900(
+    std::uintptr_t socket,
+    std::int32_t first,
+    std::int32_t second,
+    const char* text,
+    std::int32_t fourth,
+    std::int32_t fifth,
+    std::int32_t sixth);
+
 // 原 sub_512BD0@[0x512BD0,0x512C0C)：构造 WA 命令并发送；593850 文本 owner 未闭合。
 std::int32_t Sub_512BD0(std::uintptr_t socket);
 

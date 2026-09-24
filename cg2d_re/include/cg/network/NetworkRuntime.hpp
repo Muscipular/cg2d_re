@@ -139,6 +139,9 @@ std::int32_t Sub_511BC0(
 // 原 sub_511C30@[0x511C30,0x511C78)：构造 iET、追加一个整数并发送。
 std::int32_t Sub_511C30(std::uintptr_t socket, std::int32_t value);
 
+// 原 sub_511C80@[0x511C80,0x511CC8)：构造 McVa、追加一个整数并发送。
+std::int32_t Sub_511C80(std::uintptr_t socket, std::int32_t value);
+
 // 原 sub_512BD0@[0x512BD0,0x512C0C)：构造 WA 命令并发送；593850 文本 owner 未闭合。
 std::int32_t Sub_512BD0(std::uintptr_t socket);
 

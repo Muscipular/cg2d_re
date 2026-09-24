@@ -26,6 +26,9 @@ std::int32_t Sub_51B3B0(std::uint32_t selectedIndex);
 // 原 sub_51B110@[0x51B110,0x51B136)：合法槽读首字节返回 0/1，越界返回 -1。
 std::int32_t Sub_51B110(std::uint32_t selectedIndex);
 
+// 原 sub_51B140@[0x51B140,0x51B1A1)：按名字查找两条角色记录。
+std::int32_t CharacterNameExists_51B140(const char* name);
+
 // 登录请求与其他网络处理函数共享的固定宽度存储，映像初值均为 0。
 extern std::uint16_t gRequestReplyCode;        // 原 0xDA3B2C，R/W16。
 extern std::int32_t gRequestStatus;            // 原 0xDA3B34，R/W32。

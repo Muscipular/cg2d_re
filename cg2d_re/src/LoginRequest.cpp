@@ -62,6 +62,16 @@ std::int32_t Sub_51B110(const std::uint32_t selectedIndex)
     return gCharacterRecords[selectedIndex][0] != std::byte{0} ? 1 : 0;
 }
 
+std::int32_t CharacterNameExists_51B140(const char* const name)
+{
+    for (const CharacterRecordBytes& record : gCharacterRecords) {
+        if (std::strcmp(name, reinterpret_cast<const char*>(record.data())) == 0) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
 std::int32_t ReadRequestOutcomeFlag()
 {
     return gRequestOutcomeFlag;

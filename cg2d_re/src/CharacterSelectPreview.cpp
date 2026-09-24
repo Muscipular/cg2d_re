@@ -375,6 +375,26 @@ std::int32_t* Sub_4C56E0(
     return outBase;
 }
 
+std::int32_t Sub_4C5650(
+    const std::int32_t base,
+    const std::int32_t imageClass,
+    const std::int32_t quarter,
+    const std::int32_t fifth,
+    const std::int32_t ones)
+{
+    if (imageClass == 2) {
+        return base + 25 * quarter + 5 * fifth + ones;
+    }
+    if (imageClass == 1) {
+        return Sub_51BF00(base) + 25 * quarter + 5 * fifth + ones;
+    }
+    if (imageClass == 0) {
+        return Sub_51BAC0(Sub_51BF00(base))
+            + 1000 * quarter + 10 * fifth + ones;
+    }
+    return base;
+}
+
 } // namespace detail
 
 void ProcessCharacterPreview_460D00(std::uint32_t slot)

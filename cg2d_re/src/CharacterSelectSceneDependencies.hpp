@@ -87,6 +87,13 @@ std::int32_t* Sub_4C56E0(
     std::int32_t* outQuarter,
     std::int32_t* outFifth,
     std::int32_t* outOnes);
+// 原 [0x4C5650,0x4C56DA)：按类别组合五项图号分量，其他类别透传首参。
+std::int32_t Sub_4C5650(
+    std::int32_t base,
+    std::int32_t imageClass,
+    std::int32_t quarter,
+    std::int32_t fifth,
+    std::int32_t ones);
 using cg::audio::Sub_52B990;
 
 std::int32_t Sub_45F100(const CharacterSelectUiRecord* uiRecord);

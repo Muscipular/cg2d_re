@@ -165,6 +165,102 @@ void LoadInitialText_44A160(const char* const initialText)
 
 namespace detail {
 
+// 原 [0x44A5D0,0x44A7CD)：按 CR 和最大字节宽度扫描行后上移光标。
+void Sub_44A5D0()
+{
+    InputContext* context = gCurrentInputData;
+    if (context == nullptr || platform::gImeComposition[0] != '\0') {
+        return;
+    }
+
+    gValue626C0C = 20;
+    if (context->maxLine <= 1) {
+        return;
+    }
+
+    std::array<std::int32_t, InputTextCapacity> lineLengths {};
+    std::int32_t offset = 0;
+    std::int32_t lineCount = 0;
+    std::int32_t targetLine = 0;
+    std::int32_t column = 0;
+    bool foundCaretLine = false;
+
+    while (true) {
+        const std::int32_t start = offset;
+        std::int32_t scanned = 0;
+        bool foundCarriageReturn = false;
+        while (true) {
+            const char current = context->text[start + scanned];
+            if (current == '\0') {
+                break;
+            }
+            if (current == '\r') {
+                offset = start + scanned + 1;
+                lineLengths[lineCount++] = offset - start;
+                foundCarriageReturn = true;
+                break;
+            }
+            ++scanned;
+            if (scanned == context->maxCharPerLine) {
+                break;
+            }
+        }
+
+        if (!foundCarriageReturn) {
+            const std::size_t remaining = std::strlen(context->text + start);
+            if (remaining < static_cast<std::uint32_t>(
+                    context->maxCharPerLine)) {
+                break;
+            }
+
+            const std::int32_t boundary = ClassifyAnsiBoundary_44B1D0(
+                context->text + start, context->maxCharPerLine);
+            context = gCurrentInputData;
+            offset += context->maxCharPerLine - (boundary == 3 ? 1 : 0);
+            lineLengths[lineCount++] = offset - start;
+        }
+
+        if (!foundCaretLine && context->caretByteOffset < offset) {
+            foundCaretLine = true;
+            targetLine = lineCount - 1;
+            column = context->caretByteOffset - start;
+        }
+    }
+
+    if (!foundCaretLine) {
+        targetLine = lineCount;
+        if (context->maxLine <= lineCount) {
+            --context->caretByteOffset;
+            context = gCurrentInputData;
+        }
+        column = context->caretByteOffset - offset;
+    }
+    if (targetLine <= 0) {
+        return;
+    }
+
+    const std::int32_t previousLength = lineLengths[targetLine - 1];
+    if (previousLength > column) {
+        context->caretByteOffset -= previousLength;
+        context = gCurrentInputData;
+    } else if (context->maxCharPerLine > 0) {
+        std::int32_t stepped = 0;
+        do {
+            --context->caretByteOffset;
+            context = gCurrentInputData;
+            if (context->text[context->caretByteOffset] == '\r') {
+                break;
+            }
+            ++stepped;
+        } while (stepped < context->maxCharPerLine);
+    }
+
+    if (ClassifyAnsiBoundary_44B1D0(
+            context->text, context->caretByteOffset) == 3) {
+        --gCurrentInputData->caretByteOffset;
+    }
+}
+
 // 原 [0x44A540,0x44A580)：未移动时返回上下文指针，移动时返回边界分类。
 std::uintptr_t Sub_44A540()
 {

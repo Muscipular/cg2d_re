@@ -493,6 +493,77 @@ bool IsRejectedInputText_404060(const char* const legacyText)
     return std::strstr(legacyText, "[GP]") != nullptr;
 }
 
+// 原 [0x52D1B0,0x52D2C6)：原字节表按输入/转义字母交错存放。
+char* EscapeLegacyText_52D1B0(
+    const char* const source,
+    char* const destination,
+    const std::int32_t capacity)
+{
+    constexpr std::array<std::uint8_t, 8> kEscapePairs58E944 {{
+        '\n', 'n', ',', 'c', '|', 'z', '\\', 'y',
+    }};
+    const std::int32_t sourceLength =
+        static_cast<std::int32_t>(std::strlen(source));
+    std::int32_t sourceIndex = 0;
+    std::int32_t destinationIndex = 0;
+    std::int32_t used = 1;
+    std::int32_t nextWidth = 2;
+    std::int32_t adjustedLength = sourceLength;
+
+    if (sourceLength > 0) {
+        while (used < capacity) {
+            const std::uint8_t current =
+                static_cast<std::uint8_t>(source[sourceIndex]);
+            if ((current & 0x80u) != 0u) {
+                if (nextWidth >= capacity || used >= adjustedLength) {
+                    break;
+                }
+                destination[destinationIndex++] = source[sourceIndex++];
+                destination[destinationIndex++] = source[sourceIndex];
+                nextWidth += 2;
+                used += 2;
+            } else {
+                std::size_t pair = 0;
+                while (pair < 4
+                    && current != kEscapePairs58E944[pair * 2]) {
+                    ++pair;
+                }
+                if (pair == 4) {
+                    destination[destinationIndex++] = source[sourceIndex];
+                    ++nextWidth;
+                    ++used;
+                } else {
+                    if (nextWidth >= capacity) {
+                        break;
+                    }
+                    destination[destinationIndex++] = '\\';
+                    destination[destinationIndex++] = static_cast<char>(
+                        kEscapePairs58E944[pair * 2 + 1]);
+                    nextWidth += 2;
+                    used += 2;
+                    ++adjustedLength;
+                }
+            }
+            if (++sourceIndex >= sourceLength) {
+                break;
+            }
+        }
+    }
+
+    destination[destinationIndex] = '\0';
+    return destination;
+}
+
+// 原 [0x52D2D0,0x52D2F0)：空叶不消费上下文，后继完整透传缓冲指针。
+char* EscapeInputText_52D2D0(
+    const InputContext* const context,
+    char* const destination,
+    const std::int32_t capacity)
+{
+    NullSub_509080();
+    return EscapeLegacyText_52D1B0(context->text, destination, capacity);
+}
+
 void AppendChar_44ADB0(const char character)
 {
     InputContext* const context = gCurrentInputData;

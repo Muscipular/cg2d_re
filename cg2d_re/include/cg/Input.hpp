@@ -85,6 +85,14 @@ void InitializeContext_449CF0(
 // 原 Input::AppendChar@[0x44ADB0,0x44B044)。
 void AppendChar_44ADB0(char character);
 
+// 原 sub_52D1B0：旧文本字节转义，始终返回目标缓冲指针。
+char* EscapeLegacyText_52D1B0(
+    const char* source, char* destination, std::int32_t capacity);
+
+// 原 sub_52D2D0：先调用空叶，再转换输入上下文的文本。
+char* EscapeInputText_52D2D0(
+    const InputContext* context, char* destination, std::int32_t capacity);
+
 // 原 sub_4596D0：按唯一旧键状态表分派输入编辑及尾部音频动作。
 void ProcessKeyInput_4596D0();
 

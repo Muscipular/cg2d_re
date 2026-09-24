@@ -61,6 +61,9 @@ std::int32_t Report_512CA0(
     std::uintptr_t socket,
     std::int32_t value);
 
+// 原 sub_512C10@[0x512C10,0x512C58)：构造 Or 文本命令并透传发送返回。
+std::int32_t Sub_512C10(std::uintptr_t socket, const char* text);
+
 // 原 sub_516B60@0x516B60：安装回调并分配 18 项网络工作区。
 std::int32_t AllocateNetworkWorkspace_516B60(
     NetworkCallback callback,

@@ -180,6 +180,13 @@ std::int32_t Sub_512040(
     const char* second,
     std::int32_t third);
 
+// 原 sub_5120D0@[0x5120D0,0x51215E)：构造 ylGN、追加三段文本并发送。
+std::int32_t Sub_5120D0(
+    std::uintptr_t socket,
+    const char* first,
+    const char* second,
+    const char* third);
+
 // 原 sub_512BD0@[0x512BD0,0x512C0C)：构造 WA 命令并发送；593850 文本 owner 未闭合。
 std::int32_t Sub_512BD0(std::uintptr_t socket);
 

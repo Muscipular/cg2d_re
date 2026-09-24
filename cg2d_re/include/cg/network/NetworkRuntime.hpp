@@ -77,6 +77,23 @@ std::int32_t Sub_512B00(
 // 原 sub_512AB0@[0x512AB0,0x512AF8)：追加登记号并发送 Godf 命令。
 std::int32_t Sub_512AB0(std::uintptr_t socket, std::int32_t registNumber);
 
+// 原 sub_5128C0@[0x5128C0,0x512AAC)：依序追加十二项整数与第二项文本，发送 aSEl。
+std::int32_t Sub_5128C0(
+    std::uintptr_t socket,
+    std::int32_t field1,
+    const char* field2,
+    std::int32_t field3,
+    std::int32_t field4,
+    std::int32_t field5,
+    std::int32_t field6,
+    std::int32_t field7,
+    std::int32_t field8,
+    std::int32_t field9,
+    std::int32_t field10,
+    std::int32_t field11,
+    std::int32_t field12,
+    std::int32_t field13);
+
 // 原 sub_512BD0@[0x512BD0,0x512C0C)：构造 WA 命令并发送；593850 文本 owner 未闭合。
 std::int32_t Sub_512BD0(std::uintptr_t socket);
 

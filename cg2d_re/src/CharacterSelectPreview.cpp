@@ -98,6 +98,33 @@ std::int32_t SelectGraphicIndex(std::int32_t converted)
 
 namespace detail {
 
+std::int32_t Sub_51BA10(const std::int32_t imageNo)
+{
+    if (imageNo >= 30000 && imageNo <= 98000) {
+        return 0;
+    }
+    if (imageNo >= 202800 && imageNo <= 204199) {
+        return 3;
+    }
+    if (imageNo >= 200000 && imageNo <= 200799) {
+        return 1;
+    }
+    if (imageNo >= 200800 && imageNo <= 202799) {
+        return 2;
+    }
+    if (imageNo >= 240000 && imageNo < 241400) {
+        return 4;
+    }
+    if (imageNo >= 241400 && imageNo < 242800) {
+        return 5;
+    }
+    if ((imageNo >= 205000 && imageNo <= 205600)
+        || (imageNo >= 270000 && imageNo <= 270200)) {
+        return 5;
+    }
+    return 0;
+}
+
 std::int32_t Sub_51BB80(std::int32_t imageNo)
 {
     if (imageNo < 30000 || imageNo > 97999) {

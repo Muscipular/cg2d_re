@@ -63,6 +63,8 @@ std::int32_t Sub_519290();
 std::int32_t Sub_5194C0();
 std::FILE* Sub_519300();
 std::FILE* Sub_519550();
+// 原 [0x51BA10,0x51BAB5)：按原区间顺序返回图号类别 0..5。
+std::int32_t Sub_51BA10(std::int32_t imageNo);
 // 原 [0x51BF00,0x51BFEF)：三段早退后按 signed 商索引 14 项局部图号表。
 std::int32_t Sub_51BF00(std::int32_t imageNo);
 // 原 [0x51BAC0,0x51BB76)：旧图号逆变换，仅在有效区间分解。

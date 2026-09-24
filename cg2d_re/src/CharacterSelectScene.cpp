@@ -22,6 +22,12 @@
 
 namespace cg::character_select::detail {
 
+std::uint8_t Sub_50E770(std::uintptr_t, const std::uint8_t pukVersion)
+{
+    state::gPukVersion = pukVersion;
+    return pukVersion;
+}
+
 void Sub_462870()
 {
     login::detail::YobiClearUp_404D30();

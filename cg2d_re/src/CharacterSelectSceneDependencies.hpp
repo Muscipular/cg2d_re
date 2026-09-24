@@ -64,6 +64,9 @@ std::int32_t Sub_464290(const std::int32_t* rectangle);
 // 原 [0x462870,0x46287C)：清理 Yobi 后递增共享场景状态。
 void Sub_462870();
 
+// 原 [0x50E770,0x50E77A)：忽略网络首参，写 Puk 版本 W8 并返回该字节。
+std::uint8_t Sub_50E770(std::uintptr_t unusedSocket, std::uint8_t pukVersion);
+
 void Sub_518BE0();
 std::int32_t Sub_519290();
 std::int32_t Sub_5194C0();

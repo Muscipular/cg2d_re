@@ -14,12 +14,16 @@ constexpr std::size_t kRequestField50Offset = 0x50;
 constexpr std::uint32_t kRequestTimeoutMilliseconds = 600000;
 // 0x55C9F8 原文：處理登入逾時。
 constexpr char kRequestTimeoutMessage[] = "\xB3\x42\xB2\x7A\xB5\x6E\xA4\x4A\xB9\x4F\xAE\xC9\xA1\x43";
+// 0x55CA18 原文：處理登出逾時。
+constexpr char kLogoutTimeoutMessage[] = "\xB3\x42\xB2\x7A\xB5\x6E\xA5\x58\xB9\x4F\xAE\xC9\xA1\x43";
 
 static_assert(kRequestField18Offset + sizeof(std::int32_t) <= cg::login::CharacterRecordSize);
 static_assert(kRequestField4COffset + sizeof(std::int32_t) <= cg::login::CharacterRecordSize);
 static_assert(kRequestField50Offset + sizeof(std::int32_t) <= cg::login::CharacterRecordSize);
 static_assert(sizeof(kRequestTimeoutMessage) == 15);
+static_assert(sizeof(kLogoutTimeoutMessage) == 15);
 static_assert(sizeof(kRequestTimeoutMessage) <= cg::login::RequestMessageCapacity);
+static_assert(sizeof(kLogoutTimeoutMessage) <= cg::login::RequestMessageCapacity);
 
 } // namespace
 
@@ -94,3 +98,33 @@ std::int32_t PollLoginRequest()
 }
 
 } // namespace cg::login
+
+namespace cg::login::detail {
+
+// 原 0xDA3B2E，W16，独立于相邻的 0xDA3B2C 登录回复码。
+std::uint16_t gReplyCodeDA3B2E = 0;
+
+// 原 sub_508C90@[0x508C90,0x508CF0)：登出回复及超时轮询。
+std::int32_t Sub_508C90()
+{
+    if (gRequestStatus == 2) {
+        const std::uint16_t replyCode = gReplyCodeDA3B2E;
+        gRequestStatus = 0;
+        if (replyCode == 1) {
+            return 1;
+        }
+        return replyCode == 2 ? 2 : -2;
+    }
+
+    const std::uint32_t elapsed =
+        platform::ReadTickCount32() - gRequestStartTick;
+    if (elapsed <= kRequestTimeoutMilliseconds) {
+        return 0;
+    }
+
+    std::memcpy(gRequestMessage, kLogoutTimeoutMessage,
+        sizeof(kLogoutTimeoutMessage));
+    return -1;
+}
+
+} // namespace cg::login::detail

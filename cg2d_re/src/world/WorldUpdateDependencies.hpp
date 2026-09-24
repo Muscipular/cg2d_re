@@ -11,6 +11,12 @@ namespace cg::input {
 struct InputContext;
 } // namespace cg::input
 
+namespace cg::login::detail {
+
+std::int32_t Sub_508C90(); // 原 [0x508C90,0x508CF0)，登出回复与超时轮询。
+
+} // namespace cg::login::detail
+
 namespace cg::platform {
 
 // 原 0x53B8C6 返回九个 S32 槽；调用方按已确认偏移读取时间字段。

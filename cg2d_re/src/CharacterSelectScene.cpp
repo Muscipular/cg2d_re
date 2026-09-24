@@ -21,6 +21,16 @@
 
 namespace cg::character_select::detail {
 
+std::int32_t Sub_464290(const std::int32_t* const rectangle)
+{
+    const std::int32_t top = rectangle[1];
+    const std::int32_t left = rectangle[0];
+    const std::int32_t height = rectangle[3];
+    const std::int32_t width = rectangle[2];
+    return login::detail::Sub_5049A0(
+        left, top, left + width, top + height, -1);
+}
+
 char gText9A4EAC[128] {};
 
 } // namespace cg::character_select::detail

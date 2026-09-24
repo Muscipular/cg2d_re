@@ -58,6 +58,9 @@ std::int32_t Sub_520200();
 // sub_460D00@0x460D00 与 sub_461B30@0x461B30 共享的真实直接目标。
 using cg::login::Sub_51B110;
 
+// 原 [0x464290,0x4642B4)：四项 left/top/width/height 转换为鼠标命中矩形。
+std::int32_t Sub_464290(const std::int32_t* rectangle);
+
 void Sub_518BE0();
 std::int32_t Sub_519290();
 std::int32_t Sub_5194C0();

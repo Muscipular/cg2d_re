@@ -64,6 +64,9 @@ std::int32_t Report_512CA0(
 // 原 sub_512C10@[0x512C10,0x512C58)：构造 Or 文本命令并透传发送返回。
 std::int32_t Sub_512C10(std::uintptr_t socket, const char* text);
 
+// 原 sub_512DF0@[0x512DF0,0x512E38)：构造 CCL 计时命令并透传发送返回。
+std::int32_t Sub_512DF0(std::uintptr_t socket, std::uint32_t tickBits);
+
 // 原 sub_512BD0@[0x512BD0,0x512C0C)：构造 WA 命令并发送；593850 文本 owner 未闭合。
 std::int32_t Sub_512BD0(std::uintptr_t socket);
 

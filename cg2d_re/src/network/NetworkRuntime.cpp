@@ -1070,6 +1070,26 @@ std::int32_t Sub_512C10(
         reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
 }
 
+// 原 [0x512DF0,0x512E38)：容量仅在命令构造之后、整数格式化之前采样。
+std::int32_t Sub_512DF0(
+    const std::uintptr_t socket,
+    const std::uint32_t tickBits)
+{
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0), "CCL"));
+    const std::int32_t capacity = std::bit_cast<std::int32_t>(
+        gNetworkRuntimeState.bufferLength);
+    std::uint8_t* const token = FormatProtocolIntegerToken_517120(
+        std::bit_cast<std::int32_t>(tickBits));
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
+        reinterpret_cast<const char*>(token),
+        capacity));
+    return SendProtocolBuffer_517480(
+        socket,
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
+}
+
 std::int32_t AllocateNetworkWorkspace_516B60(
     const NetworkCallback callback,
     const std::uint32_t bufferLength,

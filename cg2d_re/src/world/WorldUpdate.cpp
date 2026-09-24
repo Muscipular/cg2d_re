@@ -192,6 +192,15 @@ sceneSixTail:
 
 namespace detail {
 
+std::int32_t Sub_45EF80()
+{
+    constexpr double kFrameStep = std::bit_cast<double>(
+        std::uint64_t {0x4030AAAAAAAAAAABULL});
+    const double threshold = platform::gLastRenderDt + kFrameStep;
+    const std::uint32_t tick = platform::ReadTickCount32();
+    return static_cast<double>(tick) > threshold ? 1 : 0;
+}
+
 // 原 sub_51FDE0@[0x51FDE0,0x5200D0)：按 W32 selector 分派并透传目标返回。
 std::int32_t Sub_51FDE0(
     std::int32_t selector, std::int32_t value, std::uint32_t payloadBits)

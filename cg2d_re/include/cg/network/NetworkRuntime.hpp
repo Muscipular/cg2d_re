@@ -130,6 +130,12 @@ std::int32_t Sub_511AE0(
     std::int32_t fourth,
     std::int32_t fifth);
 
+// 原 sub_511BC0@[0x511BC0,0x511C2B)：构造 Ukuy、追加两个整数并发送。
+std::int32_t Sub_511BC0(
+    std::uintptr_t socket,
+    std::int32_t first,
+    std::int32_t second);
+
 // 原 sub_512BD0@[0x512BD0,0x512C0C)：构造 WA 命令并发送；593850 文本 owner 未闭合。
 std::int32_t Sub_512BD0(std::uintptr_t socket);
 

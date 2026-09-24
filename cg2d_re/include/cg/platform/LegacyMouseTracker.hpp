@@ -33,6 +33,9 @@ extern std::int32_t gLegacyMouseTrackerCapacity;
 // 原 sub_506580@[0x506580,0x5066C1)：重建节点池和空闲/活动链。
 std::int32_t ResetLegacyMouseTracker_506580();
 
+// 原 sub_5066D0@[0x5066D0,0x5066E9)：恢复默认配置后重建追踪器。
+std::int32_t ResetLegacyMouseTrackerDefaults_5066D0();
+
 // 原 sub_5067F0@[0x5067F0,0x50686C)：按 (x,y,tag) 追踪按下次数。
 std::int32_t TrackLegacyMouseDown_5067F0(
     std::int32_t x,

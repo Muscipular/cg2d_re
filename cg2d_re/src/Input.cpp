@@ -206,6 +206,90 @@ std::uintptr_t Sub_44A580()
     return static_cast<std::uintptr_t>(width);
 }
 
+// 原 [0x44A7D0,0x44A989)：按 CR 和最大字节宽度扫描行后下移光标。
+void Sub_44A7D0()
+{
+    InputContext* context = gCurrentInputData;
+    if (context == nullptr || platform::gImeComposition[0] != '\0') {
+        return;
+    }
+
+    gValue626C0C = 20;
+    if (context->maxLine <= 1) {
+        return;
+    }
+
+    std::array<std::int32_t, InputTextCapacity> lineLengths {};
+    std::int32_t offset = 0;
+    std::int32_t lineCount = 0;
+    std::int32_t targetLine = 0;
+    std::int32_t column = 0;
+    bool foundCaretLine = false;
+
+    while (true) {
+        const std::int32_t start = offset;
+        std::int32_t scanned = 0;
+        bool foundCarriageReturn = false;
+        while (true) {
+            const char current = context->text[start + scanned];
+            if (current == '\0') {
+                break;
+            }
+            if (current == '\r') {
+                offset = start + scanned + 1;
+                lineLengths[lineCount++] = offset - start;
+                foundCarriageReturn = true;
+                break;
+            }
+            ++scanned;
+            if (scanned == context->maxCharPerLine) {
+                break;
+            }
+        }
+
+        if (!foundCarriageReturn) {
+            const std::size_t remaining = std::strlen(context->text + start);
+            if (remaining < static_cast<std::uint32_t>(
+                    context->maxCharPerLine)) {
+                if (!foundCaretLine) {
+                    targetLine = lineCount;
+                    column = context->caretByteOffset - offset;
+                }
+                lineLengths[lineCount] =
+                    static_cast<std::int32_t>(remaining + 1);
+                break;
+            }
+
+            const std::int32_t boundary = ClassifyAnsiBoundary_44B1D0(
+                context->text + start, context->maxCharPerLine);
+            context = gCurrentInputData;
+            offset += context->maxCharPerLine - (boundary == 3 ? 1 : 0);
+            lineLengths[lineCount++] = offset - start;
+        }
+
+        if (!foundCaretLine && context->caretByteOffset < offset) {
+            foundCaretLine = true;
+            targetLine = lineCount - 1;
+            column = context->caretByteOffset - start;
+        }
+    }
+
+    if (targetLine >= lineCount) {
+        return;
+    }
+
+    const std::int32_t nextLength = lineLengths[targetLine + 1];
+    const std::int32_t delta = column < nextLength
+        ? lineLengths[targetLine]
+        : lineLengths[targetLine] - column + nextLength - 1;
+    context->caretByteOffset += delta;
+    InputContext* const current = gCurrentInputData;
+    if (ClassifyAnsiBoundary_44B1D0(
+            current->text, current->caretByteOffset) == 3) {
+        --gCurrentInputData->caretByteOffset;
+    }
+}
+
 // 原 [0x44A990,0x44AA8D)：删除光标前一个旧 ANSI 单元。
 void Sub_44A990()
 {

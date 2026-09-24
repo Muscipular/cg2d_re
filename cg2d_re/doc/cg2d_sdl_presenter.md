@@ -63,7 +63,7 @@ API、属性名和返回值依据本地 `third_party/sdl/SDL3-3.4.8/include/SDL3
 - `0x4512C4–0x4512E4` 构造局部 `DDBLTFX`：100 字节清零，`dwSize=100`，从 `gBackgroundColor@0x62B0A8` 读取完整 W32 写入颜色字段。
 - `0x4512D6–0x4512FE` 从 `renderer@0x627360` 的 `+0x0C` 取 Back，经其 vtable `+0x14` 间接调用 `Blt`；目标矩形、源 surface、源矩形均为 null，传入上述颜色 fx，flags 为 `0x01000400`。本体不改 Temp 或 dirty，不设置失败分支；这不等于已审完所有调用方的返回处理。
 - Back 创建证据位于 `0x44B946–0x44B951`，释放位于 `0x44C4E5–0x44C4F8`；其新端统一 owner 与创建、重建、销毁接线尚未裁决。
-- `MainLoop` 在 `0x457294` 先读取 `0x73ECC0`，`0x457299` 再清 `0x73ECE4`；读得 0 时于 `0x4572AF` 调用本函数，读得 3 时于 `0x4572A8` 调用 `sub_423640`，其他值不走这两个调用。汇合后依次为 `DrawAllQueued@0x4572B4`、`sub_468FF0@0x4572B9`、`Flip@0x4572BE`；这里弃置 ClearSurface 返回值。本函数共 23 处直接 caller，除 MainLoop 外其余 22 处的返回消费尚未全审，不能把此处弃置推广到全部调用方。当前接线及声明见 [MainLoop.cpp](../src/platform/MainLoop.cpp) 和 [MainLoopDependencies.hpp](../src/platform/MainLoopDependencies.hpp)。
+- `MainLoop` 在 `0x457294` 先读取 `0x73ECC0`，`0x457299` 再清 `0x73ECE4`；读得 0 时于 `0x4572AF` 调用本函数，读得 3 时于 `0x4572A8` 调用 `sub_423640`，其他值不走这两个调用。汇合后依次为 `DrawAllQueued@0x4572B4`、`sub_468FF0@0x4572B9`、`Flip@0x4572BE`；这里弃置 ClearSurface 返回值。本函数在当前 IDA 有 23 处直接代码调用点，分布于 17 个函数；其余调用点的返回消费见下节。当前接线及声明见 [MainLoop.cpp](../src/platform/MainLoop.cpp) 和 [MainLoopDependencies.hpp](../src/platform/MainLoopDependencies.hpp)。
 
 ### 与当前 SDL/CPU 边界的区别
 
@@ -74,5 +74,31 @@ API、属性名和返回值依据本地 `third_party/sdl/SDL3-3.4.8/include/SDL3
 ### 待用户批准的 SPEC 候选
 
 - **候选行为，未批准：**将 `ClearSurface` 映射为对统一逻辑 Back 的 640×480 区域按每次调用时读取的完整 W32 背景色填充；保留调用时点及后续绘制、提交顺序。不预设最终画面已接通，不使用固定成功返回伪造原上层返回合同。
-- **必须另行裁决：**统一 Back 的唯一 owner、与现有波纹专用 CPU Back/Temp 的共享关系，以及创建、重建、销毁时点；其余直接 caller 的返回消费核对后，再确定替换后的返回与失败策略。SDL renderer driver 选择及失败处理也须独立裁决，不从本函数的原 DX7 `Blt` 结果推定新后端策略。
+- **必须另行裁决：**统一 Back 的唯一 owner、与现有波纹专用 CPU Back/Temp 的共享关系，以及创建、重建、销毁时点；直接 caller 的返回消费已按下节核对，替换后的返回与失败策略仍须单独裁决。SDL renderer driver 选择及失败处理也须独立裁决，不从本函数的原 DX7 `Blt` 结果推定新后端策略。
 - 用户批准上述 SPEC 前，不实施源码或接线，不预记 `ClearSurface` 已实现或原画面链完成；事实进度登记不受此限。
+
+### `4512C0` 直接调用点的返回消费
+
+2026-09-24，当前 `ida-17524/cg2d.exe.i64` 对 `4512C0`
+的 code xref 共 23 处、17 个已识别函数。逐点检查调用后
+指令，并核对各函数反编译中的调用表达式，23 处均为
+独立调用，不以 EAX 作条件、存储、参数或返回传递：
+
+| 原函数 | 调用点 |
+| --- | --- |
+| `43CB10`、`MainLoop` | `43CB54`、`4572AF` |
+| `InitLoading` | `457BBF`、`458109`、`458131` |
+| `458390`、`4585F0`、`458A40` | `4584F7/4585C2`、`458703`、`458AA1` |
+| `Renderer::Rebuild`、`DrawNormalScene` | `466C85`、`51C8E9/51CB97/51CF5C/51D0B1` |
+| `51D640`、`51D790`、`51E0D0`、`51EC10` | `51D667`、`51DCCA`、`51E99C`、`51EE99` |
+| `51EF80`、`51F610`、`51F860`、`51FA70`、`51FC90` | `51F48B`、`51F68A`、`51F8B6`、`51FAC6`、`51FCDB` |
+
+例如 `4572AF` 后立即调用 `DrawAllQueued`，`457BBF`
+后立即 `xor eax,eax`；`51DCCA` 后按 `ESI` 分支，
+其伪代码中的 `ClearSurface()` 仍是独立表达式。
+本结论只覆盖当前 IDA 的直接调用点，不证明无间接
+调用或新端所有潜在消费都可忽略。原 `ClearSurface`
+依然返回底层 `Blt` 的完整 EAX32；已批准的 DX7
+底层失败码豁免不等于允许固定成功、改变统一 Back
+生命周期或绕过 SDL 提交失败处理。统一 owner 与
+具体等价返回策略未获批准，源码继续待确认。

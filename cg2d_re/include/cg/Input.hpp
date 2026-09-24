@@ -50,6 +50,10 @@ static_assert(sizeof(InputContext) == 0x15C);
 // 原 sub_44B190@[0x44B190,0x44B1C5)，判断零结尾旧 ANSI 串的末单元。
 [[nodiscard]] std::int32_t ClassifyLastAnsiUnit_44B190(const char* text);
 
+// 原 sub_44B440@[0x44B440,0x44B49D)，按低 S16 偏移判断旧双字节边界，返回 AL=0/1/2。
+[[nodiscard]] std::uint8_t ClassifyLegacyBoundary_44B440(
+    const char* text, std::int16_t byteOffset);
+
 // 原 0x626C04：当前输入上下文；允许由 SetContext 写为 nullptr。
 extern InputContext* gCurrentInputData;
 

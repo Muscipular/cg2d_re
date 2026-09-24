@@ -69,6 +69,33 @@ std::int32_t ClassifyLastAnsiUnit_44B190(const char* text)
     return result;
 }
 
+// 原 [0x44B440,0x44B49D)：仅 0x81..0x9F 与 0xE0..0xFC 为双字节首字节。
+std::uint8_t ClassifyLegacyBoundary_44B440(
+    const char* const text,
+    const std::int16_t byteOffset)
+{
+    std::int32_t cursor = 0;
+    while (cursor < byteOffset) {
+        const auto current =
+            static_cast<std::uint8_t>(text[cursor]);
+        if ((current >= 0x81u && current <= 0x9Fu)
+            || (current >= 0xE0u && current <= 0xFCu)) {
+            cursor += 2;
+        } else {
+            ++cursor;
+        }
+    }
+
+    if (cursor != byteOffset) {
+        return 2;
+    }
+    const auto current =
+        static_cast<std::uint8_t>(text[cursor]);
+    return static_cast<std::uint8_t>(
+        (current >= 0x81u && current <= 0x9Fu)
+        || (current >= 0xE0u && current <= 0xFCu));
+}
+
 namespace {
 
 // 原 sub_44B1D0@[0x44B1D0,0x44B244)。

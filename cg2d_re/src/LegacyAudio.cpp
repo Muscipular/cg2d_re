@@ -1,6 +1,7 @@
 #include "cg/LegacyAudio.hpp"
 
 #include "cg/platform/CommandOptions.hpp"
+#include "cg/world/SceneState.hpp"
 
 #include <array>
 #include <bit>
@@ -63,6 +64,42 @@ SpatialAudioRecord* __cdecl Sub_52CD40()
         record.value00 = 1;
     }
     return gSpatialRecords103D1C0.data() + gSpatialRecords103D1C0.size();
+}
+
+// 原 [0x52CDE0,0x52CE97)；在同一空间音频表发布更近的屏幕坐标与距离。
+std::int32_t __cdecl Sub_52CDE0(
+    const std::int32_t index,
+    const std::int32_t sourceX,
+    const std::int32_t sourceY)
+{
+    const float worldY = static_cast<float>(static_cast<double>(sourceY) * 64.0);
+    const float worldX = static_cast<float>(static_cast<double>(sourceX) * 64.0);
+    float screenX;
+    float screenY;
+    world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
+
+    const double offsetX = static_cast<double>(screenX) - 320.0;
+    const double offsetY = static_cast<double>(screenY) - 240.0;
+    const std::int32_t distance = static_cast<std::int32_t>(
+        std::sqrt(offsetY * offsetY + offsetX * offsetX));
+
+    SpatialAudioRecord& record =
+        gSpatialRecords103D1C0[static_cast<std::size_t>(index)];
+    if (record.value00 == 0 && record.value04 != -1
+        && distance >= record.value10) {
+        return index;
+    }
+
+    const double projectedX = static_cast<double>(screenX);
+    record.value04 = index;
+    const std::int32_t x = static_cast<std::int32_t>(projectedX);
+    const double projectedY = static_cast<double>(screenY);
+    record.value08 = x;
+    const std::int32_t y = static_cast<std::int32_t>(projectedY);
+    record.value0C = y;
+    record.value10 = distance;
+    record.value00 = 0;
+    return y;
 }
 
 // 原 [0x52CD60,0x52CDDB)；首个距离阈值不符的有效记录立即结束扫描。

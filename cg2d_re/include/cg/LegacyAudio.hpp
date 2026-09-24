@@ -9,6 +9,8 @@ struct SpatialAudioRecord;
 extern std::uint32_t gValue103DE80; // 原 0x103DE80，虚拟零填充 W32；52CD30 写入，52CCE0 读取。
 
 SpatialAudioRecord* __cdecl Sub_52CD40(); // 原 [0x52CD40,0x52CD5C)，重置 50 项并返回一过尾指针。
+std::int32_t __cdecl Sub_52CDE0(
+    std::int32_t index, std::int32_t sourceX, std::int32_t sourceY); // 原 [0x52CDE0,0x52CE97)。
 // 原 0x52C9E0；真实空间音效下游仍待落位。
 std::int32_t __cdecl Sub_52C9E0(
     std::int32_t id, std::int32_t x, std::int32_t y);

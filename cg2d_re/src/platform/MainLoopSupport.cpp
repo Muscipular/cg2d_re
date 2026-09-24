@@ -137,7 +137,7 @@ void UpdateProtectionChecksum(
 // 原 0x4042D0：按快照模块所属 PID 选择对应的模块名表。
 [[maybe_unused]] char CheckProcessModules_4042D0(const DWORD processId)
 {
-    MODULEENTRY32A moduleEntry{};
+    MODULEENTRY32 moduleEntry{};
     const HANDLE snapshot =
         CreateToolhelp32Snapshot(TH32CS_SNAPMODULE, processId);
     if (snapshot == INVALID_HANDLE_VALUE) {
@@ -146,7 +146,7 @@ void UpdateProtectionChecksum(
 
     char result = 0;
     moduleEntry.dwSize = static_cast<DWORD>(sizeof(moduleEntry));
-    BOOL hasModule = Module32FirstA(snapshot, &moduleEntry);
+    BOOL hasModule = Module32First(snapshot, &moduleEntry);
     while (hasModule != FALSE) {
         const DWORD currentProcessId = static_cast<DWORD>(
             legacy_crypt_int::Read_401EC0(&gProtectionProcessState));
@@ -170,7 +170,7 @@ void UpdateProtectionChecksum(
         if (result != 0) {
             break;
         }
-        hasModule = Module32NextA(snapshot, &moduleEntry);
+        hasModule = Module32Next(snapshot, &moduleEntry);
     }
 
     CloseHandle(snapshot);
@@ -317,7 +317,7 @@ std::uint8_t CheckProtection_4043B0(const char* functionName)
     }
     CloseHandle(mutex);
 
-    PROCESSENTRY32A processEntry{};
+    PROCESSENTRY32 processEntry{};
     std::uint8_t processResult = 0;
     const HANDLE snapshot =
         CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
@@ -326,13 +326,13 @@ std::uint8_t CheckProtection_4043B0(const char* functionName)
     }
 
     processEntry.dwSize = static_cast<DWORD>(sizeof(processEntry));
-    BOOL hasProcess = Process32FirstA(snapshot, &processEntry);
+    BOOL hasProcess = Process32First(snapshot, &processEntry);
     while (hasProcess != FALSE) {
         if (CheckProcessModules_4042D0(processEntry.th32ProcessID) == 1) {
             processResult = 1;
             break;
         }
-        hasProcess = Process32NextA(snapshot, &processEntry);
+        hasProcess = Process32Next(snapshot, &processEntry);
     }
     CloseHandle(snapshot);
 

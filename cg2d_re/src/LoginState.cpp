@@ -273,7 +273,7 @@ std::int32_t Sub_508360()
                 static_cast<void>(std::sprintf(
                     gRequestMessage, "%s", kLoginRejectedMessage));
                 static_cast<void>(::closesocket(
-                    static_cast<SOCKET>(platform::gConnectionSocket))));
+                    static_cast<SOCKET>(platform::gConnectionSocket)));
                 return -7;
             }
             step = 81;

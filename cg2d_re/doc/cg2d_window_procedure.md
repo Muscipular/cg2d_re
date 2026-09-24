@@ -75,3 +75,11 @@
   退出已接入 `ShutdownClient_457A40@0x457A7C`，初始化留待 `0x457804` 精确位置，
   证据见 `cg2d_ime_lifecycle.md`。
 - `WIN_PROC` 的 892 条指令中不存在 `SetCapture`、`ReleaseCapture`、拖拽复位或 DPI/偏移/裁剪/`ScreenToClient` 坐标变换；本实现不补这些行为。
+
+## `Renderer::IsLost@4536D0` 的窗口激活依赖
+
+- 原函数区间 `[0x4536D0,0x45375C)`，无参，返回完整 W32 `0/1`。`0x4536D0` 读取 `W32[0x103CF24]`；仅正数进入循环，`0x4536E0` 从池首 `0x1020F08` 开始，`0x453700` 每轮推进 `0x1C`。各项只读首字段 surface 指针；非空才在 `0x4536EE` 调其 vtable `+0x60`。调用结果非零时 `0x4536F5` 将累计值设为 1，不提前退出；`0x4536FA` 每轮重读 count，`0x453703/705` 以有符号比较决定是否续行。
+- 随后依序读取 `gTempSurface@0x103CF14`（`0x453708`）、renderer `+0x0C` 的 Back（`0x453720/725`）、renderer `+0x08` 的 front（`0x45373B/741`）。各指针非空才调用其 surface vtable `+0x60`；返回非零将结果置 1，仍继续后续检查。front 为空或其调用返回零时返回先前累计值；front 调用返回非零时直接返回 1（`0x453746..759`）。函数本体不检查 renderer 指针是否为空。
+- 唯一直接调用点 `WIN_PROC@0x466E2D`：`0x466E11..2B` 仅完整 `wParam32` 为 1/2 且 renderer 非空才进入；`0x466E32` 严格比较结果与 1，命中后 `0x466E36` 写 `gRendererLost=1`，不因本次返回零清该槽。与 `TestCooperativeLevel@44C6B0` 是两个独立入口。
+- 缓存池半开区间 `[0x1020F08,0x103CF08)` 及 count 的创建/发布合同见 [DX 缓存证据第 63–70 节](cg2d_graphic_dx_cache.md#63-g3b1-证据来源与覆盖边界)：创建入口清 count，整轮完成才发布 4096，不把失败前缀当作已发布计数。这里仅记录 `IsLost` 对当前 count 的读取方式，不推断间接修改或失败后的可用池长度。
+- 新端当前只有 [WindowProcedureDependencies.hpp](../src/platform/WindowProcedureDependencies.hpp) 的声明和窗口调用；[SurfaceState.hpp](../include/cg/render/SurfaceState.hpp) 的 CPU Back/Temp 像素数组不是原 surface 状态或 4096 项缓存的 owner。已批准的 DX7 底层 surface lost 机制替换不等于批准上层 `IsLost` 固定返回零或一。统一资源归属、创建/重建/销毁时点，以及 SDL 驱动与等价失败状态的生产、探测、消费策略仍待 SPEC 裁决；本项不新增伪探测实现，不计窗口激活链、链接或运行完成。

@@ -98,6 +98,72 @@ void WriteProtocolStateW16(
         sizeof(value));
 }
 
+[[maybe_unused]] std::int32_t EncryptPrivatePacket_401960(
+    const std::uint32_t sourceLength,
+    std::uint8_t* const source,
+    std::uint16_t& outputCapacityAndLength,
+    std::uint8_t* const output,
+    const std::uint32_t keyLength,
+    const std::array<std::uint32_t, 4>& key) noexcept
+{
+    if (keyLength != 16U) {
+        return 1;
+    }
+
+    const std::uint32_t required = (sourceLength + 9U) & ~7U;
+    if (required > 0xFFFFU) {
+        return 3;
+    }
+    if (outputCapacityAndLength < required) {
+        outputCapacityAndLength = static_cast<std::uint16_t>(required);
+        return 2;
+    }
+
+    const std::uint16_t encodedSourceLength =
+        static_cast<std::uint16_t>(sourceLength);
+    source[required - 2U] = static_cast<std::uint8_t>(encodedSourceLength);
+    source[required - 1U] =
+        static_cast<std::uint8_t>(encodedSourceLength >> 8U);
+
+    std::uint32_t chainK1 = key[1];
+    for (std::uint32_t offset = 0; offset < required; offset += 8U) {
+        std::uint32_t left =
+            static_cast<std::uint32_t>(source[offset])
+            | (static_cast<std::uint32_t>(source[offset + 1U]) << 8U)
+            | (static_cast<std::uint32_t>(source[offset + 2U]) << 16U)
+            | (static_cast<std::uint32_t>(source[offset + 3U]) << 24U);
+        std::uint32_t right =
+            static_cast<std::uint32_t>(source[offset + 4U])
+            | (static_cast<std::uint32_t>(source[offset + 5U]) << 8U)
+            | (static_cast<std::uint32_t>(source[offset + 6U]) << 16U)
+            | (static_cast<std::uint32_t>(source[offset + 7U]) << 24U);
+
+        std::uint32_t sum = 0;
+        for (std::uint32_t round = 0; round < 32U; ++round) {
+            sum += 0x9E3779B9U;
+            left += ((right << 4U) + key[0])
+                ^ (right + sum)
+                ^ ((right >> 5U) + chainK1);
+            right += ((left << 4U) + key[2])
+                ^ (left + sum)
+                ^ ((left >> 5U) + key[3]);
+        }
+        chainK1 = left;
+
+        output[offset] = static_cast<std::uint8_t>(left);
+        output[offset + 1U] = static_cast<std::uint8_t>(left >> 8U);
+        output[offset + 2U] = static_cast<std::uint8_t>(left >> 16U);
+        output[offset + 3U] = static_cast<std::uint8_t>(left >> 24U);
+        output[offset + 4U] = static_cast<std::uint8_t>(right);
+        output[offset + 5U] = static_cast<std::uint8_t>(right >> 8U);
+        output[offset + 6U] = static_cast<std::uint8_t>(right >> 16U);
+        output[offset + 7U] = static_cast<std::uint8_t>(right >> 24U);
+    }
+
+    outputCapacityAndLength = static_cast<std::uint16_t>(required);
+    return 0;
+}
+
 struct ProtocolOutputAccess {
     char* data() const noexcept
     {

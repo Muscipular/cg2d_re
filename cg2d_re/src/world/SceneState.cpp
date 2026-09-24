@@ -436,6 +436,27 @@ std::int32_t __cdecl Sub_468F30()
     return 0;
 }
 
+// 原 [0x468F70,0x468FE4)；F32 局部投影、加 0.5 后截断，依次发布 X/Y 及两槽。
+std::int64_t __cdecl Sub_468F70()
+{
+    float x;
+    float y;
+    ProjectWorldToScreen_46CE30(0.0F, 0.0F, &x, &y);
+    const std::int64_t projectedX = static_cast<std::int64_t>(
+        static_cast<double>(x) + 0.5);
+    const double roundedY = static_cast<double>(y) + 0.5;
+    gWorldProjectionSourceA = static_cast<std::uint32_t>(projectedX);
+    const std::int64_t projectedY = static_cast<std::int64_t>(roundedY);
+    gWorldProjectionSourceC = static_cast<std::uint32_t>(projectedX);
+    gWorldProjectionSnapshotA = static_cast<std::uint32_t>(projectedX);
+    gWorldProjectionSourceB = static_cast<std::uint32_t>(projectedY);
+    gWorldProjectionSourceD = static_cast<std::uint32_t>(projectedY);
+    gWorldProjectionSnapshotB = static_cast<std::uint32_t>(projectedY);
+    gValueC3500C = 0;
+    gValueC75010 = 0;
+    return projectedY;
+}
+
 // 原 [0x46CF00, 0x46CF1A)；上界外返回入口位模式，上界内读唯一共享表。
 std::int32_t __cdecl Sub_46CF00(const std::int32_t value)
 {

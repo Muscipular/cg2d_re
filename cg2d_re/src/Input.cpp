@@ -206,6 +206,63 @@ std::uintptr_t Sub_44A580()
     return static_cast<std::uintptr_t>(width);
 }
 
+// 原 [0x44A990,0x44AA8D)：删除光标前一个旧 ANSI 单元。
+void Sub_44A990()
+{
+    InputContext* const context = gCurrentInputData;
+    if (context == nullptr || context->caretByteOffset <= 0) {
+        return;
+    }
+
+    const std::int32_t width =
+        ClassifyAnsiBoundary_44B1D0(context->text, context->caretByteOffset);
+    InputContext* const copyContext = gCurrentInputData;
+    const std::int32_t caret = copyContext->caretByteOffset;
+    std::array<char, InputTextCapacity> tail {};
+    std::strcpy(tail.data(), copyContext->text + caret);
+    copyContext->text[caret - width] = '\0';
+    std::strcat(gCurrentInputData->text, tail.data());
+
+    gCurrentInputData->totalByteLength -= width;
+    gCurrentInputData->caretByteOffset -= width;
+    InputContext* const result = gCurrentInputData;
+    if (result->caretByteOffset < 0) {
+        result->caretByteOffset = 0;
+    }
+    if (result->text[0] == '\0') {
+        result->totalByteLength = 0;
+    }
+    gValue626C0C = 20;
+}
+
+// 原 [0x44AA90,0x44AB59)：删除光标处一个旧 ANSI 单元，返回当前上下文。
+InputContext* Sub_44AA90()
+{
+    InputContext* const context = gCurrentInputData;
+    if (context == nullptr
+        || context->caretByteOffset >= context->totalByteLength) {
+        return context;
+    }
+
+    const std::int32_t caret = context->caretByteOffset;
+    const std::int32_t width =
+        (static_cast<unsigned char>(context->text[caret]) & 0x80u) != 0u
+        ? 2 : 1;
+    InputContext* const copyContext = gCurrentInputData;
+    const std::int32_t copyCaret = copyContext->caretByteOffset;
+    std::array<char, InputTextCapacity> tail {};
+    std::strcpy(tail.data(), copyContext->text + copyCaret + width);
+    std::strcpy(copyContext->text + copyCaret, tail.data());
+
+    gCurrentInputData->totalByteLength -= width;
+    InputContext* const result = gCurrentInputData;
+    if (result->text[0] == '\0') {
+        result->totalByteLength = 0;
+    }
+    gValue626C0C = 20;
+    return result;
+}
+
 } // namespace detail
 
 bool IsRejectedInputText_404060(const char* const legacyText)

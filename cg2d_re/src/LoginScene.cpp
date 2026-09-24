@@ -15,6 +15,7 @@
 #include <bit>
 #include <cstddef>
 #include <cstdint>
+#include <cstdlib>
 #include <cstdio>
 #include <cstring>
 
@@ -425,6 +426,27 @@ std::int16_t gValueDA3B24 = 0;
 
 static_assert(sizeof(gValueD69798) == 800 * 0xC1);
 static_assert(sizeof(gValueD9F2D4) == 60 * sizeof(std::int32_t));
+
+namespace detail {
+
+std::int32_t GetServerAddressInfo_507D90(
+    std::int32_t serverIndex,
+    char* serverAddress,
+    std::uint16_t* port)
+{
+    if (serverIndex < 0
+        || serverIndex >= static_cast<std::int32_t>(gValueD69798.size())) {
+        return -1;
+    }
+
+    const auto& record = gValueD69798[static_cast<std::size_t>(serverIndex)];
+    std::strcpy(serverAddress, reinterpret_cast<const char*>(record.opaque.data()));
+    *port = static_cast<std::uint16_t>(
+        std::atoi(reinterpret_cast<const char*>(record.opaque.data() + 0x80)));
+    return 0;
+}
+
+} // namespace detail
 
 std::int32_t ProcessScene_45FEA0()
 {

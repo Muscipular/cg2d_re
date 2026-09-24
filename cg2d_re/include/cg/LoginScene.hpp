@@ -5,7 +5,7 @@
 
 namespace cg::login {
 
-// 原 0xD69798 的单项严格为 0xC1 字节；本场景只读取末字节。
+// 原 0xD69798 的单项严格为 0xC1 字节；可用性读末字节，地址查询读前 0xC0 字节。
 struct LoginServerRecord {
     std::array<std::uint8_t, 0xC0> opaque;
     std::uint8_t available;

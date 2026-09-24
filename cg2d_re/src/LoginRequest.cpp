@@ -17,6 +17,7 @@ constexpr std::uint32_t kRequestTimeoutMilliseconds = 600000;
 constexpr char kRequestTimeoutMessage[] = "\xB3\x42\xB2\x7A\xB5\x6E\xA4\x4A\xB9\x4F\xAE\xC9\xA1\x43";
 // 0x55CA18 原文：處理登出逾時。
 constexpr char kLogoutTimeoutMessage[] = "\xB3\x42\xB2\x7A\xB5\x6E\xA5\x58\xB9\x4F\xAE\xC9\xA1\x43";
+constexpr char kSuccessfulResult[] = "successful";
 
 static_assert(kRequestField18Offset + sizeof(std::int32_t) <= cg::login::CharacterRecordSize);
 static_assert(kRequestField4COffset + sizeof(std::int32_t) <= cg::login::CharacterRecordSize);
@@ -25,6 +26,7 @@ static_assert(sizeof(kRequestTimeoutMessage) == 15);
 static_assert(sizeof(kLogoutTimeoutMessage) == 15);
 static_assert(sizeof(kRequestTimeoutMessage) <= cg::login::RequestMessageCapacity);
 static_assert(sizeof(kLogoutTimeoutMessage) <= cg::login::RequestMessageCapacity);
+static_assert(sizeof(kSuccessfulResult) == 11);
 
 } // namespace
 
@@ -96,6 +98,35 @@ std::int32_t PollLoginRequest()
 
     std::memcpy(gRequestMessage, kRequestTimeoutMessage, sizeof(kRequestTimeoutMessage));
     return -1;
+}
+
+// 原 [0x508BC0,0x508C39)：状态先置 2，只有完整匹配才发送计时命令。
+void HandleLoginResponse_508BC0(
+    const std::uintptr_t socket,
+    const char* const result,
+    const char*)
+{
+    if (gRequestStatus != 1) {
+        return;
+    }
+
+    gRequestStatus = 2;
+    std::size_t index = 0;
+    for (;;) {
+        const char expected = kSuccessfulResult[index];
+        if (result[index] != expected) {
+            return;
+        }
+        if (expected == '\0') {
+            break;
+        }
+        ++index;
+    }
+
+    gRequestReplyCode = 1;
+    gRequestOutcomeFlag = 1;
+    const std::uint32_t tick = platform::ReadTickCount32();
+    static_cast<void>(network::Sub_512DF0(socket, tick));
 }
 
 } // namespace cg::login

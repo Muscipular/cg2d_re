@@ -38,4 +38,8 @@ std::uint32_t StartLoginRequest();
 // 原 sub_508B50@0x508B50；轮询完成、失败或 600000 ms 超时。
 std::int32_t PollLoginRequest();
 
+// 原 sub_508BC0@[0x508BC0,0x508C39)：caller 压三参，本体只读前两项。
+void HandleLoginResponse_508BC0(
+    std::uintptr_t socket, const char* result, const char* unusedText);
+
 } // namespace cg::login

@@ -73,6 +73,11 @@ std::int32_t InitializeNetworkRuntime_508140();
 // 只读原 W8 0xD9F2C8 活动门禁；状态仍由网络运行期唯一持有。
 std::uint8_t ReadNetworkRuntimeActive() noexcept;
 
+// 原 0xD9F2D0/0xDA3B22 的字段级访问；不公开网络运行期完整状态。
+void WriteValueD9F2D0(std::uint32_t value) noexcept;
+std::uint16_t ReadProtocolModeDA3B22() noexcept;
+void WriteProtocolModeDA3B22(std::uint16_t value) noexcept;
+
 // 原 sub_5081A0@0x5081A0：关闭 Winsock 并释放网络运行期工作区。
 void ShutdownNetworkRuntime_5081A0();
 

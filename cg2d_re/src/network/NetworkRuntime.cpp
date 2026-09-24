@@ -1075,6 +1075,21 @@ std::uint8_t ReadNetworkRuntimeActive() noexcept
     return gNetworkRuntimeState.active;
 }
 
+void WriteValueD9F2D0(const std::uint32_t value) noexcept
+{
+    gNetworkRuntimeState.valueD9F2D0 = value;
+}
+
+std::uint16_t ReadProtocolModeDA3B22() noexcept
+{
+    return gNetworkRuntimeState.protocolModeDA3B22;
+}
+
+void WriteProtocolModeDA3B22(const std::uint16_t value) noexcept
+{
+    gNetworkRuntimeState.protocolModeDA3B22 = value;
+}
+
 void ShutdownNetworkRuntime_5081A0()
 {
     if (gNetworkRuntimeState.active == 0) {

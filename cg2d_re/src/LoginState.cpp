@@ -1,3 +1,6 @@
+#include <winsock2.h>
+#include <ws2tcpip.h>
+
 #include "cg/LoginState.hpp"
 
 #include "LoginStateDependencies.hpp"
@@ -6,9 +9,13 @@
 #include "cg/LoginConnection.hpp"
 #include "cg/LoginMessage.hpp"
 #include "cg/LoginRequest.hpp"
+#include "cg/LoginScene.hpp"
 #include "cg/network/NetworkRuntime.hpp"
+#include "cg/platform/CommandOptions.hpp"
+#include "cg/platform/MainLoop.hpp"
 #include "cg/world/SceneState.hpp"
 
+#include <cstdio>
 #include <cstring>
 
 namespace {
@@ -26,6 +33,30 @@ constexpr char kLoginProgressText[] = "\xB5\x6E\xA4\x4A\xA4\xA4";
 // 原 asc_55C7F0 正文 12 字节；字符串字面量隐式追加 NUL。
 constexpr char kServerConnectingText[] =
     "\xA6\xF8\xAA\x41\xBE\xB9\xB3\x73\xB1\xB5\xA4\xA4";
+
+constexpr char kServerInfoFailureMessage[] =
+    "\xA6\xF8\xAA\x41\xBE\xB9\xAA\xBA\xA6\x57"
+    "\xBA\xD9\xA4\xA3\xA5\xBF\xBD\x54\xA1\x43";
+constexpr char kSocketFailureMessage[] =
+    "\xBA\xF4\xB8\xF4\xB3\x71\xB0\x54\xA8\xF3"
+    "\xA9\x77\xA1\x5D\x54\x43\x50\xA1\x5E\xBF"
+    "\xF9\xBB\x7E\xA1\x43";
+constexpr char kServerAddressFailureFormat[] =
+    "\xB5\x4C\xAA\x6B\xA8\xFA\xB1\x6F\xA6\xF8"
+    "\xAA\x41\xBE\xB9\xAA\xBA\x20\x49\x50\x20"
+    "\xA6\xEC\xA7\x7D\xA1\x43\x28\x25\x73\x29";
+constexpr char kConnectFailureMessage[] =
+    "\xB5\x4C\xAA\x6B\xB6\x7D\xA9\x6C\xB3\x42"
+    "\xB2\x7A\xBB\x50\xA6\xF8\xAA\x41\xBE\xB9"
+    "\xAA\xBA\xB3\x73\xB1\xB5\xA1\x43";
+constexpr char kConnectExceptionMessage[] =
+    "\xB5\x4C\xAA\x6B\xB3\x73\xA4\x57\xA6\xF8"
+    "\xAA\x41\xBE\xB9\xA1\x43\x20";
+constexpr char kLoginRejectedMessage[] =
+    "\xB5\x4C\xAA\x6B\xB5\x6E\xA4\x4A\xA1\x43";
+constexpr char kConnectionTimeoutMessage[] =
+    "\xBB\x50\xA6\xF8\xAA\x41\xBE\xB9\xAA\xBA"
+    "\xB3\x73\xB1\xB5\xB9\x4F\xAE\xC9\xA1\x43";
 
 // 原 0x9A4E80、0x9A5958、0x9A50D4、0x9A4B90 只由 sub_45EA60 读写。
 struct LoginProgressLayout {
@@ -58,6 +89,13 @@ static_assert(sizeof(kLoginTimeoutMessage) == 15);
 static_assert(sizeof(kLoginFailureMessage) == 43);
 static_assert(sizeof(kLoginProgressText) == 7);
 static_assert(sizeof(kServerConnectingText) == 13);
+static_assert(sizeof(kServerInfoFailureMessage) == 21);
+static_assert(sizeof(kSocketFailureMessage) == 26);
+static_assert(sizeof(kServerAddressFailureFormat) == 31);
+static_assert(sizeof(kConnectFailureMessage) == 29);
+static_assert(sizeof(kConnectExceptionMessage) == 18);
+static_assert(sizeof(kLoginRejectedMessage) == 11);
+static_assert(sizeof(kConnectionTimeoutMessage) == 21);
 
 } // namespace
 
@@ -74,6 +112,186 @@ char gServerConnectingText[256] {};
 YobiAction* gServerConnectionAction = nullptr;
 
 } // namespace
+
+namespace detail {
+
+std::int32_t Sub_508360()
+{
+    if (network::ReadNetworkRuntimeActive() == 0) {
+        return 0;
+    }
+
+    std::int32_t step = gConnectionStep;
+    if (step == 0) {
+        gRequestStartTick = platform::ReadTickCount32();
+
+        char serverAddress[128];
+        std::uint16_t port;
+        if (GetServerAddressInfo_507D90(
+                static_cast<std::int32_t>(gValue58AD94),
+                serverAddress,
+                &port) < 0) {
+            static_cast<void>(std::sprintf(
+                gRequestMessage, "%s", kServerInfoFailureMessage));
+            return -2;
+        }
+
+        const SOCKET connectionSocket = ::socket(AF_INET, SOCK_STREAM, 0);
+        platform::gConnectionSocket =
+            static_cast<std::uintptr_t>(connectionSocket);
+        if (connectionSocket == INVALID_SOCKET) {
+            static_cast<void>(std::sprintf(
+                gRequestMessage, "%s", kSocketFailureMessage));
+            return -3;
+        }
+
+        u_long nonBlocking = 1;
+        static_cast<void>(
+            ::ioctlsocket(connectionSocket, FIONBIO, &nonBlocking));
+
+        if (platform::gNoDelay != 0) {
+            int noDelay = 1;
+            if (::setsockopt(
+                    connectionSocket,
+                    IPPROTO_TCP,
+                    TCP_NODELAY,
+                    reinterpret_cast<const char*>(&noDelay),
+                    4) != 0) {
+                return -100;
+            }
+        }
+
+        sockaddr_in address;
+        address.sin_family = AF_INET;
+        address.sin_port = ::htons(port);
+        address.sin_addr.s_addr = ::inet_addr(serverAddress);
+        if (address.sin_addr.s_addr == INADDR_NONE) {
+            hostent* const host = ::gethostbyname(serverAddress);
+            if (host == nullptr) {
+                static_cast<void>(std::sprintf(
+                    gRequestMessage,
+                    kServerAddressFailureFormat,
+                    serverAddress));
+                static_cast<void>(::closesocket(connectionSocket));
+                return -4;
+            }
+            std::memcpy(
+                &address.sin_addr.s_addr,
+                host->h_addr_list[0],
+                sizeof(address.sin_addr.s_addr));
+        }
+
+        static_cast<void>(network::ResetProtocolState_4037D0());
+        network::WriteValueD9F2D0(0);
+
+        if (::connect(
+                connectionSocket,
+                reinterpret_cast<sockaddr*>(&address),
+                0x10) == SOCKET_ERROR) {
+            const int error = ::WSAGetLastError();
+            if (error != 10035) {
+                char logMessage[sizeof("CONNECT ERROR=-2147483648")];
+                static_cast<void>(std::sprintf(
+                    logMessage, "CONNECT ERROR=%d", error));
+                static_cast<void>(Sub_44B5C0(logMessage));
+                static_cast<void>(::closesocket(connectionSocket));
+                static_cast<void>(std::sprintf(
+                    gRequestMessage, "%s", kConnectFailureMessage));
+                return -5;
+            }
+        }
+        gConnectionStep = 1;
+    }
+    else if (step >= 1 && step <= 70) {
+        ++step;
+        gConnectionStep = step;
+        if (step == 70) {
+            gConnectionStep = 69;
+        }
+
+        const SOCKET connectionSocket =
+            static_cast<SOCKET>(platform::gConnectionSocket);
+        fd_set readSet;
+        readSet.fd_count = 1;
+        readSet.fd_array[0] = connectionSocket;
+        fd_set writeSet;
+        writeSet.fd_count = 1;
+        writeSet.fd_array[0] = connectionSocket;
+        fd_set exceptionSet;
+        exceptionSet.fd_count = 1;
+        exceptionSet.fd_array[0] = connectionSocket;
+        timeval timeout {0, 0};
+        static_cast<void>(
+            ::select(2, &readSet, &writeSet, &exceptionSet, &timeout));
+
+        if (::__WSAFDIsSet(connectionSocket, &writeSet) != 0) {
+            gConnectionStep = 71;
+            gRequestPollingEnabled = 1;
+            static_cast<void>(Sub_44B5C0("CONNECT OK"));
+        }
+        if (::__WSAFDIsSet(connectionSocket, &exceptionSet) != 0) {
+            static_cast<void>(std::sprintf(
+                gRequestMessage, "%s", kConnectExceptionMessage));
+            static_cast<void>(::closesocket(connectionSocket));
+            return -6;
+        }
+    }
+    else if (step >= 71 && step <= 80) {
+        if (step == 71) {
+            network::WriteProtocolModeDA3B22(0);
+
+            char adapterScratch[16];
+            char accountCopy[44];
+            char adapterId[44];
+            static_cast<void>(Sub_534EF0(adapterScratch));
+            std::strcpy(accountCopy, gValueDA38DC);
+            std::strcpy(adapterId, adapterScratch);
+            std::strcpy(gValueDA38DC, accountCopy);
+            static_cast<void>(Sub_512800(
+                platform::gConnectionSocket,
+                gValueDA3A1C,
+                accountCopy,
+                gValueDA3A5C,
+                adapterId));
+            gRequestStatus = 1;
+        }
+        else if (gRequestStatus == 2) {
+            if (network::ReadProtocolModeDA3B22() == 0) {
+                gRequestStatus = 0;
+                static_cast<void>(std::sprintf(
+                    gRequestMessage, "%s", kLoginRejectedMessage));
+                static_cast<void>(::closesocket(
+                    static_cast<SOCKET>(platform::gConnectionSocket))));
+                return -7;
+            }
+            step = 81;
+        }
+
+        ++step;
+        gConnectionStep = step;
+        if (step == 81) {
+            gConnectionStep = 80;
+        }
+    }
+    else if (step >= 81 && step <= 98) {
+        ++step;
+        gConnectionStep = step;
+    }
+    else if (step == 99) {
+        gRequestStatus = 0;
+        return 1;
+    }
+
+    const std::uint32_t now = platform::ReadTickCount32();
+    if (now - gRequestStartTick > 600000U) {
+        static_cast<void>(std::sprintf(
+            gRequestMessage, "%s", kConnectionTimeoutMessage));
+        return -1;
+    }
+    return 0;
+}
+
+} // namespace detail
 
 std::uint16_t gValue9A6E3C = 0;
 std::uint16_t gValue9A6E3E = 0;

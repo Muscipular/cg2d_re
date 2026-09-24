@@ -7,11 +7,11 @@
 #include "cg/platform/LegacyMouseTracker.hpp"
 #include "cg/platform/Startup.hpp"
 
+#include <cstdint>
+
 #define WIN32_LEAN_AND_MEAN
 #define NOMINMAX
 #include <Windows.h>
-
-struct IDirectSound;
 
 namespace cg::platform {
 namespace shutdown_detail {
@@ -26,7 +26,7 @@ HGLOBAL Sub_522C50();                     // 原 0x522C50：HGLOBAL()。
 HGLOBAL Sub_44E110();                     // 原 0x44E110：HGLOBAL()。
 void RendererDestroy_44C3C0();            // 原 0x44C3C0：void __cdecl()。
 int Sub_454EE0();                          // 原 0x454EE0：int()。
-IDirectSound* Sub_52B630();                // 原 0x52B630：LPDIRECTSOUND()。
+std::uint32_t Sub_52B630();                // 原 0x52B630：门值或 Release 的 EAX32。
 bool Sub_52CCE0();                         // 原 0x52CCE0：bool()。
 int AnimeUnload_45BEF0();                  // 原 AnimeUnload@0x45BEF0：int()。
 int Sub_45BF20();                          // 原 0x45BF20：int()。

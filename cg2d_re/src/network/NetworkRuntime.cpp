@@ -1,5 +1,6 @@
 #include "cg/network/NetworkRuntime.hpp"
 
+#include "../CharacterSelectSceneDependencies.hpp"
 #include "../LoginStateDependencies.hpp"
 #include "NetworkRuntimeDependencies.hpp"
 
@@ -398,6 +399,16 @@ std::int32_t __cdecl Sub_50E6C0(
     const std::int32_t sourceY)
 {
     return audio::Sub_52CDE0(index, sourceX, sourceY);
+}
+
+std::int32_t Sub_50E830(const std::uintptr_t)
+{
+    const std::uint32_t state = world::gValue9A6E0C;
+    if (state != 0) {
+        return std::bit_cast<std::int32_t>(state);
+    }
+    character_select::detail::Sub_5194C0();
+    return character_select::detail::Sub_519550();
 }
 
 } // namespace detail

@@ -13,6 +13,9 @@ std::int32_t __cdecl Sub_50E6C0(
     std::int32_t unused, std::int32_t index,
     std::int32_t sourceX, std::int32_t sourceY);
 
+// 原 [0x50E830,0x50E844)：共享 W32 非零直接返回，零时清并回写公会邮件。
+std::int32_t Sub_50E830(std::uintptr_t unusedSocket);
+
 // 原 sub_4038A0@0x4038A0：就地变换 text；key3/key5 参与逐轮计算，
 // 第二、四参数未读取；返回末轮方向，零轮返回 0。
 char Sub_4038A0(

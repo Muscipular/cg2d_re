@@ -64,6 +64,7 @@ std::int32_t Sub_5194C0();
 std::FILE* Sub_519300();
 std::FILE* Sub_519550();
 std::int32_t Sub_51BF00(std::int32_t imageNo);
+// 原 [0x51BAC0,0x51BB76)：旧图号逆变换，仅在有效区间分解。
 std::int32_t Sub_51BAC0(std::int32_t imageNo);
 // 原 [0x51BFF0,0x51C0CA)：14 项类别查找及特殊区间转换。
 std::int32_t Sub_51BFF0(std::int32_t imageNo);

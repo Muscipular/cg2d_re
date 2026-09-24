@@ -124,6 +124,33 @@ std::int32_t Sub_51BB80(std::int32_t imageNo)
     return 25 * base + 5 * tens + ones;
 }
 
+std::int32_t Sub_51BAC0(const std::int32_t imageNo)
+{
+    if (imageNo < 202800 || imageNo > 204199) {
+        return imageNo;
+    }
+
+    const std::int32_t delta = imageNo - 202800;
+    std::int32_t category = delta / 100;
+    const std::int32_t remainder = delta % 100;
+    const std::int32_t quarter = remainder / 25;
+    const std::int32_t quarterRemainder = remainder % 25;
+    const std::int32_t tens = quarterRemainder / 5;
+    const std::int32_t ones = quarterRemainder % 5;
+    if (category == 3) {
+        category = 4;
+    } else if (category == 4) {
+        category = 3;
+    }
+
+    std::int32_t result =
+        1000 * (quarter + 4 * category + 30) + 10 * tens + ones;
+    if (result >= 58000) {
+        result += 12000;
+    }
+    return result;
+}
+
 std::int32_t Sub_51BFF0(const std::int32_t imageNo)
 {
     if (imageNo >= 202800 && imageNo <= 204200) {

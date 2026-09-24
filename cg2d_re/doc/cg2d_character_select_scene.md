@@ -1404,3 +1404,24 @@ S32 返回函数。`51B114–51B11B` 拒绝有符号
 在预览调用链中仍依次执行；角色选择场景
 也复用同一定义。另两个原 caller 未接线，
 其他图号叶、绘图和完整链接/运行未因此完成。
+
+## `51BAC0` 旧图号逆向分段转换
+
+2026-09-24，当前 IDA `[51BAC0,51BB76)` 是单参
+S32 返回、无共享读写的完整函数。`51BAC4–51BAD4`
+仅在 `[202800,204199]` 内执行转换，其他输入原样
+返回。`51BADA–51BB3B` 对 `delta=imageNo-202800`
+依次分解 `category=delta/100`、`remainder=delta%100`、
+`quarter=remainder/25`、`quarterRemainder=remainder%25`、
+`tens=quarterRemainder/5`、`ones=quarterRemainder%5`。
+`51BB3D–51BB53` 交换类别 3/4；`51BB53–51BB66`
+组合为 `1000*(quarter+4*category+30)+10*tens+ones`；
+`51BB69–51BB75` 在结果 `>=58000` 时再加 12000。
+有效域的所有中间值非负，除法与余数保持原数值。
+
+直接 caller 是 `460FF0@4617E8/4618AF`、
+`4631D0@463AEE/46410C`、`4C5650@4C56AF`、
+`51BC50@51BCA9/51BCC6`。新端在既有角色预览模块
+定义 `cg::character_select::detail::Sub_51BAC0`，
+角色选择场景沿原调用点消费；其他三个 caller、
+`51BF00` 的越界表索引域与完整场景链均未闭合。

@@ -691,6 +691,7 @@ constexpr char kAppendMode_554904[] = "a";
 constexpr char kChatHistoryName554910[] = "chathis.dat";
 constexpr char kChatHistoryReadMode[] = "rb";
 constexpr char kChatHistoryWriteMode[] = "wb";
+constexpr char kChatHistoryUpdateMode[] = "r+b";
 
 constexpr auto kFirstSeparator_5548CC = [] {
     std::array<char, 56> text {};
@@ -745,6 +746,7 @@ static_assert(sizeof(kAppendMode_554904) == 2);
 static_assert(sizeof(kChatHistoryName554910) == 12);
 static_assert(sizeof(kChatHistoryReadMode) == 3);
 static_assert(sizeof(kChatHistoryWriteMode) == 3);
+static_assert(sizeof(kChatHistoryUpdateMode) == 4);
 static_assert(sizeof(kDateTitle_55488C) == 63);
 static_assert(sizeof(kSessionTime_554820) == 40);
 
@@ -773,6 +775,30 @@ std::int32_t Sub_44A090()
     }
     gCursor62683C = 63;
     return 0;
+}
+
+// 原 [0x449FA0,0x44A084)：按索引原位写入聊天历史记录及尾部 W32。
+std::int32_t Sub_449FA0(const std::int32_t index)
+{
+    char path[128];
+    std::sprintf(
+        path, kPathFormat_553514, platform::gDataPath, kChatHistoryName554910);
+
+    std::FILE* const stream = std::fopen(path, kChatHistoryUpdateMode);
+    if (stream == nullptr) {
+        return 0;
+    }
+
+    std::fseek(stream, index * 0x121, SEEK_SET);
+    if (std::fwrite(gChatHistory621FF8.records[index], 0x121, 1, stream) < 1) {
+        std::fclose(stream);
+        return 0;
+    }
+
+    std::fseek(stream, 0x4840, SEEK_SET);
+    const std::size_t written = std::fwrite(&index, sizeof(index), 1, stream);
+    std::fclose(stream);
+    return written >= 1 ? 1 : 0;
 }
 
 // 原 sub_449DA0@[0x449DA0,0x449F9C)：输入记录与聊天日志初始化。

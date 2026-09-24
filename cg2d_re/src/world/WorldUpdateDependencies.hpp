@@ -239,6 +239,7 @@ std::int32_t Sub_455BD0();                 // 原 [0x455BD0,0x455C56)，顺序�
 std::uint32_t* Sub_46E2A0();               // 原 0x46E2A0。
 std::int32_t Sub_46BD40();                 // 原 [0x46BD40,0x46BD57)，依次清四个独立 W32 槽并返回 0。
 std::int32_t Sub_44A090();                 // 原 [0x44A090,0x44A15B)，读取或创建 chathis.dat。
+std::int32_t Sub_449FA0(std::int32_t index); // 原 [0x449FA0,0x44A084)，写入一项历史和尾索引。
 std::int32_t Sub_504A30();                 // 原 [0x504A30,0x504A43)，调用 44A090、清两槽并返回 0。
 std::int32_t Sub_43C8F0();                 // 原 [0x43C8F0,0x43C90A)，四槽顺序写入并返回 -1。
 std::int32_t Sub_504100();                 // 原 [0x504100,0x504113)，顺序清三槽、返回 0。

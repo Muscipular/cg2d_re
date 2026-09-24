@@ -4,6 +4,10 @@
 
 namespace cg::network::detail {
 
+// 原 [0x5082D0,0x508310) / [0x508310,0x508350)：NetworkLoop 错误日志叶。
+std::int32_t Sub_5082D0();
+std::int32_t Sub_508310();
+
 // 原 sub_4038A0@0x4038A0：就地变换 text；key3/key5 参与逐轮计算，
 // 第二、四参数未读取；返回末轮方向，零轮返回 0。
 char Sub_4038A0(

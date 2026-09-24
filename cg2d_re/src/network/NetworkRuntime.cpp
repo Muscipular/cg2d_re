@@ -1,5 +1,6 @@
 #include "cg/network/NetworkRuntime.hpp"
 
+#include "../LoginStateDependencies.hpp"
 #include "NetworkRuntimeDependencies.hpp"
 
 #include "cg/LoginRequest.hpp"
@@ -367,6 +368,25 @@ std::uint8_t* Sub_517730(
     }
     destination[destinationIndex] = 0;
     return destination;
+}
+
+// 原 sub_5082D0/508310：先记录 Winsock 错误，再过滤 would-block。
+std::int32_t Sub_5082D0()
+{
+    const std::int32_t error = ::WSAGetLastError();
+    char message[256];
+    std::sprintf(message, "RECV ERROR=%d", error);
+    static_cast<void>(login::detail::Sub_44B5C0(message));
+    return error == WSAEWOULDBLOCK ? 0 : error;
+}
+
+std::int32_t Sub_508310()
+{
+    const std::int32_t error = ::WSAGetLastError();
+    char message[256];
+    std::sprintf(message, "SNED ERROR=%d", error);
+    static_cast<void>(login::detail::Sub_44B5C0(message));
+    return error == WSAEWOULDBLOCK ? 0 : error;
 }
 
 } // namespace detail

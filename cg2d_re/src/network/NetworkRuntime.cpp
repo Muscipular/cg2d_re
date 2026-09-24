@@ -1700,6 +1700,45 @@ std::int32_t Sub_511EF0(
         reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
 }
 
+// 原 [0x512040,0x5120CE)：两段文本和整数各自采容量、格式化后重读输出缓冲。
+std::int32_t Sub_512040(
+    const std::uintptr_t socket,
+    const char* const first,
+    const char* const second,
+    const std::int32_t third)
+{
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0), "aiAb"));
+
+    const std::int32_t firstCapacity = std::bit_cast<std::int32_t>(
+        gNetworkRuntimeState.bufferLength);
+    std::uint8_t* const firstToken = FormatProtocolTextToken_517160(first);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
+        reinterpret_cast<const char*>(firstToken),
+        firstCapacity));
+
+    const std::int32_t secondCapacity = std::bit_cast<std::int32_t>(
+        gNetworkRuntimeState.bufferLength);
+    std::uint8_t* const secondToken = FormatProtocolTextToken_517160(second);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
+        reinterpret_cast<const char*>(secondToken),
+        secondCapacity));
+
+    const std::int32_t thirdCapacity = std::bit_cast<std::int32_t>(
+        gNetworkRuntimeState.bufferLength);
+    std::uint8_t* const thirdToken = FormatProtocolIntegerToken_517120(third);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
+        reinterpret_cast<const char*>(thirdToken),
+        thirdCapacity));
+
+    return SendProtocolBuffer_517480(
+        socket,
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
+}
+
 std::int32_t AllocateNetworkWorkspace_516B60(
     const NetworkCallback callback,
     const std::uint32_t bufferLength,

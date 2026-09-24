@@ -853,6 +853,38 @@ std::int32_t InitializeSavedState_533300()
 
 namespace cg::login::detail {
 
+// 原 sub_520470@[0x520470,0x5204BF)：将音频设置写入当前保存记录。
+std::int32_t Sub_520470()
+{
+    auto* const currentBytes =
+        reinterpret_cast<std::uint8_t*>(&gCurrentSavedRecord);
+    const std::uint8_t stereo =
+        static_cast<std::uint8_t>(cg::platform::gUseStereo);
+    const std::uint8_t effect =
+        static_cast<std::uint8_t>(cg::platform::gEffectVolume);
+    const std::uint8_t music =
+        static_cast<std::uint8_t>(cg::platform::gMusicVolume);
+    const std::uint8_t* const frequencies =
+        cg::platform::gBgmFrequencySelectionPrefix;
+    std::uint32_t first;
+    std::uint32_t second;
+    std::uint32_t third;
+    std::uint32_t fourth;
+
+    currentBytes[0x9D] = stereo;
+    std::memcpy(&first, frequencies, sizeof(first));
+    currentBytes[0x9E] = effect;
+    std::memcpy(&second, frequencies + 4, sizeof(second));
+    currentBytes[0x9F] = music;
+    std::memcpy(&third, frequencies + 8, sizeof(third));
+    std::memcpy(currentBytes + 0xA0, &first, sizeof(first));
+    std::memcpy(&fourth, frequencies + 12, sizeof(fourth));
+    std::memcpy(currentBytes + 0xA4, &second, sizeof(second));
+    std::memcpy(currentBytes + 0xA8, &third, sizeof(third));
+    std::memcpy(currentBytes + 0xAC, &fourth, sizeof(fourth));
+    return std::bit_cast<std::int32_t>(fourth);
+}
+
 std::int32_t Sub_520200()
 {
     return PersistCurrentSavedRecord_520200();

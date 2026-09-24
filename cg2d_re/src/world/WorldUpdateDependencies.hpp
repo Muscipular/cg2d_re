@@ -22,6 +22,7 @@ LegacyTm53B8C6* __cdecl LocalTime_53B8C6(std::int32_t* timeValue);
 namespace cg::login::detail {
 
 void Sub_46DD40(); // 原 0x46DD40；复用 YobiRuntime.cpp 的外部定义。
+std::int32_t Sub_520470(); // 原 [0x520470,0x5204BF)，保存当前音频设置。
 
 } // namespace cg::login::detail
 

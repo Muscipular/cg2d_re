@@ -236,6 +236,9 @@ std::uint16_t gValueFF0C10 = 0;
 // 原 0xCAFEA0：504100 清零的独立 W32 状态槽。
 std::uint32_t gValueCAFEA0 = 0;
 
+// 原 0x9A6204：45ED80 重置、45ED90 读取并推进的场景 7 W32 状态。
+std::uint32_t gValue9A6204 = 0;
+
 // 原 0x5ABB70/0x5ABB6C/0x553F90/0x553F84；43C8F0 顺序重置的独立 S32 槽。
 std::int32_t gValue5ABB70 = 0;
 std::int32_t gValue5ABB6C = 0;
@@ -515,6 +518,12 @@ std::int32_t Sub_504100()
     gValueFF0C10 = 0;
     gValueCAFEA0 = 0;
     return 0;
+}
+
+// 原 [0x45ED80,0x45ED8B)：只清场景 7 阶段槽，不定义返回值。
+void Sub_45ED80()
+{
+    gValue9A6204 = 0;
 }
 
 } // namespace detail

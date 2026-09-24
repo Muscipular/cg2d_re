@@ -1193,3 +1193,19 @@ owner 结论仍仅作为待用户批准的候选：首选为同一世界移动 o
 `0x51DCCA` 公共尾部调用 `Renderer::ClearSurface`；索引 1 落入 `0x51DF53–0x51DF7B`，从 Temp 作源，调用 `sub_4535B0`，由后者在 `0x453693–0x4536B1` 以 renderer 的 Back 为目标执行 `BltFast(...,flags=0x10)`，调用结果不用于本体完成判定。`0x51DFCC–0x51E09F` 仅在完成标志等于 1 时依次清 `FF48E8/EC/F0/F4/F8`，按共享 `CryptInt@73ECD0` 的值 2/3 转写 3/4，再返回 1；其他路径返回 0。`FF48F0/FF48F8` 已查的全部直接 xref 均在此函数，但不据直接 xref 宣称不存在别名。
 
 新端 [SceneState.hpp](../include/cg/world/SceneState.hpp) 已有 `58B6D0` 唯一存储，[WorldUpdate.cpp](../src/world/WorldUpdate.cpp) 的索引与参数不改。缺口是统一 Back/Temp 生命周期及 `ClearSurface`/`4535B0` 的真实实现，仍受[第 43 节](cg2d_scene_state.md)未批 owner SPEC 约束；五个 F32 状态的 x64 表示、跨原端 x87 中间精度的承接也未裁决。此处不新建影子画面或私有结果，不编码 `51D790`，不计场景 11 画面、返回、链接或运行完成；未编译、测试或运行。
+
+## 47. Sub_45ED80 场景 7 阶段重置
+
+2026-09-24。当前 cg2d IDA 中 `[0x45ED80,0x45ED8B)` 仅有
+`45ED80: mov dword ptr [9A6204],0` 和 `45ED8A: retn`，
+无参数、分支、callee 或已定义返回值；唯一直接 caller 是
+`45EBB0@45EC04`，弃返回值。`9A6204` 的五处直接数据引用
+只分布于本函数与 `45ED90`，后者在 `45ED9B/45EDBA/45EE0A/45EE27`
+读取、写 1 和递增；已查直接引用不等于排除间接别名。
+
+新端由 `SceneState.cpp` 的 `cg::world::detail` 唯一持有独立
+`uint32_t gValue9A6204`，映像零初值沿用已证 PE 零填充
+`[593000,1087B08)`；`Sub_45ED80()` 只写零，
+私有声明留给后续 `45EBB0/45ED90`，不新增公开状态。
+父函数仍依赖画面、网络与共享对象链，本叶不计场景 7、
+完整链接或运行完成。

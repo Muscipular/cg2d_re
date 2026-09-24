@@ -43,6 +43,9 @@ volatile std::uint32_t gProtectionCheckCounter = 0;
 // 原 W32 0x59E558；0x4041E0 仅更新低 W8。
 std::uint32_t gProtectionPlatformState = 0;
 
+// 原 W32 0x73ED38；能力探测包装入口先写此槽，再比较返回码。
+volatile std::uint32_t gDxCapabilityCode73ED38 = 0;
+
 // 原 R32 0x59E55C；使用原生句柄宽度，供未来 0x4041E0/0x4043B0 在本文件共享。
 HMODULE gProtectionModule = nullptr;
 
@@ -514,6 +517,17 @@ int ResetProtection_4048D0()
 std::uint32_t ReadTickCount32() noexcept
 {
     return static_cast<std::uint32_t>(GetTickCount());
+}
+
+// 原 0x458AE0 的完整平台探测仍未实现；不以固定版本码接通音频初始化。
+std::int32_t Sub_458AE0();
+
+// 原 [0x458DC0,0x458DD5)：先发布完整 EAX32，再作无符号 <=0x500 比较。
+std::int32_t CheckLegacyDxCapability_458DC0()
+{
+    const std::uint32_t code = std::bit_cast<std::uint32_t>(Sub_458AE0());
+    gDxCapabilityCode73ED38 = code;
+    return code <= 0x500u ? 1 : 0;
 }
 
 std::int32_t CheckWindows_4048E0()

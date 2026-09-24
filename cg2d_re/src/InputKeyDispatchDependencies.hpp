@@ -4,11 +4,11 @@
 
 namespace cg::input::detail {
 
-// sub_4596D0@0x4596D0 的未实现直接目标；只保留原地址与调用契约。
+// sub_4596D0@0x4596D0 的直接目标；其余未实现项只保留调用契约。
 void Sub_44A5D0();
 void Sub_44A7D0();
-void Sub_44A540();
-void Sub_44A580();
+std::uintptr_t Sub_44A540();
+std::uintptr_t Sub_44A580();
 void Sub_44A990();
 void Sub_44AA90();
 void Sub_44AB60();

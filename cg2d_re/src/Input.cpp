@@ -2,6 +2,7 @@
 #include "cg/platform/LegacyTime.hpp"
 #include "cg/platform/Startup.hpp"
 
+#include "platform/WindowProcedureState.hpp"
 #include "world/WorldUpdateDependencies.hpp"
 
 #include <array>
@@ -161,6 +162,51 @@ void LoadInitialText_44A160(const char* const initialText)
 }
 
 } // namespace
+
+namespace detail {
+
+// 原 [0x44A540,0x44A580)：未移动时返回上下文指针，移动时返回边界分类。
+std::uintptr_t Sub_44A540()
+{
+    InputContext* const context = gCurrentInputData;
+    if (context == nullptr || platform::gImeComposition[0] != '\0') {
+        return reinterpret_cast<std::uintptr_t>(context);
+    }
+
+    const std::int32_t caret = context->caretByteOffset;
+    if (caret <= 0) {
+        return reinterpret_cast<std::uintptr_t>(context);
+    }
+
+    const std::int32_t boundary =
+        ClassifyAnsiBoundary_44B1D0(context->text, caret);
+    context->caretByteOffset -= boundary;
+    gValue626C0C = 20;
+    return static_cast<std::uintptr_t>(boundary);
+}
+
+// 原 [0x44A580,0x44A5C8)：按光标处字节的最高位移动一或两字节。
+std::uintptr_t Sub_44A580()
+{
+    InputContext* const context = gCurrentInputData;
+    if (context == nullptr || platform::gImeComposition[0] != '\0') {
+        return reinterpret_cast<std::uintptr_t>(context);
+    }
+
+    const std::int32_t caret = context->caretByteOffset;
+    if (caret >= context->totalByteLength) {
+        return reinterpret_cast<std::uintptr_t>(context);
+    }
+
+    const std::int32_t width =
+        (static_cast<unsigned char>(context->text[caret]) & 0x80u) != 0u
+        ? 2 : 1;
+    context->caretByteOffset += width;
+    gValue626C0C = 20;
+    return static_cast<std::uintptr_t>(width);
+}
+
+} // namespace detail
 
 bool IsRejectedInputText_404060(const char* const legacyText)
 {

@@ -100,6 +100,10 @@ char* EscapeLegacyText_52D1B0(
 char* EscapeInputText_52D2D0(
     const InputContext* context, char* destination, std::int32_t capacity);
 
+// 原 52D150/52D2F0：原位还原旧字节转义；包装随后调用空叶并透传原指针。
+char* UnescapeLegacyText_52D150(char* text);
+char* UnescapeLegacyTextAndNotify_52D2F0(char* text);
+
 // 原 sub_4596D0：按唯一旧键状态表分派输入编辑及尾部音频动作。
 void ProcessKeyInput_4596D0();
 

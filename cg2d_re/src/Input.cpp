@@ -42,6 +42,10 @@ inline constexpr std::int32_t kMaximumCaretOffset =
 inline constexpr std::int32_t kMaximumTotalByteLength =
     static_cast<std::int32_t>(InputTextCapacity) - 1;
 
+constexpr std::array<std::uint8_t, 8> kEscapePairs58E944 {{
+    '\n', 'n', ',', 'c', '|', 'z', '\\', 'y',
+}};
+
 std::int8_t SignedByte(const char value)
 {
     return std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(value));
@@ -550,9 +554,6 @@ char* EscapeLegacyText_52D1B0(
     char* const destination,
     const std::int32_t capacity)
 {
-    constexpr std::array<std::uint8_t, 8> kEscapePairs58E944 {{
-        '\n', 'n', ',', 'c', '|', 'z', '\\', 'y',
-    }};
     const std::int32_t sourceLength =
         static_cast<std::int32_t>(std::strlen(source));
     std::int32_t sourceIndex = 0;
@@ -613,6 +614,56 @@ char* EscapeInputText_52D2D0(
 {
     NullSub_509080();
     return EscapeLegacyText_52D1B0(context->text, destination, capacity);
+}
+
+namespace {
+
+// 原 [0x52D120,0x52D144)：未命中表的转义字母原样返回。
+char DecodeEscapeLetter_52D120(const char letter)
+{
+    for (std::size_t pair = 0; pair < 4; ++pair) {
+        if (static_cast<std::uint8_t>(letter)
+            == kEscapePairs58E944[pair * 2 + 1]) {
+            return static_cast<char>(kEscapePairs58E944[pair * 2]);
+        }
+    }
+    return letter;
+}
+
+} // namespace
+
+// 原 [0x52D150,0x52D1A6)：以入口长度为界，原位压缩旧字节转义。
+char* UnescapeLegacyText_52D150(char* const text)
+{
+    const std::int32_t length =
+        static_cast<std::int32_t>(std::strlen(text));
+    std::int32_t sourceIndex = 0;
+    std::int32_t destinationIndex = 0;
+    while (sourceIndex < length) {
+        const auto current =
+            static_cast<std::uint8_t>(text[sourceIndex]);
+        if ((current & 0x80u) != 0u) {
+            text[destinationIndex++] = text[sourceIndex++];
+            text[destinationIndex++] = text[sourceIndex];
+        } else if (current == '\\') {
+            ++sourceIndex;
+            text[destinationIndex++] =
+                DecodeEscapeLetter_52D120(text[sourceIndex]);
+        } else {
+            text[destinationIndex++] = text[sourceIndex];
+        }
+        ++sourceIndex;
+    }
+    text[destinationIndex] = '\0';
+    return text;
+}
+
+// 原 [0x52D2F0,0x52D308)：空叶调用不改变转义后的文本或原指针。
+char* UnescapeLegacyTextAndNotify_52D2F0(char* const text)
+{
+    UnescapeLegacyText_52D150(text);
+    NullSub_509080();
+    return text;
 }
 
 void AppendChar_44ADB0(const char character)

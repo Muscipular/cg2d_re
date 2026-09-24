@@ -885,6 +885,32 @@ std::int32_t Sub_520470()
     return std::bit_cast<std::int32_t>(fourth);
 }
 
+// 原 sub_520590@[0x520590,0x5205D5)：将六项标量低字节写入当前记录。
+std::uint8_t Sub_520590()
+{
+    auto* const currentBytes =
+        reinterpret_cast<std::uint8_t*>(&gCurrentSavedRecord);
+    const std::uint8_t show =
+        static_cast<std::uint8_t>(cg::platform::gValueD67AE4);
+    const std::uint8_t value73ECBC =
+        static_cast<std::uint8_t>(cg::platform::gValue73ECBC);
+    const std::uint8_t valueD67AE8 =
+        static_cast<std::uint8_t>(cg::platform::gValueD67AE8);
+    currentBytes[0xB0] = show;
+    const std::uint8_t value5F974C =
+        static_cast<std::uint8_t>(cg::platform::gValue5F974C);
+    currentBytes[0xB1] = value73ECBC;
+    const std::uint8_t scanlineSyncMode =
+        static_cast<std::uint8_t>(cg::platform::gScanlineSyncMode);
+    currentBytes[0x312] = valueD67AE8;
+    const std::uint8_t valueD68858 =
+        static_cast<std::uint8_t>(cg::platform::gValueD68858);
+    currentBytes[0x314] = value5F974C;
+    currentBytes[0x31A] = scanlineSyncMode;
+    currentBytes[0x31B] = valueD68858;
+    return value5F974C;
+}
+
 std::int32_t Sub_520200()
 {
     return PersistCurrentSavedRecord_520200();

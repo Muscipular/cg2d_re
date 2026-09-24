@@ -1123,6 +1123,27 @@ std::int32_t Sub_512D30(
         reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
 }
 
+// 原 [0x512DA0,0x512DE8)：命令构造后采一次容量，再格式化和追加整数。
+std::int32_t Sub_512DA0(
+    const std::uintptr_t socket,
+    const std::int32_t value)
+{
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0), "IPy"));
+
+    const std::int32_t capacity = std::bit_cast<std::int32_t>(
+        gNetworkRuntimeState.bufferLength);
+    std::uint8_t* const token = FormatProtocolIntegerToken_517120(value);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
+        reinterpret_cast<const char*>(token),
+        capacity));
+
+    return SendProtocolBuffer_517480(
+        socket,
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
+}
+
 // 原 [0x512B00,0x512B8E)：每项均先读容量，格式化后重新读取输出缓冲。
 std::int32_t Sub_512B00(
     const std::uintptr_t socket,

@@ -71,6 +71,9 @@ std::int32_t Sub_512DF0(std::uintptr_t socket, std::uint32_t tickBits);
 std::int32_t Sub_512D30(
     std::uintptr_t socket, std::int32_t version, const char* payload);
 
+// 原 sub_512DA0@[0x512DA0,0x512DE8)：追加单个整数并发送 IPy。
+std::int32_t Sub_512DA0(std::uintptr_t socket, std::int32_t value);
+
 // 原 sub_512B00@[0x512B00,0x512B8E)：依次追加三项整数并发送 emRV 命令。
 std::int32_t Sub_512B00(
     std::uintptr_t socket,

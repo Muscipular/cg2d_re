@@ -15,13 +15,27 @@
 namespace cg::character_select {
 namespace {
 
-constexpr char kUpgradeProgressText[] = "版本升級中‧‧‧";
-constexpr char kUpgradeSucceededText[] = "版本已經升級。";
-constexpr char kUpgradeFailedText[] = "版本升級失敗。";
-constexpr char kCannotUpgradeText[] = "無法更新版本。";
+// 原 0x55AC58/0x55C8F0/0x55C900/0x55C8E0，供两条版本场景复用原字节。
+constexpr char kUpgradeProgressText[] =
+    "\xAA\xA9\xA5\xBB\xA4\xC9\xAF\xC5\xA4\xA4\xA1\x45\xA1\x45\xA1\x45";
+constexpr char kUpgradeSucceededText[] =
+    "\xAA\xA9\xA5\xBB\xA4\x77\xB8\x67\xA4\xC9\xAF\xC5\xA1\x43";
+constexpr char kUpgradeFailedText[] =
+    "\xAA\xA9\xA5\xBB\xA4\xC9\xAF\xC5\xA5\xA2\xB1\xD1\xA1\x43";
+constexpr char kCannotUpgradeText[] =
+    "\xB5\x4C\xAA\x6B\xA7\xF3\xB7\x73\xAA\xA9\xA5\xBB\xA1\x43";
+constexpr char kLegacyVersionRequest[] = "abcdefg"; // 原 0x55C910。
+
+static_assert(sizeof(kUpgradeProgressText) == 17);
+static_assert(sizeof(kUpgradeSucceededText) == 15);
+static_assert(sizeof(kUpgradeFailedText) == 15);
+static_assert(sizeof(kCannotUpgradeText) == 15);
+static_assert(sizeof(kLegacyVersionRequest) == 8);
 
 // 原 0x9A6EB4，映像初值为空，只由 sub_462330 直接持有。
 login::YobiAction* gVersionUpgradeAction = nullptr;
+// 原 0x9A6E68，仅 sub_45E3D0 直接读写，与 0x9A6EB4 分槽。
+login::YobiAction* gLegacyVersionUpgradeAction = nullptr;
 
 std::uint32_t UnsignedBits(std::int32_t value)
 {
@@ -29,6 +43,104 @@ std::uint32_t UnsignedBits(std::int32_t value)
 }
 
 } // namespace
+
+std::int32_t ProcessLegacyVersionScene_45E3D0()
+{
+    switch (UnsignedBits(world::gCurrentSceneState)) {
+    case 0:
+        gLegacyVersionUpgradeAction = nullptr;
+        [[fallthrough]];
+    case 1:
+        world::gCurrentSceneState = 2;
+        break;
+    case 2:
+        if (render::gPaletteCapability >= 2) {
+            const std::uint8_t pukVersion = state::gPukVersion;
+            if (pukVersion == 0 || pukVersion == 2) {
+                static_cast<void>(detail::Sub_512D30(
+                    platform::gConnectionSocket,
+                    2,
+                    kLegacyVersionRequest));
+                world::gCurrentSceneState = 3;
+            } else {
+                world::gCurrentSceneState = 202;
+            }
+        }
+        break;
+    case 3: {
+        gLegacyVersionUpgradeAction = nullptr;
+        std::int32_t columns =
+            (login::detail::TextMeasure(kUpgradeProgressText, 0) + 111) / 64;
+        if (columns < 2) {
+            columns = 2;
+        }
+        gLegacyVersionUpgradeAction = login::detail::Sub_5044E0(
+            ((10 - columns) * 64) / 2,
+            192,
+            columns * 64,
+            96,
+            1,
+            1);
+        world::gCurrentSceneState = 4;
+        break;
+    }
+    case 4:
+        if (gLegacyVersionUpgradeAction != nullptr
+            && login::detail::IsYobiActionStateEqual(
+                gLegacyVersionUpgradeAction,
+                1)) {
+            const std::int32_t width =
+                login::detail::TextMeasure(kUpgradeProgressText, 0);
+            login::detail::DrawText(
+                static_cast<std::int16_t>(320 - width / 2),
+                232,
+                2,
+                0,
+                0,
+                kUpgradeProgressText,
+                0,
+                0);
+        }
+        break;
+    case 100:
+        if (gLegacyVersionUpgradeAction != nullptr) {
+            login::detail::MarkDeath(gLegacyVersionUpgradeAction);
+        }
+        world::gCurrentSceneState = 101;
+        login::ResetLoginMessage();
+        break;
+    case 101:
+        if (login::UpdateLoginMessage(kUpgradeSucceededText) != 0) {
+            world::SetCurrentSceneType(3);
+        }
+        break;
+    case 200:
+        if (gLegacyVersionUpgradeAction != nullptr) {
+            login::detail::MarkDeath(gLegacyVersionUpgradeAction);
+        }
+        login::ResetLoginMessage();
+        world::gCurrentSceneState = 201;
+        break;
+    case 201:
+        if (login::UpdateLoginMessage(kUpgradeFailedText) != 0) {
+            world::gCurrentSceneState = 1;
+        }
+        break;
+    case 202:
+        world::gCurrentSceneState = 203;
+        login::ResetLoginMessage();
+        break;
+    case 203:
+        if (login::UpdateLoginMessage(kCannotUpgradeText) != 0) {
+            world::gCurrentSceneState = 1;
+        }
+        break;
+    default:
+        break;
+    }
+
+    return login::detail::DrawGraphic(320, 240, 3, 22030, 0, nullptr);
+}
 
 std::int32_t ProcessScene_462330()
 {

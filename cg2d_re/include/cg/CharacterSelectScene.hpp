@@ -54,6 +54,9 @@ std::int32_t ProcessCharacterModal_462090(
 // 原 sub_462330@[0x462330,0x4625A0)。
 std::int32_t ProcessScene_462330();
 
+// 原 sub_45E3D0@[0x45E3D0,0x45E5E2)；低调色板能力的版本升级场景。
+std::int32_t ProcessLegacyVersionScene_45E3D0();
+
 // 原 sub_460FF0@[0x460FF0,0x461A77)。
 std::int32_t ProcessScene_460FF0();
 

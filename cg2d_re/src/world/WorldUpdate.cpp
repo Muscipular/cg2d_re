@@ -172,7 +172,7 @@ void Update()
         platform::gValue73ECC0 = 0;
         input::ProcessKeyInput_4596D0();
         if (render::gPaletteCapability < 3) {
-            detail::Sub_45E3D0();
+            character_select::ProcessLegacyVersionScene_45E3D0();
         } else {
             character_select::ProcessScene_462330();
         }

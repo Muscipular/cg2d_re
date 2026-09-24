@@ -31,3 +31,15 @@ std::uint8_t* Sub_517730(
     std::int32_t capacity);
 
 } // namespace cg::network::detail
+
+namespace cg::character_select::detail {
+
+extern char gText9A4EAC[128];
+
+} // namespace cg::character_select::detail
+
+namespace cg::platform {
+
+void ParseProtectionTables_404600(const char* input);
+
+} // namespace cg::platform

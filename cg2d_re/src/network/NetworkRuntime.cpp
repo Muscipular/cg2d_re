@@ -17,6 +17,7 @@
 #include <cstdint>
 #include <cstdlib>
 #include <cstring>
+#include <ctime>
 #include <exception>
 
 namespace cg::network {
@@ -52,6 +53,8 @@ struct NetworkRuntimeState {
     // 原 [0x593FC4,0x593FD0) 连续协议短状态。
     std::array<std::uint8_t, 12> protocolState593FC4;
     std::uint16_t protocolModeDA3B22;
+    std::time_t timeDA3B28;
+    std::tm* localTimeDA3B2C;
     std::uint8_t protocolByte593850;
 
     NetworkCallback callback; // 原 0x58B5E8。
@@ -303,6 +306,50 @@ std::uint8_t* Sub_517730(
 } // namespace detail
 
 namespace {
+
+[[maybe_unused]] void HandleResponse_508800(
+    const std::uintptr_t,
+    const std::int32_t value,
+    const char* const text)
+{
+    if (login::gRequestStatus != 1) {
+        return;
+    }
+
+    login::gRequestStatus = 2;
+    login::gValueDA3B24 = std::bit_cast<std::int16_t>(
+        static_cast<std::uint16_t>(value));
+    if (value != 0) {
+        if (std::strcmp(text, "busy") == 0) {
+            login::gValueDA3B24 = 1234;
+        }
+        return;
+    }
+
+    gNetworkRuntimeState.protocolModeDA3B22 = 1;
+    gNetworkRuntimeState.timeDA3B28 = std::time(nullptr);
+    gNetworkRuntimeState.localTimeDA3B2C = std::localtime(
+        &gNetworkRuntimeState.timeDA3B28);
+
+    const char* const separator = std::strstr(text, "|");
+    std::memset(
+        character_select::detail::gText9A4EAC,
+        0,
+        sizeof(character_select::detail::gText9A4EAC));
+    if (separator != nullptr) {
+        std::memcpy(
+            character_select::detail::gText9A4EAC,
+            text,
+            static_cast<std::size_t>(separator - text));
+        platform::ParseProtectionTables_404600(separator);
+        return;
+    }
+
+    std::memcpy(
+        character_select::detail::gText9A4EAC,
+        text,
+        std::strlen(text) + 1U);
+}
 
 std::int32_t BuildProtocolCommand_517510(
     char* const buffer,

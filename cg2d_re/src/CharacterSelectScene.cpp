@@ -19,6 +19,12 @@
 #include <cstdint>
 #include <cstring>
 
+namespace cg::character_select::detail {
+
+char gText9A4EAC[128] {};
+
+} // namespace cg::character_select::detail
+
 namespace cg::character_select::state {
 
 std::uint8_t gPukVersion = 0;

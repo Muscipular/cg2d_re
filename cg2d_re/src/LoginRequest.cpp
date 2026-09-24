@@ -2,6 +2,7 @@
 
 #include "LoginRequestDependencies.hpp"
 
+#include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/MainLoop.hpp"
 
 #include <cstring>
@@ -103,6 +104,20 @@ namespace cg::login::detail {
 
 // 原 0xDA3B2E，W16，独立于相邻的 0xDA3B2C 登录回复码。
 std::uint16_t gReplyCodeDA3B2E = 0;
+
+// 原 sub_508C40@[0x508C40,0x508C81)：登出请求启动。
+std::uint32_t Sub_508C40()
+{
+    const std::uintptr_t socket = platform::gConnectionSocket;
+    gReplyCodeDA3B2E = 0;
+    static_cast<void>(network::Sub_512BD0(socket));
+    network::WriteValueD9F2D0(0);
+    gRequestOutcomeFlag = 0;
+    gRequestStatus = 1;
+    const std::uint32_t tick = platform::ReadTickCount32();
+    gRequestStartTick = tick;
+    return tick;
+}
 
 // 原 sub_508C90@[0x508C90,0x508CF0)：登出回复及超时轮询。
 std::int32_t Sub_508C90()

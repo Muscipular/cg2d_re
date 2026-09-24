@@ -4,6 +4,7 @@
 
 #include <array>
 #include <bit>
+#include <cmath>
 #include <cstddef>
 #include <cstdint>
 
@@ -62,6 +63,32 @@ SpatialAudioRecord* __cdecl Sub_52CD40()
         record.value00 = 1;
     }
     return gSpatialRecords103D1C0.data() + gSpatialRecords103D1C0.size();
+}
+
+// 原 [0x52CD60,0x52CDDB)；首个距离阈值不符的有效记录立即结束扫描。
+void __cdecl Sub_52CD60()
+{
+    for (SpatialAudioRecord& record : gSpatialRecords103D1C0) {
+        const std::int32_t id = record.value04;
+        if (id == -1) {
+            continue;
+        }
+
+        const std::int32_t x = record.value08;
+        const std::int32_t y = record.value0C;
+        const std::uint32_t sumBits =
+            static_cast<std::uint32_t>(x) * static_cast<std::uint32_t>(x)
+            + static_cast<std::uint32_t>(y) * static_cast<std::uint32_t>(y);
+        const std::int32_t distance = static_cast<std::int32_t>(
+            std::sqrt(static_cast<double>(std::bit_cast<std::int32_t>(sumBits))));
+        const std::int32_t quotient = (distance * 16) / 106;
+        if (quotient >= 127 || quotient < 20) {
+            return;
+        }
+
+        static_cast<void>(Sub_52C9E0(id + 249, x, y));
+        record.value00 = 1;
+    }
 }
 
 std::uint32_t Sub_52B990() noexcept

@@ -55,6 +55,7 @@ add_library(cg2d_re_startup STATIC
     src/platform/ClientShutdown.cpp
     src/platform/MainLoop.cpp
     src/platform/MainLoopState.cpp
+    src/platform/MainLoopWindowEnumeration.cpp
     src/platform/MainLoopSupport.cpp
     src/platform/LegacyCryptInt.cpp
     src/platform/LegacyModuleDigest.cpp

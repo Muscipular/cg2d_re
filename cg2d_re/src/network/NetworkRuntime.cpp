@@ -1095,6 +1095,11 @@ std::uint8_t ReadNetworkRuntimeActive() noexcept
     return gNetworkRuntimeState.active;
 }
 
+std::uint8_t ReadProtocolByte593850() noexcept
+{
+    return gNetworkRuntimeState.protocolByte593850;
+}
+
 void WriteValueD9F2D0(const std::uint32_t value) noexcept
 {
     gNetworkRuntimeState.valueD9F2D0 = value;

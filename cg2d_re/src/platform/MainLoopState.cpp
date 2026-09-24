@@ -22,8 +22,10 @@ std::int32_t gPendingPaletteReload = 0;
 
 std::uintptr_t gConnectionSocket = 0;
 std::int32_t gWindowReportRequested = 0;
+std::uint32_t gWindowReportFlags = 0;
 std::int32_t gWindowReportAttempts = 0;
 std::int32_t gWindowReportValue = 0;
+double gWindowEnumerationDeadline = 0;
 std::uint32_t gWindowReportDeadline = 0;
 SystemTimeWords gLastSystemTime {};
 std::uint32_t gPeriodicReportSeconds = 0;

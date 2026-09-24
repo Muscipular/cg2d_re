@@ -23,8 +23,10 @@ extern std::int32_t gPendingPaletteReload; // 原 0x62A65C，仅等于 1 时消�
 
 extern std::uintptr_t gConnectionSocket; // 原 0xD9B2B8，SOCKET 仅在本机边界拓宽。
 extern std::int32_t gWindowReportRequested; // 原 0x73ECEC，F10 写入。
+extern std::uint32_t gWindowReportFlags;     // 原 0x73ECF0，回调累计低位标记。
 extern std::int32_t gWindowReportAttempts;  // 原 0x73ECF8，signed32 比较。
 extern std::int32_t gWindowReportValue;     // 原 0x73ECF4，报告值具体枚举未定。
+extern double gWindowEnumerationDeadline;   // 原 0x73ED00，独立于延迟上报 tick 的 binary64 截止。
 extern std::uint32_t gWindowReportDeadline; // 原 0x73ED08，32 位 tick 与 0xFFFFFFFF 哨兵。
 
 // 原 0x73ED10 的 64 位整秒基线；保留原两次 DWORD 存储，而不是原生原子计时值。

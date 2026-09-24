@@ -190,4 +190,59 @@ sceneSixTail:
     detail::RenderChara_521F20();
 }
 
+namespace detail {
+
+// 原 sub_51FDE0@[0x51FDE0,0x5200D0)：按 W32 selector 分派并透传目标返回。
+std::int32_t Sub_51FDE0(
+    std::int32_t selector, std::int32_t value, std::uint32_t payloadBits)
+{
+    switch (selector) {
+    case 0: return Sub_51D790(0, value, payloadBits);
+    case 1: return Sub_51E0D0(0, value, payloadBits);
+    case 2: return Sub_51D790(1, value, payloadBits);
+    case 3: return Sub_51E0D0(1, value, payloadBits);
+    case 4: return Sub_51D790(2, value, payloadBits);
+    case 5: return Sub_51E0D0(2, value, payloadBits);
+    case 6: return Sub_51D790(3, value, payloadBits);
+    case 7: return Sub_51E0D0(3, value, payloadBits);
+    case 8: return Sub_51D790(4, value, payloadBits);
+    case 9: return Sub_51E0D0(4, value, payloadBits);
+    case 10: return Sub_51D790(5, value, payloadBits);
+    case 11: return Sub_51E0D0(5, value, payloadBits);
+    case 12: return Sub_51D790(6, value, payloadBits);
+    case 13: return Sub_51E0D0(6, value, payloadBits);
+    case 14: return Sub_51D790(7, value, payloadBits);
+    case 15: return Sub_51E0D0(7, value, payloadBits);
+    case 16: return Sub_51D790(8, value, payloadBits);
+    case 17: return Sub_51E0D0(8, value, payloadBits);
+    case 18: return Sub_51EC10(0, value, 0);
+    case 19: return Sub_51EC10(1, value, 0);
+    case 20: return Sub_51EF80(0, value, 0);
+    case 21: return Sub_51EF80(1, value, 0);
+    case 22: return Sub_51EF80(2, value, payloadBits);
+    case 23: return Sub_51EF80(3, value, payloadBits);
+    case 24:
+    case 25: {
+        const std::int32_t signedLow =
+            std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(value));
+        const std::int32_t selected = signedLow != 0
+            ? signedLow : (selector == 24 ? -1 : 1);
+        return Sub_51F610(selected, 0, 0);
+    }
+    case 26:
+    case 28: return Sub_51F860(-1, value, 0);
+    case 27:
+    case 33: return Sub_51F860(1, value, 0);
+    case 29:
+    case 31: return Sub_51FA70(1, value, 0);
+    case 30:
+    case 32: return Sub_51FA70(-1, value, 0);
+    case 34: return Sub_51FC90(0, value, 0);
+    case 35: return Sub_51FC90(1, value, 0);
+    default: return 1;
+    }
+}
+
+} // namespace detail
+
 } // namespace cg::world

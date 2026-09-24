@@ -1544,6 +1544,36 @@ std::int32_t Sub_511D10(
         reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
 }
 
+// 原 [0x511D60,0x511DCB)：两项各自采容量、格式化后重读输出缓冲。
+std::int32_t Sub_511D60(
+    const std::uintptr_t socket,
+    const std::int32_t first,
+    const std::int32_t second)
+{
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0), "BG"));
+
+    const std::int32_t firstCapacity = std::bit_cast<std::int32_t>(
+        gNetworkRuntimeState.bufferLength);
+    std::uint8_t* const firstToken = FormatProtocolIntegerToken_517120(first);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
+        reinterpret_cast<const char*>(firstToken),
+        firstCapacity));
+
+    const std::int32_t secondCapacity = std::bit_cast<std::int32_t>(
+        gNetworkRuntimeState.bufferLength);
+    std::uint8_t* const secondToken = FormatProtocolIntegerToken_517120(second);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
+        reinterpret_cast<const char*>(secondToken),
+        secondCapacity));
+
+    return SendProtocolBuffer_517480(
+        socket,
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
+}
+
 std::int32_t AllocateNetworkWorkspace_516B60(
     const NetworkCallback callback,
     const std::uint32_t bufferLength,

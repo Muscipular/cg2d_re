@@ -145,6 +145,12 @@ std::int32_t Sub_511C80(std::uintptr_t socket, std::int32_t value);
 // 原 sub_511D10@[0x511D10,0x511D58)：构造 mjCv、追加一个整数并发送。
 std::int32_t Sub_511D10(std::uintptr_t socket, std::int32_t value);
 
+// 原 sub_511D60@[0x511D60,0x511DCB)：构造 BG、追加两个整数并发送。
+std::int32_t Sub_511D60(
+    std::uintptr_t socket,
+    std::int32_t first,
+    std::int32_t second);
+
 // 原 sub_512BD0@[0x512BD0,0x512C0C)：构造 WA 命令并发送；593850 文本 owner 未闭合。
 std::int32_t Sub_512BD0(std::uintptr_t socket);
 

@@ -1355,11 +1355,13 @@ ready/标死和文本队列；四个布局槽、非拥有 action 及原可写文
 仅在 tick 严格有序大于截止时返回 1，
 相等或 unordered 均返回 0。本体不写共享状态。
 
-新端在现有 `cg::world::detail` 私有边界定义
-`Sub_45EF80`，复用 `platform::gLastRenderDt`
-与 `ReadTickCount32()`，保持先算截止、后取 tick
-的调用次序；F64 常量按原位型承接，不用十进制
-近似文本。原 x87 中间精度与 x64 浮点求值模式
-的差异仍须在后续原新对照中核定，不能把这一步
-的静态对应宣称为全域浮点或 `45F190` 画面通过；
-后者及完整场景、链接与运行均未闭合。
+当前源码 [LoginCapability3Scene.cpp](../src/LoginCapability3Scene.cpp)
+已有匿名 `bool Sub_45EF80()`，使用同一 F64 位型、
+`platform::gLastRenderDt` 和 `ReadTickCount32()`，
+且 `cg::world::detail::Sub_45F190` 的状态 1 已
+实际调用。此叶与上层函数均非本轮新落位；
+先前在 `WorldUpdate.cpp` 重复新增的未用函数和
+私有声明已移除。原 x87 中间精度与 x64 浮点
+求值模式的差异仍须在后续原新对照中核定，
+现有静态函数体不代表全域浮点、完整场景、
+链接或运行通过。

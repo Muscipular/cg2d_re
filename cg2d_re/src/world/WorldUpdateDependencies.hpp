@@ -214,7 +214,6 @@ std::int32_t Sub_4A76E0();
 
 // World::Update@0x51C430 的直接目标声明；未实现项只保留 IDA 地址和调用契约。
 std::int32_t Sub_45F190();                 // 原 0x45F190。
-std::int32_t Sub_45EF80();                 // 原 [0x45EF80,0x45EFC3)，帧截止加原 F64 常量后读 tick。
 std::int32_t Sub_464840();                 // 原 0x464840。
 void RenderChara_521F20();                 // 原 World::RenderChara@0x521F20。
 void RenderInput_4590E0();                 // 原 World::RenderInput@0x4590E0，已完整还原。

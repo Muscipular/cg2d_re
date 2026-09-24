@@ -1,8 +1,7 @@
 #include "cg/CharacterDeletionRequest.hpp"
 
-#include "CharacterDeletionRequestDependencies.hpp"
-
 #include "cg/LoginRequest.hpp"
+#include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/MainLoop.hpp"
 
 #include <cstddef>
@@ -40,7 +39,7 @@ std::uint32_t StartCharacterDeletionRequest()
         record->data() + kRegistNumberOffset,
         sizeof(registNumber));
 
-    character_deletion_request_detail::Sub_512AB0(socket, registNumber);
+    network::Sub_512AB0(socket, registNumber);
     gRequestStatus = 1;
     const std::uint32_t tick = platform::ReadTickCount32();
     gRequestStartTick = tick;

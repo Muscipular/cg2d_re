@@ -74,6 +74,9 @@ std::int32_t Sub_512B00(
     std::int32_t field50,
     std::int32_t field18);
 
+// 原 sub_512AB0@[0x512AB0,0x512AF8)：追加登记号并发送 Godf 命令。
+std::int32_t Sub_512AB0(std::uintptr_t socket, std::int32_t registNumber);
+
 // 原 sub_512BD0@[0x512BD0,0x512C0C)：构造 WA 命令并发送；593850 文本 owner 未闭合。
 std::int32_t Sub_512BD0(std::uintptr_t socket);
 

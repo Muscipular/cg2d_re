@@ -36,6 +36,12 @@ std::int32_t ResetLegacyMouseTracker_506580();
 // 原 sub_5066D0@[0x5066D0,0x5066E9)：恢复默认配置后重建追踪器。
 std::int32_t ResetLegacyMouseTrackerDefaults_5066D0();
 
+// 原 [0x50E7B0,0x50E7C8)：忽略网络首参，先写容量、再写阈值并重建追踪器。
+std::int32_t ConfigureLegacyMouseTracker_50E7B0(
+    std::uintptr_t unusedSocket,
+    std::int32_t capacity,
+    std::int32_t threshold);
+
 // 原 sub_5067F0@[0x5067F0,0x50686C)：按 (x,y,tag) 追踪按下次数。
 std::int32_t TrackLegacyMouseDown_5067F0(
     std::int32_t x,

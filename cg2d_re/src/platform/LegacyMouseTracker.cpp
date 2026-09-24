@@ -245,6 +245,16 @@ std::int32_t ResetLegacyMouseTrackerDefaults_5066D0()
     return ResetLegacyMouseTracker_506580();
 }
 
+std::int32_t ConfigureLegacyMouseTracker_50E7B0(
+    std::uintptr_t,
+    const std::int32_t capacity,
+    const std::int32_t threshold)
+{
+    gLegacyMouseTrackerCapacity = capacity;
+    gLegacyMouseTrackerThreshold = threshold;
+    return ResetLegacyMouseTracker_506580();
+}
+
 std::int32_t TrackLegacyMouseDown_5067F0(
     const std::int32_t x,
     const std::int32_t y,

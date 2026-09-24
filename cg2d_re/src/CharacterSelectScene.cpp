@@ -8,6 +8,7 @@
 #include "cg/LoginMessage.hpp"
 #include "cg/LoginRequest.hpp"
 #include "cg/Palette.hpp"
+#include "cg/YobiRuntime.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/KeyState.hpp"
 #include "cg/platform/MainLoop.hpp"
@@ -20,6 +21,13 @@
 #include <cstring>
 
 namespace cg::character_select::detail {
+
+void Sub_462870()
+{
+    login::detail::YobiClearUp_404D30();
+    world::gCurrentSceneState = std::bit_cast<std::int32_t>(
+        std::bit_cast<std::uint32_t>(world::gCurrentSceneState) + 1U);
+}
 
 std::int32_t Sub_464290(const std::int32_t* const rectangle)
 {

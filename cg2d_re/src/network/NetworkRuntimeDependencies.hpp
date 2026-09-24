@@ -8,6 +8,11 @@ namespace cg::network::detail {
 std::int32_t Sub_5082D0();
 std::int32_t Sub_508310();
 
+// 原 [0x50E6C0,0x50E6D8)：忽略首参数，转发后三项到空间音频生产者。
+std::int32_t __cdecl Sub_50E6C0(
+    std::int32_t unused, std::int32_t index,
+    std::int32_t sourceX, std::int32_t sourceY);
+
 // 原 sub_4038A0@0x4038A0：就地变换 text；key3/key5 参与逐轮计算，
 // 第二、四参数未读取；返回末轮方向，零轮返回 0。
 char Sub_4038A0(

@@ -3,6 +3,7 @@
 #include "../LoginStateDependencies.hpp"
 #include "NetworkRuntimeDependencies.hpp"
 
+#include "cg/LegacyAudio.hpp"
 #include "cg/LoginRequest.hpp"
 #include "cg/LoginScene.hpp"
 #include "cg/platform/MainLoop.hpp"
@@ -387,6 +388,16 @@ std::int32_t Sub_508310()
     std::sprintf(message, "SNED ERROR=%d", error);
     static_cast<void>(login::detail::Sub_44B5C0(message));
     return error == WSAEWOULDBLOCK ? 0 : error;
+}
+
+// 原 [0x50E6C0,0x50E6D8)：只转发后三个 W32 参数，透传空间音频生产者返回。
+std::int32_t __cdecl Sub_50E6C0(
+    const std::int32_t,
+    const std::int32_t index,
+    const std::int32_t sourceX,
+    const std::int32_t sourceY)
+{
+    return audio::Sub_52CDE0(index, sourceX, sourceY);
 }
 
 } // namespace detail

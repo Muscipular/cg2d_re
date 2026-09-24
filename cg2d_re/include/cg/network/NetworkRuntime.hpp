@@ -67,6 +67,13 @@ std::int32_t Sub_512C10(std::uintptr_t socket, const char* text);
 // 原 sub_512DF0@[0x512DF0,0x512E38)：构造 CCL 计时命令并透传发送返回。
 std::int32_t Sub_512DF0(std::uintptr_t socket, std::uint32_t tickBits);
 
+// 原 sub_512B00@[0x512B00,0x512B8E)：依次追加三项整数并发送 emRV 命令。
+std::int32_t Sub_512B00(
+    std::uintptr_t socket,
+    std::int32_t field4C,
+    std::int32_t field50,
+    std::int32_t field18);
+
 // 原 sub_512BD0@[0x512BD0,0x512C0C)：构造 WA 命令并发送；593850 文本 owner 未闭合。
 std::int32_t Sub_512BD0(std::uintptr_t socket);
 

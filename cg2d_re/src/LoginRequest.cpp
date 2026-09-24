@@ -63,7 +63,7 @@ std::uint32_t StartLoginRequest()
     std::memcpy(&field50, record->data() + kRequestField50Offset, sizeof(field50));
     std::memcpy(&field4C, record->data() + kRequestField4COffset, sizeof(field4C));
 
-    request_detail::Sub_512B00(
+    network::Sub_512B00(
         platform::gConnectionSocket,
         field4C,
         field50,

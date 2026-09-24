@@ -1093,6 +1093,36 @@ std::int32_t Sub_512DF0(
         reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
 }
 
+// 原 [0x512D30,0x512D9B)：两项分别采样容量，格式化后重读输出缓冲。
+std::int32_t Sub_512D30(
+    const std::uintptr_t socket,
+    const std::int32_t version,
+    const char* const payload)
+{
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0), "Xoee"));
+
+    const std::int32_t integerCapacity = std::bit_cast<std::int32_t>(
+        gNetworkRuntimeState.bufferLength);
+    std::uint8_t* const integerToken = FormatProtocolIntegerToken_517120(version);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
+        reinterpret_cast<const char*>(integerToken),
+        integerCapacity));
+
+    const std::int32_t textCapacity = std::bit_cast<std::int32_t>(
+        gNetworkRuntimeState.bufferLength);
+    std::uint8_t* const textToken = FormatProtocolTextToken_517160(payload);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
+        reinterpret_cast<const char*>(textToken),
+        textCapacity));
+
+    return SendProtocolBuffer_517480(
+        socket,
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
+}
+
 // 原 [0x512B00,0x512B8E)：每项均先读容量，格式化后重新读取输出缓冲。
 std::int32_t Sub_512B00(
     const std::uintptr_t socket,

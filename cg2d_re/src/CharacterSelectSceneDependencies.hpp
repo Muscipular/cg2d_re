@@ -3,6 +3,7 @@
 #include "LoginMessageDependencies.hpp"
 
 #include "cg/LegacyAudio.hpp"
+#include "cg/network/NetworkRuntime.hpp"
 #include "cg/render/TextPendingQueue.hpp"
 
 #include <array>
@@ -75,10 +76,7 @@ void Sub_45EFD0(
     std::int32_t overlayImageNo,
     std::int32_t style);
 using cg::render::Sub_45F090;
-std::int32_t Sub_512D30(
-    std::uintptr_t socket,
-    std::int32_t version,
-    const char* payload);
+using cg::network::Sub_512D30;
 
 // 原 0x9A5C10 的容量未决，只保留未定长外部数组声明。
 extern char gVersionPayload9A5C10[];

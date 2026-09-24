@@ -178,6 +178,38 @@ std::int32_t Sub_51BAC0(const std::int32_t imageNo)
     return result;
 }
 
+std::int32_t Sub_51BD00(const std::int32_t imageNo)
+{
+    if (imageNo >= 200000 && imageNo <= 200399) {
+        return 33100;
+    }
+    if (imageNo >= 200800 && imageNo <= 201799) {
+        return 33100;
+    }
+    if (imageNo >= 200400 && imageNo <= 200799) {
+        return 33101;
+    }
+    if (imageNo >= 201800 && imageNo <= 202799) {
+        return 33101;
+    }
+    if (imageNo < 240000) {
+        return -1;
+    }
+    if (imageNo < 240700) {
+        return 33100;
+    }
+    if (imageNo < 241400) {
+        return 33101;
+    }
+    if (imageNo < 242100) {
+        return 33100;
+    }
+    if (imageNo < 242800) {
+        return 33101;
+    }
+    return -1;
+}
+
 std::int32_t Sub_51BF00(const std::int32_t imageNo)
 {
     if (imageNo >= 240000 && imageNo < 241400) {

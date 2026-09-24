@@ -69,6 +69,8 @@ std::int32_t Sub_51BA10(std::int32_t imageNo);
 std::int32_t Sub_51BF00(std::int32_t imageNo);
 // 原 [0x51BAC0,0x51BB76)：旧图号逆变换，仅在有效区间分解。
 std::int32_t Sub_51BAC0(std::int32_t imageNo);
+// 原 [0x51BD00,0x51BDA8)：按图号区间映射 33100/33101 或 -1。
+std::int32_t Sub_51BD00(std::int32_t imageNo);
 // 原 [0x51BFF0,0x51C0CA)：14 项类别查找及特殊区间转换。
 std::int32_t Sub_51BFF0(std::int32_t imageNo);
 // 原 [0x51BB80,0x51BC4E)：旧图号的分段换算，类别 3/4 交换。

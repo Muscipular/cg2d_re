@@ -54,6 +54,14 @@ std::int32_t Sub_51B3B0(const std::uint32_t selectedIndex)
     return 0;
 }
 
+std::int32_t Sub_51B110(const std::uint32_t selectedIndex)
+{
+    if (selectedIndex >= CharacterRecordCount) {
+        return -1;
+    }
+    return gCharacterRecords[selectedIndex][0] != std::byte{0} ? 1 : 0;
+}
+
 std::int32_t ReadRequestOutcomeFlag()
 {
     return gRequestOutcomeFlag;

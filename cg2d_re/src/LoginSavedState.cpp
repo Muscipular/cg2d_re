@@ -911,6 +911,22 @@ std::uint8_t Sub_520590()
     return value5F974C;
 }
 
+// 原 sub_520640@[0x520640,0x520681)：保存 24 个输入上下文的零结尾文本。
+std::uint32_t Sub_520640()
+{
+    auto* const currentBytes =
+        reinterpret_cast<std::uint8_t*>(&gCurrentSavedRecord);
+    std::uint32_t result = 0;
+    for (std::size_t index = 0; index < 24; ++index) {
+        const char* const text =
+            cg::input::gInputContexts5F9758[index].text;
+        const std::size_t bytes = std::strlen(text) + 1;
+        result = static_cast<std::uint32_t>(bytes);
+        std::memcpy(currentBytes + 0xB2 + index * 0x19, text, bytes);
+    }
+    return result;
+}
+
 std::int32_t Sub_520200()
 {
     return PersistCurrentSavedRecord_520200();

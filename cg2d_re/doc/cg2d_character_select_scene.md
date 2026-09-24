@@ -1374,3 +1374,33 @@ S32 返回函数。`51B114–51B11B` 拒绝有符号
 其余两个原 caller 尚未落位；上游 `51BB80`
 及图号相关叶、最终预览绘制和完整链接均未
 因本函数落位而宣称完成。
+
+## `51BB80` 旧图号分段转换
+
+2026-09-24，当前 IDA `[51BB80,51BC4E)` 为
+单参 S32 返回、无共享读写的完整函数。
+`51BB84–51BB94` 对 `<30000` 或 `>97999`
+直接返回原输入。有效区间在 `51BB9A–51BBA1`
+对 `>=70000` 先减 12000；令
+`delta=adjusted-30000`，`51BBA6–51BBBF`
+以 signed 向零截断得到 `category=delta/4000`。
+`51BBC1–51BBFC` 的 `lea/shl` 序列等价于
+先取 `remainder=delta-4000*category`，
+再分出 `thousands=remainder/1000` 与
+`tensRemainder=remainder-1000*thousands`。
+`51BBFF–51BC10` 继续得
+`tens=tensRemainder/10`、`ones=tensRemainder-10*tens`。
+
+`51BC12–51BC3A` 将 category 3 调整为 4、
+4 调整为 3，其余原样；两路公共尾部
+`51BC1C–51BC4D` 返回
+`25*(8112+4*category+thousands)+5*tens+ones`。
+直接 caller 为 `460D00@460D6E`、
+`460FF0@461850/4618BA`、
+`4C56E0@4C570F` 和 `4C5850@4C588B`。
+
+新端 `cg::character_select::detail::Sub_51BB80`
+在现有预览模块完整落位，与 `51BFF0`
+在预览调用链中仍依次执行；角色选择场景
+也复用同一定义。另两个原 caller 未接线，
+其他图号叶、绘图和完整链接/运行未因此完成。

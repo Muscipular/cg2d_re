@@ -98,6 +98,32 @@ std::int32_t SelectGraphicIndex(std::int32_t converted)
 
 namespace detail {
 
+std::int32_t Sub_51BB80(std::int32_t imageNo)
+{
+    if (imageNo < 30000 || imageNo > 97999) {
+        return imageNo;
+    }
+    if (imageNo >= 70000) {
+        imageNo -= 12000;
+    }
+
+    const std::int32_t delta = imageNo - 30000;
+    std::int32_t category = delta / 4000;
+    const std::int32_t remainder = delta - 4000 * category;
+    const std::int32_t thousands = remainder / 1000;
+    const std::int32_t tensRemainder = remainder - 1000 * thousands;
+    const std::int32_t tens = tensRemainder / 10;
+    const std::int32_t ones = tensRemainder - 10 * tens;
+    if (category == 3) {
+        category = 4;
+    } else if (category == 4) {
+        category = 3;
+    }
+
+    const std::int32_t base = thousands + 4 * category + 8112;
+    return 25 * base + 5 * tens + ones;
+}
+
 std::int32_t Sub_51BFF0(const std::int32_t imageNo)
 {
     if (imageNo >= 202800 && imageNo <= 204200) {

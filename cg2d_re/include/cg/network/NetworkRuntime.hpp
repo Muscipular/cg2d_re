@@ -158,6 +158,13 @@ std::int32_t Sub_511DD0(
     std::int32_t second,
     std::int32_t third);
 
+// 原 sub_511E60@[0x511E60,0x511EEE)：构造 klF、追加三个整数并发送。
+std::int32_t Sub_511E60(
+    std::uintptr_t socket,
+    std::int32_t first,
+    std::int32_t second,
+    std::int32_t third);
+
 // 原 sub_512BD0@[0x512BD0,0x512C0C)：构造 WA 命令并发送；593850 文本 owner 未闭合。
 std::int32_t Sub_512BD0(std::uintptr_t socket);
 

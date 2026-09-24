@@ -251,6 +251,59 @@ std::int32_t Sub_51BFF0(const std::int32_t imageNo)
     return imageNo;
 }
 
+std::int32_t Sub_51B7D0(const std::int32_t imageNo)
+{
+    if (imageNo >= 100000 && imageNo <= 103102) {
+        return 0;
+    }
+    if (imageNo >= 105000 && imageNo <= 105423) {
+        return 3;
+    }
+    if (imageNo >= 106000 && imageNo <= 106048) {
+        return 1;
+    }
+    if (imageNo >= 106050 && imageNo <= 106173) {
+        return 2;
+    }
+    if (imageNo >= 106250 && imageNo <= 106298) {
+        return 1;
+    }
+    if (imageNo >= 106300 && imageNo <= 106423) {
+        return 2;
+    }
+    if (imageNo >= 100900 && imageNo <= 100902) {
+        return 2;
+    }
+    if (imageNo >= 107000 && imageNo < 107999) {
+        return 2;
+    }
+    if (imageNo >= 106425 && imageNo < 106570) {
+        return 2;
+    }
+    if (imageNo >= 106600 && imageNo < 106755) {
+        return 2;
+    }
+    if (imageNo >= 110300 && imageNo < 110350) {
+        return 6;
+    }
+    if (imageNo >= 110376 && imageNo < 110400) {
+        return 6;
+    }
+    if (imageNo >= 110505 && imageNo < 110599) {
+        return 7;
+    }
+    if (imageNo >= 110770 && imageNo <= 110799) {
+        return 7;
+    }
+    if (imageNo >= 114170 && imageNo <= 114200) {
+        return 0;
+    }
+    if (imageNo < 110504 || imageNo >= 114999) {
+        return 0;
+    }
+    return 6;
+}
+
 std::int32_t* Sub_4C56E0(
     const std::int32_t imageNo,
     std::int32_t* const outBase,

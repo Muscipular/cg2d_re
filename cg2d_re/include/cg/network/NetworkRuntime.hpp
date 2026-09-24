@@ -101,6 +101,12 @@ std::int32_t Sub_5128C0(
     std::int32_t field12,
     std::int32_t field13);
 
+// 原 sub_511760@[0x511760,0x5117CB)：构造 TLKH、追加两个整数并发送。
+std::int32_t Sub_511760(
+    std::uintptr_t socket,
+    std::int32_t first,
+    std::int32_t second);
+
 // 原 sub_511900@[0x511900,0x5119F7)：组装 uSr 的两整数、文本、三整数并发送。
 std::int32_t Sub_511900(
     std::uintptr_t socket,

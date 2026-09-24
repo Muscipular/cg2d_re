@@ -311,3 +311,43 @@ AL，不能把第一次失败变成早退，也不能将结果槽缩为布尔值
 `<=0x500` 返回 1/0；不先测试后写，不以固定成功或
 OS 版本号替代探测。声明供后续原音频 caller 接线，本叶
 静态落位不计音频初始化、主循环、链接或运行完成。
+
+## 17. `458AE0` 原生能力探测的两种边界
+
+2026-09-24，当前 IDA `[458AE0,458DB5)` 的唯一直接
+caller 是 `458DC0@458DC0`。入口将五个局部原生对象指针
+置零，先 `LoadLibraryA("DDRAW.DLL")` 并取得
+`DirectDrawCreate`，再创建 DirectDraw 对象、查询
+DirectDraw2；随后 `LoadLibraryA("DINPUT.DLL")` 并只查询
+`DirectInputCreateA` 的存在性，成功即释放 DInput
+模块。之后对 DirectDraw 设置 cooperative level，
+创建 surface 并依次查询 Surface3/Surface4。此函数
+没有直接调用 `DirectInputCreateA`。
+
+| 失败或成功位置 | 原分支 | EAX32 |
+| --- | --- | --- |
+| `458B13/458B3D/458B69` | 装载 DDraw、取入口或创建对象失败，分别输出原调试文本 | `0` |
+| `458B9F` | 查询 DirectDraw2 失败 | `0x100` |
+| `458BE2/458C1B` | 装载 DInput 或取 `DirectInputCreateA` 入口失败 | `0x200` |
+| `458C90/458CC6` | 设置 cooperative level 或创建 surface 失败 | `0` |
+| `458D02` | 查询 Surface3 失败 | `0x300` |
+| `458D55` | 查询 Surface4 失败 | `0x500` |
+| `458D87–458DB4` | 释放各局部 COM 对象后成功返回 | `0x600` |
+
+每个失败分支在释放已经取得的模块或对象后调用
+`OutputDebugStringA`；成功路径在 `458C51` 释放 DInput
+模块、`458D3B` 释放 Surface3，最后在
+`458D8E/458D98/458DA2` 依次释放 Surface4、
+基础 surface 和原 DirectDraw 对象。这里仅列出已查分支与
+顺序，不把原失败文本、资源释放和平台返回码直接替换
+成一个固定成功值。`458DC0` 会先发布上述完整 W32
+探测码，再以无符号 `<=0x500` 使音频初始化提前退出；
+已查原返回集合中只有 `0x600` 继续。
+
+**待确认的适配范围：**原生 DirectDraw 创建、surface
+及接口版本探测属于已批准替换的 DX7 边界，但
+`DINPUT.DLL` 的装载与入口存在性检查是独立输入 API
+观察点，未获同一豁免。具体 SDL renderer driver 选择、
+失败回退以及是否保留该输入入口探测仍需用户裁决。
+本节不实施 `458AE0` 或 `SoundSystem::Init`，也不把
+`458DC0` 的已落位包装入口当作可链接音频初始化。

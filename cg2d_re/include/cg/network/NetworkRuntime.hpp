@@ -111,6 +111,9 @@ std::int32_t Sub_511900(
     std::int32_t fifth,
     std::int32_t sixth);
 
+// 原 sub_511A00@[0x511A00,0x511A48)：构造 dcMv、追加一个整数并发送。
+std::int32_t Sub_511A00(std::uintptr_t socket, std::int32_t value);
+
 // 原 sub_512BD0@[0x512BD0,0x512C0C)：构造 WA 命令并发送；593850 文本 owner 未闭合。
 std::int32_t Sub_512BD0(std::uintptr_t socket);
 

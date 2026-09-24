@@ -31,6 +31,9 @@ YobiAction* NewYobiAction_404AE0(
     std::uint8_t priority,
     std::uint32_t payloadSize);
 
+// 原 YobiGear::new@[0x4410F0,0x441128)：分配零载荷 action 并设置五个字段。
+YobiAction* NewYobiGear_4410F0(std::int32_t imageNo);
+
 // 原 Yobi::UpdateAll@[0x404C50,0x404CF7)。
 std::int32_t YobiUpdateAll_404C50();
 

@@ -685,6 +685,21 @@ YobiAction* NewYobiAction_404AE0(
     return action;
 }
 
+YobiAction* NewYobiGear_4410F0(const std::int32_t imageNo)
+{
+    YobiAction* const action = NewYobiAction_404AE0(2, 0);
+    if (action == nullptr) {
+        return nullptr;
+    }
+
+    action->callback = nullptr;
+    action->imageNo = imageNo;
+    action->characterAction = 0;
+    action->displayPriority = 10;
+    action->flags = 0x34;
+    return action;
+}
+
 std::int32_t YobiUpdateAll_404C50()
 {
     YobiAction* current = gYobiActionStart->next;

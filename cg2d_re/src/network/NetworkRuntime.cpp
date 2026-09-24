@@ -55,8 +55,8 @@ struct NetworkRuntimeState {
     // 原 [0x593FC4,0x593FD0) 连续协议短状态。
     std::array<std::uint8_t, 12> protocolState593FC4;
     std::uint16_t protocolModeDA3B22;
-    std::time_t timeDA3B28;
-    std::tm* localTimeDA3B2C;
+    std::int32_t time62B394; // 原 __time32_t，独立于 0xDA3B28 回复码。
+    std::tm* localTime62B380; // 原 W32 指针槽，x64 承接本机指针。
     std::uint8_t protocolByte593850;
 
     NetworkCallback callback; // 原 0x58B5E8。
@@ -424,9 +424,12 @@ namespace {
     }
 
     gNetworkRuntimeState.protocolModeDA3B22 = 1;
-    gNetworkRuntimeState.timeDA3B28 = std::time(nullptr);
-    gNetworkRuntimeState.localTimeDA3B2C = std::localtime(
-        &gNetworkRuntimeState.timeDA3B28);
+    gNetworkRuntimeState.time62B394 =
+        static_cast<std::int32_t>(std::time(nullptr));
+    const std::time_t localTimeArgument =
+        static_cast<std::time_t>(gNetworkRuntimeState.time62B394);
+    gNetworkRuntimeState.localTime62B380 =
+        std::localtime(&localTimeArgument);
 
     const char* const separator = std::strstr(text, "|");
     std::memset(

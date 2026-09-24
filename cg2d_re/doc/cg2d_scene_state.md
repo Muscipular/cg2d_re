@@ -1108,3 +1108,23 @@ owner 结论仍仅作为待用户批准的候选：首选为同一世界移动 o
 待批候选仅为：`PendingAction` 的 `active/countdown/type` 三槽由同一 owner 持有；`lastDetectedCode` 是同一世界移动 owner 下与三槽分离的独立字段，不是 pending 原子 payload。新检测允许覆盖既有 `active` 与 `lastDetectedCode`；禁止把 `lastDetectedCode` 擅自快照进 pending，也禁止因 pending active 而阻止覆盖。
 
 本 SPEC 仍需用户批准，不授权编码或结构落地。本节未修改源码、进度或构建文件，未访问 IDA，未编译、测试、运行、暂存或提交，也不冒称实现完成。
+
+## 42. Sub_519D50 断线清理与共享 owner 待批 SPEC
+
+日期：2026-09-24。任务：`519D50.D`。本节继承既有 A 证据，不重新查询 IDA；原端事实与新端候选分列。整项状态为 **NEEDS_CLARIFICATION**，不授权编码。
+
+### 42.1 原端函数合同与清理次序
+
+`Sub_519D50@[0x519D50,0x519E45)` 无参数，返回时仅 `AL` 有效，不能把任意 `EAX` 当作完整返回值，也不能因调用方弃值改成 `void`。直接 xref 共 7 处，其中 `0x4462F0` 透传 `AL`；新端 [WorldUpdate.cpp](../src/world/WorldUpdate.cpp) 的两处调用弃用返回值，不代表全体 caller 都弃用。
+
+`0x519D5A` 初读 `FF02B4` 为空时直接跳到 `0x519E2C`，不执行 `0x519E17–0x519E25` 的重读、`MarkDeath` 或清全局。初读非空时，从其 `+0x0C` 取得内层载荷；仅内层非空才依次处理 `+0x04/+0x08/+0x0C/+0x10/+0x2C/+0x4C/+0x30/+0x44` 八个 action 槽：每槽的 action 非空才调用 `MarkDeath@0x404D00` 并清该槽；之后仅在内层 `+0x1C` 非空时释放它并清槽。内层为空时跳过这段内层清理；初读非空时无论内层是否为空，`0x519E17–0x519E25` 均重新读取 `FF02B4`、无条件调用可接收空指针的 `MarkDeath@0x404D00`，随后无条件清全局 `FF02B4`。空指针仅跳过死亡标志的置位。这里的 `MarkDeath` 仅置死亡标志，不立即摘链或释放 action；内层 `+0x1C` 的条件释放与 action 的延迟释放不得混为一谈。
+
+空路径仍进入尾部，按 `0x51A5B0 → 0x51BEC0` 调用；`0x51BEC0` 返回 0 时 `AL` 保留零，非零时再调用 `0x51BE50(0)`，最终 `AL` 取后者的返回值。不得只实现非空分支的清槽操作，漏掉这三个真实后继依赖。`0x51A5B0` 在 `0x51A5B5` 无条件清 `W8[FDA88C]`，仅其内部条件满足时才清 `W16[FDA88A]` 的 `0x100` 位；原端还读取 `FDA88E/FDA890`。这些状态及其后继消费关系须保留在整函数合同内，不能把清理半段视为全部行为。本节不为这些槽猜定新的业务含义或 x64 存储映射。
+
+### 42.2 新端现状与待用户批准的共享 SPEC
+
+[YobiRuntime.hpp](../include/cg/YobiRuntime.hpp) / [YobiRuntime.cpp](../src/YobiRuntime.cpp) 已有 `MarkDeath`，action 生命周期由 Yobi runtime/list 持有，标死后的实际摘链和释放走既有更新流程。[WorldUpdateDependencies.hpp](../src/world/WorldUpdateDependencies.hpp) 目前仅声明 `std::int8_t Sub_519D50()`；[WorldUpdate.cpp](../src/world/WorldUpdate.cpp) 有两处调用。本体、尾部三个依赖及完整调用链不据此视为已实现或已链接。
+
+待批候选：`FF02B4` 玩家非拥有指针沿既有 `.151` 方案由共享 SceneState 唯一持有，所有生产者、重置者和消费者复用同一槽；八个 action 槽及 `+0x1C` 内层载荷沿 Yobi 私有生命周期管理，不复制出影子状态，也不向 World 公开原 x86 内层布局。需用户明确批准唯一 owner、玩家指针和内层载荷的分配/清理时机，以及仅供本清理链使用的窄访问与清槽接口；接口必须保留八槽顺序、条件释放，并仅在初读 `FF02B4` 非空时无条件重读玩家指针、调用可接收空指针的 `MarkDeath`、清全局。`FF02B4` 与批量重置的共享映射门禁仍未解除。
+
+另需分别闭合 `0x51A5B0/0x51BEC0/0x51BE50` 的真实后继实现及 `AL` 有效的返回合同，并核对 `4462F0` 透传者；不能用空依赖或两处弃返回的 World 调用降低验收范围。上述 owner、生命周期和接口均是待批准 SPEC，不是已落地设计。本节只追加文档；未改源码、独立进度或构建文件，未访问 IDA，未编译、测试、运行、暂存或提交。

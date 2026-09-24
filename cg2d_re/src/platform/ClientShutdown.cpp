@@ -16,8 +16,12 @@ struct IDirectSound;
 namespace cg::platform {
 namespace shutdown_detail {
 
-// 以下均为原 0x457A40 的无实参直接依赖；尚未实现，只保留 IDA 签名。
-char Sub_4705F0();                         // 原 0x4705F0：char()。
+// 原 0x4705F0 的三个真实依赖；共享 owner 与实现仍待落实。
+int Sub_4C9130();                          // 原 0x4C9130：int()。
+void Sub_5186A0();                         // 原 0x5186A0：void()。
+char WindowCloseAll_472190();              // 原 Window::CloseAll@0x472190：char()。
+
+// 以下均为原 0x457A40 的无实参直接依赖；未实现项只保留 IDA 签名。
 HGLOBAL Sub_522C50();                     // 原 0x522C50：HGLOBAL()。
 HGLOBAL Sub_44E110();                     // 原 0x44E110：HGLOBAL()。
 void RendererDestroy_44C3C0();            // 原 0x44C3C0：void __cdecl()。
@@ -28,6 +32,14 @@ int AnimeUnload_45BEF0();                  // 原 AnimeUnload@0x45BEF0：int()�
 int Sub_45BF20();                          // 原 0x45BF20：int()。
 void Sub_457670();                         // 原 0x457670：void()。
 HFONT Sub_456530();                        // 原 0x456530：HFONT()。
+
+// 原 [0x4705F0,0x4705FF)：两个调用后尾透传窗口关闭结果。
+char Sub_4705F0()
+{
+    Sub_4C9130();
+    Sub_5186A0();
+    return WindowCloseAll_472190();
+}
 } // namespace shutdown_detail
 
 static_assert(sizeof(gDesktopColor) == sizeof(COLORREF));

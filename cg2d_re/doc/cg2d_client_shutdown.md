@@ -42,7 +42,7 @@
 
 | 调用点 | 原 callee / IDA 返回 | 新调用状态 |
 | --- | --- | --- |
-| `0x457A40` | `sub_4705F0` / `char` | 未实现，声明 `shutdown_detail::Sub_4705F0()` |
+| `0x457A40` | `sub_4705F0` / `char` | 本体已落位，三个真实后继仍只有声明 |
 | `0x457A45` | `sub_522C50` / `HGLOBAL` | 未实现，真实签名声明 |
 | `0x457A4A` | `sub_44E110` / `HGLOBAL` | 未实现，真实签名声明 |
 | `0x457A4F` | `Renderer::Destroy@0x44C3C0` / `void __cdecl` | 未实现，声明 `RendererDestroy_44C3C0()` |
@@ -89,12 +89,30 @@ callsite 留待该函数未来还原，不在退出链中猜测补齐。`workspa
 原直接调用者为 `MainLoop@0x4574C6`、`InitLoading@0x4582EF`、
 `sub_458390@0x4585DE`、`sub_4585F0@0x4587B7`。本项不改这些调用者。
 
+## `4705F0` 首项退出包装
+
+2026-09-24，当前 IDA `[4705F0,4705FF)`：
+`4705F0` 调无参 `4C9130`，`4705F5` 调无参
+`5186A0`，`4705FA` 尾跳无参
+`Window::CloseAll@472190`。前两项返回值不消费；
+`4C9130` 完整 EAX32 为整数 1，`5186A0` 的 IDA
+原型为 `void()`，`Window::CloseAll` 对外为 `char()`，
+本包装只透传其低八位结果。唯一直接 caller 为
+`ShutdownClient@457A40`，也丢弃该返回。
+
+新端在既有 `shutdown_detail` 中顺序调用三个真实声明，
+只落位 `Sub_4705F0()` 本体。`4C9130` 的旧
+`data\WinSaveDate` 保存链、`5186A0` 的共享相册回写、
+以及 `Window::CloseAll` 的 71 项窗口 owner 与清理链
+均仍待各自 SPEC 或实现，不能以空函数补齐，也不能因
+本包装可编译而宣称退出链可链接或运行。
+
 ## 未完成边界
 
 `resource::CloseGraphicFiles@0x45A6C0` 与 `ShutdownIme_459040@0x459040` 已实现；
 `login::detail::Sub_404D60@0x404D60` 已接入 Yobi runtime，
 `network::ShutdownNetworkRuntime_5081A0@0x5081A0` 已接入网络运行时，
-`ResetLegacyMouseTrackerDefaults_5066D0@0x5066D0` 已接入唯一鼠标追踪器；其余十一个原 callee
+`ResetLegacyMouseTrackerDefaults_5066D0@0x5066D0` 已接入唯一鼠标追踪器；其余十个原 callee
 只有带地址和 IDA 类型证据的声明，没有空函数、固定成功返回或
 替代清理。Windows SDK 类型和 API 只出现在平台实现文件；
 `ClientShutdown.hpp` 仍仅暴露 `int ShutdownClient_457A40()`，IME 生命周期接口位于

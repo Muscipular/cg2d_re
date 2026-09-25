@@ -185,6 +185,7 @@ static_assert(sizeof(gSoundSelectionCC236C) == 3 * sizeof(std::uint32_t));
 } // namespace
 
 std::uint32_t gValue103DE80 = 0;
+std::int32_t gBgmTarget1050818 = 0;
 volatile std::uint32_t gMciDeviceId = 0;
 std::uint32_t gMciCloseResult = 0;
 

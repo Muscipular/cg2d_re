@@ -3,6 +3,7 @@
 #include "LoginSceneDependencies.hpp"
 
 #include "cg/Input.hpp"
+#include "cg/LegacyAudio.hpp"
 #include "cg/LoginRequest.hpp"
 #include "cg/platform/CommandOptions.hpp"
 #include "cg/platform/Startup.hpp"
@@ -854,8 +855,64 @@ std::int32_t InitializeSavedState_533300()
 
 namespace cg::login::detail {
 
-std::int32_t Sub_520510(std::int32_t selected); // 原 0x520510；四个共享显示槽写回尚未落位。
-std::int32_t Sub_520750(std::int32_t selected); // 原 0x520750；音频目标低 W16 写回尚未落位。
+// 原 [0x520510,0x520545)：四项显示状态交错读写当前保存记录。
+std::int32_t Sub_520510(const std::int32_t selected)
+{
+    auto* const currentBytes =
+        reinterpret_cast<std::uint8_t*>(&gCurrentSavedRecord);
+    const volatile std::int32_t& color =
+        cg::input::gInputContext626AA0.field140;
+    const volatile std::int32_t& first = cg::platform::gValue55463C;
+    const volatile std::int32_t& second = cg::platform::gValue554640;
+    const volatile std::int32_t& third = cg::platform::gValue554644;
+    const std::uint8_t colorByte = static_cast<std::uint8_t>(color);
+    const std::uint8_t firstByte = static_cast<std::uint8_t>(first);
+    currentBytes[0x30A + selected] = colorByte;
+    const std::uint8_t secondByte = static_cast<std::uint8_t>(second);
+    currentBytes[0x30C + selected] = firstByte;
+    const std::uint8_t thirdByte = static_cast<std::uint8_t>(third);
+    currentBytes[0x30E + selected] = secondByte;
+    currentBytes[0x310 + selected] = thirdByte;
+    return selected;
+}
+
+// 原 [0x520550,0x52058D)：按两组读取、零扩展并发布四项显示状态。
+std::int32_t Sub_520550(const std::int32_t selected)
+{
+    const auto* const currentBytes =
+        reinterpret_cast<const std::uint8_t*>(&gCurrentSavedRecord);
+    const std::int32_t color = currentBytes[0x30A + selected];
+    const std::int32_t first = currentBytes[0x30C + selected];
+    cg::input::gInputContext626AA0.field140 = color;
+    cg::platform::gValue55463C = first;
+    const std::int32_t second = currentBytes[0x30E + selected];
+    const std::int32_t third = currentBytes[0x310 + selected];
+    cg::platform::gValue554640 = second;
+    cg::platform::gValue554644 = third;
+    return selected;
+}
+
+// 原 [0x520750,0x520764)：只存 BGM 目标低 W16，返回原索引。
+std::int32_t Sub_520750(const std::int32_t selected)
+{
+    auto* const currentBytes =
+        reinterpret_cast<std::uint8_t*>(&gCurrentSavedRecord);
+    const std::uint16_t target =
+        static_cast<std::uint16_t>(cg::audio::gBgmTarget1050818);
+    std::memcpy(currentBytes + 0x316 + selected * 2, &target, sizeof(target));
+    return selected;
+}
+
+// 原 [0x520770,0x520784)：从当前记录的 W16 零扩展恢复同一 BGM 目标。
+std::int32_t Sub_520770(const std::int32_t selected)
+{
+    const auto* const currentBytes =
+        reinterpret_cast<const std::uint8_t*>(&gCurrentSavedRecord);
+    std::uint16_t target;
+    std::memcpy(&target, currentBytes + 0x316 + selected * 2, sizeof(target));
+    cg::audio::gBgmTarget1050818 = target;
+    return target;
+}
 
 // 原 sub_520470@[0x520470,0x5204BF)：将音频设置写入当前保存记录。
 std::int32_t Sub_520470()

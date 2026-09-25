@@ -896,6 +896,21 @@ void CopyProtocolBytes_517080(
     destination[index] = 0;
 }
 
+void Sub_517040(
+    std::uint32_t* const output,
+    std::uint8_t* const destination,
+    const std::int32_t capacity,
+    char* const* const protocolArgs)
+{
+    *output = 0;
+    const char* const source = *protocolArgs != nullptr
+        ? *protocolArgs : input::LegacyText593850();
+    CopyProtocolBytes_517080(
+        destination,
+        reinterpret_cast<const std::uint8_t*>(source),
+        capacity);
+}
+
 std::uint8_t* FormatProtocolInteger_517670(const std::int32_t value)
 {
     static_cast<void>(
@@ -1287,6 +1302,21 @@ std::uint8_t* UnescapeProtocolText_5172D0(const char* const text)
     }
 }
 
+std::uint8_t* Sub_5171B0(const char* const text)
+{
+    if (text != nullptr) {
+        return UnescapeProtocolText_5172D0(text);
+    }
+    const std::int32_t capacity = std::bit_cast<std::int32_t>(
+        gNetworkRuntimeState.bufferLength);
+    std::uint8_t* const destination = gNetworkRuntimeState.buffer58B5F8;
+    CopyProtocolBytes_517080(
+        destination,
+        reinterpret_cast<const std::uint8_t*>(input::LegacyText593850()),
+        capacity);
+    return gNetworkRuntimeState.buffer58B5F8;
+}
+
 std::int32_t SendProtocolBuffer_517480(
     const std::uintptr_t socket,
     char* const buffer)
@@ -1350,6 +1380,38 @@ std::int32_t Sub_512C10(
     static_cast<void>(AppendProtocolText_5170D0(
         reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
         reinterpret_cast<const char*>(token),
+        capacity));
+    return SendProtocolBuffer_517480(
+        socket,
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
+}
+
+// 原 [0x512B90,0x512BCC)：列表请求的三次共享缓冲读取保持独立。
+std::int32_t Sub_512B90(const std::uintptr_t socket)
+{
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0), "Gp"));
+    const std::int32_t capacity = std::bit_cast<std::int32_t>(
+        gNetworkRuntimeState.bufferLength);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
+        input::LegacyText593850(),
+        capacity));
+    return SendProtocolBuffer_517480(
+        socket,
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
+}
+
+// 原 [0x512BD0,0x512C0C)：登出请求的三次共享缓冲读取保持独立。
+std::int32_t Sub_512BD0(const std::uintptr_t socket)
+{
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0), "WA"));
+    const std::int32_t capacity = std::bit_cast<std::int32_t>(
+        gNetworkRuntimeState.bufferLength);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
+        input::LegacyText593850(),
         capacity));
     return SendProtocolBuffer_517480(
         socket,

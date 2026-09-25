@@ -21,6 +21,13 @@ void CopyProtocolBytes_517080(
     const std::uint8_t* source,
     std::int32_t capacity);
 
+// 原 [0x517040,0x517080)：先清输出 W32，再按参数首指针选择复制来源。
+void Sub_517040(
+    std::uint32_t* output,
+    std::uint8_t* destination,
+    std::int32_t capacity,
+    char* const* protocolArgs);
+
 // 原 sub_517670@[0x517670,0x51768A)：格式化有符号 W32 到共享协议缓冲。
 std::uint8_t* FormatProtocolInteger_517670(std::int32_t value);
 
@@ -80,6 +87,9 @@ std::uint8_t* EscapeProtocolText_5171F0(const char* text);
 
 // 原 sub_5172D0@[0x5172D0,0x5173A6)：向共享缓冲逐字节反转义协议文本。
 std::uint8_t* UnescapeProtocolText_5172D0(const char* text);
+
+// 原 [0x5171B0,0x5171E2)：非空反转义，空参复制共享 593850 文本。
+std::uint8_t* Sub_5171B0(const char* text);
 
 // 原 sub_517480@[0x517480,0x517502)：记录、观察并发送协议行缓冲。
 std::int32_t SendProtocolBuffer_517480(
@@ -400,7 +410,10 @@ std::int32_t Sub_512720(
     std::int32_t second,
     std::int32_t third);
 
-// 原 sub_512BD0@[0x512BD0,0x512C0C)：构造 WA 命令并发送；本体尚未落位。
+// 原 [0x512B90,0x512BCC)：Gp 角色列表请求，追加共享文本并发送。
+std::int32_t Sub_512B90(std::uintptr_t socket);
+
+// 原 [0x512BD0,0x512C0C)：WA 登出请求，追加共享文本并发送。
 std::int32_t Sub_512BD0(std::uintptr_t socket);
 
 // 原 [0x512C60,0x512C9C)：DE 保活发送，追加共享 593850 原字节文本。

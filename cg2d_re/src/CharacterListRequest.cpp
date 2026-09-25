@@ -1,8 +1,7 @@
 #include "cg/CharacterListRequest.hpp"
 
-#include "CharacterListRequestDependencies.hpp"
-
 #include "cg/LoginRequest.hpp"
+#include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/MainLoop.hpp"
 
 #include <bit>
@@ -285,7 +284,7 @@ std::uint32_t StartCharacterListRequest()
 
     const std::uintptr_t socket = platform::gConnectionSocket;
     gCharacterListReplyCode = 0;
-    character_list_request_detail::Sub_512B90(socket);
+    static_cast<void>(network::Sub_512B90(socket));
     gRequestStatus = 1;
     const std::uint32_t tick = platform::ReadTickCount32();
     gRequestStartTick = tick;

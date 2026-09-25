@@ -2878,6 +2878,36 @@ std::int32_t Sub_512400(
         reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
 }
 
+// 原 [0x512470,0x5124DB)：两轮分别采容量、格式化后重读共享缓冲。
+std::int32_t Sub_512470(
+    const std::uintptr_t socket,
+    const std::int32_t first,
+    const std::int32_t second)
+{
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0), "Noeb"));
+
+    const std::int32_t firstCapacity = std::bit_cast<std::int32_t>(
+        gNetworkRuntimeState.bufferLength);
+    std::uint8_t* const firstToken = FormatProtocolIntegerToken_517120(first);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
+        reinterpret_cast<const char*>(firstToken),
+        firstCapacity));
+
+    const std::int32_t secondCapacity = std::bit_cast<std::int32_t>(
+        gNetworkRuntimeState.bufferLength);
+    std::uint8_t* const secondToken = FormatProtocolIntegerToken_517120(second);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
+        reinterpret_cast<const char*>(secondToken),
+        secondCapacity));
+
+    return SendProtocolBuffer_517480(
+        socket,
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
+}
+
 // 原 [0x5125B0,0x51261B)：两轮各自采容量、格式化后重读共享输出缓冲。
 std::int32_t Sub_5125B0(
     const std::uintptr_t socket,

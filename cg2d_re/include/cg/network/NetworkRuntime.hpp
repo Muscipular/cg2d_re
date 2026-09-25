@@ -358,6 +358,12 @@ std::int32_t Sub_512400(
     std::int32_t first,
     std::int32_t second);
 
+// 原 sub_512470@[0x512470,0x5124DB)：构造 Noeb、追加两个整数并发送。
+std::int32_t Sub_512470(
+    std::uintptr_t socket,
+    std::int32_t first,
+    std::int32_t second);
+
 // 原 sub_5125B0@[0x5125B0,0x51261B)：构造 ycX、追加整数及原字节文本并发送。
 std::int32_t Sub_5125B0(
     std::uintptr_t socket, std::int32_t value, const char* text);

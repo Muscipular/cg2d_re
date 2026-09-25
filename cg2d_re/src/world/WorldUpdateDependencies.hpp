@@ -349,6 +349,10 @@ std::int64_t __cdecl Sub_46CDF0(float first, float second); // 原 [0x46CDF0,0x4
 std::int64_t __cdecl Sub_46B580(
     std::int32_t first, std::int32_t second,
     std::int32_t third, std::int32_t fourth); // 原 [0x46B580,0x46B5B3)，两坐标差返回完整 S64。
+std::int32_t __cdecl Sub_46B5C0(
+    std::int32_t x, std::int32_t y,
+    std::int32_t firstX, std::int32_t firstY,
+    std::int32_t secondX, std::int32_t secondY); // 原 [0x46B5C0,0x46B6F0)，探测两邻格并覆写路径末项。
 struct RecipeItemData;
 RecipeItemData* Sub_5199A0();              // 原 0x5199A0。
 struct YobiAction;

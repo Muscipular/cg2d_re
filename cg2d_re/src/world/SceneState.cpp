@@ -1449,6 +1449,59 @@ std::int64_t __cdecl Sub_46B580(
     return Sub_46CDF0(differenceX, differenceY);
 }
 
+// 原 [0x46B5C0,0x46B6F0)：两次阻挡探测后覆写当前路径末项，计数不增长。
+std::int32_t __cdecl Sub_46B5C0(
+    const std::int32_t x, const std::int32_t y,
+    const std::int32_t firstX, const std::int32_t firstY,
+    const std::int32_t secondX, const std::int32_t secondY)
+{
+    if ((secondX == 0 && secondY == 0) ||
+        (firstX == 0 && firstY == 0)) {
+        return 0;
+    }
+    const std::int32_t combinedX = firstX + secondX;
+    if (combinedX != 1 && combinedX != -1) {
+        return 0;
+    }
+    const std::int32_t combinedY = firstY + secondY;
+    if (combinedY != 1 && combinedY != -1) {
+        return 0;
+    }
+
+    std::uint16_t direction = 0;
+    for (; direction < gDirectionDeltas55D9DC.size(); ++direction) {
+        if (gDirectionDeltas55D9DC[direction].x == combinedX &&
+            gDirectionDeltas55D9DC[direction].y == combinedY) {
+            break;
+        }
+    }
+    const std::int32_t plusX =
+        gDirectionDeltas55D9DC[(direction + 1U) & 7U].x;
+    const std::int32_t plusY =
+        gDirectionDeltas55D9DC[(direction + 1U) & 7U].y;
+    const std::int32_t minusX =
+        gDirectionDeltas55D9DC[(direction - 1U) & 7U].x;
+    const std::int32_t minusY =
+        gDirectionDeltas55D9DC[(direction - 1U) & 7U].y;
+    const std::int32_t firstBlocked =
+        Sub_469810(x + plusX - secondX, y + plusY - secondY);
+    const std::int32_t secondBlocked =
+        Sub_469810(x + minusX - secondX, y + minusY - secondY);
+    if (firstBlocked != 0 || secondBlocked != 0) {
+        return 0;
+    }
+
+    const std::uint16_t last =
+        static_cast<std::uint16_t>(gValueC82200 - 1U);
+    const std::size_t index = static_cast<std::size_t>(
+        std::bit_cast<std::int16_t>(last));
+    gMovePathX[index] = static_cast<std::uint16_t>(x + firstX);
+    gMovePathDirections[index] = direction;
+    gMovePathY[index] = static_cast<std::uint16_t>(y + firstY);
+    gValueC82200 = static_cast<std::uint16_t>(last + 1U);
+    return 1;
+}
+
 // 原 [0x4D3170,0x4D317B)：仅将 0x581800 写为 -1 后返回。
 void Sub_4D3170()
 {

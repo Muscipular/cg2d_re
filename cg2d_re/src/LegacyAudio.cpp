@@ -99,6 +99,48 @@ static_assert(offsetof(BgmConfigRecord, value44) == 0x44);
 static_assert(offsetof(BgmConfigRecord, value48) == 0x48);
 static_assert(sizeof(BgmConfigRecord) == 0x4C);
 
+// 原 [0x104C9B8,0x104D0C0)：音效请求表，独立于空间坐标记录。
+struct SoundRequestRecord final {
+    std::int32_t channelIndex;
+    std::int32_t seNo;
+    std::int32_t requestCount;
+    std::int32_t distanceOrAtten;
+    std::int32_t targetVolumeIndex;
+    std::int32_t appliedVolumeIndex;
+    std::int32_t screenX;
+    std::int32_t targetPanIndex;
+    std::int32_t appliedPanIndex;
+};
+
+static_assert(offsetof(SoundRequestRecord, channelIndex) == 0x00);
+static_assert(offsetof(SoundRequestRecord, seNo) == 0x04);
+static_assert(offsetof(SoundRequestRecord, requestCount) == 0x08);
+static_assert(offsetof(SoundRequestRecord, distanceOrAtten) == 0x0C);
+static_assert(offsetof(SoundRequestRecord, targetVolumeIndex) == 0x10);
+static_assert(offsetof(SoundRequestRecord, appliedVolumeIndex) == 0x14);
+static_assert(offsetof(SoundRequestRecord, screenX) == 0x18);
+static_assert(offsetof(SoundRequestRecord, targetPanIndex) == 0x1C);
+static_assert(offsetof(SoundRequestRecord, appliedPanIndex) == 0x20);
+static_assert(sizeof(SoundRequestRecord) == 0x24);
+
+// 原 [0x103E7B0,0x104A330)：+04/+1C 尚未定性，保留 W32 原位。
+struct SoundEffectDefinition final {
+    std::int32_t sampleIndex;
+    std::uint32_t unknown04;
+    std::int32_t loop;
+    std::int32_t volume;
+    std::int32_t pitchIndex;
+    std::int32_t cooldown;
+    std::int32_t baseFrequency;
+    std::uint32_t unknown1C;
+    char path[0x40];
+};
+
+static_assert(offsetof(SoundEffectDefinition, volume) == 0x0C);
+static_assert(offsetof(SoundEffectDefinition, cooldown) == 0x14);
+static_assert(offsetof(SoundEffectDefinition, path) == 0x20);
+static_assert(sizeof(SoundEffectDefinition) == 0x60);
+
 namespace {
 
 std::array<SpatialAudioRecord, 50> gSpatialRecords103D1C0 {};
@@ -106,8 +148,12 @@ static_assert(sizeof(gSpatialRecords103D1C0) == 0x3E8);
 
 std::array<std::int32_t, 512> gBgmMapping103DFAC {};
 std::array<BgmConfigRecord, 128> gBgmConfigRecords104A3B8 {};
+std::array<SoundRequestRecord, 50> gSoundRequests104C9B8 {};
+std::array<SoundEffectDefinition, 500> gSoundEffects103E7B0 {};
 static_assert(sizeof(gBgmMapping103DFAC) == 0x800);
 static_assert(sizeof(gBgmConfigRecords104A3B8) == 0x2600);
+static_assert(sizeof(gSoundRequests104C9B8) == 0x708);
+static_assert(sizeof(gSoundEffects103E7B0) == 0xBB80);
 
 std::array<SoundRecord57C368, 99> gSoundRecords57C368 {{
     {0, 0, 2},
@@ -589,6 +635,48 @@ std::int32_t __cdecl Sub_52CDE0(
     record.value10 = distance;
     record.value00 = 0;
     return y;
+}
+
+std::int32_t __cdecl Sub_52C9E0(
+    const std::int32_t id, const std::int32_t x, const std::int32_t y)
+{
+    if (id < 250 || id > 299) {
+        return 0;
+    }
+
+    const std::int32_t dx = x - 320;
+    const std::int32_t dy = y - 240;
+    const std::int32_t distance = static_cast<std::int32_t>(
+        std::sqrt(
+            static_cast<double>(dx) * dx
+            + static_cast<double>(dy) * dy));
+    const std::int32_t quotient = (distance * 16) / 106;
+    if (quotient >= 127) {
+        return 0;
+    }
+
+    SoundRequestRecord& request =
+        gSoundRequests104C9B8[static_cast<std::size_t>(id - 250)];
+    const std::int32_t count = request.requestCount;
+    if (count != 0 && request.distanceOrAtten <= distance) {
+        ++request.requestCount;
+        return 0;
+    }
+
+    const bool newRequest = count == 0;
+    request.distanceOrAtten = distance;
+    const volatile std::int32_t& effectVolume =
+        gSoundEffects103E7B0[static_cast<std::size_t>(id - 249)].volume;
+    const std::int32_t attenuated =
+        ((127 - quotient) * effectVolume) / 127;
+    const volatile std::int32_t& masterVolume = platform::gEffectVolume;
+    request.targetVolumeIndex = (attenuated * masterVolume) / 15;
+    if (newRequest && request.channelIndex == -1) {
+        request.seNo = id - 249;
+    }
+    request.screenX = x;
+    ++request.requestCount;
+    return 0;
 }
 
 // 原 [0x52CD60,0x52CDDB)；首个距离阈值不符的有效记录立即结束扫描。

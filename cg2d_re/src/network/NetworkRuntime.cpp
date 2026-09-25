@@ -7,6 +7,7 @@
 #include "cg/LegacyAudio.hpp"
 #include "cg/LoginRequest.hpp"
 #include "cg/LoginScene.hpp"
+#include "cg/Palette.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/world/SceneState.hpp"
 
@@ -454,6 +455,18 @@ std::int32_t Sub_50E310(
         world::gValueFF0D58 = 1;
     }
     return value;
+}
+
+// 原 [0x50E630,0x50E64C)：唯一 caller 不消费未定义的早退 EAX。
+void Sub_50E630(
+    const std::uintptr_t,
+    const std::int32_t index,
+    const std::int32_t steps)
+{
+    if (world::gCurrentSceneType == 10) {
+        return;
+    }
+    static_cast<void>(render::SelectPalette(index, steps));
 }
 
 // 原 [0x50D700,0x50D73A)：非零门禁直接返回，零时按原序发布三槽。

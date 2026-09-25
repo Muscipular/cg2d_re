@@ -666,6 +666,28 @@ char* UnescapeLegacyTextAndNotify_52D2F0(char* const text)
     return text;
 }
 
+// 原 [0x52D570,0x52D5BB)：每个源字节依序与删除集合比较，再原位压缩。
+char RemoveLegacyBytes_52D570(
+    char* const text,
+    const char* const excluded)
+{
+    const std::size_t excludedLength = std::strlen(excluded);
+    std::size_t source = 0;
+    std::size_t destination = 0;
+    while (text[source] != '\0') {
+        std::size_t index = 0;
+        while (index < excludedLength && text[source] != excluded[index]) {
+            ++index;
+        }
+        if (index == excludedLength) {
+            text[destination++] = text[source];
+        }
+        ++source;
+    }
+    text[destination] = '\0';
+    return 0;
+}
+
 void AppendChar_44ADB0(const char character)
 {
     InputContext* const context = gCurrentInputData;

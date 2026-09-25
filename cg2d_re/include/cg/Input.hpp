@@ -104,6 +104,9 @@ char* EscapeInputText_52D2D0(
 char* UnescapeLegacyText_52D150(char* text);
 char* UnescapeLegacyTextAndNotify_52D2F0(char* text);
 
+// 原 sub_52D570：逐字节从原缓冲区删除指定集合，尾部写 NUL，返回低 W8 零。
+char RemoveLegacyBytes_52D570(char* text, const char* excluded);
+
 // 原 sub_4596D0：按唯一旧键状态表分派输入编辑及尾部音频动作。
 void ProcessKeyInput_4596D0();
 

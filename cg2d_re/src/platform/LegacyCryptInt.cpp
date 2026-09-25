@@ -114,6 +114,12 @@ bool Equal_401D00(LegacyCryptInt* value, std::int32_t expected)
     return Read_401EC0(value) == expected;
 }
 
+bool NotEqual_401D20(LegacyCryptInt* lhs, LegacyCryptInt* rhs)
+{
+    const std::int32_t right = Read_401EC0(rhs);
+    return Read_401EC0(lhs) != right;
+}
+
 bool Greater_401D40(LegacyCryptInt* value, std::int32_t threshold)
 {
     return Read_401EC0(value) > threshold;

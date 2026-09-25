@@ -59,6 +59,8 @@ std::int32_t Multiply_401E90(LegacyCryptInt* value, std::int32_t amount);
 
 // 下列比较均只调用 Read_401EC0 一次，并按有符号 int32 比较。
 bool Equal_401D00(LegacyCryptInt* value, std::int32_t expected);
+// 原 CryptInt::neq@[0x401D20,0x401D40)：先读右对象，再读左对象。
+bool NotEqual_401D20(LegacyCryptInt* lhs, LegacyCryptInt* rhs);
 bool Greater_401D40(LegacyCryptInt* value, std::int32_t threshold);
 bool GreaterEqual_401D70(LegacyCryptInt* value, std::int32_t minimum);
 bool LessEqual_401DA0(LegacyCryptInt* value, std::int32_t maximum);

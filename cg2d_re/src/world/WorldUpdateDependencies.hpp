@@ -104,6 +104,10 @@ extern std::array<std::uint16_t, kMapBufferCells> gMapObjArray;
 extern std::array<std::uint16_t, kMapBufferCells> gMapHitArray;
 extern std::uint16_t gLastDetectedCode; // 原 9DAD4A；不随 pending 清理。
 
+// 原 468520；调用方传入 9E0434 当前值，返回 sprintf 的完整结果。
+std::int32_t __cdecl Sub_468520(
+    char* buffer, std::int32_t mapId, std::int32_t value9E0434, std::int32_t floor);
+
 // 原 0x9DAD5C/0x9DAD68/0x9DAD58/0x9DAD60/0x9DAD64；46DA80 共享状态。
 extern std::uint32_t gValue9DAD5C;
 extern std::uint32_t gValue9DAD68;

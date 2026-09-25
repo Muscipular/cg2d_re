@@ -54,6 +54,11 @@ constexpr char kAutPath55DE7C[] = "bin\\PUK2\\cutdat\\%d.aut";
 constexpr char kAutMessage55DE68[] =
     "\x61\x75\x74\xA6\x61\xB9\xCF\xC0\xC9\xB6\x7D\xB1\xD2\xA5\xA2\xB1\xD1\xA1\x43";
 
+// 原 468520；与命令行 mapfolder: 配置无关。
+constexpr char kMapPathPrefix[] = "map";
+constexpr char kMapPathZero[] = "%s\\%d\\%d.dat";
+constexpr char kMapPathOther[] = "%s\\%d\\%d\\%d.dat";
+
 // 原 0x55BAE0 的可写八字节区，正文六字节、NUL 后保留零填充。
 char gText55BAE0[8] = "\xB5\x6E\xA5\x58\xA4\xA4";
 
@@ -70,6 +75,9 @@ static_assert(sizeof(kCutMessage55DE20) == 14);
 static_assert(sizeof(kCutCaption55DE30) == 9);
 static_assert(sizeof(kAutPath55DE7C) == 23);
 static_assert(sizeof(kAutMessage55DE68) == 20);
+static_assert(sizeof(kMapPathPrefix) == 4);
+static_assert(sizeof(kMapPathZero) == 13);
+static_assert(sizeof(kMapPathOther) == 16);
 static_assert(sizeof(gText55BAE0) == 8);
 static_assert(sizeof(gAngleTableBits55DF10) == 2880);
 
@@ -342,6 +350,20 @@ std::uint16_t gLastDetectedCode = 0;
 static_assert(sizeof(gMapTileArray) == 5202);
 static_assert(sizeof(gMapObjArray) == 5202);
 static_assert(sizeof(gMapHitArray) == 5202);
+
+// 原 [0x468520,0x46856A)；零 mapId 忽略第三参，两路均透传 sprintf 返回。
+std::int32_t __cdecl Sub_468520(
+    char* const buffer,
+    const std::int32_t mapId,
+    const std::int32_t value9E0434,
+    const std::int32_t floor)
+{
+    if (mapId == 0) {
+        return std::sprintf(buffer, kMapPathZero, kMapPathPrefix, 0, floor);
+    }
+    return std::sprintf(
+        buffer, kMapPathOther, kMapPathPrefix, mapId, value9E0434, floor);
+}
 
 // 原 0x9DAD5C/0x9DAD68/0x9DAD58/0x9DAD60/0x9DAD64；46DA80 的 W32 目标。
 std::uint32_t gValue9DAD5C = 0;

@@ -47,6 +47,10 @@ void ConstructRippleGate();
 void DestroyRippleGate();
 std::int32_t ReadRippleGateOnce();
 
+// 原 467BA0/467BD0；先构造 X/Y，退出时按 Y/X 逆序析构。
+void ConstructPlayerCoordinates();
+void DestroyPlayerCoordinates();
+
 // 原 sub_448240@0x448240；只采样一次 gMapFloor。
 std::int32_t IsMapFloorAllowed_448240() noexcept;
 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "cg/LegacyAudio.hpp"
+#include "cg/platform/LegacyCryptInt.hpp"
 
 #include <array>
 #include <cstddef>
@@ -96,6 +97,8 @@ extern std::int16_t gMapXEnd;
 extern std::int16_t gMapYEnd;
 extern std::int16_t gMapSpanX;
 extern std::int16_t gMapSpanY;
+extern platform::LegacyCryptInt gPlayerX; // 原 9EE8A8；468200 等共享。
+extern platform::LegacyCryptInt gPlayerY; // 原 9EE8C0；468200 等共享。
 
 // 原 AEFB94/9DDB0C/9ED44C；468C40 的 tile/obj/hit 共享平面。
 inline constexpr std::size_t kMapBufferCells = 2601;
@@ -255,6 +258,7 @@ void Sub_4626A0();                         // 原 0x4626A0。
 void __cdecl Sub_449DA0();                 // 原 [0x449DA0,0x449F9C)。
 std::int32_t __cdecl Sub_46A9E0();         // 原 [0x46A9E0,0x46A9F4)，清三槽、返回 0。
 std::int32_t* Sub_467F30();                // 原 0x467F30。
+std::uint16_t __cdecl Sub_468200();        // 原 [0x468200,0x46828D)，仅返回 AX 位模式。
 std::int16_t* __cdecl Sub_468290(
     std::int16_t* xStart, std::int16_t* yStart,
     std::int16_t* xEnd, std::int16_t* yEnd); // 原 [0x468290,0x4682D7)，原地裁剪并返回末指针。

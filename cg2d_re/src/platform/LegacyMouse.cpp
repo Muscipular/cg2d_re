@@ -17,6 +17,20 @@ std::uint32_t gValueD68DC8 = 0;
 
 namespace {
 
+struct PlayerCoordinatesStaticInitializer {
+    PlayerCoordinatesStaticInitializer()
+    {
+        cg::world::ConstructPlayerCoordinates();
+    }
+
+    ~PlayerCoordinatesStaticInitializer()
+    {
+        cg::world::DestroyPlayerCoordinates();
+    }
+};
+
+const PlayerCoordinatesStaticInitializer gPlayerCoordinatesStaticInitializer;
+
 struct RippleGateStaticInitializer {
     RippleGateStaticInitializer()
     {

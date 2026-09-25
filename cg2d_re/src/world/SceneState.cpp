@@ -117,6 +117,18 @@ volatile std::uint32_t gWorldProjectionReferenceYBits = 0; // 原 0xC751A4。
 
 static_assert(sizeof(gValueD67B08) == 7 * sizeof(std::uint32_t));
 
+void ConstructPlayerCoordinates()
+{
+    platform::legacy_crypt_int::ConstructZero_401C70(&detail::gPlayerX);
+    platform::legacy_crypt_int::ConstructZero_401C70(&detail::gPlayerY);
+}
+
+void DestroyPlayerCoordinates()
+{
+    platform::legacy_crypt_int::Destroy_401CF0(&detail::gPlayerY);
+    platform::legacy_crypt_int::Destroy_401CF0(&detail::gPlayerX);
+}
+
 void ConstructRippleGate()
 {
     platform::legacy_crypt_int::ConstructZero_401C70(&gRippleGate);
@@ -342,6 +354,8 @@ std::int16_t gMapXEnd = 0;
 std::int16_t gMapYEnd = 0;
 std::int16_t gMapSpanX = 0;
 std::int16_t gMapSpanY = 0;
+platform::LegacyCryptInt gPlayerX {};
+platform::LegacyCryptInt gPlayerY {};
 std::array<std::uint16_t, kMapBufferCells> gMapTileArray {};
 std::array<std::uint16_t, kMapBufferCells> gMapObjArray {};
 std::array<std::uint16_t, kMapBufferCells> gMapHitArray {};
@@ -447,6 +461,34 @@ std::int32_t __cdecl Sub_46DC90(std::int32_t selected)
 
     std::fread(gAutDataAF10D8, 1, 477603, file);
     return std::fclose(file);
+}
+
+// 原 [0x468200,0x46828D)：四次独立读取玩家坐标，裁剪后发布两个跨度。
+std::uint16_t __cdecl Sub_468200()
+{
+    gMapXStart = std::bit_cast<std::int16_t>(
+        static_cast<std::uint16_t>(
+            platform::legacy_crypt_int::Add_401E10(&gPlayerX, -30)));
+    gMapYStart = std::bit_cast<std::int16_t>(
+        static_cast<std::uint16_t>(
+            platform::legacy_crypt_int::Add_401E10(&gPlayerY, -20)));
+    gMapXEnd = std::bit_cast<std::int16_t>(
+        static_cast<std::uint16_t>(
+            platform::legacy_crypt_int::Add_401E10(&gPlayerX, 21)));
+    gMapYEnd = std::bit_cast<std::int16_t>(
+        static_cast<std::uint16_t>(
+            platform::legacy_crypt_int::Add_401E10(&gPlayerY, 31)));
+
+    Sub_468290(&gMapXStart, &gMapYStart, &gMapXEnd, &gMapYEnd);
+    const std::uint16_t spanX =
+        static_cast<std::uint16_t>(gMapXEnd)
+        - static_cast<std::uint16_t>(gMapXStart);
+    const std::uint16_t spanY =
+        static_cast<std::uint16_t>(gMapYEnd)
+        - static_cast<std::uint16_t>(gMapYStart);
+    gMapSpanX = std::bit_cast<std::int16_t>(spanX);
+    gMapSpanY = std::bit_cast<std::int16_t>(spanY);
+    return spanX;
 }
 
 // 原 [0x468290,0x4682D7)：四个 S16 原地裁剪，末参数指针透传。

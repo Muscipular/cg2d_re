@@ -247,3 +247,32 @@ IDA 标为 `void __cdecl()`，共 154 个基本块；本节只闭合入口、
 真实未落位声明只在 render 实现边界。包装本体已落位，
 但 `451350` 的 32 位 Back 写入、原队列 case 2 父入口、
 统一画面 owner 与客户端完整链接/运行仍未闭合。
+
+## `520AD0` case 3 dirty 矩形包装
+
+2026-09-25，当前 IDA `Renderer::FillDirtyArea@[520AD0,520B09)`
+为单参 57 字节函数，唯一直接 caller 为 `DrawAllQueued@5216FC`。
+`520AD4/520AD7` 分别读取记录 `+0x21` 的 W8 混合模式、
+`+0x1C` 的 W32 颜色；`520ADB/520AE0/520AE5/520AEA`
+依次读取 `+6/+4/+2/+0` 的 W16。反向压栈后，
+`520AEF` 的 `Renderer::FillRect@44C9A0` 实参为
+`(S16[+0], S16[+2], S16[+4], S16[+6], W32[+0x1C], W8[+0x21])`。
+`520AF7–520AFE` 仅当其完整 EAX32 恰为 `0x887601AE`
+才写共享 `gGraphicDirty@1020EE8=1`，否则不写，随后返回
+`void`。混合模式的原压栈寄存器上位未在 `FillRect`
+消费，其低 W8 才是有效值。
+
+新端现有 `GraphicCacheItem32::descriptor[8..11]` 与 `[13]`
+分别承接颜色和混合模式，四坐标由 `x/y` 的各两个 S16
+按原读取与传参顺序拆出；`gGraphicDirty` 复用
+[GraphicPendingQueue.hpp](../include/cg/render/GraphicPendingQueue.hpp)
+的唯一存储。完整包装定义在
+[GraphicPendingQueue.cpp](../src/render/GraphicPendingQueue.cpp)，
+只声明真实 `44C9A0` 依赖，不替它返回固定值。
+`FillRect` 原本体在没有 3D 设备、裁剪拒绝或 renderer
+`+0xBC` 门禁为零时返回零，否则提交四顶点矩形并透传
+`DrawPrimitive` 结果；这仍需另行按 32 位色与获批 DX7
+替换范围完整落位。上层 dirty 状态写入不能因不逐码复刻
+底层 HRESULT 而默默删除；新 SDL/CPU 失败如何映射
+本原端门禁仍待 SPEC。父 `DrawAllQueued`、完整画面与链接
+运行尚未闭合。

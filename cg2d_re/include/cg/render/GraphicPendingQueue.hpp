@@ -104,6 +104,10 @@ void SortTextures_520790();
 // 按图号高位标志选择真实 451350 绘制模式；不修改记录。
 void Sub_522210(const GraphicCacheItem32* graphic, std::uint32_t imageNoBits);
 
+// 原 Renderer::FillDirtyArea@[0x520AD0,0x520B09)：从记录取坐标、
+// 颜色与混合模式；仅底层返回原 surface-busy 位型时写 gGraphicDirty。
+void FillDirtyArea_520AD0(const GraphicCacheItem32* graphic);
+
 // 原 Renderer::DrawGraphic3@[0x520970,0x520ACE)。
 std::int32_t DrawGraphic3_520970(
     std::int32_t x,

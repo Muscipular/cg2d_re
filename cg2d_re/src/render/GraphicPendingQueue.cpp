@@ -10,6 +10,7 @@
 #include <algorithm>
 #include <bit>
 #include <cstdlib>
+#include <cstring>
 
 #define WIN32_LEAN_AND_MEAN
 #define NOMINMAX
@@ -19,6 +20,15 @@ namespace cg::render {
 
 // 原 [0x451350,0x451D78) 的真实像素绘制依赖；Back/调色板承接尚未落位。
 void Sub_451350(RECT* rect, std::uint16_t color, std::int32_t mode);
+
+// 原 [0x44C9A0,0x44CC11) 的真实矩形绘制依赖；SDL/CPU 返回映射尚未落位。
+std::uint32_t FillRect_44C9A0(
+    std::int16_t left,
+    std::int16_t right,
+    std::int16_t top,
+    std::int16_t bottom,
+    std::uint32_t color,
+    std::uint8_t mixMode);
 
 namespace {
 
@@ -163,6 +173,28 @@ void Sub_522210(
         Sub_451350(&rect, color, 1);
     } else if ((imageNoBits & 0x40000000u) != 0) {
         Sub_451350(&rect, color, 2);
+    }
+}
+
+void FillDirtyArea_520AD0(const GraphicCacheItem32* const graphic)
+{
+    const std::uint8_t mixMode = graphic->descriptor[0x0D];
+    std::uint32_t color;
+    std::memcpy(&color, graphic->descriptor.data() + 0x08, sizeof(color));
+    const std::uint32_t yBits = std::bit_cast<std::uint32_t>(graphic->y);
+    const std::uint32_t xBits = std::bit_cast<std::uint32_t>(graphic->x);
+    const auto bottom = std::bit_cast<std::int16_t>(
+        static_cast<std::uint16_t>(yBits >> 16));
+    const auto top = std::bit_cast<std::int16_t>(
+        static_cast<std::uint16_t>(yBits));
+    const auto right = std::bit_cast<std::int16_t>(
+        static_cast<std::uint16_t>(xBits >> 16));
+    const auto left = std::bit_cast<std::int16_t>(
+        static_cast<std::uint16_t>(xBits));
+
+    if (FillRect_44C9A0(left, right, top, bottom, color, mixMode)
+        == 0x887601AEu) {
+        gGraphicDirty = 1;
     }
 }
 

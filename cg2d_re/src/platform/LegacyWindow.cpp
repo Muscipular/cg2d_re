@@ -38,6 +38,11 @@ std::int32_t PostLegacyWindowMessage(
         static_cast<LPARAM>(lParam)));
 }
 
+void PostLegacyQuitMessage(const std::int32_t exitCode)
+{
+    ::PostQuitMessage(exitCode);
+}
+
 std::intptr_t ExecuteLegacyShell(
     const std::uintptr_t window,
     const char* const operation,

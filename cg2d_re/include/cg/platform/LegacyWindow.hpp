@@ -23,6 +23,9 @@ std::int32_t PostLegacyWindowMessage(
     std::uintptr_t wParam,
     std::intptr_t lParam);
 
+// 原 PostQuitMessage 边界；向当前线程消息队列发布退出码。
+void PostLegacyQuitMessage(std::int32_t exitCode);
+
 // 原 ShellExecuteA 边界：保留 HWND/HINSTANCE 的原生宽度，不解释返回的错误码。
 std::intptr_t ExecuteLegacyShell(
     std::uintptr_t window,

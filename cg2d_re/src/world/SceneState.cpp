@@ -1005,6 +1005,29 @@ void __cdecl Sub_50CF90(
     }
 }
 
+// 原 [0x509090,0x5090FC)：校验成功才清地图请求及一次性状态位。
+void __cdecl Sub_509090(
+    const std::uintptr_t, const std::int32_t first,
+    const std::int32_t floor, const std::int32_t xStart,
+    const std::int32_t yStart, const std::int32_t xEnd,
+    const std::int32_t yEnd, const std::int32_t expectedTile,
+    const std::int32_t expectedObj, const std::int32_t expectedHit)
+{
+    if (gValue9A6E0C != 0 ||
+        Sub_469290(
+            first, floor, xStart, yStart, xEnd, yEnd,
+            expectedTile, expectedObj, expectedHit) == 0) {
+        return;
+    }
+    if (gMapFloor == floor) {
+        gValueC82208 = 0;
+    }
+    if ((gValue9A4B94 & 1u) != 0) {
+        Sub_4691D0();
+        gValue9A4B94 &= 0xFEu;
+    }
+}
+
 // 原 [0x469030,0x4691C9)：装载后可选重建第四平面，随后斜向扫描 tile。
 std::int32_t __cdecl Sub_469030()
 {

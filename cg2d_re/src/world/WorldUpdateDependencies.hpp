@@ -343,6 +343,18 @@ void __cdecl Sub_4691D0(); // 原 [0x4691D0,0x469239)，两次 -1 临时赋值�
 void __cdecl Sub_50CF90(
     std::uintptr_t socket, std::int32_t sequence,
     std::int32_t status); // 原 [0x50CF90,0x50CFF7)，地图回复序号与状态清理。
+std::int32_t __cdecl Sub_469290(
+    std::int32_t first, std::int32_t floor,
+    std::int32_t xStart, std::int32_t yStart,
+    std::int32_t xEnd, std::int32_t yEnd,
+    std::int32_t expectedTile, std::int32_t expectedObj,
+    std::int32_t expectedHit); // 原 [0x469290,0x4693E9)，真实局部三平面校验依赖。
+void __cdecl Sub_509090(
+    std::uintptr_t socket, std::int32_t first,
+    std::int32_t floor, std::int32_t xStart,
+    std::int32_t yStart, std::int32_t xEnd,
+    std::int32_t yEnd, std::int32_t expectedTile,
+    std::int32_t expectedObj, std::int32_t expectedHit); // 原 [0x509090,0x5090FC)，地图校验回复回调。
 std::int32_t __cdecl Sub_469030(); // 原 [0x469030,0x4691C9)，地图装载、第四平面与斜向绘制。
 // 原 [0x4693F0,0x4697C9)：先扫 tile，再扫 obj/图形尺寸，输出第四地图平面。
 std::int32_t __cdecl Sub_4693F0(

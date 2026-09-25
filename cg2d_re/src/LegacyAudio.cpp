@@ -1,5 +1,7 @@
 #include "cg/LegacyAudio.hpp"
 
+#include "LoginStateDependencies.hpp"
+
 #include "cg/LoginRequest.hpp"
 #include "cg/platform/CommandOptions.hpp"
 #include "cg/platform/KeyState.hpp"
@@ -215,11 +217,42 @@ static_assert(sizeof(gSoundSelectionCC236C) == 3 * sizeof(std::uint32_t));
 } // namespace
 
 std::uint32_t gValue103DE80 = 0;
+std::uint32_t gValue10507D4 = 0;
 std::int32_t gBgmTarget1050818 = 0;
 std::int32_t gBgmRequest1050810 = 0;
 std::int32_t gBgmStage1050814 = 0;
 volatile std::uint32_t gMciDeviceId = 0;
 std::uint32_t gMciCloseResult = 0;
+
+std::int32_t Sub_524230(); // 原 DirectSound/音效文件初始化，尚未落位。
+SpatialAudioRecord* Sub_52B9E0(); // 原通道、请求与音量表初始化，尚未落位。
+
+std::int32_t InitializeAudio_5241A0()
+{
+    if ((platform::gRendererFlags & 0x20u) != 0) {
+        gValue10507D4 = 1;
+        return 0;
+    }
+
+    static_cast<void>(LoadBgmConfig_524060());
+    if ((static_cast<std::uint16_t>(::GetAsyncKeyState(VK_SHIFT)) & 0x8000u) != 0) {
+        gValue10507D4 = 1;
+        return 0;
+    }
+
+    static_cast<void>(login::detail::Sub_44B5C0("\tinitDSound() Start"));
+    const std::int32_t result = Sub_524230();
+    if (result == 0) {
+        gValue10507D4 = 1;
+        return result;
+    }
+
+    static_cast<void>(login::detail::Sub_44B5C0("\tmusic_init() Start"));
+    static_cast<void>(Sub_52B9E0());
+    gValue10507D4 = 0;
+    static_cast<void>(login::detail::Sub_44B5C0("t_music_init OK"));
+    return 1;
+}
 
 std::int32_t LoadBgmConfig_524060()
 {

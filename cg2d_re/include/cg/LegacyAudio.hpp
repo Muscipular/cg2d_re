@@ -7,6 +7,7 @@ namespace cg::audio {
 struct SpatialAudioRecord;
 
 extern std::uint32_t gValue103DE80; // 原 0x103DE80，虚拟零填充 W32；52CD30 写入，52CCE0 读取。
+extern std::uint32_t gValue10507D4; // 原 0x10507D4；5241A0 写入，音效/BGM/更新入口共读。
 extern std::int32_t gBgmTarget1050818; // 原 0x1050818；BGM 请求与当前存档共用的目标 W32。
 extern std::int32_t gBgmRequest1050810; // 原 0x1050810；世界场景生产、52C910 消费的请求 W32。
 extern std::int32_t gBgmStage1050814; // 原 0x1050814；52C910 与清理入口共用的阶段 W32。
@@ -15,6 +16,7 @@ extern std::uint32_t gMciCloseResult; // 原 0x10507FC；保存第二次 MCI 返
 
 // 原 524060 加载 512 项映射及 128 条配置记录；52C9C0 非负映射发布 BGM 目标。
 std::int32_t LoadBgmConfig_524060();
+std::int32_t InitializeAudio_5241A0(); // 原初始化包装；524230/52B9E0 仍是真实依赖。
 std::int32_t SelectBgmTarget_52C9C0(std::int32_t index);
 std::int32_t UpdateBgmRequest_52C910(); // 原四阶段跳表，完整透传各分支返回。
 

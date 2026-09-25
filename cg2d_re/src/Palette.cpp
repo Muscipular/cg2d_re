@@ -123,6 +123,11 @@ int RebuildToneMap(
 
 } // namespace
 
+int CountMaskBits_453DE0(std::uint32_t mask) noexcept
+{
+    return std::popcount(mask);
+}
+
 ColorChannelMaps gColorChannelMaps {redMap, greenMap, blueMap};
 std::int32_t gPaletteInitialized = 0;
 std::int32_t gActivePalette = 0;

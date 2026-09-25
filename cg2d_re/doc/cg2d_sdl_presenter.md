@@ -163,6 +163,19 @@ AutoMap、Temp。`CreateCpuBackSurface` 只创建 Back；
 的结果仍按原调用丢弃；AutoMap 的后续真实消费者、
 SDL 帧提交、`Flip` 帧槽和父级失败分流继续待实施。
 
+### `453DE0` 初始化颜色掩码计数叶
+
+原 `[453DE0,453DFD)` 从 `453DE5` 读取完整 W32
+实参，`453DEA–453DF9` 用从 bit 0 左移的掩码循环
+32 次，每次 `test` 非零才递增 EAX，返回置位数
+`0..32`。`Renderer::Init` 在 `44BB3E/44BB57/
+44BB70/44BB89/44BB96/44BBAA` 六次直接调用，
+用于其颜色掩码及通道位移计算。新端
+`CountMaskBits_453DE0` 在既有调色板模块用
+`std::popcount(uint32_t)` 保留完整 W32 位模式和
+返回值；父 `Renderer::Init` 尚未落位，这六处
+生产与消费未接通，不计渲染器初始化完成。
+
 ### `4512C0` 直接调用点的返回消费
 
 2026-09-24，当前 `ida-17524/cg2d.exe.i64` 对 `4512C0`

@@ -75,6 +75,9 @@ extern std::int32_t gPaletteToneTargetIndex; // 原 0x628BBC。
 extern std::int32_t gPaletteFrameVersion;    // 原 0x628FDC。
 extern std::int32_t gPaletteVersionThrottle; // 原 0x629310。
 
+// 原 453DE0：统计完整 W32 掩码中的置位数；Renderer::Init 用于颜色通道参数。
+int CountMaskBits_453DE0(std::uint32_t mask) noexcept;
+
 // 原 InitPalette@0x450470 的共享逻辑及 32 位分支；DX7 原生调色板对象被 CPU 查色表替代。
 // 保留固定颜色、672 字节文件消费、首次备份、168 号置黑、通道初始化与错误返回。
 int InitPalette32();

@@ -34,6 +34,7 @@ std::uint8_t Sub_520590(); // 原 [0x520590,0x5205D5)，保存六项标量并返
 std::uint32_t Sub_520640(); // 原 [0x520640,0x520681)，复制 24 项文本。
 std::uint8_t Sub_5206F0(); // 原 [0x5206F0,0x5206FB)，保存 +0x313 并返回 AL。
 std::uint8_t Sub_520720(); // 原 [0x520720,0x52072B)，保存 +0x315 并返回 AL。
+std::int32_t Sub_520160(); // 原 [0x520160,0x5201A8)，顺序保存并透传 520200 返回。
 
 } // namespace cg::login::detail
 
@@ -256,7 +257,7 @@ std::int32_t Sub_45ED90();                 // 原 [0x45ED90,0x45EEDA)，场景 7
 void DrawNormalScene_51C7D0();             // 原 World::DrawNormalScene@0x51C7D0。
 std::int8_t Sub_519D50();                  // 原 0x519D50，IDA 原型 char()。
 std::int8_t Sub_51D750();                  // 原 0x51D750，IDA 原型 char()。
-std::int32_t Sub_520160();                 // 原 0x520160，IDA 原型 BOOL()。
+using cg::login::detail::Sub_520160;
 void DrawBattleScene_43CBB0();             // 原 World::DrawBattleScene@0x43CBB0。
 
 // 原 0x51FDE0；第三槽保持原 32 位载荷，浮点目标自行解释位模式。

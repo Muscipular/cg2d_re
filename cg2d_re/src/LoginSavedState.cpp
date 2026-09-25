@@ -3,6 +3,7 @@
 #include "LoginSceneDependencies.hpp"
 
 #include "cg/Input.hpp"
+#include "cg/LoginRequest.hpp"
 #include "cg/platform/CommandOptions.hpp"
 #include "cg/platform/Startup.hpp"
 
@@ -853,6 +854,9 @@ std::int32_t InitializeSavedState_533300()
 
 namespace cg::login::detail {
 
+std::int32_t Sub_520510(std::int32_t selected); // 原 0x520510；四个共享显示槽写回尚未落位。
+std::int32_t Sub_520750(std::int32_t selected); // 原 0x520750；音频目标低 W16 写回尚未落位。
+
 // 原 sub_520470@[0x520470,0x5204BF)：将音频设置写入当前保存记录。
 std::int32_t Sub_520470()
 {
@@ -947,6 +951,29 @@ std::uint8_t Sub_520720()
         reinterpret_cast<std::uint8_t*>(&gCurrentSavedRecord);
     currentBytes[0x315] = value;
     return value;
+}
+
+// 原 [0x520160,0x5201A8)：各保存叶按序执行，末尾透传持久化返回。
+std::int32_t Sub_520160()
+{
+    const volatile std::int16_t& selectedCharacter =
+        cg::login::gSelectedCharacterIndex;
+    static_cast<void>(Sub_520470());
+    static_cast<void>(Sub_520590());
+
+    const std::int32_t ignoredSelected = selectedCharacter;
+    static_cast<void>(ignoredSelected);
+    cg::NullSub_509080();
+
+    const std::int32_t selectedForDisplay = selectedCharacter;
+    static_cast<void>(Sub_520510(selectedForDisplay));
+    static_cast<void>(Sub_520640());
+    static_cast<void>(Sub_5206F0());
+
+    const std::int32_t selectedForAudio = selectedCharacter;
+    static_cast<void>(Sub_520750(selectedForAudio));
+    static_cast<void>(Sub_520720());
+    return Sub_520200();
 }
 
 std::int32_t Sub_520200()

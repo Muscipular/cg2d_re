@@ -419,6 +419,13 @@ std::int32_t Sub_512BD0(std::uintptr_t socket);
 // 原 [0x512C60,0x512C9C)：DE 保活发送，追加共享 593850 原字节文本。
 std::int32_t Sub_512C60(std::uintptr_t socket);
 
+// 原五个无额外参数的请求叶；各自构造命令、追加同一 593850 文本并透传发送返回。
+std::int32_t Sub_511CD0(std::uintptr_t socket); // as
+std::int32_t Sub_511FB0(std::uintptr_t socket); // ixH
+std::int32_t Sub_512230(std::uintptr_t socket); // suI
+std::int32_t Sub_512570(std::uintptr_t socket); // ih
+std::int32_t Sub_512CF0(std::uintptr_t socket); // lO
+
 // 原 sub_516B60@0x516B60：安装回调并分配 18 项网络工作区。
 std::int32_t AllocateNetworkWorkspace_516B60(
     NetworkCallback callback,

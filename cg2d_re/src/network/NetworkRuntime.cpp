@@ -1434,6 +1434,86 @@ std::int32_t Sub_512C60(const std::uintptr_t socket)
         reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
 }
 
+// 原 [0x511CD0,0x511D0C)：as 请求，追加共享原字节文本。
+std::int32_t Sub_511CD0(const std::uintptr_t socket)
+{
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0), "as"));
+    const std::int32_t capacity = std::bit_cast<std::int32_t>(
+        gNetworkRuntimeState.bufferLength);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
+        input::LegacyText593850(),
+        capacity));
+    return SendProtocolBuffer_517480(
+        socket,
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
+}
+
+// 原 [0x511FB0,0x511FEC)：ixH 请求，追加共享原字节文本。
+std::int32_t Sub_511FB0(const std::uintptr_t socket)
+{
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0), "ixH"));
+    const std::int32_t capacity = std::bit_cast<std::int32_t>(
+        gNetworkRuntimeState.bufferLength);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
+        input::LegacyText593850(),
+        capacity));
+    return SendProtocolBuffer_517480(
+        socket,
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
+}
+
+// 原 [0x512230,0x51226C)：suI 请求，追加共享原字节文本。
+std::int32_t Sub_512230(const std::uintptr_t socket)
+{
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0), "suI"));
+    const std::int32_t capacity = std::bit_cast<std::int32_t>(
+        gNetworkRuntimeState.bufferLength);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
+        input::LegacyText593850(),
+        capacity));
+    return SendProtocolBuffer_517480(
+        socket,
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
+}
+
+// 原 [0x512570,0x5125AC)：ih 请求，追加共享原字节文本。
+std::int32_t Sub_512570(const std::uintptr_t socket)
+{
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0), "ih"));
+    const std::int32_t capacity = std::bit_cast<std::int32_t>(
+        gNetworkRuntimeState.bufferLength);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
+        input::LegacyText593850(),
+        capacity));
+    return SendProtocolBuffer_517480(
+        socket,
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
+}
+
+// 原 [0x512CF0,0x512D2C)：lO 请求，追加共享原字节文本。
+std::int32_t Sub_512CF0(const std::uintptr_t socket)
+{
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0), "lO"));
+    const std::int32_t capacity = std::bit_cast<std::int32_t>(
+        gNetworkRuntimeState.bufferLength);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
+        input::LegacyText593850(),
+        capacity));
+    return SendProtocolBuffer_517480(
+        socket,
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
+}
+
 // 原 [0x512DF0,0x512E38)：容量仅在命令构造之后、整数格式化之前采样。
 std::int32_t Sub_512DF0(
     const std::uintptr_t socket,

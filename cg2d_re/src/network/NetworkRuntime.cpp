@@ -28,6 +28,13 @@ namespace cg::network {
 namespace {
 
 constexpr std::size_t kWorkspaceSlotCount = 18;
+constexpr std::size_t kReceiveQueueOffset = 0xC004;
+constexpr std::size_t kQueueCapacity = 0x4000;
+constexpr std::size_t kSendLengthOffset = kReceiveQueueOffset + kQueueCapacity;
+constexpr std::size_t kQueueStorageSize = kSendLengthOffset + sizeof(std::int32_t);
+static_assert(kReceiveQueueOffset == 0xD9B2BC - 0xD8F2B8);
+static_assert(kSendLengthOffset == 0xD9F2BC - 0xD8F2B8);
+static_assert(kQueueStorageSize == 0x10008);
 
 using SendProtocolObserver = void (*)(
     std::uint32_t direction,
@@ -78,6 +85,9 @@ struct NetworkRuntimeState {
     void** workspaceSlots; // 原 0xDA3F98，18 个本机指针槽。
     std::uint8_t active;   // 原 0xD9F2C8，网络运行期活动门禁。
     std::uint32_t valueD9F2D0; // 原 0xD9F2D0，仅保留地址身份的 W32。
+    // 原 [0xD8F2B8,0xD9F2C0)：发送窗口、接收区与发送长度共享地址别名。
+    std::array<std::uint8_t, kQueueStorageSize> queueBytes;
+    std::int32_t receiveLengthD69790; // 原 0xD69790，独立于连续队列。
 };
 
 NetworkRuntimeState gNetworkRuntimeState {};
@@ -3129,6 +3139,67 @@ std::int32_t InitializeNetworkRuntime_508140()
     gNetworkRuntimeState.active = 1;
     world::gValueD9F2CA = 0;
     return 1;
+}
+
+std::int32_t AppendReceiveQueue_5081E0(
+    const void* const source,
+    const std::uint32_t size)
+{
+    if (login::gRequestPollingEnabled == 0) {
+        return -100;
+    }
+
+    const std::int32_t previous = gNetworkRuntimeState.receiveLengthD69790;
+    const std::int32_t next = std::bit_cast<std::int32_t>(
+        static_cast<std::uint32_t>(previous) + size);
+    if (next > static_cast<std::int32_t>(kQueueCapacity)) {
+        return -1;
+    }
+
+    std::memcpy(
+        gNetworkRuntimeState.queueBytes.data() + kReceiveQueueOffset + previous,
+        source,
+        size);
+    gNetworkRuntimeState.receiveLengthD69790 = next;
+    return 0;
+}
+
+std::int32_t ConsumeReceiveQueue_508230(const std::int32_t size)
+{
+    if (login::gRequestPollingEnabled == 0) {
+        return -100;
+    }
+    if (size >= static_cast<std::int32_t>(kQueueCapacity)) {
+        return -1;
+    }
+
+    const std::int32_t remaining = std::bit_cast<std::int32_t>(
+        static_cast<std::uint32_t>(gNetworkRuntimeState.receiveLengthD69790)
+        - static_cast<std::uint32_t>(size));
+    gNetworkRuntimeState.receiveLengthD69790 = remaining;
+    std::uint8_t* const receive =
+        gNetworkRuntimeState.queueBytes.data() + kReceiveQueueOffset;
+    std::memmove(receive, receive + size, static_cast<std::size_t>(remaining));
+    return 0;
+}
+
+std::int32_t ConsumeSendQueue_508280(const std::int32_t size)
+{
+    if (login::gRequestPollingEnabled == 0) {
+        return -100;
+    }
+    if (size >= static_cast<std::int32_t>(kQueueCapacity)) {
+        return -1;
+    }
+
+    std::uint8_t* const send = gNetworkRuntimeState.queueBytes.data();
+    std::int32_t previous;
+    std::memcpy(&previous, send + kSendLengthOffset, sizeof(previous));
+    const std::int32_t remaining = std::bit_cast<std::int32_t>(
+        static_cast<std::uint32_t>(previous) - static_cast<std::uint32_t>(size));
+    std::memcpy(send + kSendLengthOffset, &remaining, sizeof(remaining));
+    std::memmove(send, send + size, static_cast<std::size_t>(remaining));
+    return 0;
 }
 
 std::uint8_t ReadNetworkRuntimeActive() noexcept

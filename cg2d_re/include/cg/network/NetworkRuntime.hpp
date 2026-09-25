@@ -295,6 +295,9 @@ std::int32_t Sub_5120D0(
     const char* second,
     const char* third);
 
+// 原 sub_512160@[0x512160,0x512185)：构造 JMh 并直接发送。
+std::int32_t Sub_512160(std::uintptr_t socket);
+
 // 原 sub_512190@[0x512190,0x5121D8)：构造 ElVN、追加一个整数并发送。
 std::int32_t Sub_512190(std::uintptr_t socket, std::int32_t value);
 

@@ -2490,6 +2490,16 @@ std::int32_t Sub_5120D0(
         reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
 }
 
+// 原 [0x512160,0x512185)：建命令后重读缓冲并完整透传发送返回。
+std::int32_t Sub_512160(const std::uintptr_t socket)
+{
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0), "JMh"));
+    return SendProtocolBuffer_517480(
+        socket,
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
+}
+
 // 原 [0x512190,0x5121D8)：一次容量采样，整数 token 追加后发送。
 std::int32_t Sub_512190(
     const std::uintptr_t socket,

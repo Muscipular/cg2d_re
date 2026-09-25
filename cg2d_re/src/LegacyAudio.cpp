@@ -1,5 +1,6 @@
 #include "cg/LegacyAudio.hpp"
 
+#include "cg/LoginRequest.hpp"
 #include "cg/platform/CommandOptions.hpp"
 #include "cg/platform/KeyState.hpp"
 #include "cg/world/SceneState.hpp"
@@ -17,6 +18,14 @@
 #define NOMINMAX
 #include <Windows.h>
 #include <mmsystem.h>
+
+namespace cg::login::detail {
+
+std::int32_t Sub_520750(std::int32_t selected);
+std::int32_t Sub_520200();
+std::int32_t LoadAndPlayBGM(std::uint32_t bgmId);
+
+} // namespace cg::login::detail
 
 namespace {
 
@@ -207,6 +216,8 @@ static_assert(sizeof(gSoundSelectionCC236C) == 3 * sizeof(std::uint32_t));
 
 std::uint32_t gValue103DE80 = 0;
 std::int32_t gBgmTarget1050818 = 0;
+std::int32_t gBgmRequest1050810 = 0;
+std::int32_t gBgmStage1050814 = 0;
 volatile std::uint32_t gMciDeviceId = 0;
 std::uint32_t gMciCloseResult = 0;
 
@@ -272,6 +283,53 @@ std::int32_t SelectBgmTarget_52C9C0(const std::int32_t index)
         gBgmTarget1050818 = target;
     }
     return 0;
+}
+
+std::int32_t UpdateBgmRequest_52C910()
+{
+    const std::int32_t stage = gBgmStage1050814;
+    switch (stage) {
+    case 0: {
+        const std::int32_t request = gBgmRequest1050810;
+        std::int32_t result = request;
+        if (request != 0) {
+            const std::int32_t current = gRecordIndex;
+            const std::int32_t target = gBgmTarget1050818;
+            result = current;
+            if (current != target) {
+                const volatile std::int16_t& selected =
+                    login::gSelectedCharacterIndex;
+                const std::int32_t selectedValue = selected;
+                gBgmStage1050814 = 1;
+                static_cast<void>(login::detail::Sub_520750(selectedValue));
+                result = login::detail::Sub_520200();
+            }
+        }
+        gBgmRequest1050810 = 0;
+        return result;
+    }
+    case 1: {
+        const std::uint32_t result = Sub_52B990();
+        ++gBgmStage1050814;
+        return std::bit_cast<std::int32_t>(result);
+    }
+    case 2: {
+        const std::int32_t flag = gFlag;
+        if (flag == 0) {
+            gBgmStage1050814 = 3;
+        }
+        return flag;
+    }
+    case 3: {
+        const std::int32_t target = gBgmTarget1050818;
+        const std::int32_t result = login::detail::LoadAndPlayBGM(
+            std::bit_cast<std::uint32_t>(target));
+        gBgmStage1050814 = 0;
+        return result;
+    }
+    default:
+        return stage;
+    }
 }
 
 // 原 [0x5044C0,0x5044DF)：顺序扫描完整的 99 项可写表。

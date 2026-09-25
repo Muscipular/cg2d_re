@@ -415,6 +415,28 @@ std::uint32_t gValueAF10C0 = 0;
 std::uint32_t gValue9EE8FC = 0;
 std::uint32_t gValue9EE900 = 0;
 std::uint32_t gValue9DAD78 = 0;
+std::uint8_t gValue9A4B94 = 0;
+std::uint16_t gValueC82200 = 0;
+std::uint16_t gValueC82202 = 0;
+std::uint32_t gValueC821FC = 0;
+std::uint32_t gValue9EE8B8 = 0;
+std::uint16_t gValueC8A79C = 0;
+std::uint16_t gValue9A86D8 = 0;
+std::uint16_t gValue9FB92E = 0;
+std::uint16_t gValueB65A7C = 0;
+std::uint16_t gValueC82220 = 0;
+std::uint32_t gValueC8A778 = 0;
+std::uint32_t gValueC8A794 = 0;
+std::uint32_t gValueC8220C = 0;
+std::uint32_t gValueC82210 = 0;
+std::uint32_t gValueC82214 = 0;
+std::uint32_t gValueC82218 = 0;
+std::uint32_t gValueC82224 = 0;
+std::uint16_t gValue9DAD54 = 0;
+std::uint16_t gValue9FB92C = 0;
+std::uint16_t gValue55D9FC = 0xFFFFu;
+std::uint16_t gValueC821D0 = 0;
+std::uint16_t gValue9EE910 = 0;
 std::array<std::uint16_t, kMapBufferCells> gMapTileArray {};
 std::array<std::uint16_t, kMapBufferCells> gMapObjArray {};
 std::array<std::uint16_t, kMapBufferCells> gMapHitArray {};
@@ -636,6 +658,91 @@ std::uint32_t __cdecl Sub_468330(const std::int32_t x, const std::int32_t y)
     gWorldProjectionReferenceXBits = xBits;
     gWorldProjectionReferenceYBits = finalYBits;
     return finalYBits;
+}
+
+// 原 [0x467F30,0x4681AB)：八次独立临时构造，末尾透传表的一过尾指针。
+std::int32_t* Sub_467F30()
+{
+    Sub_4682E0(0, 0, 0, 0, 0, 0, 0, 0);
+    static_cast<void>(Sub_468330(0, 0));
+
+    platform::LegacyCryptInt first;
+    platform::legacy_crypt_int::ConstructFromInt_401CC0(&first, 0);
+    gValue9EE8D0.mask = first.mask;
+    gValue9EE8D0.encoded = first.encoded;
+    gValue9EE8D0.readCount = first.readCount;
+
+    platform::LegacyCryptInt second;
+    platform::legacy_crypt_int::ConstructFromInt_401CC0(&second, 0);
+    gValue9EE8E0.mask = second.mask;
+    gValue9EE8E0.encoded = second.encoded;
+    gValue9EE8E0.readCount = second.readCount;
+    platform::legacy_crypt_int::Destroy_401CF0(&second);
+    platform::legacy_crypt_int::Destroy_401CF0(&first);
+
+    platform::legacy_crypt_int::ConstructFromInt_401CC0(&second, 0);
+    gValueC27FF8.mask = second.mask;
+    gValueC27FF8.encoded = second.encoded;
+    gValueC27FF8.readCount = second.readCount;
+
+    platform::legacy_crypt_int::ConstructFromInt_401CC0(&first, 0);
+    gValueC27FE8.mask = first.mask;
+    gValueC27FE8.encoded = first.encoded;
+    gValueC27FE8.readCount = first.readCount;
+    platform::legacy_crypt_int::Destroy_401CF0(&first);
+    platform::legacy_crypt_int::Destroy_401CF0(&second);
+
+    gValue9A4B94 = 3;
+    static_cast<void>(Sub_468200());
+    gValueC82200 = 0;
+    gValueC82202 = 0;
+    gValueC821FC = 0;
+    gValue9EE8B8 = 0;
+    gValueC8A79C = 0;
+
+    platform::legacy_crypt_int::ConstructFromInt_401CC0(&first, 0);
+    gValueC821E8.encoded = first.encoded;
+    gValueC821E8.mask = first.mask;
+    gValueC821E8.readCount = first.readCount;
+    platform::legacy_crypt_int::Destroy_401CF0(&first);
+
+    platform::legacy_crypt_int::ConstructFromInt_401CC0(&first, 0);
+    gValue9E03C0.mask = first.mask;
+    gValue9E03C0.encoded = first.encoded;
+    gValue9E03C0.readCount = first.readCount;
+    platform::legacy_crypt_int::Destroy_401CF0(&first);
+
+    platform::legacy_crypt_int::ConstructFromInt_401CC0(&first, 0);
+    gValueC821D8.mask = first.mask;
+    gValueC821D8.encoded = first.encoded;
+    gValueC821D8.readCount = first.readCount;
+    platform::legacy_crypt_int::Destroy_401CF0(&first);
+
+    platform::legacy_crypt_int::ConstructFromInt_401CC0(&first, 0);
+    gRippleGate.mask = first.mask;
+    gRippleGate.encoded = first.encoded;
+    gRippleGate.readCount = first.readCount;
+    platform::legacy_crypt_int::Destroy_401CF0(&first);
+
+    gValue9A86D8 = 0;
+    gValue9FB92E = 0;
+    gValueB65A7C = 0;
+    gValueC82220 = 0;
+    gValueC8A778 = 0;
+    gValueC8A794 = 0;
+    gValueC8220C = 0;
+    gValueC82210 = 0;
+    gValueC82214 = 0;
+    gValueC82218 = 0;
+    gValueC82224 = 0;
+    gValue9DAD54 = 0xFFFFu;
+    gValue9FB92C = 0xFFFFu;
+    gValue55D9FC = 0xFFFFu;
+
+    static_cast<void>(Sub_468F30());
+    gValueC821D0 = 0;
+    gValue9EE910 = 0;
+    return Sub_46CF20();
 }
 
 // 原 [0x468290,0x4682D7)：四个 S16 原地裁剪，末参数指针透传。

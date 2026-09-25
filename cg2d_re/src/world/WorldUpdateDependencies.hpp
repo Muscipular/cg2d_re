@@ -117,6 +117,30 @@ extern std::uint32_t gValue9EE8FC; // 原 F32 位槽，移动链共享。
 extern std::uint32_t gValue9EE900; // 原 F32 位槽，移动链共享。
 extern std::uint32_t gValue9DAD78; // 原 F32 位槽，移动/绘制链共享。
 
+// 原 467F30 独立 W8/W16/W32 写入目标；不覆盖邻接的 C82204。
+extern std::uint8_t gValue9A4B94;
+extern std::uint16_t gValueC82200;
+extern std::uint16_t gValueC82202;
+extern std::uint32_t gValueC821FC;
+extern std::uint32_t gValue9EE8B8;
+extern std::uint16_t gValueC8A79C;
+extern std::uint16_t gValue9A86D8;
+extern std::uint16_t gValue9FB92E;
+extern std::uint16_t gValueB65A7C;
+extern std::uint16_t gValueC82220;
+extern std::uint32_t gValueC8A778;
+extern std::uint32_t gValueC8A794;
+extern std::uint32_t gValueC8220C;
+extern std::uint32_t gValueC82210;
+extern std::uint32_t gValueC82214;
+extern std::uint32_t gValueC82218;
+extern std::uint32_t gValueC82224;
+extern std::uint16_t gValue9DAD54;
+extern std::uint16_t gValue9FB92C;
+extern std::uint16_t gValue55D9FC;
+extern std::uint16_t gValueC821D0;
+extern std::uint16_t gValue9EE910;
+
 // 原 AEFB94/9DDB0C/9ED44C；468C40 的 tile/obj/hit 共享平面。
 inline constexpr std::size_t kMapBufferCells = 2601;
 extern std::array<std::uint16_t, kMapBufferCells> gMapTileArray;
@@ -274,7 +298,7 @@ void Sub_44A410();                         // 原 0x44A410，输入光标闪烁/
 void Sub_4626A0();                         // 原 0x4626A0。
 void __cdecl Sub_449DA0();                 // 原 [0x449DA0,0x449F9C)。
 std::int32_t __cdecl Sub_46A9E0();         // 原 [0x46A9E0,0x46A9F4)，清三槽、返回 0。
-std::int32_t* Sub_467F30();                // 原 0x467F30。
+std::int32_t* Sub_467F30();                // 原 [0x467F30,0x4681AB)，透传 46CF20 一过尾指针。
 std::uint16_t __cdecl Sub_468200();        // 原 [0x468200,0x46828D)，仅返回 AX 位模式。
 std::int32_t __cdecl Sub_46CEC0();         // 原 [0x46CEC0,0x46CED6)，先读 Y 再对 X 加。
 std::int32_t __cdecl Sub_46CEE0();         // 原 [0x46CEE0,0x46CEFB)，并写 AF10C0。

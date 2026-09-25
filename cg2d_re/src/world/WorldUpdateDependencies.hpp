@@ -326,6 +326,16 @@ std::int32_t __cdecl Sub_468C00(
     std::int32_t x, std::int32_t y, std::uint16_t value); // 原 [0x468C00,0x468C32)，写 hit WORD。
 std::int32_t __cdecl Sub_46AE60(std::int32_t x, std::int32_t y); // 原 [0x46AE60,0x46AE94)，判 hit 低字节。
 std::int32_t __cdecl Sub_469810(std::int32_t x, std::int32_t y); // 原 [0x469810,0x469864)，边界外或 walk WORD==1。
+// 原 [0x4693F0,0x4697C9)：先扫 tile，再扫 obj/图形尺寸，输出第四地图平面。
+std::int32_t __cdecl Sub_4693F0(
+    std::int32_t xStart, std::int32_t yStart, std::int32_t xEnd, std::int32_t yEnd,
+    const std::uint16_t* tile, const std::uint16_t* obj,
+    const std::uint16_t* hit, std::uint16_t* walk);
+// 原 [0x46D9C0,0x46DA72)：模式 1 读取 hit 高字节 bit0，其他模式转 4693F0。
+std::int32_t __cdecl Sub_46D9C0(
+    std::int32_t xStart, std::int32_t yStart, std::int32_t xEnd, std::int32_t yEnd,
+    const std::uint16_t* tile, const std::uint16_t* obj,
+    const std::uint16_t* hit, std::uint16_t* walk);
 std::int32_t __cdecl Sub_46AD00(std::int32_t x, std::int32_t y); // 原 [0x46AD00,0x46AD97)，分类并写 9DAD4A。
 std::int32_t __cdecl Sub_468F30();         // 原 [0x468F30,0x468F6F)，按序清十二槽、返回 0。
 std::int64_t __cdecl Sub_468F70();         // 原 [0x468F70,0x468FE4)，F32 投影、向零截断后写六槽。

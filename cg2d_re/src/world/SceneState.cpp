@@ -6,6 +6,7 @@
 #include "cg/platform/LegacyCryptInt.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/platform/MainLoop.hpp"
+#include "cg/GraphicInfo.hpp"
 #include "cg/YobiRuntime.hpp"
 #include "cg/render/TextPendingQueue.hpp"
 #include "cg/world/GameTime.hpp"
@@ -881,6 +882,128 @@ std::int32_t __cdecl Sub_469810(const std::int32_t x, const std::int32_t y)
     }
     const std::int32_t index = localX + width * localY;
     return gMapWalkabilityArray[static_cast<std::size_t>(index)] == 1;
+}
+
+// 原 [0x4693F0,0x4697C9)：tile 扫描、obj 扫描与尺寸向上覆盖共用同一输出。
+std::int32_t __cdecl Sub_4693F0(
+    const std::int32_t xStart, const std::int32_t yStart,
+    const std::int32_t xEnd, const std::int32_t yEnd,
+    const std::uint16_t* tile, const std::uint16_t* obj,
+    const std::uint16_t* hit, std::uint16_t* walk)
+{
+    std::memset(walk, 0, kMapBufferCells * sizeof(std::uint16_t));
+    const std::int32_t width = xEnd - xStart;
+    const std::int32_t height = yEnd - yStart;
+    if (width < 1 || height < 1) {
+        return 0;
+    }
+
+    for (std::int32_t y = 0; y < height; ++y) {
+        for (std::int32_t x = 0; x < width; ++x) {
+            const std::int32_t index = y * width + x;
+            const std::int32_t code = Sub_46CF00(tile[index]);
+            std::uint16_t& value = walk[index];
+            if (code > 999 || (code >= 60 && code <= 79)) {
+                std::int32_t graphic = 0;
+                std::uint16_t flag = 0;
+                resource::GetGraphicMapNoIndex(code, &graphic);
+                resource::GetGraphicFlag1(static_cast<std::uint32_t>(graphic), &flag);
+                if (flag == 2) {
+                    value = 2;
+                } else if (flag == 0 && value != 2) {
+                    value = 1;
+                }
+            } else if (code == 4) {
+                value = 2;
+            } else if (code == 2 || code == 5 || code == 6 ||
+                       code == 9 || code == 10 ||
+                       (code == 0 && (hit[index] & 0x4000u) != 0)) {
+                if (value != 2) {
+                    value = 1;
+                }
+            }
+        }
+    }
+
+    for (std::int32_t y = 0; y < height; ++y) {
+        for (std::int32_t x = 0; x < width; ++x) {
+            const std::int32_t index = y * width + x;
+            const std::int32_t code = Sub_46CF00(obj[index]);
+            std::uint16_t& value = walk[index];
+            if (code > 999 || (code >= 60 && code <= 79)) {
+                std::int32_t graphic = 0;
+                std::uint16_t flag = 0;
+                resource::GetGraphicMapNoIndex(code, &graphic);
+                resource::GetGraphicFlag1(static_cast<std::uint32_t>(graphic), &flag);
+                if (code > 999 && (flag == 0 || flag == 2)) {
+                    std::uint16_t sx = 0;
+                    std::uint16_t sy = 0;
+                    resource::GetGraphicSxSy(
+                        static_cast<std::uint32_t>(graphic), &sx, &sy);
+                    const std::int32_t graphicWidth =
+                        std::bit_cast<std::int16_t>(sx);
+                    const std::int32_t graphicHeight =
+                        std::bit_cast<std::int16_t>(sy);
+                    for (std::int32_t row = 0; row < graphicHeight; ++row) {
+                        for (std::int32_t col = 0; col < graphicWidth; ++col) {
+                            if (y - row >= 0 && x + col < width) {
+                                std::uint16_t& covered =
+                                    walk[(y - row) * width + x + col];
+                                if (flag == 2 || covered != 2) {
+                                    covered = flag == 2 ? 2 : 1;
+                                }
+                            }
+                        }
+                    }
+                } else if (flag == 2) {
+                    value = 2;
+                } else if (flag == 0 && value != 2) {
+                    value = 1;
+                }
+            } else if (code == 4) {
+                value = 2;
+            } else if (code == 2 || code == 5 || code == 6 ||
+                       code == 9 || code == 10) {
+                if (value != 2) {
+                    value = 1;
+                }
+            }
+            if (tile[index] == 0 && obj[index] == 0 && value == 0) {
+                value = 1;
+            }
+            if (static_cast<std::uint8_t>(hit[index]) == 1) {
+                value = 1;
+            }
+        }
+    }
+    return 2 * width;
+}
+
+// 原 [0x46D9C0,0x46DA72)：模式 1 使用 hit 高字节，其余完整委托 4693F0。
+std::int32_t __cdecl Sub_46D9C0(
+    const std::int32_t xStart, const std::int32_t yStart,
+    const std::int32_t xEnd, const std::int32_t yEnd,
+    const std::uint16_t* tile, const std::uint16_t* obj,
+    const std::uint16_t* hit, std::uint16_t* walk)
+{
+    if (gValue9DAD68 != 1) {
+        return Sub_4693F0(xStart, yStart, xEnd, yEnd, tile, obj, hit, walk);
+    }
+    std::memset(walk, 0, kMapBufferCells * sizeof(std::uint16_t));
+    const std::int32_t width = xEnd - xStart;
+    const std::int32_t remaining = yEnd - yStart;
+    if (width < 1 || remaining < 1) {
+        return remaining;
+    }
+    for (std::int32_t y = 0; y < remaining; ++y) {
+        for (std::int32_t x = 0; x < width; ++x) {
+            const std::int32_t index = y * width + x;
+            if ((hit[index] & 0x0100u) != 0) {
+                walk[index] = 1;
+            }
+        }
+    }
+    return 0;
 }
 
 // 原 [0x46AD00,0x46AD97)：分类前无条件写独立的低 U8 探测值。

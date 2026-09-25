@@ -6,6 +6,7 @@
 
 ## 1. 当前状态与阻断
 
+- **2026-09-25 `4693F0/46D9C0` 第四地图平面生产本体已落位。** 当前 IDA 指令及两张跳表确认 tile→obj 两轮、图形 flag 与尺寸向上覆盖、空 tile/obj 补值及 hit 低字节最终覆盖；模式 1 按 hit 高字节 bit0 写入，其他模式完整委托 `4693F0`。[场景证据 §84](../doc/cg2d_scene_state.md)区分各分支返回与 2601 WORD 唯一 owner。`469030/46CF60` 装载调用者未接，故运行期地图生产链、`46B6F0/469FC0`、客户端链接和运行仍未闭合；不新增或执行测试、不运行客户端，无 subAgent/独立复核或 IDA 文件操作。限定差异、UTF-8/LF、`git diff --check` 及 Debug 静态库编译见本步提交检查。
 - **2026-09-25 `469810` 第四地图平面查询已落位。** 当前 IDA 确认 `9DEF68` 是与 hit 分离的 2601 WORD 输出，由 `469030/46CF60` 交给 `46D9C0` 生产；新端在 world detail 唯一持有，并按原边界短路和单次横跨度采样比较完整 WORD==1。[场景证据 §83](../doc/cg2d_scene_state.md)区分第四平面与 `46AE60` 的 hit 低字节；四文件限定差异、严格 UTF-8 无 BOM/LF、`git diff --check` 及 Debug `cg2d_re_core`/`cg2d_re_startup` 静态库编译通过，无新增警告。未检查产物、不新增或执行测试、不运行客户端，无 subAgent/独立复核；生产者 `46D9C0/4693F0`、路径父函数及完整链接/运行仍待实现。
 - **2026-09-25 `46B580` 路径方向差值包装已落位。** 依当前 IDA 的单块指令先写 Y 差 F32、再写 X 差 F32，以 `(X,Y)` 调 `46CDF0` 并透传完整 S64；四处直接 caller 都在 `46B6F0`。[场景证据 §82](../doc/cg2d_scene_state.md)保留其下层 x87 精度门禁；四文件限定差异、严格 UTF-8 无 BOM/LF、`git diff --check` 和 Debug `cg2d_re_core`/`cg2d_re_startup` 静态库编译通过，无新增警告。未检查产物、不新增或执行测试、不运行客户端，无 subAgent/独立复核；父路径和世界循环尚未接线。
 - **2026-09-25 `46AA00` pending 生产者已落位。** 复用短方向队列、原 `55D9DC` 八组可写 W16 分量、玩家 CryptInt、`46CDF0/46AE60/46AD00` 和 `4B0F10` 真实零返回叶，保留 type 3/1/2 写序、无命中及早退 EAX、共用尾部条件。[场景证据 §81](../doc/cg2d_scene_state.md)限定正常方向数量，异常别名及 x87 位级差异仍待验收；四文件限定差异、严格 UTF-8 无 BOM/LF、`git diff --check` 与 Debug `cg2d_re_core`/`cg2d_re_startup` 静态库编译通过，无新增警告。未检查产物、不新增或执行测试、不运行客户端，无 subAgent/独立复核；唯一 caller `469FC0` 和路径生产 `46B6F0` 尚未接线。

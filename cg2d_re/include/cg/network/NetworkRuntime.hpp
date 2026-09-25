@@ -130,6 +130,15 @@ std::int32_t Sub_511480(
     const char* text,
     std::int32_t third);
 
+// 原 sub_511510@[0x511510,0x5115E4)：三整数、原字节文本、末整数发送 PfqV。
+std::int32_t Sub_511510(
+    std::uintptr_t socket,
+    std::int32_t first,
+    std::int32_t second,
+    std::int32_t third,
+    const char* text,
+    std::int32_t fifth);
+
 // 原 sub_511640@[0x511640,0x51175A)：七项整数/文本按原序发送 Ot。
 std::int32_t Sub_511640(
     std::uintptr_t socket,

@@ -145,6 +145,8 @@ extern std::uint32_t gValueC82210;
 extern std::uint32_t gValueC82214;
 extern std::uint32_t gValueC82218;
 extern std::int32_t gValueFF0D4C; // 原地图回复数值 W32，51D6F0 消费。
+extern std::int32_t gValue73ED44; // 原当前调色板选择标志 W32，458F00 读取。
+extern std::int32_t gValue73ED48; // 原时间类别/调色板索引 W32，50C870 与 458F00 共用。
 extern std::uint32_t gValueC82224;
 extern std::uint32_t gValueC8221C; // 原 46ADA0/46AEA0 共用的 W32 请求序号。
 extern std::uint16_t gValue9DAD54;
@@ -358,6 +360,7 @@ void __cdecl Sub_509090(
     std::int32_t expectedObj, std::int32_t expectedHit); // 原 [0x509090,0x5090FC)，地图校验回复回调。
 std::int32_t __cdecl Sub_509550(
     std::uintptr_t socket, char* payload); // 原 [0x509550,0x509642)，地图回复文本与数值发布。
+void __cdecl Sub_51D6F0(); // 原 [0x51D6F0,0x51D743)，消费回复索引并选择调色板。
 std::int32_t __cdecl Sub_469030(); // 原 [0x469030,0x4691C9)，地图装载、第四平面与斜向绘制。
 // 原 [0x4693F0,0x4697C9)：先扫 tile，再扫 obj/图形尺寸，输出第四地图平面。
 std::int32_t __cdecl Sub_4693F0(

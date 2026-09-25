@@ -8,6 +8,7 @@
 #include "cg/platform/LegacyCryptInt.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/platform/MainLoop.hpp"
+#include "cg/Palette.hpp"
 #include "cg/GraphicInfo.hpp"
 #include "cg/YobiRuntime.hpp"
 #include "cg/render/TextPendingQueue.hpp"
@@ -527,6 +528,8 @@ std::uint32_t gValueC82210 = 0;
 std::uint32_t gValueC82214 = 0;
 std::uint32_t gValueC82218 = 0;
 std::int32_t gValueFF0D4C = 0;
+std::int32_t gValue73ED44 = 0;
+std::int32_t gValue73ED48 = 0;
 std::uint32_t gValueC82224 = 0;
 std::uint32_t gValueC8221C = 0;
 std::uint16_t gValue9DAD54 = 0;
@@ -1067,6 +1070,21 @@ std::int32_t __cdecl Sub_509550(
         gValueC82218 = 1;
     }
     return 1;
+}
+
+// 原 [0x51D6F0,0x51D743)：只消费 -1 与非负回复，其他负值保持原状态。
+void __cdecl Sub_51D6F0()
+{
+    const std::int32_t value = gValueFF0D4C;
+    if (value == -1) {
+        static_cast<void>(render::SelectPalette(gValue73ED48, 0));
+        gValue73ED44 = 1;
+        gValueFF0D4C = -2;
+    } else if (value >= 0) {
+        static_cast<void>(render::SelectPalette(value, 0));
+        gValue73ED44 = 0;
+        gValueFF0D4C = -2;
+    }
 }
 
 // 原 [0x469030,0x4691C9)：装载后可选重建第四平面，随后斜向扫描 tile。

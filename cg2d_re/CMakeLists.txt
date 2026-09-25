@@ -70,6 +70,7 @@ add_library(cg2d_re_startup STATIC
     src/LegacyUiRecord.cpp
     src/LegacyAudio.cpp
     src/Blacklist.cpp
+    src/DisplaySettings.cpp
     src/Input.cpp
     src/InputKeyDispatch.cpp
     src/InputCaret.cpp

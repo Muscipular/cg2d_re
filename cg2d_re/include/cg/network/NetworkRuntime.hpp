@@ -140,6 +140,14 @@ std::int32_t Sub_510630(
     std::int32_t fourth,
     std::int32_t fifth);
 
+// 原 sub_510570@[0x510570,0x510621)：两整数、文本、末整数依序追加并发送 zA。
+std::int32_t Sub_510570(
+    std::uintptr_t socket,
+    std::int32_t first,
+    std::int32_t second,
+    const char* text,
+    std::int32_t fourth);
+
 // 原 sub_510710@[0x510710,0x510807)：六整数依序追加并发送 UUN。
 std::int32_t Sub_510710(
     std::uintptr_t socket,

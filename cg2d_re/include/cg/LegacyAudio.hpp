@@ -11,6 +11,10 @@ extern std::int32_t gBgmTarget1050818; // 原 0x1050818；BGM 请求与当前存
 extern volatile std::uint32_t gMciDeviceId; // 原 0x10507EC；两次 MCI 调用各自重读。
 extern std::uint32_t gMciCloseResult; // 原 0x10507FC；保存第二次 MCI 返回的完整 W32。
 
+// 原 524060 加载 512 项映射及 128 条配置记录；52C9C0 非负映射发布 BGM 目标。
+std::int32_t LoadBgmConfig_524060();
+std::int32_t SelectBgmTarget_52C9C0(std::int32_t index);
+
 // 原 [0x52CCE0,0x52CD25)：标志为 1 时返回 1，否则停止、关闭并只覆写返回低 AL。
 std::uint32_t Sub_52CCE0() noexcept;
 

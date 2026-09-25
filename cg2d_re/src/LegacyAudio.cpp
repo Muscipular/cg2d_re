@@ -10,6 +10,8 @@
 #include <cmath>
 #include <cstddef>
 #include <cstdint>
+#include <cstdio>
+#include <cstring>
 
 #define WIN32_LEAN_AND_MEAN
 #define NOMINMAX
@@ -72,10 +74,29 @@ static_assert(offsetof(SoundRecord57C368, runtimeToken) == 12);
 static_assert(offsetof(SoundRecord57C368, dirty) == 16);
 static_assert(sizeof(SoundRecord57C368) == 0x14);
 
+// 原 [104A3B8,104C9B8)：与 104E010 播放记录分离的 128 项配置表。
+struct BgmConfigRecord final {
+    char path[0x40];
+    std::int32_t value40;
+    std::uint8_t value44;
+    std::uint8_t opaque45[3];
+    std::int32_t value48;
+};
+
+static_assert(offsetof(BgmConfigRecord, value40) == 0x40);
+static_assert(offsetof(BgmConfigRecord, value44) == 0x44);
+static_assert(offsetof(BgmConfigRecord, value48) == 0x48);
+static_assert(sizeof(BgmConfigRecord) == 0x4C);
+
 namespace {
 
 std::array<SpatialAudioRecord, 50> gSpatialRecords103D1C0 {};
 static_assert(sizeof(gSpatialRecords103D1C0) == 0x3E8);
+
+std::array<std::int32_t, 512> gBgmMapping103DFAC {};
+std::array<BgmConfigRecord, 128> gBgmConfigRecords104A3B8 {};
+static_assert(sizeof(gBgmMapping103DFAC) == 0x800);
+static_assert(sizeof(gBgmConfigRecords104A3B8) == 0x2600);
 
 std::array<SoundRecord57C368, 99> gSoundRecords57C368 {{
     {0, 0, 2},
@@ -188,6 +209,70 @@ std::uint32_t gValue103DE80 = 0;
 std::int32_t gBgmTarget1050818 = 0;
 volatile std::uint32_t gMciDeviceId = 0;
 std::uint32_t gMciCloseResult = 0;
+
+std::int32_t LoadBgmConfig_524060()
+{
+    std::FILE* const file = std::fopen("bin\\bgm\\bgm.cf", "r");
+    if (file == nullptr) {
+        return 0;
+    }
+
+    gBgmMapping103DFAC.fill(-1);
+    std::int32_t recordIndex = 0;
+    std::int32_t mappingIndex = 0;
+    std::int32_t value40 = 0;
+    std::int32_t value48 = 0;
+    std::uint8_t value44 = 0;
+    char line[80] {};
+    char path[80] {};
+
+    while (std::fgets(line, sizeof(line), file) != nullptr) {
+        const char first = line[0];
+        if (first == '#' || first == ' ' || first == '\n' || first == '-') {
+            continue;
+        }
+
+        std::int32_t parsed44 = value44;
+        const int parsed = std::sscanf(
+            line, "%d %d %s %d %d %d",
+            &recordIndex, &mappingIndex, path, &value40, &parsed44, &value48);
+        // 原第五项写入单字节槽时覆盖紧邻第六项的低三个字节。
+        if (parsed == 5) {
+            const std::uint32_t previous =
+                std::bit_cast<std::uint32_t>(value48);
+            const std::uint32_t fifth =
+                std::bit_cast<std::uint32_t>(parsed44);
+            value48 = std::bit_cast<std::int32_t>(
+                (previous & 0xFF000000u) | (fifth >> 8));
+        }
+        if (parsed >= 5) {
+            value44 = static_cast<std::uint8_t>(parsed44);
+        }
+
+        BgmConfigRecord& record =
+            gBgmConfigRecords104A3B8[static_cast<std::size_t>(recordIndex)];
+        const std::size_t bytes = std::strlen(path) + 1;
+        std::memcpy(record.path, path, bytes);
+        record.value40 = value40;
+        record.value44 = value44;
+        record.value48 = value48;
+        gBgmMapping103DFAC[static_cast<std::size_t>(mappingIndex)] =
+            recordIndex;
+    }
+
+    std::fclose(file);
+    return 1;
+}
+
+std::int32_t SelectBgmTarget_52C9C0(const std::int32_t index)
+{
+    const std::int32_t target =
+        gBgmMapping103DFAC[static_cast<std::size_t>(index)];
+    if (target >= 0) {
+        gBgmTarget1050818 = target;
+    }
+    return 0;
+}
 
 // 原 [0x5044C0,0x5044DF)：顺序扫描完整的 99 项可写表。
 std::int32_t __cdecl Sub_5044C0(const std::uint32_t id)

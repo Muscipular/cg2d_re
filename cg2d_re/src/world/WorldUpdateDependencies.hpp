@@ -353,6 +353,8 @@ std::int32_t __cdecl Sub_46B5C0(
     std::int32_t x, std::int32_t y,
     std::int32_t firstX, std::int32_t firstY,
     std::int32_t secondX, std::int32_t secondY); // 原 [0x46B5C0,0x46B6F0)，探测两邻格并覆写路径末项。
+std::uint32_t __cdecl Sub_46BD20(
+    std::int32_t value, std::int32_t mode); // 原 [0x46BD20,0x46BD32)，仅改 AL，保留 mode 高 24 位。
 struct RecipeItemData;
 RecipeItemData* Sub_5199A0();              // 原 0x5199A0。
 struct YobiAction;

@@ -1502,6 +1502,16 @@ std::int32_t __cdecl Sub_46B5C0(
     return 1;
 }
 
+// 原 [0x46BD20,0x46BD32)：AL 加法不改变先装入 EAX 的 mode 高 24 位。
+std::uint32_t __cdecl Sub_46BD20(
+    const std::int32_t value, const std::int32_t mode)
+{
+    const std::uint8_t low = static_cast<std::uint8_t>(value);
+    const std::uint8_t result =
+        static_cast<std::uint8_t>(low + (mode == 0 ? 0x61 : 0x41));
+    return (static_cast<std::uint32_t>(mode) & 0xFFFFFF00U) | result;
+}
+
 // 原 [0x4D3170,0x4D317B)：仅将 0x581800 写为 -1 后返回。
 void Sub_4D3170()
 {

@@ -881,6 +881,109 @@ std::int32_t ParseProtocolInteger_517190(const char* const text)
     return detail::Sub_5176B0(text);
 }
 
+// 原 [0x52CEA0,0x52CECB)：分隔符仅在低位字节上匹配。
+const char* FindNextDelimitedField_52CEA0(
+    const char* source, const char delimiter)
+{
+    const auto delimiterByte = static_cast<unsigned char>(delimiter);
+    const auto* cursor = reinterpret_cast<const unsigned char*>(source);
+    for (;;) {
+        const unsigned char current = *cursor;
+        if (current == 0U) {
+            return nullptr;
+        }
+        if (current >= 0x80U) {
+            ++cursor;
+            if (*cursor == 0U) {
+                return nullptr;
+            }
+            ++cursor;
+        }
+        else if (current == delimiterByte) {
+            return reinterpret_cast<const char*>(cursor + 1);
+        }
+        else {
+            ++cursor;
+        }
+    }
+}
+
+// 原 [0x52CF30,0x52CF98)：高位首字节及后继字节按原容量门禁复制。
+std::int32_t CopyDelimitedField_52CF30(
+    const char* const source,
+    const char delimiter,
+    const std::int32_t capacity,
+    char* const destination)
+{
+    const auto delimiterByte = static_cast<unsigned char>(delimiter);
+    const auto* bytes = reinterpret_cast<const unsigned char*>(source);
+    std::int32_t index = 0;
+    while (index < capacity) {
+        const unsigned char current = bytes[index];
+        if (current < 0x80U) {
+            if (current == delimiterByte) {
+                destination[index] = '\0';
+                return 0;
+            }
+            destination[index] = static_cast<char>(current);
+            if (current == 0U) {
+                return 1;
+            }
+            ++index;
+        }
+        else {
+            destination[index] = static_cast<char>(current);
+            ++index;
+            if (index >= capacity) {
+                break;
+            }
+            const unsigned char second = bytes[index];
+            destination[index] = static_cast<char>(second);
+            if (second == 0U) {
+                return 1;
+            }
+            ++index;
+        }
+    }
+    destination[index] = '\0';
+    return 1;
+}
+
+// 原 [0x52CED0,0x52CF27)：ordinal<=1 取首段，缺段只清首字节。
+std::int32_t ExtractDelimitedField_52CED0(
+    const char* source,
+    const char delimiter,
+    const std::int32_t ordinal,
+    const std::int32_t capacity,
+    char* const destination)
+{
+    for (std::int32_t index = 1; index < ordinal && source != nullptr;
+         ++index) {
+        source = FindNextDelimitedField_52CEA0(source, delimiter);
+    }
+    if (source == nullptr) {
+        destination[0] = '\0';
+        return 1;
+    }
+    return CopyDelimitedField_52CF30(
+        source, delimiter, capacity, destination);
+}
+
+// 原 [0x52CFA0,0x52CFED)：忽略字段复制返回，空字段返回 -1。
+std::int32_t ParseDelimitedInteger_52CFA0(
+    const char* const source,
+    const char delimiter,
+    const std::int32_t ordinal)
+{
+    std::array<char, 128> field;
+    static_cast<void>(ExtractDelimitedField_52CED0(
+        source, delimiter, ordinal, 127, field.data()));
+    if (field[0] == '\0') {
+        return -1;
+    }
+    return std::atoi(field.data());
+}
+
 std::uint8_t* EscapeProtocolText_5171F0(const char* const text)
 {
     gNetworkRuntimeState.buffer58B5F8[0] = 0;

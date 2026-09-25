@@ -45,6 +45,24 @@ std::uint8_t* FormatProtocolTextToken_517160(const char* text);
 // 原 sub_517190@[0x517190,0x5171A3)：空指针返回 0，否则委派协议整数解析。
 std::int32_t ParseProtocolInteger_517190(const char* text);
 
+// 原 sub_52CEA0@[0x52CEA0,0x52CECB)：跳过高位字节对，定位下一段。
+const char* FindNextDelimitedField_52CEA0(
+    const char* source, char delimiter);
+
+// 原 sub_52CF30@[0x52CF30,0x52CF98)：复制字段并补 NUL；遇分隔符返回 0。
+std::int32_t CopyDelimitedField_52CF30(
+    const char* source, char delimiter, std::int32_t capacity,
+    char* destination);
+
+// 原 sub_52CED0@[0x52CED0,0x52CF27)：按序号选字段并保留复制返回。
+std::int32_t ExtractDelimitedField_52CED0(
+    const char* source, char delimiter, std::int32_t ordinal,
+    std::int32_t capacity, char* destination);
+
+// 原 sub_52CFA0@[0x52CFA0,0x52CFED)：取至多 127 字节字段，空串返回 -1。
+std::int32_t ParseDelimitedInteger_52CFA0(
+    const char* source, char delimiter, std::int32_t ordinal);
+
 // 原 sub_5171F0@[0x5171F0,0x5172CE)：向共享缓冲逐字节转义协议文本。
 std::uint8_t* EscapeProtocolText_5171F0(const char* text);
 

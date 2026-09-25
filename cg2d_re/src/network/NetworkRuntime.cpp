@@ -440,6 +440,22 @@ std::uint16_t Sub_50D3B0(
     return bits;
 }
 
+// 原 [0x50E310,0x50E33B)：先读门禁，只有合法范围才依序发布两槽。
+std::int32_t Sub_50E310(
+    const std::uintptr_t,
+    const std::int32_t value)
+{
+    const std::uint32_t gate = world::gValue9A6E0C;
+    if (gate != 0U) {
+        return std::bit_cast<std::int32_t>(gate);
+    }
+    if (value >= 200 && value <= 249) {
+        world::gValueFF0D5C = static_cast<std::uint32_t>(value);
+        world::gValueFF0D58 = 1;
+    }
+    return value;
+}
+
 // 原 [0x50D700,0x50D73A)：非零门禁直接返回，零时按原序发布三槽。
 std::int32_t Sub_50D700(
     const std::uintptr_t,

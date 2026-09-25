@@ -24,6 +24,9 @@ void Sub_50CF20(
 // 原 [0x50D3B0,0x50D3BC)：只写第二参数低 W16 并返回相同位模式。
 std::uint16_t Sub_50D3B0(std::uintptr_t socket, std::int32_t value);
 
+// 原 [0x50E310,0x50E33B)：场景门禁为零且值在 [200,249] 时发布两槽。
+std::int32_t Sub_50E310(std::uintptr_t socket, std::int32_t value);
+
 // 原 [0x50D700,0x50D73A)：场景门禁后写阶段与两项 base62 回复值。
 std::int32_t Sub_50D700(std::uintptr_t socket, const char* payload);
 

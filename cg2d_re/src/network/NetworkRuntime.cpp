@@ -401,6 +401,15 @@ std::int32_t __cdecl Sub_50E6C0(
     return audio::Sub_52CDE0(index, sourceX, sourceY);
 }
 
+// 原 [0x50CF60,0x50CF6A)：直接发布完整第二参数。
+std::int32_t Sub_50CF60(
+    const std::uintptr_t,
+    const std::int32_t value)
+{
+    world::detail::gValueD2F788 = value;
+    return value;
+}
+
 // 原 [0x50D700,0x50D73A)：非零门禁直接返回，零时按原序发布三槽。
 std::int32_t Sub_50D700(
     const std::uintptr_t,

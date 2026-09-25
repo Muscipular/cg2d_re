@@ -923,6 +923,25 @@ std::int32_t __cdecl Sub_46AB60()
     return 1;
 }
 
+// 原 [0x46AC90,0x46AD00)：临时 CryptInt 赋值后发送玩家坐标。
+std::int32_t __cdecl Sub_46AC90()
+{
+    static_cast<void>(Sub_4681B0());
+
+    platform::LegacyCryptInt temporary {};
+    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, 1);
+    gValueC821D8.mask = temporary.mask;
+    gValueC821D8.encoded = temporary.encoded;
+    gValueC821D8.readCount = temporary.readCount;
+    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+
+    gValueC82220 = 1;
+    gValueB65A7C = 0;
+    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&gPlayerY);
+    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&gPlayerX);
+    return network::Sub_510810(platform::gConnectionSocket, x, y);
+}
+
 // 原 [0x46AEA0,0x46AF24)：恢复地图后发送五整数请求，重读序号再自增。
 std::int32_t __cdecl Sub_46AEA0()
 {

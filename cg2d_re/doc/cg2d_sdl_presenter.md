@@ -310,6 +310,39 @@ W32 坐标；不取记录图号。`46C760` 本体分两路：
 绘制承接须先有 SPEC，不能私建 `55DA88` 标志、
 跳过重建调用或固定返回；case 5 与父队列均未实现。
 
+## `520DD0` case 6/7 的 Back/Temp 复制
+
+2026-09-25，当前 IDA `521766–521819` 两路均先读
+`W8[C82204]`，为零时直达队列公共下一项，
+不读取位移或调用底层复制；非零时：
+
+| case | 地址 | 实际提交 |
+|---|---|---|
+| 6 | `521773–5217ED` | 从 Temp 向 Back 调一次 `BltFast(destX,destY,Temp,&sourceRect,16)` |
+| 7 | `5217FF–521819` | 从 Back 向 Temp 调一次 `BltFast(0,0,Back,null,16)`，整面复制 |
+
+case 6 的 `sourceRect` 先设 `[0,0,640,480]`，
+`destX=destY=0`；`521773` 读取 `C3500C` 的
+S32 位移 X，正值将 `destX=X` 且 `right=640-X`，
+负值将 `left=-X`，零不变。`5217AF` 再读取
+`C75010` 的 S32 位移 Y，正值将 `destY=Y` 且
+`bottom=480-Y`，负值将 `top=-Y`，零不变。
+两轴按原次序独立计算；未另夹到合法矩形范围，
+超出尺寸时仍提交原计算出的参数。两路都不检查
+`BltFast` 返回，最终进入 `5213D6` 的公共计数尾。
+原 DX7 标志 16 的机制已属获批替换边界，不由此
+推导新的 SDL 失败策略。
+
+[SceneState.hpp](../include/cg/world/SceneState.hpp) 已有
+`C82204` 的唯一 W8 owner；`C3500C/C75010` 已在
+[SceneState.cpp](../src/world/SceneState.cpp) 由 world
+唯一持有。它们分别由 `51C45E/51D23B/51D671/
+51D68F` 与 `468F32/468F37/468FCB/468FD5`
+等已查路径写入，不可为 case 6/7 私建偏移副本。
+现有 CPU Back/Temp 仅获批用于波纹，统一画面 owner、
+生命周期和 world→render 窄接口仍待 SPEC；不把
+这两路代码塞进已落位的波纹复制，父队列未实现。
+
 ## `46E480` case 9 提交门禁与共享 W16
 
 2026-09-25，当前 IDA `sub_46E480@[46E480,46E499)`

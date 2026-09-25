@@ -166,6 +166,12 @@ std::int32_t __cdecl Sub_468520(
 std::int32_t __cdecl Sub_4687B0(
     const char* path, std::int32_t first, std::int32_t second,
     std::int32_t height, std::int32_t width); // 原 [0x4687B0,0x4688A0)，三平面零值文件创建叶。
+std::int32_t __cdecl Sub_468C40(
+    std::int32_t mapId, std::int32_t floor,
+    std::int32_t xStart, std::int32_t yStart,
+    std::int32_t xEnd, std::int32_t yEnd,
+    std::uint16_t* tile, std::uint16_t* obj,
+    std::uint16_t* hit); // 原 [0x468C40,0x468F25)，真实三平面文件装载依赖。
 
 // 原 0x9DAD5C/0x9DAD68/0x9DAD58/0x9DAD60/0x9DAD64；46DA80 共享状态。
 extern std::uint32_t gValue9DAD5C;
@@ -330,6 +336,7 @@ std::int32_t __cdecl Sub_468C00(
     std::int32_t x, std::int32_t y, std::uint16_t value); // 原 [0x468C00,0x468C32)，写 hit WORD。
 std::int32_t __cdecl Sub_46AE60(std::int32_t x, std::int32_t y); // 原 [0x46AE60,0x46AE94)，判 hit 低字节。
 std::int32_t __cdecl Sub_469810(std::int32_t x, std::int32_t y); // 原 [0x469810,0x469864)，边界外或 walk WORD==1。
+std::int32_t __cdecl Sub_469030(); // 原 [0x469030,0x4691C9)，地图装载、第四平面与斜向绘制。
 // 原 [0x4693F0,0x4697C9)：先扫 tile，再扫 obj/图形尺寸，输出第四地图平面。
 std::int32_t __cdecl Sub_4693F0(
     std::int32_t xStart, std::int32_t yStart, std::int32_t xEnd, std::int32_t yEnd,

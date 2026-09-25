@@ -1,5 +1,6 @@
 #include "cg/world/SceneState.hpp"
 
+#include "../LoginMessageDependencies.hpp"
 #include "../LoginRequestDependencies.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/CommandOptions.hpp"
@@ -917,6 +918,74 @@ std::int32_t __cdecl Sub_469810(const std::int32_t x, const std::int32_t y)
     }
     const std::int32_t index = localX + width * localY;
     return gMapWalkabilityArray[static_cast<std::size_t>(index)] == 1;
+}
+
+// 原 [0x469030,0x4691C9)：装载后可选重建第四平面，随后斜向扫描 tile。
+std::int32_t __cdecl Sub_469030()
+{
+    const std::int32_t loadYEnd = gMapYEnd;
+    const std::int32_t loadXEnd = gMapXEnd;
+    const std::int32_t loadYStart = gMapYStart;
+    const std::int32_t loadXStart = gMapXStart;
+    const std::int32_t loadFloor = gMapFloor;
+    const std::int32_t loadMapId = std::bit_cast<std::int32_t>(gValue9A86DC);
+    const std::int32_t loadResult = Sub_468C40(
+        loadMapId, loadFloor, loadXStart, loadYStart, loadXEnd, loadYEnd,
+        gMapTileArray.data(), gMapObjArray.data(), gMapHitArray.data());
+    if (loadResult >= 0) {
+        const std::int32_t walkYEnd = gMapYEnd;
+        const std::int32_t walkXEnd = gMapXEnd;
+        const std::int32_t walkYStart = gMapYStart;
+        const std::int32_t walkXStart = gMapXStart;
+        static_cast<void>(Sub_46D9C0(
+            walkXStart, walkYStart, walkXEnd, walkYEnd,
+            gMapTileArray.data(), gMapObjArray.data(), gMapHitArray.data(),
+            gMapWalkabilityArray.data()));
+    }
+
+    const std::int32_t yEnd = gMapYEnd;
+    const std::int32_t xStart = gMapXStart;
+    std::int32_t row = gMapSpanY - 1;
+    const std::int32_t rawX = (xStart + yEnd) * 64 - 64;
+    std::int32_t baseX = std::bit_cast<std::int32_t>(gWorldProjectionSourceC)
+        + ((rawX - (rawX < 0 ? -1 : 0)) >> 1);
+    const std::int32_t rawY = 48 * (yEnd - xStart - 1);
+    std::int32_t result = rawY - (rawY < 0 ? -1 : 0);
+    std::int32_t drawY =
+        std::bit_cast<std::int32_t>(gWorldProjectionSourceD) + (result >> 1);
+    std::int32_t column = 0;
+
+    while (row >= 0) {
+        std::int32_t scanRow = row;
+        std::int32_t drawX = baseX;
+        const std::int32_t diagonal = column - row;
+        while (scanRow >= 0) {
+            const std::int32_t scanColumn = diagonal + scanRow;
+            if (scanColumn < 0) {
+                break;
+            }
+            const std::int32_t index =
+                scanColumn + scanRow * gMapSpanX;
+            result = Sub_46CF00(
+                gMapTileArray[static_cast<std::size_t>(index)]);
+            if (result > 999 && drawX >= -32 && drawX < 672 &&
+                drawY >= -24 && drawY < 504) {
+                result = login::detail::DrawGraphic(
+                    drawX, drawY, 5, result, 0, nullptr);
+            }
+            --scanRow;
+            drawX -= 64;
+        }
+        if (column < gMapSpanX - 1) {
+            ++column;
+            baseX += 32;
+        } else {
+            --row;
+            baseX -= 32;
+        }
+        drawY -= 24;
+    }
+    return result;
 }
 
 // 原 [0x4693F0,0x4697C9)：tile 扫描、obj 扫描与尺寸向上覆盖共用同一输出。

@@ -71,6 +71,12 @@ API、属性名和返回值依据本地 `third_party/sdl/SDL3-3.4.8/include/SDL3
 - [SurfaceState.hpp](../include/cg/render/SurfaceState.hpp) / [SurfaceState.cpp](../src/render/SurfaceState.cpp) 的 640×480 CPU Back/Temp 目前仅按已批准波纹链使用；[GraphicPendingQueue.cpp](../src/render/GraphicPendingQueue.cpp) 在波纹路径快照 Back 到 Temp 并逐条带回拷。该局部批准不自动授予全部画面统一 Back 的 owner 或生命周期，也不证明画面链已完成。
 - 已批准 DX7 底层 `Blt` 等价映射 SDL/CPU，不要求逐码复刻 DX7 `HRESULT` 或 COM vtable；但上层触发、W32 颜色、像素内容、共享 Back/Temp 生命周期与提交顺序仍受 [渲染替换约束](../plan/cg2d_full_reconstruction_plan.md) 约束。
 
+### 当前源码接线边界（2026-09-25 静态核对）
+
+- `SdlPresenter::Create/Present/Destroy` 目前仅在 [SdlPresenter.hpp](../include/cg/render/SdlPresenter.hpp) 声明、[SdlPresenter.cpp](../src/render/SdlPresenter.cpp) 定义；在本子项目 `src/`、`include/` 内未找到实例创建或这些成员的调用。`Present` 内部的 SDL 清输出、上传纹理和提交不能证明原逻辑 Back 已送达最终窗口。
+- `gCpuBackSurface/gCpuTempSurface` 的直接访问限于 [SurfaceState.cpp](../src/render/SurfaceState.cpp) 的逐行复制和 [GraphicPendingQueue.cpp](../src/render/GraphicPendingQueue.cpp) 的波纹快照；[MainLoopSupport.cpp](../src/platform/MainLoopSupport.cpp) 只通过 `BlitTempToBack` 使用此对缓冲。背景色由 [LoginCapability3Scene.cpp](../src/LoginCapability3Scene.cpp) 写入同一 `gBackgroundColor`，而 [MainLoopDependencies.hpp](../src/platform/MainLoopDependencies.hpp) 的 `ClearSurface/DrawAllQueued/Flip` 仍只有真实声明。
+- 这是当前源码的接线事实，不是原端新取证，也不批准扩大波纹专用 Back 的作用域。单独填充该数组无法闭合原端在同一 Back 上的清屏、队列绘制、翻转及其创建/重建/销毁链。
+
 ### 待用户批准的 SPEC 候选
 
 - **候选行为，未批准：**将 `ClearSurface` 映射为对统一逻辑 Back 的 640×480 区域按每次调用时读取的完整 W32 背景色填充；保留调用时点及后续绘制、提交顺序。不预设最终画面已接通，不使用固定成功返回伪造原上层返回合同。

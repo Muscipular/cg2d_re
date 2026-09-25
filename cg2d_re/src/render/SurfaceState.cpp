@@ -32,10 +32,14 @@ bool BuildCpuSurfaceBuffers() noexcept
     return gCpuTempSurface != nullptr;
 }
 
-void DestroyCpuSurfaces() noexcept
+void DestroyCpuCacheSurfaces() noexcept
 {
     gCpuTempSurface.reset();
     gCpuAutoMapSurface.reset();
+}
+
+void DestroyCpuBackSurface() noexcept
+{
     gCpuBackSurface.reset();
 }
 

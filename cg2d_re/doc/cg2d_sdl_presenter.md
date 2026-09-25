@@ -145,8 +145,12 @@ SDL/CPU 的创建失败、剩余资源状态及驱动选择仍待 SPEC。
 AutoMap、Temp。`CreateCpuBackSurface` 只创建 Back；
 `BuildCpuSurfaceBuffers` 先发布 AutoMap、再分配 Temp，
 实际分配失败返回 false，Temp 失败不回滚 AutoMap。
-`DestroyCpuSurfaces` 按 Temp→AutoMap→Back 释放。
-这三个边界尚未与 `Renderer::Init/BuildSurfaceCache/Destroy`
+`DestroyCpuCacheSurfaces` 先释放 Temp→AutoMap，
+`DestroyCpuBackSurface` 单独释放 Back，以保留
+`Renderer::Destroy@44C467–44C4DD` 在其间释放设备、
+调色板、clipper 的阶段位置；纹理槽仍须在前一阶段之前
+按 `44C412–44C433` 处理。上述创建与销毁边界尚未与
+`Renderer::Init/BuildSurfaceCache/Destroy`
 父入口接线，不把辅助函数当作原父函数已实现。
 
 `ClearSurface_4512C0` 只有 Back 非空才读取完整

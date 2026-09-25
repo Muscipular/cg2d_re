@@ -456,6 +456,7 @@ platform::LegacyCryptInt gValue9FB918 {};
 platform::LegacyCryptInt gValueAF0FE8 {};
 platform::LegacyCryptInt gValueC821D8 {};
 std::uint32_t gValueAF10C0 = 0;
+std::uint32_t gValue9EE8F8 = 0;
 std::uint32_t gValue9EE8FC = 0;
 std::uint32_t gValue9EE900 = 0;
 std::uint32_t gValue9DAD78 = 0;
@@ -1510,6 +1511,16 @@ std::uint32_t __cdecl Sub_46BD20(
     const std::uint8_t result =
         static_cast<std::uint8_t>(low + (mode == 0 ? 0x61 : 0x41));
     return (static_cast<std::uint32_t>(mode) & 0xFFFFFF00U) | result;
+}
+
+// 原 [0x50C8D0,0x50C8F5)：先采独立 W32，再传文本、Y、X 与当前 socket。
+std::int32_t __cdecl Sub_50C8D0(
+    const std::int32_t x, const std::int32_t y,
+    const char* const text)
+{
+    const std::int32_t fourth = std::bit_cast<std::int32_t>(gValue9EE8F8);
+    return network::Sub_510570(
+        platform::gConnectionSocket, x, y, text, fourth);
 }
 
 // 原 [0x4D3170,0x4D317B)：仅将 0x581800 写为 -1 后返回。

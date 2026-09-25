@@ -114,6 +114,7 @@ extern platform::LegacyCryptInt gValue9FB918;
 extern platform::LegacyCryptInt gValueAF0FE8;
 extern platform::LegacyCryptInt gValueC821D8;
 extern std::uint32_t gValueAF10C0; // 原 46CEE0 写入的完整 W32。
+extern std::uint32_t gValue9EE8F8; // 原 509460 写入、50C8D0 读取的独立 W32。
 extern std::uint32_t gValue9EE8FC; // 原 F32 位槽，移动链共享。
 extern std::uint32_t gValue9EE900; // 原 F32 位槽，移动链共享。
 extern std::uint32_t gValue9DAD78; // 原 F32 位槽，移动/绘制链共享。
@@ -355,6 +356,9 @@ std::int32_t __cdecl Sub_46B5C0(
     std::int32_t secondX, std::int32_t secondY); // 原 [0x46B5C0,0x46B6F0)，探测两邻格并覆写路径末项。
 std::uint32_t __cdecl Sub_46BD20(
     std::int32_t value, std::int32_t mode); // 原 [0x46BD20,0x46BD32)，仅改 AL，保留 mode 高 24 位。
+std::int32_t __cdecl Sub_50C8D0(
+    std::int32_t x, std::int32_t y,
+    const char* text); // 原 [0x50C8D0,0x50C8F5)，透传 zA 请求返回。
 struct RecipeItemData;
 RecipeItemData* Sub_5199A0();              // 原 0x5199A0。
 struct YobiAction;

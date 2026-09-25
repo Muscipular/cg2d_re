@@ -218,6 +218,9 @@ void Sub_5198A0(
     std::uint8_t* destination, const std::uint8_t* source,
     std::int32_t count);                    // 原 [0x5198A0,0x5198CB)，逐记录复制 7 个 W32。
 
+// 原 [0x5198F0,0x51991D)：5198D0 的 qsort 回调，仅比较两条记录的首 S32。
+std::int32_t Sub_5198F0(const void* left, const void* right);
+
 // World::Update@0x51C430 的直接目标声明；未实现项只保留 IDA 地址和调用契约。
 std::int32_t Sub_45F190();                 // 原 0x45F190。
 std::int32_t Sub_464840();                 // 原 0x464840。

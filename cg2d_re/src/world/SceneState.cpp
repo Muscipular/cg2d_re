@@ -226,6 +226,23 @@ void Sub_5198A0(
     }
 }
 
+// 原 [0x5198F0,0x51991D)：右值为负优先，非负时左负数次之，相等仍返回 -1。
+std::int32_t Sub_5198F0(const void* const left, const void* const right)
+{
+    std::int32_t rightValue;
+    std::memcpy(&rightValue, right, sizeof(rightValue));
+    if (rightValue < 0) {
+        return -1;
+    }
+
+    std::int32_t leftValue;
+    std::memcpy(&leftValue, left, sizeof(leftValue));
+    if (leftValue < 0) {
+        return 1;
+    }
+    return leftValue <= rightValue ? -1 : 1;
+}
+
 // 原 0x581800：World::OpenDialog 共用的独立 W32 槽，原始初值 -1。
 std::int32_t gValue581800 = -1;
 

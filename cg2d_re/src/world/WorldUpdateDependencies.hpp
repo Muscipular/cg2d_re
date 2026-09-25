@@ -167,6 +167,10 @@ extern std::int32_t gValue9E0434; // 原 9E0434；50C870 写，地图路径/保�
 // 原 468520；调用方传入 9E0434 当前值，返回 sprintf 的完整结果。
 std::int32_t __cdecl Sub_468520(
     char* buffer, std::int32_t mapId, std::int32_t value9E0434, std::int32_t floor);
+std::int32_t __cdecl Sub_468570(
+    std::int32_t a1, std::int32_t a2, std::int32_t a3,
+    std::int32_t a4, std::int32_t a5, std::int32_t a6,
+    std::int32_t a7); // 原 [0x468570,0x4687A3)，旧文件比较或新建。
 std::int32_t __cdecl Sub_4687B0(
     const char* path, std::int32_t first, std::int32_t second,
     std::int32_t height, std::int32_t width); // 原 [0x4687B0,0x4688A0)，三平面零值文件创建叶。

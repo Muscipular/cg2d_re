@@ -24,6 +24,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
+#include <direct.h>
 
 namespace cg::world {
 namespace {
@@ -86,8 +87,11 @@ constexpr char kAutMessage55DE68[] =
 constexpr char kMapPathPrefix[] = "map";
 constexpr char kMapPathZero[] = "%s\\%d\\%d.dat";
 constexpr char kMapPathOther[] = "%s\\%d\\%d\\%d.dat";
+constexpr char kMapDirectoryOne[] = "%s\\%d";
+constexpr char kMapDirectoryTwo[] = "%s\\%d\\%d";
 constexpr char kMapCreateMode[] = "wb";
 constexpr char kMapReadMode[] = "rb";
+constexpr char kMapHeaderLabel[] = "MAP";
 constexpr char kUnknownText554590[] = "???";
 
 // 原 [9DAD30,9DAD4A)；地图回复的 24 字节正文和 NUL，首字节另有世界重置写者。
@@ -161,8 +165,11 @@ static_assert(sizeof(kAutMessage55DE68) == 20);
 static_assert(sizeof(kMapPathPrefix) == 4);
 static_assert(sizeof(kMapPathZero) == 13);
 static_assert(sizeof(kMapPathOther) == 16);
+static_assert(sizeof(kMapDirectoryOne) == 6);
+static_assert(sizeof(kMapDirectoryTwo) == 9);
 static_assert(sizeof(kMapCreateMode) == 3);
 static_assert(sizeof(kMapReadMode) == 3);
+static_assert(sizeof(kMapHeaderLabel) == 4);
 static_assert(sizeof(kUnknownText554590) == 4);
 static_assert(sizeof(gText9DAD30) == 26);
 static_assert(kMapBitReverse55DAAC[1] == 0x80u);
@@ -567,6 +574,58 @@ std::int32_t __cdecl Sub_468520(
     }
     return std::sprintf(
         buffer, kMapPathOther, kMapPathPrefix, mapId, value9E0434, floor);
+}
+
+// 原 [0x468570,0x4687A3)：仅缺文件路径尝试建目录，旧头比较后可重写。
+std::int32_t __cdecl Sub_468570(
+    const std::int32_t a1, const std::int32_t a2,
+    const std::int32_t a3, const std::int32_t a4,
+    const std::int32_t a5, const std::int32_t a6,
+    const std::int32_t a7)
+{
+    if (a3 == 0) {
+        return 0;
+    }
+
+    char path[256];
+    Sub_468520(path, a2, a1, a3);
+    std::FILE* const file = std::fopen(path, kMapReadMode);
+    if (file == nullptr) {
+        ::_mkdir(kMapPathPrefix);
+        char directory[256];
+        std::sprintf(directory, kMapDirectoryOne, kMapPathPrefix, a2);
+        ::_mkdir(directory);
+        if (a2 > 0) {
+            std::sprintf(directory, kMapDirectoryTwo, kMapPathPrefix, a2, a1);
+            ::_mkdir(directory);
+        }
+        return Sub_4687B0(path, a6, a7, a4, a5) >= 0 ? 1 : -1;
+    }
+
+    std::fseek(file, 0, SEEK_SET);
+    char label[4];
+    label[0] = static_cast<char>(std::fgetc(file));
+    label[1] = static_cast<char>(std::fgetc(file));
+    label[2] = static_cast<char>(std::fgetc(file));
+    label[3] = '\0';
+    const std::uint8_t version = static_cast<std::uint8_t>(std::fgetc(file));
+    std::int32_t oldSixth = 0;
+    std::int32_t oldSeventh = 0;
+    std::int32_t oldFourth = 0;
+    std::int32_t oldFifth = 0;
+    std::fread(&oldSixth, 4, 1, file);
+    std::fread(&oldSeventh, 4, 1, file);
+    std::fread(&oldFourth, 4, 1, file);
+    std::fread(&oldFifth, 4, 1, file);
+    std::fclose(file);
+
+    if (a6 != oldSixth || a7 != oldSeventh
+        || a4 != oldFourth || a5 != oldFifth
+        || std::strcmp(label, kMapHeaderLabel) != 0
+        || version != 1 || a2 == 2) {
+        return Sub_4687B0(path, a6, a7, a4, a5) < 0 ? -1 : 0;
+    }
+    return 0;
 }
 
 // 原 [0x4687B0,0x4688A0)：四字段头后，三平面逐 WORD 写零。

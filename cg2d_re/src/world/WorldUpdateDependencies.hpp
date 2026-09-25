@@ -213,6 +213,11 @@ std::int32_t __cdecl Sub_46DC90(std::int32_t selected); // 原 [0x46DC90,0x46DD3
 void Sub_44B050(const char* text, std::int32_t color, std::int32_t fontType);
 std::int32_t Sub_4A76E0();
 
+// 原 50A300 唯一调用的 28 字节记录前向复制叶。
+void Sub_5198A0(
+    std::uint8_t* destination, const std::uint8_t* source,
+    std::int32_t count);                    // 原 [0x5198A0,0x5198CB)，逐记录复制 7 个 W32。
+
 // World::Update@0x51C430 的直接目标声明；未实现项只保留 IDA 地址和调用契约。
 std::int32_t Sub_45F190();                 // 原 0x45F190。
 std::int32_t Sub_464840();                 // 原 0x464840。

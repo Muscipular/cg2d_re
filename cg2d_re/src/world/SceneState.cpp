@@ -209,6 +209,23 @@ std::uint32_t CopyWorldProjectionState_468FF0()
 
 namespace detail {
 
+// 原 [0x5198A0,0x5198CB)：逐项前向复制 0x1C 字节，保留每个 W32 的读写顺序。
+void Sub_5198A0(
+    std::uint8_t* destination,
+    const std::uint8_t* source,
+    const std::int32_t count)
+{
+    for (std::int32_t record = 0; record < count; ++record) {
+        for (std::int32_t word = 0; word < 7; ++word) {
+            std::uint32_t value;
+            std::memcpy(&value, source, sizeof(value));
+            std::memcpy(destination, &value, sizeof(value));
+            source += sizeof(value);
+            destination += sizeof(value);
+        }
+    }
+}
+
 // 原 0x581800：World::OpenDialog 共用的独立 W32 槽，原始初值 -1。
 std::int32_t gValue581800 = -1;
 

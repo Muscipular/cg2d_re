@@ -63,6 +63,18 @@ std::int32_t ExtractDelimitedField_52CED0(
 std::int32_t ParseDelimitedInteger_52CFA0(
     const char* source, char delimiter, std::int32_t ordinal);
 
+// 原 sub_52CFF0@[0x52CFF0,0x52D04F)：空字段返回 2 且不写整数输出。
+std::int32_t ParseDelimitedIntegerStatus_52CFF0(
+    const char* source, char delimiter, std::int32_t ordinal,
+    std::int32_t* output);
+
+// 原 base62Decode@[0x52D050,0x52D0C2)：逐字节先乘 62，负号可在任意位置。
+std::int32_t Base62Decode_52D050(const char* text);
+
+// 原 sub_52D0D0@[0x52D0D0,0x52D11D)：提取字段后解码 base62。
+std::int32_t ParseDelimitedBase62_52D0D0(
+    const char* source, char delimiter, std::int32_t ordinal);
+
 // 原 sub_5171F0@[0x5171F0,0x5172CE)：向共享缓冲逐字节转义协议文本。
 std::uint8_t* EscapeProtocolText_5171F0(const char* text);
 

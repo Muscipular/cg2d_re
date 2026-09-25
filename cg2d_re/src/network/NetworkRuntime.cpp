@@ -984,6 +984,72 @@ std::int32_t ParseDelimitedInteger_52CFA0(
     return std::atoi(field.data());
 }
 
+// 原 [0x52CFF0,0x52D04F)：保留字段提取结果；空字段不写输出。
+std::int32_t ParseDelimitedIntegerStatus_52CFF0(
+    const char* const source,
+    const char delimiter,
+    const std::int32_t ordinal,
+    std::int32_t* const output)
+{
+    std::array<char, 128> field;
+    const std::int32_t status = ExtractDelimitedField_52CED0(
+        source, delimiter, ordinal, 127, field.data());
+    if (field[0] == '\0') {
+        return 2;
+    }
+    *output = std::atoi(field.data());
+    return status;
+}
+
+// 原 [0x52D050,0x52D0C2)：每轮先乘 62；'-' 只改变最终符号。
+std::int32_t Base62Decode_52D050(const char* const text)
+{
+    const auto* cursor = reinterpret_cast<const unsigned char*>(text);
+    std::uint32_t value = 0;
+    bool negative = false;
+    while (*cursor != 0U) {
+        value *= 62U;
+        const unsigned char current = *cursor;
+        if (current >= static_cast<unsigned char>('0')
+            && current <= static_cast<unsigned char>('9')) {
+            value += current - static_cast<unsigned char>('0');
+        }
+        else if (current >= static_cast<unsigned char>('a')
+                 && current <= static_cast<unsigned char>('z')) {
+            value += current - static_cast<unsigned char>('a') + 10U;
+        }
+        else if (current >= static_cast<unsigned char>('A')
+                 && current <= static_cast<unsigned char>('Z')) {
+            value += current - static_cast<unsigned char>('A') + 36U;
+        }
+        else if (current == static_cast<unsigned char>('-')) {
+            negative = true;
+        }
+        else {
+            return 0;
+        }
+        ++cursor;
+    }
+    const std::uint32_t resultBits = negative
+        ? std::uint32_t {0} - value : value;
+    return std::bit_cast<std::int32_t>(resultBits);
+}
+
+// 原 [0x52D0D0,0x52D11D)：空字段返回 -1，非空透传独立 base62 解码器。
+std::int32_t ParseDelimitedBase62_52D0D0(
+    const char* const source,
+    const char delimiter,
+    const std::int32_t ordinal)
+{
+    std::array<char, 128> field;
+    static_cast<void>(ExtractDelimitedField_52CED0(
+        source, delimiter, ordinal, 127, field.data()));
+    if (field[0] == '\0') {
+        return -1;
+    }
+    return Base62Decode_52D050(field.data());
+}
+
 std::uint8_t* EscapeProtocolText_5171F0(const char* const text)
 {
     gNetworkRuntimeState.buffer58B5F8[0] = 0;

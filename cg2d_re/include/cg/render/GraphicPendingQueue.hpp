@@ -100,6 +100,10 @@ std::int32_t Sub_521870();
 // 原 Renderer::SortTextures@[0x520790,0x5208E8)；只重排 cache3 索引记录。
 void SortTextures_520790();
 
+// 原 sub_522210@[0x522210,0x522293)：从待提交记录前两项构造矩形，
+// 按图号高位标志选择真实 451350 绘制模式；不修改记录。
+void Sub_522210(const GraphicCacheItem32* graphic, std::uint32_t imageNoBits);
+
 // 原 Renderer::DrawGraphic3@[0x520970,0x520ACE)。
 std::int32_t DrawGraphic3_520970(
     std::int32_t x,

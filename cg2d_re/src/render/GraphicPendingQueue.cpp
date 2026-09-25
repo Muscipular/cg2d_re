@@ -11,7 +11,15 @@
 #include <bit>
 #include <cstdlib>
 
+#define WIN32_LEAN_AND_MEAN
+#define NOMINMAX
+#include <Windows.h>
+
 namespace cg::render {
+
+// 原 [0x451350,0x451D78) 的真实像素绘制依赖；Back/调色板承接尚未落位。
+void Sub_451350(RECT* rect, std::uint16_t color, std::int32_t mode);
+
 namespace {
 
 // 原比较器 0x5222A0：layer 按 unsigned8 升序，cacheIndex 按 signed16 降序。
@@ -129,6 +137,32 @@ void Sub_520930(float* value)
             return;
         }
         *value = *value + 64.0f;
+    }
+}
+
+void Sub_522210(
+    const GraphicCacheItem32* const graphic,
+    const std::uint32_t imageNoBits)
+{
+    const std::uint32_t xBits = std::bit_cast<std::uint32_t>(graphic->x);
+    const std::uint32_t yBits = std::bit_cast<std::uint32_t>(graphic->y);
+    RECT rect {};
+    rect.right = std::bit_cast<std::int16_t>(
+        static_cast<std::uint16_t>(xBits));
+    rect.bottom = std::bit_cast<std::int16_t>(
+        static_cast<std::uint16_t>(yBits));
+    rect.left = std::bit_cast<std::int16_t>(
+        static_cast<std::uint16_t>(xBits >> 16));
+    rect.top = std::bit_cast<std::int16_t>(
+        static_cast<std::uint16_t>(yBits >> 16));
+
+    const std::uint16_t color = static_cast<std::uint16_t>(imageNoBits);
+    if ((imageNoBits & 0x20000000u) != 0) {
+        Sub_451350(&rect, color, 0);
+    } else if ((imageNoBits & 0x10000000u) != 0) {
+        Sub_451350(&rect, color, 1);
+    } else if ((imageNoBits & 0x40000000u) != 0) {
+        Sub_451350(&rect, color, 2);
     }
 }
 

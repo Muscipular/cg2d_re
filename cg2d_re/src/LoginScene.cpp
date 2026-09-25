@@ -416,6 +416,7 @@ bool ReadServerAvailability(std::int32_t category, std::int32_t page, std::int32
 
 namespace cg::login {
 
+std::int32_t gValueD69794 = 0;
 std::array<LoginServerRecord, 800> gValueD69798 {};
 std::array<std::int32_t, 60> gValueD9F2D4 {};
 std::int16_t gValue58AD94 = -1;

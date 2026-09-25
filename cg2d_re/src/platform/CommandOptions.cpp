@@ -1,5 +1,6 @@
 #include "cg/platform/CommandOptions.hpp"
 
+#include "cg/LoginScene.hpp"
 #include "cg/ResourceNames.hpp"
 #include "cg/ResourcePaths.hpp"
 #include "cg/platform/LegacyWindow.hpp"
@@ -221,6 +222,56 @@ int ParseCommandOptions()
     }
     gValueFF0D40 = 1;
     return ParseIpOptions_507C80(gCommandLine);
+}
+
+int ParseIpOptions_507C80(const char* const commandLine)
+{
+    std::memset(
+        login::gValueD69798.data(),
+        0,
+        sizeof(login::gValueD69798));
+    login::gValueD69794 = 0;
+
+    // 原 sscanf 的目标是入参栈槽；未匹配时保留其上一次 W32 内容。
+    int index = std::bit_cast<int>(
+        static_cast<std::uint32_t>(
+            reinterpret_cast<std::uintptr_t>(commandLine)));
+    const char* cursor = commandLine;
+    while (const char* const match = std::strstr(cursor, "IP:")) {
+        const char* const number = match + 3;
+        const int parsed = std::sscanf(number, "%d:", &index);
+        if (static_cast<std::uint32_t>(index)
+            >= login::gValueD69798.size()) {
+            return parsed;
+        }
+
+        const char* address = number
+            + (index < 10 ? 2 : index <= 99 ? 3 : 4);
+        auto& record = login::gValueD69798[static_cast<std::size_t>(index)];
+        std::size_t addressLength = 0;
+        while (*address != '\0'
+            && *address != ':'
+            && addressLength < 0x7F) {
+            record.opaque[addressLength++] =
+                static_cast<std::uint8_t>(*address++);
+        }
+        record.opaque[addressLength] = 0;
+
+        const char* port = address + 1;
+        std::size_t portLength = 0;
+        while (*port != '\0'
+            && *port != ' '
+            && *port != '\t'
+            && portLength < 0x3F) {
+            record.opaque[0x80 + portLength++] =
+                static_cast<std::uint8_t>(*port++);
+        }
+        record.opaque[0x80 + portLength] = 0;
+        record.available = 1;
+        ++login::gValueD9F2D4[static_cast<std::size_t>(index / 20)];
+        cursor = port;
+    }
+    return 0;
 }
 
 } // namespace cg::platform

@@ -40,7 +40,6 @@ extern std::uint8_t& gRendererMode;       // 原 0x62A640，与 MainLoop.hpp 的
 
 // 原 sub_507C80：一个只读命令文本参数，原 x86 为 cdecl；调用方清理 4 字节。
 // 会清理并解析 IP: 表及修改相关计数；返回 0 或越界退出时的 sscanf 返回值。
-// 仅声明真实直接依赖，不在本项实现其内部。
 extern int ParseIpOptions_507C80(const char* commandLine);
 
 // ParseCommandOptions 的唯一函数声明复用 Startup.hpp，返回类型为 int。

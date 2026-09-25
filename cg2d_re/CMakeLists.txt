@@ -59,6 +59,7 @@ add_library(cg2d_re_startup STATIC
     src/platform/MainLoopSupport.cpp
     src/platform/LegacyCryptInt.cpp
     src/platform/LegacyModuleDigest.cpp
+    src/platform/LegacyNetworkAdapter.cpp
     src/platform/LegacyMouse.cpp
     src/platform/LegacyMouseTracker.cpp
     src/platform/LegacyCursor.cpp
@@ -114,7 +115,7 @@ add_library(cg2d_re_startup STATIC
 set_target_properties(cg2d_re_startup PROPERTIES CXX_EXTENSIONS OFF)
 target_compile_options(cg2d_re_startup PRIVATE /GR- /utf-8 /W4 /fp:strict)
 target_compile_definitions(cg2d_re_startup PRIVATE _CRT_SECURE_NO_WARNINGS)
-target_link_libraries(cg2d_re_startup PUBLIC cg2d_re_core PRIVATE user32 gdi32 imm32 ws2_32 winmm)
+target_link_libraries(cg2d_re_startup PUBLIC cg2d_re_core PRIVATE user32 gdi32 imm32 ws2_32 winmm iphlpapi)
 
 add_library(cg2d_re_render STATIC
     src/render/SdlPresenter.cpp

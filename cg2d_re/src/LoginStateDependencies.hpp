@@ -22,7 +22,6 @@ std::int32_t GetServerAddressInfo_507D90(
     char* serverAddress,
     std::uint16_t* port);
 std::uint32_t Sub_44B5C0(const char* text);
-std::int32_t Sub_534EF0(char* adapterScratch);
 std::int32_t Sub_508360();
 inline std::int32_t DrawText(
     const std::int16_t x,

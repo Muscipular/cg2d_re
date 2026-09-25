@@ -12,6 +12,7 @@
 #include "cg/LoginScene.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/CommandOptions.hpp"
+#include "cg/platform/LegacyNetworkAdapter.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/world/SceneState.hpp"
 
@@ -255,7 +256,7 @@ std::int32_t Sub_508360()
             char adapterScratch[16];
             char accountCopy[44];
             char adapterId[44];
-            static_cast<void>(Sub_534EF0(adapterScratch));
+            static_cast<void>(platform::Sub_534EF0(adapterScratch));
             std::strcpy(accountCopy, gValueDA38DC);
             std::strcpy(adapterId, adapterScratch);
             std::strcpy(gValueDA38DC, accountCopy);

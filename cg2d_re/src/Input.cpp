@@ -37,6 +37,15 @@ static_assert(sizeof(gInputContexts5F9758) == 0x20A0);
 
 namespace {
 
+struct LegacyInput593850 {
+    char prefix[8];
+    InputContext context;
+};
+
+LegacyInput593850 gLegacyInput593850 {};
+static_assert(offsetof(LegacyInput593850, context) == 8);
+static_assert(sizeof(LegacyInput593850) == 0x164);
+
 inline constexpr std::int32_t kMaximumCaretOffset =
     static_cast<std::int32_t>(InputTextCapacity) - 2;
 inline constexpr std::int32_t kMaximumTotalByteLength =
@@ -52,6 +61,12 @@ std::int8_t SignedByte(const char value)
 }
 
 } // namespace
+
+const char* LegacyText593850() noexcept
+{
+    // 原端文本读取可从前缀延续到紧邻的上下文。
+    return reinterpret_cast<const char*>(&gLegacyInput593850);
+}
 
 // 原 sub_44B190@[0x44B190,0x44B1C5)。
 std::int32_t ClassifyLastAnsiUnit_44B190(const char* text)

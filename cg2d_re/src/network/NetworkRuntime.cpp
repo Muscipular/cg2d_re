@@ -4,6 +4,7 @@
 #include "../LoginStateDependencies.hpp"
 #include "NetworkRuntimeDependencies.hpp"
 
+#include "cg/Input.hpp"
 #include "cg/LegacyAudio.hpp"
 #include "cg/LoginRequest.hpp"
 #include "cg/LoginScene.hpp"
@@ -70,8 +71,6 @@ struct NetworkRuntimeState {
     std::uint16_t protocolModeDA3B22;
     std::int32_t time62B394; // 原 __time32_t，独立于 0xDA3B28 回复码。
     std::tm* localTime62B380; // 原 W32 指针槽，x64 承接本机指针。
-    std::uint8_t protocolByte593850;
-
     NetworkCallback callback; // 原 0x58B5E8。
     std::uint32_t bufferLength;
     std::uint8_t* buffer58B5F0;
@@ -573,8 +572,7 @@ std::int32_t BuildProtocolCommand_517510(
     const char* const command)
 {
     std::array<char, 8> temp;
-    temp[0] = static_cast<char>(
-        gNetworkRuntimeState.protocolByte593850);
+    temp[0] = input::LegacyText593850()[0];
     const std::size_t commandLength = std::strlen(command);
 
     const std::uint32_t clearedBytes = 0;
@@ -617,8 +615,7 @@ std::int32_t BuildProtocolCommand_517510(
     static_cast<void>(std::sprintf(buffer, "%s ", temp.data()));
 
     std::array<char, 8> checksumSlot;
-    checksumSlot[0] = static_cast<char>(
-        gNetworkRuntimeState.protocolByte593850);
+    checksumSlot[0] = input::LegacyText593850()[0];
     const std::int32_t passwordLength = static_cast<std::int32_t>(
         std::strlen(login::gValueDA3A5C));
 
@@ -1353,6 +1350,22 @@ std::int32_t Sub_512C10(
     static_cast<void>(AppendProtocolText_5170D0(
         reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
         reinterpret_cast<const char*>(token),
+        capacity));
+    return SendProtocolBuffer_517480(
+        socket,
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
+}
+
+// 原 [0x512C60,0x512C9C)：保活命令后追加 593850 当前文本并发送。
+std::int32_t Sub_512C60(const std::uintptr_t socket)
+{
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0), "DE"));
+    const std::int32_t capacity = std::bit_cast<std::int32_t>(
+        gNetworkRuntimeState.bufferLength);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
+        input::LegacyText593850(),
         capacity));
     return SendProtocolBuffer_517480(
         socket,
@@ -3399,7 +3412,7 @@ std::int32_t ReadNetworkErrorD9F2CC() noexcept
 
 std::uint8_t ReadProtocolByte593850() noexcept
 {
-    return gNetworkRuntimeState.protocolByte593850;
+    return static_cast<std::uint8_t>(input::LegacyText593850()[0]);
 }
 
 void WriteValueD9F2D0(const std::uint32_t value) noexcept

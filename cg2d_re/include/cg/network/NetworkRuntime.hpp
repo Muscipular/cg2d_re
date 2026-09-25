@@ -400,8 +400,11 @@ std::int32_t Sub_512720(
     std::int32_t second,
     std::int32_t third);
 
-// 原 sub_512BD0@[0x512BD0,0x512C0C)：构造 WA 命令并发送；593850 文本 owner 未闭合。
+// 原 sub_512BD0@[0x512BD0,0x512C0C)：构造 WA 命令并发送；本体尚未落位。
 std::int32_t Sub_512BD0(std::uintptr_t socket);
+
+// 原 [0x512C60,0x512C9C)：DE 保活发送，追加共享 593850 原字节文本。
+std::int32_t Sub_512C60(std::uintptr_t socket);
 
 // 原 sub_516B60@0x516B60：安装回调并分配 18 项网络工作区。
 std::int32_t AllocateNetworkWorkspace_516B60(
@@ -429,7 +432,7 @@ std::uint8_t ReadNetworkRuntimeActive() noexcept;
 // 原 0xD9F2CC：507DF0 写、455C90 条件读取的唯一错误码槽。
 std::int32_t ReadNetworkErrorD9F2CC() noexcept;
 
-// 原 0x593850 首字节；供原生窗口枚举回调等逐次读取，不暴露整段文本地址。
+// 原 0x593850 首字节；从输入模块唯一连续存储逐次读取。
 std::uint8_t ReadProtocolByte593850() noexcept;
 
 // 原 0xD9F2D0/0xDA3B22 的字段级访问；不公开网络运行期完整状态。

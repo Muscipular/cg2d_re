@@ -67,6 +67,9 @@ extern InputContext gInputContexts5F9758[24];
 // 原 dword_C9A96C@0xC9A96C：该特殊上下文的外部控制值，映像初值为零。
 extern std::int32_t gValueC9A96C;
 
+// 原 [593850,5939B4) 的前缀文本；紧邻独立 InputContext@593858。
+const char* LegacyText593850() noexcept;
+
 // 下列状态只保留当前已取证的读写语义，不扩展业务命名。
 extern std::int32_t gValue626C0C; // 输入相位计数；接受字符后写 20。
 extern std::int32_t gValue626C20; // 超过 maxLine 时选择截断或回滚分支。

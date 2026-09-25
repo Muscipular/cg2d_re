@@ -14,12 +14,6 @@
 #include <cstring>
 #include <tlhelp32.h>
 
-namespace cg::network {
-
-std::int32_t Sub_512C60(std::uintptr_t socket); // 原 0x512C60；真实发送实现尚缺。
-
-} // namespace cg::network
-
 namespace cg::audio {
 
 void Sub_52CCA0(); // 原 0x52CCA0，IDA 为 void __cdecl()；真实实现尚缺。

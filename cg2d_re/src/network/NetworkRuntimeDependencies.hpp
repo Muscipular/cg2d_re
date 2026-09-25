@@ -13,6 +13,9 @@ std::int32_t __cdecl Sub_50E6C0(
     std::int32_t unused, std::int32_t index,
     std::int32_t sourceX, std::int32_t sourceY);
 
+// 原 [0x50D700,0x50D73A)：场景门禁后写阶段与两项 base62 回复值。
+std::int32_t Sub_50D700(std::uintptr_t socket, const char* payload);
+
 // 原 [0x50E830,0x50E844)：共享 W32 非零直接返回，零时清并回写公会邮件。
 std::int32_t Sub_50E830(std::uintptr_t unusedSocket);
 
@@ -55,3 +58,12 @@ namespace cg::platform {
 void ParseProtectionTables_404600(const char* input);
 
 } // namespace cg::platform
+
+namespace cg::world::detail {
+
+// 原 0xFF0C10/0xFF0D04/0xFF0D08：复用世界状态的唯一 W16/S32 存储。
+extern std::uint16_t gValueFF0C10;
+extern std::int32_t gValueFF0D04;
+extern std::int32_t gValueFF0D08;
+
+} // namespace cg::world::detail

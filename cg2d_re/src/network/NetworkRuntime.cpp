@@ -401,6 +401,25 @@ std::int32_t __cdecl Sub_50E6C0(
     return audio::Sub_52CDE0(index, sourceX, sourceY);
 }
 
+// 原 [0x50D700,0x50D73A)：非零门禁直接返回，零时按原序发布三槽。
+std::int32_t Sub_50D700(
+    const std::uintptr_t,
+    const char* const payload)
+{
+    const std::uint32_t gate = world::gValue9A6E0C;
+    if (gate != 0U) {
+        return std::bit_cast<std::int32_t>(gate);
+    }
+
+    world::detail::gValueFF0C10 = 2;
+    world::detail::gValueFF0D04 =
+        ParseDelimitedBase62_52D0D0(payload, '|', 1);
+    const std::int32_t second =
+        ParseDelimitedBase62_52D0D0(payload, '|', 2);
+    world::detail::gValueFF0D08 = second;
+    return second;
+}
+
 std::int32_t Sub_50E830(const std::uintptr_t)
 {
     const std::uint32_t state = world::gValue9A6E0C;

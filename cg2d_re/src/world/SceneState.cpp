@@ -247,6 +247,10 @@ std::uint32_t gValue9A7F78 = 0;
 std::int32_t gValueD2F788 = 0;
 std::uint16_t gValueFF0C10 = 0;
 
+// 原 0xFF0D04/0xFF0D08：50D700 写入、展示侧按 S32 读取的独立槽。
+std::int32_t gValueFF0D04 = 0;
+std::int32_t gValueFF0D08 = 0;
+
 // 原 0xCAFEA0：504100 清零的独立 W32 状态槽。
 std::uint32_t gValueCAFEA0 = 0;
 

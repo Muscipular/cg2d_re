@@ -964,6 +964,23 @@ std::int32_t __cdecl Sub_469240(
     return state;
 }
 
+// 原 [0x4691D0,0x469239)：两个 -1 临时对象各自构造、复制、析构。
+void __cdecl Sub_4691D0()
+{
+    platform::LegacyCryptInt temporary;
+    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, -1);
+    gValue9EE8D0.mask = temporary.mask;
+    gValue9EE8D0.encoded = temporary.encoded;
+    gValue9EE8D0.readCount = temporary.readCount;
+    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+
+    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, -1);
+    gValue9EE8E0.mask = temporary.mask;
+    gValue9EE8E0.encoded = temporary.encoded;
+    gValue9EE8E0.readCount = temporary.readCount;
+    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+}
+
 // 原 [0x469030,0x4691C9)：装载后可选重建第四平面，随后斜向扫描 tile。
 std::int32_t __cdecl Sub_469030()
 {

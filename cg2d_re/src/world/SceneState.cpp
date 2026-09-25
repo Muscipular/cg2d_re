@@ -306,6 +306,9 @@ std::int32_t gValue5ABB6C = 0;
 std::int32_t gValue553F90 = -1;
 std::int32_t gValue553F84 = -1;
 
+// 原 0xC8222E；pending 消费与世界循环尾部共用的 W16 门禁。
+std::uint16_t gValueC8222E = 0;
+
 // 原 0xC82230/0xC82234/0xC82236；供 46A9E0 初始化和后续消费者共享。
 std::uint32_t gValueC82230 = 0;
 std::int16_t gValueC82234 = 0;
@@ -457,6 +460,41 @@ std::int32_t __cdecl Sub_46A9E0()
     gValueC82234 = 0;
     gValueC82236 = 0;
     return 0;
+}
+
+// 原 [0x46AB60,0x46ABCD)：先分发，再只清 active/countdown。
+std::int32_t __cdecl Sub_46AB60()
+{
+    if (gValueC82230 == 0) {
+        return 0;
+    }
+    if (gValueC8222E != 0) {
+        if (gValueC82234 > 0) {
+            --gValueC82234;
+            if (gValueC82234 > 0) {
+                return 0;
+            }
+        }
+    } else if (gValueC82234 > 0) {
+        return 0;
+    }
+
+    switch (gValueC82236) {
+    case 1:
+        Sub_46ADA0();
+        break;
+    case 2:
+        Sub_46AC90();
+        break;
+    case 3:
+        Sub_46AEA0();
+        break;
+    default:
+        break;
+    }
+    gValueC82230 = 0;
+    gValueC82234 = 0;
+    return 1;
 }
 
 // 原 [0x468F30, 0x468F6F)；保持十二次 W32 写入的指令顺序。

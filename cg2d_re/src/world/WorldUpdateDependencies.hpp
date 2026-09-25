@@ -67,6 +67,9 @@ extern std::uint32_t gValue626C18;
 extern std::uint32_t gValue626BFC;
 extern char gLogFileName554648[16];
 
+// 原 0xC8222E；46A700 写 1，469FC0 清 0，46AB60 读取低 W16。
+extern std::uint16_t gValueC8222E;
+
 // 原 0xC82230/0xC82234/0xC82236；46A9E0 清零，后续 46AA00/46AB60 共用。
 extern std::uint32_t gValueC82230;
 extern std::int16_t gValueC82234;
@@ -242,6 +245,10 @@ struct RecipeItemData;
 RecipeItemData* Sub_5199A0();              // 原 0x5199A0。
 struct YobiAction;
 YobiAction** Sub_446470();                 // 原 0x446470。
+YobiAction* __cdecl Sub_46ADA0();         // 原 [0x46ADA0,0x46AE53)，type 1 的真实后继。
+std::int32_t __cdecl Sub_46AC90();        // 原 [0x46AC90,0x46AD00)，type 2 的真实后继。
+std::int32_t __cdecl Sub_46AEA0();        // 原 [0x46AEA0,0x46AF24)，type 3 的真实后继。
+std::int32_t __cdecl Sub_46AB60();        // 原 [0x46AB60,0x46ABCD)，pending 倒计时与分发。
 void Sub_4D3170();                         // 原 [0x4D3170,0x4D317B)，重置 0x581800 为 -1。
 std::int32_t Sub_4410E0();                 // 原 [0x4410E0,0x4410E6)，无参返回 17。
 std::int32_t Sub_455BD0();                 // 原 [0x455BD0,0x455C56)，顺序重置 23 槽并返回 0。

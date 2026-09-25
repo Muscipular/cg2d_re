@@ -6,6 +6,7 @@
 
 ## 1. 当前状态与阻断
 
+- **2026-09-25 `510810` KeOX 双整数发送叶已落位。** 复用现有网络运行期，两次分别采容量、格式化、重读缓冲追加并透传发送返回。[网络证据](../doc/cg2d_network_runtime.md)记录现有 IDA 的 `58B1F8` 原字节、完整指令与唯一 `46AC90` caller；四文件限定差异、严格 UTF-8 无 BOM/LF、`git diff --check` 及 Debug `cg2d_re_core`/`cg2d_re_startup` 静态库编译通过，仅既有三项弃用 API 警告。未检查产物，不新增或执行测试、不运行客户端，无 subAgent/独立复核；type 2 父函数仍待落位。
 - **2026-09-25 `46AEA0` pending type 3 后继已落位。** 复用现有 world/audio/network/socket owner，新增单一 `C8221C` 序号和 `9ED440` 地图请求值 W32 槽，按原序恢复快照、写标志、读取玩家 Y/X、发 `pg`，发送后重读并自增序号。[场景证据 §72](../doc/cg2d_scene_state.md)记录当前 IDA 的完整指令与直接 xref；四文件限定差异、严格 UTF-8 无 BOM/LF 与 `git diff --check`、Debug `cg2d_re_core`/`cg2d_re_startup` 静态库编译通过，本轮无新增警告。未检查产物、不新增或执行测试、不运行客户端，无 subAgent/独立复核；`46AA00` 生产者及 type 1/2、完整链接和运行仍未闭合。
 - **2026-09-25 `510710` 六整数发送叶已落位。** 同一网络 owner 以 `58B1F4` 的 `"UUN"` 原字节构造命令，六轮独立采容量、格式化、重读缓冲追加，末尾透传发送返回。[网络证据](../doc/cg2d_network_runtime.md)记录完整 IDA 指令、两处 caller 与父链门禁。四文件限定差异、严格 UTF-8 无 BOM/LF、`git diff --check` 及 Debug `cg2d_re_core`/`cg2d_re_startup` 静态库编译通过，仅有既有三项弃用 API 警告；未检查产物、不新增或执行测试、不运行客户端，无 subAgent/独立复核。`469290/46AF30` 父链、完整客户端链接与运行尚未闭合。
 - **2026-09-25 `510630` 五整数发送叶已落位。** 复用网络运行期唯一缓冲和四个已有 helper，以 `"pg"` 构造、五轮独立采容量并追加，透传发送返回。[网络证据](../doc/cg2d_network_runtime.md)记录现有 IDA 的 `58B1F0` 原字节、完整指令及两处 caller；实例枚举为空但定向只读查询可用，未重开 IDA。四文件限定差异、严格 UTF-8 无 BOM/LF、`git diff --check` 及 Debug `cg2d_re_core`/`cg2d_re_startup` 静态库编译通过，只有既有三项弃用 API 警告；未检查产物、不新增或执行测试、不运行客户端，无 subAgent/独立复核。`46ADA0/46AEA0` 父链、完整链接和运行尚未闭合。

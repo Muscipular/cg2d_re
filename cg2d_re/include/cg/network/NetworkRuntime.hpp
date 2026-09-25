@@ -120,6 +120,9 @@ std::int32_t Sub_5113C0(
     std::int32_t first,
     std::int32_t second);
 
+// 原 sub_511430@[0x511430,0x511478)：追加一个 W32 整数并发送 dbQC。
+std::int32_t Sub_511430(std::uintptr_t socket, std::int32_t value);
+
 // 原 sub_511480@[0x511480,0x51150E)：依次追加整数、原字节文本和整数并发送 uId。
 std::int32_t Sub_511480(
     std::uintptr_t socket,

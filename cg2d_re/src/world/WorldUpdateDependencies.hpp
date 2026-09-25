@@ -336,6 +336,8 @@ std::int32_t __cdecl Sub_468C00(
     std::int32_t x, std::int32_t y, std::uint16_t value); // 原 [0x468C00,0x468C32)，写 hit WORD。
 std::int32_t __cdecl Sub_46AE60(std::int32_t x, std::int32_t y); // 原 [0x46AE60,0x46AE94)，判 hit 低字节。
 std::int32_t __cdecl Sub_469810(std::int32_t x, std::int32_t y); // 原 [0x469810,0x469864)，边界外或 walk WORD==1。
+std::int32_t __cdecl Sub_469240(
+    const std::uint8_t* bytes, std::int32_t length); // 原 [0x469240,0x469284)，三平面校验的 W16 查表叶。
 std::int32_t __cdecl Sub_469030(); // 原 [0x469030,0x4691C9)，地图装载、第四平面与斜向绘制。
 // 原 [0x4693F0,0x4697C9)：先扫 tile，再扫 obj/图形尺寸，输出第四地图平面。
 std::int32_t __cdecl Sub_4693F0(

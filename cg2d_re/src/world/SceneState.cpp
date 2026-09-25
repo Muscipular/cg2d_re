@@ -81,6 +81,34 @@ constexpr char kMapPathZero[] = "%s\\%d\\%d.dat";
 constexpr char kMapPathOther[] = "%s\\%d\\%d\\%d.dat";
 constexpr char kMapCreateMode[] = "wb";
 
+// 原 55DAAC/55DBAC；两表各 256 项，原始内容分别为逐位反转与 0x1021 多项式表。
+constexpr auto kMapBitReverse55DAAC = [] {
+    std::array<std::uint8_t, 256> table {};
+    for (std::size_t i = 0; i < table.size(); ++i) {
+        std::uint8_t value = static_cast<std::uint8_t>(i);
+        std::uint8_t reversed = 0;
+        for (int bit = 0; bit < 8; ++bit) {
+            reversed = static_cast<std::uint8_t>((reversed << 1) | (value & 1u));
+            value >>= 1;
+        }
+        table[i] = reversed;
+    }
+    return table;
+}();
+
+constexpr auto kMapCrcTable55DBAC = [] {
+    std::array<std::uint16_t, 256> table {};
+    for (std::size_t i = 0; i < table.size(); ++i) {
+        std::uint16_t value = static_cast<std::uint16_t>(i << 8);
+        for (int bit = 0; bit < 8; ++bit) {
+            value = static_cast<std::uint16_t>(
+                (value << 1) ^ ((value & 0x8000u) != 0 ? 0x1021u : 0u));
+        }
+        table[i] = value;
+    }
+    return table;
+}();
+
 // 原 0x55BAE0 的可写八字节区，正文六字节、NUL 后保留零填充。
 char gText55BAE0[8] = "\xB5\x6E\xA5\x58\xA4\xA4";
 
@@ -122,6 +150,8 @@ static_assert(sizeof(kMapPathPrefix) == 4);
 static_assert(sizeof(kMapPathZero) == 13);
 static_assert(sizeof(kMapPathOther) == 16);
 static_assert(sizeof(kMapCreateMode) == 3);
+static_assert(kMapBitReverse55DAAC[1] == 0x80u);
+static_assert(kMapCrcTable55DBAC[1] == 0x1021u);
 static_assert(sizeof(gText55BAE0) == 8);
 static_assert(sizeof(gAngleTableBits55DF10) == 2880);
 static_assert(sizeof(gAngleTableBits55EA50) == 520);
@@ -918,6 +948,20 @@ std::int32_t __cdecl Sub_469810(const std::int32_t x, const std::int32_t y)
     }
     const std::int32_t index = localX + width * localY;
     return gMapWalkabilityArray[static_cast<std::size_t>(index)] == 1;
+}
+
+// 原 [0x469240,0x469284)：按字节读取，两张原表查值并保留低 W16 状态。
+std::int32_t __cdecl Sub_469240(
+    const std::uint8_t* const bytes, const std::int32_t length)
+{
+    std::uint16_t state = 0;
+    for (std::int32_t i = 0; i < length; ++i) {
+        std::uint16_t next = kMapBitReverse55DAAC[bytes[i]];
+        next ^= kMapCrcTable55DBAC[state >> 8];
+        next ^= static_cast<std::uint16_t>((state & 0xFFu) << 8);
+        state = next;
+    }
+    return state;
 }
 
 // 原 [0x469030,0x4691C9)：装载后可选重建第四平面，随后斜向扫描 tile。

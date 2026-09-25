@@ -51,6 +51,9 @@ std::int32_t Read_401EC0(LegacyCryptInt* value);
 // 原 CryptInt::add@[0x401E10,0x401E1C)，只读取一次后作 int32 位模式回绕加法。
 std::int32_t Add_401E10(LegacyCryptInt* value, std::int32_t amount);
 
+// 原 CryptInt::dec@[0x401E60,0x401E6C)，只读取一次后作完整 W32 差值。
+std::int32_t Subtract_401E60(LegacyCryptInt* value, std::int32_t amount);
+
 // 下列比较均只调用 Read_401EC0 一次，并按有符号 int32 比较。
 bool Equal_401D00(LegacyCryptInt* value, std::int32_t expected);
 bool Greater_401D40(LegacyCryptInt* value, std::int32_t threshold);

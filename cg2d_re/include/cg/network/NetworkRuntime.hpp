@@ -298,6 +298,9 @@ std::int32_t Sub_5120D0(
 // 原 sub_512190@[0x512190,0x5121D8)：构造 ElVN、追加一个整数并发送。
 std::int32_t Sub_512190(std::uintptr_t socket, std::int32_t value);
 
+// 原 sub_5121E0@[0x5121E0,0x512228)：构造 wAo、追加一个整数并发送。
+std::int32_t Sub_5121E0(std::uintptr_t socket, std::int32_t value);
+
 // 原 sub_512BD0@[0x512BD0,0x512C0C)：构造 WA 命令并发送；593850 文本 owner 未闭合。
 std::int32_t Sub_512BD0(std::uintptr_t socket);
 

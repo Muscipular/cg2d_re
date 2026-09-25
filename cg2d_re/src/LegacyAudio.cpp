@@ -123,6 +123,20 @@ static_assert(offsetof(SoundRequestRecord, targetPanIndex) == 0x1C);
 static_assert(offsetof(SoundRequestRecord, appliedPanIndex) == 0x20);
 static_assert(sizeof(SoundRequestRecord) == 0x24);
 
+// 原 [0x104D0C8,0x104DFCC)：64 项通道，未映射字段保留原位。
+struct SoundChannelState final {
+    std::int32_t value00;
+    std::int32_t currentSeNo;
+    std::array<std::byte, 0x28> opaque08;
+    std::int32_t value30;
+    std::array<std::byte, 0x08> opaque34;
+};
+
+static_assert(offsetof(SoundChannelState, value00) == 0x00);
+static_assert(offsetof(SoundChannelState, currentSeNo) == 0x04);
+static_assert(offsetof(SoundChannelState, value30) == 0x30);
+static_assert(sizeof(SoundChannelState) == 0x3C);
+
 // 原 [0x103E7B0,0x104A330)：+04/+1C 尚未定性，保留 W32 原位。
 struct SoundEffectDefinition final {
     std::int32_t sampleIndex;
@@ -150,10 +164,19 @@ std::array<std::int32_t, 512> gBgmMapping103DFAC {};
 std::array<BgmConfigRecord, 128> gBgmConfigRecords104A3B8 {};
 std::array<SoundRequestRecord, 50> gSoundRequests104C9B8 {};
 std::array<SoundEffectDefinition, 500> gSoundEffects103E7B0 {};
+std::array<SoundChannelState, 64> gSoundChannels104D0C8 {};
+std::array<std::byte, 0x80> gAudioBytes103DDFC {};
+std::array<std::byte, 0x80> gAudioBytes103DD7C {};
+std::array<std::byte, 0x80> gAudioBytes104A334 {};
+std::array<std::int32_t, 128> gPanVal103CFBC {};
+std::array<std::int32_t, 128> gSoundVolValue10505D0 {};
 static_assert(sizeof(gBgmMapping103DFAC) == 0x800);
 static_assert(sizeof(gBgmConfigRecords104A3B8) == 0x2600);
 static_assert(sizeof(gSoundRequests104C9B8) == 0x708);
 static_assert(sizeof(gSoundEffects103E7B0) == 0xBB80);
+static_assert(sizeof(gSoundChannels104D0C8) == 0xF00);
+static_assert(sizeof(gPanVal103CFBC) == 0x200);
+static_assert(sizeof(gSoundVolValue10505D0) == 0x200);
 
 std::array<SoundRecord57C368, 99> gSoundRecords57C368 {{
     {0, 0, 2},
@@ -271,7 +294,7 @@ volatile std::uint32_t gMciDeviceId = 0;
 std::uint32_t gMciCloseResult = 0;
 
 std::int32_t Sub_524230(); // 原 DirectSound/音效文件初始化，尚未落位。
-SpatialAudioRecord* Sub_52B9E0(); // 原通道、请求与音量表初始化，尚未落位。
+SpatialAudioRecord* __cdecl Sub_52B9E0(); // 原通道、请求与两张运行表初始化。
 
 std::int32_t InitializeAudio_5241A0()
 {
@@ -599,6 +622,67 @@ SpatialAudioRecord* __cdecl Sub_52CD40()
         record.value00 = 1;
     }
     return gSpatialRecords103D1C0.data() + gSpatialRecords103D1C0.size();
+}
+
+// 原 [0x52B9E0,0x52BBD6)：按通道、清零区、请求、声像/音量表顺序初始化。
+SpatialAudioRecord* __cdecl Sub_52B9E0()
+{
+    for (SoundChannelState& channel : gSoundChannels104D0C8) {
+        channel.value00 = 0;
+        channel.currentSeNo = -1;
+        channel.value30 = 0;
+    }
+
+    gAudioBytes103DDFC.fill(std::byte {0});
+    gAudioBytes103DD7C.fill(std::byte {0});
+    gAudioBytes104A334.fill(std::byte {0});
+
+    for (SoundRequestRecord& request : gSoundRequests104C9B8) {
+        request.channelIndex = -1;
+        request.requestCount = 0;
+    }
+
+    const double logBase = std::log(100.0);
+    const double logMax = std::log(127.0) / logBase;
+    const std::int32_t panMax =
+        static_cast<std::int32_t>(logMax * 5000.0);
+    std::size_t panIndex = 64;
+    for (std::int32_t level = 127; level >= 1; level -= 2) {
+        std::int32_t pan =
+            panMax - static_cast<std::int32_t>(
+                std::log(static_cast<double>(level)) / logBase * 5000.0);
+        if (pan > 5000) {
+            pan = 10000;
+        }
+        gPanVal103CFBC[panIndex++] = pan;
+    }
+
+    panIndex = 64;
+    for (std::int32_t level = 127; level >= 1; level -= 2) {
+        std::int32_t pan =
+            panMax - static_cast<std::int32_t>(
+                std::log(static_cast<double>(level)) / logBase * 5000.0);
+        if (pan > 5000) {
+            pan = 10000;
+        }
+        gPanVal103CFBC[panIndex--] = -pan;
+    }
+    gPanVal103CFBC[0] = -10000;
+    gPanVal103CFBC[127] = 10000;
+
+    const std::int32_t volumeMax =
+        static_cast<std::int32_t>(logMax * -10000.0);
+    for (std::int32_t level = 127; level >= 1; --level) {
+        std::int32_t volume =
+            -volumeMax - static_cast<std::int32_t>(
+                std::log(static_cast<double>(level)) / logBase * 10000.0);
+        if (volume > 10000) {
+            volume = 10000;
+        }
+        gSoundVolValue10505D0[static_cast<std::size_t>(level)] = -volume;
+    }
+    gSoundVolValue10505D0[0] = gSoundVolValue10505D0[1];
+    return Sub_52CD40();
 }
 
 // 原 [0x52CDE0,0x52CE97)；在同一空间音频表发布更近的屏幕坐标与距离。

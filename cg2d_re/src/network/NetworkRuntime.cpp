@@ -1437,6 +1437,39 @@ std::int32_t Sub_5128C0(
         reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
 }
 
+// 原 [0x511030,0x5110AE)：先追加数量，再逐项读取 W32 并分别采容量。
+std::int32_t Sub_511030(
+    const std::uintptr_t socket,
+    const std::int32_t* values,
+    const std::int32_t count)
+{
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0), "kza"));
+
+    const std::int32_t countCapacity = std::bit_cast<std::int32_t>(
+        gNetworkRuntimeState.bufferLength);
+    std::uint8_t* const countToken = FormatProtocolIntegerToken_517120(count);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
+        reinterpret_cast<const char*>(countToken),
+        countCapacity));
+
+    for (std::int32_t index = 0; index < count; ++index) {
+        const std::int32_t capacity = std::bit_cast<std::int32_t>(
+            gNetworkRuntimeState.bufferLength);
+        const std::int32_t value = values[index];
+        std::uint8_t* const token = FormatProtocolIntegerToken_517120(value);
+        static_cast<void>(AppendProtocolText_5170D0(
+            reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
+            reinterpret_cast<const char*>(token),
+            capacity));
+    }
+
+    return SendProtocolBuffer_517480(
+        socket,
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
+}
+
 // 原 [0x5112C0,0x51134E)：两整数、文本各自采容量并重读输出缓冲。
 std::int32_t Sub_5112C0(
     const std::uintptr_t socket,

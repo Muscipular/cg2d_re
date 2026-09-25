@@ -131,6 +131,11 @@ std::int32_t Sub_5128C0(
     std::int32_t field12,
     std::int32_t field13);
 
+// 原 sub_511030@[0x511030,0x5110AE)：发送数量及其后的 W32 列表 kza。
+std::int32_t Sub_511030(
+    std::uintptr_t socket, const std::int32_t* values,
+    std::int32_t count);
+
 // 原 sub_5112C0@[0x5112C0,0x51134E)：构造 GY、追加两整数与原字节文本并发送。
 std::int32_t Sub_5112C0(
     std::uintptr_t socket,

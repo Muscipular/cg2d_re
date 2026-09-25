@@ -308,6 +308,13 @@ std::int32_t Sub_5121E0(std::uintptr_t socket, std::int32_t value);
 std::int32_t Sub_5125B0(
     std::uintptr_t socket, std::int32_t value, const char* text);
 
+// 原 sub_512720@[0x512720,0x5127AE)：构造 cZt、追加三个整数并发送。
+std::int32_t Sub_512720(
+    std::uintptr_t socket,
+    std::int32_t first,
+    std::int32_t second,
+    std::int32_t third);
+
 // 原 sub_512BD0@[0x512BD0,0x512C0C)：构造 WA 命令并发送；593850 文本 owner 未闭合。
 std::int32_t Sub_512BD0(std::uintptr_t socket);
 

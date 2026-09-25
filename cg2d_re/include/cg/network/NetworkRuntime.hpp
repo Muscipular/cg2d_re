@@ -101,6 +101,17 @@ std::int32_t Sub_5128C0(
     std::int32_t field12,
     std::int32_t field13);
 
+// 原 sub_511640@[0x511640,0x51175A)：七项整数/文本按原序发送 Ot。
+std::int32_t Sub_511640(
+    std::uintptr_t socket,
+    std::int32_t field1,
+    const char* text2,
+    std::int32_t field3,
+    const char* text4,
+    std::int32_t field5,
+    const char* text6,
+    const char* text7);
+
 // 原 sub_511760@[0x511760,0x5117CB)：构造 TLKH、追加两个整数并发送。
 std::int32_t Sub_511760(
     std::uintptr_t socket,
@@ -118,6 +129,9 @@ std::int32_t Sub_511840(
     std::uintptr_t socket,
     const char* text,
     std::int32_t value);
+
+// 原 sub_5118B0@[0x5118B0,0x5118F8)：构造 lz、追加单整数并发送。
+std::int32_t Sub_5118B0(std::uintptr_t socket, std::int32_t value);
 
 // 原 sub_511900@[0x511900,0x5119F7)：组装 uSr 的两整数、文本、三整数并发送。
 std::int32_t Sub_511900(

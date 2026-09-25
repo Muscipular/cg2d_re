@@ -1268,6 +1268,81 @@ std::int32_t Sub_5128C0(
         reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
 }
 
+// 原 [0x511640,0x51175A)：七项依次采容量、格式化并重读输出缓冲。
+std::int32_t Sub_511640(
+    const std::uintptr_t socket,
+    const std::int32_t field1,
+    const char* const text2,
+    const std::int32_t field3,
+    const char* const text4,
+    const std::int32_t field5,
+    const char* const text6,
+    const char* const text7)
+{
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0), "Ot"));
+
+    const std::int32_t capacity1 = std::bit_cast<std::int32_t>(
+        gNetworkRuntimeState.bufferLength);
+    std::uint8_t* const token1 = FormatProtocolIntegerToken_517120(field1);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
+        reinterpret_cast<const char*>(token1),
+        capacity1));
+
+    const std::int32_t capacity2 = std::bit_cast<std::int32_t>(
+        gNetworkRuntimeState.bufferLength);
+    std::uint8_t* const token2 = FormatProtocolTextToken_517160(text2);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
+        reinterpret_cast<const char*>(token2),
+        capacity2));
+
+    const std::int32_t capacity3 = std::bit_cast<std::int32_t>(
+        gNetworkRuntimeState.bufferLength);
+    std::uint8_t* const token3 = FormatProtocolIntegerToken_517120(field3);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
+        reinterpret_cast<const char*>(token3),
+        capacity3));
+
+    const std::int32_t capacity4 = std::bit_cast<std::int32_t>(
+        gNetworkRuntimeState.bufferLength);
+    std::uint8_t* const token4 = FormatProtocolTextToken_517160(text4);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
+        reinterpret_cast<const char*>(token4),
+        capacity4));
+
+    const std::int32_t capacity5 = std::bit_cast<std::int32_t>(
+        gNetworkRuntimeState.bufferLength);
+    std::uint8_t* const token5 = FormatProtocolIntegerToken_517120(field5);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
+        reinterpret_cast<const char*>(token5),
+        capacity5));
+
+    const std::int32_t capacity6 = std::bit_cast<std::int32_t>(
+        gNetworkRuntimeState.bufferLength);
+    std::uint8_t* const token6 = FormatProtocolTextToken_517160(text6);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
+        reinterpret_cast<const char*>(token6),
+        capacity6));
+
+    const std::int32_t capacity7 = std::bit_cast<std::int32_t>(
+        gNetworkRuntimeState.bufferLength);
+    std::uint8_t* const token7 = FormatProtocolTextToken_517160(text7);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
+        reinterpret_cast<const char*>(token7),
+        capacity7));
+
+    return SendProtocolBuffer_517480(
+        socket,
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
+}
+
 // 原 [0x511760,0x5117CB)：两项各自采容量、格式化后重读输出缓冲。
 std::int32_t Sub_511760(
     const std::uintptr_t socket,
@@ -1352,6 +1427,27 @@ std::int32_t Sub_511840(
         reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
         reinterpret_cast<const char*>(valueToken),
         valueCapacity));
+
+    return SendProtocolBuffer_517480(
+        socket,
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
+}
+
+// 原 [0x5118B0,0x5118F8)：单次容量采样、整数格式化后重读缓冲发送。
+std::int32_t Sub_5118B0(
+    const std::uintptr_t socket,
+    const std::int32_t value)
+{
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0), "lz"));
+
+    const std::int32_t capacity = std::bit_cast<std::int32_t>(
+        gNetworkRuntimeState.bufferLength);
+    std::uint8_t* const token = FormatProtocolIntegerToken_517120(value);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
+        reinterpret_cast<const char*>(token),
+        capacity));
 
     return SendProtocolBuffer_517480(
         socket,

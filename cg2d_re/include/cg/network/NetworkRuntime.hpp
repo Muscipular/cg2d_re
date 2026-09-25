@@ -131,6 +131,15 @@ std::int32_t Sub_5128C0(
     std::int32_t field12,
     std::int32_t field13);
 
+// 原 sub_510630@[0x510630,0x510704)：五整数依序追加并发送 pg。
+std::int32_t Sub_510630(
+    std::uintptr_t socket,
+    std::int32_t first,
+    std::int32_t second,
+    std::int32_t third,
+    std::int32_t fourth,
+    std::int32_t fifth);
+
 // 原 sub_511030@[0x511030,0x5110AE)：发送数量及其后的 W32 列表 kza。
 std::int32_t Sub_511030(
     std::uintptr_t socket, const std::int32_t* values,

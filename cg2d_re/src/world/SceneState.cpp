@@ -2,6 +2,7 @@
 
 #include "../LoginMessageDependencies.hpp"
 #include "../LoginRequestDependencies.hpp"
+#include "cg/Input.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/CommandOptions.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
@@ -16,6 +17,7 @@
 #include <bit>
 #include <cstddef>
 #include <cstdio>
+#include <cstdlib>
 #include <cstring>
 
 namespace cg::world {
@@ -80,6 +82,10 @@ constexpr char kMapPathPrefix[] = "map";
 constexpr char kMapPathZero[] = "%s\\%d\\%d.dat";
 constexpr char kMapPathOther[] = "%s\\%d\\%d\\%d.dat";
 constexpr char kMapCreateMode[] = "wb";
+constexpr char kUnknownText554590[] = "???";
+
+// 原 [9DAD30,9DAD4A)；地图回复的 24 字节正文和 NUL，首字节另有世界重置写者。
+std::array<std::uint8_t, 26> gText9DAD30 {};
 
 // 原 55DAAC/55DBAC；两表各 256 项，原始内容分别为逐位反转与 0x1021 多项式表。
 constexpr auto kMapBitReverse55DAAC = [] {
@@ -150,6 +156,8 @@ static_assert(sizeof(kMapPathPrefix) == 4);
 static_assert(sizeof(kMapPathZero) == 13);
 static_assert(sizeof(kMapPathOther) == 16);
 static_assert(sizeof(kMapCreateMode) == 3);
+static_assert(sizeof(kUnknownText554590) == 4);
+static_assert(sizeof(gText9DAD30) == 26);
 static_assert(kMapBitReverse55DAAC[1] == 0x80u);
 static_assert(kMapCrcTable55DBAC[1] == 0x1021u);
 static_assert(sizeof(gText55BAE0) == 8);
@@ -171,7 +179,7 @@ std::uint32_t gValueFF0D5C = 0;
 std::uint32_t gValueFF0D58 = 0;
 std::uint32_t gValueD67E78 = 0;
 std::uint32_t gValueFF0D74 = 0;
-std::uint8_t gValue9DAD30 = 0;
+std::uint8_t& gValue9DAD30 = gText9DAD30[0];
 std::array<std::uint32_t, 7> gValueD67B08 {};
 std::uint32_t gValue58B6D0 = 1;
 std::uint8_t gValueD9F2CA = 0;
@@ -518,6 +526,7 @@ std::uint32_t gValueC8220C = 0;
 std::uint32_t gValueC82210 = 0;
 std::uint32_t gValueC82214 = 0;
 std::uint32_t gValueC82218 = 0;
+std::int32_t gValueFF0D4C = 0;
 std::uint32_t gValueC82224 = 0;
 std::uint32_t gValueC8221C = 0;
 std::uint16_t gValue9DAD54 = 0;
@@ -1026,6 +1035,38 @@ void __cdecl Sub_509090(
         Sub_4691D0();
         gValue9A4B94 &= 0xFEu;
     }
+}
+
+// 原 [0x509550,0x509642)：原位反转义、两段提取与地图回复状态发布。
+std::int32_t __cdecl Sub_509550(
+    const std::uintptr_t, char* const payload)
+{
+    std::array<char, 256> text;
+    std::array<char, 32> number;
+    input::UnescapeLegacyText_52D150(payload);
+    static_cast<void>(network::ExtractDelimitedField_52CED0(
+        payload, '|', 1, 255, text.data()));
+    input::UnescapeLegacyTextAndNotify_52D2F0(text.data());
+
+    const char* const selected =
+        std::strlen(text.data()) > 24 ? kUnknownText554590 : text.data();
+    std::memcpy(gText9DAD30.data(), selected, std::strlen(selected) + 1);
+    gValueFF0D4C = -2;
+
+    static_cast<void>(network::ExtractDelimitedField_52CED0(
+        payload, '|', 2, 31, number.data()));
+    if (number[0] == '\0') {
+        gValueFF0D4C = -1;
+    } else {
+        gValueFF0D4C = std::atoi(number.data());
+        if (gValueFF0D4C < 0) {
+            gValueFF0D4C = -1;
+        }
+    }
+    if (gValueC82210 == 1) {
+        gValueC82218 = 1;
+    }
+    return 1;
 }
 
 // 原 [0x469030,0x4691C9)：装载后可选重建第四平面，随后斜向扫描 tile。

@@ -361,6 +361,8 @@ void __cdecl Sub_509090(
 std::int32_t __cdecl Sub_509550(
     std::uintptr_t socket, char* payload); // 原 [0x509550,0x509642)，地图回复文本与数值发布。
 void __cdecl Sub_51D6F0(); // 原 [0x51D6F0,0x51D743)，消费回复索引并选择调色板。
+void __cdecl Sub_458F40(); // 原 [0x458F40,0x458FC2)，真实玩家时钟后继，原生指针 owner 未批。
+void __cdecl Sub_458F00(); // 原 [0x458F00,0x458F3A)，类别变化后可选调色板过渡并进入 458F40。
 std::int32_t __cdecl Sub_469030(); // 原 [0x469030,0x4691C9)，地图装载、第四平面与斜向绘制。
 // 原 [0x4693F0,0x4697C9)：先扫 tile，再扫 obj/图形尺寸，输出第四地图平面。
 std::int32_t __cdecl Sub_4693F0(

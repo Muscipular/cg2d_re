@@ -1087,6 +1087,20 @@ void __cdecl Sub_51D6F0()
     }
 }
 
+// 原 [0x458F00,0x458F3A)：类别变化后可选调色板过渡，末尾总是进入 458F40。
+void __cdecl Sub_458F00()
+{
+    const std::int32_t category = GetCate_458EC0(&gCgTime);
+    if (gValue73ED48 != category) {
+        const std::int32_t mode = gValue73ED44;
+        gValue73ED48 = category;
+        if (mode == 1) {
+            static_cast<void>(render::SelectPalette(category, 3600));
+        }
+    }
+    Sub_458F40();
+}
+
 // 原 [0x469030,0x4691C9)：装载后可选重建第四平面，随后斜向扫描 tile。
 std::int32_t __cdecl Sub_469030()
 {

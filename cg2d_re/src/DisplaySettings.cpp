@@ -85,4 +85,10 @@ std::int32_t Sub_4FD640()
     return 0;
 }
 
+std::int32_t Sub_4FE3E0()
+{
+    static_cast<void>(audio::Sub_504180(3u));
+    return 0;
+}
+
 } // namespace cg::login::detail

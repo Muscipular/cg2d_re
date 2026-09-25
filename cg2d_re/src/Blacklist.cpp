@@ -1,4 +1,5 @@
 #include "cg/Blacklist.hpp"
+#include "cg/Input.hpp"
 
 #include <bit>
 #include <cstdio>
@@ -7,6 +8,33 @@
 namespace cg::blacklist {
 
 namespace {
+
+bool EqualPairedBytes(
+    const volatile std::uint8_t* left,
+    const volatile std::uint8_t* right)
+{
+    for (;;) {
+        const std::uint8_t firstLeft = left[0];
+        const std::uint8_t firstRight = right[0];
+        if (firstLeft != firstRight) {
+            return false;
+        }
+        if (firstLeft == 0) {
+            return true;
+        }
+
+        const std::uint8_t secondLeft = left[1];
+        const std::uint8_t secondRight = right[1];
+        if (secondLeft != secondRight) {
+            return false;
+        }
+        left += 2;
+        right += 2;
+        if (secondLeft == 0) {
+            return true;
+        }
+    }
+}
 
 std::int8_t PersistBlacklistFile_4011A0(const std::int32_t fileId)
 {
@@ -116,6 +144,24 @@ std::int8_t PersistAndReset_401000(const std::int32_t fileId)
 std::int32_t GetBlacklistCount_401190()
 {
     return gCursor;
+}
+
+std::uint8_t ContainsBlacklistRecord_4013D0(const char* const name)
+{
+    const auto* const inputBytes =
+        reinterpret_cast<const volatile std::uint8_t*>(name);
+    for (const Record& record : gRecords) {
+        if (EqualPairedBytes(
+                inputBytes,
+                reinterpret_cast<const volatile std::uint8_t*>(
+                    input::LegacyText593850()))) {
+            continue;
+        }
+        if (EqualPairedBytes(record.data(), inputBytes)) {
+            return 1;
+        }
+    }
+    return 0;
 }
 
 std::int8_t AddBlacklistRecord_401270(const char* const name)

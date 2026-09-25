@@ -35,6 +35,9 @@ std::int8_t PersistAndReset_401000(std::int32_t fileId);
 // 原 sub_401190@0x401190：直接返回黑名单记录游标的完整有符号 32 位值。
 std::int32_t GetBlacklistCount_401190();
 
+// 原 [0x4013D0,0x401463)：固定扫 100 槽，先排除 593850 当前文本，命中只返回 AL=1。
+std::uint8_t ContainsBlacklistRecord_4013D0(const char* name);
+
 // 原 sub_401270@0x401270：向首个空槽插入含 NUL 的记录，非早退路径按当前文件 ID 持久化。
 std::int8_t AddBlacklistRecord_401270(const char* name);
 

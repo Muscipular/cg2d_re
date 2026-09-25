@@ -251,6 +251,9 @@ std::uint16_t gValueFF0C10 = 0;
 std::int32_t gValueFF0D04 = 0;
 std::int32_t gValueFF0D08 = 0;
 
+// 原 0xFF0D34：50D3B0 写入、5199A0 清零的独立 W16 槽。
+std::uint16_t gValueFF0D34 = 0;
+
 // 原 0xCAFEA0：504100 清零的独立 W32 状态槽。
 std::uint32_t gValueCAFEA0 = 0;
 

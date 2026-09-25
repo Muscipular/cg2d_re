@@ -430,6 +430,16 @@ void Sub_50CF20(
     world::detail::Sub_44B050(buffer, 4, 3);
 }
 
+// 原 [0x50D3B0,0x50D3BC)：只发布低 W16，不借用邻接槽。
+std::uint16_t Sub_50D3B0(
+    const std::uintptr_t,
+    const std::int32_t value)
+{
+    const std::uint16_t bits = static_cast<std::uint16_t>(value);
+    world::detail::gValueFF0D34 = bits;
+    return bits;
+}
+
 // 原 [0x50D700,0x50D73A)：非零门禁直接返回，零时按原序发布三槽。
 std::int32_t Sub_50D700(
     const std::uintptr_t,

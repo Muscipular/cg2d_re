@@ -21,6 +21,9 @@ void Sub_50CF20(
     std::uintptr_t socket, std::int32_t status,
     std::int32_t unused3, std::int32_t unused4, std::int32_t unused5);
 
+// 原 [0x50D3B0,0x50D3BC)：只写第二参数低 W16 并返回相同位模式。
+std::uint16_t Sub_50D3B0(std::uintptr_t socket, std::int32_t value);
+
 // 原 [0x50D700,0x50D73A)：场景门禁后写阶段与两项 base62 回复值。
 std::int32_t Sub_50D700(std::uintptr_t socket, const char* payload);
 
@@ -74,6 +77,7 @@ extern std::int32_t gValueD2F788;
 extern std::uint16_t gValueFF0C10;
 extern std::int32_t gValueFF0D04;
 extern std::int32_t gValueFF0D08;
+extern std::uint16_t gValueFF0D34;
 
 // 原 World::AppendMsgToCharWindow@0x44B050：复用已有聊天窗口入口。
 void Sub_44B050(const char* text, std::int32_t color, std::int32_t fontType);

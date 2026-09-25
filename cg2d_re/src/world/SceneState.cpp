@@ -756,6 +756,159 @@ std::int32_t __cdecl Sub_4688A0(
     return 0;
 }
 
+// 原 [0x469870,0x469C87)：四段定点 hit 探测，最多发布两项裁剪窗口。
+std::int32_t Sub_469870(const std::int32_t direction)
+{
+    if (gMapSpanX < 51 || gMapSpanY < 51) {
+        return 0;
+    }
+    if (platform::legacy_crypt_int::Greater_401D40(&gPlayerX, 11)) {
+        static_cast<void>(
+            platform::legacy_crypt_int::Subtract_401E60(&gPlayerX, 11));
+    }
+    if (platform::legacy_crypt_int::Greater_401D40(&gPlayerY, 11)) {
+        static_cast<void>(
+            platform::legacy_crypt_int::Subtract_401E60(&gPlayerY, 11));
+    }
+    if (platform::legacy_crypt_int::IntMinusCrypt_401FE0(
+            std::bit_cast<std::int32_t>(gValue9FB930), &gPlayerX) > 11) {
+        static_cast<void>(
+            platform::legacy_crypt_int::Add_401E10(&gPlayerX, 11));
+    }
+    if (platform::legacy_crypt_int::IntMinusCrypt_401FE0(
+            std::bit_cast<std::int32_t>(gValueC821D4), &gPlayerY) > 11) {
+        static_cast<void>(
+            platform::legacy_crypt_int::Add_401E10(&gPlayerY, 11));
+    }
+
+    gValue9DAD56 = 0;
+    std::int32_t found = 0;
+    if (direction == 6 || direction == 7 || direction == 5) {
+        const std::int32_t x =
+            platform::legacy_crypt_int::Subtract_401E60(&gPlayerX, 11);
+        std::int32_t y =
+            platform::legacy_crypt_int::Subtract_401E60(&gPlayerY, 11);
+        const std::int32_t span = gMapSpanX;
+        for (std::int32_t step = 0; step < 23; ++step, ++y) {
+            if (x >= 0 && x < std::bit_cast<std::int32_t>(gValue9FB930)
+                && y >= 0 && y < std::bit_cast<std::int32_t>(gValueC821D4)
+                && gMapHitArray[static_cast<std::size_t>(
+                    span * (step + 9) + 19)] == 0) {
+                const std::size_t index = gValue9DAD56;
+                gMapWindowEndX9A86CC[index] = static_cast<std::int16_t>(x + 1);
+                gMapWindowStartX9A86D0[index] = static_cast<std::int16_t>(x - 1);
+                gMapWindowStartY9A86C8[index] = static_cast<std::int16_t>(y - 1);
+                gMapWindowEndY9A86C4[index] =
+                    static_cast<std::int16_t>(y - step + 23);
+                static_cast<void>(Sub_468290(
+                    &gMapWindowStartX9A86D0[index],
+                    &gMapWindowStartY9A86C8[index],
+                    &gMapWindowEndX9A86CC[index],
+                    &gMapWindowEndY9A86C4[index]));
+                ++gValue9DAD56;
+                found = 1;
+                break;
+            }
+        }
+    }
+
+    if (direction == 0 || direction == 7 || direction == 1) {
+        std::int32_t x =
+            platform::legacy_crypt_int::Subtract_401E60(&gPlayerX, 11);
+        const std::int32_t y =
+            platform::legacy_crypt_int::Subtract_401E60(&gPlayerY, 11);
+        const std::int32_t span = gMapSpanX;
+        const std::int32_t xBound = std::bit_cast<std::int32_t>(gValue9FB930);
+        for (std::int32_t step = 0; step < 23; ++step, ++x) {
+            if (x >= 0 && x < xBound
+                && y >= 0 && y < std::bit_cast<std::int32_t>(gValueC821D4)
+                && gMapHitArray[static_cast<std::size_t>(
+                    9 * span + 19 + step)] == 0) {
+                const std::size_t index = gValue9DAD56;
+                gMapWindowStartY9A86C8[index] = static_cast<std::int16_t>(y - 1);
+                gMapWindowStartX9A86D0[index] = static_cast<std::int16_t>(x - 1);
+                gMapWindowEndX9A86CC[index] =
+                    static_cast<std::int16_t>(x - step + 23);
+                gMapWindowEndY9A86C4[index] = static_cast<std::int16_t>(y + 1);
+                static_cast<void>(Sub_468290(
+                    &gMapWindowStartX9A86D0[index],
+                    &gMapWindowStartY9A86C8[index],
+                    &gMapWindowEndX9A86CC[index],
+                    &gMapWindowEndY9A86C4[index]));
+                ++gValue9DAD56;
+                found = 1;
+                break;
+            }
+        }
+    }
+    if (std::bit_cast<std::int16_t>(gValue9DAD56) >= 2) {
+        return found;
+    }
+
+    if (direction == 2 || direction == 1 || direction == 3) {
+        const std::int32_t x =
+            platform::legacy_crypt_int::Add_401E10(&gPlayerX, 11);
+        std::int32_t y =
+            platform::legacy_crypt_int::Subtract_401E60(&gPlayerY, 11);
+        const std::int32_t span = gMapSpanX;
+        const std::int32_t xBound = std::bit_cast<std::int32_t>(gValue9FB930);
+        for (std::int32_t step = 0; step < 23; ++step, ++y) {
+            if (x >= 0 && x < xBound
+                && y >= 0 && y < std::bit_cast<std::int32_t>(gValueC821D4)
+                && gMapHitArray[static_cast<std::size_t>(
+                    span * (step + 9) + 41)] == 0) {
+                const std::size_t index = gValue9DAD56;
+                gMapWindowStartY9A86C8[index] = static_cast<std::int16_t>(y - 1);
+                gMapWindowStartX9A86D0[index] = static_cast<std::int16_t>(x);
+                gMapWindowEndX9A86CC[index] = static_cast<std::int16_t>(x + 2);
+                gMapWindowEndY9A86C4[index] =
+                    static_cast<std::int16_t>(y - step + 23);
+                static_cast<void>(Sub_468290(
+                    &gMapWindowStartX9A86D0[index],
+                    &gMapWindowStartY9A86C8[index],
+                    &gMapWindowEndX9A86CC[index],
+                    &gMapWindowEndY9A86C4[index]));
+                ++gValue9DAD56;
+                found = 1;
+                break;
+            }
+        }
+    }
+    if (std::bit_cast<std::int16_t>(gValue9DAD56) >= 2) {
+        return found;
+    }
+
+    if (direction == 4 || direction == 3 || direction == 5) {
+        std::int32_t x =
+            platform::legacy_crypt_int::Subtract_401E60(&gPlayerX, 11);
+        const std::int32_t y =
+            platform::legacy_crypt_int::Add_401E10(&gPlayerY, 11);
+        const std::int32_t span = gMapSpanX;
+        const std::int32_t xBound = std::bit_cast<std::int32_t>(gValue9FB930);
+        for (std::int32_t step = 0; step < 23; ++step, ++x) {
+            if (x >= 0 && x < xBound
+                && y >= 0 && y < std::bit_cast<std::int32_t>(gValueC821D4)
+                && gMapHitArray[static_cast<std::size_t>(
+                    31 * span + 19 + step)] == 0) {
+                const std::size_t index = gValue9DAD56;
+                gMapWindowStartY9A86C8[index] = static_cast<std::int16_t>(y);
+                gMapWindowStartX9A86D0[index] = static_cast<std::int16_t>(x - 1);
+                gMapWindowEndX9A86CC[index] =
+                    static_cast<std::int16_t>(x - step + 23);
+                gMapWindowEndY9A86C4[index] = static_cast<std::int16_t>(y + 2);
+                static_cast<void>(Sub_468290(
+                    &gMapWindowStartX9A86D0[index],
+                    &gMapWindowStartY9A86C8[index],
+                    &gMapWindowEndX9A86CC[index],
+                    &gMapWindowEndY9A86C4[index]));
+                ++gValue9DAD56;
+                return 1;
+            }
+        }
+    }
+    return found;
+}
+
 // 原 [0x46AF30,0x46AFDE)：探测成功后逐项发送 UUN 并发布玩家快照。
 std::uint32_t Sub_46AF30()
 {

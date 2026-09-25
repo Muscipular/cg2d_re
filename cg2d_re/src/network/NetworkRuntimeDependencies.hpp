@@ -52,6 +52,11 @@ std::int32_t Sub_403E50(
     const void* data,
     std::uint32_t size);
 
+// 原取包与分派；真实实现尚缺，不以空实现代替。
+std::int32_t Sub_403C50(void* destination, std::int32_t capacity);
+std::int32_t NetworkDispatch_512E40(
+    std::uintptr_t socket, const void* received);
+
 // 原 sub_5176B0@0x5176B0 已在 NetworkRuntime.cpp 还原；
 // 此处只保留 detail 边界的唯一声明。
 std::int32_t Sub_5176B0(const char* text);

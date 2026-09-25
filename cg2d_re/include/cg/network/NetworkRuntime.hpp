@@ -412,6 +412,9 @@ std::int32_t AllocateNetworkWorkspace_516B60(
 // 原 sub_508140@0x508140：启动 Winsock 并创建网络运行期工作区。
 std::int32_t InitializeNetworkRuntime_508140();
 
+// 原 NetworkLoop@[0x507DF0,0x50813A)：主循环每帧调用的网络收发与派发入口。
+std::uint8_t NetworkLoop_507DF0();
+
 // 原 0x5081E0：向共享接收区追加字节，成功后发布接收长度。
 std::int32_t AppendReceiveQueue_5081E0(
     const void* source, std::uint32_t size);

@@ -32,9 +32,13 @@ constexpr std::size_t kReceiveQueueOffset = 0xC004;
 constexpr std::size_t kQueueCapacity = 0x4000;
 constexpr std::size_t kSendLengthOffset = kReceiveQueueOffset + kQueueCapacity;
 constexpr std::size_t kQueueStorageSize = kSendLengthOffset + sizeof(std::int32_t);
+constexpr std::size_t kDispatchOffset = 0x4000;
+constexpr std::size_t kDispatchSize = 0x8000;
 static_assert(kReceiveQueueOffset == 0xD9B2BC - 0xD8F2B8);
 static_assert(kSendLengthOffset == 0xD9F2BC - 0xD8F2B8);
 static_assert(kQueueStorageSize == 0x10008);
+static_assert(kDispatchOffset == 0xD932B8 - 0xD8F2B8);
+static_assert(kDispatchOffset + kDispatchSize + 4 == kReceiveQueueOffset);
 
 using SendProtocolObserver = void (*)(
     std::uint32_t direction,
@@ -88,6 +92,11 @@ struct NetworkRuntimeState {
     // 原 [0xD8F2B8,0xD9F2C0)：发送窗口、接收区与发送长度共享地址别名。
     std::array<std::uint8_t, kQueueStorageSize> queueBytes;
     std::int32_t receiveLengthD69790; // 原 0xD69790，独立于连续队列。
+    std::uint8_t flagsD9F2C0;
+    std::uint32_t lastTickD9F2C4;
+    std::int32_t errorD9F2CC;
+    std::uint32_t receiveResetD9F3C4;
+    std::uint32_t frameModuloD9F3C8;
 };
 
 NetworkRuntimeState gNetworkRuntimeState {};
@@ -3190,6 +3199,131 @@ std::int32_t InitializeNetworkRuntime_508140()
     gNetworkRuntimeState.active = 1;
     world::gValueD9F2CA = 0;
     return 1;
+}
+
+std::uint8_t NetworkLoop_507DF0()
+{
+    if ((gNetworkRuntimeState.flagsD9F2C0 & 1U) == 0) {
+        gNetworkRuntimeState.flagsD9F2C0 |= 1U;
+        gNetworkRuntimeState.lastTickD9F2C4 = ::GetTickCount();
+    }
+    if (gNetworkRuntimeState.active == 0) {
+        return 0;
+    }
+
+    const std::uint8_t connectionState = world::gValueD9F2CA;
+    if (connectionState == 1) {
+        const std::int32_t sceneType = world::SetCurrentSceneType(11);
+        world::gValueD9F2CA = 2;
+        return static_cast<std::uint8_t>(sceneType);
+    }
+    if (connectionState != 0) {
+        return connectionState;
+    }
+    if (login::gRequestPollingEnabled == 0) {
+        return 0;
+    }
+
+    const std::uint32_t frame =
+        (gNetworkRuntimeState.frameModuloD9F3C8 + 1U) & 7U;
+    gNetworkRuntimeState.frameModuloD9F3C8 = frame;
+    if (frame != 0) {
+        return static_cast<std::uint8_t>(frame);
+    }
+
+    fd_set readSet;
+    fd_set writeSet;
+    const SOCKET socket = static_cast<SOCKET>(platform::gConnectionSocket);
+    readSet.fd_count = 1;
+    writeSet.fd_count = 1;
+    readSet.fd_array[0] = socket;
+    writeSet.fd_array[0] = socket;
+    timeval timeout {0, 0};
+    static_cast<void>(::select(2, &readSet, &writeSet, nullptr, &timeout));
+
+    if (::FD_ISSET(
+            static_cast<SOCKET>(platform::gConnectionSocket), &readSet)) {
+        char received[0x1000];
+        std::memset(received, 0, sizeof(received));
+        const std::int32_t receivedLength = ::recv(
+            static_cast<SOCKET>(platform::gConnectionSocket),
+            received,
+            0xFFF,
+            0);
+        if (receivedLength > 0) {
+            gNetworkRuntimeState.receiveResetD9F3C4 = 0;
+            static_cast<void>(AppendReceiveQueue_5081E0(
+                received, static_cast<std::uint32_t>(receivedLength)));
+        }
+        else if (receivedLength == -1) {
+            const std::int32_t error = detail::Sub_5082D0();
+            if (error > 0) {
+                static_cast<void>(::closesocket(
+                    static_cast<SOCKET>(platform::gConnectionSocket)));
+                world::gValueD9F2CA = 1;
+                gNetworkRuntimeState.errorD9F2CC = error;
+            }
+        }
+    }
+
+    std::uint8_t* const dispatch =
+        gNetworkRuntimeState.queueBytes.data() + kDispatchOffset;
+    const volatile std::uint32_t* const length =
+        &gNetworkRuntimeState.bufferLength;
+    while (gNetworkRuntimeState.receiveLengthD69790 > 0) {
+        if (detail::Sub_403C50(dispatch, static_cast<std::int32_t>(kDispatchSize)) != 0) {
+            break;
+        }
+        static_cast<void>(detail::NetworkDispatch_512E40(
+            platform::gConnectionSocket, dispatch));
+        std::memset(dispatch, 0, kDispatchSize);
+        std::memset(gNetworkRuntimeState.buffer58B5F0, 0, *length);
+        std::memset(gNetworkRuntimeState.buffer58B5F4, 0, *length);
+        std::memset(gNetworkRuntimeState.buffer58B5F8, 0, *length);
+        std::memset(gNetworkRuntimeState.buffer58B5FC, 0, *length);
+        std::fill_n(gNetworkRuntimeState.pointerTable58B614, *length, nullptr);
+        std::memset(gNetworkRuntimeState.tripleBuffer58B604, 0, 3U * *length);
+        std::memset(gNetworkRuntimeState.tripleBuffer58B608, 0, 3U * *length);
+        std::memset(gNetworkRuntimeState.tripleBuffer58B60C, 0, 3U * *length);
+        std::memset(gNetworkRuntimeState.tripleBuffer58B610, 0, 3U * *length);
+        std::fill_n(gNetworkRuntimeState.pointerTable58B614, *length, nullptr);
+    }
+
+    std::int32_t sendLength;
+    std::memcpy(
+        &sendLength,
+        gNetworkRuntimeState.queueBytes.data() + kSendLengthOffset,
+        sizeof(sendLength));
+    if (sendLength > 0 && world::gValueD9F2CA == 0) {
+        const std::int32_t sent = ::send(
+            static_cast<SOCKET>(platform::gConnectionSocket),
+            reinterpret_cast<const char*>(gNetworkRuntimeState.queueBytes.data()),
+            sendLength,
+            0);
+        if (sent > 0) {
+            gNetworkRuntimeState.lastTickD9F2C4 = ::GetTickCount();
+        }
+        if (sent == -1) {
+            const std::int32_t error = detail::Sub_508310();
+            if (error > 0) {
+                static_cast<void>(::closesocket(
+                    static_cast<SOCKET>(platform::gConnectionSocket)));
+                world::gValueD9F2CA = 1;
+                gNetworkRuntimeState.errorD9F2CC = error;
+            }
+        }
+        else {
+            static_cast<void>(ConsumeSendQueue_508280(sent));
+        }
+    }
+
+    const std::uint32_t now = ::GetTickCount();
+    if (gNetworkRuntimeState.lastTickD9F2C4 + 30000U < now
+        && gNetworkRuntimeState.active == 1) {
+        return static_cast<std::uint8_t>(
+            Sub_512C10(platform::gConnectionSocket, "nr"));
+    }
+    return static_cast<std::uint8_t>(now);
 }
 
 std::int32_t AppendReceiveQueue_5081E0(

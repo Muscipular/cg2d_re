@@ -30,6 +30,7 @@ void Flip_44C560();
 namespace cg::platform {
 
 using cg::network::Report_512CA0;
+using cg::network::NetworkLoop_507DF0;
 
 // 原 4576B0 的首个直接依赖；父初始化入口尚未落位。
 std::uint32_t ResetSystemLog_44B5A0(); // 打开失败返回 0，成功透传 fclose 的 W32。
@@ -41,7 +42,6 @@ void ParseProtectionTables_404600(const char* input);
 int ResetProtection_4048D0();
 void ShowModeChange_458A40();
 void KeepAlive_457AB0();
-std::uint8_t NetworkLoop_507DF0();
 int Sub_52CD30(std::int32_t value);
 void Sub_507140();
 void Sub_449160();

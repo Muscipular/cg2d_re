@@ -6,6 +6,7 @@
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/CommandOptions.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
+#include "cg/platform/LegacyTime.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/Palette.hpp"
@@ -1099,6 +1100,24 @@ void __cdecl Sub_458F00()
         }
     }
     Sub_458F40();
+}
+
+// 原 [0x50C870,0x50C8C8)：两次独立取时，调色板后才发布路径与调整值。
+std::int32_t __cdecl Sub_50C870(
+    const std::uintptr_t, const std::int32_t playerValue,
+    const std::int32_t timeOffset, const std::int32_t pathValue,
+    const std::int32_t adjustment)
+{
+    static_cast<void>(Sub_519EB0(playerValue));
+    gValue73ED4C = std::bit_cast<std::uint32_t>(timeOffset);
+    gValue73ED68 = std::bit_cast<std::uint32_t>(
+        platform::ReadLegacyTime32_53BA26(nullptr));
+    static_cast<void>(UpdateGameTime(&gCgTime));
+    gValue73ED48 = GetCate_458EC0(&gCgTime);
+    static_cast<void>(render::SelectPalette(gValue73ED48, 0));
+    gValue9E0434 = pathValue;
+    gValue73ED40 = std::bit_cast<std::uint32_t>(adjustment);
+    return adjustment;
 }
 
 // 原 [0x469030,0x4691C9)：装载后可选重建第四平面，随后斜向扫描 tile。

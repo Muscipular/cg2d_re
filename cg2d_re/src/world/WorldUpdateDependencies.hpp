@@ -363,6 +363,11 @@ std::int32_t __cdecl Sub_509550(
 void __cdecl Sub_51D6F0(); // 原 [0x51D6F0,0x51D743)，消费回复索引并选择调色板。
 void __cdecl Sub_458F40(); // 原 [0x458F40,0x458FC2)，真实玩家时钟后继，原生指针 owner 未批。
 void __cdecl Sub_458F00(); // 原 [0x458F00,0x458F3A)，类别变化后可选调色板过渡并进入 458F40。
+std::int32_t __cdecl Sub_519EB0(std::int32_t value); // 原 [0x519EB0,0x519EBA)，真实 FDA880 写回依赖。
+std::int32_t __cdecl Sub_50C870(
+    std::uintptr_t socket, std::int32_t playerValue,
+    std::int32_t timeOffset, std::int32_t pathValue,
+    std::int32_t adjustment); // 原 [0x50C870,0x50C8C8)，时间与地图配置回复。
 std::int32_t __cdecl Sub_469030(); // 原 [0x469030,0x4691C9)，地图装载、第四平面与斜向绘制。
 // 原 [0x4693F0,0x4697C9)：先扫 tile，再扫 obj/图形尺寸，输出第四地图平面。
 std::int32_t __cdecl Sub_4693F0(

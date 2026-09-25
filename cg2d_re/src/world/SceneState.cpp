@@ -745,6 +745,24 @@ std::int32_t* Sub_467F30()
     return Sub_46CF20();
 }
 
+// 原 [0x4681B0,0x4681F6)：先读 Y/X 快照并恢复窗口，随后顺序清六槽。
+std::int32_t __cdecl Sub_4681B0()
+{
+    const std::int32_t y =
+        platform::legacy_crypt_int::Read_401EC0(&gPlayerSnapshotY);
+    const std::int32_t x =
+        platform::legacy_crypt_int::Read_401EC0(&gPlayerSnapshotX);
+    static_cast<void>(Sub_468330(x, y));
+    static_cast<void>(Sub_468200());
+    gValueC82200 = 0;
+    gValueC82202 = 0;
+    gValueC821FC = 0;
+    gValueC8A778 = 0;
+    gValueC8A794 = 0;
+    gValueC82224 = 0;
+    return 0;
+}
+
 // 原 [0x468290,0x4682D7)：四个 S16 原地裁剪，末参数指针透传。
 std::int16_t* __cdecl Sub_468290(
     std::int16_t* xStart,

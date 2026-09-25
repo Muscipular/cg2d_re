@@ -3,6 +3,7 @@
 #include "LoginMessageDependencies.hpp"
 
 #include "cg/Input.hpp"
+#include "cg/LegacyAudio.hpp"
 #include "cg/platform/KeyState.hpp"
 
 namespace cg::input {
@@ -43,12 +44,12 @@ void ProcessKeyInput_4596D0()
         return;
     }
 
-    if (detail::Sub_5043D0(2) != 0) {
-        static_cast<void>(detail::Sub_5042D0(100u));
+    if (audio::Sub_5043D0(2) != 0) {
+        static_cast<void>(audio::Sub_5042D0(100u));
         static_cast<void>(login::detail::PlaySe(57, 320, 240));
         return;
     }
-    static_cast<void>(detail::Sub_504180(99u));
+    static_cast<void>(audio::Sub_504180(99u));
 }
 
 } // namespace cg::input

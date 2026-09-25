@@ -22,4 +22,13 @@ std::int32_t __cdecl Sub_52C9E0(
 void __cdecl Sub_52CD60(); // 原 [0x52CD60,0x52CDDB)，扫描同一 50 项表。
 std::uint32_t Sub_52B990() noexcept;
 
+// 原 57C368 表与 CC236C 三槽的共享音效选择入口。
+std::int32_t __cdecl Sub_5044C0(std::uint32_t id);
+std::int32_t __cdecl Sub_504410(std::uint32_t id);
+std::int32_t __cdecl Sub_504180(std::uint32_t id);
+std::int32_t __cdecl Sub_5042D0(std::uint32_t id);
+std::int32_t __cdecl Sub_504380(std::uint32_t id);
+std::int32_t __cdecl Sub_5043D0(std::int32_t index);
+std::int32_t __cdecl Sub_504AF0();
+
 } // namespace cg::audio

@@ -426,6 +426,9 @@ std::int32_t ConsumeSendQueue_508280(std::int32_t size);
 // 只读原 W8 0xD9F2C8 活动门禁；状态仍由网络运行期唯一持有。
 std::uint8_t ReadNetworkRuntimeActive() noexcept;
 
+// 原 0xD9F2CC：507DF0 写、455C90 条件读取的唯一错误码槽。
+std::int32_t ReadNetworkErrorD9F2CC() noexcept;
+
 // 原 0x593850 首字节；供原生窗口枚举回调等逐次读取，不暴露整段文本地址。
 std::uint8_t ReadProtocolByte593850() noexcept;
 

@@ -1,11 +1,13 @@
 #include "cg/world/SceneState.hpp"
 
+#include "../LoginMessageDependencies.hpp"
 #include "../platform/ImeLifecycle.hpp"
 #include "WorldUpdateDependencies.hpp"
 
 #include "cg/CharacterSelectScene.hpp"
 #include "cg/GraphicInfo.hpp"
 #include "cg/Input.hpp"
+#include "cg/LoginConnection.hpp"
 #include "cg/LoginScene.hpp"
 #include "cg/LoginState.hpp"
 #include "cg/Palette.hpp"
@@ -14,6 +16,7 @@
 #include "cg/platform/MainLoop.hpp"
 
 #include <bit>
+#include <cstdio>
 
 namespace cg::world {
 
@@ -191,6 +194,123 @@ sceneSixTail:
 }
 
 namespace detail {
+
+char gDisconnectText9A4D10[16] {};
+
+namespace {
+
+login::YobiAction* gDisconnectAction62B5B4 = nullptr;
+std::int32_t gDisconnectState62B3A8 = 0;
+std::int32_t gDisconnectWidth62B32C = 0;
+std::int32_t gDisconnectHeight62B304 = 0;
+std::int32_t gDisconnectX62B390 = 0;
+std::int32_t gDisconnectY62B2EC = 0;
+
+constexpr char kErrorFormat[] =
+    "\xA6\xF8\xAA\x41\xBE\xB9\xB3\x73\xBD\x75\xA4\xA4"
+    "\xC2\x5F\x28\x25\x64\x29";
+constexpr char kTryOtherServer[] =
+    "\xBD\xD0\xB9\xC1\xB8\xD5\xA8\xE4\xA5\x4C\xAA\xBA"
+    "\xA6\xF8\xAA\x41\xBE\xB9\xA1\x43";
+constexpr char kDisconnected[] =
+    "\xBB\x50\xA6\xF8\xAA\x41\xBE\xB9\xAA\xBA\xB3\x73"
+    "\xBD\x75\xB3\x51\xA4\xC1\xC2\x5F\xA4\x46\xA1\x43";
+constexpr char kReturnToServerSelect[] =
+    "\xA6\x5E\xA8\xEC\xA6\xF8\xAA\x41\xBE\xB9\xBF\xEF"
+    "\xBE\xDC\xB5\x65\xAD\xB1\xA1\x43";
+
+static_assert(sizeof(kErrorFormat) == 19);
+static_assert(sizeof(kTryOtherServer) == 21);
+static_assert(sizeof(kDisconnected) == 25);
+static_assert(sizeof(kReturnToServerSelect) == 21);
+
+} // namespace
+
+std::int32_t Sub_455C90()
+{
+    login::detail::GraphicDescriptor16 descriptor {{
+        0x00, 0x00, 0x00, 0x00,
+        0x00, 0x00, 0x00, 0x00,
+        0xFF, 0xFF, 0xFF, 0xFF,
+        0x00, 0x04, 0x00, 0x00,
+    }};
+    std::int32_t clicked = 0;
+    bool hovered = false;
+    if (gDisconnectAction62B5B4 == nullptr) {
+        if (audio::Sub_5043D0(2) != 0) {
+            static_cast<void>(audio::Sub_5042D0(100));
+        }
+        gDisconnectState62B3A8 = -2;
+        gDisconnectWidth62B32C = 380;
+        gDisconnectHeight62B304 = 144;
+        gDisconnectX62B390 = 130;
+        gDisconnectY62B2EC = 156;
+        gDisconnectAction62B5B4 =
+            login::detail::Sub_5044E0(130, 156, 380, 144, 4, 1);
+        if (gDisconnectAction62B5B4 == nullptr) {
+            return 0;
+        }
+    }
+    if (!login::detail::IsYobiActionReady(gDisconnectAction62B5B4, 1)) {
+        return 0;
+    }
+
+    const std::int32_t left =
+        gDisconnectX62B390 + (gDisconnectWidth62B32C - 66) / 2;
+    const std::int32_t top =
+        gDisconnectY62B2EC + (gDisconnectHeight62B304 * 4) / 5 + 1;
+    hovered = login::detail::Sub_5049A0(
+        left, top, left + 66, top + 17, -1) != 0;
+    if (hovered
+        && (static_cast<std::uint8_t>(login::detail::gValueD68D9C) & 1U) != 0) {
+        login::detail::MarkDeath(gDisconnectAction62B5B4);
+        gDisconnectAction62B5B4 = nullptr;
+        clicked = 1;
+    }
+
+    const std::int32_t row = gDisconnectHeight62B304 / 5;
+    std::int32_t width = login::detail::TextMeasure(gDisconnectText9A4D10, 2);
+    static_cast<void>(render::DrawText_456780(
+        static_cast<std::int16_t>(
+            gDisconnectX62B390 + (gDisconnectWidth62B32C - width) / 2),
+        static_cast<std::int16_t>(gDisconnectY62B2EC + row - 4),
+        2, 2, 0, gDisconnectText9A4D10, 0, 0));
+
+    const char* secondText;
+    const char* thirdText;
+    char errorText[256];
+    if (login::gValue593FC0 != 0) {
+        std::sprintf(errorText, kErrorFormat, network::ReadNetworkErrorD9F2CC());
+        secondText = errorText;
+        thirdText = kTryOtherServer;
+    } else {
+        secondText = kDisconnected;
+        thirdText = kReturnToServerSelect;
+    }
+
+    width = login::detail::TextMeasure(secondText, 0);
+    static_cast<void>(render::DrawText_456780(
+        static_cast<std::int16_t>(
+            gDisconnectX62B390 + (gDisconnectWidth62B32C - width) / 2),
+        static_cast<std::int16_t>(gDisconnectY62B2EC + 2 * row - 4),
+        2, 0, 0, secondText, 0, 0));
+
+    width = login::detail::TextMeasure(thirdText, 0);
+    static_cast<void>(render::DrawText_456780(
+        static_cast<std::int16_t>(
+            gDisconnectX62B390 + (gDisconnectWidth62B32C - width) / 2),
+        static_cast<std::int16_t>(gDisconnectY62B2EC + 3 * row - 4),
+        2, 0, 0, thirdText, 0, 0));
+
+    static_cast<void>(login::detail::DrawGraphic(
+        gDisconnectX62B390 + gDisconnectWidth62B32C / 2,
+        gDisconnectY62B2EC + 4 * row + 9,
+        0xDF,
+        hovered ? 243050 : 243048,
+        0,
+        &descriptor));
+    return clicked;
+}
 
 // 原 sub_51FDE0@[0x51FDE0,0x5200D0)：按 W32 selector 分派并透传目标返回。
 std::int32_t Sub_51FDE0(

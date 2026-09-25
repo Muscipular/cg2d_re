@@ -108,6 +108,12 @@ std::int32_t Sub_5112C0(
     std::int32_t second,
     const char* text);
 
+// 原 sub_5113C0@[0x5113C0,0x51142B)：追加两个 W32 整数并发送 npzi。
+std::int32_t Sub_5113C0(
+    std::uintptr_t socket,
+    std::int32_t first,
+    std::int32_t second);
+
 // 原 sub_511480@[0x511480,0x51150E)：依次追加整数、原字节文本和整数并发送 uId。
 std::int32_t Sub_511480(
     std::uintptr_t socket,

@@ -140,6 +140,16 @@ std::int32_t Sub_510630(
     std::int32_t fourth,
     std::int32_t fifth);
 
+// 原 sub_510710@[0x510710,0x510807)：六整数依序追加并发送 UUN。
+std::int32_t Sub_510710(
+    std::uintptr_t socket,
+    std::int32_t first,
+    std::int32_t second,
+    std::int32_t third,
+    std::int32_t fourth,
+    std::int32_t fifth,
+    std::int32_t sixth);
+
 // 原 sub_511030@[0x511030,0x5110AE)：发送数量及其后的 W32 列表 kza。
 std::int32_t Sub_511030(
     std::uintptr_t socket, const std::int32_t* values,

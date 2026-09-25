@@ -101,6 +101,13 @@ std::int32_t Sub_5128C0(
     std::int32_t field12,
     std::int32_t field13);
 
+// 原 sub_5112C0@[0x5112C0,0x51134E)：构造 GY、追加两整数与原字节文本并发送。
+std::int32_t Sub_5112C0(
+    std::uintptr_t socket,
+    std::int32_t first,
+    std::int32_t second,
+    const char* text);
+
 // 原 sub_511640@[0x511640,0x51175A)：七项整数/文本按原序发送 Ot。
 std::int32_t Sub_511640(
     std::uintptr_t socket,

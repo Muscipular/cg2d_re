@@ -410,6 +410,26 @@ std::int32_t Sub_50CF60(
     return value;
 }
 
+// 原 [0x50CF20,0x50CF55)：仅第二参数控制固定提示入队。
+void Sub_50CF20(
+    const std::uintptr_t,
+    const std::int32_t status,
+    const std::int32_t,
+    const std::int32_t,
+    const std::int32_t)
+{
+    if (status != 0) {
+        return;
+    }
+
+    constexpr char kMessage[] =
+        "\xA5\xA2\xB1\xD1\xA4\x46\xA1\x49";
+    static_assert(sizeof(kMessage) == 9);
+    char buffer[256];
+    std::sprintf(buffer, kMessage);
+    world::detail::Sub_44B050(buffer, 4, 3);
+}
+
 // 原 [0x50D700,0x50D73A)：非零门禁直接返回，零时按原序发布三槽。
 std::int32_t Sub_50D700(
     const std::uintptr_t,

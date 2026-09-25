@@ -155,6 +155,7 @@ inline constexpr std::size_t kMapBufferCells = 2601;
 extern std::array<std::uint16_t, kMapBufferCells> gMapTileArray;
 extern std::array<std::uint16_t, kMapBufferCells> gMapObjArray;
 extern std::array<std::uint16_t, kMapBufferCells> gMapHitArray;
+extern std::array<std::uint16_t, kMapBufferCells> gMapWalkabilityArray; // 原 9DEF68；46D9C0 生产。
 extern std::uint16_t gLastDetectedCode; // 原 9DAD4A；不随 pending 清理。
 extern std::int32_t gValue9E0434; // 原 9E0434；50C870 写，地图路径/保存共读。
 
@@ -324,6 +325,7 @@ std::int16_t* __cdecl Sub_468290(
 std::int32_t __cdecl Sub_468C00(
     std::int32_t x, std::int32_t y, std::uint16_t value); // 原 [0x468C00,0x468C32)，写 hit WORD。
 std::int32_t __cdecl Sub_46AE60(std::int32_t x, std::int32_t y); // 原 [0x46AE60,0x46AE94)，判 hit 低字节。
+std::int32_t __cdecl Sub_469810(std::int32_t x, std::int32_t y); // 原 [0x469810,0x469864)，边界外或 walk WORD==1。
 std::int32_t __cdecl Sub_46AD00(std::int32_t x, std::int32_t y); // 原 [0x46AD00,0x46AD97)，分类并写 9DAD4A。
 std::int32_t __cdecl Sub_468F30();         // 原 [0x468F30,0x468F6F)，按序清十二槽、返回 0。
 std::int64_t __cdecl Sub_468F70();         // 原 [0x468F70,0x468FE4)，F32 投影、向零截断后写六槽。

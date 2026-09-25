@@ -492,12 +492,14 @@ std::uint16_t gValue9EE910 = 0;
 std::array<std::uint16_t, kMapBufferCells> gMapTileArray {};
 std::array<std::uint16_t, kMapBufferCells> gMapObjArray {};
 std::array<std::uint16_t, kMapBufferCells> gMapHitArray {};
+std::array<std::uint16_t, kMapBufferCells> gMapWalkabilityArray {};
 std::uint16_t gLastDetectedCode = 0;
 std::int32_t gValue9E0434 = 0;
 
 static_assert(sizeof(gMapTileArray) == 5202);
 static_assert(sizeof(gMapObjArray) == 5202);
 static_assert(sizeof(gMapHitArray) == 5202);
+static_assert(sizeof(gMapWalkabilityArray) == 5202);
 
 // 原 [0x468520,0x46856A)；零 mapId 忽略第三参，两路均透传 sprintf 返回。
 std::int32_t __cdecl Sub_468520(
@@ -859,6 +861,26 @@ std::int32_t __cdecl Sub_46AE60(const std::int32_t x, const std::int32_t y)
     const std::int32_t left = gMapXStart;
     const std::int32_t index = x - left + span * (y - top);
     return static_cast<std::uint8_t>(gMapHitArray[static_cast<std::size_t>(index)]) == 2;
+}
+
+// 原 [0x469810,0x469864)：边界外返回 1，边界内比较第四平面的完整 WORD。
+std::int32_t __cdecl Sub_469810(const std::int32_t x, const std::int32_t y)
+{
+    const std::int32_t localX = x - gMapXStart;
+    const std::int32_t localY = y - gMapYStart;
+    if (localX < 0) {
+        return 1;
+    }
+    const std::int32_t width = gMapSpanX;
+    if (localX >= width || localY < 0) {
+        return 1;
+    }
+    const std::int32_t height = gMapSpanY;
+    if (localY >= height) {
+        return 1;
+    }
+    const std::int32_t index = localX + width * localY;
+    return gMapWalkabilityArray[static_cast<std::size_t>(index)] == 1;
 }
 
 // 原 [0x46AD00,0x46AD97)：分类前无条件写独立的低 U8 探测值。

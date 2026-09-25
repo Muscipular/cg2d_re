@@ -259,7 +259,7 @@ std::int32_t Sub_508360()
             std::strcpy(accountCopy, gValueDA38DC);
             std::strcpy(adapterId, adapterScratch);
             std::strcpy(gValueDA38DC, accountCopy);
-            static_cast<void>(Sub_512800(
+            static_cast<void>(network::Sub_512800(
                 platform::gConnectionSocket,
                 gValueDA3A1C,
                 accountCopy,

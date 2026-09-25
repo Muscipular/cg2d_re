@@ -107,6 +107,12 @@ std::int32_t Sub_511760(
     std::int32_t first,
     std::int32_t second);
 
+// 原 sub_5117D0@[0x5117D0,0x51183B)：构造 wD、追加整数与原字节文本并发送。
+std::int32_t Sub_5117D0(
+    std::uintptr_t socket,
+    std::int32_t value,
+    const char* text);
+
 // 原 sub_511900@[0x511900,0x5119F7)：组装 uSr 的两整数、文本、三整数并发送。
 std::int32_t Sub_511900(
     std::uintptr_t socket,

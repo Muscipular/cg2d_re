@@ -129,6 +129,26 @@ void DestroyPlayerCoordinates()
     platform::legacy_crypt_int::Destroy_401CF0(&detail::gPlayerX);
 }
 
+void ConstructWorldCoordinateStates()
+{
+    platform::legacy_crypt_int::ConstructZero_401C70(&detail::gPlayerSnapshotX);
+    platform::legacy_crypt_int::ConstructZero_401C70(&detail::gPlayerSnapshotY);
+    platform::legacy_crypt_int::ConstructZero_401C70(&detail::gValue9EE8D0);
+    platform::legacy_crypt_int::ConstructZero_401C70(&detail::gValue9EE8E0);
+    platform::legacy_crypt_int::ConstructZero_401C70(&detail::gValueC27FF8);
+    platform::legacy_crypt_int::ConstructZero_401C70(&detail::gValueC27FE8);
+}
+
+void DestroyWorldCoordinateStates()
+{
+    platform::legacy_crypt_int::Destroy_401CF0(&detail::gValueC27FE8);
+    platform::legacy_crypt_int::Destroy_401CF0(&detail::gValueC27FF8);
+    platform::legacy_crypt_int::Destroy_401CF0(&detail::gValue9EE8E0);
+    platform::legacy_crypt_int::Destroy_401CF0(&detail::gValue9EE8D0);
+    platform::legacy_crypt_int::Destroy_401CF0(&detail::gPlayerSnapshotY);
+    platform::legacy_crypt_int::Destroy_401CF0(&detail::gPlayerSnapshotX);
+}
+
 void ConstructRippleGate()
 {
     platform::legacy_crypt_int::ConstructZero_401C70(&gRippleGate);
@@ -356,6 +376,12 @@ std::int16_t gMapSpanX = 0;
 std::int16_t gMapSpanY = 0;
 platform::LegacyCryptInt gPlayerX {};
 platform::LegacyCryptInt gPlayerY {};
+platform::LegacyCryptInt gPlayerSnapshotX {};
+platform::LegacyCryptInt gPlayerSnapshotY {};
+platform::LegacyCryptInt gValue9EE8D0 {};
+platform::LegacyCryptInt gValue9EE8E0 {};
+platform::LegacyCryptInt gValueC27FF8 {};
+platform::LegacyCryptInt gValueC27FE8 {};
 std::array<std::uint16_t, kMapBufferCells> gMapTileArray {};
 std::array<std::uint16_t, kMapBufferCells> gMapObjArray {};
 std::array<std::uint16_t, kMapBufferCells> gMapHitArray {};

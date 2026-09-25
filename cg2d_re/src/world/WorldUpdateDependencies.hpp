@@ -99,6 +99,12 @@ extern std::int16_t gMapSpanX;
 extern std::int16_t gMapSpanY;
 extern platform::LegacyCryptInt gPlayerX; // 原 9EE8A8；468200 等共享。
 extern platform::LegacyCryptInt gPlayerY; // 原 9EE8C0；468200 等共享。
+extern platform::LegacyCryptInt gPlayerSnapshotX; // 原 C751C0；4681B0 读取。
+extern platform::LegacyCryptInt gPlayerSnapshotY; // 原 C751B0；4681B0 读取。
+extern platform::LegacyCryptInt gValue9EE8D0;
+extern platform::LegacyCryptInt gValue9EE8E0;
+extern platform::LegacyCryptInt gValueC27FF8;
+extern platform::LegacyCryptInt gValueC27FE8;
 
 // 原 AEFB94/9DDB0C/9ED44C；468C40 的 tile/obj/hit 共享平面。
 inline constexpr std::size_t kMapBufferCells = 2601;

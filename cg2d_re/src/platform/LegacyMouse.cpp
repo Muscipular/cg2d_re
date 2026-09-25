@@ -31,6 +31,20 @@ struct PlayerCoordinatesStaticInitializer {
 
 const PlayerCoordinatesStaticInitializer gPlayerCoordinatesStaticInitializer;
 
+struct WorldCoordinateStatesStaticInitializer {
+    WorldCoordinateStatesStaticInitializer()
+    {
+        cg::world::ConstructWorldCoordinateStates();
+    }
+
+    ~WorldCoordinateStatesStaticInitializer()
+    {
+        cg::world::DestroyWorldCoordinateStates();
+    }
+};
+
+const WorldCoordinateStatesStaticInitializer gWorldCoordinateStatesStaticInitializer;
+
 struct RippleGateStaticInitializer {
     RippleGateStaticInitializer()
     {

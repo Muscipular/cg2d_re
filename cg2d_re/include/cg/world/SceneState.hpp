@@ -51,6 +51,10 @@ std::int32_t ReadRippleGateOnce();
 void ConstructPlayerCoordinates();
 void DestroyPlayerCoordinates();
 
+// 原 467C00–467D3F；六个后续 CryptInt 依 CRT 表顺序构造、逆序析构。
+void ConstructWorldCoordinateStates();
+void DestroyWorldCoordinateStates();
+
 // 原 sub_448240@0x448240；只采样一次 gMapFloor。
 std::int32_t IsMapFloorAllowed_448240() noexcept;
 

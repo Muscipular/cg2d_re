@@ -180,6 +180,8 @@ std::int32_t __cdecl Sub_4688A0(
     std::int32_t xEnd, std::int32_t yEnd,
     const std::uint16_t* tile, const std::uint16_t* obj,
     std::uint16_t* hit); // 原 [0x4688A0,0x468BF5)，增量写三平面文件及共享 hit。
+std::int32_t Sub_469870(std::int32_t direction); // 原 [0x469870,0x469C87)，四向探测依赖。
+std::uint32_t Sub_46AF30(); // 原 [0x46AF30,0x46AFDE)，探测后发送 UUN 和发布状态。
 std::int32_t __cdecl Sub_468C40(
     std::int32_t mapId, std::int32_t floor,
     std::int32_t xStart, std::int32_t yStart,

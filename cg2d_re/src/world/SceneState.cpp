@@ -520,6 +520,10 @@ std::uint32_t gValue9DAD78 = 0;
 std::uint8_t gValue9A4B94 = 0;
 std::uint16_t gValueC82200 = 0;
 std::uint16_t gValueC82202 = 0;
+std::array<std::int16_t, 2> gMapWindowEndY9A86C4 {};
+std::array<std::int16_t, 2> gMapWindowStartY9A86C8 {};
+std::array<std::int16_t, 2> gMapWindowEndX9A86CC {};
+std::array<std::int16_t, 2> gMapWindowStartX9A86D0 {};
 std::array<std::uint16_t, 2> gPendingDirections9A86D4 {};
 std::array<std::uint16_t, kMovePathCapacity> gMovePathDirections {};
 std::array<std::uint16_t, kMovePathCapacity> gMovePathX {};
@@ -527,9 +531,17 @@ std::array<std::uint16_t, kMovePathCapacity> gMovePathY {};
 static_assert(sizeof(gMovePathDirections) == 0xC8);
 static_assert(sizeof(gMovePathX) == 0xC8);
 static_assert(sizeof(gMovePathY) == 0xC8);
+static_assert(sizeof(gMapWindowEndY9A86C4) == 4);
+static_assert(sizeof(gMapWindowStartY9A86C8) == 4);
+static_assert(sizeof(gMapWindowEndX9A86CC) == 4);
+static_assert(sizeof(gMapWindowStartX9A86D0) == 4);
 static_assert(sizeof(gPendingDirections9A86D4) == 4);
 std::uint32_t gValueC821FC = 0;
 std::uint32_t gValue9EE8B8 = 0;
+std::uint16_t gValue9EE8A4 = 0;
+std::int32_t gValue9A7F7C = 0;
+std::int32_t gValue9A7F80 = 0;
+std::uint32_t gValueAF10C8 = 0;
 std::uint16_t gValueC8A79C = 0;
 std::uint16_t gValue9A86D8 = 0;
 std::uint16_t gValue9FB92E = 0;
@@ -548,6 +560,7 @@ std::int32_t gValue73ED48 = 0;
 std::uint32_t gValueC82224 = 0;
 std::uint32_t gValueC8221C = 0;
 std::uint16_t gValue9DAD54 = 0;
+std::uint16_t gValue9DAD56 = 0;
 std::uint16_t gValue9FB92C = 0;
 std::uint16_t gValue55D9FC = 0xFFFFu;
 std::uint16_t gValueC821D0 = 0;
@@ -741,6 +754,39 @@ std::int32_t __cdecl Sub_4688A0(
     }
     std::fclose(file);
     return 0;
+}
+
+// 原 [0x46AF30,0x46AFDE)：探测成功后逐项发送 UUN 并发布玩家快照。
+std::uint32_t Sub_46AF30()
+{
+    const std::int32_t direction =
+        std::bit_cast<std::int16_t>(gPendingDirections9A86D4[0]);
+    if (Sub_469870(direction) == 0) {
+        return 0;
+    }
+
+    std::int32_t index = 0;
+    while (index < std::bit_cast<std::int16_t>(gValue9DAD56)) {
+        const std::size_t position = static_cast<std::size_t>(index);
+        const std::int32_t endY = gMapWindowEndY9A86C4[position];
+        const std::int32_t endX = gMapWindowEndX9A86CC[position];
+        const std::int32_t startY = gMapWindowStartY9A86C8[position];
+        const std::int32_t startX = gMapWindowStartX9A86D0[position];
+        const std::int32_t floor = gMapFloor;
+        const std::int32_t mapId = std::bit_cast<std::int32_t>(gValue9A86DC);
+        const std::uintptr_t socket = platform::gConnectionSocket;
+        static_cast<void>(network::Sub_510710(
+            socket, mapId, floor, startX, startY, endX, endY));
+        ++index;
+    }
+
+    gValue9EE8B8 = 1;
+    gValue9EE8A4 = static_cast<std::uint16_t>(direction);
+    gValue9A7F7C = platform::legacy_crypt_int::Read_401EC0(&gPlayerX);
+    gValue9A7F80 = platform::legacy_crypt_int::Read_401EC0(&gPlayerY);
+    const std::uint32_t tick = platform::ReadTickCount32();
+    gValueAF10C8 = tick;
+    return tick;
 }
 
 // 原 [0x468C40,0x468F25)：成功打开才清三平面，逐行短读保留已清零后缀。

@@ -1,12 +1,70 @@
 #include "cg/render/SurfaceState.hpp"
 
 #include <algorithm>
+#include <memory>
+#include <new>
 
 namespace cg::render {
+namespace {
+
+std::unique_ptr<CpuSurfacePixels> gCpuBackSurface;
+std::unique_ptr<CpuSurfacePixels> gCpuAutoMapSurface;
+std::unique_ptr<CpuSurfacePixels> gCpuTempSurface;
+
+} // namespace
 
 std::uint32_t gBackgroundColor = 0;
-CpuSurfacePixels gCpuBackSurface {};
-CpuSurfacePixels gCpuTempSurface {};
+
+bool CreateCpuBackSurface() noexcept
+{
+    gCpuBackSurface.reset(new (std::nothrow) CpuSurfacePixels {});
+    return gCpuBackSurface != nullptr;
+}
+
+bool BuildCpuSurfaceBuffers() noexcept
+{
+    gCpuAutoMapSurface.reset(new (std::nothrow) CpuSurfacePixels {});
+    if (gCpuAutoMapSurface == nullptr) {
+        return false;
+    }
+
+    gCpuTempSurface.reset(new (std::nothrow) CpuSurfacePixels {});
+    return gCpuTempSurface != nullptr;
+}
+
+void DestroyCpuSurfaces() noexcept
+{
+    gCpuTempSurface.reset();
+    gCpuAutoMapSurface.reset();
+    gCpuBackSurface.reset();
+}
+
+std::span<const std::uint32_t> ReadCpuBackPixels() noexcept
+{
+    if (gCpuBackSurface == nullptr) {
+        return {};
+    }
+    return *gCpuBackSurface;
+}
+
+std::int32_t ClearSurface_4512C0() noexcept
+{
+    if (gCpuBackSurface == nullptr) {
+        return -1;
+    }
+    const std::uint32_t color = gBackgroundColor;
+    gCpuBackSurface->fill(color);
+    return 0;
+}
+
+bool CopyBackToTemp() noexcept
+{
+    if (gCpuBackSurface == nullptr || gCpuTempSurface == nullptr) {
+        return false;
+    }
+    *gCpuTempSurface = *gCpuBackSurface;
+    return true;
+}
 
 bool BlitTempToBack(
     const std::int32_t destinationX,
@@ -16,7 +74,9 @@ bool BlitTempToBack(
     const std::int32_t sourceRight,
     const std::int32_t sourceBottom) noexcept
 {
-    if (destinationX < 0
+    if (gCpuTempSurface == nullptr
+        || gCpuBackSurface == nullptr
+        || destinationX < 0
         || destinationY < 0
         || sourceLeft < 0
         || sourceTop < 0
@@ -45,9 +105,9 @@ bool BlitTempToBack(
                 * kCpuSurfacePitchPixels
             + static_cast<std::size_t>(destinationX);
         std::copy_n(
-            gCpuTempSurface.data() + sourceIndex,
+            gCpuTempSurface->data() + sourceIndex,
             width,
-            gCpuBackSurface.data() + destinationIndex);
+            gCpuBackSurface->data() + destinationIndex);
     }
     return true;
 }

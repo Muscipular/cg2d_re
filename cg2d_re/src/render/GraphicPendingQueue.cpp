@@ -218,7 +218,7 @@ std::int32_t Sub_521870()
         gRippleStrengthBits = 0;
     }
 
-    gCpuTempSurface = gCpuBackSurface;
+    static_cast<void>(CopyBackToTemp());
 
     float xDelta;
     float yDelta;

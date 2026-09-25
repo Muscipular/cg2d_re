@@ -53,9 +53,9 @@ API、属性名和返回值依据本地 `third_party/sdl/SDL3-3.4.8/include/SDL3
 未修改计划、进度或 CMake，未编译、运行、编写测试或提交。
 当前仅完成实现和本地头文件静态核对，不代表已通过链接、外部窗口生命周期或真实画面的运行验收。
 
-## ClearSurface@0x4512C0：原端证据与待批统一逻辑 Back SPEC
+## ClearSurface@0x4512C0：原端证据与统一逻辑 Back
 
-状态：**NEEDS_CLARIFICATION**。本节仅记录已核实原端事实及待批候选，不构成实现授权。
+状态：**底层 owner 与清屏叶已落位，父级接线未完成**。下方裁决前的候选文字保留作为历史边界，当前实施口径见 2026-09-25 裁决与源码状态。
 
 ### 原端已核实事实
 
@@ -68,7 +68,7 @@ API、属性名和返回值依据本地 `third_party/sdl/SDL3-3.4.8/include/SDL3
 ### 与当前 SDL/CPU 边界的区别
 
 - [SdlPresenter.cpp](../src/render/SdlPresenter.cpp) 的 `SDL_RenderClear` 发生在整帧上传后的最终输出阶段，随后绘制完整纹理并提交；它不清空上层逻辑 Back，不能代替 `ClearSurface` 的当次 Back 颜色填充。
-- [SurfaceState.hpp](../include/cg/render/SurfaceState.hpp) / [SurfaceState.cpp](../src/render/SurfaceState.cpp) 的 640×480 CPU Back/Temp 目前仅按已批准波纹链使用；[GraphicPendingQueue.cpp](../src/render/GraphicPendingQueue.cpp) 在波纹路径快照 Back 到 Temp 并逐条带回拷。该局部批准不自动授予全部画面统一 Back 的 owner 或生命周期，也不证明画面链已完成。
+- [SurfaceState.hpp](../include/cg/render/SurfaceState.hpp) / [SurfaceState.cpp](../src/render/SurfaceState.cpp) 最初只有波纹链使用的常驻 CPU Back/Temp；2026-09-25 裁决后已改为唯一动态 owner，波纹快照复用窄接口。这只落实存储及清屏叶，不证明画面链已完成。
 - 已批准 DX7 底层 `Blt` 等价映射 SDL/CPU，不要求逐码复刻 DX7 `HRESULT` 或 COM vtable；但上层触发、W32 颜色、像素内容、共享 Back/Temp 生命周期与提交顺序仍受 [渲染替换约束](../plan/cg2d_full_reconstruction_plan.md) 约束。
 
 ### Back/Temp 原生命周期的拆分
@@ -84,7 +84,7 @@ API、属性名和返回值依据本地 `third_party/sdl/SDL3-3.4.8/include/SDL3
 | 初次初始化 | `457747–45774E` | 调 `BuildSurfaceCache` 后检查完整 EAX32，零值走本处失败退出。 |
 | `Renderer::Rebuild` | `466B8C–466C1D` | 先 `Destroy` 后 `Init`，可能切换窗口模式再调一次 `Init`；无论前述消息/投递路径如何，随后调用 `BuildSurfaceCache` 且不检查其返回，继续 `InitPalette`。 |
 
-两面逻辑缓冲不能因为新端目前是静态数组，就把原先
+两面逻辑缓冲不能因为新端此前是静态数组，就把原先
 不同阶段的发布、失败和重建顺序写成“一次原子创建”。
 DX7 显存/系统内存 caps 已获底层替换豁免，但不等于
 上层可忽略初次构建的零返回门禁，或在重建时补加
@@ -94,14 +94,13 @@ SDL/CPU 的创建失败、剩余资源状态及驱动选择仍待 SPEC。
 ### 当前源码接线边界（2026-09-25 静态核对）
 
 - `SdlPresenter::Create/Present/Destroy` 目前仅在 [SdlPresenter.hpp](../include/cg/render/SdlPresenter.hpp) 声明、[SdlPresenter.cpp](../src/render/SdlPresenter.cpp) 定义；在本子项目 `src/`、`include/` 内未找到实例创建或这些成员的调用。`Present` 内部的 SDL 清输出、上传纹理和提交不能证明原逻辑 Back 已送达最终窗口。
-- `gCpuBackSurface/gCpuTempSurface` 的直接访问限于 [SurfaceState.cpp](../src/render/SurfaceState.cpp) 的逐行复制和 [GraphicPendingQueue.cpp](../src/render/GraphicPendingQueue.cpp) 的波纹快照；[MainLoopSupport.cpp](../src/platform/MainLoopSupport.cpp) 只通过 `BlitTempToBack` 使用此对缓冲。背景色由 [LoginCapability3Scene.cpp](../src/LoginCapability3Scene.cpp) 写入同一 `gBackgroundColor`，而 [MainLoopDependencies.hpp](../src/platform/MainLoopDependencies.hpp) 的 `ClearSurface/DrawAllQueued/Flip` 仍只有真实声明。
-- 这是当前源码的接线事实，不是原端新取证，也不批准扩大波纹专用 Back 的作用域。单独填充该数组无法闭合原端在同一 Back 上的清屏、队列绘制、翻转及其创建/重建/销毁链。
+- Back/AutoMap/Temp 现由 [SurfaceState.cpp](../src/render/SurfaceState.cpp) 唯一私有持有；[GraphicPendingQueue.cpp](../src/render/GraphicPendingQueue.cpp) 的波纹快照及 [MainLoopSupport.cpp](../src/platform/MainLoopSupport.cpp) 的 Temp→Back 回拷都经窄接口。背景色仍由 [LoginCapability3Scene.cpp](../src/LoginCapability3Scene.cpp) 写入同一 `gBackgroundColor`。`ClearSurface` 已有定义，`DrawAllQueued/Flip` 仍只有真实声明。
+- 这是当前源码接线事实，不是原端新取证；清屏叶单独落位尚不足以闭合初始化、图形队列、翻转和销毁链。
 
-### 待用户批准的 SPEC 候选
+### 裁决前的 SPEC 候选（历史）
 
-- **候选行为，未批准：**将 `ClearSurface` 映射为对统一逻辑 Back 的 640×480 区域按每次调用时读取的完整 W32 背景色填充；保留调用时点及后续绘制、提交顺序。不预设最终画面已接通，不使用固定成功返回伪造原上层返回合同。
-- **必须另行裁决：**统一 Back 的唯一 owner、与现有波纹专用 CPU Back/Temp 的共享关系，以及创建、重建、销毁时点；直接 caller 的返回消费已按下节核对，替换后的返回与失败策略仍须单独裁决。SDL renderer driver 选择及失败处理也须独立裁决，不从本函数的原 DX7 `Blt` 结果推定新后端策略。
-- 用户批准上述 SPEC 前，不实施源码或接线，不预记 `ClearSurface` 已实现或原画面链完成；事实进度登记不受此限。
+- 此前候选是将 `ClearSurface` 映射为对统一逻辑 Back 的 640×480 区域按每次调用时读取的完整 W32 背景色填充；保留调用时点及后续绘制、提交顺序，不使用固定成功返回。这部分已按下方裁决落实。
+- 此前待决的统一 owner、与波纹链共享、资源顺序及自动 driver 已由下方裁决确定。原端事实和其他未决的图形、字体、帧槽及父级调用仍分别保留。
 
 ### 2026-09-25 授权裁决与实施边界
 
@@ -139,6 +138,27 @@ SDL/CPU 的创建失败、剩余资源状态及驱动选择仍待 SPEC。
 资源初始化、图形队列、字体、纹理、逐像素绘制、最终
 提交或完整客户端链接与运行的验收。
 
+### 已落位的 CPU 面与清屏叶
+
+[SurfaceState.cpp](../src/render/SurfaceState.cpp) 以私有
+`unique_ptr` 分别持有固定 640×480、W32 的 Back、
+AutoMap、Temp。`CreateCpuBackSurface` 只创建 Back；
+`BuildCpuSurfaceBuffers` 先发布 AutoMap、再分配 Temp，
+实际分配失败返回 false，Temp 失败不回滚 AutoMap。
+`DestroyCpuSurfaces` 按 Temp→AutoMap→Back 释放。
+这三个边界尚未与 `Renderer::Init/BuildSurfaceCache/Destroy`
+父入口接线，不把辅助函数当作原父函数已实现。
+
+`ClearSurface_4512C0` 只有 Back 非空才读取完整
+`gBackgroundColor` 并填满同一面；无 Back 返回非零，
+成功返回零，不替换原 `HRESULT` 逐码语义。
+`CopyBackToTemp` 与原波纹路径、`BlitTempToBack` 共用
+同一资源状态；缺少任一面时不复制并报告失败。
+`ReadCpuBackPixels` 只提供 Back 生命周期内的非拥有
+只读视图，未创建时为空。当前 `MainLoop` 对清屏叶
+的结果仍按原调用丢弃；AutoMap 的后续真实消费者、
+SDL 帧提交、`Flip` 帧槽和父级失败分流继续待实施。
+
 ### `4512C0` 直接调用点的返回消费
 
 2026-09-24，当前 `ida-17524/cg2d.exe.i64` 对 `4512C0`
@@ -163,7 +183,7 @@ SDL/CPU 的创建失败、剩余资源状态及驱动选择仍待 SPEC。
 依然返回底层 `Blt` 的完整 EAX32；已批准的 DX7
 底层失败码豁免不等于允许固定成功、改变统一 Back
 生命周期或绕过 SDL 提交失败处理。上述裁决已确定
-统一 owner 与状态结果口径；源码尚未落位。
+统一 owner 与状态结果口径；清屏叶已落位，其他父链未完成。
 
 ## Flip@0x44C560：原端分支与共享帧槽
 
@@ -210,7 +230,7 @@ caller 的完整画面链。
 尚未确定。[SdlPresenter](../include/cg/render/SdlPresenter.hpp) 仍没有
 调用接线，不能仅以其 `Present` 代替上述共享写序。已批准的 DX7
 底层等价替换不批准改变上层 lost/帧槽副作用；具体后端失败映射、
-统一 Back 与生命周期、驱动选择继续待用户 SPEC，不编码 `Flip`，
+统一 Back owner 和驱动选择已有裁决；创建/销毁接线及 SDL 错误时点仍须实施，不编码 `Flip`，
 不计主循环画面、完整链接或运行完成。
 
 ## DrawAllQueued@0x520DD0：入口、分发表与尾部边界

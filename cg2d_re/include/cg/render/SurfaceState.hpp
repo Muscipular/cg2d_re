@@ -3,6 +3,7 @@
 #include <array>
 #include <cstddef>
 #include <cstdint>
+#include <span>
 
 namespace cg::render {
 
@@ -25,8 +26,19 @@ static_assert(
 // 32 位 0x00RRGGBB、自上而下、行主序；固定 pitch 为 640 像素/2560 字节。
 using CpuSurfacePixels = std::array<std::uint32_t, kCpuSurfacePixelCount>;
 
-extern CpuSurfacePixels gCpuBackSurface;
-extern CpuSurfacePixels gCpuTempSurface;
+// 原 renderer 初始化与缓存构建的底层资源阶段；不代替父函数的其他副作用。
+bool CreateCpuBackSurface() noexcept;
+bool BuildCpuSurfaceBuffers() noexcept;
+void DestroyCpuSurfaces() noexcept;
+
+// 非拥有视图只在 Back 生命周期内有效；未创建时返回空视图。
+std::span<const std::uint32_t> ReadCpuBackPixels() noexcept;
+
+// 原 4512C0：已创建的 Back 按当次完整 W32 背景色填充；无 Back 返回非零。
+std::int32_t ClearSurface_4512C0() noexcept;
+
+// 原 Back→Temp 整面快照；源或目标尚未创建时不复制。
+bool CopyBackToTemp() noexcept;
 
 // 将 Temp 的半开源矩形同步复制到 Back，不混合、不缩放、不使用色键。
 // 调用方必须先裁剪到固定 Back/Temp 边界；非法或空请求不复制并返回 false。

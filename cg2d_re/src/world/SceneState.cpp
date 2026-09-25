@@ -69,6 +69,27 @@ std::array<std::uint64_t, 360> gAngleTableBits55DF10 {
 #include "SceneAngleTable55DF10.inc"
 };
 
+// 原 .data [0x55EA50,0x55EC58)：65 项 F64 位型，按表项原序保存。
+std::array<std::uint64_t, 65> gAngleTableBits55EA50 {
+    0x0000000000000000ULL, 0x3FECA543F1C75819ULL, 0x3FFCA379B77C02B0ULL, 0x4005785F06F69446ULL,
+    0x400C9C55000C953AULL, 0x4011DE5EEDCC20D5ULL, 0x40156C5D63886595ULL, 0x4018F7B84DB9C737ULL,
+    0x401C800431BDE82DULL, 0x4020026BD6E8AF81ULL, 0x4021C2E5BC87DB2BULL, 0x4023813DD97F62B7ULL,
+    0x40253D436B8F9B13ULL, 0x4026F6C7863BEEC4ULL, 0x4028AD9CCFAEFF5CULL, 0x402A6197C3D68406ULL,
+    0x402C128E71476AF9ULL, 0x402DC059641F6449ULL, 0x402F6AD2999567DCULL, 0x403088EB24A6A876ULL,
+    0x40315AA161E4F766ULL, 0x40322A7C286F8AD2ULL, 0x4032F86CA89FC6DAULL, 0x4033C46530058149ULL,
+    0x40348E58F7121AB5ULL, 0x4035563C64345CFFULL, 0x40361C04C8BC9CD4ULL, 0x4036DFA8826AA8EBULL,
+    0x4037A11EEAA6D267ULL, 0x4038606045BAF534ULL, 0x40391D65D3996FA8ULL, 0x4039D829CFDD2285ULL,
+    0x403A90A72EAD9275ULL, 0x403B46D9F0A1BE2BULL, 0x403BFABECEDD4845ULL, 0x403CAC535C9E6688ULL,
+    0x403D5B95C4220360ULL, 0x403E088509BF9C63ULL, 0x403EB3210BE9424EULL, 0x403F5B69EC2CE465ULL,
+    0x404000B063E07A29ULL, 0x404052839042D8C3ULL, 0x4040A32F87AD080BULL, 0x4040F2B599AA6091ULL,
+    0x40414117481B21C4ULL, 0x40418E56605EE569ULL, 0x4041DA74D9C6B053ULL, 0x40422574E65BEA0CULL,
+    0x40426F58D1526D8BULL, 0x4042B8232096787DULL, 0x4042FFD6733EBBFDULL, 0x40434675A31A4BDCULL,
+    0x40438C03925BB7B7ULL, 0x4043D0833C60029FULL, 0x404413F7CED91687ULL, 0x404456646F156191ULL,
+    0x404497CC63F14120ULL, 0x4044D83315D701DAULL, 0x4045179BD4067CF2ULL, 0x4045560A2877EE4EULL,
+    0x4045938183F91E64ULL, 0x4045D005681ECD4BULL, 0x40460B996FA82E88ULL, 0x404646411C2A0232ULL,
+    0x4046800000000000ULL,
+};
+
 static_assert(sizeof(kCutPath55DE50) == 23);
 static_assert(sizeof(kCutReadMode554920) == 3);
 static_assert(sizeof(kCutMessage55DE3C) == 20);
@@ -82,6 +103,7 @@ static_assert(sizeof(kMapPathZero) == 13);
 static_assert(sizeof(kMapPathOther) == 16);
 static_assert(sizeof(gText55BAE0) == 8);
 static_assert(sizeof(gAngleTableBits55DF10) == 2880);
+static_assert(sizeof(gAngleTableBits55EA50) == 520);
 
 } // namespace
 
@@ -1069,6 +1091,48 @@ double __cdecl Sub_46F950(const float angle)
 {
     const float shifted = angle + 90.0F;
     return Sub_46F930(shifted);
+}
+
+// 原 [0x46F970,0x46FACF)：原表插值及八路象限修正，F32 写槽独立保留。
+double __cdecl Sub_46F970(const float first, const float second)
+{
+    if (first == 0.0F && second == 0.0F) {
+        return 0.0;
+    }
+
+    const bool firstNegative = first < 0.0F;
+    const bool secondNegative = second < 0.0F;
+    const double firstAbs = firstNegative ? -static_cast<double>(first)
+                                          : static_cast<double>(first);
+    const double secondAbs = secondNegative ? -static_cast<double>(second)
+                                            : static_cast<double>(second);
+    const bool swapAxes = firstAbs < secondAbs;
+    const std::int32_t selector =
+        (firstNegative ? 1 : 0) + (secondNegative ? 2 : 0) + (swapAxes ? 4 : 0);
+    const double scaled =
+        (swapAxes ? firstAbs / secondAbs : secondAbs / firstAbs) * 64.0;
+    const std::int32_t index = static_cast<std::int32_t>(scaled);
+    const std::int32_t nextIndex = index + 1 > 64 ? 64 : index + 1;
+    const float fraction = static_cast<float>(scaled - static_cast<double>(index));
+    const double firstWeight = 1.0 - static_cast<double>(fraction);
+    const double left = std::bit_cast<double>(
+        gAngleTableBits55EA50[static_cast<std::size_t>(index)]) * firstWeight;
+    const double right = std::bit_cast<double>(
+        gAngleTableBits55EA50[static_cast<std::size_t>(nextIndex)])
+        * static_cast<double>(fraction);
+    const float angle = static_cast<float>(left + right);
+
+    switch (selector) {
+    case 0: return static_cast<double>(angle);
+    case 1: return 180.0 - static_cast<double>(angle);
+    case 2: return 360.0 - static_cast<double>(angle);
+    case 3: return static_cast<double>(angle) + 180.0;
+    case 4: return 90.0 - static_cast<double>(angle);
+    case 5: return static_cast<double>(angle) + 90.0;
+    case 6: return static_cast<double>(angle) + 270.0;
+    case 7: return 270.0 - static_cast<double>(angle);
+    default: return 0.0;
+    }
 }
 
 // 原 [0x4D3170,0x4D317B)：仅将 0x581800 写为 -1 后返回。

@@ -828,6 +828,16 @@ void SetContext_44B330(InputContext* const context)
     gCurrentInputData = context;
 }
 
+std::int32_t IsCurrentContext_503E40(const InputContext* const context)
+{
+    return gCurrentInputData == context ? 1 : 0;
+}
+
+std::int32_t IsChatContext_503E60()
+{
+    return gCurrentInputData == &gInputContext626AA0 ? 1 : 0;
+}
+
 void InitializeContext_449CF0(
     InputContext* const context,
     const std::int32_t field130,

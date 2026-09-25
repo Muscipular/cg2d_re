@@ -103,6 +103,7 @@ extern std::array<std::uint16_t, kMapBufferCells> gMapTileArray;
 extern std::array<std::uint16_t, kMapBufferCells> gMapObjArray;
 extern std::array<std::uint16_t, kMapBufferCells> gMapHitArray;
 extern std::uint16_t gLastDetectedCode; // 原 9DAD4A；不随 pending 清理。
+extern std::int32_t gValue9E0434; // 原 9E0434；50C870 写，地图路径/保存共读。
 
 // 原 468520；调用方传入 9E0434 当前值，返回 sprintf 的完整结果。
 std::int32_t __cdecl Sub_468520(

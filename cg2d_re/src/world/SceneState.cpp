@@ -346,6 +346,7 @@ std::array<std::uint16_t, kMapBufferCells> gMapTileArray {};
 std::array<std::uint16_t, kMapBufferCells> gMapObjArray {};
 std::array<std::uint16_t, kMapBufferCells> gMapHitArray {};
 std::uint16_t gLastDetectedCode = 0;
+std::int32_t gValue9E0434 = 0;
 
 static_assert(sizeof(gMapTileArray) == 5202);
 static_assert(sizeof(gMapObjArray) == 5202);

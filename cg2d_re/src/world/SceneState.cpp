@@ -443,6 +443,12 @@ std::uint32_t gValue9DAD78 = 0;
 std::uint8_t gValue9A4B94 = 0;
 std::uint16_t gValueC82200 = 0;
 std::uint16_t gValueC82202 = 0;
+std::array<std::uint16_t, kMovePathCapacity> gMovePathDirections {};
+std::array<std::uint16_t, kMovePathCapacity> gMovePathX {};
+std::array<std::uint16_t, kMovePathCapacity> gMovePathY {};
+static_assert(sizeof(gMovePathDirections) == 0xC8);
+static_assert(sizeof(gMovePathX) == 0xC8);
+static_assert(sizeof(gMovePathY) == 0xC8);
 std::uint32_t gValueC821FC = 0;
 std::uint32_t gValue9EE8B8 = 0;
 std::uint16_t gValueC8A79C = 0;
@@ -908,6 +914,23 @@ std::int32_t __cdecl Sub_46A9E0()
     gValueC82234 = 0;
     gValueC82236 = 0;
     return 0;
+}
+
+// 原 [0x46BC90,0x46BCE4)：先减路径数量，剩余项按方向、X、Y 原序左移。
+void __cdecl Sub_46BC90()
+{
+    if (std::bit_cast<std::int16_t>(gValueC82200) <= 0) {
+        return;
+    }
+    --gValueC82200;
+    const std::int32_t remaining =
+        std::bit_cast<std::int16_t>(gValueC82200);
+    for (std::int32_t index = 0; index < remaining; ++index) {
+        const std::size_t position = static_cast<std::size_t>(index);
+        gMovePathDirections[position] = gMovePathDirections[position + 1];
+        gMovePathX[position] = gMovePathX[position + 1];
+        gMovePathY[position] = gMovePathY[position + 1];
+    }
 }
 
 // 原 [0x46AB60,0x46ABCD)：先分发，再只清 active/countdown。

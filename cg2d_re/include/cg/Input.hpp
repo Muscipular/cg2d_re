@@ -64,6 +64,14 @@ extern InputContext* gCurrentInputData;
 extern InputContext gInputContext626AA0;
 // 原连续区间 [0x5F9758,0x5FB7F8)：24 项 InputContext 的唯一 owner。
 extern InputContext gInputContexts5F9758[24];
+// 原回车分派按地址比较的七个独立 InputContext；各自保留原地址身份。
+extern InputContext gInputContextD66CA8;
+extern InputContext gInputContextCB03F0;
+extern InputContext gInputContextCC46E0;
+extern InputContext gInputContextCC2080;
+extern InputContext gInputContextD2D828;
+extern InputContext gInputContextCA0180;
+extern InputContext gInputContextC8B1B8;
 // 原 dword_C9A96C@0xC9A96C：该特殊上下文的外部控制值，映像初值为零。
 extern std::int32_t gValueC9A96C;
 

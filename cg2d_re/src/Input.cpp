@@ -27,6 +27,13 @@ namespace cg::input {
 
 InputContext gInputContext626AA0 {};
 InputContext gInputContexts5F9758[24] {};
+InputContext gInputContextD66CA8 {};
+InputContext gInputContextCB03F0 {};
+InputContext gInputContextCC46E0 {};
+InputContext gInputContextCC2080 {};
+InputContext gInputContextD2D828 {};
+InputContext gInputContextCA0180 {};
+InputContext gInputContextC8B1B8 {};
 InputContext* gCurrentInputData = nullptr;
 std::int32_t gValueC9A96C = 0;
 std::int32_t gValue626C0C = 0;

@@ -304,6 +304,9 @@ std::int32_t Sub_512190(std::uintptr_t socket, std::int32_t value);
 // 原 sub_5121E0@[0x5121E0,0x512228)：构造 wAo、追加一个整数并发送。
 std::int32_t Sub_5121E0(std::uintptr_t socket, std::int32_t value);
 
+// 原 sub_512270@[0x512270,0x5122B8)：构造 OU、追加一个整数并发送。
+std::int32_t Sub_512270(std::uintptr_t socket, std::int32_t value);
+
 // 原 sub_5125B0@[0x5125B0,0x51261B)：构造 ycX、追加整数及原字节文本并发送。
 std::int32_t Sub_5125B0(
     std::uintptr_t socket, std::int32_t value, const char* text);

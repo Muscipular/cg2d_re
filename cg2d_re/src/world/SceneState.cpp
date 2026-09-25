@@ -1495,6 +1495,111 @@ void __cdecl Sub_509090(
     }
 }
 
+// 原 [0x509100,0x5093B6)：同一局部帧中的 WORD 写入可覆盖后续原文。
+std::int32_t __cdecl Sub_509100(
+    const std::uintptr_t, const std::int32_t mapId,
+    const std::int32_t floor, const std::int32_t xStart,
+    const std::int32_t yStart, const std::int32_t xEnd,
+    const std::int32_t yEnd, const char* const payload)
+{
+    if (gValue9A6E0C != 0) {
+        return std::bit_cast<std::int32_t>(gValue9A6E0C);
+    }
+
+    constexpr std::size_t frameBytes = 0x10594;
+    constexpr std::size_t tileOffset = 0x64;
+    constexpr std::size_t tileTextOffset = 0x1064;
+    constexpr std::size_t objOffset = 0x5774;
+    constexpr std::size_t objTextOffset = 0x6774;
+    constexpr std::size_t hitOffset = 0xAE84;
+    constexpr std::size_t hitTextOffset = 0xBE84;
+    static_assert(std::endian::native == std::endian::little);
+    // 末尾的零 WORD 只为越帧的异常文本扫描提供终止字节。
+    std::array<std::uint16_t, frameBytes / 2 + 1> frame {};
+    char* const bytes = reinterpret_cast<char*>(frame.data());
+    std::uint16_t* const tile = frame.data() + tileOffset / 2;
+    std::uint16_t* const obj = frame.data() + objOffset / 2;
+    std::uint16_t* const hit = frame.data() + hitOffset / 2;
+    char* const tileText = bytes + tileTextOffset;
+    char* const objText = bytes + objTextOffset;
+    char* const hitText = bytes + hitTextOffset;
+    char* const field = bytes;
+
+    static_cast<void>(network::ExtractDelimitedField_52CED0(
+        payload, '|', 1, 0x470F, tileText));
+    static_cast<void>(network::ExtractDelimitedField_52CED0(
+        payload, '|', 2, 0x470F, objText));
+    static_cast<void>(network::ExtractDelimitedField_52CED0(
+        payload, '|', 3, 0x470F, hitText));
+
+    const std::int32_t firstStatus = network::ExtractDelimitedField_52CED0(
+        tileText, ',', 1, 99, field);
+    tile[0] = static_cast<std::uint16_t>(network::Base62Decode_52D050(field));
+    static_cast<void>(network::ExtractDelimitedField_52CED0(
+        objText, ',', 1, 99, field));
+    obj[0] = static_cast<std::uint16_t>(network::Base62Decode_52D050(field));
+    static_cast<void>(network::ExtractDelimitedField_52CED0(
+        hitText, ',', 1, 99, field));
+    hit[0] = static_cast<std::uint16_t>(network::Base62Decode_52D050(field));
+
+    if (firstStatus != 1) {
+        std::size_t item = 1;
+        std::int32_t ordinal = 2;
+        std::int32_t status;
+        do {
+            // 第三段的末尾是整帧边界；越过它不模拟原 x86 栈外写。
+            if (item >= (frameBytes - hitOffset) / 2) {
+                return -1;
+            }
+            status = network::ExtractDelimitedField_52CED0(
+                tileText, ',', ordinal, 99, field);
+            tile[item] = static_cast<std::uint16_t>(
+                network::Base62Decode_52D050(field));
+            static_cast<void>(network::ExtractDelimitedField_52CED0(
+                objText, ',', ordinal, 99, field));
+            obj[item] = static_cast<std::uint16_t>(
+                network::Base62Decode_52D050(field));
+            static_cast<void>(network::ExtractDelimitedField_52CED0(
+                hitText, ',', ordinal, 99, field));
+            hit[item] = static_cast<std::uint16_t>(
+                network::Base62Decode_52D050(field));
+            ++item;
+            ++ordinal;
+        } while (status != 1);
+    }
+
+    static_cast<void>(Sub_4688A0(
+        mapId, floor, xStart, yStart, xEnd, yEnd, tile, obj, hit));
+    if ((gValue9EE8B8 != 0 || gValueC82208 != 0)
+        && gMapFloor == floor) {
+        Sub_4691D0();
+        gValueC82208 = 0;
+    }
+    gValue9A4B94 &= 0xFEu;
+
+    if (std::bit_cast<std::int32_t>(gValue9A86DC) == mapId
+        && gMapFloor == floor
+        && platform::legacy_crypt_int::Subtract_401E60(&gPlayerX, 10) <= xStart
+        && xEnd <= platform::legacy_crypt_int::Add_401E10(&gPlayerX, 10)
+        && platform::legacy_crypt_int::Subtract_401E60(&gPlayerY, 10) <= yStart
+        && yEnd <= platform::legacy_crypt_int::Add_401E10(&gPlayerY, 10)) {
+        gValue9EE910 = 1;
+    }
+
+    const std::uint32_t state = gValueC82214;
+    if (state != 1) {
+        return std::bit_cast<std::int32_t>(state);
+    }
+    const std::int32_t currentFloor = gMapFloor;
+    if (currentFloor != floor) {
+        return currentFloor;
+    }
+    gValueC82210 = 0;
+    gValueC82214 = 0;
+    gValueC82218 = 0;
+    return 0;
+}
+
 // 原 [0x509550,0x509642)：原位反转义、两段提取与地图回复状态发布。
 std::int32_t __cdecl Sub_509550(
     const std::uintptr_t, char* const payload)

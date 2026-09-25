@@ -370,6 +370,11 @@ void __cdecl Sub_509090(
     std::int32_t yStart, std::int32_t xEnd,
     std::int32_t yEnd, std::int32_t expectedTile,
     std::int32_t expectedObj, std::int32_t expectedHit); // 原 [0x509090,0x5090FC)，地图校验回复回调。
+std::int32_t __cdecl Sub_509100(
+    std::uintptr_t socket, std::int32_t mapId,
+    std::int32_t floor, std::int32_t xStart,
+    std::int32_t yStart, std::int32_t xEnd,
+    std::int32_t yEnd, const char* payload); // 原 [0x509100,0x5093B6)，连续局部帧地图增量回复。
 std::int32_t __cdecl Sub_509550(
     std::uintptr_t socket, char* payload); // 原 [0x509550,0x509642)，地图回复文本与数值发布。
 void __cdecl Sub_51D6F0(); // 原 [0x51D6F0,0x51D743)，消费回复索引并选择调色板。

@@ -2,6 +2,7 @@
 #include "ImeLifecycle.hpp"
 
 #include "cg/GraphicRead.hpp"
+#include "cg/LegacyAudio.hpp"
 #include "cg/YobiRuntime.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/LegacyMouseTracker.hpp"
@@ -27,7 +28,6 @@ HGLOBAL Sub_44E110();                     // 原 0x44E110：HGLOBAL()。
 void RendererDestroy_44C3C0();            // 原 0x44C3C0：void __cdecl()。
 int Sub_454EE0();                          // 原 0x454EE0：int()。
 std::uint32_t Sub_52B630();                // 原 0x52B630：门值或 Release 的 EAX32。
-bool Sub_52CCE0();                         // 原 0x52CCE0：bool()。
 int AnimeUnload_45BEF0();                  // 原 AnimeUnload@0x45BEF0：int()。
 int Sub_45BF20();                          // 原 0x45BF20：int()。
 void Sub_457670();                         // 原 0x457670：void()。
@@ -52,7 +52,7 @@ int ShutdownClient_457A40()
     shutdown_detail::RendererDestroy_44C3C0();
     shutdown_detail::Sub_454EE0();
     shutdown_detail::Sub_52B630();
-    shutdown_detail::Sub_52CCE0();
+    audio::Sub_52CCE0();
     shutdown_detail::AnimeUnload_45BEF0();
     shutdown_detail::Sub_45BF20();
     cg::resource::CloseGraphicFiles();

@@ -9,6 +9,11 @@
 #include <cstddef>
 #include <cstdint>
 
+#define WIN32_LEAN_AND_MEAN
+#define NOMINMAX
+#include <Windows.h>
+#include <mmsystem.h>
+
 namespace {
 
 struct LegacyAudioRecord final {
@@ -56,6 +61,20 @@ static_assert(sizeof(gSpatialRecords103D1C0) == 0x3E8);
 } // namespace
 
 std::uint32_t gValue103DE80 = 0;
+volatile std::uint32_t gMciDeviceId = 0;
+std::uint32_t gMciCloseResult = 0;
+
+std::uint32_t Sub_52CCE0() noexcept
+{
+    if (gValue103DE80 == 1) {
+        return 1;
+    }
+
+    mciSendCommandA(gMciDeviceId, MCI_STOP, 0, 0);
+    const std::uint32_t result = mciSendCommandA(gMciDeviceId, MCI_CLOSE, 0, 0);
+    gMciCloseResult = result;
+    return (result & 0xFFFFFF00u) | static_cast<std::uint32_t>(result == 0);
+}
 
 SpatialAudioRecord* __cdecl Sub_52CD40()
 {

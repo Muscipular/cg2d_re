@@ -48,7 +48,7 @@
 | `0x457A4F` | `Renderer::Destroy@0x44C3C0` / `void __cdecl` | 未实现，声明 `RendererDestroy_44C3C0()` |
 | `0x457A54` | `sub_454EE0` / `int` | 未实现，真实签名声明 |
 | `0x457A59` | `sub_52B630` / EAX32 整数 | 未实现；私有声明已由指针候选校正为 `uint32_t` |
-| `0x457A5E` | `sub_52CCE0` / `bool` | 未实现，真实签名声明 |
+| `0x457A5E` | `sub_52CCE0` / 仅改 AL 的 EAX32 | 已直接接入 `audio::Sub_52CCE0()`；设备号上游仍待取证 |
 | `0x457A63` | `AnimeUnload@0x45BEF0` / `int` | 未实现，真实签名声明 |
 | `0x457A68` | `sub_45BF20` / `int` | 未实现，真实签名声明 |
 | `0x457A6D` | `sub_45A6C0` / `FILE*` | 直接调用已实现 `resource::CloseGraphicFiles()`；原返回被忽略，新实现为 `void` |

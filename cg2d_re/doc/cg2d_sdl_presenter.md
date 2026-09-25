@@ -108,3 +108,43 @@ API、属性名和返回值依据本地 `third_party/sdl/SDL3-3.4.8/include/SDL3
 底层失败码豁免不等于允许固定成功、改变统一 Back
 生命周期或绕过 SDL 提交失败处理。统一 owner 与
 具体等价返回策略未获批准，源码继续待确认。
+
+## Flip@0x44C560：原端分支与共享帧槽
+
+2026-09-25，在已打开的 `ida-17524/cg2d.exe.i64` 会话中只读核对
+`Renderer::Flip@[0x44C560,0x44C6A5)` 的反编译、完整反汇编及直接引用。
+本体无显式参数，原型为 `void __cdecl()`；直接调用点为
+`4572BE/458264/45852E/4585CC/45873A/458ACD`，本节不推断这些
+caller 的完整画面链。
+
+1. `44C560–44C571` 读取 `gWindowMode@9A7F48`。恰为 1 时，
+   `44C577–44C5B9` 以 `(0,0)` 调 `ClientToScreen`，随后
+   `GetClientRect`、`OffsetRect` 得到屏幕坐标矩形；三个 API 的返回
+   在本体均不判定。`word_554B74==0` 才进入 `44C5C1–44C5F1`
+   的 `GetScanLine` 等待：结果为 `0x88760219` 即退出，其他非零结果
+   累计至 10000 次退出，零结果继续循环。随后
+   `44C5F3–44C611` 以该矩形把 renderer `+0x0C` Back
+   `Blt` 到 `+0x08` 前表面，flags=`0x01000000`。
+2. 模式不为 1 时，`44C61A` 调
+   `hasIDirect3D7@44B610`；该叶在 `44B610–44B623` 只检查
+   renderer `+0x9C` 是否非零。非零走同样的
+   `GetScanLine` 等待（此分支不检查 `554B74`），再以空目标矩形
+   将 Back `Blt` 到前表面，flags=`0x01000000`；为零则
+   `44C671–44C680` 调前表面 `Flip(front,0,1)`。
+3. 三路底层调用结果在 `44C614/44C66B/44C683` 判完整 EAX32：
+   非零时 `44C687` 写 `gCRenderer::isLost@62B064=1`，零时不写。
+   无论走哪一路、结果如何，`44C68D–44C699` 都将独立
+   `W32[628FC8]` 写成“旧值是否为零”的 `0/1`，然后返回；
+   不能将帧槽翻转放进成功分支或用固定成功结果跳过 lost 写入。
+
+`628FC8` 在当前 IDA 有 20 处直接数据引用，除本体两处外还出现在
+`447070/447230/4473B0/4474E0/447610/447820/447A20/447C40`
+及 `RenderChara@521F20`，不能视为本函数局部计数器。新端
+[CommandOptions.hpp](../include/cg/platform/CommandOptions.hpp) 已有
+`554B74` 的唯一 W16 存储，[MainLoop.hpp](../include/cg/platform/MainLoop.hpp)
+已有 `62B064` 的状态声明；`628FC8` 的唯一 x64 owner 与跨绘制消费者
+尚未确定。[SdlPresenter](../include/cg/render/SdlPresenter.hpp) 仍没有
+调用接线，不能仅以其 `Present` 代替上述共享写序。已批准的 DX7
+底层等价替换不批准改变上层 lost/帧槽副作用；具体后端失败映射、
+统一 Back 与生命周期、驱动选择继续待用户 SPEC，不编码 `Flip`，
+不计主循环画面、完整链接或运行完成。

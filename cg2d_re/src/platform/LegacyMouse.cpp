@@ -45,6 +45,20 @@ struct WorldCoordinateStatesStaticInitializer {
 
 const WorldCoordinateStatesStaticInitializer gWorldCoordinateStatesStaticInitializer;
 
+struct WorldMoveStatesStaticInitializer {
+    WorldMoveStatesStaticInitializer()
+    {
+        cg::world::ConstructWorldMoveStates();
+    }
+
+    ~WorldMoveStatesStaticInitializer()
+    {
+        cg::world::DestroyWorldMoveStates();
+    }
+};
+
+const WorldMoveStatesStaticInitializer gWorldMoveStatesStaticInitializer;
+
 struct RippleGateStaticInitializer {
     RippleGateStaticInitializer()
     {

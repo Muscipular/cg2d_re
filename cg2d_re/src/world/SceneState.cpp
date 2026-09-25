@@ -149,6 +149,28 @@ void DestroyWorldCoordinateStates()
     platform::legacy_crypt_int::Destroy_401CF0(&detail::gPlayerSnapshotX);
 }
 
+void ConstructWorldMoveStates()
+{
+    platform::legacy_crypt_int::ConstructZero_401C70(&detail::gValue9A7F88);
+    platform::legacy_crypt_int::ConstructZero_401C70(&detail::gValue9A7F98);
+    platform::legacy_crypt_int::ConstructZero_401C70(&detail::gValueC821E8);
+    platform::legacy_crypt_int::ConstructZero_401C70(&detail::gValue9E03C0);
+    platform::legacy_crypt_int::ConstructZero_401C70(&detail::gValue9FB918);
+    platform::legacy_crypt_int::ConstructZero_401C70(&detail::gValueAF0FE8);
+    platform::legacy_crypt_int::ConstructZero_401C70(&detail::gValueC821D8);
+}
+
+void DestroyWorldMoveStates()
+{
+    platform::legacy_crypt_int::Destroy_401CF0(&detail::gValueC821D8);
+    platform::legacy_crypt_int::Destroy_401CF0(&detail::gValueAF0FE8);
+    platform::legacy_crypt_int::Destroy_401CF0(&detail::gValue9FB918);
+    platform::legacy_crypt_int::Destroy_401CF0(&detail::gValue9E03C0);
+    platform::legacy_crypt_int::Destroy_401CF0(&detail::gValueC821E8);
+    platform::legacy_crypt_int::Destroy_401CF0(&detail::gValue9A7F98);
+    platform::legacy_crypt_int::Destroy_401CF0(&detail::gValue9A7F88);
+}
+
 void ConstructRippleGate()
 {
     platform::legacy_crypt_int::ConstructZero_401C70(&gRippleGate);
@@ -382,6 +404,13 @@ platform::LegacyCryptInt gValue9EE8D0 {};
 platform::LegacyCryptInt gValue9EE8E0 {};
 platform::LegacyCryptInt gValueC27FF8 {};
 platform::LegacyCryptInt gValueC27FE8 {};
+platform::LegacyCryptInt gValue9A7F88 {};
+platform::LegacyCryptInt gValue9A7F98 {};
+platform::LegacyCryptInt gValueC821E8 {};
+platform::LegacyCryptInt gValue9E03C0 {};
+platform::LegacyCryptInt gValue9FB918 {};
+platform::LegacyCryptInt gValueAF0FE8 {};
+platform::LegacyCryptInt gValueC821D8 {};
 std::array<std::uint16_t, kMapBufferCells> gMapTileArray {};
 std::array<std::uint16_t, kMapBufferCells> gMapObjArray {};
 std::array<std::uint16_t, kMapBufferCells> gMapHitArray {};

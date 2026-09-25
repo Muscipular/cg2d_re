@@ -55,6 +55,10 @@ void DestroyPlayerCoordinates();
 void ConstructWorldCoordinateStates();
 void DestroyWorldCoordinateStates();
 
+// 原 467D60–467EE5；七个相邻 CRT 表项的构造与逆序析构。
+void ConstructWorldMoveStates();
+void DestroyWorldMoveStates();
+
 // 原 sub_448240@0x448240；只采样一次 gMapFloor。
 std::int32_t IsMapFloorAllowed_448240() noexcept;
 

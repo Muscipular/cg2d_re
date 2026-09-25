@@ -105,6 +105,13 @@ extern platform::LegacyCryptInt gValue9EE8D0;
 extern platform::LegacyCryptInt gValue9EE8E0;
 extern platform::LegacyCryptInt gValueC27FF8;
 extern platform::LegacyCryptInt gValueC27FE8;
+extern platform::LegacyCryptInt gValue9A7F88; // 原玩家移动目标 X。
+extern platform::LegacyCryptInt gValue9A7F98; // 原玩家移动目标 Y。
+extern platform::LegacyCryptInt gValueC821E8;
+extern platform::LegacyCryptInt gValue9E03C0;
+extern platform::LegacyCryptInt gValue9FB918;
+extern platform::LegacyCryptInt gValueAF0FE8;
+extern platform::LegacyCryptInt gValueC821D8;
 
 // 原 AEFB94/9DDB0C/9ED44C；468C40 的 tile/obj/hit 共享平面。
 inline constexpr std::size_t kMapBufferCells = 2601;

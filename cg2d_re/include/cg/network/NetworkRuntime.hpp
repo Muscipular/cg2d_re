@@ -356,6 +356,16 @@ std::int32_t Sub_5123B0(std::uintptr_t socket, std::int32_t value);
 std::int32_t Sub_5125B0(
     std::uintptr_t socket, std::int32_t value, const char* text);
 
+// 原 sub_512620@[0x512620,0x512717)：构造 xD、追加五整数与原字节文本并发送。
+std::int32_t Sub_512620(
+    std::uintptr_t socket,
+    std::int32_t first,
+    std::int32_t second,
+    std::int32_t third,
+    std::int32_t fourth,
+    std::int32_t fifth,
+    const char* text);
+
 // 原 sub_512720@[0x512720,0x5127AE)：构造 cZt、追加三个整数并发送。
 std::int32_t Sub_512720(
     std::uintptr_t socket,

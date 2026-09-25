@@ -6,6 +6,7 @@
 
 ## 1. 当前状态与阻断
 
+- **2026-09-25 `46B580` 路径方向差值包装已落位。** 依当前 IDA 的单块指令先写 Y 差 F32、再写 X 差 F32，以 `(X,Y)` 调 `46CDF0` 并透传完整 S64；四处直接 caller 都在 `46B6F0`。[场景证据 §82](../doc/cg2d_scene_state.md)保留其下层 x87 精度门禁；四文件限定差异、严格 UTF-8 无 BOM/LF、`git diff --check` 和 Debug `cg2d_re_core`/`cg2d_re_startup` 静态库编译通过，无新增警告。未检查产物、不新增或执行测试、不运行客户端，无 subAgent/独立复核；父路径和世界循环尚未接线。
 - **2026-09-25 `46AA00` pending 生产者已落位。** 复用短方向队列、原 `55D9DC` 八组可写 W16 分量、玩家 CryptInt、`46CDF0/46AE60/46AD00` 和 `4B0F10` 真实零返回叶，保留 type 3/1/2 写序、无命中及早退 EAX、共用尾部条件。[场景证据 §81](../doc/cg2d_scene_state.md)限定正常方向数量，异常别名及 x87 位级差异仍待验收；四文件限定差异、严格 UTF-8 无 BOM/LF、`git diff --check` 与 Debug `cg2d_re_core`/`cg2d_re_startup` 静态库编译通过，无新增警告。未检查产物、不新增或执行测试、不运行客户端，无 subAgent/独立复核；唯一 caller `469FC0` 和路径生产 `46B6F0` 尚未接线。
 - **2026-09-25 `46ABD0/46BCF0` 短方向队列已落位。** 复用第 79 节三平面与 `46BC90`，在 world detail 唯一持有 `9A86D4` 前两项 W16；按原序最多两轮搬首方向、发布 `C82202` 后消耗路径，并在移动后递减/左移短队列。[场景证据 §80](../doc/cg2d_scene_state.md)限定已证正常范围与异常别名未验收；四文件限定差异、严格 UTF-8 无 BOM/LF、`git diff --check` 和 Debug `cg2d_re_core`/`cg2d_re_startup` 静态库编译通过，无新增警告。未检查产物、不新增或执行测试、不运行客户端，无 subAgent/独立复核；`46AA00/46B6F0/469FC0` 仍未闭合。
 - **2026-09-25 三平面路径队列与 `46BC90` 左移叶已落位。** 依据当前 IDA 的三个 `0xC8` 连续区域及 `46B6F0` 的 100 项容量门槛，在 world detail 唯一持有方向/X/Y 三组 W16 原位型；`46BC90` 先减 `C82200`，剩余正值时按每项方向→X→Y 顺序左移。[场景证据 §79](../doc/cg2d_scene_state.md)限定已证正常范围与未落位生产者/方向短队列；四文件限定差异、严格 UTF-8 无 BOM/LF、`git diff --check` 与 Debug `cg2d_re_core`/`cg2d_re_startup` 静态库编译通过，无新增警告。未检查产物、不新增或执行测试、不运行客户端，无 subAgent/独立复核。

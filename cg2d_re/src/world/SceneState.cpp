@@ -1292,6 +1292,18 @@ std::int64_t __cdecl Sub_46CDF0(const float first, const float second)
         static_cast<double>(angle) * static_cast<double>(multiplier));
 }
 
+// 原 [0x46B580,0x46B5B3)：先写 Y 差 F32，再写 X 差 F32 并透传方向 S64。
+std::int64_t __cdecl Sub_46B580(
+    const std::int32_t first,
+    const std::int32_t second,
+    const std::int32_t third,
+    const std::int32_t fourth)
+{
+    const float differenceY = static_cast<float>(fourth - second);
+    const float differenceX = static_cast<float>(third - first);
+    return Sub_46CDF0(differenceX, differenceY);
+}
+
 // 原 [0x4D3170,0x4D317B)：仅将 0x581800 写为 -1 后返回。
 void Sub_4D3170()
 {

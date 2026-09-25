@@ -91,6 +91,7 @@ constexpr char kMapDirectoryOne[] = "%s\\%d";
 constexpr char kMapDirectoryTwo[] = "%s\\%d\\%d";
 constexpr char kMapCreateMode[] = "wb";
 constexpr char kMapReadMode[] = "rb";
+constexpr char kMapUpdateMode[] = "rb+";
 constexpr char kMapHeaderLabel[] = "MAP";
 constexpr char kUnknownText554590[] = "???";
 
@@ -169,6 +170,7 @@ static_assert(sizeof(kMapDirectoryOne) == 6);
 static_assert(sizeof(kMapDirectoryTwo) == 9);
 static_assert(sizeof(kMapCreateMode) == 3);
 static_assert(sizeof(kMapReadMode) == 3);
+static_assert(sizeof(kMapUpdateMode) == 4);
 static_assert(sizeof(kMapHeaderLabel) == 4);
 static_assert(sizeof(kUnknownText554590) == 4);
 static_assert(sizeof(gText9DAD30) == 26);
@@ -654,6 +656,87 @@ std::int32_t __cdecl Sub_4687B0(
             for (std::int32_t column = 0; column < width; ++column) {
                 std::fwrite(&zero, 2, 1, file);
             }
+        }
+    }
+    std::fclose(file);
+    return 0;
+}
+
+// 原 [0x4688A0,0x468BF5)：先写 tile/obj，hit 逐行更新共享缓冲后再写盘。
+std::int32_t __cdecl Sub_4688A0(
+    const std::int32_t mapId, const std::int32_t floor,
+    const std::int32_t xStart, const std::int32_t yStart,
+    const std::int32_t xEnd, const std::int32_t yEnd,
+    const std::uint16_t* const tile, const std::uint16_t* const obj,
+    std::uint16_t* const hit)
+{
+    char path[256];
+    Sub_468520(path, mapId, gValue9E0434, floor);
+    std::FILE* const file = std::fopen(path, kMapUpdateMode);
+    if (file == nullptr) {
+        return -1;
+    }
+
+    for (int i = 0; i < 4; ++i) {
+        std::fgetc(file);
+    }
+    std::int32_t ignoredFirst = 0;
+    std::int32_t ignoredSecond = 0;
+    std::int32_t fileWidth = 0;
+    std::int32_t fileHeight = 0;
+    std::fread(&ignoredFirst, 4, 1, file);
+    std::fread(&ignoredSecond, 4, 1, file);
+    std::fread(&fileWidth, 4, 1, file);
+    std::fread(&fileHeight, 4, 1, file);
+
+    const std::int32_t destinationWidth = xEnd - xStart;
+    const std::int32_t sourceX = std::max(xStart, 0);
+    const std::int32_t destinationX = std::max(-xStart, 0);
+    const std::int32_t sourceY = std::max(yStart, 0);
+    const std::int32_t destinationY = std::max(-yStart, 0);
+    const std::int32_t copyWidth = std::min(xEnd, fileWidth) - sourceX;
+    const std::int32_t copyHeight = std::min(yEnd, fileHeight) - sourceY;
+    const std::int32_t sourceStart = sourceX + fileWidth * sourceY;
+    const std::int32_t destinationStart =
+        destinationX + destinationWidth * destinationY;
+    const std::int32_t planeBytes = 2 * fileWidth * fileHeight;
+    const std::size_t rowBytes =
+        static_cast<std::uint32_t>(2 * copyWidth);
+
+    if (copyHeight > 0) {
+        const std::uint16_t* const planes[] {tile, obj};
+        for (std::int32_t plane = 0; plane < 2; ++plane) {
+            for (std::int32_t row = 0; row < copyHeight; ++row) {
+                const std::int32_t fileRow =
+                    20 + plane * planeBytes
+                    + 2 * (sourceStart + row * fileWidth);
+                std::fseek(file, fileRow, SEEK_SET);
+                std::fwrite(
+                    planes[plane] + destinationStart + row * destinationWidth,
+                    rowBytes, 1, file);
+            }
+        }
+
+        for (std::int32_t row = 0; row < copyHeight; ++row) {
+            std::uint16_t* const inputRow =
+                hit + destinationStart + row * destinationWidth;
+            const std::int32_t y = yStart + row;
+            for (std::int32_t column = 0; column < copyWidth; ++column) {
+                const std::uint16_t value =
+                    static_cast<std::uint16_t>(inputRow[column] | 0xC000u);
+                inputRow[column] = value;
+                const std::int32_t x = xStart + column;
+                if (gMapFloor == floor
+                    && gMapXStart <= x && x < gMapXEnd
+                    && gMapYStart <= y && y < gMapYEnd) {
+                    static_cast<void>(Sub_468C00(x, y, value));
+                }
+            }
+            const std::int32_t fileRow =
+                20 + 2 * planeBytes
+                + 2 * (sourceStart + row * fileWidth);
+            std::fseek(file, fileRow, SEEK_SET);
+            std::fwrite(inputRow, rowBytes, 1, file);
         }
     }
     std::fclose(file);

@@ -174,6 +174,12 @@ std::int32_t __cdecl Sub_468570(
 std::int32_t __cdecl Sub_4687B0(
     const char* path, std::int32_t first, std::int32_t second,
     std::int32_t height, std::int32_t width); // 原 [0x4687B0,0x4688A0)，三平面零值文件创建叶。
+std::int32_t __cdecl Sub_4688A0(
+    std::int32_t mapId, std::int32_t floor,
+    std::int32_t xStart, std::int32_t yStart,
+    std::int32_t xEnd, std::int32_t yEnd,
+    const std::uint16_t* tile, const std::uint16_t* obj,
+    std::uint16_t* hit); // 原 [0x4688A0,0x468BF5)，增量写三平面文件及共享 hit。
 std::int32_t __cdecl Sub_468C40(
     std::int32_t mapId, std::int32_t floor,
     std::int32_t xStart, std::int32_t yStart,

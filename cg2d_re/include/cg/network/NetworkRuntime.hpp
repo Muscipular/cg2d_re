@@ -113,6 +113,12 @@ std::int32_t Sub_5117D0(
     std::int32_t value,
     const char* text);
 
+// 原 sub_511840@[0x511840,0x5118AB)：构造 GH、追加原字节文本与整数并发送。
+std::int32_t Sub_511840(
+    std::uintptr_t socket,
+    const char* text,
+    std::int32_t value);
+
 // 原 sub_511900@[0x511900,0x5119F7)：组装 uSr 的两整数、文本、三整数并发送。
 std::int32_t Sub_511900(
     std::uintptr_t socket,

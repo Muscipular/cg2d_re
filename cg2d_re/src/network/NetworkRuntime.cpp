@@ -1328,6 +1328,36 @@ std::int32_t Sub_5117D0(
         reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
 }
 
+// 原 [0x511840,0x5118AB)：文本、整数各自采容量并在格式化后重读输出缓冲。
+std::int32_t Sub_511840(
+    const std::uintptr_t socket,
+    const char* const text,
+    const std::int32_t value)
+{
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0), "GH"));
+
+    const std::int32_t textCapacity = std::bit_cast<std::int32_t>(
+        gNetworkRuntimeState.bufferLength);
+    std::uint8_t* const textToken = FormatProtocolTextToken_517160(text);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
+        reinterpret_cast<const char*>(textToken),
+        textCapacity));
+
+    const std::int32_t valueCapacity = std::bit_cast<std::int32_t>(
+        gNetworkRuntimeState.bufferLength);
+    std::uint8_t* const valueToken = FormatProtocolIntegerToken_517120(value);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
+        reinterpret_cast<const char*>(valueToken),
+        valueCapacity));
+
+    return SendProtocolBuffer_517480(
+        socket,
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
+}
+
 // 原 [0x511900,0x5119F7)：六项各自先读容量，格式化后重读输出缓冲。
 std::int32_t Sub_511900(
     const std::uintptr_t socket,

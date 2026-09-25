@@ -2,6 +2,7 @@
 
 #include "cg/LegacyAudio.hpp"
 
+#include <array>
 #include <cstddef>
 #include <cstdint>
 #include <cstdio>
@@ -87,6 +88,21 @@ extern std::uint32_t gValue9DAD2C;
 extern std::uint32_t gValue9FB930;
 extern std::uint32_t gValueC821D4;
 extern std::uint32_t gValue9A86DC;
+
+// 原 9DEF64/9DEF60/9DEF62/9DEF5E 与 9A86E0/9ED43C；地图窗口的六个 S16 槽。
+extern std::int16_t gMapXStart;
+extern std::int16_t gMapYStart;
+extern std::int16_t gMapXEnd;
+extern std::int16_t gMapYEnd;
+extern std::int16_t gMapSpanX;
+extern std::int16_t gMapSpanY;
+
+// 原 AEFB94/9DDB0C/9ED44C；468C40 的 tile/obj/hit 共享平面。
+inline constexpr std::size_t kMapBufferCells = 2601;
+extern std::array<std::uint16_t, kMapBufferCells> gMapTileArray;
+extern std::array<std::uint16_t, kMapBufferCells> gMapObjArray;
+extern std::array<std::uint16_t, kMapBufferCells> gMapHitArray;
+extern std::uint16_t gLastDetectedCode; // 原 9DAD4A；不随 pending 清理。
 
 // 原 0x9DAD5C/0x9DAD68/0x9DAD58/0x9DAD60/0x9DAD64；46DA80 共享状态。
 extern std::uint32_t gValue9DAD5C;
@@ -234,6 +250,13 @@ void Sub_4626A0();                         // 原 0x4626A0。
 void __cdecl Sub_449DA0();                 // 原 [0x449DA0,0x449F9C)。
 std::int32_t __cdecl Sub_46A9E0();         // 原 [0x46A9E0,0x46A9F4)，清三槽、返回 0。
 std::int32_t* Sub_467F30();                // 原 0x467F30。
+std::int16_t* __cdecl Sub_468290(
+    std::int16_t* xStart, std::int16_t* yStart,
+    std::int16_t* xEnd, std::int16_t* yEnd); // 原 [0x468290,0x4682D7)，原地裁剪并返回末指针。
+std::int32_t __cdecl Sub_468C00(
+    std::int32_t x, std::int32_t y, std::uint16_t value); // 原 [0x468C00,0x468C32)，写 hit WORD。
+std::int32_t __cdecl Sub_46AE60(std::int32_t x, std::int32_t y); // 原 [0x46AE60,0x46AE94)，判 hit 低字节。
+std::int32_t __cdecl Sub_46AD00(std::int32_t x, std::int32_t y); // 原 [0x46AD00,0x46AD97)，分类并写 9DAD4A。
 std::int32_t __cdecl Sub_468F30();         // 原 [0x468F30,0x468F6F)，按序清十二槽、返回 0。
 std::int64_t __cdecl Sub_468F70();         // 原 [0x468F70,0x468FE4)，F32 投影、向零截断后写六槽。
 std::int32_t __cdecl Sub_46CF00(std::int32_t value); // 原 [0x46CF00,0x46CF1A)，读已初始化的共享索引表。

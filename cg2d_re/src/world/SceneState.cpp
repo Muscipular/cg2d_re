@@ -6,6 +6,7 @@
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/YobiRuntime.hpp"
 #include "cg/render/TextPendingQueue.hpp"
+#include "cg/world/GameTime.hpp"
 #include "WorldUpdateDependencies.hpp"
 
 #include <bit>
@@ -327,6 +328,21 @@ std::uint32_t gValue9FB930 = 0;
 std::uint32_t gValueC821D4 = 0;
 std::uint32_t gValue9A86DC = 0;
 
+std::int16_t gMapXStart = 0;
+std::int16_t gMapYStart = 0;
+std::int16_t gMapXEnd = 0;
+std::int16_t gMapYEnd = 0;
+std::int16_t gMapSpanX = 0;
+std::int16_t gMapSpanY = 0;
+std::array<std::uint16_t, kMapBufferCells> gMapTileArray {};
+std::array<std::uint16_t, kMapBufferCells> gMapObjArray {};
+std::array<std::uint16_t, kMapBufferCells> gMapHitArray {};
+std::uint16_t gLastDetectedCode = 0;
+
+static_assert(sizeof(gMapTileArray) == 5202);
+static_assert(sizeof(gMapObjArray) == 5202);
+static_assert(sizeof(gMapHitArray) == 5202);
+
 // 原 0x9DAD5C/0x9DAD68/0x9DAD58/0x9DAD60/0x9DAD64；46DA80 的 W32 目标。
 std::uint32_t gValue9DAD5C = 0;
 std::uint32_t gValue9DAD68 = 0;
@@ -408,6 +424,75 @@ std::int32_t __cdecl Sub_46DC90(std::int32_t selected)
 
     std::fread(gAutDataAF10D8, 1, 477603, file);
     return std::fclose(file);
+}
+
+// 原 [0x468290,0x4682D7)：四个 S16 原地裁剪，末参数指针透传。
+std::int16_t* __cdecl Sub_468290(
+    std::int16_t* xStart,
+    std::int16_t* yStart,
+    std::int16_t* xEnd,
+    std::int16_t* yEnd)
+{
+    if (*xStart < 0) {
+        *xStart = 0;
+    }
+    if (*yStart < 0) {
+        *yStart = 0;
+    }
+    const std::uint32_t xBound = gValue9FB930;
+    if (*xEnd > std::bit_cast<std::int32_t>(xBound)) {
+        *xEnd = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(xBound));
+    }
+    const std::uint32_t yBound = gValueC821D4;
+    if (*yEnd > std::bit_cast<std::int32_t>(yBound)) {
+        *yEnd = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(yBound));
+    }
+    return yEnd;
+}
+
+// 原 [0x468C00,0x468C32)：独立重读窗口状态，写完整 WORD 并返回左边界。
+std::int32_t __cdecl Sub_468C00(
+    const std::int32_t x, const std::int32_t y, const std::uint16_t value)
+{
+    const std::int32_t top = gMapYStart;
+    const std::int32_t span = gMapSpanX;
+    const std::int32_t left = gMapXStart;
+    const std::int32_t index = x - left + span * (y - top);
+    gMapHitArray[static_cast<std::size_t>(index)] = value;
+    return left;
+}
+
+// 原 [0x46AE60,0x46AE94)：仅读 hit WORD 的低 U8 比较。
+std::int32_t __cdecl Sub_46AE60(const std::int32_t x, const std::int32_t y)
+{
+    const std::int32_t top = gMapYStart;
+    const std::int32_t span = gMapSpanX;
+    const std::int32_t left = gMapXStart;
+    const std::int32_t index = x - left + span * (y - top);
+    return static_cast<std::uint8_t>(gMapHitArray[static_cast<std::size_t>(index)]) == 2;
+}
+
+// 原 [0x46AD00,0x46AD97)：分类前无条件写独立的低 U8 探测值。
+std::int32_t __cdecl Sub_46AD00(const std::int32_t x, const std::int32_t y)
+{
+    const std::int32_t localX = x - gMapXStart;
+    const std::int32_t localY = y - gMapYStart;
+    const std::int32_t category = GetCate_458EC0(&gCgTime);
+    const std::int32_t index = localX + gMapSpanX * localY;
+    const std::uint8_t value =
+        static_cast<std::uint8_t>(gMapHitArray[static_cast<std::size_t>(index)]);
+    const bool isThree = value == 3;
+    gLastDetectedCode = value;
+    if (isThree || value == 9 || value == 11 || value == 13 || value == 10) {
+        return 1;
+    }
+    if (value == 6) {
+        return category == 3;
+    }
+    if (value == 7) {
+        return category == 0 || category == 1;
+    }
+    return value == 8 && category == 2;
 }
 
 // 原 [0x4682E0, 0x468330)；六次写入后传递四个原参数。

@@ -1104,6 +1104,52 @@ std::int32_t __cdecl Sub_469240(
     return state;
 }
 
+// 原 [0x469290,0x4693E9)：装载失败仍校验局部平面并可能发送 UUN。
+std::int32_t __cdecl Sub_469290(
+    const std::int32_t first, const std::int32_t floor,
+    const std::int32_t xStart, const std::int32_t yStart,
+    const std::int32_t xEnd, const std::int32_t yEnd,
+    const std::int32_t expectedTile, const std::int32_t expectedObj,
+    const std::int32_t expectedHit)
+{
+    std::array<std::uint16_t, kMapBufferCells + 1> tile {};
+    std::array<std::uint16_t, kMapBufferCells + 1> obj {};
+    std::array<std::uint16_t, kMapBufferCells + 1> hit {};
+    const std::int32_t width = xEnd - xStart;
+    const std::int32_t height = yEnd - yStart;
+    static_cast<void>(Sub_468C40(
+        std::bit_cast<std::int32_t>(gValue9A86DC),
+        floor, xStart, yStart, xEnd, yEnd,
+        tile.data(), obj.data(), hit.data()));
+
+    if (height > 0) {
+        const std::uint16_t mask = gValue9DAD68 == 1 ? 0x01FFu : 0x0FFFu;
+        std::int32_t rowStart = 0;
+        for (std::int32_t row = 0; row < height; ++row) {
+            for (std::int32_t column = 0; column < width; ++column) {
+                hit[static_cast<std::size_t>(rowStart + column)] &= mask;
+            }
+            rowStart += width;
+        }
+    }
+
+    constexpr std::int32_t kCheckedBytes = 0x5B2;
+    const std::int32_t tileCheck = Sub_469240(
+        reinterpret_cast<const std::uint8_t*>(tile.data()), kCheckedBytes);
+    const std::int32_t objCheck = Sub_469240(
+        reinterpret_cast<const std::uint8_t*>(obj.data()), kCheckedBytes);
+    const std::int32_t hitCheck = Sub_469240(
+        reinterpret_cast<const std::uint8_t*>(hit.data()), kCheckedBytes);
+    if (expectedTile == tileCheck && expectedObj == objCheck
+        && expectedHit == hitCheck) {
+        return 1;
+    }
+    static_cast<void>(network::Sub_510710(
+        platform::gConnectionSocket,
+        first, floor, xStart, yStart, xEnd, yEnd));
+    return 0;
+}
+
 // 原 [0x4691D0,0x469239)：两个 -1 临时对象各自构造、复制、析构。
 void __cdecl Sub_4691D0()
 {

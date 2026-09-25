@@ -1,9 +1,11 @@
 #include "cg/world/SceneState.hpp"
 
 #include "../LoginRequestDependencies.hpp"
+#include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/CommandOptions.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
 #include "cg/platform/LegacyWindow.hpp"
+#include "cg/platform/MainLoop.hpp"
 #include "cg/YobiRuntime.hpp"
 #include "cg/render/TextPendingQueue.hpp"
 #include "cg/world/GameTime.hpp"
@@ -382,6 +384,7 @@ std::uint32_t gValueC3500C = 0;
 std::uint32_t gValueC75010 = 0;
 std::uint32_t gValue9EE8A0 = 0;
 std::uint32_t gValue9ED438 = 0;
+std::uint32_t gValue9ED440 = 0;
 
 // 原 0xC35008/0x9DAD2C/0x9FB930/0xC821D4/0x9A86DC；4682E0 的 W32 目标。
 std::uint32_t gValueC35008 = 0;
@@ -432,6 +435,7 @@ std::uint32_t gValueC82210 = 0;
 std::uint32_t gValueC82214 = 0;
 std::uint32_t gValueC82218 = 0;
 std::uint32_t gValueC82224 = 0;
+std::uint32_t gValueC8221C = 0;
 std::uint16_t gValue9DAD54 = 0;
 std::uint16_t gValue9FB92C = 0;
 std::uint16_t gValue55D9FC = 0xFFFFu;
@@ -917,6 +921,37 @@ std::int32_t __cdecl Sub_46AB60()
     gValueC82230 = 0;
     gValueC82234 = 0;
     return 1;
+}
+
+// 原 [0x46AEA0,0x46AF24)：恢复地图后发送五整数请求，重读序号再自增。
+std::int32_t __cdecl Sub_46AEA0()
+{
+    if (gValueCAFEA0 == 0) {
+        gValueCAFEA0 = static_cast<std::uint32_t>(audio::Sub_504410(1));
+    }
+    static_cast<void>(Sub_4681B0());
+
+    const std::uint32_t mapValue = gValue9ED440;
+    const std::uint16_t sequenceLow = static_cast<std::uint16_t>(gValueC8221C);
+    gValue9FB92E = 1;
+    gValueC82220 = 1;
+    gValue9FB92C = sequenceLow;
+
+    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&gPlayerY);
+    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&gPlayerX);
+    const std::uint32_t sequence = gValueC8221C;
+    static_cast<void>(network::Sub_510630(
+        platform::gConnectionSocket,
+        2,
+        std::bit_cast<std::int32_t>(sequence),
+        x,
+        y,
+        std::bit_cast<std::int32_t>(mapValue)));
+
+    const std::uint32_t nextSequence = gValueC8221C + 1U;
+    gValueB65A7C = 1;
+    gValueC8221C = nextSequence;
+    return std::bit_cast<std::int32_t>(nextSequence);
 }
 
 // 原 [0x468F30, 0x468F6F)；保持十二次 W32 写入的指令顺序。

@@ -82,6 +82,7 @@ extern std::uint32_t gValueC3500C;
 extern std::uint32_t gValueC75010;
 extern std::uint32_t gValue9EE8A0;
 extern std::uint32_t gValue9ED438;
+extern std::uint32_t gValue9ED440; // 原 46AA00 写、46AEA0 读取的独立 W32。
 
 // 原 0xC35008/0x9DAD2C/0x9FB930/0xC821D4/0x9A86DC；4682E0 顺序写入。
 extern std::uint32_t gValueC35008;
@@ -135,6 +136,7 @@ extern std::uint32_t gValueC82210;
 extern std::uint32_t gValueC82214;
 extern std::uint32_t gValueC82218;
 extern std::uint32_t gValueC82224;
+extern std::uint32_t gValueC8221C; // 原 46ADA0/46AEA0 共用的 W32 请求序号。
 extern std::uint16_t gValue9DAD54;
 extern std::uint16_t gValue9FB92C;
 extern std::uint16_t gValue55D9FC;

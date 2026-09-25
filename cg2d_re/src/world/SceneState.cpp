@@ -1135,6 +1135,18 @@ double __cdecl Sub_46F970(const float first, const float second)
     }
 }
 
+// 原 [0x46CDF0,0x46CE25)：角度写回 F32、归一化，再乘原常量截断为 S64。
+std::int64_t __cdecl Sub_46CDF0(const float first, const float second)
+{
+    const double direction = Sub_46F970(first, second);
+    const float offset = std::bit_cast<float>(0x42E10000U);
+    float angle = static_cast<float>(direction + static_cast<double>(offset));
+    Sub_46F8F0(&angle);
+    const float multiplier = std::bit_cast<float>(0x3CB60B61U);
+    return static_cast<std::int64_t>(
+        static_cast<double>(angle) * static_cast<double>(multiplier));
+}
+
 // 原 [0x4D3170,0x4D317B)：仅将 0x581800 写为 -1 后返回。
 void Sub_4D3170()
 {

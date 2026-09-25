@@ -322,6 +322,7 @@ void __cdecl Sub_46F8F0(float* value);      // 原 [0x46F8F0,0x46F92B)，原地�
 double __cdecl Sub_46F930(float angle);     // 原 [0x46F930,0x46F94E)，截断后查 360 项 F64 原表。
 double __cdecl Sub_46F950(float angle);     // 原 [0x46F950,0x46F967)，F32 加 90 后调用 46F930。
 double __cdecl Sub_46F970(float first, float second); // 原 [0x46F970,0x46FACF)，65 项原表插值。
+std::int64_t __cdecl Sub_46CDF0(float first, float second); // 原 [0x46CDF0,0x46CE25)，F32 归一化后 S64 截断。
 struct RecipeItemData;
 RecipeItemData* Sub_5199A0();              // 原 0x5199A0。
 struct YobiAction;

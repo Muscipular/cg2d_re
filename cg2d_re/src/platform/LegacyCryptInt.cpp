@@ -98,6 +98,11 @@ bool Equal_401D00(LegacyCryptInt* value, std::int32_t expected)
     return Read_401EC0(value) == expected;
 }
 
+bool Greater_401D40(LegacyCryptInt* value, std::int32_t threshold)
+{
+    return Read_401EC0(value) > threshold;
+}
+
 bool GreaterEqual_401D70(LegacyCryptInt* value, std::int32_t minimum)
 {
     return Read_401EC0(value) >= minimum;
@@ -116,6 +121,12 @@ bool Less_401DB0(LegacyCryptInt* value, std::int32_t maximum)
 bool IntLessEqualCrypt_401FC0(std::int32_t lhs, LegacyCryptInt* rhs)
 {
     return lhs <= Read_401EC0(rhs);
+}
+
+std::int32_t IntMinusCrypt_401FE0(
+    const std::int32_t lhs, LegacyCryptInt* const rhs)
+{
+    return FromBits(ToBits(lhs) - ToBits(Read_401EC0(rhs)));
 }
 
 } // namespace cg::platform::legacy_crypt_int

@@ -307,6 +307,7 @@ void Sub_44A410();                         // 原 0x44A410，输入光标闪烁/
 void Sub_4626A0();                         // 原 0x4626A0。
 void __cdecl Sub_449DA0();                 // 原 [0x449DA0,0x449F9C)。
 std::int32_t __cdecl Sub_46A9E0();         // 原 [0x46A9E0,0x46A9F4)，清三槽、返回 0。
+std::int32_t __cdecl Sub_46AA00();         // 原 [0x46AA00,0x46AB56)，方向分类并写 pending。
 void __cdecl Sub_46BC90();                // 原 [0x46BC90,0x46BCE4)，三组路径 W16 同步左移。
 void __cdecl Sub_46ABD0();                // 原 [0x46ABD0,0x46AC0A)，最多搬运两项方向。
 void __cdecl Sub_46BCF0();                // 原 [0x46BCF0,0x46BD1D)，方向计数递减后左移。

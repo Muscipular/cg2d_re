@@ -39,6 +39,23 @@ constexpr std::array<std::int32_t, 4> kMapFloors5541F4 {
     37619,
 };
 
+struct DirectionDelta {
+    std::int16_t x;
+    std::int16_t y;
+};
+
+// 原 .data [0x55D9DC,0x55D9FC)：八组可写的方向 W16 分量。
+std::array<DirectionDelta, 8> gDirectionDeltas55D9DC {{
+    {0, -1}, {1, -1}, {1, 0}, {1, 1},
+    {0, 1}, {-1, 1}, {-1, 0}, {-1, -1},
+}};
+
+// 原 [0x4B0F10,0x4B0F13)：唯一动作是清 EAX，46AA00 直接调用。
+std::int32_t Sub_4B0F10()
+{
+    return 0;
+}
+
 // 原 0x55DE50/0x554920；.cut 文件使用当前目录下的原相对路径。
 constexpr char kCutPath55DE50[] = "bin\\PUK2\\cutdat\\%d.cut";
 constexpr char kCutReadMode554920[] = "rb";
@@ -104,6 +121,7 @@ static_assert(sizeof(kMapPathOther) == 16);
 static_assert(sizeof(gText55BAE0) == 8);
 static_assert(sizeof(gAngleTableBits55DF10) == 2880);
 static_assert(sizeof(gAngleTableBits55EA50) == 520);
+static_assert(sizeof(gDirectionDeltas55D9DC) == 32);
 
 } // namespace
 
@@ -916,6 +934,75 @@ std::int32_t __cdecl Sub_46A9E0()
     gValueC82234 = 0;
     gValueC82236 = 0;
     return 0;
+}
+
+// 原 [0x46AA00,0x46AB56)：按路径方向检测并写 pending，保留早退 Y 返回。
+std::int32_t __cdecl Sub_46AA00()
+{
+    std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&gPlayerX);
+    std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&gPlayerY);
+    if (std::bit_cast<std::int16_t>(gValueC82202) <= 0) {
+        return y;
+    }
+
+    std::int32_t step = 0;
+    std::int32_t result = 0;
+    std::int32_t previousX = x;
+    std::int32_t previousY = y;
+    for (;;) {
+        const std::int16_t direction =
+            std::bit_cast<std::int16_t>(
+                gPendingDirections9A86D4[static_cast<std::size_t>(step)]);
+        const DirectionDelta delta =
+            gDirectionDeltas55D9DC[static_cast<std::size_t>(direction)];
+        x += delta.x;
+        y += delta.y;
+        const float differenceY = static_cast<float>(y - previousY);
+        const float differenceX = static_cast<float>(x - previousX);
+        const std::int32_t heading = std::bit_cast<std::int32_t>(
+            static_cast<std::uint32_t>(
+                Sub_46CDF0(differenceX, differenceY)));
+
+        if (Sub_46AE60(x, y) != 0) {
+            result = 1;
+            gValueC82234 = static_cast<std::int16_t>(step);
+            gValueC82230 = 1;
+            gValueC82236 = 3;
+            gValue9ED440 = std::bit_cast<std::uint32_t>(heading);
+            if (heading < 0) {
+                gValue9ED440 = std::bit_cast<std::uint32_t>(heading) + 8U;
+            }
+            --step;
+            break;
+        }
+        if (Sub_46AD00(x, y) != 0) {
+            result = 1;
+            gValueC82230 = 1;
+            gValueC82234 = static_cast<std::int16_t>(step + 1);
+            gValueC82236 = 1;
+            break;
+        }
+        if (Sub_4B0F10() != 0) {
+            result = 1;
+            gValueC82230 = 1;
+            gValueC82234 = static_cast<std::int16_t>(step + 1);
+            gValueC82236 = 2;
+            break;
+        }
+        ++step;
+        previousX = x;
+        previousY = y;
+        if (step >= std::bit_cast<std::int16_t>(gValueC82202)) {
+            break;
+        }
+    }
+
+    if (step < 2 && result != 0) {
+        ++step;
+        gValueC82200 = 0;
+        gValueC82202 = static_cast<std::uint16_t>(step);
+    }
+    return result;
 }
 
 // 原 [0x46BC90,0x46BCE4)：先减路径数量，剩余项按方向、X、Y 原序左移。

@@ -513,6 +513,7 @@ std::uint16_t gValueB65A7C = 0;
 std::uint16_t gValueC82220 = 0;
 std::uint32_t gValueC8A778 = 0;
 std::uint32_t gValueC8A794 = 0;
+std::uint32_t gValueC82208 = 0;
 std::uint32_t gValueC8220C = 0;
 std::uint32_t gValueC82210 = 0;
 std::uint32_t gValueC82214 = 0;
@@ -979,6 +980,29 @@ void __cdecl Sub_4691D0()
     gValue9EE8E0.encoded = temporary.encoded;
     gValue9EE8E0.readCount = temporary.readCount;
     platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+}
+
+// 原 [0x50CF90,0x50CFF7)：回复序号按 S16 比较，成功时清地图请求状态。
+void __cdecl Sub_50CF90(
+    const std::uintptr_t, const std::int32_t sequence,
+    const std::int32_t status)
+{
+    if (gValue9A6E0C != 0) {
+        return;
+    }
+    if (std::bit_cast<std::int16_t>(gValue9DAD54) == sequence) {
+        gValue9A86D8 = 0;
+        if (status == 0) {
+            Sub_4691D0();
+            gValueC82208 = 0;
+            gValueC82210 = 0;
+        } else if (gValueC82214 == 0) {
+            gValueC82210 = 0;
+        }
+    } else if (std::bit_cast<std::int16_t>(gValue9FB92C) == sequence &&
+               status == 0) {
+        gValue9FB92E = 0;
+    }
 }
 
 // 原 [0x469030,0x4691C9)：装载后可选重建第四平面，随后斜向扫描 tile。

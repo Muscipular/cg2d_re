@@ -139,6 +139,7 @@ extern std::uint16_t gValueB65A7C;
 extern std::uint16_t gValueC82220;
 extern std::uint32_t gValueC8A778;
 extern std::uint32_t gValueC8A794;
+extern std::uint32_t gValueC82208; // 原地图请求 W32；50CF90、509090、509100 等共享。
 extern std::uint32_t gValueC8220C;
 extern std::uint32_t gValueC82210;
 extern std::uint32_t gValueC82214;
@@ -339,6 +340,9 @@ std::int32_t __cdecl Sub_469810(std::int32_t x, std::int32_t y); // 原 [0x46981
 std::int32_t __cdecl Sub_469240(
     const std::uint8_t* bytes, std::int32_t length); // 原 [0x469240,0x469284)，三平面校验的 W16 查表叶。
 void __cdecl Sub_4691D0(); // 原 [0x4691D0,0x469239)，两次 -1 临时赋值给地图状态。
+void __cdecl Sub_50CF90(
+    std::uintptr_t socket, std::int32_t sequence,
+    std::int32_t status); // 原 [0x50CF90,0x50CFF7)，地图回复序号与状态清理。
 std::int32_t __cdecl Sub_469030(); // 原 [0x469030,0x4691C9)，地图装载、第四平面与斜向绘制。
 // 原 [0x4693F0,0x4697C9)：先扫 tile，再扫 obj/图形尺寸，输出第四地图平面。
 std::int32_t __cdecl Sub_4693F0(

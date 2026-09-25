@@ -1484,6 +1484,27 @@ std::int32_t Sub_511510(
         reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
 }
 
+// 原 [0x5115F0,0x511638)：单次采容量、整数格式化后重读缓冲发送。
+std::int32_t Sub_5115F0(
+    const std::uintptr_t socket,
+    const std::int32_t value)
+{
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0), "HoW"));
+
+    const std::int32_t capacity = std::bit_cast<std::int32_t>(
+        gNetworkRuntimeState.bufferLength);
+    std::uint8_t* const token = FormatProtocolIntegerToken_517120(value);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
+        reinterpret_cast<const char*>(token),
+        capacity));
+
+    return SendProtocolBuffer_517480(
+        socket,
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
+}
+
 // 原 [0x511640,0x51175A)：七项依次采容量、格式化并重读输出缓冲。
 std::int32_t Sub_511640(
     const std::uintptr_t socket,

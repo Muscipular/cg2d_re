@@ -139,6 +139,9 @@ std::int32_t Sub_511510(
     const char* text,
     std::int32_t fifth);
 
+// 原 sub_5115F0@[0x5115F0,0x511638)：追加 W32 整数并发送 HoW。
+std::int32_t Sub_5115F0(std::uintptr_t socket, std::int32_t value);
+
 // 原 sub_511640@[0x511640,0x51175A)：七项整数/文本按原序发送 Ot。
 std::int32_t Sub_511640(
     std::uintptr_t socket,

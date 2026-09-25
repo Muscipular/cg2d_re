@@ -62,7 +62,7 @@ API、属性名和返回值依据本地 `third_party/sdl/SDL3-3.4.8/include/SDL3
 - `Renderer::ClearSurface@[0x4512C0,0x451306)` 为单块函数，无显式参数、无 `this`；末尾 `retn`，`EAX` 原样返回间接 `Blt` 的结果，不作成功常量替换。
 - `0x4512C4–0x4512E4` 构造局部 `DDBLTFX`：100 字节清零，`dwSize=100`，从 `gBackgroundColor@0x62B0A8` 读取完整 W32 写入颜色字段。
 - `0x4512D6–0x4512FE` 从 `renderer@0x627360` 的 `+0x0C` 取 Back，经其 vtable `+0x14` 间接调用 `Blt`；目标矩形、源 surface、源矩形均为 null，传入上述颜色 fx，flags 为 `0x01000400`。本体不改 Temp 或 dirty，不设置失败分支；这不等于已审完所有调用方的返回处理。
-- Back 创建证据位于 `0x44B946–0x44B951`，释放位于 `0x44C4E5–0x44C4F8`；其新端统一 owner 与创建、重建、销毁接线尚未裁决。
+- 窗口模式的 Back 创建证据位于 `0x44B946–0x44B951`；全屏模式在 `0x44BA71–0x44BA8E` 从前表面取得 attached Back。释放位于 `0x44C4E5–0x44C4F8`；其新端统一 owner 与创建、重建、销毁接线尚未裁决。
 - `MainLoop` 在 `0x457294` 先读取 `0x73ECC0`，`0x457299` 再清 `0x73ECE4`；读得 0 时于 `0x4572AF` 调用本函数，读得 3 时于 `0x4572A8` 调用 `sub_423640`，其他值不走这两个调用。汇合后依次为 `DrawAllQueued@0x4572B4`、`sub_468FF0@0x4572B9`、`Flip@0x4572BE`；这里弃置 ClearSurface 返回值。本函数在当前 IDA 有 23 处直接代码调用点，分布于 17 个函数；其余调用点的返回消费见下节。当前接线及声明见 [MainLoop.cpp](../src/platform/MainLoop.cpp) 和 [MainLoopDependencies.hpp](../src/platform/MainLoopDependencies.hpp)。
 
 ### 与当前 SDL/CPU 边界的区别
@@ -70,6 +70,26 @@ API、属性名和返回值依据本地 `third_party/sdl/SDL3-3.4.8/include/SDL3
 - [SdlPresenter.cpp](../src/render/SdlPresenter.cpp) 的 `SDL_RenderClear` 发生在整帧上传后的最终输出阶段，随后绘制完整纹理并提交；它不清空上层逻辑 Back，不能代替 `ClearSurface` 的当次 Back 颜色填充。
 - [SurfaceState.hpp](../include/cg/render/SurfaceState.hpp) / [SurfaceState.cpp](../src/render/SurfaceState.cpp) 的 640×480 CPU Back/Temp 目前仅按已批准波纹链使用；[GraphicPendingQueue.cpp](../src/render/GraphicPendingQueue.cpp) 在波纹路径快照 Back 到 Temp 并逐条带回拷。该局部批准不自动授予全部画面统一 Back 的 owner 或生命周期，也不证明画面链已完成。
 - 已批准 DX7 底层 `Blt` 等价映射 SDL/CPU，不要求逐码复刻 DX7 `HRESULT` 或 COM vtable；但上层触发、W32 颜色、像素内容、共享 Back/Temp 生命周期与提交顺序仍受 [渲染替换约束](../plan/cg2d_full_reconstruction_plan.md) 约束。
+
+### Back/Temp 原生命周期的拆分
+
+2026-09-25，当前已打开 IDA 的局部反编译与指令交叉核对：
+
+| 阶段 | 地址 | 可见状态与门禁 |
+|---|---|---|
+| `Renderer::Init` | `44B946–44B956`、`44BA71–44BA93` | 窗口模式创建独立 Back；全屏模式从前表面取得 attached Back。两路非零底层结果均走本入口失败返回，不进入其后像素格式路径。 |
+| `BuildSurfaceCache` | `5231B5–5231F5` | 先清三个缓存计数/状态，创建并发布 640×480 系统内存 AutoMap；失败显示提示、返回 0，此时尚未尝试 Temp。 |
+| `BuildSurfaceCache` | `5231F6–523257` | 先请求 640×480 显存 Temp 并写全局槽；为空才请求系统内存 Temp，再以第二次结果覆写该槽。两次均为空则显示提示、返回 0；AutoMap 已发布且本入口未释放它。 |
+| `Renderer::Destroy` | `44C436–44C45B`、`44C4E5–44C4F8` | 在纹理块释放后，依次有条件释放并清 Temp、AutoMap；在设备/调色板等释放之后，才有条件释放并清 Back。 |
+| 初次初始化 | `457747–45774E` | 调 `BuildSurfaceCache` 后检查完整 EAX32，零值走本处失败退出。 |
+| `Renderer::Rebuild` | `466B8C–466C1D` | 先 `Destroy` 后 `Init`，可能切换窗口模式再调一次 `Init`；无论前述消息/投递路径如何，随后调用 `BuildSurfaceCache` 且不检查其返回，继续 `InitPalette`。 |
+
+两面逻辑缓冲不能因为新端目前是静态数组，就把原先
+不同阶段的发布、失败和重建顺序写成“一次原子创建”。
+DX7 显存/系统内存 caps 已获底层替换豁免，但不等于
+上层可忽略初次构建的零返回门禁，或在重建时补加
+原本没有的返回门禁。本节只固定时点和已见副作用；
+SDL/CPU 的创建失败、剩余资源状态及驱动选择仍待 SPEC。
 
 ### 当前源码接线边界（2026-09-25 静态核对）
 

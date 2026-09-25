@@ -375,6 +375,12 @@ std::int32_t __cdecl Sub_509100(
     std::int32_t floor, std::int32_t xStart,
     std::int32_t yStart, std::int32_t xEnd,
     std::int32_t yEnd, const char* payload); // 原 [0x509100,0x5093B6)，连续局部帧地图增量回复。
+std::int32_t __cdecl Sub_5093F0(
+    std::uintptr_t a1, std::int32_t a2, std::int32_t a3,
+    std::int32_t a4, std::int32_t a5, std::int32_t a6,
+    std::int32_t a7, std::int32_t a8, std::int32_t a9,
+    std::int32_t a10, std::int32_t a11, std::int32_t a12,
+    std::int32_t a13); // 原 [0x5093F0,0x509548)，地图保存及场景状态发布。
 std::int32_t __cdecl Sub_509550(
     std::uintptr_t socket, char* payload); // 原 [0x509550,0x509642)，地图回复文本与数值发布。
 void __cdecl Sub_51D6F0(); // 原 [0x51D6F0,0x51D743)，消费回复索引并选择调色板。
@@ -448,6 +454,8 @@ extern std::uint32_t gValue9A6204;         // 原 0x9A6204；45ED90 后续复用
 std::int32_t Sub_45ED90();                 // 原 [0x45ED90,0x45EEDA)，场景 7 请求与展示。
 void DrawNormalScene_51C7D0();             // 原 World::DrawNormalScene@0x51C7D0。
 std::int8_t Sub_519D50();                  // 原 0x519D50，IDA 原型 char()。
+void* __cdecl Sub_51D5B0();               // 原 [0x51D5B0,0x51D63A)，场景 9 后继；尾调用返回指针。
+void __cdecl Sub_4464D0();                // 原 [0x4464D0,0x446604)，场景对象/Yobi 清理。
 std::int8_t Sub_51D750();                  // 原 0x51D750，IDA 原型 char()。
 using cg::login::detail::Sub_520160;
 void DrawBattleScene_43CBB0();             // 原 World::DrawBattleScene@0x43CBB0。

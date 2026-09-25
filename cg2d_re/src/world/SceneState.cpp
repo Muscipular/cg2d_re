@@ -1600,6 +1600,63 @@ std::int32_t __cdecl Sub_509100(
     return 0;
 }
 
+// 原 [0x5093F0,0x509548)：保留地图保存、场景清理和加密对象赋值顺序。
+std::int32_t __cdecl Sub_5093F0(
+    const std::uintptr_t, const std::int32_t a2, const std::int32_t a3,
+    const std::int32_t a4, const std::int32_t a5, const std::int32_t a6,
+    const std::int32_t a7, const std::int32_t a8, const std::int32_t a9,
+    const std::int32_t a10, const std::int32_t a11, const std::int32_t a12,
+    const std::int32_t a13)
+{
+    const std::uint8_t priorFlag = gValue9A4B94;
+    gValueC82208 = 1;
+    if (priorFlag == 0 && gCurrentSceneType == 9) {
+        if (gValueC8220C == 0) {
+            if (gValueCAFEA0 == 0) {
+                gValueCAFEA0 =
+                    static_cast<std::uint32_t>(audio::Sub_504410(1));
+            }
+            gCurrentSceneState = 200;
+            static_cast<void>(Sub_51D5B0());
+        }
+        static_cast<void>(Sub_519D50());
+        gValueC8220C = 0;
+    }
+
+    static_cast<void>(Sub_468570(
+        gValue9E0434, a2, a3, a4, a5, a8, a9));
+    Sub_4682E0(
+        static_cast<std::uint32_t>(a2), a3,
+        static_cast<std::uint32_t>(a4), static_cast<std::uint32_t>(a5),
+        static_cast<std::uint32_t>(a8), static_cast<std::uint32_t>(a9),
+        static_cast<std::uint32_t>(a10), a12);
+    static_cast<void>(Sub_468330(a6, a7));
+    Sub_4464D0();
+
+    const std::uint32_t mask = gValue9FB918.mask;
+    const std::uint32_t encoded = gValue9FB918.encoded;
+    const std::uint8_t readCount = gValue9FB918.readCount;
+    gValueC821E8.mask = mask;
+    gValue9EE8B8 = 0;
+    gValueC821E8.encoded = encoded;
+    gValueC821E8.readCount = readCount;
+
+    platform::LegacyCryptInt temporary;
+    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, 0);
+    gValue9E03C0.mask = temporary.mask;
+    gValue9E03C0.encoded = temporary.encoded;
+    gValue9E03C0.readCount = temporary.readCount;
+    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    static_cast<void>(Sub_4681B0());
+
+    if (a11 > 0) {
+        gValueFF0D5C = static_cast<std::uint32_t>(a11);
+        gValueFF0D58 = 1;
+    }
+    gValue9EE8F8 = static_cast<std::uint32_t>(a13);
+    return a11 > 0 ? a13 : a11;
+}
+
 // 原 [0x509550,0x509642)：原位反转义、两段提取与地图回复状态发布。
 std::int32_t __cdecl Sub_509550(
     const std::uintptr_t, char* const payload)

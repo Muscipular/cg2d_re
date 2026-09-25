@@ -364,6 +364,13 @@ std::int32_t Sub_512470(
     std::int32_t first,
     std::int32_t second);
 
+// 原 sub_5124E0@[0x5124E0,0x51256E)：构造 HJQp、追加三个整数并发送。
+std::int32_t Sub_5124E0(
+    std::uintptr_t socket,
+    std::int32_t first,
+    std::int32_t second,
+    std::int32_t third);
+
 // 原 sub_5125B0@[0x5125B0,0x51261B)：构造 ycX、追加整数及原字节文本并发送。
 std::int32_t Sub_5125B0(
     std::uintptr_t socket, std::int32_t value, const char* text);

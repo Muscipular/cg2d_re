@@ -443,12 +443,14 @@ std::uint32_t gValue9DAD78 = 0;
 std::uint8_t gValue9A4B94 = 0;
 std::uint16_t gValueC82200 = 0;
 std::uint16_t gValueC82202 = 0;
+std::array<std::uint16_t, 2> gPendingDirections9A86D4 {};
 std::array<std::uint16_t, kMovePathCapacity> gMovePathDirections {};
 std::array<std::uint16_t, kMovePathCapacity> gMovePathX {};
 std::array<std::uint16_t, kMovePathCapacity> gMovePathY {};
 static_assert(sizeof(gMovePathDirections) == 0xC8);
 static_assert(sizeof(gMovePathX) == 0xC8);
 static_assert(sizeof(gMovePathY) == 0xC8);
+static_assert(sizeof(gPendingDirections9A86D4) == 4);
 std::uint32_t gValueC821FC = 0;
 std::uint32_t gValue9EE8B8 = 0;
 std::uint16_t gValueC8A79C = 0;
@@ -930,6 +932,39 @@ void __cdecl Sub_46BC90()
         gMovePathDirections[position] = gMovePathDirections[position + 1];
         gMovePathX[position] = gMovePathX[position + 1];
         gMovePathY[position] = gMovePathY[position + 1];
+    }
+}
+
+// 原 [0x46ABD0,0x46AC0A)：逐项搬路径方向，再消耗三平面首项。
+void __cdecl Sub_46ABD0()
+{
+    for (std::int32_t iteration = 0; iteration < 2; ++iteration) {
+        if (std::bit_cast<std::int16_t>(gValueC82200) <= 0) {
+            break;
+        }
+        const std::int16_t count = std::bit_cast<std::int16_t>(gValueC82202);
+        const std::uint16_t direction = gMovePathDirections[0];
+        const std::uint16_t nextCount =
+            static_cast<std::uint16_t>(gValueC82202 + 1U);
+        gPendingDirections9A86D4[static_cast<std::size_t>(count)] = direction;
+        gValueC82202 = nextCount;
+        Sub_46BC90();
+    }
+}
+
+// 原 [0x46BCF0,0x46BD1D)：正数量减一后将剩余方向原地左移。
+void __cdecl Sub_46BCF0()
+{
+    if (std::bit_cast<std::int16_t>(gValueC82202) <= 0) {
+        return;
+    }
+    --gValueC82202;
+    const std::int32_t remaining =
+        std::bit_cast<std::int16_t>(gValueC82202);
+    for (std::int32_t index = 0; index < remaining; ++index) {
+        const std::size_t position = static_cast<std::size_t>(index);
+        gPendingDirections9A86D4[position] =
+            gPendingDirections9A86D4[position + 1];
     }
 }
 

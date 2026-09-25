@@ -122,6 +122,8 @@ extern std::uint32_t gValue9DAD78; // 原 F32 位槽，移动/绘制链共享。
 extern std::uint8_t gValue9A4B94;
 extern std::uint16_t gValueC82200;
 extern std::uint16_t gValueC82202;
+// 原 9A86D4 起始的方向 W16；已证调用链最多访问前两项。
+extern std::array<std::uint16_t, 2> gPendingDirections9A86D4;
 // 原 AF0FF8/C75014/C750DC；三组 100 项 W16 路径队列共用 C82200 数量。
 inline constexpr std::size_t kMovePathCapacity = 100;
 extern std::array<std::uint16_t, kMovePathCapacity> gMovePathDirections;
@@ -306,6 +308,8 @@ void Sub_4626A0();                         // 原 0x4626A0。
 void __cdecl Sub_449DA0();                 // 原 [0x449DA0,0x449F9C)。
 std::int32_t __cdecl Sub_46A9E0();         // 原 [0x46A9E0,0x46A9F4)，清三槽、返回 0。
 void __cdecl Sub_46BC90();                // 原 [0x46BC90,0x46BCE4)，三组路径 W16 同步左移。
+void __cdecl Sub_46ABD0();                // 原 [0x46ABD0,0x46AC0A)，最多搬运两项方向。
+void __cdecl Sub_46BCF0();                // 原 [0x46BCF0,0x46BD1D)，方向计数递减后左移。
 std::int32_t* Sub_467F30();                // 原 [0x467F30,0x4681AB)，透传 46CF20 一过尾指针。
 std::int32_t __cdecl Sub_4681B0();         // 原 [0x4681B0,0x4681F6)，快照恢复后清六槽。
 std::uint16_t __cdecl Sub_468200();        // 原 [0x468200,0x46828D)，仅返回 AX 位模式。

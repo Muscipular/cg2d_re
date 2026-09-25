@@ -6,6 +6,7 @@
 
 ## 1. 当前状态与阻断
 
+- **2026-09-25 `51D5B0/43F230` type 1 门禁已收准。** 当前 IDA 证实 `51D5B0` 的状态 250/252 与计数分支全部尾跳 `43F230`，其 `5F9750` Yobi 链尚无新端 owner，空链路径也不归一化 EAX；现有 `46ADA0` 的 `YobiAction*` 暂声明不能当作已核稳定指针。[场景证据 §74](../doc/cg2d_scene_state.md)记录地址、写序及缺失下游；本步仅文档和静态检查，不接半条链、不编译/测试/运行，无 subAgent/独立复核。
 - **2026-09-25 `46AC90` pending type 2 后继已落位。** 复用 `4681B0`、现有玩家/C821D8 CryptInt owner、两个标志与 `510810`，按原 mask→encoded→readCount 写序和 Y→X 读取后发送 `KeOX`，透传发送返回。[场景证据 §73](../doc/cg2d_scene_state.md)记当前 IDA 全部指令及生命周期；三文件限定差异、严格 UTF-8 无 BOM/LF、`git diff --check` 和 Debug `cg2d_re_core`/`cg2d_re_startup` 静态库编译通过，无新增警告。未检查产物、不新增或执行测试、不运行客户端，无 subAgent/独立复核；`46AA00` 生产者、type 1 后继、完整链接和运行尚未闭合。
 - **2026-09-25 `510810` KeOX 双整数发送叶已落位。** 复用现有网络运行期，两次分别采容量、格式化、重读缓冲追加并透传发送返回。[网络证据](../doc/cg2d_network_runtime.md)记录现有 IDA 的 `58B1F8` 原字节、完整指令与唯一 `46AC90` caller；四文件限定差异、严格 UTF-8 无 BOM/LF、`git diff --check` 及 Debug `cg2d_re_core`/`cg2d_re_startup` 静态库编译通过，仅既有三项弃用 API 警告。未检查产物，不新增或执行测试、不运行客户端，无 subAgent/独立复核；type 2 父函数仍待落位。
 - **2026-09-25 `46AEA0` pending type 3 后继已落位。** 复用现有 world/audio/network/socket owner，新增单一 `C8221C` 序号和 `9ED440` 地图请求值 W32 槽，按原序恢复快照、写标志、读取玩家 Y/X、发 `pg`，发送后重读并自增序号。[场景证据 §72](../doc/cg2d_scene_state.md)记录当前 IDA 的完整指令与直接 xref；四文件限定差异、严格 UTF-8 无 BOM/LF 与 `git diff --check`、Debug `cg2d_re_core`/`cg2d_re_startup` 静态库编译通过，本轮无新增警告。未检查产物、不新增或执行测试、不运行客户端，无 subAgent/独立复核；`46AA00` 生产者及 type 1/2、完整链接和运行仍未闭合。

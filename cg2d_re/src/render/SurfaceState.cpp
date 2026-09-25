@@ -14,6 +14,7 @@ std::unique_ptr<CpuSurfacePixels> gCpuTempSurface;
 } // namespace
 
 std::uint32_t gBackgroundColor = 0;
+std::uint32_t gValueFF48E4 = 0;
 
 bool CreateCpuBackSurface() noexcept
 {

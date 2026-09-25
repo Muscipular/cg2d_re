@@ -9,6 +9,7 @@ namespace cg::render {
 
 // 原 gBackgroundColor@0x62B0A8；固定 32bpp 路径使用 0x00RRGGBB 位模式。
 extern std::uint32_t gBackgroundColor;
+extern std::uint32_t gValueFF48E4; // 原 0xFF48E4；51D750 写入的完整 W32 随机状态。
 
 // Renderer::Init@0x44B75A/0x44B76A 固定写入的逻辑尺寸。
 inline constexpr std::int32_t kCpuSurfaceWidth = 640;

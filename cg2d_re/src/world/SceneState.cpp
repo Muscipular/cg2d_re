@@ -12,8 +12,10 @@
 #include "cg/Palette.hpp"
 #include "cg/GraphicInfo.hpp"
 #include "cg/YobiRuntime.hpp"
+#include "cg/render/SurfaceState.hpp"
 #include "cg/render/TextPendingQueue.hpp"
 #include "cg/world/GameTime.hpp"
+#include "../platform/MainLoopDependencies.hpp"
 #include "WorldUpdateDependencies.hpp"
 
 #include <bit>
@@ -1071,6 +1073,17 @@ std::int32_t __cdecl Sub_509550(
         gValueC82218 = 1;
     }
     return 1;
+}
+
+// 原 [0x51D750,0x51D781)：复制结果不影响后续随机调用和完整 W32 写入。
+std::int8_t Sub_51D750()
+{
+    static_cast<void>(render::CopyBackToTemp());
+    const std::uint32_t bits = static_cast<std::uint32_t>(
+        platform::RandomRange_46FAF0(0, 35));
+    const std::uint8_t low = static_cast<std::uint8_t>(bits) & 0xFEu;
+    render::gValueFF48E4 = (bits & 0xFFFFFF00u) | low;
+    return static_cast<std::int8_t>(low);
 }
 
 // 原 [0x51D6F0,0x51D743)：只消费 -1 与非负回复，其他负值保持原状态。

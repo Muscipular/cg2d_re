@@ -112,6 +112,10 @@ extern platform::LegacyCryptInt gValue9E03C0;
 extern platform::LegacyCryptInt gValue9FB918;
 extern platform::LegacyCryptInt gValueAF0FE8;
 extern platform::LegacyCryptInt gValueC821D8;
+extern std::uint32_t gValueAF10C0; // 原 46CEE0 写入的完整 W32。
+extern std::uint32_t gValue9EE8FC; // 原 F32 位槽，移动链共享。
+extern std::uint32_t gValue9EE900; // 原 F32 位槽，移动链共享。
+extern std::uint32_t gValue9DAD78; // 原 F32 位槽，移动/绘制链共享。
 
 // 原 AEFB94/9DDB0C/9ED44C；468C40 的 tile/obj/hit 共享平面。
 inline constexpr std::size_t kMapBufferCells = 2601;
@@ -272,6 +276,10 @@ void __cdecl Sub_449DA0();                 // 原 [0x449DA0,0x449F9C)。
 std::int32_t __cdecl Sub_46A9E0();         // 原 [0x46A9E0,0x46A9F4)，清三槽、返回 0。
 std::int32_t* Sub_467F30();                // 原 0x467F30。
 std::uint16_t __cdecl Sub_468200();        // 原 [0x468200,0x46828D)，仅返回 AX 位模式。
+std::int32_t __cdecl Sub_46CEC0();         // 原 [0x46CEC0,0x46CED6)，先读 Y 再对 X 加。
+std::int32_t __cdecl Sub_46CEE0();         // 原 [0x46CEE0,0x46CEFB)，并写 AF10C0。
+std::uint32_t __cdecl Sub_468330(
+    std::int32_t x, std::int32_t y);        // 原 [0x468330,0x468511)，返回 Y 浮点位型。
 std::int16_t* __cdecl Sub_468290(
     std::int16_t* xStart, std::int16_t* yStart,
     std::int16_t* xEnd, std::int16_t* yEnd); // 原 [0x468290,0x4682D7)，原地裁剪并返回末指针。

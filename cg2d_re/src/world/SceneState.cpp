@@ -411,6 +411,10 @@ platform::LegacyCryptInt gValue9E03C0 {};
 platform::LegacyCryptInt gValue9FB918 {};
 platform::LegacyCryptInt gValueAF0FE8 {};
 platform::LegacyCryptInt gValueC821D8 {};
+std::uint32_t gValueAF10C0 = 0;
+std::uint32_t gValue9EE8FC = 0;
+std::uint32_t gValue9EE900 = 0;
+std::uint32_t gValue9DAD78 = 0;
 std::array<std::uint16_t, kMapBufferCells> gMapTileArray {};
 std::array<std::uint16_t, kMapBufferCells> gMapObjArray {};
 std::array<std::uint16_t, kMapBufferCells> gMapHitArray {};
@@ -544,6 +548,94 @@ std::uint16_t __cdecl Sub_468200()
     gMapSpanX = std::bit_cast<std::int16_t>(spanX);
     gMapSpanY = std::bit_cast<std::int16_t>(spanY);
     return spanX;
+}
+
+// 原 [0x46CEC0,0x46CED6)：Y 的读取先于 X 的带参读取。
+std::int32_t __cdecl Sub_46CEC0()
+{
+    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&gPlayerY);
+    return platform::legacy_crypt_int::Add_401E10(&gPlayerX, y);
+}
+
+// 原 [0x46CEE0,0x46CEFB)：同一读序，结果写入独立的 AF10C0。
+std::int32_t __cdecl Sub_46CEE0()
+{
+    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&gPlayerY);
+    const std::int32_t result =
+        platform::legacy_crypt_int::Add_401E10(&gPlayerX, y);
+    gValueAF10C0 = std::bit_cast<std::uint32_t>(result);
+    return result;
+}
+
+// 原 [0x468330,0x468511)：保留六次临时构造/析构及快照与 F32 写入交错。
+std::uint32_t __cdecl Sub_468330(const std::int32_t x, const std::int32_t y)
+{
+    static_cast<void>(Sub_46CEC0());
+
+    platform::LegacyCryptInt temporary;
+    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, x);
+    gPlayerX.encoded = temporary.encoded;
+    gPlayerX.mask = temporary.mask;
+    gPlayerX.readCount = temporary.readCount;
+    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+
+    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, y);
+    gPlayerY.readCount = temporary.readCount;
+    gPlayerY.encoded = temporary.encoded;
+    gPlayerY.mask = temporary.mask;
+    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+
+    static_cast<void>(Sub_46CEE0());
+    const double currentX =
+        static_cast<double>(platform::legacy_crypt_int::Read_401EC0(&gPlayerX));
+    gWorldCurrentXBits = std::bit_cast<std::uint32_t>(
+        static_cast<float>(currentX * 64.0));
+    const double currentY =
+        static_cast<double>(platform::legacy_crypt_int::Read_401EC0(&gPlayerY));
+    const double scaledY = currentY * 64.0;
+
+    gPlayerSnapshotX.readCount = gPlayerX.readCount;
+    gPlayerSnapshotX.encoded = gPlayerX.encoded;
+    gPlayerSnapshotX.mask = gPlayerX.mask;
+    gPlayerSnapshotY.readCount = gPlayerY.readCount;
+    gWorldCurrentYBits = std::bit_cast<std::uint32_t>(
+        static_cast<float>(scaledY));
+    gPlayerSnapshotY.encoded = gPlayerY.encoded;
+    gPlayerSnapshotY.mask = gPlayerY.mask;
+
+    gValue9EE8FC = 0;
+    gValue9EE900 = 0;
+    gValue9DAD78 = 0x3F800000u;
+
+    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, -1);
+    gValue9EE8D0.readCount = temporary.readCount;
+    gValue9EE8D0.encoded = temporary.encoded;
+    gValue9EE8D0.mask = temporary.mask;
+    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+
+    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, -1);
+    gValue9EE8E0.readCount = temporary.readCount;
+    gValue9EE8E0.encoded = temporary.encoded;
+    gValue9EE8E0.mask = temporary.mask;
+    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+
+    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, -1);
+    gValueC27FF8.encoded = temporary.encoded;
+    gValueC27FF8.mask = temporary.mask;
+    gValueC27FF8.readCount = temporary.readCount;
+    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+
+    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, -1);
+    gValueC27FE8.readCount = temporary.readCount;
+    gValueC27FE8.encoded = temporary.encoded;
+    gValueC27FE8.mask = temporary.mask;
+    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+
+    const std::uint32_t xBits = gWorldCurrentXBits;
+    const std::uint32_t finalYBits = gWorldCurrentYBits;
+    gWorldProjectionReferenceXBits = xBits;
+    gWorldProjectionReferenceYBits = finalYBits;
+    return finalYBits;
 }
 
 // 原 [0x468290,0x4682D7)：四个 S16 原地裁剪，末参数指针透传。

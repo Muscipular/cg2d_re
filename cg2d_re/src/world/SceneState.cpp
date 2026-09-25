@@ -74,10 +74,11 @@ constexpr char kAutPath55DE7C[] = "bin\\PUK2\\cutdat\\%d.aut";
 constexpr char kAutMessage55DE68[] =
     "\x61\x75\x74\xA6\x61\xB9\xCF\xC0\xC9\xB6\x7D\xB1\xD2\xA5\xA2\xB1\xD1\xA1\x43";
 
-// 原 468520；与命令行 mapfolder: 配置无关。
+// 原 468520 路径与 4687B0 创建模式；与命令行 mapfolder: 配置无关。
 constexpr char kMapPathPrefix[] = "map";
 constexpr char kMapPathZero[] = "%s\\%d\\%d.dat";
 constexpr char kMapPathOther[] = "%s\\%d\\%d\\%d.dat";
+constexpr char kMapCreateMode[] = "wb";
 
 // 原 0x55BAE0 的可写八字节区，正文六字节、NUL 后保留零填充。
 char gText55BAE0[8] = "\xB5\x6E\xA5\x58\xA4\xA4";
@@ -119,6 +120,7 @@ static_assert(sizeof(kAutMessage55DE68) == 20);
 static_assert(sizeof(kMapPathPrefix) == 4);
 static_assert(sizeof(kMapPathZero) == 13);
 static_assert(sizeof(kMapPathOther) == 16);
+static_assert(sizeof(kMapCreateMode) == 3);
 static_assert(sizeof(gText55BAE0) == 8);
 static_assert(sizeof(gAngleTableBits55DF10) == 2880);
 static_assert(sizeof(gAngleTableBits55EA50) == 520);
@@ -515,6 +517,38 @@ std::int32_t __cdecl Sub_468520(
     }
     return std::sprintf(
         buffer, kMapPathOther, kMapPathPrefix, mapId, value9E0434, floor);
+}
+
+// 原 [0x4687B0,0x4688A0)：四字段头后，三平面逐 WORD 写零。
+std::int32_t __cdecl Sub_4687B0(
+    const char* const path,
+    const std::int32_t first,
+    const std::int32_t second,
+    const std::int32_t height,
+    const std::int32_t width)
+{
+    std::FILE* const file = std::fopen(path, kMapCreateMode);
+    if (file == nullptr) {
+        return -1;
+    }
+    std::fputc('M', file);
+    std::fputc('A', file);
+    std::fputc('P', file);
+    std::fputc(1, file);
+    std::fwrite(&first, 4, 1, file);
+    std::fwrite(&second, 4, 1, file);
+    std::fwrite(&height, 4, 1, file);
+    std::fwrite(&width, 4, 1, file);
+    const std::uint32_t zero = 0;
+    for (std::int32_t plane = 0; plane < 3; ++plane) {
+        for (std::int32_t row = 0; row < height; ++row) {
+            for (std::int32_t column = 0; column < width; ++column) {
+                std::fwrite(&zero, 2, 1, file);
+            }
+        }
+    }
+    std::fclose(file);
+    return 0;
 }
 
 // 原 0x9DAD5C/0x9DAD68/0x9DAD58/0x9DAD60/0x9DAD64；46DA80 的 W32 目标。

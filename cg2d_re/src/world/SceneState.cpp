@@ -496,6 +496,49 @@ MapEffectRecord* Sub_46E2A0()
     return last;
 }
 
+MapEffectRecord* Sub_46E340()
+{
+    MapEffectRecord* const record = gFreeMapEffectHead;
+    if (record == nullptr) {
+        return record;
+    }
+
+    gFreeMapEffectHead = record->next;
+    if (gFreeMapEffectHead != nullptr) {
+        gFreeMapEffectHead->prev = nullptr;
+    }
+    record->prev = nullptr;
+    record->next = gActiveMapEffectHead;
+    if (gActiveMapEffectHead != nullptr) {
+        gActiveMapEffectHead->prev = record;
+    }
+    gActiveMapEffectHead = record;
+    return record;
+}
+
+MapEffectRecord* Sub_46E390(MapEffectRecord* const record)
+{
+    if (record == nullptr) {
+        return record;
+    }
+
+    if (record->prev != nullptr) {
+        record->prev->next = record->next;
+    }
+    if (record->next != nullptr) {
+        record->next->prev = record->prev;
+    }
+    if (gActiveMapEffectHead == record) {
+        gActiveMapEffectHead = record->next;
+    }
+    record->prev = nullptr;
+    record->next = gFreeMapEffectHead;
+    gFreeMapEffectHead = record;
+    record->legacyBytes[0x3C] = 0;
+    record->legacyBytes[0x3D] = 0;
+    return record;
+}
+
 // 原 [0x5198A0,0x5198CB)：逐项前向复制 0x1C 字节，保留每个 W32 的读写顺序。
 void Sub_5198A0(
     std::uint8_t* destination,

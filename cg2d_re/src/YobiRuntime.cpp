@@ -2,6 +2,7 @@
 
 #include "LoginMessageDependencies.hpp"
 
+#include "cg/LegacyAudio.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
@@ -881,6 +882,13 @@ void* Sub_440F50()
         }
     }
     return payload->partyActions.data();
+}
+
+std::int32_t Sub_440FE0()
+{
+    static_cast<void>(Sub_440B70());
+    static_cast<void>(audio::Sub_52B990());
+    return 0x25;
 }
 
 YobiAction* NewYobiGear_4410F0(const std::int32_t imageNo)

@@ -59,6 +59,8 @@ void* Sub_43F230();
 YobiAction* Sub_440B70();
 // 原 440F50：按玩家对象号发布五槽源表；非空返回为子指针区起点。
 void* Sub_440F50();
+// 原 440FE0：创建地图观察节点、更新 BGM 状态并返回 0x25。
+std::int32_t Sub_440FE0();
 
 // 原 YobiGear::new@[0x4410F0,0x441128)：分配零载荷 action 并设置五个字段。
 YobiAction* NewYobiGear_4410F0(std::int32_t imageNo);

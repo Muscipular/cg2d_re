@@ -2166,6 +2166,45 @@ void __cdecl Sub_46BCF0()
     }
 }
 
+// 原 [0x46ADA0,0x46AE53)：type 1 当次读取探测值，发送后更新请求状态。
+YobiAction* __cdecl Sub_46ADA0()
+{
+    if (gValueCAFEA0 == 0) {
+        gValueCAFEA0 = static_cast<std::uint32_t>(audio::Sub_504410(1));
+    }
+    static_cast<void>(Sub_4681B0());
+
+    const std::uint16_t sequenceLow =
+        static_cast<std::uint16_t>(gValueC8221C);
+    gValue9A86D8 = 1;
+    gValueC82220 = 1;
+    gValue9DAD54 = sequenceLow;
+
+    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&gPlayerY);
+    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&gPlayerX);
+    const std::int32_t detectedCode =
+        std::bit_cast<std::int16_t>(gLastDetectedCode);
+    const std::uint32_t sequence = gValueC8221C;
+    static_cast<void>(network::Sub_510630(
+        platform::gConnectionSocket,
+        detectedCode,
+        std::bit_cast<std::int32_t>(sequence),
+        x,
+        y,
+        -1));
+
+    const std::uint32_t nextSequence = gValueC8221C + 1U;
+    gCurrentSceneState = 200;
+    gValueC8221C = nextSequence;
+    void* const result = Sub_51D5B0();
+    gValueC8220C = 1;
+    gValueC82210 = 1;
+    gValueC82208 = 1;
+    gValueC82214 = 0;
+    gValueC82218 = 0;
+    return static_cast<YobiAction*>(result);
+}
+
 // 原 [0x46AB60,0x46ABCD)：先分发，再只清 active/countdown。
 std::int32_t __cdecl Sub_46AB60()
 {

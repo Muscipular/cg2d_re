@@ -454,7 +454,7 @@ extern std::uint32_t gValue9A6204;         // 原 0x9A6204；45ED90 后续复用
 std::int32_t Sub_45ED90();                 // 原 [0x45ED90,0x45EEDA)，场景 7 请求与展示。
 void DrawNormalScene_51C7D0();             // 原 World::DrawNormalScene@0x51C7D0。
 std::int8_t Sub_519D50();                  // 原 0x519D50，IDA 原型 char()。
-void* __cdecl Sub_51D5B0();               // 原 [0x51D5B0,0x51D63A)；非空链尾返指针，空链 EAX 未定义；当前 caller 弃返回。
+void* __cdecl Sub_51D5B0();               // 原 [0x51D5B0,0x51D63A)；非空链尾返指针，空链 EAX 未定义；46ADA0 透传位型。
 void __cdecl Sub_4464D0();                // 原 [0x4464D0,0x446604)，场景对象/Yobi 清理。
 std::int8_t Sub_51D750();                  // 原 0x51D750，IDA 原型 char()。
 using cg::login::detail::Sub_520160;

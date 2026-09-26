@@ -7,9 +7,8 @@
 
 namespace cg::login::detail {
 
-// sub_45E960@0x45E960 中仍未实现的直接目标；只保留当前 IDA 调用契约，不提供空体。
-struct UIWindowInstance;
-UIWindowInstance* Sub_532D80();
+// 原 532D80：空窗口返回 0，非空透传 52C450 的完整 W32；本体仍未落位。
+std::int32_t Sub_532D80();
 
 std::int32_t Sub_534290();
 

@@ -764,7 +764,7 @@ x64 指针布局仍受[场景证据](cg2d_scene_state.md)
 无指针，不落位部分像素绘制或固定返回，不计
 `452840`、case 9、统一画面链、链接与运行完成。
 
-## SDL 最终提交与 `Flip` 单一 owner SPEC（待确认）
+## SDL 最终提交与 `Flip` 单一 owner SPEC（方向已裁决，接线未完成）
 
 2026-09-26，本线程在现有 `ida-17524/cg2d.exe` 会话只读重核
 `4512C0`、`44C560`、`44C400` 和 `44B660` 的相关指令，
@@ -775,7 +775,7 @@ x64 指针布局仍受[场景证据](cg2d_scene_state.md)
 `DrawAllQueued` 与 `Flip` 仍只有真实声明。不能只实现一个
 调用尚未创建的呈现器的 `Flip`，再把每帧失败当作原端状态。
 
-**建议的唯一 owner 与写序，等待用户确认：**
+**按用户委托选定的唯一 owner 与写序：**
 
 1. `cg::render` 独占一个 `SdlPresenter` 实例，沿既有
    `Renderer::Init` 在有效 `gLegacyWindow` 所属的 SDL 主线程
@@ -803,11 +803,18 @@ x64 指针布局仍受[场景证据](cg2d_scene_state.md)
    `520DD0` 的 13 类批次、缓存与纹理状态不能用空绘制跳过；
    本 SPEC 不批准半个 `520DD0`、演示空帧或启动客户端。
 
-本节仅选择候选接口和 owner，不编码。确认后先闭合
+本节确定接口和 owner 方向，不代表生产源码已接线。实施时先闭合
 `Renderer::Init/Destroy` 的 SDL 创建与销毁、失败分流，
 再接 `Flip` 的实际呈现和共享帧槽，最后按原绘制批次
 闭合 `DrawAllQueued`。Debug 静态库编译不等于完整链接、
 SDL 窗口呈现或 32 位像素对照通过。
+
+2026-09-26，用户再次要求可行时使用 SDL，继续采用现有
+SDL3 `SDL_Renderer` 加 CPU Back/Temp 替换 DX7 原生呈现；
+音频按用户当前优先级暂缓。该决定只解除本节方向门禁，
+不把 `BuildSurfaceCache` 后段的 DX 纹理双池、上层
+`Renderer::Init/Destroy` 全部失败路径、`Flip` 帧槽消费者
+或 `DrawAllQueued` 批次当作已实现，也不启动客户端。
 
 ### lost 后的恢复门禁与重建顺序
 

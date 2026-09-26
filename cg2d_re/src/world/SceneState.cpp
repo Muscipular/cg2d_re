@@ -687,11 +687,12 @@ void CreateMapEffectKind1()
         *record, 4, 0u - ReadMapEffectWord(*record, 0x0C));
 }
 
-void CreateMapEffectKind2()
+// 46E6C0/46E940 共用初始载荷；tick、计数和 Y 尾写由各自调用者按原序处理。
+MapEffectRecord* CreateMapEffectKind2AtZero()
 {
     MapEffectRecord* const record = Sub_46E340();
     if (record == nullptr) {
-        return;
+        return nullptr;
     }
     WriteMapEffectHalf(*record, 0x3C, 2);
     const std::int32_t randomX = platform::NextRandom_53B4C9();
@@ -714,6 +715,15 @@ void CreateMapEffectKind2()
         WriteMapEffectWord(
             *record, 0x0C,
             static_cast<std::uint32_t>(platform::NextRandom_53B4C9() % 2 + 4));
+    }
+    return record;
+}
+
+void CreateMapEffectKind2()
+{
+    MapEffectRecord* const record = CreateMapEffectKind2AtZero();
+    if (record == nullptr) {
+        return;
     }
     const std::uint32_t tick = platform::ReadTickCount32();
     ++gMapCharaSceneSlots.valueC8A748;
@@ -842,6 +852,70 @@ void Sub_46E6C0()
         record = record->next;
         gMapCharaSceneSlots.valueC8A73C = 1;
     }
+}
+
+std::int32_t __cdecl Sub_46E940(std::int32_t cycles)
+{
+    const std::uint16_t selected = static_cast<std::uint16_t>(
+        gCurrentSceneType == 10
+            ? gMapCharaSceneSlots.valueC8A768 >> 16
+            : gMapCharaSceneSlots.valueC8A744);
+    if (cycles <= 0) {
+        return cycles;
+    }
+
+    const std::int16_t selectedLow = std::bit_cast<std::int16_t>(selected);
+    std::int32_t streak = 0;
+    do {
+        if (selectedLow != 0) {
+            if (selectedLow >= 3) {
+                const std::int32_t attempts = std::bit_cast<std::int16_t>(
+                    static_cast<std::uint16_t>(2u * selected - 4u));
+                for (std::int32_t index = 0; index < attempts; ++index) {
+                    if (CreateMapEffectKind2AtZero() != nullptr) {
+                        streak = 0;
+                        ++gMapCharaSceneSlots.valueC8A748;
+                    }
+                }
+            } else {
+                const std::int32_t threshold = std::bit_cast<std::int16_t>(
+                    static_cast<std::uint16_t>(2u * (2u - selected)));
+                if (streak >= threshold
+                    && CreateMapEffectKind2AtZero() != nullptr) {
+                    streak = 0;
+                    ++gMapCharaSceneSlots.valueC8A748;
+                }
+            }
+        }
+
+        MapEffectRecord* record = gActiveMapEffectHead;
+        while (record != nullptr) {
+            if (ReadMapEffectHalf(*record, 0x3C) == 2) {
+                const std::uint32_t velocityX = ReadMapEffectWord(*record, 8);
+                const std::uint32_t oldX = ReadMapEffectWord(*record, 0);
+                const std::uint32_t velocityY = ReadMapEffectWord(*record, 0x0C);
+                const std::uint32_t oldY = ReadMapEffectWord(*record, 4);
+                WriteMapEffectWord(*record, 0, oldX + velocityX);
+                WriteMapEffectWord(*record, 4, oldY + velocityY);
+                ApplyMapEffectDirection(*record);
+                const std::int32_t finalX =
+                    std::bit_cast<std::int32_t>(ReadMapEffectWord(*record, 0));
+                if (finalX >= 740
+                    || std::bit_cast<std::int32_t>(
+                        ReadMapEffectWord(*record, 4)) >= 480) {
+                    MapEffectRecord* const next = record->next;
+                    Sub_46E390(record);
+                    --gMapCharaSceneSlots.valueC8A748;
+                    record = next;
+                    continue;
+                }
+            }
+            record = record->next;
+            gMapCharaSceneSlots.valueC8A73C = 1;
+        }
+        ++streak;
+    } while (--cycles != 0);
+    return cycles;
 }
 
 void __cdecl Sub_46E0D0(const std::int32_t mask, const std::int32_t value)

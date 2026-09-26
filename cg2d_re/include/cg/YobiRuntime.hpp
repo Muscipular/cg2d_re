@@ -55,6 +55,9 @@ void Sub_43F220();
 // 原 43F230：标死链上 action 并清头；空链原返回寄存器无对象合同。
 void* Sub_43F230();
 
+// 原 440B70：从 440F50 生产的五槽状态创建地图观察节点。
+YobiAction* Sub_440B70();
+
 // 原 YobiGear::new@[0x4410F0,0x441128)：分配零载荷 action 并设置五个字段。
 YobiAction* NewYobiGear_4410F0(std::int32_t imageNo);
 

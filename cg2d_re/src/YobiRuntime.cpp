@@ -40,6 +40,7 @@ struct YobiAction {
     float scaleY;
     platform::LegacyCryptInt readiness;
     std::int32_t creatorParam6;
+    std::int32_t field1D0; // 原 +1D0；440B70 写子 action 的槽序号。
     std::int32_t walkSpeed;
     std::int32_t framePlayingRate;
     std::int32_t imageNo;
@@ -167,6 +168,10 @@ static_assert(offsetof(NineGridDescriptorFields, paletteCacheIndex) == 0x0E);
 YobiAction* gYobiActionStart = nullptr;
 YobiAction* gYobiActionEnd = nullptr;
 YobiAction* gMapCharaHead = nullptr; // 原 0x5F9750，独立于首尾哨兵。
+std::array<std::int32_t, 5> gMapValues5F9720 {};
+std::array<std::int32_t, 5> gMapImages5AC4A0 {};
+std::int32_t gMapImage5F9734 = 0;
+std::int32_t gMapDirection5F9740 = 0;
 
 render::GraphicDescriptor16 ToGraphicDescriptor(
     const NineGridDescriptorFields& fields)
@@ -802,6 +807,48 @@ void* Sub_43F230()
     gMapCharaHead = nullptr;
     // 空链时原 EAX 未定义；新端返回空值，不作为原端等价结果验收。
     return last;
+}
+
+// 原 440C50 回调后继尚未落位，保持真实目标而非空回调。
+void Sub_440C50(YobiAction* action);
+
+YobiAction* Sub_440B70()
+{
+    YobiAction* const action = NewMapCharaAction();
+    if (action == nullptr) {
+        return nullptr;
+    }
+
+    action->callback = Sub_440C50;
+    action->imageNo = gMapImage5F9734;
+    action->characterAction = 3;
+    action->direction = gMapDirection5F9740;
+    action->displayPriority = 10;
+    action->flags = 0x20;
+    action->x = -100;
+    action->y = -100;
+    static_cast<void>(Sub_43F180(action));
+
+    auto* const payload = static_cast<MapCharaPayload*>(action->payload);
+    for (std::size_t index = 0; index < payload->values.size(); ++index) {
+        payload->values[index] = 0;
+        payload->partyActions[index] = nullptr;
+        const std::int32_t value = gMapValues5F9720[index];
+        if (value <= 0) {
+            continue;
+        }
+
+        payload->values[index] = static_cast<std::uint32_t>(value);
+        YobiAction* const child = NewYobiAction_404AE0(2, 0);
+        payload->partyActions[index] = child;
+        if (child != nullptr) {
+            child->imageNo = gMapImages5AC4A0[index];
+            child->direction = gMapDirection5F9740;
+            child->characterAction = 3;
+            child->field1D0 = static_cast<std::int32_t>(index);
+        }
+    }
+    return action;
 }
 
 YobiAction* NewYobiGear_4410F0(const std::int32_t imageNo)

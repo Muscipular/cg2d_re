@@ -57,6 +57,7 @@ std::array<LegacyAudioRecord, kRecordCount> gRecords {};
 std::int32_t gFlag = 0;
 std::int32_t gQuotient = 0;
 std::uint32_t gBgmActive1050808 = 0; // 原播放状态 W32；52BE60 置位，52B940 清理。
+std::uint32_t gBgmMode1050820 = 0; // 原 BGM 流式模式 W32；52B8E0 消费。
 
 static_assert(sizeof(gRecords) == 0x2600);
 
@@ -425,7 +426,20 @@ volatile std::uint32_t gMciDeviceId = 0;
 std::uint32_t gMciCloseResult = 0;
 
 SpatialAudioRecord* __cdecl Sub_52B9E0(); // 原通道、请求与两张运行表初始化。
-void Sub_52B940(); // 原 BGM 清理分流；保留真实未实现依赖。
+void Sub_52B8E0(); // 原通知等待与资源释放；真实实现尚缺。
+
+// 原 [0x52B940,0x52B98E)：两路资源清理后依次清三个共享状态。
+void Sub_52B940()
+{
+    if (gBgmMode1050820 != 0) {
+        Sub_52B8E0();
+    } else if (gSdlAudioBackend.HasBgm()) {
+        gSdlAudioBackend.ReleaseBgm();
+    }
+    gFlag = 0;
+    gBgmActive1050808 = 0;
+    gBgmStage1050814 = 0;
+}
 
 // 原 [524230,52B627)：配置项按原栈表顺序加载；设备/样本/通道机制使用 SDL3。
 std::int32_t Sub_524230()

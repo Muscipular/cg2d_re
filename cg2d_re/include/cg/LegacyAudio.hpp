@@ -16,7 +16,7 @@ extern std::uint32_t gMciCloseResult; // 原 0x10507FC；保存第二次 MCI 返
 
 // 原 524060 加载 512 项映射及 128 条配置记录；52C9C0 非负映射发布 BGM 目标。
 std::int32_t LoadBgmConfig_524060();
-std::int32_t InitializeAudio_5241A0(); // 原初始化包装；524230 仍是真实未落位依赖。
+std::int32_t InitializeAudio_5241A0(); // 原初始化包装；524230 使用 SDL3 加载音效。
 std::int32_t SelectBgmTarget_52C9C0(std::int32_t index);
 std::int32_t UpdateBgmRequest_52C910(); // 原四阶段跳表，完整透传各分支返回。
 

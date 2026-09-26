@@ -3,6 +3,7 @@
 #include "LoginStateDependencies.hpp"
 
 #include "cg/LoginRequest.hpp"
+#include "cg/ResourcePaths.hpp"
 #include "cg/platform/SdlAudioBackend.hpp"
 #include "cg/platform/CommandOptions.hpp"
 #include "cg/platform/KeyState.hpp"
@@ -17,6 +18,8 @@
 #include <cstdint>
 #include <cstdio>
 #include <cstring>
+#include <limits>
+#include <string>
 
 #define WIN32_LEAN_AND_MEAN
 #define NOMINMAX
@@ -33,12 +36,18 @@ std::int32_t LoadAndPlayBGM(std::uint32_t bgmId);
 
 namespace {
 
+// 原 104DFD0 起的 BGM 播放记录；52B990 读取每项 +0x40。
 struct LegacyAudioRecord final {
-    std::int32_t value00;
-    std::array<std::byte, 0x48> opaque;
+    char path[0x40];
+    std::int32_t value40;
+    std::uint8_t value44;
+    std::uint8_t opaque45[3];
+    std::int32_t value48;
 };
 
-static_assert(offsetof(LegacyAudioRecord, value00) == 0x00);
+static_assert(offsetof(LegacyAudioRecord, value40) == 0x40);
+static_assert(offsetof(LegacyAudioRecord, value44) == 0x44);
+static_assert(offsetof(LegacyAudioRecord, value48) == 0x48);
 static_assert(sizeof(LegacyAudioRecord) == 0x4C);
 
 constexpr std::uint32_t kRecordCount = 128;
@@ -172,6 +181,85 @@ constexpr std::array<SeInitEntry, 270> kSeInit524230 {{
 #include "LegacySeDefinitions.inc"
 }};
 
+// 原 52B710 的 RIFF/WAVE、PCM fmt 和后续 data 门禁，样本解码仍交给 SDL。
+bool IsPcmWave(const char* const path)
+{
+    std::FILE* const file = std::fopen(path, "rb");
+    if (file == nullptr) {
+        return false;
+    }
+
+    std::uint8_t header[12] {};
+    bool valid = false;
+    if (std::fread(header, 1, sizeof(header), file) == sizeof(header)
+        && std::memcmp(header, "RIFF", 4) == 0
+        && std::memcmp(header + 8, "WAVE", 4) == 0) {
+        bool pcmFormat = false;
+        std::uint8_t chunk[8] {};
+        while (std::fread(chunk, 1, sizeof(chunk), file) == sizeof(chunk)) {
+            const std::uint32_t size =
+                static_cast<std::uint32_t>(chunk[4])
+                | static_cast<std::uint32_t>(chunk[5]) << 8
+                | static_cast<std::uint32_t>(chunk[6]) << 16
+                | static_cast<std::uint32_t>(chunk[7]) << 24;
+            if (std::memcmp(chunk, "data", 4) == 0 && pcmFormat) {
+                valid = true;
+                break;
+            }
+            if (std::memcmp(chunk, "fmt ", 4) == 0) {
+                std::uint8_t format[16] {};
+                if (size < sizeof(format)
+                    || std::fread(format, 1, sizeof(format), file) != sizeof(format)
+                    || format[0] != 1 || format[1] != 0) {
+                    break;
+                }
+                pcmFormat = true;
+                if (size - sizeof(format)
+                    > static_cast<std::uint32_t>((std::numeric_limits<long>::max)() - 1)
+                    || std::fseek(file,
+                        static_cast<long>(size - sizeof(format) + (size & 1u)),
+                        SEEK_CUR) != 0) {
+                    break;
+                }
+            } else if (size > static_cast<std::uint32_t>(
+                    (std::numeric_limits<long>::max)() - 1)
+                || std::fseek(file, static_cast<long>(size + (size & 1u)),
+                    SEEK_CUR) != 0) {
+                break;
+            }
+        }
+    }
+    std::fclose(file);
+    return valid;
+}
+
+std::string AudioPathToUtf8(const char* const path)
+{
+    const int wideLength =
+        ::MultiByteToWideChar(CP_ACP, 0, path, -1, nullptr, 0);
+    if (wideLength <= 0) {
+        return {};
+    }
+    std::wstring wide(static_cast<std::size_t>(wideLength), L'\0');
+    if (::MultiByteToWideChar(
+            CP_ACP, 0, path, -1, wide.data(), wideLength) == 0) {
+        return {};
+    }
+    const int utf8Length = ::WideCharToMultiByte(
+        CP_UTF8, 0, wide.c_str(), -1, nullptr, 0, nullptr, nullptr);
+    if (utf8Length <= 0) {
+        return {};
+    }
+    std::string utf8(static_cast<std::size_t>(utf8Length), '\0');
+    if (::WideCharToMultiByte(
+            CP_UTF8, 0, wide.c_str(), -1, utf8.data(), utf8Length,
+            nullptr, nullptr) == 0) {
+        return {};
+    }
+    utf8.pop_back();
+    return utf8;
+}
+
 std::array<SpatialAudioRecord, 50> gSpatialRecords103D1C0 {};
 static_assert(sizeof(gSpatialRecords103D1C0) == 0x3E8);
 
@@ -200,6 +288,7 @@ std::array<std::uint32_t, 73> gPitchFrequencies58D3D4 {{
 }};
 std::int32_t gNextSeChannel105082C = 0;
 std::int32_t gLastSeNo58D4FC = -1;
+std::int32_t gSampleCount104DFCC = 0;
 platform::SdlAudioBackend gSdlAudioBackend;
 static_assert(sizeof(gBgmMapping103DFAC) == 0x800);
 static_assert(sizeof(gBgmConfigRecords104A3B8) == 0x2600);
@@ -325,8 +414,89 @@ std::int32_t gBgmStage1050814 = 0;
 volatile std::uint32_t gMciDeviceId = 0;
 std::uint32_t gMciCloseResult = 0;
 
-std::int32_t Sub_524230(); // 原 DirectSound/音效文件初始化，尚未落位。
 SpatialAudioRecord* __cdecl Sub_52B9E0(); // 原通道、请求与两张运行表初始化。
+
+// 原 [524230,52B627)：配置项按原栈表顺序加载；设备/样本/通道机制使用 SDL3。
+std::int32_t Sub_524230()
+{
+    if (!gSdlAudioBackend.Open()) {
+        return 0;
+    }
+
+    gSampleCount104DFCC = 0;
+    for (SoundEffectDefinition& effect : gSoundEffects103E7B0) {
+        effect.sampleIndex = -1;
+    }
+
+    for (const SeInitEntry& entry : kSeInit524230) {
+        if (entry.id > 500
+            || static_cast<std::int8_t>(entry.volume) < 0
+            || static_cast<std::int8_t>(entry.pitch) > 60) {
+            gSdlAudioBackend.Close();
+            return 0;
+        }
+
+        SoundEffectDefinition& effect =
+            gSoundEffects103E7B0[static_cast<std::size_t>(entry.id)];
+        effect.sampleIndex = gSampleCount104DFCC;
+        char openPath[256] {};
+        std::snprintf(openPath, sizeof(openPath), "%s\\%s",
+            resource::gBinPath, entry.path);
+        std::snprintf(effect.path, sizeof(effect.path), "%s\\%s",
+            resource::gBinPath, entry.path);
+        effect.volume = static_cast<std::int8_t>(entry.volume);
+        effect.pitchIndex = static_cast<std::int8_t>(entry.pitch);
+        effect.loop = static_cast<std::int8_t>(entry.loop);
+
+        std::FILE* const file = std::fopen(openPath, "rb");
+        if (file == nullptr) {
+            continue;
+        }
+        static_cast<void>(std::fseek(file, 24, SEEK_SET));
+        std::uint32_t frequency = 0;
+        for (int shift = 0; shift < 32; shift += 8) {
+            frequency |= static_cast<std::uint32_t>(
+                std::fgetc(file)) << shift;
+        }
+        std::fclose(file);
+        if (frequency == 11025) {
+            effect.baseFrequency = 25;
+        } else if (frequency == 22050) {
+            effect.baseFrequency = 37;
+        } else if (frequency == 44100) {
+            effect.baseFrequency = 49;
+        }
+
+        const std::string utf8Path = AudioPathToUtf8(openPath);
+        if (utf8Path.empty() || !IsPcmWave(openPath)
+            || !gSdlAudioBackend.LoadWav(
+                static_cast<std::size_t>(gSampleCount104DFCC),
+                utf8Path.c_str())) {
+            gSdlAudioBackend.Close();
+            return 0;
+        }
+        ++gSampleCount104DFCC;
+    }
+
+    for (std::size_t channel = 0;
+        channel < platform::SdlAudioBackend::kChannelCount; ++channel) {
+        if (!gSdlAudioBackend.PrepareChannel(channel, 0)) {
+            gSdlAudioBackend.Close();
+            return 0;
+        }
+    }
+
+    for (std::size_t index = 0; index < gRecords.size(); ++index) {
+        const BgmConfigRecord& config = gBgmConfigRecords104A3B8[index];
+        LegacyAudioRecord& record = gRecords[index];
+        std::snprintf(record.path, sizeof(record.path), "%s\\%s",
+            resource::gBinPath, config.path);
+        record.value40 = config.value40;
+        record.value44 = config.value44;
+        record.value48 = config.value48;
+    }
+    return 1;
+}
 
 std::int32_t InitializeAudio_5241A0()
 {
@@ -1051,7 +1221,7 @@ std::uint32_t Sub_52B990() noexcept
     }
 
     gFlag = 1;
-    const std::int32_t value00 = gRecords[static_cast<std::size_t>(index)].value00;
+    const std::int32_t value00 = gRecords[static_cast<std::size_t>(index)].value40;
     const std::int32_t musicVolume = cg::platform::gMusicVolume;
     const std::uint32_t productBits =
         std::bit_cast<std::uint32_t>(value00)

@@ -97,6 +97,7 @@ struct MapCharaSceneSlots {
     std::int16_t valueC8A762;
     login::YobiAction* actionC8A764;
     std::uint32_t valueC8A768;
+    std::uint32_t valueC8A76C;
     float value55DE9C {5.0F};
     std::int16_t value55DEA0 {315};
     std::int16_t value55DEA2 {-1};
@@ -470,6 +471,8 @@ namespace {
 std::array<MapEffectRecord, 500> gMapEffectRecords {};
 MapEffectRecord* gFreeMapEffectHead = nullptr;   // 原 C82244。
 MapEffectRecord* gActiveMapEffectHead = nullptr; // 原 C8A72C。
+std::uint8_t gMapEffectStartedC8A728 = 0;
+std::uint32_t gMapEffectTickC8A730 = 0;
 std::uint8_t gMapEffectStartedC82240 = 0;
 std::uint32_t gMapEffectTickC82250 = 0;
 std::uint8_t gMapEffectStartedC8224C = 0;
@@ -741,6 +744,33 @@ void CreateMapEffectKind2()
         *record, 4, 0u - ReadMapEffectWord(*record, 0x0C));
 }
 
+void CreateMapEffectKind4()
+{
+    MapEffectRecord* const record = Sub_46E340();
+    if (record == nullptr) {
+        return;
+    }
+    WriteMapEffectHalf(*record, 0x3C, 4);
+    const std::int32_t randomX = platform::NextRandom_53B4C9();
+    WriteMapEffectWord(*record, 4, 0);
+    WriteMapEffectWord(
+        *record, 0, static_cast<std::uint32_t>(randomX % 1240 - 100));
+    WriteMapEffectHalf(
+        *record, 0x40,
+        static_cast<std::uint16_t>(platform::NextRandom_53B4C9() % 4));
+    WriteMapEffectWord(*record, 0x30, 4);
+    const std::int32_t direction = platform::NextRandom_53B4C9() % 2;
+    if (direction == 0 || direction == 1) {
+        WriteMapEffectWord(*record, 8, 0xFFFFFFFFu);
+        WriteMapEffectWord(*record, 0x0C, static_cast<std::uint32_t>(direction + 2));
+    }
+    const std::uint32_t tick = platform::ReadTickCount32();
+    ++gMapCharaSceneSlots.valueC8A750;
+    gMapEffectTickC8A730 = tick;
+    WriteMapEffectWord(
+        *record, 4, 0u - ReadMapEffectWord(*record, 0x0C));
+}
+
 } // namespace
 
 void Sub_46E4E0()
@@ -991,6 +1021,84 @@ std::int32_t __cdecl Sub_46E4C0(const std::int32_t cycles)
 {
     static_cast<void>(Sub_46EBB0(cycles));
     return Sub_46E940(cycles);
+}
+
+void Sub_46ED50()
+{
+    const std::uint8_t started = gMapEffectStartedC8A728;
+    if ((started & 1u) == 0) {
+        gMapEffectStartedC8A728 = static_cast<std::uint8_t>(started | 1u);
+        gMapEffectTickC8A730 = platform::ReadTickCount32();
+    }
+
+    const std::uint32_t selected = gCurrentSceneType == 10
+        ? gMapCharaSceneSlots.valueC8A76C
+        : gMapCharaSceneSlots.valueC8A74E;
+    const std::int16_t selectedLow =
+        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(selected));
+    if (selectedLow != 0) {
+        if (selectedLow >= 3) {
+            const std::int32_t attempts = std::bit_cast<std::int16_t>(
+                static_cast<std::uint16_t>(2u * selected - 4u));
+            for (std::int32_t index = 0; index < attempts; ++index) {
+                CreateMapEffectKind4();
+            }
+        } else {
+            const std::uint32_t now = platform::ReadTickCount32();
+            const std::int16_t interval = std::bit_cast<std::int16_t>(
+                static_cast<std::uint16_t>(51u - 25u * selected));
+            const std::uint32_t deadline = gMapEffectTickC8A730
+                + static_cast<std::uint32_t>(static_cast<std::int32_t>(interval));
+            if (deadline < now) {
+                CreateMapEffectKind4();
+            }
+        }
+    }
+
+    MapEffectRecord* record = gActiveMapEffectHead;
+    while (record != nullptr) {
+        if (ReadMapEffectHalf(*record, 0x3C) == 4) {
+            const std::int32_t randomX = platform::NextRandom_53B4C9() % 3;
+            const std::uint32_t oldX = ReadMapEffectWord(*record, 0);
+            const std::uint32_t velocityX = ReadMapEffectWord(*record, 8);
+            WriteMapEffectWord(
+                *record, 0,
+                oldX + velocityX + static_cast<std::uint32_t>(randomX - 1));
+
+            const std::int32_t randomY = platform::NextRandom_53B4C9() % 3;
+            const std::uint32_t velocityY = ReadMapEffectWord(*record, 0x0C);
+            const std::uint32_t oldY = ReadMapEffectWord(*record, 4);
+            const std::uint32_t remaining = ReadMapEffectWord(*record, 0x30);
+            WriteMapEffectWord(
+                *record, 4,
+                oldY + velocityY + static_cast<std::uint32_t>(randomY - 1));
+            if (std::bit_cast<std::int32_t>(remaining) <= 0) {
+                WriteMapEffectHalf(
+                    *record, 0x3E,
+                    static_cast<std::uint16_t>(platform::NextRandom_53B4C9() % 3));
+                WriteMapEffectWord(
+                    *record, 0x28,
+                    static_cast<std::uint32_t>(platform::NextRandom_53B4C9() % 8 + 1));
+                WriteMapEffectWord(
+                    *record, 0x2C,
+                    static_cast<std::uint32_t>(platform::NextRandom_53B4C9() % 8 + 1));
+                WriteMapEffectWord(*record, 0x30, 4);
+            } else {
+                WriteMapEffectWord(*record, 0x30, remaining - 1u);
+            }
+            ApplyMapEffectDirection(*record);
+            if (std::bit_cast<std::int32_t>(
+                    ReadMapEffectWord(*record, 4)) >= 480) {
+                MapEffectRecord* const next = record->next;
+                Sub_46E390(record);
+                --gMapCharaSceneSlots.valueC8A750;
+                record = next;
+                continue;
+            }
+        }
+        record = record->next;
+        gMapCharaSceneSlots.valueC8A73C = 1;
+    }
 }
 
 void __cdecl Sub_46E0D0(const std::int32_t mask, const std::int32_t value)

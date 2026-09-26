@@ -1101,6 +1101,15 @@ void Sub_46ED50()
     }
 }
 
+void Sub_46E4A0()
+{
+    Sub_46E4E0();
+    Sub_46E6C0();
+    // 原 46E4AA/46E4AF 两次调用的 509080 仅有 retn。
+    Sub_46ED50();
+    Sub_46F1D0();
+}
+
 void __cdecl Sub_46E0D0(const std::int32_t mask, const std::int32_t value)
 {
     if (mask == 0) {

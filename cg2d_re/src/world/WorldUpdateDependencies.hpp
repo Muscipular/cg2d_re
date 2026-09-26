@@ -446,6 +446,8 @@ std::int32_t __cdecl Sub_46E940(std::int32_t cycles); // 原 0x46E940；多轮 k
 std::int32_t __cdecl Sub_46EBB0(std::int32_t cycles); // 原 0x46EBB0；多轮 kind 1 更新。
 std::int32_t __cdecl Sub_46E4C0(std::int32_t cycles); // 原 0x46E4C0；双效果更新，透传后者返回。
 void Sub_46ED50();                          // 原 0x46ED50；kind 4 创建与活动链更新，返回无统一合同。
+void Sub_46E4A0();                          // 原 0x46E4A0；三效果生产后尾接 46F1D0。
+void Sub_46F1D0();                          // 原 0x46F1D0；真实父更新依赖，待定义。
 void __cdecl Sub_46E0D0(std::int32_t mask, std::int32_t value); // 原 0x46E0D0；场景效果配置。
 void Sub_46F160();                          // 原 0x46F160；清活动链的 kind 6/7/8。
 MapEffectRecord* Sub_46F090(

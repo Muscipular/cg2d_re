@@ -107,7 +107,7 @@ void Update()
         cg::NullSub_509080();
         detail::Sub_518780();
         detail::Sub_503E80();
-        detail::Sub_43F220();
+        login::detail::Sub_43F220();
         gValueFF0D74 = 0;
         gValue9DAD30 = 0;
         SetCurrentSceneType(6);
@@ -137,7 +137,7 @@ void Update()
             detail::Sub_446470();
             login::detail::YobiClearUp_404D30();
             detail::Sub_503E80();
-            detail::Sub_43F220();
+            login::detail::Sub_43F220();
             gValue58B6D0 = 1;
             detail::Sub_51D750();
             platform::gValue73ECC0 = 2;

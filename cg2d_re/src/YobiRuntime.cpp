@@ -113,6 +113,22 @@ struct YobiUIData {
     std::uint8_t trailingZero1;
 };
 
+// 原 payload +00..+2F；原生指针扩宽后只供三种地图角色及观察链使用。
+struct MapCharaPayload {
+    std::array<std::uint32_t, 5> values;
+    std::array<YobiAction*, 5> partyActions;
+    std::int32_t frame;
+    YobiAction* next;
+};
+
+static_assert(std::is_standard_layout_v<MapCharaPayload>);
+static_assert(std::is_trivially_copyable_v<MapCharaPayload>);
+static_assert(offsetof(MapCharaPayload, values) == 0);
+static_assert(offsetof(MapCharaPayload, partyActions) == 0x18);
+static_assert(offsetof(MapCharaPayload, frame) == 0x40);
+static_assert(offsetof(MapCharaPayload, next) == 0x48);
+static_assert(sizeof(MapCharaPayload) == 0x50);
+
 static_assert(std::is_standard_layout_v<YobiUIData>);
 static_assert(std::is_trivially_copyable_v<YobiUIData>);
 static_assert(sizeof(YobiUIData) == 0x24);
@@ -150,6 +166,7 @@ static_assert(offsetof(NineGridDescriptorFields, paletteCacheIndex) == 0x0E);
 
 YobiAction* gYobiActionStart = nullptr;
 YobiAction* gYobiActionEnd = nullptr;
+YobiAction* gMapCharaHead = nullptr; // 原 0x5F9750，独立于首尾哨兵。
 
 render::GraphicDescriptor16 ToGraphicDescriptor(
     const NineGridDescriptorFields& fields)
@@ -700,6 +717,70 @@ YobiAction* NewYobiAction_404AE0(
         insertionPoint->prev = action;
     }
     return action;
+}
+
+YobiAction* NewMapCharaAction()
+{
+    return NewYobiAction_404AE0(2, sizeof(MapCharaPayload));
+}
+
+YobiAction* Sub_43F180(YobiAction* const action)
+{
+    YobiAction* current = gMapCharaHead;
+    if (current == nullptr) {
+        gMapCharaHead = action;
+        return nullptr;
+    }
+    for (;;) {
+        auto* const payload = static_cast<MapCharaPayload*>(current->payload);
+        if (payload->next == nullptr) {
+            payload->next = action;
+            return action;
+        }
+        current = payload->next;
+    }
+}
+
+void* Sub_43F1B0(YobiAction* const action)
+{
+    YobiAction* current = gMapCharaHead;
+    if (current == action) {
+        auto* const payload = static_cast<MapCharaPayload*>(action->payload);
+        gMapCharaHead = payload->next;
+        return payload;
+    }
+    while (current != nullptr) {
+        auto* const payload = static_cast<MapCharaPayload*>(current->payload);
+        YobiAction* const next = payload->next;
+        if (next == action) {
+            auto* const removed = static_cast<MapCharaPayload*>(next->payload);
+            payload->next = removed->next;
+            return removed;
+        }
+        current = next;
+    }
+    return nullptr;
+}
+
+YobiAction* Sub_43F1F0(const std::uint32_t value)
+{
+    YobiAction* current = gMapCharaHead;
+    while (current != nullptr) {
+        const auto* const payload =
+            static_cast<const MapCharaPayload*>(current->payload);
+        for (const std::uint32_t entry : payload->values) {
+            if (entry == value) {
+                return current;
+            }
+        }
+        current = payload->next;
+    }
+    return nullptr;
+}
+
+void Sub_43F220()
+{
+    gMapCharaHead = nullptr;
 }
 
 YobiAction* NewYobiGear_4410F0(const std::int32_t imageNo)

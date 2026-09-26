@@ -44,6 +44,15 @@ YobiAction* NewYobiAction_404AE0(
     std::uint8_t priority,
     std::uint32_t payloadSize);
 
+// 三种地图角色生产者共用的 x64 payload 分配，不改变通用 404AE0 的尺寸合同。
+YobiAction* NewMapCharaAction();
+
+// 原 5F9750 独立观察链；引用非拥有，清头不释放 action。
+YobiAction* Sub_43F180(YobiAction* action);
+void* Sub_43F1B0(YobiAction* action);
+YobiAction* Sub_43F1F0(std::uint32_t value);
+void Sub_43F220();
+
 // 原 YobiGear::new@[0x4410F0,0x441128)：分配零载荷 action 并设置五个字段。
 YobiAction* NewYobiGear_4410F0(std::int32_t imageNo);
 

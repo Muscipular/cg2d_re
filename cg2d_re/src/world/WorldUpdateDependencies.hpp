@@ -446,7 +446,6 @@ std::int32_t Sub_518C80();                 // 原 0x518C80。
 std::int32_t Sub_518CB0();                 // 原 [0x518CB0,0x518D94)：返回 fclose/helper 整数。
 void Sub_518780();                         // 原 0x518780。
 std::int8_t Sub_503E80();                  // 原 0x503E80，IDA 原型 char()。
-void Sub_43F220();                         // 原 0x43F220。
 using cg::audio::Sub_52B990;               // 原 0x52B990。
 std::int32_t Sub_45EBB0();                 // 原 0x45EBB0。
 void Sub_45ED80();                        // 原 [0x45ED80,0x45ED8B)，重置 9A6204。

@@ -439,6 +439,7 @@ struct MapEffectRecord;
 MapEffectRecord* Sub_46E2A0();             // 原 0x46E2A0；返回末项非拥有指针。
 MapEffectRecord* Sub_46E340();             // 原 0x46E340；空闲首项转为活动首项。
 MapEffectRecord* Sub_46E390(MapEffectRecord* record); // 原 0x46E390；摘活动链后退回空闲头。
+std::uintptr_t __cdecl Sub_46E3E0(std::int32_t* x, std::int32_t* y); // 原 0x46E3E0；混合 EAX 位型。
 void __cdecl Sub_46E0D0(std::int32_t mask, std::int32_t value); // 原 0x46E0D0；场景效果配置。
 void Sub_46F160();                          // 原 0x46F160；清活动链的 kind 6/7/8。
 MapEffectRecord* Sub_46F090(

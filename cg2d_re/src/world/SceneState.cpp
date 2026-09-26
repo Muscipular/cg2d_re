@@ -583,6 +583,44 @@ MapEffectRecord* Sub_46E390(MapEffectRecord* const record)
     return record;
 }
 
+std::uintptr_t __cdecl Sub_46E3E0(std::int32_t* const x, std::int32_t* const y)
+{
+    const std::int16_t direction =
+        std::bit_cast<std::int16_t>(gMapCharaSceneSlots.value55DE98);
+    switch (direction) {
+    case 0:
+        ++*x;
+        ++*y;
+        return reinterpret_cast<std::uintptr_t>(y);
+    case 1:
+        *y += 2;
+        return reinterpret_cast<std::uintptr_t>(y);
+    case 2:
+        --*x;
+        ++*y;
+        return reinterpret_cast<std::uintptr_t>(y);
+    case 3:
+        *x -= 2;
+        return reinterpret_cast<std::uintptr_t>(x);
+    case 4:
+        --*x;
+        --*y;
+        return reinterpret_cast<std::uintptr_t>(y);
+    case 5:
+        *y -= 2;
+        return reinterpret_cast<std::uintptr_t>(y);
+    case 6:
+        ++*x;
+        --*y;
+        return reinterpret_cast<std::uintptr_t>(y);
+    case 7:
+        *x += 2;
+        return reinterpret_cast<std::uintptr_t>(x);
+    default:
+        return static_cast<std::uint32_t>(static_cast<std::int32_t>(direction));
+    }
+}
+
 void __cdecl Sub_46E0D0(const std::int32_t mask, const std::int32_t value)
 {
     if (mask == 0) {

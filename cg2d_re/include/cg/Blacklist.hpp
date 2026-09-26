@@ -26,6 +26,9 @@ extern std::int32_t gCursor;
 // 原 0x5531A0，按有符号 32 位访问的当前文件 ID。
 extern std::int32_t gCurrentFileId;
 
+// 原 401170：按 17 字节步长返回第 index 条记录的可写原字节地址，不检查索引。
+char* BlacklistRecordAt_401170(std::int32_t index) noexcept;
+
 // 原 sub_401030@0x401030：从指定文件加载黑名单记录。
 std::int8_t LoadBlacklistFile(std::int32_t fileId);
 

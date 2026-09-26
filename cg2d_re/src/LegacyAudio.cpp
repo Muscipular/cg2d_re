@@ -441,6 +441,27 @@ void Sub_52B940()
     gBgmStage1050814 = 0;
 }
 
+// 原 [0x52B630,0x52B709)：保留禁用门禁与 BGM、通道、样本、设备的释放次序。
+void Sub_52B630()
+{
+    if (gValue10507D4 != 0) {
+        return;
+    }
+
+    Sub_52B8E0();
+    if (gSdlAudioBackend.HasBgm()) {
+        gSdlAudioBackend.ReleaseBgm();
+    }
+    for (std::size_t index = 0; index < platform::SdlAudioBackend::kChannelCount;
+         ++index) {
+        if (gSdlAudioBackend.HasChannel(index)) {
+            static_cast<void>(gSdlAudioBackend.StopChannel(index));
+            gSdlAudioBackend.ReleaseChannel(index);
+        }
+    }
+    gSdlAudioBackend.Close();
+}
+
 // 原 [524230,52B627)：配置项按原栈表顺序加载；设备/样本/通道机制使用 SDL3。
 std::int32_t Sub_524230()
 {

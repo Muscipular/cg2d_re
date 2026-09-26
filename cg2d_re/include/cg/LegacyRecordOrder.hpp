@@ -44,5 +44,7 @@ std::int32_t ParseOrderedRecord_50EF70(std::int32_t index, const char* text);
 // 原 50EEB0：前两项 W32 不读取；EAX 可为门禁值、计数或满表末地址。
 std::uintptr_t UpdateOrderedRecords_50EEB0(
     std::uint32_t ignored0, std::uint32_t ignored1, const char* text);
+// 原 5195C0：仅查找 +8 W16 为 1 且 +0xC 与 key 相等的首条索引。
+std::int32_t FindActiveOrderedRecordIndex_5195C0(std::int32_t key) noexcept;
 
 } // namespace cg::login::detail

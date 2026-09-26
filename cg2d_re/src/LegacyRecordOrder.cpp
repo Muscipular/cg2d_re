@@ -162,4 +162,16 @@ std::uintptr_t UpdateOrderedRecords_50EEB0(
         + offsetof(OrderedRecord1051B14, value0C);
 }
 
+std::int32_t FindActiveOrderedRecordIndex_5195C0(
+    const std::int32_t key) noexcept
+{
+    for (std::size_t index = 0; index < gOrderedRecords1051B14.size(); ++index) {
+        const OrderedRecord1051B14& record = gOrderedRecords1051B14[index];
+        if (record.value08 == 1 && record.value0C == key) {
+            return static_cast<std::int32_t>(index);
+        }
+    }
+    return -1;
+}
+
 } // namespace cg::login::detail

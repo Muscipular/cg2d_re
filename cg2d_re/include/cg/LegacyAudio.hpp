@@ -29,6 +29,10 @@ std::int32_t __cdecl Sub_52CDE0(
 // 原 0x52C9E0；50 项请求生产，复用唯一音效定义表。
 std::int32_t __cdecl Sub_52C9E0(
     std::int32_t id, std::int32_t x, std::int32_t y);
+// 原 52CB50 消费请求；52C680 更新同一通道并返回 0/-1。
+std::int32_t __cdecl Sub_52CB50();
+std::int32_t __cdecl Sub_52C680(
+    std::int32_t requestIndex, std::int32_t isNew);
 void __cdecl Sub_52CD60(); // 原 [0x52CD60,0x52CDDB)，扫描同一 50 项表。
 std::uint32_t Sub_52B990() noexcept;
 

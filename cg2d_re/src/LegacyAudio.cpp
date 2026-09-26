@@ -3,11 +3,13 @@
 #include "LoginStateDependencies.hpp"
 
 #include "cg/LoginRequest.hpp"
+#include "cg/platform/SdlAudioBackend.hpp"
 #include "cg/platform/CommandOptions.hpp"
 #include "cg/platform/KeyState.hpp"
 #include "cg/world/SceneState.hpp"
 #include "world/WorldUpdateDependencies.hpp"
 
+#include <algorithm>
 #include <array>
 #include <bit>
 #include <cmath>
@@ -170,6 +172,21 @@ std::array<std::byte, 0x80> gAudioBytes103DD7C {};
 std::array<std::byte, 0x80> gAudioBytes104A334 {};
 std::array<std::int32_t, 128> gPanVal103CFBC {};
 std::array<std::int32_t, 128> gSoundVolValue10505D0 {};
+// 原 [58D3D4,58D4F8)：52C450/52C680 以 baseFrequency+pitchIndex 读取。
+std::array<std::uint32_t, 73> gPitchFrequencies58D3D4 {{
+    1460, 2756, 2920, 3093, 3277, 3472, 3679, 3866,
+    4129, 4375, 4635, 4910, 5202, 5512, 5840, 6187,
+    6555, 6945, 7358, 7732, 8259, 8750, 9270, 9821,
+    10405, 11025, 11680, 12375, 13110, 13890, 14716, 15464,
+    16518, 17501, 18541, 19643, 20811, 22050, 23360, 24750,
+    26221, 27780, 29432, 30929, 33037, 35002, 37082, 39287,
+    41623, 44100, 46721, 49500, 52443, 55561, 58865, 61859,
+    66074, 70004, 74165, 78575, 83247, 88200, 93442, 99001,
+    104887, 111123, 117731, 123718, 132149, 140008, 148331, 157150,
+    166495,
+}};
+std::int32_t gNextSeChannel105082C = 0;
+platform::SdlAudioBackend gSdlAudioBackend;
 static_assert(sizeof(gBgmMapping103DFAC) == 0x800);
 static_assert(sizeof(gBgmConfigRecords104A3B8) == 0x2600);
 static_assert(sizeof(gSoundRequests104C9B8) == 0x708);
@@ -177,6 +194,7 @@ static_assert(sizeof(gSoundEffects103E7B0) == 0xBB80);
 static_assert(sizeof(gSoundChannels104D0C8) == 0xF00);
 static_assert(sizeof(gPanVal103CFBC) == 0x200);
 static_assert(sizeof(gSoundVolValue10505D0) == 0x200);
+static_assert(sizeof(gPitchFrequencies58D3D4) == 73 * sizeof(std::uint32_t));
 
 std::array<SoundRecord57C368, 99> gSoundRecords57C368 {{
     {0, 0, 2},
@@ -761,6 +779,155 @@ std::int32_t __cdecl Sub_52C9E0(
     request.screenX = x;
     ++request.requestCount;
     return 0;
+}
+
+// 原 [0x52C680,0x52C90D)：请求已发布后更新通道及设备，只有复制失败被视为错误。
+std::int32_t __cdecl Sub_52C680(
+    const std::int32_t requestIndex, const std::int32_t isNew)
+{
+    if (gValue10507D4 != 0 || platform::gEnableSound == 0
+        || requestIndex < 0 || requestIndex >= 50) {
+        return -1;
+    }
+
+    SoundRequestRecord& request =
+        gSoundRequests104C9B8[static_cast<std::size_t>(requestIndex)];
+    const std::int32_t seNo = request.seNo;
+    if (seNo > 500) {
+        return -1;
+    }
+    SoundEffectDefinition& effect =
+        gSoundEffects103E7B0[static_cast<std::size_t>(seNo)];
+    if (effect.sampleIndex == -1
+        || request.channelIndex < 0 || request.channelIndex > 64) {
+        return -1;
+    }
+
+    const std::int32_t quotient = (request.distanceOrAtten * 16) / 106;
+    request.distanceOrAtten = quotient;
+    if (quotient >= 127) {
+        request.distanceOrAtten = 127;
+    }
+
+    if (isNew != 0) {
+        const std::int32_t channelIndex = request.channelIndex;
+        SoundChannelState& channel =
+            gSoundChannels104D0C8[static_cast<std::size_t>(channelIndex)];
+        if (channel.currentSeNo != request.seNo) {
+            const std::int32_t previous = channel.currentSeNo;
+            channel.currentSeNo = request.seNo;
+            if (previous != -2
+                && gSdlAudioBackend.HasChannel(
+                    static_cast<std::size_t>(channelIndex))) {
+                gSdlAudioBackend.ReleaseChannel(
+                    static_cast<std::size_t>(channelIndex));
+            }
+            if (!gSdlAudioBackend.PrepareChannel(
+                    static_cast<std::size_t>(request.channelIndex),
+                    static_cast<std::size_t>(
+                        gSoundEffects103E7B0[static_cast<std::size_t>(
+                            request.seNo)].sampleIndex))) {
+                gSoundChannels104D0C8[static_cast<std::size_t>(
+                    request.channelIndex)].currentSeNo = -2;
+                return -1;
+            }
+        }
+    }
+
+    if (request.targetVolumeIndex != request.appliedVolumeIndex) {
+        static_cast<void>(gSdlAudioBackend.SetChannelVolume(
+            static_cast<std::size_t>(request.channelIndex),
+            gSoundVolValue10505D0[static_cast<std::size_t>(
+                request.targetVolumeIndex)]));
+        request.appliedVolumeIndex = request.targetVolumeIndex;
+    }
+    if (request.targetPanIndex != request.appliedPanIndex) {
+        static_cast<void>(gSdlAudioBackend.SetChannelPan(
+            static_cast<std::size_t>(request.channelIndex),
+            gPanVal103CFBC[static_cast<std::size_t>(
+                request.targetPanIndex)]));
+        request.appliedPanIndex = request.targetPanIndex;
+    }
+
+    const std::int32_t currentSeNo = request.seNo;
+    const std::int32_t pitch =
+        gSoundEffects103E7B0[static_cast<std::size_t>(currentSeNo)].pitchIndex;
+    if (pitch != 0) {
+        const std::int32_t base =
+            gSoundEffects103E7B0[static_cast<std::size_t>(
+                currentSeNo)].baseFrequency;
+        static_cast<void>(gSdlAudioBackend.SetChannelFrequency(
+            static_cast<std::size_t>(request.channelIndex),
+            gPitchFrequencies58D3D4[static_cast<std::size_t>(base + pitch)]));
+    }
+
+    if (isNew != 0) {
+        static_cast<void>(gSdlAudioBackend.RewindChannel(
+            static_cast<std::size_t>(request.channelIndex)));
+        const bool loop =
+            gSoundEffects103E7B0[static_cast<std::size_t>(request.seNo)].loop != 0;
+        if (loop) {
+            gSoundChannels104D0C8[static_cast<std::size_t>(
+                request.channelIndex)].value30 = 1;
+        }
+        static_cast<void>(gSdlAudioBackend.PlayChannel(
+            static_cast<std::size_t>(request.channelIndex), loop));
+
+        std::uint32_t next =
+            static_cast<std::uint32_t>(gNextSeChannel105082C);
+        do {
+            next = (next + 1u) & 0x3Fu;
+        } while (gSoundChannels104D0C8[next].value30 != 0);
+        gNextSeChannel105082C = static_cast<std::int32_t>(next);
+    }
+    return 0;
+}
+
+// 原 [0x52CB50,0x52CC3D)：遍历唯一请求表；失败的播放请求仍清计数。
+std::int32_t __cdecl Sub_52CB50()
+{
+    std::int32_t result = -1;
+    for (std::size_t index = 0; index < gSoundRequests104C9B8.size(); ++index) {
+        SoundRequestRecord& request = gSoundRequests104C9B8[index];
+        if (request.requestCount == 0) {
+            const std::int32_t channel = request.channelIndex;
+            result = channel;
+            if (channel == -1) {
+                continue;
+            }
+            if (channel >= 0 && channel < 64) {
+                static_cast<void>(gSdlAudioBackend.StopChannel(
+                    static_cast<std::size_t>(channel)));
+                const std::int32_t reread = request.channelIndex;
+                gSoundChannels104D0C8[static_cast<std::size_t>(
+                    reread)].value30 = 0;
+                result = reread * 3;
+            }
+            request.channelIndex = -1;
+            continue;
+        }
+
+        const bool isNew = request.channelIndex == -1;
+        if (isNew) {
+            request.channelIndex = gNextSeChannel105082C;
+            request.appliedVolumeIndex = -1;
+            request.appliedPanIndex = -1;
+        }
+
+        const std::int32_t desired = platform::gUseStereo == 0
+            ? 64
+            : (std::clamp)(request.screenX / 5, 0, 127);
+        if (isNew) {
+            request.targetPanIndex = desired;
+        } else {
+            request.targetPanIndex += (std::clamp)(
+                desired - request.targetPanIndex, -2, 2);
+        }
+        result = Sub_52C680(
+            static_cast<std::int32_t>(index), static_cast<std::int32_t>(isNew));
+        request.requestCount = 0;
+    }
+    return result;
 }
 
 // 原 [0x52CD60,0x52CDDB)；首个距离阈值不符的有效记录立即结束扫描。

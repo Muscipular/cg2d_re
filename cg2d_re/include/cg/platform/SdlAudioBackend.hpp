@@ -33,12 +33,14 @@ public:
     [[nodiscard]] bool PrepareChannel(std::size_t channel, std::size_t sample) noexcept;
     [[nodiscard]] bool HasChannel(std::size_t channel) const noexcept;
     [[nodiscard]] bool StopChannel(std::size_t channel) noexcept;
+    [[nodiscard]] bool RewindChannel(std::size_t channel) noexcept;
     void ReleaseChannel(std::size_t channel) noexcept;
 
     // DirectSound 原单位：百分之一分贝与绝对 Hz；调用方决定是否忽略失败。
     [[nodiscard]] bool SetChannelVolume(std::size_t channel, std::int32_t hundredthDb) noexcept;
     [[nodiscard]] bool SetChannelPan(std::size_t channel, std::int32_t hundredthDb) noexcept;
     [[nodiscard]] bool SetChannelFrequency(std::size_t channel, std::uint32_t hz) noexcept;
+    // 从当前帧开始；原 SetCurrentPosition(0) 由 RewindChannel 单独承接。
     [[nodiscard]] bool PlayChannel(std::size_t channel, bool loop) noexcept;
 
     // 先停止并释放通道，再释放全部样本、设备及本对象持有的 AUDIO 引用。

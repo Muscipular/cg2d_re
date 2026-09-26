@@ -233,6 +233,24 @@ bool SdlAudioBackend::StopChannel(const std::size_t index) noexcept
     return cleared;
 }
 
+bool SdlAudioBackend::RewindChannel(const std::size_t index) noexcept
+{
+    if (!HasChannel(index)) {
+        return false;
+    }
+    Impl::Channel& channel = impl_->channels[index];
+    if (!SDL_LockAudioStream(channel.stream)) {
+        return false;
+    }
+    const bool cleared = SDL_ClearAudioStream(channel.stream);
+    if (cleared) {
+        channel.cursor = 0;
+        channel.playing = false;
+    }
+    static_cast<void>(SDL_UnlockAudioStream(channel.stream));
+    return cleared;
+}
+
 void SdlAudioBackend::ReleaseChannel(const std::size_t index) noexcept
 {
     if (!HasChannel(index)) {
@@ -299,11 +317,6 @@ bool SdlAudioBackend::PlayChannel(
     if (!SDL_LockAudioStream(channel.stream)) {
         return false;
     }
-    if (!SDL_ClearAudioStream(channel.stream)) {
-        static_cast<void>(SDL_UnlockAudioStream(channel.stream));
-        return false;
-    }
-    channel.cursor = 0;
     channel.loop = loop;
     channel.playing = true;
     static_cast<void>(SDL_UnlockAudioStream(channel.stream));

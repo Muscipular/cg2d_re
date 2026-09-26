@@ -1,6 +1,15 @@
 #include "cg/render/SdlPresenter.hpp"
+#include "cg/platform/LegacyWindow.hpp"
 
 #include <SDL3/SDL.h>
+
+#ifndef WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN
+#endif
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif
+#include <Windows.h>
 
 #include <cstddef>
 #include <cstring>
@@ -225,6 +234,13 @@ bool SdlPresenter::FailSdl(const char* operation) noexcept
 {
     const char* detail = SDL_GetError();
     return Fail(operation, detail[0] != '\0' ? detail : "SDL 未提供详细错误。");
+}
+
+// 原 44C6B0：DX 合作级别探测在 SDL 后端映射为可尝试重建的门禁。
+int TestCooperativeLevel_44C6B0()
+{
+    return SDL_IsMainThread()
+        && IsWindow(reinterpret_cast<HWND>(platform::gLegacyWindow)) != FALSE;
 }
 
 } // namespace cg::render

@@ -127,4 +127,4 @@ target_include_directories(cg2d_re_render PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/in
 target_compile_features(cg2d_re_render PUBLIC cxx_std_20)
 set_target_properties(cg2d_re_render PROPERTIES CXX_EXTENSIONS OFF)
 target_compile_options(cg2d_re_render PRIVATE /GR- /utf-8 /W4)
-target_link_libraries(cg2d_re_render PRIVATE SDL3::SDL3)
+target_link_libraries(cg2d_re_render PRIVATE SDL3::SDL3 user32)

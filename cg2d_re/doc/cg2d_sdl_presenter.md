@@ -828,7 +828,7 @@ SDL 窗口呈现或 32 位像素对照通过。
 `466C8A/466CAF` 在绘制两侧临时写零、恢复此前
 保存的 `103CF10`，也不能由 `Flip` 私自接管。
 
-**建议的 SDL 恢复映射，待确认：** SDL 没有上述
+**SDL 恢复映射（2026-09-26 按用户委托裁决）：** SDL 没有上述
 DirectDraw `TestCooperativeLevel` 的同型结果。
 在平台窄边界检查当前线程是 SDL 主线程，且
 `gLegacyWindow` 指向仍有效的 Win32 窗口；
@@ -842,6 +842,8 @@ DirectDraw `TestCooperativeLevel` 的同型结果。
 但 SDL 持续失败时可逐帧尝试重建，不新增退避或
 固定成功值。这与原端合作级别持续返回零时也
 可能逐帧进入重建的条件结构相符，不宣称失败码
-或时序逐项等价。该映射与前述生命周期方案一起
-待用户确认，尚不计 `44C6B0/466B80` 的源码或
-恢复流程已完成。
+或时序逐项等价。新端 `44C6B0` 已在
+`SdlPresenter.cpp` 中按 SDL 主线程和 `IsWindow` 门禁落位，
+`gLegacyWindow` 仍由原窗口 owner 持有；不读取或清除 lost。
+`466B80` 及完整 Init/Destroy/Flip 生命周期尚未落位，
+本门禁单独实现不计恢复流程或画面完成。

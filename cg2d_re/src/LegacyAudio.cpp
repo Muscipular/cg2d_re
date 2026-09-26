@@ -159,6 +159,19 @@ static_assert(sizeof(SoundEffectDefinition) == 0x60);
 
 namespace {
 
+// 524230 的内联 0x46 字节栈项；最后一个未写填充字节不参与加载。
+struct SeInitEntry final {
+    std::int16_t id;
+    const char* path;
+    std::uint8_t volume;
+    std::uint8_t pitch;
+    std::uint8_t loop;
+};
+
+constexpr std::array<SeInitEntry, 270> kSeInit524230 {{
+#include "LegacySeDefinitions.inc"
+}};
+
 std::array<SpatialAudioRecord, 50> gSpatialRecords103D1C0 {};
 static_assert(sizeof(gSpatialRecords103D1C0) == 0x3E8);
 

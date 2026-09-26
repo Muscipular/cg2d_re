@@ -463,6 +463,12 @@ std::array<MapEffectRecord, 500> gMapEffectRecords {};
 MapEffectRecord* gFreeMapEffectHead = nullptr;   // 原 C82244。
 MapEffectRecord* gActiveMapEffectHead = nullptr; // 原 C8A72C。
 
+void WriteMapEffectWord(
+    MapEffectRecord& record, const std::size_t offset, const std::uint32_t value)
+{
+    std::memcpy(record.legacyBytes.data() + offset, &value, sizeof(value));
+}
+
 } // namespace
 
 MapEffectRecord* Sub_46E2A0()
@@ -534,8 +540,52 @@ MapEffectRecord* Sub_46E390(MapEffectRecord* const record)
     record->prev = nullptr;
     record->next = gFreeMapEffectHead;
     gFreeMapEffectHead = record;
-    record->legacyBytes[0x3C] = 0;
-    record->legacyBytes[0x3D] = 0;
+    constexpr std::uint16_t clearedKind = 0;
+    std::memcpy(
+        record->legacyBytes.data() + 0x3C, &clearedKind, sizeof(clearedKind));
+    return record;
+}
+
+MapEffectRecord* Sub_46F090(
+    const std::int16_t kind, const std::int32_t horizontalSign,
+    const std::int32_t verticalSign, const std::int32_t phase,
+    const std::int32_t speed, const std::int32_t graphicIndex)
+{
+    MapEffectRecord* const record = Sub_46E340();
+    if (record == nullptr) {
+        return record;
+    }
+
+    const std::uint16_t kindBits = static_cast<std::uint16_t>(kind);
+    std::memcpy(record->legacyBytes.data() + 0x3C, &kindBits, sizeof(kindBits));
+    const std::int32_t offset = verticalSign != 0
+        ? phase % (horizontalSign != 0 ? 1920 : 1040)
+        : phase % 880 + 1040;
+
+    std::int32_t x = -400;
+    std::int32_t y = -400;
+    WriteMapEffectWord(*record, 0x00, static_cast<std::uint32_t>(x));
+    WriteMapEffectWord(*record, 0x04, static_cast<std::uint32_t>(y));
+    if (offset >= 1040) {
+        y = offset - 1440;
+        WriteMapEffectWord(*record, 0x04, static_cast<std::uint32_t>(y));
+    } else {
+        x = offset - 400;
+        WriteMapEffectWord(*record, 0x00, static_cast<std::uint32_t>(x));
+    }
+    if (horizontalSign < 0) {
+        x = 240 - x;
+        WriteMapEffectWord(*record, 0x00, static_cast<std::uint32_t>(x));
+    }
+    if (verticalSign < 0) {
+        y = 80 - y;
+        WriteMapEffectWord(*record, 0x04, static_cast<std::uint32_t>(y));
+    }
+    WriteMapEffectWord(*record, 0x08, static_cast<std::uint32_t>(x) << 16);
+    WriteMapEffectWord(*record, 0x0C, static_cast<std::uint32_t>(y) << 16);
+    WriteMapEffectWord(*record, 0x10, static_cast<std::uint32_t>(speed));
+    WriteMapEffectWord(*record, 0x14, static_cast<std::uint32_t>(graphicIndex));
+    ++gMapCharaSceneSlots.valueC8A756;
     return record;
 }
 

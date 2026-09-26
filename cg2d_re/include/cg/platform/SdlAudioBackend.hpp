@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstddef>
+#include <cstdint>
 #include <memory>
 
 namespace cg::platform {
@@ -10,6 +11,7 @@ namespace cg::platform {
 class SdlAudioBackend final {
 public:
     static constexpr std::size_t kSampleSlots = 500;
+    static constexpr std::size_t kChannelCount = 64;
 
     SdlAudioBackend() noexcept;
     ~SdlAudioBackend();
@@ -27,7 +29,20 @@ public:
     [[nodiscard]] bool LoadWav(std::size_t slot, const char* path) noexcept;
     [[nodiscard]] bool HasSample(std::size_t slot) const noexcept;
 
-    // 先释放全部样本，再关闭逻辑设备及本对象持有的 AUDIO 引用。
+    // 复制样本引用到独立通道；调用者在重绑前须先释放旧通道。
+    [[nodiscard]] bool PrepareChannel(std::size_t channel, std::size_t sample) noexcept;
+    [[nodiscard]] bool HasChannel(std::size_t channel) const noexcept;
+    [[nodiscard]] bool StopChannel(std::size_t channel) noexcept;
+    void ReleaseChannel(std::size_t channel) noexcept;
+
+    // DirectSound 原单位：百分之一分贝与绝对 Hz；调用方决定是否忽略失败。
+    [[nodiscard]] bool SetChannelVolume(std::size_t channel, std::int32_t hundredthDb) noexcept;
+    [[nodiscard]] bool SetChannelPan(std::size_t channel, std::int32_t hundredthDb) noexcept;
+    [[nodiscard]] bool SetChannelFrequency(std::size_t channel, std::uint32_t hz) noexcept;
+    [[nodiscard]] bool PlayChannel(std::size_t channel, bool loop) noexcept;
+
+    // 先停止并释放通道，再释放全部样本、设备及本对象持有的 AUDIO 引用。
+    // 不得从本对象的 SDL 音频回调中关闭或销毁。
     void Close() noexcept;
 
 private:

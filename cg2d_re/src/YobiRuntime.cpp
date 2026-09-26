@@ -5,6 +5,7 @@
 #include "cg/platform/LegacyCryptInt.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
+#include "cg/world/SceneState.hpp"
 
 #include <array>
 #include <bit>
@@ -36,6 +37,7 @@ struct YobiAction {
     std::int32_t y;
     std::int32_t deltaX;
     std::int32_t deltaY;
+    std::int32_t field58; // 原 +58，与 +2B8 的 direction 独立。
     float scaleX;
     float scaleY;
     platform::LegacyCryptInt readiness;
@@ -172,6 +174,7 @@ std::array<std::int32_t, 5> gMapValues5F9720 {};
 std::array<std::int32_t, 5> gMapImages5AC4A0 {};
 std::int32_t gMapImage5F9734 = 0;
 std::int32_t gMapDirection5F9740 = 0;
+std::int32_t gMapDuration5F9744 = 0;
 
 render::GraphicDescriptor16 ToGraphicDescriptor(
     const NineGridDescriptorFields& fields)
@@ -849,6 +852,35 @@ YobiAction* Sub_440B70()
         }
     }
     return action;
+}
+
+void* Sub_440F50()
+{
+    YobiAction* const action =
+        Sub_43F1F0(world::ReadPlayerObjectIndex_FDA880());
+    if (action == nullptr) {
+        return nullptr;
+    }
+
+    auto* const payload = static_cast<MapCharaPayload*>(action->payload);
+    gMapImage5F9734 = action->imageNo;
+    gMapDirection5F9740 = action->field58;
+    gMapDuration5F9744 =
+        platform::legacy_crypt_int::Multiply_401E90(&action->readiness, 60);
+    for (std::size_t index = 0; index < payload->values.size(); ++index) {
+        gMapValues5F9720[index] = 0;
+        gMapImages5AC4A0[index] = 0;
+        const std::int32_t value =
+            std::bit_cast<std::int32_t>(payload->values[index]);
+        if (value > 0) {
+            gMapValues5F9720[index] = value;
+            YobiAction* const child = payload->partyActions[index];
+            if (child != nullptr) {
+                gMapImages5AC4A0[index] = child->imageNo;
+            }
+        }
+    }
+    return payload->partyActions.data();
 }
 
 YobiAction* NewYobiGear_4410F0(const std::int32_t imageNo)

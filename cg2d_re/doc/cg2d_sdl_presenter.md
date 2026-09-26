@@ -808,3 +808,32 @@ x64 指针布局仍受[场景证据](cg2d_scene_state.md)
 再接 `Flip` 的实际呈现和共享帧槽，最后按原绘制批次
 闭合 `DrawAllQueued`。Debug 静态库编译不等于完整链接、
 SDL 窗口呈现或 32 位像素对照通过。
+
+### lost 后的恢复门禁与重建顺序
+
+2026-09-26，只读现有 IDA 的 `44C6B0–44C6C3`：
+从 renderer `+4` 取 DirectDraw7，调用 vtable `+0x68`
+的 `TestCooperativeLevel`，完整返回值恰为零时返回 1，
+其余返回 0。`MainLoop@457096–4570A9` 先要求
+`gRendererLost@62B064` 非零，再要求该结果非零，
+才调用 `466B80`；模式不匹配则走另一独立的重建入口门禁。
+
+`466B80–466BB0` 先保存完整 `103CF10` W32，
+依次调用 Destroy、Init；Init 的 `AL` 经有符号扩展
+后减一判断，值 1 发布错误提示与消息，值 2 翻转
+`gWindowMode` 并再次 Init。随后无论这些分流如何，
+仍调用 BuildSurfaceCache 和 InitPalette，
+并继续场景相关更新；不得把 SDL 呈现失败直接变成
+`MainLoop` 的提前退出或单纯的下一帧重试。
+`466C8A/466CAF` 在绘制两侧临时写零、恢复此前
+保存的 `103CF10`，也不能由 `Flip` 私自接管。
+
+**补充待决映射：** SDL 没有上述 DirectDraw
+`TestCooperativeLevel` 的同型结果。须在 renderer
+单一 owner 明确如何表达“可开始重建”与“需等候”，
+并按原门禁时点向 `44C6B0` 的新端对应入口提供
+0/1；同时确定首次 Create、Present 失败、销毁
+及重建重试各路径对该状态的写入。不能恒返回 1
+造成每帧重建，也不能恒返回 0 使已置 lost 永不恢复。
+这一点与前述生命周期方案一并待确认，尚不计
+`44C6B0/466B80` 的源码或恢复流程已完成。

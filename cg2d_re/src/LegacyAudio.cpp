@@ -186,6 +186,7 @@ std::array<std::uint32_t, 73> gPitchFrequencies58D3D4 {{
     166495,
 }};
 std::int32_t gNextSeChannel105082C = 0;
+std::int32_t gLastSeNo58D4FC = -1;
 platform::SdlAudioBackend gSdlAudioBackend;
 static_assert(sizeof(gBgmMapping103DFAC) == 0x800);
 static_assert(sizeof(gBgmConfigRecords104A3B8) == 0x2600);
@@ -778,6 +779,79 @@ std::int32_t __cdecl Sub_52C9E0(
     }
     request.screenX = x;
     ++request.requestCount;
+    return 0;
+}
+
+// 原 [0x52C450,0x52C677)：直接播放，冷却非零不触碰通道。
+std::int32_t __cdecl PlaySe_52C450(
+    const std::int32_t seNo, const std::int32_t screenX)
+{
+    gLastSeNo58D4FC = seNo;
+    if (gValue10507D4 != 0 || platform::gEnableSound == 0
+        || seNo < 0 || seNo > 500 || !gSdlAudioBackend.IsOpen()) {
+        return -1;
+    }
+
+    SoundEffectDefinition& effect =
+        gSoundEffects103E7B0[static_cast<std::size_t>(seNo)];
+    if (effect.sampleIndex == -1) {
+        return -1;
+    }
+    if (effect.cooldown != 0) {
+        return 0;
+    }
+
+    gNextSeChannel105082C =
+        static_cast<std::int32_t>(
+            static_cast<std::uint32_t>(gNextSeChannel105082C) & 0x3Fu);
+    const std::size_t channelIndex =
+        static_cast<std::size_t>(gNextSeChannel105082C);
+    SoundChannelState& channel = gSoundChannels104D0C8[channelIndex];
+    if (channel.currentSeNo == seNo) {
+        static_cast<void>(gSdlAudioBackend.RewindChannel(channelIndex));
+    } else {
+        const std::int32_t previous = channel.currentSeNo;
+        channel.currentSeNo = seNo;
+        if (previous != -2 && gSdlAudioBackend.HasChannel(channelIndex)) {
+            gSdlAudioBackend.ReleaseChannel(channelIndex);
+        }
+        if (!gSdlAudioBackend.PrepareChannel(
+                static_cast<std::size_t>(gNextSeChannel105082C),
+                static_cast<std::size_t>(effect.sampleIndex))) {
+            gSoundChannels104D0C8[static_cast<std::size_t>(
+                gNextSeChannel105082C)].currentSeNo = -2;
+            return -1;
+        }
+    }
+
+    const std::int32_t panIndex = platform::gUseStereo == 0
+        ? 64
+        : (std::clamp)(screenX / 5, 0, 127);
+    const std::int32_t scaledVolume = (effect.volume * 127) / 127;
+    const std::int32_t volumeIndex =
+        (scaledVolume * platform::gEffectVolume) / 15;
+    static_cast<void>(gSdlAudioBackend.SetChannelVolume(
+        static_cast<std::size_t>(gNextSeChannel105082C),
+        gSoundVolValue10505D0[static_cast<std::size_t>(volumeIndex)]));
+    static_cast<void>(gSdlAudioBackend.SetChannelPan(
+        static_cast<std::size_t>(gNextSeChannel105082C),
+        gPanVal103CFBC[static_cast<std::size_t>(panIndex)]));
+    if (effect.pitchIndex != 0) {
+        static_cast<void>(gSdlAudioBackend.SetChannelFrequency(
+            static_cast<std::size_t>(gNextSeChannel105082C),
+            gPitchFrequencies58D3D4[static_cast<std::size_t>(
+                effect.pitchIndex + effect.baseFrequency)]));
+    }
+    static_cast<void>(gSdlAudioBackend.PlayChannel(
+        static_cast<std::size_t>(gNextSeChannel105082C), false));
+
+    std::uint32_t next =
+        static_cast<std::uint32_t>(gNextSeChannel105082C);
+    do {
+        next = (next + 1u) & 0x3Fu;
+    } while (gSoundChannels104D0C8[next].value30 != 0);
+    effect.cooldown = 5;
+    gNextSeChannel105082C = static_cast<std::int32_t>(next);
     return 0;
 }
 

@@ -133,6 +133,11 @@ bool SdlAudioBackend::Open() noexcept
     return true;
 }
 
+bool SdlAudioBackend::IsOpen() const noexcept
+{
+    return impl_ != nullptr;
+}
+
 bool SdlAudioBackend::LoadWav(
     const std::size_t slot, const char* const path) noexcept
 {

@@ -23,6 +23,7 @@ public:
 
     // 获取本对象独占的默认逻辑播放设备；失败不保留 AUDIO 子系统引用。
     [[nodiscard]] bool Open() noexcept;
+    [[nodiscard]] bool IsOpen() const noexcept;
 
     // path 是现代 SDL 文件边界的 UTF-8 路径；旧原字节路径须由调用者另行转换。
     // 保留各 WAV 自身的格式和 PCM 数据；失败不改已有槽内容。

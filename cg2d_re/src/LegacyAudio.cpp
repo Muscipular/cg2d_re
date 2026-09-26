@@ -123,7 +123,7 @@ static_assert(offsetof(SoundRequestRecord, targetPanIndex) == 0x1C);
 static_assert(offsetof(SoundRequestRecord, appliedPanIndex) == 0x20);
 static_assert(sizeof(SoundRequestRecord) == 0x24);
 
-// 原 [0x104D0C8,0x104DFCC)：64 项通道，未映射字段保留原位。
+// 原 [0x104D0C8,0x104DFC8)：64 项通道；104DFCC 是独立样本计数槽。
 struct SoundChannelState final {
     std::int32_t value00;
     std::int32_t currentSeNo;

@@ -26,7 +26,7 @@ std::uint32_t Sub_52CCE0() noexcept;
 SpatialAudioRecord* __cdecl Sub_52CD40(); // 原 [0x52CD40,0x52CD5C)，重置 50 项并返回一过尾指针。
 std::int32_t __cdecl Sub_52CDE0(
     std::int32_t index, std::int32_t sourceX, std::int32_t sourceY); // 原 [0x52CDE0,0x52CE97)。
-// 原 0x52C9E0；真实空间音效下游仍待落位。
+// 原 0x52C9E0；50 项请求生产，复用唯一音效定义表。
 std::int32_t __cdecl Sub_52C9E0(
     std::int32_t id, std::int32_t x, std::int32_t y);
 void __cdecl Sub_52CD60(); // 原 [0x52CD60,0x52CDDB)，扫描同一 50 项表。

@@ -1,7 +1,10 @@
 #include "cg/LegacyRecordOrder.hpp"
 
+#include "cg/Input.hpp"
+#include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/CommandOptions.hpp"
 
+#include <bit>
 #include <cstdlib>
 #include <cstring>
 
@@ -66,6 +69,65 @@ std::int32_t CountRecordsValue08EqualOne_50EF50() noexcept
         }
     }
     return count;
+}
+
+OrderedRecord1051B14* ResetOrderedRecord_50EF20(
+    OrderedRecord1051B14* const record) noexcept
+{
+    record->value04 = 0;
+    record->value00 = 0;
+    record->text18[0] = '\0';
+    record->text18[0x11] = '\0';
+    record->text18[0x22] = '\0';
+    record->text18[0x43] = '\0';
+    record->value08 = 0;
+    record->value0A = 0;
+    record->value0C = -1;
+    record->value14 = 0;
+    record->value10 = 0;
+    return record;
+}
+
+std::int32_t ParseOrderedRecord_50EF70(
+    const std::int32_t index, const char* const text)
+{
+    const std::int32_t key =
+        network::ParseDelimitedInteger_52CFA0(text, '|', 2);
+    OrderedRecord1051B14& record =
+        gOrderedRecords1051B14[static_cast<std::size_t>(index)];
+    if (network::ParseDelimitedInteger_52CFA0(text, '|', 1) <= 0) {
+        ResetOrderedRecord_50EF20(&record);
+        return 0;
+    }
+
+    record.value08 = 1;
+    record.value0C = key;
+    std::array<char, 256> encoded;
+    std::array<char, 256> first;
+    std::array<char, 256> second;
+    static_cast<void>(network::ExtractDelimitedField_52CED0(
+        text, '|', 3, 255, encoded.data()));
+    input::UnescapeLegacyText_52D150(encoded.data());
+    static_cast<void>(network::ExtractDelimitedField_52CED0(
+        encoded.data(), '|', 1, 255, first.data()));
+    input::UnescapeLegacyTextAndNotify_52D2F0(first.data());
+    if (std::strlen(first.data()) <= 0x10) {
+        std::strcpy(record.text18, first.data());
+    }
+    static_cast<void>(network::ExtractDelimitedField_52CED0(
+        encoded.data(), '|', 2, 255, second.data()));
+    input::UnescapeLegacyTextAndNotify_52D2F0(second.data());
+    if (std::strlen(second.data()) <= 0x10) {
+        std::strcpy(record.text18 + 0x11, second.data());
+    }
+    record.value04 = network::ParseDelimitedInteger_52CFA0(text, '|', 4);
+    record.value10 = network::ParseDelimitedInteger_52CFA0(text, '|', 5);
+    record.value0A = std::bit_cast<std::int16_t>(
+        static_cast<std::uint16_t>(
+            network::ParseDelimitedInteger_52CFA0(text, '|', 6)));
+    record.value14 = network::ParseDelimitedInteger_52CFA0(text, '|', 7);
+    record.value00 = network::ParseDelimitedInteger_52CFA0(text, '|', 8);
+    return 1;
 }
 
 } // namespace cg::login::detail

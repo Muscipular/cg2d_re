@@ -7,6 +7,7 @@
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/LegacyMouseTracker.hpp"
 #include "cg/platform/Startup.hpp"
+#include "cg/render/Font.hpp"
 
 #include <cstdint>
 
@@ -31,7 +32,6 @@ std::uint32_t Sub_52B630();                // 原 0x52B630：门值或 Release �
 int AnimeUnload_45BEF0();                  // 原 AnimeUnload@0x45BEF0：int()。
 int Sub_45BF20();                          // 原 0x45BF20：int()。
 void Sub_457670();                         // 原 0x457670：void()。
-HFONT Sub_456530();                        // 原 0x456530：HFONT()。
 
 // 原 [0x4705F0,0x4705FF)：两个调用后尾透传窗口关闭结果。
 char Sub_4705F0()
@@ -57,7 +57,7 @@ int ShutdownClient_457A40()
     shutdown_detail::Sub_45BF20();
     cg::resource::CloseGraphicFiles();
     shutdown_detail::Sub_457670();
-    shutdown_detail::Sub_456530();
+    static_cast<void>(render::ReleaseFont_456530());
     ShutdownIme_459040();
     login::detail::Sub_404D60();
     cg::network::ShutdownNetworkRuntime_5081A0();

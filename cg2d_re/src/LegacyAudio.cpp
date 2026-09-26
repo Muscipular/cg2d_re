@@ -12,6 +12,7 @@
 
 #include <algorithm>
 #include <array>
+#include <atomic>
 #include <bit>
 #include <cmath>
 #include <cstddef>
@@ -58,6 +59,7 @@ std::int32_t gFlag = 0;
 std::int32_t gQuotient = 0;
 std::uint32_t gBgmActive1050808 = 0; // 原播放状态 W32；52BE60 置位，52B940 清理。
 std::uint32_t gBgmMode1050820 = 0; // 原 BGM 流式模式 W32；52B8E0 消费。
+std::atomic<std::uint8_t> gBgmStopNotice105081C {0};
 
 static_assert(sizeof(gRecords) == 0x2600);
 
@@ -426,7 +428,23 @@ volatile std::uint32_t gMciDeviceId = 0;
 std::uint32_t gMciCloseResult = 0;
 
 SpatialAudioRecord* __cdecl Sub_52B9E0(); // 原通道、请求与两张运行表初始化。
-void Sub_52B8E0(); // 原通知等待与资源释放；真实实现尚缺。
+// 原 [52B8E0,52B93F)：通知由独立 SDL 工作线程生产，未启动时不伪造完成。
+void Sub_52B8E0()
+{
+    if (gBgmMode1050820 == 0 || !gSdlAudioBackend.HasBgm()) {
+        return;
+    }
+
+    static_cast<void>(gSdlAudioBackend.StopBgm());
+    if (!gSdlAudioBackend.RequestBgmStop()) {
+        return;
+    }
+    while (gBgmStopNotice105081C.load(std::memory_order_acquire) != 1) {
+    }
+    gBgmMode1050820 = 0;
+    gBgmStopNotice105081C.store(0, std::memory_order_release);
+    gSdlAudioBackend.ReleaseBgm();
+}
 
 // 原 [0x52B940,0x52B98E)：两路资源清理后依次清三个共享状态。
 void Sub_52B940()

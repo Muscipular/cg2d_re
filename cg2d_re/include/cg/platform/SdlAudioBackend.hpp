@@ -1,5 +1,6 @@
 #pragma once
 
+#include <atomic>
 #include <cstddef>
 #include <cstdint>
 #include <memory>
@@ -53,6 +54,10 @@ public:
     [[nodiscard]] bool SetBgmFrequency(std::uint32_t hz) noexcept;
     [[nodiscard]] bool PlayBgm(bool loop) noexcept;
     [[nodiscard]] bool StopBgm() noexcept;
+    // 流式 BGM 的独立线程在 SDL 回调退出临界区后写唯一停止通知。
+    // 由上层流式创建入口按原时点启动；失败不产生通知。
+    [[nodiscard]] bool StartBgmStopWorker(std::atomic<std::uint8_t>& notice) noexcept;
+    [[nodiscard]] bool RequestBgmStop() noexcept;
     void ReleaseBgm() noexcept;
 
     // 先释放 BGM 与音效流，再释放全部样本、设备及本对象持有的 AUDIO 引用。

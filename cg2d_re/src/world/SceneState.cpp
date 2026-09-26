@@ -79,7 +79,19 @@ PlayerRuntimeSlots gPlayerRuntime {};
 struct MapCharaSceneSlots {
     std::uint16_t valueC8A73E;
     std::uint16_t valueC8A740;
+    std::uint16_t valueC8A742;
     std::uint32_t valueC8A744;
+    std::uint16_t valueC8A748;
+    std::uint16_t value55DE98 {0xFFFF};
+    std::uint16_t valueC8A74A;
+    std::uint16_t valueC8A74C;
+    std::uint16_t valueC8A74E;
+    std::uint16_t valueC8A750;
+    std::uint16_t valueC8A752;
+    std::uint16_t valueC8A754;
+    std::uint16_t valueC8A756;
+    std::uint32_t valueC8A758;
+    std::uint32_t valueC8A75C;
 };
 
 MapCharaSceneSlots gMapCharaSceneSlots {};
@@ -434,6 +446,55 @@ std::int32_t NextRotationValue_455C70()
 }
 
 namespace detail {
+
+// 原 [C82258,C8A728) 的 500 项记录；未知载荷保留原字节，
+// 链接在 x64 使用独立原生指针，不推定整记录最终布局。
+struct MapEffectRecord {
+    std::array<std::uint8_t, 0x44> legacyBytes;
+    MapEffectRecord* prev;
+    MapEffectRecord* next;
+};
+
+static_assert(sizeof(MapEffectRecord::legacyBytes) == 0x44);
+
+namespace {
+
+std::array<MapEffectRecord, 500> gMapEffectRecords {};
+MapEffectRecord* gFreeMapEffectHead = nullptr;   // 原 C82244。
+MapEffectRecord* gActiveMapEffectHead = nullptr; // 原 C8A72C。
+
+} // namespace
+
+MapEffectRecord* Sub_46E2A0()
+{
+    gFreeMapEffectHead = &gMapEffectRecords[0];
+    gMapEffectRecords[0].prev = nullptr;
+    for (std::size_t index = 0; index + 1 < gMapEffectRecords.size(); ++index) {
+        MapEffectRecord* const current = &gMapEffectRecords[index];
+        MapEffectRecord* const next = &gMapEffectRecords[index + 1];
+        current->next = next;
+        next->prev = current;
+    }
+    MapEffectRecord* const last = &gMapEffectRecords.back();
+    last->next = nullptr;
+    gActiveMapEffectHead = nullptr;
+
+    gMapCharaSceneSlots.valueC8A73E = 0;
+    gMapCharaSceneSlots.valueC8A742 = 0;
+    gMapCharaSceneSlots.valueC8A744 &= 0xFFFF0000u;
+    gMapCharaSceneSlots.valueC8A748 = 0;
+    gMapCharaSceneSlots.value55DE98 = 0xFFFFu;
+    gMapCharaSceneSlots.valueC8A74A = 0;
+    gMapCharaSceneSlots.valueC8A74C = 1;
+    gMapCharaSceneSlots.valueC8A74E = 0;
+    gMapCharaSceneSlots.valueC8A750 = 0;
+    gMapCharaSceneSlots.valueC8A752 = 0;
+    gMapCharaSceneSlots.valueC8A754 = 0;
+    gMapCharaSceneSlots.valueC8A756 = 0;
+    gMapCharaSceneSlots.valueC8A758 = 0;
+    gMapCharaSceneSlots.valueC8A75C = 0;
+    return last;
+}
 
 // 原 [0x5198A0,0x5198CB)：逐项前向复制 0x1C 字节，保留每个 W32 的读写顺序。
 void Sub_5198A0(

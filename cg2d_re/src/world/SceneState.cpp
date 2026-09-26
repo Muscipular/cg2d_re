@@ -75,6 +75,15 @@ struct PlayerRuntimeSlots {
 
 PlayerRuntimeSlots gPlayerRuntime {};
 
+// 原 C8A73E/C8A740/C8A744；第三槽的两个 W16 必须共用同一 W32。
+struct MapCharaSceneSlots {
+    std::uint16_t valueC8A73E;
+    std::uint16_t valueC8A740;
+    std::uint32_t valueC8A744;
+};
+
+MapCharaSceneSlots gMapCharaSceneSlots {};
+
 // 原 [0x4B0F10,0x4B0F13)：唯一动作是清 EAX，46AA00 直接调用。
 std::int32_t Sub_4B0F10()
 {
@@ -1806,6 +1815,36 @@ std::int32_t __cdecl Sub_50C870(
     gValue9E0434 = pathValue;
     gValue73ED40 = std::bit_cast<std::uint32_t>(adjustment);
     return adjustment;
+}
+
+void* __cdecl Sub_51D5B0()
+{
+    const std::uint16_t current = gMapCharaSceneSlots.valueC8A73E;
+    const std::uint16_t low = static_cast<std::uint16_t>(
+        gMapCharaSceneSlots.valueC8A744);
+    gMapCharaSceneSlots.valueC8A740 = current;
+    const std::uint32_t gate = gValueD67E78;
+    gMapCharaSceneSlots.valueC8A744 =
+        (gMapCharaSceneSlots.valueC8A744 & 0x0000FFFFu)
+        | (static_cast<std::uint32_t>(low) << 16);
+
+    if (gate != 0
+        || login::detail::Sub_43F1F0(ReadPlayerObjectIndex_FDA880())
+            == nullptr) {
+        gValueFF0D74 = 0;
+        if (gValueD67E78 != 0) {
+            Sub_51BEF0();
+        }
+    } else if (gValueFF0D74 == 0) {
+        gCurrentSceneState = 250;
+        static_cast<void>(login::detail::Sub_440F50());
+        ++gValueFF0D74;
+    } else {
+        const std::uint32_t count = gValueFF0D74;
+        gCurrentSceneState = 252;
+        gValueFF0D74 = count + 1u;
+    }
+    return login::detail::Sub_43F230();
 }
 
 // 原 [0x469030,0x4691C9)：装载后可选重建第四平面，随后斜向扫描 tile。

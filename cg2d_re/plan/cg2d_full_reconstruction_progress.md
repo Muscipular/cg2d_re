@@ -8,6 +8,7 @@
 
 > 以下小步按新增时间倒序保留历史快照；较旧条目的“尚未实现/未接”只描述当时状态，遇到冲突以较新的条目及当前源码为准。当前完整客户端尚不可链接，网络分派、Yobi 观察链、地图绘制父链和运行验收均未闭合。
 
+- **`51D5B0` 地图观察链父入口已静态落位。** 世界场景唯一持有 `C8A73E/C8A740/C8A744`，保留低/高 W16 复制、两次 `D67E78` 读取、250/252 状态分流、`FF0D74` 写序及尾部 `43F230` 返回。[场景证据 §116](../doc/cg2d_scene_state.md)限定 `46E2A0` 生产和 Yobi 回调仍缺，不能计完整链接或运行。
 - **`51BEF0` 玩家重叠位槽清理叶已落位。** `FDA88C` W32 与 `FDA88E` W16、`FDA88F` W8 共用场景玩家 owner，叶函数只清高半字 bit 7，保留其他位；[场景证据 §115](../doc/cg2d_scene_state.md)限定其他写者与首块重置未接。
 - **`440FE0` 观察链薄父入口已落位。** 依原序调用 `440B70→52B990`、弃两返回并返回 `0x25`，不把 action 创建失败变成跳过第二调用。[Yobi 证据](../doc/cg2d_yobi_runtime.md)注明正常场景 `51CD83` caller 与实际回调仍未接。
 - **`440F50` 五槽源表生产已静态落位。** 同次读取世界唯一 `FDA880`，按 `43F1F0` 命中门禁写主图号、独立 `+0x58` 源方向、CryptInt 乘法和五轮先清再条件写源表；`+0x58` 不与 `+0x2B8` 混用。[Yobi 证据](../doc/cg2d_yobi_runtime.md)保留两条未实现观察链生产、真实回调及 `51D5B0` 父级缺口。
@@ -891,3 +892,4 @@ git -c i18n.logOutputEncoding=utf-8 show 3808ef2:cg2d_re/plan/cg2d_full_reconstr
 - 2026-09-26，`440F50.C`：本线程按现有 IDA `[440F50,440FD3)` 全指令及 `43F330/43FEB0` 字段生产，复用世界 `FDA880`、观察链 `43F1F0`、专用 payload 和 `401E90` 乘法叶，落位主图号、独立 `+0x58`、时长和五轮清写源表的原顺序。非空返回指向 x64 子指针区起点，唯一 caller `51D5B0` 弃值；未命中不改源状态。[Yobi 证据](../doc/cg2d_yobi_runtime.md)记录偏移适配与父缺口。限定 UTF-8 无 BOM/LF、`git diff --check` 和现有 Debug `cg2d_re_startup` 静态库编译通过，仅有既有三项弃用 API 告警；未检查产物，不使用 subAgent、独立复核或 IDA 文件操作，不运行测试或客户端。
 - 2026-09-26，`440FE0.C`：本线程以当前 IDA `[440FE0,440FF0)` 全指令，在 Yobi runtime 复用已落位的 `440B70` 与现成 `52B990`，顺序调用后固定返回原完整 W32 `0x25`；原下游返回均弃置。[Yobi 证据](../doc/cg2d_yobi_runtime.md)保留 `51CD83` caller、`440C50` callback 和完整画面/链接缺口。限定 UTF-8 无 BOM/LF、`git diff --check` 和现有 Debug `cg2d_re_startup` 静态库编译通过，仅有既有三项弃用 API 告警；未检查产物，无 subAgent、独立复核或 IDA 文件操作，不运行测试/客户端。
 - 2026-09-26，`51BEF0.C`：现有 IDA 十字节入口仅以 W16 `0xFF7F` 清 `FDA88E`，本线程结合 `FDA88C` 的 W32 整槽写与 `FDA88F` 的 W8 置位，在第 114 节同一玩家 owner 增重叠 W32 位槽并落位高半字 bit 7 清理。[场景证据 §115](../doc/cg2d_scene_state.md)记宽度和三处 caller；其他写者与 `5199A0/51D5B0` 仍缺，不计完整链接或运行。限定 UTF-8 无 BOM/LF、`git diff --check` 和现有 Debug `cg2d_re_startup` 静态库编译通过，仅有既有两项 Winsock 弃用告警；未检查产物，无 subAgent、独立复核或 IDA 文件操作，不运行测试/客户端。
+- 2026-09-26，`51D5B0.C`：本线程按既有 IDA 完整 `[51D5B0,51D63A)` 指令，复用世界唯一 `FDA880`、`D67E78/FF0D74`、Yobi `43F1F0/440F50/43F230` 与玩家位叶 `51BEF0`，并在世界 owner 独持 `C8A73E/C8A740/C8A744` 三槽，按原顺序落位高半字镜像与两路场景状态更新，尾部透传不透明返回。[场景证据 §116](../doc/cg2d_scene_state.md)限定 `46E2A0` 场景生产及另外两条观察链生产未接。限定 UTF-8 无 BOM/LF、`git diff --check` 与现有 Debug `cg2d_re_startup` 静态库编译通过，本次无告警；未检查产物，无 subAgent、独立复核或 IDA 文件操作，不运行测试/客户端，不计完整链接或运行。

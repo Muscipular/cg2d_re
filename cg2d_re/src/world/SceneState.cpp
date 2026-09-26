@@ -75,7 +75,7 @@ struct PlayerRuntimeSlots {
 
 PlayerRuntimeSlots gPlayerRuntime {};
 
-// 原 C8A73E/C8A740/C8A744；第三槽的两个 W16 必须共用同一 W32。
+// 原 C8A73E/C8A740/C8A744 及效果配置共享槽；第三槽的两个 W16 共用 W32。
 struct MapCharaSceneSlots {
     std::uint16_t valueC8A73E;
     std::uint16_t valueC8A740;
@@ -92,6 +92,12 @@ struct MapCharaSceneSlots {
     std::uint16_t valueC8A756;
     std::uint32_t valueC8A758;
     std::uint32_t valueC8A75C;
+    std::int16_t valueC8A760;
+    std::int16_t valueC8A762;
+    login::YobiAction* actionC8A764;
+    float value55DE9C {5.0F};
+    std::int16_t value55DEA0 {315};
+    std::int16_t value55DEA2 {-1};
 };
 
 MapCharaSceneSlots gMapCharaSceneSlots {};
@@ -471,6 +477,37 @@ void WriteMapEffectWord(
     std::memcpy(record.legacyBytes.data() + offset, &value, sizeof(value));
 }
 
+std::uint16_t ReadMapEffectHalf(
+    const MapEffectRecord& record, const std::size_t offset)
+{
+    std::uint16_t value;
+    std::memcpy(&value, record.legacyBytes.data() + offset, sizeof(value));
+    return value;
+}
+
+void WriteMapEffectHalf(
+    MapEffectRecord& record, const std::size_t offset, const std::uint16_t value)
+{
+    std::memcpy(record.legacyBytes.data() + offset, &value, sizeof(value));
+}
+
+void ClearMapEffectAction(login::YobiAction* const action)
+{
+    if (action == nullptr) {
+        return;
+    }
+    login::detail::MarkDeath(action);
+    MapEffectRecord* record = gActiveMapEffectHead;
+    gMapCharaSceneSlots.actionC8A764 = nullptr;
+    while (record != nullptr) {
+        if (ReadMapEffectHalf(*record, 0x3C) == 8) {
+            WriteMapEffectHalf(*record, 0x3C, 6);
+            return;
+        }
+        record = record->next;
+    }
+}
+
 } // namespace
 
 MapEffectRecord* Sub_46E2A0()
@@ -542,10 +579,71 @@ MapEffectRecord* Sub_46E390(MapEffectRecord* const record)
     record->prev = nullptr;
     record->next = gFreeMapEffectHead;
     gFreeMapEffectHead = record;
-    constexpr std::uint16_t clearedKind = 0;
-    std::memcpy(
-        record->legacyBytes.data() + 0x3C, &clearedKind, sizeof(clearedKind));
+    WriteMapEffectHalf(*record, 0x3C, 0);
     return record;
+}
+
+void __cdecl Sub_46E0D0(const std::int32_t mask, const std::int32_t value)
+{
+    if (mask == 0) {
+        login::YobiAction* const action = gMapCharaSceneSlots.actionC8A764;
+        gMapCharaSceneSlots.valueC8A752 = 0;
+        gMapCharaSceneSlots.valueC8A754 = 0;
+        gMapCharaSceneSlots.value55DEA2 = -1;
+        ClearMapEffectAction(action);
+        return;
+    }
+
+    if ((mask & 8) != 0) {
+        gMapCharaSceneSlots.valueC8A752 =
+            static_cast<std::uint16_t>(value % 10);
+        gMapCharaSceneSlots.value55DEA0 =
+            static_cast<std::int16_t>((value % 10000) / 10);
+        gMapCharaSceneSlots.value55DE9C =
+            static_cast<float>(value / 10000);
+    }
+    if ((mask & 0x10) != 0) {
+        gMapCharaSceneSlots.valueC8A754 =
+            static_cast<std::uint16_t>(value % 10);
+        gMapCharaSceneSlots.value55DEA0 =
+            static_cast<std::int16_t>((value % 10000) / 10);
+        gMapCharaSceneSlots.value55DE9C =
+            static_cast<float>(value / 10000);
+    }
+    if ((mask & 0x20) == 0) {
+        return;
+    }
+    ClearMapEffectAction(gMapCharaSceneSlots.actionC8A764);
+    if (value == -1) {
+        gMapCharaSceneSlots.value55DEA2 = -1;
+        return;
+    }
+    gMapCharaSceneSlots.value55DEA2 = std::bit_cast<std::int16_t>(
+        static_cast<std::uint16_t>(60 * (value / 100000)));
+    gMapCharaSceneSlots.valueC8A762 =
+        static_cast<std::int16_t>((value / 10000 % 10) % 8);
+    gMapCharaSceneSlots.valueC8A760 =
+        static_cast<std::int16_t>(value % 10000);
+}
+
+void Sub_46F160()
+{
+    MapEffectRecord* record = gActiveMapEffectHead;
+    while (record != nullptr) {
+        const std::uint16_t kind = ReadMapEffectHalf(*record, 0x3C);
+        if (kind != 6 && kind != 7 && kind != 8) {
+            record = record->next;
+            continue;
+        }
+        if (kind == 8) {
+            login::detail::MarkDeath(gMapCharaSceneSlots.actionC8A764);
+            gMapCharaSceneSlots.actionC8A764 = nullptr;
+        }
+        MapEffectRecord* const next = record->next;
+        Sub_46E390(record);
+        --gMapCharaSceneSlots.valueC8A756;
+        record = next;
+    }
 }
 
 MapEffectRecord* Sub_46F090(
@@ -558,8 +656,7 @@ MapEffectRecord* Sub_46F090(
         return record;
     }
 
-    const std::uint16_t kindBits = static_cast<std::uint16_t>(kind);
-    std::memcpy(record->legacyBytes.data() + 0x3C, &kindBits, sizeof(kindBits));
+    WriteMapEffectHalf(*record, 0x3C, static_cast<std::uint16_t>(kind));
     const std::int32_t offset = verticalSign != 0
         ? phase % (horizontalSign != 0 ? 1920 : 1040)
         : phase % 880 + 1040;

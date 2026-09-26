@@ -10,6 +10,19 @@ struct YobiAction;
 
 namespace detail {
 
+// 原 49BE00：复用既有九宫格入队入口，不复制图形记录或绘制算法。
+void DrawNineGrid_49BE00(
+    std::int32_t baseImageNo,
+    std::int16_t x,
+    std::int16_t y,
+    std::int16_t width,
+    std::int16_t height,
+    std::uint8_t layer,
+    std::int32_t borderColor,
+    std::int32_t centerColor,
+    std::int16_t tileWidth,
+    std::int16_t tileHeight);
+
 // 原 dword_59E570 与 dword_59E574；后者由 UpdateAll 在 [0, 3] 间循环。
 extern std::int32_t gYobiUpdateGateMode;
 extern std::int32_t gYobiUpdatePhaseCounter;

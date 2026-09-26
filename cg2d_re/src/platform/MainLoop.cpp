@@ -3,17 +3,48 @@
 #include "MainLoopDependencies.hpp"
 
 #include "cg/LoginRequest.hpp"
+#include "cg/YobiRuntime.hpp"
 #include "cg/platform/LegacyCursor.hpp"
 #include "cg/platform/KeyState.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/platform/Startup.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
+#include "cg/render/SurfaceState.hpp"
+#include "cg/render/TextPendingQueue.hpp"
 #include "cg/world/GameTime.hpp"
 #include "cg/world/SceneState.hpp"
 
 #include <bit>
 
 namespace cg::platform {
+
+void ShowModeChange_458A40()
+{
+    static constexpr char kModeChangeText[] {
+        '\xA5', '\xBF', '\xA6', '\x62', '\xA7', '\xEF',
+        '\xC5', '\xDC', '\xB4', '\x79', '\xC3', '\xB8',
+        '\xBC', '\xD2', '\xA6', '\xA1', '\xA1', '\x43', '\0',
+    };
+
+    gPendingGraphicCount = 0;
+    gPendingGraphicCount2 = 0;
+    render::ResetGraphicCache_456D30();
+    static_cast<void>(render::DrawText2_456670(
+        250, 223, 3, 0, 0, kModeChangeText, 0));
+    login::detail::DrawNineGrid_49BE00(
+        245310, 196, 180, 256, 96, 223, -1,
+        std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}),
+        74, 54);
+    render::SortTextures_520790();
+    static_cast<void>(render::ClearSurface_4512C0());
+    render::gRenderQueueMode103CF10 = 0;
+    render::DrawAllQueued_520DD0();
+    render::gRenderQueueMode103CF10 = 1;
+    gPendingGraphicCount = 0;
+    gPendingGraphicCount2 = 0;
+    render::ResetGraphicCache_456D30();
+    render::Flip_44C560();
+}
 
 // 原 [0x457020,0x4574DA)，分支、调用及数值边界见 doc/cg2d_main_loop.md。
 int MainLoop()

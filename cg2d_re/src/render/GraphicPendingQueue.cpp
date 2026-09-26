@@ -108,6 +108,7 @@ void AppendReservedGraphic(
 LegacyPendingStorage gLegacyPendingStorage {};
 std::uint8_t gSpecialGraphicPending = 0;
 std::int32_t gGraphicDirty = 0;
+std::uint32_t gRenderQueueMode103CF10 = 0;
 volatile std::uint32_t gRippleIntegerPhaseBits = 0; // 原 0x1020EEC。
 float gFloat1020EF0 = 0.0f;
 volatile std::uint32_t gRipplePreviousWorldXBits = 0; // 原 0x1020EF4。

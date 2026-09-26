@@ -204,7 +204,7 @@ std::int32_t LowSignedByte(const std::int16_t value)
         std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(value)));
 }
 
-void DrawNineGrid_49BE00(
+void DrawNineGridImpl_49BE00(
     const std::int32_t baseImageNo,
     const std::int16_t x16,
     const std::int16_t y16,
@@ -547,7 +547,7 @@ void UpdateModalAction_5046D0(YobiAction* const action)
         }
     } else {
         const bool wideBorder = payload->winId >= 4;
-        DrawNineGrid_49BE00(
+        DrawNineGridImpl_49BE00(
             payload->baseImageNo,
             static_cast<std::int16_t>(action->x),
             static_cast<std::int16_t>(action->y),
@@ -579,6 +579,23 @@ bool ShouldDeferForFourPhaseGate(const YobiAction* const action)
 }
 
 } // namespace
+
+void DrawNineGrid_49BE00(
+    const std::int32_t baseImageNo,
+    const std::int16_t x,
+    const std::int16_t y,
+    const std::int16_t width,
+    const std::int16_t height,
+    const std::uint8_t layer,
+    const std::int32_t borderColor,
+    const std::int32_t centerColor,
+    const std::int16_t tileWidth,
+    const std::int16_t tileHeight)
+{
+    DrawNineGridImpl_49BE00(
+        baseImageNo, x, y, width, height, layer,
+        borderColor, centerColor, tileWidth, tileHeight);
+}
 
 void Sub_46DD40()
 {

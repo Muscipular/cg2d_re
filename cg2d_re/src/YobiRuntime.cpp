@@ -783,6 +783,27 @@ void Sub_43F220()
     gMapCharaHead = nullptr;
 }
 
+void* Sub_43F230()
+{
+    YobiAction* current = gMapCharaHead;
+    YobiAction* last = nullptr;
+    while (current != nullptr) {
+        const auto* const payload =
+            static_cast<const MapCharaPayload*>(current->payload);
+        YobiAction* const next = payload->next;
+        for (YobiAction* const child : payload->partyActions) {
+            if (child != nullptr) {
+                MarkDeath(child);
+            }
+        }
+        last = MarkDeath(current);
+        current = next;
+    }
+    gMapCharaHead = nullptr;
+    // 空链时原 EAX 未定义；新端返回空值，不作为原端等价结果验收。
+    return last;
+}
+
 YobiAction* NewYobiGear_4410F0(const std::int32_t imageNo)
 {
     YobiAction* const action = NewYobiAction_404AE0(2, 0);

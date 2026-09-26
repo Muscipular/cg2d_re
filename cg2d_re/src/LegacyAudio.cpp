@@ -7,6 +7,7 @@
 #include "cg/platform/SdlAudioBackend.hpp"
 #include "cg/platform/CommandOptions.hpp"
 #include "cg/platform/KeyState.hpp"
+#include "cg/platform/MainLoop.hpp"
 #include "cg/world/SceneState.hpp"
 #include "world/WorldUpdateDependencies.hpp"
 
@@ -237,6 +238,57 @@ bool IsPcmWave(const char* const path)
     return valid;
 }
 
+// 52B710：先定位 WAVE/fmt，再读 18 字节并定位 data；16 字节 fmt 可跨读后续 chunk 头。
+bool ReadBgmWaveDataLength(const char* const path, std::uint32_t& dataLength)
+{
+    std::FILE* const file = std::fopen(path, "rb");
+    if (file == nullptr) {
+        return false;
+    }
+
+    std::uint8_t header[12] {};
+    bool valid = false;
+    if (std::fread(header, 1, sizeof(header), file) == sizeof(header)
+        && std::memcmp(header, "RIFF", 4) == 0
+        && std::memcmp(header + 8, "WAVE", 4) == 0) {
+        bool pcmFormat = false;
+        std::uint8_t chunk[8] {};
+        while (std::fread(chunk, 1, sizeof(chunk), file) == sizeof(chunk)) {
+            const std::uint32_t size =
+                static_cast<std::uint32_t>(chunk[4])
+                | static_cast<std::uint32_t>(chunk[5]) << 8
+                | static_cast<std::uint32_t>(chunk[6]) << 16
+                | static_cast<std::uint32_t>(chunk[7]) << 24;
+            if (std::memcmp(chunk, "data", 4) == 0 && pcmFormat) {
+                dataLength = size;
+                valid = true;
+                break;
+            }
+            if (std::memcmp(chunk, "fmt ", 4) == 0) {
+                std::uint8_t format[18] {};
+                const long offset = std::ftell(file);
+                if (std::fread(format, 1, sizeof(format), file) != sizeof(format)
+                    || format[0] != 1 || format[1] != 0) {
+                    break;
+                }
+                pcmFormat = true;
+                if (std::fseek(
+                        file,
+                        offset + static_cast<long>(size + (size & 1u)),
+                        SEEK_SET) != 0) {
+                    break;
+                }
+            } else if (std::fseek(
+                    file, static_cast<long>(size + (size & 1u)),
+                    SEEK_CUR) != 0) {
+                break;
+            }
+        }
+    }
+    std::fclose(file);
+    return valid;
+}
+
 std::string AudioPathToUtf8(const char* const path)
 {
     const int wideLength =
@@ -301,6 +353,9 @@ std::array<std::uint32_t, 36> gBgmFrequencies58D468 {{
 std::int32_t gNextSeChannel105082C = 0;
 std::int32_t gLastSeNo58D4FC = -1;
 std::int32_t gSampleCount104DFCC = 0;
+std::atomic<std::uint32_t> gBgmReady105083C {0};
+std::uint32_t gBgmLoopStart103CFB8 = 0;
+std::uint32_t gBgmLoopEnd103DEA4 = 0;
 platform::SdlAudioBackend gSdlAudioBackend;
 static_assert(sizeof(gBgmMapping103DFAC) == 0x800);
 static_assert(sizeof(gBgmConfigRecords104A3B8) == 0x2600);
@@ -1329,3 +1384,98 @@ std::uint32_t Sub_52B990() noexcept
 }
 
 } // namespace cg::audio
+
+namespace cg::login::detail {
+
+// 原 World::LoadAndPlayBGM@[52BE60,52C15B)；仅原生缓冲与播放机制映射 SDL3。
+std::int32_t LoadAndPlayBGM(const std::uint32_t bgmId)
+{
+    if (std::bit_cast<std::uint32_t>(gRecordIndex) == bgmId && gFlag == 0) {
+        return 1;
+    }
+    gFlag = 0;
+    if (audio::gValue10507D4 != 0) {
+        return -1;
+    }
+    if (gRecordIndex != -1) {
+        audio::Sub_52B8E0();
+    }
+    if (bgmId == 0xFFFFFFFEu) {
+        gRecordIndex = -2;
+        return -1;
+    }
+    if (bgmId >= 128 || platform::gEnableMusic == 0) {
+        return -1;
+    }
+
+    const LegacyAudioRecord& record =
+        gRecords[static_cast<std::size_t>(bgmId)];
+    std::uint32_t dataLength = 0;
+    if (!audio::ReadBgmWaveDataLength(record.path, dataLength)) {
+        return 0;
+    }
+    const std::string path = audio::AudioPathToUtf8(record.path);
+    if (record.value44 == 2) {
+        gBgmMode1050820 = 1;
+        std::FILE* const file = std::fopen(record.path, "rb");
+        if (file == nullptr) {
+            return 0;
+        }
+        static_cast<void>(std::fseek(file, 32, SEEK_CUR));
+        const std::uint32_t blockAlign =
+            static_cast<std::uint32_t>(std::fgetc(file))
+            | static_cast<std::uint32_t>(std::fgetc(file)) << 8;
+        const long loopOffset = static_cast<long>(
+            dataLength + 14u + (dataLength & 1u) + 48u);
+        static_cast<void>(std::fseek(file, loopOffset, SEEK_CUR));
+        std::uint32_t startFrame = 0;
+        std::uint32_t endFrame = 0;
+        for (int shift = 0; shift < 32; shift += 8) {
+            startFrame |= static_cast<std::uint32_t>(std::fgetc(file)) << shift;
+        }
+        for (int shift = 0; shift < 32; shift += 8) {
+            endFrame |= static_cast<std::uint32_t>(std::fgetc(file)) << shift;
+        }
+        std::fclose(file);
+        audio::gBgmLoopStart103CFB8 = blockAlign * startFrame;
+        if (!audio::gSdlAudioBackend.LoadBgmWav(
+                path.c_str(), startFrame, endFrame)
+            || !audio::gSdlAudioBackend.StartBgmStopWorker(
+                gBgmStopNotice105081C, audio::gBgmReady105083C)) {
+            return 0;
+        }
+        std::uint32_t ready;
+        while ((ready = audio::gBgmReady105083C.load(
+                    std::memory_order_acquire)) == 0) {
+        }
+        if (ready != 1) {
+            audio::gSdlAudioBackend.ReleaseBgm();
+            return 0;
+        }
+        audio::gBgmLoopEnd103DEA4 = blockAlign * endFrame;
+    } else {
+        gBgmMode1050820 = 0;
+        if (!audio::gSdlAudioBackend.LoadBgmWav(path.c_str(), 0, 0)) {
+            return 0;
+        }
+    }
+
+    const std::int8_t frequencyIndex =
+        platform::ReadBgmFrequencySelectionByte(
+            static_cast<std::uint8_t>(bgmId));
+    static_cast<void>(audio::gSdlAudioBackend.SetBgmFrequency(
+        audio::gBgmFrequencies58D468[
+            static_cast<std::size_t>(frequencyIndex)]));
+    const std::int32_t volumeIndex =
+        (platform::gMusicVolume * record.value40) / 15;
+    static_cast<void>(audio::gSdlAudioBackend.SetBgmVolume(
+        audio::gSoundVolValue10505D0[static_cast<std::size_t>(volumeIndex)]));
+    static_cast<void>(audio::gSdlAudioBackend.PlayBgm(record.value44 != 0));
+    gRecordIndex = static_cast<std::int32_t>(bgmId);
+    platform::gLastRenderDt =
+        static_cast<double>(platform::ReadTickCount32());
+    gBgmActive1050808 = 1;
+    return 1;
+}
+
+} // namespace cg::login::detail

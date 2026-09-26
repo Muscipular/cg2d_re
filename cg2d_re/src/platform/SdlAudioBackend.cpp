@@ -66,6 +66,8 @@ struct SdlAudioBackend::Impl {
                 SDL_SignalSemaphore(self.bgmStopRequest);
             }
             static_cast<void>(SDL_UnlockAudioStream(channel.stream));
+        } else {
+            self.bgmReady->store(2, std::memory_order_release);
         }
         SDL_WaitSemaphore(self.bgmStopRequest);
         if (self.bgmAbort.load(std::memory_order_acquire)) {
@@ -408,31 +410,38 @@ bool SdlAudioBackend::LoadBgmWav(
     const std::size_t startFrame,
     const std::size_t endFrame) noexcept
 {
-    if (impl_ == nullptr || path == nullptr || impl_->bgm.stream != nullptr
-        || !Impl::LoadSample(impl_->bgmSample, path)) {
+    if (impl_ == nullptr || path == nullptr || impl_->bgmWorker != nullptr) {
         return false;
     }
-    Impl::Sample& sample = impl_->bgmSample;
-    const std::size_t end = endFrame == 0 ? sample.frames : endFrame;
-    if (startFrame >= end || end > sample.frames) {
-        Impl::FreeSample(sample);
+    Impl::Sample pending {};
+    if (!Impl::LoadSample(pending, path)) {
+        return false;
+    }
+    const std::size_t end = endFrame == 0 ? pending.frames : endFrame;
+    if (startFrame >= end || end > pending.frames) {
+        Impl::FreeSample(pending);
         return false;
     }
 
-    Impl::Channel& channel = impl_->bgm;
-    channel.stream = SDL_CreateAudioStream(&sample.mixSpec, nullptr);
-    if (channel.stream == nullptr) {
-        Impl::FreeSample(sample);
+    SDL_AudioStream* const stream = SDL_CreateAudioStream(&pending.mixSpec, nullptr);
+    if (stream == nullptr) {
+        Impl::FreeSample(pending);
         return false;
     }
-    channel.sample = &sample;
+    if (!SDL_SetAudioStreamGetCallback(
+            stream, &Impl::FeedChannel, &impl_->bgm)) {
+        SDL_DestroyAudioStream(stream);
+        Impl::FreeSample(pending);
+        return false;
+    }
+
+    ReleaseBgm();
+    impl_->bgmSample = pending;
+    Impl::Channel& channel = impl_->bgm;
+    channel.stream = stream;
+    channel.sample = &impl_->bgmSample;
     channel.loopStart = startFrame;
     channel.loopEnd = end;
-    if (!SDL_SetAudioStreamGetCallback(
-            channel.stream, &Impl::FeedChannel, &channel)) {
-        ReleaseBgm();
-        return false;
-    }
     return true;
 }
 

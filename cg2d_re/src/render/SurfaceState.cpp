@@ -7,7 +7,9 @@
 namespace cg::render {
 namespace {
 
-std::unique_ptr<CpuSurfacePixels> gCpuBackSurface;
+using CpuBackStorage = std::array<std::uint32_t, kCpuSurfacePixelCount + 1>;
+
+std::unique_ptr<CpuBackStorage> gCpuBackSurface;
 std::unique_ptr<CpuSurfacePixels> gCpuAutoMapSurface;
 std::unique_ptr<CpuSurfacePixels> gCpuTempSurface;
 
@@ -18,7 +20,7 @@ std::uint32_t gValueFF48E4 = 0;
 
 bool CreateCpuBackSurface() noexcept
 {
-    gCpuBackSurface.reset(new (std::nothrow) CpuSurfacePixels {});
+    gCpuBackSurface.reset(new (std::nothrow) CpuBackStorage {});
     return gCpuBackSurface != nullptr;
 }
 
@@ -49,7 +51,7 @@ std::span<const std::uint32_t> ReadCpuBackPixels() noexcept
     if (gCpuBackSurface == nullptr) {
         return {};
     }
-    return *gCpuBackSurface;
+    return {gCpuBackSurface->data(), kCpuSurfacePixelCount};
 }
 
 std::int32_t ClearSurface_4512C0() noexcept
@@ -58,7 +60,7 @@ std::int32_t ClearSurface_4512C0() noexcept
         return -1;
     }
     const std::uint32_t color = gBackgroundColor;
-    gCpuBackSurface->fill(color);
+    std::fill_n(gCpuBackSurface->data(), kCpuSurfacePixelCount, color);
     return 0;
 }
 
@@ -67,7 +69,10 @@ bool CopyBackToTemp() noexcept
     if (gCpuBackSurface == nullptr || gCpuTempSurface == nullptr) {
         return false;
     }
-    *gCpuTempSurface = *gCpuBackSurface;
+    std::copy_n(
+        gCpuBackSurface->data(),
+        kCpuSurfacePixelCount,
+        gCpuTempSurface->data());
     return true;
 }
 

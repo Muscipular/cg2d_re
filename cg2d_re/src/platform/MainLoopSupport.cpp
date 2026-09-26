@@ -16,7 +16,7 @@
 
 namespace cg::audio {
 
-void Sub_52CCA0(); // 原 0x52CCA0，IDA 为 void __cdecl()；真实实现尚缺。
+void Sub_52CCA0(); // 原 0x52CCA0；实现在 LegacyAudio.cpp。
 
 } // namespace cg::audio
 

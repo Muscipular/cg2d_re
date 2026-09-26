@@ -56,6 +56,7 @@ std::int32_t gRecordIndex = -1;
 std::array<LegacyAudioRecord, kRecordCount> gRecords {};
 std::int32_t gFlag = 0;
 std::int32_t gQuotient = 0;
+std::uint32_t gBgmActive1050808 = 0; // 原播放状态 W32；52BE60 置位，52B940 清理。
 
 static_assert(sizeof(gRecords) == 0x2600);
 
@@ -424,6 +425,7 @@ volatile std::uint32_t gMciDeviceId = 0;
 std::uint32_t gMciCloseResult = 0;
 
 SpatialAudioRecord* __cdecl Sub_52B9E0(); // 原通道、请求与两张运行表初始化。
+void Sub_52B940(); // 原 BGM 清理分流；保留真实未实现依赖。
 
 // 原 [524230,52B627)：配置项按原栈表顺序加载；设备/样本/通道机制使用 SDL3。
 std::int32_t Sub_524230()
@@ -1194,6 +1196,39 @@ std::int32_t __cdecl Sub_52CB50()
         request.requestCount = 0;
     }
     return result;
+}
+
+// 原 [0x52CCA0,0x52CCD1) 与独占尾块 [0x52CC40,0x52CC96)。
+void Sub_52CCA0()
+{
+    if (gValue10507D4 != 0) {
+        return;
+    }
+
+    for (SoundEffectDefinition& effect : gSoundEffects103E7B0) {
+        if (effect.cooldown != 0) {
+            --effect.cooldown;
+        }
+    }
+    static_cast<void>(Sub_52CB50());
+    static_cast<void>(UpdateBgmRequest_52C910());
+
+    if (gBgmActive1050808 == 0) {
+        gFlag = 0;
+        return;
+    }
+    if (gFlag == 0) {
+        return;
+    }
+    if (gQuotient != 0 && gSdlAudioBackend.HasBgm()) {
+        --gQuotient;
+        static_cast<void>(gSdlAudioBackend.SetBgmVolume(
+            gSoundVolValue10505D0[static_cast<std::size_t>(gQuotient)]));
+        return;
+    }
+
+    Sub_52B940();
+    gRecordIndex = -1;
 }
 
 // 原 [0x52CD60,0x52CDDB)；首个距离阈值不符的有效记录立即结束扫描。

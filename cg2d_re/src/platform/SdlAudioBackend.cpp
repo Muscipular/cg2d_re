@@ -25,6 +25,8 @@ struct SdlAudioBackend::Impl {
         SDL_AudioStream* stream {};
         Sample* sample {};
         std::size_t cursor {};
+        std::size_t loopStart {};
+        std::size_t loopEnd {};
         float volume {1.0f};
         float panLeft {1.0f};
         float panRight {1.0f};
@@ -36,6 +38,48 @@ struct SdlAudioBackend::Impl {
     SDL_AudioDeviceID device {};
     std::array<Sample, kSampleSlots> samples {};
     std::array<Channel, kChannelCount> channels {};
+    Sample bgmSample {};
+    Channel bgm {};
+
+    static void FreeSample(Sample& sample)
+    {
+        SDL_free(std::exchange(sample.data, nullptr));
+        SDL_free(std::exchange(sample.pcmStereo, nullptr));
+        sample = {};
+    }
+
+    static bool LoadSample(Sample& sample, const char* const path)
+    {
+        SDL_AudioSpec spec {};
+        Uint8* data = nullptr;
+        Uint32 length = 0;
+        if (!SDL_LoadWAV(path, &spec, &data, &length)) {
+            return false;
+        }
+
+        SDL_AudioSpec mixSpec {SDL_AUDIO_F32, 2, spec.freq};
+        Uint8* pcmStereo = nullptr;
+        int pcmLength = 0;
+        constexpr int kFrameBytes = 2 * sizeof(float);
+        if (length > static_cast<Uint32>((std::numeric_limits<int>::max)())
+            || !SDL_ConvertAudioSamples(
+                &spec, data, static_cast<int>(length),
+                &mixSpec, &pcmStereo, &pcmLength)
+            || pcmLength <= 0 || pcmLength % kFrameBytes != 0) {
+            SDL_free(pcmStereo);
+            SDL_free(data);
+            return false;
+        }
+
+        FreeSample(sample);
+        sample.spec = spec;
+        sample.data = data;
+        sample.length = length;
+        sample.mixSpec = mixSpec;
+        sample.pcmStereo = pcmStereo;
+        sample.frames = static_cast<std::size_t>(pcmLength / kFrameBytes);
+        return true;
+    }
 
     static void SDLCALL FeedChannel(
         void* userdata, SDL_AudioStream* stream, int additionalAmount, int)
@@ -50,6 +94,8 @@ struct SdlAudioBackend::Impl {
         std::array<float, kBatchFrames * 2> buffer {};
         const Sample& sample = *channel.sample;
         const auto* source = reinterpret_cast<const float*>(sample.pcmStereo);
+        const std::size_t end =
+            channel.loopEnd == 0 ? sample.frames : channel.loopEnd;
 
         while (additionalAmount > 0 && channel.playing) {
             const std::size_t requested = static_cast<std::size_t>(
@@ -58,11 +104,11 @@ struct SdlAudioBackend::Impl {
             const std::size_t limit = (std::min)(requested, kBatchFrames);
             std::size_t count = 0;
             for (; count < limit; ++count) {
-                if (channel.cursor == sample.frames) {
+                if (channel.cursor == end) {
                     if (!channel.loop) {
                         break;
                     }
-                    channel.cursor = 0;
+                    channel.cursor = channel.loopStart;
                 }
                 const std::size_t offset = channel.cursor++ * 2;
                 buffer[count * 2] =
@@ -77,7 +123,7 @@ struct SdlAudioBackend::Impl {
                 return;
             }
             additionalAmount -= static_cast<int>(count) * kFrameBytes;
-            if (count < limit || (!channel.loop && channel.cursor == sample.frames)) {
+            if (count < limit || (!channel.loop && channel.cursor == end)) {
                 channel.playing = false;
                 static_cast<void>(SDL_FlushAudioStream(stream));
             }
@@ -86,19 +132,18 @@ struct SdlAudioBackend::Impl {
 
     ~Impl()
     {
+        if (bgm.stream != nullptr) {
+            SDL_DestroyAudioStream(std::exchange(bgm.stream, nullptr));
+        }
         for (Channel& channel : channels) {
             if (channel.stream != nullptr) {
                 SDL_DestroyAudioStream(std::exchange(channel.stream, nullptr));
             }
         }
         for (Sample& sample : samples) {
-            SDL_free(std::exchange(sample.data, nullptr));
-            SDL_free(std::exchange(sample.pcmStereo, nullptr));
-            sample.spec = {};
-            sample.length = 0;
-            sample.mixSpec = {};
-            sample.frames = 0;
+            FreeSample(sample);
         }
+        FreeSample(bgmSample);
         if (device != 0) {
             SDL_CloseAudioDevice(device);
         }
@@ -151,36 +196,7 @@ bool SdlAudioBackend::LoadWav(
         }
     }
 
-    SDL_AudioSpec spec {};
-    Uint8* data = nullptr;
-    Uint32 length = 0;
-    if (!SDL_LoadWAV(path, &spec, &data, &length)) {
-        return false;
-    }
-
-    SDL_AudioSpec mixSpec {SDL_AUDIO_F32, 2, spec.freq};
-    Uint8* pcmStereo = nullptr;
-    int pcmLength = 0;
-    constexpr int kFrameBytes = 2 * sizeof(float);
-    if (length > static_cast<Uint32>((std::numeric_limits<int>::max)())
-        || !SDL_ConvertAudioSamples(
-            &spec, data, static_cast<int>(length),
-            &mixSpec, &pcmStereo, &pcmLength)
-        || pcmLength <= 0 || pcmLength % kFrameBytes != 0) {
-        SDL_free(pcmStereo);
-        SDL_free(data);
-        return false;
-    }
-
-    SDL_free(sample.data);
-    SDL_free(sample.pcmStereo);
-    sample.spec = spec;
-    sample.data = data;
-    sample.length = length;
-    sample.mixSpec = mixSpec;
-    sample.pcmStereo = pcmStereo;
-    sample.frames = static_cast<std::size_t>(pcmLength / kFrameBytes);
-    return true;
+    return Impl::LoadSample(sample, path);
 }
 
 bool SdlAudioBackend::HasSample(const std::size_t slot) const noexcept
@@ -326,6 +342,116 @@ bool SdlAudioBackend::PlayChannel(
     channel.playing = true;
     static_cast<void>(SDL_UnlockAudioStream(channel.stream));
     return SDL_ResumeAudioDevice(impl_->device);
+}
+
+bool SdlAudioBackend::LoadBgmWav(
+    const char* const path,
+    const std::size_t startFrame,
+    const std::size_t endFrame) noexcept
+{
+    if (impl_ == nullptr || path == nullptr || impl_->bgm.stream != nullptr
+        || !Impl::LoadSample(impl_->bgmSample, path)) {
+        return false;
+    }
+    Impl::Sample& sample = impl_->bgmSample;
+    const std::size_t end = endFrame == 0 ? sample.frames : endFrame;
+    if (startFrame >= end || end > sample.frames) {
+        Impl::FreeSample(sample);
+        return false;
+    }
+
+    Impl::Channel& channel = impl_->bgm;
+    channel.stream = SDL_CreateAudioStream(&sample.mixSpec, nullptr);
+    if (channel.stream == nullptr) {
+        Impl::FreeSample(sample);
+        return false;
+    }
+    channel.sample = &sample;
+    channel.loopStart = startFrame;
+    channel.loopEnd = end;
+    if (!SDL_SetAudioStreamGetCallback(
+            channel.stream, &Impl::FeedChannel, &channel)
+        || !SDL_BindAudioStream(impl_->device, channel.stream)) {
+        ReleaseBgm();
+        return false;
+    }
+    return true;
+}
+
+bool SdlAudioBackend::HasBgm() const noexcept
+{
+    return impl_ != nullptr && impl_->bgm.stream != nullptr;
+}
+
+bool SdlAudioBackend::SetBgmVolume(
+    const std::int32_t hundredthDb) noexcept
+{
+    if (!HasBgm() || hundredthDb < -10000 || hundredthDb > 0) {
+        return false;
+    }
+    Impl::Channel& channel = impl_->bgm;
+    if (!SDL_LockAudioStream(channel.stream)) {
+        return false;
+    }
+    channel.volume = static_cast<float>(
+        std::pow(10.0, static_cast<double>(hundredthDb) / 2000.0));
+    static_cast<void>(SDL_UnlockAudioStream(channel.stream));
+    return true;
+}
+
+bool SdlAudioBackend::SetBgmFrequency(const std::uint32_t hz) noexcept
+{
+    if (!HasBgm()) {
+        return false;
+    }
+    const Impl::Channel& channel = impl_->bgm;
+    const float ratio = static_cast<float>(hz)
+        / static_cast<float>(channel.sample->mixSpec.freq);
+    return SDL_SetAudioStreamFrequencyRatio(channel.stream, ratio);
+}
+
+bool SdlAudioBackend::PlayBgm(const bool loop) noexcept
+{
+    if (!HasBgm()) {
+        return false;
+    }
+    Impl::Channel& channel = impl_->bgm;
+    if (!SDL_LockAudioStream(channel.stream)) {
+        return false;
+    }
+    channel.cursor = 0;
+    channel.loop = loop;
+    channel.playing = true;
+    static_cast<void>(SDL_UnlockAudioStream(channel.stream));
+    return SDL_ResumeAudioDevice(impl_->device);
+}
+
+bool SdlAudioBackend::StopBgm() noexcept
+{
+    if (!HasBgm()) {
+        return false;
+    }
+    Impl::Channel& channel = impl_->bgm;
+    if (!SDL_LockAudioStream(channel.stream)) {
+        return false;
+    }
+    channel.playing = false;
+    const bool cleared = SDL_ClearAudioStream(channel.stream);
+    static_cast<void>(SDL_UnlockAudioStream(channel.stream));
+    return cleared;
+}
+
+void SdlAudioBackend::ReleaseBgm() noexcept
+{
+    if (impl_ == nullptr) {
+        return;
+    }
+    Impl::Channel& channel = impl_->bgm;
+    if (channel.stream != nullptr) {
+        SDL_DestroyAudioStream(channel.stream);
+    }
+    channel = {};
+    Impl::FreeSample(impl_->bgmSample);
 }
 
 void SdlAudioBackend::Close() noexcept

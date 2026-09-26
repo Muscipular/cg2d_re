@@ -44,7 +44,18 @@ public:
     // 从当前帧开始；原 SetCurrentPosition(0) 由 RewindChannel 单独承接。
     [[nodiscard]] bool PlayChannel(std::size_t channel, bool loop) noexcept;
 
-    // 先停止并释放通道，再释放全部样本、设备及本对象持有的 AUDIO 引用。
+    // BGM 独立于 64 个音效通道。endFrame 为 0 时使用 WAV 完整帧数；
+    // 非零时按原 smpl 端点作为排他循环终点。
+    [[nodiscard]] bool LoadBgmWav(
+        const char* path, std::size_t startFrame, std::size_t endFrame) noexcept;
+    [[nodiscard]] bool HasBgm() const noexcept;
+    [[nodiscard]] bool SetBgmVolume(std::int32_t hundredthDb) noexcept;
+    [[nodiscard]] bool SetBgmFrequency(std::uint32_t hz) noexcept;
+    [[nodiscard]] bool PlayBgm(bool loop) noexcept;
+    [[nodiscard]] bool StopBgm() noexcept;
+    void ReleaseBgm() noexcept;
+
+    // 先释放 BGM 与音效流，再释放全部样本、设备及本对象持有的 AUDIO 引用。
     // 不得从本对象的 SDL 音频回调中关闭或销毁。
     void Close() noexcept;
 

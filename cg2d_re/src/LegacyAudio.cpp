@@ -286,6 +286,14 @@ std::array<std::uint32_t, 73> gPitchFrequencies58D3D4 {{
     104887, 111123, 117731, 123718, 132149, 140008, 148331, 157150,
     166495,
 }};
+// 原 [58D468,58D4F8)：52BE60 用 BGM 编号选出的有符号 W8 读取频率。
+std::array<std::uint32_t, 36> gBgmFrequencies58D468 {{
+    22050, 23360, 24750, 26221, 27780, 29432, 30929, 33037,
+    35002, 37082, 39287, 41623, 44100, 46721, 49500, 52443,
+    55561, 58865, 61859, 66074, 70004, 74165, 78575, 83247,
+    88200, 93442, 99001, 104887, 111123, 117731, 123718, 132149,
+    140008, 148331, 157150, 166495,
+}};
 std::int32_t gNextSeChannel105082C = 0;
 std::int32_t gLastSeNo58D4FC = -1;
 std::int32_t gSampleCount104DFCC = 0;
@@ -298,6 +306,7 @@ static_assert(sizeof(gSoundChannels104D0C8) == 0xF00);
 static_assert(sizeof(gPanVal103CFBC) == 0x200);
 static_assert(sizeof(gSoundVolValue10505D0) == 0x200);
 static_assert(sizeof(gPitchFrequencies58D3D4) == 73 * sizeof(std::uint32_t));
+static_assert(sizeof(gBgmFrequencies58D468) == 0x90);
 
 std::array<SoundRecord57C368, 99> gSoundRecords57C368 {{
     {0, 0, 2},

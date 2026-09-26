@@ -26,9 +26,12 @@ extern std::int32_t gEnableMusic;       // 原 0x58D3BC，静态值 1；musicoff
 extern std::int32_t gUseStereo;         // 原 0x58D3C4，W32，静态初值 1。
 extern std::int32_t gEffectVolume;      // 原 0x58D3C8，W32，静态初值 15。
 extern std::int32_t gMusicVolume;       // 原 0x58D3CC，W32，静态初值 15。
-// 原持久化前缀 [0x1050840,0x1050850)，恰为 16 字节、虚拟零填充初值；
-// 只建立已确认前缀，不据此声明后续完整 BGM 表边界。
-extern std::uint8_t gBgmFrequencySelectionPrefix[16];
+// 原 [1050840,1050850) 持久化前缀；引用唯一连续背板的前 16 字节。
+extern std::uint8_t (&gBgmFrequencySelectionPrefix)[16];
+// 52BE60 的 W8 读取跨前缀、8 字节间隔及 1050858 的 W32 运行表。
+std::int8_t ReadBgmFrequencySelectionByte(std::uint8_t id) noexcept;
+// 原 [1050858,1050B78) 的 200 项 W32 可写表，与上述 W8 读取共享存储。
+std::uint32_t* BgmRuntimeOrderWords() noexcept;
 // 原 0xFF0D40，本函数写入 1；world::gCurrentSceneType 引用同一份存储，枚举语义未决。
 extern std::int32_t gValueFF0D40;
 

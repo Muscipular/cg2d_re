@@ -7,6 +7,7 @@
 #include "StartupNative.hpp"
 
 #include <bit>
+#include <cstddef>
 #include <cstdio>
 #include <cstring>
 
@@ -23,7 +24,29 @@ std::int32_t gEnableMusic = 1;
 std::int32_t gUseStereo = 1;
 std::int32_t gEffectVolume = 15;
 std::int32_t gMusicVolume = 15;
-std::uint8_t gBgmFrequencySelectionPrefix[16] {};
+// 原连续零填充区：前缀、未命名间隔和 W32 运行表不得拆为独立存储。
+struct BgmSelectionStorage final {
+    std::uint8_t prefix[16];
+    std::uint8_t gap[8];
+    std::uint32_t runtimeWords[200];
+};
+static_assert(offsetof(BgmSelectionStorage, runtimeWords) == 0x18);
+static_assert(sizeof(BgmSelectionStorage) == 0x338);
+static BgmSelectionStorage gBgmSelection1050840 {};
+std::uint8_t (&gBgmFrequencySelectionPrefix)[16] = gBgmSelection1050840.prefix;
+
+std::int8_t ReadBgmFrequencySelectionByte(const std::uint8_t id) noexcept
+{
+    const auto* bytes =
+        reinterpret_cast<const std::uint8_t*>(&gBgmSelection1050840);
+    return std::bit_cast<std::int8_t>(bytes[id]);
+}
+
+std::uint32_t* BgmRuntimeOrderWords() noexcept
+{
+    return gBgmSelection1050840.runtimeWords;
+}
+
 std::int32_t gValueFF0D40 = 0;
 std::int32_t gRendererModeStorage = 0;
 std::uint8_t& gRendererMode = reinterpret_cast<std::uint8_t*>(&gRendererModeStorage)[0];

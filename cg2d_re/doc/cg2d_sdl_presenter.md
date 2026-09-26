@@ -847,3 +847,23 @@ DirectDraw `TestCooperativeLevel` 的同型结果。
 `gLegacyWindow` 仍由原窗口 owner 持有；不读取或清除 lost。
 `466B80` 及完整 Init/Destroy/Flip 生命周期尚未落位，
 本门禁单独实现不计恢复流程或画面完成。
+
+### SDL 首次初始化前的窗口线程门禁
+
+2026-09-26，本机 SDL 3.4.8 的 `SDL_init.h` 将
+VIDEO 主线程定义为执行其初始化的线程；同版本
+`SDL.c` 的 `SDL_IsMainThread` 在尚无 VIDEO、
+EVENTS、MAIN 线程 ID 时返回 true。因此
+`SdlPresenter::Create` 原先在 `SDL_InitSubSystem`
+之前只查 `SDL_IsMainThread`，不足以拒绝从其他线程
+首次包装既有窗口。
+
+新端先以 `GetWindowThreadProcessId(nativeWindow)`
+与 `GetCurrentThreadId()` 比较；无效窗口或非创建
+线程均在 SDL 初始化前失败，不夺取 VIDEO 主线程。
+已经有 SDL 线程标识时仍保留 `SDL_IsMainThread`
+门禁。`44C6B0` 同样要求 `gLegacyWindow` 属于
+当前 SDL 主线程，返回仍只表达可尝试重建；
+不读取或清除 lost，不创建资源。原 WinMain 创建
+并在同一线程使用的窗口不新增分支；外部窗口
+生命周期和最终呈现尚需实际运行对照。

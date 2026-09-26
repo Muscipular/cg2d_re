@@ -20,7 +20,7 @@ public:
     SdlPresenter(SdlPresenter&&) = delete;
     SdlPresenter& operator=(SdlPresenter&&) = delete;
 
-    // 包装外部既有 Win32 窗口；width/height 是帧尺寸，不修改原生窗口尺寸。
+    // 包装当前线程创建的有效 Win32 窗口；width/height 是帧尺寸，不修改原生窗口尺寸。
     // driver 必须显式传入：nullptr 交由 SDL 选择，非空字符串原样传给 SDL。
     // 已创建时返回 false 并保留当前实例；其他失败不留下部分创建的资源。
     [[nodiscard]] bool Create(

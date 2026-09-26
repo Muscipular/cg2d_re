@@ -73,14 +73,19 @@ SdlPresenter::~SdlPresenter()
 bool SdlPresenter::Create(
     std::uintptr_t nativeWindow, int width, int height, const char* driver) noexcept
 {
-    if (!SDL_IsMainThread()) {
-        return Fail("Create", "必须在 SDL 主线程调用。");
-    }
     if (impl_ != nullptr) {
         return Fail("Create", "实例已创建，须先调用 Destroy。");
     }
     if (nativeWindow == 0) {
         return Fail("Create", "外部原生窗口引用不能为零。");
+    }
+    if (GetWindowThreadProcessId(
+            reinterpret_cast<HWND>(nativeWindow), nullptr)
+        != GetCurrentThreadId()) {
+        return Fail("Create", "外部窗口无效或不属于当前线程。");
+    }
+    if (!SDL_IsMainThread()) {
+        return Fail("Create", "必须在 SDL 主线程调用。");
     }
     if (width <= 0 || height <= 0) {
         return Fail("Create", "帧宽度和高度必须为正。");
@@ -240,7 +245,9 @@ bool SdlPresenter::FailSdl(const char* operation) noexcept
 int TestCooperativeLevel_44C6B0()
 {
     return SDL_IsMainThread()
-        && IsWindow(reinterpret_cast<HWND>(platform::gLegacyWindow)) != FALSE;
+        && GetWindowThreadProcessId(
+               reinterpret_cast<HWND>(platform::gLegacyWindow), nullptr)
+            == GetCurrentThreadId();
 }
 
 } // namespace cg::render

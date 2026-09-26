@@ -763,3 +763,48 @@ x64 指针布局仍受[场景证据](cg2d_scene_state.md)
 波纹链。这里不根据绘制函数已消费字段就断言未知记录区
 无指针，不落位部分像素绘制或固定返回，不计
 `452840`、case 9、统一画面链、链接与运行完成。
+
+## SDL 最终提交与 `Flip` 单一 owner SPEC（待确认）
+
+2026-09-26，本线程在现有 `ida-17524/cg2d.exe` 会话只读重核
+`4512C0`、`44C560`、`44C400` 和 `44B660` 的相关指令，
+再核当前 `SurfaceState`、`SdlPresenter` 与 `MainLoop` 接线。
+`ClearSurface_4512C0` 已在同一 CPU Back 上填充背景色；
+`MainLoop` 按原序调用 `DrawAllQueued→468FF0→Flip`，
+但当前 `SdlPresenter::Create/Present/Destroy` 均无生产调用，
+`DrawAllQueued` 与 `Flip` 仍只有真实声明。不能只实现一个
+调用尚未创建的呈现器的 `Flip`，再把每帧失败当作原端状态。
+
+**建议的唯一 owner 与写序，等待用户确认：**
+
+1. `cg::render` 独占一个 `SdlPresenter` 实例，沿既有
+   `Renderer::Init` 在有效 `gLegacyWindow` 所属的 SDL 主线程
+   创建，传固定 640×480 帧和 `driver=nullptr`；同一
+   renderer 的销毁/重建路径负责在窗口失效前销毁。
+   `44C436–44C4FB` 已证 Temp、AutoMap、原生对象和 Back
+   的分阶段释放；新端在释放 CPU Back 前释放 SDL 呈现器，
+   保持缓存面先释放、Back 后释放，不新建另一套 Back。
+   创建失败的原入口结果和清理顺序须再逐段核 `Renderer::Init`
+   与调用者，不能用固定成功、自动重试或提前关闭窗口替代。
+2. 独立 `W32[628FC8]` 由 `cg::render` 唯一持有，映像初值零；
+   不并入 `gRendererLost`、图形队列计数或 `SdlPresenter`
+   私有诊断。`Flip@44C68D–44C69A` 每次都读旧完整 W32，
+   写 `old==0 ? 1 : 0`，包括呈现失败和 Back 缺失时。
+   已查 `447070–447C40/521F20` 等读者应使用同一槽，
+   不能复制为各绘制模块的快照。
+3. `Flip` 从唯一 CPU Back 取本次整帧，交同一
+   `SdlPresenter::Present`；SDL 上传、绘制和提交失败映射为
+   `gRendererLost=1`，成功时不清旧 lost 值。然后执行第 2 项
+   帧槽翻转。原模式 1 的客户区矩形、`GetScanLine` 等待及
+   非模式 1 的 DirectDraw `Flip/Blt` 属已批准的原生替换边界；
+   SDL 对外部窗口的实际客户区呈现仍须运行核对，不能据此
+   宣称窗口缩放、扫描线等待或 DX `HRESULT` 逐项一致。
+4. `DrawAllQueued` 必须在 `Flip` 之前把内容写入同一 CPU Back。
+   `520DD0` 的 13 类批次、缓存与纹理状态不能用空绘制跳过；
+   本 SPEC 不批准半个 `520DD0`、演示空帧或启动客户端。
+
+本节仅选择候选接口和 owner，不编码。确认后先闭合
+`Renderer::Init/Destroy` 的 SDL 创建与销毁、失败分流，
+再接 `Flip` 的实际呈现和共享帧槽，最后按原绘制批次
+闭合 `DrawAllQueued`。Debug 静态库编译不等于完整链接、
+SDL 窗口呈现或 32 位像素对照通过。

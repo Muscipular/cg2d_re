@@ -27,6 +27,8 @@ extern std::uint8_t gValueD9F2CA;              // 原 0xD9F2CA，W8。
 
 // 原 FDA880 玩家首块 W32；从同一玩家运行期 owner 读取，不借用场景时间槽。
 std::uint32_t ReadPlayerObjectIndex_FDA880() noexcept;
+// 原 51BEF0：仅清玩家首块 FDA88E 高半字 bit 7，保留同 W32 其余位。
+void Sub_51BEF0() noexcept;
 
 // 原世界等距投影状态的当前值与帧末快照；八槽均为独立 uint32_t，映像初值 0。
 extern std::uint32_t gWorldProjectionSourceA;   // 原 0x9EE908，R32。

@@ -69,6 +69,7 @@ std::array<DirectionDelta, 8> gDirectionDeltas55D9DC {{
 // 原首块 [FDA700,FF02E0) 内的 FDA880 W32 与 FF02B4 非拥有指针。
 struct PlayerRuntimeSlots {
     std::uint32_t objectIndex;
+    std::uint32_t flags18C; // 原 FDA88C W32；FDA88E W16、FDA88F W8 与之重叠。
     login::YobiAction* action;
 };
 
@@ -217,6 +218,11 @@ std::uint8_t gValueD9F2CA = 0;
 std::uint32_t ReadPlayerObjectIndex_FDA880() noexcept
 {
     return gPlayerRuntime.objectIndex;
+}
+
+void Sub_51BEF0() noexcept
+{
+    gPlayerRuntime.flags18C &= 0xFF7FFFFFu;
 }
 
 std::uint32_t gWorldProjectionSourceA = 0;

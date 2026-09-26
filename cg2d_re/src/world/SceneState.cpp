@@ -66,6 +66,14 @@ std::array<DirectionDelta, 8> gDirectionDeltas55D9DC {{
     {0, 1}, {-1, 1}, {-1, 0}, {-1, -1},
 }};
 
+// 原首块 [FDA700,FF02E0) 内的 FDA880 W32 与 FF02B4 非拥有指针。
+struct PlayerRuntimeSlots {
+    std::uint32_t objectIndex;
+    login::YobiAction* action;
+};
+
+PlayerRuntimeSlots gPlayerRuntime {};
+
 // 原 [0x4B0F10,0x4B0F13)：唯一动作是清 EAX，46AA00 直接调用。
 std::int32_t Sub_4B0F10()
 {
@@ -205,6 +213,11 @@ std::uint8_t& gValue9DAD30 = gText9DAD30[0];
 std::array<std::uint32_t, 7> gValueD67B08 {};
 std::uint32_t gValue58B6D0 = 1;
 std::uint8_t gValueD9F2CA = 0;
+
+std::uint32_t ReadPlayerObjectIndex_FDA880() noexcept
+{
+    return gPlayerRuntime.objectIndex;
+}
 
 std::uint32_t gWorldProjectionSourceA = 0;
 std::uint32_t gWorldProjectionSourceB = 0;
@@ -1762,6 +1775,13 @@ void __cdecl Sub_458F00()
         }
     }
     Sub_458F40();
+}
+
+// 原 519EB0：写入玩家首块的唯一 W32 对象号槽并原样返回。
+std::int32_t __cdecl Sub_519EB0(const std::int32_t value)
+{
+    gPlayerRuntime.objectIndex = std::bit_cast<std::uint32_t>(value);
+    return value;
 }
 
 // 原 [0x50C870,0x50C8C8)：两次独立取时，调色板后才发布路径与调整值。

@@ -35,6 +35,30 @@ void Sub_462870()
         std::bit_cast<std::uint32_t>(world::gCurrentSceneState) + 1U);
 }
 
+void Sub_462880(const std::uint8_t resetSelection)
+{
+    if (resetSelection != 0) {
+        state::gValue9A57E0 = state::gPukVersion >= 5 ? 1 : 0;
+        state::gValue9A4CFC = 0;
+        state::gValue9A5B00 = 0;
+    }
+
+    state::gCreateActions[0] = login::detail::NewYobiAction_404AE0(2, 0);
+    if (state::gCreateActions[0] != nullptr) {
+        login::detail::SetYobiActionField30(state::gCreateActions[0], 517);
+        login::detail::SetYobiActionField34(state::gCreateActions[0], 243);
+        login::detail::SetYobiActionField2B8(state::gCreateActions[0], 5);
+    }
+
+    state::gCreateActions[1] = login::detail::NewYobiAction_404AE0(2, 0);
+    if (state::gCreateActions[1] != nullptr) {
+        login::detail::SetYobiActionField30(state::gCreateActions[1], 517);
+        login::detail::SetYobiActionField34(state::gCreateActions[1], 396);
+        login::detail::SetYobiActionField2B8(state::gCreateActions[1], 5);
+    }
+    input::SetContext_44B330(nullptr);
+}
+
 std::int32_t Sub_464290(const std::int32_t* const rectangle)
 {
     const std::int32_t top = rectangle[1];
@@ -52,6 +76,10 @@ char gText9A4EAC[128] {};
 namespace cg::character_select::state {
 
 std::uint8_t gPukVersion = 0;
+std::uint8_t gValue9A57E0 = 0;
+std::uint8_t gValue9A4CFC = 0;
+std::uint8_t gValue9A5B00 = 0;
+std::array<login::YobiAction*, 2> gCreateActions {};
 std::array<login::YobiAction*, 2> gPreviewActions {};
 login::YobiAction* gCharacterModalAction = nullptr;
 std::int16_t gPendingCharacterCount = 0;
@@ -61,6 +89,7 @@ std::int32_t gPreviewToggleState = 0;
 char gSelectedCharacterName[256] {};
 char gDeleteCharacterName[132] {};
 
+static_assert(sizeof(gCreateActions) == 2 * sizeof(login::YobiAction*));
 static_assert(sizeof(gPreviewActions) == 2 * sizeof(login::YobiAction*));
 static_assert(sizeof(gSelectedCharacterName) == 256);
 static_assert(sizeof(gDeleteCharacterName) == 132);

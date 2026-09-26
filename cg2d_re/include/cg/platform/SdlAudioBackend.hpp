@@ -56,7 +56,9 @@ public:
     [[nodiscard]] bool StopBgm() noexcept;
     // 流式 BGM 的独立线程在 SDL 回调退出临界区后写唯一停止通知。
     // 由上层流式创建入口按原时点启动；失败不产生通知。
-    [[nodiscard]] bool StartBgmStopWorker(std::atomic<std::uint8_t>& notice) noexcept;
+    [[nodiscard]] bool StartBgmStopWorker(
+        std::atomic<std::uint8_t>& notice,
+        std::atomic<std::uint32_t>& ready) noexcept;
     [[nodiscard]] bool RequestBgmStop() noexcept;
     void ReleaseBgm() noexcept;
 

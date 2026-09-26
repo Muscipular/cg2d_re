@@ -33,6 +33,7 @@ struct SdlAudioBackend::Impl {
         float panRight {1.0f};
         bool loop {};
         bool playing {};
+        bool feedFailed {};
     };
 
     bool audioInitialized {};
@@ -44,11 +45,28 @@ struct SdlAudioBackend::Impl {
     SDL_Semaphore* bgmStopRequest {};
     SDL_Thread* bgmWorker {};
     std::atomic<std::uint8_t>* bgmStopNotice {};
+    std::atomic<std::uint32_t>* bgmReady {};
     std::atomic<bool> bgmAbort {false};
+    bool bgmBound {};
 
     static int SDLCALL RunBgmStopWorker(void* const userdata)
     {
         auto& self = *static_cast<Impl*>(userdata);
+        if (SDL_LockAudioStream(self.bgm.stream)) {
+            Channel& channel = self.bgm;
+            channel.loop = true;
+            channel.playing = true;
+            constexpr int kFrameBytes = 2 * sizeof(float);
+            const int initialFrames = (std::min)(
+                channel.sample->mixSpec.freq,
+                (std::numeric_limits<int>::max)() / kFrameBytes);
+            FeedChannel(&channel, channel.stream, initialFrames * kFrameBytes, 0);
+            self.bgmReady->store(1, std::memory_order_release);
+            if (channel.feedFailed) {
+                SDL_SignalSemaphore(self.bgmStopRequest);
+            }
+            static_cast<void>(SDL_UnlockAudioStream(channel.stream));
+        }
         SDL_WaitSemaphore(self.bgmStopRequest);
         if (self.bgmAbort.load(std::memory_order_acquire)) {
             return 0;
@@ -71,6 +89,7 @@ struct SdlAudioBackend::Impl {
             SDL_WaitThread(std::exchange(bgmWorker, nullptr), nullptr);
         }
         bgmStopNotice = nullptr;
+        bgmReady = nullptr;
     }
 
     static void FreeSample(Sample& sample)
@@ -152,6 +171,7 @@ struct SdlAudioBackend::Impl {
             if (count != 0 && !SDL_PutAudioStreamData(
                     stream, buffer.data(), static_cast<int>(count) * kFrameBytes)) {
                 channel.playing = false;
+                channel.feedFailed = true;
                 if (channel.failureSignal != nullptr) {
                     SDL_SignalSemaphore(channel.failureSignal);
                 }
@@ -409,8 +429,7 @@ bool SdlAudioBackend::LoadBgmWav(
     channel.loopStart = startFrame;
     channel.loopEnd = end;
     if (!SDL_SetAudioStreamGetCallback(
-            channel.stream, &Impl::FeedChannel, &channel)
-        || !SDL_BindAudioStream(impl_->device, channel.stream)) {
+            channel.stream, &Impl::FeedChannel, &channel)) {
         ReleaseBgm();
         return false;
     }
@@ -458,10 +477,18 @@ bool SdlAudioBackend::PlayBgm(const bool loop) noexcept
     if (!SDL_LockAudioStream(channel.stream)) {
         return false;
     }
-    channel.cursor = 0;
+    if (impl_->bgmWorker == nullptr) {
+        channel.cursor = 0;
+    }
     channel.loop = loop;
     channel.playing = true;
     static_cast<void>(SDL_UnlockAudioStream(channel.stream));
+    if (!impl_->bgmBound) {
+        if (!SDL_BindAudioStream(impl_->device, channel.stream)) {
+            return false;
+        }
+        impl_->bgmBound = true;
+    }
     return SDL_ResumeAudioDevice(impl_->device);
 }
 
@@ -481,7 +508,8 @@ bool SdlAudioBackend::StopBgm() noexcept
 }
 
 bool SdlAudioBackend::StartBgmStopWorker(
-    std::atomic<std::uint8_t>& notice) noexcept
+    std::atomic<std::uint8_t>& notice,
+    std::atomic<std::uint32_t>& ready) noexcept
 {
     if (!HasBgm() || impl_->bgmWorker != nullptr) {
         return false;
@@ -493,14 +521,18 @@ bool SdlAudioBackend::StartBgmStopWorker(
     }
     state.bgmAbort.store(false, std::memory_order_release);
     state.bgmStopNotice = &notice;
+    state.bgmReady = &ready;
+    ready.store(0, std::memory_order_release);
+    state.bgm.failureSignal = state.bgmStopRequest;
     state.bgmWorker =
         SDL_CreateThread(&Impl::RunBgmStopWorker, "cg2d-bgm-stop", &state);
     if (state.bgmWorker == nullptr) {
         state.bgmStopNotice = nullptr;
+        state.bgmReady = nullptr;
+        state.bgm.failureSignal = nullptr;
         SDL_DestroySemaphore(std::exchange(state.bgmStopRequest, nullptr));
         return false;
     }
-    state.bgm.failureSignal = state.bgmStopRequest;
     return true;
 }
 
@@ -527,6 +559,7 @@ void SdlAudioBackend::ReleaseBgm() noexcept
         SDL_DestroySemaphore(std::exchange(impl_->bgmStopRequest, nullptr));
     }
     channel = {};
+    impl_->bgmBound = false;
     Impl::FreeSample(impl_->bgmSample);
 }
 

@@ -3,6 +3,7 @@
 #include "cg/Input.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/CommandOptions.hpp"
+#include "cg/world/SceneState.hpp"
 
 #include <bit>
 #include <cstdlib>
@@ -12,6 +13,7 @@ namespace cg::login::detail {
 
 std::array<OrderedRecord1051B14, 200> gOrderedRecords1051B14 {};
 std::uint32_t gOrderMode1057C78 = 0;
+std::int32_t gOrderedRecordCount1051510 = 0;
 
 int CompareOrderedRecords_52FB60(const void* const left, const void* const right)
 {
@@ -128,6 +130,36 @@ std::int32_t ParseOrderedRecord_50EF70(
     record.value14 = network::ParseDelimitedInteger_52CFA0(text, '|', 7);
     record.value00 = network::ParseDelimitedInteger_52CFA0(text, '|', 8);
     return 1;
+}
+
+std::uintptr_t UpdateOrderedRecords_50EEB0(
+    std::uint32_t, std::uint32_t, const char* const text)
+{
+    const std::uint32_t gate = world::gValue9A6E0C;
+    if (gate != 0) {
+        return gate;
+    }
+
+    const std::int32_t key =
+        network::ParseDelimitedInteger_52CFA0(text, '|', 2);
+    for (std::size_t index = 0; index < gOrderedRecords1051B14.size(); ++index) {
+        if (gOrderedRecords1051B14[index].value0C == key) {
+            ParseOrderedRecord_50EF70(static_cast<std::int32_t>(index), text);
+            gOrderedRecordCount1051510 = CountRecordsValue08EqualOne_50EF50();
+            return static_cast<std::uintptr_t>(gOrderedRecordCount1051510);
+        }
+    }
+    for (std::size_t index = 0; index < gOrderedRecords1051B14.size(); ++index) {
+        if (gOrderedRecords1051B14[index].value0C == -1) {
+            ParseOrderedRecord_50EF70(static_cast<std::int32_t>(index), text);
+            gOrderedRecordCount1051510 = CountRecordsValue08EqualOne_50EF50();
+            return static_cast<std::uintptr_t>(gOrderedRecordCount1051510);
+        }
+    }
+
+    return reinterpret_cast<std::uintptr_t>(gOrderedRecords1051B14.data())
+        + sizeof(gOrderedRecords1051B14)
+        + offsetof(OrderedRecord1051B14, value0C);
 }
 
 } // namespace cg::login::detail

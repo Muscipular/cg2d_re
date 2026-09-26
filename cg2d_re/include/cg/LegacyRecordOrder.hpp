@@ -28,6 +28,7 @@ static_assert(sizeof(OrderedRecord1051B14) == 0x7C);
 
 extern std::array<OrderedRecord1051B14, 200> gOrderedRecords1051B14;
 extern std::uint32_t gOrderMode1057C78; // 52F910 写入，52FB60 每次比较时读取。
+extern std::int32_t gOrderedRecordCount1051510; // 50EEB0 写计数，532D80 清零。
 
 // 原 52FB60：qsort 的两个 W32 索引参数；相等时仍返回 -1。
 int CompareOrderedRecords_52FB60(const void* left, const void* right);
@@ -40,5 +41,8 @@ OrderedRecord1051B14* ResetOrderedRecord_50EF20(
     OrderedRecord1051B14* record) noexcept;
 // 原 50EF70：按 | 字段解析、反转义并写入指定记录，返回 0/1。
 std::int32_t ParseOrderedRecord_50EF70(std::int32_t index, const char* text);
+// 原 50EEB0：前两项 W32 不读取；EAX 可为门禁值、计数或满表末地址。
+std::uintptr_t UpdateOrderedRecords_50EEB0(
+    std::uint32_t ignored0, std::uint32_t ignored1, const char* text);
 
 } // namespace cg::login::detail

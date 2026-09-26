@@ -24,6 +24,10 @@ inline constexpr std::size_t kFontTypeCount = 14;
 // 原 gFontList@0x558F68 的唯一地址中性度量状态，索引有效域为 0..13。
 extern std::array<FontMetrics, kFontTypeCount> gFontMetrics;
 
+// 原 456190/456530；GDI 句柄由字体边界唯一持有，退出后保留原槽残值。
+std::int32_t InitializeFont_456190(std::int32_t family);
+std::int32_t ReleaseFont_456530();
+
 class Font final {
 public:
     Font() = delete;

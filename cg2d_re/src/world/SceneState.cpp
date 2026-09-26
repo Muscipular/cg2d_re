@@ -29,6 +29,12 @@
 namespace cg::world {
 namespace {
 
+// 原 [C8A7B0,C8A940) 的 100 项 W32 表；C8A940 是独立消费游标。
+std::array<std::int32_t, 100> gRotationTableC8A7B0 {};
+std::int32_t gRotationCursorC8A940 = 0;
+std::uint32_t gValue62B348 = 0;
+static_assert(sizeof(gRotationTableC8A7B0) == 0x190);
+
 // 原 0x9A7FA8；由 LegacyMouse.cpp 的 CRT 顺序适配显式构造、析构。
 platform::LegacyCryptInt gRippleGate {};
 
@@ -368,6 +374,35 @@ std::uint32_t CopyWorldProjectionState_468FF0()
     gWorldProjectionSnapshotC = c;
     gWorldProjectionSnapshotD = d;
     return d;
+}
+
+// 原 [46FB20,46FB45)：仅消费一次共享 RAND，生产表时不重置消费游标。
+std::int32_t InitializeRotationTable_46FB20()
+{
+    std::int32_t index = platform::NextRandom_53B4C9() % 100;
+    for (std::int32_t value = 0; value < 100; ++value) {
+        gRotationTableC8A7B0[static_cast<std::size_t>(index)] = value;
+        ++index;
+        if (index >= 100) {
+            index = 0;
+        }
+    }
+    return 100;
+}
+
+// 原 455C70 跳入独占尾块 [46FB50,46FB74)：先清状态，再推进游标。
+std::int32_t NextRotationValue_455C70()
+{
+    gValue62B348 = 0;
+    detail::gValue62B308 = 0;
+    const std::int32_t value =
+        gRotationTableC8A7B0[static_cast<std::size_t>(gRotationCursorC8A940)];
+    const std::int32_t next = gRotationCursorC8A940 + 1;
+    gRotationCursorC8A940 = next;
+    if (next >= 100) {
+        gRotationCursorC8A940 = 0;
+    }
+    return value;
 }
 
 namespace detail {

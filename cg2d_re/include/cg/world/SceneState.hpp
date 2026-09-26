@@ -84,6 +84,11 @@ std::int32_t SetPendingSceneType(std::int32_t sceneType);
 // 原 sub_468FF0@0x468FF0；按原指令顺序把世界投影当前值复制到帧末快照，返回 D。
 std::uint32_t CopyWorldProjectionState_468FF0();
 
+// 原 46FB20；一次 RAND 旋转写 100 项，返回 100，不清消费游标。
+std::int32_t InitializeRotationTable_46FB20();
+// 原 455C70 + 独占尾块 46FB50；清两状态槽后取表、推进游标。
+std::int32_t NextRotationValue_455C70();
+
 // 原 World::Update@0x51C430；完整场景状态消费与分发，场景目标仍为真实未实现依赖。
 void Update();
 

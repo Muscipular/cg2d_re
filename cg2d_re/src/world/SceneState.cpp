@@ -2167,7 +2167,7 @@ void __cdecl Sub_46BCF0()
 }
 
 // 原 [0x46ADA0,0x46AE53)：type 1 当次读取探测值，发送后更新请求状态。
-YobiAction* __cdecl Sub_46ADA0()
+void* __cdecl Sub_46ADA0()
 {
     if (gValueCAFEA0 == 0) {
         gValueCAFEA0 = static_cast<std::uint32_t>(audio::Sub_504410(1));
@@ -2202,7 +2202,7 @@ YobiAction* __cdecl Sub_46ADA0()
     gValueC82208 = 1;
     gValueC82214 = 0;
     gValueC82218 = 0;
-    return static_cast<YobiAction*>(result);
+    return result;
 }
 
 // 原 [0x46AB60,0x46ABCD)：先分发，再只清 active/countdown。

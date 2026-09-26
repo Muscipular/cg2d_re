@@ -441,6 +441,7 @@ MapEffectRecord* Sub_46E340();             // 原 0x46E340；空闲首项转为�
 MapEffectRecord* Sub_46E390(MapEffectRecord* record); // 原 0x46E390；摘活动链后退回空闲头。
 std::uintptr_t __cdecl Sub_46E3E0(std::int32_t* x, std::int32_t* y); // 原 0x46E3E0；混合 EAX 位型。
 void Sub_46E4E0();                          // 原 0x46E4E0；EAX 不具统一返回合同。
+void Sub_46E6C0();                          // 原 0x46E6C0；活动链 kind 2，EAX 无统一合同。
 void __cdecl Sub_46E0D0(std::int32_t mask, std::int32_t value); // 原 0x46E0D0；场景效果配置。
 void Sub_46F160();                          // 原 0x46F160；清活动链的 kind 6/7/8。
 MapEffectRecord* Sub_46F090(

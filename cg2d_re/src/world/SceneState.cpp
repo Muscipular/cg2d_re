@@ -462,6 +462,8 @@ namespace {
 std::array<MapEffectRecord, 500> gMapEffectRecords {};
 MapEffectRecord* gFreeMapEffectHead = nullptr;   // 原 C82244。
 MapEffectRecord* gActiveMapEffectHead = nullptr; // 原 C8A72C。
+std::int32_t gProjectedX55DEA4 = -1;
+std::int32_t gProjectedY55DEA8 = -1;
 
 void WriteMapEffectWord(
     MapEffectRecord& record, const std::size_t offset, const std::uint32_t value)
@@ -587,6 +589,37 @@ MapEffectRecord* Sub_46F090(
     WriteMapEffectWord(*record, 0x14, static_cast<std::uint32_t>(graphicIndex));
     ++gMapCharaSceneSlots.valueC8A756;
     return record;
+}
+
+std::int32_t __cdecl Sub_46F000(std::int32_t* const x, std::int32_t* const y)
+{
+    float projectedX;
+    float projectedY;
+    ProjectWorldToScreen_46CE30(0.0F, 0.0F, &projectedX, &projectedY);
+    const std::int32_t currentX = std::bit_cast<std::int32_t>(
+        static_cast<std::uint32_t>(static_cast<std::int64_t>(
+            static_cast<double>(projectedX) + 0.5)));
+    const std::int32_t currentY = std::bit_cast<std::int32_t>(
+        static_cast<std::uint32_t>(static_cast<std::int64_t>(
+            static_cast<double>(projectedY) + 0.5)));
+
+    if (gProjectedX55DEA4 == -1) {
+        gProjectedX55DEA4 = currentX;
+        gProjectedY55DEA8 = currentY;
+        return currentY;
+    }
+
+    const std::uint32_t deltaX =
+        static_cast<std::uint32_t>(currentX)
+        - static_cast<std::uint32_t>(gProjectedX55DEA4);
+    *x = std::bit_cast<std::int32_t>(static_cast<std::uint32_t>(*x) + deltaX);
+    const std::uint32_t deltaY =
+        static_cast<std::uint32_t>(currentY)
+        - static_cast<std::uint32_t>(gProjectedY55DEA8);
+    *y = std::bit_cast<std::int32_t>(static_cast<std::uint32_t>(*y) + deltaY);
+    gProjectedX55DEA4 = currentX;
+    gProjectedY55DEA8 = currentY;
+    return currentY;
 }
 
 // 原 [0x5198A0,0x5198CB)：逐项前向复制 0x1C 字节，保留每个 W32 的读写顺序。

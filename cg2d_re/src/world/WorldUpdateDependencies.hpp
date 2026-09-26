@@ -443,6 +443,7 @@ MapEffectRecord* Sub_46F090(
     std::int16_t kind, std::int32_t horizontalSign,
     std::int32_t verticalSign, std::int32_t phase,
     std::int32_t speed, std::int32_t graphicIndex); // 原 0x46F090；效果记录生产。
+std::int32_t __cdecl Sub_46F000(std::int32_t* x, std::int32_t* y); // 原 0x46F000；投影偏移增量。
 std::int32_t Sub_46BD40();                 // 原 [0x46BD40,0x46BD57)，依次清四个独立 W32 槽并返回 0。
 std::int32_t Sub_44A090();                 // 原 [0x44A090,0x44A15B)，读取或创建 chathis.dat。
 std::int32_t Sub_449FA0(std::int32_t index); // 原 [0x449FA0,0x44A084)，写入一项历史和尾索引。

@@ -30,5 +30,7 @@ extern std::uint32_t gOrderMode1057C78; // 52F910 写入，52FB60 每次比较�
 int CompareOrderedRecords_52FB60(const void* left, const void* right);
 // 原 52FCC0：原位填 0..199 后用上述比较器重排共享运行表。
 void BuildOrderedRecordIndices_52FCC0();
+// 原 50EF50：逐条统计 +8 W16 恰为 1 的记录，返回 0..200。
+std::int32_t CountRecordsValue08EqualOne_50EF50() noexcept;
 
 } // namespace cg::login::detail

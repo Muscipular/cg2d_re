@@ -57,4 +57,15 @@ void BuildOrderedRecordIndices_52FCC0()
         &CompareOrderedRecords_52FB60);
 }
 
+std::int32_t CountRecordsValue08EqualOne_50EF50() noexcept
+{
+    std::int32_t count = 0;
+    for (const OrderedRecord1051B14& record : gOrderedRecords1051B14) {
+        if (record.value08 == 1) {
+            ++count;
+        }
+    }
+    return count;
+}
+
 } // namespace cg::login::detail

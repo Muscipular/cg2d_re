@@ -23,6 +23,7 @@ add_library(cg2d_re_core STATIC
     src/GraphicInfo.cpp
     src/AnimationRuntime.cpp
     src/AnimationCleanup.cpp
+    src/AnimationList.cpp
     src/GraphicAlloc.cpp
     src/GraphicRead.cpp
     src/Palette.cpp

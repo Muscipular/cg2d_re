@@ -6,8 +6,12 @@ namespace cg::resource::animation::detail {
 
 std::array<std::uint32_t, 9> gFileCloseFlags9A29D0 {};
 std::array<MainSlot, 256> gMainSlots9A29F8 {};
+MainSlot gLeftSentinel9A3A00 {};
+MainSlot gRightSentinel9A3A10 {};
 std::array<std::FILE*, 9> gAnimateFiles9A3A20 {};
 std::array<CacheSlot, 256> gCacheSlots9A3A48 {};
+std::uint32_t gActiveCount9A4A68 = 0;
+std::uint32_t gActiveBytes9A4A6C = 0;
 
 } // namespace cg::resource::animation::detail
 

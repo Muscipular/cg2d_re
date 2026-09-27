@@ -129,6 +129,8 @@ float GetYobiActionScaleY(const YobiAction* action) noexcept;
 // 46F1D0 创建效果对象后清 +8，帧推进后读取 +20 图形索引。
 void ClearYobiActionCallback(YobiAction* action);
 std::int32_t GetYobiActionField20(YobiAction* action);
+// 原 +2E4；51A5B0 读取，独立于播放翻转值 +2E0。
+std::int32_t GetYobiActionField2E4(const YobiAction* action) noexcept;
 std::int32_t GetYobiActionField2A8(YobiAction* action);
 void SetYobiActionField2A8(YobiAction* action, std::int32_t value);
 void SetYobiActionField2B0(YobiAction* action, std::int32_t value);

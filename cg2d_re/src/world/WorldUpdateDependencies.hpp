@@ -521,6 +521,13 @@ extern std::uint32_t gValue9A6204;         // 原 0x9A6204；45ED90 后续复用
 std::int32_t Sub_45ED90();                 // 原 [0x45ED90,0x45EEDA)，场景 7 请求与展示。
 void DrawNormalScene_51C7D0();             // 原 World::DrawNormalScene@0x51C7D0。
 std::int8_t Sub_519D50();                  // 原 0x519D50，IDA 原型 char()。
+// 519D50 尾链及 51A840 状态生产共用的玩家位槽，不复制 FDA88E 动作标志。
+void Sub_51A5A0(); // 原 51A5A0：先置 FDA88A bit8，再只写 FDA88C 低 W8。
+login::YobiAction* Sub_51A5B0(); // 原 51A5B0：条件清标志并返回入口借用指针。
+std::int32_t Sub_51BDD0(std::int32_t value); // 原 51BDD0：发布动作值，透传输入。
+void Sub_51BDF0(); // 原 51BDF0：清动作 bit1 后清动作值，不发送。
+std::int32_t Sub_51BEC0(); // 原 51BEC0：按动作 bit1 返回同一动作值或0。
+std::int8_t Sub_51BE50(std::int32_t requested); // 原 51BE50：去重、klF 发送及低 S8 返回。
 void* __cdecl Sub_51D5B0();               // 原 [0x51D5B0,0x51D63A)；非空链尾返指针，空链 EAX 未定义；46ADA0 透传位型。
 void __cdecl Sub_4464D0();                // 原 [0x4464D0,0x446604)，场景对象/Yobi 清理。
 std::int8_t Sub_51D750();                  // 原 0x51D750，IDA 原型 char()。

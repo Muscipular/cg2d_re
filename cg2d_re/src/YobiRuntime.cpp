@@ -85,6 +85,7 @@ struct YobiAction {
     std::int32_t hidden;            // 原 +2D4：仅严格等于 1 时跳过播放。
     std::uint32_t completedLoops;   // 原 +2DC。
     std::int32_t playRevert;        // 原 +2E0：保留 caller 完整 W32。
+    std::int32_t field2E4;          // 原 +2E4；51A5B0 比较完整 W32 是否为2。
     std::int32_t frameX;            // 原 +2F0：帧坐标叠加坐标文件偏移。
     std::int32_t frameY;            // 原 +2F4。
     render::GraphicDescriptor16 drawMode;
@@ -1671,6 +1672,11 @@ void ClearYobiActionCallback(YobiAction* const action)
 std::int32_t GetYobiActionField20(YobiAction* const action)
 {
     return action->graphicIndex;
+}
+
+std::int32_t GetYobiActionField2E4(const YobiAction* const action) noexcept
+{
+    return action->field2E4;
 }
 
 std::int32_t GetYobiActionField2A8(YobiAction* const action)

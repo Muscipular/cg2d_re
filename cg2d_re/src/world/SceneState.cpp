@@ -74,10 +74,12 @@ std::array<DirectionDelta, 8> gDirectionDeltas55D9DC {{
     {0, 1}, {-1, 1}, {-1, 0}, {-1, -1},
 }};
 
-// 原首块 [FDA700,FF02E0) 内的 FDA880 W32 与 FF02B4 非拥有指针。
+// 原首块 [FDA700,FF02E0) 已证玩家槽；不将此原生结构当作原连续内存。
 struct PlayerRuntimeSlots {
     std::uint32_t objectIndex;
-    std::uint32_t flags18C; // 原 FDA88C W32；FDA88E W16、FDA88F W8 与之重叠。
+    std::uint16_t flags18A; // 原 FDA88A W16；跨 W32 读取还须拼接 flags18C 的低 W16。
+    std::uint32_t flags18C; // 承载原 [FDA88C,FDA890)；18C 低 W8、18E 高 W16 共享字节。
+    std::int32_t value190; // 原 FDA890；51BDD0/51BE50 写入的完整动作值。
     login::YobiAction* action;
 };
 
@@ -3941,6 +3943,65 @@ void Sub_4D3170()
 std::int32_t Sub_4410E0()
 {
     return 0x11;
+}
+
+void Sub_51A5A0()
+{
+    gPlayerRuntime.flags18A |= 0x0100u;
+    gPlayerRuntime.flags18C = (gPlayerRuntime.flags18C & 0xFFFFFF00u) | 1u;
+}
+
+login::YobiAction* Sub_51A5B0()
+{
+    login::YobiAction* const action = gPlayerRuntime.action;
+    gPlayerRuntime.flags18C &= 0xFFFFFF00u;
+    if (action == nullptr || login::detail::GetYobiActionField2E4(action) != 2) {
+        gPlayerRuntime.flags18A &= 0xFEFFu;
+    }
+    return action;
+}
+
+std::int32_t Sub_51BDD0(const std::int32_t value)
+{
+    gPlayerRuntime.flags18C |= 0x00020000u;
+    gPlayerRuntime.value190 = value;
+    return value;
+}
+
+void Sub_51BDF0()
+{
+    gPlayerRuntime.flags18C &= 0xFFFDFFFFu;
+    gPlayerRuntime.value190 = 0;
+}
+
+std::int32_t Sub_51BEC0()
+{
+    const auto flags = static_cast<std::uint8_t>(gPlayerRuntime.flags18C >> 16);
+    const std::int32_t value = gPlayerRuntime.value190;
+    return (flags & 2u) != 0 ? value : 0;
+}
+
+std::int8_t Sub_51BE50(const std::int32_t requested)
+{
+    const auto flags = static_cast<std::uint8_t>(gPlayerRuntime.flags18C >> 16);
+    if ((flags & 2u) != 0 && gPlayerRuntime.value190 == requested) {
+        return std::bit_cast<std::int8_t>(flags);
+    }
+
+    std::int32_t value = requested;
+    if (value < 0 || value >= Sub_4410E0()) {
+        value = 0;
+    }
+    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&gPlayerSnapshotY);
+    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&gPlayerSnapshotX);
+    const std::int32_t result =
+        network::Sub_511E60(platform::gConnectionSocket, x, y, value);
+    gPlayerRuntime.flags18C |= 0x00020000u;
+    if (value == 0) {
+        gPlayerRuntime.flags18C &= 0xFFFDFFFFu;
+    }
+    gPlayerRuntime.value190 = value;
+    return std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(result));
 }
 
 // 原 [0x455BD0,0x455C56)：按指令顺序写 23 个独立槽，返回完整 EAX32 零。

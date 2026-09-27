@@ -25,9 +25,30 @@ TextureSurface* CreateTextureSurface_44C6D0(
 TextureSurface* CreatePlainTextureSurface_44C8B0(
     std::int16_t width, std::int16_t height, std::uint32_t colorKey,
     std::uint32_t unusedMemoryCaps);
-// 仅 render 内部使用；释放同一分配登记项，getter 不延长其生命周期。
+// render 内部引用；Retain 返回同一地址，Release 在最后引用消失时释放登记项。
+// 创建引用由既有缓存生命周期消费；SDL getter 仅借用，不增加引用。
+TextureSurface* RetainTextureSurface(TextureSurface* surface) noexcept;
 void ReleaseTextureSurface(TextureSurface* surface) noexcept;
 SDL_Surface* GetTextureSdlSurface(TextureSurface* surface) noexcept;
+
+// 设备绑定的一份独立持有；缓存中的原生 T* 仍不拥有资源。
+class TextureSurfaceBinding final {
+public:
+    TextureSurfaceBinding() noexcept = default;
+    ~TextureSurfaceBinding();
+    TextureSurfaceBinding(const TextureSurfaceBinding&) = delete;
+    TextureSurfaceBinding& operator=(const TextureSurfaceBinding&) = delete;
+    TextureSurfaceBinding(TextureSurfaceBinding&&) = delete;
+    TextureSurfaceBinding& operator=(TextureSurfaceBinding&&) = delete;
+
+    // 先保留新面再释放旧面，允许同面重绑；nullptr 表示解绑定。
+    void Bind(TextureSurface* surface) noexcept;
+    // 同步借用；需要独立持有的查询调用 RetainTextureSurface(Get())。
+    TextureSurface* Get() const noexcept { return surface_; }
+
+private:
+    TextureSurface* surface_ {};
+};
 
 // 原 0x1C 节点的 x64 字段承载；surface 和 next 仅为非拥有引用。
 struct TextureNode {

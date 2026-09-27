@@ -31,6 +31,7 @@ struct TextureSurface {
     std::int32_t width {};  // 原 DDS 的实际 W32 尺寸，可能大于低 S16 请求值。
     std::int32_t height {};
     std::uint32_t colorKey {};
+    std::uint32_t references {1}; // 创建引用及独立绑定引用；不是原 COM 对外计数。
     std::unique_ptr<std::uint32_t[]> pixels;
     // 借用 pixels；成员逆序析构保证先释放包装，再释放像素。
     std::unique_ptr<SDL_Surface, decltype(&SDL_DestroySurface)> blitSurface {
@@ -92,6 +93,9 @@ public:
 
     void Release(TextureSurface* surface) noexcept
     {
+        if (--surface->references != 0) {
+            return;
+        }
         if (surface->previousOwned != nullptr) {
             surface->previousOwned->nextOwned = surface->nextOwned;
         } else {
@@ -200,6 +204,14 @@ TextureSurface* CreatePlainTextureSurface_44C8B0(
     return gTextureSurfaceOwner.Create(width, height, colorKey);
 }
 
+TextureSurface* RetainTextureSurface(TextureSurface* const surface) noexcept
+{
+    if (surface != nullptr) {
+        ++surface->references;
+    }
+    return surface;
+}
+
 void ReleaseTextureSurface(TextureSurface* const surface) noexcept
 {
     if (surface != nullptr) {
@@ -210,6 +222,18 @@ void ReleaseTextureSurface(TextureSurface* const surface) noexcept
 SDL_Surface* GetTextureSdlSurface(TextureSurface* const surface) noexcept
 {
     return surface == nullptr ? nullptr : surface->blitSurface.get();
+}
+
+TextureSurfaceBinding::~TextureSurfaceBinding()
+{
+    ReleaseTextureSurface(surface_);
+}
+
+void TextureSurfaceBinding::Bind(TextureSurface* const surface) noexcept
+{
+    TextureSurface* const retained = RetainTextureSurface(surface);
+    ReleaseTextureSurface(surface_);
+    surface_ = retained;
 }
 
 void ResetTextureNodes_523310() noexcept

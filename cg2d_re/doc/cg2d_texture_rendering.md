@@ -362,3 +362,66 @@ BuildSurfaceCache 的失败分支已改调独立 Temp fallback，不再重复首
 和文档文件链接静态检查通过。没有编译、测试或运行。
 外部旧纹理 stage 文档读取遇 TLS 失败，未修改 TLS 验证设置；
 不据检索摘要冻结未核实的原默认状态，四顶点链继续保留缺口。
+
+## 纹理绑定生命周期 SPEC
+
+2026-09-27，按工程决策委托，先补绑定引用的资源基础；
+本节不提前生产设备、不固定 HasLegacy3DDevice，不把绑定工具计为绘制完成。
+
+### 证据与边界
+
+- 原 `44D95A–44D964` 读取共享 dwStage 后 SetTexture，
+  `44D96A–44D988` 随后 DrawPrimitive；绑定不是仅存于该调用栈的参数。
+- 原销毁先释放节点，再于 `44C443/44C458` 释放 Temp/AutoMap，
+  `44C474→44C47D` 才释放/清设备，随后 `44C495→44C49E`
+  释放/清接口。因此新端不能让节点释放无条件删除仍被绑定的像素。
+- 初始化 `44C284` SetTexture、`44C2A3` GetTexture 后，
+  `44C2B8/44C2DC` 存在返回接口释放；读取接口和同步借用不是同一合同。
+  `44C2EE` 的 dwStage 来自探测结果，不能仅因当前推荐后端采用单纹理
+  就将原共享 stage 的生产与读取删除。
+- 辅助参考为 Wine 自身 `wine-11.0` 实现：
+  `dlls/ddraw/device.c` 的 `d3d_device7_GetTexture` 增加返回接口引用，
+  `d3d_device7_SetTexture` 转交状态块；
+  `dlls/wined3d/stateblock.c` 的 `wined3d_stateblock_set_texture`
+  先增加新纹理的内部引用、再减少旧引用。只读取得源码，未安装或引入依赖。
+  这是兼容实现的交叉参考，不将其内部计数或返回值当作 cg2d 原驱动证据。
+  固定来源：
+  `https://raw.githubusercontent.com/wine-mirror/wine/wine-11.0/dlls/ddraw/device.c`
+  和
+  `https://raw.githubusercontent.com/wine-mirror/wine/wine-11.0/dlls/wined3d/stateblock.c`。
+
+### 实施裁决
+
+1. 仍只有 GraphicDxCache 的 TextureSurfaceOwner 登记分配，
+   不建立共享指针控制块、第二份像素或按地址的引用表。
+   每个 TextureSurface 增加私有 U32 内部引用数，创建完成时为 1；
+   此数是新端生命周期实现，不是原 COM 可观察计数。
+2. 现有节点、变换缓存、Temp/AutoMap 的 `T*` 槽和键不变，
+   不因引用数加入而改为智能指针或扩大非地址字段。
+   原分配/释放流程仍消费创建时的那份引用；
+   释放仅在最后一份引用消失时摘登记链并析构 SDL 包装及像素。
+3. render 私有 `RetainTextureSurface` 返回同一地址并增加引用；
+   null 返回 null。既有 `ReleaseTextureSurface` 配对减少引用，
+   null 无操作；SDL getter 始终借用，不增加引用。
+4. 私有 `TextureSurfaceBinding` 负责一份独立持有：
+   Bind 先保留新面，再释放旧面，最后写槽；重复绑定同一面安全，
+   绑定 null 解绑定，析构释放最后绑定。禁止隐式复制/移动，
+   Get 仅借用；需要 GetTexture 式持有时显式 Retain(Get())。
+   该类型不管理缓存、像素格式、混合状态或设备存在性。
+5. 不增加全局绑定对象，不在无设备时伪造绑定；后续真实设备 owner
+   承接此 RAII 成员，按原设备释放时点销毁。
+   本步只完成引用与绑定叶，设备创建、共享 stage、采样和绘制仍未接线。
+6. 不引入线程同步、计数溢出处理或异常输入门禁。
+   现有渲染线程域与 RPLAN.24 不变；登记 owner 的进程结束兜底清理
+   不是设备正常销毁的替代，也不作为原端故障等价证据。
+
+静态检查限于新增引用路径、同面换绑顺序、现有释放调用、
+布局未变、UTF-8/LF 和限定差异；不构建、不新增或运行测试。
+
+### 引用叶落实
+
+GraphicDxCache 的创建、节点释放、变换缓存清理和两缓存面释放
+已经使用同一内部计数；失败创建仍直接清理未发布对象。
+TextureSurfaceBinding 的保留、借用、换绑和析构均有定义，
+尚无设备实例持有它，也未改变 RendererDestroy 的现存调用。
+因此不能把本步记为设备绑定接线或悬空路径的运行验收。

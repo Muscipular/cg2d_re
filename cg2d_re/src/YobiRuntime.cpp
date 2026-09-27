@@ -39,6 +39,7 @@ struct YobiAction {
     YobiAction* next;
     YobiCallback callback;
     void* payload;
+    YobiAction** completionSlot10; // 原+10；4441A0完成动画时清零的非拥有父槽地址。
     std::uint8_t priority;
     std::uint8_t displayPriority;
     std::int32_t cacheIndex;
@@ -301,6 +302,22 @@ void Sub_446970(std::int16_t* const value)
     const std::int16_t current = *value;
     if (current % 2 == 0) {
         *value = static_cast<std::int16_t>(current + 1);
+    }
+}
+
+// 原446990：负值局部归一化后写一次，正值超界时逐次写回S16槽。
+void Sub_446990(std::int16_t* const value)
+{
+    std::int16_t current = *value;
+    if (current < 0) {
+        do {
+            current = static_cast<std::int16_t>(current + 8);
+        } while (current < 0);
+        *value = current;
+        return;
+    }
+    while (*value > 7) {
+        *value = static_cast<std::int16_t>(*value - 8);
     }
 }
 
@@ -1034,8 +1051,6 @@ YobiAction* NewMapCharaAction()
 // 原441DB0/448040的回调目标；未实现的依赖仅声明，不设置替代空回调。
 void Sub_4417E0(YobiAction* action);
 void Sub_447E60(YobiAction* action);
-std::int32_t Sub_446D80(YobiAction* action);
-std::int32_t Sub_446FA0(YobiAction* action);
 
 YobiAction* Sub_441DB0(
     const std::int32_t imageNo, const std::int32_t mapX,
@@ -1262,6 +1277,135 @@ std::int32_t Sub_4474E0(YobiAction* const action)
 
 namespace {
 
+// 原4441A0：一次动画完成时清可选父槽再标死，未完成则走地图入队。
+void Sub_4441A0(YobiAction* const action)
+{
+    const float worldY = action->worldY;
+    const float worldX = action->worldX;
+    float screenX;
+    float screenY;
+    world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
+    action->x = static_cast<std::int32_t>(
+        static_cast<std::int64_t>(static_cast<double>(screenX) + 0.5));
+    action->y = static_cast<std::int32_t>(
+        static_cast<std::int64_t>(static_cast<double>(screenY) + 0.5));
+    if (Sub_517880(action, 100, 1, 0) != 0) {
+        YobiAction** const slot = action->completionSlot10;
+        if (slot != nullptr) {
+            *slot = nullptr;
+        }
+        MarkDeath(action);
+        return;
+    }
+    const render::GraphicDescriptor16* const descriptor = &action->drawMode;
+    const std::int32_t offsetY = Sub_5182B0(action, 1);
+    const std::int32_t drawY = offsetY + action->y;
+    const std::int32_t offsetX = Sub_5182B0(action, 0);
+    const std::int32_t x = action->x;
+    const std::int32_t graphicIndex = action->graphicIndex;
+    const std::int32_t drawX = offsetX + x;
+    const auto worldYBits = std::bit_cast<std::uint32_t>(action->worldY);
+    const auto worldXBits = std::bit_cast<std::uint32_t>(action->worldX);
+    static_cast<void>(world::detail::Sub_46BD60(
+        graphicIndex, worldXBits, worldYBits,
+        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
+        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)), 0, descriptor));
+}
+
+// 原444260：无payload附件，仅借用可选的父引用槽，不改变通用释放逻辑。
+YobiAction* Sub_444260(
+    const std::int32_t imageNo, const std::int32_t mapX,
+    const std::int32_t mapY, const std::int32_t characterAction,
+    const std::int32_t direction, const std::uint8_t displayPriority,
+    YobiAction** const completionSlot)
+{
+    YobiAction* const action = NewYobiAction_404AE0(2, 0);
+    if (action == nullptr) {
+        return nullptr;
+    }
+    action->imageNo = imageNo;
+    action->characterAction = characterAction;
+    action->callback = Sub_4441A0;
+    action->direction = direction;
+    action->displayPriority = displayPriority;
+    action->flags = 0x20u;
+    platform::legacy_crypt_int::AssignFromInt(&action->mapX200, mapX);
+    platform::legacy_crypt_int::AssignFromInt(&action->mapY210, mapY);
+    platform::legacy_crypt_int::AssignFromInt(&action->mapX1E0, mapX);
+    platform::legacy_crypt_int::AssignFromInt(&action->mapY1F0, mapY);
+    const double scaledX = static_cast<double>(mapX) * 64.0F;
+    action->field27C = 0;
+    action->field280 = 0;
+    const auto worldX = static_cast<float>(scaledX);
+    action->worldX = worldX;
+    const auto worldY = static_cast<float>(static_cast<double>(mapY) * 64.0F);
+    action->worldY = worldY;
+    float screenX;
+    float screenY;
+    world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
+    action->x = static_cast<std::int32_t>(
+        static_cast<std::int64_t>(static_cast<double>(screenX) + 0.5));
+    action->y = static_cast<std::int32_t>(
+        static_cast<std::int64_t>(static_cast<double>(screenY) + 0.5));
+    action->completionSlot10 = completionSlot;
+    return action;
+}
+
+// 原4469C0：按原递增换向顺序选一格，避开上次格及469810判定的阻挡格。
+void Sub_4469C0(YobiAction* const action)
+{
+    if (std::bit_cast<std::int16_t>(action->field270) > 0) {
+        return;
+    }
+    if (platform::legacy_crypt_int::NotEqual_401D20(
+            &world::detail::gPlayerX, &world::detail::gValue9EE8D0)
+        || platform::legacy_crypt_int::NotEqual_401D20(
+            &world::detail::gPlayerY, &world::detail::gValue9EE8E0)) {
+        return;
+    }
+    auto* const payload = static_cast<MapTransitionPayload*>(action->payload);
+    std::int32_t attempt = 0;
+    std::int16_t direction = payload->value02;
+    std::int32_t candidateX;
+    std::int32_t candidateY;
+    do {
+        const std::int16_t deltaX = world::detail::ReadDirectionDeltaX(direction);
+        const std::int16_t deltaY = world::detail::ReadDirectionDeltaY(direction);
+        candidateX = platform::legacy_crypt_int::Add_401E10(&action->mapX1E0, deltaX);
+        candidateY = platform::legacy_crypt_int::Add_401E10(&action->mapY1F0, deltaY);
+        if ((candidateX != payload->mapX08 || candidateY != payload->mapY0C)
+            && world::detail::Sub_469810(candidateX, candidateY) == 0) {
+            break;
+        }
+        direction = static_cast<std::int16_t>(direction + attempt * 2 + 2);
+        Sub_446990(&direction);
+        ++attempt;
+    } while (attempt < 4);
+    if (attempt >= 4) {
+        payload->mapX08 = -1;
+        payload->mapY0C = -1;
+        payload->value02 = static_cast<std::int16_t>(payload->value02 - 2);
+        Sub_446990(&payload->value02);
+        return;
+    }
+    if (std::bit_cast<std::int16_t>(payload->value06) >= 2) {
+        payload->value06 = 0;
+        payload->value02 = static_cast<std::int16_t>(payload->value02 - 6);
+        Sub_446990(&payload->value02);
+    }
+    if (direction != payload->value04) {
+        ++payload->value06;
+    } else {
+        payload->value06 = 0;
+    }
+    payload->value04 = direction;
+    action->pathX220[std::bit_cast<std::int16_t>(action->field270)] = candidateX;
+    action->pathY248[std::bit_cast<std::int16_t>(action->field270)] = candidateY;
+    ++action->field270;
+    payload->mapX08 = platform::legacy_crypt_int::Read_401EC0(&action->mapX1E0);
+    payload->mapY0C = platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0);
+}
+
 // 原446B50：按载荷方向追加一个目标格，仅447610调用且不消费返回值。
 void Sub_446B50(YobiAction* const action)
 {
@@ -1341,7 +1485,7 @@ void Sub_446C10(YobiAction* const action)
     payload->mapY0C = platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0);
 }
 
-// 模式6/7各自独立调用，按原FCOMP的C3判定且保持X到Y短路读取。
+// 各调用点独立采样，按原FCOMP的C3判定且保持X到Y短路读取。
 bool TransitionMovementIdle(const YobiAction* const action)
 {
     const float movementX = std::bit_cast<float>(action->field27C);
@@ -1537,6 +1681,103 @@ std::int32_t UpdateTransitionTrail(
 }
 
 } // namespace
+
+std::int32_t Sub_446D80(YobiAction* const action)
+{
+    auto* const payload = static_cast<MapTransitionPayload*>(action->payload);
+    if (TransitionDistance(&action->mapX1E0, &world::detail::gPlayerX) >= 13
+        || TransitionDistance(&action->mapY1F0, &world::detail::gPlayerY) >= 13) {
+        world::detail::Sub_4467D0(payload->objectIndex28);
+        MarkDeath(action);
+        return 0;
+    }
+    const std::uint32_t tick = platform::ReadTickCount32();
+    if (payload->tick14 + 8000u < tick && TransitionMovementIdle(action)) {
+        world::detail::Sub_4467D0(payload->objectIndex28);
+        MarkDeath(action);
+        return 0;
+    }
+    if ((payload->flags10C & 1u) == 0
+        && payload->slots18.attachments.action18 == nullptr) {
+        YobiAction** const slot = &payload->slots18.attachments.action18;
+        const std::uint32_t firstTick = platform::ReadTickCount32();
+        if (payload->tick14 + 7200u < firstTick) {
+            const std::uint8_t displayPriority = action->displayPriority;
+            const std::int32_t y =
+                platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0);
+            const std::int32_t x =
+                platform::legacy_crypt_int::Read_401EC0(&action->mapX1E0);
+            *slot = Sub_444260(0x18902, x, y, 0, 0, displayPriority, slot);
+            payload->flags10C |= 1u;
+        }
+    }
+    if ((payload->flags10C & 2u) == 0
+        && payload->slots18.attachments.action1C == nullptr) {
+        YobiAction** const slot = &payload->slots18.attachments.action1C;
+        const std::uint32_t secondTick = platform::ReadTickCount32();
+        if (payload->tick14 + 7500u < secondTick) {
+            const std::uint8_t displayPriority = action->displayPriority;
+            const std::int32_t y =
+                platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0);
+            const std::int32_t x =
+                platform::legacy_crypt_int::Read_401EC0(&action->mapX1E0);
+            *slot = Sub_444260(0x18902, x, y, 0, 0, displayPriority, slot);
+            payload->flags10C |= 2u;
+        }
+    }
+    if (TransitionMovementIdle(action)) {
+        Sub_4469C0(action);
+    }
+    Sub_4424B0(action);
+    YobiAction* const first = payload->slots18.attachments.action18;
+    if (first != nullptr) {
+        first->worldX = action->worldX;
+        YobiAction* const firstY = payload->slots18.attachments.action18;
+        firstY->worldY = action->worldY;
+    }
+    YobiAction* const second = payload->slots18.attachments.action1C;
+    if (second != nullptr) {
+        second->worldX = action->worldX;
+        YobiAction* const secondY = payload->slots18.attachments.action1C;
+        secondY->worldY = action->worldY;
+    }
+    return 1;
+}
+
+std::int32_t Sub_446FA0(YobiAction* const action)
+{
+    auto* const payload = static_cast<MapTransitionPayload*>(action->payload);
+    if (payload->slots18.attachments.action18 == nullptr) {
+        const std::uint32_t firstTick = platform::ReadTickCount32();
+        if (payload->tick14 < firstTick) {
+            const std::uint8_t displayPriority = action->displayPriority;
+            const std::int32_t y =
+                platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0);
+            const std::int32_t x =
+                platform::legacy_crypt_int::Read_401EC0(&action->mapX1E0);
+            payload->slots18.attachments.action18 =
+                Sub_444260(0x18902, x, y, 0, 0, displayPriority, nullptr);
+        }
+    }
+    if (payload->slots18.attachments.action1C == nullptr) {
+        const std::uint32_t secondTick = platform::ReadTickCount32();
+        if (payload->tick14 + 500u < secondTick) {
+            const std::uint8_t displayPriority = action->displayPriority;
+            const std::int32_t y =
+                platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0);
+            const std::int32_t x =
+                platform::legacy_crypt_int::Read_401EC0(&action->mapX1E0);
+            payload->slots18.attachments.action1C =
+                Sub_444260(0x18902, x, y, 0, 0, displayPriority, nullptr);
+        }
+    }
+    const std::uint32_t tick = platform::ReadTickCount32();
+    if (payload->tick14 + 1200u < tick) {
+        world::detail::Sub_4467D0(payload->objectIndex28);
+        MarkDeath(action);
+    }
+    return 0;
+}
 
 std::int32_t Sub_447070(YobiAction* const action)
 {

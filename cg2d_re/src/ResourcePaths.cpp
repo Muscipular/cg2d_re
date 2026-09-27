@@ -4,6 +4,7 @@
 #include "cg/GraphicRead.hpp"
 #include "cg/Palette.hpp"
 #include "cg/ResourceNames.hpp"
+#include "cg/platform/LegacyTime.hpp"
 #include "cg/platform/Startup.hpp"
 
 #include <bit>
@@ -16,14 +17,93 @@ namespace {
 // 原 [927F48,9A2068)；newMapRes 的已证高下标写入也是本表，不另建影子表。
 std::uint8_t gAutoMapColors927F48[500000] {};
 
+// 45A290/45A420 的共同采样顺序；只有首文件缺失或查询失败才终止。
+bool ReadAutoMapFileTimes(char* const* const paths, std::int32_t (&times)[3])
+{
+    constexpr std::int32_t kSlots[] {0, 1, 6};
+    for (std::int32_t index = 0; index < 3; ++index) {
+        std::FILE* const file = std::fopen(paths[kSlots[index]], "rb");
+        if (file == nullptr) {
+            if (index == 0) {
+                return false;
+            }
+            continue;
+        }
+        std::int32_t value;
+        const std::int32_t result = platform::ReadLegacyFileCreationTime32(file, &value);
+        if (result >= 0) {
+            times[index] = value;
+        }
+        std::fclose(file);
+        if (result < 0 && index == 0) {
+            return false;
+        }
+    }
+    return true;
+}
+
 } // namespace
 } // namespace cg::resource
 
 namespace cg::resource::detail {
 
-// 原 45A420/45A290；定宽缓存读写仍待旧文件时间边界。
-std::int32_t Sub_45A420(const char* fileName, char* const* graphicInfoPaths);
-std::int32_t Sub_45A290(const char* fileName, char* const* graphicInfoPaths);
+static_assert(std::endian::native == std::endian::little);
+
+// 原 45A420：每项读取后才比较，正文直接写共享表，短读保留已写前缀。
+std::int32_t Sub_45A420(const char* const fileName, char* const* const graphicInfoPaths)
+{
+    std::int32_t times[3] {};
+    if (!ReadAutoMapFileTimes(graphicInfoPaths, times)) {
+        return 0;
+    }
+    std::FILE* const file = std::fopen(fileName, "rb");
+    if (file == nullptr) {
+        return 0;
+    }
+    std::uint16_t version;
+    if (std::fread(&version, 2, 1, file) != 1 || version != 2) {
+        std::fclose(file);
+        return 0;
+    }
+    for (const std::int32_t expected : times) {
+        std::int32_t stored;
+        if (std::fread(&stored, 4, 1, file) != 1 || stored != expected) {
+            std::fclose(file);
+            return 0;
+        }
+    }
+    std::uint32_t sentinel;
+    if (std::fread(&sentinel, 4, 1, file) != 1 || sentinel != 0
+        || std::fread(gAutoMapColors927F48, sizeof(gAutoMapColors927F48), 1, file) != 1) {
+        std::fclose(file);
+        return 0;
+    }
+    std::fclose(file);
+    return 1;
+}
+
+// 原 45A290：成功打开后忽略写入/关闭结果，不把原写回改为事务提交。
+std::int32_t Sub_45A290(const char* const fileName, char* const* const graphicInfoPaths)
+{
+    std::int32_t times[3] {};
+    if (!ReadAutoMapFileTimes(graphicInfoPaths, times)) {
+        return 0;
+    }
+    std::FILE* const file = std::fopen(fileName, "wb");
+    if (file == nullptr) {
+        return 0;
+    }
+    const std::uint16_t version = 2;
+    const std::uint32_t sentinel = 0;
+    std::fwrite(&version, 2, 1, file);
+    for (const std::int32_t time : times) {
+        std::fwrite(&time, 4, 1, file);
+    }
+    std::fwrite(&sentinel, 4, 1, file);
+    std::fwrite(gAutoMapColors927F48, sizeof(gAutoMapColors927F48), 1, file);
+    std::fclose(file);
+    return 1;
+}
 
 // 原 45A190：取色调用后才重取图形表；调色板读取失败不清已有颜色。
 void Sub_45A190()

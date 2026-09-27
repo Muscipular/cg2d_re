@@ -6,12 +6,17 @@
 #include <cstdint>
 #include <cstdlib>
 #include <cstring>
+#include <io.h>
 
 namespace cg::platform {
 
 // 原缓存分别位于 0x1085FD0、0x1085FC8；这里只还原各已访问对象，不推断中间填充用途。
 SYSTEMTIME gUtcTimeCache_1085FD0 {};
 std::int32_t gDaylightCache_1085FC8 = 0;
+
+// 原 CRT 错误槽；本文件的文件时间边界与 542F44 共用，不绑定现代 CRT errno。
+std::int32_t gLegacyErrno_1085FE0 = 0;
+std::uint32_t gLegacyDosError_1085FE4 = 0;
 
 // 原 0x1086128..0x108614B：九个连续 S32 槽，不是现代 CRT tm。
 struct LegacyTm53B8C6 {
@@ -253,6 +258,47 @@ char* __cdecl StrNCpy_53BEC0(char* target, const char* source, std::uint32_t cou
 }
 
 namespace {
+
+struct LegacyFileErrorEntry {
+    std::uint32_t nativeCode;
+    std::int32_t error;
+};
+
+// 原 [591E80,591FE8)；重复键按首次匹配，不排序或合并。
+constexpr LegacyFileErrorEntry kLegacyFileErrors591E80[] {
+    {1, 22}, {2, 2}, {3, 2}, {4, 24}, {5, 13},
+    {6, 9}, {7, 12}, {8, 12}, {9, 12}, {10, 7},
+    {11, 8}, {12, 22}, {13, 22}, {15, 2}, {16, 13},
+    {17, 18}, {18, 2}, {33, 13}, {53, 2}, {65, 13},
+    {67, 2}, {80, 17}, {82, 13}, {83, 13}, {87, 22},
+    {89, 11}, {108, 13}, {109, 32}, {112, 28}, {114, 9},
+    {6, 22}, {128, 10}, {129, 10}, {130, 9}, {131, 22},
+    {132, 13}, {145, 41}, {158, 13}, {161, 2}, {164, 11},
+    {167, 13}, {183, 17}, {206, 2}, {215, 11}, {1816, 12}
+};
+static_assert(sizeof(kLegacyFileErrors591E80) == 0x168);
+
+std::uintptr_t MapLegacyFileError_542F44(const std::uint32_t code)
+{
+    gLegacyDosError_1085FE4 = code;
+    for (const LegacyFileErrorEntry& entry : kLegacyFileErrors591E80) {
+        if (entry.nativeCode == code) {
+            gLegacyErrno_1085FE0 = entry.error;
+            return static_cast<std::uintptr_t>(entry.error);
+        }
+    }
+    if (code >= 19 && code <= 36) {
+        gLegacyErrno_1085FE0 = 13;
+    } else if (code >= 188) {
+        gLegacyErrno_1085FE0 = 8;
+        if (code > 202) {
+            gLegacyErrno_1085FE0 = 22;
+        }
+    } else {
+        gLegacyErrno_1085FE0 = 22;
+    }
+    return reinterpret_cast<std::uintptr_t>(kLegacyFileErrors591E80 + 45);
+}
 
 // GMT@0x541158 恒返回这一份共享对象；原运行初值不由未加载区字节推断。
 LegacyTm53B8C6 gLegacyTm_1086128;
@@ -729,6 +775,71 @@ std::int32_t __cdecl ConvertLocalTime_541160(
         return result + gDstBias_58FB80;
     }
     return result;
+}
+
+std::int32_t ReadLegacyFileCreationTime32(std::FILE* const file, std::int32_t* const output)
+{
+    const int descriptor = ::_fileno(file);
+    if (descriptor < 0) {
+        gLegacyErrno_1085FE0 = 9;
+        return -1;
+    }
+    const std::intptr_t nativeHandle = ::_get_osfhandle(descriptor);
+    if (nativeHandle == -1) {
+        gLegacyErrno_1085FE0 = 9;
+        return -1;
+    }
+    const HANDLE handle = reinterpret_cast<HANDLE>(nativeHandle);
+    const DWORD fileType = ::GetFileType(handle) & ~FILE_TYPE_REMOTE;
+    if (fileType == FILE_TYPE_CHAR || fileType == FILE_TYPE_PIPE) {
+        *output = 0;
+        if (fileType == FILE_TYPE_PIPE) {
+            DWORD available;
+            static_cast<void>(::PeekNamedPipe(handle, nullptr, 0, nullptr, &available, nullptr));
+        }
+        return 0;
+    }
+    if (fileType == FILE_TYPE_UNKNOWN) {
+        gLegacyErrno_1085FE0 = 9;
+        return -1;
+    }
+    BY_HANDLE_FILE_INFORMATION information;
+    if (fileType != FILE_TYPE_DISK || !::GetFileInformationByHandle(handle, &information)) {
+        static_cast<void>(MapLegacyFileError_542F44(::GetLastError()));
+        return -1;
+    }
+
+    const auto convert = [](const FILETIME& fileTime, std::int32_t& result) {
+        FILETIME localTime;
+        SYSTEMTIME fields;
+        if (!::FileTimeToLocalFileTime(&fileTime, &localTime)
+            || !::FileTimeToSystemTime(&localTime, &fields)) {
+            return false;
+        }
+        result = ConvertLocalTime_541160(
+            fields.wYear, fields.wMonth, fields.wDay, fields.wHour,
+            fields.wMinute, fields.wSecond, -1);
+        return true;
+    };
+    std::int32_t modified;
+    if (!convert(information.ftLastWriteTime, modified)) {
+        return -1;
+    }
+    if (information.ftLastAccessTime.dwLowDateTime != 0
+        || information.ftLastAccessTime.dwHighDateTime != 0) {
+        // 原 ctime caller 不使用 atime，但转换会更新同一时区/DST 状态。
+        std::int32_t accessed;
+        if (!convert(information.ftLastAccessTime, accessed)) {
+            return -1;
+        }
+    }
+    if (information.ftCreationTime.dwLowDateTime == 0
+        && information.ftCreationTime.dwHighDateTime == 0) {
+        *output = modified;
+    } else if (!convert(information.ftCreationTime, *output)) {
+        return -1;
+    }
+    return 0;
 }
 
 std::int32_t ReadLegacyTime32_53BA26(std::int32_t* output)

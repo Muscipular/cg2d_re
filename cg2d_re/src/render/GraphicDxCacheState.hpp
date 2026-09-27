@@ -85,6 +85,14 @@ std::int32_t BuildSurfaceCache_5231A0();
 // 原 451310：将整张节点面填为零；唯一已见 caller 弃 DX7 返回值。
 void FillTextureBlack_451310(TextureSurface* surface) noexcept;
 
+// 原 450400 的 32 位写入段：source 指向共享索引像素区，palette 为空时用 AutoMap。
+// x/y 按原源行计算，源行倒退、目标行按节点面宽度前进；调用者提供有效像素范围。
+void LoadTextureFromBuffer32_450400(
+    TextureSurface* surface, std::int32_t x, std::int32_t y,
+    std::int32_t width, std::int32_t height,
+    const std::uint8_t* source, std::int32_t sourceWidth,
+    const std::uint8_t* palette) noexcept;
+
 // 原 Destroy@44C408–44C435：按动态实际 count 释放并清非空节点面。
 void ReleaseTextureNodeSurfaces_44C408() noexcept;
 

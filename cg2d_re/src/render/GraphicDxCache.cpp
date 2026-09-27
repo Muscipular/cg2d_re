@@ -1,10 +1,12 @@
 #include "GraphicDxCacheState.hpp"
 
 #include "cg/GraphicInfo.hpp"
+#include "cg/Palette.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/render/SurfaceState.hpp"
 
 #include <algorithm>
+#include <cstring>
 #include <memory>
 #include <new>
 
@@ -178,6 +180,34 @@ void FillTextureBlack_451310(TextureSurface* const surface) noexcept
     const std::size_t pixelCount =
         static_cast<std::size_t>(surface->width) * static_cast<std::size_t>(surface->height);
     std::fill_n(surface->pixels.get(), pixelCount, 0u);
+}
+
+void LoadTextureFromBuffer32_450400(
+    TextureSurface* const surface, const std::int32_t x, const std::int32_t y,
+    const std::int32_t width, const std::int32_t height,
+    const std::uint8_t* const source, const std::int32_t sourceWidth,
+    const std::uint8_t* const palette) noexcept
+{
+    if (height <= 0) {
+        return;
+    }
+
+    const std::uint8_t* row = source + y * sourceWidth + x;
+    std::uint32_t* target = surface->pixels.get();
+    for (std::int32_t rowIndex = 0; rowIndex < height; ++rowIndex) {
+        for (std::int32_t column = 0; column < width; ++column) {
+            const std::uint8_t index = row[column];
+            if (palette != nullptr) {
+                std::memcpy(&target[column], palette + static_cast<std::size_t>(index) * 4, 4);
+            } else {
+                target[column] = gPaletteAutoMap[index];
+            }
+        }
+        if (rowIndex + 1 < height) {
+            row -= sourceWidth;
+        }
+        target += surface->width;
+    }
 }
 
 void ReleaseTextureNodeSurfaces_44C408() noexcept

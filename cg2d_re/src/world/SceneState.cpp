@@ -92,6 +92,11 @@ struct PlayerRuntimeSlots {
     platform::LegacyCryptInt maxFp; // 原 FDA748。
     platform::LegacyCryptInt value58; // 原 FDA758；5184A0第五构造对象。
     platform::LegacyCryptInt value68; // 原 FDA768；5184A0第六构造对象。
+    std::array<std::int32_t, 14> values78; // 原FDA778..FDA7AC，509650两段数值。
+    std::int32_t valueB8; // 原FDA7B8。
+    std::array<std::int32_t, 4> valuesE4; // 原FDA7E4..FDA7F0。
+    std::int32_t valueFC; // 原FDA7FC；与末尾15BCC共用回复门禁。
+    std::int32_t titleIndex100; // 原FDA800，直接索引FF0508原表。
     std::array<char, 17> name; // 原 FDA808；旧编码字节。
     std::array<char, 17> ownTitle; // 原 FDA819。
     std::array<char, 33> text12A; // 原 FDA82A。
@@ -107,6 +112,7 @@ struct PlayerRuntimeSlots {
     std::int32_t value190; // 原 FDA890；51BDD0/51BE50 写入的完整动作值。
     login::YobiAction* action;
     std::array<char, 17> text15BB8; // 原 FF02B8，不紧接新端的指针字节布局。
+    std::int32_t value15BCC; // 原FF02CC；509650尾字段。
 };
 
 PlayerRuntimeSlots gPlayerRuntime {};
@@ -1623,6 +1629,102 @@ void Sub_476680()
     if (std::bit_cast<std::int32_t>(remaining) < 0) {
         gValue626BFC = 0;
     }
+}
+
+std::int32_t Sub_509650(
+    const std::uintptr_t /*socket*/, const char* const payload)
+{
+    const std::int32_t gate = std::bit_cast<std::int32_t>(gValue9A6E0C);
+    if (gate != 0) {
+        return gate;
+    }
+    const auto flags = static_cast<std::uint32_t>(
+        network::ParseDelimitedBase62_52D0D0(payload, '|', 1));
+    std::int32_t field = 2;
+    const auto parseCrypt = [&](platform::LegacyCryptInt* const target,
+                                const std::uint32_t mask) {
+        if ((flags & mask) != 0) {
+            const std::int32_t parsed =
+                network::ParseDelimitedInteger_52CFA0(payload, '|', field);
+            platform::LegacyCryptInt temporary;
+            platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, parsed);
+            target->mask = temporary.mask;
+            target->encoded = temporary.encoded;
+            target->readCount = temporary.readCount;
+            platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+            ++field;
+        }
+    };
+    parseCrypt(&gPlayerRuntime.hp, 0x3u);
+    parseCrypt(&gPlayerRuntime.maxHp, 0x5u);
+    parseCrypt(&gPlayerRuntime.fp, 0x9u);
+    parseCrypt(&gPlayerRuntime.maxFp, 0x11u);
+
+    std::uint32_t bit = 0x20u;
+    for (std::int32_t index = 0; index < 8; ++index) {
+        if ((flags & (bit | 1u)) != 0) {
+            gPlayerRuntime.values78[index] =
+                network::ParseDelimitedInteger_52CFA0(payload, '|', field);
+            ++field;
+        }
+        bit <<= 1;
+    }
+    parseCrypt(&gPlayerRuntime.value58, 0x2001u);
+    parseCrypt(&gPlayerRuntime.value68, 0x4001u);
+
+    const std::array<std::int32_t*, 12> targets {{
+        &gPlayerRuntime.level,
+        &gPlayerRuntime.values78[8], &gPlayerRuntime.values78[9],
+        &gPlayerRuntime.values78[10], &gPlayerRuntime.values78[11],
+        &gPlayerRuntime.values78[12], &gPlayerRuntime.values78[13],
+        &gPlayerRuntime.valueB8,
+        &gPlayerRuntime.valuesE4[0], &gPlayerRuntime.valuesE4[1],
+        &gPlayerRuntime.valuesE4[2], &gPlayerRuntime.valuesE4[3],
+    }};
+    bit = 0x8000u;
+    for (std::int32_t* const target : targets) {
+        if ((flags & (bit | 1u)) != 0) {
+            *target = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
+            ++field;
+        }
+        bit <<= 1;
+    }
+    const std::uint32_t tailGate = flags & 0x8000001u;
+    if (tailGate != 0) {
+        gPlayerRuntime.valueFC =
+            network::ParseDelimitedInteger_52CFA0(payload, '|', field);
+        ++field;
+    }
+    if ((flags & 0x10000001u) != 0) {
+        gPlayerRuntime.titleIndex100 =
+            network::ParseDelimitedInteger_52CFA0(payload, '|', field);
+        ++field;
+    }
+    if ((flags & 0x20000001u) != 0) {
+        char name[256];
+        network::ExtractDelimitedField_52CED0(payload, '|', field, 255, name);
+        input::UnescapeLegacyTextAndNotify_52D2F0(name);
+        if (std::strlen(name) <= 16) {
+            std::strcpy(gPlayerRuntime.name.data(), name);
+        }
+        ++field;
+    }
+    if ((flags & 0x40000001u) != 0) {
+        char title[256];
+        network::ExtractDelimitedField_52CED0(payload, '|', field, 255, title);
+        input::UnescapeLegacyTextAndNotify_52D2F0(title);
+        if (std::strlen(title) <= 16) {
+            std::strcpy(gPlayerRuntime.ownTitle.data(), title);
+        }
+        ++field;
+    }
+    if (tailGate != 0) {
+        const std::int32_t result =
+            network::ParseDelimitedInteger_52CFA0(payload, '|', field);
+        gPlayerRuntime.value15BCC = result;
+        return result;
+    }
+    return 0;
 }
 
 // 原宠物表、索引对和两独立标量均为PE虚拟零区；构造由LegacyMouse按CRT顺序接入。

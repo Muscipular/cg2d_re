@@ -369,6 +369,9 @@ std::int32_t __cdecl Sub_46DC90(std::int32_t selected); // 原 [0x46DC90,0x46DD3
 void Sub_44B050(const char* text, std::int32_t color, std::int32_t fontType);
 std::int32_t Sub_4A76E0();
 
+// 原[509650,509B96)，玩家属性掩码回复，socket未用。
+std::int32_t Sub_509650(std::uintptr_t socket, const char* payload);
+
 // 原F633F8五条宠物数据，不是FF02E0地图槽；未消费间隔不计最终类型冻结。
 struct PetRuntimeRecord {
     std::uint16_t used; // 原+0占用。

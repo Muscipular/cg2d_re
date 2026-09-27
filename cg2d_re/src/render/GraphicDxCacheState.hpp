@@ -5,6 +5,8 @@
 #include <cstdint>
 #include <type_traits>
 
+struct SDL_Surface;
+
 namespace cg::render {
 
 struct TextureSurface;
@@ -18,6 +20,14 @@ inline constexpr std::size_t kTextureNodeCapacity = 4096;
 TextureSurface* CreateTextureSurface_44C6D0(
     std::int16_t width, std::int16_t height, std::uint32_t colorKey,
     std::uint32_t unusedMemoryCaps);
+
+// 原 44C8B0：两种接口状态都保持请求尺寸，不经过纹理 +2/能力位调整。
+TextureSurface* CreatePlainTextureSurface_44C8B0(
+    std::int16_t width, std::int16_t height, std::uint32_t colorKey,
+    std::uint32_t unusedMemoryCaps);
+// 仅 render 内部使用；释放同一分配登记项，getter 不延长其生命周期。
+void ReleaseTextureSurface(TextureSurface* surface) noexcept;
+SDL_Surface* GetTextureSdlSurface(TextureSurface* surface) noexcept;
 
 // 原 0x1C 节点的 x64 字段承载；surface 和 next 仅为非拥有引用。
 struct TextureNode {

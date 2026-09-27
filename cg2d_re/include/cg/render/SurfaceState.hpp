@@ -31,6 +31,8 @@ using CpuSurfacePixels = std::array<std::uint32_t, kCpuSurfacePixelCount>;
 bool CreateCpuBackSurface() noexcept;
 bool CreateCpuAutoMapSurface() noexcept;
 bool CreateCpuTempSurface() noexcept;
+// 原 523228 的独立回退：使用 MakeSurface，实际尺寸可能大于 640x480。
+bool CreateCpuTempSurfaceFallback() noexcept;
 bool BuildCpuSurfaceBuffers() noexcept;
 
 // 原 44C436–44C45B 与 44C4E5–44C4F8 的两个销毁阶段；
@@ -44,11 +46,13 @@ std::span<const std::uint32_t> ReadCpuBackPixels() noexcept;
 // 原 4512C0：已创建的 Back 按当次完整 W32 背景色填充；无 Back 返回非零。
 std::int32_t ClearSurface_4512C0() noexcept;
 
-// 原 Back→Temp 整面快照；源或目标尚未创建时不复制。
+// 原 Back→Temp 的 BltFast：只复制左上 640x480，不拉伸或使用色键。
+// 源或目标尚未创建时不复制。
 bool CopyBackToTemp() noexcept;
 
 // 将 Temp 的半开源矩形同步复制到 Back，不混合、不缩放、不使用色键。
-// 调用方必须先裁剪到固定 Back/Temp 边界；非法或空请求不复制并返回 false。
+// 调用方必须先裁剪到逻辑 640x480 边界；内部采用 Temp 的实际行距。
+// 非法或空请求不复制并返回 false。
 bool BlitTempToBack(
     std::int32_t destinationX,
     std::int32_t destinationY,

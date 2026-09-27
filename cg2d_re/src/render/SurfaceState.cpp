@@ -2,6 +2,7 @@
 
 #include "cg/Palette.hpp"
 
+#include "GraphicDxCacheState.hpp"
 #include "LegacyTextureDrawing.hpp"
 
 #include <SDL3/SDL_surface.h>
@@ -28,55 +29,32 @@ struct CpuBackStorage {
 // 原 556300..556302，仅描边模式为 256 号色读取；后续地址为独立字符串。
 constexpr std::uint8_t kOutlineExtraColors[1][3] {{0xA2, 0xE8, 0xFF}};
 
-struct CpuCacheStorage {
-    CpuSurfacePixels pixels {};
-    CpuCacheStorage* nextOwned {};
-};
-
-class CpuCacheOwner final {
-public:
-    ~CpuCacheOwner()
-    {
-        while (head_ != nullptr) {
-            CpuCacheStorage* next = head_->nextOwned;
-            delete head_;
-            head_ = next;
-        }
-    }
-
-    CpuCacheStorage* Create() noexcept
-    {
-        auto* surface = new (std::nothrow) CpuCacheStorage {};
-        if (surface != nullptr) {
-            surface->nextOwned = head_;
-            head_ = surface;
-        }
-        return surface;
-    }
-
-    void Release(CpuCacheStorage*& surface) noexcept
-    {
-        CpuCacheStorage* current = surface;
-        surface = nullptr;
-        if (current == nullptr) {
-            return;
-        }
-        CpuCacheStorage** link = &head_;
-        while (*link != current) {
-            link = &(*link)->nextOwned;
-        }
-        *link = current->nextOwned;
-        delete current;
-    }
-
-private:
-    CpuCacheStorage* head_ {};
-};
-
 std::unique_ptr<CpuBackStorage> gCpuBackSurface;
-CpuCacheOwner gCpuCacheOwner;
-CpuCacheStorage* gCpuAutoMapSurface {};
-CpuCacheStorage* gCpuTempSurface {};
+TextureSurface* gCpuAutoMapSurface {};
+TextureSurface* gCpuTempSurface {};
+
+// 原等待型 BltFast 不启用源色键；只在同步复制范围内改变 SDL 包装标志。
+bool BlitWithoutSourceColorKey(
+    SDL_Surface* source, const SDL_Rect& sourceRect,
+    SDL_Surface* destination, const SDL_Rect& destinationRect) noexcept
+{
+    if (((source->flags | destination->flags) & SDL_SURFACE_LOCKED) != 0) {
+        return false;
+    }
+    const bool hadColorKey = SDL_SurfaceHasColorKey(source);
+    std::uint32_t colorKey = 0;
+    if (hadColorKey) {
+        if (!SDL_GetSurfaceColorKey(source, &colorKey)
+            || !SDL_SetSurfaceColorKey(source, false, colorKey)) {
+            return false;
+        }
+    }
+    const bool copied = SDL_BlitSurfaceUnchecked(source, &sourceRect, destination, &destinationRect);
+    if (hadColorKey && !SDL_SetSurfaceColorKey(source, true, colorKey)) {
+        return false;
+    }
+    return copied;
+}
 
 } // namespace
 
@@ -101,13 +79,22 @@ bool CreateCpuBackSurface() noexcept
 
 bool CreateCpuAutoMapSurface() noexcept
 {
-    gCpuAutoMapSurface = gCpuCacheOwner.Create();
+    gCpuAutoMapSurface = CreatePlainTextureSurface_44C8B0(
+        kCpuSurfaceWidth, kCpuSurfaceHeight, 0, 0x800);
     return gCpuAutoMapSurface != nullptr;
 }
 
 bool CreateCpuTempSurface() noexcept
 {
-    gCpuTempSurface = gCpuCacheOwner.Create();
+    gCpuTempSurface = CreatePlainTextureSurface_44C8B0(
+        kCpuSurfaceWidth, kCpuSurfaceHeight, 0, 0x4000);
+    return gCpuTempSurface != nullptr;
+}
+
+bool CreateCpuTempSurfaceFallback() noexcept
+{
+    gCpuTempSurface = CreateTextureSurface_44C6D0(
+        kCpuSurfaceWidth, kCpuSurfaceHeight, 0, 0x800);
     return gCpuTempSurface != nullptr;
 }
 
@@ -121,8 +108,10 @@ bool BuildCpuSurfaceBuffers() noexcept
 
 void DestroyCpuCacheSurfaces() noexcept
 {
-    gCpuCacheOwner.Release(gCpuTempSurface);
-    gCpuCacheOwner.Release(gCpuAutoMapSurface);
+    ReleaseTextureSurface(gCpuTempSurface);
+    gCpuTempSurface = nullptr;
+    ReleaseTextureSurface(gCpuAutoMapSurface);
+    gCpuAutoMapSurface = nullptr;
 }
 
 void DestroyCpuBackSurface() noexcept
@@ -245,11 +234,10 @@ bool CopyBackToTemp() noexcept
     if (gCpuBackSurface == nullptr || gCpuTempSurface == nullptr) {
         return false;
     }
-    std::copy_n(
-        gCpuBackSurface->pixels.data(),
-        kCpuSurfacePixelCount,
-        gCpuTempSurface->pixels.data());
-    return true;
+    const SDL_Rect rectangle {0, 0, kCpuSurfaceWidth, kCpuSurfaceHeight};
+    return BlitWithoutSourceColorKey(
+        gCpuBackSurface->blitSurface.get(), rectangle,
+        GetTextureSdlSurface(gCpuTempSurface), rectangle);
 }
 
 bool BlitTempToBack(
@@ -280,22 +268,11 @@ bool BlitTempToBack(
         return false;
     }
 
-    const std::size_t width = static_cast<std::size_t>(copyWidth);
-    for (std::int32_t row = 0; row < copyHeight; ++row) {
-        const std::size_t sourceIndex =
-            static_cast<std::size_t>(sourceTop + row)
-                * kCpuSurfacePitchPixels
-            + static_cast<std::size_t>(sourceLeft);
-        const std::size_t destinationIndex =
-            static_cast<std::size_t>(destinationY + row)
-                * kCpuSurfacePitchPixels
-            + static_cast<std::size_t>(destinationX);
-        std::copy_n(
-            gCpuTempSurface->pixels.data() + sourceIndex,
-            width,
-            gCpuBackSurface->pixels.data() + destinationIndex);
-    }
-    return true;
+    const SDL_Rect sourceRect {sourceLeft, sourceTop, copyWidth, copyHeight};
+    const SDL_Rect destinationRect {destinationX, destinationY, copyWidth, copyHeight};
+    return BlitWithoutSourceColorKey(
+        GetTextureSdlSurface(gCpuTempSurface), sourceRect,
+        gCpuBackSurface->blitSurface.get(), destinationRect);
 }
 
 } // namespace cg::render

@@ -193,6 +193,25 @@ TextureSurface* CreateTextureSurface_44C6D0(
         std::bit_cast<std::int32_t>(width), std::bit_cast<std::int32_t>(height), colorKey);
 }
 
+TextureSurface* CreatePlainTextureSurface_44C8B0(
+    const std::int16_t width, const std::int16_t height,
+    const std::uint32_t colorKey, std::uint32_t /*unusedMemoryCaps*/)
+{
+    return gTextureSurfaceOwner.Create(width, height, colorKey);
+}
+
+void ReleaseTextureSurface(TextureSurface* const surface) noexcept
+{
+    if (surface != nullptr) {
+        gTextureSurfaceOwner.Release(surface);
+    }
+}
+
+SDL_Surface* GetTextureSdlSurface(TextureSurface* const surface) noexcept
+{
+    return surface == nullptr ? nullptr : surface->blitSurface.get();
+}
+
 void ResetTextureNodes_523310() noexcept
 {
     gTextureScanIndex = 0;
@@ -483,7 +502,7 @@ std::int32_t BuildSurfaceCache_5231A0()
         return 0;
     }
 
-    if (!CreateCpuTempSurface() && !CreateCpuTempSurface()) {
+    if (!CreateCpuTempSurface() && !CreateCpuTempSurfaceFallback()) {
         platform::ShowLegacyMessage(
             "建立戰鬥畫面錯誤", "確認", 0x10);
         return 0;

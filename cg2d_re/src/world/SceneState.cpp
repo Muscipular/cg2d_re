@@ -458,6 +458,20 @@ void ProjectWorldToScreen_46CE30(
     *outY = static_cast<float>((v - u) * 24.0 + 240.0);
 }
 
+float* ProjectScreenToWorld_46CE80(
+    const float screenX, const float screenY,
+    float* const outX, float* const outY) noexcept
+{
+    const double u = static_cast<double>(screenX) - 320.0;
+    const double v = (static_cast<double>(screenY) - 240.0)
+        * static_cast<double>(std::bit_cast<float>(0x3FAAAAABu));
+    const std::uint32_t referenceXBits = gWorldProjectionReferenceXBits;
+    *outX = static_cast<float>(u - v + std::bit_cast<float>(referenceXBits));
+    const std::uint32_t referenceYBits = gWorldProjectionReferenceYBits;
+    *outY = static_cast<float>(v + u + std::bit_cast<float>(referenceYBits));
+    return outX;
+}
+
 std::int32_t SetCurrentSceneType(std::int32_t sceneType)
 {
     gCurrentSceneState = 0;
@@ -1615,6 +1629,7 @@ std::uint16_t gValue62B5AA = 0;
 std::uint16_t gValue62B5A8 = 0;
 std::uint32_t gValue62B5B0 = 0;
 std::uint32_t gValue62B308 = 0;
+std::uint32_t gValue62B398 = 0;
 std::uint32_t gValue62B358 = 0;
 std::uint32_t gValue62B384 = 0;
 std::uint32_t gValue62B310 = 0;
@@ -1755,12 +1770,19 @@ std::uint16_t gValueB65A7C = 0;
 std::uint16_t gValueC82220 = 0;
 std::uint32_t gValueC82238 = 0;
 std::uint32_t gValueC8223C = 0; // 原转向发送的独立GetTickCount位槽。
+std::uint32_t gValueC8A774 = 0;
 std::uint32_t gValueC8A778 = 0;
-std::int32_t gPlayerMoveTargetX = 0; // 原C8A784；46F6FD/46F716生产链待接。
+std::uint32_t gValueC8A77C = 0;
+std::uint32_t gValueC8A780 = 0;
+std::int32_t gPlayerMoveTargetX = 0; // 原C8A784；46F716发布。
 std::int32_t gPlayerMoveTargetY = 0; // 原C8A788。
+std::int32_t gValueC8A78C = 0;
+std::int32_t gValueC8A790 = 0;
 std::uint32_t gValueC8A794 = 0;
 std::uint32_t gValueC8A7A0 = 0;
+std::uint32_t gValueC8A7A4 = 0;
 std::uint32_t gValueC8A7A8 = 0;
+std::uint32_t gValueC8A7AC = 0;
 std::uint32_t gValue55DDAC = 0xFFFFFFFFu;
 std::uint32_t gValueC82208 = 0;
 std::uint32_t gValueC8220C = 0;
@@ -4327,6 +4349,96 @@ void Sub_46A940()
             gPetMapCharaSlots[static_cast<std::size_t>(index)].action;
         login::detail::Sub_442730(action);
     }
+}
+
+std::uint8_t Sub_46F680()
+{
+    const float mouseY = static_cast<float>(
+        platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseY));
+    const float mouseX = static_cast<float>(
+        platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseX));
+    float projectedX;
+    float projectedY;
+    static_cast<void>(
+        ProjectScreenToWorld_46CE80(mouseX, mouseY, &projectedX, &projectedY));
+    const std::int32_t pixelX = static_cast<std::int32_t>(
+        static_cast<std::int64_t>(static_cast<double>(projectedX) + 0.5));
+    const double biasedY = static_cast<double>(projectedY) + 0.5;
+    gValueC8A78C = pixelX;
+    const std::int32_t pixelY =
+        static_cast<std::int32_t>(static_cast<std::int64_t>(biasedY));
+    const std::int32_t adjustedX = pixelX + 32;
+    gValueC8A790 = pixelY;
+    const std::int32_t targetY = (pixelY + 32) / 64;
+    gPlayerMoveTargetY = targetY;
+    const std::int32_t snappedY = targetY * 64;
+    const std::int32_t targetX = adjustedX / 64;
+    gPlayerMoveTargetX = targetX;
+    const float gridY = static_cast<float>(snappedY);
+    const float gridX = static_cast<float>(targetX * 64);
+    ProjectWorldToScreen_46CE30(gridX, gridY, &projectedX, &projectedY);
+    gValueC8A7A0 = 0;
+    gValueC8A7A4 = 0;
+    gValueC8A7A8 = 0;
+    gValueC8A7AC = 0;
+
+    if (platform::legacy_crypt_int::Less_401DB0(
+            &platform::gLegacyMouseState.mouseY, 456)
+        && ((static_cast<std::uint8_t>(platform::gLegacyMouseState.valueD68DB4) < 212
+                && ui::ReadDragItemIndex_584DA4() < 0)
+            || gValueC8A780 != 0 || gValue62B308 != 0 || gValue62B398 != 0)
+        && gValueC8A79C == 0) {
+        render::GraphicDescriptor16 descriptor {};
+        const std::uint32_t color = 0xFFFFFFFFu;
+        std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+        descriptor.bytes[13] = 4;
+        const std::int32_t drawY = static_cast<std::int32_t>(
+            static_cast<std::int64_t>(static_cast<double>(projectedY) + 0.5));
+        const std::int32_t drawX = static_cast<std::int32_t>(
+            static_cast<std::int64_t>(static_cast<double>(projectedX) + 0.5));
+        static_cast<void>(
+            login::detail::DrawGraphic(drawX, drawY, 100, 0x3BE99, 0, &descriptor));
+    }
+    const bool mouseBelowLimit = platform::legacy_crypt_int::Less_401DB0(
+        &platform::gLegacyMouseState.mouseY, 456);
+    if (!mouseBelowLimit
+        || !((static_cast<std::uint8_t>(platform::gLegacyMouseState.valueD68DB4) < 212
+                && ui::ReadDragItemIndex_584DA4() < 0)
+            || gValueC8A77C != 0 || gValue62B308 != 0 || gValue62B398 != 0)) {
+        gValueC8A778 = 0;
+        gValueC8A794 = 0;
+        return static_cast<std::uint8_t>(mouseBelowLimit);
+    }
+
+    const auto leftClick = static_cast<std::uint8_t>(
+        platform::gLegacyMouseState.edgeButtons);
+    if ((leftClick & 1u) != 0 && gValueC8A774 == 0) {
+        gValueC8A7A0 = 1;
+        gValueC8A778 = 0;
+        gValueC8A794 = platform::ReadTickCount32();
+    }
+    if ((static_cast<std::uint8_t>(platform::gLegacyMouseState.heldButtons) & 1u) != 0
+        && gValueC8A774 == 0) {
+        const std::uint32_t baseline = gValueC8A794;
+        gValueC8A7A4 = 1;
+        if (baseline != 0) {
+            const std::uint32_t now = platform::ReadTickCount32();
+            gValueC8A778 = now - gValueC8A794;
+        }
+    } else {
+        gValueC8A778 = 0;
+        gValueC8A794 = 0;
+    }
+    const auto rightClick = static_cast<std::uint8_t>(
+        platform::gLegacyMouseState.edgeButtons);
+    if ((rightClick & 2u) != 0 && gValueC8A7A8 == 0) {
+        gValueC8A7A8 = 1;
+    }
+    if ((static_cast<std::uint8_t>(platform::gLegacyMouseState.heldButtons) & 2u) != 0
+        && gValueC8A7A8 == 0) {
+        gValueC8A7AC = 1;
+    }
+    return 2;
 }
 
 std::uint32_t Sub_51B3E0()

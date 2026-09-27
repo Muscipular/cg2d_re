@@ -172,12 +172,19 @@ extern std::uint16_t gValueB65A7C;
 extern std::uint16_t gValueC82220;
 extern std::uint32_t gValueC82238; // 46B370目标格转向时间，与C8223C独立。
 extern std::uint32_t gValueC8223C; // 原转向发送时间U32，非地址。
+extern std::uint32_t gValueC8A774; // 原左键目标事件门禁。
 extern std::uint32_t gValueC8A778;
+extern std::uint32_t gValueC8A77C; // UI与目标格输入共用的W32许可槽。
+extern std::uint32_t gValueC8A780; // UI与目标格绘制共用的另一W32许可槽。
 extern std::int32_t gPlayerMoveTargetX; // 原C8A784，RendererCursorGrid发布的S32。
 extern std::int32_t gPlayerMoveTargetY; // 原C8A788，不是目标CryptInt或当前格坐标。
+extern std::int32_t gValueC8A78C; // 原鼠标世界像素X。
+extern std::int32_t gValueC8A790; // 原鼠标世界像素Y。
 extern std::uint32_t gValueC8A794;
-extern std::uint32_t gValueC8A7A0; // 原目标格单次事件，46F680生产链待接。
+extern std::uint32_t gValueC8A7A0; // 原46F680目标格左键单次事件。
+extern std::uint32_t gValueC8A7A4; // 原目标格左键持续事件。
 extern std::uint32_t gValueC8A7A8; // 原目标对象交互事件，非鼠标edge位槽。
+extern std::uint32_t gValueC8A7AC; // 原右键持续事件，单次事件优先。
 extern std::uint32_t gValue55DDAC; // 原点击目标时间，映像初值FFFFFFFF。
 extern std::uint32_t gValueC82208; // 原地图请求 W32；50CF90、509090、509100 等共享。
 extern std::uint32_t gValueC8220C;
@@ -251,6 +258,7 @@ extern std::uint16_t gValue62B5AA;
 extern std::uint16_t gValue62B5A8;
 extern std::uint32_t gValue62B5B0;
 extern std::uint32_t gValue62B308;
+extern std::uint32_t gValue62B398; // 原455FC0发布，目标格门禁共用。
 extern std::uint32_t gValue62B358;
 extern std::uint32_t gValue62B384;
 extern std::uint32_t gValue62B310;
@@ -553,6 +561,7 @@ extern std::uint16_t gValueFF0D36; // 原跟随gate；协议和场景共享，�
 extern std::uint32_t gValueFF0D38; // 原51B3E0邻格请求的独立时间槽。
 std::uint32_t Sub_51B3E0(); // 完整邻格fIM请求；返回原EAX位型。
 std::uint8_t Sub_469C90(); // 完整移动输入、目标交互与普通/跟随分流。
+std::uint8_t Sub_46F680(); // 完整鼠标目标格投影/绘制与四种事件生产。
 void Sub_46A990(); // 从同一宠物五槽生成9FB938顺序表，gate为0不清表。
 void Sub_46A5A0(std::int32_t x, std::int32_t y); // 给顺序表第2项调用441F60。
 void Sub_46A940(); // 从顺序表第2项起调用442730，首个负S16终止。

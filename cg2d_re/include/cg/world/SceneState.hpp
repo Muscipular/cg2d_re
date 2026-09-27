@@ -76,6 +76,9 @@ void ProjectWorldToScreen_46CE30(
     float worldY,
     float* outX,
     float* outY) noexcept;
+// 原46CE80：反投影，X写入后才读取Y参考位槽，返回原outX。
+float* ProjectScreenToWorld_46CE80(
+    float screenX, float screenY, float* outX, float* outY) noexcept;
 
 // 原 sub_51C770@0x51C770；先清当前场景状态，再写当前场景类型，返回 sceneType。
 std::int32_t SetCurrentSceneType(std::int32_t sceneType);

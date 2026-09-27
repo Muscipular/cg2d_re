@@ -61,6 +61,11 @@ std::int32_t __cdecl BinarySearch_45B390(
     std::uint32_t animeNo, std::int32_t min, std::int32_t max);
 std::int32_t __cdecl GetIndex_45B400(std::uint32_t animeNo);
 
+// 原 [45BB20,45BEE1)：九槽 Info 去重、数据文件发布与主表排序；0 成功，2/3/5 失败。
+// 参数顺序为数据路径、Info 路径；保留必需槽 0/8 的不同清理路径。
+std::int32_t AnimeInit_45BB20(
+    char* const* dataPaths, char* const* infoPaths);
+
 // 原 [45B760,45BB1F)：复用或领取主索引槽，读 action/帧，再加载坐标并发布计数。
 // index 须对应已初始化主表；不增加索引/文件判空，失败按原路径保留或清理已发布前缀。
 std::int32_t AnimeLoadAction_45B760(std::int32_t index);

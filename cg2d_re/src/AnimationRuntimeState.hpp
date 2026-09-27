@@ -79,6 +79,8 @@ extern std::array<std::FILE*, 9> gCoordinateFiles9A2988;
 extern std::array<CacheSlot, 256> gCacheSlots9A3A48;
 extern std::uint32_t gActiveCount9A4A68;
 extern std::uint32_t gActiveBytes9A4A6C;
+// 原 9A4A54：AnimeInit 错误路径交给 free 的独立槽；载荷类型未证，释放后不清。
+extern void* gCleanupAllocation9A4A54;
 
 } // namespace cg::resource::animation::detail
 

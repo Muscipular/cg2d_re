@@ -20,6 +20,7 @@ std::array<std::FILE*, 9> gCoordinateFiles9A2988 {};
 std::array<CacheSlot, 256> gCacheSlots9A3A48 {};
 std::uint32_t gActiveCount9A4A68 = 0;
 std::uint32_t gActiveBytes9A4A6C = 0;
+void* gCleanupAllocation9A4A54 = nullptr;
 
 } // namespace cg::resource::animation::detail
 
@@ -29,6 +30,141 @@ AnimateRecord* gAnimateRecords9A4A58 = nullptr;
 AnimeCacheRecord* gAnimateCache9A4A5C = nullptr;
 std::int32_t gAnimateCount9A4A60 = 0;
 std::int32_t gMaxAnimateCount9A4A4C = 0;
+
+namespace {
+
+// 原 AnimeInit 的磁盘读取槽与 10000 项局部配对表；均无指针，不随 x64 扩宽。
+struct AnimeInfoDiskRecord {
+    std::uint32_t animeNo;
+    std::uint32_t offset;
+    std::uint16_t count;
+    std::uint16_t flag;
+};
+static_assert(sizeof(AnimeInfoDiskRecord) == 0x0C);
+static_assert(offsetof(AnimeInfoDiskRecord, count) == 0x08);
+static_assert(offsetof(AnimeInfoDiskRecord, flag) == 0x0A);
+
+struct AnimeInfoPair {
+    std::uint32_t animeNo;
+    std::uint32_t offset;
+    std::uint16_t count;
+    std::uint16_t flag;
+    std::int16_t fileIndex;
+    std::uint16_t remaining;
+};
+static_assert(sizeof(AnimeInfoPair) == 0x10);
+static_assert(offsetof(AnimeInfoPair, count) == 0x08);
+static_assert(offsetof(AnimeInfoPair, flag) == 0x0A);
+static_assert(offsetof(AnimeInfoPair, fileIndex) == 0x0C);
+
+constexpr char kAnimeSizeErrorCaption[] =
+    "\x83\x41\x83\x6A\x3F\x81\x5B\x83\x56\x3F\x3F\x83\x66\x81\x5B\x83\x5E"
+    "\x82\xAA\x94\x6A\x91\xB9\x82\xB5\x82\xC4\x82\xA2\x82\xDC\x82\xB7\x81\x42";
+
+} // namespace
+
+std::int32_t AnimeInit_45BB20(
+    char* const* const dataPaths, char* const* const infoPaths)
+{
+    std::int32_t uniqueCount = 0;
+    Sub_45B5D0();
+    char localInfoPaths[9][256];
+    char localDataPaths[9][256];
+    for (std::size_t slot = 0; slot < 9; ++slot) {
+        std::strcpy(localInfoPaths[slot], infoPaths[slot]);
+        std::strcpy(localDataPaths[slot], dataPaths[slot]);
+    }
+    std::array<AnimeInfoPair, 10000> pairs {};
+    std::array<std::int32_t, 20500> indices;
+    indices.fill(-1);
+    std::array<std::uint32_t, 9> filePresent {};
+    AnimeInfoDiskRecord info;
+
+    const auto cleanupFailure = [](const std::int32_t error) {
+        if (detail::gCleanupAllocation9A4A54 != nullptr) {
+            std::free(detail::gCleanupAllocation9A4A54);
+        }
+        for (std::FILE*& file : detail::gAnimateFiles9A3A20) {
+            if (file != nullptr) {
+                std::fclose(file);
+                file = nullptr;
+            }
+        }
+        return error;
+    };
+
+    for (std::int32_t slot = 0; slot < 9; ++slot) {
+        std::FILE* const file = std::fopen(localInfoPaths[slot], "rb");
+        if (file == nullptr) {
+            if (slot == 0 || slot == 8) {
+                return 2;
+            }
+            continue;
+        }
+        for (;;) {
+            // 原容量检查在 fread 之后、EOF 之前；读取槽跨轮复用且不补短读。
+            std::fread(&info, sizeof(info), 1, file);
+            if (uniqueCount >= gMaxAnimateCount9A4A4C) {
+                std::fclose(file);
+                return 3;
+            }
+            if (std::feof(file) != 0) {
+                filePresent[slot] = 1;
+                std::fclose(file);
+                break;
+            }
+            const std::uint32_t key = info.animeNo - 100000u;
+            std::int32_t index = indices[key];
+            if (index == -1) {
+                index = uniqueCount++;
+            } else if (key == 0) {
+                index = indices[0];
+            }
+            pairs[index].animeNo = key;
+            pairs[index].offset = info.offset;
+            const std::uint16_t count = info.count;
+            pairs[index].count = count;
+            pairs[index].flag = info.flag;
+            if (info.flag > 1) {
+                pairs[index].flag = 0;
+            }
+            pairs[index].fileIndex = static_cast<std::int16_t>(slot);
+            indices[key] = index;
+            if (count > 10000u) {
+                char message[256];
+                std::sprintf(message, "i=%d,animsize=%d", slot, static_cast<int>(count));
+                platform::ShowLegacyMessage(message, kAnimeSizeErrorCaption, 0);
+                std::fclose(file);
+                return cleanupFailure(5);
+            }
+        }
+    }
+
+    // 原 45BD26 到此才清槽，不预先关闭旧句柄，也不在 Info 失败早退时清理。
+    detail::gAnimateFiles9A3A20.fill(nullptr);
+    for (std::size_t slot = 0; slot < 9; ++slot) {
+        if (filePresent[slot] == 1) {
+            detail::gAnimateFiles9A3A20[slot] = std::fopen(localDataPaths[slot], "rb");
+            if (detail::gAnimateFiles9A3A20[slot] == nullptr && (slot == 0 || slot == 8)) {
+                return cleanupFailure(2);
+            }
+        }
+    }
+    for (std::int32_t index = 0; index < uniqueCount; ++index) {
+        gAnimateRecords9A4A58[index].offset = pairs[index].offset;
+        gAnimateRecords9A4A58[index].fileIndex = pairs[index].fileIndex;
+        gAnimateRecords9A4A58[index].animeNo = pairs[index].animeNo;
+        gAnimateRecords9A4A58[index].count = pairs[index].count;
+        gAnimateRecords9A4A58[index].flag = pairs[index].flag;
+        gAnimateRecords9A4A58[index].coordinateOffset = 0xFFFFFFFFu;
+        gAnimateRecords9A4A58[index].coordinateCount = 0;
+        gAnimateRecords9A4A58[index].actionList = nullptr;
+        gAnimateRecords9A4A58[index].listNode = nullptr;
+    }
+    gAnimateCount9A4A60 = uniqueCount;
+    std::qsort(gAnimateRecords9A4A58, uniqueCount, sizeof(AnimateRecord), Compare_45B420);
+    return 0;
+}
 
 std::int32_t __cdecl Compare_45B420(
     const void* const left, const void* const right)

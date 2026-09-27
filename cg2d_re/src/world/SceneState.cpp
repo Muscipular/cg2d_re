@@ -3998,6 +3998,208 @@ std::int32_t __cdecl Sub_46B5C0(
     return 1;
 }
 
+std::int32_t Sub_46B6F0()
+{
+    const std::int32_t targetX =
+        platform::legacy_crypt_int::Read_401EC0(&gValue9A7F88);
+    const std::int32_t targetY =
+        platform::legacy_crypt_int::Read_401EC0(&gValue9A7F98);
+    std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&gPlayerX);
+    std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&gPlayerY);
+    const std::array<std::int32_t, 3> offsets {0, 1, -1};
+    std::int32_t accumulatedX = 0;
+    std::int32_t accumulatedY = 0;
+    gValue55D9FC = 0xFFFFu;
+    if (x == targetX && y == targetY) {
+        return 0;
+    }
+    const float initialY = static_cast<float>(targetY - y);
+    const float initialX = static_cast<float>(targetX - x);
+    const std::int32_t initialDirection = static_cast<std::int32_t>(
+        Sub_46CDF0(initialX, initialY));
+    gValueC82200 = 0;
+
+    while (x != targetX || y != targetY) {
+        if (std::bit_cast<std::int16_t>(gValueC82200) >= 100) {
+            gValueC82200 = 0;
+            return targetY;
+        }
+        const float differenceY = static_cast<float>(targetY - y);
+        const float differenceX = static_cast<float>(targetX - x);
+        const std::int32_t desired = static_cast<std::int32_t>(
+            Sub_46CDF0(differenceX, differenceY));
+        if (desired != initialDirection
+            && desired != ((initialDirection + 1) & 7)
+            && desired != ((initialDirection - 1) & 7)) {
+            break;
+        }
+
+        bool advanced = false;
+        for (const std::int32_t offset : offsets) {
+            std::int32_t direction = (desired + offset) & 7;
+            if (direction != initialDirection
+                && direction != ((initialDirection + 1) & 7)
+                && direction != ((initialDirection - 1) & 7)) {
+                continue;
+            }
+            std::int32_t deltaY =
+                gDirectionDeltas55D9DC[static_cast<std::size_t>(direction)].y;
+            std::int32_t deltaX =
+                gDirectionDeltas55D9DC[static_cast<std::size_t>(direction)].x;
+            const std::int32_t nextY = y + deltaY;
+            const std::int32_t nextX = x + deltaX;
+            if (Sub_469810(nextX, nextY) != 0) {
+                if (nextX == targetX && nextY == targetY && (direction & 1) == 0) {
+                    break;
+                }
+                continue;
+            }
+            if ((direction & 1) != 0) {
+                const std::int32_t plusDirection = (direction + 1) & 7;
+                const std::int32_t minusDirection = (direction - 1) & 7;
+                const std::int32_t plusY = gDirectionDeltas55D9DC[
+                    static_cast<std::size_t>(plusDirection)].y;
+                const std::int32_t plusX = gDirectionDeltas55D9DC[
+                    static_cast<std::size_t>(plusDirection)].x;
+                const std::int32_t minusX = gDirectionDeltas55D9DC[
+                    static_cast<std::size_t>(minusDirection)].x;
+                const std::int32_t minusY = gDirectionDeltas55D9DC[
+                    static_cast<std::size_t>(minusDirection)].y;
+                const std::int32_t plusNextX = x + plusX;
+                const std::int32_t plusNextY = y + plusY;
+                const std::int32_t plusBlocked = Sub_469810(plusNextX, plusNextY);
+                const std::int32_t minusNextX = x + minusX;
+                const std::int32_t minusNextY = y + minusY;
+                const std::int32_t minusBlocked = Sub_469810(minusNextX, minusNextY);
+                if (plusBlocked != 0) {
+                    if (minusBlocked != 0) {
+                        break;
+                    }
+                    if (Sub_46B5C0(
+                            x, y, minusX, minusY, accumulatedX, accumulatedY) != 0) {
+                        accumulatedX += minusX;
+                        accumulatedY += minusY;
+                    } else {
+                        const std::uint16_t count = gValueC82200;
+                        const std::size_t index = static_cast<std::size_t>(
+                            std::bit_cast<std::int16_t>(count));
+                        gMovePathDirections[index] =
+                            static_cast<std::uint16_t>(minusDirection);
+                        gMovePathX[index] = static_cast<std::uint16_t>(x + minusX);
+                        gMovePathY[index] = static_cast<std::uint16_t>(y + minusY);
+                        gValueC82200 = static_cast<std::uint16_t>(count + 1u);
+                        accumulatedX = 0;
+                        accumulatedY = 0;
+                    }
+                    deltaX -= minusX;
+                    deltaY -= minusY;
+                    direction = static_cast<std::int32_t>(
+                        Sub_46B580(0, 0, deltaX, deltaY));
+                    x = minusNextX;
+                    y = minusNextY;
+                } else if (minusBlocked != 0) {
+                    if (Sub_46B5C0(
+                            x, y, plusX, plusY, accumulatedX, accumulatedY) != 0) {
+                        accumulatedX += plusX;
+                        accumulatedY += plusY;
+                    } else {
+                        const std::uint16_t count = gValueC82200;
+                        const std::size_t index = static_cast<std::size_t>(
+                            std::bit_cast<std::int16_t>(count));
+                        // 原+1侧绕行先写X，不能与另一侧的方向优先写序合并。
+                        gMovePathX[index] = static_cast<std::uint16_t>(x + plusX);
+                        gMovePathDirections[index] =
+                            static_cast<std::uint16_t>(plusDirection);
+                        gMovePathY[index] = static_cast<std::uint16_t>(y + plusY);
+                        gValueC82200 = static_cast<std::uint16_t>(count + 1u);
+                        accumulatedX = 0;
+                        accumulatedY = 0;
+                    }
+                    deltaX -= plusX;
+                    deltaY -= plusY;
+                    direction = static_cast<std::int32_t>(
+                        Sub_46B580(0, 0, deltaX, deltaY));
+                    x = plusNextX;
+                    y = plusNextY;
+                }
+            }
+            if (Sub_46B5C0(x, y, deltaX, deltaY, accumulatedX, accumulatedY) != 0) {
+                x += deltaX;
+                y += deltaY;
+                accumulatedX += deltaX;
+                accumulatedY += deltaY;
+            } else {
+                const std::uint16_t count = gValueC82200;
+                const std::size_t index = static_cast<std::size_t>(
+                    std::bit_cast<std::int16_t>(count));
+                x += deltaX;
+                y += deltaY;
+                gMovePathDirections[index] = static_cast<std::uint16_t>(direction);
+                accumulatedX = deltaX;
+                gMovePathX[index] = static_cast<std::uint16_t>(x);
+                gMovePathY[index] = static_cast<std::uint16_t>(y);
+                gValueC82200 = static_cast<std::uint16_t>(count + 1u);
+                accumulatedY = deltaY;
+            }
+            advanced = true;
+            break;
+        }
+        if (!advanced) {
+            break;
+        }
+    }
+
+    const std::int32_t remainingX = targetX - x;
+    if (remainingX != 0) {
+        const std::int32_t step = remainingX > 0 ? 1 : -1;
+        for (;;) {
+            const std::int32_t nextX = x + step;
+            if (Sub_469810(nextX, y) != 0 || x == targetX) {
+                break;
+            }
+            x = nextX;
+            const std::size_t index = static_cast<std::size_t>(
+                std::bit_cast<std::int16_t>(gValueC82200));
+            const std::uint16_t direction =
+                static_cast<std::uint16_t>(Sub_46B580(0, 0, step, 0));
+            // 轴补走先发布递增后的计数，再写三表，且到达后仍探测一次。
+            ++gValueC82200;
+            gMovePathDirections[index] = direction;
+            gMovePathX[index] = static_cast<std::uint16_t>(x);
+            gMovePathY[index] = static_cast<std::uint16_t>(y);
+        }
+    }
+    const std::int32_t remainingY = targetY - y;
+    if (remainingY != 0) {
+        const std::int32_t step = remainingY > 0 ? 1 : -1;
+        for (;;) {
+            const std::int32_t nextY = y + step;
+            if (Sub_469810(x, nextY) != 0 || y == targetY) {
+                break;
+            }
+            y = nextY;
+            const std::size_t index = static_cast<std::size_t>(
+                std::bit_cast<std::int16_t>(gValueC82200));
+            const std::uint16_t direction =
+                static_cast<std::uint16_t>(Sub_46B580(0, 0, 0, step));
+            ++gValueC82200;
+            gMovePathDirections[index] = direction;
+            gMovePathX[index] = static_cast<std::uint16_t>(x);
+            gMovePathY[index] = static_cast<std::uint16_t>(y);
+        }
+    }
+    if (std::bit_cast<std::int16_t>(gValueC82200) > 0
+        && (x != targetX || y != targetY)) {
+        const float differenceY = static_cast<float>(targetY - y);
+        const float differenceX = static_cast<float>(targetX - x);
+        const std::int32_t direction = static_cast<std::int32_t>(
+            Sub_46CDF0(differenceX, differenceY));
+        gValue55D9FC = static_cast<std::uint16_t>(direction);
+        return direction;
+    }
+    return targetY;
+}
+
 // 原 [0x46BD20,0x46BD32)：AL 加法不改变先装入 EAX 的 mode 高 24 位。
 std::uint32_t __cdecl Sub_46BD20(
     const std::int32_t value, const std::int32_t mode)

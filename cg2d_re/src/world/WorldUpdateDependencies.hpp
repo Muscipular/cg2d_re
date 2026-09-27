@@ -536,6 +536,7 @@ void Sub_46A990(); // 从同一宠物五槽生成9FB938顺序表，gate为0不�
 void Sub_46A5A0(std::int32_t x, std::int32_t y); // 给顺序表第2项调用441F60。
 void Sub_46A940(); // 从顺序表第2项起调用442730，首个负S16终止。
 void Sub_46A5F0(); // 原完整跟随路径调度；到达后启动首路径并向后继传点。
+void Sub_46A700(); // 原完整玩家移动推进、到达计数及MIS动作请求。
 // YobiRuntime借用同一SceneState状态，不公开玩家首块或五槽记录布局。
 std::uint32_t ReadPlayerFlags18A() noexcept; // 原FDA88A跨W32读取。
 std::int32_t ReadPlayerWalkSpeed() noexcept; // 原FDA870。

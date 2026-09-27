@@ -84,6 +84,7 @@ struct PlayerRuntimeSlots {
     std::array<char, 33> text12A; // 原 FDA82A。
     std::array<char, 33> text14B; // 原 FDA84B。
     std::int32_t walkSpeed; // 原 FDA870；独立于通用 action 的初始步速。
+    std::int32_t value174; // 原 FDA874；46A700仅在到达时按S32递减。
     std::int32_t imageNo; // 原 FDA878，不是 FDA87C。
     std::uint32_t objectIndex;
     std::int32_t direction; // 原 FDA884；其他消费者可读取低 S8。
@@ -4072,6 +4073,107 @@ void Sub_46A940()
             gPetMapCharaSlots[static_cast<std::size_t>(index)].action;
         login::detail::Sub_442730(action);
     }
+}
+
+void Sub_46A700()
+{
+    static_cast<void>(Sub_46CEC0());
+    const float movementX = std::bit_cast<float>(gValue9EE8FC);
+    bool idle = !(movementX < 0.0F || movementX > 0.0F);
+    if (idle) {
+        const float movementY = std::bit_cast<float>(gValue9EE900);
+        idle = !(movementY < 0.0F || movementY > 0.0F);
+    }
+    if (idle) {
+        if (Sub_51A680() == 1) {
+            Sub_51A060(0);
+            static_cast<void>(Sub_51A660());
+        }
+        gMapCharaSceneSlots.value55DE98 = 0xFFFFu;
+        static_cast<void>(Sub_46CEE0());
+        Sub_519EE0();
+        return;
+    }
+
+    const float targetX = static_cast<float>(static_cast<double>(
+        platform::legacy_crypt_int::Read_401EC0(&gPlayerSnapshotX)) * 64.0F);
+    const double scaledTargetY = static_cast<double>(
+        platform::legacy_crypt_int::Read_401EC0(&gPlayerSnapshotY)) * 64.0F;
+    const std::uint32_t worldYBits = gWorldCurrentYBits;
+    const float targetY = static_cast<float>(scaledTargetY);
+    const float rateX = std::bit_cast<float>(gValue9DAD78);
+    const float rawStepX = std::bit_cast<float>(gValue9EE8FC);
+    const double scaledX = static_cast<double>(rateX) * rawStepX;
+    const std::uint32_t worldXBits = gWorldCurrentXBits;
+    const float stepX = static_cast<float>(scaledX);
+    const float rateY = std::bit_cast<float>(gValue9DAD78);
+    const float rawStepY = std::bit_cast<float>(gValue9EE900);
+    const float stepY = static_cast<float>(static_cast<double>(rateY) * rawStepY);
+    const double distance = Sub_46FB80(
+        std::bit_cast<float>(worldXBits), std::bit_cast<float>(worldYBits),
+        targetX, targetY);
+    const double squaredY = static_cast<double>(stepY) * stepY;
+    const double squaredX = static_cast<double>(stepX) * stepX;
+    const double squaredStep = squaredY + squaredX;
+    if (!(squaredStep >= distance)) {
+        const std::uint32_t currentXBits = gWorldCurrentXBits;
+        gWorldCurrentXBits = std::bit_cast<std::uint32_t>(static_cast<float>(
+            static_cast<double>(std::bit_cast<float>(currentXBits)) + stepX));
+        const std::uint32_t currentYBits = gWorldCurrentYBits;
+        gWorldCurrentYBits = std::bit_cast<std::uint32_t>(static_cast<float>(
+            static_cast<double>(std::bit_cast<float>(currentYBits)) + stepY));
+    } else {
+        // 原先计算X格值，但先发布世界坐标/移动槽/C8222E，再截断并构造临时量。
+        const double gridX = static_cast<double>(targetX) * 0.015625F;
+        gWorldCurrentXBits = std::bit_cast<std::uint32_t>(targetX);
+        gWorldCurrentYBits = std::bit_cast<std::uint32_t>(targetY);
+        gValue9EE8FC = 0;
+        gValue9EE900 = 0;
+        gValueC8222E = 1;
+        platform::LegacyCryptInt temporary;
+        const auto x = static_cast<std::int32_t>(static_cast<std::int64_t>(gridX));
+        platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, x);
+        gPlayerX.mask = temporary.mask;
+        gPlayerX.encoded = temporary.encoded;
+        gPlayerX.readCount = temporary.readCount;
+        platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+
+        const std::uint32_t currentYBits = gWorldCurrentYBits;
+        const auto y = static_cast<std::int32_t>(static_cast<std::int64_t>(
+            static_cast<double>(std::bit_cast<float>(currentYBits)) * 0.015625F));
+        platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, y);
+        gPlayerY.mask = temporary.mask;
+        gPlayerY.encoded = temporary.encoded;
+        gPlayerY.readCount = temporary.readCount;
+        platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+
+        const std::int32_t count = gPlayerRuntime.value174;
+        if (count > 0) {
+            const std::int32_t remaining = count - 1;
+            gPlayerRuntime.value174 = remaining;
+            if (remaining <= 0) {
+                login::YobiAction* const action = gPlayerRuntime.action;
+                if (action != nullptr) {
+                    login::detail::BeginMapActorPhase2(action);
+                    const std::int32_t snapshotY =
+                        platform::legacy_crypt_int::Read_401EC0(&gPlayerSnapshotY);
+                    const std::int32_t snapshotX =
+                        platform::legacy_crypt_int::Read_401EC0(&gPlayerSnapshotX);
+                    static_cast<void>(network::Sub_511DD0(
+                        platform::gConnectionSocket, snapshotX, snapshotY, 70));
+                }
+            }
+        }
+    }
+    Sub_51A060(1);
+    static_cast<void>(Sub_51A640());
+    login::YobiAction* const action = gPlayerRuntime.action;
+    if (action != nullptr) {
+        gMapCharaSceneSlots.value55DE98 =
+            login::detail::ReadYobiDirectionLow16(action);
+    }
+    static_cast<void>(Sub_46CEE0());
+    Sub_519EE0();
 }
 
 void Sub_519A80()

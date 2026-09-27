@@ -62,6 +62,10 @@ void SetYobiPlayerFlag(YobiAction* action) noexcept;
 void SetYobiWalkSpeed(YobiAction* action, std::int32_t speed) noexcept;
 // 519E50 借用地图实体 payload 的原 +44 槽；不增加 payload 空检查。
 YobiAction* ReadMapActorAttachment44(const YobiAction* action) noexcept;
+// 原46A8B1–46A8BD：先捕获payload，再写phase=2并清payload+48计数。
+void BeginMapActorPhase2(YobiAction* action);
+// 原46A922只读取方向低W16，用于共享55DE98；不返回地址或完整方向。
+std::uint16_t ReadYobiDirectionLow16(const YobiAction* action) noexcept;
 // 51A090 对象阶段：重新提取四段文本，每次写入按原顺序重读共享玩家。
 YobiAction* PublishPlayerActionIdentity(
     const char* name, const char* titles, std::int32_t originalNameLength,

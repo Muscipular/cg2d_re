@@ -201,7 +201,7 @@ struct MapActorPayload {
     YobiAction* action38;
     std::array<std::byte, 8> bytes3C;
     YobiAction* action44;
-    std::array<std::byte, 4> bytes48;
+    std::int32_t counter48; // 原+48；43E490有符号比较/递增，46A700清零。
     YobiAction* action4C;
 };
 
@@ -220,7 +220,7 @@ static_assert(offsetof(MapActorPayload, action34) == 0x58);
 static_assert(offsetof(MapActorPayload, action38) == 0x60);
 static_assert(offsetof(MapActorPayload, bytes3C) == 0x68);
 static_assert(offsetof(MapActorPayload, action44) == 0x70);
-static_assert(offsetof(MapActorPayload, bytes48) == 0x78);
+static_assert(offsetof(MapActorPayload, counter48) == 0x78);
 static_assert(offsetof(MapActorPayload, action4C) == 0x80);
 static_assert(sizeof(MapActorPayload) == 0x88);
 
@@ -1016,6 +1016,18 @@ void SetYobiWalkSpeed(YobiAction* const action, const std::int32_t speed) noexce
 YobiAction* ReadMapActorAttachment44(const YobiAction* const action) noexcept
 {
     return static_cast<const MapActorPayload*>(action->payload)->action44;
+}
+
+void BeginMapActorPhase2(YobiAction* const action)
+{
+    auto* const payload = static_cast<MapActorPayload*>(action->payload);
+    action->phase = 2;
+    payload->counter48 = 0;
+}
+
+std::uint16_t ReadYobiDirectionLow16(const YobiAction* const action) noexcept
+{
+    return static_cast<std::uint16_t>(action->direction);
 }
 
 YobiAction* PublishPlayerActionIdentity(

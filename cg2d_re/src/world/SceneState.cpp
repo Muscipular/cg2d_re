@@ -12,6 +12,7 @@
 #include "cg/platform/Startup.hpp"
 #include "cg/Palette.hpp"
 #include "cg/GraphicInfo.hpp"
+#include "cg/ResourcePaths.hpp"
 #include "cg/YobiRuntime.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/render/SurfaceState.hpp"
@@ -2001,6 +2002,225 @@ static_assert(sizeof(gAutDataAF10D8) == 477603);
 // 原 [0xC35010, 0xC75010)；尾地址的 gValueC75010 是独立标量。
 std::int32_t gValuesC35010[65536] {};
 static_assert(sizeof(gValuesC35010) == 0x40000);
+
+std::uint32_t gValue55DA88 = 1;
+
+namespace {
+
+// 原 55DA90/55DA94：保留可写索引及三组 S32 尺寸，不冻结为当前 54x54。
+std::int16_t gAutoMapWindowIndex55DA90 = 1;
+struct AutoMapWindowSize {
+    std::int32_t width;
+    std::int32_t height;
+};
+AutoMapWindowSize gAutoMapWindowSizes55DA94[3] {{107, 107}, {54, 54}, {27, 27}};
+
+// 原 46C840 的清零字节数；与 51x51 世界地图缓存独立。
+constexpr std::size_t kAutoMapWindowCells = 11664;
+std::uint32_t gAutoMapColorWindow9CF6EC[kAutoMapWindowCells] {};
+std::uint8_t gAutoMapIndexWindow9DAD7C[kAutoMapWindowCells] {};
+static_assert(sizeof(AutoMapWindowSize) == 8);
+static_assert(sizeof(gAutoMapColorWindow9CF6EC) == 46656);
+static_assert(sizeof(gAutoMapIndexWindow9DAD7C) == 11664);
+
+} // namespace
+
+std::int32_t Sub_46C840(
+    const std::int32_t floor, const std::int32_t playerX, const std::int32_t playerY)
+{
+    const std::int32_t mapId = std::bit_cast<std::int32_t>(gValue9A86DC);
+    std::memset(gAutoMapIndexWindow9DAD7C, 0, sizeof(gAutoMapIndexWindow9DAD7C));
+    std::memset(gAutoMapColorWindow9CF6EC, 0, sizeof(gAutoMapColorWindow9CF6EC));
+    char path[256];
+    Sub_468520(path, mapId, gValue9E0434, floor);
+    std::FILE* const file = std::fopen(path, kMapReadMode);
+    if (file == nullptr) {
+        return 0;
+    }
+
+    std::array<std::uint16_t, kAutoMapWindowCells> tile {};
+    std::array<std::uint16_t, kAutoMapWindowCells> object {};
+    std::array<std::uint16_t, kAutoMapWindowCells> hit {};
+    std::fseek(file, 12, SEEK_SET);
+    // 原头读取不检查返回，未写字节不套用其他地图函数的补零特例。
+    std::int32_t fileWidth;
+    std::int32_t fileHeight;
+    std::fread(&fileWidth, 4, 1, file);
+    std::fread(&fileHeight, 4, 1, file);
+
+    const std::int32_t sizeIndex = gAutoMapWindowIndex55DA90;
+    const std::int32_t windowWidth = gAutoMapWindowSizes55DA94[sizeIndex].width;
+    const std::int32_t windowHeight = gAutoMapWindowSizes55DA94[sizeIndex].height;
+    const std::int32_t startX = playerX - windowWidth / 2;
+    const std::int32_t startY = playerY - windowHeight / 2;
+    const std::int32_t endX = startX + windowWidth;
+    const std::int32_t endY = startY + windowHeight;
+    std::int32_t sourceX = startX;
+    std::int32_t sourceY = startY;
+    std::int32_t copyWidth = windowWidth;
+    std::int32_t copyHeight = windowHeight;
+    std::int32_t destinationX = 0;
+    std::int32_t destinationY = 0;
+    if (startX < 0) {
+        copyWidth += startX;
+        sourceX = 0;
+        destinationX = -startX;
+    }
+    if (endX > fileWidth) {
+        copyWidth += fileWidth - endX;
+    }
+    if (startY < 0) {
+        sourceY = 0;
+        copyHeight += startY;
+        destinationY = -startY;
+    }
+    if (endY > fileHeight) {
+        copyHeight += fileHeight - endY;
+    }
+    const std::int32_t destinationStart = destinationX + windowWidth * destinationY;
+    std::uint16_t* const planes[] {tile.data(), object.data(), hit.data()};
+    std::int32_t planeOffset = 20;
+    for (std::int32_t plane = 0; plane < 3; ++plane) {
+        std::int32_t sourceCell = sourceX + fileWidth * sourceY;
+        if (copyHeight > 0) {
+            std::uint16_t* target = planes[plane] + destinationStart;
+            for (std::int32_t row = 0; row < copyHeight; ++row) {
+                std::fseek(file, planeOffset + 2 * sourceCell, SEEK_SET);
+                std::fread(target,
+                    static_cast<std::size_t>(static_cast<std::uint32_t>(2 * copyWidth)), 1, file);
+                sourceCell += fileWidth;
+                target += windowWidth;
+            }
+        }
+        if (plane < 2) {
+            planeOffset += 2 * fileWidth * fileHeight;
+        }
+    }
+    std::fclose(file);
+
+    if (gValue9DAD68 == 1) {
+        const std::int32_t index = gAutoMapWindowIndex55DA90;
+        const std::int32_t height = gAutoMapWindowSizes55DA94[index].height;
+        if (height > 0) {
+            const std::int32_t width = gAutoMapWindowSizes55DA94[index].width;
+            std::int32_t autRow = startX + fileWidth * startY;
+            const std::uint16_t* flags = hit.data();
+            std::uint32_t* output = gAutoMapColorWindow9CF6EC;
+            for (std::int32_t row = 0; row < height; ++row) {
+                for (std::int32_t column = 0; column < width; ++column) {
+                    if ((flags[column] & 0x4000u) != 0) {
+                        const AutRecordAF10D8& color = gAutDataAF10D8[autRow + column];
+                        const std::uint32_t blue = color.value02;
+                        const std::uint32_t green = color.value01;
+                        const std::uint32_t red = color.value00;
+                        output[column] = red | (green << 8) | (blue << 16);
+                    }
+                }
+                output += width;
+                flags += width;
+                autRow += fileWidth;
+            }
+        }
+        return 1;
+    }
+
+    const std::uint8_t* const colors = resource::BorrowAutoMapColors();
+    std::int16_t nextIndex = gAutoMapWindowIndex55DA90;
+    std::int32_t currentIndex = nextIndex;
+    const std::int32_t tileHeight = gAutoMapWindowSizes55DA94[currentIndex].height;
+    if (tileHeight > 0) {
+        const std::int32_t width = gAutoMapWindowSizes55DA94[currentIndex].width;
+        std::int32_t cell = 0;
+        for (std::int32_t row = 0; row < tileHeight; ++row) {
+            for (std::int32_t column = 0; column < width; ++column) {
+                if ((hit[cell + column] & 0x4000u) != 0) {
+                    gAutoMapIndexWindow9DAD7C[cell + column] = colors[tile[cell + column]];
+                }
+            }
+            cell += width;
+        }
+        nextIndex = gAutoMapWindowIndex55DA90;
+    }
+
+    std::int32_t row = 0;
+    std::int32_t height = gAutoMapWindowSizes55DA94[currentIndex].height;
+    while (row < height) {
+        std::int32_t width = gAutoMapWindowSizes55DA94[currentIndex].width;
+        std::int32_t column = 0;
+        while (column < width) {
+            const std::int32_t cell = row * width + column;
+            if ((hit[cell] & 0x4000u) != 0) {
+                const std::uint16_t mapNo = object[cell];
+                const std::uint8_t color = colors[mapNo];
+                if (color != 0) {
+                    std::int32_t graphicIndex;
+                    resource::GetGraphicMapNoIndex(mapNo, &graphicIndex);
+                    std::uint16_t flag;
+                    resource::GetGraphicFlag1(std::bit_cast<std::uint32_t>(graphicIndex), &flag);
+                    if (flag != 0) {
+                        const std::int32_t currentWidth =
+                            gAutoMapWindowSizes55DA94[gAutoMapWindowIndex55DA90].width;
+                        gAutoMapIndexWindow9DAD7C[row * currentWidth + column] = color;
+                    } else {
+                        std::uint16_t sx;
+                        std::uint16_t sy;
+                        resource::GetGraphicSxSy(std::bit_cast<std::uint32_t>(graphicIndex), &sx, &sy);
+                        const std::int32_t spanY = std::bit_cast<std::int16_t>(sy);
+                        if (spanY > 0) {
+                            const std::int32_t spanX = std::bit_cast<std::int16_t>(sx);
+                            std::int32_t targetRow = row;
+                            for (std::int32_t offsetY = 0; offsetY < spanY; ++offsetY) {
+                                for (std::int32_t offsetX = 0; offsetX < spanX; ++offsetX) {
+                                    if (targetRow >= 0) {
+                                        const std::int32_t currentWidth =
+                                            gAutoMapWindowSizes55DA94[gAutoMapWindowIndex55DA90].width;
+                                        if (column + offsetX < currentWidth) {
+                                            gAutoMapIndexWindow9DAD7C[
+                                                targetRow * currentWidth + column + offsetX] = color;
+                                        }
+                                    }
+                                }
+                                --targetRow;
+                            }
+                        }
+                    }
+                }
+            }
+            nextIndex = gAutoMapWindowIndex55DA90;
+            ++column;
+            width = gAutoMapWindowSizes55DA94[nextIndex].width;
+        }
+        currentIndex = nextIndex;
+        ++row;
+        height = gAutoMapWindowSizes55DA94[currentIndex].height;
+    }
+    return 1;
+}
+
+std::int32_t Sub_46C760(const std::int32_t x, const std::int32_t y)
+{
+    if (gValue9DAD68 == 1) {
+        gValue55DA88 = 1;
+        const std::int32_t playerY = platform::legacy_crypt_int::Read_401EC0(&gPlayerY);
+        const std::int32_t playerX = platform::legacy_crypt_int::Read_401EC0(&gPlayerX);
+        static_cast<void>(Sub_46C840(gMapFloor, playerX, playerY));
+        const std::int32_t index = gAutoMapWindowIndex55DA90;
+        gValue55DA88 = 0;
+        const std::int32_t height = gAutoMapWindowSizes55DA94[index].height;
+        const std::int32_t width = gAutoMapWindowSizes55DA94[index].width;
+        return render::DrawColorAutoMap_44FEB0(x, y, gAutoMapColorWindow9CF6EC, width, height);
+    }
+    if (gValue55DA88 != 0) {
+        const std::int32_t playerY = platform::legacy_crypt_int::Read_401EC0(&gPlayerY);
+        const std::int32_t playerX = platform::legacy_crypt_int::Read_401EC0(&gPlayerX);
+        static_cast<void>(Sub_46C840(gMapFloor, playerX, playerY));
+        gValue55DA88 = 0;
+    }
+    const std::int32_t index = gAutoMapWindowIndex55DA90;
+    const std::int32_t height = gAutoMapWindowSizes55DA94[index].height;
+    const std::int32_t width = gAutoMapWindowSizes55DA94[index].width;
+    return render::DrawIndexedAutoMap_44F5C0(x, y, gAutoMapIndexWindow9DAD7C, width, height);
+}
 
 // 原 [0x46DC60,0x46DC85)；整块清零完成后才逐项写 +4 哨兵。
 void __cdecl Sub_46DC60()

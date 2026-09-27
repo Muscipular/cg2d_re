@@ -395,6 +395,11 @@ std::int32_t __cdecl Sub_50C870(
     std::int32_t timeOffset, std::int32_t pathValue,
     std::int32_t adjustment); // 原 [0x50C870,0x50C8C8)，时间与地图配置回复。
 std::int32_t __cdecl Sub_469030(); // 原 [0x469030,0x4691C9)，地图装载、第四平面与斜向绘制。
+extern std::uint32_t gValue55DA88; // 原地图窗口重建标志，初值 1；46C760/46CF60 共用。
+// 原 46C840：三平面窗口读取及两类地图颜色生产；不改变玩家坐标。
+std::int32_t Sub_46C840(std::int32_t floor, std::int32_t playerX, std::int32_t playerY);
+// 原 46C760：按地图模式和重建标志提交同一窗口，返回完整绘制结果。
+std::int32_t Sub_46C760(std::int32_t x, std::int32_t y);
 // 原 [46CF60,46D9B9)：完整地图消费者尚待实现；重建场景 10 实传 0。
 void __cdecl Sub_46CF60(std::int32_t value);
 // 原 [0x4693F0,0x4697C9)：先扫 tile，再扫 obj/图形尺寸，输出第四地图平面。

@@ -15,6 +15,10 @@ extern RendererResources* gRenderer;
 // 尚待完整实现 SDL/CPU 资源与原模式分流，不提供固定返回。
 std::int8_t RendererInit_44B630();
 
+// 原 [44B610,44B624)：读取 renderer +9C 的 3D device 引用，返回非空 0/1。
+// 模式生产及 SDL/CPU 对应状态仍待实现，不以固定返回代替。
+std::int32_t HasLegacy3DDevice_44B610();
+
 // 原 44BB1E–44BBB7：Back 像素格式发布的共享 W32 槽。
 extern std::uint32_t gRendererRedMask;   // 0x628FE4。
 extern std::uint32_t gRendererGreenMask; // 0x62A660。

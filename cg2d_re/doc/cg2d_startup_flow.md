@@ -160,8 +160,8 @@ InitPalette 失败则无本函数额外提示。七条 ASCII 阶段日志的大�
 以下原直接目标仍只有真实声明，没有新增函数体或假成功：
 
 - `render::RendererInit_44B630`：32 位色、SDL/CPU、模式 2/3/4 及失败发布。
-- `initialization_detail::InitLoading_457B10` 和两段淡入/淡出：
-  消息泵、加载阶段与真实画面消费尚缺。
+- `initialization_detail::InitLoading_457B10`：
+  主加载阶段仍缺；两段淡入/淡出本体后续已实现，见文末。
 - `initialization_detail::InitializeMusic_454C30`：原次级 DirectMusic
   初始化，音频继续暂缓，没有以已有 `5241A0` 替掉这个独立调用。
 - `initialization_detail::InitializeWindowSystem_4705D0`：
@@ -170,10 +170,86 @@ InitPalette 失败则无本函数额外提示。七条 ASCII 阶段日志的大�
 后续已按[场景 §58 的 owner SPEC](cg2d_scene_state.md)接通
 `world::InitializeAlbum_518C20`，在唯一 `0x3C00C` 字节区执行
 整区清零和 `CCA\0` 复制，返回完整 W32 值 4。
-移除原 platform 候选声明，当前尚缺的直接目标由七个降为六个；
+移除原 platform 候选声明；其后两段淡变也已落位，父函数尚缺的
+直接目标为 RendererInit、InitLoading、次级音乐和窗口系统四项；
 相册加载、保存、组清理和同步仍未实现，不将初始化当作相册整链完成。
 
 此外已有自动地图颜色包装的下游、DrawAllQueued 和完整退出依赖仍
 未闭合。本步证明的是完整父控制流已编码和现有依赖已静态接线，
 **不是**可链接、可启动、资源成功加载或已有画面；不构建/测试/运行，
 不使用 subAgent，不降低整体验收标准。
+
+## 加载画面淡入与淡出 SPEC
+
+2026-09-27，在原 `ida-17524` 会话只读核完整
+`458390–4585ED`、`4585F0–4587C6` 两个半开函数区间。
+同时核 `44B610–44B624` 与共享槽引用，不重开或保存数据库。
+按用户工程委托采用下述实现，保留初始化父函数的原调用位置。
+
+### 状态与阶段
+
+- `73ECE8` 是两函数共用的 W32 图号，全部九个直接引用都在二者内；
+  归现有 `ClientInitialization.cpp` 私有存储，初值继承 PE 零填充，
+  不把 IDA 未 loaded 时的 FFFFFFFF 当初值。
+- `628FDC` 就是已有 `render::gPaletteFrameVersion`，
+  不是新建的帧计数；`58B7E4` 复用 `platform::gFrameCount`。
+  `9A7F64/628FEC` 复用既有 palette capability/changing，
+  截止、阈值、增量、追赶计数、调色板重载槽也不另建副本。
+- 淡入先调用 `45C970` 并发布 capability，再写默认图号 22025、
+  局部调色板 0。结果 3/4 改图号 98979、调色板 26；
+  结果 1/2 改图号 22211、调色板 29，其他结果保持默认。
+  随后独立读取 32 位 tick，零扩展为 double 写共享截止。
+  淡出不重新探测或选图，仅单独读取 tick 重置截止。
+- 两段都先泵消息；返回 0 时调用一次真实 `ShutdownClient`，
+  然后返回 0。外层初始化不重复清理。
+- 淡入首帧先 `SelectPalette(selected,30)`，再入队
+  `(320,240,255,共享图号,0,nullptr)`；淡出首帧先入队，
+  再 `SelectPalette(19,30)`。后续帧先入队，再读 changing，
+  恰为零标记结束；**本次帧处理仍须完成**，不能立即返回。
+
+### 公共帧合同
+
+原 `458489–458598` 与 `458695–4587A0` 除指令地址与导入调用形式外，
+数据和控制流相同。私有 helper 仅合并该完整公共段，不泛化 MainLoop：
+
+1. SortTextures→UpdatePalette→ClearKeyFlags，随后先计算
+   `threshold + deadline`，再取 tick。只有有序严格大于阈值，
+   且追赶计数按 S32 小于 20，才跳过本次绘制。
+   先计算新截止，再写追赶计数+1，最后发布截止。
+   不把 `!(tick>deadline)` 改成 `tick<=deadline`，保留 unordered 分支。
+2. 实际绘制前调用 `44B610`；返回零才递增已有调色板版本 W32。
+   然后 ClearSurface→DrawAllQueued。重载槽恰为 1 时，
+   将当前 256 色交既有 palette binding，忽略返回，再清重载槽。
+   随后 Flip，不因绘制/提交失败自行添加退出或重建。
+3. Flip 后取 tick，直到有序严格大于共享截止；未满足则 Sleep(1)
+   后再取 tick。等待内不重新泵消息、重载调色板或重读结束标志。
+   最后先计算下一截止、读取旧帧数，再写追赶计数=1、帧数+1、截止。
+4. 跳帧和绘制两路均返回原外层结束判断，不以 helper 的提前返回
+   跳过淡入/淡出的完成判断。未额外清图形队列计数、ResetGraphicCache、
+   改队列模式或加入普通 MainLoop 的窗口激活/防护门禁。
+
+淡入结束额外执行 DrawGraphic→ClearSurface→DrawAllQueued→Flip，
+随后返回 1；这段没有 Sort、调色板更新、按键清理、等待或帧数递增。
+淡出结束直接返回 1，没有这次额外提交。即使最后一轮走跳帧，
+两者仍按各自尾部执行。
+
+### 依赖边界
+
+原 `44B610` 读取唯一 renderer 的 `+9C`，返回该 3D device 指针是否非空。
+在 SDL/CPU 模式 2/3/4 和初始化生产未落实前，新增
+`render::HasLegacy3DDevice_44B610` 的真实声明，不以固定 false/true、
+`gRenderer!=nullptr` 或当前请求模式代替。RendererResources 的 owner
+不在本步增添未取证的 3D 字段或成功占位。
+
+两淡变入口及私有 helper 放在既有初始化源文件；
+复用平台消息、计时和睡眠边界及已实现的入队、调色板、清面、Flip。
+DrawAllQueued、3D 查询、RendererInit 和 InitLoading 等仍有缺口。
+本步只做静态控制流、共享槽、声明/调用与格式检查，
+不构建、测试或运行，不将完整父函数等同于已有加载画面。
+
+当前两函数和完整公共 helper 已落位，原父调用无需变更。
+本线程静态核对了：默认/1–2/3–4 三类选图、两种首帧顺序、
+changing 清零后继续执行当帧、跳帧及实绘后的同一结束判断、
+消息退出仅一次 Shutdown、淡入独有末尾提交。
+新端没有为图形队列、调色板版本或截止增加重复 owner；
+`HasLegacy3DDevice_44B610` 仍只有声明，没有把缺失模式状态补成常量。

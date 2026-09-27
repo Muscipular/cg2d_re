@@ -1,5 +1,7 @@
 #include "MainLoopDependencies.hpp"
 #include "ImeLifecycle.hpp"
+#include "ClientShutdown.hpp"
+#include "StartupNative.hpp"
 
 #include "../LoginMessageDependencies.hpp"
 #include "../render/GraphicDxCacheState.hpp"
@@ -14,6 +16,7 @@
 #include "cg/platform/LegacyMouse.hpp"
 #include "cg/platform/LegacyMouseTracker.hpp"
 #include "cg/platform/LegacyWindow.hpp"
+#include "cg/platform/KeyState.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/platform/Startup.hpp"
 #include "cg/render/Font.hpp"
@@ -21,6 +24,7 @@
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/world/SceneState.hpp"
 
+#include <bit>
 #include <cstdio>
 
 namespace cg::platform {
@@ -28,8 +32,6 @@ namespace initialization_detail {
 
 // 原直接目标尚待完整实现；不以固定返回或省略调用代替加载、音频及 UI 副作用。
 std::int32_t InitLoading_457B10();
-std::int32_t FadeInLoading_458390();
-std::int32_t FadeOutLoading_4585F0();
 std::int32_t InitializeMusic_454C30(std::uintptr_t window);
 std::int32_t InitializeWindowSystem_4705D0();
 
@@ -64,7 +66,130 @@ constexpr char kSavedStateErrorFormat[] =
 constexpr char kAnimeError[] = "Anime.bin \xC5\xAA\xA8\xFA\xBF\xF9\xBB\x7E";
 constexpr std::uint32_t kErrorMessageFlags = 0x10;
 
+// 原 73ECE8；两段淡变共用的图号，PE 零填充初值。
+std::int32_t gLoadingGraphicImageNo = 0;
+
+// 原 458489–458598 / 458695–4587A0 的相同公共段；不代替普通 MainLoop。
+void AdvanceLoadingFadeFrame()
+{
+    render::SortTextures_520790();
+    static_cast<void>(render::UpdatePalette_450BB0());
+    ClearKeyFlags_459760();
+    const double threshold = gFrameThreshold + gLastRenderDt;
+    const std::uint32_t tick = ReadTickCount32();
+    if (static_cast<double>(tick) > threshold) {
+        const std::uint32_t catchUpCount = gCatchUpCount;
+        if (std::bit_cast<std::int32_t>(catchUpCount) < 20) {
+            const double deadline = gFrameIncrement + gLastRenderDt;
+            gCatchUpCount = catchUpCount + 1u;
+            gLastRenderDt = deadline;
+            return;
+        }
+    }
+
+    if (render::HasLegacy3DDevice_44B610() == 0) {
+        render::gPaletteFrameVersion = std::bit_cast<std::int32_t>(
+            std::bit_cast<std::uint32_t>(render::gPaletteFrameVersion) + 1u);
+    }
+    static_cast<void>(render::ClearSurface_4512C0());
+    render::DrawAllQueued_520DD0();
+    if (gPendingPaletteReload == 1) {
+        auto* palette = render::GetRendererPalette(render::gRenderer);
+        static_cast<void>(render::SetPaletteEntries(palette, 0, 0, 256, render::gPalette));
+        gPendingPaletteReload = 0;
+    }
+    render::Flip_44C560();
+    std::uint32_t waitTick = ReadTickCount32();
+    while (!(static_cast<double>(waitTick) > gLastRenderDt)) {
+        Sleep(1);
+        waitTick = ReadTickCount32();
+    }
+    const double deadline = gFrameIncrement + gLastRenderDt;
+    const std::uint32_t frame = gFrameCount;
+    gCatchUpCount = 1;
+    gFrameCount = frame + 1u;
+    gLastRenderDt = deadline;
+}
+
 } // namespace
+
+namespace initialization_detail {
+
+std::int32_t FadeInLoading_458390()
+{
+    const std::int32_t capability = resource::ProbePaletteCapability_45C970();
+    render::gPaletteCapability = capability;
+    gLoadingGraphicImageNo = 22025;
+    std::int32_t palette = 0;
+    if (capability == 4 || capability == 3) {
+        gLoadingGraphicImageNo = 98979;
+        palette = 26;
+    } else if (capability == 2 || capability == 1) {
+        gLoadingGraphicImageNo = 22211;
+        palette = 29;
+    }
+    gLastRenderDt = static_cast<double>(ReadTickCount32());
+    bool firstFrame = true;
+    bool keepRunning = true;
+    for (;;) {
+        if (PumpWindowMessages() == 0) {
+            static_cast<void>(ShutdownClient_457A40());
+            return 0;
+        }
+        if (firstFrame) {
+            static_cast<void>(render::SelectPalette(palette, 30));
+            static_cast<void>(login::detail::DrawGraphic(
+                320, 240, 255, gLoadingGraphicImageNo, 0, nullptr));
+            firstFrame = false;
+        } else {
+            static_cast<void>(login::detail::DrawGraphic(
+                320, 240, 255, gLoadingGraphicImageNo, 0, nullptr));
+            if (render::gPaletteChanging == 0) {
+                keepRunning = false;
+            }
+        }
+        AdvanceLoadingFadeFrame();
+        if (!keepRunning) {
+            static_cast<void>(login::detail::DrawGraphic(
+                320, 240, 255, gLoadingGraphicImageNo, 0, nullptr));
+            static_cast<void>(render::ClearSurface_4512C0());
+            render::DrawAllQueued_520DD0();
+            render::Flip_44C560();
+            return 1;
+        }
+    }
+}
+
+std::int32_t FadeOutLoading_4585F0()
+{
+    gLastRenderDt = static_cast<double>(ReadTickCount32());
+    bool firstFrame = true;
+    bool keepRunning = true;
+    for (;;) {
+        if (PumpWindowMessages() == 0) {
+            static_cast<void>(ShutdownClient_457A40());
+            return 0;
+        }
+        if (firstFrame) {
+            static_cast<void>(login::detail::DrawGraphic(
+                320, 240, 255, gLoadingGraphicImageNo, 0, nullptr));
+            static_cast<void>(render::SelectPalette(19, 30));
+            firstFrame = false;
+        } else {
+            static_cast<void>(login::detail::DrawGraphic(
+                320, 240, 255, gLoadingGraphicImageNo, 0, nullptr));
+            if (render::gPaletteChanging == 0) {
+                keepRunning = false;
+            }
+        }
+        AdvanceLoadingFadeFrame();
+        if (!keepRunning) {
+            return 1;
+        }
+    }
+}
+
+} // namespace initialization_detail
 
 int InitializeClient_4576B0()
 {

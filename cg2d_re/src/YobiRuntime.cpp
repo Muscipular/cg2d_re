@@ -14,6 +14,7 @@
 #include "cg/platform/LegacyCryptInt.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/platform/MainLoop.hpp"
+#include "cg/platform/Startup.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/render/GraphicDxCache.hpp"
 #include "cg/render/SdlPresenter.hpp"
@@ -24,6 +25,7 @@
 #include <bit>
 #include <cstddef>
 #include <cstdint>
+#include <cstdio>
 #include <cstdlib>
 #include <cstring>
 #include <tuple>
@@ -68,10 +70,11 @@ struct YobiAction {
     std::array<char, 17> text144; // 原+144；445350复制长度<=16的独立原字节文本。
     platform::LegacyCryptInt readiness; // 原 +170；地图实体将同一槽用于 HP。
     platform::LegacyCryptInt maxHp; // 原 +180；不与 +170 合并。
-    platform::LegacyCryptInt barValue1B0; // 原+1B0；43DB60第二条数值，不猜业务名称。
-    platform::LegacyCryptInt barMaximum1C0; // 原+1C0；第二条最大值，读取仍消费计数/RNG。
+    platform::LegacyCryptInt barValue1B0; // 原+1B0；442F70同步玩家/宠物FP，43DB60绘第二条。
+    platform::LegacyCryptInt barMaximum1C0; // 原+1C0；同步最大FP，读取仍消费计数/RNG。
     std::int32_t field1D0; // 原 +1D0；弹窗param6、观察子项槽序号或地图实体等级。
     std::int32_t field1D8; // 原 +1D8；51A090 写入完整第四参数。
+    std::int32_t counter1DC; // 原+1DC，442F70图标显示计数。
     platform::LegacyCryptInt mapX1E0; // 原 +1E0/+1F0 当前位置；46DD90 按 X→Y 读取并乘64。
     platform::LegacyCryptInt mapY1F0;
     platform::LegacyCryptInt mapX200; // 原 +200/+210 移动目标；46DE50先赋这组，不合并载荷。
@@ -101,6 +104,8 @@ struct YobiAction {
     std::uint32_t completedLoops;   // 原 +2DC。
     std::int32_t playRevert;        // 原 +2E0：保留 caller 完整 W32。
     std::int32_t field2E4;          // 原 +2E4；51A5B0 比较完整 W32 是否为2。
+    std::int32_t imageNo2E8;        // 原+2E8，442F70第一附件图号。
+    std::uint8_t refresh2EC;        // 原+2EC，创建第一附件时清零。
     std::int32_t frameX;            // 原 +2F0：帧坐标叠加坐标文件偏移。
     std::int32_t frameY;            // 原 +2F4。
     render::GraphicDescriptor16 drawMode;
@@ -197,10 +202,12 @@ struct MapActorPayload {
     YobiAction* action08;
     YobiAction* action0C;
     YobiAction* action10;
-    std::array<std::byte, 4> bytes14;
+    std::uint32_t chatDeadline14;
     std::int32_t value18; // 原+18，445D20发布协议数值value50。
     char* text1C;
-    std::array<std::byte, 12> bytes20;
+    std::array<std::byte, 4> color20; // 原+20只消费低S8，高位未解释。
+    std::int32_t textLength24;
+    std::int32_t font28;
     YobiAction* action2C;
     YobiAction* action30;
     YobiAction* action34;
@@ -218,10 +225,12 @@ static_assert(offsetof(MapActorPayload, action04) == 0x08);
 static_assert(offsetof(MapActorPayload, action08) == 0x10);
 static_assert(offsetof(MapActorPayload, action0C) == 0x18);
 static_assert(offsetof(MapActorPayload, action10) == 0x20);
-static_assert(offsetof(MapActorPayload, bytes14) == 0x28);
+static_assert(offsetof(MapActorPayload, chatDeadline14) == 0x28);
 static_assert(offsetof(MapActorPayload, value18) == 0x2C);
 static_assert(offsetof(MapActorPayload, text1C) == 0x30);
-static_assert(offsetof(MapActorPayload, bytes20) == 0x38);
+static_assert(offsetof(MapActorPayload, color20) == 0x38);
+static_assert(offsetof(MapActorPayload, textLength24) == 0x3C);
+static_assert(offsetof(MapActorPayload, font28) == 0x40);
 static_assert(offsetof(MapActorPayload, action2C) == 0x48);
 static_assert(offsetof(MapActorPayload, action30) == 0x50);
 static_assert(offsetof(MapActorPayload, action34) == 0x58);
@@ -377,6 +386,14 @@ std::array<std::int32_t, 40> gActorHeightOffsets554204 {
     -96, -99, -88, -88, -88, -88, -88, -88, -88, -88,
 };
 static_assert(sizeof(gActorHeightOffsets554204) == 0xA0);
+
+// 原5542F4/554338，分别为17项状态图号表和聊天泡开关。
+std::array<std::int32_t, 17> gActorStatusImages5542F4 {
+    0, 0x192BC, 0x1AF41, 0x1AF42, 0x1AF43, 0x1AF44,
+    0x1AF45, 0x1AF46, 0x1AF47, 0x1AF48, 0x1AF49, 0x1AF4A,
+    0x1AF4B, 0x1AF4C, 0x1AF4D, 0x1AF4E, 0x19708,
+};
+std::uint32_t gChatBubbles554338 = 1;
 
 struct MapPartyOffset {
     std::int32_t x;
@@ -1061,7 +1078,7 @@ YobiAction* NewMapCharaAction()
     return NewYobiAction_404AE0(2, sizeof(MapCharaPayload));
 }
 
-// 原441DB0/448040的回调目标；未实现的依赖仅声明，不设置替代空回调。
+// 原441DB0/448040回调及实体绘制尾；完整定义位于本文件后段。
 void Sub_4417E0(YobiAction* action);
 void Sub_447E60(YobiAction* action);
 void Sub_442F70(YobiAction* action, std::int32_t primaryIndex);
@@ -3454,6 +3471,369 @@ void DrawGear_441570(
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)),
                 descriptor, 0);
         }
+    }
+}
+
+void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
+{
+    if (action == nullptr) {
+        return;
+    }
+    auto* const payload = static_cast<MapActorPayload*>(action->payload);
+    std::int32_t frameX = action->frameX;
+    std::int32_t frameY = action->frameY;
+    std::int32_t stateIndex = payload->index;
+    if (payload->action44 != nullptr) {
+        frameX += payload->action44->frameX;
+        frameY += payload->action44->frameY;
+    }
+
+    std::uint16_t flags;
+    std::uint16_t state;
+    std::int32_t value;
+    bool drawBars = false;
+    YobiAction* const player = world::detail::ReadPlayerAction();
+    if ((player != nullptr && player == action) || stateIndex == -1) {
+        flags = static_cast<std::uint16_t>(world::detail::ReadPlayerFlags18A());
+        state = world::detail::ReadPlayerActionFlags();
+        value = world::detail::ReadPlayerActionValue190();
+        if ((action->flags & 0x80000u) != 0) {
+            flags &= 0x8400u;
+            state = static_cast<std::uint16_t>(
+                ((state & 8u) != 0 ? 1u : 0u)
+                | ((state & 0x10u) != 0 ? 4u : 0u)
+                | ((state & 0x40u) != 0 ? 0x20u : 0u));
+            for (const world::detail::PetRuntimeRecord& pet : world::detail::gPetRuntimeF633F8) {
+                if (pet.used != 0 && pet.follow6D4 != 0) {
+                    platform::legacy_crypt_int::CopyPayload(&action->readiness, &pet.values0C[0]);
+                    platform::legacy_crypt_int::CopyPayload(&action->maxHp, &pet.values0C[1]);
+                    platform::legacy_crypt_int::CopyPayload(&action->barValue1B0, &pet.values0C[2]);
+                    platform::legacy_crypt_int::CopyPayload(&action->barMaximum1C0, &pet.values0C[3]);
+                    drawBars = true;
+                    break;
+                }
+            }
+        } else {
+            world::detail::CopyPlayerBarValues(
+                &action->readiness, &action->maxHp, &action->barValue1B0, &action->barMaximum1C0);
+            drawBars = true;
+        }
+    } else {
+        const std::uint16_t originalFlags = world::detail::gWorldObjects[stateIndex].flags42;
+        state = world::detail::gWorldObjects[stateIndex].flags120;
+        value = world::detail::gWorldObjects[stateIndex].value124;
+        flags = originalFlags;
+        if ((action->flags & 0x80000u) != 0) {
+            flags &= 0x8400u;
+            state = static_cast<std::uint16_t>(
+                ((state & 8u) != 0 ? 1u : 0u)
+                | ((state & 0x10u) != 0 ? 4u : 0u)
+                | ((state & 0x40u) != 0 ? 0x20u : 0u));
+        }
+        drawBars = (originalFlags & 0x200u) != 0;
+    }
+    if (world::detail::gActorBarsEnabled5AC490 == 0) {
+        drawBars = false;
+    }
+
+    bool createFirst = action->refresh2EC != 0 && (flags & 0x100u) != 0;
+    if (!createFirst && (flags & 0x100u) != 0 && payload->action04 == nullptr) {
+        createFirst = (flags & 0x400u) == 0
+            || (flags & 0x4000u) == 0 || (flags & 0x8000u) != 0;
+    }
+    if (createFirst) {
+        const std::int32_t kind = action->field2E4;
+        action->refresh2EC = 0;
+        const std::int32_t mapY = platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0);
+        const std::int32_t mapX = platform::legacy_crypt_int::Read_401EC0(&action->mapX1E0);
+        const std::int32_t imageNo = kind == 1 || kind == 2 ? action->imageNo2E8 : 0x192BC;
+        payload->action04 = Sub_444000(imageNo, mapX, mapY, 0, 0, 10);
+    } else if (((flags & 0x100u) == 0 || (flags & 0x400u) != 0)
+               && payload->action04 != nullptr) {
+        MarkDeath(payload->action04);
+        payload->action04 = nullptr;
+    } else if ((flags & 0x100u) != 0 && payload->action04 != nullptr) {
+        payload->action04->x = action->x;
+        payload->action04->y = action->y;
+        payload->action04->worldX = action->worldX;
+        payload->action04->worldY = action->worldY;
+        Sub_517880(payload->action04, 100, 0, 0);
+        const std::int32_t height = Sub_4417A0(action->imageNo);
+        const std::int32_t offsetY = Sub_5182B0(payload->action04, 1);
+        const std::int32_t drawY = height + offsetY + action->y;
+        const std::int32_t offsetX = Sub_5182B0(payload->action04, 0);
+        const std::int32_t drawX = offsetX + action->x;
+        const std::int32_t graphicIndex = payload->action04->graphicIndex;
+        world::detail::DrawGearNormal_46C060(
+            primaryIndex, 1, graphicIndex, static_cast<std::int16_t>(drawX),
+            static_cast<std::int16_t>(drawY), nullptr, 0);
+    }
+
+    if ((flags & 0x2000u) != 0) {
+        const std::uint32_t now = platform::ReadTickCount32();
+        if (payload->chatDeadline14 <= now) {
+            flags &= 0xDFFFu;
+            if (payload->text1C != nullptr) {
+                std::free(payload->text1C);
+                payload->text1C = nullptr;
+            }
+        } else if (gChatBubbles554338 != 0 && (action->flags & 0x180u) != 0
+                   && payload->text1C != nullptr) {
+            // 原var_114与对象索引别名；包括零长度，后面的共享状态清位仍用此值。
+            stateIndex = payload->textLength24;
+            if (stateIndex != 0) {
+                std::int32_t width = TextMeasure(payload->text1C, payload->font28);
+                const std::int32_t height = Sub_4417A0(action->imageNo);
+                std::int32_t y = height + action->y - 32;
+                const std::int32_t bottom =
+                    render::gFontMetrics[payload->font28].doubleHeight + y + 8;
+                if (stateIndex > 40) {
+                    const std::int32_t secondWidth =
+                        TextMeasure(payload->text1C + 41, payload->font28);
+                    if (width < secondWidth) {
+                        width = secondWidth;
+                    }
+                    const char* const text = payload->text1C + 41;
+                    const auto color = std::bit_cast<std::int8_t>(
+                        std::to_integer<std::uint8_t>(payload->color20[0]));
+                    const auto font = static_cast<std::int8_t>(payload->font28);
+                    const auto x = static_cast<std::int16_t>(action->x - width / 2);
+                    DrawText(x, static_cast<std::int16_t>(y + 4), 0, font, color, text, 0, 0);
+                    y -= render::gFontMetrics[payload->font28].doubleHeight;
+                }
+                const std::int32_t halfWidth = width / 2;
+                const char* const text = payload->text1C;
+                const auto color = std::bit_cast<std::int8_t>(
+                    std::to_integer<std::uint8_t>(payload->color20[0]));
+                const auto font = static_cast<std::int8_t>(payload->font28);
+                const auto x = static_cast<std::int16_t>(action->x - halfWidth);
+                DrawText(x, static_cast<std::int16_t>(y + 4), 0, font, color, text, 0, 0);
+                DrawNineGrid_49BE00(
+                    0x3BE84, static_cast<std::int16_t>(action->x - halfWidth - 5),
+                    static_cast<std::int16_t>(y - 1), static_cast<std::int16_t>(width + 10),
+                    static_cast<std::int16_t>(bottom - y + 2), 0xCE, -1,
+                    std::bit_cast<std::int32_t>(0x80FFFFFFu), 74, 54);
+            }
+        } else {
+            const std::int32_t y = action->y - 84;
+            const std::int32_t x = action->x - 20;
+            DrawGraphic(x, y, 0xCE, 0x573F, 0, nullptr);
+        }
+    }
+
+    const std::int16_t nameMode = platform::gValue5F974C;
+    if (nameMode > 0) {
+        const char* text = nullptr;
+        std::int8_t color = 0;
+        if (action == world::detail::ReadPlayerAction()) {
+            if (nameMode <= 6) {
+                constexpr std::array<std::int8_t, 6> colors {1, 4, 5, 2, 0, 0};
+                text = world::detail::BorrowPlayerDisplayText(nameMode);
+                color = colors[nameMode - 1];
+            }
+        } else {
+            const std::uint32_t actionFlags = action->flags;
+            if ((actionFlags & 0x100u) != 0 && (actionFlags & 0x80000u) == 0) {
+                if (action->imageNo != 0) {
+                    switch (nameMode) {
+                    case 1: text = action->nameC4.data(); color = 0; break;
+                    case 2: text = action->titleE1.data(); color = 1; break;
+                    case 3: text = action->text144.data(); color = 4; break;
+                    case 4: text = action->text102.data(); color = 5; break;
+                    case 5: text = action->text123.data(); color = 2; break;
+                    case 6: text = action->text31C.data(); color = 2; break;
+                    default: break;
+                    }
+                }
+            } else if ((actionFlags & 0x80200u) != 0) {
+                text = (actionFlags & 0x200u) != 0 && std::strlen(action->titleE1.data()) != 0
+                    ? action->titleE1.data() : action->nameC4.data();
+            }
+        }
+        if (text != nullptr) {
+            char buffer[256];
+            std::sprintf(buffer, "%s", text);
+            const auto y = static_cast<std::int16_t>(action->y - 98);
+            const std::int32_t width = TextMeasure(buffer, 1);
+            const auto x = static_cast<std::int16_t>(action->x - width / 2);
+            DrawText(x, y, 0, 1, color, buffer, 0, 0);
+        }
+    }
+
+    // 三图标的共同定位按每个原取槽点重读，不捕获一份子指针跨越查询调用。
+    const auto positionStatus = [&](YobiAction*& slot) {
+        const std::int32_t offsetX = Sub_5182B0(slot, 0);
+        slot->x = offsetX + action->x;
+        const std::int32_t height = Sub_4417A0(action->imageNo);
+        const std::int32_t offsetY = Sub_5182B0(slot, 1);
+        slot->y = height + offsetY + action->y - 20;
+        const std::int32_t worldX = Sub_5182B0(slot, 0);
+        slot->worldX = static_cast<float>(static_cast<double>(worldX) + action->worldX);
+        const std::int32_t worldY = Sub_5182B0(slot, 1);
+        slot->worldY = static_cast<float>(
+            static_cast<double>(worldY) + action->worldY + std::bit_cast<float>(0x3DCCCCCDu));
+    };
+    const auto drawStatus = [&](YobiAction*& slot) {
+        Sub_517880(slot, 100, 0, 0);
+        slot->drawMode.bytes[13] |= 4u;
+        YobiAction* const child = slot;
+        const std::int32_t y = child->y;
+        const render::GraphicDescriptor16* const descriptor = &child->drawMode;
+        const std::int32_t x = child->x;
+        const std::int32_t graphicIndex = child->graphicIndex;
+        world::detail::DrawGearNormal_46C060(
+            primaryIndex, 1, graphicIndex,
+            static_cast<std::int16_t>(x), static_cast<std::int16_t>(y), descriptor, 0);
+    };
+    const auto clearActionState = [&](const std::uint16_t bits) {
+        YobiAction* const currentPlayer = world::detail::ReadPlayerAction();
+        if ((currentPlayer != nullptr && currentPlayer == action) || stateIndex == -1) {
+            world::detail::ClearPlayerActionFlags(bits);
+        } else {
+            world::detail::gWorldObjects[stateIndex].flags120 &=
+                static_cast<std::uint16_t>(~bits);
+        }
+    };
+
+    const std::uint16_t statusMask = flags & 0xC400u;
+    if (statusMask != 0 || (state & 2u) != 0 || (state & 0x1000u) != 0) {
+        std::int32_t statusImage = 0;
+        if ((state & 2u) != 0) {
+            if (value < 0 || value >= world::detail::Sub_4410E0()) {
+                value = 0;
+            }
+            statusImage = gActorStatusImages5542F4[value];
+        }
+        if ((flags & 0x400u) != 0) {
+            statusImage = 0x1AF41;
+        }
+        if ((flags & 0x8000u) != 0) {
+            statusImage = 0x1AF42;
+        }
+        if ((flags & 0x4000u) != 0) {
+            statusImage = 0x1AF43;
+        }
+        if ((state & 0x1000u) != 0) {
+            statusImage = 0x1824F;
+        }
+        if (payload->action4C == nullptr) {
+            const std::int32_t mapY = platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0);
+            const std::int32_t mapX = platform::legacy_crypt_int::Read_401EC0(&action->mapX1E0);
+            YobiAction* const child = Sub_444000(statusImage, mapX, mapY, 0, 0, 10);
+            payload->action4C = child;
+            child->rebirthValue1 = 4;
+            payload->action4C->rebirthValue2 = 4;
+        }
+        if (payload->action4C != nullptr) {
+            payload->action4C->imageNo = statusImage;
+            positionStatus(payload->action4C);
+            if ((state & 1u) != 0 && statusMask == 0) {
+                payload->action4C->x -= 17;
+            }
+            drawStatus(payload->action4C);
+        }
+    } else if (payload->action4C != nullptr) {
+        MarkDeath(payload->action4C);
+        payload->action4C = nullptr;
+    }
+
+    if ((state & 4u) != 0) {
+        if (payload->action4C == nullptr) {
+            if (payload->action0C == nullptr) {
+                const std::int32_t mapY = platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0);
+                const std::int32_t mapX = platform::legacy_crypt_int::Read_401EC0(&action->mapX1E0);
+                payload->action0C = Sub_444000(0x1AF4D, mapX, mapY, 0, 0, 10);
+                if ((state & 0x20u) != 0) {
+                    clearActionState((action->flags & 0x80000u) != 0 ? 0x40 : 0x20);
+                    static_cast<void>(audio::PlaySe_52C450(0x1B5, action->x));
+                }
+                payload->action0C->counter1DC = 0;
+                payload->action0C->rebirthValue1 = 4;
+                payload->action0C->rebirthValue2 = 4;
+            }
+            if (payload->action0C != nullptr) {
+                positionStatus(payload->action0C);
+                drawStatus(payload->action0C);
+            }
+        }
+        ++payload->action0C->counter1DC;
+        if (payload->action0C->counter1DC > 600) {
+            clearActionState((action->flags & 0x80000u) != 0 ? 0x10 : 4);
+        }
+    } else if (payload->action0C != nullptr) {
+        MarkDeath(payload->action0C);
+        payload->action0C = nullptr;
+    }
+
+    if ((state & 1u) != 0 && statusMask == 0) {
+        if (payload->action10 == nullptr) {
+            const std::int32_t mapY = platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0);
+            const std::int32_t mapX = platform::legacy_crypt_int::Read_401EC0(&action->mapX1E0);
+            YobiAction* const child = Sub_444000(0x1AF4E, mapX, mapY, 0, 0, 10);
+            payload->action10 = child;
+            child->rebirthValue1 = 4;
+            payload->action10->rebirthValue2 = 4;
+        }
+        if (payload->action10 != nullptr) {
+            positionStatus(payload->action10);
+            if (payload->action4C != nullptr) {
+                payload->action10->x += 17;
+            }
+            drawStatus(payload->action10);
+        }
+    } else if (payload->action10 != nullptr) {
+        MarkDeath(payload->action10);
+        payload->action10 = nullptr;
+    }
+
+    if (payload->action30 != nullptr) {
+        payload->action30->characterAction = action->characterAction == 8 ? 3 : 0;
+        payload->action30->direction = action->direction;
+        if (Sub_517880(payload->action30, 100, 0, 0) == 0) {
+            const render::GraphicDescriptor16* const descriptor = &payload->action30->drawMode;
+            const std::int32_t offsetY = Sub_5182B0(payload->action30, 1);
+            const std::int32_t y = offsetY + action->y + frameY;
+            const std::int32_t offsetX = Sub_5182B0(payload->action30, 0);
+            const std::int32_t x = offsetX + action->x + frameX;
+            const std::int32_t graphicIndex = payload->action30->graphicIndex;
+            world::detail::DrawGearNormal_46C060(
+                primaryIndex, 1, graphicIndex, static_cast<std::int16_t>(x),
+                static_cast<std::int16_t>(y), descriptor, 0);
+        }
+    }
+    if ((payload->action34 != nullptr || payload->action38 != nullptr)
+        && payload->action44 == nullptr) {
+        std::int32_t characterAction = 0;
+        std::int32_t revert = 1;
+        std::int32_t x = 0;
+        std::int32_t y = 0;
+        std::uint8_t before = 1;
+        if (payload->action34 != nullptr) {
+            payload->action34->direction = action->direction;
+        }
+        if (payload->action38 != nullptr) {
+            payload->action38->direction = action->direction;
+        }
+        Sub_4412D0(action, primaryIndex, &characterAction, &revert);
+        Sub_441430(action, primaryIndex, &x, &y, &before);
+        if (payload->kind3C == 6 && payload->action34->characterAction == 10) {
+            payload->action34->graphicIndex = -1;
+        }
+        if (payload->kind40 == 6 && payload->action38->characterAction == 10) {
+            payload->action38->graphicIndex = -1;
+        }
+        DrawGear_441570(action, primaryIndex, x, y, before);
+        if (payload->action34 != nullptr) {
+            payload->action34->characterAction = characterAction;
+        }
+        if (payload->action38 != nullptr) {
+            payload->action38->characterAction = characterAction;
+        }
+        PlayFrame_517DA0(payload->action34, revert);
+        PlayFrame_517DA0(payload->action38, revert);
+    }
+    if (drawBars) {
+        ShowHpBar_43DB60(action, -10, 3, -1);
     }
 }
 

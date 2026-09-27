@@ -703,6 +703,13 @@ void Sub_46A700(); // 原完整玩家移动推进、到达计数及MIS动作请�
 // YobiRuntime借用同一SceneState状态，不公开玩家首块或五槽记录布局。
 std::uint32_t ReadPlayerFlags18A() noexcept; // 原FDA88A跨W32读取。
 std::uint16_t ReadPlayerActionFlags() noexcept; // 原FDA88E，与flags18C高W16同源。
+std::int32_t ReadPlayerActionValue190() noexcept;
+void ClearPlayerActionFlags(std::uint16_t mask) noexcept; // 只清FDA88E，不改FDA88C低W16。
+void CopyPlayerBarValues(
+    platform::LegacyCryptInt* hp, platform::LegacyCryptInt* maxHp,
+    platform::LegacyCryptInt* fp, platform::LegacyCryptInt* maxFp);
+const char* BorrowPlayerDisplayText(std::int16_t mode) noexcept; // 模式1..6原文本，不复制。
+extern std::uint32_t gActorBarsEnabled5AC490; // 原虚拟零区，442F70与后续设置UI共享。
 std::int32_t ReadPlayerWalkSpeed() noexcept; // 原FDA870。
 std::int32_t ReadPlayerImageNo() noexcept; // 原FDA878；不是action当前变换图号。
 std::int16_t ReadPetFollowIndex(std::size_t position) noexcept;

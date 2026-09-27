@@ -4741,6 +4741,41 @@ std::uint16_t ReadPlayerActionFlags() noexcept
     return static_cast<std::uint16_t>(gPlayerRuntime.flags18C >> 16);
 }
 
+std::int32_t ReadPlayerActionValue190() noexcept
+{
+    return gPlayerRuntime.value190;
+}
+
+void ClearPlayerActionFlags(const std::uint16_t mask) noexcept
+{
+    gPlayerRuntime.flags18C &= ~(static_cast<std::uint32_t>(mask) << 16);
+}
+
+void CopyPlayerBarValues(
+    platform::LegacyCryptInt* const hp, platform::LegacyCryptInt* const maxHp,
+    platform::LegacyCryptInt* const fp, platform::LegacyCryptInt* const maxFp)
+{
+    platform::legacy_crypt_int::CopyPayload(hp, &gPlayerRuntime.hp);
+    platform::legacy_crypt_int::CopyPayload(maxHp, &gPlayerRuntime.maxHp);
+    platform::legacy_crypt_int::CopyPayload(fp, &gPlayerRuntime.fp);
+    platform::legacy_crypt_int::CopyPayload(maxFp, &gPlayerRuntime.maxFp);
+}
+
+const char* BorrowPlayerDisplayText(const std::int16_t mode) noexcept
+{
+    switch (mode) {
+    case 1: return gPlayerRuntime.name.data();
+    case 2: return gPlayerRuntime.ownTitle.data();
+    case 3: return gTitlesFF0508[gPlayerRuntime.titleIndex100].text.data();
+    case 4: return gPlayerRuntime.text12A.data();
+    case 5: return gPlayerRuntime.text14B.data();
+    case 6: return gPlayerRuntime.text15BB8.data();
+    default: return nullptr;
+    }
+}
+
+std::uint32_t gActorBarsEnabled5AC490 = 0;
+
 std::int32_t ReadPlayerImageNo() noexcept
 {
     return gPlayerRuntime.imageNo;

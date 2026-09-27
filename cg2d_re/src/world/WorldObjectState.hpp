@@ -42,7 +42,8 @@ struct WorldObjectRecord {
     std::int32_t value118;
     login::YobiAction* action; // 原+11C，Yobi链拥有，本表只借用。
     std::uint16_t flags120;
-    std::array<std::byte, 6> bytes122;
+    std::array<std::byte, 2> bytes122;
+    std::int32_t value124; // 原+124，442F70状态图号表下标。
     std::array<char, 17> text128; // 原+128；445350的第4段称号。
     std::array<std::byte, 3> bytes139;
 };
@@ -77,6 +78,7 @@ static_assert(offsetof(WorldObjectRecord, value118) == 0x118);
 static_assert(offsetof(WorldObjectRecord, action) == 0x120);
 static_assert(offsetof(WorldObjectRecord, flags120) == 0x128);
 static_assert(offsetof(WorldObjectRecord, bytes122) == 0x12A);
+static_assert(offsetof(WorldObjectRecord, value124) == 0x12C);
 static_assert(offsetof(WorldObjectRecord, text128) == 0x130);
 static_assert(offsetof(WorldObjectRecord, bytes139) == 0x141);
 static_assert(sizeof(WorldObjectRecord) == 0x148);

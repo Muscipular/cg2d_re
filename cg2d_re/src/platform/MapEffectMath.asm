@@ -9,12 +9,25 @@ Zero54D5D0 QWORD 0
 SpeedScale54E228 DWORD 03A83126Fh
 Fallback54E230 DWORD 038D1B717h
 SpawnScale54E22C DWORD 044340000h
+Percent54D4AC DWORD 042C80000h
+Height54D47C DWORD 043F00000h
+PercentScale54D4E4 DWORD 03C23D70Ah
+HalfHeight54D408 DWORD 043700000h
+ArcCenter54DD38 DWORD 042200000h
+ArcScale54DD34 DWORD 03D088889h
+ALIGN 8
+ObserverAngles QWORD 04002D97C7F30D173h, 03FF921FB54411744h
+    QWORD 03FE921FB54411744h, 0000000000000000h
+    QWORD 04015FDBBE9B8F45Ch, 04012D97C7F30D173h
+    QWORD 0400F6A7A29515D15h, 0400921FB54411744h
 
 .code
 PUBLIC Cg2dMapEffectDirection
 PUBLIC Cg2dMapEffectMotion
 PUBLIC Cg2dMapEffectDivisor
 PUBLIC Cg2dMapEffectStep
+PUBLIC Cg2dMapObserverProjection
+PUBLIC Cg2dMapObserverArc
 
 ; 所有叶仅借用参数暂存区 [rsp+8,rsp+40)，不改 RSP 或非易失寄存器。
 Cg2dMapEffectDirection PROC
@@ -153,5 +166,57 @@ Cg2dMapEffectStep PROC
     fldcw word ptr [rsp+12]
     ret
 Cg2dMapEffectStep ENDP
+
+Cg2dMapObserverProjection PROC
+    mov dword ptr [rsp+8], ecx
+    fnstcw word ptr [rsp+12]
+    mov word ptr [rsp+14], 027Fh
+    mov word ptr [rsp+16], 0E7Fh
+    fldcw word ptr [rsp+14]
+    fild dword ptr [rsp+8]
+    fmul dword ptr [Percent54D4AC]
+    fidiv dword ptr [rdx]
+    fst dword ptr [r9+16]
+    fmul dword ptr [Height54D47C]
+    fmul dword ptr [PercentScale54D4E4]
+    fsub dword ptr [HalfHeight54D408]
+    lea r10, ObserverAngles
+    movsxd r8, r8d
+    fld qword ptr [r10+r8*8]
+    fld st(0)
+    fcos
+    fld st(2)
+    fmulp st(1), st(0)
+    fldcw word ptr [rsp+16]
+    fistp qword ptr [r9]
+    fldcw word ptr [rsp+14]
+    fsin
+    fxch st(1)
+    fmulp st(1), st(0)
+    fchs
+    fldcw word ptr [rsp+16]
+    fistp qword ptr [r9+8]
+    fldcw word ptr [rsp+12]
+    ret
+Cg2dMapObserverProjection ENDP
+
+Cg2dMapObserverArc PROC
+    fnstcw word ptr [rsp+8]
+    mov word ptr [rsp+10], 027Fh
+    mov word ptr [rsp+12], 0E7Fh
+    fldcw word ptr [rsp+10]
+    fld dword ptr [rcx]
+    fsub dword ptr [ArcCenter54DD38]
+    fld st(0)
+    fmul st(0), st(1)
+    fmul dword ptr [ArcScale54DD34]
+    fldcw word ptr [rsp+12]
+    fistp qword ptr [rsp+16]
+    fldcw word ptr [rsp+10]
+    fstp st(0)
+    fldcw word ptr [rsp+8]
+    mov rax, qword ptr [rsp+16]
+    ret
+Cg2dMapObserverArc ENDP
 
 END

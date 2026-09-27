@@ -1206,7 +1206,9 @@ action 字段；图号不在该范围且大于 999 时
 
 **私有实现裁决**
 
-新增 `src/platform/MapEffectMath.hpp/.asm`，仅供此 world 入口使用。
+新增 `src/platform/MapEffectMath.hpp/.asm`，本节四叶仅供此 world 入口使用。
+后续 `440C50` 按 [Yobi 观察回调 SPEC](cg2d_yobi_runtime.md)
+追加两个私有数值叶，不将此边界推广为通用数学库。
 四个 C 链接叶分别承接方向、相机合成/幅度/符号、生成除数、固定点步进；
 数值通过定宽标量或 `T*` 传递，结果写普通 F64/S32/S64 局部值。
 汇编不持有业务状态、不分配、不调用 C++、不在调用间保留 x87 栈。

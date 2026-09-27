@@ -1451,6 +1451,31 @@ void Sub_46F1D0()
     }
 }
 
+std::int32_t Sub_440FF0()
+{
+    const std::int32_t direction = login::detail::ReadMapObservationDirection();
+    constexpr std::array<std::int32_t, 8> angles {315, 270, 225, 180, 135, 90, 45, 0};
+    const auto angle = static_cast<std::int16_t>(angles[direction]);
+    const render::GraphicDescriptor16 descriptor {{
+        0xC0, 0xFE, 0x54, 0x01, 0x40, 0x00, 0x30, 0x00,
+        0xFF, 0xFF, 0xFF, 0xFF, 0x01, 0x00, 0x00, 0x00,
+    }};
+    gMapCharaSceneSlots.valueC8A752 = 2;
+    gMapCharaSceneSlots.valueC8A754 = 2;
+    gMapCharaSceneSlots.value55DE9C = 6.0F;
+    gMapCharaSceneSlots.value55DEA0 = angle;
+    Sub_46F1D0();
+
+    std::int32_t result = 0;
+    for (std::int32_t y = 0; y < 480; y += 48) {
+        for (std::int32_t x = 0; x < 640; x += 64) {
+            result = render::DrawGraphic3_520970(
+                x, y, 0, 14648, 0, 1, 0, &descriptor);
+        }
+    }
+    return result;
+}
+
 void Sub_476680()
 {
     login::YobiAction* const action = gPlayerRuntime.action;

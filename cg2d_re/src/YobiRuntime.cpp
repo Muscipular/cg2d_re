@@ -3,6 +3,7 @@
 #include "LoginMessageDependencies.hpp"
 #include "AnimationRuntimeState.hpp"
 #include "world/WorldUpdateDependencies.hpp"
+#include "platform/MapEffectMath.hpp"
 
 #include "cg/AnimationRuntime.hpp"
 #include "cg/GraphicInfo.hpp"
@@ -44,8 +45,8 @@ struct YobiAction {
     std::int32_t phase;
     std::int32_t x;
     std::int32_t y;
-    std::int32_t deltaX;
-    std::int32_t deltaY;
+    std::int32_t deltaX; // 原 +38；窗口动画的横向步长。
+    std::int32_t deltaY; // 原 +3C；440C50 另以此值排序子项，不与 y 合并。
     std::int32_t field58; // 原 +58，与 +2B8 的 direction 独立。
     float scaleX;
     float scaleY;
@@ -215,6 +216,34 @@ std::array<std::int32_t, 5> gMapImages5AC4A0 {};
 std::int32_t gMapImage5F9734 = 0;
 std::int32_t gMapDirection5F9740 = 0;
 std::int32_t gMapDuration5F9744 = 0;
+
+struct MapPartyOffset {
+    std::int32_t x;
+    std::int32_t y;
+};
+
+// 原只读 [54D950,54DD10)：group/slot/direction 扁平索引；保留相邻项。
+constexpr std::array<MapPartyOffset, 120> kMapPartyOffsets54D950 {{
+    {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0},
+    {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0},
+    {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0},
+    {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0},
+    {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0},
+    {-41, 15}, {-44, 0}, {-19, -9}, {0, -15}, {28, -12}, {44, 6}, {33, 15}, {0, 20},
+    {19, -9}, {44, 0}, {41, 15}, {0, 20}, {-33, 15}, {-44, 6}, {-28, -12}, {0, -15},
+    {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0},
+    {29, 9}, {0, 24}, {-29, 9}, {-45, -9}, {-31, -21}, {0, -18}, {31, -21}, {45, -9},
+    {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0},
+    {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0},
+    {34, 15}, {0, 21}, {-34, 15}, {-47, 2}, {-33, -11}, {0, -17}, {33, -11}, {47, 2},
+    {65, 27}, {0, 38}, {-64, 27}, {-97, 0}, {-64, -31}, {0, -40}, {64, -31}, {97, 0},
+    {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0},
+    {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0},
+}};
+
+static_assert(sizeof(MapPartyOffset) == 8);
+static_assert(offsetof(MapPartyOffset, y) == 4);
+static_assert(sizeof(kMapPartyOffsets54D950) == 0x3C0);
 
 render::GraphicDescriptor16 ToGraphicDescriptor(
     const NineGridDescriptorFields& fields)
@@ -1012,8 +1041,116 @@ void* Sub_43F230()
     return last;
 }
 
-// 原 440C50 回调后继尚未落位，保持真实目标而非空回调。
-void Sub_440C50(YobiAction* action);
+std::int32_t* Sub_43FD90(
+    const std::int32_t imageNo, const std::int32_t slot,
+    const std::int32_t direction, std::int32_t* const x, std::int32_t* const y)
+{
+    std::int32_t group = 0;
+    if (imageNo >= 110782 && imageNo <= 110787) {
+        group = 1;
+    } else if (imageNo >= 110788 && imageNo <= 110793) {
+        group = 2;
+    }
+    const std::int32_t index = (group * 5 + slot) * 8 + direction;
+    const std::int32_t oldX = *x;
+    *x = oldX + kMapPartyOffsets54D950[index].x;
+    const std::int32_t offsetY = kMapPartyOffsets54D950[index].y;
+    *y += offsetY;
+    return y;
+}
+
+std::int32_t Sub_5182B0(YobiAction* const action, const std::uint8_t axis)
+{
+    std::int16_t x;
+    std::int16_t y;
+    resource::GetGraphicXY(
+        static_cast<std::uint32_t>(action->graphicIndex), &x, &y);
+    if (axis == 0) {
+        return action->graphicOffsetX - x;
+    }
+    if (axis == 1) {
+        return action->graphicOffsetY - y;
+    }
+    return 0;
+}
+
+// 原 440C50；唯一 callback 写者为 440B70，见 Yobi 观察回调 SPEC。
+void Sub_440C50(YobiAction* const action)
+{
+    auto* const payload = static_cast<MapCharaPayload*>(action->payload);
+    platform::detail::MapObserverProjection projection;
+    platform::detail::Cg2dMapObserverProjection(
+        payload->frame, &gMapDuration5F9744, action->direction, &projection);
+    Sub_517880(action, 100, 0, 0);
+    action->x = std::bit_cast<std::int32_t>(
+        static_cast<std::uint32_t>(projection.x)) + 320;
+    const auto arc = std::bit_cast<std::int32_t>(static_cast<std::uint32_t>(
+        platform::detail::Cg2dMapObserverArc(&projection.progress)));
+    action->y = std::bit_cast<std::int32_t>(
+        static_cast<std::uint32_t>(projection.y)) - arc + 290;
+
+    std::array<std::int32_t, 5> drawX;
+    std::array<std::int32_t, 5> drawY;
+    std::array<std::int8_t, 5> order;
+    std::size_t count = 0;
+    for (std::size_t index = 0; index < payload->partyActions.size(); ++index) {
+        if (payload->partyActions[index] == nullptr) {
+            continue;
+        }
+        std::int32_t offsetX = 0;
+        std::int32_t offsetY = 0;
+        Sub_517880(payload->partyActions[index], 100, 0, 0);
+        YobiAction* const child = payload->partyActions[index];
+        const std::int32_t direction = child->direction;
+        const std::int32_t slot = child->field1D0;
+        Sub_43FD90(action->imageNo, slot, direction, &offsetX, &offsetY);
+        const std::int32_t graphicX = Sub_5182B0(payload->partyActions[index], 0);
+        drawX[index] = graphicX + action->frameX + action->x + offsetX;
+        const std::int32_t graphicY = Sub_5182B0(payload->partyActions[index], 1);
+        const std::int32_t y = graphicY + action->frameY + action->y + offsetY;
+        order[count] = static_cast<std::int8_t>(index);
+        drawY[index] = y;
+        ++count;
+    }
+    for (std::size_t index = count; index < order.size(); ++index) {
+        order[index] = -1;
+    }
+
+    // 原 440E41–440EB9 按子对象 +3C 降序换索引，不按 drawY 排序。
+    for (std::size_t index = 0; index < order.size(); ++index) {
+        if (order[index] < 0) {
+            break;
+        }
+        for (std::size_t next = index + 1; next < order.size(); ++next) {
+            if (order[next] < 0) {
+                break;
+            }
+            if (payload->partyActions[order[index]]->deltaY
+                < payload->partyActions[order[next]]->deltaY) {
+                const std::int8_t previous = order[index];
+                order[index] = order[next];
+                order[next] = previous;
+            }
+        }
+    }
+    for (const std::int8_t index : order) {
+        if (index < 0) {
+            break;
+        }
+        YobiAction* const child = payload->partyActions[index];
+        render::DrawGraphic2_521DD0(
+            drawX[index], drawY[index], 10, child->graphicIndex, 0, 0,
+            &child->drawMode);
+    }
+    const std::int32_t graphicIndex = action->graphicIndex;
+    const render::GraphicDescriptor16* const mode = &action->drawMode;
+    const std::int32_t offsetY = Sub_5182B0(action, 1);
+    const std::int32_t y = offsetY + action->y;
+    const std::int32_t offsetX = Sub_5182B0(action, 0);
+    const std::int32_t x = offsetX + action->x;
+    render::DrawGraphic2_521DD0(x, y, 10, graphicIndex, 0, 0, mode);
+    ++payload->frame;
+}
 
 YobiAction* Sub_440B70()
 {
@@ -1081,6 +1218,11 @@ void* Sub_440F50()
         }
     }
     return payload->partyActions.data();
+}
+
+std::int32_t ReadMapObservationDirection() noexcept
+{
+    return gMapDirection5F9740;
 }
 
 std::int32_t Sub_440FE0()

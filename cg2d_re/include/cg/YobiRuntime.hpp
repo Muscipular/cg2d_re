@@ -70,8 +70,16 @@ void* Sub_43F230();
 YobiAction* Sub_440B70();
 // 原 440F50：按玩家对象号发布五槽源表；非空返回为子指针区起点。
 void* Sub_440F50();
+// 440FF0 借用同一 5F9740 方向值，不复制观察状态。
+std::int32_t ReadMapObservationDirection() noexcept;
 // 原 440FE0：创建地图观察节点、更新 BGM 状态并返回 0x25。
 std::int32_t Sub_440FE0();
+// 原 43FD90：按主图号、子槽号和方向累加原表偏移，返回 y。
+std::int32_t* Sub_43FD90(
+    std::int32_t imageNo, std::int32_t slot, std::int32_t direction,
+    std::int32_t* x, std::int32_t* y);
+// 原 5182B0：先查询图形偏移，再按低 W8 选择 +2C8/+2CC 差值。
+std::int32_t Sub_5182B0(YobiAction* action, std::uint8_t axis);
 
 // 原 YobiGear::new@[0x4410F0,0x441128)：分配零载荷 action 并设置五个字段。
 YobiAction* NewYobiGear_4410F0(std::int32_t imageNo);

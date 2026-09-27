@@ -40,4 +40,25 @@ extern "C" void Cg2dMapEffectStep(
     const double* direction,
     std::int64_t* delta) noexcept;
 
+// 440C50 在 FrameMove 之前计算两轴截断值，并单独保留 FST 的 F32 progress。
+struct MapObserverProjection {
+    std::int64_t x;
+    std::int64_t y;
+    float progress;
+};
+
+static_assert(offsetof(MapObserverProjection, x) == 0);
+static_assert(offsetof(MapObserverProjection, y) == 8);
+static_assert(offsetof(MapObserverProjection, progress) == 16);
+static_assert(sizeof(MapObserverProjection) == 24);
+
+extern "C" void Cg2dMapObserverProjection(
+    std::int32_t frame,
+    const std::int32_t* duration,
+    std::int32_t direction,
+    MapObserverProjection* result) noexcept;
+
+// 原 440D41–440D61；在 FrameMove 之后重新读取已存 F32 progress。
+extern "C" std::int64_t Cg2dMapObserverArc(const float* progress) noexcept;
+
 } // namespace cg::platform::detail

@@ -31,7 +31,8 @@ extern std::int32_t gRendererRedOffset;  // 0x629314：蓝位数 + 绿位数。
 extern std::int32_t gRendererGreenOffset; // 0x629718：蓝位数。
 extern std::int32_t gRendererBlueOffset;  // 0x62971C：原 ESI 零值。
 
-// SDL XRGB8888 Back 已建且 32 位格式判定成功后，由 Init 按原位调用。
+// renderer owner 与 SDL XRGB8888 Back 已建且格式判定成功后，由 Init 按原位调用。
+// 同时发布唯一 pixelBitCount=32，供 MakeSurface 的接口路径读取。
 void PublishRendererPixelFormat32_44BB1E() noexcept;
 
 // 原 Init 的 0xC4 字节零初始化分配在新端仅承载已还原字段。

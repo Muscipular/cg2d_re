@@ -209,3 +209,89 @@ BuildSurfaceCache/TransformTextureSurface 处理其各自回退；
 读写点迁移、两包装成员析构顺序、SDK 状态码、严格 UTF-8 无 BOM/LF
 及文档链接静态检查通过。未编译/测试/运行，未调用 IDA；
 不以此结论代替最近邻取样结果、异步锁定情形或完整生命周期的运行验收。
+
+## 纹理实际尺寸与 MakeSurface SPEC
+
+2026-09-27，续 `6dc6fa7`，原 `ida-17524` 只读核
+`MakeSurface@[44C6D0,44C8A5)` 全部指令，以及 `44C8B0`、
+`450400/44FF40/450190` 反编译和变换面创建调用。
+此前 CPU factory 直接采用请求 S16 尺寸，只能代表无 3D 的尺寸路径；
+启用模式前必须补上以下区别，不能用 64×48 推断实际 pitch。
+
+### 原端合同
+
+1. 两个尺寸参数实际取低 S16，`44C6ED` 查询 3D 接口；
+   非零时各加 2，再取低 S16、符号扩展，写入 DDS 的 W32 宽高。
+   无 3D 时沿原请求的符号扩展结果。
+2. `44C76A` 再查接口，非零才处理原 renderer `+B4` 的能力：
+   bit1 为 1 时，宽高分别从 W32 1 开始倍增，按**无符号**
+   比较达到加 2 后的目标；bit5 为 1 时，将较小的一边改为较大边。
+   这不是 IDA 自动标签所说的 surface ALPHA/FRONTBUFFER 标志，
+   也不是把块尺寸常量改大。
+3. 该接口路径在 `44C849–44C853` 检查原 renderer `+68`
+   pixel-format bit count，零则返回空。无接口路径不做此检查。
+   原两个中间 `44B610` 查询只用于 native DDS flags/caps；
+   新 CPU 后端不保留已替换的 COM 描述符和显存类别元数据。
+4. 创建失败返回空；成功后设源色键为第三 W32 参数，
+   原 SetColorKey 返回不影响 surface 返回。
+   新端沿上一节已选的 SDL wrapper 创建/设置失败合同，不冒称
+   SDL 与原 COM 错误点或 HRESULT 逐项相同。
+5. `44D09B` 的变换面也调 MakeSurface，使用源面的实际宽高低 S16
+   作为新请求。因此有接口时可能再次加 2；不得为避免再次扩展
+   而直接绕过 factory。变换键仍为原 `TextureSurface*`，
+   像素消费者用各自实际 width 推进，不改变源矩形原 right/bottom 循环合同。
+6. `44FF40/450190` 的 32 位上传从目标 `lpSurface` 起始处写入，
+   行距来自实际 Lock pitch，没有因加 2 而整体平移到 `(1,1)`。
+   当前上传代码已按 surface width 前进，不增加边缘复制或偏移。
+
+### 工程决定
+
+- 新私有 `CreateTextureSurface_44C6D0` 承接实际尺寸、像素格式门禁、
+  源色键与真实 CPU 分配；第四个原 memory caps 参数保留但未使用，
+  已批准 CPU 后端不区分显存/系统内存。
+- `LegacyTextureState` 的唯一 renderer 成员增加 `textureCaps@+B4`
+  和 `pixelBitCount@+68`，保持 W32；原零初值不变。
+  现有 `PublishRendererPixelFormat32_44BB1E` 在掩码发布前写 32，
+  将来初始化仍须生产真实能力。不能为通过尺寸分支固定 has3D=false。
+- TextureSurface 的 width/height 改为实际 S32 尺寸；
+  此处由原 DDS 的 W32 宽高及 SDL int 尺寸证明，并非地址拓宽的推广。
+  请求参数仍为 S16，块坐标、图号、调色板和节点布局均不扩大。
+- 先接 BuildSurfaceCache 两个节点创建点及变换创建点；
+  两个节点调用继续保留 `0x4000/0x800` 实参、原计数/发布/失败回退。
+  变换创建保留 `44D08C` 的第四参数 `0x4000`，不误作节点回退类别。
+  AutoMap/Temp 的首创建 `44C8B0` 不加 2；Temp 失败回退、
+  初始化探测和其他原调用者仍须后续接对应 factory，不能本步统一记完成。
+- 不加溢出、负尺寸或循环保护；底层既有分配适配器继续返回真实失败，
+  RPLAN.24 的异常域不专项模拟或声称通过。
+
+### 四顶点实现的后续条件
+
+本次查阅 SDL 官方 `release-3.4.8` 的
+`src/render/software/SDL_render_sw.c`：`SW_QueueGeometry` 先把
+`uv*textureSize` 和目标坐标转为整数；`SDL_triangle.c`
+按像素中点计算插值。直接把前节保留的 F32 顶点交给该软件路径，
+会提前丢掉原 bias 的小数，不能仅因 SDL_RenderGeometry 接口存在就接上。
+固定版本源码入口：
+
+```text
+https://raw.githubusercontent.com/libsdl-org/SDL/release-3.4.8/src/render/software/SDL_render_sw.c
+https://raw.githubusercontent.com/libsdl-org/SDL/release-3.4.8/src/render/software/SDL_triangle.c
+```
+
+需继续落实保留采样坐标精度的 native 替换及原纹理 stage 默认值证据，
+不先放行模式、强降模式 1 或采用已知丢精度的路径。
+本步不编译、不测试、不运行客户端，不用 subAgent。
+
+### 尺寸链落实
+
+`CreateTextureSurface_44C6D0` 已在原 GraphicDxCache 源定义，
+两个节点创建点和变换面创建点已接入；原底层 owner 只有该入口调用。
+实际宽高使用 S32、SDL pitch 按实际宽计算，32 位上传仍从数组首项起笔。
+GetLegacyTextureState 借用同一 renderer 成员；格式发布写入 bit count，
+没有补造 textureCaps 的非零值或 3D 接口实例。
+
+本线程按指令核对无接口、有接口、两能力位及格式为零的分支，
+核对节点类别 `0x4000/0x800`、变换类别 `0x4000` 和失败回退。
+十文件限定差异、接口/三处调用/既有源登记、SDK 能力位、
+严格 UTF-8 无 BOM/LF 与文档文件链接静态检查通过；
+没有配置、编译、测试或运行，不把其他 factory caller 或四顶点路径记为完成。

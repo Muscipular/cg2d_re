@@ -13,6 +13,12 @@ struct GraphicCacheItem32;
 
 inline constexpr std::size_t kTextureNodeCapacity = 4096;
 
+// 原 44C6D0：请求取低 S16；按 3D 接口/能力调整实际尺寸，再创建 CPU 面。
+// 非拥有返回值由现有 TextureSurfaceOwner 管理；CPU 后端不区分 memory caps。
+TextureSurface* CreateTextureSurface_44C6D0(
+    std::int16_t width, std::int16_t height, std::uint32_t colorKey,
+    std::uint32_t unusedMemoryCaps);
+
 // 原 0x1C 节点的 x64 字段承载；surface 和 next 仅为非拥有引用。
 struct TextureNode {
     TextureSurface* surface;       // 原 +00：底层 surface 引用，reset 不写。

@@ -10,6 +10,7 @@
 #include "cg/render/GraphicDxCache.hpp"
 #include "cg/render/GraphicPaletteCache.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
+#include "cg/render/RendererResources.hpp"
 #include "cg/render/SurfaceState.hpp"
 #include "cg/world/SceneState.hpp"
 
@@ -27,8 +28,8 @@
 namespace cg::render {
 
 struct TextureSurface {
-    std::int16_t width {};
-    std::int16_t height {};
+    std::int32_t width {};  // 原 DDS 的实际 W32 尺寸，可能大于低 S16 请求值。
+    std::int32_t height {};
     std::uint32_t colorKey {};
     std::unique_ptr<std::uint32_t[]> pixels;
     // 借用 pixels；成员逆序析构保证先释放包装，再释放像素。
@@ -52,7 +53,8 @@ public:
         }
     }
 
-    TextureSurface* Create(std::int16_t width, std::int16_t height) noexcept
+    TextureSurface* Create(
+        std::int32_t width, std::int32_t height, std::uint32_t colorKey) noexcept
     {
         if (width <= 0 || height <= 0) {
             return nullptr;
@@ -70,6 +72,7 @@ public:
         }
         surface->width = width;
         surface->height = height;
+        surface->colorKey = colorKey;
         surface->blitSurface.reset(SDL_CreateSurfaceFrom(
             width, height, SDL_PIXELFORMAT_XRGB8888, surface->pixels.get(),
             static_cast<int>(width) * static_cast<int>(sizeof(std::uint32_t))));
@@ -151,6 +154,44 @@ std::int32_t gTexturePreferredCount = 0;
 std::int32_t gTextureFallbackCount = 0;
 std::int32_t gTextureSizeW = 0;
 std::int32_t gTextureSizeH = 0;
+
+TextureSurface* CreateTextureSurface_44C6D0(
+    const std::int16_t requestedWidth, const std::int16_t requestedHeight,
+    const std::uint32_t colorKey, std::uint32_t /*unusedMemoryCaps*/)
+{
+    std::uint32_t width = static_cast<std::uint32_t>(requestedWidth);
+    std::uint32_t height = static_cast<std::uint32_t>(requestedHeight);
+    if (HasLegacy3DDevice_44B610() != 0) {
+        width = static_cast<std::uint32_t>(static_cast<std::int16_t>(requestedWidth + 2));
+        height = static_cast<std::uint32_t>(static_cast<std::int16_t>(requestedHeight + 2));
+    }
+    if (HasLegacy3DDevice_44B610() != 0) {
+        if ((GetLegacyTextureState().textureCaps & 2u) != 0) {
+            const std::uint32_t requiredWidth = width;
+            const std::uint32_t requiredHeight = height;
+            width = 1;
+            while (width < requiredWidth) {
+                width += width;
+            }
+            height = 1;
+            while (height < requiredHeight) {
+                height += height;
+            }
+        }
+        if ((GetLegacyTextureState().textureCaps & 0x20u) != 0) {
+            if (width <= height) {
+                width = height;
+            } else {
+                height = width;
+            }
+        }
+        if (GetLegacyTextureState().pixelBitCount == 0) {
+            return nullptr;
+        }
+    }
+    return gTextureSurfaceOwner.Create(
+        std::bit_cast<std::int32_t>(width), std::bit_cast<std::int32_t>(height), colorKey);
+}
 
 void ResetTextureNodes_523310() noexcept
 {
@@ -453,7 +494,7 @@ std::int32_t BuildSurfaceCache_5231A0()
         if (!fallback) {
             const auto width = static_cast<std::int16_t>(gTextureSizeW);
             const auto height = static_cast<std::int16_t>(gTextureSizeH);
-            gTextureNodes[index].surface = gTextureSurfaceOwner.Create(width, height);
+            gTextureNodes[index].surface = CreateTextureSurface_44C6D0(width, height, 0, 0x4000);
             if (gTextureNodes[index].surface != nullptr) {
                 ++gTexturePreferredCount;
                 continue;
@@ -463,7 +504,7 @@ std::int32_t BuildSurfaceCache_5231A0()
 
         const auto width = static_cast<std::int16_t>(gTextureSizeW);
         const auto height = static_cast<std::int16_t>(gTextureSizeH);
-        gTextureNodes[index].surface = gTextureSurfaceOwner.Create(width, height);
+        gTextureNodes[index].surface = CreateTextureSurface_44C6D0(width, height, 0, 0x800);
         if (gTextureNodes[index].surface == nullptr) {
             platform::ShowLegacyMessage(
                 "建立繪圖頁失敗", "確認", 0x10);
@@ -587,7 +628,9 @@ TextureSurface* TransformTextureSurface_44CD80(
     }
     const std::int32_t width = sourceRectangle[2];
     const std::int32_t height = sourceRectangle[3];
-    TextureSurface* const transformed = gTextureSurfaceOwner.Create(source->width, source->height);
+    TextureSurface* const transformed = CreateTextureSurface_44C6D0(
+        static_cast<std::int16_t>(source->width),
+        static_cast<std::int16_t>(source->height), 0, 0x4000);
     if (transformed == nullptr) {
         return source;
     }

@@ -15,7 +15,7 @@ struct PaletteBinding {
 
 struct RendererResources {
     std::unique_ptr<PaletteBinding> palette;
-    // 原 +B8/+BA/+BC；GPTR 零初值，后续由 RendererInit 在原时点发布。
+    // 原纹理/像素格式字段；GPTR 零初值，后续由 RendererInit 在原时点发布。
     LegacyTextureState textureState {};
 };
 
@@ -37,6 +37,7 @@ const LegacyTextureState& GetLegacyTextureState()
 
 void PublishRendererPixelFormat32_44BB1E() noexcept
 {
+    gRenderer->textureState.pixelBitCount = 32;
     gRendererRedMask = 0x00FF0000u;
     gRendererGreenMask = 0x0000FF00u;
     gRendererBlueMask = 0x000000FFu;

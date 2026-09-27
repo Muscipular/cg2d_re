@@ -1053,6 +1053,9 @@ Back 的掩码发布与旧 `data\update.dat` 的写入边界。
 节点/变换面与 Back 各自持有仅借用原数组的 SDL_Surface 包装，
 销毁先释放包装再释放像素；共享纹理状态查询也已在 renderer owner 落位。
 四顶点混合提交及状态生产仍缺，见该 SPEC 的 CPU 色键 Blt 章节。
+随后已补 MakeSurface 的实际尺寸规则，节点/变换面不再把请求 64×48
+当作有 3D 时的固定物理大小；像素格式发布 helper 同时写唯一 bit count。
+Temp 失败回退、初始化探测的 factory 接线仍缺。
 不能据上层入口存在称模式 2/3/4、RendererInit 或最终画面已完成。
 
 ## `44C560` 的 SDL 提交叶与共享帧槽

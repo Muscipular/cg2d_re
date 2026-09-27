@@ -12,11 +12,13 @@ struct TextureSurface;
 // 原 RECT 的四项 S32，顺序为 left/top/right/bottom；缓存使用同一数值顺序。
 using TextureRectangle = std::array<std::int32_t, 4>;
 
-// 原 renderer +B8/+BA/+BC 的共享值；查询须借用 RendererResources 的唯一存储。
+// 原 renderer 的共享值；查询须借用 RendererResources 的唯一存储。
 struct LegacyTextureState {
-    std::int16_t width;
-    std::int16_t height;
-    std::int32_t colorKeyEnabled;
+    std::int16_t width;            // +B8：纹理采样分母，不是请求块宽。
+    std::int16_t height;           // +BA。
+    std::int32_t colorKeyEnabled;  // +BC。
+    std::uint32_t textureCaps;     // +B4：bit1 幂次方、bit5 正方形限制。
+    std::uint32_t pixelBitCount;   // +68：native 格式查询结果。
 };
 
 // 原 FVF=0x144 顶点；四点按左上、右上、右下、左下提交。

@@ -2,6 +2,7 @@
 
 > 建立日期：2026-09-14。
 > 当前状态（2026-09-27 对齐）：入口、MainLoop、状态分发、登录及地图文件链已有局部实现；GraphicInit、独立调色板/DBF、节点建链上传、RenderChara 和 SDL Flip/Destroy 已有本体；anime 查询/分配/清理/索引、AnimeLoadAction/CoordInit、FrameMove/PlayFrame、CoordLoad、AnimeInit 与 CoordLoadInit 已落位。InitializeClient、相册初始化、InitLoading 及两段加载淡变已静态接线；44D520/44DA90 完整上层控制流已接变换缓存和实际 CPU 色键 Blt，四顶点混合提交仍缺。Renderer::Init、3D 接口状态、DrawAllQueued、相册持久化/UI、次级音乐与网络分发等依赖仍缺，未完成完整客户端链接和运行验收。当前状态与证据入口统一见[独立进度](cg2d_full_reconstruction_progress.md)，不按小步编号推算完成率。
+> 纹理尺寸增量：MakeSurface 已接节点/变换面的 +2、幂次方、正方形及格式门禁；Temp 失败回退、初始化探测和真实能力生产尚未接通，不计模式 2/3/4 完成。
 > 已确认：原客户端为 x86，新工程目标为 x64；原指针按 32 位取证，新端指针及布局映射单独记录。
 > 最新执行要求：取消本线最小改动限制，按功能依赖推进完整实现；先完善功能，再考虑启动，暂不新增或执行测试用例。既有历史验证记录保留，不据此继续扩展测试。
 > 构建要求：2026-09-27 用户最新要求“不构建”，覆盖此前按需 Debug 许可；Debug/Release 均不执行，不检查编译产物，不新增或执行测试、不运行客户端。历史构建记录保留，不据此宣称当前链接或运行通过。

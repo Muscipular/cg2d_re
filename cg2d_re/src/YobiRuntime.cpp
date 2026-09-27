@@ -2422,6 +2422,78 @@ void SetYobiActionField30F(
 
 namespace cg::world::detail {
 
+void Sub_46A5F0()
+{
+    if (gValueFF0D36 == 0 || (ReadPlayerFlags18A() & 0x100u) == 0) {
+        return;
+    }
+    for (std::size_t position = 1; position < 5; ++position) {
+        const std::int16_t index = ReadPetFollowIndex(position);
+        if (index < 0) {
+            break;
+        }
+        login::YobiAction* const action = ReadPetMapAction(index);
+        const double targetX = static_cast<double>(
+            platform::legacy_crypt_int::Read_401EC0(&action->mapX200)) * 64.0F;
+        const float worldX = action->worldX;
+        if (targetX < worldX || targetX > worldX) {
+            continue;
+        }
+        const double targetY = static_cast<double>(
+            platform::legacy_crypt_int::Read_401EC0(&action->mapY210)) * 64.0F;
+        const float worldY = action->worldY;
+        if (targetY < worldY || targetY > worldY
+            || std::bit_cast<std::int16_t>(action->field270) <= 0) {
+            continue;
+        }
+
+        const std::int32_t speed = ReadPlayerWalkSpeed();
+        const std::int32_t nextY = action->pathY248[0];
+        const std::int32_t nextX = action->pathX220[0];
+        static_cast<void>(
+            login::detail::Sub_442110(action, nextX, nextY, speed, 0.0F));
+        login::detail::Sub_442460(action);
+        // 原末位置的9FB942前视值无论正负都被丢弃；不虚构第六槽。
+        if (position + 1 >= 5) {
+            continue;
+        }
+        const std::int16_t nextIndex = ReadPetFollowIndex(position + 1);
+        if (nextIndex < 0) {
+            continue;
+        }
+        login::YobiAction* const nextAction = ReadPetMapAction(nextIndex);
+        const std::int32_t y =
+            platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0);
+        const std::int32_t x =
+            platform::legacy_crypt_int::Read_401EC0(&action->mapX1E0);
+        login::detail::Sub_441F60(nextAction, x, y);
+    }
+}
+
+login::YobiAction* Sub_51A640()
+{
+    login::YobiAction* const action = ReadPlayerAction();
+    if (action != nullptr) {
+        action->field272 = 1;
+    }
+    return action;
+}
+
+login::YobiAction* Sub_51A660()
+{
+    login::YobiAction* const action = ReadPlayerAction();
+    if (action != nullptr) {
+        action->field272 = 0;
+    }
+    return action;
+}
+
+std::int32_t Sub_51A680()
+{
+    login::YobiAction* const action = ReadPlayerAction();
+    return action == nullptr ? 0 : std::bit_cast<std::int16_t>(action->field272);
+}
+
 void Sub_519EE0()
 {
     if (ReadPlayerAction() == nullptr) {

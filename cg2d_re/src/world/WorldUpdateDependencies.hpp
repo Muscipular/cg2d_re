@@ -535,6 +535,12 @@ extern std::uint16_t gValueFF0D36; // 原跟随gate；协议和场景共享，�
 void Sub_46A990(); // 从同一宠物五槽生成9FB938顺序表，gate为0不清表。
 void Sub_46A5A0(std::int32_t x, std::int32_t y); // 给顺序表第2项调用441F60。
 void Sub_46A940(); // 从顺序表第2项起调用442730，首个负S16终止。
+void Sub_46A5F0(); // 原完整跟随路径调度；到达后启动首路径并向后继传点。
+// YobiRuntime借用同一SceneState状态，不公开玩家首块或五槽记录布局。
+std::uint32_t ReadPlayerFlags18A() noexcept; // 原FDA88A跨W32读取。
+std::int32_t ReadPlayerWalkSpeed() noexcept; // 原FDA870。
+std::int16_t ReadPetFollowIndex(std::size_t position) noexcept;
+login::YobiAction* ReadPetMapAction(std::int16_t index) noexcept;
 // 519EE0 每个原读取点借用唯一 FF02B4，不暴露可写槽或对象布局。
 login::YobiAction* ReadPlayerAction() noexcept;
 void Sub_519CD0(
@@ -543,6 +549,11 @@ void Sub_519CD0(
 void Sub_519E50(std::int32_t imageNo, std::int32_t direction);
 std::uint32_t Sub_519EC0(std::int32_t x, std::int32_t y); // 透传468330。
 void Sub_519EE0(); // 原入口不读取参数；检查当前坐标并同步 action 载荷。
+std::int32_t Sub_51A040(std::int32_t direction); // 同源方向发布，返回完整输入。
+void Sub_51A060(std::int32_t characterAction); // 动作1不重启，其余动作请求重启。
+login::YobiAction* Sub_51A640(); // 原+272置1，返回入口借用指针。
+login::YobiAction* Sub_51A660(); // 原+272清0，返回入口借用指针。
+std::int32_t Sub_51A680(); // 空玩家为0，否则MOVSX读取原+272，非指针返回。
 std::int32_t Sub_51C0D0(std::int32_t imageNo); // 原骑乘图号映射，未命中原值返回。
 std::int8_t Sub_519D50();                  // 原 0x519D50：附件清理、重读玩家标死与动作尾链，返回低 S8。
 // 519D50 尾链及 51A840 状态生产共用的玩家位槽，不复制 FDA88E 动作标志。

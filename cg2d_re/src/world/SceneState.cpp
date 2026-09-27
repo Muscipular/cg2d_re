@@ -3992,6 +3992,27 @@ std::int32_t Sub_4410E0()
     return 0x11;
 }
 
+std::uint32_t ReadPlayerFlags18A() noexcept
+{
+    return static_cast<std::uint32_t>(gPlayerRuntime.flags18A)
+        | (gPlayerRuntime.flags18C << 16);
+}
+
+std::int32_t ReadPlayerWalkSpeed() noexcept
+{
+    return gPlayerRuntime.walkSpeed;
+}
+
+std::int16_t ReadPetFollowIndex(const std::size_t position) noexcept
+{
+    return std::bit_cast<std::int16_t>(gPetFollowOrder[position]);
+}
+
+login::YobiAction* ReadPetMapAction(const std::int16_t index) noexcept
+{
+    return gPetMapCharaSlots[static_cast<std::size_t>(index)].action;
+}
+
 void Sub_46A990()
 {
     if (gValueFF0D36 == 0) {
@@ -4199,6 +4220,25 @@ void Sub_519E50(const std::int32_t imageNo, const std::int32_t direction)
 std::uint32_t Sub_519EC0(const std::int32_t x, const std::int32_t y)
 {
     return Sub_468330(x, y);
+}
+
+std::int32_t Sub_51A040(const std::int32_t direction)
+{
+    login::YobiAction* const action = gPlayerRuntime.action;
+    gPlayerRuntime.direction = direction;
+    if (action != nullptr) {
+        login::detail::SetYobiActionField2B8(action, direction);
+    }
+    return direction;
+}
+
+void Sub_51A060(const std::int32_t characterAction)
+{
+    login::YobiAction* const action = gPlayerRuntime.action;
+    if (action != nullptr) {
+        login::detail::Sub_43EFC0(
+            action, characterAction, characterAction == 1 ? 0 : 1);
+    }
 }
 
 std::int32_t Sub_51C0D0(const std::int32_t imageNo)

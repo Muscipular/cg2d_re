@@ -491,6 +491,15 @@ struct RecipeItemData;
 RecipeItemData* Sub_5199A0();              // 原 0x5199A0。
 std::int32_t Sub_444FA0(std::int32_t objectIndex); // 原编号查槽，命中更新查找游标。
 std::int32_t Sub_446130(); // 原空槽领取，返回旧游标；不在此处标记占用。
+// 原类别2/4对象生产或更新；已有记录不补建action，创建失败不回滚领取。
+void Sub_445D20(
+    std::int32_t objectIndex, std::int32_t imageNo, std::int32_t mapX,
+    std::int32_t mapY, std::int32_t direction, std::int32_t value48,
+    const char* name, std::int32_t value50);
+void Sub_445F40(
+    std::int32_t objectIndex, std::int32_t imageNo, std::int32_t mapX,
+    std::int32_t mapY, std::int32_t direction, std::int32_t value4C,
+    const char* name);
 void Sub_4462E0(std::int32_t objectIndex); // 原按编号删除；两条调用链均不消费返回。
 std::int32_t Sub_445030(
     std::int32_t x, std::int32_t y, std::uint16_t category, std::uint16_t flags);

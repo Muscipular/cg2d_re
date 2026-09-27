@@ -60,7 +60,7 @@ struct YobiAction {
     std::int8_t nameFontType;        // 原 +BD。
     std::int8_t nameLayer;           // 原 +BE；DrawText2 的 renderMode。
     std::int32_t nameValueC0;        // 原 +C0；DrawText2 仅消费低 S8。
-    std::array<char, 17> nameC4; // 原 +C4 原始姓名，不是 +64 绘制文本。
+    std::array<char, 29> nameC4; // 原 +C4..+E0；445D20允许28B及NUL，不是+64绘制文本。
     std::array<char, 17> titleE1; // 原 +E1，51A090 当前最多写16B及NUL。
     std::array<char, 33> text102;
     std::array<char, 33> text123;
@@ -193,7 +193,8 @@ struct MapActorPayload {
     YobiAction* action08;
     YobiAction* action0C;
     YobiAction* action10;
-    std::array<std::byte, 8> bytes14;
+    std::array<std::byte, 4> bytes14;
+    std::int32_t value18; // 原+18，445D20发布协议数值value50。
     char* text1C;
     std::array<std::byte, 12> bytes20;
     YobiAction* action2C;
@@ -213,6 +214,7 @@ static_assert(offsetof(MapActorPayload, action08) == 0x10);
 static_assert(offsetof(MapActorPayload, action0C) == 0x18);
 static_assert(offsetof(MapActorPayload, action10) == 0x20);
 static_assert(offsetof(MapActorPayload, bytes14) == 0x28);
+static_assert(offsetof(MapActorPayload, value18) == 0x2C);
 static_assert(offsetof(MapActorPayload, text1C) == 0x30);
 static_assert(offsetof(MapActorPayload, bytes20) == 0x38);
 static_assert(offsetof(MapActorPayload, action2C) == 0x48);
@@ -2475,6 +2477,121 @@ void SetYobiActionField30F(
 } // namespace cg::login
 
 namespace cg::world::detail {
+
+void Sub_445D20(
+    const std::int32_t objectIndex, const std::int32_t imageNo,
+    const std::int32_t mapX, const std::int32_t mapY,
+    const std::int32_t direction, const std::int32_t value48,
+    const char* const name, const std::int32_t value50)
+{
+    std::int32_t index = Sub_444FA0(objectIndex);
+    if (index < 0) {
+        index = Sub_446130();
+        if (index < 0) {
+            return;
+        }
+        login::YobiAction* const action =
+            login::detail::Sub_441DB0(imageNo, mapX, mapY, direction);
+        auto& record = gWorldObjects[static_cast<std::size_t>(index)];
+        record.action = action;
+        if (action == nullptr) {
+            return;
+        }
+        record.used = 2;
+        static_cast<login::detail::MapActorPayload*>(record.action->payload)->index = index;
+        record.category = 2;
+        record.objectIndex = objectIndex;
+        record.value34 = -1;
+    }
+
+    auto& record = gWorldObjects[static_cast<std::size_t>(index)];
+    record.imageNo = static_cast<std::uint32_t>(imageNo);
+    record.value48 = value48;
+    // 原445D20的mask写入先于encoded，不能复用相反写序的AssignFromInt。
+    const auto assignCoordinate = [](
+        platform::LegacyCryptInt& target, const std::int32_t value) {
+        platform::LegacyCryptInt temporary;
+        platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, value);
+        target.mask = temporary.mask;
+        target.encoded = temporary.encoded;
+        target.readCount = temporary.readCount;
+        platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    };
+    assignCoordinate(record.coordinate0C, mapX);
+    assignCoordinate(record.coordinate1C, mapY);
+    record.direction = direction;
+    if (std::strlen(name) <= 60) {
+        std::memmove(record.nameC9.data(), name, std::strlen(name) + 1);
+    }
+    record.flags114 = 0x400u;
+    record.value118 = 0;
+    record.value50 = value50;
+    login::YobiAction* const action = record.action;
+    if (action == nullptr) {
+        return;
+    }
+    action->imageNo = imageNo;
+    if (std::strlen(name) <= 28) {
+        char* const destination = record.action->nameC4.data();
+        std::memmove(destination, name, std::strlen(name) + 1);
+    } else {
+        std::memmove(record.action->nameC4.data(), "???", 4);
+    }
+    record.action->flags |= 0x400u;
+    record.action->field1D8 = value48;
+    static_cast<login::detail::MapActorPayload*>(record.action->payload)->value18 = value50;
+}
+
+void Sub_445F40(
+    const std::int32_t objectIndex, const std::int32_t imageNo,
+    const std::int32_t mapX, const std::int32_t mapY,
+    const std::int32_t direction, const std::int32_t value4C,
+    const char* const name)
+{
+    std::int32_t index = Sub_444FA0(objectIndex);
+    if (index < 0) {
+        index = Sub_446130();
+        if (index < 0) {
+            return;
+        }
+        login::YobiAction* const action =
+            login::detail::Sub_441DB0(imageNo, mapX, mapY, direction);
+        auto& record = gWorldObjects[static_cast<std::size_t>(index)];
+        record.action = action;
+        if (action == nullptr) {
+            return;
+        }
+        record.used = 2;
+        static_cast<login::detail::MapActorPayload*>(record.action->payload)->index = index;
+        record.category = 4;
+        record.objectIndex = objectIndex;
+        record.value34 = -1;
+    }
+
+    auto& record = gWorldObjects[static_cast<std::size_t>(index)];
+    record.imageNo = static_cast<std::uint32_t>(imageNo);
+    record.value4C = value4C;
+    platform::legacy_crypt_int::AssignFromInt(&record.coordinate0C, mapX);
+    platform::legacy_crypt_int::AssignFromInt(&record.coordinate1C, mapY);
+    record.direction = direction;
+    if (std::strlen(name) <= 60) {
+        std::memmove(record.nameC9.data(), name, std::strlen(name) + 1);
+    }
+    record.flags114 = 0x800u;
+    record.value118 = 0;
+    login::YobiAction* const action = record.action;
+    if (action == nullptr) {
+        return;
+    }
+    action->imageNo = imageNo;
+    if (std::strlen(name) <= 16) {
+        char* const destination = record.action->nameC4.data();
+        std::memmove(destination, name, std::strlen(name) + 1);
+    } else {
+        std::memmove(record.action->nameC4.data(), "???", 4);
+    }
+    record.action->flags |= 0x800u;
+}
 
 std::int32_t Sub_445030(
     const std::int32_t x, const std::int32_t y,

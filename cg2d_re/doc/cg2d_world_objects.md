@@ -140,3 +140,74 @@ used为零直接跳过，即使action非空也不处理。已用槽的action非�
 4462E0的4417E0回调与50B380协议上游尚未实现。
 World记录生产、其余字段映射、普通/战斗场景与整体SPEC仍未闭合。
 前文“单项/批量清理仍缺”是前一步状态，以本节为准。
+
+## 类别2、4生产与更新 SPEC
+
+原会话只读核445D20@[445D20,445F3E)、445F40@[445F40,44612E)
+完整指令、栈位移和唯一caller 50BB16/50BCA7。参数分别为：
+`(objectIndex,imageNo,mapX,mapY,direction,value48,name,value50)`、
+`(objectIndex,imageNo,mapX,mapY,direction,value4C,name)`。
+除name为借用`const char*`外均为S32；图号写入记录时保留W32位型。
+两caller均弃用返回：50BB1B直接覆盖EAX，50BCAF递增后回到50B3B5，
+50B3C0覆盖EAX。裁决两入口为void，不模拟寄存器残留。
+
+### 增量映射与归属
+
+沿既有三种查询的方式，完整入口位于YobiRuntime.cpp的world::detail段，
+直接访问唯一World表和本源私有action/payload；不增加字段访问器群，
+不将Yobi布局公开到WorldObjectState.hpp，不合并两种不同写序的生产者。
+
+- 记录原+30定为S32 direction；+48/+4C/+50分别为S32 value48/value4C/value50。
+  50BABA/50BAFD经52CFA0解析十进制数，空项为-1，非空调用atoi，
+  445DCA/445E86写入+48/+50；50BC16–50BC98对数值作有符号阈值比较，
+  445FED写入+4C，均不是指针。
+- 原+C9文本存61字节；不是截断缓冲，源长度>60时保留旧内容。
+  原+114为U32 flags114，+118为S32 value118；445755写1，两入口写0。
+  bytes54缩为[54,C9)，新增nameC9和[106,114)保留区，其余未知字段不改。
+  原action仍映射+120、flags120仍+128，总长0x148不变。
+- MapActorPayload原+18由value50写入，定为S32 value18，新端+2C；
+  原+14仍保留4字节。后续字段及总长0x88不变，仍不解释未知字段。
+- Yobi原+C4由445EB0允许28字节加NUL，4460C2对应入口允许16字节
+  加NUL；扩为29字节承载，不把先前玩家入口<=16误作全局容量。
+  nameC4与titleE1仍独立，原+C4并非绘制文本+64；现有玩家写入门槛不变。
+  Yobi是原生重排对象，分配仍按sizeof，不承诺原0x330或固定新偏移。
+
+### 领取、创建与共同尾
+
+先444FA0按编号查找。未找到才446130领取；领取失败返回。
+调用441DB0(imageNo,mapX,mapY,direction)后先发布返回T*，为空直接返回，
+不回滚占用数、空槽游标或上界，不补used。成功写used=2，
+重读action并写payload.index=槽下标，再写category=2/4、
+objectIndex和value34=-1。已找到记录跳过上述初始化，
+即使其action为空也不补建、不改category或value34。
+
+随后写imageNo及各自value48/value4C，构造mapX临时量写coordinate0C，
+再构造mapY写coordinate1C；两次独立RNG，不复用action坐标或搬整块CryptInt。
+445D20的每组载荷是mask→encoded→readCount，
+445F40是encoded→mask→readCount；每次随后析构临时量。
+两者再写direction，长度<=60才复制name到记录+C9（含NUL）；
+保留长度判定与实际复制前的独立strlen，不解码或转义原字节。
+
+### 各自尾部与失败残留
+
+445D20写flags114=0x400、value118=0、value50。
+action为空则返回，记录更新仍保留。非空先写action.imageNo，
+源name长度<=28才原样复制到重读action的nameC4，否则写554590的
+实际四字节`???\0`。随后再次重读action，将其flags按位或0x400，
+再重读写field1D8=value48，最后重读payload写value18=value50。
+
+445F40写flags114=0x800、value118=0；action为空即返回。
+非空先更新imageNo，name长度<=16才复制到重读action的nameC4，
+超限同样写`???\0`；最后重读action并将flags按位或0x800。
+不写value50、field1D8或payload.value18。
+
+两入口不更新已有action当前位置、目标、朝向或世界像素；这些更新
+仍由真实后继回调处理。不清其他旧字段、不添加空文本/payload保护，
+不新增测试或模拟异常。验收仅作接口、指令、写序/RNG、布局算式、
+限定差异与UTF-8静态核对，不编译、运行或检查产物。
+
+两生产入口完整本体与增量类型映射已落位，使用真实441DB0创建，
+不增加替代循环或空回调。五文件接口、分支、字段写序/数值宽度、
+原生布局算式、sizeof分配和源登记仅作静态核对；
+445350/445A60另外两类生产、50B380协议caller、
+4417E0/442F70/43E490回调与完整场景仍缺，未声明生产消费链运行通过。

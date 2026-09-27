@@ -174,6 +174,45 @@ static_assert(offsetof(MapCharaPayload, frame) == 0x40);
 static_assert(offsetof(MapCharaPayload, next) == 0x48);
 static_assert(sizeof(MapCharaPayload) == 0x50);
 
+// 原 441DB0 的 0x50 载荷，与上方观察链载荷不同；未消费区不猜业务类型。
+struct MapActorPayload {
+    std::int32_t index;
+    YobiAction* action04;
+    YobiAction* action08;
+    YobiAction* action0C;
+    YobiAction* action10;
+    std::array<std::byte, 8> bytes14;
+    char* text1C;
+    std::array<std::byte, 12> bytes20;
+    YobiAction* action2C;
+    YobiAction* action30;
+    YobiAction* action34;
+    YobiAction* action38;
+    std::array<std::byte, 8> bytes3C;
+    YobiAction* action44;
+    std::array<std::byte, 4> bytes48;
+    YobiAction* action4C;
+};
+
+static_assert(std::is_standard_layout_v<MapActorPayload>);
+static_assert(std::is_trivially_copyable_v<MapActorPayload>);
+static_assert(offsetof(MapActorPayload, action04) == 0x08);
+static_assert(offsetof(MapActorPayload, action08) == 0x10);
+static_assert(offsetof(MapActorPayload, action0C) == 0x18);
+static_assert(offsetof(MapActorPayload, action10) == 0x20);
+static_assert(offsetof(MapActorPayload, bytes14) == 0x28);
+static_assert(offsetof(MapActorPayload, text1C) == 0x30);
+static_assert(offsetof(MapActorPayload, bytes20) == 0x38);
+static_assert(offsetof(MapActorPayload, action2C) == 0x48);
+static_assert(offsetof(MapActorPayload, action30) == 0x50);
+static_assert(offsetof(MapActorPayload, action34) == 0x58);
+static_assert(offsetof(MapActorPayload, action38) == 0x60);
+static_assert(offsetof(MapActorPayload, bytes3C) == 0x68);
+static_assert(offsetof(MapActorPayload, action44) == 0x70);
+static_assert(offsetof(MapActorPayload, bytes48) == 0x78);
+static_assert(offsetof(MapActorPayload, action4C) == 0x80);
+static_assert(sizeof(MapActorPayload) == 0x88);
+
 static_assert(std::is_standard_layout_v<YobiUIData>);
 static_assert(std::is_trivially_copyable_v<YobiUIData>);
 static_assert(sizeof(YobiUIData) == 0x24);
@@ -899,6 +938,85 @@ YobiAction* NewYobiAction_404AE0(
 YobiAction* NewMapCharaAction()
 {
     return NewYobiAction_404AE0(2, sizeof(MapCharaPayload));
+}
+
+// 原 441DB0 设置的真实目标；世界对象表及此回调完整实现仍待后续落位。
+void Sub_4417E0(YobiAction* action);
+
+YobiAction* Sub_441DB0(
+    const std::int32_t imageNo, const std::int32_t mapX,
+    const std::int32_t mapY, const std::int32_t direction)
+{
+    YobiAction* const action = NewYobiAction_404AE0(2, sizeof(MapActorPayload));
+    if (action == nullptr) {
+        return nullptr;
+    }
+    action->direction = direction;
+    action->callback = Sub_4417E0;
+    action->imageNo = imageNo;
+    action->characterAction = 0;
+    action->displayPriority = 10;
+    action->flags = 0x34;
+
+    // 本入口的 count/encoded/mask 写序与通用 CopyPayload 不同。
+    const auto assignCoordinate = [](
+        platform::LegacyCryptInt& target, const std::int32_t value) {
+        platform::LegacyCryptInt temporary;
+        platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, value);
+        target.readCount = temporary.readCount;
+        target.encoded = temporary.encoded;
+        target.mask = temporary.mask;
+        platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    };
+    assignCoordinate(action->mapX200, mapX);
+    assignCoordinate(action->mapY210, mapY);
+    action->field270 = 0;
+    assignCoordinate(action->mapX1E0, mapX);
+    assignCoordinate(action->mapY1F0, mapY);
+
+    const double scaledX = static_cast<double>(mapX) * 64.0F;
+    action->field27C = 0;
+    action->field280 = 0;
+    action->phase = 0;
+    const auto worldX = static_cast<float>(scaledX);
+    action->worldX = worldX;
+    const auto worldY = static_cast<float>(static_cast<double>(mapY) * 64.0F);
+    action->worldY = worldY;
+    float screenX;
+    float screenY;
+    world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
+    action->x = static_cast<std::int32_t>(
+        static_cast<std::int64_t>(static_cast<double>(screenX) + 0.5));
+    action->y = static_cast<std::int32_t>(
+        static_cast<std::int64_t>(static_cast<double>(screenY) + 0.5));
+    return action;
+}
+
+void ClearMapActorAttachments(YobiAction* const action)
+{
+    auto* const payload = static_cast<MapActorPayload*>(action->payload);
+    if (payload == nullptr) {
+        return;
+    }
+
+    // 原清理不包含 +34/+38；只保存槽地址，每轮调用前才读取对象指针。
+    YobiAction** const slots[] {
+        &payload->action04, &payload->action08, &payload->action0C,
+        &payload->action10, &payload->action2C, &payload->action4C,
+        &payload->action30, &payload->action44,
+    };
+    for (YobiAction** const slot : slots) {
+        YobiAction* const child = *slot;
+        if (child != nullptr) {
+            MarkDeath(child);
+            *slot = nullptr;
+        }
+    }
+    char* const text = payload->text1C;
+    if (text != nullptr) {
+        std::free(text);
+        payload->text1C = nullptr;
+    }
 }
 
 YobiAction* Sub_46DE50(

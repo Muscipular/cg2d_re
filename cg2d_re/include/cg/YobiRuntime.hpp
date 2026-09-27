@@ -47,6 +47,13 @@ YobiAction* NewYobiAction_404AE0(
 // 三种地图角色生产者共用的 x64 payload 分配，不改变通用 404AE0 的尺寸合同。
 YobiAction* NewMapCharaAction();
 
+// 原 441DB0：地图实体的独立原生载荷、四次坐标赋值与投影；真实回调 4417E0 尚待实现。
+YobiAction* Sub_441DB0(
+    std::int32_t imageNo, std::int32_t mapX,
+    std::int32_t mapY, std::int32_t direction);
+// 原 519D61–519E14：主 action 已非空，条件清八个附件及文本；不释放主 action/payload。
+void ClearMapActorAttachments(YobiAction* action);
+
 // 原 46DE50：创建地图动画 action，保留四次 CryptInt 临时赋值及投影顺序。
 YobiAction* Sub_46DE50(std::int32_t imageNo, std::int32_t mapX, std::int32_t mapY);
 // 原 46DD90：重新投影、读取加密坐标、FrameMove，再向同一地图对象缓存入队。

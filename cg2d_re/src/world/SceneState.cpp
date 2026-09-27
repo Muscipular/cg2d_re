@@ -3945,6 +3945,21 @@ std::int32_t Sub_4410E0()
     return 0x11;
 }
 
+std::int8_t Sub_519D50()
+{
+    login::YobiAction* const action = gPlayerRuntime.action;
+    if (action != nullptr) {
+        login::detail::ClearMapActorAttachments(action);
+        login::detail::MarkDeath(gPlayerRuntime.action);
+        gPlayerRuntime.action = nullptr;
+    }
+    Sub_51A5B0();
+    if (Sub_51BEC0() == 0) {
+        return 0;
+    }
+    return Sub_51BE50(0);
+}
+
 void Sub_51A5A0()
 {
     gPlayerRuntime.flags18A |= 0x0100u;

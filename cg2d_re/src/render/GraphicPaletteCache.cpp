@@ -37,6 +37,41 @@ void ReleaseGraphicPaletteCache_44E110() noexcept
     gGraphicDataCacheList = nullptr;
 }
 
+PaletteCacheItem* TakeIndexCacheFromPool_44E150(const std::int32_t imageNo) noexcept
+{
+    std::size_t index = 0;
+    while (index < kGraphicPaletteDynamicCount
+        && gGraphicDataCacheList[index].imageNo >= 0) {
+        ++index;
+    }
+    if (index < kGraphicPaletteDynamicCount) {
+        gGraphicDataCacheList[index].imageNo = imageNo;
+        gGraphicDataCacheList[index].dirtyCount = 0;
+        return &gGraphicDataCacheList[index];
+    }
+
+    index = 0;
+    while (index < kGraphicPaletteDynamicCount
+        && gGraphicDataCacheList[index].dirtyCount <= 0) {
+        ++index;
+    }
+    if (index < kGraphicPaletteDynamicCount) {
+        const std::int32_t previousImageNo = gGraphicDataCacheList[index].imageNo;
+        gGraphicDxCache103CFA4[static_cast<std::size_t>(previousImageNo)].palette = nullptr;
+        gGraphicDataCacheList[index].imageNo = -1;
+        gGraphicDataCacheList[index].imageNo = imageNo;
+        gGraphicDataCacheList[index].dirtyCount = 0;
+        return &gGraphicDataCacheList[index];
+    }
+
+    const std::int32_t previousImageNo = gGraphicDataCacheList[0].imageNo;
+    gGraphicDxCache103CFA4[static_cast<std::size_t>(previousImageNo)].palette = nullptr;
+    gGraphicDataCacheList[0].imageNo = -1;
+    gGraphicDataCacheList[0].imageNo = imageNo;
+    gGraphicDataCacheList[0].dirtyCount = 0;
+    return &gGraphicDataCacheList[0];
+}
+
 void AgeGraphicPaletteCache_44E230() noexcept
 {
     for (std::size_t index = 0; index < kGraphicPaletteDynamicCount; ++index) {

@@ -31,6 +31,8 @@ extern std::array<PaletteCacheItem, kGraphicPaletteStaticCount> gGraphicDataCach
 void InitializeGraphicPaletteCache_44E0C0();
 // 原 44E110：释放动态池并清共享指针；唯一 caller 弃返回值。
 void ReleaseGraphicPaletteCache_44E110() noexcept;
+// 原 44E150：负图号空槽→正脏计数回收→首槽强制复用，返回同源项。
+PaletteCacheItem* TakeIndexCacheFromPool_44E150(std::int32_t imageNo) noexcept;
 // 原 44E230：帧末扫描动态池并按脏计数失效 DX 调色板引用。
 void AgeGraphicPaletteCache_44E230() noexcept;
 

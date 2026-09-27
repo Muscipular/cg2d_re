@@ -11,6 +11,10 @@
 #include <cstdio>
 #include <type_traits>
 
+namespace cg::render {
+struct GraphicDescriptor16;
+}
+
 namespace cg::input {
 struct InputContext;
 } // namespace cg::input
@@ -43,6 +47,32 @@ std::int32_t Sub_520160(); // 原 [0x520160,0x5201A8)，顺序保存并透传 52
 } // namespace cg::login::detail
 
 namespace cg::world::detail {
+
+// 原四个地图绘制源计数，仍由 SceneState 持有并由 46BD40 逐项清零。
+extern std::uint32_t gValue9FB934;
+extern std::uint32_t gValue9FB928;
+extern std::uint32_t gValue9A86C0;
+extern std::uint32_t gValue9A7F78;
+
+// 原 46BD60/46BE50/46DFF0：世界坐标为 F32 原位型，描述符同步借用。
+std::int32_t Sub_46BD60(
+    std::int32_t imageNo, std::uint32_t worldXBits, std::uint32_t worldYBits,
+    std::int16_t x, std::int16_t y, std::int32_t mode,
+    const render::GraphicDescriptor16* descriptor);
+void Sub_46BE50(
+    std::int32_t imageNo, std::uint32_t worldXBits, std::uint32_t worldYBits,
+    std::int16_t x, std::int16_t y, const render::GraphicDescriptor16* descriptor);
+void Sub_46DFF0(
+    std::int32_t imageNo, std::uint32_t worldXBits, std::uint32_t worldYBits,
+    std::int16_t x, std::int16_t y, const render::GraphicDescriptor16* descriptor);
+// 原 46C060：挂接主项的前绘/后绘链；batch 保留低 W8，不布尔化。
+void DrawGearNormal_46C060(
+    std::int32_t primaryIndex, std::int32_t before, std::int32_t imageNo,
+    std::int16_t x, std::int16_t y,
+    const render::GraphicDescriptor16* descriptor, std::uint8_t batchType);
+// 原 46C2F0：排序→合并，caller 不消费混合 EAX；46C1C0 返回末次合并计数。
+void Sub_46C2F0();
+std::int32_t Sub_46C1C0();
 
 // 原 [0x5FB7F8, 0x621FF8)：512 项、每项 0x134 字节，保留未明字段。
 struct Record5FB7F8 {

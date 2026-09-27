@@ -4075,6 +4075,58 @@ void Sub_46A940()
     }
 }
 
+void Sub_46A410(
+    const std::int32_t x, const std::int32_t y, const std::int32_t speed)
+{
+    platform::LegacyCryptInt temporary;
+    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, x);
+    gPlayerSnapshotX.encoded = temporary.encoded;
+    gPlayerSnapshotX.mask = temporary.mask;
+    gPlayerSnapshotX.readCount = temporary.readCount;
+    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, y);
+    gPlayerSnapshotY.readCount = temporary.readCount;
+    gPlayerSnapshotY.encoded = temporary.encoded;
+    gPlayerSnapshotY.mask = temporary.mask;
+    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+
+    const std::int32_t pixelX =
+        platform::legacy_crypt_int::Multiply_401E90(&gPlayerSnapshotX, 64);
+    const std::uint32_t worldXBits = gWorldCurrentXBits;
+    const float differenceX = static_cast<float>(
+        static_cast<double>(pixelX) - std::bit_cast<float>(worldXBits));
+    const std::int32_t pixelY =
+        platform::legacy_crypt_int::Multiply_401E90(&gPlayerSnapshotY, 64);
+    const std::uint32_t worldYBits = gWorldCurrentYBits;
+    const platform::detail::MapMoveDifference difference {
+        static_cast<double>(differenceX),
+        static_cast<double>(pixelY) - std::bit_cast<float>(worldYBits),
+    };
+    platform::detail::MapMoveDirection direction;
+    platform::detail::Cg2dMapMoveDirection(&difference, &direction);
+    if (gPlayerRuntime.action != nullptr) {
+        const double rate = static_cast<double>(speed);
+        const float percent = std::bit_cast<float>(0x3C23D70Au);
+        gValue9EE8FC = std::bit_cast<std::uint32_t>(
+            static_cast<float>(rate * direction.unroundedX * 4.0F * percent));
+        gValue9EE900 = std::bit_cast<std::uint32_t>(
+            static_cast<float>(rate * direction.y * 4.0F * percent));
+    } else {
+        gValue9EE8FC = std::bit_cast<std::uint32_t>(
+            static_cast<float>(direction.unroundedX * 4.0F));
+        gValue9EE900 = std::bit_cast<std::uint32_t>(
+            static_cast<float>(static_cast<double>(direction.y) * 4.0F));
+    }
+    if (direction.unroundedX < 0.0 || direction.unroundedX > 0.0
+        || direction.y < 0.0F || direction.y > 0.0F) {
+        const auto value = static_cast<std::int32_t>(
+            Sub_46CDF0(direction.x, direction.y));
+        static_cast<void>(Sub_51A040(value));
+        static_cast<void>(Sub_51A640());
+    }
+    Sub_519EE0();
+}
+
 void Sub_46A700()
 {
     static_cast<void>(Sub_46CEC0());

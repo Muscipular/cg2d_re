@@ -86,6 +86,10 @@ void Sub_442AB0(
 double Sub_442110(
     YobiAction* action, std::int32_t targetX, std::int32_t targetY,
     std::int32_t speed, float overrideRate);
+// 原4422F0：不按路径计数加速，两轴方向先落F32再乘完整S32速度。
+void Sub_4422F0(
+    YobiAction* action, std::int32_t targetX, std::int32_t targetY,
+    std::int32_t speed);
 void Sub_442460(YobiAction* action); // 原 +270 S16 计数及两组路径交错左移。
 void Sub_4424B0(YobiAction* action); // 完整逐帧推进与当前位置 CryptInt 更新。
 void Sub_442730(YobiAction* action); // 原普通跟随推进，不启动或弹出路径。

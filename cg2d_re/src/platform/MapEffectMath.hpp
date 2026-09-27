@@ -99,4 +99,27 @@ static_assert(sizeof(MapActorVelocity) == 20);
 extern "C" void Cg2dMapActorVelocity(
     const MapActorVelocityInput* input, MapActorVelocity* result) noexcept;
 
+// 46A410先将X差落F32，4422F0不落；调用方分别形成实际差值后借用此数值叶。
+struct MapMoveDifference {
+    double x;
+    double y;
+};
+
+struct MapMoveDirection {
+    double unroundedX; // 原X方向未落F32的寄存器值，仍按PC53承接。
+    float x;
+    float y;
+};
+
+static_assert(offsetof(MapMoveDifference, x) == 0);
+static_assert(offsetof(MapMoveDifference, y) == 8);
+static_assert(sizeof(MapMoveDifference) == 16);
+static_assert(offsetof(MapMoveDirection, unroundedX) == 0);
+static_assert(offsetof(MapMoveDirection, x) == 8);
+static_assert(offsetof(MapMoveDirection, y) == 12);
+static_assert(sizeof(MapMoveDirection) == 16);
+
+extern "C" void Cg2dMapMoveDirection(
+    const MapMoveDifference* difference, MapMoveDirection* result) noexcept;
+
 } // namespace cg::platform::detail

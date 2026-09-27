@@ -1236,6 +1236,47 @@ double Sub_442110(
     return static_cast<double>(velocity.rate);
 }
 
+void Sub_4422F0(
+    YobiAction* const action, const std::int32_t targetX,
+    const std::int32_t targetY, const std::int32_t speed)
+{
+    if (action == nullptr) {
+        return;
+    }
+    const std::int32_t pixelX = targetX * 64;
+    const std::int32_t pixelY = targetY * 64;
+    const platform::detail::MapMoveDifference difference {
+        static_cast<double>(pixelX) - action->worldX,
+        static_cast<double>(pixelY) - action->worldY,
+    };
+    platform::detail::MapMoveDirection direction;
+    platform::detail::Cg2dMapMoveDirection(&difference, &direction);
+    const double rate = static_cast<double>(speed);
+    const float percent = std::bit_cast<float>(0x3C23D70Au);
+    action->field27C = std::bit_cast<std::uint32_t>(
+        static_cast<float>(rate * direction.x * 4.0F * percent));
+    action->field280 = std::bit_cast<std::uint32_t>(
+        static_cast<float>(rate * direction.y * 4.0F * percent));
+
+    platform::LegacyCryptInt temporary;
+    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, targetX);
+    action->mapX200.mask = temporary.mask;
+    action->mapX200.encoded = temporary.encoded;
+    action->mapX200.readCount = temporary.readCount;
+    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, targetY);
+    action->mapY210.mask = temporary.mask;
+    action->mapY210.encoded = temporary.encoded;
+    action->mapY210.readCount = temporary.readCount;
+    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    if (direction.x < 0.0F || direction.x > 0.0F
+        || direction.y < 0.0F || direction.y > 0.0F) {
+        action->direction = static_cast<std::int32_t>(
+            world::detail::Sub_46CDF0(direction.x, direction.y));
+        action->field272 = 1;
+    }
+}
+
 void Sub_442460(YobiAction* const action)
 {
     if (action == nullptr) {

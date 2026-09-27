@@ -33,6 +33,7 @@ PUBLIC Cg2dMapEffectStep
 PUBLIC Cg2dMapObserverProjection
 PUBLIC Cg2dMapObserverArc
 PUBLIC Cg2dMapActorVelocity
+PUBLIC Cg2dMapMoveDirection
 
 ; 所有叶仅借用参数暂存区 [rsp+8,rsp+40)，不改 RSP 或非易失寄存器。
 Cg2dMapEffectDirection PROC
@@ -306,5 +307,39 @@ ActorVelocityStoreStep:
     fldcw word ptr [rsp+8]
     ret
 Cg2dMapActorVelocity ENDP
+
+Cg2dMapMoveDirection PROC
+    fnstcw word ptr [rsp+8]
+    mov word ptr [rsp+10], 027Fh
+    fldcw word ptr [rsp+10]
+    fld qword ptr [rcx+8]
+    fst dword ptr [rsp+12]
+    fmul dword ptr [rsp+12]
+    fld qword ptr [rcx]
+    fmul qword ptr [rcx]
+    faddp st(1), st(0)
+    fsqrt
+    fst dword ptr [rsp+16]
+    fcomp dword ptr [Zero54D5D0]
+    fnstsw ax
+    test ah, 041h
+    jnz MapMoveDirectionZero
+    fld qword ptr [rcx]
+    fdiv dword ptr [rsp+16]
+    fst dword ptr [rdx+8]
+    fstp qword ptr [rdx]
+    fld dword ptr [rsp+12]
+    fdiv dword ptr [rsp+16]
+    fstp dword ptr [rdx+12]
+    jmp MapMoveDirectionDone
+MapMoveDirectionZero:
+    fldz
+    fstp qword ptr [rdx]
+    mov dword ptr [rdx+8], 0
+    mov dword ptr [rdx+12], 0
+MapMoveDirectionDone:
+    fldcw word ptr [rsp+8]
+    ret
+Cg2dMapMoveDirection ENDP
 
 END

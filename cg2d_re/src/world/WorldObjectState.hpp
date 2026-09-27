@@ -20,7 +20,7 @@ struct WorldObjectRecord {
     std::uint32_t imageNo;
     platform::LegacyCryptInt coordinate0C;
     platform::LegacyCryptInt coordinate1C;
-    std::array<std::byte, 4> bytes2C;
+    std::int32_t level2C;
     std::int32_t direction;
     std::int32_t value34;
     std::array<std::byte, 8> bytes38;
@@ -30,7 +30,11 @@ struct WorldObjectRecord {
     std::int32_t value48;
     std::int32_t value4C;
     std::int32_t value50;
-    std::array<std::byte, 0x75> bytes54; // 446470只清原+54首字节。
+    std::array<char, 17> name54; // 446470只清首字节；生产入口按原字节长度门槛复制。
+    std::array<char, 17> title65;
+    std::array<char, 33> text76;
+    std::array<char, 33> text97;
+    std::array<std::byte, 17> bytesB8;
     std::array<char, 61> nameC9; // 445D20/445F40仅在长度<=60时复制含NUL原字节。
     std::array<std::byte, 0x0E> bytes106;
     std::uint32_t flags114;
@@ -49,13 +53,18 @@ extern std::int32_t gWorldObjectUpperBound; // 原5F9738；不是占用数。
 
 static_assert(offsetof(WorldObjectRecord, coordinate0C) == 0x0C);
 static_assert(offsetof(WorldObjectRecord, coordinate1C) == 0x1C);
+static_assert(offsetof(WorldObjectRecord, level2C) == 0x2C);
 static_assert(offsetof(WorldObjectRecord, direction) == 0x30);
 static_assert(offsetof(WorldObjectRecord, value34) == 0x34);
 static_assert(offsetof(WorldObjectRecord, flags42) == 0x42);
 static_assert(offsetof(WorldObjectRecord, value48) == 0x48);
 static_assert(offsetof(WorldObjectRecord, value4C) == 0x4C);
 static_assert(offsetof(WorldObjectRecord, value50) == 0x50);
-static_assert(offsetof(WorldObjectRecord, bytes54) == 0x54);
+static_assert(offsetof(WorldObjectRecord, name54) == 0x54);
+static_assert(offsetof(WorldObjectRecord, title65) == 0x65);
+static_assert(offsetof(WorldObjectRecord, text76) == 0x76);
+static_assert(offsetof(WorldObjectRecord, text97) == 0x97);
+static_assert(offsetof(WorldObjectRecord, bytesB8) == 0xB8);
 static_assert(offsetof(WorldObjectRecord, nameC9) == 0xC9);
 static_assert(offsetof(WorldObjectRecord, bytes106) == 0x106);
 static_assert(offsetof(WorldObjectRecord, flags114) == 0x114);

@@ -491,6 +491,14 @@ struct RecipeItemData;
 RecipeItemData* Sub_5199A0();              // 原 0x5199A0。
 std::int32_t Sub_444FA0(std::int32_t objectIndex); // 原编号查槽，命中更新查找游标。
 std::int32_t Sub_446130(); // 原空槽领取，返回旧游标；不在此处标记占用。
+std::uint32_t Sub_4461E0(std::int32_t type); // 原类型转flags114，返回完整W32。
+std::uint32_t Sub_446210(std::int32_t type); // 原71项跳表转换，写category时才截低W16。
+// 原只生产无action记录；编号已存在或领取失败返回0，完成记录写入返回1。
+std::int32_t Sub_445A60(
+    std::int32_t objectIndex, std::int32_t imageNo, std::int32_t mapX,
+    std::int32_t mapY, std::int32_t direction, const char* name,
+    const char* titles, std::int32_t level, std::uint16_t value40,
+    std::int32_t flag1, std::int32_t flag2, std::int32_t type);
 // 原类别2/4对象生产或更新；已有记录不补建action，创建失败不回滚领取。
 void Sub_445D20(
     std::int32_t objectIndex, std::int32_t imageNo, std::int32_t mapX,

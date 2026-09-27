@@ -4,6 +4,7 @@
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/render/SurfaceState.hpp"
 
+#include <algorithm>
 #include <memory>
 #include <new>
 
@@ -170,6 +171,13 @@ std::int32_t BuildSurfaceCache_5231A0()
     ResetTextureNodes_523310();
     static_cast<void>(InvalidateGraphicRefs_523350());
     return 1;
+}
+
+void FillTextureBlack_451310(TextureSurface* const surface) noexcept
+{
+    const std::size_t pixelCount =
+        static_cast<std::size_t>(surface->width) * static_cast<std::size_t>(surface->height);
+    std::fill_n(surface->pixels.get(), pixelCount, 0u);
 }
 
 void ReleaseTextureNodeSurfaces_44C408() noexcept

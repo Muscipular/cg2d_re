@@ -82,6 +82,9 @@ std::int32_t InvalidateGraphicRefs_523350() noexcept;
 // 原 5231A0：构建共享 AutoMap/Temp 与 4096 个节点面，失败保留已发布前缀。
 std::int32_t BuildSurfaceCache_5231A0();
 
+// 原 451310：将整张节点面填为零；唯一已见 caller 弃 DX7 返回值。
+void FillTextureBlack_451310(TextureSurface* surface) noexcept;
+
 // 原 Destroy@44C408–44C435：按动态实际 count 释放并清非空节点面。
 void ReleaseTextureNodeSurfaces_44C408() noexcept;
 

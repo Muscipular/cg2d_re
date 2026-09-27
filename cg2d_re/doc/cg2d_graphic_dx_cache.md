@@ -296,6 +296,27 @@ owner；不额外清 `+4/+8` 或 `+0x10`
 `Graphic::LoadTexture` 接线，也不表示
 `DrawAllQueued`、完整链接或 SDL 画面完成。
 
+### 5.7 `451310` 的节点面全零填充
+
+2026-09-27，当前 IDA 只读核
+`Texture::FillBlack@[451310,45134C)`：
+原端将 100 字节 `DDBLTFX` 清零，
+设置大小 `0x64` 与填充色 0，再以
+`DDBLT_COLORFILL|DDBLT_WAIT` 对传入
+surface 执行全域 `Blt`（`451314–451347`）。
+唯一直接 caller `Graphic::LoadTexture@520C6C`
+在当前块宽小于共享宽，或块高小于共享高
+时调用，随后丢弃 DX 返回值
+（`520C57–520C74`）。
+
+按已批准的 DX7→SDL/CPU 底层替换，
+[GraphicDxCache.cpp](../src/render/GraphicDxCache.cpp)
+在节点面唯一 owner 中逐像素清为
+`0x00000000`；新端以 `void` 表达唯一
+已见 caller 的弃返回边界，不声明旧
+`HRESULT` 等价。`520B10` 尚未接线，
+此叶本身不代表纹理上传或 SDL 画面完成。
+
 ## 6. 重建只使引用失效，不更换整表
 
 ### 6.1 重建链与保留内容

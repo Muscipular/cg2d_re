@@ -3,6 +3,7 @@
 
 #include "cg/GraphicRead.hpp"
 #include "cg/GraphicAlloc.hpp"
+#include "cg/AnimationRuntime.hpp"
 #include "cg/LegacyAudio.hpp"
 #include "cg/YobiRuntime.hpp"
 #include "cg/network/NetworkRuntime.hpp"
@@ -29,8 +30,6 @@ HGLOBAL Sub_522C50();                     // 原 0x522C50：HGLOBAL()。
 HGLOBAL Sub_44E110();                     // 原 0x44E110：HGLOBAL()。
 void RendererDestroy_44C3C0();            // 原 0x44C3C0：void __cdecl()。
 int Sub_454EE0();                          // 原 0x454EE0：int()。
-int AnimeUnload_45BEF0();                  // 原 AnimeUnload@0x45BEF0：int()。
-int Sub_45BF20();                          // 原 0x45BF20：int()。
 
 // 原 [0x4705F0,0x4705FF)：两个调用后尾透传窗口关闭结果。
 char Sub_4705F0()
@@ -52,8 +51,8 @@ int ShutdownClient_457A40()
     shutdown_detail::Sub_454EE0();
     audio::Sub_52B630();
     audio::Sub_52CCE0();
-    shutdown_detail::AnimeUnload_45BEF0();
-    shutdown_detail::Sub_45BF20();
+    cg::resource::animation::AnimeUnload_45BEF0();
+    cg::resource::animation::Sub_45BF20();
     cg::resource::CloseGraphicFiles();
     cg::resource::Sub_457670();
     static_cast<void>(render::ReleaseFont_456530());

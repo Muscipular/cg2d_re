@@ -61,4 +61,8 @@ std::int32_t __cdecl BinarySearch_45B390(
     std::uint32_t animeNo, std::int32_t min, std::int32_t max);
 std::int32_t __cdecl GetIndex_45B400(std::uint32_t animeNo);
 
+// 原退出链：先关九个动画文件并清主表活动槽，再按标志处理文件及 P4 活动槽。
+std::int32_t AnimeUnload_45BEF0();
+std::int32_t Sub_45BF20();
+
 } // namespace cg::resource::animation

@@ -1,5 +1,16 @@
 #include "cg/AnimationRuntime.hpp"
 
+#include "AnimationRuntimeState.hpp"
+
+namespace cg::resource::animation::detail {
+
+std::array<std::uint32_t, 9> gFileCloseFlags9A29D0 {};
+std::array<MainSlot, 256> gMainSlots9A29F8 {};
+std::array<std::FILE*, 9> gAnimateFiles9A3A20 {};
+std::array<CacheSlot, 256> gCacheSlots9A3A48 {};
+
+} // namespace cg::resource::animation::detail
+
 namespace cg::resource::animation {
 
 AnimateRecord* gAnimateRecords9A4A58 = nullptr;

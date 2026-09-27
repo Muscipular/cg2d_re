@@ -70,6 +70,15 @@ YobiAction* PublishPlayerActionIdentity(
 void CopyYobiPlayerHp(YobiAction* action, const platform::LegacyCryptInt* source);
 void CopyYobiPlayerMaxHp(YobiAction* action, const platform::LegacyCryptInt* source);
 // 地图实体的目标格坐标/路径/动作链；指针只借用，布局保持 runtime 私有。
+// 原441F60：单点入队；原U16满队列分支清计数并重置到终点。
+void Sub_441F60(
+    YobiAction* action, std::int32_t targetX, std::int32_t targetY);
+// 原441FC0：轴差恰为2时补中间点，按整批容量决定入队或位置重置。
+void Sub_441FC0(
+    YobiAction* action, std::int32_t targetX, std::int32_t targetY);
+// 原442AB0：四次独立坐标赋值、清移动分量与世界坐标重置；不清路径计数。
+void Sub_442AB0(
+    YobiAction* action, std::int32_t targetX, std::int32_t targetY);
 double Sub_442110(
     YobiAction* action, std::int32_t targetX, std::int32_t targetY,
     std::int32_t speed, float overrideRate);

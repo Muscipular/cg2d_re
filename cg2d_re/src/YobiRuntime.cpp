@@ -1079,6 +1079,120 @@ void CopyYobiPlayerMaxHp(
     platform::legacy_crypt_int::CopyPayload(&action->maxHp, source);
 }
 
+void Sub_442AB0(
+    YobiAction* const action, const std::int32_t targetX,
+    const std::int32_t targetY)
+{
+    if (action == nullptr) {
+        return;
+    }
+    // 本入口以mask开头，既不同于通用赋值，也不同于441DB0的count优先顺序。
+    const auto assignCoordinate = [](
+        platform::LegacyCryptInt& target, const std::int32_t value) {
+        platform::LegacyCryptInt temporary;
+        platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, value);
+        target.mask = temporary.mask;
+        target.encoded = temporary.encoded;
+        target.readCount = temporary.readCount;
+        platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    };
+    assignCoordinate(action->mapX1E0, targetX);
+    assignCoordinate(action->mapY1F0, targetY);
+    assignCoordinate(action->mapX200, targetX);
+    assignCoordinate(action->mapY210, targetY);
+    const double worldX = static_cast<double>(targetX);
+    action->field27C = 0;
+    action->field280 = 0;
+    action->worldX = static_cast<float>(worldX * 64.0F);
+    action->worldY = static_cast<float>(static_cast<double>(targetY) * 64.0F);
+}
+
+void Sub_441F60(
+    YobiAction* const action, const std::int32_t targetX,
+    const std::int32_t targetY)
+{
+    if (action == nullptr) {
+        return;
+    }
+    const std::uint16_t count = action->field270;
+    if (count >= 10u) {
+        action->field270 = 0;
+        Sub_442AB0(action, targetX, targetY);
+        return;
+    }
+    const auto xSlot = static_cast<std::size_t>(
+        std::bit_cast<std::int16_t>(count));
+    action->pathX220[xSlot] = targetX;
+    const auto ySlot = static_cast<std::size_t>(
+        std::bit_cast<std::int16_t>(action->field270));
+    action->pathY248[ySlot] = targetY;
+    action->field270 = static_cast<std::uint16_t>(action->field270 + 1u);
+}
+
+void Sub_441FC0(
+    YobiAction* const action, const std::int32_t targetX,
+    const std::int32_t targetY)
+{
+    if (action == nullptr) {
+        return;
+    }
+    std::int32_t startX;
+    std::int32_t startY;
+    const std::int16_t count = std::bit_cast<std::int16_t>(action->field270);
+    if (count > 0) {
+        const auto last = static_cast<std::size_t>(count - 1);
+        startX = action->pathX220[last];
+        startY = action->pathY248[last];
+    } else {
+        startX = platform::legacy_crypt_int::Read_401EC0(&action->mapX200);
+        startY = platform::legacy_crypt_int::Read_401EC0(&action->mapY210);
+    }
+    const std::int32_t differenceX = targetX - startX;
+    const std::int32_t differenceY = targetY - startY;
+    const std::int32_t absoluteX = differenceX < 0 ? -differenceX : differenceX;
+    const std::int32_t absoluteY = differenceY < 0 ? -differenceY : differenceY;
+    std::array<std::int32_t, 2> pendingX;
+    std::array<std::int32_t, 2> pendingY;
+    std::int32_t pointCount = 0;
+    if (absoluteX == 2 && absoluteY == 2) {
+        pendingX[0] = startX + differenceX / 2;
+        pendingY[0] = startY + differenceY / 2;
+        pointCount = 1;
+    } else if (absoluteX == 2) {
+        pendingX[0] = startX + differenceX / 2;
+        pendingY[0] = targetY;
+        pointCount = 1;
+    } else if (absoluteY == 2) {
+        pendingX[0] = targetX;
+        pendingY[0] = startY + differenceY / 2;
+        pointCount = 1;
+    }
+    const std::int32_t currentCount =
+        std::bit_cast<std::int16_t>(action->field270);
+    pendingX[static_cast<std::size_t>(pointCount)] = targetX;
+    pendingY[static_cast<std::size_t>(pointCount)] = targetY;
+    ++pointCount;
+    if (static_cast<std::uint32_t>(currentCount + pointCount) > 10u) {
+        const auto last = static_cast<std::size_t>(pointCount - 1);
+        const std::int32_t finalY = pendingY[last];
+        const std::int32_t finalX = pendingX[last];
+        action->field270 = 0;
+        Sub_442AB0(action, finalX, finalY);
+        return;
+    }
+    for (std::int32_t point = 0; point < pointCount; ++point) {
+        const auto xSlot = static_cast<std::size_t>(
+            std::bit_cast<std::int16_t>(action->field270));
+        const std::int32_t x = pendingX[static_cast<std::size_t>(point)];
+        action->pathX220[xSlot] = x;
+        const std::int32_t y = pendingY[static_cast<std::size_t>(point)];
+        const auto ySlot = static_cast<std::size_t>(
+            std::bit_cast<std::int16_t>(action->field270));
+        action->pathY248[ySlot] = y;
+        action->field270 = static_cast<std::uint16_t>(action->field270 + 1u);
+    }
+}
+
 double Sub_442110(
     YobiAction* const action, const std::int32_t targetX,
     const std::int32_t targetY, const std::int32_t speed,

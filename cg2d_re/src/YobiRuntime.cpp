@@ -257,7 +257,13 @@ struct MapTransitionPayload {
     std::uint32_t frame30;
     std::int32_t step34;
     std::int32_t countdown38;
-    std::array<std::byte, 0xD0> bytes3C; // 未消费区，不据此冻结剩余字段。
+    std::int32_t height3C;
+    std::int32_t velocity40;
+    std::array<std::int32_t, 10> trailGraphic44;
+    std::array<std::int32_t, 10> trailX6C;
+    std::array<std::int32_t, 10> trailY94;
+    std::array<std::uint32_t, 10> trailWorldXBitsBC;
+    std::array<std::uint32_t, 10> trailWorldYBitsE4;
     std::uint32_t flags10C;
 };
 
@@ -279,7 +285,13 @@ static_assert(offsetof(MapTransitionPayload, visible2C) == 0x34);
 static_assert(offsetof(MapTransitionPayload, frame30) == 0x38);
 static_assert(offsetof(MapTransitionPayload, step34) == 0x3C);
 static_assert(offsetof(MapTransitionPayload, countdown38) == 0x40);
-static_assert(offsetof(MapTransitionPayload, bytes3C) == 0x44);
+static_assert(offsetof(MapTransitionPayload, height3C) == 0x44);
+static_assert(offsetof(MapTransitionPayload, velocity40) == 0x48);
+static_assert(offsetof(MapTransitionPayload, trailGraphic44) == 0x4C);
+static_assert(offsetof(MapTransitionPayload, trailX6C) == 0x74);
+static_assert(offsetof(MapTransitionPayload, trailY94) == 0x9C);
+static_assert(offsetof(MapTransitionPayload, trailWorldXBitsBC) == 0xC4);
+static_assert(offsetof(MapTransitionPayload, trailWorldYBitsE4) == 0xEC);
 static_assert(offsetof(MapTransitionPayload, flags10C) == 0x114);
 static_assert(sizeof(MapTransitionPayload) == 0x118);
 
@@ -1028,8 +1040,6 @@ std::int32_t Sub_447070(YobiAction* action);
 std::int32_t Sub_447230(YobiAction* action);
 std::int32_t Sub_447610(YobiAction* action);
 std::int32_t Sub_447820(YobiAction* action);
-std::int32_t Sub_447A20(YobiAction* action);
-std::int32_t Sub_447C40(YobiAction* action);
 
 YobiAction* Sub_441DB0(
     const std::int32_t imageNo, const std::int32_t mapX,
@@ -1252,6 +1262,109 @@ std::int32_t Sub_4474E0(YobiAction* const action)
     }
     payload->frame30 = render::gFrameParity628FC8;
     return 0;
+}
+
+namespace {
+
+// 原447A20/447C40仅两处Y偏移轴参数不同；保留相同的五列交错搬移和发布次序。
+std::int32_t UpdateTransitionTrail(
+    YobiAction* const action, const std::uint8_t yOffsetAxis)
+{
+    auto* const payload = static_cast<MapTransitionPayload*>(action->payload);
+    if (payload->slots18.values.state18 == 0) {
+        payload->slots18.values.state18 = 1;
+        payload->counter10 = 0;
+        action->field27C = 0;
+        action->field280 = 0;
+        payload->height3C = 0;
+        payload->velocity40 = -15;
+        payload->trailGraphic44.fill(-1);
+    }
+    const std::int32_t counter = payload->counter10;
+    if (counter >= 40) {
+        world::detail::Sub_4467D0(payload->objectIndex28);
+        MarkDeath(action);
+        return 0;
+    }
+    if (counter >= 30) {
+        payload->height3C = 0;
+    } else {
+        const double deltaX = static_cast<double>(std::bit_cast<float>(action->field27C));
+        action->worldX = static_cast<float>(deltaX + static_cast<double>(action->worldX));
+        const double deltaY = static_cast<double>(std::bit_cast<float>(action->field280));
+        action->worldY = static_cast<float>(deltaY + static_cast<double>(action->worldY));
+        const std::int32_t velocity = payload->velocity40;
+        const std::int32_t height = payload->height3C;
+        payload->height3C = height + velocity;
+        payload->velocity40 = velocity + 1;
+    }
+    ++payload->counter10;
+    const float worldY = action->worldY;
+    const float worldX = action->worldX;
+    float screenX;
+    float screenY;
+    world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
+    action->x = static_cast<std::int32_t>(
+        static_cast<std::int64_t>(static_cast<double>(screenX) + 0.5));
+    action->y = static_cast<std::int32_t>(
+        static_cast<std::int64_t>(static_cast<double>(screenY) + 0.5));
+    static_cast<void>(Sub_517880(action, 100, 0, 0));
+    if ((action->flags & 2u) == 0) {
+        const std::int32_t graphicIndex = action->graphicIndex;
+        const render::GraphicDescriptor16* const descriptor = &action->drawMode;
+        const std::int32_t offsetY = Sub_5182B0(action, yOffsetAxis);
+        const std::int32_t height = payload->height3C;
+        const std::int32_t y = action->y;
+        const std::int32_t drawY = offsetY + height + y;
+        const std::int32_t offsetX = Sub_5182B0(action, 0);
+        const std::int32_t drawX = offsetX + action->x;
+        static_cast<void>(render::DrawGraphic2_521DD0(
+            drawX, drawY, 11, graphicIndex, 0, 0, descriptor));
+    }
+    if (render::gFrameParity628FC8 == 1) {
+        for (std::size_t index = 0; index < 10; ++index) {
+            const std::int32_t graphicIndex = payload->trailGraphic44[index];
+            if (graphicIndex >= 0) {
+                const std::int32_t offsetY = Sub_5182B0(action, yOffsetAxis);
+                const std::int32_t drawY = offsetY + payload->trailY94[index];
+                const std::int32_t offsetX = Sub_5182B0(action, 0);
+                const std::int32_t drawX = offsetX + payload->trailX6C[index];
+                static_cast<void>(render::DrawGraphic2_521DD0(
+                    drawX, drawY, 11, graphicIndex, 0, 0, nullptr));
+            }
+        }
+    }
+    for (std::size_t index = 9; index != 0; --index) {
+        payload->trailGraphic44[index] = payload->trailGraphic44[index - 1];
+        payload->trailX6C[index] = payload->trailX6C[index - 1];
+        payload->trailY94[index] = payload->trailY94[index - 1];
+        payload->trailWorldXBitsBC[index] = payload->trailWorldXBitsBC[index - 1];
+        payload->trailWorldYBitsE4[index] = payload->trailWorldYBitsE4[index - 1];
+    }
+    if (payload->counter10 <= 30) {
+        const std::int32_t graphicIndex = action->graphicIndex;
+        const std::int32_t height = payload->height3C;
+        payload->trailGraphic44[0] = graphicIndex;
+        payload->trailX6C[0] = action->x;
+        payload->trailY94[0] = height + action->y;
+        payload->trailWorldXBitsBC[0] = std::bit_cast<std::uint32_t>(action->worldX);
+        payload->trailWorldYBitsE4[0] = std::bit_cast<std::uint32_t>(action->worldY);
+    } else {
+        payload->trailGraphic44[0] = -1;
+    }
+    return 0;
+}
+
+} // namespace
+
+std::int32_t Sub_447A20(YobiAction* const action)
+{
+    return UpdateTransitionTrail(action, 1);
+}
+
+std::int32_t Sub_447C40(YobiAction* const action)
+{
+    return UpdateTransitionTrail(action, 0);
 }
 
 void Sub_447E60(YobiAction* const action)

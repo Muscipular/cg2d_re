@@ -1147,3 +1147,34 @@ CPU Back 销毁，再释放 SDL 纹理/renderer/外部
 完整退出链还依赖其他未落位的上游/后继，
 且须核对关闭 UI 后外部 HWND 仍有效，
 不能据此声称完整链接、运行或总 SPEC 完成。
+
+## `44BB1E` 的 32 位 Back 像素格式发布
+
+2026-09-27，本线程在当前 IDA 会话只读核
+`44BABD–44BBBD`：非 8 位路径先要求 Back 非空，
+`44BAE2–44BB0A` 清并查询其像素格式，
+查询失败在 `44BB11–44BB1D` 以 `AL=1` 早退；
+查询成功后 `44BB1E–44BB39` 才依红、绿、蓝
+写三个掩码。`44BB3E–44BB83` 依次写
+`8 - bitcount(R/G/B)`，`44BB89–44BBB2`
+又写蓝加绿位数、蓝位数；`44BABB` 已将
+`ESI=0`，故 `44BBB7` 最后写第三个位移零。
+`44BBBD` 才进入仅 16 位的 PALDATA 分流。
+
+| 原地址 | 新端字段 | SDL XRGB8888 值 |
+|---|---|---:|
+| `628FE4/62A660/628FC0` | `gRendererRed/Green/BlueMask` | `00FF0000/0000FF00/000000FF` |
+| `6287A8/62A658/628BB8` | `gRendererRed/Green/BlueShift` | `0/0/0` |
+| `629314/629718/62971C` | `gRendererRed/Green/BlueOffset` | `16/8/0` |
+
+原端这些槽只有 `Renderer::Init` 写；`450470`
+的 16 位调色板转换、`451190` 的颜色重建及
+`453760` 的截图颜色拆分读取位数和偏移。
+掩码另由 `453898–4538B4` 复制到截图状态。
+新端的 `PublishRendererPixelFormat32_44BB1E`
+复用已实现的 `CountMaskBits_453DE0`，按原
+计算顺序发布同源共享值；XRGB8888 与当前 SDL
+纹理及 CPU Back 的 `0x00RRGGBB` 位模式一致。
+**调用点尚未接 `Renderer::Init`**，不得把这组
+可发布值误记作已成功查询像素格式、完成初始化
+或实现截图。

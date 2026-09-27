@@ -16,6 +16,29 @@ struct RendererResources {
 };
 
 RendererResources* gRenderer = nullptr;
+std::uint32_t gRendererRedMask = 0;
+std::uint32_t gRendererGreenMask = 0;
+std::uint32_t gRendererBlueMask = 0;
+std::int32_t gRendererRedShift = 0;
+std::int32_t gRendererGreenShift = 0;
+std::int32_t gRendererBlueShift = 0;
+std::int32_t gRendererRedOffset = 0;
+std::int32_t gRendererGreenOffset = 0;
+std::int32_t gRendererBlueOffset = 0;
+
+void PublishRendererPixelFormat32_44BB1E() noexcept
+{
+    gRendererRedMask = 0x00FF0000u;
+    gRendererGreenMask = 0x0000FF00u;
+    gRendererBlueMask = 0x000000FFu;
+    gRendererRedShift = 8 - CountMaskBits_453DE0(gRendererRedMask);
+    gRendererGreenShift = 8 - CountMaskBits_453DE0(gRendererGreenMask);
+    gRendererBlueShift = 8 - CountMaskBits_453DE0(gRendererBlueMask);
+    gRendererRedOffset = CountMaskBits_453DE0(gRendererBlueMask)
+        + CountMaskBits_453DE0(gRendererGreenMask);
+    gRendererGreenOffset = CountMaskBits_453DE0(gRendererBlueMask);
+    gRendererBlueOffset = 0;
+}
 
 bool AllocateRendererResources() noexcept
 {

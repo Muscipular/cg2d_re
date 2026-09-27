@@ -11,6 +11,20 @@ struct RendererResources;
 struct PaletteBinding;
 extern RendererResources* gRenderer;
 
+// 原 44BB1E–44BBB7：Back 像素格式发布的共享 W32 槽。
+extern std::uint32_t gRendererRedMask;   // 0x628FE4。
+extern std::uint32_t gRendererGreenMask; // 0x62A660。
+extern std::uint32_t gRendererBlueMask;  // 0x628FC0。
+extern std::int32_t gRendererRedShift;   // 0x6287A8：8 - 红掩码位数。
+extern std::int32_t gRendererGreenShift; // 0x62A658：8 - 绿掩码位数。
+extern std::int32_t gRendererBlueShift;  // 0x628BB8：8 - 蓝掩码位数。
+extern std::int32_t gRendererRedOffset;  // 0x629314：蓝位数 + 绿位数。
+extern std::int32_t gRendererGreenOffset; // 0x629718：蓝位数。
+extern std::int32_t gRendererBlueOffset;  // 0x62971C：原 ESI 零值。
+
+// SDL XRGB8888 Back 已建且 32 位格式判定成功后，由 Init 按原位调用。
+void PublishRendererPixelFormat32_44BB1E() noexcept;
+
 // 原 Init 的 0xC4 字节零初始化分配在新端仅承载已还原字段。
 [[nodiscard]] bool AllocateRendererResources() noexcept;
 void ReleaseRendererResources() noexcept;

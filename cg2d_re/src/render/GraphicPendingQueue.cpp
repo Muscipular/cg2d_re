@@ -164,6 +164,31 @@ void Sub_520930(float* value)
     }
 }
 
+std::int32_t QueueMap_521AA0(
+    const std::int32_t x, const std::int32_t y, const std::uint8_t layer)
+{
+    const std::int16_t initialCount =
+        std::bit_cast<std::int16_t>(platform::gPendingGraphicCount);
+    if (initialCount >= MAX_QUEUE_SIZE) {
+        return -2;
+    }
+    const auto queueIndex = static_cast<std::size_t>(initialCount);
+    GraphicCache3& cache3 = gLegacyPendingStorage.cache3[queueIndex];
+    cache3.layer = layer;
+    cache3.cacheIndex = std::bit_cast<std::int16_t>(platform::gPendingGraphicCount);
+    GraphicCacheItem32& record = gLegacyPendingStorage.records[queueIndex];
+    record.x = x;
+    record.y = y;
+    record.imageNo = -1;
+    record.value4 = 0;
+    record.dataBits = 0;
+    record.batchType = 5;
+    const std::uint16_t resultBits = platform::gPendingGraphicCount;
+    const auto result = static_cast<std::int32_t>(std::bit_cast<std::int16_t>(resultBits));
+    platform::gPendingGraphicCount = static_cast<std::uint16_t>(resultBits + 1u);
+    return result;
+}
+
 void Sub_522210(
     const GraphicCacheItem32* const graphic,
     const std::uint32_t imageNoBits)

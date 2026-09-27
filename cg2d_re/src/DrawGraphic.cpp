@@ -149,6 +149,110 @@ std::int32_t Sub_45F090(
         &descriptor);
 }
 
+std::int32_t Sub_521C80(
+    const std::int32_t x, const std::int32_t y, const std::uint8_t layer,
+    const std::int32_t imageNo, const std::int32_t value4,
+    const GraphicDescriptor16* const descriptor)
+{
+    const std::int16_t initialCount =
+        std::bit_cast<std::int16_t>(platform::gPendingGraphicCount);
+    if (initialCount >= MAX_QUEUE_SIZE) {
+        return -2;
+    }
+
+    std::int32_t graphicIndex = imageNo;
+    std::int16_t offsetX = 0;
+    std::int16_t offsetY = 0;
+    if (imageNo > 999) {
+        resource::GetGraphicMapNoIndex(imageNo, &graphicIndex);
+        resource::GetGraphicXY(static_cast<std::uint32_t>(graphicIndex), &offsetX, &offsetY);
+    }
+
+    const auto queueIndex = static_cast<std::size_t>(initialCount);
+    GraphicCache3& cache3 = gLegacyPendingStorage.cache3[queueIndex];
+    cache3.layer = layer;
+    cache3.cacheIndex = std::bit_cast<std::int16_t>(platform::gPendingGraphicCount);
+    GraphicCacheItem32& item = gLegacyPendingStorage.records[queueIndex];
+    item.x = x + offsetX;
+    item.y = y + offsetY;
+    item.imageNo = graphicIndex;
+    item.value4 = value4;
+    item.dataBits = 0;
+    if (descriptor != nullptr) {
+        item.descriptor = descriptor->bytes;
+    } else {
+        item.descriptor.fill(0);
+        item.descriptor[8] = 0xFF;
+        item.descriptor[9] = 0xFF;
+        item.descriptor[10] = 0xFF;
+        item.descriptor[11] = 0xFF;
+    }
+    item.batchType = 0;
+    if (item.descriptor[12] == 1) {
+        item.batchType = 1;
+    }
+    if ((graphicIndex >= 0xC18 && graphicIndex <= 0xC21)
+        || (imageNo >= 0x1DF0 && imageNo <= 0x1DFF)) {
+        gSpecialGraphicPending = 1;
+    }
+    const std::uint16_t resultBits = platform::gPendingGraphicCount;
+    const auto result = static_cast<std::int32_t>(std::bit_cast<std::int16_t>(resultBits));
+    platform::gPendingGraphicCount = static_cast<std::uint16_t>(resultBits + 1u);
+    return result;
+}
+
+std::int32_t DrawGraphic2_521DD0(
+    const std::int32_t x, const std::int32_t y, const std::uint8_t layer,
+    const std::int32_t graphicIndex, const std::int32_t value4,
+    const std::uint8_t batchType, const GraphicDescriptor16* const descriptor)
+{
+    const std::int16_t initialCount =
+        std::bit_cast<std::int16_t>(platform::gPendingGraphicCount);
+    if (initialCount >= MAX_QUEUE_SIZE) {
+        return -2;
+    }
+    if (graphicIndex >= -1 && graphicIndex <= 999) {
+        return -2;
+    }
+    std::int16_t offsetX = 0;
+    std::int16_t offsetY = 0;
+    if (graphicIndex > 999) {
+        resource::GetGraphicXY(static_cast<std::uint32_t>(graphicIndex), &offsetX, &offsetY);
+    }
+
+    const auto queueIndex = static_cast<std::size_t>(initialCount);
+    GraphicCache3& cache3 = gLegacyPendingStorage.cache3[queueIndex];
+    cache3.layer = layer;
+    cache3.cacheIndex = std::bit_cast<std::int16_t>(platform::gPendingGraphicCount);
+    GraphicCacheItem32& item = gLegacyPendingStorage.records[queueIndex];
+    item.x = x + offsetX;
+    item.y = y + offsetY;
+    item.imageNo = graphicIndex;
+    item.value4 = value4;
+    item.dataBits = 0;
+    if (descriptor != nullptr) {
+        item.descriptor = descriptor->bytes;
+    } else {
+        item.descriptor.fill(0);
+        item.descriptor[8] = 0xFF;
+        item.descriptor[9] = 0xFF;
+        item.descriptor[10] = 0xFF;
+        item.descriptor[11] = 0xFF;
+    }
+    item.batchType = batchType;
+    if (item.descriptor[12] == 1) {
+        item.batchType = 1;
+    }
+    if ((graphicIndex >= 0xC18 && graphicIndex <= 0xC21)
+        || (graphicIndex >= 0x1DF0 && graphicIndex <= 0x1DFF)) {
+        gSpecialGraphicPending = 1;
+    }
+    const std::uint16_t resultBits = platform::gPendingGraphicCount;
+    const auto result = static_cast<std::int32_t>(std::bit_cast<std::int16_t>(resultBits));
+    platform::gPendingGraphicCount = static_cast<std::uint16_t>(resultBits + 1u);
+    return result;
+}
+
 } // namespace cg::render
 
 namespace cg::login::detail {

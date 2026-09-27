@@ -128,6 +128,21 @@ std::int32_t DrawGraphic3_520970(
     std::uint8_t batchType,
     const GraphicDescriptor16* descriptor);
 
+// 原 521AA0：只发布地图绘制项；不触碰描述符与特殊图形标志。
+std::int32_t QueueMap_521AA0(std::int32_t x, std::int32_t y, std::uint8_t layer);
+
+// 原 521C80：图号 <=999 也入队；较大图号先 mapNo 查询，再叠加图形偏移。
+std::int32_t Sub_521C80(
+    std::int32_t x, std::int32_t y, std::uint8_t layer,
+    std::int32_t imageNo, std::int32_t value4,
+    const GraphicDescriptor16* descriptor);
+
+// 原 521DD0：直接使用 graphic index，只查询偏移，不做 mapNo 映射。
+std::int32_t DrawGraphic2_521DD0(
+    std::int32_t x, std::int32_t y, std::uint8_t layer,
+    std::int32_t graphicIndex, std::int32_t value4,
+    std::uint8_t batchType, const GraphicDescriptor16* descriptor);
+
 // 原 sub_45F090@[0x45F090,0x45F0FA)：固定混合模式的 legacy 图形提交包装。
 std::int32_t Sub_45F090(
     std::int32_t x,

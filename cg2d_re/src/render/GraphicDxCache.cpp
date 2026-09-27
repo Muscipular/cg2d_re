@@ -10,12 +10,15 @@
 #include "cg/render/GraphicPaletteCache.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/render/SurfaceState.hpp"
+#include "cg/world/SceneState.hpp"
 
 #include <algorithm>
 #include <cstdio>
 #include <cstring>
+#include <map>
 #include <memory>
 #include <new>
+#include <tuple>
 
 namespace cg::render {
 
@@ -85,6 +88,41 @@ private:
 };
 
 TextureSurfaceOwner gTextureSurfaceOwner;
+
+// 原 28B 栈键只拓宽首项地址；未参与比较的原 +0A/+0B 不作为新键。
+struct SurfaceTransformKey {
+    TextureSurface* surface; // 非拥有引用；数值排序只在比较器内转换。
+    std::int32_t imageNo;
+    std::int16_t paletteIndex;
+    std::array<std::int32_t, 4> rectangle;
+};
+
+static_assert(sizeof(std::uintptr_t) == 8);
+static_assert(sizeof(TextureSurface*) == 8);
+static_assert(sizeof(SurfaceTransformKey) == 0x20);
+static_assert(offsetof(SurfaceTransformKey, imageNo) == 0x08);
+static_assert(offsetof(SurfaceTransformKey, paletteIndex) == 0x0C);
+static_assert(offsetof(SurfaceTransformKey, rectangle) == 0x10);
+
+struct SurfaceTransformKeyLess {
+    bool operator()(const SurfaceTransformKey& left, const SurfaceTransformKey& right) const noexcept
+    {
+        if (left.surface != right.surface) {
+            return reinterpret_cast<std::uintptr_t>(left.surface)
+                < reinterpret_cast<std::uintptr_t>(right.surface);
+        }
+        // 原 44D3F0：矩形比较顺序为 left、right、top、bottom，不是内存顺序。
+        return std::tie(left.imageNo, left.paletteIndex,
+                   left.rectangle[0], left.rectangle[2], left.rectangle[1], left.rectangle[3])
+            < std::tie(right.imageNo, right.paletteIndex,
+                   right.rectangle[0], right.rectangle[2], right.rectangle[1], right.rectangle[3]);
+    }
+};
+
+using SurfaceTransformCache =
+    std::map<SurfaceTransformKey, TextureSurface*, SurfaceTransformKeyLess>;
+SurfaceTransformCache gSurfaceTransforms629300;
+SurfaceTransformCache gSurfaceTransforms62A630;
 
 } // namespace
 
@@ -472,6 +510,76 @@ void ReleaseTextureNodeSurfaces_44C408() noexcept
         }
         ++index;
     } while (index < gTextureNodeCount);
+}
+
+TextureSurface* TransformTextureSurface_44CD80(
+    TextureSurface* const source, const std::int32_t imageNo, const std::int16_t paletteIndex,
+    const std::uint8_t flipX, const std::uint8_t flipY,
+    const std::int32_t* const sourceRectangle, const std::int32_t* const keyRectangle)
+{
+    if (source == nullptr) {
+        return nullptr;
+    }
+    const SurfaceTransformKey key {
+        source, imageNo, paletteIndex,
+        {keyRectangle[0], keyRectangle[1], keyRectangle[2], keyRectangle[3]}
+    };
+    auto& cache = world::gCurrentSceneType == 10
+        ? gSurfaceTransforms62A630 : gSurfaceTransforms629300;
+    const auto found = cache.find(key);
+    if (found != cache.end()) {
+        if (found->second != nullptr) {
+            return found->second;
+        }
+        found->second = nullptr;
+    }
+
+    const std::int32_t surfaceWidth = source->width;
+    std::int32_t sourceX = sourceRectangle[0];
+    if (sourceX < 0) {
+        sourceX = 0;
+    }
+    const std::int32_t width = sourceRectangle[2];
+    const std::int32_t height = sourceRectangle[3];
+    TextureSurface* const transformed = gTextureSurfaceOwner.Create(source->width, source->height);
+    if (transformed == nullptr) {
+        return source;
+    }
+    for (std::int32_t y = 0; y < height; ++y) {
+        const std::int32_t sourceY = flipY != 0 ? height - 1 - y : y;
+        const std::uint32_t* const sourceRow = source->pixels.get() + sourceY * surfaceWidth;
+        std::uint32_t* const targetRow = transformed->pixels.get() + y * transformed->width;
+        for (std::int32_t x = 0; x < width; ++x) {
+            std::int32_t sourceColumn = flipX != 0 ? width - 1 - x : x;
+            // 原 44D1F7–44D205：仅在和小于面宽时加起点，否则仍取未加起点的列。
+            if (sourceX + sourceColumn < surfaceWidth) {
+                sourceColumn += sourceX;
+            }
+            targetRow[x] = sourceRow[sourceColumn];
+        }
+    }
+
+    // 原尾部重新读取矩形与场景后插入；翻转位本身不进入缓存键。
+    const SurfaceTransformKey publishedKey {
+        source, imageNo, paletteIndex,
+        {keyRectangle[0], keyRectangle[1], keyRectangle[2], keyRectangle[3]}
+    };
+    auto& publishedCache = world::gCurrentSceneType == 10
+        ? gSurfaceTransforms62A630 : gSurfaceTransforms629300;
+    publishedCache[publishedKey] = transformed;
+    return publishedCache[publishedKey];
+}
+
+void ClearSurfaceTransformCache_44D490()
+{
+    auto& cache = world::gCurrentSceneType == 10
+        ? gSurfaceTransforms62A630 : gSurfaceTransforms629300;
+    auto current = cache.begin();
+    while (current != cache.end()) {
+        gTextureSurfaceOwner.Release(current->second);
+        current->second = nullptr;
+        current = cache.erase(current);
+    }
 }
 
 } // namespace cg::render

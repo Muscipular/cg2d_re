@@ -4014,6 +4014,11 @@ login::YobiAction* ReadPetMapAction(const std::int16_t index) noexcept
     return gPetMapCharaSlots[static_cast<std::size_t>(index)].action;
 }
 
+std::uint32_t ReadPetMapObjectIndex(const std::int16_t index) noexcept
+{
+    return gPetMapCharaSlots[static_cast<std::size_t>(index)].objectIndex;
+}
+
 void Sub_46A990()
 {
     if (gValueFF0D36 == 0) {

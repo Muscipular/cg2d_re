@@ -2475,6 +2475,106 @@ void SetYobiActionField30F(
 
 namespace cg::world::detail {
 
+std::uint32_t Sub_46A190()
+{
+    for (std::size_t position = 0; position < 5; ++position) {
+        const std::int16_t index = ReadPetFollowIndex(position);
+        if (index < 0) {
+            break;
+        }
+        const std::uint32_t playerIndex = ReadPlayerObjectIndex_FDA880();
+        login::YobiAction* const action = ReadPetMapAction(index);
+        const bool isPlayer = ReadPetMapObjectIndex(index) == playerIndex;
+        if (isPlayer) {
+            const double targetX = static_cast<double>(
+                platform::legacy_crypt_int::Read_401EC0(&gPlayerSnapshotX)) * 64.0F;
+            const std::uint32_t worldXBits = gWorldCurrentXBits;
+            const float worldX = std::bit_cast<float>(worldXBits);
+            if (targetX < worldX || targetX > worldX) {
+                continue;
+            }
+            const double targetY = static_cast<double>(
+                platform::legacy_crypt_int::Read_401EC0(&gPlayerSnapshotY)) * 64.0F;
+            const std::uint32_t worldYBits = gWorldCurrentYBits;
+            const float worldY = std::bit_cast<float>(worldYBits);
+            if (targetY < worldY || targetY > worldY
+                || std::bit_cast<std::int16_t>(action->field270) <= 0) {
+                continue;
+            }
+        } else {
+            const double targetX = static_cast<double>(
+                platform::legacy_crypt_int::Read_401EC0(&action->mapX200)) * 64.0F;
+            const float worldX = action->worldX;
+            if (targetX < worldX || targetX > worldX) {
+                continue;
+            }
+            const double targetY = static_cast<double>(
+                platform::legacy_crypt_int::Read_401EC0(&action->mapY210)) * 64.0F;
+            const float worldY = action->worldY;
+            if (targetY < worldY || targetY > worldY
+                || std::bit_cast<std::int16_t>(action->field270) <= 0) {
+                continue;
+            }
+            if (position == 0) {
+                gValue9DAD78 = 0x3F800000u;
+                const std::int16_t count =
+                    std::bit_cast<std::int16_t>(action->field270);
+                if (count > 5) {
+                    gValue9DAD78 = 0x40000000u;
+                } else if (count >= 4) {
+                    gValue9DAD78 = 0x3FCCCCCDu;
+                } else if (count >= 2) {
+                    gValue9DAD78 = 0x3F99999Au;
+                }
+            }
+        }
+
+        login::YobiAction* const first = ReadPetMapAction(ReadPetFollowIndex(0));
+        const std::int32_t nextY = action->pathY248[0];
+        const std::int32_t speed = first->walkSpeed;
+        const std::int32_t nextX = action->pathX220[0];
+        if (isPlayer) {
+            Sub_46A410(nextX, nextY, speed);
+        } else {
+            login::detail::Sub_4422F0(action, nextX, nextY, speed);
+        }
+        login::detail::Sub_442460(action);
+        // 两路末项前视均在消费前丢弃，不扩展原五槽顺序表。
+        if (position + 1 >= 5) {
+            continue;
+        }
+        const std::int16_t nextIndex = ReadPetFollowIndex(position + 1);
+        if (nextIndex < 0) {
+            continue;
+        }
+        login::YobiAction* const next = ReadPetMapAction(nextIndex);
+        const std::int32_t y =
+            platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0);
+        const std::int32_t x =
+            platform::legacy_crypt_int::Read_401EC0(&action->mapX1E0);
+        login::detail::Sub_441F60(next, x, y);
+    }
+
+    for (std::size_t position = 0; position < 5; ++position) {
+        const std::int16_t index = ReadPetFollowIndex(position);
+        if (index < 0) {
+            break;
+        }
+        const std::uint32_t playerIndex = ReadPlayerObjectIndex_FDA880();
+        if (ReadPetMapObjectIndex(index) == playerIndex) {
+            Sub_46A700();
+        } else {
+            login::detail::Sub_4428F0(ReadPetMapAction(index));
+        }
+    }
+    static_cast<void>(Sub_468200());
+    const std::uint32_t worldXBits = gWorldCurrentXBits;
+    const std::uint32_t worldYBits = gWorldCurrentYBits;
+    gWorldProjectionReferenceXBits = worldXBits;
+    gWorldProjectionReferenceYBits = worldYBits;
+    return worldXBits;
+}
+
 void Sub_46A5F0()
 {
     if (gValueFF0D36 == 0 || (ReadPlayerFlags18A() & 0x100u) == 0) {

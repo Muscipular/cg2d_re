@@ -536,6 +536,7 @@ void Sub_46A990(); // 从同一宠物五槽生成9FB938顺序表，gate为0不�
 void Sub_46A5A0(std::int32_t x, std::int32_t y); // 给顺序表第2项调用441F60。
 void Sub_46A940(); // 从顺序表第2项起调用442730，首个负S16终止。
 void Sub_46A5F0(); // 原完整跟随路径调度；到达后启动首路径并向后继传点。
+std::uint32_t Sub_46A190(); // 完整两轮跟随调度，返回公共尾先读取的世界X位型。
 void Sub_46A410(
     std::int32_t x, std::int32_t y, std::int32_t speed); // 玩家快照/共享移动分量初始化。
 void Sub_46A700(); // 原完整玩家移动推进、到达计数及MIS动作请求。
@@ -544,6 +545,7 @@ std::uint32_t ReadPlayerFlags18A() noexcept; // 原FDA88A跨W32读取。
 std::int32_t ReadPlayerWalkSpeed() noexcept; // 原FDA870。
 std::int16_t ReadPetFollowIndex(std::size_t position) noexcept;
 login::YobiAction* ReadPetMapAction(std::int16_t index) noexcept;
+std::uint32_t ReadPetMapObjectIndex(std::int16_t index) noexcept;
 // 519EE0 每个原读取点借用唯一 FF02B4，不暴露可写槽或对象布局。
 login::YobiAction* ReadPlayerAction() noexcept;
 void Sub_519CD0(

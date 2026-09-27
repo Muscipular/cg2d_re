@@ -37,6 +37,10 @@ std::int32_t gRotationCursorC8A940 = 0;
 std::uint32_t gValue62B348 = 0;
 static_assert(sizeof(gRotationTableC8A7B0) == 0x190);
 
+// 原 [DA43E8,DE03F4)：相册头与两组记录的唯一持久字节区；见场景证据 §58。
+alignas(std::uint32_t) std::array<std::byte, 0x3C00C> gAlbumStorage {};
+static_assert(sizeof(gAlbumStorage) == 0x0C + 2 * 960 * 0x80);
+
 // 原 0x9A7FA8；由 LegacyMouse.cpp 的 CRT 顺序适配显式构造、析构。
 platform::LegacyCryptInt gRippleGate {};
 
@@ -472,6 +476,14 @@ std::int32_t NextRotationValue_455C70()
         gRotationCursorC8A940 = 0;
     }
     return value;
+}
+
+std::uint32_t InitializeAlbum_518C20()
+{
+    constexpr char kAlbumSignature[] = "CCA";
+    gAlbumStorage.fill(std::byte{0});
+    std::memcpy(gAlbumStorage.data(), kAlbumSignature, sizeof(kAlbumSignature));
+    return 4;
 }
 
 namespace detail {

@@ -31,7 +31,6 @@ std::int32_t InitLoading_457B10();
 std::int32_t FadeInLoading_458390();
 std::int32_t FadeOutLoading_4585F0();
 std::int32_t InitializeMusic_454C30(std::uintptr_t window);
-std::uint32_t InitializeAlbum_518C20();
 std::int32_t InitializeWindowSystem_4705D0();
 
 } // namespace initialization_detail
@@ -156,7 +155,7 @@ int InitializeClient_4576B0()
     static_cast<void>(audio::InitializeAudio_5241A0());
     static_cast<void>(initialization_detail::InitializeMusic_454C30(gLegacyWindow));
     login::detail::Sub_44B5C0("initAlbumStartUp Start");
-    static_cast<void>(initialization_detail::InitializeAlbum_518C20());
+    static_cast<void>(world::InitializeAlbum_518C20());
 
     const double initialFrameTime = static_cast<double>(ReadTickCount32());
     world::gPendingSceneType = -1;

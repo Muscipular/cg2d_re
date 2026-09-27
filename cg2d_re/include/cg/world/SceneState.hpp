@@ -94,6 +94,9 @@ std::int32_t InitializeRotationTable_46FB20();
 // 原 455C70 + 独占尾块 46FB50；清两状态槽后取表、推进游标。
 std::int32_t NextRotationValue_455C70();
 
+// 原 518C20：清唯一相册区后复制 CCA 含 NUL 四字节，返回 4；不执行文件读写。
+std::uint32_t InitializeAlbum_518C20();
+
 // 原 World::Update@0x51C430；完整场景状态消费与分发，场景目标仍为真实未实现依赖。
 void Update();
 

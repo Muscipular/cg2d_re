@@ -164,8 +164,14 @@ InitPalette 失败则无本函数额外提示。七条 ASCII 阶段日志的大�
   消息泵、加载阶段与真实画面消费尚缺。
 - `initialization_detail::InitializeMusic_454C30`：原次级 DirectMusic
   初始化，音频继续暂缓，没有以已有 `5241A0` 替掉这个独立调用。
-- `initialization_detail::InitializeAlbum_518C20` 与
-  `InitializeWindowSystem_4705D0`：相册及窗口/UI 共享状态仍须落实。
+- `initialization_detail::InitializeWindowSystem_4705D0`：
+  窗口/UI 共享状态仍须落实。
+
+后续已按[场景 §58 的 owner SPEC](cg2d_scene_state.md)接通
+`world::InitializeAlbum_518C20`，在唯一 `0x3C00C` 字节区执行
+整区清零和 `CCA\0` 复制，返回完整 W32 值 4。
+移除原 platform 候选声明，当前尚缺的直接目标由七个降为六个；
+相册加载、保存、组清理和同步仍未实现，不将初始化当作相册整链完成。
 
 此外已有自动地图颜色包装的下游、DrawAllQueued 和完整退出依赖仍
 未闭合。本步证明的是完整父控制流已编码和现有依赖已静态接线，

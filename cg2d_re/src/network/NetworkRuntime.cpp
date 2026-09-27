@@ -3,6 +3,7 @@
 #include "../CharacterSelectSceneDependencies.hpp"
 #include "../LoginStateDependencies.hpp"
 #include "../world/MailState.hpp"
+#include "../world/WorldUpdateDependencies.hpp"
 #include "../platform/MainLoopDependencies.hpp"
 #include "NetworkRuntimeDependencies.hpp"
 
@@ -12,6 +13,7 @@
 #include "cg/LoginRequest.hpp"
 #include "cg/LoginScene.hpp"
 #include "cg/Palette.hpp"
+#include "cg/YobiRuntime.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/platform/LegacyTime.hpp"
 #include "cg/world/SceneState.hpp"
@@ -508,6 +510,103 @@ std::int32_t Sub_50D700(
         ParseDelimitedBase62_52D0D0(payload, '|', 2);
     world::detail::gValueFF0D08 = second;
     return second;
+}
+
+void Sub_50DD80(
+    const std::uintptr_t, const std::int32_t objectIndex,
+    const std::int32_t imageNo, const std::int32_t mapX,
+    const std::int32_t mapY, const std::int32_t direction,
+    const std::int32_t withRecord, const std::int32_t mode,
+    const char* const payload)
+{
+    if (world::gValue9A6E0C != 0) {
+        return;
+    }
+    if (world::ReadRippleGateOnce() != 0) {
+        return;
+    }
+    const std::int32_t convertedImageNo =
+        character_select::detail::Sub_51B740(imageNo);
+    if (withRecord == 0) {
+        std::int16_t actionMode;
+        std::int16_t value02 = 0;
+        switch (mode) {
+        case 0:
+            actionMode = 2;
+            break;
+        case 1:
+            actionMode = 8;
+            break;
+        case 2:
+            actionMode = 4;
+            break;
+        case 3:
+            actionMode = 0;
+            value02 = std::bit_cast<std::int16_t>(
+                static_cast<std::uint16_t>(direction));
+            break;
+        default:
+            return;
+        }
+        static_cast<void>(login::detail::Sub_448040(
+            convertedImageNo, mapX, mapY, direction, actionMode, value02, -1));
+        return;
+    }
+
+    char field[2048];
+    char name[2048];
+    char titles[2048];
+    const std::int32_t type = ParseDelimitedInteger_52CFA0(payload, '|', 1);
+    ExtractDelimitedField_52CED0(payload, '|', 2, 2047, field);
+    const std::int32_t recordIndex = Base62Decode_52D050(field);
+    ExtractDelimitedField_52CED0(payload, '|', 3, 2047, field);
+    const std::int32_t recordX = std::atoi(field);
+    ExtractDelimitedField_52CED0(payload, '|', 4, 2047, field);
+    const std::int32_t recordY = std::atoi(field);
+    ExtractDelimitedField_52CED0(payload, '|', 5, 2047, field);
+    const std::int32_t recordDirection = std::atoi(field);
+    ExtractDelimitedField_52CED0(payload, '|', 6, 2047, field);
+    const std::int32_t recordImageNo =
+        character_select::detail::Sub_51B740(std::atoi(field));
+    ExtractDelimitedField_52CED0(payload, '|', 7, 2047, field);
+    const std::int32_t level = std::atoi(field);
+    const std::int32_t value40 = ParseDelimitedInteger_52CFA0(payload, '|', 8);
+    ExtractDelimitedField_52CED0(payload, '|', 9, 2047, name);
+    input::UnescapeLegacyTextAndNotify_52D2F0(name);
+    ExtractDelimitedField_52CED0(payload, '|', 10, 2047, titles);
+    input::UnescapeLegacyTextAndNotify_52D2F0(titles);
+    ExtractDelimitedField_52CED0(payload, '|', 11, 2047, field);
+    const std::int32_t flag1 = std::atoi(field);
+    ExtractDelimitedField_52CED0(payload, '|', 12, 2047, field);
+    const std::int32_t flag2 = std::atoi(field);
+    if (world::detail::Sub_445A60(
+            recordIndex, recordImageNo, recordX, recordY, recordDirection,
+            name, titles, level, static_cast<std::uint16_t>(value40),
+            flag1, flag2, type) == 0) {
+        return;
+    }
+
+    // 原带记录路径到此才检查mode；无效mode也保留已生产记录。
+    std::int16_t actionMode;
+    switch (mode) {
+    case 0:
+        actionMode = 3;
+        break;
+    case 1:
+        actionMode = 9;
+        break;
+    case 2:
+        actionMode = 5;
+        break;
+    case 3:
+        actionMode = 1;
+        break;
+    default:
+        return;
+    }
+    static_cast<void>(login::detail::Sub_448040(
+        convertedImageNo, recordX, recordY, recordDirection,
+        actionMode, 0, objectIndex));
 }
 
 std::int32_t Sub_50E830(const std::uintptr_t)

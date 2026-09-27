@@ -34,6 +34,14 @@ void Sub_50E630(
 // 原 [0x50D700,0x50D73A)：场景门禁后写阶段与两项 base62 回复值。
 std::int32_t Sub_50D700(std::uintptr_t socket, const char* payload);
 
+// 原50DD80：双门禁后按模式创建专用动作；带记录时先解析并调用445A60。
+// 外层图号/关联编号与payload中的记录图号/对象编号保持独立。
+void Sub_50DD80(
+    std::uintptr_t unusedSocket, std::int32_t objectIndex,
+    std::int32_t imageNo, std::int32_t mapX, std::int32_t mapY,
+    std::int32_t direction, std::int32_t withRecord,
+    std::int32_t mode, const char* payload);
+
 // 原 [0x50E830,0x50E844)：共享 W32 非零直接返回，零时清并回写公会邮件。
 std::int32_t Sub_50E830(std::uintptr_t unusedSocket);
 

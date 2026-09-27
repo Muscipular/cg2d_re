@@ -478,8 +478,15 @@ std::int32_t __cdecl Sub_50C8D0(
     const char* text); // 原 [0x50C8D0,0x50C8F5)，透传 zA 请求返回。
 struct RecipeItemData;
 RecipeItemData* Sub_5199A0();              // 原 0x5199A0。
-struct YobiAction;
-YobiAction** Sub_446470();                 // 原 0x446470。
+std::int32_t Sub_444FA0(std::int32_t objectIndex); // 原编号查槽，命中更新查找游标。
+std::int32_t Sub_446130(); // 原空槽领取，返回旧游标；不在此处标记占用。
+std::int32_t Sub_445030(
+    std::int32_t x, std::int32_t y, std::uint16_t category, std::uint16_t flags);
+std::int32_t Sub_4450D0(
+    std::int32_t x, std::int32_t y, std::uint16_t category); // 返回完整0/1。
+std::int32_t Sub_445160(
+    std::int32_t x, std::int32_t y, std::uint16_t category); // 命中返回对象编号，否则-1。
+void Sub_446470(); // 原只清引用的全表重置；调用者均弃用原表外返回地址。
 void* __cdecl Sub_46ADA0();               // 原 [0x46ADA0,0x46AE53)，仅透传 51D5B0 的返回位型。
 std::int32_t __cdecl Sub_46AC90();        // 原 [0x46AC90,0x46AD00)，type 2 的真实后继。
 std::int32_t __cdecl Sub_46AEA0();        // 原 [0x46AEA0,0x46AF24)，type 3 的真实后继。

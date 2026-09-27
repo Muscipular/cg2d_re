@@ -3,6 +3,7 @@
 #include "LoginMessageDependencies.hpp"
 #include "AnimationRuntimeState.hpp"
 #include "world/WorldUpdateDependencies.hpp"
+#include "world/WorldObjectState.hpp"
 #include "platform/MapEffectMath.hpp"
 
 #include "cg/AnimationRuntime.hpp"
@@ -2474,6 +2475,83 @@ void SetYobiActionField30F(
 } // namespace cg::login
 
 namespace cg::world::detail {
+
+std::int32_t Sub_445030(
+    const std::int32_t x, const std::int32_t y,
+    const std::uint16_t category, const std::uint16_t flags)
+{
+    std::int32_t upperBound = gWorldObjectUpperBound;
+    if (upperBound <= 0) {
+        return -1;
+    }
+    std::int32_t index = 0;
+    do {
+        auto& record = gWorldObjects[static_cast<std::size_t>(index)];
+        if (record.used != 0) {
+            login::YobiAction* const action = record.action;
+            if (action != nullptr
+                && platform::legacy_crypt_int::Equal_401D00(&action->mapX1E0, x)
+                && platform::legacy_crypt_int::Equal_401D00(&record.action->mapY1F0, y)
+                && (record.category & category) != 0
+                && (record.flags120 & flags) != 0) {
+                return record.objectIndex;
+            }
+        }
+        upperBound = gWorldObjectUpperBound;
+        ++index;
+    } while (index < upperBound);
+    return -1;
+}
+
+std::int32_t Sub_4450D0(
+    const std::int32_t x, const std::int32_t y, const std::uint16_t category)
+{
+    std::int32_t upperBound = gWorldObjectUpperBound;
+    if (upperBound <= 0) {
+        return 0;
+    }
+    std::int32_t index = 0;
+    do {
+        auto& record = gWorldObjects[static_cast<std::size_t>(index)];
+        if (record.used != 0) {
+            login::YobiAction* const action = record.action;
+            if (action != nullptr
+                && platform::legacy_crypt_int::Equal_401D00(&action->mapX1E0, x)
+                && platform::legacy_crypt_int::Equal_401D00(&record.action->mapY1F0, y)
+                && (record.category & category) != 0) {
+                return 1;
+            }
+        }
+        upperBound = gWorldObjectUpperBound;
+        ++index;
+    } while (index < upperBound);
+    return 0;
+}
+
+std::int32_t Sub_445160(
+    const std::int32_t x, const std::int32_t y, const std::uint16_t category)
+{
+    std::int32_t upperBound = gWorldObjectUpperBound;
+    if (upperBound <= 0) {
+        return -1;
+    }
+    std::int32_t index = 0;
+    do {
+        auto& record = gWorldObjects[static_cast<std::size_t>(index)];
+        if (record.used != 0) {
+            login::YobiAction* const action = record.action;
+            if (action != nullptr
+                && platform::legacy_crypt_int::Equal_401D00(&action->mapX1E0, x)
+                && platform::legacy_crypt_int::Equal_401D00(&record.action->mapY1F0, y)
+                && (record.category & category) != 0) {
+                return record.objectIndex;
+            }
+        }
+        upperBound = gWorldObjectUpperBound;
+        ++index;
+    } while (index < upperBound);
+    return -1;
+}
 
 void Sub_46B4B0(const std::int32_t direction)
 {

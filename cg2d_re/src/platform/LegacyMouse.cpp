@@ -6,6 +6,7 @@
 #include "cg/platform/MainLoop.hpp"
 #include "cg/platform/Startup.hpp"
 #include "cg/world/SceneState.hpp"
+#include "cg/world/WorldObjects.hpp"
 
 #include <cstring>
 
@@ -16,6 +17,20 @@ std::uint32_t gValueD68BF0 = 0;
 std::uint32_t gValueD68DC8 = 0;
 
 namespace {
+
+struct WorldObjectsStaticInitializer {
+    WorldObjectsStaticInitializer()
+    {
+        cg::world::ConstructWorldObjects();
+    }
+
+    ~WorldObjectsStaticInitializer()
+    {
+        cg::world::DestroyWorldObjects();
+    }
+};
+
+const WorldObjectsStaticInitializer gWorldObjectsStaticInitializer;
 
 struct PlayerCoordinatesStaticInitializer {
     PlayerCoordinatesStaticInitializer()

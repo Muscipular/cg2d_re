@@ -540,6 +540,7 @@ void Sub_46A990(); // 从同一宠物五槽生成9FB938顺序表，gate为0不�
 void Sub_46A5A0(std::int32_t x, std::int32_t y); // 给顺序表第2项调用441F60。
 void Sub_46A940(); // 从顺序表第2项起调用442730，首个负S16终止。
 void Sub_46A5F0(); // 原完整跟随路径调度；到达后启动首路径并向后继传点。
+std::uint16_t Sub_469FC0(); // 普通玩家完整移动调度，承接原AX返回。
 std::uint32_t Sub_46A190(); // 完整两轮跟随调度，返回公共尾先读取的世界X位型。
 void Sub_46A410(
     std::int32_t x, std::int32_t y, std::int32_t speed); // 玩家快照/共享移动分量初始化。

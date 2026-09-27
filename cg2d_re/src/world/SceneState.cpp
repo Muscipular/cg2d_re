@@ -14,6 +14,7 @@
 #include "cg/GraphicInfo.hpp"
 #include "cg/ResourcePaths.hpp"
 #include "cg/YobiRuntime.hpp"
+#include "cg/ui/WindowRuntime.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/render/SurfaceState.hpp"
 #include "cg/render/TextPendingQueue.hpp"
@@ -4317,6 +4318,88 @@ void Sub_46A940()
             gPetMapCharaSlots[static_cast<std::size_t>(index)].action;
         login::detail::Sub_442730(action);
     }
+}
+
+std::uint16_t Sub_469FC0()
+{
+    const std::uint32_t stopped = gValue9EE8B8;
+    gValue9DAD78 = 0x3F800000u;
+    if (stopped != 0) {
+        return static_cast<std::uint16_t>(stopped);
+    }
+    if (platform::legacy_crypt_int::Equal_401D00(&gValueC821D8, 0)
+        && gValue9A86D8 == 0 && gValue9FB92E == 0) {
+        const std::int32_t pending = Sub_46AB60();
+        if (pending != 0) {
+            return static_cast<std::uint16_t>(pending);
+        }
+        const double targetX = static_cast<double>(
+            platform::legacy_crypt_int::Read_401EC0(&gPlayerSnapshotX)) * 64.0F;
+        const std::uint32_t worldXBits = gWorldCurrentXBits;
+        const float worldX = std::bit_cast<float>(worldXBits);
+        if (!(targetX < worldX || targetX > worldX)) {
+            const double targetY = static_cast<double>(
+                platform::legacy_crypt_int::Read_401EC0(&gPlayerSnapshotY)) * 64.0F;
+            const std::uint32_t worldYBits = gWorldCurrentYBits;
+            const float worldY = std::bit_cast<float>(worldYBits);
+            if (!(targetY < worldY || targetY > worldY)) {
+                if (gValueC821FC != 0 && gValueC82202 == 0) {
+                    gValueC821FC = 0;
+                    static_cast<void>(Sub_46B6F0());
+                }
+                std::int16_t pathCount = std::bit_cast<std::int16_t>(gValueC82200);
+                if (pathCount == 0 && gValueC82202 == 0) {
+                    Sub_46B4B0(std::bit_cast<std::int16_t>(gValue55D9FC));
+                    pathCount = std::bit_cast<std::int16_t>(gValueC82200);
+                    gValue55D9FC = 0xFFFFu;
+                }
+                if (pathCount > 0 && gValueC82202 == 0) {
+                    Sub_46ABD0();
+                    if (std::bit_cast<std::int16_t>(gValueC82202) > 0) {
+                        static_cast<void>(Sub_46AA00());
+                    }
+                    static_cast<void>(ui::Sub_4CD3E0());
+                    static_cast<void>(Sub_46AC10());
+                }
+                if (std::bit_cast<std::int16_t>(gValueC82202) > 0) {
+                    static_cast<void>(Sub_46AF30());
+                    const std::int16_t direction =
+                        std::bit_cast<std::int16_t>(gPendingDirections9A86D4[0]);
+                    Sub_46BCF0();
+                    const std::int32_t speed = gPlayerRuntime.walkSpeed;
+                    const std::int16_t deltaY =
+                        gDirectionDeltas55D9DC[static_cast<std::size_t>(direction)].y;
+                    // 原401E00忽略实参高W16；复用单次读取的加法与S16扩展。
+                    const std::int32_t nextY =
+                        platform::legacy_crypt_int::Add_401E10(&gPlayerY, deltaY);
+                    const std::int16_t deltaX =
+                        gDirectionDeltas55D9DC[static_cast<std::size_t>(direction)].x;
+                    const std::int32_t nextX =
+                        platform::legacy_crypt_int::Add_401E10(&gPlayerX, deltaX);
+                    Sub_46A410(nextX, nextY, speed);
+                    const std::int32_t y =
+                        platform::legacy_crypt_int::Read_401EC0(&gPlayerY);
+                    const std::int32_t x =
+                        platform::legacy_crypt_int::Read_401EC0(&gPlayerX);
+                    Sub_46A5A0(x, y);
+                }
+            }
+        }
+    }
+    Sub_46A5F0();
+    const std::uint32_t stoppedAfterFollow = gValue9EE8B8;
+    gValueC8222E = 0;
+    if (stoppedAfterFollow != 0) {
+        return static_cast<std::uint16_t>(stoppedAfterFollow);
+    }
+    Sub_46A700();
+    Sub_46A940();
+    const std::uint16_t result = Sub_468200();
+    const std::uint32_t worldXBits = gWorldCurrentXBits;
+    const std::uint32_t worldYBits = gWorldCurrentYBits;
+    gWorldProjectionReferenceXBits = worldXBits;
+    gWorldProjectionReferenceYBits = worldYBits;
+    return result;
 }
 
 void Sub_46A410(

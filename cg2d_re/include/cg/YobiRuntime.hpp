@@ -78,6 +78,14 @@ YobiAction* PublishPlayerActionIdentity(
 // 519A80 分别复制 +170/+180 的载荷；前者复用 readiness，调用方负责重读玩家。
 void CopyYobiPlayerHp(YobiAction* action, const platform::LegacyCryptInt* source);
 void CopyYobiPlayerMaxHp(YobiAction* action, const platform::LegacyCryptInt* source);
+// 51A4B0跨私有布局边界；借用同一玩家来源，按原位置重读共享action。
+void CopyInitialPlayerActionIdentity(
+    const char* name, const char* title, const std::int32_t* level,
+    const platform::LegacyCryptInt* hp, const platform::LegacyCryptInt* maxHp);
+// 50B380的2E4/2E8/2EC写序；slot可指向玩家共享槽或本行固定T*。
+void UpdateMapActorMode(YobiAction*& slot, std::int32_t mode, std::int32_t imageNo);
+// 50B380公共尾：先捕获payload，再探测字段17，不新增action空检查。
+void ApplyMapActorReplyAttachments(YobiAction* action, const char* text);
 // 地图实体的目标格坐标/路径/动作链；指针只借用，布局保持 runtime 私有。
 // 原441F60：单点入队；原U16满队列分支清计数并重置到终点。
 void Sub_441F60(

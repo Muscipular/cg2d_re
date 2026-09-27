@@ -2089,6 +2089,55 @@ void CopyYobiPlayerMaxHp(
     platform::legacy_crypt_int::CopyPayload(&action->maxHp, source);
 }
 
+void CopyInitialPlayerActionIdentity(
+    const char* const name, const char* const title, const std::int32_t* const level,
+    const platform::LegacyCryptInt* const hp, const platform::LegacyCryptInt* const maxHp)
+{
+    YobiAction* action = world::detail::ReadPlayerAction();
+    if (action == nullptr) {
+        return;
+    }
+    if (std::strlen(name) <= 16) {
+        std::strcpy(action->nameC4.data(), name);
+        action = world::detail::ReadPlayerAction();
+    }
+    if (std::strlen(title) <= 16) {
+        std::strcpy(action->titleE1.data(), title);
+        action = world::detail::ReadPlayerAction();
+    }
+    action->field1D0 = *level;
+    action = world::detail::ReadPlayerAction();
+    platform::legacy_crypt_int::CopyPayload(&action->readiness, hp);
+    action = world::detail::ReadPlayerAction();
+    platform::legacy_crypt_int::CopyPayload(&action->maxHp, maxHp);
+}
+
+void UpdateMapActorMode(
+    YobiAction*& slot, const std::int32_t mode, const std::int32_t imageNo)
+{
+    YobiAction* current = slot;
+    if (current->imageNo2E8 != imageNo) {
+        current->refresh2EC = 1;
+        current = slot;
+    }
+    const bool explicitMode = mode == 1 || mode == 2;
+    current->field2E4 = explicitMode ? mode : 0;
+    slot->imageNo2E8 = explicitMode ? imageNo : 0;
+}
+
+void ApplyMapActorReplyAttachments(YobiAction* const action, const char* const text)
+{
+    auto* const payload = static_cast<MapActorPayload*>(action->payload);
+    char buffer[2048];
+    network::ExtractDelimitedField_52CED0(text, '|', 17, 2047, buffer);
+    if (std::strlen(buffer) != 0) {
+        Sub_43DD00(action, text, 17);
+    } else if (payload->action2C != nullptr) {
+        MarkDeath(payload->action2C);
+        payload->action2C = nullptr;
+    }
+}
+
 void Sub_442AB0(
     YobiAction* const action, const std::int32_t targetX,
     const std::int32_t targetY)
@@ -4788,6 +4837,50 @@ void SetYobiActionField30F(
 } // namespace cg::login
 
 namespace cg::world::detail {
+
+void Sub_449C90(login::YobiAction* const action)
+{
+    if (action == nullptr) {
+        return;
+    }
+    const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
+    auto& flags = gWorldObjects[payload->index].flags42;
+    if ((flags & 0x200u) == 0) {
+        flags |= 0x100u;
+    }
+}
+
+void Sub_449CC0(login::YobiAction* const action)
+{
+    if (action == nullptr) {
+        return;
+    }
+    const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
+    auto& record = gWorldObjects[payload->index];
+    if (record.marker44 == 0) {
+        record.flags42 &= 0xFEFFu;
+    }
+}
+
+void Sub_442C40(login::YobiAction* const action)
+{
+    if (action == nullptr) {
+        return;
+    }
+    const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
+    gWorldObjects[payload->index].flags42 |= 0x200u;
+}
+
+void Sub_442BD0(login::YobiAction* const action)
+{
+    if (action == nullptr) {
+        return;
+    }
+    const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
+    auto& record = gWorldObjects[payload->index];
+    record.flags42 |= 0x100u;
+    record.marker44 = 1;
+}
 
 std::int32_t Sub_5183B0(const std::int32_t imageNo)
 {

@@ -82,6 +82,12 @@ std::int32_t Sub_444FA0(const std::int32_t objectIndex)
     return -1;
 }
 
+login::YobiAction* FindObjectYobi_4462B0(const std::int32_t objectIndex)
+{
+    const std::int32_t index = Sub_444FA0(objectIndex);
+    return index < 0 ? nullptr : gWorldObjects[index].action;
+}
+
 std::int32_t Sub_446130()
 {
     if (gWorldObjectUsedCount >= 1000) {

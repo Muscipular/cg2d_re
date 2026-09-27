@@ -588,6 +588,14 @@ std::int32_t __cdecl Sub_50C8D0(
 struct RecipeItemData;
 RecipeItemData* Sub_5199A0();              // 原 0x5199A0。
 std::int32_t Sub_444FA0(std::int32_t objectIndex); // 原编号查槽，命中更新查找游标。
+login::YobiAction* FindObjectYobi_4462B0(std::int32_t objectIndex); // 复用原查槽后借用action。
+void Sub_50B380(std::uintptr_t socket, const char* payload); // 完整TAB对象批量回复，socket未用。
+void Sub_51A4B0(); // 玩家初始姓名/称号/等级/HP同步。
+void Sub_51A5E0(); // 玩家flags18A置200。
+void Sub_449C90(login::YobiAction* action); // 非跟随对象置flags42的100。
+void Sub_449CC0(login::YobiAction* action); // marker44为0才清flags42的100。
+void Sub_442C40(login::YobiAction* action); // flags42置200。
+void Sub_442BD0(login::YobiAction* action); // flags42置100，再marker44=1。
 std::int32_t Sub_446130(); // 原空槽领取，返回旧游标；不在此处标记占用。
 std::uint32_t Sub_4461E0(std::int32_t type); // 原类型转flags114，返回完整W32。
 std::uint32_t Sub_446210(std::int32_t type); // 原71项跳表转换，写category时才截低W16。

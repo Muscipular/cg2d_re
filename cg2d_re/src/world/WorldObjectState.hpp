@@ -27,7 +27,8 @@ struct WorldObjectRecord {
     std::int32_t value3C; // 原+3C；同一待转方向对应的目标Y。
     std::uint16_t value40;
     std::uint16_t flags42;
-    std::array<std::byte, 4> bytes44;
+    std::uint8_t marker44; // 442BD0置1，449CC0读取；与flags42分属不同槽。
+    std::array<std::byte, 3> bytes45;
     std::int32_t value48;
     std::int32_t value4C;
     std::int32_t value50;
@@ -63,6 +64,7 @@ static_assert(offsetof(WorldObjectRecord, value34) == 0x34);
 static_assert(offsetof(WorldObjectRecord, value38) == 0x38);
 static_assert(offsetof(WorldObjectRecord, value3C) == 0x3C);
 static_assert(offsetof(WorldObjectRecord, flags42) == 0x42);
+static_assert(offsetof(WorldObjectRecord, marker44) == 0x44);
 static_assert(offsetof(WorldObjectRecord, value48) == 0x48);
 static_assert(offsetof(WorldObjectRecord, value4C) == 0x4C);
 static_assert(offsetof(WorldObjectRecord, value50) == 0x50);

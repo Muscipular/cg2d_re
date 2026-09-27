@@ -122,13 +122,17 @@ struct PetMapCharaSlot {
     std::uint16_t flags;
     std::array<std::byte, 2> bytes02;
     std::uint32_t objectIndex;
-    std::array<std::byte, 36> bytes08;
+    std::int32_t level08; // 50B380玩家分支同步第0槽。
+    std::array<std::byte, 12> bytes0C;
+    std::array<char, 17> name18; // 原+18，旧编码名称。
+    std::array<std::byte, 3> bytes29;
     login::YobiAction* action; // 原 +2C，非拥有。
 };
 
 static_assert(offsetof(PetMapCharaSlot, flags) == 0);
 static_assert(offsetof(PetMapCharaSlot, objectIndex) == 4);
-static_assert(offsetof(PetMapCharaSlot, bytes08) == 8);
+static_assert(offsetof(PetMapCharaSlot, level08) == 8);
+static_assert(offsetof(PetMapCharaSlot, name18) == 0x18);
 static_assert(offsetof(PetMapCharaSlot, action) == 0x30);
 static_assert(sizeof(PetMapCharaSlot) == 0x38);
 std::array<PetMapCharaSlot, 5> gPetMapCharaSlots {};
@@ -1628,6 +1632,196 @@ void Sub_476680()
     gValue626BFC = remaining;
     if (std::bit_cast<std::int32_t>(remaining) < 0) {
         gValue626BFC = 0;
+    }
+}
+
+void Sub_50B380(const std::uintptr_t /*socket*/, const char* const payload)
+{
+    if (gValue9A6E0C != 0) {
+        return;
+    }
+    if (ReadRippleGateOnce() != 0) {
+        return;
+    }
+
+    char row[2048];
+    char field[2048];
+    char name[256];
+    char titles[256];
+    char extraText[256];
+    char label[1024];
+    for (std::int32_t rowIndex = 1;; ++rowIndex) {
+        const std::int32_t status = network::ExtractDelimitedField_52CED0(
+            payload, '\t', rowIndex, 2047, row);
+        if (std::strlen(row) == 0 && status == 1) {
+            return;
+        }
+        network::ExtractDelimitedField_52CED0(row, '|', 11, 2047, field);
+        if (std::strlen(field) != 0) {
+            const std::int32_t type =
+                network::ParseDelimitedInteger_52CFA0(row, '|', 1);
+            network::ExtractDelimitedField_52CED0(row, '|', 2, 2047, field);
+            const std::int32_t objectIndex = network::Base62Decode_52D050(field);
+            network::ExtractDelimitedField_52CED0(row, '|', 3, 2047, field);
+            const std::int32_t x = std::atoi(field);
+            network::ExtractDelimitedField_52CED0(row, '|', 4, 2047, field);
+            const std::int32_t y = std::atoi(field);
+            network::ExtractDelimitedField_52CED0(row, '|', 5, 2047, field);
+            const std::int32_t direction = std::atoi(field);
+            network::ExtractDelimitedField_52CED0(row, '|', 6, 2047, field);
+            const std::int32_t imageNo = std::atoi(field);
+            network::ExtractDelimitedField_52CED0(row, '|', 7, 2047, field);
+            const std::int32_t level = std::atoi(field);
+            const std::int32_t value40 =
+                network::ParseDelimitedInteger_52CFA0(row, '|', 8);
+            network::ExtractDelimitedField_52CED0(row, '|', 9, 255, name);
+            input::UnescapeLegacyTextAndNotify_52D2F0(name);
+            network::ExtractDelimitedField_52CED0(row, '|', 10, 255, titles);
+            input::UnescapeLegacyText_52D150(titles);
+            network::ExtractDelimitedField_52CED0(row, '|', 11, 2047, field);
+            const std::int32_t flag1 = std::atoi(field);
+            network::ExtractDelimitedField_52CED0(row, '|', 12, 2047, field);
+            const std::int32_t flag2 = std::atoi(field);
+            network::ExtractDelimitedField_52CED0(row, '|', 13, 2047, field);
+            static_cast<void>(std::atoi(field));
+            network::ExtractDelimitedField_52CED0(row, '|', 14, 255, extraText);
+            input::UnescapeLegacyTextAndNotify_52D2F0(extraText);
+            network::ExtractDelimitedField_52CED0(row, '|', 15, 2047, field);
+            const std::int32_t mode = std::atoi(field);
+            network::ExtractDelimitedField_52CED0(row, '|', 16, 2047, field);
+            const std::int32_t attachmentImage = std::atoi(field);
+
+            login::YobiAction* object;
+            if (static_cast<std::uint32_t>(objectIndex) == gPlayerRuntime.objectIndex) {
+                const std::int32_t mappedImage =
+                    character_select::detail::Sub_51B740(imageNo);
+                if (gPlayerRuntime.direction < 0) {
+                    gPlayerRuntime.direction = direction;
+                }
+                if (gPlayerRuntime.action == nullptr) {
+                    Sub_519CD0(mappedImage, x, y, direction);
+                    Sub_51A4B0();
+                } else {
+                    Sub_519E50(mappedImage, gPlayerRuntime.direction);
+                }
+                object = gPlayerRuntime.action;
+                login::detail::UpdateMapActorMode(
+                    gPlayerRuntime.action, mode, attachmentImage);
+                if (mode == 2) {
+                    if ((gPlayerRuntime.flags18A & 0x200u) == 0) {
+                        gPlayerRuntime.flags18A |= 0x100u;
+                    }
+                } else if (static_cast<std::uint8_t>(gPlayerRuntime.flags18C) == 0) {
+                    gPlayerRuntime.flags18A &= 0xFEFFu;
+                }
+                gValue9A4B94 &= 0xFDu;
+                static_cast<void>(Sub_468200());
+                Sub_51A090(name, titles, level, value40, flag1, flag2);
+                if ((gPlayerRuntime.flags18A & 0x100u) != 0
+                    && gPetMapCharaSlots[0].flags != 0) {
+                    gPetMapCharaSlots[0].level08 = gPlayerRuntime.level;
+                    std::strcpy(
+                        gPetMapCharaSlots[0].name18.data(), gPlayerRuntime.name.data());
+                }
+                for (std::size_t i = 0; i < gPetMapCharaSlots.size(); ++i) {
+                    auto& slot = gPetMapCharaSlots[i];
+                    if (slot.flags != 0
+                        && slot.objectIndex == static_cast<std::uint32_t>(objectIndex)) {
+                        slot.action = gPlayerRuntime.action;
+                        Sub_51A5E0();
+                        if (i == 0) {
+                            Sub_51A5A0();
+                        }
+                        break;
+                    }
+                }
+            } else {
+                const std::int32_t mappedImage =
+                    character_select::detail::Sub_51B740(imageNo);
+                Sub_445350(
+                    objectIndex, mappedImage, x, y, direction, name, titles,
+                    extraText, level, value40, flag1, flag2, type);
+                object = FindObjectYobi_4462B0(objectIndex);
+                if (object != nullptr) {
+                    login::detail::UpdateMapActorMode(object, mode, attachmentImage);
+                    if (mode == 2) {
+                        Sub_449C90(object);
+                    } else {
+                        Sub_449CC0(object);
+                    }
+                    for (std::size_t i = 0; i < gPetMapCharaSlots.size(); ++i) {
+                        auto& slot = gPetMapCharaSlots[i];
+                        if (slot.flags != 0
+                            && slot.objectIndex == static_cast<std::uint32_t>(objectIndex)) {
+                            slot.action = object;
+                            Sub_442C40(object);
+                            if (i == 0) {
+                                Sub_442BD0(object);
+                            }
+                            break;
+                        }
+                    }
+                }
+            }
+            login::detail::ApplyMapActorReplyAttachments(object, row);
+            continue;
+        }
+
+        network::ExtractDelimitedField_52CED0(row, '|', 6, 2047, field);
+        if (std::strlen(field) != 0) {
+            network::ExtractDelimitedField_52CED0(row, '|', 1, 2047, field);
+            const std::int32_t objectIndex = network::Base62Decode_52D050(field);
+            network::ExtractDelimitedField_52CED0(row, '|', 2, 2047, field);
+            const std::int32_t x = std::atoi(field);
+            network::ExtractDelimitedField_52CED0(row, '|', 3, 2047, field);
+            const std::int32_t y = std::atoi(field);
+            network::ExtractDelimitedField_52CED0(row, '|', 4, 2047, field);
+            const std::int32_t imageNo = std::atoi(field);
+            const std::int32_t value48 =
+                network::ParseDelimitedInteger_52CFA0(row, '|', 5);
+            network::ExtractDelimitedField_52CED0(row, '|', 6, 1023, label);
+            input::UnescapeLegacyTextAndNotify_52D2F0(label);
+            const std::int32_t value50 =
+                network::ParseDelimitedInteger_52CFA0(row, '|', 7);
+            Sub_445D20(objectIndex, imageNo, x, y, 0, value48, label, value50);
+            continue;
+        }
+
+        network::ExtractDelimitedField_52CED0(row, '|', 4, 2047, field);
+        if (std::strlen(field) != 0) {
+            network::ExtractDelimitedField_52CED0(row, '|', 1, 2047, field);
+            const std::int32_t objectIndex = network::Base62Decode_52D050(field);
+            network::ExtractDelimitedField_52CED0(row, '|', 2, 2047, field);
+            const std::int32_t x = std::atoi(field);
+            network::ExtractDelimitedField_52CED0(row, '|', 3, 2047, field);
+            const std::int32_t y = std::atoi(field);
+            network::ExtractDelimitedField_52CED0(row, '|', 4, 2047, field);
+            const std::int32_t count = std::atoi(field);
+            std::sprintf(label, "%d \xAA\xF7\xB9\xF4", count);
+            std::int32_t imageNo;
+            if (count < 50) {
+                imageNo = 0x6B08;
+            } else if (count < 100) {
+                imageNo = 0x6B09;
+            } else if (count < 1000) {
+                imageNo = 0x6B0A;
+            } else if (count < 5000) {
+                imageNo = 0x6B0B;
+            } else if (count < 10000) {
+                imageNo = 0x6B0C;
+            } else if (count < 50000) {
+                imageNo = 0x6B0D;
+            } else if (count < 100000) {
+                imageNo = 0x6B0E;
+            } else if (count < 500000) {
+                imageNo = 0x6B0F;
+            } else if (count < 1000000) {
+                imageNo = 0x6B10;
+            } else {
+                imageNo = 0x6B11;
+            }
+            Sub_445F40(objectIndex, imageNo, x, y, 0, count, label);
+        }
     }
 }
 
@@ -5491,6 +5685,13 @@ login::YobiAction* ReadPlayerAction() noexcept
     return gPlayerRuntime.action;
 }
 
+void Sub_51A4B0()
+{
+    login::detail::CopyInitialPlayerActionIdentity(
+        gPlayerRuntime.name.data(), gPlayerRuntime.ownTitle.data(),
+        &gPlayerRuntime.level, &gPlayerRuntime.hp, &gPlayerRuntime.maxHp);
+}
+
 void Sub_519CD0(
     const std::int32_t imageNo, const std::int32_t x, const std::int32_t y,
     const std::int32_t direction)
@@ -5621,6 +5822,11 @@ void Sub_51A5A0()
 {
     gPlayerRuntime.flags18A |= 0x0100u;
     gPlayerRuntime.flags18C = (gPlayerRuntime.flags18C & 0xFFFFFF00u) | 1u;
+}
+
+void Sub_51A5E0()
+{
+    gPlayerRuntime.flags18A |= 0x200u;
 }
 
 login::YobiAction* Sub_51A5B0()

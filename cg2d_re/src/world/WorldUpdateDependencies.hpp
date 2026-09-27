@@ -1,5 +1,7 @@
 #pragma once
 
+#include "MailState.hpp"
+
 #include "cg/LegacyAudio.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
 
@@ -462,8 +464,6 @@ std::int32_t Sub_449FA0(std::int32_t index); // 原 [0x449FA0,0x44A084)，写入
 std::int32_t Sub_504A30();                 // 原 [0x504A30,0x504A43)，调用 44A090、清两槽并返回 0。
 std::int32_t Sub_43C8F0();                 // 原 [0x43C8F0,0x43C90A)，四槽顺序写入并返回 -1。
 std::int32_t Sub_504100();                 // 原 [0x504100,0x504113)，顺序清三槽、返回 0。
-std::int32_t Sub_518C80();                 // 原 0x518C80。
-std::int32_t Sub_518CB0();                 // 原 [0x518CB0,0x518D94)：返回 fclose/helper 整数。
 void Sub_518780();                         // 原 0x518780。
 std::int8_t Sub_503E80();                  // 原 0x503E80，IDA 原型 char()。
 using cg::audio::Sub_52B990;               // 原 0x52B990。

@@ -1049,6 +1049,13 @@ std::int32_t ReadMappedSavedPhysicalSlot105C36C(
     return gSavedState.logicalToPhysical[index];
 }
 
+const char* ReadSelectedSavedDirectory()
+{
+    const std::int32_t selected = gSavedState.selected;
+    const std::int32_t physicalSlot = gSavedState.logicalToPhysical[selected];
+    return gSavedState.paths[physicalSlot].text;
+}
+
 std::int32_t Sub_5336D0()
 {
     return LoadSelectedPhysicalRecord_5336D0();

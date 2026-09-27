@@ -1,6 +1,7 @@
 #pragma once
 
 #include "LoginMessageDependencies.hpp"
+#include "world/MailState.hpp"
 
 #include "cg/LegacyAudio.hpp"
 #include "cg/LoginRequest.hpp"
@@ -73,8 +74,8 @@ std::uint8_t Sub_50E770(std::uintptr_t unusedSocket, std::uint8_t pukVersion);
 void Sub_518BE0();
 std::int32_t Sub_519290();
 std::int32_t Sub_5194C0();
-std::int32_t Sub_519300(); // 原 [0x519300,0x51936C)：返回 fclose 整数或 0。
-std::int32_t Sub_519550(); // 原 [0x519550,0x5195BC)：返回 fclose 整数或 0。
+using cg::world::detail::Sub_519300;
+using cg::world::detail::Sub_519550;
 // 原 [0x51BA10,0x51BAB5)：按原区间顺序返回图号类别 0..5。
 std::int32_t Sub_51BA10(std::int32_t imageNo);
 // 原 [0x51BF00,0x51BFEF)：三段早退后按 signed 商索引 14 项局部图号表。

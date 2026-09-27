@@ -22,6 +22,8 @@ void Sub_533730();
 // 能力 4 主场景所需的保存槽窄读取边界；直接读取唯一保存状态 owner。
 std::int32_t ReadNewSavedPhysicalSlot105C368();
 std::int32_t ReadMappedSavedPhysicalSlot105C36C(std::int32_t index);
+// 原 518CB0/519300/519550 的路径读取序列；每次重取逻辑槽和映射，借用同一物理路径。
+const char* ReadSelectedSavedDirectory();
 
 // 原 sub_5336D0/sub_533860：载入当前记录与删除指定物理槽文件。
 std::int32_t Sub_5336D0();

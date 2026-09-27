@@ -1,7 +1,10 @@
 #include "cg/render/SdlPresenter.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/platform/MainLoop.hpp"
+#include "cg/render/RendererResources.hpp"
 #include "cg/render/SurfaceState.hpp"
+
+#include "GraphicDxCacheState.hpp"
 
 #include <SDL3/SDL.h>
 
@@ -275,6 +278,22 @@ void Flip_44C560()
         platform::gRendererLost = 1;
     }
     gFrameParity628FC8 = gFrameParity628FC8 == 0 ? 1u : 0u;
+}
+
+void RendererDestroy_44C3C0() noexcept
+{
+    if (!SDL_IsMainThread()) {
+        return;
+    }
+    // 16 位专用 PALDATA 不属于当前 32 位 CPU 后端。
+    ReleaseTextureNodeSurfaces_44C408();
+    DestroyCpuCacheSurfaces();
+    ReleaseRendererPaletteBinding();
+    DestroyCpuBackSurface();
+    if (!DestroyRendererPresenter()) {
+        return; // 后端销毁失败时保留 owner，供主线程重试销毁。
+    }
+    ReleaseRendererResources();
 }
 
 // 原 44C6B0：DX 合作级别探测在 SDL 后端映射为可尝试重建的门禁。

@@ -1626,3 +1626,11 @@ owner 未闭合，不计完整退出或重建。
 与 Debug `cg2d_re_core/cg2d_re_startup`
 静态库编译通过，无新增告警；未运行客户端
 或测试，也未检查编译产物内容。
+
+2026-09-27 后续：32 位 SDL/CPU
+`RendererDestroy_44C3C0` 已按上述阶段接入
+节点面、Temp/AutoMap、绑定、Back、呈现器
+与 renderer owner 的释放，退出链调用该入口；
+16 位 PALDATA 不属于当前后端范围。原生
+3D 对象的释放映射为 SDL 呈现器销毁，
+不证明 3D 绘制或重建路径已完成。

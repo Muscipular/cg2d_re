@@ -199,3 +199,12 @@ SPEC、玩家位置 owner 仍待用户批准；本体
 AutoMap、设备、调色板、Back、SDL 呈现器
 及 renderer 本体的顺序释放，退出链接与
 重建路径仍未闭合。
+
+2026-09-27 后续：`RendererDestroy_44C3C0`
+已在 render owner 落位，退出链现调用该真实入口。
+它依序释放节点面、Temp/AutoMap、调色板绑定、
+Back、SDL 呈现器及 renderer owner；16 位
+PALDATA 不在当前 32 位范围内。其他未定义的
+退出依赖仍阻断完整链接，`Renderer::Init` 与
+`RebuildRenderer_466B80` 未接，不能据此计完整
+退出或重建验收。

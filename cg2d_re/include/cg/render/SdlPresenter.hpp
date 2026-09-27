@@ -63,4 +63,7 @@ extern std::uint32_t gFrameParity628FC8;
 // 原 44C560：将统一 CPU Back 提交到 SDL，失败置 lost，随后无条件翻转帧槽。
 void Flip_44C560();
 
+// 原 44C3C0：依次释放纹理节点、缓存面、调色板、Back、SDL 呈现器与 renderer owner。
+void RendererDestroy_44C3C0() noexcept;
+
 } // namespace cg::render

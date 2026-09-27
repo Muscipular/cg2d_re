@@ -10,6 +10,7 @@
 #include "cg/platform/LegacyMouseTracker.hpp"
 #include "cg/platform/Startup.hpp"
 #include "cg/render/Font.hpp"
+#include "cg/render/SdlPresenter.hpp"
 
 #include <cstdint>
 
@@ -28,7 +29,6 @@ char WindowCloseAll_472190();              // 原 Window::CloseAll@0x472190：ch
 // 以下均为原 0x457A40 的无实参直接依赖；未实现项只保留 IDA 签名。
 HGLOBAL Sub_522C50();                     // 原 0x522C50：HGLOBAL()。
 HGLOBAL Sub_44E110();                     // 原 0x44E110：HGLOBAL()。
-void RendererDestroy_44C3C0();            // 原 0x44C3C0：void __cdecl()。
 int Sub_454EE0();                          // 原 0x454EE0：int()。
 
 // 原 [0x4705F0,0x4705FF)：两个调用后尾透传窗口关闭结果。
@@ -47,7 +47,7 @@ int ShutdownClient_457A40()
     shutdown_detail::Sub_4705F0();
     shutdown_detail::Sub_522C50();
     shutdown_detail::Sub_44E110();
-    shutdown_detail::RendererDestroy_44C3C0();
+    render::RendererDestroy_44C3C0();
     shutdown_detail::Sub_454EE0();
     audio::Sub_52B630();
     audio::Sub_52CCE0();

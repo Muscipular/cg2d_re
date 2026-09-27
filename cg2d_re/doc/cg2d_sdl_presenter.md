@@ -1112,3 +1112,38 @@ DirectDraw HRESULT。
 **尚无生产者调用分配入口**。因此当前完整入口仍
 不能到达这段成功路径，也未证明模式 2/3/4、
 初始化失败残留、SDL presenter 生命周期或画面。
+
+## `44C3C0` 的 SDL/CPU 销毁父入口
+
+2026-09-27，本线程只读复核完整
+`Renderer::Destroy@[44C3C0,44C55C)`：
+`44C3CF–44C402` 的 PALDATA 仅属于已排除的
+16 位分支；`44C408–44C435` 先按实际节点数
+释放非空面，再于 `44C436–44C45B` 依次释放
+Temp/AutoMap。`44C461–44C4A4` 为设备与 3D
+原生对象，`44C4A4–44C4BF` 清调色板，
+`44C4C5–44C531` 释放 clipper、Back、front、
+DDraw，`44C531–44C553` 最后清 renderer owner。
+`Window::CloseAll@472190` 逐项关闭游戏内窗口链，
+其直接本体没有 `DestroyWindow`；但
+`47219E→472160→471270` 还经 UI 对象
+`+0x38` 虚表调用清理。该间接目标及外部
+Win32 HWND 的存活时序尚未全域核实，
+不能仅凭直接调用排除销毁风险。
+
+新端 `RendererDestroy_44C3C0` 复用真实节点
+释放叶、CPU Temp/AutoMap 销毁、调色板绑定释放、
+CPU Back 销毁，再释放 SDL 纹理/renderer/外部
+窗口 wrapper，最后清 renderer owner。SDL 对
+设备/3D/front/DDraw 的合并释放只属于已批准的
+原生后端替换，不表示旧 3D 绘制状态已实现。
+若非 SDL 主线程调用，进入前就保留全部资源；
+若 SDL 销毁仍失败，保留 owner 供主线程重试，
+不宣称异常线程域与 DX7 等价。
+
+退出链 `ShutdownClient_457A40` 已接该入口，
+但 `RebuildRenderer_466B80` 尚未实现，
+`Renderer::Init` 也尚未生产 owner/SDL presenter。
+完整退出链还依赖其他未落位的上游/后继，
+且须核对关闭 UI 后外部 HWND 仍有效，
+不能据此声称完整链接、运行或总 SPEC 完成。

@@ -629,13 +629,21 @@ char* EscapeLegacyText_52D1B0(
 }
 
 // 原 [0x52D2D0,0x52D2F0)：空叶不消费上下文，后继完整透传缓冲指针。
+char* EscapeLegacyTextAndNotify_52D2D0(
+    const char* const source,
+    char* const destination,
+    const std::int32_t capacity)
+{
+    NullSub_509080();
+    return EscapeLegacyText_52D1B0(source, destination, capacity);
+}
+
 char* EscapeInputText_52D2D0(
     const InputContext* const context,
     char* const destination,
     const std::int32_t capacity)
 {
-    NullSub_509080();
-    return EscapeLegacyText_52D1B0(context->text, destination, capacity);
+    return EscapeLegacyTextAndNotify_52D2D0(context->text, destination, capacity);
 }
 
 namespace {

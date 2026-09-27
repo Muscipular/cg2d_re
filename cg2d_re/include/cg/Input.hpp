@@ -111,7 +111,10 @@ void AppendChar_44ADB0(char character);
 char* EscapeLegacyText_52D1B0(
     const char* source, char* destination, std::int32_t capacity);
 
-// 原 sub_52D2D0：先调用空叶，再转换输入上下文的文本。
+// 原 sub_52D2D0 实际透传字符地址；玩家短称号不具有完整 InputContext 布局。
+char* EscapeLegacyTextAndNotify_52D2D0(
+    const char* source, char* destination, std::int32_t capacity);
+// 既有输入上下文调用边界，委派同一原字节入口。
 char* EscapeInputText_52D2D0(
     const InputContext* context, char* destination, std::int32_t capacity);
 

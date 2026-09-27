@@ -76,17 +76,42 @@ std::array<DirectionDelta, 8> gDirectionDeltas55D9DC {{
 
 // 原首块 [FDA700,FF02E0) 已证玩家槽；不将此原生结构当作原连续内存。
 struct PlayerRuntimeSlots {
+    std::int32_t level; // 原 FDA704。
+    platform::LegacyCryptInt hp; // 原 FDA718；与 action +170 的载荷同步。
+    platform::LegacyCryptInt maxHp; // 原 FDA728。
+    std::array<char, 17> name; // 原 FDA808；旧编码字节。
+    std::array<char, 17> ownTitle; // 原 FDA819。
+    std::array<char, 33> text12A; // 原 FDA82A。
+    std::array<char, 33> text14B; // 原 FDA84B。
     std::int32_t walkSpeed; // 原 FDA870；独立于通用 action 的初始步速。
     std::int32_t imageNo; // 原 FDA878，不是 FDA87C。
     std::uint32_t objectIndex;
     std::int32_t direction; // 原 FDA884；其他消费者可读取低 S8。
+    std::uint16_t value188; // 原 FDA888；519A80 符号扩展读取。
     std::uint16_t flags18A; // 原 FDA88A W16；跨 W32 读取还须拼接 flags18C 的低 W16。
     std::uint32_t flags18C; // 承载原 [FDA88C,FDA890)；18C 低 W8、18E 高 W16 共享字节。
     std::int32_t value190; // 原 FDA890；51BDD0/51BE50 写入的完整动作值。
     login::YobiAction* action;
+    std::array<char, 17> text15BB8; // 原 FF02B8，不紧接新端的指针字节布局。
 };
 
 PlayerRuntimeSlots gPlayerRuntime {};
+
+// 原 [FF02E0,FF03D0) 的五槽表；与玩家首块分属不同清零区。
+struct PetMapCharaSlot {
+    std::uint16_t flags;
+    std::array<std::byte, 2> bytes02;
+    std::uint32_t objectIndex;
+    std::array<std::byte, 36> bytes08;
+    login::YobiAction* action; // 原 +2C，非拥有。
+};
+
+static_assert(offsetof(PetMapCharaSlot, flags) == 0);
+static_assert(offsetof(PetMapCharaSlot, objectIndex) == 4);
+static_assert(offsetof(PetMapCharaSlot, bytes08) == 8);
+static_assert(offsetof(PetMapCharaSlot, action) == 0x30);
+static_assert(sizeof(PetMapCharaSlot) == 0x38);
+std::array<PetMapCharaSlot, 5> gPetMapCharaSlots {};
 
 // 原 C8A73E/C8A740/C8A744 及效果配置共享槽；第三槽的两个 W16 共用 W32。
 struct MapCharaSceneSlots {
@@ -1613,6 +1638,11 @@ std::int32_t gValueFF0D08 = 0;
 
 // 原 0xFF0D34：50D3B0 写入、5199A0 清零的独立 W16 槽。
 std::uint16_t gValueFF0D34 = 0;
+// 原 519A80 公共尾；协议与普通场景后续复用，初值为 PE 零填充。
+std::uint16_t gValueFF0D30 = 0;
+std::uint16_t gValueFF0D32 = 0;
+std::uint16_t gValueF7CA04 = 0;
+std::uint16_t gValueFF03D8 = 0;
 
 // 原 0xCAFEA0：504100 清零的独立 W32 状态槽。
 std::uint32_t gValueCAFEA0 = 0;
@@ -3946,6 +3976,102 @@ void Sub_4D3170()
 std::int32_t Sub_4410E0()
 {
     return 0x11;
+}
+
+void Sub_519A80()
+{
+    const std::int32_t direction = gPlayerRuntime.direction;
+    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&gPlayerY);
+    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&gPlayerX);
+    Sub_519CD0(gPlayerRuntime.imageNo, x, y, direction);
+    const auto flags = static_cast<std::uint8_t>(gPlayerRuntime.flags18A);
+    const std::int32_t flag40 = (flags & 0x40u) != 0;
+    const std::int32_t flag80 = (flags & 0x80u) != 0;
+
+    char escaped[256];
+    char titles[256];
+    input::EscapeLegacyTextAndNotify_52D2D0(
+        gPlayerRuntime.ownTitle.data(), escaped, 256);
+    std::strcpy(titles, escaped);
+    std::strcat(titles, "|");
+    input::EscapeLegacyTextAndNotify_52D2D0(
+        gPlayerRuntime.text12A.data(), escaped, 256);
+    std::strcat(titles, escaped);
+    std::strcat(titles, "|");
+    input::EscapeLegacyTextAndNotify_52D2D0(
+        gPlayerRuntime.text14B.data(), escaped, 256);
+    std::strcat(titles, escaped);
+    const std::int32_t value188 =
+        std::bit_cast<std::int16_t>(gPlayerRuntime.value188);
+    const std::int32_t level = gPlayerRuntime.level;
+    Sub_51A090(
+        gPlayerRuntime.name.data(), titles, level, value188, flag40, flag80);
+
+    login::YobiAction* const action = gPlayerRuntime.action;
+    if (action != nullptr) {
+        login::detail::CopyYobiPlayerHp(action, &gPlayerRuntime.hp);
+        login::detail::CopyYobiPlayerMaxHp(
+            gPlayerRuntime.action, &gPlayerRuntime.maxHp);
+        const std::uint32_t objectIndex = gPlayerRuntime.objectIndex;
+        for (auto& slot : gPetMapCharaSlots) {
+            if (slot.flags != 0 && slot.objectIndex == objectIndex) {
+                slot.action = gPlayerRuntime.action;
+                break;
+            }
+        }
+    }
+    gValueFF0D30 = 0;
+    gValueFF0D32 = 0;
+    gValueF7CA04 = 0;
+    gValueFF03D8 = 0;
+    gValueFF0D34 = 0;
+}
+
+login::YobiAction* Sub_51A090(
+    const char* const name, const char* const titles, const std::int32_t level,
+    const std::int32_t value188, const std::int32_t flag40,
+    const std::int32_t flag80)
+{
+    const auto nameLength = static_cast<std::int32_t>(std::strlen(name));
+    if (nameLength <= 16) {
+        // 519A80 的源就是本槽；原 rep movs 允许同源复制。
+        std::memmove(gPlayerRuntime.name.data(), name, std::strlen(name) + 1);
+    }
+
+    char first[256];
+    char second[256];
+    char third[256];
+    char fourth[256];
+    network::ExtractDelimitedField_52CED0(titles, '|', 1, 255, first);
+    input::UnescapeLegacyTextAndNotify_52D2F0(first);
+    if (std::strlen(first) <= 16) {
+        std::strcpy(gPlayerRuntime.ownTitle.data(), first);
+    }
+    network::ExtractDelimitedField_52CED0(titles, '|', 2, 255, second);
+    input::UnescapeLegacyTextAndNotify_52D2F0(second);
+    if (std::strlen(second) <= 32) {
+        std::strcpy(gPlayerRuntime.text12A.data(), second);
+    }
+    network::ExtractDelimitedField_52CED0(titles, '|', 3, 255, third);
+    input::UnescapeLegacyTextAndNotify_52D2F0(third);
+    if (std::strlen(third) <= 32) {
+        std::strcpy(gPlayerRuntime.text14B.data(), third);
+    }
+    network::ExtractDelimitedField_52CED0(titles, '|', 4, 255, fourth);
+    input::UnescapeLegacyTextAndNotify_52D2F0(fourth);
+    if (std::strlen(fourth) <= 16) {
+        std::strcpy(gPlayerRuntime.text15BB8.data(), fourth);
+    }
+    gPlayerRuntime.level = level;
+    gPlayerRuntime.value188 = static_cast<std::uint16_t>(value188);
+    if (flag40 != 0) {
+        gPlayerRuntime.flags18A |= 0x40u;
+    }
+    if (flag80 != 0) {
+        gPlayerRuntime.flags18A |= 0x80u;
+    }
+    return login::detail::PublishPlayerActionIdentity(
+        name, titles, nameLength, level, value188);
 }
 
 login::YobiAction* ReadPlayerAction() noexcept

@@ -7,7 +7,9 @@
 
 #include "cg/AnimationRuntime.hpp"
 #include "cg/GraphicInfo.hpp"
+#include "cg/Input.hpp"
 #include "cg/LegacyAudio.hpp"
+#include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/platform/MainLoop.hpp"
@@ -57,9 +59,14 @@ struct YobiAction {
     std::int8_t nameFontType;        // 原 +BD。
     std::int8_t nameLayer;           // 原 +BE；DrawText2 的 renderMode。
     std::int32_t nameValueC0;        // 原 +C0；DrawText2 仅消费低 S8。
-    platform::LegacyCryptInt readiness;
-    std::int32_t creatorParam6;
-    std::int32_t field1D0; // 原 +1D0；440B70 写子 action 的槽序号。
+    std::array<char, 17> nameC4; // 原 +C4 原始姓名，不是 +64 绘制文本。
+    std::array<char, 17> titleE1; // 原 +E1，51A090 当前最多写16B及NUL。
+    std::array<char, 33> text102;
+    std::array<char, 33> text123;
+    platform::LegacyCryptInt readiness; // 原 +170；地图实体将同一槽用于 HP。
+    platform::LegacyCryptInt maxHp; // 原 +180；不与 +170 合并。
+    std::int32_t field1D0; // 原 +1D0；弹窗param6、观察子项槽序号或地图实体等级。
+    std::int32_t field1D8; // 原 +1D8；51A090 写入完整第四参数。
     platform::LegacyCryptInt mapX1E0; // 46DD90 按 X→Y 读取并乘64。
     platform::LegacyCryptInt mapY1F0;
     platform::LegacyCryptInt mapX200; // 46DE50 先赋这组，再赋 +1E0/+1F0；不合并载荷。
@@ -95,6 +102,7 @@ struct YobiAction {
     std::uint8_t rebirthValue2;
     std::int32_t mapOffsetX; // 原 +314/+318；46CF60 写 .cut 偏移，46DD90 在 FrameMove 后读取。
     std::int32_t mapOffsetY;
+    std::array<char, 17> text31C; // 原 +31C；51A090 第四文本的独立槽。
 };
 
 static_assert(std::is_standard_layout_v<YobiAction>);
@@ -640,7 +648,7 @@ void UpdateModalAction_5046D0(YobiAction* const action)
         return;
     }
 
-    if (payload->winId < 4 && action->creatorParam6 != 0) {
+    if (payload->winId < 4 && action->field1D0 != 0) {
         const std::int32_t rowCount = payload->height / 48;
         const std::int32_t columnCount = payload->width / 64;
         std::int32_t drawY = action->y + 24;
@@ -1005,6 +1013,67 @@ void SetYobiWalkSpeed(YobiAction* const action, const std::int32_t speed) noexce
 YobiAction* ReadMapActorAttachment44(const YobiAction* const action) noexcept
 {
     return static_cast<const MapActorPayload*>(action->payload)->action44;
+}
+
+YobiAction* PublishPlayerActionIdentity(
+    const char* const name, const char* const titles,
+    const std::int32_t originalNameLength, const std::int32_t level,
+    const std::int32_t value188)
+{
+    YobiAction* action = world::detail::ReadPlayerAction();
+    if (action == nullptr) {
+        return nullptr;
+    }
+    if (originalNameLength <= 16) {
+        std::memmove(action->nameC4.data(), name, std::strlen(name) + 1);
+    }
+
+    // 原对象阶段重新解析四段；不能使用上一轮已写回的共享称号。
+    char first[256];
+    char second[256];
+    char third[256];
+    char fourth[256];
+    network::ExtractDelimitedField_52CED0(titles, '|', 1, 255, first);
+    input::UnescapeLegacyTextAndNotify_52D2F0(first);
+    if (std::strlen(first) <= 16) {
+        action = world::detail::ReadPlayerAction();
+        std::strcpy(action->titleE1.data(), first);
+    }
+    network::ExtractDelimitedField_52CED0(titles, '|', 2, 255, second);
+    input::UnescapeLegacyTextAndNotify_52D2F0(second);
+    if (std::strlen(second) <= 32) {
+        action = world::detail::ReadPlayerAction();
+        std::strcpy(action->text102.data(), second);
+    }
+    network::ExtractDelimitedField_52CED0(titles, '|', 3, 255, third);
+    input::UnescapeLegacyTextAndNotify_52D2F0(third);
+    if (std::strlen(third) <= 32) {
+        action = world::detail::ReadPlayerAction();
+        std::strcpy(action->text123.data(), third);
+    }
+    network::ExtractDelimitedField_52CED0(titles, '|', 4, 255, fourth);
+    input::UnescapeLegacyTextAndNotify_52D2F0(fourth);
+    if (std::strlen(fourth) <= 16) {
+        action = world::detail::ReadPlayerAction();
+        std::strcpy(action->text31C.data(), fourth);
+    }
+    action = world::detail::ReadPlayerAction();
+    action->field1D0 = level;
+    action = world::detail::ReadPlayerAction();
+    action->field1D8 = value188;
+    return action;
+}
+
+void CopyYobiPlayerHp(
+    YobiAction* const action, const platform::LegacyCryptInt* const source)
+{
+    platform::legacy_crypt_int::CopyPayload(&action->readiness, source);
+}
+
+void CopyYobiPlayerMaxHp(
+    YobiAction* const action, const platform::LegacyCryptInt* const source)
+{
+    platform::legacy_crypt_int::CopyPayload(&action->maxHp, source);
 }
 
 void ClearMapActorAttachments(YobiAction* const action)
@@ -1495,7 +1564,7 @@ YobiAction* Sub_5044E0(
         payload->tileStyle = 0;
         payload->baseImageNo = 0;
     } else {
-        action->creatorParam6 = param6;
+        action->field1D0 = param6;
         if (param6 != 0) {
             if (width % 64 != 0) {
                 width = (width / 64 + 1) * 64;

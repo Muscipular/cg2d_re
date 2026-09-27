@@ -2,6 +2,10 @@
 
 #include <cstdint>
 
+namespace cg::platform {
+struct LegacyCryptInt;
+}
+
 namespace cg::login {
 
 // 原 x86 YobiAction 的原生 x64 承载；具体布局只由 Yobi runtime 持有。
@@ -58,6 +62,13 @@ void SetYobiPlayerFlag(YobiAction* action) noexcept;
 void SetYobiWalkSpeed(YobiAction* action, std::int32_t speed) noexcept;
 // 519E50 借用地图实体 payload 的原 +44 槽；不增加 payload 空检查。
 YobiAction* ReadMapActorAttachment44(const YobiAction* action) noexcept;
+// 51A090 对象阶段：重新提取四段文本，每次写入按原顺序重读共享玩家。
+YobiAction* PublishPlayerActionIdentity(
+    const char* name, const char* titles, std::int32_t originalNameLength,
+    std::int32_t level, std::int32_t value188);
+// 519A80 分别复制 +170/+180 的载荷；前者复用 readiness，调用方负责重读玩家。
+void CopyYobiPlayerHp(YobiAction* action, const platform::LegacyCryptInt* source);
+void CopyYobiPlayerMaxHp(YobiAction* action, const platform::LegacyCryptInt* source);
 
 // 原 46DE50：创建地图动画 action，保留四次 CryptInt 临时赋值及投影顺序。
 YobiAction* Sub_46DE50(std::int32_t imageNo, std::int32_t mapX, std::int32_t mapY);

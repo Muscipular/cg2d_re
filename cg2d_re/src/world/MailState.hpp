@@ -25,4 +25,8 @@ std::int32_t Sub_5194F0(std::int32_t key);
 std::uintptr_t Sub_519370(
     std::int32_t key, std::int32_t kind, const char* name, const char* text);
 
+// 原 50EC50 的 50EE4A–50EEA1 公共尾：全 key 比较，不检查活动位、不保存文件。
+// selected 由父入口在计数后、计数发布前读取；返回最后邮件决定的零或表末游标。
+std::uintptr_t PruneGuildMailAgainstOrderedRecords_50EE4A(std::int16_t selected);
+
 } // namespace cg::world::detail

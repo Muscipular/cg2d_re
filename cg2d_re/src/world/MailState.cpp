@@ -198,4 +198,36 @@ std::uintptr_t Sub_519370(
     return textBytes;
 }
 
+std::uintptr_t PruneGuildMailAgainstOrderedRecords_50EE4A(const std::int16_t selected)
+{
+    std::byte* entry = gGuildMailStorageDE0B30.data()
+        + static_cast<std::ptrdiff_t>(selected) * kGuildMailGroupBytes;
+    const std::uintptr_t keyEnd =
+        reinterpret_cast<std::uintptr_t>(login::detail::gOrderedRecords1051B14.data())
+        + sizeof(login::detail::gOrderedRecords1051B14)
+        + offsetof(login::detail::OrderedRecord1051B14, value0C);
+    std::uintptr_t result = 0;
+    for (std::int32_t index = 0; index < 200; ++index) {
+        std::int32_t key;
+        std::memcpy(&key, entry, sizeof(key));
+        bool found = false;
+        for (const login::detail::OrderedRecord1051B14& record :
+             login::detail::gOrderedRecords1051B14) {
+            if (key == record.value0C) {
+                found = true;
+            }
+        }
+        result = keyEnd;
+        if (!found) {
+            const std::uint32_t zero = 0;
+            std::memcpy(entry + 4, &zero, sizeof(zero));
+            std::memcpy(entry, &zero, sizeof(zero));
+            result = 0;
+            std::memset(entry + 8, 0, kMailNumberBytes);
+        }
+        entry += kGuildMailEntryBytes;
+    }
+    return result;
+}
+
 } // namespace cg::world::detail

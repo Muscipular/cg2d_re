@@ -1,9 +1,12 @@
 #include "cg/LegacyRecordOrder.hpp"
 
 #include "cg/Input.hpp"
+#include "cg/LoginRequest.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/CommandOptions.hpp"
 #include "cg/world/SceneState.hpp"
+
+#include "world/MailState.hpp"
 
 #include <bit>
 #include <cstdlib>
@@ -160,6 +163,65 @@ std::uintptr_t UpdateOrderedRecords_50EEB0(
     return reinterpret_cast<std::uintptr_t>(gOrderedRecords1051B14.data())
         + sizeof(gOrderedRecords1051B14)
         + offsetof(OrderedRecord1051B14, value0C);
+}
+
+std::uintptr_t UpdateOrderedRecordBatch_50EC50(
+    std::uintptr_t, const char* const text)
+{
+    const std::uint32_t gate = world::gValue9A6E0C;
+    if (gate != 0) {
+        return gate;
+    }
+    for (OrderedRecord1051B14& record : gOrderedRecords1051B14) {
+        ResetOrderedRecord_50EF20(&record);
+    }
+
+    std::array<char, 256> encoded;
+    std::array<char, 256> first;
+    std::array<char, 256> second;
+    std::int32_t field = 2;
+    for (OrderedRecord1051B14& record : gOrderedRecords1051B14) {
+        if (network::ParseDelimitedInteger_52CFA0(text, '|', field - 1) <= 0) {
+            ResetOrderedRecord_50EF20(&record);
+        } else {
+            record.value08 = 1;
+            const std::int32_t key =
+                network::ParseDelimitedInteger_52CFA0(text, '|', field);
+            if (key == -1) {
+                break;
+            }
+            record.value0C = key;
+            if (network::ExtractDelimitedField_52CED0(
+                    text, '|', field + 1, 255, encoded.data()) == 1) {
+                break;
+            }
+            input::UnescapeLegacyText_52D150(encoded.data());
+            static_cast<void>(network::ExtractDelimitedField_52CED0(
+                encoded.data(), '|', 1, 255, first.data()));
+            input::UnescapeLegacyTextAndNotify_52D2F0(first.data());
+            if (std::strlen(first.data()) <= 0x10) {
+                std::strcpy(record.text18, first.data());
+            }
+            static_cast<void>(network::ExtractDelimitedField_52CED0(
+                encoded.data(), '|', 2, 255, second.data()));
+            input::UnescapeLegacyTextAndNotify_52D2F0(second.data());
+            if (std::strlen(second.data()) <= 0x10) {
+                std::strcpy(record.text18 + 0x11, second.data());
+            }
+            record.value04 = network::ParseDelimitedInteger_52CFA0(text, '|', field + 2);
+            record.value10 = network::ParseDelimitedInteger_52CFA0(text, '|', field + 3);
+            record.value0A = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
+                network::ParseDelimitedInteger_52CFA0(text, '|', field + 4)));
+            record.value14 = network::ParseDelimitedInteger_52CFA0(text, '|', field + 5);
+            record.value00 = network::ParseDelimitedInteger_52CFA0(text, '|', field + 6);
+        }
+        field += 8;
+    }
+
+    const std::int32_t count = CountRecordsValue08EqualOne_50EF50();
+    const std::int16_t selected = gSelectedCharacterIndex;
+    gOrderedRecordCount1051510 = count;
+    return world::detail::PruneGuildMailAgainstOrderedRecords_50EE4A(selected);
 }
 
 std::int32_t FindActiveOrderedRecordIndex_5195C0(

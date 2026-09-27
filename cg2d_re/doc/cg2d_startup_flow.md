@@ -234,7 +234,8 @@ InitPalette 失败则无本函数额外提示。七条 ASCII 阶段日志的大�
 
 ### 依赖边界
 
-原 `44B610` 读取唯一 renderer 的 `+9C`，返回该 3D device 指针是否非空。
+原 `44B610` 读取唯一 renderer 的 `+9C`，返回 IDirect3D7 接口是否非空；
+实际 device 位于 `+A0`，两者不合槽，见[纹理入口补证](cg2d_texture_rendering.md)。
 在 SDL/CPU 模式 2/3/4 和初始化生产未落实前，新增
 `render::HasLegacy3DDevice_44B610` 的真实声明，不以固定 false/true、
 `gRenderer!=nullptr` 或当前请求模式代替。RendererResources 的 owner

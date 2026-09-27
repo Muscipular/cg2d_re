@@ -15,7 +15,8 @@ extern RendererResources* gRenderer;
 // 尚待完整实现 SDL/CPU 资源与原模式分流，不提供固定返回。
 std::int8_t RendererInit_44B630();
 
-// 原 [44B610,44B624)：读取 renderer +9C 的 3D device 引用，返回非空 0/1。
+// 原 [44B610,44B624)：读取 renderer +9C 的 IDirect3D7 接口，返回非空 0/1。
+// 实际设备是 +A0；此处沿用既有函数名，不将两个槽的身份或生命周期合并。
 // 模式生产及 SDL/CPU 对应状态仍待实现，不以固定返回代替。
 std::int32_t HasLegacy3DDevice_44B610();
 

@@ -21,6 +21,7 @@ add_library(cg2d_re_core STATIC
     src/ResourcePaths.cpp
     src/GraphicDecode.cpp
     src/GraphicInfo.cpp
+    src/AnimationRuntime.cpp
     src/GraphicRead.cpp
     src/Palette.cpp
     src/render/Font.cpp

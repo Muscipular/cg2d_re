@@ -1,6 +1,6 @@
 # cg2d 完整复刻独立进度
 
-> 更新日期：2026-09-26。对应[总计划](cg2d_full_reconstruction_plan.md)、[子项目规则](../AGENTS.md)。
+> 更新日期：2026-09-27。对应[总计划](cg2d_full_reconstruction_plan.md)、[子项目规则](../AGENTS.md)。
 > 本文件是新线唯一执行进度；旧 `M` 系列及根 `plans/progess.md` 仅供参考，不沿用其完成度。
 > RPLAN.17 仅压缩历史记录，不重新验收源码；后续小步单独记录。完整旧日志固定在 `3808ef2d309e1f407117bfe47390f36e7b8a4786`，查阅命令见末节。
 
@@ -20,6 +20,7 @@
 - **`46ED50` kind 4 创建与随机更新已静态落位。** world 唯一 W32 承接战斗 `C8A76C` 低/高 W16 别名，保留独立一次性 tick、成功领取时序、逐项扰动、倒计时重抽与仅按 Y 回收；不清绘制仍读取的旧 `+0x20/+0x24` 载荷。[场景证据 §20.16](../doc/cg2d_scene_state.md)限定战斗生产、父链、SDL 绘制和完整链接。
 - **`46E4A0` 三效果调度已静态落位。** 依原序调用 kind 1→kind 2→kind 4，两次仅 `retn` 的 `509080` 保留证据不建占位业务叶，尾部保留真实未定义的 `46F1D0`；[场景证据 §20.17](../doc/cg2d_scene_state.md)限定父更新、两条场景上游及完整画面/链接仍未闭合。
 - **`46F1D0` 两组三项绘图描述符原字节已落位。** world 同源持有 `.data [55DEB0,55DF10)` 的连续可写 `6×0x10` 位型，分别供 kind 6/7 绘图；[场景证据 §20.18](../doc/cg2d_scene_state.md)限定跨来源的 `+0x14` 索引与 `517880` 动画资源依赖仍待闭合，不计父更新或 SDL 画面。
+- **`45B420/45B390/45B400` 动画索引三叶已静态落位。** 独立动画运行期持原 `9A4A58/60/4C` 三槽和 `0x24` 记录首 W32，保留无符号排序比较、跨度 10 的二分/顺扫和 `count` 包含上界；[动画证据](../doc/cg2d_animation_runtime.md)限定 `GraphicAlloc/AnimeInit` 尚未生产指针，满容量须由新端额外零哨兵承接原端不确定一过尾，不计 `FrameMove`、SDL 画面或链接。
 - **`51D5B0` 地图观察链父入口已静态落位。** 世界场景唯一持有 `C8A73E/C8A740/C8A744`，保留低/高 W16 复制、两次 `D67E78` 读取、250/252 状态分流、`FF0D74` 写序及尾部 `43F230` 返回。[场景证据 §116](../doc/cg2d_scene_state.md)限定 `46E2A0` 的完整消费者和 Yobi 回调仍缺，不能计完整链接或运行。
 - **`51BEF0` 玩家重叠位槽清理叶已落位。** `FDA88C` W32 与 `FDA88E` W16、`FDA88F` W8 共用场景玩家 owner，叶函数只清高半字 bit 7，保留其他位；[场景证据 §115](../doc/cg2d_scene_state.md)限定其他写者与首块重置未接。
 - **`440FE0` 观察链薄父入口已落位。** 依原序调用 `440B70→52B990`、弃两返回并返回 `0x25`，不把 action 创建失败变成跳过第二调用。[Yobi 证据](../doc/cg2d_yobi_runtime.md)注明正常场景 `51CD83` caller 与实际回调仍未接。
@@ -919,3 +920,4 @@ git -c i18n.logOutputEncoding=utf-8 show 3808ef2:cg2d_re/plan/cg2d_full_reconstr
 - 2026-09-26，`46ED50.kind4.C`：本线程只读已打开的 IDA 完整 `[46ED50,46EFFD)`、`C8A728/C8A730/C8A74E/C8A750/C8A76C` 直接引用及战斗 W16 双半生产，复用 world 唯一效果记录链落位 kind 4 单/批量创建、初始 tick、随机更新、倒计时归零重抽与仅 Y 门禁回收。[场景证据 §20.16](../doc/cg2d_scene_state.md)限定旧 `+0x20/+0x24` 仍由绘制读取、创建不清；唯一 caller 弃返回，采用 `void` x64 适配，不宣称原寄存器残值等价。四文件严格 UTF-8 无 BOM/LF、`git diff --check` 与现有 Debug `cg2d_re_core/cg2d_re_startup` 静态库编译通过，无新增告警；不检查产物、不新增或运行测试/客户端。战斗状态生产、`46E4A0/46F1D0`、render/SDL、完整链接及总 SPEC 未验收；音频暂缓。本线程未使用 subAgent/独立复核，不操作 IDA 文件。
 - 2026-09-26，`46E4A0.dispatch.C`：本线程在现有 IDA 只读核完整 `[46E4A0,46E4BE)`、`509080` 单指令空叶及两处直接 caller；在 world 同一 owner 按 `46E4E0→46E6C0→46ED50→46F1D0` 落位调度，原中间两次空叶仅保留地址注释。`46F1D0` 是真实未定义声明，不伪造后继或寄存器返回。[场景证据 §20.17](../doc/cg2d_scene_state.md)保留两张绘图表、Yobi FrameMove、x87、SDL 画面和完整链接门禁。四文件严格 UTF-8 无 BOM/LF、`git diff --check` 与现有 Debug `cg2d_re_core/cg2d_re_startup` 静态库编译通过，无新增告警；不检查产物、不新增或运行测试/客户端。音频暂缓。本线程无 subAgent、独立复核或 IDA 文件操作。
 - 2026-09-26，`46F1D0.descriptors.C`：本线程从当前 IDA 只读获取 `[55DEB0,55DF10)` 96 个 loaded 原字节，核 `.data` 可写属性与 `46F1D0@46F5DB/46F622` 两处基址索引；在 world 唯一 owner 保存六条可写 16 字节描述符，前三/后三分别对应 kind 6/7。[场景证据 §20.18](../doc/cg2d_scene_state.md)还记录当前 IDA 完整 `[517880,517D9D)` 的共享 `FrameMove` 动画分支及缺失的动画表/装载和 Graphic 装载依赖；不以静态图支路替代 64 处 caller 的全函数。三文件严格 UTF-8 无 BOM/LF、`git diff --check` 与现有 Debug `cg2d_re_core/cg2d_re_startup` 静态库编译通过，无新增告警；不检查产物、不新增或运行测试/客户端。`46F1D0` x87/Yobi/渲染接线、SDL 画面、完整链接及总 SPEC 未验收，音频暂缓；本线程无 subAgent、独立复核或 IDA 文件操作。
+- 2026-09-27，`45B420/45B390/45B400.C`：本线程在当前 IDA 只读核三个完整叶、`GraphicAlloc@45750F–4575F9` 的 `20500×0x24` 分配/清零及 `AnimeInit@45BE3C–45BED1` 的记录写入、元素数发布/qsort。新端新增动画记录与唯一三槽，按原无符号比较、包含上界和短区间顺扫实现三叶；[动画证据](../doc/cg2d_animation_runtime.md)明确当 count 达容量时原一过尾无确定值，未来 backing 额外零哨兵为 x64 兼容边界而非原端事实。五文件严格 UTF-8 无 BOM/LF、限定 `git diff --check` 与现有 Debug `cg2d_re_core/cg2d_re_startup` 静态库编译通过，无新增告警；不检查产物、不新增或运行测试/客户端。生产者、动画表其他字段、`FrameMove`、SDL 画面、完整链接及总 SPEC 未验收；音频暂缓。本线程未使用 subAgent/独立复核，不操作 IDA 文件。

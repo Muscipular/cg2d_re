@@ -3,6 +3,7 @@
 #include "../CharacterSelectSceneDependencies.hpp"
 #include "../LoginStateDependencies.hpp"
 #include "../world/MailState.hpp"
+#include "../platform/MainLoopDependencies.hpp"
 #include "NetworkRuntimeDependencies.hpp"
 
 #include "cg/Input.hpp"
@@ -12,6 +13,7 @@
 #include "cg/LoginScene.hpp"
 #include "cg/Palette.hpp"
 #include "cg/platform/MainLoop.hpp"
+#include "cg/platform/LegacyTime.hpp"
 #include "cg/world/SceneState.hpp"
 
 #include <winsock2.h>
@@ -1969,6 +1971,61 @@ std::int32_t Sub_510710(
     return SendProtocolBuffer_517480(
         socket,
         reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
+}
+
+std::int32_t Sub_510B80(
+    const std::uintptr_t socket, const std::int32_t x,
+    const std::int32_t y, const std::int32_t direction)
+{
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0), "fIM"));
+    const std::array<std::int32_t, 3> fields {x, y, direction};
+    for (const std::int32_t field : fields) {
+        const std::int32_t capacity = std::bit_cast<std::int32_t>(
+            gNetworkRuntimeState.bufferLength);
+        std::uint8_t* const token = FormatProtocolIntegerToken_517120(field);
+        static_cast<void>(AppendProtocolText_5170D0(
+            reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
+            reinterpret_cast<const char*>(token), capacity));
+    }
+
+    char* buffer = reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0);
+    std::int32_t selected = 1;
+    std::int32_t spaces = 0;
+    std::uint32_t index = 0;
+    if (std::strlen(buffer) != 0) {
+        do {
+            if (buffer[index] == ' ') {
+                ++spaces;
+            }
+            if (spaces >= 3) {
+                break;
+            }
+            ++index;
+        } while (index < std::strlen(buffer));
+        if (spaces > 0) {
+            const std::int32_t seconds = platform::ReadLegacyTime32_53BA26(nullptr);
+            static_cast<void>(
+                platform::SeedRandom_53B4BF(std::bit_cast<std::uint32_t>(seconds)));
+            selected = platform::NextRandom_53B4C9() % spaces;
+            if (selected == 0) {
+                selected = 1;
+            }
+            buffer = reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0);
+        }
+    }
+    std::int32_t ordinal = 0;
+    for (index = 0; index < std::strlen(buffer); ++index) {
+        if (buffer[index] == ' ') {
+            if (ordinal == selected) {
+                buffer[index] = '\x17';
+                buffer = reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0);
+                break;
+            }
+            ++ordinal;
+        }
+    }
+    return SendProtocolBuffer_517480(socket, buffer);
 }
 
 // 原 [0x510810,0x51087B)：两轮各自采容量、格式化后重读输出缓冲。

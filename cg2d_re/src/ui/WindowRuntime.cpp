@@ -7,8 +7,14 @@ std::array<WindowInstance*, kWindowCount> gWindows {};
 std::array<WindowState, kWindowCount> gWindowStates {};
 WindowInstance* gCurrentWindow = nullptr;
 WindowState* gCurrentWindowState = nullptr;
+std::uint8_t gValueD67BE0 = 0;
 
 } // namespace detail
+
+std::uint8_t ReadValueD67BE0() noexcept
+{
+    return detail::gValueD67BE0;
+}
 
 WindowInstance* Sub_4CD3E0()
 {

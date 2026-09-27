@@ -6,6 +6,8 @@
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/CommandOptions.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
+#include "cg/platform/LegacyCursor.hpp"
+#include "cg/platform/LegacyMouse.hpp"
 #include "cg/platform/LegacyTime.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/platform/MainLoop.hpp"
@@ -1653,6 +1655,7 @@ std::uint16_t gValueFF0D32 = 0;
 std::uint16_t gValueF7CA04 = 0;
 std::uint16_t gValueFF03D8 = 0;
 std::uint16_t gValueFF0D36 = 0;
+std::uint32_t gValueFF0D38 = 0;
 
 // 原 0xCAFEA0：504100 清零的独立 W32 状态槽。
 std::uint32_t gValueCAFEA0 = 0;
@@ -1756,6 +1759,9 @@ std::uint32_t gValueC8A778 = 0;
 std::int32_t gPlayerMoveTargetX = 0; // 原C8A784；46F6FD/46F716生产链待接。
 std::int32_t gPlayerMoveTargetY = 0; // 原C8A788。
 std::uint32_t gValueC8A794 = 0;
+std::uint32_t gValueC8A7A0 = 0;
+std::uint32_t gValueC8A7A8 = 0;
+std::uint32_t gValue55DDAC = 0xFFFFFFFFu;
 std::uint32_t gValueC82208 = 0;
 std::uint32_t gValueC8220C = 0;
 std::uint32_t gValueC82210 = 0;
@@ -4323,6 +4329,57 @@ void Sub_46A940()
     }
 }
 
+std::uint32_t Sub_51B3E0()
+{
+    std::int32_t result = gValue581800;
+    if (result != -1) {
+        return std::bit_cast<std::uint32_t>(result);
+    }
+    const std::int32_t signX =
+        platform::legacy_crypt_int::Subtract_401E60(&gPlayerX, gPlayerMoveTargetX);
+    result = platform::legacy_crypt_int::Subtract_401E60(&gPlayerX, gPlayerMoveTargetX);
+    if (signX < 0) {
+        result = -result;
+    }
+    if (result > 1) {
+        return std::bit_cast<std::uint32_t>(result);
+    }
+    const std::int32_t signY =
+        platform::legacy_crypt_int::Subtract_401E60(&gPlayerY, gPlayerMoveTargetY);
+    result = platform::legacy_crypt_int::Subtract_401E60(&gPlayerY, gPlayerMoveTargetY);
+    if (signY < 0) {
+        result = -result;
+    }
+    if (result > 1) {
+        return std::bit_cast<std::uint32_t>(result);
+    }
+    const std::int32_t targetY = gPlayerMoveTargetY;
+    const std::int32_t targetX = gPlayerMoveTargetX;
+    result = Sub_4450D0(targetX, targetY, 7);
+    if (result == 0) {
+        return 0;
+    }
+    const std::int32_t deltaX =
+        platform::legacy_crypt_int::IntMinusCrypt_401FE0(gPlayerMoveTargetX, &gPlayerX);
+    const std::int32_t secondTargetY = gPlayerMoveTargetY;
+    const float differenceX = static_cast<float>(deltaX);
+    const std::int32_t deltaY =
+        platform::legacy_crypt_int::IntMinusCrypt_401FE0(secondTargetY, &gPlayerY);
+    const float differenceY = static_cast<float>(deltaY);
+    const std::int32_t direction = static_cast<std::int32_t>(
+        Sub_46CDF0(differenceX, differenceY));
+    const std::uint32_t now = platform::ReadTickCount32();
+    if (gValueFF0D38 + 500u >= now) {
+        return now;
+    }
+    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&gPlayerY);
+    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&gPlayerX);
+    static_cast<void>(network::Sub_510B80(platform::gConnectionSocket, x, y, direction));
+    const std::uint32_t sentAt = platform::ReadTickCount32();
+    gValueFF0D38 = sentAt;
+    return sentAt;
+}
+
 void Sub_46B370()
 {
     if (gPlayerRuntime.action == nullptr) {
@@ -4363,6 +4420,111 @@ void Sub_46B370()
     const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&gPlayerX);
     static_cast<void>(Sub_50C8D0(x, y, text));
     gValueC82238 = platform::ReadTickCount32();
+}
+
+std::uint8_t Sub_469C90()
+{
+    const bool pendingIsZero =
+        platform::legacy_crypt_int::Equal_401D00(&gValueC821D8, 0);
+    if (pendingIsZero && gValue9A86D8 == 0 && gValue9FB92E == 0) {
+        gValueC82220 = 0;
+    }
+    if ((gPlayerRuntime.flags18C & 0x00800000u) != 0) {
+        return static_cast<std::uint8_t>(pendingIsZero);
+    }
+    if (gValueC8A7A8 != 0 && ui::ReadValueD67BE0() == 0) {
+        const std::int32_t targetY = gPlayerMoveTargetY;
+        const std::int32_t targetX = gPlayerMoveTargetX;
+        const std::int32_t objectIndex = Sub_445030(targetX, targetY, 8, 0x1000);
+        if (objectIndex >= 0) {
+            static_cast<void>(ui::Sub_4CD3E0());
+            static_cast<void>(ui::Sub_4CD400());
+            static_cast<void>(network::Sub_512190(platform::gConnectionSocket, objectIndex));
+        }
+        Sub_46B370();
+        static_cast<void>(Sub_51B3E0());
+        const std::int32_t secondY = gPlayerMoveTargetY;
+        const std::int32_t secondX = gPlayerMoveTargetX;
+        const std::int32_t secondIndex = Sub_445160(secondX, secondY, 8);
+        if (secondIndex != -1) {
+            static_cast<void>(network::Sub_511760(
+                platform::gConnectionSocket, 3, secondIndex));
+        }
+    }
+    if ((gValueFF0D36 == 0 || (ReadPlayerFlags18A() & 0x100u) != 0)
+        && gValue62B5AA == 0 && gValueC82220 == 0 && ui::ReadValueD67BE0() == 0) {
+        if (gValueC8A778 >= 500u) {
+            gValueC8A79C = 1;
+        }
+        if (gValueC8A79C == 1) {
+            const auto click = static_cast<std::uint8_t>(
+                platform::gLegacyMouseState.edgeButtons);
+            if ((click & 1u) != 0) {
+                gValueC8A79C = 0;
+            } else {
+                const std::uint32_t now = platform::ReadTickCount32();
+                if (gValue55DDAC + 250u <= now) {
+                    const std::uint32_t sampledTick = platform::ReadTickCount32();
+                    const std::int32_t targetX = gPlayerMoveTargetX;
+                    gValue55DDAC = sampledTick;
+                    platform::LegacyCryptInt temporary;
+                    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, targetX);
+                    gValue9A7F88.mask = temporary.mask;
+                    gValue9A7F88.encoded = temporary.encoded;
+                    gValue9A7F88.readCount = temporary.readCount;
+                    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+                    platform::legacy_crypt_int::ConstructFromInt_401CC0(
+                        &temporary, gPlayerMoveTargetY);
+                    gValue9A7F98.encoded = temporary.encoded;
+                    gValue9A7F98.mask = temporary.mask;
+                    gValue9A7F98.readCount = temporary.readCount;
+                    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+                    gValueC821FC = 1;
+                }
+                if (platform::legacy_crypt_int::IntMinusCrypt_401FE0(
+                        gPlayerMoveTargetX, &gPlayerX) != 0
+                    || platform::legacy_crypt_int::IntMinusCrypt_401FE0(
+                        gPlayerMoveTargetY, &gPlayerY) != 0) {
+                    const std::int32_t deltaY =
+                        platform::legacy_crypt_int::IntMinusCrypt_401FE0(
+                            gPlayerMoveTargetY, &gPlayerY);
+                    const std::int32_t targetX = gPlayerMoveTargetX;
+                    const float differenceY = static_cast<float>(deltaY);
+                    const std::int32_t deltaX =
+                        platform::legacy_crypt_int::IntMinusCrypt_401FE0(targetX, &gPlayerX);
+                    const float differenceX = static_cast<float>(deltaX);
+                    const std::int32_t direction = static_cast<std::int32_t>(
+                        Sub_46CDF0(differenceX, differenceY));
+                    static_cast<void>(platform::RequestCursorState_506DE0(direction + 3, 0));
+                }
+            }
+        } else if (gValueC8A7A0 != 0) {
+            const std::uint32_t now = platform::ReadTickCount32();
+            if (gValue55DDAC + 250u <= now) {
+                // 单次路径先发布tick，再采X；两个临时量的载荷写序也不同。
+                gValue55DDAC = platform::ReadTickCount32();
+                platform::LegacyCryptInt temporary;
+                platform::legacy_crypt_int::ConstructFromInt_401CC0(
+                    &temporary, gPlayerMoveTargetX);
+                gValue9A7F88.encoded = temporary.encoded;
+                gValue9A7F88.mask = temporary.mask;
+                gValue9A7F88.readCount = temporary.readCount;
+                platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+                platform::legacy_crypt_int::ConstructFromInt_401CC0(
+                    &temporary, gPlayerMoveTargetY);
+                gValue9A7F98.readCount = temporary.readCount;
+                gValue9A7F98.encoded = temporary.encoded;
+                gValue9A7F98.mask = temporary.mask;
+                platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+                gValueC821FC = 1;
+            }
+        }
+    }
+    Sub_46A990();
+    if (gValueFF0D36 != 0 && (ReadPlayerFlags18A() & 0x100u) == 0) {
+        return static_cast<std::uint8_t>(Sub_46A190());
+    }
+    return static_cast<std::uint8_t>(Sub_469FC0());
 }
 
 std::uint16_t Sub_469FC0()

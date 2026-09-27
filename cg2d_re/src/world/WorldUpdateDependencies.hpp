@@ -176,6 +176,9 @@ extern std::uint32_t gValueC8A778;
 extern std::int32_t gPlayerMoveTargetX; // 原C8A784，RendererCursorGrid发布的S32。
 extern std::int32_t gPlayerMoveTargetY; // 原C8A788，不是目标CryptInt或当前格坐标。
 extern std::uint32_t gValueC8A794;
+extern std::uint32_t gValueC8A7A0; // 原目标格单次事件，46F680生产链待接。
+extern std::uint32_t gValueC8A7A8; // 原目标对象交互事件，非鼠标edge位槽。
+extern std::uint32_t gValue55DDAC; // 原点击目标时间，映像初值FFFFFFFF。
 extern std::uint32_t gValueC82208; // 原地图请求 W32；50CF90、509090、509100 等共享。
 extern std::uint32_t gValueC8220C;
 extern std::uint32_t gValueC82210;
@@ -547,6 +550,9 @@ extern std::uint16_t gValueFF0D32;
 extern std::uint16_t gValueF7CA04;
 extern std::uint16_t gValueFF03D8;
 extern std::uint16_t gValueFF0D36; // 原跟随gate；协议和场景共享，不默认启用。
+extern std::uint32_t gValueFF0D38; // 原51B3E0邻格请求的独立时间槽。
+std::uint32_t Sub_51B3E0(); // 完整邻格fIM请求；返回原EAX位型。
+std::uint8_t Sub_469C90(); // 完整移动输入、目标交互与普通/跟随分流。
 void Sub_46A990(); // 从同一宠物五槽生成9FB938顺序表，gate为0不清表。
 void Sub_46A5A0(std::int32_t x, std::int32_t y); // 给顺序表第2项调用441F60。
 void Sub_46A940(); // 从顺序表第2项起调用442730，首个负S16终止。

@@ -168,6 +168,10 @@ std::int32_t Sub_510710(
     std::int32_t fifth,
     std::int32_t sixth);
 
+// 原510B80：fIM三整数、原time/RNG重设及空格0x17替换，再透传发送返回。
+std::int32_t Sub_510B80(
+    std::uintptr_t socket, std::int32_t x, std::int32_t y, std::int32_t direction);
+
 // 原 sub_510810@[0x510810,0x51087B)：两整数依序追加并发送 KeOX。
 std::int32_t Sub_510810(
     std::uintptr_t socket,

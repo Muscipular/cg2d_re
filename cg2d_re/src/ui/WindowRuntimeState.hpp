@@ -74,6 +74,7 @@ extern std::array<WindowInstance*, kWindowCount> gWindows; // 原C8B094。
 extern std::array<WindowState, kWindowCount> gWindowStates; // 原C9A9B0。
 extern WindowInstance* gCurrentWindow; // 原CF4694。
 extern WindowState* gCurrentWindowState; // 原CF4684。
+extern std::uint8_t gValueD67BE0; // 原多个UI生产/消费入口共用，不并入窗口记录。
 
 static_assert(offsetof(WindowElement, data) == 0x20);
 static_assert(offsetof(WindowElement, mouseCallback) == 0x28);

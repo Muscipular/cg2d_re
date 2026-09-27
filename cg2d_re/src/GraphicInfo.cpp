@@ -1,10 +1,164 @@
 #include "cg/GraphicInfo.hpp"
 
+#include "cg/GraphicRead.hpp"
+#include "cg/platform/LegacyWindow.hpp"
+
+#include <algorithm>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <map>
+#include <vector>
+
 namespace cg::resource {
 
 std::int32_t gMaxGraphicCount = 0;
 GraphicInfo* gGraphicInfo = nullptr;
 std::int32_t* gGraphicMapNoIndex = nullptr;
+std::int32_t gGraphicStartIndices[9] {};
+
+namespace {
+
+// 原 9A2068/83339C；与 ResourcePaths 的 256B 路径槽不同，缓存步长仍是 255B。
+char gGraphicCachedPaths[9][255] {};
+char gGraphicInfoCachedPaths[9][255] {};
+std::FILE* gGraphicInfoFile = nullptr; // 原 927EF0；fclose 后原端不清槽。
+std::int32_t gGraphicRequiredCount = 0; // 原 833C9C，预扫总字节数/40+10。
+
+// 原 9A2960/73F128：本次初始化的去重值集合与首见记录引用；两者进程期持有。
+std::vector<std::int32_t> gGraphicMapNumbers;
+std::map<std::int32_t, GraphicInfo*> gGraphicFirstRecords;
+
+} // namespace
+
+std::int32_t GraphicInit_459960(
+    const char* const* graphicPaths, const char* const* graphicInfoPaths)
+{
+    for (std::FILE*& file : gGraphicFiles) {
+        file = nullptr;
+    }
+
+    // 原 459B5B 的共用错误出口只关闭数据文件，不释放旧 mapNo 索引或主表。
+    const auto failAndCloseData = [](const std::int32_t slot) {
+        for (std::FILE*& file : gGraphicFiles) {
+            if (file != nullptr) {
+                std::fclose(file);
+                file = nullptr;
+            }
+        }
+        if (slot == 0) {
+            return 1;
+        }
+        if (slot == 3) {
+            return 2;
+        }
+        return slot == 6 || slot == 7 || slot == 8 ? 7 : 3;
+    };
+
+    for (std::int32_t slot = 0; slot < 9; ++slot) {
+        std::strcpy(gGraphicCachedPaths[slot], graphicPaths[slot]);
+        gGraphicFiles[slot] = std::fopen(gGraphicCachedPaths[slot], "rb");
+        if (gGraphicFiles[slot] == nullptr
+            && (slot == 0 || slot == 3 || slot == 6 || slot == 7 || slot == 8)) {
+            return failAndCloseData(slot);
+        }
+    }
+
+    std::uint32_t totalInfoBytes = 0;
+    for (std::int32_t slot = 0; slot < 9; ++slot) {
+        std::strcpy(gGraphicInfoCachedPaths[slot], graphicInfoPaths[slot]);
+        gGraphicInfoFile = std::fopen(gGraphicInfoCachedPaths[slot], "rb");
+        if (gGraphicInfoFile != nullptr) {
+            std::fseek(gGraphicInfoFile, 0, SEEK_END);
+            totalInfoBytes += static_cast<std::uint32_t>(std::ftell(gGraphicInfoFile));
+            std::fclose(gGraphicInfoFile);
+        } else {
+            if (slot == 0) {
+                return 1;
+            }
+            if (slot == 3) {
+                return 2;
+            }
+            if (slot == 6 || slot == 7 || slot == 8) {
+                return 7;
+            }
+        }
+    }
+    gGraphicRequiredCount = static_cast<std::int32_t>(totalInfoBytes / 40u + 10u);
+    if (gGraphicRequiredCount >= gMaxGraphicCount) {
+        char message[256];
+        std::sprintf(message, "MAX_GRAPHICS=%d,Need=%d",
+            gMaxGraphicCount, gGraphicRequiredCount);
+        platform::ShowLegacyMessage(
+            message, "sprmgr: MAX_GRAPHICS \xA4\xA3\xB0\xF7\xA1\x43", 0);
+        return failAndCloseData(9);
+    }
+
+    gGraphicMapNoIndex = static_cast<std::int32_t*>(std::malloc(
+        sizeof(std::int32_t) * static_cast<std::size_t>(gMaxGraphicCount) + 0x28));
+    if (gGraphicMapNoIndex == nullptr) {
+        return -1;
+    }
+    std::memset(
+        gGraphicMapNoIndex, 0,
+        sizeof(std::int32_t) * static_cast<std::size_t>(gMaxGraphicCount));
+    gGraphicMapNumbers.clear();
+    gGraphicFirstRecords.clear();
+
+    GraphicInfoRecord record; // 原 40B 栈槽不预清零；跨次 fread 保留未覆盖字节。
+    std::int32_t processed = 0;
+    std::int32_t base = 0;
+    for (std::int32_t slot = 0; slot < 9; ++slot) {
+        gGraphicStartIndices[slot] = base;
+        gGraphicInfoFile = std::fopen(gGraphicInfoCachedPaths[slot], "rb");
+        if (gGraphicInfoFile == nullptr) {
+            if (slot == 0) {
+                return 1;
+            }
+            if (slot == 3) {
+                return 2;
+            }
+            if (slot == 6 || slot == 7 || slot == 8) {
+                return 7;
+            }
+            continue;
+        }
+        while (std::feof(gGraphicInfoFile) == 0) {
+            std::fread(&record, 0x28, 1, gGraphicInfoFile);
+            ++processed;
+            const std::uint32_t index = record.seqNo + static_cast<std::uint32_t>(base);
+            gGraphicInfo[index].seqNo = index;
+            gGraphicInfo[index].offset = static_cast<std::int32_t>(record.offset);
+            gGraphicInfo[index].length = record.length;
+            gGraphicInfo[index].x = static_cast<std::int16_t>(record.x);
+            gGraphicInfo[index].y = static_cast<std::int16_t>(record.y);
+            gGraphicInfo[index].w = static_cast<std::int16_t>(record.w);
+            gGraphicInfo[index].h = static_cast<std::int16_t>(record.h);
+            gGraphicInfo[index].sx = record.sx;
+            gGraphicInfo[index].sy = record.sy;
+            gGraphicInfo[index].flag = record.flag;
+            gGraphicInfo[index].mapNo = record.mapNo;
+            gGraphicInfo[index].fileIndex = static_cast<std::int16_t>(slot);
+            if (record.mapNo == 0) {
+                gGraphicMapNoIndex[0] = 0;
+                continue;
+            }
+            if (static_cast<std::uint32_t>(record.mapNo)
+                < static_cast<std::uint32_t>(gMaxGraphicCount)) {
+                gGraphicMapNoIndex[record.mapNo] = static_cast<std::int32_t>(index);
+            }
+            if (std::find(gGraphicMapNumbers.begin(), gGraphicMapNumbers.end(), record.mapNo)
+                == gGraphicMapNumbers.end()) {
+                gGraphicMapNumbers.push_back(record.mapNo);
+                gGraphicFirstRecords.emplace(record.mapNo, &gGraphicInfo[index]);
+            }
+        }
+        std::sort(gGraphicMapNumbers.begin(), gGraphicMapNumbers.end());
+        std::fclose(gGraphicInfoFile);
+        base = processed;
+    }
+    return 0;
+}
 
 std::int32_t GetGraphicXY(std::uint32_t index, std::int16_t* x, std::int16_t* y)
 {

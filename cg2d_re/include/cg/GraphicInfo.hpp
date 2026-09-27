@@ -42,7 +42,7 @@ static_assert(offsetof(GraphicInfo, flag) == 0x1A);
 static_assert(offsetof(GraphicInfo, mapNo) == 0x1C);
 
 // GraphicInfo 磁盘记录的 40 字节布局；不是 GraphicInfo，不能直接当作运行时表。
-// 此处仅定义字段存储，不实现文件读取或 GraphicInit 的逐字段转换。
+// GraphicInit_459960 按原写序逐字段转换，不覆盖运行时保留字节。
 struct GraphicInfoRecord {
     std::uint32_t seqNo;       // +0x00：图形序号的 32 位存储。
     std::uint32_t offset;      // +0x04：图形数据偏移的 32 位存储。
@@ -80,6 +80,14 @@ extern std::int32_t gMaxGraphicCount;
 extern GraphicInfo* gGraphicInfo;
 // 原 VA 0x9A2974：MapNo 到图形序号的索引表；未初始化阶段为 nullptr。
 extern std::int32_t* gGraphicMapNoIndex;
+// 原 73F100：九个文件槽的全局图号基址，供 AnimeLoadAction/CoordInit 共同读取。
+extern std::int32_t gGraphicStartIndices[9];
+
+// 原 [459960,45A12C)：先开九个数据文件，再预扫/重开 Info，写主表与 mapNo 索引。
+// 主表须由 GraphicAlloc 分配；失败保留原已发布状态，返回 1/2/7、3、-1 或 0。
+// 两组参数分别为数据、Info 的九个窄字节路径，不在此重建或转码。
+std::int32_t GraphicInit_459960(
+    const char* const* graphicPaths, const char* const* graphicInfoPaths);
 
 // 调用前提：输出指针非空且可写；实际读表前，相应全局状态须已绑定有效存储。
 // 保留原有检查，不新增空指针、负计数修复或存储容量检查。

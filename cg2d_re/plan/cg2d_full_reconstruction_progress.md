@@ -1,6 +1,6 @@
 # cg2d 完整复刻独立进度
 
-> 更新日期：2026-09-27，`RPLAN.32` 压缩后增量：DBF、独立调色板、节点建链与真实上传。对应[总 SPEC](cg2d_full_reconstruction_plan.md)、[执行规则](../AGENTS.md)。
+> 更新日期：2026-09-27，`RPLAN.32` 压缩后增量：DBF、独立调色板、节点建链、上传与 GraphicInit。对应[总 SPEC](cg2d_full_reconstruction_plan.md)、[执行规则](../AGENTS.md)。
 > 本文件是本线唯一执行进度；旧 M 系列与根 `plans/progess.md` 不参与本线完成度。
 > RPLAN.32 压缩时核对会话 `01a0d16c-6460-7520-a994-993fa9977215`、当前源码和证据，只整理文档，不重新验收旧实现；后续实现另记增量。压缩前全文固定于 `a0831a64d01113b14edeed366f6bdefd3f9afdd3`，查阅方法见 §4。
 
@@ -14,7 +14,7 @@
 |---|---|---|---|
 | 入口与主循环 | WinMain、配置/参数、窗口、MainLoop、World::Update 分发及多项退出/防护叶；主循环已有网络、清屏与 Flip 调用 | `InitializeClient_4576B0` 仅声明；初始化、状态目标和全部退出依赖未闭合 | [入口](../doc/cg2d_startup_flow.md)、[主循环](../doc/cg2d_main_loop.md)、[退出](../doc/cg2d_client_shutdown.md) |
 | 地图文件与状态 | 三平面缓冲、`468570/4688A0/468C40/469290` 文件/校验函数、第四平面 `4693F0/46D9C0`、`469030/469870`、回复 `509100/5093F0` 已有本体；`467F30/468330` 已定义 | 地图绘制下游、路径父链及世界流程未闭合；`46B6F0` 的共享邻槽布局方案尚待确认，不再因单纯异常故障模拟停工 | [场景 §78–112](../doc/cg2d_scene_state.md)、[资源来源](../doc/cg2d_resource_sources.md) |
-| Graphic 读取与分配 | `GraphicDecode/GraphicInfo/GraphicRead/Palette`；`4574E0` 四表与 `457670` 释放；`522570` 读图状态并接 `5222D0` 恒空建链；`53AF90` 解压、`522900` 持久 DBF 索引、`522B30/522C50` 队列双池及 `522CB0/523140` 32 位颜色刷新已有本体，释放已接退出 | 资源初始化/绘制父链与运行加载未验收 | [资源实现](../doc/cg2d_resource_implementation.md)、[DX §5.10–5.18](../doc/cg2d_graphic_dx_cache.md) |
+| Graphic 读取与分配 | `GraphicDecode/GraphicInfo/GraphicRead/Palette`；`4574E0` 四表与 `457670` 释放；`459960` 九槽资源加载、主表/双索引和文件基址已有本体；`522570` 读图并接 `5222D0` 恒空建链；DBF、独立调色板双池/颜色刷新已实现，释放已接退出 | InitializeClient/绘制父链与运行加载未验收 | [GraphicInit](../doc/cg2d_graphic_info.md)、[DX §5.10–5.18](../doc/cg2d_graphic_dx_cache.md) |
 | DX 缓存与像素 | x64 DX 表、4096 节点及 reset/invalidate；`5231A0` CPU 建面；104 项动态及四项静态调色板池、领取/老化、`44E290`；`451310/450400` 清面/索引像素写入；独立调色板刷新、`5222D0/520B10` 建链上传已有本体 | DrawAllQueued 的刷新计数重置、复用帧写入、surface 数值键与变换缓存消费者未闭合；不得用 AutoMap 代替非零独立调色板索引 | [DX 证据](../doc/cg2d_graphic_dx_cache.md)、[x64 SPEC §10–13](../doc/cg2d_graphic_dx_cache_x64_spec.md) |
 | SDL 画面与生命周期 | SdlPresenter、唯一 Back/Temp、像素格式发布 helper；`Flip_44C560` 已接主循环，`RendererDestroy_44C3C0` 已接退出链 | `Renderer::Init/Rebuild`、`DrawAllQueued_520DD0`、真实像素生产和模式 2/3/4 未闭合；presenter 创建未由初始化父链调用，不能称已有可运行画面 | [呈现器](../doc/cg2d_sdl_presenter.md)、[缓存](../doc/cg2d_graphic_dx_cache.md) |
 | Anime | `45B420/45B390/45B400` 查询；P1/P4 x64 分配；六个清理叶；`45B5D0/45B590/45B5B0/45B530` 主索引池链 | `AnimeInit@45BB20` 仅取证；`AnimeLoadAction`、完整 `FrameMove@517880` 未实现；`9A4A54` 正常资源身份/归属等仍须落实。越界/溢出不另设专项恢复门禁 | [动画 §1–7](../doc/cg2d_animation_runtime.md)、[x64 SPEC §10](../doc/cg2d_graphic_dx_cache_x64_spec.md) |
@@ -27,7 +27,7 @@
 ### 1.1 本轮纠正的过时状态
 
 - `53AF90` 已于 `a0831a6` 实现；历史内存探针耗尽 8358 字节并产出 10808 字节，首项数 1350、步长 8。`522900` 后续已有独立源码与静态证据，不能用历史探针代替正式 C++ 运行验收。
-- `44E290/450400/522570/GraphicAlloc/BuildSurfaceCache/Flip/Renderer::Destroy` 已有本体，不再列为“完全未实现”；上游创建、完整上传和最终绘制仍缺。
+- `44E290/450400/522570/GraphicAlloc/GraphicInit/BuildSurfaceCache/Flip/Renderer::Destroy` 已有本体，不再列为“完全未实现”；`520B10` 上传后续也已落位，上游创建和最终绘制仍缺。
 - 地图四个短头相关函数已有后续实现；`520160`、保活/命令构造、网络循环和 BGM 播放等早期“待实现”描述不得继续当作当前阻塞。
 - DX A 案表承载、x64 节点和 CPU 建面已有局部选择与实现；§13 独立调色板/DBF 存储已在 `GraphicRead` 落位。用户明确 `5222D0` 第二参数恒空、只保留未使用参数、不实现非空分支；恒空建链及 `520B10` 上传本体后续已实现，父绘制尚未接入。
 - 原会话末次成功路由为 `ida-17524`；旧 `ida-17524/cg2d.exe` 失败不等于数据库关闭。压缩日志时未调用 IDA；后续 DBF 小步已确认现有会话并只读取证。
@@ -62,7 +62,7 @@
 | 09-25 至 09-27 SDL | 自动 driver、统一 CPU Back/Temp、CPU 节点面与 SDL 最终提交已选；音频原生替换已选但当前暂缓；上层生命周期/内容仍须接通 |
 | 09-27 不构建 | Debug/Release 均停，不新增或运行测试/客户端，不检查产物；静态可行性、完整链接和运行结论分别报告 |
 | RPLAN.32 可信参考 | cg3a 地图、graphic、anime 为可信参考，不降为纯线索；不等于本线完成，不代批未决设计，不覆盖具体基线冲突 |
-| 09-27 DX §13 | 本线程受托决定资源归属为 `cg::resource::GraphicRead`；用户确认第二参数恒空，保留未使用参数、删除/不实现非空分支；旧非空门禁不再适用，正常建链/上传仍待实现 |
+| 09-27 DX §13 | 本线程受托决定资源归属为 `cg::resource::GraphicRead`；用户确认第二参数恒空，保留未使用参数、删除/不实现非空分支；旧非空门禁不再适用。建链/上传后续已实现，父流程验收仍缺 |
 
 范围排除仍为：8/16/24 位色渲染、屏幕键盘、`newest` 五函数检查链、用户排除的网络加密链。排除项保留证据，不计已实现；必要排除接线另行完成。音频暂缓不在此列表。
 
@@ -124,3 +124,4 @@ git -c i18n.logOutputEncoding=utf-8 log --oneline -- cg2d_re
 - **2026-09-27，`522CB0/523140`：** 继 `207245c` 后实现独立 BGR 读取、原色/色调双表和 S16 版本刷新；保留短表三字节边界补零、局部长度不覆盖共享长度、失败残留、loaded 只读和 0/1/2 返回。绘制记录包装只改原 +22。七文件限定差异、严格 UTF-8 无 BOM/LF、文件链接与接口静态检查通过；不构建/测试/运行，不使用 subAgent。`DrawAllQueued/520B10` 与初始化父调用仍缺，见 [DX §5.16](../doc/cg2d_graphic_dx_cache.md)。
 - **2026-09-27，`5222D0/520B10`：** 继 `17c9d39` 后实现恒空参数节点建链及真实上传，沿用既有 x64 节点、调色板池和 CPU 写像素叶；独立色表通过资源窄借用读取。保留扫描回绕、部分链、旧图解绑、调试原字节、限流跳过返回 1、读图失败写序和 W16/S32 比较。十二文件限定差异、声明/定义/调用、严格 UTF-8 无 BOM/LF 与文件链接检查通过；不构建/测试/运行，不使用 subAgent。父绘制仍须接每帧计数清零/复用帧写入及三个上传 caller，初始化/重建、anime 父链和完整 SPEC 未完成，见 [DX §5.17–5.18](../doc/cg2d_graphic_dx_cache.md)。
 - **2026-09-27，DX §14 提案：** `f079368` 已提交上述建链/上传。随后定位 `DrawAllQueued@[520DD0,521832)` 的真实直接调用，确认完整父绘制仍依赖 `44DA90/44D520` 的变换缓存以及 Yobi 身份等未决项，不接半段父函数。继承既有 §59/§74 证据，提出仅将 surface 地址键拓宽为 `uintptr_t`、接受原生地址排序导致不同缓存面释放顺序可能变化的窄方案，待用户确认；未实施，不自动批准对象身份。两份文档限定差异、严格 UTF-8 无 BOM/LF 与文件链接检查通过，不构建/测试/运行。
+- **2026-09-27，`GraphicInit@459960`：** §14 未获回复，转推进不依赖其裁决的资源父入口。在 `GraphicInfo` 实现完整九槽数据/Info 生产、主表字段写入、mapNo 末写索引及首见记录树、共享文件基址；保留必需槽错误清理差异、容量失败返回 3、索引分配失败 -1、EOF 后仍消费记录及跨文件累计次数。只将有据 STL 操作等价承接，不搬入 cg3a 的额外拒绝或最大 seqNo 基址。六文件限定差异、声明/定义/引用、严格 UTF-8 无 BOM/LF 与文件链接静态检查通过；不构建/测试/运行，不使用 subAgent。`InitializeClient`、Anime/Coordinate 消费者与整体 SPEC 仍缺，详见 [GraphicInit 证据](../doc/cg2d_graphic_info.md)。

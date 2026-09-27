@@ -1,7 +1,7 @@
 # cg2d 完整还原独立执行计划
 
 > 建立日期：2026-09-14。
-> 当前状态（2026-09-27 对齐）：入口、MainLoop、状态分发、登录及地图文件链已有局部实现；graphic 四表、纹理/调色板缓存叶、SDL Flip/Destroy 和 DBF 解压叶已落位，anime 查询/分配/清理/索引链已有实现。InitializeClient、Renderer::Init、DrawAllQueued、节点上传、AnimeInit/AnimeLoadAction/FrameMove、网络分发仍有缺口；未完成完整客户端链接和运行验收。当前状态与证据入口统一见[独立进度](cg2d_full_reconstruction_progress.md)，不按小步编号推算完成率。
+> 当前状态（2026-09-27 对齐）：入口、MainLoop、状态分发、登录及地图文件链已有局部实现；GraphicInit、独立调色板/DBF、节点建链上传和 SDL Flip/Destroy 已有本体；anime 查询/分配/清理/索引、AnimeLoadAction/CoordInit、FrameMove/PlayFrame 与 CoordLoad 已落位。InitializeClient、Renderer::Init、DrawAllQueued、AnimeInit/CoordLoadInit、网络分发仍有缺口；未完成完整客户端链接和运行验收。当前状态与证据入口统一见[独立进度](cg2d_full_reconstruction_progress.md)，不按小步编号推算完成率。
 > 已确认：原客户端为 x86，新工程目标为 x64；原指针按 32 位取证，新端指针及布局映射单独记录。
 > 最新执行要求：取消本线最小改动限制，按功能依赖推进完整实现；先完善功能，再考虑启动，暂不新增或执行测试用例。既有历史验证记录保留，不据此继续扩展测试。
 > 构建要求：2026-09-27 用户最新要求“不构建”，覆盖此前按需 Debug 许可；Debug/Release 均不执行，不检查编译产物，不新增或执行测试、不运行客户端。历史构建记录保留，不据此宣称当前链接或运行通过。

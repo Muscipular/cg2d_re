@@ -217,4 +217,38 @@ std::int32_t CoordInit_45C150(const std::int32_t index)
     return 1;
 }
 
+std::int32_t CoordLoad_45BF60(
+    std::FILE** const outputFile, const char* const dataPath, const char* const infoPath)
+{
+    *outputFile = std::fopen(dataPath, "rb");
+    if (*outputFile == nullptr) {
+        return 0;
+    }
+    std::FILE* const infoFile = std::fopen(infoPath, "rb");
+    if (infoFile == nullptr) {
+        return 0;
+    }
+
+    // 原 fread 覆盖路径参数低字节；未读到字节时保留实际地址低位，不补零。
+    auto version = static_cast<std::uint8_t>(reinterpret_cast<std::uintptr_t>(dataPath));
+    std::fread(&version, 1, 1, infoFile);
+    if (version != 1) {
+        return 0;
+    }
+
+    std::uint32_t record[2];
+    std::uint16_t count;
+    while (std::feof(infoFile) == 0) {
+        std::fread(record, 4, 2, infoFile);
+        std::fread(&count, 2, 1, infoFile);
+        const std::int32_t index = GetIndex_45B400(record[0] - 100000u);
+        if (index >= 0) {
+            gAnimateRecords9A4A58[index].coordinateOffset = record[1];
+            gAnimateRecords9A4A58[index].coordinateCount = count;
+        }
+    }
+    std::fclose(infoFile);
+    return 1;
+}
+
 } // namespace cg::resource::animation

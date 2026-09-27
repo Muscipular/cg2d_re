@@ -93,4 +93,9 @@ detail::MainSlot* Sub_45B530();
 // 原 45C150：仅在有文件/action、无已加载坐标且 count 非零时加载；保留计数门禁。
 std::int32_t CoordInit_45C150(std::int32_t index);
 
+// 原 45BF60：先发布数据文件，再读 Info 版本/索引；失败不回收已打开文件。
+// 由 CoordLoadInit 向同一 gCoordinateFiles9A2988 槽传址，路径顺序为数据、Info。
+std::int32_t CoordLoad_45BF60(
+    std::FILE** outputFile, const char* dataPath, const char* infoPath);
+
 } // namespace cg::resource::animation

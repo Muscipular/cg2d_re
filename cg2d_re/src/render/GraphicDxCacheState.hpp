@@ -72,4 +72,7 @@ extern std::int32_t gTextureScanIndex;
 // 原 523310：清扫描下标，按实际节点数仅解绑图号、复用状态和 next。
 void ResetTextureNodes_523310() noexcept;
 
+// 原 523350：按动态容量失效 DX 表的 head/palette；返回原 16B 步长偏移。
+std::int32_t InvalidateGraphicRefs_523350() noexcept;
+
 } // namespace cg::render

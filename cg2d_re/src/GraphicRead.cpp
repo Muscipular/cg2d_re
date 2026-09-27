@@ -11,6 +11,11 @@ namespace cg::resource {
 std::FILE* gGraphicFiles[9] {};
 std::uint8_t gGraphicReadBuffer[GraphicScratchCapacity] {};
 std::uint8_t gGraphicDecodeBuffer[GraphicScratchCapacity] {};
+std::uint8_t* gGraphicDataPtr = nullptr;
+std::uint32_t gCurrentGraphicHeight = 0;
+std::uint32_t gCurrentGraphicWidth = 0;
+std::uint32_t gCurrentGraphicPaletteSize = 0;
+std::int32_t gGraphicDataBuffer = 0;
 
 int ReadGraphicDataByIndex(
     std::int32_t index,

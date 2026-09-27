@@ -15,6 +15,14 @@ inline constexpr std::size_t GraphicScratchCapacity = 1'000'000;
 extern std::uint8_t gGraphicReadBuffer[GraphicScratchCapacity];
 extern std::uint8_t gGraphicDecodeBuffer[GraphicScratchCapacity];
 
+// 原 1020EC0/1020ED0/1020ED4/1020ED8/1020EE0：跨资源读取与渲染共享的当前图状态。
+// data 为非拥有解码区引用，宽高与调色板长度为完整 W32；图号按 S32 比较。
+extern std::uint8_t* gGraphicDataPtr;
+extern std::uint32_t gCurrentGraphicHeight;
+extern std::uint32_t gCurrentGraphicWidth;
+extern std::uint32_t gCurrentGraphicPaletteSize;
+extern std::int32_t gGraphicDataBuffer;
+
 // 原 0x45A900：按全局图形号 seek/read，再调用 ReadGraphicData；可省略 paletteLength。
 // 调用者须先建立元信息和文件表；实际查文件表时 fileIndex 必须在 0..8。
 // 读取成功后 destination 指针槽必须可写，记录长度/解压结果须落在相应存储内。

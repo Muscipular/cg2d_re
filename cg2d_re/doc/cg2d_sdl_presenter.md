@@ -343,10 +343,10 @@ IDA 标为 `void __cdecl()`，共 154 个基本块；本节只闭合入口、
 先从 Back `+0x0C` 获取 DC，设置透明背景；
 `456D9D–456DA2` 按链头 `renderMode@+6` 分流，
 最终 `456FB2–456FC3` 对 Back 释放 DC。其字体句柄、
-文本字节、调色板颜色和逐节点绘制尚未在本节逐支闭合，
-不能把 case 4 的局部分流取证当作 `456D70` 本体落位。
-现有文本队列一基令牌、统一 Back/Temp、字体 owner 与
-SDL/CPU 文本提交仍各有未决边界；本节不实现
+文本字节、颜色和逐节点绘制后续已完整落位，见末节
+“文本消费与共享 Back DIB 实施 SPEC”；case 4 的父分发仍未落位。
+文本队列继续使用一基令牌，GDI 字体沿原 owner，
+SDL 与 DIB 共用唯一 Back。本节不实现
 `DrawAllQueued`，不计最终画面、完整链接或运行。
 
 ## `456D70` 文本链 Back 绘制本体
@@ -393,14 +393,13 @@ SDL/CPU 文本提交仍各有未决边界；本节不实现
 
 新端已有 [TextPendingRecord](../include/cg/render/TextPendingQueue.hpp)
 的 `x/y/color/fontType/renderMode/text/nextToken` 对应
-字段和一基队列令牌；这只说明存储字段可定位，
-不等于 Back 的 SDL/CPU 文本绘制已存在。
-原 `TextOutA` 消费原字节和 NUL 长度，不能把
-UTF-8 字节长度直接当成旧端长度；具体字体
-owner、旧编码到现代显示边界的转换和
-Back 生命周期依原 [文本编码边界 SPEC](cg2d_text_encoding_spec.md)
-及各自待批门禁推进。本节不编码替代绘制，
-不计 case 4 画面、完整链接或运行完成。
+字段和一基队列令牌；后续完整消费者已实现，并使用
+同一 GDI 字体、原字节 `TextOutA` 与共享 Back DIB。
+没有把 UTF-8 字节长度当作旧端长度，没有 Unicode 转换或
+推测代码页；具体生命周期见末节实施 SPEC 与
+[文本编码边界 SPEC](cg2d_text_encoding_spec.md)。
+case 4 的 DrawAllQueued 父分发、字体表现、完整链接和运行
+仍未验收，不将源码落位计为画面通过。
 
 ## `520DD0` case 0/1 常规图形分流
 
@@ -1053,7 +1052,7 @@ Back 的掩码发布与旧 `data\update.dat` 的写入边界。
 [纹理入口 SPEC](cg2d_texture_rendering.md)。
 本次进一步确认 `44B610` 查 `+9C` 的接口，而不是 `+A0` 的设备；
 后续色键 Blt 已用 SDL 软件 blit 同步写入唯一 CPU Back，
-节点/变换面与 Back 各自持有仅借用原数组的 SDL_Surface 包装，
+节点/变换面与 Back 各自持有仅借用原像素存储的 SDL_Surface 包装，
 销毁先释放包装再释放像素；共享纹理状态查询也已在 renderer owner 落位。
 四顶点 native 提交后续已按该 SPEC 的 CPU 设备章节实现：
 保留 UV 的 POINT/WRAP 采样、单行 SDL 色键/调制/三组混合写同一 Back；
@@ -1632,3 +1631,85 @@ DrawAllQueued 的 case 5 父分发仍需完整队列接线，不能据此
 不新增恢复，wrapper 不以生产结果拦截绘制。
 完成本步接口、字段、循环/覆盖、读写序与编码/差异静态核对；
 不构建、不测试、不运行，新断言未经编译执行。
+
+## 文本消费与共享 Back DIB 实施 SPEC
+
+本轮原会话只读重核 `456D70–456FCD` 全指令及
+`5590B8` 的 39 个颜色原字节。按工程决策委托，采用已有
+GDI 字体与 TextOutA，保留原字节显示边界，不猜代码页，
+不改入队、测宽、字体创建、IME 或文本来源。
+
+### 同一份像素与资源归属
+
+1. Back 仍由 SurfaceState 的 CpuBackStorage 唯一持有，
+   可见尺寸 640×480、pitch 2560、额外一像素保持不变。
+   将该固定数组的分配承载换为匿名 pagefile mapping：
+   请求 `(640*480+1)*4` 字节，并取得 CPU 映射视图。
+   系统页粒度不改变逻辑容量，不增加行或第二份权威画面。
+2. SDL 包装借用该视图；首次文本请求才以同一 mapping、offset=0
+   创建 640×480、32bpp BI_RGB、负高度的 top-down DIB。
+   DIB 和 CPU 可以有不同虚拟地址，但共用同一后备内存；
+   不复制 Back→DIB→Back，不清既有画面或第 307200 号额外像素。
+3. 每次获取文本 DC 前检查同一 SDL 面是否已锁，实际 SDL_LockSurface
+   成功后才取得/创建 DIB 与内存 DC，SelectObject 选入本 DIB。
+   DC 每次独立创建，使用 native 默认属性，字体选择由原文本算法负责；
+   不替原空/失效 HFONT 加 fallback。native 默认 DC 与原驱动
+   的最终字体表现仍须运行验收，不将此设计宣称像素已一致。
+4. 失败返回空 DC，释放已取得的本次 DC/锁；已成功创建的 DIB
+   可留给同一 Back 下次复用。上层仍依原调用顺序执行 GDI
+   调用并忽略返回，不因 GetDC 失败新增文本链早退。
+5. 正常释放先 GdiFlush，恢复 DC 的原 bitmap、DeleteDC，
+   再解除同一 SDL 锁；不让字体跨次提交持续被选中。
+   Back 析构先处理未释放 DC，再销毁 SDL 包装、DIB，
+   最后 UnmapViewOfFile/CloseHandle；失败分配也走同一清理。
+   重建后旧视图失效，既有 texture device 仍须先于 Back 释放。
+6. HDC/bitmap/mapping 只出现在 render 实现及私有声明头；
+   world/UI 仅传原 W32 文本 token。CPU 访问使用 uint32_t*，
+   不将映射地址压回 W32，不改变任何数值字段宽度。
+   本步不会启动窗口、GDI 绘制、文件映射或客户端来验证。
+
+微软文档已通过只读 HTTP 获取并核对 mapping 后备、初始零、
+top-down DIB、GDI/CPU 同步及内存 DC 默认属性；未下载依赖：
+
+```text
+https://learn.microsoft.com/en-us/windows/win32/api/wingdi/nf-wingdi-createdibsection
+https://learn.microsoft.com/en-us/windows/win32/api/wingdi/nf-wingdi-gdiflush
+https://learn.microsoft.com/en-us/windows/win32/api/wingdi/nf-wingdi-createcompatibledc
+https://learn.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-createfilemappingw
+https://learn.microsoft.com/en-us/windows/win32/api/wingdi/ns-wingdi-bitmapinfoheader
+```
+
+### 完整文本算法
+
+- RenderTextToSurface_456D70 在既有 Font.cpp 中实现，直接使用
+  同一 14 个 HFONT；不向业务公开句柄，不新建字体池或现代字体替代。
+  文本头及 next 使用已有一基 W32 token 定位同一 TextPendingRecord；
+  0 仅表示链尾，不新增容量、font/color 索引或 NUL 长度拒绝。
+  保留先获取 DC→SetBkMode(1)→读链头模式的顺序。
+- 模式 0：每项仅首字节非零才选字体；选后读取 color W8，
+  无 0x80 时先设黑、再重读 fontType 选同一字体并画 `(x+1,y+1)`；
+  随后按先前捕获 color 的低 7 位取三字节色，画 `(x,y)`。
+  不因绘制阴影再读 color，不额外选择正文的字体。
+- 其他模式：先设一次黑色，整链只按 color 的 0x80 判断阴影，
+  不跳过空文本；然后按 13 个颜色顺序各自从链头扫描，
+  仅低 7 位匹配才绘正文。每轮首次匹配才 SetTextColor，
+  每个匹配仍单独 SelectObject/TextOutA；不按链顺序合并两遍。
+- 每次 TextOutA 都重新扫描原字节 NUL 长度，然后按 Y→X
+  将原 S16 坐标扩为 S32；阴影加一不再截回 S16。
+  每次绘制返回后才读 next，不缓存整链、字符串或字体字段。
+  不转 UTF-8/Unicode、不静默替字，也不调整已有布局。
+- 颜色表保持原三个字节，COLORREF=`byte0|byte1<<8|byte2<<16`；
+  不依反编译的 b/g/r 名称交换通道。原表原字节：
+  `ffffff00ffffff00ff0000ffffff0000ff00ff0000a0a0a4a6caf0c0dcc0000000cdcdcd665425`。
+  模式 0 与分组分支保留各自读序，全部 GDI 返回均不作分支。
+
+仍缺 DrawAllQueued case 4 的两次 Has/EndScene/BeginScene 父接线。
+本步核源码、资源释放、原字段/读序与 API 声明；不构建/测试/运行。
+原字体在目标机器的实际字形、默认字体边界和最终帧仍未验收。
+
+实施状态：完整文本两分支已在 Font.cpp 落位，私有 DC 边界与
+共享 mapping/DIB 生命周期在 SurfaceState；同一映射中显式建立
+原数量的 uint32_t 零值对象，逻辑容量/pitch/额外像素不变。
+所有 Back 直接访问点已迁移至该类型化视图，没有旧数组残留
+或完整画面复制。失败路径检查涵盖 mapping、视图、SDL 包装、
+DIB、DC 与 SelectObject；检查为源码路径核对，并未注入故障运行。

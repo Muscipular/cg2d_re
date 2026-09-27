@@ -55,6 +55,10 @@ extern std::array<TextFontLayerRecord, 6> gTextFontLayerRecords;
 // 原 dword_D68BEC@0xD68BEC；当前悬停的零基文本待提交索引。
 extern std::int32_t gHoveredTextPendingIndex;
 
+// 原 456D70：按链头模式顺序/按色分组绘制原字节文本，headToken 为一基令牌。
+// 使用 Font 的同一 GDI 字体及唯一 CPU Back；不改队列、文本或布局。
+void RenderTextToSurface_456D70(std::uint32_t headToken);
+
 // 原 sub_45D7A0@[0x45D7A0,0x45D7CF)。
 // 左键按下时返回 values 中首个等于当前悬停文本索引的元素下标，否则返回 -1。
 std::int32_t FindClickedTextIndex_45D7A0(

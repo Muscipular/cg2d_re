@@ -1,10 +1,10 @@
 #include "cg/render/Font.hpp"
 
-#include <bit>
+#include "cg/render/TextPendingQueue.hpp"
+#include "BackTextDrawing.hpp"
 
-#define WIN32_LEAN_AND_MEAN
-#define NOMINMAX
-#include <Windows.h>
+#include <bit>
+#include <cstring>
 
 namespace cg::render {
 namespace {
@@ -17,6 +17,23 @@ std::array<const char*, 4> gFaceFamilies558F08 {
 
 // 原 gFontList 每项 +00 是 GDI 句柄；与 0x14 字节度量分开承载。
 std::array<HFONT, kFontTypeCount> gFontHandles558F68 {};
+// 原 [5590B8,5590DF) 三字节色表；按字节组装 COLORREF，不按反编译字段名换色。
+std::uint8_t gTextColors5590B8[13][3] {
+    {0xFF, 0xFF, 0xFF},
+    {0x00, 0xFF, 0xFF},
+    {0xFF, 0x00, 0xFF},
+    {0x00, 0x00, 0xFF},
+    {0xFF, 0xFF, 0x00},
+    {0x00, 0xFF, 0x00},
+    {0xFF, 0x00, 0x00},
+    {0xA0, 0xA0, 0xA4},
+    {0xA6, 0xCA, 0xF0},
+    {0xC0, 0xDC, 0xC0},
+    {0x00, 0x00, 0x00},
+    {0xCD, 0xCD, 0xCD},
+    {0x66, 0x54, 0x25}
+};
+static_assert(sizeof(gTextColors5590B8) == 39);
 std::array<std::int32_t, 8> gDerived558F30 {};
 std::array<std::int32_t, 8> gDerived5545AC {};
 // 原 554618 初值 0x39；随后每项 55461C+i*4 先写钳制值再被商覆盖。
@@ -36,6 +53,21 @@ HFONT CreateLegacyFont(
         height, width, 0, 0, weight, 0, 0, 0,
         DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
         DEFAULT_QUALITY, 0x11, face);
+}
+
+const TextPendingRecord* BorrowTextRecord(const std::uint32_t token)
+{
+    return token == 0 ? nullptr : &gTextPendingRecords[token - 1];
+}
+
+// 每次重新扫描原字节长度，然后按 Y→X 读取坐标；不在此缓存字体或颜色。
+void TextOutRecord(
+    const HDC dc, const TextPendingRecord& record, const std::int32_t offset)
+{
+    const int length = static_cast<int>(std::strlen(record.text));
+    const std::int32_t y = record.y + offset;
+    const std::int32_t x = record.x + offset;
+    static_cast<void>(::TextOutA(dc, x, y, record.text, length));
 }
 
 } // namespace
@@ -121,6 +153,63 @@ std::int32_t ReleaseFont_456530()
         result = handle == nullptr ? 0 : ::DeleteObject(handle);
     }
     return result;
+}
+
+void RenderTextToSurface_456D70(const std::uint32_t headToken)
+{
+    const HDC dc = AcquireCpuBackTextDc();
+    static_cast<void>(::SetBkMode(dc, TRANSPARENT));
+    const TextPendingRecord* const head = BorrowTextRecord(headToken);
+    if (head->renderMode == 0) {
+        const TextPendingRecord* record = head;
+        while (record != nullptr) {
+            if (record->text[0] != '\0') {
+                static_cast<void>(::SelectObject(dc, gFontHandles558F68[record->fontType]));
+                const std::uint8_t color = record->color;
+                if ((color & 0x80u) == 0) {
+                    static_cast<void>(::SetTextColor(dc, 0));
+                    static_cast<void>(::SelectObject(dc, gFontHandles558F68[record->fontType]));
+                    TextOutRecord(dc, *record, 1);
+                }
+                const std::uint8_t index = color & 0x7Fu;
+                const std::uint32_t third = gTextColors5590B8[index][2];
+                const std::uint32_t first = gTextColors5590B8[index][0];
+                const std::uint32_t second = gTextColors5590B8[index][1];
+                static_cast<void>(::SetTextColor(dc, first | (second << 8) | (third << 16)));
+                TextOutRecord(dc, *record, 0);
+            }
+            record = BorrowTextRecord(record->nextToken);
+        }
+    } else {
+        static_cast<void>(::SetTextColor(dc, 0));
+        const TextPendingRecord* record = head;
+        while (record != nullptr) {
+            if ((record->color & 0x80u) == 0) {
+                static_cast<void>(::SelectObject(dc, gFontHandles558F68[record->fontType]));
+                TextOutRecord(dc, *record, 1);
+            }
+            record = BorrowTextRecord(record->nextToken);
+        }
+        for (std::int32_t index = 0; index < 13; ++index) {
+            bool selectedColor = false;
+            record = head;
+            while (record != nullptr) {
+                if (static_cast<std::int32_t>(record->color & 0x7Fu) == index) {
+                    if (!selectedColor) {
+                        const std::uint32_t third = gTextColors5590B8[index][2];
+                        const std::uint32_t second = gTextColors5590B8[index][1];
+                        const std::uint32_t first = gTextColors5590B8[index][0];
+                        static_cast<void>(::SetTextColor(dc, first | (second << 8) | (third << 16)));
+                        selectedColor = true;
+                    }
+                    static_cast<void>(::SelectObject(dc, gFontHandles558F68[record->fontType]));
+                    TextOutRecord(dc, *record, 0);
+                }
+                record = BorrowTextRecord(record->nextToken);
+            }
+        }
+    }
+    ReleaseCpuBackTextDc(dc);
 }
 
 std::int32_t Font::measure(

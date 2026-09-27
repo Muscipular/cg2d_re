@@ -159,10 +159,13 @@ Unchecked/UncheckedScaled 的已裁剪矩形前提，及 NONE 混合下的源色
   原尺寸像素区成功后建立 XRGB8888 包装，pitch=width×4，
   设置 `SDL_BLENDMODE_NONE` 和该面的源色键；全部成功才链接 owner。
   包装或设置失败释放此次对象，不改变已有节点前缀/变换分配失败回退。
-- CpuBackStorage 仍只有一块原大小像素数组，包括既有额外尾像素；
+- CpuBackStorage 仍只有一块原大小像素存储，包括既有额外尾像素；
   SDL 包装仅暴露 640×480，pitch=2560，不把尾像素算入可见画面。
   创建失败保留空 Back，成功后清面、手工像素、快照、Blt 和 Flip
-  均操作同一数组。释放顺序为 SDL 包装、像素，不另建一份 Back。
+  均操作同一存储。后续按[文本 DIB SPEC](cg2d_sdl_presenter.md)
+  将 Back 分配承载换为匿名 mapping，使 CPU、SDL 和 GDI 借用
+  同一后备内存；逻辑容量不变、不复制画面。释放 DC 后先销毁
+  SDL 包装及 DIB，再解除像素映射，不另建一份 Back。
 - SDL_Surface 只出现在 render 私有头/实现；内部借用 getter
   返回原生非拥有 `SDL_Surface*`，不能跨 Back 销毁/重建长期缓存。
   公开 SurfaceState 接口不增加 SDL 类型或 mutable 像素视图。

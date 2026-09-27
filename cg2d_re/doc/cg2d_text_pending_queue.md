@@ -107,7 +107,7 @@ signed W32 `count <= 0`；通过后单次采样上述悬停索引，按顺序返
 
 1. 写 `GraphicCache3.layer`；
 2. 重读 W16 计数，把位模式写入同一 `GraphicCache3.cacheIndex`；
-3. 写 `imageNo=-1`、`value4=0`、`batchType=4`、`dataBits=headToken`；
+3. 写 `imageNo=-1`、`value4=0`、`batchType=4`、`reference.textToken=headToken`（后续 x64 联合字段）；
 4. 再次读取 W16 计数，以 signed16 扩展返回，并把该 W16 加一写回。
 
 它不写图形记录的坐标、描述符或尾字节，也不写 `GraphicCache3+3`。通过范围
@@ -123,4 +123,7 @@ signed W32 `count <= 0`；通过后单次采样上述悬停索引，按顺序返
 `gGraphicCache4Queue`，不清文本记录或任何计数。
 
 最终队列消费入口 `Renderer::DrawAllQueued@0x520DD0` 仍只有真实声明，
-文本链的最终消费、呈现尚未闭合。
+其 case 4 父分发未接；后续 `RenderTextToSurface_456D70` 已完整实现，
+沿同一一基 token 遍历记录，不改变本节生产者或门禁。
+具体两分支、字体和共享 Back DIB 见[文本消费 SPEC](cg2d_sdl_presenter.md)。
+文本提交仅静态接通，实际字形、最终画面和整个客户端仍未运行验收。

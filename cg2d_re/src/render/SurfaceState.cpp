@@ -2,6 +2,7 @@
 
 #include "cg/Palette.hpp"
 
+#include "BackTextDrawing.hpp"
 #include "GraphicDxCacheState.hpp"
 #include "LegacyTextureDrawing.hpp"
 #include "../world/WorldUpdateDependencies.hpp"
@@ -13,19 +14,47 @@
 #include <memory>
 #include <new>
 
-#define WIN32_LEAN_AND_MEAN
-#define NOMINMAX
-#include <Windows.h>
-
 namespace cg::render {
 namespace {
 
 struct CpuBackStorage {
-    std::array<std::uint32_t, kCpuSurfacePixelCount + 1> pixels {};
-    // SDL 只借用可见像素；成员逆序析构先释放包装。
+    // CPU 视图与 GDI DIB 共用此映射；逻辑容量仍为可见帧加一个额外像素。
+    HANDLE mapping = nullptr;
+    std::uint32_t* pixels = nullptr;
+    HBITMAP textBitmap = nullptr;
+    HDC textDc = nullptr;
+    HGDIOBJ previousBitmap = nullptr;
     std::unique_ptr<SDL_Surface, decltype(&SDL_DestroySurface)> blitSurface {
         nullptr, SDL_DestroySurface
     };
+
+    void ReleaseTextDc() noexcept
+    {
+        if (textDc == nullptr) {
+            return;
+        }
+        static_cast<void>(::GdiFlush());
+        static_cast<void>(::SelectObject(textDc, previousBitmap));
+        static_cast<void>(::DeleteDC(textDc));
+        textDc = nullptr;
+        previousBitmap = nullptr;
+        SDL_UnlockSurface(blitSurface.get());
+    }
+
+    ~CpuBackStorage()
+    {
+        ReleaseTextDc();
+        blitSurface.reset();
+        if (textBitmap != nullptr) {
+            static_cast<void>(::DeleteObject(textBitmap));
+        }
+        if (pixels != nullptr) {
+            static_cast<void>(::UnmapViewOfFile(pixels));
+        }
+        if (mapping != nullptr) {
+            static_cast<void>(::CloseHandle(mapping));
+        }
+    }
 };
 
 // 原 556300..556302，仅描边模式为 256 号色读取；后续地址为独立字符串。
@@ -154,9 +183,25 @@ bool CreateCpuBackSurface() noexcept
     if (gCpuBackSurface == nullptr) {
         return false;
     }
+    constexpr std::size_t storageBytes =
+        (kCpuSurfacePixelCount + 1) * sizeof(std::uint32_t);
+    gCpuBackSurface->mapping = ::CreateFileMappingW(
+        INVALID_HANDLE_VALUE, nullptr, PAGE_READWRITE, 0,
+        static_cast<DWORD>(storageBytes), nullptr);
+    if (gCpuBackSurface->mapping == nullptr) {
+        gCpuBackSurface.reset();
+        return false;
+    }
+    gCpuBackSurface->pixels = static_cast<std::uint32_t*>(::MapViewOfFile(
+        gCpuBackSurface->mapping, FILE_MAP_ALL_ACCESS, 0, 0, storageBytes));
+    if (gCpuBackSurface->pixels == nullptr) {
+        gCpuBackSurface.reset();
+        return false;
+    }
+    std::uninitialized_value_construct_n(gCpuBackSurface->pixels, kCpuSurfacePixelCount + 1);
     gCpuBackSurface->blitSurface.reset(SDL_CreateSurfaceFrom(
         kCpuSurfaceWidth, kCpuSurfaceHeight, SDL_PIXELFORMAT_XRGB8888,
-        gCpuBackSurface->pixels.data(), static_cast<int>(kCpuSurfacePitchBytes)));
+        gCpuBackSurface->pixels, static_cast<int>(kCpuSurfacePitchBytes)));
     if (gCpuBackSurface->blitSurface == nullptr) {
         gCpuBackSurface.reset();
         return false;
@@ -423,12 +468,61 @@ std::span<const std::uint32_t> ReadCpuBackPixels() noexcept
     if (gCpuBackSurface == nullptr) {
         return {};
     }
-    return {gCpuBackSurface->pixels.data(), kCpuSurfacePixelCount};
+    return {gCpuBackSurface->pixels, kCpuSurfacePixelCount};
 }
 
 SDL_Surface* GetCpuBackSdlSurface() noexcept
 {
     return gCpuBackSurface == nullptr ? nullptr : gCpuBackSurface->blitSurface.get();
+}
+
+HDC AcquireCpuBackTextDc() noexcept
+{
+    CpuBackStorage* const back = gCpuBackSurface.get();
+    if (back == nullptr) {
+        return nullptr;
+    }
+    SDL_Surface* const surface = back->blitSurface.get();
+    if ((surface->flags & SDL_SURFACE_LOCKED) != 0 || !SDL_LockSurface(surface)) {
+        return nullptr;
+    }
+    if (back->textBitmap == nullptr) {
+        BITMAPINFO description {};
+        description.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
+        description.bmiHeader.biWidth = kCpuSurfaceWidth;
+        description.bmiHeader.biHeight = -kCpuSurfaceHeight;
+        description.bmiHeader.biPlanes = 1;
+        description.bmiHeader.biBitCount = 32;
+        description.bmiHeader.biCompression = BI_RGB;
+        void* bitmapPixels = nullptr;
+        back->textBitmap = ::CreateDIBSection(
+            nullptr, &description, DIB_RGB_COLORS, &bitmapPixels, back->mapping, 0);
+        if (back->textBitmap == nullptr) {
+            SDL_UnlockSurface(surface);
+            return nullptr;
+        }
+    }
+    const HDC dc = ::CreateCompatibleDC(nullptr);
+    if (dc == nullptr) {
+        SDL_UnlockSurface(surface);
+        return nullptr;
+    }
+    const HGDIOBJ previousBitmap = ::SelectObject(dc, back->textBitmap);
+    if (previousBitmap == nullptr || previousBitmap == HGDI_ERROR) {
+        static_cast<void>(::DeleteDC(dc));
+        SDL_UnlockSurface(surface);
+        return nullptr;
+    }
+    back->previousBitmap = previousBitmap;
+    back->textDc = dc;
+    return dc;
+}
+
+void ReleaseCpuBackTextDc(const HDC dc) noexcept
+{
+    if (gCpuBackSurface != nullptr && dc != nullptr && gCpuBackSurface->textDc == dc) {
+        gCpuBackSurface->ReleaseTextDc();
+    }
 }
 
 std::int32_t ClearSurface_4512C0() noexcept
@@ -437,7 +531,7 @@ std::int32_t ClearSurface_4512C0() noexcept
         return -1;
     }
     const std::uint32_t color = gBackgroundColor;
-    std::fill_n(gCpuBackSurface->pixels.data(), kCpuSurfacePixelCount, color);
+    std::fill_n(gCpuBackSurface->pixels, kCpuSurfacePixelCount, color);
     return 0;
 }
 
@@ -474,7 +568,7 @@ void Sub_451350(RECT* const rect, const std::uint16_t colorIndex, const std::int
 
     const auto pitch = static_cast<std::int32_t>(kCpuSurfacePitchPixels);
     std::uint32_t* const first =
-        gCpuBackSurface->pixels.data() + rect->top * pitch + rect->left + 1;
+        gCpuBackSurface->pixels + rect->top * pitch + rect->left + 1;
     switch (mode) {
     case 0: {
         std::uint32_t color;

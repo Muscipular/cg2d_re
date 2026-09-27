@@ -37,6 +37,14 @@ std::int32_t Sub_50D700(std::uintptr_t socket, const char* payload);
 // 原 [0x50E830,0x50E844)：共享 W32 非零直接返回，零时清并回写公会邮件。
 std::int32_t Sub_50E830(std::uintptr_t unusedSocket);
 
+// 原 50F130：门禁后部分重置外部记录、发布计数，再删除同 key 公会邮件；不保存文件。
+std::int32_t Sub_50F130(std::uintptr_t unusedSocket, std::int32_t key);
+// 原 50F190：无全局门禁，解析/插入后依序保存、播音效和追加原字节通知。
+// dispatcher 实际传四参；第一、第四参数未读取。
+void Sub_50F190(
+    std::uintptr_t unusedSocket, std::int32_t key,
+    const char* payload, std::int32_t unusedFourth);
+
 // 原 sub_4038A0@0x4038A0：就地变换 text；key3/key5 参与逐轮计算，
 // 第二、四参数未读取；返回末轮方向，零轮返回 0。
 char Sub_4038A0(

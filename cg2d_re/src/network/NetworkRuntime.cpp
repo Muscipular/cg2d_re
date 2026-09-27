@@ -2,10 +2,12 @@
 
 #include "../CharacterSelectSceneDependencies.hpp"
 #include "../LoginStateDependencies.hpp"
+#include "../world/MailState.hpp"
 #include "NetworkRuntimeDependencies.hpp"
 
 #include "cg/Input.hpp"
 #include "cg/LegacyAudio.hpp"
+#include "cg/LegacyRecordOrder.hpp"
 #include "cg/LoginRequest.hpp"
 #include "cg/LoginScene.hpp"
 #include "cg/Palette.hpp"
@@ -514,6 +516,55 @@ std::int32_t Sub_50E830(const std::uintptr_t)
     }
     character_select::detail::Sub_5194C0();
     return character_select::detail::Sub_519550();
+}
+
+std::int32_t Sub_50F130(const std::uintptr_t, const std::int32_t key)
+{
+    const std::uint32_t gate = world::gValue9A6E0C;
+    if (gate != 0) {
+        return std::bit_cast<std::int32_t>(gate);
+    }
+    const std::int32_t index = login::detail::FindActiveOrderedRecordIndex_5195C0(key);
+    auto* const record = login::detail::gOrderedRecords1051B14.data() + index;
+    record->value00 = -1;
+    record->value08 = 0;
+    record->text18[0] = '\0';
+    record->text18[0x11] = '\0';
+    record->value0C = -1;
+    login::detail::gOrderedRecordCount1051510 =
+        login::detail::CountRecordsValue08EqualOne_50EF50();
+    return world::detail::Sub_5194F0(key);
+}
+
+void Sub_50F190(
+    const std::uintptr_t, const std::int32_t key,
+    const char* const payload, const std::int32_t)
+{
+    constexpr char kGuildMailFormat58B0EC[] =
+        "\xB1\x7A\xA6\xAC\xA8\xEC\xA8\xD3\xA6\xDB\xAE\x61\xB1\xDA"
+        " %s " "\xAA\xBA\xAB\x48\xA5\xF3\xA1\xE3";
+    constexpr char kGuildPetMailFormat58B0C8[] =
+        "\xB1\x7A\xA6\xAC\xA8\xEC\xA8\xD3\xA6\xDB\xAE\x61\xB1\xDA"
+        "\xA6\xA8\xAD\xFB" " %s "
+        "\xAA\xBA\xC3\x64\xAA\xAB\xAB\x48\xA5\xF3\xA1\xE3";
+
+    char name[32];
+    char message[256];
+    char text[300];
+    static_cast<void>(ExtractDelimitedField_52CED0(payload, '|', 1, 31, name));
+    static_cast<void>(ExtractDelimitedField_52CED0(payload, '|', 2, 299, text));
+    const std::int32_t kind = ParseDelimitedInteger_52CFA0(payload, '|', 3);
+    input::UnescapeLegacyTextAndNotify_52D2F0(text);
+    const std::int32_t index = login::detail::FindActiveOrderedRecordIndex_5195C0(key);
+    static_cast<void>(world::detail::Sub_519370(key, 0, name, text));
+    const char* const recordName =
+        (login::detail::gOrderedRecords1051B14.data() + index)->text18;
+    std::sprintf(
+        message, kind == -1 ? kGuildMailFormat58B0EC : kGuildPetMailFormat58B0C8,
+        recordName);
+    static_cast<void>(world::detail::Sub_519550());
+    static_cast<void>(audio::PlaySe_52C450(63, 320));
+    world::detail::Sub_44B050(message, 4, 3);
 }
 
 } // namespace detail

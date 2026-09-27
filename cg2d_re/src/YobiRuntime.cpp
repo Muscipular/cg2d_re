@@ -1,11 +1,15 @@
 #include "cg/YobiRuntime.hpp"
 
 #include "LoginMessageDependencies.hpp"
+#include "AnimationRuntimeState.hpp"
 
+#include "cg/AnimationRuntime.hpp"
+#include "cg/GraphicInfo.hpp"
 #include "cg/LegacyAudio.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
+#include "cg/render/GraphicDxCache.hpp"
 #include "cg/world/SceneState.hpp"
 
 #include <array>
@@ -49,6 +53,19 @@ struct YobiAction {
     std::int32_t imageNo;
     std::int32_t characterAction;
     std::int32_t direction;
+    std::int32_t lastImageNo;       // 原 +2AC：上次播放图号。
+    std::int32_t lastCharacterAction; // 原 +2B4：上次动作。
+    std::int32_t lastDirection;     // 原 +2BC：上次方向。
+    std::uint32_t frameIndex;       // 原 +2C0：以 U32 与帧数比较。
+    std::int32_t frameRemain;       // 原 +2C4：非零则递减，本轮不取新帧。
+    std::int32_t graphicOffsetX;    // 原 +2C8：图形偏移叠加帧坐标。
+    std::int32_t graphicOffsetY;    // 原 +2CC。
+    std::int32_t frameEvent;        // 原 +2D0：仅 flag>=10000 写入。
+    std::int32_t hidden;            // 原 +2D4：仅严格等于 1 时跳过播放。
+    std::uint32_t completedLoops;   // 原 +2DC。
+    std::int32_t playRevert;        // 原 +2E0：保留 caller 完整 W32。
+    std::int32_t frameX;            // 原 +2F0：帧坐标叠加坐标文件偏移。
+    std::int32_t frameY;            // 原 +2F4。
     render::GraphicDescriptor16 drawMode;
     std::uint8_t batchType;
     std::int32_t color2;
@@ -604,6 +621,85 @@ bool ShouldDeferForFourPhaseGate(const YobiAction* const action)
         && gYobiUpdatePhaseCounter != 0;
 }
 
+// 原两播放入口的同源翻转段；只有真实图形加载非零后才按需读取各个 DX 尺寸。
+void ApplyYobiGraphicFlip(YobiAction* const action)
+{
+    if ((action->drawMode.bytes[0x0D] & 3u) == 0
+        || render::LoadGraphic_522570(action->graphicIndex) == 0) {
+        return;
+    }
+    const std::uint8_t mode = action->drawMode.bytes[0x0D];
+    if ((mode & 1u) != 0) {
+        action->graphicOffsetX =
+            -(action->graphicOffsetX + render::ReadGraphicDxWidth(action->graphicIndex));
+    }
+    if ((mode & 2u) != 0) {
+        action->graphicOffsetY =
+            -(action->graphicOffsetY + render::ReadGraphicDxHeight(action->graphicIndex));
+    }
+}
+
+// 原 517A8C..517C85 / 518098..518291 的相同阶段；不合并两入口的图号或速率门禁。
+void ApplyYobiAnimeFrame(
+    YobiAction* const action,
+    const std::int32_t animeIndex,
+    const resource::animation::detail::ActionEntry* const selected,
+    const resource::animation::detail::FrameEntry* const frames)
+{
+    const std::uint16_t flag = frames[action->frameIndex].flag;
+    if (flag != 0) {
+        if (flag >= 10000) {
+            action->frameEvent = flag;
+        } else if (world::gCurrentSceneType != 9 || (action->flags & 0x80200u) == 0) {
+            static_cast<void>(audio::PlaySe_52C450(flag, action->x));
+        }
+    }
+    action->drawMode.bytes[0x0D] &= 0xFCu;
+    action->graphicIndex = static_cast<std::int32_t>(frames[action->frameIndex].graphicIndex);
+    std::int16_t offsetX;
+    std::int16_t offsetY;
+    resource::GetGraphicXY(frames[action->frameIndex].graphicIndex, &offsetX, &offsetY);
+    action->graphicOffsetX = offsetX + frames[action->frameIndex].x;
+    action->graphicOffsetY = offsetY + frames[action->frameIndex].y;
+    std::memcpy(action->drawMode.bytes.data() + 0x0E,
+        &selected->paletteIndex, sizeof(selected->paletteIndex));
+    action->drawMode.bytes[0x0D] = static_cast<std::uint8_t>(selected->revert);
+    std::memcpy(action->drawMode.bytes.data() + 8,
+        &selected->value14, sizeof(selected->value14));
+    ApplyYobiGraphicFlip(action);
+
+    const auto* const coordinates = static_cast<resource::animation::detail::CoordinateEntry*>(
+        resource::animation::gAnimateRecords9A4A58[animeIndex].coordinates);
+    std::int32_t coordinateIndex = 0;
+    if (coordinates != nullptr) {
+        const auto count = resource::animation::gAnimateRecords9A4A58[animeIndex].coordinateCount;
+        for (; coordinateIndex < count; ++coordinateIndex) {
+            if (coordinates[coordinateIndex].graphicIndex
+                == static_cast<std::uint32_t>(action->graphicIndex)) {
+                break;
+            }
+        }
+    }
+    const std::uint32_t frameIndex = action->frameIndex;
+    action->frameX = frames[frameIndex].x;
+    action->frameY = frames[frameIndex].y;
+    if (coordinates != nullptr
+        && coordinateIndex < resource::animation::gAnimateRecords9A4A58[animeIndex].coordinateCount) {
+        action->frameX += coordinates[coordinateIndex].x;
+        action->frameY += coordinates[coordinateIndex].y;
+    }
+    const std::uint8_t mode = action->drawMode.bytes[0x0D];
+    if ((mode & 1u) != 0) {
+        action->frameX = -action->frameX;
+    }
+    if ((mode & 2u) != 0) {
+        action->frameY = -action->frameY;
+    }
+    const std::int32_t remaining = action->frameRemain - 1;
+    action->frameIndex = frameIndex + 1u;
+    action->frameRemain = remaining;
+}
+
 } // namespace
 
 void DrawNineGrid_49BE00(
@@ -1103,6 +1199,213 @@ bool IsYobiActionStateLessOrEqual(
     return platform::legacy_crypt_int::LessEqual_401DA0(
         &action->readiness,
         maximum);
+}
+
+std::int32_t Sub_517880(
+    YobiAction* const action,
+    const std::int32_t rate,
+    const std::int32_t stopAtEnd,
+    const std::uint32_t flipStatic)
+{
+    if (action == nullptr || action->hidden == 1) {
+        return 0;
+    }
+    const std::int32_t characterAction = action->characterAction;
+    action->playRevert = stopAtEnd;
+    std::int32_t imageNo;
+    if (action->lastCharacterAction != characterAction
+        || action->direction != action->lastDirection
+        || (imageNo = action->imageNo) != action->lastImageNo) {
+        imageNo = action->imageNo;
+        action->lastCharacterAction = characterAction;
+        action->lastImageNo = imageNo;
+        action->lastDirection = action->direction;
+        action->frameRemain = 0;
+        action->frameIndex = 0;
+        action->completedLoops = 0;
+    }
+    if (action->frameRemain != 0) {
+        --action->frameRemain;
+        return 0;
+    }
+    if (imageNo <= 999) {
+        action->graphicIndex = 0;
+        return 0;
+    }
+    if (imageNo < 100000 || imageNo >= 200000) {
+        std::int32_t graphicIndex;
+        resource::GetGraphicMapNoIndex(imageNo, &graphicIndex);
+        std::int16_t offsetX;
+        std::int16_t offsetY;
+        resource::GetGraphicXY(static_cast<std::uint32_t>(graphicIndex), &offsetX, &offsetY);
+        action->graphicOffsetY = offsetY;
+        action->graphicIndex = graphicIndex;
+        action->graphicOffsetX = offsetX;
+        action->frameRemain = 0x7FFFFFFF;
+        const std::int16_t paletteIndex = 0;
+        std::memcpy(action->drawMode.bytes.data() + 0x0E, &paletteIndex, sizeof(paletteIndex));
+        action->drawMode.bytes[0x0D] = 0;
+        const std::uint32_t color = 0xFFFFFFFFu;
+        std::memcpy(action->drawMode.bytes.data() + 8, &color, sizeof(color));
+        if (static_cast<std::uint8_t>(flipStatic) != 0) {
+            action->drawMode.bytes[0x0D] = 0;
+            if (action->direction >= 2 && action->direction < 5) {
+                action->drawMode.bytes[0x0D] = 1;
+            }
+            ApplyYobiGraphicFlip(action);
+        }
+        action->frameX = 0;
+        action->frameY = 0;
+        return 0;
+    }
+    if (imageNo > resource::animation::gMaxAnimateCount9A4A4C + 100000) {
+        return 1;
+    }
+    const std::int32_t animeIndex =
+        resource::animation::GetIndex_45B400(static_cast<std::uint32_t>(imageNo - 100000));
+    if (animeIndex < 0) {
+        return 1;
+    }
+    if (resource::animation::AnimeLoadAction_45B760(animeIndex) == 0) {
+        return -1;
+    }
+    const auto* const list = static_cast<resource::animation::detail::ActionEntry*>(
+        resource::animation::gAnimateRecords9A4A58[animeIndex].actionList);
+    const std::uint16_t count = resource::animation::gAnimateRecords9A4A58[animeIndex].count;
+    if (count == 0) {
+        return 1;
+    }
+    std::int32_t selectedIndex = 0;
+    const std::int32_t direction = action->direction;
+    for (; selectedIndex < count; ++selectedIndex) {
+        if (direction == static_cast<std::uint16_t>(list[selectedIndex].direction)
+            && static_cast<std::uint16_t>(list[selectedIndex].action) == action->characterAction) {
+            break;
+        }
+    }
+    if (selectedIndex >= count) {
+        return 1;
+    }
+    const auto* const selected = &list[selectedIndex];
+    const std::uint32_t product = selected->duration * static_cast<std::uint32_t>(rate);
+    const auto* const frames =
+        static_cast<resource::animation::detail::FrameEntry*>(selected->frames);
+    action->frameRemain = static_cast<std::int32_t>(product / 100u);
+    if (action->frameRemain < 1) {
+        action->frameRemain = 1;
+    }
+    if (action->frameIndex >= selected->frameCount) {
+        if (stopAtEnd == 1) {
+            action->frameRemain = 255;
+            action->completedLoops = 1;
+            return 1;
+        }
+        action->frameIndex = 0;
+        ++action->completedLoops;
+    }
+    ApplyYobiAnimeFrame(action, animeIndex, selected, frames);
+    return 0;
+}
+
+std::int32_t PlayFrame_517DA0(YobiAction* const action, const std::int32_t stopAtEnd)
+{
+    if (action == nullptr || action->hidden == 1) {
+        return 0;
+    }
+    const std::int32_t characterAction = action->characterAction;
+    action->playRevert = stopAtEnd;
+    std::int32_t imageNo;
+    if (action->lastCharacterAction != characterAction
+        || action->direction != action->lastDirection
+        || (imageNo = action->imageNo) != action->lastImageNo) {
+        imageNo = action->imageNo;
+        action->lastCharacterAction = characterAction;
+        action->lastImageNo = imageNo;
+        action->lastDirection = action->direction;
+        action->frameRemain = 0;
+        action->frameIndex = 0;
+        action->completedLoops = 0;
+    }
+    if (action->frameRemain != 0) {
+        --action->frameRemain;
+        return 0;
+    }
+    if (imageNo <= 999) {
+        action->graphicIndex = 0;
+        return 0;
+    }
+    if (imageNo < 100000) {
+        std::int32_t graphicIndex;
+        resource::GetGraphicMapNoIndex(imageNo, &graphicIndex);
+        std::int16_t offsetX;
+        std::int16_t offsetY;
+        resource::GetGraphicXY(static_cast<std::uint32_t>(graphicIndex), &offsetX, &offsetY);
+        action->graphicOffsetX = offsetX;
+        const std::int32_t direction = action->direction;
+        action->graphicIndex = graphicIndex;
+        action->graphicOffsetY = offsetY;
+        action->frameRemain = 0x7FFFFFFF;
+        const std::int16_t paletteIndex = 0;
+        std::memcpy(action->drawMode.bytes.data() + 0x0E, &paletteIndex, sizeof(paletteIndex));
+        const std::uint32_t color = 0xFFFFFFFFu;
+        std::memcpy(action->drawMode.bytes.data() + 8, &color, sizeof(color));
+        action->drawMode.bytes[0x0D] = 0;
+        if (direction >= 2 && direction < 5) {
+            action->drawMode.bytes[0x0D] = 1;
+        }
+        ApplyYobiGraphicFlip(action);
+        action->frameX = 0;
+        action->frameY = 0;
+        return 0;
+    }
+    if (imageNo > resource::animation::gMaxAnimateCount9A4A4C + 100000) {
+        return 1;
+    }
+    const std::int32_t animeIndex =
+        resource::animation::GetIndex_45B400(static_cast<std::uint32_t>(imageNo - 100000));
+    if (animeIndex < 0) {
+        return 1;
+    }
+    if (resource::animation::AnimeLoadAction_45B760(animeIndex) == 0) {
+        return -1;
+    }
+    const auto* const list = static_cast<resource::animation::detail::ActionEntry*>(
+        resource::animation::gAnimateRecords9A4A58[animeIndex].actionList);
+    const std::uint16_t count = resource::animation::gAnimateRecords9A4A58[animeIndex].count;
+    if (count == 0) {
+        return 1;
+    }
+    std::int32_t selectedIndex = 0;
+    const std::int32_t direction = action->direction;
+    for (; selectedIndex < count; ++selectedIndex) {
+        if (direction == static_cast<std::uint16_t>(list[selectedIndex].direction)
+            && static_cast<std::uint16_t>(list[selectedIndex].action) == action->characterAction) {
+            break;
+        }
+    }
+    if (selectedIndex >= count) {
+        return 1;
+    }
+    const auto* const selected = &list[selectedIndex];
+    const std::uint32_t product =
+        selected->duration * static_cast<std::uint32_t>(action->framePlayingRate);
+    const auto* const frames =
+        static_cast<resource::animation::detail::FrameEntry*>(selected->frames);
+    action->frameRemain = static_cast<std::int32_t>(product / 100u);
+    if (action->frameRemain < 1) {
+        action->frameRemain = 1;
+    }
+    if (action->frameIndex >= selected->frameCount) {
+        if (stopAtEnd == 1) {
+            action->frameRemain = 255;
+            action->completedLoops = 1;
+            return 1;
+        }
+        action->frameIndex = 0;
+        ++action->completedLoops;
+    }
+    ApplyYobiAnimeFrame(action, animeIndex, selected, frames);
+    return 0;
 }
 
 std::int32_t GetYobiActionField2A8(YobiAction* const action)

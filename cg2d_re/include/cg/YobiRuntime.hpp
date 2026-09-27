@@ -117,12 +117,15 @@ void SetYobiActionField30C(YobiAction* action, std::int32_t value);
 std::uint8_t GetYobiActionField30F(YobiAction* action);
 void SetYobiActionField30F(YobiAction* action, std::uint8_t value);
 
-// 原 Yobi::FrameMove@[0x517880,0x517D9D)；当前仅保留唯一真实依赖声明。
+// 原 Yobi::FrameMove@[0x517880,0x517D9D)：参数速率、严格 ==1 停播及低 W8 静图翻转开关。
 std::int32_t Sub_517880(
     YobiAction* action,
     std::int32_t value1,
     std::int32_t value2,
     std::uint32_t value3);
+
+// 原 Yobi::PlayFrame@[517DA0,5182A1)：使用对象播放速率；静图仅小于 100000。
+std::int32_t PlayFrame_517DA0(YobiAction* action, std::int32_t stopAtEnd);
 
 } // namespace detail
 } // namespace cg::login

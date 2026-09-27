@@ -166,6 +166,16 @@ std::int32_t LoadGraphic_522570(const std::int32_t imageNo)
     return 1;
 }
 
+std::int16_t ReadGraphicDxWidth(const std::int32_t imageNo) noexcept
+{
+    return static_cast<std::int16_t>(gGraphicDxCache103CFA4[imageNo].width);
+}
+
+std::int16_t ReadGraphicDxHeight(const std::int32_t imageNo) noexcept
+{
+    return static_cast<std::int16_t>(gGraphicDxCache103CFA4[imageNo].height);
+}
+
 void TakeGraphicDxCache_5222D0(const std::int32_t imageNo, void* /*unusedSource*/)
 {
     std::int32_t scan = gTextureScanIndex;

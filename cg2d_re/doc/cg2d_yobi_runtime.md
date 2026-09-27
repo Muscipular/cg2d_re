@@ -64,6 +64,14 @@ opaque 指针和窄访问函数，不断言 `sizeof(YobiAction)==0x330`。
 `0x4618FD`，调用后均不读取 EAX；因此新端接口改为 `void`，删除会截断 x64 指针的
 `GetYobiActionLegacyPointerBits32`，保留全部副作用和末尾 `sub_517880` 调用。
 
+2026-09-27 后续：`Sub_517880` 和 `PlayFrame_517DA0` 已实现完整播放本体，
+现有角色预览/能力 3 场景调用接到真实资源装载与逐帧状态推进。
+原 +2AC..+2F4 的已证播放标量补入同一私有对象，由既有 calloc 首轮清零；
+不引入 W32 对象令牌、旁表、第二套资源或 x86 对象 blob。
+字段、返回、末帧严格 ==1 判断与音效/偏移写序见
+[动画 §10](cg2d_animation_runtime.md)。初始化和最终绘制未完成，
+不能把本体静态落位当作预览画面或战斗播放通过。
+
 ## modal payload 与 creator
 
 `YobiUIData` 是纯标量 `0x24` 字节类型：

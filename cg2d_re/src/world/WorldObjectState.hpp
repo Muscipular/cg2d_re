@@ -23,7 +23,8 @@ struct WorldObjectRecord {
     std::int32_t level2C;
     std::int32_t direction;
     std::int32_t value34;
-    std::array<std::byte, 8> bytes38;
+    std::int32_t value38; // 原+38；value34待转方向对应的目标X。
+    std::int32_t value3C; // 原+3C；同一待转方向对应的目标Y。
     std::uint16_t value40;
     std::uint16_t flags42;
     std::array<std::byte, 4> bytes44;
@@ -58,6 +59,8 @@ static_assert(offsetof(WorldObjectRecord, coordinate1C) == 0x1C);
 static_assert(offsetof(WorldObjectRecord, level2C) == 0x2C);
 static_assert(offsetof(WorldObjectRecord, direction) == 0x30);
 static_assert(offsetof(WorldObjectRecord, value34) == 0x34);
+static_assert(offsetof(WorldObjectRecord, value38) == 0x38);
+static_assert(offsetof(WorldObjectRecord, value3C) == 0x3C);
 static_assert(offsetof(WorldObjectRecord, flags42) == 0x42);
 static_assert(offsetof(WorldObjectRecord, value48) == 0x48);
 static_assert(offsetof(WorldObjectRecord, value4C) == 0x4C);

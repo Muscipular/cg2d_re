@@ -19,6 +19,8 @@ ActorRate54DD3C DWORD 03FCCCCCDh
 ActorRate54DD40 DWORD 03F99999Ah
 ActorRate54D4A4 DWORD 040000000h
 ActorStep54DD44 DWORD 040800000h
+ActorSpiralScale54DD14 DWORD 03FE00000h
+ActorSpiralScale54DD10 DWORD 03F19999Ah
 ALIGN 8
 ObserverAngles QWORD 04002D97C7F30D173h, 03FF921FB54411744h
     QWORD 03FE921FB54411744h, 0000000000000000h
@@ -34,6 +36,7 @@ PUBLIC Cg2dMapObserverProjection
 PUBLIC Cg2dMapObserverArc
 PUBLIC Cg2dMapActorVelocity
 PUBLIC Cg2dMapMoveDirection
+PUBLIC Cg2dMapActorSpiralOffset
 
 ; 所有叶仅借用参数暂存区 [rsp+8,rsp+40)，不改 RSP 或非易失寄存器。
 Cg2dMapEffectDirection PROC
@@ -341,5 +344,34 @@ MapMoveDirectionDone:
     fldcw word ptr [rsp+8]
     ret
 Cg2dMapMoveDirection ENDP
+
+Cg2dMapActorSpiralOffset PROC
+    mov dword ptr [rsp+8], ecx
+    mov dword ptr [rsp+12], edx
+    fnstcw word ptr [rsp+16]
+    mov word ptr [rsp+18], 027Fh
+    mov word ptr [rsp+20], 0E7Fh
+    fldcw word ptr [rsp+18]
+    fild dword ptr [rsp+8]
+    fild dword ptr [rsp+12]
+    fmul qword ptr [Radians54DD18]
+    fld st(0)
+    fcos
+    fld st(2)
+    fmul dword ptr [ActorSpiralScale54DD14]
+    fmulp st(1), st(0)
+    fldcw word ptr [rsp+20]
+    fistp qword ptr [r8]
+    fldcw word ptr [rsp+18]
+    fsin
+    fchs
+    fxch st(1)
+    fmul dword ptr [ActorSpiralScale54DD10]
+    fmulp st(1), st(0)
+    fldcw word ptr [rsp+20]
+    fistp qword ptr [r8+8]
+    fldcw word ptr [rsp+16]
+    ret
+Cg2dMapActorSpiralOffset ENDP
 
 END

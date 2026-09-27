@@ -122,4 +122,8 @@ static_assert(sizeof(MapMoveDirection) == 16);
 extern "C" void Cg2dMapMoveDirection(
     const MapMoveDifference* difference, MapMoveDirection* result) noexcept;
 
+// 原43EED2–43EF01：FCOS/FSIN与progress的原序乘法，输出两个截断I64偏移。
+extern "C" void Cg2dMapActorSpiralOffset(
+    std::int32_t progress, std::int32_t angle, std::int64_t* result) noexcept;
+
 } // namespace cg::platform::detail

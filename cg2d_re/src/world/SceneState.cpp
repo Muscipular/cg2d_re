@@ -4275,6 +4275,11 @@ std::int32_t ReadPlayerWalkSpeed() noexcept
     return gPlayerRuntime.walkSpeed;
 }
 
+std::int32_t ReadPlayerImageNo() noexcept
+{
+    return gPlayerRuntime.imageNo;
+}
+
 std::int16_t ReadDirectionDeltaX(const std::int16_t direction) noexcept
 {
     return gDirectionDeltas55D9DC[static_cast<std::size_t>(direction)].x;

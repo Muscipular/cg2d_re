@@ -2260,6 +2260,330 @@ void Sub_442460(YobiAction* const action)
     }
 }
 
+namespace {
+
+// 原43E535/43EA41等到格转向分支；每个CryptInt比较只读取一次。
+void ApplyPendingMapActorDirection(YobiAction* const action, const std::int32_t index)
+{
+    if (!TransitionMovementIdle(action)) {
+        return;
+    }
+    auto& record = world::detail::gWorldObjects[static_cast<std::size_t>(index)];
+    if (record.value34 != -1
+        && platform::legacy_crypt_int::Equal_401D00(&action->mapX1E0, record.value38)
+        && platform::legacy_crypt_int::Equal_401D00(&action->mapY1F0, record.value3C)) {
+        action->direction = record.value34;
+        record.value34 = -1;
+        record.value38 = 0;
+        record.value3C = 0;
+    }
+}
+
+// 原43E790/43E8C3两处骑乘结束分类，不使用43EFC0的另一套动作映射。
+void RestoreMountedCharacterAction(YobiAction* const action)
+{
+    const std::int32_t imageNo = action->imageNo;
+    if ((imageNo >= 0x1BD50 && imageNo <= 0x1BDF9)
+        || (imageNo >= 0x1B580 && imageNo <= 0x1B587)
+        || (imageNo >= 0x1B58A && imageNo <= 0x1B59C)
+        || (imageNo >= 0x1D554 && imageNo <= 0x1D55B)) {
+        action->characterAction = 0;
+    } else if ((imageNo >= 0x186A0 && imageNo <= 0x18A87)
+        || (imageNo >= 0x19A28 && imageNo <= 0x1A130)
+        || (imageNo >= 0x197D0 && imageNo <= 0x19848)
+        || (imageNo >= 0x1D524 && imageNo <= 0x1D553)
+        || (imageNo >= 0x1D55C && imageNo <= 0x1D563)
+        || (imageNo >= 0x1AF0E && imageNo <= 0x1AF25)) {
+        action->characterAction = 11;
+    } else {
+        action->characterAction = 0;
+    }
+}
+
+// 原43ECCF/43ED51：先采玩家指针，非当前玩家时才重读payload索引。
+void RestoreActorOriginalImage(YobiAction* const action, MapActorPayload* const payload)
+{
+    YobiAction* const player = world::detail::ReadPlayerAction();
+    if (player != nullptr && player == action) {
+        action->imageNo = world::detail::ReadPlayerImageNo();
+        return;
+    }
+    const std::int32_t index = payload->index;
+    action->imageNo = index == -1 ? world::detail::ReadPlayerImageNo()
+        : std::bit_cast<std::int32_t>(
+            world::detail::gWorldObjects[static_cast<std::size_t>(index)].imageNo);
+}
+
+// 阶段1/2的四处附件追加；两个偏移调用之间和取图号时均重新读取槽。
+void DrawActorPhaseAttachment(
+    YobiAction* const action, YobiAction** const slot,
+    const std::int32_t primaryIndex, const std::int32_t before)
+{
+    YobiAction* const child = *slot;
+    const render::GraphicDescriptor16* const descriptor = &child->drawMode;
+    const std::int32_t offsetY = Sub_5182B0(child, 1);
+    const std::int32_t drawY = offsetY + action->y;
+    const std::int32_t offsetX = Sub_5182B0(*slot, 0);
+    const std::int32_t drawX = offsetX + action->x;
+    const std::int32_t graphicIndex = (*slot)->graphicIndex;
+    world::detail::DrawGearNormal_46C060(
+        primaryIndex, before, graphicIndex,
+        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
+        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)), descriptor, 0);
+}
+
+// 原两个阶段的action08创建/播放；分配后的首写原本不判空，不增加失败门禁。
+void DrawActorPhaseEffect(
+    YobiAction* const action, MapActorPayload* const payload,
+    const std::int32_t primaryIndex, const std::int32_t imageNo)
+{
+    if (payload->action08 == nullptr) {
+        payload->action08 = NewYobiAction_404AE0(2, 0);
+        payload->action08->callback = nullptr;
+        payload->action08->imageNo = imageNo;
+        payload->action08->characterAction = 0;
+        payload->action08->displayPriority = 10;
+        payload->action08->flags = 0x34u;
+    }
+    YobiAction* const child = payload->action08;
+    if (child != nullptr) {
+        static_cast<void>(Sub_517880(child, 100, 0, 0));
+        DrawActorPhaseAttachment(action, &payload->action08, primaryIndex, 1);
+    }
+}
+
+// 原43E591–43EA01：阶段1的上升、骑乘动作恢复及效果附件清理。
+void UpdateActorMountPhase(YobiAction* const action, MapActorPayload* const payload)
+{
+    YobiAction* const ride = payload->action44;
+    if (ride == nullptr) {
+        action->phase = 0;
+        RestoreMountedCharacterAction(action);
+        return;
+    }
+    ride->direction = action->direction;
+    YobiAction* const currentRide = payload->action44;
+    const std::int32_t counter = payload->counter48;
+    const std::int32_t horizontal = currentRide->frameX * counter / 30;
+    const std::int32_t arc = counter - 15;
+    std::int32_t vertical = arc * arc - 225;
+    if (counter > 15) {
+        const std::int32_t frameY = payload->action44->frameY;
+        if (frameY <= vertical) {
+            vertical = frameY;
+        }
+    }
+    action->characterAction = 11;
+    static_cast<void>(Sub_517880(action, 100, 0, 0));
+    const render::GraphicDescriptor16* const descriptor = &action->drawMode;
+    const std::int32_t offsetY = Sub_5182B0(action, 1);
+    const std::int32_t drawY = offsetY + action->y + vertical;
+    const std::int32_t offsetX = Sub_5182B0(action, 0);
+    const std::int32_t x = action->x;
+    const double sortY = static_cast<double>(action->worldY)
+        + std::bit_cast<float>(std::uint32_t{0x3A83126F});
+    const std::int32_t drawX = offsetX + x + horizontal;
+    const auto worldXBits = std::bit_cast<std::uint32_t>(action->worldX);
+    const std::int32_t graphicIndex = action->graphicIndex;
+    const auto worldYBits = std::bit_cast<std::uint32_t>(static_cast<float>(sortY));
+    const std::int32_t primaryIndex = world::detail::Sub_46BD60(
+        graphicIndex, worldXBits, worldYBits,
+        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
+        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)), 1, descriptor);
+    static_cast<void>(Sub_517880(payload->action44, 100, 0, 0));
+    DrawActorPhaseAttachment(action, &payload->action44, primaryIndex, 0);
+    DrawActorPhaseEffect(action, payload, primaryIndex, 0x1AE10);
+    if (payload->counter48 == 0) {
+        static_cast<void>(audio::PlaySe_52C450(0x1D1, action->x));
+    }
+    const std::int32_t nextCounter = payload->counter48 + 1;
+    payload->counter48 = nextCounter;
+    if (nextCounter > 15 && payload->action44->frameY <= vertical) {
+        action->phase = 0;
+        RestoreMountedCharacterAction(action);
+        static_cast<void>(audio::PlaySe_52C450(0x1CE, action->x));
+        YobiAction* const effect = payload->action08;
+        if (effect != nullptr) {
+            MarkDeath(effect);
+            payload->action08 = nullptr;
+        }
+    }
+}
+
+// 原43EAA2–43EDA2：阶段2的下降、骑乘附件退出及原图号恢复。
+void UpdateActorDismountPhase(YobiAction* const action, MapActorPayload* const payload)
+{
+    YobiAction* const ride = payload->action44;
+    if (ride == nullptr) {
+        action->phase = 0;
+        action->characterAction = 0;
+        MarkDeath(payload->action44);
+        payload->action44 = nullptr;
+        RestoreActorOriginalImage(action, payload);
+        return;
+    }
+    ride->direction = action->direction;
+    YobiAction* const currentRide = payload->action44;
+    const std::int32_t initialCounter = payload->counter48;
+    const std::int32_t frameX = currentRide->frameX;
+    const std::int32_t horizontal = frameX - frameX * initialCounter / 30;
+    if (initialCounter == 0) {
+        for (;;) {
+            const std::int32_t counter = payload->counter48;
+            const std::int32_t arc = counter - 15;
+            const std::int32_t candidate = arc * arc - 225;
+            if (payload->action44->frameY >= candidate) {
+                break;
+            }
+            const std::int32_t nextCounter = counter + 1;
+            payload->counter48 = nextCounter;
+            if (nextCounter >= 15) {
+                break;
+            }
+        }
+    }
+    const std::int32_t counter = payload->counter48;
+    const std::int32_t arc = counter - 15;
+    std::int32_t vertical = arc * arc - 225;
+    if (counter > 15 && vertical >= 0) {
+        vertical = 0;
+    }
+    action->characterAction = 11;
+    static_cast<void>(Sub_517880(action, 100, 0, 0));
+    const render::GraphicDescriptor16* const descriptor = &action->drawMode;
+    const std::int32_t offsetY = Sub_5182B0(action, 1);
+    const std::int32_t drawY = offsetY + action->y + vertical;
+    const std::int32_t offsetX = Sub_5182B0(action, 0);
+    const std::int32_t x = action->x;
+    const double sortY = static_cast<double>(action->worldY)
+        + std::bit_cast<float>(std::uint32_t{0x3A83126F});
+    const std::int32_t graphicIndex = action->graphicIndex;
+    const std::int32_t drawX = offsetX + x + horizontal;
+    const auto worldXBits = std::bit_cast<std::uint32_t>(action->worldX);
+    const auto worldYBits = std::bit_cast<std::uint32_t>(static_cast<float>(sortY));
+    const std::int32_t primaryIndex = world::detail::Sub_46BD60(
+        graphicIndex, worldXBits, worldYBits,
+        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
+        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)), 1, descriptor);
+    static_cast<void>(Sub_517880(payload->action44, 100, 0, 0));
+    DrawActorPhaseAttachment(action, &payload->action44, primaryIndex, 0);
+    DrawActorPhaseEffect(action, payload, primaryIndex, 0x1AE11);
+    if (payload->counter48 == 0) {
+        static_cast<void>(audio::PlaySe_52C450(0x1CF, action->x));
+    }
+    const std::int32_t nextCounter = payload->counter48 + 1;
+    payload->counter48 = nextCounter;
+    if (nextCounter > 15 && vertical >= 0) {
+        action->phase = 0;
+        action->characterAction = 0;
+        MarkDeath(payload->action44);
+        payload->action44 = nullptr;
+        RestoreActorOriginalImage(action, payload);
+        static_cast<void>(audio::PlaySe_52C450(0x1C9, action->x));
+        YobiAction* const effect = payload->action08;
+        if (effect != nullptr) {
+            MarkDeath(effect);
+            payload->action08 = nullptr;
+        }
+    }
+}
+
+// 原43EDA2–43EF98：阶段3局部螺旋坐标与两次动画调用，不改世界坐标。
+void UpdateActorSpiralPhase(YobiAction* const action, MapActorPayload* const payload)
+{
+    const float worldY = action->worldY;
+    const float worldX = action->worldX;
+    constexpr std::array<std::int16_t, 8> angles {45, 0, 315, 270, 225, 180, 135, 90};
+    float projectedX;
+    float projectedY;
+    world::ProjectWorldToScreen_46CE30(worldX, worldY, &projectedX, &projectedY);
+    std::int32_t screenX = static_cast<std::int32_t>(
+        static_cast<std::int64_t>(static_cast<double>(projectedX) + 0.5));
+    std::int32_t screenY = static_cast<std::int32_t>(
+        static_cast<std::int64_t>(static_cast<double>(projectedY) + 0.5));
+    const std::int32_t counter = payload->counter48;
+    if (counter <= 360) {
+        action->characterAction = 3;
+        const std::int32_t progress = 360 - counter;
+        screenY += static_cast<std::int32_t>(static_cast<std::int64_t>(
+            static_cast<double>(progress)
+            * std::bit_cast<float>(std::uint32_t{0xBFB33333})));
+        if (payload->counter48 == 0) {
+            action->field58 = action->direction;
+        }
+        const std::int32_t savedDirection = action->field58;
+        action->direction = savedDirection - ((progress + 8) % 120) / 15;
+        if (action->direction < 0) {
+            action->direction += 8;
+        }
+        action->direction %= 8;
+        const std::int32_t angle =
+            angles[static_cast<std::size_t>((savedDirection + 4) % 8)] + progress * 3;
+        std::int64_t offsets[2];
+        platform::detail::Cg2dMapActorSpiralOffset(progress, angle, offsets);
+        screenX += static_cast<std::int32_t>(offsets[0]);
+        screenY += static_cast<std::int32_t>(offsets[1]);
+    } else {
+        action->characterAction = 4;
+        if (Sub_517880(action, 100, 1, 0) == 1) {
+            action->phase = 0;
+            payload->counter48 = 0;
+            action->characterAction = 0;
+        }
+    }
+    static_cast<void>(Sub_517880(action, 100, 0, 0));
+    const render::GraphicDescriptor16* const descriptor = &action->drawMode;
+    const std::int32_t offsetY = Sub_5182B0(action, 1);
+    const std::int32_t drawY = offsetY + screenY;
+    const std::int32_t offsetX = Sub_5182B0(action, 0);
+    const std::int32_t graphicIndex = action->graphicIndex;
+    const std::int32_t drawX = offsetX + screenX;
+    const auto worldYBits = std::bit_cast<std::uint32_t>(action->worldY);
+    const auto worldXBits = std::bit_cast<std::uint32_t>(action->worldX);
+    static_cast<void>(world::detail::Sub_46BD60(
+        graphicIndex, worldXBits, worldYBits,
+        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
+        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)), 1, descriptor));
+    ++payload->counter48;
+}
+
+} // namespace
+
+std::int32_t Sub_43E490(YobiAction* const action)
+{
+    const float worldY = action->worldY;
+    auto* const payload = static_cast<MapActorPayload*>(action->payload);
+    const float worldX = action->worldX;
+    const std::int32_t index = payload->index;
+    float screenX;
+    float screenY;
+    world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
+    action->x = static_cast<std::int32_t>(
+        static_cast<std::int64_t>(static_cast<double>(screenX) + 0.5));
+    action->y = static_cast<std::int32_t>(
+        static_cast<std::int64_t>(static_cast<double>(screenY) + 0.5));
+    switch (action->phase) {
+    case 0:
+        return 0;
+    case 1:
+        Sub_4424B0(action);
+        ApplyPendingMapActorDirection(action, index);
+        UpdateActorMountPhase(action, payload);
+        return 1;
+    case 2:
+        Sub_4424B0(action);
+        ApplyPendingMapActorDirection(action, index);
+        UpdateActorDismountPhase(action, payload);
+        return 1;
+    case 3:
+        UpdateActorSpiralPhase(action, payload);
+        return 1;
+    default:
+        action->phase = 0;
+        return 0;
+    }
+}
+
 void Sub_43EFC0(
     YobiAction* const action, const std::int32_t characterAction,
     const std::int32_t restart)

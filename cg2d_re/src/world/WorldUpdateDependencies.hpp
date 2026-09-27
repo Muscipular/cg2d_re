@@ -605,6 +605,7 @@ void Sub_46A700(); // 原完整玩家移动推进、到达计数及MIS动作请�
 // YobiRuntime借用同一SceneState状态，不公开玩家首块或五槽记录布局。
 std::uint32_t ReadPlayerFlags18A() noexcept; // 原FDA88A跨W32读取。
 std::int32_t ReadPlayerWalkSpeed() noexcept; // 原FDA870。
+std::int32_t ReadPlayerImageNo() noexcept; // 原FDA878；不是action当前变换图号。
 std::int16_t ReadPetFollowIndex(std::size_t position) noexcept;
 login::YobiAction* ReadPetMapAction(std::int16_t index) noexcept;
 std::uint32_t ReadPetMapObjectIndex(std::int16_t index) noexcept;

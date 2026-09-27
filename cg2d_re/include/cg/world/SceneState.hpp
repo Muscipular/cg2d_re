@@ -64,6 +64,13 @@ void DestroyWorldCoordinateStates();
 void ConstructWorldMoveStates();
 void DestroyWorldMoveStates();
 
+// 原5184A0/518410，玩家六组CryptInt；排在鼠标构造之后。
+void ConstructPlayerRuntimeValues();
+void DestroyPlayerRuntimeValues();
+// 原518530/518560，五条宠物各六组CryptInt；排在玩家构造之后。
+void ConstructPetRuntimeValues();
+void DestroyPetRuntimeValues();
+
 // 原 sub_448240@0x448240；只采样一次 gMapFloor。
 std::int32_t IsMapFloorAllowed_448240() noexcept;
 

@@ -1,5 +1,6 @@
 #include "cg/world/SceneState.hpp"
 
+#include "../CharacterSelectSceneDependencies.hpp"
 #include "../LoginMessageDependencies.hpp"
 #include "../LoginRequestDependencies.hpp"
 #include "cg/Input.hpp"
@@ -87,6 +88,10 @@ struct PlayerRuntimeSlots {
     std::int32_t level; // 原 FDA704。
     platform::LegacyCryptInt hp; // 原 FDA718；与 action +170 的载荷同步。
     platform::LegacyCryptInt maxHp; // 原 FDA728。
+    platform::LegacyCryptInt fp; // 原 FDA738；与宠物数据独立。
+    platform::LegacyCryptInt maxFp; // 原 FDA748。
+    platform::LegacyCryptInt value58; // 原 FDA758；5184A0第五构造对象。
+    platform::LegacyCryptInt value68; // 原 FDA768；5184A0第六构造对象。
     std::array<char, 17> name; // 原 FDA808；旧编码字节。
     std::array<char, 17> ownTitle; // 原 FDA819。
     std::array<char, 33> text12A; // 原 FDA82A。
@@ -339,6 +344,45 @@ volatile std::uint32_t gWorldProjectionReferenceXBits = 0; // 原 0xC751A8。
 volatile std::uint32_t gWorldProjectionReferenceYBits = 0; // 原 0xC751A4。
 
 static_assert(sizeof(gValueD67B08) == 7 * sizeof(std::uint32_t));
+
+void ConstructPlayerRuntimeValues()
+{
+    platform::legacy_crypt_int::ConstructZero_401C70(&gPlayerRuntime.hp);
+    platform::legacy_crypt_int::ConstructZero_401C70(&gPlayerRuntime.maxHp);
+    platform::legacy_crypt_int::ConstructZero_401C70(&gPlayerRuntime.fp);
+    platform::legacy_crypt_int::ConstructZero_401C70(&gPlayerRuntime.maxFp);
+    platform::legacy_crypt_int::ConstructZero_401C70(&gPlayerRuntime.value58);
+    platform::legacy_crypt_int::ConstructZero_401C70(&gPlayerRuntime.value68);
+}
+
+void DestroyPlayerRuntimeValues()
+{
+    platform::legacy_crypt_int::Destroy_401CF0(&gPlayerRuntime.value68);
+    platform::legacy_crypt_int::Destroy_401CF0(&gPlayerRuntime.value58);
+    platform::legacy_crypt_int::Destroy_401CF0(&gPlayerRuntime.maxFp);
+    platform::legacy_crypt_int::Destroy_401CF0(&gPlayerRuntime.fp);
+    platform::legacy_crypt_int::Destroy_401CF0(&gPlayerRuntime.maxHp);
+    platform::legacy_crypt_int::Destroy_401CF0(&gPlayerRuntime.hp);
+}
+
+void ConstructPetRuntimeValues()
+{
+    for (detail::PetRuntimeRecord& record : detail::gPetRuntimeF633F8) {
+        for (platform::LegacyCryptInt& value : record.values0C) {
+            platform::legacy_crypt_int::ConstructZero_401C70(&value);
+        }
+    }
+}
+
+void DestroyPetRuntimeValues()
+{
+    for (std::size_t record = 5; record != 0; --record) {
+        for (std::size_t value = 6; value != 0; --value) {
+            platform::legacy_crypt_int::Destroy_401CF0(
+                &detail::gPetRuntimeF633F8[record - 1].values0C[value - 1]);
+        }
+    }
+}
 
 void ConstructPlayerCoordinates()
 {
@@ -1579,6 +1623,185 @@ void Sub_476680()
     if (std::bit_cast<std::int32_t>(remaining) < 0) {
         gValue626BFC = 0;
     }
+}
+
+// 原宠物表、索引对和两独立标量均为PE虚拟零区；构造由LegacyMouse按CRT顺序接入。
+std::array<PetRuntimeRecord, 5> gPetRuntimeF633F8 {};
+std::array<PetPairRecord, 5> gPetPairsDE0B08 {};
+std::int32_t gPetCountDE0B00 = 0;
+std::uint32_t gValueD67B28 = 0;
+
+void Sub_50A6B0(
+    const std::uintptr_t /*socket*/, const std::int32_t index, const char* const payload)
+{
+    if (gValue9A6E0C != 0 || index < 0 || index >= 5) {
+        return;
+    }
+    const auto flags = static_cast<std::uint32_t>(
+        network::ParseDelimitedBase62_52D0D0(payload, '|', 1));
+    PetRuntimeRecord& record = gPetRuntimeF633F8[index];
+    std::int32_t field = 2;
+    if (flags == 0) {
+        std::memset(&record, 0, sizeof(record));
+    } else {
+        record.used = 1;
+        if ((flags & 0x3u) != 0) {
+            const std::int32_t imageNo =
+                network::ParseDelimitedInteger_52CFA0(payload, '|', field);
+            record.imageNo6A0 = character_select::detail::Sub_51B740(imageNo);
+            ++field;
+        }
+        if ((flags & 0x5u) != 0) {
+            record.value04 = static_cast<std::uint16_t>(
+                network::ParseDelimitedInteger_52CFA0(payload, '|', field));
+            ++field;
+        }
+        std::uint32_t bit = 0x8u;
+        for (platform::LegacyCryptInt& value : record.values0C) {
+            if ((flags & (bit | 1u)) != 0) {
+                const std::int32_t parsed =
+                    network::ParseDelimitedInteger_52CFA0(payload, '|', field);
+                platform::LegacyCryptInt temporary;
+                platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, parsed);
+                value.mask = temporary.mask;
+                value.encoded = temporary.encoded;
+                value.readCount = temporary.readCount;
+                platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+                ++field;
+            }
+            bit <<= 1;
+        }
+
+        // 掩码201..100001按原顺序映射，不将两条协议的数值列混用。
+        const std::array<std::int32_t*, 12> targets {{
+            &record.value08,
+            &record.values70[5], &record.values70[6], &record.values70[7],
+            &record.values70[8], &record.values70[9], &record.values70[10],
+            &record.values70[21], &record.values70[22],
+            &record.values70[23], &record.values70[24],
+            &record.value6A4,
+        }};
+        for (std::int32_t* const target : targets) {
+            if ((flags & (bit | 1u)) != 0) {
+                *target = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
+                ++field;
+            }
+            bit <<= 1;
+        }
+        if ((flags & 0x200001u) != 0) {
+            record.value02 = static_cast<std::uint16_t>(
+                network::ParseDelimitedInteger_52CFA0(payload, '|', field));
+            ++field;
+        }
+        if ((flags & 0x400001u) != 0) {
+            char name[256];
+            network::ExtractDelimitedField_52CED0(payload, '|', field, 255, name);
+            input::UnescapeLegacyTextAndNotify_52D2F0(name);
+            if (std::strlen(name) <= 16) {
+                std::strcpy(record.name6AC.data(), name);
+            }
+            ++field;
+        }
+        if ((flags & 0x800001u) != 0) {
+            char name[256];
+            network::ExtractDelimitedField_52CED0(payload, '|', field, 255, name);
+            input::UnescapeLegacyTextAndNotify_52D2F0(name);
+            if (std::strlen(name) <= 16) {
+                std::strcpy(record.name6BD.data(), name);
+            }
+            ++field;
+        }
+        if ((flags & 0x1000001u) != 0) {
+            const auto state = static_cast<std::uint16_t>(
+                network::ParseDelimitedInteger_52CFA0(payload, '|', field));
+            if ((state & 0x10u) != 0) {
+                record.flags6AA = static_cast<std::uint16_t>(state & ~0x10u);
+                record.follow6D4 = 1;
+            } else {
+                record.flags6AA = state;
+                record.follow6D4 = 0;
+            }
+            ++field;
+        }
+        if ((flags & 0x2000001u) != 0) {
+            record.values70[25] =
+                network::ParseDelimitedInteger_52CFA0(payload, '|', field);
+        }
+    }
+    Sub_519920();
+    Sub_518580(gPetRuntimeF633F8.data(), gPetPairsDE0B08.data(), 5);
+    Sub_492250();
+    record.updated510C = 1;
+}
+
+void Sub_50AC20(
+    const std::uintptr_t /*socket*/, const std::int32_t index, const char* const payload)
+{
+    if (gValue9A6E0C != 0 || index < 0 || index >= 5) {
+        return;
+    }
+    const auto flags = static_cast<std::uint32_t>(
+        network::ParseDelimitedBase62_52D0D0(payload, '|', 1));
+    PetRuntimeRecord& record = gPetRuntimeF633F8[index];
+    if (flags == 0) {
+        record.used = 0;
+        record.name6AC[0] = '\0';
+        record.name6BD[0] = '\0';
+    } else {
+        record.used = 1;
+        const std::array<std::int32_t*, 19> targets {{
+            &record.values70[0], &record.values70[1], &record.values70[2],
+            &record.values70[3], &record.values70[4],
+            &record.values70[17], &record.values70[18],
+            &record.values70[19], &record.values70[20],
+            &record.values70[11], &record.values70[12], &record.values70[13],
+            &record.values70[14], &record.values70[15], &record.values70[16],
+            &record.value6D0,
+            &record.values6D8[1], &record.values6D8[2], &record.values6D8[0],
+        }};
+        std::uint32_t bit = 2;
+        std::int32_t field = 2;
+        for (std::int32_t* const target : targets) {
+            if ((flags & (bit | 1u)) != 0) {
+                *target = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
+                ++field;
+            }
+            bit <<= 1;
+        }
+    }
+    Sub_519920();
+    Sub_518580(gPetRuntimeF633F8.data(), gPetPairsDE0B08.data(), 5);
+    Sub_492250();
+}
+
+std::int32_t Sub_519920()
+{
+    std::int32_t count = 0;
+    gPetCountDE0B00 = 0;
+    for (const PetRuntimeRecord& record : gPetRuntimeF633F8) {
+        if (record.used != 0) {
+            ++count;
+        }
+    }
+    gPetCountDE0B00 = count;
+    return count;
+}
+
+void Sub_518580(
+    const PetRuntimeRecord* source, PetPairRecord* destination, const std::int32_t count)
+{
+    for (std::int32_t index = 0; index < count; ++index) {
+        destination->used = source->used;
+        destination->index = static_cast<std::uint16_t>(index);
+        destination->value = source->value6D0;
+        ++source;
+        ++destination;
+    }
+}
+
+void Sub_492250()
+{
+    gValueD67B28 = 1;
 }
 
 // 原两表均位于PE虚拟零区；5199A0后续只重置原表编号，不能清副本。

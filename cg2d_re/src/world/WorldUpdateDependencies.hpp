@@ -369,6 +369,76 @@ std::int32_t __cdecl Sub_46DC90(std::int32_t selected); // 原 [0x46DC90,0x46DD3
 void Sub_44B050(const char* text, std::int32_t color, std::int32_t fontType);
 std::int32_t Sub_4A76E0();
 
+// 原F633F8五条宠物数据，不是FF02E0地图槽；未消费间隔不计最终类型冻结。
+struct PetRuntimeRecord {
+    std::uint16_t used; // 原+0占用。
+    std::uint16_t value02; // 主回复掩码200001。
+    std::uint16_t value04; // 主回复掩码5。
+    std::array<std::byte, 2> bytes06;
+    std::int32_t value08; // 主回复掩码201。
+    std::array<platform::LegacyCryptInt, 6> values0C; // HP/最大HP/FP/最大FP/+4C/+5C。
+    std::array<std::byte, 4> bytes6C;
+    std::array<std::int32_t, 26> values70; // 原+70..+D4，两回复共享。
+    std::array<std::byte, 0x5C8> bytesD8;
+    std::int32_t imageNo6A0;
+    std::int32_t value6A4;
+    std::array<std::byte, 2> bytes6A8;
+    std::uint16_t flags6AA; // 不含跟随bit0x10的状态。
+    std::array<char, 17> name6AC;
+    std::array<char, 17> name6BD;
+    std::array<std::byte, 2> bytes6CE;
+    std::int32_t value6D0; // 518580复制到索引对。
+    std::int32_t follow6D4;
+    std::array<std::int32_t, 3> values6D8;
+    std::array<std::byte, 0x4A28> bytes6E4;
+    std::uint8_t updated510C; // 仅50A6B0尾部置1。
+    std::array<std::byte, 3> bytes510D;
+};
+
+static_assert(std::is_standard_layout_v<PetRuntimeRecord>);
+static_assert(std::is_trivially_copyable_v<PetRuntimeRecord>);
+static_assert(offsetof(PetRuntimeRecord, used) == 0);
+static_assert(offsetof(PetRuntimeRecord, value02) == 2);
+static_assert(offsetof(PetRuntimeRecord, value04) == 4);
+static_assert(offsetof(PetRuntimeRecord, value08) == 8);
+static_assert(offsetof(PetRuntimeRecord, values0C) == 0x0C);
+static_assert(offsetof(PetRuntimeRecord, values70) == 0x70);
+static_assert(offsetof(PetRuntimeRecord, bytesD8) == 0xD8);
+static_assert(offsetof(PetRuntimeRecord, imageNo6A0) == 0x6A0);
+static_assert(offsetof(PetRuntimeRecord, value6A4) == 0x6A4);
+static_assert(offsetof(PetRuntimeRecord, flags6AA) == 0x6AA);
+static_assert(offsetof(PetRuntimeRecord, name6AC) == 0x6AC);
+static_assert(offsetof(PetRuntimeRecord, name6BD) == 0x6BD);
+static_assert(offsetof(PetRuntimeRecord, value6D0) == 0x6D0);
+static_assert(offsetof(PetRuntimeRecord, follow6D4) == 0x6D4);
+static_assert(offsetof(PetRuntimeRecord, values6D8) == 0x6D8);
+static_assert(offsetof(PetRuntimeRecord, bytes6E4) == 0x6E4);
+static_assert(offsetof(PetRuntimeRecord, updated510C) == 0x510C);
+static_assert(sizeof(PetRuntimeRecord) == 0x5110);
+
+// 原DE0B08，每项8B；索引是数值，不是地址。
+struct PetPairRecord {
+    std::uint16_t used;
+    std::uint16_t index;
+    std::int32_t value;
+};
+
+static_assert(offsetof(PetPairRecord, used) == 0);
+static_assert(offsetof(PetPairRecord, index) == 2);
+static_assert(offsetof(PetPairRecord, value) == 4);
+static_assert(sizeof(PetPairRecord) == 8);
+extern std::array<PetRuntimeRecord, 5> gPetRuntimeF633F8;
+extern std::array<PetPairRecord, 5> gPetPairsDE0B08;
+extern std::int32_t gPetCountDE0B00;
+extern std::uint32_t gValueD67B28; // 492250置1，UI后续复用。
+
+void Sub_50A6B0(std::uintptr_t socket, std::int32_t index, const char* payload);
+void Sub_50AC20(std::uintptr_t socket, std::int32_t index, const char* payload);
+std::int32_t Sub_519920(); // 先清计数，再扫描占用并发布。
+void Sub_518580(
+    const PetRuntimeRecord* source, PetPairRecord* destination, std::int32_t count);
+void Sub_492250(); // 原[492250,49225B)，置刷新标志。
+
 // 原 FF0508/DE03F8 两张称号表共用记录；地址不存入数值字段。
 struct TitleRecord {
     std::int32_t id; // 原 +0；负值表示无称号。

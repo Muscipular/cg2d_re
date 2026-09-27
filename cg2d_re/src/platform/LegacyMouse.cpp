@@ -111,6 +111,35 @@ struct LegacyMouseStaticInitializer {
 
 const LegacyMouseStaticInitializer gLegacyMouseStaticInitializer;
 
+// 原CRT表5530FC/553100紧接鼠标5530F8，退出按声明逆序。
+struct PlayerRuntimeValuesStaticInitializer {
+    PlayerRuntimeValuesStaticInitializer()
+    {
+        cg::world::ConstructPlayerRuntimeValues();
+    }
+
+    ~PlayerRuntimeValuesStaticInitializer()
+    {
+        cg::world::DestroyPlayerRuntimeValues();
+    }
+};
+
+const PlayerRuntimeValuesStaticInitializer gPlayerRuntimeValuesStaticInitializer;
+
+struct PetRuntimeValuesStaticInitializer {
+    PetRuntimeValuesStaticInitializer()
+    {
+        cg::world::ConstructPetRuntimeValues();
+    }
+
+    ~PetRuntimeValuesStaticInitializer()
+    {
+        cg::world::DestroyPetRuntimeValues();
+    }
+};
+
+const PetRuntimeValuesStaticInitializer gPetRuntimeValuesStaticInitializer;
+
 } // namespace
 
 std::int32_t ResetLegacyMouseState_506870()

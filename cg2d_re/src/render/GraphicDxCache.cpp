@@ -14,8 +14,8 @@
 
 namespace cg::render {
 
-// 原 5222D0：第二参数的具体类型未证；唯一直接 caller 传空指针。
-void TakeGraphicDxCache_5222D0(std::int32_t imageNo, void* source);
+// 原 5222D0：用户确认第二参数恒空，仅保留未使用参数；本体待实现。
+void TakeGraphicDxCache_5222D0(std::int32_t imageNo, void* /*unusedSource*/);
 
 struct TextureSurface {
     std::int16_t width {};

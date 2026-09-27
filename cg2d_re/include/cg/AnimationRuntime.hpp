@@ -61,6 +61,10 @@ std::int32_t __cdecl BinarySearch_45B390(
     std::uint32_t animeNo, std::int32_t min, std::int32_t max);
 std::int32_t __cdecl GetIndex_45B400(std::uint32_t animeNo);
 
+// 原 [45B760,45BB1F)：复用或领取主索引槽，读 action/帧，再加载坐标并发布计数。
+// index 须对应已初始化主表；不增加索引/文件判空，失败按原路径保留或清理已发布前缀。
+std::int32_t AnimeLoadAction_45B760(std::int32_t index);
+
 // 原退出链：先关九个动画文件并清主表活动槽，再按标志处理文件及 P4 活动槽。
 std::int32_t AnimeUnload_45BEF0();
 std::int32_t Sub_45BF20();

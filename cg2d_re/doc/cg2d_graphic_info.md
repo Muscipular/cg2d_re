@@ -131,7 +131,8 @@ mapNo 索引沿用既有资源状态；路径生产仍由 `ResourcePaths` 负责
 私有缓存路径、Info 句柄、预扫需求计数、vector 和首见树不向业务层暴露。
 原九槽基址 `73F100` 的直接消费者为 `AnimeLoadAction@45B7E8`、
 `CoordInit@45C200`，公开为同一 `gGraphicStartIndices[9]`；两消费者
-尚未实现，不能另建第二份基址。vector/树采用有据等价容器，不声称旧
+后续已在 [动画 §8–9](cg2d_animation_runtime.md) 接入该唯一状态，
+不能另建第二份基址。vector/树采用有据等价容器，不声称旧
 STL 节点布局、树形、比较次数或分配失败时机一致；首见树析构不释放主表。
 
 可信 cg3a `ResourceManager::LoadGraphicIndex` 提供了 40B 格式、

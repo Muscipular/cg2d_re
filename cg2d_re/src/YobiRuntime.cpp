@@ -1394,6 +1394,136 @@ void Sub_4424B0(YobiAction* const action)
     platform::legacy_crypt_int::Destroy_401CF0(&temporary);
 }
 
+void Sub_442730(YobiAction* const action)
+{
+    if (action == nullptr) {
+        return;
+    }
+    const float targetX = static_cast<float>(static_cast<double>(
+        platform::legacy_crypt_int::Read_401EC0(&action->mapX200)) * 64.0F);
+    const float targetY = static_cast<float>(static_cast<double>(
+        platform::legacy_crypt_int::Read_401EC0(&action->mapY210)) * 64.0F);
+    const float movementX = std::bit_cast<float>(action->field27C);
+    bool idle = !(movementX < 0.0F || movementX > 0.0F);
+    if (idle) {
+        const float movementY = std::bit_cast<float>(action->field280);
+        idle = !(movementY < 0.0F || movementY > 0.0F);
+    }
+    if (idle) {
+        if (action->field272 != 0) {
+            Sub_43EFC0(action, 0, 0);
+        }
+        action->field272 = 0;
+    } else {
+        const float stepY = std::bit_cast<float>(action->field280);
+        const float stepX = std::bit_cast<float>(action->field27C);
+        const float worldY = action->worldY;
+        const float worldX = action->worldX;
+        const double distance = world::detail::Sub_46FB80(
+            worldX, worldY, targetX, targetY);
+        const double squaredY = static_cast<double>(stepY) * stepY;
+        const double squaredX = static_cast<double>(stepX) * stepX;
+        const double squaredStep = squaredY + squaredX;
+        if (!(squaredStep >= distance)) {
+            action->worldX = static_cast<float>(
+                static_cast<double>(std::bit_cast<float>(action->field27C))
+                + action->worldX);
+            action->worldY = static_cast<float>(
+                static_cast<double>(std::bit_cast<float>(action->field280))
+                + action->worldY);
+        } else {
+            action->worldX = targetX;
+            action->worldY = targetY;
+            action->field27C = 0;
+            action->field280 = 0;
+        }
+        Sub_43EFC0(action, 1, 0);
+    }
+
+    platform::LegacyCryptInt temporary;
+    const auto mapX = static_cast<std::int32_t>(static_cast<std::int64_t>(
+        static_cast<double>(action->worldX) * 0.015625F));
+    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, mapX);
+    action->mapX1E0.readCount = temporary.readCount;
+    action->mapX1E0.encoded = temporary.encoded;
+    action->mapX1E0.mask = temporary.mask;
+    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    const auto mapY = static_cast<std::int32_t>(static_cast<std::int64_t>(
+        static_cast<double>(action->worldY) * 0.015625F));
+    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, mapY);
+    action->mapY1F0.readCount = temporary.readCount;
+    action->mapY1F0.encoded = temporary.encoded;
+    action->mapY1F0.mask = temporary.mask;
+    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+}
+
+void Sub_4428F0(YobiAction* const action)
+{
+    if (action == nullptr) {
+        return;
+    }
+    const float targetX = static_cast<float>(static_cast<double>(
+        platform::legacy_crypt_int::Read_401EC0(&action->mapX200)) * 64.0F);
+    const float targetY = static_cast<float>(static_cast<double>(
+        platform::legacy_crypt_int::Read_401EC0(&action->mapY210)) * 64.0F);
+    const float movementX = std::bit_cast<float>(action->field27C);
+    bool idle = !(movementX < 0.0F || movementX > 0.0F);
+    if (idle) {
+        const float movementY = std::bit_cast<float>(action->field280);
+        idle = !(movementY < 0.0F || movementY > 0.0F);
+    }
+    if (idle) {
+        if (action->field272 != 0) {
+            Sub_43EFC0(action, 0, 0);
+        }
+        action->field272 = 0;
+    } else {
+        const float rateX = std::bit_cast<float>(world::detail::gValue9DAD78);
+        const float rawStepX = std::bit_cast<float>(action->field27C);
+        const double scaledX = static_cast<double>(rateX) * rawStepX;
+        const float worldY = action->worldY;
+        const float worldX = action->worldX;
+        const float stepX = static_cast<float>(scaledX);
+        const float rateY = std::bit_cast<float>(world::detail::gValue9DAD78);
+        const float rawStepY = std::bit_cast<float>(action->field280);
+        const float stepY = static_cast<float>(static_cast<double>(rateY) * rawStepY);
+        const double distance = world::detail::Sub_46FB80(
+            worldX, worldY, targetX, targetY);
+        const double squaredY = static_cast<double>(stepY) * stepY;
+        const double squaredX = static_cast<double>(stepX) * stepX;
+        const double squaredStep = squaredY + squaredX;
+        if (!(squaredStep >= distance)) {
+            action->worldX =
+                static_cast<float>(static_cast<double>(stepX) + action->worldX);
+            action->worldY =
+                static_cast<float>(static_cast<double>(stepY) + action->worldY);
+        } else {
+            action->worldX = targetX;
+            action->worldY = targetY;
+            action->field27C = 0;
+            action->field280 = 0;
+        }
+        Sub_43EFC0(action, 1, 0);
+    }
+
+    // 倍率入口与442730不同：mask→encoded→count，不提前复制目标载荷。
+    platform::LegacyCryptInt temporary;
+    const auto mapX = static_cast<std::int32_t>(static_cast<std::int64_t>(
+        static_cast<double>(action->worldX) * 0.015625F));
+    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, mapX);
+    action->mapX1E0.mask = temporary.mask;
+    action->mapX1E0.encoded = temporary.encoded;
+    action->mapX1E0.readCount = temporary.readCount;
+    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    const auto mapY = static_cast<std::int32_t>(static_cast<std::int64_t>(
+        static_cast<double>(action->worldY) * 0.015625F));
+    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, mapY);
+    action->mapY1F0.mask = temporary.mask;
+    action->mapY1F0.encoded = temporary.encoded;
+    action->mapY1F0.readCount = temporary.readCount;
+    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+}
+
 void ClearMapActorAttachments(YobiAction* const action)
 {
     auto* const payload = static_cast<MapActorPayload*>(action->payload);

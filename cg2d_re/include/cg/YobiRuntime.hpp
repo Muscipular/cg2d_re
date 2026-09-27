@@ -84,6 +84,8 @@ double Sub_442110(
     std::int32_t speed, float overrideRate);
 void Sub_442460(YobiAction* action); // 原 +270 S16 计数及两组路径交错左移。
 void Sub_4424B0(YobiAction* action); // 完整逐帧推进与当前位置 CryptInt 更新。
+void Sub_442730(YobiAction* action); // 原普通跟随推进，不启动或弹出路径。
+void Sub_4428F0(YobiAction* action); // 原9DAD78倍率推进，当前位置以mask优先写回。
 void Sub_43EFC0(
     YobiAction* action, std::int32_t characterAction,
     std::int32_t restart); // 主对象/坐骑动作映射及附件播放重置。

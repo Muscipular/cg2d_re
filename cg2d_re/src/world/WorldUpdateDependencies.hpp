@@ -531,6 +531,10 @@ extern std::uint16_t gValueFF0D30;
 extern std::uint16_t gValueFF0D32;
 extern std::uint16_t gValueF7CA04;
 extern std::uint16_t gValueFF03D8;
+extern std::uint16_t gValueFF0D36; // 原跟随gate；协议和场景共享，不默认启用。
+void Sub_46A990(); // 从同一宠物五槽生成9FB938顺序表，gate为0不清表。
+void Sub_46A5A0(std::int32_t x, std::int32_t y); // 给顺序表第2项调用441F60。
+void Sub_46A940(); // 从顺序表第2项起调用442730，首个负S16终止。
 // 519EE0 每个原读取点借用唯一 FF02B4，不暴露可写槽或对象布局。
 login::YobiAction* ReadPlayerAction() noexcept;
 void Sub_519CD0(

@@ -112,6 +112,9 @@ static_assert(offsetof(PetMapCharaSlot, bytes08) == 8);
 static_assert(offsetof(PetMapCharaSlot, action) == 0x30);
 static_assert(sizeof(PetMapCharaSlot) == 0x38);
 std::array<PetMapCharaSlot, 5> gPetMapCharaSlots {};
+// 原 [9FB938,9FB942)：两次W32与末次W16清理、后续S16读取共用同一10B。
+alignas(std::uint32_t) std::array<std::uint16_t, 5> gPetFollowOrder {};
+static_assert(sizeof(gPetFollowOrder) == 10);
 
 // 原 C8A73E/C8A740/C8A744 及效果配置共享槽；第三槽的两个 W16 共用 W32。
 struct MapCharaSceneSlots {
@@ -1643,6 +1646,7 @@ std::uint16_t gValueFF0D30 = 0;
 std::uint16_t gValueFF0D32 = 0;
 std::uint16_t gValueF7CA04 = 0;
 std::uint16_t gValueFF03D8 = 0;
+std::uint16_t gValueFF0D36 = 0;
 
 // 原 0xCAFEA0：504100 清零的独立 W32 状态槽。
 std::uint32_t gValueCAFEA0 = 0;
@@ -3986,6 +3990,67 @@ void Sub_4D3170()
 std::int32_t Sub_4410E0()
 {
     return 0x11;
+}
+
+void Sub_46A990()
+{
+    if (gValueFF0D36 == 0) {
+        return;
+    }
+    const std::uint32_t emptyPair = 0xFFFFFFFFu;
+    std::memcpy(gPetFollowOrder.data(), &emptyPair, sizeof(emptyPair));
+    std::memcpy(gPetFollowOrder.data() + 2, &emptyPair, sizeof(emptyPair));
+    gPetFollowOrder[4] = 0xFFFFu;
+    std::size_t output = 0;
+    for (std::size_t index = 0; index < gPetMapCharaSlots.size(); ++index) {
+        const auto& slot = gPetMapCharaSlots[index];
+        if (slot.flags != 0 && slot.action != nullptr) {
+            gPetFollowOrder[output] = static_cast<std::uint16_t>(index);
+            ++output;
+        }
+    }
+}
+
+void Sub_46A5A0(const std::int32_t x, const std::int32_t y)
+{
+    if (gValueFF0D36 == 0) {
+        return;
+    }
+    // 原跨FDA88A的W32读取；不依赖现代成员布局形成别名。
+    const std::uint32_t flags = static_cast<std::uint32_t>(gPlayerRuntime.flags18A)
+        | (gPlayerRuntime.flags18C << 16);
+    if ((flags & 0x100u) == 0) {
+        return;
+    }
+    const std::int16_t index = std::bit_cast<std::int16_t>(gPetFollowOrder[1]);
+    if (index < 0) {
+        return;
+    }
+    login::YobiAction* const action =
+        gPetMapCharaSlots[static_cast<std::size_t>(index)].action;
+    login::detail::Sub_441F60(action, x, y);
+}
+
+void Sub_46A940()
+{
+    if (gValueFF0D36 == 0) {
+        return;
+    }
+    const std::uint32_t flags = static_cast<std::uint32_t>(gPlayerRuntime.flags18A)
+        | (gPlayerRuntime.flags18C << 16);
+    if ((flags & 0x100u) == 0) {
+        return;
+    }
+    for (std::size_t position = 1; position < gPetFollowOrder.size(); ++position) {
+        const std::int16_t index =
+            std::bit_cast<std::int16_t>(gPetFollowOrder[position]);
+        if (index < 0) {
+            break;
+        }
+        login::YobiAction* const action =
+            gPetMapCharaSlots[static_cast<std::size_t>(index)].action;
+        login::detail::Sub_442730(action);
+    }
 }
 
 void Sub_519A80()

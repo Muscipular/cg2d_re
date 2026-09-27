@@ -1750,8 +1750,11 @@ std::uint16_t gValue9A86D8 = 0;
 std::uint16_t gValue9FB92E = 0;
 std::uint16_t gValueB65A7C = 0;
 std::uint16_t gValueC82220 = 0;
+std::uint32_t gValueC82238 = 0;
 std::uint32_t gValueC8223C = 0; // 原转向发送的独立GetTickCount位槽。
 std::uint32_t gValueC8A778 = 0;
+std::int32_t gPlayerMoveTargetX = 0; // 原C8A784；46F6FD/46F716生产链待接。
+std::int32_t gPlayerMoveTargetY = 0; // 原C8A788。
 std::uint32_t gValueC8A794 = 0;
 std::uint32_t gValueC82208 = 0;
 std::uint32_t gValueC8220C = 0;
@@ -4318,6 +4321,48 @@ void Sub_46A940()
             gPetMapCharaSlots[static_cast<std::size_t>(index)].action;
         login::detail::Sub_442730(action);
     }
+}
+
+void Sub_46B370()
+{
+    if (gPlayerRuntime.action == nullptr) {
+        return;
+    }
+    const float movementX = std::bit_cast<float>(gValue9EE8FC);
+    if (movementX < 0.0F || movementX > 0.0F) {
+        return;
+    }
+    const float movementY = std::bit_cast<float>(gValue9EE900);
+    if (movementY < 0.0F || movementY > 0.0F
+        || gValue62B5AA != 0 || gValueC82220 != 0) {
+        return;
+    }
+    if (platform::legacy_crypt_int::Equal_401D00(&gPlayerX, gPlayerMoveTargetX)
+        && platform::legacy_crypt_int::Equal_401D00(&gPlayerY, gPlayerMoveTargetY)) {
+        return;
+    }
+    const std::int32_t deltaX =
+        platform::legacy_crypt_int::IntMinusCrypt_401FE0(gPlayerMoveTargetX, &gPlayerX);
+    const std::int32_t targetY = gPlayerMoveTargetY;
+    const float differenceX = static_cast<float>(deltaX);
+    const std::int32_t deltaY =
+        platform::legacy_crypt_int::IntMinusCrypt_401FE0(targetY, &gPlayerY);
+    const float differenceY = static_cast<float>(deltaY);
+    const std::int32_t direction = static_cast<std::int32_t>(
+        Sub_46CDF0(differenceX, differenceY));
+    const std::uint32_t now = platform::ReadTickCount32();
+    if (gValueC82238 + 500u >= now) {
+        return;
+    }
+    static_cast<void>(Sub_51A040(direction));
+    const std::uint32_t encoded = Sub_46BD20(direction, 1);
+    const char text[2] {
+        std::bit_cast<char>(static_cast<std::uint8_t>(encoded)), '\0',
+    };
+    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&gPlayerY);
+    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&gPlayerX);
+    static_cast<void>(Sub_50C8D0(x, y, text));
+    gValueC82238 = platform::ReadTickCount32();
 }
 
 std::uint16_t Sub_469FC0()

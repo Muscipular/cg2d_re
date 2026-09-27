@@ -9,9 +9,55 @@ namespace {
 
 using CpuBackStorage = std::array<std::uint32_t, kCpuSurfacePixelCount + 1>;
 
+struct CpuCacheStorage {
+    CpuSurfacePixels pixels {};
+    CpuCacheStorage* nextOwned {};
+};
+
+class CpuCacheOwner final {
+public:
+    ~CpuCacheOwner()
+    {
+        while (head_ != nullptr) {
+            CpuCacheStorage* next = head_->nextOwned;
+            delete head_;
+            head_ = next;
+        }
+    }
+
+    CpuCacheStorage* Create() noexcept
+    {
+        auto* surface = new (std::nothrow) CpuCacheStorage {};
+        if (surface != nullptr) {
+            surface->nextOwned = head_;
+            head_ = surface;
+        }
+        return surface;
+    }
+
+    void Release(CpuCacheStorage*& surface) noexcept
+    {
+        CpuCacheStorage* current = surface;
+        surface = nullptr;
+        if (current == nullptr) {
+            return;
+        }
+        CpuCacheStorage** link = &head_;
+        while (*link != current) {
+            link = &(*link)->nextOwned;
+        }
+        *link = current->nextOwned;
+        delete current;
+    }
+
+private:
+    CpuCacheStorage* head_ {};
+};
+
 std::unique_ptr<CpuBackStorage> gCpuBackSurface;
-std::unique_ptr<CpuSurfacePixels> gCpuAutoMapSurface;
-std::unique_ptr<CpuSurfacePixels> gCpuTempSurface;
+CpuCacheOwner gCpuCacheOwner;
+CpuCacheStorage* gCpuAutoMapSurface {};
+CpuCacheStorage* gCpuTempSurface {};
 
 } // namespace
 
@@ -24,21 +70,30 @@ bool CreateCpuBackSurface() noexcept
     return gCpuBackSurface != nullptr;
 }
 
+bool CreateCpuAutoMapSurface() noexcept
+{
+    gCpuAutoMapSurface = gCpuCacheOwner.Create();
+    return gCpuAutoMapSurface != nullptr;
+}
+
+bool CreateCpuTempSurface() noexcept
+{
+    gCpuTempSurface = gCpuCacheOwner.Create();
+    return gCpuTempSurface != nullptr;
+}
+
 bool BuildCpuSurfaceBuffers() noexcept
 {
-    gCpuAutoMapSurface.reset(new (std::nothrow) CpuSurfacePixels {});
-    if (gCpuAutoMapSurface == nullptr) {
+    if (!CreateCpuAutoMapSurface()) {
         return false;
     }
-
-    gCpuTempSurface.reset(new (std::nothrow) CpuSurfacePixels {});
-    return gCpuTempSurface != nullptr;
+    return CreateCpuTempSurface();
 }
 
 void DestroyCpuCacheSurfaces() noexcept
 {
-    gCpuTempSurface.reset();
-    gCpuAutoMapSurface.reset();
+    gCpuCacheOwner.Release(gCpuTempSurface);
+    gCpuCacheOwner.Release(gCpuAutoMapSurface);
 }
 
 void DestroyCpuBackSurface() noexcept
@@ -72,7 +127,7 @@ bool CopyBackToTemp() noexcept
     std::copy_n(
         gCpuBackSurface->data(),
         kCpuSurfacePixelCount,
-        gCpuTempSurface->data());
+        gCpuTempSurface->pixels.data());
     return true;
 }
 
@@ -115,7 +170,7 @@ bool BlitTempToBack(
                 * kCpuSurfacePitchPixels
             + static_cast<std::size_t>(destinationX);
         std::copy_n(
-            gCpuTempSurface->data() + sourceIndex,
+            gCpuTempSurface->pixels.data() + sourceIndex,
             width,
             gCpuBackSurface->data() + destinationIndex);
     }

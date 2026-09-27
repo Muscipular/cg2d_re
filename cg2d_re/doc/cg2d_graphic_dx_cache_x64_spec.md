@@ -294,3 +294,17 @@ reset 的源码状态，不批准 `TextureSurface`
 分配/释放、键排序、失败前缀处置或整条 G3
 缓存链。Debug 静态库编译通过，不等于父入口
 可链接或 SDL 画面可运行。
+
+## 12. CPU 纹理建面与缓存构建的当前状态
+
+2026-09-27，按用户委托在已选 SDL3 最终呈现
+与共享 CPU Back/Temp 下，选择 CPU 内存面
+替换 DX7 纹理工厂；两种原 caps 仍形成两次
+独立分配尝试，失败后不回滚已发布资源或
+改写统计。完整原调用/发布顺序与新端区别见
+[DX 证据 §77](cg2d_graphic_dx_cache.md#77-buildsurfacecache-的-cpu-建面替换与发布边界)。
+这里仅闭合 `BuildSurfaceCache` 本体对 CPU
+面的创建、统计、失败分流和成功尾调用，不
+批准原 3D 模式绘制等价、变换树的 surface
+数值键映射或 `Renderer::Init/Destroy`
+生命周期；静态库编译不是完整链接/运行。

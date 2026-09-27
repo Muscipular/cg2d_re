@@ -68,11 +68,18 @@ extern DxGraphicEntry* gGraphicDxCache103CFA4;
 extern std::array<TextureNode, kTextureNodeCapacity> gTextureNodes;
 extern std::int32_t gTextureNodeCount;
 extern std::int32_t gTextureScanIndex;
+extern std::int32_t gTexturePreferredCount; // 原 103CF9C。
+extern std::int32_t gTextureFallbackCount;  // 原 103CF98。
+extern std::int32_t gTextureSizeW;          // 原 103CF2C，BuildSurfaceCache 取低 S16。
+extern std::int32_t gTextureSizeH;          // 原 103CF28，BuildSurfaceCache 取低 S16。
 
 // 原 523310：清扫描下标，按实际节点数仅解绑图号、复用状态和 next。
 void ResetTextureNodes_523310() noexcept;
 
 // 原 523350：按动态容量失效 DX 表的 head/palette；返回原 16B 步长偏移。
 std::int32_t InvalidateGraphicRefs_523350() noexcept;
+
+// 原 5231A0：构建共享 AutoMap/Temp 与 4096 个节点面，失败保留已发布前缀。
+std::int32_t BuildSurfaceCache_5231A0();
 
 } // namespace cg::render

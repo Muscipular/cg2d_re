@@ -1533,3 +1533,56 @@ surface 创建、失败残留、变换缓存树与
 `Renderer::Destroy` 仍未实现。Debug
 `cg2d_re_core/cg2d_re_startup` 静态库编译
 通过；不代表完整链接或画面验收。
+
+## 77. `BuildSurfaceCache` 的 CPU 建面替换与发布边界
+
+2026-09-27，在现有 IDA 会话只读核完整
+`BuildSurfaceCache@[5231A0,523308)`、
+`CreateSurrface@[44C8B0,44C998)` 与
+`MakeSurface@[44C6D0,44C8A5)` 的直接调用和
+关键指令。前一工厂在非 3D 分支复制 renderer
+描述并以传入 caps 创建 offscreen surface；
+3D 分支固定 `0x2040` caps。后一工厂从前两
+实参的低 S16 取宽高，非 3D 分支以请求尺寸
+及传入 caps 创建；3D 分支先各加 2，再按设备
+caps 可能扩成 2 的幂或正方形。两者都只在
+底层创建非零后设置所传颜色键，未检查
+`SetColorKey` 返回，最后返回 surface 引用。
+这些 DX 描述与显存 caps 属已批准的底层替换
+范围，不能反推上层模式/状态也可省略。
+
+新端 [GraphicDxCache.cpp](../src/render/GraphicDxCache.cpp)
+按调用次序先清实际 count 与两项统计，依次
+创建并发布 AutoMap、Temp 首模式；Temp 失败
+才再试 CPU 回退。然后 4096 个节点先逐槽尝试
+首模式；首次失败在同槽切到回退，后续节点
+保持回退。每次先写节点 `surface` 再判断，
+成功分别累计 `103CF9C/103CF98`；回退失败
+直接提示并返回 0，不发布成功前缀为 count，
+也不调用 reset/失效叶。完整成功才发布
+count=4096，再依序调用已落位的
+`523310→523350` 并返回 1。AutoMap、Temp
+和节点的三处失败提示复用现有
+`ShowLegacyMessage`，传入从当前 IDA 读取
+的原 UTF-8 正文/标题与 `0x10` 类型。
+
+[SurfaceState.cpp](../src/render/SurfaceState.cpp)
+把 AutoMap、Temp 拆为两次可发布的 CPU
+创建，当前槽销毁仍按 Temp→AutoMap；
+被下一次创建覆盖的旧面继续由内部 owner
+持有至进程退出，不因本体覆盖而提前释放。
+节点面由另一个内部 owner 维持稳定地址，
+其纹理像素初值在 CPU 后端确定为零。
+这是 SDL 最终呈现之前的 CPU 纹理替换，
+不是逐 `HRESULT`、显存 caps、GPU 物理尺寸、
+失败时机或 3D 效果的等价承诺；两种旧 caps
+在此都映射为独立的真实 CPU 分配尝试。
+
+当前 `gTextureSizeW/H` 是独立零初值 W32，
+必须由尚未实现的 `Renderer::Init` 发布
+`64/48`；本体不伪造默认尺寸。两处原 caller
+`457747/466C11` 尚未与此入口接线；
+`Renderer::Destroy` 未接节点资源释放，
+变换树的 surface 数值键与绘制消费者亦未
+闭合。Debug 两静态库编译通过，仅见既有
+`GetVersionExA` 警告，不计完整链接或画面运行。

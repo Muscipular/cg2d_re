@@ -29,6 +29,8 @@ using CpuSurfacePixels = std::array<std::uint32_t, kCpuSurfacePixelCount>;
 
 // 原 renderer 初始化与缓存构建的底层资源阶段；不代替父函数的其他副作用。
 bool CreateCpuBackSurface() noexcept;
+bool CreateCpuAutoMapSurface() noexcept;
+bool CreateCpuTempSurface() noexcept;
 bool BuildCpuSurfaceBuffers() noexcept;
 
 // 原 44C436–44C45B 与 44C4E5–44C4F8 的两个销毁阶段；

@@ -4,6 +4,10 @@
 #include <cstdint>
 #include <cstdio>
 
+namespace cg::render {
+struct PaletteEntry;
+} // namespace cg::render
+
 namespace cg::resource {
 
 // 原 0x927EF4 的九个 Graphic 文件句柄，所有权属于资源初始化/关闭链。
@@ -57,6 +61,10 @@ int ReadGraphicDataByIndex(
     std::uint32_t* width,
     std::uint32_t* height,
     std::uint32_t* paletteLength);
+
+// 原 451D80：读入同一解码区，对非零索引平均 RGB，再选原中间调色板范围。
+std::int32_t GetGraphicAutoMapColor_451D80(
+    std::int32_t index, const render::PaletteEntry* palette);
 
 // 原 0x45A6C0：先释放 mapNo 索引，再按槽序关闭文件；不释放 GraphicInfo 主表。
 void CloseGraphicFiles();

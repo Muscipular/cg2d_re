@@ -1,20 +1,72 @@
 #include "cg/ResourcePaths.hpp"
 
+#include "cg/GraphicInfo.hpp"
+#include "cg/GraphicRead.hpp"
+#include "cg/Palette.hpp"
 #include "cg/ResourceNames.hpp"
 #include "cg/platform/Startup.hpp"
 
+#include <bit>
 #include <cstdio>
+#include <cstring>
+
+namespace cg::resource {
+namespace {
+
+// 原 [927F48,9A2068)；newMapRes 的已证高下标写入也是本表，不另建影子表。
+std::uint8_t gAutoMapColors927F48[500000] {};
+
+} // namespace
+} // namespace cg::resource
 
 namespace cg::resource::detail {
 
-// 原 45A420/45A190/45A290；缓存载荷和地图颜色表仍待唯一 owner。
+// 原 45A420/45A290；定宽缓存读写仍待旧文件时间边界。
 std::int32_t Sub_45A420(const char* fileName, char* const* graphicInfoPaths);
-void Sub_45A190();
 std::int32_t Sub_45A290(const char* fileName, char* const* graphicInfoPaths);
+
+// 原 45A190：取色调用后才重取图形表；调色板读取失败不清已有颜色。
+void Sub_45A190()
+{
+    const std::int32_t count = gMaxGraphicCount;
+    render::PaletteEntry palette[256] {};
+    if (render::ReadPalette(0, palette) == 0) {
+        return;
+    }
+    std::memset(gAutoMapColors927F48, 0, sizeof(gAutoMapColors927F48));
+    if (count <= 0) {
+        return;
+    }
+    const GraphicInfo* records = gGraphicInfo;
+    for (std::int32_t index = 0; index < count; ++index) {
+        const std::int16_t fileIndex = records[index].fileIndex;
+        const std::int32_t mapNo = records[index].mapNo;
+        if (fileIndex != 0 && fileIndex != 1 && fileIndex != 6 && fileIndex != 8) {
+            gAutoMapColors927F48[mapNo] = 0;
+        } else if (mapNo == 0) {
+            gAutoMapColors927F48[0] = 0;
+        } else if (mapNo >= 1000 && mapNo <= 19999) {
+            gAutoMapColors927F48[mapNo] = static_cast<std::uint8_t>(
+                GetGraphicAutoMapColor_451D80(
+                    std::bit_cast<std::int32_t>(records[index].seqNo), palette));
+            records = gGraphicInfo;
+        } else if (mapNo >= 220000 && mapNo <= 265535) {
+            gAutoMapColors927F48[mapNo - 200000] = static_cast<std::uint8_t>(
+                GetGraphicAutoMapColor_451D80(
+                    std::bit_cast<std::int32_t>(records[index].seqNo), palette));
+            records = gGraphicInfo;
+        }
+    }
+}
 
 } // namespace cg::resource::detail
 
 namespace cg::resource {
+
+const std::uint8_t* BorrowAutoMapColors() noexcept
+{
+    return gAutoMapColors927F48;
+}
 
 CursorPathStorage gCursorPathStorage {
     {

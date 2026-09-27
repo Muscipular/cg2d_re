@@ -11,6 +11,31 @@
 
 namespace cg::render {
 
+std::int32_t FindNearestPaletteColor_451E90(
+    const std::uint32_t color, const PaletteEntry* const palette, const std::int32_t count)
+{
+    const std::int32_t red = static_cast<std::uint8_t>(color);
+    const std::int32_t green = static_cast<std::uint8_t>(color >> 8);
+    const std::int32_t blue = static_cast<std::uint8_t>(color >> 16);
+    const auto distance = [red, green, blue](const PaletteEntry& entry) {
+        const std::int32_t deltaBlue = entry.blue - blue;
+        const std::int32_t deltaGreen = entry.green - green;
+        const std::int32_t deltaRed = entry.red - red;
+        return static_cast<double>(
+            deltaRed * deltaRed + deltaGreen * deltaGreen + deltaBlue * deltaBlue);
+    };
+    double closest = distance(palette[0]);
+    std::int32_t selected = 0;
+    for (std::int32_t index = 16; index < count - 16; ++index) {
+        const double current = distance(palette[index]);
+        if (current < closest) {
+            closest = current;
+            selected = index;
+        }
+    }
+    return selected;
+}
+
 PaletteFile gPaletteFiles[45] {
     {0, "pal\\palet_00.cgp"}, {0, "pal\\palet_01.cgp"},
     {0, "pal\\palet_02.cgp"}, {0, "pal\\palet_03.cgp"},

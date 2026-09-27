@@ -6,6 +6,7 @@
 #include "cg/platform/Startup.hpp"
 
 #include <array>
+#include <bit>
 #include <cstdlib>
 #include <cstring>
 #include <map>
@@ -471,6 +472,52 @@ int ReadGraphicDataByIndex(
 
     return ReadGraphicData(
         gGraphicReadBuffer, destination, width, height, &length, paletteLength) != nullptr ? 1 : 0;
+}
+
+std::int32_t GetGraphicAutoMapColor_451D80(
+    const std::int32_t index, const render::PaletteEntry* const palette)
+{
+    std::uint32_t red = 0;
+    std::uint32_t green = 0;
+    std::uint32_t blue = 0;
+    std::uint32_t count = 0;
+    const std::int32_t loaded = ReadGraphicDataByIndex(
+        index, &gGraphicDataPtr, &gCurrentGraphicWidth, &gCurrentGraphicHeight, nullptr);
+    if (loaded == 0) {
+        gGraphicDataBuffer = -1;
+        return loaded;
+    }
+    const std::int32_t height = std::bit_cast<std::int32_t>(gCurrentGraphicHeight);
+    gGraphicDataBuffer = index;
+    if (height <= 0) {
+        return 0;
+    }
+
+    const std::uint8_t* row = gGraphicDataPtr;
+    std::int32_t width = std::bit_cast<std::int32_t>(gCurrentGraphicWidth);
+    for (std::int32_t rowIndex = 0; rowIndex < height; ++rowIndex) {
+        std::int32_t column = 0;
+        while (column < width) {
+            const std::uint8_t colorIndex = row[column];
+            if (colorIndex != 0) {
+                red += palette[colorIndex].red;
+                green += palette[colorIndex].green;
+                blue += palette[colorIndex].blue;
+                ++count;
+            }
+            width = std::bit_cast<std::int32_t>(gCurrentGraphicWidth);
+            ++column;
+        }
+        row += width;
+    }
+    if (count == 0) {
+        return 0;
+    }
+    const std::uint32_t averageBlue = static_cast<std::uint8_t>(blue / count);
+    const std::uint32_t averageGreen = static_cast<std::uint8_t>(green / count);
+    const std::uint32_t averageRed = static_cast<std::uint8_t>(red / count);
+    return render::FindNearestPaletteColor_451E90(
+        averageRed | (averageGreen << 8) | (averageBlue << 16), palette, 256);
 }
 
 void CloseGraphicFiles()

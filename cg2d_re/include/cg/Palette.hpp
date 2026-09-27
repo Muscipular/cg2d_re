@@ -86,6 +86,10 @@ int InitPalette32();
 // index 须在物理记录内，output 须提供 256 项；短读的 EOF 仍按原端写成 0xFF。
 int ReadPalette(std::int32_t index, PaletteEntry* output);
 
+// 原 451E90：以第 0 色为初始值，仅扫描 [16,count-16)，严格更近才更新。
+std::int32_t FindNearestPaletteColor_451E90(
+    std::uint32_t color, const PaletteEntry* palette, std::int32_t count);
+
 // 原 0x450B70；不增加负数索引处理，调用者须保证 index 非负。
 // 返回原 EAX：拒绝时为 index，接受时为 steps，而非成功布尔值。
 std::int32_t SelectPalette(std::int32_t index, std::int32_t steps) noexcept;

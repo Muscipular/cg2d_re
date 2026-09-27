@@ -1,6 +1,7 @@
 #include "cg/YobiRuntime.hpp"
 
 #include "LoginMessageDependencies.hpp"
+#include "CharacterSelectSceneDependencies.hpp"
 #include "AnimationRuntimeState.hpp"
 #include "world/WorldUpdateDependencies.hpp"
 #include "world/WorldObjectState.hpp"
@@ -2310,7 +2311,7 @@ void ApplyPendingMapActorDirection(YobiAction* const action, const std::int32_t 
     }
 }
 
-// 原43E790/43E8C3两处骑乘结束分类，不使用43EFC0的另一套动作映射。
+// 原43E115首次骑乘及43E790/43E8C3结束分类，不使用43EFC0的另一套动作映射。
 void RestoreMountedCharacterAction(YobiAction* const action)
 {
     const std::int32_t imageNo = action->imageNo;
@@ -2579,6 +2580,177 @@ void UpdateActorSpiralPhase(YobiAction* const action, MapActorPayload* const pay
 }
 
 } // namespace
+
+std::int32_t Sub_43DD00(
+    YobiAction* const action, const char* const text, std::int32_t field)
+{
+    MapActorPayload* const payload =
+        action != nullptr ? static_cast<MapActorPayload*>(action->payload) : nullptr;
+    char buffer[2048];
+    network::ExtractDelimitedField_52CED0(text, '|', field, 2047, buffer);
+    ++field;
+    const auto flags = static_cast<std::uint8_t>(
+        character_select::detail::Sub_51B740(std::atoi(buffer)));
+    if (payload != nullptr) {
+        if (payload->action30 != nullptr) {
+            MarkDeath(payload->action30);
+            payload->action30 = nullptr;
+        }
+        if (payload->action34 != nullptr) {
+            MarkDeath(payload->action34);
+            payload->action34 = nullptr;
+        }
+        if (payload->action38 != nullptr) {
+            MarkDeath(payload->action38);
+            payload->action38 = nullptr;
+        }
+    }
+
+    if ((flags & 9u) != 0) {
+        network::ExtractDelimitedField_52CED0(text, '|', field, 2047, buffer);
+        ++field;
+        std::int32_t index = 0;
+        while (std::strcmp(buffer, "EF") != 0) {
+            const std::int32_t kind =
+                character_select::detail::Sub_51B740(std::atoi(buffer));
+            if (kind == 0) {
+                network::ExtractDelimitedField_52CED0(text, '|', field, 2047, buffer);
+                ++field;
+                const std::int32_t imageNo =
+                    character_select::detail::Sub_51B740(std::atoi(buffer));
+                if (payload != nullptr) {
+                    payload->action30 = NewYobiGear_4410F0(imageNo);
+                }
+            } else if ((flags & 0x10u) != 0) {
+                network::ExtractDelimitedField_52CED0(text, '|', field, 2047, buffer);
+                ++field;
+                const std::int32_t imageNo =
+                    character_select::detail::Sub_51B740(std::atoi(buffer));
+                if (payload != nullptr) {
+                    if (index == 0) {
+                        const std::int32_t y =
+                            platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0);
+                        const std::int32_t x =
+                            platform::legacy_crypt_int::Read_401EC0(&action->mapX1E0);
+                        payload->action34 = NewYobiGearPet_441130(imageNo, x, y);
+                        payload->kind3C = kind;
+                    } else if (index == 1) {
+                        if (kind >= 3 && kind <= 5
+                            && payload->kind3C >= 3 && payload->kind3C <= 5) {
+                            MarkDeath(payload->action34);
+                            payload->action34 = nullptr;
+                        }
+                        const std::int32_t y =
+                            platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0);
+                        const std::int32_t x =
+                            platform::legacy_crypt_int::Read_401EC0(&action->mapX1E0);
+                        payload->action38 = NewYobiGearPet_441130(imageNo, x, y);
+                        payload->kind40 = kind;
+                    }
+                }
+            }
+            network::ExtractDelimitedField_52CED0(text, '|', field, 2047, buffer);
+            ++field;
+            ++index;
+        }
+    }
+
+    if ((flags & 2u) != 0) {
+        network::ExtractDelimitedField_52CED0(text, '|', field, 2047, buffer);
+        ++field;
+        const std::int32_t imageNo =
+            character_select::detail::Sub_51B740(std::atoi(buffer));
+        if (payload != nullptr) {
+            const auto mapMainImage = [&]() {
+                YobiAction* const player = world::detail::ReadPlayerAction();
+                const std::int32_t original =
+                    (player != nullptr && player == action) || payload->index == -1
+                    ? world::detail::ReadPlayerImageNo()
+                    : std::bit_cast<std::int32_t>(
+                        world::detail::gWorldObjects[payload->index].imageNo);
+                action->imageNo = world::detail::Sub_51C0D0(original);
+            };
+            if (payload->action44 != nullptr) {
+                payload->action44->imageNo = imageNo;
+                mapMainImage();
+            } else {
+                YobiAction* const ride = NewYobiAction_404AE0(2, 0);
+                payload->action44 = ride;
+                if (ride != nullptr) {
+                    ride->callback = nullptr;
+                    payload->action44->imageNo = imageNo;
+                    payload->action44->characterAction = 0;
+                    payload->action44->displayPriority = 10;
+                    payload->action44->flags = 0x34u;
+                    payload->action44->flags |= 0x200u;
+                    mapMainImage();
+                    RestoreMountedCharacterAction(action);
+                }
+            }
+        }
+    } else if (payload != nullptr && payload->action44 != nullptr) {
+        action->phase = 2;
+        payload->counter48 = 0;
+    }
+
+    if ((flags & 4u) != 0) {
+        network::ExtractDelimitedField_52CED0(text, '|', field, 2047, buffer);
+        ++field;
+        const std::int32_t imageNo =
+            character_select::detail::Sub_51B740(std::atoi(buffer));
+        network::ExtractDelimitedField_52CED0(text, '|', field, 2047, buffer);
+        ++field;
+        const std::int32_t packedDirection = std::atoi(buffer);
+        const std::int32_t direction = packedDirection / 10 - 1;
+        const std::int32_t offsetDirection = packedDirection % 10 - 1;
+        network::ExtractDelimitedField_52CED0(text, '|', field, 2047, buffer);
+        ++field;
+        const std::int32_t level = std::atoi(buffer);
+        network::ExtractDelimitedField_52CED0(text, '|', field, 2047, buffer);
+        ++field;
+        const std::int32_t value1D8 = std::atoi(buffer);
+        char name[256];
+        network::ExtractDelimitedField_52CED0(text, '|', field, 255, name);
+        ++field;
+        input::UnescapeLegacyTextAndNotify_52D2F0(name);
+        if (action == nullptr) {
+            return field;
+        }
+        std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&action->mapX1E0);
+        std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0);
+        if (payload == nullptr) {
+            return field;
+        }
+        if (payload->action2C != nullptr) {
+            MarkDeath(payload->action2C);
+            payload->action2C = nullptr;
+        }
+        if (offsetDirection != -1) {
+            const std::int16_t dx = world::detail::ReadDirectionDeltaX(
+                static_cast<std::int16_t>(offsetDirection));
+            const std::int16_t dy = world::detail::ReadDirectionDeltaY(
+                static_cast<std::int16_t>(offsetDirection));
+            x += dx;
+            y += dy;
+        }
+        YobiAction* const child = Sub_441DB0(imageNo, x, y, direction);
+        payload->action2C = child;
+        if (child == nullptr) {
+            return field;
+        }
+        auto* const childPayload = static_cast<MapActorPayload*>(child->payload);
+        childPayload->index =
+            world::detail::ReadPlayerAction() == action ? -1 : payload->index;
+        payload->action2C->flags |= 0x80100u;
+        std::strcpy(payload->action2C->nameC4.data(), name);
+        payload->action2C->field1D0 = level;
+        payload->action2C->field1D8 = value1D8;
+    } else if (payload != nullptr && payload->action2C != nullptr) {
+        MarkDeath(payload->action2C);
+        payload->action2C = nullptr;
+    }
+    return field;
+}
 
 std::int32_t Sub_43E490(YobiAction* const action)
 {
@@ -4041,6 +4213,41 @@ std::int32_t Sub_440FE0()
     static_cast<void>(Sub_440B70());
     static_cast<void>(audio::Sub_52B990());
     return 0x25;
+}
+
+YobiAction* NewYobiGearPet_441130(
+    const std::int32_t imageNo, const std::int32_t mapX, const std::int32_t mapY)
+{
+    YobiAction* const action = NewYobiAction_404AE0(2, 0);
+    if (action == nullptr) {
+        return nullptr;
+    }
+    action->callback = nullptr;
+    action->imageNo = imageNo;
+    action->characterAction = 0;
+    action->displayPriority = 10;
+    action->flags = 0x34u;
+    platform::legacy_crypt_int::AssignFromInt(&action->mapX200, mapX);
+    platform::legacy_crypt_int::AssignFromInt(&action->mapY210, mapY);
+    action->field270 = 0;
+    platform::legacy_crypt_int::AssignFromInt(&action->mapX1E0, mapX);
+    platform::legacy_crypt_int::AssignFromInt(&action->mapY1F0, mapY);
+    const double scaledX = static_cast<double>(mapX) * 64.0F;
+    action->field27C = 0;
+    action->field280 = 0;
+    action->phase = 0;
+    const auto worldX = static_cast<float>(scaledX);
+    action->worldX = worldX;
+    const auto worldY = static_cast<float>(static_cast<double>(mapY) * 64.0F);
+    action->worldY = worldY;
+    float screenX;
+    float screenY;
+    world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
+    action->x = static_cast<std::int32_t>(
+        static_cast<std::int64_t>(static_cast<double>(screenX) + 0.5));
+    action->y = static_cast<std::int32_t>(
+        static_cast<std::int64_t>(static_cast<double>(screenY) + 0.5));
+    return action;
 }
 
 YobiAction* NewYobiGear_4410F0(const std::int32_t imageNo)

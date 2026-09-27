@@ -512,6 +512,8 @@ std::uint32_t gMapEffectTickC8A734 = 0;
 std::int32_t gProjectedX55DEA4 = -1;
 std::int32_t gProjectedY55DEA8 = -1;
 
+} // namespace
+
 std::uint32_t ReadMapEffectWord(
     const MapEffectRecord& record, const std::size_t offset)
 {
@@ -520,18 +522,30 @@ std::uint32_t ReadMapEffectWord(
     return value;
 }
 
-void WriteMapEffectWord(
-    MapEffectRecord& record, const std::size_t offset, const std::uint32_t value)
-{
-    std::memcpy(record.legacyBytes.data() + offset, &value, sizeof(value));
-}
-
 std::uint16_t ReadMapEffectHalf(
     const MapEffectRecord& record, const std::size_t offset)
 {
     std::uint16_t value;
     std::memcpy(&value, record.legacyBytes.data() + offset, sizeof(value));
     return value;
+}
+
+const MapEffectRecord* BorrowActiveMapEffectHead() noexcept
+{
+    return gActiveMapEffectHead;
+}
+
+const MapEffectRecord* BorrowNextMapEffect(const MapEffectRecord* const record) noexcept
+{
+    return record->next;
+}
+
+namespace {
+
+void WriteMapEffectWord(
+    MapEffectRecord& record, const std::size_t offset, const std::uint32_t value)
+{
+    std::memcpy(record.legacyBytes.data() + offset, &value, sizeof(value));
 }
 
 void WriteMapEffectHalf(
@@ -804,6 +818,14 @@ void CreateMapEffectKind4()
 }
 
 } // namespace
+
+void Sub_46E480()
+{
+    if (gMapCharaSceneSlots.valueC8A73C != 0) {
+        static_cast<void>(render::DrawMapEffects_453580());
+        gMapCharaSceneSlots.valueC8A73C = 0;
+    }
+}
 
 void Sub_46E4E0()
 {

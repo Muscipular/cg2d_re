@@ -678,10 +678,10 @@ renderer `+0x0C` Back；成功后从 `C8A72C`
 `46E480` 经 render/world 窄接口按原时点读、条件调用
 和清低 W16；不在绘制队列私建另一个标志。
 现有 [CommandOptions.hpp](../include/cg/platform/CommandOptions.hpp)
-已持有 `554B70` 的设备色深槽，但 500 项活动记录链、
-Back 32 位像素写入及 renderer 生命周期仍需各自
-SPEC 与实现。此候选未获用户批准，不实施
-`46E480/453580/452840` 或宣称 case 9 画面已完成。
+上述是 2026-09-25 的候选边界。后续 500 项活动记录链、
+统一 Back 与 renderer 生命周期已有实现；2026-09-27 按工程
+决策委托实施 `46E480/453580/452840`，见末节
+“活动记录像素提交实施 SPEC”。case 9 父调用和画面仍未验收。
 
 ## `452840` 32 位活动记录绘制边界
 
@@ -759,13 +759,13 @@ SPEC 与实现。此候选未获用户批准，不实施
    调 `Unlock(null)` 并透传完整结果；不把 Lock、
    遍历和 Unlock 拆成每项一次。
 
-[Palette.hpp](../include/cg/Palette.hpp) 已持有
-`gPaletteAutoMap[256]`，但活动头、500 项记录的
-x64 指针布局仍受[场景证据](cg2d_scene_state.md)
-的 `.184` SPEC 门禁；当前 CPU Back 也只获批用于
-波纹链。这里不根据绘制函数已消费字段就断言未知记录区
-无指针，不落位部分像素绘制或固定返回，不计
-`452840`、case 9、统一画面链、链接与运行完成。
+[Palette.hpp](../include/cg/Palette.hpp) 持有
+`gPaletteAutoMap[256]`。2026-09-27 当前状态：活动头和
+500 项记录沿[场景证据](cg2d_scene_state.md)已有唯一 owner，
+next/prev 为原生 T*；CPU Back 已统一。末节实施 SPEC
+只借用记录的已证数值字段与原生 next，不据此断言未知载荷
+无指针。`452840/453580/46E480` 已完整落位并静态核对，
+case 9 父调用、统一画面链、完整链接与运行仍未完成。
 
 ## SDL 最终提交与 `Flip` 单一 owner SPEC（方向已裁决，接线未完成）
 
@@ -1440,3 +1440,46 @@ SDL presenter 的 fullscreen/sync、真实 Back 格式、单行设备配置
 全屏切换/重建和文件写回均仍缺真实运行验收。
 FillRect_44C9A0 后续已接现有空纹理提交；DrawAllQueued、UI 初始化及
 整体 SPEC 继续推进，矩形像素仍未运行验收。
+
+## 活动记录像素提交实施 SPEC
+
+2026-09-27，继 FillRect，原会话只读复核 `452840` 全指令及
+`46E480` 条件调用/清槽，沿既有“32 位活动记录绘制边界”完整实施。
+早期 `.184` 和 CPU Back 范围门禁已由后续唯一记录链、统一 Back、
+RPLAN.24 及工程决策委托更新，不继续按历史未批状态阻塞。
+
+1. MapEffectRecord、500 项池、活动头与 C8A73C 仍归 SceneState。
+   不移动或公开记录定义、不复制链或载荷。将既有两个 memcpy
+   只读字段 helper 提升到 world 私有依赖接口，再加活动头与 next
+   的 const T* 借用；写 helper 留在 owner 内。
+   render 只读已证数值偏移，链遍历读取原生 next，不读旧 +38 的 W32。
+2. SurfaceState 实现 `DrawMapEffects32_452840`：借用同一 SDL Back，
+   缺失返回通用失败，已锁返回 surface-busy；实际 SDL_LockSurface
+   成功后才读取活动头。按实际 pitch 算像素步长，完整遍历后调用
+   SDL_UnlockSurface。SDL 解锁无返回值，已执行解锁映射为成功，
+   不伪造原驱动的独立 Unlock 失败。
+3. 沿已有逐点表落实 kind 1、2、3 全部分支及每个 palette 读取/
+   写入位置。kind 4 保留先 variant、再 phase 的选色与一次颜色读取，
+   包括其他 variant/非零 phase 先读 99、非 1 再改读 159 的原顺序。
+   宽高在原循环位置重读；局部 x 通过门禁才读取局部 y。
+4. 保留 X/Y 原点的 S32 `0<=X<636 / 0<=Y<468` 门禁；
+   不给 kind 3 的负偏移或 kind 4 原点叠加补边界限制，
+   不清 +20/+24 载荷、不扩大 Back、不改成常规矩形填充。
+   RPLAN.24 下异常越界不专项处理，也不声称故障等价。
+5. `DrawMapEffects_453580` 仅承接已批准的 32 位尾跳到上述本体，
+   不恢复 8/16/24 位分支或增加色深拒绝。
+   world 的 `Sub_46E480` 读同一 C8A73C，非零才调用，
+   调用返回后无论结果如何清低 W16。其唯一 caller 不消费返回，
+   新端使用 void，不替原零分支未定义的 EAX 伪造成功值。
+6. SurfaceState 不修改提交标志，world 不借用 SDL 对象或像素地址；
+   只读 getter 不延长记录生命周期。整个遍历一次锁定，
+   不是每项重新取 Back/锁定，也不提前缓存下一项。
+
+本步只做源码/字段/逐点写入/锁定生命周期的静态核对。
+不构建、不新增或运行测试；DrawAllQueued 尚未接入，
+kind 3 等生产者和最终效果画面仍按各自进度推进，不冒称整链通过。
+
+实施状态：SurfaceState 已完整实现两级像素入口；SceneState
+使用同一活动头、记录池及 W16 提交槽，四个只读借用接口位于
+world 私有依赖头。已按逐点表、选色与宽高重读顺序核对本体，
+无额外逐像素裁剪、载荷清理或提前缓存 next。

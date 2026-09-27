@@ -4,10 +4,12 @@
 
 #include "GraphicDxCacheState.hpp"
 #include "LegacyTextureDrawing.hpp"
+#include "../world/WorldUpdateDependencies.hpp"
 
 #include <SDL3/SDL_surface.h>
 
 #include <algorithm>
+#include <bit>
 #include <memory>
 #include <new>
 
@@ -75,6 +77,183 @@ bool CreateCpuBackSurface() noexcept
         return false;
     }
     return true;
+}
+
+std::int32_t DrawMapEffects32_452840()
+{
+    constexpr auto failure = std::bit_cast<std::int32_t>(0x80004005u);
+    constexpr auto surfaceBusy = std::bit_cast<std::int32_t>(0x887601AEu);
+    SDL_Surface* const back = GetCpuBackSdlSurface();
+    if (back == nullptr) {
+        return failure;
+    }
+    if ((back->flags & SDL_SURFACE_LOCKED) != 0) {
+        return surfaceBusy;
+    }
+    if (!SDL_LockSurface(back)) {
+        return failure;
+    }
+
+    const std::int32_t pitch = back->pitch >> 2;
+    auto* const pixels = static_cast<std::uint32_t*>(back->pixels);
+    const world::detail::MapEffectRecord* record = world::detail::BorrowActiveMapEffectHead();
+    while (record != nullptr) {
+        const auto readInt = [record](const std::size_t offset) {
+            return std::bit_cast<std::int32_t>(world::detail::ReadMapEffectWord(*record, offset));
+        };
+        const std::int32_t x = readInt(0);
+        if (x >= 0 && x < 636) {
+            const std::int32_t y = readInt(4);
+            if (y >= 0 && y < 468) {
+                std::uint32_t* const point = pixels + y * pitch + x;
+                const std::uint16_t kind = world::detail::ReadMapEffectHalf(*record, 0x3C);
+                switch (kind) {
+                case 1:
+                    point[0] = gPaletteAutoMap[143];
+                    point[pitch] = gPaletteAutoMap[143];
+                    point[2 * pitch + 1] = gPaletteAutoMap[143];
+                    point[3 * pitch + 1] = gPaletteAutoMap[143];
+                    break;
+                case 2: {
+                    const std::uint16_t variant = world::detail::ReadMapEffectHalf(*record, 0x40);
+                    if (variant == 0) {
+                        point[0] = gPaletteAutoMap[161];
+                        point[1] = gPaletteAutoMap[159];
+                        point[2] = gPaletteAutoMap[161];
+                        point[pitch] = gPaletteAutoMap[159];
+                        point[pitch + 1] = gPaletteAutoMap[159];
+                        point[pitch + 2] = gPaletteAutoMap[159];
+                        point[2 * pitch] = gPaletteAutoMap[161];
+                        point[2 * pitch + 1] = gPaletteAutoMap[159];
+                        point[2 * pitch + 2] = gPaletteAutoMap[161];
+                    } else if (variant == 1) {
+                        point[0] = gPaletteAutoMap[162];
+                        point[1] = gPaletteAutoMap[159];
+                        point[2] = gPaletteAutoMap[159];
+                        point[3] = gPaletteAutoMap[162];
+                        point[pitch] = gPaletteAutoMap[159];
+                        point[pitch + 1] = gPaletteAutoMap[159];
+                        point[pitch + 2] = gPaletteAutoMap[159];
+                        point[pitch + 3] = gPaletteAutoMap[159];
+                        point[2 * pitch] = gPaletteAutoMap[159];
+                        point[2 * pitch + 1] = gPaletteAutoMap[159];
+                        point[2 * pitch + 2] = gPaletteAutoMap[159];
+                        point[2 * pitch + 3] = gPaletteAutoMap[159];
+                        point[3 * pitch] = gPaletteAutoMap[162];
+                        point[3 * pitch + 1] = gPaletteAutoMap[159];
+                        point[3 * pitch + 2] = gPaletteAutoMap[159];
+                        point[3 * pitch + 3] = gPaletteAutoMap[162];
+                    }
+                    break;
+                }
+                case 3:
+                    switch (world::detail::ReadMapEffectHalf(*record, 0x40)) {
+                    case 0:
+                        point[-pitch - 1] = gPaletteAutoMap[8];
+                        point[-pitch] = gPaletteAutoMap[255];
+                        point[-pitch + 1] = gPaletteAutoMap[8];
+                        point[-1] = gPaletteAutoMap[255];
+                        point[0] = gPaletteAutoMap[255];
+                        point[1] = gPaletteAutoMap[255];
+                        point[pitch - 1] = gPaletteAutoMap[8];
+                        point[pitch] = gPaletteAutoMap[255];
+                        point[pitch + 1] = gPaletteAutoMap[8];
+                        break;
+                    case 1:
+                        point[-pitch] = gPaletteAutoMap[251];
+                        point[-1] = gPaletteAutoMap[251];
+                        point[0] = gPaletteAutoMap[251];
+                        point[1] = gPaletteAutoMap[251];
+                        point[pitch] = gPaletteAutoMap[251];
+                        break;
+                    case 2:
+                        point[0] = gPaletteAutoMap[251];
+                        point[1] = gPaletteAutoMap[255];
+                        point[pitch] = gPaletteAutoMap[255];
+                        point[pitch + 1] = gPaletteAutoMap[251];
+                        break;
+                    case 3:
+                        point[0] = gPaletteAutoMap[255];
+                        point[1] = gPaletteAutoMap[251];
+                        point[pitch] = gPaletteAutoMap[251];
+                        point[pitch + 1] = gPaletteAutoMap[255];
+                        break;
+                    case 4:
+                        point[0] = gPaletteAutoMap[251];
+                        point[1] = gPaletteAutoMap[193];
+                        point[pitch] = gPaletteAutoMap[193];
+                        point[pitch + 1] = gPaletteAutoMap[193];
+                        break;
+                    case 5:
+                        point[0] = gPaletteAutoMap[198];
+                        break;
+                    case 6:
+                        point[0] = gPaletteAutoMap[193];
+                        break;
+                    case 7:
+                        point[0] = gPaletteAutoMap[208];
+                        break;
+                    case 8:
+                        point[0] = gPaletteAutoMap[251];
+                        break;
+                    }
+                    break;
+                case 4: {
+                    const std::uint16_t variant = world::detail::ReadMapEffectHalf(*record, 0x40);
+                    const std::uint16_t phase = world::detail::ReadMapEffectHalf(*record, 0x3E);
+                    std::uint32_t color;
+                    if (variant == 0) {
+                        color = gPaletteAutoMap[phase == 0 ? 223 : phase == 1 ? 217 : 159];
+                    } else if (variant == 1) {
+                        color = gPaletteAutoMap[phase == 0 ? 212 : phase == 1 ? 208 : 159];
+                    } else if (variant == 2) {
+                        color = gPaletteAutoMap[phase == 0 ? 130 : phase == 1 ? 147 : 159];
+                    } else if (phase == 0) {
+                        color = gPaletteAutoMap[116];
+                    } else {
+                        color = gPaletteAutoMap[99];
+                        if (phase != 1) {
+                            color = gPaletteAutoMap[159];
+                        }
+                    }
+                    std::int32_t height = readInt(0x2C);
+                    std::int32_t row = 0;
+                    if (height > 0) {
+                        do {
+                            std::int32_t width = readInt(0x28);
+                            std::int32_t column = 0;
+                            if (width > 0) {
+                                do {
+                                    const std::int32_t localX = readInt(0x20) + column;
+                                    if (localX >= 0 && localX < kCpuSurfaceWidth) {
+                                        const std::int32_t localY = readInt(0x24) + row;
+                                        if (localY >= 0 && localY < kCpuSurfaceHeight) {
+                                            // 原目标基址已带记录原点；门禁只检查局部坐标。
+                                            point[localY * pitch + localX] = color;
+                                        }
+                                    }
+                                    width = readInt(0x28);
+                                    ++column;
+                                } while (column < width);
+                            }
+                            height = readInt(0x2C);
+                            ++row;
+                        } while (row < height);
+                    }
+                    break;
+                }
+                }
+            }
+        }
+        record = world::detail::BorrowNextMapEffect(record);
+    }
+    SDL_UnlockSurface(back);
+    return 0;
+}
+
+std::int32_t DrawMapEffects_453580()
+{
+    return DrawMapEffects32_452840();
 }
 
 bool CreateCpuAutoMapSurface() noexcept

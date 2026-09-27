@@ -46,6 +46,11 @@ std::span<const std::uint32_t> ReadCpuBackPixels() noexcept;
 // 原 4512C0：已创建的 Back 按当次完整 W32 背景色填充；无 Back 返回非零。
 std::int32_t ClearSurface_4512C0() noexcept;
 
+// 原 452840：一次锁定同一 Back，按 world 活动链绘制 kind 1/2/3/4 后解锁。
+std::int32_t DrawMapEffects32_452840();
+// 原 453580 的已批准 32 位分支；8/16/24 位分派不进入本线实现。
+std::int32_t DrawMapEffects_453580();
+
 // 原 Back→Temp 的 BltFast：只复制左上 640x480，不拉伸或使用色键。
 // 源或目标尚未创建时不复制。
 bool CopyBackToTemp() noexcept;

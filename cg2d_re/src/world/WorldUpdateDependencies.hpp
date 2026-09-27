@@ -441,10 +441,16 @@ void Sub_4D3170();                         // 原 [0x4D3170,0x4D317B)，重置 0
 std::int32_t Sub_4410E0();                 // 原 [0x4410E0,0x4410E6)，无参返回 17。
 std::int32_t Sub_455BD0();                 // 原 [0x455BD0,0x455C56)，顺序重置 23 槽并返回 0。
 struct MapEffectRecord;
+// render 只借用活动链及已证数值字段；不公开记录布局，不截断原生 next。
+const MapEffectRecord* BorrowActiveMapEffectHead() noexcept;
+const MapEffectRecord* BorrowNextMapEffect(const MapEffectRecord* record) noexcept;
+std::uint32_t ReadMapEffectWord(const MapEffectRecord& record, std::size_t offset);
+std::uint16_t ReadMapEffectHalf(const MapEffectRecord& record, std::size_t offset);
 MapEffectRecord* Sub_46E2A0();             // 原 0x46E2A0；返回末项非拥有指针。
 MapEffectRecord* Sub_46E340();             // 原 0x46E340；空闲首项转为活动首项。
 MapEffectRecord* Sub_46E390(MapEffectRecord* record); // 原 0x46E390；摘活动链后退回空闲头。
 std::uintptr_t __cdecl Sub_46E3E0(std::int32_t* x, std::int32_t* y); // 原 0x46E3E0；混合 EAX 位型。
+void Sub_46E480();                          // 原 0x46E480；非零提交标志才绘制，调用后无条件清 W16。
 void Sub_46E4E0();                          // 原 0x46E4E0；EAX 不具统一返回合同。
 void Sub_46E6C0();                          // 原 0x46E6C0；活动链 kind 2，EAX 无统一合同。
 std::int32_t __cdecl Sub_46E940(std::int32_t cycles); // 原 0x46E940；多轮 kind 2 更新。

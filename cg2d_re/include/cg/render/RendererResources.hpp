@@ -11,6 +11,10 @@ struct RendererResources;
 struct PaletteBinding;
 extern RendererResources* gRenderer;
 
+// 原 [44B630,44C3B7)：初始化父入口；调用者按低 S8 区分 1/2，其余首次值继续。
+// 尚待完整实现 SDL/CPU 资源与原模式分流，不提供固定返回。
+std::int8_t RendererInit_44B630();
+
 // 原 44BB1E–44BBB7：Back 像素格式发布的共享 W32 槽。
 extern std::uint32_t gRendererRedMask;   // 0x628FE4。
 extern std::uint32_t gRendererGreenMask; // 0x62A660。

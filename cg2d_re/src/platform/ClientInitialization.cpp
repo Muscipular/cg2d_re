@@ -1,0 +1,175 @@
+#include "MainLoopDependencies.hpp"
+#include "ImeLifecycle.hpp"
+
+#include "../LoginMessageDependencies.hpp"
+#include "../render/GraphicDxCacheState.hpp"
+
+#include "cg/AnimationRuntime.hpp"
+#include "cg/GraphicAlloc.hpp"
+#include "cg/GraphicInfo.hpp"
+#include "cg/GraphicRead.hpp"
+#include "cg/LegacyAudio.hpp"
+#include "cg/ResourcePaths.hpp"
+#include "cg/YobiRuntime.hpp"
+#include "cg/platform/LegacyMouse.hpp"
+#include "cg/platform/LegacyMouseTracker.hpp"
+#include "cg/platform/LegacyWindow.hpp"
+#include "cg/platform/MainLoop.hpp"
+#include "cg/platform/Startup.hpp"
+#include "cg/render/Font.hpp"
+#include "cg/render/GraphicPaletteCache.hpp"
+#include "cg/render/GraphicPendingQueue.hpp"
+#include "cg/world/SceneState.hpp"
+
+#include <cstdio>
+
+namespace cg::platform {
+namespace initialization_detail {
+
+// 原直接目标尚待完整实现；不以固定返回或省略调用代替加载、音频及 UI 副作用。
+std::int32_t InitLoading_457B10();
+std::int32_t FadeInLoading_458390();
+std::int32_t FadeOutLoading_4585F0();
+std::int32_t InitializeMusic_454C30(std::uintptr_t window);
+std::uint32_t InitializeAlbum_518C20();
+std::int32_t InitializeWindowSystem_4705D0();
+
+} // namespace initialization_detail
+
+namespace {
+
+constexpr char kConfirmCaption[] = "\xBD\x54\xBB\x7B";
+constexpr char kRendererError[] =
+    "DirectDraw\xAA\xEC\xB4\xC1\xA4\xC6\xA5\xA2\xB1\xD1\xA1\x43";
+constexpr char kSurfaceMemoryError[] =
+    "\xB0\x4F\xBE\xD0\xC5\xE9\xB0\x74\xB8\x6D\xBF\xF9\xBB\x7E";
+constexpr char kAllocationError[] = "\xB0\x74\xB8\x6D\xBF\xF9\xBB\x7E";
+constexpr char kGraphicError[] =
+    "Graphic.bin\xB6\x7D\xB1\xD2\xA5\xA2\xB1\xD1\xA1\x43";
+constexpr char kGraphicV3Error[] =
+    "GraphicV3.bin\xB6\x7D\xB1\xD2\xA5\xA2\xB1\xD1";
+constexpr char kGraphicInformation[] =
+    "\xC0\xC9\xAE\xD7\xAC\x4F\xA7\x5F\xB7\x6C\xB7\xB4\xA1\x41"
+    "\xA5\xB2\xB6\xB7\xA8\xCF\xA5\xCE\xB7\x73\xAA\xBA\xB1\xD2"
+    "\xB0\xCA\xB5\x7B\xA6\xA1\xA1\x43\xBD\xD0\xAB\xF6\xA1\x75"
+    "\xA2\xDD\xA2\xD9\xA1\x76\xBE\x5C\xC5\xAA\xB8\xD4\xB2\xD3"
+    "\xBB\xA1\xA9\xFA\xA1\x43";
+constexpr char kGraphicVersionError[] =
+    "\xB5\x7B\xA6\xA1\xAA\xA9\xA5\xBB\xA4\xA3\xA5\xBF\xBD\x54"
+    "\xA1\x41\xBD\xD0\xC1\xCA\xB6\x52\xB8\xEA\xAE\xC6\xA4\xF9"
+    "\xA9\xCE\xA4\x55\xB8\xFC\xC2\xF7\xBD\x75\xA7\xF3\xB7\x73"
+    "\xC0\xC9\xA1\x43";
+constexpr char kSavedStateErrorFormat[] =
+    "\xC5\xAA\xA4\x4A\xA6\x73\xC0\xC9\xA5\xA2\xB1\xD1\xA1\x43"
+    "(code = %d)";
+constexpr char kAnimeError[] = "Anime.bin \xC5\xAA\xA8\xFA\xBF\xF9\xBB\x7E";
+constexpr std::uint32_t kErrorMessageFlags = 0x10;
+
+} // namespace
+
+int InitializeClient_4576B0()
+{
+    static_cast<void>(ResetSystemLog_44B5A0());
+    static_cast<void>(ResetLegacyMouseTracker_506580());
+    const std::int8_t rendererResult = render::RendererInit_44B630();
+    bool reportRendererFailure = rendererResult == 1;
+    if (rendererResult == 2) {
+        gWindowMode = gWindowMode != 1;
+        reportRendererFailure = render::RendererInit_44B630() != 0;
+    }
+    if (reportRendererFailure) {
+        ShowLegacyMessage(kRendererError, kConfirmCaption, kErrorMessageFlags);
+        PostLegacyWindowMessage(gLegacyWindow, 0x10, 0, 0);
+    }
+
+    // 原失败提示/PostMessage 之后仍继续，不在此插入返回或清理。
+    render::gRenderQueueMode103CF10 = 1;
+    if (render::BuildSurfaceCache_5231A0() == 0) {
+        ShowLegacyMessage(kSurfaceMemoryError, "Error Code = 22", kErrorMessageFlags);
+        return 0;
+    }
+    render::InitializeGraphicPaletteCache_44E0C0();
+    if (render::InitPalette32() == 0) {
+        return 0;
+    }
+    if (resource::GraphicAlloc_4574E0() == 0) {
+        ShowLegacyMessage(kAllocationError, kConfirmCaption, kErrorMessageFlags);
+        return 0;
+    }
+    static_cast<void>(render::InvalidateGraphicRefs_523350());
+    const std::int32_t graphicResult = resource::GraphicInit_459960(
+        resource::gGraphicPaths, resource::gGraphicInfoPaths);
+    switch (graphicResult) {
+    case 1:
+        ShowLegacyMessage(kGraphicError, kConfirmCaption, kErrorMessageFlags);
+        return 0;
+    case 2:
+        ShowLegacyMessage(kGraphicV3Error, kConfirmCaption, kErrorMessageFlags);
+        ShowLegacyMessage(kGraphicInformation, "INFORMATION", kErrorMessageFlags);
+        return 0;
+    case 7:
+        ShowLegacyMessage(kGraphicVersionError, kConfirmCaption, kErrorMessageFlags);
+        return 0;
+    }
+
+    static_cast<void>(resource::InitializeIndependentPalettes_522B30());
+    SeedRandom_53B4BF(ReadTickCount32());
+    static_cast<void>(world::InitializeRotationTable_46FB20());
+    static_cast<void>(ResetLegacyMouseState_506870());
+    static_cast<void>(login::detail::Sub_404A40());
+    static_cast<void>(render::InitializeFont_456190(0));
+    static_cast<void>(InitializeIme_458FD0());
+    if (RestoreCurrentSavedState_5201B0() == 0) {
+        char message[1024];
+        std::sprintf(message, kSavedStateErrorFormat, static_cast<int>(gValueFF4E28));
+        ShowLegacyMessage(message, kConfirmCaption, kErrorMessageFlags);
+        return 0;
+    }
+
+    const std::uint32_t drawCursor = gValueD67AE4;
+    ShowLegacyCursor(0);
+    if (drawCursor != 0) {
+        const std::int32_t y = legacy_crypt_int::Add_401E10(&gLegacyMouseState.mouseY, 16);
+        const std::int32_t x = legacy_crypt_int::Add_401E10(&gLegacyMouseState.mouseX, 16);
+        static_cast<void>(login::detail::DrawGraphic(x, y, 231, 22000, 0, nullptr));
+    }
+    render::gRenderQueueMode103CF10 = 0;
+    if (initialization_detail::InitLoading_457B10() == 0) {
+        return 0;
+    }
+    login::detail::Sub_44B5C0("fadeInNowLoading Start");
+    if (initialization_detail::FadeInLoading_458390() == 0) {
+        return 0;
+    }
+
+    login::detail::Sub_44B5C0("initAutoMapColor Start");
+    static_cast<void>(resource::LoadAutoMapColor_45A130(resource::gGraphicInfoPaths));
+    login::detail::Sub_44B5C0("InitSprBinFileOpen Start");
+    if (resource::animation::AnimeInit_45BB20(
+            resource::gAnimePaths, resource::gAnimeInfoPaths) != 0) {
+        ShowLegacyMessage(kAnimeError, kConfirmCaption, kErrorMessageFlags);
+        return 0;
+    }
+    resource::animation::CoordLoadInit_45C040(
+        resource::gCoordinatePaths, resource::gCoordinateInfoPaths);
+    login::detail::Sub_44B5C0("t_music_init Start");
+    static_cast<void>(audio::InitializeAudio_5241A0());
+    static_cast<void>(initialization_detail::InitializeMusic_454C30(gLegacyWindow));
+    login::detail::Sub_44B5C0("initAlbumStartUp Start");
+    static_cast<void>(initialization_detail::InitializeAlbum_518C20());
+
+    const double initialFrameTime = static_cast<double>(ReadTickCount32());
+    world::gPendingSceneType = -1;
+    gLastRenderDt = initialFrameTime;
+    gWindowEnumerationDeadline = initialFrameTime + 3000.0;
+    login::detail::Sub_44B5C0("fadeOutNowLoading Start");
+    if (initialization_detail::FadeOutLoading_4585F0() == 0) {
+        return 0;
+    }
+    render::gRenderQueueMode103CF10 = 1;
+    login::detail::Sub_44B5C0("initGame OK");
+    static_cast<void>(initialization_detail::InitializeWindowSystem_4705D0());
+    return 1;
+}
+
+} // namespace cg::platform

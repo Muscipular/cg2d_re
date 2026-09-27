@@ -52,6 +52,7 @@ target_link_libraries(cg2d_re_core PRIVATE user32 shell32 gdi32)
 # 编译真实入口链，但不以空实现填补尚未还原的依赖或提前链接演示客户端。
 add_library(cg2d_re_startup STATIC
     src/platform/ClientEntry.cpp
+    src/platform/ClientInitialization.cpp
     src/platform/StartupState.cpp
     src/platform/StartupCommon.cpp
     src/platform/SetupIni.cpp

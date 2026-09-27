@@ -23,7 +23,7 @@ namespace cg::platform {
 using cg::network::Report_512CA0;
 using cg::network::NetworkLoop_507DF0;
 
-// 原 4576B0 的首个直接依赖；父初始化入口尚未落位。
+// 原 4576B0 的首个直接依赖；父初始化本体位于 ClientInitialization.cpp。
 std::uint32_t ResetSystemLog_44B5A0(); // 打开失败返回 0，成功透传 fclose 的 W32。
 
 // 原 MainLoop 的直接依赖，不提供占位函数；每个后续实现仍须对照其完整原函数。

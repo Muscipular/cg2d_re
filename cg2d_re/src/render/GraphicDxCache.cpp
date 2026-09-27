@@ -14,8 +14,8 @@
 
 namespace cg::render {
 
-// 原 5222D0：节点链生产者尚未落位；唯一直接 caller 传空的第二参数。
-void TakeGraphicDxCache_5222D0(std::int32_t imageNo, std::int32_t* source);
+// 原 5222D0：第二参数的具体类型未证；唯一直接 caller 传空指针。
+void TakeGraphicDxCache_5222D0(std::int32_t imageNo, void* source);
 
 struct TextureSurface {
     std::int16_t width {};

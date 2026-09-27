@@ -2,9 +2,15 @@
 
 #include "cg/GraphicDecode.hpp"
 #include "cg/GraphicInfo.hpp"
+#include "cg/platform/Startup.hpp"
 
+#include <array>
 #include <cstdlib>
 #include <cstring>
+#include <map>
+#include <new>
+#include <type_traits>
+#include <vector>
 
 namespace cg::resource {
 
@@ -16,6 +22,206 @@ std::uint32_t gCurrentGraphicHeight = 0;
 std::uint32_t gCurrentGraphicWidth = 0;
 std::uint32_t gCurrentGraphicPaletteSize = 0;
 std::int32_t gGraphicDataBuffer = 0;
+
+namespace {
+
+// 原 58B7E8..58D348；段值继承 cg3a HiddenPaletteQueue 的可信表，展开后仍可写。
+struct HiddenPaletteSegment {
+    std::int32_t first;
+    std::int32_t last;
+    std::int32_t mapNo;
+};
+constexpr HiddenPaletteSegment kHiddenPaletteSegments[] {
+    {0, 0, 0},
+    {1, 74, 110300},
+    {75, 90, 110380},
+    {91, 105, 110400},
+    {106, 154, 110420},
+    {155, 156, 110500},
+    {157, 192, 110600},
+    {193, 228, 110650},
+    {229, 244, 110700},
+    {245, 261, 110750},
+    {262, 1261, 113000},
+    {1262, 1273, 110401},
+    {1274, 1274, 110414},
+    {1275, 1275, 110504},
+    {1276, 1279, 110376},
+    {1280, 1288, 110469},
+    {1289, 1354, 110520},
+    {1355, 1389, 114165},
+    {1390, 1392, 110767},
+    {1393, 1396, 110505},
+    {1397, 1400, 110396},
+    {1401, 1406, 110509},
+    {1407, 1420, 110586},
+    {1421, 1450, 110770},
+    {1451, 1475, 114200},
+    {1476, 1476, 110599},
+    {1477, 1477, 110400},
+    {1478, 1480, 104332},
+    {1481, 1489, 104344},
+    {1490, 1494, 104339},
+    {1495, 1534, 104353},
+    {1535, 1535, 104400},
+    {1536, 1536, 104406},
+    {1537, 1537, 104412},
+    {1538, 1538, 104418},
+    {1539, 1539, 104424},
+    {1540, 1540, 104430},
+    {1541, 1541, 104436},
+    {1542, 1542, 104442},
+    {1543, 1543, 104448},
+    {1544, 1544, 104454},
+    {1545, 1545, 104460},
+    {1546, 1546, 104466},
+    {1547, 1547, 104472},
+    {1548, 1548, 104478},
+    {1549, 1549, 104484},
+    {1550, 1550, 104490},
+    {1551, 1551, 104496},
+    {1552, 1552, 104502},
+    {1553, 1553, 104508},
+    {1554, 1554, 104514},
+    {1555, 1564, 104393},
+    {1565, 1605, 104520},
+    {1606, 1607, 104335},
+    {1608, 1673, 104561},
+    {1674, 1689, 104669},
+    {1690, 1691, 104337},
+    {1692, 1733, 104627},
+    {1734, 1747, 104685},
+    {1748, 1751, 104700},
+};
+std::array<std::int32_t, 1752> gHiddenPaletteBaseQueue = [] {
+    std::array<std::int32_t, 1752> result {};
+    for (const auto& segment : kHiddenPaletteSegments) {
+        for (std::int32_t index = segment.first; index <= segment.last; ++index) {
+            result[static_cast<std::size_t>(index)] =
+                segment.mapNo + index - segment.first;
+        }
+    }
+    return result;
+}();
+
+// 原 103CF0C 的 0xB04 无指针记录；两个版本、两张 W32 色表和原 BGR 区。
+struct IndependentPaletteRecord {
+    std::int16_t paletteChoice;
+    std::int16_t paletteVersion;
+    std::uint32_t originalColors[256];
+    std::uint32_t tonedColors[256];
+    std::uint8_t sourceBgr[0x300];
+};
+static_assert(std::is_trivially_copyable_v<IndependentPaletteRecord>);
+static_assert(sizeof(IndependentPaletteRecord) == 0xB04);
+static_assert(offsetof(IndependentPaletteRecord, originalColors) == 0x04);
+static_assert(offsetof(IndependentPaletteRecord, tonedColors) == 0x404);
+static_assert(offsetof(IndependentPaletteRecord, sourceBgr) == 0x804);
+
+// 原 103CF1C 的 8B 索引项；仅首引用拓宽，原 +4 标志与后三字节独立保留。
+struct IndependentPaletteIndex {
+    IndependentPaletteRecord* record;
+    std::uint8_t loaded;
+    std::uint8_t unknown[3];
+};
+static_assert(std::is_trivially_copyable_v<IndependentPaletteIndex>);
+static_assert(sizeof(IndependentPaletteIndex) == 16);
+static_assert(offsetof(IndependentPaletteIndex, loaded) == 8);
+
+// 原 103CF30..103CF4F；短读保留共享头的未覆盖后缀。
+struct PaletteDbfHeader {
+    std::uint32_t magic;
+    std::uint32_t decodedLength;
+    std::uint32_t compressedLength;
+    std::uint8_t unknown[20];
+};
+static_assert(sizeof(PaletteDbfHeader) == 0x20);
+static_assert(offsetof(PaletteDbfHeader, decodedLength) == 4);
+static_assert(offsetof(PaletteDbfHeader, compressedLength) == 8);
+
+// 原 103CF58 有序唯一键表与 103CF68 载荷集合；522C50 不销毁它们。
+struct PaletteDbfState {
+    PaletteDbfHeader header {};
+    std::int32_t count = 0;  // 原 103CF50，最后一次载荷的项数。
+    std::int32_t stride = 0; // 原 103CF54，最后一次载荷的原字节步长。
+    std::vector<std::uint8_t*> decodedBlocks;
+    std::map<std::int32_t, std::uint8_t*> records;
+    std::uint8_t* payload = nullptr; // 原 103CF78，指向解压块 +8。
+    std::map<std::int32_t, std::uint8_t*>::iterator current {}; // 原 103CF80。
+
+    ~PaletteDbfState()
+    {
+        // 原 5226D0：先依装载序释放所有解压块，再销毁树及指针集合。
+        for (std::uint8_t* block : decodedBlocks) {
+            ::operator delete(block);
+        }
+    }
+};
+
+std::vector<std::int32_t> gIndependentPaletteQueue; // 原 103CF88，元素为 mapNo。
+PaletteDbfState gPaletteDbf;
+std::int32_t gIndependentPaletteCount = 0; // 原 103CF18，不随池释放清零。
+IndependentPaletteIndex* gIndependentPaletteIndex = nullptr;
+IndependentPaletteRecord* gIndependentPaletteRecords = nullptr;
+
+// 原 522900；唯一 caller 弃返回，保留文件、共享头、跨次索引和入队副作用。
+void LoadIndependentPaletteIndex_522900()
+{
+    char directory[256] {};
+    char fileName[256] {};
+    platform::ReadLegacyCurrentDirectory(256, directory);
+    if (directory[255] != '\\') {
+        std::strcat(directory, "\\");
+    }
+    std::sprintf(fileName, "%s%s\\%s", directory, platform::gDataPath, "CGLoadSpr.dbf");
+    std::FILE* const file = std::fopen(fileName, "rb");
+    if (file == nullptr) {
+        return;
+    }
+    std::fread(&gPaletteDbf.header, 1, sizeof(PaletteDbfHeader), file);
+    if (gPaletteDbf.header.magic != 0x00464244u) {
+        return; // 原 magic 不匹配路径没有 fclose。
+    }
+
+    auto* compressed = static_cast<std::uint8_t*>(
+        ::operator new(gPaletteDbf.header.compressedLength));
+    auto* decoded = static_cast<std::uint8_t*>(
+        ::operator new(gPaletteDbf.header.decodedLength));
+    std::fread(compressed, 1, gPaletteDbf.header.compressedLength, file);
+    static_cast<void>(DecompressDbf_53AF90(
+        compressed, static_cast<std::int32_t>(gPaletteDbf.header.compressedLength),
+        decoded, &gPaletteDbf.header.decodedLength));
+    ::operator delete(compressed);
+    gPaletteDbf.decodedBlocks.push_back(decoded);
+    gPaletteDbf.payload = decoded + 8;
+
+    const auto readWord = [](const std::uint8_t* const bytes) {
+        std::int32_t value;
+        std::memcpy(&value, bytes, sizeof(value));
+        return value;
+    };
+    for (std::int32_t index = 0; index < readWord(decoded); ++index) {
+        std::uint8_t* const record =
+            gPaletteDbf.payload + index * readWord(decoded + 4);
+        const auto inserted = gPaletteDbf.records.try_emplace(readWord(record), nullptr);
+        inserted.first->second = record;
+    }
+    gPaletteDbf.count = readWord(decoded);
+    gPaletteDbf.stride = readWord(decoded + 4);
+    std::fclose(file);
+
+    gPaletteDbf.current = gPaletteDbf.records.begin();
+    while (gPaletteDbf.current != gPaletteDbf.records.end()) {
+        const auto current = gPaletteDbf.current++;
+        const std::uint8_t* const record = current->second;
+        if (record == nullptr) {
+            break;
+        }
+        gIndependentPaletteQueue.push_back(readWord(record + 4));
+    }
+}
+
+} // namespace
 
 std::int32_t DecompressDbf_53AF90(
     const std::uint8_t* const source,
@@ -113,6 +319,41 @@ std::int32_t DecompressDbf_53AF90(
         token = *cursor++;
         phase = trailing != 0 ? Phase::Match : Phase::LiteralRun;
     }
+}
+
+std::int32_t InitializeIndependentPalettes_522B30()
+{
+    gIndependentPaletteQueue.clear();
+    for (const std::int32_t mapNo : gHiddenPaletteBaseQueue) {
+        gIndependentPaletteQueue.push_back(mapNo);
+    }
+    LoadIndependentPaletteIndex_522900();
+    gIndependentPaletteCount = static_cast<std::int32_t>(gIndependentPaletteQueue.size());
+
+    gIndependentPaletteIndex = static_cast<IndependentPaletteIndex*>(
+        platform::AllocateLockedZeroedGlobalMemory(
+            sizeof(IndependentPaletteIndex) * gIndependentPaletteCount));
+    std::memset(
+        gIndependentPaletteIndex, 0, sizeof(IndependentPaletteIndex) * gIndependentPaletteCount);
+    gIndependentPaletteRecords = static_cast<IndependentPaletteRecord*>(
+        platform::AllocateLockedZeroedGlobalMemory(
+            sizeof(IndependentPaletteRecord) * gIndependentPaletteCount));
+
+    std::int32_t index = 0;
+    while (index < gIndependentPaletteCount) {
+        gIndependentPaletteIndex[index].record = &gIndependentPaletteRecords[index];
+        gIndependentPaletteIndex[index].loaded = 0;
+        ++index;
+    }
+    return index;
+}
+
+void ReleaseIndependentPalettes_522C50()
+{
+    platform::ReleaseLockedGlobalMemory(gIndependentPaletteRecords);
+    gIndependentPaletteRecords = nullptr;
+    platform::ReleaseLockedGlobalMemory(gIndependentPaletteIndex);
+    gIndependentPaletteIndex = nullptr;
 }
 
 int ReadGraphicDataByIndex(

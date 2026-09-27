@@ -31,4 +31,21 @@ int CreateSaveDirectories()
     return 1;
 }
 
+std::uint32_t ReadLegacyCurrentDirectory(
+    const std::uint32_t capacity, char* const destination)
+{
+    return ::GetCurrentDirectoryA(capacity, destination);
+}
+
+void* AllocateLockedZeroedGlobalMemory(const std::size_t bytes)
+{
+    return ::GlobalLock(::GlobalAlloc(GPTR, bytes));
+}
+
+void ReleaseLockedGlobalMemory(void* const memory)
+{
+    ::GlobalUnlock(::GlobalHandle(memory));
+    ::GlobalFree(::GlobalHandle(memory));
+}
+
 } // namespace cg::platform

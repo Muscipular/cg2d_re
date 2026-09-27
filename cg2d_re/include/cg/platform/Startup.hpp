@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstddef>
 #include <cstdint>
 
 namespace cg::platform {
@@ -47,6 +48,12 @@ int ParseClientVersion();                 // 原 0x4659F0。
 std::uint32_t CaptureDesktopColor();      // 原 0x465A20。
 int SetWindowedDesktopColor();            // 原 0x465A30。
 int CreateSaveDirectories();              // 原 0x532E70；实际运行会改变 CWD/创建目录。
+// 原 GetCurrentDirectoryA 边界：保持窄字节、容量及完整 W32 返回，不改变工作目录。
+std::uint32_t ReadLegacyCurrentDirectory(std::uint32_t capacity, char* destination);
+// 原 GlobalAlloc(GPTR) -> GlobalLock；仅返回借给资源 owner 的原生指针，不增加失败分支。
+void* AllocateLockedZeroedGlobalMemory(std::size_t bytes);
+// 原 GlobalHandle -> Unlock -> GlobalHandle -> Free；返回值由已见 caller 弃置。
+void ReleaseLockedGlobalMemory(void* memory);
 int InitializeWindow();                   // 原 WndInit@0x4669F0；保留末次 UpdateWindow 的 EAX。
 int PumpWindowMessages();                 // 原 0x466D50，WM_QUIT 返回 0，否则 1。
 int RestoreCurrentSavedState_5201B0();    // 原 0x5201B0；按固定顺序恢复当前保存记录。

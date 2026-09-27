@@ -28,7 +28,6 @@ void Sub_5186A0();                         // 原 0x5186A0：void()。
 char WindowCloseAll_472190();              // 原 Window::CloseAll@0x472190：char()。
 
 // 以下均为原 0x457A40 的无实参直接依赖；未实现项只保留 IDA 签名。
-HGLOBAL Sub_522C50();                     // 原 0x522C50：HGLOBAL()。
 int Sub_454EE0();                          // 原 0x454EE0：int()。
 
 // 原 [0x4705F0,0x4705FF)：两个调用后尾透传窗口关闭结果。
@@ -45,7 +44,7 @@ static_assert(sizeof(gDesktopColor) == sizeof(COLORREF));
 int ShutdownClient_457A40()
 {
     shutdown_detail::Sub_4705F0();
-    shutdown_detail::Sub_522C50();
+    resource::ReleaseIndependentPalettes_522C50();
     render::ReleaseGraphicPaletteCache_44E110();
     render::RendererDestroy_44C3C0();
     shutdown_detail::Sub_454EE0();

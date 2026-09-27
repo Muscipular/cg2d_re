@@ -1052,7 +1052,10 @@ Back 的掩码发布与旧 `data\update.dat` 的写入边界。
 后续色键 Blt 已用 SDL 软件 blit 同步写入唯一 CPU Back，
 节点/变换面与 Back 各自持有仅借用原数组的 SDL_Surface 包装，
 销毁先释放包装再释放像素；共享纹理状态查询也已在 renderer owner 落位。
-四顶点混合提交及状态生产仍缺，见该 SPEC 的 CPU 色键 Blt 章节。
+四顶点 native 提交后续已按该 SPEC 的 CPU 设备章节实现：
+保留 UV 的 POINT/WRAP 采样、单行 SDL 色键/调制/三组混合写同一 Back；
+设备归现有 renderer owner，Destroy 在缓存面后、Back 前释放它。
+设备创建父调用、+9C 接口和模式状态生产仍缺，不代表已经可运行。
 随后已补 MakeSurface 的实际尺寸规则，节点/变换面不再把请求 64×48
 当作有 3D 时的固定物理大小；像素格式发布 helper 同时写唯一 bit count。
 Temp 首次/失败回退后续已分别接 44C8B0/44C6D0，并按实际行距

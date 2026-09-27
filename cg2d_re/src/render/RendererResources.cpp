@@ -17,9 +17,13 @@ struct RendererResources {
     std::unique_ptr<PaletteBinding> palette;
     // 原纹理/像素格式字段；GPTR 零初值，后续由 RendererInit 在原时点发布。
     LegacyTextureState textureState {};
+    std::unique_ptr<LegacyTextureDevice, decltype(&DestroyLegacyTextureDevice)> textureDevice {
+        nullptr, DestroyLegacyTextureDevice
+    };
 };
 
 RendererResources* gRenderer = nullptr;
+std::uint32_t gLegacyTextureStage = 0;
 std::uint32_t gRendererRedMask = 0;
 std::uint32_t gRendererGreenMask = 0;
 std::uint32_t gRendererBlueMask = 0;
@@ -33,6 +37,31 @@ std::int32_t gRendererBlueOffset = 0;
 const LegacyTextureState& GetLegacyTextureState()
 {
     return gRenderer->textureState;
+}
+
+bool CreateRendererTextureDevice() noexcept
+{
+    if (gRenderer == nullptr) {
+        return false;
+    }
+    LegacyTextureDevice* const device = CreateLegacyTextureDevice(GetCpuBackSdlSurface());
+    if (device == nullptr) {
+        return false;
+    }
+    gRenderer->textureDevice.reset(device);
+    return true;
+}
+
+void ReleaseRendererTextureDevice() noexcept
+{
+    if (gRenderer != nullptr) {
+        gRenderer->textureDevice.reset();
+    }
+}
+
+LegacyTextureDevice* GetRendererTextureDevice() noexcept
+{
+    return gRenderer == nullptr ? nullptr : gRenderer->textureDevice.get();
 }
 
 void PublishRendererPixelFormat32_44BB1E() noexcept

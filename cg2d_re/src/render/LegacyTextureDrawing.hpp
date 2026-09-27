@@ -8,6 +8,7 @@ struct SDL_Surface;
 namespace cg::render {
 
 struct TextureSurface;
+struct LegacyTextureDevice;
 
 // 原 RECT 的四项 S32，顺序为 left/top/right/bottom；缓存使用同一数值顺序。
 using TextureRectangle = std::array<std::int32_t, 4>;
@@ -42,7 +43,23 @@ enum class LegacyTextureBlend : std::uint32_t {
 
 // 只读借用 RendererResources 的唯一成员，不补空 owner 或默认能力。
 const LegacyTextureState& GetLegacyTextureState();
-// 底层四顶点提交尚待实现，不以空提交补链接。
+// 原 dwStage@62A648；由 Init 探测后发布，销毁不重置。
+extern std::uint32_t gLegacyTextureStage;
+
+// 私有 native 设备拥有单行 scratch 和绑定引用，借用 Back；不能替代 +9C 接口。
+LegacyTextureDevice* CreateLegacyTextureDevice(SDL_Surface* back) noexcept;
+void DestroyLegacyTextureDevice(LegacyTextureDevice* device) noexcept;
+// RendererResources 持有同一设备；创建成功才发布，销毁必须先于 Back。
+[[nodiscard]] bool CreateRendererTextureDevice() noexcept;
+void ReleaseRendererTextureDevice() noexcept;
+LegacyTextureDevice* GetRendererTextureDevice() noexcept;
+// 原 native Set/GetTexture 边界；查询成功返回的一份引用须 ReleaseTextureSurface。
+std::int32_t BindLegacyTexture(
+    LegacyTextureDevice* device, std::uint32_t stage, TextureSurface* surface) noexcept;
+std::int32_t QueryLegacyTexture(
+    LegacyTextureDevice* device, std::uint32_t stage, TextureSurface** surface) noexcept;
+
+// 两 caller 的矩形四顶点提交；F32 UV 保留到 POINT/WRAP 采样，再由 SDL 混合写 Back。
 // 顺序为 source blend、destination blend、按共享 stage 绑面、绘制。
 // 前三段失败不成为额外门禁；同步借用顶点并透传最后的完整 W32 状态。
 std::int32_t SubmitLegacyTextureFan(

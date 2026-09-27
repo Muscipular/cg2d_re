@@ -5,6 +5,7 @@
 #include "cg/render/SurfaceState.hpp"
 
 #include "GraphicDxCacheState.hpp"
+#include "LegacyTextureDrawing.hpp"
 
 #include <SDL3/SDL.h>
 
@@ -288,6 +289,7 @@ void RendererDestroy_44C3C0() noexcept
     // 16 位专用 PALDATA 不属于当前 32 位 CPU 后端。
     ReleaseTextureNodeSurfaces_44C408();
     DestroyCpuCacheSurfaces();
+    ReleaseRendererTextureDevice();
     ReleaseRendererPaletteBinding();
     DestroyCpuBackSurface();
     if (!DestroyRendererPresenter()) {

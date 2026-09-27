@@ -129,8 +129,8 @@ RendererInit、native 模式承载、像素提交和整链验收仍须继续。
 [两个完整入口](../src/render/LegacyTextureDrawing.cpp)及
 [私有接口](../src/render/LegacyTextureDrawing.hpp)已落位，
 两条翻转回退路径调用现有 `TransformTextureSurface_44CD80`；
-其中色键 Blt 与共享查询后续已按下节落位；四顶点提交仍只有声明，
-没有占位实现。
+其中色键 Blt、共享查询及四顶点 native 提交后续已按各节落位；
+设备创建父调用与 +9C 接口状态仍未接通，没有以占位实现补齐。
 本线程逐支核对整数/F32 裁剪、八次 S64 转换的顺序、两个入口不同的
 翻转 UV、三组混合值与真实状态返回。CMake startup 登记与
 `/fp:strict`、bias 位模式、十文件严格 UTF-8 无 BOM/LF、
@@ -425,3 +425,106 @@ GraphicDxCache 的创建、节点释放、变换缓存清理和两缓存面释�
 TextureSurfaceBinding 的保留、借用、换绑和析构均有定义，
 尚无设备实例持有它，也未改变 RendererDestroy 的现存调用。
 因此不能把本步记为设备绑定接线或悬空路径的运行验收。
+
+## CPU 四顶点设备与提交 SPEC
+
+2026-09-27，继引用叶后按工程委托实施真实 CPU native 提交。
+范围仍为两个已证入口产生的轴对齐矩形、相同顶点颜色、
+z=0/rhw=1、单套 UV；不扩展成任意三角形或通用 3D 引擎。
+
+### 补充证据
+
+- 原 Init 的 `44C066/44C088/44C0A9` 分别写 stage 0 的
+  ALPHAOP=MODULATE、ALPHAARG1=TEXTURE、ALPHAARG2=DIFFUSE。
+  已核 47 个直接引用 renderer 的函数，未见另一个
+  SetTextureStageState 调用；此覆盖不宣称排除了所有间接别名。
+- 微软 `DirectX-Specs/d3d/archive/D3D11_3_FunctionalSpec.htm`
+  明确 D3D9 及更早版本采用整数像素中心。
+  MicrosoftDocs 的 `direct3d9/d3dtexturestagestatetype.md`
+  给出 stage 0 RGB 默认 TEXTURE×CURRENT、后续 stage 默认禁用；
+  这是文档的版本边界，不伪称它直接描述某张原 DX7 显卡。
+- Wine `wine-11.0` 的 `wined3d/stateblock.c`
+  `init_default_texture_state/init_default_sampler_states` 与上述
+  RGB 默认值一致，采样默认 POINT、寻址 WRAP、无 mip；
+  ddraw/device.c 的 DX7 stage 映射使用这些颜色/采样状态。
+  按两组资料和原端只写 alpha 的证据，采用此 native 固定管线配置。
+  不将兼容实现的内部精度当原驱动逐像素结果。
+- SDL `release-3.4.8` 的 `SDL_surface.c` 实际支持
+  NONE、BLEND 和 ADD_PREMULTIPLIED；`SDL_blit_slow.c`
+  在源色键判断后做 RGB/alpha 调制，再进行混合。
+  加法必须使用 ADD_PREMULTIPLIED，普通 ADD 会额外乘源 alpha。
+- 原 `dwStage@62A648` 只有 `44C2EE` 已见写入，以及
+  `44CBCE/44D95A/44DFBA` 三处读取。其所在 PE `.data`
+  RVA=153000、VirtualSize=B34B08、RawSize=40000，
+  槽相对节偏移 D7648 位于零填充尾部。原输入文件只读核节头，
+  没有重新加载/保存 IDA；不能把 IDA 未加载字节返回的 FF 当初值。
+  新端使用零初值共享 U32，销毁不擅自重置，后续 Init 按原位写入。
+
+固定资料入口（均只读，不下载依赖）：
+
+- `https://raw.githubusercontent.com/microsoft/DirectX-Specs/master/d3d/archive/D3D11_3_FunctionalSpec.htm`
+- `https://raw.githubusercontent.com/MicrosoftDocs/win32/docs/desktop-src/direct3d9/d3dtexturestagestatetype.md`
+- `https://raw.githubusercontent.com/wine-mirror/wine/wine-11.0/dlls/wined3d/stateblock.c`
+- `https://raw.githubusercontent.com/libsdl-org/SDL/release-3.4.8/src/video/SDL_surface.c`
+- `https://raw.githubusercontent.com/libsdl-org/SDL/release-3.4.8/src/video/SDL_blit_slow.c`
+
+### 存储与调用合同
+
+1. `LegacyTextureDevice` 为 render 私有真实资源对象，由已有
+   RendererResources 独占持有；创建分配 640×1 XRGB8888 scratch，
+   借用唯一 Back，不新增整帧缓冲。分配失败不发布设备。
+   原 +9C 接口仍独立待实现，HasLegacy3DDevice 不改为设备存在性。
+2. 设备拥有八个 RAII 绑定槽，对应原 stage 范围，保留独立引用身份。
+   绑定/查询检查 native stage 范围；查询返回同一面的一份持有引用。
+   stage 0 参与上述固定管线，其他 stage 默认禁用而非覆盖 stage 0。
+   不生成全局影子绑定，也不把无纹理绘制固定返回成功。
+3. Submit 依次写 source blend、destination blend，按共享 stage
+   换绑，再执行绘制；绑定失败不成为提前返回门禁，绘制读取仍保留的
+   实际 stage 0 绑定。后续绘制失败不回滚混合或绑定。
+4. 正常释放仍是节点→Temp/AutoMap→设备→接口→palette→Back。
+   本步将实际设备释放接至现有 Destroy 对应位置，释放全部绑定和
+   scratch，再允许 Back 析构；接口创建/释放及父 Init 仍未完成。
+
+### 采样与混合
+
+1. 四角的覆盖域取各轴两端 min/max，支持反向轴；按整数像素中心
+   做左上包含、右下排除和 640×480 viewport 裁剪。
+   零覆盖自然不写像素，不把负向轴一律当空矩形。
+2. 保留输入 F32 UV，以 F64 对原始端点插值，使用原未裁剪四角
+   计算权重；不先取整端点、丢失 bias 或在 viewport 裁剪后重置 UV。
+   POINT 按 `floor(uv * 实际物理尺寸)` 取 texel，WRAP 用有符号
+   余数纠正负值，不用可能把微小负数舍入到 1 的 `uv-floor(uv)`。
+3. 从当前绑定面按实际 pitch 读取，每次只填一行 scratch；
+   SDL 源色键使用原像素值，RGB 调制读取 color 的各 W8，
+   alpha 调制读取高 W8。XRGB 纹理自身 alpha 按不透明格式处理。
+   stage 0 无纹理时按固定管线禁用该纹理阶段，直接使用顶点色。
+4. One/Zero→NONE；SourceAlpha/InverseSourceAlpha→BLEND；
+   One/One→ADD_PREMULTIPLIED。其他未被两 caller 产生的组合
+   不伪造已有实现；native 绘制返回失败。
+5. 逐行 unchecked SDL blit 写同一 Back，失败保留已写前缀。
+   实际源或 Back 被锁时返回 `0x887601AE`；
+   其他 native 失败返回 `0x80004005`，成功返回 0。
+   所有返回均来自实际状态或操作，不把故障统一伪装成 surface-busy。
+
+### 验收边界
+
+本步只核对新增源码、真实 SDL 声明、引用/销毁顺序、UV/行距使用
+及接口接线，不编译、不新增或执行测试、不运行客户端。
+原驱动插值精度、SDL 通道舍入、纹理边缘与最终像素仍须真实验收；
+不能由上述公式或静态检查宣称逐像素一致。
+完整 RendererInit、接口能力/模式生产、探测和 DrawAllQueued
+仍是后续必需任务，不因本步设备 factory 可用而记为已接通。
+
+### CPU 提交落实
+
+`SubmitLegacyTextureFan` 已定义并由两个上层入口共用；
+私有设备的分配、八槽绑定/持有查询、单行采样/混合和释放均已定义。
+RendererResources 为唯一设备 owner，Destroy 已在缓存面之后、
+palette/Back 之前释放设备；绑定叶由真实设备类型持有，
+不是独立全局对象。创建函数尚无 RendererInit caller，
+共享 stage 也仍缺原探测后的写入；不把零初值当探测通过。
+
+本步源码逐支静态核对空覆盖、正反向轴、WRAP 负余数、
+真实 pitch、三组混合、色键先于调制、失败前缀和引用释放顺序。
+现有 startup 源登记、`/fp:strict`、SDL 私有依赖无需修改。
+只做静态检查；本次没有编译、链接、测试或实际像素验收。

@@ -51,6 +51,21 @@ std::int32_t DrawMapEffects32_452840();
 // 原 453580 的已批准 32 位分支；8/16/24 位分派不进入本线实现。
 std::int32_t DrawMapEffects_453580();
 
+// 原 44F330/44FC20：索引/W32 地图窗投影到同一 AutoMap，再色键复制至 Back。
+std::int32_t DrawIndexedAutoMap32_44F330(
+    std::int32_t x, std::int32_t y, const std::uint8_t* source,
+    std::int32_t width, std::int32_t height);
+std::int32_t DrawColorAutoMap32_44FC20(
+    std::int32_t x, std::int32_t y, const std::uint32_t* source,
+    std::int32_t width, std::int32_t height);
+// 原色深分派入口；本线仅承接已批准的 32 位路径，源只在本次调用内借用。
+std::int32_t DrawIndexedAutoMap_44F5C0(
+    std::int32_t x, std::int32_t y, const std::uint8_t* source,
+    std::int32_t width, std::int32_t height);
+std::int32_t DrawColorAutoMap_44FEB0(
+    std::int32_t x, std::int32_t y, const std::uint32_t* source,
+    std::int32_t width, std::int32_t height);
+
 // 原 Back→Temp 的 BltFast：只复制左上 640x480，不拉伸或使用色键。
 // 源或目标尚未创建时不复制。
 bool CopyBackToTemp() noexcept;

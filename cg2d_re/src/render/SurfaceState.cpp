@@ -35,6 +35,12 @@ std::unique_ptr<CpuBackStorage> gCpuBackSurface;
 TextureSurface* gCpuAutoMapSurface {};
 TextureSurface* gCpuTempSurface {};
 
+// 两个 32 位 AutoMap 本体各自持有闪烁状态；renderer 重建不重置。
+std::uint16_t gIndexedAutoMapBlink62B07C = 0;
+std::uint32_t gIndexedAutoMapTick62B080 = 0;
+std::uint16_t gColorAutoMapBlink62B094 = 0;
+std::uint32_t gColorAutoMapTick62B098 = 0;
+
 // 原等待型 BltFast 不启用源色键；只在同步复制范围内改变 SDL 包装标志。
 bool BlitWithoutSourceColorKey(
     SDL_Surface* source, const SDL_Rect& sourceRect,
@@ -56,6 +62,85 @@ bool BlitWithoutSourceColorKey(
         return false;
     }
     return copied;
+}
+
+// 原 44F330/44FC20 的公共投影顺序；取色类型及两组闪烁槽由各入口提供。
+template <typename Pixel, typename ReadColor>
+std::int32_t DrawAutoMap32(
+    const std::int32_t x, const std::int32_t y, const Pixel* source,
+    const std::int32_t width, const std::int32_t height,
+    std::uint16_t& blink, std::uint32_t& tick, const ReadColor readColor)
+{
+    constexpr auto failure = std::bit_cast<std::int32_t>(0x80004005u);
+    constexpr auto surfaceBusy = std::bit_cast<std::int32_t>(0x887601AEu);
+    TextureRectangle rectangle {0, 0, 2 * (width + height) + 2, width + height + 2};
+    SDL_Surface* const surface = GetTextureSdlSurface(gCpuAutoMapSurface);
+    if (surface == nullptr) {
+        return failure;
+    }
+    const SDL_Rect fillRect {0, 0, rectangle[2], rectangle[3]};
+    if ((surface->flags & SDL_SURFACE_LOCKED) == 0) {
+        static_cast<void>(SDL_FillSurfaceRect(surface, &fillRect, 0));
+    }
+    if ((surface->flags & SDL_SURFACE_LOCKED) != 0) {
+        return surfaceBusy;
+    }
+    if (!SDL_LockSurface(surface)) {
+        return failure;
+    }
+
+    const std::int32_t pitch = surface->pitch >> 2;
+    auto* const origin = static_cast<std::uint32_t*>(surface->pixels) + pitch * (width + 1) + 1;
+    std::uint32_t* row = origin;
+    for (std::int32_t rowIndex = 0; rowIndex < height; ++rowIndex) {
+        std::uint32_t* point = row;
+        for (std::int32_t column = 0; column < width; ++column) {
+            const std::uint32_t color = readColor(source[column]);
+            point[-1] = color;
+            point[0] = color;
+            point[1] = color;
+            point[-pitch] = color;
+            point += 2 - pitch;
+        }
+        row += pitch + 2;
+        source += width;
+    }
+
+    const std::uint32_t centerColor = blink != 0 ? 0xFFFFFFu : 1u;
+    if (tick + 1000u <= ::GetTickCount()) {
+        tick = ::GetTickCount();
+        blink = static_cast<std::uint16_t>((static_cast<std::uint8_t>(blink) - 1) & 1);
+    }
+    std::uint32_t* const center =
+        origin + height * (pitch + 2) / 2 - width * (pitch - 2) / 2;
+    center[-1] = centerColor;
+    center[0] = centerColor;
+    center[1] = centerColor;
+    center[-pitch] = centerColor;
+    SDL_UnlockSurface(surface);
+
+    std::int32_t destinationX = x + 17;
+    std::int32_t destinationY = 117 - width + y;
+    if (destinationX < 0) {
+        rectangle[0] -= destinationX;
+        destinationX = 0;
+    }
+    if (destinationX + rectangle[2] - rectangle[0] > kCpuSurfaceWidth) {
+        rectangle[2] = rectangle[0] - destinationX + kCpuSurfaceWidth;
+    }
+    if (destinationY < 0) {
+        rectangle[1] -= destinationY;
+        destinationY = 0;
+    }
+    if (destinationY + rectangle[3] - rectangle[1] > kCpuSurfaceHeight) {
+        rectangle[3] = rectangle[1] - destinationY + kCpuSurfaceHeight;
+    }
+    const TextureRectangle destination {
+        destinationX, destinationY,
+        destinationX + rectangle[2] - rectangle[0],
+        destinationY + rectangle[3] - rectangle[1]
+    };
+    return BlitTextureToBack(gCpuAutoMapSurface, rectangle, destination);
 }
 
 } // namespace
@@ -254,6 +339,41 @@ std::int32_t DrawMapEffects32_452840()
 std::int32_t DrawMapEffects_453580()
 {
     return DrawMapEffects32_452840();
+}
+
+std::int32_t DrawIndexedAutoMap32_44F330(
+    const std::int32_t x, const std::int32_t y, const std::uint8_t* const source,
+    const std::int32_t width, const std::int32_t height)
+{
+    return DrawAutoMap32(x, y, source, width, height,
+        gIndexedAutoMapBlink62B07C, gIndexedAutoMapTick62B080,
+        [](const std::uint8_t index) {
+            const std::uint32_t color = index == 0 ? 0 : gPaletteAutoMap[index];
+            return color == 0 ? 1u : color;
+        });
+}
+
+std::int32_t DrawColorAutoMap32_44FC20(
+    const std::int32_t x, const std::int32_t y, const std::uint32_t* const source,
+    const std::int32_t width, const std::int32_t height)
+{
+    return DrawAutoMap32(x, y, source, width, height,
+        gColorAutoMapBlink62B094, gColorAutoMapTick62B098,
+        [](const std::uint32_t color) { return color == 0 ? 1u : color; });
+}
+
+std::int32_t DrawIndexedAutoMap_44F5C0(
+    const std::int32_t x, const std::int32_t y, const std::uint8_t* const source,
+    const std::int32_t width, const std::int32_t height)
+{
+    return DrawIndexedAutoMap32_44F330(x, y, source, width, height);
+}
+
+std::int32_t DrawColorAutoMap_44FEB0(
+    const std::int32_t x, const std::int32_t y, const std::uint32_t* const source,
+    const std::int32_t width, const std::int32_t height)
+{
+    return DrawColorAutoMap32_44FC20(x, y, source, width, height);
 }
 
 bool CreateCpuAutoMapSurface() noexcept

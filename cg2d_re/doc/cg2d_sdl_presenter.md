@@ -485,7 +485,7 @@ DX 表、纹理块链、两条真实绘制叶和统一 Back
 新端在 [GraphicPendingQueue.hpp](../include/cg/render/GraphicPendingQueue.hpp)
 声明完整包装，实体在
 [GraphicPendingQueue.cpp](../src/render/GraphicPendingQueue.cpp)
-读取唯一的 40 字节记录；Win32 `RECT` 及 `451350`
+读取唯一队列记录（后续按 DX §15 扩为 48B）；Win32 `RECT` 及 `451350`
 真实未落位声明只在 render 实现边界。包装本体已落位，
 `451350` 的 32 位 Back 写入后续已落位，见文末
 “`451350` 的 32 位矩形像素本体”；原队列 case 2 父入口、
@@ -511,14 +511,15 @@ Back 初始化父链与客户端完整链接/运行仍未闭合。
 [GraphicPendingQueue.hpp](../include/cg/render/GraphicPendingQueue.hpp)
 的唯一存储。完整包装定义在
 [GraphicPendingQueue.cpp](../src/render/GraphicPendingQueue.cpp)，
-只声明真实 `44C9A0` 依赖，不替它返回固定值。
+其 `44C9A0` 依赖后续已按[完整入口 SPEC](cg2d_texture_rendering.md)
+落位，不替它返回固定值。
 `FillRect` 原本体在没有 3D 设备、裁剪拒绝或 renderer
 `+0xBC` 门禁为零时返回零，否则提交四顶点矩形并透传
-`DrawPrimitive` 结果；这仍需另行按 32 位色与获批 DX7
-替换范围完整落位。上层 dirty 状态写入不能因不逐码复刻
-底层 HRESULT 而默默删除；新 SDL/CPU 失败如何映射
-本原端门禁仍待 SPEC。父 `DrawAllQueued`、完整画面与链接
-运行尚未闭合。
+`DrawPrimitive` 结果。新端复用已实现的矩形提交、三组混合及空纹理绑定，
+保留两次接口检查和原 S16 裁剪，不额外拒绝反向矩形。
+上层 dirty 状态写入未改：真实 Back 锁定仍映射 surface-busy，
+其他 native 失败不伪装成该码。父 `DrawAllQueued`、完整画面与链接
+运行尚未闭合，本体接线只作静态核对。
 
 ## `46C760` case 5 地图绘制分流
 
@@ -1437,4 +1438,5 @@ SDL presenter 的 fullscreen/sync、真实 Back 格式、单行设备配置
 接口及既有 CMake/SDL/Win32 链接声明；新增代码未编译或执行。
 32 位 CPU native profile 不宣称旧硬件能力，模式 2/3/4 的画面、
 全屏切换/重建和文件写回均仍缺真实运行验收。
-FillRect_44C9A0、DrawAllQueued、UI 初始化及整体 SPEC 继续推进。
+FillRect_44C9A0 后续已接现有空纹理提交；DrawAllQueued、UI 初始化及
+整体 SPEC 继续推进，矩形像素仍未运行验收。

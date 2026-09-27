@@ -1,5 +1,7 @@
 #include "cg/render/GraphicPendingQueue.hpp"
 
+#include "LegacyTextureDrawing.hpp"
+
 #include "cg/GraphicRead.hpp"
 #include "cg/platform/CommandOptions.hpp"
 #include "cg/platform/MainLoop.hpp"
@@ -21,15 +23,6 @@ namespace cg::render {
 
 // 原 [0x451350,0x451D78) 的 32 位像素本体在 SurfaceState，使用同一 Back/调色板。
 void Sub_451350(RECT* rect, std::uint16_t color, std::int32_t mode);
-
-// 原 [0x44C9A0,0x44CC11) 的真实矩形绘制依赖；SDL/CPU 返回映射尚未落位。
-std::uint32_t FillRect_44C9A0(
-    std::int16_t left,
-    std::int16_t right,
-    std::int16_t top,
-    std::int16_t bottom,
-    std::uint32_t color,
-    std::uint8_t mixMode);
 
 namespace {
 

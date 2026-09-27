@@ -531,3 +531,35 @@ palette/Back 之前释放设备；绑定叶由真实设备类型持有，
 真实 pitch、三组混合、色键先于调制、失败前缀和引用释放顺序。
 现有 startup 源登记、`/fp:strict`、SDL 私有依赖无需修改。
 只做静态检查；本次没有编译、链接、测试或实际像素验收。
+
+## FillRect_44C9A0 完整入口 SPEC
+
+2026-09-27，原会话只读核 `[44C9A0,44CC11)` 全指令与唯一直接
+caller `520AEF`。沿工程委托复用已有四顶点 native 提交，不另建
+填色器、不借普通 SDL FillRect 省略混合状态或解绑副作用。
+
+1. 参数为 left/right/top/bottom 四个 S16、完整 W32 color、
+   低 W8 mixMode；返回保留完整 W32，现有 dirty 包装只认
+   `0x887601AE`。不将返回改为 bool。
+2. 先调用 `HasLegacy3DDevice_44B610`，零立即返回 0；
+   然后依序检查 left>=640、right<=0、top>=480、bottom<=0。
+   只按原条件拒绝，不新增 left>=right 或 top>=bottom 门禁。
+3. left<0 改零，right>640 改 640；top<0 改零，
+   bottom>480 改 480，仍承接 S16 局部。随后再次查询接口，
+   非零才读 renderer +BC；任一门禁为零返回 0。
+4. 将裁剪后的四角按左上、右上、右下、左下提交，
+   每点 z=0、rhw=1、color 相同，全部 UV=0。
+   这些 S16 坐标转 F32 没有额外舍入策略。
+5. bit3、alpha=FF、其余三条混合选择与两纹理入口一致。
+   先 source blend、再 destination blend，然后按共享 stage
+   绑定 null，最后 DrawPrimitive；不保留上一张绑定纹理，
+   也不因为裁剪后空覆盖而提前跳过这些状态写入。
+6. 复用现有 SubmitTexturedRectangle 与 SubmitLegacyTextureFan，
+   native 状态以 W32 位型透传。FillDirtyArea 的读取顺序、
+   surface-busy 才置 dirty 以及其他返回不清 dirty 均不变。
+   mode 1 没有该接口时仍不绘制，不擅自补普通填色回退。
+
+函数放在既有 LegacyTextureDrawing.cpp；私有头统一声明，
+GraphicPendingQueue 删除旧局部候选声明并包含该头。
+仅静态核对门禁、混合/解绑/返回和现有 caller；
+不编译、不新增或运行测试，不把本体接线当矩形像素验收。

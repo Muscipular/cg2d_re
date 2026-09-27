@@ -34,7 +34,7 @@ struct LegacyTextureVertex {
     float v;
 };
 
-// 原纹理入口实际使用的 blend 数值。
+// 原三个矩形入口实际使用的 blend 数值。
 enum class LegacyTextureBlend : std::uint32_t {
     Zero = 1,
     One = 2,
@@ -67,7 +67,7 @@ std::int32_t BindLegacyTexture(
 std::int32_t QueryLegacyTexture(
     LegacyTextureDevice* device, std::uint32_t stage, TextureSurface** surface) noexcept;
 
-// 两 caller 的矩形四顶点提交；F32 UV 保留到 POINT/WRAP 采样，再由 SDL 混合写 Back。
+// 三个入口共用矩形四顶点提交；F32 UV 保留到 POINT/WRAP 采样，再由 SDL 混合写 Back。
 // 顺序为 source blend、destination blend、按共享 stage 绑面、绘制。
 // 前三段失败不成为额外门禁；同步借用顶点并透传最后的完整 W32 状态。
 std::int32_t SubmitLegacyTextureFan(
@@ -79,6 +79,11 @@ SDL_Surface* GetCpuBackSdlSurface() noexcept;
 std::int32_t BlitTextureToBack(
     TextureSurface* surface, const TextureRectangle& source,
     const TextureRectangle& destination);
+
+// 原 44C9A0：两次接口检查、S16 裁剪及空纹理四顶点；透传完整返回位型。
+std::uint32_t FillRect_44C9A0(
+    std::int16_t left, std::int16_t right, std::int16_t top, std::int16_t bottom,
+    std::uint32_t color, std::uint8_t mixMode);
 
 // 原 44D520：整数裁剪、可选四顶点或变换缓存路径；rectangle 为值副本。
 std::int32_t RenderTextureToSurface_44D520(

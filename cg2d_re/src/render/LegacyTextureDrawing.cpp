@@ -130,7 +130,7 @@ std::int32_t TruncateTextureCoordinate(const double value)
     return static_cast<std::int32_t>(static_cast<std::int64_t>(value));
 }
 
-// 两入口相同的四顶点、混合选择及 native 提交段。
+// 三个入口相同的四顶点、混合选择及 native 提交段；FillRect 绑定空纹理。
 std::int32_t SubmitTexturedRectangle(
     TextureSurface* surface, const TextureRectangle& destination,
     const float u0, const float v0, const float u1, const float v1,
@@ -242,6 +242,37 @@ std::int32_t SubmitLegacyTextureFan(
     device->destinationBlend = destinationBlend;
     static_cast<void>(BindLegacyTexture(device, gLegacyTextureStage, surface));
     return DrawTextureRectangle(*device, vertices);
+}
+
+std::uint32_t FillRect_44C9A0(
+    std::int16_t left, std::int16_t right, std::int16_t top, std::int16_t bottom,
+    const std::uint32_t color, const std::uint8_t mixMode)
+{
+    if (HasLegacy3DDevice_44B610() == 0) {
+        return 0;
+    }
+    if (left >= kCpuSurfaceWidth || right <= 0
+        || top >= kCpuSurfaceHeight || bottom <= 0) {
+        return 0;
+    }
+    if (left < 0) {
+        left = 0;
+    }
+    if (right > kCpuSurfaceWidth) {
+        right = static_cast<std::int16_t>(kCpuSurfaceWidth);
+    }
+    if (top < 0) {
+        top = 0;
+    }
+    if (bottom > kCpuSurfaceHeight) {
+        bottom = static_cast<std::int16_t>(kCpuSurfaceHeight);
+    }
+    if (HasLegacy3DDevice_44B610() == 0 || GetLegacyTextureState().colorKeyEnabled == 0) {
+        return 0;
+    }
+    const TextureRectangle destination {left, top, right, bottom};
+    return std::bit_cast<std::uint32_t>(SubmitTexturedRectangle(
+        nullptr, destination, 0.0f, 0.0f, 0.0f, 0.0f, mixMode, color));
 }
 
 std::int32_t RenderTextureToSurface_44D520(

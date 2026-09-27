@@ -2611,6 +2611,45 @@ std::int32_t Sub_5183B0(const std::int32_t imageNo)
     return imageNo >= 100000 && imageNo < 200000 ? 1 : 0;
 }
 
+void Sub_4467D0(const std::int32_t objectIndex)
+{
+    if (objectIndex < 0) {
+        return;
+    }
+    const std::int32_t index = Sub_444FA0(objectIndex);
+    if (index < 0) {
+        return;
+    }
+    auto& record = gWorldObjects[static_cast<std::size_t>(index)];
+    if (record.used == 0 || record.action != nullptr) {
+        return;
+    }
+    const std::int32_t direction = record.direction;
+    const std::int32_t mapY =
+        platform::legacy_crypt_int::Read_401EC0(&record.coordinate1C);
+    const std::int32_t mapX =
+        platform::legacy_crypt_int::Read_401EC0(&record.coordinate0C);
+    const auto imageNo = std::bit_cast<std::int32_t>(record.imageNo);
+    login::YobiAction* action =
+        login::detail::Sub_441DB0(imageNo, mapX, mapY, direction);
+    record.action = action;
+    if (action == nullptr) {
+        return;
+    }
+    record.used = 2;
+    static_cast<login::detail::MapActorPayload*>(record.action->payload)->index = index;
+    action = record.action;
+    const std::int32_t level = record.level2C;
+    action->field1D0 = level;
+    char* const name = record.action->nameC4.data();
+    std::memmove(name, record.name54.data(), std::strlen(record.name54.data()) + 1);
+    char* const title = record.action->titleE1.data();
+    std::memmove(title, record.title65.data(), std::strlen(record.title65.data()) + 1);
+    action = record.action;
+    const std::uint32_t flags = record.flags114;
+    action->flags |= flags;
+}
+
 void Sub_445350(
     const std::int32_t objectIndex, const std::int32_t imageNo,
     const std::int32_t mapX, const std::int32_t mapY,

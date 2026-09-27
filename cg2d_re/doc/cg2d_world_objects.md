@@ -400,3 +400,35 @@ withRecord任何非零值均进入。使用三个未预初始化2048B栈缓冲�
 四文件接口/分支/两跳表/低W16与完整S32/原解析和RNG顺序/源登记、
 差异、UTF-8及文件链接仅静态核对。dispatcher512E40未实现，
 447E60及十种回调、50B380和完整场景仍未闭合，不声明收包或动作运行通过。
+
+## 4467D0动作结束后恢复实体 SPEC
+
+原会话只读核[4467D0,4468EC)全指令及十个直接caller，
+全部随后将原动作传给MarkDeath，不消费4467D0返回；
+裁决采用void，不合并不同分支的EAX残留。
+完整入口位于YobiRuntime.cpp的world::detail段，直接复用唯一World表、
+MapActorPayload与真实441DB0，不暴露对象布局或新增记录。
+
+1. S32对象编号<0立即返回，不调用查找。否则444FA0查槽，负下标返回。
+   对同一槽再检查used非零、action为空，任一不满足返回。
+2. 先读取record.direction，再对原+1C的coordinate1C作Read，
+   后对原+0C的coordinate0C作Read，最后读取imageNo，
+   用所得Y/X按441DB0(imageNo,X,Y,direction)调用。IDA的gameX/gameY
+   自动名称不覆盖实际地址5AC4DC/5AC4CC的对应关系。
+3. 将返回T*先写回record.action，空值返回；不释放或回滚记录。
+   成功才写used=2，再重读action、写payload.index=槽下标；
+   重读action后读取level2C并写field1D0。
+4. 重读action取得nameC4目的地址，再求record.name54长度并复制含NUL；
+   独立重读action取得titleE1目的地址，复制record.title65含NUL。
+   此入口没有长度门槛，不添加截断、补零或重复反转义。
+5. 最后先重读action、后读取record.flags114，按位或到action.flags。
+   不写field1D8、其他称号/文本、category、value34、flags42/120或value118，
+   不重新领取槽、不改变占用数/上界；查找游标仅由444FA0按原规则更新。
+
+十种动作回调继续各自决定何时恢复及标死，即使本函数创建失败也不改变
+它们的后继顺序。本步只核接口、分支、同源引用、CryptInt/RNG及字段写序、
+差异/编码，不构建、测试、运行或检查产物。
+
+完整本体已落位。四文件接口、十条返回弃用链、全部门禁、坐标地址、
+T*重读、文本集合、字段写序及既有源登记、差异/UTF-8仅静态核对；
+十种动作回调仍待接入，未声明实际恢复、回收或画面验收。

@@ -35,5 +35,9 @@ void ReleaseGraphicPaletteCache_44E110() noexcept;
 PaletteCacheItem* TakeIndexCacheFromPool_44E150(std::int32_t imageNo) noexcept;
 // 原 44E230：帧末扫描动态池并按脏计数失效 DX 调色板引用。
 void AgeGraphicPaletteCache_44E230() noexcept;
+// 原 44E290 的 32 位分支；动态 triple/quad 源分别为 BGR/BGRX，非空源须提供 256 项。
+PaletteCacheItem* LoadGraphicPalette32_44E290(
+    std::int32_t imageNo, std::uint8_t mode, std::uint8_t applyTone,
+    const std::uint8_t* paletteTriples, const std::uint8_t* paletteQuads) noexcept;
 
 } // namespace cg::render

@@ -72,8 +72,8 @@ void Sub_462880(std::uint8_t resetSelection);
 std::uint8_t Sub_50E770(std::uintptr_t unusedSocket, std::uint8_t pukVersion);
 
 void Sub_518BE0();
-std::int32_t Sub_519290();
-std::int32_t Sub_5194C0();
+using cg::world::detail::Sub_519290;
+using cg::world::detail::Sub_5194C0;
 using cg::world::detail::Sub_519300;
 using cg::world::detail::Sub_519550;
 // 原 [0x51BA10,0x51BAB5)：按原区间顺序返回图号类别 0..5。

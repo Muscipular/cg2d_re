@@ -1,0 +1,37 @@
+#pragma once
+
+#include <array>
+#include <cstddef>
+#include <cstdint>
+
+namespace cg::render {
+
+inline constexpr std::size_t kGraphicPaletteDynamicCount = 104;
+inline constexpr std::size_t kGraphicPaletteStaticCount = 4;
+
+// 原 0x410 字节缓存项；+0x10 起的像素/调色板载荷保持原字节布局。
+struct PaletteCacheItem {
+    std::int32_t imageNo;          // +0：动态项的图号。
+    std::int32_t activePalIndex;   // +4：静态项的调色板索引。
+    std::uint32_t frameIndex;     // +8：帧版本快照。
+    std::int32_t dirtyCount;      // +0x0C：动态项老化计数。
+    std::array<std::uint8_t, 0x400> payload; // +0x10。
+};
+
+static_assert(sizeof(PaletteCacheItem) == 0x410);
+static_assert(offsetof(PaletteCacheItem, activePalIndex) == 4);
+static_assert(offsetof(PaletteCacheItem, frameIndex) == 8);
+static_assert(offsetof(PaletteCacheItem, dirtyCount) == 0x0C);
+static_assert(offsetof(PaletteCacheItem, payload) == 0x10);
+
+extern PaletteCacheItem* gGraphicDataCacheList; // 原 0x62B068，动态池引用。
+extern std::array<PaletteCacheItem, kGraphicPaletteStaticCount> gGraphicDataCacheStatic;
+
+// 原 44E0C0：分配零填充动态池，分别重置动态 +0 与静态 +4。
+void InitializeGraphicPaletteCache_44E0C0();
+// 原 44E110：释放动态池并清共享指针；唯一 caller 弃返回值。
+void ReleaseGraphicPaletteCache_44E110() noexcept;
+// 原 44E230：帧末扫描动态池并按脏计数失效 DX 调色板引用。
+void AgeGraphicPaletteCache_44E230() noexcept;
+
+} // namespace cg::render

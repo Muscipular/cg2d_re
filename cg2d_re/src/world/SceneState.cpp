@@ -9,6 +9,7 @@
 #include "cg/platform/LegacyTime.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/platform/MainLoop.hpp"
+#include "cg/platform/Startup.hpp"
 #include "cg/Palette.hpp"
 #include "cg/GraphicInfo.hpp"
 #include "cg/YobiRuntime.hpp"
@@ -1263,6 +1264,55 @@ std::int32_t __cdecl Sub_46F000(std::int32_t* const x, std::int32_t* const y)
     gProjectedX55DEA4 = currentX;
     gProjectedY55DEA8 = currentY;
     return currentY;
+}
+
+void Sub_476680()
+{
+    login::YobiAction* const action = gPlayerRuntime.action;
+    if (action == nullptr) {
+        return;
+    }
+
+    std::int32_t radius = platform::gValue554640;
+    std::int32_t x = login::detail::GetYobiActionField30(action) - radius * 64;
+    std::int32_t y = login::detail::GetYobiActionField34(action);
+    const auto countdown = std::bit_cast<std::int32_t>(gValue626BFC);
+    x -= 31;
+    y -= 23;
+    if (countdown > 0) {
+        std::int32_t sideCount = radius * 2 + 1;
+        if (sideCount > 0) {
+            std::int32_t rowX = x;
+            std::int32_t rowY = y;
+            std::int32_t row = 0;
+            do {
+                std::int32_t column = 0;
+                if (sideCount > 0) {
+                    do {
+                        static_cast<void>(render::Sub_521C80(x, y, 100, 3, 0, nullptr));
+                        radius = platform::gValue554640;
+                        ++column;
+                        x += 32;
+                        sideCount = radius * 2 + 1;
+                        y -= 24;
+                    } while (column < sideCount);
+                }
+                ++row;
+                sideCount = radius * 2 + 1;
+                x = rowX + 32;
+                y = rowY + 24;
+                rowX = x;
+                rowY = y;
+            } while (row < sideCount);
+        }
+    }
+
+    // 原尾部先发布递减值，再按符号位决定是否写零。
+    const std::uint32_t remaining = gValue626BFC - 1u;
+    gValue626BFC = remaining;
+    if (std::bit_cast<std::int32_t>(remaining) < 0) {
+        gValue626BFC = 0;
+    }
 }
 
 // 原 [0x5198A0,0x5198CB)：逐项前向复制 0x1C 字节，保留每个 W32 的读写顺序。

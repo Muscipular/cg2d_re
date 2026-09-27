@@ -1079,3 +1079,36 @@ Back 的掩码发布与旧 `data\update.dat` 的写入边界。
 和 Debug `cg2d_re_render/cg2d_re_core/
 cg2d_re_startup` 静态库编译通过，无新增
 告警；未运行测试或客户端，音频暂缓。
+
+## `450470` 的 32 位调色板绑定与唯一 renderer owner
+
+2026-09-27，本线程只读当前 `ida-17524/cg2d.exe`：
+`44B6F4–44B715` 以零初始化分配发布 `gCRenderer`，
+`450787–45078E` 仅用 `tPaletteInited` 决定是否首次读文件；
+`45083A–45086B` 无条件从 renderer `+4` 创建调色板至
+`+0x90`，`450874–4508A1` 判空、提示 Error Code = 15
+并返回 0。`4508A2–4508FA` 只有 8 位分支为 Back
+设置调色板；32 位仍须先创建 `+0x90`，才建立 CPU
+查色表。`44C4A4–44C4BF` 在销毁中释放并清该字段，
+最后 `44C531–44C553` 释放 renderer。
+
+原 `466E42–466E63` 和 `457072–457093/
+4570B1–4570D2` 先判绑定及窗口模式再调用
+`SetEntries`；`45719D–4571AA/457319–457326`
+直接调用后清待更新标志。以上调用均不判返回值。
+新端将 `gRenderer` 移到 render 唯一 owner，
+独立分配调色板绑定并复制初始 256 项，
+`GetRendererPalette` 返回同一对象，
+`SetPaletteEntries` 在已见的
+`flags=0,first=0,count=256` 域内复制项并返回 0。
+32 位 SDL/CPU 路径不从该绑定重新生成画面像素；
+查色表仍由 `InitPalette32/RebuildPalette32` 持有。
+异常参数的 `-1` 只是适配器失败值，不宣称等于原
+DirectDraw HRESULT。
+
+当前只落位 owner 与 `InitPalette32` 的创建/失败叶，
+并提供未来 `Init/Destroy` 可调用的 owner 分配/释放
+及销毁中途的绑定释放入口；
+**尚无生产者调用分配入口**。因此当前完整入口仍
+不能到达这段成功路径，也未证明模式 2/3/4、
+初始化失败残留、SDL presenter 生命周期或画面。

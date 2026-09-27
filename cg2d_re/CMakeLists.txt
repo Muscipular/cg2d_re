@@ -30,6 +30,7 @@ add_library(cg2d_re_core STATIC
     src/render/Font.cpp
     src/render/GraphicCacheState.cpp
     src/render/GraphicDxCache.cpp
+    src/render/RendererResources.cpp
     src/render/SurfaceState.cpp
     src/platform/LegacyWindow.cpp
 )

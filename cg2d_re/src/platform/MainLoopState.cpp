@@ -31,9 +31,3 @@ SystemTimeWords gLastSystemTime {};
 std::uint32_t gPeriodicReportSeconds = 0;
 
 } // namespace cg::platform
-
-namespace cg::render {
-
-RendererResources* gRenderer = nullptr;
-
-} // namespace cg::render

@@ -2,6 +2,7 @@
 
 #include "cg/ResourcePaths.hpp"
 #include "cg/platform/LegacyWindow.hpp"
+#include "cg/render/RendererResources.hpp"
 
 #include <bit>
 #include <cmath>
@@ -195,7 +196,14 @@ int InitPalette32()
     gPalette[168].green = 0;
     gPalette[168].red = 0;
 
-    // SDL 的 32 位像素不创建 DX7 调色板对象；保留原内联颜色转换及更新次序。
+    if (!CreateRendererPaletteBinding(gPalette)) {
+        platform::ShowLegacyMessage(
+            "\xAB\xD8\xA5\xDF\xBD\xD5\xA6\xE2\xBD\x4C\xA5\xA2\xB1\xD1",
+            "Error Code = 15", 0x10);
+        return 0;
+    }
+
+    // 原 32 位路径在创建独立调色板对象后建立 CPU 查色表。
     for (int i = 0; i < 256; ++i) {
         const std::uint32_t color = gPalette[i].blue
             + ((gPalette[i].green + (static_cast<std::uint32_t>(gPalette[i].red) << 8)) << 8);

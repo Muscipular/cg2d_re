@@ -2,20 +2,11 @@
 
 #include "cg/Palette.hpp"
 #include "cg/network/NetworkRuntime.hpp"
+#include "cg/render/RendererResources.hpp"
 
 #include <cstdint>
 
 namespace cg::render {
-
-// 原 gCRenderer@0x627360 及其 +0x90 调色板字段的原生后端绑定仍未实现。
-// 只声明不透明类型，不虚构完整对象布局，也不以空返回值代替实际资源。
-struct RendererResources;
-struct PaletteBinding;
-extern RendererResources* gRenderer;
-PaletteBinding* GetRendererPalette(RendererResources* renderer);
-std::int32_t SetPaletteEntries(
-    PaletteBinding* palette, std::uint32_t flags, std::uint32_t first,
-    std::uint32_t count, const PaletteEntry* entries);
 
 void RebuildRenderer_466B80();
 int TestCooperativeLevel_44C6B0();

@@ -68,6 +68,8 @@ struct YobiAction {
     std::array<char, 17> text144; // 原+144；445350复制长度<=16的独立原字节文本。
     platform::LegacyCryptInt readiness; // 原 +170；地图实体将同一槽用于 HP。
     platform::LegacyCryptInt maxHp; // 原 +180；不与 +170 合并。
+    platform::LegacyCryptInt barValue1B0; // 原+1B0；43DB60第二条数值，不猜业务名称。
+    platform::LegacyCryptInt barMaximum1C0; // 原+1C0；第二条最大值，读取仍消费计数/RNG。
     std::int32_t field1D0; // 原 +1D0；弹窗param6、观察子项槽序号或地图实体等级。
     std::int32_t field1D8; // 原 +1D8；51A090 写入完整第四参数。
     platform::LegacyCryptInt mapX1E0; // 原 +1E0/+1F0 当前位置；46DD90 按 X→Y 读取并乘64。
@@ -203,7 +205,8 @@ struct MapActorPayload {
     YobiAction* action30;
     YobiAction* action34;
     YobiAction* action38;
-    std::array<std::byte, 8> bytes3C;
+    std::int32_t kind3C; // 原+3C；action34的挂件种类，4412D0/441430/441570消费。
+    std::int32_t kind40; // 原+40；action38的挂件种类。
     YobiAction* action44;
     std::int32_t counter48; // 原+48；43E490有符号比较/递增，46A700清零。
     YobiAction* action4C;
@@ -223,7 +226,8 @@ static_assert(offsetof(MapActorPayload, action2C) == 0x48);
 static_assert(offsetof(MapActorPayload, action30) == 0x50);
 static_assert(offsetof(MapActorPayload, action34) == 0x58);
 static_assert(offsetof(MapActorPayload, action38) == 0x60);
-static_assert(offsetof(MapActorPayload, bytes3C) == 0x68);
+static_assert(offsetof(MapActorPayload, kind3C) == 0x68);
+static_assert(offsetof(MapActorPayload, kind40) == 0x6C);
 static_assert(offsetof(MapActorPayload, action44) == 0x70);
 static_assert(offsetof(MapActorPayload, counter48) == 0x78);
 static_assert(offsetof(MapActorPayload, action4C) == 0x80);
@@ -364,6 +368,15 @@ std::array<std::int32_t, 5> gMapImages5AC4A0 {};
 std::int32_t gMapImage5F9734 = 0;
 std::int32_t gMapDirection5F9740 = 0;
 std::int32_t gMapDuration5F9744 = 0;
+
+// 原[554204,5542A4)的40项S32初值；4417A0按每25个图号一组读取。
+std::array<std::int32_t, 40> gActorHeightOffsets554204 {
+    -78, -88, -88, -81, -88, -90, -99, -88, -88, -88,
+    -79, -86, -88, -85, -88, -88, -96, -78, -88, -86,
+    -88, -88, -81, -88, -90, -99, -79, -85, -88, -88,
+    -96, -99, -88, -88, -88, -88, -88, -88, -88, -88,
+};
+static_assert(sizeof(gActorHeightOffsets554204) == 0xA0);
 
 struct MapPartyOffset {
     std::int32_t x;
@@ -3066,6 +3079,247 @@ std::int32_t Sub_5182B0(YobiAction* const action, const std::uint8_t axis)
         return action->graphicOffsetY - y;
     }
     return 0;
+}
+
+std::int32_t Sub_518300(
+    YobiAction* const action, const std::uint8_t axis, const std::int32_t kind)
+{
+    float scale = 0.0F;
+    switch (kind) {
+    case 3: scale = 1.75F; break;
+    case 4: scale = 1.5F; break;
+    case 5: scale = 1.25F; break;
+    default: break;
+    }
+    std::int16_t x;
+    std::int16_t y;
+    resource::GetGraphicXY(static_cast<std::uint32_t>(action->graphicIndex), &x, &y);
+    if (axis == 0) {
+        const auto offset = static_cast<std::int32_t>(static_cast<std::int64_t>(
+            static_cast<double>(x) * scale));
+        return action->graphicOffsetX - offset;
+    }
+    if (axis == 1) {
+        const auto offset = static_cast<std::int32_t>(static_cast<std::int64_t>(
+            static_cast<double>(y) * scale));
+        return action->graphicOffsetY - offset;
+    }
+    return 0;
+}
+
+std::int32_t Sub_4417A0(const std::int32_t imageNo)
+{
+    if (imageNo >= 100000 && imageNo <= 100999) {
+        return gActorHeightOffsets554204[static_cast<std::size_t>((imageNo - 100000) / 25)];
+    }
+    return -88;
+}
+
+YobiAction* Sub_444000(
+    const std::int32_t imageNo, const std::int32_t mapX,
+    const std::int32_t mapY, const std::int32_t characterAction,
+    const std::int32_t direction, const std::uint8_t displayPriority)
+{
+    YobiAction* const action = NewYobiAction_404AE0(2, 0);
+    if (action == nullptr) {
+        return nullptr;
+    }
+    action->imageNo = imageNo;
+    action->characterAction = characterAction;
+    action->direction = direction;
+    action->displayPriority = displayPriority;
+    action->flags = 0x20u;
+    platform::legacy_crypt_int::AssignFromInt(&action->mapX200, mapX);
+    platform::legacy_crypt_int::AssignFromInt(&action->mapY210, mapY);
+    platform::legacy_crypt_int::AssignFromInt(&action->mapX1E0, mapX);
+    platform::legacy_crypt_int::AssignFromInt(&action->mapY1F0, mapY);
+    const double scaledX = static_cast<double>(mapX) * 64.0F;
+    action->field27C = 0;
+    action->field280 = 0;
+    const auto worldX = static_cast<float>(scaledX);
+    action->worldX = worldX;
+    const auto worldY = static_cast<float>(static_cast<double>(mapY) * 64.0F);
+    action->worldY = worldY;
+    float screenX;
+    float screenY;
+    world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
+    action->x = static_cast<std::int32_t>(
+        static_cast<std::int64_t>(static_cast<double>(screenX) + 0.5));
+    action->y = static_cast<std::int32_t>(
+        static_cast<std::int64_t>(static_cast<double>(screenY) + 0.5));
+    return action;
+}
+
+void Sub_4412D0(
+    YobiAction* const action, [[maybe_unused]] const std::int32_t primaryIndex,
+    std::int32_t* const characterAction, std::int32_t* const revert)
+{
+    auto* const payload = static_cast<MapActorPayload*>(action->payload);
+    for (std::int32_t slot = 0; slot < 2; ++slot) {
+        const std::int32_t kind = slot == 0 ? payload->kind3C : payload->kind40;
+        if (kind == 2) {
+            *characterAction = 0;
+            *revert = 0;
+        } else if (kind >= 3 && kind <= 5) {
+            switch (action->characterAction) {
+            case 1: *characterAction = 1; *revert = 0; break;
+            case 2: *characterAction = 2; *revert = 1; break;
+            case 3: *characterAction = 3; *revert = 0; break;
+            case 4: *characterAction = 4; *revert = 1; break;
+            case 5: *characterAction = 5; *revert = 1; break;
+            case 6: *characterAction = 6; *revert = 0; break;
+            case 8: *characterAction = 8; *revert = 1; break;
+            case 9: *characterAction = 9; *revert = 1; break;
+            case 10: *characterAction = 10; *revert = 1; break;
+            case 0:
+            case 12:
+            case 13:
+            case 14:
+            case 15:
+            case 16:
+                *characterAction = 0;
+                *revert = 0;
+                break;
+            default:
+                *characterAction = 0;
+                *revert = 1;
+                break;
+            }
+        } else if (action->characterAction == 10) {
+            *characterAction = 10;
+            *revert = 1;
+        } else {
+            *characterAction = 0;
+            *revert = 0;
+        }
+    }
+}
+
+void Sub_441430(
+    YobiAction* const action, [[maybe_unused]] const std::int32_t primaryIndex,
+    std::int32_t* const x, std::int32_t* const y, std::uint8_t* const before)
+{
+    auto* const payload = static_cast<MapActorPayload*>(action->payload);
+    for (std::int32_t slot = 0; slot < 2; ++slot) {
+        const std::int32_t kind = slot == 0 ? payload->kind3C : payload->kind40;
+        if (kind < 3 || kind > 5) {
+            continue;
+        }
+        switch (action->direction) {
+        case 0: *x = 34; *y = -4; break;
+        case 1: *x = 36; *y = 16; break;
+        case 2: *x = 16; *y = 24; break;
+        case 3: *x = -16; *y = 26; break;
+        case 4: *x = -34; *y = 8; break;
+        case 5: *x = -36; *y = -12; break;
+        case 6: *x = -20; *y = -20; break;
+        case 7: *x = 16; *y = -26; break;
+        default: break;
+        }
+        switch (action->direction) {
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+            *before = 1;
+            break;
+        case 0:
+        case 5:
+        case 6:
+        case 7:
+            *before = 0;
+            break;
+        default: break;
+        }
+    }
+}
+
+void DrawGear_441570(
+    YobiAction* const action, const std::int32_t primaryIndex,
+    const std::int32_t offsetX, const std::int32_t offsetY,
+    const std::uint8_t before)
+{
+    auto* const payload = static_cast<MapActorPayload*>(action->payload);
+    for (std::int32_t slot = 0; slot < 2; ++slot) {
+        const std::int32_t kind = slot == 0 ? payload->kind3C : payload->kind40;
+        YobiAction* const child = slot == 0 ? payload->action34 : payload->action38;
+        if (child == nullptr) {
+            continue;
+        }
+        if (kind >= 3 && kind <= 5) {
+            const render::GraphicDescriptor16* const descriptor = &child->drawMode;
+            const std::int32_t childY = Sub_518300(child, 1, kind);
+            const std::int32_t drawY = childY + action->y + offsetY;
+            const std::int32_t childX = Sub_518300(child, 0, kind);
+            const std::int32_t drawX = childX + action->x + offsetX;
+            const std::int32_t graphicIndex = child->graphicIndex;
+            world::detail::DrawGearNormal_46C060(
+                primaryIndex, before, graphicIndex,
+                std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
+                std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)),
+                descriptor, static_cast<std::uint8_t>(kind + 7));
+        } else if (kind == 1 || kind == 2 || kind == 6) {
+            const render::GraphicDescriptor16* const descriptor = &child->drawMode;
+            const std::int32_t childY = Sub_5182B0(child, 1);
+            const std::int32_t drawY = childY + action->y;
+            const std::int32_t childX = Sub_5182B0(child, 0);
+            const std::int32_t drawX = childX + action->x;
+            const std::int32_t graphicIndex = child->graphicIndex;
+            world::detail::DrawGearNormal_46C060(
+                primaryIndex, kind == 1 ? 0 : 1, graphicIndex,
+                std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
+                std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)),
+                descriptor, 0);
+        }
+    }
+}
+
+std::int32_t ShowHpBar_43DB60(
+    YobiAction* const action, const std::int16_t offsetX,
+    const std::int16_t offsetY, const std::int32_t color)
+{
+    NineGridDescriptorFields fields {};
+    std::int32_t graphicIndex;
+    resource::GetGraphicMapNoIndex(0x3BDF0, &graphicIndex);
+    std::int16_t graphicX;
+    std::int16_t graphicY;
+    resource::GetGraphicXY(static_cast<std::uint32_t>(graphicIndex), &graphicX, &graphicY);
+    fields.color = color;
+    fields.mixMode = 4;
+    fields.clip = 1;
+    fields.sourceX = -16;
+    fields.sourceY = -1;
+    fields.height = 2;
+    render::GraphicDescriptor16 descriptor = ToGraphicDescriptor(fields);
+    if (platform::legacy_crypt_int::Read_401EC0(&action->maxHp) != 0) {
+        const std::int32_t numerator =
+            platform::legacy_crypt_int::Read_401EC0(&action->readiness) * 32;
+        const std::int32_t maximum =
+            platform::legacy_crypt_int::Read_401EC0(&action->maxHp);
+        fields.width = static_cast<std::int16_t>(numerator / maximum);
+        const std::int32_t y = action->y + offsetY - 2;
+        const std::int32_t x = action->x + offsetX - 12;
+        descriptor = ToGraphicDescriptor(fields);
+        static_cast<void>(render::DrawGraphic3_520970(
+            x, y, 0xCF, 0x3BDF0, 0, 1, 0, &descriptor));
+    }
+    if (platform::legacy_crypt_int::Read_401EC0(&action->barMaximum1C0) != 0) {
+        const std::int32_t numerator =
+            platform::legacy_crypt_int::Read_401EC0(&action->barValue1B0) * 32;
+        const std::int32_t maximum =
+            platform::legacy_crypt_int::Read_401EC0(&action->barMaximum1C0);
+        fields.width = static_cast<std::int16_t>(numerator / maximum);
+        const std::int32_t y = action->y + offsetY + 1;
+        const std::int32_t x = action->x + offsetX - 12;
+        descriptor = ToGraphicDescriptor(fields);
+        static_cast<void>(render::DrawGraphic3_520970(
+            x, y, 0xCF, 0x3BDEF, 0, 1, 0, &descriptor));
+    }
+    const std::int32_t y = action->y + offsetY;
+    const std::int32_t x = action->x + offsetX;
+    fields.clip = 0;
+    descriptor = ToGraphicDescriptor(fields);
+    return DrawGraphic(x, y, 0xCF, 0x3BDEE, 0, &descriptor);
 }
 
 // 原 440C50；唯一 callback 写者为 440B70，见 Yobi 观察回调 SPEC。

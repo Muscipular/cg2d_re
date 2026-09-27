@@ -8,6 +8,7 @@
 
 > 以下小步按新增时间倒序保留历史快照；较旧条目的“尚未实现/未接”只描述当时状态，遇到冲突以较新的条目及当前源码为准。当前完整客户端尚不可链接，网络分派、Yobi 观察链、地图绘制父链和运行验收均未闭合。
 
+- **2026-09-27，`523310` 纹理节点 reset 叶已静态落位。** 本线程按当前 IDA 的完整 13 条指令在 render 唯一 owner 新增 4096 项 x64 节点、实际 count 与扫描下标，按原先清下标、S32 正数循环和图号→复用状态→next 的限定写集实现；surface、块坐标、三快照及未知尾字节保留。见[DX 证据 §75](../doc/cg2d_graphic_dx_cache.md)与[x64 SPEC §11](../doc/cg2d_graphic_dx_cache_x64_spec.md)。限定 `git diff --check`、UTF-8 无 BOM/LF 和 Debug `cg2d_re_core/cg2d_re_startup` 静态库编译通过，无新增告警；`TextureSurface` 仍只是非拥有引用，`BuildSurfaceCache` 创建/发布、数值键、Destroy、SDL 提交和完整链接/运行未闭合；未检查产物、不运行客户端或测试，不用 subAgent/独立复核、不操作 IDA 文件；音频暂缓，总 SPEC 未验收。
 - **2026-09-27，`Renderer::Init@44B630` 的 SDL 替换边界已进一步取证，源码未接线。** 本线程只读当前 IDA 完整指令及四处直接 caller，将色深重采样、尺寸/掩码发布、请求/支持模式 2/3/4 的降级和 `data\update.dat` 写入，同可替换的 DX7 原生资源段分开记录于[呈现器证据](../doc/cg2d_sdl_presenter.md)。SDL3/CPU Back 可承接 32 位表面和最终提交，但不自动实现这些模式的上层绘制与状态；`BuildSurfaceCache` 节点、`Init/Destroy/Flip/DrawAllQueued` 仍未闭合。本步仅写证据/进度，未编译、测试或运行，不用 subAgent/独立复核、不操作 IDA 文件；音频暂缓，总 SPEC 未验收。
 - **`46E2A0/46E340/46E390` 记录链初始化、领取与回收叶已限定落位。** world 唯一持有 500 项不透明记录与原生链接，按原序承接初始链、15 项状态、空闲/活动头转移及回收时的 `+0x3C` W16 清零；未知字段、完整 x64 记录布局及其余生产/绘制消费者仍待证。[场景证据 §20.4–20.5](../doc/cg2d_scene_state.md)不将链叶视作场景或画面验收。
 - **`46F090` 效果记录生产叶已限定落位。** 复用同一记录池和 `C8A756` W16，按原分支写种类、位置、定点值和两项参数；`46F1D0` 父更新及其余生产、绘制消费者仍未闭合。[场景证据 §20.6](../doc/cg2d_scene_state.md)不计实际画面。

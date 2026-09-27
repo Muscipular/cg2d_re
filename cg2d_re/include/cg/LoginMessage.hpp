@@ -12,7 +12,7 @@ extern char gValue9A620C[12][256];
 void ResetLoginMessage();
 
 // 原 sub_45CE10@0x45CE10。
-// 前提：text 非空、以 NUL 结尾，且 UTF-8 字节长度不超过 255。
+// 前提：text 非空、以 NUL 结尾，原编码字节长度不超过 255；本接口不转码。
 std::int32_t UpdateLoginMessage(const char* text);
 
 } // namespace cg::login

@@ -160,8 +160,6 @@ InitPalette 失败则无本函数额外提示。七条 ASCII 阶段日志的大�
 以下原直接目标仍只有真实声明，没有新增函数体或假成功：
 
 - `render::RendererInit_44B630`：32 位色、SDL/CPU、模式 2/3/4 及失败发布。
-- `initialization_detail::InitLoading_457B10`：
-  主加载阶段仍缺；两段淡入/淡出本体后续已实现，见文末。
 - `initialization_detail::InitializeMusic_454C30`：原次级 DirectMusic
   初始化，音频继续暂缓，没有以已有 `5241A0` 替掉这个独立调用。
 - `initialization_detail::InitializeWindowSystem_4705D0`：
@@ -170,8 +168,9 @@ InitPalette 失败则无本函数额外提示。七条 ASCII 阶段日志的大�
 后续已按[场景 §58 的 owner SPEC](cg2d_scene_state.md)接通
 `world::InitializeAlbum_518C20`，在唯一 `0x3C00C` 字节区执行
 整区清零和 `CCA\0` 复制，返回完整 W32 值 4。
-移除原 platform 候选声明；其后两段淡变也已落位，父函数尚缺的
-直接目标为 RendererInit、InitLoading、次级音乐和窗口系统四项；
+移除原 platform 候选声明；其后两段淡变及完整
+[InitLoading 阶段机](cg2d_loading_screen.md)也已落位，父函数尚缺的
+直接目标为 RendererInit、次级音乐和窗口系统三项；
 相册加载、保存、组清理和同步仍未实现，不将初始化当作相册整链完成。
 
 此外已有自动地图颜色包装的下游、DrawAllQueued 和完整退出依赖仍
@@ -243,7 +242,8 @@ InitPalette 失败则无本函数额外提示。七条 ASCII 阶段日志的大�
 
 两淡变入口及私有 helper 放在既有初始化源文件；
 复用平台消息、计时和睡眠边界及已实现的入队、调色板、清面、Flip。
-DrawAllQueued、3D 查询、RendererInit 和 InitLoading 等仍有缺口。
+InitLoading 后续已按独立 SPEC 完整实现；DrawAllQueued、3D 查询、
+507140 和 RendererInit 等仍有缺口。
 本步只做静态控制流、共享槽、声明/调用与格式检查，
 不构建、测试或运行，不将完整父函数等同于已有加载画面。
 

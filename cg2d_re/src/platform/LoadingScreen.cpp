@@ -1,0 +1,391 @@
+#include "ClientShutdown.hpp"
+#include "MainLoopDependencies.hpp"
+#include "StartupNative.hpp"
+
+#include "../LoginMessageDependencies.hpp"
+
+#include "cg/GraphicInfo.hpp"
+#include "cg/LoginMessage.hpp"
+#include "cg/YobiRuntime.hpp"
+#include "cg/platform/KeyState.hpp"
+#include "cg/platform/LegacyCursor.hpp"
+#include "cg/platform/LegacyMouse.hpp"
+#include "cg/platform/MainLoop.hpp"
+#include "cg/platform/Startup.hpp"
+#include "cg/render/GraphicPendingQueue.hpp"
+
+#include <bit>
+#include <cstring>
+
+namespace cg::platform::initialization_detail {
+namespace {
+
+// 原 [73ED28,73ED38)，跨次调用保留；只有 phase 0 执行原初始化写入。
+render::GraphicDescriptor16 gLoadingDescriptor{};
+constexpr char kLoadingMessage[] =
+    "\xA8\x53\xA6\xB3\xAB\xF6\xB7\xD3\xA5\xBF\xB1\x60"
+    "\xB5\x7B\xA7\xC7\xA6\x77\xB8\xCB";
+
+} // namespace
+
+// 原 InitLoading@[457B10,4582FE)，完整阶段及公共帧尾见 cg2d_loading_screen.md。
+std::int32_t InitLoading_457B10()
+{
+    std::int32_t phase = 0;
+    std::int32_t image = 0;
+    bool keepRunning = true;
+    render::gPaletteCapability = resource::ProbePaletteCapability_45C970();
+    std::uint32_t phaseTick = ReadTickCount32();
+    gLastRenderDt = static_cast<double>(phaseTick);
+    auto& descriptor = gLoadingDescriptor.bytes;
+    for (;;) {
+        if (PumpWindowMessages() == 0) {
+            static_cast<void>(ShutdownClient_457A40());
+            return 0;
+        }
+        gPendingGraphicCount = 0;
+        gPendingGraphicCount2 = 0;
+        static_cast<void>(render::ResetGraphicCache_456D30());
+        if ((static_cast<std::uint8_t>(gLegacyMouseState.edgeButtons) & 3u) != 0
+            || (gKeyStates[13] & 2u) != 0
+            || (gKeyStates[32] & 2u) != 0
+            || (gKeyStates[27] & 2u) != 0) {
+            if (phase < 21 || (phase >= 30 && phase <= 33)) {
+                phase = 21;
+            }
+        }
+
+        switch (phase) {
+        case 0: {
+            static_cast<void>(render::ClearSurface_4512C0());
+            const std::uint16_t zero = 0;
+            std::memcpy(descriptor.data() + 6, &zero, sizeof(zero));
+            std::memcpy(descriptor.data() + 4, &zero, sizeof(zero));
+            std::memcpy(descriptor.data() + 2, &zero, sizeof(zero));
+            std::memcpy(descriptor.data(), &zero, sizeof(zero));
+            descriptor[10] = 0;
+            descriptor[9] = 0;
+            descriptor[8] = 0;
+            descriptor[11] = 0xFF;
+            descriptor[12] = 0;
+            descriptor[13] = 0;
+            std::memcpy(descriptor.data() + 14, &zero, sizeof(zero));
+            static_cast<void>(render::SelectPalette(19, 1));
+            phase = 1;
+            login::detail::YobiClearUp_404D30();
+            break;
+        }
+        case 1:
+            image = 22029;
+            static_cast<void>(render::SelectPalette(23, 30));
+            phase = 5;
+            break;
+        case 2:
+            if (render::gPaletteChanging == 0) {
+                phaseTick = ReadTickCount32();
+                phase = 3;
+            }
+            break;
+        case 3: {
+            const std::uint32_t now = ReadTickCount32();
+            if (phaseTick + 4000u < now) {
+                static_cast<void>(render::SelectPalette(19, 30));
+                phase = 4;
+            }
+            break;
+        }
+        case 4:
+            if (render::gPaletteChanging == 0) {
+                std::int32_t mapped;
+                static_cast<void>(resource::GetGraphicMapNoIndex(238564, &mapped));
+                if (mapped < 1) {
+                    static_cast<void>(resource::GetGraphicMapNoIndex(22049, &mapped));
+                }
+                phase = 5;
+            }
+            break;
+        case 5:
+            image = 99103;
+            static_cast<void>(render::SelectPalette(23, 30));
+            phase = 6;
+            break;
+        case 6:
+            if (render::gPaletteChanging == 0) {
+                phaseTick = ReadTickCount32();
+                phase = 7;
+            }
+            break;
+        case 7: {
+            const std::uint32_t now = ReadTickCount32();
+            if (phaseTick + 4000u < now) {
+                static_cast<void>(render::SelectPalette(19, 30));
+                phase = 8;
+            }
+            break;
+        }
+        case 8:
+            if (render::gPaletteChanging == 0) {
+                phase = 9;
+            }
+            break;
+        case 9:
+            image = 22027;
+            static_cast<void>(render::SelectPalette(34, 30));
+            phase = 10;
+            break;
+        case 10:
+            if (render::gPaletteChanging == 0) {
+                phaseTick = ReadTickCount32();
+                phase = 11;
+            }
+            break;
+        case 11: {
+            const std::uint32_t now = ReadTickCount32();
+            if (phaseTick + 4000u < now) {
+                static_cast<void>(render::SelectPalette(19, 30));
+                phase = 12;
+            }
+            break;
+        }
+        case 12:
+            if (render::gPaletteChanging == 0) {
+                std::int32_t mapped;
+                static_cast<void>(resource::GetGraphicMapNoIndex(22049, &mapped));
+                phase = mapped < 1 ? 13 : 17;
+            }
+            break;
+        case 13:
+            image = 22028;
+            static_cast<void>(render::SelectPalette(22, 30));
+            phase = 14;
+            break;
+        case 14:
+            if (render::gPaletteChanging == 0) {
+                phaseTick = ReadTickCount32();
+                phase = 15;
+            }
+            break;
+        case 15: {
+            const std::uint32_t now = ReadTickCount32();
+            if (phaseTick + 2000u < now) {
+                static_cast<void>(render::SelectPalette(19, 30));
+                phase = 16;
+            }
+            break;
+        }
+        case 16:
+            if (render::gPaletteChanging == 0) {
+                phase = 26;
+            }
+            break;
+        case 17:
+            image = 22049;
+            static_cast<void>(render::SelectPalette(26, 60));
+            phase = 18;
+            break;
+        case 18:
+            if (render::gPaletteChanging == 0) {
+                phaseTick = ReadTickCount32();
+                phase = 19;
+            }
+            break;
+        case 19: {
+            const std::uint32_t now = ReadTickCount32();
+            if (phaseTick + 2000u < now) {
+                static_cast<void>(render::SelectPalette(19, 60));
+                phase = 20;
+            }
+            break;
+        }
+        case 20:
+            if (render::gPaletteChanging == 0) {
+                phase = 13;
+            }
+            break;
+        case 21:
+            image = 0;
+            static_cast<void>(render::SelectPalette(0, 1));
+            static_cast<void>(render::ClearSurface_4512C0());
+            phase = 22;
+            if (resource::ProbePaletteCapability_45C970() < 0) {
+                phase = 24;
+            }
+            break;
+        case 22:
+            image = 0;
+            static_cast<void>(render::SelectPalette(19, 1));
+            static_cast<void>(render::ClearSurface_4512C0());
+            phase = 23;
+            break;
+        case 23:
+            image = 0;
+            keepRunning = false;
+            break;
+        case 24:
+            phase = 25;
+            login::ResetLoginMessage();
+            break;
+        case 25:
+            if (login::UpdateLoginMessage(kLoadingMessage) == 1) {
+                return 0;
+            }
+            break;
+        case 26:
+            image = 238564;
+            if (render::HasLegacy3DDevice_44B610() != 0) {
+                static_cast<void>(render::SelectPalette(0, 0));
+                descriptor[8] = 0;
+                descriptor[9] = 0;
+                descriptor[10] = 0;
+            } else {
+                static_cast<void>(render::SelectPalette(0, 30));
+            }
+            phase = 27;
+            break;
+        case 27:
+            if (render::HasLegacy3DDevice_44B610() != 0) {
+                if (static_cast<int>(descriptor[10]) + 4 <= 255) {
+                    const std::uint8_t red = descriptor[10];
+                    const std::uint8_t green = descriptor[9];
+                    const std::uint8_t blue = descriptor[8];
+                    descriptor[10] = static_cast<std::uint8_t>(red + 4);
+                    descriptor[9] = static_cast<std::uint8_t>(green + 4);
+                    descriptor[8] = static_cast<std::uint8_t>(blue + 4);
+                } else {
+                    descriptor[10] = 0xFF;
+                    descriptor[9] = 0xFF;
+                    descriptor[8] = 0xFF;
+                    phaseTick = ReadTickCount32();
+                    phase = 28;
+                }
+            } else if (render::gPaletteChanging == 0) {
+                phaseTick = ReadTickCount32();
+                phase = 28;
+            }
+            break;
+        case 28: {
+            const std::uint32_t now = ReadTickCount32();
+            if (phaseTick + 2000u < now) {
+                if (render::HasLegacy3DDevice_44B610() == 0) {
+                    static_cast<void>(render::SelectPalette(19, 30));
+                }
+                phase = 29;
+            }
+            break;
+        }
+        case 29:
+            if (render::HasLegacy3DDevice_44B610() != 0) {
+                const std::uint8_t red = descriptor[10];
+                if (red != 0) {
+                    if (red >= 4) {
+                        const std::uint8_t green = descriptor[9];
+                        descriptor[10] = static_cast<std::uint8_t>(red - 4);
+                        const std::uint8_t blue = descriptor[8];
+                        descriptor[9] = static_cast<std::uint8_t>(green - 4);
+                        descriptor[8] = static_cast<std::uint8_t>(blue - 4);
+                    } else {
+                        descriptor[8] = 0;
+                        descriptor[9] = 0;
+                        descriptor[10] = 0;
+                    }
+                } else {
+                    if (render::HasLegacy3DDevice_44B610() != 0) {
+                        static_cast<void>(render::SelectPalette(19, 0));
+                    }
+                    phase = 30;
+                }
+            } else if (render::gPaletteChanging == 0) {
+                phase = 30;
+            }
+            break;
+        case 30:
+            gLegacyMouseState.drawingSuppression = 1;
+            image = 99304;
+            static_cast<void>(render::SelectPalette(38, 60));
+            phase = 31;
+            break;
+        case 31: {
+            const std::int32_t changing = render::gPaletteChanging;
+            gLegacyMouseState.drawingSuppression = 1;
+            if (changing == 0) {
+                phaseTick = ReadTickCount32();
+                phase = 32;
+            }
+            break;
+        }
+        case 32: {
+            gLegacyMouseState.drawingSuppression = 1;
+            const std::uint32_t now = ReadTickCount32();
+            if (phaseTick + 2000u < now) {
+                static_cast<void>(render::SelectPalette(19, 30));
+                phase = 33;
+            }
+            break;
+        }
+        case 33: {
+            static_cast<void>(render::SelectPalette(19, 0));
+            std::int32_t mapped;
+            static_cast<void>(resource::GetGraphicMapNoIndex(22049, &mapped));
+            gLegacyMouseState.drawingSuppression = 0;
+            phase = mapped < 1 ? 13 : 17;
+            break;
+        }
+        }
+
+        static_cast<void>(login::detail::YobiUpdateAll_404C50());
+        if (image != 0) {
+            static_cast<void>(login::detail::DrawGraphic(
+                320, 240, 255, image, 0,
+                phase >= 26 && phase <= 29 ? &gLoadingDescriptor : nullptr));
+        }
+        UpdateCursor_506E00();
+        render::SortTextures_520790();
+        Sub_507140();
+        static_cast<void>(render::UpdatePalette_450BB0());
+        ClearKeyFlags_459760();
+        const double threshold = gFrameThreshold + gLastRenderDt;
+        const std::uint32_t tick = ReadTickCount32();
+        bool skipDrawing = false;
+        if (static_cast<double>(tick) > threshold) {
+            const std::uint32_t catchUpCount = gCatchUpCount;
+            if (std::bit_cast<std::int32_t>(catchUpCount) < 20) {
+                const double deadline = gFrameIncrement + gLastRenderDt;
+                gCatchUpCount = catchUpCount + 1u;
+                gLastRenderDt = deadline;
+                skipDrawing = true;
+            }
+        }
+        if (!skipDrawing) {
+            if (render::HasLegacy3DDevice_44B610() == 0) {
+                render::gPaletteFrameVersion = std::bit_cast<std::int32_t>(
+                    std::bit_cast<std::uint32_t>(render::gPaletteFrameVersion) + 1u);
+            }
+            if (gWindowActiveState == 1) {
+                gWindowActiveState = 2;
+            }
+            render::DrawAllQueued_520DD0();
+            if (gPendingPaletteReload == 1) {
+                auto* palette = render::GetRendererPalette(render::gRenderer);
+                static_cast<void>(render::SetPaletteEntries(
+                    palette, 0, 0, 256, render::gPalette));
+                gPendingPaletteReload = 0;
+            }
+            render::Flip_44C560();
+            std::uint32_t waitTick = ReadTickCount32();
+            while (!(static_cast<double>(waitTick) > gLastRenderDt)) {
+                Sleep(1);
+                waitTick = ReadTickCount32();
+            }
+            const double deadline = gFrameIncrement + gLastRenderDt;
+            const std::uint32_t frame = gFrameCount;
+            gCatchUpCount = 1;
+            gFrameCount = frame + 1u;
+            gLastRenderDt = deadline;
+        }
+        if (!keepRunning) {
+            return 1;
+        }
+    }
+}
+
+} // namespace cg::platform::initialization_detail

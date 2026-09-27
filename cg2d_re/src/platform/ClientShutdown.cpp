@@ -2,6 +2,7 @@
 #include "ImeLifecycle.hpp"
 
 #include "cg/GraphicRead.hpp"
+#include "cg/GraphicAlloc.hpp"
 #include "cg/LegacyAudio.hpp"
 #include "cg/YobiRuntime.hpp"
 #include "cg/network/NetworkRuntime.hpp"
@@ -30,7 +31,6 @@ void RendererDestroy_44C3C0();            // 原 0x44C3C0：void __cdecl()。
 int Sub_454EE0();                          // 原 0x454EE0：int()。
 int AnimeUnload_45BEF0();                  // 原 AnimeUnload@0x45BEF0：int()。
 int Sub_45BF20();                          // 原 0x45BF20：int()。
-void Sub_457670();                         // 原 0x457670：void()。
 
 // 原 [0x4705F0,0x4705FF)：两个调用后尾透传窗口关闭结果。
 char Sub_4705F0()
@@ -55,7 +55,7 @@ int ShutdownClient_457A40()
     shutdown_detail::AnimeUnload_45BEF0();
     shutdown_detail::Sub_45BF20();
     cg::resource::CloseGraphicFiles();
-    shutdown_detail::Sub_457670();
+    cg::resource::Sub_457670();
     static_cast<void>(render::ReleaseFont_456530());
     ShutdownIme_459040();
     login::detail::Sub_404D60();

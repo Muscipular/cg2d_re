@@ -3,6 +3,7 @@
 namespace cg::resource::animation {
 
 AnimateRecord* gAnimateRecords9A4A58 = nullptr;
+AnimeCacheRecord* gAnimateCache9A4A5C = nullptr;
 std::int32_t gAnimateCount9A4A60 = 0;
 std::int32_t gMaxAnimateCount9A4A4C = 0;
 

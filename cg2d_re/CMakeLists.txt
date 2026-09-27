@@ -22,10 +22,12 @@ add_library(cg2d_re_core STATIC
     src/GraphicDecode.cpp
     src/GraphicInfo.cpp
     src/AnimationRuntime.cpp
+    src/GraphicAlloc.cpp
     src/GraphicRead.cpp
     src/Palette.cpp
     src/render/Font.cpp
     src/render/GraphicCacheState.cpp
+    src/render/GraphicDxCache.cpp
     src/render/SurfaceState.cpp
     src/platform/LegacyWindow.cpp
 )

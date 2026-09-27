@@ -59,6 +59,15 @@ struct YobiAction {
     platform::LegacyCryptInt readiness;
     std::int32_t creatorParam6;
     std::int32_t field1D0; // 原 +1D0；440B70 写子 action 的槽序号。
+    platform::LegacyCryptInt mapX1E0; // 46DD90 按 X→Y 读取并乘64。
+    platform::LegacyCryptInt mapY1F0;
+    platform::LegacyCryptInt mapX200; // 46DE50 先赋这组，再赋 +1E0/+1F0；不合并载荷。
+    platform::LegacyCryptInt mapY210;
+    std::uint16_t field270; // 原 +270；地图创建只清低 W16。
+    float worldX; // 原 +274/+278，地图投影输入，与 CryptInt 两组坐标独立。
+    float worldY;
+    std::uint32_t field27C;
+    std::uint32_t field280;
     std::int32_t walkSpeed;
     std::int32_t framePlayingRate;
     std::int32_t imageNo;
@@ -82,6 +91,8 @@ struct YobiAction {
     std::int32_t color2;
     std::uint8_t rebirthValue1;
     std::uint8_t rebirthValue2;
+    std::int32_t mapOffsetX; // 原 +314/+318；46CF60 写 .cut 偏移，46DD90 在 FrameMove 后读取。
+    std::int32_t mapOffsetY;
 };
 
 static_assert(std::is_standard_layout_v<YobiAction>);
@@ -838,6 +849,67 @@ YobiAction* NewYobiAction_404AE0(
 YobiAction* NewMapCharaAction()
 {
     return NewYobiAction_404AE0(2, sizeof(MapCharaPayload));
+}
+
+YobiAction* Sub_46DE50(
+    const std::int32_t imageNo, const std::int32_t mapX, const std::int32_t mapY)
+{
+    YobiAction* const action = NewYobiAction_404AE0(2, 0);
+    if (action == nullptr) {
+        return nullptr;
+    }
+    action->callback = nullptr;
+    action->imageNo = imageNo;
+    action->characterAction = 0;
+    action->direction = 0;
+    action->displayPriority = 10;
+    action->flags = 0x30;
+    platform::legacy_crypt_int::AssignFromInt(&action->mapX200, mapX);
+    platform::legacy_crypt_int::AssignFromInt(&action->mapY210, mapY);
+    action->field270 = 0;
+    platform::legacy_crypt_int::AssignFromInt(&action->mapX1E0, mapX);
+    platform::legacy_crypt_int::AssignFromInt(&action->mapY1F0, mapY);
+    const double scaledX = static_cast<double>(mapX) * 64.0f;
+    action->field27C = 0;
+    action->field280 = 0;
+    const auto worldX = static_cast<float>(scaledX);
+    action->worldX = worldX;
+    const auto worldY = static_cast<float>(static_cast<double>(mapY) * 64.0f);
+    action->worldY = worldY;
+    float screenX;
+    float screenY;
+    world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
+    action->x = static_cast<std::int32_t>(
+        static_cast<std::int64_t>(static_cast<double>(screenX) + 0.5));
+    action->y = static_cast<std::int32_t>(
+        static_cast<std::int64_t>(static_cast<double>(screenY) + 0.5));
+    return action;
+}
+
+void Sub_46DD90(YobiAction* const action)
+{
+    const float sceneY = action->worldY;
+    const float sceneX = action->worldX;
+    float screenX;
+    float screenY;
+    world::ProjectWorldToScreen_46CE30(sceneX, sceneY, &screenX, &screenY);
+    const auto x = static_cast<std::int64_t>(static_cast<double>(screenX) + 0.5);
+    const double y = static_cast<double>(screenY) + 0.5;
+    action->x = static_cast<std::int32_t>(x);
+    action->y = static_cast<std::int32_t>(static_cast<std::int64_t>(y));
+    const auto worldX = static_cast<float>(
+        platform::legacy_crypt_int::Multiply_401E90(&action->mapX1E0, 64));
+    const auto worldY = static_cast<float>(
+        platform::legacy_crypt_int::Multiply_401E90(&action->mapY1F0, 64));
+    static_cast<void>(Sub_517880(action, 100, 0, 0));
+    const std::int32_t offsetY = action->mapOffsetY;
+    const std::int32_t offsetX = action->mapOffsetX;
+    const std::int32_t drawY = offsetY + action->y;
+    const std::int32_t drawX = offsetX + action->x;
+    const std::int32_t imageNo = action->graphicIndex;
+    world::detail::Sub_46DFF0(
+        imageNo, std::bit_cast<std::uint32_t>(worldX), std::bit_cast<std::uint32_t>(worldY),
+        static_cast<std::int16_t>(drawX), static_cast<std::int16_t>(drawY), &action->drawMode);
 }
 
 YobiAction* Sub_43F180(YobiAction* const action)

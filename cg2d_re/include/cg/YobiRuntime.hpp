@@ -47,6 +47,11 @@ YobiAction* NewYobiAction_404AE0(
 // 三种地图角色生产者共用的 x64 payload 分配，不改变通用 404AE0 的尺寸合同。
 YobiAction* NewMapCharaAction();
 
+// 原 46DE50：创建地图动画 action，保留四次 CryptInt 临时赋值及投影顺序。
+YobiAction* Sub_46DE50(std::int32_t imageNo, std::int32_t mapX, std::int32_t mapY);
+// 原 46DD90：重新投影、读取加密坐标、FrameMove，再向同一地图对象缓存入队。
+void Sub_46DD90(YobiAction* action);
+
 // 原 5F9750 独立观察链；引用非拥有，清头不释放 action。
 YobiAction* Sub_43F180(YobiAction* action);
 void* Sub_43F1B0(YobiAction* action);

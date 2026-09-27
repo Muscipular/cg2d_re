@@ -39,6 +39,10 @@ std::int32_t InitializeIndependentPalettes_522B30();
 // 原 522C50：先释放记录池、再释放索引池，分别清指针；保留队列、计数与 DBF 数据。
 void ReleaseIndependentPalettes_522C50();
 
+// 原 523140 的资源侧：非法索引清零返回 2，版本相同返回 0，否则经 522CB0 刷新返回 1。
+// index 为绘制记录 +22 的 S16；只借用该值，不复制资源记录或调色板。
+std::uint8_t RefreshIndependentPalette32_523140(std::int16_t& index);
+
 // 原 0x45A900：按全局图形号 seek/read，再调用 ReadGraphicData；可省略 paletteLength。
 // 调用者须先建立元信息和文件表；实际查文件表时 fileIndex 必须在 0..8。
 // 读取成功后 destination 指针槽必须可写，记录长度/解压结果须落在相应存储内。

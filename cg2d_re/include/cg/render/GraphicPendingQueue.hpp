@@ -111,6 +111,9 @@ void Sub_522210(const GraphicCacheItem32* graphic, std::uint32_t imageNoBits);
 // 颜色与混合模式；仅底层返回原 surface-busy 位型时写 gGraphicDirty。
 void FillDirtyArea_520AD0(const GraphicCacheItem32* graphic);
 
+// 原 Graphic::LoadPatelet@523140：借用 +22 的 S16 独立调色板索引，保留 0/1/2 返回。
+std::uint8_t LoadGraphicIndependentPalette_523140(GraphicCacheItem32* graphic);
+
 // 原 Renderer::DrawGraphic3@[0x520970,0x520ACE)。
 std::int32_t DrawGraphic3_520970(
     std::int32_t x,

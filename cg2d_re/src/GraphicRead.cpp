@@ -2,6 +2,7 @@
 
 #include "cg/GraphicDecode.hpp"
 #include "cg/GraphicInfo.hpp"
+#include "cg/Palette.hpp"
 #include "cg/platform/Startup.hpp"
 
 #include <array>
@@ -163,6 +164,7 @@ PaletteDbfState gPaletteDbf;
 std::int32_t gIndependentPaletteCount = 0; // 原 103CF18，不随池释放清零。
 IndependentPaletteIndex* gIndependentPaletteIndex = nullptr;
 IndependentPaletteRecord* gIndependentPaletteRecords = nullptr;
+std::uint32_t gIndependentPaletteLoadCount = 0; // 原 103CF08，仅 loaded 为零的读取分支递增。
 
 // 原 522900；唯一 caller 弃返回，保留文件、共享头、跨次索引和入队副作用。
 void LoadIndependentPaletteIndex_522900()
@@ -219,6 +221,59 @@ void LoadIndependentPaletteIndex_522900()
         }
         gIndependentPaletteQueue.push_back(readWord(record + 4));
     }
+}
+
+// 原 522CB0 的 32 位分支；loaded 只读，不自行置位或增加空记录恢复。
+void LoadIndependentPalette32_522CB0(const std::int32_t index)
+{
+    if (index < 0 || index >= gIndependentPaletteCount) {
+        return;
+    }
+    IndependentPaletteIndex& entry = gIndependentPaletteIndex[index];
+    if (entry.loaded == 0) {
+        std::int32_t imageNo;
+        GetGraphicMapNoIndex(gIndependentPaletteQueue[index], &imageNo);
+        std::uint32_t paletteLength;
+        if (ReadGraphicDataByIndex(
+                imageNo, &gGraphicDataPtr, &gCurrentGraphicWidth,
+                &gCurrentGraphicHeight, &paletteLength) == 0) {
+            gGraphicDataBuffer = -1;
+            std::memset(entry.record->sourceBgr, 0, sizeof(entry.record->sourceBgr));
+        } else {
+            gGraphicDataBuffer = imageNo;
+            std::memcpy(
+                entry.record->sourceBgr,
+                gGraphicDataPtr + gCurrentGraphicWidth * gCurrentGraphicHeight,
+                paletteLength);
+            if (paletteLength < 0x300) {
+                // 原 522D89..522DBF：起点向下取整到 BGR 边界，长度仍是 768-L。
+                std::memset(
+                    entry.record->sourceBgr + (paletteLength / 3) * 3,
+                    0, 0x300 - paletteLength);
+            }
+        }
+
+        entry.record->originalColors[0] = 0;
+        for (std::size_t colorIndex = 1; colorIndex < 256; ++colorIndex) {
+            const std::uint8_t* const bgr = entry.record->sourceBgr + colorIndex * 3;
+            const std::uint32_t color = (static_cast<std::uint32_t>(bgr[2]) << 16)
+                | (static_cast<std::uint32_t>(bgr[1]) << 8) | bgr[0];
+            entry.record->originalColors[colorIndex] = color == 0 ? 1u : color;
+        }
+        ++gIndependentPaletteLoadCount;
+    }
+
+    entry.record->tonedColors[0] = 0;
+    for (std::size_t colorIndex = 1; colorIndex < 256; ++colorIndex) {
+        const std::uint8_t* const bgr = entry.record->sourceBgr + colorIndex * 3;
+        const std::uint32_t red = render::gColorChannelMaps.red[bgr[2]];
+        const std::uint32_t green = render::gColorChannelMaps.green[bgr[1]];
+        const std::uint32_t blue = render::gColorChannelMaps.blue[bgr[0]];
+        const std::uint32_t color = (red << 16) | (green << 8) | blue;
+        entry.record->tonedColors[colorIndex] = color == 0 ? 1u : color;
+    }
+    entry.record->paletteChoice = static_cast<std::int16_t>(render::gActivePalette);
+    entry.record->paletteVersion = static_cast<std::int16_t>(render::gPaletteFrameVersion);
 }
 
 } // namespace
@@ -354,6 +409,22 @@ void ReleaseIndependentPalettes_522C50()
     gIndependentPaletteRecords = nullptr;
     platform::ReleaseLockedGlobalMemory(gIndependentPaletteIndex);
     gIndependentPaletteIndex = nullptr;
+}
+
+std::uint8_t RefreshIndependentPalette32_523140(std::int16_t& index)
+{
+    if (index <= 0 || index >= gIndependentPaletteCount) {
+        index = 0;
+        return 2;
+    }
+    const IndependentPaletteRecord* const record = gIndependentPaletteIndex[index].record;
+    if (record != nullptr
+        && record->paletteChoice == render::gActivePalette
+        && record->paletteVersion == render::gPaletteFrameVersion) {
+        return 0;
+    }
+    LoadIndependentPalette32_522CB0(index);
+    return 1;
 }
 
 int ReadGraphicDataByIndex(

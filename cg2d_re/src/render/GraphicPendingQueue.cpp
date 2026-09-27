@@ -1,5 +1,6 @@
 #include "cg/render/GraphicPendingQueue.hpp"
 
+#include "cg/GraphicRead.hpp"
 #include "cg/platform/CommandOptions.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/render/SurfaceState.hpp"
@@ -122,6 +123,17 @@ const std::array<std::int32_t, 64> gRippleSineTable {
     0, -1, -2, -3, -4, -5, -6, -7, -8, -9, -10, -10, -11, -11, -11, -12,
     -12, -12, -11, -11, -11, -10, -9, -9, -8, -7, -6, -5, -4, -3, -2, -1,
 };
+
+std::uint8_t LoadGraphicIndependentPalette_523140(GraphicCacheItem32* const graphic)
+{
+    std::int16_t index;
+    std::memcpy(&index, graphic->descriptor.data() + 0x0E, sizeof(index));
+    const std::uint8_t result = resource::RefreshIndependentPalette32_523140(index);
+    if (result == 2) {
+        std::memcpy(graphic->descriptor.data() + 0x0E, &index, sizeof(index));
+    }
+    return result;
+}
 
 std::uint32_t BackupValues_5208F0()
 {

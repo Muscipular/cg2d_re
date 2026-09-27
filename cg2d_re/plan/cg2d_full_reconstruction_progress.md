@@ -1,6 +1,6 @@
 # cg2d 完整复刻独立进度
 
-> 更新日期：2026-09-27，`RPLAN.32` 压缩后增量：DBF 索引与独立调色板双池。对应[总 SPEC](cg2d_full_reconstruction_plan.md)、[执行规则](../AGENTS.md)。
+> 更新日期：2026-09-27，`RPLAN.32` 压缩后增量：DBF 索引、独立调色板双池与颜色刷新。对应[总 SPEC](cg2d_full_reconstruction_plan.md)、[执行规则](../AGENTS.md)。
 > 本文件是本线唯一执行进度；旧 M 系列与根 `plans/progess.md` 不参与本线完成度。
 > RPLAN.32 压缩时核对会话 `01a0d16c-6460-7520-a994-993fa9977215`、当前源码和证据，只整理文档，不重新验收旧实现；后续实现另记增量。压缩前全文固定于 `a0831a64d01113b14edeed366f6bdefd3f9afdd3`，查阅方法见 §4。
 
@@ -14,8 +14,8 @@
 |---|---|---|---|
 | 入口与主循环 | WinMain、配置/参数、窗口、MainLoop、World::Update 分发及多项退出/防护叶；主循环已有网络、清屏与 Flip 调用 | `InitializeClient_4576B0` 仅声明；初始化、状态目标和全部退出依赖未闭合 | [入口](../doc/cg2d_startup_flow.md)、[主循环](../doc/cg2d_main_loop.md)、[退出](../doc/cg2d_client_shutdown.md) |
 | 地图文件与状态 | 三平面缓冲、`468570/4688A0/468C40/469290` 文件/校验函数、第四平面 `4693F0/46D9C0`、`469030/469870`、回复 `509100/5093F0` 已有本体；`467F30/468330` 已定义 | 地图绘制下游、路径父链及世界流程未闭合；`46B6F0` 的共享邻槽布局方案尚待确认，不再因单纯异常故障模拟停工 | [场景 §78–112](../doc/cg2d_scene_state.md)、[资源来源](../doc/cg2d_resource_sources.md) |
-| Graphic 读取与分配 | `GraphicDecode/GraphicInfo/GraphicRead/Palette`；`4574E0` 四表与 `457670` 释放；`522570` 读图状态；`53AF90` 解压、`522900` 持久 DBF 索引、`522B30/522C50` 队列双池初始化/释放已实现并接退出 | `5222D0` 只有声明；`522CB0/523140` 生产/刷新、资源初始化父链与运行加载未验收 | [资源实现](../doc/cg2d_resource_implementation.md)、[DX §5.10–5.15](../doc/cg2d_graphic_dx_cache.md) |
-| DX 缓存与像素 | x64 DX 表、4096 节点及 reset/invalidate；`5231A0` CPU 建面；104 项动态及四项静态调色板池、领取/老化、`44E290`；`451310/450400` 清面/索引像素写入 | `520B10` 父上传、节点建链、独立调色板刷新、surface 数值键与变换缓存消费者未闭合；不得用 AutoMap 代替非零独立调色板索引 | [DX 证据](../doc/cg2d_graphic_dx_cache.md)、[x64 SPEC §10–13](../doc/cg2d_graphic_dx_cache_x64_spec.md) |
+| Graphic 读取与分配 | `GraphicDecode/GraphicInfo/GraphicRead/Palette`；`4574E0` 四表与 `457670` 释放；`522570` 读图状态；`53AF90` 解压、`522900` 持久 DBF 索引、`522B30/522C50` 队列双池及 `522CB0/523140` 32 位颜色刷新已有本体，释放已接退出 | `5222D0` 只有声明；资源初始化/绘制父链与运行加载未验收 | [资源实现](../doc/cg2d_resource_implementation.md)、[DX §5.10–5.16](../doc/cg2d_graphic_dx_cache.md) |
+| DX 缓存与像素 | x64 DX 表、4096 节点及 reset/invalidate；`5231A0` CPU 建面；104 项动态及四项静态调色板池、领取/老化、`44E290`；`451310/450400` 清面/索引像素写入；独立调色板刷新已有本体 | `520B10` 父上传、节点建链、surface 数值键与变换缓存消费者未闭合；不得用 AutoMap 代替非零独立调色板索引 | [DX 证据](../doc/cg2d_graphic_dx_cache.md)、[x64 SPEC §10–13](../doc/cg2d_graphic_dx_cache_x64_spec.md) |
 | SDL 画面与生命周期 | SdlPresenter、唯一 Back/Temp、像素格式发布 helper；`Flip_44C560` 已接主循环，`RendererDestroy_44C3C0` 已接退出链 | `Renderer::Init/Rebuild`、`DrawAllQueued_520DD0`、真实像素生产和模式 2/3/4 未闭合；presenter 创建未由初始化父链调用，不能称已有可运行画面 | [呈现器](../doc/cg2d_sdl_presenter.md)、[缓存](../doc/cg2d_graphic_dx_cache.md) |
 | Anime | `45B420/45B390/45B400` 查询；P1/P4 x64 分配；六个清理叶；`45B5D0/45B590/45B5B0/45B530` 主索引池链 | `AnimeInit@45BB20` 仅取证；`AnimeLoadAction`、完整 `FrameMove@517880` 未实现；`9A4A54` 正常资源身份/归属等仍须落实。越界/溢出不另设专项恢复门禁 | [动画 §1–7](../doc/cg2d_animation_runtime.md)、[x64 SPEC §10](../doc/cg2d_graphic_dx_cache_x64_spec.md) |
 | 世界效果与 Yobi | 500 项效果链、kind 1/2/4 更新、`46E4A0` 调度；观察链四叶、五槽生产/标死、`440FE0/51D5B0`；玩家 `FDA880/FF02B4` 唯一槽已建立 | `46F1D0` 仅有描述符和声明；FrameMove、绘制、其他观察回调、玩家发布/清理/整块重置及 world 对象表仍缺 | [场景 §20、114–116](../doc/cg2d_scene_state.md)、[Yobi](../doc/cg2d_yobi_runtime.md) |
@@ -120,3 +120,4 @@ git -c i18n.logOutputEncoding=utf-8 log --oneline -- cg2d_re
 - **2026-09-27，RPLAN.32：** 分析目标会话与当前工作树，按功能链将日志从 952 行压缩为 119 行并保留固定追溯；汇总规则，将“不构建”、RPLAN.24、可信参考和已实现/待批界限同步至计划、DX 与动画文档。五份文档严格 UTF-8 无 BOM/LF、相对文件链接、限定差异及两次存档对象检查通过。只改文档，不改生产代码、根进度或既有未提交文件；未调用 IDA、未构建/测试/运行，未使用 subAgent，不将本次文档检查算作旧实现重新验收。
 - **2026-09-27，DX §13 裁决：** 按用户委托，独立调色板队列、计数、索引、记录与 DBF 索引统一归既有 `cg::resource::GraphicRead`，render 仅窄访问。用户明确 `5222D0` 第二参数恒空，保留未使用 `void*`，非空分支不进入新端实现；当前本体尚无定义，无现存分支可删，仅修改声明注释和未使用参数标记。SPEC、总计划及相关证据已同步，不重写原指令事实；资源存储、DBF 父链、节点构建和上传仍待实现。六文件 UTF-8 无 BOM/LF、相对文件链接、限定差异及声明/调用点静态检查通过；不构建/测试/运行，不使用 subAgent，不改既有未提交文件。
 - **2026-09-27，`522900/522B30/522C50`：** 按现有 IDA 完整指令与 cg3a 可信静态表，在 `GraphicRead` 落位跨次 DBF 索引/解压块、1752 项队列和独立调色板双池；保留 signed 键覆盖、第二 W32 数值入队、短读/magic/解压返回及发布释放次序，退出原 `457A45` 已接线。Win32 API 留在平台窄边界。60 段表与参考逐项静态一致；十文件严格 UTF-8 无 BOM/LF、Markdown 文件链接、限定差异及声明/定义/调用点检查通过。不构建/测试/运行，不使用 subAgent；初始化/重建父入口、`522CB0/523140/5222D0/520B10` 与完整链接/画面仍缺，详见 [DX §5.15](../doc/cg2d_graphic_dx_cache.md)。
+- **2026-09-27，`522CB0/523140`：** 继 `207245c` 后实现独立 BGR 读取、原色/色调双表和 S16 版本刷新；保留短表三字节边界补零、局部长度不覆盖共享长度、失败残留、loaded 只读和 0/1/2 返回。绘制记录包装只改原 +22。七文件限定差异、严格 UTF-8 无 BOM/LF、文件链接与接口静态检查通过；不构建/测试/运行，不使用 subAgent。`DrawAllQueued/520B10` 与初始化父调用仍缺，见 [DX §5.16](../doc/cg2d_graphic_dx_cache.md)。

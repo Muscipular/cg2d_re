@@ -51,7 +51,7 @@ YobiAction* NewYobiAction_404AE0(
 // 三种地图角色生产者共用的 x64 payload 分配，不改变通用 404AE0 的尺寸合同。
 YobiAction* NewMapCharaAction();
 
-// 原 441DB0：地图实体的独立原生载荷、四次坐标赋值与投影；真实回调 4417E0 尚待实现。
+// 原441DB0：独立载荷、四次坐标赋值/投影；4417E0已有本体，挂件尾442F70仍待实现。
 YobiAction* Sub_441DB0(
     std::int32_t imageNo, std::int32_t mapX,
     std::int32_t mapY, std::int32_t direction);

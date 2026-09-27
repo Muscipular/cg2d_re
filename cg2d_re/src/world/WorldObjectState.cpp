@@ -18,6 +18,49 @@ std::int32_t gWorldObjectFreeCursor = 0;
 std::int32_t gWorldObjectUsedCount = 0;
 std::int32_t gWorldObjectUpperBound = 0;
 
+namespace {
+
+// 原[5ABFE0,5AC490)三列数值缓存，与后方World对象表独立。
+struct MapActorDrawKey {
+    std::int32_t graphicIndex;
+    std::int32_t mapX;
+    std::int32_t mapY;
+};
+
+std::array<MapActorDrawKey, 100> gMapActorDrawKeys {};
+std::int32_t gMapActorDrawKeyCount = 0; // 原5AC494。
+static_assert(sizeof(MapActorDrawKey) == 12);
+static_assert(sizeof(gMapActorDrawKeys) == 0x4B0);
+
+} // namespace
+
+void Sub_4468F0()
+{
+    gMapActorDrawKeyCount = 0;
+}
+
+std::int32_t Sub_446900(
+    const std::int32_t graphicIndex, const std::int32_t mapX,
+    const std::int32_t mapY)
+{
+    const std::int32_t count = gMapActorDrawKeyCount;
+    for (std::int32_t index = 0; index < count; ++index) {
+        const auto& key = gMapActorDrawKeys[static_cast<std::size_t>(index)];
+        if (key.graphicIndex == graphicIndex && key.mapX == mapX && key.mapY == mapY) {
+            return 1;
+        }
+    }
+    if (count < 100) {
+        auto& key = gMapActorDrawKeys[static_cast<std::size_t>(count)];
+        const std::int32_t nextCount = count + 1;
+        key.graphicIndex = graphicIndex;
+        key.mapX = mapX;
+        key.mapY = mapY;
+        gMapActorDrawKeyCount = nextCount;
+    }
+    return 0;
+}
+
 std::int32_t Sub_444FA0(const std::int32_t objectIndex)
 {
     const std::int32_t start = gWorldObjectFindCursor;

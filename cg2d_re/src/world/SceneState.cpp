@@ -4258,6 +4258,13 @@ void Sub_4D3170()
     gValue581800 = -1;
 }
 
+// 原[440B50,440B6C)：只采一次场景值，以U32比较250..252。
+std::int32_t Sub_440B50()
+{
+    const auto scene = static_cast<std::uint32_t>(gCurrentSceneState);
+    return scene >= 250u && scene <= 252u ? 1 : 0;
+}
+
 // 原 [0x4410E0,0x4410E6)：无状态固定返回叶。
 std::int32_t Sub_4410E0()
 {
@@ -4273,6 +4280,11 @@ std::uint32_t ReadPlayerFlags18A() noexcept
 std::int32_t ReadPlayerWalkSpeed() noexcept
 {
     return gPlayerRuntime.walkSpeed;
+}
+
+std::uint16_t ReadPlayerActionFlags() noexcept
+{
+    return static_cast<std::uint16_t>(gPlayerRuntime.flags18C >> 16);
 }
 
 std::int32_t ReadPlayerImageNo() noexcept

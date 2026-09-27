@@ -498,6 +498,10 @@ std::int32_t Sub_446130(); // 原空槽领取，返回旧游标；不在此处�
 std::uint32_t Sub_4461E0(std::int32_t type); // 原类型转flags114，返回完整W32。
 std::uint32_t Sub_446210(std::int32_t type); // 原71项跳表转换，写category时才截低W16。
 std::int32_t Sub_5183B0(std::int32_t imageNo); // 原图号[100000,200000)判断，不读取资源表。
+std::int32_t Sub_440B50(); // 原当前场景U32闭区间250..252门禁。
+void Sub_4468F0(); // 原普通场景51D246：只清三值去重计数，不清表。
+std::int32_t Sub_446900(
+    std::int32_t graphicIndex, std::int32_t mapX, std::int32_t mapY);
 // 原实体生产/更新；方向归零门槛仅新建生效，记录和action文本分两轮处理。
 void Sub_445350(
     std::int32_t objectIndex, std::int32_t imageNo, std::int32_t mapX,
@@ -604,6 +608,7 @@ void Sub_46A410(
 void Sub_46A700(); // 原完整玩家移动推进、到达计数及MIS动作请求。
 // YobiRuntime借用同一SceneState状态，不公开玩家首块或五槽记录布局。
 std::uint32_t ReadPlayerFlags18A() noexcept; // 原FDA88A跨W32读取。
+std::uint16_t ReadPlayerActionFlags() noexcept; // 原FDA88E，与flags18C高W16同源。
 std::int32_t ReadPlayerWalkSpeed() noexcept; // 原FDA870。
 std::int32_t ReadPlayerImageNo() noexcept; // 原FDA878；不是action当前变换图号。
 std::int16_t ReadPetFollowIndex(std::size_t position) noexcept;

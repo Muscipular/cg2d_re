@@ -1064,6 +1064,7 @@ YobiAction* NewMapCharaAction()
 // 原441DB0/448040的回调目标；未实现的依赖仅声明，不设置替代空回调。
 void Sub_4417E0(YobiAction* action);
 void Sub_447E60(YobiAction* action);
+void Sub_442F70(YobiAction* action, std::int32_t primaryIndex);
 
 YobiAction* Sub_441DB0(
     const std::int32_t imageNo, const std::int32_t mapX,
@@ -2327,7 +2328,7 @@ void RestoreActorOriginalImage(YobiAction* const action, MapActorPayload* const 
             world::detail::gWorldObjects[static_cast<std::size_t>(index)].imageNo);
 }
 
-// 阶段1/2的四处附件追加；两个偏移调用之间和取图号时均重新读取槽。
+// 阶段1/2及实体骑乘附件追加；两个偏移调用之间和取图号时均重新读取槽。
 void DrawActorPhaseAttachment(
     YobiAction* const action, YobiAction** const slot,
     const std::int32_t primaryIndex, const std::int32_t before)
@@ -2595,6 +2596,188 @@ std::int32_t Sub_43E490(YobiAction* const action)
         action->phase = 0;
         return 0;
     }
+}
+
+void Sub_4417E0(YobiAction* const action)
+{
+    auto* payload = static_cast<MapActorPayload*>(action->payload);
+    std::int32_t index = payload->index;
+    std::int32_t primaryIndex = -1;
+    bool useSharedRate = true;
+    if (world::detail::Sub_440B50() != 0) {
+        return;
+    }
+    YobiAction* player = world::detail::ReadPlayerAction();
+    if ((player != nullptr && player == action) || index == -1) {
+        if ((world::detail::ReadPlayerActionFlags() & 0x80u) != 0) {
+            return;
+        }
+    } else if ((world::detail::gWorldObjects[
+                    static_cast<std::size_t>(index)].flags120 & 0x80u) != 0) {
+        return;
+    }
+    if (Sub_43E490(action) != 0) {
+        return;
+    }
+    if (world::detail::ReadPlayerAction() != action) {
+        payload = static_cast<MapActorPayload*>(action->payload);
+        index = payload->index;
+        if ((world::detail::gWorldObjects[
+                 static_cast<std::size_t>(index)].flags42 & 0x200u) == 0) {
+            Sub_4424B0(action);
+            useSharedRate = false;
+        } else {
+            useSharedRate = true;
+        }
+        ApplyPendingMapActorDirection(action, index);
+    }
+    const float worldY = action->worldY;
+    const float worldX = action->worldX;
+    float screenX;
+    float screenY;
+    world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
+    action->x = static_cast<std::int32_t>(
+        static_cast<std::int64_t>(static_cast<double>(screenX) + 0.5));
+    action->y = static_cast<std::int32_t>(
+        static_cast<std::int64_t>(static_cast<double>(screenY) + 0.5));
+    player = world::detail::ReadPlayerAction();
+    std::int32_t stopAtEnd;
+    if (player != action
+        && (world::detail::gWorldObjects[
+                static_cast<std::size_t>(index)].category & 0x100u) != 0) {
+        const std::int32_t characterAction = action->characterAction;
+        stopAtEnd = characterAction == 3 || characterAction == 0
+            || characterAction == 1 || characterAction == 18 || characterAction == 19
+            || characterAction == 13 || characterAction == 15 || characterAction == 11 ? 0 : 1;
+    } else {
+        YobiAction* const ride = payload->action44;
+        const std::int32_t characterAction =
+            ride != nullptr ? ride->characterAction : action->characterAction;
+        stopAtEnd = characterAction == 12 || characterAction == 13
+            || characterAction == 14 || characterAction == 15 || characterAction == 1
+            || characterAction == 0 || characterAction == 16 || characterAction == 3
+            || characterAction == 6 ? 0 : 1;
+    }
+    std::uint32_t flipStatic = 0;
+    if (world::detail::gValue9DAD68 == 1) {
+        payload = static_cast<MapActorPayload*>(action->payload);
+        index = payload->index;
+        if (player != action) {
+            const std::uint32_t flags = world::detail::gWorldObjects[
+                static_cast<std::size_t>(index)].flags114;
+            if ((flags & 0x1000u) != 0 && (flags & 0x400380u) == 0) {
+                flipStatic = 1;
+            }
+        }
+    }
+    static_cast<void>(Sub_517880(action, 100, stopAtEnd, flipStatic));
+    if (useSharedRate) {
+        if (std::bit_cast<float>(world::detail::gValue9DAD78) >= 1.2F) {
+            static_cast<void>(Sub_517880(action, 100, stopAtEnd, flipStatic));
+        }
+        if (std::bit_cast<float>(world::detail::gValue9DAD78) >= 1.6F) {
+            static_cast<void>(Sub_517880(action, 100, stopAtEnd, flipStatic));
+        }
+    } else {
+        if (std::bit_cast<std::int16_t>(action->field270) >= 2) {
+            static_cast<void>(Sub_517880(action, 100, stopAtEnd, flipStatic));
+        }
+        if (std::bit_cast<std::int16_t>(action->field270) >= 4) {
+            static_cast<void>(Sub_517880(action, 100, stopAtEnd, flipStatic));
+        }
+    }
+    const std::int32_t imageNo = action->imageNo;
+    if (imageNo >= 0x1AF0E && imageNo <= 0x1AF25) {
+        action->drawMode.bytes[0x0D] |= 4u;
+    } else {
+        action->drawMode.bytes[0x0D] &= 0xFBu;
+    }
+    YobiAction* const ride = payload->action44;
+    if (ride != nullptr) {
+        ride->direction = action->direction;
+        static_cast<void>(Sub_517880(payload->action44, 100, stopAtEnd, 0));
+        const render::GraphicDescriptor16* const descriptor = &action->drawMode;
+        const std::int32_t offsetY = Sub_5182B0(action, 1);
+        YobiAction* const rideY = payload->action44;
+        const std::int32_t y = action->y;
+        const std::int32_t drawY = offsetY + rideY->frameY + y;
+        const std::int32_t offsetX = Sub_5182B0(action, 0);
+        YobiAction* const rideX = payload->action44;
+        const std::int32_t x = action->x;
+        const std::int32_t frameX = rideX->frameX;
+        const std::int32_t graphicIndex = action->graphicIndex;
+        const std::int32_t drawX = offsetX + frameX + x;
+        const auto worldYBits = std::bit_cast<std::uint32_t>(action->worldY);
+        const auto worldXBits = std::bit_cast<std::uint32_t>(action->worldX);
+        primaryIndex = world::detail::Sub_46BD60(
+            graphicIndex, worldXBits, worldYBits,
+            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
+            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)), 1, descriptor);
+        DrawActorPhaseAttachment(action, &payload->action44, primaryIndex, 0);
+    } else if ((action->flags & 0x400u) != 0) {
+        if (world::detail::ReadPlayerAction() != action) {
+            const std::int32_t lowerX =
+                platform::legacy_crypt_int::Subtract_401E60(&world::detail::gPlayerX, 16);
+            bool outside = platform::legacy_crypt_int::Less_401DB0(&action->mapX1E0, lowerX);
+            if (!outside) {
+                const std::int32_t upperX =
+                    platform::legacy_crypt_int::Add_401E10(&world::detail::gPlayerX, 16);
+                outside = platform::legacy_crypt_int::Greater_401D40(&action->mapX1E0, upperX);
+            }
+            if (!outside) {
+                const std::int32_t lowerY =
+                    platform::legacy_crypt_int::Subtract_401E60(&world::detail::gPlayerY, 16);
+                outside = platform::legacy_crypt_int::Less_401DB0(&action->mapY1F0, lowerY);
+            }
+            if (!outside) {
+                const std::int32_t upperY =
+                    platform::legacy_crypt_int::Add_401E10(&world::detail::gPlayerY, 16);
+                outside = platform::legacy_crypt_int::Greater_401D40(&action->mapY1F0, upperY);
+            }
+            if (outside) {
+                world::detail::Sub_4462E0(world::detail::gWorldObjects[
+                    static_cast<std::size_t>(index)].objectIndex);
+                return;
+            }
+        }
+        const std::int32_t mapY = platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0);
+        const std::int32_t mapX = platform::legacy_crypt_int::Read_401EC0(&action->mapX1E0);
+        const std::int32_t firstGraphicIndex = action->graphicIndex;
+        if (world::detail::Sub_446900(firstGraphicIndex, mapX, mapY) == 0) {
+            const render::GraphicDescriptor16* const descriptor = &action->drawMode;
+            const std::int32_t offsetY = Sub_5182B0(action, 1);
+            const std::int32_t drawY = offsetY + action->y;
+            const std::int32_t offsetX = Sub_5182B0(action, 0);
+            const std::int32_t x = action->x;
+            const auto worldYBits = std::bit_cast<std::uint32_t>(action->worldY);
+            const std::int32_t drawX = offsetX + x;
+            const std::int32_t graphicIndex = action->graphicIndex;
+            const auto worldXBits = std::bit_cast<std::uint32_t>(action->worldX);
+            primaryIndex = world::detail::Sub_46BD60(
+                graphicIndex, worldXBits, worldYBits,
+                std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
+                std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)), 0, descriptor);
+            action->flags &= ~2u;
+        } else {
+            action->flags |= 2u;
+        }
+    } else {
+        const std::int32_t mode = world::detail::ReadPlayerAction() == action ? 1 : 0;
+        const render::GraphicDescriptor16* const descriptor = &action->drawMode;
+        const std::int32_t offsetY = Sub_5182B0(action, 1);
+        const std::int32_t drawY = offsetY + action->y;
+        const std::int32_t offsetX = Sub_5182B0(action, 0);
+        const std::int32_t x = action->x;
+        const auto worldXBits = std::bit_cast<std::uint32_t>(action->worldX);
+        const std::int32_t drawX = offsetX + x;
+        const auto worldYBits = std::bit_cast<std::uint32_t>(action->worldY);
+        const std::int32_t graphicIndex = action->graphicIndex;
+        primaryIndex = world::detail::Sub_46BD60(
+            graphicIndex, worldXBits, worldYBits,
+            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
+            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)), mode, descriptor);
+    }
+    Sub_442F70(action, primaryIndex);
 }
 
 void Sub_43EFC0(

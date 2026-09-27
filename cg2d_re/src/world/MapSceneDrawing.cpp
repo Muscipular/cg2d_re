@@ -1,0 +1,311 @@
+#include "WorldUpdateDependencies.hpp"
+#include "../LoginMessageDependencies.hpp"
+
+#include "cg/GraphicInfo.hpp"
+#include "cg/YobiRuntime.hpp"
+#include "cg/render/GraphicPendingQueue.hpp"
+#include "cg/world/SceneState.hpp"
+
+#include <bit>
+#include <cstring>
+
+namespace cg::world::detail {
+namespace {
+
+// 原已加载 55DA8C=10000，只有 46CF60 读取/递增/清零。
+std::uint32_t gValue55DA8C = 10000;
+
+// 原 46D179：tile 与静态 obj 的描述符写序不同，不统一重建描述符。
+void DrawCutTile(
+    const std::uint16_t tile, const std::int32_t screenX, const std::int32_t screenY,
+    render::GraphicDescriptor16& descriptor)
+{
+    if (tile <= 999 || screenX < -64 || screenX >= 672 || screenY < -48 || screenY >= 504) {
+        return;
+    }
+    const CutRecord9FB954& cut = gCutData9FB948.records[tile - 1000];
+    const std::uint32_t color = 0xFFFFFFFFu;
+    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    descriptor.bytes[12] = 1;
+    descriptor.bytes[13] = 0;
+    const std::int16_t cutX = cut.value06;
+    const auto drawX = static_cast<std::int16_t>(screenX - cut.value0E);
+    const auto clipX = static_cast<std::int16_t>(cutX - 320);
+    const std::uint16_t palette = 0;
+    std::memcpy(descriptor.bytes.data() + 14, &palette, sizeof(palette));
+    std::memcpy(descriptor.bytes.data(), &clipX, sizeof(clipX));
+    const auto clipY = static_cast<std::int16_t>(cut.value08 - 240);
+    std::memcpy(descriptor.bytes.data() + 2, &clipY, sizeof(clipY));
+    const std::int16_t width = cut.value0A;
+    std::memcpy(descriptor.bytes.data() + 4, &width, sizeof(width));
+    const std::int16_t height = cut.value0C;
+    std::memcpy(descriptor.bytes.data() + 6, &height, sizeof(height));
+    const std::int32_t imageNo = cut.value00;
+    const auto drawY = static_cast<std::int16_t>(screenY - cut.value10);
+    static_cast<void>(render::DrawGraphic3_520970(
+        drawX, drawY, 5, imageNo, 0, 1, 0, &descriptor));
+}
+
+// 原 46D207：原始 obj 索引 .cut；注册标志与发布地址的两次索引分别计算。
+void DrawCutObject(
+    const std::uint16_t object, const std::int32_t column, const std::int32_t row,
+    const std::int32_t screenX, const std::int32_t screenY,
+    render::GraphicDescriptor16& descriptor)
+{
+    if (object <= 999) {
+        return;
+    }
+    const CutRecord9FB954& cut = gCutData9FB948.records[object - 1000];
+    const std::int16_t animationFlag = cut.value04;
+    if (animationFlag == 1) {
+        const std::int32_t startX = gMapXStart;
+        const std::int32_t startY = gMapYStart;
+        const std::int32_t mapX = startX + column;
+        const std::int32_t index = 399 * mapX + startY + row;
+        if (login::detail::MapYobiRegistryFlagAt(index) != 0) {
+            login::YobiAction* const action = login::detail::MapYobiRegistryActionAt(index);
+            login::detail::Sub_46DD90(action);
+            return;
+        }
+        const std::int32_t mapY = startY + row;
+        login::detail::MapYobiRegistryFlagAt(index) = 1;
+        const std::int32_t imageNo = cut.value00;
+        login::YobiAction* const action = login::detail::Sub_46DE50(imageNo, mapX, mapY);
+        const std::int32_t publishX = gMapXStart + column;
+        const std::int32_t publishY = gMapYStart;
+        const std::int32_t offsetX = cut.value0E;
+        login::detail::MapYobiRegistryActionAt(399 * publishX + row + publishY) = action;
+        login::detail::SetYobiMapOffsetX(action, offsetX);
+        const std::int32_t offsetIndexX = gMapXStart + column;
+        const std::int32_t offsetY = cut.value10;
+        const std::int32_t offsetIndexY = gMapYStart;
+        login::YobiAction* const offsetAction =
+            login::detail::MapYobiRegistryActionAt(399 * offsetIndexX + row + offsetIndexY);
+        login::detail::SetYobiMapOffsetY(offsetAction, offsetY);
+        return;
+    }
+    if (animationFlag != 0) {
+        return;
+    }
+    std::int32_t imageNo;
+    static_cast<void>(resource::GetGraphicMapNoIndex(cut.value00, &imageNo));
+    const std::int16_t cutX = cut.value06;
+    const std::int16_t width = cut.value0A;
+    const std::int16_t cutY = cut.value08;
+    const auto clipX = static_cast<std::int16_t>(cutX - 320);
+    std::memcpy(descriptor.bytes.data() + 4, &width, sizeof(width));
+    const auto drawY = static_cast<std::int16_t>(screenY - cut.value10);
+    std::memcpy(descriptor.bytes.data(), &clipX, sizeof(clipX));
+    const std::int16_t height = cut.value0C;
+    const auto clipY = static_cast<std::int16_t>(cutY - 240);
+    std::memcpy(descriptor.bytes.data() + 6, &height, sizeof(height));
+    std::memcpy(descriptor.bytes.data() + 2, &clipY, sizeof(clipY));
+    const auto drawX = static_cast<std::int16_t>(screenX - cut.value0E);
+    const std::int32_t mapY = gMapYStart + row;
+    const std::uint32_t color = 0xFFFFFFFFu;
+    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    const double scaledY = static_cast<double>(mapY) * 64.0f;
+    const std::int32_t mapX = gMapXStart + column;
+    descriptor.bytes[12] = 1;
+    descriptor.bytes[13] = 0;
+    const auto worldY = static_cast<float>(scaledY);
+    const std::uint16_t palette = 0;
+    std::memcpy(descriptor.bytes.data() + 14, &palette, sizeof(palette));
+    const auto worldX = static_cast<float>(static_cast<double>(mapX) * 64.0f);
+    Sub_46BE50(
+        imageNo, std::bit_cast<std::uint32_t>(worldX), std::bit_cast<std::uint32_t>(worldY),
+        drawX, drawY, &descriptor);
+}
+
+// 原普通模式逐格先 tile 后 obj；音效标记是否消费由原参数决定。
+void DrawNormalMapCell(
+    const std::int32_t index, const std::int32_t diagonal, const std::int32_t row,
+    const std::int32_t screenX, const std::int32_t screenY, const std::int32_t markers)
+{
+    const std::int32_t tile = Sub_46CF00(gMapTileArray[index]);
+    if (tile > 999) {
+        if (screenX >= -32 && screenX < 672 && screenY >= -24 && screenY < 504) {
+            const std::uint8_t layer =
+                (tile >= 5000 && tile <= 5009) || (tile >= 7664 && tile <= 7679) ? 1 : 5;
+            static_cast<void>(login::detail::DrawGraphic(screenX, screenY, layer, tile, 0, nullptr));
+        }
+    } else if (markers != 0) {
+        if (tile >= 250 && tile <= 299) {
+            static_cast<void>(audio::Sub_52C9E0(tile, screenX, screenY));
+        } else if (tile >= 200 && tile <= 249) {
+            static_cast<void>(audio::SelectBgmTarget_52C9C0(tile));
+            audio::gBgmRequest1050810 = 1;
+        }
+    }
+
+    const std::int32_t object = Sub_46CF00(gMapObjArray[index]);
+    if (object > 999) {
+        std::int32_t imageNo;
+        static_cast<void>(resource::GetGraphicMapNoIndex(object, &imageNo));
+        std::int16_t offsetX;
+        std::int16_t offsetY;
+        static_cast<void>(resource::GetGraphicXY(
+            std::bit_cast<std::uint32_t>(imageNo), &offsetX, &offsetY));
+        std::int16_t width;
+        std::int16_t height;
+        static_cast<void>(resource::GetGraphicWH(
+            std::bit_cast<std::uint32_t>(imageNo), &width, &height));
+        // 原全 W32 局部相加后只消费低 S16；不读取/补造未初始化的高半字。
+        const auto clipX = static_cast<std::int16_t>(screenX + offsetX);
+        const auto clipY = static_cast<std::int16_t>(screenY + offsetY);
+        if (clipX < 640 && width + clipX - 1 >= 0
+            && clipY < 480 && height + clipY - 1 >= 0) {
+            const std::int32_t mapY = gMapYStart + row;
+            const double scaledY = static_cast<double>(mapY) * 64.0f;
+            const std::int32_t mapX = gMapXStart + diagonal + row;
+            const auto worldY = static_cast<float>(scaledY);
+            const auto worldX = static_cast<float>(static_cast<double>(mapX) * 64.0f);
+            Sub_46BE50(
+                imageNo, std::bit_cast<std::uint32_t>(worldX), std::bit_cast<std::uint32_t>(worldY),
+                static_cast<std::int16_t>(screenX), static_cast<std::int16_t>(screenY), nullptr);
+        }
+    } else if (markers != 0) {
+        std::int32_t imageNo;
+        static_cast<void>(resource::GetGraphicMapNoIndex(object, &imageNo));
+        if (object == 1) {
+            const std::int32_t mapY = gMapYStart + row;
+            const double scaledY = static_cast<double>(mapY) * 64.0f;
+            const std::int32_t mapX = gMapXStart + diagonal + row;
+            const auto worldY = static_cast<float>(scaledY);
+            const auto worldX = static_cast<float>(static_cast<double>(mapX) * 64.0f);
+            static_cast<void>(Sub_46BD60(
+                imageNo, std::bit_cast<std::uint32_t>(worldX), std::bit_cast<std::uint32_t>(worldY),
+                static_cast<std::int16_t>(screenX), static_cast<std::int16_t>(screenY), 0, nullptr));
+        } else if (object >= 250 && object <= 299) {
+            const std::int32_t span = gMapSpanX;
+            const std::int32_t rawObject = gMapObjArray[span * row + diagonal + row];
+            static_cast<void>(audio::Sub_52C9E0(rawObject, screenX, screenY));
+        } else if (object >= 200 && object <= 249) {
+            static_cast<void>(audio::SelectBgmTarget_52C9C0(object));
+            audio::gBgmRequest1050810 = 1;
+        }
+    }
+}
+
+} // namespace
+
+void __cdecl Sub_46CF60(const std::int32_t markers)
+{
+    render::GraphicDescriptor16 descriptor {};
+    const std::uint32_t mode = gValue9DAD68;
+    const std::uint32_t previousCount = gValue55DA8C;
+    audio::gBgmRequest1050810 = 0;
+    const bool cutMode = mode == 1;
+    gValue55DA8C = previousCount + 1u;
+    if (platform::legacy_crypt_int::NotEqual_401D20(&gPlayerX, &gValue9EE8D0)
+        || platform::legacy_crypt_int::NotEqual_401D20(&gPlayerY, &gValue9EE8E0)
+        || gValue9EE910 != 0) {
+        const std::int32_t loadYEnd = gMapYEnd;
+        const std::int32_t loadXEnd = gMapXEnd;
+        const std::int32_t loadYStart = gMapYStart;
+        const std::int32_t loadXStart = gMapXStart;
+        const std::int32_t floor = gMapFloor;
+        const auto mapId = std::bit_cast<std::int32_t>(gValue9A86DC);
+        if (Sub_468C40(
+                mapId, floor, loadXStart, loadYStart, loadXEnd, loadYEnd,
+                gMapTileArray.data(), gMapObjArray.data(), gMapHitArray.data()) < 0) {
+            return;
+        }
+        const std::int32_t walkYEnd = gMapYEnd;
+        const std::int32_t walkXEnd = gMapXEnd;
+        const std::int32_t walkYStart = gMapYStart;
+        const std::int32_t walkXStart = gMapXStart;
+        if (cutMode) {
+            static_cast<void>(Sub_46D9C0(
+                walkXStart, walkYStart, walkXEnd, walkYEnd,
+                gMapTileArray.data(), gMapObjArray.data(), gMapHitArray.data(),
+                gMapWalkabilityArray.data()));
+        } else {
+            static_cast<void>(Sub_4693F0(
+                walkXStart, walkYStart, walkXEnd, walkYEnd,
+                gMapTileArray.data(), gMapObjArray.data(), gMapHitArray.data(),
+                gMapWalkabilityArray.data()));
+        }
+        if (gValue9EE8B8 != 0) {
+            const auto direction = std::bit_cast<std::int16_t>(gValue9EE8A4);
+            if (Sub_469870(direction) == 0) {
+                gValue9EE8B8 = 0;
+                gValue55DA88 = 1;
+            }
+        } else {
+            gValue55DA88 = 1;
+        }
+        gValue55DA8C = 0;
+        gValue9EE910 = 0;
+    }
+
+    static_cast<void>(Sub_468F70());
+    const std::int32_t xStart = gMapXStart;
+    const std::int32_t yEnd = gMapYEnd;
+    const auto projectionX = std::bit_cast<std::int32_t>(gWorldProjectionSourceC);
+    std::int32_t baseX = ((xStart + yEnd) * 64 - 64) / 2 + projectionX;
+    const std::int32_t rawY = 48 * (yEnd - xStart - 1);
+    const auto projectionY = std::bit_cast<std::int32_t>(gWorldProjectionSourceD);
+    std::int32_t drawY = rawY / 2 + projectionY;
+    std::int32_t firstRow = gMapSpanY - 1;
+    std::int32_t firstColumn = 0;
+    while (firstRow >= 0) {
+        std::int32_t drawX = baseX;
+        const std::int32_t diagonal = firstColumn - firstRow;
+        std::int32_t row = firstRow;
+        while (row >= 0) {
+            const std::int32_t column = diagonal + row;
+            if (column < 0) {
+                break;
+            }
+            const std::int32_t index = gMapSpanX * row + column;
+            if (cutMode) {
+                DrawCutTile(gMapTileArray[index], drawX, drawY, descriptor);
+                DrawCutObject(gMapObjArray[index], column, row, drawX, drawY, descriptor);
+            } else {
+                DrawNormalMapCell(index, diagonal, row, drawX, drawY, markers);
+            }
+            --row;
+            drawX -= 64;
+        }
+        if (firstColumn < gMapSpanX - 1) {
+            ++firstColumn;
+            baseX += 32;
+        } else {
+            --firstRow;
+            baseX -= 32;
+        }
+        drawY -= 24;
+    }
+
+    Sub_46C2F0();
+    static_cast<void>(Sub_46C1C0());
+    const std::int32_t playerX = platform::legacy_crypt_int::Read_401EC0(&gPlayerX);
+    platform::LegacyCryptInt temporary;
+    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, playerX);
+    if (cutMode) {
+        gValue9EE8D0.readCount = temporary.readCount;
+        gValue9EE8D0.encoded = temporary.encoded;
+        gValue9EE8D0.mask = temporary.mask;
+    } else {
+        gValue9EE8D0.mask = temporary.mask;
+        gValue9EE8D0.encoded = temporary.encoded;
+        gValue9EE8D0.readCount = temporary.readCount;
+    }
+    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    const std::int32_t playerY = platform::legacy_crypt_int::Read_401EC0(&gPlayerY);
+    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, playerY);
+    if (cutMode) {
+        gValue9EE8E0.readCount = temporary.readCount;
+        gValue9EE8E0.encoded = temporary.encoded;
+        gValue9EE8E0.mask = temporary.mask;
+    } else {
+        gValue9EE8E0.mask = temporary.mask;
+        gValue9EE8E0.encoded = temporary.encoded;
+        gValue9EE8E0.readCount = temporary.readCount;
+    }
+    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    audio::Sub_52CD60();
+}
+
+} // namespace cg::world::detail

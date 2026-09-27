@@ -758,6 +758,26 @@ void Sub_46DD40()
     }
 }
 
+std::uint8_t& MapYobiRegistryFlagAt(const std::int32_t index) noexcept
+{
+    return gYobiRegistryFlags.data()[index];
+}
+
+YobiAction*& MapYobiRegistryActionAt(const std::int32_t index) noexcept
+{
+    return gYobiRegistryActions.data()[index];
+}
+
+void SetYobiMapOffsetX(YobiAction* const action, const std::int32_t value) noexcept
+{
+    action->mapOffsetX = value;
+}
+
+void SetYobiMapOffsetY(YobiAction* const action, const std::int32_t value) noexcept
+{
+    action->mapOffsetY = value;
+}
+
 YobiAction* Sub_404A40()
 {
     gYobiActionStart = static_cast<YobiAction*>(

@@ -127,6 +127,7 @@ add_library(cg2d_re_startup STATIC
     src/world/MailState.cpp
     src/world/SceneState.cpp
     src/world/MapDrawCache.cpp
+    src/world/MapSceneDrawing.cpp
     src/world/RenderInput.cpp
     src/world/WorldUpdate.cpp
 )

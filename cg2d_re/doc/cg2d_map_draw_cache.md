@@ -102,4 +102,6 @@ stable_sort 或不同 CRT 的 qsort 而仍保留原比较/交换序列。
 
 后续增量：`46DE50/46DD90` 已在 YobiRuntime 完整落位，推进函数调用
 本文件同一 `46DFF0`；见[地图 Yobi 实施 SPEC](cg2d_yobi_runtime.md)。
-`46CF60` 及注册表/偏移发布尚缺，不据此改变完整世界流程验收状态。
+后续完整 `46CF60` 已接注册表/偏移发布及本文件排序合并/入队，
+见[地图父函数 SPEC](cg2d_map_scene_drawing.md)；普通/战斗场景父链、
+运行及完整世界流程仍未验收。

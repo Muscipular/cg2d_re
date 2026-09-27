@@ -164,6 +164,7 @@ extern std::array<std::uint16_t, kMovePathCapacity> gMovePathX;
 extern std::array<std::uint16_t, kMovePathCapacity> gMovePathY;
 extern std::uint32_t gValueC821FC;
 extern std::uint32_t gValue9EE8B8;
+extern std::uint16_t gValue9EE8A4; // 46AF30 发布方向，46CF60 按 S16 重用探测。
 extern std::uint16_t gValueC8A79C;
 extern std::uint16_t gValue9A86D8;
 extern std::uint16_t gValue9FB92E;
@@ -271,14 +272,14 @@ extern std::int32_t gValue553F84;
 
 // 原 [0x9FB954,0xAEFB94)：.cut 记录 50,000 项，每项仅前 18 字节由文件读取。
 struct CutRecord9FB954 {
-    std::int32_t value00;
-    std::int16_t value04;
-    std::int16_t value06;
-    std::int16_t value08;
-    std::int16_t value0A;
-    std::int16_t value0C;
-    std::int16_t value0E;
-    std::int16_t value10;
+    std::int32_t value00; // 图号；46CF60 的 tile 直接使用，静态 obj 先查 mapNo。
+    std::int16_t value04; // obj 动画标志；0 静态，1 Yobi，其余跳过。
+    std::int16_t value06; // 裁剪 X。
+    std::int16_t value08; // 裁剪 Y。
+    std::int16_t value0A; // 宽。
+    std::int16_t value0C; // 高。
+    std::int16_t value0E; // 绘制偏移 X。
+    std::int16_t value10; // 绘制偏移 Y。
     std::uint8_t reserved12[2];
 };
 
@@ -430,7 +431,7 @@ extern std::uint32_t gValue55DA88; // 原地图窗口重建标志，初值 1；4
 std::int32_t Sub_46C840(std::int32_t floor, std::int32_t playerX, std::int32_t playerY);
 // 原 46C760：按地图模式和重建标志提交同一窗口，返回完整绘制结果。
 std::int32_t Sub_46C760(std::int32_t x, std::int32_t y);
-// 原 [46CF60,46D9B9)：完整地图消费者尚待实现；重建场景 10 实传 0。
+// 原 [46CF60,46D9B9)：完整两路地图绘制；参数只控制普通地图标记，重建场景10实传0。
 void __cdecl Sub_46CF60(std::int32_t value);
 // 原 [0x4693F0,0x4697C9)：先扫 tile，再扫 obj/图形尺寸，输出第四地图平面。
 std::int32_t __cdecl Sub_4693F0(

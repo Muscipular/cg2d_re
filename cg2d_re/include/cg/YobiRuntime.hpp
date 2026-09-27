@@ -51,6 +51,12 @@ YobiAction* NewMapCharaAction();
 YobiAction* Sub_46DE50(std::int32_t imageNo, std::int32_t mapX, std::int32_t mapY);
 // 原 46DD90：重新投影、读取加密坐标、FrameMove，再向同一地图对象缓存入队。
 void Sub_46DD90(YobiAction* action);
+// 46CF60 同步借用唯一 399x399 注册表槽；指针不拥有对象，不新增索引门禁。
+std::uint8_t& MapYobiRegistryFlagAt(std::int32_t index) noexcept;
+YobiAction*& MapYobiRegistryActionAt(std::int32_t index) noexcept;
+// 原 +314/+318 分别写入；父函数两次独立索引/借用，不合并成对象快照。
+void SetYobiMapOffsetX(YobiAction* action, std::int32_t value) noexcept;
+void SetYobiMapOffsetY(YobiAction* action, std::int32_t value) noexcept;
 
 // 原 5F9750 独立观察链；引用非拥有，清头不释放 action。
 YobiAction* Sub_43F180(YobiAction* action);

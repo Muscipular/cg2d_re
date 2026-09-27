@@ -2,14 +2,18 @@
 
 #include "LoginMessageDependencies.hpp"
 #include "AnimationRuntimeState.hpp"
+#include "world/WorldUpdateDependencies.hpp"
 
 #include "cg/AnimationRuntime.hpp"
 #include "cg/GraphicInfo.hpp"
 #include "cg/LegacyAudio.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
 #include "cg/platform/LegacyWindow.hpp"
+#include "cg/platform/MainLoop.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/render/GraphicDxCache.hpp"
+#include "cg/render/SdlPresenter.hpp"
+#include "cg/render/TextPendingQueue.hpp"
 #include "cg/world/SceneState.hpp"
 
 #include <array>
@@ -45,6 +49,13 @@ struct YobiAction {
     std::int32_t field58; // 原 +58，与 +2B8 的 direction 独立。
     float scaleX;
     float scaleY;
+    std::array<char, 64> displayName; // 原 +64..+A3；41EB10 按 64B 复制，保留原编码。
+    std::int32_t nameX;              // 原 +A4；DrawText2 消费低 S16。
+    std::int32_t nameY;              // 原 +A8。
+    std::int8_t nameColor;           // 原 +BC。
+    std::int8_t nameFontType;        // 原 +BD。
+    std::int8_t nameLayer;           // 原 +BE；DrawText2 的 renderMode。
+    std::int32_t nameValueC0;        // 原 +C0；DrawText2 仅消费低 S8。
     platform::LegacyCryptInt readiness;
     std::int32_t creatorParam6;
     std::int32_t field1D0; // 原 +1D0；440B70 写子 action 的槽序号。
@@ -1498,3 +1509,108 @@ void SetYobiActionField30F(
 
 } // namespace detail
 } // namespace cg::login
+
+namespace cg::world::detail {
+
+void RenderChara_521F20()
+{
+    using login::detail::gYobiActionStart;
+    using login::detail::gYobiActionEnd;
+
+    for (login::YobiAction* action = gYobiActionStart->next;
+         action != gYobiActionEnd;
+         action = action->next) {
+        const std::uint32_t flags = action->flags;
+        if (((flags & 0x8000u) != 0 && render::gFrameParity628FC8 == 0)
+            || ((flags & 0x10000u) != 0 && render::gFrameParity628FC8 == 1)) {
+            action->cacheIndex = -2;
+            continue;
+        }
+
+        // 原 521F90 测内嵌地址，不是首字符；空名也交给既有文本入口。
+        static_cast<void>(render::DrawText2_456670(
+            static_cast<std::int16_t>(action->nameX),
+            static_cast<std::int16_t>(action->nameY),
+            action->nameLayer,
+            action->nameFontType,
+            action->nameColor,
+            action->displayName.data(),
+            static_cast<std::int8_t>(action->nameValueC0)));
+        const std::int16_t count =
+            std::bit_cast<std::int16_t>(platform::gPendingGraphicCount);
+        if (count >= MAX_QUEUE_SIZE) {
+            return;
+        }
+        if (action->graphicIndex == -1
+            || action->deathFlag == 1
+            || (action->flags & 2u) != 0) {
+            continue;
+        }
+
+        const auto queueIndex = static_cast<std::size_t>(count);
+        render::GraphicCache3& order = render::gLegacyPendingStorage.cache3[queueIndex];
+        render::GraphicCacheItem32& record =
+            render::gLegacyPendingStorage.records[queueIndex];
+        order.layer = action->displayPriority;
+        order.cacheIndex = std::bit_cast<std::int16_t>(platform::gPendingGraphicCount);
+
+        // 原 CRT 设置 x87 为 53 位；__ftol 先转 S64，caller 只取 EAX。见 DX x64 SPEC §16。
+        const double scaledX =
+            static_cast<double>(action->graphicOffsetX) * static_cast<double>(action->scaleX);
+        record.x = static_cast<std::int32_t>(static_cast<std::int64_t>(scaledX)) + action->x;
+        const double scaledY =
+            static_cast<double>(action->graphicOffsetY) * static_cast<double>(action->scaleY);
+        record.y = static_cast<std::int32_t>(static_cast<std::int64_t>(scaledY)) + action->y;
+        record.imageNo = action->graphicIndex;
+        record.descriptor = action->drawMode.bytes;
+        if (action->batchType != 0) {
+            if ((action->batchType & 1u) != 0) {
+                record.descriptor[10] = static_cast<std::uint8_t>(
+                    std::bit_cast<std::uint32_t>(action->color2) >> 16);
+            }
+            if ((action->batchType & 2u) != 0) {
+                record.descriptor[9] = static_cast<std::uint8_t>(
+                    std::bit_cast<std::uint32_t>(action->color2) >> 8);
+            }
+            if ((action->batchType & 4u) != 0) {
+                record.descriptor[8] = static_cast<std::uint8_t>(action->color2);
+            }
+            if ((action->batchType & 8u) != 0) {
+                record.descriptor[11] = static_cast<std::uint8_t>(
+                    std::bit_cast<std::uint32_t>(action->color2) >> 24);
+            }
+        }
+        if (action->rebirthValue1 != 0) {
+            record.descriptor[13] &= static_cast<std::uint8_t>(~action->rebirthValue1);
+            record.descriptor[13] |= action->rebirthValue1 & action->rebirthValue2;
+        }
+        if ((action->flags & 0x100000u) != 0) {
+            record.descriptor[11] = 0x80;
+        }
+
+        record.reference.action = action;
+        const std::uint32_t publishedFlags = action->flags;
+        if ((publishedFlags & 8u) != 0) {
+            record.value4 = 2;
+        } else if ((publishedFlags & 4u) != 0) {
+            record.value4 = 1;
+        } else {
+            record.value4 = 0;
+        }
+        action->cacheIndex =
+            std::bit_cast<std::int16_t>(platform::gPendingGraphicCount);
+        record.batchType = 0;
+        if (record.descriptor[12] == 1) {
+            record.batchType = 1;
+        }
+        if ((record.reference.action->flags & 0x20u) != 0) {
+            record.batchType = 0xFF;
+        }
+        if (record.imageNo >= 3096 && record.imageNo <= 3105) {
+            render::gSpecialGraphicPending = 1;
+        }
+        ++platform::gPendingGraphicCount;
+    }
+}
+
+} // namespace cg::world::detail

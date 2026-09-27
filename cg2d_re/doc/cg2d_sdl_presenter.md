@@ -1,5 +1,10 @@
 # SDL3 最终帧提交适配器
 
+> 当前增量：`DrawAllQueued_520DD0` 完整 13 类批次、场景 Begin/End、
+> 图文/地图/效果及缓存尾已接真实实现，见末节“DrawAllQueued 完整实施 SPEC”。
+> 本文按实施顺序保留旧阶段记录，早期“仅声明/未接线”不覆盖这一增量。
+> 当前仅静态核对，尚无完整客户端链接、像素或运行验收。
+
 任务：R4.2.1.C。范围仅为 `SdlPresenter.hpp`、`SdlPresenter.cpp` 和本文档。
 
 这是 Windows/x64 上的 SDL 底层适配，不是原函数还原，也不代表原渲染替换已接通。
@@ -1713,3 +1718,103 @@ https://learn.microsoft.com/en-us/windows/win32/api/wingdi/ns-wingdi-bitmapinfoh
 所有 Back 直接访问点已迁移至该类型化视图，没有旧数组残留
 或完整画面复制。失败路径检查涵盖 mapping、视图、SDL 包装、
 DIB、DC 与 SelectObject；检查为源码路径核对，并未注入故障运行。
+
+## DrawAllQueued 完整实施 SPEC
+
+本轮原会话只读核 `520DD0–521831` 全指令、13 项跳表、
+三条纹理路径及公共尾部，按工程委托实施完整父函数；
+不拆成仅支持部分 batch 的临时入口。
+
+### 状态与 native 边界
+
+1. 上传计数仍为原 `gGraphicPaletteUploadCount`，入口先清零；
+   cache3 和主记录仍借用唯一 x64 队列。原 `58B7E0` 有已加载
+   映像初值 `FFFFFFFF`，新增独立 S32 槽初值 -1，不与
+   `628FDC` 调色板版本或 `58B7E4` 帧号合并，即使目前只见写引用。
+2. 原 Back IsLost 映射为唯一 CPU Back 的存活状态。
+   已发布的映射/SDL 包装不因显示窗口失焦丢失存储；
+   不把 presenter 的 `gRendererLost` 或 SDL 的 locked 当作
+   Back lost。没有 Back 时只保留入口计数清零，跳过全部尾操作。
+3. CPU 设备增加 native 场景状态：Begin 仅在设备存在、
+   未在场景且 Back 未锁时进入；End 仅在已有场景时退出。
+   四顶点提交实际消费此状态，不是无作用的空 Begin/End。
+   native busy 仍映射 0x887601AE，其他失败不伪装成 busy。
+   CPU 行提交已经同步写 Back，End 不制造假异步命令或额外呈现。
+   原 Has 每处独立查询 +9C 接口，Begin/End 返回仍按 caller 忽略。
+4. 上述是已批准 DX7 原生替换下的 CPU 场景协议；不宣称异常
+   HRESULT 与原驱动逐项相同。只读 Wine 10.0 的 Begin/End 实现
+   用于确认重复进入/未开始结束的状态区分，不当作 cg2d 指令证据：
+   `https://raw.githubusercontent.com/wine-mirror/wine/wine-10.0/dlls/ddraw/device.c`。
+5. case 6 使用新的 render 私有原矩形复制边界，提交真实 SDL
+   无色键复制，不额外钳制/拒绝原算式的矩形。既有波纹 helper
+   的获批范围门禁保留，检查后复用同一底层，不扩大旧 helper
+   合同。case 7 复用现有整幅 Back→Temp。
+
+### 队列与纹理顺序
+
+- 入口/尾部即使计数非正仍按 Has 调 Begin/End；逐项 cacheIndex
+  按 S16，batch 只消费 0..12，其余跳公共下一项。
+  每项执行完先重读共享 S16 count，再递增本地项数与排序游标；
+  不快照全队列、不重排、不清两个待提交计数或文本链。
+- case 0/1：先判图号，再调独立调色板刷新→LoadGraphic；
+  成功后重读 batchType，仅为 0 才按 y→x→w→h 更新描述符。
+  保留 S16 源矩形、负 x/y 对主记录完整坐标的原位补偿，
+  再缩右下；任何早退均不执行本项调色板 dirtyCount 清零。
+- `520F9C–520FBA` 仅测试 x87 C3，相等和 unordered 都算命中：
+  X 命中才读 Y，两个均命中走普通整数纹理；不能用 C++
+  `scaleX==1 && scaleY==1` 排除 NaN。通过 Yobi 的两个 F32
+  窄 getter 每次读原对象，不公开其布局或复制成渲染对象。
+- 普通纹理循环先读帧号、blockX，再写 reuseState，
+  门禁次序为 X 右端→Y 下端→X 左端→Y 上端。
+  对象缩放与固定比例循环则先读帧号、blockY，再写 reuseState，
+  按 Y 下端→Y 上端→X 右端→X 左端检查。相交才上传，
+  上传零返回只跳本节点，next 必须在本节点处理后读取。
+- 源矩形按 left/right/top/bottom 依次计算，每处依原重读
+  节点偏移和共享纹理尺寸；镜像坐标使用完整 DX 图宽高，
+  不是裁后宽高。两种对象缩放均保留重取 action、先 X 后 Y
+  的 F32 采样，F64 乘法后向零转 S64，最后按原低位承接
+  目标 S16；S32 原点不提前截短。`/fp:strict` 沿用 startup。
+- case 10/11/12 分别用 F32 0.25/0.5/0.75；全图描述符重置
+  不读取 action，保留尺寸负值检查及 DX 宽度重读/收缩，
+  不把这一路改为 case 0 传入虚拟 Yobi。三条纹理返回仅精确
+  busy 才写 gGraphicDirty=1；不是所有 native 失败都写。
+- 节点链为空或完整遍历后才读取本图 palette 并清 dirtyCount；
+  不清 DX 项其他字段，不在几何/读图早退后误清。
+
+### 其余批次与公共尾
+
+case 2/3 使用现有矩形/FillDirtyArea；case 4 独立两次 Has，
+按 End→原字节文本→Begin；case 5 先取完整 Y 再 X 调 46C760。
+case 6/7 先读同一 C82204，为零不读取位移或复制；case 6
+先按 S32 X 计算，再读 S32 Y，原矩形不另加限制。
+case 8 调真实波纹，case 9 调真实条件效果提交。
+
+公共尾按 Has→End→若上传计数为零则复制调色板版本到 58B7E0
+→AgeGraphicPaletteCache→清特殊图形 W8；Back lost 时全部不执行。
+实现置于独立完整 DrawAllQueued 源，避免继续膨胀入队/波纹文件；
+不新增依赖、影子 owner 或范围外功能。仅静态核对全部分支、
+接线、失败路径和浮点存储，不构建/测试/运行，不称完整客户端通过。
+
+### 本步实施状态
+
+完整入口已落位 [DrawAllQueued.cpp](../src/render/DrawAllQueued.cpp)，
+登记于既有 `cg2d_re_startup`，沿用 `/fp:strict`；声明归队列头，
+既有 MainLoop、加载淡变、加载画面及场景快照 caller 接同一定义。
+三路矩形构造与两路缩放遍历只合并同序段，保留普通链独有门禁顺序、
+动态/固定缩放的 action 读取差异及 paletteIndex/surface 取值次序。
+对象 getter 仅从原 runtime 读取 F32，不创建快照或渲染对象。
+
+native 场景状态由唯一设备持有，Submit 先写混合/绑定再绘制；
+绘制先判真实锁忙，再判未入场景，End 不增加呈现或假 flush。
+原 case 6 使用私有无色键原矩形复制，波纹保留原有检查后复用底层；
+没有扩大旧 helper 的接受范围，也未新增异常坐标保护。
+
+再次只读核完整指令、`521834` 的 13 项跳表及 `58B7E0`：
+其四字节为 `FFFFFFFF`，唯一直接写引用 `521422`。
+后者在本线为独立 S32 `gLastUnrefreshedPaletteFrameVersion`，
+不能用调色板版本本身或帧号替代。
+
+静态核对覆盖全部 batch、四次独立 Has、两次 Begin/End caller、
+空队列/Back 缺失/读图失败/几何早退/节点上传失败路径、状态写入次序、
+源登记与真实下游接口；未执行场景、文件复制或绘制。
+场景 `46CF60`、UI 初始化、完整链接与最终画面仍未验收。

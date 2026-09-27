@@ -102,6 +102,10 @@ bool IsYobiActionStateLessOrEqual(
     YobiAction* action,
     std::int32_t maximum);
 
+// 原 +5C/+60：队列绘制按轴读取 F32，不向 render 暴露 action 布局。
+float GetYobiActionScaleX(const YobiAction* action) noexcept;
+float GetYobiActionScaleY(const YobiAction* action) noexcept;
+
 // 当前角色预览/槽位调用所需的语义字段访问，不暴露原 x86 偏移。
 std::int32_t GetYobiActionField2A8(YobiAction* action);
 void SetYobiActionField2A8(YobiAction* action, std::int32_t value);

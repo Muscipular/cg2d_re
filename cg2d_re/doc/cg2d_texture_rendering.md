@@ -1,5 +1,10 @@
 # 纹理绘制入口与底层边界
 
+> 后续接线：完整 `DrawAllQueued_520DD0` 已接三条纹理 caller、
+> FillDirtyArea 及文本前后的 native Begin/End；真实设备状态参与四顶点绘制。
+> 见[父队列实施 SPEC](cg2d_sdl_presenter.md)。旧阶段缺口仅为当时快照，
+> 不能再据此称父函数无本体；当前仍未构建、测试或运行。
+
 2026-09-27，原 `ida-17524 / D:\SOFTSTAR\cg2d.exe.i64` 只读核
 `44D520–44DA8F`、`44DA90–44E0B1` 全部指令及反编译，
 并核 `5211BE/521393/52169F` 三处实参和返回消费。

@@ -2,6 +2,7 @@
 
 #include "cg/Palette.hpp"
 #include "cg/network/NetworkRuntime.hpp"
+#include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/render/RendererResources.hpp"
 
 #include <cstdint>
@@ -13,7 +14,6 @@ int TestCooperativeLevel_44C6B0();
 std::uint32_t ResetGraphicCache_456D30();
 void SortTextures_520790();
 std::int32_t ClearSurface_4512C0() noexcept;
-void DrawAllQueued_520DD0();
 void Flip_44C560();
 
 } // namespace cg::render

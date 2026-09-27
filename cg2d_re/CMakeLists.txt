@@ -100,6 +100,7 @@ add_library(cg2d_re_startup STATIC
     src/YobiRuntime.cpp
     src/network/NetworkRuntime.cpp
     src/render/GraphicPendingQueue.cpp
+    src/render/DrawAllQueued.cpp
     src/render/LegacyTextureDrawing.cpp
     src/render/InputText.cpp
     src/render/TextPendingQueue.cpp

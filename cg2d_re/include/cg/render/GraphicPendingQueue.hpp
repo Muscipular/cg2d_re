@@ -100,6 +100,9 @@ extern std::uint32_t gRenderQueueMode103CF10;
 // 原 1020ECC：DrawAllQueued 每次清零，520B10 限制有内嵌色表的旧节点刷新次数。
 extern std::int32_t gGraphicPaletteUploadCount;
 
+// 原 58B7E0，映像初值 -1；仅当整次绘制没有刷新上传时承接 628FDC。
+extern std::int32_t gLastUnrefreshedPaletteFrameVersion;
+
 // 原波纹后缓冲状态；W32/S32 字段以无符号位模式承载回绕语义。
 extern volatile std::uint32_t gRippleIntegerPhaseBits; // 原 0x1020EEC。
 
@@ -129,6 +132,9 @@ std::int32_t Sub_521870();
 
 // 原 Renderer::SortTextures@[0x520790,0x5208E8)；只重排 cache3 索引记录。
 void SortTextures_520790();
+
+// 原 520DD0：完整 0..12 批次消费，不清队列计数；末尾老化调色板并清特殊标志。
+void DrawAllQueued_520DD0();
 
 // 原 sub_522210@[0x522210,0x522293)：从待提交记录前两项构造矩形，
 // 按图号高位标志选择真实 451350 绘制模式；不修改记录。

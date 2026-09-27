@@ -1419,6 +1419,16 @@ std::int32_t PlayFrame_517DA0(YobiAction* const action, const std::int32_t stopA
     return 0;
 }
 
+float GetYobiActionScaleX(const YobiAction* const action) noexcept
+{
+    return action->scaleX;
+}
+
+float GetYobiActionScaleY(const YobiAction* const action) noexcept
+{
+    return action->scaleY;
+}
+
 std::int32_t GetYobiActionField2A8(YobiAction* const action)
 {
     return action->imageNo;

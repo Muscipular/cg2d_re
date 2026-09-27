@@ -23,6 +23,7 @@ struct LegacyTextureDevice {
     std::array<TextureSurfaceBinding, 8> textures;
     LegacyTextureBlend sourceBlend {LegacyTextureBlend::One};
     LegacyTextureBlend destinationBlend {LegacyTextureBlend::Zero};
+    bool sceneActive = false; // 由 Begin/End 修改，四顶点绘制实际消费。
 };
 
 namespace {
@@ -50,6 +51,9 @@ std::int32_t DrawTextureRectangle(
     SDL_Surface* const row = device.row.get();
     if (((back->flags | (input == nullptr ? 0u : input->flags)) & SDL_SURFACE_LOCKED) != 0) {
         return kSurfaceBusy;
+    }
+    if (!device.sceneActive) {
+        return kNativeFailure;
     }
 
     SDL_BlendMode blendMode;
@@ -183,6 +187,27 @@ LegacyTextureDevice* CreateLegacyTextureDevice(
 void DestroyLegacyTextureDevice(LegacyTextureDevice* const device) noexcept
 {
     delete device;
+}
+
+std::int32_t BeginLegacyTextureScene(LegacyTextureDevice* const device) noexcept
+{
+    if (device == nullptr || device->sceneActive) {
+        return kNativeFailure;
+    }
+    if ((device->back->flags & SDL_SURFACE_LOCKED) != 0) {
+        return kSurfaceBusy;
+    }
+    device->sceneActive = true;
+    return 0;
+}
+
+std::int32_t EndLegacyTextureScene(LegacyTextureDevice* const device) noexcept
+{
+    if (device == nullptr || !device->sceneActive) {
+        return kNativeFailure;
+    }
+    device->sceneActive = false;
+    return 0;
 }
 
 const SDL_PixelFormatDetails* GetLegacyTextureDeviceFormat(

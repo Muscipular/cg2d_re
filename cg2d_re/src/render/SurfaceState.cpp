@@ -661,8 +661,19 @@ bool BlitTempToBack(
         return false;
     }
 
-    const SDL_Rect sourceRect {sourceLeft, sourceTop, copyWidth, copyHeight};
-    const SDL_Rect destinationRect {destinationX, destinationY, copyWidth, copyHeight};
+    return BlitTempRectangleToBack(
+        destinationX, destinationY, {sourceLeft, sourceTop, sourceRight, sourceBottom});
+}
+
+bool BlitTempRectangleToBack(
+    const std::int32_t destinationX, const std::int32_t destinationY,
+    const TextureRectangle& source) noexcept
+{
+    if (gCpuTempSurface == nullptr || gCpuBackSurface == nullptr) {
+        return false;
+    }
+    const SDL_Rect sourceRect {source[0], source[1], source[2] - source[0], source[3] - source[1]};
+    const SDL_Rect destinationRect {destinationX, destinationY, sourceRect.w, sourceRect.h};
     return BlitWithoutSourceColorKey(
         GetTextureSdlSurface(gCpuTempSurface), sourceRect,
         gCpuBackSurface->blitSurface.get(), destinationRect);

@@ -61,6 +61,9 @@ void ReleaseRendererTextureDevice() noexcept;
 // 独立 +9C 接口槽，设备释放之后、SDL presenter 之前释放。
 void ReleaseRendererTextureInterface() noexcept;
 LegacyTextureDevice* GetRendererTextureDevice() noexcept;
+// DrawAllQueued 的 native 场景边界；失败不改变入场状态，CPU 提交同步完成。
+std::int32_t BeginLegacyTextureScene(LegacyTextureDevice* device) noexcept;
+std::int32_t EndLegacyTextureScene(LegacyTextureDevice* device) noexcept;
 // 原 native Set/GetTexture 边界；查询成功返回的一份引用须 ReleaseTextureSurface。
 std::int32_t BindLegacyTexture(
     LegacyTextureDevice* device, std::uint32_t stage, TextureSurface* surface) noexcept;
@@ -75,6 +78,10 @@ std::int32_t SubmitLegacyTextureFan(
     LegacyTextureBlend sourceBlend, LegacyTextureBlend destinationBlend);
 // 仅在 render 后端同步借用；Back 销毁/重建后失效，公开接口不暴露 SDL 类型。
 SDL_Surface* GetCpuBackSdlSurface() noexcept;
+// 原 case 6 的无色键 BltFast；保留 caller 原矩形，不附加波纹 helper 的范围门禁。
+bool BlitTempRectangleToBack(
+    std::int32_t destinationX, std::int32_t destinationY,
+    const TextureRectangle& source) noexcept;
 // 源色键写入唯一 Back，不做颜色调制；目标尺寸不同则执行原 Blt 缩放。
 std::int32_t BlitTextureToBack(
     TextureSurface* surface, const TextureRectangle& source,

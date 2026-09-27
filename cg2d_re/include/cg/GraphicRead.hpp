@@ -43,6 +43,10 @@ void ReleaseIndependentPalettes_522C50();
 // index 为绘制记录 +22 的 S16；只借用该值，不复制资源记录或调色板。
 std::uint8_t RefreshIndependentPalette32_523140(std::int16_t& index);
 
+// 原 520C81..520CA1：借同一记录的 W32 色表，记录为空时返回空，不检查索引范围。
+// 调用者已由 523140 处理绘制索引；池释放后该非拥有引用失效。
+const std::uint32_t* BorrowIndependentPaletteColors32(std::int16_t index, bool applyTone);
+
 // 原 0x45A900：按全局图形号 seek/read，再调用 ReadGraphicData；可省略 paletteLength。
 // 调用者须先建立元信息和文件表；实际查文件表时 fileIndex 必须在 0..8。
 // 读取成功后 destination 指针槽必须可写，记录长度/解压结果须落在相应存储内。

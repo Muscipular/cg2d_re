@@ -73,6 +73,9 @@ extern std::int32_t gGraphicDirty;
 // 原 0x103CF10：跨初始化、队列绘制及场景调用的独立完整 W32 模式槽。
 extern std::uint32_t gRenderQueueMode103CF10;
 
+// 原 1020ECC：DrawAllQueued 每次清零，520B10 限制有内嵌色表的旧节点刷新次数。
+extern std::int32_t gGraphicPaletteUploadCount;
+
 // 原波纹后缓冲状态；W32/S32 字段以无符号位模式承载回绕语义。
 extern volatile std::uint32_t gRippleIntegerPhaseBits; // 原 0x1020EEC。
 

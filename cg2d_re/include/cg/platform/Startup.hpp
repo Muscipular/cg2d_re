@@ -54,6 +54,8 @@ std::uint32_t ReadLegacyCurrentDirectory(std::uint32_t capacity, char* destinati
 void* AllocateLockedZeroedGlobalMemory(std::size_t bytes);
 // 原 GlobalHandle -> Unlock -> GlobalHandle -> Free；返回值由已见 caller 弃置。
 void ReleaseLockedGlobalMemory(void* memory);
+// 原 OutputDebugStringA 窄字节边界；保留兼容字节，不猜测编码或改写消息。
+void WriteLegacyDebugString(const char* message);
 int InitializeWindow();                   // 原 WndInit@0x4669F0；保留末次 UpdateWindow 的 EAX。
 int PumpWindowMessages();                 // 原 0x466D50，WM_QUIT 返回 0，否则 1。
 int RestoreCurrentSavedState_5201B0();    // 原 0x5201B0；按固定顺序恢复当前保存记录。

@@ -9,6 +9,7 @@ namespace cg::render {
 
 struct TextureSurface;
 struct PaletteCacheItem;
+struct GraphicCacheItem32;
 
 inline constexpr std::size_t kTextureNodeCapacity = 4096;
 
@@ -81,6 +82,12 @@ std::int32_t InvalidateGraphicRefs_523350() noexcept;
 
 // 原 5231A0：构建共享 AutoMap/Temp 与 4096 个节点面，失败保留已发布前缀。
 std::int32_t BuildSurfaceCache_5231A0();
+
+// 原 5222D0：恒空参数路径，按共享宽高领取/解绑/链接节点，不更新 reuseState。
+void TakeGraphicDxCache_5222D0(std::int32_t imageNo, void* /*unusedSource*/);
+
+// 原 520B10：版本/限流检查后上传真实索引像素；读图失败返回 0，其余路径返回 1。
+std::int32_t LoadGraphicTexture_520B10(const GraphicCacheItem32* graphic, TextureNode* texture);
 
 // 原 451310：将整张节点面填为零；唯一已见 caller 弃 DX7 返回值。
 void FillTextureBlack_451310(TextureSurface* surface) noexcept;

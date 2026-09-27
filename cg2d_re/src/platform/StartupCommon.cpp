@@ -48,4 +48,9 @@ void ReleaseLockedGlobalMemory(void* const memory)
     ::GlobalFree(::GlobalHandle(memory));
 }
 
+void WriteLegacyDebugString(const char* const message)
+{
+    ::OutputDebugStringA(message);
+}
+
 } // namespace cg::platform

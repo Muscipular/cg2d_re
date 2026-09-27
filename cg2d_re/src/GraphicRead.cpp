@@ -427,6 +427,16 @@ std::uint8_t RefreshIndependentPalette32_523140(std::int16_t& index)
     return 1;
 }
 
+const std::uint32_t* BorrowIndependentPaletteColors32(
+    const std::int16_t index, const bool applyTone)
+{
+    const IndependentPaletteRecord* const record = gIndependentPaletteIndex[index].record;
+    if (record == nullptr) {
+        return nullptr;
+    }
+    return applyTone ? record->tonedColors : record->originalColors;
+}
+
 int ReadGraphicDataByIndex(
     std::int32_t index,
     std::uint8_t** destination,

@@ -4,18 +4,20 @@
 #include "cg/GraphicRead.hpp"
 #include "cg/Palette.hpp"
 #include "cg/platform/LegacyWindow.hpp"
+#include "cg/platform/MainLoop.hpp"
+#include "cg/platform/Startup.hpp"
 #include "cg/render/GraphicDxCache.hpp"
+#include "cg/render/GraphicPaletteCache.hpp"
+#include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/render/SurfaceState.hpp"
 
 #include <algorithm>
+#include <cstdio>
 #include <cstring>
 #include <memory>
 #include <new>
 
 namespace cg::render {
-
-// 原 5222D0：用户确认第二参数恒空，仅保留未使用参数；本体待实现。
-void TakeGraphicDxCache_5222D0(std::int32_t imageNo, void* /*unusedSource*/);
 
 struct TextureSurface {
     std::int16_t width {};
@@ -161,6 +163,205 @@ std::int32_t LoadGraphic_522570(const std::int32_t imageNo)
     gGraphicDxCache103CFA4[static_cast<std::size_t>(imageNo)].height =
         static_cast<std::uint16_t>(resource::gCurrentGraphicHeight);
     TakeGraphicDxCache_5222D0(imageNo, nullptr);
+    return 1;
+}
+
+void TakeGraphicDxCache_5222D0(const std::int32_t imageNo, void* /*unusedSource*/)
+{
+    std::int32_t scan = gTextureScanIndex;
+    const std::int32_t scanStart = scan;
+    const auto width = static_cast<std::int32_t>(resource::gCurrentGraphicWidth);
+    const auto height = static_cast<std::int32_t>(resource::gCurrentGraphicHeight);
+    const std::int32_t columns = width / 64 + (width % 64 != 0 ? 1 : 0);
+    const std::int32_t rows = height / 48 + (height % 48 != 0 ? 1 : 0);
+    const std::int32_t required = columns * rows;
+    if ((resource::gCurrentGraphicWidth & 3u) != 0) {
+        resource::gCurrentGraphicWidth += (0u - resource::gCurrentGraphicWidth) & 3u;
+    }
+
+    DxGraphicEntry& entry = gGraphicDxCache103CFA4[imageNo];
+    if (entry.head != nullptr) {
+        TextureNode* old = entry.head;
+        do {
+            old->imageNo = -1;
+            old = old->next;
+        } while (old != nullptr);
+        entry.head = nullptr;
+        scan = gTextureScanIndex;
+    }
+
+    TextureNode* previous = nullptr;
+    std::int32_t blockX = 0;
+    std::int32_t remainingHeight = height;
+    std::int32_t taken = 0;
+    for (;;) {
+        const TextureNode& candidate = gTextureNodes[static_cast<std::size_t>(scan)];
+        if (candidate.reuseState < platform::gFrameCount - 2u) {
+            if (candidate.imageNo != -1) {
+                DxGraphicEntry& evicted = gGraphicDxCache103CFA4[candidate.imageNo];
+                TextureNode* old = evicted.head;
+                evicted.head = nullptr;
+                while (old != nullptr) {
+                    old->imageNo = -1;
+                    old = old->next;
+                }
+                scan = gTextureScanIndex;
+            }
+            TextureNode* const selected = &gTextureNodes[static_cast<std::size_t>(scan)];
+            if (entry.head == nullptr) {
+                entry.head = selected;
+            } else {
+                previous->next = selected;
+            }
+            scan = gTextureScanIndex;
+            TextureNode& node = gTextureNodes[static_cast<std::size_t>(scan)];
+            node.paletteChoice = -1;
+            node.paletteVersion = -1;
+            node.paletteIndex = 0;
+            node.imageNo = imageNo;
+            node.blockX = static_cast<std::int16_t>(blockX);
+            node.blockY = static_cast<std::int16_t>(height - remainingHeight);
+            ++taken;
+            if (taken >= required) {
+                ++scan;
+                gTextureScanIndex = scan;
+                node.next = nullptr;
+                if (scan >= gTextureNodeCount) {
+                    gTextureScanIndex = 0;
+                }
+                return;
+            }
+            previous = &node;
+            if (blockX < width - 64) {
+                blockX += 64;
+            } else {
+                blockX = 0;
+                remainingHeight -= 48;
+            }
+        }
+        ++scan;
+        gTextureScanIndex = scan;
+        if (scan >= gTextureNodeCount) {
+            scan = 0;
+            gTextureScanIndex = 0;
+        }
+        if (scan == scanStart) {
+            // 原 58D348 消息字节及 52253F 路径；不足时不清除部分链或补写尾 next。
+            char message[256];
+            std::sprintf(message,
+                "\x83\x54\x81\x5B\x83\x74\x83\x46\x83\x58\x95\x73"
+                "\x91\xAB\x82\xC5\x82\xB7\x81\x42%d\n", scan);
+            platform::WriteLegacyDebugString(message);
+            return;
+        }
+    }
+}
+
+std::int32_t LoadGraphicTexture_520B10(
+    const GraphicCacheItem32* const graphic, TextureNode* const texture)
+{
+    std::int32_t paletteChoice = gActivePalette;
+    std::int32_t paletteVersion = gPaletteFrameVersion;
+    DxGraphicEntry& entry = gGraphicDxCache103CFA4[graphic->imageNo];
+    const std::uint8_t mixMode = graphic->descriptor[0x0D];
+    if ((mixMode & 4u) != 0) {
+        paletteChoice = 0;
+        paletteVersion = 0;
+    }
+    std::int16_t paletteIndex;
+    std::memcpy(&paletteIndex, graphic->descriptor.data() + 0x0E, sizeof(paletteIndex));
+    if (texture->paletteChoice == paletteChoice
+        && texture->paletteVersion == paletteVersion
+        && texture->paletteIndex == paletteIndex) {
+        return 1;
+    }
+    if (gRenderQueueMode103CF10 != 0 && entry.flag != 0 && texture->paletteChoice >= 0) {
+        if (gGraphicPaletteUploadCount >= 10) {
+            return 1;
+        }
+        ++gGraphicPaletteUploadCount;
+    }
+    // 原 520B9F：限流分支之后再次核对同一组三字段。
+    if (texture->paletteChoice == paletteChoice
+        && texture->paletteVersion == paletteVersion
+        && texture->paletteIndex == paletteIndex) {
+        return 1;
+    }
+    if (resource::gGraphicDataBuffer != graphic->imageNo) {
+        if (resource::ReadGraphicDataByIndex(
+                graphic->imageNo, &resource::gGraphicDataPtr,
+                &resource::gCurrentGraphicWidth, &resource::gCurrentGraphicHeight,
+                &resource::gCurrentGraphicPaletteSize) == 0) {
+            resource::gGraphicDataPtr = nullptr;
+            resource::gCurrentGraphicHeight = 0;
+            resource::gCurrentGraphicWidth = 0;
+            resource::gCurrentGraphicPaletteSize = 0;
+            resource::gGraphicDataBuffer = -1;
+            return 0;
+        }
+        resource::gGraphicDataBuffer = graphic->imageNo;
+    }
+
+    const auto graphicWidth = static_cast<std::int16_t>(entry.width);
+    const auto graphicHeight = static_cast<std::int16_t>(entry.height);
+    std::int32_t width = gTextureSizeW;
+    if (texture->blockX + width > graphicWidth) {
+        width = graphicWidth - texture->blockX;
+    }
+    std::int32_t height = gTextureSizeH;
+    if (texture->blockY + height > graphicHeight) {
+        height = graphicHeight - texture->blockY;
+    }
+    if (width < gTextureSizeW || height < gTextureSizeH) {
+        FillTextureBlack_451310(texture->surface);
+    }
+
+    const bool applyTone = (graphic->descriptor[0x0D] & 4u) == 0;
+    std::memcpy(&paletteIndex, graphic->descriptor.data() + 0x0E, sizeof(paletteIndex));
+    if (paletteIndex != 0) {
+        const std::uint32_t* const colors =
+            resource::BorrowIndependentPaletteColors32(paletteIndex, applyTone);
+        if (colors != nullptr) {
+            LoadTextureFromBuffer32_450400(
+                texture->surface, texture->blockX, graphicHeight - texture->blockY - 1,
+                width, height, resource::gGraphicDataPtr,
+                static_cast<std::int32_t>(resource::gCurrentGraphicWidth),
+                reinterpret_cast<const std::uint8_t*>(colors));
+        }
+    } else {
+        if (entry.palette != nullptr
+            && (entry.palette->activePalIndex != paletteChoice
+                || entry.palette->frameIndex != static_cast<std::uint32_t>(paletteVersion))) {
+            entry.palette->imageNo = -1;
+            entry.palette = nullptr;
+        }
+        if (entry.palette == nullptr) {
+            if (static_cast<std::int32_t>(resource::gCurrentGraphicPaletteSize) > 0) {
+                entry.palette = LoadGraphicPalette32_44E290(
+                    graphic->imageNo, 2, applyTone ? 1 : 0,
+                    resource::gGraphicDataPtr
+                        + resource::gCurrentGraphicWidth * resource::gCurrentGraphicHeight,
+                    nullptr);
+            } else if (!applyTone) {
+                entry.palette = LoadGraphicPalette32_44E290(
+                    graphic->imageNo, 0, 0, nullptr, nullptr);
+            }
+        }
+        const std::uint8_t* const colors =
+            entry.palette == nullptr ? nullptr : entry.palette->payload.data();
+        LoadTextureFromBuffer32_450400(
+            texture->surface, texture->blockX, graphicHeight - texture->blockY - 1,
+            width, height, resource::gGraphicDataPtr,
+            static_cast<std::int32_t>(resource::gCurrentGraphicWidth), colors);
+        entry.flag = 0;
+        if (static_cast<std::int32_t>(resource::gCurrentGraphicPaletteSize) > 0) {
+            entry.flag = 1;
+        }
+    }
+    texture->paletteChoice = static_cast<std::int16_t>(paletteChoice);
+    texture->paletteVersion = static_cast<std::int16_t>(paletteVersion);
+    std::memcpy(&texture->paletteIndex, graphic->descriptor.data() + 0x0E,
+        sizeof(texture->paletteIndex));
     return 1;
 }
 

@@ -433,6 +433,9 @@ std::int32_t Sub_46C840(std::int32_t floor, std::int32_t playerX, std::int32_t p
 std::int32_t Sub_46C760(std::int32_t x, std::int32_t y);
 // 原 [46CF60,46D9B9)：完整两路地图绘制；参数只控制普通地图标记，重建场景10实传0。
 void __cdecl Sub_46CF60(std::int32_t value);
+// 原469020仅传标记参数1；43CB10完成战斗背景快照并更新5ABCD8。
+void Sub_469020();
+void Sub_43CB10();
 // 原 [0x4693F0,0x4697C9)：先扫 tile，再扫 obj/图形尺寸，输出第四地图平面。
 std::int32_t __cdecl Sub_4693F0(
     std::int32_t xStart, std::int32_t yStart, std::int32_t xEnd, std::int32_t yEnd,
@@ -524,6 +527,7 @@ std::int8_t Sub_51D750();                  // 原 0x51D750，IDA 原型 char()�
 std::uint32_t Sub_51D640();
 // 原 59F9F8，战斗背景 W32 图号；重建与战斗绘制/协议生产共用，非地址。
 extern std::int32_t gBattleBackgroundImage59F9F8;
+extern std::int32_t gBattleBackgroundSnapshot5ABCD8; // 43CB10末尾写，DrawBattleScene比较。
 using cg::login::detail::Sub_520160;
 void DrawBattleScene_43CBB0();             // 原 World::DrawBattleScene@0x43CBB0。
 

@@ -107,3 +107,37 @@ F32落点、音频请求差异及两路快照写序；严格UTF-8无BOM/LF、文
 源登记和真实接口只作静态检查，没有编译或执行输入。
 普通调用包装469020、战斗快照43CB10已只读预核但未实施，
 不能将已有46CF60推广为普通/战斗场景父链或完整运行通过。
+
+## 普通包装与战斗快照 SPEC
+
+原会话只读核 `[469020,469029)`、`[43CB10,43CBA6)` 全指令。
+469020 无条件仅调用46CF60(1)，不加状态门禁或队列清理；六个原
+caller 均在尚未实现的 DrawNormalScene，本步保留这一未接边界。
+
+43CB10 的完整顺序：
+
+1. 清同一图形W16计数，再清第二W32计数，调CacheReset→46BD40；
+2. 调46CF60(0)，读取背景图号59F9F8，以(320,240)、layer200、
+   value4=0、descriptor=null 调真实DrawGraphic；
+3. SortTextures→ClearSurface→queueMode=0→DrawAllQueued；
+4. 同一Back整面无色键复制到Temp，丢弃结果；不新增失败分支；
+5. queueMode固定写1，再清两个计数、CacheReset；
+6. **重新读取**59F9F8，写独立S32快照5ABCD8，返回。
+
+5ABCD8 位于已证PE零填充区，唯一写引用43CBA0、读引用43CBC8；
+由SceneState与既有背景图号相邻持有，初值0，world私有头供后续
+DrawBattleScene 使用；不当作地址或替代背景图号自身。
+本函数不保存/恢复旧queueMode或C82204，不写gLastRenderDt、不Flip；
+不能用它替代466B80场景10或51D640的不同收尾。
+其三个原caller均在未实现的DrawBattleScene，本步不接部分战斗状态机。
+
+实现复用MapSceneDrawing现有源及严格浮点目标，不改渲染/音频后端；
+原端返回被忽略的调用继续忽略，不用固定成功补齐依赖。
+仅静态检查，不构建、测试、运行或检查产物。
+
+实施状态：469020及43CB10已在同一MapSceneDrawing源完整落位；
+5ABCD8由SceneState唯一持有并经私有头声明。全部下游为既有实现，
+没有改写相似的RendererRebuild/51D640或引入新后端。
+九处原caller对应的两个大场景函数仍只有声明；本步不冒称其接线完成。
+静态核对覆盖计数宽度、两次图号读取、返回忽略、固定queueMode及
+无tick/Flip/C82204写入的边界；未编译、运行或执行文件/像素复制。

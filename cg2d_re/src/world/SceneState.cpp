@@ -1420,6 +1420,8 @@ std::uint32_t gValue9A7F78 = 0;
 
 // 原 59F9F8；PE 零填充，421480/50D120 的背景图生产后续复用。
 std::int32_t gBattleBackgroundImage59F9F8 = 0;
+// 原5ABCD8；43CB10末尾重读图号后发布，DrawBattleScene用于重建判断。
+std::int32_t gBattleBackgroundSnapshot5ABCD8 = 0;
 
 // 原 0xD2F788/0xFF0C10：504A30 清零的独立 S32/W16 状态槽。
 std::int32_t gValueD2F788 = 0;

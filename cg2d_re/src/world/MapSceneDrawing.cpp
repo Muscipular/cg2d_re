@@ -1,9 +1,12 @@
 #include "WorldUpdateDependencies.hpp"
 #include "../LoginMessageDependencies.hpp"
+#include "../platform/MainLoopDependencies.hpp"
 
 #include "cg/GraphicInfo.hpp"
 #include "cg/YobiRuntime.hpp"
+#include "cg/platform/MainLoop.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
+#include "cg/render/SurfaceState.hpp"
 #include "cg/world/SceneState.hpp"
 
 #include <bit>
@@ -306,6 +309,33 @@ void __cdecl Sub_46CF60(const std::int32_t markers)
     }
     platform::legacy_crypt_int::Destroy_401CF0(&temporary);
     audio::Sub_52CD60();
+}
+
+void Sub_469020()
+{
+    Sub_46CF60(1);
+}
+
+// 原战斗快照；与 renderer 重建不同，queueMode 固定恢复为 1，不更新时间戳。
+void Sub_43CB10()
+{
+    platform::gPendingGraphicCount = 0;
+    platform::gPendingGraphicCount2 = 0;
+    static_cast<void>(render::ResetGraphicCache_456D30());
+    static_cast<void>(Sub_46BD40());
+    Sub_46CF60(0);
+    const std::int32_t imageNo = gBattleBackgroundImage59F9F8;
+    static_cast<void>(login::detail::DrawGraphic(320, 240, 200, imageNo, 0, nullptr));
+    render::SortTextures_520790();
+    static_cast<void>(render::ClearSurface_4512C0());
+    render::gRenderQueueMode103CF10 = 0;
+    render::DrawAllQueued_520DD0();
+    static_cast<void>(render::CopyBackToTemp());
+    render::gRenderQueueMode103CF10 = 1;
+    platform::gPendingGraphicCount = 0;
+    platform::gPendingGraphicCount2 = 0;
+    static_cast<void>(render::ResetGraphicCache_456D30());
+    gBattleBackgroundSnapshot5ABCD8 = gBattleBackgroundImage59F9F8;
 }
 
 } // namespace cg::world::detail

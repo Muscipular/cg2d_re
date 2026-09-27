@@ -1,5 +1,6 @@
 #include "cg/platform/LegacyTime.hpp"
 #include "StartupNative.hpp"
+#include "LegacyStringCompareState.hpp"
 
 #include <cstddef>
 #include <cstdint>
@@ -278,7 +279,6 @@ std::int32_t gSystemTzValid_1086068 = 0;
 TIME_ZONE_INFORMATION gTimeZoneInformation_1086070 {};
 char* gTzCache_108611C = nullptr;
 std::int32_t gTzSetCount_1086120 = 0;
-UINT gConversionCodePage_1086170 = 0;
 
 // 原 0x5921F0 与 0x592224（末项 0x592254），供同文件转换入口复用。
 constexpr std::int32_t kLeapDays_5921F0[13] = {

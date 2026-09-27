@@ -34,6 +34,7 @@ add_library(cg2d_re_core STATIC
     src/render/RendererResources.cpp
     src/render/SurfaceState.cpp
     src/platform/LegacyWindow.cpp
+    src/platform/LegacyStringCompare.cpp
 )
 
 target_include_directories(cg2d_re_core

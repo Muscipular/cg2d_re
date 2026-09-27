@@ -4,6 +4,7 @@
 
 #include "cg/GraphicInfo.hpp"
 #include "cg/platform/LegacyWindow.hpp"
+#include "cg/platform/LegacyStringCompare.hpp"
 
 #include <cstdio>
 #include <cstdlib>
@@ -351,6 +352,25 @@ std::int32_t CoordInit_45C150(const std::int32_t index)
         destination->y = buffer[coordinate].y;
     }
     return 1;
+}
+
+void CoordLoadInit_45C040(char* const* const dataPaths, char* const* const infoPaths)
+{
+    detail::gCoordinateFiles9A2988.fill(nullptr);
+    for (std::size_t slot = 0; slot < 9; ++slot) {
+        if (detail::gCoordinateFiles9A2988[slot] != nullptr) {
+            continue;
+        }
+        CoordLoad_45BF60(&detail::gCoordinateFiles9A2988[slot],
+            dataPaths[slot], infoPaths[slot]);
+        for (std::size_t later = slot + 1; later < 9; ++later) {
+            if (platform::CompareInsensitive_53CF50(dataPaths[later], dataPaths[slot]) == 0) {
+                std::strcpy(dataPaths[later], dataPaths[slot]);
+                std::strcpy(infoPaths[later], infoPaths[slot]);
+                detail::gCoordinateFiles9A2988[later] = detail::gCoordinateFiles9A2988[slot];
+            }
+        }
+    }
 }
 
 std::int32_t CoordLoad_45BF60(

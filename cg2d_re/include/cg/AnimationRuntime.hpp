@@ -66,6 +66,9 @@ std::int32_t __cdecl GetIndex_45B400(std::uint32_t animeNo);
 std::int32_t AnimeInit_45BB20(
     char* const* dataPaths, char* const* infoPaths);
 
+// 原 [45C040,45C146)：清九文件槽，加载首个路径并向大小写相同的后续槽共享文件/回写路径。
+void CoordLoadInit_45C040(char* const* dataPaths, char* const* infoPaths);
+
 // 原 [45B760,45BB1F)：复用或领取主索引槽，读 action/帧，再加载坐标并发布计数。
 // index 须对应已初始化主表；不增加索引/文件判空，失败按原路径保留或清理已发布前缀。
 std::int32_t AnimeLoadAction_45B760(std::int32_t index);

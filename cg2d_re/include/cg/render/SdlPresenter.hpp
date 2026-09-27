@@ -26,6 +26,10 @@ public:
     [[nodiscard]] bool Create(
         std::uintptr_t nativeWindow, int width, int height, const char* driver) noexcept;
 
+    // Init 的合作级别/显示模式边界；真实切换并同步，不改变逻辑帧尺寸。
+    // 全屏模式选择失败沿原 SetDisplayMode 忽略返回的合同保留当前选择。
+    [[nodiscard]] bool SetFullscreen(bool fullscreen) noexcept;
+
     // 上传完整、自上而下的 0x00RRGGBB 帧，并以 nearest 覆盖当前输出区域。
     // pitchBytes 须为正、为 4 的倍数且至少 width * 4；允许行间 padding。
     // pixels 须覆盖至最后一行的最后一个像素，不要求末行尾部 padding。
@@ -57,13 +61,14 @@ extern std::uint32_t gFrameParity628FC8;
 
 // Renderer::Init/Destroy 的单一 SDL 后端边界；原生窗口由平台持有。
 [[nodiscard]] bool CreateRendererPresenter() noexcept;
+[[nodiscard]] bool SetRendererPresenterFullscreen(bool fullscreen) noexcept;
 [[nodiscard]] bool DestroyRendererPresenter() noexcept;
 [[nodiscard]] const char* RendererPresenterLastError() noexcept;
 
 // 原 44C560：将统一 CPU Back 提交到 SDL，失败置 lost，随后无条件翻转帧槽。
 void Flip_44C560();
 
-// 原 44C3C0：依次释放纹理节点、缓存面、调色板、Back、SDL 呈现器与 renderer owner。
+// 原 44C3C0：节点、缓存面、设备、接口、调色板、Back、SDL 呈现器与 renderer owner。
 void RendererDestroy_44C3C0() noexcept;
 
 } // namespace cg::render

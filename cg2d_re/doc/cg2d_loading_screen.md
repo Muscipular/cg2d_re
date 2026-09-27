@@ -110,8 +110,8 @@ phase 23 清继续标志后，跳帧或实绘都必须完成公共尾才返回 1
 `platform::initialization_detail`，由 InitializeClient 原调用直接接入。
 不把 34 个阶段拆成任意新业务框架；状态局部化，只有已证 16B 描述符
 作为唯一私有存储。已实现的资源、Yobi、键鼠、消息、调色板和 Flip
-直接复用，未完成的 HasLegacy3DDevice、507140、DrawAllQueued
-仍是真实依赖，不提供固定返回或空实现。
+直接复用；HasLegacy3DDevice 后续已接 renderer 独立接口槽，
+未完成的 507140、DrawAllQueued 仍是真实依赖，不提供固定返回或空实现。
 
 本步静态核对不代替加载画面、资源齐备、完整链接或运行验收；
 不构建、不新增或执行测试、不运行客户端，不用 subAgent。

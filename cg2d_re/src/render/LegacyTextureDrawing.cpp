@@ -161,9 +161,10 @@ std::int32_t SubmitTexturedRectangle(
 
 } // namespace
 
-LegacyTextureDevice* CreateLegacyTextureDevice(SDL_Surface* const back) noexcept
+LegacyTextureDevice* CreateLegacyTextureDevice(
+    const SDL_PixelFormatDetails* const format, SDL_Surface* const back) noexcept
 {
-    if (back == nullptr) {
+    if (format == nullptr || back == nullptr) {
         return nullptr;
     }
     auto* const device = new (std::nothrow) LegacyTextureDevice {};
@@ -171,7 +172,7 @@ LegacyTextureDevice* CreateLegacyTextureDevice(SDL_Surface* const back) noexcept
         return nullptr;
     }
     device->back = back;
-    device->row.reset(SDL_CreateSurface(kCpuSurfaceWidth, 1, SDL_PIXELFORMAT_XRGB8888));
+    device->row.reset(SDL_CreateSurface(kCpuSurfaceWidth, 1, format->format));
     if (device->row == nullptr) {
         delete device;
         return nullptr;
@@ -182,6 +183,29 @@ LegacyTextureDevice* CreateLegacyTextureDevice(SDL_Surface* const back) noexcept
 void DestroyLegacyTextureDevice(LegacyTextureDevice* const device) noexcept
 {
     delete device;
+}
+
+const SDL_PixelFormatDetails* GetLegacyTextureDeviceFormat(
+    LegacyTextureDevice* const device) noexcept
+{
+    return device == nullptr ? nullptr : SDL_GetPixelFormatDetails(device->row->format);
+}
+
+bool EnableLegacyTextureColorKey(LegacyTextureDevice* const device) noexcept
+{
+    return device != nullptr && SDL_SetSurfaceColorKey(device->row.get(), true, 0);
+}
+
+bool ConfigureLegacyTexturePipeline(LegacyTextureDevice* const device) noexcept
+{
+    if (device == nullptr) {
+        return false;
+    }
+    const SDL_Rect viewport {0, 0, kCpuSurfaceWidth, kCpuSurfaceHeight};
+    return SDL_SetSurfaceColorMod(device->row.get(), 255, 255, 255)
+        && SDL_SetSurfaceAlphaMod(device->row.get(), 255)
+        && SDL_SetSurfaceBlendMode(device->row.get(), SDL_BLENDMODE_NONE)
+        && SDL_SetSurfaceClipRect(device->back, &viewport);
 }
 
 std::int32_t BindLegacyTexture(

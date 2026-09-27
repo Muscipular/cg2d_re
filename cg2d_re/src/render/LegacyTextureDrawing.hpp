@@ -4,6 +4,7 @@
 #include <cstdint>
 
 struct SDL_Surface;
+struct SDL_PixelFormatDetails;
 
 namespace cg::render {
 
@@ -47,11 +48,18 @@ const LegacyTextureState& GetLegacyTextureState();
 extern std::uint32_t gLegacyTextureStage;
 
 // 私有 native 设备拥有单行 scratch 和绑定引用，借用 Back；不能替代 +9C 接口。
-LegacyTextureDevice* CreateLegacyTextureDevice(SDL_Surface* back) noexcept;
+LegacyTextureDevice* CreateLegacyTextureDevice(
+    const SDL_PixelFormatDetails* format, SDL_Surface* back) noexcept;
 void DestroyLegacyTextureDevice(LegacyTextureDevice* device) noexcept;
+// 查询真实 scratch 格式；配置对应 Init 的色键、固定管线和 viewport 阶段。
+const SDL_PixelFormatDetails* GetLegacyTextureDeviceFormat(LegacyTextureDevice* device) noexcept;
+[[nodiscard]] bool EnableLegacyTextureColorKey(LegacyTextureDevice* device) noexcept;
+[[nodiscard]] bool ConfigureLegacyTexturePipeline(LegacyTextureDevice* device) noexcept;
 // RendererResources 持有同一设备；创建成功才发布，销毁必须先于 Back。
 [[nodiscard]] bool CreateRendererTextureDevice() noexcept;
 void ReleaseRendererTextureDevice() noexcept;
+// 独立 +9C 接口槽，设备释放之后、SDL presenter 之前释放。
+void ReleaseRendererTextureInterface() noexcept;
 LegacyTextureDevice* GetRendererTextureDevice() noexcept;
 // 原 native Set/GetTexture 边界；查询成功返回的一份引用须 ReleaseTextureSurface。
 std::int32_t BindLegacyTexture(

@@ -130,7 +130,8 @@ RendererInit、native 模式承载、像素提交和整链验收仍须继续。
 [私有接口](../src/render/LegacyTextureDrawing.hpp)已落位，
 两条翻转回退路径调用现有 `TransformTextureSurface_44CD80`；
 其中色键 Blt、共享查询及四顶点 native 提交后续已按各节落位；
-设备创建父调用与 +9C 接口状态仍未接通，没有以占位实现补齐。
+设备创建父调用与 +9C 接口状态随后按[Init SPEC](cg2d_sdl_presenter.md)
+接通，没有以占位实现补齐；最终像素与父绘制仍未验收。
 本线程逐支核对整数/F32 裁剪、八次 S64 转换的顺序、两个入口不同的
 翻转 UV、三组混合值与真实状态返回。CMake startup 登记与
 `/fp:strict`、bias 位模式、十文件严格 UTF-8 无 BOM/LF、
@@ -521,8 +522,10 @@ z=0/rhw=1、单套 UV；不扩展成任意三角形或通用 3D 引擎。
 私有设备的分配、八槽绑定/持有查询、单行采样/混合和释放均已定义。
 RendererResources 为唯一设备 owner，Destroy 已在缓存面之后、
 palette/Back 之前释放设备；绑定叶由真实设备类型持有，
-不是独立全局对象。创建函数尚无 RendererInit caller，
-共享 stage 也仍缺原探测后的写入；不把零初值当探测通过。
+不是独立全局对象。此时创建函数尚无 RendererInit caller；
+后续按[完整 Init SPEC](cg2d_sdl_presenter.md)接入独立格式接口、
+原 4/3/2 尝试、实际设备配置、尺寸与 Set/GetTexture 探测。
+共享 stage 在成功探测之后写入，不把零初值当探测通过。
 
 本步源码逐支静态核对空覆盖、正反向轴、WRAP 负余数、
 真实 pitch、三组混合、色键先于调制、失败前缀和引用释放顺序。

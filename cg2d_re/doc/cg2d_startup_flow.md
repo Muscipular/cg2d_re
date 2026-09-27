@@ -159,7 +159,6 @@ InitPalette 失败则无本函数额外提示。七条 ASCII 阶段日志的大�
 已有音频及真实动画/坐标初始化。CMake 仅登记新源，不配置或构建。
 以下原直接目标仍只有真实声明，没有新增函数体或假成功：
 
-- `render::RendererInit_44B630`：32 位色、SDL/CPU、模式 2/3/4 及失败发布。
 - `initialization_detail::InitializeMusic_454C30`：原次级 DirectMusic
   初始化，音频继续暂缓，没有以已有 `5241A0` 替掉这个独立调用。
 - `initialization_detail::InitializeWindowSystem_4705D0`：
@@ -169,8 +168,10 @@ InitPalette 失败则无本函数额外提示。七条 ASCII 阶段日志的大�
 `world::InitializeAlbum_518C20`，在唯一 `0x3C00C` 字节区执行
 整区清零和 `CCA\0` 复制，返回完整 W32 值 4。
 移除原 platform 候选声明；其后两段淡变及完整
-[InitLoading 阶段机](cg2d_loading_screen.md)也已落位，父函数尚缺的
-直接目标为 RendererInit、次级音乐和窗口系统三项；
+[InitLoading 阶段机](cg2d_loading_screen.md)也已落位。
+RendererInit 后续已按[完整父流程 SPEC](cg2d_sdl_presenter.md)接入
+32 位 SDL/CPU 资源、独立接口、模式分流及失败发布；
+父函数尚缺的直接目标为次级音乐和窗口系统两项。
 相册加载、保存、组清理和同步仍未实现，不将初始化当作相册整链完成。
 
 此外已有自动地图颜色包装的下游、DrawAllQueued 和完整退出依赖仍
@@ -243,8 +244,8 @@ InitPalette 失败则无本函数额外提示。七条 ASCII 阶段日志的大�
 
 两淡变入口及私有 helper 放在既有初始化源文件；
 复用平台消息、计时和睡眠边界及已实现的入队、调色板、清面、Flip。
-InitLoading 后续已按独立 SPEC 完整实现；DrawAllQueued、3D 查询、
-507140 和 RendererInit 等仍有缺口。
+InitLoading 后续已按独立 SPEC 完整实现；RendererInit 与独立接口查询
+也已落位，DrawAllQueued、507140 等仍有缺口。
 本步只做静态控制流、共享槽、声明/调用与格式检查，
 不构建、测试或运行，不将完整父函数等同于已有加载画面。
 
@@ -253,4 +254,5 @@ InitLoading 后续已按独立 SPEC 完整实现；DrawAllQueued、3D 查询、
 changing 清零后继续执行当帧、跳帧及实绘后的同一结束判断、
 消息退出仅一次 Shutdown、淡入独有末尾提交。
 新端没有为图形队列、调色板版本或截止增加重复 owner；
-`HasLegacy3DDevice_44B610` 仍只有声明，没有把缺失模式状态补成常量。
+`HasLegacy3DDevice_44B610` 后续已查询 renderer 的独立 native 格式接口槽，
+没有把模式状态补成常量，也不与实际设备槽合并。

@@ -12,12 +12,12 @@ struct PaletteBinding;
 extern RendererResources* gRenderer;
 
 // 原 [44B630,44C3B7)：初始化父入口；调用者按低 S8 区分 1/2，其余首次值继续。
-// 尚待完整实现 SDL/CPU 资源与原模式分流，不提供固定返回。
+// SDL/CPU native 资源与原模式分流；本体返回 0/1，不合成 caller 保留的 2。
 std::int8_t RendererInit_44B630();
 
 // 原 [44B610,44B624)：读取 renderer +9C 的 IDirect3D7 接口，返回非空 0/1。
 // 实际设备是 +A0；此处沿用既有函数名，不将两个槽的身份或生命周期合并。
-// 模式生产及 SDL/CPU 对应状态仍待实现，不以固定返回代替。
+// 查询同一 renderer owner 的独立格式接口槽，不以设备或请求模式代替。
 std::int32_t HasLegacy3DDevice_44B610();
 
 // 原 44BB1E–44BBB7：Back 像素格式发布的共享 W32 槽。

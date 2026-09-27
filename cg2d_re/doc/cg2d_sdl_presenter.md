@@ -1036,7 +1036,7 @@ Back 的私有物理分配扩为 `640*480+1` 个 W32；
    `457747–45774E` 检查返回，重建 `466C11`
    不检查，仍须保持两者的差异。
 
-**未决映射：**现有 `SdlPresenter` 只提供 32 位 2D
+**当时未决映射（后续已按文末完整父流程 SPEC 裁决）：**当时 `SdlPresenter` 只提供 32 位 2D
 整帧提交；32 位色范围不自动排除上层请求模式
 `2/3/4` 的 3D 分流。需要闭合这些模式的实际
 绘制消费者、纹理节点和 x64 owner，才能决定 SDL/CPU
@@ -1055,11 +1055,12 @@ Back 的掩码发布与旧 `data\update.dat` 的写入边界。
 四顶点 native 提交后续已按该 SPEC 的 CPU 设备章节实现：
 保留 UV 的 POINT/WRAP 采样、单行 SDL 色键/调制/三组混合写同一 Back；
 设备归现有 renderer owner，Destroy 在缓存面后、Back 前释放它。
-设备创建父调用、+9C 接口和模式状态生产仍缺，不代表已经可运行。
+设备创建父调用、+9C 接口和模式状态生产随后按文末 Init SPEC 接入，
+不代表已经可运行。
 随后已补 MakeSurface 的实际尺寸规则，节点/变换面不再把请求 64×48
 当作有 3D 时的固定物理大小；像素格式发布 helper 同时写唯一 bit count。
 Temp 首次/失败回退后续已分别接 44C8B0/44C6D0，并按实际行距
-完成无色键快照；初始化探测的 factory 接线仍缺。
+完成无色键快照；初始化探测的 factory 后续亦已接入。
 不能据上层入口存在称模式 2/3/4、RendererInit 或最终画面已完成。
 
 ## `44C560` 的 SDL 提交叶与共享帧槽
@@ -1335,3 +1336,105 @@ CMake 仅登记前者；MainLoop 两处和 WindowProcedure 既有调用未改。
 战斗背景仅有唯一槽及此处读取，生产者未落位；
 RendererInit、46CF60、DrawAllQueued 等真实依赖仍缺，
 不把重建函数定义记作已恢复设备、已有画面或完整链接通过。
+
+## RendererInit 完整父流程实施 SPEC
+
+2026-09-27，继四顶点 CPU native 提交，按工程决策委托落实
+`[44B630,44C3B7)`。原会话只读核全段指令、调用、提示原字节及
+请求/支持模式引用；不把以下 native 映射当旧 DX7 驱动的硬件能力。
+
+### Native 映射裁决
+
+1. RendererResources 仍为唯一 owner；Init 放在其既有源文件，
+   不复制纹理状态、模式字节或窗口。原逻辑宽高沿唯一 Back 的
+   640×480；纹理请求尺寸依原位发布 64/48。先清 lost、重新
+   GetDC/GetDeviceCaps/ReleaseDC，再执行 flag bit 3 的低色深早退。
+2. DirectDraw 创建/主表面/clipper 由已有自动 driver SDL presenter
+   整体承接，不伪造三个 COM 对象或独立失败点。创建失败仍提示并
+   返回低 S8=1，已发布 renderer 不自动撤销；Back 创建失败保留
+   presenter，按原 Back Buffer 提示返回 1。
+3. SDL presenter 增加实际窗口/全屏切换。全屏选择当前显示器最接近
+   640×480、桌面刷新率的显示模式；该选择和模式设置的失败不单独
+   早退，对应原 `44B9EA` 不检查 SetDisplayMode 返回。
+   SDL 的实际 fullscreen 请求与同步完成检查承接合作级别失败；
+   窗口模式退出 fullscreen，不新增原生窗口或更改平台窗口 owner。
+   物理显示模式可由 SDL 转换，逻辑 Back 始终 32 位。
+4. 早期色深采样仍用于原提示门禁；Back 创建后共享 BITSPIXEL
+   改为其实际 SDL 格式位数，供后续 32 位消费者使用。
+   查询失败返回 1；只承接 XRGB8888，按既有 helper 发布
+   RGB 掩码/位移。8/16/24 位像素分支及 PALDATA 继续范围排除。
+5. `+9C` 映射为独立的 LegacyTextureInterface，持有从实际 Back
+   查询的 SDL 格式描述借用；该描述用于设备 scratch 创建，
+   不是空 tag 或仅代表设备已创建的 bool。描述由 SDL 管理，
+   接口在 SDL presenter 之前释放。HasLegacy3DDevice 只查这个槽。
+6. 请求 4/3/2 的创建分支、各自门禁和成功发布保留。三种逻辑模式
+   均用现已实现的 CPU 固定管线承接已还原的预变换顶点、色键和混合，
+   不强制降到 1/2，也不宣称硬件 T&L、显存或旧 GUID 可用。
+   每次尝试实际分配设备/scratch，失败继续下一个原分支；
+   支持模式只在该次创建成功后发布，不由请求直接赋成功值。
+7. native 能力查询读取真实 scratch 格式；色键启用通过实际 SDL
+   设置检查，成功才写 +BC=1。其余原禁用的 lighting/depth/cull/
+   perspective 状态由已实现的固定管线语义承接，配置真实 SDL
+   调制/混合及 Back viewport，失败进入原降级。
+   CPU POINT/WRAP 本身支持非幂次方和非正方形，故本后端相应
+   textureCaps 限制位为零，不复制或捏造显卡 caps/GUID。
+   原 +B8/+BA 的 S16 +2、能力位调整和写入次序仍保留。
+
+以上是已批准 SDL/CPU 替换的工程实现选择，不豁免
+DrawAllQueued、尚缺矩形消费者、最终画面与全屏重建的运行验收。
+原 COM 内部分配、GUID 差异及逐项 HRESULT 不作伪造模拟。
+
+### 必须保留的上层顺序
+
+- 请求模式低 W8 按 S8 比较；<=1 才先写支持模式，<1 提示并
+  依序改支持/请求为 1。flag bit 0 独立强制 1，仍保留模式
+  四字节存储中未写的高字节；不把两个模式合并。
+- 不兼容像素格式单独提示/改模式，不写文件；低模式正常返回 0。
+  接口创建失败有 Direct3D Object 提示，随后才进入公共降级；
+  后续设备/配置/探测失败无该额外提示。
+- 公共降级按设备→接口释放并清槽，然后清 +BC；准备 `"1\0"`
+  原字节，使用 `CreateFileA("data\\update.dat", GENERIC_WRITE,
+  0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr)`。
+  打开失败跳过写/关；写入长度不含 NUL，忽略写/关结果，
+  随后显示模式 1 提示、写支持模式、写请求模式，返回 0。
+  这不是 Init 的低 S8=1 早期失败，不改 caller 的继续行为。
+- 配置成功后执行 MakeSurface(256,256,0,800h) 探测。
+  创建空则跳过整段而不重写 dwStage；非空时 Set/GetTexture
+  实参 stage 均为 0，而不是探测循环计数。查询持有引用先释放，
+  再释放创建引用；设备绑定仍持有该面。成功后才发布共享 stage。
+  原 GetTexture 成功却返回 null 后的无效虚调用属于 RPLAN.24，
+  不模拟该故障现场，不将新端 null 释放合同声称为故障等价。
+- 支持模式与请求相同时直接返回 0。不同则先按支持模式 3/2
+  显示对应原字节提示；模式 3 提示后重读支持模式再判断 2。
+  然后打开同一 update.dat，仅在打开成功后读取支持模式低 S8
+  做 `%d` 格式化并写入，最后重读支持模式回写请求模式。
+  打开失败仍回写，不提前缓存模式值或将写入失败变为 Init 失败。
+- 本体只返回 0/1，不合成原未见的 2；父初始化/重建中的
+  低字节 2 支路保留原样。任何早退不插入统一销毁或额外 Post。
+
+### 字节与检查边界
+
+提示按原内存至首个 NUL 读取，不能用 IDA 对非 ASCII 内容截断的
+字符串视图。Caption=5536B8（4B）、低色深=5564B4（47B）、
+Back=556428（21B）、Direct3D Object=556390（25B）、
+三个模式提示=5563AC/556304/556340（各 56B）；
+回退字=55638C 的 `31 00`。保留原编码字节，不在消息边界猜编码。
+
+本步仅静态核对原控制流、共享写序、SDL/API 声明与生命周期；
+不编译、不测试、不运行客户端、不触发实际显示模式或文件写入。
+初始化本体可落位不等于完整客户端链接、全屏恢复或像素通过。
+
+### Init 接线落实
+
+[RendererResources.cpp](../src/render/RendererResources.cpp) 已定义完整
+RendererInit、真实独立接口查询、原模式/降级/文件写入和探测控制流；
+已有 InitializeClient 与 RebuildRenderer 的四处调用无需改变。
+SDL presenter 的 fullscreen/sync、真实 Back 格式、单行设备配置
+均已接入；正常销毁和降级均先释放设备，再释放接口。
+此前 HasLegacy3DDevice 与 CreateRendererTextureDevice 的声明缺口已闭合。
+
+本线程静态核对全部原返回和写序、探测引用、七个非 ASCII 提示常量、
+接口及既有 CMake/SDL/Win32 链接声明；新增代码未编译或执行。
+32 位 CPU native profile 不宣称旧硬件能力，模式 2/3/4 的画面、
+全屏切换/重建和文件写回均仍缺真实运行验收。
+FillRect_44C9A0、DrawAllQueued、UI 初始化及整体 SPEC 继续推进。

@@ -181,6 +181,33 @@ bool SdlPresenter::Create(
     return true;
 }
 
+bool SdlPresenter::SetFullscreen(const bool fullscreen) noexcept
+{
+    if (!SDL_IsMainThread()) {
+        return Fail("SetFullscreen", "必须在 SDL 主线程调用。");
+    }
+    if (impl_ == nullptr) {
+        return Fail("SetFullscreen", "实例尚未创建或已销毁。");
+    }
+    if (fullscreen) {
+        SDL_DisplayMode mode {};
+        const SDL_DisplayID display = SDL_GetDisplayForWindow(impl_->window);
+        if (SDL_GetClosestFullscreenDisplayMode(
+                display, impl_->width, impl_->height, 0.0f, false, &mode)) {
+            // 原 44B9EA 不消费 SetDisplayMode 返回；实际 fullscreen 请求仍须成功。
+            static_cast<void>(SDL_SetWindowFullscreenMode(impl_->window, &mode));
+        }
+    }
+    if (!SDL_SetWindowFullscreen(impl_->window, fullscreen)) {
+        return FailSdl("SDL_SetWindowFullscreen");
+    }
+    if (!SDL_SyncWindow(impl_->window)) {
+        return FailSdl("SDL_SyncWindow");
+    }
+    lastError_[0] = '\0';
+    return true;
+}
+
 bool SdlPresenter::Present(std::span<const std::uint32_t> pixels, int pitchBytes) noexcept
 {
     if (!SDL_IsMainThread()) {
@@ -262,6 +289,11 @@ bool CreateRendererPresenter() noexcept
         platform::gLegacyWindow, kCpuSurfaceWidth, kCpuSurfaceHeight, nullptr);
 }
 
+bool SetRendererPresenterFullscreen(const bool fullscreen) noexcept
+{
+    return gRendererPresenter.SetFullscreen(fullscreen);
+}
+
 bool DestroyRendererPresenter() noexcept
 {
     return gRendererPresenter.Destroy();
@@ -290,6 +322,7 @@ void RendererDestroy_44C3C0() noexcept
     ReleaseTextureNodeSurfaces_44C408();
     DestroyCpuCacheSurfaces();
     ReleaseRendererTextureDevice();
+    ReleaseRendererTextureInterface();
     ReleaseRendererPaletteBinding();
     DestroyCpuBackSurface();
     if (!DestroyRendererPresenter()) {

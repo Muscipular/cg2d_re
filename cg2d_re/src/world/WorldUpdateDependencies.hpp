@@ -520,6 +520,15 @@ void Sub_45ED80();                        // 原 [0x45ED80,0x45ED8B)，重置 9A
 extern std::uint32_t gValue9A6204;         // 原 0x9A6204；45ED90 后续复用。
 std::int32_t Sub_45ED90();                 // 原 [0x45ED90,0x45EEDA)，场景 7 请求与展示。
 void DrawNormalScene_51C7D0();             // 原 World::DrawNormalScene@0x51C7D0。
+// 519EE0 每个原读取点借用唯一 FF02B4，不暴露可写槽或对象布局。
+login::YobiAction* ReadPlayerAction() noexcept;
+void Sub_519CD0(
+    std::int32_t imageNo, std::int32_t x, std::int32_t y,
+    std::int32_t direction); // 原 519CD0：创建并发布玩家，或更新已有玩家。
+void Sub_519E50(std::int32_t imageNo, std::int32_t direction);
+std::uint32_t Sub_519EC0(std::int32_t x, std::int32_t y); // 透传468330。
+void Sub_519EE0(); // 原入口不读取参数；检查当前坐标并同步 action 载荷。
+std::int32_t Sub_51C0D0(std::int32_t imageNo); // 原骑乘图号映射，未命中原值返回。
 std::int8_t Sub_519D50();                  // 原 0x519D50：附件清理、重读玩家标死与动作尾链，返回低 S8。
 // 519D50 尾链及 51A840 状态生产共用的玩家位槽，不复制 FDA88E 动作标志。
 void Sub_51A5A0(); // 原 51A5A0：先置 FDA88A bit8，再只写 FDA88C 低 W8。

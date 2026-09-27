@@ -53,6 +53,11 @@ YobiAction* Sub_441DB0(
     std::int32_t mapY, std::int32_t direction);
 // 原 519D61–519E14：主 action 已非空，条件清八个附件及文本；不释放主 action/payload。
 void ClearMapActorAttachments(YobiAction* action);
+// 519CD0 创建成功后分别操作原 +24/+284；调用方在两次写入间重读玩家。
+void SetYobiPlayerFlag(YobiAction* action) noexcept;
+void SetYobiWalkSpeed(YobiAction* action, std::int32_t speed) noexcept;
+// 519E50 借用地图实体 payload 的原 +44 槽；不增加 payload 空检查。
+YobiAction* ReadMapActorAttachment44(const YobiAction* action) noexcept;
 
 // 原 46DE50：创建地图动画 action，保留四次 CryptInt 临时赋值及投影顺序。
 YobiAction* Sub_46DE50(std::int32_t imageNo, std::int32_t mapX, std::int32_t mapY);

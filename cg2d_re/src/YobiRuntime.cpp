@@ -992,6 +992,21 @@ YobiAction* Sub_441DB0(
     return action;
 }
 
+void SetYobiPlayerFlag(YobiAction* const action) noexcept
+{
+    action->flags |= 0x80u;
+}
+
+void SetYobiWalkSpeed(YobiAction* const action, const std::int32_t speed) noexcept
+{
+    action->walkSpeed = speed;
+}
+
+YobiAction* ReadMapActorAttachment44(const YobiAction* const action) noexcept
+{
+    return static_cast<const MapActorPayload*>(action->payload)->action44;
+}
+
 void ClearMapActorAttachments(YobiAction* const action)
 {
     auto* const payload = static_cast<MapActorPayload*>(action->payload);
@@ -1889,6 +1904,40 @@ void SetYobiActionField30F(
 } // namespace cg::login
 
 namespace cg::world::detail {
+
+void Sub_519EE0()
+{
+    if (ReadPlayerAction() == nullptr) {
+        return;
+    }
+    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&gPlayerY);
+    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&gPlayerX);
+    const std::int32_t blocked = Sub_469810(x, y);
+    login::YobiAction* action = ReadPlayerAction();
+    if (blocked != 0) {
+        platform::legacy_crypt_int::CopyPayload(&gPlayerX, &action->mapX1E0);
+        platform::legacy_crypt_int::CopyPayload(&gPlayerY, &action->mapY1F0);
+    }
+
+    const std::uint32_t worldXBits = gWorldCurrentXBits;
+    action->worldX = std::bit_cast<float>(worldXBits);
+    action = ReadPlayerAction();
+    const std::uint32_t worldYBits = gWorldCurrentYBits;
+    action->worldY = std::bit_cast<float>(worldYBits);
+    action = ReadPlayerAction();
+    platform::legacy_crypt_int::CopyPayload(&action->mapX1E0, &gPlayerX);
+    action = ReadPlayerAction();
+    platform::legacy_crypt_int::CopyPayload(&action->mapY1F0, &gPlayerY);
+    action = ReadPlayerAction();
+    action->field27C = gValue9EE8FC;
+    const std::uint32_t movementY = gValue9EE900;
+    action = ReadPlayerAction();
+    action->field280 = movementY;
+    action = ReadPlayerAction();
+    platform::legacy_crypt_int::CopyPayload(&action->mapX200, &gPlayerSnapshotX);
+    action = ReadPlayerAction();
+    platform::legacy_crypt_int::CopyPayload(&action->mapY210, &gPlayerSnapshotY);
+}
 
 void RenderChara_521F20()
 {

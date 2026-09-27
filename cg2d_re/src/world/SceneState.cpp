@@ -76,7 +76,10 @@ std::array<DirectionDelta, 8> gDirectionDeltas55D9DC {{
 
 // 原首块 [FDA700,FF02E0) 已证玩家槽；不将此原生结构当作原连续内存。
 struct PlayerRuntimeSlots {
+    std::int32_t walkSpeed; // 原 FDA870；独立于通用 action 的初始步速。
+    std::int32_t imageNo; // 原 FDA878，不是 FDA87C。
     std::uint32_t objectIndex;
+    std::int32_t direction; // 原 FDA884；其他消费者可读取低 S8。
     std::uint16_t flags18A; // 原 FDA88A W16；跨 W32 读取还须拼接 flags18C 的低 W16。
     std::uint32_t flags18C; // 承载原 [FDA88C,FDA890)；18C 低 W8、18E 高 W16 共享字节。
     std::int32_t value190; // 原 FDA890；51BDD0/51BE50 写入的完整动作值。
@@ -3943,6 +3946,103 @@ void Sub_4D3170()
 std::int32_t Sub_4410E0()
 {
     return 0x11;
+}
+
+login::YobiAction* ReadPlayerAction() noexcept
+{
+    return gPlayerRuntime.action;
+}
+
+void Sub_519CD0(
+    const std::int32_t imageNo, const std::int32_t x, const std::int32_t y,
+    const std::int32_t direction)
+{
+    login::YobiAction* const oldAction = gPlayerRuntime.action;
+    gPlayerRuntime.imageNo = imageNo;
+    gPlayerRuntime.direction = direction;
+    if (oldAction != nullptr) {
+        Sub_519E50(imageNo, direction);
+        static_cast<void>(Sub_519EC0(x, y));
+        Sub_519EE0();
+        return;
+    }
+
+    login::YobiAction* const action =
+        login::detail::Sub_441DB0(imageNo, x, y, direction);
+    gPlayerRuntime.action = action;
+    if (action != nullptr) {
+        login::detail::SetYobiPlayerFlag(action);
+        login::YobiAction* const current = gPlayerRuntime.action;
+        login::detail::SetYobiWalkSpeed(current, gPlayerRuntime.walkSpeed);
+    }
+}
+
+void Sub_519E50(const std::int32_t imageNo, const std::int32_t direction)
+{
+    login::YobiAction* const action = gPlayerRuntime.action;
+    gPlayerRuntime.imageNo = imageNo;
+    gPlayerRuntime.direction = direction;
+    if (action == nullptr) {
+        return;
+    }
+    login::detail::SetYobiActionField2A8(action, imageNo);
+    login::detail::SetYobiActionField2B8(gPlayerRuntime.action, direction);
+    login::YobiAction* const current = gPlayerRuntime.action;
+    if (login::detail::ReadMapActorAttachment44(current) != nullptr) {
+        const std::int32_t mapped =
+            Sub_51C0D0(login::detail::GetYobiActionField2A8(current));
+        login::detail::SetYobiActionField2A8(gPlayerRuntime.action, mapped);
+    }
+}
+
+std::uint32_t Sub_519EC0(const std::int32_t x, const std::int32_t y)
+{
+    return Sub_468330(x, y);
+}
+
+std::int32_t Sub_51C0D0(const std::int32_t imageNo)
+{
+    // 保留原区段顺序和两种除法，不扩展为通用图号规则。
+    struct ImageRange {
+        std::int32_t first;
+        std::int32_t last;
+        std::int32_t base;
+    };
+    constexpr ImageRange grouped[] {
+        {100000, 100173, 114000}, {100250, 100423, 114028},
+        {105000, 105173, 114056}, {105250, 105423, 114084},
+        {106000, 106173, 114112}, {106250, 106423, 114140},
+        {105500, 105548, 112000},
+    };
+    for (const auto& range : grouped) {
+        if (imageNo >= range.first && imageNo <= range.last) {
+            const std::int32_t offset = imageNo - range.first;
+            return offset % 25 / 6 + 4 * (offset / 25) + range.base;
+        }
+    }
+    constexpr ImageRange linear[] {
+        {104400, 104429, 112010}, {104430, 104459, 112015},
+        {104460, 104489, 112020}, {104490, 104519, 112025},
+        {120100, 120123, 120148}, {120124, 120147, 120152},
+    };
+    for (const auto& range : linear) {
+        if (imageNo >= range.first && imageNo <= range.last) {
+            return (imageNo - range.first) / 6 + range.base;
+        }
+    }
+    if (imageNo >= 120156 && imageNo <= 120159) {
+        return imageNo - 8;
+    }
+    if (imageNo >= 120160 && imageNo <= 120163) {
+        return imageNo - 8;
+    }
+    if (imageNo == 100900) {
+        return 114169;
+    }
+    if (imageNo == 100901) {
+        return 114168;
+    }
+    return imageNo;
 }
 
 std::int8_t Sub_519D50()

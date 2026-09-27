@@ -369,6 +369,27 @@ std::int32_t __cdecl Sub_46DC90(std::int32_t selected); // 原 [0x46DC90,0x46DD3
 void Sub_44B050(const char* text, std::int32_t color, std::int32_t fontType);
 std::int32_t Sub_4A76E0();
 
+// 原 FF0508/DE03F8 两张称号表共用记录；地址不存入数值字段。
+struct TitleRecord {
+    std::int32_t id; // 原 +0；负值表示无称号。
+    std::int32_t value; // 原 +4；50A300第三字段。
+    std::array<char, 20> text; // 原 +8；原编码字节，不增加复制限长。
+};
+
+static_assert(std::is_standard_layout_v<TitleRecord>);
+static_assert(std::is_trivially_copyable_v<TitleRecord>);
+static_assert(offsetof(TitleRecord, id) == 0);
+static_assert(offsetof(TitleRecord, value) == 4);
+static_assert(offsetof(TitleRecord, text) == 8);
+static_assert(sizeof(TitleRecord) == 0x1C);
+extern std::array<TitleRecord, 64> gTitlesFF0508;
+extern std::array<TitleRecord, 64> gSortedTitlesDE03F8;
+
+void Sub_50A300(std::uintptr_t socket, const char* payload); // 原称号回复；socket未用。
+std::int32_t Sub_519840(std::int32_t id); // 原表首匹配索引，未找到返回-1。
+std::int32_t Sub_519870(); // 非负编号数量/8+1。
+void Sub_5198D0(TitleRecord* records, std::uint32_t count); // 原CRT次序的称号排序。
+
 // 原 50A300 唯一调用的 28 字节记录前向复制叶。
 void Sub_5198A0(
     std::uint8_t* destination, const std::uint8_t* source,

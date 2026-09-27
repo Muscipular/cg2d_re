@@ -1,8 +1,10 @@
 #include "GraphicDxCacheState.hpp"
 
 #include "cg/GraphicInfo.hpp"
+#include "cg/GraphicRead.hpp"
 #include "cg/Palette.hpp"
 #include "cg/platform/LegacyWindow.hpp"
+#include "cg/render/GraphicDxCache.hpp"
 #include "cg/render/SurfaceState.hpp"
 
 #include <algorithm>
@@ -11,6 +13,10 @@
 #include <new>
 
 namespace cg::render {
+
+// 原 5222D0：节点链生产者尚未落位；唯一直接 caller 传空的第二参数。
+void TakeGraphicDxCache_5222D0(std::int32_t imageNo, std::int32_t* source);
+
 struct TextureSurface {
     std::int16_t width {};
     std::int16_t height {};
@@ -125,6 +131,37 @@ std::int32_t InvalidateGraphicRefs_523350() noexcept
     } while (true);
 
     return static_cast<std::int32_t>(legacyOffset);
+}
+
+std::int32_t LoadGraphic_522570(const std::int32_t imageNo)
+{
+    if (imageNo < 0 || imageNo >= resource::gMaxGraphicCount) {
+        return 0;
+    }
+    if (gGraphicDxCache103CFA4[static_cast<std::size_t>(imageNo)].head != nullptr) {
+        return 1;
+    }
+    if (resource::ReadGraphicDataByIndex(
+            imageNo,
+            &resource::gGraphicDataPtr,
+            &resource::gCurrentGraphicWidth,
+            &resource::gCurrentGraphicHeight,
+            &resource::gCurrentGraphicPaletteSize) == 0) {
+        resource::gGraphicDataBuffer = -1;
+        resource::gGraphicDataPtr = nullptr;
+        resource::gCurrentGraphicHeight = 0;
+        resource::gCurrentGraphicWidth = 0;
+        resource::gCurrentGraphicPaletteSize = 0;
+        return 0;
+    }
+
+    resource::gGraphicDataBuffer = imageNo;
+    gGraphicDxCache103CFA4[static_cast<std::size_t>(imageNo)].width =
+        static_cast<std::uint16_t>(resource::gCurrentGraphicWidth);
+    gGraphicDxCache103CFA4[static_cast<std::size_t>(imageNo)].height =
+        static_cast<std::uint16_t>(resource::gCurrentGraphicHeight);
+    TakeGraphicDxCache_5222D0(imageNo, nullptr);
+    return 1;
 }
 
 std::int32_t BuildSurfaceCache_5231A0()

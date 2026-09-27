@@ -23,6 +23,15 @@ extern std::uint32_t gCurrentGraphicWidth;
 extern std::uint32_t gCurrentGraphicPaletteSize;
 extern std::int32_t gGraphicDataBuffer;
 
+// 原 0x53AF90：DBF 压缩字节的字面量/回溯解码；仅遇结束标记才写实际输出长度。
+// 调用者须提供完整有效的压缩流和足以容纳解压结果的目标区。
+// 结束标记恰好耗尽输入返回 0；输入有余返回 -8，越过声明末尾返回 -4。
+std::int32_t DecompressDbf_53AF90(
+    const std::uint8_t* source,
+    std::int32_t sourceLength,
+    std::uint8_t* destination,
+    std::uint32_t* decodedLength) noexcept;
+
 // 原 0x45A900：按全局图形号 seek/read，再调用 ReadGraphicData；可省略 paletteLength。
 // 调用者须先建立元信息和文件表；实际查文件表时 fileIndex 必须在 0..8。
 // 读取成功后 destination 指针槽必须可写，记录长度/解压结果须落在相应存储内。

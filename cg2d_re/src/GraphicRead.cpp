@@ -17,6 +17,104 @@ std::uint32_t gCurrentGraphicWidth = 0;
 std::uint32_t gCurrentGraphicPaletteSize = 0;
 std::int32_t gGraphicDataBuffer = 0;
 
+std::int32_t DecompressDbf_53AF90(
+    const std::uint8_t* const source,
+    const std::int32_t sourceLength,
+    std::uint8_t* const destination,
+    std::uint32_t* const decodedLength) noexcept
+{
+    *decodedLength = 0;
+    const std::uint8_t* cursor = source;
+    const std::uint8_t* const end = source + sourceLength;
+    std::uint8_t* output = destination;
+
+    const auto copyLiteral = [&](std::uint32_t count) noexcept {
+        while (count != 0) {
+            *output++ = *cursor++;
+            --count;
+        }
+    };
+    const auto copyMatch = [&](const std::uint32_t distance, std::uint32_t count) noexcept {
+        std::uint8_t* match = output - distance;
+        while (count != 0) {
+            *output++ = *match++;
+            --count;
+        }
+    };
+    const auto extendedCount = [&](const std::uint32_t base) noexcept {
+        std::uint32_t count = 0;
+        while (*cursor == 0) {
+            count += 255;
+            ++cursor;
+        }
+        return count + *cursor++ + base;
+    };
+    const auto offset16 = [&]() noexcept {
+        const std::uint32_t value =
+            static_cast<std::uint32_t>(cursor[0])
+            | (static_cast<std::uint32_t>(cursor[1]) << 8);
+        cursor += 2;
+        return value;
+    };
+
+    enum class Phase { LiteralRun, AfterLiteral, Match };
+    std::uint32_t token = *cursor++;
+    Phase phase = Phase::LiteralRun;
+    if (token > 17) {
+        const std::uint32_t count = token - 17;
+        copyLiteral(count);
+        token = *cursor++;
+        phase = count >= 4 ? Phase::AfterLiteral : Phase::Match;
+    }
+
+    for (;;) {
+        if (phase == Phase::LiteralRun && token < 16) {
+            const std::uint32_t count =
+                (token != 0 ? token : extendedCount(15)) + 3;
+            copyLiteral(count);
+            token = *cursor++;
+            phase = Phase::AfterLiteral;
+            continue;
+        }
+
+        std::uint32_t distance;
+        std::uint32_t count;
+        if (phase == Phase::AfterLiteral && token < 16) {
+            distance = 2049 + (token >> 2) + 4 * *cursor++;
+            count = 3;
+        } else if (token >= 64) {
+            distance = 1 + ((token >> 2) & 7) + 8 * *cursor++;
+            count = (token >> 5) + 1;
+        } else if (token >= 32) {
+            const std::uint32_t length = token & 31;
+            count = (length != 0 ? length : extendedCount(31)) + 2;
+            distance = 1 + (offset16() >> 2);
+        } else if (token >= 16) {
+            const std::uint32_t length = token & 7;
+            count = (length != 0 ? length : extendedCount(7)) + 2;
+            const std::uint32_t offset =
+                ((token & 8) << 11) + (offset16() >> 2);
+            if (offset == 0) {
+                *decodedLength = static_cast<std::uint32_t>(output - destination);
+                if (cursor == end) {
+                    return 0;
+                }
+                return cursor < end ? -8 : -4;
+            }
+            distance = 0x4000 + offset;
+        } else {
+            distance = 1 + (token >> 2) + 4 * *cursor++;
+            count = 2;
+        }
+
+        copyMatch(distance, count);
+        const std::uint32_t trailing = cursor[-2] & 3;
+        copyLiteral(trailing);
+        token = *cursor++;
+        phase = trailing != 0 ? Phase::Match : Phase::LiteralRun;
+    }
+}
+
 int ReadGraphicDataByIndex(
     std::int32_t index,
     std::uint8_t** destination,

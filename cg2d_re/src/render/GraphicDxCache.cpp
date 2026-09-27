@@ -14,6 +14,7 @@ struct TextureSurface {
     std::uint32_t colorKey {};
     std::unique_ptr<std::uint32_t[]> pixels;
     TextureSurface* nextOwned {};
+    TextureSurface* previousOwned {};
 };
 
 namespace {
@@ -48,8 +49,24 @@ public:
         surface->width = width;
         surface->height = height;
         surface->nextOwned = head_;
+        if (head_ != nullptr) {
+            head_->previousOwned = surface;
+        }
         head_ = surface;
         return surface;
+    }
+
+    void Release(TextureSurface* surface) noexcept
+    {
+        if (surface->previousOwned != nullptr) {
+            surface->previousOwned->nextOwned = surface->nextOwned;
+        } else {
+            head_ = surface->nextOwned;
+        }
+        if (surface->nextOwned != nullptr) {
+            surface->nextOwned->previousOwned = surface->previousOwned;
+        }
+        delete surface;
     }
 
 private:
@@ -153,6 +170,22 @@ std::int32_t BuildSurfaceCache_5231A0()
     ResetTextureNodes_523310();
     static_cast<void>(InvalidateGraphicRefs_523350());
     return 1;
+}
+
+void ReleaseTextureNodeSurfaces_44C408() noexcept
+{
+    if (gTextureNodeCount <= 0) {
+        return;
+    }
+    std::int32_t index = 0;
+    do {
+        TextureNode& node = gTextureNodes[static_cast<std::size_t>(index)];
+        if (node.surface != nullptr) {
+            gTextureSurfaceOwner.Release(node.surface);
+            node.surface = nullptr;
+        }
+        ++index;
+    } while (index < gTextureNodeCount);
 }
 
 } // namespace cg::render

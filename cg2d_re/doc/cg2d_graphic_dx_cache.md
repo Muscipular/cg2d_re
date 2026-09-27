@@ -1586,3 +1586,43 @@ count=4096，再依序调用已落位的
 变换树的 surface 数值键与绘制消费者亦未
 闭合。Debug 两静态库编译通过，仅见既有
 `GetVersionExA` 警告，不计完整链接或画面运行。
+
+## 78. `Renderer::Destroy` 节点面释放段
+
+2026-09-27，当前 IDA 只读核完整
+`Renderer::Destroy@[44C3C0,44C55C)`。
+PALDATA 只在 renderer 与其 `+0xC0` 均非空
+时先释放、清槽（`44C3CF–44C402`）。
+随后 `44C408` 读取实际节点数，按 S32
+`>0` 门禁循环；每轮读取节点 surface，
+非空才调用其 `Release` 并写零
+（`44C41A–44C426`），再重读实际 count、
+推进原 `0x1C` 步长。零 count 时不扫描
+失败创建留下的节点前缀；本体不清 count。
+
+节点段之后依次有条件释放并清
+Temp `44C436–44C446`、AutoMap
+`44C44C–44C45B`；再按设备 `+0xA0`、
+3D `+0x9C`、调色板 `+0x90`、clipper
+`+0x10`、Back `+0x0C`、front `+0x08`、
+DDraw `+0x04` 的顺序释放并清各槽，
+最后释放 renderer 本体并清全局指针。
+当前 SDL/CPU 替换不保留这些原生 COM
+对象，但不能把整个上层销毁序合并成
+一次不透明后端析构。
+
+[GraphicDxCache.cpp](../src/render/GraphicDxCache.cpp)
+现在由同一个 CPU 纹理 owner 逐个摘除并
+释放当前节点面；`ReleaseTextureNodeSurfaces_44C408`
+按动态实际 count 遍历，仅非空时清
+`node.surface`，不改 count、其他节点字段
+或被覆盖的旧面。后者在进程退出时由 owner
+回收，不能冒称与原 DX7 分配失败后的资源
+压力逐次一致。此叶尚未接到
+`RendererDestroy_44C3C0`；PALDATA、
+调色板、SDL 呈现器及剩余阶段的现代
+owner 未闭合，不计完整退出或重建。
+本步 `git diff --check`、严格 UTF-8 无 BOM/LF
+与 Debug `cg2d_re_core/cg2d_re_startup`
+静态库编译通过，无新增告警；未运行客户端
+或测试，也未检查编译产物内容。

@@ -189,3 +189,13 @@ SPEC、玩家位置 owner 仍待用户批准；本体
 替代清理。Windows SDK 类型和 API 只出现在平台实现文件；
 `ClientShutdown.hpp` 仍仅暴露 `int ShutdownClient_457A40()`，IME 生命周期接口位于
 独立私有头 `ImeLifecycle.hpp`。
+
+2026-09-27 补充：`Renderer::Destroy@44C3C0`
+中的节点释放段 `44C408–44C435` 已由
+[DX 证据 §78](cg2d_graphic_dx_cache.md#78-rendererdestroy-节点面释放段)
+和 render owner 承接；本文件上文的
+`RendererDestroy_44C3C0` 真实声明仍未有
+完整定义。节点段不替代 PALDATA、Temp、
+AutoMap、设备、调色板、Back、SDL 呈现器
+及 renderer 本体的顺序释放，退出链接与
+重建路径仍未闭合。

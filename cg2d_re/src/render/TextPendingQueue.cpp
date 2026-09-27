@@ -74,7 +74,7 @@ std::int32_t QueueText_521A30(
     record.imageNo = -1;
     record.value4 = 0;
     record.batchType = 4;
-    record.dataBits = headToken;
+    record.reference.textToken = headToken;
 
     const std::uint16_t resultBits = platform::gPendingGraphicCount;
     const std::int32_t result = static_cast<std::int32_t>(

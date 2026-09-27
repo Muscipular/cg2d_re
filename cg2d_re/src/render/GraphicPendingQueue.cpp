@@ -98,7 +98,7 @@ void AppendReservedGraphic(
     GraphicCacheItem32& record = gLegacyPendingStorage.records[index];
     record.imageNo = -1;
     record.value4 = 0;
-    record.dataBits = 0;
+    record.reference.action = nullptr;
     record.batchType = batchType;
 
     platform::gPendingGraphicCount = static_cast<std::uint16_t>(countBits + 1U);
@@ -181,7 +181,7 @@ std::int32_t QueueMap_521AA0(
     record.y = y;
     record.imageNo = -1;
     record.value4 = 0;
-    record.dataBits = 0;
+    record.reference.action = nullptr;
     record.batchType = 5;
     const std::uint16_t resultBits = platform::gPendingGraphicCount;
     const auto result = static_cast<std::int32_t>(std::bit_cast<std::int16_t>(resultBits));
@@ -366,7 +366,7 @@ void SetPendingGraphicBatchTypeAtLegacyIndex(
     const std::uint8_t type)
 {
     if (index == -2) {
-        // 原 records[-2].batchType 正好落到 0xFF4E8C，即 prefix+0x5C。
+        // 原 records[-2].batchType 落到 prefix+0x5C；不能按新端 48B 步长推算。
         render::gLegacyPendingStorage.prefix[0x5C] = std::bit_cast<char>(type);
         return;
     }

@@ -5,6 +5,11 @@
 #include <array>
 #include <cstddef>
 #include <cstdint>
+#include <type_traits>
+
+namespace cg::login {
+struct YobiAction;
+}
 
 namespace cg::render {
 
@@ -15,27 +20,42 @@ struct GraphicDescriptor16 {
 
 static_assert(sizeof(GraphicDescriptor16) == 0x10);
 
-// 原 [0xFF4EB8,0x101CEB8) 的 4096 项待提交图形记录；字段名只表达已确认宽度。
+// 原 +0C 混用字段；按生产/消费合同访问，action 为非拥有引用，文本仍用 W32 token。
+union GraphicQueueReference {
+    cg::login::YobiAction* action;
+    std::uint32_t textToken;
+};
+
+static_assert(sizeof(cg::login::YobiAction*) == 0x08);
+static_assert(sizeof(GraphicQueueReference) == 0x08);
+static_assert(alignof(GraphicQueueReference) == 0x08);
+static_assert(std::is_standard_layout_v<GraphicQueueReference>);
+static_assert(std::is_trivially_copyable_v<GraphicQueueReference>);
+
+// 原 [0xFF4EB8,0x101CEB8) 的 4096 项记录；新端按 DX x64 SPEC §15 承载为 48B。
 struct GraphicCacheItem32 {
     std::int32_t x;
     std::int32_t y;
     std::int32_t imageNo;
-    std::uint32_t dataBits;
+    GraphicQueueReference reference;
     std::int32_t value4;
     std::array<std::uint8_t, 16> descriptor;
     std::uint8_t batchType;
     std::array<std::uint8_t, 3> unwrittenTail;
 };
 
-static_assert(sizeof(GraphicCacheItem32) == 0x28);
+static_assert(sizeof(GraphicCacheItem32) == 0x30);
+static_assert(alignof(GraphicCacheItem32) == 0x08);
+static_assert(std::is_standard_layout_v<GraphicCacheItem32>);
+static_assert(std::is_trivially_copyable_v<GraphicCacheItem32>);
 static_assert(offsetof(GraphicCacheItem32, x) == 0x00);
 static_assert(offsetof(GraphicCacheItem32, y) == 0x04);
 static_assert(offsetof(GraphicCacheItem32, imageNo) == 0x08);
-static_assert(offsetof(GraphicCacheItem32, dataBits) == 0x0C);
-static_assert(offsetof(GraphicCacheItem32, value4) == 0x10);
-static_assert(offsetof(GraphicCacheItem32, descriptor) == 0x14);
-static_assert(offsetof(GraphicCacheItem32, batchType) == 0x24);
-static_assert(offsetof(GraphicCacheItem32, unwrittenTail) == 0x25);
+static_assert(offsetof(GraphicCacheItem32, reference) == 0x10);
+static_assert(offsetof(GraphicCacheItem32, value4) == 0x18);
+static_assert(offsetof(GraphicCacheItem32, descriptor) == 0x1C);
+static_assert(offsetof(GraphicCacheItem32, batchType) == 0x2C);
+static_assert(offsetof(GraphicCacheItem32, unwrittenTail) == 0x2D);
 
 // 原 [0x101CEB8,0x1020EB8) 的 4096 项四字节并行记录。
 struct GraphicCache3 {
@@ -49,7 +69,8 @@ static_assert(offsetof(GraphicCache3, cacheIndex) == 0x00);
 static_assert(offsetof(GraphicCache3, layer) == 0x02);
 static_assert(offsetof(GraphicCache3, unwrittenByte) == 0x03);
 
-// 原 [0xFF4E30,0x1020EB8)；0x1020EB8 的 W16 计数复用 platform 既有存储。
+// 原 [0xFF4E30,0x1020EB8) 的唯一 x64 承载，不是原内存镜像；前缀别名位置不变。
+// 原 0x1020EB8 的 W16 计数复用 platform 既有存储。
 struct LegacyPendingStorage {
     char prefix[0x88];
     std::array<GraphicCacheItem32, MAX_QUEUE_SIZE> records;
@@ -58,8 +79,11 @@ struct LegacyPendingStorage {
 
 static_assert(offsetof(LegacyPendingStorage, prefix) == 0x00000);
 static_assert(offsetof(LegacyPendingStorage, records) == 0x00088);
-static_assert(offsetof(LegacyPendingStorage, cache3) == 0x28088);
-static_assert(sizeof(LegacyPendingStorage) == 0x2C088);
+static_assert(offsetof(LegacyPendingStorage, cache3) == 0x30088);
+static_assert(sizeof(LegacyPendingStorage) == 0x34088);
+static_assert(alignof(LegacyPendingStorage) == 0x08);
+static_assert(std::is_standard_layout_v<LegacyPendingStorage>);
+static_assert(std::is_trivially_copyable_v<LegacyPendingStorage>);
 
 // 上述 legacy 区间的唯一零初始化承载；不得另建文本区或队列副本。
 extern LegacyPendingStorage gLegacyPendingStorage;

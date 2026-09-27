@@ -97,7 +97,7 @@ std::int32_t DrawGraphic3_520970(
     item.y = y;
     item.imageNo = graphicIndex;
     item.value4 = value4;
-    item.dataBits = 0;
+    item.reference.action = nullptr;
 
     GraphicModeFields mode {};
     if (descriptor != nullptr) {
@@ -177,7 +177,7 @@ std::int32_t Sub_521C80(
     item.y = y + offsetY;
     item.imageNo = graphicIndex;
     item.value4 = value4;
-    item.dataBits = 0;
+    item.reference.action = nullptr;
     if (descriptor != nullptr) {
         item.descriptor = descriptor->bytes;
     } else {
@@ -229,7 +229,7 @@ std::int32_t DrawGraphic2_521DD0(
     item.y = y + offsetY;
     item.imageNo = graphicIndex;
     item.value4 = value4;
-    item.dataBits = 0;
+    item.reference.action = nullptr;
     if (descriptor != nullptr) {
         item.descriptor = descriptor->bytes;
     } else {
@@ -310,7 +310,7 @@ std::int32_t DrawGraphic(
     item.y = AddSigned16Wrapping(y, offsetY);
     item.imageNo = finalImageNo;
     item.value4 = value4;
-    item.dataBits = 0;
+    item.reference.action = nullptr;
 
     if (descriptor != nullptr) {
         item.descriptor = descriptor->bytes;

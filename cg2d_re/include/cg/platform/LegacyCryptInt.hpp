@@ -54,6 +54,9 @@ std::int32_t Add_401E10(LegacyCryptInt* value, std::int32_t amount);
 // 原 CryptInt::dec@[0x401E60,0x401E6C)，只读取一次后作完整 W32 差值。
 std::int32_t Subtract_401E60(LegacyCryptInt* value, std::int32_t amount);
 
+// 原401E70@[401E70,401E8B)：先读右对象，再读左对象，返回lhs-rhs。
+std::int32_t Difference_401E70(LegacyCryptInt* lhs, LegacyCryptInt* rhs);
+
 // 原 CryptInt::mul@[0x401E90,0x401E9D)，单次读取后返回乘积低 W32。
 std::int32_t Multiply_401E90(LegacyCryptInt* value, std::int32_t amount);
 

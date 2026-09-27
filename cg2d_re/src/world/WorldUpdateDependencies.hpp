@@ -151,6 +151,10 @@ extern std::uint32_t gValue9EE8FC; // 原 F32 位槽，移动链共享。
 extern std::uint32_t gValue9EE900; // 原 F32 位槽，移动链共享。
 extern std::uint32_t gValue9DAD78; // 原 F32 位槽，移动/绘制链共享。
 
+// 借用SceneState唯一方向表，分别读取原55D9DC/55D9DE的S16分量。
+std::int16_t ReadDirectionDeltaX(std::int16_t direction) noexcept;
+std::int16_t ReadDirectionDeltaY(std::int16_t direction) noexcept;
+
 // 原 467F30 独立 W8/W16/W32 写入目标；不覆盖邻接的 C82204。
 extern std::uint8_t gValue9A4B94;
 extern std::uint16_t gValueC82200;

@@ -1036,8 +1036,6 @@ void Sub_4417E0(YobiAction* action);
 void Sub_447E60(YobiAction* action);
 std::int32_t Sub_446D80(YobiAction* action);
 std::int32_t Sub_446FA0(YobiAction* action);
-std::int32_t Sub_447610(YobiAction* action);
-std::int32_t Sub_447820(YobiAction* action);
 
 YobiAction* Sub_441DB0(
     const std::int32_t imageNo, const std::int32_t mapX,
@@ -1264,6 +1262,137 @@ std::int32_t Sub_4474E0(YobiAction* const action)
 
 namespace {
 
+// 原446B50：按载荷方向追加一个目标格，仅447610调用且不消费返回值。
+void Sub_446B50(YobiAction* const action)
+{
+    auto* const payload = static_cast<MapTransitionPayload*>(action->payload);
+    if (std::bit_cast<std::int16_t>(action->field270) > 0) {
+        return;
+    }
+    if (platform::legacy_crypt_int::NotEqual_401D20(
+            &world::detail::gPlayerX, &world::detail::gValue9EE8D0)
+        || platform::legacy_crypt_int::NotEqual_401D20(
+            &world::detail::gPlayerY, &world::detail::gValue9EE8E0)) {
+        return;
+    }
+    const std::int16_t deltaX = world::detail::ReadDirectionDeltaX(payload->value02);
+    const std::int32_t x =
+        platform::legacy_crypt_int::Add_401E10(&action->mapX1E0, deltaX);
+    action->pathX220[std::bit_cast<std::int16_t>(action->field270)] = x;
+    const std::int16_t deltaY = world::detail::ReadDirectionDeltaY(payload->value02);
+    const std::int32_t y =
+        platform::legacy_crypt_int::Add_401E10(&action->mapY1F0, deltaY);
+    action->pathY248[std::bit_cast<std::int16_t>(action->field270)] = y;
+    ++action->field270;
+    payload->mapX08 = platform::legacy_crypt_int::Read_401EC0(&action->mapX1E0);
+    payload->mapY0C = platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0);
+}
+
+// 两次差值都保留读计数/RNG副作用；第二次结果按首次符号取负，不可换成abs。
+std::int32_t TransitionDistance(
+    platform::LegacyCryptInt* const lhs, platform::LegacyCryptInt* const rhs)
+{
+    const std::int32_t sign = platform::legacy_crypt_int::Difference_401E70(lhs, rhs);
+    const std::int32_t value = platform::legacy_crypt_int::Difference_401E70(lhs, rhs);
+    return sign < 0 ? -value : value;
+}
+
+// 原446C10：玩家快照稳定且距离超过一格时，按各轴符号追加目标格。
+void Sub_446C10(YobiAction* const action)
+{
+    auto* const payload = static_cast<MapTransitionPayload*>(action->payload);
+    std::int32_t stepX = 0;
+    std::int32_t stepY = 0;
+    if (std::bit_cast<std::int16_t>(action->field270) > 0) {
+        return;
+    }
+    if (platform::legacy_crypt_int::NotEqual_401D20(
+            &world::detail::gPlayerX, &world::detail::gValue9EE8D0)
+        || platform::legacy_crypt_int::NotEqual_401D20(
+            &world::detail::gPlayerY, &world::detail::gValue9EE8E0)) {
+        return;
+    }
+    if (TransitionDistance(&world::detail::gPlayerX, &action->mapX1E0) <= 1
+        && TransitionDistance(&world::detail::gPlayerY, &action->mapY1F0) <= 1) {
+        return;
+    }
+    if (platform::legacy_crypt_int::Difference_401E70(
+            &world::detail::gPlayerX, &action->mapX1E0) > 0) {
+        stepX = 1;
+    } else if (platform::legacy_crypt_int::Difference_401E70(
+                   &world::detail::gPlayerX, &action->mapX1E0) < 0) {
+        stepX = -1;
+    }
+    if (platform::legacy_crypt_int::Difference_401E70(
+            &world::detail::gPlayerY, &action->mapY1F0) > 0) {
+        stepY = 1;
+    } else if (platform::legacy_crypt_int::Difference_401E70(
+                   &world::detail::gPlayerY, &action->mapY1F0) < 0) {
+        stepY = -1;
+    }
+    const std::int32_t x =
+        platform::legacy_crypt_int::Add_401E10(&action->mapX1E0, stepX);
+    action->pathX220[std::bit_cast<std::int16_t>(action->field270)] = x;
+    const std::int32_t y =
+        platform::legacy_crypt_int::Add_401E10(&action->mapY1F0, stepY);
+    action->pathY248[std::bit_cast<std::int16_t>(action->field270)] = y;
+    ++action->field270;
+    payload->mapX08 = platform::legacy_crypt_int::Read_401EC0(&action->mapX1E0);
+    payload->mapY0C = platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0);
+}
+
+// 模式6/7各自独立调用，按原FCOMP的C3判定且保持X到Y短路读取。
+bool TransitionMovementIdle(const YobiAction* const action)
+{
+    const float movementX = std::bit_cast<float>(action->field27C);
+    if (movementX < 0.0F || movementX > 0.0F) {
+        return false;
+    }
+    const float movementY = std::bit_cast<float>(action->field280);
+    return !(movementY < 0.0F || movementY > 0.0F);
+}
+
+// 仅复用447610/447820的移动后绘制尾；stepChange分别为-1/+1。
+void DrawMovingTransition(
+    YobiAction* const action, MapTransitionPayload* const payload,
+    const std::int32_t stepChange)
+{
+    if (render::gFrameParity628FC8 != payload->frame30) {
+        --payload->countdown38;
+    }
+    if (payload->countdown38 <= 0) {
+        const std::uint32_t visible = payload->visible2C;
+        const std::int32_t step = payload->step34;
+        payload->visible2C = visible ^ 1u;
+        payload->countdown38 = step / 2;
+        if (payload->countdown38 < 1) {
+            payload->countdown38 = 1;
+        }
+        payload->step34 = step + stepChange;
+    }
+    const float worldY = action->worldY;
+    const float worldX = action->worldX;
+    float screenX;
+    float screenY;
+    world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
+    action->x = static_cast<std::int32_t>(
+        static_cast<std::int64_t>(static_cast<double>(screenX) + 0.5));
+    action->y = static_cast<std::int32_t>(
+        static_cast<std::int64_t>(static_cast<double>(screenY) + 0.5));
+    static_cast<void>(Sub_517880(action, 100, 0, 0));
+    if (payload->visible2C != 0) {
+        const std::int32_t graphicIndex = action->graphicIndex;
+        const render::GraphicDescriptor16* const descriptor = &action->drawMode;
+        const std::int32_t offsetY = Sub_5182B0(action, 1);
+        const std::int32_t drawY = offsetY + action->y;
+        const std::int32_t offsetX = Sub_5182B0(action, 0);
+        const std::int32_t drawX = offsetX + action->x;
+        static_cast<void>(render::DrawGraphic2_521DD0(
+            drawX, drawY, 11, graphicIndex, 0, 0, descriptor));
+    }
+    payload->frame30 = render::gFrameParity628FC8;
+}
+
 // 原模式2/3共享三点绘制；X/Y舍入点不同，三轮均推进动画并归一化局部角度。
 void DrawTransitionOrbit(
     YobiAction* const action, MapTransitionPayload* const payload,
@@ -1454,6 +1583,64 @@ std::int32_t Sub_447230(YobiAction* const action)
         payload->value20 = static_cast<float>(angle);
         DrawTransitionOrbit(action, payload, static_cast<float>(angle), false);
     }
+    return 0;
+}
+
+std::int32_t Sub_447610(YobiAction* const action)
+{
+    auto* const payload = static_cast<MapTransitionPayload*>(action->payload);
+    if (payload->slots18.values.state18 == 0) {
+        payload->slots18.values.state18 = 1;
+        payload->visible2C = 1;
+        const std::uint32_t frame = render::gFrameParity628FC8;
+        payload->step34 = 20;
+        payload->countdown38 = 10;
+        payload->frame30 = frame ^ 1u;
+    }
+    if (TransitionDistance(&action->mapX1E0, &world::detail::gPlayerX) >= 13
+        || TransitionDistance(&action->mapY1F0, &world::detail::gPlayerY) >= 13) {
+        world::detail::Sub_4467D0(payload->objectIndex28);
+        MarkDeath(action);
+        return 0;
+    }
+    const std::uint32_t tick = platform::ReadTickCount32();
+    if (payload->tick14 + 6000u < tick && TransitionMovementIdle(action)) {
+        world::detail::Sub_4467D0(payload->objectIndex28);
+        MarkDeath(action);
+        return 0;
+    }
+    if (TransitionMovementIdle(action)) {
+        Sub_446B50(action);
+    }
+    Sub_4424B0(action);
+    DrawMovingTransition(action, payload, -1);
+    return 0;
+}
+
+std::int32_t Sub_447820(YobiAction* const action)
+{
+    auto* const payload = static_cast<MapTransitionPayload*>(action->payload);
+    if (payload->slots18.values.state18 == 0) {
+        payload->slots18.values.state18 = 1;
+        payload->visible2C = 1;
+        const std::uint32_t frame = render::gFrameParity628FC8;
+        payload->step34 = -10;
+        payload->countdown38 = 1;
+        payload->frame30 = frame ^ 1u;
+    }
+    const std::uint32_t tick = platform::ReadTickCount32();
+    if (payload->tick14 + 6000u < tick && TransitionMovementIdle(action)) {
+        world::detail::Sub_4467D0(payload->objectIndex28);
+        MarkDeath(action);
+        return 0;
+    }
+    if (TransitionMovementIdle(action)
+        && (TransitionDistance(&action->mapX1E0, &world::detail::gPlayerX) > 1
+            || TransitionDistance(&action->mapY1F0, &world::detail::gPlayerY) > 1)) {
+        Sub_446C10(action);
+    }
+    Sub_4424B0(action);
+    DrawMovingTransition(action, payload, 1);
     return 0;
 }
 

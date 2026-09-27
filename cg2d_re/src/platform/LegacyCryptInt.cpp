@@ -101,6 +101,12 @@ std::int32_t Subtract_401E60(
     return FromBits(result);
 }
 
+std::int32_t Difference_401E70(LegacyCryptInt* lhs, LegacyCryptInt* rhs)
+{
+    const std::int32_t right = Read_401EC0(rhs);
+    return Read_401EC0(lhs) - right;
+}
+
 std::int32_t Multiply_401E90(
     LegacyCryptInt* value, const std::int32_t amount)
 {

@@ -118,6 +118,9 @@ float GetYobiActionScaleX(const YobiAction* action) noexcept;
 float GetYobiActionScaleY(const YobiAction* action) noexcept;
 
 // 当前角色预览/槽位调用所需的语义字段访问，不暴露原 x86 偏移。
+// 46F1D0 创建效果对象后清 +8，帧推进后读取 +20 图形索引。
+void ClearYobiActionCallback(YobiAction* action);
+std::int32_t GetYobiActionField20(YobiAction* action);
 std::int32_t GetYobiActionField2A8(YobiAction* action);
 void SetYobiActionField2A8(YobiAction* action, std::int32_t value);
 void SetYobiActionField2B0(YobiAction* action, std::int32_t value);

@@ -1521,6 +1521,16 @@ float GetYobiActionScaleY(const YobiAction* const action) noexcept
     return action->scaleY;
 }
 
+void ClearYobiActionCallback(YobiAction* const action)
+{
+    action->callback = nullptr;
+}
+
+std::int32_t GetYobiActionField20(YobiAction* const action)
+{
+    return action->graphicIndex;
+}
+
 std::int32_t GetYobiActionField2A8(YobiAction* const action)
 {
     return action->imageNo;

@@ -12,6 +12,8 @@ if(NOT CMAKE_SIZEOF_VOID_P EQUAL 8
     message(FATAL_ERROR "cg2d_re 要求 8 字节指针且编译器目标架构为 x64。")
 endif()
 
+enable_language(ASM_MASM)
+
 set(SDL3_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../third_party/sdl/SDL3-3.4.8/cmake"
     CACHE PATH "本机已有 SDL3 3.4.8 SDK 的 CMake 配置目录")
 find_package(SDL3 3.4.8 EXACT CONFIG REQUIRED)
@@ -76,6 +78,7 @@ add_library(cg2d_re_startup STATIC
     src/platform/LegacyMouseTracker.cpp
     src/platform/LegacyCursor.cpp
     src/platform/LegacyTime.cpp
+    src/platform/MapEffectMath.asm
     src/platform/LegacyExternalKeyboard.cpp
     src/platform/LegacyExternalKeyboardObject.cpp
     src/LegacyHitTest.cpp
@@ -132,8 +135,10 @@ add_library(cg2d_re_startup STATIC
     src/world/WorldUpdate.cpp
 )
 set_target_properties(cg2d_re_startup PROPERTIES CXX_EXTENSIONS OFF)
-target_compile_options(cg2d_re_startup PRIVATE /GR- /utf-8 /W4 /fp:strict)
-target_compile_definitions(cg2d_re_startup PRIVATE _CRT_SECURE_NO_WARNINGS)
+target_compile_options(cg2d_re_startup PRIVATE
+    "$<$<COMPILE_LANGUAGE:CXX>:/GR-;/utf-8;/W4;/fp:strict>")
+target_compile_definitions(cg2d_re_startup PRIVATE
+    "$<$<COMPILE_LANGUAGE:CXX>:_CRT_SECURE_NO_WARNINGS>")
 target_link_libraries(cg2d_re_startup PUBLIC cg2d_re_core PRIVATE SDL3::SDL3 user32 gdi32 imm32 ws2_32 winmm iphlpapi)
 
 add_library(cg2d_re_render STATIC

@@ -19,6 +19,7 @@
 #include "cg/render/TextPendingQueue.hpp"
 #include "cg/world/GameTime.hpp"
 #include "../platform/MainLoopDependencies.hpp"
+#include "../platform/MapEffectMath.hpp"
 #include "WorldUpdateDependencies.hpp"
 
 #include <algorithm>
@@ -1299,6 +1300,155 @@ std::int32_t __cdecl Sub_46F000(std::int32_t* const x, std::int32_t* const y)
     gProjectedX55DEA4 = currentX;
     gProjectedY55DEA8 = currentY;
     return currentY;
+}
+
+void Sub_46F1D0()
+{
+    if (gCurrentSceneType == 10) {
+        return;
+    }
+
+    double direction[2];
+    platform::detail::Cg2dMapEffectDirection(
+        gMapCharaSceneSlots.value55DEA0,
+        &gMapCharaSceneSlots.value55DE9C,
+        &gMapCharaSceneSlots.valueC8A758,
+        &gMapCharaSceneSlots.valueC8A75C, direction);
+    std::int32_t cameraX = 0;
+    std::int32_t cameraY = 0;
+    Sub_46F000(&cameraX, &cameraY);
+    platform::detail::MapEffectMotion motion;
+    platform::detail::Cg2dMapEffectMotion(
+        direction, cameraX, cameraY, &motion);
+
+    if (gMapCharaSceneSlots.value55DEA2 == 0) {
+        const std::int32_t phase = gMapCharaSceneSlots.valueC8A760;
+        Sub_46F090(8, motion.horizontalSign, motion.verticalSign,
+            phase, 2000, phase % 3);
+        gMapCharaSceneSlots.actionC8A764 =
+            login::detail::NewYobiAction_404AE0(3, 0);
+        if (gMapCharaSceneSlots.actionC8A764 != nullptr) {
+            login::detail::SetYobiActionField2A8(
+                gMapCharaSceneSlots.actionC8A764, 110308);
+            login::detail::SetYobiActionField2B0(
+                gMapCharaSceneSlots.actionC8A764, 3);
+            login::detail::SetYobiActionField2B8(
+                gMapCharaSceneSlots.actionC8A764,
+                gMapCharaSceneSlots.valueC8A762 % 8);
+            login::detail::ClearYobiActionCallback(
+                gMapCharaSceneSlots.actionC8A764);
+            login::detail::SetYobiActionField15(
+                gMapCharaSceneSlots.actionC8A764, 26);
+        }
+    }
+    if (gMapCharaSceneSlots.value55DEA2 >= 0) {
+        --gMapCharaSceneSlots.value55DEA2;
+    }
+
+    const auto spawn = [&motion](
+        const std::int16_t kind, const std::uint16_t level,
+        const std::int32_t minimumSpeed) {
+        if (level == 0) {
+            return;
+        }
+        const float speed = gMapCharaSceneSlots.value55DE9C;
+        if (!(speed > 0.0F || speed < 0.0F)) {
+            return;
+        }
+        std::int32_t divisor = platform::detail::Cg2dMapEffectDivisor(
+            static_cast<std::int32_t>(std::bit_cast<std::int16_t>(level)) - 1,
+            &motion.magnitude);
+        if (divisor == 0) {
+            divisor = 1;
+        }
+        if (platform::NextRandom_53B4C9() % divisor != 0) {
+            return;
+        }
+        const std::int32_t graphicIndex = platform::NextRandom_53B4C9() % 3;
+        const std::int32_t recordSpeed =
+            platform::NextRandom_53B4C9() % 1000 + minimumSpeed;
+        const std::int32_t phase = platform::NextRandom_53B4C9();
+        Sub_46F090(kind, motion.horizontalSign, motion.verticalSign,
+            phase, recordSpeed, graphicIndex);
+    };
+    spawn(6, gMapCharaSceneSlots.valueC8A752, 1000);
+    spawn(7, gMapCharaSceneSlots.valueC8A754, 500);
+
+    MapEffectRecord* record = gActiveMapEffectHead;
+    while (record != nullptr) {
+        const std::uint16_t kind = ReadMapEffectHalf(*record, 0x3C);
+        if (kind == 6 || kind == 7 || kind == 8) {
+            std::int64_t delta[2];
+            platform::detail::Cg2dMapEffectStep(
+                std::bit_cast<std::int32_t>(ReadMapEffectWord(*record, 0x10)),
+                direction, delta);
+            std::uint32_t fixedX =
+                ReadMapEffectWord(*record, 0x08)
+                + static_cast<std::uint32_t>(delta[0]);
+            WriteMapEffectWord(*record, 0x08, fixedX);
+            std::uint32_t fixedY =
+                ReadMapEffectWord(*record, 0x0C)
+                + static_cast<std::uint32_t>(delta[1]);
+            WriteMapEffectWord(*record, 0x0C, fixedY);
+            fixedX += static_cast<std::uint32_t>(cameraX) << 16;
+            WriteMapEffectWord(*record, 0x08, fixedX);
+            fixedY += static_cast<std::uint32_t>(cameraY) << 16;
+            WriteMapEffectWord(*record, 0x0C, fixedY);
+            const std::int32_t x = std::bit_cast<std::int32_t>(fixedX) >> 16;
+            const std::int32_t y = std::bit_cast<std::int32_t>(fixedY) >> 16;
+            WriteMapEffectWord(*record, 0x00, static_cast<std::uint32_t>(x));
+            WriteMapEffectWord(*record, 0x04, static_cast<std::uint32_t>(y));
+            if (x < -400 || x > 640 || y < -400 || y > 480) {
+                if (ReadMapEffectHalf(*record, 0x3C) == 8) {
+                    login::detail::MarkDeath(gMapCharaSceneSlots.actionC8A764);
+                    gMapCharaSceneSlots.actionC8A764 = nullptr;
+                }
+                MapEffectRecord* const next = record->next;
+                Sub_46E390(record);
+                --gMapCharaSceneSlots.valueC8A756;
+                record = next;
+                continue;
+            }
+
+            const std::uint16_t drawKind = ReadMapEffectHalf(*record, 0x3C);
+            if (drawKind == 8 && gMapCharaSceneSlots.actionC8A764 != nullptr) {
+                login::detail::SetYobiActionField30(
+                    gMapCharaSceneSlots.actionC8A764, x + 150);
+                const auto actionY = std::bit_cast<std::int32_t>(
+                    ReadMapEffectWord(*record, 0x04));
+                login::detail::SetYobiActionField34(
+                    gMapCharaSceneSlots.actionC8A764, actionY + 150);
+                login::detail::Sub_517880(
+                    gMapCharaSceneSlots.actionC8A764, 100, 0, 0);
+                login::YobiAction* const action = gMapCharaSceneSlots.actionC8A764;
+                const std::int32_t imageNo = login::detail::GetYobiActionField20(action);
+                const std::int32_t drawY = login::detail::GetYobiActionField34(action);
+                const std::int32_t drawX = login::detail::GetYobiActionField30(action);
+                login::detail::DrawGraphic(drawX, drawY, 0, imageNo, 0, nullptr);
+            }
+            if (drawKind == 7) {
+                const auto index = std::bit_cast<std::int32_t>(
+                    ReadMapEffectWord(*record, 0x14));
+                render::DrawGraphic3_520970(
+                    x, y, 1, 14648, 0, 1, 0,
+                    gEffectDrawModes55DEB0.data() + 3 + index);
+            } else if (drawKind == 6 || drawKind == 8) {
+                const auto index = std::bit_cast<std::int32_t>(
+                    ReadMapEffectWord(*record, 0x14));
+                const auto speed = std::bit_cast<std::int32_t>(
+                    ReadMapEffectWord(*record, 0x10));
+                const auto drawX = std::bit_cast<std::int32_t>(
+                    ReadMapEffectWord(*record, 0x00));
+                const auto drawY = std::bit_cast<std::int32_t>(
+                    ReadMapEffectWord(*record, 0x04));
+                render::DrawGraphic3_520970(
+                    drawX, drawY, static_cast<std::uint8_t>(speed / 200 + 15),
+                    14648, 0, 1, 0, gEffectDrawModes55DEB0.data() + index);
+            }
+        }
+        record = record->next;
+        gMapCharaSceneSlots.valueC8A73C = 1;
+    }
 }
 
 void Sub_476680()

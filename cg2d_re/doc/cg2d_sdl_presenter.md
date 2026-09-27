@@ -853,8 +853,8 @@ DirectDraw `TestCooperativeLevel` 的同型结果。
 或时序逐项等价。新端 `44C6B0` 已在
 `SdlPresenter.cpp` 中按 SDL 主线程和 `IsWindow` 门禁落位，
 `gLegacyWindow` 仍由原窗口 owner 持有；不读取或清除 lost。
-`466B80` 及完整 Init/Destroy/Flip 生命周期尚未落位，
-本门禁单独实现不计恢复流程或画面完成。
+`466B80` 后续完整父函数已落位，见文末“重建与场景快照”；
+Init、实际模式状态和完整画面仍缺，本门禁单独实现不计恢复流程完成。
 
 ### `Renderer::Init` 的实际低字节返回域
 
@@ -1143,7 +1143,7 @@ CPU Back 销毁，再释放 SDL 纹理/renderer/外部
 不宣称异常线程域与 DX7 等价。
 
 退出链 `ShutdownClient_457A40` 已接该入口，
-但 `RebuildRenderer_466B80` 尚未实现，
+`RebuildRenderer_466B80` 后续实现见文末，初始化与绘制下游仍缺，
 `Renderer::Init` 也尚未生产 owner/SDL presenter。
 完整退出链还依赖其他未落位的上游/后继，
 且须核对关闭 UI 后外部 HWND 仍有效，
@@ -1244,3 +1244,76 @@ mode=1/2 **始终**直接索引 `gPaletteAutoMap`，不借描边规则增加
 纹理父绘制和模式 2/3/4 的混合路径仍未闭合，不能据此声称矩形已显示。
 仅做本步限定差异、声明/定义/调用、编码及文件链接静态检查；
 不构建、不测试、不运行客户端。
+
+## 重建与场景快照
+
+2026-09-27，原 `ida-17524` 只读核完整 `Renderer::Rebuild`
+`[466B80,466D41)` 和场景 9 快照 `[51D640,51D6E3)`。
+以下按用户工程决策委托记录实施 SPEC，不以重建父函数完成代替
+RendererInit、模式 2/3/4 或最终绘制完成。
+
+### 重建控制流
+
+1. `466B84` 保存完整 `103CF10` 队列模式；Destroy→Init。
+   第一次 Init 仅解释低 S8：1 提示、2 将 windowMode 改为旧值是否
+   不等于 1 后再 Init；第二次低字节非零才提示。提示沿
+   `559340` 的 23B 原字节和 `5536B8` 的 5B 原标题，
+   flags=10h，随后重新读取窗口并 Post WM_CLOSE。
+   这些分支之后仍继续，不提前返回或加第二次销毁。
+2. `466C11` 调 BuildSurfaceCache，忽略结果；再 InitPalette。
+   调色板返回 0 时 Post `(104h,0Dh,0)`，不是 WM_CLOSE，
+   随后仍进入场景处理。原重建不分配或替换整张 graphic 表。
+3. 只在 `466C30` 采样一次 SceneType。场景 10 顺序：
+   W16 图形计数清零→第二 W32 计数清零→CacheReset→46BD40→46CF60(0)
+   →读取战斗背景图号→DrawGraphic(320,240,200,image,0,nullptr)
+   →Sort→Clear→queueMode=0→DrawAllQueued→Back 到 Temp 整面复制。
+   复制后恢复入口保存的 queueMode，再清两计数、CacheReset，
+   独立取 tick 并写截止；不调用 Flip。
+4. 场景 9 调下面的完整 `51D640`；其他场景不执行上述两段。
+   不把 scene 9 的固定 queueMode=1 改为恢复入口快照。
+5. 场景处理后重新取当前 renderer 的 palette binding；
+   仅 binding 非空且 windowMode 非零才写当前 256 色。
+   随后 `522C50` 释放独立调色板→`522B30` 重新初始化，
+   返回忽略；依次清原 `D68D98/D68D9C` 两个完整 W32，
+   最后另取一次 tick 写截止。不可复用场景分支内的那次 tick。
+
+### 场景 9 快照
+
+`51D640` 顺序为 `468F70` 投影更新→清两计数→CacheReset→469030
+→Sort→Clear。随后读取原 `C82204` W8 到局部，清该槽，
+写 queueMode=0，再 DrawAllQueued；先恢复该 W8，后整面 Back→Temp。
+之后 queueMode **固定写 1**，再清两计数、CacheReset，取 tick，
+零扩展为 double 写截止并返回同一个完整 U32 tick。
+
+唯一已见两个直接 caller 是 `466CE2/51D226`；本步接前者，
+后者所属绘制父链尚未实现。绘制与复制的结果均不门控后续写入。
+
+### 唯一状态与适配边界
+
+- `D68D98/D68D9C` 复用已有 LegacyMouseState 的 heldButtons/edgeButtons，
+  不调用会清其他字段的总鼠标重置。
+- 战斗背景 `59F9F8` 是 W32 图号：原 `4214DA/421501` 从 action +2A8
+  发布，`50D314` 从协议第三实参发布，`43CB30/466C61` 传入 DrawGraphic。
+  原位于既有 PE 零填充区，新端由 world detail 唯一持有 S32，
+  不扩宽为地址、不预设某张背景；上述生产者仍待实现，未来复用同一槽。
+- 底层 `BltFast(0,0,Back,null,10h)` 采用既有批准的 CPU
+  `CopyBackToTemp`，不新增 Back/Temp 副本、缩放或混合。
+  保持调用及忽略结果的时点，不宣称 DX 失败码或非法资源故障等价。
+- `46CF60(int)` 保留原真实依赖声明；只核本 caller 参数为零和两条
+  原返回尾均经 `52CD60`，不以固定成功/空函数补掉完整地图消费者。
+  `51D640` 使用已实现的投影和地图入口，DrawAllQueued 仍缺。
+
+实现安排：重建入口位于 startup 目标下的平台源，namespace 仍为
+`cg::render`，保持现有 MainLoop 与 WindowProcedure 调用声明；
+场景快照留在 world 的 SceneState。先记录上述 SPEC，再编码，
+不改变窗口回调、lost 门禁、首次初始化错误策略或资源 owner。
+仅静态核对，不构建、测试或运行。
+
+当前已实现 [RendererRebuild.cpp](../src/platform/RendererRebuild.cpp)
+与 [SceneState.cpp](../src/world/SceneState.cpp) 中的 `51D640`，
+CMake 仅登记前者；MainLoop 两处和 WindowProcedure 既有调用未改。
+静态核对覆盖首次低字节 1/2/其他、重试零/非零、调色板失败投递、
+场景 10/9/其他、两种 queueMode 写回差异和末尾公共清理顺序。
+战斗背景仅有唯一槽及此处读取，生产者未落位；
+RendererInit、46CF60、DrawAllQueued 等真实依赖仍缺，
+不把重建函数定义记作已恢复设备、已有画面或完整链接通过。

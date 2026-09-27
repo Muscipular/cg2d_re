@@ -395,6 +395,8 @@ std::int32_t __cdecl Sub_50C870(
     std::int32_t timeOffset, std::int32_t pathValue,
     std::int32_t adjustment); // 原 [0x50C870,0x50C8C8)，时间与地图配置回复。
 std::int32_t __cdecl Sub_469030(); // 原 [0x469030,0x4691C9)，地图装载、第四平面与斜向绘制。
+// 原 [46CF60,46D9B9)：完整地图消费者尚待实现；重建场景 10 实传 0。
+void __cdecl Sub_46CF60(std::int32_t value);
 // 原 [0x4693F0,0x4697C9)：先扫 tile，再扫 obj/图形尺寸，输出第四地图平面。
 std::int32_t __cdecl Sub_4693F0(
     std::int32_t xStart, std::int32_t yStart, std::int32_t xEnd, std::int32_t yEnd,
@@ -476,6 +478,10 @@ std::int8_t Sub_519D50();                  // 原 0x519D50，IDA 原型 char()�
 void* __cdecl Sub_51D5B0();               // 原 [0x51D5B0,0x51D63A)；非空链尾返指针，空链 EAX 未定义；46ADA0 透传位型。
 void __cdecl Sub_4464D0();                // 原 [0x4464D0,0x446604)，场景对象/Yobi 清理。
 std::int8_t Sub_51D750();                  // 原 0x51D750，IDA 原型 char()。
+// 原 [51D640,51D6E3)：场景地图画入 Back 后复制到 Temp，返回同次 tick。
+std::uint32_t Sub_51D640();
+// 原 59F9F8，战斗背景 W32 图号；重建与战斗绘制/协议生产共用，非地址。
+extern std::int32_t gBattleBackgroundImage59F9F8;
 using cg::login::detail::Sub_520160;
 void DrawBattleScene_43CBB0();             // 原 World::DrawBattleScene@0x43CBB0。
 

@@ -1395,6 +1395,9 @@ std::uint32_t gValue9FB928 = 0;
 std::uint32_t gValue9A86C0 = 0;
 std::uint32_t gValue9A7F78 = 0;
 
+// 原 59F9F8；PE 零填充，421480/50D120 的背景图生产后续复用。
+std::int32_t gBattleBackgroundImage59F9F8 = 0;
+
 // 原 0xD2F788/0xFF0C10：504A30 清零的独立 S32/W16 状态槽。
 std::int32_t gValueD2F788 = 0;
 std::uint16_t gValueFF0C10 = 0;
@@ -2642,6 +2645,31 @@ std::int32_t __cdecl Sub_509550(
         gValueC82218 = 1;
     }
     return 1;
+}
+
+// 原 [51D640,51D6E3)：恢复 C82204 后拷贝整面，queueMode 固定写回 1。
+std::uint32_t Sub_51D640()
+{
+    static_cast<void>(Sub_468F70());
+    platform::gPendingGraphicCount = 0;
+    platform::gPendingGraphicCount2 = 0;
+    static_cast<void>(render::ResetGraphicCache_456D30());
+    static_cast<void>(Sub_469030());
+    render::SortTextures_520790();
+    static_cast<void>(render::ClearSurface_4512C0());
+    const std::uint8_t previousC82204 = gValueC82204;
+    gValueC82204 = 0;
+    render::gRenderQueueMode103CF10 = 0;
+    render::DrawAllQueued_520DD0();
+    gValueC82204 = previousC82204;
+    static_cast<void>(render::CopyBackToTemp());
+    render::gRenderQueueMode103CF10 = 1;
+    platform::gPendingGraphicCount = 0;
+    platform::gPendingGraphicCount2 = 0;
+    static_cast<void>(render::ResetGraphicCache_456D30());
+    const std::uint32_t tick = platform::ReadTickCount32();
+    platform::gLastRenderDt = static_cast<double>(tick);
+    return tick;
 }
 
 // 原 [0x51D750,0x51D781)：复制结果不影响后续随机调用和完整 W32 写入。

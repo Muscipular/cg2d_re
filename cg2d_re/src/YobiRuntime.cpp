@@ -228,6 +228,62 @@ static_assert(offsetof(MapActorPayload, counter48) == 0x78);
 static_assert(offsetof(MapActorPayload, action4C) == 0x80);
 static_assert(sizeof(MapActorPayload) == 0x88);
 
+// 原448040的+18/+1C：模式0/1是附件指针，其他模式是S32状态。
+union MapTransitionSlots18 {
+    struct {
+        YobiAction* action18;
+        YobiAction* action1C;
+    } attachments;
+    struct {
+        std::int32_t state18;
+        std::int32_t state1C;
+    } values;
+};
+
+struct MapTransitionPayload {
+    std::int16_t mode;
+    std::int16_t value02;
+    std::int16_t value04;
+    std::uint16_t value06;
+    std::int32_t mapX08;
+    std::int32_t mapY0C;
+    std::int32_t counter10;
+    std::uint32_t tick14;
+    MapTransitionSlots18 slots18;
+    float value20;
+    std::int32_t value24;
+    std::int32_t objectIndex28;
+    std::array<std::byte, 0xE0> bytes2C; // 未消费区，不据此冻结剩余字段。
+    std::uint32_t flags10C;
+};
+
+static_assert(std::is_standard_layout_v<MapTransitionPayload>);
+static_assert(std::is_trivially_copyable_v<MapTransitionPayload>);
+static_assert(sizeof(MapTransitionSlots18) == 0x10);
+static_assert(offsetof(MapTransitionPayload, value02) == 0x02);
+static_assert(offsetof(MapTransitionPayload, value04) == 0x04);
+static_assert(offsetof(MapTransitionPayload, value06) == 0x06);
+static_assert(offsetof(MapTransitionPayload, mapX08) == 0x08);
+static_assert(offsetof(MapTransitionPayload, mapY0C) == 0x0C);
+static_assert(offsetof(MapTransitionPayload, counter10) == 0x10);
+static_assert(offsetof(MapTransitionPayload, tick14) == 0x14);
+static_assert(offsetof(MapTransitionPayload, slots18) == 0x18);
+static_assert(offsetof(MapTransitionPayload, value20) == 0x28);
+static_assert(offsetof(MapTransitionPayload, value24) == 0x2C);
+static_assert(offsetof(MapTransitionPayload, objectIndex28) == 0x30);
+static_assert(offsetof(MapTransitionPayload, bytes2C) == 0x34);
+static_assert(offsetof(MapTransitionPayload, flags10C) == 0x114);
+static_assert(sizeof(MapTransitionPayload) == 0x118);
+
+// 原446970；唯一caller弃EAX，只在偶数时写回S16。
+void Sub_446970(std::int16_t* const value)
+{
+    const std::int16_t current = *value;
+    if (current % 2 == 0) {
+        *value = static_cast<std::int16_t>(current + 1);
+    }
+}
+
 static_assert(std::is_standard_layout_v<YobiUIData>);
 static_assert(std::is_trivially_copyable_v<YobiUIData>);
 static_assert(sizeof(YobiUIData) == 0x24);
@@ -955,8 +1011,9 @@ YobiAction* NewMapCharaAction()
     return NewYobiAction_404AE0(2, sizeof(MapCharaPayload));
 }
 
-// 原 441DB0 设置的真实目标；世界对象表及此回调完整实现仍待后续落位。
+// 原441DB0/448040设置的真实目标；完整回调尚待实现，不使用替代空回调。
 void Sub_4417E0(YobiAction* action);
+void Sub_447E60(YobiAction* action);
 
 YobiAction* Sub_441DB0(
     const std::int32_t imageNo, const std::int32_t mapX,
@@ -1004,6 +1061,76 @@ YobiAction* Sub_441DB0(
         static_cast<std::int64_t>(static_cast<double>(screenX) + 0.5));
     action->y = static_cast<std::int32_t>(
         static_cast<std::int64_t>(static_cast<double>(screenY) + 0.5));
+    return action;
+}
+
+YobiAction* Sub_448040(
+    const std::int32_t imageNo, const std::int32_t mapX,
+    const std::int32_t mapY, const std::int32_t direction,
+    const std::int16_t mode, const std::int16_t value02,
+    const std::int32_t objectIndex)
+{
+    YobiAction* const action = NewYobiAction_404AE0(2, sizeof(MapTransitionPayload));
+    if (action == nullptr) {
+        return nullptr;
+    }
+    action->direction = direction;
+    action->callback = Sub_447E60;
+    action->imageNo = imageNo;
+    action->characterAction = 0;
+    action->displayPriority = 10;
+    action->flags = 0x200034u;
+    const auto assignCoordinate = [](
+        platform::LegacyCryptInt& target, const std::int32_t value) {
+        platform::LegacyCryptInt temporary;
+        platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, value);
+        target.readCount = temporary.readCount;
+        target.encoded = temporary.encoded;
+        target.mask = temporary.mask;
+        platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    };
+    assignCoordinate(action->mapX200, mapX);
+    assignCoordinate(action->mapY210, mapY);
+    action->field270 = 0;
+    assignCoordinate(action->mapX1E0, mapX);
+    assignCoordinate(action->mapY1F0, mapY);
+
+    const double scaledX = static_cast<double>(mapX) * 64.0F;
+    action->field27C = 0;
+    action->field280 = 0;
+    const auto worldX = static_cast<float>(scaledX);
+    action->worldX = worldX;
+    const auto worldY = static_cast<float>(static_cast<double>(mapY) * 64.0F);
+    action->worldY = worldY;
+    float screenX;
+    float screenY;
+    world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
+    action->x = static_cast<std::int32_t>(
+        static_cast<std::int64_t>(static_cast<double>(screenX) + 0.5));
+    const auto y = static_cast<std::int32_t>(
+        static_cast<std::int64_t>(static_cast<double>(screenY) + 0.5));
+    auto* const payload = static_cast<MapTransitionPayload*>(action->payload);
+    action->y = y;
+    payload->mode = mode;
+    payload->value02 = value02;
+    Sub_446970(&payload->value02);
+    payload->value04 = payload->value02;
+    payload->value06 = 0;
+    payload->mapX08 = mapX;
+    payload->mapY0C = mapY;
+    payload->counter10 = 0;
+    payload->tick14 = platform::ReadTickCount32();
+    if (mode == 0 || mode == 1) {
+        payload->slots18.attachments.action18 = nullptr;
+        payload->slots18.attachments.action1C = nullptr;
+    } else {
+        payload->slots18.values.state18 = 0;
+        payload->slots18.values.state1C = 0;
+    }
+    payload->value20 = 0.0F;
+    payload->value24 = 0;
+    payload->flags10C = 0;
+    payload->objectIndex28 = objectIndex;
     return action;
 }
 

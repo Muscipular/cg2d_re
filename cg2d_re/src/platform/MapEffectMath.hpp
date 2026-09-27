@@ -61,4 +61,42 @@ extern "C" void Cg2dMapObserverProjection(
 // 原 440D41–440D61；在 FrameMove 之后重新读取已存 F32 progress。
 extern "C" std::int64_t Cg2dMapObserverArc(const float* progress) noexcept;
 
+// 442110 的同步数值快照；既非 action 布局，也非共享状态。
+struct MapActorVelocityInput {
+    std::int32_t targetX;
+    std::int32_t targetY;
+    std::int32_t speed;
+    std::int16_t pathCount;
+    std::uint16_t reserved;
+    float overrideRate;
+    float worldX;
+    float worldY;
+};
+
+struct MapActorVelocity {
+    float rate;
+    float directionX;
+    float directionY;
+    float stepX;
+    float stepY;
+};
+
+static_assert(offsetof(MapActorVelocityInput, targetX) == 0);
+static_assert(offsetof(MapActorVelocityInput, targetY) == 4);
+static_assert(offsetof(MapActorVelocityInput, speed) == 8);
+static_assert(offsetof(MapActorVelocityInput, pathCount) == 12);
+static_assert(offsetof(MapActorVelocityInput, overrideRate) == 16);
+static_assert(offsetof(MapActorVelocityInput, worldX) == 20);
+static_assert(offsetof(MapActorVelocityInput, worldY) == 24);
+static_assert(sizeof(MapActorVelocityInput) == 28);
+static_assert(offsetof(MapActorVelocity, rate) == 0);
+static_assert(offsetof(MapActorVelocity, directionX) == 4);
+static_assert(offsetof(MapActorVelocity, directionY) == 8);
+static_assert(offsetof(MapActorVelocity, stepX) == 12);
+static_assert(offsetof(MapActorVelocity, stepY) == 16);
+static_assert(sizeof(MapActorVelocity) == 20);
+
+extern "C" void Cg2dMapActorVelocity(
+    const MapActorVelocityInput* input, MapActorVelocity* result) noexcept;
+
 } // namespace cg::platform::detail

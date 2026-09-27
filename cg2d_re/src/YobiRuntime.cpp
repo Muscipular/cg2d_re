@@ -67,11 +67,14 @@ struct YobiAction {
     platform::LegacyCryptInt maxHp; // 原 +180；不与 +170 合并。
     std::int32_t field1D0; // 原 +1D0；弹窗param6、观察子项槽序号或地图实体等级。
     std::int32_t field1D8; // 原 +1D8；51A090 写入完整第四参数。
-    platform::LegacyCryptInt mapX1E0; // 46DD90 按 X→Y 读取并乘64。
+    platform::LegacyCryptInt mapX1E0; // 原 +1E0/+1F0 当前位置；46DD90 按 X→Y 读取并乘64。
     platform::LegacyCryptInt mapY1F0;
-    platform::LegacyCryptInt mapX200; // 46DE50 先赋这组，再赋 +1E0/+1F0；不合并载荷。
+    platform::LegacyCryptInt mapX200; // 原 +200/+210 移动目标；46DE50先赋这组，不合并载荷。
     platform::LegacyCryptInt mapY210;
-    std::uint16_t field270; // 原 +270；地图创建只清低 W16。
+    std::array<std::int32_t, 10> pathX220; // 原 +220..+247，路径X。
+    std::array<std::int32_t, 10> pathY248; // 原 +248..+26F，路径Y。
+    std::uint16_t field270; // 原 +270；路径按S16消费，地图创建只清本W16。
+    std::uint16_t field272; // 原 +272；移动动作标志，不与路径计数合并。
     float worldX; // 原 +274/+278，地图投影输入，与 CryptInt 两组坐标独立。
     float worldY;
     std::uint32_t field27C;
@@ -1074,6 +1077,207 @@ void CopyYobiPlayerMaxHp(
     YobiAction* const action, const platform::LegacyCryptInt* const source)
 {
     platform::legacy_crypt_int::CopyPayload(&action->maxHp, source);
+}
+
+double Sub_442110(
+    YobiAction* const action, const std::int32_t targetX,
+    const std::int32_t targetY, const std::int32_t speed,
+    const float overrideRate)
+{
+    if (action == nullptr) {
+        return 0.0;
+    }
+    std::int16_t pathCount = 0;
+    if (!(overrideRate < 0.0F || overrideRate > 0.0F)) {
+        pathCount = std::bit_cast<std::int16_t>(action->field270);
+    }
+    const platform::detail::MapActorVelocityInput input {
+        targetX, targetY, speed, pathCount, 0, overrideRate,
+        action->worldX, action->worldY,
+    };
+    platform::detail::MapActorVelocity velocity;
+    platform::detail::Cg2dMapActorVelocity(&input, &velocity);
+    action->field27C = std::bit_cast<std::uint32_t>(velocity.stepX);
+    action->field280 = std::bit_cast<std::uint32_t>(velocity.stepY);
+    platform::legacy_crypt_int::AssignFromInt(&action->mapX200, targetX);
+    platform::legacy_crypt_int::AssignFromInt(&action->mapY210, targetY);
+    if (velocity.directionX < 0.0F || velocity.directionX > 0.0F
+        || velocity.directionY < 0.0F || velocity.directionY > 0.0F) {
+        action->direction = static_cast<std::int32_t>(
+            world::detail::Sub_46CDF0(velocity.directionX, velocity.directionY));
+        action->field272 = 1;
+    }
+    return static_cast<double>(velocity.rate);
+}
+
+void Sub_442460(YobiAction* const action)
+{
+    if (action == nullptr) {
+        return;
+    }
+    const std::int16_t count = std::bit_cast<std::int16_t>(action->field270);
+    if (count > 0) {
+        action->field270 = static_cast<std::uint16_t>(count - 1);
+    }
+    for (std::int32_t index = 0;
+         index < std::bit_cast<std::int16_t>(action->field270); ++index) {
+        const auto slot = static_cast<std::size_t>(index);
+        action->pathX220[slot] = action->pathX220[slot + 1];
+        action->pathY248[slot] = action->pathY248[slot + 1];
+    }
+}
+
+void Sub_43EFC0(
+    YobiAction* const action, const std::int32_t characterAction,
+    const std::int32_t restart)
+{
+    auto* const payload = static_cast<MapActorPayload*>(action->payload);
+    YobiAction* const ride = payload->action44;
+    if (ride != nullptr) {
+        ride->characterAction = characterAction;
+        const std::int32_t imageNo = action->imageNo;
+        if ((imageNo >= 114000 && imageNo <= 114169)
+            || (imageNo >= 112000 && imageNo <= 112007)
+            || (imageNo >= 112010 && imageNo <= 112028)
+            || (imageNo >= 120148 && imageNo <= 120155)) {
+            switch (payload->action44->characterAction) {
+            case 0: action->characterAction = 0; break;
+            case 1: action->characterAction = 1; break;
+            case 2:
+            case 3:
+            case 4: action->characterAction = 3; break;
+            case 5:
+            case 6: action->characterAction = 5; break;
+            case 8:
+            case 10: action->characterAction = 8; break;
+            case 9: action->characterAction = 9; break;
+            default:
+                action->characterAction = 0;
+                payload->action44->characterAction = 0;
+                break;
+            }
+        } else if ((imageNo >= 100000 && imageNo <= 100999)
+            || (imageNo >= 105000 && imageNo <= 106800)
+            || (imageNo >= 104400 && imageNo <= 104520)
+            || (imageNo >= 120100 && imageNo <= 120147)
+            || imageNo == 100900 || imageNo == 100901) {
+            action->characterAction = 11;
+        } else {
+            action->characterAction = 0;
+        }
+    } else {
+        action->characterAction = characterAction;
+    }
+
+    if (restart != 0) {
+        action->lastCharacterAction = -1;
+        YobiAction* attachment = payload->action44;
+        if (attachment != nullptr) {
+            attachment->lastCharacterAction = -1;
+        }
+        attachment = payload->action34;
+        if (attachment != nullptr) {
+            attachment->lastCharacterAction = -1;
+        }
+        attachment = payload->action38;
+        if (attachment != nullptr) {
+            attachment->lastCharacterAction = -1;
+        }
+    }
+}
+
+void Sub_4424B0(YobiAction* const action)
+{
+    if (action == nullptr) {
+        return;
+    }
+    const float firstTargetX = static_cast<float>(static_cast<double>(
+        platform::legacy_crypt_int::Read_401EC0(&action->mapX200)) * 64.0F);
+    const double firstTargetY = static_cast<double>(
+        platform::legacy_crypt_int::Read_401EC0(&action->mapY210)) * 64.0F;
+    const float firstWorldX = action->worldX;
+    // 原 FCOMP/C3；Y在首轮不落F32，只有X比较通过才读取世界Y。
+    if (!(firstTargetX < firstWorldX || firstTargetX > firstWorldX)) {
+        const float firstWorldY = action->worldY;
+        if (!(firstTargetY < firstWorldY || firstTargetY > firstWorldY)
+            && std::bit_cast<std::int16_t>(action->field270) > 0) {
+            const std::int32_t previousX =
+                platform::legacy_crypt_int::Read_401EC0(&action->mapX1E0);
+            const std::int32_t previousY =
+                platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0);
+            const std::int32_t nextY = action->pathY248[0];
+            const std::int32_t nextX = action->pathX220[0];
+            const std::int32_t speed = action->walkSpeed;
+            const float rate =
+                static_cast<float>(Sub_442110(action, nextX, nextY, speed, 0.0F));
+            Sub_442460(action);
+            if ((action->flags & 0x200000u) == 0) {
+                auto* const payload = static_cast<MapActorPayload*>(action->payload);
+                YobiAction* const child = payload->action2C;
+                if (child != nullptr) {
+                    Sub_442110(child, previousX, previousY, child->walkSpeed, rate);
+                }
+            }
+        }
+    }
+
+    const float targetX = static_cast<float>(static_cast<double>(
+        platform::legacy_crypt_int::Read_401EC0(&action->mapX200)) * 64.0F);
+    const float targetY = static_cast<float>(static_cast<double>(
+        platform::legacy_crypt_int::Read_401EC0(&action->mapY210)) * 64.0F);
+    const float movementX = std::bit_cast<float>(action->field27C);
+    bool idle = !(movementX < 0.0F || movementX > 0.0F);
+    if (idle) {
+        const float movementY = std::bit_cast<float>(action->field280);
+        idle = !(movementY < 0.0F || movementY > 0.0F);
+    }
+    if (idle) {
+        if (action->field272 != 0) {
+            Sub_43EFC0(action, 0, 0);
+        }
+        action->field272 = 0;
+    } else {
+        const float stepY = std::bit_cast<float>(action->field280);
+        const float stepX = std::bit_cast<float>(action->field27C);
+        const float worldY = action->worldY;
+        const float worldX = action->worldX;
+        const double distance = world::detail::Sub_46FB80(
+            worldX, worldY, targetX, targetY);
+        const double squaredY = static_cast<double>(stepY) * stepY;
+        const double squaredX = static_cast<double>(stepX) * stepX;
+        const double squaredStep = squaredY + squaredX;
+        if (!(squaredStep >= distance)) {
+            action->worldX = static_cast<float>(
+                static_cast<double>(std::bit_cast<float>(action->field27C))
+                + action->worldX);
+            action->worldY = static_cast<float>(
+                static_cast<double>(std::bit_cast<float>(action->field280))
+                + action->worldY);
+        } else {
+            action->worldX = targetX;
+            action->worldY = targetY;
+            action->field27C = 0;
+            action->field280 = 0;
+        }
+        Sub_43EFC0(action, 1, 0);
+    }
+
+    // 此入口先写count，不使用encoded优先的通用AssignFromInt。
+    platform::LegacyCryptInt temporary;
+    const auto mapX = static_cast<std::int32_t>(static_cast<std::int64_t>(
+        static_cast<double>(action->worldX) * 0.015625F));
+    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, mapX);
+    action->mapX1E0.readCount = temporary.readCount;
+    action->mapX1E0.encoded = temporary.encoded;
+    action->mapX1E0.mask = temporary.mask;
+    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    const auto mapY = static_cast<std::int32_t>(static_cast<std::int64_t>(
+        static_cast<double>(action->worldY) * 0.015625F));
+    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, mapY);
+    action->mapY1F0.readCount = temporary.readCount;
+    action->mapY1F0.encoded = temporary.encoded;
+    action->mapY1F0.mask = temporary.mask;
+    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
 }
 
 void ClearMapActorAttachments(YobiAction* const action)

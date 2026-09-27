@@ -69,6 +69,15 @@ YobiAction* PublishPlayerActionIdentity(
 // 519A80 分别复制 +170/+180 的载荷；前者复用 readiness，调用方负责重读玩家。
 void CopyYobiPlayerHp(YobiAction* action, const platform::LegacyCryptInt* source);
 void CopyYobiPlayerMaxHp(YobiAction* action, const platform::LegacyCryptInt* source);
+// 地图实体的目标格坐标/路径/动作链；指针只借用，布局保持 runtime 私有。
+double Sub_442110(
+    YobiAction* action, std::int32_t targetX, std::int32_t targetY,
+    std::int32_t speed, float overrideRate);
+void Sub_442460(YobiAction* action); // 原 +270 S16 计数及两组路径交错左移。
+void Sub_4424B0(YobiAction* action); // 完整逐帧推进与当前位置 CryptInt 更新。
+void Sub_43EFC0(
+    YobiAction* action, std::int32_t characterAction,
+    std::int32_t restart); // 主对象/坐骑动作映射及附件播放重置。
 
 // 原 46DE50：创建地图动画 action，保留四次 CryptInt 临时赋值及投影顺序。
 YobiAction* Sub_46DE50(std::int32_t imageNo, std::int32_t mapX, std::int32_t mapY);

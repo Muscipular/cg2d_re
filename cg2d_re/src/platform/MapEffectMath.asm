@@ -15,6 +15,10 @@ PercentScale54D4E4 DWORD 03C23D70Ah
 HalfHeight54D408 DWORD 043700000h
 ArcCenter54DD38 DWORD 042200000h
 ArcScale54DD34 DWORD 03D088889h
+ActorRate54DD3C DWORD 03FCCCCCDh
+ActorRate54DD40 DWORD 03F99999Ah
+ActorRate54D4A4 DWORD 040000000h
+ActorStep54DD44 DWORD 040800000h
 ALIGN 8
 ObserverAngles QWORD 04002D97C7F30D173h, 03FF921FB54411744h
     QWORD 03FE921FB54411744h, 0000000000000000h
@@ -28,6 +32,7 @@ PUBLIC Cg2dMapEffectDivisor
 PUBLIC Cg2dMapEffectStep
 PUBLIC Cg2dMapObserverProjection
 PUBLIC Cg2dMapObserverArc
+PUBLIC Cg2dMapActorVelocity
 
 ; 所有叶仅借用参数暂存区 [rsp+8,rsp+40)，不改 RSP 或非易失寄存器。
 Cg2dMapEffectDirection PROC
@@ -218,5 +223,88 @@ Cg2dMapObserverArc PROC
     mov rax, qword ptr [rsp+16]
     ret
 Cg2dMapObserverArc ENDP
+
+Cg2dMapActorVelocity PROC
+    fnstcw word ptr [rsp+8]
+    mov word ptr [rsp+10], 027Fh
+    fldcw word ptr [rsp+10]
+    fld1
+    fld dword ptr [rcx+16]
+    fcomp dword ptr [Zero54D5D0]
+    fnstsw ax
+    test ah, 040h
+    jnz ActorVelocitySelectRate
+    mov eax, dword ptr [rcx+16]
+    fstp st(0)
+    mov dword ptr [rdx], eax
+    jmp ActorVelocityNormalize
+ActorVelocitySelectRate:
+    movsx eax, word ptr [rcx+12]
+    cmp eax, 5
+    jle ActorVelocityRateAtMostFive
+    fstp st(0)
+    fld dword ptr [ActorRate54D4A4]
+    jmp ActorVelocityScaleRate
+ActorVelocityRateAtMostFive:
+    cmp eax, 4
+    jl ActorVelocityRateBelowFour
+    fstp st(0)
+    fld dword ptr [ActorRate54DD3C]
+    jmp ActorVelocityScaleRate
+ActorVelocityRateBelowFour:
+    cmp eax, 2
+    jl ActorVelocityScaleRate
+    fstp st(0)
+    fld dword ptr [ActorRate54DD40]
+ActorVelocityScaleRate:
+    fild dword ptr [rcx+8]
+    fmul st(0), st(1)
+    fmul dword ptr [PercentScale54D4E4]
+    fstp dword ptr [rdx]
+    fstp st(0)
+ActorVelocityNormalize:
+    mov eax, dword ptr [rcx]
+    shl eax, 6
+    mov dword ptr [rsp+12], eax
+    fild dword ptr [rsp+12]
+    fsub dword ptr [rcx+20]
+    mov eax, dword ptr [rcx+4]
+    shl eax, 6
+    mov dword ptr [rsp+12], eax
+    fild dword ptr [rsp+12]
+    fsub dword ptr [rcx+24]
+    fst dword ptr [rsp+20]
+    fmul dword ptr [rsp+20]
+    fld st(1)
+    fmul st(0), st(2)
+    faddp st(1), st(0)
+    fsqrt
+    fst dword ptr [rsp+16]
+    fcomp dword ptr [Zero54D5D0]
+    fnstsw ax
+    test ah, 041h
+    jnz ActorVelocityZeroDistance
+    fdiv dword ptr [rsp+16]
+    fstp dword ptr [rdx+4]
+    fld dword ptr [rsp+20]
+    fdiv dword ptr [rsp+16]
+    fstp dword ptr [rdx+8]
+    jmp ActorVelocityStoreStep
+ActorVelocityZeroDistance:
+    fstp st(0)
+    mov dword ptr [rdx+4], 0
+    mov dword ptr [rdx+8], 0
+ActorVelocityStoreStep:
+    fld dword ptr [rdx+4]
+    fmul dword ptr [rdx]
+    fmul dword ptr [ActorStep54DD44]
+    fstp dword ptr [rdx+12]
+    fld dword ptr [rdx+8]
+    fmul dword ptr [rdx]
+    fmul dword ptr [ActorStep54DD44]
+    fstp dword ptr [rdx+16]
+    fldcw word ptr [rsp+8]
+    ret
+Cg2dMapActorVelocity ENDP
 
 END

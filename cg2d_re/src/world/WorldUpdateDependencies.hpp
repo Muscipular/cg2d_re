@@ -521,6 +521,8 @@ extern std::uint32_t gValue9A6204;         // 原 0x9A6204；45ED90 后续复用
 std::int32_t Sub_45ED90();                 // 原 [0x45ED90,0x45EEDA)，场景 7 请求与展示。
 void DrawNormalScene_51C7D0();             // 原 World::DrawNormalScene@0x51C7D0。
 void Sub_519A80(); // 原普通场景玩家创建/身份发布、HP复制与宠物地图槽匹配。
+// 原 46FB80：先X差再Y差，返回Y平方+X平方的F64值。
+double Sub_46FB80(float x, float y, float targetX, float targetY);
 login::YobiAction* Sub_51A090(
     const char* name, const char* titles, std::int32_t level,
     std::int32_t value188, std::int32_t flag40, std::int32_t flag80);

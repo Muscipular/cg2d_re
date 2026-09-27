@@ -3869,6 +3869,16 @@ double __cdecl Sub_46F970(const float first, const float second)
     }
 }
 
+double Sub_46FB80(
+    const float x, const float y, const float targetX, const float targetY)
+{
+    const double differenceX = static_cast<double>(targetX) - x;
+    const double differenceY = static_cast<double>(targetY) - y;
+    const double squaredY = differenceY * differenceY;
+    const double squaredX = differenceX * differenceX;
+    return squaredY + squaredX;
+}
+
 // 原 [0x46CDF0,0x46CE25)：角度写回 F32、归一化，再乘原常量截断为 S64。
 std::int64_t __cdecl Sub_46CDF0(const float first, const float second)
 {

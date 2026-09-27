@@ -52,4 +52,15 @@ private:
     bool FailSdl(const char* operation) noexcept;
 };
 
+// 原 628FC8：所有绘制消费者共享的完整 W32 帧槽，Flip 每次翻转。
+extern std::uint32_t gFrameParity628FC8;
+
+// Renderer::Init/Destroy 的单一 SDL 后端边界；原生窗口由平台持有。
+[[nodiscard]] bool CreateRendererPresenter() noexcept;
+[[nodiscard]] bool DestroyRendererPresenter() noexcept;
+[[nodiscard]] const char* RendererPresenterLastError() noexcept;
+
+// 原 44C560：将统一 CPU Back 提交到 SDL，失败置 lost，随后无条件翻转帧槽。
+void Flip_44C560();
+
 } // namespace cg::render

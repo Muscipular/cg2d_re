@@ -1042,3 +1042,40 @@ Back 的私有物理分配扩为 `640*480+1` 个 W32；
 Back 的掩码发布与旧 `data\update.dat` 的写入边界。
 本节不批准强制降到模式 1、不把 3D 检查固定成功、
 不编码部分 `Init/Destroy/Flip` 或声称画面可运行。
+
+## `44C560` 的 SDL 提交叶与共享帧槽
+
+2026-09-27，本线程在当前 IDA 会话只读重核
+`[44C560,44C6A5)` 完整指令。窗口模式 1 的
+客户区矩形与可选扫描线等待，以及其余模式
+的 3D Blt 或非 3D front Flip，均只位于
+已批准替换的 DX7 原生呈现边界；三路返回
+非零才在 `44C687` 写 `gRendererLost=1`，
+成功不清旧值。`44C68D–44C69A` 随后
+无条件读取独立 `W32[628FC8]`，写为
+`old==0 ? 1 : 0`，包括提交失败路径。
+
+[SdlPresenter.cpp](../src/render/SdlPresenter.cpp)
+现持有唯一 `SdlPresenter` 实例。创建窄接口
+使用已有 `gLegacyWindow`、固定 640×480
+及 `driver=nullptr`，销毁窄接口在窗口仍
+有效的主线程调用；最近错误保留只读入口供
+未来 `Renderer::Init` 失败分流使用。
+`Flip_44C560` 从[统一 CPU Back](../include/cg/render/SurfaceState.hpp)
+取可见 640×480 帧，以 2560 字节 pitch
+提交；缺 Back 或 SDL 上传/呈现失败时
+只置 `platform::gRendererLost=1`，随后
+无条件翻转 render 唯一 W32 帧槽。成功
+不清此前的 lost，也不复制第二张 Back。
+
+本项实现了提交叶及其后端创建/销毁接口，
+但 `Renderer::Init/Destroy` 仍未调用这两个
+接口，`DrawAllQueued` 的 13 路写 Back 尚未
+完成；不能把静态库编译或 `Flip` 符号存在
+误作已创建 presenter、窗口画面或完整链接。
+旧 3D 模式、共享帧槽的其他读取者和外部窗口
+实际缩放仍待接线/运行核对。限定
+`git diff --check`、UTF-8 无 BOM/LF
+和 Debug `cg2d_re_render/cg2d_re_core/
+cg2d_re_startup` 静态库编译通过，无新增
+告警；未运行测试或客户端，音频暂缓。

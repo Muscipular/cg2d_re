@@ -1,5 +1,7 @@
 #include "cg/render/SdlPresenter.hpp"
 #include "cg/platform/LegacyWindow.hpp"
+#include "cg/platform/MainLoop.hpp"
+#include "cg/render/SurfaceState.hpp"
 
 #include <SDL3/SDL.h>
 
@@ -26,6 +28,15 @@ namespace cg::render {
 
 static_assert(sizeof(std::uintptr_t) == 8, "SdlPresenter 要求 64 位原生窗口引用。");
 static_assert(sizeof(std::uint32_t) == 4, "SdlPresenter 要求每像素 4 字节。");
+static_assert(kCpuSurfacePitchBytes <= static_cast<std::size_t>((std::numeric_limits<int>::max)()));
+
+namespace {
+
+SdlPresenter gRendererPresenter;
+
+} // namespace
+
+std::uint32_t gFrameParity628FC8 = 0;
 
 struct SdlPresenter::Impl {
     // 只记录本次 SDL_InitSubSystem 成功获得的 VIDEO 引用。
@@ -239,6 +250,31 @@ bool SdlPresenter::FailSdl(const char* operation) noexcept
 {
     const char* detail = SDL_GetError();
     return Fail(operation, detail[0] != '\0' ? detail : "SDL 未提供详细错误。");
+}
+
+bool CreateRendererPresenter() noexcept
+{
+    return gRendererPresenter.Create(
+        platform::gLegacyWindow, kCpuSurfaceWidth, kCpuSurfaceHeight, nullptr);
+}
+
+bool DestroyRendererPresenter() noexcept
+{
+    return gRendererPresenter.Destroy();
+}
+
+const char* RendererPresenterLastError() noexcept
+{
+    return gRendererPresenter.LastError();
+}
+
+void Flip_44C560()
+{
+    if (!gRendererPresenter.Present(
+            ReadCpuBackPixels(), static_cast<int>(kCpuSurfacePitchBytes))) {
+        platform::gRendererLost = 1;
+    }
+    gFrameParity628FC8 = gFrameParity628FC8 == 0 ? 1u : 0u;
 }
 
 // 原 44C6B0：DX 合作级别探测在 SDL 后端映射为可尝试重建的门禁。

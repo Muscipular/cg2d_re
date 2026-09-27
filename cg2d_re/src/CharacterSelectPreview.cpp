@@ -251,6 +251,41 @@ std::int32_t Sub_51BFF0(const std::int32_t imageNo)
     return imageNo;
 }
 
+std::int32_t Sub_51B740(const std::int32_t imageNo)
+{
+    std::int32_t version = state::gGraphicVersionOverride58B6A0;
+    if (version == 0xFF) {
+        version = state::gPukVersion;
+    }
+    const std::int32_t category = Sub_51B7D0(imageNo);
+    std::int32_t allowedCategory;
+    if (version >= 8) {
+        allowedCategory = 7;
+    } else if (version >= 7) {
+        allowedCategory = 6;
+    } else if (version >= 3) {
+        allowedCategory = 3;
+    } else {
+        allowedCategory = 0;
+    }
+    if (allowedCategory >= category || category == 0) {
+        return imageNo;
+    }
+    switch (category) {
+    case 3:
+        return imageNo - 5000;
+    case 1:
+    case 2:
+    case 4:
+    case 5:
+    case 6:
+    case 7:
+        return Sub_51B910(imageNo);
+    default:
+        return imageNo;
+    }
+}
+
 std::int32_t Sub_51B7D0(const std::int32_t imageNo)
 {
     if (imageNo >= 100000 && imageNo <= 103102) {

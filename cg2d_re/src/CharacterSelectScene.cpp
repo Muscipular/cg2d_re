@@ -76,6 +76,7 @@ char gText9A4EAC[128] {};
 namespace cg::character_select::state {
 
 std::uint8_t gPukVersion = 0;
+std::uint8_t gGraphicVersionOverride58B6A0 = 0xFF;
 std::uint8_t gValue9A57E0 = 0;
 std::uint8_t gValue9A4CFC = 0;
 std::uint8_t gValue9A5B00 = 0;

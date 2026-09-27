@@ -2475,6 +2475,40 @@ void SetYobiActionField30F(
 
 namespace cg::world::detail {
 
+void Sub_46B4B0(const std::int32_t direction)
+{
+    if (direction < 0 || direction > 7) {
+        return;
+    }
+    login::YobiAction* const action = ReadPlayerAction();
+    if (action == nullptr) {
+        return;
+    }
+    const float movementX = std::bit_cast<float>(gValue9EE8FC);
+    if (movementX < 0.0F || movementX > 0.0F) {
+        return;
+    }
+    const float movementY = std::bit_cast<float>(gValue9EE900);
+    if (movementY < 0.0F || movementY > 0.0F
+        || gValue62B5AA != 0 || gValueC82220 != 0
+        || action->direction == direction) {
+        return;
+    }
+    const std::uint32_t now = platform::ReadTickCount32();
+    if (gValueC8223C + 500u >= now) {
+        return;
+    }
+    static_cast<void>(Sub_51A040(direction));
+    const std::uint32_t encoded = Sub_46BD20(direction, 1);
+    const char text[2] {
+        std::bit_cast<char>(static_cast<std::uint8_t>(encoded)), '\0',
+    };
+    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&gPlayerY);
+    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&gPlayerX);
+    static_cast<void>(Sub_50C8D0(x, y, text));
+    gValueC8223C = platform::ReadTickCount32();
+}
+
 std::uint32_t Sub_46A190()
 {
     for (std::size_t position = 0; position < 5; ++position) {

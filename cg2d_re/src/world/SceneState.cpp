@@ -39,6 +39,10 @@ std::int32_t gRotationCursorC8A940 = 0;
 std::uint32_t gValue62B348 = 0;
 static_assert(sizeof(gRotationTableC8A7B0) == 0x190);
 
+// 原 [9E03D0,9E0434)：46AC10先写前缀，再按发送门禁决定是否写NUL。
+std::array<char, 100> gMoveDirectionText9E03D0 {};
+static_assert(sizeof(gMoveDirectionText9E03D0) == 100);
+
 // 原 [DA43E8,DE03F4)：相册头与两组记录的唯一持久字节区；见场景证据 §58。
 alignas(std::uint32_t) std::array<std::byte, 0x3C00C> gAlbumStorage {};
 static_assert(sizeof(gAlbumStorage) == 0x0C + 2 * 960 * 0x80);
@@ -1745,6 +1749,7 @@ std::uint16_t gValue9A86D8 = 0;
 std::uint16_t gValue9FB92E = 0;
 std::uint16_t gValueB65A7C = 0;
 std::uint16_t gValueC82220 = 0;
+std::uint32_t gValueC8223C = 0; // 原转向发送的独立GetTickCount位槽。
 std::uint32_t gValueC8A778 = 0;
 std::uint32_t gValueC8A794 = 0;
 std::uint32_t gValueC82208 = 0;
@@ -3592,6 +3597,38 @@ void __cdecl Sub_46ABD0()
         gValueC82202 = nextCount;
         Sub_46BC90();
     }
+}
+
+std::uint16_t Sub_46AC10()
+{
+    const std::uint16_t count = gValueC82202;
+    if (std::bit_cast<std::int16_t>(count) <= 0) {
+        return count;
+    }
+    std::int32_t index = 0;
+    for (;;) {
+        const std::int16_t direction = std::bit_cast<std::int16_t>(
+            gPendingDirections9A86D4[static_cast<std::size_t>(index)]);
+        const std::uint32_t encoded = Sub_46BD20(direction, 0);
+        const std::int16_t remaining = std::bit_cast<std::int16_t>(gValueC82202);
+        gMoveDirectionText9E03D0[static_cast<std::size_t>(index)] =
+            std::bit_cast<char>(static_cast<std::uint8_t>(encoded));
+        ++index;
+        if (index >= remaining) {
+            break;
+        }
+    }
+    if (gValueFF0D36 != 0) {
+        const std::uint32_t flags = ReadPlayerFlags18A();
+        if ((flags & 0x100u) == 0) {
+            return static_cast<std::uint16_t>(flags);
+        }
+    }
+    gMoveDirectionText9E03D0[static_cast<std::size_t>(index)] = '\0';
+    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&gPlayerY);
+    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&gPlayerX);
+    return static_cast<std::uint16_t>(
+        Sub_50C8D0(x, y, gMoveDirectionText9E03D0.data()));
 }
 
 // 原 [0x46BCF0,0x46BD1D)：正数量减一后将剩余方向原地左移。

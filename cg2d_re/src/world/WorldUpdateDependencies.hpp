@@ -170,6 +170,7 @@ extern std::uint16_t gValue9A86D8;
 extern std::uint16_t gValue9FB92E;
 extern std::uint16_t gValueB65A7C;
 extern std::uint16_t gValueC82220;
+extern std::uint32_t gValueC8223C; // 原转向发送时间U32，非地址。
 extern std::uint32_t gValueC8A778;
 extern std::uint32_t gValueC8A794;
 extern std::uint32_t gValueC82208; // 原地图请求 W32；50CF90、509090、509100 等共享。
@@ -371,6 +372,8 @@ std::int32_t __cdecl Sub_46A9E0();         // 原 [0x46A9E0,0x46A9F4)，清三�
 std::int32_t __cdecl Sub_46AA00();         // 原 [0x46AA00,0x46AB56)，方向分类并写 pending。
 void __cdecl Sub_46BC90();                // 原 [0x46BC90,0x46BCE4)，三组路径 W16 同步左移。
 void __cdecl Sub_46ABD0();                // 原 [0x46ABD0,0x46AC0A)，最多搬运两项方向。
+std::uint16_t Sub_46AC10(); // 方向文本生成/发送，仅承接原AX返回位型。
+void Sub_46B4B0(std::int32_t direction); // 原完整转向门禁、发布与节流发送。
 void __cdecl Sub_46BCF0();                // 原 [0x46BCF0,0x46BD1D)，方向计数递减后左移。
 std::int32_t* Sub_467F30();                // 原 [0x467F30,0x4681AB)，透传 46CF20 一过尾指针。
 std::int32_t __cdecl Sub_4681B0();         // 原 [0x4681B0,0x4681F6)，快照恢复后清六槽。

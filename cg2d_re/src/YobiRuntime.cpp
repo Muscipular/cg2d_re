@@ -1036,8 +1036,6 @@ void Sub_4417E0(YobiAction* action);
 void Sub_447E60(YobiAction* action);
 std::int32_t Sub_446D80(YobiAction* action);
 std::int32_t Sub_446FA0(YobiAction* action);
-std::int32_t Sub_447070(YobiAction* action);
-std::int32_t Sub_447230(YobiAction* action);
 std::int32_t Sub_447610(YobiAction* action);
 std::int32_t Sub_447820(YobiAction* action);
 
@@ -1266,6 +1264,60 @@ std::int32_t Sub_4474E0(YobiAction* const action)
 
 namespace {
 
+// 原模式2/3共享三点绘制；X/Y舍入点不同，三轮均推进动画并归一化局部角度。
+void DrawTransitionOrbit(
+    YobiAction* const action, MapTransitionPayload* const payload,
+    float angle, const bool allowMapAtZero)
+{
+    for (std::int32_t point = 0; point < 3; ++point) {
+        const double xFactor = world::detail::Sub_46F950(angle);
+        const float offsetX = static_cast<float>(
+            xFactor * static_cast<double>(payload->value24));
+        const double yFactor = world::detail::Sub_46F930(angle);
+        const double offsetY = yFactor * static_cast<double>(payload->value24);
+        const float projectedY = static_cast<float>(
+            offsetY + static_cast<double>(action->worldY));
+        const float projectedX = static_cast<float>(
+            static_cast<double>(offsetX) + static_cast<double>(action->worldX));
+        float screenX;
+        float screenY;
+        world::ProjectWorldToScreen_46CE30(
+            projectedX, projectedY, &screenX, &screenY);
+        action->x = static_cast<std::int32_t>(
+            static_cast<std::int64_t>(static_cast<double>(screenX) + 0.5));
+        action->y = static_cast<std::int32_t>(
+            static_cast<std::int64_t>(static_cast<double>(screenY) + 0.5));
+        static_cast<void>(Sub_517880(action, 100, 0, 0));
+        if (allowMapAtZero && payload->value24 == 0) {
+            const render::GraphicDescriptor16* const descriptor = &action->drawMode;
+            const std::int32_t yOffset = Sub_5182B0(action, 1);
+            const std::int32_t drawY = yOffset + action->y;
+            const std::int32_t xOffset = Sub_5182B0(action, 0);
+            const std::int32_t x = action->x;
+            const std::int32_t graphicIndex = action->graphicIndex;
+            const std::int32_t drawX = xOffset + x;
+            const auto worldYBits = std::bit_cast<std::uint32_t>(action->worldY);
+            const auto worldXBits = std::bit_cast<std::uint32_t>(action->worldX);
+            static_cast<void>(world::detail::Sub_46BD60(
+                graphicIndex, worldXBits, worldYBits,
+                std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
+                std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)),
+                0, descriptor));
+        } else if (render::gFrameParity628FC8 == 1) {
+            const std::int32_t graphicIndex = action->graphicIndex;
+            const render::GraphicDescriptor16* const descriptor = &action->drawMode;
+            const std::int32_t yOffset = Sub_5182B0(action, 1);
+            const std::int32_t drawY = yOffset + action->y;
+            const std::int32_t xOffset = Sub_5182B0(action, 0);
+            const std::int32_t drawX = xOffset + action->x;
+            static_cast<void>(render::DrawGraphic2_521DD0(
+                drawX, drawY, 11, graphicIndex, 0, 0, descriptor));
+        }
+        angle = static_cast<float>(static_cast<double>(angle) + 120.0F);
+        world::detail::Sub_46F8F0(&angle);
+    }
+}
+
 // 原447A20/447C40仅两处Y偏移轴参数不同；保留相同的五列交错搬移和发布次序。
 std::int32_t UpdateTransitionTrail(
     YobiAction* const action, const std::uint8_t yOffsetAxis)
@@ -1356,6 +1408,54 @@ std::int32_t UpdateTransitionTrail(
 }
 
 } // namespace
+
+std::int32_t Sub_447070(YobiAction* const action)
+{
+    auto* const payload = static_cast<MapTransitionPayload*>(action->payload);
+    if (payload->slots18.values.state18 == 0) {
+        payload->slots18.values.state18 = 1;
+        payload->value20 = 0.0F;
+        payload->value24 = 0;
+    }
+    if (payload->value24 > 800) {
+        world::detail::Sub_4467D0(payload->objectIndex28);
+        MarkDeath(action);
+        return 0;
+    }
+    if (payload->slots18.values.state18 != 0) {
+        const std::uint32_t now = platform::ReadTickCount32();
+        const std::uint32_t deadline = payload->tick14 + 1000u;
+        if (deadline < now) {
+            const double angle = static_cast<double>(payload->value20) + 6.0F;
+            payload->value24 += 4;
+            payload->value20 = static_cast<float>(angle);
+        }
+    }
+    DrawTransitionOrbit(action, payload, payload->value20, true);
+    return 0;
+}
+
+std::int32_t Sub_447230(YobiAction* const action)
+{
+    auto* const payload = static_cast<MapTransitionPayload*>(action->payload);
+    if (payload->slots18.values.state18 == 0) {
+        payload->slots18.values.state18 = 1;
+        payload->slots18.values.state1C = 0;
+        payload->value20 = 0.0F;
+        payload->value24 = 800;
+    } else if (payload->value24 <= 0) {
+        world::detail::Sub_4467D0(payload->objectIndex28);
+        MarkDeath(action);
+        return 1;
+    }
+    if (payload->slots18.values.state18 != 0) {
+        const double angle = static_cast<double>(payload->value20) + 6.0F;
+        payload->value24 -= 4;
+        payload->value20 = static_cast<float>(angle);
+        DrawTransitionOrbit(action, payload, static_cast<float>(angle), false);
+    }
+    return 0;
+}
 
 std::int32_t Sub_447A20(YobiAction* const action)
 {

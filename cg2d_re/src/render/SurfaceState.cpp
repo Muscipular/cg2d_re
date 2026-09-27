@@ -2,6 +2,10 @@
 
 #include "cg/Palette.hpp"
 
+#include "LegacyTextureDrawing.hpp"
+
+#include <SDL3/SDL_surface.h>
+
 #include <algorithm>
 #include <memory>
 #include <new>
@@ -13,7 +17,13 @@
 namespace cg::render {
 namespace {
 
-using CpuBackStorage = std::array<std::uint32_t, kCpuSurfacePixelCount + 1>;
+struct CpuBackStorage {
+    std::array<std::uint32_t, kCpuSurfacePixelCount + 1> pixels {};
+    // SDL 只借用可见像素；成员逆序析构先释放包装。
+    std::unique_ptr<SDL_Surface, decltype(&SDL_DestroySurface)> blitSurface {
+        nullptr, SDL_DestroySurface
+    };
+};
 
 // 原 556300..556302，仅描边模式为 256 号色读取；后续地址为独立字符串。
 constexpr std::uint8_t kOutlineExtraColors[1][3] {{0xA2, 0xE8, 0xFF}};
@@ -76,7 +86,17 @@ std::uint32_t gValueFF48E4 = 0;
 bool CreateCpuBackSurface() noexcept
 {
     gCpuBackSurface.reset(new (std::nothrow) CpuBackStorage {});
-    return gCpuBackSurface != nullptr;
+    if (gCpuBackSurface == nullptr) {
+        return false;
+    }
+    gCpuBackSurface->blitSurface.reset(SDL_CreateSurfaceFrom(
+        kCpuSurfaceWidth, kCpuSurfaceHeight, SDL_PIXELFORMAT_XRGB8888,
+        gCpuBackSurface->pixels.data(), static_cast<int>(kCpuSurfacePitchBytes)));
+    if (gCpuBackSurface->blitSurface == nullptr) {
+        gCpuBackSurface.reset();
+        return false;
+    }
+    return true;
 }
 
 bool CreateCpuAutoMapSurface() noexcept
@@ -115,7 +135,12 @@ std::span<const std::uint32_t> ReadCpuBackPixels() noexcept
     if (gCpuBackSurface == nullptr) {
         return {};
     }
-    return {gCpuBackSurface->data(), kCpuSurfacePixelCount};
+    return {gCpuBackSurface->pixels.data(), kCpuSurfacePixelCount};
+}
+
+SDL_Surface* GetCpuBackSdlSurface() noexcept
+{
+    return gCpuBackSurface == nullptr ? nullptr : gCpuBackSurface->blitSurface.get();
 }
 
 std::int32_t ClearSurface_4512C0() noexcept
@@ -124,7 +149,7 @@ std::int32_t ClearSurface_4512C0() noexcept
         return -1;
     }
     const std::uint32_t color = gBackgroundColor;
-    std::fill_n(gCpuBackSurface->data(), kCpuSurfacePixelCount, color);
+    std::fill_n(gCpuBackSurface->pixels.data(), kCpuSurfacePixelCount, color);
     return 0;
 }
 
@@ -161,7 +186,7 @@ void Sub_451350(RECT* const rect, const std::uint16_t colorIndex, const std::int
 
     const auto pitch = static_cast<std::int32_t>(kCpuSurfacePitchPixels);
     std::uint32_t* const first =
-        gCpuBackSurface->data() + rect->top * pitch + rect->left + 1;
+        gCpuBackSurface->pixels.data() + rect->top * pitch + rect->left + 1;
     switch (mode) {
     case 0: {
         std::uint32_t color;
@@ -221,7 +246,7 @@ bool CopyBackToTemp() noexcept
         return false;
     }
     std::copy_n(
-        gCpuBackSurface->data(),
+        gCpuBackSurface->pixels.data(),
         kCpuSurfacePixelCount,
         gCpuTempSurface->pixels.data());
     return true;
@@ -268,7 +293,7 @@ bool BlitTempToBack(
         std::copy_n(
             gCpuTempSurface->pixels.data() + sourceIndex,
             width,
-            gCpuBackSurface->data() + destinationIndex);
+            gCpuBackSurface->pixels.data() + destinationIndex);
     }
     return true;
 }

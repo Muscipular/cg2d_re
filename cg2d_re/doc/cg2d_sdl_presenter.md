@@ -1049,7 +1049,10 @@ Back 的掩码发布与旧 `data\update.dat` 的写入边界。
 混合选择及真实变换缓存调用已落位，详见
 [纹理入口 SPEC](cg2d_texture_rendering.md)。
 本次进一步确认 `44B610` 查 `+9C` 的接口，而不是 `+A0` 的设备；
-native 色键/混合/像素提交与相应共享状态查询仍是未定义依赖。
+后续色键 Blt 已用 SDL 软件 blit 同步写入唯一 CPU Back，
+节点/变换面与 Back 各自持有仅借用原数组的 SDL_Surface 包装，
+销毁先释放包装再释放像素；共享纹理状态查询也已在 renderer owner 落位。
+四顶点混合提交及状态生产仍缺，见该 SPEC 的 CPU 色键 Blt 章节。
 不能据上层入口存在称模式 2/3/4、RendererInit 或最终画面已完成。
 
 ## `44C560` 的 SDL 提交叶与共享帧槽

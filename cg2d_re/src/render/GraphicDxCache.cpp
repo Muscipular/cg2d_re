@@ -1,4 +1,5 @@
 #include "GraphicDxCacheState.hpp"
+#include "LegacyTextureDrawing.hpp"
 
 #include "cg/GraphicInfo.hpp"
 #include "cg/GraphicRead.hpp"
@@ -12,7 +13,10 @@
 #include "cg/render/SurfaceState.hpp"
 #include "cg/world/SceneState.hpp"
 
+#include <SDL3/SDL_surface.h>
+
 #include <algorithm>
+#include <bit>
 #include <cstdio>
 #include <cstring>
 #include <map>
@@ -27,6 +31,10 @@ struct TextureSurface {
     std::int16_t height {};
     std::uint32_t colorKey {};
     std::unique_ptr<std::uint32_t[]> pixels;
+    // 借用 pixels；成员逆序析构保证先释放包装，再释放像素。
+    std::unique_ptr<SDL_Surface, decltype(&SDL_DestroySurface)> blitSurface {
+        nullptr, SDL_DestroySurface
+    };
     TextureSurface* nextOwned {};
     TextureSurface* previousOwned {};
 };
@@ -62,6 +70,15 @@ public:
         }
         surface->width = width;
         surface->height = height;
+        surface->blitSurface.reset(SDL_CreateSurfaceFrom(
+            width, height, SDL_PIXELFORMAT_XRGB8888, surface->pixels.get(),
+            static_cast<int>(width) * static_cast<int>(sizeof(std::uint32_t))));
+        if (surface->blitSurface == nullptr
+            || !SDL_SetSurfaceBlendMode(surface->blitSurface.get(), SDL_BLENDMODE_NONE)
+            || !SDL_SetSurfaceColorKey(surface->blitSurface.get(), true, surface->colorKey)) {
+            delete surface;
+            return nullptr;
+        }
         surface->nextOwned = head_;
         if (head_ != nullptr) {
             head_->previousOwned = surface;
@@ -466,6 +483,35 @@ void FillTextureBlack_451310(TextureSurface* const surface) noexcept
     const std::size_t pixelCount =
         static_cast<std::size_t>(surface->width) * static_cast<std::size_t>(surface->height);
     std::fill_n(surface->pixels.get(), pixelCount, 0u);
+}
+
+std::int32_t BlitTextureToBack(
+    TextureSurface* const surface, const TextureRectangle& source,
+    const TextureRectangle& destination)
+{
+    constexpr auto failure = std::bit_cast<std::int32_t>(0x80004005u);
+    constexpr auto surfaceBusy = std::bit_cast<std::int32_t>(0x887601AEu);
+    SDL_Surface* const back = GetCpuBackSdlSurface();
+    if (surface == nullptr || back == nullptr) {
+        return failure;
+    }
+    SDL_Surface* const input = surface->blitSurface.get();
+    if (((input->flags | back->flags) & SDL_SURFACE_LOCKED) != 0) {
+        return surfaceBusy;
+    }
+    const SDL_Rect sourceRect {
+        source[0], source[1], source[2] - source[0], source[3] - source[1]
+    };
+    const SDL_Rect destinationRect {
+        destination[0], destination[1],
+        destination[2] - destination[0], destination[3] - destination[1]
+    };
+    // 上层已按原分支裁剪；不在 native 边界重新改变矩形。
+    const bool copied = sourceRect.w == destinationRect.w && sourceRect.h == destinationRect.h
+        ? SDL_BlitSurfaceUnchecked(input, &sourceRect, back, &destinationRect)
+        : SDL_BlitSurfaceUncheckedScaled(
+            input, &sourceRect, back, &destinationRect, SDL_SCALEMODE_NEAREST);
+    return copied ? 0 : failure;
 }
 
 void LoadTextureFromBuffer32_450400(

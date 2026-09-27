@@ -3,6 +3,8 @@
 #include <array>
 #include <cstdint>
 
+struct SDL_Surface;
+
 namespace cg::render {
 
 struct TextureSurface;
@@ -36,13 +38,16 @@ enum class LegacyTextureBlend : std::uint32_t {
     InverseSourceAlpha = 6
 };
 
-// 底层真实依赖尚待实现；不以固定状态或空提交补链接。
+// 只读借用 RendererResources 的唯一成员，不补空 owner 或默认能力。
 const LegacyTextureState& GetLegacyTextureState();
+// 底层四顶点提交尚待实现，不以空提交补链接。
 // 顺序为 source blend、destination blend、按共享 stage 绑面、绘制。
 // 前三段失败不成为额外门禁；同步借用顶点并透传最后的完整 W32 状态。
 std::int32_t SubmitLegacyTextureFan(
     TextureSurface* surface, const std::array<LegacyTextureVertex, 4>& vertices,
     LegacyTextureBlend sourceBlend, LegacyTextureBlend destinationBlend);
+// 仅在 render 后端同步借用；Back 销毁/重建后失效，公开接口不暴露 SDL 类型。
+SDL_Surface* GetCpuBackSdlSurface() noexcept;
 // 源色键写入唯一 Back，不做颜色调制；目标尺寸不同则执行原 Blt 缩放。
 std::int32_t BlitTextureToBack(
     TextureSurface* surface, const TextureRectangle& source,

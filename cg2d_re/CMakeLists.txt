@@ -47,7 +47,7 @@ set_target_properties(cg2d_re_core PROPERTIES CXX_EXTENSIONS OFF)
 target_compile_options(cg2d_re_core PRIVATE /GR- /utf-8 /W4)
 # 保留原 sprintf/fopen 的行为；有效缓冲区等调用前提在各还原接口中记录。
 target_compile_definitions(cg2d_re_core PRIVATE _CRT_SECURE_NO_WARNINGS)
-target_link_libraries(cg2d_re_core PRIVATE user32 shell32 gdi32)
+target_link_libraries(cg2d_re_core PRIVATE SDL3::SDL3 user32 shell32 gdi32)
 
 # 编译真实入口链，但不以空实现填补尚未还原的依赖或提前链接演示客户端。
 add_library(cg2d_re_startup STATIC

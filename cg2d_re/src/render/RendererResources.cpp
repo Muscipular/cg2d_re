@@ -1,5 +1,7 @@
 #include "cg/render/RendererResources.hpp"
 
+#include "LegacyTextureDrawing.hpp"
+
 #include <algorithm>
 #include <memory>
 #include <new>
@@ -13,6 +15,8 @@ struct PaletteBinding {
 
 struct RendererResources {
     std::unique_ptr<PaletteBinding> palette;
+    // 原 +B8/+BA/+BC；GPTR 零初值，后续由 RendererInit 在原时点发布。
+    LegacyTextureState textureState {};
 };
 
 RendererResources* gRenderer = nullptr;
@@ -25,6 +29,11 @@ std::int32_t gRendererBlueShift = 0;
 std::int32_t gRendererRedOffset = 0;
 std::int32_t gRendererGreenOffset = 0;
 std::int32_t gRendererBlueOffset = 0;
+
+const LegacyTextureState& GetLegacyTextureState()
+{
+    return gRenderer->textureState;
+}
 
 void PublishRendererPixelFormat32_44BB1E() noexcept
 {

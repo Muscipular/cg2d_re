@@ -55,7 +55,7 @@ YobiAction* NewMapCharaAction();
 YobiAction* Sub_441DB0(
     std::int32_t imageNo, std::int32_t mapX,
     std::int32_t mapY, std::int32_t direction);
-// 原448040：独立模式载荷、四次坐标赋值/投影与tick；真实447E60回调尚待实现。
+// 原448040：独立载荷、四次坐标赋值/投影与tick；447E60父分派已接，八种模式尚缺。
 YobiAction* Sub_448040(
     std::int32_t imageNo, std::int32_t mapX, std::int32_t mapY,
     std::int32_t direction, std::int16_t mode, std::int16_t value02,

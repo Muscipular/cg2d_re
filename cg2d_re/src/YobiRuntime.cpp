@@ -253,7 +253,11 @@ struct MapTransitionPayload {
     float value20;
     std::int32_t value24;
     std::int32_t objectIndex28;
-    std::array<std::byte, 0xE0> bytes2C; // 未消费区，不据此冻结剩余字段。
+    std::uint32_t visible2C;
+    std::uint32_t frame30;
+    std::int32_t step34;
+    std::int32_t countdown38;
+    std::array<std::byte, 0xD0> bytes3C; // 未消费区，不据此冻结剩余字段。
     std::uint32_t flags10C;
 };
 
@@ -271,7 +275,11 @@ static_assert(offsetof(MapTransitionPayload, slots18) == 0x18);
 static_assert(offsetof(MapTransitionPayload, value20) == 0x28);
 static_assert(offsetof(MapTransitionPayload, value24) == 0x2C);
 static_assert(offsetof(MapTransitionPayload, objectIndex28) == 0x30);
-static_assert(offsetof(MapTransitionPayload, bytes2C) == 0x34);
+static_assert(offsetof(MapTransitionPayload, visible2C) == 0x34);
+static_assert(offsetof(MapTransitionPayload, frame30) == 0x38);
+static_assert(offsetof(MapTransitionPayload, step34) == 0x3C);
+static_assert(offsetof(MapTransitionPayload, countdown38) == 0x40);
+static_assert(offsetof(MapTransitionPayload, bytes3C) == 0x44);
 static_assert(offsetof(MapTransitionPayload, flags10C) == 0x114);
 static_assert(sizeof(MapTransitionPayload) == 0x118);
 
@@ -1011,9 +1019,17 @@ YobiAction* NewMapCharaAction()
     return NewYobiAction_404AE0(2, sizeof(MapCharaPayload));
 }
 
-// 原441DB0/448040设置的真实目标；完整回调尚待实现，不使用替代空回调。
+// 原441DB0/448040的回调目标；未实现的依赖仅声明，不设置替代空回调。
 void Sub_4417E0(YobiAction* action);
 void Sub_447E60(YobiAction* action);
+std::int32_t Sub_446D80(YobiAction* action);
+std::int32_t Sub_446FA0(YobiAction* action);
+std::int32_t Sub_447070(YobiAction* action);
+std::int32_t Sub_447230(YobiAction* action);
+std::int32_t Sub_447610(YobiAction* action);
+std::int32_t Sub_447820(YobiAction* action);
+std::int32_t Sub_447A20(YobiAction* action);
+std::int32_t Sub_447C40(YobiAction* action);
 
 YobiAction* Sub_441DB0(
     const std::int32_t imageNo, const std::int32_t mapX,
@@ -1132,6 +1148,184 @@ YobiAction* Sub_448040(
     payload->flags10C = 0;
     payload->objectIndex28 = objectIndex;
     return action;
+}
+
+std::int32_t Sub_4473B0(YobiAction* const action)
+{
+    auto* const payload = static_cast<MapTransitionPayload*>(action->payload);
+    if (payload->slots18.values.state18 == 0) {
+        payload->slots18.values.state18 = 1;
+        payload->visible2C = 1;
+        const std::uint32_t frame = render::gFrameParity628FC8;
+        payload->step34 = 20;
+        payload->countdown38 = 10;
+        payload->frame30 = frame ^ 1u;
+    }
+    const std::int32_t step = payload->step34;
+    if (step <= -20) {
+        world::detail::Sub_4467D0(payload->objectIndex28);
+        MarkDeath(action);
+        return 0;
+    }
+    if (render::gFrameParity628FC8 != payload->frame30) {
+        --payload->countdown38;
+    }
+    if (payload->countdown38 <= 0) {
+        payload->visible2C ^= 1u;
+        payload->countdown38 = step / 2;
+        if (payload->countdown38 < 1) {
+            payload->countdown38 = 1;
+        }
+        payload->step34 = step - 1;
+    }
+    const float worldY = action->worldY;
+    const float worldX = action->worldX;
+    float screenX;
+    float screenY;
+    world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
+    action->x = static_cast<std::int32_t>(
+        static_cast<std::int64_t>(static_cast<double>(screenX) + 0.5));
+    action->y = static_cast<std::int32_t>(
+        static_cast<std::int64_t>(static_cast<double>(screenY) + 0.5));
+    static_cast<void>(Sub_517880(action, 100, 0, 0));
+    if (payload->visible2C != 0) {
+        const std::int32_t graphicIndex = action->graphicIndex;
+        const render::GraphicDescriptor16* const descriptor = &action->drawMode;
+        const std::int32_t offsetY = Sub_5182B0(action, 1);
+        const std::int32_t drawY = offsetY + action->y;
+        const std::int32_t offsetX = Sub_5182B0(action, 0);
+        const std::int32_t drawX = offsetX + action->x;
+        static_cast<void>(render::DrawGraphic2_521DD0(
+            drawX, drawY, 11, graphicIndex, 0, 0, descriptor));
+    }
+    payload->frame30 = render::gFrameParity628FC8;
+    return 0;
+}
+
+std::int32_t Sub_4474E0(YobiAction* const action)
+{
+    auto* const payload = static_cast<MapTransitionPayload*>(action->payload);
+    if (payload->slots18.values.state18 == 0) {
+        payload->slots18.values.state18 = 1;
+        payload->visible2C = 1;
+        const std::uint32_t frame = render::gFrameParity628FC8;
+        payload->step34 = -10;
+        payload->countdown38 = 1;
+        payload->frame30 = frame ^ 1u;
+    }
+    const std::int32_t step = payload->step34;
+    if (step > 30) {
+        world::detail::Sub_4467D0(payload->objectIndex28);
+        MarkDeath(action);
+        return 0;
+    }
+    if (render::gFrameParity628FC8 != payload->frame30) {
+        --payload->countdown38;
+    }
+    if (payload->countdown38 <= 0) {
+        payload->visible2C ^= 1u;
+        payload->countdown38 = step / 2;
+        if (payload->countdown38 < 1) {
+            payload->countdown38 = 1;
+        }
+        payload->step34 = step + 1;
+    }
+    const float worldY = action->worldY;
+    const float worldX = action->worldX;
+    float screenX;
+    float screenY;
+    world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
+    action->x = static_cast<std::int32_t>(
+        static_cast<std::int64_t>(static_cast<double>(screenX) + 0.5));
+    action->y = static_cast<std::int32_t>(
+        static_cast<std::int64_t>(static_cast<double>(screenY) + 0.5));
+    static_cast<void>(Sub_517880(action, 100, 0, 0));
+    if (payload->visible2C != 0) {
+        const std::int32_t graphicIndex = action->graphicIndex;
+        const render::GraphicDescriptor16* const descriptor = &action->drawMode;
+        const std::int32_t offsetY = Sub_5182B0(action, 1);
+        const std::int32_t drawY = offsetY + action->y;
+        const std::int32_t offsetX = Sub_5182B0(action, 0);
+        const std::int32_t drawX = offsetX + action->x;
+        static_cast<void>(render::DrawGraphic2_521DD0(
+            drawX, drawY, 11, graphicIndex, 0, 0, descriptor));
+    }
+    payload->frame30 = render::gFrameParity628FC8;
+    return 0;
+}
+
+void Sub_447E60(YobiAction* const action)
+{
+    auto* const payload = static_cast<MapTransitionPayload*>(action->payload);
+    std::int32_t result = 1;
+    switch (payload->mode) {
+    case 0:
+        result = Sub_446D80(action);
+        break;
+    case 1:
+        result = Sub_446FA0(action);
+        break;
+    case 2:
+        result = Sub_447070(action);
+        break;
+    case 3:
+        result = Sub_447230(action);
+        break;
+    case 4:
+        result = Sub_4473B0(action);
+        break;
+    case 5:
+        result = Sub_4474E0(action);
+        break;
+    case 6:
+        result = Sub_447610(action);
+        break;
+    case 7:
+        result = Sub_447820(action);
+        break;
+    case 8:
+        result = Sub_447A20(action);
+        break;
+    case 9:
+        result = Sub_447C40(action);
+        break;
+    default:
+        break;
+    }
+    if (result == 0) {
+        return;
+    }
+    const float worldY = action->worldY;
+    const float worldX = action->worldX;
+    float screenX;
+    float screenY;
+    world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
+    action->x = static_cast<std::int32_t>(
+        static_cast<std::int64_t>(static_cast<double>(screenX) + 0.5));
+    action->y = static_cast<std::int32_t>(
+        static_cast<std::int64_t>(static_cast<double>(screenY) + 0.5));
+    const std::int32_t characterAction = action->characterAction;
+    const std::int32_t stopAtEnd =
+        characterAction == 12 || characterAction == 13 || characterAction == 14
+        || characterAction == 15 || characterAction == 1 || characterAction == 0
+        || characterAction == 16 ? 0 : 1;
+    static_cast<void>(Sub_517880(action, 100, stopAtEnd, 0));
+    if ((action->flags & 2u) != 0) {
+        return;
+    }
+    const render::GraphicDescriptor16* const descriptor = &action->drawMode;
+    const std::int32_t offsetY = Sub_5182B0(action, 1);
+    const std::int32_t drawY = offsetY + action->y;
+    const std::int32_t offsetX = Sub_5182B0(action, 0);
+    const std::int32_t x = action->x;
+    const std::int32_t graphicIndex = action->graphicIndex;
+    const std::int32_t drawX = offsetX + x;
+    const auto worldXBits = std::bit_cast<std::uint32_t>(action->worldX);
+    const auto worldYBits = std::bit_cast<std::uint32_t>(action->worldY);
+    static_cast<void>(world::detail::Sub_46BD60(
+        graphicIndex, worldXBits, worldYBits,
+        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
+        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)), 0, descriptor));
 }
 
 void SetYobiPlayerFlag(YobiAction* const action) noexcept

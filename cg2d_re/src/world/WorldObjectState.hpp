@@ -34,14 +34,16 @@ struct WorldObjectRecord {
     std::array<char, 17> title65;
     std::array<char, 33> text76;
     std::array<char, 33> text97;
-    std::array<std::byte, 17> bytesB8;
+    std::array<char, 17> textB8;
     std::array<char, 61> nameC9; // 445D20/445F40仅在长度<=60时复制含NUL原字节。
     std::array<std::byte, 0x0E> bytes106;
     std::uint32_t flags114;
     std::int32_t value118;
     login::YobiAction* action; // 原+11C，Yobi链拥有，本表只借用。
     std::uint16_t flags120;
-    std::array<std::byte, 0x1A> bytes122;
+    std::array<std::byte, 6> bytes122;
+    std::array<char, 17> text128; // 原+128；445350的第4段称号。
+    std::array<std::byte, 3> bytes139;
 };
 
 inline constexpr std::size_t kWorldObjectCapacity = 1000;
@@ -64,7 +66,7 @@ static_assert(offsetof(WorldObjectRecord, name54) == 0x54);
 static_assert(offsetof(WorldObjectRecord, title65) == 0x65);
 static_assert(offsetof(WorldObjectRecord, text76) == 0x76);
 static_assert(offsetof(WorldObjectRecord, text97) == 0x97);
-static_assert(offsetof(WorldObjectRecord, bytesB8) == 0xB8);
+static_assert(offsetof(WorldObjectRecord, textB8) == 0xB8);
 static_assert(offsetof(WorldObjectRecord, nameC9) == 0xC9);
 static_assert(offsetof(WorldObjectRecord, bytes106) == 0x106);
 static_assert(offsetof(WorldObjectRecord, flags114) == 0x114);
@@ -72,6 +74,8 @@ static_assert(offsetof(WorldObjectRecord, value118) == 0x118);
 static_assert(offsetof(WorldObjectRecord, action) == 0x120);
 static_assert(offsetof(WorldObjectRecord, flags120) == 0x128);
 static_assert(offsetof(WorldObjectRecord, bytes122) == 0x12A);
+static_assert(offsetof(WorldObjectRecord, text128) == 0x130);
+static_assert(offsetof(WorldObjectRecord, bytes139) == 0x141);
 static_assert(sizeof(WorldObjectRecord) == 0x148);
 
 } // namespace cg::world::detail

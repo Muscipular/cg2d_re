@@ -64,6 +64,7 @@ struct YobiAction {
     std::array<char, 17> titleE1; // 原 +E1，51A090 当前最多写16B及NUL。
     std::array<char, 33> text102;
     std::array<char, 33> text123;
+    std::array<char, 17> text144; // 原+144；445350复制长度<=16的独立原字节文本。
     platform::LegacyCryptInt readiness; // 原 +170；地图实体将同一槽用于 HP。
     platform::LegacyCryptInt maxHp; // 原 +180；不与 +170 合并。
     std::int32_t field1D0; // 原 +1D0；弹窗param6、观察子项槽序号或地图实体等级。
@@ -2477,6 +2478,164 @@ void SetYobiActionField30F(
 } // namespace cg::login
 
 namespace cg::world::detail {
+
+std::int32_t Sub_5183B0(const std::int32_t imageNo)
+{
+    return imageNo >= 100000 && imageNo < 200000 ? 1 : 0;
+}
+
+void Sub_445350(
+    const std::int32_t objectIndex, const std::int32_t imageNo,
+    const std::int32_t mapX, const std::int32_t mapY,
+    const std::int32_t direction, const char* const name,
+    const char* const titles, const char* const extraText,
+    const std::int32_t level, const std::int32_t value40,
+    const std::int32_t flag1, const std::int32_t flag2,
+    const std::int32_t type)
+{
+    std::int32_t index = Sub_444FA0(objectIndex);
+    std::int32_t selectedDirection = direction;
+    if (index < 0) {
+        index = Sub_446130();
+        if (index < 0) {
+            return;
+        }
+        if (type > 3 && gValue9DAD68 == 0 && Sub_5183B0(imageNo) == 0) {
+            selectedDirection = 0;
+        }
+        login::YobiAction* const action =
+            login::detail::Sub_441DB0(imageNo, mapX, mapY, selectedDirection);
+        auto& record = gWorldObjects[static_cast<std::size_t>(index)];
+        record.action = action;
+        if (action == nullptr) {
+            return;
+        }
+        record.used = 2;
+        static_cast<login::detail::MapActorPayload*>(record.action->payload)->index = index;
+        record.category = static_cast<std::uint16_t>(Sub_446210(type));
+        record.objectIndex = objectIndex;
+        record.value34 = -1;
+    }
+
+    auto& record = gWorldObjects[static_cast<std::size_t>(index)];
+    record.imageNo = static_cast<std::uint32_t>(imageNo);
+    record.value40 = static_cast<std::uint16_t>(value40);
+    record.level2C = level;
+    platform::LegacyCryptInt temporary;
+    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, mapX);
+    record.coordinate0C.readCount = temporary.readCount;
+    record.coordinate0C.encoded = temporary.encoded;
+    record.coordinate0C.mask = temporary.mask;
+    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, mapY);
+    record.coordinate1C.mask = temporary.mask;
+    record.coordinate1C.encoded = temporary.encoded;
+    record.coordinate1C.readCount = temporary.readCount;
+    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    record.direction = selectedDirection;
+    if (flag1 != 0) {
+        *reinterpret_cast<unsigned char*>(&record.flags42) |= 0x40u;
+    }
+    if (flag2 != 0) {
+        *reinterpret_cast<unsigned char*>(&record.flags42) |= 0x80u;
+    }
+    if (std::strlen(name) <= 16) {
+        std::memmove(record.name54.data(), name, std::strlen(name) + 1);
+    }
+
+    char first[256];
+    char second[256];
+    char third[256];
+    char fourth[256];
+    if (type != 3) {
+        network::ExtractDelimitedField_52CED0(titles, '|', 1, 255, first);
+        input::UnescapeLegacyTextAndNotify_52D2F0(first);
+        if (std::strlen(first) <= 16) {
+            std::memmove(record.title65.data(), first, std::strlen(first) + 1);
+        }
+        network::ExtractDelimitedField_52CED0(titles, '|', 2, 255, second);
+        input::UnescapeLegacyTextAndNotify_52D2F0(second);
+        if (std::strlen(second) <= 32) {
+            std::memmove(record.text76.data(), second, std::strlen(second) + 1);
+        }
+        network::ExtractDelimitedField_52CED0(titles, '|', 4, 255, fourth);
+        input::UnescapeLegacyTextAndNotify_52D2F0(fourth);
+        if (std::strlen(fourth) <= 16) {
+            std::memmove(record.text128.data(), fourth, std::strlen(fourth) + 1);
+        }
+        if (std::strlen(extraText) <= 16) {
+            std::memmove(record.textB8.data(), extraText, std::strlen(extraText) + 1);
+        }
+    } else {
+        network::ExtractDelimitedField_52CED0(titles, '|', 1, 255, first);
+        input::UnescapeLegacyTextAndNotify_52D2F0(first);
+        if (std::strlen(first) <= 16) {
+            std::memmove(record.title65.data(), first, std::strlen(first) + 1);
+        }
+        record.textB8[0] = '\0';
+    }
+    const std::uint32_t flags = Sub_4461E0(type);
+    record.flags114 = flags;
+    const auto levelBits = static_cast<std::uint32_t>(level);
+    if ((flags & 0x1000u) != 0
+        && (levelBits & 0x100u) != 0 && (levelBits & 0x40u) != 0) {
+        record.flags114 = flags | 0x400000u;
+    }
+    record.value118 = 1;
+    login::YobiAction* action = record.action;
+    if (action == nullptr) {
+        return;
+    }
+    action->imageNo = imageNo;
+    record.action->field1D0 = level;
+    action = record.action;
+    const std::uint32_t actionFlags = record.flags114;
+    action->flags |= actionFlags;
+    if (std::strlen(name) <= 16) {
+        char* const destination = record.action->nameC4.data();
+        std::memmove(destination, name, std::strlen(name) + 1);
+    }
+
+    // 原action阶段独立重新解析，不能复用记录阶段的文本或补写记录第3段。
+    if (type != 3) {
+        network::ExtractDelimitedField_52CED0(titles, '|', 1, 255, first);
+        input::UnescapeLegacyTextAndNotify_52D2F0(first);
+        if (std::strlen(first) <= 16) {
+            char* const destination = record.action->titleE1.data();
+            std::memmove(destination, first, std::strlen(first) + 1);
+        }
+        network::ExtractDelimitedField_52CED0(titles, '|', 2, 255, second);
+        input::UnescapeLegacyTextAndNotify_52D2F0(second);
+        if (std::strlen(second) <= 32) {
+            char* const destination = record.action->text102.data();
+            std::memmove(destination, second, std::strlen(second) + 1);
+        }
+        network::ExtractDelimitedField_52CED0(titles, '|', 3, 255, third);
+        input::UnescapeLegacyTextAndNotify_52D2F0(third);
+        if (std::strlen(third) <= 32) {
+            char* const destination = record.action->text123.data();
+            std::memmove(destination, third, std::strlen(third) + 1);
+        }
+        network::ExtractDelimitedField_52CED0(titles, '|', 4, 255, fourth);
+        input::UnescapeLegacyTextAndNotify_52D2F0(fourth);
+        if (std::strlen(fourth) <= 16) {
+            char* const destination = record.action->text31C.data();
+            std::memmove(destination, fourth, std::strlen(fourth) + 1);
+        }
+        if (std::strlen(extraText) <= 16) {
+            char* const destination = record.action->text144.data();
+            std::memmove(destination, extraText, std::strlen(extraText) + 1);
+        }
+    } else {
+        network::ExtractDelimitedField_52CED0(titles, '|', 1, 255, first);
+        input::UnescapeLegacyTextAndNotify_52D2F0(first);
+        if (std::strlen(first) <= 16) {
+            char* const destination = record.action->titleE1.data();
+            std::memmove(destination, first, std::strlen(first) + 1);
+        }
+    }
+    record.action->field1D8 = value40;
+}
 
 void Sub_445D20(
     const std::int32_t objectIndex, const std::int32_t imageNo,

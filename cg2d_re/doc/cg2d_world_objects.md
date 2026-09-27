@@ -269,3 +269,77 @@ text76[33]、text97[33]及bytesB8[17]。所有后续偏移和0x148总长不变�
 仅静态核对。唯一caller位于50DD80@[50DD80,50E0E7)，该协议父函数
 尚未落位；445350生产、实体回调和普通/战斗场景仍缺。
 当前完成不代表存在可运行协议生产链或有效场景验收。
+
+## 445350实体记录生产更新 SPEC
+
+原会话只读核445350@[445350,445A55)、5183B0@[5183B0,5183CB)
+完整指令及唯一caller 50B894。13参数按栈位移依序为objectIndex、
+imageNo、mapX、mapY、direction、name、titles、extraText、level、
+value40、flag1、flag2、type。三个文本为借用const char*，数值均S32。
+value40在记录只写低W16，但action.field1D8写完整W32，接口不得缩为U16。
+50B899直接压入另一参数并调用World::FindObjectYobi，未消费此返回；
+裁决445350为void，不搬寄存器残留或伪造成功返回。
+
+### 创建、方向与共享状态
+
+先444FA0查编号，未找到才446130领取；失败即返回。
+仅新建分支按type>3、同源gValue9DAD68==0、5183B0(imageNo)==0
+逐层短路，将本次direction置0。5183B0只作S32范围判断，
+100000<=imageNo<200000返回完整1，否则0；不加载动画或读取资源表。
+gValue9DAD68复用SceneState已有46DA80写入槽，不复制地图模式。
+记录已存在直接使用原direction，不能把门槛移到公共尾。
+
+随后真实441DB0创建，先将返回T*发布到槽，空值返回且不回滚领取。
+成功写used=2、重读action写payload.index=槽下标、经446210写category，
+再写objectIndex及value34=-1。旧槽不补建空action，不改category、
+objectIndex或value34。
+
+公共尾依次写imageNo、value40低W16、level2C；mapX临时CryptInt写入
+coordinate0C时按readCount→encoded→mask，mapY临时量写coordinate1C
+按mask→encoded→readCount，每组构造/析构独立；随后写本次direction。
+flag1/flag2非零分别仅将flags42低W8或0x40/0x80，零不清位。
+name长度<=16才复制含NUL到name54，超限留旧值。
+
+### 两轮文本与标志
+
+记录阶段，type!=3时按顺序取titles第1/2/4段，各自独立
+52CED0(capacity=255)→52D2F0；长度<=16/32/16时分别复制到
+title65/text76/text128。此轮**不处理第3段，也不写text97**。
+extraText长度<=16才复制到textB8，原字节不另行反转义。
+type==3仅取第1段、反转义、按<=16写title65，之后只清textB8首W8，
+不清剩余16字节或其他称号。445717的C6字节写已核，不能清整个W32。
+
+调用4461E0(type)，先将完整结果写flags114；只有该结果含0x1000，
+且level同时含0x100与0x40时，才另写结果|0x400000。
+接着写value118=1；action为空直接返回，记录更新仍保留。
+action非空先写imageNo，重读写field1D0=level，再先重读action、
+后读取同一record.flags114，按位或到action.flags。
+name长度<=16才复制到重读action的nameC4，超限保留原值，不写???。
+
+action阶段不能复用上轮文本。type!=3按1/2/3/4顺序重新提取和反转义，
+长度<=16/32/32/16时分别写titleE1/text102/text123/text31C，
+每次通过长度门槛后才重读action、取得目的地址、重新求复制长度。
+extraText长度<=16才复制到重读action的text144。
+type==3仅重新提取第1段、反转义、按<=16写titleE1，
+不清action.text144或其他称号。公共尾最后重读action写完整value40到
+field1D8。所有文本复制含NUL，保留原字节及超限残留，不增加保护。
+
+### 增量映射与实施边界
+
+完整入口和5183B0落在现有YobiRuntime.cpp的world::detail段，
+不公开Yobi布局或建立重复状态。记录bytesB8改为textB8[17]；
+bytes122拆为6B未知区、text128[17]和bytes139[3]。
+原+128文本在新端+130，记录总长仍0x148，其余既有偏移不变。
+Yobi新增原+144对应text144[17]，其容量只覆盖本入口已证<=16加NUL；
+原生重排分配继续按sizeof，不据此冻结未知字段或原0x330映射。
+本步不改其他生产入口、玩家发布或动画播放的同值范围判断。
+
+四种生产入口均须保留各自合同，不收敛成统一初始化/文本函数。
+只作指令、全部分支、同源状态、返回合同、布局、RNG/文本/字段写序、
+差异和UTF-8静态核对；不编译、测试、运行或检查产物。
+
+445350和5183B0完整本体、同源模式读取及增量文本映射已落位。
+至此四生产入口445350/445A60/445D20/445F40均已有实现，
+不代表它们的协议caller 50B380/50DD80或实体回调已完成。
+五文件接口/分支/文本与RNG顺序/原生布局和sizeof分配/源登记、
+差异、UTF-8及文件链接仅静态核对，整体SPEC和运行验收继续。

@@ -71,10 +71,28 @@ std::int32_t gTradeValueCF4688 = 0;
 std::int32_t gTradeValueD046D0 = 0;
 std::int32_t gTradeValueD2E2B0 = 0;
 std::uint8_t gTradeValueD67B80 = 0;
+std::int32_t gSelectedItemCB1DF4 = 0;
+std::int32_t gSelectedItemCB0A44 = 0;
+std::int32_t gSelectedItem57EE0C = -1;
+std::uint8_t gSkillPairIndexD67AD8 = 0;
+std::int32_t gRecipeIndex5846BC = -1;
+std::array<std::uint8_t, 20> gTradeItemSlotsCF3AE8 {};
+std::array<std::uint8_t, 28> gTradeItemMarksD2D61C {};
+std::array<std::int32_t, 6> gSelectedSlotsCA0A90 {};
+std::array<std::int32_t, 6> gMaterialIndicesCA0458 {};
+std::array<std::int32_t, 6> gSelectionCountsD66E0C {};
+std::array<std::int32_t, 6> gSelectionImagesCF3FF4 {};
+std::array<char, 24> gMaterialOccupancyCC4894 {};
+std::int32_t gSelectedItemD460C0 = 0;
+std::int32_t gSelectedImageCC3ED8 = 0;
+std::int32_t gSelectedCountCC483C = 0;
+std::uint8_t gSelectionModeD2D650 = 0;
+std::array<std::uint8_t, 28> gItemMarksD67290 {};
+std::array<std::uint8_t, 20> gItemMarksD68A90 {};
 
 namespace {
 
-// 交易记录仍是原字节区，窄数值通过复制写入，不对未对齐地址构造数值T*。
+// UI原字节区的窄数值通过复制写入，不对未对齐地址构造数值T*。
 template <typename T>
 void WriteTradeValue(char* const record, const std::size_t offset, const T value)
 {
@@ -190,6 +208,216 @@ void ScrollInputAndDraw(input::InputContext* const context, const std::int32_t w
 }
 
 } // namespace
+
+void Sub_4E5DA0(
+    const std::int32_t side, const std::int32_t first, const std::int32_t second)
+{
+    if (first < 8 || first >= 28 || second < 8 || second >= 28) {
+        return;
+    }
+    char* const left = gTradeItemsD460D0.data() + (side * 20 + first - 8) * 0xC4C;
+    char* const right = gTradeItemsD460D0.data() + (side * 20 + second - 8) * 0xC4C;
+    std::array<char, 0xC4C> temporary;
+    std::memcpy(temporary.data(), left, temporary.size());
+    std::memmove(left, right, temporary.size());
+    std::memcpy(right, temporary.data(), temporary.size());
+}
+
+void Sub_4E1840(
+    const std::int32_t side, const std::int32_t first, const std::int32_t second)
+{
+    if (first < 8 || first >= 28 || second < 8 || second >= 28) {
+        return;
+    }
+    char* const left = gItemDetailStorageCC4D58.data() + side * 0xFBF8 + (first - 8) * 0xC44;
+    char* const right = gItemDetailStorageCC4D58.data() + side * 0xFBF8 + (second - 8) * 0xC44;
+    std::array<char, 0xC44> temporary;
+    std::memcpy(temporary.data(), left, temporary.size());
+    std::memmove(left, right, temporary.size());
+    std::memcpy(right, temporary.data(), temporary.size());
+}
+
+std::int32_t Sub_4F4630(const std::int32_t itemId)
+{
+    const std::int8_t pairIndex = std::bit_cast<std::int8_t>(gSkillPairIndexD67AD8);
+    const std::int16_t skillIndex = std::bit_cast<std::int16_t>(
+        world::detail::gSkillPairsF63370[pairIndex].index);
+    const std::int32_t recipeIndex = gRecipeIndex5846BC;
+    const auto& recipe = world::detail::gSkillsF1BAFC[skillIndex].recipes8E8[recipeIndex];
+    for (const world::detail::SkillRecipeItem& item : recipe.items6C) {
+        if (item.itemId == itemId) {
+            return item.count;
+        }
+    }
+    return 0;
+}
+
+void Sub_4B0000(const std::int32_t first, const std::int32_t second)
+{
+    if (gWindowStates[43].window == nullptr) {
+        return;
+    }
+    for (std::uint8_t& slot : gTradeItemSlotsCF3AE8) {
+        const std::int32_t value = std::bit_cast<std::int8_t>(slot);
+        if (value == first) {
+            slot = static_cast<std::uint8_t>(second);
+        } else if (value == second) {
+            slot = static_cast<std::uint8_t>(first);
+        }
+    }
+    const std::uint8_t firstMark = gTradeItemMarksD2D61C[first];
+    const std::uint8_t secondMark = gTradeItemMarksD2D61C[second];
+    gTradeItemMarksD2D61C[first] = secondMark;
+    gTradeItemMarksD2D61C[second] = firstMark;
+}
+
+std::int32_t Sub_47DC20(const std::int32_t index)
+{
+    auto* const hover = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
+    if (index < 6) {
+        const std::int32_t slot = gSelectedSlotsCA0A90[index];
+        if (slot < 0) {
+            return slot;
+        }
+        const std::uint8_t mode = gSelectionModeD2D650;
+        if (mode == 6 || mode == 15) {
+            gItemMarksD68A90[slot] = 0;
+        }
+        const std::int32_t material = gMaterialIndicesCA0458[index];
+        if (material >= 0) {
+            WriteTradeValue(gMaterialOccupancyCC4894.data(), material * 4, std::int32_t{0});
+        }
+        hover[slot + 8] = static_cast<unsigned char>(hover[slot + 8] - 1);
+        gItemMarksD67290[slot + 8] = 0;
+        gSelectionCountsD66E0C[index] = 0;
+        gSelectedSlotsCA0A90[index] = -1;
+        gSelectionImagesCF3FF4[index] = -1;
+        gMaterialIndicesCA0458[index] = -1;
+        return -1;
+    }
+    const std::int32_t slot = gSelectedItemD460C0;
+    if (slot < 0) {
+        return slot;
+    }
+    const unsigned char previous = hover[slot];
+    gItemMarksD67290[slot] = 0;
+    hover[slot] = static_cast<unsigned char>(previous - 1);
+    gSelectedItemD460C0 = -1;
+    gSelectedImageCC3ED8 = -1;
+    gSelectedCountCC483C = -1;
+    return Sub_4A7B00();
+}
+
+void Sub_47DCD0(const std::int32_t first, const std::int32_t second)
+{
+    if (gWindowStates[11].window == nullptr) {
+        return;
+    }
+    const std::int32_t firstSlot = first - 8;
+    const std::int32_t secondSlot = second - 8;
+    for (std::int32_t index = 0; index < 6; ++index) {
+        const std::int32_t slot = gSelectedSlotsCA0A90[index];
+        if (slot < 0) {
+            continue;
+        }
+        if (slot == firstSlot) {
+            if (secondSlot < 0) {
+                static_cast<void>(Sub_47DC20(index));
+            } else {
+                gSelectedSlotsCA0A90[index] = secondSlot;
+            }
+        } else if (slot == secondSlot) {
+            if (firstSlot < 0) {
+                static_cast<void>(Sub_47DC20(index));
+            } else {
+                gSelectedSlotsCA0A90[index] = firstSlot;
+            }
+        }
+    }
+    const std::int32_t selected = gSelectedItemD460C0;
+    if (selected == first) {
+        gSelectedItemD460C0 = second;
+        const std::int32_t imageNo = world::detail::gPlayerItemsFDA8A4[second].imageNo;
+        // 原47DD63使用Items.itemId+62E0，确与另一分支的基址相差八条。
+        const std::int32_t itemId = world::detail::gPlayerItemsFDA8A4[second + 8].itemId;
+        gSelectedImageCC3ED8 = imageNo;
+        gSelectedCountCC483C = Sub_4F4630(itemId);
+    } else if (selected == second) {
+        gSelectedItemD460C0 = first;
+        const std::int32_t imageNo = world::detail::gPlayerItemsFDA8A4[first].imageNo;
+        const std::int32_t itemId = world::detail::gPlayerItemsFDA8A4[first].itemId;
+        gSelectedImageCC3ED8 = imageNo;
+        gSelectedCountCC483C = Sub_4F4630(itemId);
+    }
+    if (first < 0 || second < 0) {
+        return;
+    }
+    const std::uint8_t firstMark = gItemMarksD67290[first];
+    const std::uint8_t secondMark = gItemMarksD67290[second];
+    gItemMarksD67290[first] = secondMark;
+    gItemMarksD67290[second] = firstMark;
+    const std::uint8_t mode = gSelectionModeD2D650;
+    if (mode == 6 || mode == 15) {
+        const std::uint8_t firstValue = gItemMarksD68A90[first];
+        const std::uint8_t secondValue = gItemMarksD68A90[second];
+        gItemMarksD68A90[first] = secondValue;
+        gItemMarksD68A90[second] = firstValue;
+    }
+}
+
+void Sub_4AD060(const std::int32_t first, const std::int32_t second)
+{
+    if (gWindowStates[51].window != nullptr && gSelectedItem57EE0C == first) {
+        gSelectedItem57EE0C = second;
+    }
+}
+
+void Sub_4797C0(const std::int32_t first, const std::int32_t second)
+{
+    if (gValue5F9754 == 0) {
+        return;
+    }
+    auto* const hover = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
+    if (first == 7) {
+        hover[7] = static_cast<unsigned char>(hover[7] + 1);
+        hover[second] = static_cast<unsigned char>(hover[second] - 1);
+    }
+    if (second == 7) {
+        hover[7] = static_cast<unsigned char>(hover[7] + 1);
+        hover[first] = static_cast<unsigned char>(hover[first] - 1);
+    }
+}
+
+void Sub_48BA60(const std::int32_t first, const std::int32_t second)
+{
+    if (first >= 100 || second >= 100) {
+        return;
+    }
+    const std::int32_t selected = gSelectedItemCB1DF4;
+    if (selected == first) {
+        gSelectedItemCB1DF4 = second;
+    } else if (selected == second) {
+        gSelectedItemCB1DF4 = first;
+    }
+    if (world::detail::gPlayerItemsFDA8A4[first].imageNo == 0x67C9
+        || world::detail::gPlayerItemsFDA8A4[second].imageNo == 0x67C9) {
+        const std::int32_t previous = gSelectedItemCB0A44;
+        if (previous == first) {
+            gSelectedItemCB0A44 = second;
+        } else if (previous == second) {
+            gSelectedItemCB0A44 = first;
+        }
+    }
+    Sub_4B0000(first, second);
+    Sub_47DCD0(first, second);
+    Sub_4AD060(first, second);
+    Sub_4797C0(first, second);
+    auto* const hover = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
+    const unsigned char secondValue = hover[second];
+    const unsigned char firstValue = hover[first];
+    hover[first] = secondValue;
+    hover[second] = firstValue;
+}
 
 std::int32_t Sub_4FB8F0()
 {

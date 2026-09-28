@@ -2719,6 +2719,45 @@ void Sub_509EB0(const std::uintptr_t /*socket*/, const char* const payload)
     gValueDA3B20 = 0;
 }
 
+void Sub_50C580(
+    const std::uintptr_t, const std::int32_t index, const char* const payload)
+{
+    if (gValue9A6E0C != 0) {
+        return;
+    }
+    SkillRuntimeRecord& record = gSkillsF1BAFC[index];
+    record.rebirthState4C48 = std::bit_cast<std::int8_t>(ui::ReadValue5F9754());
+    char name[256];
+    char description[256];
+    std::int32_t field = 1;
+    for (SkillRecipeRecord& recipe : record.recipes8E8) {
+        recipe.itemId = network::ParseDelimitedInteger_52CFA0(payload, '|', field++);
+        recipe.level = network::ParseDelimitedInteger_52CFA0(payload, '|', field++);
+        recipe.value10 = network::ParseDelimitedInteger_52CFA0(payload, '|', field++);
+        network::ExtractDelimitedField_52CED0(payload, '|', field++, 255, name);
+        input::UnescapeLegacyTextAndNotify_52D2F0(name);
+        if (std::strlen(name) <= 28) {
+            std::strcpy(recipe.name.data(), name);
+        }
+        network::ExtractDelimitedField_52CED0(payload, '|', field++, 255, description);
+        input::UnescapeLegacyTextAndNotify_52D2F0(description);
+        if (std::strlen(description) <= 56) {
+            std::strcpy(recipe.description.data(), description);
+        }
+        recipe.value04 = network::ParseDelimitedInteger_52CFA0(payload, '|', field++);
+        recipe.value0C = network::ParseDelimitedInteger_52CFA0(payload, '|', field++);
+        for (SkillRecipeItem& item : recipe.items6C) {
+            item.itemId = network::ParseDelimitedInteger_52CFA0(payload, '|', field++);
+            network::ExtractDelimitedField_52CED0(payload, '|', field++, 255, name);
+            input::UnescapeLegacyTextAndNotify_52D2F0(name);
+            if (std::strlen(name) <= 28) {
+                std::strcpy(item.name.data(), name);
+            }
+            item.count = network::ParseDelimitedInteger_52CFA0(payload, '|', field++);
+        }
+    }
+}
+
 void Sub_519950(const std::int32_t index)
 {
     SkillRuntimeRecord& record = gSkillsF1BAFC[index];
@@ -2951,6 +2990,39 @@ void Sub_50C260(const std::uintptr_t, const char* const payload)
         static_cast<void>(ui::detail::Sub_4FB920(index));
         status = network::ExtractDelimitedField_52CED0(payload, '|', field + 1, 255, name);
     }
+}
+
+void Sub_51B530(const std::int32_t first, const std::int32_t second)
+{
+    if (first < 0 || second < 0) {
+        return;
+    }
+    PlayerItemRecord* const left = &gPlayerItemsFDA8A4[first];
+    PlayerItemRecord* const right = &gPlayerItemsFDA8A4[second];
+    PlayerItemRecord temporary;
+    std::memcpy(&temporary, left, sizeof(temporary));
+    std::memmove(left, right, sizeof(temporary));
+    std::memcpy(right, &temporary, sizeof(temporary));
+    if (first < 8) {
+        left->flags |= 0x80u;
+    }
+    if (second < 8) {
+        right->flags |= 0x80u;
+    }
+    ui::detail::Sub_48BA60(first, second);
+}
+
+void Sub_50C900(
+    const std::uintptr_t, const std::int32_t first, const std::int32_t second)
+{
+    if (gValue9A6E0C != 0) {
+        return;
+    }
+    Sub_51B530(first, second);
+    static_cast<void>(ui::detail::Sub_4FB920(first));
+    static_cast<void>(ui::detail::Sub_4FB920(second));
+    ui::detail::Sub_4E5DA0(1, first, second);
+    ui::detail::Sub_4E1840(1, first, second);
 }
 
 // 原宠物表、索引对和两独立标量均为PE虚拟零区；构造由LegacyMouse按CRT顺序接入。

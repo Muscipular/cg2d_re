@@ -201,6 +201,24 @@ extern std::int32_t gTradeValueCF4688;
 extern std::int32_t gTradeValueD046D0;
 extern std::int32_t gTradeValueD2E2B0;
 extern std::uint8_t gTradeValueD67B80;
+extern std::int32_t gSelectedItemCB1DF4;
+extern std::int32_t gSelectedItemCB0A44;
+extern std::int32_t gSelectedItem57EE0C; // 原装载初值-1，窗口51只做单向迁移。
+extern std::uint8_t gSkillPairIndexD67AD8; // 配方查询按S8解释。
+extern std::int32_t gRecipeIndex5846BC; // 原装载初值-1。
+extern std::array<std::uint8_t, 20> gTradeItemSlotsCF3AE8; // 比较按S8，写入只取低U8。
+extern std::array<std::uint8_t, 28> gTradeItemMarksD2D61C;
+extern std::array<std::int32_t, 6> gSelectedSlotsCA0A90;
+extern std::array<std::int32_t, 6> gMaterialIndicesCA0458;
+extern std::array<std::int32_t, 6> gSelectionCountsD66E0C;
+extern std::array<std::int32_t, 6> gSelectionImagesCF3FF4;
+extern std::array<char, 24> gMaterialOccupancyCC4894; // 前五W32占用，末4B与CC48A8同源。
+extern std::int32_t gSelectedItemD460C0;
+extern std::int32_t gSelectedImageCC3ED8;
+extern std::int32_t gSelectedCountCC483C;
+extern std::uint8_t gSelectionModeD2D650;
+extern std::array<std::uint8_t, 28> gItemMarksD67290;
+extern std::array<std::uint8_t, 20> gItemMarksD68A90; // 不为原越界访问扩展为28B。
 
 std::int32_t Sub_4E5710(std::int32_t side); // 先清侧状态，再清物品/宠物整组。
 void Sub_4E52B0(std::int32_t side); // 同源玩家宠物属性及十项技能按存储索引复制。
@@ -209,6 +227,15 @@ void Sub_4E5600(std::int32_t side); // 顺序同步20条交易物品。
 void Sub_4E0100(std::int32_t side, std::int32_t index); // 另一展示副本，逐行复制描述。
 std::int32_t Sub_4FB8F0(); // 物品拖动重置，不等同窗口拖动。
 std::int32_t Sub_4FB920(std::int32_t index); // 仅清与本次回复槽号相同的非负拖动编号。
+void Sub_4E5DA0(std::int32_t side, std::int32_t first, std::int32_t second); // 交易整条换位。
+void Sub_4E1840(std::int32_t side, std::int32_t first, std::int32_t second); // 展示整条换位。
+void Sub_48BA60(std::int32_t first, std::int32_t second); // UI迁移后再交换同源悬停字节。
+void Sub_4B0000(std::int32_t first, std::int32_t second); // 窗口43的20个槽号及28B标记。
+void Sub_47DCD0(std::int32_t first, std::int32_t second); // 窗口11选择/材料及两组标记。
+std::int32_t Sub_47DC20(std::int32_t index); // 六槽/单选两路释放，单选尾接聊天恢复。
+void Sub_4AD060(std::int32_t first, std::int32_t second); // 窗口51仅first命中时迁移。
+void Sub_4797C0(std::int32_t first, std::int32_t second); // 槽7特殊悬停计数，两条件独立。
+std::int32_t Sub_4F4630(std::int32_t itemId); // 当前配方五材料首匹配数量，不读used。
 void Sub_4E5770(std::int32_t index, std::int32_t side, const char* text); // 32行及页数。
 std::int32_t Sub_4E5830(const char* text); // 每条14字段，返回终止字段状态1。
 std::int32_t Sub_4E5A40(std::int32_t index, const char* text); // 单宠物属性与双名称。

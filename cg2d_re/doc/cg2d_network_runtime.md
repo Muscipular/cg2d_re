@@ -2188,6 +2188,8 @@ Yobi 邻字段 W16 与 `0x1000` 有交集。
 > 唯一category承载归既有MailState，534910/5348A0与
 > 50F2A0/50F3A0/50F8E0已完整实现并接三路网络回复。
 > 下文旧owner待批不再阻止上述本体；4705D0、503E80和UI仍未闭合。
+> 随后4705D0已按[窗口启动初始化SPEC](cg2d_ui_window_runtime.md)
+> 完整落位并接InitializeClient，尾部直连本category读取；503E80和UI交互仍缺。
 
 2026-09-25，本线程只读现有 `ida-17524` 会话，没有重开数据库或重启 IDA。
 `InitializeClient@4579B5` 唯一调用 `4705D0`；

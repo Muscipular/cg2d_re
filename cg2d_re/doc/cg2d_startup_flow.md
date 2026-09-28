@@ -161,8 +161,12 @@ InitPalette 失败则无本函数额外提示。七条 ASCII 阶段日志的大�
 
 - `initialization_detail::InitializeMusic_454C30`：原次级 DirectMusic
   初始化，音频继续暂缓，没有以已有 `5241A0` 替掉这个独立调用。
-- `initialization_detail::InitializeWindowSystem_4705D0`：
-  窗口/UI 共享状态仍须落实。
+
+窗口系统后续已按[窗口设置与启动初始化SPEC](cg2d_ui_window_runtime.md)
+完整实现4705D0/4C9060及默认、回填、版本坐标检查、旧长度修复和
+marker清理，调用迁到ui::detail，不再保留platform未定义声明。
+category读取复用同源MailState；设置读取失败仍继续初始化尾部。
+仅静态接线，没有实际文件I/O或窗口运行验收。
 
 后续已按[场景 §58 的 owner SPEC](cg2d_scene_state.md)接通
 `world::InitializeAlbum_518C20`，在唯一 `0x3C00C` 字节区执行
@@ -171,7 +175,7 @@ InitPalette 失败则无本函数额外提示。七条 ASCII 阶段日志的大�
 [InitLoading 阶段机](cg2d_loading_screen.md)也已落位。
 RendererInit 后续已按[完整父流程 SPEC](cg2d_sdl_presenter.md)接入
 32 位 SDL/CPU 资源、独立接口、模式分流及失败发布；
-父函数尚缺的直接目标为次级音乐和窗口系统两项。
+父函数尚缺的直接目标为暂缓的次级音乐；不等于其余下游或整个启动已完成。
 相册加载、保存、组清理和同步仍未实现，不将初始化当作相册整链完成。
 
 自动地图颜色包装下游后续已按[完整读写与重建 SPEC](cg2d_resource_sources.md)

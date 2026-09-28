@@ -90,6 +90,10 @@ std::array<WindowPrototype, 70> gWindowPrototypeRecords {{
 
 } // namespace
 
+WindowPrototype& gWindowPrototype54E2A0 = gWindowPrototypeRecords[1];
+WindowPrototype& gWindowPrototype54E240 = gWindowPrototypeRecords[4];
+WindowPrototype& gWindowPrototype54E330 = gWindowPrototypeRecords[6];
+
 WindowElementPrototype gWindowElements56CCD0[1] {
     {3, 0, 44, 0, 0, 1, {.text = &gWindowText56CCC8}, &Sub_4B0F10},
 };

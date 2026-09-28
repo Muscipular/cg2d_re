@@ -211,6 +211,9 @@ struct WindowState {
 inline constexpr std::size_t kWindowCount = 71;
 // 两表已按原地址共享绑定；主表的其余元素与回调依赖见WindowPrototypeDependencies。
 extern std::array<WindowPrototype*, kWindowCount> gWindowPrototypes57C130;
+extern WindowPrototype& gWindowPrototype54E2A0; // 4C93A0直接比较的原对象，不追随表槽改指向。
+extern WindowPrototype& gWindowPrototype54E240;
+extern WindowPrototype& gWindowPrototype54E330;
 extern std::array<WindowDragPrototype*, kWindowCount> gWindowDragPrototypes57C24C;
 extern std::array<WindowInstance*, kWindowCount> gWindows; // 原C8B094。
 extern std::array<WindowState, kWindowCount> gWindowStates; // 原C9A9B0。
@@ -237,6 +240,12 @@ extern std::int32_t gCurrentWindowIdD67A1C;
 extern std::uint32_t gWindowHasFocusCA0AB4; // 元素回调成功后占用，独立于焦点窗口id。
 extern WindowInputPrototype gChatInputPrototype57E970;
 extern std::int32_t gChatWindowModeD66E04; // 原独立S32，窗口35/57选择与设置文件共用。
+extern std::uint8_t gValue57DA28; // 原独立U8，初值FF，设置文件与物品窗口共用。
+extern std::uint8_t gValue57E42C; // 原独立U8，初值FF，设置文件与宠物窗口共用。
+extern std::int32_t gValueCF4AAC; // 原设置文件回填与多个UI入口共用的数值。
+extern std::int32_t gValueCF4690;
+extern std::int32_t gValueCA0440;
+extern std::int32_t gValueD67B38;
 extern std::uint8_t gValue5F9754; // 原多窗口/物品UI共享字节，观察进入可能清零。
 extern std::int32_t gChatWidthUnitsC9A930; // 原聊天宽度单位，输入滚动/聊天绘制共用。
 extern std::int32_t gChatWidthRequestC9A934; // 原宽度调整请求，独立于实际宽度。
@@ -318,6 +327,13 @@ void Sub_473E40(); // 每轮窗口处理前的鼠标阶段推进。
 std::int32_t Sub_503CB0(); // 73ECBC先减后负值归2，返回归位前结果。
 std::int32_t Sub_503CD0(); // 名称模式S16递增，保存标量后持久化。
 std::int32_t Sub_4A6D80(); // 聊天初始范围、回看、数量、调整请求和颜色。
+std::int32_t Sub_4C9240(); // 原型默认坐标和设置默认值，不清窗口实例。
+std::int32_t Sub_4C93A0(); // 文件三处x与固定原型比较，首差异返回1。
+std::int32_t Sub_4C93E0(); // 原文件长度尾部修复，不增加索引保护。
+std::int32_t Sub_4C9170(); // 文件坐标和设置回填，共用原UI/世界状态。
+std::int32_t Sub_4C9060(); // WinSaveDate完整加载/默认回退，保留双打开与返回差别。
+void Sub_472200(); // 仅清71个marker50，不释放窗口。
+std::int32_t InitializeWindowSystem_4705D0(); // 启动UI完整初始化，返回category加载结果。
 std::int32_t Sub_4A6DB0(); // 仅重置回看、两调整请求与数量。
 std::int32_t Sub_44B170(); // 清512条日志首字节，再清数量与回看。
 std::int32_t Sub_4A7700(); // 不清日志正文或写指针。

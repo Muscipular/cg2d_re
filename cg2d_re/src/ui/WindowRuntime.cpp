@@ -22,6 +22,10 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
+#include <fcntl.h>
+#include <io.h>
+#include <sys/stat.h>
+#include <type_traits>
 
 namespace cg::ui {
 namespace detail {
@@ -90,8 +94,44 @@ std::int32_t gSelectedCountCC483C = 0;
 std::uint8_t gSelectionModeD2D650 = 0;
 std::array<std::uint8_t, 28> gItemMarksD67290 {};
 std::array<std::uint8_t, 20> gItemMarksD68A90 {};
+std::uint8_t gValue57DA28 = 0xFF;
+std::uint8_t gValue57E42C = 0xFF;
+std::int32_t gValueCF4AAC = 0;
+std::int32_t gValueCF4690 = 0;
+std::int32_t gValueCA0440 = 0;
+std::int32_t gValueD67B38 = 0;
 
 namespace {
+
+// 原D40B30的521CH设置文件；不与含原生指针的WindowState布局混用。
+struct WindowSavedRecord {
+    std::int32_t x;
+    std::int32_t y;
+    std::int32_t value08;
+    std::int32_t value0C;
+    std::int32_t value10;
+    std::array<std::byte, 0x114> bytes14;
+};
+
+struct WindowSavedData {
+    std::int32_t version;
+    std::array<WindowSavedRecord, kWindowCount> records;
+};
+
+static_assert(offsetof(WindowSavedRecord, x) == 0);
+static_assert(offsetof(WindowSavedRecord, y) == 4);
+static_assert(offsetof(WindowSavedRecord, value08) == 8);
+static_assert(offsetof(WindowSavedRecord, value0C) == 0x0C);
+static_assert(offsetof(WindowSavedRecord, value10) == 0x10);
+static_assert(offsetof(WindowSavedRecord, bytes14) == 0x14);
+static_assert(sizeof(WindowSavedRecord) == 0x128);
+static_assert(std::is_standard_layout_v<WindowSavedData>);
+static_assert(std::is_trivially_copyable_v<WindowSavedData>);
+static_assert(offsetof(WindowSavedData, records) == 4);
+static_assert(sizeof(WindowSavedData) == 0x521C);
+WindowSavedData gWindowSavedDataD40B30 {};
+std::int32_t gWindowSavedLengthCC4238 = 0;
+std::uint32_t gValueCF4B6C = 0; // 原4705D0独立清零槽，不扩展用途。
 
 // 原57C24C目标的内联矩形；同值异地址仍分别存储，见窗口SPEC。
 WindowDragRect gDragRects561998[] {{0, 0, 330, 25}, {315, 0, 20, 92}};
@@ -905,6 +945,143 @@ std::int32_t Sub_503CD0()
     }
     static_cast<void>(login::detail::Sub_520590());
     return login::detail::Sub_520200();
+}
+
+std::int32_t Sub_4C9240()
+{
+    for (std::size_t index = 0; index < kWindowCount; ++index) {
+        const WindowPrototype* const prototype = gWindowPrototypes57C130[index];
+        gWindowStates[index].x = prototype->defaultX;
+        gWindowStates[index].y = prototype->defaultY;
+    }
+    gValueCF4AAC = 1;
+    gValue57DA28 = 0xFF;
+    gValue57E42C = 0xFF;
+    gChatWidthUnitsC9A930 = 12;
+    gChatHeightUnitsC9A938 = 4;
+    gValueCF4690 = 0;
+    gValueCA0440 = 0;
+    gWindowStates[33].marker50 = 0;
+    gWindowStates[34].marker50 = 0;
+    gValueD67B38 = 0;
+    return 0;
+}
+
+std::int32_t Sub_4C93A0()
+{
+    if (gWindowSavedDataD40B30.records[1].x != gWindowPrototype54E2A0.defaultX) {
+        return 1;
+    }
+    if (gWindowSavedDataD40B30.records[4].x != gWindowPrototype54E240.defaultX) {
+        return 1;
+    }
+    return gWindowSavedDataD40B30.records[6].x != gWindowPrototype54E330.defaultX ? 1 : 0;
+}
+
+std::int32_t Sub_4C93E0()
+{
+    const std::int32_t fileLength = gWindowSavedLengthCC4238;
+    if (fileLength == 0x521C) {
+        return 1;
+    }
+    const std::int32_t missingBytes = 0x521C - fileLength;
+    const std::uint32_t first =
+        (static_cast<std::uint32_t>(fileLength)
+            - static_cast<std::uint32_t>(gWindowSavedDataD40B30.version)) / 0x128u;
+    const std::uint32_t count = static_cast<std::uint32_t>(missingBytes) / 0x128u;
+    if (missingBytes < 0 || static_cast<std::uint32_t>(missingBytes) % 0x128u != 0) {
+        return 0;
+    }
+    const std::uint32_t end = first + count;
+    if (std::bit_cast<std::int32_t>(first) < std::bit_cast<std::int32_t>(end)) {
+        for (std::uint32_t offset = 0; offset < count; ++offset) {
+            const std::uint32_t index = first + offset + 1u;
+            const WindowPrototype* const prototype = gWindowPrototypes57C130[index];
+            gWindowStates[index].x = prototype->defaultX;
+            gWindowStates[index].y = prototype->defaultY;
+        }
+    }
+    return 1;
+}
+
+std::int32_t Sub_4C9170()
+{
+    for (std::size_t index = 0; index < kWindowCount; ++index) {
+        gWindowStates[index].x = gWindowSavedDataD40B30.records[index].x;
+        gWindowStates[index].y = gWindowSavedDataD40B30.records[index].y;
+    }
+    static_cast<void>(Sub_4C93E0());
+    const auto firstByte = static_cast<std::uint8_t>(gWindowSavedDataD40B30.records[14].value08);
+    const std::int32_t valueCF4AAC = gWindowSavedDataD40B30.records[24].value08;
+    const auto secondByte = static_cast<std::uint8_t>(gWindowSavedDataD40B30.records[14].value0C);
+    gValue57DA28 = firstByte;
+    const std::int32_t width = gWindowSavedDataD40B30.records[35].value08;
+    gValueCF4AAC = valueCF4AAC;
+    const std::int32_t mode = gWindowSavedDataD40B30.records[35].value10;
+    gChatWidthUnitsC9A930 = width;
+    const std::int32_t valueCF4690 = gWindowSavedDataD40B30.records[1].value08;
+    gValue57E42C = secondByte;
+    const std::int32_t height = gWindowSavedDataD40B30.records[35].value0C;
+    gChatWindowModeD66E04 = mode;
+    const std::int32_t actorBars = gWindowSavedDataD40B30.records[1].value0C;
+    gValueCF4690 = valueCF4690;
+    gChatHeightUnitsC9A938 = height;
+    const std::int32_t valueCA0440 = gWindowSavedDataD40B30.records[4].value08;
+    world::detail::gActorBarsEnabled5AC490 = actorBars == 1 ? 1u : 0u;
+    const std::int32_t marker33 = gWindowSavedDataD40B30.records[33].value08;
+    gValueCA0440 = valueCA0440;
+    const std::int32_t marker34 = gWindowSavedDataD40B30.records[34].value08;
+    gWindowStates[33].marker50 = static_cast<std::uint32_t>(marker33);
+    const std::int32_t valueD67B38 = gWindowSavedDataD40B30.records[21].value08;
+    gWindowStates[34].marker50 = static_cast<std::uint32_t>(marker34);
+    gValueD67B38 = valueD67B38;
+    return 1;
+}
+
+std::int32_t Sub_4C9060()
+{
+    static_cast<void>(Sub_4C9240());
+    std::FILE* const stream = std::fopen("data\\WinSaveDate", "rb+");
+    if (stream == nullptr) {
+        static_cast<void>(Sub_4C9240());
+        return 0;
+    }
+    const int descriptor = ::_open(
+        "data\\WinSaveDate", _O_RDWR | _O_CREAT, _S_IREAD | _S_IWRITE);
+    if (descriptor != -1) {
+        gWindowSavedLengthCC4238 = static_cast<std::int32_t>(::_filelength(descriptor));
+        static_cast<void>(::_close(descriptor));
+        if (std::ferror(stream) == 0) {
+            static_cast<void>(std::fread(&gWindowSavedDataD40B30, 1, 0x521C, stream));
+            if (std::ferror(stream) == 0) {
+                if (gWindowSavedDataD40B30.version != 0x13
+                    || Sub_4C93A0() == 1 || Sub_4C9170() == 0) {
+                    static_cast<void>(Sub_4C9240());
+                }
+                static_cast<void>(std::fclose(stream));
+                return 1;
+            }
+        }
+    }
+    static_cast<void>(Sub_4C9240());
+    static_cast<void>(std::fclose(stream));
+    return 0;
+}
+
+void Sub_472200()
+{
+    for (WindowState& state : gWindowStates) {
+        state.marker50 = 0;
+    }
+}
+
+std::int32_t InitializeWindowSystem_4705D0()
+{
+    static_cast<void>(Sub_4A6D80());
+    static_cast<void>(Sub_4C9060());
+    gValueCF4B6C = 0;
+    Sub_472200();
+    return world::detail::Sub_534910();
 }
 
 std::int32_t Sub_4A6D80()

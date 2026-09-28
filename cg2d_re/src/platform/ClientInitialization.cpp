@@ -5,6 +5,7 @@
 
 #include "../LoginMessageDependencies.hpp"
 #include "../render/GraphicDxCacheState.hpp"
+#include "../ui/WindowRuntimeState.hpp"
 
 #include "cg/AnimationRuntime.hpp"
 #include "cg/GraphicAlloc.hpp"
@@ -32,9 +33,8 @@ namespace initialization_detail {
 
 // 原加载入口，完整本体位于 LoadingScreen.cpp。
 std::int32_t InitLoading_457B10();
-// 原直接目标尚待完整实现；不以固定返回或省略调用代替音频及 UI 副作用。
+// 原直接目标尚待完整实现；不以固定返回或省略调用代替音频副作用。
 std::int32_t InitializeMusic_454C30(std::uintptr_t window);
-std::int32_t InitializeWindowSystem_4705D0();
 
 } // namespace initialization_detail
 
@@ -293,7 +293,7 @@ int InitializeClient_4576B0()
     }
     render::gRenderQueueMode103CF10 = 1;
     login::detail::Sub_44B5C0("initGame OK");
-    static_cast<void>(initialization_detail::InitializeWindowSystem_4705D0());
+    static_cast<void>(ui::detail::InitializeWindowSystem_4705D0());
     return 1;
 }
 

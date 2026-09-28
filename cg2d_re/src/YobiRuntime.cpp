@@ -2138,6 +2138,56 @@ void ApplyMapActorReplyAttachments(YobiAction* const action, const char* const t
     }
 }
 
+void ReadMapActorTarget(
+    YobiAction*& slot, std::int32_t* const x, std::int32_t* const y)
+{
+    YobiAction* const action = slot;
+    *x = platform::legacy_crypt_int::Read_401EC0(&action->mapX200);
+    *y = platform::legacy_crypt_int::Read_401EC0(&slot->mapY210);
+}
+
+void ClearMapActorPathCount(YobiAction* const action) noexcept
+{
+    action->field270 = 0;
+}
+
+bool IsMapActorIdleAtTarget(YobiAction* const action)
+{
+    if (std::bit_cast<std::int16_t>(action->field270) > 0) {
+        return false;
+    }
+    const double x = static_cast<double>(
+        platform::legacy_crypt_int::Read_401EC0(&action->mapX200)) * 64.0F;
+    if (x < action->worldX || x > action->worldX) {
+        return false;
+    }
+    const double y = static_cast<double>(
+        platform::legacy_crypt_int::Read_401EC0(&action->mapY210)) * 64.0F;
+    return !(y < action->worldY || y > action->worldY);
+}
+
+bool AreMapActorTargetsAdjacent(YobiAction*& previous, YobiAction*& current)
+{
+    const std::int32_t signX = platform::legacy_crypt_int::Difference_401E70(
+        &previous->mapX200, &current->mapX200);
+    std::int32_t distanceX = platform::legacy_crypt_int::Difference_401E70(
+        &previous->mapX200, &current->mapX200);
+    if (signX < 0) {
+        distanceX = -distanceX;
+    }
+    if (distanceX >= 2) {
+        return false;
+    }
+    const std::int32_t signY = platform::legacy_crypt_int::Difference_401E70(
+        &previous->mapY210, &current->mapY210);
+    std::int32_t distanceY = platform::legacy_crypt_int::Difference_401E70(
+        &previous->mapY210, &current->mapY210);
+    if (signY < 0) {
+        distanceY = -distanceY;
+    }
+    return distanceY < 2;
+}
+
 void Sub_442AB0(
     YobiAction* const action, const std::int32_t targetX,
     const std::int32_t targetY)
@@ -4869,6 +4919,18 @@ void Sub_442C40(login::YobiAction* const action)
     }
     const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
     gWorldObjects[payload->index].flags42 |= 0x200u;
+}
+
+void Sub_442C70(login::YobiAction* const action)
+{
+    if (Sub_440B50() != 0) {
+        return;
+    }
+    if (action == nullptr) {
+        return;
+    }
+    const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
+    gWorldObjects[payload->index].flags42 &= 0xFDFFu;
 }
 
 void Sub_442BD0(login::YobiAction* const action)

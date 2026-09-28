@@ -595,7 +595,13 @@ void Sub_51A5E0(); // 玩家flags18A置200。
 void Sub_449C90(login::YobiAction* action); // 非跟随对象置flags42的100。
 void Sub_449CC0(login::YobiAction* action); // marker44为0才清flags42的100。
 void Sub_442C40(login::YobiAction* action); // flags42置200。
+void Sub_442C70(login::YobiAction* action); // 先场景门禁，再通过payload清flags42的200。
 void Sub_442BD0(login::YobiAction* action); // flags42置100，再marker44=1。
+void Sub_50A3E0(std::uintptr_t socket, std::int32_t index, const char* payload);
+void Sub_51A5F0(); // 仅清玩家flags18A的200。
+login::YobiAction* Sub_51B080(); // 解散地图五槽；返回51A5B0的非拥有T*。
+void Sub_46AFE0(
+    std::int32_t index, std::int32_t x, std::int32_t y); // 移除后的五槽路径续接。
 std::int32_t Sub_446130(); // 原空槽领取，返回旧游标；不在此处标记占用。
 std::uint32_t Sub_4461E0(std::int32_t type); // 原类型转flags114，返回完整W32。
 std::uint32_t Sub_446210(std::int32_t type); // 原71项跳表转换，写category时才截低W16。

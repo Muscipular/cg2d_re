@@ -123,7 +123,9 @@ struct PetMapCharaSlot {
     std::array<std::byte, 2> bytes02;
     std::uint32_t objectIndex;
     std::int32_t level08; // 50B380玩家分支同步第0槽。
-    std::array<std::byte, 12> bytes0C;
+    std::int32_t value0C; // 50A3E0按掩码0x11写。
+    std::int32_t value10; // 50A3E0按掩码0x09写，在value0C之前消费。
+    std::int32_t value14; // 50A3E0按掩码0x21写。
     std::array<char, 17> name18; // 原+18，旧编码名称。
     std::array<std::byte, 3> bytes29;
     login::YobiAction* action; // 原 +2C，非拥有。
@@ -132,6 +134,9 @@ struct PetMapCharaSlot {
 static_assert(offsetof(PetMapCharaSlot, flags) == 0);
 static_assert(offsetof(PetMapCharaSlot, objectIndex) == 4);
 static_assert(offsetof(PetMapCharaSlot, level08) == 8);
+static_assert(offsetof(PetMapCharaSlot, value0C) == 0x0C);
+static_assert(offsetof(PetMapCharaSlot, value10) == 0x10);
+static_assert(offsetof(PetMapCharaSlot, value14) == 0x14);
 static_assert(offsetof(PetMapCharaSlot, name18) == 0x18);
 static_assert(offsetof(PetMapCharaSlot, action) == 0x30);
 static_assert(sizeof(PetMapCharaSlot) == 0x38);
@@ -1632,6 +1637,104 @@ void Sub_476680()
     gValue626BFC = remaining;
     if (std::bit_cast<std::int32_t>(remaining) < 0) {
         gValue626BFC = 0;
+    }
+}
+
+void Sub_50A3E0(
+    const std::uintptr_t /*socket*/, const std::int32_t index, const char* const payload)
+{
+    if (gValue9A6E0C != 0) {
+        return;
+    }
+    const std::uint32_t mask = static_cast<std::uint32_t>(
+        network::ParseDelimitedBase62_52D0D0(payload, '|', 1));
+    auto& slot = gPetMapCharaSlots[static_cast<std::size_t>(index)];
+    if (mask == 0) {
+        if (slot.flags != 0 && slot.objectIndex != gPlayerRuntime.objectIndex) {
+            login::YobiAction* const action =
+                FindObjectYobi_4462B0(std::bit_cast<std::int32_t>(slot.objectIndex));
+            if (action != nullptr) {
+                Sub_442C70(action);
+            }
+        }
+        std::int32_t x = -1;
+        std::int32_t y = -1;
+        if (slot.action != nullptr) {
+            login::detail::ReadMapActorTarget(slot.action, &x, &y);
+        }
+        slot.flags = 0;
+        slot.action = nullptr;
+        std::int32_t count = 0;
+        std::int32_t next = -1;
+        for (std::int32_t i = 0; i < 5; ++i) {
+            if (gPetMapCharaSlots[static_cast<std::size_t>(i)].flags != 0) {
+                ++count;
+                if (next == -1 && i > index) {
+                    next = i;
+                }
+            }
+        }
+        if (count <= 1) {
+            gValueFF0D36 = 0;
+            static_cast<void>(Sub_51B080());
+            return;
+        }
+        if (next >= 0 && (x >= 0 || y >= 0)) {
+            Sub_46AFE0(next, x, y);
+        }
+        return;
+    }
+
+    gValueFF0D32 = 0;
+    gValueFF0D36 = 1;
+    slot.flags = 1;
+    std::int32_t field = 2;
+    if ((mask & 3u) != 0) {
+        slot.objectIndex = static_cast<std::uint32_t>(
+            network::ParseDelimitedInteger_52CFA0(payload, '|', field));
+        ++field;
+    }
+    if ((mask & 5u) != 0) {
+        slot.level08 = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
+        ++field;
+    }
+    if ((mask & 9u) != 0) {
+        slot.value10 = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
+        ++field;
+    }
+    if ((mask & 0x11u) != 0) {
+        slot.value0C = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
+        ++field;
+    }
+    if ((mask & 0x21u) != 0) {
+        slot.value14 = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
+        ++field;
+    }
+    if ((mask & 0x41u) != 0) {
+        char name[256];
+        network::ExtractDelimitedField_52CED0(payload, '|', field, 255, name);
+        input::UnescapeLegacyTextAndNotify_52D2F0(name);
+        std::strcpy(
+            slot.name18.data(), std::strlen(name) <= 16 ? name : kUnknownText554590);
+    }
+    if (slot.objectIndex != gPlayerRuntime.objectIndex) {
+        login::YobiAction* const action =
+            FindObjectYobi_4462B0(std::bit_cast<std::int32_t>(slot.objectIndex));
+        if (action != nullptr) {
+            slot.action = action;
+            Sub_442C40(action);
+            if (index == 0) {
+                Sub_442BD0(action);
+            }
+        } else {
+            slot.action = nullptr;
+        }
+    } else {
+        slot.action = gPlayerRuntime.action;
+        Sub_51A5E0();
+        if (index == 0) {
+            Sub_51A5A0();
+        }
     }
 }
 
@@ -5019,6 +5122,62 @@ void Sub_46A990()
     }
 }
 
+void Sub_46AFE0(const std::int32_t index, std::int32_t x, std::int32_t y)
+{
+    login::YobiAction* const first = gPetMapCharaSlots[0].action;
+    if (first == nullptr || !login::detail::IsMapActorIdleAtTarget(first)) {
+        return;
+    }
+    std::int32_t previous = index - 1;
+    for (; previous >= 0; --previous) {
+        const auto& slot = gPetMapCharaSlots[static_cast<std::size_t>(previous)];
+        if (slot.flags != 0 && slot.action != nullptr) {
+            break;
+        }
+    }
+    if (previous >= 0 && login::detail::AreMapActorTargetsAdjacent(
+            gPetMapCharaSlots[static_cast<std::size_t>(previous)].action,
+            gPetMapCharaSlots[static_cast<std::size_t>(index)].action)) {
+        return;
+    }
+    gValue9DAD78 = 0x3F800000u;
+    for (std::int32_t i = index; i < 5; ++i) {
+        auto& slot = gPetMapCharaSlots[static_cast<std::size_t>(i)];
+        if (slot.flags != 0 && slot.action != nullptr) {
+            login::YobiAction* const action = slot.action;
+            std::int32_t nextX;
+            std::int32_t nextY;
+            login::detail::ReadMapActorTarget(slot.action, &nextX, &nextY);
+            login::detail::Sub_441F60(action, x, y);
+            x = nextX;
+            y = nextY;
+        }
+    }
+}
+
+login::YobiAction* Sub_51B080()
+{
+    for (auto& slot : gPetMapCharaSlots) {
+        if (slot.flags != 0) {
+            if (slot.objectIndex == gPlayerRuntime.objectIndex) {
+                if (slot.action != nullptr) {
+                    login::detail::ClearMapActorPathCount(slot.action);
+                }
+                Sub_51A5F0();
+            } else {
+                if ((gPlayerRuntime.flags18A & 0x100u) != 0 && slot.action != nullptr) {
+                    login::detail::ClearMapActorPathCount(slot.action);
+                }
+                Sub_442C70(slot.action);
+            }
+        }
+        slot.flags = 0;
+        slot.objectIndex = 0;
+        slot.action = nullptr;
+    }
+    return Sub_51A5B0();
+}
+
 void Sub_46A5A0(const std::int32_t x, const std::int32_t y)
 {
     if (gValueFF0D36 == 0) {
@@ -5827,6 +5986,11 @@ void Sub_51A5A0()
 void Sub_51A5E0()
 {
     gPlayerRuntime.flags18A |= 0x200u;
+}
+
+void Sub_51A5F0()
+{
+    gPlayerRuntime.flags18A &= 0xFDFFu;
 }
 
 login::YobiAction* Sub_51A5B0()

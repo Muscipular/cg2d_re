@@ -86,6 +86,13 @@ void CopyInitialPlayerActionIdentity(
 void UpdateMapActorMode(YobiAction*& slot, std::int32_t mode, std::int32_t imageNo);
 // 50B380公共尾：先捕获payload，再探测字段17，不新增action空检查。
 void ApplyMapActorReplyAttachments(YobiAction* action, const char* text);
+// 50A3E0/46AFE0：先读目标X，重读同一共享槽后读目标Y；入口非空由调用方处理。
+void ReadMapActorTarget(
+    YobiAction*& slot, std::int32_t* x, std::int32_t* y);
+void ClearMapActorPathCount(YobiAction* action) noexcept; // 51B080仅清原+270 W16。
+bool IsMapActorIdleAtTarget(YobiAction* action); // 46AFE0的S16路径数与逐轴到格门禁。
+// 46AFE0：每轴先判符号再重读T*求幅值，X不相邻则不读Y。
+bool AreMapActorTargetsAdjacent(YobiAction*& previous, YobiAction*& current);
 // 地图实体的目标格坐标/路径/动作链；指针只借用，布局保持 runtime 私有。
 // 原441F60：单点入队；原U16满队列分支清计数并重置到终点。
 void Sub_441F60(

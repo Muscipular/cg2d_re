@@ -836,6 +836,7 @@ void Sub_5093C0(
 void Sub_50D080(
     std::uintptr_t socket, std::int32_t first, std::int32_t second); // 两次CryptInt赋值后复制首值。
 void Sub_455C60(); // 仅清既有62B5B0，不关闭窗口。
+void Sub_455FC0(); // 窗口39创建/动画清理父入口，保留额外SE56。
 void Sub_51A5F0(); // 仅清玩家flags18A的200。
 login::YobiAction* Sub_51B080(); // 解散地图五槽；返回51A5B0的非拥有T*。
 void Sub_51B0F0(); // 仅清地图五槽的非拥有action，不释放或清占用。

@@ -68,6 +68,9 @@ std::byte* AlbumRecordAt(const std::int32_t index, const std::int16_t selected)
 // 原 0x9A7FA8；由 LegacyMouse.cpp 的 CRT 顺序适配显式构造、析构。
 platform::LegacyCryptInt gRippleGate {};
 
+// 原62B5B8；455FC0持有非拥有动画引用，4758D0经借用槽地址完成清空。
+login::YobiAction* gWindow39Action62B5B8 = nullptr;
+
 constexpr std::array<std::int32_t, 6> kAllowedMapFloors {
     59000,
     59001,
@@ -4761,6 +4764,32 @@ void Sub_50D080(
 void Sub_455C60()
 {
     gValue62B5B0 = 0;
+}
+
+void Sub_455FC0()
+{
+    const std::uint32_t value = gValue62B5B0;
+    gValue62B398 = 0;
+    if (value == 0) {
+        login::YobiAction* const action = gWindow39Action62B5B8;
+        if (action != nullptr) {
+            static_cast<void>(login::detail::MarkDeath(action));
+            gWindow39Action62B5B8 = nullptr;
+        }
+        return;
+    }
+    if (gValueCAFEA0 != 0) {
+        static_cast<void>(audio::Sub_504180(1));
+        gValueCAFEA0 = 0;
+        gValue62B5B0 = 0;
+        return;
+    }
+    if (ui::detail::gWindowStates[39].window == nullptr
+        && gWindow39Action62B5B8 == nullptr) {
+        gWindow39Action62B5B8 = ui::CreateWindowAnimation_475AA0(
+            39, 0, 0, &gWindow39Action62B5B8);
+        static_cast<void>(audio::PlaySe_52C450(56, 320));
+    }
 }
 
 // 原 [0x50CF90,0x50CFF7)：回复序号按 S16 比较，成功时清地图请求状态。

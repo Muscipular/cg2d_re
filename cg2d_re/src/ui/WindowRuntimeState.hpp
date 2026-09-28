@@ -59,6 +59,13 @@ struct WindowTextData {
     char* text;
 };
 
+// 原type4的12B鼠标载荷；滚动回调与元素命中共用，不含地址。
+struct WindowMouseData {
+    std::uint32_t flags;
+    std::int32_t deltaX;
+    std::int32_t deltaY;
+};
+
 // 仅按已证字段增量映射；未消费数据不计最终布局冻结，见UI窗口SPEC。
 struct WindowElement {
     std::int32_t type;
@@ -160,6 +167,9 @@ extern std::int16_t gDragY57C11E;
 extern std::int32_t gFocusWindowId57C120;
 extern std::int32_t gFocusElementIndex57C124;
 extern std::int32_t gMousePhase57C128;
+extern std::int32_t gCurrentElementIndex57C12C; // 原映像初值-1，不等同焦点元素。
+extern std::int32_t gCurrentWindowIdD67A1C;
+extern std::uint32_t gWindowHasFocusCA0AB4; // 元素回调成功后占用，独立于焦点窗口id。
 extern WindowInputPrototype gChatInputPrototype57E970;
 extern std::int32_t gChatWindowModeD66E04; // 原独立S32，窗口35/57选择与设置文件共用。
 extern std::uint8_t gValue5F9754; // 原多窗口/物品UI共享字节，观察进入可能清零。
@@ -177,6 +187,13 @@ void Sub_4A7590(input::InputContext* context); // 按聊天宽度滚动目标输
 void Sub_4A7640(input::InputContext* context); // 按固定1024像素滚动目标输入并绘制。
 void Sub_4A7750(std::int32_t x, std::int32_t y); // 原字节分行、底部逆序绘制及前项字体回写。
 std::int32_t Sub_46FBC0(std::int32_t unused); // 原默认draw回调，完整绘制后返回1。
+std::int32_t Sub_49E750(std::int32_t value); // 窗口39文本居中/到时关闭请求。
+std::int32_t Sub_49BDB0(std::int32_t unused); // 完整元素绘制后叠加九宫格背景。
+std::int32_t Sub_472F00(
+    std::int32_t left, std::int32_t top, std::int32_t width, std::int32_t height);
+void Sub_473560(std::int32_t index); // 固定元素派发鼠标事件，回调后重读共享阶段。
+std::int32_t Sub_4741A0(std::int32_t index, std::int32_t state); // 前一元素的垂直滚动。
+std::int32_t Sub_4763E0(); // 通用鼠标重置，不清来源索引/坐标。
 void Sub_4771B0(
     std::int32_t x, std::int32_t y, const char* text,
     std::int8_t style, std::int8_t color, std::uint8_t flags, std::uint8_t layer);
@@ -203,6 +220,9 @@ static_assert(offsetof(WindowAnimationData, value04) == 8);
 static_assert(sizeof(WindowAnimationData) == 16);
 static_assert(offsetof(WindowTextData, text) == 8);
 static_assert(sizeof(WindowTextData) == 16);
+static_assert(offsetof(WindowMouseData, deltaX) == 4);
+static_assert(offsetof(WindowMouseData, deltaY) == 8);
+static_assert(sizeof(WindowMouseData) == 12);
 static_assert(offsetof(WindowElement, data) == 0x20);
 static_assert(offsetof(WindowElement, mouseCallback) == 0x28);
 static_assert(sizeof(WindowElement) == 0x30);

@@ -333,6 +333,11 @@ std::array<std::uint32_t, 7> gValueD67B08 {};
 std::uint32_t gValue58B6D0 = 1;
 std::uint8_t gValueD9F2CA = 0;
 
+const char* ReadText9DAD30() noexcept
+{
+    return reinterpret_cast<const char*>(gText9DAD30.data());
+}
+
 std::uint32_t ReadPlayerObjectIndex_FDA880() noexcept
 {
     return gPlayerRuntime.objectIndex;

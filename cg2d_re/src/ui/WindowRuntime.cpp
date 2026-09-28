@@ -5,7 +5,10 @@
 #include "../world/WorldUpdateDependencies.hpp"
 #include "cg/GraphicInfo.hpp"
 #include "cg/Input.hpp"
+#include "cg/LegacyAudio.hpp"
 #include "cg/YobiRuntime.hpp"
+#include "cg/platform/LegacyMouse.hpp"
+#include "cg/platform/MainLoop.hpp"
 #include "cg/render/Font.hpp"
 #include "cg/render/GraphicCacheState.hpp"
 #include "cg/render/TextPendingQueue.hpp"
@@ -34,6 +37,9 @@ std::int16_t gDragY57C11E = 0;
 std::int32_t gFocusWindowId57C120 = 0;
 std::int32_t gFocusElementIndex57C124 = -1;
 std::int32_t gMousePhase57C128 = 0;
+std::int32_t gCurrentElementIndex57C12C = -1;
+std::int32_t gCurrentWindowIdD67A1C = 0;
+std::uint32_t gWindowHasFocusCA0AB4 = 0;
 WindowInputPrototype gChatInputPrototype57E970 {
     {{&input::gInputContext626AA0}, WindowInputReferenceKind::Context},
     8, 5, 3, 9, 0, {}, 1, 76, 0, 0,
@@ -82,6 +88,39 @@ constexpr std::array<std::int32_t, 12> kNumberOffsets54F278 {
 };
 constexpr std::array<std::int32_t, 4> kNumberSpacingDeductions54F2A8 {2, 2, 2, 1};
 std::array<std::int32_t, 4> gNumberAdvancesD67AC4 {};
+
+// 两路事件使用相同映射，按原edge/held/旧edge/pulse顺序采样与合并。
+std::int32_t AppendMouseButtonEvents(std::int32_t events)
+{
+    const auto edge = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
+    if ((edge & 1u) != 0) {
+        events |= 0x02;
+    }
+    if ((edge & 2u) != 0) {
+        events |= 0x04;
+    }
+    const auto held = static_cast<std::uint8_t>(platform::gLegacyMouseState.heldButtons);
+    if ((held & 1u) != 0) {
+        events |= 0x08;
+    }
+    if ((held & 2u) != 0) {
+        events |= 0x10;
+    }
+    if ((edge & 0x10u) != 0) {
+        events |= 0x100;
+    }
+    if ((edge & 0x20u) != 0) {
+        events |= 0x200;
+    }
+    const auto pulse = static_cast<std::uint8_t>(platform::gLegacyMouseState.pulseButtons);
+    if ((pulse & 1u) != 0) {
+        events |= 0x400;
+    }
+    if ((pulse & 2u) != 0) {
+        events |= 0x800;
+    }
+    return events;
+}
 
 // 原5FB7F4是最后一条输入上下文的尾槽，不是日志511的font。
 std::int32_t& PreviousChatFont(const std::int32_t index)
@@ -343,6 +382,169 @@ std::int32_t Sub_46FBC0(const std::int32_t)
 {
     DrawCurrentWindow_4729B0();
     return 1;
+}
+
+std::int32_t Sub_49E750(const std::int32_t value)
+{
+    if (value == -1) {
+        auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[0].data);
+        const char* const text = world::ReadText9DAD30();
+        std::memcpy(data->text, text, std::strlen(text) + 1);
+        const std::int32_t textWidth = login::detail::TextMeasure(text, 0);
+        WindowInstance* const window = gCurrentWindow;
+        window->elements[0].x = (window->width - textWidth) >> 1;
+    } else {
+        const std::uint32_t tick = platform::ReadTickCount32();
+        if (world::detail::gValue62B5B0 + 2000u <= tick) {
+            gCurrentWindow->state |= 0x8000u;
+            world::detail::gValue62B5B0 = 0;
+            static_cast<void>(audio::PlaySe_52C450(57, 320));
+        }
+    }
+    return 1;
+}
+
+std::int32_t Sub_49BDB0(const std::int32_t)
+{
+    DrawCurrentWindow_4729B0();
+    WindowInstance* const window = gCurrentWindow;
+    const auto height = static_cast<std::int16_t>(window->height);
+    const auto width = static_cast<std::int16_t>(window->width);
+    const auto y = static_cast<std::int16_t>(window->y);
+    const auto x = static_cast<std::int16_t>(window->x);
+    login::detail::DrawNineGrid_49BE00(
+        0x3BE3E, x, y, width, height, 0xDF, -1,
+        std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}), 74, 54);
+    render::ClearTextQueueTail_456D50(3);
+    return 1;
+}
+
+std::int32_t Sub_472F00(
+    const std::int32_t left, const std::int32_t top,
+    const std::int32_t width, const std::int32_t height)
+{
+    const std::int32_t x = platform::legacy_crypt_int::Subtract_401E60(
+        &platform::gLegacyMouseState.mouseX, left);
+    if (x < 0 || x >= width) {
+        return 0;
+    }
+    const std::int32_t y = platform::legacy_crypt_int::Subtract_401E60(
+        &platform::gLegacyMouseState.mouseY, top);
+    return y >= 0 && y < height ? 1 : 0;
+}
+
+std::int32_t Sub_4763E0()
+{
+    gFocusElementIndex57C124 = -1;
+    gMouseValue57C110 = 0;
+    gFocusWindowId57C120 = 0;
+    gDragCallback57C118 = nullptr;
+    gMousePhase57C128 = 0;
+    return 0;
+}
+
+void Sub_473560(const std::int32_t index)
+{
+    WindowInstance* const window = gCurrentWindow;
+    WindowElement* const element = &window->elements[index];
+    const std::int32_t left = window->x + element->x;
+    const std::int32_t top = window->y + element->y;
+    const std::int32_t width = element->width;
+    const std::int32_t height = element->height;
+    std::int32_t events = 0;
+    std::int32_t phase = gMousePhase57C128;
+    if (phase == 1 || phase == 4 || phase == 2 || phase == 6) {
+        if (static_cast<std::uint8_t>(platform::gLegacyMouseState.valueD68DB4) < 0xD4u) {
+            if (Sub_472F00(left, top, width, height) != 0) {
+                phase = gMousePhase57C128;
+                if (phase == 1 || phase == 4) {
+                    events = 0x20;
+                }
+                if (gFocusWindowId57C120 == gCurrentWindowIdD67A1C
+                    && gFocusElementIndex57C124 == gCurrentElementIndex57C12C) {
+                    events = AppendMouseButtonEvents(events);
+                }
+            } else {
+                phase = gMousePhase57C128;
+            }
+        }
+    } else if (gWindowHasFocusCA0AB4 == 0) {
+        if (Sub_472F00(left, top, width, height) != 0) {
+            events = AppendMouseButtonEvents(1);
+            WindowInstance* const currentWindow = gCurrentWindow;
+            WindowElement* const currentElement = &currentWindow->elements[index];
+            if (currentElement->type == 4) {
+                auto* const data = static_cast<WindowMouseData*>(currentElement->data);
+                data->deltaX = platform::legacy_crypt_int::Subtract_401E60(
+                    &platform::gLegacyMouseState.mouseX,
+                    currentWindow->x + currentElement->x);
+                WindowInstance* const yWindow = gCurrentWindow;
+                data->deltaY = platform::legacy_crypt_int::Subtract_401E60(
+                    &platform::gLegacyMouseState.mouseY,
+                    yWindow->y + yWindow->elements[index].y);
+            }
+        }
+        phase = gMousePhase57C128;
+    }
+    if (phase == 4) {
+        const std::int32_t dragX = gDragX57C11C - left;
+        if (dragX >= 0 && dragX < width) {
+            const std::int32_t dragY = gDragY57C11E - top;
+            if (dragY >= 0 && dragY < height) {
+                events |= 0x40;
+            }
+        }
+    }
+    if (element->visible == 1 && element->mouseCallback(index, events) != 0) {
+        phase = gMousePhase57C128;
+        auto* const eventByte = reinterpret_cast<unsigned char*>(
+            &platform::gLegacyMouseState.valueD68DB4);
+        *eventByte = 0xD4;
+        gWindowHasFocusCA0AB4 = 1;
+        if (phase == 4) {
+            const WindowDragCallback callback = gDragCallback57C118;
+            if (callback != nullptr) {
+                callback(4, 0, gDragSourceIndex57C114);
+            }
+            static_cast<void>(Sub_4763E0());
+        }
+    }
+}
+
+std::int32_t Sub_4741A0(const std::int32_t index, const std::int32_t state)
+{
+    auto* const data = static_cast<WindowMouseData*>(gCurrentWindow->elements[index].data);
+    std::int32_t result = 0;
+    if ((data->flags & 2u) == 0) {
+        data->flags = 0;
+    }
+    if ((state & 8) != 0) {
+        data->flags = 3;
+        result = 1;
+    }
+    if ((data->flags & 2u) != 0) {
+        WindowInstance* const window = gCurrentWindow;
+        WindowElement* const previous = &window->elements[index - 1];
+        const std::int32_t y = platform::legacy_crypt_int::Subtract_401E60(
+            &platform::gLegacyMouseState.mouseY, window->y);
+        previous->y = y - (previous->height >> 1);
+    }
+    WindowElement* element = &gCurrentWindow->elements[index];
+    if (element[-1].y < element->y) {
+        element[-1].y = element->y;
+    }
+    element = &gCurrentWindow->elements[index];
+    const std::int32_t bottom = element->y + element->height;
+    const std::int32_t previousHeight = element[-1].height;
+    if (element[-1].y + previousHeight > bottom) {
+        element[-1].y = bottom - previousHeight;
+    }
+    element = &gCurrentWindow->elements[index];
+    data->deltaY = element[-1].y - element->y;
+    if ((state & 8) == 0) {
+        data->flags &= ~std::uint32_t{2};
+    }
+    return result;
 }
 
 std::uint8_t Sub_476570(

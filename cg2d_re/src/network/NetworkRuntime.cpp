@@ -30,6 +30,7 @@
 #include <cstring>
 #include <ctime>
 #include <exception>
+#include <string>
 
 namespace cg::network {
 namespace {
@@ -90,6 +91,7 @@ struct NetworkRuntimeState {
     std::uint8_t* tripleBuffer58B610;
     SendProtocolObserver sendObserver58B61C;
     char sendLogPathDA3B58[0x400];
+    std::string receiveLogPathDA3F9C; // 原字节路径；固定容量未证，不据相邻地址猜测。
     std::uint8_t integerFormatScratch[64]; // 原 [0xDA3F58,0xDA3F98)。
     void** workspaceSlots; // 原 0xDA3F98，18 个本机指针槽。
     std::uint8_t active;   // 原 0xD9F2C8，网络运行期活动门禁。
@@ -284,6 +286,111 @@ char Sub_4038A0(
         lastDirection = direction;
     }
     return lastDirection;
+}
+
+void Sub_403A70(
+    char* const text, const std::int32_t,
+    const char* const key3, const std::int32_t, const char* const key5)
+{
+    const std::size_t textLength = std::strlen(text);
+    const std::size_t initialKey3Length = std::strlen(key3);
+    const std::size_t initialKey5Length = std::strlen(key5);
+    const bool hasKey3 = std::strlen(key3) != 0U;
+    const bool hasBothKeys = hasKey3 && std::strlen(key5) != 0U;
+    const std::int32_t length3 = hasBothKeys
+        ? static_cast<std::uint16_t>(initialKey3Length) : 1;
+    const std::int32_t length5 = hasBothKeys
+        ? static_cast<std::uint16_t>(initialKey5Length) : 1;
+    const std::int32_t count = static_cast<std::uint16_t>(textLength);
+    for (std::int32_t index = 0; index < count; ++index) {
+        const std::int32_t key5Byte = std::bit_cast<std::int8_t>(
+            static_cast<std::uint8_t>(key5[(index + 84) % length5]));
+        const std::int32_t b = (key5Byte & 0x0CAB) + index;
+        const std::int32_t key3Byte = std::bit_cast<std::int8_t>(
+            static_cast<std::uint8_t>(key3[(index + 56) % length3]));
+        const std::int32_t a = (key3Byte & 0xBBCC) + index;
+        std::int32_t target;
+        switch ((a + b) % 4) {
+        case 0:
+            target = a & b & index;
+            break;
+        case 1:
+            target = (a ^ b) | index;
+            break;
+        case 2:
+            target = a * b + index;
+            break;
+        case 3:
+            target = (a | b) ^ index;
+            break;
+        default:
+            target = (a - b) & index;
+            break;
+        }
+        std::int32_t delta = target & 7;
+        if (delta == 7) {
+            delta = 6;
+        }
+        const char direction = static_cast<char>(45 - (a & 2));
+        std::int32_t value = std::bit_cast<std::int8_t>(
+            static_cast<std::uint8_t>(text[index]));
+        if (direction == '+') {
+            value += delta;
+            const std::uint32_t unsignedValue = static_cast<std::uint32_t>(value);
+            if (unsignedValue > 122U || (unsignedValue > 90U && unsignedValue < 97U)) {
+                value -= 26;
+            }
+        } else {
+            value -= delta;
+            const std::uint32_t unsignedValue = static_cast<std::uint32_t>(value);
+            if (unsignedValue < 65U || (unsignedValue > 90U && unsignedValue < 97U)) {
+                value += 26;
+            }
+        }
+        text[index] = std::bit_cast<char>(static_cast<std::uint8_t>(value));
+    }
+}
+
+void SplitReceivedBuffer_5173B0(char* const buffer)
+{
+    const SendProtocolObserver observer = gNetworkRuntimeState.sendObserver58B61C;
+    if (observer != nullptr) {
+        observer(0U, buffer);
+    }
+    if (gNetworkRuntimeState.receiveLogPathDA3F9C.c_str()[0] != '\0') {
+        std::FILE* const file = std::fopen(
+            gNetworkRuntimeState.receiveLogPathDA3F9C.c_str(), "a+");
+        if (file != nullptr) {
+            static_cast<void>(std::fprintf(file, "%s\n", buffer));
+            static_cast<void>(std::fclose(file));
+        }
+    }
+    std::int32_t count = 0;
+    if (buffer[0] != '\0') {
+        std::int32_t index = 0;
+        do {
+            if (index == 0) {
+                char** const table = gNetworkRuntimeState.pointerTable58B614;
+                ++count;
+                table[count - 1] = buffer;
+            }
+            if (buffer[index] == ' ') {
+                gNetworkRuntimeState.pointerTable58B614[count] = buffer + index + 1;
+                ++count;
+            }
+            ++index;
+        } while (buffer[index] != '\0');
+    }
+    char* cursor = buffer;
+    if (*cursor != '\0') {
+        do {
+            if (*cursor == ' ' || *cursor == '\n' || *cursor == '\r') {
+                *cursor = '\0';
+            }
+            ++cursor;
+        } while (*cursor != '\0');
+    }
+    gNetworkRuntimeState.pointerTable58B614[count] = nullptr;
 }
 
 std::int32_t Sub_5176B0(const char* const text)

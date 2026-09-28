@@ -62,6 +62,13 @@ char Sub_4038A0(
     std::int32_t,
     const char* key5);
 
+// 原403A70：命令反向变换，唯一caller弃返回；第二、第四参数仍不读取。
+void Sub_403A70(
+    char* text, std::int32_t unused2, const char* key3,
+    std::int32_t unused4, const char* key5);
+// 原5173B0：观察回调/收包日志后两遍原位分词，借用既有char*参数表。
+void SplitReceivedBuffer_5173B0(char* buffer);
+
 // sub_403E50@0x403E50 尚未实现；只保留当前 IDA 的真实回调契约。
 std::int32_t Sub_403E50(
     std::uintptr_t socket,

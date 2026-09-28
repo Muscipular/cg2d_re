@@ -395,6 +395,10 @@ std::int32_t Sub_48BB70(std::int32_t slot); // 宠物槽分类1/2。
 std::int32_t Sub_48BC60(std::int32_t slot); // DE0B08五个S16索引的首匹配位置。
 void Sub_4AAB70(
     std::int16_t x, std::int16_t y, std::int32_t index, std::uint8_t textLayer);
+void Sub_4B25D0(std::int32_t message, std::int32_t unused, std::int32_t sourceIndex);
+void Sub_4B2E00(std::int32_t message, std::int32_t unused, std::int32_t sourceIndex);
+std::int32_t Sub_4B2710(std::int32_t index); // kind6，绑定真实物品拖动回调。
+std::int32_t Sub_4B2F50(std::int32_t index); // kind7，绑定真实宠物拖动回调。
 std::int32_t Sub_4B0F20(
     std::int16_t x, std::int16_t y, std::int8_t side, std::int32_t index,
     std::uint8_t textLayer, std::uint8_t graphicLayer,
@@ -502,6 +506,17 @@ std::int32_t Sub_472F00(
 void Sub_473560(std::int32_t index); // 固定元素派发鼠标事件，回调后重读共享阶段。
 std::int32_t Sub_4741A0(std::int32_t index, std::int32_t state); // 前一元素的垂直滚动。
 std::int32_t Sub_4763E0(); // 通用鼠标重置，不清来源索引/坐标。
+std::int32_t Sub_475D50(); // 同源焦点元素。
+std::int32_t Sub_475D60(); // 同源拖动种类。
+std::int32_t Sub_475D70(); // 同源落点X，S16扩展。
+std::int32_t Sub_475D80(); // 同源落点Y，S16扩展。
+std::int32_t Sub_475D90(); // 同源来源索引。
+std::int32_t Sub_475DA0(
+    std::int32_t kind, std::int32_t sourceIndex, WindowDragCallback callback);
+std::int32_t Sub_476490(
+    std::int32_t kind, std::int32_t sourceIndex, std::int16_t x, std::int16_t y,
+    WindowDragCallback callback);
+void Sub_476500(); // 仅阶段4/5调用message3后完整清理。
 std::int32_t Sub_472D20(); // 窗口拖动/焦点命中，返回两位处理掩码。
 std::int32_t Sub_4730A0(); // 原表压紧、关闭释放及按2000标记前插排序。
 void Sub_473E40(); // 每轮窗口处理前的鼠标阶段推进。

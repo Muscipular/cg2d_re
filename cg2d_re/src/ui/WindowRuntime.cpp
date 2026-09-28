@@ -12,6 +12,7 @@
 #include "cg/YobiRuntime.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/KeyState.hpp"
+#include "cg/platform/LegacyCursor.hpp"
 #include "cg/platform/LegacyMouse.hpp"
 #include "cg/platform/LegacyTime.hpp"
 #include "cg/platform/MainLoop.hpp"
@@ -1490,6 +1491,96 @@ std::int32_t Sub_4B1260(
     static_cast<void>(render::DrawGraphic3_520970(
         x, y, 223, imageNo, 0, 1, 0, descriptor));
     return result;
+}
+
+void Sub_4B25D0(
+    const std::int32_t message, const std::int32_t, const std::int32_t sourceIndex)
+{
+    render::GraphicDescriptor16 descriptor {};
+    const std::uint32_t color = 0x80FFFFFFu;
+    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    descriptor.bytes[13] = 4;
+    if (message != 0) {
+        if (message == 2 || message == 4) {
+            static_cast<void>(Sub_4AFF70(sourceIndex));
+        }
+        return;
+    }
+    if (Sub_4AFFE0(sourceIndex) < 0
+        || world::detail::gPlayerItemsFDA8A4[Sub_4AFFE0(sourceIndex)].used == 0) {
+        static_cast<void>(Sub_4763E0());
+    }
+    if ((platform::gLegacyMouseState.edgeButtons & 1u) != 0) {
+        static_cast<void>(Sub_4763E0());
+        const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
+            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseX)));
+        const auto y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
+            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseY)));
+        static_cast<void>(Sub_476490(6, sourceIndex, x, y, Sub_4B25D0));
+    }
+    if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
+        CancelWindowDrag_476410();
+    }
+    static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
+    const std::int32_t imageNo =
+        world::detail::gPlayerItemsFDA8A4[Sub_4AFFE0(sourceIndex)].imageNo;
+    const std::int32_t y =
+        platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseY);
+    const std::int32_t x =
+        platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseX);
+    static_cast<void>(login::detail::DrawGraphic(x, y, 230, imageNo, 0, &descriptor));
+}
+
+void Sub_4B2E00(
+    const std::int32_t message, const std::int32_t, const std::int32_t sourceIndex)
+{
+    render::GraphicDescriptor16 descriptor {};
+    const std::uint32_t color = 0x80FFFFFFu;
+    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    descriptor.bytes[13] = 4;
+    if (message != 0) {
+        if (message == 2 || message == 4) {
+            static_cast<void>(Sub_4B0090(sourceIndex));
+        }
+        return;
+    }
+    if (Sub_4B00F0(sourceIndex) < 0
+        || world::detail::gPetRuntimeF633F8[Sub_4B00F0(sourceIndex)].used == 0) {
+        static_cast<void>(Sub_4763E0());
+    }
+    if ((platform::gLegacyMouseState.edgeButtons & 1u) != 0) {
+        static_cast<void>(Sub_4763E0());
+        const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
+            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseX)));
+        const auto y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
+            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseY)));
+        static_cast<void>(Sub_476490(7, sourceIndex, x, y, Sub_4B2E00));
+    }
+    if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
+        CancelWindowDrag_476410();
+    }
+    static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
+    const std::int32_t slot = Sub_4B00F0(sourceIndex);
+    const auto petY = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
+        platform::legacy_crypt_int::Subtract_401E60(&platform::gLegacyMouseState.mouseY, 35)));
+    const auto petX = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
+        platform::legacy_crypt_int::Subtract_401E60(&platform::gLegacyMouseState.mouseX, 120)));
+    Sub_4AAB70(petX, petY, slot, 5);
+    const std::int32_t y =
+        platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseY);
+    const std::int32_t x =
+        platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseX);
+    static_cast<void>(login::detail::DrawGraphic(x, y, 230, 243141, 0, &descriptor));
+}
+
+std::int32_t Sub_4B2710(const std::int32_t index)
+{
+    return Sub_475DA0(6, index, Sub_4B25D0);
+}
+
+std::int32_t Sub_4B2F50(const std::int32_t index)
+{
+    return Sub_475DA0(7, index, Sub_4B2E00);
 }
 
 std::int32_t Sub_4B3580(const std::int32_t index, const std::int32_t state)
@@ -3980,6 +4071,88 @@ std::int32_t Sub_472F00(
     const std::int32_t y = platform::legacy_crypt_int::Subtract_401E60(
         &platform::gLegacyMouseState.mouseY, top);
     return y >= 0 && y < height ? 1 : 0;
+}
+
+std::int32_t Sub_475D50()
+{
+    return gFocusElementIndex57C124;
+}
+
+std::int32_t Sub_475D60()
+{
+    return gMouseValue57C110;
+}
+
+std::int32_t Sub_475D70()
+{
+    return gDragX57C11C;
+}
+
+std::int32_t Sub_475D80()
+{
+    return gDragY57C11E;
+}
+
+std::int32_t Sub_475D90()
+{
+    return gDragSourceIndex57C114;
+}
+
+std::int32_t Sub_475DA0(
+    const std::int32_t kind, const std::int32_t sourceIndex, const WindowDragCallback callback)
+{
+    if (gMousePhase57C128 != 0 || kind == 0) {
+        return 0;
+    }
+    gMouseValue57C110 = kind;
+    const std::int32_t windowId = gCurrentWindowIdD67A1C;
+    gDragCallback57C118 = callback;
+    const std::int32_t elementIndex = gCurrentElementIndex57C12C;
+    gFocusWindowId57C120 = windowId;
+    gDragSourceIndex57C114 = sourceIndex;
+    gFocusElementIndex57C124 = elementIndex;
+    gMousePhase57C128 = 1;
+    return 1;
+}
+
+std::int32_t Sub_476490(
+    const std::int32_t kind, const std::int32_t sourceIndex,
+    const std::int16_t x, const std::int16_t y, const WindowDragCallback callback)
+{
+    if (gMousePhase57C128 != 0 || kind == 0) {
+        return 0;
+    }
+    gMouseValue57C110 = kind;
+    gDragSourceIndex57C114 = sourceIndex;
+    gDragCallback57C118 = callback;
+    const std::int32_t windowId = gCurrentWindowIdD67A1C;
+    gDragX57C11C = x;
+    const std::int32_t elementIndex = gCurrentElementIndex57C12C;
+    gDragY57C11E = y;
+    gFocusWindowId57C120 = windowId;
+    gFocusElementIndex57C124 = elementIndex;
+    gMousePhase57C128 = 3;
+    return 1;
+}
+
+void Sub_476500()
+{
+    const std::int32_t phase = gMousePhase57C128;
+    if (phase != 4 && phase != 5) {
+        return;
+    }
+    const WindowDragCallback callback = gDragCallback57C118;
+    if (callback != nullptr) {
+        callback(3, 0, gDragSourceIndex57C114);
+    }
+    gMouseValue57C110 = 0;
+    gDragSourceIndex57C114 = 0;
+    gDragCallback57C118 = nullptr;
+    gDragX57C11C = 0;
+    gDragY57C11E = 0;
+    gFocusWindowId57C120 = 0;
+    gMousePhase57C128 = 0;
+    gFocusElementIndex57C124 = -1;
 }
 
 std::int32_t Sub_4763E0()

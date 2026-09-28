@@ -59,6 +59,10 @@ WindowInputPrototype gChatInputPrototype57E970 {
     {{&input::gInputContext626AA0}, WindowInputReferenceKind::Context},
     8, 5, 3, 9, 0, {}, 1, 76, 0, 0,
 };
+WindowInputPrototype gTradeInputPrototype5803D0 {
+    {{&input::gInputContextCC21E8}, WindowInputReferenceKind::Context},
+    0, -100, 3, 8, 127, {}, 1, 0, 0, 0,
+};
 std::int32_t gChatWindowModeD66E04 = 0;
 std::uint8_t gValue5F9754 = 0;
 std::int32_t gChatWidthUnitsC9A930 = 0;
@@ -120,6 +124,10 @@ std::int32_t gTradeScrollCC4C90 = 0;
 std::int32_t gTradeScrollD67430 = 0;
 std::int32_t gTradePreviewCC2E64 = 0;
 std::uint32_t gWindowActionTick62B5AC = 0;
+std::int32_t gTooltipColorD67D30 = 0;
+std::int32_t gTooltipSourceD303FC = 0;
+std::uint16_t gTooltipXCF46C0 = 0;
+std::uint16_t gTooltipYCF46CC = 0;
 std::array<std::int32_t, 6> gSelectedSlotsCA0A90 {};
 std::array<std::int32_t, 6> gMaterialIndicesCA0458 {};
 std::array<std::int32_t, 6> gSelectionCountsD66E0C {};
@@ -1093,6 +1101,167 @@ std::int32_t Sub_4B0290(const std::int32_t value)
     }
     gTradePreviewCC2E64 = -1;
     return 1;
+}
+
+std::int32_t Sub_4B09E0(const std::int32_t, const std::int32_t state)
+{
+    if (gTradeValueD6742C == 2) {
+        if ((state & 2) != 0) {
+            WindowInstance* const window = gWindowStates[43].window;
+            static_cast<void>(Sub_476570(&gTradeInputPrototype5803D0, 0, -100, 0));
+            input::SetContext_44B330(&input::gInputContextCC21E8);
+            gFocusedElementDataD45F94 = window->elements[0].data;
+            auto* const data = static_cast<WindowInputData*>(window->elements[0].data);
+            data->context = &input::gInputContextCC21E8;
+        }
+    } else if (input::gCurrentInputData == &input::gInputContextCC21E8) {
+        static_cast<void>(Sub_4A7B00());
+    }
+    return 0;
+}
+
+std::int32_t Sub_4C1FB0(const std::int32_t index, const std::int32_t state)
+{
+    WindowInstance* const window = gCurrentWindow;
+    auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
+    const bool hover = (state & 1) != 0;
+    if (hover) {
+        std::strcpy(gHoverTextD68AE8.data(),
+            "\xC3\xF6\xB3\xAC\xB3\x6F\xAD\xD3\xB5\xF8\xB5\xA1\xA1\x43");
+    }
+    std::int32_t result = 0;
+    if ((state & 2) != 0) {
+        window->state |= 0x8000u;
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+        result = 1;
+    }
+    graphic->imageNo = 0x3B538;
+    if (hover) {
+        graphic->imageNo = 0x3B53A;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 0x3B539;
+    }
+    return result;
+}
+
+std::int32_t Sub_4FBA30(
+    std::int32_t x, const std::int32_t y, const std::uint8_t renderMode,
+    const std::int32_t fontType, std::int8_t color, const char* text,
+    const std::int8_t value7, const std::int8_t marker)
+{
+    const char* delimiter = std::strchr(text, '$');
+    while (delimiter != nullptr) {
+        std::size_t length = static_cast<std::size_t>(delimiter - text);
+        if (delimiter[1] == '$') {
+            ++length;
+        }
+        auto* const prefix = static_cast<char*>(std::malloc(length + 1));
+        if (prefix == nullptr) {
+            return 0;
+        }
+        std::strncpy(prefix, text, length);
+        prefix[length] = '\0';
+        static_cast<void>(render::DrawText_456780(
+            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x)),
+            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y)),
+            renderMode, std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(fontType)),
+            color, prefix, value7, marker));
+        x += login::detail::TextMeasure(prefix, fontType);
+        text = delimiter + 2;
+        std::free(prefix);
+        const signed char next = static_cast<signed char>(delimiter[1]);
+        if (next != '$') {
+            const std::int32_t digit = next - '0';
+            if (digit >= 0 && digit <= 9) {
+                gTooltipColorD67D30 = digit;
+                color = static_cast<std::int8_t>(digit);
+            }
+        }
+        delimiter = std::strchr(text, '$');
+    }
+    return render::DrawText_456780(
+        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x)),
+        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y)),
+        renderMode, std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(fontType)),
+        std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(gTooltipColorD67D30)),
+        text, value7, marker);
+}
+
+std::int32_t Sub_48B810(
+    const std::int32_t x, const std::int32_t y,
+    const char* const title, const std::int8_t titleColor,
+    const char* lines, const std::int32_t stride, const std::int32_t lineCount,
+    const char* const footer, const std::int8_t footerColor)
+{
+    render::GraphicDescriptor16 descriptor {};
+    const std::uint32_t color = 0xFFFFFFFFu;
+    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    descriptor.bytes[13] = 4;
+    static_cast<void>(render::ClearTextQueueTail_456D50(5));
+    static_cast<void>(render::DrawText_456780(
+        0, 0, 5, 1, 0, input::LegacyText593850(), 0, 0));
+    if (title != nullptr) {
+        static_cast<void>(render::DrawText_456780(
+            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 10)),
+            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 10)),
+            5, 12, titleColor, title, 0, 0));
+    }
+    gTooltipColorD67D30 = 0;
+    std::int32_t lineY = 0;
+    for (std::int32_t line = 0; line < lineCount; ++line) {
+        if (*lines != '\0') {
+            const std::int32_t shortY =
+                std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y));
+            const std::int32_t shortX =
+                std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x));
+            static_cast<void>(Sub_4FBA30(
+                shortX + 10, shortY + lineY + 22, 5, 12, 0, lines, 0, 0));
+        }
+        lines += stride;
+        lineY += 13;
+    }
+    if (footer != nullptr) {
+        static_cast<void>(render::DrawText_456780(
+            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 10)),
+            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 127)),
+            5, 12, footerColor, footer, 0, 0));
+    }
+    return render::DrawGraphic3_520970(
+        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x)),
+        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y)),
+        0xE6, 0x3BA5D, 0, 1, 0, &descriptor);
+}
+
+std::int32_t Sub_48B450(
+    const std::int32_t side, const std::int32_t index, const std::int32_t page)
+{
+    const std::int32_t key = index + 200;
+    if (gTooltipSourceD303FC != key) {
+        gTooltipXCF46C0 = static_cast<std::uint16_t>(
+            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseX));
+        gTooltipYCF46CC = static_cast<std::uint16_t>(
+            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseY));
+        const bool left =
+            platform::legacy_crypt_int::Less_401DB0(&platform::gLegacyMouseState.mouseX, 320);
+        gTooltipXCF46C0 = static_cast<std::uint16_t>(gTooltipXCF46C0 + (left ? 60 : -257));
+        const bool top =
+            platform::legacy_crypt_int::Less_401DB0(&platform::gLegacyMouseState.mouseY, 240);
+        gTooltipYCF46CC = static_cast<std::uint16_t>(gTooltipYCF46CC + (top ? 60 : -174));
+    }
+    const std::int32_t sideOffset =
+        std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(side)) - 10;
+    gTooltipSourceD303FC = key;
+    const char* const record = gTradeItemsD460D0.data() + (key + sideOffset * 20) * 0xC4C;
+    std::uint32_t flags;
+    std::memcpy(&flags, record + 0xC34, sizeof(flags));
+    const char* const title = (flags & 0x100u) != 0 ? record + 0xC38 : record + 0x10;
+    const std::int8_t titleColor = (flags & 0x100u) != 0
+        ? 5 : static_cast<std::int8_t>((flags >> 9) & 1u);
+    const char* const lines = record + 0x2D + page * 768;
+    const std::int16_t x = std::bit_cast<std::int16_t>(gTooltipXCF46C0);
+    const std::int16_t y = std::bit_cast<std::int16_t>(gTooltipYCF46CC);
+    return Sub_48B810(x, y, title, titleColor, lines, 96, 8, nullptr, 0);
 }
 
 std::int32_t Sub_4AFFE0(const std::int32_t index)

@@ -240,6 +240,7 @@ extern std::int32_t gCurrentElementIndex57C12C; // 原映像初值-1，不等同
 extern std::int32_t gCurrentWindowIdD67A1C;
 extern std::uint32_t gWindowHasFocusCA0AB4; // 元素回调成功后占用，独立于焦点窗口id。
 extern WindowInputPrototype gChatInputPrototype57E970;
+extern WindowInputPrototype gTradeInputPrototype5803D0; // 借用input唯一CC21E8上下文。
 extern std::int32_t gChatWindowModeD66E04; // 原独立S32，窗口35/57选择与设置文件共用。
 extern std::uint8_t gValue57DA28; // 原独立U8，初值FF，设置文件与物品窗口共用。
 extern std::uint8_t gValue57E42C; // 原独立U8，初值FF，设置文件与宠物窗口共用。
@@ -310,6 +311,10 @@ extern std::int32_t gTradeScrollCC4C90;
 extern std::int32_t gTradeScrollD67430;
 extern std::int32_t gTradePreviewCC2E64; // 原预览分类数值，非地址。
 extern std::uint32_t gWindowActionTick62B5AC; // 跨UI动作共用，不是交易私有计时槽。
+extern std::int32_t gTooltipColorD67D30; // 分段文本跨行共享颜色，尾串取低S8。
+extern std::int32_t gTooltipSourceD303FC; // 原提示源分类/编号缓存，非地址。
+extern std::uint16_t gTooltipXCF46C0; // 同源低W16坐标，绘制按S16解释。
+extern std::uint16_t gTooltipYCF46CC;
 extern std::array<std::int32_t, 6> gSelectedSlotsCA0A90;
 extern std::array<std::int32_t, 6> gMaterialIndicesCA0458;
 extern std::array<std::int32_t, 6> gSelectionCountsD66E0C;
@@ -343,6 +348,17 @@ std::int32_t Sub_4B00F0(std::int32_t index); // S8宠物槽，负值归-1。
 std::int32_t Sub_4B0A50(std::int32_t index, std::int32_t state); // 公开两组交易槽及数值。
 std::int32_t Sub_4B0CF0(std::int32_t index, std::int32_t state); // 撤回公开，无计时门禁。
 std::int32_t Sub_4B0DB0(std::int32_t index, std::int32_t state); // 确认/撤销确认，共享500ms门槛。
+std::int32_t Sub_4B09E0(std::int32_t unusedIndex, std::int32_t state); // 交易输入激活/聊天恢复。
+std::int32_t Sub_4C1FB0(std::int32_t index, std::int32_t state); // 关闭入口固定窗口。
+std::int32_t Sub_4FBA30(
+    std::int32_t x, std::int32_t y, std::uint8_t renderMode,
+    std::int32_t fontType, std::int8_t color, const char* text,
+    std::int8_t value7, std::int8_t marker); // 原$分段、颜色续接与即时测宽。
+std::int32_t Sub_48B810(
+    std::int32_t x, std::int32_t y, const char* title, std::int8_t titleColor,
+    const char* lines, std::int32_t stride, std::int32_t lineCount,
+    const char* footer, std::int8_t footerColor); // 原完整层5提示框。
+std::int32_t Sub_48B450(std::int32_t side, std::int32_t index, std::int32_t page);
 login::YobiAction* Sub_4E5620(const char* name); // 全量清交易双侧后复制己方，最后打开43。
 void Sub_4E4E60(std::int32_t index, const char* name); // 先发送选择请求，失败仍继续本地打开。
 login::YobiAction* Sub_49E800(const char* text, WindowListSelectionCallback callback);

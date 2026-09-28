@@ -52,6 +52,14 @@ YobiAction* NewYobiAction_404AE0(
     std::uint8_t priority,
     std::uint32_t payloadSize);
 
+// 471440的type2字段写序；已发布的外层slot逐次借用，原内层失败无空保护。
+void ConfigureWindowElementAction(YobiAction*& slot, const std::int32_t* imageNo);
+// 原475950完整展开动画创建，失败仍调用真实窗口打开；完成槽为非拥有T**。
+YobiAction* Sub_475950(
+    std::int32_t x, std::int32_t y, std::int32_t width, std::int32_t height,
+    std::int32_t id, std::uint32_t flags, std::uint32_t mode,
+    YobiAction** completionSlot);
+
 // 三种地图角色生产者共用的 x64 payload 分配，不改变通用 404AE0 的尺寸合同。
 YobiAction* NewMapCharaAction();
 // 原43F330/43FEB0：观察链两种生产者，绑定43F520/440070；回调本体待实现。

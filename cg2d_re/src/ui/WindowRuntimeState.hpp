@@ -109,6 +109,49 @@ struct WindowInstance {
 
 namespace detail {
 
+// 原元素+18按type解释；type0/5/6当前原型值为0且471440不消费。
+union WindowElementPrototypeSource {
+    std::uint32_t unusedValue;
+    WindowGraphicData* graphic;
+    std::int32_t* animationImageNo;
+    WindowTextData* text;
+    std::uint32_t* mouseFlags;
+    WindowNumberData* number;
+};
+
+struct WindowElementPrototype {
+    std::int32_t type;
+    std::int32_t x;
+    std::int32_t y;
+    std::int32_t width;
+    std::int32_t height;
+    std::int32_t visible;
+    WindowElementPrototypeSource source;
+    WindowElementCallback mouseCallback;
+};
+
+// 原48B可变原型的原生x64表示，36/37等同源原型须共用对象。
+struct WindowPrototype {
+    std::uint32_t state;
+    std::int32_t layer;
+    std::int32_t defaultX;
+    std::int32_t defaultY;
+    std::int32_t width;
+    std::int32_t height;
+    std::uint32_t flags;
+    std::int32_t elementCount;
+    WindowElementPrototype* elements;
+    WindowCallback update;
+    WindowCallback draw;
+    WindowReleaseCallback release;
+};
+
+// 原第二原型的内联矩形以借用T*表达；不复制共享表或原矩形数据。
+struct WindowDragPrototype {
+    std::int32_t count;
+    WindowDragRect* rectangles;
+};
+
 // 原输入原型首W32的两种解释；不对原生T*进行原x86高字节测试。
 enum class WindowInputReferenceKind : std::uint8_t {
     Context,
@@ -160,6 +203,9 @@ struct WindowState {
 };
 
 inline constexpr std::size_t kWindowCount = 71;
+// 真实原型数据/回调绑定待逐项落位，不定义全空数组代替原表。
+extern std::array<WindowPrototype*, kWindowCount> gWindowPrototypes57C130;
+extern std::array<WindowDragPrototype*, kWindowCount> gWindowDragPrototypes57C24C;
 extern std::array<WindowInstance*, kWindowCount> gWindows; // 原C8B094。
 extern std::array<WindowState, kWindowCount> gWindowStates; // 原C9A9B0。
 extern WindowInstance* gCurrentWindow; // 原CF4694。
@@ -230,6 +276,7 @@ std::int32_t Sub_4FB920(std::int32_t index); // 仅清与本次回复槽号相�
 void Sub_4E5DA0(std::int32_t side, std::int32_t first, std::int32_t second); // 交易整条换位。
 void Sub_4E1840(std::int32_t side, std::int32_t first, std::int32_t second); // 展示整条换位。
 void Sub_48BA60(std::int32_t first, std::int32_t second); // UI迁移后再交换同源悬停字节。
+std::int32_t Sub_4B0F10(std::int32_t index, std::int32_t events); // 原真实NULL_FUNC，返回0。
 void Sub_4B0000(std::int32_t first, std::int32_t second); // 窗口43的20个槽号及28B标记。
 void Sub_47DCD0(std::int32_t first, std::int32_t second); // 窗口11选择/材料及两组标记。
 std::int32_t Sub_47DC20(std::int32_t index); // 六槽/单选两路释放，单选尾接聊天恢复。
@@ -278,6 +325,19 @@ void Sub_4771B0(
 std::int32_t Sub_477460(const char* text, std::int8_t style); // 原字节长度乘运行步进减扣宽。
 
 static_assert(sizeof(WindowInputReference) == 16);
+static_assert(sizeof(WindowElementPrototypeSource) == 8);
+static_assert(offsetof(WindowElementPrototype, source) == 0x18);
+static_assert(offsetof(WindowElementPrototype, mouseCallback) == 0x20);
+static_assert(sizeof(WindowElementPrototype) == 0x28);
+static_assert(offsetof(WindowPrototype, width) == 0x10);
+static_assert(offsetof(WindowPrototype, height) == 0x14);
+static_assert(offsetof(WindowPrototype, elements) == 0x20);
+static_assert(offsetof(WindowPrototype, update) == 0x28);
+static_assert(offsetof(WindowPrototype, draw) == 0x30);
+static_assert(offsetof(WindowPrototype, release) == 0x38);
+static_assert(sizeof(WindowPrototype) == 0x40);
+static_assert(offsetof(WindowDragPrototype, rectangles) == 8);
+static_assert(sizeof(WindowDragPrototype) == 16);
 static_assert(offsetof(WindowGraphicData, offsetX) == 4);
 static_assert(offsetof(WindowGraphicData, offsetY) == 8);
 static_assert(offsetof(WindowGraphicData, width) == 0x0C);

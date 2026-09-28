@@ -2,10 +2,19 @@
 
 #include <cstdint>
 
+namespace cg::login {
+struct YobiAction;
+}
+
 namespace cg::ui {
 
 // 游戏UI实例，不是Win32窗口或Yobi；调用方只借用，不承担释放。
 struct WindowInstance;
+
+WindowInstance* OpenWindow_471440(std::int32_t id); // 完整七类创建；原型表绑定仍是外部依赖。
+login::YobiAction* CreateWindowAnimation_475AA0(
+    std::int32_t id, std::uint32_t flags, std::uint32_t mode,
+    login::YobiAction** completionSlot); // 完成槽只借用；已有实例仅置关闭标记。
 
 WindowInstance* Sub_4CD3E0(); // 原窗口68的state置0x8000，返回原借用引用。
 WindowInstance* Sub_4CD400(); // 原窗口67，同上；不直接关闭或清表。

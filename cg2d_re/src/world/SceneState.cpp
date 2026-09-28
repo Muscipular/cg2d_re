@@ -224,10 +224,10 @@ std::array<render::GraphicDescriptor16, 6> gEffectDrawModes55DEB0 {{
 
 static_assert(sizeof(gEffectDrawModes55DEB0) == 0x60);
 
-// 原 [0x4B0F10,0x4B0F13)：唯一动作是清 EAX，46AA00 直接调用。
+// 46AA00的无参调用适配；原4B0F10不读参数，共用UI回调的真实零返回实现。
 std::int32_t Sub_4B0F10()
 {
-    return 0;
+    return ui::detail::Sub_4B0F10(0, 0);
 }
 
 // 原 0x55DE50/0x554920；.cut 文件使用当前目录下的原相对路径。

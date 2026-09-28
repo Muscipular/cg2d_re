@@ -83,7 +83,10 @@ struct YobiAction {
     platform::LegacyCryptInt maxHp; // 原 +180；不与 +170 合并。
     platform::LegacyCryptInt barValue1B0; // 原+1B0；442F70同步玩家/宠物FP，43DB60绘第二条。
     platform::LegacyCryptInt barMaximum1C0; // 原+1C0；同步最大FP，读取仍消费计数/RNG。
-    std::int32_t field1D0; // 原 +1D0；弹窗param6、观察子项槽序号或地图实体等级。
+    union {
+        std::int32_t field1D0; // 原+1D0数值路径，宽度保持S32。
+        YobiAction** windowCompletionSlot1D0; // 475950/4758D0非拥有完成槽。
+    };
     std::int32_t value1D4; // 原+1D4；观察父节点主队列索引/子节点轨迹计数，共用S32。
     std::int32_t field1D8; // 原 +1D8；51A090 写入完整第四参数。
     std::int32_t counter1DC; // 原+1DC，442F70图标显示计数。
@@ -144,6 +147,31 @@ volatile std::uint32_t gYobiScreenOffsetAmplitude = 0; // 原 0x59FA04。
 volatile std::uint32_t gYobiScreenOffsetMaximumAmplitude = 4; // 原 0x553C58。
 
 namespace {
+
+// 原475950的24H载荷；完成回写地址在action+1D0，不塞进数值字段。
+struct WindowOpeningPayload {
+    std::uint16_t id;
+    std::uint16_t counter;
+    std::int32_t width;
+    std::int32_t height;
+    std::int32_t centerX;
+    std::int32_t centerY;
+    std::int32_t halfWidth;
+    std::int32_t halfHeight;
+    std::int32_t value1C;
+    std::uint16_t flag20;
+    std::array<std::byte, 2> bytes22;
+};
+static_assert(offsetof(WindowOpeningPayload, counter) == 2);
+static_assert(offsetof(WindowOpeningPayload, width) == 4);
+static_assert(offsetof(WindowOpeningPayload, height) == 8);
+static_assert(offsetof(WindowOpeningPayload, centerX) == 0x0C);
+static_assert(offsetof(WindowOpeningPayload, centerY) == 0x10);
+static_assert(offsetof(WindowOpeningPayload, halfWidth) == 0x14);
+static_assert(offsetof(WindowOpeningPayload, halfHeight) == 0x18);
+static_assert(offsetof(WindowOpeningPayload, value1C) == 0x1C);
+static_assert(offsetof(WindowOpeningPayload, flag20) == 0x20);
+static_assert(sizeof(WindowOpeningPayload) == 0x24);
 
 constexpr std::size_t kYobiRegistryRowCount = 399;
 constexpr std::size_t kYobiRegistryColumnCount = 399;
@@ -1133,6 +1161,98 @@ YobiAction* NewYobiAction_404AE0(
         action->prev = previous;
         previous->next = action;
         insertionPoint->prev = action;
+    }
+    return action;
+}
+
+void ConfigureWindowElementAction(
+    YobiAction*& slot, const std::int32_t* const imageNo)
+{
+    slot->flags |= 2u;
+    slot->callback = nullptr;
+    slot->imageNo = *imageNo;
+    slot->displayPriority = 0xDF;
+}
+
+void Sub_4758D0(YobiAction* const action)
+{
+    auto* const payload = static_cast<WindowOpeningPayload*>(action->payload);
+    const std::int32_t halfHeight = payload->halfHeight;
+    const std::int32_t centerY = payload->centerY;
+    const std::int32_t halfWidth = payload->halfWidth;
+    const std::int32_t centerX = payload->centerX;
+    DrawGraphicHover(
+        static_cast<std::uint16_t>(centerX - halfWidth),
+        static_cast<std::uint16_t>(centerY - halfHeight),
+        static_cast<std::uint16_t>(centerX + halfWidth),
+        static_cast<std::uint16_t>(centerY + halfHeight), 0xD4, 0, 0);
+    const std::int32_t deltaX = action->deltaX;
+    const std::int32_t previousWidth = payload->halfWidth;
+    const std::int32_t previousHeight = payload->halfHeight;
+    payload->halfWidth = previousWidth + deltaX;
+    const std::int32_t deltaY = action->deltaY;
+    const bool complete = std::bit_cast<std::int16_t>(payload->counter) >= 10;
+    payload->halfHeight = previousHeight + deltaY;
+    if (complete) {
+        static_cast<void>(ui::OpenWindow_471440(std::bit_cast<std::int16_t>(payload->id)));
+        static_cast<void>(MarkDeath(action));
+        YobiAction** const completionSlot = action->windowCompletionSlot1D0;
+        if (completionSlot != nullptr) {
+            *completionSlot = nullptr;
+        }
+    }
+    ++payload->counter;
+}
+
+YobiAction* Sub_475950(
+    const std::int32_t x, const std::int32_t y,
+    const std::int32_t width, const std::int32_t height,
+    const std::int32_t id, const std::uint32_t flags, const std::uint32_t mode,
+    YobiAction** const completionSlot)
+{
+    static_cast<void>(audio::PlaySe_52C450(56, 320));
+    YobiAction* const action = NewYobiAction_404AE0(3, sizeof(WindowOpeningPayload));
+    if (action == nullptr) {
+        if (completionSlot != nullptr) {
+            *completionSlot = nullptr;
+        }
+        static_cast<void>(ui::OpenWindow_471440(id));
+        return nullptr;
+    }
+    auto* const payload = static_cast<WindowOpeningPayload*>(action->payload);
+    action->callback = &Sub_4758D0;
+    action->displayPriority = 0xDF;
+    action->flags |= 6u;
+    payload->value1C = 0;
+    payload->flag20 = 0;
+    if ((static_cast<std::uint8_t>(flags) & 1u) != 0) {
+        payload->flag20 = 1;
+    }
+    const std::int32_t lowX = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x));
+    const std::int32_t lowY = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y));
+    const std::int32_t lowHeight =
+        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(height));
+    const std::int32_t lowWidth =
+        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(width));
+    action->x = lowX;
+    action->y = lowY;
+    payload->height = lowHeight;
+    payload->id = static_cast<std::uint16_t>(id);
+    payload->counter = 0;
+    payload->width = lowWidth;
+    action->windowCompletionSlot1D0 = completionSlot;
+    const auto lowMode = static_cast<std::uint8_t>(mode);
+    if (lowMode == 0) {
+        payload->centerX = lowWidth / 2 + lowX;
+        payload->centerY = lowHeight / 2 + lowY;
+        action->deltaX = 0;
+        action->deltaY = (payload->centerY - lowY) / 10;
+        payload->halfWidth = payload->centerX - lowX;
+    } else if (lowMode == 1) {
+        payload->centerX = lowWidth / 2 + lowX;
+        payload->centerY = lowHeight / 2 + lowY;
+        action->deltaX = (payload->centerX - lowX) / 10;
+        action->deltaY = (payload->centerY - lowY) / 10;
     }
     return action;
 }

@@ -2,6 +2,7 @@
 
 #include "../LoginMessageDependencies.hpp"
 #include "../LoginSceneDependencies.hpp"
+#include "../platform/MainLoopDependencies.hpp"
 #include "../platform/WindowProcedureState.hpp"
 #include "../world/WorldUpdateDependencies.hpp"
 #include "cg/GraphicInfo.hpp"
@@ -208,6 +209,11 @@ void ScrollInputAndDraw(input::InputContext* const context, const std::int32_t w
 }
 
 } // namespace
+
+std::int32_t Sub_4B0F10(const std::int32_t, const std::int32_t)
+{
+    return 0;
+}
 
 void Sub_4E5DA0(
     const std::int32_t side, const std::int32_t first, const std::int32_t second)
@@ -1486,6 +1492,215 @@ std::int32_t Sub_4A7B00()
 }
 
 } // namespace detail
+
+WindowInstance* OpenWindow_471440(const std::int32_t id)
+{
+    using namespace detail;
+    const std::int8_t category = kWindowCategories[id];
+    if (category == 1) {
+        CloseWindowsByCategory_472240(2);
+    } else if (category == 2) {
+        CloseWindowsByCategory_472240(3);
+    }
+    for (std::int32_t index = 0; index < static_cast<std::int32_t>(kWindowCount); ++index) {
+        WindowInstance* const existing = gWindows[index];
+        if (existing != nullptr && existing->id == id) {
+            gWindows[index]->state |= 0x2000u;
+            return gWindows[index];
+        }
+    }
+    std::int32_t freeSlot = 0;
+    while (freeSlot < static_cast<std::int32_t>(kWindowCount) && gWindows[freeSlot] != nullptr) {
+        ++freeSlot;
+    }
+    if (freeSlot == static_cast<std::int32_t>(kWindowCount)) {
+        return nullptr;
+    }
+    auto* const window = static_cast<WindowInstance*>(std::calloc(1, sizeof(WindowInstance)));
+    if (window == nullptr) {
+        return nullptr;
+    }
+    WindowPrototype* const prototype = gWindowPrototypes57C130[id];
+    window->id = id;
+    window->state = prototype->state;
+    window->layer = prototype->layer;
+    window->width = prototype->width;
+    window->height = prototype->height;
+    window->flags = prototype->flags;
+    window->update = prototype->update;
+    window->draw = prototype->draw;
+    window->release = prototype->release;
+    const std::int32_t count = prototype->elementCount;
+    window->elementCount = count;
+    if (count != 0) {
+        window->elements = static_cast<WindowElement*>(
+            std::calloc(static_cast<std::size_t>(count), sizeof(WindowElement)));
+        if (window->elements == nullptr) {
+            FreeWindow_471270(window);
+            return nullptr;
+        }
+        WindowElementPrototype* source = prototype->elements;
+        for (std::int32_t index = 0; index < window->elementCount; ++index, ++source) {
+            WindowElement* const element = &window->elements[index];
+            element->type = source->type;
+            element->state = 0;
+            element->x = source->x;
+            element->y = source->y;
+            element->width = source->width;
+            element->height = source->height;
+            element->visible = source->visible;
+            switch (element->type) {
+            case 1: {
+                auto* const data = static_cast<WindowGraphicData*>(
+                    std::calloc(1, sizeof(WindowGraphicData)));
+                if (data != nullptr) {
+                    const WindowGraphicData* const original = source->source.graphic;
+                    data->imageNo = original->imageNo;
+                    data->color = original->color;
+                    data->offsetX = original->offsetX;
+                    data->offsetY = original->offsetY;
+                    data->width = original->width;
+                    data->height = original->height;
+                }
+                element->data = data;
+                break;
+            }
+            case 2: {
+                auto* const data = static_cast<WindowAnimationData*>(
+                    std::calloc(1, sizeof(WindowAnimationData)));
+                if (data != nullptr) {
+                    data->action = login::detail::NewYobiAction_404AE0(2, 0);
+                    login::detail::ConfigureWindowElementAction(
+                        data->action, source->source.animationImageNo);
+                    data->value04 = 0;
+                }
+                element->data = data;
+                break;
+            }
+            case 3: {
+                auto* const data = static_cast<WindowTextData*>(
+                    std::calloc(1, sizeof(WindowTextData)));
+                if (data != nullptr) {
+                    const WindowTextData* const original = source->source.text;
+                    data->text = static_cast<char*>(std::calloc(256, 1));
+                    std::strcpy(data->text, original->text);
+                    char text[256];
+                    Sub_4740F0(text);
+                    if (std::strcmp(data->text, "10/10") == 0) {
+                        std::strcpy(data->text, text);
+                    }
+                    data->bytes00[0] = original->bytes00[0];
+                    data->bytes00[1] = original->bytes00[1];
+                }
+                element->data = data;
+                break;
+            }
+            case 4: {
+                auto* const data = static_cast<WindowMouseData*>(
+                    std::calloc(1, sizeof(WindowMouseData)));
+                if (data != nullptr) {
+                    data->flags = *source->source.mouseFlags;
+                }
+                element->data = data;
+                break;
+            }
+            case 5:
+                element->data = std::calloc(1, sizeof(WindowInputData));
+                break;
+            case 6:
+                element->data = std::calloc(1, sizeof(std::uint32_t));
+                break;
+            case 7: {
+                auto* const data = static_cast<WindowNumberData*>(
+                    std::calloc(1, sizeof(WindowNumberData)));
+                if (data != nullptr) {
+                    const WindowNumberData* const original = source->source.number;
+                    data->text = original->text;
+                    std::memcpy(
+                        reinterpret_cast<unsigned char*>(data) + offsetof(WindowNumberData, color),
+                        reinterpret_cast<const unsigned char*>(original) + offsetof(WindowNumberData, color),
+                        sizeof(std::uint32_t));
+                }
+                element->data = data;
+                break;
+            }
+            default:
+                break;
+            }
+            const WindowElementCallback callback = source->mouseCallback;
+            element->mouseCallback = callback != nullptr ? callback : &Sub_4B0F10;
+        }
+    }
+    WindowDragPrototype* drag = gWindowDragPrototypes57C24C[id];
+    const std::int32_t dragCount = drag->count;
+    if (dragCount > 0) {
+        window->secondaryCount = dragCount;
+        drag = gWindowDragPrototypes57C24C[id];
+        for (std::int32_t index = 0; index < drag->count; ++index) {
+            window->dragRects40[index].x = drag->rectangles[index].x;
+            drag = gWindowDragPrototypes57C24C[id];
+            window->dragRects40[index].y = drag->rectangles[index].y;
+            drag = gWindowDragPrototypes57C24C[id];
+            window->dragRects40[index].width = drag->rectangles[index].width;
+            drag = gWindowDragPrototypes57C24C[id];
+            window->dragRects40[index].height = drag->rectangles[index].height;
+            drag = gWindowDragPrototypes57C24C[id];
+        }
+    }
+    gWindows[freeSlot] = window;
+    window->state |= 0x2000u;
+    window->x = gWindowStates[id].x;
+    window->y = gWindowStates[id].y;
+    const std::uint32_t flags = gWindowStates[id].flags;
+    WindowInstance* const previous = gCurrentWindow;
+    gWindowStates[id].flags = flags | 0x80u;
+    gCurrentWindow = window;
+    static_cast<void>(window->update(-1));
+    gWindowStates[id].window = window;
+    gCurrentWindow = previous;
+    return window;
+}
+
+login::YobiAction* CreateWindowAnimation_475AA0(
+    const std::int32_t id, const std::uint32_t flags, const std::uint32_t mode,
+    login::YobiAction** const completionSlot)
+{
+    using namespace detail;
+    const WindowPrototype* const prototype = gWindowPrototypes57C130[id];
+    const std::int32_t width = prototype->width;
+    const std::int32_t height = prototype->height;
+    if (id == 10 || id == 11 || id == 12 || id == 14 || id == 27) {
+        const std::int32_t offsetX = platform::RandomRange_46FAF0(-15, 15);
+        gWindowStates[id].x += offsetX;
+        const std::int32_t offsetY = platform::RandomRange_46FAF0(-15, 15);
+        gWindowStates[id].y += offsetY;
+        if (gWindowStates[id].x < 0) {
+            gWindowStates[id].x = platform::RandomRange_46FAF0(10, 20);
+        }
+        if (gWindowStates[id].y < 0) {
+            gWindowStates[id].y = platform::RandomRange_46FAF0(10, 20);
+        }
+        if (gWindowStates[id].x + width > 640) {
+            gWindowStates[id].x = platform::RandomRange_46FAF0(620 - width, 640 - width);
+        }
+        if (gWindowStates[id].y + height > 480) {
+            gWindowStates[id].y = platform::RandomRange_46FAF0(460 - height, 480 - height);
+        }
+    }
+    WindowInstance* const window = gWindowStates[id].window;
+    std::int32_t x;
+    std::int32_t y;
+    if (window != nullptr) {
+        window->state |= 0x8000u;
+        WindowInstance* const current = gWindowStates[id].window;
+        x = current->x;
+        y = current->y;
+    } else {
+        x = gWindowStates[id].x;
+        y = gWindowStates[id].y;
+    }
+    return login::detail::Sub_475950(x, y, width, height, id, flags, mode, completionSlot);
+}
 
 std::int32_t Sub_50E440(const std::uintptr_t)
 {

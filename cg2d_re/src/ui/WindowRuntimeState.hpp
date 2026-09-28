@@ -306,6 +306,7 @@ extern WindowInputPrototype gChatInputPrototype57E970;
 extern WindowInputPrototype gTradeInputPrototype5803D0; // 借用input唯一CC21E8上下文。
 extern std::int32_t gChatWindowModeD66E04; // 原独立S32，窗口35/57选择与设置文件共用。
 extern std::uint8_t gValue57DA28; // 原独立U8，初值FF，设置文件与物品窗口共用。
+extern std::int32_t gInventoryHover57DA2C; // 普通背包悬停槽，初值-2，仅488FB0读写。
 extern std::uint8_t gValue57E42C; // 原独立U8，初值FF，设置文件与宠物窗口共用。
 extern std::int32_t gValueCF4AAC; // 原设置文件回填与多个UI入口共用的数值。
 extern std::int32_t gValueCF4690;
@@ -439,6 +440,9 @@ std::int32_t Sub_4885A0(std::int32_t amount); // 普通移动或窗口41/38文�
 void Sub_4886E0(
     std::int32_t sourceWindow, std::int32_t sourceElement,
     std::int32_t source, std::int32_t target); // 完整直接移动/数量拆分选择。
+void Sub_488800(
+    std::int32_t sourceMode, std::int32_t source,
+    std::int32_t targetMode, std::int32_t target); // 两模式按低U8比较，宠物组借CF3B10。
 WindowInstance* Sub_48A830(
     std::int32_t sourceWindow, std::int32_t sourceElement, std::int32_t imageNo,
     std::int32_t maximum, std::int32_t value14, std::int32_t initialValue,

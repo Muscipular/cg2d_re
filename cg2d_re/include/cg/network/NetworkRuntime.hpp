@@ -422,6 +422,16 @@ std::int32_t Sub_510CE0(
     std::uintptr_t socket, std::int32_t x, std::int32_t y,
     std::int32_t group, std::int32_t index);
 
+// 原510A00：Ak物品使用，依次追加X/Y/物品槽号/组号并透传发送结果。
+std::int32_t Sub_510A00(
+    std::uintptr_t socket, std::int32_t x, std::int32_t y,
+    std::int32_t index, std::int32_t group);
+
+// 原516C90：Cpa跨组物品移动，五个数值保持S32及原字段顺序。
+std::int32_t Sub_516C90(
+    std::uintptr_t socket, std::int32_t sourceGroup, std::int32_t source,
+    std::int32_t targetGroup, std::int32_t target, std::int32_t amount);
+
 // 原[5108F0,510938)：构造eL并追加一个整数，透传共享协议缓冲发送返回。
 std::int32_t Sub_5108F0(std::uintptr_t socket, std::int32_t value);
 

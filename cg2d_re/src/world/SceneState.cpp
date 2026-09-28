@@ -3736,6 +3736,45 @@ void __cdecl Sub_4691D0()
     platform::legacy_crypt_int::Destroy_401CF0(&temporary);
 }
 
+void Sub_5093C0(
+    const std::uintptr_t, const std::int32_t x, const std::int32_t y,
+    const std::int32_t direction)
+{
+    static_cast<void>(Sub_468200());
+    static_cast<void>(Sub_519EC0(x, y));
+    Sub_519EE0();
+    static_cast<void>(Sub_51A040(direction));
+}
+
+void Sub_50D080(
+    const std::uintptr_t, const std::int32_t first, const std::int32_t second)
+{
+    platform::LegacyCryptInt temporary;
+    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, first);
+    gValue9FB918.encoded = temporary.encoded;
+    gValue9FB918.mask = temporary.mask;
+    gValue9FB918.readCount = temporary.readCount;
+    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+
+    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, second);
+    gValueAF0FE8.readCount = temporary.readCount;
+    gValueAF0FE8.encoded = temporary.encoded;
+    gValueAF0FE8.mask = temporary.mask;
+    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+
+    const std::uint32_t encoded = gValue9FB918.encoded;
+    const std::uint32_t mask = gValue9FB918.mask;
+    const std::uint8_t readCount = gValue9FB918.readCount;
+    gValueC821E8.encoded = encoded;
+    gValueC821E8.mask = mask;
+    gValueC821E8.readCount = readCount;
+}
+
+void Sub_455C60()
+{
+    gValue62B5B0 = 0;
+}
+
 // 原 [0x50CF90,0x50CFF7)：回复序号按 S16 比较，成功时清地图请求状态。
 void __cdecl Sub_50CF90(
     const std::uintptr_t, const std::int32_t sequence,
@@ -5246,6 +5285,13 @@ void Sub_46AFE0(const std::int32_t index, std::int32_t x, std::int32_t y)
             x = nextX;
             y = nextY;
         }
+    }
+}
+
+void Sub_51B0F0()
+{
+    for (auto& slot : gPetMapCharaSlots) {
+        slot.action = nullptr;
     }
 }
 

@@ -623,8 +623,15 @@ void ResetMapFollowersFromPath(login::YobiAction* leader); // 444410仅扫描占
 void Sub_50A3E0(std::uintptr_t socket, std::int32_t index, const char* payload);
 void Sub_50D000(
     std::uintptr_t socket, std::int32_t first, std::int32_t second); // 跟随状态回复。
+void Sub_5093C0(
+    std::uintptr_t socket, std::int32_t x, std::int32_t y,
+    std::int32_t direction); // 原坐标回复，无门禁，方向最后发布。
+void Sub_50D080(
+    std::uintptr_t socket, std::int32_t first, std::int32_t second); // 两次CryptInt赋值后复制首值。
+void Sub_455C60(); // 仅清既有62B5B0，不关闭窗口。
 void Sub_51A5F0(); // 仅清玩家flags18A的200。
 login::YobiAction* Sub_51B080(); // 解散地图五槽；返回51A5B0的非拥有T*。
+void Sub_51B0F0(); // 仅清地图五槽的非拥有action，不释放或清占用。
 void Sub_46AFE0(
     std::int32_t index, std::int32_t x, std::int32_t y); // 移除后的五槽路径续接。
 std::int32_t Sub_446130(); // 原空槽领取，返回旧游标；不在此处标记占用。
@@ -666,6 +673,7 @@ std::int32_t Sub_4450D0(
 std::int32_t Sub_445160(
     std::int32_t x, std::int32_t y, std::uint16_t category); // 命中返回对象编号，否则-1。
 void Sub_446470(); // 原只清引用的全表重置；调用者均弃用原表外返回地址。
+void Sub_446610(); // 全表仅对占用项清action、写value34=-1。
 void* __cdecl Sub_46ADA0();               // 原 [0x46ADA0,0x46AE53)，仅透传 51D5B0 的返回位型。
 std::int32_t __cdecl Sub_46AC90();        // 原 [0x46AC90,0x46AD00)，type 2 的真实后继。
 std::int32_t __cdecl Sub_46AEA0();        // 原 [0x46AEA0,0x46AF24)，type 3 的真实后继。

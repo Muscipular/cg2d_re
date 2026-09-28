@@ -34,6 +34,16 @@ static_assert(sizeof(gMapActorDrawKeys) == 0x4B0);
 
 } // namespace
 
+void Sub_446610()
+{
+    for (auto& record : gWorldObjects) {
+        if (record.used != 0) {
+            record.action = nullptr;
+            record.value34 = -1;
+        }
+    }
+}
+
 void Sub_4468F0()
 {
     gMapActorDrawKeyCount = 0;

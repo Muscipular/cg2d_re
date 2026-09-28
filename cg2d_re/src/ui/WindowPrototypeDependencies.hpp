@@ -4,7 +4,7 @@
 
 namespace cg::ui::detail {
 
-// 原57C130指向的真实元素数组；5630F0/56CCD0/56CDB0已绑定，其余不定义零数组占位。
+// 原57C130指向的真实元素数组；5630F0/56CCD0/56CDB0/572AF8已绑定，其余不填零占位。
 extern WindowElementPrototype gWindowElements55ED60[11];
 extern WindowElementPrototype gWindowElements55EEC0[2];
 extern WindowElementPrototype gWindowElements55F0A0[24];

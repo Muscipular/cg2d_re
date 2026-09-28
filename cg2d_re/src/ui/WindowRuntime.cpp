@@ -133,6 +133,7 @@ std::uint8_t gTradeValueC8AF81 = 0;
 std::uint8_t gTradeTabCC4D1A = 0;
 std::int32_t gTradeHoverSlotC8B314 = 0;
 std::int32_t gTradeHoverSlotC8AA78 = 0;
+std::int32_t gTradeHoverSlotCB0A4C = 0;
 std::int32_t gPetDragModeD2EA1C = 0;
 std::int32_t gItemDragModeCC4C9C = 0;
 std::int32_t gItemMoveSourceCF46B0 = 0;
@@ -2070,6 +2071,189 @@ std::int32_t Sub_48BF10(const std::int32_t sourceIndex, const std::int32_t mode)
     return Sub_475DA0(2, sourceIndex, Sub_48BC90);
 }
 
+void Sub_4B1940(
+    std::uint8_t* const tab, const std::int16_t x, const std::int16_t y,
+    const std::int32_t, const std::int32_t, const std::int32_t state,
+    const render::GraphicDescriptor16* const descriptor)
+{
+    render::GraphicDescriptor16 dimmed {};
+    const std::uint32_t color = 0x80FFFFFFu;
+    std::memcpy(dimmed.bytes.data() + 8, &color, sizeof(color));
+    dimmed.bytes[13] = 4;
+    auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
+    std::uint8_t events = static_cast<std::uint8_t>(state);
+    if ((events & 0x60u) != 0 && Sub_475D60() != 2) {
+        events &= 0x9Fu;
+    }
+    if (gTradePhaseCAFEC4 != 0) {
+        events &= 0x9Fu;
+    }
+    if ((events & 0x40u) != 0) {
+        const std::int32_t dropX = Sub_475D70();
+        const std::int32_t dropY = Sub_475D80();
+        const std::int32_t source = Sub_475D90();
+        for (std::int32_t position = 0; position < 20; ++position) {
+            if (occupancy[position + 8] != 0) {
+                continue;
+            }
+            const std::int32_t left = x + 50 * (position % 5) + 13;
+            const std::int32_t top = y + 52 * (position / 5) + 26;
+            if (dropX >= left + 48 || left > dropX || dropY >= top + 48 || top > dropY) {
+                continue;
+            }
+            if (source != position + 8) {
+                Sub_4886E0(43, 11, source, position + 8);
+            }
+            break;
+        }
+        Sub_476500();
+    }
+    if (*tab != 0) {
+        return;
+    }
+    std::int32_t hovered = -1;
+    const bool hover = (events & 0x21u) != 0;
+    if (hover) {
+        for (std::int32_t position = 0; position < 20; ++position) {
+            if (occupancy[position + 8] != 0) {
+                continue;
+            }
+            const std::int32_t left = x + 50 * (position % 5) + 13;
+            const std::int32_t top = y + 52 * (position / 5) + 26;
+            if (login::detail::Sub_5049A0(left, top, left + 48, top + 48, -1) != 0) {
+                hovered = position + 8;
+                break;
+            }
+        }
+        if (hovered >= 0 && gTradePhaseCAFEC4 == 0
+            && world::detail::gPlayerItemsFDA8A4[hovered].used != 0) {
+            if ((world::detail::gPlayerItemsFDA8A4[hovered].flags & 1u) == 0) {
+                std::strcpy(gHoverTextD68AE8.data(),
+                    "\xA6\xB9\xAA\xAB\xAB\x7E\xB5\x4C\xAA\x6B\xA5\xE6\xA9\xF6\xA1\x43");
+            } else if (gTradeItemMarksD2D61C[hovered] == 0) {
+                std::strcpy(gHoverTextD68AE8.data(),
+                    "\xA5\xCE\xB7\xC6\xB9\xAB\xA9\xEC\xA9\xF1\xA4\xE8\xA6\xA1\xA1\x41"
+                    "\xB5\x6E\xBF\xFD\xA6\xB9\xB5\xA7\xAA\xAB\xAB\x7E\xA5\xE6\xA9\xF6\xA1\x43");
+            }
+        }
+    }
+    if (gTradeValueD2EA20 == 0) {
+        if (gTradeHoverSlotCB0A4C != hovered) {
+            gTradeTooltipPageCB10D4 = 0;
+        }
+        gTradeHoverSlotCB0A4C = hovered;
+    }
+    if (hovered >= 0 && (platform::gLegacyMouseState.edgeButtons & 0x10u) != 0
+        && (Sub_475D40() == 43 || Sub_475D40() == 0)) {
+        if (world::detail::gPlayerItemsFDA8A4[hovered].used != 0
+            && (world::detail::gPlayerItemsFDA8A4[hovered].flags & 1u) != 0
+            && gTradeItemMarksD2D61C[hovered] == 0) {
+            std::int32_t target = 0;
+            while (target < 20 && Sub_4AFFE0(target) >= 0) {
+                ++target;
+            }
+            if (target < 20) {
+                static_cast<void>(Sub_4AFF70(target));
+                static_cast<void>(Sub_4AFF30(target, hovered));
+                *tab = 0;
+            }
+            if (gTradeValueC8AF81 != 0) {
+                gTradeValueC8AF81 = 0;
+            }
+        } else {
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        }
+    }
+    if ((events & 1u) != 0 && hovered >= 0) {
+        if (gTradePhaseCAFEC4 == 0 && (events & 2u) != 0
+            && world::detail::gPlayerItemsFDA8A4[hovered].used != 0
+            && gTradeItemMarksD2D61C[hovered] == 0) {
+            static_cast<void>(Sub_48BF10(hovered, 1));
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        }
+        if ((events & 4u) != 0 && world::detail::gPlayerItemsFDA8A4[hovered].used != 0) {
+            const std::int32_t pages = world::detail::gPlayerItemsFDA8A4[hovered].pages;
+            gTradeTooltipPageCB10D4 = static_cast<std::uint8_t>(gTradeTooltipPageCB10D4 + 1);
+            if (std::bit_cast<std::int8_t>(gTradeTooltipPageCB10D4) >= pages) {
+                gTradeTooltipPageCB10D4 = 0;
+            }
+        }
+    }
+    if (Sub_475D60() == 2) {
+        const std::int32_t source = Sub_475D90();
+        if (Sub_475D40() == 43 && Sub_475D50() == 11) {
+            const std::int32_t left = x + 50 * ((source - 8) % 5) + 13;
+            const std::int32_t top = y + 52 * ((source - 8) / 5) + 26;
+            login::detail::DrawGraphicHover(
+                static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
+                static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
+                223, 254, 0);
+        }
+    }
+    char buffer[256];
+    if (hover && hovered >= 0) {
+        const std::int32_t left = x + 50 * ((hovered - 8) % 5) + 13;
+        const std::int32_t top = y + 52 * ((hovered - 8) / 5) + 26;
+        login::detail::DrawGraphicHover(
+            static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
+            static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
+            223, login::detail::gValueD69768, 0);
+        const world::detail::PlayerItemRecord& item = world::detail::gPlayerItemsFDA8A4[hovered];
+        if (item.used != 0) {
+            const std::size_t memoLength = std::strlen(item.memo.data());
+            gTradePreviewCC2E64 = hovered;
+            if (memoLength != 0 && (item.flags & 0x100u) != 0) {
+                std::sprintf(buffer, "%s[kok]", item.name.data());
+                std::strcpy(gHoverTextD68AE8.data(), buffer);
+            } else if ((item.flags & 0x200u) != 0) {
+                std::sprintf(buffer, "%s[han]", item.memo.data());
+                std::strcpy(gHoverTextD68AE8.data(), buffer);
+            }
+        }
+        gTradeValueD2EA20 = 0;
+    }
+    static_cast<void>(render::ClearTextQueueTail_456D50(3));
+    static_cast<void>(render::DrawText_456780(
+        0, 0, 3, 1, 0, input::LegacyText593850(), 0, 0));
+    dimmed = *descriptor;
+    dimmed.bytes[11] >>= 1;
+    for (std::int32_t position = 0; position < 20; ++position) {
+        const std::int32_t slot = position + 8;
+        const world::detail::PlayerItemRecord& item = world::detail::gPlayerItemsFDA8A4[slot];
+        if (item.used == 0) {
+            continue;
+        }
+        const std::int32_t centerX = x + 50 * (position % 5) + 37;
+        const std::int32_t centerY = y + 52 * (position / 5) + 51;
+        if (std::bit_cast<std::int8_t>(gTradeItemMarksD2D61C[slot]) > 0) {
+            login::detail::DrawGraphicHover(
+                static_cast<std::uint16_t>(centerX - 21), static_cast<std::uint16_t>(centerY - 21),
+                static_cast<std::uint16_t>(centerX + 21), static_cast<std::uint16_t>(centerY + 21),
+                223, 251, 0);
+        } else if (occupancy[slot] != 0) {
+            login::detail::DrawGraphicHover(
+                static_cast<std::uint16_t>(centerX - 24), static_cast<std::uint16_t>(centerY - 24),
+                static_cast<std::uint16_t>(centerX + 24), static_cast<std::uint16_t>(centerY + 24),
+                223, 249, 0);
+        }
+        if ((item.flags & 1u) == 0) {
+            static_cast<void>(login::detail::DrawGraphic(centerX, centerY, 223, 23040, 0, nullptr));
+        }
+        const render::GraphicDescriptor16* const mode =
+            std::bit_cast<std::int8_t>(gTradeItemMarksD2D61C[slot]) > 0 || occupancy[slot] != 0
+            ? &dimmed : descriptor;
+        static_cast<void>(login::detail::DrawGraphic(centerX, centerY, 223, item.imageNo, 0, mode));
+        const std::int32_t count = item.count;
+        if (count > 0) {
+            std::sprintf(buffer, "%3d", count);
+            static_cast<void>(render::DrawText_456780(
+                std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(centerX - 3)),
+                std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(centerY + 7)),
+                3, 1, 1, buffer, 0, 0));
+        }
+    }
+}
+
 void Sub_4B2060(
     std::uint8_t* const tab, const std::int16_t x, const std::int16_t y,
     const std::int32_t, const std::int32_t, const std::int32_t state,
@@ -2199,6 +2383,60 @@ void Sub_4B2060(
         static_cast<void>(login::detail::DrawGraphic(
             left + 120, top + 35, 223, 243141, 0, descriptor));
     }
+}
+
+std::int32_t Sub_4B2480(const std::int32_t index, const std::int32_t state)
+{
+    render::GraphicDescriptor16 descriptor {};
+    WindowInstance* const window = gCurrentWindow;
+    const auto* const graphic = static_cast<const WindowGraphicData*>(window->elements[index].data);
+    const std::uint32_t color = graphic->color;
+    descriptor.bytes[13] = 4;
+    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    static constexpr std::array<std::int32_t, 3> backgrounds54F530 {243143, 243145, 243144};
+    const std::int32_t amount = world::detail::ReadPlayerValueFC();
+    return Sub_4B1260(
+        window, index, state, backgrounds54F530.data(), &gTradeValueD6742C,
+        10, &gTradeScrollCF3B0C, 5, amount, 0, 0, amount, &descriptor, Sub_4B2500);
+}
+
+void Sub_4B2500(
+    const std::int16_t x, const std::int16_t y,
+    const std::int32_t mouseX, const std::int32_t mouseY,
+    const std::int32_t state, std::uint8_t* const tab, const std::int32_t scroll,
+    const std::uint8_t numericResult, std::uint32_t* const valueSlot,
+    std::int32_t* const itemCount, std::int32_t* const petCount, std::int32_t*,
+    std::int32_t* const displayAmount, render::GraphicDescriptor16* const descriptor)
+{
+    const bool confirmed = (numericResult & 2u) != 0;
+    if (confirmed && gTradeValueC8AF81 != 2) {
+        gTradeValueC8AF81 = 2;
+    }
+    Sub_4B1940(tab, x, y, mouseX, mouseY, state, descriptor);
+    Sub_4B2060(tab, x, y, mouseX, mouseY, state, scroll, descriptor);
+    if (confirmed) {
+        gTradeValueD046D0 = std::bit_cast<std::int32_t>(*valueSlot);
+        *valueSlot = 0;
+    }
+    *displayAmount = std::bit_cast<std::int32_t>(*valueSlot);
+    std::int32_t items = 0;
+    for (std::int32_t position = 0; position < 20; ++position) {
+        std::uint16_t used;
+        std::memcpy(&used, gTradeItemsD460D0.data() + (position + 20) * 0xC4C, sizeof(used));
+        if (used != 0) {
+            ++items;
+        }
+    }
+    *itemCount = items;
+    std::int32_t pets = 0;
+    for (std::int32_t position = 0; position < 5; ++position) {
+        std::uint16_t used;
+        std::memcpy(&used, gTradePetsC9C108.data() + (position + 5) * 0x5FC, sizeof(used));
+        if (used != 0) {
+            ++pets;
+        }
+    }
+    *petCount = pets;
 }
 
 void Sub_4B25D0(

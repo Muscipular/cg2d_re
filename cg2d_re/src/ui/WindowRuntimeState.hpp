@@ -345,6 +345,7 @@ extern std::uint8_t gTradeValueC8AF81;
 extern std::uint8_t gTradeTabCC4D1A; // 对方页签，不套用己方窗口初始化重置。
 extern std::int32_t gTradeHoverSlotC8B314; // 对方提示槽缓存，非地址。
 extern std::int32_t gTradeHoverSlotC8AA78; // 己方已选物品提示槽缓存。
+extern std::int32_t gTradeHoverSlotCB0A4C; // 己方自有物品提示槽缓存。
 extern std::int32_t gPetDragModeD2EA1C; // 48C130发布，回调分别采点击和绘制模式。
 extern std::int32_t gItemDragModeCC4C9C; // 48BF10发布，仅门禁48BC90的message2请求。
 extern std::int32_t gItemMoveSourceCF46B0; // 4886E0发布，4885A0读取的来源槽号。
@@ -431,6 +432,17 @@ void Sub_48BF30(std::int32_t message, std::int32_t unused, std::int32_t sourceIn
 std::int32_t Sub_48C130(std::int32_t sourceIndex, std::int32_t mode);
 void Sub_48BC90(std::int32_t message, std::int32_t unused, std::int32_t sourceIndex);
 std::int32_t Sub_48BF10(std::int32_t sourceIndex, std::int32_t mode); // kind2真实物品拖动。
+void Sub_4B1940(
+    std::uint8_t* tab, std::int16_t x, std::int16_t y,
+    std::int32_t mouseX, std::int32_t mouseY, std::int32_t state,
+    const render::GraphicDescriptor16* descriptor); // 自有物品交易页，20格玩家背包。
+std::int32_t Sub_4B2480(std::int32_t index, std::int32_t state);
+void Sub_4B2500(
+    std::int16_t x, std::int16_t y, std::int32_t mouseX, std::int32_t mouseY,
+    std::int32_t state, std::uint8_t* tab, std::int32_t scroll,
+    std::uint8_t numericResult, std::uint32_t* valueSlot,
+    std::int32_t* itemCount, std::int32_t* petCount, std::int32_t* unusedAmount,
+    std::int32_t* displayAmount, render::GraphicDescriptor16* descriptor);
 void Sub_4B2060(
     std::uint8_t* tab, std::int16_t x, std::int16_t y,
     std::int32_t mouseX, std::int32_t mouseY, std::int32_t state, std::int32_t scroll,

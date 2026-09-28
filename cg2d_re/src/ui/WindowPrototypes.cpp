@@ -14,6 +14,19 @@ WindowGraphicData gWindowGraphic5630B0 {243090, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic5630C8 {243093, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowNumberData gWindowNumber5630E8 {gNumberWindowTextCC4D1C.data(), 10, 3, 1, 0};
 
+WindowGraphicData gWindowGraphic572940 {0x3BA88, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic572958 {0x3B538, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic572970 {0x3BA89, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic572988 {0x3BA8C, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic5729A0 {0x3B562, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic572AD8 {0, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowTextPrototype gWindowText572AF0 {
+    {std::byte{0x8A}, std::byte{1}, std::byte{0}, std::byte{0}}, input::LegacyText593850(),
+};
+std::uint32_t gWindowMouseFlagsD678B8 = 0;
+std::uint32_t gWindowMouseFlagsD678C4 = 0;
+std::uint32_t gWindowMouseFlagsD678D0 = 0;
+
 WindowGraphicData gWindowGraphic56CCF0 {0x3B598, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic56CD08 {0x3B592, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic56CD20 {0x3B595, 0, 0, 0, 0, 0xFFFFFFFFu};
@@ -156,6 +169,29 @@ WindowElementPrototype gWindowElements56CDB0[19] {
     {0, 40, 95, 200, 13, 1, {.unusedValue = 0}, &Sub_49EF60},
     {0, 40, 115, 200, 13, 1, {.unusedValue = 0}, &Sub_49EF60},
     {0, 40, 135, 200, 13, 1, {.unusedValue = 0}, &Sub_49EF60},
+};
+
+WindowElementPrototype gWindowElements572AF8[20] {
+    {5, 0, 0, 567, 339, 1, {.unusedValue = 0}, &Sub_4B09E0},
+    {1, 547, 9, 11, 11, 1, {.graphic = &gWindowGraphic572958}, &Sub_4C1FB0},
+    {1, 476, 309, 49, 17, 1, {.graphic = &gWindowGraphic572970}, &Sub_4B0A50},
+    {1, 446, 309, 49, 17, 1, {.graphic = &gWindowGraphic572988}, &Sub_4B0DB0},
+    {1, 502, 309, 49, 17, 1, {.graphic = &gWindowGraphic5729A0}, &Sub_4B0CF0},
+    {0, 376, 136, 106, 85, 1, {.unusedValue = 0}, &Sub_4B0F10},
+    {0, 541, 66, 0, 14, 1, {.unusedValue = 0}, &Sub_4B0F10},
+    {4, 541, 66, 11, 183, 1, {.mouseFlags = &gWindowMouseFlagsD678C4}, &Sub_4741A0},
+    {1, 15, 28, 273, 280, 1, {.graphic = &gWindowGraphic572AD8}, &Sub_4B3430},
+    {0, 541, 66, 0, 14, 1, {.unusedValue = 0}, &Sub_4B0F10},
+    {4, 541, 66, 11, 183, 1, {.mouseFlags = &gWindowMouseFlagsD678B8}, &Sub_4741A0},
+    {1, 297, 28, 273, 280, 1, {.graphic = &gWindowGraphic572AD8}, &Sub_4B2480},
+    {0, 541, 66, 0, 14, 1, {.unusedValue = 0}, &Sub_4B0F10},
+    {4, 541, 66, 11, 183, 1, {.mouseFlags = &gWindowMouseFlagsD678D0}, &Sub_4741A0},
+    {1, 15, 28, 273, 280, 1, {.graphic = &gWindowGraphic572AD8}, &Sub_4B3580},
+    {3, 133, 310, 0, 0, 1, {.text = &gWindowText572AF0}, &Sub_4B0F10},
+    {3, 281, 310, 0, 0, 1, {.text = &gWindowText572AF0}, &Sub_4B0F10},
+    {3, 317, 310, 0, 0, 1, {.text = &gWindowText572AF0}, &Sub_4B0F10},
+    {1, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic572940}, &Sub_4B0F10},
+    {0, 571, 7, 18, 78, 1, {.unusedValue = 0}, &Sub_4B0F10},
 };
 
 // 71个原生指针；原36/37同源，不因窗口编号不同复制对象。

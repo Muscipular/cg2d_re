@@ -309,6 +309,7 @@ extern std::int32_t gTradeScrollCF3B0C;
 extern std::int32_t gTradeScrollCC4C90;
 extern std::int32_t gTradeScrollD67430;
 extern std::int32_t gTradePreviewCC2E64; // 原预览分类数值，非地址。
+extern std::uint32_t gWindowActionTick62B5AC; // 跨UI动作共用，不是交易私有计时槽。
 extern std::array<std::int32_t, 6> gSelectedSlotsCA0A90;
 extern std::array<std::int32_t, 6> gMaterialIndicesCA0458;
 extern std::array<std::int32_t, 6> gSelectionCountsD66E0C;
@@ -337,6 +338,11 @@ std::int32_t Sub_4AFF70(std::int32_t index); // 释放物品选择，再减同�
 std::int32_t Sub_4B0090(std::int32_t index); // 只释放宠物选择及标记。
 void Sub_4B0200(); // 窗口43释放回调，原返回值弃用。
 std::int32_t Sub_4B0290(std::int32_t value); // 窗口43初始化、关闭检查与四阶段更新。
+std::int32_t Sub_4AFFE0(std::int32_t index); // S8物品槽，负值归-1。
+std::int32_t Sub_4B00F0(std::int32_t index); // S8宠物槽，负值归-1。
+std::int32_t Sub_4B0A50(std::int32_t index, std::int32_t state); // 公开两组交易槽及数值。
+std::int32_t Sub_4B0CF0(std::int32_t index, std::int32_t state); // 撤回公开，无计时门禁。
+std::int32_t Sub_4B0DB0(std::int32_t index, std::int32_t state); // 确认/撤销确认，共享500ms门槛。
 login::YobiAction* Sub_4E5620(const char* name); // 全量清交易双侧后复制己方，最后打开43。
 void Sub_4E4E60(std::int32_t index, const char* name); // 先发送选择请求，失败仍继续本地打开。
 login::YobiAction* Sub_49E800(const char* text, WindowListSelectionCallback callback);

@@ -119,6 +119,7 @@ std::int32_t gTradeScrollCF3B0C = 0;
 std::int32_t gTradeScrollCC4C90 = 0;
 std::int32_t gTradeScrollD67430 = 0;
 std::int32_t gTradePreviewCC2E64 = 0;
+std::uint32_t gWindowActionTick62B5AC = 0;
 std::array<std::int32_t, 6> gSelectedSlotsCA0A90 {};
 std::array<std::int32_t, 6> gMaterialIndicesCA0458 {};
 std::array<std::int32_t, 6> gSelectionCountsD66E0C {};
@@ -1092,6 +1093,155 @@ std::int32_t Sub_4B0290(const std::int32_t value)
     }
     gTradePreviewCC2E64 = -1;
     return 1;
+}
+
+std::int32_t Sub_4AFFE0(const std::int32_t index)
+{
+    const std::int32_t slot = std::bit_cast<std::int8_t>(gTradeItemSlotsCF3AE8[index]);
+    return slot < 0 ? -1 : slot;
+}
+
+std::int32_t Sub_4B00F0(const std::int32_t index)
+{
+    const std::int32_t slot = std::bit_cast<std::int8_t>(gTradePetSlotsCC4D28[index]);
+    return slot < 0 ? -1 : slot;
+}
+
+std::int32_t Sub_4B0A50(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    const bool hover = (state & 1) != 0;
+    if (hover) {
+        std::strcpy(gHoverTextD68AE8.data(),
+            "\xA6\x56\xB9\xEF\xA4\xE8\xA4\xBD\xB6\x7D"
+            "\xA5\xE6\xA9\xF6\xA4\xBA\xAE\x65\xA1\x43");
+    }
+    std::int32_t result = 0;
+    if ((state & 2) != 0) {
+        std::array<char, 52> buffer;
+        std::array<char, 1024> petSource;
+        std::array<char, 1024> itemSource;
+        std::array<char, 1024> petCopy;
+        std::array<char, 1024> itemCopy;
+        itemSource[0] = '\0';
+        petSource[0] = '\0';
+        std::int32_t count = 0;
+        for (std::int32_t position = 0; position < 20; ++position) {
+            const std::int32_t slot = Sub_4AFFE0(position);
+            if (slot >= 0) {
+                if (count != 0) {
+                    std::strcat(itemSource.data(), "|");
+                }
+                std::sprintf(buffer.data(), "%d|%d", slot, position);
+                std::strcat(itemSource.data(), buffer.data());
+                ++count;
+            }
+        }
+        std::strncpy(itemCopy.data(), itemSource.data(), 1024);
+        count = 0;
+        for (std::int32_t position = 0; position < 5; ++position) {
+            const std::int32_t slot = Sub_4B00F0(position);
+            if (slot >= 0) {
+                if (count != 0) {
+                    std::strcat(petSource.data(), "|");
+                }
+                std::sprintf(buffer.data(), "%d|%d", slot, position);
+                std::strcat(petSource.data(), buffer.data());
+                ++count;
+            }
+        }
+        std::strncpy(petCopy.data(), petSource.data(), 1024);
+        const std::int32_t amount = gTradeValueD046D0;
+        static_cast<void>(network::Sub_512040(
+            platform::gConnectionSocket, itemCopy.data(), petCopy.data(), amount));
+        WindowInstance* const window = gCurrentWindow;
+        gTradeValueD2E2B0 = 1;
+        gTradeScrollD67430 = 0;
+        static_cast<void>(Sub_4742C0(&window->elements[13], 2, 0));
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        result = 1;
+    }
+    graphic->imageNo = 0x3BA89;
+    if (hover) {
+        graphic->imageNo = 0x3BA8B;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 0x3BA8A;
+    }
+    return result;
+}
+
+std::int32_t Sub_4B0CF0(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    const bool hover = (state & 1) != 0;
+    if (hover) {
+        std::strcpy(gHoverTextD68AE8.data(), "\xC1\xD9\xAC\x4F\xBA\xE2\xA4\x46\xA1\x43");
+    }
+    std::int32_t result = 0;
+    if ((state & 2) != 0) {
+        static_cast<void>(network::Sub_512230(platform::gConnectionSocket));
+        const std::int32_t previous = gTradeValueCC4224;
+        gTradeValueD2E2B0 = 0;
+        if (previous == 2) {
+            gTradeValueCC4224 = 1;
+        }
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        gTradeStepD3040C = 23;
+        result = 1;
+    }
+    graphic->imageNo = 0x3B562;
+    if (hover) {
+        graphic->imageNo = 0x3B564;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 0x3B563;
+    }
+    return result;
+}
+
+std::int32_t Sub_4B0DB0(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    const bool hover = (state & 1) != 0;
+    if (hover) {
+        std::strcpy(gHoverTextD68AE8.data(), "\xBD\x54\xA9\x77\xA5\xE6\xA9\xF6\xA1\x43");
+    }
+    std::int32_t result = 0;
+    if ((state & 2) != 0) {
+        const std::int32_t phase = gTradeValueD2E2B0;
+        if ((phase == 1 && gTradeValueCC4224 >= 1) || phase == 2) {
+            const std::uint32_t tick = platform::ReadTickCount32();
+            if (gWindowActionTick62B5AC + 500u < tick) {
+                if (phase == 1) {
+                    static_cast<void>(network::Sub_512270(platform::gConnectionSocket, 1));
+                    gTradeValueD2E2B0 = 2;
+                    gTradeValueD67CB8 = 1;
+                    gTradeValueD67CBC = 1;
+                } else {
+                    static_cast<void>(network::Sub_512230(platform::gConnectionSocket));
+                    const std::int32_t previous = gTradeValueCC4224;
+                    gTradeValueD2E2B0 = 0;
+                    if (previous == 2) {
+                        gTradeValueCC4224 = 1;
+                    }
+                }
+                gWindowActionTick62B5AC = platform::ReadTickCount32();
+                static_cast<void>(audio::PlaySe_52C450(78, 320));
+            }
+        } else {
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        }
+        result = 1;
+    }
+    graphic->imageNo = 0x3BA8C;
+    if (hover) {
+        graphic->imageNo = 0x3BA8E;
+    }
+    if (gTradeValueD2E2B0 == 2) {
+        graphic->imageNo = 0x3BA8D;
+    }
+    return result;
 }
 
 login::YobiAction* Sub_4E5620(const char* const name)

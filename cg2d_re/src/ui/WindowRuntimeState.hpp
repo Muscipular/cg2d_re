@@ -127,6 +127,7 @@ using WindowTradePanelCallback = void (*)(
 struct WindowItemSelectorState {
     std::array<WindowElement*, 20> elements00; // 4C6EC0绑定的非拥有元素，非零模式保留槽19。
     std::array<WindowElementCallback, 4> callbacks50; // 4C6550写回元素mouseCallback。
+    std::int32_t value60; // 4C6550发布的数值页状态，4C75A0仅在2时绘制。
     std::int32_t value64;
     std::uint8_t* mode68; // 借用57DA28/57E42C，消费者按S8解释。
     std::int32_t step6C;
@@ -166,10 +167,12 @@ bool Sub_4C72C0(
 std::int32_t Sub_48A6C0(std::int32_t index, std::int32_t state); // 装备屏蔽页完整绘制。
 std::int32_t Sub_489F00(std::int32_t index, std::int32_t state); // 两模式物品选择/退出与完整绘制。
 std::int32_t Sub_4888C0(const char* text); // 对话29选择入口，发布特殊回调后绑定焦点。
+std::int32_t Sub_488FB0(std::int32_t index, std::int32_t state); // 普通背包完整交互/绘制。
+std::int32_t Sub_489760(std::int32_t index, std::int32_t state); // 玩家/宠物装备完整交互。
+std::int32_t Sub_489EE0(std::int32_t unusedIndex, std::int32_t state);
+bool Sub_4C75A0(WindowItemSelectorState* selector, std::int32_t state); // 附加属性页及回调恢复。
 
-// 4C6EC0发布的真实交互依赖，尚未实现；不能用空回调代替。
-std::int32_t Sub_488FB0(std::int32_t index, std::int32_t state);
-std::int32_t Sub_489760(std::int32_t index, std::int32_t state);
+// 4C6EC0发布的其余交互依赖，尚未实现；不能用空回调代替。
 std::int32_t Sub_499C30(std::int32_t index, std::int32_t state);
 std::int32_t Sub_49AC40(std::int32_t index, std::int32_t state);
 
@@ -307,6 +310,7 @@ extern WindowInputPrototype gTradeInputPrototype5803D0; // 借用input唯一CC21
 extern std::int32_t gChatWindowModeD66E04; // 原独立S32，窗口35/57选择与设置文件共用。
 extern std::uint8_t gValue57DA28; // 原独立U8，初值FF，设置文件与物品窗口共用。
 extern std::int32_t gInventoryHover57DA2C; // 普通背包悬停槽，初值-2，仅488FB0读写。
+extern std::int32_t gEquipmentHover57DA68; // 装备页独立悬停槽，初值-2，仅489760读写。
 extern std::uint8_t gValue57E42C; // 原独立U8，初值FF，设置文件与宠物窗口共用。
 extern std::int32_t gValueCF4AAC; // 原设置文件回填与多个UI入口共用的数值。
 extern std::int32_t gValueCF4690;

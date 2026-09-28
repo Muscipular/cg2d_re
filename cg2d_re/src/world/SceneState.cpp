@@ -628,6 +628,9 @@ std::uint32_t InitializeAlbum_518C20()
 
 namespace detail {
 
+std::uint32_t& gMapEffectOffsetXBits = gMapCharaSceneSlots.valueC8A758;
+std::uint32_t& gMapEffectOffsetYBits = gMapCharaSceneSlots.valueC8A75C;
+
 // 原 [C82258,C8A728) 的 500 项记录；未知载荷保留原字节，
 // 链接在 x64 使用独立原生指针，不推定整记录最终布局。
 struct MapEffectRecord {

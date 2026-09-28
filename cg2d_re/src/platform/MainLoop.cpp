@@ -93,7 +93,7 @@ int MainLoop()
         }
         render::UpdatePalette_450BB0();
         if (gWindowActiveState != 0) {
-            Sub_449160();
+            login::detail::Sub_449160();
         }
         ClearKeyFlags_459760();
 

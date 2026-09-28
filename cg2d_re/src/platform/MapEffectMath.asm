@@ -38,6 +38,7 @@ PUBLIC Cg2dMapActorVelocity
 PUBLIC Cg2dMapMoveDirection
 PUBLIC Cg2dMapActorSpiralOffset
 PUBLIC Cg2dMapObserverExitOffset
+PUBLIC Cg2dMapTimedOffset
 
 ; 所有叶仅借用参数暂存区 [rsp+8,rsp+40)，不改 RSP 或非易失寄存器。
 Cg2dMapEffectDirection PROC
@@ -406,5 +407,24 @@ Cg2dMapObserverExitOffset PROC
     fldcw word ptr [rsp+16]
     ret
 Cg2dMapObserverExitOffset ENDP
+
+Cg2dMapTimedOffset PROC
+    mov dword ptr [rsp+8], ecx
+    fnstcw word ptr [rsp+12]
+    mov word ptr [rsp+14], 027Fh
+    fldcw word ptr [rsp+14]
+    fild dword ptr [rsp+8]
+    fmul qword ptr [Radians54DD18]
+    fld st(0)
+    fcos
+    fmul dword ptr [rdx]
+    fstp dword ptr [r8]
+    fsin
+    fmul dword ptr [rdx]
+    fchs
+    fstp dword ptr [r9]
+    fldcw word ptr [rsp+12]
+    ret
+Cg2dMapTimedOffset ENDP
 
 END

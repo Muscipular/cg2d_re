@@ -198,6 +198,8 @@ extern std::uint32_t gValueC82218;
 extern std::int32_t gValueFF0D4C; // 原地图回复数值 W32，51D6F0 消费。
 extern std::int32_t gValue73ED44; // 原当前调色板选择标志 W32，458F00 读取。
 extern std::int32_t gValue73ED48; // 原时间类别/调色板索引 W32，50C870 与 458F00 共用。
+extern std::uint32_t& gMapEffectOffsetXBits; // 原C8A758；别名既有场景槽，4483A0写、46F1D0读。
+extern std::uint32_t& gMapEffectOffsetYBits; // 原C8A75C；保留F32位型及独立写序。
 extern std::uint32_t gValueC82224;
 extern std::uint32_t gValueC8221C; // 原 46ADA0/46AEA0 共用的 W32 请求序号。
 extern std::uint16_t gValue9DAD54;

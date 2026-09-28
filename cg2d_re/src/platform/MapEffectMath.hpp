@@ -130,4 +130,9 @@ extern "C" void Cg2dMapActorSpiralOffset(
 extern "C" void Cg2dMapObserverExitOffset(
     std::int32_t frame, std::int32_t direction, std::int64_t* result) noexcept;
 
+// 原448542-448560/448795-4487B3：两次重读幅值，直接按X→Y写共享F32位槽。
+extern "C" void Cg2dMapTimedOffset(
+    std::int32_t angle, const float* amplitude,
+    std::uint32_t* xBits, std::uint32_t* yBits) noexcept;
+
 } // namespace cg::platform::detail

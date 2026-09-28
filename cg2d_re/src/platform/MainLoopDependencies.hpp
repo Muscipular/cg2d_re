@@ -35,7 +35,6 @@ void ShowModeChange_458A40();
 void KeepAlive_457AB0();
 int Sub_52CD30(std::int32_t value);
 void Sub_507140();
-void Sub_449160();
 std::uint8_t CheckProtection_4043B0(const char* functionName);
 std::int32_t CheckWindows_4048E0();
 void Sub_423640();

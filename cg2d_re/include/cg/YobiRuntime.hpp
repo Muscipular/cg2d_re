@@ -232,6 +232,7 @@ YobiAction* Sub_448370(void (*callback)(YobiAction*));
 void Sub_449700(
     std::int32_t mode, std::int32_t duration, std::int32_t floor,
     std::int32_t mapX, std::int32_t mapY);
+void Sub_449160(); // 主循环效果生产，计时回调注册后按64次间隔生成漂移对象。
 
 // 原 49C5C0/49C5E0：dialog 尺寸的有符号整数分量计算。
 std::int32_t Sub_49C5C0(std::int16_t width);

@@ -15,6 +15,10 @@ namespace cg::input {
 struct InputContext;
 }
 
+namespace cg::world::detail {
+struct PlayerItemRecord;
+}
+
 namespace cg::ui {
 
 using WindowCallback = std::int32_t (*)(std::int32_t value);
@@ -121,7 +125,10 @@ using WindowTradePanelCallback = void (*)(
 
 // 原CF3B10/D2F338的已消费字段；不是x86字节布局，不冻结未消费前缀。
 struct WindowItemSelectorState {
+    std::array<WindowElement*, 20> elements00; // 4C6EC0绑定的非拥有元素，非零模式保留槽19。
+    std::array<WindowElementCallback, 4> callbacks50; // 4C6550写回元素mouseCallback。
     std::int32_t value64;
+    std::uint8_t* mode68; // 借用57DA28/57E42C，消费者按S8解释。
     std::int32_t step6C;
     std::int32_t selectedPet70;
     std::int32_t previousPet74;
@@ -144,6 +151,26 @@ extern WindowItemSelectorState gItemSelectorCF3B10;
 extern WindowItemSelectorState gItemSelectorD2F338;
 WindowItemSelectorState* Sub_4C61B0(WindowItemSelectorState* state); // 完整构造，不整区清零。
 std::int32_t Sub_4C71B0(const WindowItemSelectorState* state); // 原+70同源S32。
+void Sub_4C6EC0(WindowItemSelectorState* state, std::uint8_t mode); // 完整两种装配，原返回被两caller弃用。
+std::int32_t Sub_4C63C0(const WindowItemSelectorState* state, std::int32_t slot);
+std::int32_t Sub_4C6400(const WindowItemSelectorState* state, std::int32_t slot);
+std::int32_t Sub_4C7240(
+    const WindowItemSelectorState* state, std::int32_t element, std::int32_t slot,
+    std::int32_t offset); // X；负局部坐标不读取窗口。
+std::int32_t Sub_4C7280(
+    const WindowItemSelectorState* state, std::int32_t element, std::int32_t slot,
+    std::int32_t offset); // Y；与X分开采样模式和当前窗口。
+bool Sub_4C72C0(
+    const WindowItemSelectorState* state, world::detail::PlayerItemRecord** items,
+    std::int32_t* count); // 借用同源物品表；失败不写输出。
+std::int32_t Sub_48A6C0(std::int32_t index, std::int32_t state); // 装备屏蔽页完整绘制。
+
+// 4C6EC0发布的真实交互依赖，尚未实现；不能用空回调代替。
+std::int32_t Sub_488FB0(std::int32_t index, std::int32_t state);
+std::int32_t Sub_489F00(std::int32_t index, std::int32_t state);
+std::int32_t Sub_489760(std::int32_t index, std::int32_t state);
+std::int32_t Sub_499C30(std::int32_t index, std::int32_t state);
+std::int32_t Sub_49AC40(std::int32_t index, std::int32_t state);
 
 // 文本原型只借用源字节；实例仍通过WindowTextData拥有256B可写副本。
 struct WindowTextPrototype {

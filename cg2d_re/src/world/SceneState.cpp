@@ -479,6 +479,11 @@ void DestroyPlayerRuntimeValues()
     platform::legacy_crypt_int::Destroy_401CF0(&gPlayerRuntime.hp);
 }
 
+bool IsValidPetIndex_51C410(const std::int32_t index) noexcept
+{
+    return index >= 0 && index < 5;
+}
+
 void ConstructPetRuntimeValues()
 {
     for (detail::PetRuntimeRecord& record : detail::gPetRuntimeF633F8) {

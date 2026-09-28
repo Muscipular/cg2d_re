@@ -75,6 +75,8 @@ void DestroyPlayerRuntimeValues();
 // 原518530/518560，五条宠物各六组CryptInt；排在玩家构造之后。
 void ConstructPetRuntimeValues();
 void DestroyPetRuntimeValues();
+// 原51C410：仅校验五槽索引，不检查宠物used。
+bool IsValidPetIndex_51C410(std::int32_t index) noexcept;
 
 // 原 sub_448240@0x448240；只采样一次 gMapFloor。
 std::int32_t IsMapFloorAllowed_448240() noexcept;

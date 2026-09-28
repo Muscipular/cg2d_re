@@ -268,6 +268,10 @@ std::array<std::uint8_t, 28> gItemMarksD67290 {};
 std::array<std::uint8_t, 20> gItemMarksD68A90 {};
 std::uint8_t gValue57DA28 = 0xFF;
 std::uint8_t gValue57E42C = 0xFF;
+const std::array<std::int32_t, 8> gSelectorOwnX54F584 {100, 36, 36, 165, 165, 36, 165, 165};
+const std::array<std::int32_t, 8> gSelectorOwnY54F5A4 {30, 130, 80, 80, 130, 30, 30, 180};
+const std::array<std::int32_t, 6> gSelectorPetX54F5C4 {36, 165, 36, 165, 36, 165};
+const std::array<std::int32_t, 6> gSelectorPetY54F5DC {80, 80, 130, 130, 30, 30};
 std::int32_t gValueCF4AAC = 0;
 std::int32_t gValueCF4690 = 0;
 std::int32_t gValueCA0440 = 0;
@@ -3473,6 +3477,177 @@ WindowItemSelectorState* Sub_4C61B0(WindowItemSelectorState* const state)
 std::int32_t Sub_4C71B0(const WindowItemSelectorState* const state)
 {
     return state->selectedPet70;
+}
+
+void Sub_4C6EC0(WindowItemSelectorState* const state, const std::uint8_t mode)
+{
+    state->value64 = mode;
+    if (mode != 0) {
+        state->mode68 = &gValue57E42C;
+        state->elements00[0] = &gCurrentWindow->elements[3];
+        state->elements00[1] = &gCurrentWindow->elements[20];
+        state->elements00[2] = &gCurrentWindow->elements[16];
+        state->elements00[3] = &gCurrentWindow->elements[17];
+        state->elements00[4] = &gCurrentWindow->elements[18];
+        state->elements00[5] = &gCurrentWindow->elements[19];
+        state->elements00[6] = &gCurrentWindow->elements[4];
+        state->elements00[7] = &gCurrentWindow->elements[5];
+        state->elements00[9] = &gCurrentWindow->elements[10];
+        state->elements00[10] = &gCurrentWindow->elements[11];
+        state->elements00[11] = &gCurrentWindow->elements[12];
+        state->elements00[12] = &gCurrentWindow->elements[13];
+        state->elements00[13] = &gCurrentWindow->elements[14];
+        state->elements00[14] = &gCurrentWindow->elements[15];
+        state->elements00[8] = &gCurrentWindow->elements[6];
+        state->elements00[15] = &gCurrentWindow->elements[7];
+        state->elements00[16] = &gCurrentWindow->elements[8];
+        state->elements00[17] = &gCurrentWindow->elements[9];
+        WindowElement* const last = &gCurrentWindow->elements[21];
+        state->callbacks50[0] = Sub_499C30;
+        state->elements00[18] = last;
+        state->callbacks50[1] = Sub_4B0F10;
+        state->callbacks50[2] = Sub_49AC40;
+        state->callbacks50[3] = Sub_4B0F10;
+    } else {
+        state->mode68 = &gValue57DA28;
+        state->elements00[0] = &gCurrentWindow->elements[4];
+        state->elements00[1] = &gCurrentWindow->elements[17];
+        state->elements00[2] = &gCurrentWindow->elements[18];
+        state->elements00[3] = &gCurrentWindow->elements[19];
+        state->elements00[4] = &gCurrentWindow->elements[20];
+        state->elements00[5] = &gCurrentWindow->elements[21];
+        state->elements00[6] = &gCurrentWindow->elements[5];
+        state->elements00[7] = &gCurrentWindow->elements[6];
+        state->elements00[9] = &gCurrentWindow->elements[11];
+        state->elements00[10] = &gCurrentWindow->elements[12];
+        state->elements00[11] = &gCurrentWindow->elements[13];
+        state->elements00[12] = &gCurrentWindow->elements[14];
+        state->elements00[13] = &gCurrentWindow->elements[15];
+        state->elements00[14] = &gCurrentWindow->elements[16];
+        state->elements00[8] = &gCurrentWindow->elements[7];
+        state->elements00[15] = &gCurrentWindow->elements[8];
+        state->elements00[16] = &gCurrentWindow->elements[9];
+        state->elements00[17] = &gCurrentWindow->elements[10];
+        state->elements00[18] = &gCurrentWindow->elements[23];
+        state->elements00[19] = &gCurrentWindow->elements[22];
+        state->callbacks50[0] = Sub_488FB0;
+        state->callbacks50[1] = Sub_489F00;
+        state->callbacks50[2] = Sub_489760;
+        state->callbacks50[3] = Sub_48A6C0;
+    }
+}
+
+std::int32_t Sub_4C63C0(
+    const WindowItemSelectorState* const state, const std::int32_t slot)
+{
+    if (slot < 0) {
+        return -1;
+    }
+    const std::int8_t mode = std::bit_cast<std::int8_t>(*state->mode68);
+    if (mode == 0 && slot < 8) {
+        return gSelectorOwnX54F584[slot];
+    }
+    if (mode <= 0 || slot >= 6) {
+        return -1;
+    }
+    return gSelectorPetX54F5C4[slot];
+}
+
+std::int32_t Sub_4C6400(
+    const WindowItemSelectorState* const state, const std::int32_t slot)
+{
+    if (slot < 0) {
+        return -1;
+    }
+    const std::int8_t mode = std::bit_cast<std::int8_t>(*state->mode68);
+    if (mode == 0 && slot < 8) {
+        return gSelectorOwnY54F5A4[slot];
+    }
+    if (mode <= 0 || slot >= 6) {
+        return -1;
+    }
+    return gSelectorPetY54F5DC[slot];
+}
+
+std::int32_t Sub_4C7240(
+    const WindowItemSelectorState* const state, const std::int32_t element,
+    const std::int32_t slot, const std::int32_t offset)
+{
+    const std::int32_t local = Sub_4C63C0(state, slot);
+    if (local < 0) {
+        return -1;
+    }
+    const WindowInstance* const window = gCurrentWindow;
+    return window->elements[element].x + window->x + local + offset;
+}
+
+std::int32_t Sub_4C7280(
+    const WindowItemSelectorState* const state, const std::int32_t element,
+    const std::int32_t slot, const std::int32_t offset)
+{
+    const std::int32_t local = Sub_4C6400(state, slot);
+    if (local < 0) {
+        return -1;
+    }
+    const WindowInstance* const window = gCurrentWindow;
+    return window->elements[element].y + window->y + local + offset;
+}
+
+bool Sub_4C72C0(
+    const WindowItemSelectorState* const state, world::detail::PlayerItemRecord** const items,
+    std::int32_t* const count)
+{
+    const std::int8_t mode = std::bit_cast<std::int8_t>(*state->mode68);
+    if (mode == 0) {
+        *items = world::detail::gPlayerItemsFDA8A4.data();
+        *count = 8;
+        return true;
+    }
+    if (mode > 0 && world::IsValidPetIndex_51C410(state->selectedPet70)) {
+        *items = world::detail::gPetRuntimeF633F8[state->selectedPet70].items6E4.data();
+        *count = world::detail::gPetRuntimeF633F8[state->selectedPet70].values6D8[0];
+        return true;
+    }
+    return false;
+}
+
+std::int32_t Sub_48A6C0(const std::int32_t index, const std::int32_t state)
+{
+    render::GraphicDescriptor16 descriptor {};
+    render::GraphicDescriptor16 dimmed {};
+    const std::uint32_t color = 0xFFFFFFFFu;
+    const std::uint32_t dimmedColor = 0x80FFFFFFu;
+    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    std::memcpy(dimmed.bytes.data() + 8, &dimmedColor, sizeof(dimmedColor));
+    descriptor.bytes[13] = 4;
+    dimmed.bytes[13] = 4;
+    world::detail::PlayerItemRecord* items;
+    std::int32_t count;
+    if (!Sub_4C72C0(&gItemSelectorCF3B10, &items, &count)) {
+        return 0;
+    }
+    if ((state & 2) != 0) {
+        gCurrentWindow->state |= 0x2000u;
+    }
+    const auto* const occupancy = reinterpret_cast<const unsigned char*>(world::gValueD67B08.data());
+    for (std::int32_t slot = 0; slot < count; ++slot) {
+        const world::detail::PlayerItemRecord* const item = items + slot;
+        if (item->used != 0) {
+            const std::int32_t x = Sub_4C7240(&gItemSelectorCF3B10, index, slot, 0);
+            const std::int32_t y = Sub_4C7280(&gItemSelectorCF3B10, index, slot, 0);
+            static_cast<void>(login::detail::DrawGraphic(x, y, 223, 23040, 0, nullptr));
+            if (occupancy[slot] != 0) {
+                login::detail::DrawGraphicHover(
+                    static_cast<std::uint16_t>(x - 24), static_cast<std::uint16_t>(y - 24),
+                    static_cast<std::uint16_t>(x + 24), static_cast<std::uint16_t>(y + 24),
+                    223, 249, 0);
+                static_cast<void>(login::detail::DrawGraphic(x, y, 223, item->imageNo, 0, &dimmed));
+            } else {
+                static_cast<void>(login::detail::DrawGraphic(x, y, 223, item->imageNo, 0, &descriptor));
+            }
+        }
+    }
+    return 0;
 }
 
 std::int32_t Sub_48B1A0(const std::int32_t index, const std::int32_t page)

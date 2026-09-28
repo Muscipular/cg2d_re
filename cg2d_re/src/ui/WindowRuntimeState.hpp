@@ -343,6 +343,7 @@ extern std::uint8_t gTradeValueD6742C;
 extern std::uint8_t gTradeValueC8AF81;
 extern std::uint8_t gTradeTabCC4D1A; // 对方页签，不套用己方窗口初始化重置。
 extern std::int32_t gTradeHoverSlotC8B314; // 对方提示槽缓存，非地址。
+extern std::int32_t gTradeHoverSlotC8AA78; // 己方已选物品提示槽缓存。
 extern std::int32_t gTradeScrollCF3B0C;
 extern std::int32_t gTradeScrollCC4C90;
 extern std::int32_t gTradeScrollD67430;
@@ -399,6 +400,10 @@ void Sub_4B25D0(std::int32_t message, std::int32_t unused, std::int32_t sourceIn
 void Sub_4B2E00(std::int32_t message, std::int32_t unused, std::int32_t sourceIndex);
 std::int32_t Sub_4B2710(std::int32_t index); // kind6，绑定真实物品拖动回调。
 std::int32_t Sub_4B2F50(std::int32_t index); // kind7，绑定真实宠物拖动回调。
+void Sub_4B2730(
+    std::uint8_t* tab, std::int16_t x, std::int16_t y,
+    std::int32_t mouseX, std::int32_t mouseY, std::int32_t state,
+    const render::GraphicDescriptor16* descriptor); // 己方已选物品完整交互/绘制。
 std::int32_t Sub_4B0F20(
     std::int16_t x, std::int16_t y, std::int8_t side, std::int32_t index,
     std::uint8_t textLayer, std::uint8_t graphicLayer,
@@ -507,6 +512,7 @@ void Sub_473560(std::int32_t index); // 固定元素派发鼠标事件，回调�
 std::int32_t Sub_4741A0(std::int32_t index, std::int32_t state); // 前一元素的垂直滚动。
 std::int32_t Sub_4763E0(); // 通用鼠标重置，不清来源索引/坐标。
 std::int32_t Sub_475D50(); // 同源焦点元素。
+std::int32_t Sub_475D40(); // 同源焦点窗口，不是当前窗口。
 std::int32_t Sub_475D60(); // 同源拖动种类。
 std::int32_t Sub_475D70(); // 同源落点X，S16扩展。
 std::int32_t Sub_475D80(); // 同源落点Y，S16扩展。

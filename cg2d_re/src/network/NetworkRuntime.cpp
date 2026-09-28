@@ -3796,7 +3796,7 @@ std::int32_t NetworkDispatch_512E40(
     if (TryDispatchReply<world::detail::Sub_50C900, I, I>(head, "vWpn", socket)) return 0;
     if (TryDispatchReply<world::detail::Sub_50C580, I, T>(head, "xmgQ", socket)) return 0;
     if (TryDispatchReply<world::detail::Sub_50C7A0, I, I>(head, "MTg", socket)) return 0;
-    if (TryDispatchReply<Sub_50DC70, I, T, I>(head, "Mhbt", socket)) return 0;
+    if (TryDispatchReply<world::detail::Sub_50DC70, I, T, I>(head, "Mhbt", socket)) return 0;
     if (TryDispatchReply<world::detail::Sub_50E5B0, I, T>(head, "Ilz", socket)) return 0;
     if (TryDispatchReply<world::detail::Sub_50E5D0, I, I, I, I, I, I, I, I, I, I, I, I, I, I, I, T, T>(head, "dM", socket)) return 0;
     if (TryDispatchReply<IgnoreReplyArguments_509080<I, T>, I, T>(head, "Dn", socket)) return 0;

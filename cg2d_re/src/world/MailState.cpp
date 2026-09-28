@@ -1,8 +1,10 @@
 #include "MailState.hpp"
+#include "WorldUpdateDependencies.hpp"
 
 #include "../LoginInputDependencies.hpp"
 
 #include "cg/Input.hpp"
+#include "cg/LegacyAudio.hpp"
 #include "cg/LegacyRecordOrder.hpp"
 #include "cg/LoginRequest.hpp"
 #include "cg/network/NetworkRuntime.hpp"
@@ -20,6 +22,11 @@ namespace cg::world::detail {
 
 std::array<ContactRuntimeRecord, 60> gContactsF19FB0 {};
 std::array<std::int32_t, 60> gContactIndicesFDA608 {};
+std::uint16_t gValue62B354 = 0;
+std::uint32_t gValueCB1384 = 0;
+std::uint32_t gValueCB0354 = 0;
+std::int32_t gValueCF4FC0 = 0;
+std::int32_t gValueD046D4 = 0;
 static_assert(sizeof(gContactsF19FB0) == 0x1B30);
 static_assert(sizeof(gContactIndicesFDA608) == 0xF0);
 
@@ -28,7 +35,36 @@ namespace {
 // 文件与运行记录共用这些原字节区；布局与未接消费者见场景证据 §25–26、57。
 alignas(std::uint32_t) std::array<std::byte, 0x5DC00> gMailStorageF7CA08 {};
 alignas(std::uint32_t) std::array<std::byte, 0x139480> gGuildMailStorageDE0B30 {};
-std::uint32_t gValueCB1384 = 0;
+
+// 原1075A90起的20条74H记录，当前只消费used；不凭相同步长猜其余字段。
+struct MiniMailContactRecord {
+    std::uint16_t used;
+    std::array<std::byte, 0x72> bytes02;
+};
+
+struct alignas(std::uint32_t) MiniMailRuntimeSlots {
+    std::array<MiniMailContactRecord, 20> contacts;
+    std::array<std::byte, 0xFA00> messages; // 原10763A0，20组各十条140H。
+};
+
+static_assert(sizeof(MiniMailContactRecord) == 0x74);
+static_assert(std::is_standard_layout_v<MiniMailRuntimeSlots>);
+static_assert(std::is_trivially_copyable_v<MiniMailRuntimeSlots>);
+static_assert(offsetof(MiniMailContactRecord, used) == 0);
+static_assert(offsetof(MiniMailContactRecord, bytes02) == 2);
+static_assert(offsetof(MiniMailRuntimeSlots, contacts) == 0);
+static_assert(offsetof(MiniMailRuntimeSlots, messages) == 0x910);
+static_assert(sizeof(MiniMailRuntimeSlots) == 0x10310);
+MiniMailRuntimeSlots gMiniMailRuntime {};
+
+constexpr char kReceivedMailFormat58B07C[] =
+    "\xA6\xAC\xA8\xEC\xB1\x71" "%s" "\xB1\x48\xA8\xD3\xAA\xBA"
+    "\xB6\x6C\xA5\xF3\xA1\x49";
+constexpr char kReceivedPetMailFormat58B064[] =
+    "\xA5\xD1" "%s" "\xB0\x65\xA8\xD3\xA4\x46\xC3\x64\xAA\xAB"
+    "\xB6\x6C\xA5\xF3\xA1\x49";
+static_assert(sizeof(kReceivedMailFormat58B07C) == 21);
+static_assert(sizeof(kReceivedPetMailFormat58B064) == 21);
 
 constexpr std::ptrdiff_t kMailGroupBytes = 0x2EE00;
 constexpr std::ptrdiff_t kMailNumberBytes = 0xC80;
@@ -255,6 +291,120 @@ void Sub_50D9E0(
         std::strcpy(record.text53.data(), text);
     }
     Sub_4EC1A0();
+}
+
+void Sub_5191C0(
+    const std::int32_t index, const std::int32_t kind,
+    const char* const name, const char* const text)
+{
+    if (gContactsF19FB0[index].used == 0) {
+        return;
+    }
+    const std::ptrdiff_t selected = login::gSelectedCharacterIndex;
+    std::byte* const entry = gMailStorageF7CA08.data()
+        + selected * kMailGroupBytes + static_cast<std::ptrdiff_t>(index) * kMailNumberBytes;
+    for (std::ptrdiff_t message = 9; message > 0; --message) {
+        std::memcpy(
+            entry + message * kMailMessageBytes,
+            entry + (message - 1) * kMailMessageBytes, kMailMessageBytes);
+    }
+    entry[0] = kind == 0 ? std::byte{1} : std::byte{0};
+    entry[1] = static_cast<std::byte>(static_cast<std::uint8_t>(kind));
+    std::memcpy(entry + 2, name, std::strlen(name) + 1);
+    std::memcpy(entry + 0x14, text, std::strlen(text) + 1);
+}
+
+std::int32_t Sub_518DA0()
+{
+    const std::ptrdiff_t selected = login::gSelectedCharacterIndex;
+    for (std::int32_t position = 0; position < 60; ++position) {
+        const std::int32_t index = gContactIndicesFDA608[position];
+        if (gContactsF19FB0[index].used == 0) {
+            continue;
+        }
+        const std::byte* const entry = gMailStorageF7CA08.data()
+            + selected * kMailGroupBytes
+            + static_cast<std::ptrdiff_t>(index) * kMailNumberBytes;
+        for (std::ptrdiff_t message = 0; message < 10; ++message) {
+            if (entry[message * kMailMessageBytes] != std::byte{0}) {
+                gValue62B354 = 1;
+                gValueCB1384 = static_cast<std::uint32_t>(position / 4);
+                return 1;
+            }
+        }
+    }
+    for (std::int32_t position = 0; position < 200; ++position) {
+        const auto& record = login::detail::gOrderedRecords1051B14[position];
+        if (record.value08 == 0) {
+            continue;
+        }
+        const std::int32_t index = Sub_5195F0(record.value0C);
+        if (index == -1) {
+            continue;
+        }
+        const std::ptrdiff_t currentSelected = login::gSelectedCharacterIndex;
+        const std::byte* const entry = gGuildMailStorageDE0B30.data()
+            + currentSelected * kGuildMailGroupBytes
+            + static_cast<std::ptrdiff_t>(index) * kGuildMailEntryBytes;
+        std::uint32_t active;
+        std::memcpy(&active, entry + 4, sizeof(active));
+        if (active == 0) {
+            continue;
+        }
+        for (std::ptrdiff_t message = 0; message < 10; ++message) {
+            if (entry[8 + message * kMailMessageBytes] != std::byte{0}) {
+                gValue62B354 = 2;
+                gValueCB1384 = static_cast<std::uint32_t>(position / 4);
+                return 1;
+            }
+        }
+    }
+    for (std::int32_t position = 0; position < 20; ++position) {
+        if (gMiniMailRuntime.contacts[position].used == 0) {
+            continue;
+        }
+        const std::byte* const entry = gMiniMailRuntime.messages.data()
+            + static_cast<std::ptrdiff_t>(position) * kMailNumberBytes;
+        for (std::ptrdiff_t message = 9; message >= 0; --message) {
+            if (entry[message * kMailMessageBytes] != std::byte{0}) {
+                gValue62B354 = 3;
+                gValueCB1384 = static_cast<std::uint32_t>(position / 4);
+                return 1;
+            }
+        }
+    }
+    const std::uint32_t fallbackPage = gValueCB0354;
+    gValue62B354 = 0;
+    gValueCB1384 = fallbackPage;
+    return 0;
+}
+
+void Sub_50DC70(
+    const std::uintptr_t, const std::int32_t index,
+    const char* const payload, const std::int32_t)
+{
+    char name[32];
+    char text[300];
+    char message[256];
+    network::ExtractDelimitedField_52CED0(payload, '|', 1, 31, name);
+    network::ExtractDelimitedField_52CED0(payload, '|', 2, 299, text);
+    const std::int32_t kind = network::ParseDelimitedInteger_52CFA0(payload, '|', 3);
+    input::UnescapeLegacyTextAndNotify_52D2F0(text);
+    Sub_5191C0(index, 0, name, text);
+    const char* const contactName = gContactsF19FB0[index].name10.data();
+    std::sprintf(
+        message, kind == -1 ? kReceivedMailFormat58B07C : kReceivedPetMailFormat58B064,
+        contactName);
+    static_cast<void>(Sub_519300());
+    static_cast<void>(Sub_518DA0());
+    if (gValueCF4FC0 == index) {
+        const std::int32_t position = gValueD046D4;
+        if (position < 9) {
+            gValueD046D4 = position + 1;
+        }
+    }
+    static_cast<void>(audio::PlaySe_52C450(63, 320));
+    Sub_44B050(message, 4, 3);
 }
 
 std::int32_t Sub_518C80()

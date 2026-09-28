@@ -35,11 +35,22 @@ static_assert(sizeof(ContactRuntimeRecord) == 0x74);
 
 extern std::array<ContactRuntimeRecord, 60> gContactsF19FB0;
 extern std::array<std::int32_t, 60> gContactIndicesFDA608; // 数值索引，不是地址。
+extern std::uint16_t gValue62B354; // 518DA0写未读类别0/1/2/3。
+extern std::uint32_t gValueCB1384; // 同源邮件页号，518C80清零。
+extern std::uint32_t gValueCB0354; // 无未读时恢复的邮件页号。
+extern std::int32_t gValueCF4FC0; // 收信比较的原S32编号槽，回复与后续UI共享。
+extern std::int32_t gValueD046D4; // 原邮件窗口消息位置，回复只在<9时递增。
 void Sub_4EC1A0(); // 原序生成/排序60个索引，比较器相等仍为-1。
 void Sub_50D740(std::uintptr_t unusedSocket, const char* payload); // 基础批量回复，无排序尾。
 void Sub_50D8C0(std::uintptr_t unusedSocket, const char* payload); // 长文本批量回复，提前结束也排序。
 void Sub_50D9E0(
     std::uintptr_t unusedSocket, std::int32_t index, const char* payload); // 单槽回复，可清同源普通邮件。
+void Sub_50DC70(
+    std::uintptr_t unusedSocket, std::int32_t index,
+    const char* payload, std::int32_t unusedFourth); // 普通收信：插入/保存/扫描/通知。
+void Sub_5191C0(
+    std::int32_t index, std::int32_t kind, const char* name, const char* text); // 九次倒序搬移后写首条。
+std::int32_t Sub_518DA0(); // 普通/公会/迷你三类扫描，首命中发布页号并返回1。
 
 // 原 518C80：依次清两段邮件持久区及 CB1384，返回 0。
 std::int32_t Sub_518C80();

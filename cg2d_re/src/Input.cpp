@@ -75,6 +75,33 @@ const char* LegacyText593850() noexcept
     return reinterpret_cast<const char*>(&gLegacyInput593850);
 }
 
+InputContext* Sub_45D720(
+    InputContext* const context, const std::int32_t x, const std::int32_t y,
+    [[maybe_unused]] const std::int32_t unused,
+    const std::int32_t color, const std::int32_t renderMode)
+{
+    context->field154 = 0;
+    context->field158 = 0;
+    context->field134 = y;
+    context->field130 = x;
+    std::memcpy(context->field138, &renderMode, sizeof(renderMode));
+    context->field140 = color;
+    return context;
+}
+
+InputContext* Sub_45D760(
+    InputContext* const context, const std::int32_t x, const std::int32_t y,
+    const std::int32_t color, const std::int32_t renderMode,
+    const std::int32_t fontType)
+{
+    context->field130 = x;
+    context->field134 = y;
+    context->field140 = color;
+    std::memcpy(context->field138, &renderMode, sizeof(renderMode));
+    context->field13C = fontType;
+    return context;
+}
+
 // 原 sub_44B190@[0x44B190,0x44B1C5)。
 std::int32_t ClassifyLastAnsiUnit_44B190(const char* text)
 {

@@ -10,6 +10,10 @@ namespace cg::login {
 struct YobiAction;
 }
 
+namespace cg::input {
+struct InputContext;
+}
+
 namespace cg::ui {
 
 using WindowCallback = std::int32_t (*)(std::int32_t value);
@@ -66,6 +70,35 @@ struct WindowInstance {
 
 namespace detail {
 
+// 原输入原型首W32的两种解释；不对原生T*进行原x86高字节测试。
+enum class WindowInputReferenceKind : std::uint8_t {
+    Context,
+    RejectedValue,
+};
+
+struct WindowInputReference {
+    union {
+        input::InputContext* context;
+        std::uint32_t rejectedValue; // 原高字节非零的拒绝值，低24位也保留。
+    };
+    WindowInputReferenceKind kind;
+};
+
+// 原57E970的0x22C输入原型，不同于窗口type1的图形原型。
+struct WindowInputPrototype {
+    WindowInputReference input;
+    std::int32_t x;
+    std::int32_t y;
+    std::int32_t renderMode;
+    std::int32_t fontType;
+    std::int32_t color;
+    std::array<char, 0x204> text; // 原+18文本起点至+21C前的字节区，未消费尾部不冻结语义。
+    std::int32_t maxLine;
+    std::int32_t maxCharPerLine;
+    std::int32_t value224;
+    std::int32_t encrypt;
+};
+
 union WindowUserState {
     std::uint32_t value; // 原+18的数值路径。
     WindowValueCallback callback; // 原窗口42的+18，禁止截成W32。
@@ -103,10 +136,19 @@ extern std::int16_t gDragY57C11E;
 extern std::int32_t gFocusWindowId57C120;
 extern std::int32_t gFocusElementIndex57C124;
 extern std::int32_t gMousePhase57C128;
+extern WindowInputPrototype gChatInputPrototype57E970;
+extern std::int32_t gChatWindowModeD66E04; // 原独立S32，窗口35/57选择与设置文件共用。
 
-// 原恢复聊天输入；471270的真实依赖，原型更新及本体后续接通。
+// 原输入原型四模式更新及聊天恢复，复用既有InputContext owner。
+std::uint8_t Sub_476570(
+    WindowInputPrototype* prototype, std::int32_t x, std::int32_t y,
+    std::uint32_t mode);
 std::int32_t Sub_4A7B00();
 
+static_assert(sizeof(WindowInputReference) == 16);
+static_assert(offsetof(WindowInputPrototype, text) == 0x24);
+static_assert(offsetof(WindowInputPrototype, maxLine) == 0x228);
+static_assert(sizeof(WindowInputPrototype) == 0x238);
 static_assert(offsetof(WindowAnimationData, action) == 0);
 static_assert(offsetof(WindowAnimationData, value04) == 8);
 static_assert(sizeof(WindowAnimationData) == 16);

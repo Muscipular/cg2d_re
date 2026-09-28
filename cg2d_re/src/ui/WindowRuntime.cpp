@@ -1132,6 +1132,58 @@ std::int32_t Sub_4C9060()
     return 0;
 }
 
+std::int32_t Sub_4C92B0()
+{
+    std::memset(&gWindowSavedDataD40B30, 0, sizeof(gWindowSavedDataD40B30));
+    return 0;
+}
+
+std::uint32_t Sub_4C92D0()
+{
+    static_cast<void>(Sub_4C92B0());
+    gWindowSavedDataD40B30.version = 0x13;
+    for (std::size_t index = 0; index < kWindowCount; ++index) {
+        gWindowSavedDataD40B30.records[index].x = gWindowStates[index].x;
+        gWindowSavedDataD40B30.records[index].y = gWindowStates[index].y;
+    }
+    const std::int32_t firstByte = std::bit_cast<std::int8_t>(gValue57DA28);
+    const std::int32_t secondByte = std::bit_cast<std::int8_t>(gValue57E42C);
+    const std::int32_t valueCF4AAC = gValueCF4AAC;
+    gWindowSavedDataD40B30.records[14].value08 = firstByte;
+    const std::int32_t width = gChatWidthUnitsC9A930;
+    gWindowSavedDataD40B30.records[14].value0C = secondByte;
+    const std::int32_t height = gChatHeightUnitsC9A938;
+    gWindowSavedDataD40B30.records[35].value08 = width;
+    const std::int32_t valueCF4690 = gValueCF4690;
+    gWindowSavedDataD40B30.records[24].value08 = valueCF4AAC;
+    const std::int32_t mode = gChatWindowModeD66E04;
+    gWindowSavedDataD40B30.records[1].value08 = valueCF4690;
+    const std::uint32_t actorBars = world::detail::gActorBarsEnabled5AC490;
+    gWindowSavedDataD40B30.records[35].value0C = height;
+    const std::uint32_t marker33 = gWindowStates[33].marker50;
+    gWindowSavedDataD40B30.records[35].value10 = mode;
+    const std::int32_t valueCA0440 = gValueCA0440;
+    gWindowSavedDataD40B30.records[33].value08 = std::bit_cast<std::int32_t>(marker33);
+    gWindowSavedDataD40B30.records[1].value0C = actorBars == 1 ? 1 : 0;
+    const std::uint32_t marker34 = gWindowStates[34].marker50;
+    gWindowSavedDataD40B30.records[4].value08 = valueCA0440;
+    const std::int32_t valueD67B38 = gValueD67B38;
+    gWindowSavedDataD40B30.records[34].value08 = std::bit_cast<std::int32_t>(marker34);
+    gWindowSavedDataD40B30.records[21].value08 = valueD67B38;
+    return marker33;
+}
+
+std::int32_t Sub_4C9130()
+{
+    std::FILE* const stream = std::fopen("data\\WinSaveDate", "wb+");
+    if (stream != nullptr) {
+        static_cast<void>(Sub_4C92D0());
+        static_cast<void>(std::fwrite(&gWindowSavedDataD40B30, 1, 0x521C, stream));
+        static_cast<void>(std::fclose(stream));
+    }
+    return 1;
+}
+
 void Sub_472200()
 {
     for (WindowState& state : gWindowStates) {
@@ -2479,6 +2531,37 @@ void FreeWindow_471270(WindowInstance* const window)
     }
     window->elements = nullptr;
     std::free(window);
+}
+
+void CloseWindow_472160(WindowInstance* const window)
+{
+    detail::gCurrentWindowState = &detail::gWindowStates[window->id];
+    detail::gCurrentWindowState->flags |= 2u;
+    FreeWindow_471270(window);
+}
+
+std::int32_t CloseAllWindows_472190()
+{
+    using namespace detail;
+    for (std::size_t index = 0; index < gWindows.size(); ++index) {
+        WindowInstance* const window = gWindows[index];
+        if (window != nullptr) {
+            CloseWindow_472160(window);
+            gWindows[index] = nullptr;
+        }
+    }
+    world::gValueD67B08.fill(0);
+    if (gValue5F9754 == 0) {
+        return 0;
+    }
+    const std::int32_t y =
+        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+    const std::int32_t x =
+        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+    const std::uintptr_t socket = platform::gConnectionSocket;
+    const std::int32_t result = network::Sub_511DD0(socket, x, y, 62);
+    gValue5F9754 = 0;
+    return result;
 }
 
 void CloseWindowsByCategory_472240(const std::uint32_t mask)

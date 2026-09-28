@@ -332,6 +332,9 @@ std::int32_t Sub_4C93A0(); // 文件三处x与固定原型比较，首差异返�
 std::int32_t Sub_4C93E0(); // 原文件长度尾部修复，不增加索引保护。
 std::int32_t Sub_4C9170(); // 文件坐标和设置回填，共用原UI/世界状态。
 std::int32_t Sub_4C9060(); // WinSaveDate完整加载/默认回退，保留双打开与返回差别。
+std::int32_t Sub_4C92B0(); // 仅清521CH设置文件区。
+std::uint32_t Sub_4C92D0(); // 原序捕获窗口设置，返回窗口33的marker快照。
+std::int32_t Sub_4C9130(); // 打开成功才捕获并保存；原打开失败同样返回1。
 void Sub_472200(); // 仅清71个marker50，不释放窗口。
 std::int32_t InitializeWindowSystem_4705D0(); // 启动UI完整初始化，返回category加载结果。
 std::int32_t Sub_4923D0(); // 三个UI数值依序写5/0/0。

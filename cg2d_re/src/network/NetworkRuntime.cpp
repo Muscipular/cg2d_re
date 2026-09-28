@@ -3827,12 +3827,12 @@ std::int32_t NetworkDispatch_512E40(
     if (TryDispatchReply<Sub_509BA0, T>(head, "UU", socket)) return 0;
     if (TryDispatchReply<world::detail::Sub_50A6B0, I, T>(head, "IsSy", socket)) return 0;
     if (TryDispatchReply<world::detail::Sub_50AC20, I, T>(head, "AU", socket)) return 0;
-    if (TryDispatchReply<Sub_50AEF0, T>(head, "TNT", socket)) return 0;
+    if (TryDispatchReply<world::detail::Sub_50AEF0, T>(head, "TNT", socket)) return 0;
     if (TryDispatchReply<world::detail::Sub_50B380, T>(head, "nsY", socket)) return 0;
     if (TryDispatchReply<world::detail::Sub_50A3E0, I, T>(head, "JJQj", socket)) return 0;
     if (TryDispatchReply<world::detail::Sub_50A300, T>(head, "Sc", socket)) return 0;
     if (TryDispatchReply<world::detail::Sub_50BCD0, T>(head, "NI", socket)) return 0;
-    if (TryDispatchReply<Sub_50BF20, T>(head, "uSB", socket)) return 0;
+    if (TryDispatchReply<world::detail::Sub_50BF20, T>(head, "uSB", socket)) return 0;
     if (TryDispatchReply<Sub_509E30, I, T>(head, "jv", socket)) return 0;
     if (TryDispatchReply<world::detail::Sub_509EB0, T>(head, "cNE", socket)) return 0;
     if (TryDispatchReply<Sub_50A120, I, T>(head, "Rspn", socket)) return 0;

@@ -6833,6 +6833,59 @@ void AllocateActorChatText(
 
 } // namespace
 
+void Sub_50AEF0(const std::uintptr_t, const char* const payload)
+{
+    char text[2048];
+    for (std::int32_t field = 3; field < 28; field += 5) {
+        network::ExtractDelimitedField_52CED0(payload, '|', field - 2, 2047, text);
+        if (std::strlen(text) == 0) {
+            return;
+        }
+        const std::int32_t objectIndex = network::Base62Decode_52D050(text);
+        network::ExtractDelimitedField_52CED0(payload, '|', field - 1, 2047, text);
+        const std::int32_t hp = std::atoi(text);
+        network::ExtractDelimitedField_52CED0(payload, '|', field, 2047, text);
+        const std::int32_t maxHp = std::atoi(text);
+        network::ExtractDelimitedField_52CED0(payload, '|', field + 1, 2047, text);
+        const std::int32_t fp = std::atoi(text);
+        network::ExtractDelimitedField_52CED0(payload, '|', field + 2, 2047, text);
+        const std::int32_t maxFp = std::atoi(text);
+        login::YobiAction* const action = FindObjectYobi_4462B0(objectIndex);
+        if (action == nullptr) {
+            continue;
+        }
+
+        // 四个目标的发布顺序不同，保留每次构造/复制/析构，不统一CopyPayload。
+        platform::LegacyCryptInt hpValue;
+        platform::legacy_crypt_int::ConstructFromInt_401CC0(&hpValue, hp);
+        action->readiness.readCount = hpValue.readCount;
+        action->readiness.encoded = hpValue.encoded;
+        action->readiness.mask = hpValue.mask;
+        platform::legacy_crypt_int::Destroy_401CF0(&hpValue);
+
+        platform::LegacyCryptInt maxHpValue;
+        platform::legacy_crypt_int::ConstructFromInt_401CC0(&maxHpValue, maxHp);
+        action->maxHp.mask = maxHpValue.mask;
+        action->maxHp.encoded = maxHpValue.encoded;
+        action->maxHp.readCount = maxHpValue.readCount;
+        platform::legacy_crypt_int::Destroy_401CF0(&maxHpValue);
+
+        platform::LegacyCryptInt fpValue;
+        platform::legacy_crypt_int::ConstructFromInt_401CC0(&fpValue, fp);
+        action->barValue1B0.encoded = fpValue.encoded;
+        action->barValue1B0.mask = fpValue.mask;
+        action->barValue1B0.readCount = fpValue.readCount;
+        platform::legacy_crypt_int::Destroy_401CF0(&fpValue);
+
+        platform::LegacyCryptInt maxFpValue;
+        platform::legacy_crypt_int::ConstructFromInt_401CC0(&maxFpValue, maxFp);
+        action->barMaximum1C0.readCount = maxFpValue.readCount;
+        action->barMaximum1C0.encoded = maxFpValue.encoded;
+        action->barMaximum1C0.mask = maxFpValue.mask;
+        platform::legacy_crypt_int::Destroy_401CF0(&maxFpValue);
+    }
+}
+
 void Sub_43D860(login::YobiAction* const action)
 {
     login::YobiAction* const player = ReadPlayerAction();

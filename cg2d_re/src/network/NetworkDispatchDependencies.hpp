@@ -9,8 +9,6 @@ namespace cg::network::detail {
 void Sub_509BA0(std::uintptr_t socket, char* text);
 void Sub_509E30(std::uintptr_t socket, std::int32_t value, char* text);
 void Sub_50A120(std::uintptr_t socket, std::int32_t value, char* text);
-void Sub_50AEF0(std::uintptr_t socket, char* text);
-void Sub_50BF20(std::uintptr_t socket, char* text);
 void Sub_50C7F0(std::uintptr_t socket, std::int32_t first, std::int32_t second, char* text);
 void Sub_50D500(std::uintptr_t socket, char* text);
 void Sub_50D740(std::uintptr_t socket, char* text);

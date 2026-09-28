@@ -2925,6 +2925,28 @@ void ApplyPlayerItemFields(
 
 } // namespace
 
+void Sub_50BF20(const std::uintptr_t, const char* const payload)
+{
+    if (gValue9A6E0C != 0) {
+        return;
+    }
+    std::int32_t field = 1;
+    std::int32_t objectIndex =
+        network::ParseDelimitedBase62_52D0D0(payload, ',', field);
+    while (objectIndex != -1) {
+        Sub_4462E0(objectIndex);
+        for (auto& slot : gPetMapCharaSlots) {
+            if (slot.flags != 0
+                && slot.objectIndex == static_cast<std::uint32_t>(objectIndex)) {
+                slot.action = nullptr;
+                break;
+            }
+        }
+        ++field;
+        objectIndex = network::ParseDelimitedBase62_52D0D0(payload, ',', field);
+    }
+}
+
 void Sub_5196B0(const std::int32_t index, const char* const text)
 {
     PlayerItemRecord& record = gPlayerItemsFDA8A4[index];

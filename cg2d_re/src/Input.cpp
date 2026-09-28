@@ -287,6 +287,8 @@ bool HasSafeLegacyState(const InputContext& context)
             <= static_cast<std::size_t>(context.totalByteLength);
 }
 
+} // namespace
+
 // 原 sub_44A160。
 void LoadInitialText_44A160(const char* const initialText)
 {
@@ -303,8 +305,6 @@ void LoadInitialText_44A160(const char* const initialText)
         AppendChar_44ADB0(initialText[index]);
     }
 }
-
-} // namespace
 
 namespace detail {
 

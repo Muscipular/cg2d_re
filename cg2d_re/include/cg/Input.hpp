@@ -128,6 +128,7 @@ InputContext* Sub_45D760(
 
 // 原 Input::AppendChar@[0x44ADB0,0x44B044)。
 void AppendChar_44ADB0(char character);
+void LoadInitialText_44A160(const char* initialText); // 向当前输入逐字追加，保留原287B上限。
 
 // 原 sub_52D1B0：旧文本字节转义，始终返回目标缓冲指针。
 char* EscapeLegacyText_52D1B0(

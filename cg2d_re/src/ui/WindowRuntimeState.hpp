@@ -595,6 +595,17 @@ void Sub_4AD470(const char* text); // 同类对话续接，唯一caller不消费
 void Sub_4AD780(); // 51释放回调：行表、物品标记、条件关闭请求。
 std::int32_t Sub_4AD800(std::int32_t value); // 51初始化、移动关闭及权限可见性。
 std::int32_t Sub_4AD9F0(std::int32_t unused); // 51滚动消费、标题输入及完整绘制。
+std::int32_t Sub_4ADAA0(std::int32_t index, std::int32_t unused); // 51模态提示及固定确认按钮。
+std::int32_t Sub_4ADBD0(std::int32_t index, std::int32_t state); // 上一行，bit400。
+std::int32_t Sub_4ADC80(std::int32_t index, std::int32_t state); // 下一行，bit400。
+std::int32_t Sub_4ADD50(std::int32_t index, std::int32_t state); // 上九行，bit2。
+std::int32_t Sub_4ADE10(std::int32_t index, std::int32_t state); // 下九行，bit2。
+std::int32_t Sub_4ADEF0(std::int32_t index, std::int32_t state); // 51滚轮，draw阶段再刷新文本。
+std::int32_t Sub_4ADF40(std::int32_t index, std::int32_t state); // 标题双次转义与N请求。
+std::int32_t Sub_4AE170(std::int32_t index, std::int32_t state); // 当前选择I请求，不预拒绝负值。
+std::int32_t Sub_4AE260(std::int32_t index, std::int32_t state); // 标题编辑焦点与InputContext借用。
+std::int32_t Sub_4AE350(std::int32_t index, std::int32_t state); // 51物品选择落点/拖出与失效清理。
+std::int32_t Sub_4AE5B0(std::int32_t unused, std::int32_t state); // 仅在提示为空时填背景提示。
 void Sub_4797C0(std::int32_t first, std::int32_t second); // 槽7特殊悬停计数，两条件独立。
 std::int32_t Sub_4F4630(std::int32_t itemId); // 当前配方五材料首匹配数量，不读used。
 void Sub_4E5770(std::int32_t index, std::int32_t side, const char* text); // 32行及页数。

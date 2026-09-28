@@ -386,6 +386,15 @@ std::int32_t Sub_4B0090(std::int32_t index); // 只释放宠物选择及标记�
 void Sub_4B0200(); // 窗口43释放回调，原返回值弃用。
 std::int32_t Sub_4B0290(std::int32_t value); // 窗口43初始化、关闭检查与四阶段更新。
 std::int32_t Sub_4B08D0(std::int32_t unused); // 四类提示后绘制完整当前窗口。
+std::int32_t Sub_4AFF30(std::int32_t index, std::int32_t slot); // 空槽领取并标记物品。
+std::int32_t Sub_4AFFB0(std::int32_t first, std::int32_t second); // 仅交换选择槽字节。
+std::int32_t Sub_4B0060(std::int32_t index, std::int32_t slot); // 空槽领取并标记宠物。
+std::int32_t Sub_4B00C0(std::int32_t first, std::int32_t second);
+std::int32_t Sub_48BB30(std::int32_t slot); // 物品槽分类0/1/2/3，不是bool。
+std::int32_t Sub_48BB70(std::int32_t slot); // 宠物槽分类1/2。
+std::int32_t Sub_48BC60(std::int32_t slot); // DE0B08五个S16索引的首匹配位置。
+void Sub_4AAB70(
+    std::int16_t x, std::int16_t y, std::int32_t index, std::uint8_t textLayer);
 std::int32_t Sub_4B0F20(
     std::int16_t x, std::int16_t y, std::int8_t side, std::int32_t index,
     std::uint8_t textLayer, std::uint8_t graphicLayer,

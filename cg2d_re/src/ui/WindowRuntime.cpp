@@ -937,6 +937,71 @@ void Sub_4B01B0(
     graphic->color = color;
 }
 
+std::int32_t Sub_4AFF30(const std::int32_t index, const std::int32_t slot)
+{
+    if (std::bit_cast<std::int8_t>(gTradeItemSlotsCF3AE8[index]) >= 0) {
+        return 0;
+    }
+    gTradeItemSlotsCF3AE8[index] = static_cast<std::uint8_t>(slot);
+    auto* const hover = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
+    const std::uint8_t previous = hover[slot];
+    gTradeItemMarksD2D61C[slot] = 1;
+    hover[slot] = static_cast<std::uint8_t>(previous + 1);
+    return 1;
+}
+
+std::int32_t Sub_4AFFB0(const std::int32_t first, const std::int32_t second)
+{
+    const std::uint8_t previous = gTradeItemSlotsCF3AE8[first];
+    gTradeItemSlotsCF3AE8[first] = gTradeItemSlotsCF3AE8[second];
+    gTradeItemSlotsCF3AE8[second] = previous;
+    return first;
+}
+
+std::int32_t Sub_4B0060(const std::int32_t index, const std::int32_t slot)
+{
+    if (std::bit_cast<std::int8_t>(gTradePetSlotsCC4D28[index]) >= 0) {
+        return 0;
+    }
+    gTradePetSlotsCC4D28[index] = static_cast<std::uint8_t>(slot);
+    gTradePetMarksCF3AFC[slot] = 1;
+    return 1;
+}
+
+std::int32_t Sub_4B00C0(const std::int32_t first, const std::int32_t second)
+{
+    const std::uint8_t previous = gTradePetSlotsCC4D28[first];
+    gTradePetSlotsCC4D28[first] = gTradePetSlotsCC4D28[second];
+    gTradePetSlotsCC4D28[second] = previous;
+    return first;
+}
+
+std::int32_t Sub_48BB30(const std::int32_t slot)
+{
+    if (slot >= 0 && slot < 8) {
+        return 1;
+    }
+    if (slot >= 8 && slot < 28) {
+        return 2;
+    }
+    return slot >= 100 && slot < 120 ? 3 : 0;
+}
+
+std::int32_t Sub_48BB70(const std::int32_t slot)
+{
+    return slot >= 0 && slot < 5 ? 1 : 2;
+}
+
+std::int32_t Sub_48BC60(const std::int32_t slot)
+{
+    for (std::int32_t position = 0; position < 5; ++position) {
+        if (std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[position].index) == slot) {
+            return position;
+        }
+    }
+    return -1;
+}
+
 std::int32_t Sub_4AFF70(const std::int32_t index)
 {
     const std::int32_t slot = std::bit_cast<std::int8_t>(gTradeItemSlotsCF3AE8[index]);
@@ -1202,6 +1267,52 @@ std::int32_t Sub_4B08D0(const std::int32_t)
     }
     DrawCurrentWindow_4729B0();
     return 1;
+}
+
+void Sub_4AAB70(
+    const std::int16_t x, const std::int16_t y, const std::int32_t index,
+    const std::uint8_t textLayer)
+{
+    world::detail::PetRuntimeRecord& pet = world::detail::gPetRuntimeF633F8[index];
+    if (pet.used == 0) {
+        return;
+    }
+    constexpr std::int8_t color = std::bit_cast<std::int8_t>(std::uint8_t{138});
+    static_cast<void>(render::ClearTextQueueTail_456D50(textLayer));
+    static_cast<void>(render::DrawText_456780(
+        0, 0, textLayer, 13, 0, input::LegacyText593850(), 0, 0));
+    const char* const name =
+        std::strlen(pet.name6BD.data()) != 0 ? pet.name6BD.data() : pet.name6AC.data();
+    static_cast<void>(render::DrawText_456780(
+        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 45)),
+        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 5)),
+        textLayer, 13, color, name, 0, 0));
+    char buffer[256];
+    const auto drawNumber = [&](const std::int32_t value, const char* const format,
+                                const std::int32_t dx, const std::int32_t dy) {
+        std::sprintf(buffer, format, value);
+        static_cast<void>(render::DrawText_456780(
+            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + dx)),
+            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + dy)),
+            textLayer, 13, color, buffer, 0, 0));
+    };
+    drawNumber(pet.value08, "%3d", 35, 22);
+    const std::int16_t tribe = std::bit_cast<std::int16_t>(pet.value04);
+    if (tribe >= 0 && tribe < 20) {
+        static_cast<void>(render::DrawText_456780(
+            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 100)),
+            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 22)),
+            textLayer, 13, color, gTribeNames57CB54[tribe], 0, 0));
+    }
+    drawNumber(platform::legacy_crypt_int::Read_401EC0(&pet.values0C[1]), "%4d", 210, 5);
+    drawNumber(platform::legacy_crypt_int::Read_401EC0(&pet.values0C[3]), "%4d", 210, 22);
+    drawNumber(pet.values70[0], "%3d", 95, 40);
+    drawNumber(pet.values70[1], "%3d", 155, 40);
+    drawNumber(pet.values70[2], "%3d", 215, 40);
+    drawNumber(pet.values70[3], "%3d", 95, 55);
+    drawNumber(pet.values70[4], "%3d", 155, 55);
+    drawNumber(pet.values70[10], "%3d", 215, 55);
+    drawNumber(pet.value6A4, "%2d", 45, 55);
 }
 
 std::int32_t Sub_4B0F20(

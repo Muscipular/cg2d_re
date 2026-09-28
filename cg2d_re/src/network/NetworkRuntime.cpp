@@ -3830,13 +3830,13 @@ std::int32_t NetworkDispatch_512E40(
     if (TryDispatchReply<world::detail::Sub_50D8C0, T>(head, "PhdQ", socket)) return 0;
     if (TryDispatchReply<world::detail::Sub_50D9E0, I, T>(head, "vI", socket)) return 0;
     if (TryDispatchReply<Sub_50E830>(head, "GC", socket)) return 0;
-    if (TryDispatchReply<Sub_50E850, T>(head, "aDn", socket)) return 0;
-    if (TryDispatchReply<Sub_50EB40, T>(head, "znv", socket)) return 0;
+    if (TryDispatchReply<login::detail::Sub_50E850, T>(head, "aDn", socket)) return 0;
+    if (TryDispatchReply<login::detail::Sub_50EB40, T>(head, "znv", socket)) return 0;
     if (TryDispatchReply<login::detail::UpdateOrderedRecordBatch_50EC50, T>(head, "yuD", socket)) return 0;
     if (TryDispatchReply<login::detail::UpdateOrderedRecords_50EEB0, I, T>(head, "Kka", socket)) return 0;
     if (TryDispatchReply<Sub_50F130, I>(head, "oRut", socket)) return 0;
     if (TryDispatchReply<Sub_50F190, I, T, I>(head, "Rll", socket)) return 0;
-    if (TryDispatchReply<Sub_50F280, I>(head, "frQp", socket)) return 0;
+    if (TryDispatchReply<login::detail::Sub_50F280, I>(head, "frQp", socket)) return 0;
     if (TryDispatchReply<world::detail::Sub_50F3A0, T>(head, "HNP", socket)) return 0;
     if (TryDispatchReply<world::detail::Sub_50F2A0, T>(head, "eZT", socket)) return 0;
     if (TryDispatchReply<world::detail::Sub_50F8E0, T>(head, "IUn", socket)) return 0;

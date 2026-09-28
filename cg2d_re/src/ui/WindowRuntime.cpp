@@ -2696,6 +2696,16 @@ WindowInstance* Sub_4CD400()
     return window;
 }
 
+std::int32_t Sub_4AFF00()
+{
+    WindowInstance* const window = detail::gWindowStates[48].window;
+    if (window == nullptr) {
+        return 0;
+    }
+    window->state |= 0x8000u;
+    return audio::PlaySe_52C450(57, 320);
+}
+
 void CancelWindowDrag_476410()
 {
     using namespace detail;

@@ -30,6 +30,12 @@ extern std::array<OrderedRecord1051B14, 200> gOrderedRecords1051B14;
 extern std::uint32_t gOrderMode1057C78; // 52F910 写入，52FB60 每次比较时读取。
 extern std::int32_t gOrderedRecordCount1051510; // 50EEB0 写计数，532D80 清零。
 
+// 公会资料与同源文本表；socket未用，不复制成员/邮件/窗口owner。
+void Sub_50E850(std::uintptr_t unusedSocket, const char* text); // 完整掩码字段消费，超长保留旧值。
+void Sub_50EB40(std::uintptr_t unusedSocket, const char* text); // 三字段批量更新，-1只清两字段。
+void Sub_50F280(std::uintptr_t unusedSocket, std::int32_t key); // 编号相等才重置、清邮件/保存并请求关窗。
+std::int32_t Sub_532D80(); // 登录窄重置，不清邮件；返回窗口48关闭请求的音效结果。
+
 // 原 52FB60：qsort 的两个 W32 索引参数；相等时仍返回 -1。
 int CompareOrderedRecords_52FB60(const void* left, const void* right);
 // 原 52FCC0：原位填 0..199 后用上述比较器重排共享运行表。

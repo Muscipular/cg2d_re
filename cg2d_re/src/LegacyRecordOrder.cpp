@@ -4,6 +4,7 @@
 #include "cg/LoginRequest.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/CommandOptions.hpp"
+#include "cg/ui/WindowRuntime.hpp"
 #include "cg/world/SceneState.hpp"
 
 #include "world/MailState.hpp"
@@ -17,6 +18,187 @@ namespace cg::login::detail {
 std::array<OrderedRecord1051B14, 200> gOrderedRecords1051B14 {};
 std::uint32_t gOrderMode1057C78 = 0;
 std::int32_t gOrderedRecordCount1051510 = 0;
+
+namespace {
+
+// 原10514A8的五S32和两条原字节文本；重置保留+0C/+10及文本尾部。
+struct GuildHeader10514A8 {
+    std::int32_t key00;
+    std::int32_t value04;
+    std::int32_t value08;
+    std::int32_t value0C;
+    std::int32_t value10;
+    std::array<std::array<char, 41>, 2> texts14;
+    std::array<std::byte, 2> bytes66;
+};
+
+// 原1051514的32条30H文本记录，末3B未消费，不据此补业务含义。
+struct GuildTextRecord1051514 {
+    std::int32_t value00;
+    std::array<char, 41> text04;
+    std::array<std::byte, 3> bytes2D;
+};
+
+static_assert(offsetof(GuildHeader10514A8, value04) == 4);
+static_assert(offsetof(GuildHeader10514A8, value08) == 8);
+static_assert(offsetof(GuildHeader10514A8, value0C) == 0x0C);
+static_assert(offsetof(GuildHeader10514A8, value10) == 0x10);
+static_assert(offsetof(GuildHeader10514A8, texts14) == 0x14);
+static_assert(offsetof(GuildHeader10514A8, bytes66) == 0x66);
+static_assert(sizeof(GuildHeader10514A8) == 0x68);
+static_assert(offsetof(GuildTextRecord1051514, text04) == 4);
+static_assert(offsetof(GuildTextRecord1051514, bytes2D) == 0x2D);
+static_assert(sizeof(GuildTextRecord1051514) == 0x30);
+GuildHeader10514A8 gGuildHeader10514A8 {};
+std::array<GuildTextRecord1051514, 32> gGuildTextRecords1051514 {};
+std::array<std::array<char, 41>, 3> gGuildTexts1057BF4 {};
+static_assert(sizeof(gGuildTextRecords1051514) == 0x600);
+static_assert(sizeof(gGuildTexts1057BF4) == 0x7B);
+
+// 532D80和532DF0的同序窄写；两条路径的邮件副作用由各自caller处理。
+void ResetGuildRuntimeFields()
+{
+    gGuildHeader10514A8.key00 = -1;
+    gGuildHeader10514A8.value08 = -1;
+    gGuildHeader10514A8.value04 = -1;
+    gGuildHeader10514A8.texts14[0][0] = '\0';
+    gGuildHeader10514A8.texts14[1][0] = '\0';
+    for (OrderedRecord1051B14& record : gOrderedRecords1051B14) {
+        record.value00 = -1;
+        record.value08 = 0;
+        record.text18[0] = '\0';
+        record.text18[0x11] = '\0';
+    }
+    for (GuildTextRecord1051514& record : gGuildTextRecords1051514) {
+        record.value00 = 0;
+        record.text04[0] = '\0';
+    }
+    for (auto& text : gGuildTexts1057BF4) {
+        text[0] = '\0';
+    }
+    gOrderedRecordCount1051510 = 0;
+}
+
+} // namespace
+
+void Sub_50E850(const std::uintptr_t, const char* const text)
+{
+    if (world::gValue9A6E0C != 0) {
+        return;
+    }
+    const auto mask = static_cast<std::uint32_t>(
+        network::ParseDelimitedBase62_52D0D0(text, '|', 1));
+    std::int32_t field = 2;
+    std::array<char, 256> first;
+    std::array<char, 256> second;
+    std::array<char, 256> tail;
+    const auto readText = [&](char* const buffer, char* const destination) {
+        static_cast<void>(network::ExtractDelimitedField_52CED0(
+            text, '|', field, 255, buffer));
+        input::UnescapeLegacyTextAndNotify_52D2F0(buffer);
+        if (std::strlen(buffer) <= 40) {
+            std::strcpy(destination, buffer);
+        }
+        ++field;
+    };
+    if ((mask & 0x03u) != 0) {
+        gGuildHeader10514A8.key00 =
+            network::ParseDelimitedInteger_52CFA0(text, '|', field);
+        ++field;
+    }
+    if ((mask & 0x05u) != 0) {
+        readText(first.data(), gGuildHeader10514A8.texts14[0].data());
+    }
+    if ((mask & 0x09u) != 0) {
+        readText(second.data(), gGuildHeader10514A8.texts14[1].data());
+    }
+    if ((mask & 0x11u) != 0) {
+        gGuildHeader10514A8.value08 =
+            network::ParseDelimitedInteger_52CFA0(text, '|', field);
+        ++field;
+    }
+    if ((mask & 0x21u) != 0) {
+        static_cast<void>(network::ParseDelimitedInteger_52CFA0(text, '|', field));
+        ++field;
+    }
+    if ((mask & 0x41u) != 0) {
+        static_cast<void>(network::ParseDelimitedInteger_52CFA0(text, '|', field));
+        ++field;
+    }
+    if ((mask & 0x81u) != 0) {
+        gGuildHeader10514A8.value04 =
+            network::ParseDelimitedInteger_52CFA0(text, '|', field);
+        ++field;
+    }
+    if ((mask & 0x101u) != 0) {
+        gGuildHeader10514A8.value0C =
+            network::ParseDelimitedInteger_52CFA0(text, '|', field);
+        ++field;
+    }
+    if ((mask & 0x201u) != 0) {
+        readText(tail.data(), gGuildTexts1057BF4[0].data());
+    }
+    if ((mask & 0x401u) != 0) {
+        readText(tail.data(), gGuildTexts1057BF4[1].data());
+    }
+    if ((mask & 0x801u) != 0) {
+        readText(tail.data(), gGuildTexts1057BF4[2].data());
+    }
+    if ((mask & 0x1001u) != 0) {
+        gGuildHeader10514A8.value10 =
+            network::ParseDelimitedInteger_52CFA0(text, '|', field);
+    }
+}
+
+void Sub_50EB40(const std::uintptr_t, const char* const text)
+{
+    if (world::gValue9A6E0C != 0) {
+        return;
+    }
+    std::int32_t remaining = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
+    if (remaining <= 0) {
+        return;
+    }
+    std::array<char, 256> buffer;
+    std::int32_t field = 4;
+    do {
+        const std::int32_t index =
+            network::ParseDelimitedInteger_52CFA0(text, '|', field - 2);
+        const std::int32_t value =
+            network::ParseDelimitedInteger_52CFA0(text, '|', field - 1);
+        if (value == -1) {
+            gGuildTextRecords1051514[index].value00 = 0;
+            gGuildTextRecords1051514[index].text04[0] = '\0';
+        } else {
+            static_cast<void>(network::ExtractDelimitedField_52CED0(
+                text, '|', field, 255, buffer.data()));
+            input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
+            if (std::strlen(buffer.data()) <= 40) {
+                gGuildTextRecords1051514[index].value00 = value;
+                std::strcpy(gGuildTextRecords1051514[index].text04.data(), buffer.data());
+            }
+        }
+        field += 3;
+        --remaining;
+    } while (remaining != 0);
+}
+
+void Sub_50F280(const std::uintptr_t, const std::int32_t key)
+{
+    if (gGuildHeader10514A8.key00 != key) {
+        return;
+    }
+    ResetGuildRuntimeFields();
+    static_cast<void>(world::detail::Sub_5194C0());
+    static_cast<void>(world::detail::Sub_519550());
+    static_cast<void>(ui::Sub_4AFF00());
+}
+
+std::int32_t Sub_532D80()
+{
+    ResetGuildRuntimeFields();
+    return ui::Sub_4AFF00();
+}
 
 int CompareOrderedRecords_52FB60(const void* const left, const void* const right)
 {

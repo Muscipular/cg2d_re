@@ -3864,6 +3864,7 @@ std::int32_t gBattleCurrentPosition5ABCA4 = 0;
 std::uint32_t gBattlePosition5ABCA8 = 0;
 std::int32_t gBattlePlayerActionState5ABC74 = 0;
 std::array<std::int32_t, 9> gBattleSelectionModes5ABC7C {};
+std::uint32_t gBattleTargetFlags5ABC44 = 0;
 std::uint32_t gBattlePlayerFlags5ABCAC = 0;
 std::uint32_t gBattleSkillFlags5ABC04 = 0;
 std::uint32_t gBattlePetSkillFlags5ABB78 = 0;
@@ -6791,6 +6792,14 @@ std::int32_t ReadPlayerWalkSpeed() noexcept
 std::int32_t ReadPlayerValueFC() noexcept
 {
     return gPlayerRuntime.valueFC;
+}
+
+std::int32_t GetBattlePetPosition_405B40(const std::int32_t position)
+{
+    if ((position >= 0 && position < 5) || (position >= 10 && position < 15)) {
+        return position + 5;
+    }
+    return position - 5;
 }
 
 std::int32_t Sub_518C60()

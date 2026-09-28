@@ -265,6 +265,11 @@ constexpr const SceneEffectFrame* const* kFrameGroups554570[] {
     kFrameGroup55444C, kFrameGroup55455C,
 };
 
+// 战斗专用原生载荷；只映射已消费的原+FDC，完整生产/其余字段尚未落位。
+struct BattleActorPayload {
+    std::uint32_t flagsFDC;
+};
+
 struct YobiUIData {
     std::int16_t winId;
     std::int16_t frameCount;
@@ -5746,6 +5751,124 @@ void Sub_43BFF0()
         YobiAction* const action = gBattleEntries59E980[index];
         if (action != nullptr && ((gBattleEndBits5ABBC0 >> index) & 1u) != 0) {
             action->flags |= 0x40u;
+        }
+    }
+}
+
+std::int32_t CheckBattleCommand_43C560(
+    const std::int32_t position, const std::uint32_t flags)
+{
+    using namespace world::detail;
+    gBattleTargetFlags5ABC44 = flags;
+    const std::int32_t pet = GetBattlePetPosition_405B40(position);
+    if ((flags & 1u) == 0) {
+        return 0;
+    }
+    if ((flags & 4u) != 0) {
+        YobiAction* const action = gBattleEntries59E980[pet];
+        if (action != nullptr
+            && (!platform::legacy_crypt_int::LessEqual_401DA0(&action->readiness, 0)
+                || (flags & 2u) != 0)) {
+            gBattleEntries59E980[pet]->flags |= 8u;
+        }
+    }
+    if ((flags & 8u) != 0) {
+        YobiAction* const action = gBattleEntries59E980[position];
+        if (action != nullptr
+            && (!platform::legacy_crypt_int::LessEqual_401DA0(&action->readiness, 0)
+                || (flags & 2u) != 0)) {
+            gBattleEntries59E980[position]->flags |= 8u;
+        }
+    }
+    if ((flags & 0x810u) != 0) {
+        const std::int32_t first = position < 10 ? 0 : 10;
+        for (std::int32_t slot = first; slot < first + 10; ++slot) {
+            if (slot == position || slot == pet) {
+                continue;
+            }
+            YobiAction* const action = gBattleEntries59E980[slot];
+            if (action != nullptr
+                && ((flags & 0x10u) != 0
+                    || ((flags & 0x800u) != 0
+                        && (static_cast<const BattleActorPayload*>(action->payload)->flagsFDC & 4u) != 0))
+                && (!platform::legacy_crypt_int::LessEqual_401DA0(&action->readiness, 0)
+                    || (flags & 2u) != 0)) {
+                gBattleEntries59E980[slot]->flags |= 8u;
+            }
+        }
+    }
+    if ((flags & 0x20u) != 0) {
+        const std::int32_t first = position < 10 ? 10 : 0;
+        for (std::int32_t slot = first; slot < first + 10; ++slot) {
+            YobiAction* const action = gBattleEntries59E980[slot];
+            if (action != nullptr
+                && (!platform::legacy_crypt_int::LessEqual_401DA0(&action->readiness, 0)
+                    || (flags & 2u) != 0)) {
+                gBattleEntries59E980[slot]->flags |= 8u;
+            }
+        }
+    }
+    static constexpr std::int32_t rows[4][5] {
+        {14, 12, 10, 11, 13},
+        {19, 17, 15, 16, 18},
+        {9, 7, 5, 6, 8},
+        {4, 2, 0, 1, 3},
+    };
+    if ((flags & 0x400u) == 0
+        || ((gBattlePlayerFlags5ABCAC & 0x80u) == 0
+            && position == gBattleCurrentPosition5ABCA4)) {
+        return 1;
+    }
+    std::int32_t column = position;
+    std::int32_t row = position;
+    for (std::int32_t r = 0; r < 4; ++r) {
+        for (std::int32_t c = 0; c < 5; ++c) {
+            if (rows[r][c] == position) {
+                column = c;
+                row = r;
+            }
+        }
+    }
+    if (row == 0) {
+        const std::int32_t front = rows[1][column];
+        for (std::int32_t c = 0; c < 5; ++c) {
+            const YobiAction* const ownFront = gBattleEntries59E980[front];
+            if (ownFront != nullptr && (ownFront->flags & 8u) != 0) {
+                const YobiAction* const enemyFront = gBattleEntries59E980[rows[2][c]];
+                if (enemyFront != nullptr && (enemyFront->flags & 8u) != 0) {
+                    YobiAction* const enemyBack = gBattleEntries59E980[rows[3][c]];
+                    if (enemyBack != nullptr) {
+                        enemyBack->flags &= ~8u;
+                    }
+                }
+            }
+        }
+    } else if (row == 3) {
+        const std::int32_t front = rows[2][column];
+        for (std::int32_t c = 0; c < 5; ++c) {
+            const YobiAction* const ownFront = gBattleEntries59E980[front];
+            if (ownFront != nullptr && (ownFront->flags & 8u) != 0) {
+                const YobiAction* const enemyFront = gBattleEntries59E980[rows[1][c]];
+                if (enemyFront != nullptr && (enemyFront->flags & 8u) != 0) {
+                    YobiAction* const enemyBack = gBattleEntries59E980[rows[0][c]];
+                    if (enemyBack != nullptr) {
+                        enemyBack->flags &= ~8u;
+                    }
+                }
+            }
+        }
+    }
+    return 1;
+}
+
+void FlushBattleEntries_43C060()
+{
+    auto& entries = world::detail::gBattleEntries59E980;
+    for (std::size_t slot = 0; slot < entries.size(); ++slot) {
+        if (entries[slot] != nullptr) {
+            entries[slot]->flags &= ~8u;
+            entries[slot]->flags |= 4u;
+            entries[slot]->cacheIndex = -2;
         }
     }
 }

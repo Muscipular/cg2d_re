@@ -1132,6 +1132,8 @@ extern std::int32_t gBattleCurrentPosition5ABCA4; // 实际gMyPostion；不同�
 extern std::uint32_t gBattlePosition5ABCA8;
 extern std::int32_t gBattlePlayerActionState5ABC74; // UI发布动作完成状态，非5ABB74回合数。
 extern std::array<std::int32_t, 9> gBattleSelectionModes5ABC7C; // 496F10清九个W32，含94/98/9C。
+extern std::uint32_t gBattleTargetFlags5ABC44; // 43C560先发布完整目标位模式，43C120后续消费。
+std::int32_t GetBattlePetPosition_405B40(std::int32_t position);
 std::int32_t Sub_518C60(); // 玩家背包8..27空槽数，仅检查used==0。
 extern std::uint32_t gBattlePlayerFlags5ABCAC;
 extern std::uint32_t gBattleSkillFlags5ABC04;

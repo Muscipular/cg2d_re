@@ -835,6 +835,8 @@ void Sub_5093C0(
     std::int32_t direction); // 原坐标回复，无门禁，方向最后发布。
 void Sub_50D080(
     std::uintptr_t socket, std::int32_t first, std::int32_t second); // 两次CryptInt赋值后复制首值。
+void Sub_50D120(
+    std::uintptr_t socket, std::int32_t type, std::int32_t imageNo); // 完整战斗进入回复，socket未用。
 void Sub_455C60(); // 仅清既有62B5B0，不关闭窗口。
 void Sub_455FC0(); // 窗口39创建/动画清理父入口，保留额外SE56。
 void Sub_51A5F0(); // 仅清玩家flags18A的200。
@@ -1033,6 +1035,19 @@ std::int8_t Sub_51D750();                  // 原 0x51D750，IDA 原型 char()�
 std::uint32_t Sub_51D640();
 // 原 59F9F8，战斗背景 W32 图号；重建与战斗绘制/协议生产共用，非地址。
 extern std::int32_t gBattleBackgroundImage59F9F8;
+extern std::int32_t gBattleType5ABFC8; // 50D120写完整S32类型。
+extern std::uint32_t gBattleModeFlag5ABFCC; // 仅类型2写1。
+extern std::uint32_t gValue5ABB1C;
+extern std::uint32_t gValue5ABB28;
+extern std::uint32_t gBattleFirstTurnPending5ABC6C; // 50D3C0的A消息严格1时消费。
+extern std::int32_t gBattleCWriteIndex5AAA6C;
+extern std::int32_t gBattleCReadIndex5AAA44;
+extern std::int32_t gBattleMWriteIndex5A3A1C;
+extern std::int32_t gBattleMReadIndex5AAA68;
+extern std::array<char, 0x4000> gBattleCQueue5A4A3C; // 四槽，每槽1000H；50D120只清各首字节。
+extern std::array<char, 0x4000> gBattleMQueue59FA18;
+extern std::array<char, 0x1000> gBattleCText5A3A20; // 场景从C队列复制的活动原字节文本。
+extern std::array<char, 0x1000> gBattleMText5AAA7C;
 extern std::int32_t gBattleBackgroundSnapshot5ABCD8; // 43CB10末尾写，DrawBattleScene比较。
 using cg::login::detail::Sub_520160;
 void DrawBattleScene_43CBB0();             // 原 World::DrawBattleScene@0x43CBB0。

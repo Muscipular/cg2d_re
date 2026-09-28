@@ -3473,8 +3473,25 @@ std::uint32_t gValue9FB928 = 0;
 std::uint32_t gValue9A86C0 = 0;
 std::uint32_t gValue9A7F78 = 0;
 
-// 原 59F9F8；PE 零填充，421480/50D120 的背景图生产后续复用。
+// 原59F9F8；50D120生产，421480后续复用。
 std::int32_t gBattleBackgroundImage59F9F8 = 0;
+std::int32_t gBattleType5ABFC8 = 0;
+std::uint32_t gBattleModeFlag5ABFCC = 0;
+std::uint32_t gValue5ABB1C = 0;
+std::uint32_t gValue5ABB28 = 0;
+std::uint32_t gBattleFirstTurnPending5ABC6C = 0;
+std::int32_t gBattleCWriteIndex5AAA6C = 0;
+std::int32_t gBattleCReadIndex5AAA44 = 0;
+std::int32_t gBattleMWriteIndex5A3A1C = 0;
+std::int32_t gBattleMReadIndex5AAA68 = 0;
+std::array<char, 0x4000> gBattleCQueue5A4A3C {};
+std::array<char, 0x4000> gBattleMQueue59FA18 {};
+std::array<char, 0x1000> gBattleCText5A3A20 {};
+std::array<char, 0x1000> gBattleMText5AAA7C {};
+static_assert(sizeof(gBattleCQueue5A4A3C) == 4 * 0x1000);
+static_assert(sizeof(gBattleMQueue59FA18) == 4 * 0x1000);
+static_assert(sizeof(gBattleCText5A3A20) == 0x1000);
+static_assert(sizeof(gBattleMText5AAA7C) == 0x1000);
 // 原5ABCD8；43CB10末尾重读图号后发布，DrawBattleScene用于重建判断。
 std::int32_t gBattleBackgroundSnapshot5ABCD8 = 0;
 
@@ -4790,6 +4807,95 @@ void Sub_455FC0()
             39, 0, 0, &gWindow39Action62B5B8);
         static_cast<void>(audio::PlaySe_52C450(56, 320));
     }
+}
+
+void Sub_50D120(
+    const std::uintptr_t, const std::int32_t type, const std::int32_t imageNo)
+{
+    if (gValue9A6E0C != 0) {
+        return;
+    }
+    if (gValueD67E78 != 0) {
+        if (gValueCAFEA0 == 0) {
+            gValueCAFEA0 = static_cast<std::uint32_t>(audio::Sub_504410(1));
+        }
+        static_cast<void>(Sub_519D50());
+        Sub_4464D0();
+        static_cast<void>(Sub_4681B0());
+        Sub_51B0F0();
+        gValue62B5B0 = 0;
+        Sub_455FC0();
+        Sub_455C60();
+
+        const std::uint32_t mask = gValue9FB918.mask;
+        const std::uint32_t encoded = gValue9FB918.encoded;
+        const std::uint8_t readCount = gValue9FB918.readCount;
+        gValueC821E8.mask = mask;
+        gValueC821E8.encoded = encoded;
+        gValueC821E8.readCount = readCount;
+
+        platform::LegacyCryptInt temporary;
+        platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, 0);
+        gValueC821D8.mask = temporary.mask;
+        gValueC821D8.encoded = temporary.encoded;
+        gValueC821D8.readCount = temporary.readCount;
+        platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+
+        platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, 1);
+        gRippleGate.mask = temporary.mask;
+        gRippleGate.encoded = temporary.encoded;
+        gRippleGate.readCount = temporary.readCount;
+        platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+
+        gValue9FB92E = 0;
+        gValueFF03D8 = 0;
+        gValueF7CA04 = 0;
+        static_cast<void>(SetCurrentSceneTypeAndState(9, 1));
+        login::detail::YobiClearUp_404D30();
+        Sub_446610();
+
+        platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, 0);
+        gRippleGate.mask = temporary.mask;
+        gRippleGate.encoded = temporary.encoded;
+        gRippleGate.readCount = temporary.readCount;
+        platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+        static_cast<void>(network::Sub_5108F0(platform::gConnectionSocket, 0));
+        return;
+    }
+    if (type > 0) {
+        if (gValueFF0D36 != 0 && (ReadPlayerFlags18A() & 0x100u) == 0
+            && gValueCAFEA0 == 0) {
+            gValueCAFEA0 = static_cast<std::uint32_t>(audio::Sub_504410(1));
+        }
+        gValue5ABFC4 = 1;
+        gBattleType5ABFC8 = type;
+        gBattleModeFlag5ABFCC = type == 2 ? 1u : 0u;
+        gValueC821D0 = type == 3 ? 1 : 0;
+        gValueB65A7C = type == 2 || type == 4 || type == 5 || type == 6 ? 1 : 0;
+        gValue5ABB1C = 0;
+        gBattleBackgroundImage59F9F8 = imageNo;
+        gValue5ABB28 = 0;
+        gBattleCWriteIndex5AAA6C = 0;
+        gBattleCReadIndex5AAA44 = 0;
+        gBattleMWriteIndex5A3A1C = 0;
+        gBattleMReadIndex5AAA68 = 0;
+        gBattleCText5A3A20[0] = '\0';
+        gBattleMText5AAA7C[0] = '\0';
+        for (std::size_t offset = 0; offset < 0x4000; offset += 0x1000) {
+            gBattleCQueue5A4A3C[offset] = '\0';
+            gBattleMQueue59FA18[offset] = '\0';
+        }
+        gBattleFirstTurnPending5ABC6C = 1;
+        return;
+    }
+    platform::LegacyCryptInt temporary;
+    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, 0);
+    gValueC821D8.readCount = temporary.readCount;
+    gValueC821D8.encoded = temporary.encoded;
+    gValueC821D8.mask = temporary.mask;
+    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    gValueFF03D8 = 0;
+    gValueF7CA04 = 0;
 }
 
 // 原 [0x50CF90,0x50CFF7)：回复序号按 S16 比较，成功时清地图请求状态。

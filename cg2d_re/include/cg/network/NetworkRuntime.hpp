@@ -410,6 +410,9 @@ std::int32_t Sub_512620(
 // 原 [0x510F50,0x510F98)：构造fS、追加一个整数，技能回复使用共享连接调用。
 std::int32_t Sub_510F50(std::uintptr_t socket, std::int32_t value);
 
+// 原[5108F0,510938)：构造eL并追加一个整数，透传共享协议缓冲发送返回。
+std::int32_t Sub_5108F0(std::uintptr_t socket, std::int32_t value);
+
 // 原 sub_512720@[0x512720,0x5127AE)：构造 cZt、追加三个整数并发送。
 std::int32_t Sub_512720(
     std::uintptr_t socket,

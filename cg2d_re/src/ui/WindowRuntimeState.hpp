@@ -224,6 +224,8 @@ void Sub_49C4D0(); // 只清内嵌图号/计数及窗口36十元素可见性。
 void Sub_49C510(
     std::uint8_t used, std::int32_t imageNo, std::uint8_t direction,
     std::int16_t x, std::int16_t y);
+std::int32_t Sub_49CE70(std::int32_t index, std::int32_t state); // 六按钮与原位图号恢复。
+std::int32_t Sub_49CF70(std::int32_t unusedIndex, std::int32_t state); // 输入行切换/文本行选择。
 login::YobiAction* Sub_49C600(
     std::int32_t x, std::int32_t y, std::int32_t width, std::int32_t height,
     std::int32_t imageNo, std::int32_t buttons, WindowDialogTextLine* lines,

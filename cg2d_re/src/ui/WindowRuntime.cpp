@@ -4939,6 +4939,164 @@ void Sub_49CDF0()
     gMessageDialog.inputTexts = nullptr;
 }
 
+std::int32_t Sub_49CE70(const std::int32_t index, const std::int32_t state)
+{
+    static constexpr std::int32_t images[6][3] {
+        {243048, 243049, 243050},
+        {245320, 245321, 245322},
+        {245323, 245324, 245325},
+        {245326, 245327, 245328},
+        {245332, 245333, 245334},
+        {245329, 245330, 245331},
+    };
+    auto* const data = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    const bool hovered = (state & 1) != 0;
+    std::int32_t consumed = 0;
+    if (hovered) {
+        gMessageDialog.hoveredButton =
+            std::bit_cast<std::int32_t>(1u << (static_cast<std::uint32_t>(index) & 31u));
+    }
+    if ((state & 2) != 0) {
+        if (gMessageDialog.reply != nullptr) {
+            const std::int32_t selected = gMessageDialog.selectedInput;
+            if (selected >= 0) {
+                std::strcpy(gMessageDialog.inputTexts[selected], input::gInputContextCA02E0.text);
+            }
+            const std::uint8_t count = gMessageDialog.inputCount;
+            char* const* const texts = gMessageDialog.inputTexts;
+            const auto button =
+                std::bit_cast<std::int32_t>(1u << (static_cast<std::uint32_t>(index) & 31u));
+            if (gMessageDialog.reply(button, -1, texts, count) != 0) {
+                gCurrentWindow->state |= 0x8000u;
+                gMessageDialog.closeCallbackPending = 0;
+            }
+        }
+        consumed = 1;
+    }
+    data->imageNo = images[index][0];
+    if (hovered) {
+        data->imageNo = images[index][2];
+    }
+    if ((state & 8) != 0) {
+        data->imageNo = images[index][1];
+    }
+    return consumed;
+}
+
+std::int32_t Sub_49CF70(const std::int32_t, const std::int32_t state)
+{
+    std::int32_t inputCount = std::bit_cast<std::int8_t>(gMessageDialog.inputCount);
+    gMessageDialog.events = state;
+    WindowInstance* window = gCurrentWindow;
+    const auto inputX = static_cast<std::int16_t>(window->x + 24);
+    const auto inputWidth = static_cast<std::int16_t>(window->width - 48);
+    std::int32_t consumed = 0;
+    std::int32_t selected = 0;
+    if (inputCount > 0) {
+        do {
+            const std::int32_t top = gMessageDialog.inputY[selected] + window->y;
+            if (login::detail::Sub_5049A0(inputX, top, inputX + inputWidth, top + 16, -1) != 0) {
+                break;
+            }
+            inputCount = std::bit_cast<std::int8_t>(gMessageDialog.inputCount);
+            ++selected;
+            if (selected < inputCount) {
+                window = gCurrentWindow;
+            }
+        } while (selected < inputCount);
+        window = gCurrentWindow;
+    }
+    if (selected < std::bit_cast<std::int8_t>(gMessageDialog.inputCount)) {
+        if (selected != gMessageDialog.selectedInput) {
+            const std::int32_t top = gMessageDialog.inputY[selected] + window->y;
+            login::detail::DrawGraphicHover(
+                static_cast<std::uint16_t>(inputX), static_cast<std::uint16_t>(top),
+                static_cast<std::uint16_t>(inputX + inputWidth), static_cast<std::uint16_t>(top + 16),
+                223, login::detail::gValueD69768, 0);
+            if ((state & 2) != 0) {
+                const std::int32_t previous = gMessageDialog.selectedInput;
+                if (previous >= 0) {
+                    std::strcpy(gMessageDialog.inputTexts[previous], input::gInputContextCA02E0.text);
+                }
+                gCurrentWindow->elements[7].visible = 1;
+                const std::int16_t inputY = gMessageDialog.inputY[selected];
+                const std::int32_t y = inputY + gCurrentWindow->y;
+                static_cast<void>(Sub_476570(&gDialogInputPrototype57E478, inputX, y, 0));
+                input::SetContext_44B330(&input::gInputContextCA02E0);
+                window = gCurrentWindow;
+                gFocusedElementDataD45F94 = window->elements[7].data;
+                static_cast<WindowInputData*>(window->elements[7].data)->context = &input::gInputContextCA02E0;
+                char* const* const texts = gMessageDialog.inputTexts;
+                gMessageDialog.selectedInput = selected;
+                input::LoadInitialText_44A160(texts[selected]);
+                consumed = 1;
+            }
+        }
+    } else if (gMessageDialog.firstSelectableLine > 0) {
+        const auto left = static_cast<std::int16_t>(window->x + 22);
+        const auto top = static_cast<std::int16_t>(window->y + 18);
+        const auto width = static_cast<std::int16_t>(window->width - 48);
+        std::int32_t lineCount = gMessageDialog.lineCount;
+        std::int32_t offset = 0;
+        std::int32_t row = 0;
+        while (row < lineCount) {
+            if (login::detail::Sub_5049A0(left, top + offset, left + width, top + offset + 20, -1) != 0) {
+                lineCount = gMessageDialog.lineCount;
+                if (row < lineCount) {
+                    gMessageDialog.hoveredRow = row;
+                }
+                break;
+            }
+            const std::int32_t lineHeight = gMessageDialog.lineHeight;
+            lineCount = gMessageDialog.lineCount;
+            offset += lineHeight;
+            ++row;
+        }
+        const std::int32_t lineHeight = gMessageDialog.lineHeight;
+        row = gMessageDialog.firstSelectableLine;
+        offset = row * lineHeight;
+        if (row < lineCount) {
+            bool found = false;
+            do {
+                if (login::detail::Sub_5049A0(
+                        left, top + offset, left + width, top + offset + 20, -1) != 0) {
+                    found = true;
+                    break;
+                }
+                const std::int32_t currentLineHeight = gMessageDialog.lineHeight;
+                lineCount = gMessageDialog.lineCount;
+                offset += currentLineHeight;
+                ++row;
+            } while (row < lineCount);
+            if (found && row < gMessageDialog.lineCount
+                && gMessageDialog.lines[row].text[0] != '\0' && row >= 0) {
+                login::detail::DrawGraphicHover(
+                    static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top + offset),
+                    static_cast<std::uint16_t>(left + width), static_cast<std::uint16_t>(top + offset + 20),
+                    223, login::detail::gValueD69768, 0);
+                if ((state & 2) != 0) {
+                    const std::int32_t previous = gMessageDialog.selectedInput;
+                    if (previous >= 0) {
+                        std::strcpy(gMessageDialog.inputTexts[previous], input::gInputContextCA02E0.text);
+                    }
+                    const WindowDialogReplyCallback reply = gMessageDialog.reply;
+                    if (reply != nullptr) {
+                        const std::uint8_t count = gMessageDialog.inputCount;
+                        const std::int32_t first = gMessageDialog.firstSelectableLine;
+                        char* const* const texts = gMessageDialog.inputTexts;
+                        if (reply(0, row - first, texts, count) != 0) {
+                            gCurrentWindow->state |= 0x8000u;
+                            gMessageDialog.closeCallbackPending = 0;
+                        }
+                    }
+                    consumed = 1;
+                }
+            }
+        }
+    }
+    return (gMessageDialog.options & 1u) != 0 ? 1 : consumed;
+}
+
 std::int32_t Sub_499930(const std::int32_t, const std::int32_t state)
 {
     return Sub_4C78A0(&gItemSelectorD2F338, state) ? 1 : 0;

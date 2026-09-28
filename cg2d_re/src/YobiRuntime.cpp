@@ -2314,6 +2314,49 @@ void ApplyPlayerPhase3Reply(const std::int32_t imageNo)
     payload->counter48 = 0;
 }
 
+void ResetMapFollowerFromPath(
+    YobiAction* const leader, const std::int32_t position, YobiAction*& slot,
+    const bool isPlayer, std::int32_t* const playerDirection)
+{
+    if (isPlayer) {
+        YobiAction* const player = world::detail::ReadPlayerAction();
+        if (player != nullptr) {
+            player->field270 = 0;
+        }
+        const std::int32_t index =
+            std::bit_cast<std::int16_t>(leader->field270) - position;
+        const std::int32_t y = leader->pathY248[index];
+        const std::int32_t x = leader->pathX220[index];
+        static_cast<void>(world::detail::Sub_519EC0(x, y));
+    } else {
+        slot->field270 = 0;
+        YobiAction* const follower = slot;
+        const std::int32_t index =
+            std::bit_cast<std::int16_t>(leader->field270) - position;
+        const std::int32_t y = leader->pathY248[index];
+        const std::int32_t x = leader->pathX220[index];
+        Sub_442AB0(follower, x, y);
+    }
+    if (!isPlayer || world::detail::ReadPlayerAction() != nullptr) {
+        const std::int32_t index =
+            std::bit_cast<std::int16_t>(leader->field270) - position;
+        const std::int32_t dy = leader->pathY248[index - 1] - leader->pathY248[index];
+        const std::int32_t dx = leader->pathX220[index - 1] - leader->pathX220[index];
+        const float y = static_cast<float>(dy);
+        const float x = static_cast<float>(dx);
+        const std::int32_t direction =
+            static_cast<std::int32_t>(world::detail::Sub_46CDF0(x, y));
+        slot->direction = (direction + 4) % 8;
+        if (isPlayer) {
+            *playerDirection = slot->direction;
+        }
+    }
+    if (isPlayer) {
+        world::detail::Sub_519EE0();
+        static_cast<void>(world::detail::Sub_4681B0());
+    }
+}
+
 void Sub_442AB0(
     YobiAction* const action, const std::int32_t targetX,
     const std::int32_t targetY)
@@ -5013,6 +5056,423 @@ void SetYobiActionField30F(
 } // namespace cg::login
 
 namespace cg::world::detail {
+
+void Sub_442C00(login::YobiAction* const action)
+{
+    if (action == nullptr) {
+        return;
+    }
+    const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
+    auto& record = gWorldObjects[payload->index];
+    record.marker44 = 0;
+    if (action->field2E4 != 2) {
+        record.flags42 &= 0xFEFFu;
+    }
+}
+
+void Sub_442CA0(login::YobiAction* const action, const std::int32_t value)
+{
+    if (action == nullptr) {
+        return;
+    }
+    const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
+    auto& record = gWorldObjects[payload->index];
+    record.flags42 |= 0x4000u;
+    record.value10C = value;
+}
+
+void Sub_442CD0(login::YobiAction* const action)
+{
+    if (action == nullptr) {
+        return;
+    }
+    const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
+    gWorldObjects[payload->index].flags42 &= 0xBFFFu;
+}
+
+void Sub_442D00(login::YobiAction* const action, const std::int32_t value)
+{
+    if (action == nullptr) {
+        return;
+    }
+    const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
+    auto& record = gWorldObjects[payload->index];
+    record.flags42 |= 0x8000u;
+    record.value10C = value;
+}
+
+void Sub_442D30(login::YobiAction* const action)
+{
+    if (action == nullptr) {
+        return;
+    }
+    const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
+    gWorldObjects[payload->index].flags42 &= 0x7FFFu;
+}
+
+void Sub_442D60(login::YobiAction* const action, const std::int32_t value)
+{
+    if (action == nullptr) {
+        return;
+    }
+    const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
+    auto& record = gWorldObjects[payload->index];
+    record.flags42 |= 0x0400u;
+    record.value10C = value;
+}
+
+void Sub_442D90(login::YobiAction* const action)
+{
+    if (action == nullptr) {
+        return;
+    }
+    const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
+    gWorldObjects[payload->index].flags42 &= 0xEBFFu;
+}
+
+void Sub_43D970(login::YobiAction* const action)
+{
+    if (action == nullptr) {
+        return;
+    }
+    const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
+    gWorldObjects[payload->index].flags120 |= 1u;
+}
+
+void Sub_43D9A0(login::YobiAction* const action)
+{
+    if (action == nullptr) {
+        return;
+    }
+    const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
+    gWorldObjects[payload->index].flags120 &= 0xFFFEu;
+}
+
+void Sub_43D9D0(login::YobiAction* const action, std::int32_t value)
+{
+    if (action == nullptr) {
+        return;
+    }
+    if (value < 0 || value >= Sub_4410E0()) {
+        value = 0;
+    }
+    const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
+    auto& record = gWorldObjects[payload->index];
+    record.flags120 |= 2u;
+    record.value124 = value;
+}
+
+void Sub_43DA10(login::YobiAction* const action)
+{
+    if (action == nullptr) {
+        return;
+    }
+    const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
+    auto& record = gWorldObjects[payload->index];
+    record.flags120 &= 0xFFFDu;
+    record.value124 = 0;
+}
+
+void Sub_43DA40(login::YobiAction* const action)
+{
+    if (action == nullptr) {
+        return;
+    }
+    const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
+    gWorldObjects[payload->index].flags120 |= 0x24u;
+}
+
+void Sub_43DA70(login::YobiAction* const action)
+{
+    if (action == nullptr) {
+        return;
+    }
+    const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
+    gWorldObjects[payload->index].flags120 |= 8u;
+}
+
+void Sub_43DAA0(login::YobiAction* const action)
+{
+    if (action == nullptr) {
+        return;
+    }
+    const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
+    gWorldObjects[payload->index].flags120 &= 0xFFF7u;
+}
+
+void Sub_43DAD0(login::YobiAction* const action)
+{
+    if (action == nullptr) {
+        return;
+    }
+    const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
+    gWorldObjects[payload->index].flags120 |= 0x50u;
+}
+
+void Sub_444410(
+    login::YobiAction* const action, const std::int32_t x, const std::int32_t y,
+    const std::int32_t direction, const std::int32_t characterAction,
+    const std::int32_t option1, const std::int32_t option2,
+    const std::int32_t option3, const std::int32_t option4)
+{
+    if (action == nullptr) {
+        return;
+    }
+    auto* const payload = static_cast<login::detail::MapActorPayload*>(action->payload);
+    const std::int32_t index = payload->index;
+    switch (characterAction) {
+    case 0:
+        action->field270 = 0;
+        [[fallthrough]];
+    case 31:
+        login::detail::Sub_43EFC0(action, 0, 1);
+        action->direction = direction;
+        return;
+    case 50: {
+        auto& record = gWorldObjects[index];
+        record.value34 = direction;
+        record.value38 = x;
+        record.value3C = y;
+        if (platform::legacy_crypt_int::Equal_401D00(&action->mapX200, x)
+            && platform::legacy_crypt_int::Equal_401D00(&action->mapY210, y)) {
+            return;
+        }
+        const auto distance = [](const std::int32_t target,
+                                 platform::LegacyCryptInt* const coordinate) {
+            const std::int32_t sign =
+                platform::legacy_crypt_int::IntMinusCrypt_401FE0(target, coordinate);
+            const std::int32_t value =
+                platform::legacy_crypt_int::IntMinusCrypt_401FE0(target, coordinate);
+            return sign < 0 ? -value : value;
+        };
+        const std::int32_t firstX = distance(x, &action->mapX200);
+        const std::int32_t firstY = distance(y, &action->mapY210);
+        const bool yLarger = firstX - firstY < 0;
+        const std::int32_t secondX = distance(x, &action->mapX200);
+        const std::int32_t secondY = distance(y, &action->mapY210);
+        const std::int32_t difference = yLarger ? secondY - secondX : secondX - secondY;
+        if (difference > 1 || (record.flags42 & 0x200u) != 0) {
+            return;
+        }
+        [[fallthrough]];
+    }
+    case 1: {
+        const std::uint16_t flags = gWorldObjects[index].flags42;
+        if ((flags & 0x300u) == 0x300u) {
+            if (action->field270 < 10) {
+                login::detail::Sub_441FC0(action, x, y);
+            } else {
+                ResetMapFollowersFromPath(action);
+                login::detail::Sub_441F60(action, x, y);
+                gWorldObjects[index].value34 = -1;
+            }
+        } else {
+            login::detail::Sub_441F60(action, x, y);
+        }
+        if (characterAction == 1) {
+            action->walkSpeed = option1;
+        }
+        login::detail::Sub_43EFC0(action, 1, 0);
+        return;
+    }
+    case 2: case 3: case 4: case 5: case 6: case 7: case 8: case 9:
+    case 10: case 11: case 12: case 13: case 14: case 15: case 16: case 17:
+    case 18: case 19:
+        login::detail::Sub_43EFC0(action, characterAction, 1);
+        if (characterAction == 18 || characterAction == 19) {
+            action->lastCharacterAction = -1;
+        }
+        action->direction = direction;
+        return;
+    case 30:
+        login::detail::Sub_43EFC0(action, 1, 1);
+        action->direction = direction;
+        return;
+    case 40:
+        if (option1 >= 0) {
+            Sub_442D60(action, option1);
+            login::detail::Sub_43EFC0(action, 0, 1);
+        } else {
+            Sub_442D90(action);
+        }
+        login::detail::Sub_442AB0(action, x, y);
+        action->direction = direction;
+        return;
+    case 41:
+        if (option1 == 1) {
+            Sub_442BD0(action);
+        } else {
+            Sub_442C00(action);
+        }
+        action->direction = direction;
+        return;
+    case 42:
+        if (option1 >= 0) {
+            Sub_442CA0(action, option1);
+        } else {
+            Sub_442CD0(action);
+        }
+        login::detail::Sub_442AB0(action, x, y);
+        action->direction = direction;
+        return;
+    case 44:
+        if (option1 >= 0) {
+            Sub_442D00(action, option1);
+        } else {
+            Sub_442D30(action);
+        }
+        login::detail::Sub_442AB0(action, x, y);
+        action->direction = direction;
+        return;
+    case 45:
+        if (option1 == 1) {
+            Sub_43D970(action);
+        } else {
+            Sub_43D9A0(action);
+        }
+        action->direction = direction;
+        return;
+    case 46:
+        if (option1 != 0) {
+            Sub_43D9D0(action, option1);
+        } else {
+            Sub_43DA10(action);
+        }
+        action->direction = direction;
+        return;
+    case 47:
+        Sub_43DA40(action);
+        action->direction = direction;
+        return;
+    case 48:
+        if (option1 == 1) {
+            Sub_43DA70(action);
+        } else {
+            Sub_43DAA0(action);
+        }
+        action->direction = direction;
+        return;
+    case 49:
+        Sub_43DAD0(action);
+        action->direction = direction;
+        return;
+    case 51:
+        login::detail::Sub_442AB0(action, x, y);
+        action->field270 = 0;
+        login::detail::Sub_43EFC0(action, 0, 1);
+        action->direction = direction;
+        gWorldObjects[index].value34 = -1;
+        return;
+    case 60: {
+        action->imageNo = character_select::detail::Sub_51B740(option1);
+        const std::int32_t recordImage = character_select::detail::Sub_51B740(option1);
+        gWorldObjects[payload->index].imageNo = static_cast<std::uint32_t>(recordImage);
+        if (option2 > 0) {
+            if (payload->action30 == nullptr) {
+                const std::int32_t image = character_select::detail::Sub_51B740(option2);
+                payload->action30 = login::detail::NewYobiGear_4410F0(image);
+            }
+            if (payload->action30 != nullptr) {
+                const std::int32_t image = character_select::detail::Sub_51B740(option2);
+                payload->action30->imageNo = image;
+            }
+        } else if (payload->action30 != nullptr) {
+            login::detail::MarkDeath(payload->action30);
+            payload->action30 = nullptr;
+        }
+        if (option3 > 0) {
+            std::int32_t image = character_select::detail::Sub_51B740(option3);
+            if (payload->action34 == nullptr) {
+                const std::int32_t petY =
+                    platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0);
+                const std::int32_t petX =
+                    platform::legacy_crypt_int::Read_401EC0(&action->mapX1E0);
+                payload->action34 = login::detail::NewYobiGearPet_441130(image, petX, petY);
+            }
+            if (payload->action34 != nullptr) {
+                payload->action34->imageNo = image;
+            }
+            if (option4 == 6) {
+                ++image;
+                if (payload->action38 == nullptr) {
+                    const std::int32_t petY =
+                        platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0);
+                    const std::int32_t petX =
+                        platform::legacy_crypt_int::Read_401EC0(&action->mapX1E0);
+                    payload->action38 = login::detail::NewYobiGearPet_441130(image, petX, petY);
+                }
+                if (payload->action38 != nullptr) {
+                    payload->action38->imageNo = image;
+                }
+            }
+        } else {
+            if (payload->action34 != nullptr) {
+                login::detail::MarkDeath(payload->action34);
+                payload->action34 = nullptr;
+            }
+            if (payload->action38 != nullptr) {
+                login::detail::MarkDeath(payload->action38);
+                payload->action38 = nullptr;
+            }
+        }
+        payload->kind3C = option4;
+        return;
+    }
+    case 63:
+        Sub_43D9D0(action, option1);
+        action->direction = direction;
+        return;
+    case 64:
+        Sub_43DA10(action);
+        action->direction = direction;
+        return;
+    case 70:
+        if (option1 >= 0) {
+            if (payload->action44 == nullptr) {
+                login::YobiAction* const ride = login::detail::NewYobiAction_404AE0(2, 0);
+                payload->action44 = ride;
+                ride->callback = nullptr;
+                payload->action44->characterAction = 0;
+                payload->action44->displayPriority = 10;
+                payload->action44->flags = 0x34u;
+                payload->action44->flags |= 0x200u;
+            }
+            const std::int32_t image = character_select::detail::Sub_51B740(option1);
+            payload->action44->imageNo = image;
+            const std::int32_t original =
+                std::bit_cast<std::int32_t>(gWorldObjects[payload->index].imageNo);
+            action->imageNo = Sub_51C0D0(original);
+            action->phase = 1;
+        } else {
+            action->phase = 2;
+        }
+        {
+            login::YobiAction* const ride = payload->action44;
+            payload->counter48 = 0;
+            if (option1 >= 0 || ride != nullptr) {
+                ride->characterAction = 0;
+                if (action->characterAction == 1) {
+                    payload->action44->characterAction = 1;
+                }
+            }
+        }
+        return;
+    case 80:
+        action->phase = 3;
+        action->imageNo = character_select::detail::Sub_51B740(option1);
+        payload->counter48 = 0;
+        return;
+    case 200:
+        if (option1 != 0) {
+            gWorldObjects[payload->index].flags120 |= 0x1000u;
+        } else {
+            gWorldObjects[payload->index].flags120 &= 0xEFFFu;
+        }
+        return;
+    default:
+        return;
+    }
+}
 
 void Sub_449C90(login::YobiAction* const action)
 {

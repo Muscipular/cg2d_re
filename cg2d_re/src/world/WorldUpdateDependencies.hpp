@@ -597,6 +597,26 @@ void Sub_449CC0(login::YobiAction* action); // marker44为0才清flags42的100�
 void Sub_442C40(login::YobiAction* action); // flags42置200。
 void Sub_442C70(login::YobiAction* action); // 先场景门禁，再通过payload清flags42的200。
 void Sub_442BD0(login::YobiAction* action); // flags42置100，再marker44=1。
+void Sub_442C00(login::YobiAction* action); // 清marker44，非模式2才清flags42的100。
+void Sub_442CA0(login::YobiAction* action, std::int32_t value); // 置4000，再写value10C。
+void Sub_442CD0(login::YobiAction* action); // 清4000，保留value10C。
+void Sub_442D00(login::YobiAction* action, std::int32_t value); // 置8000，再写value10C。
+void Sub_442D30(login::YobiAction* action); // 清8000。
+void Sub_442D60(login::YobiAction* action, std::int32_t value); // 置0400，再写value10C。
+void Sub_442D90(login::YobiAction* action); // AND EBFF，同时清0400/1000。
+void Sub_43D970(login::YobiAction* action); // flags120置1。
+void Sub_43D9A0(login::YobiAction* action); // flags120清1。
+void Sub_43D9D0(login::YobiAction* action, std::int32_t value); // 原范围回退后置2/写value124。
+void Sub_43DA10(login::YobiAction* action); // flags120清2，再清value124。
+void Sub_43DA40(login::YobiAction* action); // flags120置24。
+void Sub_43DA70(login::YobiAction* action); // flags120置8。
+void Sub_43DAA0(login::YobiAction* action); // flags120清8。
+void Sub_43DAD0(login::YobiAction* action); // flags120置50。
+void Sub_444410(
+    login::YobiAction* action, std::int32_t x, std::int32_t y,
+    std::int32_t direction, std::int32_t characterAction, std::int32_t option1,
+    std::int32_t option2, std::int32_t option3, std::int32_t option4);
+void ResetMapFollowersFromPath(login::YobiAction* leader); // 444410仅扫描占用的地图槽1..4。
 void Sub_50A3E0(std::uintptr_t socket, std::int32_t index, const char* payload);
 void Sub_50D000(
     std::uintptr_t socket, std::int32_t first, std::int32_t second); // 跟随状态回复。

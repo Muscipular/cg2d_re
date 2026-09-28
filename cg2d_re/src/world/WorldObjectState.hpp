@@ -38,7 +38,9 @@ struct WorldObjectRecord {
     std::array<char, 33> text97;
     std::array<char, 17> textB8;
     std::array<char, 61> nameC9; // 445D20/445F40仅在长度<=60时复制含NUL原字节。
-    std::array<std::byte, 0x0E> bytes106;
+    std::array<std::byte, 6> bytes106;
+    std::int32_t value10C; // 442CA0/442D00/442D60的共同数值槽。
+    std::array<std::byte, 4> bytes110;
     std::uint32_t flags114;
     std::int32_t value118;
     login::YobiAction* action; // 原+11C，Yobi链拥有，本表只借用。
@@ -75,6 +77,8 @@ static_assert(offsetof(WorldObjectRecord, text97) == 0x97);
 static_assert(offsetof(WorldObjectRecord, textB8) == 0xB8);
 static_assert(offsetof(WorldObjectRecord, nameC9) == 0xC9);
 static_assert(offsetof(WorldObjectRecord, bytes106) == 0x106);
+static_assert(offsetof(WorldObjectRecord, value10C) == 0x10C);
+static_assert(offsetof(WorldObjectRecord, bytes110) == 0x110);
 static_assert(offsetof(WorldObjectRecord, flags114) == 0x114);
 static_assert(offsetof(WorldObjectRecord, value118) == 0x118);
 static_assert(offsetof(WorldObjectRecord, action) == 0x120);

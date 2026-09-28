@@ -5146,6 +5146,18 @@ void Sub_46A990()
     }
 }
 
+void ResetMapFollowersFromPath(login::YobiAction* const leader)
+{
+    for (std::int32_t i = 1; i < 5; ++i) {
+        auto& slot = gPetMapCharaSlots[static_cast<std::size_t>(i)];
+        if (slot.flags != 0) {
+            const bool isPlayer = slot.objectIndex == gPlayerRuntime.objectIndex;
+            login::detail::ResetMapFollowerFromPath(
+                leader, i, slot.action, isPlayer, &gPlayerRuntime.direction);
+        }
+    }
+}
+
 void Sub_46AFE0(const std::int32_t index, std::int32_t x, std::int32_t y)
 {
     login::YobiAction* const first = gPetMapCharaSlots[0].action;

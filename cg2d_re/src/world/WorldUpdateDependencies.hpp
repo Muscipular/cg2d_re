@@ -908,6 +908,7 @@ void Sub_50D080(
 void Sub_50D120(
     std::uintptr_t socket, std::int32_t type, std::int32_t imageNo); // 完整战斗进入回复，socket未用。
 void Sub_50D3C0(std::uintptr_t socket, const char* text); // C/P/A/第二字节U/M完整分派。
+void Sub_50D500(std::uintptr_t socket, const char* payload); // 三阶段战斗结果生产，socket未用。
 void Sub_455C60(); // 仅清既有62B5B0，不关闭窗口。
 void Sub_455FC0(); // 窗口39创建/动画清理父入口，保留额外SE56。
 void Sub_51A5F0(); // 仅清玩家flags18A的200。

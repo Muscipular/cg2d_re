@@ -3787,7 +3787,7 @@ std::int32_t NetworkDispatch_512E40(
     if (TryDispatchReply<world::detail::Sub_50CF90, I, I>(head, "EZ", socket)) return 0;
     if (TryDispatchReply<world::detail::Sub_50D080, I, I>(head, "OaHi", socket)) return 0;
     if (TryDispatchReply<world::detail::Sub_50D120, I, I>(head, "dAgg", socket)) return 0;
-    if (TryDispatchReply<Sub_50D500, T>(head, "Gn", socket)) return 0;
+    if (TryDispatchReply<world::detail::Sub_50D500, T>(head, "Gn", socket)) return 0;
     if (TryDispatchReply<Sub_50D700, T>(head, "hB", socket)) return 0;
     if (TryDispatchReply<world::detail::Sub_50D3C0, T>(head, "LYIm", socket)) return 0;
     if (TryDispatchReply<world::detail::Sub_50BFD0, T>(head, "ELoy", socket)) return 0;

@@ -71,6 +71,38 @@ platform::LegacyCryptInt gRippleGate {};
 // 原62B5B8；455FC0持有非拥有动画引用，4758D0经借用槽地址完成清空。
 login::YobiAction* gWindow39Action62B5B8 = nullptr;
 
+// 原FF0C14四条结果记录；50D500按两次W16、一次S32的顺序发布。
+struct BattleResultRecord {
+    std::uint16_t value00;
+    std::uint16_t value02;
+    std::int32_t value04;
+};
+static_assert(offsetof(BattleResultRecord, value00) == 0);
+static_assert(offsetof(BattleResultRecord, value02) == 2);
+static_assert(offsetof(BattleResultRecord, value04) == 4);
+static_assert(sizeof(BattleResultRecord) == 8);
+std::array<BattleResultRecord, 4> gBattleResultsFF0C14 {};
+
+// 原FF0C8C十五条技能结果；+2两字节不由50D500写入，末条止FF0D04。
+struct BattleSkillResultRecord {
+    std::int16_t value00;
+    std::array<std::byte, 2> bytes02;
+    std::int32_t value04;
+};
+static_assert(offsetof(BattleSkillResultRecord, value00) == 0);
+static_assert(offsetof(BattleSkillResultRecord, bytes02) == 2);
+static_assert(offsetof(BattleSkillResultRecord, value04) == 4);
+static_assert(sizeof(BattleSkillResultRecord) == 8);
+std::array<BattleSkillResultRecord, 15> gBattleSkillResultsFF0C8C {};
+
+// 原FF0C34三条29B名称与FF0D0C三个图号；结果展示须借用同一存储。
+std::array<std::array<char, 29>, 3> gBattleResultNamesFF0C34 {};
+std::array<std::int32_t, 3> gBattleResultGraphicsFF0D0C {};
+static_assert(sizeof(gBattleResultsFF0C14) == 0x20);
+static_assert(sizeof(gBattleSkillResultsFF0C8C) == 0x78);
+static_assert(sizeof(gBattleResultNamesFF0C34) == 0x57);
+static_assert(sizeof(gBattleResultGraphicsFF0D0C) == 0x0C);
+
 constexpr std::array<std::int32_t, 6> kAllowedMapFloors {
     59000,
     59001,
@@ -5272,6 +5304,58 @@ void Sub_50D3C0(const std::uintptr_t, const char* const text)
         if (next >= 4) {
             gBattleMWriteIndex5A3A1C = 0;
         }
+    }
+}
+
+void Sub_50D500(const std::uintptr_t, const char* const payload)
+{
+    if (gValue9A6E0C != 0) {
+        return;
+    }
+    gValueFF0C10 = 1;
+    char row[2048];
+    char entry[2048];
+    char name[2048];
+    std::int32_t field = 1;
+    for (BattleResultRecord& record : gBattleResultsFF0C14) {
+        network::ExtractDelimitedField_52CED0(payload, ',', field, 2047, row);
+        record.value00 = static_cast<std::uint16_t>(
+            network::ParseDelimitedInteger_52CFA0(row, '|', 1));
+        record.value02 = static_cast<std::uint16_t>(
+            network::ParseDelimitedInteger_52CFA0(row, '|', 2));
+        record.value04 = network::ParseDelimitedBase62_52D0D0(row, '|', 3);
+        ++field;
+    }
+
+    network::ExtractDelimitedField_52CED0(payload, ',', field, 2047, row);
+    ++field;
+    for (std::int32_t index = 0; index < 3; ++index) {
+        network::ExtractDelimitedField_52CED0(row, '|', index + 1, 2047, entry);
+        input::UnescapeLegacyText_52D150(entry);
+        gBattleResultGraphicsFF0D0C[index] =
+            network::ParseDelimitedInteger_52CFA0(entry, '|', 1);
+        network::ExtractDelimitedField_52CED0(entry, '|', 2, 2047, name);
+        input::UnescapeLegacyTextAndNotify_52D2F0(name);
+        if (std::strlen(name) <= 28) {
+            std::strcpy(gBattleResultNamesFF0C34[index].data(), name);
+        } else {
+            gBattleResultNamesFF0C34[index][0] = '\0';
+        }
+    }
+
+    for (BattleSkillResultRecord& record : gBattleSkillResultsFF0C8C) {
+        network::ExtractDelimitedField_52CED0(payload, ',', field, 2047, row);
+        const auto bits = static_cast<std::uint16_t>(
+            network::ParseDelimitedInteger_52CFA0(row, '|', 1));
+        record.value00 = std::bit_cast<std::int16_t>(bits);
+        if (record.value00 < 0) {
+            record.value00 = 0;
+        }
+        record.value04 = network::ParseDelimitedBase62_52D0D0(row, '|', 2);
+        if (record.value04 < 0) {
+            record.value04 = 0;
+        }
+        ++field;
     }
 }
 

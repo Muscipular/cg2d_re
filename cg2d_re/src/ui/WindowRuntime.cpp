@@ -1209,6 +1209,46 @@ std::int32_t Sub_4885A0(const std::int32_t amount)
         platform::gConnectionSocket, x, y, value14, userState, 0, buffer + 128);
 }
 
+void Sub_4886E0(
+    const std::int32_t sourceWindow, const std::int32_t sourceElement,
+    const std::int32_t source, const std::int32_t target)
+{
+    if (source < 0 || target < 0 || source == target) {
+        return;
+    }
+    bool split = (platform::gKeyStates[0x11] & 2u) == 0;
+    if (platform::gValueD67AE8 != 0) {
+        split = !split;
+    }
+    std::int32_t count;
+    if (source < 100) {
+        count = world::detail::gPlayerItemsFDA8A4[source].count;
+    } else {
+        std::memcpy(
+            &count, gItemDetailStorageCC4D58.data() + (source - 100) * 0xC44 + 8, sizeof(count));
+    }
+    std::int16_t used;
+    if (target < 100) {
+        used = std::bit_cast<std::int16_t>(world::detail::gPlayerItemsFDA8A4[target].used);
+    } else {
+        std::memcpy(
+            &used, gItemDetailStorageCC4D58.data() + (target - 100) * 0xC44, sizeof(used));
+    }
+    if (source < 8 || target < 8 || count <= 0 || used != 0 || !split) {
+        gItemMoveSourceCF46B0 = source;
+        gItemMoveTargetD2DBF8 = target;
+        static_cast<void>(Sub_4885A0(-1));
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+    } else {
+        gItemMoveTargetD2DBF8 = target;
+        gItemMoveSourceCF46B0 = source;
+        static_cast<void>(login::detail::Sub_48AC60(
+            sourceWindow, sourceElement, 244309, count, count, 0,
+            [](const std::int32_t amount) { static_cast<void>(Sub_4885A0(amount)); },
+            1, 0, 0));
+    }
+}
+
 void Sub_48BB90(
     const std::int32_t, const std::int32_t,
     const std::int32_t source, const std::int32_t target)

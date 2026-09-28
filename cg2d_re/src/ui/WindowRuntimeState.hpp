@@ -403,6 +403,9 @@ std::int32_t Sub_48BB70(std::int32_t slot); // 宠物槽分类1/2。
 std::int32_t Sub_48BC60(std::int32_t slot); // DE0B08五个S16索引的首匹配位置。
 void Sub_47D490(); // 仅清D67B00，不改变其他物品状态。
 std::int32_t Sub_4885A0(std::int32_t amount); // 普通移动或窗口41/38文本请求。
+void Sub_4886E0(
+    std::int32_t sourceWindow, std::int32_t sourceElement,
+    std::int32_t source, std::int32_t target); // 完整直接移动/数量拆分选择。
 WindowInstance* Sub_48A830(
     std::int32_t sourceWindow, std::int32_t sourceElement, std::int32_t imageNo,
     std::int32_t maximum, std::int32_t value14, std::int32_t initialValue,

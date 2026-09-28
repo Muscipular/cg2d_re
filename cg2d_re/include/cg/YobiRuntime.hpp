@@ -67,6 +67,13 @@ YobiAction* Sub_475950(
     std::int32_t id, std::uint32_t flags, std::uint32_t mode,
     YobiAction** completionSlot);
 
+// 原48AC60完整数量展开；maximum为S32，callback为非拥有原生函数指针。
+YobiAction* Sub_48AC60(
+    std::int32_t sourceWindow, std::int32_t sourceElement, std::int32_t imageNo,
+    std::int32_t maximum, std::int32_t value14, std::int32_t initialValue,
+    void (*callback)(std::int32_t), std::uint32_t flags, std::uint32_t mode,
+    std::uint32_t actionFlags);
+
 // 三种地图角色生产者共用的 x64 payload 分配，不改变通用 404AE0 的尺寸合同。
 YobiAction* NewMapCharaAction();
 // 原43F330/43FEB0：观察链两种生产者，绑定43F520/440070；回调本体待实现。

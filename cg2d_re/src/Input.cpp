@@ -637,6 +637,60 @@ bool IsRejectedInputText_404060(const char* const legacyText)
     return std::strstr(legacyText, "[GP]") != nullptr;
 }
 
+std::int32_t Sub_476740(const char* const text)
+{
+    const auto length = static_cast<std::int32_t>(std::strlen(text));
+    if (length == 0) {
+        return 0;
+    }
+    std::int32_t index = 0;
+    do {
+        const auto current = static_cast<std::uint8_t>(text[index]);
+        if ((current & 0x80u) != 0) {
+            index += 2;
+        } else {
+            if (current == ',' || current == '|' || current == '\\') {
+                return 0;
+            }
+            ++index;
+        }
+    } while (index < length);
+
+    const auto secondLength = static_cast<std::int32_t>(std::strlen(text));
+    index = 0;
+    do {
+        const auto current = static_cast<std::uint8_t>(text[index]);
+        if ((current & 0x80u) != 0) {
+            if (current != 0x81u || text[index + 1] != '@') {
+                return 1;
+            }
+            index += 2;
+        } else {
+            if (current != ' ') {
+                return 1;
+            }
+            ++index;
+        }
+    } while (index < secondLength);
+    return 0;
+}
+
+std::int32_t Sub_45E770(const char* const text)
+{
+    bool trailingByte = false;
+    for (const char* cursor = text; *cursor != '\0'; ++cursor) {
+        const auto current = static_cast<std::uint8_t>(*cursor);
+        if (trailingByte) {
+            trailingByte = false;
+        } else if (current >= 0x81u) {
+            trailingByte = true;
+        } else if (current == '|' || current == '\\') {
+            return 1;
+        }
+    }
+    return 0;
+}
+
 // 原 [0x52D1B0,0x52D2C6)：原字节表按输入/转义字母交错存放。
 char* EscapeLegacyText_52D1B0(
     const char* const source,

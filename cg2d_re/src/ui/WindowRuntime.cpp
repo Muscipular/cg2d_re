@@ -439,6 +439,15 @@ MessageDialogRuntimeSlots gMessageDialog {};
 std::array<MessageDialogImageRecord, 10> gMessageDialogImagesCC4B70 {};
 std::uint8_t gMessageDialogImageCountD67B30 = 0;
 
+// 原CB1388..CB1394；49DF30/49E400共同生产，49DA30回复逐次读取。
+struct DialogReplyRuntimeSlots {
+    std::int32_t type;
+    std::int32_t request;
+    std::int32_t target;
+    std::int32_t firstLine;
+};
+DialogReplyRuntimeSlots gDialogReply {};
+
 // 原57C24C目标的内联矩形；同值异地址仍分别存储，见窗口SPEC。
 WindowDragRect gDragRects561998[] {{0, 0, 330, 25}, {315, 0, 20, 92}};
 WindowDragRect gDragRects561F38[] {{10, 0, 230, 33}, {243, 5, 18, 79}};
@@ -5096,6 +5105,83 @@ std::int32_t Sub_49CF70(const std::int32_t, const std::int32_t state)
     }
     return (gMessageDialog.options & 1u) != 0 ? 1 : consumed;
 }
+
+std::int32_t Sub_49DA30(
+    const std::int32_t button, const std::int32_t row,
+    char* const* const texts, const std::uint8_t inputCount)
+{
+    // 五个原256B临时区保持连续，原位转义不另建替代缓冲。
+    std::array<char, 1280> buffer;
+    char* const reply = buffer.data();
+    char* const first = reply + 256;
+    char* const rowReply = reply + 512;
+    char* const second = reply + 768;
+    char* const combined = reply + 1024;
+    if (button == 0) {
+        if (row < 0) {
+            world::detail::gValue581800 = -1;
+        }
+    } else {
+        if (gDialogReply.type == 2) {
+            std::sprintf(rowReply, "%d", -gDialogReply.firstLine);
+            input::EscapeLegacyTextAndNotify_52D2D0(rowReply, reply, 255);
+        } else if (gDialogReply.type == 35) {
+            if ((button & 1) != 0) {
+                if (texts[0][0] == '\0' && texts[1][0] == '\0') {
+                    return 0;
+                }
+                if (input::Sub_476740(texts[0]) == 0) {
+                    return 0;
+                }
+                if (input::Sub_476740(texts[1]) == 0) {
+                    return 0;
+                }
+                if (input::Sub_45E770(texts[0]) == 1) {
+                    return 0;
+                }
+                if (input::Sub_45E770(texts[1]) == 1) {
+                    return 0;
+                }
+            }
+            std::strcpy(first, texts[0]);
+            input::EscapeLegacyTextAndNotify_52D2D0(first, first, 255);
+            std::strcpy(second, texts[1]);
+            input::EscapeLegacyTextAndNotify_52D2D0(second, second, 255);
+            std::sprintf(combined, "%s|%s", first, second);
+            input::EscapeLegacyText_52D1B0(combined, reply, 255);
+        } else {
+            input::EscapeLegacyTextAndNotify_52D2D0(
+                inputCount == 1 ? texts[0] : input::LegacyText593850(), reply, 255);
+        }
+        const std::int32_t target = gDialogReply.target;
+        const std::int32_t request = gDialogReply.request;
+        const std::int32_t y =
+            platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+        const std::int32_t x =
+            platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+        static_cast<void>(network::Sub_512620(
+            platform::gConnectionSocket, x, y, request, target, button, reply));
+        world::detail::gValue581800 = -1;
+        static_cast<void>(audio::PlaySe_52C450(79, 320));
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+    }
+    if (row >= 0) {
+        std::sprintf(reply, "%d", row + 1);
+        input::EscapeLegacyTextAndNotify_52D2D0(reply, rowReply, 255);
+        const std::int32_t target = gDialogReply.target;
+        const std::int32_t request = gDialogReply.request;
+        const std::int32_t y =
+            platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+        const std::int32_t x =
+            platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+        static_cast<void>(network::Sub_512620(
+            platform::gConnectionSocket, x, y, request, target, 0, rowReply));
+        world::detail::gValue581800 = -1;
+        static_cast<void>(audio::PlaySe_52C450(79, 320));
+    }
+    return 1;
+}
+static_assert(std::is_same_v<decltype(&Sub_49DA30), WindowDialogReplyCallback>);
 
 std::int32_t Sub_499930(const std::int32_t, const std::int32_t state)
 {

@@ -132,6 +132,11 @@ InputContext* Sub_45D760(
 void AppendChar_44ADB0(char character);
 void LoadInitialText_44A160(const char* initialText); // 向当前输入逐字追加，保留原287B上限。
 
+// 原476740：拒绝单字节逗号/竖线/反斜杠及全空白，80..FF按双字节扫描。
+std::int32_t Sub_476740(const char* text);
+// 原45E770：只在81..FF后跳过一字节，命中单字节竖线/反斜杠返回1。
+std::int32_t Sub_45E770(const char* text);
+
 // 原 sub_52D1B0：旧文本字节转义，始终返回目标缓冲指针。
 char* EscapeLegacyText_52D1B0(
     const char* source, char* destination, std::int32_t capacity);

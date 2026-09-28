@@ -11,6 +11,7 @@
 #include "cg/LegacyAudio.hpp"
 #include "cg/YobiRuntime.hpp"
 #include "cg/network/NetworkRuntime.hpp"
+#include "cg/platform/KeyState.hpp"
 #include "cg/platform/LegacyMouse.hpp"
 #include "cg/platform/LegacyTime.hpp"
 #include "cg/platform/MainLoop.hpp"
@@ -137,6 +138,30 @@ const std::array<std::array<std::int32_t, 4>, 4> gPetBarImages57E434 {{
     {243156, 243157, 243158, 243159},
     {243161, 243162, 243163, 243164},
     {243166, 243167, 243168, 243169},
+}};
+const std::array<std::array<std::int32_t, 3>, 14> gNumericKeyImages54F030 {{
+    {243170, 243171, 243172},
+    {243173, 243174, 243175},
+    {243176, 243177, 243178},
+    {243179, 243180, 243181},
+    {243182, 243183, 243184},
+    {243185, 243186, 243187},
+    {243188, 243189, 243190},
+    {243191, 243192, 243193},
+    {243194, 243195, 243196},
+    {243197, 243198, 243199},
+    {243200, 243201, 243202},
+    {243203, 243204, 243205},
+    {243206, 243207, 243208},
+    {243209, 243210, 243211},
+}};
+const std::array<const char*, 6> gTradeNumberHints5805FC {{
+    "\xAB\xFC\xA9\x77\xAA\xF7\xC3\x42\xA1\x43",
+    "\xAB\xFC\xA9\x77\xB4\xA3\xBB\xE2\xAA\xF7\xC3\x42\xA1\x43",
+    "\xAB\xFC\xA9\x77\xAA\xF7\xC3\x42\xBC\xC6\xB6\x71\xA1\x43",
+    "\xB4\xEE\xA4\xD6\xA4\x40\xAD\xD3\xA6\xEC\xBC\xC6\xA1\x43",
+    "\xAB\xFC\xA9\x77\xA5\xFE\xB3\xA1\xAA\xF7\xC3\x42\xA1\x43",
+    "\xA7\xE2\xAB\xFC\xA9\x77\xAA\xF7\xC3\x42\xC2\x6B\xB9\x73\xA1\x43",
 }};
 std::array<std::int32_t, 6> gSelectedSlotsCA0A90 {};
 std::array<std::int32_t, 6> gMaterialIndicesCA0458 {};
@@ -1157,6 +1182,162 @@ std::int32_t Sub_4B08D0(const std::int32_t)
         }
     }
     DrawCurrentWindow_4729B0();
+    return 1;
+}
+
+bool Sub_4B1900(
+    const std::int32_t x, const std::int32_t y,
+    const std::int32_t width, const std::int32_t height)
+{
+    const std::int32_t relativeX =
+        platform::legacy_crypt_int::Subtract_401E60(&platform::gLegacyMouseState.mouseX, x);
+    if (relativeX < 0 || relativeX >= width) {
+        return false;
+    }
+    const std::int32_t relativeY =
+        platform::legacy_crypt_int::Subtract_401E60(&platform::gLegacyMouseState.mouseY, y);
+    return relativeY >= 0 && relativeY < height;
+}
+
+std::uint8_t Sub_474550(
+    WindowInstance* const window, const std::int32_t index, const std::int32_t state,
+    const std::int32_t maximum, const std::uint8_t layer, const char* const* const hints,
+    const std::uint8_t flags, const std::uint32_t color)
+{
+    WindowElement* const elements = window->elements;
+    const std::int32_t windowY = window->y;
+    const std::int32_t windowX = window->x;
+    const std::int32_t x = windowX + elements[index].x;
+    const std::int32_t y = windowY + elements[index].y;
+    render::GraphicDescriptor16 descriptor {};
+    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    descriptor.bytes[13] = 4;
+    // 每个键独立短路读取四次CryptInt，不能用一次坐标快照替代。
+    const auto hit = [](const std::int32_t left, const std::int32_t top,
+                       const std::int32_t right, const std::int32_t bottom) {
+        return platform::legacy_crypt_int::IntLessEqualCrypt_401FC0(
+                   left, &platform::gLegacyMouseState.mouseX)
+            && platform::legacy_crypt_int::Less_401DB0(
+                   &platform::gLegacyMouseState.mouseX, right)
+            && platform::legacy_crypt_int::IntLessEqualCrypt_401FC0(
+                   top, &platform::gLegacyMouseState.mouseY)
+            && platform::legacy_crypt_int::Less_401DB0(
+                   &platform::gLegacyMouseState.mouseY, bottom);
+    };
+    std::int32_t selected = -1;
+    for (std::int32_t row = 0; row < 3; ++row) {
+        const std::int32_t bottom = y + 57 - row * 20;
+        for (std::int32_t column = 0; column < 3; ++column) {
+            const std::int32_t digit = 1 + row * 3 + column;
+            const std::int32_t left = x + column * 24;
+            std::int32_t imageState = 0;
+            if (hit(left, bottom - 19, left + 21, bottom)) {
+                std::strcpy(gHoverTextD68AE8.data(), hints[0]);
+                imageState = (state & 8) != 0 ? 1 : 2;
+                if ((state & 2) != 0) {
+                    selected = digit;
+                }
+            }
+            static_cast<void>(login::detail::DrawGraphic(
+                left + 10, bottom - 9, layer, gNumericKeyImages54F030[digit][imageState],
+                0, &descriptor));
+        }
+    }
+    std::int32_t imageState = 0;
+    if (hit(x, y + 58, x + 21, y + 77)) {
+        std::strcpy(gHoverTextD68AE8.data(), hints[0]);
+        imageState = (state & 8) != 0 ? 1 : 2;
+        if ((state & 2) != 0) {
+            selected = 0;
+        }
+    }
+    static_cast<void>(login::detail::DrawGraphic(
+        x + 10, y + 68, layer, gNumericKeyImages54F030[0][imageState], 0, &descriptor));
+    imageState = 0;
+    if (hit(x + 48, y + 58, x + 69, y + 77)) {
+        if ((flags & 1u) != 0) {
+            std::strcpy(gHoverTextD68AE8.data(), hints[1]);
+            imageState = (state & 8) != 0 ? 1 : 2;
+            if ((state & 2) != 0) {
+                selected = 13;
+            }
+        } else {
+            const std::int32_t value = std::bit_cast<std::int32_t>(window->elements[index].state);
+            std::strcpy(gHoverTextD68AE8.data(), hints[value > 0 ? 1 : 2]);
+            imageState = (state & 8) != 0 ? 1 : 2;
+            const std::int32_t current = std::bit_cast<std::int32_t>(window->elements[index].state);
+            if (current > 0) {
+                if ((state & 2) != 0) {
+                    selected = 13;
+                }
+            } else if ((state & 2) != 0) {
+                static_cast<void>(audio::PlaySe_52C450(55, 320));
+            }
+        }
+    }
+    if ((flags & 1u) == 0 && selected < 0
+        && std::bit_cast<std::int32_t>(window->elements[index].state) <= 0) {
+        imageState = 1;
+    }
+    static_cast<void>(login::detail::DrawGraphic(
+        x + 58, y + 68, layer, gNumericKeyImages54F030[13][imageState], 0, &descriptor));
+    for (std::int32_t row = 0; row < 3; ++row) {
+        const std::int32_t centerY = y + 28 + row * 20;
+        imageState = 0;
+        if (hit(x + 75, centerY - 10, x + 100, centerY + 9)) {
+            std::strcpy(gHoverTextD68AE8.data(), hints[row + 3]);
+            imageState = (state & 8) != 0 ? 1 : 2;
+            if ((state & 2) != 0) {
+                selected = row + 10;
+            }
+        }
+        static_cast<void>(login::detail::DrawGraphic(
+            x + 87, centerY, layer, gNumericKeyImages54F030[row + 10][imageState],
+            0, &descriptor));
+    }
+    if ((flags & 2u) != 0) {
+        for (std::int32_t digit = 0; digit < 10; ++digit) {
+            if (platform::ReadKeyFlag4_4597A0(48 + digit) != 0
+                || platform::ReadKeyFlag4_4597A0(96 + digit) != 0) {
+                selected = digit;
+                break;
+            }
+        }
+    }
+    if (platform::ReadKeyFlag4_4597A0(8) != 0) {
+        WindowElement* const element = &window->elements[index];
+        const std::int32_t value = std::bit_cast<std::int32_t>(element->state);
+        element->state = static_cast<std::uint32_t>(value / 10);
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        return 1;
+    }
+    if (selected >= 0 && selected <= 9) {
+        WindowElement* const multiplyTarget = &window->elements[index];
+        const std::int32_t previous = std::bit_cast<std::int32_t>(multiplyTarget->state);
+        multiplyTarget->state = static_cast<std::uint32_t>(previous * 10);
+        WindowElement* const appendTarget = &window->elements[index];
+        const std::int32_t multiplied = std::bit_cast<std::int32_t>(appendTarget->state);
+        appendTarget->state = static_cast<std::uint32_t>(multiplied + selected);
+        WindowElement* const element = &window->elements[index];
+        if (std::bit_cast<std::int32_t>(element->state) > maximum) {
+            element->state = static_cast<std::uint32_t>(maximum);
+        }
+    }
+    if (selected == 10) {
+        WindowElement* const element = &window->elements[index];
+        const std::int32_t value = std::bit_cast<std::int32_t>(element->state);
+        element->state = static_cast<std::uint32_t>(value / 10);
+    } else if (selected == 11) {
+        window->elements[index].state = static_cast<std::uint32_t>(maximum);
+    } else if (selected == 12) {
+        window->elements[index].state = 0;
+    } else if (selected == 13) {
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        return 3;
+    } else if (selected < 0) {
+        return 0;
+    }
+    static_cast<void>(audio::PlaySe_52C450(51, 320));
     return 1;
 }
 

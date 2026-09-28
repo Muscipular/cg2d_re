@@ -344,6 +344,8 @@ extern std::int32_t gTooltipSourceD303FC; // 原提示源分类/编号缓存，�
 extern std::uint16_t gTooltipXCF46C0; // 同源低W16坐标，绘制按S16解释。
 extern std::uint16_t gTooltipYCF46CC;
 extern const std::array<std::array<std::int32_t, 4>, 4> gPetBarImages57E434; // left/middle/right/single。
+extern const std::array<std::array<std::int32_t, 3>, 14> gNumericKeyImages54F030;
+extern const std::array<const char*, 6> gTradeNumberHints5805FC; // 原字节提示的借用指针表。
 extern std::array<std::int32_t, 6> gSelectedSlotsCA0A90;
 extern std::array<std::int32_t, 6> gMaterialIndicesCA0458;
 extern std::array<std::int32_t, 6> gSelectionCountsD66E0C;
@@ -373,6 +375,12 @@ std::int32_t Sub_4B0090(std::int32_t index); // 只释放宠物选择及标记�
 void Sub_4B0200(); // 窗口43释放回调，原返回值弃用。
 std::int32_t Sub_4B0290(std::int32_t value); // 窗口43初始化、关闭检查与四阶段更新。
 std::int32_t Sub_4B08D0(std::int32_t unused); // 四类提示后绘制完整当前窗口。
+bool Sub_4B1900(
+    std::int32_t x, std::int32_t y, std::int32_t width, std::int32_t height); // X未命中则不读Y。
+std::uint8_t Sub_474550(
+    WindowInstance* window, std::int32_t index, std::int32_t state,
+    std::int32_t maximum, std::uint8_t layer, const char* const* hints,
+    std::uint8_t flags, std::uint32_t color); // 数值面板，返回0/1/3。
 std::int32_t Sub_4AFFE0(std::int32_t index); // S8物品槽，负值归-1。
 std::int32_t Sub_4B00F0(std::int32_t index); // S8宠物槽，负值归-1。
 std::int32_t Sub_4B0A50(std::int32_t index, std::int32_t state); // 公开两组交易槽及数值。

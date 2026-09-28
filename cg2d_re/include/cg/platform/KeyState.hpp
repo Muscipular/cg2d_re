@@ -18,5 +18,7 @@ int ResetKeyState_459780() noexcept;
 
 // 原 sub_4597B0；读取按键状态的 0x10 位，返回 0 或 0x10，不修改状态。
 int ReadKeyPressFlag_4597B0(std::uint8_t key) noexcept;
+// 原4597A0：完整S32索引，返回同源键态的4位，不清状态。
+int ReadKeyFlag4_4597A0(std::int32_t key) noexcept;
 
 } // namespace cg::platform

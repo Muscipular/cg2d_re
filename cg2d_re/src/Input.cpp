@@ -41,6 +41,7 @@ InputContext gInputContextC8B1B8 {};
 InputContext* gCurrentInputData = nullptr;
 std::int32_t gValueC9A96C = 0;
 std::int32_t gValue626C0C = 0;
+std::int32_t gValue626C14 = 0;
 std::int32_t gValue626C20 = 0;
 std::int32_t gValue626C28 = 0;
 

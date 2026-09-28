@@ -4,6 +4,7 @@
 #include "../LoginMessageDependencies.hpp"
 #include "../LoginRequestDependencies.hpp"
 #include "cg/Input.hpp"
+#include "cg/Blacklist.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/CommandOptions.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
@@ -121,7 +122,7 @@ PlayerRuntimeSlots gPlayerRuntime {};
 std::uint32_t gChatPreviousTickDA3B3C = 0;
 std::uint32_t gChatCurrentTickDA3B40 = 0;
 std::uint8_t gChatDisabledDA3B4C = 0;
-std::int32_t gChatGateDA3B54 = 0; // 原50CAE0接收回复另有写者，不由发送方猜定。
+std::int32_t gChatGateDA3B54 = 0; // 50CAE0写入，50C940读取同一接收门禁。
 constexpr char kChatDisabledText58AFEC[] =
     "\xA5\xD8\xAB\x65\xB8\x54\xA8\xA5\xA4\xA4";
 constexpr char kChatRepeatedText58B000[] =
@@ -2116,6 +2117,94 @@ std::int32_t Sub_50C940(
 void MarkPlayerChatActive() noexcept
 {
     gPlayerRuntime.flags18A |= 0x2000u;
+}
+
+void Sub_50CAE0(
+    const std::uintptr_t /*socket*/, const std::int32_t objectIndex,
+    const char* const payload, const std::int32_t color, const std::int32_t font)
+{
+    if (gValue9A6E0C != 0) {
+        return;
+    }
+    char kind[2];
+    network::ExtractDelimitedField_52CED0(payload, '|', 1, 1, kind);
+    if (kind[0] != 'P') {
+        return;
+    }
+    char source[2024];
+    network::ExtractDelimitedField_52CED0(payload, '|', 2, 2023, source);
+    input::UnescapeLegacyTextAndNotify_52D2F0(source);
+    const auto length = static_cast<std::int32_t>(std::strlen(source));
+    char snapshot[2048];
+    if (length > 0) {
+        std::memcpy(snapshot, source, static_cast<std::size_t>(length));
+    }
+    std::int32_t drawColor = color;
+    std::int32_t drawFont = font;
+    if (input::gValue626C14 == 0) {
+        char name[64];
+        char stripped[32];
+        std::memset(name, 0, sizeof(name));
+        const std::size_t initialLength = std::strlen(source);
+        gChatGateDA3B54 = 0;
+        if (initialLength != 0) {
+            std::uint32_t cursor = 0;
+            for (;;) {
+                if (source[cursor] == ':' && source[cursor + 1] == ' ') {
+                    std::strncpy(name, source, cursor);
+                    name[cursor] = '\0';
+                    break;
+                }
+                ++cursor;
+                if (cursor >= std::strlen(source)) {
+                    break;
+                }
+            }
+        }
+        const auto stripPrefix = [&](const std::uint32_t prefixLength) {
+            std::uint32_t cursor = 0;
+            if (std::strlen(name) != prefixLength) {
+                do {
+                    stripped[cursor] = name[cursor + prefixLength];
+                    ++cursor;
+                } while (cursor < std::strlen(name) - prefixLength);
+            }
+            stripped[cursor] = '\0';
+            std::memset(name, 0, sizeof(name));
+            std::strcpy(name, stripped);
+        };
+        if (std::strncmp(name, "[MIC]", std::strlen("[MIC]")) == 0) {
+            gChatGateDA3B54 = 1;
+            stripPrefix(5);
+        } else if (std::strncmp(name, "[GP]", std::strlen("[GP]")) == 0) {
+            stripPrefix(4);
+        }
+        if (blacklist::ContainsBlacklistRecord_4013D0(name) != 0) {
+            return;
+        }
+        if (color < 0) {
+            drawColor = 0;
+            drawFont = 1;
+        }
+        if (std::strcmp(source, input::LegacyText593850()) != 0) {
+            Sub_44B050(source, drawColor, drawFont);
+        }
+    }
+    if (platform::gValue554644 != 0) {
+        static_cast<void>(audio::PlaySe_52C450(74, 320));
+    }
+    if (objectIndex < 0) {
+        return;
+    }
+    if (gPlayerRuntime.action != nullptr
+        && gPlayerRuntime.objectIndex == static_cast<std::uint32_t>(objectIndex)) {
+        Sub_51A6A0(1000, snapshot, drawColor, drawFont, length);
+    } else {
+        login::YobiAction* const action = FindObjectYobi_4462B0(objectIndex);
+        if (action != nullptr) {
+            Sub_442DC0(action, 1000, snapshot, drawColor, drawFont, length);
+        }
+    }
 }
 
 void Sub_50D000(

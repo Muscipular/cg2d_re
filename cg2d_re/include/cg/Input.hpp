@@ -82,6 +82,7 @@ const char* LegacyText593850() noexcept;
 
 // 下列状态只保留当前已取证的读写语义，不扩展业务命名。
 extern std::int32_t gValue626C0C; // 输入相位计数；接受字符后写 20。
+extern std::int32_t gValue626C14; // 聊天回复跳过日志/名字处理的共享门禁，UI与协议写者共用。
 extern std::int32_t gValue626C20; // 超过 maxLine 时选择截断或回滚分支。
 extern std::int32_t gValue626C28; // 特定回滚路径写 1。
 

@@ -1761,6 +1761,193 @@ void Sub_4B2730(
     }
 }
 
+void Sub_4B2F70(
+    std::uint8_t* const tab, const std::int16_t x, const std::int16_t y,
+    const std::int32_t, const std::int32_t, const std::int32_t state,
+    const std::int32_t scroll, const render::GraphicDescriptor16* const descriptor)
+{
+    std::int16_t rowY[3] {26, 95, 164};
+    std::uint8_t events = static_cast<std::uint8_t>(state);
+    if ((events & 0x60u) != 0 && Sub_475D60() != 3 && Sub_475D60() != 7) {
+        events &= 0x9Fu;
+    }
+    if (gTradePhaseCAFEC4 != 0) {
+        events &= 0x9Fu;
+    }
+    if (*tab != 1) {
+        if ((events & 0x40u) != 0) {
+            const std::int32_t source = Sub_475D90();
+            if (Sub_48BB70(source) == 1) {
+                std::int32_t target = 0;
+                while (target < 5 && Sub_4B00F0(target) >= 0) {
+                    ++target;
+                }
+                if (target < 5) {
+                    static_cast<void>(Sub_4B0090(target));
+                    static_cast<void>(Sub_4B0060(target, source));
+                    *tab = 1;
+                }
+            }
+            Sub_476500();
+        }
+        if ((events & 0x20u) != 0) {
+            login::detail::DrawGraphicHover(
+                static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
+                static_cast<std::uint16_t>(x + 273), static_cast<std::uint16_t>(y + 280),
+                223, login::detail::gValueD69768, 0);
+        }
+        return;
+    }
+    if ((events & 0x40u) != 0) {
+        const std::int32_t dropX = Sub_475D70();
+        const std::int32_t dropY = Sub_475D80();
+        const std::int32_t kind = Sub_475D60();
+        const std::int32_t source = Sub_475D90();
+        // 原仅初始化三项却扫描五次；不补坐标或模拟x86栈残值，异常边界见SPEC。
+        for (std::int32_t row = 0; row < 5; ++row) {
+            const std::int32_t top = y + rowY[row];
+            if (dropX >= x + 251 || x + 11 > dropX || dropY >= top + 69 || top > dropY) {
+                continue;
+            }
+            const std::int32_t target = scroll + row;
+            if (target >= 0) {
+                if (kind == 3) {
+                    if (Sub_48BB70(source) == 1) {
+                        static_cast<void>(Sub_4B0090(target));
+                        static_cast<void>(Sub_4B0060(target, source));
+                    }
+                } else if (kind == 7) {
+                    static_cast<void>(Sub_4B00C0(source, target));
+                }
+                Sub_476500();
+            }
+            break;
+        }
+    }
+    if (*tab != 1) {
+        return;
+    }
+    std::int32_t hovered = -1;
+    const bool hover = (events & 0x21u) != 0;
+    if (hover) {
+        for (std::int32_t row = 0; row < 3; ++row) {
+            const std::int32_t top = y + rowY[row];
+            if (login::detail::Sub_5049A0(x + 11, top, x + 251, top + 69, -1) != 0) {
+                hovered = scroll + row;
+                break;
+            }
+        }
+    }
+    const std::uint8_t phase = gTradePhaseCAFEC4;
+    if (phase == 0 && hovered >= 0) {
+        std::strcpy(gHoverTextD68AE8.data(),
+            "\xA5\xCE\xB7\xC6\xB9\xAB\xA9\xEC\xA9\xF1\xA4\xE8\xA6\xA1\xA1\x41"
+            "\xA8\xFA\xAE\xF8\xA6\xB9\xB5\xA7\xC3\x64\xAA\xAB\xA5\xE6\xA9\xF6\xA1\x43");
+    }
+    if (hovered >= 0 && (platform::gLegacyMouseState.edgeButtons & 0x10u) != 0
+        && (phase != 0 || ((Sub_475D40() == 43 || Sub_475D40() == 0)
+                           && Sub_4B0090(hovered) < 0))) {
+        static_cast<void>(audio::PlaySe_52C450(55, 320));
+    }
+    if ((events & 1u) != 0 && hovered >= 0 && Sub_4B00F0(hovered) >= 0
+        && gTradePhaseCAFEC4 == 0 && (events & 2u) != 0) {
+        static_cast<void>(Sub_4B2F50(hovered));
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+    }
+    if (Sub_475D60() == 7 && Sub_475D40() == 43 && Sub_475D50() == 8) {
+        const std::int32_t source = Sub_475D90();
+        if (Sub_4B00F0(source) >= 0
+            && world::detail::gPetRuntimeF633F8[Sub_4B00F0(source)].used != 0) {
+            const std::int32_t row = source - scroll;
+            if (row >= 0 && row < 3) {
+                const std::int32_t top = y + rowY[row];
+                login::detail::DrawGraphicHover(
+                    static_cast<std::uint16_t>(x + 11), static_cast<std::uint16_t>(top),
+                    static_cast<std::uint16_t>(x + 251), static_cast<std::uint16_t>(top + 69),
+                    223, 254, 0);
+            }
+        }
+    }
+    if (hover) {
+        const std::int32_t row = hovered - scroll;
+        if (row >= 0 && row < 3) {
+            const std::int32_t top = y + rowY[row];
+            login::detail::DrawGraphicHover(
+                static_cast<std::uint16_t>(x + 11), static_cast<std::uint16_t>(top),
+                static_cast<std::uint16_t>(x + 251), static_cast<std::uint16_t>(top + 69),
+                223, login::detail::gValueD69768, 0);
+            const std::int32_t slot = Sub_4B00F0(hovered);
+            if (slot >= 0 && world::detail::gPetRuntimeF633F8[slot].used != 0) {
+                gTradePreviewCC2E64 = slot + 300;
+            }
+        }
+    }
+    for (std::int32_t row = 0; row < 3; ++row) {
+        const std::int32_t left = x + 11;
+        const std::int32_t top = y + rowY[row];
+        const std::int32_t slot = Sub_4B00F0(scroll + row);
+        if (slot >= 0 && world::detail::gPetRuntimeF633F8[slot].used != 0) {
+            Sub_4AAB70(
+                std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(left)),
+                std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(top)), slot, 3);
+            static_cast<void>(login::detail::DrawGraphic(
+                left + 120, top + 35, 223, 243141, 0, descriptor));
+        } else {
+            static_cast<void>(render::DrawGraphic3_520970(
+                left, top, 223, 243141, 0, 1, 0, descriptor));
+        }
+    }
+}
+
+std::int32_t Sub_4B3430(const std::int32_t index, const std::int32_t state)
+{
+    render::GraphicDescriptor16 descriptor {};
+    WindowInstance* const window = gCurrentWindow;
+    const auto* const graphic = static_cast<const WindowGraphicData*>(window->elements[index].data);
+    const std::uint32_t color = graphic->color;
+    descriptor.bytes[13] = 4;
+    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    if (gTradeValueD2E2B0 == 2) {
+        descriptor.bytes[11] >>= 1;
+    }
+    static constexpr std::array<std::int32_t, 3> backgrounds54F53C {244367, 244371, 244369};
+    const std::int32_t amount = world::detail::ReadPlayerValueFC();
+    return Sub_4B1260(
+        window, index, state, backgrounds54F53C.data(), &gTradeValueC8AF81,
+        7, &gTradeScrollCC4C90, -1, 0, 0, 0, amount, &descriptor, Sub_4B34C0);
+}
+
+void Sub_4B34C0(
+    const std::int16_t x, const std::int16_t y,
+    const std::int32_t mouseX, const std::int32_t mouseY, const std::int32_t state,
+    std::uint8_t* const tab, const std::int32_t scroll,
+    const std::uint8_t numericResult, std::uint32_t*,
+    std::int32_t* const itemCount, std::int32_t* const petCount, std::int32_t* const amount,
+    std::int32_t* const displayAmount, render::GraphicDescriptor16* const descriptor)
+{
+    if ((numericResult & 2u) != 0 && gTradeValueD6742C != 2) {
+        gTradeValueD6742C = 2;
+    }
+    Sub_4B2730(tab, x, y, mouseX, mouseY, state, descriptor);
+    Sub_4B2F70(tab, x, y, mouseX, mouseY, state, scroll, descriptor);
+    *displayAmount = gTradeValueD046D0;
+    std::int32_t items = 0;
+    for (std::int32_t position = 0; position < 20; ++position) {
+        if (Sub_4AFFE0(position) >= 0) {
+            ++items;
+        }
+    }
+    *itemCount = items;
+    std::int32_t pets = 0;
+    for (std::int32_t position = 0; position < 5; ++position) {
+        if (Sub_4B00F0(position) >= 0) {
+            ++pets;
+        }
+    }
+    *petCount = pets;
+    *amount = gTradeValueD046D0;
+}
+
 std::int32_t Sub_4B3580(const std::int32_t index, const std::int32_t state)
 {
     render::GraphicDescriptor16 descriptor {};

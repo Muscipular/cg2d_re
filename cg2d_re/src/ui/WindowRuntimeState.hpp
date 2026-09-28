@@ -404,6 +404,17 @@ void Sub_4B2730(
     std::uint8_t* tab, std::int16_t x, std::int16_t y,
     std::int32_t mouseX, std::int32_t mouseY, std::int32_t state,
     const render::GraphicDescriptor16* descriptor); // 己方已选物品完整交互/绘制。
+void Sub_4B2F70(
+    std::uint8_t* tab, std::int16_t x, std::int16_t y,
+    std::int32_t mouseX, std::int32_t mouseY, std::int32_t state, std::int32_t scroll,
+    const render::GraphicDescriptor16* descriptor); // 己方已选宠物完整交互/绘制。
+std::int32_t Sub_4B3430(std::int32_t index, std::int32_t state);
+void Sub_4B34C0(
+    std::int16_t x, std::int16_t y, std::int32_t mouseX, std::int32_t mouseY,
+    std::int32_t state, std::uint8_t* tab, std::int32_t scroll,
+    std::uint8_t numericResult, std::uint32_t* valueSlot,
+    std::int32_t* itemCount, std::int32_t* petCount, std::int32_t* amount,
+    std::int32_t* displayAmount, render::GraphicDescriptor16* descriptor);
 std::int32_t Sub_4B0F20(
     std::int16_t x, std::int16_t y, std::int8_t side, std::int32_t index,
     std::uint8_t textLayer, std::uint8_t graphicLayer,

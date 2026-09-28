@@ -126,6 +126,7 @@ std::int32_t gTradeScrollCF3B0C = 0;
 std::int32_t gTradeScrollCC4C90 = 0;
 std::int32_t gTradeScrollD67430 = 0;
 std::int32_t gTradePreviewCC2E64 = 0;
+std::uint8_t gTradeTooltipPageCB10D4 = 0;
 std::uint32_t gWindowActionTick62B5AC = 0;
 std::int32_t gTooltipColorD67D30 = 0;
 std::int32_t gTooltipSourceD303FC = 0;
@@ -1109,6 +1110,53 @@ std::int32_t Sub_4B0290(const std::int32_t value)
         break;
     }
     gTradePreviewCC2E64 = -1;
+    return 1;
+}
+
+std::int32_t Sub_4B08D0(const std::int32_t)
+{
+    std::int32_t preview = gTradePreviewCC2E64;
+    if (preview >= 0) {
+        if (preview < 300) {
+            const bool ownItem = preview < 100;
+            if (!ownItem) {
+                preview -= 200;
+                gTradePreviewCC2E64 = preview;
+            }
+            if (preview >= 0) {
+                const std::int32_t page = std::bit_cast<std::int8_t>(gTradeTooltipPageCB10D4);
+                if (ownItem) {
+                    static_cast<void>(Sub_48B1A0(preview, page));
+                } else {
+                    static_cast<void>(Sub_48B450(0, preview, page));
+                }
+            }
+        } else {
+            preview -= 300;
+            gTradePreviewCC2E64 = preview;
+            // 原4B0970在异常分类>=600时读未初始化字节；不补零或指定分支。
+            std::uint8_t ownPet;
+            if (preview < 100) {
+                ownPet = 1;
+            } else if (preview < 300) {
+                ownPet = 0;
+                preview -= 200;
+                gTradePreviewCC2E64 = preview;
+            }
+            if (preview >= 0) {
+                const bool left = platform::legacy_crypt_int::Less_401DB0(
+                    &platform::gLegacyMouseState.mouseX, 320);
+                const std::int32_t x = left ? 413 : 0;
+                const std::uint8_t index = static_cast<std::uint8_t>(gTradePreviewCC2E64);
+                if (ownPet != 0) {
+                    static_cast<void>(Sub_4B3BF0(x, 0, index));
+                } else {
+                    static_cast<void>(Sub_4B4680(x, 0, 0, index));
+                }
+            }
+        }
+    }
+    DrawCurrentWindow_4729B0();
     return 1;
 }
 

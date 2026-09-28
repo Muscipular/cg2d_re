@@ -337,6 +337,7 @@ extern std::int32_t gTradeScrollCF3B0C;
 extern std::int32_t gTradeScrollCC4C90;
 extern std::int32_t gTradeScrollD67430;
 extern std::int32_t gTradePreviewCC2E64; // 原预览分类数值，非地址。
+extern std::uint8_t gTradeTooltipPageCB10D4; // 物品提示页，绘制按S8读取。
 extern std::uint32_t gWindowActionTick62B5AC; // 跨UI动作共用，不是交易私有计时槽。
 extern std::int32_t gTooltipColorD67D30; // 分段文本跨行共享颜色，尾串取低S8。
 extern std::int32_t gTooltipSourceD303FC; // 原提示源分类/编号缓存，非地址。
@@ -371,6 +372,7 @@ std::int32_t Sub_4AFF70(std::int32_t index); // 释放物品选择，再减同�
 std::int32_t Sub_4B0090(std::int32_t index); // 只释放宠物选择及标记。
 void Sub_4B0200(); // 窗口43释放回调，原返回值弃用。
 std::int32_t Sub_4B0290(std::int32_t value); // 窗口43初始化、关闭检查与四阶段更新。
+std::int32_t Sub_4B08D0(std::int32_t unused); // 四类提示后绘制完整当前窗口。
 std::int32_t Sub_4AFFE0(std::int32_t index); // S8物品槽，负值归-1。
 std::int32_t Sub_4B00F0(std::int32_t index); // S8宠物槽，负值归-1。
 std::int32_t Sub_4B0A50(std::int32_t index, std::int32_t state); // 公开两组交易槽及数值。

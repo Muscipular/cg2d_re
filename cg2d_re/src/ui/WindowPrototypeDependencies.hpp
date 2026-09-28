@@ -165,7 +165,6 @@ std::int32_t Sub_4AD9F0(std::int32_t value);
 std::int32_t Sub_4AE5F0(std::int32_t value);
 std::int32_t Sub_4AEAE0(std::int32_t value);
 std::int32_t Sub_4AEC10(std::int32_t value);
-std::int32_t Sub_4B08D0(std::int32_t value);
 std::int32_t Sub_4B4B00(std::int32_t value);
 void Sub_4B4B70();
 std::int32_t Sub_4B4B90(std::int32_t value);

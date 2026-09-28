@@ -7141,6 +7141,16 @@ void SetYobiActionField308(
     action->batchType = value;
 }
 
+void SetYobiActionField309(YobiAction* const action, const std::uint8_t value)
+{
+    action->rebirthValue1 = value;
+}
+
+void SetYobiActionField310(YobiAction* const action, const std::uint8_t value)
+{
+    action->rebirthValue2 = value;
+}
+
 void SetYobiActionField30C(
     YobiAction* const action,
     const std::int32_t value)

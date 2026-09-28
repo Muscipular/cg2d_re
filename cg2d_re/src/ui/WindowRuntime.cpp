@@ -273,6 +273,8 @@ std::int32_t gInventoryHover57DA2C = -2;
 std::int32_t gEquipmentHover57DA68 = -2;
 std::array<char, 12> gInventoryMoneyTextCB086C {};
 std::array<char, 12> gInventoryValueTextCC3ECC {};
+std::int32_t gBattleItemHoverCF49B0 = 0;
+std::int32_t gBattleItemPageCB01E0 = 0;
 std::uint8_t gValue57E42C = 0xFF;
 const std::array<std::int32_t, 8> gSelectorOwnX54F584 {100, 36, 36, 165, 165, 36, 165, 165};
 const std::array<std::int32_t, 8> gSelectorOwnY54F5A4 {30, 130, 80, 80, 130, 30, 30, 180};
@@ -4523,6 +4525,58 @@ std::int32_t Sub_488E80(const std::int32_t, const std::int32_t)
 {
     std::sprintf(gInventoryValueTextCC3ECC.data(), "%10d", world::detail::ReadPlayerValue15BCC());
     return 0;
+}
+
+std::int32_t Sub_499990(const std::int32_t value)
+{
+    if (value == -1) {
+        Sub_4C6EC0(&gItemSelectorD2F338, 1);
+        gItemSelectorD2F338.initialized3E8 = 0;
+        gBattleItemPageCB01E0 = 0;
+    }
+    gBattleItemHoverCF49B0 = -1;
+    Sub_4C7A90(&gItemSelectorD2F338);
+    return 1;
+}
+
+std::int32_t Sub_4999D0(const std::int32_t)
+{
+    const std::int32_t hovered = gBattleItemHoverCF49B0;
+    if (hovered >= 0) {
+        static_cast<void>(Sub_48B1A0(hovered, gBattleItemPageCB01E0));
+    } else {
+        const std::int32_t kind = Sub_475D60();
+        if (kind == 2) {
+            if (Sub_475D40() == 27 && (platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
+                static_cast<void>(Sub_4763E0());
+            }
+        } else if (kind == 0 && (platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
+            gCurrentWindow->state |= 0x8000u;
+        }
+    }
+    const std::uint32_t position = world::detail::gBattlePosition5ABCA8;
+    WindowInstance* const window = gCurrentWindow;
+    login::YobiAction* const source = world::detail::gBattleEntries59E980[position];
+    auto* const data = static_cast<WindowAnimationData*>(window->elements[4].data);
+    const std::int32_t imageNo = login::detail::GetYobiActionField2A8(source);
+    login::detail::SetYobiActionField2A8(data->action, imageNo);
+    login::detail::SetYobiActionField2B8(
+        static_cast<WindowAnimationData*>(gCurrentWindow->elements[4].data)->action, 5);
+    login::detail::SetYobiActionField309(
+        static_cast<WindowAnimationData*>(gCurrentWindow->elements[4].data)->action, 0);
+    WindowElement* const elements = gCurrentWindow->elements;
+    if (elements[4].visible != 0) {
+        const std::int32_t currentImage = login::detail::GetYobiActionField2A8(
+            world::detail::gBattleEntries59E980[world::detail::gBattlePosition5ABCA8]);
+        if (currentImage >= 110350 && currentImage <= 110373) {
+            login::detail::SetYobiActionField309(
+                static_cast<WindowAnimationData*>(elements[4].data)->action, 4);
+            login::detail::SetYobiActionField310(
+                static_cast<WindowAnimationData*>(gCurrentWindow->elements[4].data)->action, 4);
+        }
+    }
+    DrawCurrentWindow_4729B0();
+    return 1;
 }
 
 std::int32_t Sub_488FB0(const std::int32_t index, const std::int32_t state)

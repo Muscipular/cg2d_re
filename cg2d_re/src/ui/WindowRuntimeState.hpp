@@ -341,6 +341,8 @@ extern std::int32_t gEquipmentHover57DA68; // 装备页独立悬停槽，初值-
 extern std::array<char, 12> gInventoryMoneyTextCB086C; // 488E60格式化，type7载荷借用。
 extern std::array<char, 12> gInventoryValueTextCC3ECC; // 488E80格式化FF02CC，独立于输入区。
 extern std::uint8_t gValue57E42C; // 原独立U8，初值FF，设置文件与宠物窗口共用。
+extern std::int32_t gBattleItemHoverCF49B0; // 窗口27每帧清-1，499C30发布提示槽。
+extern std::int32_t gBattleItemPageCB01E0; // 窗口27物品提示页，同源于两战斗交互。
 extern std::int32_t gValueCF4AAC; // 原设置文件回填与多个UI入口共用的数值。
 extern std::int32_t gValueCF4690;
 extern std::int32_t gValueCA0440;

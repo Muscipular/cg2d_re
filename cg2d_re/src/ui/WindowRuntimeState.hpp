@@ -304,6 +304,7 @@ extern std::array<char, 2 * 5 * 0x5FC> gTradePetsC9C108;
 extern std::array<char, 5 * 0x600> gPetStorageD64E18; // 外部存放宠物，4A84A0原回复区。
 extern std::array<char, 2 * 0xFBF8> gItemDetailStorageCC4D58; // 每组首20条C44物品、末W32金额，间隔未冻结。
 extern std::int32_t gStorageValueCC4218; // 存放窗口41每帧清零、元素13绘制的数值。
+extern std::array<char, 22> gStorageAmountTextsCB1DF8; // 两金额文本起点相隔11B，571150/158借用。
 extern const std::array<std::int32_t, 2> gStorageTitleImages54F4E8;
 extern const std::array<std::int32_t, 2> gStoragePanelImages54F4F0;
 extern std::int32_t gTradeValueCC4224;
@@ -521,6 +522,16 @@ std::int32_t Sub_4A94A0(std::int32_t index, std::int32_t state); // 存放第二
 std::int32_t Sub_4A9560(std::int32_t index, std::int32_t unused); // 第一页选中图。
 std::int32_t Sub_4A9580(std::int32_t index, std::int32_t unused); // 第二页选中图。
 std::int32_t Sub_4A9B00(std::int32_t unusedIndex, std::int32_t unusedState); // 双侧数量和金额。
+std::int32_t Sub_4A95A0(std::int32_t index, std::int32_t state); // 物品页签。
+std::int32_t Sub_4A96D0(std::int32_t index, std::int32_t state); // 宠物页签。
+std::int32_t Sub_4A9820(std::int32_t index, std::int32_t state); // 存款页签。
+std::int32_t Sub_4A9990(std::int32_t index, std::int32_t state); // 取款页签。
+std::int32_t Sub_4A9D10(std::int32_t index, std::int32_t state); // 自有存放物品面板。
+std::int32_t Sub_4AA3D0(std::int32_t index, std::int32_t state); // 外部存放物品面板。
+std::int32_t Sub_4AA9C0(std::int32_t index, std::int32_t state); // 宠物上一行。
+std::int32_t Sub_4AAA70(std::int32_t index, std::int32_t state); // 宠物下一行。
+std::int32_t Sub_4AAB20(std::int32_t index, std::int32_t state); // 两侧宠物滚轮。
+std::int32_t Sub_4ABB20(std::int32_t index, std::int32_t state); // 存取金额输入及请求。
 std::int32_t Sub_4B4070(
     std::int32_t x, std::int32_t y, std::int32_t index,
     std::int32_t skill); // 外部宠物技能名称行，空行仍绘背景。

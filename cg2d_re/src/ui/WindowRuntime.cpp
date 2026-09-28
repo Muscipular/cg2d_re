@@ -98,6 +98,10 @@ std::int32_t gStorageOwnHover57EE04 = -2;
 std::int32_t gStorageExternalHover57EE08 = -2;
 const std::array<std::int32_t, 2> gStorageTitleImages54F4E8 {244390, 244320};
 const std::array<std::int32_t, 2> gStoragePanelImages54F4F0 {244391, 244321};
+const std::array<std::int32_t, 2> gStoragePetImages54F4F8 {244392, 244323};
+const std::array<std::int32_t, 2> gStorageMoneyImages54F500 {244393, 244322};
+std::array<std::int32_t, 2> gStorageLastAmountsD67B68 {};
+std::array<char, 22> gStorageAmountTextsCB1DF8 {};
 std::int32_t gTradeValueCF4688 = 0;
 std::int32_t gTradeValueD046D0 = 0;
 std::int32_t gTradeValueD2E2B0 = 0;
@@ -196,6 +200,22 @@ const std::array<const char*, 6> gNumberWindowHints57DC9C {{
     "\xB4\xEE\xA4\xD6\xA4\x40\xA6\xEC\xBC\xC6\xA1\x43",
     "\xAB\xFC\xA9\x77\xA5\xFE\xC3\x42\xA1\x43",
     "\xB1\x4E\xAB\xFC\xA9\x77\xAA\xF7\xC3\x42\xC2\x6B\xB9\x73\xA1\x43",
+}};
+const std::array<const char*, 6> gStorageDepositHints57EDD4 {{
+    "\xAB\xFC\xA9\x77\xAA\xF7\xC3\x42\xA1\x43",
+    "\xAB\xFC\xA9\x77\xA6\x73\xA4\x4A\xAA\xF7\xC3\x42\xA1\x43",
+    "\xBD\xD0\xAB\xFC\xA9\x77\xAA\xF7\xC3\x42\xA1\x43",
+    "\xB4\xEE\xA4\xD6\xA4\x40\xAD\xD3\xA6\xEC\xBC\xC6\xA1\x43",
+    "\xAB\xFC\xA9\x77\xA5\xFE\xB3\xA1\xAA\xF7\xC3\x42\xA1\x43",
+    "\xA7\xE2\xAB\xFC\xA9\x77\xAA\xF7\xC3\x42\xC2\x6B\xB9\x73\xA1\x43",
+}};
+const std::array<const char*, 6> gStorageWithdrawHints57EDEC {{
+    "\xAB\xFC\xA9\x77\xAA\xF7\xC3\x42\xA1\x43",
+    "\xAB\xFC\xA9\x77\xB4\xA3\xBB\xE2\xAA\xF7\xC3\x42\xA1\x43",
+    "\xAB\xFC\xA9\x77\xAA\xF7\xC3\x42\xBC\xC6\xB6\x71\xA1\x43",
+    "\xB4\xEE\xA4\xD6\xA4\x40\xAD\xD3\xA6\xEC\xBC\xC6\xA1\x43",
+    "\xAB\xFC\xA9\x77\xA5\xFE\xB3\xA1\xAA\xF7\xC3\x42\xA1\x43",
+    "\xA7\xE2\xAB\xFC\xA9\x77\xAA\xF7\xC3\x42\xC2\x6B\xB9\x73\xA1\x43",
 }};
 static constexpr char kTribeUnopened585C50[] = "\xA5\xBC\xB6\x7D\xA9\xF1";
 const std::array<const char*, 20> gTribeNames57CB54 {{
@@ -4410,6 +4430,299 @@ std::int32_t Sub_4A9560(const std::int32_t index, const std::int32_t)
 std::int32_t Sub_4A9580(const std::int32_t index, const std::int32_t)
 {
     static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 243177;
+    return 0;
+}
+
+std::int32_t Sub_4A95A0(const std::int32_t index, const std::int32_t state)
+{
+    WindowInstance* const window = gCurrentWindow;
+    auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
+    if ((state & 1) != 0) {
+        std::strcpy(gHoverTextD68AE8.data(), "\xA6\x73\xA9\xF1\xAA\xAB\xAB\x7E\xA1\x43");
+    }
+    if ((state & 2) != 0) {
+        const auto* const panel = static_cast<WindowGraphicData*>(window->elements[34].data);
+        static_cast<void>(audio::PlaySe_52C450(panel->imageNo == 243143 ? 55 : 51, 320));
+        static_cast<WindowGraphicData*>(gCurrentWindow->elements[34].data)->imageNo = 243143;
+        auto* const external = static_cast<WindowGraphicData*>(gCurrentWindow->elements[35].data);
+        external->imageNo = gStoragePanelImages54F4F0[gWindowStates[41].value10];
+        for (std::int32_t element = 14; element < 34; ++element) {
+            gCurrentWindow->elements[element].visible = 0;
+        }
+        gCurrentWindow->elements[34].mouseCallback = Sub_4A9D10;
+        gCurrentWindow->elements[35].mouseCallback = Sub_4AA3D0;
+    }
+    graphic->imageNo = 243027;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 243029;
+    }
+    if (static_cast<WindowGraphicData*>(gCurrentWindow->elements[34].data)->imageNo == 243143) {
+        graphic->imageNo = 243028;
+    }
+    return 0;
+}
+
+std::int32_t Sub_4A96D0(const std::int32_t index, const std::int32_t state)
+{
+    WindowInstance* const window = gCurrentWindow;
+    auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
+    if ((state & 1) != 0) {
+        std::strcpy(gHoverTextD68AE8.data(), "\xA6\x73\xA9\xF1\xC3\x64\xAA\xAB\xA1\x43");
+    }
+    if ((state & 2) != 0) {
+        const auto* const panel = static_cast<WindowGraphicData*>(window->elements[34].data);
+        static_cast<void>(audio::PlaySe_52C450(panel->imageNo == 243145 ? 55 : 51, 320));
+        static_cast<WindowGraphicData*>(gCurrentWindow->elements[34].data)->imageNo = 243145;
+        auto* const external = static_cast<WindowGraphicData*>(gCurrentWindow->elements[35].data);
+        external->imageNo = gStoragePetImages54F4F8[gWindowStates[41].value10];
+        for (std::int32_t element = 14; element < 34; ++element) {
+            gCurrentWindow->elements[element].visible = 0;
+        }
+        for (std::int32_t element = 14; element <= 29; ++element) {
+            gCurrentWindow->elements[element].visible = 1;
+        }
+        gCurrentWindow->elements[34].mouseCallback = Sub_4B0F10;
+        gCurrentWindow->elements[35].mouseCallback = Sub_4B0F10;
+    }
+    graphic->imageNo = 243021;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 243023;
+    }
+    if (static_cast<WindowGraphicData*>(gCurrentWindow->elements[34].data)->imageNo == 243145) {
+        graphic->imageNo = 243022;
+    }
+    return 0;
+}
+
+std::int32_t Sub_4A9820(const std::int32_t index, const std::int32_t state)
+{
+    WindowInstance* const window = gCurrentWindow;
+    auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
+    if ((state & 1) != 0) {
+        std::strcpy(gHoverTextD68AE8.data(), "\xA6\x73\xA9\xF1\xAA\xF7\xBF\xFA\xA1\x43");
+    }
+    if ((state & 2) != 0) {
+        static_cast<void>(audio::PlaySe_52C450(window->elements[30].visible != 0 ? 55 : 51, 320));
+        static_cast<WindowGraphicData*>(gCurrentWindow->elements[34].data)->imageNo = 243144;
+        auto* const external = static_cast<WindowGraphicData*>(gCurrentWindow->elements[35].data);
+        external->imageNo = gStorageMoneyImages54F500[gWindowStates[41].value10];
+        for (std::int32_t element = 14; element < 34; ++element) {
+            gCurrentWindow->elements[element].visible = 0;
+        }
+        gCurrentWindow->elements[30].visible = 1;
+        gCurrentWindow->elements[32].visible = 1;
+        gCurrentWindow->elements[33].visible = 1;
+        gCurrentWindow->elements[34].mouseCallback = Sub_4B0F10;
+        gCurrentWindow->elements[35].mouseCallback = Sub_4B0F10;
+        gCurrentWindow->elements[30].state = 0;
+        static_cast<void>(Sub_4A92D0(0, 2));
+    }
+    graphic->imageNo = 243024;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 243026;
+    }
+    if (gCurrentWindow->elements[30].visible != 0) {
+        graphic->imageNo = 243025;
+    }
+    return 0;
+}
+
+std::int32_t Sub_4A9990(const std::int32_t index, const std::int32_t state)
+{
+    WindowInstance* const window = gCurrentWindow;
+    auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
+    if ((state & 1) != 0) {
+        std::strcpy(gHoverTextD68AE8.data(), "\xB4\xA3\xBB\xE2\xAA\xF7\xBF\xFA\xA1\x43");
+    }
+    if ((state & 2) != 0) {
+        static_cast<void>(audio::PlaySe_52C450(window->elements[31].visible != 0 ? 55 : 51, 320));
+        static_cast<WindowGraphicData*>(gCurrentWindow->elements[34].data)->imageNo = 243144;
+        auto* const external = static_cast<WindowGraphicData*>(gCurrentWindow->elements[35].data);
+        external->imageNo = gStorageMoneyImages54F500[gWindowStates[41].value10];
+        for (std::int32_t element = 14; element < 34; ++element) {
+            gCurrentWindow->elements[element].visible = 0;
+        }
+        gCurrentWindow->elements[31].visible = 1;
+        gCurrentWindow->elements[32].visible = 1;
+        gCurrentWindow->elements[33].visible = 1;
+        gCurrentWindow->elements[34].mouseCallback = Sub_4B0F10;
+        gCurrentWindow->elements[35].mouseCallback = Sub_4B0F10;
+        gCurrentWindow->elements[31].state = 0;
+        static_cast<void>(Sub_4A92D0(0, 2));
+    }
+    graphic->imageNo = 243024;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 243026;
+    }
+    if (gCurrentWindow->elements[31].visible != 0) {
+        graphic->imageNo = 243025;
+    }
+    return 0;
+}
+
+std::int32_t Sub_4AA9C0(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    WindowState* const windowState = gCurrentWindowState;
+    std::uint32_t* const scroll = index >= 25 ? &windowState->value28 : &windowState->value24;
+    std::int32_t result = 0;
+    if ((state & 0x400) != 0) {
+        const std::int32_t value = std::bit_cast<std::int32_t>(*scroll);
+        if (value > 0) {
+            *scroll = static_cast<std::uint32_t>(value - 1);
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        } else {
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        }
+        WindowInstance* const window = gCurrentWindow;
+        const std::int32_t current = std::bit_cast<std::int32_t>(*scroll);
+        static_cast<void>(Sub_4742C0(&window->elements[index - 1], 2, current));
+        result = 1;
+    }
+    graphic->imageNo = 243090;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 243092;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 243091;
+    }
+    return result;
+}
+
+std::int32_t Sub_4AAA70(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    WindowState* const windowState = gCurrentWindowState;
+    std::uint32_t* const scroll = index >= 25 ? &windowState->value28 : &windowState->value24;
+    std::int32_t result = 0;
+    if ((state & 0x400) != 0) {
+        const std::int32_t value = std::bit_cast<std::int32_t>(*scroll);
+        if (value < 2) {
+            *scroll = static_cast<std::uint32_t>(value + 1);
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        } else {
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        }
+        const std::int32_t current = std::bit_cast<std::int32_t>(*scroll);
+        WindowInstance* const window = gCurrentWindow;
+        static_cast<void>(Sub_4742C0(&window->elements[index - 2], 2, current));
+        result = 1;
+    }
+    graphic->imageNo = 243093;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 243095;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 243094;
+    }
+    return result;
+}
+
+std::int32_t Sub_4AAB20(const std::int32_t index, const std::int32_t state)
+{
+    WindowState* const windowState = gCurrentWindowState;
+    std::uint32_t* const scroll = index >= 25 ? &windowState->value28 : &windowState->value24;
+    if ((state & 0x21) != 0) {
+        const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
+        const std::int32_t current = std::bit_cast<std::int32_t>(*scroll);
+        *scroll = static_cast<std::uint32_t>(
+            Sub_4743B0(&gCurrentWindow->elements[index - 3], current, 2, wheel));
+    }
+    return 0;
+}
+
+std::int32_t Sub_4ABB20(const std::int32_t index, const std::int32_t state)
+{
+    // 原未识别kind/side或非30/31元素走未初始化局部路径，不补默认值。
+    std::int32_t maximum;
+    std::uint8_t result;
+    if (index == 30) {
+        const std::uint32_t kind = gWindowStates[41].value10;
+        if (kind == 0 || kind == 1) {
+            const std::int32_t side = std::bit_cast<std::int32_t>(gLoginWindowRuntime.valueD67618);
+            if (side == 0 || side == 1) {
+                if (kind == 0) {
+                    const std::int32_t limit = world::detail::ReadPlayerValue15BD0(side + 1);
+                    std::int32_t amount;
+                    std::memcpy(&amount,
+                        gItemDetailStorageCC4D58.data() + side * 0xFBF8 + 0xFBF4, sizeof(amount));
+                    maximum = limit - amount;
+                } else {
+                    std::int32_t amount;
+                    std::memcpy(&amount,
+                        gItemDetailStorageCC4D58.data() + side * 0xFBF8 + 0xFBF4, sizeof(amount));
+                    maximum = 1000000 - amount;
+                }
+            }
+        }
+        const std::int32_t amount = world::detail::ReadPlayerValueFC();
+        if (maximum > amount) {
+            maximum = amount;
+        }
+        const std::uint8_t keyboard =
+            input::gCurrentInputData == &input::gInputContextCA0018 ? 2 : 0;
+        result = Sub_474550(gCurrentWindow, 30, state, maximum, 223,
+            gStorageDepositHints57EDD4.data(), keyboard, 0xFFFFFFFFu);
+    } else if (index == 31) {
+        const std::int32_t limit = world::detail::ReadPlayerValue15BD0(0);
+        maximum = limit - world::detail::ReadPlayerValueFC();
+        const std::int32_t side = std::bit_cast<std::int32_t>(gLoginWindowRuntime.valueD67618);
+        std::int32_t amount;
+        std::memcpy(&amount,
+            gItemDetailStorageCC4D58.data() + side * 0xFBF8 + 0xFBF4, sizeof(amount));
+        if (maximum > amount) {
+            maximum = amount;
+        }
+        const std::uint8_t keyboard =
+            input::gCurrentInputData == &input::gInputContextCA0018 ? 2 : 0;
+        result = Sub_474550(gCurrentWindow, 31, state, maximum, 223,
+            gStorageWithdrawHints57EDEC.data(), keyboard, 0xFFFFFFFFu);
+    }
+    WindowInstance* window;
+    if ((result & 1u) != 0) {
+        window = gCurrentWindow;
+        WindowElement* const element = &window->elements[index];
+        if (std::bit_cast<std::int32_t>(element->state) > maximum) {
+            element->state = static_cast<std::uint32_t>(maximum);
+            window = gCurrentWindow;
+        }
+    } else {
+        window = gCurrentWindow;
+    }
+    if ((result & 2u) != 0) {
+        if (index == 30 || index == 31) {
+            std::array<char, 384> buffer;
+            const std::int32_t value = std::bit_cast<std::int32_t>(window->elements[index].state);
+            std::sprintf(buffer.data(), index == 30 ? "G|%d" : "D|%d", value);
+            input::EscapeLegacyTextAndNotify_52D2D0(buffer.data(), buffer.data() + 128, 255);
+            const std::int32_t userState =
+                std::bit_cast<std::int32_t>(gWindowStates[41].userState.value);
+            const std::int32_t value14 = std::bit_cast<std::int32_t>(gWindowStates[41].value14);
+            const std::int32_t y =
+                platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+            const std::int32_t x =
+                platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+            static_cast<void>(network::Sub_512620(
+                platform::gConnectionSocket, x, y, value14, userState, 0, buffer.data() + 128));
+            window = gCurrentWindow;
+            const std::int32_t confirmed = std::bit_cast<std::int32_t>(window->elements[index].state);
+            const std::int32_t side = std::bit_cast<std::int32_t>(gLoginWindowRuntime.valueD67618);
+            gStorageLastAmountsD67B68[side] = confirmed;
+        }
+        window->elements[index].state = 0;
+        window = gCurrentWindow;
+    }
+    if (index == 30) {
+        std::sprintf(gStorageAmountTextsCB1DF8.data(), "%9d",
+            std::bit_cast<std::int32_t>(window->elements[30].state));
+        const std::int32_t side = std::bit_cast<std::int32_t>(gLoginWindowRuntime.valueD67618);
+        std::sprintf(gStorageAmountTextsCB1DF8.data() + 11, "%9d", gStorageLastAmountsD67B68[side]);
+    } else if (index == 31) {
+        std::sprintf(gStorageAmountTextsCB1DF8.data() + 11, "%9d",
+            std::bit_cast<std::int32_t>(window->elements[31].state));
+        const std::int32_t side = std::bit_cast<std::int32_t>(gLoginWindowRuntime.valueD67618);
+        std::sprintf(gStorageAmountTextsCB1DF8.data(), "%9d", gStorageLastAmountsD67B68[side]);
+    }
     return 0;
 }
 

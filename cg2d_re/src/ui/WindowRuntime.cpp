@@ -1,8 +1,12 @@
 #include "WindowRuntimeState.hpp"
 
+#include "../LoginMessageDependencies.hpp"
+#include "../platform/WindowProcedureState.hpp"
 #include "../world/WorldUpdateDependencies.hpp"
 #include "cg/Input.hpp"
 #include "cg/YobiRuntime.hpp"
+#include "cg/render/Font.hpp"
+#include "cg/render/TextPendingQueue.hpp"
 #include "cg/world/SceneState.hpp"
 
 #include <bit>
@@ -34,6 +38,7 @@ WindowInputPrototype gChatInputPrototype57E970 {
 };
 std::int32_t gChatWindowModeD66E04 = 0;
 std::uint8_t gValue5F9754 = 0;
+std::int32_t gChatWidthUnitsC9A930 = 0;
 
 namespace {
 
@@ -46,7 +51,152 @@ constexpr std::array<std::int8_t, kWindowCount> kWindowCategories {
     1, 1, 1, 2, 2, 2, 2,
 };
 
+constexpr std::array<std::int32_t, 52> kNumberDigitImages54F0D8 {
+    243300, 243310, 243320, 243330, 243340, 243350, 243360,
+    243370, 243380, 243390, 245500, 245500, 245500,
+    243500, 243510, 243520, 243530, 243540, 243550, 243560,
+    243570, 243580, 243590, 243500, 243500, 243500,
+    243700, 243710, 243720, 243730, 243740, 243750, 243760,
+    243770, 243780, 243790, 243700, 243700, 243700,
+    245520, 245520, 245520, 245520, 245520, 245520, 245560,
+    245580, 245520, 245520, 245540, 245540, 245540,
+};
+
+constexpr std::array<std::int32_t, 52> kNumberSymbolImages54F1A8 {
+    243400, 243410, 243420, 243430, 243440, 243450, 243460,
+    243470, 243480, 243490, 245510, 245510, 245510,
+    243600, 243610, 243620, 243630, 243640, 243650, 243660,
+    243670, 243680, 243690, 243600, 243600, 243600,
+    243800, 243810, 243820, 243830, 243840, 243850, 243860,
+    243870, 243880, 243890, 243800, 243800, 243800,
+    245530, 245530, 245530, 245530, 245530, 245530, 245570,
+    245580, 245530, 245530, 245550, 245550, 245550,
+};
+
+constexpr std::array<std::int32_t, 12> kNumberOffsets54F278 {
+    2, 2, 5, 5, 4, 8, 5, 5, 8, 2, 3, 5,
+};
+constexpr std::array<std::int32_t, 4> kNumberSpacingDeductions54F2A8 {2, 2, 2, 1};
+std::array<std::int32_t, 4> gNumberAdvancesD67AC4 {};
+
+// 两个原入口只在宽度来源上不同；测量IME及取宽度仍由各入口按序执行。
+void ScrollInputAndDraw(input::InputContext* const context, const std::int32_t width)
+{
+    const std::int32_t caret = context->caretByteOffset;
+    const std::int32_t offset = context->field158;
+    context->field154 = width;
+    if (caret < offset) {
+        context->field158 = caret;
+    } else {
+        for (;;) {
+            const std::int32_t currentOffset = context->field158;
+            const std::int32_t length = context->caretByteOffset - currentOffset;
+            if (length < 0) {
+                break;
+            }
+            const std::int32_t textWidth = render::Font::measure(
+                context->text + currentOffset, context->field13C, length);
+            if (context->field154 >= textWidth) {
+                break;
+            }
+            const std::uint8_t value = static_cast<std::uint8_t>(
+                context->text[context->field158]);
+            context->field158 += (value & 0x80u) != 0 ? 2 : 1;
+        }
+    }
+    render::DrawInputText_4568A0(context);
+}
+
 } // namespace
+
+void Sub_4A7590(input::InputContext* const context)
+{
+    const std::int32_t font = input::gCurrentInputData->field13C;
+    static_cast<void>(login::detail::TextMeasure(platform::gImeComposition, font));
+    const std::int32_t width = render::gFontMetrics[9].doubleWidth * gChatWidthUnitsC9A930;
+    ScrollInputAndDraw(context, width);
+}
+
+void Sub_4A7640(input::InputContext* const context)
+{
+    const std::int32_t font = input::gCurrentInputData->field13C;
+    static_cast<void>(login::detail::TextMeasure(platform::gImeComposition, font));
+    ScrollInputAndDraw(context, 1024);
+}
+
+void Sub_4771B0(
+    const std::int32_t x, const std::int32_t y, const char* const text,
+    const std::int8_t style, const std::int8_t color,
+    const std::uint8_t flags, const std::uint8_t layer)
+{
+    render::GraphicDescriptor16 descriptor {};
+    descriptor.bytes[8] = 0xFFu;
+    descriptor.bytes[9] = 0xFFu;
+    descriptor.bytes[10] = 0xFFu;
+    descriptor.bytes[11] = 0xFFu;
+    descriptor.bytes[13] = 4;
+
+    std::int32_t drawX;
+    std::int32_t drawY;
+    std::int32_t step;
+    const bool reverse = (flags & 1u) != 0;
+    if (reverse) {
+        drawX = x - kNumberOffsets54F278[style * 3 + 1];
+        drawY = kNumberOffsets54F278[style * 3 + 2];
+        step = -gNumberAdvancesD67AC4[style];
+        drawY += y;
+    } else {
+        step = gNumberAdvancesD67AC4[style];
+        drawX = kNumberOffsets54F278[style * 3] + x;
+        drawY = kNumberOffsets54F278[style * 3 + 2] + y;
+    }
+
+    const auto drawByte = [&](const char character) {
+        std::int32_t imageNo;
+        if (character >= '0' && character <= '9') {
+            imageNo = kNumberDigitImages54F0D8[style * 13 + color] + character - '0';
+        } else {
+            std::int32_t symbol;
+            switch (character) {
+            case '+': symbol = 0; break;
+            case '-': symbol = 1; break;
+            case ':': symbol = 2; break;
+            case '/': symbol = 3; break;
+            default: return;
+            }
+            imageNo = kNumberSymbolImages54F1A8[style * 13 + color] + symbol;
+        }
+        static_cast<void>(login::detail::DrawGraphic(
+            drawX, drawY, layer, imageNo, 0, &descriptor));
+    };
+
+    const char* cursor = text;
+    if (reverse) {
+        while (*cursor != '\0') {
+            ++cursor;
+        }
+        while (cursor != text) {
+            --cursor;
+            drawByte(*cursor);
+            drawX += step;
+        }
+    } else {
+        while (*cursor != '\0') {
+            drawByte(*cursor);
+            drawX += step;
+            ++cursor;
+        }
+    }
+}
+
+std::int32_t Sub_477460(const char* const text, const std::int8_t style)
+{
+    const auto length = static_cast<std::int32_t>(std::strlen(text));
+    if (length <= 0) {
+        return 0;
+    }
+    return gNumberAdvancesD67AC4[style] * length - kNumberSpacingDeductions54F2A8[style];
+}
 
 std::uint8_t Sub_476570(
     WindowInputPrototype* const prototype, const std::int32_t x,
@@ -179,6 +329,19 @@ std::int32_t Sub_4A7B00()
 }
 
 } // namespace detail
+
+void InitializeNumberSpacing_477170()
+{
+    using namespace detail;
+    const std::int32_t first = kNumberSpacingDeductions54F2A8[0];
+    const std::int32_t second = kNumberSpacingDeductions54F2A8[1];
+    const std::int32_t third = kNumberSpacingDeductions54F2A8[2];
+    gNumberAdvancesD67AC4[0] = first + 5;
+    const std::int32_t fourth = kNumberSpacingDeductions54F2A8[3];
+    gNumberAdvancesD67AC4[1] = second + 10;
+    gNumberAdvancesD67AC4[2] = third + 11;
+    gNumberAdvancesD67AC4[3] = fourth + 7;
+}
 
 std::uint8_t ReadValueD67BE0() noexcept
 {

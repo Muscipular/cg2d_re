@@ -7,6 +7,7 @@
 #include "cg/platform/Startup.hpp"
 #include "cg/world/SceneState.hpp"
 #include "cg/world/WorldObjects.hpp"
+#include "cg/ui/WindowRuntime.hpp"
 
 #include <cstring>
 
@@ -87,6 +88,16 @@ struct RippleGateStaticInitializer {
 };
 
 const RippleGateStaticInitializer gRippleGateStaticInitializer;
+
+// 原CRT 553098紧接553094 Ripple；不增加RNG调用或析构步骤。
+struct WindowNumberSpacingStaticInitializer {
+    WindowNumberSpacingStaticInitializer()
+    {
+        cg::ui::InitializeNumberSpacing_477170();
+    }
+};
+
+const WindowNumberSpacingStaticInitializer gWindowNumberSpacingStaticInitializer;
 
 struct LegacyMouseStaticInitializer {
     LegacyMouseStaticInitializer()

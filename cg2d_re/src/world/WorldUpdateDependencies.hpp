@@ -1059,6 +1059,7 @@ const char* BorrowPlayerDisplayText(std::int16_t mode) noexcept; // 模式1..6�
 extern std::uint32_t gActorBarsEnabled5AC490; // 原虚拟零区，442F70与后续设置UI共享。
 std::int32_t ReadPlayerWalkSpeed() noexcept; // 原FDA870。
 std::int32_t ReadPlayerImageNo() noexcept; // 原FDA878；不是action当前变换图号。
+std::int32_t ReadPlayerValueFC() noexcept; // 原FDA7FC，交易面板借用同源金额，不复制owner。
 std::int16_t ReadPetFollowIndex(std::size_t position) noexcept;
 login::YobiAction* ReadPetMapAction(std::int16_t index) noexcept;
 std::uint32_t ReadPetMapObjectIndex(std::int16_t index) noexcept;

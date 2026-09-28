@@ -6761,6 +6761,11 @@ std::int32_t ReadPlayerWalkSpeed() noexcept
     return gPlayerRuntime.walkSpeed;
 }
 
+std::int32_t ReadPlayerValueFC() noexcept
+{
+    return gPlayerRuntime.valueFC;
+}
+
 std::uint16_t ReadPlayerActionFlags() noexcept
 {
     return static_cast<std::uint16_t>(gPlayerRuntime.flags18C >> 16);

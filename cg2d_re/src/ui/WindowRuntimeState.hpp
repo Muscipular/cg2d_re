@@ -341,6 +341,8 @@ extern std::uint8_t gTradeStepD3040C; // 位移按S8读，递减只写U8。
 extern std::uint8_t gTradeValueD2EA20;
 extern std::uint8_t gTradeValueD6742C;
 extern std::uint8_t gTradeValueC8AF81;
+extern std::uint8_t gTradeTabCC4D1A; // 对方页签，不套用己方窗口初始化重置。
+extern std::int32_t gTradeHoverSlotC8B314; // 对方提示槽缓存，非地址。
 extern std::int32_t gTradeScrollCF3B0C;
 extern std::int32_t gTradeScrollCC4C90;
 extern std::int32_t gTradeScrollD67430;
@@ -395,6 +397,13 @@ std::int32_t Sub_4B1260(
     std::int32_t numericElement, std::int32_t maximum,
     std::int32_t itemCount, std::int32_t petCount, std::int32_t amount,
     render::GraphicDescriptor16* descriptor, WindowTradePanelCallback callback);
+std::int32_t Sub_4B3580(std::int32_t index, std::int32_t state); // 对方交易面板入口。
+void Sub_4B3610(
+    std::int16_t x, std::int16_t y, std::int32_t mouseX, std::int32_t mouseY,
+    std::int32_t state, std::uint8_t* tab, std::int32_t scroll,
+    std::uint8_t numericResult, std::uint32_t* valueSlot,
+    std::int32_t* itemCount, std::int32_t* petCount, std::int32_t* amount,
+    std::int32_t* displayAmount, render::GraphicDescriptor16* descriptor);
 bool Sub_4B1900(
     std::int32_t x, std::int32_t y, std::int32_t width, std::int32_t height); // X未命中则不读Y。
 std::uint8_t Sub_474550(

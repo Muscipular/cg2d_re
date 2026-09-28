@@ -123,6 +123,8 @@ std::uint8_t gTradeStepD3040C = 0;
 std::uint8_t gTradeValueD2EA20 = 0;
 std::uint8_t gTradeValueD6742C = 0;
 std::uint8_t gTradeValueC8AF81 = 0;
+std::uint8_t gTradeTabCC4D1A = 0;
+std::int32_t gTradeHoverSlotC8B314 = 0;
 std::int32_t gTradeScrollCF3B0C = 0;
 std::int32_t gTradeScrollCC4C90 = 0;
 std::int32_t gTradeScrollD67430 = 0;
@@ -1377,6 +1379,187 @@ std::int32_t Sub_4B1260(
     static_cast<void>(render::DrawGraphic3_520970(
         x, y, 223, imageNo, 0, 1, 0, descriptor));
     return result;
+}
+
+std::int32_t Sub_4B3580(const std::int32_t index, const std::int32_t state)
+{
+    render::GraphicDescriptor16 descriptor {};
+    WindowInstance* const window = gCurrentWindow;
+    const auto* const graphic = static_cast<const WindowGraphicData*>(window->elements[index].data);
+    const std::uint32_t color = graphic->color;
+    descriptor.bytes[13] = 4;
+    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    if (gTradeValueCC4224 == 2) {
+        descriptor.bytes[11] >>= 1;
+    }
+    static constexpr std::array<std::int32_t, 3> backgrounds54F548 {244368, 244372, 244370};
+    const std::int32_t amount = world::detail::ReadPlayerValueFC();
+    return Sub_4B1260(
+        window, index, state, backgrounds54F548.data(), &gTradeTabCC4D1A,
+        13, &gTradeScrollD67430, -1, 0, 0, 0, amount, &descriptor, Sub_4B3610);
+}
+
+void Sub_4B3610(
+    const std::int16_t x, const std::int16_t y, const std::int32_t, const std::int32_t,
+    const std::int32_t state, std::uint8_t* const tab, const std::int32_t scroll,
+    const std::uint8_t, std::uint32_t*,
+    std::int32_t* const itemCount, std::int32_t* const petCount, std::int32_t* const amount,
+    std::int32_t* const displayAmount, render::GraphicDescriptor16* const descriptor)
+{
+    const std::uint8_t page = *tab;
+    char buffer[256];
+    if (page == 0) {
+        std::int32_t hovered = -1;
+        if ((state & 1) != 0) {
+            for (std::int32_t slot = 0; slot < 20; ++slot) {
+                const std::int32_t left = x + 50 * (slot % 5) + 13;
+                const std::int32_t top = y + 52 * (slot / 5) + 26;
+                if (login::detail::Sub_5049A0(left, top, left + 48, top + 48, -1) != 0) {
+                    hovered = slot;
+                    std::uint16_t used;
+                    std::memcpy(&used, gTradeItemsD460D0.data() + slot * 0xC4C, sizeof(used));
+                    if (used != 0) {
+                        std::strcpy(gHoverTextD68AE8.data(),
+                            "\xA5\x48\xA6\xB9\xAA\xAB\xAB\x7E\xA6\x56\xB9\xEF\xA4\xE8"
+                            "\xB4\xA3\xA5\x58\xA5\xE6\xA9\xF6\xA1\x43");
+                    }
+                    break;
+                }
+            }
+        }
+        if (gTradeValueD2EA20 == 2) {
+            if (gTradeHoverSlotC8B314 != hovered) {
+                gTradeTooltipPageCB10D4 = 0;
+            }
+            gTradeHoverSlotC8B314 = hovered;
+        }
+        if (hovered >= 0 && (state & 4) != 0) {
+            const char* const record = gTradeItemsD460D0.data() + hovered * 0xC4C;
+            std::uint16_t used;
+            std::memcpy(&used, record, sizeof(used));
+            if (used != 0) {
+                std::int32_t pages;
+                std::memcpy(&pages, record + 0xC30, sizeof(pages));
+                gTradeTooltipPageCB10D4 = static_cast<std::uint8_t>(gTradeTooltipPageCB10D4 + 1);
+                if (std::bit_cast<std::int8_t>(gTradeTooltipPageCB10D4) >= pages) {
+                    gTradeTooltipPageCB10D4 = 0;
+                }
+            }
+        }
+        if ((state & 1) != 0 && hovered >= 0) {
+            const std::int32_t left = x + 50 * (hovered % 5) + 13;
+            const std::int32_t top = y + 52 * (hovered / 5) + 25;
+            login::detail::DrawGraphicHover(
+                static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
+                static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
+                223, login::detail::gValueD69768, 0);
+            const char* const record = gTradeItemsD460D0.data() + hovered * 0xC4C;
+            std::uint16_t used;
+            std::memcpy(&used, record, sizeof(used));
+            if (used != 0) {
+                const char* const memo = record + 0xC38;
+                const std::size_t memoLength = std::strlen(memo);
+                gTradePreviewCC2E64 = hovered + 200;
+                bool showName = false;
+                if (memoLength != 0) {
+                    std::uint32_t flags;
+                    std::memcpy(&flags, record + 0xC34, sizeof(flags));
+                    showName = (flags & 0x100u) != 0;
+                }
+                if (showName) {
+                    std::sprintf(buffer, "%s[kok]", record + 0x10);
+                    std::strcpy(gHoverTextD68AE8.data(), buffer);
+                } else {
+                    std::uint32_t flags;
+                    std::memcpy(&flags, record + 0xC34, sizeof(flags));
+                    if ((flags & 0x200u) != 0) {
+                        std::sprintf(buffer, "%s[han]", memo);
+                        std::strcpy(gHoverTextD68AE8.data(), buffer);
+                    }
+                }
+            }
+            gTradeValueD2EA20 = 2;
+        }
+        static_cast<void>(render::ClearTextQueueTail_456D50(3));
+        static_cast<void>(render::DrawText_456780(
+            0, 0, 3, 1, 0, input::LegacyText593850(), 0, 0));
+        for (std::int32_t slot = 0; slot < 20; ++slot) {
+            const char* const record = gTradeItemsD460D0.data() + slot * 0xC4C;
+            std::uint16_t used;
+            std::memcpy(&used, record, sizeof(used));
+            if (used == 0) {
+                continue;
+            }
+            const std::int32_t centerX = x + 50 * (slot % 5) + 37;
+            const std::int32_t centerY = y + 52 * (slot / 5) + 51;
+            std::int16_t value02;
+            std::memcpy(&value02, record + 2, sizeof(value02));
+            if (value02 < 0) {
+                static_cast<void>(login::detail::DrawGraphic(
+                    centerX, centerY, 223, 23040, 0, nullptr));
+            }
+            std::int32_t imageNo;
+            std::memcpy(&imageNo, record + 4, sizeof(imageNo));
+            static_cast<void>(login::detail::DrawGraphic(
+                centerX, centerY, 223, imageNo, 0, descriptor));
+            std::int32_t count;
+            std::memcpy(&count, record + 8, sizeof(count));
+            if (count > 0) {
+                std::sprintf(buffer, "%3d", count);
+                static_cast<void>(render::DrawText_456780(
+                    std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(centerX - 3)),
+                    std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(centerY + 7)),
+                    3, 1, 1, buffer, 0, 0));
+            }
+        }
+    } else if (page == 1) {
+        constexpr std::array<std::int16_t, 3> rowY {26, 95, 164};
+        if ((state & 1) != 0) {
+            for (std::int32_t row = 0; row < 3; ++row) {
+                const std::int32_t top = y + rowY[row];
+                if (login::detail::Sub_5049A0(x + 11, top, x + 251, top + 69, -1) != 0) {
+                    const std::int32_t slot = scroll + row;
+                    if (slot >= 0) {
+                        std::uint16_t used;
+                        std::memcpy(&used, gTradePetsC9C108.data() + slot * 0x5FC, sizeof(used));
+                        if (used != 0) {
+                            std::strcpy(gHoverTextD68AE8.data(),
+                                "\xA5\x48\xA6\xB9\xC3\x64\xAA\xAB\xA6\x56\xB9\xEF\xA4\xE8"
+                                "\xB4\xA3\xA5\x58\xA5\xE6\xA9\xF6\xA1\x43");
+                            gTradePreviewCC2E64 = slot + 500;
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+        for (std::int32_t row = 0; row < 3; ++row) {
+            static_cast<void>(Sub_4B0F20(
+                std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 11)),
+                std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + rowY[row])),
+                0, scroll + row, 3, 223, descriptor));
+        }
+    }
+    *displayAmount = gTradeValueCF4688;
+    std::int32_t items = 0;
+    for (std::int32_t slot = 0; slot < 20; ++slot) {
+        std::uint16_t used;
+        std::memcpy(&used, gTradeItemsD460D0.data() + slot * 0xC4C, sizeof(used));
+        if (used != 0) {
+            ++items;
+        }
+    }
+    *itemCount = items;
+    std::int32_t pets = 0;
+    for (std::int32_t slot = 0; slot < 5; ++slot) {
+        std::uint16_t used;
+        std::memcpy(&used, gTradePetsC9C108.data() + slot * 0x5FC, sizeof(used));
+        if (used != 0) {
+            ++pets;
+        }
+    }
+    *petCount = pets;
+    *amount = gTradeValueCF4688;
 }
 
 bool Sub_4B1900(

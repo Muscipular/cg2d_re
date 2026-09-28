@@ -4008,6 +4008,29 @@ void Sub_4E52B0(const std::int32_t side)
     }
 }
 
+WindowInstance* Sub_4A83A0(
+    const std::int32_t kind, const std::int32_t value14, const std::int32_t userState)
+{
+    gWindowStates[41].value10 = static_cast<std::uint32_t>(kind);
+    WindowInstance* const window = OpenWindow_471440(41);
+    gWindowStates[41].window = window;
+    gWindowStates[41].value14 = static_cast<std::uint32_t>(value14);
+    gWindowStates[41].userState.value = static_cast<std::uint32_t>(userState);
+    return window;
+}
+
+WindowInstance* Sub_4AC0C0(
+    const std::int32_t kind, const std::int32_t value14,
+    const std::int32_t userState, const std::int32_t)
+{
+    gWindowStates[38].value10 = static_cast<std::uint32_t>(kind);
+    WindowInstance* const window = OpenWindow_471440(38);
+    gWindowStates[38].window = window;
+    gWindowStates[38].value14 = static_cast<std::uint32_t>(value14);
+    gWindowStates[38].userState.value = static_cast<std::uint32_t>(userState);
+    return window;
+}
+
 void Sub_4E02B0(
     const std::int32_t index, const std::int32_t side, const char* const text)
 {

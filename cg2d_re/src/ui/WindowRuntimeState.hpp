@@ -540,6 +540,10 @@ std::int32_t Sub_4743B0(
 void Sub_4E0100(std::int32_t side, std::int32_t index); // 另一展示副本，逐行复制描述。
 void Sub_4E02B0(std::int32_t index, std::int32_t side, const char* text); // 外部物品描述及页数。
 std::int32_t Sub_4A84A0(const char* text); // 外部存放A/G/I/P完整解析，只有A返回1。
+WindowInstance* Sub_4A83A0(std::int32_t kind, std::int32_t value14, std::int32_t userState);
+WindowInstance* Sub_4AC0C0(
+    std::int32_t kind, std::int32_t value14, std::int32_t userState,
+    std::int32_t unusedPhase); // 原38窗口发布，两个caller均保留第四实参。
 std::int32_t Sub_4FB8F0(); // 物品拖动重置，不等同窗口拖动。
 std::int32_t Sub_4FB920(std::int32_t index); // 仅清与本次回复槽号相同的非负拖动编号。
 void Sub_4E5DA0(std::int32_t side, std::int32_t first, std::int32_t second); // 交易整条换位。

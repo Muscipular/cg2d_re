@@ -159,7 +159,7 @@ namespace {
 
 // 原475950/48AC60共用布局的24H载荷；函数指针与完成槽留在action各自家族字段。
 struct WindowOpeningPayload {
-    std::uint16_t id;
+    std::uint16_t id; // 通用展开为窗口编号，存放41/38族为kind，回调按S16读取。
     std::uint16_t counter;
     std::int32_t width;
     std::int32_t height;
@@ -1358,6 +1358,194 @@ YobiAction* Sub_48AC60(
     platform::legacy_crypt_int::Destroy_401CF0(&temporary);
     action->nameX = sourceWindow;
     action->nameY = sourceElement;
+    payload->counter = 0;
+    const auto lowMode = static_cast<std::uint8_t>(mode);
+    if (lowMode == 0) {
+        payload->centerX = width / 2 + x;
+        payload->centerY = height / 2 + y;
+        action->deltaX = 0;
+        action->deltaY = (payload->centerY - y) / 10;
+        payload->halfWidth = payload->centerX - x;
+    } else if (lowMode == 1) {
+        payload->centerX = width / 2 + x;
+        payload->centerY = height / 2 + y;
+        action->deltaX = (payload->centerX - x) / 10;
+        action->deltaY = (payload->centerY - y) / 10;
+    }
+    return action;
+}
+
+void Sub_4ABE60(YobiAction* const action)
+{
+    auto* const payload = static_cast<WindowOpeningPayload*>(action->payload);
+    const std::int32_t halfHeight = payload->halfHeight;
+    const std::int32_t centerY = payload->centerY;
+    const std::int32_t halfWidth = payload->halfWidth;
+    const std::int32_t centerX = payload->centerX;
+    DrawGraphicHover(
+        static_cast<std::uint16_t>(centerX - halfWidth),
+        static_cast<std::uint16_t>(centerY - halfHeight),
+        static_cast<std::uint16_t>(centerX + halfWidth),
+        static_cast<std::uint16_t>(centerY + halfHeight), 0xD4, 0, 0);
+    const std::int32_t deltaX = action->deltaX;
+    const std::int32_t previousWidth = payload->halfWidth;
+    const std::int32_t previousHeight = payload->halfHeight;
+    payload->halfWidth = previousWidth + deltaX;
+    const std::int32_t deltaY = action->deltaY;
+    const bool complete = std::bit_cast<std::int16_t>(payload->counter) >= 10;
+    payload->halfHeight = previousHeight + deltaY;
+    if (complete) {
+        const std::int32_t userState =
+            platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0);
+        const std::int32_t value14 =
+            platform::legacy_crypt_int::Read_401EC0(&action->mapX1E0);
+        const std::int32_t kind = std::bit_cast<std::int16_t>(payload->id);
+        static_cast<void>(ui::detail::Sub_4A83A0(kind, value14, userState));
+        static_cast<void>(MarkDeath(action));
+    }
+    ++payload->counter;
+}
+
+YobiAction* Sub_4ABEF0(
+    const std::int32_t kind, const std::int32_t value14, const std::int32_t userState,
+    const std::uint32_t flags, const std::uint32_t mode)
+{
+    static_cast<void>(audio::PlaySe_52C450(56, 320));
+    YobiAction* const action = NewYobiAction_404AE0(3, sizeof(WindowOpeningPayload));
+    if (action == nullptr) {
+        static_cast<void>(ui::detail::Sub_4A83A0(kind, value14, userState));
+        return nullptr;
+    }
+    const ui::detail::WindowPrototype* const prototype = ui::detail::gWindowPrototypes57C130[41];
+    const bool savedPosition = (ui::detail::gWindowStates[41].flags & 1u) != 0;
+    std::int32_t y = prototype->defaultY;
+    const std::int32_t width = prototype->width;
+    std::int32_t x = prototype->defaultX;
+    const std::int32_t height = prototype->height;
+    if (savedPosition) {
+        x = ui::detail::gWindowStates[41].x;
+        y = ui::detail::gWindowStates[41].y;
+    }
+    auto* const payload = static_cast<WindowOpeningPayload*>(action->payload);
+    action->flags |= 6u;
+    action->callback = Sub_4ABE60;
+    action->displayPriority = 0xDF;
+    payload->value1C = 0;
+    payload->flag20 = 0;
+    if ((static_cast<std::uint8_t>(flags) & 1u) != 0) {
+        payload->flag20 = 1;
+    }
+    action->x = x;
+    action->y = y;
+    payload->width = width;
+    payload->height = height;
+    payload->id = static_cast<std::uint16_t>(kind);
+    platform::LegacyCryptInt temporary;
+    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, value14);
+    action->mapX1E0.readCount = temporary.readCount;
+    action->mapX1E0.encoded = temporary.encoded;
+    action->mapX1E0.mask = temporary.mask;
+    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, userState);
+    action->mapY1F0.mask = temporary.mask;
+    action->mapY1F0.encoded = temporary.encoded;
+    action->mapY1F0.readCount = temporary.readCount;
+    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    payload->counter = 0;
+    const auto lowMode = static_cast<std::uint8_t>(mode);
+    if (lowMode == 0) {
+        payload->centerX = width / 2 + x;
+        payload->centerY = height / 2 + y;
+        action->deltaX = 0;
+        action->deltaY = (payload->centerY - y) / 10;
+        payload->halfWidth = payload->centerX - x;
+    } else if (lowMode == 1) {
+        payload->centerX = width / 2 + x;
+        payload->centerY = height / 2 + y;
+        action->deltaX = (payload->centerX - x) / 10;
+        action->deltaY = (payload->centerY - y) / 10;
+    }
+    return action;
+}
+
+void Sub_4ACDF0(YobiAction* const action)
+{
+    auto* const payload = static_cast<WindowOpeningPayload*>(action->payload);
+    const std::int32_t halfHeight = payload->halfHeight;
+    const std::int32_t centerY = payload->centerY;
+    const std::int32_t halfWidth = payload->halfWidth;
+    const std::int32_t centerX = payload->centerX;
+    DrawGraphicHover(
+        static_cast<std::uint16_t>(centerX - halfWidth),
+        static_cast<std::uint16_t>(centerY - halfHeight),
+        static_cast<std::uint16_t>(centerX + halfWidth),
+        static_cast<std::uint16_t>(centerY + halfHeight), 0xD4, 0, 0);
+    const std::int32_t deltaX = action->deltaX;
+    const std::int32_t previousWidth = payload->halfWidth;
+    const std::int32_t previousHeight = payload->halfHeight;
+    payload->halfWidth = previousWidth + deltaX;
+    const std::int32_t deltaY = action->deltaY;
+    const bool complete = std::bit_cast<std::int16_t>(payload->counter) >= 10;
+    payload->halfHeight = previousHeight + deltaY;
+    if (complete) {
+        const std::int32_t phase = action->phase;
+        const std::int32_t userState =
+            platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0);
+        const std::int32_t value14 =
+            platform::legacy_crypt_int::Read_401EC0(&action->mapX1E0);
+        const std::int32_t kind = std::bit_cast<std::int16_t>(payload->id);
+        static_cast<void>(ui::detail::Sub_4AC0C0(kind, value14, userState, phase));
+        static_cast<void>(MarkDeath(action));
+    }
+    ++payload->counter;
+}
+
+YobiAction* Sub_4ACE80(
+    const std::int32_t kind, const std::int32_t value14, const std::int32_t userState,
+    const std::int32_t phase, const std::uint32_t flags, const std::uint32_t mode)
+{
+    static_cast<void>(audio::PlaySe_52C450(56, 320));
+    YobiAction* const action = NewYobiAction_404AE0(3, sizeof(WindowOpeningPayload));
+    if (action == nullptr) {
+        static_cast<void>(ui::detail::Sub_4AC0C0(kind, value14, userState, phase));
+        return nullptr;
+    }
+    const ui::detail::WindowPrototype* const prototype = ui::detail::gWindowPrototypes57C130[38];
+    const bool savedPosition = (ui::detail::gWindowStates[38].flags & 1u) != 0;
+    std::int32_t y = prototype->defaultY;
+    const std::int32_t width = prototype->width;
+    std::int32_t x = prototype->defaultX;
+    const std::int32_t height = prototype->height;
+    if (savedPosition) {
+        x = ui::detail::gWindowStates[38].x;
+        y = ui::detail::gWindowStates[38].y;
+    }
+    auto* const payload = static_cast<WindowOpeningPayload*>(action->payload);
+    action->flags |= 6u;
+    action->callback = Sub_4ACDF0;
+    action->displayPriority = 0xDF;
+    payload->value1C = 0;
+    payload->flag20 = 0;
+    if ((static_cast<std::uint8_t>(flags) & 1u) != 0) {
+        payload->flag20 = 1;
+    }
+    action->x = x;
+    action->y = y;
+    payload->width = width;
+    payload->height = height;
+    payload->id = static_cast<std::uint16_t>(kind);
+    action->phase = phase;
+    platform::LegacyCryptInt temporary;
+    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, value14);
+    action->mapX1E0.encoded = temporary.encoded;
+    action->mapX1E0.mask = temporary.mask;
+    action->mapX1E0.readCount = temporary.readCount;
+    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, userState);
+    action->mapY1F0.readCount = temporary.readCount;
+    action->mapY1F0.encoded = temporary.encoded;
+    action->mapY1F0.mask = temporary.mask;
+    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
     payload->counter = 0;
     const auto lowMode = static_cast<std::uint8_t>(mode);
     if (lowMode == 0) {

@@ -145,6 +145,7 @@ std::uint8_t Sub_476570(
     WindowInputPrototype* prototype, std::int32_t x, std::int32_t y,
     std::uint32_t mode);
 std::int32_t Sub_4A7B00();
+void Sub_4740F0(char* destination); // 前10项技能索引的S16槽数，格式化后复制原字节。
 
 static_assert(sizeof(WindowInputReference) == 16);
 static_assert(offsetof(WindowInputPrototype, text) == 0x24);

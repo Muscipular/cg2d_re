@@ -372,6 +372,75 @@ std::int32_t Sub_4A76E0();
 // 原[509650,509B96)，玩家属性掩码回复，socket未用。
 std::int32_t Sub_509650(std::uintptr_t socket, const char* payload);
 
+// 原技能配方材料的0x28字节；只映射519950清理的首S32。
+struct SkillRecipeItem {
+    std::int32_t itemId;
+    std::array<std::byte, 0x24> bytes04;
+};
+
+struct SkillRecipeRecord {
+    std::int32_t itemId;
+    std::array<std::byte, 0x68> bytes04;
+    std::array<SkillRecipeItem, 5> items6C;
+};
+
+// 原F1BAFC起的技能记录；未消费技术/配方字节不计最终指针映射。
+struct SkillRuntimeRecord {
+    std::array<char, 25> name;
+    std::array<std::uint8_t, 2> requiredSlots19; // 回复仅写低U8，UI按完整S16读。
+    std::byte byte1B;
+    std::int32_t level;
+    std::int32_t maxLevel;
+    std::int32_t experience;
+    std::int32_t nextExperience;
+    std::int32_t canRebirth;
+    std::int32_t skillId;
+    std::int32_t fpReduce;
+    std::int32_t sequence;
+    std::array<std::byte, 0x8AC> techniqueBytes3C;
+    std::array<SkillRecipeRecord, 56> recipes8E8;
+    std::int32_t rebirthState4C48; // 原F20744；不是旧文档的+744。
+};
+
+struct SkillPairRecord {
+    std::uint16_t used;
+    std::uint16_t index; // 原技能表下标，UI按S16消费，不是地址。
+    std::int32_t sequence;
+};
+
+static_assert(sizeof(SkillRecipeItem) == 0x28);
+static_assert(offsetof(SkillRecipeRecord, items6C) == 0x6C);
+static_assert(sizeof(SkillRecipeRecord) == 0x134);
+static_assert(std::is_standard_layout_v<SkillRuntimeRecord>);
+static_assert(std::is_trivially_copyable_v<SkillRuntimeRecord>);
+static_assert(offsetof(SkillRuntimeRecord, requiredSlots19) == 0x19);
+static_assert(offsetof(SkillRuntimeRecord, byte1B) == 0x1B);
+static_assert(offsetof(SkillRuntimeRecord, level) == 0x1C);
+static_assert(offsetof(SkillRuntimeRecord, maxLevel) == 0x20);
+static_assert(offsetof(SkillRuntimeRecord, experience) == 0x24);
+static_assert(offsetof(SkillRuntimeRecord, nextExperience) == 0x28);
+static_assert(offsetof(SkillRuntimeRecord, canRebirth) == 0x2C);
+static_assert(offsetof(SkillRuntimeRecord, skillId) == 0x30);
+static_assert(offsetof(SkillRuntimeRecord, fpReduce) == 0x34);
+static_assert(offsetof(SkillRuntimeRecord, sequence) == 0x38);
+static_assert(offsetof(SkillRuntimeRecord, techniqueBytes3C) == 0x3C);
+static_assert(offsetof(SkillRuntimeRecord, recipes8E8) == 0x8E8);
+static_assert(offsetof(SkillRuntimeRecord, rebirthState4C48) == 0x4C48);
+static_assert(sizeof(SkillRuntimeRecord) == 0x4C4C);
+static_assert(offsetof(SkillPairRecord, used) == 0);
+static_assert(offsetof(SkillPairRecord, index) == 2);
+static_assert(offsetof(SkillPairRecord, sequence) == 4);
+static_assert(sizeof(SkillPairRecord) == 8);
+
+extern std::array<SkillRuntimeRecord, 15> gSkillsF1BAFC;
+extern std::array<SkillPairRecord, 15> gSkillPairsF63370;
+extern std::uint16_t gValueDA3B20; // 原技能拖放门禁，509EB0尾部清零。
+void Sub_509EB0(std::uintptr_t socket, const char* payload);
+void Sub_519950(std::int32_t index); // 仅重置技能尾槽及56行配方编号。
+void Sub_518600(
+    const SkillRuntimeRecord* source, SkillPairRecord* destination, std::int32_t count);
+std::int32_t Sub_518660(const SkillPairRecord* left, const SkillPairRecord* right);
+
 // 原F633F8五条宠物数据，不是FF02E0地图槽；未消费间隔不计最终类型冻结。
 struct PetRuntimeRecord {
     std::uint16_t used; // 原+0占用。

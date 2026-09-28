@@ -5,6 +5,8 @@
 #include "cg/YobiRuntime.hpp"
 #include "cg/world/SceneState.hpp"
 
+#include <bit>
+#include <cstdio>
 #include <cstdlib>
 #include <cstring>
 
@@ -105,6 +107,24 @@ std::uint8_t Sub_476570(
     return 1;
 }
 
+void Sub_4740F0(char* const destination)
+{
+    std::int32_t count = 0;
+    for (std::size_t position = 0; position < 10; ++position) {
+        const auto& pair = world::detail::gSkillPairsF63370[position];
+        if (pair.used != 0) {
+            const std::int16_t index = std::bit_cast<std::int16_t>(pair.index);
+            const auto& skill = world::detail::gSkillsF1BAFC[index];
+            std::int16_t requiredSlots;
+            std::memcpy(&requiredSlots, skill.requiredSlots19.data(), sizeof(requiredSlots));
+            count += requiredSlots;
+        }
+    }
+    char text[256];
+    std::sprintf(text, "%2d/10", count);
+    std::strcpy(destination, text);
+}
+
 std::int32_t Sub_4A7B00()
 {
     const std::int32_t mode = gChatWindowModeD66E04;
@@ -163,6 +183,11 @@ std::int32_t Sub_4A7B00()
 std::uint8_t ReadValueD67BE0() noexcept
 {
     return detail::gValueD67BE0;
+}
+
+std::uint8_t ReadValue5F9754() noexcept
+{
+    return detail::gValue5F9754;
 }
 
 std::int32_t ReadDragItemIndex_584DA4() noexcept

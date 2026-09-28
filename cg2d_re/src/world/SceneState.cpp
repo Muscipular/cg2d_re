@@ -2106,6 +2106,182 @@ std::int32_t Sub_509650(
     return 0;
 }
 
+// 原技能表、索引对和拖放门禁均为PE虚拟零区，不新增构造/RNG消费。
+std::array<SkillRuntimeRecord, 15> gSkillsF1BAFC {};
+std::array<SkillPairRecord, 15> gSkillPairsF63370 {};
+std::uint16_t gValueDA3B20 = 0;
+
+void Sub_509EB0(const std::uintptr_t /*socket*/, const char* const payload)
+{
+    if (gValue9A6E0C != 0) {
+        return;
+    }
+    char name[256];
+    std::int32_t field = 2;
+    for (;;) {
+        const std::int32_t index =
+            network::ParseDelimitedInteger_52CFA0(payload, '|', field - 1);
+        const std::int32_t skillId =
+            network::ParseDelimitedInteger_52CFA0(payload, '|', field);
+        network::ExtractDelimitedField_52CED0(payload, '|', field + 1, 255, name);
+        input::UnescapeLegacyTextAndNotify_52D2F0(name);
+        const std::int32_t level =
+            network::ParseDelimitedInteger_52CFA0(payload, '|', field + 2);
+        const std::int32_t experience =
+            network::ParseDelimitedInteger_52CFA0(payload, '|', field + 3);
+        const std::int32_t maxLevel =
+            network::ParseDelimitedInteger_52CFA0(payload, '|', field + 4);
+        const std::int32_t nextExperience =
+            network::ParseDelimitedInteger_52CFA0(payload, '|', field + 5);
+        const std::int32_t requiredSlots =
+            network::ParseDelimitedInteger_52CFA0(payload, '|', field + 6);
+        const std::int32_t canRebirth =
+            network::ParseDelimitedInteger_52CFA0(payload, '|', field + 7);
+        const std::int32_t fpReduce =
+            network::ParseDelimitedInteger_52CFA0(payload, '|', field + 8);
+        const std::int32_t sequence =
+            network::ParseDelimitedInteger_52CFA0(payload, '|', field + 9);
+        if (index < 0) {
+            break;
+        }
+
+        SkillRuntimeRecord& record = gSkillsF1BAFC[index];
+        if (std::strlen(name) == 0 && level < 0 && experience < 0) {
+            record.name[0] = '\0';
+            record.level = 0;
+            record.experience = 0;
+            record.techniqueBytes3C.fill(std::byte{0});
+            Sub_519950(index);
+        } else {
+            std::strcpy(
+                record.name.data(), std::strlen(name) <= 24 ? name : kUnknownText554590);
+            record.level = level;
+            record.experience = experience;
+            record.maxLevel = maxLevel;
+            record.nextExperience = nextExperience;
+            record.requiredSlots19[0] = static_cast<std::uint8_t>(requiredSlots);
+            record.canRebirth = canRebirth;
+            record.skillId = skillId;
+            record.fpReduce = fpReduce;
+            record.sequence = sequence;
+            if (canRebirth == 1) {
+                const std::uint8_t flag = ui::ReadValue5F9754();
+                const std::uintptr_t socket = platform::gConnectionSocket;
+                const std::int32_t value = index + (flag != 0 ? 100 : 0);
+                static_cast<void>(network::Sub_510F50(socket, value));
+            }
+        }
+        field += 11;
+    }
+    Sub_518600(gSkillsF1BAFC.data(), gSkillPairsF63370.data(), 15);
+    gValueDA3B20 = 0;
+}
+
+void Sub_519950(const std::int32_t index)
+{
+    SkillRuntimeRecord& record = gSkillsF1BAFC[index];
+    record.rebirthState4C48 = 0;
+    for (SkillRecipeRecord& recipe : record.recipes8E8) {
+        recipe.itemId = -1;
+        for (SkillRecipeItem& item : recipe.items6C) {
+            item.itemId = -1;
+        }
+    }
+}
+
+std::int32_t Sub_518660(
+    const SkillPairRecord* const left, const SkillPairRecord* const right)
+{
+    if (right->used == 0) {
+        return -1;
+    }
+    if (left->used == 0) {
+        return 1;
+    }
+    return left->sequence <= right->sequence ? -1 : 1;
+}
+
+void Sub_518600(
+    const SkillRuntimeRecord* source, SkillPairRecord* const destination,
+    const std::int32_t count)
+{
+    for (std::int32_t index = 0; index < count; ++index) {
+        destination[index].used = source->name[0] != '\0' ? 1 : 0;
+        destination[index].index = static_cast<std::uint16_t>(index);
+        destination[index].sequence = source->sequence;
+        ++source;
+    }
+
+    // 原53C112/53C266的8B记录路径；比较器不返回0，不能换现代排序。
+    const auto sortCount = static_cast<std::uint32_t>(count);
+    if (sortCount < 2) {
+        return;
+    }
+    SkillPairRecord* first = destination;
+    SkillPairRecord* last = first + sortCount - 1;
+    std::array<SkillPairRecord*, 30> firstStack;
+    std::array<SkillPairRecord*, 30> lastStack;
+    std::int32_t stackSize = 0;
+    for (;;) {
+        const auto length = last - first + 1;
+        if (length <= 8) {
+            while (last > first) {
+                SkillPairRecord* maximum = first;
+                for (SkillPairRecord* item = first + 1; item <= last; ++item) {
+                    if (Sub_518660(item, maximum) > 0) {
+                        maximum = item;
+                    }
+                }
+                std::swap(*maximum, *last);
+                --last;
+            }
+        } else {
+            std::swap(*(first + length / 2), *first);
+            SkillPairRecord* left = first;
+            SkillPairRecord* right = last + 1;
+            for (;;) {
+                do {
+                    ++left;
+                } while (left <= last && Sub_518660(left, first) <= 0);
+                do {
+                    --right;
+                } while (right > first && Sub_518660(right, first) >= 0);
+                if (right < left) {
+                    break;
+                }
+                std::swap(*left, *right);
+            }
+            std::swap(*first, *right);
+            if (right - first > last - left) {
+                if (first + 1 < right) {
+                    firstStack[stackSize] = first;
+                    lastStack[stackSize] = right - 1;
+                    ++stackSize;
+                }
+                if (left < last) {
+                    first = left;
+                    continue;
+                }
+            } else {
+                if (left < last) {
+                    firstStack[stackSize] = left;
+                    lastStack[stackSize] = last;
+                    ++stackSize;
+                }
+                if (first + 1 < right) {
+                    last = right - 1;
+                    continue;
+                }
+            }
+        }
+        if (--stackSize < 0) {
+            return;
+        }
+        first = firstStack[stackSize];
+        last = lastStack[stackSize];
+    }
+}
+
 // 原宠物表、索引对和两独立标量均为PE虚拟零区；构造由LegacyMouse按CRT顺序接入。
 std::array<PetRuntimeRecord, 5> gPetRuntimeF633F8 {};
 std::array<PetPairRecord, 5> gPetPairsDE0B08 {};

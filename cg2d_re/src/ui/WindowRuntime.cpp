@@ -1,6 +1,7 @@
 #include "WindowRuntimeState.hpp"
 
 #include "../LoginMessageDependencies.hpp"
+#include "../LoginSceneDependencies.hpp"
 #include "../platform/WindowProcedureState.hpp"
 #include "../world/WorldUpdateDependencies.hpp"
 #include "cg/GraphicInfo.hpp"
@@ -9,6 +10,7 @@
 #include "cg/YobiRuntime.hpp"
 #include "cg/platform/LegacyMouse.hpp"
 #include "cg/platform/MainLoop.hpp"
+#include "cg/platform/Startup.hpp"
 #include "cg/render/Font.hpp"
 #include "cg/render/GraphicCacheState.hpp"
 #include "cg/render/TextPendingQueue.hpp"
@@ -47,7 +49,9 @@ WindowInputPrototype gChatInputPrototype57E970 {
 std::int32_t gChatWindowModeD66E04 = 0;
 std::uint8_t gValue5F9754 = 0;
 std::int32_t gChatWidthUnitsC9A930 = 0;
+std::int32_t gChatWidthRequestC9A934 = 0;
 std::int32_t gChatHeightUnitsC9A938 = 0;
+std::int32_t gChatHeightRequestC9A93C = 0;
 std::int32_t gChatScrollOffsetC9A940 = 0;
 
 namespace {
@@ -160,6 +164,96 @@ void ScrollInputAndDraw(input::InputContext* const context, const std::int32_t w
 }
 
 } // namespace
+
+std::int32_t Sub_503CB0()
+{
+    const std::int32_t decreased = platform::gValue73ECBC - 1;
+    platform::gValue73ECBC = decreased;
+    if (decreased < 0) {
+        platform::gValue73ECBC = 2;
+    }
+    return decreased;
+}
+
+std::int32_t Sub_503CD0()
+{
+    const auto mode = static_cast<std::int16_t>(platform::gValue5F974C + 1);
+    platform::gValue5F974C = mode;
+    if (mode >= 7) {
+        platform::gValue5F974C = 0;
+    }
+    static_cast<void>(login::detail::Sub_520590());
+    return login::detail::Sub_520200();
+}
+
+std::int32_t Sub_4A6D80()
+{
+    platform::gValue554640 = 1;
+    gChatScrollOffsetC9A940 = 0;
+    world::detail::gCountC9A944 = 0;
+    gChatWidthRequestC9A934 = 0;
+    gChatHeightRequestC9A93C = 0;
+    input::gInputContext626AA0.field140 = 0;
+    return 0;
+}
+
+std::int32_t Sub_4A6DB0()
+{
+    gChatScrollOffsetC9A940 = 0;
+    gChatWidthRequestC9A934 = 0;
+    world::detail::gCountC9A944 = 0;
+    gChatHeightRequestC9A93C = 0;
+    return 0;
+}
+
+std::int32_t Sub_4A7700()
+{
+    world::detail::gCountC9A944 = 0;
+    gChatScrollOffsetC9A940 = 0;
+    return 0;
+}
+
+std::int32_t Sub_44B170()
+{
+    for (auto& record : world::detail::gRecords5FB7F8) {
+        record.text[0] = '\0';
+    }
+    return Sub_4A7700();
+}
+
+void Sub_4A7710()
+{
+    gChatHeightRequestC9A93C = 1;
+}
+
+void Sub_4A7720()
+{
+    gChatHeightRequestC9A93C = -1;
+}
+
+void Sub_4A7730()
+{
+    gChatWidthRequestC9A934 = 1;
+}
+
+void Sub_4A7740()
+{
+    gChatWidthRequestC9A934 = -1;
+}
+
+std::int32_t Sub_4A82E0()
+{
+    const std::int32_t height = gChatHeightUnitsC9A938 + gChatHeightRequestC9A93C;
+    gChatHeightUnitsC9A938 = height;
+    if (height > 26) {
+        gChatHeightUnitsC9A938 = 4;
+    } else if (height < 4) {
+        gChatHeightUnitsC9A938 = 26;
+    }
+    gChatHeightRequestC9A93C = 0;
+    gChatWidthRequestC9A934 = 0;
+    return 0;
+}
 
 void Sub_4A7590(input::InputContext* const context)
 {

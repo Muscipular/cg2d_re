@@ -89,6 +89,8 @@ void SetContext_44B330(InputContext* context);
 // 原 503E40/503E60：当前上下文地址比较，返回完整 W32 的 0 或 1。
 std::int32_t IsCurrentContext_503E40(const InputContext* context);
 std::int32_t IsChatContext_503E60();
+// 原44B340：Shift优先于Ctrl，扫描F1..F8并追加最后命中的同源预设文本。
+std::int32_t ProcessPresetHotkeys_44B340();
 
 // 原 sub_449CF0@[0x449CF0,0x449D92)。
 void InitializeContext_449CF0(

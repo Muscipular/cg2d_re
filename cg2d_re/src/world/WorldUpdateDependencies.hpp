@@ -660,6 +660,13 @@ std::int32_t Sub_444FA0(std::int32_t objectIndex); // 原编号查槽，命中�
 login::YobiAction* FindObjectYobi_4462B0(std::int32_t objectIndex); // 复用原查槽后借用action。
 void Sub_50B380(std::uintptr_t socket, const char* payload); // 完整TAB对象批量回复，socket未用。
 void Sub_50BCD0(std::uintptr_t socket, const char* payload); // 逗号动作批量回复，先观察拦截。
+std::uint32_t Sub_50BFA0(std::uintptr_t socket, std::int32_t value); // 玩家选项回复，清bit2后写U16。
+std::int32_t Sub_472F40(); // 同源玩家选项切换04后发送。
+std::int32_t Sub_472F70(); // 切换08后发送。
+std::int32_t Sub_472FA0(); // 切换01后发送。
+std::int32_t Sub_472FD0(); // 切换10后发送。
+std::int32_t Sub_473000(); // 切换20后发送。
+std::int32_t Sub_473030(); // 切换40后发送。
 void Sub_51A4B0(); // 玩家初始姓名/称号/等级/HP同步。
 void Sub_51A5E0(); // 玩家flags18A置200。
 void Sub_449C90(login::YobiAction* action); // 非跟随对象置flags42的100。

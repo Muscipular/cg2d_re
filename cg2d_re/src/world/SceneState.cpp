@@ -110,6 +110,7 @@ struct PlayerRuntimeSlots {
     std::uint16_t flags18A; // 原 FDA88A W16；跨 W32 读取还须拼接 flags18C 的低 W16。
     std::uint32_t flags18C; // 承载原 [FDA88C,FDA890)；18C 低 W8、18E 高 W16 共享字节。
     std::int32_t value190; // 原 FDA890；51BDD0/51BE50 写入的完整动作值。
+    std::uint16_t options194; // 原FDA894低W16；选项切换/回复与聊天门禁共用。
     login::YobiAction* action;
     std::array<char, 17> text15BB8; // 原 FF02B8，不紧接新端的指针字节布局。
     std::int32_t value15BCC; // 原FF02CC；509650尾字段。
@@ -1989,6 +1990,66 @@ void Sub_50BCD0(const std::uintptr_t /*socket*/, const char* const payload)
             ++missingCursor;
         }
     }
+}
+
+namespace {
+
+// 原六个入口共享473060发送尾；选项修改后重新读取，不按发送结果回滚。
+std::int32_t TogglePlayerOptionAndSend(const std::uint16_t mask)
+{
+    const auto options = static_cast<std::uint8_t>(gPlayerRuntime.options194);
+    if ((options & mask) != 0) {
+        gPlayerRuntime.options194 &= static_cast<std::uint16_t>(~mask);
+    } else {
+        gPlayerRuntime.options194 |= mask;
+    }
+    const std::int32_t value = gPlayerRuntime.options194;
+    const std::uintptr_t socket = platform::gConnectionSocket;
+    return network::Sub_511A00(socket, value);
+}
+
+} // namespace
+
+std::int32_t Sub_472F40()
+{
+    return TogglePlayerOptionAndSend(0x04);
+}
+
+std::int32_t Sub_472F70()
+{
+    return TogglePlayerOptionAndSend(0x08);
+}
+
+std::int32_t Sub_472FA0()
+{
+    return TogglePlayerOptionAndSend(0x01);
+}
+
+std::int32_t Sub_472FD0()
+{
+    return TogglePlayerOptionAndSend(0x10);
+}
+
+std::int32_t Sub_473000()
+{
+    return TogglePlayerOptionAndSend(0x20);
+}
+
+std::int32_t Sub_473030()
+{
+    return TogglePlayerOptionAndSend(0x40);
+}
+
+std::uint32_t Sub_50BFA0(
+    const std::uintptr_t /*socket*/, const std::int32_t value)
+{
+    const std::uint32_t gate = gValue9A6E0C;
+    if (gate != 0) {
+        return gate;
+    }
+    const std::uint32_t options = static_cast<std::uint32_t>(value) & 0xFFFDu;
+    gPlayerRuntime.options194 = static_cast<std::uint16_t>(options);
+    return options;
 }
 
 void Sub_50D000(

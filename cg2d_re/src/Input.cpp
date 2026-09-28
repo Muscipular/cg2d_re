@@ -1,4 +1,6 @@
 #include "cg/Input.hpp"
+#include "cg/LegacyAudio.hpp"
+#include "cg/platform/KeyState.hpp"
 #include "cg/platform/LegacyTime.hpp"
 #include "cg/platform/Startup.hpp"
 
@@ -856,6 +858,30 @@ void AppendChar_44ADB0(const char character)
     }
 
     gValue626C0C = 20;
+}
+
+std::int32_t ProcessPresetHotkeys_44B340()
+{
+    std::int32_t base = 0;
+    if ((platform::gKeyStates[0x10] & 2u) != 0) {
+        base = 16;
+    } else if ((platform::gKeyStates[0x11] & 2u) != 0) {
+        base = 8;
+    }
+    std::int32_t selected = -1;
+    std::int32_t result = 0;
+    for (std::int32_t index = 0; index < 8; ++index) {
+        result = platform::ReadKeyPressFlag_4597B0(
+            static_cast<std::uint8_t>(0x70 + index));
+        if (result != 0) {
+            selected = base + index;
+        }
+    }
+    if (selected >= 0) {
+        LoadInitialText_44A160(gInputContexts5F9758[selected].text);
+        return audio::PlaySe_52C450(51, 320);
+    }
+    return result;
 }
 
 void SetContext_44B330(InputContext* const context)

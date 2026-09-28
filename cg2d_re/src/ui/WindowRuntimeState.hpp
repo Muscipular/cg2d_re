@@ -182,7 +182,9 @@ extern WindowInputPrototype gChatInputPrototype57E970;
 extern std::int32_t gChatWindowModeD66E04; // 原独立S32，窗口35/57选择与设置文件共用。
 extern std::uint8_t gValue5F9754; // 原多窗口/物品UI共享字节，观察进入可能清零。
 extern std::int32_t gChatWidthUnitsC9A930; // 原聊天宽度单位，输入滚动/聊天绘制共用。
+extern std::int32_t gChatWidthRequestC9A934; // 原宽度调整请求，独立于实际宽度。
 extern std::int32_t gChatHeightUnitsC9A938; // 原聊天可见高度的字体9行高倍数。
+extern std::int32_t gChatHeightRequestC9A93C; // 原高度调整请求，消费后清零。
 extern std::int32_t gChatScrollOffsetC9A940; // 原相对共享写指针的回看条数。
 
 // 原输入原型四模式更新及聊天恢复，复用既有InputContext owner。
@@ -205,6 +207,17 @@ std::int32_t Sub_4763E0(); // 通用鼠标重置，不清来源索引/坐标。
 std::int32_t Sub_472D20(); // 窗口拖动/焦点命中，返回两位处理掩码。
 std::int32_t Sub_4730A0(); // 原表压紧、关闭释放及按2000标记前插排序。
 void Sub_473E40(); // 每轮窗口处理前的鼠标阶段推进。
+std::int32_t Sub_503CB0(); // 73ECBC先减后负值归2，返回归位前结果。
+std::int32_t Sub_503CD0(); // 名称模式S16递增，保存标量后持久化。
+std::int32_t Sub_4A6D80(); // 聊天初始范围、回看、数量、调整请求和颜色。
+std::int32_t Sub_4A6DB0(); // 仅重置回看、两调整请求与数量。
+std::int32_t Sub_44B170(); // 清512条日志首字节，再清数量与回看。
+std::int32_t Sub_4A7700(); // 不清日志正文或写指针。
+void Sub_4A7710(); // 请求高度+1。
+void Sub_4A7720(); // 请求高度-1。
+void Sub_4A7730(); // 请求宽度+1。
+void Sub_4A7740(); // 请求宽度-1。
+std::int32_t Sub_4A82E0(); // 窗口57高度循环调整并清两个请求。
 void Sub_4771B0(
     std::int32_t x, std::int32_t y, const char* text,
     std::int8_t style, std::int8_t color, std::uint8_t flags, std::uint8_t layer);

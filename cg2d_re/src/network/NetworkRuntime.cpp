@@ -3676,6 +3676,45 @@ std::int32_t Sub_512620(
         reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
 }
 
+std::int32_t Sub_510CE0(
+    const std::uintptr_t socket, const std::int32_t x, const std::int32_t y,
+    const std::int32_t group, const std::int32_t index)
+{
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0), "QpfE"));
+
+    const std::int32_t xCapacity = std::bit_cast<std::int32_t>(
+        gNetworkRuntimeState.bufferLength);
+    std::uint8_t* const xToken = FormatProtocolIntegerToken_517120(x);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
+        reinterpret_cast<const char*>(xToken), xCapacity));
+
+    const std::int32_t yCapacity = std::bit_cast<std::int32_t>(
+        gNetworkRuntimeState.bufferLength);
+    std::uint8_t* const yToken = FormatProtocolIntegerToken_517120(y);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
+        reinterpret_cast<const char*>(yToken), yCapacity));
+
+    const std::int32_t groupCapacity = std::bit_cast<std::int32_t>(
+        gNetworkRuntimeState.bufferLength);
+    std::uint8_t* const groupToken = FormatProtocolIntegerToken_517120(group);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
+        reinterpret_cast<const char*>(groupToken), groupCapacity));
+
+    const std::int32_t indexCapacity = std::bit_cast<std::int32_t>(
+        gNetworkRuntimeState.bufferLength);
+    std::uint8_t* const indexToken = FormatProtocolIntegerToken_517120(index);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
+        reinterpret_cast<const char*>(indexToken), indexCapacity));
+
+    return SendProtocolBuffer_517480(
+        socket, reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
+}
+
 std::int32_t Sub_510EC0(
     const std::uintptr_t socket, const std::int32_t source,
     const std::int32_t target, const std::int32_t amount)

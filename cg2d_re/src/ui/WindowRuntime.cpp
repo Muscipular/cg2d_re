@@ -130,6 +130,7 @@ std::uint8_t gTradeTabCC4D1A = 0;
 std::int32_t gTradeHoverSlotC8B314 = 0;
 std::int32_t gTradeHoverSlotC8AA78 = 0;
 std::int32_t gPetDragModeD2EA1C = 0;
+std::int32_t gItemDragModeCC4C9C = 0;
 std::int32_t gItemMoveSourceCF46B0 = 0;
 std::int32_t gItemMoveTargetD2DBF8 = 0;
 std::int32_t gValueD67B00 = 0;
@@ -1778,6 +1779,95 @@ std::int32_t Sub_48C130(const std::int32_t sourceIndex, const std::int32_t mode)
 {
     gPetDragModeD2EA1C = mode;
     return Sub_475DA0(3, sourceIndex, Sub_48BF30);
+}
+
+void Sub_48BC90(
+    const std::int32_t message, const std::int32_t, const std::int32_t sourceIndex)
+{
+    render::GraphicDescriptor16 descriptor {};
+    const std::uint32_t color = 0x80FFFFFFu;
+    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    descriptor.bytes[13] = 4;
+    if (message != 0) {
+        if (message == 2 && gItemDragModeCC4C9C != 0
+            && (world::detail::ReadPlayerActionFlags() & 0x80u) == 0
+            && world::detail::Sub_440B50() == 0) {
+            const std::int32_t group =
+                std::bit_cast<std::int8_t>(gValue57DA28) > 0 && sourceIndex < 6
+                ? Sub_4C71B0(&gItemSelectorCF3B10) + 1 : 0;
+            const std::int32_t y =
+                platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+            const std::int32_t x =
+                platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+            static_cast<void>(network::Sub_510CE0(
+                platform::gConnectionSocket, x, y, group, sourceIndex));
+        }
+        return;
+    }
+    const std::int32_t kind = Sub_48BB30(sourceIndex);
+    if (kind == 1) {
+        const world::detail::PlayerItemRecord* item;
+        if (std::bit_cast<std::int8_t>(gValue57DA28) > 0) {
+            item = &world::detail::gPetRuntimeF633F8[
+                Sub_4C71B0(&gItemSelectorCF3B10)].items6E4[sourceIndex];
+        } else {
+            item = &world::detail::gPlayerItemsFDA8A4[sourceIndex];
+        }
+        if (item->used == 0) {
+            static_cast<void>(Sub_4763E0());
+        }
+    } else if (kind == 2) {
+        if (world::detail::gPlayerItemsFDA8A4[sourceIndex].used == 0) {
+            static_cast<void>(Sub_4763E0());
+        }
+    } else if (kind == 3) {
+        std::uint16_t used;
+        std::memcpy(
+            &used, gItemDetailStorageCC4D58.data() + (sourceIndex - 100) * 0xC44, sizeof(used));
+        if (used == 0) {
+            static_cast<void>(Sub_4763E0());
+        }
+    }
+    if ((platform::gLegacyMouseState.edgeButtons & 1u) != 0) {
+        static_cast<void>(Sub_4763E0());
+        const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
+            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseX)));
+        const auto y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
+            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseY)));
+        static_cast<void>(Sub_476490(2, sourceIndex, x, y, Sub_48BC90));
+    }
+    if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
+        CancelWindowDrag_476410();
+    }
+    static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
+    const std::int32_t drawKind = Sub_48BB30(sourceIndex);
+    std::int32_t imageNo;
+    if (drawKind == 1) {
+        if (std::bit_cast<std::int8_t>(gValue57DA28) > 0) {
+            imageNo = world::detail::gPetRuntimeF633F8[
+                Sub_4C71B0(&gItemSelectorCF3B10)].items6E4[sourceIndex].imageNo;
+        } else {
+            imageNo = world::detail::gPlayerItemsFDA8A4[sourceIndex].imageNo;
+        }
+    } else if (drawKind == 2) {
+        imageNo = world::detail::gPlayerItemsFDA8A4[sourceIndex].imageNo;
+    } else if (drawKind == 3) {
+        std::memcpy(&imageNo,
+            gItemDetailStorageCC4D58.data() + (sourceIndex - 100) * 0xC44 + 4, sizeof(imageNo));
+    } else {
+        return;
+    }
+    const std::int32_t y =
+        platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseY);
+    const std::int32_t x =
+        platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseX);
+    static_cast<void>(login::detail::DrawGraphic(x, y, 230, imageNo, 0, &descriptor));
+}
+
+std::int32_t Sub_48BF10(const std::int32_t sourceIndex, const std::int32_t mode)
+{
+    gItemDragModeCC4C9C = mode;
+    return Sub_475DA0(2, sourceIndex, Sub_48BC90);
 }
 
 void Sub_4B2060(

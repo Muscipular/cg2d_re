@@ -1,6 +1,7 @@
 #include "CharacterSelectSceneDependencies.hpp"
 #include "LoginInputDependencies.hpp"
 #include "LoginSceneDependencies.hpp"
+#include "ui/WindowRuntimeState.hpp"
 
 #include "cg/Input.hpp"
 #include "cg/LegacyAudio.hpp"
@@ -707,11 +708,10 @@ std::int32_t PersistCurrentSavedRecord_520200()
     return static_cast<std::int32_t>(::DeleteFileA(path));
 }
 
-// 原 sub_4A4210@[0x4A4210,0x4A4216)：当前恒返回 1；原地址另有 34 个
-// UI 原型回调字段的 direct data xref，本项不实现或接线这些表。
+// 存档无参调用适配；原4A4210不读取参数，共用窗口侧真实实现。
 std::int32_t ReturnOne_4A4210() noexcept
 {
-    return 1;
+    return cg::ui::detail::Sub_4A4210(0);
 }
 
 // 原 sub_5204C0@[0x5204C0,0x520502)：从记录恢复音频设置。

@@ -102,6 +102,7 @@ add_library(cg2d_re_startup STATIC
     src/DrawGraphicHover.cpp
     src/YobiRuntime.cpp
     src/ui/WindowRuntime.cpp
+    src/ui/WindowPrototypes.cpp
     src/network/NetworkRuntime.cpp
     src/render/GraphicPendingQueue.cpp
     src/render/DrawAllQueued.cpp

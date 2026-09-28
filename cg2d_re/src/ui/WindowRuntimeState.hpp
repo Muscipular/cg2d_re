@@ -109,12 +109,18 @@ struct WindowInstance {
 
 namespace detail {
 
+// 文本原型只借用源字节；实例仍通过WindowTextData拥有256B可写副本。
+struct WindowTextPrototype {
+    std::array<std::byte, 4> bytes00;
+    const char* text;
+};
+
 // 原元素+18按type解释；type0/5/6当前原型值为0且471440不消费。
 union WindowElementPrototypeSource {
     std::uint32_t unusedValue;
     WindowGraphicData* graphic;
     std::int32_t* animationImageNo;
-    WindowTextData* text;
+    WindowTextPrototype* text;
     std::uint32_t* mouseFlags;
     WindowNumberData* number;
 };
@@ -203,7 +209,7 @@ struct WindowState {
 };
 
 inline constexpr std::size_t kWindowCount = 71;
-// 主原型数据/回调待落位；拖拽表已按71槽/42个原地址绑定真实共享对象。
+// 两表已按原地址共享绑定；主表的其余元素与回调依赖见WindowPrototypeDependencies。
 extern std::array<WindowPrototype*, kWindowCount> gWindowPrototypes57C130;
 extern std::array<WindowDragPrototype*, kWindowCount> gWindowDragPrototypes57C24C;
 extern std::array<WindowInstance*, kWindowCount> gWindows; // 原C8B094。
@@ -277,6 +283,7 @@ void Sub_4E5DA0(std::int32_t side, std::int32_t first, std::int32_t second); // 
 void Sub_4E1840(std::int32_t side, std::int32_t first, std::int32_t second); // 展示整条换位。
 void Sub_48BA60(std::int32_t first, std::int32_t second); // UI迁移后再交换同源悬停字节。
 std::int32_t Sub_4B0F10(std::int32_t index, std::int32_t events); // 原真实NULL_FUNC，返回0。
+std::int32_t Sub_4A4210(std::int32_t unused) noexcept; // 原mov eax,1/ret，存档/窗口共用。
 void Sub_4B0000(std::int32_t first, std::int32_t second); // 窗口43的20个槽号及28B标记。
 void Sub_47DCD0(std::int32_t first, std::int32_t second); // 窗口11选择/材料及两组标记。
 std::int32_t Sub_47DC20(std::int32_t index); // 六槽/单选两路释放，单选尾接聊天恢复。
@@ -325,6 +332,8 @@ void Sub_4771B0(
 std::int32_t Sub_477460(const char* text, std::int8_t style); // 原字节长度乘运行步进减扣宽。
 
 static_assert(sizeof(WindowInputReference) == 16);
+static_assert(offsetof(WindowTextPrototype, text) == 8);
+static_assert(sizeof(WindowTextPrototype) == 16);
 static_assert(sizeof(WindowElementPrototypeSource) == 8);
 static_assert(offsetof(WindowElementPrototype, source) == 0x18);
 static_assert(offsetof(WindowElementPrototype, mouseCallback) == 0x20);

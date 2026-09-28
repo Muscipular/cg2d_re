@@ -378,6 +378,11 @@ std::int32_t Sub_4B0F10(const std::int32_t, const std::int32_t)
     return 0;
 }
 
+std::int32_t Sub_4A4210(const std::int32_t) noexcept
+{
+    return 1;
+}
+
 void Sub_4E5DA0(
     const std::int32_t side, const std::int32_t first, const std::int32_t second)
 {
@@ -1744,7 +1749,7 @@ WindowInstance* OpenWindow_471440(const std::int32_t id)
                 auto* const data = static_cast<WindowTextData*>(
                     std::calloc(1, sizeof(WindowTextData)));
                 if (data != nullptr) {
-                    const WindowTextData* const original = source->source.text;
+                    const WindowTextPrototype* const original = source->source.text;
                     data->text = static_cast<char*>(std::calloc(256, 1));
                     std::strcpy(data->text, original->text);
                     char text[256];

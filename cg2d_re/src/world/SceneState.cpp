@@ -1928,6 +1928,30 @@ void Sub_50B380(const std::uintptr_t /*socket*/, const char* const payload)
     }
 }
 
+void Sub_50D000(
+    const std::uintptr_t /*socket*/, const std::int32_t first, const std::int32_t second)
+{
+    if (gValue9A6E0C != 0) {
+        return;
+    }
+    if (first == 1) {
+        if (second == 1) {
+            Sub_51A5E0();
+        }
+    } else if (first == 0 && second == 1) {
+        Sub_51A5F0();
+        gValueFF0D36 = 0;
+        static_cast<void>(Sub_51B080());
+        const std::int32_t direction = std::bit_cast<std::int8_t>(
+            static_cast<std::uint8_t>(gPlayerRuntime.direction));
+        const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&gPlayerSnapshotY);
+        const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&gPlayerSnapshotX);
+        static_cast<void>(
+            network::Sub_512720(platform::gConnectionSocket, x, y, direction));
+    }
+    gValueFF0D32 = 0;
+}
+
 std::int32_t Sub_509650(
     const std::uintptr_t /*socket*/, const char* const payload)
 {

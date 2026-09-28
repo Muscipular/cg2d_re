@@ -598,6 +598,8 @@ void Sub_442C40(login::YobiAction* action); // flags42置200。
 void Sub_442C70(login::YobiAction* action); // 先场景门禁，再通过payload清flags42的200。
 void Sub_442BD0(login::YobiAction* action); // flags42置100，再marker44=1。
 void Sub_50A3E0(std::uintptr_t socket, std::int32_t index, const char* payload);
+void Sub_50D000(
+    std::uintptr_t socket, std::int32_t first, std::int32_t second); // 跟随状态回复。
 void Sub_51A5F0(); // 仅清玩家flags18A的200。
 login::YobiAction* Sub_51B080(); // 解散地图五槽；返回51A5B0的非拥有T*。
 void Sub_46AFE0(

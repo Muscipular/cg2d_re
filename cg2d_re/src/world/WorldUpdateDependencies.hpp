@@ -613,6 +613,7 @@ void Sub_43DA70(login::YobiAction* action); // flags120置8。
 void Sub_43DAA0(login::YobiAction* action); // flags120清8。
 void Sub_43DAD0(login::YobiAction* action); // flags120置50。
 void Sub_43DB00(login::YobiAction* action); // 观察处理只置flags120的80。
+void Sub_43DB30(login::YobiAction* action); // 观察子对象结束时只清flags120的80。
 void Sub_444410(
     login::YobiAction* action, std::int32_t x, std::int32_t y,
     std::int32_t direction, std::int32_t characterAction, std::int32_t option1,

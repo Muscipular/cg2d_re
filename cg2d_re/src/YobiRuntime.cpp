@@ -42,13 +42,17 @@ struct YobiAction {
     YobiAction* next;
     YobiCallback callback;
     void* payload;
-    YobiAction** completionSlot10; // 原+10；4441A0完成动画时清零的非拥有父槽地址。
+    union {
+        YobiAction** completionSlot10; // 原+10，444260/4441A0的非拥有完成回写槽。
+        YobiAction* observationParent10; // 同一原+10，43F290/43FE00的非拥有观察父节点。
+    };
     std::uint8_t priority;
     std::uint8_t displayPriority;
     std::int32_t cacheIndex;
     std::int32_t deathFlag;
     std::int32_t graphicIndex;
     std::uint32_t flags;
+    std::int32_t counter28; // 原+28，440440退出轨迹的独立计数。
     std::int32_t phase;
     std::int32_t x;
     std::int32_t y;
@@ -74,6 +78,7 @@ struct YobiAction {
     platform::LegacyCryptInt barValue1B0; // 原+1B0；442F70同步玩家/宠物FP，43DB60绘第二条。
     platform::LegacyCryptInt barMaximum1C0; // 原+1C0；同步最大FP，读取仍消费计数/RNG。
     std::int32_t field1D0; // 原 +1D0；弹窗param6、观察子项槽序号或地图实体等级。
+    std::int32_t value1D4; // 原+1D4；观察父节点主队列索引/子节点轨迹计数，共用S32。
     std::int32_t field1D8; // 原 +1D8；51A090 写入完整第四参数。
     std::int32_t counter1DC; // 原+1DC，442F70图标显示计数。
     platform::LegacyCryptInt mapX1E0; // 原 +1E0/+1F0 当前位置；46DD90 按 X→Y 读取并乘64。
@@ -1187,6 +1192,279 @@ void Sub_4408C0(
         if (values[i] > 0) {
             payload->values[i] = static_cast<std::uint32_t>(values[i]);
         }
+    }
+}
+
+YobiAction* Sub_43F290(YobiAction* const parent, const std::int32_t index)
+{
+    const std::uint32_t playerIndex = world::ReadPlayerObjectIndex_FDA880();
+    const auto* const payload = static_cast<const MapCharaPayload*>(parent->payload);
+    const std::uint32_t objectIndex = payload->values[index];
+    YobiAction* const source = objectIndex == playerIndex
+        ? world::detail::ReadPlayerAction()
+        : world::detail::FindObjectYobi_4462B0(std::bit_cast<std::int32_t>(objectIndex));
+    if (source == nullptr) {
+        return nullptr;
+    }
+    YobiAction* const action = NewYobiAction_404AE0(3, 0);
+    if (action == nullptr) {
+        return nullptr;
+    }
+    action->callback = nullptr;
+    action->imageNo = source->imageNo;
+    action->characterAction = 0;
+    const std::int32_t direction = source->direction;
+    action->displayPriority = 10;
+    action->direction = direction;
+    action->flags = 2;
+    action->x = source->x;
+    const std::int32_t y = source->y;
+    action->field1D0 = index;
+    action->observationParent10 = parent;
+    action->y = y;
+    action->phase = 1;
+    return action;
+}
+
+YobiAction* Sub_43FE00(YobiAction* const parent, const std::int32_t index)
+{
+    const std::uint32_t playerIndex = world::ReadPlayerObjectIndex_FDA880();
+    const auto* const payload = static_cast<const MapCharaPayload*>(parent->payload);
+    const std::uint32_t objectIndex = payload->values[index];
+    YobiAction* const source = objectIndex == playerIndex
+        ? world::detail::ReadPlayerAction()
+        : world::detail::FindObjectYobi_4462B0(std::bit_cast<std::int32_t>(objectIndex));
+    if (source == nullptr) {
+        return nullptr;
+    }
+    YobiAction* const action = NewYobiAction_404AE0(3, 0);
+    if (action == nullptr) {
+        return nullptr;
+    }
+    action->callback = nullptr;
+    action->imageNo = source->imageNo;
+    action->characterAction = 0;
+    const std::int32_t direction = source->direction;
+    action->displayPriority = 10;
+    action->direction = direction;
+    action->flags = 2;
+    action->x = source->x;
+    const std::int32_t y = source->y;
+    action->value1D4 = 0;
+    action->counter28 = 0;
+    action->field1D0 = index;
+    action->observationParent10 = parent;
+    action->y = y;
+    action->phase = 3;
+    return action;
+}
+
+// 43F910/440440共用的原三类动作；不等同于实体骑乘复原的0/11分类。
+void SetObservationChildAction(YobiAction* const action)
+{
+    const std::int32_t imageNo = action->imageNo;
+    if ((imageNo >= 0x1BD50 && imageNo <= 0x1BDF9)
+        || (imageNo >= 0x1B580 && imageNo <= 0x1B587)
+        || (imageNo >= 0x1B58A && imageNo <= 0x1B59C)
+        || (imageNo >= 0x1D554 && imageNo <= 0x1D55B)) {
+        action->characterAction = 3;
+    } else if ((imageNo >= 0x186A0 && imageNo <= 0x18A87)
+        || (imageNo >= 0x19A28 && imageNo <= 0x1A130)
+        || (imageNo >= 0x197D0 && imageNo <= 0x19848)
+        || (imageNo >= 0x1D524 && imageNo <= 0x1D553)
+        || (imageNo >= 0x1AF0E && imageNo <= 0x1AF25)) {
+        action->characterAction = 11;
+    } else {
+        action->characterAction = 0;
+    }
+}
+
+void Sub_43F910(YobiAction* const action)
+{
+    const std::uint32_t playerIndex = world::ReadPlayerObjectIndex_FDA880();
+    YobiAction* const parent = action->observationParent10;
+    auto* const payload = static_cast<MapCharaPayload*>(parent->payload);
+    const std::uint32_t objectIndex = payload->values[action->field1D0];
+    YobiAction* const source = objectIndex == playerIndex
+        ? world::detail::ReadPlayerAction()
+        : world::detail::FindObjectYobi_4462B0(std::bit_cast<std::int32_t>(objectIndex));
+    if (source != nullptr) {
+        action->imageNo = world::detail::Sub_51C0D0(source->imageNo);
+        action->direction = parent->direction;
+        static_cast<void>(Sub_517880(action, 100, 0, 0));
+    } else {
+        action->graphicIndex = -1;
+    }
+    std::int32_t slotX = 0;
+    std::int32_t slotY = 0;
+    Sub_43FD90(parent->imageNo, action->field1D0, parent->direction, &slotX, &slotY);
+    const std::int32_t parentY = parent->y;
+    const std::int32_t parentX = parent->x;
+    const std::int32_t frameY = parent->frameY;
+    const std::int32_t frameX = parent->frameX;
+    std::int32_t relativeX;
+    std::int32_t relativeY;
+    if (action->phase == 1) {
+        const std::int32_t frame = action->value1D4;
+        relativeX = frameX + slotX;
+        if (frame < 15) {
+            relativeX = frame * relativeX / 15;
+        }
+        relativeY = (frame - 15) * (frame - 15) - 225;
+        if (frame == 0) {
+            static_cast<void>(audio::PlaySe_52C450(0x1D1, action->x));
+        }
+        const std::int32_t currentFrame = action->value1D4;
+        const std::int32_t targetY = slotY + frameY;
+        if (currentFrame > 15 && targetY <= relativeY) {
+            relativeY = targetY;
+        }
+        action->characterAction = 11;
+        if (currentFrame > 15 && targetY <= relativeY) {
+            action->phase = 2;
+            action->value1D4 = 0;
+            SetObservationChildAction(action);
+            static_cast<void>(audio::PlaySe_52C450(0x1CE, action->x));
+        }
+    } else if (action->phase == 2) {
+        relativeX = frameX + slotX;
+        relativeY = frameY + slotY;
+        SetObservationChildAction(action);
+    }
+    const std::int32_t overrideAction = parent->counter1DC;
+    if (overrideAction >= 0) {
+        action->characterAction = overrideAction;
+    }
+    const std::int32_t index = action->field1D0;
+    if (payload->values[index] != 0 && payload->partyActions[index] != nullptr) {
+        std::int32_t shiftX = 0;
+        std::int32_t shiftY = 0;
+        if (action->phase == 1) {
+            const std::int32_t frame = action->value1D4;
+            if (frame < 15) {
+                const std::int32_t remaining = 15 - frame;
+                shiftX = (action->x - parentX) * remaining / 15;
+                shiftY = (action->y - parentY) * remaining / 15;
+            }
+        }
+        const std::int32_t offsetX = Sub_5182B0(action, 0);
+        action->deltaX = offsetX + shiftX + relativeX + parentX;
+        const std::int32_t offsetY = Sub_5182B0(action, 1);
+        action->deltaY = offsetY + shiftY + relativeY + parentY;
+    }
+    ++action->value1D4;
+}
+
+void Sub_440440(YobiAction* const action)
+{
+    YobiAction* const parent = action->observationParent10;
+    auto* const payload = static_cast<MapCharaPayload*>(parent->payload);
+    const std::uint32_t objectIndex = payload->values[action->field1D0];
+    YobiAction* const source = objectIndex == world::ReadPlayerObjectIndex_FDA880()
+        ? world::detail::ReadPlayerAction()
+        : world::detail::FindObjectYobi_4462B0(std::bit_cast<std::int32_t>(objectIndex));
+    if (source != nullptr) {
+        action->imageNo = world::detail::Sub_51C0D0(source->imageNo);
+        action->direction = parent->direction;
+        if (action->phase == 4) {
+            action->direction = source->direction;
+        }
+        static_cast<void>(Sub_517880(action, 100, 0, 0));
+    } else {
+        action->graphicIndex = -1;
+    }
+    std::int32_t slotX = 0;
+    std::int32_t slotY = 0;
+    Sub_43FD90(parent->imageNo, action->field1D0, parent->direction, &slotX, &slotY);
+    std::int32_t parentX = parent->x;
+    std::int32_t parentY = parent->y;
+    const std::int32_t frameX = parent->frameX;
+    const std::int32_t frameY = parent->frameY;
+    std::int32_t relativeX;
+    std::int32_t relativeY;
+    if (action->phase == 4) {
+        const float worldY = parent->worldY;
+        const float worldX = parent->worldX;
+        float screenX;
+        float screenY;
+        world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
+        parentX = static_cast<std::int32_t>(
+            static_cast<std::int64_t>(static_cast<double>(screenX) + 0.5));
+        parentY = static_cast<std::int32_t>(
+            static_cast<std::int64_t>(static_cast<double>(screenY) + 0.5));
+        const std::int32_t travel = action->counter28;
+        if (travel < 15) {
+            relativeX = frameX + slotX;
+            relativeX += travel * relativeX / -15;
+        } else {
+            relativeX = 0;
+        }
+        if (action->value1D4 == 0) {
+            const std::int32_t targetY = frameY + slotY;
+            for (;;) {
+                const std::int32_t frame = action->value1D4;
+                const std::int32_t arc = (frame - 15) * (frame - 15) - 225;
+                if (targetY >= arc) {
+                    break;
+                }
+                const std::int32_t nextFrame = frame + 1;
+                action->value1D4 = nextFrame;
+                if (nextFrame >= 15) {
+                    break;
+                }
+            }
+            static_cast<void>(audio::PlaySe_52C450(0x1CF, action->x));
+        }
+        const std::int32_t frame = action->value1D4;
+        relativeY = (frame - 15) * (frame - 15) - 225;
+        if (frame > 15 && relativeY >= 0) {
+            relativeY = 0;
+        }
+        action->characterAction = 11;
+        if (frame > 15 && relativeY >= 0) {
+            action->phase = 5;
+            action->characterAction = 0;
+            static_cast<void>(audio::PlaySe_52C450(0x1C9, action->x));
+            const std::uint32_t currentIndex = payload->values[action->field1D0];
+            if (currentIndex == world::ReadPlayerObjectIndex_FDA880()) {
+                world::Sub_51BEF0();
+            } else {
+                world::detail::Sub_43DB30(source);
+            }
+        }
+    } else if (action->phase == 3) {
+        relativeX = frameX + slotX;
+        relativeY = frameY + slotY;
+        SetObservationChildAction(action);
+    }
+    if (action->phase >= 5) {
+        return;
+    }
+    const std::int32_t index = action->field1D0;
+    if (payload->values[index] != 0 && payload->partyActions[index] != nullptr) {
+        std::int32_t shiftX = 0;
+        std::int32_t shiftY = 0;
+        if (source != nullptr && action->phase == 4) {
+            const std::int32_t travel = action->counter28;
+            shiftX = (source->x - parentX) * travel / 15;
+            shiftY = (source->y - parentY) * travel / 15;
+        }
+        Sub_43FD90(parent->imageNo, action->field1D0, parent->direction, &slotX, &slotY);
+        const render::GraphicDescriptor16* const descriptor = &action->drawMode;
+        const std::int32_t drawY = Sub_5182B0(action, 1) + shiftY + relativeY + parentY;
+        const std::int32_t offsetX = Sub_5182B0(action, 0);
+        const std::int32_t primaryIndex = parent->value1D4;
+        const std::int32_t drawX = offsetX + shiftX + relativeX + parentX;
+        world::detail::DrawGearNormal_46C060(
+            primaryIndex, 1, action->graphicIndex,
+            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
+            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)), descriptor, 0);
+    }
+    if (action->phase == 4) {
+        const std::int32_t nextFrame = action->value1D4 + 1;
+        const std::int32_t nextTravel = action->counter28 + 1;
+        action->value1D4 = nextFrame;
+        action->counter28 = nextTravel;
     }
 }
 
@@ -5327,6 +5605,15 @@ void Sub_43DB00(login::YobiAction* const action)
     }
     const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
     gWorldObjects[payload->index].flags120 |= 0x80u;
+}
+
+void Sub_43DB30(login::YobiAction* const action)
+{
+    if (action == nullptr) {
+        return;
+    }
+    const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
+    gWorldObjects[payload->index].flags120 &= 0xFF7Fu;
 }
 
 void Sub_444410(

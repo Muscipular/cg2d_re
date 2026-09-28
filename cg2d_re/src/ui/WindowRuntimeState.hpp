@@ -354,6 +354,7 @@ extern std::uint16_t gTooltipYCF46CC;
 extern const std::array<std::array<std::int32_t, 4>, 4> gPetBarImages57E434; // left/middle/right/single。
 extern const std::array<std::array<std::int32_t, 3>, 14> gNumericKeyImages54F030;
 extern const std::array<const char*, 6> gTradeNumberHints5805FC; // 原字节提示的借用指针表。
+extern const std::array<const char*, 20> gTribeNames57CB54; // 后八项共用585C50原字节串。
 extern std::array<std::int32_t, 6> gSelectedSlotsCA0A90;
 extern std::array<std::int32_t, 6> gMaterialIndicesCA0458;
 extern std::array<std::int32_t, 6> gSelectionCountsD66E0C;
@@ -383,6 +384,10 @@ std::int32_t Sub_4B0090(std::int32_t index); // 只释放宠物选择及标记�
 void Sub_4B0200(); // 窗口43释放回调，原返回值弃用。
 std::int32_t Sub_4B0290(std::int32_t value); // 窗口43初始化、关闭检查与四阶段更新。
 std::int32_t Sub_4B08D0(std::int32_t unused); // 四类提示后绘制完整当前窗口。
+std::int32_t Sub_4B0F20(
+    std::int16_t x, std::int16_t y, std::int8_t side, std::int32_t index,
+    std::uint8_t textLayer, std::uint8_t graphicLayer,
+    const render::GraphicDescriptor16* descriptor); // 空宠物槽仍画背景。
 std::int32_t Sub_4B1260(
     WindowInstance* window, std::int32_t index, std::int32_t state,
     const std::int32_t* backgroundImages, std::uint8_t* tab,

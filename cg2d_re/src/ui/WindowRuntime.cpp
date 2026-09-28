@@ -163,6 +163,23 @@ const std::array<const char*, 6> gTradeNumberHints5805FC {{
     "\xAB\xFC\xA9\x77\xA5\xFE\xB3\xA1\xAA\xF7\xC3\x42\xA1\x43",
     "\xA7\xE2\xAB\xFC\xA9\x77\xAA\xF7\xC3\x42\xC2\x6B\xB9\x73\xA1\x43",
 }};
+static constexpr char kTribeUnopened585C50[] = "\xA5\xBC\xB6\x7D\xA9\xF1";
+const std::array<const char*, 20> gTribeNames57CB54 {{
+    "\xA4\x48\xA7\xCE\xA8\x74",
+    "\xC0\x73\xA8\x74",
+    "\xA4\xA3\xA6\xBA\xA8\x74",
+    "\xAD\xB8\xA6\xE6\xA8\x74",
+    "\xA9\xF8\xC2\xCE\xA8\x74",
+    "\xB4\xD3\xAA\xAB\xA8\x74",
+    "\xB3\xA5\xC3\x7E\xA8\x74",
+    "\xAF\x53\xAE\xED\xA8\x74",
+    "\xAA\xF7\xC4\xDD\xA8\x74",
+    "\xA8\xB8\xC5\x5D\xA8\x74",
+    "\xAF\xAB\xB1\xDA",
+    "\xBA\xEB\xC6\x46\xB1\xDA",
+    kTribeUnopened585C50, kTribeUnopened585C50, kTribeUnopened585C50, kTribeUnopened585C50,
+    kTribeUnopened585C50, kTribeUnopened585C50, kTribeUnopened585C50, kTribeUnopened585C50,
+}};
 std::array<std::int32_t, 6> gSelectedSlotsCA0A90 {};
 std::array<std::int32_t, 6> gMaterialIndicesCA0458 {};
 std::array<std::int32_t, 6> gSelectionCountsD66E0C {};
@@ -1183,6 +1200,57 @@ std::int32_t Sub_4B08D0(const std::int32_t)
     }
     DrawCurrentWindow_4729B0();
     return 1;
+}
+
+std::int32_t Sub_4B0F20(
+    const std::int16_t x, const std::int16_t y, const std::int8_t side,
+    const std::int32_t index, const std::uint8_t textLayer, const std::uint8_t graphicLayer,
+    const render::GraphicDescriptor16* const descriptor)
+{
+    const char* const record = gTradePetsC9C108.data() + (index + side * 5) * 0x5FC;
+    std::uint16_t used;
+    std::memcpy(&used, record, sizeof(used));
+    if (used != 0) {
+        constexpr std::int8_t color = std::bit_cast<std::int8_t>(std::uint8_t{138});
+        static_cast<void>(render::ClearTextQueueTail_456D50(textLayer));
+        static_cast<void>(render::DrawText_456780(
+            0, 0, textLayer, 8, color, input::LegacyText593850(), 0, 0));
+        static_cast<void>(render::DrawText_456780(
+            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 45)),
+            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 5)),
+            textLayer, 8, color, record + 0x5D8, 0, 0));
+        char buffer[256];
+        const auto drawNumber = [&](const std::size_t offset, const char* const format,
+                                    const std::int32_t dx, const std::int32_t dy) {
+            std::int32_t value;
+            std::memcpy(&value, record + offset, sizeof(value));
+            std::sprintf(buffer, format, value);
+            static_cast<void>(render::DrawText_456780(
+                std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + dx)),
+                std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + dy)),
+                textLayer, 8, color, buffer, 0, 0));
+        };
+        drawNumber(0x0C, "%3d", 35, 22);
+        std::int16_t tribe;
+        std::memcpy(&tribe, record + 4, sizeof(tribe));
+        if (tribe >= 0 && tribe < 20) {
+            static_cast<void>(render::DrawText_456780(
+                std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 100)),
+                std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 22)),
+                textLayer, 8, color, gTribeNames57CB54[tribe], 0, 0));
+        }
+        drawNumber(0x14, "%4d", 210, 5);
+        drawNumber(0x1C, "%4d", 210, 22);
+        drawNumber(0x20, "%3d", 95, 40);
+        drawNumber(0x24, "%3d", 155, 40);
+        drawNumber(0x28, "%3d", 215, 40);
+        drawNumber(0x2C, "%3d", 95, 55);
+        drawNumber(0x30, "%3d", 155, 55);
+        drawNumber(0x34, "%3d", 215, 55);
+        drawNumber(0x5C, "%2d", 45, 55);
+    }
+    return render::DrawGraphic3_520970(
+        x, y, graphicLayer, 243141, 0, 1, 0, descriptor);
 }
 
 std::int32_t Sub_4B1260(

@@ -130,6 +130,9 @@ std::uint8_t gTradeTabCC4D1A = 0;
 std::int32_t gTradeHoverSlotC8B314 = 0;
 std::int32_t gTradeHoverSlotC8AA78 = 0;
 std::int32_t gPetDragModeD2EA1C = 0;
+std::int32_t gItemMoveSourceCF46B0 = 0;
+std::int32_t gItemMoveTargetD2DBF8 = 0;
+std::int32_t gValueD67B00 = 0;
 std::int32_t gTradeScrollCF3B0C = 0;
 std::int32_t gTradeScrollCC4C90 = 0;
 std::int32_t gTradeScrollD67430 = 0;
@@ -1005,6 +1008,44 @@ std::int32_t Sub_48BC60(const std::int32_t slot)
         }
     }
     return -1;
+}
+
+void Sub_47D490()
+{
+    gValueD67B00 = 0;
+}
+
+std::int32_t Sub_4885A0(const std::int32_t amount)
+{
+    std::int32_t source = gItemMoveSourceCF46B0;
+    std::int32_t target;
+    if (source == 7 || (target = gItemMoveTargetD2DBF8) == 7) {
+        Sub_47D490();
+        source = gItemMoveSourceCF46B0;
+        target = gItemMoveTargetD2DBF8;
+    }
+    if (source < 100 && target < 100) {
+        return network::Sub_510EC0(platform::gConnectionSocket, source, target, amount);
+    }
+    if (source < 8) {
+        return source;
+    }
+    WindowState* windowState = &gWindowStates[41];
+    if (windowState->window == nullptr) {
+        windowState = &gWindowStates[38];
+        if (windowState->window == nullptr) {
+            return source;
+        }
+    }
+    char buffer[384];
+    std::sprintf(buffer, "I|%d|%d|%d", source, target, amount);
+    input::EscapeLegacyTextAndNotify_52D2D0(buffer, buffer + 128, 255);
+    const auto userState = std::bit_cast<std::int32_t>(windowState->userState.value);
+    const auto value14 = std::bit_cast<std::int32_t>(windowState->value14);
+    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+    return network::Sub_512620(
+        platform::gConnectionSocket, x, y, value14, userState, 0, buffer + 128);
 }
 
 void Sub_48BB90(

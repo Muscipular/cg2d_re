@@ -346,6 +346,9 @@ extern std::uint8_t gTradeTabCC4D1A; // 对方页签，不套用己方窗口初�
 extern std::int32_t gTradeHoverSlotC8B314; // 对方提示槽缓存，非地址。
 extern std::int32_t gTradeHoverSlotC8AA78; // 己方已选物品提示槽缓存。
 extern std::int32_t gPetDragModeD2EA1C; // 48C130发布，回调分别采点击和绘制模式。
+extern std::int32_t gItemMoveSourceCF46B0; // 4886E0发布，4885A0读取的来源槽号。
+extern std::int32_t gItemMoveTargetD2DBF8; // 4886E0发布，4885A0读取的目标槽号。
+extern std::int32_t gValueD67B00; // 原数值状态，47D490清零；非地址。
 extern std::int32_t gTradeScrollCF3B0C;
 extern std::int32_t gTradeScrollCC4C90;
 extern std::int32_t gTradeScrollD67430;
@@ -396,6 +399,8 @@ std::int32_t Sub_4B00C0(std::int32_t first, std::int32_t second);
 std::int32_t Sub_48BB30(std::int32_t slot); // 物品槽分类0/1/2/3，不是bool。
 std::int32_t Sub_48BB70(std::int32_t slot); // 宠物槽分类1/2。
 std::int32_t Sub_48BC60(std::int32_t slot); // DE0B08五个S16索引的首匹配位置。
+void Sub_47D490(); // 仅清D67B00，不改变其他物品状态。
+std::int32_t Sub_4885A0(std::int32_t amount); // 普通移动或窗口41/38文本请求。
 void Sub_48BB90(
     std::int32_t unusedWindow, std::int32_t unusedElement,
     std::int32_t source, std::int32_t target); // 普通/窗口41两路宠物换位请求。

@@ -200,6 +200,13 @@ std::int32_t Sub_489EE0(std::int32_t unusedIndex, std::int32_t state);
 bool Sub_4C75A0(WindowItemSelectorState* selector, std::int32_t state); // 附加属性页及回调恢复。
 
 // 4C6EC0发布的战斗背包/装备交互。
+std::int32_t Sub_499930(std::int32_t unusedIndex, std::int32_t state);
+std::int32_t Sub_499950(std::int32_t unusedIndex, std::int32_t state);
+std::int32_t Sub_499970(std::int32_t unusedIndex, std::int32_t state);
+std::int32_t Sub_499B00(std::int32_t unusedIndex, std::int32_t unusedState);
+std::int32_t Sub_499B20(std::int32_t unusedIndex, std::int32_t unusedState);
+std::int32_t Sub_499B40(std::int32_t unusedIndex, std::int32_t state); // 战斗页签忽略内部返回。
+std::int32_t Sub_499B60(std::int32_t index, std::int32_t state); // 战斗宠物页签及无效按钮图。
 std::int32_t Sub_499C30(std::int32_t index, std::int32_t state);
 std::int32_t Sub_49AC40(std::int32_t index, std::int32_t state); // 战斗装备页及宠物禁用页。
 std::int32_t Sub_49B610(std::int32_t unusedIndex, std::int32_t state); // D2F338附加属性页包装。
@@ -345,6 +352,8 @@ extern std::uint8_t gValue57E42C; // 原独立U8，初值FF，设置文件与宠
 extern std::int32_t gBattleItemHoverCF49B0; // 窗口27每帧清-1，499C30发布提示槽。
 extern std::int32_t gBattleItemPageCB01E0; // 窗口27物品提示页，同源于两战斗交互。
 extern std::uint8_t gBattleItemTargetFlagCC4D40; // 499C30发布，496B90/497770后续消费。
+extern std::array<char, 12> gBattleMoneyTextCF469C; // 499B00格式化，type7原型借用。
+extern std::array<char, 12> gBattleValueTextC8A960; // 499B20格式化，独立于普通库存文本。
 extern std::int32_t gValueCF4AAC; // 原设置文件回填与多个UI入口共用的数值。
 extern std::int32_t gValueCF4690;
 extern std::int32_t gValueCA0440;

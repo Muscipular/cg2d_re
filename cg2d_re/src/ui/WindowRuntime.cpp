@@ -277,6 +277,8 @@ std::int32_t gBattleItemHoverCF49B0 = 0;
 std::int32_t gBattleItemPageCB01E0 = 0;
 std::uint8_t gBattleItemTargetFlagCC4D40 = 0;
 static std::int32_t gBattleBackpackHover57E430 = -2;
+std::array<char, 12> gBattleMoneyTextCF469C {};
+std::array<char, 12> gBattleValueTextC8A960 {};
 std::uint8_t gValue57E42C = 0xFF;
 const std::array<std::int32_t, 8> gSelectorOwnX54F584 {100, 36, 36, 165, 165, 36, 165, 165};
 const std::array<std::int32_t, 8> gSelectorOwnY54F5A4 {30, 130, 80, 80, 130, 30, 30, 180};
@@ -4527,6 +4529,77 @@ std::int32_t Sub_488E80(const std::int32_t, const std::int32_t)
 {
     std::sprintf(gInventoryValueTextCC3ECC.data(), "%10d", world::detail::ReadPlayerValue15BCC());
     return 0;
+}
+
+std::int32_t Sub_499930(const std::int32_t, const std::int32_t state)
+{
+    return Sub_4C78A0(&gItemSelectorD2F338, state) ? 1 : 0;
+}
+
+std::int32_t Sub_499950(const std::int32_t, const std::int32_t state)
+{
+    return Sub_4C7910(&gItemSelectorD2F338, state) ? 1 : 0;
+}
+
+std::int32_t Sub_499970(const std::int32_t, const std::int32_t state)
+{
+    static_cast<void>(Sub_4C7A10(&gItemSelectorD2F338, state));
+    return 0;
+}
+
+std::int32_t Sub_499B00(const std::int32_t, const std::int32_t)
+{
+    std::sprintf(gBattleMoneyTextCF469C.data(), "%10d", world::detail::ReadPlayerValueFC());
+    return 0;
+}
+
+std::int32_t Sub_499B20(const std::int32_t, const std::int32_t)
+{
+    std::sprintf(gBattleValueTextC8A960.data(), "%10d", world::detail::ReadPlayerValue15BCC());
+    return 0;
+}
+
+std::int32_t Sub_499B40(const std::int32_t, const std::int32_t state)
+{
+    static_cast<void>(Sub_4C7380(&gItemSelectorD2F338, 0, state));
+    return 0;
+}
+
+std::int32_t Sub_499B60(const std::int32_t index, const std::int32_t state)
+{
+    const std::int32_t ordinal = index - 17;
+    std::int32_t remaining = ordinal;
+    bool found = false;
+    for (std::int32_t position = 0; position < 5; ++position) {
+        const auto& pair = world::detail::gPetPairsDE0B08[position];
+        if (pair.used == 0) {
+            continue;
+        }
+        const std::int32_t pet = std::bit_cast<std::int16_t>(pair.index);
+        const std::uint16_t flags = world::detail::gPetRuntimeF633F8[pet].flags6AA;
+        if (flags == 2 || flags == 1) {
+            --remaining;
+            if (remaining < 0) {
+                found = true;
+                break;
+            }
+        }
+    }
+    if (found) {
+        if (ordinal >= 0) {
+            static_cast<void>(Sub_4C7380(&gItemSelectorD2F338, ordinal + 1, state));
+            return 0;
+        }
+    } else if (std::bit_cast<std::int8_t>(gValue57E42C) == ordinal + 1) {
+        --gValue57E42C;
+    }
+    std::int32_t consumed = 0;
+    if ((state & 2) != 0) {
+        static_cast<void>(audio::PlaySe_52C450(55, 320));
+        consumed = 1;
+    }
+    static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 244306;
+    return consumed;
 }
 
 std::int32_t Sub_499990(const std::int32_t value)

@@ -837,6 +837,7 @@ void Sub_50D080(
     std::uintptr_t socket, std::int32_t first, std::int32_t second); // 两次CryptInt赋值后复制首值。
 void Sub_50D120(
     std::uintptr_t socket, std::int32_t type, std::int32_t imageNo); // 完整战斗进入回复，socket未用。
+void Sub_50D3C0(std::uintptr_t socket, const char* text); // C/P/A/第二字节U/M完整分派。
 void Sub_455C60(); // 仅清既有62B5B0，不关闭窗口。
 void Sub_455FC0(); // 窗口39创建/动画清理父入口，保留额外SE56。
 void Sub_51A5F0(); // 仅清玩家flags18A的200。
@@ -1048,6 +1049,17 @@ extern std::array<char, 0x4000> gBattleCQueue5A4A3C; // 四槽，每槽1000H；5
 extern std::array<char, 0x4000> gBattleMQueue59FA18;
 extern std::array<char, 0x1000> gBattleCText5A3A20; // 场景从C队列复制的活动原字节文本。
 extern std::array<char, 0x1000> gBattleMText5AAA7C;
+extern std::array<login::YobiAction*, 20> gBattleEntries59E980; // 原20槽非拥有对象表。
+extern std::uint32_t gBattlePosition5ABCA8;
+extern std::uint32_t gBattlePlayerFlags5ABCAC;
+extern std::uint32_t gBattleSkillFlags5ABC04;
+extern std::uint32_t gBattlePetSkillFlags5ABB78;
+extern std::uint32_t gBattleRebirthLevel5ABB7C;
+extern std::uint32_t gBattleRidePet5ABC38;
+extern std::uint32_t gBattleEndBits5ABBC0;
+extern std::uint32_t gBattleTurn5ABB74;
+extern std::uint32_t gBattleTurnSnapshot5ABC08;
+extern std::uint32_t gValue5ABCB0;
 extern std::int32_t gBattleBackgroundSnapshot5ABCD8; // 43CB10末尾写，DrawBattleScene比较。
 using cg::login::detail::Sub_520160;
 void DrawBattleScene_43CBB0();             // 原 World::DrawBattleScene@0x43CBB0。

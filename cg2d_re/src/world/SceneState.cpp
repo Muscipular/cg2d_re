@@ -3488,6 +3488,18 @@ std::array<char, 0x4000> gBattleCQueue5A4A3C {};
 std::array<char, 0x4000> gBattleMQueue59FA18 {};
 std::array<char, 0x1000> gBattleCText5A3A20 {};
 std::array<char, 0x1000> gBattleMText5AAA7C {};
+std::array<login::YobiAction*, 20> gBattleEntries59E980 {};
+std::uint32_t gBattlePosition5ABCA8 = 0;
+std::uint32_t gBattlePlayerFlags5ABCAC = 0;
+std::uint32_t gBattleSkillFlags5ABC04 = 0;
+std::uint32_t gBattlePetSkillFlags5ABB78 = 0;
+std::uint32_t gBattleRebirthLevel5ABB7C = 0;
+std::uint32_t gBattleRidePet5ABC38 = 0;
+std::uint32_t gBattleEndBits5ABBC0 = 0;
+std::uint32_t gBattleTurn5ABB74 = 0;
+std::uint32_t gBattleTurnSnapshot5ABC08 = 0;
+std::uint32_t gValue5ABCB0 = 0;
+static_assert(sizeof(gBattleEntries59E980) == 20 * sizeof(login::YobiAction*));
 static_assert(sizeof(gBattleCQueue5A4A3C) == 4 * 0x1000);
 static_assert(sizeof(gBattleMQueue59FA18) == 4 * 0x1000);
 static_assert(sizeof(gBattleCText5A3A20) == 0x1000);
@@ -4896,6 +4908,56 @@ void Sub_50D120(
     platform::legacy_crypt_int::Destroy_401CF0(&temporary);
     gValueFF03D8 = 0;
     gValueF7CA04 = 0;
+}
+
+void Sub_50D3C0(const std::uintptr_t, const char* const text)
+{
+    const char kind = text[0];
+    if (kind == 'C') {
+        const std::int32_t index = gBattleCWriteIndex5AAA6C;
+        char* const destination = gBattleCQueue5A4A3C.data()
+            + static_cast<std::ptrdiff_t>(index) * 0x1000;
+        std::memcpy(destination, text, std::strlen(text) + 1);
+        const std::int32_t next = index + 1;
+        gBattleCWriteIndex5AAA6C = next;
+        if (next >= 4) {
+            gBattleCWriteIndex5AAA6C = 0;
+        }
+        return;
+    }
+    if (kind == 'P') {
+        static_cast<void>(std::sscanf(text + 2, "%X|%X|%X|%X|%X|%X",
+            &gBattlePosition5ABCA8, &gBattlePlayerFlags5ABCAC,
+            &gBattleSkillFlags5ABC04, &gBattlePetSkillFlags5ABB78,
+            &gBattleRebirthLevel5ABB7C, &gBattleRidePet5ABC38));
+        return;
+    }
+    if (kind == 'A') {
+        static_cast<void>(std::sscanf(text + 2, "%X|%X",
+            &gBattleEndBits5ABBC0, &gBattleTurn5ABB74));
+        if (gBattleFirstTurnPending5ABC6C == 1) {
+            const std::uint32_t turn = gBattleTurn5ABB74;
+            gBattleFirstTurnPending5ABC6C = 0;
+            gBattleTurnSnapshot5ABC08 = turn;
+        }
+        login::detail::Sub_43BFF0();
+        return;
+    }
+    if (text[1] == 'U') {
+        gValue5ABCB0 = 1;
+        return;
+    }
+    if (kind == 'M') {
+        const std::int32_t index = gBattleMWriteIndex5A3A1C;
+        char* const destination = gBattleMQueue59FA18.data()
+            + static_cast<std::ptrdiff_t>(index) * 0x1000;
+        std::memcpy(destination, text, std::strlen(text) + 1);
+        const std::int32_t next = index + 1;
+        gBattleMWriteIndex5A3A1C = next;
+        if (next >= 4) {
+            gBattleMWriteIndex5A3A1C = 0;
+        }
+    }
 }
 
 // 原 [0x50CF90,0x50CFF7)：回复序号按 S16 比较，成功时清地图请求状态。

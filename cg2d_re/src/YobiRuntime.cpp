@@ -5429,6 +5429,21 @@ YobiAction* MarkDeath(YobiAction* const action)
     return action;
 }
 
+void Sub_43BFF0()
+{
+    using namespace world::detail;
+    if (world::gCurrentSceneType != 10
+        || gBattleTurnSnapshot5ABC08 != gBattleTurn5ABB74) {
+        return;
+    }
+    for (std::size_t index = 0; index < gBattleEntries59E980.size(); ++index) {
+        YobiAction* const action = gBattleEntries59E980[index];
+        if (action != nullptr && ((gBattleEndBits5ABBC0 >> index) & 1u) != 0) {
+            action->flags |= 0x40u;
+        }
+    }
+}
+
 void YobiClearUp_404D30()
 {
     YobiAction* current = gYobiActionStart->next;

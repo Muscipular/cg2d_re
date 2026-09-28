@@ -227,6 +227,9 @@ std::int32_t YobiUpdateAll_404C50();
 // 原 Yobi::MarkDeath@[0x404D00,0x404D10)，只置死亡标志并返回原指针。
 YobiAction* MarkDeath(YobiAction* action);
 
+// 原43BFF0：场景10且回合一致时，按结束位给同源20槽非空对象flags置40H。
+void Sub_43BFF0();
+
 // 原 YobiClearUp@[0x404D30,0x404D5B) 与 sub_404D60@[0x404D60,0x404D85)。
 void YobiClearUp_404D30();
 void Sub_404D60();

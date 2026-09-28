@@ -49,6 +49,8 @@ static_assert(sizeof(InputContext) == 0x15C);
 
 // 原 sub_44B190@[0x44B190,0x44B1C5)，判断零结尾旧 ANSI 串的末单元。
 [[nodiscard]] std::int32_t ClassifyLastAnsiUnit_44B190(const char* text);
+// 原44B570：固定扫描40字节边界；非正S8按两字节推进，第二参数不消费。
+std::int32_t ClassifyChatSplit_44B570(const char* text, std::int32_t unused);
 
 // 原 sub_44B440@[0x44B440,0x44B49D)，按低 S16 偏移判断旧双字节边界，返回 AL=0/1/2。
 [[nodiscard]] std::uint8_t ClassifyLegacyBoundary_44B440(

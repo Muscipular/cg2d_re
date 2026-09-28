@@ -212,7 +212,7 @@ struct MapActorPayload {
     std::uint32_t chatDeadline14;
     std::int32_t value18; // 原+18，445D20发布协议数值value50。
     char* text1C;
-    std::array<std::byte, 4> color20; // 原+20只消费低S8，高位未解释。
+    std::int32_t color20; // 原+20生产完整S32，绘制消费低S8。
     std::int32_t textLength24;
     std::int32_t font28;
     YobiAction* action2C;
@@ -4714,7 +4714,7 @@ void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
                     }
                     const char* const text = payload->text1C + 41;
                     const auto color = std::bit_cast<std::int8_t>(
-                        std::to_integer<std::uint8_t>(payload->color20[0]));
+                        static_cast<std::uint8_t>(payload->color20));
                     const auto font = static_cast<std::int8_t>(payload->font28);
                     const auto x = static_cast<std::int16_t>(action->x - width / 2);
                     DrawText(x, static_cast<std::int16_t>(y + 4), 0, font, color, text, 0, 0);
@@ -4723,7 +4723,7 @@ void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
                 const std::int32_t halfWidth = width / 2;
                 const char* const text = payload->text1C;
                 const auto color = std::bit_cast<std::int8_t>(
-                    std::to_integer<std::uint8_t>(payload->color20[0]));
+                    static_cast<std::uint8_t>(payload->color20));
                 const auto font = static_cast<std::int8_t>(payload->font28);
                 const auto x = static_cast<std::int16_t>(action->x - halfWidth);
                 DrawText(x, static_cast<std::int16_t>(y + 4), 0, font, color, text, 0, 0);
@@ -5765,6 +5765,127 @@ void SetYobiActionField30F(
 } // namespace cg::login
 
 namespace cg::world::detail {
+
+namespace {
+
+constexpr char kChatFamilyPrefix554580[] = "[\xAE\x61\xB1\xDA]";
+static_assert(sizeof(kChatFamilyPrefix554580) == 7);
+
+void AllocateActorChatText(
+    login::detail::MapActorPayload* const payload, const char* const name,
+    const char* const text, const std::int32_t color,
+    const std::int32_t font, const std::int32_t length)
+{
+    std::int32_t offset = static_cast<std::int32_t>(std::strlen(name)) + 2;
+    if (text[0] == '[' && text[1] == 'G' && text[2] == 'P' && text[3] == ']') {
+        offset += 4;
+    } else if (std::strncmp(text, "[MIC]", 5) == 0) {
+        offset += 5;
+    } else if (std::strncmp(text, kChatFamilyPrefix554580, 6) == 0) {
+        offset += 6;
+    }
+    const std::int32_t remaining = length - offset;
+    payload->text1C = static_cast<char*>(std::malloc(static_cast<std::size_t>(remaining + 3)));
+    if (payload->text1C == nullptr) {
+        return;
+    }
+    payload->color20 = color;
+    payload->textLength24 = remaining;
+    payload->font28 = font;
+    if (remaining <= 40) {
+        for (std::int32_t index = 0; index < remaining; ++index) {
+            payload->text1C[index] = text[offset + index];
+        }
+        payload->text1C[remaining] = '\0';
+        return;
+    }
+    const char* const body = text + offset;
+    if (input::ClassifyChatSplit_44B570(body, 40) == 2) {
+        std::memcpy(payload->text1C, body, 40);
+        payload->text1C[40] = '\0';
+        std::memcpy(payload->text1C + 41, body + 40, static_cast<std::size_t>(remaining - 40));
+        payload->text1C[remaining + 1] = '\0';
+    } else {
+        std::memcpy(payload->text1C, body, 39);
+        payload->text1C[39] = '\0';
+        std::memcpy(payload->text1C + 41, body + 39, static_cast<std::size_t>(remaining - 39));
+        payload->text1C[remaining + 2] = '\0';
+    }
+}
+
+} // namespace
+
+void Sub_43D860(login::YobiAction* const action)
+{
+    login::YobiAction* const player = ReadPlayerAction();
+    if (player == nullptr || action == nullptr || gValue9DAD68 != 1) {
+        return;
+    }
+    const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
+    if (gWorldObjects[payload->index].category != 1) {
+        return;
+    }
+    const auto playerX = static_cast<std::int64_t>(player->worldX);
+    const auto targetX = static_cast<std::int64_t>(action->worldX);
+    const auto playerY = static_cast<std::int64_t>(player->worldY);
+    const auto targetY = static_cast<std::int64_t>(action->worldY);
+    const auto dx = static_cast<std::int16_t>(
+        static_cast<std::uint16_t>(playerX) - static_cast<std::uint16_t>(targetX));
+    const auto dy = static_cast<std::int16_t>(
+        static_cast<std::uint16_t>(playerY) - static_cast<std::uint16_t>(targetY));
+    if (dx < 0) {
+        action->direction = dy < 0 ? 7 : (dy == 0 ? 6 : 5);
+    } else if (dx > 0) {
+        action->direction = dy < 0 ? 1 : (dy == 0 ? 2 : 3);
+    } else if (dy < 0) {
+        action->direction = 0;
+    } else if (dy > 0) {
+        action->direction = 4;
+    } else {
+        // 原43D956读取实参地址低字节；不是旧方向，不伪造x86地址。
+        action->direction = std::bit_cast<std::int8_t>(
+            static_cast<std::uint8_t>(reinterpret_cast<std::uintptr_t>(action)));
+    }
+}
+
+void Sub_442DC0(
+    login::YobiAction* const action, const std::int32_t duration,
+    const char* const text, const std::int32_t color,
+    const std::int32_t font, const std::int32_t length)
+{
+    if (action == nullptr) {
+        return;
+    }
+    auto* const payload = static_cast<login::detail::MapActorPayload*>(action->payload);
+    gWorldObjects[payload->index].flags42 |= 0x2000u;
+    const std::uint32_t tick = platform::ReadTickCount32();
+    payload->chatDeadline14 = tick + static_cast<std::uint32_t>(duration);
+    Sub_43D860(action);
+    if (payload->text1C != nullptr) {
+        std::free(payload->text1C);
+        payload->text1C = nullptr;
+    }
+    AllocateActorChatText(payload, action->nameC4.data(), text, color, font, length);
+}
+
+void Sub_51A6A0(
+    const std::int32_t duration, const char* const text, const std::int32_t color,
+    const std::int32_t font, const std::int32_t length)
+{
+    login::YobiAction* const action = ReadPlayerAction();
+    if (action == nullptr) {
+        return;
+    }
+    MarkPlayerChatActive();
+    auto* const payload = static_cast<login::detail::MapActorPayload*>(action->payload);
+    const std::uint32_t tick = platform::ReadTickCount32();
+    payload->chatDeadline14 = tick + static_cast<std::uint32_t>(duration);
+    if (payload->text1C != nullptr) {
+        std::free(payload->text1C);
+        payload->text1C = nullptr;
+    }
+    AllocateActorChatText(payload, ReadPlayerAction()->nameC4.data(), text, color, font, length);
+}
 
 void Sub_442C00(login::YobiAction* const action)
 {

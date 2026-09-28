@@ -140,6 +140,22 @@ std::int32_t ClassifyLastAnsiUnit_44B190(const char* text)
     return result;
 }
 
+// 原44B570固定扫描40字节；与通常的双字节分类规则不同。
+std::int32_t ClassifyChatSplit_44B570(const char* const text, const std::int32_t)
+{
+    std::int32_t offset = 0;
+    std::int32_t lastPair = 0;
+    do {
+        if (SignedByte(text[offset]) <= 0) {
+            lastPair = offset;
+            offset += 2;
+        } else {
+            ++offset;
+        }
+    } while (offset < 40);
+    return lastPair > 38 ? 0 : 2;
+}
+
 // 原 [0x44B440,0x44B49D)：仅 0x81..0x9F 与 0xE0..0xFC 为双字节首字节。
 std::uint8_t ClassifyLegacyBoundary_44B440(
     const char* const text,

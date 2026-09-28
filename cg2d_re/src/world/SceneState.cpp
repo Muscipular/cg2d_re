@@ -2113,6 +2113,11 @@ std::int32_t Sub_50C940(
     return network::Sub_511900(socket, x, y, packet, sendColor, range, mode);
 }
 
+void MarkPlayerChatActive() noexcept
+{
+    gPlayerRuntime.flags18A |= 0x2000u;
+}
+
 void Sub_50D000(
     const std::uintptr_t /*socket*/, const std::int32_t first, const std::int32_t second)
 {

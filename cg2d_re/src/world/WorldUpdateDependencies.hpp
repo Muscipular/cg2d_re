@@ -663,6 +663,14 @@ void Sub_50BCD0(std::uintptr_t socket, const char* payload); // 逗号动作批�
 std::uint32_t Sub_50BFA0(std::uintptr_t socket, std::int32_t value); // 玩家选项回复，清bit2后写U16。
 std::int32_t Sub_50C940(
     const input::InputContext* context, std::int32_t color); // 聊天时间/选项门禁后转义发送。
+void MarkPlayerChatActive() noexcept; // 51A6A0在固定载荷前置flags18A的2000。
+void Sub_43D860(login::YobiAction* action); // 指定地图模式下，类别1对象面向玩家。
+void Sub_442DC0(
+    login::YobiAction* action, std::int32_t duration, const char* text,
+    std::int32_t color, std::int32_t font, std::int32_t length);
+void Sub_51A6A0(
+    std::int32_t duration, const char* text, std::int32_t color,
+    std::int32_t font, std::int32_t length); // 同源玩家头顶文本生产。
 std::int32_t Sub_472F40(); // 同源玩家选项切换04后发送。
 std::int32_t Sub_472F70(); // 切换08后发送。
 std::int32_t Sub_472FA0(); // 切换01后发送。

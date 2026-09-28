@@ -39,6 +39,8 @@ WindowInputPrototype gChatInputPrototype57E970 {
 std::int32_t gChatWindowModeD66E04 = 0;
 std::uint8_t gValue5F9754 = 0;
 std::int32_t gChatWidthUnitsC9A930 = 0;
+std::int32_t gChatHeightUnitsC9A938 = 0;
+std::int32_t gChatScrollOffsetC9A940 = 0;
 
 namespace {
 
@@ -78,6 +80,15 @@ constexpr std::array<std::int32_t, 12> kNumberOffsets54F278 {
 };
 constexpr std::array<std::int32_t, 4> kNumberSpacingDeductions54F2A8 {2, 2, 2, 1};
 std::array<std::int32_t, 4> gNumberAdvancesD67AC4 {};
+
+// 原5FB7F4是最后一条输入上下文的尾槽，不是日志511的font。
+std::int32_t& PreviousChatFont(const std::int32_t index)
+{
+    if (index == 0) {
+        return input::gInputContexts5F9758[23].field158;
+    }
+    return world::detail::gRecords5FB7F8[index - 1].fontType;
+}
 
 // 两个原入口只在宽度来源上不同；测量IME及取宽度仍由各入口按序执行。
 void ScrollInputAndDraw(input::InputContext* const context, const std::int32_t width)
@@ -122,6 +133,134 @@ void Sub_4A7640(input::InputContext* const context)
     const std::int32_t font = input::gCurrentInputData->field13C;
     static_cast<void>(login::detail::TextMeasure(platform::gImeComposition, font));
     ScrollInputAndDraw(context, 1024);
+}
+
+void Sub_4A7750(const std::int32_t x, const std::int32_t y)
+{
+    std::int32_t totalHeight = 0;
+    const std::int32_t width = gChatWindowModeD66E04 == 1
+        ? render::gFontMetrics[9].doubleWidth * 44
+        : (gChatWidthUnitsC9A930 + 7) * render::gFontMetrics[9].doubleWidth;
+    std::int32_t logIndex = world::detail::gWriteIndex626C08;
+    logIndex -= gChatScrollOffsetC9A940;
+    --logIndex;
+    if (logIndex < 0) {
+        logIndex = 511;
+    }
+    for (auto& record : world::detail::gRecords5FB7F8) {
+        if (record.fontType > 14 || PreviousChatFont(logIndex) < 0) {
+            record.fontType = 0;
+        }
+    }
+    std::int32_t drawY = y - render::gFontMetrics[
+        world::detail::gRecords5FB7F8[logIndex].fontType].doubleHeight;
+    std::int32_t processedRecords = 0;
+    char scratch[0xC70];
+    char* const rows = scratch + 0x124;
+    static_assert(0x124 + 10 * 0x121 + 2 == sizeof(scratch));
+    for (;;) {
+        auto& source = world::detail::gRecords5FB7F8[logIndex];
+        if (source.text[0] == '\0') {
+            return;
+        }
+        std::strcpy(scratch, source.text);
+        const auto textLength = static_cast<std::int32_t>(std::strlen(scratch));
+        std::int32_t* fontSlot = &source.fontType;
+        std::int32_t lineCount = login::detail::TextMeasure(scratch, *fontSlot) / width;
+        if (login::detail::TextMeasure(scratch, *fontSlot) % width != 0) {
+            ++lineCount;
+        }
+
+        std::int32_t sourceOffset = 0;
+        for (std::int32_t lineIndex = 0; lineIndex < lineCount; ++lineIndex) {
+            std::int32_t column = 0;
+            if (textLength > 0) {
+                std::int32_t rowOffset = lineIndex * 0x121;
+                for (;;) {
+                    char* const outputByte = rows + rowOffset + column;
+                    *outputByte = scratch[sourceOffset];
+                    outputByte[1] = '\0';
+                    outputByte[2] = '\0';
+                    if (logIndex > 512) {
+                        logIndex = world::detail::gWriteIndex626C08;
+                        fontSlot = &world::detail::gRecords5FB7F8[logIndex].fontType;
+                    }
+                    char* const currentRow = rows + rowOffset;
+                    const std::int32_t rowWidth =
+                        login::detail::TextMeasure(currentRow, *fontSlot);
+                    if (width < rowWidth) {
+                        if (input::ClassifyLastAnsiUnit_44B190(currentRow) == 3) {
+                            *outputByte = '\0';
+                            --sourceOffset;
+                        }
+                        rowOffset += 0x121;
+                        ++lineIndex;
+                        column = -1;
+                    }
+                    ++sourceOffset;
+                    if (sourceOffset > textLength) {
+                        break;
+                    }
+                    ++column;
+                    if (column >= textLength) {
+                        break;
+                    }
+                }
+            }
+            if (sourceOffset > textLength) {
+                break;
+            }
+        }
+
+        if (lineCount > 0) {
+            auto& record = world::detail::gRecords5FB7F8[logIndex];
+            const char* row = rows + (lineCount - 1) * 0x121;
+            for (std::int32_t line = 0; line < lineCount; ++line) {
+                const std::int32_t font = record.fontType;
+                totalHeight += render::gFontMetrics[font].doubleHeight;
+                const std::int32_t heightLimit =
+                    render::gFontMetrics[9].doubleHeight * gChatHeightUnitsC9A938;
+                if (totalHeight > heightLimit) {
+                    return;
+                }
+                if (*row != '\0') {
+                    const std::int32_t color = record.color;
+                    static_cast<void>(render::DrawText2_456670(
+                        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x)),
+                        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)),
+                        3,
+                        std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(font)),
+                        std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(color)),
+                        row, 0));
+                }
+
+                std::int32_t spacingFont;
+                if (line + 1 == lineCount) {
+                    const std::int32_t previous = PreviousChatFont(logIndex);
+                    if (previous > 14 || previous < 0) {
+                        PreviousChatFont(logIndex) = 0;
+                    }
+                    spacingFont = PreviousChatFont(logIndex);
+                } else {
+                    if (record.fontType > 14 || PreviousChatFont(logIndex) < 0) {
+                        record.fontType = 0;
+                    }
+                    spacingFont = record.fontType;
+                }
+                row -= 0x121;
+                drawY -= render::gFontMetrics[spacingFont].doubleHeight;
+            }
+        }
+
+        --logIndex;
+        ++processedRecords;
+        if (logIndex < 0) {
+            logIndex = 511;
+        }
+        if (processedRecords >= world::detail::gCountC9A944) {
+            return;
+        }
+    }
 }
 
 void Sub_4771B0(

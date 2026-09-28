@@ -140,6 +140,8 @@ extern WindowInputPrototype gChatInputPrototype57E970;
 extern std::int32_t gChatWindowModeD66E04; // 原独立S32，窗口35/57选择与设置文件共用。
 extern std::uint8_t gValue5F9754; // 原多窗口/物品UI共享字节，观察进入可能清零。
 extern std::int32_t gChatWidthUnitsC9A930; // 原聊天宽度单位，输入滚动/聊天绘制共用。
+extern std::int32_t gChatHeightUnitsC9A938; // 原聊天可见高度的字体9行高倍数。
+extern std::int32_t gChatScrollOffsetC9A940; // 原相对共享写指针的回看条数。
 
 // 原输入原型四模式更新及聊天恢复，复用既有InputContext owner。
 std::uint8_t Sub_476570(
@@ -149,6 +151,7 @@ std::int32_t Sub_4A7B00();
 void Sub_4740F0(char* destination); // 前10项技能索引的S16槽数，格式化后复制原字节。
 void Sub_4A7590(input::InputContext* context); // 按聊天宽度滚动目标输入并绘制。
 void Sub_4A7640(input::InputContext* context); // 按固定1024像素滚动目标输入并绘制。
+void Sub_4A7750(std::int32_t x, std::int32_t y); // 原字节分行、底部逆序绘制及前项字体回写。
 void Sub_4771B0(
     std::int32_t x, std::int32_t y, const char* text,
     std::int8_t style, std::int8_t color, std::uint8_t flags, std::uint8_t layer);

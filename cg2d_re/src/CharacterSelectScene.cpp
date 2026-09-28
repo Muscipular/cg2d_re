@@ -2,6 +2,7 @@
 
 #include "CharacterSelectSceneDependencies.hpp"
 #include "CharacterSelectState.hpp"
+#include "world/WorldUpdateDependencies.hpp"
 
 #include "cg/GraphicInfo.hpp"
 #include "cg/Input.hpp"
@@ -538,7 +539,7 @@ std::int32_t ProcessScene_460FF0()
         switch (actionIndex) {
         case 0:
             login::gSelectedCharacterIndex = static_cast<std::int16_t>(slot);
-            detail::Sub_518BE0();
+            world::detail::Sub_518BE0();
             detail::Sub_519290();
             detail::Sub_5194C0();
             detail::Sub_519300();

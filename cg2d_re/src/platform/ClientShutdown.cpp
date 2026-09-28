@@ -1,5 +1,6 @@
 #include "ClientShutdown.hpp"
 #include "ImeLifecycle.hpp"
+#include "../world/WorldUpdateDependencies.hpp"
 
 #include "cg/GraphicRead.hpp"
 #include "cg/GraphicAlloc.hpp"
@@ -22,9 +23,8 @@
 namespace cg::platform {
 namespace shutdown_detail {
 
-// 原 0x4705F0 的三个真实依赖；共享 owner 与实现仍待落实。
+// 原0x4705F0的窗口依赖尚缺；相册保存已接world唯一owner。
 int Sub_4C9130();                          // 原 0x4C9130：int()。
-void Sub_5186A0();                         // 原 0x5186A0：void()。
 char WindowCloseAll_472190();              // 原 Window::CloseAll@0x472190：char()。
 
 // 以下均为原 0x457A40 的无实参直接依赖；未实现项只保留 IDA 签名。
@@ -34,7 +34,7 @@ int Sub_454EE0();                          // 原 0x454EE0：int()。
 char Sub_4705F0()
 {
     Sub_4C9130();
-    Sub_5186A0();
+    world::detail::Sub_5186A0();
     return WindowCloseAll_472190();
 }
 } // namespace shutdown_detail

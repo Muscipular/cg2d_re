@@ -136,6 +136,11 @@ char* EscapeInputText_52D2D0(
 char* UnescapeLegacyText_52D150(char* text);
 char* UnescapeLegacyTextAndNotify_52D2F0(char* text);
 
+// 原503AB0：按旧字节列宽提取指定行，CR/LF分开处理，0x01跳到下个8行边界。
+std::int32_t ExtractLegacyLine_503AB0(
+    char* destination, std::int32_t capacity, const char* source,
+    std::int32_t line, std::int32_t width);
+
 // 原 sub_52D570：逐字节从原缓冲区删除指定集合，尾部写 NUL，返回低 W8 零。
 char RemoveLegacyBytes_52D570(char* text, const char* excluded);
 

@@ -25,6 +25,14 @@ std::int32_t ReadMappedSavedPhysicalSlot105C36C(std::int32_t index);
 // 原 518CB0/519300/519550 的路径读取序列；每次重取逻辑槽和映射，借用同一物理路径。
 const char* ReadSelectedSavedDirectory();
 
+// 相册与保存记录共用原52D310/52D460，不复制编解码状态或算法。
+void EncodeSavedBytes(
+    std::uint8_t* source, std::int32_t sourceBytes, std::int32_t mode,
+    std::uint8_t* destination, std::int32_t* encodedBytes, std::int32_t capacity);
+std::int32_t DecodeSavedBytes(
+    const std::uint8_t* source, std::int32_t sourceBytes, std::int32_t mode,
+    std::uint8_t* destination, std::int32_t* decodedBytes);
+
 // 原 sub_5336D0/sub_533860：载入当前记录与删除指定物理槽文件。
 std::int32_t Sub_5336D0();
 std::int32_t Sub_533860(std::int32_t physicalSlot);

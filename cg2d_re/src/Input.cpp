@@ -758,6 +758,65 @@ char* UnescapeLegacyTextAndNotify_52D2F0(char* const text)
     return text;
 }
 
+// 原[503AB0,503B6D)：旧字节分行，参数失败不写目标，正常尾始终写NUL。
+std::int32_t ExtractLegacyLine_503AB0(
+    char* destination, const std::int32_t capacity, const char* source,
+    const std::int32_t requestedLine, const std::int32_t width)
+{
+    if (requestedLine < 0 || width <= 0 || capacity <= width) {
+        return 0;
+    }
+    std::int32_t line = 0;
+    std::int32_t column = 0;
+    while (*source != '\0') {
+        const auto value = static_cast<std::uint8_t>(*source);
+        if ((value & 0x80u) != 0) {
+            column += 2;
+            if (column > width) {
+                ++line;
+                column = 0;
+                continue;
+            }
+            if (line == requestedLine) {
+                destination[0] = source[0];
+                destination[1] = source[1];
+                destination += 2;
+            }
+            source += 2;
+        } else if (value == '\r' || value == '\n' || value == 1) {
+            if (value == 1) {
+                if (line >= requestedLine) {
+                    break;
+                }
+                line = 8 * (line / 8) + 8;
+            } else {
+                if (line == requestedLine) {
+                    break;
+                }
+                ++line;
+            }
+            column = 0;
+            ++source;
+            continue;
+        } else {
+            if (line == requestedLine) {
+                *destination++ = *source;
+            }
+            ++source;
+            ++column;
+        }
+        if (column >= width) {
+            if (line == requestedLine) {
+                break;
+            }
+            ++line;
+            column = 0;
+        }
+    }
+    *destination = '\0';
+    return 1;
+}
+
 // 原 [0x52D570,0x52D5BB)：每个源字节依序与删除集合比较，再原位压缩。
 char RemoveLegacyBytes_52D570(
     char* const text,

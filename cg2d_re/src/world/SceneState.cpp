@@ -2,6 +2,7 @@
 
 #include "../CharacterSelectSceneDependencies.hpp"
 #include "../LoginMessageDependencies.hpp"
+#include "../LoginInputDependencies.hpp"
 #include "../LoginRequestDependencies.hpp"
 #include "cg/Input.hpp"
 #include "cg/Blacklist.hpp"
@@ -16,6 +17,7 @@
 #include "cg/platform/Startup.hpp"
 #include "cg/Palette.hpp"
 #include "cg/GraphicInfo.hpp"
+#include "cg/GraphicAlloc.hpp"
 #include "cg/ResourcePaths.hpp"
 #include "cg/YobiRuntime.hpp"
 #include "cg/ui/WindowRuntime.hpp"
@@ -34,7 +36,9 @@
 #include <cstdlib>
 #include <cstring>
 #include <direct.h>
+#include <new>
 #include <utility>
+#include <vector>
 
 namespace cg::world {
 namespace {
@@ -52,6 +56,13 @@ static_assert(sizeof(gMoveDirectionText9E03D0) == 100);
 // 原 [DA43E8,DE03F4)：相册头与两组记录的唯一持久字节区；见场景证据 §58。
 alignas(std::uint32_t) std::array<std::byte, 0x3C00C> gAlbumStorage {};
 static_assert(sizeof(gAlbumStorage) == 0x0C + 2 * 960 * 0x80);
+
+// 借用唯一相册字节区；index从0开始，selected保持原S16符号扩展。
+std::byte* AlbumRecordAt(const std::int32_t index, const std::int16_t selected)
+{
+    const std::ptrdiff_t record = index + static_cast<std::ptrdiff_t>(selected) * 960;
+    return gAlbumStorage.data() + 0x0C + record * 0x80;
+}
 
 // 原 0x9A7FA8；由 LegacyMouse.cpp 的 CRT 顺序适配显式构造、析构。
 platform::LegacyCryptInt gRippleGate {};
@@ -630,6 +641,197 @@ namespace detail {
 
 std::uint32_t& gMapEffectOffsetXBits = gMapCharaSceneSlots.valueC8A758;
 std::uint32_t& gMapEffectOffsetYBits = gMapCharaSceneSlots.valueC8A75C;
+
+// 原[5186A0,518774)：完整快照交旧codec，但原目标容量仅4；短写不关闭文件。
+void Sub_5186A0()
+{
+    auto* const encoded = static_cast<std::uint8_t*>(::operator new(0x78018));
+    char path[128];
+    std::sprintf(path, "%s\\%s", platform::gDataPath, "album.dat");
+    std::FILE* const stream = std::fopen(path, "wb");
+    if (stream == nullptr) {
+        ::operator delete(encoded);
+        return;
+    }
+    std::array<std::uint8_t, 0x3C00C> snapshot;
+    std::memcpy(snapshot.data(), gAlbumStorage.data(), snapshot.size());
+    std::int32_t encodedBytes;
+    login::detail::EncodeSavedBytes(
+        snapshot.data(), 0x3C00C, 0, encoded, &encodedBytes, 4);
+    const std::size_t count = static_cast<std::uint32_t>(encodedBytes);
+    const std::size_t written = std::fwrite(encoded, 1, count, stream);
+    if (written < count) {
+        ::operator delete(encoded);
+        return;
+    }
+    static_cast<void>(std::fclose(stream));
+    ::operator delete(encoded);
+}
+
+// 原[518780,518865)：只读4字节；错误先关闭，长度不符调用同源保存。
+void Sub_518780()
+{
+    auto* const encoded = static_cast<std::uint8_t*>(::operator new(0x78018));
+    auto* const decoded = static_cast<std::uint8_t*>(::operator new(0x78018));
+    char path[128];
+    std::sprintf(path, "%s\\%s", platform::gDataPath, "album.dat");
+    std::FILE* const stream = std::fopen(path, "rb");
+    if (stream == nullptr) {
+        Sub_5186A0();
+    } else {
+        const std::size_t count = std::fread(encoded, 1, 4, stream);
+        if (std::ferror(stream) != 0) {
+            static_cast<void>(std::fclose(stream));
+            ::operator delete(encoded);
+            ::operator delete(decoded);
+            return;
+        }
+        static_cast<void>(std::fclose(stream));
+        std::int32_t decodedBytes;
+        static_cast<void>(login::detail::DecodeSavedBytes(
+            encoded, static_cast<std::int32_t>(count), 0, decoded, &decodedBytes));
+        if (decodedBytes == 0x3C00C) {
+            std::memcpy(gAlbumStorage.data(), decoded, gAlbumStorage.size());
+        } else {
+            Sub_5186A0();
+        }
+    }
+    ::operator delete(encoded);
+    ::operator delete(decoded);
+}
+
+// 原[518BE0,518C12)：固定当前角色，清版本和整组记录后保存。
+void Sub_518BE0()
+{
+    const std::int16_t selected = login::gSelectedCharacterIndex;
+    const std::int32_t zero = 0;
+    std::memcpy(
+        gAlbumStorage.data() + 4 + static_cast<std::ptrdiff_t>(selected) * 4,
+        &zero, sizeof(zero));
+    std::memset(AlbumRecordAt(0, selected), 0, 0x1E000);
+    Sub_5186A0();
+}
+
+// 原[518870,518A36)：相册记录更新，分行调用后重读角色而不固定首记录地址。
+void Sub_518870(
+    const std::int32_t number, const std::int32_t imageNo,
+    const std::int32_t mark1, const std::int32_t mark2, const std::int32_t tribe,
+    const std::int32_t value0C, const std::int32_t value10, const std::int32_t value14,
+    const std::int32_t value18, const std::int32_t value1C, const std::int32_t value20,
+    const std::int32_t value24, const std::int32_t value28, const std::int32_t value2C,
+    const std::int32_t value30, char* const text, const char* const name)
+{
+    if (number < 1 || number > std::bit_cast<std::int32_t>(resource::gValueD2D5FC)) {
+        return;
+    }
+    const std::int32_t index = number - 1;
+    std::byte* record = AlbumRecordAt(index, login::gSelectedCharacterIndex);
+    const bool added = record[0] == std::byte{0};
+    record[0] = std::byte{1};
+    std::memcpy(record + 4, &number, sizeof(number));
+    std::memcpy(record + 8, &imageNo, sizeof(imageNo));
+    record[1] = std::byte{static_cast<std::uint8_t>(mark1)};
+    record[2] = std::byte{static_cast<std::uint8_t>(mark2)};
+    record[3] = std::byte{static_cast<std::uint8_t>(tribe)};
+    const std::array<std::int32_t, 10> values {
+        value0C, value10, value14, value18, value1C,
+        value20, value24, value28, value2C, value30,
+    };
+    for (std::size_t field = 0; field < values.size(); ++field) {
+        std::memcpy(record + 0x0C + field * 4, &values[field], sizeof(values[field]));
+    }
+    input::UnescapeLegacyTextAndNotify_52D2F0(text);
+    std::int16_t selected = login::gSelectedCharacterIndex;
+    for (std::int32_t line = 0; line < 2; ++line) {
+        const std::ptrdiff_t offset = 0x45 + line * 29;
+        char* const destination = reinterpret_cast<char*>(AlbumRecordAt(index, selected) + offset);
+        const std::int32_t result = input::ExtractLegacyLine_503AB0(
+            destination, 29, text, line, 28);
+        selected = login::gSelectedCharacterIndex;
+        if (result == 0) {
+            AlbumRecordAt(index, selected)[offset] = std::byte{0};
+        }
+    }
+    const char* const displayedName = std::strlen(name) > 16 ? "???" : name;
+    record = AlbumRecordAt(index, selected);
+    std::strcpy(reinterpret_cast<char*>(record + 0x34), displayedName);
+    record[0x7F] = std::byte{static_cast<std::uint8_t>(added)};
+    Sub_5186A0();
+}
+
+// 原[518A40,518BD5)：掩码扫描后始终发送请求列表，再重读角色写版本。
+void Sub_518A40(const std::int32_t version, const char* const payload)
+{
+    std::vector<std::int32_t> requests;
+    std::int32_t limit = std::bit_cast<std::int32_t>(resource::gValueD2D5FC);
+    std::int32_t groups = limit >> 5;
+    if ((static_cast<std::uint8_t>(limit) & 0x20u) != 0) {
+        ++groups;
+    }
+    std::int32_t index = 0;
+    std::int32_t field = 1;
+    std::int32_t mask;
+    for (std::int32_t group = 0; group < groups && index < limit; ++group) {
+        const std::int32_t ordinal = field++;
+        if (network::ParseDelimitedIntegerStatus_52CFF0(payload, '|', ordinal, &mask) > 1) {
+            break;
+        }
+        limit = std::bit_cast<std::int32_t>(resource::gValueD2D5FC);
+        std::int16_t selected = login::gSelectedCharacterIndex;
+        std::uint32_t bit = 1;
+        for (std::int32_t position = 0; position < 32 && index < limit; ++position) {
+            std::byte* const record = AlbumRecordAt(index, selected);
+            if ((static_cast<std::uint32_t>(mask) & bit) != 0) {
+                bool request = record[0] == std::byte{0};
+                if (!request) {
+                    std::int32_t previousVersion;
+                    std::memcpy(
+                        &previousVersion,
+                        gAlbumStorage.data() + 4 + static_cast<std::ptrdiff_t>(selected) * 4,
+                        sizeof(previousVersion));
+                    request = previousVersion < version;
+                }
+                if (request) {
+                    requests.push_back(index + 1);
+                    limit = std::bit_cast<std::int32_t>(resource::gValueD2D5FC);
+                    selected = login::gSelectedCharacterIndex;
+                }
+            } else {
+                record[0] = std::byte{0};
+            }
+            ++index;
+            bit <<= 1;
+        }
+    }
+    const std::uintptr_t socket = platform::gConnectionSocket;
+    static_cast<void>(network::Sub_511030(
+        socket, requests.empty() ? nullptr : requests.data(),
+        static_cast<std::int32_t>(requests.size())));
+    const std::int16_t selected = login::gSelectedCharacterIndex;
+    std::memcpy(
+        gAlbumStorage.data() + 4 + static_cast<std::ptrdiff_t>(selected) * 4,
+        &version, sizeof(version));
+}
+
+// 原[50E5B0,50E5C3)：相册版本及掩码原序转传，网络首参不消费。
+void Sub_50E5B0(
+    const std::uintptr_t /*socket*/, const std::int32_t version, const char* const payload)
+{
+    Sub_518A40(version, payload);
+}
+
+// 原[50E5D0,50E62E)：十五数值及两文本原序转传，不增加接收门禁。
+void Sub_50E5D0(
+    const std::uintptr_t /*socket*/, const std::int32_t number, const std::int32_t imageNo,
+    const std::int32_t mark1, const std::int32_t mark2, const std::int32_t tribe,
+    const std::int32_t value0C, const std::int32_t value10, const std::int32_t value14,
+    const std::int32_t value18, const std::int32_t value1C, const std::int32_t value20,
+    const std::int32_t value24, const std::int32_t value28, const std::int32_t value2C,
+    const std::int32_t value30, char* const text, const char* const name)
+{
+    Sub_518870(number, imageNo, mark1, mark2, tribe, value0C, value10, value14,
+        value18, value1C, value20, value24, value28, value2C, value30, text, name);
+}
 
 // 原 [C82258,C8A728) 的 500 项记录；未知载荷保留原字节，
 // 链接在 x64 使用独立原生指针，不推定整记录最终布局。

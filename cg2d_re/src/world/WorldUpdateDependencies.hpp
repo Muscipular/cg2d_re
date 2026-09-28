@@ -820,7 +820,26 @@ std::int32_t Sub_449FA0(std::int32_t index); // 原 [0x449FA0,0x44A084)，写入
 std::int32_t Sub_504A30();                 // 原 [0x504A30,0x504A43)，调用 44A090、清两槽并返回 0。
 std::int32_t Sub_43C8F0();                 // 原 [0x43C8F0,0x43C90A)，四槽顺序写入并返回 -1。
 std::int32_t Sub_504100();                 // 原 [0x504100,0x504113)，顺序清三槽、返回 0。
-void Sub_518780();                         // 原 0x518780。
+void Sub_5186A0(); // 原相册保存：codec容量4，短写保留文件句柄。
+void Sub_518780(); // 原相册加载：读取4字节，长度不符调用5186A0。
+void Sub_518BE0(); // 原所选角色相册组清理及保存。
+void Sub_518870(
+    std::int32_t number, std::int32_t imageNo,
+    std::int32_t mark1, std::int32_t mark2, std::int32_t tribe,
+    std::int32_t value0C, std::int32_t value10, std::int32_t value14,
+    std::int32_t value18, std::int32_t value1C, std::int32_t value20,
+    std::int32_t value24, std::int32_t value28, std::int32_t value2C,
+    std::int32_t value30, char* text, const char* name); // 同源相册记录逐字段更新。
+void Sub_518A40(std::int32_t version, const char* payload); // 位掩码同步，先请求后发布版本。
+void Sub_50E5B0(
+    std::uintptr_t socket, std::int32_t version, const char* payload); // 相册同步回复，socket未用。
+void Sub_50E5D0(
+    std::uintptr_t socket, std::int32_t number, std::int32_t imageNo,
+    std::int32_t mark1, std::int32_t mark2, std::int32_t tribe,
+    std::int32_t value0C, std::int32_t value10, std::int32_t value14,
+    std::int32_t value18, std::int32_t value1C, std::int32_t value20,
+    std::int32_t value24, std::int32_t value28, std::int32_t value2C,
+    std::int32_t value30, char* text, const char* name); // 相册记录回复，socket未用。
 std::int8_t Sub_503E80();                  // 原 0x503E80，IDA 原型 char()。
 using cg::audio::Sub_52B990;               // 原 0x52B990。
 std::int32_t Sub_45EBB0();                 // 原 0x45EBB0。

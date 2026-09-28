@@ -1038,6 +1038,22 @@ std::int32_t Sub_520200()
     return PersistCurrentSavedRecord_520200();
 }
 
+void EncodeSavedBytes(
+    std::uint8_t* const source, const std::int32_t sourceBytes,
+    const std::int32_t mode, std::uint8_t* const destination,
+    std::int32_t* const encodedBytes, const std::int32_t capacity)
+{
+    EncodeLegacyBytes_52D310(source, sourceBytes, mode, destination, encodedBytes, capacity);
+}
+
+std::int32_t DecodeSavedBytes(
+    const std::uint8_t* const source, const std::int32_t sourceBytes,
+    const std::int32_t mode, std::uint8_t* const destination,
+    std::int32_t* const decodedBytes)
+{
+    return DecodeLegacyBytes_52D460(source, sourceBytes, mode, destination, decodedBytes);
+}
+
 std::int32_t ReadNewSavedPhysicalSlot105C368()
 {
     return gSavedState.newPhysical;

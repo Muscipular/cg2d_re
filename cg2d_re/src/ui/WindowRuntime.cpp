@@ -219,6 +219,11 @@ const std::array<const char*, 6> gStorageWithdrawHints57EDEC {{
     "\xAB\xFC\xA9\x77\xA5\xFE\xB3\xA1\xAA\xF7\xC3\x42\xA1\x43",
     "\xA7\xE2\xAB\xFC\xA9\x77\xAA\xF7\xC3\x42\xC2\x6B\xB9\x73\xA1\x43",
 }};
+static constexpr char kStoragePetEquipmentWarning587900[] =
+    "\xC3\x64\xAA\xAB\xB1\xFD\xA9\xF1\xA4\x4A\xAE\x61\xB1\xDA\xC3\x64"
+    "\xAA\xAB\xAE\x77\xA1\x41\xBD\xD0\xA8\xF8\xA4\x55\xC3\x64\xAA\xAB"
+    "\xA8\xAD\xA4\x57\xAA\xBA\xB8\xCB\xB3\xC6\xAB\xE1\xA6\x41\xBE\xDE"
+    "\xA7\x40\xA1\x43";
 static constexpr char kTribeUnopened585C50[] = "\xA5\xBC\xB6\x7D\xA9\xF1";
 const std::array<const char*, 20> gTribeNames57CB54 {{
     "\xA4\x48\xA7\xCE\xA8\x74",
@@ -4985,6 +4990,292 @@ std::int32_t Sub_4AAB20(const std::int32_t index, const std::int32_t state)
             Sub_4743B0(&gCurrentWindow->elements[index - 3], current, 2, wheel));
     }
     return 0;
+}
+
+std::int32_t Sub_4AAEC0(const std::int32_t index, const std::int32_t state)
+{
+    const std::int32_t scroll = std::bit_cast<std::int32_t>(gWindowStates[41].value24);
+    const std::int32_t petIndex = std::bit_cast<std::int16_t>(
+        world::detail::gPetPairsDE0B08[index + scroll - 14].index);
+    std::int32_t consumed = 0;
+    std::uint8_t events = static_cast<std::uint8_t>(state);
+    std::array<char, 128> buffer;
+    // 原4AAEEC/4AB245各执行一次，三次索引查询和费用累计都不能复用前次结果。
+    const auto drawDragSource = [index]() {
+        if (Sub_475D60() == 3) {
+            const std::int32_t source = Sub_475D90();
+            if (source < 100 && Sub_475D40() == 41 && Sub_475D50() == index) {
+                const std::int32_t firstPosition = Sub_48BC60(source);
+                const std::int32_t firstScroll = std::bit_cast<std::int32_t>(gWindowStates[41].value24);
+                if (firstPosition - firstScroll >= 0) {
+                    const std::int32_t secondPosition = Sub_48BC60(source);
+                    const std::int32_t secondScroll =
+                        std::bit_cast<std::int32_t>(gWindowStates[41].value24);
+                    if (secondPosition - secondScroll < 3) {
+                        const std::int32_t position = Sub_48BC60(source);
+                        const std::int32_t currentScroll =
+                            std::bit_cast<std::int32_t>(gWindowStates[41].value24);
+                        const std::int32_t elementIndex = 14 - currentScroll + position;
+                        const WindowInstance* const window = gCurrentWindow;
+                        const std::int32_t y = window->y;
+                        const std::int32_t x = window->x;
+                        const WindowElement& element = window->elements[elementIndex];
+                        login::detail::DrawGraphicHover(
+                            static_cast<std::uint16_t>(x + element.x + 2),
+                            static_cast<std::uint16_t>(y + element.y + 2),
+                            static_cast<std::uint16_t>(x + element.width + element.x - 2),
+                            static_cast<std::uint16_t>(y + element.height + element.y - 2),
+                            223, 254, 0);
+                    }
+                }
+                const std::int32_t level = world::detail::ReadPlayerLevel();
+                gStorageValueCC4218 += level;
+            }
+        }
+    };
+    drawDragSource();
+    if ((events & 0x60u) != 0 && Sub_475D60() != 3) {
+        consumed = 1;
+        events &= 0x9Fu;
+    }
+    if ((events & 0x40u) != 0) {
+        const std::int32_t source = Sub_475D90();
+        if (source != petIndex) {
+            bool allowed = true;
+            if (gWindowStates[41].value10 == 1 && petIndex < 5 && source >= 100) {
+                const auto& pet = world::detail::gPetRuntimeF633F8[petIndex];
+                const std::int32_t itemSlots = pet.values6D8[0];
+                bool empty = true;
+                for (std::int32_t slot = 0; slot < itemSlots; ++slot) {
+                    if (pet.items6E4[slot].used != 0) {
+                        empty = false;
+                        break;
+                    }
+                }
+                allowed = pet.values6D8[1] <= 0 && empty;
+            }
+            if (allowed) {
+                Sub_48BB90(41, index, source, petIndex);
+            } else {
+                std::sprintf(buffer.data(), kStoragePetEquipmentWarning587900);
+                world::detail::Sub_44B050(buffer.data(), 4, 3);
+            }
+        }
+        Sub_476500();
+    }
+    const bool hover = (events & 1u) != 0;
+    if (hover && world::detail::gPetRuntimeF633F8[petIndex].used != 0) {
+        const std::int32_t level = world::detail::ReadPlayerLevel();
+        const std::int32_t amount = world::detail::ReadPlayerValueFC();
+        if (amount >= level) {
+            std::strcpy(gHoverTextD68AE8.data(),
+                "\xA5\xCE\xB7\xC6\xB9\xAB\xA9\xEC\xA9\xF1\xA8\xD3"
+                "\xA6\x73\xA9\xF1\xC3\x64\xAA\xAB\xA1\x43");
+        }
+    }
+    const auto& pet = world::detail::gPetRuntimeF633F8[petIndex];
+    const std::uint16_t used = pet.used;
+    if (used != 0 && (events & 0x21u) != 0
+        && (platform::gLegacyMouseState.edgeButtons & 0x10u) != 0) {
+        if (Sub_475D40() == 41 || Sub_475D40() == 0) {
+            static_cast<void>(Sub_4763E0());
+            std::int32_t target = 0;
+            for (; target < 5; ++target) {
+                std::uint16_t targetUsed;
+                std::memcpy(&targetUsed, gPetStorageD64E18.data() + target * 0x600, sizeof(targetUsed));
+                if (targetUsed == 0) {
+                    break;
+                }
+            }
+            if (target < 5) {
+                bool allowed = true;
+                if (gWindowStates[41].value10 == 1 && petIndex < 5) {
+                    const std::int32_t itemSlots = pet.values6D8[0];
+                    bool empty = true;
+                    for (std::int32_t slot = 0; slot < itemSlots; ++slot) {
+                        if (pet.items6E4[slot].used != 0) {
+                            empty = false;
+                            break;
+                        }
+                    }
+                    allowed = pet.values6D8[1] <= 0 && empty;
+                }
+                if (allowed) {
+                    Sub_48BB90(41, index, petIndex, target + 100);
+                } else {
+                    std::sprintf(buffer.data(), kStoragePetEquipmentWarning587900);
+                    world::detail::Sub_44B050(buffer.data(), 4, 3);
+                }
+            }
+        }
+        consumed = 1;
+    } else if (hover && (events & 2u) != 0) {
+        if (used != 0) {
+            static_cast<void>(Sub_48C130(petIndex, 1));
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        }
+        consumed = 1;
+    }
+    drawDragSource();
+    if (hover) {
+        const std::uint32_t imageNo = login::detail::gValueD69768;
+        Sub_485110(&gCurrentWindow->elements[index], 1, imageNo);
+        if (pet.used != 0) {
+            gWindowStates[41].actionFlags1C = static_cast<std::uint32_t>(petIndex + 200);
+        }
+    }
+    if ((events & 0x20u) != 0) {
+        const std::uint32_t imageNo = login::detail::gValueD69768;
+        Sub_485110(&gCurrentWindow->elements[index], 1, imageNo);
+        if (Sub_475D60() == 3 && Sub_475D90() >= 100) {
+            const std::int32_t level = world::detail::ReadPlayerLevel();
+            gStorageValueCC4218 += level;
+        }
+    }
+    const WindowInstance* const window = gCurrentWindow;
+    const WindowElement& element = window->elements[index];
+    const std::int16_t y = std::bit_cast<std::int16_t>(
+        static_cast<std::uint16_t>(element.y + window->y));
+    const std::int16_t x = std::bit_cast<std::int16_t>(
+        static_cast<std::uint16_t>(element.x + window->x));
+    Sub_4AAB70(x, y, petIndex, 3);
+    return consumed;
+}
+
+std::int32_t Sub_4AB710(const std::int32_t index, const std::int32_t state)
+{
+    const std::int32_t scroll = std::bit_cast<std::int32_t>(gWindowStates[41].value28);
+    const std::int32_t petIndex = scroll + index - 17;
+    std::int32_t consumed = 0;
+    std::uint8_t events = static_cast<std::uint8_t>(state);
+    std::array<char, 512> buffer;
+    if ((events & 0x60u) != 0 && Sub_475D60() != 3) {
+        consumed = 1;
+        events &= 0x9Fu;
+    }
+    if ((events & 0x40u) != 0) {
+        const std::int32_t source = Sub_475D90();
+        if (source != petIndex + 100) {
+            bool allowed = true;
+            if (gWindowStates[41].value10 == 1 && source < 5) {
+                const auto& sourcePet = world::detail::gPetRuntimeF633F8[source];
+                const std::int32_t weight = sourcePet.values6D8[1];
+                const std::int32_t itemSlots = sourcePet.values6D8[0];
+                const bool hasWeight = weight > 0;
+                // 此路径仅在重量与有效装备同时存在时拒绝，原循环固定六槽。
+                for (std::int32_t slot = 0; slot < 6; ++slot) {
+                    if (slot < itemSlots && sourcePet.items6E4[slot].used != 0) {
+                        allowed = !hasWeight;
+                        break;
+                    }
+                }
+            }
+            if (allowed) {
+                Sub_48BB90(41, index, source, petIndex + 100);
+            } else {
+                std::sprintf(buffer.data() + 128, kStoragePetEquipmentWarning587900);
+                world::detail::Sub_44B050(buffer.data() + 128, 4, 3);
+            }
+        }
+        Sub_476500();
+    }
+    const bool hover = (events & 1u) != 0;
+    if (hover) {
+        std::uint16_t used;
+        std::memcpy(&used, gPetStorageD64E18.data() + petIndex * 0x600, sizeof(used));
+        if (used != 0) {
+            std::strcpy(gHoverTextD68AE8.data(),
+                "\xA5\xCE\xB7\xC6\xB9\xAB\xA9\xEC\xA9\xF1\xA8\xD3"
+                "\xB4\xA3\xBB\xE2\xC3\x64\xAA\xAB\xA1\x43");
+        }
+    }
+    const char* const record = gPetStorageD64E18.data() + petIndex * 0x600;
+    std::uint16_t used;
+    std::memcpy(&used, record, sizeof(used));
+    if (used != 0 && (events & 0x21u) != 0
+        && (platform::gLegacyMouseState.edgeButtons & 0x10u) != 0) {
+        if (Sub_475D40() == 41 || Sub_475D40() == 0) {
+            static_cast<void>(Sub_4763E0());
+            std::int32_t position = 0;
+            for (; position < 5; ++position) {
+                const std::int32_t target = std::bit_cast<std::int16_t>(
+                    world::detail::gPetPairsDE0B08[position].index);
+                if (world::detail::gPetRuntimeF633F8[target].used == 0) {
+                    break;
+                }
+            }
+            if (position < 5) {
+                const std::int32_t target = std::bit_cast<std::int16_t>(
+                    world::detail::gPetPairsDE0B08[position].index);
+                std::sprintf(buffer.data(), "P|%d|%d", petIndex + 100, target);
+                input::EscapeLegacyTextAndNotify_52D2D0(buffer.data(), buffer.data() + 256, 255);
+                const std::int32_t userState =
+                    std::bit_cast<std::int32_t>(gWindowStates[41].userState.value);
+                const std::int32_t value14 = std::bit_cast<std::int32_t>(gWindowStates[41].value14);
+                const std::int32_t y =
+                    platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+                const std::int32_t x =
+                    platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+                static_cast<void>(network::Sub_512620(
+                    platform::gConnectionSocket, x, y, value14, userState, 0, buffer.data() + 256));
+            }
+        }
+        consumed = 1;
+    } else if (hover && (events & 2u) != 0) {
+        if (used != 0) {
+            static_cast<void>(Sub_48C130(petIndex + 100, 1));
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        }
+        consumed = 1;
+    }
+    if (Sub_475D60() == 3) {
+        const std::int32_t source = Sub_475D90();
+        if (source < 100) {
+            WindowInstance* const window = gCurrentWindow;
+            const std::int32_t level = world::detail::ReadPlayerLevel();
+            auto* const text = static_cast<WindowTextData*>(window->elements[13].data);
+            std::sprintf(text->text, "%10d", level);
+        } else {
+            const std::int32_t slot = source - 100;
+            if (Sub_475D40() == 41 && Sub_475D50() == index) {
+                const std::int32_t currentScroll =
+                    std::bit_cast<std::int32_t>(gWindowStates[41].value28);
+                const std::int32_t row = slot - currentScroll;
+                if (row >= 0 && row < 3) {
+                    const WindowInstance* const window = gCurrentWindow;
+                    const std::int32_t y = window->y;
+                    const std::int32_t x = window->x;
+                    const WindowElement& element = window->elements[row + 17];
+                    login::detail::DrawGraphicHover(
+                        static_cast<std::uint16_t>(x + element.x + 2),
+                        static_cast<std::uint16_t>(y + element.y + 2),
+                        static_cast<std::uint16_t>(x + element.width + element.x - 2),
+                        static_cast<std::uint16_t>(y + element.height + element.y - 2),
+                        223, 254, 0);
+                }
+            }
+        }
+    }
+    if (hover) {
+        std::memcpy(&used, record, sizeof(used));
+        if (used != 0) {
+            const std::uint32_t imageNo = login::detail::gValueD69768;
+            Sub_485110(&gCurrentWindow->elements[index], 1, imageNo);
+            gWindowStates[41].actionFlags1C = static_cast<std::uint32_t>(petIndex + 300);
+        }
+    }
+    if ((events & 0x20u) != 0) {
+        const std::uint32_t imageNo = login::detail::gValueD69768;
+        Sub_485110(&gCurrentWindow->elements[index], 1, imageNo);
+    }
+    const WindowInstance* const window = gCurrentWindow;
+    const WindowElement& element = window->elements[index];
+    const std::int16_t y = std::bit_cast<std::int16_t>(
+        static_cast<std::uint16_t>(element.y + window->y));
+    const std::int16_t x = std::bit_cast<std::int16_t>(
+        static_cast<std::uint16_t>(element.x + window->x));
+    Sub_4AB400(x, y, petIndex, 3);
+    return consumed;
 }
 
 std::int32_t Sub_4ABB20(const std::int32_t index, const std::int32_t state)

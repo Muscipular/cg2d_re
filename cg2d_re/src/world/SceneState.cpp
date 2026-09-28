@@ -6783,6 +6783,11 @@ std::int32_t ReadPlayerValueFC() noexcept
     return gPlayerRuntime.valueFC;
 }
 
+std::int32_t ReadPlayerLevel() noexcept
+{
+    return gPlayerRuntime.level;
+}
+
 std::int32_t ReadPlayerValue15BD0(const std::int32_t index) noexcept
 {
     return gPlayerRuntime.values15BD0[index];

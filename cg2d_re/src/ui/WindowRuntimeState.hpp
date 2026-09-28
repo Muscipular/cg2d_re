@@ -532,6 +532,8 @@ std::int32_t Sub_4AA9C0(std::int32_t index, std::int32_t state); // 宠物上一
 std::int32_t Sub_4AAA70(std::int32_t index, std::int32_t state); // 宠物下一行。
 std::int32_t Sub_4AAB20(std::int32_t index, std::int32_t state); // 两侧宠物滚轮。
 std::int32_t Sub_4ABB20(std::int32_t index, std::int32_t state); // 存取金额输入及请求。
+std::int32_t Sub_4AAEC0(std::int32_t index, std::int32_t state); // 自有宠物存放行。
+std::int32_t Sub_4AB710(std::int32_t index, std::int32_t state); // 外部宠物提领行。
 std::int32_t Sub_4B4070(
     std::int32_t x, std::int32_t y, std::int32_t index,
     std::int32_t skill); // 外部宠物技能名称行，空行仍绘背景。

@@ -89,7 +89,7 @@ constexpr std::array<std::int32_t, 12> kNumberOffsets54F278 {
 constexpr std::array<std::int32_t, 4> kNumberSpacingDeductions54F2A8 {2, 2, 2, 1};
 std::array<std::int32_t, 4> gNumberAdvancesD67AC4 {};
 
-// 两路事件使用相同映射，按原edge/held/旧edge/pulse顺序采样与合并。
+// 元素事件与阶段推进共用映射，按原edge/held/旧edge/pulse顺序采样与合并。
 std::int32_t AppendMouseButtonEvents(std::int32_t events)
 {
     const auto edge = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
@@ -441,6 +441,173 @@ std::int32_t Sub_4763E0()
     gDragCallback57C118 = nullptr;
     gMousePhase57C128 = 0;
     return 0;
+}
+
+std::int32_t Sub_472D20()
+{
+    const std::int32_t initialPhase = gMousePhase57C128;
+    WindowInstance* window = gCurrentWindow;
+    std::int32_t result = 0;
+    if (initialPhase != 1 && (window->state & 2u) == 0) {
+        const std::uint32_t state = window->state;
+        if ((state & 0x800u) != 0) {
+            if ((static_cast<std::uint8_t>(platform::gLegacyMouseState.heldButtons) & 1u) != 0) {
+                std::int32_t* const x = &window->x;
+                const std::int32_t deltaX = platform::legacy_crypt_int::Subtract_401E60(
+                    &platform::gLegacyMouseState.mouseX, window->dragMouseX1C);
+                *x += deltaX;
+                window = gCurrentWindow;
+                std::int32_t* const y = &window->y;
+                const std::int32_t deltaY = platform::legacy_crypt_int::Subtract_401E60(
+                    &platform::gLegacyMouseState.mouseY, window->dragMouseY20);
+                *y += deltaY;
+                const std::int32_t mouseX = platform::legacy_crypt_int::Read_401EC0(
+                    &platform::gLegacyMouseState.mouseX);
+                gCurrentWindow->dragMouseX1C = mouseX;
+                const std::int32_t mouseY = platform::legacy_crypt_int::Read_401EC0(
+                    &platform::gLegacyMouseState.mouseY);
+                gCurrentWindow->dragMouseY20 = mouseY;
+            } else {
+                window->state = state & ~std::uint32_t{0x800};
+            }
+            result = 2;
+            window = gCurrentWindow;
+        } else if ((static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons) & 1u) != 0) {
+            for (std::int32_t index = 0; index < window->secondaryCount; ++index) {
+                const WindowDragRect& rect = window->dragRects40[index];
+                const std::int32_t left = window->x + rect.x;
+                const std::int32_t top = window->y + rect.y;
+                const std::int32_t height = rect.height;
+                const std::int32_t width = rect.width;
+                if (gWindowHasFocusCA0AB4 == 0) {
+                    if (Sub_472F00(left, top, width, height) != 0) {
+                        const std::int32_t mouseX = platform::legacy_crypt_int::Read_401EC0(
+                            &platform::gLegacyMouseState.mouseX);
+                        gCurrentWindow->dragMouseX1C = mouseX;
+                        const std::int32_t mouseY = platform::legacy_crypt_int::Read_401EC0(
+                            &platform::gLegacyMouseState.mouseY);
+                        gCurrentWindow->dragMouseY20 = mouseY;
+                        gCurrentWindow->state |= 0x800u;
+                        result |= 2;
+                    }
+                    window = gCurrentWindow;
+                }
+            }
+        }
+    }
+    if ((window->state & 1u) == 0) {
+        const std::int32_t phase = gMousePhase57C128;
+        if (phase == 1 || phase == 4) {
+            if (Sub_472F00(window->x, window->y, window->width, window->height) != 0) {
+                result |= 1;
+            }
+        } else if (gWindowHasFocusCA0AB4 == 0) {
+            if (Sub_472F00(window->x, window->y, window->width, window->height) != 0) {
+                result |= 1;
+                if ((static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons) & 1u) != 0) {
+                    gCurrentWindow->state |= 0x2000u;
+                }
+            }
+        }
+    }
+    return result;
+}
+
+std::int32_t Sub_4730A0()
+{
+    std::int32_t count = 0;
+    for (std::size_t index = 0; index < kWindowCount;) {
+        WindowInstance* const window = gWindows[index];
+        if (window == nullptr) {
+            std::size_t source = index;
+            while (source < kWindowCount && gWindows[source] == nullptr) {
+                ++source;
+            }
+            if (source == kWindowCount) {
+                break;
+            }
+            gWindows[index] = gWindows[source];
+            gWindows[source] = nullptr;
+            continue;
+        }
+        if ((window->state & 0x8000u) != 0) {
+            FreeWindow_471270(window);
+            for (std::size_t target = index; target + 1 < kWindowCount; ++target) {
+                gWindows[target] = gWindows[target + 1];
+            }
+            gWindows[kWindowCount - 1] = nullptr;
+            if (index + 1 != kWindowCount) {
+                continue;
+            }
+        } else {
+            if ((window->state & 0x2000u) != 0) {
+                std::size_t target = index;
+                while (target > 0) {
+                    WindowInstance* const previous = gWindows[target - 1];
+                    if (previous->layer < window->layer) {
+                        break;
+                    }
+                    gWindows[target] = previous;
+                    --target;
+                }
+                gWindows[target] = window;
+                window->state &= ~std::uint32_t{0x2000};
+            }
+            ++count;
+        }
+        ++index;
+    }
+    return count;
+}
+
+void Sub_473E40()
+{
+    std::int32_t phase = gMousePhase57C128;
+    if (phase == 1) {
+        const WindowDragCallback callback = gDragCallback57C118;
+        if (callback == nullptr) {
+            gWindowHasFocusCA0AB4 = 1;
+            *reinterpret_cast<unsigned char*>(&platform::gLegacyMouseState.valueD68DB4) = 5;
+            return;
+        }
+        const std::int32_t events = AppendMouseButtonEvents(0);
+        callback(0, events, gDragSourceIndex57C114);
+        phase = gMousePhase57C128;
+    } else if (phase == 2) {
+        gMousePhase57C128 = 0;
+        return;
+    }
+    switch (phase) {
+    case 3:
+        gMousePhase57C128 = 4;
+        gWindowHasFocusCA0AB4 = 1;
+        *reinterpret_cast<unsigned char*>(&platform::gLegacyMouseState.valueD68DB4) = 5;
+        return;
+    case 4: {
+        const WindowDragCallback callback = gDragCallback57C118;
+        if (callback != nullptr) {
+            callback(2, 0, gDragSourceIndex57C114);
+        }
+        gMouseValue57C110 = 0;
+        gDragSourceIndex57C114 = 0;
+        gDragCallback57C118 = nullptr;
+        gDragX57C11C = 0;
+        gDragY57C11E = 0;
+        gFocusWindowId57C120 = 0;
+        gMousePhase57C128 = 0;
+        gFocusElementIndex57C124 = -1;
+        return;
+    }
+    case 6:
+        gMousePhase57C128 = 0;
+        return;
+    case 1:
+        gWindowHasFocusCA0AB4 = 1;
+        *reinterpret_cast<unsigned char*>(&platform::gLegacyMouseState.valueD68DB4) = 5;
+        break;
+    default:
+        break;
+    }
 }
 
 void Sub_473560(const std::int32_t index)

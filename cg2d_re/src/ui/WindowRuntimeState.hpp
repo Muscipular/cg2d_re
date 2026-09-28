@@ -79,6 +79,14 @@ struct WindowElement {
     WindowElementCallback mouseCallback; // 原+20。
 };
 
+// 原实例+40的16B可拖动区域，472D20逐项命中。
+struct WindowDragRect {
+    std::int32_t x;
+    std::int32_t y;
+    std::int32_t width;
+    std::int32_t height;
+};
+
 struct WindowInstance {
     std::uint32_t state; // 原+00；关闭请求置bit15。
     std::int32_t id;
@@ -87,8 +95,8 @@ struct WindowInstance {
     std::int32_t y;
     std::int32_t width;
     std::int32_t height;
-    std::uint32_t value1C;
-    std::uint32_t value20;
+    std::int32_t dragMouseX1C;
+    std::int32_t dragMouseY20;
     std::uint32_t flags;
     std::int32_t elementCount;
     WindowElement* elements; // 原+2C。
@@ -96,7 +104,7 @@ struct WindowInstance {
     WindowCallback draw; // 原+34。
     WindowReleaseCallback release; // 原+38。
     std::int32_t secondaryCount; // 原+3C。
-    std::array<std::uint32_t, 40> secondaryWords40; // 原[+40,+E0)，尚未消费。
+    std::array<WindowDragRect, 10> dragRects40; // 原[+40,+E0)。
 };
 
 namespace detail {
@@ -194,6 +202,9 @@ std::int32_t Sub_472F00(
 void Sub_473560(std::int32_t index); // 固定元素派发鼠标事件，回调后重读共享阶段。
 std::int32_t Sub_4741A0(std::int32_t index, std::int32_t state); // 前一元素的垂直滚动。
 std::int32_t Sub_4763E0(); // 通用鼠标重置，不清来源索引/坐标。
+std::int32_t Sub_472D20(); // 窗口拖动/焦点命中，返回两位处理掩码。
+std::int32_t Sub_4730A0(); // 原表压紧、关闭释放及按2000标记前插排序。
+void Sub_473E40(); // 每轮窗口处理前的鼠标阶段推进。
 void Sub_4771B0(
     std::int32_t x, std::int32_t y, const char* text,
     std::int8_t style, std::int8_t color, std::uint8_t flags, std::uint8_t layer);
@@ -232,7 +243,13 @@ static_assert(offsetof(WindowInstance, update) == 0x38);
 static_assert(offsetof(WindowInstance, draw) == 0x40);
 static_assert(offsetof(WindowInstance, release) == 0x48);
 static_assert(offsetof(WindowInstance, secondaryCount) == 0x50);
-static_assert(offsetof(WindowInstance, secondaryWords40) == 0x54);
+static_assert(offsetof(WindowDragRect, y) == 4);
+static_assert(offsetof(WindowDragRect, width) == 8);
+static_assert(offsetof(WindowDragRect, height) == 12);
+static_assert(sizeof(WindowDragRect) == 16);
+static_assert(offsetof(WindowInstance, dragMouseX1C) == 0x1C);
+static_assert(offsetof(WindowInstance, dragMouseY20) == 0x20);
+static_assert(offsetof(WindowInstance, dragRects40) == 0x54);
 static_assert(sizeof(WindowInstance) == 0xF8);
 static_assert(offsetof(WindowState, window) == 0x10);
 static_assert(offsetof(WindowState, userState) == 0x20);

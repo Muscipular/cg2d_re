@@ -165,7 +165,12 @@ extern std::array<WindowState, kWindowCount> gWindowStates; // 原C9A9B0。
 extern WindowInstance* gCurrentWindow; // 原CF4694。
 extern WindowState* gCurrentWindowState; // 原CF4684。
 extern std::uint8_t gValueD67BE0; // 原多个UI生产/消费入口共用，不并入窗口记录。
-extern std::int32_t gDragItemIndex584DA4; // 4FAEF0/4FB8F2的真实写入链待接。
+extern std::int32_t gDragItemIndex584DA4; // 4FB8F0已接重置，4FAEF0拖动生产仍待接。
+extern std::int32_t gDragImageNoD67D24;
+extern std::int32_t gItemDragXCC4880;
+extern std::int32_t gItemDragYCC4884;
+extern std::int32_t gDraggingCA0B28;
+extern std::int32_t gValue58589C; // 原初值1，命中描述门禁与物品拖动重置共享。
 extern void* gFocusedElementDataD45F94; // 原异型元素载荷地址，仅借用，不是InputContext。
 extern std::int32_t gMouseValue57C110;
 extern std::int32_t gDragSourceIndex57C114;
@@ -190,6 +195,7 @@ extern std::int32_t gChatScrollOffsetC9A940; // 原相对共享写指针的回�
 // 交易UI唯一原字节区，非玩家背包/宠物owner；未知字段不冻结语义。
 extern std::array<char, 2 * 20 * 0xC4C> gTradeItemsD460D0;
 extern std::array<char, 2 * 5 * 0x5FC> gTradePetsC9C108;
+extern std::array<char, 2 * 0xFBF8> gItemDetailStorageCC4D58; // 每组首20条C44物品，剩余区未冻结。
 extern std::int32_t gTradeValueCC4224;
 extern std::int32_t gTradeValueCF4688;
 extern std::int32_t gTradeValueD046D0;
@@ -198,6 +204,11 @@ extern std::uint8_t gTradeValueD67B80;
 
 std::int32_t Sub_4E5710(std::int32_t side); // 先清侧状态，再清物品/宠物整组。
 void Sub_4E52B0(std::int32_t side); // 同源玩家宠物属性及十项技能按存储索引复制。
+void Sub_4E54E0(std::int32_t side, std::int32_t index); // 背包index+8到交易，不复制描述。
+void Sub_4E5600(std::int32_t side); // 顺序同步20条交易物品。
+void Sub_4E0100(std::int32_t side, std::int32_t index); // 另一展示副本，逐行复制描述。
+std::int32_t Sub_4FB8F0(); // 物品拖动重置，不等同窗口拖动。
+std::int32_t Sub_4FB920(std::int32_t index); // 仅清与本次回复槽号相同的非负拖动编号。
 void Sub_4E5770(std::int32_t index, std::int32_t side, const char* text); // 32行及页数。
 std::int32_t Sub_4E5830(const char* text); // 每条14字段，返回终止字段状态1。
 std::int32_t Sub_4E5A40(std::int32_t index, const char* text); // 单宠物属性与双名称。

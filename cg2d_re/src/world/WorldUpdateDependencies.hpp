@@ -443,6 +443,53 @@ void Sub_518600(
     const SkillRuntimeRecord* source, SkillPairRecord* destination, std::int32_t count);
 std::int32_t Sub_518660(const SkillPairRecord* left, const SkillPairRecord* right);
 
+// 原FDA8A4起的28条玩家物品，原字节文本与W16/S32字段，不含地址。
+struct PlayerItemRecord {
+    std::uint16_t used;
+    std::array<char, 29> name;
+    std::array<char, 17> memo;
+    std::array<std::array<char, 96>, 32> description;
+    std::int32_t pages;
+    std::int32_t color;
+    std::int32_t imageNo;
+    std::int32_t level;
+    std::int32_t itemId;
+    std::int32_t count;
+    std::int32_t itemType;
+    std::uint16_t canUseInField;
+    std::uint16_t battleUseFlag;
+    std::uint16_t target;
+    std::uint16_t flags;
+    std::uint16_t hasDescription;
+    std::array<std::byte, 6> bytesC56;
+};
+
+static_assert(std::is_standard_layout_v<PlayerItemRecord>);
+static_assert(std::is_trivially_copyable_v<PlayerItemRecord>);
+static_assert(offsetof(PlayerItemRecord, used) == 0);
+static_assert(offsetof(PlayerItemRecord, name) == 2);
+static_assert(offsetof(PlayerItemRecord, memo) == 0x1F);
+static_assert(offsetof(PlayerItemRecord, description) == 0x30);
+static_assert(offsetof(PlayerItemRecord, pages) == 0xC30);
+static_assert(offsetof(PlayerItemRecord, color) == 0xC34);
+static_assert(offsetof(PlayerItemRecord, imageNo) == 0xC38);
+static_assert(offsetof(PlayerItemRecord, level) == 0xC3C);
+static_assert(offsetof(PlayerItemRecord, itemId) == 0xC40);
+static_assert(offsetof(PlayerItemRecord, count) == 0xC44);
+static_assert(offsetof(PlayerItemRecord, itemType) == 0xC48);
+static_assert(offsetof(PlayerItemRecord, canUseInField) == 0xC4C);
+static_assert(offsetof(PlayerItemRecord, battleUseFlag) == 0xC4E);
+static_assert(offsetof(PlayerItemRecord, target) == 0xC50);
+static_assert(offsetof(PlayerItemRecord, flags) == 0xC52);
+static_assert(offsetof(PlayerItemRecord, hasDescription) == 0xC54);
+static_assert(offsetof(PlayerItemRecord, bytesC56) == 0xC56);
+static_assert(sizeof(PlayerItemRecord) == 0xC5C);
+
+extern std::array<PlayerItemRecord, 28>& gPlayerItemsFDA8A4; // 别名唯一PlayerRuntimeSlots成员。
+void Sub_50BFD0(std::uintptr_t unusedSocket, const char* payload); // 固定28槽全量回复。
+void Sub_50C260(std::uintptr_t unusedSocket, const char* payload); // 带槽号的14字段增量回复。
+void Sub_5196B0(std::int32_t index, const char* text); // 32行描述与最多4页的原回扫。
+
 // 原宠物+D8的8C技能值记录，50B0D0生产，4E52B0按索引对复制到交易区。
 struct PetTechniqueRecord {
     std::uint16_t used;

@@ -4,6 +4,7 @@
 #include "../LoginMessageDependencies.hpp"
 #include "../LoginInputDependencies.hpp"
 #include "../LoginRequestDependencies.hpp"
+#include "../ui/WindowRuntimeState.hpp"
 #include "cg/Input.hpp"
 #include "cg/Blacklist.hpp"
 #include "cg/network/NetworkRuntime.hpp"
@@ -127,6 +128,7 @@ struct PlayerRuntimeSlots {
     std::int32_t value190; // 原 FDA890；51BDD0/51BE50 写入的完整动作值。
     std::uint16_t options194; // 原FDA894低W16；选项切换/回复与聊天门禁共用。
     std::uint16_t value1A0; // 原FDA8A0；50BFC0写入低W16。
+    std::array<detail::PlayerItemRecord, 28> items; // 原FDA8A4..FF02B4，唯一物品owner。
     login::YobiAction* action;
     std::array<char, 17> text15BB8; // 原 FF02B8，不紧接新端的指针字节布局。
     std::int32_t value15BCC; // 原FF02CC；509650尾字段。
@@ -2819,6 +2821,135 @@ void Sub_518600(
         }
         first = firstStack[stackSize];
         last = lastStack[stackSize];
+    }
+}
+
+std::array<PlayerItemRecord, 28>& gPlayerItemsFDA8A4 = gPlayerRuntime.items;
+
+namespace {
+
+// 两物品回复仅非空名称的字段尾相同，外层停止、清理及UI同步各自保留。
+void ApplyPlayerItemFields(
+    const std::int32_t index, const std::int32_t nameField,
+    const char* const payload, const char* const name,
+    char* const memo, char* const description)
+{
+    PlayerItemRecord& record = gPlayerItemsFDA8A4[index];
+    record.used = 1;
+    if (std::strlen(name) <= 28) {
+        std::strcpy(record.name.data(), name);
+    }
+    const std::int32_t color =
+        network::ParseDelimitedInteger_52CFA0(payload, '|', nameField + 1);
+    record.color = color;
+    if (color < 0) {
+        record.color = 0;
+    }
+    network::ExtractDelimitedField_52CED0(payload, '|', nameField + 2, 767, description);
+    input::UnescapeLegacyTextAndNotify_52D2F0(description);
+    Sub_5196B0(index, description);
+    record.hasDescription = std::strlen(record.description[0].data()) != 0 ? 1 : 0;
+    record.imageNo = network::ParseDelimitedInteger_52CFA0(payload, '|', nameField + 3);
+    record.canUseInField = static_cast<std::uint16_t>(
+        network::ParseDelimitedInteger_52CFA0(payload, '|', nameField + 4));
+    record.battleUseFlag = static_cast<std::uint16_t>(
+        network::ParseDelimitedInteger_52CFA0(payload, '|', nameField + 5));
+    record.target = static_cast<std::uint16_t>(
+        network::ParseDelimitedInteger_52CFA0(payload, '|', nameField + 6));
+    record.level = network::ParseDelimitedInteger_52CFA0(payload, '|', nameField + 7);
+    record.flags = static_cast<std::uint16_t>(
+        network::ParseDelimitedInteger_52CFA0(payload, '|', nameField + 8));
+    record.itemId = network::ParseDelimitedInteger_52CFA0(payload, '|', nameField + 9);
+    record.itemType = network::ParseDelimitedInteger_52CFA0(payload, '|', nameField + 10);
+    record.count = network::ParseDelimitedInteger_52CFA0(payload, '|', nameField + 11);
+    network::ExtractDelimitedField_52CED0(payload, '|', nameField + 12, 255, memo);
+    input::UnescapeLegacyTextAndNotify_52D2F0(memo);
+    if (std::strlen(memo) <= 16) {
+        std::strcpy(record.memo.data(), memo);
+    }
+}
+
+} // namespace
+
+void Sub_5196B0(const std::int32_t index, const char* const text)
+{
+    PlayerItemRecord& record = gPlayerItemsFDA8A4[index];
+    std::int32_t last = -1;
+    for (std::int32_t line = 0; line < 32; ++line) {
+        char* const row = record.description[line].data();
+        if (input::ExtractLegacyLine_503AB0(row, 3072, text, line, 32) != 0) {
+            last = line;
+        } else {
+            row[0] = '\0';
+        }
+    }
+    while (last > 0 && std::strlen(record.description[last - 1].data()) == 0) {
+        --last;
+    }
+    if (last < 0) {
+        record.pages = 0;
+    } else {
+        const std::int32_t pages = last / 8 + 1;
+        record.pages = pages;
+        if (pages > 4) {
+            record.pages = 4;
+        }
+    }
+}
+
+void Sub_50BFD0(const std::uintptr_t, const char* const payload)
+{
+    if (gValue9A6E0C != 0) {
+        return;
+    }
+    char name[256];
+    char memo[256];
+    char description[768];
+    for (std::int32_t index = 0; index < 28; ++index) {
+        static_cast<void>(ui::detail::Sub_4FB920(index));
+        const std::int32_t nameField = 2 + index * 13;
+        network::ExtractDelimitedField_52CED0(payload, '|', nameField, 255, name);
+        input::UnescapeLegacyTextAndNotify_52D2F0(name);
+        if (std::strlen(name) == 0) {
+            gPlayerItemsFDA8A4[index].used = 0;
+            gPlayerItemsFDA8A4[index].name[0] = '\0';
+        } else {
+            ApplyPlayerItemFields(index, nameField, payload, name, memo, description);
+        }
+        if (index >= 8) {
+            ui::detail::Sub_4E54E0(1, index - 8);
+        }
+    }
+}
+
+void Sub_50C260(const std::uintptr_t, const char* const payload)
+{
+    if (gValue9A6E0C != 0) {
+        return;
+    }
+    char name[256];
+    char memo[256];
+    char description[768];
+    std::int32_t field = 1;
+    std::int32_t index = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
+    static_cast<void>(ui::detail::Sub_4FB920(index));
+    std::int32_t status =
+        network::ExtractDelimitedField_52CED0(payload, '|', field + 1, 255, name);
+    while (status != 1) {
+        input::UnescapeLegacyTextAndNotify_52D2F0(name);
+        if (std::strlen(name) == 0) {
+            gPlayerItemsFDA8A4[index].used = 0;
+        } else {
+            ApplyPlayerItemFields(index, field + 1, payload, name, memo, description);
+        }
+        if (index >= 8) {
+            ui::detail::Sub_4E54E0(1, index - 8);
+            ui::detail::Sub_4E0100(1, index - 8);
+        }
+        field += 14;
+        index = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
+        static_cast<void>(ui::detail::Sub_4FB920(index));
+        status = network::ExtractDelimitedField_52CED0(payload, '|', field + 1, 255, name);
     }
 }
 

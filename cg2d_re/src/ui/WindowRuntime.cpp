@@ -31,6 +31,11 @@ WindowInstance* gCurrentWindow = nullptr;
 WindowState* gCurrentWindowState = nullptr;
 std::uint8_t gValueD67BE0 = 0;
 std::int32_t gDragItemIndex584DA4 = -1;
+std::int32_t gDragImageNoD67D24 = 0;
+std::int32_t gItemDragXCC4880 = 0;
+std::int32_t gItemDragYCC4884 = 0;
+std::int32_t gDraggingCA0B28 = 0;
+std::int32_t gValue58589C = 1;
 void* gFocusedElementDataD45F94 = nullptr;
 std::int32_t gMouseValue57C110 = 0;
 std::int32_t gDragSourceIndex57C114 = 0;
@@ -56,8 +61,10 @@ std::int32_t gChatHeightRequestC9A93C = 0;
 std::int32_t gChatScrollOffsetC9A940 = 0;
 std::array<char, 2 * 20 * 0xC4C> gTradeItemsD460D0 {};
 std::array<char, 2 * 5 * 0x5FC> gTradePetsC9C108 {};
+std::array<char, 2 * 0xFBF8> gItemDetailStorageCC4D58 {};
 static_assert(sizeof(gTradeItemsD460D0) == 0x1EBE0);
 static_assert(sizeof(gTradePetsC9C108) == 0x3BD8);
+static_assert(sizeof(gItemDetailStorageCC4D58) == 0x1F7F0);
 static_assert(0x60 + 10 * 0x8C == 0x5D8);
 std::int32_t gTradeValueCC4224 = 0;
 std::int32_t gTradeValueCF4688 = 0;
@@ -183,6 +190,96 @@ void ScrollInputAndDraw(input::InputContext* const context, const std::int32_t w
 }
 
 } // namespace
+
+std::int32_t Sub_4FB8F0()
+{
+    gDragItemIndex584DA4 = -1;
+    gDragImageNoD67D24 = 0;
+    gItemDragXCC4880 = 0;
+    gItemDragYCC4884 = 0;
+    gDraggingCA0B28 = 0;
+    gValue58589C = 1;
+    return 0;
+}
+
+std::int32_t Sub_4FB920(const std::int32_t index)
+{
+    const std::int32_t previous = gDragItemIndex584DA4;
+    if (previous >= 0 && previous == index) {
+        return Sub_4FB8F0();
+    }
+    return previous;
+}
+
+void Sub_4E54E0(const std::int32_t side, const std::int32_t index)
+{
+    if (index < 0 || index >= 20) {
+        return;
+    }
+    char* const record = gTradeItemsD460D0.data() + (index + side * 20) * 0xC4C;
+    std::memset(record, 0, 0xC4C);
+    const world::detail::PlayerItemRecord& source = world::detail::gPlayerItemsFDA8A4[index + 8];
+    if (source.used == 0) {
+        return;
+    }
+    const std::int32_t imageNo = source.imageNo;
+    const std::int32_t count = source.count;
+    WriteTradeValue(record, 0, std::uint16_t{1});
+    const std::uint16_t flags = source.flags;
+    WriteTradeValue(record, 4, imageNo);
+    const std::int32_t itemId = source.itemId;
+    WriteTradeValue(record, 8, count);
+    WriteTradeValue(record, 0x0C, itemId);
+    WriteTradeValue(record, 0xC34,
+        static_cast<std::int32_t>(std::bit_cast<std::int16_t>(flags)));
+    if (std::strlen(source.memo.data()) != 0) {
+        std::strcpy(record + 0xC38, source.memo.data());
+    }
+    std::strcpy(record + 0x10, source.name.data());
+    if ((flags & 1u) == 0) {
+        WriteTradeValue(record, 2, std::uint16_t{0xFFFF});
+    }
+}
+
+void Sub_4E5600(const std::int32_t side)
+{
+    for (std::int32_t index = 0; index < 20; ++index) {
+        Sub_4E54E0(side, index);
+    }
+}
+
+void Sub_4E0100(const std::int32_t side, const std::int32_t index)
+{
+    if (index < 0 || index >= 20) {
+        return;
+    }
+    const world::detail::PlayerItemRecord& source = world::detail::gPlayerItemsFDA8A4[index + 8];
+    const bool used = source.used != 0;
+    char* const record = gItemDetailStorageCC4D58.data() + side * 0xFBF8 + index * 0xC44;
+    std::memset(record, 0, 0xC44);
+    if (!used) {
+        return;
+    }
+    const std::int32_t imageNo = source.imageNo;
+    const std::int32_t count = source.count;
+    WriteTradeValue(record, 0, std::uint16_t{1});
+    WriteTradeValue(record, 4, imageNo);
+    WriteTradeValue(record, 8, count);
+    const std::uint16_t flags = source.flags;
+    WriteTradeValue(record, 0xC40,
+        static_cast<std::int32_t>(std::bit_cast<std::int16_t>(flags)));
+    if (std::strlen(source.memo.data()) != 0) {
+        std::strcpy(record + 0xC29, source.memo.data());
+    }
+    std::strcpy(record + 0x0C, source.name.data());
+    for (std::int32_t line = 0; line < 32; ++line) {
+        std::strcpy(record + 0x29 + line * 96, source.description[line].data());
+    }
+    WriteTradeValue(record, 0xC3C, source.pages);
+    if ((flags & 0x60u) != 0) {
+        WriteTradeValue(record, 2, std::uint16_t{0xFFFF});
+    }
+}
 
 void Sub_4E52B0(const std::int32_t side)
 {

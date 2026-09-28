@@ -126,4 +126,8 @@ extern "C" void Cg2dMapMoveDirection(
 extern "C" void Cg2dMapActorSpiralOffset(
     std::int32_t progress, std::int32_t angle, std::int64_t* result) noexcept;
 
+// 原440188-4401D2：固定方向的退出轨迹；整数抛物线仍由父回调计算。
+extern "C" void Cg2dMapObserverExitOffset(
+    std::int32_t frame, std::int32_t direction, std::int64_t* result) noexcept;
+
 } // namespace cg::platform::detail

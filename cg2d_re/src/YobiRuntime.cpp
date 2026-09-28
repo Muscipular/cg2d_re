@@ -1468,6 +1468,235 @@ void Sub_440440(YobiAction* const action)
     }
 }
 
+// 43F520/440070共有的五槽降序交换与挂接；不改写孩子坐标。
+void DrawObservationChildren(
+    YobiAction* const parent, MapCharaPayload* const payload,
+    std::array<std::int8_t, 5>& order)
+{
+    for (std::size_t index = 0; index < order.size(); ++index) {
+        if (order[index] < 0) {
+            break;
+        }
+        for (std::size_t next = index + 1; next < order.size(); ++next) {
+            if (order[next] < 0) {
+                break;
+            }
+            if (payload->partyActions[order[index]]->deltaY
+                < payload->partyActions[order[next]]->deltaY) {
+                const std::int8_t previous = order[index];
+                order[index] = order[next];
+                order[next] = previous;
+            }
+        }
+    }
+    for (const std::int8_t index : order) {
+        if (index < 0) {
+            break;
+        }
+        YobiAction* const child = payload->partyActions[index];
+        const std::int32_t graphicIndex = child->graphicIndex;
+        if (graphicIndex >= 0) {
+            world::detail::DrawGearNormal_46C060(
+                parent->value1D4, 1, graphicIndex,
+                std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(child->deltaX)),
+                std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(child->deltaY)),
+                &child->drawMode, 0);
+        }
+    }
+}
+
+void Sub_43F520(YobiAction* const action)
+{
+    const float worldY = action->worldY;
+    auto* const payload = static_cast<MapCharaPayload*>(action->payload);
+    const float worldX = action->worldX;
+    constexpr std::array<std::int16_t, 8> angles {45, 0, 315, 270, 225, 180, 135, 90};
+    float screenX;
+    float screenY;
+    world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
+    std::int32_t x = static_cast<std::int32_t>(
+        static_cast<std::int64_t>(static_cast<double>(screenX) + 0.5));
+    std::int32_t y = static_cast<std::int32_t>(
+        static_cast<std::int64_t>(static_cast<double>(screenY) + 0.5));
+    action->counter1DC = -1;
+    if (action->phase == 1) {
+        static_cast<void>(Sub_517880(action, 100, 0, 0));
+    } else if (action->phase == 2) {
+        const std::int32_t frame = payload->frame;
+        if (frame < 0) {
+            action->characterAction = 2;
+            if (Sub_517880(action, 100, 1, 0) == 1) {
+                payload->frame = 0;
+            }
+            action->counter1DC = 0;
+        } else {
+            action->characterAction = 3;
+            action->counter1DC = 3;
+            y += static_cast<std::int32_t>(static_cast<std::int64_t>(
+                static_cast<double>(frame)
+                * static_cast<double>(std::bit_cast<float>(0xBFB33333u))));
+            const std::int32_t initialDirection = action->field58;
+            action->direction = initialDirection - ((frame + 8) % 120) / 15;
+            if (action->direction < 0) {
+                action->direction += 8;
+            }
+            const std::int32_t angle = angles[initialDirection] + frame * 3;
+            std::int64_t offset[2];
+            platform::detail::Cg2dMapActorSpiralOffset(frame, angle, offset);
+            x += static_cast<std::int32_t>(offset[0]);
+            y += static_cast<std::int32_t>(offset[1]);
+            static_cast<void>(Sub_517880(action, 100, 0, 0));
+            if (Sub_43F1F0(world::ReadPlayerObjectIndex_FDA880()) == nullptr
+                && frame > 300 && (x < -300 || x > 940)) {
+                Sub_43F1B0(action);
+                for (std::size_t index = 0; index < payload->partyActions.size(); ++index) {
+                    YobiAction* const child = payload->partyActions[index];
+                    if (child != nullptr) {
+                        MarkDeath(child);
+                    }
+                }
+                MarkDeath(action);
+            }
+        }
+    }
+    action->x = x;
+    action->y = y;
+    const render::GraphicDescriptor16* const descriptor = &action->drawMode;
+    const std::int32_t offsetY = Sub_5182B0(action, 1);
+    const std::int32_t drawY = offsetY + action->y;
+    const std::int32_t offsetX = Sub_5182B0(action, 0);
+    const std::int32_t drawX = offsetX + action->x;
+    const std::uint32_t worldXBits = std::bit_cast<std::uint32_t>(action->worldX);
+    const std::uint32_t worldYBits = std::bit_cast<std::uint32_t>(action->worldY);
+    action->value1D4 = world::detail::Sub_46BD60(
+        action->graphicIndex, worldXBits, worldYBits,
+        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
+        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)), 1, descriptor);
+    if (action->phase == 1) {
+        std::int8_t ready = 0;
+        for (std::int32_t index = 0; index < 5; ++index) {
+            if (payload->values[index] != 0) {
+                if (payload->partyActions[index] == nullptr) {
+                    payload->partyActions[index] = Sub_43F290(action, index);
+                }
+                YobiAction* const child = payload->partyActions[index];
+                if (child == nullptr || child->phase != 2) {
+                    continue;
+                }
+            }
+            ++ready;
+        }
+        if (payload->frame > 10 && ready >= 5) {
+            action->phase = 2;
+            payload->frame = -1;
+        }
+    }
+    std::array<std::int8_t, 5> order;
+    std::size_t count = 0;
+    for (std::int32_t index = 0; index < 5; ++index) {
+        YobiAction* const child = payload->partyActions[index];
+        if (child != nullptr) {
+            Sub_43F910(child);
+            order[count++] = static_cast<std::int8_t>(index);
+        }
+    }
+    for (std::size_t index = count; index < order.size(); ++index) {
+        order[index] = -1;
+    }
+    DrawObservationChildren(action, payload, order);
+    if (payload->frame >= 0) {
+        ++payload->frame;
+    }
+}
+
+void Sub_440070(YobiAction* const action)
+{
+    const float worldY = action->worldY;
+    auto* const payload = static_cast<MapCharaPayload*>(action->payload);
+    const float worldX = action->worldX;
+    float screenX;
+    float screenY;
+    world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
+    std::int32_t x = static_cast<std::int32_t>(
+        static_cast<std::int64_t>(static_cast<double>(screenX) + 0.5));
+    std::int32_t y = static_cast<std::int32_t>(
+        static_cast<std::int64_t>(static_cast<double>(screenY) + 0.5));
+    if (action->phase >= 3 && action->phase <= 5) {
+        if (action->phase == 3 && payload->frame > 50) {
+            action->phase = 4;
+            for (std::size_t index = 0; index < payload->partyActions.size(); ++index) {
+                YobiAction* const child = payload->partyActions[index];
+                if (child != nullptr) {
+                    child->phase = 4;
+                }
+            }
+        }
+        const std::int32_t direction = action->direction;
+        const std::int32_t frame = payload->frame;
+        std::int64_t offset[2];
+        platform::detail::Cg2dMapObserverExitOffset(frame, direction, offset);
+        x += static_cast<std::int32_t>(offset[0]);
+        const std::int32_t elapsed = frame - 50;
+        y += static_cast<std::int32_t>(offset[1]) - elapsed * elapsed / 30;
+    }
+    if (action->phase == 4) {
+        std::int32_t index = 0;
+        for (; index < 5; ++index) {
+            YobiAction* const child = payload->partyActions[index];
+            if (child != nullptr && child->phase != 5) {
+                break;
+            }
+        }
+        if (index >= 5) {
+            action->phase = 5;
+        }
+    }
+    if (action->phase == 5 && (x < -300 || x > 940 || y < -300 || y > 780)) {
+        Sub_43F1B0(action);
+        for (std::size_t index = 0; index < payload->partyActions.size(); ++index) {
+            YobiAction* const child = payload->partyActions[index];
+            if (child != nullptr) {
+                MarkDeath(child);
+            }
+        }
+        MarkDeath(action);
+    }
+    static_cast<void>(Sub_517880(action, 100, 0, 0));
+    const render::GraphicDescriptor16* const descriptor = &action->drawMode;
+    action->x = x;
+    action->y = y;
+    const std::int32_t offsetY = Sub_5182B0(action, 1);
+    const std::int32_t drawY = offsetY + action->y;
+    const std::int32_t offsetX = Sub_5182B0(action, 0);
+    const std::int32_t drawX = offsetX + action->x;
+    const std::uint32_t worldXBits = std::bit_cast<std::uint32_t>(action->worldX);
+    const std::int32_t graphicIndex = action->graphicIndex;
+    const std::uint32_t worldYBits = std::bit_cast<std::uint32_t>(action->worldY);
+    action->value1D4 = world::detail::Sub_46BD60(
+        graphicIndex, worldXBits, worldYBits,
+        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
+        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)), 1, descriptor);
+    for (std::int32_t index = 0; index < 5; ++index) {
+        if (payload->values[index] != 0 && payload->partyActions[index] == nullptr) {
+            payload->partyActions[index] = Sub_43FE00(action, index);
+        }
+    }
+    std::array<std::int8_t, 5> order;
+    std::size_t count = 0;
+    for (std::int32_t index = 0; index < 5; ++index) {
+        YobiAction* const child = payload->partyActions[index];
+        if (child != nullptr) {
+            Sub_440440(child);
+            order[count++] = static_cast<std::int8_t>(index);
+        }
+    }
+    for (std::size_t index = count; index < order.size(); ++index) {
+        order[index] = -1;
+    }
+    DrawObservationChildren(action, payload, order);
+    ++payload->frame;
+}
+
 // 原441DB0/448040回调及实体绘制尾；完整定义位于本文件后段。
 void Sub_4417E0(YobiAction* action);
 void Sub_447E60(YobiAction* action);

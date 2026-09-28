@@ -197,6 +197,7 @@ extern std::int32_t gTradeValueD2E2B0;
 extern std::uint8_t gTradeValueD67B80;
 
 std::int32_t Sub_4E5710(std::int32_t side); // 先清侧状态，再清物品/宠物整组。
+void Sub_4E52B0(std::int32_t side); // 同源玩家宠物属性及十项技能按存储索引复制。
 void Sub_4E5770(std::int32_t index, std::int32_t side, const char* text); // 32行及页数。
 std::int32_t Sub_4E5830(const char* text); // 每条14字段，返回终止字段状态1。
 std::int32_t Sub_4E5A40(std::int32_t index, const char* text); // 单宠物属性与双名称。

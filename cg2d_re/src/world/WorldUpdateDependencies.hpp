@@ -406,7 +406,7 @@ struct SkillRuntimeRecord {
 
 struct SkillPairRecord {
     std::uint16_t used;
-    std::uint16_t index; // 原技能表下标，UI按S16消费，不是地址。
+    std::uint16_t index; // 原技能/宠物技术表下标，UI按S16消费，不是地址。
     std::int32_t sequence;
 };
 
@@ -443,6 +443,30 @@ void Sub_518600(
     const SkillRuntimeRecord* source, SkillPairRecord* destination, std::int32_t count);
 std::int32_t Sub_518660(const SkillPairRecord* left, const SkillPairRecord* right);
 
+// 原宠物+D8的8C技能值记录，50B0D0生产，4E52B0按索引对复制到交易区。
+struct PetTechniqueRecord {
+    std::uint16_t used;
+    std::uint16_t field;
+    std::uint16_t target;
+    std::array<char, 25> name;
+    std::array<char, 97> description;
+    std::int32_t techniqueId;
+    std::int32_t fp;
+    std::int32_t sequence;
+};
+
+static_assert(std::is_standard_layout_v<PetTechniqueRecord>);
+static_assert(std::is_trivially_copyable_v<PetTechniqueRecord>);
+static_assert(offsetof(PetTechniqueRecord, used) == 0);
+static_assert(offsetof(PetTechniqueRecord, field) == 2);
+static_assert(offsetof(PetTechniqueRecord, target) == 4);
+static_assert(offsetof(PetTechniqueRecord, name) == 6);
+static_assert(offsetof(PetTechniqueRecord, description) == 0x1F);
+static_assert(offsetof(PetTechniqueRecord, techniqueId) == 0x80);
+static_assert(offsetof(PetTechniqueRecord, fp) == 0x84);
+static_assert(offsetof(PetTechniqueRecord, sequence) == 0x88);
+static_assert(sizeof(PetTechniqueRecord) == 0x8C);
+
 // 原F633F8五条宠物数据，不是FF02E0地图槽；未消费间隔不计最终类型冻结。
 struct PetRuntimeRecord {
     std::uint16_t used; // 原+0占用。
@@ -453,7 +477,8 @@ struct PetRuntimeRecord {
     std::array<platform::LegacyCryptInt, 6> values0C; // HP/最大HP/FP/最大FP/+4C/+5C。
     std::int32_t lvFlag6C; // 原F63464；50CF70写入完整W32。
     std::array<std::int32_t, 26> values70; // 原+70..+D4，两回复共享。
-    std::array<std::byte, 0x5C8> bytesD8;
+    std::array<PetTechniqueRecord, 10> techniquesD8;
+    std::array<SkillPairRecord, 10> techniquePairs650; // 5185C0只生成索引，不排序。
     std::int32_t imageNo6A0;
     std::int32_t value6A4;
     std::array<std::byte, 2> bytes6A8;
@@ -478,7 +503,8 @@ static_assert(offsetof(PetRuntimeRecord, value08) == 8);
 static_assert(offsetof(PetRuntimeRecord, values0C) == 0x0C);
 static_assert(offsetof(PetRuntimeRecord, lvFlag6C) == 0x6C);
 static_assert(offsetof(PetRuntimeRecord, values70) == 0x70);
-static_assert(offsetof(PetRuntimeRecord, bytesD8) == 0xD8);
+static_assert(offsetof(PetRuntimeRecord, techniquesD8) == 0xD8);
+static_assert(offsetof(PetRuntimeRecord, techniquePairs650) == 0x650);
 static_assert(offsetof(PetRuntimeRecord, imageNo6A0) == 0x6A0);
 static_assert(offsetof(PetRuntimeRecord, value6A4) == 0x6A4);
 static_assert(offsetof(PetRuntimeRecord, flags6AA) == 0x6AA);
@@ -509,6 +535,11 @@ extern std::uint32_t gValueD67B28; // 492250置1，UI后续复用。
 
 void Sub_50A6B0(std::uintptr_t socket, std::int32_t index, const char* payload);
 void Sub_50AC20(std::uintptr_t socket, std::int32_t index, const char* payload);
+void Sub_50B0D0(
+    std::uintptr_t unusedSocket, std::int32_t index, const char* payload); // 技能回复，无CryptInt门禁。
+void Sub_5185C0(
+    const PetTechniqueRecord* source, SkillPairRecord* destination,
+    std::int32_t count); // 保留全部used和sequence，按源序写低W16索引，不排序。
 std::int32_t Sub_50CF70(
     std::uintptr_t socket, std::int32_t index, std::int32_t value); // 仅写宠物+6C并返回index。
 std::int32_t Sub_519920(); // 先清计数，再扫描占用并发布。

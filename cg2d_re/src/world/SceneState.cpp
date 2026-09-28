@@ -2971,6 +2971,75 @@ void Sub_50AC20(
     Sub_492250();
 }
 
+void Sub_50B0D0(
+    const std::uintptr_t, const std::int32_t index, const char* const payload)
+{
+    if (gValue9A6E0C != 0 || index < 0 || index >= 5) {
+        return;
+    }
+    PetRuntimeRecord& record = gPetRuntimeF633F8[index];
+    if (record.used == 0) {
+        return;
+    }
+    std::memset(record.techniquesD8.data(), 0, sizeof(record.techniquesD8));
+    char name[256];
+    char description[256];
+    std::int32_t field = 2;
+    for (;;) {
+        const std::int32_t techniqueIndex =
+            network::ParseDelimitedInteger_52CFA0(payload, '|', field - 1);
+        if (techniqueIndex < 0) {
+            break;
+        }
+        const std::int32_t techniqueId =
+            network::ParseDelimitedInteger_52CFA0(payload, '|', field);
+        network::ExtractDelimitedField_52CED0(payload, '|', field + 1, 255, name);
+        input::UnescapeLegacyTextAndNotify_52D2F0(name);
+        network::ExtractDelimitedField_52CED0(payload, '|', field + 2, 255, description);
+        input::UnescapeLegacyTextAndNotify_52D2F0(description);
+        const std::int32_t fp =
+            network::ParseDelimitedInteger_52CFA0(payload, '|', field + 3);
+        const std::int32_t techniqueField =
+            network::ParseDelimitedInteger_52CFA0(payload, '|', field + 4);
+        const std::int32_t target =
+            network::ParseDelimitedInteger_52CFA0(payload, '|', field + 5);
+        const std::int32_t sequence =
+            network::ParseDelimitedInteger_52CFA0(payload, '|', field + 6);
+        PetTechniqueRecord& technique = record.techniquesD8[techniqueIndex];
+        if (std::strlen(name) == 0) {
+            technique.name[0] = '\0';
+            technique.description[0] = '\0';
+            technique.fp = 0;
+            technique.used = 0;
+            // 原50B230不推进字段；不把空名称改成跳过本条或结束解析。
+            continue;
+        }
+        technique.used = 1;
+        technique.techniqueId = techniqueId;
+        std::strcpy(technique.name.data(), std::strlen(name) <= 24 ? name : "???");
+        std::strcpy(
+            technique.description.data(),
+            std::strlen(description) <= 96 ? description : "???");
+        field += 8;
+        technique.fp = fp;
+        technique.field = static_cast<std::uint16_t>(techniqueField);
+        technique.target = static_cast<std::uint16_t>(target);
+        technique.sequence = sequence;
+    }
+    Sub_5185C0(record.techniquesD8.data(), record.techniquePairs650.data(), 10);
+}
+
+void Sub_5185C0(
+    const PetTechniqueRecord* const source, SkillPairRecord* const destination,
+    const std::int32_t count)
+{
+    for (std::int32_t index = 0; index < count; ++index) {
+        destination[index].used = source[index].used;
+        destination[index].index = static_cast<std::uint16_t>(index);
+        destination[index].sequence = source[index].sequence;
+    }
+}
+
 std::int32_t Sub_519920()
 {
     std::int32_t count = 0;

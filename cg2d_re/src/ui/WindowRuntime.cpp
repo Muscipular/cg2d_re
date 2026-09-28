@@ -184,6 +184,68 @@ void ScrollInputAndDraw(input::InputContext* const context, const std::int32_t w
 
 } // namespace
 
+void Sub_4E52B0(const std::int32_t side)
+{
+    for (std::int32_t index = 0; index < 5; ++index) {
+        world::detail::PetRuntimeRecord& source = world::detail::gPetRuntimeF633F8[index];
+        if (source.used == 0) {
+            continue;
+        }
+        char* const record = gTradePetsC9C108.data() + (index + side * 5) * 0x5FC;
+        const bool hasUserName = source.name6BD[0] != '\0';
+        WriteTradeValue(record, 0, std::uint16_t{1});
+        std::strcpy(record + 0x5D8,
+            hasUserName ? source.name6BD.data() : source.name6AC.data());
+        const std::int32_t imageNo = source.imageNo6A0;
+        const std::int32_t value08 = source.value08;
+        std::strcpy(record + 0x5E9, source.name6AC.data());
+        WriteTradeValue(record, 4, source.value04);
+        WriteTradeValue(record, 8, imageNo);
+        WriteTradeValue(record, 0x0C, value08);
+        for (std::int32_t value = 0; value < 3; ++value) {
+            WriteTradeValue(record, 0x10 + value * 4,
+                platform::legacy_crypt_int::Read_401EC0(&source.values0C[value]));
+        }
+        const std::int32_t fourth =
+            platform::legacy_crypt_int::Read_401EC0(&source.values0C[3]);
+        std::int32_t first = source.values70[5];
+        std::int32_t second = source.values70[6];
+        WriteTradeValue(record, 0x1C, fourth);
+        std::int32_t third = source.values70[7];
+        WriteTradeValue(record, 0x38, first);
+        first = source.values70[8];
+        WriteTradeValue(record, 0x3C, second);
+        second = source.values70[9];
+        WriteTradeValue(record, 0x40, third);
+        third = source.values70[0];
+        WriteTradeValue(record, 0x44, first);
+        first = source.values70[1];
+        WriteTradeValue(record, 0x48, second);
+        second = source.values70[2];
+        WriteTradeValue(record, 0x20, third);
+        third = source.values70[3];
+        WriteTradeValue(record, 0x24, first);
+        first = source.values70[4];
+        WriteTradeValue(record, 0x28, second);
+        second = source.values70[10];
+        WriteTradeValue(record, 0x2C, third);
+        third = source.value6A4;
+        WriteTradeValue(record, 0x30, first);
+        WriteTradeValue(record, 0x34, second);
+        WriteTradeValue(record, 0x5C, third);
+        for (std::int32_t value = 0; value < 4; ++value) {
+            WriteTradeValue(record, 0x4C + value * 4, source.values70[21 + value]);
+        }
+        for (std::int32_t skill = 0; skill < 10; ++skill) {
+            const std::int16_t sourceIndex =
+                std::bit_cast<std::int16_t>(source.techniquePairs650[skill].index);
+            std::memcpy(
+                record + 0x60 + skill * 0x8C,
+                &source.techniquesD8[sourceIndex], sizeof(world::detail::PetTechniqueRecord));
+        }
+    }
+}
+
 std::int32_t Sub_4E5710(const std::int32_t side)
 {
     if (side == 0) {

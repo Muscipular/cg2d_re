@@ -40,6 +40,14 @@ std::int32_t gWindowAnimationImage56C418 = 100000;
 WindowNumberData gWindowNumber56C420 {gBattleMoneyTextCF469C.data(), 10, 3, 1, 0};
 WindowNumberData gWindowNumber56C428 {gBattleValueTextC8A960.data(), 10, 3, 1, 0};
 
+WindowGraphicData gWindowGraphic56C9F8 {0x3B568, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic56CA10 {0x3BE48, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic56CA28 {0x3BE4B, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic56CA40 {0x3BE4E, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic56CA58 {0x3BE54, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic56CA70 {0x3BE51, 0, 0, 0, 0, 0xFFFFFFFFu};
+std::int32_t gWindowAnimationImageD6780C = 0;
+
 WindowGraphicData gWindowGraphic563080 {243000, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic563098 {244309, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic5630B0 {243090, 0, 0, 0, 0, 0xFFFFFFFFu};
@@ -284,6 +292,30 @@ WindowElementPrototype gWindowElements56C430[22] {
     {1, 2, 152, 19, 46, 1, {.graphic = &gWindowGraphic56C3D8}, &Sub_499B60},
     {1, -197, 17, 212, 210, 1, {.graphic = &gWindowGraphic56C390}, &Sub_49AC40},
     {0, 320, 7, 18, 78, 1, {.unusedValue = 0}, &Sub_474170},
+};
+
+WindowElementPrototype gWindowElements56CA88[19] {
+    {1, 0, 0, 66, 17, 1, {.graphic = &gWindowGraphic56C9F8}, &Sub_49CE70},
+    {1, 0, 20, 66, 17, 1, {.graphic = &gWindowGraphic56CA10}, &Sub_49CE70},
+    {1, 0, 20, 66, 17, 1, {.graphic = &gWindowGraphic56CA28}, &Sub_49CE70},
+    {1, 60, 0, 66, 17, 1, {.graphic = &gWindowGraphic56CA40}, &Sub_49CE70},
+    {1, 60, 20, 66, 17, 1, {.graphic = &gWindowGraphic56CA58}, &Sub_49CE70},
+    {1, 120, 0, 66, 17, 1, {.graphic = &gWindowGraphic56CA70}, &Sub_49CE70},
+    {0, 120, 0, 28, 8, 1, {.unusedValue = 0}, &Sub_49CF70},
+    {5, 80, 42, 0, 0, 1, {.unusedValue = 0}, &Sub_4B0F10},
+    {2, 0, 0, 0, 0, 1, {.animationImageNo = &gWindowAnimationImageD6780C}, &Sub_4B0F10},
+    {2, 0, 0, 0, 0, 1, {.animationImageNo = &gWindowAnimationImageD6780C}, &Sub_4B0F10},
+    {2, 0, 0, 0, 0, 1, {.animationImageNo = &gWindowAnimationImageD6780C}, &Sub_4B0F10},
+    {2, 0, 0, 0, 0, 1, {.animationImageNo = &gWindowAnimationImageD6780C}, &Sub_4B0F10},
+    {2, 0, 0, 0, 0, 1, {.animationImageNo = &gWindowAnimationImageD6780C}, &Sub_4B0F10},
+    {2, 0, 0, 0, 0, 1, {.animationImageNo = &gWindowAnimationImageD6780C}, &Sub_4B0F10},
+    {2, 0, 0, 0, 0, 1, {.animationImageNo = &gWindowAnimationImageD6780C}, &Sub_4B0F10},
+    {2, 0, 0, 0, 0, 1, {.animationImageNo = &gWindowAnimationImageD6780C}, &Sub_4B0F10},
+    {2, 0, 0, 0, 0, 1, {.animationImageNo = &gWindowAnimationImageD6780C}, &Sub_4B0F10},
+    {2, 0, 0, 0, 0, 1, {.animationImageNo = &gWindowAnimationImageD6780C}, &Sub_4B0F10},
+    // 原运行第19项与下一文本/元素源字节重叠；值1不是函数，visible0阻止正常调用。
+    {0, 0x593850, 3, 0, 44, 0, {.unusedValue = 0},
+        reinterpret_cast<WindowElementCallback>(std::uintptr_t{1})},
 };
 
 WindowElementPrototype gWindowElements56CDB0[19] {

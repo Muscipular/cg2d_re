@@ -87,6 +87,9 @@ std::array<DirectionDelta, 8> gDirectionDeltas55D9DC {{
 // 原首块 [FDA700,FF02E0) 已证玩家槽；不将此原生结构当作原连续内存。
 struct PlayerRuntimeSlots {
     std::int32_t level; // 原 FDA704。
+    std::int32_t timerRemaining0C; // 原FDA70C；458F40按帧扣减的S32。
+    std::int32_t timerMode10; // 原FDA710；保留完整模式，非零才扣减。
+    std::uint32_t timerTick14; // 原FDA714；50C7A0与458F40同源。
     platform::LegacyCryptInt hp; // 原 FDA718；与 action +170 的载荷同步。
     platform::LegacyCryptInt maxHp; // 原 FDA728。
     platform::LegacyCryptInt fp; // 原 FDA738；与宠物数据独立。
@@ -2063,6 +2066,92 @@ std::uint32_t Sub_50BFA0(
     const std::uint32_t options = static_cast<std::uint32_t>(value) & 0xFFFDu;
     gPlayerRuntime.options194 = static_cast<std::uint16_t>(options);
     return options;
+}
+
+std::uint32_t Sub_50C7A0(
+    const std::uintptr_t /*socket*/, const std::int32_t seconds,
+    const std::int32_t mode)
+{
+    const std::uint32_t gate = gValue9A6E0C;
+    if (gate != 0) {
+        return gate;
+    }
+    const std::int32_t duration = seconds < 0 ? 0 : seconds;
+    gPlayerRuntime.timerMode10 = mode;
+    gPlayerRuntime.timerRemaining0C = duration * 1000;
+    const std::uint32_t tick = platform::ReadTickCount32();
+    gPlayerRuntime.timerTick14 = tick;
+    input::gValue626C14 = 0;
+    return tick;
+}
+
+std::int32_t Sub_50CE10(const std::uintptr_t /*socket*/, const char* const text)
+{
+    char source[2024];
+    char command[512];
+    std::strcpy(source, text);
+    input::UnescapeLegacyTextAndNotify_52D2F0(source);
+    if (std::strncmp(source, "@FIND_LV1", 9) == 0) {
+        std::int32_t sound = 0;
+        std::strncpy(command, source, sizeof(command));
+        std::sscanf(command, "@FIND_LV1@SE:%d", &sound);
+        const char* const message = std::strstr(command, "@MSG:");
+        std::strncpy(source, message + 5, sizeof(source));
+        static_cast<void>(audio::PlaySe_52C450(sound, 320));
+    }
+    Sub_44B050(source, 4, 3);
+    const std::int32_t soundEnabled = platform::gValue554644;
+    if (soundEnabled != 0) {
+        return audio::PlaySe_52C450(74, 320);
+    }
+    return soundEnabled;
+}
+
+void Sub_50E1A0(
+    const std::uintptr_t /*socket*/, const std::int32_t mask,
+    const std::int32_t value, const char* const /*unusedText*/)
+{
+    if (mask == 0) {
+        const std::uint16_t zero = 0;
+        gMapCharaSceneSlots.valueC8A73E = 0;
+        std::memcpy(&gMapCharaSceneSlots.valueC8A744, &zero, sizeof(zero));
+        gMapCharaSceneSlots.valueC8A74E = 0;
+    } else {
+        const auto low = static_cast<std::uint16_t>(value);
+        if ((mask & 1) != 0) {
+            gMapCharaSceneSlots.valueC8A73E = low;
+        }
+        if ((mask & 2) != 0) {
+            std::memcpy(&gMapCharaSceneSlots.valueC8A744, &low, sizeof(low));
+        }
+        if ((mask & 4) != 0) {
+            gMapCharaSceneSlots.valueC8A74E = low;
+        }
+    }
+    Sub_46E0D0(mask, value);
+}
+
+std::int32_t Sub_50E210(
+    const std::uintptr_t /*socket*/, const std::int32_t value)
+{
+    const std::int32_t gate = std::bit_cast<std::int32_t>(gValue9A6E0C);
+    if (gate != 0) {
+        return gate;
+    }
+    std::int32_t sound;
+    switch (value) {
+    case 0: sound = 0x47; break;
+    case 1: sound = 0x48; break;
+    case 2:
+    case 4: sound = 0x44; break;
+    case 3: sound = 0x45; break;
+    case 5: sound = 0x41; break;
+    case 6: sound = 0x42; break;
+    case 7: sound = 0x43; break;
+    case 8: sound = 0x49; break;
+    default: return value;
+    }
+    return audio::PlaySe_52C450(sound, 320);
 }
 
 std::int32_t Sub_50C940(
@@ -4461,6 +4550,29 @@ void __cdecl Sub_51D6F0()
         gValue73ED44 = 0;
         gValueFF0D4C = -2;
     }
+}
+
+void __cdecl Sub_458F40()
+{
+    const std::int32_t scene = gCurrentSceneType;
+    if (scene == 9) {
+        if (gPlayerRuntime.action == nullptr) {
+            return;
+        }
+    } else if (scene != 10) {
+        return;
+    }
+    const std::uint32_t tick = platform::ReadTickCount32();
+    if (gPlayerRuntime.timerMode10 != 0) {
+        const std::int32_t delta =
+            std::bit_cast<std::int32_t>(gPlayerRuntime.timerTick14 - tick);
+        gPlayerRuntime.timerRemaining0C += delta;
+        if (gPlayerRuntime.timerRemaining0C < 0) {
+            gPlayerRuntime.timerRemaining0C = 0;
+            gPlayerRuntime.timerMode10 = 0;
+        }
+    }
+    gPlayerRuntime.timerTick14 = tick;
 }
 
 // 原 [0x458F00,0x458F3A)：类别变化后可选调色板过渡，末尾总是进入 458F40。

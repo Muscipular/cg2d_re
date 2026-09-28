@@ -603,7 +603,7 @@ std::int32_t __cdecl Sub_5093F0(
 std::int32_t __cdecl Sub_509550(
     std::uintptr_t socket, char* payload); // 原 [0x509550,0x509642)，地图回复文本与数值发布。
 void __cdecl Sub_51D6F0(); // 原 [0x51D6F0,0x51D743)，消费回复索引并选择调色板。
-void __cdecl Sub_458F40(); // 原 [0x458F40,0x458FC2)，真实玩家时钟后继，原生指针 owner 未批。
+void __cdecl Sub_458F40(); // 原 [0x458F40,0x458FC2)，同源玩家时钟推进，场景9要求玩家T*。
 void __cdecl Sub_458F00(); // 原 [0x458F00,0x458F3A)，类别变化后可选调色板过渡并进入 458F40。
 std::int32_t __cdecl Sub_519EB0(std::int32_t value); // 原 [0x519EB0,0x519EBA)，真实 FDA880 写回依赖。
 std::int32_t __cdecl Sub_50C870(
@@ -663,6 +663,13 @@ void Sub_50BCD0(std::uintptr_t socket, const char* payload); // 逗号动作批�
 std::uint32_t Sub_50BFA0(std::uintptr_t socket, std::int32_t value); // 玩家选项回复，清bit2后写U16。
 std::int32_t Sub_50C940(
     const input::InputContext* context, std::int32_t color); // 聊天时间/选项门禁后转义发送。
+std::uint32_t Sub_50C7A0(
+    std::uintptr_t socket, std::int32_t seconds, std::int32_t mode); // 玩家时钟回复并清626C14。
+std::int32_t Sub_50CE10(std::uintptr_t socket, const char* text); // 系统提示及可选内嵌音效。
+void Sub_50E1A0(
+    std::uintptr_t socket, std::int32_t mask, std::int32_t value,
+    const char* unusedText); // 三效果半字写入后调用既有46E0D0。
+std::int32_t Sub_50E210(std::uintptr_t socket, std::int32_t value); // 九种指定音效，其他值透传。
 void Sub_50CAE0(
     std::uintptr_t socket, std::int32_t objectIndex, const char* payload,
     std::int32_t color, std::int32_t font); // 聊天回复：原名字过滤、日志与头顶生产。

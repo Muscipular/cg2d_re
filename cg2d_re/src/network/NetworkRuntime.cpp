@@ -115,6 +115,7 @@ struct NetworkRuntimeState {
     std::uint32_t receiveResetD9F3C4;
     std::uint32_t frameModuloD9F3C8;
     std::uint8_t value58ADA4 = 0x80; // 原ed回复独立字节，不属于58ADA8的排除链文本。
+    std::array<char, 0x104> addressTextDA33D8; // 原lSZ回复缓存，非空时按strstr判断变化。
 };
 
 NetworkRuntimeState gNetworkRuntimeState {};
@@ -725,6 +726,29 @@ void Sub_50DD80(
     static_cast<void>(login::detail::Sub_448040(
         convertedImageNo, recordX, recordY, recordDirection,
         actionMode, 0, objectIndex));
+}
+
+void Sub_50E6E0(const std::uintptr_t, const char* const text)
+{
+    char* const previous = gNetworkRuntimeState.addressTextDA33D8.data();
+    if (previous[0] != '\0') {
+        if (std::strstr(previous, text) != nullptr) {
+            return;
+        }
+        constexpr char format58B0B0[] =
+            "IP " "\xA6\xEC\xA7\x7D\xA5\xD1" "[%s]"
+            "\xC5\xDC\xA6\xA8" "[%s]" "\xA1\x43";
+        constexpr char warning58B094[] =
+            "\xBA\xF4\xB8\xF4\xA6\xB3\xA5\x69\xAF\xE0\xAC\x4F"
+            "\xB3\x51\xA6\x41\xB3\x73\xB1\xB5\xA4\x46\xA1\x43";
+        static_assert(sizeof(format58B0B0) == 24);
+        static_assert(sizeof(warning58B094) == 25);
+        char message[256];
+        std::sprintf(message, format58B0B0, previous, text);
+        world::detail::Sub_44B050(message, 4, 3);
+        world::detail::Sub_44B050(warning58B094, 4, 3);
+    }
+    std::strcpy(previous, text);
 }
 
 std::int32_t Sub_50E780(const std::uintptr_t, const std::int32_t value)

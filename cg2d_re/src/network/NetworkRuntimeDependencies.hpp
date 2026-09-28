@@ -42,6 +42,9 @@ void Sub_50DD80(
     std::int32_t direction, std::int32_t withRecord,
     std::int32_t mode, const char* payload);
 
+// 原50E6E0：旧地址不包含输入时依次提示两次，再复制新文本；socket未用。
+void Sub_50E6E0(std::uintptr_t unusedSocket, const char* text);
+
 // 原50E780：写58ADA4低U8；快照场景13时写并返回100/200，其余返回完整value。
 std::int32_t Sub_50E780(std::uintptr_t unusedSocket, std::int32_t value);
 

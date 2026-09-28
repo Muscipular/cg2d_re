@@ -511,6 +511,10 @@ void Sub_50C260(std::uintptr_t unusedSocket, const char* payload); // 带槽号�
 void Sub_50C900(
     std::uintptr_t unusedSocket, std::int32_t first, std::int32_t second); // 玩家/UI/拖动/副本按序换位。
 void Sub_51B530(std::int32_t first, std::int32_t second); // 整条C5C交换，装备位标志及UI迁移。
+// 原51B630：玩家/宠物容器间整条换位，不改装备标志或同步UI。
+void Sub_51B630(
+    std::int32_t firstGroup, std::int32_t firstIndex,
+    std::int32_t secondGroup, std::int32_t secondIndex);
 void Sub_5196B0(std::int32_t index, const char* text); // 32行描述与最多4页的原回扫。
 
 // 原宠物+D8的8C技能值记录，50B0D0生产，4E52B0按索引对复制到交易区。
@@ -559,7 +563,7 @@ struct PetRuntimeRecord {
     std::int32_t value6D0; // 518580复制到索引对。
     std::int32_t follow6D4;
     std::array<std::int32_t, 3> values6D8;
-    std::array<std::byte, 0x4A28> bytes6E4;
+    std::array<PlayerItemRecord, 6> items6E4; // 原51B630复用的六条C5C物品。
     std::uint8_t updated510C; // 仅50A6B0尾部置1。
     std::array<std::byte, 3> bytes510D;
 };
@@ -583,9 +587,32 @@ static_assert(offsetof(PetRuntimeRecord, name6BD) == 0x6BD);
 static_assert(offsetof(PetRuntimeRecord, value6D0) == 0x6D0);
 static_assert(offsetof(PetRuntimeRecord, follow6D4) == 0x6D4);
 static_assert(offsetof(PetRuntimeRecord, values6D8) == 0x6D8);
-static_assert(offsetof(PetRuntimeRecord, bytes6E4) == 0x6E4);
+static_assert(offsetof(PetRuntimeRecord, items6E4) == 0x6E4);
 static_assert(offsetof(PetRuntimeRecord, updated510C) == 0x510C);
 static_assert(sizeof(PetRuntimeRecord) == 0x5110);
+
+// 原F7C950的已消费AC字节前缀；510490生产，4C75A0等UI读取，非完整业务布局。
+struct ReplyRecordF7C950 {
+    std::int32_t used;
+    std::array<char, 32> text04;
+    std::uint8_t hasText24; // 第2文本不等于单空格；空串同样为1。
+    std::array<char, 32> text25;
+    std::array<std::byte, 3> bytes45;
+    std::int32_t value48;
+    std::array<std::int32_t, 24> values4C;
+};
+
+static_assert(std::is_standard_layout_v<ReplyRecordF7C950>);
+static_assert(std::is_trivially_copyable_v<ReplyRecordF7C950>);
+static_assert(offsetof(ReplyRecordF7C950, used) == 0);
+static_assert(offsetof(ReplyRecordF7C950, text04) == 4);
+static_assert(offsetof(ReplyRecordF7C950, hasText24) == 0x24);
+static_assert(offsetof(ReplyRecordF7C950, text25) == 0x25);
+static_assert(offsetof(ReplyRecordF7C950, bytes45) == 0x45);
+static_assert(offsetof(ReplyRecordF7C950, value48) == 0x48);
+static_assert(offsetof(ReplyRecordF7C950, values4C) == 0x4C);
+static_assert(sizeof(ReplyRecordF7C950) == 0xAC);
+extern ReplyRecordF7C950 gReplyRecordF7C950;
 
 // 原DE0B08，每项8B；索引是数值，不是地址。
 struct PetPairRecord {

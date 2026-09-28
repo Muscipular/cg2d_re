@@ -3028,11 +3028,56 @@ void Sub_50C900(
     ui::detail::Sub_4E1840(1, first, second);
 }
 
+void Sub_51B630(
+    const std::int32_t firstGroup, const std::int32_t firstIndex,
+    const std::int32_t secondGroup, const std::int32_t secondIndex)
+{
+    if (firstIndex < 0 || secondIndex < 0) {
+        return;
+    }
+    PlayerItemRecord* firstBase = nullptr;
+    PlayerItemRecord* secondBase = nullptr;
+    if (firstGroup == 0) {
+        if (firstIndex >= 28) {
+            return;
+        }
+        firstBase = gPlayerItemsFDA8A4.data();
+    } else if (firstGroup >= 1 && firstGroup <= 5) {
+        if (firstIndex >= 6) {
+            return;
+        }
+        firstBase = gPetRuntimeF633F8[firstGroup - 1].items6E4.data();
+    }
+    if (secondGroup == 0) {
+        if (secondIndex >= 28) {
+            return;
+        }
+        secondBase = gPlayerItemsFDA8A4.data();
+    } else if (secondGroup >= 1 && secondGroup <= 5) {
+        if (secondIndex >= 6) {
+            return;
+        }
+        secondBase = gPetRuntimeF633F8[secondGroup - 1].items6E4.data();
+    }
+    if (firstBase == nullptr || secondBase == nullptr) {
+        return;
+    }
+    PlayerItemRecord* const first = firstBase + firstIndex;
+    PlayerItemRecord* const second = secondBase + secondIndex;
+    PlayerItemRecord temporary;
+    std::memcpy(&temporary, first, sizeof(temporary));
+    std::memmove(first, second, sizeof(temporary));
+    std::memcpy(second, &temporary, sizeof(temporary));
+}
+
 // 原宠物表、索引对和两独立标量均为PE虚拟零区；构造由LegacyMouse按CRT顺序接入。
 std::array<PetRuntimeRecord, 5> gPetRuntimeF633F8 {};
 std::array<PetPairRecord, 5> gPetPairsDE0B08 {};
 std::int32_t gPetCountDE0B00 = 0;
 std::uint32_t gValueD67B28 = 0;
+
+// 原F7C950同属PE虚拟零区，独立于宠物表与F7C9FC之后的状态。
+ReplyRecordF7C950 gReplyRecordF7C950 {};
 
 void Sub_50A6B0(
     const std::uintptr_t /*socket*/, const std::int32_t index, const char* const payload)

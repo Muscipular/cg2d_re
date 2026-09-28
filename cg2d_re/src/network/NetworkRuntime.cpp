@@ -784,6 +784,36 @@ void Sub_50F190(
     world::detail::Sub_44B050(message, 4, 3);
 }
 
+void Sub_510460(
+    const std::uintptr_t, const std::int32_t firstGroup, const std::int32_t firstIndex,
+    const std::int32_t secondGroup, const std::int32_t secondIndex)
+{
+    if (world::gValue9A6E0C != 0) {
+        return;
+    }
+    world::detail::Sub_51B630(firstGroup, firstIndex, secondGroup, secondIndex);
+}
+
+void Sub_510490(const std::uintptr_t, const char* const text)
+{
+    auto& record = world::detail::gReplyRecordF7C950;
+    if (ExtractDelimitedField_52CED0(text, ',', 1, 31, record.text04.data()) != 0) {
+        record.used = 0;
+        return;
+    }
+    record.used = 1;
+    input::UnescapeLegacyTextAndNotify_52D2F0(record.text04.data());
+    static_cast<void>(ExtractDelimitedField_52CED0(
+        text, ',', 2, 31, record.text25.data()));
+    input::UnescapeLegacyTextAndNotify_52D2F0(record.text25.data());
+    record.hasText24 = static_cast<std::uint8_t>(
+        std::strcmp(record.text25.data(), " ") != 0);
+    record.value48 = ParseDelimitedInteger_52CFA0(text, ',', 3);
+    for (std::int32_t index = 0; index < 24; ++index) {
+        record.values4C[index] = ParseDelimitedInteger_52CFA0(text, ',', index + 4);
+    }
+}
+
 } // namespace detail
 
 namespace {

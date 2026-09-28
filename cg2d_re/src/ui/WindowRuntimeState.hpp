@@ -167,6 +167,10 @@ void Sub_4C6B10(WindowItemSelectorState* state); // 消费本帧hover，宠物�
 std::int32_t Sub_4C6D90(WindowItemSelectorState* state); // 内嵌预览推进及实际绘制返回。
 std::int32_t Sub_4C71C0(std::int32_t ordinal); // 扫描排序对，匹配不足仍取末项S16索引。
 bool Sub_4C7340(WindowItemSelectorState* state, std::int32_t mode); // 写低U8后按旧页2/3切换。
+bool Sub_4C7380(WindowItemSelectorState* state, std::int32_t tab, std::int32_t events);
+bool Sub_4C78A0(WindowItemSelectorState* state, std::int32_t events); // 预览显示开关及按钮图。
+bool Sub_4C7910(WindowItemSelectorState* state, std::int32_t events); // 装备开关，索引无效时保留部分改写。
+bool Sub_4C7A10(WindowItemSelectorState* state, std::int32_t events); // 低U16两方向事件独立处理。
 void Sub_4C7A90(WindowItemSelectorState* state); // 条件首次切页，尾始终逐帧推进。
 std::int32_t Sub_4C7240(
     const WindowItemSelectorState* state, std::int32_t element, std::int32_t slot,
@@ -180,6 +184,11 @@ bool Sub_4C72C0(
 std::int32_t Sub_48A6C0(std::int32_t index, std::int32_t state); // 装备屏蔽页完整绘制。
 std::int32_t Sub_489F00(std::int32_t index, std::int32_t state); // 两模式物品选择/退出与完整绘制。
 std::int32_t Sub_4888C0(const char* text); // 对话29选择入口，发布特殊回调后绑定焦点。
+std::int32_t Sub_488930(std::int32_t unusedIndex, std::int32_t state);
+std::int32_t Sub_488950(std::int32_t unusedIndex, std::int32_t state);
+std::int32_t Sub_488970(std::int32_t unusedIndex, std::int32_t state);
+std::int32_t Sub_488EA0(std::int32_t unusedIndex, std::int32_t state);
+std::int32_t Sub_488EC0(std::int32_t index, std::int32_t state); // 五索引对中选择对应宠物页签。
 std::int32_t Sub_488FB0(std::int32_t index, std::int32_t state); // 普通背包完整交互/绘制。
 std::int32_t Sub_489760(std::int32_t index, std::int32_t state); // 玩家/宠物装备完整交互。
 std::int32_t Sub_489EE0(std::int32_t unusedIndex, std::int32_t state);

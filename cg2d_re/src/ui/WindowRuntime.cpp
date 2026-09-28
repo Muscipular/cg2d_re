@@ -4027,6 +4027,136 @@ bool Sub_4C7340(WindowItemSelectorState* const state, const std::int32_t mode)
     return true;
 }
 
+bool Sub_4C7380(
+    WindowItemSelectorState* const state, const std::int32_t tab, const std::int32_t events)
+{
+    static constexpr std::int32_t images54F5F4[] {
+        244294, 244294, 244295, 244296, 98148, 98131, 98148, 98132,
+        98142, 98140, 98142, 98141, 98145, 98143, 98145, 98144,
+    };
+    WindowElement* const element = state->elements00[tab + 2];
+    auto* const graphic = static_cast<WindowGraphicData*>(element->data);
+    const bool hovered = (events & 1) != 0;
+    bool consumed = false;
+    if (hovered) {
+        const std::int32_t page = state->value60;
+        if (page == 0) {
+            std::strcpy(gHoverTextD68AE8.data(), tab == 0
+                ? "\xB6\x7D\xB1\xD2\xB8\xCB\xB3\xC6\xB5\xF8\xB5\xA1\xA1\x43"
+                : "\xB6\x7D\xB1\xD2\xC3\x64\xAA\xAB\xB8\xCB\xB3\xC6\xA1\x43");
+        } else if (page > 1 && page <= 3) {
+            if (std::bit_cast<std::int8_t>(*state->mode68) == tab) {
+                std::strcpy(gHoverTextD68AE8.data(), tab == 0
+                    ? "\xC3\xF6\xB3\xAC\xB8\xCB\xB3\xC6\xB5\xF8\xB5\xA1\xA1\x43"
+                    : "\xC3\xF6\xB3\xAC\xC3\x64\xAA\xAB\xB8\xCB\xB3\xC6\xA1\x43");
+            } else {
+                std::strcpy(gHoverTextD68AE8.data(), tab == 0
+                    ? "\xA4\xC1\xB4\xAB\xA8\xEC\xA8\xAD\xA4\x57\xB8\xCB\xB3\xC6\xA1\x43"
+                    : "\xA4\xC1\xB4\xAB\xC3\x64\xAA\xAB\xB8\xCB\xB3\xC6\xA1\x43");
+            }
+        }
+    }
+    if ((events & 2) != 0) {
+        gCurrentWindow->state |= 0x2000u;
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        const std::int32_t page = state->value60;
+        if (page == 0) {
+            static_cast<void>(Sub_4C7340(state, tab));
+            Sub_4C6550(state, 1);
+        } else if (page > 1 && page <= 3) {
+            if (std::bit_cast<std::int8_t>(*state->mode68) == tab) {
+                Sub_4C6550(state, 4);
+            } else {
+                static_cast<void>(Sub_4C7340(state, tab));
+                Sub_4C6550(state, 1);
+            }
+        }
+        consumed = true;
+    }
+    const WindowInstance* const window = gCurrentWindow;
+    const std::int32_t x = element->width / 2 + window->x + element->x + 1;
+    const std::int32_t y = element->height / 2 + window->y + element->y + 1;
+    const std::int32_t page = state->value60;
+    if ((page == 2 || page == 3) && std::bit_cast<std::int8_t>(*state->mode68) == tab) {
+        static_cast<void>(login::detail::DrawGraphic(
+            x, y, 223, images54F5F4[tab * 4 + (hovered ? 3 : 1)],
+            0, &state->descriptors3B8[0]));
+    }
+    std::int32_t imageIndex;
+    if ((events & 8) != 0) {
+        imageIndex = 2;
+    } else if (hovered) {
+        imageIndex = 3;
+    } else if (state->value60 != 0) {
+        imageIndex = (std::bit_cast<std::int8_t>(*state->mode68) != tab) + 1;
+    } else {
+        imageIndex = 0;
+    }
+    graphic->imageNo = images54F5F4[tab * 4 + imageIndex];
+    return consumed;
+}
+
+bool Sub_4C78A0(WindowItemSelectorState* const state, const std::int32_t events)
+{
+    bool consumed = false;
+    if ((events & 2) != 0) {
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        state->value3EC = state->value3EC == 0;
+        consumed = true;
+    }
+    state->imageIndex3F0 = (events & 8) != 0 ? 2 : ((events & 1) != 0 ? 3 : 1);
+    return consumed;
+}
+
+bool Sub_4C7910(WindowItemSelectorState* const state, const std::int32_t events)
+{
+    bool consumed = false;
+    if ((events & 2) != 0) {
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        const std::uint8_t previous = state->value3ED;
+        const std::uint8_t* const mode = state->mode68;
+        const std::uint8_t enabled = previous == 0;
+        state->value3ED = enabled;
+        if (std::bit_cast<std::int8_t>(*mode) > 0) {
+            state->elements00[1]->mouseCallback = enabled == 1
+                ? state->callbacks50[2] : Sub_4B0F10;
+            if (!world::IsValidPetIndex_51C410(state->selectedPet70)) {
+                return false;
+            }
+            for (std::int32_t position = 0;
+                 position < world::detail::gPetRuntimeF633F8[state->selectedPet70].values6D8[0];
+                 ++position) {
+                const std::uint8_t visible = state->value3ED == 0;
+                state->elements00[9 + position]->visible = visible;
+            }
+        }
+        consumed = true;
+    }
+    state->imageIndex3F4 = (events & 8) != 0 ? 2 : ((events & 1) != 0 ? 3 : 1);
+    return consumed;
+}
+
+bool Sub_4C7A10(WindowItemSelectorState* const state, const std::int32_t events)
+{
+    bool consumed = false;
+    if ((events & 0x402) != 0) {
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        const std::int32_t direction = login::detail::GetYobiActionField2B8(state->preview);
+        login::detail::SetYobiActionField2B8(state->preview, (direction + 1) % 8);
+        consumed = true;
+    }
+    if ((events & 0x804) != 0) {
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        const std::int32_t direction = login::detail::GetYobiActionField2B8(state->preview) - 1;
+        login::detail::SetYobiActionField2B8(state->preview, direction);
+        if (direction < 0) {
+            login::detail::SetYobiActionField2B8(state->preview, direction + 8);
+        }
+        consumed = true;
+    }
+    return consumed;
+}
+
 void Sub_4C7A90(WindowItemSelectorState* const state)
 {
     if (state->initialized3E8 == 0) {
@@ -4131,6 +4261,63 @@ std::int32_t Sub_4888C0(const char* const text)
     gItemSelectionModeCC40D4 = 2;
     static_cast<void>(Sub_475DA0(1, 0, nullptr));
     return Sub_4763B0(14, 0);
+}
+
+std::int32_t Sub_488930(const std::int32_t, const std::int32_t state)
+{
+    return Sub_4C78A0(&gItemSelectorCF3B10, state) ? 1 : 0;
+}
+
+std::int32_t Sub_488950(const std::int32_t, const std::int32_t state)
+{
+    return Sub_4C7910(&gItemSelectorCF3B10, state) ? 1 : 0;
+}
+
+std::int32_t Sub_488970(const std::int32_t, const std::int32_t state)
+{
+    static_cast<void>(Sub_4C7A10(&gItemSelectorCF3B10, state));
+    return 0;
+}
+
+std::int32_t Sub_488EA0(const std::int32_t, const std::int32_t state)
+{
+    return Sub_4C7380(&gItemSelectorCF3B10, 0, state) ? 1 : 0;
+}
+
+std::int32_t Sub_488EC0(const std::int32_t index, const std::int32_t state)
+{
+    const std::int32_t ordinal = index - 19;
+    std::int32_t remaining = ordinal;
+    bool found = false;
+    for (std::int32_t position = 0; position < 5; ++position) {
+        const auto& pair = world::detail::gPetPairsDE0B08[position];
+        if (pair.used == 0) {
+            continue;
+        }
+        const std::int32_t pet = std::bit_cast<std::int16_t>(pair.index);
+        const std::uint16_t flags = world::detail::gPetRuntimeF633F8[pet].flags6AA;
+        if (flags == 1 || flags == 2) {
+            --remaining;
+            if (remaining < 0) {
+                found = true;
+                break;
+            }
+        }
+    }
+    if (found) {
+        if (ordinal >= 0) {
+            return Sub_4C7380(&gItemSelectorCF3B10, ordinal + 1, state) ? 1 : 0;
+        }
+    } else if (std::bit_cast<std::int8_t>(gValue57DA28) == ordinal + 1) {
+        --gValue57DA28;
+    }
+    std::int32_t consumed = 0;
+    if ((state & 2) != 0) {
+        static_cast<void>(audio::PlaySe_52C450(55, 320));
+        consumed = 1;
+    }
+    static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 244306;
+    return consumed;
 }
 
 void Sub_488510()

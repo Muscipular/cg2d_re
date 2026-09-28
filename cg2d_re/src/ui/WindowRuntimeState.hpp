@@ -365,6 +365,11 @@ std::int32_t Sub_4B45A0(
     std::int32_t index, std::int32_t skill); // 交易宠物技能行，空文本仍绘制行图。
 std::int32_t Sub_4B4680(
     std::int32_t x, std::int32_t y, std::int32_t side, std::int32_t index); // 完整交易宠物提示。
+std::int32_t Sub_4B3B00(
+    std::int32_t x, std::int32_t y, std::int32_t petIndex,
+    std::int32_t skillPosition); // 己方技能按S16索引对取名称。
+std::int32_t Sub_4B3BF0(
+    std::int32_t x, std::int32_t y, std::int32_t index); // 完整己方宠物提示，含重量行。
 login::YobiAction* Sub_4E5620(const char* name); // 全量清交易双侧后复制己方，最后打开43。
 void Sub_4E4E60(std::int32_t index, const char* name); // 先发送选择请求，失败仍继续本地打开。
 login::YobiAction* Sub_49E800(const char* text, WindowListSelectionCallback callback);

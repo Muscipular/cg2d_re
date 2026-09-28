@@ -1385,6 +1385,120 @@ std::int32_t Sub_4B4680(
         shortX, shortY, 0xE6, 0x3BA95, 0, 1, 0, &descriptor);
 }
 
+std::int32_t Sub_4B3B00(
+    const std::int32_t x, const std::int32_t y,
+    const std::int32_t petIndex, const std::int32_t skillPosition)
+{
+    render::GraphicDescriptor16 descriptor {};
+    const auto& pet = world::detail::gPetRuntimeF633F8[petIndex];
+    const std::int16_t skillIndex =
+        std::bit_cast<std::int16_t>(pet.techniquePairs650[skillPosition].index);
+    const std::uint32_t color = 0xFFFFFFFFu;
+    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    descriptor.bytes[13] = 4;
+    const char* const text = pet.techniquesD8[skillIndex].name.data();
+    if (*text != '\0') {
+        static_cast<void>(render::ClearTextQueueTail_456D50(5));
+        static_cast<void>(render::DrawText_456780(
+            0, 0, 5, 1, 0, input::LegacyText593850(), 0, 0));
+        static_cast<void>(render::DrawText_456780(
+            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 7)),
+            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 2)),
+            5, 12, 0, text, 0, 0));
+    }
+    const std::int32_t shortY =
+        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y));
+    const std::int32_t shortX =
+        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x));
+    return login::detail::DrawGraphic(
+        shortX + 105, shortY + 8, 0xE6, 0x3B59C, 0, &descriptor);
+}
+
+std::int32_t Sub_4B3BF0(
+    const std::int32_t x, const std::int32_t y, const std::int32_t index)
+{
+    render::GraphicDescriptor16 descriptor {};
+    const std::int32_t shortIndex =
+        std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(index));
+    const auto& pet = world::detail::gPetRuntimeF633F8[shortIndex];
+    if (pet.used == 0) {
+        return 0;
+    }
+    const std::uint32_t color = 0xFFFFFFFFu;
+    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    descriptor.bytes[13] = 4;
+    static_cast<void>(render::ClearTextQueueTail_456D50(5));
+    static_cast<void>(render::DrawText_456780(
+        0, 0, 5, 1, 0, input::LegacyText593850(), 0, 0));
+    const char* const title = pet.name6AC.data();
+    if (title != nullptr) {
+        static_cast<void>(render::DrawText_456780(
+            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 60)),
+            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 11)),
+            5, 12, 0, title, 0, 0));
+    }
+    const std::int32_t shortY =
+        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y));
+    std::array<char, 100> buffer;
+    for (std::int32_t row = 0; row < 5; ++row) {
+        const std::int32_t value = pet.values70[5 + row];
+        std::sprintf(buffer.data(), "%10d", value);
+        static_cast<void>(render::DrawText_456780(
+            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 144)),
+            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(shortY + 23 + row * 15)),
+            5, 12, 0, buffer.data(), 0, 0));
+    }
+    const std::int32_t maximumWeight = pet.values6D8[2];
+    if (maximumWeight > 0) {
+        const std::int32_t weight = pet.values6D8[1];
+        std::sprintf(buffer.data(), "%3d / %3d", weight, maximumWeight);
+        static_cast<void>(render::DrawText_456780(
+            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 61)),
+            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 31)),
+            5, 12, 0, buffer.data(), 0, 0));
+    }
+    if (gPreviewActionD67B84 == nullptr) {
+        gPreviewActionD67B84 = login::detail::NewYobiAction_404AE0(2, 0);
+    }
+    const std::int32_t imageNo = pet.imageNo6A0;
+    login::detail::ConfigureWindowPetPreview(gPreviewActionD67B84, imageNo);
+    static_cast<void>(login::detail::Sub_517880(gPreviewActionD67B84, 100, 0, 0));
+    login::YobiAction* const action = gPreviewActionD67B84;
+    const std::int32_t shortX =
+        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x));
+    const render::GraphicDescriptor16* const mode =
+        login::detail::BorrowYobiActionDrawMode(action);
+    const std::int32_t graphicIndex = login::detail::GetYobiActionField20(action);
+    static_cast<void>(render::DrawGraphic2_521DD0(
+        shortX + 70, shortY + 120, 0xE6, graphicIndex, 0, 0, mode));
+    for (std::int32_t row = 0; row < 4; ++row) {
+        const std::int32_t segments = pet.values70[21 + row] / 10;
+        const auto& images = gPetBarImages57E434[row];
+        const std::int32_t barY = shortY + 97 + row * 11;
+        if (segments > 1) {
+            static_cast<void>(render::DrawGraphic3_520970(
+                shortX + 149, barY, 0xE6, images[0], 0, 1, 0, &descriptor));
+            std::int32_t barX = shortX + 155;
+            for (std::int32_t middle = 0; middle < segments - 2; ++middle) {
+                static_cast<void>(render::DrawGraphic3_520970(
+                    barX, barY, 0xE6, images[1], 0, 1, 0, &descriptor));
+                barX += 6;
+            }
+            static_cast<void>(render::DrawGraphic3_520970(
+                barX, barY, 0xE6, images[2], 0, 1, 0, &descriptor));
+        } else if (segments == 1) {
+            static_cast<void>(render::DrawGraphic3_520970(
+                shortX + 149, barY, 0xE6, images[3], 0, 1, 0, &descriptor));
+        }
+    }
+    for (std::int32_t skill = 0; skill < 10; ++skill) {
+        static_cast<void>(Sub_4B3B00(
+            shortX + 10, shortY + 141 + skill * 16, shortIndex, skill));
+    }
+    return render::DrawGraphic3_520970(
+        shortX, shortY, 0xE6, 0x3BA95, 0, 1, 0, &descriptor);
+}
+
 std::int32_t Sub_4AFFE0(const std::int32_t index)
 {
     const std::int32_t slot = std::bit_cast<std::int8_t>(gTradeItemSlotsCF3AE8[index]);

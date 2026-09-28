@@ -75,7 +75,7 @@ std::int32_t Sub_403E50(
     const void* data,
     std::uint32_t size);
 
-// 原取包与分派；真实实现尚缺，不以空实现代替。
+// 原取包排除接线仍待处理；完整分派本体已落位，其余回复依赖见NetworkDispatchDependencies。
 std::int32_t Sub_403C50(void* destination, std::int32_t capacity);
 std::int32_t NetworkDispatch_512E40(
     std::uintptr_t socket, const void* received);

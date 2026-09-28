@@ -54,7 +54,8 @@ std::int32_t PollCharacterCreationRequest()
 void HandleCharacterCreationResponse_508EE0(
     const std::uintptr_t,
     const char* const result,
-    const std::int32_t registNumber)
+    const std::int32_t registNumber,
+    const char* const)
 {
     if (gRequestStatus != 1) {
         return;

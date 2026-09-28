@@ -6,7 +6,11 @@
 #include "../world/WorldUpdateDependencies.hpp"
 #include "../platform/MainLoopDependencies.hpp"
 #include "NetworkRuntimeDependencies.hpp"
+#include "NetworkDispatchDependencies.hpp"
 
+#include "cg/CharacterCreationRequest.hpp"
+#include "cg/CharacterDeletionRequest.hpp"
+#include "cg/CharacterListRequest.hpp"
 #include "cg/Input.hpp"
 #include "cg/LegacyAudio.hpp"
 #include "cg/LegacyRecordOrder.hpp"
@@ -16,6 +20,8 @@
 #include "cg/YobiRuntime.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/platform/LegacyTime.hpp"
+#include "cg/platform/LegacyMouseTracker.hpp"
+#include "cg/ui/WindowRuntime.hpp"
 #include "cg/world/SceneState.hpp"
 
 #include <winsock2.h>
@@ -31,6 +37,9 @@
 #include <ctime>
 #include <exception>
 #include <string>
+#include <tuple>
+#include <type_traits>
+#include <utility>
 
 namespace cg::network {
 namespace {
@@ -779,7 +788,7 @@ void Sub_50F190(
 
 namespace {
 
-[[maybe_unused]] void HandleResponse_508800(
+void HandleResponse_508800(
     const std::uintptr_t,
     const std::int32_t value,
     const char* const text)
@@ -3653,6 +3662,192 @@ std::int32_t Sub_512720(
         socket,
         reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
 }
+
+namespace {
+
+// 512E40每项独立读取参数表；文本先反转义再复制到同编号工作区。
+template <typename Value>
+Value DecodeDispatchArgument(const std::size_t index)
+{
+    static_assert(std::is_same_v<Value, std::int32_t> || std::is_same_v<Value, char*>);
+    if constexpr (std::is_same_v<Value, std::int32_t>) {
+        return ParseProtocolInteger_517190(gNetworkRuntimeState.pointerTable58B614[index]);
+    } else {
+        std::uint8_t* const decoded = Sub_5171B0(gNetworkRuntimeState.pointerTable58B614[index]);
+        const std::int32_t capacity = std::bit_cast<std::int32_t>(
+            gNetworkRuntimeState.bufferLength);
+        auto* const destination = static_cast<std::uint8_t*>(
+            gNetworkRuntimeState.workspaceSlots[index]);
+        return reinterpret_cast<char*>(
+            CopyProtocolBytesAndReturn_517690(destination, capacity, decoded));
+    }
+}
+
+template <typename... Values, std::size_t... Indices>
+std::tuple<Values...> DecodeDispatchArguments(std::index_sequence<Indices...>)
+{
+    // 花括号初始化保证先完成第N项，再读取第N+1项及其共享临时区。
+    return std::tuple<Values...> {DecodeDispatchArgument<Values>(Indices + 1)...};
+}
+
+template <auto Callback, typename... Values>
+bool TryDispatchReply(
+    const char* const head, const char* const command, const std::uintptr_t socket)
+{
+    if (std::strcmp(head, command) != 0) {
+        return false;
+    }
+    const auto values = DecodeDispatchArguments<Values...>(
+        std::index_sequence_for<Values...> {});
+    std::apply([socket](const auto... arguments) {
+        static_cast<void>(Callback(socket, arguments...));
+    }, values);
+    return true;
+}
+
+// 原509080不读取参数；六个调用形态仍先完成各自的全部解码。
+template <typename... Values>
+void IgnoreReplyArguments_509080(const std::uintptr_t, Values...)
+{
+    input::NullSub_509080();
+}
+
+} // namespace
+
+namespace detail {
+
+std::int32_t NetworkDispatch_512E40(
+    const std::uintptr_t socket, const void* const received)
+{
+    const std::int32_t capacity = std::bit_cast<std::int32_t>(
+        gNetworkRuntimeState.bufferLength);
+    CopyProtocolBytes_517080(
+        gNetworkRuntimeState.buffer58B5F0,
+        static_cast<const std::uint8_t*>(received), capacity);
+    SplitReceivedBuffer_5173B0(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
+    std::uint32_t headerValue;
+    char head[1024];
+    Sub_517040(&headerValue, reinterpret_cast<std::uint8_t*>(head), sizeof(head),
+        gNetworkRuntimeState.pointerTable58B614);
+    const auto passwordByte = static_cast<std::uint8_t>(login::gValueDA3A5C[0]);
+    Sub_403A70(head, passwordByte, login::gValueDA3A5C, 20, login::gValueDA3A1C);
+
+    // I为完整S32解析，T为同编号工作区char*；顺序与原108条比较路径一致。
+    using I = std::int32_t;
+    using T = char*;
+    if (TryDispatchReply<world::detail::Sub_5093C0, I, I, I>(head, "QBt", socket)) return 0;
+    if (TryDispatchReply<world::detail::Sub_509090, I, I, I, I, I, I, I, I, I>(head, "jmb", socket)) return 0;
+    if (TryDispatchReply<world::detail::Sub_509100, I, I, I, I, I, I, T>(head, "aBS", socket)) return 0;
+    if (TryDispatchReply<world::detail::Sub_50CF90, I, I>(head, "EZ", socket)) return 0;
+    if (TryDispatchReply<world::detail::Sub_50D080, I, I>(head, "OaHi", socket)) return 0;
+    if (TryDispatchReply<world::detail::Sub_50D120, I, I>(head, "dAgg", socket)) return 0;
+    if (TryDispatchReply<Sub_50D500, T>(head, "Gn", socket)) return 0;
+    if (TryDispatchReply<Sub_50D700, T>(head, "hB", socket)) return 0;
+    if (TryDispatchReply<world::detail::Sub_50D3C0, T>(head, "LYIm", socket)) return 0;
+    if (TryDispatchReply<world::detail::Sub_50BFD0, T>(head, "ELoy", socket)) return 0;
+    if (TryDispatchReply<world::detail::Sub_50C260, T>(head, "rU", socket)) return 0;
+    if (TryDispatchReply<world::detail::Sub_50C870, I, I, I, I>(head, "PudO", socket)) return 0;
+    if (TryDispatchReply<world::detail::Sub_50C900, I, I>(head, "vWpn", socket)) return 0;
+    if (TryDispatchReply<world::detail::Sub_50C580, I, T>(head, "xmgQ", socket)) return 0;
+    if (TryDispatchReply<world::detail::Sub_50C7A0, I, I>(head, "MTg", socket)) return 0;
+    if (TryDispatchReply<Sub_50DC70, I, T, I>(head, "Mhbt", socket)) return 0;
+    if (TryDispatchReply<world::detail::Sub_50E5B0, I, T>(head, "Ilz", socket)) return 0;
+    if (TryDispatchReply<world::detail::Sub_50E5D0, I, I, I, I, I, I, I, I, I, I, I, I, I, I, I, T, T>(head, "dM", socket)) return 0;
+    if (TryDispatchReply<IgnoreReplyArguments_509080<I, T>, I, T>(head, "Dn", socket)) return 0;
+    if (TryDispatchReply<IgnoreReplyArguments_509080<I>, I>(head, "IYo", socket)) return 0;
+    if (TryDispatchReply<Sub_50DD80, I, I, I, I, I, I, I, T>(head, "lDuJ", socket)) return 0;
+    if (TryDispatchReply<Sub_50D740, T>(head, "gnxd", socket)) return 0;
+    if (TryDispatchReply<Sub_50D8C0, T>(head, "PhdQ", socket)) return 0;
+    if (TryDispatchReply<Sub_50D9E0, I, T>(head, "vI", socket)) return 0;
+    if (TryDispatchReply<Sub_50E830>(head, "GC", socket)) return 0;
+    if (TryDispatchReply<Sub_50E850, T>(head, "aDn", socket)) return 0;
+    if (TryDispatchReply<Sub_50EB40, T>(head, "znv", socket)) return 0;
+    if (TryDispatchReply<login::detail::UpdateOrderedRecordBatch_50EC50, T>(head, "yuD", socket)) return 0;
+    if (TryDispatchReply<login::detail::UpdateOrderedRecords_50EEB0, I, T>(head, "Kka", socket)) return 0;
+    if (TryDispatchReply<Sub_50F130, I>(head, "oRut", socket)) return 0;
+    if (TryDispatchReply<Sub_50F190, I, T, I>(head, "Rll", socket)) return 0;
+    if (TryDispatchReply<Sub_50F280, I>(head, "frQp", socket)) return 0;
+    if (TryDispatchReply<Sub_50F3A0, T>(head, "HNP", socket)) return 0;
+    if (TryDispatchReply<Sub_50F2A0, T>(head, "eZT", socket)) return 0;
+    if (TryDispatchReply<Sub_50F8E0, T>(head, "IUn", socket)) return 0;
+    if (TryDispatchReply<Sub_50F450, T, I, T, T, T, I, I, T, I, T, I, T, T>(head, "DpSY", socket)) return 0;
+    if (TryDispatchReply<Sub_50F430, T>(head, "cNB", socket)) return 0;
+    if (TryDispatchReply<Sub_50F7F0, I, T, I>(head, "ow", socket)) return 0;
+    if (TryDispatchReply<Sub_50F990, I, I, I, I, T>(head, "DyAG", socket)) return 0;
+    if (TryDispatchReply<Sub_50F9E0, T>(head, "KyN", socket)) return 0;
+    if (TryDispatchReply<world::detail::Sub_50CAE0, I, T, I, I>(head, "zdr", socket)) return 0;
+    if (TryDispatchReply<world::detail::Sub_50CE10, T>(head, "Zd", socket)) return 0;
+    if (TryDispatchReply<world::detail::Sub_509650, T>(head, "aPc", socket)) return 0;
+    if (TryDispatchReply<Sub_509BA0, T>(head, "UU", socket)) return 0;
+    if (TryDispatchReply<world::detail::Sub_50A6B0, I, T>(head, "IsSy", socket)) return 0;
+    if (TryDispatchReply<world::detail::Sub_50AC20, I, T>(head, "AU", socket)) return 0;
+    if (TryDispatchReply<Sub_50AEF0, T>(head, "TNT", socket)) return 0;
+    if (TryDispatchReply<world::detail::Sub_50B380, T>(head, "nsY", socket)) return 0;
+    if (TryDispatchReply<world::detail::Sub_50A3E0, I, T>(head, "JJQj", socket)) return 0;
+    if (TryDispatchReply<world::detail::Sub_50A300, T>(head, "Sc", socket)) return 0;
+    if (TryDispatchReply<world::detail::Sub_50BCD0, T>(head, "NI", socket)) return 0;
+    if (TryDispatchReply<Sub_50BF20, T>(head, "uSB", socket)) return 0;
+    if (TryDispatchReply<Sub_509E30, I, T>(head, "jv", socket)) return 0;
+    if (TryDispatchReply<world::detail::Sub_509EB0, T>(head, "cNE", socket)) return 0;
+    if (TryDispatchReply<Sub_50A120, I, T>(head, "Rspn", socket)) return 0;
+    if (TryDispatchReply<world::detail::Sub_50B0D0, I, T>(head, "OBee", socket)) return 0;
+    if (TryDispatchReply<IgnoreReplyArguments_509080<T>, T>(head, "Yo", socket)) return 0;
+    if (TryDispatchReply<world::detail::Sub_50BFA0, I>(head, "SkBD", socket)) return 0;
+    if (TryDispatchReply<Sub_50D3B0, I>(head, "sZWu", socket)) return 0;
+    if (TryDispatchReply<world::detail::Sub_50D000, I, I>(head, "bNY", socket)) return 0;
+    if (TryDispatchReply<Sub_50E340, T>(head, "ysVc", socket)) return 0;
+    if (TryDispatchReply<Sub_50E360, T>(head, "ND", socket)) return 0;
+    if (TryDispatchReply<Sub_50E380, T>(head, "LY", socket)) return 0;
+    if (TryDispatchReply<Sub_50E3A0, T>(head, "nFV", socket)) return 0;
+    if (TryDispatchReply<Sub_50C7F0, I, I, T>(head, "JgO", socket)) return 0;
+    if (TryDispatchReply<Sub_50E3C0, T>(head, "Cxo", socket)) return 0;
+    if (TryDispatchReply<Sub_50E3F0, T, I>(head, "ms", socket)) return 0;
+    if (TryDispatchReply<ui::Sub_50E440>(head, "NdM", socket)) return 0;
+    if (TryDispatchReply<ui::Sub_50E4A0, T>(head, "nUbJ", socket)) return 0;
+    if (TryDispatchReply<ui::Sub_50E470, I>(head, "hJq", socket)) return 0;
+    if (TryDispatchReply<ui::Sub_50E4D0, I, T>(head, "RwK", socket)) return 0;
+    if (TryDispatchReply<ui::Sub_50E500, I, T>(head, "Yq", socket)) return 0;
+    if (TryDispatchReply<ui::Sub_50E530>(head, "xEg", socket)) return 0;
+    if (TryDispatchReply<ui::Sub_50E570, I>(head, "We", socket)) return 0;
+    if (TryDispatchReply<Sub_50CF20, I, I, I, I>(head, "BHe", socket)) return 0;
+    if (TryDispatchReply<Sub_50CF60, I>(head, "kg", socket)) return 0;
+    if (TryDispatchReply<world::detail::Sub_50CF70, I, I>(head, "sA", socket)) return 0;
+    if (TryDispatchReply<world::detail::Sub_50BFC0, I>(head, "Ov", socket)) return 0;
+    if (TryDispatchReply<Sub_50E110, I, I, I, I, T>(head, "BZ", socket)) return 0;
+    if (TryDispatchReply<world::detail::Sub_50E1A0, I, I, T>(head, "zzd", socket)) return 0;
+    if (TryDispatchReply<world::detail::Sub_50E210, I>(head, "TFCu", socket)) return 0;
+    if (TryDispatchReply<Sub_50E310, I>(head, "wiB", socket)) return 0;
+    if (TryDispatchReply<Sub_50E630, I, I>(head, "bJg", socket)) return 0;
+    if (TryDispatchReply<world::detail::Sub_50E650, I, I, I, I, I>(head, "PVfz", socket)) return 0;
+    if (TryDispatchReply<Sub_50E680, I, I, I>(head, "murD", socket)) return 0;
+    if (TryDispatchReply<Sub_50E6C0, I, I, I>(head, "ftaN", socket)) return 0;
+    if (TryDispatchReply<world::detail::Sub_509550, T>(head, "TeD", socket)) return 0;
+    if (TryDispatchReply<world::detail::Sub_5093F0, I, I, I, I, I, I, I, I, I, I, I, I>(head, "GmNM", socket)) return 0;
+    if (TryDispatchReply<HandleResponse_508800, I, T>(head, "whV", socket)) return 0;
+    if (TryDispatchReply<login::HandleCharacterCreationResponse_508EE0, T, I, T>(head, "DZ", socket)) return 0;
+    if (TryDispatchReply<login::HandleCharacterDeletionResponse_509020, T, T>(head, "oy", socket)) return 0;
+    if (TryDispatchReply<login::HandleLoginResponse_508BC0, T, T>(head, "hPUd", socket)) return 0;
+    if (TryDispatchReply<login::HandleCharacterListResponse_5089B0, I, T>(head, "Daj", socket)) return 0;
+    if (TryDispatchReply<Sub_508CF0, T, T>(head, "HMNy", socket)) return 0;
+    if (TryDispatchReply<IgnoreReplyArguments_509080<T>, T>(head, "cJzI", socket)) return 0;
+    if (TryDispatchReply<IgnoreReplyArguments_509080<I, I>, I, I>(head, "Bi", socket)) return 0;
+    if (TryDispatchReply<IgnoreReplyArguments_509080<T>, T>(head, "LOh", socket)) return 0;
+    if (TryDispatchReply<Sub_50E6E0, T>(head, "lSZ", socket)) return 0;
+    if (TryDispatchReply<character_select::detail::Sub_50E770, I>(head, "PfM", socket)) return 0;
+    if (TryDispatchReply<Sub_50E780, I>(head, "ed", socket)) return 0;
+    if (TryDispatchReply<platform::ConfigureLegacyMouseTracker_50E7B0, I, I>(head, "tq", socket)) return 0;
+    if (TryDispatchReply<Sub_50E7D0, I>(head, "Tmrx", socket)) return 0;
+    if (TryDispatchReply<Sub_50E7E0, I>(head, "KXhH", socket)) return 0;
+    if (TryDispatchReply<Sub_50E7F0, I, I, T, T, T, T>(head, "ft", socket)) return 0;
+    if (TryDispatchReply<Sub_50E820, I>(head, "Yx", socket)) return 0;
+    static_cast<void>(TryDispatchReply<Sub_510150, I, T>(head, "iKe", socket));
+    static_cast<void>(TryDispatchReply<Sub_510460, I, I, I, I>(head, "kiG", socket));
+    static_cast<void>(TryDispatchReply<Sub_510490, T>(head, "TgX", socket));
+    return -1;
+}
+
+} // namespace detail
 
 std::int32_t AllocateNetworkWorkspace_516B60(
     const NetworkCallback callback,

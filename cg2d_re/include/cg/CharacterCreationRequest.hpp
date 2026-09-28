@@ -14,6 +14,7 @@ std::int32_t PollCharacterCreationRequest();
 void HandleCharacterCreationResponse_508EE0(
     std::uintptr_t socket,
     const char* result,
-    std::int32_t registNumber);
+    std::int32_t registNumber,
+    const char* unusedText); // 原dispatcher仍复制并传入第四参数，本体未读取。
 
 } // namespace cg::login

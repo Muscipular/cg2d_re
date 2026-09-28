@@ -82,6 +82,8 @@ extern InputContext gInputContextCB0878;
 extern InputContext gInputContextCA0018;
 // 原CC49C0：窗口51标题编辑，末尾不包含CC4B1C状态。
 extern InputContext gInputContextCC49C0;
+// 原CA02E0：通用对话36/37共享输入上下文，UI只借用。
+extern InputContext gInputContextCA02E0;
 // 原 dword_C9A96C@0xC9A96C：该特殊上下文的外部控制值，映像初值为零。
 extern std::int32_t gValueC9A96C;
 

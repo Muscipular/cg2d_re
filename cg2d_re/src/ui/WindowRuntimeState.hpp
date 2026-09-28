@@ -310,6 +310,7 @@ struct WindowInputPrototype {
     std::int32_t value224;
     std::int32_t encrypt;
 };
+extern WindowInputPrototype gDialogInputPrototype57E478; // 同源可写输入原型，57E698为容量成员。
 
 union WindowUserState {
     std::uint32_t value; // 原+18的数值路径。

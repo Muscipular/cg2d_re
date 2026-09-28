@@ -8,6 +8,26 @@ namespace {
 // 原56CCC8的四字节元数据和593850借用，不创建另一份默认文本。
 WindowTextPrototype gWindowText56CCC8 {{}, input::LegacyText593850()};
 
+WindowGraphicData gWindowGraphic56CCF0 {0x3B598, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic56CD08 {0x3B592, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic56CD20 {0x3B595, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic56CD38 {0x3B562, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic56CD50 {0x3B556, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic56CD68 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu};
+constexpr char kWindowListPlaceholder585F64[] = "\xA1\xBD";
+constexpr char kWindowListTitle585F54[] =
+    "\xBD\xD0\xBF\xEF\xBE\xDC\xB9\xEF\xB6\x48\xA1\x43";
+WindowTextPrototype gWindowTexts56CD80[5] {
+    {{std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}}, kWindowListPlaceholder585F64},
+    {{std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}}, kWindowListPlaceholder585F64},
+    {{std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}}, kWindowListPlaceholder585F64},
+    {{std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}}, kWindowListPlaceholder585F64},
+    {{std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}}, kWindowListPlaceholder585F64},
+};
+WindowTextPrototype gWindowText56CDA8 {
+    {std::byte{4}, std::byte{1}, std::byte{0}, std::byte{0}}, kWindowListTitle585F54,
+};
+
 // 同一4A4210在原表也用于release；仅适配未消费返回值，不转换函数指针。
 void ReleaseWindow_4A4210()
 {
@@ -96,6 +116,29 @@ WindowPrototype& gWindowPrototype54E330 = gWindowPrototypeRecords[6];
 
 WindowElementPrototype gWindowElements56CCD0[1] {
     {3, 0, 44, 0, 0, 1, {.text = &gWindowText56CCC8}, &Sub_4B0F10},
+};
+
+WindowElementPrototype gWindowElements56CDB0[19] {
+    {1, 270, 60, 0, 14, 1, {.graphic = &gWindowGraphic56CCF0}, &Sub_4B0F10},
+    {4, 270, 60, 11, 85, 1,
+        {.mouseFlags = reinterpret_cast<std::uint32_t*>(&gWindowGraphic56CCF0.imageNo)}, &Sub_4741A0},
+    {1, 270, 50, 11, 11, 1, {.graphic = &gWindowGraphic56CD08}, &Sub_49EB50},
+    {1, 270, 144, 11, 11, 1, {.graphic = &gWindowGraphic56CD20}, &Sub_49EC00},
+    {1, 282, 47, 18, 18, 1, {.graphic = &gWindowGraphic56CD50}, &Sub_49ECC0},
+    {1, 282, 140, 18, 18, 1, {.graphic = &gWindowGraphic56CD68}, &Sub_49ED80},
+    {0, 0, 0, 320, 192, 1, {.unusedValue = 0}, &Sub_49EE60},
+    {1, 135, 159, 49, 17, 1, {.graphic = &gWindowGraphic56CD38}, &Sub_49EEB0},
+    {3, 70, 25, 0, 0, 1, {.text = &gWindowText56CDA8}, &Sub_4B0F10},
+    {3, 40, 55, 0, 0, 1, {.text = &gWindowTexts56CD80[0]}, &Sub_4B0F10},
+    {3, 40, 75, 0, 0, 1, {.text = &gWindowTexts56CD80[1]}, &Sub_4B0F10},
+    {3, 40, 95, 0, 0, 1, {.text = &gWindowTexts56CD80[2]}, &Sub_4B0F10},
+    {3, 40, 115, 0, 0, 1, {.text = &gWindowTexts56CD80[3]}, &Sub_4B0F10},
+    {3, 40, 135, 0, 0, 1, {.text = &gWindowTexts56CD80[4]}, &Sub_4B0F10},
+    {0, 40, 55, 200, 13, 1, {.unusedValue = 0}, &Sub_49EF60},
+    {0, 40, 75, 200, 13, 1, {.unusedValue = 0}, &Sub_49EF60},
+    {0, 40, 95, 200, 13, 1, {.unusedValue = 0}, &Sub_49EF60},
+    {0, 40, 115, 200, 13, 1, {.unusedValue = 0}, &Sub_49EF60},
+    {0, 40, 135, 200, 13, 1, {.unusedValue = 0}, &Sub_49EF60},
 };
 
 // 71个原生指针；原36/37同源，不因窗口编号不同复制对象。

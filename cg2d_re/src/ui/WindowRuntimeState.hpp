@@ -287,6 +287,8 @@ extern std::array<char, 17> gTradeNameD2D654;
 extern std::array<std::array<char, 17>, 10> gWindowListNamesCF3F20;
 extern std::int32_t gWindowListCountCF46A8;
 extern WindowListSelectionCallback gWindowListCallbackCB1E14; // 49EF60借用名单文本并弃返回。
+extern std::int32_t gWindowListOffsetCC3EF4;
+extern std::array<char, 256> gHoverTextD68AE8; // 已识别地址跨度，不是新增文本长度限制。
 extern std::int32_t gValueCC4D34; // 4D3020保存x/y数值，非CryptInt对象。
 extern std::int32_t gValueCC4D3C;
 extern std::int32_t gSelectedItemCB1DF4;
@@ -313,11 +315,28 @@ void Sub_4E52B0(std::int32_t side); // 同源玩家宠物属性及十项技能�
 void Sub_4E54E0(std::int32_t side, std::int32_t index); // 背包index+8到交易，不复制描述。
 void Sub_4E5600(std::int32_t side); // 顺序同步20条交易物品。
 std::int32_t Sub_4D3020(std::int32_t x, std::int32_t y); // 同源坐标依序保存，返回x。
+std::int32_t Sub_4D3040(std::int32_t rangeX, std::int32_t rangeY); // 到格才判断距快照的范围。
 login::YobiAction* Sub_4B0110(); // 清交易U8，创建窗口43动画并发布借用T*。
 login::YobiAction* Sub_4E5620(const char* name); // 全量清交易双侧后复制己方，最后打开43。
 void Sub_4E4E60(std::int32_t index, const char* name); // 先发送选择请求，失败仍继续本地打开。
 login::YobiAction* Sub_49E800(const char* text, WindowListSelectionCallback callback);
 login::YobiAction* Sub_4E4E80(const char* text); // 选择表绑定真实交易回调后打开44。
+void Sub_49E990(std::int32_t offset); // 逐项复制五行选择文本，重读当前窗口载荷。
+std::int32_t Sub_49E8F0(std::int32_t value); // 窗口44初始化与移动关闭。
+std::int32_t Sub_49EAA0(std::int32_t unused); // 窗口44滚动消费、完整绘制和九宫格。
+std::int32_t Sub_49EB50(std::int32_t index, std::int32_t state); // 上一行。
+std::int32_t Sub_49EC00(std::int32_t index, std::int32_t state); // 下一行。
+std::int32_t Sub_49ECC0(std::int32_t index, std::int32_t state); // 上五行。
+std::int32_t Sub_49ED80(std::int32_t index, std::int32_t state); // 下五行。
+std::int32_t Sub_49EE60(std::int32_t index, std::int32_t state); // 滚轮像素余量与偏移。
+std::int32_t Sub_49EEB0(std::int32_t index, std::int32_t state); // 取消提示/关闭及按钮三态。
+std::int32_t Sub_49EF60(std::int32_t index, std::int32_t state); // 实际选择回调，随后重读窗口关闭。
+void Sub_485110(WindowElement* element, std::int32_t state, std::uint32_t imageNo); // 元素外扩一像素悬停框。
+std::int32_t Sub_474270(WindowElement* element, std::int32_t maximum); // 像素位置反求数值位置。
+std::int32_t Sub_4742C0(WindowElement* element, std::int32_t maximum, std::int32_t position);
+std::int32_t Sub_4743B0(
+    WindowElement* element, std::int32_t position, std::int32_t maximum,
+    std::int32_t wheel); // 与4742C0参数顺序不同，保留两次截取与F32余量。
 void Sub_4E0100(std::int32_t side, std::int32_t index); // 另一展示副本，逐行复制描述。
 std::int32_t Sub_4FB8F0(); // 物品拖动重置，不等同窗口拖动。
 std::int32_t Sub_4FB920(std::int32_t index); // 仅清与本次回复槽号相同的非负拖动编号。

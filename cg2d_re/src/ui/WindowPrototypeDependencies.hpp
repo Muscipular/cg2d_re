@@ -4,7 +4,7 @@
 
 namespace cg::ui::detail {
 
-// 原57C130指向的真实元素数组；除56CCD0外尚待绑定，不定义零数组占位。
+// 原57C130指向的真实元素数组；56CCD0/56CDB0已绑定，其余不定义零数组占位。
 extern WindowElementPrototype gWindowElements55ED60[11];
 extern WindowElementPrototype gWindowElements55EEC0[2];
 extern WindowElementPrototype gWindowElements55F0A0[24];
@@ -133,8 +133,6 @@ std::int32_t Sub_49BD40(std::int32_t value);
 std::int32_t Sub_49C710(std::int32_t value);
 std::int32_t Sub_49CAD0(std::int32_t value);
 void Sub_49CDF0();
-std::int32_t Sub_49E8F0(std::int32_t value);
-std::int32_t Sub_49EAA0(std::int32_t value);
 void Sub_49F040();
 std::int32_t Sub_49F060(std::int32_t value);
 std::int32_t Sub_49F1A0(std::int32_t value);

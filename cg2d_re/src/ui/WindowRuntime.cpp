@@ -94,6 +94,8 @@ std::array<char, 17> gTradeNameD2D654 {};
 std::array<std::array<char, 17>, 10> gWindowListNamesCF3F20 {};
 std::int32_t gWindowListCountCF46A8 = 0;
 WindowListSelectionCallback gWindowListCallbackCB1E14 = nullptr;
+std::int32_t gWindowListOffsetCC3EF4 = 0;
+std::array<char, 256> gHoverTextD68AE8 {};
 std::int32_t gValueCC4D34 = 0;
 std::int32_t gValueCC4D3C = 0;
 static_assert(sizeof(gTradeNameD2D654) == 17);
@@ -789,6 +791,38 @@ std::int32_t Sub_4D3020(const std::int32_t x, const std::int32_t y)
     gValueCC4D34 = x;
     gValueCC4D3C = y;
     return x;
+}
+
+std::int32_t Sub_4D3040(const std::int32_t rangeX, const std::int32_t rangeY)
+{
+    const double playerX = static_cast<double>(
+        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX)) * 64.0;
+    if (playerX != static_cast<double>(std::bit_cast<float>(
+            static_cast<std::uint32_t>(world::gWorldCurrentXBits)))) {
+        return 0;
+    }
+    const double playerY = static_cast<double>(
+        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY)) * 64.0;
+    if (playerY != static_cast<double>(std::bit_cast<float>(
+            static_cast<std::uint32_t>(world::gWorldCurrentYBits)))) {
+        return 0;
+    }
+    double distanceX = static_cast<double>(gValueCC4D34 * 64)
+        - static_cast<double>(std::bit_cast<float>(
+            static_cast<std::uint32_t>(world::gWorldCurrentXBits)));
+    if (distanceX < 0.0) {
+        distanceX = -distanceX;
+    }
+    if (distanceX >= static_cast<double>(rangeX * 64)) {
+        return 1;
+    }
+    double distanceY = static_cast<double>(gValueCC4D3C * 64)
+        - static_cast<double>(std::bit_cast<float>(
+            static_cast<std::uint32_t>(world::gWorldCurrentYBits)));
+    if (distanceY < 0.0) {
+        distanceY = -distanceY;
+    }
+    return distanceY >= static_cast<double>(rangeY * 64) ? 1 : 0;
 }
 
 login::YobiAction* Sub_4B0110()
@@ -2007,6 +2041,319 @@ std::int32_t Sub_49BDB0(const std::int32_t)
         0x3BE3E, x, y, width, height, 0xDF, -1,
         std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}), 74, 54);
     render::ClearTextQueueTail_456D50(3);
+    return 1;
+}
+
+void Sub_49E990(const std::int32_t offset)
+{
+    for (std::int32_t line = 0; line < 5; ++line) {
+        auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[9 + line].data);
+        std::strcpy(data->text, gWindowListNamesCF3F20[offset + line].data());
+    }
+}
+
+std::int32_t Sub_49E8F0(const std::int32_t value)
+{
+    if (value == -1) {
+        const std::int32_t visible = gWindowListCountCF46A8 > 5 ? 1 : 0;
+        gWindowListOffsetCC3EF4 = 0;
+        for (std::int32_t index = 0; index < 6; ++index) {
+            gCurrentWindow->elements[index].visible = visible;
+        }
+        Sub_49E990(gWindowListOffsetCC3EF4);
+    }
+    if (Sub_4D3040(1, 1) != 0) {
+        gCurrentWindow->state |= 0x8000u;
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+    }
+    return 1;
+}
+
+std::int32_t Sub_49EAA0(const std::int32_t)
+{
+    gCurrentWindow->elements[0].visible = 1;
+    if (gWindowListCountCF46A8 - 5 <= 0) {
+        gCurrentWindow->elements[0].visible = 0;
+    }
+    WindowElement* const elements = gCurrentWindow->elements;
+    const auto* const mouse = static_cast<const WindowMouseData*>(elements[1].data);
+    if ((mouse->flags & 1u) != 0) {
+        gWindowListOffsetCC3EF4 = Sub_474270(elements + 1, gWindowListCountCF46A8 - 5);
+        Sub_49E990(gWindowListOffsetCC3EF4);
+    }
+    DrawCurrentWindow_4729B0();
+    WindowInstance* const window = gCurrentWindow;
+    const auto height = static_cast<std::int16_t>(window->height);
+    const auto width = static_cast<std::int16_t>(window->width);
+    const auto y = static_cast<std::int16_t>(window->y);
+    const auto x = static_cast<std::int16_t>(window->x);
+    login::detail::DrawNineGrid_49BE00(
+        0x3BE34, x, y, width, height, 0xDF, -1,
+        std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}), 74, 54);
+    static_cast<void>(render::ClearTextQueueTail_456D50(3));
+    return 1;
+}
+
+std::int32_t Sub_474270(WindowElement* const element, const std::int32_t maximum)
+{
+    if (maximum <= 0) {
+        return 0;
+    }
+    const std::int32_t span = element->height - (element - 1)->height;
+    const std::int32_t halfStep = span / (maximum * 2);
+    const auto* const mouse = static_cast<const WindowMouseData*>(element->data);
+    return (halfStep + mouse->deltaY) * maximum / span;
+}
+
+std::int32_t Sub_4742C0(
+    WindowElement* const element, const std::int32_t maximum, const std::int32_t position)
+{
+    auto* const mouse = static_cast<WindowMouseData*>(element->data);
+    std::int32_t y;
+    if (maximum <= 0) {
+        y = element->y;
+    } else {
+        y = (element->height - (element - 1)->height) * position / maximum;
+        y += element->y;
+    }
+    (element - 1)->y = y;
+    const std::int32_t delta = y - element->y;
+    mouse->deltaY = delta;
+    return delta;
+}
+
+std::int32_t Sub_4743B0(
+    WindowElement* const element, std::int32_t position, std::int32_t maximum,
+    const std::int32_t wheel)
+{
+    auto* const mouse = static_cast<WindowMouseData*>(element->data);
+    if (wheel == 0) {
+        return position;
+    }
+    if (maximum < 0) {
+        maximum = 0;
+    }
+    WindowElement* const previous = element - 1;
+    const std::int32_t oldY = previous->y;
+    static_cast<void>(Sub_4742C0(element, maximum, position));
+    std::int32_t remainder = oldY - previous->y;
+    const double product = static_cast<double>(wheel)
+        * static_cast<double>(std::bit_cast<float>(std::uint32_t{0x3C088889}));
+    const float roundedProduct = static_cast<float>(product);
+    const auto whole = static_cast<std::int32_t>(product);
+    position += whole;
+    if (position < 0) {
+        position = 0;
+        remainder = 0;
+    }
+    if (position > maximum) {
+        position = maximum;
+        remainder = 0;
+    }
+    static_cast<void>(Sub_4742C0(element, maximum, position));
+    previous->y += remainder;
+    const std::int32_t span = element->height - previous->height;
+    const double fraction = static_cast<double>(roundedProduct) - static_cast<double>(whole);
+    const double pixels = fraction * static_cast<double>(span) / static_cast<double>(maximum);
+    previous->y += static_cast<std::int32_t>(pixels);
+    if (previous->y < element->y) {
+        previous->y = element->y;
+    }
+    if (previous->y + previous->height > element->y + element->height) {
+        previous->y = element->y - previous->height + element->height;
+    }
+    const std::int32_t delta = previous->y - element->y;
+    const std::uint32_t flags = mouse->flags;
+    mouse->deltaY = delta;
+    mouse->flags = flags | 1u;
+    return position;
+}
+
+std::int32_t Sub_49EB50(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    std::int32_t result = 0;
+    if ((state & 0x400) != 0) {
+        if (gWindowListOffsetCC3EF4 > 0) {
+            --gWindowListOffsetCC3EF4;
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        } else {
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        }
+        const std::int32_t position = gWindowListOffsetCC3EF4;
+        WindowInstance* const window = gCurrentWindow;
+        const std::int32_t maximum = gWindowListCountCF46A8 - 5;
+        static_cast<void>(Sub_4742C0(window->elements + index - 1, maximum, position));
+        Sub_49E990(gWindowListOffsetCC3EF4);
+        result = 1;
+    }
+    graphic->imageNo = 0x3B592;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3B594;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 0x3B593;
+    }
+    return result;
+}
+
+std::int32_t Sub_49EC00(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    std::int32_t result = 0;
+    if ((state & 0x400) != 0) {
+        if (gWindowListOffsetCC3EF4 < gWindowListCountCF46A8 - 5) {
+            ++gWindowListOffsetCC3EF4;
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        } else {
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        }
+        const std::int32_t position = gWindowListOffsetCC3EF4;
+        const std::int32_t maximum = gWindowListCountCF46A8 - 5;
+        static_cast<void>(Sub_4742C0(gCurrentWindow->elements + index - 2, maximum, position));
+        Sub_49E990(gWindowListOffsetCC3EF4);
+        result = 1;
+    }
+    graphic->imageNo = 0x3B595;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3B597;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 0x3B596;
+    }
+    return result;
+}
+
+std::int32_t Sub_49ECC0(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    std::int32_t result = 0;
+    if ((state & 2) != 0) {
+        static_cast<void>(audio::PlaySe_52C450(gWindowListOffsetCC3EF4 > 0 ? 51 : 55, 320));
+        gWindowListOffsetCC3EF4 -= 5;
+        if (gWindowListOffsetCC3EF4 < 0) {
+            gWindowListOffsetCC3EF4 = 0;
+        }
+        const std::int32_t position = gWindowListOffsetCC3EF4;
+        const std::int32_t maximum = gWindowListCountCF46A8 - 5;
+        static_cast<void>(Sub_4742C0(gCurrentWindow->elements + index - 3, maximum, position));
+        Sub_49E990(gWindowListOffsetCC3EF4);
+        result = 1;
+    }
+    graphic->imageNo = 0x3B556;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3B558;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 0x3B557;
+    }
+    return result;
+}
+
+std::int32_t Sub_49ED80(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    std::int32_t result = 0;
+    if ((state & 2) != 0) {
+        const std::int32_t oldMaximum = gWindowListCountCF46A8 - 5;
+        const bool canMove = oldMaximum > 0 && gWindowListOffsetCC3EF4 < oldMaximum;
+        static_cast<void>(audio::PlaySe_52C450(canMove ? 51 : 55, 320));
+        std::int32_t position = gWindowListOffsetCC3EF4 + 5;
+        const std::int32_t maximum = gWindowListCountCF46A8 - 5;
+        gWindowListOffsetCC3EF4 = position;
+        if (position > maximum) {
+            position = maximum;
+            gWindowListOffsetCC3EF4 = position;
+        }
+        if (position < 0) {
+            position = 0;
+            gWindowListOffsetCC3EF4 = position;
+        }
+        static_cast<void>(Sub_4742C0(gCurrentWindow->elements + index - 4, maximum, position));
+        Sub_49E990(gWindowListOffsetCC3EF4);
+        result = 1;
+    }
+    graphic->imageNo = 0x3B559;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3B55B;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 0x3B55A;
+    }
+    return result;
+}
+
+std::int32_t Sub_49EE60(const std::int32_t index, const std::int32_t state)
+{
+    if ((state & 0x21) != 0) {
+        const std::int32_t count = gWindowListCountCF46A8;
+        const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
+        const std::int32_t position = gWindowListOffsetCC3EF4;
+        gWindowListOffsetCC3EF4 =
+            Sub_4743B0(gCurrentWindow->elements + index - 5, position, count - 5, wheel);
+    }
+    return 0;
+}
+
+std::int32_t Sub_49EEB0(const std::int32_t index, const std::int32_t state)
+{
+    WindowInstance* const window = gCurrentWindow;
+    auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
+    std::int32_t result = 0;
+    if ((state & 1) != 0) {
+        std::strcpy(gHoverTextD68AE8.data(), "\xA4\xA4\xA4\xEE\xA1\x43");
+    }
+    if ((state & 2) != 0) {
+        window->state |= 0x8000u;
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+        result = 1;
+    }
+    graphic->imageNo = 0x3B562;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3B564;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 0x3B563;
+    }
+    return result;
+}
+
+void Sub_485110(
+    WindowElement* const element, const std::int32_t state, const std::uint32_t imageNo)
+{
+    if ((state & 1) == 0) {
+        return;
+    }
+    WindowInstance* const window = gCurrentWindow;
+    const std::int32_t left = window->x + element->x - 1;
+    const std::int32_t top = window->y + element->y - 1;
+    const std::int32_t bottom = element->height + top + 2;
+    const std::int32_t right = element->width + left + 2;
+    login::detail::DrawGraphicHover(
+        static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
+        static_cast<std::uint16_t>(right), static_cast<std::uint16_t>(bottom),
+        0xDF, imageNo, 0);
+}
+
+std::int32_t Sub_49EF60(const std::int32_t index, const std::int32_t state)
+{
+    if (index - 14 >= gWindowListCountCF46A8) {
+        return 0;
+    }
+    if ((state & 1) != 0) {
+        const std::uint32_t imageNo = login::detail::gValueD69768;
+        Sub_485110(gCurrentWindow->elements + index, state, imageNo);
+    }
+    if ((state & 2) == 0) {
+        return 0;
+    }
+    const WindowListSelectionCallback callback = gWindowListCallbackCB1E14;
+    if (callback != nullptr) {
+        const std::int32_t selected = gWindowListOffsetCC3EF4 + index - 14;
+        callback(selected, gWindowListNamesCF3F20[selected].data());
+    }
+    gCurrentWindow->state |= 0x8000u;
+    static_cast<void>(audio::PlaySe_52C450(57, 320));
     return 1;
 }
 

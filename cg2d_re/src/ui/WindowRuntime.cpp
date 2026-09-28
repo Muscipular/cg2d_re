@@ -108,6 +108,17 @@ std::uint8_t gSkillPairIndexD67AD8 = 0;
 std::int32_t gRecipeIndex5846BC = -1;
 std::array<std::uint8_t, 20> gTradeItemSlotsCF3AE8 {};
 std::array<std::uint8_t, 28> gTradeItemMarksD2D61C {};
+std::array<std::uint8_t, 5> gTradePetSlotsCC4D28 {};
+std::array<std::uint8_t, 5> gTradePetMarksCF3AFC {};
+std::uint8_t gTradePhaseCAFEC4 = 0;
+std::uint8_t gTradeStepD3040C = 0;
+std::uint8_t gTradeValueD2EA20 = 0;
+std::uint8_t gTradeValueD6742C = 0;
+std::uint8_t gTradeValueC8AF81 = 0;
+std::int32_t gTradeScrollCF3B0C = 0;
+std::int32_t gTradeScrollCC4C90 = 0;
+std::int32_t gTradeScrollD67430 = 0;
+std::int32_t gTradePreviewCC2E64 = 0;
 std::array<std::int32_t, 6> gSelectedSlotsCA0A90 {};
 std::array<std::int32_t, 6> gMaterialIndicesCA0458 {};
 std::array<std::int32_t, 6> gSelectionCountsD66E0C {};
@@ -831,6 +842,256 @@ login::YobiAction* Sub_4B0110()
     login::YobiAction* const action = CreateWindowAnimation_475AA0(43, 1, 0, nullptr);
     gTradeWindowActionD67B7C = action;
     return action;
+}
+
+void Sub_4B0130(
+    WindowInstance* const window, const std::int32_t index,
+    const std::int32_t x, const std::int32_t y)
+{
+    const std::int32_t shortX = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x));
+    const std::int32_t shortY = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y));
+    window->elements[index].x = shortX;
+    window->elements[index].y = shortY;
+    window->elements[index - 1].x = shortX + 252;
+    window->elements[index - 1].y = shortY + 37;
+    window->elements[index - 2].x = shortX + 252;
+}
+
+void Sub_4B0180(
+    WindowInstance* const window, const std::int32_t index, const std::int32_t visible)
+{
+    window->elements[index].visible = visible;
+    if (visible == 0) {
+        window->elements[index - 1].visible = 0;
+        window->elements[index - 2].visible = 0;
+    }
+}
+
+void Sub_4B01B0(
+    WindowInstance* const window, const std::int32_t index, const std::uint32_t color)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
+    graphic->color = color;
+}
+
+std::int32_t Sub_4AFF70(const std::int32_t index)
+{
+    const std::int32_t slot = std::bit_cast<std::int8_t>(gTradeItemSlotsCF3AE8[index]);
+    if (slot < 0) {
+        return -1;
+    }
+    gTradeItemSlotsCF3AE8[index] = 0xFF;
+    auto* const hover = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
+    const std::uint8_t previous = hover[slot];
+    gTradeItemMarksD2D61C[slot] = 0;
+    hover[slot] = static_cast<std::uint8_t>(previous - 1);
+    return slot;
+}
+
+std::int32_t Sub_4B0090(const std::int32_t index)
+{
+    const std::int32_t slot = std::bit_cast<std::int8_t>(gTradePetSlotsCC4D28[index]);
+    if (slot < 0) {
+        return -1;
+    }
+    gTradePetSlotsCC4D28[index] = 0xFF;
+    gTradePetMarksCF3AFC[slot] = 0;
+    return slot;
+}
+
+void Sub_4B0200()
+{
+    WindowInstance* const window = gWindowStates[42].window;
+    if (window != nullptr && gWindowStates[42].value20 == 43) {
+        window->state |= 0x8000u;
+    }
+    if (gTradeValueD67B80 == 0) {
+        static_cast<void>(network::Sub_512270(platform::gConnectionSocket, 0));
+        gTradeValueD67CBC = 1;
+    }
+    for (std::int32_t index = 0; index < 20; ++index) {
+        static_cast<void>(Sub_4AFF70(index));
+    }
+    for (std::int32_t index = 0; index < 5; ++index) {
+        static_cast<void>(Sub_4B0090(index));
+    }
+    static_cast<void>(audio::PlaySe_52C450(57, 320));
+    gTradeValueD67B80 = 0;
+}
+
+std::int32_t Sub_4B0290(const std::int32_t value)
+{
+    if (value == -1) {
+        WindowInstance* const initialWindow = gCurrentWindow;
+        gTradeWindowActionD67B7C = nullptr;
+        gTradeValueCC4224 = 0;
+        gTradeValueD2E2B0 = 0;
+        gTradePhaseCAFEC4 = 0;
+        Sub_4B0180(initialWindow, 11, 1);
+        Sub_4B0130(gCurrentWindow, 11, 287, 28);
+        Sub_4B01B0(gCurrentWindow, 11, 0xFFFFFFFFu);
+        Sub_4B0180(gCurrentWindow, 8, 1);
+        Sub_4B0130(gCurrentWindow, 8, 15, 28);
+        Sub_4B01B0(gCurrentWindow, 8, 0xFFFFFFFFu);
+        Sub_4B0180(gCurrentWindow, 14, 0);
+        Sub_4B0130(gCurrentWindow, 14, 15, 28);
+        Sub_4B01B0(gCurrentWindow, 14, 0xFFFFFFFFu);
+        gCurrentWindow->elements[2].visible = 1;
+        gCurrentWindow->elements[3].visible = 0;
+        gCurrentWindow->elements[4].visible = 0;
+        WindowInstance* const scrollWindow = gCurrentWindow;
+        gTradeValueD2EA20 = 0xFF;
+        gTradeValueD6742C = 0;
+        gTradeValueC8AF81 = 0;
+        gTradeScrollCF3B0C = 0;
+        gTradeScrollCC4C90 = 0;
+        gTradeScrollD67430 = 0;
+        static_cast<void>(Sub_4742C0(&scrollWindow->elements[10], 2, 0));
+        const std::int32_t firstScroll = gTradeScrollCC4C90;
+        static_cast<void>(Sub_4742C0(&gCurrentWindow->elements[7], 2, firstScroll));
+        WindowInstance* const lastScrollWindow = gCurrentWindow;
+        const std::int32_t lastScroll = gTradeScrollD67430;
+        static_cast<void>(Sub_4742C0(&lastScrollWindow->elements[13], 2, lastScroll));
+        gTradeItemMarksD2D61C.fill(0);
+        // 原W32/U8交错写入同一数组，保留4B0424的窗口快照时点。
+        std::memset(gTradePetMarksCF3AFC.data(), 0, 4);
+        std::memset(gTradeItemSlotsCF3AE8.data(), 0xFF, 4);
+        std::memset(gTradeItemSlotsCF3AE8.data() + 4, 0xFF, 4);
+        gTradePetMarksCF3AFC[4] = 0;
+        WindowInstance* const textWindow = gCurrentWindow;
+        std::memset(gTradeItemSlotsCF3AE8.data() + 8, 0xFF, 4);
+        std::memset(gTradeItemSlotsCF3AE8.data() + 12, 0xFF, 4);
+        std::memset(gTradePetSlotsCC4D28.data(), 0xFF, 4);
+        std::memset(gTradeItemSlotsCF3AE8.data() + 16, 0xFF, 4);
+        gTradePetSlotsCC4D28[4] = 0xFF;
+        auto* const otherName = static_cast<WindowTextData*>(textWindow->elements[15].data);
+        std::sprintf(otherName->text, "%16s", gTradeNameD2D654.data());
+        WindowElement* const elements = gCurrentWindow->elements;
+        const char* const playerName = world::detail::BorrowPlayerDisplayText(1);
+        auto* const separator = static_cast<WindowTextData*>(elements[16].data);
+        std::strcpy(separator->text, "<=>");
+        auto* const ownName = static_cast<WindowTextData*>(gCurrentWindow->elements[17].data);
+        std::sprintf(ownName->text, "%-16s", playerName);
+        const std::int32_t y =
+            platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+        const std::int32_t x =
+            platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+        static_cast<void>(Sub_4D3020(x, y));
+    }
+    if (Sub_4D3040(1, 1) != 0) {
+        gCurrentWindow->state |= 0x8000u;
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+    }
+    if (gTradeValueD67B80 != 0) {
+        gCurrentWindow->state |= 0x8000u;
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+    }
+    switch (std::bit_cast<std::int8_t>(gTradePhaseCAFEC4)) {
+    case 0:
+        if (gTradeValueD2E2B0 > 0) {
+            WindowInstance* const window = gCurrentWindow;
+            gTradePhaseCAFEC4 = 1;
+            Sub_4B0180(window, 14, 1);
+            Sub_4B0130(gCurrentWindow, 14, 15, 28);
+            Sub_4B01B0(gCurrentWindow, 14, 0x00FFFFFFu);
+            gTradeStepD3040C = 23;
+        }
+        break;
+    case 1: {
+        WindowInstance* const window = gCurrentWindow;
+        const std::int32_t step = std::bit_cast<std::int8_t>(gTradeStepD3040C);
+        if (window->elements[8].x + step < 287) {
+            Sub_4B0180(window, 8, 1);
+            WindowInstance* const moveWindow = gCurrentWindow;
+            const std::int32_t moveStep = std::bit_cast<std::int8_t>(gTradeStepD3040C);
+            const std::int32_t x = std::bit_cast<std::int16_t>(
+                static_cast<std::uint16_t>(moveWindow->elements[8].x));
+            Sub_4B0130(moveWindow, 8, x + moveStep, 28);
+            const std::uint8_t oldStep = gTradeStepD3040C;
+            WindowInstance* const firstWindow = gCurrentWindow;
+            gTradeStepD3040C = static_cast<std::uint8_t>(oldStep - 1);
+            const auto* first = static_cast<WindowGraphicData*>(firstWindow->elements[11].data);
+            std::int32_t alpha = static_cast<std::int32_t>(first->color >> 24) - 10;
+            if (alpha < 0) {
+                alpha = 0;
+            }
+            Sub_4B01B0(firstWindow, 11,
+                (static_cast<std::uint32_t>(alpha) << 24) | 0x00FFFFFFu);
+            WindowInstance* const secondWindow = gCurrentWindow;
+            const auto* second = static_cast<WindowGraphicData*>(secondWindow->elements[14].data);
+            alpha = static_cast<std::int32_t>(second->color >> 24) + 10;
+            if (alpha > 255) {
+                alpha = 255;
+            }
+            Sub_4B01B0(secondWindow, 14,
+                (static_cast<std::uint32_t>(alpha) << 24) | 0x00FFFFFFu);
+        } else {
+            Sub_4B01B0(window, 14, 0xFFFFFFFFu);
+            Sub_4B0180(gCurrentWindow, 8, 1);
+            Sub_4B0130(gCurrentWindow, 8, 287, 28);
+            Sub_4B0180(gCurrentWindow, 11, 0);
+            gCurrentWindow->elements[2].visible = 0;
+            gCurrentWindow->elements[3].visible = 1;
+            gCurrentWindow->elements[4].visible = 1;
+            gTradePhaseCAFEC4 = 3;
+        }
+        break;
+    }
+    case 2: {
+        WindowInstance* const window = gCurrentWindow;
+        const std::int32_t step = std::bit_cast<std::int8_t>(gTradeStepD3040C);
+        if (window->elements[8].x - step > 15) {
+            Sub_4B0180(window, 8, 1);
+            WindowInstance* const moveWindow = gCurrentWindow;
+            const std::int32_t moveStep = std::bit_cast<std::int8_t>(gTradeStepD3040C);
+            const std::int32_t x = std::bit_cast<std::int16_t>(
+                static_cast<std::uint16_t>(moveWindow->elements[8].x));
+            Sub_4B0130(moveWindow, 8, x - moveStep, 28);
+            const std::uint8_t oldStep = gTradeStepD3040C;
+            WindowInstance* const firstWindow = gCurrentWindow;
+            gTradeStepD3040C = static_cast<std::uint8_t>(oldStep - 1);
+            const auto* first = static_cast<WindowGraphicData*>(firstWindow->elements[11].data);
+            std::int32_t alpha = static_cast<std::int32_t>(first->color >> 24) + 10;
+            if (alpha > 255) {
+                alpha = 255;
+            }
+            Sub_4B01B0(firstWindow, 11,
+                (static_cast<std::uint32_t>(alpha) << 24) | 0x00FFFFFFu);
+            WindowInstance* const secondWindow = gCurrentWindow;
+            const auto* second = static_cast<WindowGraphicData*>(secondWindow->elements[14].data);
+            alpha = static_cast<std::int32_t>(second->color >> 24) - 10;
+            if (alpha < 0) {
+                alpha = 0;
+            }
+            Sub_4B01B0(secondWindow, 14,
+                (static_cast<std::uint32_t>(alpha) << 24) | 0x00FFFFFFu);
+        } else {
+            Sub_4B01B0(window, 11, 0xFFFFFFFFu);
+            Sub_4B0180(gCurrentWindow, 8, 1);
+            Sub_4B0130(gCurrentWindow, 8, 15, 28);
+            Sub_4B0180(gCurrentWindow, 14, 0);
+            gCurrentWindow->elements[2].visible = 1;
+            gCurrentWindow->elements[3].visible = 0;
+            gCurrentWindow->elements[4].visible = 0;
+            gTradePhaseCAFEC4 = 0;
+        }
+        break;
+    }
+    case 3:
+        if (gTradeValueD2E2B0 <= 0) {
+            WindowInstance* const window = gCurrentWindow;
+            gTradePhaseCAFEC4 = 2;
+            Sub_4B0180(window, 11, 1);
+            Sub_4B0130(gCurrentWindow, 11, 287, 28);
+            Sub_4B01B0(gCurrentWindow, 11, 0x00FFFFFFu);
+            gTradeStepD3040C = 23;
+        }
+        break;
+    default:
+        break;
+    }
+    gTradePreviewCC2E64 = -1;
+    return 1;
 }
 
 login::YobiAction* Sub_4E5620(const char* const name)

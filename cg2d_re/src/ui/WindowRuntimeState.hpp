@@ -298,6 +298,17 @@ extern std::uint8_t gSkillPairIndexD67AD8; // 配方查询按S8解释。
 extern std::int32_t gRecipeIndex5846BC; // 原装载初值-1。
 extern std::array<std::uint8_t, 20> gTradeItemSlotsCF3AE8; // 比较按S8，写入只取低U8。
 extern std::array<std::uint8_t, 28> gTradeItemMarksD2D61C;
+extern std::array<std::uint8_t, 5> gTradePetSlotsCC4D28; // 末项即CC4D2C，按S8读槽号。
+extern std::array<std::uint8_t, 5> gTradePetMarksCF3AFC; // 末项即CF3B00，不拆独立标量。
+extern std::uint8_t gTradePhaseCAFEC4;
+extern std::uint8_t gTradeStepD3040C; // 位移按S8读，递减只写U8。
+extern std::uint8_t gTradeValueD2EA20;
+extern std::uint8_t gTradeValueD6742C;
+extern std::uint8_t gTradeValueC8AF81;
+extern std::int32_t gTradeScrollCF3B0C;
+extern std::int32_t gTradeScrollCC4C90;
+extern std::int32_t gTradeScrollD67430;
+extern std::int32_t gTradePreviewCC2E64; // 原预览分类数值，非地址。
 extern std::array<std::int32_t, 6> gSelectedSlotsCA0A90;
 extern std::array<std::int32_t, 6> gMaterialIndicesCA0458;
 extern std::array<std::int32_t, 6> gSelectionCountsD66E0C;
@@ -317,6 +328,15 @@ void Sub_4E5600(std::int32_t side); // 顺序同步20条交易物品。
 std::int32_t Sub_4D3020(std::int32_t x, std::int32_t y); // 同源坐标依序保存，返回x。
 std::int32_t Sub_4D3040(std::int32_t rangeX, std::int32_t rangeY); // 到格才判断距快照的范围。
 login::YobiAction* Sub_4B0110(); // 清交易U8，创建窗口43动画并发布借用T*。
+// 窗口43三元素组：低S16位置、仅隐藏时联动、只写图形颜色。
+void Sub_4B0130(
+    WindowInstance* window, std::int32_t index, std::int32_t x, std::int32_t y);
+void Sub_4B0180(WindowInstance* window, std::int32_t index, std::int32_t visible);
+void Sub_4B01B0(WindowInstance* window, std::int32_t index, std::uint32_t color);
+std::int32_t Sub_4AFF70(std::int32_t index); // 释放物品选择，再减同源悬停字节。
+std::int32_t Sub_4B0090(std::int32_t index); // 只释放宠物选择及标记。
+void Sub_4B0200(); // 窗口43释放回调，原返回值弃用。
+std::int32_t Sub_4B0290(std::int32_t value); // 窗口43初始化、关闭检查与四阶段更新。
 login::YobiAction* Sub_4E5620(const char* name); // 全量清交易双侧后复制己方，最后打开43。
 void Sub_4E4E60(std::int32_t index, const char* name); // 先发送选择请求，失败仍继续本地打开。
 login::YobiAction* Sub_49E800(const char* text, WindowListSelectionCallback callback);

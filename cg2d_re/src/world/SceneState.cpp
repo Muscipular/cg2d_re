@@ -3300,6 +3300,23 @@ std::uint32_t gValueD67B28 = 0;
 // 原F7C950同属PE虚拟零区，独立于宠物表与F7C9FC之后的状态。
 ReplyRecordF7C950 gReplyRecordF7C950 {};
 
+std::int32_t Sub_52E180(const std::int32_t index, const std::int32_t techniqueId)
+{
+    if (index < 0 || index >= 5) {
+        return 0;
+    }
+    const PetRuntimeRecord& pet = gPetRuntimeF633F8[index];
+    if (pet.used == 0) {
+        return 0;
+    }
+    for (const PetTechniqueRecord& technique : pet.techniquesD8) {
+        if (technique.used != 0 && technique.techniqueId == techniqueId) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
 void Sub_519770(
     const std::int32_t petIndex, const std::int32_t itemIndex, const char* const text)
 {

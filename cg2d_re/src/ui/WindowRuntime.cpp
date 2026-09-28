@@ -77,9 +77,11 @@ std::int32_t gChatHeightRequestC9A93C = 0;
 std::int32_t gChatScrollOffsetC9A940 = 0;
 std::array<char, 2 * 20 * 0xC4C> gTradeItemsD460D0 {};
 std::array<char, 2 * 5 * 0x5FC> gTradePetsC9C108 {};
+std::array<char, 5 * 0x600> gPetStorageD64E18 {};
 std::array<char, 2 * 0xFBF8> gItemDetailStorageCC4D58 {};
 static_assert(sizeof(gTradeItemsD460D0) == 0x1EBE0);
 static_assert(sizeof(gTradePetsC9C108) == 0x3BD8);
+static_assert(sizeof(gPetStorageD64E18) == 0x1E00);
 static_assert(sizeof(gItemDetailStorageCC4D58) == 0x1F7F0);
 static_assert(0x60 + 10 * 0x8C == 0x5D8);
 std::int32_t gTradeValueCC4224 = 0;
@@ -1340,6 +1342,137 @@ void Sub_4AAB70(
     drawNumber(pet.values70[4], "%3d", 155, 55);
     drawNumber(pet.values70[10], "%3d", 215, 55);
     drawNumber(pet.value6A4, "%2d", 45, 55);
+}
+
+void Sub_4AB400(
+    const std::int16_t x, const std::int16_t y, const std::int32_t index,
+    const std::uint8_t textLayer)
+{
+    const char* const record = gPetStorageD64E18.data() + index * 0x600;
+    std::uint16_t used;
+    std::memcpy(&used, record, sizeof(used));
+    if (used == 0) {
+        return;
+    }
+    constexpr std::int8_t color = std::bit_cast<std::int8_t>(std::uint8_t{138});
+    static_cast<void>(render::ClearTextQueueTail_456D50(textLayer));
+    static_cast<void>(render::DrawText_456780(
+        0, 0, textLayer, 13, color, input::LegacyText593850(), 0, 0));
+    static_cast<void>(render::DrawText_456780(
+        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 45)),
+        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 5)),
+        textLayer, 13, color, record + 0x5D4, 0, 0));
+    char buffer[256];
+    const auto drawNumber = [&](const std::size_t offset, const char* const format,
+                                const std::int32_t dx, const std::int32_t dy) {
+        std::int32_t value;
+        std::memcpy(&value, record + offset, sizeof(value));
+        std::sprintf(buffer, format, value);
+        static_cast<void>(render::DrawText_456780(
+            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + dx)),
+            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + dy)),
+            textLayer, 13, color, buffer, 0, 0));
+    };
+    drawNumber(0x08, "%3d", 35, 22);
+    std::int16_t tribe;
+    std::memcpy(&tribe, record + 2, sizeof(tribe));
+    if (tribe >= 0 && tribe < 20) {
+        static_cast<void>(render::DrawText_456780(
+            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 100)),
+            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 22)),
+            textLayer, 13, color, gTribeNames57CB54[tribe], 0, 0));
+    }
+    drawNumber(0x10, "%4d", 210, 5);
+    drawNumber(0x18, "%4d", 210, 22);
+    drawNumber(0x1C, "%3d", 95, 40);
+    drawNumber(0x20, "%3d", 155, 40);
+    drawNumber(0x24, "%3d", 215, 40);
+    drawNumber(0x28, "%3d", 95, 55);
+    drawNumber(0x2C, "%3d", 155, 55);
+    drawNumber(0x44, "%3d", 215, 55);
+    drawNumber(0x58, "%2d", 45, 55);
+}
+
+std::int32_t Sub_4EA670(const std::int32_t index)
+{
+    return world::detail::Sub_52E180(index, 25600) != 0 ? 1 : 0;
+}
+
+std::int32_t Sub_48D540(
+    const std::int16_t x, const std::int16_t y, const std::int32_t index,
+    const std::uint8_t textLayer, const std::uint8_t graphicLayer, const std::uint32_t color)
+{
+    render::GraphicDescriptor16 descriptor {};
+    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    descriptor.bytes[13] = 4;
+    const auto originX = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x - 150));
+    const auto originY = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y - 24));
+    world::detail::PetRuntimeRecord& pet = world::detail::gPetRuntimeF633F8[index];
+    if (pet.used != 0) {
+        static_cast<void>(render::ClearTextQueueTail_456D50(textLayer));
+        static_cast<void>(render::DrawText_456780(
+            0, 0, textLayer, 12, 0, input::LegacyText593850(), 0, 0));
+        const auto drawText = [&](const char* const text, const std::int32_t dx,
+                                  const std::int32_t dy) {
+            static_cast<void>(render::DrawText_456780(
+                std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(originX + dx)),
+                std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(originY + dy)),
+                textLayer, 12, 0, text, 0, 0));
+        };
+        const char* const name =
+            std::strlen(pet.name6BD.data()) != 0 ? pet.name6BD.data() : pet.name6AC.data();
+        drawText(name, 8, 6);
+        char buffer[256];
+        std::sprintf(buffer, "%3d", pet.value08);
+        drawText(buffer, 141, 6);
+        const std::int16_t tribe = std::bit_cast<std::int16_t>(pet.value04);
+        if (tribe >= 0 && tribe < 20) {
+            drawText(gTribeNames57CB54[tribe], 118, 21);
+        }
+        const std::int32_t maxHp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[1]);
+        const std::int32_t hp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[0]);
+        std::sprintf(buffer, "%6d/%6d", hp, maxHp);
+        drawText(buffer, 37, 19);
+        const std::int32_t maxFp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[3]);
+        const std::int32_t fp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[2]);
+        std::sprintf(buffer, "%6d/%6d", fp, maxFp);
+        drawText(buffer, 37, 32);
+        if (Sub_4EA670(index) == 1) {
+            static_cast<void>(render::DrawGraphic3_520970(
+                originX + 244, originY + 26, graphicLayer,
+                pet.follow6D4 != 0 ? 243078 : 243079, 0, 1, 0, &descriptor));
+        }
+        static_cast<void>(render::DrawGraphic3_520970(
+            originX + 270, originY + 26, graphicLayer,
+            pet.flags6AA == 1 ? 243081 : 243082, 0, 1, 0, &descriptor));
+        static_cast<void>(render::DrawGraphic3_520970(
+            originX + 244, originY + 6, graphicLayer,
+            pet.flags6AA == 2 ? 243084 : 243085, 0, 1, 0, &descriptor));
+        for (std::int32_t row = 0; row < 4; ++row) {
+            const std::int32_t segments = pet.values70[21 + row] / 10;
+            const std::int32_t drawY = originY + 5 + row * 10;
+            std::int32_t drawX = originX + 175;
+            // 原57DCB4与57E434完整同值，仅复用图号，不合并原地址身份。
+            const auto& images = gPetBarImages57E434[row];
+            if (segments > 1) {
+                static_cast<void>(render::DrawGraphic3_520970(
+                    drawX, drawY, graphicLayer, images[0], 0, 1, 0, &descriptor));
+                drawX += 6;
+                for (std::int32_t middle = 0; middle < segments - 2; ++middle) {
+                    static_cast<void>(render::DrawGraphic3_520970(
+                        drawX, drawY, graphicLayer, images[1], 0, 1, 0, &descriptor));
+                    drawX += 6;
+                }
+                static_cast<void>(render::DrawGraphic3_520970(
+                    drawX, drawY, graphicLayer, images[2], 0, 1, 0, &descriptor));
+            } else if (segments == 1) {
+                static_cast<void>(render::DrawGraphic3_520970(
+                    drawX, drawY, graphicLayer, images[3], 0, 1, 0, &descriptor));
+            }
+        }
+    }
+    return login::detail::DrawGraphic(
+        originX + 150, originY + 24, graphicLayer, 243140, 0, &descriptor);
 }
 
 std::int32_t Sub_4B0F20(

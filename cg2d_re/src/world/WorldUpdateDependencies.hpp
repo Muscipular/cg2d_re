@@ -663,6 +663,8 @@ static_assert(sizeof(PetPairRecord) == 8);
 extern std::array<PetRuntimeRecord, 5> gPetRuntimeF633F8;
 extern std::array<PetPairRecord, 5> gPetPairsDE0B08;
 extern std::int32_t gPetCountDE0B00;
+std::int32_t Sub_52E180(
+    std::int32_t index, std::int32_t techniqueId); // 原十个真实技能记录，非排序索引表。
 extern std::uint32_t gValueD67B28; // 492250置1，UI后续复用。
 
 // 原510150：宠物物品带槽号回复；level重复解析图号字段，不同步UI。

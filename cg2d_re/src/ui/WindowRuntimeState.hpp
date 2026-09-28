@@ -301,6 +301,7 @@ extern std::int32_t gChatScrollOffsetC9A940; // 原相对共享写指针的回�
 // 交易UI唯一原字节区，非玩家背包/宠物owner；未知字段不冻结语义。
 extern std::array<char, 2 * 20 * 0xC4C> gTradeItemsD460D0;
 extern std::array<char, 2 * 5 * 0x5FC> gTradePetsC9C108;
+extern std::array<char, 5 * 0x600> gPetStorageD64E18; // 外部存放宠物，4A84A0原回复区。
 extern std::array<char, 2 * 0xFBF8> gItemDetailStorageCC4D58; // 每组首20条C44物品，剩余区未冻结。
 extern std::int32_t gTradeValueCC4224;
 extern std::int32_t gTradeValueCF4688;
@@ -399,6 +400,12 @@ void Sub_48BB90(
     std::int32_t source, std::int32_t target); // 普通/窗口41两路宠物换位请求。
 void Sub_4AAB70(
     std::int16_t x, std::int16_t y, std::int32_t index, std::uint8_t textLayer);
+void Sub_4AB400(
+    std::int16_t x, std::int16_t y, std::int32_t index, std::uint8_t textLayer);
+std::int32_t Sub_48D540(
+    std::int16_t x, std::int16_t y, std::int32_t index,
+    std::uint8_t textLayer, std::uint8_t graphicLayer, std::uint32_t color);
+std::int32_t Sub_4EA670(std::int32_t index); // 原25600技能检查，返回0/1。
 void Sub_4B25D0(std::int32_t message, std::int32_t unused, std::int32_t sourceIndex);
 void Sub_4B2E00(std::int32_t message, std::int32_t unused, std::int32_t sourceIndex);
 std::int32_t Sub_4B2710(std::int32_t index); // kind6，绑定真实物品拖动回调。

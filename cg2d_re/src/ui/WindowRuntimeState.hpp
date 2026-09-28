@@ -394,6 +394,9 @@ std::int32_t Sub_4B00C0(std::int32_t first, std::int32_t second);
 std::int32_t Sub_48BB30(std::int32_t slot); // 物品槽分类0/1/2/3，不是bool。
 std::int32_t Sub_48BB70(std::int32_t slot); // 宠物槽分类1/2。
 std::int32_t Sub_48BC60(std::int32_t slot); // DE0B08五个S16索引的首匹配位置。
+void Sub_48BB90(
+    std::int32_t unusedWindow, std::int32_t unusedElement,
+    std::int32_t source, std::int32_t target); // 普通/窗口41两路宠物换位请求。
 void Sub_4AAB70(
     std::int16_t x, std::int16_t y, std::int32_t index, std::uint8_t textLayer);
 void Sub_4B25D0(std::int32_t message, std::int32_t unused, std::int32_t sourceIndex);

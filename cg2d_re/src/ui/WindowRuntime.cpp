@@ -1004,6 +1004,31 @@ std::int32_t Sub_48BC60(const std::int32_t slot)
     return -1;
 }
 
+void Sub_48BB90(
+    const std::int32_t, const std::int32_t,
+    const std::int32_t source, const std::int32_t target)
+{
+    if (source < 0 || target < 0 || source == target) {
+        return;
+    }
+    if (source < 100 && target < 100) {
+        static_cast<void>(network::Sub_511BC0(platform::gConnectionSocket, source, target));
+        return;
+    }
+    if (gWindowStates[41].window == nullptr) {
+        return;
+    }
+    char buffer[384];
+    std::sprintf(buffer, "P|%d|%d", source, target);
+    input::EscapeLegacyTextAndNotify_52D2D0(buffer, buffer + 128, 255);
+    const auto userState = std::bit_cast<std::int32_t>(gWindowStates[41].userState.value);
+    const auto value14 = std::bit_cast<std::int32_t>(gWindowStates[41].value14);
+    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+    static_cast<void>(network::Sub_512620(
+        platform::gConnectionSocket, x, y, value14, userState, 0, buffer + 128));
+}
+
 std::int32_t Sub_4AFF70(const std::int32_t index)
 {
     const std::int32_t slot = std::bit_cast<std::int8_t>(gTradeItemSlotsCF3AE8[index]);

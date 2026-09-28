@@ -78,6 +78,8 @@ extern InputContext gInputContextC8B1B8;
 extern InputContext gInputContextCC21E8;
 // 原CB0878：窗口42数量输入，独立于交易输入与聊天输入。
 extern InputContext gInputContextCB0878;
+// 原CA0018：窗口41存取数值输入，不包含相邻CA0174对象槽。
+extern InputContext gInputContextCA0018;
 // 原 dword_C9A96C@0xC9A96C：该特殊上下文的外部控制值，映像初值为零。
 extern std::int32_t gValueC9A96C;
 

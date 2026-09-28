@@ -72,6 +72,10 @@ WindowInputPrototype gNumberInputPrototype57DA70 {
     {{&input::gInputContextCB0878}, WindowInputReferenceKind::Context},
     0, -100, 3, 8, 127, {}, 1, 0, 0, 0,
 };
+WindowInputPrototype gStorageInputPrototype57EBA0 {
+    {{&input::gInputContextCA0018}, WindowInputReferenceKind::Context},
+    0, -100, 3, 12, 127, {}, 1, 0, 0, 0,
+};
 std::int32_t gChatWindowModeD66E04 = 0;
 std::uint8_t gValue5F9754 = 0;
 std::int32_t gChatWidthUnitsC9A930 = 0;
@@ -4328,6 +4332,153 @@ std::int32_t Sub_4AC1B0(const std::int32_t)
     }
     DrawCurrentWindow_4729B0();
     return 1;
+}
+
+std::int32_t Sub_4A92D0(const std::int32_t, const std::int32_t state)
+{
+    const WindowElement* const elements = gCurrentWindow->elements;
+    if (elements[30].visible == 0 && elements[31].visible == 0) {
+        if (input::gCurrentInputData == &input::gInputContextCA0018) {
+            static_cast<void>(Sub_4A7B00());
+        }
+        return 0;
+    }
+    if ((state & 2) != 0) {
+        WindowInstance* const window = gWindowStates[41].window;
+        static_cast<void>(Sub_476570(&gStorageInputPrototype57EBA0, 0, -100, 0));
+        input::SetContext_44B330(&input::gInputContextCA0018);
+        gFocusedElementDataD45F94 = window->elements[0].data;
+        static_cast<WindowInputData*>(window->elements[0].data)->context = &input::gInputContextCA0018;
+    }
+    return 0;
+}
+
+std::int32_t Sub_4A93E0(const std::int32_t index, const std::int32_t state)
+{
+    WindowElement* const elements = gCurrentWindow->elements;
+    auto* const graphic = static_cast<WindowGraphicData*>(elements[index].data);
+    if (gLoginWindowRuntime.valueD67618 == 0) {
+        elements[3].visible = 0;
+        gCurrentWindow->elements[4].visible = 1;
+    }
+    if ((state & 1) != 0) {
+        std::strcpy(gHoverTextD68AE8.data(),
+            "\xBD\xD0\xBF\xEF\xBE\xDC\xBB\xC8\xA6\xE6\xA4\xC0\xAD\xB6");
+    }
+    if ((state & 2) != 0) {
+        gLoginWindowRuntime.valueD67618 = 0;
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        static_cast<void>(network::Sub_5127B0(platform::gConnectionSocket, 1));
+    }
+    graphic->imageNo = 243173;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 243175;
+    }
+    return 0;
+}
+
+std::int32_t Sub_4A94A0(const std::int32_t index, const std::int32_t state)
+{
+    WindowElement* const elements = gCurrentWindow->elements;
+    auto* const graphic = static_cast<WindowGraphicData*>(elements[index].data);
+    if (gLoginWindowRuntime.valueD67618 == 1) {
+        elements[3].visible = 1;
+        gCurrentWindow->elements[4].visible = 0;
+    }
+    if ((state & 1) != 0) {
+        std::strcpy(gHoverTextD68AE8.data(),
+            "\xBD\xD0\xBF\xEF\xBE\xDC\xBB\xC8\xA6\xE6\xA4\xC0\xAD\xB6");
+    }
+    if ((state & 2) != 0) {
+        gLoginWindowRuntime.valueD67618 = 1;
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        static_cast<void>(network::Sub_5127B0(platform::gConnectionSocket, 2));
+    }
+    graphic->imageNo = 243176;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 243178;
+    }
+    return 0;
+}
+
+std::int32_t Sub_4A9560(const std::int32_t index, const std::int32_t)
+{
+    static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 243174;
+    return 0;
+}
+
+std::int32_t Sub_4A9580(const std::int32_t index, const std::int32_t)
+{
+    static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 243177;
+    return 0;
+}
+
+std::int32_t Sub_4A9B00(const std::int32_t, const std::int32_t)
+{
+    std::array<char, 20> buffer;
+    std::int32_t count = 0;
+    for (std::int32_t index = 8; index < 28; ++index) {
+        if (world::detail::gPlayerItemsFDA8A4[index].used != 0) {
+            ++count;
+        }
+    }
+    std::sprintf(buffer.data(), "%3d", count);
+    WindowInstance* window = gCurrentWindow;
+    std::int32_t y = window->y + 285;
+    std::int32_t x = window->x + 357;
+    Sub_4771B0(x, y, buffer.data(), 3, 0, 1, 223);
+    count = 0;
+    for (std::int32_t index = 0; index < 5; ++index) {
+        if (world::detail::gPetRuntimeF633F8[index].used != 0) {
+            ++count;
+        }
+    }
+    std::sprintf(buffer.data(), "%3d", count);
+    window = gCurrentWindow;
+    y = window->y + 285;
+    x = window->x + 442;
+    Sub_4771B0(x, y, buffer.data(), 3, 0, 1, 223);
+    std::sprintf(buffer.data(), "%10d", world::detail::ReadPlayerValueFC());
+    window = gCurrentWindow;
+    y = window->y + 285;
+    x = window->x + 527;
+    Sub_4771B0(x, y, buffer.data(), 3, 0, 1, 223);
+    count = 0;
+    for (std::int32_t index = 0; index < 20; ++index) {
+        std::uint16_t used;
+        std::memcpy(&used, gItemDetailStorageCC4D58.data() + index * 0xC44, sizeof(used));
+        if (used != 0) {
+            ++count;
+        }
+    }
+    std::sprintf(buffer.data(), "%3d", count);
+    window = gCurrentWindow;
+    y = window->y + 285;
+    x = window->x + 85;
+    Sub_4771B0(x, y, buffer.data(), 3, 0, 1, 223);
+    count = 0;
+    for (std::int32_t index = 0; index < 5; ++index) {
+        std::uint16_t used;
+        std::memcpy(&used, gPetStorageD64E18.data() + index * 0x600, sizeof(used));
+        if (used != 0) {
+            ++count;
+        }
+    }
+    std::sprintf(buffer.data(), "%3d", count);
+    window = gCurrentWindow;
+    y = window->y + 285;
+    x = window->x + 170;
+    Sub_4771B0(x, y, buffer.data(), 3, 0, 1, 223);
+    const std::int32_t side = std::bit_cast<std::int32_t>(gLoginWindowRuntime.valueD67618);
+    std::int32_t amount;
+    std::memcpy(&amount,
+        gItemDetailStorageCC4D58.data() + side * 0xFBF8 + 0xFBF4, sizeof(amount));
+    std::sprintf(buffer.data(), "%10d", amount);
+    window = gCurrentWindow;
+    y = window->y + 285;
+    x = window->x + 255;
+    Sub_4771B0(x, y, buffer.data(), 3, 0, 1, 223);
+    return 0;
 }
 
 std::int32_t Sub_4AC200(const std::int32_t index, const std::int32_t state)

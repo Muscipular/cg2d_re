@@ -432,6 +432,9 @@ std::int32_t Sub_512720(
     std::int32_t second,
     std::int32_t third);
 
+// 原[5127B0,5127F8)：rh存放分页请求，追加整数后透传发送结果。
+std::int32_t Sub_5127B0(std::uintptr_t socket, std::int32_t value);
+
 // 原 [0x512B90,0x512BCC)：Gp 角色列表请求，追加共享文本并发送。
 std::int32_t Sub_512B90(std::uintptr_t socket);
 

@@ -515,6 +515,12 @@ std::int32_t Sub_4AC200(std::int32_t index, std::int32_t state); // 窗口38右�
 std::int32_t Sub_4A9350(std::int32_t index, std::int32_t state); // 窗口38/41共用关闭按钮。
 std::int32_t Sub_4AC290(std::int32_t index, std::int32_t state); // 窗口38自有物品面板。
 std::int32_t Sub_4AC890(std::int32_t index, std::int32_t state); // 窗口38外部物品面板。
+std::int32_t Sub_4A92D0(std::int32_t unused, std::int32_t state); // 存取数值输入焦点。
+std::int32_t Sub_4A93E0(std::int32_t index, std::int32_t state); // 存放第一页请求。
+std::int32_t Sub_4A94A0(std::int32_t index, std::int32_t state); // 存放第二页请求。
+std::int32_t Sub_4A9560(std::int32_t index, std::int32_t unused); // 第一页选中图。
+std::int32_t Sub_4A9580(std::int32_t index, std::int32_t unused); // 第二页选中图。
+std::int32_t Sub_4A9B00(std::int32_t unusedIndex, std::int32_t unusedState); // 双侧数量和金额。
 std::int32_t Sub_4B4070(
     std::int32_t x, std::int32_t y, std::int32_t index,
     std::int32_t skill); // 外部宠物技能名称行，空行仍绘背景。

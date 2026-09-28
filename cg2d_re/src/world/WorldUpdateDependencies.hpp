@@ -1066,6 +1066,7 @@ std::int32_t ReadPlayerImageNo() noexcept; // 原FDA878；不是action当前变�
 std::int32_t ReadPlayerValueFC() noexcept; // 原FDA7FC，交易面板借用同源金额，不复制owner。
 std::int32_t ReadPlayerValue15BCC() noexcept; // 原FF02CC，库存第二数值文本借读同源回复字段。
 std::int32_t ReadPlayerLevel() noexcept; // 原FDA704，存放宠物费用读取同源等级。
+bool IsPlayerFpLessThan(std::int32_t cost); // 原FDA738，499C30各次401DB0比较共用同一CryptInt。
 std::int32_t ReadPlayerValue15BD0(std::int32_t index) noexcept; // 原FF02D0/D4/D8三项金额上限。
 std::int16_t ReadPetFollowIndex(std::size_t position) noexcept;
 login::YobiAction* ReadPetMapAction(std::int16_t index) noexcept;
@@ -1133,6 +1134,9 @@ extern std::uint32_t gBattlePosition5ABCA8;
 extern std::int32_t gBattlePlayerActionState5ABC74; // UI发布动作完成状态，非5ABB74回合数。
 extern std::array<std::int32_t, 9> gBattleSelectionModes5ABC7C; // 496F10清九个W32，含94/98/9C。
 extern std::uint32_t gBattleTargetFlags5ABC44; // 43C560先发布完整目标位模式，43C120后续消费。
+extern std::int32_t gBattleSelectedItem5ABC48; // 499C30发布真实物品槽，498520后续消费。
+extern std::int32_t gBattleItemTargetPending5ABCC4; // 499C30请求选目标，497100/497770处理。
+extern std::int32_t gBattleBombLevelD67B2C; // 仅炸弹hover发布，41D4FE动画读取。
 std::int32_t GetBattlePetPosition_405B40(std::int32_t position);
 std::int32_t Sub_518C60(); // 玩家背包8..27空槽数，仅检查used==0。
 extern std::uint32_t gBattlePlayerFlags5ABCAC;

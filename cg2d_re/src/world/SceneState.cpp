@@ -3865,6 +3865,9 @@ std::uint32_t gBattlePosition5ABCA8 = 0;
 std::int32_t gBattlePlayerActionState5ABC74 = 0;
 std::array<std::int32_t, 9> gBattleSelectionModes5ABC7C {};
 std::uint32_t gBattleTargetFlags5ABC44 = 0;
+std::int32_t gBattleSelectedItem5ABC48 = 0;
+std::int32_t gBattleItemTargetPending5ABCC4 = 0;
+std::int32_t gBattleBombLevelD67B2C = 0;
 std::uint32_t gBattlePlayerFlags5ABCAC = 0;
 std::uint32_t gBattleSkillFlags5ABC04 = 0;
 std::uint32_t gBattlePetSkillFlags5ABB78 = 0;
@@ -6821,6 +6824,11 @@ std::int32_t ReadPlayerValue15BCC() noexcept
 std::int32_t ReadPlayerLevel() noexcept
 {
     return gPlayerRuntime.level;
+}
+
+bool IsPlayerFpLessThan(const std::int32_t cost)
+{
+    return platform::legacy_crypt_int::Less_401DB0(&gPlayerRuntime.fp, cost);
 }
 
 std::int32_t ReadPlayerValue15BD0(const std::int32_t index) noexcept

@@ -199,7 +199,7 @@ std::int32_t Sub_489760(std::int32_t index, std::int32_t state); // 玩家/宠�
 std::int32_t Sub_489EE0(std::int32_t unusedIndex, std::int32_t state);
 bool Sub_4C75A0(WindowItemSelectorState* selector, std::int32_t state); // 附加属性页及回调恢复。
 
-// 4C6EC0发布的战斗交互；499C30尚未实现，不能用空回调代替。
+// 4C6EC0发布的战斗背包/装备交互。
 std::int32_t Sub_499C30(std::int32_t index, std::int32_t state);
 std::int32_t Sub_49AC40(std::int32_t index, std::int32_t state); // 战斗装备页及宠物禁用页。
 std::int32_t Sub_49B610(std::int32_t unusedIndex, std::int32_t state); // D2F338附加属性页包装。
@@ -344,6 +344,7 @@ extern std::array<char, 12> gInventoryValueTextCC3ECC; // 488E80格式化FF02CC�
 extern std::uint8_t gValue57E42C; // 原独立U8，初值FF，设置文件与宠物窗口共用。
 extern std::int32_t gBattleItemHoverCF49B0; // 窗口27每帧清-1，499C30发布提示槽。
 extern std::int32_t gBattleItemPageCB01E0; // 窗口27物品提示页，同源于两战斗交互。
+extern std::uint8_t gBattleItemTargetFlagCC4D40; // 499C30发布，496B90/497770后续消费。
 extern std::int32_t gValueCF4AAC; // 原设置文件回填与多个UI入口共用的数值。
 extern std::int32_t gValueCF4690;
 extern std::int32_t gValueCA0440;

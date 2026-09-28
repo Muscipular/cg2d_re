@@ -275,6 +275,8 @@ std::array<char, 12> gInventoryMoneyTextCB086C {};
 std::array<char, 12> gInventoryValueTextCC3ECC {};
 std::int32_t gBattleItemHoverCF49B0 = 0;
 std::int32_t gBattleItemPageCB01E0 = 0;
+std::uint8_t gBattleItemTargetFlagCC4D40 = 0;
+static std::int32_t gBattleBackpackHover57E430 = -2;
 std::uint8_t gValue57E42C = 0xFF;
 const std::array<std::int32_t, 8> gSelectorOwnX54F584 {100, 36, 36, 165, 165, 36, 165, 165};
 const std::array<std::int32_t, 8> gSelectorOwnY54F5A4 {30, 130, 80, 80, 130, 30, 30, 180};
@@ -4577,6 +4579,411 @@ std::int32_t Sub_4999D0(const std::int32_t)
     }
     DrawCurrentWindow_4729B0();
     return 1;
+}
+
+std::int32_t Sub_499C30(const std::int32_t index, const std::int32_t state)
+{
+    static constexpr std::int32_t kBombType = 51;
+    static constexpr std::int32_t kMedicineType = 43;
+    static constexpr std::int32_t levelLimits[] {
+        9, 19, 29, 39, 49, 59, 69, 79, 89, 99, 109, 119, 129, 139, 149,
+    };
+    static constexpr char noSpace[] = "\xAA\xAB\xAB\x7E\xC4\xE6\xA6\xEC\xA4\xA3\xA8\xAC\xA1\x49";
+    static constexpr char noWeapon[] = "\xA8\x53\xA6\xB3\xB8\xCB\xB3\xC6\xAA\x5A\xBE\xB9\xA1\x49";
+    static constexpr char unidentified[] =
+        "\xB5\x4C\xAA\x6B\xB8\xCB\xB3\xC6\xA5\xBC\xC5\xB2\xA9\x77\xAA\xAB\xAB\x7E\xA1\x49";
+    static constexpr char canEquip[] = "\xA5\x69\xB8\xCB\xB3\xC6\xA6\xB9\xAA\xAB\xAB\x7E\xA1\x43";
+    static constexpr char cannotEquip[] =
+        "\xB5\x4C\xAA\x6B\xB8\xCB\xB3\xC6\xA6\xB9\xAA\xAB\xAB\x7E\xA1\x43";
+    static constexpr char canUse[] = "\xA5\x69\xA8\xCF\xA5\xCE\xA6\xB9\xAA\xAB\xAB\x7E\xA1\x43";
+    static constexpr char cannotUse[] =
+        "\xB5\x4C\xAA\x6B\xA8\xCF\xA5\xCE\xA6\xB9\xAA\xAB\xAB\x7E\xA1\x43";
+    std::int32_t skillIndex = -1;
+    std::int32_t usableLevel = -1;
+    for (std::int32_t position = 0; position < 15; ++position) {
+        const auto& skill = world::detail::gSkillsF1BAFC[position];
+        if (skill.skillId != 2002) {
+            continue;
+        }
+        skillIndex = position;
+        for (std::int32_t technique = 0; technique < 15; ++technique) {
+            if (skill.techniques3C[technique].value8C <= 0) {
+                break;
+            }
+            usableLevel = technique + 1;
+        }
+        break;
+    }
+    const std::int32_t playerLevel = world::detail::ReadPlayerLevel();
+    std::int32_t levelLimit = 1;
+    while (levelLimit < 15 && playerLevel > levelLimits[levelLimit - 1]) {
+        ++levelLimit;
+    }
+    if (usableLevel > levelLimit) {
+        usableLevel = levelLimit;
+    }
+    // 原技能+24+94H*等级；等级0是experience，不能改作技术数组[-1]。
+    const auto readBombCost = [skillIndex](const std::int32_t level) {
+        const auto* const skill = reinterpret_cast<const std::byte*>(
+            &world::detail::gSkillsF1BAFC[skillIndex]);
+        const std::ptrdiff_t offset =
+            static_cast<std::ptrdiff_t>(offsetof(world::detail::SkillRuntimeRecord, experience))
+            + static_cast<std::ptrdiff_t>(level)
+                * static_cast<std::ptrdiff_t>(sizeof(world::detail::SkillTechniqueRecord));
+        std::int32_t cost;
+        std::memcpy(&cost, skill + offset, sizeof(cost));
+        return cost;
+    };
+    render::GraphicDescriptor16 descriptor {};
+    render::GraphicDescriptor16 dimmed {};
+    const std::uint32_t color = 0xFFFFFFFFu;
+    const std::uint32_t dimmedColor = 0x80FFFFFFu;
+    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    std::memcpy(dimmed.bytes.data() + 8, &dimmedColor, sizeof(dimmedColor));
+    descriptor.bytes[13] = 4;
+    dimmed.bytes[13] = 4;
+    auto& items = world::detail::gPlayerItemsFDA8A4;
+    const auto* const occupancy = reinterpret_cast<const unsigned char*>(world::gValueD67B08.data());
+    std::uint8_t events = static_cast<std::uint8_t>(state);
+    std::int32_t consumed = 0;
+    std::array<char, 12> countText;
+    if (std::bit_cast<std::int8_t>(gValue57E42C) > 0) {
+        for (std::int32_t position = 0; position < 20; ++position) {
+            const WindowInstance* const window = gCurrentWindow;
+            const WindowElement& element = window->elements[index];
+            const std::int32_t left = element.x + 50 * (position % 5) + window->x + 15;
+            const std::int32_t top = element.y + 50 * (position / 5) + window->y + 48;
+            const auto& item = items[position + 8];
+            if ((events & 0x21u) != 0) {
+                if (occupancy[position + 8] != 0) {
+                    continue;
+                }
+                if (login::detail::Sub_5049A0(left, top, left + 48, top + 48, -1) != 0
+                    && item.used != 0) {
+                    const std::int32_t type = item.itemType;
+                    std::strcpy(gHoverTextD68AE8.data(),
+                        ((type >= 0 && type <= 7) || (type >= 70 && type <= 79))
+                            ? cannotEquip : cannotUse);
+                    if ((events & 1u) != 0) {
+                        login::detail::DrawGraphicHover(
+                            static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
+                            static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
+                            223, login::detail::gValueD69768, 0);
+                    }
+                }
+                consumed = 1;
+            }
+            if (item.used == 0) {
+                continue;
+            }
+            static_cast<void>(login::detail::DrawGraphic(left + 129, top + 118, 223, 22738, 0, nullptr));
+            if (occupancy[position + 8] != 0) {
+                login::detail::DrawGraphicHover(
+                    static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
+                    static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
+                    223, 249, 0);
+                static_cast<void>(login::detail::DrawGraphic(
+                    left + 24, top + 24, 223, item.imageNo, 0, &dimmed));
+            } else {
+                static_cast<void>(login::detail::DrawGraphic(
+                    left + 24, top + 24, 223, item.imageNo, 0, &descriptor));
+            }
+            if (item.count > 0) {
+                std::sprintf(countText.data(), "%3d", item.count);
+                static_cast<void>(render::DrawText_456780(
+                    left + 21, top + 31, 3, 1, 1, countText.data(), 0, 0));
+            }
+        }
+        return consumed;
+    }
+    if ((events & 0x60u) != 0 && Sub_475D60() != 2) {
+        events &= 0x9Fu;
+        consumed = 1;
+    }
+    std::array<char, 256> buffer;
+    if ((events & 0x40u) != 0) {
+        const std::int32_t source = Sub_475D90();
+        if (source == 2 || source == 3) {
+            std::int32_t weapons = 0;
+            if (items[2].used == 1 && items[2].itemType != 7) {
+                weapons = 1;
+            }
+            if (items[3].used == 1 && items[3].itemType != 7) {
+                ++weapons;
+            }
+            if (world::detail::Sub_518C60() < weapons) {
+                world::detail::Sub_44B050(noSpace, 4, 3);
+                static_cast<void>(audio::PlaySe_52C450(55, 320));
+            } else if (weapons == 0) {
+                world::detail::Sub_44B050(noWeapon, 4, 3);
+                static_cast<void>(audio::PlaySe_52C450(55, 320));
+            } else {
+                gCurrentWindow->state |= 0x8000u;
+                world::detail::gBattleSelectionModes5ABC7C[5] = 0;
+                std::sprintf(buffer.data(), "Q|%X|", 255u);
+                static_cast<void>(network::SendBattlePacket_5109B0(
+                    platform::gConnectionSocket, buffer.data()));
+                world::detail::gBattlePlayerActionState5ABC74 = 1;
+                static_cast<void>(audio::PlaySe_52C450(57, 320));
+            }
+        }
+        Sub_476500();
+    }
+    std::int32_t hovered = -1;
+    if ((events & 0x21u) != 0) {
+        for (std::int32_t position = 0; position < 20; ++position) {
+            if (occupancy[position + 8] != 0) {
+                continue;
+            }
+            const WindowInstance* const window = gCurrentWindow;
+            const WindowElement& element = window->elements[index];
+            const std::int32_t left = element.x + 50 * (position % 5) + window->x + 15;
+            const std::int32_t top = element.y + 50 * (position / 5) + window->y + 48;
+            if (login::detail::Sub_5049A0(left, top, left + 48, top + 48, -1) != 0) {
+                hovered = position;
+                break;
+            }
+        }
+        if (hovered >= 0 && items[hovered + 8].used != 0) {
+            const auto& item = items[hovered + 8];
+            const std::int32_t type = item.itemType;
+            const char* hint = cannotUse;
+            if (type < 23) {
+                hint = ((type >= 0 && type <= 7) || (type >= 70 && type <= 79))
+                    && item.hasDescription != 0 ? canEquip : cannotEquip;
+            } else if ((item.battleUseFlag & 1u) != 0) {
+                if (item.hasDescription != 0) {
+                    if (type == kMedicineType) {
+                        if ((world::detail::gBattlePlayerFlags5ABCAC & 0x40000u) == 0) {
+                            hint = canUse;
+                        }
+                    } else if (type == kBombType) {
+                        const std::int32_t level = item.level;
+                        world::detail::gBattleBombLevelD67B2C = level;
+                        const std::int32_t cost = readBombCost(level);
+                        if (usableLevel >= level && items[2].used == 0 && items[3].used == 0
+                            && !world::detail::IsPlayerFpLessThan(cost)
+                            && world::detail::gBattleModeFlag5ABFCC != 1) {
+                            hint = canUse;
+                        }
+                    } else {
+                        hint = canUse;
+                    }
+                }
+            } else {
+                std::array<char, 512> name;
+                std::strcpy(name.data(), item.name.data());
+                std::strcpy(gHoverTextD68AE8.data(), canUse);
+            }
+            std::strcpy(gHoverTextD68AE8.data(), hint);
+        }
+    }
+    if (gBattleBackpackHover57E430 != hovered) {
+        gBattleItemPageCB01E0 = 0;
+    }
+    gBattleBackpackHover57E430 = hovered;
+    if (hovered >= 0 && (platform::gLegacyMouseState.edgeButtons & 0x10u) != 0) {
+        if (Sub_475D40() == 27 || Sub_475D40() == 0) {
+            const auto& item = items[hovered + 8];
+            bool useItem = false;
+            if (item.used != 1) {
+                static_cast<void>(audio::PlaySe_52C450(55, 320));
+            } else if ((item.battleUseFlag & 1u) != 0 && item.itemType == kBombType) {
+                const std::int32_t cost = readBombCost(items[hovered + 8].level);
+                if (usableLevel < item.level || items[2].used != 0 || items[3].used != 0
+                    || world::detail::IsPlayerFpLessThan(cost)
+                    || world::detail::gBattleModeFlag5ABFCC == 1) {
+                    static_cast<void>(audio::PlaySe_52C450(55, 320));
+                } else {
+                    useItem = true;
+                }
+            } else {
+                const std::int32_t type = item.itemType;
+                if ((type >= 0 && type <= 7) || (type >= 70 && type <= 79)) {
+                    std::int32_t occupiedHands = items[2].used == 1;
+                    if (items[3].used == 1) {
+                        ++occupiedHands;
+                    }
+                    // 原49A510以未加8的hover索引读取battleUseFlag。
+                    if (occupiedHands == 2 && world::detail::Sub_518C60() == 0
+                        && (items[hovered].battleUseFlag & 8u) != 0) {
+                        world::detail::Sub_44B050(noSpace, 4, 3);
+                        static_cast<void>(audio::PlaySe_52C450(55, 320));
+                    } else if (item.hasDescription == 0) {
+                        world::detail::Sub_44B050(unidentified, 4, 3);
+                        static_cast<void>(audio::PlaySe_52C450(55, 320));
+                    } else {
+                        gCurrentWindow->state |= 0x8000u;
+                        world::detail::gBattleSelectionModes5ABC7C[5] = 0;
+                        std::sprintf(buffer.data(), "Q|%X|", static_cast<std::uint32_t>(hovered + 8));
+                        static_cast<void>(network::SendBattlePacket_5109B0(
+                            platform::gConnectionSocket, buffer.data()));
+                        world::detail::gBattlePlayerActionState5ABC74 = 1;
+                        static_cast<void>(audio::PlaySe_52C450(77, 320));
+                    }
+                } else if ((item.battleUseFlag & 1u) == 0) {
+                    static_cast<void>(audio::PlaySe_52C450(55, 320));
+                } else if (item.hasDescription == 0) {
+                    world::detail::Sub_44B050(unidentified, 4, 3);
+                    static_cast<void>(audio::PlaySe_52C450(55, 320));
+                } else if (item.itemType == kMedicineType
+                    && (world::detail::gBattlePlayerFlags5ABCAC & 0x40000u) != 0) {
+                    static_cast<void>(audio::PlaySe_52C450(55, 320));
+                } else {
+                    useItem = true;
+                }
+            }
+            if (useItem) {
+                gCurrentWindow->state |= 0x8000u;
+                const std::int32_t position = world::detail::gBattleCurrentPosition5ABCA4;
+                const auto target = static_cast<std::uint32_t>(
+                    static_cast<std::int32_t>(std::bit_cast<std::int16_t>(item.target)));
+                if (login::detail::CheckBattleCommand_43C560(position, target) != 0) {
+                    world::detail::gBattleSelectedItem5ABC48 = hovered + 8;
+                    static_cast<void>(audio::PlaySe_52C450(77, 320));
+                    world::detail::gBattleItemTargetPending5ABCC4 = 1;
+                    gBattleItemTargetFlagCC4D40 = 1;
+                } else {
+                    const std::int32_t currentPosition = world::detail::gBattleCurrentPosition5ABCA4;
+                    world::detail::gBattleSelectedItem5ABC48 = hovered + 8;
+                    std::sprintf(buffer.data(), "I|%X|%X",
+                        static_cast<std::uint32_t>(hovered + 8),
+                        static_cast<std::uint32_t>(currentPosition));
+                    static_cast<void>(network::SendBattlePacket_5109B0(
+                        platform::gConnectionSocket, buffer.data()));
+                    login::detail::FlushBattleEntries_43C060();
+                    world::detail::gBattlePlayerActionState5ABC74 = 1;
+                    static_cast<void>(audio::PlaySe_52C450(57, 320));
+                    static_cast<void>(audio::PlaySe_52C450(77, 320));
+                }
+            }
+            static_cast<void>(Sub_4763E0());
+        }
+        consumed = 1;
+    } else if ((events & 1u) != 0 && hovered >= 0) {
+        if ((events & 2u) != 0) {
+            const auto& item = items[hovered + 8];
+            bool canDrag;
+            if (item.itemType == kBombType) {
+                const std::int32_t cost = readBombCost(items[hovered + 8].level);
+                canDrag = usableLevel >= item.level && items[2].used == 0 && items[3].used == 0
+                    && !world::detail::IsPlayerFpLessThan(cost)
+                    && world::detail::gBattleModeFlag5ABFCC != 1;
+            } else {
+                canDrag = item.used != 0;
+            }
+            if (canDrag) {
+                const std::int32_t type = item.itemType;
+                if (((item.battleUseFlag & 1u) != 0
+                        || (type >= 0 && type <= 7) || (type >= 70 && type <= 79))
+                    && (item.itemType != kMedicineType
+                        || (world::detail::gBattlePlayerFlags5ABCAC & 0x40000u) == 0)) {
+                    static_cast<void>(Sub_48BF10(hovered + 8, 0));
+                    static_cast<void>(audio::PlaySe_52C450(51, 320));
+                }
+            }
+            consumed = 1;
+        }
+        if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
+            const auto& item = items[hovered + 8];
+            if (item.used != 0) {
+                const std::int32_t pages = item.pages;
+                const std::int32_t page = gBattleItemPageCB01E0 + 1;
+                gBattleItemPageCB01E0 = page;
+                if (page >= pages) {
+                    gBattleItemPageCB01E0 = 0;
+                }
+            }
+            consumed = 1;
+        }
+    }
+    if (Sub_475D60() == 2) {
+        const std::int32_t source = Sub_475D90();
+        if (source >= 8) {
+            const WindowInstance* const window = gCurrentWindow;
+            const WindowElement& element = window->elements[index];
+            const std::int32_t left = element.x + 50 * ((source - 8) % 5) + window->x + 15;
+            const std::int32_t top = element.y + 50 * ((source - 8) / 5) + window->y + 48;
+            login::detail::DrawGraphicHover(
+                static_cast<std::uint16_t>(left + 2), static_cast<std::uint16_t>(top + 2),
+                static_cast<std::uint16_t>(left + 46), static_cast<std::uint16_t>(top + 46),
+                223, 254, 0);
+        }
+    }
+    if ((events & 1u) != 0 && hovered >= 0) {
+        const WindowInstance* const window = gCurrentWindow;
+        const WindowElement& element = window->elements[index];
+        const std::int32_t left = element.x + 50 * (hovered % 5) + window->x + 15;
+        const std::int32_t top = element.y + 50 * (hovered / 5) + window->y + 48;
+        login::detail::DrawGraphicHover(
+            static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
+            static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
+            223, login::detail::gValueD69768, 0);
+        if (items[hovered + 8].used != 0) {
+            gBattleItemHoverCF49B0 = hovered + 8;
+        }
+    }
+    if (Sub_475D60() != 0 && (events & 0x20u) != 0 && Sub_475D90() < 8) {
+        const WindowInstance* const window = gCurrentWindow;
+        const WindowElement& element = window->elements[index];
+        const std::int32_t left = element.x + window->x;
+        const std::int32_t top = element.y + window->y;
+        login::detail::DrawGraphicHover(
+            static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
+            static_cast<std::uint16_t>(left + element.width),
+            static_cast<std::uint16_t>(top + element.height),
+            223, login::detail::gValueD69768, 0);
+    }
+    static_cast<void>(render::ClearTextQueueTail_456D50(3));
+    static_cast<void>(render::DrawText_456780(
+        0, 0, 3, 1, 0, input::LegacyText593850(), 0, 0));
+    for (std::int32_t position = 0; position < 20; ++position) {
+        const auto& item = items[position + 8];
+        if (item.used == 0) {
+            continue;
+        }
+        const WindowInstance* const window = gCurrentWindow;
+        const WindowElement& element = window->elements[index];
+        const std::int32_t x = element.x + 50 * (position % 5) + window->x + 39;
+        const std::int32_t y = element.y + 50 * (position / 5) + window->y + 73;
+        if (item.itemType == kBombType) {
+            const std::int32_t level = item.level;
+            const std::int32_t cost = readBombCost(level);
+            if (usableLevel < level || items[2].used != 0 || items[3].used != 0
+                || world::detail::IsPlayerFpLessThan(cost)
+                || world::detail::gBattleModeFlag5ABFCC == 1) {
+                static_cast<void>(login::detail::DrawGraphic(
+                    x + 105, y + 93, 223, 22738, 0, nullptr));
+            }
+        }
+        if ((item.battleUseFlag & 1u) == 0) {
+            const std::int32_t type = item.itemType;
+            if (!((type >= 0 && type <= 7) || (type >= 70 && type <= 79))) {
+                static_cast<void>(login::detail::DrawGraphic(
+                    x + 105, y + 93, 223, 22738, 0, nullptr));
+            }
+        }
+        if (item.hasDescription == 0 || (item.itemType == kMedicineType
+                && (world::detail::gBattlePlayerFlags5ABCAC & 0x40000u) != 0)) {
+            static_cast<void>(login::detail::DrawGraphic(
+                x + 105, y + 93, 223, 22738, 0, nullptr));
+        }
+        if (occupancy[position + 8] != 0) {
+            login::detail::DrawGraphicHover(
+                static_cast<std::uint16_t>(x - 24), static_cast<std::uint16_t>(y - 24),
+                static_cast<std::uint16_t>(x + 24), static_cast<std::uint16_t>(y + 24),
+                223, 249, 0);
+            static_cast<void>(login::detail::DrawGraphic(x, y, 223, item.imageNo, 0, &dimmed));
+        } else {
+            static_cast<void>(login::detail::DrawGraphic(x, y, 223, item.imageNo, 0, &descriptor));
+        }
+        if (item.count > 0) {
+            std::sprintf(countText.data(), "%3d", item.count);
+            static_cast<void>(render::DrawText_456780(
+                x - 3, y + 7, 3, 1, 1, countText.data(), 0, 0));
+        }
+    }
+    return consumed;
 }
 
 std::int32_t Sub_49B610(const std::int32_t, const std::int32_t state)

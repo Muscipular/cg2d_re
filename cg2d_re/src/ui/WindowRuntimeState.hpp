@@ -587,6 +587,12 @@ void Sub_4B0000(std::int32_t first, std::int32_t second); // 窗口43的20个槽
 void Sub_47DCD0(std::int32_t first, std::int32_t second); // 窗口11选择/材料及两组标记。
 std::int32_t Sub_47DC20(std::int32_t index); // 六槽/单选两路释放，单选尾接聊天恢复。
 void Sub_4AD060(std::int32_t first, std::int32_t second); // 窗口51仅first命中时迁移。
+void Sub_4AD090(); // 释放窗口51的行文本及原生指针表。
+std::uint32_t Sub_4AD0F0(WindowInstance* window); // 九行刷新，返回末行含NUL长度。
+login::YobiAction* Sub_4AD180(
+    std::int32_t request, std::int32_t target, const char* text); // 解析标题/正文并展开51。
+void Sub_4AD470(const char* text); // 同类对话续接，唯一caller不消费原混合返回。
+void Sub_4AD780(); // 51释放回调：行表、物品标记、条件关闭请求。
 void Sub_4797C0(std::int32_t first, std::int32_t second); // 槽7特殊悬停计数，两条件独立。
 std::int32_t Sub_4F4630(std::int32_t itemId); // 当前配方五材料首匹配数量，不读used。
 void Sub_4E5770(std::int32_t index, std::int32_t side, const char* text); // 32行及页数。

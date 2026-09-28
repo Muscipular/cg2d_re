@@ -104,6 +104,14 @@ const std::array<std::int32_t, 2> gStoragePetImages54F4F8 {244392, 244323};
 const std::array<std::int32_t, 2> gStorageMoneyImages54F500 {244393, 244322};
 std::array<std::int32_t, 2> gStorageLastAmountsD67B68 {};
 std::array<char, 22> gStorageAmountTextsCB1DF8 {};
+// 窗口51拥有行表/行文本；其他载荷仅复制或借用，不另建文本owner。
+char** gWindowLinesD67B70 = nullptr;
+std::int32_t gWindowLineCountD67B74 = 0;
+std::int32_t gWindowLineScrollCF46B8 = 0;
+std::array<char, 56> gWindowTitleCC4118 {};
+std::int32_t gWindowRequestD672B0 = 0;
+std::int32_t gWindowRequestCF46AC = 0;
+std::int32_t gWindowCloseRequestCC4B28 = 0;
 std::int32_t gTradeValueCF4688 = 0;
 std::int32_t gTradeValueD046D0 = 0;
 std::int32_t gTradeValueD2E2B0 = 0;
@@ -4211,6 +4219,170 @@ WindowInstance* Sub_4AC0C0(
     gWindowStates[38].value14 = static_cast<std::uint32_t>(value14);
     gWindowStates[38].userState.value = static_cast<std::uint32_t>(userState);
     return window;
+}
+
+void Sub_4AD090()
+{
+    if (gWindowLinesD67B70 != nullptr) {
+        for (std::int32_t index = 0; index < gWindowLineCountD67B74; ++index) {
+            std::free(gWindowLinesD67B70[index]);
+        }
+        std::free(gWindowLinesD67B70);
+        gWindowLinesD67B70 = nullptr;
+        gWindowLineCountD67B74 = 0;
+    }
+}
+
+std::uint32_t Sub_4AD0F0(WindowInstance* const window)
+{
+    std::uint32_t result = 0;
+    for (std::int32_t line = 0; line < 9; ++line) {
+        const std::int32_t index = gWindowLineScrollCF46B8 + line;
+        const std::int32_t count = gWindowLineCountD67B74;
+        auto* const data = static_cast<WindowTextData*>(window->elements[line + 5].data);
+        const char* const source =
+            index < count ? gWindowLinesD67B70[index] : input::LegacyText593850();
+        result = static_cast<std::uint32_t>(std::strlen(source) + 1);
+        std::memcpy(data->text, source, result);
+    }
+    return result;
+}
+
+namespace {
+
+// 两个生产入口共享原双遍算法；预计数的<=和实际末段推进30不能合并。
+void RebuildWindowLines51(char* const text)
+{
+    char* const end = text + std::strlen(text);
+    gWindowLineCountD67B74 = 0;
+    char* segment = text;
+    for (;;) {
+        char* separator = std::strchr(segment, '\n');
+        if (separator == nullptr) {
+            separator = end;
+        }
+        const std::int32_t length = static_cast<std::int32_t>(separator - segment);
+        if (length > 30) {
+            std::int32_t processed = 0;
+            --gWindowLineCountD67B74;
+            do {
+                const std::int32_t step =
+                    input::ClassifyLegacyBoundary_44B440(segment, 30) == 2 ? 29 : 30;
+                processed += step;
+                segment += step;
+                ++gWindowLineCountD67B74;
+            } while (processed <= length);
+        }
+        ++gWindowLineCountD67B74;
+        if (separator >= end) {
+            break;
+        }
+        segment = separator + 1;
+    }
+    gWindowLinesD67B70 = static_cast<char**>(
+        std::calloc(gWindowLineCountD67B74, sizeof(char*)));
+
+    segment = text;
+    for (std::int32_t line = 0; line < gWindowLineCountD67B74; ++line) {
+        char* separator = std::strchr(segment, '\n');
+        if (separator != nullptr) {
+            *separator = '\0';
+        } else {
+            separator = end;
+        }
+        const std::int32_t length = static_cast<std::int32_t>(std::strlen(segment));
+        if (length == 0) {
+            gWindowLinesD67B70[line] = static_cast<char*>(std::malloc(1));
+            gWindowLinesD67B70[line][0] = '\0';
+        }
+        std::int32_t produced = 0;
+        std::int32_t remaining = length;
+        for (std::int32_t processed = 0; processed < length; ++produced) {
+            gWindowLinesD67B70[line + produced] = static_cast<char*>(std::malloc(31));
+            std::int32_t step = 30;
+            if (remaining > 30) {
+                if (input::ClassifyLegacyBoundary_44B440(segment, 30) == 2) {
+                    step = 29;
+                }
+                std::memcpy(gWindowLinesD67B70[line + produced], segment, step);
+                gWindowLinesD67B70[line + produced][step] = '\0';
+            } else {
+                std::strcpy(gWindowLinesD67B70[line + produced], segment);
+            }
+            remaining -= step;
+            processed += step;
+            segment += step;
+        }
+        if (produced > 0) {
+            line += produced - 1;
+        }
+        segment = separator + 1;
+    }
+}
+
+} // namespace
+
+login::YobiAction* Sub_4AD180(
+    const std::int32_t request, const std::int32_t target, const char* const text)
+{
+    gWindowRequestD672B0 = request;
+    gWindowRequestCF46AC = target;
+    std::array<char, 1024> buffer;
+    if (network::ExtractDelimitedField_52CED0(text, '|', 1, 1023, buffer.data()) != 0) {
+        return nullptr;
+    }
+    input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
+    std::strcpy(gWindowTitleCC4118.data(), buffer.data());
+    Sub_4AD090();
+    network::ExtractDelimitedField_52CED0(text, '|', 2, 1023, buffer.data());
+    input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
+    RebuildWindowLines51(buffer.data());
+    return CreateWindowAnimation_475AA0(51, 1, 0, nullptr);
+}
+
+void Sub_4AD470(const char* const text)
+{
+    std::array<char, 1024> buffer;
+    if (network::ExtractDelimitedField_52CED0(text, '|', 1, 1023, buffer.data()) != 0) {
+        return;
+    }
+    input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
+    WindowInstance* const window = gWindowStates[51].window;
+    std::strcpy(gWindowTitleCC4118.data(), buffer.data());
+    auto* const title = static_cast<WindowTextData*>(window->elements[3].data);
+    std::strcpy(title->text, gWindowTitleCC4118.data());
+    Sub_4AD090();
+    network::ExtractDelimitedField_52CED0(text, '|', 2, 1023, buffer.data());
+    input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
+    RebuildWindowLines51(buffer.data());
+    WindowInstance* const updatedWindow = gWindowStates[51].window;
+    if (updatedWindow != nullptr) {
+        static_cast<void>(Sub_4AD0F0(updatedWindow));
+    }
+}
+
+void Sub_4AD780()
+{
+    Sub_4AD090();
+    if (gSelectedItem57EE0C >= 0) {
+        auto* const hover = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
+        const unsigned char value = hover[gSelectedItem57EE0C];
+        if (std::bit_cast<std::int8_t>(value) >= 0) {
+            hover[gSelectedItem57EE0C] = static_cast<unsigned char>(value - 1);
+        }
+        gSelectedItem57EE0C = -1;
+    }
+    if (gWindowCloseRequestCC4B28 != 0) {
+        const std::int32_t target = gWindowRequestCF46AC;
+        const std::int32_t request = gWindowRequestD672B0;
+        const std::int32_t y =
+            platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+        const std::int32_t x =
+            platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+        static_cast<void>(network::Sub_512620(
+            platform::gConnectionSocket, x, y, request, target, 0, "C"));
+    }
+    world::detail::gValue581800 = -1;
 }
 
 void Sub_4A83D0()

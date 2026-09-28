@@ -593,6 +593,8 @@ login::YobiAction* Sub_4AD180(
     std::int32_t request, std::int32_t target, const char* text); // 解析标题/正文并展开51。
 void Sub_4AD470(const char* text); // 同类对话续接，唯一caller不消费原混合返回。
 void Sub_4AD780(); // 51释放回调：行表、物品标记、条件关闭请求。
+std::int32_t Sub_4AD800(std::int32_t value); // 51初始化、移动关闭及权限可见性。
+std::int32_t Sub_4AD9F0(std::int32_t unused); // 51滚动消费、标题输入及完整绘制。
 void Sub_4797C0(std::int32_t first, std::int32_t second); // 槽7特殊悬停计数，两条件独立。
 std::int32_t Sub_4F4630(std::int32_t itemId); // 当前配方五材料首匹配数量，不读used。
 void Sub_4E5770(std::int32_t index, std::int32_t side, const char* text); // 32行及页数。

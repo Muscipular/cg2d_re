@@ -81,6 +81,11 @@ void ResetGuildRuntimeFields()
 
 } // namespace
 
+std::int32_t ReadGuildValue10514B4() noexcept
+{
+    return gGuildHeader10514A8.value0C;
+}
+
 void Sub_50E850(const std::uintptr_t, const char* const text)
 {
     if (world::gValue9A6E0C != 0) {

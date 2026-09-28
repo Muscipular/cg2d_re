@@ -9,6 +9,7 @@
 #include "cg/GraphicInfo.hpp"
 #include "cg/Input.hpp"
 #include "cg/LegacyAudio.hpp"
+#include "cg/LegacyRecordOrder.hpp"
 #include "cg/YobiRuntime.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/KeyState.hpp"
@@ -75,6 +76,10 @@ WindowInputPrototype gNumberInputPrototype57DA70 {
 WindowInputPrototype gStorageInputPrototype57EBA0 {
     {{&input::gInputContextCA0018}, WindowInputReferenceKind::Context},
     0, -100, 3, 12, 127, {}, 1, 0, 0, 0,
+};
+WindowInputPrototype gTitleInputPrototype57EE10 {
+    {{&input::gInputContextCC49C0}, WindowInputReferenceKind::Context},
+    0, 0, 3, 12, 0, {}, 1, 16, 0, 0,
 };
 std::int32_t gChatWindowModeD66E04 = 0;
 std::uint8_t gValue5F9754 = 0;
@@ -4383,6 +4388,82 @@ void Sub_4AD780()
             platform::gConnectionSocket, x, y, request, target, 0, "C"));
     }
     world::detail::gValue581800 = -1;
+}
+
+std::int32_t Sub_4AD800(const std::int32_t value)
+{
+    if (value == -1) {
+        gSelectedItem57EE0C = -1;
+        gWindowLineScrollCF46B8 = 0;
+        gCurrentWindow->elements[2].visible = 1;
+        gCurrentWindow->elements[3].visible = 1;
+        gCurrentWindow->elements[4].visible = 0;
+        auto* const title = static_cast<WindowTextData*>(gCurrentWindow->elements[3].data);
+        std::strcpy(title->text, gWindowTitleCC4118.data());
+        static_cast<void>(Sub_4AD0F0(gCurrentWindow));
+        gCurrentWindow->elements[0].visible = 0;
+        gWindowCloseRequestCC4B28 = 1;
+    }
+    bool close = true;
+    if (world::detail::gValue581800 == 32) {
+        close = Sub_4D3040(1, 1) != 0;
+    } else {
+        gWindowCloseRequestCC4B28 = 0;
+    }
+    if (close) {
+        gCurrentWindow->state |= 0x8000u;
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+    }
+    if (input::gCurrentInputData != &input::gInputContextCC49C0) {
+        gCurrentWindow->elements[2].visible = 1;
+        gCurrentWindow->elements[3].visible = 1;
+        gCurrentWindow->elements[4].visible = 0;
+    }
+    if ((static_cast<std::uint8_t>(login::detail::ReadGuildValue10514B4()) & 4u) != 0) {
+        gCurrentWindow->elements[22].visible = 0;
+        if (gSelectedItem57EE0C >= 0) {
+            gCurrentWindow->elements[22].visible = 1;
+        }
+    }
+    gCurrentWindow->elements[2].visible = 0;
+    gCurrentWindow->elements[21].visible = 0;
+    if ((static_cast<std::uint8_t>(login::detail::ReadGuildValue10514B4()) & 0x80u) != 0) {
+        gCurrentWindow->elements[2].visible = 1;
+        gCurrentWindow->elements[21].visible = 1;
+    }
+    gCurrentWindow->elements[22].visible = 0;
+    if ((static_cast<std::uint8_t>(login::detail::ReadGuildValue10514B4()) & 4u) != 0) {
+        if (gSelectedItem57EE0C < 0) {
+            return 1;
+        }
+        gCurrentWindow->elements[22].visible = 1;
+    }
+    if (gSelectedItem57EE0C >= 0
+        && world::detail::gPlayerItemsFDA8A4[gSelectedItem57EE0C].itemType == 53) {
+        gCurrentWindow->elements[22].visible = 1;
+    }
+    return 1;
+}
+
+std::int32_t Sub_4AD9F0(const std::int32_t)
+{
+    gCurrentWindow->elements[14].visible = 1;
+    if (gWindowLineCountD67B74 - 9 <= 0) {
+        gCurrentWindow->elements[14].visible = 0;
+    }
+    WindowInstance* window = gCurrentWindow;
+    auto* const mouse = static_cast<WindowMouseData*>(window->elements[15].data);
+    if ((static_cast<std::uint8_t>(mouse->flags) & 1u) != 0) {
+        gWindowLineScrollCF46B8 = Sub_474270(
+            &window->elements[15], gWindowLineCountD67B74 - 9);
+        static_cast<void>(Sub_4AD0F0(gCurrentWindow));
+        window = gCurrentWindow;
+    }
+    const std::int32_t y = window->y + window->elements[4].y;
+    const std::int32_t x = window->x + window->elements[4].x;
+    static_cast<void>(Sub_476570(&gTitleInputPrototype57EE10, x, y, 2));
+    DrawCurrentWindow_4729B0();
+    return 1;
 }
 
 void Sub_4A83D0()

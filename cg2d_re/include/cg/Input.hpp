@@ -80,6 +80,8 @@ extern InputContext gInputContextCC21E8;
 extern InputContext gInputContextCB0878;
 // 原CA0018：窗口41存取数值输入，不包含相邻CA0174对象槽。
 extern InputContext gInputContextCA0018;
+// 原CC49C0：窗口51标题编辑，末尾不包含CC4B1C状态。
+extern InputContext gInputContextCC49C0;
 // 原 dword_C9A96C@0xC9A96C：该特殊上下文的外部控制值，映像初值为零。
 extern std::int32_t gValueC9A96C;
 

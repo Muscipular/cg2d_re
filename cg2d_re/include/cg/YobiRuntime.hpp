@@ -54,6 +54,8 @@ YobiAction* NewYobiAction_404AE0(
 
 // 471440的type2字段写序；已发布的外层slot逐次借用，原内层失败无空保护。
 void ConfigureWindowElementAction(YobiAction*& slot, const std::int32_t* imageNo);
+// 原4B4863–4B48A4：先转换图号，再逐次借用共享宠物预览槽写字段。
+void ConfigureWindowPetPreview(YobiAction*& slot, std::int32_t imageNo);
 // 原475950完整展开动画创建，失败仍调用真实窗口打开；完成槽为非拥有T**。
 YobiAction* Sub_475950(
     std::int32_t x, std::int32_t y, std::int32_t width, std::int32_t height,
@@ -278,6 +280,8 @@ void ClearYobiActionCallback(YobiAction* action);
 std::int32_t GetYobiActionField20(YobiAction* action);
 // 原472B64–472BD4：先掩码后颜色，原位更新并借用同一对象的描述符。
 const render::GraphicDescriptor16* ApplyWindowAnimationDrawMode(YobiAction* action);
+// 原宠物预览直接借用+2F8，不执行窗口动画的描述符改写。
+const render::GraphicDescriptor16* BorrowYobiActionDrawMode(const YobiAction* action) noexcept;
 // 原 +2E4；51A5B0 读取，独立于播放翻转值 +2E0。
 std::int32_t GetYobiActionField2E4(const YobiAction* action) noexcept;
 std::int32_t GetYobiActionField2A8(YobiAction* action);

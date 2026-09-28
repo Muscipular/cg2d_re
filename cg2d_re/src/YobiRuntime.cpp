@@ -6681,6 +6681,22 @@ const render::GraphicDescriptor16* ApplyWindowAnimationDrawMode(YobiAction* cons
     return &action->drawMode;
 }
 
+void ConfigureWindowPetPreview(YobiAction*& slot, const std::int32_t imageNo)
+{
+    const std::int32_t mapped = character_select::detail::Sub_51B740(imageNo);
+    slot->imageNo = mapped;
+    slot->displayPriority = 10;
+    slot->flags |= 2u;
+    slot->callback = nullptr;
+    slot->direction = 5;
+}
+
+const render::GraphicDescriptor16* BorrowYobiActionDrawMode(
+    const YobiAction* const action) noexcept
+{
+    return &action->drawMode;
+}
+
 std::int32_t GetYobiActionField20(YobiAction* const action)
 {
     return action->graphicIndex;

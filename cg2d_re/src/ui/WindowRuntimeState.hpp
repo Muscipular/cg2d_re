@@ -315,6 +315,7 @@ extern std::int32_t gTooltipColorD67D30; // 分段文本跨行共享颜色，尾
 extern std::int32_t gTooltipSourceD303FC; // 原提示源分类/编号缓存，非地址。
 extern std::uint16_t gTooltipXCF46C0; // 同源低W16坐标，绘制按S16解释。
 extern std::uint16_t gTooltipYCF46CC;
+extern const std::array<std::array<std::int32_t, 4>, 4> gPetBarImages57E434; // left/middle/right/single。
 extern std::array<std::int32_t, 6> gSelectedSlotsCA0A90;
 extern std::array<std::int32_t, 6> gMaterialIndicesCA0458;
 extern std::array<std::int32_t, 6> gSelectionCountsD66E0C;
@@ -359,6 +360,11 @@ std::int32_t Sub_48B810(
     const char* lines, std::int32_t stride, std::int32_t lineCount,
     const char* footer, std::int8_t footerColor); // 原完整层5提示框。
 std::int32_t Sub_48B450(std::int32_t side, std::int32_t index, std::int32_t page);
+std::int32_t Sub_4B45A0(
+    std::int32_t x, std::int32_t y, std::int32_t side,
+    std::int32_t index, std::int32_t skill); // 交易宠物技能行，空文本仍绘制行图。
+std::int32_t Sub_4B4680(
+    std::int32_t x, std::int32_t y, std::int32_t side, std::int32_t index); // 完整交易宠物提示。
 login::YobiAction* Sub_4E5620(const char* name); // 全量清交易双侧后复制己方，最后打开43。
 void Sub_4E4E60(std::int32_t index, const char* name); // 先发送选择请求，失败仍继续本地打开。
 login::YobiAction* Sub_49E800(const char* text, WindowListSelectionCallback callback);

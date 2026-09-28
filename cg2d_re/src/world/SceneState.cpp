@@ -101,7 +101,9 @@ std::array<DirectionDelta, 8> gDirectionDeltas55D9DC {{
 
 // 原首块 [FDA700,FF02E0) 已证玩家槽；不将此原生结构当作原连续内存。
 struct PlayerRuntimeSlots {
+    std::uint16_t value00; // 原FDA700；509BA0仅写低W16。
     std::int32_t level; // 原 FDA704。
+    std::int32_t value08; // 原FDA708。
     std::int32_t timerRemaining0C; // 原FDA70C；458F40按帧扣减的S32。
     std::int32_t timerMode10; // 原FDA710；保留完整模式，非零才扣减。
     std::uint32_t timerTick14; // 原FDA714；50C7A0与458F40同源。
@@ -112,17 +114,25 @@ struct PlayerRuntimeSlots {
     platform::LegacyCryptInt value58; // 原 FDA758；5184A0第五构造对象。
     platform::LegacyCryptInt value68; // 原 FDA768；5184A0第六构造对象。
     std::array<std::int32_t, 14> values78; // 原FDA778..FDA7AC，509650两段数值。
+    std::array<std::int32_t, 2> valuesB0; // 原FDA7B0/FDA7B4，509BA0尾部两值。
     std::int32_t valueB8; // 原FDA7B8。
+    std::array<std::int32_t, 6> valuesBC; // 原FDA7BC..FDA7D0。
+    std::array<std::int32_t, 4> valuesD4; // 原FDA7D4..FDA7E0。
     std::array<std::int32_t, 4> valuesE4; // 原FDA7E4..FDA7F0。
+    std::int32_t valueF4; // 原FDA7F4。
+    std::int32_t valueF8; // 原FDA7F8。
     std::int32_t valueFC; // 原FDA7FC；与末尾15BCC共用回复门禁。
     std::int32_t titleIndex100; // 原FDA800，直接索引FF0508原表。
+    std::int32_t value104; // 原FDA804。
     std::array<char, 17> name; // 原 FDA808；旧编码字节。
     std::array<char, 17> ownTitle; // 原 FDA819。
     std::array<char, 33> text12A; // 原 FDA82A。
     std::array<char, 33> text14B; // 原 FDA84B。
+    std::int32_t value16C; // 原FDA86C。
     std::int32_t walkSpeed; // 原 FDA870；独立于通用 action 的初始步速。
     std::int32_t value174; // 原 FDA874；46A700仅在到达时按S32递减。
     std::int32_t imageNo; // 原 FDA878，不是 FDA87C。
+    std::int32_t value17C; // 原FDA87C，不与imageNo合并。
     std::uint32_t objectIndex;
     std::int32_t direction; // 原 FDA884；其他消费者可读取低 S8。
     std::uint16_t value188; // 原 FDA888；519A80 符号扩展读取。
@@ -135,9 +145,27 @@ struct PlayerRuntimeSlots {
     login::YobiAction* action;
     std::array<char, 17> text15BB8; // 原 FF02B8，不紧接新端的指针字节布局。
     std::int32_t value15BCC; // 原FF02CC；509650尾字段。
+    std::array<std::int32_t, 3> values15BD0; // 原FF02D0/FF02D4/FF02D8。
 };
 
 PlayerRuntimeSlots gPlayerRuntime {};
+
+// 原第四清零块[F1BAE0,F633EC)，既有技能/索引表改为本owner成员别名。
+struct SkillRuntimeSlots {
+    std::array<char, 0x1C> jobName;
+    std::array<detail::SkillRuntimeRecord, 15> skills;
+    std::array<detail::SkillPairRecord, 15> pairs;
+    std::uint32_t valueF633E8; // 509E30只写低U8，保留其余字节。
+};
+
+static_assert(std::is_standard_layout_v<SkillRuntimeSlots>);
+static_assert(std::is_trivially_copyable_v<SkillRuntimeSlots>);
+static_assert(offsetof(SkillRuntimeSlots, jobName) == 0);
+static_assert(offsetof(SkillRuntimeSlots, skills) == 0x1C);
+static_assert(offsetof(SkillRuntimeSlots, pairs) == 0x47890);
+static_assert(offsetof(SkillRuntimeSlots, valueF633E8) == 0x47908);
+static_assert(sizeof(SkillRuntimeSlots) == 0x4790C);
+SkillRuntimeSlots gSkillRuntimeSlots {};
 
 std::uint32_t gChatPreviousTickDA3B3C = 0;
 std::uint32_t gChatCurrentTickDA3B40 = 0;
@@ -2663,9 +2691,90 @@ std::int32_t Sub_509650(
     return 0;
 }
 
-// 原技能表、索引对和拖放门禁均为PE虚拟零区，不新增构造/RNG消费。
-std::array<SkillRuntimeRecord, 15> gSkillsF1BAFC {};
-std::array<SkillPairRecord, 15> gSkillPairsF63370 {};
+void Sub_509BA0(const std::uintptr_t, const char* const payload)
+{
+    if (gValue9A6E0C != 0) {
+        return;
+    }
+    const auto flags = static_cast<std::uint32_t>(
+        network::ParseDelimitedBase62_52D0D0(payload, '|', 1));
+    std::int32_t field = 2;
+    const std::array<std::int32_t*, 12> firstTargets {{
+        &gPlayerRuntime.valuesD4[0], &gPlayerRuntime.valuesD4[1],
+        &gPlayerRuntime.valuesD4[2], &gPlayerRuntime.valuesD4[3],
+        &gPlayerRuntime.valuesBC[0], &gPlayerRuntime.valuesBC[1],
+        &gPlayerRuntime.valuesBC[2], &gPlayerRuntime.valuesBC[3],
+        &gPlayerRuntime.valuesBC[4], &gPlayerRuntime.valuesBC[5],
+        &gPlayerRuntime.value104, &gPlayerRuntime.valueF4,
+    }};
+    std::uint32_t bit = 2;
+    for (std::int32_t* const target : firstTargets) {
+        if ((flags & (bit | 1u)) != 0) {
+            *target = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
+            ++field;
+        }
+        bit <<= 1;
+    }
+    if ((flags & 0x2001u) != 0) {
+        gPlayerRuntime.value00 = static_cast<std::uint16_t>(
+            network::ParseDelimitedInteger_52CFA0(payload, '|', field));
+        ++field;
+    }
+    const std::array<std::int32_t*, 4> middleTargets {{
+        &gPlayerRuntime.valueF8, &gPlayerRuntime.value08,
+        &gPlayerRuntime.value17C, &gPlayerRuntime.value16C,
+    }};
+    bit = 0x4000u;
+    for (std::int32_t* const target : middleTargets) {
+        if ((flags & (bit | 1u)) != 0) {
+            *target = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
+            ++field;
+        }
+        bit <<= 1;
+    }
+    if ((flags & 0x40001u) != 0) {
+        std::int32_t speed = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
+        gPlayerRuntime.walkSpeed = speed;
+        if (speed <= 0) {
+            speed = 100;
+            gPlayerRuntime.walkSpeed = speed;
+        }
+        login::YobiAction* const action = gPlayerRuntime.action;
+        if (action != nullptr) {
+            login::detail::SetYobiWalkSpeed(action, speed);
+        }
+        ++field;
+    }
+    const std::array<std::int32_t*, 5> lastTargets {{
+        &gPlayerRuntime.valuesB0[0], &gPlayerRuntime.valuesB0[1],
+        &gPlayerRuntime.values15BD0[0], &gPlayerRuntime.values15BD0[1],
+        &gPlayerRuntime.values15BD0[2],
+    }};
+    bit = 0x80000u;
+    for (std::int32_t* const target : lastTargets) {
+        if ((flags & (bit | 1u)) != 0) {
+            *target = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
+            ++field;
+        }
+        bit <<= 1;
+    }
+}
+
+void Sub_509E30(const std::uintptr_t, const std::int32_t value, char* const text)
+{
+    if (gValue9A6E0C != 0) {
+        return;
+    }
+    gSkillRuntimeSlots.valueF633E8 =
+        (gSkillRuntimeSlots.valueF633E8 & 0xFFFFFF00u) | static_cast<std::uint8_t>(value);
+    input::UnescapeLegacyTextAndNotify_52D2F0(text);
+    std::strcpy(
+        gSkillRuntimeSlots.jobName.data(), std::strlen(text) < 24 ? text : kUnknownText554590);
+}
+
+// 技能/索引表借用唯一第四清零块；原零初值及拖放门禁不新增构造/RNG消费。
+std::array<SkillRuntimeRecord, 15>& gSkillsF1BAFC = gSkillRuntimeSlots.skills;
+std::array<SkillPairRecord, 15>& gSkillPairsF63370 = gSkillRuntimeSlots.pairs;
 std::uint16_t gValueDA3B20 = 0;
 
 void Sub_509EB0(const std::uintptr_t /*socket*/, const char* const payload)
@@ -2707,7 +2816,7 @@ void Sub_509EB0(const std::uintptr_t /*socket*/, const char* const payload)
             record.name[0] = '\0';
             record.level = 0;
             record.experience = 0;
-            record.techniqueBytes3C.fill(std::byte{0});
+            std::memset(record.techniques3C.data(), 0, sizeof(record.techniques3C));
             Sub_519950(index);
         } else {
             std::strcpy(
@@ -2732,6 +2841,52 @@ void Sub_509EB0(const std::uintptr_t /*socket*/, const char* const payload)
     }
     Sub_518600(gSkillsF1BAFC.data(), gSkillPairsF63370.data(), 15);
     gValueDA3B20 = 0;
+}
+
+void Sub_50A120(
+    const std::uintptr_t, const std::int32_t skillIndex, const char* const payload)
+{
+    if (gValue9A6E0C != 0) {
+        return;
+    }
+    auto& techniques = gSkillsF1BAFC[skillIndex].techniques3C;
+    std::memset(techniques.data(), 0, sizeof(techniques));
+    SkillTechniqueRecord* target = techniques.data();
+    char name[256];
+    char description[256];
+    std::int32_t field = 2;
+    for (;;) {
+        if (network::ExtractDelimitedField_52CED0(
+                payload, '|', field - 1, 255, name) == 1) {
+            return;
+        }
+        input::UnescapeLegacyTextAndNotify_52D2F0(name);
+        network::ExtractDelimitedField_52CED0(payload, '|', field, 255, description);
+        input::UnescapeLegacyTextAndNotify_52D2F0(description);
+        const std::int32_t value7C =
+            network::ParseDelimitedInteger_52CFA0(payload, '|', field + 1);
+        const std::int32_t value80 =
+            network::ParseDelimitedInteger_52CFA0(payload, '|', field + 2);
+        const auto packed = static_cast<std::uint32_t>(
+            network::ParseDelimitedInteger_52CFA0(payload, '|', field + 3));
+        const std::int32_t value8C =
+            network::ParseDelimitedInteger_52CFA0(payload, '|', field + 4);
+        if (std::strlen(name) == 0) {
+            continue;
+        }
+        target->used88 = 1;
+        std::strcpy(target->name.data(), std::strlen(name) <= 24 ? name : kUnknownText554590);
+        std::strcpy(
+            target->description.data(),
+            std::strlen(description) <= 96 ? description : kUnknownText554590);
+        target->value7C = value7C;
+        target->value80 = value80;
+        target->value90 = static_cast<std::int32_t>((packed >> 12) & 0xFu);
+        target->value84 = static_cast<std::int32_t>(packed & 0xFFFu);
+        target->value8C = value8C;
+        field += 6;
+        ++target;
+    }
 }
 
 void Sub_50C580(

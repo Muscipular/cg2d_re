@@ -376,6 +376,36 @@ std::int32_t Sub_4A76E0();
 
 // 原[509650,509B96)，玩家属性掩码回复，socket未用。
 std::int32_t Sub_509650(std::uintptr_t socket, const char* payload);
+void Sub_509BA0(std::uintptr_t unusedSocket, const char* payload); // 附加属性按掩码消费，步速同步同源action。
+void Sub_509E30(std::uintptr_t unusedSocket, std::int32_t value, char* text); // 先写低U8，再原位反转义职业名。
+
+// 原技能+3C的94H技术记录；50A120生产，数值语义未证的字段保持地址命名。
+struct SkillTechniqueRecord {
+    std::array<char, 25> name;
+    std::array<char, 97> description;
+    std::array<std::byte, 2> bytes7A;
+    std::int32_t value7C;
+    std::int32_t value80;
+    std::int32_t value84;
+    std::uint8_t used88;
+    std::array<std::byte, 3> bytes89;
+    std::int32_t value8C;
+    std::int32_t value90;
+};
+
+static_assert(std::is_standard_layout_v<SkillTechniqueRecord>);
+static_assert(std::is_trivially_copyable_v<SkillTechniqueRecord>);
+static_assert(offsetof(SkillTechniqueRecord, name) == 0);
+static_assert(offsetof(SkillTechniqueRecord, description) == 0x19);
+static_assert(offsetof(SkillTechniqueRecord, bytes7A) == 0x7A);
+static_assert(offsetof(SkillTechniqueRecord, value7C) == 0x7C);
+static_assert(offsetof(SkillTechniqueRecord, value80) == 0x80);
+static_assert(offsetof(SkillTechniqueRecord, value84) == 0x84);
+static_assert(offsetof(SkillTechniqueRecord, used88) == 0x88);
+static_assert(offsetof(SkillTechniqueRecord, bytes89) == 0x89);
+static_assert(offsetof(SkillTechniqueRecord, value8C) == 0x8C);
+static_assert(offsetof(SkillTechniqueRecord, value90) == 0x90);
+static_assert(sizeof(SkillTechniqueRecord) == 0x94);
 
 // 原技能配方材料0x28字节，50C580生产、519950只清itemId、4F4630查count。
 struct SkillRecipeItem {
@@ -397,7 +427,7 @@ struct SkillRecipeRecord {
     std::array<SkillRecipeItem, 5> items6C;
 };
 
-// 原F1BAFC起的技能记录；未消费技术/配方字节不计最终指针映射。
+// 原F1BAFC起的技能记录；未消费字段不计最终业务映射。
 struct SkillRuntimeRecord {
     std::array<char, 25> name;
     std::array<std::uint8_t, 2> requiredSlots19; // 回复仅写低U8，UI按完整S16读。
@@ -410,7 +440,7 @@ struct SkillRuntimeRecord {
     std::int32_t skillId;
     std::int32_t fpReduce;
     std::int32_t sequence;
-    std::array<std::byte, 0x8AC> techniqueBytes3C;
+    std::array<SkillTechniqueRecord, 15> techniques3C;
     std::array<SkillRecipeRecord, 56> recipes8E8;
     std::int32_t rebirthState4C48; // 原F20744；不是旧文档的+744。
 };
@@ -446,7 +476,7 @@ static_assert(offsetof(SkillRuntimeRecord, canRebirth) == 0x2C);
 static_assert(offsetof(SkillRuntimeRecord, skillId) == 0x30);
 static_assert(offsetof(SkillRuntimeRecord, fpReduce) == 0x34);
 static_assert(offsetof(SkillRuntimeRecord, sequence) == 0x38);
-static_assert(offsetof(SkillRuntimeRecord, techniqueBytes3C) == 0x3C);
+static_assert(offsetof(SkillRuntimeRecord, techniques3C) == 0x3C);
 static_assert(offsetof(SkillRuntimeRecord, recipes8E8) == 0x8E8);
 static_assert(offsetof(SkillRuntimeRecord, rebirthState4C48) == 0x4C48);
 static_assert(sizeof(SkillRuntimeRecord) == 0x4C4C);
@@ -455,10 +485,12 @@ static_assert(offsetof(SkillPairRecord, index) == 2);
 static_assert(offsetof(SkillPairRecord, sequence) == 4);
 static_assert(sizeof(SkillPairRecord) == 8);
 
-extern std::array<SkillRuntimeRecord, 15> gSkillsF1BAFC;
-extern std::array<SkillPairRecord, 15> gSkillPairsF63370;
+extern std::array<SkillRuntimeRecord, 15>& gSkillsF1BAFC; // 同一第四清零块成员别名。
+extern std::array<SkillPairRecord, 15>& gSkillPairsF63370;
 extern std::uint16_t gValueDA3B20; // 原技能拖放门禁，509EB0尾部清零。
 void Sub_509EB0(std::uintptr_t socket, const char* payload);
+void Sub_50A120(
+    std::uintptr_t unusedSocket, std::int32_t skillIndex, const char* payload); // 清技术区后按六字段生产。
 void Sub_50C580(
     std::uintptr_t unusedSocket, std::int32_t index, const char* payload); // 固定56行、每行五材料。
 void Sub_519950(std::int32_t index); // 仅重置技能尾槽及56行配方编号。

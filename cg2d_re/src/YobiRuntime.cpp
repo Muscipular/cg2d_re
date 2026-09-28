@@ -21,6 +21,7 @@
 #include "cg/render/SdlPresenter.hpp"
 #include "cg/render/TextPendingQueue.hpp"
 #include "cg/world/SceneState.hpp"
+#include "cg/ui/WindowRuntime.hpp"
 
 #include <array>
 #include <bit>
@@ -1695,6 +1696,66 @@ void Sub_440070(YobiAction* const action)
     }
     DrawObservationChildren(action, payload, order);
     ++payload->frame;
+}
+
+std::int32_t Sub_440920(
+    const std::int32_t objectIndex, const std::int32_t x, const std::int32_t y,
+    [[maybe_unused]] const std::int32_t unusedDirection,
+    const std::int32_t characterAction, const char* const row)
+{
+    if (characterAction < 81 || characterAction > 82) {
+        return 0;
+    }
+    YobiAction* const target =
+        static_cast<std::uint32_t>(objectIndex) == world::ReadPlayerObjectIndex_FDA880()
+        ? world::detail::ReadPlayerAction()
+        : world::detail::FindObjectYobi_4462B0(objectIndex);
+    if (target == nullptr) {
+        return 1;
+    }
+    std::array<std::int32_t, 7> values;
+    for (std::int32_t index = 0; index < 7; ++index) {
+        values[index] = network::ParseDelimitedInteger_52CFA0(row, '|', index + 6);
+    }
+    if (characterAction == 82) {
+        const std::int32_t imageNo = character_select::detail::Sub_51B740(values[0]);
+        YobiAction* const observer = Sub_43FEB0(imageNo, x, y, values[1]);
+        Sub_4408C0(observer, values[2], values[3], values[4], values[5], values[6]);
+        for (std::size_t index = 2; index < values.size(); ++index) {
+            const std::int32_t member = values[index];
+            if (static_cast<std::uint32_t>(member) == world::ReadPlayerObjectIndex_FDA880()) {
+                world::detail::Sub_51BEE0();
+            } else {
+                world::detail::Sub_43DB00(world::detail::FindObjectYobi_4462B0(member));
+            }
+        }
+        return 1;
+    }
+    YobiAction* const source = world::detail::FindObjectYobi_4462B0(values[0]);
+    if (source != nullptr) {
+        const std::int32_t value170 = values[1];
+        const std::int32_t direction = source->direction;
+        const std::int32_t sourceY =
+            platform::legacy_crypt_int::Read_401EC0(&source->mapY1F0);
+        const std::int32_t sourceX =
+            platform::legacy_crypt_int::Read_401EC0(&source->mapX1E0);
+        YobiAction* const observer = Sub_43F330(
+            source->imageNo, sourceX, sourceY, direction, value170);
+        Sub_4408C0(observer, values[2], values[3], values[4], values[5], values[6]);
+        for (std::size_t index = 2; index < values.size(); ++index) {
+            const std::int32_t member = values[index];
+            if (static_cast<std::uint32_t>(member) == world::ReadPlayerObjectIndex_FDA880()) {
+                ui::CloseWindowsByCategory_472240(3);
+                world::detail::gValue581800 = -1;
+                world::detail::Sub_51BEE0();
+                ui::ApplyObservationInputGate_440ADB();
+            } else {
+                world::detail::Sub_43DB00(world::detail::FindObjectYobi_4462B0(member));
+            }
+        }
+        source->imageNo = 0;
+    }
+    return 1;
 }
 
 // 原441DB0/448040回调及实体绘制尾；完整定义位于本文件后段。

@@ -1928,6 +1928,64 @@ void Sub_50B380(const std::uintptr_t /*socket*/, const char* const payload)
     }
 }
 
+void Sub_50BCD0(const std::uintptr_t /*socket*/, const char* const payload)
+{
+    if (gValue9A6E0C != 0) {
+        return;
+    }
+    if (ReadRippleGateOnce() != 0) {
+        return;
+    }
+    char row[2048];
+    char field[2048];
+    // 原0x1000字节局部区，比较门槛仍为0x1000项；不改容量或模拟邻栈。
+    std::array<std::int32_t, 1024> missing;
+    std::int32_t missingCount = 0;
+    std::int32_t* missingCursor = missing.data();
+    for (std::int32_t rowIndex = 1;; ++rowIndex) {
+        network::ExtractDelimitedField_52CED0(payload, ',', rowIndex, 2047, row);
+        if (std::strlen(row) == 0) {
+            return;
+        }
+        network::ExtractDelimitedField_52CED0(row, '|', 1, 2047, field);
+        const std::int32_t objectIndex = network::Base62Decode_52D050(field);
+        const std::int32_t x = network::ParseDelimitedInteger_52CFA0(row, '|', 2);
+        const std::int32_t y = network::ParseDelimitedInteger_52CFA0(row, '|', 3);
+        const std::int32_t characterAction = network::ParseDelimitedInteger_52CFA0(row, '|', 4);
+        const std::int32_t direction = network::ParseDelimitedInteger_52CFA0(row, '|', 5);
+        if (login::detail::Sub_440920(objectIndex, x, y, direction, characterAction, row) != 0) {
+            continue;
+        }
+        const std::int32_t option1 = network::ParseDelimitedInteger_52CFA0(row, '|', 6);
+        const std::int32_t option2 = network::ParseDelimitedInteger_52CFA0(row, '|', 7);
+        const std::int32_t option3 = network::ParseDelimitedInteger_52CFA0(row, '|', 8);
+        const std::int32_t option4 = network::ParseDelimitedInteger_52CFA0(row, '|', 9);
+        if (gPlayerRuntime.objectIndex == static_cast<std::uint32_t>(objectIndex)) {
+            login::YobiAction* const player = gPlayerRuntime.action;
+            if (player != nullptr && login::detail::GetYobiActionField2A8(player) != 0) {
+                Sub_51A840(x, y, direction, characterAction, option1, option2, option3, option4);
+            }
+            continue;
+        }
+        login::YobiAction* const action = FindObjectYobi_4462B0(objectIndex);
+        if (action != nullptr) {
+            Sub_444410(action, x, y, direction, characterAction, option1, option2, option3, option4);
+            continue;
+        }
+        std::int32_t index = 0;
+        for (; index < missingCount; ++index) {
+            if (missing[index] == objectIndex) {
+                break;
+            }
+        }
+        if (index == missingCount && static_cast<std::uint32_t>(missingCount) < 0x1000u) {
+            ++missingCount;
+            *missingCursor = objectIndex;
+            ++missingCursor;
+        }
+    }
+}
+
 void Sub_50D000(
     const std::uintptr_t /*socket*/, const std::int32_t first, const std::int32_t second)
 {

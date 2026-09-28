@@ -138,6 +138,7 @@ extern std::int32_t gFocusElementIndex57C124;
 extern std::int32_t gMousePhase57C128;
 extern WindowInputPrototype gChatInputPrototype57E970;
 extern std::int32_t gChatWindowModeD66E04; // 原独立S32，窗口35/57选择与设置文件共用。
+extern std::uint8_t gValue5F9754; // 原多窗口/物品UI共享字节，观察进入可能清零。
 
 // 原输入原型四模式更新及聊天恢复，复用既有InputContext owner。
 std::uint8_t Sub_476570(

@@ -3,6 +3,7 @@
 #include "../world/WorldUpdateDependencies.hpp"
 #include "cg/Input.hpp"
 #include "cg/YobiRuntime.hpp"
+#include "cg/world/SceneState.hpp"
 
 #include <cstdlib>
 #include <cstring>
@@ -30,6 +31,7 @@ WindowInputPrototype gChatInputPrototype57E970 {
     8, 5, 3, 9, 0, {}, 1, 76, 0, 0,
 };
 std::int32_t gChatWindowModeD66E04 = 0;
+std::uint8_t gValue5F9754 = 0;
 
 namespace {
 
@@ -290,6 +292,19 @@ void CloseWindowsByCategory_472240(const std::uint32_t mask)
             FreeWindow_471270(gWindows[index]);
             gWindows[index] = nullptr;
         }
+    }
+}
+
+void ApplyObservationInputGate_440ADB()
+{
+    auto* const bytes = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
+    if (detail::gValue5F9754 != 0) {
+        const unsigned char previous = bytes[7];
+        detail::gValue5F9754 = 0;
+        bytes[7] = static_cast<unsigned char>(previous - 1);
+    }
+    for (std::size_t index = 0; index < 8; ++index) {
+        bytes[index] = static_cast<unsigned char>(bytes[index] + 1);
     }
 }
 

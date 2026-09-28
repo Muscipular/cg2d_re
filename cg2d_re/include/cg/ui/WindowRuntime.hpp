@@ -15,5 +15,6 @@ std::int32_t ReadDragItemIndex_584DA4() noexcept; // 原S32拖动编号，初值
 void FreeWindow_471270(WindowInstance* window); // release回调、记录回存、七类元素释放。
 void CloseWindowsByCategory_472240(std::uint32_t mask); // 按原71槽顺序关闭并清槽。
 void CancelWindowDrag_476410(); // 回调后重读阶段，最后进入2或6，不等同通用重置。
+void ApplyObservationInputGate_440ADB(); // 同源5F9754及D67B08前八个U8的观察进入写序。
 
 } // namespace cg::ui

@@ -129,6 +129,7 @@ std::uint8_t gTradeValueC8AF81 = 0;
 std::uint8_t gTradeTabCC4D1A = 0;
 std::int32_t gTradeHoverSlotC8B314 = 0;
 std::int32_t gTradeHoverSlotC8AA78 = 0;
+std::int32_t gPetDragModeD2EA1C = 0;
 std::int32_t gTradeScrollCF3B0C = 0;
 std::int32_t gTradeScrollCC4C90 = 0;
 std::int32_t gTradeScrollD67430 = 0;
@@ -1650,6 +1651,92 @@ std::int32_t Sub_4B1260(
     static_cast<void>(render::DrawGraphic3_520970(
         x, y, 223, imageNo, 0, 1, 0, descriptor));
     return result;
+}
+
+void Sub_48BF30(
+    const std::int32_t message, const std::int32_t, const std::int32_t sourceIndex)
+{
+    render::GraphicDescriptor16 descriptor {};
+    const std::uint32_t color = 0x80FFFFFFu;
+    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    descriptor.bytes[13] = 4;
+    if (message != 0) {
+        return;
+    }
+    const std::int32_t kind = Sub_48BB70(sourceIndex);
+    if (kind == 1) {
+        if (world::detail::gPetRuntimeF633F8[sourceIndex].used == 0) {
+            static_cast<void>(Sub_4763E0());
+        }
+    } else if (kind == 2) {
+        std::uint16_t used;
+        std::memcpy(&used, gPetStorageD64E18.data() + (sourceIndex - 100) * 0x600, sizeof(used));
+        if (used == 0) {
+            static_cast<void>(Sub_4763E0());
+        }
+    }
+    const std::int32_t clickMode = gPetDragModeD2EA1C;
+    const auto clicked = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
+    if (clickMode == 0) {
+        if ((clicked & 2u) != 0) {
+            static_cast<void>(Sub_4763E0());
+            const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
+                platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseX)));
+            const auto y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
+                platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseY)));
+            static_cast<void>(Sub_476490(3, sourceIndex, x, y, Sub_48BF30));
+        }
+    } else {
+        if ((clicked & 1u) != 0) {
+            static_cast<void>(Sub_4763E0());
+            const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
+                platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseX)));
+            const auto y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
+                platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseY)));
+            static_cast<void>(Sub_476490(3, sourceIndex, x, y, Sub_48BF30));
+        }
+        if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
+            CancelWindowDrag_476410();
+        }
+    }
+    static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
+    const std::int32_t drawMode = gPetDragModeD2EA1C;
+    if (drawMode == 1) {
+        const std::int32_t drawKind = Sub_48BB70(sourceIndex);
+        if (drawKind == 1) {
+            const auto y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
+                platform::legacy_crypt_int::Subtract_401E60(&platform::gLegacyMouseState.mouseY, 35)));
+            const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
+                platform::legacy_crypt_int::Subtract_401E60(&platform::gLegacyMouseState.mouseX, 120)));
+            Sub_4AAB70(x, y, sourceIndex, 5);
+        } else if (drawKind == 2) {
+            const std::int32_t slot = sourceIndex - 100;
+            const auto y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
+                platform::legacy_crypt_int::Subtract_401E60(&platform::gLegacyMouseState.mouseY, 35)));
+            const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
+                platform::legacy_crypt_int::Subtract_401E60(&platform::gLegacyMouseState.mouseX, 120)));
+            Sub_4AB400(x, y, slot, 5);
+        } else {
+            return;
+        }
+        const std::int32_t y =
+            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseY);
+        const std::int32_t x =
+            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseX);
+        static_cast<void>(login::detail::DrawGraphic(x, y, 230, 243141, 0, &descriptor));
+    } else if (drawMode == 0 && Sub_48BB70(sourceIndex) == 1) {
+        const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
+            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseX)));
+        const auto y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
+            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseY)));
+        static_cast<void>(Sub_48D540(x, y, sourceIndex, 5, 230, color));
+    }
+}
+
+std::int32_t Sub_48C130(const std::int32_t sourceIndex, const std::int32_t mode)
+{
+    gPetDragModeD2EA1C = mode;
+    return Sub_475DA0(3, sourceIndex, Sub_48BF30);
 }
 
 void Sub_4B25D0(

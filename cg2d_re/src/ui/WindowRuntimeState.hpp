@@ -345,6 +345,7 @@ extern std::uint8_t gTradeValueC8AF81;
 extern std::uint8_t gTradeTabCC4D1A; // 对方页签，不套用己方窗口初始化重置。
 extern std::int32_t gTradeHoverSlotC8B314; // 对方提示槽缓存，非地址。
 extern std::int32_t gTradeHoverSlotC8AA78; // 己方已选物品提示槽缓存。
+extern std::int32_t gPetDragModeD2EA1C; // 48C130发布，回调分别采点击和绘制模式。
 extern std::int32_t gTradeScrollCF3B0C;
 extern std::int32_t gTradeScrollCC4C90;
 extern std::int32_t gTradeScrollD67430;
@@ -406,6 +407,8 @@ std::int32_t Sub_48D540(
     std::int16_t x, std::int16_t y, std::int32_t index,
     std::uint8_t textLayer, std::uint8_t graphicLayer, std::uint32_t color);
 std::int32_t Sub_4EA670(std::int32_t index); // 原25600技能检查，返回0/1。
+void Sub_48BF30(std::int32_t message, std::int32_t unused, std::int32_t sourceIndex);
+std::int32_t Sub_48C130(std::int32_t sourceIndex, std::int32_t mode);
 void Sub_4B25D0(std::int32_t message, std::int32_t unused, std::int32_t sourceIndex);
 void Sub_4B2E00(std::int32_t message, std::int32_t unused, std::int32_t sourceIndex);
 std::int32_t Sub_4B2710(std::int32_t index); // kind6，绑定真实物品拖动回调。

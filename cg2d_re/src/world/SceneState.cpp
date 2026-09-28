@@ -118,6 +118,18 @@ struct PlayerRuntimeSlots {
 
 PlayerRuntimeSlots gPlayerRuntime {};
 
+std::uint32_t gChatPreviousTickDA3B3C = 0;
+std::uint32_t gChatCurrentTickDA3B40 = 0;
+std::uint8_t gChatDisabledDA3B4C = 0;
+std::int32_t gChatGateDA3B54 = 0; // 原50CAE0接收回复另有写者，不由发送方猜定。
+constexpr char kChatDisabledText58AFEC[] =
+    "\xA5\xD8\xAB\x65\xB8\x54\xA8\xA5\xA4\xA4";
+constexpr char kChatRepeatedText58B000[] =
+    "\xAD\xAB\xBD\xC6\xB5\x6F\xA8\xA5\xA1\x41"
+    "\xB8\x54\xA8\xA5\xA4\x54\xA4\xC0\xC4\xC1";
+static_assert(sizeof(kChatDisabledText58AFEC) == 11);
+static_assert(sizeof(kChatRepeatedText58B000) == 21);
+
 // 原 [FF02E0,FF03D0) 的五槽表；与玩家首块分属不同清零区。
 struct PetMapCharaSlot {
     std::uint16_t flags;
@@ -2050,6 +2062,55 @@ std::uint32_t Sub_50BFA0(
     const std::uint32_t options = static_cast<std::uint32_t>(value) & 0xFFFDu;
     gPlayerRuntime.options194 = static_cast<std::uint16_t>(options);
     return options;
+}
+
+std::int32_t Sub_50C940(
+    const input::InputContext* const context, const std::int32_t color)
+{
+    const std::int32_t sendColor = color == 4 ? 5 : color;
+    const std::int32_t gate = gChatGateDA3B54;
+    const std::uint8_t disabled = gChatDisabledDA3B4C;
+    const bool restricted = disabled != 0
+        || (gate == 0 && gValueFF0D36 != 0
+            && (static_cast<std::uint8_t>(gPlayerRuntime.options194) & 8u) != 0);
+    if (restricted) {
+        const std::uint32_t tick = platform::ReadTickCount32();
+        if (tick - gChatCurrentTickDA3B40 > 180000u) {
+            gChatDisabledDA3B4C = 0;
+        } else if (gChatGateDA3B54 != 0 || gValueFF0D36 == 0
+                   || (static_cast<std::uint8_t>(gPlayerRuntime.options194) & 8u) == 0) {
+            Sub_44B050(kChatDisabledText58AFEC, 4, 3);
+            const std::int32_t sound = platform::gValue554644;
+            if (sound != 0) {
+                return audio::PlaySe_52C450(74, 320);
+            }
+            return sound;
+        }
+    } else {
+        gChatPreviousTickDA3B3C = gChatCurrentTickDA3B40;
+        const std::uint32_t tick = platform::ReadTickCount32();
+        const std::uint32_t previous = gChatPreviousTickDA3B3C;
+        gChatCurrentTickDA3B40 = tick;
+        if (tick - previous < 1000u) {
+            Sub_44B050(kChatRepeatedText58B000, 4, 3);
+            std::int32_t result = platform::gValue554644;
+            if (result != 0) {
+                result = audio::PlaySe_52C450(74, 320);
+            }
+            gChatDisabledDA3B4C = 1;
+            return result;
+        }
+    }
+    char escaped[1024];
+    char packet[1024];
+    input::EscapeInputText_52D2D0(context, escaped, 1024);
+    std::sprintf(packet, "P|%s", escaped);
+    const std::int32_t mode = platform::gValue73ECBC;
+    const std::int32_t range = platform::gValue554640;
+    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&gPlayerY);
+    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&gPlayerX);
+    const std::uintptr_t socket = platform::gConnectionSocket;
+    return network::Sub_511900(socket, x, y, packet, sendColor, range, mode);
 }
 
 void Sub_50D000(

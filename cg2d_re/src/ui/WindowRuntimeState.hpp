@@ -6,12 +6,30 @@
 #include <cstddef>
 #include <cstdint>
 
+namespace cg::login {
+struct YobiAction;
+}
+
 namespace cg::ui {
 
 using WindowCallback = std::int32_t (*)(std::int32_t value);
 using WindowReleaseCallback = void (*)();
 using WindowElementCallback = std::int32_t (*)(std::int32_t index, std::int32_t state);
 using WindowValueCallback = void (*)(std::int32_t value);
+using WindowDragCallback = void (*)(
+    std::int32_t message, std::int32_t flags, std::int32_t sourceIndex);
+
+// 原第2类元素的8B载荷；471622写真实Yobi，471334只给它标死。
+struct WindowAnimationData {
+    login::YobiAction* action;
+    std::uint32_t value04;
+};
+
+// 原第3类元素的8B载荷；文本由47167F分配，47134F释放。
+struct WindowTextData {
+    std::array<std::byte, 4> bytes00;
+    char* text;
+};
 
 // 仅按已证字段增量映射；未消费数据不计最终布局冻结，见UI窗口SPEC。
 struct WindowElement {
@@ -76,7 +94,24 @@ extern WindowInstance* gCurrentWindow; // 原CF4694。
 extern WindowState* gCurrentWindowState; // 原CF4684。
 extern std::uint8_t gValueD67BE0; // 原多个UI生产/消费入口共用，不并入窗口记录。
 extern std::int32_t gDragItemIndex584DA4; // 4FAEF0/4FB8F2的真实写入链待接。
+extern void* gFocusedElementDataD45F94; // 原异型元素载荷地址，仅借用，不是InputContext。
+extern std::int32_t gMouseValue57C110;
+extern std::int32_t gDragSourceIndex57C114;
+extern WindowDragCallback gDragCallback57C118;
+extern std::int16_t gDragX57C11C;
+extern std::int16_t gDragY57C11E;
+extern std::int32_t gFocusWindowId57C120;
+extern std::int32_t gFocusElementIndex57C124;
+extern std::int32_t gMousePhase57C128;
 
+// 原恢复聊天输入；471270的真实依赖，原型更新及本体后续接通。
+std::int32_t Sub_4A7B00();
+
+static_assert(offsetof(WindowAnimationData, action) == 0);
+static_assert(offsetof(WindowAnimationData, value04) == 8);
+static_assert(sizeof(WindowAnimationData) == 16);
+static_assert(offsetof(WindowTextData, text) == 8);
+static_assert(sizeof(WindowTextData) == 16);
 static_assert(offsetof(WindowElement, data) == 0x20);
 static_assert(offsetof(WindowElement, mouseCallback) == 0x28);
 static_assert(sizeof(WindowElement) == 0x30);

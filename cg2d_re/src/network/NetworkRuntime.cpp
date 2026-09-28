@@ -3844,7 +3844,7 @@ std::int32_t NetworkDispatch_512E40(
     if (TryDispatchReply<world::detail::Sub_50F430, T>(head, "cNB", socket)) return 0;
     if (TryDispatchReply<world::detail::Sub_50F7F0, I, T, I>(head, "ow", socket)) return 0;
     if (TryDispatchReply<Sub_50F990, I, I, I, I, T>(head, "DyAG", socket)) return 0;
-    if (TryDispatchReply<Sub_50F9E0, T>(head, "KyN", socket)) return 0;
+    if (TryDispatchReply<world::detail::Sub_50F9E0, T>(head, "KyN", socket)) return 0;
     if (TryDispatchReply<world::detail::Sub_50CAE0, I, T, I, I>(head, "zdr", socket)) return 0;
     if (TryDispatchReply<world::detail::Sub_50CE10, T>(head, "Zd", socket)) return 0;
     if (TryDispatchReply<world::detail::Sub_509650, T>(head, "aPc", socket)) return 0;

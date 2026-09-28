@@ -52,6 +52,9 @@ void Sub_5191C0(
     std::int32_t index, std::int32_t kind, const char* name, const char* text); // 九次倒序搬移后写首条。
 std::int32_t Sub_518DA0(); // 普通/公会/迷你三类扫描，首命中发布页号并返回1。
 std::int32_t Sub_534370(std::int32_t key); // 20个迷你联系人，used严格1，返回首个匹配槽。
+std::int32_t Sub_5343A0(); // 返回首个used==0的槽或-1，不预先占用。
+void Sub_4C9490(); // 先清迷你序号，再将共享选择槽写-1。
+std::int32_t Sub_534520(char* destination); // 原time32/localtime格式化并复制时间戳，返回0。
 void Sub_5343C0(
     std::int32_t index, std::int32_t kind, const char* name, const char* text); // 同源迷你邮件九次搬移/写首条。
 void Sub_534480(std::int32_t index); // 原20次清理，每轮两次读取共享593850，不新增索引拒绝。
@@ -59,6 +62,7 @@ void Sub_50F430(std::uintptr_t unusedSocket, const char* payload); // 查槽后�
 void Sub_50F7F0(
     std::uintptr_t unusedSocket, std::int32_t key,
     const char* payload, std::int32_t unusedFourth); // 迷你收信，无文件保存。
+void Sub_50F9E0(std::uintptr_t unusedSocket, const char* payload); // 完整首次生产、时间戳及两路插入。
 
 // 原资料/迷你邮件共享生命周期；不复用94H登录记录或510H保存记录。
 void Sub_533910(); // 只清20个used，再清消息、profile双槽和当前资料。

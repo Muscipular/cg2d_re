@@ -8,6 +8,7 @@
 #include "cg/LegacyRecordOrder.hpp"
 #include "cg/LoginRequest.hpp"
 #include "cg/network/NetworkRuntime.hpp"
+#include "cg/platform/LegacyTime.hpp"
 #include "cg/platform/Startup.hpp"
 #include "cg/world/SceneState.hpp"
 
@@ -36,14 +37,17 @@ namespace {
 alignas(std::uint32_t) std::array<std::byte, 0x5DC00> gMailStorageF7CA08 {};
 alignas(std::uint32_t) std::array<std::byte, 0x139480> gGuildMailStorageDE0B30 {};
 
-// 原1075A90起的20条74H记录，只拆已消费used/key/name，其余仍保持原字节。
+// 原1075A90起的20条74H记录；50F9E0生产，查找/收信/未读扫描共用。
 struct MiniMailContactRecord {
     std::uint16_t used;
-    std::array<std::byte, 2> bytes02;
+    std::uint16_t sequence02;
     std::int32_t key04;
-    std::array<std::byte, 8> bytes08;
+    std::int32_t value08;
+    std::int32_t value0C;
     std::array<char, 17> name10;
-    std::array<std::byte, 0x53> bytes21;
+    std::array<char, 17> text21;
+    std::array<char, 33> text32;
+    std::array<std::byte, 0x21> bytes53;
 };
 
 struct alignas(std::uint32_t) MiniMailRuntimeSlots {
@@ -55,15 +59,20 @@ static_assert(sizeof(MiniMailContactRecord) == 0x74);
 static_assert(std::is_standard_layout_v<MiniMailRuntimeSlots>);
 static_assert(std::is_trivially_copyable_v<MiniMailRuntimeSlots>);
 static_assert(offsetof(MiniMailContactRecord, used) == 0);
-static_assert(offsetof(MiniMailContactRecord, bytes02) == 2);
+static_assert(offsetof(MiniMailContactRecord, sequence02) == 2);
 static_assert(offsetof(MiniMailContactRecord, key04) == 4);
-static_assert(offsetof(MiniMailContactRecord, bytes08) == 8);
+static_assert(offsetof(MiniMailContactRecord, value08) == 8);
+static_assert(offsetof(MiniMailContactRecord, value0C) == 0x0C);
 static_assert(offsetof(MiniMailContactRecord, name10) == 0x10);
-static_assert(offsetof(MiniMailContactRecord, bytes21) == 0x21);
+static_assert(offsetof(MiniMailContactRecord, text21) == 0x21);
+static_assert(offsetof(MiniMailContactRecord, text32) == 0x32);
+static_assert(offsetof(MiniMailContactRecord, bytes53) == 0x53);
 static_assert(offsetof(MiniMailRuntimeSlots, contacts) == 0);
 static_assert(offsetof(MiniMailRuntimeSlots, messages) == 0x910);
 static_assert(sizeof(MiniMailRuntimeSlots) == 0x10310);
 MiniMailRuntimeSlots gMiniMailRuntime {};
+std::uint32_t gMiniMailSequence1075A88 = 0; // W32序号，先发布低W16再递增。
+std::int32_t gMiniMailSelectionD673E4 = 0; // 4C9490显式写-1，不在静态初值提前写。
 
 // 原profile每条三项108H资料；只拆533950已写的数值和原字节文本。
 struct ProfileEntry {
@@ -475,6 +484,46 @@ std::int32_t Sub_534370(const std::int32_t key)
     return -1;
 }
 
+std::int32_t Sub_5343A0()
+{
+    for (std::int32_t index = 0; index < 20; ++index) {
+        if (gMiniMailRuntime.contacts[index].used == 0) {
+            return index;
+        }
+    }
+    return -1;
+}
+
+void Sub_4C9490()
+{
+    gMiniMailSequence1075A88 = 0;
+    gMiniMailSelectionD673E4 = -1;
+}
+
+std::int32_t Sub_534520(char* const destination)
+{
+    std::int32_t timeValue;
+    platform::ReadLegacyTime32_53BA26(&timeValue);
+    const platform::LegacyTm53B8C6* const localTime =
+        platform::LocalTime_53B8C6(&timeValue);
+    const auto* const timeBytes = reinterpret_cast<const std::byte*>(localTime);
+    const auto readField = [timeBytes](const std::size_t offset) {
+        std::int32_t value;
+        std::memcpy(&value, timeBytes + offset, sizeof(value));
+        return value;
+    };
+    const std::int32_t minutes = readField(0x04);
+    const std::int32_t hours = readField(0x08);
+    const std::int32_t day = readField(0x0C);
+    const std::int32_t month = readField(0x10);
+    const std::int32_t year = readField(0x14);
+    char timestamp[256];
+    std::sprintf(
+        timestamp, "%4d/%2d/%2d %02d:%02d", year + 1900, month + 1, day, hours, minutes);
+    std::strcpy(destination, timestamp);
+    return 0;
+}
+
 void Sub_5343C0(
     const std::int32_t index, const std::int32_t kind,
     const char* const name, const char* const text)
@@ -544,6 +593,59 @@ void Sub_50F7F0(
         }
     }
     static_cast<void>(audio::PlaySe_52C450(63, 320));
+    Sub_44B050(message, 4, 3);
+}
+
+void Sub_50F9E0(const std::uintptr_t, const char* const payload)
+{
+    const std::int32_t index = Sub_5343A0();
+    if (index == -1) {
+        return;
+    }
+    std::byte* const first = gMiniMailRuntime.messages.data()
+        + static_cast<std::ptrdiff_t>(index) * kMailNumberBytes;
+    for (std::ptrdiff_t message = 0; message < 20; ++message) {
+        std::byte* const entry = first + message * kMailMessageBytes;
+        const char* text = input::LegacyText593850();
+        std::memcpy(entry + 0x14, text, std::strlen(text) + 1);
+        text = input::LegacyText593850();
+        std::memcpy(entry + 2, text, std::strlen(text) + 1);
+        entry[0] = std::byte{0};
+        entry[1] = std::byte{0};
+    }
+
+    MiniMailContactRecord& record = gMiniMailRuntime.contacts[index];
+    record.used = 1;
+    record.key04 = network::ParseDelimitedInteger_52CFA0(payload, '|', 1);
+    record.value0C = network::ParseDelimitedInteger_52CFA0(payload, '|', 2);
+    record.value08 = network::ParseDelimitedInteger_52CFA0(payload, '|', 3);
+    network::ExtractDelimitedField_52CED0(payload, '|', 4, 16, record.name10.data());
+    input::UnescapeLegacyTextAndNotify_52D2F0(record.name10.data());
+    network::ExtractDelimitedField_52CED0(payload, '|', 5, 32, record.text32.data());
+    input::UnescapeLegacyTextAndNotify_52D2F0(record.text32.data());
+    network::ExtractDelimitedField_52CED0(payload, '|', 6, 16, record.text21.data());
+    input::UnescapeLegacyTextAndNotify_52D2F0(record.text21.data());
+    const std::uint32_t sequence = gMiniMailSequence1075A88;
+    record.sequence02 = static_cast<std::uint16_t>(sequence);
+    gMiniMailSequence1075A88 = sequence + 1u;
+
+    const std::int32_t key = network::ParseDelimitedInteger_52CFA0(payload, '|', 7);
+    char timestamp[256];
+    char text[1024];
+    char message[256];
+    network::ExtractDelimitedField_52CED0(payload, '|', 8, 255, timestamp);
+    input::UnescapeLegacyTextAndNotify_52D2F0(timestamp);
+    network::ExtractDelimitedField_52CED0(payload, '|', 9, 1023, text);
+    input::UnescapeLegacyTextAndNotify_52D2F0(text);
+    static_cast<void>(Sub_534520(timestamp));
+    const std::int16_t selected = login::gSelectedCharacterIndex;
+    if (gProfiles1074938[selected].value00 == key) {
+        Sub_5343C0(index, 1, timestamp, text);
+        return;
+    }
+    Sub_5343C0(index, 0, timestamp, text);
+    static_cast<void>(audio::PlaySe_52C450(63, 320));
+    std::sprintf(message, kReceivedMiniMailFormat58B108, record.name10.data());
     Sub_44B050(message, 4, 3);
 }
 

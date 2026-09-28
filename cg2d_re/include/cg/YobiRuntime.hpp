@@ -56,6 +56,11 @@ YobiAction* NewYobiAction_404AE0(
 void ConfigureWindowElementAction(YobiAction*& slot, const std::int32_t* imageNo);
 // 原4B4863–4B48A4：先转换图号，再逐次借用共享宠物预览槽写字段。
 void ConfigureWindowPetPreview(YobiAction*& slot, std::int32_t imageNo);
+// 原CF3B88/D2F3B0的两个静态内嵌预览；不分配、不进入通用Yobi链。
+YobiAction* BorrowWindowSelectorPreview(std::int32_t index) noexcept;
+std::uint32_t ConstructWindowSelectorPreview(YobiAction* action); // 十CryptInt，返回flags|2快照。
+void FinishWindowSelectorPreview(YobiAction* action, std::uint32_t flags);
+void DestroyWindowSelectorPreview(YobiAction* action); // 只逆序析构十CryptInt。
 // 原475950完整展开动画创建，失败仍调用真实窗口打开；完成槽为非拥有T**。
 YobiAction* Sub_475950(
     std::int32_t x, std::int32_t y, std::int32_t width, std::int32_t height,

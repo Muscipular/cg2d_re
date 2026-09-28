@@ -1,6 +1,7 @@
 #pragma once
 
 #include "cg/ui/WindowRuntime.hpp"
+#include "cg/render/GraphicPendingQueue.hpp"
 
 #include <array>
 #include <cstddef>
@@ -109,6 +110,32 @@ struct WindowInstance {
 };
 
 namespace detail {
+
+// 原CF3B10/D2F338的已消费字段；不是x86字节布局，不冻结未消费前缀。
+struct WindowItemSelectorState {
+    std::int32_t value64;
+    std::int32_t step6C;
+    std::int32_t selectedPet70;
+    std::int32_t previousPet74;
+    login::YobiAction* preview; // 借用原内嵌+78的静态对象，不负责释放。
+    std::int32_t hoverCount3A8;
+    std::array<std::byte, 4> bytes3AC;
+    std::int32_t hoverIndex3B0;
+    std::array<std::byte, 4> bytes3B4;
+    std::array<render::GraphicDescriptor16, 3> descriptors3B8;
+    std::array<std::byte, 4> bytes3E8;
+    std::uint8_t value3EC;
+    std::uint8_t value3ED;
+    std::int32_t imageIndex3F0;
+    std::int32_t imageIndex3F4;
+    std::int32_t hoverIndex3F8;
+    std::uint8_t value3FC;
+};
+
+extern WindowItemSelectorState gItemSelectorCF3B10;
+extern WindowItemSelectorState gItemSelectorD2F338;
+WindowItemSelectorState* Sub_4C61B0(WindowItemSelectorState* state); // 完整构造，不整区清零。
+std::int32_t Sub_4C71B0(const WindowItemSelectorState* state); // 原+70同源S32。
 
 // 文本原型只借用源字节；实例仍通过WindowTextData拥有256B可写副本。
 struct WindowTextPrototype {
@@ -360,6 +387,7 @@ std::int32_t Sub_48B810(
     const char* lines, std::int32_t stride, std::int32_t lineCount,
     const char* footer, std::int8_t footerColor); // 原完整层5提示框。
 std::int32_t Sub_48B450(std::int32_t side, std::int32_t index, std::int32_t page);
+std::int32_t Sub_48B1A0(std::int32_t index, std::int32_t page); // 玩家/所选宠物装备提示。
 std::int32_t Sub_4B45A0(
     std::int32_t x, std::int32_t y, std::int32_t side,
     std::int32_t index, std::int32_t skill); // 交易宠物技能行，空文本仍绘制行图。

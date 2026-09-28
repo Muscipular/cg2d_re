@@ -32,6 +32,9 @@
 namespace cg::ui {
 namespace detail {
 
+WindowItemSelectorState gItemSelectorCF3B10 {};
+WindowItemSelectorState gItemSelectorD2F338 {};
+
 std::array<WindowInstance*, kWindowCount> gWindows {};
 std::array<WindowState, kWindowCount> gWindowStates {};
 WindowInstance* gCurrentWindow = nullptr;
@@ -1265,6 +1268,82 @@ std::int32_t Sub_48B450(
     const std::int8_t titleColor = (flags & 0x100u) != 0
         ? 5 : static_cast<std::int8_t>((flags >> 9) & 1u);
     const char* const lines = record + 0x2D + page * 768;
+    const std::int16_t x = std::bit_cast<std::int16_t>(gTooltipXCF46C0);
+    const std::int16_t y = std::bit_cast<std::int16_t>(gTooltipYCF46CC);
+    return Sub_48B810(x, y, title, titleColor, lines, 96, 8, nullptr, 0);
+}
+
+WindowItemSelectorState* Sub_4C61B0(WindowItemSelectorState* const state)
+{
+    const std::uint32_t flags = login::detail::ConstructWindowSelectorPreview(state->preview);
+    state->bytes3E8.fill(std::byte{0});
+    state->value64 = 0;
+    state->step6C = 21;
+    state->previousPet74 = -1;
+    state->selectedPet70 = -1;
+    state->value3EC = 1;
+    state->value3ED = 1;
+    state->imageIndex3F0 = 0;
+    state->imageIndex3F4 = 0;
+    login::detail::FinishWindowSelectorPreview(state->preview, flags);
+    state->hoverIndex3B0 = -1;
+    state->hoverIndex3F8 = -1;
+    state->bytes3B4.fill(std::byte{0});
+    state->hoverCount3A8 = 0;
+    state->bytes3AC.fill(std::byte{0});
+    state->value3FC = 0;
+    for (std::size_t index = 0; index < state->descriptors3B8.size(); ++index) {
+        auto& descriptor = state->descriptors3B8[index];
+        descriptor.bytes.fill(0);
+        const std::uint32_t color = index == 0 ? 0xFFFFFFFFu : 0x80FFFFFFu;
+        std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+        descriptor.bytes[13] = 4;
+    }
+    return state;
+}
+
+std::int32_t Sub_4C71B0(const WindowItemSelectorState* const state)
+{
+    return state->selectedPet70;
+}
+
+std::int32_t Sub_48B1A0(const std::int32_t index, const std::int32_t page)
+{
+    if (gTooltipSourceD303FC != index) {
+        gTooltipXCF46C0 = static_cast<std::uint16_t>(
+            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseX));
+        gTooltipYCF46CC = static_cast<std::uint16_t>(
+            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseY));
+        const bool left =
+            platform::legacy_crypt_int::Less_401DB0(&platform::gLegacyMouseState.mouseX, 320);
+        gTooltipXCF46C0 = static_cast<std::uint16_t>(gTooltipXCF46C0 + (left ? 60 : -257));
+        const bool top =
+            platform::legacy_crypt_int::Less_401DB0(&platform::gLegacyMouseState.mouseY, 240);
+        gTooltipYCF46CC = static_cast<std::uint16_t>(gTooltipYCF46CC + (top ? 60 : -174));
+    }
+    const std::int8_t mode = std::bit_cast<std::int8_t>(gValue57DA28);
+    gTooltipSourceD303FC = index;
+    const bool petEquipment = mode > 0 && index < 6;
+    const world::detail::PlayerItemRecord* record;
+    if (petEquipment) {
+        const std::int32_t petIndex = Sub_4C71B0(&gItemSelectorCF3B10);
+        const std::int32_t itemIndex = gTooltipSourceD303FC;
+        record = &world::detail::gPetRuntimeF633F8[petIndex].items6E4[itemIndex];
+    } else {
+        record = &world::detail::gPlayerItemsFDA8A4[index];
+    }
+    const std::uint16_t flags = record->flags;
+    const char* const title = (flags & 0x100u) != 0
+        ? record->memo.data() : record->name.data();
+    const std::int8_t titleColor = (flags & 0x100u) != 0
+        ? 5 : static_cast<std::int8_t>((flags & 0x200u) >> 9);
+    const char* const lines = reinterpret_cast<const char*>(record)
+        + offsetof(world::detail::PlayerItemRecord, description) + page * 768;
+    if (petEquipment) {
+        const std::int16_t y = std::bit_cast<std::int16_t>(gTooltipYCF46CC);
+        const std::int16_t x = std::bit_cast<std::int16_t>(gTooltipXCF46C0);
+        return Sub_48B810(x, y, title, titleColor, lines, 96, 8, nullptr, 0);
+    }
     const std::int16_t x = std::bit_cast<std::int16_t>(gTooltipXCF46C0);
     const std::int16_t y = std::bit_cast<std::int16_t>(gTooltipYCF46CC);
     return Sub_48B810(x, y, title, titleColor, lines, 96, 8, nullptr, 0);
@@ -3941,6 +4020,20 @@ void Sub_50E570(const std::uintptr_t, const std::int32_t value)
             static_cast<void>(audio::PlaySe_52C450(57, 320));
         }
     }
+}
+
+void ConstructItemSelectors()
+{
+    detail::gItemSelectorCF3B10.preview = login::detail::BorrowWindowSelectorPreview(0);
+    static_cast<void>(detail::Sub_4C61B0(&detail::gItemSelectorCF3B10));
+    detail::gItemSelectorD2F338.preview = login::detail::BorrowWindowSelectorPreview(1);
+    static_cast<void>(detail::Sub_4C61B0(&detail::gItemSelectorD2F338));
+}
+
+void DestroyItemSelectors()
+{
+    login::detail::DestroyWindowSelectorPreview(detail::gItemSelectorD2F338.preview);
+    login::detail::DestroyWindowSelectorPreview(detail::gItemSelectorCF3B10.preview);
 }
 
 void InitializeNumberSpacing_477170()

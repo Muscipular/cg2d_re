@@ -81,6 +81,8 @@ struct YobiAction {
     std::array<char, 17> text144; // 原+144；445350复制长度<=16的独立原字节文本。
     platform::LegacyCryptInt readiness; // 原 +170；地图实体将同一槽用于 HP。
     platform::LegacyCryptInt maxHp; // 原 +180；不与 +170 合并。
+    platform::LegacyCryptInt value190; // 原+190/+1A0，选择对象静态构造各自初始化。
+    platform::LegacyCryptInt value1A0;
     platform::LegacyCryptInt barValue1B0; // 原+1B0；442F70同步玩家/宠物FP，43DB60绘第二条。
     platform::LegacyCryptInt barMaximum1C0; // 原+1C0；同步最大FP，读取仍消费计数/RNG。
     union {
@@ -137,6 +139,9 @@ static_assert(std::is_standard_layout_v<YobiAction>);
 static_assert(std::is_trivially_copyable_v<YobiAction>);
 
 namespace detail {
+
+// 原选择对象内嵌+78，静态生命周期；UI只持有对应非拥有T*。
+static std::array<YobiAction, 2> gWindowSelectorPreviews {};
 
 std::int32_t gYobiUpdateGateMode = 0;
 std::int32_t gYobiUpdatePhaseCounter = 0;
@@ -6689,6 +6694,55 @@ void ConfigureWindowPetPreview(YobiAction*& slot, const std::int32_t imageNo)
     slot->flags |= 2u;
     slot->callback = nullptr;
     slot->direction = 5;
+}
+
+YobiAction* BorrowWindowSelectorPreview(const std::int32_t index) noexcept
+{
+    return &gWindowSelectorPreviews[index];
+}
+
+std::uint32_t ConstructWindowSelectorPreview(YobiAction* const action)
+{
+    platform::legacy_crypt_int::ConstructZero_401C70(&action->readiness);
+    platform::legacy_crypt_int::ConstructZero_401C70(&action->maxHp);
+    platform::legacy_crypt_int::ConstructZero_401C70(&action->value190);
+    platform::legacy_crypt_int::ConstructZero_401C70(&action->value1A0);
+    platform::legacy_crypt_int::ConstructZero_401C70(&action->barValue1B0);
+    platform::legacy_crypt_int::ConstructZero_401C70(&action->barMaximum1C0);
+    platform::legacy_crypt_int::ConstructZero_401C70(&action->mapX1E0);
+    platform::legacy_crypt_int::ConstructZero_401C70(&action->mapY1F0);
+    platform::legacy_crypt_int::ConstructZero_401C70(&action->mapX200);
+    platform::legacy_crypt_int::ConstructZero_401C70(&action->mapY210);
+    return action->flags | 2u;
+}
+
+void FinishWindowSelectorPreview(YobiAction* const action, const std::uint32_t flags)
+{
+    action->flags = flags;
+    action->callback = nullptr;
+    // 原固定来源F5E988归技能块，不建立负宠物槽或独立影子值。
+    static_assert(0x3C + 3 * 0x94 + 0x19 + 83 == 0x264);
+    std::int32_t imageNo;
+    std::memcpy(&imageNo,
+        world::detail::gSkillsF1BAFC[14].techniques3C[3].description.data() + 83,
+        sizeof(imageNo));
+    action->displayPriority = 0xDF;
+    action->imageNo = imageNo;
+    action->direction = 5;
+}
+
+void DestroyWindowSelectorPreview(YobiAction* const action)
+{
+    platform::legacy_crypt_int::Destroy_401CF0(&action->mapY210);
+    platform::legacy_crypt_int::Destroy_401CF0(&action->mapX200);
+    platform::legacy_crypt_int::Destroy_401CF0(&action->mapY1F0);
+    platform::legacy_crypt_int::Destroy_401CF0(&action->mapX1E0);
+    platform::legacy_crypt_int::Destroy_401CF0(&action->barMaximum1C0);
+    platform::legacy_crypt_int::Destroy_401CF0(&action->barValue1B0);
+    platform::legacy_crypt_int::Destroy_401CF0(&action->value1A0);
+    platform::legacy_crypt_int::Destroy_401CF0(&action->value190);
+    platform::legacy_crypt_int::Destroy_401CF0(&action->maxHp);
+    platform::legacy_crypt_int::Destroy_401CF0(&action->readiness);
 }
 
 const render::GraphicDescriptor16* BorrowYobiActionDrawMode(

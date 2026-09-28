@@ -114,6 +114,21 @@ struct WindowNumberSpacingStaticInitializer {
 
 const WindowNumberSpacingStaticInitializer gWindowNumberSpacingStaticInitializer;
 
+// 原55309C/5530A0相邻，两对象各十CryptInt；退出保持相反顺序。
+struct ItemSelectorsStaticInitializer {
+    ItemSelectorsStaticInitializer()
+    {
+        cg::ui::ConstructItemSelectors();
+    }
+
+    ~ItemSelectorsStaticInitializer()
+    {
+        cg::ui::DestroyItemSelectors();
+    }
+};
+
+const ItemSelectorsStaticInitializer gItemSelectorsStaticInitializer;
+
 struct LegacyMouseStaticInitializer {
     LegacyMouseStaticInitializer()
     {

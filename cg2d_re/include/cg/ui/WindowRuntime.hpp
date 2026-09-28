@@ -31,6 +31,8 @@ void CloseWindowsByCategory_472240(std::uint32_t mask); // 按原71槽顺序关�
 void CancelWindowDrag_476410(); // 回调后重读阶段，最后进入2或6，不等同通用重置。
 void ApplyObservationInputGate_440ADB(); // 同源5F9754及D67B08前八个U8的观察进入写序。
 void InitializeNumberSpacing_477170(); // 原CRT 553098，四种数字图片步进的唯一初始化。
+void ConstructItemSelectors(); // 原CRT 55309C/5530A0，两静态选择对象按序构造。
+void DestroyItemSelectors(); // 两对象逆序析构，不释放其静态预览。
 void DrawCurrentWindow_4729B0(); // 严格visible==1的七类分派，尾部清文本层3并绘范围提示。
 
 // 交易回复：按场景门禁后单次CryptInt门禁，socket由原dispatcher传入但不消费。

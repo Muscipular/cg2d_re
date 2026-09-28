@@ -302,7 +302,7 @@ extern std::int32_t gChatScrollOffsetC9A940; // 原相对共享写指针的回�
 extern std::array<char, 2 * 20 * 0xC4C> gTradeItemsD460D0;
 extern std::array<char, 2 * 5 * 0x5FC> gTradePetsC9C108;
 extern std::array<char, 5 * 0x600> gPetStorageD64E18; // 外部存放宠物，4A84A0原回复区。
-extern std::array<char, 2 * 0xFBF8> gItemDetailStorageCC4D58; // 每组首20条C44物品，剩余区未冻结。
+extern std::array<char, 2 * 0xFBF8> gItemDetailStorageCC4D58; // 每组首20条C44物品、末W32金额，间隔未冻结。
 extern std::int32_t gTradeValueCC4224;
 extern std::int32_t gTradeValueCF4688;
 extern std::int32_t gTradeValueD046D0;
@@ -538,6 +538,8 @@ std::int32_t Sub_4743B0(
     WindowElement* element, std::int32_t position, std::int32_t maximum,
     std::int32_t wheel); // 与4742C0参数顺序不同，保留两次截取与F32余量。
 void Sub_4E0100(std::int32_t side, std::int32_t index); // 另一展示副本，逐行复制描述。
+void Sub_4E02B0(std::int32_t index, std::int32_t side, const char* text); // 外部物品描述及页数。
+std::int32_t Sub_4A84A0(const char* text); // 外部存放A/G/I/P完整解析，只有A返回1。
 std::int32_t Sub_4FB8F0(); // 物品拖动重置，不等同窗口拖动。
 std::int32_t Sub_4FB920(std::int32_t index); // 仅清与本次回复槽号相同的非负拖动编号。
 void Sub_4E5DA0(std::int32_t side, std::int32_t first, std::int32_t second); // 交易整条换位。

@@ -4008,6 +4008,154 @@ void Sub_4E52B0(const std::int32_t side)
     }
 }
 
+void Sub_4E02B0(
+    const std::int32_t index, const std::int32_t side, const char* const text)
+{
+    char* const record = gItemDetailStorageCC4D58.data() + index * 0xC44 + side * 0xFBF8;
+    char* const rows = record + 0x29;
+    std::int32_t last = -1;
+    for (std::int32_t line = 0; line < 32; ++line) {
+        char* const row = rows + line * 96;
+        if (input::ExtractLegacyLine_503AB0(row, 3072, text, line, 32) != 0) {
+            last = line;
+        } else {
+            row[0] = '\0';
+        }
+    }
+    // 原回扫从最后成功行的前一行开始，空行不清整行残留。
+    while (last > 0 && std::strlen(rows + (last - 1) * 96) == 0) {
+        --last;
+    }
+    WriteTradeValue(record, 0xC3C, last < 0 ? std::int32_t{0} : last / 8 + 1);
+}
+
+std::int32_t Sub_4A84A0(const char* const text)
+{
+    char buffer[1024];
+    if (network::ExtractDelimitedField_52CED0(text, '|', 1, 1023, buffer) != 0) {
+        return 0;
+    }
+    input::UnescapeLegacyTextAndNotify_52D2F0(buffer);
+    if (std::strlen(buffer) != 1) {
+        return 0;
+    }
+    const auto readItem = [&](char* const record, const std::int32_t index,
+                              const std::int32_t field, const bool requireDescriptionField) {
+        const std::int32_t imageNo = network::ParseDelimitedInteger_52CFA0(text, '|', field);
+        if (imageNo <= 0) {
+            return;
+        }
+        WriteTradeValue(record, 0, std::uint16_t{1});
+        WriteTradeValue(record, 4, imageNo);
+        WriteTradeValue(record, 8, network::ParseDelimitedInteger_52CFA0(text, '|', field + 1));
+        WriteTradeValue(record, 0xC40, network::ParseDelimitedInteger_52CFA0(text, '|', field + 2));
+        if (network::ExtractDelimitedField_52CED0(text, '|', field + 3, 1023, buffer) != 0) {
+            return;
+        }
+        input::UnescapeLegacyTextAndNotify_52D2F0(buffer);
+        std::strcpy(record + 0x0C, std::strlen(buffer) > 28 ? "???" : buffer);
+        if (network::ExtractDelimitedField_52CED0(text, '|', field + 4, 1023, buffer) != 0) {
+            return;
+        }
+        input::UnescapeLegacyTextAndNotify_52D2F0(buffer);
+        if (std::strlen(buffer) != 0) {
+            std::strcpy(record + 0xC29, buffer);
+        }
+        const std::int32_t descriptionStatus =
+            network::ExtractDelimitedField_52CED0(text, '|', field + 5, 1023, buffer);
+        if (requireDescriptionField && descriptionStatus != 0) {
+            return;
+        }
+        input::UnescapeLegacyTextAndNotify_52D2F0(buffer);
+        Sub_4E02B0(index, 0, buffer);
+    };
+    const auto readPet = [&](char* const record, const std::int32_t field) {
+        if (network::ExtractDelimitedField_52CED0(text, '|', field, 1023, buffer) != 0) {
+            return;
+        }
+        input::UnescapeLegacyTextAndNotify_52D2F0(buffer);
+        std::strcpy(record + 0x5D4, std::strlen(buffer) > 16 ? "???" : buffer);
+        const std::int32_t level = network::ParseDelimitedInteger_52CFA0(text, '|', field + 1);
+        WriteTradeValue(record, 8, level);
+        if (level < 0) {
+            return;
+        }
+        WriteTradeValue(record, 0, std::uint16_t{1});
+        WriteTradeValue(record, 2, static_cast<std::uint16_t>(
+            network::ParseDelimitedInteger_52CFA0(text, '|', field + 2)));
+        static constexpr std::array<std::size_t, 9> firstOffsets {
+            0x10, 0x18, 0x1C, 0x20, 0x24, 0x28, 0x2C, 0x44, 0x58,
+        };
+        for (std::int32_t value = 0; value < 9; ++value) {
+            WriteTradeValue(record, firstOffsets[value],
+                network::ParseDelimitedInteger_52CFA0(text, '|', field + 3 + value));
+        }
+        network::ExtractDelimitedField_52CED0(text, '|', field + 12, 1023, buffer);
+        input::UnescapeLegacyTextAndNotify_52D2F0(buffer);
+        std::strcpy(record + 0x5E5, buffer);
+        static constexpr std::array<std::size_t, 12> lastOffsets {
+            4, 0x30, 0x34, 0x38, 0x3C, 0x40, 0x48, 0x4C, 0x50, 0x54, 0x5F8, 0x5FC,
+        };
+        for (std::int32_t value = 0; value < 12; ++value) {
+            WriteTradeValue(record, lastOffsets[value],
+                network::ParseDelimitedInteger_52CFA0(text, '|', field + 13 + value));
+        }
+        for (std::int32_t skill = 0; skill < 10; ++skill) {
+            network::ExtractDelimitedField_52CED0(text, '|', field + 25 + skill, 1023, buffer);
+            input::UnescapeLegacyTextAndNotify_52D2F0(buffer);
+            std::strcpy(record + 0x62 + skill * 0x8C, std::strlen(buffer) > 24 ? "???" : buffer);
+        }
+    };
+    switch (buffer[0]) {
+    case 'A': {
+        std::memset(gItemDetailStorageCC4D58.data(), 0, 20 * 0xC44);
+        for (std::int32_t index = 0; index < 20; ++index) {
+            readItem(gItemDetailStorageCC4D58.data() + index * 0xC44, index, 2 + index * 6, true);
+        }
+        std::memset(gPetStorageD64E18.data(), 0, gPetStorageD64E18.size());
+        for (std::int32_t index = 0; index < 5; ++index) {
+            readPet(gPetStorageD64E18.data() + index * 0x600, 122 + index * 35);
+        }
+        const std::int32_t amount = network::ParseDelimitedInteger_52CFA0(text, '|', 297);
+        const std::int32_t side = std::bit_cast<std::int32_t>(gLoginWindowRuntime.valueD67618);
+        WriteTradeValue(gItemDetailStorageCC4D58.data() + side * 0xFBF8, 0xFBF4, amount);
+        return 1;
+    }
+    case 'G': {
+        const std::int32_t amount = network::ParseDelimitedInteger_52CFA0(text, '|', 2);
+        const std::int32_t side = std::bit_cast<std::int32_t>(gLoginWindowRuntime.valueD67618);
+        WriteTradeValue(gItemDetailStorageCC4D58.data() + side * 0xFBF8, 0xFBF4, amount);
+        return 0;
+    }
+    case 'I': {
+        std::int32_t field = 2;
+        std::int32_t index = network::ParseDelimitedInteger_52CFA0(text, '|', field);
+        while (index >= 0) {
+            char* const record = gItemDetailStorageCC4D58.data() + index * 0xC44;
+            std::memset(record, 0, 0xC44);
+            readItem(record, index, field + 1, false);
+            field += 7;
+            index = network::ParseDelimitedInteger_52CFA0(text, '|', field);
+        }
+        return 0;
+    }
+    case 'P': {
+        std::int32_t field = 2;
+        std::int32_t index = network::ParseDelimitedInteger_52CFA0(text, '|', field);
+        while (index >= 0) {
+            char* const record = gPetStorageD64E18.data() + index * 0x600;
+            std::memset(record, 0, 0x600);
+            readPet(record, field + 1);
+            field += 36;
+            index = network::ParseDelimitedInteger_52CFA0(text, '|', field);
+        }
+        return 0;
+    }
+    default:
+        return 0;
+    }
+}
+
 std::int32_t Sub_4E5710(const std::int32_t side)
 {
     if (side == 0) {

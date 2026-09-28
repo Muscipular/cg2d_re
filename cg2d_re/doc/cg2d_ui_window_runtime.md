@@ -540,3 +540,75 @@ strlen比较，原分支可能额外处理源NUL，不改成通常的“游标<�
 四文件接口/字段宽度/0xC70局部区算式/既有输入区尾字段别名、
 调用/短路/重读顺序/源登记、差异/UTF-8无BOM/LF/链接仅静态核对。
 未构建、测试或运行；父窗口绘制、open/原型及设置写者仍缺。
+
+## 完整当前窗口绘制4729B0实施 SPEC
+
+2026-09-28，复用已读完整[4729B0,472CFE)，补核472D00七项跳表：
+type1/2/3/4/5/6/7分别到472A28/472B3D/472C20/472CC2/
+472C5F/472C50/472C9D。51个直接caller不消费其返回；
+两个先覆盖AL的后继496D50/49FE40也独立返回1，采用void。
+46FBC0@[46FBC0,46FBCB)完整行为为调用本函数后返回1；
+适配WindowCallback时保留未使用S32参数，不把该原常量回调当作空实现。
+
+### 载荷与窄边界裁决
+
+沿用户T*优先与工程委托，在既有UI私有头增量映射：
+type1为24B图形载荷，imageNo/offsetX/offsetY/width/height均S32，
+末color为W32；不含地址。type5为单个非拥有InputContext*，x64 8B；
+type7为非拥有char*加原color/style/flags/未消费四字节，x64 16B，
+数值位置为新+8/+9/+A/+B，不按旧8B整体拷贝指针。
+原type2/type3的16B原生载荷继续复用，不改外层元素/实例/记录布局。
+本步是完整消费者映射，不补建原型或伪造创建成功。
+
+Yobi结构保持opaque；仅新增一个窄函数，原位应用472B64–472BD4的
+描述符覆盖并返回该描述符的非拥有const T*。FrameMove、graphicIndex读取、
+5182B0沿用现有接口；UI不复制Yobi或取得其整体布局。
+不复用521F20的队列副本修改路径，因为本函数会改变action的drawMode。
+
+### 遍历与七类行为
+
+入口取当前窗口和元素数量，不增加空检查。每轮只固定本轮元素T*，
+visible严格1才计算窗口X/Y+元素X/Y并分派；未知type与type4不绘制。
+循环尾重新取gCurrentWindow，再比较本轮下标+1与新窗口的元素数量，
+下轮重新取该窗口的elements，不能缓存整个窗口或元素数组遍历到底。
+
+type1图号为0不绘制。四个裁剪分量完整S32全0时不预查询图形，
+描述符四W16清0、color复制W32、byte12=0、byte13=4、尾W16=0。
+任一分量非0才先GetGraphicMapNoIndex→GetGraphicXY，前两W16为
+原分量低W16加图形S16偏移，宽高各取低W16，byte12=1；
+两路径最后重读当前窗口坐标和元素坐标，调用DrawGraphic3，
+layer=DF/value4=0/isGraphicNo=1/batch=0。局部描述符16B沿用一个实例。
+
+type2先读外层value04、再固定action，FrameMove(action,100,value04!=0,0)；
+随后读取graphicIndex，仅严格0跳过，不能把-1也筛掉。
+先按rebirthValue1掩码原位合并drawMode.byte13，
+再按batchType的1/2/4/8分别覆盖描述符byte10/9/8/11，色值来源为color2。
+这两阶段次序不同于普通RenderChara，不合并为描述符副本。
+先5182B0(action,1)，再重读当前窗口Y/元素Y；随后5182B0(action,0)，
+再重读当前窗口X/元素X。用先前固定graphicIndex与原位描述符调用
+DrawGraphic2(layer=DF,value4=0,batch=0)，不调用PlayFrame替代。
+
+type3仅文本指针非空才DrawText2：用本轮初始X-width、Y-height，
+renderMode3，首两个载荷U8分别为color/font，在调用边界取低S8。
+不检测外层空载荷，也不额外忽略空字符串。
+type5只在data等于共享焦点载荷时处理；当前输入是626AA0时，
+C9A96C严格1才4A7590(data.context)，这条路径不额外判空data；
+当前输入不是626AA0时，data非空才4A7640(data.context)。
+type6无条件4A7750(本轮初始X+5,Y)。
+type7仅外层data非空才4771B0(X,Y,text,style,color,flags,DF)，
+不再检查text或改变字节参数的符号扩展。
+
+包括无元素窗口在内，公共尾固定456D50(3)→476680；
+不增加绘制成功门禁、不清其他层或提前返回。
+静态核完整分支、回调后重读、载荷x64尺寸、原位写序、跳表及接口；
+不构建、测试、运行或检查产物。open/原型/窗口专用回调、50D120及
+完整创建到画面生命周期不随本绘制入口落位宣称完成。
+
+实施状态：完整4729B0、46FBC0回调及Yobi原位描述符窄接口均已落位；
+type1/5/7采用24B/8B/16B载荷，既有WindowElement/WindowInstance/
+WindowState布局未改。原生指针只借用，不新增生命周期动作。
+七文件完整case集合、51个caller返回弃用、图形查询/播放/描述符写序、
+逐轴与循环尾重读、共享队列公共尾/接口和源登记，
+差异/UTF-8无BOM/LF/文件链接仅静态核对；布局断言未编译执行。
+未构建、测试、运行或检查产物；当前没有原型/open生产者，不能据此
+宣称实际窗口画面、战斗入口或整体SPEC已经完成。

@@ -23,6 +23,30 @@ using WindowValueCallback = void (*)(std::int32_t value);
 using WindowDragCallback = void (*)(
     std::int32_t message, std::int32_t flags, std::int32_t sourceIndex);
 
+// 原type1的24B图形载荷，六个数值字段，不含地址。
+struct WindowGraphicData {
+    std::int32_t imageNo;
+    std::int32_t offsetX;
+    std::int32_t offsetY;
+    std::int32_t width;
+    std::int32_t height;
+    std::uint32_t color;
+};
+
+// 原type5首槽是真实输入上下文引用；外层载荷拥有、上下文不拥有。
+struct WindowInputData {
+    input::InputContext* context;
+};
+
+// 原type7的文本T*与四个字节；字符串借用，不随外层free。
+struct WindowNumberData {
+    char* text;
+    std::uint8_t color;
+    std::int8_t style;
+    std::uint8_t flags;
+    std::uint8_t byte07;
+};
+
 // 原第2类元素的8B载荷；471622写真实Yobi，471334只给它标死。
 struct WindowAnimationData {
     login::YobiAction* action;
@@ -152,12 +176,25 @@ void Sub_4740F0(char* destination); // 前10项技能索引的S16槽数，格式
 void Sub_4A7590(input::InputContext* context); // 按聊天宽度滚动目标输入并绘制。
 void Sub_4A7640(input::InputContext* context); // 按固定1024像素滚动目标输入并绘制。
 void Sub_4A7750(std::int32_t x, std::int32_t y); // 原字节分行、底部逆序绘制及前项字体回写。
+std::int32_t Sub_46FBC0(std::int32_t unused); // 原默认draw回调，完整绘制后返回1。
 void Sub_4771B0(
     std::int32_t x, std::int32_t y, const char* text,
     std::int8_t style, std::int8_t color, std::uint8_t flags, std::uint8_t layer);
 std::int32_t Sub_477460(const char* text, std::int8_t style); // 原字节长度乘运行步进减扣宽。
 
 static_assert(sizeof(WindowInputReference) == 16);
+static_assert(offsetof(WindowGraphicData, offsetX) == 4);
+static_assert(offsetof(WindowGraphicData, offsetY) == 8);
+static_assert(offsetof(WindowGraphicData, width) == 0x0C);
+static_assert(offsetof(WindowGraphicData, height) == 0x10);
+static_assert(offsetof(WindowGraphicData, color) == 0x14);
+static_assert(sizeof(WindowGraphicData) == 0x18);
+static_assert(sizeof(WindowInputData) == 8);
+static_assert(offsetof(WindowNumberData, color) == 8);
+static_assert(offsetof(WindowNumberData, style) == 9);
+static_assert(offsetof(WindowNumberData, flags) == 0x0A);
+static_assert(offsetof(WindowNumberData, byte07) == 0x0B);
+static_assert(sizeof(WindowNumberData) == 16);
 static_assert(offsetof(WindowInputPrototype, text) == 0x24);
 static_assert(offsetof(WindowInputPrototype, maxLine) == 0x228);
 static_assert(sizeof(WindowInputPrototype) == 0x238);

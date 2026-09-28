@@ -5633,6 +5633,36 @@ void ClearYobiActionCallback(YobiAction* const action)
     action->callback = nullptr;
 }
 
+const render::GraphicDescriptor16* ApplyWindowAnimationDrawMode(YobiAction* const action)
+{
+    const std::uint8_t mask = action->rebirthValue1;
+    if (mask != 0) {
+        const std::uint8_t previous = action->drawMode.bytes[13];
+        const std::uint8_t replacement = action->rebirthValue2;
+        action->drawMode.bytes[13] = static_cast<std::uint8_t>(
+            (previous & ~mask) | (replacement & mask));
+    }
+    const std::uint8_t flags = action->batchType;
+    if (flags != 0) {
+        if ((flags & 1u) != 0) {
+            action->drawMode.bytes[10] = static_cast<std::uint8_t>(
+                std::bit_cast<std::uint32_t>(action->color2) >> 16);
+        }
+        if ((flags & 2u) != 0) {
+            action->drawMode.bytes[9] = static_cast<std::uint8_t>(
+                std::bit_cast<std::uint32_t>(action->color2) >> 8);
+        }
+        if ((flags & 4u) != 0) {
+            action->drawMode.bytes[8] = static_cast<std::uint8_t>(action->color2);
+        }
+        if ((flags & 8u) != 0) {
+            action->drawMode.bytes[11] = static_cast<std::uint8_t>(
+                std::bit_cast<std::uint32_t>(action->color2) >> 24);
+        }
+    }
+    return &action->drawMode;
+}
+
 std::int32_t GetYobiActionField20(YobiAction* const action)
 {
     return action->graphicIndex;

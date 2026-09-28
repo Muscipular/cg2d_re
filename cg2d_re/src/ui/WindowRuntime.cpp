@@ -3,9 +3,11 @@
 #include "../LoginMessageDependencies.hpp"
 #include "../platform/WindowProcedureState.hpp"
 #include "../world/WorldUpdateDependencies.hpp"
+#include "cg/GraphicInfo.hpp"
 #include "cg/Input.hpp"
 #include "cg/YobiRuntime.hpp"
 #include "cg/render/Font.hpp"
+#include "cg/render/GraphicCacheState.hpp"
 #include "cg/render/TextPendingQueue.hpp"
 #include "cg/world/SceneState.hpp"
 
@@ -337,6 +339,12 @@ std::int32_t Sub_477460(const char* const text, const std::int8_t style)
     return gNumberAdvancesD67AC4[style] * length - kNumberSpacingDeductions54F2A8[style];
 }
 
+std::int32_t Sub_46FBC0(const std::int32_t)
+{
+    DrawCurrentWindow_4729B0();
+    return 1;
+}
+
 std::uint8_t Sub_476570(
     WindowInputPrototype* const prototype, const std::int32_t x,
     const std::int32_t y, const std::uint32_t mode)
@@ -620,6 +628,130 @@ void CloseWindowsByCategory_472240(const std::uint32_t mask)
             gWindows[index] = nullptr;
         }
     }
+}
+
+void DrawCurrentWindow_4729B0()
+{
+    using namespace detail;
+    render::GraphicDescriptor16 descriptor {};
+    WindowInstance* window = gCurrentWindow;
+    for (std::int32_t index = 0; index < window->elementCount; ++index) {
+        WindowElement* const element = &window->elements[index];
+        if (element->visible == 1) {
+            const std::int32_t x = window->x + element->x;
+            const std::int32_t y = window->y + element->y;
+            switch (element->type) {
+            case 1: {
+                const auto* const data = static_cast<const WindowGraphicData*>(element->data);
+                if (data->imageNo == 0) {
+                    break;
+                }
+                std::array<std::uint16_t, 4> rectangle {};
+                static_assert(sizeof(rectangle) == 8);
+                std::uint8_t cropped = 0;
+                if (data->offsetX != 0 || data->offsetY != 0
+                    || data->width != 0 || data->height != 0) {
+                    std::int32_t graphicIndex;
+                    resource::GetGraphicMapNoIndex(data->imageNo, &graphicIndex);
+                    std::int16_t graphicX;
+                    std::int16_t graphicY;
+                    resource::GetGraphicXY(
+                        static_cast<std::uint32_t>(graphicIndex), &graphicX, &graphicY);
+                    rectangle[0] = static_cast<std::uint16_t>(
+                        static_cast<std::uint16_t>(data->offsetX) + graphicX);
+                    rectangle[1] = static_cast<std::uint16_t>(
+                        static_cast<std::uint16_t>(data->offsetY) + graphicY);
+                    rectangle[2] = static_cast<std::uint16_t>(data->width);
+                    rectangle[3] = static_cast<std::uint16_t>(data->height);
+                    cropped = 1;
+                }
+                std::memcpy(descriptor.bytes.data(), rectangle.data(), sizeof(rectangle));
+                std::memcpy(descriptor.bytes.data() + 8, &data->color, sizeof(data->color));
+                descriptor.bytes[12] = cropped;
+                descriptor.bytes[13] = 4;
+                descriptor.bytes[14] = 0;
+                descriptor.bytes[15] = 0;
+                WindowInstance* const drawWindow = gCurrentWindow;
+                const std::int32_t imageNo = data->imageNo;
+                const std::int32_t drawY = drawWindow->y + element->y;
+                const std::int32_t drawX = drawWindow->x + element->x;
+                static_cast<void>(render::DrawGraphic3_520970(
+                    drawX, drawY, 0xDF, imageNo, 0, 1, 0, &descriptor));
+                break;
+            }
+            case 2: {
+                const auto* const data = static_cast<const WindowAnimationData*>(element->data);
+                const std::uint32_t stop = data->value04;
+                login::YobiAction* const action = data->action;
+                static_cast<void>(login::detail::Sub_517880(action, 100, stop != 0, 0));
+                const std::int32_t graphicIndex = login::detail::GetYobiActionField20(action);
+                if (graphicIndex == 0) {
+                    break;
+                }
+                const render::GraphicDescriptor16* const mode =
+                    login::detail::ApplyWindowAnimationDrawMode(action);
+                const std::int32_t offsetY = login::detail::Sub_5182B0(action, 1);
+                WindowInstance* const verticalWindow = gCurrentWindow;
+                const std::int32_t elementY = element->y;
+                const std::int32_t drawY = offsetY + verticalWindow->y + elementY;
+                const std::int32_t offsetX = login::detail::Sub_5182B0(action, 0);
+                WindowInstance* const horizontalWindow = gCurrentWindow;
+                const std::int32_t elementX = element->x;
+                const std::int32_t drawX = offsetX + horizontalWindow->x + elementX;
+                static_cast<void>(render::DrawGraphic2_521DD0(
+                    drawX, drawY, 0xDF, graphicIndex, 0, 0, mode));
+                break;
+            }
+            case 3: {
+                const auto* const data = static_cast<const WindowTextData*>(element->data);
+                const char* const text = data->text;
+                if (text != nullptr) {
+                    const std::int32_t drawY = y - element->height;
+                    const auto color = std::bit_cast<std::int8_t>(
+                        std::to_integer<std::uint8_t>(data->bytes00[0]));
+                    const auto font = std::bit_cast<std::int8_t>(
+                        std::to_integer<std::uint8_t>(data->bytes00[1]));
+                    const std::int32_t drawX = x - element->width;
+                    static_cast<void>(render::DrawText2_456670(
+                        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
+                        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)),
+                        3, font, color, text, 0));
+                }
+                break;
+            }
+            case 5: {
+                const auto* const data = static_cast<const WindowInputData*>(element->data);
+                if (data == gFocusedElementDataD45F94) {
+                    if (input::gCurrentInputData == &input::gInputContext626AA0) {
+                        if (input::gValueC9A96C == 1) {
+                            Sub_4A7590(data->context);
+                        }
+                    } else if (data != nullptr) {
+                        Sub_4A7640(data->context);
+                    }
+                }
+                break;
+            }
+            case 6:
+                Sub_4A7750(x + 5, y);
+                break;
+            case 7: {
+                const auto* const data = static_cast<const WindowNumberData*>(element->data);
+                if (data != nullptr) {
+                    Sub_4771B0(
+                        x, y, data->text, data->style,
+                        std::bit_cast<std::int8_t>(data->color), data->flags, 0xDF);
+                }
+                break;
+            }
+            default:
+                break;
+            }
+        }
+        window = gCurrentWindow;
+    }
+    static_cast<void>(render::ClearTextQueueTail_456D50(3));
+    world::detail::Sub_476680();
 }
 
 void ApplyObservationInputGate_440ADB()

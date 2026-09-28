@@ -6,6 +6,10 @@ namespace cg::platform {
 struct LegacyCryptInt;
 }
 
+namespace cg::render {
+struct GraphicDescriptor16;
+}
+
 namespace cg::login {
 
 // 原 x86 YobiAction 的原生 x64 承载；具体布局只由 Yobi runtime 持有。
@@ -254,6 +258,8 @@ float GetYobiActionScaleY(const YobiAction* action) noexcept;
 // 46F1D0 创建效果对象后清 +8，帧推进后读取 +20 图形索引。
 void ClearYobiActionCallback(YobiAction* action);
 std::int32_t GetYobiActionField20(YobiAction* action);
+// 原472B64–472BD4：先掩码后颜色，原位更新并借用同一对象的描述符。
+const render::GraphicDescriptor16* ApplyWindowAnimationDrawMode(YobiAction* action);
 // 原 +2E4；51A5B0 读取，独立于播放翻转值 +2E0。
 std::int32_t GetYobiActionField2E4(const YobiAction* action) noexcept;
 std::int32_t GetYobiActionField2A8(YobiAction* action);

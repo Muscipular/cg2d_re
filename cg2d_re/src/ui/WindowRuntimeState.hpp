@@ -155,6 +155,15 @@ std::int32_t Sub_4C71B0(const WindowItemSelectorState* state); // 原+70同源S3
 void Sub_4C6EC0(WindowItemSelectorState* state, std::uint8_t mode); // 完整两种装配，原返回被两caller弃用。
 std::int32_t Sub_4C63C0(const WindowItemSelectorState* state, std::int32_t slot);
 std::int32_t Sub_4C6400(const WindowItemSelectorState* state, std::int32_t slot);
+void Sub_4C6440(WindowItemSelectorState* state); // 玩家页条件显示槽6/19。
+void Sub_4C6470(WindowItemSelectorState* state); // 宠物页名称/负重和装备空位显示。
+void Sub_4C6500(WindowItemSelectorState* state); // 切页前原序隐藏，不隐藏主元素。
+void Sub_4C6550(WindowItemSelectorState* state, std::int32_t page); // 五态完整转换，原混合返回无人消费。
+std::int32_t Sub_4C6990(WindowItemSelectorState* state); // 模式S8映射并发布同源宠物索引。
+void Sub_4C69B0(WindowItemSelectorState* state); // 借用宠物名字/负重刷新两文本元素。
+void Sub_4C6AC0(WindowItemSelectorState* state, std::int32_t x); // 原序移动主元素/四按钮/六装备槽。
+std::int32_t Sub_4C71C0(std::int32_t ordinal); // 扫描排序对，匹配不足仍取末项S16索引。
+bool Sub_4C7340(WindowItemSelectorState* state, std::int32_t mode); // 写低U8后按旧页2/3切换。
 std::int32_t Sub_4C7240(
     const WindowItemSelectorState* state, std::int32_t element, std::int32_t slot,
     std::int32_t offset); // X；负局部坐标不读取窗口。

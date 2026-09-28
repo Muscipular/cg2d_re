@@ -1739,6 +1739,137 @@ std::int32_t Sub_48C130(const std::int32_t sourceIndex, const std::int32_t mode)
     return Sub_475DA0(3, sourceIndex, Sub_48BF30);
 }
 
+void Sub_4B2060(
+    std::uint8_t* const tab, const std::int16_t x, const std::int16_t y,
+    const std::int32_t, const std::int32_t, const std::int32_t state,
+    const std::int32_t scroll, const render::GraphicDescriptor16* const descriptor)
+{
+    std::int16_t rowY[3] {26, 95, 164};
+    std::uint8_t events = static_cast<std::uint8_t>(state);
+    if ((events & 0x60u) != 0 && Sub_475D60() != 3) {
+        events &= 0x9Fu;
+    }
+    if (gTradePhaseCAFEC4 != 0) {
+        events &= 0x9Fu;
+    }
+    if ((events & 0x40u) != 0) {
+        const std::int32_t dropX = Sub_475D70();
+        const std::int32_t dropY = Sub_475D80();
+        const std::int32_t source = Sub_475D90();
+        // 原三坐标却扫描五次，沿既定异常边界，不补坐标或模拟栈残值。
+        for (std::int32_t row = 0; row < 5; ++row) {
+            const std::int32_t top = y + rowY[row];
+            if (dropX >= x + 251 || x + 11 > dropX || dropY >= top + 69 || top > dropY) {
+                continue;
+            }
+            const std::int32_t position = scroll + row;
+            if (position >= 0) {
+                const std::int32_t target =
+                    std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[position].index);
+                if (gTradePetMarksCF3AFC[target] == 0) {
+                    Sub_48BB90(43, 11, source, target);
+                }
+            }
+            break;
+        }
+        Sub_476500();
+    }
+    if (*tab != 1) {
+        return;
+    }
+    std::int32_t hovered = -1;
+    const bool hover = (events & 0x21u) != 0;
+    if (hover) {
+        for (std::int32_t row = 0; row < 3; ++row) {
+            const std::int32_t top = y + rowY[row];
+            if (login::detail::Sub_5049A0(x + 11, top, x + 251, top + 69, -1) != 0) {
+                hovered = scroll + row;
+                break;
+            }
+        }
+    }
+    std::int32_t petIndex = -1;
+    if (hovered >= 0) {
+        petIndex = std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[hovered].index);
+        if (petIndex >= 0) {
+            std::strcpy(gHoverTextD68AE8.data(),
+                "\xA5\xCE\xB7\xC6\xB9\xAB\xA9\xEC\xA9\xF1\xA4\xE8\xA6\xA1\xA1\x41"
+                "\xB5\x6E\xBF\xFD\xA6\xB9\xB5\xA7\xC3\x64\xAA\xAB\xA5\xE6\xA9\xF6\xA1\x43");
+            if ((platform::gLegacyMouseState.edgeButtons & 0x10u) != 0
+                && (Sub_475D40() == 43 || Sub_475D40() == 0)) {
+                if (world::detail::gPetRuntimeF633F8[petIndex].used != 0
+                    && gTradePetMarksCF3AFC[petIndex] == 0) {
+                    std::int32_t target = 0;
+                    while (target < 5 && Sub_4B00F0(target) >= 0) {
+                        ++target;
+                    }
+                    if (target < 5) {
+                        static_cast<void>(Sub_4B0090(target));
+                        static_cast<void>(Sub_4B0060(target, petIndex));
+                        *tab = 1;
+                    }
+                    if (gTradeValueC8AF81 != 1) {
+                        gTradeValueC8AF81 = 1;
+                    }
+                } else {
+                    static_cast<void>(audio::PlaySe_52C450(55, 320));
+                }
+            }
+        }
+    }
+    if ((events & 1u) != 0 && petIndex >= 0 && gTradePhaseCAFEC4 == 0
+        && (events & 2u) != 0 && world::detail::gPetRuntimeF633F8[petIndex].used != 0
+        && gTradePetMarksCF3AFC[petIndex] == 0) {
+        static_cast<void>(Sub_48C130(petIndex, 1));
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+    }
+    if (Sub_475D60() == 3) {
+        const std::int32_t source = Sub_475D90();
+        if (Sub_475D40() == 43 && Sub_475D50() == 11) {
+            const std::int32_t row = Sub_48BC60(source) - scroll;
+            if (row >= 0 && row < 3) {
+                const std::int32_t top = y + rowY[row];
+                login::detail::DrawGraphicHover(
+                    static_cast<std::uint16_t>(x + 11), static_cast<std::uint16_t>(top),
+                    static_cast<std::uint16_t>(x + 251), static_cast<std::uint16_t>(top + 69),
+                    223, 254, 0);
+            }
+        }
+    }
+    if (hover) {
+        const std::int32_t row = hovered - scroll;
+        if (row >= 0 && row < 3) {
+            const std::int32_t top = y + rowY[row];
+            login::detail::DrawGraphicHover(
+                static_cast<std::uint16_t>(x + 11), static_cast<std::uint16_t>(top),
+                static_cast<std::uint16_t>(x + 251), static_cast<std::uint16_t>(top + 69),
+                223, login::detail::gValueD69768, 0);
+            if (world::detail::gPetRuntimeF633F8[petIndex].used != 0) {
+                gTradePreviewCC2E64 = petIndex + 300;
+            }
+        }
+    }
+    for (std::int32_t row = 0; row < 3; ++row) {
+        const std::int32_t slot =
+            std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[scroll + row].index);
+        const std::int32_t left = x + 11;
+        const std::int32_t top = y + rowY[row];
+        if (std::bit_cast<std::int8_t>(gTradePetMarksCF3AFC[slot]) > 0) {
+            login::detail::DrawGraphicHover(
+                static_cast<std::uint16_t>(left + 2), static_cast<std::uint16_t>(top + 2),
+                static_cast<std::uint16_t>(left + 238), static_cast<std::uint16_t>(top + 67),
+                223, 251, 0);
+        }
+        const std::int32_t current =
+            std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[scroll + row].index);
+        Sub_4AAB70(
+            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(left)),
+            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(top)), current, 3);
+        static_cast<void>(login::detail::DrawGraphic(
+            left + 120, top + 35, 223, 243141, 0, descriptor));
+    }
+}
+
 void Sub_4B25D0(
     const std::int32_t message, const std::int32_t, const std::int32_t sourceIndex)
 {

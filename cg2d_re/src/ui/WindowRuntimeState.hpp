@@ -409,6 +409,10 @@ std::int32_t Sub_48D540(
 std::int32_t Sub_4EA670(std::int32_t index); // 原25600技能检查，返回0/1。
 void Sub_48BF30(std::int32_t message, std::int32_t unused, std::int32_t sourceIndex);
 std::int32_t Sub_48C130(std::int32_t sourceIndex, std::int32_t mode);
+void Sub_4B2060(
+    std::uint8_t* tab, std::int16_t x, std::int16_t y,
+    std::int32_t mouseX, std::int32_t mouseY, std::int32_t state, std::int32_t scroll,
+    const render::GraphicDescriptor16* descriptor); // 自有宠物交易页，按索引对取原宠物。
 void Sub_4B25D0(std::int32_t message, std::int32_t unused, std::int32_t sourceIndex);
 void Sub_4B2E00(std::int32_t message, std::int32_t unused, std::int32_t sourceIndex);
 std::int32_t Sub_4B2710(std::int32_t index); // kind6，绑定真实物品拖动回调。

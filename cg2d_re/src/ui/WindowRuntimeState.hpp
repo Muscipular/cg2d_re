@@ -236,7 +236,7 @@ struct WindowState {
     std::uint32_t value10;
     std::uint32_t value14;
     WindowUserState userState; // 原+18；后续生产者按实际用途激活成员。
-    std::array<std::byte, 4> bytes1C;
+    std::uint32_t actionFlags1C; // 原+1C，窗口42数值面板消费低U8。
     std::uint32_t value20;
     std::uint32_t value24;
     std::uint32_t value28;
@@ -350,6 +350,7 @@ extern std::int32_t gItemDragModeCC4C9C; // 48BF10发布，仅门禁48BC90的mes
 extern std::int32_t gItemMoveSourceCF46B0; // 4886E0发布，4885A0读取的来源槽号。
 extern std::int32_t gItemMoveTargetD2DBF8; // 4886E0发布，4885A0读取的目标槽号。
 extern std::int32_t gValueD67B00; // 原数值状态，47D490清零；非地址。
+extern std::array<char, 12> gNumberWindowTextCC4D1C; // 原CC4D1C至宠物槽CC4D28前的文本区。
 extern std::int32_t gTradeScrollCF3B0C;
 extern std::int32_t gTradeScrollCC4C90;
 extern std::int32_t gTradeScrollD67430;
@@ -402,6 +403,16 @@ std::int32_t Sub_48BB70(std::int32_t slot); // 宠物槽分类1/2。
 std::int32_t Sub_48BC60(std::int32_t slot); // DE0B08五个S16索引的首匹配位置。
 void Sub_47D490(); // 仅清D67B00，不改变其他物品状态。
 std::int32_t Sub_4885A0(std::int32_t amount); // 普通移动或窗口41/38文本请求。
+WindowInstance* Sub_48A830(
+    std::int32_t sourceWindow, std::int32_t sourceElement, std::int32_t imageNo,
+    std::int32_t maximum, std::int32_t value14, std::int32_t initialValue,
+    WindowValueCallback callback); // 窗口42发布，回调按原生指针保存。
+std::int32_t Sub_48A8C0(std::int32_t value);
+std::int32_t Sub_48A900(std::int32_t unusedIndex, std::int32_t state);
+std::int32_t Sub_48A950(std::int32_t index, std::int32_t state);
+std::int32_t Sub_48AA60(std::int32_t index, std::int32_t state);
+std::int32_t Sub_48AB10(std::int32_t index, std::int32_t state);
+std::int32_t Sub_474170(std::int32_t unusedIndex, std::int32_t state);
 void Sub_48BB90(
     std::int32_t unusedWindow, std::int32_t unusedElement,
     std::int32_t source, std::int32_t target); // 普通/窗口41两路宠物换位请求。
@@ -666,6 +677,7 @@ static_assert(offsetof(WindowInstance, dragRects40) == 0x54);
 static_assert(sizeof(WindowInstance) == 0xF8);
 static_assert(offsetof(WindowState, window) == 0x10);
 static_assert(offsetof(WindowState, userState) == 0x20);
+static_assert(offsetof(WindowState, actionFlags1C) == 0x28);
 static_assert(offsetof(WindowState, marker50) == 0x5C);
 static_assert(sizeof(WindowState) == 0x60);
 

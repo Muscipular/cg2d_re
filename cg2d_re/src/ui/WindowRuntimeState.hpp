@@ -187,6 +187,21 @@ extern std::int32_t gChatHeightUnitsC9A938; // 原聊天可见高度的字体9�
 extern std::int32_t gChatHeightRequestC9A93C; // 原高度调整请求，消费后清零。
 extern std::int32_t gChatScrollOffsetC9A940; // 原相对共享写指针的回看条数。
 
+// 交易UI唯一原字节区，非玩家背包/宠物owner；未知字段不冻结语义。
+extern std::array<char, 2 * 20 * 0xC4C> gTradeItemsD460D0;
+extern std::array<char, 2 * 5 * 0x5FC> gTradePetsC9C108;
+extern std::int32_t gTradeValueCC4224;
+extern std::int32_t gTradeValueCF4688;
+extern std::int32_t gTradeValueD046D0;
+extern std::int32_t gTradeValueD2E2B0;
+extern std::uint8_t gTradeValueD67B80;
+
+std::int32_t Sub_4E5710(std::int32_t side); // 先清侧状态，再清物品/宠物整组。
+void Sub_4E5770(std::int32_t index, std::int32_t side, const char* text); // 32行及页数。
+std::int32_t Sub_4E5830(const char* text); // 每条14字段，返回终止字段状态1。
+std::int32_t Sub_4E5A40(std::int32_t index, const char* text); // 单宠物属性与双名称。
+std::int32_t Sub_4E5CD0(std::int32_t index, const char* text); // 只预清第一条技能。
+
 // 原输入原型四模式更新及聊天恢复，复用既有InputContext owner。
 std::uint8_t Sub_476570(
     WindowInputPrototype* prototype, std::int32_t x, std::int32_t y,

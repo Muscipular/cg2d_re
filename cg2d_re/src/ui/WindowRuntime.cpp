@@ -8,6 +8,7 @@
 #include "cg/Input.hpp"
 #include "cg/LegacyAudio.hpp"
 #include "cg/YobiRuntime.hpp"
+#include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/LegacyMouse.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/platform/Startup.hpp"
@@ -53,8 +54,26 @@ std::int32_t gChatWidthRequestC9A934 = 0;
 std::int32_t gChatHeightUnitsC9A938 = 0;
 std::int32_t gChatHeightRequestC9A93C = 0;
 std::int32_t gChatScrollOffsetC9A940 = 0;
+std::array<char, 2 * 20 * 0xC4C> gTradeItemsD460D0 {};
+std::array<char, 2 * 5 * 0x5FC> gTradePetsC9C108 {};
+static_assert(sizeof(gTradeItemsD460D0) == 0x1EBE0);
+static_assert(sizeof(gTradePetsC9C108) == 0x3BD8);
+static_assert(0x60 + 10 * 0x8C == 0x5D8);
+std::int32_t gTradeValueCC4224 = 0;
+std::int32_t gTradeValueCF4688 = 0;
+std::int32_t gTradeValueD046D0 = 0;
+std::int32_t gTradeValueD2E2B0 = 0;
+std::uint8_t gTradeValueD67B80 = 0;
 
 namespace {
+
+// 交易记录仍是原字节区，窄数值通过复制写入，不对未对齐地址构造数值T*。
+template <typename T>
+void WriteTradeValue(char* const record, const std::size_t offset, const T value)
+{
+    static_assert(sizeof(T) == 2 || sizeof(T) == 4);
+    std::memcpy(record + offset, &value, sizeof(value));
+}
 
 // 原54EFE8的71项S8类别，与窗口编号一一对应。
 constexpr std::array<std::int8_t, kWindowCount> kWindowCategories {
@@ -164,6 +183,147 @@ void ScrollInputAndDraw(input::InputContext* const context, const std::int32_t w
 }
 
 } // namespace
+
+std::int32_t Sub_4E5710(const std::int32_t side)
+{
+    if (side == 0) {
+        gTradeValueCF4688 = 0;
+    } else {
+        gTradeValueD046D0 = 0;
+    }
+    std::memset(gTradeItemsD460D0.data() + side * 0xF5F0, 0, 0xF5F0);
+    std::memset(gTradePetsC9C108.data() + side * 0x1DEC, 0, 0x1DEC);
+    return 0;
+}
+
+void Sub_4E5770(
+    const std::int32_t index, const std::int32_t side, const char* const text)
+{
+    char* const record = gTradeItemsD460D0.data() + (index + side * 20) * 0xC4C;
+    char* const rows = record + 0x2D;
+    std::int32_t last = -1;
+    for (std::int32_t line = 0; line < 32; ++line) {
+        char* const row = rows + line * 96;
+        if (input::ExtractLegacyLine_503AB0(row, 3072, text, line, 32) != 0) {
+            last = line;
+        } else {
+            row[0] = '\0';
+        }
+    }
+    // 原回扫从最后成功行的前一行开始，不检查最后成功行本身。
+    while (last > 0 && std::strlen(rows + (last - 1) * 96) == 0) {
+        --last;
+    }
+    WriteTradeValue(record, 0xC30, last < 0 ? std::int32_t{0} : last / 8 + 1);
+}
+
+std::int32_t Sub_4E5830(const char* const text)
+{
+    char name[256];
+    char memo[256];
+    char description[768];
+    std::int32_t field = 1;
+    std::int32_t index = network::ParseDelimitedInteger_52CFA0(text, '|', field);
+    std::int32_t status =
+        network::ExtractDelimitedField_52CED0(text, '|', field + 1, 255, name);
+    while (status != 1) {
+        char* const record = gTradeItemsD460D0.data() + index * 0xC4C;
+        std::memset(record, 0, 0xC4C);
+        input::UnescapeLegacyTextAndNotify_52D2F0(name);
+        WriteTradeValue(record, 0, std::uint16_t{1});
+        if (std::strlen(name) <= 28) {
+            std::strcpy(record + 0x10, name);
+        }
+        network::ExtractDelimitedField_52CED0(text, '|', field + 3, 767, description);
+        input::UnescapeLegacyTextAndNotify_52D2F0(description);
+        Sub_4E5770(index, 0, description);
+        network::ExtractDelimitedField_52CED0(text, '|', field + 13, 255, memo);
+        input::UnescapeLegacyTextAndNotify_52D2F0(memo);
+        if (std::strlen(memo) <= 16) {
+            std::strcpy(record + 0xC38, memo);
+        }
+        WriteTradeValue(record, 4,
+            network::ParseDelimitedInteger_52CFA0(text, '|', field + 4));
+        WriteTradeValue(record, 0x0C,
+            network::ParseDelimitedInteger_52CFA0(text, '|', field + 10));
+        WriteTradeValue(record, 8,
+            network::ParseDelimitedInteger_52CFA0(text, '|', field + 12));
+        WriteTradeValue(record, 0xC34,
+            network::ParseDelimitedInteger_52CFA0(text, '|', field + 9));
+        field += 14;
+        index = network::ParseDelimitedInteger_52CFA0(text, '|', field);
+        status = network::ExtractDelimitedField_52CED0(text, '|', field + 1, 255, name);
+    }
+    return status;
+}
+
+std::int32_t Sub_4E5A40(const std::int32_t index, const char* const text)
+{
+    char* const record = gTradePetsC9C108.data() + index * 0x5FC;
+    std::memset(record, 0, 0x5FC);
+    char name[256];
+    std::int32_t result =
+        network::ExtractDelimitedField_52CED0(text, '|', 1, 255, name);
+    if (result != 0) {
+        return result;
+    }
+    input::UnescapeLegacyTextAndNotify_52D2F0(name);
+    std::strcpy(record + 0x5D8, std::strlen(name) <= 16 ? name : "???");
+    result = network::ParseDelimitedInteger_52CFA0(text, '|', 2);
+    WriteTradeValue(record, 0x0C, result);
+    if (result < 0) {
+        return result;
+    }
+    WriteTradeValue(record, 0, std::uint16_t{1});
+    WriteTradeValue(record, 4, static_cast<std::uint16_t>(
+        network::ParseDelimitedInteger_52CFA0(text, '|', 3)));
+    WriteTradeValue(record, 0x14, network::ParseDelimitedInteger_52CFA0(text, '|', 4));
+    for (std::int32_t field = 5; field <= 11; ++field) {
+        WriteTradeValue(record, 0x1C + (field - 5) * 4,
+            network::ParseDelimitedInteger_52CFA0(text, '|', field));
+    }
+    WriteTradeValue(record, 0x5C, network::ParseDelimitedInteger_52CFA0(text, '|', 12));
+    network::ExtractDelimitedField_52CED0(text, '|', 13, 255, name);
+    input::UnescapeLegacyTextAndNotify_52D2F0(name);
+    std::strcpy(record + 0x5E9, std::strlen(name) <= 16 ? name : "???");
+    WriteTradeValue(record, 8, network::ParseDelimitedInteger_52CFA0(text, '|', 14));
+    for (std::int32_t field = 15; field <= 23; ++field) {
+        result = network::ParseDelimitedInteger_52CFA0(text, '|', field);
+        WriteTradeValue(record, 0x38 + (field - 15) * 4, result);
+    }
+    return result;
+}
+
+std::int32_t Sub_4E5CD0(const std::int32_t index, const char* const text)
+{
+    if (index < 0 || index >= 5) {
+        return index;
+    }
+    char* const record = gTradePetsC9C108.data() + index * 0x5FC;
+    std::uint16_t used;
+    std::memcpy(&used, record, sizeof(used));
+    if (used == 0) {
+        return index;
+    }
+    char* skill = record + 0x60;
+    std::memset(skill, 0, 0x8C);
+    char name[256];
+    for (std::int32_t field = 1; field <= 10; ++field) {
+        const std::int32_t status =
+            network::ExtractDelimitedField_52CED0(text, '|', field, 255, name);
+        if (status == 1) {
+            return status;
+        }
+        input::UnescapeLegacyTextAndNotify_52D2F0(name);
+        const std::size_t length = std::strlen(name);
+        WriteTradeValue(skill, 0, std::uint16_t{1});
+        if (length <= 24) {
+            std::strcpy(skill + 6, name);
+        }
+        skill += 0x8C;
+    }
+    return 10;
+}
 
 std::int32_t Sub_503CB0()
 {
@@ -939,6 +1099,114 @@ std::int32_t Sub_4A7B00()
 }
 
 } // namespace detail
+
+std::int32_t Sub_50E440(const std::uintptr_t)
+{
+    const std::int32_t scene = world::detail::gValue9A6E0C;
+    if (scene != 0) {
+        return scene;
+    }
+    const std::int32_t gate = world::ReadRippleGateOnce();
+    if (gate != 0) {
+        return gate;
+    }
+    detail::gTradeValueCC4224 = 1;
+    return gate;
+}
+
+std::int32_t Sub_50E470(const std::uintptr_t, const std::int32_t value)
+{
+    const std::int32_t scene = world::detail::gValue9A6E0C;
+    if (scene != 0) {
+        return scene;
+    }
+    const std::int32_t gate = world::ReadRippleGateOnce();
+    if (gate != 0) {
+        return gate;
+    }
+    detail::gTradeValueCF4688 = value;
+    return value;
+}
+
+std::int32_t Sub_50E4A0(const std::uintptr_t, const char* const text)
+{
+    const std::int32_t scene = world::detail::gValue9A6E0C;
+    if (scene != 0) {
+        return scene;
+    }
+    const std::int32_t gate = world::ReadRippleGateOnce();
+    if (gate != 0) {
+        return gate;
+    }
+    return detail::Sub_4E5830(text);
+}
+
+std::int32_t Sub_50E4D0(
+    const std::uintptr_t, const std::int32_t index, const char* const text)
+{
+    const std::int32_t scene = world::detail::gValue9A6E0C;
+    if (scene != 0) {
+        return scene;
+    }
+    const std::int32_t gate = world::ReadRippleGateOnce();
+    if (gate != 0) {
+        return gate;
+    }
+    return detail::Sub_4E5A40(index, text);
+}
+
+std::int32_t Sub_50E500(
+    const std::uintptr_t, const std::int32_t index, const char* const text)
+{
+    const std::int32_t scene = world::detail::gValue9A6E0C;
+    if (scene != 0) {
+        return scene;
+    }
+    const std::int32_t gate = world::ReadRippleGateOnce();
+    if (gate != 0) {
+        return gate;
+    }
+    return detail::Sub_4E5CD0(index, text);
+}
+
+std::int32_t Sub_50E530(const std::uintptr_t)
+{
+    const std::int32_t scene = world::detail::gValue9A6E0C;
+    if (scene != 0) {
+        return scene;
+    }
+    const std::int32_t gate = world::ReadRippleGateOnce();
+    if (gate != 0) {
+        return gate;
+    }
+    detail::gTradeValueCC4224 = 0;
+    static_cast<void>(detail::Sub_4E5710(0));
+    const std::int32_t previous = detail::gTradeValueD2E2B0;
+    if (previous == 2) {
+        detail::gTradeValueD2E2B0 = 1;
+    }
+    return previous;
+}
+
+void Sub_50E570(const std::uintptr_t, const std::int32_t value)
+{
+    if (world::detail::gValue9A6E0C != 0) {
+        return;
+    }
+    if (world::ReadRippleGateOnce() != 0) {
+        return;
+    }
+    if (value == 1) {
+        detail::gTradeValueCC4224 = 2;
+    } else if (value == 0 || value == 2) {
+        WindowInstance* const window = detail::gWindowStates[43].window;
+        detail::gTradeValueD67B80 = 1;
+        if (window != nullptr) {
+            window->state |= 0x8000u;
+            static_cast<void>(audio::PlaySe_52C450(57, 320));
+        }
+    }
+}
 
 void InitializeNumberSpacing_477170()
 {

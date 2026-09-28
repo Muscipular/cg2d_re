@@ -20,4 +20,15 @@ void ApplyObservationInputGate_440ADB(); // 同源5F9754及D67B08前八个U8的�
 void InitializeNumberSpacing_477170(); // 原CRT 553098，四种数字图片步进的唯一初始化。
 void DrawCurrentWindow_4729B0(); // 严格visible==1的七类分派，尾部清文本层3并绘范围提示。
 
+// 交易回复：按场景门禁后单次CryptInt门禁，socket由原dispatcher传入但不消费。
+std::int32_t Sub_50E440(std::uintptr_t unusedSocket);
+std::int32_t Sub_50E470(std::uintptr_t unusedSocket, std::int32_t value);
+std::int32_t Sub_50E4A0(std::uintptr_t unusedSocket, const char* text);
+std::int32_t Sub_50E4D0(
+    std::uintptr_t unusedSocket, std::int32_t index, const char* text);
+std::int32_t Sub_50E500(
+    std::uintptr_t unusedSocket, std::int32_t index, const char* text);
+std::int32_t Sub_50E530(std::uintptr_t unusedSocket); // 清第0组，返回D2E2B0改写前值。
+void Sub_50E570(std::uintptr_t unusedSocket, std::int32_t value); // 关闭只置标志，弃原混合返回。
+
 } // namespace cg::ui

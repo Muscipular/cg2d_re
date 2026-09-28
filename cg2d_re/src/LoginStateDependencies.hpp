@@ -10,8 +10,6 @@ namespace cg::login::detail {
 // 原 532D80：空窗口返回 0，非空透传 52C450 的完整 W32；本体仍未落位。
 std::int32_t Sub_532D80();
 
-std::int32_t Sub_534290();
-
 // sub_45D990@0x45D990 的直接目标。
 std::int32_t TextMeasure(const char* text, std::int32_t fontType);
 

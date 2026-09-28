@@ -9,6 +9,7 @@
 #include "cg/LoginRequest.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/LegacyTime.hpp"
+#include "cg/platform/MainLoop.hpp"
 #include "cg/platform/Startup.hpp"
 #include "cg/world/SceneState.hpp"
 
@@ -117,7 +118,9 @@ std::array<ProfileRuntimeRecord, 2> gProfiles1074938 {};
 ProfileRuntimeRecord gCurrentProfile10738E8 {};
 static_assert(sizeof(gProfiles1074938) == 0x1050);
 constexpr char kProfileDefault58F614[] = "\xA5\xBC\xB3\x5D\xA9\x77";
+constexpr char kProfileHidden58F61C[] = "\xA4\xA3\xA4\xBD\xB6\x7D";
 static_assert(sizeof(kProfileDefault58F614) == 7);
+static_assert(sizeof(kProfileHidden58F61C) == 7);
 
 constexpr char kReceivedMailFormat58B07C[] =
     "\xA6\xAC\xA8\xEC\xB1\x71" "%s" "\xB1\x48\xA8\xD3\xAA\xBA"
@@ -690,6 +693,97 @@ void Sub_533950()
     std::memcpy(
         &gCurrentProfile10738E8, &gProfiles1074938[selected],
         sizeof(gCurrentProfile10738E8));
+}
+
+std::int32_t Sub_533C80(const std::int32_t mode)
+{
+    if (mode != 0 && mode != 1) {
+        return mode - 1;
+    }
+    if (mode == 0) {
+        for (ProfileEntry& entry : gCurrentProfile10738E8.entries410) {
+            if (std::strcmp(entry.text08.data(), input::LegacyText593850()) == 0) {
+                std::strcpy(entry.text08.data(), kProfileDefault58F614);
+            }
+        }
+        if (std::strcmp(
+                gCurrentProfile10738E8.text728.data(), input::LegacyText593850()) == 0) {
+            std::strcpy(gCurrentProfile10738E8.text728.data(), kProfileDefault58F614);
+        }
+    }
+
+    char sourceText[256];
+    std::array<std::array<char, 256>, 4> escaped;
+    for (std::int32_t index = 0; index < 3; ++index) {
+        const char* source = kProfileHidden58F61C;
+        if (gCurrentProfile10738E8.entries410[index].value00 != 0) {
+            if (mode == 1) {
+                const std::int16_t selected = login::gSelectedCharacterIndex;
+                source = gProfiles1074938[selected].entries410[index].text08.data();
+            } else {
+                source = gCurrentProfile10738E8.entries410[index].text08.data();
+            }
+        }
+        std::strcpy(sourceText, source);
+        input::EscapeLegacyTextAndNotify_52D2D0(sourceText, escaped[index].data(), 256);
+    }
+    if (mode == 1) {
+        const std::int16_t selected = login::gSelectedCharacterIndex;
+        std::strcpy(sourceText, gProfiles1074938[selected].text728.data());
+    } else {
+        std::strcpy(sourceText, gCurrentProfile10738E8.text728.data());
+    }
+    input::EscapeLegacyTextAndNotify_52D2D0(sourceText, escaped[3].data(), 256);
+
+    if (mode == 1) {
+        const std::int16_t selected = login::gSelectedCharacterIndex;
+        const std::int32_t third = gProfiles1074938[selected].entries410[2].value00;
+        const std::int32_t second = gProfiles1074938[selected].entries410[1].value00;
+        const std::int32_t first = gProfiles1074938[selected].entries410[0].value00;
+        const std::uintptr_t socket = platform::gConnectionSocket;
+        return network::Sub_511640(
+            socket, first, escaped[0].data(), second, escaped[1].data(),
+            third, escaped[2].data(), escaped[3].data());
+    }
+
+    const std::int32_t third = gCurrentProfile10738E8.entries410[2].value00;
+    const std::int32_t second = gCurrentProfile10738E8.entries410[1].value00;
+    const std::int32_t first = gCurrentProfile10738E8.entries410[0].value00;
+    const std::uintptr_t socket = platform::gConnectionSocket;
+    static_cast<void>(network::Sub_511640(
+        socket, first, escaped[0].data(), second, escaped[1].data(),
+        third, escaped[2].data(), escaped[3].data()));
+
+    const std::int16_t selected = login::gSelectedCharacterIndex;
+    ProfileRuntimeRecord& target = gProfiles1074938[selected];
+    std::strcpy(target.text08.data(), gCurrentProfile10738E8.text08.data());
+    target.entries410[0].value00 = gCurrentProfile10738E8.entries410[0].value00;
+    target.entries410[0].value04 = gCurrentProfile10738E8.entries410[0].value04;
+    std::strcpy(
+        target.entries410[0].text08.data(), gCurrentProfile10738E8.entries410[0].text08.data());
+    const std::int32_t secondValue = gCurrentProfile10738E8.entries410[1].value04;
+    target.entries410[1].value00 = gCurrentProfile10738E8.entries410[1].value00;
+    target.entries410[1].value04 = secondValue;
+    std::strcpy(
+        target.entries410[1].text08.data(), gCurrentProfile10738E8.entries410[1].text08.data());
+    const std::int32_t thirdValue = gCurrentProfile10738E8.entries410[2].value04;
+    target.entries410[2].value00 = gCurrentProfile10738E8.entries410[2].value00;
+    target.entries410[2].value04 = thirdValue;
+    std::strcpy(
+        target.entries410[2].text08.data(), gCurrentProfile10738E8.entries410[2].text08.data());
+    const auto bytes = static_cast<std::int32_t>(
+        std::strlen(gCurrentProfile10738E8.text728.data()) + 1);
+    std::memcpy(target.text728.data(), gCurrentProfile10738E8.text728.data(), bytes);
+    return bytes;
+}
+
+std::int32_t Sub_534290()
+{
+    const std::int16_t selected = login::gSelectedCharacterIndex;
+    const std::int32_t enabled = gProfiles1074938[selected].value04;
+    static_cast<void>(Sub_533C80(1));
+    const std::uintptr_t socket = platform::gConnectionSocket;
+    return network::Sub_5118B0(socket, enabled != 0 ? 1 : 0);
 }
 
 std::int32_t Sub_534770()

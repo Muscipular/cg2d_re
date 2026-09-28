@@ -4,6 +4,7 @@
 #include "cg/LoginState.hpp"
 
 #include "LoginStateDependencies.hpp"
+#include "world/MailState.hpp"
 
 #include "cg/Blacklist.hpp"
 #include "cg/LoginConnection.hpp"
@@ -427,7 +428,7 @@ std::int32_t ProcessState_45E960()
     if (world::gCurrentSceneState == 1) {
         const std::int32_t result = UpdateLoginProgress();
         if (result == 1) {
-            detail::Sub_534290();
+            world::detail::Sub_534290();
             world::SetCurrentSceneType(9);
         } else if (result == -1) {
             world::gCurrentSceneState = 100;

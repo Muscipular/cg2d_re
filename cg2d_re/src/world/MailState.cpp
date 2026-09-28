@@ -65,6 +65,51 @@ static_assert(offsetof(MiniMailRuntimeSlots, messages) == 0x910);
 static_assert(sizeof(MiniMailRuntimeSlots) == 0x10310);
 MiniMailRuntimeSlots gMiniMailRuntime {};
 
+// 原profile每条三项108H资料；只拆533950已写的数值和原字节文本。
+struct ProfileEntry {
+    std::int32_t value00;
+    std::int32_t value04;
+    std::array<char, 0x100> text08;
+};
+
+struct ProfileRuntimeRecord {
+    std::int32_t value00; // 原1074938，50F9E0比较的角色编号。
+    std::int32_t value04;
+    std::array<char, 0x100> text08;
+    std::int32_t value108;
+    std::array<std::byte, 4> bytes10C;
+    std::array<char, 0x100> text110;
+    std::array<char, 0x100> text210;
+    std::array<char, 0x100> text310;
+    std::array<ProfileEntry, 3> entries410;
+    std::array<char, 0x100> text728;
+};
+
+static_assert(offsetof(ProfileEntry, value00) == 0);
+static_assert(offsetof(ProfileEntry, value04) == 4);
+static_assert(offsetof(ProfileEntry, text08) == 8);
+static_assert(sizeof(ProfileEntry) == 0x108);
+static_assert(std::is_standard_layout_v<ProfileRuntimeRecord>);
+static_assert(std::is_trivially_copyable_v<ProfileRuntimeRecord>);
+static_assert(offsetof(ProfileRuntimeRecord, value00) == 0);
+static_assert(offsetof(ProfileRuntimeRecord, value04) == 4);
+static_assert(offsetof(ProfileRuntimeRecord, text08) == 8);
+static_assert(offsetof(ProfileRuntimeRecord, value108) == 0x108);
+static_assert(offsetof(ProfileRuntimeRecord, bytes10C) == 0x10C);
+static_assert(offsetof(ProfileRuntimeRecord, text110) == 0x110);
+static_assert(offsetof(ProfileRuntimeRecord, text210) == 0x210);
+static_assert(offsetof(ProfileRuntimeRecord, text310) == 0x310);
+static_assert(offsetof(ProfileRuntimeRecord, entries410) == 0x410);
+static_assert(offsetof(ProfileRuntimeRecord, text728) == 0x728);
+static_assert(sizeof(ProfileRuntimeRecord) == 0x828);
+
+// 原持久双槽与独立当前资料；两者之间的另一资料区不在本承载内。
+std::array<ProfileRuntimeRecord, 2> gProfiles1074938 {};
+ProfileRuntimeRecord gCurrentProfile10738E8 {};
+static_assert(sizeof(gProfiles1074938) == 0x1050);
+constexpr char kProfileDefault58F614[] = "\xA5\xBC\xB3\x5D\xA9\x77";
+static_assert(sizeof(kProfileDefault58F614) == 7);
+
 constexpr char kReceivedMailFormat58B07C[] =
     "\xA6\xAC\xA8\xEC\xB1\x71" "%s" "\xB1\x48\xA8\xD3\xAA\xBA"
     "\xB6\x6C\xA5\xF3\xA1\x49";
@@ -508,6 +553,71 @@ std::int32_t Sub_518C80()
     gGuildMailStorageDE0B30.fill(std::byte{0});
     gValueCB1384 = 0;
     return 0;
+}
+
+void Sub_533910()
+{
+    for (MiniMailContactRecord& record : gMiniMailRuntime.contacts) {
+        record.used = 0;
+    }
+    gMiniMailRuntime.messages.fill(std::byte{0});
+    std::memset(gProfiles1074938.data(), 0, sizeof(gProfiles1074938));
+    std::memset(&gCurrentProfile10738E8, 0, sizeof(gCurrentProfile10738E8));
+}
+
+void Sub_533950()
+{
+    ProfileRuntimeRecord& first = gProfiles1074938[0];
+    std::strcpy(first.text08.data(), input::LegacyText593850());
+    const char* const source = input::LegacyText593850();
+    const std::size_t bytes = std::strlen(source) + 1;
+    first.value108 = -1;
+    first.value04 = 0;
+    std::memcpy(first.text110.data(), source, bytes);
+    std::strcpy(first.text210.data(), input::LegacyText593850());
+    std::strcpy(first.text310.data(), input::LegacyText593850());
+    for (ProfileEntry& entry : first.entries410) {
+        entry.value00 = 0;
+        entry.value04 = 0x3C0F0;
+        std::strcpy(entry.text08.data(), kProfileDefault58F614);
+    }
+    // 原533AB5在最后文本复制完成前取S16角色，两次整条复制共用此值。
+    const std::int16_t selected = login::gSelectedCharacterIndex;
+    std::strcpy(first.text728.data(), kProfileDefault58F614);
+    std::memcpy(&gProfiles1074938[1], &first, sizeof(first));
+    std::memcpy(
+        &gCurrentProfile10738E8, &gProfiles1074938[selected],
+        sizeof(gCurrentProfile10738E8));
+}
+
+std::int32_t Sub_534770()
+{
+    char path[1024];
+    std::sprintf(path, "%s\\%s", login::detail::ReadSelectedSavedDirectory(), "profile.dat");
+    std::FILE* const stream = std::fopen(path, "wb+");
+    if (stream == nullptr) {
+        return 0;
+    }
+    static_cast<void>(std::fwrite(gProfiles1074938.data(), sizeof(gProfiles1074938), 1, stream));
+    static_cast<void>(std::fclose(stream));
+    return 1;
+}
+
+std::int32_t Sub_5347F0()
+{
+    char path[1024];
+    std::sprintf(path, "%s\\%s", login::detail::ReadSelectedSavedDirectory(), "profile.dat");
+    std::FILE* const stream = std::fopen(path, "rb+");
+    if (stream == nullptr) {
+        return 0;
+    }
+    static_cast<void>(std::fread(gProfiles1074938.data(), sizeof(gProfiles1074938), 1, stream));
+    static_cast<void>(std::fclose(stream));
+    const std::int16_t selected = login::gSelectedCharacterIndex;
+    std::memcpy(
+        &gCurrentProfile10738E8, &gProfiles1074938[selected],
+        sizeof(gCurrentProfile10738E8));
+    return 1;
 }
 
 std::int32_t Sub_518CB0()

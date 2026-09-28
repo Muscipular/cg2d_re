@@ -60,6 +60,12 @@ void Sub_50F7F0(
     std::uintptr_t unusedSocket, std::int32_t key,
     const char* payload, std::int32_t unusedFourth); // 迷你收信，无文件保存。
 
+// 原资料/迷你邮件共享生命周期；不复用94H登录记录或510H保存记录。
+void Sub_533910(); // 只清20个used，再清消息、profile双槽和当前资料。
+void Sub_533950(); // 默认首槽后复制到第二槽及所选当前资料，保留未写字段。
+std::int32_t Sub_534770(); // profile.dat整块保存，打开成功即返回1。
+std::int32_t Sub_5347F0(); // 整块读取后重取角色并复制当前资料，不按短读失败。
+
 // 原 518C80：依次清两段邮件持久区及 CB1384，返回 0。
 std::int32_t Sub_518C80();
 // 原 [518CB0,518D94)：依次读两文件，返回 fclose 或缺失文件 helper 的整数结果。

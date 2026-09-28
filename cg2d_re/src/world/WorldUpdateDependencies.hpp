@@ -741,6 +741,20 @@ std::uint32_t Sub_519EC0(std::int32_t x, std::int32_t y); // 透传468330。
 void Sub_519EE0(); // 原入口不读取参数；检查当前坐标并同步 action 载荷。
 std::int32_t Sub_51A040(std::int32_t direction); // 同源方向发布，返回完整输入。
 void Sub_51A060(std::int32_t characterAction); // 动作1不重启，其余动作请求重启。
+void Sub_51A840(
+    std::int32_t x, std::int32_t y, std::int32_t direction,
+    std::int32_t characterAction, std::int32_t option1, std::int32_t option2,
+    std::int32_t option3, std::int32_t option4); // 完整玩家动作回复分支。
+void Sub_51A600(); // flags18A置0x4000。
+void Sub_51A610(); // flags18A清0x4000。
+void Sub_51A620(); // flags18A置0x8000。
+void Sub_51A630(); // flags18A清0x8000。
+void Sub_51BDB0(); // FDA88E置1，复用flags18C高W16。
+void Sub_51BDC0(); // FDA88E清1。
+void Sub_51BE10(); // FDA88E置0x24。
+void Sub_51BE20(); // FDA88E置8。
+void Sub_51BE30(); // FDA88E清8。
+void Sub_51BE40(); // FDA88E置0x50。
 login::YobiAction* Sub_51A640(); // 原+272置1，返回入口借用指针。
 login::YobiAction* Sub_51A660(); // 原+272清0，返回入口借用指针。
 std::int32_t Sub_51A680(); // 空玩家为0，否则MOVSX读取原+272，非指针返回。

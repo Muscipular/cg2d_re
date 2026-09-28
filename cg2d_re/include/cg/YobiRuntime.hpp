@@ -93,6 +93,14 @@ void ClearMapActorPathCount(YobiAction* action) noexcept; // 51B080仅清原+270
 bool IsMapActorIdleAtTarget(YobiAction* action); // 46AFE0的S16路径数与逐轴到格门禁。
 // 46AFE0：每轴先判符号再重读T*求幅值，X不相邻则不读Y。
 bool AreMapActorTargetsAdjacent(YobiAction*& previous, YobiAction*& current);
+// 51A840动作60：借用玩家原图号槽，payload固定而共享action按原位置重读。
+void ApplyPlayerAppearanceReply(
+    std::int32_t imageNo, std::int32_t gearImage, std::int32_t petImage,
+    std::int32_t kind, std::int32_t* playerImageNo);
+// 51A840动作70：借用玩家value174，保留原创建失败无空保护和重复阶段早退。
+void ApplyPlayerRideReply(
+    std::int32_t imageNo, std::int32_t steps, std::int32_t* remainingSteps);
+void ApplyPlayerPhase3Reply(std::int32_t imageNo); // 51A840动作80，不改玩家原图号。
 // 地图实体的目标格坐标/路径/动作链；指针只借用，布局保持 runtime 私有。
 // 原441F60：单点入队；原U16满队列分支清计数并重置到终点。
 void Sub_441F60(

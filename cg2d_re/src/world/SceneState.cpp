@@ -5941,6 +5941,129 @@ void Sub_51A060(const std::int32_t characterAction)
     }
 }
 
+void Sub_51A840(
+    const std::int32_t x, const std::int32_t y, const std::int32_t direction,
+    const std::int32_t characterAction, const std::int32_t option1,
+    const std::int32_t option2, const std::int32_t option3, const std::int32_t option4)
+{
+    switch (characterAction) {
+    case 0: case 2: case 3: case 4: case 6: case 17: case 18: case 19:
+        Sub_51A060(characterAction);
+        return;
+    case 1: {
+        const std::int32_t speed = option1 == -1 ? 100 : option1;
+        gPlayerRuntime.walkSpeed = speed;
+        login::detail::SetYobiWalkSpeed(gPlayerRuntime.action, speed);
+        Sub_51A060(1);
+        return;
+    }
+    case 5: case 7: case 8: case 9: case 10: case 11:
+    case 12: case 13: case 14: case 15: case 16:
+        static_cast<void>(Sub_51A040(direction));
+        Sub_51A060(characterAction);
+        return;
+    case 30: case 31:
+        static_cast<void>(Sub_51A040(direction));
+        Sub_51A060(characterAction == 30 ? 1 : 0);
+        return;
+    case 40: case 41: case 42: case 44:
+        static_cast<void>(Sub_519EC0(x, y));
+        static_cast<void>(Sub_51A040(direction));
+        static_cast<void>(Sub_4681B0());
+        if (characterAction == 41) {
+            if (option1 == 1) {
+                Sub_51A5A0();
+            } else {
+                static_cast<void>(Sub_51A5B0());
+            }
+        } else if (characterAction == 42) {
+            if (option1 == 1) {
+                Sub_51A600();
+            } else {
+                Sub_51A610();
+            }
+        } else if (characterAction == 44) {
+            if (option1 == 1) {
+                Sub_51A620();
+            } else {
+                Sub_51A630();
+            }
+        }
+        return;
+    case 45:
+        if (option1 == 1) {
+            Sub_51BDB0();
+        } else {
+            Sub_51BDC0();
+        }
+        static_cast<void>(Sub_51A040(direction));
+        return;
+    case 46:
+        if (option1 != 0) {
+            static_cast<void>(Sub_51BDD0(option1));
+        } else {
+            Sub_51BDF0();
+        }
+        static_cast<void>(Sub_51A040(direction));
+        return;
+    case 47:
+        Sub_51BE10();
+        static_cast<void>(Sub_51A040(direction));
+        return;
+    case 48:
+        if (option1 == 1) {
+            Sub_51BE20();
+        } else {
+            Sub_51BE30();
+        }
+        static_cast<void>(Sub_51A040(direction));
+        return;
+    case 49:
+        Sub_51BE40();
+        static_cast<void>(Sub_51A040(direction));
+        return;
+    case 50:
+        static_cast<void>(Sub_51A040(direction));
+        return;
+    case 51:
+        if (Sub_469810(x, y) == 0) {
+            static_cast<void>(Sub_519EC0(x, y));
+        }
+        Sub_519EE0();
+        static_cast<void>(Sub_51A040(direction));
+        Sub_51A060(0);
+        static_cast<void>(Sub_4681B0());
+        return;
+    case 60:
+        login::detail::ApplyPlayerAppearanceReply(
+            option1, option2, option3, option4, &gPlayerRuntime.imageNo);
+        return;
+    case 63:
+        static_cast<void>(Sub_51BDD0(option1));
+        static_cast<void>(Sub_51A040(direction));
+        return;
+    case 64:
+        Sub_51BDF0();
+        static_cast<void>(Sub_51A040(direction));
+        return;
+    case 70:
+        login::detail::ApplyPlayerRideReply(option1, option2, &gPlayerRuntime.value174);
+        return;
+    case 80:
+        login::detail::ApplyPlayerPhase3Reply(option1);
+        return;
+    case 200:
+        if (option1 != 0) {
+            gPlayerRuntime.flags18C |= 0x10000000u;
+        } else {
+            gPlayerRuntime.flags18C &= 0xEFFFFFFFu;
+        }
+        return;
+    default:
+        return;
+    }
+}
+
 std::int32_t Sub_51C0D0(const std::int32_t imageNo)
 {
     // 保留原区段顺序和两种除法，不扩展为通用图号规则。
@@ -6015,6 +6138,56 @@ void Sub_51A5E0()
 void Sub_51A5F0()
 {
     gPlayerRuntime.flags18A &= 0xFDFFu;
+}
+
+void Sub_51A600()
+{
+    gPlayerRuntime.flags18A |= 0x4000u;
+}
+
+void Sub_51A610()
+{
+    gPlayerRuntime.flags18A &= 0xBFFFu;
+}
+
+void Sub_51A620()
+{
+    gPlayerRuntime.flags18A |= 0x8000u;
+}
+
+void Sub_51A630()
+{
+    gPlayerRuntime.flags18A &= 0x7FFFu;
+}
+
+void Sub_51BDB0()
+{
+    gPlayerRuntime.flags18C |= 0x00010000u;
+}
+
+void Sub_51BDC0()
+{
+    gPlayerRuntime.flags18C &= 0xFFFEFFFFu;
+}
+
+void Sub_51BE10()
+{
+    gPlayerRuntime.flags18C |= 0x00240000u;
+}
+
+void Sub_51BE20()
+{
+    gPlayerRuntime.flags18C |= 0x00080000u;
+}
+
+void Sub_51BE30()
+{
+    gPlayerRuntime.flags18C &= 0xFFF7FFFFu;
+}
+
+void Sub_51BE40()
+{
+    gPlayerRuntime.flags18C |= 0x00500000u;
 }
 
 login::YobiAction* Sub_51A5B0()

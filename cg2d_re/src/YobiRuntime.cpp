@@ -2188,6 +2188,132 @@ bool AreMapActorTargetsAdjacent(YobiAction*& previous, YobiAction*& current)
     return distanceY < 2;
 }
 
+void ApplyPlayerAppearanceReply(
+    const std::int32_t imageNo, const std::int32_t gearImage,
+    const std::int32_t petImage, const std::int32_t kind,
+    std::int32_t* const playerImageNo)
+{
+    auto* const payload =
+        static_cast<MapActorPayload*>(world::detail::ReadPlayerAction()->payload);
+    if (payload == nullptr) {
+        return;
+    }
+    *playerImageNo = character_select::detail::Sub_51B740(imageNo);
+    const std::int32_t mappedImage = character_select::detail::Sub_51B740(imageNo);
+    world::detail::ReadPlayerAction()->imageNo = mappedImage;
+    if (gearImage != 0) {
+        const std::int32_t mappedGear = character_select::detail::Sub_51B740(gearImage);
+        if (payload->action30 == nullptr) {
+            payload->action30 = NewYobiGear_4410F0(mappedGear);
+        }
+        if (payload->action30 != nullptr) {
+            const std::int32_t converted =
+                character_select::detail::Sub_51B740(mappedGear);
+            payload->action30->imageNo = converted;
+        }
+    } else if (payload->action30 != nullptr) {
+        MarkDeath(payload->action30);
+        payload->action30 = nullptr;
+    }
+
+    if (petImage != 0) {
+        std::int32_t mappedPet = character_select::detail::Sub_51B740(petImage);
+        if (payload->action34 == nullptr) {
+            const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(
+                &world::detail::ReadPlayerAction()->mapY1F0);
+            const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(
+                &world::detail::ReadPlayerAction()->mapX1E0);
+            payload->action34 = NewYobiGearPet_441130(mappedPet, x, y);
+        }
+        if (payload->action34 != nullptr) {
+            const std::int32_t converted =
+                character_select::detail::Sub_51B740(mappedPet);
+            payload->action34->imageNo = converted;
+        }
+        if (kind == 6) {
+            ++mappedPet;
+            if (payload->action38 == nullptr) {
+                const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(
+                    &world::detail::ReadPlayerAction()->mapY1F0);
+                const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(
+                    &world::detail::ReadPlayerAction()->mapX1E0);
+                payload->action38 = NewYobiGearPet_441130(mappedPet, x, y);
+            }
+            if (payload->action38 != nullptr) {
+                const std::int32_t converted =
+                    character_select::detail::Sub_51B740(mappedPet);
+                payload->action38->imageNo = converted;
+            }
+        }
+    } else {
+        if (payload->action34 != nullptr) {
+            MarkDeath(payload->action34);
+            payload->action34 = nullptr;
+        }
+        if (payload->action38 != nullptr) {
+            MarkDeath(payload->action38);
+            payload->action38 = nullptr;
+        }
+    }
+    payload->kind3C = kind;
+}
+
+void ApplyPlayerRideReply(
+    const std::int32_t imageNo, const std::int32_t steps,
+    std::int32_t* const remainingSteps)
+{
+    YobiAction* const action = world::detail::ReadPlayerAction();
+    if (imageNo >= 0) {
+        auto* const payload = static_cast<MapActorPayload*>(action->payload);
+        if (payload->action44 == nullptr) {
+            YobiAction* const ride = NewYobiAction_404AE0(2, 0);
+            payload->action44 = ride;
+            ride->callback = nullptr;
+            payload->action44->characterAction = 0;
+            payload->action44->displayPriority = 10;
+            payload->action44->flags = 0x34u;
+            payload->action44->flags |= 0x200u;
+        }
+        const std::int32_t mappedRide = character_select::detail::Sub_51B740(imageNo);
+        payload->action44->imageNo = mappedRide;
+        const std::int32_t mappedPlayer =
+            world::detail::Sub_51C0D0(world::detail::ReadPlayerImageNo());
+        world::detail::ReadPlayerAction()->imageNo = mappedPlayer;
+        world::detail::ReadPlayerAction()->phase = 1;
+        payload->counter48 = 0;
+        *remainingSteps = steps;
+        payload->action44->characterAction = 0;
+        if (world::detail::ReadPlayerAction()->characterAction == 1) {
+            payload->action44->characterAction = 1;
+        }
+        return;
+    }
+    if (action->phase == 2) {
+        return;
+    }
+    auto* const payload = static_cast<MapActorPayload*>(action->payload);
+    action->phase = 2;
+    YobiAction* const ride = payload->action44;
+    payload->counter48 = 0;
+    if (ride != nullptr) {
+        ride->characterAction = 0;
+        if (world::detail::ReadPlayerAction()->characterAction == 1) {
+            payload->action44->characterAction = 1;
+        }
+    }
+    *remainingSteps = 0;
+}
+
+void ApplyPlayerPhase3Reply(const std::int32_t imageNo)
+{
+    YobiAction* const action = world::detail::ReadPlayerAction();
+    auto* const payload = static_cast<MapActorPayload*>(action->payload);
+    action->phase = 3;
+    const std::int32_t mappedImage = character_select::detail::Sub_51B740(imageNo);
+    world::detail::ReadPlayerAction()->imageNo = mappedImage;
+    payload->counter48 = 0;
+}
+
 void Sub_442AB0(
     YobiAction* const action, const std::int32_t targetX,
     const std::int32_t targetY)

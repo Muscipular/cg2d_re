@@ -11,6 +11,7 @@
 #include "cg/YobiRuntime.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/LegacyMouse.hpp"
+#include "cg/platform/LegacyTime.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/platform/Startup.hpp"
 #include "cg/render/Font.hpp"
@@ -132,6 +133,69 @@ static_assert(sizeof(WindowSavedData) == 0x521C);
 WindowSavedData gWindowSavedDataD40B30 {};
 std::int32_t gWindowSavedLengthCC4238 = 0;
 std::uint32_t gValueCF4B6C = 0; // 原4705D0独立清零槽，不扩展用途。
+
+struct WindowListRecordD3FAD4 {
+    std::int32_t value00;
+    std::int32_t value04;
+    std::array<std::array<char, 0x100>, 4> texts08;
+    std::int32_t value408;
+};
+
+struct WindowChoiceSlotsCC4CA0 {
+    std::int32_t value00;
+    std::array<std::int32_t, 5> values04;
+    std::array<std::array<std::int32_t, 2>, 5> pairs18;
+};
+
+// 仅承接D2F0B8已消费前缀，不视为完整对象或最终x64布局。
+struct WindowRuntimePrefixD2F0B8 {
+    std::array<std::byte, 8> bytes00;
+    std::int32_t value08;
+    std::int32_t value0C;
+    std::array<std::byte, 0x25C> bytes10;
+    std::uint32_t value26C;
+};
+
+static_assert(offsetof(WindowListRecordD3FAD4, value00) == 0);
+static_assert(offsetof(WindowListRecordD3FAD4, value04) == 4);
+static_assert(offsetof(WindowListRecordD3FAD4, texts08) == 8);
+static_assert(offsetof(WindowListRecordD3FAD4, value408) == 0x408);
+static_assert(sizeof(WindowListRecordD3FAD4) == 0x40C);
+static_assert(offsetof(WindowChoiceSlotsCC4CA0, values04) == 4);
+static_assert(offsetof(WindowChoiceSlotsCC4CA0, pairs18) == 0x18);
+static_assert(sizeof(WindowChoiceSlotsCC4CA0) == 0x40);
+static_assert(offsetof(WindowRuntimePrefixD2F0B8, value08) == 8);
+static_assert(offsetof(WindowRuntimePrefixD2F0B8, value0C) == 0x0C);
+static_assert(offsetof(WindowRuntimePrefixD2F0B8, value26C) == 0x26C);
+static_assert(sizeof(WindowRuntimePrefixD2F0B8) == 0x270);
+
+// 各原地址的唯一UI存储；此聚合的整体内存顺序不是原端连续布局。
+struct LoginWindowRuntimeSlots {
+    std::int32_t valueCF4A00;
+    std::int32_t valueC8A95C;
+    std::int32_t valueCB2200;
+    std::uint32_t valueD3FAD0;
+    std::array<WindowListRecordD3FAD4, 4> recordsD3FAD4;
+    WindowChoiceSlotsCC4CA0 choicesCC4CA0;
+    WindowRuntimePrefixD2F0B8 prefixD2F0B8;
+    std::int32_t valueD673D0;
+    std::int32_t selectedPetCC3E5C;
+    std::array<std::int32_t, 5> valuesCC1A18;
+    std::array<std::int32_t, 5> valuesCC4CE8;
+    std::array<std::int32_t, 3> valuesD2EAA0;
+    std::array<std::int32_t, 2> valuesCF4E50;
+    std::array<std::int32_t, 7> valuesD67B40;
+    std::int32_t valueCC31A4;
+    std::int32_t valueD2E444;
+    std::int32_t valueCB0604;
+    std::uint32_t valueD67618;
+    platform::LegacyTm53B8C6* calendarTimeD67BAC; // 借用platform同一可变localtime对象。
+    std::int32_t timeCB1DF0;
+    std::int32_t valueD67BB0;
+    std::int32_t dayD67BC0;
+};
+
+LoginWindowRuntimeSlots gLoginWindowRuntime {};
 
 // 原57C24C目标的内联矩形；同值异地址仍分别存储，见窗口SPEC。
 WindowDragRect gDragRects561998[] {{0, 0, 330, 25}, {315, 0, 20, 92}};
@@ -1082,6 +1146,135 @@ std::int32_t InitializeWindowSystem_4705D0()
     gValueCF4B6C = 0;
     Sub_472200();
     return world::detail::Sub_534910();
+}
+
+std::int32_t Sub_4923D0()
+{
+    gLoginWindowRuntime.valueCF4A00 = 5;
+    gLoginWindowRuntime.valueC8A95C = 0;
+    gLoginWindowRuntime.valueCB2200 = 0;
+    return 0;
+}
+
+void Sub_4B5A90()
+{
+    gLoginWindowRuntime.valueD3FAD0 = 0;
+    for (WindowListRecordD3FAD4& record : gLoginWindowRuntime.recordsD3FAD4) {
+        record.value00 = 0;
+        record.value408 = 0;
+        record.texts08[1][0] = '\0';
+        record.texts08[2][0] = '\0';
+        record.texts08[3][0] = '\0';
+        record.texts08[0][0] = '\0';
+        record.value04 = 0;
+    }
+}
+
+std::int32_t Sub_4A5390()
+{
+    WindowChoiceSlotsCC4CA0& choices = gLoginWindowRuntime.choicesCC4CA0;
+    choices.value00 = 0;
+    for (std::int32_t index = 0; index < 5; ++index) {
+        choices.values04[index] = 0;
+        choices.pairs18[index][1] = 0;
+        choices.pairs18[index][0] = 0;
+    }
+    gLoginWindowRuntime.prefixD2F0B8.value26C = 0;
+    gLoginWindowRuntime.prefixD2F0B8.value08 = -1;
+    gLoginWindowRuntime.prefixD2F0B8.value0C = -1;
+    return -1;
+}
+
+std::int32_t Sub_48C150()
+{
+    gLoginWindowRuntime.valueD673D0 = 5;
+    gLoginWindowRuntime.selectedPetCC3E5C = 0;
+    for (std::int32_t& value : gLoginWindowRuntime.valuesCC1A18) {
+        value = 0;
+    }
+    gLoginWindowRuntime.valuesCC4CE8[0] = 0;
+    gLoginWindowRuntime.valuesCC4CE8[2] = 0;
+    gLoginWindowRuntime.valuesCC4CE8[3] = 0;
+    gLoginWindowRuntime.valuesCC4CE8[4] = 0;
+    gLoginWindowRuntime.valuesCC4CE8[1] = 0;
+    gLoginWindowRuntime.valuesD2EAA0[0] = 0;
+    gLoginWindowRuntime.valuesD2EAA0[1] = -1;
+    gLoginWindowRuntime.valuesD2EAA0[2] = -1;
+    return -1;
+}
+
+std::int32_t Sub_4742B0()
+{
+    gLoginWindowRuntime.valuesCF4E50[0] = 0;
+    gLoginWindowRuntime.valuesCF4E50[1] = 0;
+    return 0;
+}
+
+std::int32_t Sub_4A0940()
+{
+    gLoginWindowRuntime.valuesD67B40[0] = 0;
+    gLoginWindowRuntime.valuesD67B40[3] = 0;
+    gLoginWindowRuntime.valuesD67B40[1] = 0;
+    gLoginWindowRuntime.valuesD67B40[4] = 0;
+    gLoginWindowRuntime.valuesD67B40[6] = 0;
+    gLoginWindowRuntime.valuesD67B40[2] = 0;
+    gLoginWindowRuntime.valuesD67B40[5] = 0;
+    return 0;
+}
+
+std::int32_t Sub_4CC6A0()
+{
+    gLoginWindowRuntime.valueCC31A4 = 5;
+    gLoginWindowRuntime.valueD2E444 = 0;
+    gLoginWindowRuntime.valueCB0604 = 0;
+    return 0;
+}
+
+void Sub_4CBD30()
+{
+    platform::LegacyTm53B8C6* const previous = gLoginWindowRuntime.calendarTimeD67BAC;
+    gLoginWindowRuntime.valueD67BB0 = 0;
+    if (previous != nullptr) {
+        return;
+    }
+    platform::ReadLegacyTime32_53BA26(&gLoginWindowRuntime.timeCB1DF0);
+    platform::LegacyTm53B8C6* const current =
+        platform::LocalTime_53B8C6(&gLoginWindowRuntime.timeCB1DF0);
+    gLoginWindowRuntime.calendarTimeD67BAC = current;
+    const auto* const bytes = reinterpret_cast<const std::byte*>(current);
+    std::int32_t day;
+    std::memcpy(&day, bytes + 0x0C, sizeof(day));
+    gLoginWindowRuntime.dayD67BC0 = day;
+    std::int32_t month;
+    std::memcpy(&month, bytes + 0x10, sizeof(month));
+    std::int32_t year;
+    std::memcpy(&year, bytes + 0x14, sizeof(year));
+    std::sprintf(world::detail::gLogFileName554648, "chat_%02d%02d%02d.txt",
+        year % 100, month + 1, day);
+}
+
+void InitializeLoginWindows_470600()
+{
+    static_cast<void>(Sub_4C9060());
+    static_cast<void>(Sub_4923D0());
+    Sub_4B5A90();
+    static_cast<void>(Sub_4A6DB0());
+    static_cast<void>(Sub_4A5390());
+    static_cast<void>(Sub_48C150());
+    static_cast<void>(Sub_4742B0());
+    world::detail::Sub_4C9490();
+    world::detail::Sub_533910();
+    if (world::detail::Sub_5347F0() == 0) {
+        world::detail::Sub_533950();
+    }
+    static_cast<void>(Sub_4A0940());
+    gWindowStates[21].marker50 = 0;
+    gWindowStates[22].marker50 = 0;
+    gWindowStates[23].marker50 = 0;
+    gWindowStates[40].marker50 = 0;
+    static_cast<void>(Sub_4CC6A0());
+    Sub_4CBD30();
+    gLoginWindowRuntime.valueD67618 = 0;
 }
 
 std::int32_t Sub_4A6D80()

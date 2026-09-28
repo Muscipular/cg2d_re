@@ -334,6 +334,15 @@ std::int32_t Sub_4C9170(); // 文件坐标和设置回填，共用原UI/世界�
 std::int32_t Sub_4C9060(); // WinSaveDate完整加载/默认回退，保留双打开与返回差别。
 void Sub_472200(); // 仅清71个marker50，不释放窗口。
 std::int32_t InitializeWindowSystem_4705D0(); // 启动UI完整初始化，返回category加载结果。
+std::int32_t Sub_4923D0(); // 三个UI数值依序写5/0/0。
+void Sub_4B5A90(); // 四条记录只清已证字段和四个文本首字节。
+std::int32_t Sub_4A5390(); // 五组选择槽及D2F0B8已证前缀重置。
+std::int32_t Sub_48C150(); // 所选宠物与两组五槽按原序重置。
+std::int32_t Sub_4742B0(); // 只清CF4E50/54。
+std::int32_t Sub_4A0940(); // D67B40七槽交错清零。
+std::int32_t Sub_4CC6A0(); // 三个UI数值依序写5/0/0。
+void Sub_4CBD30(); // 首次借用原localtime对象并写同源日志文件名。
+void InitializeLoginWindows_470600(); // 每次登录的完整UI/邮件/profile初始化；不清全部窗口指针。
 std::int32_t Sub_4A6DB0(); // 仅重置回看、两调整请求与数量。
 std::int32_t Sub_44B170(); // 清512条日志首字节，再清数量与回看。
 std::int32_t Sub_4A7700(); // 不清日志正文或写指针。

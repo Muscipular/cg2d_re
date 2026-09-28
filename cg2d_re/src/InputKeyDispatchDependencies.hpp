@@ -8,7 +8,7 @@ struct InputContext;
 
 namespace cg::input::detail {
 
-// sub_4596D0@0x4596D0 的直接目标；编辑叶已落位，提交目标仍只声明真实契约。
+// sub_4596D0@0x4596D0 的直接目标；44AB60完整提交由既有Input.cpp承接。
 void Sub_44A5D0();
 void Sub_44A7D0();
 std::uintptr_t Sub_44A540();

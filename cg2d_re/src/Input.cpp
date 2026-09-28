@@ -1,9 +1,11 @@
 #include "cg/Input.hpp"
+#include "cg/Blacklist.hpp"
 #include "cg/LegacyAudio.hpp"
 #include "cg/platform/KeyState.hpp"
 #include "cg/platform/LegacyTime.hpp"
 #include "cg/platform/Startup.hpp"
 
+#include "InputKeyDispatchDependencies.hpp"
 #include "platform/WindowProcedureState.hpp"
 #include "world/WorldUpdateDependencies.hpp"
 
@@ -63,6 +65,20 @@ inline constexpr std::int32_t kMaximumTotalByteLength =
 constexpr std::array<std::uint8_t, 8> kEscapePairs58E944 {{
     '\n', 'n', ',', 'c', '|', 'z', '\\', 'y',
 }};
+
+constexpr char kBlacklistSelfText554938[] =
+    "\xB1\x7A\xA1\x4B\xA6\x70\xA6\xB9\xB9\xBD\xB4\x63\xA6\xDB"
+    "\xA4\x76\xAA\xBA\xC1\x6E\xAD\xB5\xB6\xDC\xA1\x48";
+constexpr char kBlacklistExistingFormat554928[] =
+    "%s\xA4\x77\xA6\x62\xB6\xC2\xA6\x57\xB3\xE6\xA4\xA4";
+constexpr char kBlacklistAddedFormat5532C4[] =
+    "\xA4\x77\xB1\x4E%s\xA5\x5B\xA4\x4A\xB6\xC2\xA6\x57\xB3\xE6";
+constexpr char kBlacklistFailedFormat5532B0[] =
+    "%s\xA5\x5B\xA4\x4A\xB6\xC2\xA6\x57\xB3\xE6\xA5\xA2\xB1\xD1";
+static_assert(sizeof(kBlacklistSelfText554938) == 27);
+static_assert(sizeof(kBlacklistExistingFormat554928) == 15);
+static_assert(sizeof(kBlacklistAddedFormat5532C4) == 17);
+static_assert(sizeof(kBlacklistFailedFormat5532B0) == 17);
 
 std::int8_t SignedByte(const char value)
 {
@@ -1264,3 +1280,72 @@ void Sub_44B050(
 }
 
 } // namespace cg::world::detail
+
+namespace cg::input::detail {
+
+void Sub_44AB60()
+{
+    if (platform::gImeComposition[0] != '\0') {
+        return;
+    }
+    InputContext* context = gCurrentInputData;
+    if (context == &gInputContext626AA0) {
+        if (context->totalByteLength == 0) {
+            return;
+        }
+        auto& history = world::detail::gChatHistory621FF8;
+        const std::uint32_t oldTail = history.tail626838;
+        const std::int32_t oldIndex = std::bit_cast<std::int8_t>(
+            static_cast<std::uint8_t>(oldTail));
+        std::int32_t nextIndex = std::bit_cast<std::int32_t>(oldTail) + 1;
+        history.tail626838 = static_cast<std::uint32_t>(nextIndex);
+        if (nextIndex >= 64) {
+            nextIndex = 0;
+            history.tail626838 = 0;
+        }
+        if (std::strcmp(context->text, history.records[oldIndex]) == 0) {
+            history.tail626838 = static_cast<std::uint32_t>(oldIndex);
+        } else {
+            std::strcpy(history.records[nextIndex], context->text);
+            static_cast<void>(world::detail::Sub_449FA0(
+                std::bit_cast<std::int32_t>(history.tail626838)));
+            context = gCurrentInputData;
+        }
+        const std::int32_t color = gInputContext626AA0.field140;
+        world::detail::gCursor62683C = -1;
+        static_cast<void>(world::detail::Sub_50C940(context, color));
+        gCurrentInputData->totalByteLength = 0;
+        gCurrentInputData->caretByteOffset = 0;
+        gCurrentInputData->text[0] = '\0';
+        context = gCurrentInputData;
+    } else if (context == &gInputContextD66CA8
+               || context == &gInputContextCB03F0
+               || context == &gInputContextCC46E0
+               || context == &gInputContextCC2080
+               || context == &gInputContextD2D828
+               || context == &gInputContextCA0180) {
+        AppendChar_44ADB0('\r');
+        context = gCurrentInputData;
+    }
+    if (context == &gInputContextC8B1B8) {
+        char message[256];
+        const char* const text = gInputContextC8B1B8.text;
+        if (std::strcmp(text, world::detail::BorrowPlayerDisplayText(1)) == 0) {
+            std::sprintf(message, kBlacklistSelfText554938);
+        } else if (blacklist::ContainsBlacklistRecord_4013D0(text) != 0) {
+            std::sprintf(message, kBlacklistExistingFormat554928, text);
+        } else {
+            const char* const format = blacklist::AddBlacklistRecord_401270(text) != 0
+                ? kBlacklistAddedFormat5532C4 : kBlacklistFailedFormat5532B0;
+            std::sprintf(message, format, text);
+        }
+        gInputContextC8B1B8.text[0] = '\0';
+        gInputContextC8B1B8.totalByteLength = 0;
+        gInputContextC8B1B8.caretByteOffset = 0;
+        world::detail::Sub_44B050(message, 4, 3);
+        SetContext_44B330(&gInputContext626AA0);
+    }
+    gValue626C0C = 20;
+}
+
+} // namespace cg::input::detail

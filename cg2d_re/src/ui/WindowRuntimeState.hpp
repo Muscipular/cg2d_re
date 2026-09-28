@@ -111,6 +111,14 @@ struct WindowInstance {
 
 namespace detail {
 
+// 原4B1260的14参槽位回调；借用数值与描述符，返回值原端弃用。
+using WindowTradePanelCallback = void (*)(
+    std::int16_t x, std::int16_t y, std::int32_t mouseX, std::int32_t mouseY,
+    std::int32_t state, std::uint8_t* tab, std::int32_t scroll,
+    std::uint8_t numericResult, std::uint32_t* valueSlot,
+    std::int32_t* itemCount, std::int32_t* petCount, std::int32_t* amount,
+    std::int32_t* displayAmount, render::GraphicDescriptor16* descriptor);
+
 // 原CF3B10/D2F338的已消费字段；不是x86字节布局，不冻结未消费前缀。
 struct WindowItemSelectorState {
     std::int32_t value64;
@@ -375,6 +383,13 @@ std::int32_t Sub_4B0090(std::int32_t index); // 只释放宠物选择及标记�
 void Sub_4B0200(); // 窗口43释放回调，原返回值弃用。
 std::int32_t Sub_4B0290(std::int32_t value); // 窗口43初始化、关闭检查与四阶段更新。
 std::int32_t Sub_4B08D0(std::int32_t unused); // 四类提示后绘制完整当前窗口。
+std::int32_t Sub_4B1260(
+    WindowInstance* window, std::int32_t index, std::int32_t state,
+    const std::int32_t* backgroundImages, std::uint8_t* tab,
+    std::int32_t scrollElement, std::int32_t* scrollValue,
+    std::int32_t numericElement, std::int32_t maximum,
+    std::int32_t itemCount, std::int32_t petCount, std::int32_t amount,
+    render::GraphicDescriptor16* descriptor, WindowTradePanelCallback callback);
 bool Sub_4B1900(
     std::int32_t x, std::int32_t y, std::int32_t width, std::int32_t height); // X未命中则不读Y。
 std::uint8_t Sub_474550(

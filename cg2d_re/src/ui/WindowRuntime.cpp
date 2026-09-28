@@ -1185,6 +1185,132 @@ std::int32_t Sub_4B08D0(const std::int32_t)
     return 1;
 }
 
+std::int32_t Sub_4B1260(
+    WindowInstance* const window, const std::int32_t index, const std::int32_t state,
+    const std::int32_t* const backgroundImages, std::uint8_t* const tab,
+    const std::int32_t scrollElement, std::int32_t* const scrollValue,
+    const std::int32_t numericElement, const std::int32_t maximum,
+    std::int32_t itemCount, std::int32_t petCount, std::int32_t amount,
+    render::GraphicDescriptor16* const descriptor, const WindowTradePanelCallback callback)
+{
+    WindowElement* const elements = window->elements;
+    const std::int16_t x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
+        static_cast<std::uint16_t>(elements[index].x) + static_cast<std::uint16_t>(window->x)));
+    const std::int16_t y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
+        static_cast<std::uint16_t>(elements[index].y) + static_cast<std::uint16_t>(window->y)));
+    if ((state & 0x21) != 0) {
+        const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
+        *scrollValue = Sub_4743B0(&elements[scrollElement], *scrollValue, 2, wheel);
+    }
+    WindowElement* const scroll = &window->elements[scrollElement];
+    if ((static_cast<const WindowMouseData*>(scroll->data)->flags & 1u) != 0) {
+        *scrollValue = Sub_474270(scroll, 2);
+    }
+    static constexpr std::array<std::array<std::int16_t, 4>, 5> rectangles54F508 {{
+        {12, 240, 80, 15}, {97, 240, 80, 15}, {182, 240, 80, 15},
+        {252, 28, 11, 11}, {252, 220, 11, 11},
+    }};
+    std::int32_t selected = -1;
+    if ((state & 1) != 0) {
+        for (std::int32_t part = 0; part < 5; ++part) {
+            const auto& rectangle = rectangles54F508[part];
+            if (Sub_4B1900(x + rectangle[0], y + rectangle[1], rectangle[2], rectangle[3])) {
+                selected = part;
+            }
+        }
+    }
+    const std::int32_t result = state & 2;
+    if (result != 0 && selected >= 0 && selected <= 2) {
+        static_cast<void>(audio::PlaySe_52C450(
+            std::bit_cast<std::int8_t>(*tab) == selected ? 55 : 51, 320));
+        *tab = static_cast<std::uint8_t>(selected);
+        static_cast<void>(Sub_4B09E0(0, 2));
+    }
+    if ((state & 0x400) != 0 && *tab == 1) {
+        if (selected == 3) {
+            if (*scrollValue > 0) {
+                --*scrollValue;
+                static_cast<void>(audio::PlaySe_52C450(51, 320));
+            } else {
+                static_cast<void>(audio::PlaySe_52C450(55, 320));
+            }
+            static_cast<void>(Sub_4742C0(&window->elements[scrollElement], 2, *scrollValue));
+        } else if (selected == 4) {
+            if (*scrollValue < 2) {
+                ++*scrollValue;
+                static_cast<void>(audio::PlaySe_52C450(51, 320));
+            } else {
+                static_cast<void>(audio::PlaySe_52C450(55, 320));
+            }
+            static_cast<void>(Sub_4742C0(&window->elements[scrollElement], 2, *scrollValue));
+        }
+    }
+    std::uint8_t numericResult = 0;
+    if (numericElement >= 0 && *tab == 2) {
+        std::uint32_t color;
+        std::memcpy(&color, descriptor->bytes.data() + 8, sizeof(color));
+        const std::uint8_t flags =
+            input::gCurrentInputData == &input::gInputContextCC21E8 ? 3 : 1;
+        numericResult = Sub_474550(
+            window, numericElement, state, maximum, 223, gTradeNumberHints5805FC.data(),
+            flags, color);
+    }
+    std::int32_t displayAmount; // 原回调负责写入，不为无回调的异常路径补零。
+    if (callback != nullptr) {
+        // 仅适配已证不消费该参数的-1哨兵；正索引仍借用同一W32，见窗口SPEC。
+        std::uint32_t* const valueSlot =
+            numericElement == -1 ? nullptr : &window->elements[numericElement].state;
+        const std::int32_t scrollSnapshot = *scrollValue;
+        const std::int32_t mouseY =
+            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseY);
+        const std::int32_t mouseX =
+            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseX);
+        callback(x, y, mouseX, mouseY, state, tab, scrollSnapshot, numericResult, valueSlot,
+                 &itemCount, &petCount, &amount, &displayAmount, descriptor);
+    }
+    std::int32_t imageNo = *tab == 0 ? 243028 : (selected == 0 ? 243029 : 243027);
+    static_cast<void>(render::DrawGraphic3_520970(
+        x + 12, y + 240, 223, imageNo, 0, 1, 0, descriptor));
+    imageNo = *tab == 1 ? 243022 : (selected == 1 ? 243023 : 243021);
+    static_cast<void>(render::DrawGraphic3_520970(
+        x + 97, y + 240, 223, imageNo, 0, 1, 0, descriptor));
+    imageNo = *tab == 2 ? 243025 : (selected == 2 ? 243026 : 243024);
+    static_cast<void>(render::DrawGraphic3_520970(
+        x + 182, y + 240, 223, imageNo, 0, 1, 0, descriptor));
+    window->elements[scrollElement].visible = 0;
+    window->elements[scrollElement - 1].visible = 0;
+    if (*tab == 1) {
+        WindowElement* const previous = &window->elements[scrollElement - 1];
+        const std::int32_t drawY = window->y + previous->y;
+        const std::int32_t drawX = window->x + previous->x;
+        static_cast<void>(render::DrawGraphic3_520970(
+            drawX, drawY, 223, 243096, 0, 1, 0, descriptor));
+        imageNo = selected == 3 ? ((state & 8) != 0 ? 243091 : 243092) : 243090;
+        static_cast<void>(render::DrawGraphic3_520970(
+            x + 252, y + 28, 223, imageNo, 0, 1, 0, descriptor));
+        imageNo = selected == 4 ? ((state & 8) != 0 ? 243094 : 243095) : 243093;
+        static_cast<void>(render::DrawGraphic3_520970(
+            x + 252, y + 220, 223, imageNo, 0, 1, 0, descriptor));
+        window->elements[scrollElement].visible = 1;
+        window->elements[scrollElement - 1].visible = 1;
+    }
+    char buffer[52];
+    if (*tab == 2) {
+        std::sprintf(buffer, "%9d", displayAmount);
+        Sub_4771B0(x + 179, y + 88, buffer, 3, 0, 1, 223);
+    }
+    std::sprintf(buffer, "%3d", itemCount);
+    Sub_4771B0(x + 71, y + 258, buffer, 3, 0, 1, 223);
+    std::sprintf(buffer, "%3d", petCount);
+    Sub_4771B0(x + 156, y + 258, buffer, 3, 0, 1, 223);
+    std::sprintf(buffer, "%10d", amount);
+    Sub_4771B0(x + 241, y + 258, buffer, 3, 0, 1, 223);
+    imageNo = backgroundImages[std::bit_cast<std::int8_t>(*tab)];
+    static_cast<void>(render::DrawGraphic3_520970(
+        x, y, 223, imageNo, 0, 1, 0, descriptor));
+    return result;
+}
+
 bool Sub_4B1900(
     const std::int32_t x, const std::int32_t y,
     const std::int32_t width, const std::int32_t height)

@@ -113,6 +113,7 @@ struct NetworkRuntimeState {
     std::int32_t errorD9F2CC;
     std::uint32_t receiveResetD9F3C4;
     std::uint32_t frameModuloD9F3C8;
+    std::uint8_t value58ADA4 = 0x80; // 原ed回复独立字节，不属于58ADA8的排除链文本。
 };
 
 NetworkRuntimeState gNetworkRuntimeState {};
@@ -723,6 +724,19 @@ void Sub_50DD80(
     static_cast<void>(login::detail::Sub_448040(
         convertedImageNo, recordX, recordY, recordDirection,
         actionMode, 0, objectIndex));
+}
+
+std::int32_t Sub_50E780(const std::uintptr_t, const std::int32_t value)
+{
+    const std::int32_t sceneType = world::gCurrentSceneType;
+    const auto lowByte = static_cast<std::uint8_t>(value);
+    gNetworkRuntimeState.value58ADA4 = lowByte;
+    if (sceneType != 13) {
+        return value;
+    }
+    const std::int32_t state = lowByte != 0 ? 200 : 100;
+    world::gCurrentSceneState = state;
+    return state;
 }
 
 std::int32_t Sub_50E830(const std::uintptr_t)

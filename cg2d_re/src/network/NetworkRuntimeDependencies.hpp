@@ -42,6 +42,9 @@ void Sub_50DD80(
     std::int32_t direction, std::int32_t withRecord,
     std::int32_t mode, const char* payload);
 
+// 原50E780：写58ADA4低U8；快照场景13时写并返回100/200，其余返回完整value。
+std::int32_t Sub_50E780(std::uintptr_t unusedSocket, std::int32_t value);
+
 // 原 [0x50E830,0x50E844)：共享 W32 非零直接返回，零时清并回写公会邮件。
 std::int32_t Sub_50E830(std::uintptr_t unusedSocket);
 

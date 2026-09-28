@@ -3091,6 +3091,87 @@ std::uint32_t gValueD67B28 = 0;
 // 原F7C950同属PE虚拟零区，独立于宠物表与F7C9FC之后的状态。
 ReplyRecordF7C950 gReplyRecordF7C950 {};
 
+void Sub_519770(
+    const std::int32_t petIndex, const std::int32_t itemIndex, const char* const text)
+{
+    PlayerItemRecord& record = gPetRuntimeF633F8[petIndex].items6E4[itemIndex];
+    std::int32_t last = -1;
+    for (std::int32_t line = 0; line < 32; ++line) {
+        char* const row = record.description[line].data();
+        if (input::ExtractLegacyLine_503AB0(row, 3072, text, line, 32) != 0) {
+            last = line;
+        } else {
+            row[0] = '\0';
+        }
+    }
+    while (last > 0 && std::strlen(record.description[last - 1].data()) == 0) {
+        --last;
+    }
+    record.pages = last < 0 ? 0 : last / 8 + 1;
+}
+
+void Sub_510150(
+    const std::uintptr_t, const std::int32_t petIndex, const char* const payload)
+{
+    if (gValue9A6E0C != 0 || petIndex < 0 || petIndex >= 5) {
+        return;
+    }
+    char name[256];
+    char memo[256];
+    char description[768];
+    std::int32_t field = 1;
+    std::int32_t index = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
+    while (index < 6) {
+        if (network::ExtractDelimitedField_52CED0(
+                payload, '|', field + 1, 255, name) == 1) {
+            return;
+        }
+        input::UnescapeLegacyTextAndNotify_52D2F0(name);
+        PlayerItemRecord& record = gPetRuntimeF633F8[petIndex].items6E4[index];
+        if (std::strlen(name) == 0) {
+            record.used = 0;
+            record.name[0] = '\0';
+        } else {
+            record.used = 1;
+            if (std::strlen(name) <= 28) {
+                std::strcpy(record.name.data(), name);
+            }
+            const std::int32_t color =
+                network::ParseDelimitedInteger_52CFA0(payload, '|', field + 2);
+            record.color = color;
+            if (color < 0) {
+                record.color = 0;
+            }
+            network::ExtractDelimitedField_52CED0(
+                payload, '|', field + 3, 767, description);
+            input::UnescapeLegacyTextAndNotify_52D2F0(description);
+            Sub_519770(petIndex, index, description);
+            record.hasDescription = std::strlen(record.description[0].data()) != 0 ? 1 : 0;
+            record.imageNo = network::ParseDelimitedInteger_52CFA0(payload, '|', field + 4);
+            record.canUseInField = static_cast<std::uint16_t>(
+                network::ParseDelimitedInteger_52CFA0(payload, '|', field + 5));
+            record.battleUseFlag = static_cast<std::uint16_t>(
+                network::ParseDelimitedInteger_52CFA0(payload, '|', field + 6));
+            record.target = static_cast<std::uint16_t>(
+                network::ParseDelimitedInteger_52CFA0(payload, '|', field + 7));
+            // 原510362再次传field+4，不能按玩家物品协议改成field+8或复用图号。
+            record.level = network::ParseDelimitedInteger_52CFA0(payload, '|', field + 4);
+            record.flags = static_cast<std::uint16_t>(
+                network::ParseDelimitedInteger_52CFA0(payload, '|', field + 9));
+            record.itemId = network::ParseDelimitedInteger_52CFA0(payload, '|', field + 10);
+            record.itemType = network::ParseDelimitedInteger_52CFA0(payload, '|', field + 11);
+            record.count = network::ParseDelimitedInteger_52CFA0(payload, '|', field + 12);
+            network::ExtractDelimitedField_52CED0(payload, '|', field + 13, 255, memo);
+            input::UnescapeLegacyTextAndNotify_52D2F0(memo);
+            if (std::strlen(memo) <= 16) {
+                std::strcpy(record.memo.data(), memo);
+            }
+        }
+        field += 14;
+        index = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
+    }
+}
+
 void Sub_50A6B0(
     const std::uintptr_t /*socket*/, const std::int32_t index, const char* const payload)
 {

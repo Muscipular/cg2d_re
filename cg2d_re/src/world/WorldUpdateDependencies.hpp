@@ -633,6 +633,12 @@ extern std::array<PetPairRecord, 5> gPetPairsDE0B08;
 extern std::int32_t gPetCountDE0B00;
 extern std::uint32_t gValueD67B28; // 492250置1，UI后续复用。
 
+// 原510150：宠物物品带槽号回复；level重复解析图号字段，不同步UI。
+void Sub_510150(
+    std::uintptr_t unusedSocket, std::int32_t petIndex, const char* payload);
+// 原519770：同源宠物物品32行描述与前行回扫，保持独立页数写序。
+void Sub_519770(std::int32_t petIndex, std::int32_t itemIndex, const char* text);
+
 void Sub_50A6B0(std::uintptr_t socket, std::int32_t index, const char* payload);
 void Sub_50AC20(std::uintptr_t socket, std::int32_t index, const char* payload);
 void Sub_50B0D0(

@@ -6,7 +6,6 @@ namespace cg::network::detail {
 
 // 512E40尚缺的真实回复目标；仅声明已证调用侧合同，不用空体填充。
 // 文本都是按参数编号复制出的借用工作区指针；原callee其他用途继续取证。
-void Sub_508CF0(std::uintptr_t socket, char* text1, char* text2);
 void Sub_509BA0(std::uintptr_t socket, char* text);
 void Sub_509E30(std::uintptr_t socket, std::int32_t value, char* text);
 void Sub_50A120(std::uintptr_t socket, std::int32_t value, char* text);

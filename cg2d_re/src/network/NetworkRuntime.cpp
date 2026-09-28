@@ -1,6 +1,7 @@
 #include "cg/network/NetworkRuntime.hpp"
 
 #include "../CharacterSelectSceneDependencies.hpp"
+#include "../LoginRequestDependencies.hpp"
 #include "../LoginStateDependencies.hpp"
 #include "../world/MailState.hpp"
 #include "../world/WorldUpdateDependencies.hpp"
@@ -3873,7 +3874,7 @@ std::int32_t NetworkDispatch_512E40(
     if (TryDispatchReply<login::HandleCharacterDeletionResponse_509020, T, T>(head, "oy", socket)) return 0;
     if (TryDispatchReply<login::HandleLoginResponse_508BC0, T, T>(head, "hPUd", socket)) return 0;
     if (TryDispatchReply<login::HandleCharacterListResponse_5089B0, I, T>(head, "Daj", socket)) return 0;
-    if (TryDispatchReply<Sub_508CF0, T, T>(head, "HMNy", socket)) return 0;
+    if (TryDispatchReply<login::detail::Sub_508CF0, T, T>(head, "HMNy", socket)) return 0;
     if (TryDispatchReply<IgnoreReplyArguments_509080<T>, T>(head, "cJzI", socket)) return 0;
     if (TryDispatchReply<IgnoreReplyArguments_509080<I, I>, I, I>(head, "Bi", socket)) return 0;
     if (TryDispatchReply<IgnoreReplyArguments_509080<T>, T>(head, "LOh", socket)) return 0;

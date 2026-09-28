@@ -53,6 +53,10 @@ void ConstructRippleGate();
 void DestroyRippleGate();
 std::int32_t ReadRippleGateOnce();
 
+// 原456FE0/457000，73ECD0场景共享CryptInt；CRT排在World表后、玩家坐标前。
+void ConstructSceneTransitionValue();
+void DestroySceneTransitionValue();
+
 // 原 467BA0/467BD0；先构造 X/Y，退出时按 Y/X 逆序析构。
 void ConstructPlayerCoordinates();
 void DestroyPlayerCoordinates();

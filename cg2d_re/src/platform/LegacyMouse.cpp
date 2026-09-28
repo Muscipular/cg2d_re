@@ -33,6 +33,21 @@ struct WorldObjectsStaticInitializer {
 
 const WorldObjectsStaticInitializer gWorldObjectsStaticInitializer;
 
+// 原CRT 553054介于World表553014和玩家坐标553064之间；未落位的其他项不填空体。
+struct SceneTransitionValueStaticInitializer {
+    SceneTransitionValueStaticInitializer()
+    {
+        cg::world::ConstructSceneTransitionValue();
+    }
+
+    ~SceneTransitionValueStaticInitializer()
+    {
+        cg::world::DestroySceneTransitionValue();
+    }
+};
+
+const SceneTransitionValueStaticInitializer gSceneTransitionValueStaticInitializer;
+
 struct PlayerCoordinatesStaticInitializer {
     PlayerCoordinatesStaticInitializer()
     {

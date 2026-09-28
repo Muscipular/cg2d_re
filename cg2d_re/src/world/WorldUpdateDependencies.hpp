@@ -101,6 +101,9 @@ extern std::uint32_t gValue626C18;
 extern std::uint32_t gValue626BFC;
 extern char gLogFileName554648[16];
 
+// 原73ECD0，508CF0与多个场景/UI共享；显式CRT生命周期，禁止创建登录副本。
+extern platform::LegacyCryptInt gValue73ECD0;
+
 // 原 0xC8222E；46A700 写 1，469FC0 清 0，46AB60 读取低 W16。
 extern std::uint16_t gValueC8222E;
 

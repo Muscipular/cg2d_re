@@ -1,9 +1,13 @@
 #include "cg/LoginRequest.hpp"
 
 #include "LoginRequestDependencies.hpp"
+#include "world/WorldUpdateDependencies.hpp"
 
+#include "cg/LegacyAudio.hpp"
 #include "cg/network/NetworkRuntime.hpp"
+#include "cg/platform/LegacyCryptInt.hpp"
 #include "cg/platform/MainLoop.hpp"
+#include "cg/world/SceneState.hpp"
 
 #include <cstring>
 
@@ -198,6 +202,30 @@ std::int32_t Sub_508C90()
     std::memcpy(gRequestMessage, kLogoutTimeoutMessage,
         sizeof(kLogoutTimeoutMessage));
     return -1;
+}
+
+void Sub_508CF0(const std::uintptr_t, const char* const result, const char*)
+{
+    if (gRequestStatus == 1) {
+        gRequestStatus = 2;
+        if (std::strcmp(result, kSuccessfulResult) == 0) {
+            gReplyCodeDA3B2E = 1;
+        }
+        return;
+    }
+    if (std::strcmp(result, kSuccessfulResult) != 0) {
+        return;
+    }
+    gRequestStatus = 2;
+    gReplyCodeDA3B2E = 2;
+    platform::LegacyCryptInt temporary;
+    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, 0);
+    world::detail::gValue73ECD0.mask = temporary.mask;
+    world::detail::gValue73ECD0.encoded = temporary.encoded;
+    world::detail::gValue73ECD0.readCount = temporary.readCount;
+    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    static_cast<void>(world::SetPendingSceneType(7));
+    static_cast<void>(audio::PlaySe_52C450(60, 320));
 }
 
 } // namespace cg::login::detail

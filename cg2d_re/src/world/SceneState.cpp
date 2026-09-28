@@ -438,6 +438,16 @@ void DestroyPetRuntimeValues()
     }
 }
 
+void ConstructSceneTransitionValue()
+{
+    platform::legacy_crypt_int::ConstructZero_401C70(&detail::gValue73ECD0);
+}
+
+void DestroySceneTransitionValue()
+{
+    platform::legacy_crypt_int::Destroy_401CF0(&detail::gValue73ECD0);
+}
+
 void ConstructPlayerCoordinates()
 {
     platform::legacy_crypt_int::ConstructZero_401C70(&detail::gPlayerX);
@@ -643,6 +653,8 @@ std::uint32_t InitializeAlbum_518C20()
 }
 
 namespace detail {
+
+platform::LegacyCryptInt gValue73ECD0 {};
 
 std::uint32_t& gMapEffectOffsetXBits = gMapCharaSceneSlots.valueC8A758;
 std::uint32_t& gMapEffectOffsetYBits = gMapCharaSceneSlots.valueC8A75C;

@@ -115,6 +115,7 @@ struct PlayerRuntimeSlots {
     std::uint32_t flags18C; // 承载原 [FDA88C,FDA890)；18C 低 W8、18E 高 W16 共享字节。
     std::int32_t value190; // 原 FDA890；51BDD0/51BE50 写入的完整动作值。
     std::uint16_t options194; // 原FDA894低W16；选项切换/回复与聊天门禁共用。
+    std::uint16_t value1A0; // 原FDA8A0；50BFC0写入低W16。
     login::YobiAction* action;
     std::array<char, 17> text15BB8; // 原 FF02B8，不紧接新端的指针字节布局。
     std::int32_t value15BCC; // 原FF02CC；509650尾字段。
@@ -2066,6 +2067,22 @@ std::uint32_t Sub_50BFA0(
     const std::uint32_t options = static_cast<std::uint32_t>(value) & 0xFFFDu;
     gPlayerRuntime.options194 = static_cast<std::uint16_t>(options);
     return options;
+}
+
+std::uint16_t Sub_50BFC0(
+    const std::uintptr_t /*socket*/, const std::int32_t value)
+{
+    const auto low = static_cast<std::uint16_t>(value);
+    gPlayerRuntime.value1A0 = low;
+    return low;
+}
+
+std::int32_t Sub_50CF70(
+    const std::uintptr_t /*socket*/, const std::int32_t index,
+    const std::int32_t value)
+{
+    gPetRuntimeF633F8[index].lvFlag6C = value;
+    return index;
 }
 
 std::uint32_t Sub_50C7A0(

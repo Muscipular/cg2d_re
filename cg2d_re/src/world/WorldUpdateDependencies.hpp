@@ -449,7 +449,7 @@ struct PetRuntimeRecord {
     std::array<std::byte, 2> bytes06;
     std::int32_t value08; // 主回复掩码201。
     std::array<platform::LegacyCryptInt, 6> values0C; // HP/最大HP/FP/最大FP/+4C/+5C。
-    std::array<std::byte, 4> bytes6C;
+    std::int32_t lvFlag6C; // 原F63464；50CF70写入完整W32。
     std::array<std::int32_t, 26> values70; // 原+70..+D4，两回复共享。
     std::array<std::byte, 0x5C8> bytesD8;
     std::int32_t imageNo6A0;
@@ -474,6 +474,7 @@ static_assert(offsetof(PetRuntimeRecord, value02) == 2);
 static_assert(offsetof(PetRuntimeRecord, value04) == 4);
 static_assert(offsetof(PetRuntimeRecord, value08) == 8);
 static_assert(offsetof(PetRuntimeRecord, values0C) == 0x0C);
+static_assert(offsetof(PetRuntimeRecord, lvFlag6C) == 0x6C);
 static_assert(offsetof(PetRuntimeRecord, values70) == 0x70);
 static_assert(offsetof(PetRuntimeRecord, bytesD8) == 0xD8);
 static_assert(offsetof(PetRuntimeRecord, imageNo6A0) == 0x6A0);
@@ -506,6 +507,8 @@ extern std::uint32_t gValueD67B28; // 492250置1，UI后续复用。
 
 void Sub_50A6B0(std::uintptr_t socket, std::int32_t index, const char* payload);
 void Sub_50AC20(std::uintptr_t socket, std::int32_t index, const char* payload);
+std::int32_t Sub_50CF70(
+    std::uintptr_t socket, std::int32_t index, std::int32_t value); // 仅写宠物+6C并返回index。
 std::int32_t Sub_519920(); // 先清计数，再扫描占用并发布。
 void Sub_518580(
     const PetRuntimeRecord* source, PetPairRecord* destination, std::int32_t count);
@@ -661,6 +664,8 @@ login::YobiAction* FindObjectYobi_4462B0(std::int32_t objectIndex); // 复用原
 void Sub_50B380(std::uintptr_t socket, const char* payload); // 完整TAB对象批量回复，socket未用。
 void Sub_50BCD0(std::uintptr_t socket, const char* payload); // 逗号动作批量回复，先观察拦截。
 std::uint32_t Sub_50BFA0(std::uintptr_t socket, std::int32_t value); // 玩家选项回复，清bit2后写U16。
+std::uint16_t Sub_50BFC0(
+    std::uintptr_t socket, std::int32_t value); // 玩家+1A0低W16写入；原返回仅定义AX。
 std::int32_t Sub_50C940(
     const input::InputContext* context, std::int32_t color); // 聊天时间/选项门禁后转义发送。
 std::uint32_t Sub_50C7A0(

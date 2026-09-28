@@ -2148,6 +2148,14 @@ void Sub_50E1A0(
     Sub_46E0D0(mask, value);
 }
 
+void Sub_50E650(
+    const std::uintptr_t /*socket*/, const std::int32_t mode,
+    const std::int32_t duration, const std::int32_t floor,
+    const std::int32_t mapX, const std::int32_t mapY)
+{
+    login::detail::Sub_449700(mode, duration, floor, mapX, mapY);
+}
+
 std::int32_t Sub_50E210(
     const std::uintptr_t /*socket*/, const std::int32_t value)
 {

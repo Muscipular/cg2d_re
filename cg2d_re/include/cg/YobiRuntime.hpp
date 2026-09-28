@@ -227,6 +227,12 @@ void Sub_404D60();
 // 调用前提为已初始化的有效链；允许空 callback，返回非拥有指针，未命中返回空。
 YobiAction* Sub_448370(void (*callback)(YobiAction*));
 
+// 原449700：PVfz五参数的三路对象生产，复用唯一Yobi链及回调。
+// mode>=100且余数0时，floor实参改作已过秒数，duration写总时长槽。
+void Sub_449700(
+    std::int32_t mode, std::int32_t duration, std::int32_t floor,
+    std::int32_t mapX, std::int32_t mapY);
+
 // 原 49C5C0/49C5E0：dialog 尺寸的有符号整数分量计算。
 std::int32_t Sub_49C5C0(std::int16_t width);
 std::int32_t Sub_49C5E0(

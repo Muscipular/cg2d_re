@@ -675,6 +675,9 @@ void Sub_50E1A0(
     std::uintptr_t socket, std::int32_t mask, std::int32_t value,
     const char* unusedText); // 三效果半字写入后调用既有46E0D0。
 std::int32_t Sub_50E210(std::uintptr_t socket, std::int32_t value); // 九种指定音效，其他值透传。
+void Sub_50E650(
+    std::uintptr_t socket, std::int32_t mode, std::int32_t duration,
+    std::int32_t floor, std::int32_t mapX, std::int32_t mapY); // PVfz原序转449700，socket未用。
 void Sub_50CAE0(
     std::uintptr_t socket, std::int32_t objectIndex, const char* payload,
     std::int32_t color, std::int32_t font); // 聊天回复：原名字过滤、日志与头顶生产。

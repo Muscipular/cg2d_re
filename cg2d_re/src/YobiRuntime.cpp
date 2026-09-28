@@ -59,6 +59,10 @@ struct YobiAction {
     std::int32_t y;
     std::int32_t deltaX; // 原 +38；窗口动画的横向步长。
     std::int32_t deltaY; // 原 +3C；440C50 另以此值排序子项，不与 y 合并。
+    float offset40; // 原+40；448A50/448BF0/449A00的投影后横向偏移。
+    float offset44; // 原+44；对应纵向偏移，不与屏幕y合并。
+    float angle50; // 原+50；本对象族创建清零，449160另作角度。
+    float value54; // 原+54；三路对象速度及其他回调的幅值，共用F32。
     std::int32_t field58; // 原 +58，与 +2B8 的 direction 独立。
     float scaleX;
     float scaleY;
@@ -170,6 +174,57 @@ constexpr char kActionPayloadText[] =
 constexpr char kYobiAllocationText[] =
     "\xB0\x4F\xBE\xD0\xC5\xE9\xAE\x65\xB6\x71\xA4\xA3\xA8\xAC\xA1\x49" "yobi";
 constexpr char kYobiAllocationCaption[] = "GetYobi Erorr";
+
+// 原448810模式0生产，4483A0消费；两槽均属PE虚拟零区。
+std::int32_t gDuration5AC4B8 = 0;
+std::uint32_t gStartTick5F973C = 0;
+
+struct SceneEffectFrame {
+    std::int32_t duration; // -1终止、-2跳转，其他值为帧时长。
+    std::int32_t graphic; // 通常mapNo；group1/image4为index，-2记录为目标帧。
+};
+static_assert(sizeof(SceneEffectFrame) == 8);
+
+constexpr SceneEffectFrame kFrames55433C[] {
+    {24, 0x38C54}, {24, 0x38C55}, {24, 0x38C56}, {24, 0x38C57},
+    {24, 0x38C58}, {24, 0x38C59}, {24, 0x38C5A}, {24, 0x38C5B},
+    {24, 0x38C5C}, {24, 0x38C5D}, {24, 0x38C5E}, {24, 0x38C5F},
+    {24, 0x38C60}, {24, 0x38C61}, {24, 0x38C62}, {24, 0x38C63}, {-2, 0},
+};
+constexpr SceneEffectFrame kFrames5543C4[] {
+    {16, 0x38C54}, {16, 0x38C55}, {16, 0x38C56}, {16, 0x38C57},
+    {16, 0x38C58}, {16, 0x38C59}, {16, 0x38C5A}, {16, 0x38C5B},
+    {16, 0x38C5C}, {16, 0x38C5D}, {16, 0x38C5E}, {16, 0x38C5F},
+    {16, 0x38C60}, {16, 0x38C61}, {16, 0x38C62}, {16, 0x38C63}, {-2, 0},
+};
+constexpr SceneEffectFrame kFrames554454[] {
+    {8, 0x38C3C}, {8, 0x38C3D}, {8, 0x38C3E}, {8, 0x38C3F},
+    {4, 0x38C40}, {4, 0x38C41}, {-2, 0},
+};
+constexpr SceneEffectFrame kFrames55448C[] {
+    {8, 0x38C48}, {8, 0x38C49}, {8, 0x38C4A}, {8, 0x38C4B},
+    {4, 0x38C4C}, {4, 0x38C4D}, {-2, 0},
+};
+constexpr SceneEffectFrame kFrames5544C4[] {
+    {8, 0x38C42}, {8, 0x38C43}, {8, 0x38C44}, {8, 0x38C45},
+    {4, 0x38C46}, {4, 0x38C47}, {-2, 0},
+};
+constexpr SceneEffectFrame kFrames5544FC[] {
+    {8, 0x38C4E}, {8, 0x38C4F}, {8, 0x38C50}, {8, 0x38C51},
+    {4, 0x38C52}, {4, 0x38C53}, {-2, 0},
+};
+constexpr SceneEffectFrame kFrames554534[] {
+    {240, 227336}, {8, 227335}, {30, 227334}, {8, 227335}, {-2, 0},
+};
+constexpr const SceneEffectFrame* kFrameGroup55444C[] {
+    kFrames55433C, kFrames5543C4,
+};
+constexpr const SceneEffectFrame* kFrameGroup55455C[] {
+    kFrames554454, kFrames55448C, kFrames5544C4, kFrames5544FC, kFrames554534,
+};
+constexpr const SceneEffectFrame* const* kFrameGroups554570[] {
+    kFrameGroup55444C, kFrameGroup55455C,
+};
 
 struct YobiUIData {
     std::int16_t winId;
@@ -5283,6 +5338,537 @@ YobiAction* Sub_448370(void (*callback)(YobiAction*))
         current = current->next;
     }
     return nullptr;
+}
+
+// 原[449570,44966B)：两组帧表共用播放器，复用action动画字段。
+std::int32_t Sub_449570(YobiAction* const action, const std::int32_t group)
+{
+    const std::int32_t image = action->imageNo;
+    if (action->lastImageNo != image) {
+        action->lastImageNo = image;
+        action->frameRemain = 0;
+        action->frameIndex = 0;
+    }
+    if (action->frameRemain == 0) {
+        const SceneEffectFrame* frame =
+            &kFrameGroups554570[group][image][action->frameIndex];
+        if (frame->duration == -1) {
+            return 1;
+        }
+        if (frame->duration == -2) {
+            action->frameIndex = static_cast<std::uint32_t>(frame->graphic);
+            frame = &kFrameGroups554570[group][image][action->frameIndex];
+        }
+        action->frameRemain = frame->duration;
+        std::int32_t graphicIndex;
+        if (group == 1 && image == 4) {
+            graphicIndex = frame->graphic;
+        } else {
+            resource::GetGraphicMapNoIndex(frame->graphic, &graphicIndex);
+        }
+        std::int16_t offsetX;
+        std::int16_t offsetY;
+        resource::GetGraphicXY(
+            static_cast<std::uint32_t>(graphicIndex), &offsetX, &offsetY);
+        action->graphicIndex = graphicIndex;
+        const std::uint32_t nextFrame = action->frameIndex + 1;
+        action->graphicOffsetY = offsetY;
+        action->graphicOffsetX = offsetX;
+        action->frameIndex = nextFrame;
+    }
+    --action->frameRemain;
+    return 0;
+}
+
+// 原[4496C0,4496FE)：共享波纹对屏幕Y的补偿，返回除法修正位。
+std::uint32_t Sub_4496C0(YobiAction* const action)
+{
+    const std::uint32_t phase = render::gRippleIntegerPhaseBits;
+    const std::int32_t y = action->y;
+    const std::uint32_t index = (static_cast<std::uint32_t>(y >> 3) + phase) & 0x3Fu;
+    const std::int32_t sine = render::gRippleSineTable[index];
+    const std::uint32_t strengthBits = render::gRippleStrengthBits;
+    const std::int32_t product = sine * std::bit_cast<std::int32_t>(strengthBits);
+    action->y = y - product / 100;
+    return product < 0 ? 1u : 0u;
+}
+
+namespace {
+
+void PlaySceneEffectSounds()
+{
+    static_cast<void>(audio::PlaySe_52C450(0x1BC, 320));
+    static_cast<void>(audio::PlaySe_52C450(0x1BB, 320));
+    static_cast<void>(audio::PlaySe_52C450(0x194, 320));
+}
+
+// 三路生产的相同图形/新对象写序；调用方先发布各自callback。
+void InitializeSceneEffectGraphic(
+    YobiAction* const action, const std::int32_t mapNo, const bool created)
+{
+    std::int32_t graphicIndex;
+    resource::GetGraphicMapNoIndex(mapNo, &graphicIndex);
+    std::int16_t offsetX;
+    std::int16_t offsetY;
+    resource::GetGraphicXY(
+        static_cast<std::uint32_t>(graphicIndex), &offsetX, &offsetY);
+    action->graphicIndex = graphicIndex;
+    action->graphicOffsetX = offsetX;
+    action->graphicOffsetY = offsetY;
+    if (created) {
+        action->offset40 = 0.0F;
+        action->offset44 = 0.0F;
+        action->value54 = 0.25F;
+        action->angle50 = 0.0F;
+        action->field58 = 0;
+    }
+}
+
+} // namespace
+
+// 原[448A50,448BEF)：正类型对象回调，保持FST后仍使用寄存器值的边界。
+void Sub_448A50(YobiAction* const action)
+{
+    const std::int32_t floor = world::gMapFloor;
+    if (platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0) != floor) {
+        MarkDeath(action);
+        return;
+    }
+    if (action->characterAction == 1) {
+        if (action->offset40 < 0.0F) {
+            if (action->value54 > 0.0F
+                && static_cast<double>(action->value54) - 0.11F <= 0.0) {
+                PlaySceneEffectSounds();
+            }
+            const double speed = static_cast<double>(action->value54) - 0.11F;
+            action->value54 = static_cast<float>(speed);
+            const double x = static_cast<double>(action->offset40) - speed;
+            action->offset40 = static_cast<float>(x);
+            action->offset44 = static_cast<float>(
+                speed * 0.14F + static_cast<double>(action->offset44));
+            if (x > 0.0) {
+                action->offset40 = 0.0F;
+                action->offset44 = 0.0F;
+                action->value54 = 0.0F;
+                ++action->characterAction;
+            }
+        } else {
+            action->offset40 = static_cast<float>(
+                static_cast<double>(action->offset40) - action->value54);
+            action->offset44 = static_cast<float>(
+                static_cast<double>(action->value54) * 0.14F + action->offset44);
+        }
+    } else if (action->characterAction == 3) {
+        const double speed = static_cast<double>(action->value54) + 0.002F;
+        action->value54 = static_cast<float>(speed);
+        if (speed > 1.5F) {
+            action->value54 = 1.5F;
+        }
+        action->offset40 = static_cast<float>(
+            static_cast<double>(action->offset40) + action->value54);
+        action->offset44 = static_cast<float>(
+            static_cast<double>(action->offset44)
+            - static_cast<double>(action->value54) * 0.2F);
+    }
+    float screenX;
+    float screenY;
+    world::ProjectWorldToScreen_46CE30(action->worldX, action->worldY, &screenX, &screenY);
+    action->x = static_cast<std::int32_t>(static_cast<std::int64_t>(
+        static_cast<double>(screenX) + action->offset40 + 0.5));
+    action->y = static_cast<std::int32_t>(static_cast<std::int64_t>(
+        static_cast<double>(screenY) + action->offset44 + 0.5));
+}
+
+// 原[448BF0,448D8F)：负类型对象回调，偏移推进方向与448A50相反。
+void Sub_448BF0(YobiAction* const action)
+{
+    const std::int32_t floor = world::gMapFloor;
+    if (platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0) != floor) {
+        MarkDeath(action);
+        return;
+    }
+    if (action->characterAction == 1) {
+        if (action->offset40 > 0.0F) {
+            if (action->value54 > 0.0F
+                && static_cast<double>(action->value54) - 0.11F <= 0.0) {
+                PlaySceneEffectSounds();
+            }
+            const double speed = static_cast<double>(action->value54) - 0.11F;
+            action->value54 = static_cast<float>(speed);
+            const double x = speed + static_cast<double>(action->offset40);
+            action->offset40 = static_cast<float>(x);
+            action->offset44 = static_cast<float>(
+                static_cast<double>(action->offset44) - speed * 0.14F);
+            if (x < 0.0) {
+                action->offset40 = 0.0F;
+                action->offset44 = 0.0F;
+                action->value54 = 0.0F;
+                ++action->characterAction;
+            }
+        } else {
+            action->offset40 = static_cast<float>(
+                static_cast<double>(action->offset40) + action->value54);
+            action->offset44 = static_cast<float>(
+                static_cast<double>(action->offset44)
+                - static_cast<double>(action->value54) * 0.14F);
+        }
+    } else if (action->characterAction == 3) {
+        const double speed = static_cast<double>(action->value54) + 0.002F;
+        action->value54 = static_cast<float>(speed);
+        if (speed > 1.5F) {
+            action->value54 = 1.5F;
+        }
+        action->offset40 = static_cast<float>(
+            static_cast<double>(action->offset40) - action->value54);
+        action->offset44 = static_cast<float>(
+            static_cast<double>(action->value54) * 0.2F + action->offset44);
+    }
+    float screenX;
+    float screenY;
+    world::ProjectWorldToScreen_46CE30(action->worldX, action->worldY, &screenX, &screenY);
+    action->x = static_cast<std::int32_t>(static_cast<std::int64_t>(
+        static_cast<double>(screenX) + action->offset40 + 0.5));
+    action->y = static_cast<std::int32_t>(static_cast<std::int64_t>(
+        static_cast<double>(screenY) + action->offset44 + 0.5));
+}
+
+// 原[448810,448A4F)：mode0写计时槽，此时floor实参表示已过秒数。
+void Sub_448810(
+    const std::int32_t mode, const std::int32_t duration, const std::int32_t floor,
+    const std::int32_t mapX, const std::int32_t mapY)
+{
+    if (mode == 0) {
+        gDuration5AC4B8 = duration;
+        const std::uint32_t tick = platform::ReadTickCount32();
+        gStartTick5F973C = tick - static_cast<std::uint32_t>(floor) * 1000u;
+        return;
+    }
+    if (world::gCurrentSceneType != 9) {
+        return;
+    }
+    if (mode == 4) {
+        YobiAction* const previous = Sub_448370(Sub_448A50);
+        if (previous != nullptr) {
+            MarkDeath(previous);
+            return;
+        }
+    }
+    YobiAction* action = Sub_448370(Sub_448A50);
+    const bool created = action == nullptr;
+    if (created) {
+        action = NewYobiAction_404AE0(3, 0);
+        if (action == nullptr) {
+            return;
+        }
+    }
+    action->callback = Sub_448A50;
+    InitializeSceneEffectGraphic(action, 14647, created);
+    action->graphicOffsetX += 86;
+    action->graphicOffsetY -= 93;
+    action->characterAction = mode;
+    action->displayPriority = 11;
+    platform::LegacyCryptInt temporary;
+    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, 0);
+    action->mapX1E0.encoded = temporary.encoded;
+    action->mapX1E0.mask = temporary.mask;
+    action->mapX1E0.readCount = temporary.readCount;
+    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, floor);
+    action->mapY1F0.readCount = temporary.readCount;
+    action->mapY1F0.encoded = temporary.encoded;
+    action->mapY1F0.mask = temporary.mask;
+    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    switch (mode) {
+    case 1:
+        action->offset40 = 870.0F;
+        action->offset44 = -121.8F;
+        action->value54 = 1.0F;
+        break;
+    case 2:
+        action->offset40 = 0.0F;
+        action->value54 = 0.0F;
+        break;
+    case 3:
+        PlaySceneEffectSounds();
+        action->offset40 = 0.0F;
+        action->offset44 = 0.0F;
+        action->value54 = 0.0F;
+        break;
+    default:
+        MarkDeath(action);
+        return;
+    }
+    action->worldX = static_cast<float>(static_cast<double>(mapX) * 64.0F);
+    action->worldY = static_cast<float>(static_cast<double>(mapY) * 64.0F);
+}
+
+// 原[448D90,44905A)：四种负类型图形生产，先按mode4查重再筛类型。
+void Sub_448D90(
+    const std::int32_t value, const std::int32_t /*unused*/,
+    const std::int32_t floor, const std::int32_t mapX, const std::int32_t mapY)
+{
+    const std::int32_t type = value / -100;
+    const std::int32_t mode = -value % 100;
+    if (mode == 0 || world::gCurrentSceneType != 9) {
+        return;
+    }
+    if (mode == 4) {
+        YobiAction* const previous = Sub_448370(Sub_448BF0);
+        if (previous != nullptr) {
+            MarkDeath(previous);
+            return;
+        }
+    }
+    std::int32_t image;
+    switch (type) {
+    case 100: image = 14645; break;
+    case 101: image = 14646; break;
+    case 201: image = 301122; break;
+    case 202: image = 1002065; break;
+    default: return;
+    }
+    YobiAction* action = Sub_448370(Sub_448BF0);
+    const bool created = action == nullptr;
+    if (created) {
+        action = NewYobiAction_404AE0(3, 0);
+        if (action == nullptr) {
+            return;
+        }
+    }
+    action->callback = Sub_448BF0;
+    InitializeSceneEffectGraphic(action, image, created);
+    switch (type) {
+    case 100:
+        action->graphicOffsetX -= 189;
+        action->graphicOffsetY += 217;
+        break;
+    case 101:
+        action->graphicOffsetX -= 215;
+        action->graphicOffsetY -= 220;
+        break;
+    case 201:
+        action->graphicOffsetX -= 253;
+        action->graphicOffsetY += 217;
+        break;
+    case 202:
+        action->graphicOffsetX -= 279;
+        action->graphicOffsetY -= 124;
+        break;
+    }
+    action->characterAction = mode;
+    action->displayPriority = 4;
+    platform::LegacyCryptInt temporary;
+    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, 0);
+    action->mapX1E0.mask = temporary.mask;
+    action->mapX1E0.encoded = temporary.encoded;
+    action->mapX1E0.readCount = temporary.readCount;
+    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, floor);
+    action->mapY1F0.encoded = temporary.encoded;
+    action->mapY1F0.mask = temporary.mask;
+    action->mapY1F0.readCount = temporary.readCount;
+    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    switch (mode) {
+    case 1:
+        action->offset40 = -870.0F;
+        action->offset44 = 121.8F;
+        action->value54 = 1.0F;
+        break;
+    case 2:
+        action->offset40 = 0.0F;
+        action->value54 = 0.0F;
+        break;
+    case 3:
+        PlaySceneEffectSounds();
+        action->offset40 = 0.0F;
+        action->offset44 = 0.0F;
+        action->value54 = 0.0F;
+        break;
+    default:
+        MarkDeath(action);
+        return;
+    }
+    action->worldX = static_cast<float>(static_cast<double>(mapX) * 64.0F);
+    action->worldY = static_cast<float>(static_cast<double>(mapY) * 64.0F);
+}
+
+// 原[449A00,449BBD)：普通路移动/投影，首帧只置CryptInt标记。
+void Sub_449A00(YobiAction* const action)
+{
+    if (world::IsMapFloorAllowed_448240() == 0) {
+        MarkDeath(action);
+        return;
+    }
+    const std::int32_t floor = world::gMapFloor;
+    if (platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0) != floor
+        || world::detail::ReadPlayerAction() == nullptr) {
+        MarkDeath(action);
+        return;
+    }
+    if (action->characterAction == 1) {
+        const double x = static_cast<double>(action->worldX) - 0.75;
+        action->worldX = static_cast<float>(x);
+        action->worldY = static_cast<float>(static_cast<double>(action->worldY) + 0.75);
+        const auto targetX = static_cast<std::int32_t>(static_cast<std::int64_t>(x));
+        if (platform::legacy_crypt_int::GreaterEqual_401D70(&action->mapX200, targetX)) {
+            const auto targetY = static_cast<std::int32_t>(
+                static_cast<std::int64_t>(action->worldY));
+            if (platform::legacy_crypt_int::LessEqual_401DA0(&action->mapY210, targetY)) {
+                action->worldX = static_cast<float>(
+                    platform::legacy_crypt_int::Read_401EC0(&action->mapX200));
+                action->worldY = static_cast<float>(
+                    platform::legacy_crypt_int::Read_401EC0(&action->mapY210));
+                ++action->characterAction;
+            }
+        }
+    } else if (action->characterAction == 3) {
+        action->worldX = static_cast<float>(static_cast<double>(action->worldX) - 0.5);
+        action->worldY = static_cast<float>(static_cast<double>(action->worldY) - 0.5);
+    }
+    float screenX;
+    float screenY;
+    world::ProjectWorldToScreen_46CE30(action->worldX, action->worldY, &screenX, &screenY);
+    const auto offsetX = static_cast<std::int32_t>(static_cast<std::int64_t>(
+        static_cast<double>(action->offset40) + 0.5));
+    const auto projectedX = static_cast<std::int32_t>(static_cast<std::int64_t>(
+        static_cast<double>(screenX) + 0.5));
+    action->x = offsetX + projectedX;
+    const auto offsetY = static_cast<std::int32_t>(static_cast<std::int64_t>(
+        static_cast<double>(action->offset44) + 0.5));
+    const auto projectedY = static_cast<std::int32_t>(static_cast<std::int64_t>(
+        static_cast<double>(screenY) + 0.5));
+    action->y = offsetY + projectedY;
+    if (platform::legacy_crypt_int::Equal_401D00(&action->mapX1E0, 0)) {
+        platform::LegacyCryptInt temporary;
+        platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, 1);
+        action->mapX1E0.readCount = temporary.readCount;
+        action->mapX1E0.encoded = temporary.encoded;
+        action->mapX1E0.mask = temporary.mask;
+        platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    } else {
+        static_cast<void>(Sub_4496C0(action));
+    }
+}
+
+// 原[449C10,449C8B)：每轮重查普通路父节点，播放后复制父屏幕坐标。
+void Sub_449C10(YobiAction* const action)
+{
+    YobiAction* const parent = Sub_448370(Sub_449A00);
+    if (parent == nullptr || world::IsMapFloorAllowed_448240() == 0) {
+        MarkDeath(action);
+        return;
+    }
+    action->imageNo = parent->characterAction == 1 ? 0 : 1;
+    static_cast<void>(Sub_449570(action, 0));
+    action->x = parent->x;
+    action->y = parent->y;
+}
+
+// 原[449BC0,449C0A)：按callback去重附属节点，不拥有父引用。
+YobiAction* Sub_449BC0()
+{
+    YobiAction* action = Sub_448370(Sub_449C10);
+    if (action != nullptr) {
+        return action;
+    }
+    YobiAction* const parent = Sub_448370(Sub_449A00);
+    if (parent == nullptr) {
+        return nullptr;
+    }
+    action = NewYobiAction_404AE0(static_cast<std::uint8_t>(parent->priority + 1), 0);
+    if (action != nullptr) {
+        action->callback = Sub_449C10;
+        action->displayPriority = static_cast<std::uint8_t>(parent->displayPriority + 1);
+    }
+    return action;
+}
+
+void Sub_449700(
+    const std::int32_t mode, const std::int32_t duration, const std::int32_t floor,
+    const std::int32_t mapX, const std::int32_t mapY)
+{
+    if (mode >= 100) {
+        Sub_448810(mode % 100, duration, floor, mapX, mapY);
+        return;
+    }
+    if (mode < 0) {
+        Sub_448D90(mode, duration, floor, mapX, mapY);
+        return;
+    }
+    if (mode == 0) {
+        return;
+    }
+    if (mode == 4) {
+        YobiAction* const previous = Sub_448370(Sub_449A00);
+        if (previous != nullptr) {
+            MarkDeath(previous);
+            return;
+        }
+    }
+    YobiAction* action = Sub_448370(Sub_449A00);
+    const bool created = action == nullptr;
+    if (created) {
+        action = NewYobiAction_404AE0(3, 0);
+        if (action == nullptr) {
+            return;
+        }
+    }
+    action->callback = Sub_449A00;
+    InitializeSceneEffectGraphic(action, 230058, created);
+    action->characterAction = mode;
+    action->displayPriority = 3;
+    platform::LegacyCryptInt temporary;
+    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, 0);
+    action->mapX1E0.encoded = temporary.encoded;
+    action->mapX1E0.mask = temporary.mask;
+    action->mapX1E0.readCount = temporary.readCount;
+    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, floor);
+    action->mapY1F0.readCount = temporary.readCount;
+    action->mapY1F0.encoded = temporary.encoded;
+    action->mapY1F0.mask = temporary.mask;
+    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    switch (mode) {
+    case 1: {
+        platform::LegacyCryptInt targetX;
+        platform::legacy_crypt_int::ConstructFromInt_401CC0(&targetX, mapX * 64);
+        action->mapX200.readCount = targetX.readCount;
+        action->mapX200.encoded = targetX.encoded;
+        action->mapX200.mask = targetX.mask;
+        platform::legacy_crypt_int::Destroy_401CF0(&targetX);
+        platform::LegacyCryptInt targetY;
+        platform::legacy_crypt_int::ConstructFromInt_401CC0(&targetY, mapY * 64);
+        action->mapY210.mask = targetY.mask;
+        action->mapY210.encoded = targetY.encoded;
+        action->mapY210.readCount = targetY.readCount;
+        platform::legacy_crypt_int::Destroy_401CF0(&targetY);
+        action->worldX = static_cast<float>(static_cast<double>(mapX + 10) * 64.0F);
+        action->worldY = static_cast<float>(static_cast<double>(mapY - 10) * 64.0F);
+        break;
+    }
+    case 3: {
+        platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, (mapX - 10) * 64);
+        action->mapX200.mask = temporary.mask;
+        action->mapX200.encoded = temporary.encoded;
+        action->mapX200.readCount = temporary.readCount;
+        platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+        platform::LegacyCryptInt targetY;
+        platform::legacy_crypt_int::ConstructFromInt_401CC0(&targetY, (mapY - 10) * 64);
+        action->mapY210.encoded = targetY.encoded;
+        action->mapY210.mask = targetY.mask;
+        action->mapY210.readCount = targetY.readCount;
+        platform::legacy_crypt_int::Destroy_401CF0(&targetY);
+        [[fallthrough]];
+    }
+    case 2:
+        action->worldX = static_cast<float>(static_cast<double>(mapX) * 64.0F);
+        action->worldY = static_cast<float>(static_cast<double>(mapY) * 64.0F);
+        break;
+    default:
+        MarkDeath(action);
+        return;
+    }
+    static_cast<void>(Sub_449BC0());
 }
 
 // 原 [0x49C5C0,0x49C5DB)：S16 宽度先减 48，再按有符号商加 2。

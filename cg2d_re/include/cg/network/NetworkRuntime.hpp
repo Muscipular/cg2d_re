@@ -421,6 +421,9 @@ std::int32_t Sub_510EC0(
 std::int32_t Sub_510DA0(
     std::uintptr_t socket, std::int32_t x, std::int32_t y, std::int32_t amount);
 
+// 原5109B0：Rg战斗请求，转义一项原字节文本并透传发送结果。
+std::int32_t SendBattlePacket_5109B0(std::uintptr_t socket, const char* text);
+
 // 原[510CE0,510D91)：构造QpfE，依次追加X/Y/组号/物品槽号并发送。
 std::int32_t Sub_510CE0(
     std::uintptr_t socket, std::int32_t x, std::int32_t y,

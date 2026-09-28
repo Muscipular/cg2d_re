@@ -3860,7 +3860,10 @@ std::array<char, 0x4000> gBattleMQueue59FA18 {};
 std::array<char, 0x1000> gBattleCText5A3A20 {};
 std::array<char, 0x1000> gBattleMText5AAA7C {};
 std::array<login::YobiAction*, 20> gBattleEntries59E980 {};
+std::int32_t gBattleCurrentPosition5ABCA4 = 0;
 std::uint32_t gBattlePosition5ABCA8 = 0;
+std::int32_t gBattlePlayerActionState5ABC74 = 0;
+std::array<std::int32_t, 9> gBattleSelectionModes5ABC7C {};
 std::uint32_t gBattlePlayerFlags5ABCAC = 0;
 std::uint32_t gBattleSkillFlags5ABC04 = 0;
 std::uint32_t gBattlePetSkillFlags5ABB78 = 0;
@@ -6788,6 +6791,17 @@ std::int32_t ReadPlayerWalkSpeed() noexcept
 std::int32_t ReadPlayerValueFC() noexcept
 {
     return gPlayerRuntime.valueFC;
+}
+
+std::int32_t Sub_518C60()
+{
+    std::int32_t count = 0;
+    for (std::int32_t slot = 8; slot < 28; ++slot) {
+        if (gPlayerItemsFDA8A4[slot].used == 0) {
+            ++count;
+        }
+    }
+    return count;
 }
 
 std::int32_t ReadPlayerValue15BCC() noexcept

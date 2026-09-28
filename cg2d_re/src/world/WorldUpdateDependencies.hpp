@@ -1128,7 +1128,11 @@ extern std::array<char, 0x4000> gBattleMQueue59FA18;
 extern std::array<char, 0x1000> gBattleCText5A3A20; // 场景从C队列复制的活动原字节文本。
 extern std::array<char, 0x1000> gBattleMText5AAA7C;
 extern std::array<login::YobiAction*, 20> gBattleEntries59E980; // 原20槽非拥有对象表。
+extern std::int32_t gBattleCurrentPosition5ABCA4; // 实际gMyPostion；不同于P回复的5ABCA8。
 extern std::uint32_t gBattlePosition5ABCA8;
+extern std::int32_t gBattlePlayerActionState5ABC74; // UI发布动作完成状态，非5ABB74回合数。
+extern std::array<std::int32_t, 9> gBattleSelectionModes5ABC7C; // 496F10清九个W32，含94/98/9C。
+std::int32_t Sub_518C60(); // 玩家背包8..27空槽数，仅检查used==0。
 extern std::uint32_t gBattlePlayerFlags5ABCAC;
 extern std::uint32_t gBattleSkillFlags5ABC04;
 extern std::uint32_t gBattlePetSkillFlags5ABB78;

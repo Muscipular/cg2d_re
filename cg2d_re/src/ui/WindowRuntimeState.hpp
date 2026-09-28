@@ -199,9 +199,10 @@ std::int32_t Sub_489760(std::int32_t index, std::int32_t state); // 玩家/宠�
 std::int32_t Sub_489EE0(std::int32_t unusedIndex, std::int32_t state);
 bool Sub_4C75A0(WindowItemSelectorState* selector, std::int32_t state); // 附加属性页及回调恢复。
 
-// 4C6EC0发布的其余交互依赖，尚未实现；不能用空回调代替。
+// 4C6EC0发布的战斗交互；499C30尚未实现，不能用空回调代替。
 std::int32_t Sub_499C30(std::int32_t index, std::int32_t state);
-std::int32_t Sub_49AC40(std::int32_t index, std::int32_t state);
+std::int32_t Sub_49AC40(std::int32_t index, std::int32_t state); // 战斗装备页及宠物禁用页。
+std::int32_t Sub_49B610(std::int32_t unusedIndex, std::int32_t state); // D2F338附加属性页包装。
 
 // 文本原型只借用源字节；实例仍通过WindowTextData拥有256B可写副本。
 struct WindowTextPrototype {

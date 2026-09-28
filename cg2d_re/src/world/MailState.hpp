@@ -72,6 +72,13 @@ std::int32_t Sub_534290(); // 先同步profile，再重取连接发送lz；第�
 std::int32_t Sub_534770(); // profile.dat整块保存，打开成功即返回1。
 std::int32_t Sub_5347F0(); // 整块读取后重取角色并复制当前资料，不按短读失败。
 
+// 原category.dat同源三组与profile编号回复；均无场景门禁。
+std::int32_t Sub_50F2A0(std::uintptr_t unusedSocket, const char* payload); // 第一/第二组生产，返回计数。
+std::int32_t Sub_50F3A0(std::uintptr_t socket, const char* payload); // 写profile编号后比较旧表头，按差异补发。
+std::int32_t Sub_50F8E0(std::uintptr_t unusedSocket, const char* payload); // 第三组生产，返回计数。
+std::int32_t Sub_5348A0(); // bin/category.dat原13ED4H整块保存。
+std::int32_t Sub_534910(); // 同源整块读取，不按短读失败或清尾。
+
 // 原 518C80：依次清两段邮件持久区及 CB1384，返回 0。
 std::int32_t Sub_518C80();
 // 原 [518CB0,518D94)：依次读两文件，返回 fclose 或缺失文件 helper 的整数结果。

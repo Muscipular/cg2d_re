@@ -122,6 +122,43 @@ constexpr char kProfileHidden58F61C[] = "\xA4\xA3\xA4\xBD\xB6\x7D";
 static_assert(sizeof(kProfileDefault58F614) == 7);
 static_assert(sizeof(kProfileHidden58F61C) == 7);
 
+// 原category.dat三组各100条；未消费字节不解释成地址或额外状态。
+struct CategoryRecord {
+    std::uint8_t used;
+    std::array<std::byte, 3> bytes01;
+    std::int32_t value04;
+    std::int32_t value08;
+    std::array<char, 0x100> text0C;
+    std::array<std::byte, 4> bytes10C;
+};
+
+struct CategoryRuntimeSlots {
+    std::int32_t value00; // 原105FA10，50F2A0发布、50F3A0比较。
+    std::int32_t value04; // 原105FA14，50F8E0发布、50F3A0比较。
+    std::int32_t count08;
+    std::int32_t count0C;
+    std::int32_t value10; // 原105FA20，50F3A0第三字段。
+    std::array<CategoryRecord, 300> records; // 原105FA24/1066464/106CEA4三组同源区。
+};
+
+static_assert(offsetof(CategoryRecord, used) == 0);
+static_assert(offsetof(CategoryRecord, bytes01) == 1);
+static_assert(offsetof(CategoryRecord, value04) == 4);
+static_assert(offsetof(CategoryRecord, value08) == 8);
+static_assert(offsetof(CategoryRecord, text0C) == 0x0C);
+static_assert(offsetof(CategoryRecord, bytes10C) == 0x10C);
+static_assert(sizeof(CategoryRecord) == 0x110);
+static_assert(std::is_standard_layout_v<CategoryRuntimeSlots>);
+static_assert(std::is_trivially_copyable_v<CategoryRuntimeSlots>);
+static_assert(offsetof(CategoryRuntimeSlots, value00) == 0);
+static_assert(offsetof(CategoryRuntimeSlots, value04) == 4);
+static_assert(offsetof(CategoryRuntimeSlots, count08) == 8);
+static_assert(offsetof(CategoryRuntimeSlots, count0C) == 0x0C);
+static_assert(offsetof(CategoryRuntimeSlots, value10) == 0x10);
+static_assert(offsetof(CategoryRuntimeSlots, records) == 0x14);
+static_assert(sizeof(CategoryRuntimeSlots) == 0x13ED4);
+CategoryRuntimeSlots gCategory105FA10 {};
+
 constexpr char kReceivedMailFormat58B07C[] =
     "\xA6\xAC\xA8\xEC\xB1\x71" "%s" "\xB1\x48\xA8\xD3\xAA\xBA"
     "\xB6\x6C\xA5\xF3\xA1\x49";
@@ -784,6 +821,107 @@ std::int32_t Sub_534290()
     static_cast<void>(Sub_533C80(1));
     const std::uintptr_t socket = platform::gConnectionSocket;
     return network::Sub_5118B0(socket, enabled != 0 ? 1 : 0);
+}
+
+std::int32_t Sub_50F2A0(const std::uintptr_t, const char* const payload)
+{
+    for (std::int32_t index = 0; index < 100; ++index) {
+        gCategory105FA10.records[index].used = 0;
+        gCategory105FA10.records[index + 100].used = 0;
+    }
+    gCategory105FA10.value00 = network::ParseDelimitedInteger_52CFA0(payload, '|', 1);
+    gCategory105FA10.count08 = 0;
+    std::int32_t field = 2;
+    std::int32_t count = 0;
+    for (;;) {
+        CategoryRecord& source = gCategory105FA10.records[count];
+        source.used = 1;
+        source.value04 = network::ParseDelimitedInteger_52CFA0(payload, '|', field++);
+        source.value08 = network::ParseDelimitedInteger_52CFA0(payload, '|', field++);
+        const std::int32_t status = network::ExtractDelimitedField_52CED0(
+            payload, '|', field++, 255, source.text0C.data());
+        input::UnescapeLegacyTextAndNotify_52D2F0(source.text0C.data());
+        CategoryRecord& target = gCategory105FA10.records[count + 100];
+        target.used = 1;
+        target.value04 = source.value04;
+        target.value08 = source.value08;
+        std::strcpy(target.text0C.data(), source.text0C.data());
+        ++count;
+        gCategory105FA10.count08 = count;
+        if (status == 1) {
+            return count;
+        }
+    }
+}
+
+std::int32_t Sub_50F3A0(const std::uintptr_t socket, const char* const payload)
+{
+    const std::int32_t first = network::ParseDelimitedInteger_52CFA0(payload, '|', 1);
+    const std::int32_t second = network::ParseDelimitedInteger_52CFA0(payload, '|', 2);
+    gCategory105FA10.value10 = network::ParseDelimitedInteger_52CFA0(payload, '|', 3);
+    const std::int32_t key = network::ParseDelimitedInteger_52CFA0(payload, '|', 4);
+    const std::int16_t selected = login::gSelectedCharacterIndex;
+    gProfiles1074938[selected].value00 = key;
+    const std::int32_t previous = gCategory105FA10.value00;
+    std::int32_t mask = previous != first ? 1 : 0;
+    if (gCategory105FA10.value04 != second) {
+        mask |= 2;
+    }
+    if (mask != 0) {
+        return network::Sub_5115F0(socket, mask);
+    }
+    return previous;
+}
+
+std::int32_t Sub_50F8E0(const std::uintptr_t, const char* const payload)
+{
+    for (std::int32_t index = 200; index < 300; ++index) {
+        gCategory105FA10.records[index].used = 0;
+    }
+    gCategory105FA10.value04 = network::ParseDelimitedInteger_52CFA0(payload, '|', 1);
+    gCategory105FA10.count0C = 0;
+    std::int32_t field = 2;
+    std::int32_t count = 0;
+    for (;;) {
+        CategoryRecord& record = gCategory105FA10.records[count + 200];
+        record.used = 1;
+        record.value04 = network::ParseDelimitedInteger_52CFA0(payload, '|', field++);
+        record.value08 = network::ParseDelimitedInteger_52CFA0(payload, '|', field++);
+        const std::int32_t status = network::ExtractDelimitedField_52CED0(
+            payload, '|', field++, 255, record.text0C.data());
+        input::UnescapeLegacyTextAndNotify_52D2F0(record.text0C.data());
+        ++count;
+        gCategory105FA10.count0C = count;
+        if (status == 1) {
+            return count;
+        }
+    }
+}
+
+std::int32_t Sub_5348A0()
+{
+    char path[1024];
+    std::sprintf(path, "bin\\%s", "category.dat");
+    std::FILE* const stream = std::fopen(path, "wb+");
+    if (stream == nullptr) {
+        return 0;
+    }
+    static_cast<void>(std::fwrite(&gCategory105FA10, sizeof(gCategory105FA10), 1, stream));
+    static_cast<void>(std::fclose(stream));
+    return 1;
+}
+
+std::int32_t Sub_534910()
+{
+    char path[1024];
+    std::sprintf(path, "bin\\%s", "category.dat");
+    std::FILE* const stream = std::fopen(path, "rb+");
+    if (stream == nullptr) {
+        return 0;
+    }
+    static_cast<void>(std::fread(&gCategory105FA10, sizeof(gCategory105FA10), 1, stream));
+    static_cast<void>(std::fclose(stream));
+    return 1;
 }
 
 std::int32_t Sub_534770()

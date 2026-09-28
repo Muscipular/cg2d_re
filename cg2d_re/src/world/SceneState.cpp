@@ -3809,6 +3809,8 @@ std::int32_t Sub_5198F0(const void* const left, const void* const right)
 
 // 原 0x581800：World::OpenDialog 共用的独立 W32 槽，原始初值 -1。
 std::int32_t gValue581800 = -1;
+std::int32_t gDialogRequestCC21E0 = 0;
+std::int32_t gDialogTargetD2DE6C = 0;
 
 // 原 455BD0 的 23 个独立 W16/W32 共享槽；仅两个 556C 槽的映像初值为 1。
 std::uint16_t gValue556C14 = 1;

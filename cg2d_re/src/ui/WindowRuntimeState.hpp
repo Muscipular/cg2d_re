@@ -164,10 +164,11 @@ bool Sub_4C72C0(
     const WindowItemSelectorState* state, world::detail::PlayerItemRecord** items,
     std::int32_t* count); // 借用同源物品表；失败不写输出。
 std::int32_t Sub_48A6C0(std::int32_t index, std::int32_t state); // 装备屏蔽页完整绘制。
+std::int32_t Sub_489F00(std::int32_t index, std::int32_t state); // 两模式物品选择/退出与完整绘制。
+std::int32_t Sub_4888C0(const char* text); // 对话29选择入口，发布特殊回调后绑定焦点。
 
 // 4C6EC0发布的真实交互依赖，尚未实现；不能用空回调代替。
 std::int32_t Sub_488FB0(std::int32_t index, std::int32_t state);
-std::int32_t Sub_489F00(std::int32_t index, std::int32_t state);
 std::int32_t Sub_489760(std::int32_t index, std::int32_t state);
 std::int32_t Sub_499C30(std::int32_t index, std::int32_t state);
 std::int32_t Sub_49AC40(std::int32_t index, std::int32_t state);
@@ -657,6 +658,7 @@ std::int32_t Sub_472F00(
 void Sub_473560(std::int32_t index); // 固定元素派发鼠标事件，回调后重读共享阶段。
 std::int32_t Sub_4741A0(std::int32_t index, std::int32_t state); // 前一元素的垂直滚动。
 std::int32_t Sub_4763E0(); // 通用鼠标重置，不清来源索引/坐标。
+std::int32_t Sub_4763B0(std::int32_t windowId, std::int32_t elementIndex); // 已有kind才写焦点两槽。
 std::int32_t Sub_475D50(); // 同源焦点元素。
 std::int32_t Sub_475D40(); // 同源焦点窗口，不是当前窗口。
 std::int32_t Sub_475D60(); // 同源拖动种类。

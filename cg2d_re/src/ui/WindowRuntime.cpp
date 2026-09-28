@@ -147,6 +147,7 @@ static_assert(sizeof(gWindowListNamesCF3F20) == 170);
 static_assert(sizeof(WindowListSelectionCallback) == 8);
 std::int32_t gSelectedItemCB1DF4 = 0;
 std::int32_t gSelectedItemCB0A44 = 0;
+std::uint8_t gItemSelectionModeCC40D4 = 0;
 std::int32_t gSelectedItem57EE0C = -1;
 std::uint8_t gSkillPairIndexD67AD8 = 0;
 std::int32_t gRecipeIndex5846BC = -1;
@@ -3648,6 +3649,172 @@ std::int32_t Sub_48A6C0(const std::int32_t index, const std::int32_t state)
         }
     }
     return 0;
+}
+
+std::int32_t Sub_4888C0(const char* const text)
+{
+    const std::int32_t selected = std::atoi(text);
+    auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
+    const unsigned char previous = occupancy[selected];
+    gSelectedItemCB0A44 = selected;
+    occupancy[selected] = static_cast<unsigned char>(previous + 1);
+    gWindowStates[14].window->elements[4].mouseCallback = Sub_489F00;
+    gWindowStates[14].window->elements[17].mouseCallback = Sub_48A6C0;
+    gItemSelectionModeCC40D4 = 2;
+    static_cast<void>(Sub_475DA0(1, 0, nullptr));
+    return Sub_4763B0(14, 0);
+}
+
+std::int32_t Sub_489F00(const std::int32_t index, const std::int32_t state)
+{
+    render::GraphicDescriptor16 descriptor {};
+    render::GraphicDescriptor16 dimmed {};
+    const std::uint32_t color = 0xFFFFFFFFu;
+    const std::uint32_t dimmedColor = 0x80FFFFFFu;
+    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    std::memcpy(dimmed.bytes.data() + 8, &dimmedColor, sizeof(dimmedColor));
+    descriptor.bytes[13] = 4;
+    dimmed.bytes[13] = 4;
+    std::uint8_t events = static_cast<std::uint8_t>(state);
+    std::int32_t hovered = -1;
+    std::int32_t consumed = 0;
+    auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
+    if ((events & 0x20u) != 0 && Sub_475D60() == 1 && Sub_475D40() == 14) {
+        events |= 1u;
+        if ((static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons) & 1u) != 0) {
+            events |= 2u;
+        }
+    }
+    const auto isMode1Blocked = [](const world::detail::PlayerItemRecord& item) {
+        if (item.itemType == 47) {
+            return true;
+        }
+        const std::uint16_t flags = item.flags;
+        return (flags & 0x100u) != 0 || item.count > 0
+            || ((flags & 0x200u) != 0 && (flags & 0x400u) == 0);
+    };
+    if ((events & 1u) != 0) {
+        const std::int8_t mode = std::bit_cast<std::int8_t>(gItemSelectionModeCC40D4);
+        if (mode == 1 || mode == 2) {
+            for (std::int32_t position = 0; position < 20; ++position) {
+                const auto& item = world::detail::gPlayerItemsFDA8A4[position + 8];
+                if (item.used == 0 || occupancy[position + 8] != 0) {
+                    continue;
+                }
+                if (mode == 1 ? isMode1Blocked(item) : (item.flags & 0x60u) != 0) {
+                    continue;
+                }
+                const WindowInstance* const window = gCurrentWindow;
+                const WindowElement& element = window->elements[index];
+                const std::int32_t left = element.x + 50 * (position % 5) + window->x + 15;
+                const std::int32_t top = element.y + 50 * (position / 5) + window->y + 48;
+                if (login::detail::Sub_5049A0(left, top, left + 48, top + 48, -1) != 0) {
+                    hovered = position;
+                    break;
+                }
+            }
+        }
+    }
+    if ((events & 2u) != 0) {
+        gCurrentWindow->state |= 0x2000u;
+    }
+
+    // 发送完成与右键取消各自执行；第二次退出不得因前面已清理而省略。
+    const auto leaveSelection = [&]() {
+        WindowInstance* const window = gCurrentWindow;
+        gItemSelectionModeCC40D4 = 0;
+        window->elements[4].mouseCallback = Sub_488FB0;
+        gCurrentWindow->elements[17].mouseCallback = Sub_489760;
+        const std::int32_t selected = gSelectedItemCB0A44;
+        const std::int32_t dialog = world::detail::gValue581800;
+        --occupancy[selected];
+        gSelectedItemCB0A44 = -1;
+        if (dialog == 29) {
+            world::detail::gValue581800 = -1;
+        }
+        static_cast<void>(Sub_4763E0());
+    };
+    std::array<char, 256> buffer;
+    std::array<char, 16> escaped;
+    if (hovered >= 0 && (events & 2u) != 0) {
+        if (world::detail::gPlayerItemsFDA8A4[hovered + 8].used != 0) {
+            const std::uint8_t mode = gItemSelectionModeCC40D4;
+            if (mode == 1) {
+                const std::int32_t selected = gSelectedItemCB0A44;
+                static_cast<void>(network::Sub_511D60(
+                    platform::gConnectionSocket, hovered + 8, selected));
+            } else if (mode == 2) {
+                std::sprintf(buffer.data(), "%d", hovered + 8);
+                input::EscapeLegacyTextAndNotify_52D2D0(buffer.data(), escaped.data(), 15);
+                const std::int32_t target = world::detail::gDialogTargetD2DE6C;
+                const std::int32_t request = world::detail::gDialogRequestCC21E0;
+                const std::int32_t y =
+                    platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+                const std::int32_t x =
+                    platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+                static_cast<void>(network::Sub_512620(
+                    platform::gConnectionSocket, x, y, request, target, 0, escaped.data()));
+                leaveSelection();
+            }
+        }
+        consumed = 1;
+    }
+    if ((static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons) & 2u) != 0) {
+        leaveSelection();
+    }
+    const std::int32_t imageNo = world::detail::gPlayerItemsFDA8A4[gSelectedItemCB0A44].imageNo;
+    const std::int32_t mouseY =
+        platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseY);
+    const std::int32_t mouseX =
+        platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseX);
+    static_cast<void>(login::detail::DrawGraphic(mouseX, mouseY, 230, imageNo, 0, &descriptor));
+    if (hovered >= 0) {
+        const WindowInstance* const window = gCurrentWindow;
+        const WindowElement& element = window->elements[index];
+        const std::int32_t left = element.x + 50 * (hovered % 5) + window->x + 15;
+        const std::int32_t top = element.y + 50 * (hovered / 5) + window->y + 48;
+        login::detail::DrawGraphicHover(
+            static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
+            static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
+            223, login::detail::gValueD69768, 0);
+    }
+    static_cast<void>(render::ClearTextQueueTail_456D50(3));
+    static_cast<void>(render::DrawText_456780(0, 0, 3, 1, 0, input::LegacyText593850(), 0, 0));
+    const std::int8_t mode = std::bit_cast<std::int8_t>(gItemSelectionModeCC40D4);
+    if (mode != 1 && mode != 2) {
+        return consumed;
+    }
+    for (std::int32_t position = 0; position < 20; ++position) {
+        const auto& item = world::detail::gPlayerItemsFDA8A4[position + 8];
+        if (item.used == 0) {
+            continue;
+        }
+        const WindowInstance* const window = gCurrentWindow;
+        const WindowElement& element = window->elements[index];
+        const std::int32_t x = element.x + 50 * (position % 5) + window->x + 39;
+        const std::int32_t y = element.y + 50 * (position / 5) + window->y + 73;
+        if (mode == 1 ? isMode1Blocked(item) : (item.flags & 0x60u) != 0) {
+            static_cast<void>(login::detail::DrawGraphic(x, y, 223, 23040, 0, nullptr));
+        }
+        if (occupancy[position + 8] != 0) {
+            login::detail::DrawGraphicHover(
+                static_cast<std::uint16_t>(x - 24), static_cast<std::uint16_t>(y - 24),
+                static_cast<std::uint16_t>(x + 24), static_cast<std::uint16_t>(y + 24),
+                223, 249, 0);
+            static_cast<void>(login::detail::DrawGraphic(x, y, 223, item.imageNo, 0, &dimmed));
+        } else {
+            static_cast<void>(login::detail::DrawGraphic(x, y, 223, item.imageNo, 0, &descriptor));
+        }
+        const std::int32_t count = item.count;
+        if (count > 0) {
+            std::sprintf(buffer.data(), "%3d", count);
+            static_cast<void>(render::DrawText_456780(
+                std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x - 3)),
+                std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 7)),
+                3, 1, 1, buffer.data(), 0, 0));
+        }
+    }
+    return consumed;
 }
 
 std::int32_t Sub_48B1A0(const std::int32_t index, const std::int32_t page)
@@ -8175,6 +8342,17 @@ void Sub_476500()
     gFocusWindowId57C120 = 0;
     gMousePhase57C128 = 0;
     gFocusElementIndex57C124 = -1;
+}
+
+std::int32_t Sub_4763B0(
+    const std::int32_t windowId, const std::int32_t elementIndex)
+{
+    if (gMouseValue57C110 == 0) {
+        return 0;
+    }
+    gFocusWindowId57C120 = windowId;
+    gFocusElementIndex57C124 = elementIndex;
+    return 1;
 }
 
 std::int32_t Sub_4763E0()

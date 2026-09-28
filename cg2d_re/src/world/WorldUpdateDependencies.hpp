@@ -254,6 +254,8 @@ extern std::int32_t gValue9DAD64;
 
 // 原 0x581800：4D3170 重置、World::OpenDialog 读写的独立 W32 槽。
 extern std::int32_t gValue581800;
+extern std::int32_t gDialogRequestCC21E0; // 原对话a3，49D2E0/49D8F0生产，发送共用。
+extern std::int32_t gDialogTargetD2DE6C; // 原对话a4，不是窗口51的独立参数槽。
 
 // 原 455BD0 的 23 个独立共享槽；W16/W32 类型仅承载原位模式。
 extern std::uint16_t gValue556C14;

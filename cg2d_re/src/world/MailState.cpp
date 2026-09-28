@@ -36,10 +36,14 @@ namespace {
 alignas(std::uint32_t) std::array<std::byte, 0x5DC00> gMailStorageF7CA08 {};
 alignas(std::uint32_t) std::array<std::byte, 0x139480> gGuildMailStorageDE0B30 {};
 
-// 原1075A90起的20条74H记录，当前只消费used；不凭相同步长猜其余字段。
+// 原1075A90起的20条74H记录，只拆已消费used/key/name，其余仍保持原字节。
 struct MiniMailContactRecord {
     std::uint16_t used;
-    std::array<std::byte, 0x72> bytes02;
+    std::array<std::byte, 2> bytes02;
+    std::int32_t key04;
+    std::array<std::byte, 8> bytes08;
+    std::array<char, 17> name10;
+    std::array<std::byte, 0x53> bytes21;
 };
 
 struct alignas(std::uint32_t) MiniMailRuntimeSlots {
@@ -52,6 +56,10 @@ static_assert(std::is_standard_layout_v<MiniMailRuntimeSlots>);
 static_assert(std::is_trivially_copyable_v<MiniMailRuntimeSlots>);
 static_assert(offsetof(MiniMailContactRecord, used) == 0);
 static_assert(offsetof(MiniMailContactRecord, bytes02) == 2);
+static_assert(offsetof(MiniMailContactRecord, key04) == 4);
+static_assert(offsetof(MiniMailContactRecord, bytes08) == 8);
+static_assert(offsetof(MiniMailContactRecord, name10) == 0x10);
+static_assert(offsetof(MiniMailContactRecord, bytes21) == 0x21);
 static_assert(offsetof(MiniMailRuntimeSlots, contacts) == 0);
 static_assert(offsetof(MiniMailRuntimeSlots, messages) == 0x910);
 static_assert(sizeof(MiniMailRuntimeSlots) == 0x10310);
@@ -65,6 +73,10 @@ constexpr char kReceivedPetMailFormat58B064[] =
     "\xB6\x6C\xA5\xF3\xA1\x49";
 static_assert(sizeof(kReceivedMailFormat58B07C) == 21);
 static_assert(sizeof(kReceivedPetMailFormat58B064) == 21);
+constexpr char kReceivedMiniMailFormat58B108[] =
+    "\xB4\xA3\xA5\xDC\xA1\x49\xB1\x7A\xA6\xAC\xA8\xEC\xA8\xD3\xA6\xDB"
+    " %s " "\xAA\xBA\xB0\x67\xA7\x41\xB6\x6C\xA5\xF3\xA1\xE3";
+static_assert(sizeof(kReceivedMiniMailFormat58B108) == 33);
 
 constexpr std::ptrdiff_t kMailGroupBytes = 0x2EE00;
 constexpr std::ptrdiff_t kMailNumberBytes = 0xC80;
@@ -398,6 +410,89 @@ void Sub_50DC70(
     static_cast<void>(Sub_519300());
     static_cast<void>(Sub_518DA0());
     if (gValueCF4FC0 == index) {
+        const std::int32_t position = gValueD046D4;
+        if (position < 9) {
+            gValueD046D4 = position + 1;
+        }
+    }
+    static_cast<void>(audio::PlaySe_52C450(63, 320));
+    Sub_44B050(message, 4, 3);
+}
+
+std::int32_t Sub_534370(const std::int32_t key)
+{
+    for (std::int32_t index = 0; index < 20; ++index) {
+        const MiniMailContactRecord& record = gMiniMailRuntime.contacts[index];
+        if (record.used == 1 && record.key04 == key) {
+            return index;
+        }
+    }
+    return -1;
+}
+
+void Sub_5343C0(
+    const std::int32_t index, const std::int32_t kind,
+    const char* const name, const char* const text)
+{
+    if (gMiniMailRuntime.contacts[index].used == 0) {
+        return;
+    }
+    std::byte* const entry = gMiniMailRuntime.messages.data()
+        + static_cast<std::ptrdiff_t>(index) * kMailNumberBytes;
+    for (std::ptrdiff_t message = 9; message > 0; --message) {
+        std::memcpy(
+            entry + message * kMailMessageBytes,
+            entry + (message - 1) * kMailMessageBytes, kMailMessageBytes);
+    }
+    entry[0] = kind == 0 ? std::byte{1} : std::byte{0};
+    entry[1] = static_cast<std::byte>(static_cast<std::uint8_t>(kind));
+    std::memcpy(entry + 2, name, std::strlen(name) + 1);
+    std::memcpy(entry + 0x14, text, std::strlen(text) + 1);
+}
+
+void Sub_534480(const std::int32_t index)
+{
+    gMiniMailRuntime.contacts[index].used = 0;
+    std::byte* const first = gMiniMailRuntime.messages.data()
+        + static_cast<std::ptrdiff_t>(index) * kMailNumberBytes;
+    for (std::ptrdiff_t message = 0; message < 20; ++message) {
+        std::byte* const entry = first + message * kMailMessageBytes;
+        const char* text = input::LegacyText593850();
+        std::memcpy(entry + 0x14, text, std::strlen(text) + 1);
+        text = input::LegacyText593850();
+        std::memcpy(entry + 2, text, std::strlen(text) + 1);
+        entry[0] = std::byte{0};
+        entry[1] = std::byte{0};
+    }
+}
+
+void Sub_50F430(const std::uintptr_t, const char* const payload)
+{
+    const std::int32_t key = network::ParseDelimitedInteger_52CFA0(payload, '|', 1);
+    const std::int32_t index = Sub_534370(key);
+    Sub_534480(index);
+}
+
+void Sub_50F7F0(
+    const std::uintptr_t, const std::int32_t key,
+    const char* const payload, const std::int32_t)
+{
+    const std::int32_t index = Sub_534370(key);
+    if (index == -1) {
+        return;
+    }
+    char name[32];
+    char text[512];
+    char message[256];
+    network::ExtractDelimitedField_52CED0(payload, '|', 1, 31, name);
+    network::ExtractDelimitedField_52CED0(payload, '|', 2, 511, text);
+    input::UnescapeLegacyTextAndNotify_52D2F0(text);
+    Sub_5343C0(index, 0, name, text);
+    std::sprintf(
+        message, kReceivedMiniMailFormat58B108,
+        gMiniMailRuntime.contacts[index].name10.data());
+    static_cast<void>(Sub_518DA0());
+    if (gValueCF4FC0 == key) {
         const std::int32_t position = gValueD046D4;
         if (position < 9) {
             gValueD046D4 = position + 1;

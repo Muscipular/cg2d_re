@@ -51,6 +51,14 @@ void Sub_50DC70(
 void Sub_5191C0(
     std::int32_t index, std::int32_t kind, const char* name, const char* text); // 九次倒序搬移后写首条。
 std::int32_t Sub_518DA0(); // 普通/公会/迷你三类扫描，首命中发布页号并返回1。
+std::int32_t Sub_534370(std::int32_t key); // 20个迷你联系人，used严格1，返回首个匹配槽。
+void Sub_5343C0(
+    std::int32_t index, std::int32_t kind, const char* name, const char* text); // 同源迷你邮件九次搬移/写首条。
+void Sub_534480(std::int32_t index); // 原20次清理，每轮两次读取共享593850，不新增索引拒绝。
+void Sub_50F430(std::uintptr_t unusedSocket, const char* payload); // 查槽后无条件删除，包括-1。
+void Sub_50F7F0(
+    std::uintptr_t unusedSocket, std::int32_t key,
+    const char* payload, std::int32_t unusedFourth); // 迷你收信，无文件保存。
 
 // 原 518C80：依次清两段邮件持久区及 CB1384，返回 0。
 std::int32_t Sub_518C80();

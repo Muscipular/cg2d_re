@@ -139,7 +139,7 @@ struct WindowItemSelectorState {
     std::int32_t hoverIndex3B0;
     std::array<std::byte, 4> bytes3B4;
     std::array<render::GraphicDescriptor16, 3> descriptors3B8;
-    std::array<std::byte, 4> bytes3E8;
+    std::int32_t initialized3E8; // 7A90首次切页后置1，库存更新/释放及构造清零。
     std::uint8_t value3EC;
     std::uint8_t value3ED;
     std::int32_t imageIndex3F0;
@@ -159,11 +159,15 @@ void Sub_4C6440(WindowItemSelectorState* state); // 玩家页条件显示槽6/19
 void Sub_4C6470(WindowItemSelectorState* state); // 宠物页名称/负重和装备空位显示。
 void Sub_4C6500(WindowItemSelectorState* state); // 切页前原序隐藏，不隐藏主元素。
 void Sub_4C6550(WindowItemSelectorState* state, std::int32_t page); // 五态完整转换，原混合返回无人消费。
+void Sub_4C6790(WindowItemSelectorState* state); // 逐帧展开/切页/装备悬停与预览绘制。
 std::int32_t Sub_4C6990(WindowItemSelectorState* state); // 模式S8映射并发布同源宠物索引。
 void Sub_4C69B0(WindowItemSelectorState* state); // 借用宠物名字/负重刷新两文本元素。
 void Sub_4C6AC0(WindowItemSelectorState* state, std::int32_t x); // 原序移动主元素/四按钮/六装备槽。
+void Sub_4C6B10(WindowItemSelectorState* state); // 消费本帧hover，宠物物品固定借CF3B10索引。
+std::int32_t Sub_4C6D90(WindowItemSelectorState* state); // 内嵌预览推进及实际绘制返回。
 std::int32_t Sub_4C71C0(std::int32_t ordinal); // 扫描排序对，匹配不足仍取末项S16索引。
 bool Sub_4C7340(WindowItemSelectorState* state, std::int32_t mode); // 写低U8后按旧页2/3切换。
+void Sub_4C7A90(WindowItemSelectorState* state); // 条件首次切页，尾始终逐帧推进。
 std::int32_t Sub_4C7240(
     const WindowItemSelectorState* state, std::int32_t element, std::int32_t slot,
     std::int32_t offset); // X；负局部坐标不读取窗口。

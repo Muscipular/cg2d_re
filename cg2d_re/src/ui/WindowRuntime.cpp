@@ -3481,7 +3481,7 @@ std::int32_t Sub_48B450(
 WindowItemSelectorState* Sub_4C61B0(WindowItemSelectorState* const state)
 {
     const std::uint32_t flags = login::detail::ConstructWindowSelectorPreview(state->preview);
-    state->bytes3E8.fill(std::byte{0});
+    state->initialized3E8 = 0;
     state->value64 = 0;
     state->step6C = 21;
     state->previousPet74 = -1;
@@ -3721,6 +3721,81 @@ void Sub_4C6550(WindowItemSelectorState* const state, const std::int32_t page)
     }
 }
 
+void Sub_4C6790(WindowItemSelectorState* const state)
+{
+    static constexpr std::int32_t images54F564[] {98133, 98133, 98135, 98134};
+    static constexpr std::int32_t images54F574[] {98137, 98137, 98139, 98138};
+    const std::int32_t page = state->value60;
+    if (page > 0 && page <= 2 && std::bit_cast<std::int8_t>(*state->mode68) > 0) {
+        static_cast<void>(Sub_4C6990(state));
+        if (!world::IsValidPetIndex_51C410(state->selectedPet70)
+            || world::detail::gPetRuntimeF633F8[state->selectedPet70].used == 0) {
+            static_cast<void>(Sub_4C7340(state, 0));
+        }
+    }
+    switch (state->value60) {
+    case 1: {
+        if (std::bit_cast<std::int8_t>(*state->mode68) > 0) {
+            static_cast<void>(Sub_4C6990(state));
+        }
+        const std::int32_t x = state->elements00[1]->x;
+        if (x > -182) {
+            Sub_4C6AC0(state, x - state->step6C);
+            const std::int32_t step = state->step6C;
+            const WindowElement* const element = state->elements00[1];
+            state->step6C = step - 1;
+            if (element->x <= -182) {
+                Sub_4C6AC0(state, -182);
+            }
+        } else {
+            Sub_4C6550(state, std::bit_cast<std::int8_t>(*state->mode68) > 0 ? 3 : 2);
+        }
+        break;
+    }
+    case 2:
+        if (std::bit_cast<std::int8_t>(*state->mode68) > 0) {
+            Sub_4C6550(state, 3);
+        } else {
+            Sub_4C6B10(state);
+        }
+        break;
+    case 3: {
+        static_cast<void>(Sub_4C6990(state));
+        if (!world::IsValidPetIndex_51C410(state->selectedPet70)
+            || world::detail::gPetRuntimeF633F8[state->selectedPet70].used == 0) {
+            *state->mode68 = 0;
+        }
+        if (*state->mode68 == 0) {
+            Sub_4C6550(state, 2);
+            break;
+        }
+        Sub_4C6B10(state);
+        Sub_4C69B0(state);
+        const std::int32_t firstIndex = state->imageIndex3F0;
+        const WindowElement* const firstElement = state->elements00[1];
+        const std::int32_t firstImage = images54F564[firstIndex];
+        const WindowInstance* const firstWindow = gCurrentWindow;
+        static_cast<void>(login::detail::DrawGraphic(
+            firstElement->x + firstWindow->x + 85, firstElement->y + firstWindow->y + 180,
+            223, firstImage, 0, &state->descriptors3B8[0]));
+        const std::int32_t secondIndex = state->imageIndex3F4;
+        const WindowElement* const secondElement = state->elements00[1];
+        const std::int32_t secondImage = images54F574[secondIndex];
+        const WindowInstance* const secondWindow = gCurrentWindow;
+        static_cast<void>(login::detail::DrawGraphic(
+            secondElement->x + secondWindow->x + 118, secondElement->y + secondWindow->y + 180,
+            223, secondImage, 0, &state->descriptors3B8[0]));
+        static_cast<void>(Sub_4C6D90(state));
+        break;
+    }
+    case 4:
+        Sub_4C6550(state, 0);
+        break;
+    default:
+        break;
+    }
+}
+
 std::int32_t Sub_4C6990(WindowItemSelectorState* const state)
 {
     const std::int32_t index = Sub_4C71C0(std::bit_cast<std::int8_t>(*state->mode68));
@@ -3768,6 +3843,103 @@ void Sub_4C6AC0(WindowItemSelectorState* const state, const std::int32_t x)
     }
 }
 
+void Sub_4C6B10(WindowItemSelectorState* const state)
+{
+    if (state->value3ED == 0 || state->hoverIndex3F8 < 0) {
+        state->hoverCount3A8 = 0;
+        return;
+    }
+    const std::int32_t localX = Sub_4C63C0(state, state->hoverIndex3F8);
+    const WindowElement* const horizontalElement = state->elements00[1];
+    const WindowInstance* const horizontalWindow = gCurrentWindow;
+    const std::int32_t left = localX + horizontalElement->x + horizontalWindow->x - 24;
+    const std::int32_t localY = Sub_4C6400(state, state->hoverIndex3F8);
+    const WindowElement* const verticalElement = state->elements00[1];
+    const WindowInstance* const verticalWindow = gCurrentWindow;
+    const std::int32_t top = localY + verticalElement->y + verticalWindow->y - 24;
+    login::detail::DrawGraphicHover(
+        static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
+        static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
+        223, login::detail::gValueD69768, 0);
+    const std::int8_t mode = std::bit_cast<std::int8_t>(*state->mode68);
+    std::int32_t slot;
+    world::detail::PlayerItemRecord* item;
+    if (mode == 0) {
+        slot = state->hoverIndex3F8;
+        item = &world::detail::gPlayerItemsFDA8A4[slot];
+    } else {
+        if (mode < 0 || state->selectedPet70 < 0) {
+            return;
+        }
+        slot = state->hoverIndex3F8;
+        const std::int32_t pet = Sub_4C71B0(&gItemSelectorCF3B10);
+        item = &world::detail::gPetRuntimeF633F8[pet].items6E4[slot];
+    }
+    if (item->used != 0) {
+        const auto* const occupancy =
+            reinterpret_cast<const unsigned char*>(world::gValueD67B08.data());
+        if (occupancy[slot] != 0) {
+            login::detail::DrawGraphicHover(
+                static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
+                static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
+                223, 249, 0);
+            if ((item->flags & 0x80u) == 0) {
+                static_cast<void>(login::detail::DrawGraphic(
+                    left + 129, top + 117, 223, 22739, 0, &state->descriptors3B8[2]));
+            }
+            static_cast<void>(login::detail::DrawGraphic(
+                left + 24, top + 24, 223, item->imageNo, 0, &state->descriptors3B8[1]));
+        } else {
+            state->descriptors3B8[2].bytes[11] = 5 * state->hoverCount3A8 >= 256
+                ? 0xFF : static_cast<std::uint8_t>(
+                    5 * static_cast<std::uint8_t>(state->hoverCount3A8));
+            if ((item->flags & 0x80u) == 0) {
+                static_cast<void>(login::detail::DrawGraphic(
+                    left + 129, top + 117, 223, 22739, 0, &state->descriptors3B8[2]));
+            }
+            static_cast<void>(login::detail::DrawGraphic(
+                left + 24, top + 24, 223, item->imageNo, 0, &state->descriptors3B8[2]));
+        }
+    }
+    static_cast<void>(login::detail::DrawGraphic(
+        left + 24, top + 24, 223, 243139, 0, &state->descriptors3B8[0]));
+    const std::int32_t hovered = state->hoverIndex3F8;
+    if (state->hoverIndex3B0 == hovered) {
+        const std::int32_t count = state->hoverCount3A8;
+        state->hoverIndex3F8 = -1;
+        state->hoverCount3A8 = count + 1;
+    } else {
+        state->hoverCount3A8 = 0;
+        state->hoverIndex3B0 = hovered;
+        state->hoverIndex3F8 = -1;
+    }
+}
+
+std::int32_t Sub_4C6D90(WindowItemSelectorState* const state)
+{
+    const std::int32_t selected = state->selectedPet70;
+    if (selected < 0 || state->value3EC == 0) {
+        return selected;
+    }
+    login::YobiAction* const preview = state->preview;
+    const std::int32_t imageNo = world::detail::gPetRuntimeF633F8[selected].imageNo6A0;
+    login::detail::SetYobiActionField2A8(preview, imageNo);
+    const std::int32_t result = login::detail::Sub_517880(preview, 100, 0, 0);
+    const std::int32_t graphicIndex = login::detail::GetYobiActionField20(preview);
+    if (graphicIndex == 0) {
+        return result;
+    }
+    const render::GraphicDescriptor16* const descriptor =
+        login::detail::ApplyWindowAnimationDrawMode(preview);
+    const std::uint8_t layer = login::detail::GetYobiActionField15(preview);
+    const std::int32_t offsetY = login::detail::Sub_5182B0(preview, 1);
+    const std::int32_t y = offsetY + gCurrentWindow->y + 163;
+    const std::int32_t offsetX = login::detail::Sub_5182B0(preview, 0);
+    const std::int32_t elementX = state->elements00[1]->x;
+    const std::int32_t x = elementX + offsetX + gCurrentWindow->x + 101;
+    return render::DrawGraphic2_521DD0(x, y, layer, graphicIndex, 0, 0, descriptor);
+}
+
 std::int32_t Sub_4C71C0(const std::int32_t ordinal)
 {
     if (ordinal == -1) {
@@ -3807,6 +3979,17 @@ bool Sub_4C7340(WindowItemSelectorState* const state, const std::int32_t mode)
         }
     }
     return true;
+}
+
+void Sub_4C7A90(WindowItemSelectorState* const state)
+{
+    if (state->initialized3E8 == 0) {
+        const std::uint8_t* const mode = state->mode68;
+        state->previousPet74 = -1;
+        Sub_4C6550(state, *mode == 0xFFu ? 0 : 1);
+        state->initialized3E8 = 1;
+    }
+    Sub_4C6790(state);
 }
 
 std::int32_t Sub_4C7240(
@@ -3902,6 +4085,83 @@ std::int32_t Sub_4888C0(const char* const text)
     gItemSelectionModeCC40D4 = 2;
     static_cast<void>(Sub_475DA0(1, 0, nullptr));
     return Sub_4763B0(14, 0);
+}
+
+void Sub_488510()
+{
+    WindowInstance* const quantityWindow = gWindowStates[42].window;
+    if (quantityWindow != nullptr && gWindowStates[42].value20 == 14) {
+        quantityWindow->state |= 0x8000u;
+    }
+    const std::uint8_t mode = gItemSelectionModeCC40D4;
+    if (mode == 1 || mode == 2) {
+        WindowInstance* const window = gWindowStates[14].window;
+        gItemSelectionModeCC40D4 = 0;
+        window->elements[4].mouseCallback = Sub_488FB0;
+        gWindowStates[14].window->elements[17].mouseCallback = Sub_489760;
+        const std::int32_t selected = gSelectedItemCB0A44;
+        gSelectedItemCB0A44 = -1;
+        --reinterpret_cast<unsigned char*>(world::gValueD67B08.data())[selected];
+        static_cast<void>(Sub_4763E0());
+    }
+    if (world::detail::gValue581800 == 29) {
+        world::detail::gValue581800 = -1;
+    }
+    gItemSelectorCF3B10.initialized3E8 = 0;
+}
+
+std::int32_t Sub_488990(const std::int32_t value)
+{
+    std::int32_t selected;
+    if (value == -1) {
+        Sub_4C6EC0(&gItemSelectorCF3B10, 0);
+        WindowInstance* const window = gCurrentWindow;
+        gItemSelectorCF3B10.initialized3E8 = 0;
+        gWindowStates[14].value14 = 0;
+        gItemSelectionModeCC40D4 = 0;
+        window->elements[4].mouseCallback = Sub_488FB0;
+        selected = -1;
+        gCurrentWindow->elements[17].mouseCallback = Sub_489760;
+        gSelectedItemCB0A44 = -1;
+    } else {
+        selected = gSelectedItemCB0A44;
+    }
+    if (gItemSelectionModeCC40D4 == 1) {
+        if (world::detail::gPlayerItemsFDA8A4[selected].imageNo == 26569) {
+            goto updateSelector;
+        }
+        WindowInstance* const window = gCurrentWindow;
+        gItemSelectionModeCC40D4 = 0;
+        window->elements[4].mouseCallback = Sub_488FB0;
+        gCurrentWindow->elements[17].mouseCallback = Sub_489760;
+        const std::int32_t oldSelection = gSelectedItemCB0A44;
+        gSelectedItemCB0A44 = -1;
+        --reinterpret_cast<unsigned char*>(world::gValueD67B08.data())[oldSelection];
+        if (world::detail::gValue581800 == 29) {
+            world::detail::gValue581800 = -1;
+        }
+        static_cast<void>(Sub_4763E0());
+    }
+    if (gItemSelectionModeCC40D4 == 2 && world::detail::gValue581800 != 29) {
+        gCurrentWindow->elements[4].mouseCallback = Sub_488FB0;
+        gCurrentWindow->elements[17].mouseCallback = Sub_489760;
+        const std::int32_t oldSelection = gSelectedItemCB0A44;
+        gSelectedItemCB0A44 = -1;
+        gItemSelectionModeCC40D4 = 0;
+        --reinterpret_cast<unsigned char*>(world::gValueD67B08.data())[oldSelection];
+        static_cast<void>(Sub_4763E0());
+    }
+updateSelector:
+    WindowInstance* const quantityWindow = gWindowStates[42].window;
+    gWindowStates[14].value10 = 0xFFFFFFFFu;
+    if (quantityWindow != nullptr
+        && gWindowStates[42].value20 == 14 && gWindowStates[42].value24 == 1) {
+        const std::int32_t amount = world::detail::ReadPlayerValueFC();
+        gWindowStates[42].value10 = static_cast<std::uint32_t>(amount);
+        gWindowStates[42].value14 = static_cast<std::uint32_t>(amount);
+    }
+    Sub_4C7A90(&gItemSelectorCF3B10);
+    return 1;
 }
 
 std::int32_t Sub_488FB0(const std::int32_t index, const std::int32_t state)

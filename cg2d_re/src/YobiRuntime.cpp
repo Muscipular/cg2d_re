@@ -7088,6 +7088,11 @@ void SetYobiActionField15(
     action->displayPriority = value;
 }
 
+std::uint8_t GetYobiActionField15(const YobiAction* const action) noexcept
+{
+    return action->displayPriority;
+}
+
 std::int32_t GetYobiActionField30(YobiAction* const action)
 {
     return action->x;

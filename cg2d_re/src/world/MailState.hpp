@@ -1,8 +1,45 @@
 #pragma once
 
+#include <array>
+#include <cstddef>
 #include <cstdint>
+#include <type_traits>
 
 namespace cg::world::detail {
+
+// 原F19FB0的74H联系人记录，三路回复生产，普通邮件与窗口共用。
+struct ContactRuntimeRecord {
+    std::uint16_t used;
+    std::int16_t value02; // 排序按S16比较，回复保留低W16位型。
+    std::int32_t value04;
+    std::int32_t value08;
+    std::int32_t value0C;
+    std::array<char, 17> name10;
+    std::array<char, 17> text21;
+    std::array<char, 33> text32;
+    std::array<char, 33> text53;
+};
+
+static_assert(std::is_standard_layout_v<ContactRuntimeRecord>);
+static_assert(std::is_trivially_copyable_v<ContactRuntimeRecord>);
+static_assert(offsetof(ContactRuntimeRecord, used) == 0);
+static_assert(offsetof(ContactRuntimeRecord, value02) == 2);
+static_assert(offsetof(ContactRuntimeRecord, value04) == 4);
+static_assert(offsetof(ContactRuntimeRecord, value08) == 8);
+static_assert(offsetof(ContactRuntimeRecord, value0C) == 0x0C);
+static_assert(offsetof(ContactRuntimeRecord, name10) == 0x10);
+static_assert(offsetof(ContactRuntimeRecord, text21) == 0x21);
+static_assert(offsetof(ContactRuntimeRecord, text32) == 0x32);
+static_assert(offsetof(ContactRuntimeRecord, text53) == 0x53);
+static_assert(sizeof(ContactRuntimeRecord) == 0x74);
+
+extern std::array<ContactRuntimeRecord, 60> gContactsF19FB0;
+extern std::array<std::int32_t, 60> gContactIndicesFDA608; // 数值索引，不是地址。
+void Sub_4EC1A0(); // 原序生成/排序60个索引，比较器相等仍为-1。
+void Sub_50D740(std::uintptr_t unusedSocket, const char* payload); // 基础批量回复，无排序尾。
+void Sub_50D8C0(std::uintptr_t unusedSocket, const char* payload); // 长文本批量回复，提前结束也排序。
+void Sub_50D9E0(
+    std::uintptr_t unusedSocket, std::int32_t index, const char* payload); // 单槽回复，可清同源普通邮件。
 
 // 原 518C80：依次清两段邮件持久区及 CB1384，返回 0。
 std::int32_t Sub_518C80();

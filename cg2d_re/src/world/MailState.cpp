@@ -2,15 +2,27 @@
 
 #include "../LoginInputDependencies.hpp"
 
+#include "cg/Input.hpp"
 #include "cg/LegacyRecordOrder.hpp"
 #include "cg/LoginRequest.hpp"
+#include "cg/network/NetworkRuntime.hpp"
+#include "cg/platform/Startup.hpp"
+#include "cg/world/SceneState.hpp"
 
+#include <algorithm>
 #include <array>
+#include <bit>
 #include <cstddef>
 #include <cstdio>
 #include <cstring>
 
 namespace cg::world::detail {
+
+std::array<ContactRuntimeRecord, 60> gContactsF19FB0 {};
+std::array<std::int32_t, 60> gContactIndicesFDA608 {};
+static_assert(sizeof(gContactsF19FB0) == 0x1B30);
+static_assert(sizeof(gContactIndicesFDA608) == 0xF0);
+
 namespace {
 
 // 文件与运行记录共用这些原字节区；布局与未接消费者见场景证据 §25–26、57。
@@ -27,7 +39,223 @@ constexpr std::ptrdiff_t kMailMessageBytes = 0x140;
 static_assert(sizeof(gMailStorageF7CA08) == 2 * 60 * 10 * 0x140);
 static_assert(sizeof(gGuildMailStorageDE0B30) == 2 * 200 * 0xC88);
 
+std::int32_t CompareContactIndices_4EC030(
+    const std::int32_t* const left, const std::int32_t* const right)
+{
+    const ContactRuntimeRecord& other = gContactsF19FB0[*right];
+    if (other.used == 0) {
+        return -1;
+    }
+    const ContactRuntimeRecord& current = gContactsF19FB0[*left];
+    if (current.used == 0) {
+        return 1;
+    }
+    const std::uint32_t mode = platform::gValueD67CD0;
+    if (mode == 0) {
+        return current.value04 > other.value04 ? 1 : -1;
+    }
+    if (mode == 1) {
+        const int order = std::strcmp(current.name10.data(), other.name10.data());
+        if (order > 0) {
+            return 1;
+        }
+        return order == 0 && current.value04 > other.value04 ? 1 : -1;
+    }
+    if (current.value02 == 0) {
+        if (other.value02 > 0) {
+            return 1;
+        }
+        return other.value02 == 0 && current.value04 > other.value04 ? 1 : -1;
+    }
+    return current.value02 > 0 && other.value02 > 0
+        && current.value04 > other.value04 ? 1 : -1;
+}
+
 } // namespace
+
+void Sub_4EC1A0()
+{
+    for (std::int32_t index = 0; index < 60; ++index) {
+        gContactIndicesFDA608[index] = index;
+    }
+    // 沿已证53C112/53C266的4B路径，保持非对称比较器的比较/交换次序。
+    std::int32_t* first = gContactIndicesFDA608.data();
+    std::int32_t* last = first + 59;
+    std::array<std::int32_t*, 30> firstStack;
+    std::array<std::int32_t*, 30> lastStack;
+    std::int32_t stackSize = 0;
+    for (;;) {
+        const auto length = last - first + 1;
+        if (length <= 8) {
+            while (last > first) {
+                std::int32_t* maximum = first;
+                for (std::int32_t* item = first + 1; item <= last; ++item) {
+                    if (CompareContactIndices_4EC030(item, maximum) > 0) {
+                        maximum = item;
+                    }
+                }
+                std::swap(*maximum, *last);
+                --last;
+            }
+        } else {
+            std::swap(*(first + length / 2), *first);
+            std::int32_t* left = first;
+            std::int32_t* right = last + 1;
+            for (;;) {
+                do {
+                    ++left;
+                } while (left <= last && CompareContactIndices_4EC030(left, first) <= 0);
+                do {
+                    --right;
+                } while (right > first && CompareContactIndices_4EC030(right, first) >= 0);
+                if (right < left) {
+                    break;
+                }
+                std::swap(*left, *right);
+            }
+            std::swap(*first, *right);
+            if (right - first > last - left) {
+                if (first + 1 < right) {
+                    firstStack[stackSize] = first;
+                    lastStack[stackSize] = right - 1;
+                    ++stackSize;
+                }
+                if (left < last) {
+                    first = left;
+                    continue;
+                }
+            } else {
+                if (left < last) {
+                    firstStack[stackSize] = left;
+                    lastStack[stackSize] = last;
+                    ++stackSize;
+                }
+                if (first + 1 < right) {
+                    last = right - 1;
+                    continue;
+                }
+            }
+        }
+        if (--stackSize < 0) {
+            return;
+        }
+        first = firstStack[stackSize];
+        last = lastStack[stackSize];
+    }
+}
+
+void Sub_50D740(const std::uintptr_t, const char* const payload)
+{
+    if (gValue9A6E0C != 0) {
+        return;
+    }
+    char name[256];
+    char text[256];
+    std::int32_t field = 2;
+    for (ContactRuntimeRecord& record : gContactsF19FB0) {
+        if (network::ParseDelimitedInteger_52CFA0(payload, '|', field - 1) <= 0) {
+            record.used = 0;
+            record.name10[0] = '\0';
+            record.text21[0] = '\0';
+        } else {
+            record.used = 1;
+            if (network::ExtractDelimitedField_52CED0(
+                    payload, '|', field, 255, name) == 1) {
+                return;
+            }
+            input::UnescapeLegacyTextAndNotify_52D2F0(name);
+            if (std::strlen(name) <= 16) {
+                std::strcpy(record.name10.data(), name);
+            }
+            network::ExtractDelimitedField_52CED0(payload, '|', field + 1, 255, text);
+            input::UnescapeLegacyTextAndNotify_52D2F0(text);
+            if (std::strlen(text) <= 16) {
+                std::strcpy(record.text21.data(), text);
+            }
+            record.value04 = network::ParseDelimitedInteger_52CFA0(payload, '|', field + 2);
+            record.value08 = network::ParseDelimitedInteger_52CFA0(payload, '|', field + 3);
+            record.value02 = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
+                network::ParseDelimitedInteger_52CFA0(payload, '|', field + 4)));
+            record.value0C = network::ParseDelimitedInteger_52CFA0(payload, '|', field + 5);
+        }
+        field += 7;
+    }
+}
+
+void Sub_50D8C0(const std::uintptr_t, const char* const payload)
+{
+    if (gValue9A6E0C != 0) {
+        return;
+    }
+    char first[256];
+    char second[256];
+    std::int32_t field = 2;
+    for (ContactRuntimeRecord& record : gContactsF19FB0) {
+        if (network::ExtractDelimitedField_52CED0(
+                payload, '|', field - 1, 255, first) == 1) {
+            break;
+        }
+        input::UnescapeLegacyTextAndNotify_52D2F0(first);
+        if (std::strlen(first) <= 32) {
+            std::strcpy(record.text32.data(), first);
+        }
+        network::ExtractDelimitedField_52CED0(payload, '|', field, 255, second);
+        input::UnescapeLegacyTextAndNotify_52D2F0(second);
+        if (std::strlen(second) <= 32) {
+            std::strcpy(record.text53.data(), second);
+        }
+        field += 2;
+    }
+    Sub_4EC1A0();
+}
+
+void Sub_50D9E0(
+    const std::uintptr_t, const std::int32_t index, const char* const payload)
+{
+    if (gValue9A6E0C != 0) {
+        return;
+    }
+    const std::int32_t active = network::ParseDelimitedInteger_52CFA0(payload, '|', 1);
+    ContactRuntimeRecord& record = gContactsF19FB0[index];
+    if (active <= 0) {
+        record.used = 0;
+        record.name10[0] = '\0';
+        record.text21[0] = '\0';
+        return;
+    }
+    record.used = 1;
+    char name[256];
+    char text[256];
+    network::ExtractDelimitedField_52CED0(payload, '|', 2, 255, name);
+    input::UnescapeLegacyTextAndNotify_52D2F0(name);
+    if (std::strlen(name) <= 16) {
+        std::strcpy(record.name10.data(), name);
+    }
+    network::ExtractDelimitedField_52CED0(payload, '|', 3, 255, text);
+    input::UnescapeLegacyTextAndNotify_52D2F0(text);
+    if (std::strlen(text) <= 16) {
+        std::strcpy(record.text21.data(), text);
+    }
+    record.value04 = network::ParseDelimitedInteger_52CFA0(payload, '|', 4);
+    record.value08 = network::ParseDelimitedInteger_52CFA0(payload, '|', 5);
+    record.value02 = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
+        network::ParseDelimitedInteger_52CFA0(payload, '|', 6)));
+    record.value0C = network::ParseDelimitedInteger_52CFA0(payload, '|', 7);
+    if (network::ParseDelimitedInteger_52CFA0(payload, '|', 8) == 1) {
+        static_cast<void>(Sub_5192C0(index));
+    }
+    network::ExtractDelimitedField_52CED0(payload, '|', 9, 255, text);
+    input::UnescapeLegacyTextAndNotify_52D2F0(text);
+    if (std::strlen(text) <= 32) {
+        std::strcpy(record.text32.data(), text);
+    }
+    network::ExtractDelimitedField_52CED0(payload, '|', 10, 255, text);
+    input::UnescapeLegacyTextAndNotify_52D2F0(text);
+    if (std::strlen(text) <= 32) {
+        std::strcpy(record.text53.data(), text);
+    }
+    Sub_4EC1A0();
+}
 
 std::int32_t Sub_518C80()
 {

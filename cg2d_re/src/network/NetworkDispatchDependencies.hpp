@@ -8,9 +8,6 @@ namespace cg::network::detail {
 // 文本都是按参数编号复制出的借用工作区指针；原callee其他用途继续取证。
 void Sub_50C7F0(std::uintptr_t socket, std::int32_t first, std::int32_t second, char* text);
 void Sub_50D500(std::uintptr_t socket, char* text);
-void Sub_50D740(std::uintptr_t socket, char* text);
-void Sub_50D8C0(std::uintptr_t socket, char* text);
-void Sub_50D9E0(std::uintptr_t socket, std::int32_t value, char* text);
 void Sub_50DC70(std::uintptr_t socket, std::int32_t first, char* text, std::int32_t third);
 void Sub_50E110(
     std::uintptr_t socket, std::int32_t first, std::int32_t second,

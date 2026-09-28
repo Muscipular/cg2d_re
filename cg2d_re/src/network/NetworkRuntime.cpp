@@ -3802,9 +3802,9 @@ std::int32_t NetworkDispatch_512E40(
     if (TryDispatchReply<IgnoreReplyArguments_509080<I, T>, I, T>(head, "Dn", socket)) return 0;
     if (TryDispatchReply<IgnoreReplyArguments_509080<I>, I>(head, "IYo", socket)) return 0;
     if (TryDispatchReply<Sub_50DD80, I, I, I, I, I, I, I, T>(head, "lDuJ", socket)) return 0;
-    if (TryDispatchReply<Sub_50D740, T>(head, "gnxd", socket)) return 0;
-    if (TryDispatchReply<Sub_50D8C0, T>(head, "PhdQ", socket)) return 0;
-    if (TryDispatchReply<Sub_50D9E0, I, T>(head, "vI", socket)) return 0;
+    if (TryDispatchReply<world::detail::Sub_50D740, T>(head, "gnxd", socket)) return 0;
+    if (TryDispatchReply<world::detail::Sub_50D8C0, T>(head, "PhdQ", socket)) return 0;
+    if (TryDispatchReply<world::detail::Sub_50D9E0, I, T>(head, "vI", socket)) return 0;
     if (TryDispatchReply<Sub_50E830>(head, "GC", socket)) return 0;
     if (TryDispatchReply<Sub_50E850, T>(head, "aDn", socket)) return 0;
     if (TryDispatchReply<Sub_50EB40, T>(head, "znv", socket)) return 0;

@@ -189,6 +189,11 @@ std::int32_t Sub_488950(std::int32_t unusedIndex, std::int32_t state);
 std::int32_t Sub_488970(std::int32_t unusedIndex, std::int32_t state);
 std::int32_t Sub_488EA0(std::int32_t unusedIndex, std::int32_t state);
 std::int32_t Sub_488EC0(std::int32_t index, std::int32_t state); // 五索引对中选择对应宠物页签。
+std::int32_t Sub_488C50(std::int32_t index, std::int32_t state); // 库存关闭按钮。
+void Sub_488CF0(std::int32_t amount); // 数量窗回调，经玩家动作/场景门禁发送丢钱。
+std::int32_t Sub_488D30(std::int32_t index, std::int32_t state); // 丢钱数量窗开关及金额同步。
+std::int32_t Sub_488E60(std::int32_t unusedIndex, std::int32_t unusedState);
+std::int32_t Sub_488E80(std::int32_t unusedIndex, std::int32_t unusedState);
 std::int32_t Sub_488FB0(std::int32_t index, std::int32_t state); // 普通背包完整交互/绘制。
 std::int32_t Sub_489760(std::int32_t index, std::int32_t state); // 玩家/宠物装备完整交互。
 std::int32_t Sub_489EE0(std::int32_t unusedIndex, std::int32_t state);
@@ -333,6 +338,8 @@ extern std::int32_t gChatWindowModeD66E04; // 原独立S32，窗口35/57选择�
 extern std::uint8_t gValue57DA28; // 原独立U8，初值FF，设置文件与物品窗口共用。
 extern std::int32_t gInventoryHover57DA2C; // 普通背包悬停槽，初值-2，仅488FB0读写。
 extern std::int32_t gEquipmentHover57DA68; // 装备页独立悬停槽，初值-2，仅489760读写。
+extern std::array<char, 12> gInventoryMoneyTextCB086C; // 488E60格式化，type7载荷借用。
+extern std::array<char, 12> gInventoryValueTextCC3ECC; // 488E80格式化FF02CC，独立于输入区。
 extern std::uint8_t gValue57E42C; // 原独立U8，初值FF，设置文件与宠物窗口共用。
 extern std::int32_t gValueCF4AAC; // 原设置文件回填与多个UI入口共用的数值。
 extern std::int32_t gValueCF4690;

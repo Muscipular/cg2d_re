@@ -3814,6 +3814,38 @@ std::int32_t Sub_516C90(
         socket, reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
 }
 
+std::int32_t Sub_510DA0(
+    const std::uintptr_t socket, const std::int32_t x,
+    const std::int32_t y, const std::int32_t amount)
+{
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0), "woz"));
+
+    const std::int32_t xCapacity = std::bit_cast<std::int32_t>(
+        gNetworkRuntimeState.bufferLength);
+    std::uint8_t* const xToken = FormatProtocolIntegerToken_517120(x);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
+        reinterpret_cast<const char*>(xToken), xCapacity));
+
+    const std::int32_t yCapacity = std::bit_cast<std::int32_t>(
+        gNetworkRuntimeState.bufferLength);
+    std::uint8_t* const yToken = FormatProtocolIntegerToken_517120(y);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
+        reinterpret_cast<const char*>(yToken), yCapacity));
+
+    const std::int32_t amountCapacity = std::bit_cast<std::int32_t>(
+        gNetworkRuntimeState.bufferLength);
+    std::uint8_t* const amountToken = FormatProtocolIntegerToken_517120(amount);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
+        reinterpret_cast<const char*>(amountToken), amountCapacity));
+
+    return SendProtocolBuffer_517480(
+        socket, reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
+}
+
 std::int32_t Sub_510EC0(
     const std::uintptr_t socket, const std::int32_t source,
     const std::int32_t target, const std::int32_t amount)

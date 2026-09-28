@@ -271,6 +271,8 @@ std::array<std::uint8_t, 20> gItemMarksD68A90 {};
 std::uint8_t gValue57DA28 = 0xFF;
 std::int32_t gInventoryHover57DA2C = -2;
 std::int32_t gEquipmentHover57DA68 = -2;
+std::array<char, 12> gInventoryMoneyTextCB086C {};
+std::array<char, 12> gInventoryValueTextCC3ECC {};
 std::uint8_t gValue57E42C = 0xFF;
 const std::array<std::int32_t, 8> gSelectorOwnX54F584 {100, 36, 36, 165, 165, 36, 165, 165};
 const std::array<std::int32_t, 8> gSelectorOwnY54F5A4 {30, 130, 80, 80, 130, 30, 30, 180};
@@ -4444,6 +4446,83 @@ std::int32_t Sub_488B10(const std::int32_t)
     }
     DrawCurrentWindow_4729B0();
     return 1;
+}
+
+std::int32_t Sub_488C50(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    graphic->imageNo = 243000;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 243002;
+        std::strcpy(gHoverTextD68AE8.data(), "\xC3\xF6\xB3\xAC\xB3\x6F\xAD\xD3\xB5\xF8\xB5\xA1\xA1\x43");
+    }
+    if ((state & 2) == 0) {
+        return 0;
+    }
+    gItemSelectorCF3B10.initialized3E8 = 0;
+    graphic->imageNo = 243001;
+    gCurrentWindow->state |= 0x8000u;
+    static_cast<void>(audio::PlaySe_52C450(57, 320));
+    return 1;
+}
+
+void Sub_488CF0(const std::int32_t amount)
+{
+    if ((world::detail::ReadPlayerActionFlags() & 0x80u) == 0
+        && world::detail::Sub_440B50() == 0) {
+        const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+        const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+        static_cast<void>(network::Sub_510DA0(platform::gConnectionSocket, x, y, amount));
+    }
+}
+
+std::int32_t Sub_488D30(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    std::int32_t consumed = 0;
+    if ((state & 1) != 0) {
+        std::strcpy(gHoverTextD68AE8.data(),
+            "\xB7\x51\xA9\xF1\xBF\xFA\xA6\x62\xA6\x61\xAD\xB1\xAE\xC9"
+            "\xA8\xCF\xA5\xCE\xA6\xB9\xAB\xF6\xC1\xE4\xA1\x43");
+    }
+    if ((state & 2) != 0) {
+        if (gWindowStates[42].window != nullptr && gWindowStates[42].value20 == 14
+            && gWindowStates[42].value24 == static_cast<std::uint32_t>(index)) {
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        } else {
+            const std::int32_t amount = world::detail::ReadPlayerValueFC();
+            static_cast<void>(login::detail::Sub_48AC60(
+                14, index, 244310, amount, amount, 0, Sub_488CF0, 1, 0, 0));
+        }
+        consumed = 1;
+    }
+    if (gWindowStates[42].window != nullptr && gWindowStates[42].value20 == 14
+        && gWindowStates[42].value24 == static_cast<std::uint32_t>(index)) {
+        const std::int32_t amount = world::detail::ReadPlayerValueFC();
+        gWindowStates[42].value10 = static_cast<std::uint32_t>(amount);
+        gWindowStates[42].value14 = static_cast<std::uint32_t>(amount);
+    }
+    graphic->imageNo = 244291;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 244293;
+    }
+    if (gWindowStates[42].window != nullptr && gWindowStates[42].value20 == 14
+        && gWindowStates[42].value24 == static_cast<std::uint32_t>(index)) {
+        graphic->imageNo = 244292;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_488E60(const std::int32_t, const std::int32_t)
+{
+    std::sprintf(gInventoryMoneyTextCB086C.data(), "%10d", world::detail::ReadPlayerValueFC());
+    return 0;
+}
+
+std::int32_t Sub_488E80(const std::int32_t, const std::int32_t)
+{
+    std::sprintf(gInventoryValueTextCC3ECC.data(), "%10d", world::detail::ReadPlayerValue15BCC());
+    return 0;
 }
 
 std::int32_t Sub_488FB0(const std::int32_t index, const std::int32_t state)

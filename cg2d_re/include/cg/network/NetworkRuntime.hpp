@@ -417,6 +417,10 @@ std::int32_t Sub_510F50(std::uintptr_t socket, std::int32_t value);
 std::int32_t Sub_510EC0(
     std::uintptr_t socket, std::int32_t source, std::int32_t target, std::int32_t amount);
 
+// 原510DA0：woz丢钱请求，按X/Y/数量逐字段追加并透传发送返回。
+std::int32_t Sub_510DA0(
+    std::uintptr_t socket, std::int32_t x, std::int32_t y, std::int32_t amount);
+
 // 原[510CE0,510D91)：构造QpfE，依次追加X/Y/组号/物品槽号并发送。
 std::int32_t Sub_510CE0(
     std::uintptr_t socket, std::int32_t x, std::int32_t y,

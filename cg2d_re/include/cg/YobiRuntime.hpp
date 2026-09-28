@@ -302,6 +302,7 @@ std::int32_t GetYobiActionField20(YobiAction* action);
 const render::GraphicDescriptor16* ApplyWindowAnimationDrawMode(YobiAction* action);
 // 原宠物预览直接借用+2F8，不执行窗口动画的描述符改写。
 const render::GraphicDescriptor16* BorrowYobiActionDrawMode(const YobiAction* action) noexcept;
+void AddYobiActionDrawFlags(YobiAction* action, std::uint8_t flags) noexcept; // 原+305低U8置位，不清其他位。
 // 原 +2E4；51A5B0 读取，独立于播放翻转值 +2E0。
 std::int32_t GetYobiActionField2E4(const YobiAction* action) noexcept;
 std::int32_t GetYobiActionField2A8(YobiAction* action);

@@ -1,5 +1,6 @@
 #include "WindowRuntimeState.hpp"
 
+#include "../CharacterSelectSceneDependencies.hpp"
 #include "../LoginMessageDependencies.hpp"
 #include "../LoginSceneDependencies.hpp"
 #include "../platform/MainLoopDependencies.hpp"
@@ -3447,6 +3448,51 @@ std::int32_t Sub_48B810(
         0xE6, 0x3BA5D, 0, 1, 0, &descriptor);
 }
 
+std::int32_t Sub_48B930(
+    const std::int32_t x, const std::int32_t y,
+    const char* const title, const std::int8_t titleColor,
+    const char* lines, const std::int32_t, const std::int32_t lineCount,
+    const char* const footer, const std::int8_t footerColor)
+{
+    render::GraphicDescriptor16 descriptor {};
+    const std::uint32_t color = 0xFFFFFFFFu;
+    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    descriptor.bytes[13] = 4;
+    static_cast<void>(render::ClearTextQueueTail_456D50(5));
+    static_cast<void>(render::DrawText_456780(
+        0, 0, 5, 1, 0, input::LegacyText593850(), 0, 0));
+    if (title != nullptr) {
+        static_cast<void>(render::DrawText_456780(
+            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 10)),
+            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 10)),
+            5, 12, titleColor, title, 0, 0));
+    }
+    gTooltipColorD67D30 = 0;
+    std::int32_t lineY = 0;
+    for (std::int32_t line = 0; line < lineCount; ++line) {
+        if (*lines != '\0') {
+            const std::int32_t shortY =
+                std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y));
+            const std::int32_t shortX =
+                std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x));
+            static_cast<void>(Sub_4FBA30(
+                shortX + 10, shortY + lineY + 22, 5, 12, 0, lines, 0, 0));
+        }
+        lineY += 13;
+        lines += std::strlen(lines) + 1;
+    }
+    if (footer != nullptr) {
+        static_cast<void>(render::DrawText_456780(
+            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 10)),
+            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 127)),
+            5, 12, footerColor, footer, 0, 0));
+    }
+    return render::DrawGraphic3_520970(
+        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x)),
+        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y)),
+        230, 244317, 0, 1, 0, &descriptor);
+}
+
 std::int32_t Sub_48B450(
     const std::int32_t side, const std::int32_t index, const std::int32_t page)
 {
@@ -4161,6 +4207,55 @@ updateSelector:
         gWindowStates[42].value14 = static_cast<std::uint32_t>(amount);
     }
     Sub_4C7A90(&gItemSelectorCF3B10);
+    return 1;
+}
+
+std::int32_t Sub_488B10(const std::int32_t)
+{
+    static constexpr char selectionText586B14[] =
+        "\xBF\xEF\xA6\x6E\xB7\x51\xBB\x5C\xA6\x4C\xAA\xBA\xAA\xAB\xAB\x7E\xA1\x41\0"
+        "\xB3\xE6\xC2\x49\xB7\xC6\xB9\xAB\xA5\xAA\xC1\xE4\xA1\x41\0"
+        "\xA5\x69\xBB\x5C\xA4\x55\xA6\x4C\xB0\x4F\xA1\x43\0"
+        "\xB3\xE6\xC2\x49\xB7\xC6\xB9\xAB\xA5\x6B\xC1\xE4\xA7\x59\xB5\xB2\xA7\xF4\xA1\x43";
+    static constexpr char selectionText586B5C[] =
+        "\xBF\xEF\xA6\x6E\xB7\x51\xB1\xBB\xAE\x49\xAA\xBA\xAA\xAB\xAB\x7E\xA1\x41\0"
+        "\xB3\xE6\xC2\x49\xB7\xC6\xB9\xAB\xA5\xAA\xC1\xE4\xA5\x69\xB1\xBB\xAE\x49"
+        "\xAA\xAB\xAB\x7E\xA1\x43\0"
+        "\xB3\xE6\xC2\x49\xB7\xC6\xB9\xAB\xA5\x6B\xC1\xE4\xA7\x59\xB5\xB2\xA7\xF4\xA1\x43\0";
+    static_assert(sizeof(selectionText586B14) == 68);
+    static_assert(sizeof(selectionText586B5C) == 66);
+    const std::uint8_t mode = gItemSelectionModeCC40D4;
+    if (mode == 0) {
+        const std::int32_t selected = std::bit_cast<std::int32_t>(gWindowStates[14].value10);
+        if (selected >= 0) {
+            const std::int32_t page = std::bit_cast<std::int32_t>(gWindowStates[14].value14);
+            static_cast<void>(Sub_48B1A0(selected, page));
+        }
+    } else if (mode == 1 || mode == 2) {
+        const char* const text = mode == 1 ? selectionText586B14 : selectionText586B5C;
+        const bool top =
+            platform::legacy_crypt_int::Less_401DB0(&platform::gLegacyMouseState.mouseY, 240);
+        const std::int32_t y = platform::legacy_crypt_int::Add_401E10(
+            &platform::gLegacyMouseState.mouseY, top ? 60 : -174);
+        const bool left =
+            platform::legacy_crypt_int::Less_401DB0(&platform::gLegacyMouseState.mouseX, 320);
+        const std::int32_t x = platform::legacy_crypt_int::Add_401E10(
+            &platform::gLegacyMouseState.mouseX, left ? 60 : -257);
+        static_cast<void>(Sub_48B930(
+            x, y, input::LegacyText593850(), 0, text, 31, 4, nullptr, 0));
+    }
+    const std::int32_t mappedImage =
+        character_select::detail::Sub_51B740(world::detail::ReadPlayerImageNo());
+    login::detail::SetYobiActionField2A8(
+        static_cast<WindowAnimationData*>(gCurrentWindow->elements[5].data)->action, mappedImage);
+    login::detail::SetYobiActionField2B8(
+        static_cast<WindowAnimationData*>(gCurrentWindow->elements[5].data)->action, 5);
+    const std::int32_t imageNo = world::detail::ReadPlayerImageNo();
+    if (imageNo >= 110350 && imageNo <= 110373) {
+        login::detail::AddYobiActionDrawFlags(
+            static_cast<WindowAnimationData*>(gCurrentWindow->elements[5].data)->action, 4);
+    }
+    DrawCurrentWindow_4729B0();
     return 1;
 }
 

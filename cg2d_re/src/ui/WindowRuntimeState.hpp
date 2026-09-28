@@ -558,6 +558,10 @@ std::int32_t Sub_48B810(
     std::int32_t x, std::int32_t y, const char* title, std::int8_t titleColor,
     const char* lines, std::int32_t stride, std::int32_t lineCount,
     const char* footer, std::int8_t footerColor); // 原完整层5提示框。
+std::int32_t Sub_48B930(
+    std::int32_t x, std::int32_t y, const char* title, std::int8_t titleColor,
+    const char* lines, std::int32_t unusedStride, std::int32_t lineCount,
+    const char* footer, std::int8_t footerColor); // 连续NUL分段，空行仍推进，不使用stride。
 std::int32_t Sub_48B450(std::int32_t side, std::int32_t index, std::int32_t page);
 std::int32_t Sub_48B1A0(std::int32_t index, std::int32_t page); // 玩家/所选宠物装备提示。
 std::int32_t Sub_48B350(std::int32_t index, std::int32_t page); // 外部存放物品提示。

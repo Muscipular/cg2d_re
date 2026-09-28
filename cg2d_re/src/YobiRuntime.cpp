@@ -7057,6 +7057,11 @@ std::int32_t GetYobiActionField20(YobiAction* const action)
     return action->graphicIndex;
 }
 
+void AddYobiActionDrawFlags(YobiAction* const action, const std::uint8_t flags) noexcept
+{
+    action->drawMode.bytes[13] |= flags;
+}
+
 std::int32_t GetYobiActionField2E4(const YobiAction* const action) noexcept
 {
     return action->field2E4;

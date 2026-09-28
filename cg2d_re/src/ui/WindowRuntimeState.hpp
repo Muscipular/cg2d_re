@@ -211,6 +211,28 @@ std::int32_t Sub_499C30(std::int32_t index, std::int32_t state);
 std::int32_t Sub_49AC40(std::int32_t index, std::int32_t state); // 战斗装备页及宠物禁用页。
 std::int32_t Sub_49B610(std::int32_t unusedIndex, std::int32_t state); // D2F338附加属性页包装。
 
+// 原CB1398等固定81B对话行；创建入口只借用，不负责释放。
+struct WindowDialogTextLine {
+    std::array<char, 81> text;
+};
+static_assert(sizeof(WindowDialogTextLine) == 81);
+using WindowDialogReplyCallback = std::int32_t (*)(
+    std::int32_t button, std::int32_t row, char* const* texts, std::uint8_t inputCount);
+using WindowDialogFrameCallback = std::int32_t (*)(
+    WindowInstance* window, std::int32_t button, std::int32_t row, std::int32_t events);
+void Sub_49C4D0(); // 只清内嵌图号/计数及窗口36十元素可见性。
+void Sub_49C510(
+    std::uint8_t used, std::int32_t imageNo, std::uint8_t direction,
+    std::int16_t x, std::int16_t y);
+login::YobiAction* Sub_49C600(
+    std::int32_t x, std::int32_t y, std::int32_t width, std::int32_t height,
+    std::int32_t imageNo, std::int32_t buttons, WindowDialogTextLine* lines,
+    std::int32_t lineCount, std::int32_t lineHeight, std::int32_t firstSelectableLine,
+    std::uint8_t inputCount, std::int16_t* inputY, std::int32_t inputCapacity,
+    std::uint8_t distance, std::uint8_t options,
+    WindowDialogReplyCallback reply, WindowDialogFrameCallback frame,
+    std::uint32_t flags, std::uint32_t mode);
+
 // 文本原型只借用源字节；实例仍通过WindowTextData拥有256B可写副本。
 struct WindowTextPrototype {
     std::array<std::byte, 4> bytes00;

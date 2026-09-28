@@ -392,6 +392,43 @@ struct LoginWindowRuntimeSlots {
 
 LoginWindowRuntimeSlots gLoginWindowRuntime {};
 
+// 原CB0FA8..CB0FD8的唯一UI状态；借用指针原生化，不沿用x86字段偏移。
+struct MessageDialogRuntimeSlots {
+    std::int32_t width;
+    std::int32_t height;
+    WindowDialogTextLine* lines;
+    std::int32_t imageNo;
+    std::int32_t buttons;
+    std::int32_t lineCount;
+    std::int32_t lineHeight;
+    std::int32_t firstSelectableLine;
+    std::int32_t inputCapacity;
+    std::int16_t* inputY;
+    std::uint8_t inputCount;
+    std::uint8_t distance;
+    std::uint8_t options;
+    WindowDialogReplyCallback reply;
+    WindowDialogFrameCallback frame;
+};
+
+struct MessageDialogImageRecord {
+    std::int32_t imageNo;
+    std::uint8_t direction;
+    std::byte byte05;
+    std::int16_t x;
+    std::int16_t y;
+    std::uint8_t used;
+    std::byte byte0B;
+};
+static_assert(sizeof(MessageDialogImageRecord) == 12);
+static_assert(offsetof(MessageDialogImageRecord, direction) == 4);
+static_assert(offsetof(MessageDialogImageRecord, x) == 6);
+static_assert(offsetof(MessageDialogImageRecord, y) == 8);
+static_assert(offsetof(MessageDialogImageRecord, used) == 10);
+MessageDialogRuntimeSlots gMessageDialog {};
+std::array<MessageDialogImageRecord, 10> gMessageDialogImagesCC4B70 {};
+std::uint8_t gMessageDialogImageCountD67B30 = 0;
+
 // 原57C24C目标的内联矩形；同值异地址仍分别存储，见窗口SPEC。
 WindowDragRect gDragRects561998[] {{0, 0, 330, 25}, {315, 0, 20, 92}};
 WindowDragRect gDragRects561F38[] {{10, 0, 230, 33}, {243, 5, 18, 79}};
@@ -4529,6 +4566,96 @@ std::int32_t Sub_488E80(const std::int32_t, const std::int32_t)
 {
     std::sprintf(gInventoryValueTextCC3ECC.data(), "%10d", world::detail::ReadPlayerValue15BCC());
     return 0;
+}
+
+void Sub_49C4D0()
+{
+    for (auto& image : gMessageDialogImagesCC4B70) {
+        image.imageNo = 0;
+    }
+    gMessageDialogImageCountD67B30 = 0;
+    WindowInstance* const window = gWindowStates[36].window;
+    if (window != nullptr) {
+        for (std::int32_t index = 8; index < 18; ++index) {
+            window->elements[index].visible = 0;
+        }
+    }
+}
+
+void Sub_49C510(
+    const std::uint8_t used, const std::int32_t imageNo, const std::uint8_t direction,
+    const std::int16_t x, const std::int16_t y)
+{
+    const std::int32_t count = std::bit_cast<std::int8_t>(gMessageDialogImageCountD67B30);
+    if (count >= 10) {
+        return;
+    }
+    auto& image = gMessageDialogImagesCC4B70[count];
+    image.imageNo = imageNo;
+    image.direction = direction;
+    image.x = x;
+    image.y = y;
+    image.used = used;
+    WindowInstance* const window = gWindowStates[36].window;
+    if (window != nullptr) {
+        WindowElement* const element = window->elements + count + 8;
+        login::detail::SetYobiActionField2A8(
+            static_cast<WindowAnimationData*>(element->data)->action, imageNo);
+        login::detail::SetYobiActionField2B8(
+            static_cast<WindowAnimationData*>(element->data)->action,
+            std::bit_cast<std::int8_t>(direction));
+        element->visible = 0;
+        element->x = x;
+        element->y = y;
+        if (used != 0) {
+            element->visible = 1;
+        }
+    }
+    ++gMessageDialogImageCountD67B30;
+}
+
+login::YobiAction* Sub_49C600(
+    const std::int32_t x, const std::int32_t y,
+    const std::int32_t width, const std::int32_t height,
+    const std::int32_t imageNo, const std::int32_t buttons, WindowDialogTextLine* const lines,
+    const std::int32_t lineCount, const std::int32_t lineHeight,
+    const std::int32_t firstSelectableLine, const std::uint8_t inputCount,
+    std::int16_t* const inputY, const std::int32_t inputCapacity,
+    const std::uint8_t distance, const std::uint8_t options,
+    const WindowDialogReplyCallback reply, const WindowDialogFrameCallback frame,
+    const std::uint32_t flags, const std::uint32_t mode)
+{
+    gMessageDialog.width = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(width));
+    gMessageDialog.lines = lines;
+    gMessageDialog.firstSelectableLine = firstSelectableLine;
+    gMessageDialog.inputY = inputY;
+    gMessageDialog.inputCount = inputCount;
+    gWindowStates[37].y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y));
+    gMessageDialog.inputCapacity = inputCapacity;
+    gWindowStates[37].x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x));
+    gMessageDialog.imageNo = imageNo;
+    gMessageDialog.distance = distance;
+    gMessageDialog.lineCount = lineCount;
+    gMessageDialog.options = options;
+    const auto height16 = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(height));
+    gMessageDialog.height = height16;
+    gMessageDialog.reply = reply;
+    gMessageDialog.buttons = buttons;
+    gMessageDialog.lineHeight = lineHeight;
+    gMessageDialog.frame = frame;
+    const std::int32_t maximumLines = login::detail::Sub_49C5E0(height16, buttons, lineHeight);
+    if (gMessageDialog.lineCount > maximumLines) {
+        gMessageDialog.lineCount = maximumLines;
+    }
+    WindowInstance* const first = gWindowStates[36].window;
+    if (first != nullptr) {
+        first->state |= 0x8000u;
+    }
+    WindowInstance* const second = gWindowStates[37].window;
+    if (second != nullptr) {
+        second->state |= 0x8000u;
+    }
+    return login::detail::Sub_475950(x, y, width, height, 37, flags, mode, nullptr);
 }
 
 std::int32_t Sub_499930(const std::int32_t, const std::int32_t state)

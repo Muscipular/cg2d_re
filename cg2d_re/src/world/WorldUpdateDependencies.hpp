@@ -612,6 +612,7 @@ void Sub_43DA40(login::YobiAction* action); // flags120置24。
 void Sub_43DA70(login::YobiAction* action); // flags120置8。
 void Sub_43DAA0(login::YobiAction* action); // flags120清8。
 void Sub_43DAD0(login::YobiAction* action); // flags120置50。
+void Sub_43DB00(login::YobiAction* action); // 观察处理只置flags120的80。
 void Sub_444410(
     login::YobiAction* action, std::int32_t x, std::int32_t y,
     std::int32_t direction, std::int32_t characterAction, std::int32_t option1,
@@ -775,6 +776,7 @@ void Sub_51BE10(); // FDA88E置0x24。
 void Sub_51BE20(); // FDA88E置8。
 void Sub_51BE30(); // FDA88E清8。
 void Sub_51BE40(); // FDA88E置0x50。
+void Sub_51BEE0(); // 观察处理置FDA88E的0x80，复用flags18C高W16。
 login::YobiAction* Sub_51A640(); // 原+272置1，返回入口借用指针。
 login::YobiAction* Sub_51A660(); // 原+272清0，返回入口借用指针。
 std::int32_t Sub_51A680(); // 空玩家为0，否则MOVSX读取原+272，非指针返回。

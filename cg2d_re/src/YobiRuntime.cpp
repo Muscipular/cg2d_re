@@ -1079,6 +1079,117 @@ YobiAction* NewMapCharaAction()
     return NewYobiAction_404AE0(2, sizeof(MapCharaPayload));
 }
 
+// 两种观察节点的真实回调尚待落位，不以空回调替代。
+void Sub_43F520(YobiAction* action);
+void Sub_440070(YobiAction* action);
+
+YobiAction* Sub_43F330(
+    const std::int32_t imageNo, const std::int32_t mapX,
+    const std::int32_t mapY, const std::int32_t direction,
+    const std::int32_t value170)
+{
+    YobiAction* const action = NewMapCharaAction();
+    if (action == nullptr) {
+        return nullptr;
+    }
+    action->imageNo = imageNo;
+    action->callback = Sub_43F520;
+    action->characterAction = 0;
+    action->direction = direction;
+    action->field58 = direction;
+    action->displayPriority = 10;
+    action->flags = 0x20u;
+    platform::legacy_crypt_int::AssignFromInt(&action->mapX200, mapX);
+    platform::legacy_crypt_int::AssignFromInt(&action->mapY210, mapY);
+    action->field270 = 0;
+    platform::legacy_crypt_int::AssignFromInt(&action->mapX1E0, mapX);
+    platform::legacy_crypt_int::AssignFromInt(&action->mapY1F0, mapY);
+    const double scaledX = static_cast<double>(mapX) * 64.0F;
+    action->field27C = 0;
+    action->field280 = 0;
+    action->worldX = static_cast<float>(scaledX);
+    action->worldY = static_cast<float>(static_cast<double>(mapY) * 64.0F);
+
+    platform::LegacyCryptInt temporary;
+    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, value170);
+    action->readiness.readCount = temporary.readCount;
+    action->readiness.encoded = temporary.encoded;
+    action->readiness.mask = temporary.mask;
+    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    action->phase = 1;
+    const float worldY = action->worldY;
+    const float worldX = action->worldX;
+    float screenX;
+    float screenY;
+    world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
+    action->x = static_cast<std::int32_t>(
+        static_cast<std::int64_t>(static_cast<double>(screenX) + 0.5));
+    action->y = static_cast<std::int32_t>(
+        static_cast<std::int64_t>(static_cast<double>(screenY) + 0.5));
+    static_cast<void>(Sub_43F180(action));
+    return action;
+}
+
+YobiAction* Sub_43FEB0(
+    const std::int32_t imageNo, const std::int32_t mapX,
+    const std::int32_t mapY, const std::int32_t direction)
+{
+    YobiAction* const action = NewMapCharaAction();
+    if (action == nullptr) {
+        return nullptr;
+    }
+    action->direction = direction;
+    action->callback = Sub_440070;
+    action->imageNo = imageNo;
+    action->characterAction = 3;
+    action->displayPriority = 10;
+    action->flags = 0x20u;
+    const auto assignCoordinate = [](
+        platform::LegacyCryptInt& target, const std::int32_t value) {
+        platform::LegacyCryptInt temporary;
+        platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, value);
+        target.readCount = temporary.readCount;
+        target.encoded = temporary.encoded;
+        target.mask = temporary.mask;
+        platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    };
+    assignCoordinate(action->mapX200, mapX);
+    assignCoordinate(action->mapY210, mapY);
+    action->field270 = 0;
+    assignCoordinate(action->mapX1E0, mapX);
+    assignCoordinate(action->mapY1F0, mapY);
+    const double scaledX = static_cast<double>(mapX) * 64.0F;
+    action->field27C = 0;
+    action->field280 = 0;
+    action->phase = 3;
+    const float worldX = static_cast<float>(scaledX);
+    action->worldX = worldX;
+    const float worldY = static_cast<float>(static_cast<double>(mapY) * 64.0F);
+    action->worldY = worldY;
+    float screenX;
+    float screenY;
+    world::ProjectWorldToScreen_46CE30(worldX, worldY, &screenX, &screenY);
+    action->x = static_cast<std::int32_t>(
+        static_cast<std::int64_t>(static_cast<double>(screenX) + 0.5));
+    action->y = static_cast<std::int32_t>(
+        static_cast<std::int64_t>(static_cast<double>(screenY) + 0.5));
+    static_cast<void>(Sub_43F180(action));
+    return action;
+}
+
+void Sub_4408C0(
+    YobiAction* const action, const std::int32_t first, const std::int32_t second,
+    const std::int32_t third, const std::int32_t fourth, const std::int32_t fifth)
+{
+    auto* const payload = static_cast<MapCharaPayload*>(action->payload);
+    const std::array<std::int32_t, 5> values {first, second, third, fourth, fifth};
+    for (std::size_t i = 0; i < values.size(); ++i) {
+        if (values[i] > 0) {
+            payload->values[i] = static_cast<std::uint32_t>(values[i]);
+        }
+    }
+}
+
 // 原441DB0/448040回调及实体绘制尾；完整定义位于本文件后段。
 void Sub_4417E0(YobiAction* action);
 void Sub_447E60(YobiAction* action);
@@ -5207,6 +5318,15 @@ void Sub_43DAD0(login::YobiAction* const action)
     }
     const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
     gWorldObjects[payload->index].flags120 |= 0x50u;
+}
+
+void Sub_43DB00(login::YobiAction* const action)
+{
+    if (action == nullptr) {
+        return;
+    }
+    const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
+    gWorldObjects[payload->index].flags120 |= 0x80u;
 }
 
 void Sub_444410(

@@ -6202,6 +6202,11 @@ void Sub_51BE40()
     gPlayerRuntime.flags18C |= 0x00500000u;
 }
 
+void Sub_51BEE0()
+{
+    gPlayerRuntime.flags18C |= 0x00800000u;
+}
+
 login::YobiAction* Sub_51A5B0()
 {
     login::YobiAction* const action = gPlayerRuntime.action;

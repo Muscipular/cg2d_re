@@ -93,6 +93,94 @@ std::array<std::uint8_t, 20> gItemMarksD68A90 {};
 
 namespace {
 
+// 原57C24C目标的内联矩形；同值异地址仍分别存储，见窗口SPEC。
+WindowDragRect gDragRects561998[] {{0, 0, 330, 25}, {315, 0, 20, 92}};
+WindowDragRect gDragRects561F38[] {{10, 0, 230, 33}, {243, 5, 18, 79}};
+WindowDragRect gDragRects5624C0[] {{10, 0, 553, 27}, {566, 5, 18, 79}};
+WindowDragRect gDragRects562800[] {{10, 0, 288, 27}, {201, 5, 18, 79}};
+WindowDragRect gDragRects562AF0[] {{10, 0, 288, 27}, {201, 5, 18, 79}};
+WindowDragRect gDragRects562FD8[] {{22, 0, 256, 33}, {282, 7, 18, 78}};
+WindowDragRect gDragRects5631F0[] {{12, 0, 113, 26}, {128, 7, 18, 78}};
+WindowDragRect gDragRects565560[] {{0, 0, 343, 30}, {323, 0, 20, 122}};
+WindowDragRect gDragRects566E70[] {{0, 0, 272, 30}, {252, 0, 20, 100}};
+WindowDragRect gDragRects567908[] {{0, 0, 231, 25}, {221, 0, 30, 100}};
+WindowDragRect gDragRects568528[] {{0, 0, 279, 25}, {249, 0, 25, 120}};
+WindowDragRect gDragRects568DC8[] {{16, 0, 184, 30}, {209, 7, 18, 78}};
+WindowDragRect gDragRects569298[] {{10, 0, 275, 33}, {288, 5, 18, 79}};
+WindowDragRect gDragRects56B030[] {{0, 0, 184, 21}};
+WindowDragRect gDragRects56B538[] {{0, 0, 61, 25}};
+WindowDragRect gDragRects56C1F8[] {{9, 0, 481, 27}, {493, 7, 18, 78}};
+WindowDragRect gDragRects56C6F0[] {{17, 0, 300, 33}, {320, 7, 18, 78}};
+WindowDragRect gDragRects56C900[] {{17, 0, 339, 33}, {359, 7, 18, 78}};
+WindowDragRect gDragRects56E918[] {{0, 0, 342, 30}, {331, 0, 20, 120}};
+WindowDragRect gDragRects56FC00[] {{0, 0, 243, 10}};
+WindowDragRect gDragRects570010[] {{0, 0, 267, 25}, {207, 0, 25, 100}};
+WindowDragRect gDragRects5704B8[] {{0, 0, 232, 30}, {207, 0, 25, 100}};
+WindowDragRect gDragRects570F30[] {{0, 0, 100, 25}};
+WindowDragRect gDragRects571620[] {{9, 0, 558, 27}, {571, 7, 18, 78}};
+WindowDragRect gDragRects571800[] {{9, 0, 558, 27}, {571, 7, 18, 78}};
+WindowDragRect gDragRects571D48[] {{10, 0, 231, 27}, {234, 5, 18, 79}};
+WindowDragRect gDragRects572898[] {{0, 0, 320, 25}, {317, 0, 20, 100}};
+WindowDragRect gDragRects572D78[] {{9, 0, 558, 27}, {571, 7, 18, 78}};
+WindowDragRect gDragRects573430[] {{0, 0, 280, 27}, {260, 0, 20, 120}};
+WindowDragRect gDragRects573A48[] {{0, 0, 634, 30}, {604, 0, 30, 130}};
+WindowDragRect gDragRects5745C0[] {{16, 0, 533, 27}, {552, 5, 18, 80}};
+WindowDragRect gDragRects575648[] {{16, 0, 533, 27}, {552, 5, 18, 80}};
+WindowDragRect gDragRects576248[] {{16, 0, 533, 27}, {552, 5, 18, 80}};
+WindowDragRect gDragRects576E48[] {{16, 0, 533, 27}, {552, 5, 18, 80}};
+WindowDragRect gDragRects577698[] {{0, 0, 231, 25}, {221, 0, 30, 100}};
+WindowDragRect gDragRects579D28[] {{0, 0, 634, 35}, {600, 0, 34, 130}};
+WindowDragRect gDragRects579DD0[] {{0, 0, 305, 25}, {300, 0, 30, 130}};
+WindowDragRect gDragRects579E78[] {{0, 0, 317, 25}, {307, 0, 30, 130}};
+WindowDragRect gDragRects57AD30[] {{0, 0, 231, 25}, {221, 0, 30, 100}};
+WindowDragRect gDragRects57B1E0[] {{0, 0, 460, 25}, {445, 0, 30, 102}};
+WindowDragRect gDragRects57B460[] {{16, 0, 533, 27}, {552, 5, 18, 80}};
+
+std::array<WindowDragPrototype, 42> gDragPrototypes {{
+    {2, gDragRects561998}, // 0
+    {2, gDragRects561F38},
+    {2, gDragRects5624C0},
+    {2, gDragRects562800},
+    {2, gDragRects562AF0},
+    {2, gDragRects562FD8},
+    {2, gDragRects5631F0},
+    {2, gDragRects565560},
+    {2, gDragRects566E70},
+    {2, gDragRects567908},
+    {2, gDragRects568528}, // 10
+    {2, gDragRects568DC8},
+    {2, gDragRects569298},
+    {1, gDragRects56B030},
+    {1, gDragRects56B538},
+    {2, gDragRects56C1F8},
+    {2, gDragRects56C6F0},
+    {2, gDragRects56C900},
+    {2, gDragRects56E918},
+    {1, gDragRects56FC00},
+    {2, gDragRects570010}, // 20
+    {2, gDragRects5704B8},
+    {1, gDragRects570F30},
+    {2, gDragRects571620},
+    {2, gDragRects571800},
+    {2, gDragRects571D48},
+    {2, gDragRects572898},
+    {2, gDragRects572D78},
+    {2, gDragRects573430},
+    {2, gDragRects573A48},
+    {2, gDragRects5745C0}, // 30
+    {2, gDragRects575648},
+    {2, gDragRects576248},
+    {2, gDragRects576E48},
+    {2, gDragRects577698},
+    {2, gDragRects579D28},
+    {2, gDragRects579DD0},
+    {2, gDragRects579E78},
+    {2, gDragRects57AD30},
+    {2, gDragRects57B1E0},
+    {2, gDragRects57B460}, // 40
+    {0, nullptr}, // 原D67A20虚拟零区，同一空矩形原型。
+}};
+
 // UI原字节区的窄数值通过复制写入，不对未对齐地址构造数值T*。
 template <typename T>
 void WriteTradeValue(char* const record, const std::size_t offset, const T value)
@@ -209,6 +297,81 @@ void ScrollInputAndDraw(input::InputContext* const context, const std::int32_t w
 }
 
 } // namespace
+
+// 原71槽逐项绑定；下标仅用于静态初始化，不是对象句柄。
+std::array<WindowDragPrototype*, kWindowCount> gWindowDragPrototypes57C24C {
+    &gDragPrototypes[41], // 0
+    &gDragPrototypes[41],
+    &gDragPrototypes[41],
+    &gDragPrototypes[41],
+    &gDragPrototypes[41],
+    &gDragPrototypes[41],
+    &gDragPrototypes[41],
+    &gDragPrototypes[0],
+    &gDragPrototypes[0],
+    &gDragPrototypes[0],
+    &gDragPrototypes[1], // 10
+    &gDragPrototypes[2],
+    &gDragPrototypes[3],
+    &gDragPrototypes[4],
+    &gDragPrototypes[5],
+    &gDragPrototypes[7],
+    &gDragPrototypes[8],
+    &gDragPrototypes[8],
+    &gDragPrototypes[8],
+    &gDragPrototypes[9],
+    &gDragPrototypes[10], // 20
+    &gDragPrototypes[18],
+    &gDragPrototypes[21],
+    &gDragPrototypes[21],
+    &gDragPrototypes[11],
+    &gDragPrototypes[12],
+    &gDragPrototypes[41],
+    &gDragPrototypes[16],
+    &gDragPrototypes[17],
+    &gDragPrototypes[41],
+    &gDragPrototypes[15], // 30
+    &gDragPrototypes[41],
+    &gDragPrototypes[41],
+    &gDragPrototypes[13],
+    &gDragPrototypes[14],
+    &gDragPrototypes[22],
+    &gDragPrototypes[41],
+    &gDragPrototypes[41],
+    &gDragPrototypes[24],
+    &gDragPrototypes[41],
+    &gDragPrototypes[20], // 40
+    &gDragPrototypes[23],
+    &gDragPrototypes[6],
+    &gDragPrototypes[27],
+    &gDragPrototypes[41],
+    &gDragPrototypes[41],
+    &gDragPrototypes[41],
+    &gDragPrototypes[41],
+    &gDragPrototypes[26],
+    &gDragPrototypes[28],
+    &gDragPrototypes[29], // 50
+    &gDragPrototypes[25],
+    &gDragPrototypes[41],
+    &gDragPrototypes[30],
+    &gDragPrototypes[31],
+    &gDragPrototypes[19],
+    &gDragPrototypes[41],
+    &gDragPrototypes[41],
+    &gDragPrototypes[0],
+    &gDragPrototypes[34],
+    &gDragPrototypes[35], // 60
+    &gDragPrototypes[36],
+    &gDragPrototypes[37],
+    &gDragPrototypes[21],
+    &gDragPrototypes[0],
+    &gDragPrototypes[38],
+    &gDragPrototypes[39],
+    &gDragPrototypes[40],
+    &gDragPrototypes[40],
+    &gDragPrototypes[32],
+    &gDragPrototypes[33], // 70
+};
 
 std::int32_t Sub_4B0F10(const std::int32_t, const std::int32_t)
 {

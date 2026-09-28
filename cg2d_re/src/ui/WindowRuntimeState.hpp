@@ -203,7 +203,7 @@ struct WindowState {
 };
 
 inline constexpr std::size_t kWindowCount = 71;
-// 真实原型数据/回调绑定待逐项落位，不定义全空数组代替原表。
+// 主原型数据/回调待落位；拖拽表已按71槽/42个原地址绑定真实共享对象。
 extern std::array<WindowPrototype*, kWindowCount> gWindowPrototypes57C130;
 extern std::array<WindowDragPrototype*, kWindowCount> gWindowDragPrototypes57C24C;
 extern std::array<WindowInstance*, kWindowCount> gWindows; // 原C8B094。

@@ -78,6 +78,27 @@ std::int32_t gTradeValueCF4688 = 0;
 std::int32_t gTradeValueD046D0 = 0;
 std::int32_t gTradeValueD2E2B0 = 0;
 std::uint8_t gTradeValueD67B80 = 0;
+login::YobiAction* gTradeWindowActionD67B7C = nullptr;
+std::int32_t gTradeValueCF4A1C = 0;
+std::int32_t gTradeValueD673E0 = 0;
+std::int32_t gTradeValueCC4C94 = 0;
+std::int32_t gTradeValueC8AF68 = 0;
+std::int32_t gTradeValueCB03CC = 0;
+std::int32_t gTradeValueCF4AB8 = 0;
+std::int32_t gTradeValueD67CB8 = 0;
+std::int32_t gTradeValueD67CBC = 0;
+std::int32_t gTradeValueCC3EC4 = 0;
+std::int32_t gTradeValueD66E08 = 0;
+std::int32_t gTradeValueCC2344 = 0;
+std::array<char, 17> gTradeNameD2D654 {};
+std::array<std::array<char, 17>, 10> gWindowListNamesCF3F20 {};
+std::int32_t gWindowListCountCF46A8 = 0;
+WindowListSelectionCallback gWindowListCallbackCB1E14 = nullptr;
+std::int32_t gValueCC4D34 = 0;
+std::int32_t gValueCC4D3C = 0;
+static_assert(sizeof(gTradeNameD2D654) == 17);
+static_assert(sizeof(gWindowListNamesCF3F20) == 170);
+static_assert(sizeof(WindowListSelectionCallback) == 8);
 std::int32_t gSelectedItemCB1DF4 = 0;
 std::int32_t gSelectedItemCB0A44 = 0;
 std::int32_t gSelectedItem57EE0C = -1;
@@ -761,6 +782,89 @@ void Sub_4E5600(const std::int32_t side)
     for (std::int32_t index = 0; index < 20; ++index) {
         Sub_4E54E0(side, index);
     }
+}
+
+std::int32_t Sub_4D3020(const std::int32_t x, const std::int32_t y)
+{
+    gValueCC4D34 = x;
+    gValueCC4D3C = y;
+    return x;
+}
+
+login::YobiAction* Sub_4B0110()
+{
+    gTradeValueD67B80 = 0;
+    login::YobiAction* const action = CreateWindowAnimation_475AA0(43, 1, 0, nullptr);
+    gTradeWindowActionD67B7C = action;
+    return action;
+}
+
+login::YobiAction* Sub_4E5620(const char* const name)
+{
+    gTradeItemsD460D0.fill('\0');
+    gTradePetsC9C108.fill('\0');
+    gTradeValueCF4A1C = 0;
+    gTradeValueD673E0 = 0;
+    gTradeValueCC4C94 = 0;
+    gTradeValueC8AF68 = 0;
+    gTradeValueCF4688 = 0;
+    gTradeValueCB03CC = 0;
+    gTradeValueCF4AB8 = 0;
+    gTradeValueD046D0 = 0;
+    gTradeValueCC4224 = 0;
+    gTradeValueD2E2B0 = 0;
+    Sub_4E5600(1);
+    Sub_4E52B0(1);
+    std::strcpy(gTradeNameD2D654.data(), std::strlen(name) <= 16 ? name : "???");
+    gTradeValueD67CB8 = 0;
+    gTradeValueD67CBC = 0;
+    gTradeValueCC3EC4 = -1;
+    gTradeValueD66E08 = 0;
+    gTradeValueCC2344 = 0;
+    return Sub_4B0110();
+}
+
+void Sub_4E4E60(const std::int32_t index, const char* const name)
+{
+    static_cast<void>(network::Sub_511FF0(platform::gConnectionSocket, index));
+    static_cast<void>(Sub_4E5620(name));
+}
+
+login::YobiAction* Sub_49E800(
+    const char* const text, const WindowListSelectionCallback callback)
+{
+    gWindowListCountCF46A8 = 0;
+    for (auto& name : gWindowListNamesCF3F20) {
+        name[0] = '\0';
+    }
+    std::array<char, 256> buffer;
+    std::int32_t count = 0;
+    for (std::int32_t processed = 0; processed < 10 && count < 10; ++processed) {
+        if (network::ExtractDelimitedField_52CED0(
+                text, '|', processed + 1, 255, buffer.data()) == 1) {
+            break;
+        }
+        input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
+        count = gWindowListCountCF46A8;
+        char* const destination = gWindowListNamesCF3F20[count].data();
+        const std::size_t length = std::strlen(buffer.data()) + 1;
+        const std::size_t prefix = length & ~std::size_t{3};
+        std::memcpy(destination, buffer.data(), prefix);
+        gWindowListCountCF46A8 = ++count;
+        std::memcpy(destination + prefix, buffer.data() + prefix, length - prefix);
+    }
+    gWindowListCallbackCB1E14 = callback;
+    const std::int32_t y =
+        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+    const std::int32_t x =
+        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+    static_cast<void>(Sub_4D3020(x, y));
+    return CreateWindowAnimation_475AA0(44, 1, 0, nullptr);
+}
+
+login::YobiAction* Sub_4E4E80(const char* const text)
+{
+    return Sub_49E800(text, &Sub_4E4E60);
 }
 
 void Sub_4E0100(const std::int32_t side, const std::int32_t index)
@@ -2540,6 +2644,33 @@ login::YobiAction* CreateWindowAnimation_475AA0(
         y = gWindowStates[id].y;
     }
     return login::detail::Sub_475950(x, y, width, height, id, flags, mode, completionSlot);
+}
+
+void Sub_50E3C0(const std::uintptr_t, const char* const text)
+{
+    if (world::detail::gValue9A6E0C != 0) {
+        return;
+    }
+    if (world::ReadRippleGateOnce() != 0) {
+        return;
+    }
+    static_cast<void>(detail::Sub_4E4E80(text));
+}
+
+void Sub_50E3F0(const std::uintptr_t, char* const text, const std::int32_t)
+{
+    if (world::detail::gValue9A6E0C != 0) {
+        return;
+    }
+    if (world::gValueD67E78 != 0) {
+        static_cast<void>(network::Sub_512270(platform::gConnectionSocket, 0));
+        return;
+    }
+    if (world::ReadRippleGateOnce() != 0) {
+        return;
+    }
+    input::UnescapeLegacyTextAndNotify_52D2F0(text);
+    static_cast<void>(detail::Sub_4E5620(text));
 }
 
 std::int32_t Sub_50E440(const std::uintptr_t)

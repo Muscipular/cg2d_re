@@ -336,6 +336,9 @@ std::int32_t Sub_511EF0(
     std::int32_t third,
     const char* text);
 
+// 原 sub_511FF0@[0x511FF0,0x512038)：构造 QeuC、追加选择编号并发送。
+std::int32_t Sub_511FF0(std::uintptr_t socket, std::int32_t index);
+
 // 原 sub_512040@[0x512040,0x5120CE)：构造 aiAb、追加两段文本及整数并发送。
 std::int32_t Sub_512040(
     std::uintptr_t socket,

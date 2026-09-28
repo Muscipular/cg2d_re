@@ -22,6 +22,7 @@ using WindowElementCallback = std::int32_t (*)(std::int32_t index, std::int32_t 
 using WindowValueCallback = void (*)(std::int32_t value);
 using WindowDragCallback = void (*)(
     std::int32_t message, std::int32_t flags, std::int32_t sourceIndex);
+using WindowListSelectionCallback = void (*)(std::int32_t index, const char* text);
 
 // 原type1的24B图形载荷，六个数值字段，不含地址。
 struct WindowGraphicData {
@@ -270,6 +271,24 @@ extern std::int32_t gTradeValueCF4688;
 extern std::int32_t gTradeValueD046D0;
 extern std::int32_t gTradeValueD2E2B0;
 extern std::uint8_t gTradeValueD67B80;
+extern login::YobiAction* gTradeWindowActionD67B7C; // 原43窗口展开动画，仅借用。
+extern std::int32_t gTradeValueCF4A1C; // 原第一个页签数值索引。
+extern std::int32_t gTradeValueD673E0; // 原另一页签，均为数值索引。
+extern std::int32_t gTradeValueCC4C94; // 原四个物品/宠物计数。
+extern std::int32_t gTradeValueC8AF68;
+extern std::int32_t gTradeValueCB03CC;
+extern std::int32_t gTradeValueCF4AB8;
+extern std::int32_t gTradeValueD67CB8; // 交易阶段相关数值，不是地址。
+extern std::int32_t gTradeValueD67CBC;
+extern std::int32_t gTradeValueCC3EC4; // 所选物品数值索引，4E5620写-1。
+extern std::int32_t gTradeValueD66E08; // 所选图号数值。
+extern std::int32_t gTradeValueCC2344; // 交易选择状态。
+extern std::array<char, 17> gTradeNameD2D654;
+extern std::array<std::array<char, 17>, 10> gWindowListNamesCF3F20;
+extern std::int32_t gWindowListCountCF46A8;
+extern WindowListSelectionCallback gWindowListCallbackCB1E14; // 49EF60借用名单文本并弃返回。
+extern std::int32_t gValueCC4D34; // 4D3020保存x/y数值，非CryptInt对象。
+extern std::int32_t gValueCC4D3C;
 extern std::int32_t gSelectedItemCB1DF4;
 extern std::int32_t gSelectedItemCB0A44;
 extern std::int32_t gSelectedItem57EE0C; // 原装载初值-1，窗口51只做单向迁移。
@@ -293,6 +312,12 @@ std::int32_t Sub_4E5710(std::int32_t side); // 先清侧状态，再清物品/�
 void Sub_4E52B0(std::int32_t side); // 同源玩家宠物属性及十项技能按存储索引复制。
 void Sub_4E54E0(std::int32_t side, std::int32_t index); // 背包index+8到交易，不复制描述。
 void Sub_4E5600(std::int32_t side); // 顺序同步20条交易物品。
+std::int32_t Sub_4D3020(std::int32_t x, std::int32_t y); // 同源坐标依序保存，返回x。
+login::YobiAction* Sub_4B0110(); // 清交易U8，创建窗口43动画并发布借用T*。
+login::YobiAction* Sub_4E5620(const char* name); // 全量清交易双侧后复制己方，最后打开43。
+void Sub_4E4E60(std::int32_t index, const char* name); // 先发送选择请求，失败仍继续本地打开。
+login::YobiAction* Sub_49E800(const char* text, WindowListSelectionCallback callback);
+login::YobiAction* Sub_4E4E80(const char* text); // 选择表绑定真实交易回调后打开44。
 void Sub_4E0100(std::int32_t side, std::int32_t index); // 另一展示副本，逐行复制描述。
 std::int32_t Sub_4FB8F0(); // 物品拖动重置，不等同窗口拖动。
 std::int32_t Sub_4FB920(std::int32_t index); // 仅清与本次回复槽号相同的非负拖动编号。

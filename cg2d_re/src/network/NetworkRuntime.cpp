@@ -3230,6 +3230,22 @@ std::int32_t Sub_511EF0(
         reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
 }
 
+// 原 [0x511FF0,0x512038)：容量在格式化前采样，追加和发送各自重读缓冲。
+std::int32_t Sub_511FF0(
+    const std::uintptr_t socket, const std::int32_t index)
+{
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0), "QeuC"));
+    const std::int32_t capacity = std::bit_cast<std::int32_t>(
+        gNetworkRuntimeState.bufferLength);
+    std::uint8_t* const token = FormatProtocolIntegerToken_517120(index);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
+        reinterpret_cast<const char*>(token), capacity));
+    return SendProtocolBuffer_517480(
+        socket, reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
+}
+
 // 原 [0x512040,0x5120CE)：两段文本和整数各自采容量、格式化后重读输出缓冲。
 std::int32_t Sub_512040(
     const std::uintptr_t socket,
@@ -3870,8 +3886,8 @@ std::int32_t NetworkDispatch_512E40(
     if (TryDispatchReply<Sub_50E380, T>(head, "LY", socket)) return 0;
     if (TryDispatchReply<Sub_50E3A0, T>(head, "nFV", socket)) return 0;
     if (TryDispatchReply<Sub_50C7F0, I, I, T>(head, "JgO", socket)) return 0;
-    if (TryDispatchReply<Sub_50E3C0, T>(head, "Cxo", socket)) return 0;
-    if (TryDispatchReply<Sub_50E3F0, T, I>(head, "ms", socket)) return 0;
+    if (TryDispatchReply<ui::Sub_50E3C0, T>(head, "Cxo", socket)) return 0;
+    if (TryDispatchReply<ui::Sub_50E3F0, T, I>(head, "ms", socket)) return 0;
     if (TryDispatchReply<ui::Sub_50E440>(head, "NdM", socket)) return 0;
     if (TryDispatchReply<ui::Sub_50E4A0, T>(head, "nUbJ", socket)) return 0;
     if (TryDispatchReply<ui::Sub_50E470, I>(head, "hJq", socket)) return 0;

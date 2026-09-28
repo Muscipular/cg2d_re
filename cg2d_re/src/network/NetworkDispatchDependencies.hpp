@@ -14,8 +14,6 @@ void Sub_50E340(std::uintptr_t socket, char* text);
 void Sub_50E360(std::uintptr_t socket, char* text);
 void Sub_50E380(std::uintptr_t socket, char* text);
 void Sub_50E3A0(std::uintptr_t socket, char* text);
-void Sub_50E3C0(std::uintptr_t socket, char* text);
-void Sub_50E3F0(std::uintptr_t socket, char* text, std::int32_t value);
 void Sub_50E680(
     std::uintptr_t socket, std::int32_t first, std::int32_t second, std::int32_t third);
 void Sub_50E7D0(std::uintptr_t socket, std::int32_t value);

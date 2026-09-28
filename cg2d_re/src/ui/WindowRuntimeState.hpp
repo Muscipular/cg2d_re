@@ -507,6 +507,12 @@ std::int32_t Sub_48B810(
     const char* footer, std::int8_t footerColor); // 原完整层5提示框。
 std::int32_t Sub_48B450(std::int32_t side, std::int32_t index, std::int32_t page);
 std::int32_t Sub_48B1A0(std::int32_t index, std::int32_t page); // 玩家/所选宠物装备提示。
+std::int32_t Sub_48B350(std::int32_t index, std::int32_t page); // 外部存放物品提示。
+std::int32_t Sub_4B4070(
+    std::int32_t x, std::int32_t y, std::int32_t index,
+    std::int32_t skill); // 外部宠物技能名称行，空行仍绘背景。
+std::int32_t Sub_4B4140(
+    std::int32_t x, std::int32_t y, std::int32_t index); // 外部宠物提示，重量行固定Y=31。
 std::int32_t Sub_4B45A0(
     std::int32_t x, std::int32_t y, std::int32_t side,
     std::int32_t index, std::int32_t skill); // 交易宠物技能行，空文本仍绘制行图。

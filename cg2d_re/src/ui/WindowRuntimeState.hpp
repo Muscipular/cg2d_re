@@ -511,6 +511,10 @@ std::int32_t Sub_48B810(
 std::int32_t Sub_48B450(std::int32_t side, std::int32_t index, std::int32_t page);
 std::int32_t Sub_48B1A0(std::int32_t index, std::int32_t page); // 玩家/所选宠物装备提示。
 std::int32_t Sub_48B350(std::int32_t index, std::int32_t page); // 外部存放物品提示。
+std::int32_t Sub_4AC200(std::int32_t index, std::int32_t state); // 窗口38右上关闭。
+std::int32_t Sub_4A9350(std::int32_t index, std::int32_t state); // 窗口38/41共用关闭按钮。
+std::int32_t Sub_4AC290(std::int32_t index, std::int32_t state); // 窗口38自有物品面板。
+std::int32_t Sub_4AC890(std::int32_t index, std::int32_t state); // 窗口38外部物品面板。
 std::int32_t Sub_4B4070(
     std::int32_t x, std::int32_t y, std::int32_t index,
     std::int32_t skill); // 外部宠物技能名称行，空行仍绘背景。

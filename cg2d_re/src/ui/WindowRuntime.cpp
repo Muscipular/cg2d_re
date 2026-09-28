@@ -4,6 +4,7 @@
 #include "../LoginSceneDependencies.hpp"
 #include "../platform/MainLoopDependencies.hpp"
 #include "../platform/WindowProcedureState.hpp"
+#include "../world/MailState.hpp"
 #include "../world/WorldUpdateDependencies.hpp"
 #include "cg/GraphicInfo.hpp"
 #include "cg/Input.hpp"
@@ -101,6 +102,14 @@ std::int32_t gValueCF4AAC = 0;
 std::int32_t gValueCF4690 = 0;
 std::int32_t gValueCA0440 = 0;
 std::int32_t gValueD67B38 = 0;
+login::YobiAction* gWindowActionCA0174 = nullptr;
+login::YobiAction* gWindowActionD2E928 = nullptr;
+login::YobiAction* gPreviewActionD67B84 = nullptr;
+std::int32_t gValueD67AF8 = 0;
+std::uint8_t gValueD67AFC = 0;
+std::uint8_t gValueD67AFD = 0;
+std::uint8_t gValueD67AFE = 0;
+std::uint8_t gValueD67B24 = 0;
 
 namespace {
 
@@ -1188,6 +1197,247 @@ void Sub_472200()
 {
     for (WindowState& state : gWindowStates) {
         state.marker50 = 0;
+    }
+}
+
+void Sub_472220()
+{
+    for (WindowState& state : gWindowStates) {
+        if (state.window != nullptr) {
+            state.marker50 = 1;
+        }
+    }
+}
+
+void Sub_4722A0()
+{
+    world::gValueD67B08.fill(0);
+    gMouseValue57C110 = 0;
+    gDragSourceIndex57C114 = 0;
+    gDragCallback57C118 = nullptr;
+    gDragY57C11E = 0;
+    gDragX57C11C = 0;
+    gFocusWindowId57C120 = 0;
+    gFocusElementIndex57C124 = -1;
+    gMousePhase57C128 = 0;
+}
+
+void Sub_4722E0()
+{
+    gFocusedElementDataD45F94 = nullptr;
+}
+
+WindowInstance* Sub_4A53D0()
+{
+    gLoginWindowRuntime.prefixD2F0B8.value26C = 1;
+    return OpenWindow_471440(22);
+}
+
+void Sub_4722F0()
+{
+    for (std::int32_t index = 0; index < static_cast<std::int32_t>(kWindowCount); ++index) {
+        if (gWindowStates[index].marker50 != 1) {
+            continue;
+        }
+        switch (index) {
+        case 21:
+        case 22:
+        case 23:
+        case 40:
+            if (gWindowStates[21].marker50 != 0) {
+                static_cast<void>(OpenWindow_471440(21));
+                gWindowStates[21].marker50 = 0;
+            }
+            if (gWindowStates[40].marker50 != 0) {
+                const std::int32_t position = world::detail::gValueD046D4;
+                static_cast<void>(OpenWindow_471440(40));
+                world::detail::gValueD046D4 = position;
+                gWindowStates[40].marker50 = 0;
+            }
+            if (gWindowStates[22].marker50 != 0) {
+                static_cast<void>(Sub_4A53D0());
+                gWindowStates[22].marker50 = 0;
+            }
+            if (gWindowStates[23].marker50 != 0) {
+                static_cast<void>(OpenWindow_471440(23));
+                gWindowStates[23].marker50 = 0;
+            }
+            break;
+        case 33:
+        case 34:
+            static_cast<void>(OpenWindow_471440(index));
+            gWindowStates[index].marker50 = 0;
+            break;
+        default:
+            gWindowStates[index].marker50 = 0;
+            break;
+        }
+    }
+}
+
+void Sub_479640()
+{
+    gValueD67AF8 = 0;
+}
+
+void Sub_4796C0()
+{
+    gValueD67AFC = 0;
+}
+
+void Sub_4796F0()
+{
+    gValueD67AFD = 0;
+}
+
+void Sub_479610()
+{
+    gWindowActionCA0174 = nullptr;
+    gWindowActionD2E928 = nullptr;
+    Sub_479640();
+    Sub_4796C0();
+    Sub_4796F0();
+    gValueD67AFE = 0;
+}
+
+void Sub_4C7AD0()
+{
+    gValueCF4AAC = 0;
+}
+
+namespace {
+
+// 三条重开共用的两轮窄清理；不释放实例，也不清记录的其他字段。
+void ResetWindowReferences()
+{
+    gWindows.fill(nullptr);
+    for (WindowState& state : gWindowStates) {
+        state.window = nullptr;
+    }
+    Sub_4722A0();
+    gCurrentWindowIdD67A1C = 0;
+    gCurrentElementIndex57C12C = -1;
+}
+
+void OpenConfiguredMainWindows()
+{
+    static_cast<void>(OpenWindow_471440(6));
+    switch (gValueCF4690) {
+    case 0:
+        static_cast<void>(OpenWindow_471440(1));
+        break;
+    case 1:
+        static_cast<void>(OpenWindow_471440(2));
+        break;
+    case 2:
+        static_cast<void>(OpenWindow_471440(3));
+        break;
+    default:
+        break;
+    }
+    switch (gValueCA0440) {
+    case 0:
+        static_cast<void>(OpenWindow_471440(4));
+        break;
+    case 1:
+        static_cast<void>(OpenWindow_471440(5));
+        break;
+    default:
+        break;
+    }
+    switch (gChatWindowModeD66E04) {
+    case 0:
+        static_cast<void>(OpenWindow_471440(35));
+        break;
+    case 1:
+        static_cast<void>(OpenWindow_471440(57));
+        break;
+    default:
+        break;
+    }
+}
+
+void OpenLoginSceneWindows_4707C0()
+{
+    ResetWindowReferences();
+    OpenConfiguredMainWindows();
+    Sub_4722F0();
+    Sub_4722E0();
+    gSelectedItemCB1DF4 = -1;
+    gValueD67B24 = 0;
+    Sub_479610();
+    gPreviewActionD67B84 = nullptr;
+    input::gValueC9A96C = 1;
+    static_cast<void>(Sub_4A7B00());
+}
+
+void OpenBattleSceneWindows_471170()
+{
+    ResetWindowReferences();
+    Sub_4722E0();
+    static_cast<void>(OpenWindow_471440(6));
+    static_cast<void>(OpenWindow_471440(2));
+    switch (gChatWindowModeD66E04) {
+    case 0:
+        static_cast<void>(OpenWindow_471440(35));
+        break;
+    case 1:
+        static_cast<void>(OpenWindow_471440(57));
+        break;
+    default:
+        break;
+    }
+    if (gWindowStates[21].marker50 != 0) {
+        static_cast<void>(OpenWindow_471440(21));
+        gWindowStates[21].marker50 = 0;
+    }
+    if (gWindowStates[40].marker50 != 0) {
+        const std::int32_t position = world::detail::gValueD046D4;
+        static_cast<void>(OpenWindow_471440(40));
+        world::detail::gValueD046D4 = position;
+        gWindowStates[40].marker50 = 0;
+    }
+    if (gWindowStates[22].marker50 != 0 || gWindowStates[23].marker50 != 0) {
+        static_cast<void>(OpenWindow_471440(22));
+        gWindowStates[22].marker50 = 0;
+        gWindowStates[23].marker50 = 0;
+    }
+    Sub_479610();
+    WindowInstance* const window22 = gWindowStates[22].window;
+    gPreviewActionD67B84 = nullptr;
+    input::gValueC9A96C = 1;
+    if (window22 == nullptr && gWindowStates[23].window == nullptr) {
+        static_cast<void>(Sub_4A7B00());
+    }
+}
+
+void MarkSceneWindows()
+{
+    for (const std::int32_t id : std::array<std::int32_t, 4>{21, 40, 22, 23}) {
+        if (gWindowStates[id].window != nullptr) {
+            gWindowStates[id].marker50 = 1;
+        }
+    }
+}
+
+} // namespace
+
+void Sub_470980()
+{
+    ResetWindowReferences();
+    Sub_4722E0();
+    OpenConfiguredMainWindows();
+    Sub_4722F0();
+    gSelectedItemCB1DF4 = -1;
+    gValueD67B24 = 0;
+    Sub_479610();
+    const std::int32_t inputGate = input::gValue626C14;
+    gPreviewActionD67B84 = nullptr;
+    if (inputGate == 0) {
+        input::gValueC9A96C = 1;
+    }
+    if (gWindowStates[22].window == nullptr && gWindowStates[23].window == nullptr) {
+        static_cast<void>(Sub_4A7B00());
     }
 }
 
@@ -2562,6 +2812,73 @@ std::int32_t CloseAllWindows_472190()
     const std::int32_t result = network::Sub_511DD0(socket, x, y, 62);
     gValue5F9754 = 0;
     return result;
+}
+
+void ProcessSceneWindows_503E80()
+{
+    using namespace detail;
+    switch (world::gCurrentSceneType) {
+    case 5:
+        Sub_4C7AD0();
+        InitializeLoginWindows_470600();
+        OpenLoginSceneWindows_4707C0();
+        return;
+    case 7:
+    case 11:
+        Sub_472220();
+        static_cast<void>(CloseAllWindows_472190());
+        static_cast<void>(Sub_4C9130());
+        world::detail::Sub_5186A0();
+        static_cast<void>(world::detail::Sub_519300());
+        static_cast<void>(world::detail::Sub_519550());
+        static_cast<void>(world::detail::Sub_534770());
+        static_cast<void>(world::detail::Sub_5348A0());
+        return;
+    case 9:
+        switch (world::gCurrentSceneState) {
+        case 1:
+            MarkSceneWindows();
+            static_cast<void>(CloseAllWindows_472190());
+            Sub_470980();
+            return;
+        case 4:
+        case 200:
+            Sub_472220();
+            static_cast<void>(CloseAllWindows_472190());
+            return;
+        case 204:
+            Sub_470980();
+            return;
+        case 250:
+        case 252:
+            Sub_472220();
+            static_cast<void>(CloseAllWindows_472190());
+            Sub_470980();
+            if (world::gCurrentSceneState == 250) {
+                auto* const bytes = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
+                for (std::size_t index = 0; index < 8; ++index) {
+                    bytes[index] = static_cast<unsigned char>(bytes[index] + 1);
+                }
+            }
+            return;
+        default:
+            return;
+        }
+    case 10:
+        switch (world::gCurrentSceneState) {
+        case 1:
+            OpenBattleSceneWindows_471170();
+            return;
+        case 8:
+            MarkSceneWindows();
+            static_cast<void>(CloseAllWindows_472190());
+            return;
+        default:
+            return;
+        }
+    default:
+        return;
+    }
 }
 
 void CloseWindowsByCategory_472240(const std::uint32_t mask)

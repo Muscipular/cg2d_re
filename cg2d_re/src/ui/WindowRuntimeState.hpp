@@ -246,6 +246,14 @@ extern std::int32_t gValueCF4AAC; // 原设置文件回填与多个UI入口共�
 extern std::int32_t gValueCF4690;
 extern std::int32_t gValueCA0440;
 extern std::int32_t gValueD67B38;
+extern login::YobiAction* gWindowActionCA0174; // 原475AA0返回的借用对象，不是W32标志。
+extern login::YobiAction* gWindowActionD2E928; // 另一窗口动画引用，479610仅清槽。
+extern login::YobiAction* gPreviewActionD67B84; // 原404AE0生产，重开只清引用不释放。
+extern std::int32_t gValueD67AF8; // 原窗口操作计数，不随指针扩宽。
+extern std::uint8_t gValueD67AFC;
+extern std::uint8_t gValueD67AFD;
+extern std::uint8_t gValueD67AFE;
+extern std::uint8_t gValueD67B24;
 extern std::uint8_t gValue5F9754; // 原多窗口/物品UI共享字节，观察进入可能清零。
 extern std::int32_t gChatWidthUnitsC9A930; // 原聊天宽度单位，输入滚动/聊天绘制共用。
 extern std::int32_t gChatWidthRequestC9A934; // 原宽度调整请求，独立于实际宽度。
@@ -336,6 +344,17 @@ std::int32_t Sub_4C92B0(); // 仅清521CH设置文件区。
 std::uint32_t Sub_4C92D0(); // 原序捕获窗口设置，返回窗口33的marker快照。
 std::int32_t Sub_4C9130(); // 打开成功才捕获并保存；原打开失败同样返回1。
 void Sub_472200(); // 仅清71个marker50，不释放窗口。
+void Sub_472220(); // 只将现存窗口marker写1，空窗口保留旧值。
+void Sub_4722A0(); // 完整鼠标/拖动重置，先清D67B08七W32。
+void Sub_4722E0(); // 只清异型元素焦点引用。
+void Sub_4722F0(); // marker严格1才分派，四个特殊窗口按原序恢复。
+WindowInstance* Sub_4A53D0(); // 先写D2F0B8.+26C，再真实打开22，返回借用窗口。
+void Sub_479640(); // 只清窗口操作S32计数。
+void Sub_4796C0(); // 只清D67AFC。
+void Sub_4796F0(); // 只清D67AFD。
+void Sub_479610(); // 清两借用Yobi槽与计数/三个字节，不释放对象。
+void Sub_4C7AD0(); // 只清CF4AAC。
+void Sub_470980(); // 普通场景完整重开，保持626C14与22/23门禁。
 std::int32_t InitializeWindowSystem_4705D0(); // 启动UI完整初始化，返回category加载结果。
 std::int32_t Sub_4923D0(); // 三个UI数值依序写5/0/0。
 void Sub_4B5A90(); // 四条记录只清已证字段和四个文本首字节。

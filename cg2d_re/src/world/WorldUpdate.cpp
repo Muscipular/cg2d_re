@@ -14,6 +14,7 @@
 #include "cg/YobiRuntime.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/MainLoop.hpp"
+#include "cg/ui/WindowRuntime.hpp"
 
 #include <bit>
 #include <cstdio>
@@ -106,7 +107,7 @@ void Update()
         gValueD67E78 = 0;
         cg::NullSub_509080();
         detail::Sub_518780();
-        detail::Sub_503E80();
+        ui::ProcessSceneWindows_503E80();
         login::detail::Sub_43F220();
         gValueFF0D74 = 0;
         gValue9DAD30 = 0;
@@ -136,7 +137,7 @@ void Update()
             detail::Sub_519D50();
             detail::Sub_446470();
             login::detail::YobiClearUp_404D30();
-            detail::Sub_503E80();
+            ui::ProcessSceneWindows_503E80();
             login::detail::Sub_43F220();
             gValue58B6D0 = 1;
             detail::Sub_51D750();

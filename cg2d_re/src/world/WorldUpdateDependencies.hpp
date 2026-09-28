@@ -1016,7 +1016,6 @@ void Sub_50E5D0(
     std::int32_t value18, std::int32_t value1C, std::int32_t value20,
     std::int32_t value24, std::int32_t value28, std::int32_t value2C,
     std::int32_t value30, char* text, const char* name); // 相册记录回复，socket未用。
-std::int8_t Sub_503E80();                  // 原 0x503E80，IDA 原型 char()。
 using cg::audio::Sub_52B990;               // 原 0x52B990。
 std::int32_t Sub_45EBB0();                 // 原 0x45EBB0。
 void Sub_45ED80();                        // 原 [0x45ED80,0x45ED8B)，重置 9A6204。

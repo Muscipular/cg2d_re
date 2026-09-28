@@ -89,6 +89,9 @@ static_assert(sizeof(gPetStorageD64E18) == 0x1E00);
 static_assert(sizeof(gItemDetailStorageCC4D58) == 0x1F7F0);
 static_assert(0x60 + 10 * 0x8C == 0x5D8);
 std::int32_t gTradeValueCC4224 = 0;
+std::int32_t gStorageValueCC4218 = 0;
+const std::array<std::int32_t, 2> gStorageTitleImages54F4E8 {244390, 244320};
+const std::array<std::int32_t, 2> gStoragePanelImages54F4F0 {244391, 244321};
 std::int32_t gTradeValueCF4688 = 0;
 std::int32_t gTradeValueD046D0 = 0;
 std::int32_t gTradeValueD2E2B0 = 0;
@@ -4175,6 +4178,154 @@ WindowInstance* Sub_4AC0C0(
     gWindowStates[38].value14 = static_cast<std::uint32_t>(value14);
     gWindowStates[38].userState.value = static_cast<std::uint32_t>(userState);
     return window;
+}
+
+void Sub_4A83D0()
+{
+    const std::uint32_t kind = gWindowStates[41].value10;
+    if ((kind == 0 && world::detail::gValue581800 == 23)
+        || (kind == 1 && world::detail::gValue581800 == 33)) {
+        world::detail::gValue581800 = -1;
+    }
+    std::array<char, 256> buffer;
+    input::EscapeLegacyTextAndNotify_52D2D0("C", buffer.data(), 255);
+    const std::int32_t userState = std::bit_cast<std::int32_t>(gWindowStates[41].userState.value);
+    const std::int32_t value14 = std::bit_cast<std::int32_t>(gWindowStates[41].value14);
+    const std::int32_t y =
+        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+    const std::int32_t x =
+        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+    static_cast<void>(network::Sub_512620(
+        platform::gConnectionSocket, x, y, value14, userState, 0, buffer.data()));
+    WindowInstance* const numberWindow = gWindowStates[42].window;
+    if (numberWindow != nullptr && gWindowStates[42].value20 == 41) {
+        numberWindow->state |= 0x8000u;
+    }
+    if (input::IsCurrentContext_503E40(nullptr)) {
+        input::SetContext_44B330(&input::gInputContext626AA0);
+    }
+}
+
+std::int32_t Sub_4A9020(const std::int32_t value)
+{
+    if (value == -1) {
+        auto* const title = static_cast<WindowGraphicData*>(gCurrentWindow->elements[36].data);
+        title->imageNo = gStorageTitleImages54F4E8[gWindowStates[41].value10];
+        WindowInstance* const initialWindow = gCurrentWindow;
+        gWindowStates[41].value28 = 0;
+        gWindowStates[41].value24 = 0;
+        auto* const ownPanel = static_cast<WindowGraphicData*>(initialWindow->elements[34].data);
+        ownPanel->imageNo = 243143;
+        auto* const otherPanel = static_cast<WindowGraphicData*>(gCurrentWindow->elements[35].data);
+        otherPanel->imageNo = gStoragePanelImages54F4F0[gWindowStates[41].value10];
+        for (std::int32_t index = 14; index < 34; ++index) {
+            gCurrentWindow->elements[index].visible = 0;
+        }
+        gCurrentWindow->elements[13].visible = 0;
+    }
+    if (Sub_4D3040(1, 1) != 0) {
+        gCurrentWindow->state |= 0x8000u;
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+    }
+    if (gWindowStates[41].value10 == 0 && world::detail::gValue581800 != 23) {
+        gCurrentWindow->state |= 0x8000u;
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+    }
+    if (gWindowStates[41].value10 == 1 && world::detail::gValue581800 != 33) {
+        gCurrentWindow->state |= 0x8000u;
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+    }
+    gStorageValueCC4218 = 0;
+    gWindowStates[41].actionFlags1C = 0xFFFFFFFFu;
+    return 1;
+}
+
+std::int32_t Sub_4A9160(const std::int32_t)
+{
+    std::array<char, 16> buffer;
+    std::sprintf(buffer.data(), "%10d", gStorageValueCC4218);
+    auto* const text = static_cast<WindowTextData*>(gCurrentWindow->elements[13].data);
+    std::strcpy(text->text, buffer.data());
+    WindowElement* elements = gCurrentWindow->elements;
+    const auto* const firstScroll = static_cast<WindowMouseData*>(elements[21].data);
+    if ((firstScroll->flags & 1u) != 0) {
+        gWindowStates[41].value24 = static_cast<std::uint32_t>(Sub_474270(elements + 21, 2));
+    }
+    elements = gCurrentWindow->elements;
+    const auto* const secondScroll = static_cast<WindowMouseData*>(elements[26].data);
+    if ((secondScroll->flags & 1u) != 0) {
+        gWindowStates[41].value28 = static_cast<std::uint32_t>(Sub_474270(elements + 26, 2));
+    }
+    const std::int32_t preview = std::bit_cast<std::int32_t>(gWindowStates[41].actionFlags1C);
+    if (preview >= 0) {
+        if (preview >= 200) {
+            gWindowStates[41].actionFlags1C = static_cast<std::uint32_t>(preview - 200);
+            const bool left = platform::legacy_crypt_int::Less_401DB0(
+                &platform::gLegacyMouseState.mouseX, 320);
+            const std::int32_t x = left ? 413 : 0;
+            const std::int32_t index =
+                std::bit_cast<std::int32_t>(gWindowStates[41].actionFlags1C);
+            if (index < 100) {
+                static_cast<void>(Sub_4B3BF0(x, 0, index));
+            } else {
+                const std::uint8_t externalIndex = static_cast<std::uint8_t>(
+                    static_cast<std::uint8_t>(index) - 100);
+                static_cast<void>(Sub_4B4140(x, 0, externalIndex));
+            }
+        } else {
+            const std::int32_t page = std::bit_cast<std::int32_t>(gWindowStates[41].value20);
+            if (preview >= 100) {
+                static_cast<void>(Sub_48B350(preview - 100, page));
+            } else {
+                static_cast<void>(Sub_48B1A0(preview, page));
+            }
+        }
+    }
+    DrawCurrentWindow_4729B0();
+    return 1;
+}
+
+void Sub_4AC0F0()
+{
+    if (world::detail::gValue581800 == 34) {
+        world::detail::gValue581800 = -1;
+    }
+    WindowInstance* const numberWindow = gWindowStates[42].window;
+    if (numberWindow != nullptr && gWindowStates[42].value20 == 41) {
+        numberWindow->state |= 0x8000u;
+    }
+    if (input::IsCurrentContext_503E40(nullptr)) {
+        input::SetContext_44B330(&input::gInputContext626AA0);
+    }
+}
+
+std::int32_t Sub_4AC140(const std::int32_t)
+{
+    if (Sub_4D3040(1, 1) != 0) {
+        gCurrentWindow->state |= 0x8000u;
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+    }
+    if (world::detail::gValue581800 != 34) {
+        gCurrentWindow->state |= 0x8000u;
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+    }
+    gWindowStates[38].actionFlags1C = 0xFFFFFFFFu;
+    return 1;
+}
+
+std::int32_t Sub_4AC1B0(const std::int32_t)
+{
+    const std::int32_t preview = std::bit_cast<std::int32_t>(gWindowStates[38].actionFlags1C);
+    if (preview >= 0) {
+        const std::int32_t page = std::bit_cast<std::int32_t>(gWindowStates[38].value20);
+        if (preview < 100) {
+            static_cast<void>(Sub_48B1A0(preview, page));
+        } else {
+            static_cast<void>(Sub_48B350(preview - 100, page));
+        }
+    }
+    DrawCurrentWindow_4729B0();
+    return 1;
 }
 
 void Sub_4E02B0(

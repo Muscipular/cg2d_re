@@ -303,6 +303,9 @@ extern std::array<char, 2 * 20 * 0xC4C> gTradeItemsD460D0;
 extern std::array<char, 2 * 5 * 0x5FC> gTradePetsC9C108;
 extern std::array<char, 5 * 0x600> gPetStorageD64E18; // 外部存放宠物，4A84A0原回复区。
 extern std::array<char, 2 * 0xFBF8> gItemDetailStorageCC4D58; // 每组首20条C44物品、末W32金额，间隔未冻结。
+extern std::int32_t gStorageValueCC4218; // 存放窗口41每帧清零、元素13绘制的数值。
+extern const std::array<std::int32_t, 2> gStorageTitleImages54F4E8;
+extern const std::array<std::int32_t, 2> gStoragePanelImages54F4F0;
 extern std::int32_t gTradeValueCC4224;
 extern std::int32_t gTradeValueCF4688;
 extern std::int32_t gTradeValueD046D0;

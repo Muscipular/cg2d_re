@@ -433,6 +433,25 @@ std::uint8_t gValueD67B24 = 0;
 
 namespace {
 
+// 原105F508至category起点；尾段只保留已识别字节跨度，不作为输入正文。
+struct MiniMailComposeState {
+    std::int32_t target;
+    std::array<char, 256> name;
+    std::array<char, 0x404> text104;
+};
+static_assert(offsetof(MiniMailComposeState, name) == 4);
+static_assert(offsetof(MiniMailComposeState, text104) == 0x104);
+static_assert(sizeof(MiniMailComposeState) == 0x508);
+MiniMailComposeState gMiniMailCompose105F508 {};
+WindowInputPrototype gMiniMailInputPrototype580CB0 {
+    {{&input::gInputContextCA0180}, WindowInputReferenceKind::Context},
+    22, 70, 3, 12, 0, {}, 10, 28, 12, 0,
+};
+constexpr char kMiniMailCostHint588588[] =
+    "\xA8\xCF\xA5\xCE\xB0\x67\xA7\x41\xB6\x6C\xA5\xF3\xB5\x6F\xAB\x48"
+    "\xBB\xDD\xAD\x6E\xAA\xE1\xB6\x4F\xC5\x5D\xB9\xF4" "%dG";
+static_assert(sizeof(kMiniMailCostHint588588) == 32);
+
 // 原580870..580900，保留加载时已有的姓名与两行正文原字节。
 struct Window56TextStorage {
     char name[52];
@@ -1395,6 +1414,169 @@ void Sub_4CB530()
 {
     world::detail::gValue581800 = -1;
     static_cast<void>(Sub_4CB9B0(4));
+}
+
+std::int32_t Sub_4CB2F0(const std::int32_t index, const std::int32_t state)
+{
+    if (index != 0) {
+        return 0;
+    }
+    std::int32_t consumed = 0;
+    if ((state & 1) != 0) {
+        static_cast<WindowGraphicData*>(gCurrentWindow->elements[0].data)->imageNo = 244253;
+        char hint[256];
+        std::sprintf(hint, kMiniMailCostHint588588, world::detail::ReadCategoryValue105FA20());
+        std::strcpy(gHoverTextD68AE8.data(), hint);
+        consumed = 1;
+    } else {
+        static_cast<WindowGraphicData*>(gCurrentWindow->elements[0].data)->imageNo = 244251;
+    }
+    if ((state & 2) != 0) {
+        const std::int32_t money = world::detail::ReadPlayerValueFC();
+        if (money >= world::detail::ReadCategoryValue105FA20()) {
+            const auto& profile = world::detail::ReadViewedProfile105ECE0();
+            gMiniMailCompose105F508.target = profile.value00;
+            std::strcpy(gMiniMailCompose105F508.name.data(), profile.text08.data());
+            std::strcpy(gMiniMailCompose105F508.text104.data(), input::LegacyText593850());
+            static_cast<void>(OpenWindow_471440(63));
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        } else {
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        }
+        return 1;
+    }
+    return consumed;
+}
+
+void Sub_4CB5D0()
+{
+    std::strcpy(
+        static_cast<WindowTextData*>(gCurrentWindow->elements[12].data)->text,
+        gMiniMailCompose105F508.name.data());
+    WindowInstance* const window = gCurrentWindow;
+    static_cast<void>(Sub_476570(&gMiniMailInputPrototype580CB0, window->x, window->y, 2));
+    std::int32_t divisor = 1;
+    for (std::int32_t index = 0; index < 8; ++index) {
+        const std::int32_t cost = world::detail::ReadCategoryValue105FA20();
+        static_cast<WindowGraphicData*>(gCurrentWindow->elements[index + 3].data)->imageNo =
+            cost < divisor ? 0 : cost / divisor % 10 + 245520;
+        divisor *= 10;
+    }
+    if (world::detail::ReadCategoryValue105FA20() == 0) {
+        static_cast<WindowGraphicData*>(gCurrentWindow->elements[3].data)->imageNo = 245520;
+    }
+}
+
+std::int32_t Sub_4CB550(const std::int32_t value)
+{
+    if (value == -1) {
+        const std::int32_t mode =
+            gMiniMailCompose105F508.target == world::detail::gMiniMailSelectionD673E4 ? 1 : 0;
+        WindowInstance* const window = gCurrentWindow;
+        static_cast<void>(Sub_476570(&gMiniMailInputPrototype580CB0, window->x, window->y, mode));
+        input::SetContext_44B330(&input::gInputContextCA0180);
+        gFocusedElementDataD45F94 = gCurrentWindow->elements[1].data;
+        static_cast<WindowInputData*>(gCurrentWindow->elements[1].data)->context =
+            &input::gInputContextCA0180;
+        const std::int32_t target = gMiniMailCompose105F508.target;
+        gMiniMailInputPrototype580CB0.text[0] = '\0';
+        world::detail::gMiniMailSelectionD673E4 = target;
+    }
+    Sub_4CB5D0();
+    return 1;
+}
+
+std::int32_t Sub_4CB920(const std::int32_t, const std::int32_t state)
+{
+    std::int32_t consumed = 0;
+    if ((state & 2) != 0) {
+        WindowInstance* const window = gCurrentWindow;
+        if (gFocusedElementDataD45F94 != window->elements[1].data) {
+            static_cast<void>(Sub_476570(
+                &gMiniMailInputPrototype580CB0, window->x, window->y, 1));
+            input::SetContext_44B330(&input::gInputContextCA0180);
+            gFocusedElementDataD45F94 = gCurrentWindow->elements[1].data;
+            static_cast<WindowInputData*>(gCurrentWindow->elements[1].data)->context =
+                &input::gInputContextCA0180;
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        }
+        consumed = 1;
+    }
+    if (input::gCurrentInputData != &input::gInputContextCA0180) {
+        render::DrawInputText_4568A0(&input::gInputContextCA0180);
+    }
+    return consumed;
+}
+
+std::int32_t Sub_4CB6A0(const std::int32_t index, const std::int32_t state)
+{
+    if (index != 2) {
+        return 0;
+    }
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[2].data);
+    std::int32_t consumed = 0;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 244253;
+        char hint[256];
+        std::sprintf(hint, kMiniMailCostHint588588, world::detail::ReadCategoryValue105FA20());
+        std::strcpy(gHoverTextD68AE8.data(), hint);
+        consumed = 1;
+    } else {
+        graphic->imageNo = 244251;
+    }
+    if ((state & 2) == 0) {
+        return consumed;
+    }
+    if (input::gInputContextCA0180.text[0] == '\0') {
+        static_cast<void>(audio::PlaySe_52C450(55, 320));
+        return consumed;
+    }
+    char name[256];
+    char text[1024];
+    char escapedName[256];
+    char escapedText[1024];
+    char combined[1024];
+    char packet[1024];
+    std::strcpy(name, gMiniMailCompose105F508.name.data());
+    std::strcpy(text, input::gInputContextCA0180.text);
+    input::EscapeLegacyText_52D1B0(name, escapedName, 256);
+    input::EscapeLegacyText_52D1B0(text, escapedText, 1024);
+    std::sprintf(
+        combined, "%d|%s|%s|%d", gMiniMailCompose105F508.target, escapedName, escapedText, 0);
+    input::EscapeLegacyTextAndNotify_52D2D0(combined, packet, 1023);
+    const std::int32_t target = world::detail::gDialogTargetD2DE6C;
+    const std::int32_t request = world::detail::gDialogRequestCC21E0;
+    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+    static_cast<void>(network::Sub_512620(
+        platform::gConnectionSocket, x, y, request, target, 8, packet));
+    const std::int32_t contact = world::detail::Sub_534370(gMiniMailCompose105F508.target);
+    if (contact != -1) {
+        std::int32_t time;
+        platform::ReadLegacyTime32_53BA26(&time);
+        const platform::LegacyTm53B8C6* const calendar = platform::LocalTime_53B8C6(&time);
+        const auto* const bytes = reinterpret_cast<const std::byte*>(calendar);
+        std::int32_t minute;
+        std::memcpy(&minute, bytes + 4, sizeof(minute));
+        std::int32_t hour;
+        std::memcpy(&hour, bytes + 8, sizeof(hour));
+        std::int32_t day;
+        std::memcpy(&day, bytes + 12, sizeof(day));
+        std::int32_t month;
+        std::memcpy(&month, bytes + 16, sizeof(month));
+        std::int32_t year;
+        std::memcpy(&year, bytes + 20, sizeof(year));
+        char timestamp[64];
+        std::sprintf(timestamp, "%4d/%2d/%2d %02d:%02d",
+            year + 1900, month + 1, day, hour, minute);
+        world::detail::Sub_5343C0(contact, 1, timestamp, text);
+    }
+    static_cast<void>(Sub_4CB9B0(3));
+    static_cast<void>(Sub_4CB9B0(4));
+    static_cast<void>(audio::PlaySe_52C450(78, 320));
+    input::gInputContextCA0180.text[0] = '\0';
+    world::detail::gMiniMailSelectionD673E4 = -1;
+    return 1;
 }
 
 std::int32_t Sub_4D3020(const std::int32_t x, const std::int32_t y)

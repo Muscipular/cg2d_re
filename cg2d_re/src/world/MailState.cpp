@@ -29,6 +29,7 @@ std::uint32_t gValueCB1384 = 0;
 std::uint32_t gValueCB0354 = 0;
 std::int32_t gValueCF4FC0 = 0;
 std::int32_t gValueD046D4 = 0;
+std::int32_t gMiniMailSelectionD673E4 = 0; // 4C9490清-1，窗口63保存同一发信目标编号。
 static_assert(sizeof(gContactsF19FB0) == 0x1B30);
 static_assert(sizeof(gContactIndicesFDA608) == 0xF0);
 
@@ -73,7 +74,6 @@ static_assert(offsetof(MiniMailRuntimeSlots, messages) == 0x910);
 static_assert(sizeof(MiniMailRuntimeSlots) == 0x10310);
 MiniMailRuntimeSlots gMiniMailRuntime {};
 std::uint32_t gMiniMailSequence1075A88 = 0; // W32序号，先发布低W16再递增。
-std::int32_t gMiniMailSelectionD673E4 = 0; // 4C9490显式写-1，不在静态初值提前写。
 
 static_assert(offsetof(ProfileEntry, value00) == 0);
 static_assert(offsetof(ProfileEntry, value04) == 4);
@@ -232,6 +232,11 @@ std::int32_t CompareContactIndices_4EC030(
 const ProfileRuntimeRecord& ReadViewedProfile105ECE0()
 {
     return gViewedProfile105ECE0;
+}
+
+std::int32_t ReadCategoryValue105FA20()
+{
+    return gCategory105FA10.value10;
 }
 
 void Sub_4EC1A0()

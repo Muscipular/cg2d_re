@@ -28,6 +28,8 @@ struct ProfileRuntimeRecord {
 };
 
 const ProfileRuntimeRecord& ReadViewedProfile105ECE0(); // 窗口62借用4CAC60唯一生产区。
+std::int32_t ReadCategoryValue105FA20(); // 窗口62/63借用category回复费用，不复制owner。
+extern std::int32_t gMiniMailSelectionD673E4; // 同一发信目标，4C9490及窗口63共同更新。
 
 // 原F19FB0的74H联系人记录，三路回复生产，普通邮件与窗口共用。
 struct ContactRuntimeRecord {

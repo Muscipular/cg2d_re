@@ -632,6 +632,7 @@ extern std::int32_t gStallMessageModeD67C34;
 extern std::int32_t gStallMessageValueD67C38;
 void Sub_4CE700(std::int32_t result); // 开摊结果：玩家标志、名字及窗口67首元素。
 void Sub_4CE8B0(std::int32_t result); // 收摊结果：两路均先清玩家标志/等待/门禁。
+void Sub_4CE930(std::int32_t result); // 购买结果：浏览记录和两并行表原序搬移，或显示原提示。
 extern std::int32_t gDragItemIndex584DA4; // 4FB8F0已接重置，4FAEF0拖动生产仍待接。
 extern std::int32_t gDragImageNoD67D24;
 extern std::int32_t gItemDragXCC4880;

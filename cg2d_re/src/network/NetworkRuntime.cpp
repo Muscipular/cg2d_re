@@ -4142,7 +4142,7 @@ std::int32_t NetworkDispatch_512E40(
     if (TryDispatchReply<ui::Sub_50E7D0, I>(head, "Tmrx", socket)) return 0;
     if (TryDispatchReply<ui::Sub_50E7E0, I>(head, "KXhH", socket)) return 0;
     if (TryDispatchReply<Sub_50E7F0, I, I, T, T, T, T>(head, "ft", socket)) return 0;
-    if (TryDispatchReply<Sub_50E820, I>(head, "Yx", socket)) return 0;
+    if (TryDispatchReply<ui::Sub_50E820, I>(head, "Yx", socket)) return 0;
     static_cast<void>(TryDispatchReply<world::detail::Sub_510150, I, T>(head, "iKe", socket));
     static_cast<void>(TryDispatchReply<Sub_510460, I, I, I, I>(head, "kiG", socket));
     static_cast<void>(TryDispatchReply<Sub_510490, T>(head, "TgX", socket));

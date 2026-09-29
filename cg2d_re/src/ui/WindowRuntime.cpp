@@ -439,6 +439,34 @@ std::uint8_t gValueD67B24 = 0;
 
 namespace {
 
+// 原D046D8连续浏览区；仅复用值类型布局，不与玩家或交易区共享存储。
+struct StallBrowseData {
+    std::array<std::byte, 0x6C> header;
+    std::array<world::detail::PlayerItemRecord, 20> items;
+    std::array<std::int32_t, 20> itemValuesD13E74;
+    std::array<std::int32_t, 20> itemValuesD13EC4;
+    std::array<world::detail::PetRuntimeRecord, 5> pets;
+    std::array<std::int32_t, 5> petValuesD2D464;
+    std::array<std::int32_t, 5> petValuesD2D478;
+};
+static_assert(std::is_standard_layout_v<StallBrowseData>);
+static_assert(std::is_trivially_copyable_v<StallBrowseData>);
+static_assert(offsetof(StallBrowseData, items) == 0x6C);
+static_assert(offsetof(StallBrowseData, itemValuesD13E74) == 0xF79C);
+static_assert(offsetof(StallBrowseData, itemValuesD13EC4) == 0xF7EC);
+static_assert(offsetof(StallBrowseData, pets) == 0xF83C);
+static_assert(offsetof(StallBrowseData, petValuesD2D464) == 0x28D8C);
+static_assert(offsetof(StallBrowseData, petValuesD2D478) == 0x28DA0);
+static_assert(sizeof(StallBrowseData) == 0x28DB4);
+StallBrowseData gStallBrowseD046D8 {};
+std::int32_t gStallItemPageD67BC8 = 0;
+std::int32_t gStallItemCountD67BCC = 0;
+std::int32_t gStallPetPageD67BD0 = 0;
+std::int32_t gStallPetCountD67BD4 = 0;
+std::int32_t gStallModeD67BDC = 0;
+std::int32_t gStallItemSelection581124 = -1;
+std::int32_t gStallPetSelection581128 = -1;
+
 std::array<char, 256> gProfileSearchKeyword1075988 {};
 WindowInputPrototype gProfileSearchInputPrototype580A80 {
     {{&input::gInputContextCB0610}, WindowInputReferenceKind::Context},
@@ -1419,6 +1447,86 @@ void Sub_4CE8B0(const std::int32_t result)
     } else if (window != nullptr) {
         window->elements[0].visible = 0;
     }
+}
+
+void Sub_4CE930(const std::int32_t result)
+{
+    if (result == 0) {
+        const std::int32_t mode = gStallModeD67BDC;
+        if (mode == 1) {
+            const std::int32_t index = gStallPetSelection581128 - 5;
+            const std::int32_t count = gStallPetCountD67BD4 - 1;
+            gStallPetCountD67BD4 = count;
+            if (count > 0 && index < count) {
+                const auto remaining = static_cast<std::size_t>(count - index);
+                std::memmove(gStallBrowseD046D8.pets.data() + index,
+                    gStallBrowseD046D8.pets.data() + index + 1,
+                    remaining * sizeof(world::detail::PetRuntimeRecord));
+                std::memmove(gStallBrowseD046D8.petValuesD2D464.data() + index,
+                    gStallBrowseD046D8.petValuesD2D464.data() + index + 1,
+                    remaining * sizeof(std::int32_t));
+                std::memmove(gStallBrowseD046D8.petValuesD2D478.data() + index,
+                    gStallBrowseD046D8.petValuesD2D478.data() + index + 1,
+                    remaining * sizeof(std::int32_t));
+            }
+            const std::int32_t page = gStallPetPageD67BD0;
+            gStallPetSelection581128 = -1;
+            if (count - page < 3 && page > 0) {
+                gStallPetPageD67BD0 = page - 1;
+            }
+        } else if (mode == 0) {
+            const std::int32_t count = gStallItemCountD67BCC - 1;
+            const std::int32_t index = gStallItemSelection581124 - 20;
+            gStallItemCountD67BCC = count;
+            if (count > 0 && index < count) {
+                const auto remaining = static_cast<std::size_t>(count - index);
+                std::memmove(gStallBrowseD046D8.items.data() + index,
+                    gStallBrowseD046D8.items.data() + index + 1,
+                    remaining * sizeof(world::detail::PlayerItemRecord));
+                std::memmove(gStallBrowseD046D8.itemValuesD13E74.data() + index,
+                    gStallBrowseD046D8.itemValuesD13E74.data() + index + 1,
+                    remaining * sizeof(std::int32_t));
+                std::memmove(gStallBrowseD046D8.itemValuesD13EC4.data() + index,
+                    gStallBrowseD046D8.itemValuesD13EC4.data() + index + 1,
+                    remaining * sizeof(std::int32_t));
+            }
+            const std::int32_t page = gStallItemPageD67BC8;
+            gStallItemSelection581124 = -1;
+            if (count - page < 10 && page > 0) {
+                gStallItemPageD67BC8 = page - 1;
+            }
+        }
+        WindowInstance* const window = gWindowStates[68].window;
+        if (window != nullptr) {
+            window->elements[0].visible = 0;
+        }
+        gStallPendingD67C31 = 0;
+        return;
+    }
+    constexpr const char* messages[] {
+        "\xA8\x53\xA6\xB3\xA7\xE4\xA8\xEC\xA6\xD1\xC1\xF3",
+        "\xA6\xD1\xC1\xF3\xAA\xBA\xC5\x75\xA6\xEC\xA4\x77\xB8\x67\xC5\xDC\xA7\xF3",
+        "\xB1\x7A\xAA\xBA\xAA\xAB\xAB\x7E\xAA\xC5\xB6\xA1\xA4\x77\xBA\xA1",
+        "\xB1\x7A\xAA\xBA\xC3\x64\xAA\xAB\xAA\xC5\xB6\xA1\xA4\x77\xBA\xA1",
+        "\xB1\x7A\xAA\xBA\xBF\xFA\xA4\xA3\xB0\xF7",
+        "\xAD\x6E\xB6\x52\xAA\xBA\xAA\x46\xA6\xE8\xA4\x77\xB8\x67\xB0\xE2\xA5\x58",
+        "\xA6\xD1\xC1\xF3\xAA\xBA\xBF\xFA\xA5\x5D\xA4\x77\xBA\xA1",
+        "\xA5\xE6\xA9\xF6\xA5\xA2\xB1\xD1\xA5\x4E\xBD\x58\x38",
+        "\xA5\xE6\xA9\xF6\xA5\xA2\xB1\xD1\xA5\x4E\xBD\x58\x39",
+        "\xA5\xE6\xA9\xF6\xA5\xA2\xB1\xD1\xA5\x4E\xBD\x58\x31\x30",
+        "\xA5\xE6\xA9\xF6\xA5\xA2\xB1\xD1\xA5\x4E\xBD\x58\x31\x31",
+        "\xA5\xE6\xA9\xF6\xA5\xA2\xB1\xD1\xA5\x4E\xBD\x58\x31\x32",
+    };
+    const char* const message = result >= 1 && result <= 12
+        ? messages[result - 1] : "\xC1\xCA\xB6\x52\xA5\xA2\xB1\xD1";
+    std::strcpy(gStallMessageC8A978.data(), message);
+    WindowInstance* const window = gWindowStates[68].window;
+    gStallMessageModeD67C34 = 1;
+    gStallMessageValueD67C38 = 0;
+    if (window != nullptr) {
+        window->elements[0].visible = 1;
+    }
+    gStallPendingD67C31 = 0;
 }
 
 void Sub_4C9F20()
@@ -21068,6 +21176,11 @@ void Sub_50E7D0(const std::uintptr_t, const std::int32_t result)
 void Sub_50E7E0(const std::uintptr_t, const std::int32_t result)
 {
     detail::Sub_4CE8B0(result);
+}
+
+void Sub_50E820(const std::uintptr_t, const std::int32_t result)
+{
+    detail::Sub_4CE930(result);
 }
 
 void Sub_50E3C0(const std::uintptr_t, const char* const text)

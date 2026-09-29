@@ -3979,6 +3979,7 @@ std::array<char, 0x4000> gBattleMQueue59FA18 {};
 std::array<char, 0x1000> gBattleCText5A3A20 {};
 std::array<char, 0x1000> gBattleMText5AAA7C {};
 std::int32_t gBattleMScanOffset5A8A3C = 0;
+std::int32_t gBattleMPreviewOffset5AAA60 = 0;
 login::YobiAction* gBattleSceneAction5ABA94 = nullptr;
 std::array<login::YobiAction*, 22> gBattleAllEntries59E980 {};
 constinit const std::span<login::YobiAction*, 20> gBattleEntries59E980 {

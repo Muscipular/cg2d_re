@@ -254,6 +254,17 @@ std::int32_t TakeBattleMInteger_438F70(YobiAction* action); // 对象载荷64游
 void TakeBattleMString_438FE0(YobiAction* action, char* destination, std::int32_t capacity);
 std::int32_t GetBattlePosition_4237E0(std::int32_t position); // 50/51转20/21，其余原值。
 std::int32_t Sub_43BAA0(); // 完整退出扫描，仅处理CHT/BST，返回1；固定载荷但重取场景对象。
+std::int32_t TakeBattleMPreviewInteger_439600(); // 局部扫描，仅结束时发布5AAA60。
+void TakeBattleMPreviewString_439670(char* destination, std::int32_t capacity);
+std::int32_t GetBattleMPreviewHeader_439700(char* destination); // 预扫描头，不推进5A8A3C。
+std::int32_t TakeBattleMIntegerAt_43B940(std::int32_t* offset); // 显式游标，逐字节发布。
+void TakeBattleMStringAt_43B8C0(std::int32_t* offset, char* destination, std::int32_t capacity);
+void ScanBattleMRideParticipants_439770(std::uint8_t* participants); // 22槽计数，RID试读成功才推进游标。
+std::int32_t ScanBattleMAttackParticipants_439920(std::int32_t skill, std::uint8_t* participants);
+// 原43BF30：mode1只消费预扫描8整数；mode0读对象字段，五输出均为S32非拥有指针。
+void TakeBattleMAuxGraphics_43BF30(
+    YobiAction* action, std::int32_t mode, std::int32_t* firstImage, std::int32_t* secondImage,
+    std::int32_t* firstImages, std::int32_t* secondImages, std::int32_t* values);
 
 std::uint8_t IsBattleAppendEffectSkill_43BD00(std::int32_t skill); // 原技能准入集合，不查询链。
 void AddBattleAppendEffect_43BE00(

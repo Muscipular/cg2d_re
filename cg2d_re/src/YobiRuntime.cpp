@@ -5909,6 +5909,319 @@ void TakeBattleMString_438FE0(YobiAction* const action, char* const destination,
     input::UnescapeLegacyTextAndNotify_52D2F0(destination);
 }
 
+std::int32_t TakeBattleMPreviewInteger_439600()
+{
+    using namespace world::detail;
+    std::int32_t offset = gBattleMPreviewOffset5AAA60;
+    std::uint32_t result = 0;
+    bool hasDigit = false;
+    for (;;) {
+        const auto value = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(gBattleMText5AAA7C[offset]));
+        if (value == 0) {
+            break;
+        }
+        if ((value >= '0' && value <= '9') || (value >= 'A' && value <= 'F')) {
+            if (hasDigit) {
+                result <<= 4;
+            } else {
+                hasDigit = true;
+            }
+            result += static_cast<std::uint32_t>(value - (value < 'A' ? '0' : '7'));
+            ++offset;
+        } else if (hasDigit || value == '|') {
+            gBattleMPreviewOffset5AAA60 = offset;
+            ++offset;
+            break;
+        } else {
+            ++offset;
+        }
+    }
+    gBattleMPreviewOffset5AAA60 = offset;
+    return std::bit_cast<std::int32_t>(result);
+}
+
+void TakeBattleMPreviewString_439670(char* const destination, const std::int32_t capacity)
+{
+    using namespace world::detail;
+    std::int32_t written = 0;
+    for (;;) {
+        const char byte = gBattleMText5AAA7C[gBattleMPreviewOffset5AAA60];
+        const auto value = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(byte));
+        if (byte == '\0') {
+            break;
+        }
+        if (byte == '|') {
+            ++gBattleMPreviewOffset5AAA60;
+            break;
+        }
+        if (written >= capacity - 1) {
+            if (value < 0) {
+                ++gBattleMPreviewOffset5AAA60;
+            }
+            ++gBattleMPreviewOffset5AAA60;
+            continue;
+        }
+        destination[written] = byte;
+        if (value < 0) {
+            const std::int32_t offset = gBattleMPreviewOffset5AAA60;
+            ++written;
+            if (written >= capacity - 1) {
+                gBattleMPreviewOffset5AAA60 = offset + 1;
+                ++gBattleMPreviewOffset5AAA60;
+                continue;
+            }
+            // 原4396AA先读取第二字节，再发布游标；不同于显式游标版本。
+            const char nextByte = gBattleMText5AAA7C[offset + 1];
+            gBattleMPreviewOffset5AAA60 = offset + 1;
+            destination[written] = nextByte;
+        }
+        ++written;
+        ++gBattleMPreviewOffset5AAA60;
+    }
+    destination[written] = '\0';
+    input::UnescapeLegacyTextAndNotify_52D2F0(destination);
+}
+
+std::int32_t GetBattleMPreviewHeader_439700(char* const destination)
+{
+    using namespace world::detail;
+    std::int32_t offset = gBattleMPreviewOffset5AAA60;
+    if (gBattleMText5AAA7C[offset] == '\0' || gBattleMText5AAA7C[offset + 1] == '\0') {
+        return 1;
+    }
+    for (;;) {
+        const auto value = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(gBattleMText5AAA7C[offset]));
+        if (value == 0) {
+            gBattleMPreviewOffset5AAA60 = offset;
+            return 1;
+        }
+        if (value >= 'A' && value <= 'Z') {
+            break;
+        }
+        ++offset;
+    }
+    gBattleMPreviewOffset5AAA60 = offset;
+    std::strncpy(destination, gBattleMText5AAA7C.data() + offset, 3);
+    destination[3] = '\0';
+    gBattleMPreviewOffset5AAA60 += 4;
+    return 0;
+}
+
+std::int32_t TakeBattleMIntegerAt_43B940(std::int32_t* const offset)
+{
+    std::uint32_t result = 0;
+    bool hasDigit = false;
+    for (;;) {
+        const std::int32_t position = *offset;
+        const auto value = std::bit_cast<std::int8_t>(
+            static_cast<std::uint8_t>(world::detail::gBattleMText5AAA7C[position]));
+        if (value == 0) {
+            break;
+        }
+        if ((value >= '0' && value <= '9') || (value >= 'A' && value <= 'F')) {
+            if (hasDigit) {
+                result <<= 4;
+            } else {
+                hasDigit = true;
+            }
+            result += static_cast<std::uint32_t>(value - (value < 'A' ? '0' : '7'));
+            *offset = position + 1;
+        } else if (hasDigit || value == '|') {
+            ++*offset;
+            break;
+        } else {
+            *offset = position + 1;
+        }
+    }
+    return std::bit_cast<std::int32_t>(result);
+}
+
+void TakeBattleMStringAt_43B8C0(
+    std::int32_t* const offset, char* const destination, const std::int32_t capacity)
+{
+    std::int32_t written = 0;
+    for (;;) {
+        const std::int32_t position = *offset;
+        const char byte = world::detail::gBattleMText5AAA7C[position];
+        const auto value = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(byte));
+        if (byte == '\0') {
+            break;
+        }
+        if (byte == '|') {
+            ++*offset;
+            break;
+        }
+        if (written >= capacity - 1) {
+            if (value < 0) {
+                *offset = position + 1;
+            }
+            ++*offset;
+            continue;
+        }
+        destination[written] = byte;
+        if (value < 0) {
+            ++written;
+            if (written >= capacity - 1) {
+                const std::int32_t next = *offset + 1;
+                *offset = next;
+                *offset = next + 1;
+                continue;
+            }
+            const std::int32_t next = *offset + 1;
+            *offset = next;
+            destination[written] = world::detail::gBattleMText5AAA7C[next];
+        }
+        ++written;
+        ++*offset;
+    }
+    destination[written] = '\0';
+    input::UnescapeLegacyTextAndNotify_52D2F0(destination);
+}
+
+void ScanBattleMRideParticipants_439770(std::uint8_t* const participants)
+{
+    using world::detail::gBattleMPreviewOffset5AAA60;
+    std::array<char, 4> header;
+    std::array<char, 32> text;
+    for (;;) {
+        const std::int32_t savedOffset = gBattleMPreviewOffset5AAA60;
+        static_cast<void>(GetBattleMPreviewHeader_439700(header.data()));
+        std::size_t kind = 0;
+        while (kind < kBattleMHeaders553E94.size()
+            && std::strstr(header.data(), kBattleMHeaders553E94[kind]) == nullptr) {
+            ++kind;
+        }
+        if (kind != 22) {
+            gBattleMPreviewOffset5AAA60 = savedOffset;
+            return;
+        }
+        std::int32_t offset = gBattleMPreviewOffset5AAA60;
+        if (TakeBattleMIntegerAt_43B940(&offset) != 0) {
+            gBattleMPreviewOffset5AAA60 = savedOffset;
+            return;
+        }
+        const std::int32_t first = TakeBattleMIntegerAt_43B940(&offset);
+        const std::int32_t second = TakeBattleMIntegerAt_43B940(&offset);
+        static_cast<void>(TakeBattleMIntegerAt_43B940(&offset));
+        TakeBattleMStringAt_43B8C0(&offset, text.data(), 29);
+        static_cast<void>(TakeBattleMIntegerAt_43B940(&offset));
+        for (std::int32_t i = 0; i < 2; ++i) {
+            static_cast<void>(TakeBattleMIntegerAt_43B940(&offset));
+        }
+        for (std::int32_t i = 0; i < 5; ++i) {
+            static_cast<void>(TakeBattleMIntegerAt_43B940(&offset));
+        }
+        const auto firstFlags = static_cast<std::uint8_t>(TakeBattleMIntegerAt_43B940(&offset));
+        TakeBattleMStringAt_43B8C0(&offset, text.data(), 29);
+        for (std::int32_t i = 0; i < 6; ++i) {
+            static_cast<void>(TakeBattleMIntegerAt_43B940(&offset));
+        }
+        const auto secondFlags = static_cast<std::uint8_t>(TakeBattleMIntegerAt_43B940(&offset));
+        if ((firstFlags & 2u) == 0 && (secondFlags & 2u) == 0) {
+            gBattleMPreviewOffset5AAA60 = savedOffset;
+            return;
+        }
+        ++participants[first];
+        ++participants[second];
+        gBattleMPreviewOffset5AAA60 = offset;
+    }
+}
+
+void TakeBattleMAuxGraphics_43BF30(
+    YobiAction* const action, const std::int32_t mode,
+    std::int32_t* const firstImage, std::int32_t* const secondImage,
+    std::int32_t* const firstImages, std::int32_t* const secondImages, std::int32_t* const values)
+{
+    if (mode == 1) {
+        static_cast<void>(TakeBattleMPreviewInteger_439600());
+        static_cast<void>(TakeBattleMPreviewInteger_439600());
+        for (std::int32_t index = 0; index < 2; ++index) {
+            static_cast<void>(TakeBattleMPreviewInteger_439600());
+            static_cast<void>(TakeBattleMPreviewInteger_439600());
+            static_cast<void>(TakeBattleMPreviewInteger_439600());
+        }
+    } else if (mode == 0) {
+        *firstImage = character_select::detail::Sub_51B740(TakeBattleMInteger_438F70(action));
+        *secondImage = character_select::detail::Sub_51B740(TakeBattleMInteger_438F70(action));
+        for (std::int32_t index = 0; index < 2; ++index) {
+            firstImages[index] = character_select::detail::Sub_51B740(TakeBattleMInteger_438F70(action));
+            secondImages[index] = character_select::detail::Sub_51B740(TakeBattleMInteger_438F70(action));
+            values[index] = TakeBattleMInteger_438F70(action);
+        }
+    }
+}
+
+std::int32_t ScanBattleMAttackParticipants_439920(
+    const std::int32_t skill, std::uint8_t* const participants)
+{
+    const std::int32_t first = GetBattlePosition_4237E0(TakeBattleMPreviewInteger_439600());
+    if (first == 255) {
+        return first;
+    }
+    ++participants[first];
+    ++participants[GetBattlePosition_4237E0(TakeBattleMPreviewInteger_439600())];
+    std::int32_t flags = TakeBattleMPreviewInteger_439600();
+    static_cast<void>(TakeBattleMPreviewInteger_439600());
+    std::int32_t currentSkill = skill;
+    if (currentSkill == 81) {
+        static_cast<void>(TakeBattleMPreviewInteger_439600());
+    }
+    if ((flags & 0x800000) != 0) {
+        TakeBattleMAuxGraphics_43BF30(nullptr, 1, nullptr, nullptr, nullptr, nullptr, nullptr);
+    }
+    for (;;) {
+        std::int32_t extraPosition = -1;
+        std::int32_t extraFlags = 0;
+        if (currentSkill == 260 && (flags & 0x80000) != 0) {
+            extraPosition = GetBattlePosition_4237E0(TakeBattleMPreviewInteger_439600());
+            if (extraPosition != 255) {
+                ++participants[extraPosition];
+                extraFlags = TakeBattleMPreviewInteger_439600();
+                static_cast<void>(TakeBattleMPreviewInteger_439600());
+                if ((extraFlags & 0x800000) != 0) {
+                    TakeBattleMAuxGraphics_43BF30(nullptr, 1, nullptr, nullptr, nullptr, nullptr, nullptr);
+                }
+            }
+        }
+        if ((flags & 0x200) != 0) {
+            ++participants[GetBattlePosition_4237E0(TakeBattleMPreviewInteger_439600())];
+        }
+        if (currentSkill == 260) {
+            if ((flags & 0x80000) != 0 && (extraFlags & 0x200) != 0) {
+                ++participants[GetBattlePosition_4237E0(TakeBattleMPreviewInteger_439600())];
+            }
+        } else if (currentSkill == 94) {
+            static_cast<void>(TakeBattleMPreviewInteger_439600());
+        } else if ((currentSkill == 72 || currentSkill == 2017) && (flags & 1) != 0) {
+            extraPosition = GetBattlePosition_4237E0(TakeBattleMPreviewInteger_439600());
+            ++participants[extraPosition];
+            const std::int32_t extraAttackFlags = TakeBattleMPreviewInteger_439600();
+            static_cast<void>(TakeBattleMPreviewInteger_439600());
+            if ((extraAttackFlags & 0x800000) != 0) {
+                TakeBattleMAuxGraphics_43BF30(nullptr, 1, nullptr, nullptr, nullptr, nullptr, nullptr);
+            }
+            if ((extraAttackFlags & 0x200) != 0) {
+                ++participants[GetBattlePosition_4237E0(TakeBattleMPreviewInteger_439600())];
+            }
+        }
+        if (extraPosition == 255) {
+            return first;
+        }
+        const std::int32_t next = GetBattlePosition_4237E0(TakeBattleMPreviewInteger_439600());
+        if (next == 255) {
+            return first;
+        }
+        ++participants[next];
+        ++participants[GetBattlePosition_4237E0(TakeBattleMPreviewInteger_439600())];
+        flags = TakeBattleMPreviewInteger_439600();
+        static_cast<void>(TakeBattleMPreviewInteger_439600());
+        if ((flags & 0x800000) != 0) {
+            TakeBattleMAuxGraphics_43BF30(nullptr, 1, nullptr, nullptr, nullptr, nullptr, nullptr);
+        }
+        currentSkill = -1;
+    }
+}
+
 std::int32_t GetBattlePosition_4237E0(const std::int32_t position)
 {
     if (position == 50) {

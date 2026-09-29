@@ -639,6 +639,10 @@ std::int32_t Sub_4CD420(std::int32_t index, std::int32_t state); // 两等待门
 void Sub_4CDE00(); // 67/68共用释放，条件发送后无条件SE57。
 std::int32_t Sub_4CDB10(std::int32_t unusedValue); // 两类摊位预览、失效上架剔除与提示绘制。
 std::int32_t Sub_4D27C0(std::int32_t value); // 当前选择追加到自身上架表，先清选择最后发布数量。
+std::int32_t Sub_4CD4F0(std::int32_t value); // 共用初始化、双滚动/输入同步、文本绘制及金额尾。
+std::int32_t Sub_4D2080(std::int32_t unusedIndex, std::int32_t state); // 固定元素8说明编辑，hover不消费。
+std::int32_t Sub_4D2170(std::int32_t unusedIndex, std::int32_t state); // 固定元素6名称编辑，同源Input对象。
+extern std::array<char, 16> gStallMoneyText57B440; // 原可变金额串，止于下一数字原型57B450。
 extern std::int32_t gDragItemIndex584DA4; // 4FB8F0已接重置，4FAEF0拖动生产仍待接。
 extern std::int32_t gDragImageNoD67D24;
 extern std::int32_t gItemDragXCC4880;

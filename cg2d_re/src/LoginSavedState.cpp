@@ -1102,6 +1102,16 @@ char* GetCurrentSavedInputValueFF4982()
     return gCurrentSavedRecord.parts[0].text + 0x66;
 }
 
+char* GetCurrentSavedStallNameFF4D18()
+{
+    return reinterpret_cast<char*>(&gCurrentSavedRecord) + 0x400;
+}
+
+char* GetCurrentSavedStallDescriptionFF4D28()
+{
+    return reinterpret_cast<char*>(&gCurrentSavedRecord) + 0x410;
+}
+
 std::int32_t& gSelectedSavedSlot105C394 = gSavedState.selected;
 std::int32_t& gVisibleSavedSlotCount105C364 = gSavedState.visibleCount;
 

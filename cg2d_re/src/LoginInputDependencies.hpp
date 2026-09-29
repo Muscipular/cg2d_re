@@ -44,6 +44,9 @@ void RestoreCapability4CurrentSavedRecord();
 char* GetCurrentSavedInputValueFF494F();
 // 原 [0xFF4982,0xFF49B5)：当前保存记录内的第三输入槽。
 char* GetCurrentSavedInputValueFF4982();
+// 同一510H当前保存记录的+400/+410；摆摊读取默认值，发送路径写回原区。
+char* GetCurrentSavedStallNameFF4D18();
+char* GetCurrentSavedStallDescriptionFF4D28();
 
 // 原 dword_105C394@0x105C394：当前选中的持久槽索引，引用唯一共享存储。
 extern std::int32_t& gSelectedSavedSlot105C394;

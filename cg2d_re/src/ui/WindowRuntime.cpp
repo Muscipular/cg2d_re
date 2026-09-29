@@ -2,6 +2,7 @@
 
 #include "../CharacterSelectSceneDependencies.hpp"
 #include "../CharacterSelectState.hpp"
+#include "../LoginInputDependencies.hpp"
 #include "../LoginMessageDependencies.hpp"
 #include "../LoginSceneDependencies.hpp"
 #include "../platform/MainLoopDependencies.hpp"
@@ -50,6 +51,7 @@ std::array<char, 17> gStallNameD67BE4 {};
 std::uint8_t gStallPendingD67C31 = 0;
 std::int32_t gStallMessageModeD67C34 = 0;
 std::int32_t gStallMessageValueD67C38 = 0;
+std::array<char, 16> gStallMoneyText57B440 {'0', '1', '2', '3', '4', '5', '6', '7'};
 std::int32_t gDragItemIndex584DA4 = -1;
 std::int32_t gDragImageNoD67D24 = 0;
 std::int32_t gItemDragXCC4880 = 0;
@@ -441,7 +443,10 @@ namespace {
 
 // 原D046D8连续浏览区；仅复用值类型布局，不与玩家或交易区共享存储。
 struct StallBrowseData {
-    std::array<std::byte, 0x60> header;
+    std::array<char, 17> sellerName00;
+    std::array<char, 17> stallName11;
+    std::array<char, 57> description22;
+    std::array<std::byte, 5> bytes5B;
     std::int32_t imageNo60;
     std::int32_t action64;
     std::int32_t direction68;
@@ -454,6 +459,10 @@ struct StallBrowseData {
 };
 static_assert(std::is_standard_layout_v<StallBrowseData>);
 static_assert(std::is_trivially_copyable_v<StallBrowseData>);
+static_assert(offsetof(StallBrowseData, sellerName00) == 0);
+static_assert(offsetof(StallBrowseData, stallName11) == 0x11);
+static_assert(offsetof(StallBrowseData, description22) == 0x22);
+static_assert(offsetof(StallBrowseData, bytes5B) == 0x5B);
 static_assert(offsetof(StallBrowseData, imageNo60) == 0x60);
 static_assert(offsetof(StallBrowseData, action64) == 0x64);
 static_assert(offsetof(StallBrowseData, direction68) == 0x68);
@@ -475,6 +484,17 @@ std::int32_t gStallPetSelection581128 = -1;
 std::uint8_t gStallOwn58111C = 1;
 std::int32_t gStallHover581120 = -1;
 std::int32_t gStallDescriptionPageD67C3C = 0;
+std::int32_t gStallPetCandidatePageD67BD8 = 0;
+std::array<char, 57> gStallDescriptionD67BF8 {};
+WindowInputPrototype gStallNameInput581130 {
+    {{&input::gInputContextCB0028}, WindowInputReferenceKind::Context},
+    230, 11, 3, 4, 0, {}, 1, 16, 0, 0,
+};
+WindowInputPrototype gStallDescriptionInput581360 {
+    {{&input::gInputContextCC2378}, WindowInputReferenceKind::Context},
+    299, 51, 3, 12, 0, {}, 2, 28, 14, 0,
+};
+constexpr char kStallInputHint586450[] = "\xBD\xD0\xBF\xE9\xA4\x4A\xB4\x79\xAD\x7A";
 
 // 自身摊位上架项只引用玩家槽号；不同于浏览摊位的两张并行数值表。
 struct StallOffer {
@@ -1429,6 +1449,207 @@ std::int32_t Sub_4D27C0(const std::int32_t value)
         return count + 1;
     }
     return mode - 1;
+}
+
+std::int32_t Sub_4CD4F0(const std::int32_t value)
+{
+    if (value == -1) {
+        WindowInstance* const initial = gCurrentWindow;
+        const std::int32_t id = initial->id;
+        gStallItemPageD67BC8 = 0;
+        if (id == 67) {
+            gStallItemCountD67BCC = 0;
+            gStallPetPageD67BD0 = 0;
+            gStallPetCountD67BD4 = 0;
+            gStallPetCandidatePageD67BD8 = 0;
+            gStallModeD67BDC = 0;
+            gStallOwn58111C = 1;
+        } else {
+            gStallPetPageD67BD0 = 0;
+            gStallPetCandidatePageD67BD8 = 0;
+            gStallModeD67BDC = 0;
+            gStallOwn58111C = 0;
+        }
+        gStallHover581120 = -1;
+        gStallItemSelection581124 = -1;
+        gStallPetSelection581128 = -1;
+        std::memset(gStallItemUsedCC31AC.data(), 0, 4);
+        std::memset(gStallItemUsedCC31AC.data() + 4, 0, 4);
+        std::memset(gStallPetUsedCF400C.data(), 0, 4);
+        std::memset(gStallItemUsedCC31AC.data() + 8, 0, 4);
+        gValueD67BE0 = 0;
+        std::memset(gStallItemUsedCC31AC.data() + 12, 0, 4);
+        gStallDescriptionPageD67C3C = 0;
+        gStallNameD67BE4[0] = '\0';
+        gStallDescriptionD67BF8[0] = '\0';
+        std::memset(gStallItemUsedCC31AC.data() + 16, 0, 4);
+        gStallPetUsedCF400C[4] = 0;
+        initial->elements[0].visible = 0;
+        gCurrentWindow->elements[1].visible = 0;
+    }
+    char lineText[32];
+    if (gStallOwn58111C != 0) {
+        const bool showScroll = gStallModeD67BDC == 1
+            ? gStallPetCountD67BD4 > 3 : gStallItemCountD67BCC > 10;
+        gCurrentWindow->elements[37].visible = showScroll ? 1 : 0;
+        WindowElement* elements = gCurrentWindow->elements;
+        if ((static_cast<WindowMouseData*>(elements[38].data)->flags & 1u) != 0) {
+            if (gStallModeD67BDC == 1) {
+                gStallPetPageD67BD0 = Sub_474270(elements + 38, gStallPetCountD67BD4 - 3);
+            } else {
+                gStallItemPageD67BC8 = Sub_474270(elements + 38, gStallItemCountD67BCC - 10);
+            }
+        }
+        elements = gCurrentWindow->elements;
+        if ((static_cast<WindowMouseData*>(elements[42].data)->flags & 1u) != 0
+            && gStallModeD67BDC == 1) {
+            gStallPetCandidatePageD67BD8 = Sub_474270(elements + 42, 1);
+        }
+        std::strcpy(static_cast<WindowTextData*>(gCurrentWindow->elements[4].data)->text,
+            world::detail::BorrowPlayerDisplayText(1));
+        gCurrentWindow->elements[7].visible = 0;
+        if (input::gCurrentInputData == &input::gInputContextCC2378
+            && gValueD67BE0 == 0 && gStallOwn58111C != 0) {
+            WindowInstance* const window = gCurrentWindow;
+            static_cast<void>(Sub_476570(&gStallDescriptionInput581360, window->x, window->y, 1));
+            std::strncpy(gStallDescriptionD67BF8.data(),
+                gStallDescriptionInput581360.input.context->text, 56);
+            gStallDescriptionD67BF8[56] = '\0';
+        } else if (std::strlen(gStallDescriptionD67BF8.data()) != 0) {
+            for (std::int32_t line = 0; line < 3; ++line) {
+                static_cast<void>(input::ExtractLegacyLine_503AB0(
+                    lineText, 32, gStallDescriptionD67BF8.data(), line, 28));
+                WindowInstance* const window = gCurrentWindow;
+                WindowElement* const current = window->elements;
+                const std::int16_t y = std::bit_cast<std::int16_t>(
+                    static_cast<std::uint16_t>(current[8].y + window->y + line * 14));
+                const std::int16_t x = std::bit_cast<std::int16_t>(
+                    static_cast<std::uint16_t>(current[8].x + window->x));
+                static_cast<void>(render::DrawText_456780(x, y, 3, 8, 0, lineText, 0, 0));
+            }
+        } else {
+            const char* const source = login::detail::GetCurrentSavedStallDescriptionFF4D28();
+            const std::size_t bytes = std::strlen(source) + 1;
+            WindowInstance* const window = gCurrentWindow;
+            std::memcpy(gStallDescriptionD67BF8.data(), source, bytes);
+            window->elements[7].visible = 1;
+        }
+        gCurrentWindow->elements[5].visible = 0;
+        if (input::gCurrentInputData == &input::gInputContextCB0028
+            && gValueD67BE0 == 0 && gStallOwn58111C != 0) {
+            WindowInstance* const window = gCurrentWindow;
+            static_cast<void>(Sub_476570(&gStallNameInput581130, window->x, window->y, 1));
+            std::strncpy(gStallNameD67BE4.data(), gStallNameInput581130.input.context->text, 16);
+            gStallNameD67BE4[16] = '\0';
+        } else if (std::strlen(gStallNameD67BE4.data()) != 0) {
+            WindowInstance* const window = gCurrentWindow;
+            WindowElement* const current = window->elements;
+            const std::int16_t y = std::bit_cast<std::int16_t>(
+                static_cast<std::uint16_t>(current[6].y + window->y));
+            const std::int16_t x = std::bit_cast<std::int16_t>(
+                static_cast<std::uint16_t>(current[6].x + window->x));
+            static_cast<void>(render::DrawText_456780(x, y, 3, 4,
+                std::bit_cast<std::int8_t>(std::uint8_t{0x8C}), gStallNameD67BE4.data(), 0, 0));
+        } else {
+            const char* const source = login::detail::GetCurrentSavedStallNameFF4D18();
+            const std::size_t bytes = std::strlen(source) + 1;
+            WindowInstance* const window = gCurrentWindow;
+            std::memcpy(gStallNameD67BE4.data(), source, bytes);
+            window->elements[5].visible = 1;
+        }
+        const std::uint8_t gate = gValueD67BE0;
+        gStallHover581120 = -1;
+        if (gate != 0) {
+            gCurrentWindow->elements[30].visible = 0;
+            gCurrentWindow->elements[31].visible = 1;
+        } else {
+            gCurrentWindow->elements[30].visible = 1;
+            gCurrentWindow->elements[31].visible = 0;
+        }
+    } else {
+        const bool showScroll = gStallModeD67BDC == 1
+            ? gStallPetCountD67BD4 > 3 : gStallItemCountD67BCC > 10;
+        gCurrentWindow->elements[32].visible = showScroll ? 1 : 0;
+        WindowElement* elements = gCurrentWindow->elements;
+        if ((static_cast<WindowMouseData*>(elements[33].data)->flags & 1u) != 0) {
+            if (gStallModeD67BDC == 1) {
+                gStallPetPageD67BD0 = Sub_474270(elements + 33, gStallPetCountD67BD4 - 3);
+            } else {
+                gStallItemPageD67BC8 = Sub_474270(elements + 33, gStallItemCountD67BCC - 10);
+            }
+        }
+        elements = gCurrentWindow->elements;
+        if ((static_cast<WindowMouseData*>(elements[37].data)->flags & 1u) != 0
+            && gStallModeD67BDC == 1) {
+            gStallPetCandidatePageD67BD8 = Sub_474270(elements + 37, 1);
+        }
+        std::strcpy(static_cast<WindowTextData*>(gCurrentWindow->elements[4].data)->text,
+            gStallBrowseD046D8.sellerName00.data());
+        std::strcpy(static_cast<WindowTextData*>(gCurrentWindow->elements[5].data)->text,
+            gStallBrowseD046D8.stallName11.data());
+        for (std::int32_t line = 0; line < 3; ++line) {
+            static_cast<void>(input::ExtractLegacyLine_503AB0(
+                lineText, 32, gStallBrowseD046D8.description22.data(), line, 28));
+            WindowInstance* const window = gCurrentWindow;
+            WindowElement* const current = window->elements;
+            const std::int16_t y = std::bit_cast<std::int16_t>(
+                static_cast<std::uint16_t>(current[6].y + window->y + line * 14));
+            const std::int16_t x = std::bit_cast<std::int16_t>(
+                static_cast<std::uint16_t>(current[6].x + window->x));
+            static_cast<void>(render::DrawText_456780(x, y, 3, 8, 0, lineText, 0, 0));
+        }
+        gStallHover581120 = -1;
+    }
+    std::sprintf(gStallMoneyText57B440.data(), "%d", world::detail::ReadPlayerValueFC());
+    return 1;
+}
+
+std::int32_t Sub_4D2080(const std::int32_t, const std::int32_t state)
+{
+    if (gValueD67BE0 != 0 || gStallOwn58111C == 0) {
+        return 0;
+    }
+    if ((state & 1) != 0) {
+        std::strcpy(gHoverTextD68AE8.data(), kStallInputHint586450);
+    }
+    if ((state & 2) != 0) {
+        WindowInstance* const window = gCurrentWindow;
+        if (gFocusedElementDataD45F94 != window->elements[8].data) {
+            std::strcpy(gStallDescriptionInput581360.text.data(), gStallDescriptionD67BF8.data());
+            static_cast<void>(Sub_476570(&gStallDescriptionInput581360, window->x, window->y, 0));
+            input::SetContext_44B330(&input::gInputContextCC2378);
+            WindowInstance* const current = gCurrentWindow;
+            gFocusedElementDataD45F94 = current->elements[8].data;
+            static_cast<WindowInputData*>(current->elements[8].data)->context =
+                &input::gInputContextCC2378;
+        }
+        return 1;
+    }
+    return 0;
+}
+
+std::int32_t Sub_4D2170(const std::int32_t, const std::int32_t state)
+{
+    if (gValueD67BE0 != 0 || gStallOwn58111C == 0) {
+        return 0;
+    }
+    if ((state & 1) != 0) {
+        std::strcpy(gHoverTextD68AE8.data(), kStallInputHint586450);
+    }
+    if ((state & 2) != 0) {
+        WindowInstance* const window = gCurrentWindow;
+        if (gFocusedElementDataD45F94 != window->elements[6].data) {
+            std::strcpy(gStallNameInput581130.text.data(), gStallNameD67BE4.data());
+            static_cast<void>(Sub_476570(&gStallNameInput581130, window->x, window->y, 0));
+            input::SetContext_44B330(&input::gInputContextCB0028);
+            WindowInstance* const current = gCurrentWindow;
+            gFocusedElementDataD45F94 = current->elements[6].data;
+            static_cast<WindowInputData*>(current->elements[6].data)->context =
+                &input::gInputContextCB0028;
+        }
+        return 1;
+    }
+    return 0;
 }
 
 std::int32_t Sub_4CDB10(const std::int32_t)

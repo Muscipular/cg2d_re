@@ -96,14 +96,6 @@ std::int32_t SignedLowWord(const std::uint32_t valueBits) noexcept
             static_cast<std::uint16_t>(valueBits)));
 }
 
-void AddAssignLegacyCryptInt_401E20(
-    LegacyCryptInt* value,
-    const std::int32_t amount)
-{
-    const std::int32_t result = legacy_crypt_int::Add_401E10(value, amount);
-    legacy_crypt_int::SetNorVal_401F50(value, result);
-}
-
 void UpdateProtectionChecksum(
     LegacyCryptInt* checksum,
     const std::uint8_t* table)
@@ -120,7 +112,7 @@ void UpdateProtectionChecksum(
                 break;
             }
 
-            AddAssignLegacyCryptInt_401E20(
+            legacy_crypt_int::AddAssign_401E20(
                 checksum,
                 static_cast<std::int32_t>(
                     std::bit_cast<std::int8_t>(byte)));

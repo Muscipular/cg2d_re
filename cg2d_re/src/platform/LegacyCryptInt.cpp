@@ -101,6 +101,18 @@ std::int32_t Add_401E10(LegacyCryptInt* value, const std::int32_t amount)
     return FromBits(result);
 }
 
+void AddAssign_401E20(LegacyCryptInt* const value, const std::int32_t amount)
+{
+    const std::int32_t result = Add_401E10(value, amount);
+    SetNorVal_401F50(value, result);
+}
+
+void SubtractAssign_401E40(LegacyCryptInt* const value, const std::int32_t amount)
+{
+    const std::int32_t result = Subtract_401E60(value, amount);
+    SetNorVal_401F50(value, result);
+}
+
 std::int32_t Subtract_401E60(
     LegacyCryptInt* value, const std::int32_t amount)
 {
@@ -137,6 +149,12 @@ bool NotEqual_401D20(LegacyCryptInt* lhs, LegacyCryptInt* rhs)
 bool Greater_401D40(LegacyCryptInt* value, std::int32_t threshold)
 {
     return Read_401EC0(value) > threshold;
+}
+
+bool GreaterCrypt_401D50(LegacyCryptInt* const lhs, LegacyCryptInt* const rhs)
+{
+    const std::int32_t right = Read_401EC0(rhs);
+    return Read_401EC0(lhs) > right;
 }
 
 bool GreaterEqual_401D70(LegacyCryptInt* value, std::int32_t minimum)

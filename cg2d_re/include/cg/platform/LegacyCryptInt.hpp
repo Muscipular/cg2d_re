@@ -53,6 +53,8 @@ std::int32_t Increment_401DE0(LegacyCryptInt* value, std::int32_t unused);
 
 // 原 CryptInt::add@[0x401E10,0x401E1C)，只读取一次后作 int32 位模式回绕加法。
 std::int32_t Add_401E10(LegacyCryptInt* value, std::int32_t amount);
+void AddAssign_401E20(LegacyCryptInt* value, std::int32_t amount); // 单次读取后加并SetNorVal。
+void SubtractAssign_401E40(LegacyCryptInt* value, std::int32_t amount); // 单次读取后减并SetNorVal。
 
 // 原 CryptInt::dec@[0x401E60,0x401E6C)，只读取一次后作完整 W32 差值。
 std::int32_t Subtract_401E60(LegacyCryptInt* value, std::int32_t amount);
@@ -68,6 +70,7 @@ bool Equal_401D00(LegacyCryptInt* value, std::int32_t expected);
 // 原 CryptInt::neq@[0x401D20,0x401D40)：先读右对象，再读左对象。
 bool NotEqual_401D20(LegacyCryptInt* lhs, LegacyCryptInt* rhs);
 bool Greater_401D40(LegacyCryptInt* value, std::int32_t threshold);
+bool GreaterCrypt_401D50(LegacyCryptInt* lhs, LegacyCryptInt* rhs); // 先右后左各读一次，即使别名。
 bool GreaterEqual_401D70(LegacyCryptInt* value, std::int32_t minimum);
 bool LessEqual_401DA0(LegacyCryptInt* value, std::int32_t maximum);
 bool Less_401DB0(LegacyCryptInt* value, std::int32_t maximum);

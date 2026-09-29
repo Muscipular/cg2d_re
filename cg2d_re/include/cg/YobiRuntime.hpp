@@ -287,6 +287,10 @@ void UpdateBattleOneShotEffect_419FA0(YobiAction* action); // PlayFrame(1)严格
 YobiAction* NewBattleRandomEffect_419FC0(
     YobiAction* parent, std::int32_t imageNo, std::int32_t direction); // X/Y分别取随机并重读尺寸。
 void UpdateBattleFloatingIcon_41F450(YobiAction* action); // 未舍入速度推进Y，停留60帧后标死并投影。
+void UpdateBattleNumber_41F110(YobiAction* action); // 延迟后整数累加屏幕Y，停留50帧；独立投影文字坐标。
+std::int32_t NewBattleNumber_41F1A0(
+    std::int32_t x, std::int32_t y, std::int32_t value, std::int32_t style,
+    std::int32_t fontType, std::uint32_t flags); // 逐字符创建，失败保留已建对象，恒返回0。
 YobiAction* NewBattleFloatingIcon_41F4C0(
     YobiAction* parent, std::int32_t imageNo, std::int32_t offsetX, std::int32_t offsetY);
 void NewBattleRebirthEffects_4208F0(YobiAction* source, YobiAction* target); // 消费1080低S8，不读106C。
@@ -349,6 +353,7 @@ std::int32_t TakeBattleAuxEffects_43BC90(
 // 原406390：固定当前flags/position，五块独立执行；附加块消费四输出，逐调用重取对象。
 void ApplyBattleEffectFlags_406390(std::int32_t sourcePosition, YobiAction* action);
 void ApplyBattleCastEffects_416DB0(YobiAction* action); // 动作235：先应用效果，再推进动作队列。
+std::int32_t UpdateBattleAction237_416DD0(YobiAction* action); // 完整动作237，返回最终PlayFrame结果。
 // 原43BF30：mode1只消费预扫描8整数；mode0读对象字段，五输出均为S32非拥有指针。
 void TakeBattleMAuxGraphics_43BF30(
     YobiAction* action, std::int32_t mode, std::int32_t* firstImage, std::int32_t* secondImage,
@@ -368,6 +373,10 @@ void Sub_43C040(); // 命令初始化逐槽清flags bit40，不改变其他位�
 void DrawBattleEntryHover_43C0A0(std::int32_t index); // 固定可选对象，按DX尺寸和播放偏移画框。
 std::int32_t GetSelectedBattleEntry_43C120(); // 返回单体/邻接/阵营/全体目标编号，先快照目标位与命中。
 void Sub_405CB0(YobiAction* action); // 角度只校正一圈，按八个不等宽区间写方向。
+void MoveBattleByAngle_405EA0(YobiAction* action); // X存回F32后才计算Y，角度/速度按原序读取。
+void TurnBattleToward_406190(
+    YobiAction* action, YobiAction* target, std::int32_t updateDirection, float step);
+std::int32_t GetBattleDistance_406300(YobiAction* first, YobiAction* second); // 平方和先舍入F32再开方。
 void Sub_406260(YobiAction* action); // 载荷反向坐标差转角度，再更新方向。
 void InitBattleCastList_4390E0(std::int32_t index); // 22槽索引，保留禁用/phase13门禁。
 void ResetBattleCastList_4391E0(std::int32_t index); // 恢复重置，不清忙状态、技能或转向。

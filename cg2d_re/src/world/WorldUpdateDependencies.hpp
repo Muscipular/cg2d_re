@@ -1071,6 +1071,11 @@ std::int32_t ReadPlayerValueFC() noexcept; // 原FDA7FC，交易面板借用同�
 std::int32_t ReadPlayerValue16C() noexcept; // 原FDA86C，窗口54借读509650生产的总技能槽数。
 std::int32_t ReadPlayerValue15BCC() noexcept; // 原FF02CC，库存第二数值文本借读同源回复字段。
 std::int32_t ReadPlayerLevel() noexcept; // 原FDA704，存放宠物费用读取同源等级。
+std::int32_t ReadPlayerInjury() noexcept; // 原FDA7F4，属性选择列表使用同一伤势。
+std::int32_t ReadPlayerHpOnce(); // 原FDA718，仅执行一次CryptInt读取，不复制载荷。
+std::int32_t ReadPlayerMaxHpOnce(); // 原FDA728。
+std::int32_t ReadPlayerFpOnce(); // 原FDA738。
+std::int32_t ReadPlayerMaxFpOnce(); // 原FDA748。
 bool IsPlayerFpLessThan(std::int32_t cost); // 原FDA738，499C30各次401DB0比较共用同一CryptInt。
 std::int32_t ReadPlayerValue15BD0(std::int32_t index) noexcept; // 原FF02D0/D4/D8三项金额上限。
 std::int16_t ReadPetFollowIndex(std::size_t position) noexcept;

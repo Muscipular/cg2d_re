@@ -168,6 +168,11 @@ std::int32_t Sub_510710(
     std::int32_t fifth,
     std::int32_t sixth);
 
+// 原510AC0：iVfo四整数，逐项采容量/格式化/追加，透传发送返回。
+std::int32_t Sub_510AC0(
+    std::uintptr_t socket, std::int32_t x, std::int32_t y,
+    std::int32_t item, std::int32_t target);
+
 // 原510B80：fIM三整数、原time/RNG重设及空格0x17替换，再透传发送返回。
 std::int32_t Sub_510B80(
     std::uintptr_t socket, std::int32_t x, std::int32_t y, std::int32_t direction);

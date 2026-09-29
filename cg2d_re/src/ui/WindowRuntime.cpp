@@ -471,6 +471,29 @@ std::int32_t gItemUseTargetCB0A48 = 0;
 std::array<const char*, 10> gItemUseNamesCB0A1C {};
 std::array<std::uint8_t, 10> gItemUseColorsD2E91C {};
 
+// 原CB10D8的52B值记录，仅映射已证最多六行，不冻结相邻未消费容量。
+struct ItemUseStatusRecord {
+    std::array<char, 20> name;
+    std::int32_t level;
+    std::int32_t injury;
+    std::int32_t hp;
+    std::int32_t maxHp;
+    std::int32_t fp;
+    std::int32_t maxFp;
+    std::int32_t kind;
+    std::int32_t target;
+};
+static_assert(offsetof(ItemUseStatusRecord, level) == 0x14);
+static_assert(offsetof(ItemUseStatusRecord, injury) == 0x18);
+static_assert(offsetof(ItemUseStatusRecord, hp) == 0x1C);
+static_assert(offsetof(ItemUseStatusRecord, maxFp) == 0x28);
+static_assert(offsetof(ItemUseStatusRecord, kind) == 0x2C);
+static_assert(offsetof(ItemUseStatusRecord, target) == 0x30);
+static_assert(sizeof(ItemUseStatusRecord) == 52);
+std::array<ItemUseStatusRecord, 6> gItemUseStatusRecordsCB10D8 {};
+std::int32_t gItemUseStatusCountCC4D44 = 0;
+std::array<WindowStatusChoiceRecord, 6> gItemUseStatusViewsCB1278 {};
+
 // 原D046D8连续浏览区；仅复用值类型布局，不与玩家或交易区共享存储。
 struct StallBrowseData {
     std::array<char, 17> sellerName00;
@@ -22389,6 +22412,159 @@ login::YobiAction* Sub_4E4860(const char* const text)
     return Sub_48AF00();
 }
 
+std::int32_t Sub_48B010(const std::int32_t index, const char*)
+{
+    if (index == -3) {
+        static_cast<void>(network::Sub_511CD0(platform::gConnectionSocket));
+        return 0;
+    }
+    if (index >= 0) {
+        const std::int32_t item = gSelectedItemCB0A44;
+        const std::int32_t target = gItemUseStatusRecordsCB10D8[index].target;
+        const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+        const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+        static_cast<void>(network::Sub_510AC0(platform::gConnectionSocket, x, y, item, target));
+    }
+    if (index == -1) {
+        const std::int32_t selected = gSelectedItemCB1DF4;
+        if (selected >= 0) {
+            --reinterpret_cast<unsigned char*>(world::gValueD67B08.data())[selected];
+        }
+        --gValueD67B24;
+        if (std::bit_cast<std::int8_t>(gValueD67B24) <= 0) {
+            gSelectedItemCB1DF4 = -1;
+        }
+    }
+    return 1;
+}
+
+login::YobiAction* Sub_48B0A0()
+{
+    const std::int32_t count = gItemUseStatusCountCC4D44;
+    constexpr std::array<std::int32_t, 7> colors {5, 1, 0, 0, 0, 0, 0};
+    for (std::int32_t index = 0; index < count; ++index) {
+        const auto& source = gItemUseStatusRecordsCB10D8[index];
+        auto& target = gItemUseStatusViewsCB1278[index];
+        target.name = source.name.data();
+        target.level = source.level;
+        target.hp = source.hp;
+        target.maxHp = source.maxHp;
+        target.fp = source.fp;
+        target.maxFp = source.maxFp;
+        target.injury = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(source.injury));
+        target.color = static_cast<std::uint8_t>(colors[source.kind]);
+    }
+    constexpr std::array<std::int32_t, 3> windowIds {13, 45, 46};
+    for (const std::int32_t id : windowIds) {
+        WindowInstance* const window = gWindowStates[id].window;
+        if (window != nullptr) {
+            window->state |= 0x8000u;
+        }
+    }
+    login::YobiAction* const result =
+        Sub_49F760(gItemUseStatusViewsCB1278.data(), gItemUseStatusCountCC4D44, Sub_48B010);
+    bool retainReference = result != nullptr;
+    if (!retainReference) {
+        WindowInstance* const window = gWindowStates[46].window;
+        retainReference = window != nullptr && (window->state & 0x8000u) == 0;
+    }
+    if (retainReference) {
+        ++reinterpret_cast<unsigned char*>(world::gValueD67B08.data())[gSelectedItemCB1DF4];
+        ++gValueD67B24;
+    }
+    return result;
+}
+
+login::YobiAction* Sub_4E4020(const char* const text)
+{
+    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+    static_cast<void>(Sub_4D3020(x, y));
+    const std::int32_t selected = gItemUseTargetCB0A48;
+    gItemUseStatusCountCC4D44 = 0;
+    if (gItemUseTargetsCB0EA8[selected].kind == 0) {
+        const char* const name = world::detail::BorrowPlayerDisplayText(1);
+        const std::size_t nameSize = std::strlen(name) + 1;
+        const std::int32_t level = world::detail::ReadPlayerLevel();
+        std::memcpy(gItemUseStatusRecordsCB10D8[0].name.data(), name, nameSize);
+        const std::int32_t injury = world::detail::ReadPlayerInjury();
+        gItemUseStatusRecordsCB10D8[0].level = level;
+        gItemUseStatusRecordsCB10D8[0].injury = injury;
+        const std::int32_t hp = world::detail::ReadPlayerHpOnce();
+        gItemUseStatusRecordsCB10D8[gItemUseStatusCountCC4D44].hp = hp;
+        const std::int32_t maxHp = world::detail::ReadPlayerMaxHpOnce();
+        gItemUseStatusRecordsCB10D8[gItemUseStatusCountCC4D44].maxHp = maxHp;
+        const std::int32_t fp = world::detail::ReadPlayerFpOnce();
+        const std::int32_t own = gItemUseStatusCountCC4D44;
+        gItemUseStatusRecordsCB10D8[own].fp = fp;
+        const std::int32_t maxFp = world::detail::ReadPlayerMaxFpOnce();
+        gItemUseStatusRecordsCB10D8[own].maxFp = maxFp;
+        std::int32_t count = gItemUseStatusCountCC4D44 + 1;
+        gItemUseStatusRecordsCB10D8[own].kind = 0;
+        gItemUseStatusRecordsCB10D8[own].target = 0;
+        gItemUseStatusCountCC4D44 = count;
+        std::int32_t target = 1;
+        for (std::int32_t slot = 0; slot < 5; ++slot) {
+            auto& pet = world::detail::gPetRuntimeF633F8[slot];
+            if (pet.used == 0 || gLoginWindowRuntime.valuesCC1A18[slot] == 3) {
+                continue;
+            }
+            const char* const petName = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
+            std::strcpy(gItemUseStatusRecordsCB10D8[count].name.data(), petName);
+            const std::int32_t petInjury = pet.values70[25];
+            gItemUseStatusRecordsCB10D8[count].level = pet.value08;
+            gItemUseStatusRecordsCB10D8[count].injury = petInjury;
+            const std::int32_t petHp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[0]);
+            gItemUseStatusRecordsCB10D8[gItemUseStatusCountCC4D44].hp = petHp;
+            const std::int32_t petMaxHp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[1]);
+            gItemUseStatusRecordsCB10D8[gItemUseStatusCountCC4D44].maxHp = petMaxHp;
+            const std::int32_t petFp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[2]);
+            const std::int32_t output = gItemUseStatusCountCC4D44;
+            gItemUseStatusRecordsCB10D8[output].fp = petFp;
+            const std::int32_t petMaxFp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[3]);
+            gItemUseStatusRecordsCB10D8[output].maxFp = petMaxFp;
+            count = gItemUseStatusCountCC4D44 + 1;
+            gItemUseStatusRecordsCB10D8[output].kind = 4;
+            gItemUseStatusRecordsCB10D8[output].target = target;
+            gItemUseStatusCountCC4D44 = count;
+            ++target;
+        }
+        return Sub_48B0A0();
+    }
+
+    char name[128];
+    std::int32_t field = 1;
+    for (std::int32_t row = 0; row < 6; ++row) {
+        if (network::ExtractDelimitedField_52CED0(text, '|', field++, 127, name) == 1) {
+            break;
+        }
+        input::UnescapeLegacyTextAndNotify_52D2F0(name);
+        std::strcpy(gItemUseStatusRecordsCB10D8[gItemUseStatusCountCC4D44].name.data(), name);
+        std::int32_t value = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
+        gItemUseStatusRecordsCB10D8[gItemUseStatusCountCC4D44].level = value;
+        value = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
+        gItemUseStatusRecordsCB10D8[gItemUseStatusCountCC4D44].injury = value;
+        value = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
+        gItemUseStatusRecordsCB10D8[gItemUseStatusCountCC4D44].hp = value;
+        value = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
+        gItemUseStatusRecordsCB10D8[gItemUseStatusCountCC4D44].maxHp = value;
+        value = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
+        const std::int32_t output = gItemUseStatusCountCC4D44;
+        gItemUseStatusRecordsCB10D8[output].fp = value;
+        value = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
+        gItemUseStatusRecordsCB10D8[output].maxFp = value;
+        switch (gItemUseTargetsCB0EA8[gItemUseTargetCB0A48].kind) {
+        case 1: gItemUseStatusRecordsCB10D8[output].kind = row == 0 ? 1 : 5; break;
+        case 2: gItemUseStatusRecordsCB10D8[output].kind = row == 0 ? 2 : 6; break;
+        case 3: gItemUseStatusRecordsCB10D8[output].kind = 3; break;
+        }
+        const std::int32_t count = gItemUseStatusCountCC4D44 + 1;
+        gItemUseStatusRecordsCB10D8[output].target = row;
+        gItemUseStatusCountCC4D44 = count;
+    }
+    return Sub_48B0A0();
+}
+
 login::YobiAction* Sub_49F000(
     const char* const* const names, const std::uint8_t* const colors,
     const std::int32_t count, const WindowTextChoiceCallback callback)
@@ -23932,6 +24108,14 @@ void Sub_50E380(const std::uintptr_t, const char* const text)
         return;
     }
     static_cast<void>(detail::Sub_4E4860(text));
+}
+
+void Sub_50E3A0(const std::uintptr_t, const char* const text)
+{
+    if (world::ReadRippleGateOnce() != 0) {
+        return;
+    }
+    static_cast<void>(detail::Sub_4E4020(text));
 }
 
 void Sub_50E3C0(const std::uintptr_t, const char* const text)

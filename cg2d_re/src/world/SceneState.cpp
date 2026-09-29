@@ -6846,6 +6846,31 @@ std::int32_t ReadPlayerLevel() noexcept
     return gPlayerRuntime.level;
 }
 
+std::int32_t ReadPlayerInjury() noexcept
+{
+    return gPlayerRuntime.valueF4;
+}
+
+std::int32_t ReadPlayerHpOnce()
+{
+    return platform::legacy_crypt_int::Read_401EC0(&gPlayerRuntime.hp);
+}
+
+std::int32_t ReadPlayerMaxHpOnce()
+{
+    return platform::legacy_crypt_int::Read_401EC0(&gPlayerRuntime.maxHp);
+}
+
+std::int32_t ReadPlayerFpOnce()
+{
+    return platform::legacy_crypt_int::Read_401EC0(&gPlayerRuntime.fp);
+}
+
+std::int32_t ReadPlayerMaxFpOnce()
+{
+    return platform::legacy_crypt_int::Read_401EC0(&gPlayerRuntime.maxFp);
+}
+
 bool IsPlayerFpLessThan(const std::int32_t cost)
 {
     return platform::legacy_crypt_int::Less_401DB0(&gPlayerRuntime.fp, cost);

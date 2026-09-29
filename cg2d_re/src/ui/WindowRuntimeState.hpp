@@ -120,6 +120,9 @@ using WindowTextChoiceCallback = std::int32_t (*)(std::int32_t index, const char
 std::int32_t Sub_48AEA0(std::int32_t index, const char* unusedText); // 选择发送/释放计数；-2仅允许关闭。
 login::YobiAction* Sub_48AF00(); // 名称/颜色借用及物品占用计数，创建失败按原条件回滚。
 login::YobiAction* Sub_4E4860(const char* text); // LY完整目标名单生产，保留原Yobi返回。
+std::int32_t Sub_48B010(std::int32_t index, const char* unusedText); // 用物品/请求回退/释放通知。
+login::YobiAction* Sub_48B0A0(); // 属性展示源及46创建成功后的引用计数。
+login::YobiAction* Sub_4E4020(const char* text); // nFV完整属性值生产，不清旧表或替换宠物状态owner。
 login::YobiAction* Sub_49F000(
     const char* const* names, const std::uint8_t* colors,
     std::int32_t count, WindowTextChoiceCallback callback);

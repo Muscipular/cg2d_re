@@ -2257,6 +2257,25 @@ std::int32_t Sub_510710(
         reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
 }
 
+std::int32_t Sub_510AC0(
+    const std::uintptr_t socket, const std::int32_t x, const std::int32_t y,
+    const std::int32_t item, const std::int32_t target)
+{
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0), "iVfo"));
+    const std::array<std::int32_t, 4> fields {x, y, item, target};
+    for (const std::int32_t field : fields) {
+        const std::int32_t capacity = std::bit_cast<std::int32_t>(
+            gNetworkRuntimeState.bufferLength);
+        std::uint8_t* const token = FormatProtocolIntegerToken_517120(field);
+        static_cast<void>(AppendProtocolText_5170D0(
+            reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
+            reinterpret_cast<const char*>(token), capacity));
+    }
+    return SendProtocolBuffer_517480(
+        socket, reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
+}
+
 std::int32_t Sub_510B80(
     const std::uintptr_t socket, const std::int32_t x,
     const std::int32_t y, const std::int32_t direction)
@@ -4101,7 +4120,7 @@ std::int32_t NetworkDispatch_512E40(
     if (TryDispatchReply<Sub_50E340, T>(head, "ysVc", socket)) return 0;
     if (TryDispatchReply<Sub_50E360, T>(head, "ND", socket)) return 0;
     if (TryDispatchReply<ui::Sub_50E380, T>(head, "LY", socket)) return 0;
-    if (TryDispatchReply<Sub_50E3A0, T>(head, "nFV", socket)) return 0;
+    if (TryDispatchReply<ui::Sub_50E3A0, T>(head, "nFV", socket)) return 0;
     if (TryDispatchReply<Sub_50C7F0, I, I, T>(head, "JgO", socket)) return 0;
     if (TryDispatchReply<ui::Sub_50E3C0, T>(head, "Cxo", socket)) return 0;
     if (TryDispatchReply<ui::Sub_50E3F0, T, I>(head, "ms", socket)) return 0;

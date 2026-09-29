@@ -2076,6 +2076,152 @@ std::int32_t Sub_4D0230(const std::int32_t index, const std::int32_t state)
     return state & 1;
 }
 
+std::int32_t Sub_4D1C00(
+    const std::int32_t petIndex, const std::int32_t attribute,
+    const std::int32_t x, const std::int32_t y)
+{
+    const std::int32_t segments = world::detail::gPetRuntimeF633F8[petIndex].values70[21 + attribute] / 10;
+    render::GraphicDescriptor16 descriptor {};
+    const std::uint32_t color = 0xFFFFFFFFu;
+    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    descriptor.bytes[13] = 4;
+    // 原5817BC与57E434静态图号同值，不合并原数据地址身份。
+    if (segments == 1) {
+        return render::DrawGraphic3_520970(
+            x, y, 223, gPetBarImages57E434[attribute][3], 0, 1, 0, &descriptor);
+    }
+    if (segments > 1) {
+        static_cast<void>(render::DrawGraphic3_520970(
+            x, y, 223, gPetBarImages57E434[attribute][0], 0, 1, 0, &descriptor));
+        std::int32_t middleX = x + 6;
+        for (std::int32_t middle = 0; middle < segments - 2; ++middle) {
+            static_cast<void>(render::DrawGraphic3_520970(
+                middleX, y, 223, gPetBarImages57E434[attribute][1], 0, 1, 0, &descriptor));
+            middleX += 6;
+        }
+        return render::DrawGraphic3_520970(
+            x + 6 * segments - 6, y, 223, gPetBarImages57E434[attribute][2], 0, 1, 0, &descriptor);
+    }
+    return 0;
+}
+
+std::int32_t Sub_4D16F0(const std::int32_t index, const std::int32_t state)
+{
+    if (gStallModeD67BDC != 1) {
+        return 0;
+    }
+    const std::int32_t row = index - (gStallOwn58111C != 0 ? 26 : 24);
+    const auto* const initialPet = &world::detail::gPetRuntimeF633F8[gStallPetCandidatePageD67BD8 + row];
+    if (initialPet->used == 0) {
+        if ((state & 2) != 0) {
+            gStallPetSelection581128 = -1;
+        }
+        return 0;
+    }
+    char buffer[32];
+    const auto drawText = [&](const std::int32_t dx, const std::int32_t dy) {
+        WindowInstance* const window = gCurrentWindow;
+        const auto y = static_cast<std::int16_t>(window->y + row * 50 + dy);
+        const auto x = static_cast<std::int16_t>(window->x + dx);
+        static_cast<void>(render::DrawText_456780(x, y, 3, 12, 0, buffer, 0, 0));
+    };
+    std::sprintf(buffer, "%s", initialPet->name6AC.data());
+    drawText(298, 132);
+    std::sprintf(buffer, "%3d", world::detail::gPetRuntimeF633F8[gStallPetCandidatePageD67BD8 + row].value08);
+    drawText(425, 132);
+    const std::int32_t maxHp = platform::legacy_crypt_int::Read_401EC0(
+        &world::detail::gPetRuntimeF633F8[gStallPetCandidatePageD67BD8 + row].values0C[1]);
+    const std::int32_t hp = platform::legacy_crypt_int::Read_401EC0(
+        &world::detail::gPetRuntimeF633F8[gStallPetCandidatePageD67BD8 + row].values0C[0]);
+    std::sprintf(buffer, "%4d/%4d", hp, maxHp);
+    drawText(333, 146);
+    const std::int32_t maxFp = platform::legacy_crypt_int::Read_401EC0(
+        &world::detail::gPetRuntimeF633F8[gStallPetCandidatePageD67BD8 + row].values0C[3]);
+    const std::int32_t fp = platform::legacy_crypt_int::Read_401EC0(
+        &world::detail::gPetRuntimeF633F8[gStallPetCandidatePageD67BD8 + row].values0C[2]);
+    std::sprintf(buffer, "%4d/%4d", fp, maxFp);
+    drawText(333, 160);
+    const std::int16_t tribe = std::bit_cast<std::int16_t>(
+        world::detail::gPetRuntimeF633F8[gStallPetCandidatePageD67BD8 + row].value04);
+    if (tribe >= 0 && tribe < 20) {
+        std::sprintf(buffer, "%s", gTribeNames57CB54[tribe]);
+    } else {
+        buffer[0] = '\0';
+    }
+    drawText(396, 146);
+    constexpr std::array<std::array<std::int32_t, 2>, 4> barPositions {{
+        {163, 5}, {163, 15}, {163, 25}, {163, 35},
+    }};
+    for (std::int32_t attribute = 0; attribute < 4; ++attribute) {
+        WindowInstance* const window = gCurrentWindow;
+        const std::int32_t y = window->y + barPositions[attribute][1] + 50 * row + 127;
+        const std::int32_t x = window->x + barPositions[attribute][0] + 292;
+        const std::int32_t petIndex = gStallPetCandidatePageD67BD8 + row;
+        static_cast<void>(Sub_4D1C00(petIndex, attribute, x, y));
+    }
+    std::int32_t consumed = 0;
+    if (gValueD67BE0 == 0) {
+        const bool own = gStallOwn58111C != 0;
+        const std::int32_t position = gStallPetCandidatePageD67BD8 + row;
+        bool offered = gStallPetUsedCF400C[position] != 0;
+        if (own && (state & 2) != 0 && offered) {
+            gStallPetSelection581128 = -1;
+            offered = gStallPetUsedCF400C[position] != 0;
+        }
+        if (!offered && own) {
+            if ((state & 1) != 0) {
+                WindowInstance* const window = gCurrentWindow;
+                const WindowElement& element = window->elements[index];
+                const std::int32_t y = window->y + element.y;
+                const std::int32_t x = window->x + element.x;
+                login::detail::DrawGraphicHover(
+                    static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
+                    static_cast<std::uint16_t>(x + 231), static_cast<std::uint16_t>(y + 48),
+                    223, login::detail::gValueD69768, 0);
+                consumed = 1;
+            }
+            if ((state & 2) != 0) {
+                gStallPetSelection581128 = gStallPetCandidatePageD67BD8 + row;
+            }
+            if ((state & 0x100) != 0) {
+                Sub_4CFCA0(gStallPetSelection581128);
+            }
+        }
+        if ((offered || own) && gStallOwn58111C != 0
+            && gStallPetCandidatePageD67BD8 + row == gStallPetSelection581128) {
+            WindowInstance* const window = gCurrentWindow;
+            const WindowElement& element = window->elements[index];
+            const std::int32_t y = window->y + element.y;
+            const std::int32_t x = window->x + element.x;
+            login::detail::DrawGraphicHover(
+                static_cast<std::uint16_t>(x + 2), static_cast<std::uint16_t>(y + 2),
+                static_cast<std::uint16_t>(x + 229), static_cast<std::uint16_t>(y + 46),
+                223, 254, 0);
+        }
+    }
+    if ((state & 1) != 0) {
+        WindowInstance* const window = gCurrentWindow;
+        std::int32_t x = window->x + 20;
+        const std::int32_t y = window->y + 20;
+        if (x < 0) {
+            x += window->width;
+        }
+        const auto petIndex = static_cast<std::uint8_t>(gStallPetCandidatePageD67BD8 + row);
+        static_cast<void>(Sub_4B3BF0(x, y, petIndex));
+    }
+    if (gStallOwn58111C != 0 && gStallPetUsedCF400C[gStallPetCandidatePageD67BD8 + row] != 0) {
+        WindowInstance* const window = gCurrentWindow;
+        const WindowElement& element = window->elements[index];
+        const std::int32_t y = window->y + element.y;
+        const std::int32_t x = window->x + element.x;
+        login::detail::DrawGraphicHover(
+            static_cast<std::uint16_t>(x + 2), static_cast<std::uint16_t>(y + 2),
+            static_cast<std::uint16_t>(x + 229), static_cast<std::uint16_t>(y + 46),
+            223, 256, 0);
+    }
+    return consumed;
+}
+
 std::int32_t Sub_4D04A0(const std::int32_t index, const std::int32_t state)
 {
     if (gValueD67BE0 != 0) {

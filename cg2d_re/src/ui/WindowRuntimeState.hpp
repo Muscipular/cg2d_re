@@ -662,6 +662,9 @@ std::int32_t Sub_4D2260(std::int32_t unusedIndex, std::int32_t state); // 完整
 std::int32_t Sub_4D2840(std::int32_t unusedIndex, std::int32_t state); // 购买确认及物品/宠物详情，二次读模式。
 std::int32_t Sub_4D1D50(std::int32_t index, std::int32_t state); // 玩家背包20格，首命中交互但完整绘制。
 std::int32_t Sub_4D04A0(std::int32_t index, std::int32_t state); // 上架/浏览物品行，固定记录与价格重读分离。
+std::int32_t Sub_4D16F0(std::int32_t index, std::int32_t state); // 宠物候选，逐项重读候选页并保持CryptInt顺序。
+std::int32_t Sub_4D1C00(
+    std::int32_t petIndex, std::int32_t attribute, std::int32_t x, std::int32_t y); // 候选属性条，透传末绘制返回。
 extern std::int32_t gDragItemIndex584DA4; // 4FB8F0已接重置，4FAEF0拖动生产仍待接。
 extern std::int32_t gDragImageNoD67D24;
 extern std::int32_t gItemDragXCC4880;

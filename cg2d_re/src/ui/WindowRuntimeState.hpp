@@ -643,6 +643,13 @@ std::int32_t Sub_4CD4F0(std::int32_t value); // 共用初始化、双滚动/输�
 std::int32_t Sub_4D2080(std::int32_t unusedIndex, std::int32_t state); // 固定元素8说明编辑，hover不消费。
 std::int32_t Sub_4D2170(std::int32_t unusedIndex, std::int32_t state); // 固定元素6名称编辑，同源Input对象。
 extern std::array<char, 16> gStallMoneyText57B440; // 原可变金额串，止于下一数字原型57B450。
+std::int32_t Sub_4CDE40(std::int32_t index, std::int32_t state); // 上架列表向前，bit400动作。
+std::int32_t Sub_4CDFA0(std::int32_t index, std::int32_t state); // 上架列表向后，音效后重读滚动参数。
+std::int32_t Sub_4CE0F0(std::int32_t unusedIndex, std::int32_t state); // 上架列表滚轮，始终返回0。
+std::int32_t Sub_4CE1F0(std::int32_t index, std::int32_t state); // 宠物候选向前，非宠物模式仍可消费bit400。
+std::int32_t Sub_4CE2B0(std::int32_t index, std::int32_t state); // 宠物候选向后，最大页1。
+std::int32_t Sub_4CE370(std::int32_t unusedIndex, std::int32_t state); // 宠物候选滚轮，始终返回0。
+std::int32_t Sub_4CE3F0(std::int32_t index, std::int32_t state); // 类别页签及七项候选控件原序显隐。
 extern std::int32_t gDragItemIndex584DA4; // 4FB8F0已接重置，4FAEF0拖动生产仍待接。
 extern std::int32_t gDragImageNoD67D24;
 extern std::int32_t gItemDragXCC4880;

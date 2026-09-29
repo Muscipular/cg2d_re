@@ -495,6 +495,10 @@ WindowInputPrototype gStallDescriptionInput581360 {
     299, 51, 3, 12, 0, {}, 2, 28, 14, 0,
 };
 constexpr char kStallInputHint586450[] = "\xBD\xD0\xBF\xE9\xA4\x4A\xB4\x79\xAD\x7A";
+constexpr std::array<std::array<std::int32_t, 3>, 2> kStallTabImages54EF40 {{
+    {98864, 98862, 98863},
+    {98867, 98865, 98866},
+}};
 
 // 自身摊位上架项只引用玩家槽号；不同于浏览摊位的两张并行数值表。
 struct StallOffer {
@@ -1423,6 +1427,251 @@ void Sub_4E5600(const std::int32_t side)
     for (std::int32_t index = 0; index < 20; ++index) {
         Sub_4E54E0(side, index);
     }
+}
+
+std::int32_t Sub_4CDE40(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    std::int32_t consumed = 0;
+    if ((state & 0x400) != 0) {
+        if (gStallModeD67BDC == 1) {
+            if (gStallPetPageD67BD0 > 0) {
+                --gStallPetPageD67BD0;
+                static_cast<void>(audio::PlaySe_52C450(51, 320));
+            } else {
+                static_cast<void>(audio::PlaySe_52C450(55, 320));
+            }
+            const bool own = gStallOwn58111C != 0;
+            const std::int32_t page = gStallPetPageD67BD0;
+            WindowInstance* const window = gCurrentWindow;
+            const std::int32_t maximum = gStallPetCountD67BD4 - 3;
+            static_cast<void>(Sub_4742C0(window->elements + (own ? 38 : 33), maximum, page));
+        } else {
+            if (gStallItemPageD67BC8 > 0) {
+                --gStallItemPageD67BC8;
+                static_cast<void>(audio::PlaySe_52C450(51, 320));
+            } else {
+                static_cast<void>(audio::PlaySe_52C450(55, 320));
+            }
+            const bool own = gStallOwn58111C != 0;
+            const std::int32_t page = gStallItemPageD67BC8;
+            WindowInstance* const window = gCurrentWindow;
+            const std::int32_t maximum = gStallItemCountD67BCC - 10;
+            static_cast<void>(Sub_4742C0(window->elements + (own ? 38 : 33), maximum, page));
+        }
+        consumed = 1;
+    }
+    graphic->imageNo = 243090;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 243092;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 243091;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_4CDFA0(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    std::int32_t consumed = 0;
+    if ((state & 0x400) != 0) {
+        if (gStallModeD67BDC == 1) {
+            const std::int32_t maximum = gStallPetCountD67BD4 - 3;
+            const std::int32_t page = gStallPetPageD67BD0;
+            if (page < maximum) {
+                gStallPetPageD67BD0 = page + 1;
+                static_cast<void>(audio::PlaySe_52C450(51, 320));
+            } else {
+                static_cast<void>(audio::PlaySe_52C450(55, 320));
+            }
+            const bool own = gStallOwn58111C != 0;
+            const std::int32_t current = gStallPetPageD67BD0;
+            const std::int32_t limit = gStallPetCountD67BD4 - 3;
+            static_cast<void>(Sub_4742C0(
+                gCurrentWindow->elements + (own ? 38 : 33), limit, current));
+        } else {
+            const std::int32_t maximum = gStallItemCountD67BCC - 10;
+            const std::int32_t page = gStallItemPageD67BC8;
+            if (page < maximum) {
+                gStallItemPageD67BC8 = page + 1;
+                static_cast<void>(audio::PlaySe_52C450(51, 320));
+            } else {
+                static_cast<void>(audio::PlaySe_52C450(55, 320));
+            }
+            const bool own = gStallOwn58111C != 0;
+            const std::int32_t current = gStallItemPageD67BC8;
+            const std::int32_t limit = gStallItemCountD67BCC - 10;
+            static_cast<void>(Sub_4742C0(
+                gCurrentWindow->elements + (own ? 38 : 33), limit, current));
+        }
+        consumed = 1;
+    }
+    graphic->imageNo = 243093;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 243095;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 243094;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_4CE0F0(const std::int32_t, const std::int32_t state)
+{
+    if ((state & 0x21) != 0) {
+        const bool own = gStallOwn58111C != 0;
+        const std::int32_t mode = gStallModeD67BDC;
+        if (mode == 1) {
+            const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
+            const std::int32_t maximum = gStallPetCountD67BD4 - 3;
+            const std::int32_t page = gStallPetPageD67BD0;
+            gStallPetPageD67BD0 = Sub_4743B0(
+                gCurrentWindow->elements + (own ? 38 : 33), page, maximum, wheel);
+        } else {
+            const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
+            const std::int32_t maximum = gStallItemCountD67BCC - 10;
+            const std::int32_t page = gStallItemPageD67BC8;
+            gStallItemPageD67BC8 = Sub_4743B0(
+                gCurrentWindow->elements + (own ? 38 : 33), page, maximum, wheel);
+        }
+    }
+    return 0;
+}
+
+std::int32_t Sub_4CE1F0(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    std::int32_t consumed = 0;
+    if ((state & 0x400) != 0) {
+        if (gStallModeD67BDC == 1) {
+            if (gStallPetCandidatePageD67BD8 > 0) {
+                --gStallPetCandidatePageD67BD8;
+                static_cast<void>(audio::PlaySe_52C450(51, 320));
+            } else {
+                static_cast<void>(audio::PlaySe_52C450(55, 320));
+            }
+            const bool own = gStallOwn58111C != 0;
+            WindowElement* const elements = gCurrentWindow->elements;
+            const std::int32_t page = gStallPetCandidatePageD67BD8;
+            static_cast<void>(Sub_4742C0(elements + (own ? 42 : 37), 1, page));
+        }
+        consumed = 1;
+    }
+    graphic->imageNo = 243090;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 243092;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 243091;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_4CE2B0(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    std::int32_t consumed = 0;
+    if ((state & 0x400) != 0) {
+        if (gStallModeD67BDC == 1) {
+            if (gStallPetCandidatePageD67BD8 < 1) {
+                ++gStallPetCandidatePageD67BD8;
+                static_cast<void>(audio::PlaySe_52C450(51, 320));
+            } else {
+                static_cast<void>(audio::PlaySe_52C450(55, 320));
+            }
+            const bool own = gStallOwn58111C != 0;
+            WindowElement* const elements = gCurrentWindow->elements;
+            const std::int32_t page = gStallPetCandidatePageD67BD8;
+            static_cast<void>(Sub_4742C0(elements + (own ? 42 : 37), 1, page));
+        }
+        consumed = 1;
+    }
+    graphic->imageNo = 243093;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 243095;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 243094;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_4CE370(const std::int32_t, const std::int32_t state)
+{
+    if ((state & 0x21) != 0) {
+        const bool own = gStallOwn58111C != 0;
+        const std::int32_t mode = gStallModeD67BDC;
+        if (mode == 1) {
+            const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
+            WindowInstance* const window = gCurrentWindow;
+            const std::int32_t page = gStallPetCandidatePageD67BD8;
+            gStallPetCandidatePageD67BD8 =
+                Sub_4743B0(window->elements + (own ? 42 : 37), page, 1, wheel);
+        }
+    }
+    return 0;
+}
+
+std::int32_t Sub_4CE3F0(const std::int32_t index, const std::int32_t state)
+{
+    WindowElement* const elements = gCurrentWindow->elements;
+    const bool ownAtEntry = gStallOwn58111C != 0;
+    auto* const graphic = static_cast<WindowGraphicData*>(elements[index].data);
+    std::int32_t category = index;
+    if (ownAtEntry) {
+        if (index == 35) {
+            category = 0;
+        } else if (index == 36) {
+            category = 1;
+        }
+    } else if (index == 30) {
+        category = 0;
+    } else if (index == 31) {
+        category = 1;
+    }
+    std::int32_t consumed = 0;
+    if (category == gStallModeD67BDC) {
+        graphic->imageNo = kStallTabImages54EF40[category][0];
+    } else {
+        if ((state & 1) != 0) {
+            graphic->imageNo = kStallTabImages54EF40[category][2];
+            consumed = 1;
+        } else {
+            graphic->imageNo = kStallTabImages54EF40[category][1];
+        }
+        if ((state & 2) != 0) {
+            const bool own = gStallOwn58111C != 0;
+            gStallModeD67BDC = category;
+            gStallItemSelection581124 = -1;
+            if (category == 1) {
+                const std::int32_t page = gStallPetPageD67BD0;
+                WindowInstance* const window = gCurrentWindow;
+                const std::int32_t maximum = gStallPetCountD67BD4 - 3;
+                static_cast<void>(Sub_4742C0(window->elements + (own ? 38 : 33), maximum, page));
+            } else {
+                const std::int32_t page = gStallItemPageD67BC8;
+                WindowInstance* const window = gCurrentWindow;
+                const std::int32_t maximum = gStallItemCountD67BCC - 10;
+                static_cast<void>(Sub_4742C0(window->elements + (own ? 38 : 33), maximum, page));
+            }
+            consumed = 1;
+        }
+    }
+    const bool own = gStallOwn58111C != 0;
+    const std::int32_t visible = gStallModeD67BDC == 1 ? 1 : 0;
+    if (own) {
+        constexpr std::array<std::int32_t, 7> slots {41, 42, 43, 44, 11, 45, 46};
+        for (const std::int32_t slot : slots) {
+            gCurrentWindow->elements[slot].visible = visible;
+        }
+    } else {
+        constexpr std::array<std::int32_t, 7> slots {36, 37, 38, 39, 9, 40, 41};
+        for (const std::int32_t slot : slots) {
+            gCurrentWindow->elements[slot].visible = visible;
+        }
+    }
+    return consumed;
 }
 
 std::int32_t Sub_4D27C0(const std::int32_t value)

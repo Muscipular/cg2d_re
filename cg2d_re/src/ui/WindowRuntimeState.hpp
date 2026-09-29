@@ -164,6 +164,13 @@ void Sub_47DE00(
     std::int32_t message, std::int32_t unused, std::int32_t sourceIndex); // 材料/单选拖动与释放。
 std::int32_t Sub_47DF30(std::int32_t sourceIndex); // 安装类型10的47DE00拖动回调。
 std::int32_t Sub_482F70(std::int32_t itemType); // 加工分类；类别7优先归2。
+std::int32_t Sub_482FA0(std::int32_t index, std::int32_t state); // 续作，初始化后独立重读模式5。
+std::int32_t Sub_4830B0(std::int32_t index, std::int32_t state); // 底部关闭，点击仍返回0。
+std::int32_t Sub_484FB0(std::int32_t index, std::int32_t unusedState); // 结果图，负图号不绘制。
+std::int32_t Sub_485030(std::int32_t index, std::int32_t state); // 刻印输入焦点，借用唯一D2DE70。
+std::int32_t Sub_485160(std::int32_t index, std::int32_t state); // 右上关闭，点击返回1。
+std::int32_t Sub_485200(std::int32_t index, std::int32_t unusedState); // 非法刻印字符覆盖提示。
+std::int32_t Sub_485350(std::int32_t index, std::int32_t unusedState); // 空白刻印覆盖提示。
 std::int32_t Sub_4847C0(std::int32_t index, std::int32_t state); // 单选投放/校验/拖动与绘制。
 WindowAnimationData* Sub_47EC00(WindowInstance* window); // 单选模式3完整初始化，返回借用载荷。
 WindowAnimationData* Sub_47E5E0(WindowInstance* window); // 制造结果完整窗口11展示。

@@ -23633,6 +23633,191 @@ std::int32_t Sub_482F70(const std::int32_t itemType)
     return 0;
 }
 
+std::int32_t Sub_482FA0(const std::int32_t index, const std::int32_t state)
+{
+    WindowInstance* window = gCurrentWindow;
+    auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
+    const bool hovered = (state & 1) != 0;
+    if (hovered) {
+        std::strcpy(gHoverTextD68AE8.data(),
+            "\xC4\x7E\xC4\xF2\xB0\xF5\xA6\xE6\xA1\x43");
+    }
+    if ((state & 2) != 0) {
+        if (gSelectionModeD2D650 == 2) {
+            const std::int32_t skillId =
+                world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
+            switch (skillId) {
+            case 255:
+                static_cast<void>(Sub_47FAE0(window));
+                break;
+            case 606:
+                static_cast<void>(Sub_47FD00(window));
+                break;
+            case 2025:
+                static_cast<void>(Sub_480A00(window));
+                break;
+            case 2026:
+                static_cast<void>(Sub_47FF20(window));
+                break;
+            default:
+                static_cast<void>(Sub_47DF50(window));
+                break;
+            }
+            window = gCurrentWindow;
+        }
+        if (gSelectionModeD2D650 == 5) {
+            static_cast<void>(Sub_47EC00(window));
+        }
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+    }
+    graphic->imageNo = 0x3BA31;
+    if (hovered) {
+        graphic->imageNo = 0x3BA33;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 0x3BA32;
+    }
+    return 0;
+}
+
+std::int32_t Sub_4830B0(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    const bool hovered = (state & 1) != 0;
+    if (hovered) {
+        std::strcpy(gHoverTextD68AE8.data(),
+            "\xC3\xF6\xB3\xAC\xA6\xB9\xB5\xF8\xB5\xA1");
+    }
+    if ((state & 2) != 0) {
+        gWindowStates[11].window->state |= 0x8000u;
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+    }
+    graphic->imageNo = 0x3B565;
+    if (hovered) {
+        graphic->imageNo = 0x3B567;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 0x3B566;
+    }
+    return 0;
+}
+
+std::int32_t Sub_484FB0(const std::int32_t index, const std::int32_t)
+{
+    const std::int32_t imageNo = gCraftDisplayImageCB2204;
+    if (imageNo < 0) {
+        return 0;
+    }
+    render::GraphicDescriptor16 descriptor {};
+    const std::uint32_t color = 0xFFFFFFFFu;
+    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    descriptor.bytes[13] = 4;
+    const WindowInstance* const window = gCurrentWindow;
+    const WindowElement* const element = &window->elements[index];
+    const std::int32_t y = element->y + window->y + 24;
+    const std::int32_t x = element->x + window->x + 24;
+    static_cast<void>(login::detail::DrawGraphic(x, y, 223, imageNo, 0, &descriptor));
+    return 0;
+}
+
+std::int32_t Sub_485030(const std::int32_t index, const std::int32_t state)
+{
+    if (gSelectedItemD460C0 < 0) {
+        return 0;
+    }
+    Sub_485110(gCurrentWindow->elements + index, state, login::detail::gValueD69768);
+    if ((state & 2) == 0) {
+        return 0;
+    }
+    gCurrentWindow->elements[6].visible = 0;
+    gCurrentWindow->elements[7].visible = 1;
+    WindowInstance* const window = gCurrentWindow;
+    const std::int32_t y = window->elements[11].y + window->y;
+    const std::int32_t x = window->elements[11].x + window->x;
+    static_cast<void>(Sub_476570(&gCraftInputPrototype57D7F8, x, y, 1));
+    input::SetContext_44B330(&input::gInputContextD2DE70);
+    WindowInstance* const current = gCurrentWindow;
+    gFocusedElementDataD45F94 = current->elements[7].data;
+    static_cast<WindowInputData*>(current->elements[7].data)->context =
+        &input::gInputContextD2DE70;
+    static_cast<void>(audio::PlaySe_52C450(51, 320));
+    return 1;
+}
+
+std::int32_t Sub_485160(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    const bool hovered = (state & 1) != 0;
+    std::int32_t consumed = 0;
+    if (hovered) {
+        std::strcpy(gHoverTextD68AE8.data(),
+            "\xC3\xF6\xB3\xAC\xB3\x6F\xAD\xD3\xB5\xF8\xB5\xA1\xA1\x43");
+    }
+    if ((state & 2) != 0) {
+        gWindowStates[11].window->state |= 0x8000u;
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+        consumed = 1;
+    }
+    graphic->imageNo = 0x3B538;
+    if (hovered) {
+        graphic->imageNo = 0x3B53A;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 0x3B539;
+    }
+    return consumed;
+}
+
+namespace {
+
+std::int32_t DrawCraftInputNotice(
+    const std::int32_t index, const char* const first, const char* const second)
+{
+    render::GraphicDescriptor16 descriptor {};
+    const std::uint32_t color = 0xFFFFFFFFu;
+    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    descriptor.bytes[13] = 4;
+    std::int32_t imageNo = 0x3B568;
+    if (login::detail::Sub_5049A0(287, 268, 353, 285, -1) != 0) {
+        imageNo = 0x3B56A;
+        if ((static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons) & 1u) != 0) {
+            gCurrentWindow->elements[index].visible = 0;
+            gCurrentWindow->state &= ~2u;
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            imageNo = 0x3B569;
+        }
+    }
+    static_cast<void>(login::detail::DrawGraphic(320, 277, 226, imageNo, 0, &descriptor));
+    static_cast<void>(render::DrawText_456780(
+        145, 185, 4, 0, 0, first, 0,
+        static_cast<std::uint8_t>(login::detail::gValueD69768)));
+    static_cast<void>(render::DrawText_456780(
+        145, 205, 4, 0, 0, second, 0,
+        static_cast<std::uint8_t>(login::detail::gValueD69768)));
+    login::detail::DrawNineGrid_49BE00(
+        0x3BE34, 115, 155, 410, 150, 226, -1,
+        std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}), 74, 54);
+    static_cast<void>(render::ClearTextQueueTail_456D50(3));
+    return 1;
+}
+
+} // namespace
+
+std::int32_t Sub_485200(const std::int32_t index, const std::int32_t)
+{
+    return DrawCraftInputNotice(index,
+        "\xA5\x5D\xA7\x74\x5C\x20\xA9\xCE\x20\x7C\x20\xAA\xBA\xA6\x72\xA4\xB8\xA1\x43",
+        "\xA5\x5D\xA7\x74\x5C\x20\xA9\xCE\x20\x7C\x20\xAA\xBA\xA6\x72\xA4\xB8"
+        "\xA4\xA3\xAF\xE0\xA5\xCE\xA8\xD3\xA8\xE8\xA6\x4C\xA1\x43");
+}
+
+std::int32_t Sub_485350(const std::int32_t index, const std::int32_t)
+{
+    return DrawCraftInputNotice(index,
+        "\xA8\x53\xA6\xB3\xA5\x5D\xA7\x74\xAA\xC5\xA5\xD5\xA5\x48\xA5\x7E\xAA\xBA\xA6\x72\xA4\xB8",
+        "\xA8\xE8\xA6\x4C\xA6\x57\xBA\xD9\xA4\xA3\xAF\xE0\xA5\x5D\xA7\x74\xAA\xC5\xA5\xD5\xA1\x43");
+}
+
 std::int32_t Sub_4847C0(const std::int32_t index, const std::int32_t state)
 {
     render::GraphicDescriptor16 descriptor {};

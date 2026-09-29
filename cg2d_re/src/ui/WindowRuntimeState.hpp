@@ -655,6 +655,9 @@ std::int32_t Sub_4D0230(std::int32_t index, std::int32_t state); // 共用提示
 std::int32_t Sub_4CF940(std::int32_t index, std::int32_t state); // 自身/浏览主要按钮，禁用与普通收尾分离。
 std::int32_t Sub_4CE8A0(); // 收摊请求，透传原发送返回。
 WindowInstance* Sub_4CED50(); // 显示购买确认，返回入口窗口。
+void Sub_4CED60(
+    std::int32_t status, std::int32_t target, const char* stallName,
+    const char* description, const char* itemPayload, const char* petPayload); // 浏览区完整生产后打开68。
 WindowElement* Sub_4CFC40(); // 物品定价输入初始化，返回末次取得的元素表。
 void Sub_4CFCA0(std::int32_t petIndex); // 固定六装备槽检查后进入宠物定价。
 std::int32_t Sub_4CFD70(); // 删除上架项，保持标记/数量/搬移/选择与页回退顺序。

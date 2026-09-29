@@ -446,7 +446,8 @@ struct StallBrowseData {
     std::array<char, 17> sellerName00;
     std::array<char, 17> stallName11;
     std::array<char, 57> description22;
-    std::array<std::byte, 5> bytes5B;
+    std::array<std::byte, 1> bytes5B;
+    std::int32_t target5C; // 4CED60发布的浏览对象编号，不是地址。
     std::int32_t imageNo60;
     std::int32_t action64;
     std::int32_t direction68;
@@ -463,6 +464,7 @@ static_assert(offsetof(StallBrowseData, sellerName00) == 0);
 static_assert(offsetof(StallBrowseData, stallName11) == 0x11);
 static_assert(offsetof(StallBrowseData, description22) == 0x22);
 static_assert(offsetof(StallBrowseData, bytes5B) == 0x5B);
+static_assert(offsetof(StallBrowseData, target5C) == 0x5C);
 static_assert(offsetof(StallBrowseData, imageNo60) == 0x60);
 static_assert(offsetof(StallBrowseData, action64) == 0x64);
 static_assert(offsetof(StallBrowseData, direction68) == 0x68);
@@ -3287,6 +3289,196 @@ std::int32_t Sub_4CDB10(const std::int32_t)
     }
     DrawCurrentWindow_4729B0();
     return 1;
+}
+
+void Sub_4CED60(
+    const std::int32_t status, const std::int32_t target,
+    const char* const stallName, const char* const description,
+    const char* const itemPayload, const char* const petPayload)
+{
+    gStallItemCountD67BCC = 0;
+    gStallPetCountD67BD4 = 0;
+    login::YobiAction* const action = world::detail::FindObjectYobi_4462B0(target);
+    if (status != 0 || action == nullptr) {
+        switch (status) {
+        case 1:
+            world::detail::Sub_44B050(
+                "\xA8\x53\xA6\xB3\xA5\x69\xA5\x48\xC2\x73\xC4\xFD"
+                "\xAA\xBA\xC5\x75\xA6\xEC", 4, 0);
+            break;
+        case 2:
+            world::detail::Sub_44B050(
+                "\xC2\x73\xC4\xFD\xAA\xBA\xC5\x75\xA6\xEC\xA4\x77"
+                "\xB8\x67\xA6\xAC\xC5\x75", 4, 0);
+            break;
+        case 3:
+            world::detail::Sub_44B050(
+                "\xC2\x73\xC4\xFD\xAA\xBA\xC5\x75\xA6\xEC\xA5\xBF"
+                "\xA6\x62\xA6\xA3\xA1\x41\xBD\xD0\xB5\x79\xAB\xE1"
+                "\xA6\x41\xB8\xD5", 4, 0);
+            break;
+        }
+        WindowInstance* const window = gWindowStates[68].window;
+        if (window != nullptr) {
+            window->state |= 0x8000u;
+        }
+        return;
+    }
+
+    std::memset(&gStallBrowseD046D8, 0, sizeof(gStallBrowseD046D8));
+    std::strncpy(gStallBrowseD046D8.sellerName00.data(), login::detail::BorrowYobiNameC4(action), 16);
+    gStallBrowseD046D8.target5C = target;
+    gStallBrowseD046D8.imageNo60 = login::detail::GetYobiActionField2A8(action);
+    gStallBrowseD046D8.action64 = login::detail::GetYobiActionField2B0(action);
+    gStallBrowseD046D8.direction68 = login::detail::GetYobiActionField2B8(action);
+    std::strncpy(gStallBrowseD046D8.stallName11.data(), stallName, 16);
+    std::strncpy(gStallBrowseD046D8.description22.data(), description, 56);
+
+    char itemName[256];
+    char itemDescription[768];
+    char itemMemo[256];
+    const std::int32_t itemCount = network::ParseDelimitedInteger_52CFA0(itemPayload, '|', 1);
+    std::int32_t itemField = 4;
+    for (std::int32_t index = 0; index < itemCount; ++index, itemField += 15) {
+        auto& item = gStallBrowseD046D8.items[gStallItemCountD67BCC];
+        ++gStallItemCountD67BCC;
+        std::memset(&item, 0, sizeof(item));
+        gStallBrowseD046D8.itemValuesD13E74[index] =
+            network::ParseDelimitedInteger_52CFA0(itemPayload, '|', itemField - 2);
+        gStallBrowseD046D8.itemValuesD13EC4[index] =
+            network::ParseDelimitedInteger_52CFA0(itemPayload, '|', itemField - 1);
+        network::ExtractDelimitedField_52CED0(itemPayload, '|', itemField, 255, itemName);
+        input::UnescapeLegacyTextAndNotify_52D2F0(itemName);
+        item.used = 1;
+        if (std::strlen(itemName) <= 28) {
+            std::strcpy(item.name.data(), itemName);
+        }
+        item.color = network::ParseDelimitedInteger_52CFA0(itemPayload, '|', itemField + 1);
+        if (item.color < 0) {
+            item.color = 0;
+        }
+        network::ExtractDelimitedField_52CED0(itemPayload, '|', itemField + 2, 767, itemDescription);
+        input::UnescapeLegacyTextAndNotify_52D2F0(itemDescription);
+        Sub_4CF8A0(&item, itemDescription);
+        item.hasDescription = item.description[0][0] != '\0' ? 1 : 0;
+        item.imageNo = network::ParseDelimitedInteger_52CFA0(itemPayload, '|', itemField + 3);
+        item.canUseInField = static_cast<std::uint16_t>(
+            network::ParseDelimitedInteger_52CFA0(itemPayload, '|', itemField + 4));
+        item.battleUseFlag = static_cast<std::uint16_t>(
+            network::ParseDelimitedInteger_52CFA0(itemPayload, '|', itemField + 5));
+        item.target = static_cast<std::uint16_t>(
+            network::ParseDelimitedInteger_52CFA0(itemPayload, '|', itemField + 6));
+        item.level = network::ParseDelimitedInteger_52CFA0(itemPayload, '|', itemField + 7);
+        item.flags = static_cast<std::uint16_t>(
+            network::ParseDelimitedInteger_52CFA0(itemPayload, '|', itemField + 8));
+        item.itemId = network::ParseDelimitedInteger_52CFA0(itemPayload, '|', itemField + 9);
+        item.itemType = network::ParseDelimitedInteger_52CFA0(itemPayload, '|', itemField + 10);
+        item.count = network::ParseDelimitedInteger_52CFA0(itemPayload, '|', itemField + 11);
+        network::ExtractDelimitedField_52CED0(itemPayload, '|', itemField + 12, 255, itemMemo);
+        input::UnescapeLegacyTextAndNotify_52D2F0(itemMemo);
+        if (std::strlen(itemMemo) <= 16) {
+            std::strcpy(item.memo.data(), itemMemo);
+        }
+    }
+
+    char petName[256];
+    char petSecondName[256];
+    char techniqueName[256];
+    char techniqueDescription[256];
+    const std::int32_t petCount = network::ParseDelimitedInteger_52CFA0(petPayload, '|', 1);
+    std::int32_t field = 2;
+    for (std::int32_t index = 0; index < petCount; ++index) {
+        auto& pet = gStallBrowseD046D8.pets[gStallPetCountD67BD4];
+        ++gStallPetCountD67BD4;
+        gStallBrowseD046D8.petValuesD2D464[index] =
+            network::ParseDelimitedInteger_52CFA0(petPayload, '|', field++);
+        gStallBrowseD046D8.petValuesD2D478[index] =
+            network::ParseDelimitedInteger_52CFA0(petPayload, '|', field++);
+        ++field; // 原每条相对字段4不解析。
+        pet.used = 1;
+        const std::int32_t imageNo = network::ParseDelimitedInteger_52CFA0(petPayload, '|', field++);
+        pet.imageNo6A0 = character_select::detail::Sub_51B740(imageNo);
+        pet.value04 = static_cast<std::uint16_t>(
+            network::ParseDelimitedInteger_52CFA0(petPayload, '|', field++));
+        for (std::int32_t value = 0; value < 6; ++value) {
+            const std::int32_t plain = network::ParseDelimitedInteger_52CFA0(petPayload, '|', field++);
+            platform::legacy_crypt_int::AssignFromInt(&pet.values0C[value], plain);
+        }
+        pet.value08 = network::ParseDelimitedInteger_52CFA0(petPayload, '|', field++);
+        for (std::int32_t value = 5; value <= 10; ++value) {
+            pet.values70[value] = network::ParseDelimitedInteger_52CFA0(petPayload, '|', field++);
+        }
+        for (std::int32_t value = 21; value <= 24; ++value) {
+            pet.values70[value] = network::ParseDelimitedInteger_52CFA0(petPayload, '|', field++);
+        }
+        pet.value6A4 = network::ParseDelimitedInteger_52CFA0(petPayload, '|', field++);
+        pet.value02 = static_cast<std::uint16_t>(
+            network::ParseDelimitedInteger_52CFA0(petPayload, '|', field++));
+        network::ExtractDelimitedField_52CED0(petPayload, '|', field++, 255, petName);
+        input::UnescapeLegacyTextAndNotify_52D2F0(petName);
+        if (std::strlen(petName) <= 16) {
+            std::strcpy(pet.name6AC.data(), petName);
+        }
+        network::ExtractDelimitedField_52CED0(petPayload, '|', field++, 255, petSecondName);
+        input::UnescapeLegacyTextAndNotify_52D2F0(petSecondName);
+        if (std::strlen(petSecondName) <= 16) {
+            std::strcpy(pet.name6BD.data(), petSecondName);
+        }
+        const auto flags = static_cast<std::uint16_t>(
+            network::ParseDelimitedInteger_52CFA0(petPayload, '|', field++));
+        if ((flags & 0x10u) != 0) {
+            pet.follow6D4 = 1;
+            pet.flags6AA = static_cast<std::uint16_t>(flags & 0xFFEFu);
+        } else {
+            pet.flags6AA = flags;
+            pet.follow6D4 = 0;
+        }
+        pet.values70[25] = network::ParseDelimitedInteger_52CFA0(petPayload, '|', field++);
+        ++field; // 原每条相对字段30不解析。
+        for (std::int32_t value = 0; value < 5; ++value) {
+            pet.values70[value] = network::ParseDelimitedInteger_52CFA0(petPayload, '|', field++);
+        }
+        for (std::int32_t value = 17; value <= 20; ++value) {
+            pet.values70[value] = network::ParseDelimitedInteger_52CFA0(petPayload, '|', field++);
+        }
+        for (std::int32_t value = 11; value <= 16; ++value) {
+            pet.values70[value] = network::ParseDelimitedInteger_52CFA0(petPayload, '|', field++);
+        }
+        pet.value6D0 = network::ParseDelimitedInteger_52CFA0(petPayload, '|', field++);
+        pet.values6D8[1] = network::ParseDelimitedInteger_52CFA0(petPayload, '|', field++);
+        pet.values6D8[2] = network::ParseDelimitedInteger_52CFA0(petPayload, '|', field++);
+        pet.values6D8[0] = network::ParseDelimitedInteger_52CFA0(petPayload, '|', field++);
+        pet.lvFlag6C = network::ParseDelimitedInteger_52CFA0(petPayload, '|', field++);
+        const std::int32_t techniqueCount = network::ParseDelimitedInteger_52CFA0(petPayload, '|', field++);
+        std::memset(pet.techniquesD8.data(), 0, sizeof(pet.techniquesD8));
+        for (std::int32_t technique = 0; technique < techniqueCount; ++technique) {
+            techniqueDescription[0] = input::LegacyText593850()[0];
+            std::memset(techniqueDescription + 1, 0, sizeof(techniqueDescription) - 1);
+            const std::int32_t slot = network::ParseDelimitedInteger_52CFA0(petPayload, '|', field++);
+            network::ExtractDelimitedField_52CED0(petPayload, '|', field++, 255, techniqueName);
+            input::UnescapeLegacyTextAndNotify_52D2F0(techniqueName);
+            auto& record = pet.techniquesD8[slot];
+            if (std::strlen(techniqueName) == 0) {
+                record.name[0] = '\0';
+                record.description[0] = '\0';
+                record.fp = 0;
+                record.used = 0;
+            } else {
+                record.used = 1;
+                record.techniqueId = 0;
+                std::strcpy(record.name.data(), std::strlen(techniqueName) <= 24 ? techniqueName : "???");
+                std::strcpy(record.description.data(),
+                    std::strlen(techniqueDescription) <= 96 ? techniqueDescription : "???");
+                record.fp = 0;
+                record.field = 0;
+                record.target = 0;
+                record.sequence = 0;
+            }
+        }
+        world::detail::Sub_5185C0(pet.techniquesD8.data(), pet.techniquePairs650.data(), 10);
+    }
+    static_cast<void>(audio::PlaySe_52C450(56, 320));
+    static_cast<void>(CreateWindowAnimation_475AA0(68, 1, 0, nullptr));
 }
 
 void Sub_4CF8A0(world::detail::PlayerItemRecord* const item, const char* const text)
@@ -23157,6 +23349,14 @@ void Sub_50E7D0(const std::uintptr_t, const std::int32_t result)
 void Sub_50E7E0(const std::uintptr_t, const std::int32_t result)
 {
     detail::Sub_4CE8B0(result);
+}
+
+void Sub_50E7F0(
+    const std::uintptr_t, const std::int32_t status, const std::int32_t target,
+    const char* const stallName, const char* const description,
+    const char* const itemPayload, const char* const petPayload)
+{
+    detail::Sub_4CED60(status, target, stallName, description, itemPayload, petPayload);
 }
 
 void Sub_50E820(const std::uintptr_t, const std::int32_t result)

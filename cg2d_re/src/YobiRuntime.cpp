@@ -7190,6 +7190,11 @@ std::int32_t GetYobiActionField2E4(const YobiAction* const action) noexcept
     return action->field2E4;
 }
 
+const char* BorrowYobiNameC4(const YobiAction* const action) noexcept
+{
+    return action->nameC4.data();
+}
+
 std::int32_t GetYobiActionField2A8(YobiAction* const action)
 {
     return action->imageNo;

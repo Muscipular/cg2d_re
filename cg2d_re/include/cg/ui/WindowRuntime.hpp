@@ -49,6 +49,10 @@ void Sub_50F990(
 // 摆摊开/收回复，无场景门禁，原返回地址均被dispatcher丢弃。
 void Sub_50E7D0(std::uintptr_t unusedSocket, std::int32_t result);
 void Sub_50E7E0(std::uintptr_t unusedSocket, std::int32_t result);
+void Sub_50E7F0(
+    std::uintptr_t unusedSocket, std::int32_t status, std::int32_t target,
+    const char* stallName, const char* description,
+    const char* itemPayload, const char* petPayload); // ft完整浏览生产，无场景门禁。
 void Sub_50E820(std::uintptr_t unusedSocket, std::int32_t result); // 购买结果，无额外门禁。
 
 // 交易回复：按场景门禁后单次CryptInt门禁，socket由原dispatcher传入但不消费。

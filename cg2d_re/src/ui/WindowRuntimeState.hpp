@@ -228,6 +228,11 @@ std::int32_t Sub_49CE70(std::int32_t index, std::int32_t state); // 六按钮与
 std::int32_t Sub_49CF70(std::int32_t unusedIndex, std::int32_t state); // 输入行切换/文本行选择。
 std::int32_t Sub_49DA30(
     std::int32_t button, std::int32_t row, char* const* texts, std::uint8_t inputCount);
+void Sub_49DDB0(const char* text, std::int16_t x, std::int16_t y); // 内嵌g,标记原字节解析。
+login::YobiAction* Sub_49DF30(
+    std::int32_t x, std::int32_t y, std::int32_t width, std::int32_t height,
+    std::int32_t imageNo, std::int32_t buttons, std::int32_t request,
+    std::int32_t target, char* text); // 原位文本处理，借用共享行表创建常规对话。
 login::YobiAction* Sub_49C600(
     std::int32_t x, std::int32_t y, std::int32_t width, std::int32_t height,
     std::int32_t imageNo, std::int32_t buttons, WindowDialogTextLine* lines,

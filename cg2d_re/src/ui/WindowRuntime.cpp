@@ -447,6 +447,8 @@ struct DialogReplyRuntimeSlots {
     std::int32_t firstLine;
 };
 DialogReplyRuntimeSlots gDialogReply {};
+std::array<WindowDialogTextLine, 30> gDialogLinesCB1398 {};
+std::array<std::int16_t, 2> gDialogInputYD67B34 {};
 
 // 原57C24C目标的内联矩形；同值异地址仍分别存储，见窗口SPEC。
 WindowDragRect gDragRects561998[] {{0, 0, 330, 25}, {315, 0, 20, 92}};
@@ -5182,6 +5184,146 @@ std::int32_t Sub_49DA30(
     return 1;
 }
 static_assert(std::is_same_v<decltype(&Sub_49DA30), WindowDialogReplyCallback>);
+
+void Sub_49DDB0(const char* const text, std::int16_t x, std::int16_t y)
+{
+    if (text[0] != 'g' || text[1] != ',') {
+        return;
+    }
+    // 原32B区跨字段复用；空格只跳过写入，不压缩索引或初始化残留。
+    std::array<char, 32> number;
+    const char* cursor = text + 2;
+    std::int32_t index = 0;
+    while (cursor[index] != '\0' && cursor[index] != ',' && cursor[index] != '(') {
+        if (cursor[index] != ' ') {
+            number[index] = cursor[index];
+        }
+        ++index;
+    }
+    const char delimiter = cursor[index];
+    number[index] = '\0';
+    cursor += index + 1;
+    const std::int32_t imageNo = std::atoi(number.data());
+    std::uint8_t direction = 0;
+    if (delimiter == ',') {
+        ++cursor;
+        index = 0;
+        while (cursor[index] != '\0' && cursor[index] != ',' && cursor[index] != '(') {
+            if (cursor[index] != ' ') {
+                number[index] = cursor[index];
+            }
+            ++index;
+        }
+        number[index] = '\0';
+        cursor += index + 1;
+        direction = static_cast<std::uint8_t>(std::atoi(number.data()));
+    }
+    const char* const coordinates = std::strchr(cursor, '(');
+    if (coordinates != nullptr) {
+        cursor = coordinates + 1;
+        if (std::strchr(cursor, ')') != nullptr) {
+            index = 0;
+            while (cursor[index] != '\0' && cursor[index] != ',') {
+                if (cursor[index] != ' ') {
+                    number[index] = cursor[index];
+                }
+                ++index;
+            }
+            number[index] = '\0';
+            cursor += index + 1;
+            x = static_cast<std::int16_t>(std::atoi(number.data()));
+            index = 0;
+            while (cursor[index] != '\0' && cursor[index] != ',') {
+                if (cursor[index] != ' ') {
+                    number[index] = cursor[index];
+                }
+                ++index;
+            }
+            number[index] = '\0';
+            y = static_cast<std::int16_t>(std::atoi(number.data()));
+        }
+    }
+    Sub_49C510(1, imageNo, direction, x, y);
+}
+
+login::YobiAction* Sub_49DF30(
+    const std::int32_t x, const std::int32_t y,
+    const std::int32_t width, const std::int32_t height,
+    const std::int32_t imageNo, const std::int32_t buttons,
+    const std::int32_t request, const std::int32_t target, char* text)
+{
+    Sub_49C4D0();
+    gDialogReply.type = world::detail::gValue581800;
+    gDialogReply.request = request;
+    gDialogReply.target = target;
+    input::UnescapeLegacyTextAndNotify_52D2F0(text);
+    const std::int32_t buttonHeight = buttons != 0 ? 24 : 0;
+    const std::int32_t type = gDialogReply.type;
+    std::int32_t inputHeight = 0;
+    if (type == 1 || type == 11) {
+        inputHeight = 28;
+        gDialogInputYD67B34[0] = static_cast<std::int16_t>(height - buttonHeight - 44);
+    }
+    if (world::detail::gValue581800 == 35) {
+        const std::int32_t contentHeight = height - inputHeight - buttonHeight;
+        gDialogInputYD67B34[0] = static_cast<std::int16_t>(contentHeight - 118);
+        gDialogInputYD67B34[1] = static_cast<std::int16_t>(contentHeight - 67);
+    }
+    std::int32_t lineHeight = 16;
+    gDialogReply.firstLine = 0;
+    if (type == 2) {
+        lineHeight = 20;
+        gDialogReply.firstLine = network::ParseDelimitedInteger_52CFA0(text, '\n', 1);
+        text = std::strchr(text, '\n') + 1;
+    }
+    const std::int32_t columns = login::detail::Sub_49C5C0(static_cast<std::int16_t>(width));
+    const std::int32_t lines = login::detail::Sub_49C5E0(
+        static_cast<std::int16_t>(height - inputHeight), buttons, lineHeight);
+    char* marker = input::FindLegacyByte_44B4A0(text, "@");
+    while (marker != nullptr) {
+        char* const content = marker + 1;
+        if (content[0] == '@') {
+            content[1] = static_cast<char>(0xFF);
+        } else if (content[0] == 'g' && content[1] == ',') {
+            char* const end = input::FindLegacyByte_44B4A0(content, "@");
+            if (end == nullptr) {
+                break;
+            }
+            *end = '\0';
+            Sub_49DDB0(content,
+                static_cast<std::int16_t>(static_cast<std::int16_t>(width) / 2),
+                static_cast<std::int16_t>(static_cast<std::int16_t>(height) / 2));
+            std::memset(marker, 0xFF, static_cast<std::size_t>(end - marker + 1));
+        }
+        marker = input::FindLegacyByte_44B4A0(content, "@");
+    }
+    char* output = text;
+    for (char* cursor = text; ; ++cursor) {
+        if (static_cast<std::uint8_t>(*cursor) == 0xFFu) {
+            continue;
+        }
+        *output = *cursor;
+        if (*cursor == '\0') {
+            break;
+        }
+        ++output;
+    }
+    for (std::int32_t row = 0; row < lines; ++row) {
+        static_cast<void>(input::ExtractLegacyLine_503AB0(
+            gDialogLinesCB1398[row].text.data(), 81, text, row, columns));
+    }
+    if (world::detail::gValue581800 == 35) {
+        return Sub_49C600(
+            x, y, width, height, imageNo, buttons, gDialogLinesCB1398.data(),
+            lines, lineHeight, gDialogReply.firstLine, 2, gDialogInputYD67B34.data(),
+            columns, 2, 2, &Sub_49DA30, nullptr, 1, 0);
+    }
+    return Sub_49C600(
+        x, y, width, height, imageNo, buttons, gDialogLinesCB1398.data(),
+        lines, lineHeight, gDialogReply.firstLine, inputHeight != 0 ? 1 : 0,
+        inputHeight != 0 ? gDialogInputYD67B34.data() : nullptr,
+        columns, 2, 0, &Sub_49DA30, nullptr, 1, 0);
+}
 
 std::int32_t Sub_499930(const std::int32_t, const std::int32_t state)
 {

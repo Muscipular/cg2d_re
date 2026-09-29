@@ -331,6 +331,12 @@ void AppendBattleEffect_439400(YobiAction* action, BattleEntryEffectRecord effec
 void AppendBattleAuxEffects_43BC10(
     YobiAction* action, std::int32_t position, std::uint32_t flags,
     std::int32_t value3, std::int32_t value4, std::int32_t value5);
+// 原439470：先推进C9C，返回新项position是否为-1；空对象返回0。
+std::int32_t AdvanceBattleEffect_439470(YobiAction* action);
+// 原43BC90：三次推进、四输出原序写入并分别重读游标，返回末次推进结果。
+std::int32_t TakeBattleAuxEffects_43BC90(
+    YobiAction* action, std::int32_t* position, std::int32_t* value3,
+    std::int32_t* value4, std::int32_t* value5);
 // 原43BF30：mode1只消费预扫描8整数；mode0读对象字段，五输出均为S32非拥有指针。
 void TakeBattleMAuxGraphics_43BF30(
     YobiAction* action, std::int32_t mode, std::int32_t* firstImage, std::int32_t* secondImage,
@@ -357,6 +363,8 @@ void AppendBattleCast_4392A0(YobiAction* caster, YobiAction* actor, std::int32_t
 void AppendBattleCastAt_4392F0(
     YobiAction* caster, YobiAction* actor, std::int32_t state, std::int32_t index);
 void AdvanceBattleCastState_439340(YobiAction* action); // 先推进FC4，到200或-1哨兵写phase236。
+void AdvanceBattleLinkedCast_40CAC0(YobiAction* action); // 动作73：当前效果目标先推进，再推进自身。
+void AdvanceBattleEffectAndCast_40CAF0(YobiAction* action); // 动作74：推进效果后总是推进动作。
 void MoveBattleCastState_439380(YobiAction* action); // 播放索引对应项写phase，不推进索引。
 std::int32_t CheckBattleTurnReady_4394A0(YobiAction* parent, std::int32_t enable); // 22槽就绪及超时恢复。
 std::int32_t Sub_43C910(); // 全表未就绪对象置phase=2，全部就绪返回1。

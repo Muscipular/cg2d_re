@@ -8337,6 +8337,47 @@ void AppendBattleAuxEffects_43BC10(
     AppendBattleEffect_439400(action, original);
 }
 
+std::int32_t AdvanceBattleEffect_439470(YobiAction* const action)
+{
+    if (action == nullptr) {
+        return 0;
+    }
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    const std::int32_t next = payload->effectRunningC9C + 1;
+    payload->effectRunningC9C = next;
+    return payload->effects1C[next].position == -1 ? 1 : 0;
+}
+
+std::int32_t TakeBattleAuxEffects_43BC90(
+    YobiAction* const action, std::int32_t* const position, std::int32_t* const value3,
+    std::int32_t* const value4, std::int32_t* const value5)
+{
+    const auto* const payload = static_cast<const BattleActorPayload*>(action->payload);
+    AdvanceBattleEffect_439470(action);
+    // 输出可能别名载荷游标，保留每次写入后的独立读取。
+    *position = payload->effects1C[payload->effectRunningC9C].position;
+    *value3 = payload->effects1C[payload->effectRunningC9C].position3;
+    *value4 = payload->effects1C[payload->effectRunningC9C].position4;
+    AdvanceBattleEffect_439470(action);
+    *value5 = payload->effects1C[payload->effectRunningC9C].position3;
+    return AdvanceBattleEffect_439470(action);
+}
+
+void AdvanceBattleLinkedCast_40CAC0(YobiAction* const action)
+{
+    const auto* const payload = static_cast<const BattleActorPayload*>(action->payload);
+    const std::int32_t position = payload->effects1C[payload->effectRunningC9C].position;
+    YobiAction* const target = world::detail::gBattleAllEntries59E980[position];
+    AdvanceBattleCastState_439340(target);
+    AdvanceBattleCastState_439340(action);
+}
+
+void AdvanceBattleEffectAndCast_40CAF0(YobiAction* const action)
+{
+    AdvanceBattleEffect_439470(action);
+    AdvanceBattleCastState_439340(action);
+}
+
 void MoveBattleCastState_439380(YobiAction* const action)
 {
     if (action == nullptr) {

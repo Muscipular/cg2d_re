@@ -79,6 +79,12 @@ std::int32_t Sub_50F8E0(std::uintptr_t unusedSocket, const char* payload); // �
 std::int32_t Sub_5348A0(); // bin/category.dat原13ED4H整块保存。
 std::int32_t Sub_534910(); // 同源整块读取，不按短读失败或清尾。
 
+// 原49D8F0三类资料窗口的数据生产；先整串反转义，未用首参数仍保留。
+void Sub_4C9E40(std::int32_t unusedValue, char* payload); // 分类三组选择字节，不改used。
+void Sub_4CA330(std::int32_t unusedValue, char* payload); // 搜索结果最多20条，仅预清used。
+std::int32_t Sub_4CAC60(std::int32_t unusedValue, char* payload); // 独立查看资料，返回末次图号查询。
+std::int32_t Sub_5342F0(std::int32_t key, std::int32_t mode); // 分类第1/3组严格used==1首匹配，失败-1。
+
 // 原 518C80：依次清两段邮件持久区及 CB1384，返回 0。
 std::int32_t Sub_518C80();
 // 原 [518CB0,518D94)：依次读两文件，返回 fclose 或缺失文件 helper 的整数结果。

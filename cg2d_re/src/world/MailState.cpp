@@ -75,7 +75,7 @@ MiniMailRuntimeSlots gMiniMailRuntime {};
 std::uint32_t gMiniMailSequence1075A88 = 0; // W32序号，先发布低W16再递增。
 std::int32_t gMiniMailSelectionD673E4 = 0; // 4C9490显式写-1，不在静态初值提前写。
 
-// 原profile每条三项108H资料；只拆533950已写的数值和原字节文本。
+// 原profile每条三项108H资料；默认生产及查看资料共用布局，见场景§142/145。
 struct ProfileEntry {
     std::int32_t value00;
     std::int32_t value04;
@@ -87,7 +87,7 @@ struct ProfileRuntimeRecord {
     std::int32_t value04;
     std::array<char, 0x100> text08;
     std::int32_t value108;
-    std::array<std::byte, 4> bytes10C;
+    std::int32_t value10C;
     std::array<char, 0x100> text110;
     std::array<char, 0x100> text210;
     std::array<char, 0x100> text310;
@@ -105,7 +105,7 @@ static_assert(offsetof(ProfileRuntimeRecord, value00) == 0);
 static_assert(offsetof(ProfileRuntimeRecord, value04) == 4);
 static_assert(offsetof(ProfileRuntimeRecord, text08) == 8);
 static_assert(offsetof(ProfileRuntimeRecord, value108) == 0x108);
-static_assert(offsetof(ProfileRuntimeRecord, bytes10C) == 0x10C);
+static_assert(offsetof(ProfileRuntimeRecord, value10C) == 0x10C);
 static_assert(offsetof(ProfileRuntimeRecord, text110) == 0x110);
 static_assert(offsetof(ProfileRuntimeRecord, text210) == 0x210);
 static_assert(offsetof(ProfileRuntimeRecord, text310) == 0x310);
@@ -113,14 +113,46 @@ static_assert(offsetof(ProfileRuntimeRecord, entries410) == 0x410);
 static_assert(offsetof(ProfileRuntimeRecord, text728) == 0x728);
 static_assert(sizeof(ProfileRuntimeRecord) == 0x828);
 
-// 原持久双槽与独立当前资料；两者之间的另一资料区不在本承载内。
+// 持久双槽、当前资料与4CAC60查看资料分别拥有存储，不互相覆盖。
 std::array<ProfileRuntimeRecord, 2> gProfiles1074938 {};
 ProfileRuntimeRecord gCurrentProfile10738E8 {};
+ProfileRuntimeRecord gViewedProfile105ECE0 {};
 static_assert(sizeof(gProfiles1074938) == 0x1050);
 constexpr char kProfileDefault58F614[] = "\xA5\xBC\xB3\x5D\xA9\x77";
 constexpr char kProfileHidden58F61C[] = "\xA4\xA3\xA4\xBD\xB6\x7D";
 static_assert(sizeof(kProfileDefault58F614) == 7);
 static_assert(sizeof(kProfileHidden58F61C) == 7);
+
+// 原窗口61搜索结果，4CA330只清used；原存档区在此前结束。
+struct ProfileSearchRecord {
+    std::int32_t used;
+    std::array<char, 0x100> text04;
+    std::int32_t value104;
+    std::int32_t value108;
+    std::array<char, 0x100> text10C;
+};
+
+struct ProfileSearchRuntimeSlots {
+    std::int32_t value00;
+    std::int32_t value04;
+    std::array<ProfileSearchRecord, 20> records;
+};
+
+static_assert(std::is_standard_layout_v<ProfileSearchRecord>);
+static_assert(std::is_trivially_copyable_v<ProfileSearchRecord>);
+static_assert(offsetof(ProfileSearchRecord, used) == 0);
+static_assert(offsetof(ProfileSearchRecord, text04) == 4);
+static_assert(offsetof(ProfileSearchRecord, value104) == 0x104);
+static_assert(offsetof(ProfileSearchRecord, value108) == 0x108);
+static_assert(offsetof(ProfileSearchRecord, text10C) == 0x10C);
+static_assert(sizeof(ProfileSearchRecord) == 0x20C);
+static_assert(std::is_standard_layout_v<ProfileSearchRuntimeSlots>);
+static_assert(std::is_trivially_copyable_v<ProfileSearchRuntimeSlots>);
+static_assert(offsetof(ProfileSearchRuntimeSlots, value00) == 0);
+static_assert(offsetof(ProfileSearchRuntimeSlots, value04) == 4);
+static_assert(offsetof(ProfileSearchRuntimeSlots, records) == 8);
+static_assert(sizeof(ProfileSearchRuntimeSlots) == 0x28F8);
+ProfileSearchRuntimeSlots gProfileSearch105C398 {};
 
 // 原category.dat三组各100条；未消费字节不解释成地址或额外状态。
 struct CategoryRecord {
@@ -129,7 +161,8 @@ struct CategoryRecord {
     std::int32_t value04;
     std::int32_t value08;
     std::array<char, 0x100> text0C;
-    std::array<std::byte, 4> bytes10C;
+    std::uint8_t selected10C; // 4C9E40写选择位，与used独立。
+    std::array<std::byte, 3> bytes10D;
 };
 
 struct CategoryRuntimeSlots {
@@ -146,7 +179,8 @@ static_assert(offsetof(CategoryRecord, bytes01) == 1);
 static_assert(offsetof(CategoryRecord, value04) == 4);
 static_assert(offsetof(CategoryRecord, value08) == 8);
 static_assert(offsetof(CategoryRecord, text0C) == 0x0C);
-static_assert(offsetof(CategoryRecord, bytes10C) == 0x10C);
+static_assert(offsetof(CategoryRecord, selected10C) == 0x10C);
+static_assert(offsetof(CategoryRecord, bytes10D) == 0x10D);
 static_assert(sizeof(CategoryRecord) == 0x110);
 static_assert(std::is_standard_layout_v<CategoryRuntimeSlots>);
 static_assert(std::is_trivially_copyable_v<CategoryRuntimeSlots>);
@@ -896,6 +930,122 @@ std::int32_t Sub_50F8E0(const std::uintptr_t, const char* const payload)
             return count;
         }
     }
+}
+
+void Sub_4C9E40(const std::int32_t, char* const payload)
+{
+    input::UnescapeLegacyText_52D150(payload);
+    std::int32_t field = 1;
+    for (std::int32_t index = 0; index < gCategory105FA10.count08; ++index) {
+        const auto mask = static_cast<std::uint8_t>(
+            network::ParseDelimitedInteger_52CFA0(payload, '|', field++));
+        gCategory105FA10.records[index].selected10C = mask & 1u;
+        gCategory105FA10.records[index + 100].selected10C = (mask >> 1) & 1u;
+    }
+    for (std::int32_t index = 0; index < gCategory105FA10.count0C; ++index) {
+        const auto mask = static_cast<std::uint8_t>(
+            network::ParseDelimitedInteger_52CFA0(payload, '|', field++));
+        gCategory105FA10.records[index + 200].selected10C = mask & 1u;
+    }
+}
+
+std::int32_t Sub_5342F0(const std::int32_t key, const std::int32_t mode)
+{
+    if (mode != 0 && mode != 1) {
+        return -1;
+    }
+    const CategoryRecord* record = gCategory105FA10.records.data()
+        + (mode == 0 ? 0 : 200);
+    const CategoryRecord* const end = record + 100;
+    for (; record != end; ++record) {
+        if (record->used == 1 && record->value04 == key) {
+            return record->value08;
+        }
+    }
+    return -1;
+}
+
+void Sub_4CA330(const std::int32_t, char* const payload)
+{
+    for (ProfileSearchRecord& record : gProfileSearch105C398.records) {
+        record.used = 0;
+    }
+    input::UnescapeLegacyText_52D150(payload);
+    gProfileSearch105C398.value00 =
+        network::ParseDelimitedInteger_52CFA0(payload, '|', 1);
+    gProfileSearch105C398.value04 =
+        network::ParseDelimitedInteger_52CFA0(payload, '|', 2);
+    std::int32_t field = 3;
+    for (ProfileSearchRecord& record : gProfileSearch105C398.records) {
+        if (network::ParseDelimitedInteger_52CFA0(payload, '|', field) == -1) {
+            return;
+        }
+        record.used = 1;
+        record.value104 = network::ParseDelimitedInteger_52CFA0(payload, '|', field++);
+        record.value108 = network::ParseDelimitedInteger_52CFA0(payload, '|', field++);
+        network::ExtractDelimitedField_52CED0(
+            payload, '|', field++, 255, record.text04.data());
+        input::UnescapeLegacyTextAndNotify_52D2F0(record.text04.data());
+        network::ExtractDelimitedField_52CED0(
+            payload, '|', field++, 255, record.text10C.data());
+        input::UnescapeLegacyTextAndNotify_52D2F0(record.text10C.data());
+    }
+}
+
+std::int32_t Sub_4CAC60(const std::int32_t, char* const payload)
+{
+    input::UnescapeLegacyText_52D150(payload);
+    ProfileRuntimeRecord& record = gViewedProfile105ECE0;
+    char text[256];
+    record.value00 = network::ParseDelimitedInteger_52CFA0(payload, '|', 1);
+    network::ExtractDelimitedField_52CED0(payload, '|', 2, 255, text);
+    input::UnescapeLegacyTextAndNotify_52D2F0(text);
+    std::strcpy(record.text08.data(), text);
+    record.value108 = network::ParseDelimitedInteger_52CFA0(payload, '|', 3);
+    network::ExtractDelimitedField_52CED0(payload, '|', 4, 255, text);
+    input::UnescapeLegacyTextAndNotify_52D2F0(text);
+    std::strcpy(record.text210.data(), text);
+    network::ExtractDelimitedField_52CED0(payload, '|', 5, 255, text);
+    input::UnescapeLegacyTextAndNotify_52D2F0(text);
+    std::strcpy(record.text110.data(), text);
+    network::ExtractDelimitedField_52CED0(payload, '|', 6, 255, text);
+    input::UnescapeLegacyTextAndNotify_52D2F0(text);
+    std::strcpy(record.text310.data(), text);
+    record.value10C = network::ParseDelimitedInteger_52CFA0(payload, '|', 7);
+    record.entries410[0].value00 =
+        network::ParseDelimitedInteger_52CFA0(payload, '|', 8);
+    network::ExtractDelimitedField_52CED0(payload, '|', 9, 255, text);
+    input::UnescapeLegacyTextAndNotify_52D2F0(text);
+    std::strcpy(record.entries410[0].text08.data(), text);
+    record.entries410[1].value00 =
+        network::ParseDelimitedInteger_52CFA0(payload, '|', 10);
+    network::ExtractDelimitedField_52CED0(payload, '|', 11, 255, text);
+    input::UnescapeLegacyTextAndNotify_52D2F0(text);
+    std::strcpy(record.entries410[1].text08.data(), text);
+    record.entries410[2].value00 =
+        network::ParseDelimitedInteger_52CFA0(payload, '|', 12);
+    network::ExtractDelimitedField_52CED0(payload, '|', 13, 255, text);
+    input::UnescapeLegacyTextAndNotify_52D2F0(text);
+    std::strcpy(record.entries410[2].text08.data(), text);
+    network::ExtractDelimitedField_52CED0(payload, '|', 14, 255, text);
+    input::UnescapeLegacyTextAndNotify_52D2F0(text);
+    std::strcpy(record.text728.data(), text);
+    record.entries410[1].value04 = 246000;
+    record.entries410[0].value04 = 246000;
+    record.entries410[2].value04 = 246000;
+    const std::int32_t second = Sub_5342F0(record.entries410[1].value00, 0);
+    if (second != -1) {
+        record.entries410[1].value04 = second;
+    }
+    const std::int32_t first = Sub_5342F0(record.entries410[0].value00, 0);
+    if (first != -1) {
+        record.entries410[0].value04 = first;
+    }
+    const std::int32_t third = Sub_5342F0(record.entries410[2].value00, 1);
+    if (third != -1) {
+        record.entries410[2].value04 = third;
+    }
+    return third;
 }
 
 std::int32_t Sub_5348A0()

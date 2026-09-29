@@ -490,6 +490,10 @@ static_assert(sizeof(SkillPairRecord) == 8);
 extern std::array<SkillRuntimeRecord, 15>& gSkillsF1BAFC; // 同一第四清零块成员别名。
 extern std::array<SkillPairRecord, 15>& gSkillPairsF63370;
 extern std::uint16_t gValueDA3B20; // 原技能拖放门禁，509EB0尾部清零。
+std::int32_t Sub_504F10(std::int32_t value, std::int32_t mode); // 原序查询recipe.value10，含索引表末次别名读取。
+std::int32_t Sub_505040(std::int32_t slot); // 说明/类别/flag800及制造配方条件。
+std::int32_t Sub_5050B0(std::int32_t slot); // 类别80或flag800与601..605技能配方条件。
+std::int32_t Sub_505110(std::int32_t slot); // 说明、两段物品类别及flag1000条件。
 void Sub_509EB0(std::uintptr_t socket, const char* payload);
 void Sub_50A120(
     std::uintptr_t unusedSocket, std::int32_t skillIndex, const char* payload); // 清技术区后按六字段生产。

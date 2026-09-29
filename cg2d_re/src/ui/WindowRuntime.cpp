@@ -22519,6 +22519,165 @@ std::int32_t Sub_49BDB0(const std::int32_t)
     return 1;
 }
 
+std::int32_t Sub_4F4430(const std::int32_t itemType, const std::int32_t skillId)
+{
+    if (skillId >= 601 && skillId <= 605) {
+        return itemType == 80 ? 1 : 0;
+    }
+    return itemType == 38 || itemType == 25 || itemType == 39 ? 1 : 0;
+}
+
+void Sub_483E30(
+    const std::int32_t destination, const std::int32_t source, const std::int32_t material)
+{
+    static_cast<void>(Sub_47DC20(destination));
+    gSelectedSlotsCA0A90[destination] = source - 8;
+    const auto* const item = &world::detail::gPlayerItemsFDA8A4[source];
+    const std::int32_t itemId = item->itemId;
+    gSelectionImagesCF3FF4[destination] = item->imageNo;
+    gSelectionCountsD66E0C[destination] = Sub_4F4630(itemId);
+    gMaterialIndicesCA0458[destination] = material;
+    auto* const hover = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
+    hover[source] = static_cast<unsigned char>(hover[source] + 1);
+    gItemMarksD67290[source] = 1;
+}
+
+std::int32_t Sub_4880D0(const std::int32_t skillId, const std::int32_t extraLevel)
+{
+    for (std::int32_t index = 0; index < 15; ++index) {
+        const world::detail::SkillPairRecord pair = world::detail::gSkillPairsF63370[index];
+        const std::int16_t skillIndex = std::bit_cast<std::int16_t>(pair.index);
+        world::detail::SkillRuntimeRecord skill;
+        std::memcpy(&skill, &world::detail::gSkillsF1BAFC[skillIndex], sizeof(skill));
+        if (skill.skillId != skillId || pair.used == 0) {
+            continue;
+        }
+        std::int32_t level = skill.level;
+        if (static_cast<std::uint8_t>(extraLevel) == 1) {
+            ++level;
+        }
+        return level < skill.maxLevel ? level : skill.maxLevel;
+    }
+    return 0;
+}
+
+std::int32_t Sub_488160()
+{
+    std::int32_t maximum = 0;
+    for (std::int32_t index = 0; index < 3; ++index) {
+        std::int32_t value;
+        std::memcpy(&value, gMaterialOccupancyCC4894.data() + index * 4, sizeof(value));
+        if (value > maximum) {
+            maximum = value;
+        }
+    }
+    return maximum;
+}
+
+std::int32_t Sub_488180()
+{
+    for (std::int32_t index = 0; index < 6; ++index) {
+        const std::int32_t material = gMaterialIndicesCA0458[index];
+        if (material == 0 || material == 1 || material == 2) {
+            const std::int32_t slot = gSelectedSlotsCA0A90[index];
+            return world::detail::gPlayerItemsFDA8A4[slot + 8].itemId;
+        }
+    }
+    return -1;
+}
+
+void Sub_4881D0(const std::int32_t destination, const std::int32_t source)
+{
+    std::int32_t flags = 0;
+    std::int32_t material = 5;
+    const std::int32_t maximum = Sub_488160();
+    const auto* const item = &world::detail::gPlayerItemsFDA8A4[source];
+    if (item->hasDescription == 0) {
+        return;
+    }
+    std::int32_t requiredCount = 0;
+    switch (item->itemType) {
+    case 23:
+    case 43:
+        material = 0;
+        requiredCount = 3;
+        break;
+    case 30:
+        material = 3;
+        requiredCount = 10;
+        break;
+    case 31:
+        material = 4;
+        requiredCount = 10;
+        break;
+    default:
+        break;
+    }
+    if (item->count < requiredCount) {
+        return;
+    }
+    const std::uint8_t crystal = gValue5F9754;
+    const std::int32_t level = item->level;
+    if (level > Sub_4880D0(2026, crystal != 0 ? 1 : 0)) {
+        return;
+    }
+    if (material >= 0 && material <= 2) {
+        flags = 5;
+        if (maximum > 0) {
+            const std::int32_t itemId = Sub_488180();
+            if (item->itemId == itemId) {
+                for (material = 0; material < 3; ++material) {
+                    std::int32_t occupied;
+                    std::memcpy(
+                        &occupied, gMaterialOccupancyCC4894.data() + material * 4, sizeof(occupied));
+                    if (occupied <= 0) {
+                        break;
+                    }
+                }
+                if (material >= 3) {
+                    return;
+                }
+            } else {
+                flags = 13;
+            }
+        }
+    } else if (material == 3 || material == 4) {
+        if (maximum <= 0 || level == maximum) {
+            flags = 3;
+        }
+    }
+    const bool accepted = (flags & 1) != 0;
+    for (std::int32_t index = 0; index < 6; ++index) {
+        if (!accepted) {
+            break;
+        }
+        if (index == destination) {
+            continue;
+        }
+        if ((flags & 2) != 0 && gMaterialIndicesCA0458[index] == material) {
+            static_cast<void>(Sub_47DC20(index));
+        }
+        if ((flags & 4) != 0) {
+            const std::int32_t slot = gSelectedSlotsCA0A90[index];
+            const std::int32_t sourceLevel = item->level;
+            if (world::detail::gPlayerItemsFDA8A4[slot + 8].level != sourceLevel) {
+                static_cast<void>(Sub_47DC20(index));
+            }
+        }
+        if ((flags & 8) != 0) {
+            const std::int32_t otherMaterial = gMaterialIndicesCA0458[index];
+            if (otherMaterial == 0 || otherMaterial == 1 || otherMaterial == 2) {
+                static_cast<void>(Sub_47DC20(index));
+            }
+        }
+    }
+    static_cast<void>(Sub_47DC20(6));
+    if (accepted) {
+        Sub_483E30(destination, source, material);
+        WriteTradeValue(gMaterialOccupancyCC4894.data(), material * 4, item->level);
+    }
+}
+
 void Sub_47DE00(
     const std::int32_t message, const std::int32_t, const std::int32_t sourceIndex)
 {

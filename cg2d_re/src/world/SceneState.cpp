@@ -2814,6 +2814,78 @@ std::array<SkillRuntimeRecord, 15>& gSkillsF1BAFC = gSkillRuntimeSlots.skills;
 std::array<SkillPairRecord, 15>& gSkillPairsF63370 = gSkillRuntimeSlots.pairs;
 std::uint16_t gValueDA3B20 = 0;
 
+std::int32_t Sub_504F10(const std::int32_t value, const std::int32_t mode)
+{
+    const char* const storage = reinterpret_cast<const char*>(&gSkillRuntimeSlots);
+    // 原包含末次F633A0读取，别名为pairs[6]前四字节，不是第16条技能。
+    for (std::int32_t index = 0; index <= 15; ++index) {
+        const char* const record =
+            storage + offsetof(SkillRuntimeSlots, skills) + index * sizeof(SkillRuntimeRecord);
+        std::int32_t skillId;
+        std::memcpy(&skillId, record + offsetof(SkillRuntimeRecord, skillId), sizeof(skillId));
+        const bool matches = mode == 1
+            ? skillId >= 601 && skillId <= 605
+            : (skillId >= 200 && skillId <= 214) || skillId == 2004 || skillId == 3103;
+        if (!matches) {
+            continue;
+        }
+        for (std::int32_t recipe = 0; recipe < 56; ++recipe) {
+            std::int32_t candidate;
+            std::memcpy(&candidate, record + offsetof(SkillRuntimeRecord, recipes8E8)
+                + recipe * sizeof(SkillRecipeRecord) + offsetof(SkillRecipeRecord, value10),
+                sizeof(candidate));
+            if (candidate == value) {
+                return 1;
+            }
+        }
+    }
+    return 0;
+}
+
+std::int32_t Sub_505040(const std::int32_t slot)
+{
+    const PlayerItemRecord* const item = &gPlayerItemsFDA8A4[slot];
+    if (item->hasDescription == 0) {
+        return 0;
+    }
+    const std::int32_t type = item->itemType;
+    if (type == 38 || type == 25 || type == 39) {
+        return 1;
+    }
+    if ((item->flags & 0x800u) == 0) {
+        return 0;
+    }
+    return Sub_504F10(item->itemId, 0) != 0 ? 1 : 0;
+}
+
+std::int32_t Sub_5050B0(const std::int32_t slot)
+{
+    const PlayerItemRecord* const item = &gPlayerItemsFDA8A4[slot];
+    if (item->hasDescription == 0) {
+        return 0;
+    }
+    if (item->itemType == 80) {
+        return 1;
+    }
+    if ((item->flags & 0x800u) == 0) {
+        return 0;
+    }
+    return Sub_504F10(item->itemId, 1) != 0 ? 1 : 0;
+}
+
+std::int32_t Sub_505110(const std::int32_t slot)
+{
+    const PlayerItemRecord* const item = &gPlayerItemsFDA8A4[slot];
+    if (item->hasDescription == 0) {
+        return 0;
+    }
+    const std::int32_t type = item->itemType;
+    if (!((type >= 0 && type < 23) || (type >= 56 && type < 66))) {
+        return 0;
+    }
+    return (item->flags & 0x1000u) != 0 ? 1 : 0;
+}
+
 void Sub_509EB0(const std::uintptr_t /*socket*/, const char* const payload)
 {
     if (gValue9A6E0C != 0) {

@@ -124,6 +124,16 @@ std::int32_t Sub_487020(std::int32_t index, const char* text); // 请求属性/�
 void Sub_47A140(); // 窗口10模式2的技能状态差异请求，原返回无人消费。
 void Sub_479650(); // 原窗口操作S32计数加1。
 void Sub_479660(); // 原操作计数减1及严格零时的退出发送/技能状态刷新。
+std::int32_t Sub_47D170(
+    WindowInstance* window, std::int32_t anchor, std::int32_t first, std::int32_t second,
+    std::int32_t dx, std::int32_t dy); // 双预览定位/显隐，返回原36B元素数值偏移。
+WindowAnimationData* Sub_47D220(
+    WindowInstance* window, std::int32_t first, std::int32_t second,
+    std::int32_t flag, std::int32_t actionId, std::int32_t direction); // 返回第二个借用载荷。
+std::int32_t Sub_484D60(std::int32_t index, std::int32_t state); // 六材料槽悬停、翻页与图形绘制。
+WindowAnimationData* Sub_47E5E0(WindowInstance* window); // 制造结果完整窗口11展示。
+WindowAnimationData* Sub_47EBE0(); // 仅已有窗口11才更新，不自动创建。
+WindowAnimationData* Sub_4F39F0(std::int32_t result, const char* text); // JgO制造分支，原字节摘要与展示。
 login::YobiAction* Sub_4EF750(const char* text); // ND自身/远端属性生产，分类1跳过人物行。
 login::YobiAction* Sub_4874B0(); // 同源六属性视图与46创建，不回滚计数。
 std::int32_t Sub_4872E0(std::int32_t index, const char* unusedText); // 按属性目标编号发送技能。

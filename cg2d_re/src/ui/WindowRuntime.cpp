@@ -32,6 +32,7 @@
 #include <cstring>
 #include <fcntl.h>
 #include <io.h>
+#include <string>
 #include <sys/stat.h>
 #include <type_traits>
 
@@ -536,6 +537,49 @@ constexpr std::array<std::array<std::int32_t, 2>, 15> kPetCrystalLevels54F2C8 {{
 constexpr std::array<std::int32_t, 15> kPetCrystalFp54F340 {
     1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8,
 };
+
+std::int32_t gCraftSkillIndexCC2368 = 0;
+std::int32_t gCraftRecipeIndexD2D638 = 0;
+std::int32_t gCraftResultCC46D8 = 0;
+std::int32_t gCraftExperienceCC3204 = 0;
+std::int32_t gCraftValueCC4840 = 0;
+std::int32_t gCraftLevelUpCF4974 = 0;
+std::int32_t gCraftEnduranceD2F328 = 0;
+std::int32_t gCraftDexterityCA0448 = 0;
+std::int32_t gCraftIntelligenceCB0F84 = 0;
+std::int32_t gCraftInjuryD2EA78 = 0;
+std::int32_t gCraftResultImageCF4B60 = 0;
+std::int32_t gCraftDisplayImageCB2204 = 0;
+std::array<char, 60> gCraftNameCF46D4 {};
+std::array<char, 32> gCraftResultSuffixD672B4 {};
+// 只承接已证NUL文本合同；原固定容量未证，不猜数组上界或保留邻区。
+std::string gCraftResultDetailsD2E92C;
+std::array<std::int32_t, 6> gMaterialHoverSlotsCB0A8C {};
+std::int32_t gMaterialHintPageCF4FD8 = 0;
+std::int32_t gMaterialHoveredItemD67424 = 0;
+constexpr std::array<std::array<std::int32_t, 2>, 6> kCraftAlternateActionImages {{
+    {0x186A0, 0x18A87}, {0x19A28, 0x1A130}, {0x197D0, 0x19848},
+    {0x1D524, 0x1D553}, {0x1D55C, 0x1D563}, {0x1AF0E, 0x1AF25},
+}};
+constexpr std::int16_t kCraftPreviewOffsetX57D7D0 = 30;
+constexpr std::int16_t kCraftPreviewOffsetY57D7D2 = -45;
+constexpr char kCraftSuccess586638[] = "\xA1\x40\xBB\x73\xB3\x79\xA6\xA8\xA5\x5C\xA4\x46\xA1\x43";
+constexpr char kCraftFailure586628[] = "\xA1\x40\xBB\x73\xB3\x79\xA5\xA2\xB1\xD1\xA4\x46\xA1\x43";
+constexpr char kCraftLevelUp58661C[] = "\xB5\xA5\xAF\xC5\xB4\xA3\xA4\xC9\xA1\x49";
+constexpr char kCraftExperience58660C[] = "\xA7\xDE\xAF\xE0\xB8\x67\xC5\xE7\xAD\xC8 +%d";
+constexpr char kCraftEndurance586600[] = "\xA1\x40\xAD\x40\xA4\x4F +%d";
+constexpr char kCraftDexterity5865F4[] = "\xA1\x40\xC6\x46\xA5\xA9 +%d";
+constexpr char kCraftIntelligence5865E8[] = "\xA1\x40\xB4\xBC\xA4\x4F +%d";
+constexpr char kCraftInjury5865DC[] = "\xA8\xFC\xB6\xCB\xA4\x46\xA1\x49";
+constexpr char kCraftSuccess589FB8[] = "\xAA\xBA\xA6\x58\xA6\xA8\xA6\xA8\xA5\x5C\xA4\x46\xA1\x43";
+constexpr char kCraftFailure589FA8[] = "\xAA\xBA\xA6\x58\xA6\xA8\xA5\xA2\xB1\xD1\xA4\x46\xA1\x43";
+constexpr char kCraftExperience589820[] = "\xA7\xDE\xAF\xE0\xB8\x67\xC5\xE7\xAD\xC8 %+d";
+constexpr char kCraftLevelUp589814[] = "\xB5\xA5\xAF\xC5\xA4\x57\xA4\xC9\xA1\x49\n";
+constexpr char kCraftEndurance589808[] = "\xAD\x40\xA4\x4F %+d";
+constexpr char kCraftDexterity5897FC[] = "\xC6\x46\xA5\xA9 %+d";
+constexpr char kCraftIntelligence5897F0[] = "\xB4\xBC\xA4\x4F %+d";
+constexpr char kCraftInjury589CD4[] = "\xA8\xFC\xB6\xCB\xA4\x46\xA1\x49\n";
+constexpr char kCraftLostItem589F9C[] = "%s \xA5\xA2\xA5\x68\xA4\x46\xA1\x49";
 
 // 原D046D8连续浏览区；仅复用值类型布局，不与玩家或交易区共享存储。
 struct StallBrowseData {
@@ -22350,6 +22394,262 @@ std::int32_t Sub_49BDB0(const std::int32_t)
         std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}), 74, 54);
     render::ClearTextQueueTail_456D50(3);
     return 1;
+}
+
+std::int32_t Sub_47D170(
+    WindowInstance* const window, const std::int32_t anchor,
+    const std::int32_t first, const std::int32_t second,
+    const std::int32_t dx, const std::int32_t dy)
+{
+    window->elements[first].visible = 0;
+    WindowElement* elements = window->elements;
+    elements[first].x = elements[anchor].x + dx;
+    elements = window->elements;
+    elements[first].y = elements[anchor].y + dy;
+    window->elements[second].visible = 0;
+    elements = window->elements;
+    elements[second].x = elements[anchor].x + dx;
+    elements = window->elements;
+    elements[second].y = elements[anchor].y + dy;
+    elements = window->elements;
+    auto* const data = static_cast<WindowAnimationData*>(elements[first].data);
+    if (login::detail::GetYobiActionField2A8(data->action) > 0) {
+        elements[dy > 0 ? first : second].visible = 1;
+    }
+    return first * 36;
+}
+
+WindowAnimationData* Sub_47D220(
+    WindowInstance* const window, const std::int32_t first, const std::int32_t second,
+    const std::int32_t flag, const std::int32_t actionId, const std::int32_t direction)
+{
+    auto* data = static_cast<WindowAnimationData*>(window->elements[first].data);
+    login::YobiAction* action = data->action;
+    const std::uint32_t value = flag == 0 ? 1u : 0u;
+    data->value04 = value;
+    login::detail::SetYobiActionField2B0(action, actionId);
+    login::detail::SetYobiActionField2B8(action, direction);
+    data = static_cast<WindowAnimationData*>(window->elements[second].data);
+    action = data->action;
+    data->value04 = value;
+    login::detail::SetYobiActionField2B0(action, actionId);
+    login::detail::SetYobiActionField2B8(action, direction);
+    return data;
+}
+
+std::int32_t Sub_484D60(const std::int32_t index, const std::int32_t state)
+{
+    render::GraphicDescriptor16 descriptor {};
+    const std::uint32_t color = 0xFFFFFFFFu;
+    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    descriptor.bytes[13] = 4;
+    const auto events = static_cast<std::uint8_t>(state);
+    const std::int32_t slot = index - 15;
+    std::int32_t consumed = 0;
+    if ((events & 0x21) != 0) {
+        WindowInstance* const window = gCurrentWindow;
+        const WindowElement* const element = &window->elements[index];
+        const std::int32_t x = window->x + element->x;
+        const std::int32_t y = window->y + element->y;
+        const std::uint32_t imageNo = login::detail::gValueD69768;
+        login::detail::DrawGraphicHover(
+            static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
+            static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48),
+            0xDF, imageNo, 0);
+    }
+    const std::int32_t selected = gSelectedSlotsCA0A90[slot];
+    if (selected < 0) {
+        return 0;
+    }
+    if ((events & 1) != 0) {
+        if (gMaterialHoverSlotsCB0A8C[slot] != slot) {
+            gMaterialHintPageCF4FD8 = 0;
+        }
+        gMaterialHoverSlotsCB0A8C[slot] = slot;
+        if ((events & 4) != 0) {
+            ++gMaterialHintPageCF4FD8;
+            if (gMaterialHintPageCF4FD8 >= 4) {
+                gMaterialHintPageCF4FD8 = 0;
+            }
+            consumed = 1;
+        }
+        gMaterialHoveredItemD67424 = selected + 8;
+    }
+    WindowInstance* const window = gCurrentWindow;
+    const WindowElement* const element = &window->elements[index];
+    const std::int32_t imageNo = gSelectionImagesCF3FF4[slot];
+    const std::int32_t y = window->y + element->y + 24;
+    const std::int32_t x = window->x + element->x + 24;
+    static_cast<void>(login::detail::DrawGraphic(x, y, 0xDF, imageNo, 0, &descriptor));
+    return consumed;
+}
+
+WindowAnimationData* Sub_47E5E0(WindowInstance* const window)
+{
+    gValueD67B00 = 0;
+    for (std::int32_t index = 0; index < 6; ++index) {
+        static_cast<void>(Sub_47DC20(index));
+    }
+    const std::int32_t skillIndex = gCraftSkillIndexCC2368;
+    const std::int32_t skillId = world::detail::gSkillsF1BAFC[skillIndex].skillId;
+    const char* const name = skillId == 255 || skillId == 2026
+        ? gCraftNameCF46D4.data()
+        : world::detail::gSkillsF1BAFC[skillIndex].recipes8E8[gCraftRecipeIndexD2D638].name.data();
+    std::strcpy(static_cast<WindowTextData*>(window->elements[9].data)->text, name);
+    const std::int32_t result = gCraftResultCC46D8;
+    auto* const resultText = static_cast<WindowTextData*>(window->elements[10].data);
+    if (result != 0) {
+        std::strcpy(resultText->text, kCraftSuccess586638);
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+    } else {
+        std::strcpy(resultText->text, kCraftFailure586628);
+        static_cast<void>(audio::PlaySe_52C450(58, 320));
+    }
+    if (gCraftLevelUpCF4974 != 0) {
+        std::strcpy(static_cast<WindowTextData*>(window->elements[11].data)->text, kCraftLevelUp58661C);
+    } else {
+        auto* const data = static_cast<WindowTextData*>(window->elements[11].data);
+        std::sprintf(data->text, kCraftExperience58660C, gCraftExperienceCC3204);
+    }
+    char* const increments = static_cast<WindowTextData*>(window->elements[12].data)->text;
+    increments[0] = '\0';
+    char buffer[256];
+    if (gCraftEnduranceD2F328 != 0) {
+        std::sprintf(buffer, kCraftEndurance586600, gCraftEnduranceD2F328);
+        std::strcat(increments, buffer);
+    }
+    if (gCraftDexterityCA0448 != 0) {
+        std::sprintf(buffer, kCraftDexterity5865F4, gCraftDexterityCA0448);
+        std::strcat(increments, buffer);
+    }
+    if (gCraftIntelligenceCB0F84 != 0) {
+        std::sprintf(buffer, kCraftIntelligence5865E8, gCraftIntelligenceCB0F84);
+        std::strcat(increments, buffer);
+    }
+    std::strcpy(
+        static_cast<WindowTextData*>(window->elements[13].data)->text,
+        gCraftInjuryD2EA78 != 0 ? kCraftInjury5865DC : input::LegacyText593850());
+    const std::int32_t imageResult = gCraftResultCC46D8;
+    gCraftDisplayImageCB2204 = -1;
+    if (imageResult != 0) {
+        gCraftDisplayImageCB2204 = gCraftResultImageCF4B60;
+    }
+    static_cast<WindowGraphicData*>(window->elements[29].data)->imageNo = 0x3BA38;
+    static_cast<WindowGraphicData*>(window->elements[14].data)->imageNo = 0x3BA3A;
+    for (std::int32_t index = 15; index <= 20; ++index) {
+        window->elements[index].visible = 1;
+        window->elements[index].mouseCallback = Sub_484D60;
+    }
+    window->elements[24].visible = 1;
+    window->elements[22].visible = 1;
+    window->elements[21].visible = 0;
+    window->elements[23].visible = 0;
+    window->elements[25].visible = 0;
+    window->elements[26].visible = 1;
+    window->elements[27].visible = 1;
+    static_cast<WindowAnimationData*>(window->elements[4].data)->value04 = 1;
+    const bool succeeded = gCraftResultCC46D8 != 0;
+    const std::int32_t defaultAction = succeeded ? 5 : 10;
+    const std::int32_t alternateAction = succeeded ? 18 : 15;
+    login::detail::SetYobiActionField2B0(
+        static_cast<WindowAnimationData*>(window->elements[4].data)->action, defaultAction);
+    std::int32_t imageNo = world::detail::ReadPlayerImageNo();
+    for (const auto& range : kCraftAlternateActionImages) {
+        if (imageNo >= range[0] && imageNo <= range[1]) {
+            login::detail::SetYobiActionField2B0(
+                static_cast<WindowAnimationData*>(window->elements[4].data)->action, alternateAction);
+            imageNo = world::detail::ReadPlayerImageNo();
+        }
+    }
+    if (imageNo == 0x18A26) {
+        login::detail::SetYobiActionField2B0(
+            static_cast<WindowAnimationData*>(window->elements[4].data)->action, defaultAction);
+    }
+    window->elements[6].visible = 0;
+    window->elements[7].visible = 0;
+    window->elements[8].visible = 0;
+    static_cast<void>(Sub_47D170(
+        window, 4, 3, 5, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
+    WindowAnimationData* last;
+    if (gSkillSendModeC8A970 != 0) {
+        last = Sub_47D220(window, 3, 5, 1, gCraftResultCC46D8 != 0 ? 6 : 8, 5);
+    } else {
+        last = Sub_47D220(window, 3, 5, 0, 10, 5);
+    }
+    gSelectionModeD2D650 = 2;
+    return last;
+}
+
+WindowAnimationData* Sub_47EBE0()
+{
+    WindowInstance* const window = gWindowStates[11].window;
+    return window != nullptr ? Sub_47E5E0(window) : nullptr;
+}
+
+WindowAnimationData* Sub_4F39F0(const std::int32_t result, const char* const text)
+{
+    gCraftResultDetailsD2E92C.clear();
+    gCraftResultCC46D8 = result;
+    gCraftExperienceCC3204 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
+    gCraftValueCC4840 = network::ParseDelimitedInteger_52CFA0(text, '|', 2);
+    gCraftLevelUpCF4974 = network::ParseDelimitedInteger_52CFA0(text, '|', 3);
+    gCraftEnduranceD2F328 = network::ParseDelimitedInteger_52CFA0(text, '|', 4);
+    gCraftDexterityCA0448 = network::ParseDelimitedInteger_52CFA0(text, '|', 5);
+    gCraftIntelligenceCB0F84 = network::ParseDelimitedInteger_52CFA0(text, '|', 6);
+    gCraftInjuryD2EA78 = network::ParseDelimitedInteger_52CFA0(text, '|', 7);
+    gCraftResultImageCF4B60 = network::ParseDelimitedInteger_52CFA0(text, '|', 8);
+    if (result != 0) {
+        std::strcpy(gCraftResultSuffixD672B4.data(), kCraftSuccess589FB8);
+    } else {
+        gCraftResultImageCF4B60 = 0;
+        std::strcpy(gCraftResultSuffixD672B4.data(), kCraftFailure589FA8);
+    }
+    char buffer[256];
+    char lostItem[256];
+    std::int32_t lines = 0;
+    const auto appendValue = [&](const char* const format, const std::int32_t value) {
+        std::sprintf(buffer, format, value);
+        if (std::strlen(buffer) < 28) {
+            std::strcat(buffer, "\n");
+        }
+        gCraftResultDetailsD2E92C += buffer;
+        ++lines;
+    };
+    if (gCraftExperienceCC3204 > 0) {
+        appendValue(kCraftExperience589820, gCraftExperienceCC3204);
+    }
+    if (gCraftLevelUpCF4974 != 0 && lines < 8) {
+        std::sprintf(buffer, kCraftLevelUp589814);
+        gCraftResultDetailsD2E92C += buffer;
+        ++lines;
+        static_cast<void>(audio::PlaySe_52C450(64, 320));
+    }
+    if (gCraftEnduranceD2F328 != 0 && lines < 8) {
+        appendValue(kCraftEndurance589808, gCraftEnduranceD2F328);
+    }
+    if (gCraftDexterityCA0448 != 0 && lines < 8) {
+        appendValue(kCraftDexterity5897FC, gCraftDexterityCA0448);
+    }
+    if (gCraftIntelligenceCB0F84 != 0 && lines < 8) {
+        appendValue(kCraftIntelligence5897F0, gCraftIntelligenceCB0F84);
+    }
+    for (std::int32_t index = 0; index < 6 && lines < 8; ++index) {
+        static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', index + 9, 255, buffer));
+        input::UnescapeLegacyTextAndNotify_52D2F0(buffer);
+        if (std::strlen(buffer) == 0) {
+            break;
+        }
+        std::sprintf(lostItem, kCraftLostItem589F9C, buffer);
+        if (std::strlen(lostItem) < 28) {
+            std::strcat(lostItem, "\n");
+        }
+        gCraftResultDetailsD2E92C += lostItem;
+        ++lines;
+    }
+    if (gCraftInjuryD2EA78 != 0 && lines < 8) {
+        gCraftResultDetailsD2E92C += kCraftInjury589CD4;
+    }
+    return Sub_47EBE0();
 }
 
 std::int32_t Sub_479820()

@@ -2172,6 +2172,158 @@ std::int32_t Sub_4D0A80(
     return render::DrawGraphic3_520970(shortX, shortY, 230, 244373, 0, 1, 0, &descriptor);
 }
 
+std::int32_t Sub_4D0EB0(const std::int32_t index, const std::int32_t state)
+{
+    if (gStallModeD67BDC != 1) {
+        return 0;
+    }
+    const bool own = gStallOwn58111C != 0;
+    const std::int32_t row = index - (own ? 23 : 21);
+    const std::int32_t position = gStallPetPageD67BD0 + row;
+    if (position >= gStallPetCountD67BD4) {
+        return 0;
+    }
+    world::detail::PetRuntimeRecord* const pet = own
+        ? &world::detail::gPetRuntimeF633F8[gStallPetOffersCC3E98[position].slot]
+        : &gStallBrowseD046D8.pets[position];
+    if (pet->used == 0) {
+        return 0;
+    }
+    char buffer[32];
+    std::sprintf(buffer, "%s", pet->name6AC.data());
+    {
+        WindowInstance* const window = gCurrentWindow;
+        const auto x = static_cast<std::int16_t>(window->x + 77);
+        const auto y = static_cast<std::int16_t>(window->y + 91 * row + 58);
+        static_cast<void>(render::DrawText_456780(
+            x, y, 3, 13, std::bit_cast<std::int8_t>(std::uint8_t{138}), buffer, 0, 0));
+    }
+    const auto drawText = [&](const std::int32_t dx, const std::int32_t dy) {
+        WindowInstance* const window = gCurrentWindow;
+        const auto y = static_cast<std::int16_t>(window->y + 91 * row + dy);
+        const auto x = static_cast<std::int16_t>(window->x + dx);
+        static_cast<void>(render::DrawText_456780(
+            x, y, 3, 13, std::bit_cast<std::int8_t>(std::uint8_t{138}), buffer, 0, 0));
+    };
+    std::sprintf(buffer, "%4d", platform::legacy_crypt_int::Read_401EC0(&pet->values0C[1]));
+    drawText(227, 58);
+    std::sprintf(buffer, "%3d", pet->value08);
+    drawText(53, 75);
+    const std::int16_t tribe = std::bit_cast<std::int16_t>(pet->value04);
+    if (tribe >= 0 && tribe < 20) {
+        std::sprintf(buffer, "%s", gTribeNames57CB54[tribe]);
+    } else {
+        buffer[0] = '\0';
+    }
+    drawText(120, 75);
+    std::sprintf(buffer, "%4d", platform::legacy_crypt_int::Read_401EC0(&pet->values0C[3]));
+    drawText(227, 75);
+    std::sprintf(buffer, "%3d", pet->values70[0]);
+    drawText(117, 93);
+    std::sprintf(buffer, "%3d", pet->values70[1]);
+    drawText(176, 93);
+    std::sprintf(buffer, "%3d", pet->values70[2]);
+    drawText(234, 93);
+    std::sprintf(buffer, "%3d", pet->value6A4);
+    drawText(53, 111);
+    std::sprintf(buffer, "%3d", pet->values70[3]);
+    drawText(117, 111);
+    std::sprintf(buffer, "%3d", pet->values70[4]);
+    drawText(176, 111);
+    std::sprintf(buffer, "%3d", pet->values70[10]);
+    drawText(234, 111);
+    std::sprintf(buffer, "%3d", pet->lvFlag6C);
+    drawText(91, 129);
+    std::int32_t consumed = 0;
+    if (gValueD67BE0 != 0 && gStallOwn58111C != 0) {
+        render::GraphicDescriptor16 descriptor {};
+        const std::int8_t mode = std::bit_cast<std::int8_t>(platform::gSupportedRenderMode);
+        const std::uint32_t color = 0x80808080u;
+        std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+        descriptor.bytes[13] = 4;
+        WindowInstance* const window = gCurrentWindow;
+        const WindowElement& element = window->elements[index];
+        const std::int32_t y = window->y + element.y;
+        const std::int32_t x = window->x + element.x;
+        static_cast<void>(render::DrawGraphic3_520970(
+            x, y, 223, mode <= 1 ? 98849 : 98850, 0, 1, 0, &descriptor));
+    } else {
+        if ((state & 1) != 0) {
+            WindowInstance* const window = gCurrentWindow;
+            const WindowElement& element = window->elements[index];
+            const std::int32_t y = window->y + element.y;
+            const std::int32_t x = window->x + element.x;
+            login::detail::DrawGraphicHover(
+                static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
+                static_cast<std::uint16_t>(x + 240), static_cast<std::uint16_t>(y + 90),
+                223, login::detail::gValueD69768, 0);
+            consumed = 1;
+        }
+        if ((state & 2) != 0) {
+            gStallPetSelection581128 = gStallPetPageD67BD0 + row + 5;
+        }
+        const bool currentOwn = gStallOwn58111C != 0;
+        if ((state & 0x100) != 0) {
+            if (currentOwn) {
+                static_cast<void>(Sub_4CFD70());
+            } else {
+                static_cast<void>(Sub_4CED50());
+            }
+        }
+        const std::int32_t current = gStallPetPageD67BD0 + row;
+        if (current == gStallPetSelection581128 - 5) {
+            WindowInstance* const window = gCurrentWindow;
+            const WindowElement& element = window->elements[index];
+            const std::int32_t y = window->y + element.y;
+            const std::int32_t x = window->x + element.x;
+            login::detail::DrawGraphicHover(
+                static_cast<std::uint16_t>(x + 2), static_cast<std::uint16_t>(y + 2),
+                static_cast<std::uint16_t>(x + 238), static_cast<std::uint16_t>(y + 88),
+                223, 254, 0);
+        }
+    }
+    const bool priceOwn = gStallOwn58111C != 0;
+    std::int32_t price;
+    if (priceOwn) {
+        std::sprintf(buffer, "%d", gStallPetOffersCC3E98[gStallPetPageD67BD0 + row].value);
+        price = gStallPetOffersCC3E98[gStallPetPageD67BD0 + row].value;
+    } else {
+        std::sprintf(buffer, "%d", gStallBrowseD046D8.petValuesD2D464[gStallPetPageD67BD0 + row]);
+        price = gStallBrowseD046D8.petValuesD2D464[gStallPetPageD67BD0 + row];
+    }
+    std::int32_t priceColor = 0;
+    if (price >= 10000) {
+        if (price < 100000) {
+            priceColor = 5;
+        } else if (price < 1000000) {
+            priceColor = 1;
+        } else if (price < 10000000) {
+            priceColor = 4;
+        }
+    }
+    {
+        WindowInstance* const window = gCurrentWindow;
+        const std::int32_t y = window->y + 91 * row + 128;
+        const std::int32_t x = window->x + 243;
+        Sub_4771B0(x, y, buffer, 0, priceColor, 1, 223);
+    }
+    if ((state & 1) != 0) {
+        WindowInstance* const window = gCurrentWindow;
+        const std::int32_t windowX = window->x;
+        const std::int32_t y = window->y + 20;
+        const std::int32_t x = windowX + 510 > 640 ? windowX - 230 : windowX + 280;
+        if (priceOwn) {
+            const auto petIndex = static_cast<std::uint8_t>(
+                gStallPetOffersCC3E98[gStallPetPageD67BD0 + row].slot);
+            static_cast<void>(Sub_4B3BF0(x, y, petIndex));
+        } else {
+            const auto petIndex = static_cast<std::uint8_t>(gStallPetPageD67BD0 + row);
+            static_cast<void>(Sub_4D0A80(x, y, petIndex));
+        }
+    }
+    return consumed;
+}
+
 std::int32_t Sub_4D1C00(
     const std::int32_t petIndex, const std::int32_t attribute,
     const std::int32_t x, const std::int32_t y)

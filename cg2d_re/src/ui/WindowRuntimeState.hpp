@@ -122,6 +122,15 @@ void Sub_4F0200(const char* text); // ysVc完整名单生产；唯一回复调�
 login::YobiAction* Sub_4871B0(); // 技能目标名称/颜色借用及45创建，不回滚失败计数。
 std::int32_t Sub_487020(std::int32_t index, const char* text); // 请求属性/发送技能及释放通知。
 void Sub_47A140(); // 窗口10模式2的技能状态差异请求，原返回无人消费。
+void Sub_479B80(WindowInstance* window, std::int32_t skillIndex); // 技能列表定位，不以used过滤索引查找。
+void Sub_47B6C0(
+    std::int16_t x, std::int16_t y, std::int8_t visualState, std::int32_t pairIndex,
+    std::int32_t enabled, std::int32_t textLayer, std::int32_t graphicLayer,
+    std::uint32_t color); // 固定配对对应技能，需求槽数按S8。
+std::int32_t Sub_47B820(std::int32_t index, std::int32_t state); // 列表排序请求、打开技术与右键拖动。
+void Sub_479700(
+    std::int32_t message, std::int32_t unused, std::int32_t sourceIndex); // kind4拖动，仅message0推进。
+std::int32_t Sub_4797A0(std::int32_t sourceIndex); // 安装479700并透传返回。
 void Sub_479C80(WindowInstance* window, std::int32_t pairIndex); // 切技术模式，负参数保留原技能。
 void Sub_479DA0(WindowInstance* window, std::int32_t level); // 切配方，滚动先用旧上限。
 std::int32_t Sub_47B3D0(std::int32_t index, std::int32_t state); // 前一行，bit400。

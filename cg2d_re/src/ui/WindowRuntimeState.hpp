@@ -252,6 +252,7 @@ void Sub_4B92C0(); // 模式3详情数值或全部28玩家物品的匹配数量�
 std::int32_t Sub_4BBED0(std::int32_t index, std::int32_t state); // 商品图标，仅hover内bit4翻页。
 std::int32_t Sub_4BC060(std::int32_t index, std::int32_t state); // 独立详情图标，bit4无hover门禁。
 std::int32_t Sub_4BC230(std::int32_t index, std::int32_t state); // 出售选择行，接kind9交换/取消/拖动。
+std::int32_t Sub_4BC660(std::int32_t index, std::int32_t state); // 背包20格命中、加入/拖动/翻页及两组绘制。
 std::int32_t Sub_4BA950(std::int32_t index, std::int32_t state); // 取消发送command2，发送后关闭。
 std::int32_t Sub_4BAA50(std::int32_t index, std::int32_t state); // 批量加入出售选择，每轮固定重置/音效尾。
 std::int32_t Sub_4BCEE0(std::int32_t index, std::int32_t state); // kind2拖放加入，hover模式门禁独立。
@@ -488,6 +489,7 @@ extern std::int32_t gShopValueD046C4;
 extern std::int32_t gShopValueD672D4;
 extern std::int32_t gShopTooltipIndex580844; // 玩家/商品/详情提示编号，原装载初值-1。
 extern std::int32_t gShopMessage580848; // 四行正文组的负编号，原装载初值-1。
+extern std::int32_t gShopInventoryHover58084C; // 原装载值-2，父初始化不重置的背包命中缓存。
 extern std::int32_t gShopTooltipPageD67B8C;
 extern std::int32_t gShopTotalD2DAFC;
 extern std::int32_t gShopValueC8AF74; // 各模式计算的数量值，不与总金额合并。

@@ -12493,6 +12493,64 @@ std::int32_t Sub_4B9310(const std::int32_t value)
     return 1;
 }
 
+void Sub_4B9B10(const std::int32_t selection)
+{
+    if (static_cast<std::uint8_t>(selection) != 0) {
+        return;
+    }
+    const auto mode = std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894[20]);
+    if (mode < 0 || mode > 5) {
+        return;
+    }
+    char fragment[32];
+    std::array<char, 512> textBuffer;
+    char* const text = textBuffer.data();
+    char* const escaped = text + 256;
+    if (mode == 3) {
+        std::sprintf(text, "1|%d", gShopValueD046C4);
+    } else {
+        text[0] = '\0';
+        std::int32_t count = 0;
+        for (std::int32_t index = 0; index < 20; ++index) {
+            const char* const record = gShopItemsCF4FE0.data() + index * 0xC58;
+            if (record[0] == 0) {
+                continue;
+            }
+            std::int32_t selected;
+            std::memcpy(&selected, record + 0xC28, sizeof(selected));
+            if (selected == 0) {
+                continue;
+            }
+            if (count > 0) {
+                std::strcat(text, "|");
+            }
+            if (mode == 4 || mode == 5) {
+                std::int32_t inventoryIndex;
+                std::memcpy(&inventoryIndex, record + 0xC2C, sizeof(inventoryIndex));
+                std::sprintf(fragment, "%d", inventoryIndex);
+            } else {
+                std::int32_t itemIndex = index;
+                if (mode == 1) {
+                    std::memcpy(&itemIndex, record + 0xC2C, sizeof(itemIndex));
+                }
+                std::sprintf(fragment, "%d|%d", itemIndex, selected);
+            }
+            std::strcat(text, fragment);
+            ++count;
+        }
+    }
+    input::EscapeLegacyTextAndNotify_52D2D0(text, escaped, mode == 3 ? 256 : 255);
+    const std::int32_t target = world::detail::gDialogTargetD2DE6C;
+    const std::int32_t request = world::detail::gDialogRequestCC21E0;
+    const std::int32_t y =
+        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+    const std::int32_t x =
+        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+    static_cast<void>(network::Sub_512620(
+        platform::gConnectionSocket, x, y, request, target, 0, escaped));
+    gCurrentWindow->state |= 0x8000u;
+}
+
 std::int32_t Sub_4BA950(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);

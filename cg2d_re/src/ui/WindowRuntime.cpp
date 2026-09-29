@@ -1580,6 +1580,60 @@ std::int32_t Sub_4CB6A0(const std::int32_t index, const std::int32_t state)
     return 1;
 }
 
+std::uint32_t Sub_4CB9F0()
+{
+    const world::detail::ProfileRuntimeRecord& profile =
+        world::detail::ReadReceivedProfile1074110();
+    const std::int32_t image = character_select::detail::Sub_51BC50(profile.value10C);
+    static_cast<WindowGraphicData*>(gCurrentWindow->elements[13].data)->imageNo = image;
+    for (std::int32_t index = 0; index < 3; ++index) {
+        static_cast<WindowGraphicData*>(gCurrentWindow->elements[index + 14].data)->imageNo =
+            profile.entries410[index].value04;
+    }
+    std::strcpy(
+        static_cast<WindowTextData*>(gCurrentWindow->elements[0].data)->text,
+        profile.text08.data());
+    char number[256];
+    std::sprintf(number, "%d", profile.value108);
+    std::strcpy(
+        static_cast<WindowTextData*>(gCurrentWindow->elements[1].data)->text, number);
+    std::strcpy(
+        static_cast<WindowTextData*>(gCurrentWindow->elements[2].data)->text,
+        profile.text110.data());
+    std::strcpy(
+        static_cast<WindowTextData*>(gCurrentWindow->elements[3].data)->text,
+        profile.text210.data());
+    std::strcpy(
+        static_cast<WindowTextData*>(gCurrentWindow->elements[4].data)->text,
+        profile.text310.data());
+    for (std::int32_t index = 0; index < 3; ++index) {
+        std::strcpy(
+            static_cast<WindowTextData*>(gCurrentWindow->elements[index + 5].data)->text,
+            profile.entries410[index].text08.data());
+    }
+    char line[256];
+    for (std::int32_t index = 0; index < 3; ++index) {
+        static_cast<void>(input::ExtractLegacyLine_503AB0(
+            line, 256, profile.text728.data(), index, 28));
+        std::strcpy(
+            static_cast<WindowTextData*>(gCurrentWindow->elements[index + 8].data)->text,
+            line);
+    }
+    static_cast<void>(input::ExtractLegacyLine_503AB0(
+        line, 256, profile.text728.data(), 3, 28));
+    char* const destination =
+        static_cast<WindowTextData*>(gCurrentWindow->elements[11].data)->text;
+    const auto bytes = static_cast<std::uint32_t>(std::strlen(line) + 1);
+    std::memcpy(destination, line, bytes);
+    return bytes;
+}
+
+std::int32_t Sub_4CB9E0(const std::int32_t)
+{
+    static_cast<void>(Sub_4CB9F0());
+    return 1;
+}
+
 std::int32_t Sub_478330(const std::int32_t index, const std::int32_t state)
 {
     std::int32_t consumed = 0;
@@ -20360,6 +20414,11 @@ std::int32_t Sub_4A7B00()
 }
 
 } // namespace detail
+
+WindowInstance* Sub_5342E0()
+{
+    return OpenWindow_471440(64);
+}
 
 WindowInstance* OpenWindow_471440(const std::int32_t id)
 {

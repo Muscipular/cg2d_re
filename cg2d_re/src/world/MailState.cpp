@@ -11,6 +11,7 @@
 #include "cg/platform/LegacyTime.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/platform/Startup.hpp"
+#include "cg/ui/WindowRuntime.hpp"
 #include "cg/world/SceneState.hpp"
 
 #include <algorithm>
@@ -93,9 +94,10 @@ static_assert(offsetof(ProfileRuntimeRecord, entries410) == 0x410);
 static_assert(offsetof(ProfileRuntimeRecord, text728) == 0x728);
 static_assert(sizeof(ProfileRuntimeRecord) == 0x828);
 
-// 持久双槽、当前资料与4CAC60查看资料分别拥有存储，不互相覆盖。
+// 持久双槽、当前资料、DpSY回复与4CAC60查看资料各自拥有存储。
 std::array<ProfileRuntimeRecord, 2> gProfiles1074938 {};
 ProfileRuntimeRecord gCurrentProfile10738E8 {};
+ProfileRuntimeRecord gReceivedProfile1074110 {};
 ProfileRuntimeRecord gViewedProfile105ECE0 {};
 static_assert(sizeof(gProfiles1074938) == 0x1050);
 constexpr char kProfileDefault58F614[] = "\xA5\xBC\xB3\x5D\xA9\x77";
@@ -232,6 +234,11 @@ std::int32_t CompareContactIndices_4EC030(
 const ProfileRuntimeRecord& ReadViewedProfile105ECE0()
 {
     return gViewedProfile105ECE0;
+}
+
+const ProfileRuntimeRecord& ReadReceivedProfile1074110()
+{
+    return gReceivedProfile1074110;
 }
 
 std::int32_t ReadCategoryValue105FA20()
@@ -1041,6 +1048,62 @@ std::int32_t Sub_4CAC60(const std::int32_t, char* const payload)
         record.entries410[2].value04 = third;
     }
     return third;
+}
+
+void Sub_50F450(
+    const std::uintptr_t, const char* const text1, const std::int32_t value2,
+    const char* const text3, const char* const text4, const char* const text5,
+    const std::int32_t value6, const std::int32_t value7, const char* const text8,
+    const std::int32_t value9, const char* const text10, const std::int32_t value11,
+    const char* const text12, const char* const text13)
+{
+    ProfileRuntimeRecord& record = gReceivedProfile1074110;
+    std::array<std::array<char, 256>, 8> buffers;
+    record.value10C = value6;
+    std::strcpy(buffers[4].data(), text1);
+    input::UnescapeLegacyTextAndNotify_52D2F0(buffers[4].data());
+    std::strcpy(record.text08.data(), buffers[4].data());
+    record.value108 = value2;
+    std::strcpy(buffers[2].data(), text3);
+    input::UnescapeLegacyTextAndNotify_52D2F0(buffers[2].data());
+    std::strcpy(record.text210.data(), buffers[2].data());
+    std::strcpy(buffers[6].data(), text4);
+    input::UnescapeLegacyTextAndNotify_52D2F0(buffers[6].data());
+    std::strcpy(record.text110.data(), buffers[6].data());
+    std::strcpy(buffers[0].data(), text5);
+    input::UnescapeLegacyTextAndNotify_52D2F0(buffers[0].data());
+    std::strcpy(record.text310.data(), buffers[0].data());
+    record.entries410[1].value00 = value9;
+    std::strcpy(buffers[1].data(), text10);
+    input::UnescapeLegacyTextAndNotify_52D2F0(buffers[1].data());
+    std::strcpy(record.entries410[1].text08.data(), buffers[1].data());
+    record.entries410[0].value00 = value7;
+    std::strcpy(buffers[3].data(), text8);
+    input::UnescapeLegacyTextAndNotify_52D2F0(buffers[3].data());
+    std::strcpy(record.entries410[0].text08.data(), buffers[3].data());
+    record.entries410[2].value00 = value11;
+    std::strcpy(buffers[5].data(), text12);
+    input::UnescapeLegacyTextAndNotify_52D2F0(buffers[5].data());
+    std::strcpy(record.entries410[2].text08.data(), buffers[5].data());
+    std::strcpy(buffers[7].data(), text13);
+    input::UnescapeLegacyTextAndNotify_52D2F0(buffers[7].data());
+    std::strcpy(record.text728.data(), buffers[7].data());
+    record.entries410[1].value04 = 246000;
+    record.entries410[0].value04 = 246000;
+    record.entries410[2].value04 = 246000;
+    const std::int32_t second = Sub_5342F0(record.entries410[1].value00, 0);
+    if (second != -1) {
+        record.entries410[1].value04 = second;
+    }
+    const std::int32_t first = Sub_5342F0(record.entries410[0].value00, 0);
+    if (first != -1) {
+        record.entries410[0].value04 = first;
+    }
+    const std::int32_t third = Sub_5342F0(record.entries410[2].value00, 1);
+    if (third != -1) {
+        record.entries410[2].value04 = third;
+    }
+    static_cast<void>(ui::Sub_5342E0());
 }
 
 std::int32_t Sub_5348A0()

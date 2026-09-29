@@ -12,6 +12,7 @@ namespace cg::ui {
 struct WindowInstance;
 
 WindowInstance* OpenWindow_471440(std::int32_t id); // 完整七类创建；原型表绑定仍是外部依赖。
+WindowInstance* Sub_5342E0(); // DpSY回复打开窗口64，透传借用实例指针。
 login::YobiAction* CreateWindowAnimation_475AA0(
     std::int32_t id, std::uint32_t flags, std::uint32_t mode,
     login::YobiAction** completionSlot); // 完成槽只借用；已有实例仅置关闭标记。

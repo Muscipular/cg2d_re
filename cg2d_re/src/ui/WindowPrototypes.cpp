@@ -439,6 +439,36 @@ WindowTextPrototype gWindowText579B20 {
     {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindowTextBytes585CF4,
 };
 
+WindowGraphicData gWindowGraphic579F20 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic579F98 {0x3C10F, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic579FB0 {0x3C10D, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic579FC8 {0x3BAB1, 0, 0, 0, 0, 0x80808080u};
+WindowGraphicData gWindowGraphic57A010 {0x3C0F0, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowTextPrototype gWindowText57A028 {
+    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindowTextBytes585D4C,
+};
+WindowTextPrototype gWindowText57A030 {
+    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindowTextBytes585D44,
+};
+WindowTextPrototype gWindowText57A038 {
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindowTextBytes585D38,
+};
+WindowTextPrototype gWindowText57A040 {
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindowTextBytes585D28,
+};
+WindowTextPrototype gWindowText57A048 {
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindowTextBytes585D20,
+};
+WindowTextPrototype gWindowText57A058 {
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindowTextBytes585D10,
+};
+WindowTextPrototype gWindowText57A060 {
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindowTextBytes585D08,
+};
+WindowTextPrototype gWindowText57A068 {
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindowTextBytes585D00,
+};
+
 // 同一4A4210在原表也用于release；仅适配未消费返回值，不转换函数指针。
 void ReleaseWindow_4A4210()
 {
@@ -567,6 +597,30 @@ WindowElementPrototype gWindowElements579B28[16] {
     {1, 16, 46, 0, 0, 1, {.graphic = &gWindowGraphic5799D0}, &Sub_4B0F10},
     {1, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic5799E8}, &Sub_4B0F10},
     {1, 14, 23, 0, 0, 1, {.graphic = &gWindowGraphic579A00}, &Sub_4B0F10},
+};
+
+WindowElementPrototype gWindowElements57A070[21] {
+    {3, 70, 10, 0, 0, 1, {.text = &gWindowText57A028}, &Sub_4B0F10},
+    {3, 272, 11, 0, 0, 1, {.text = &gWindowText57A030}, &Sub_4B0F10},
+    {3, 140, 39, 0, 0, 1, {.text = &gWindowText57A038}, &Sub_4B0F10},
+    {3, 140, 59, 0, 0, 1, {.text = &gWindowText57A040}, &Sub_4B0F10},
+    {3, 140, 79, 0, 0, 1, {.text = &gWindowText57A048}, &Sub_4B0F10},
+    {3, 97, 108, 0, 0, 1, {.text = &gWindowText57A058}, &Sub_4B0F10},
+    {3, 97, 130, 0, 0, 1, {.text = &gWindowText57A060}, &Sub_4B0F10},
+    {3, 97, 152, 0, 0, 1, {.text = &gWindowText57A068}, &Sub_4B0F10},
+    {3, 97, 170, 0, 0, 1, {.text = &gWindowText57A068}, &Sub_4B0F10},
+    {3, 97, 184, 0, 0, 1, {.text = &gWindowText57A068}, &Sub_4B0F10},
+    {3, 97, 198, 0, 0, 1, {.text = &gWindowText57A068}, &Sub_4B0F10},
+    {3, 97, 212, 0, 0, 1, {.text = &gWindowText57A068}, &Sub_4B0F10},
+    {1, 296, 8, 12, 12, 1, {.graphic = &gWindowGraphic579F20}, &Sub_4C1FB0},
+    {1, 15, 29, 0, 0, 1, {.graphic = &gWindowGraphic579F20}, &Sub_4B0F10},
+    {1, 73, 102, 20, 20, 1, {.graphic = &gWindowGraphic57A010}, &Sub_478330},
+    {1, 73, 124, 20, 20, 1, {.graphic = &gWindowGraphic57A010}, &Sub_478330},
+    {1, 73, 146, 20, 20, 1, {.graphic = &gWindowGraphic57A010}, &Sub_478330},
+    {1, 15, 36, 0, 0, 1, {.graphic = &gWindowGraphic579F98}, &Sub_4B0F10},
+    {1, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic579FB0}, &Sub_4B0F10},
+    {1, 12, 27, 0, 0, 1, {.graphic = &gWindowGraphic579FC8}, &Sub_4B0F10},
+    {0, 315, 0, 20, 130, 1, {.unusedValue = 0}, &Sub_474170},
 };
 
 WindowElementPrototype gWindowElements56CCD0[1] {

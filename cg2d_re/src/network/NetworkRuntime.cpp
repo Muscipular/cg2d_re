@@ -4073,7 +4073,7 @@ std::int32_t NetworkDispatch_512E40(
     if (TryDispatchReply<world::detail::Sub_50F3A0, T>(head, "HNP", socket)) return 0;
     if (TryDispatchReply<world::detail::Sub_50F2A0, T>(head, "eZT", socket)) return 0;
     if (TryDispatchReply<world::detail::Sub_50F8E0, T>(head, "IUn", socket)) return 0;
-    if (TryDispatchReply<Sub_50F450, T, I, T, T, T, I, I, T, I, T, I, T, T>(head, "DpSY", socket)) return 0;
+    if (TryDispatchReply<world::detail::Sub_50F450, T, I, T, T, T, I, I, T, I, T, I, T, T>(head, "DpSY", socket)) return 0;
     if (TryDispatchReply<world::detail::Sub_50F430, T>(head, "cNB", socket)) return 0;
     if (TryDispatchReply<world::detail::Sub_50F7F0, I, T, I>(head, "ow", socket)) return 0;
     if (TryDispatchReply<Sub_50F990, I, I, I, I, T>(head, "DyAG", socket)) return 0;

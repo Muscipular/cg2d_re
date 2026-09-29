@@ -893,6 +893,8 @@ std::int32_t Sub_4CB6A0(std::int32_t index, std::int32_t state); // 双层转义
 std::int32_t Sub_4CB920(std::int32_t unusedIndex, std::int32_t state); // 固定元素1输入焦点与非活动绘制。
 std::int32_t Sub_478330(std::int32_t index, std::int32_t state); // 资料公开/切窗/三目录/确认的完整八分支。
 extern std::int32_t gProfileCategory1085DA0; // 478330生产，窗口59按0/1/2选择类别，非地址。
+std::int32_t Sub_4CB9E0(std::int32_t unusedValue); // 窗口64每帧完整刷新，返回1。
+std::uint32_t Sub_4CB9F0(); // 图号转换、八文本及256B四行提取，返回末行含NUL长度。
 login::YobiAction* Sub_4B0110(); // 清交易U8，创建窗口43动画并发布借用T*。
 // 窗口43三元素组：低S16位置、仅隐藏时联动、只写图形颜色。
 void Sub_4B0130(

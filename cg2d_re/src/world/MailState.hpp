@@ -7,7 +7,7 @@
 
 namespace cg::world::detail {
 
-// 原三项108H资料及828H资料记录；只共享布局，持久/当前/查看区各有唯一存储。
+// 原三项108H资料及828H资料记录；只共享布局，持久/当前/查看/回复区各有唯一存储。
 struct ProfileEntry {
     std::int32_t value00;
     std::int32_t value04;
@@ -28,6 +28,7 @@ struct ProfileRuntimeRecord {
 };
 
 const ProfileRuntimeRecord& ReadViewedProfile105ECE0(); // 窗口62借用4CAC60唯一生产区。
+const ProfileRuntimeRecord& ReadReceivedProfile1074110(); // 窗口64借用DpSY独立回复区。
 std::int32_t ReadCategoryValue105FA20(); // 窗口62/63借用category回复费用，不复制owner。
 extern std::int32_t gMiniMailSelectionD673E4; // 同一发信目标，4C9490及窗口63共同更新。
 std::int32_t& SelectedProfileValue04(); // 每次按当前S16角色借用持久资料公开标志，不缓存跨发送身份。
@@ -109,6 +110,12 @@ void Sub_4C9E40(std::int32_t unusedValue, char* payload); // 分类三组选择�
 void Sub_4CA330(std::int32_t unusedValue, char* payload); // 搜索结果最多20条，仅预清used。
 std::int32_t Sub_4CAC60(std::int32_t unusedValue, char* payload); // 独立查看资料，返回末次图号查询。
 std::int32_t Sub_5342F0(std::int32_t key, std::int32_t mode); // 分类第1/3组严格used==1首匹配，失败-1。
+void Sub_50F450(
+    std::uintptr_t unusedSocket, const char* text1, std::int32_t value2,
+    const char* text3, const char* text4, const char* text5, std::int32_t value6,
+    std::int32_t value7, const char* text8, std::int32_t value9,
+    const char* text10, std::int32_t value11, const char* text12,
+    const char* text13); // 完整资料回复，无门禁，八独立文本副本后打开64。
 
 // 原 518C80：依次清两段邮件持久区及 CB1384，返回 0。
 std::int32_t Sub_518C80();

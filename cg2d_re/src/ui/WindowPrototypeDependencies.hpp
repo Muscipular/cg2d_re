@@ -190,7 +190,6 @@ std::int32_t Sub_4C9EE0(std::int32_t value);
 void Sub_4CA300();
 std::int32_t Sub_4CA410(std::int32_t value);
 void Sub_4CAB60();
-std::int32_t Sub_4CB9E0(std::int32_t value);
 std::int32_t Sub_4CBD90(std::int32_t value);
 std::int32_t Sub_4CC6C0(std::int32_t value);
 std::int32_t Sub_4CD4F0(std::int32_t value);

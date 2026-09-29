@@ -493,6 +493,22 @@ static_assert(sizeof(ItemUseStatusRecord) == 52);
 std::array<ItemUseStatusRecord, 6> gItemUseStatusRecordsCB10D8 {};
 std::int32_t gItemUseStatusCountCC4D44 = 0;
 std::array<WindowStatusChoiceRecord, 6> gItemUseStatusViewsCB1278 {};
+std::int32_t gUsingSkillIndexD2F32C = 0;
+std::int32_t gUsingSkillLevelCA0AC4 = 0;
+std::int32_t gSkillTargetKindCF4A10 = 0;
+std::int32_t gSkillTargetCountCA0004 = 0;
+std::int32_t gSkillTargetPageC8A974 = 0;
+std::int32_t gSkillTargetPageCountCA0178 = 0;
+std::int32_t gSkillSendModeC8A970 = 0;
+std::int32_t gSkillSelectedTargetCC4B1C = 0;
+std::int32_t gSkillWindowModeD672AC = 0;
+std::int32_t gSkillWindowIndexD2EA60 = 0;
+std::array<std::array<char, 17>, 10> gSkillTargetNamesCB0550 {};
+std::array<std::int32_t, 10> gSkillTargetKindsD2F75C {};
+std::array<const char*, 10> gSkillTargetNameViewsD45F98 {};
+std::array<std::uint8_t, 10> gSkillTargetColorsCB1DE4 {};
+std::uint8_t gSkillTargetPendingC8AF5F = 0;
+std::array<char, 20> gSkillTargetNameD2F748 {};
 
 // 原D046D8连续浏览区；仅复用值类型布局，不与玩家或交易区共享存储。
 struct StallBrowseData {
@@ -22309,6 +22325,207 @@ std::int32_t Sub_49BDB0(const std::int32_t)
     return 1;
 }
 
+std::int32_t Sub_4EF710(const std::int32_t skillId)
+{
+    switch (skillId) {
+    case 221: return 0;
+    case 222: return 1;
+    case 223: return 2;
+    case 224: return 3;
+    default: return -1;
+    }
+}
+
+void Sub_47A140()
+{
+    if (gWindowStates[10].window == nullptr || gSkillWindowModeD672AC != 2) {
+        return;
+    }
+    const std::int32_t index = gSkillWindowIndexD2EA60;
+    const std::int32_t rebirth = world::detail::gSkillsF1BAFC[index].rebirthState4C48;
+    const bool enabled = gValue5F9754 != 0;
+    if ((rebirth != 0) != enabled) {
+        static_cast<void>(network::Sub_510F50(
+            platform::gConnectionSocket, index + (enabled ? 100 : 0)));
+    }
+}
+
+void Sub_479650()
+{
+    ++gValueD67AF8;
+}
+
+void Sub_479660()
+{
+    --gValueD67AF8;
+    if (gValueD67AF8 != 0 || gValue5F9754 == 0) {
+        return;
+    }
+    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+    static_cast<void>(network::Sub_511DD0(platform::gConnectionSocket, x, y, 62));
+    auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
+    const std::uint8_t previous = occupancy[7];
+    gValue5F9754 = 0;
+    occupancy[7] = static_cast<std::uint8_t>(previous - 1);
+    Sub_47A140();
+}
+
+std::int32_t Sub_487020(const std::int32_t index, const char* const text)
+{
+    if (index == -1) {
+        Sub_479660();
+        const auto count = static_cast<std::uint8_t>(gValueD67AFD - 1);
+        const auto skillCount = static_cast<std::uint8_t>(gValueD67AFE - 1);
+        gValueD67AFD = count;
+        gValueD67AFE = skillCount;
+        if (skillCount == 0 && world::detail::Sub_51BEC0() == 13) {
+            static_cast<void>(world::detail::Sub_51BE50(0));
+        }
+        return 1;
+    }
+    if (index == -2) {
+        return 1;
+    }
+    if (index >= 0 && gSkillTargetPendingC8AF5F == 0) {
+        if (gSkillTargetKindCF4A10 != 0 && gSkillTargetKindsD2F75C[index] != 3) {
+            static_cast<void>(network::Sub_511C80(platform::gConnectionSocket, index));
+            gSkillSelectedTargetCC4B1C = index;
+            gSkillTargetPendingC8AF5F = 1;
+            return 0;
+        }
+        gSkillSendModeC8A970 = 0;
+        char extra[256];
+        extra[0] = '\0';
+        std::strcpy(gSkillTargetNameD2F748.data(), text);
+        // 原509080只有ret；保留调用前的文本和状态写入，不伪造文本生产。
+        std::int32_t skill;
+        std::int32_t level;
+        if (gValue5F9754 != 0) {
+            skill = gUsingSkillIndexD2F32C;
+            level = gUsingSkillLevelCA0AC4;
+            skill += 100;
+        } else if (gSkillSendModeC8A970 != 0) {
+            skill = gUsingSkillIndexD2F32C;
+            level = gUsingSkillLevelCA0AC4;
+            skill += 200;
+        } else {
+            level = gUsingSkillLevelCA0AC4;
+            skill = gUsingSkillIndexD2F32C;
+        }
+        static_cast<void>(network::Sub_511EF0(
+            platform::gConnectionSocket, skill, level, index, extra));
+    }
+    gSkillTargetPendingC8AF5F = 1;
+    return 0;
+}
+
+login::YobiAction* Sub_4871B0()
+{
+    constexpr std::array<std::int32_t, 7> colors {5, 1, 0, 0, 0, 0, 0};
+    gSkillSendModeC8A970 = 0;
+    for (std::int32_t index = 0; index < 10; ++index) {
+        const std::int32_t kind = gSkillTargetKindsD2F75C[index];
+        gSkillTargetNameViewsD45F98[index] = gSkillTargetNamesCB0550[index].data();
+        gSkillTargetColorsCB1DE4[index] = static_cast<std::uint8_t>(colors[kind]);
+    }
+    const std::int32_t skillIndex = gUsingSkillIndexD2F32C;
+    ++gValueD67AFE;
+    const std::int32_t kind = Sub_4EF710(world::detail::gSkillsF1BAFC[skillIndex].skillId);
+    if (kind >= 2 && kind <= 3) {
+        if (world::detail::Sub_51BEC0() != 13) {
+            static_cast<void>(world::detail::Sub_51BE50(13));
+        }
+    } else {
+        static_cast<void>(world::detail::Sub_51BE50(0));
+    }
+    Sub_479650();
+    ++gValueD67AFD;
+    constexpr std::array<std::int32_t, 5> windowIds {11, 12, 45, 46, 13};
+    for (const std::int32_t id : windowIds) {
+        WindowInstance* const window = gWindowStates[id].window;
+        if (window != nullptr) {
+            window->state |= 0x8000u;
+        }
+    }
+    const std::int32_t count = gSkillTargetCountCA0004;
+    gSkillTargetPendingC8AF5F = 0;
+    return Sub_49F000(
+        gSkillTargetNameViewsD45F98.data(), gSkillTargetColorsCB1DE4.data(), count, Sub_487020);
+}
+
+void Sub_4F0200(const char* const text)
+{
+    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+    static_cast<void>(Sub_4D3020(x, y));
+    const std::int32_t kind = Sub_4EF710(world::detail::gSkillsF1BAFC[gUsingSkillIndexD2F32C].skillId);
+    gSkillTargetKindCF4A10 = kind;
+    gSkillTargetCountCA0004 = 0;
+    gSkillTargetPageC8A974 = 0;
+    gSkillTargetPageCountCA0178 = 1;
+    for (auto& name : gSkillTargetNamesCB0550) {
+        name[0] = '\0';
+    }
+    std::int32_t count = 0;
+    if (kind != 0) {
+        const char* const name = world::detail::BorrowPlayerDisplayText(1);
+        const std::size_t size = std::strlen(name) + 1;
+        count = 1;
+        gSkillTargetKindsD2F75C[0] = 0;
+        gSkillTargetCountCA0004 = count;
+        std::memcpy(gSkillTargetNamesCB0550[0].data(), name, size);
+    }
+    for (std::int16_t slot = 0; slot < 5; ++slot) {
+        if (world::detail::ReadPetMapFlags(slot) == 0) {
+            continue;
+        }
+        const std::uint32_t ownIndex = world::ReadPlayerObjectIndex_FDA880();
+        if (world::detail::ReadPetMapObjectIndex(slot) == ownIndex) {
+            continue;
+        }
+        login::YobiAction* const action = world::detail::ReadPetMapAction(slot);
+        if (action != nullptr) {
+            std::strcpy(gSkillTargetNamesCB0550[count].data(), login::detail::BorrowYobiNameC4(action));
+        }
+        gSkillTargetKindsD2F75C[count] = 1;
+        gSkillTargetCountCA0004 = ++count;
+    }
+    char name[256];
+    std::int32_t field = 1;
+    std::int32_t appended = 0;
+    while (count < 10) {
+        if (network::ExtractDelimitedField_52CED0(text, '|', field++, 255, name) == 1) {
+            count = gSkillTargetCountCA0004;
+            break;
+        }
+        const std::int32_t flag = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
+        if (gSkillTargetKindCF4A10 == 0 && flag == 1) {
+            count = gSkillTargetCountCA0004;
+            break;
+        }
+        input::UnescapeLegacyTextAndNotify_52D2F0(name);
+        const std::int32_t index = gSkillTargetCountCA0004;
+        std::strcpy(gSkillTargetNamesCB0550[index].data(), name);
+        gSkillTargetKindsD2F75C[index] = flag != 0 ? 3 : 2;
+        count = index + 1;
+        gSkillTargetCountCA0004 = count;
+        if (++appended >= 10) {
+            break;
+        }
+    }
+    gSkillTargetPageCountCA0178 = (count + 4) / 5;
+    if (count > 0) {
+        static_cast<void>(Sub_4871B0());
+    } else if (gSkillTargetKindCF4A10 == 0) {
+        constexpr char message[] =
+            "\xA8\x53\xA6\xB3\xA5\x69\xC5\xDC\xB8\xCB\xAA\xBA\xA8\xA4\xA6\xE2\xA1\x49";
+        world::detail::Sub_44B050(message, 4, 3);
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        static_cast<void>(audio::Sub_5042D0(19));
+    }
+}
+
 std::int32_t Sub_48AEA0(const std::int32_t index, const char*)
 {
     if (index >= 0) {
@@ -24100,6 +24317,14 @@ void Sub_50E7F0(
 void Sub_50E820(const std::uintptr_t, const std::int32_t result)
 {
     detail::Sub_4CE930(result);
+}
+
+void Sub_50E340(const std::uintptr_t, const char* const text)
+{
+    if (world::ReadRippleGateOnce() != 0) {
+        return;
+    }
+    detail::Sub_4F0200(text);
 }
 
 void Sub_50E380(const std::uintptr_t, const char* const text)

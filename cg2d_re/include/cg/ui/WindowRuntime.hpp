@@ -58,6 +58,7 @@ void Sub_50E820(std::uintptr_t unusedSocket, std::int32_t result); // 购买结�
 // LY物品使用名单：仅一次CryptInt门禁，完整生产自己/地图五槽/服务器目标后打开45。
 void Sub_50E380(std::uintptr_t unusedSocket, const char* text);
 void Sub_50E3A0(std::uintptr_t unusedSocket, const char* text); // nFV完整自身/远端属性生产后打开46。
+void Sub_50E340(std::uintptr_t unusedSocket, const char* text); // ysVc技能目标名单及45选择回调。
 
 // 交易回复：按场景门禁后单次CryptInt门禁，socket由原dispatcher传入但不消费。
 void Sub_50E3C0(std::uintptr_t unusedSocket, const char* text); // 名单解析/回调生产与窗口44展开。

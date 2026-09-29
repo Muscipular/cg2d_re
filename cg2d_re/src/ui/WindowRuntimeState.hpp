@@ -117,6 +117,13 @@ namespace detail {
 
 // 窗口45/46选择回调：非零返回允许关闭，文本只借用；释放通知index=-1。
 using WindowTextChoiceCallback = std::int32_t (*)(std::int32_t index, const char* text);
+std::int32_t Sub_4EF710(std::int32_t skillId); // 221..224分类0..3，其余-1。
+void Sub_4F0200(const char* text); // ysVc完整名单生产；唯一回复调用方弃用混合返回。
+login::YobiAction* Sub_4871B0(); // 技能目标名称/颜色借用及45创建，不回滚失败计数。
+std::int32_t Sub_487020(std::int32_t index, const char* text); // 请求属性/发送技能及释放通知。
+void Sub_47A140(); // 窗口10模式2的技能状态差异请求，原返回无人消费。
+void Sub_479650(); // 原窗口操作S32计数加1。
+void Sub_479660(); // 原操作计数减1及严格零时的退出发送/技能状态刷新。
 std::int32_t Sub_48AEA0(std::int32_t index, const char* unusedText); // 选择发送/释放计数；-2仅允许关闭。
 login::YobiAction* Sub_48AF00(); // 名称/颜色借用及物品占用计数，创建失败按原条件回滚。
 login::YobiAction* Sub_4E4860(const char* text); // LY完整目标名单生产，保留原Yobi返回。
@@ -768,6 +775,22 @@ extern std::uint8_t gValueD67AFD;
 extern std::uint8_t gValueD67AFE;
 extern std::uint8_t gValueD67B24;
 extern std::uint8_t gValue5F9754; // 原多窗口/物品UI共享字节，观察进入可能清零。
+extern std::int32_t gUsingSkillIndexD2F32C; // 技能请求索引，不与窗口当前选中槽合并。
+extern std::int32_t gUsingSkillLevelCA0AC4;
+extern std::int32_t gSkillTargetKindCF4A10;
+extern std::int32_t gSkillTargetCountCA0004;
+extern std::int32_t gSkillTargetPageC8A974;
+extern std::int32_t gSkillTargetPageCountCA0178;
+extern std::int32_t gSkillSendModeC8A970;
+extern std::int32_t gSkillSelectedTargetCC4B1C;
+extern std::int32_t gSkillWindowModeD672AC;
+extern std::int32_t gSkillWindowIndexD2EA60;
+extern std::array<std::array<char, 17>, 10> gSkillTargetNamesCB0550; // 独立原字节名单，非LY表。
+extern std::array<std::int32_t, 10> gSkillTargetKindsD2F75C;
+extern std::array<const char*, 10> gSkillTargetNameViewsD45F98;
+extern std::array<std::uint8_t, 10> gSkillTargetColorsCB1DE4;
+extern std::uint8_t gSkillTargetPendingC8AF5F;
+extern std::array<char, 20> gSkillTargetNameD2F748; // 选择发送前复制；后续属性/技能消费者共享。
 extern std::int32_t gChatWidthUnitsC9A930; // 原聊天宽度单位，输入滚动/聊天绘制共用。
 extern std::int32_t gChatWidthRequestC9A934; // 原宽度调整请求，独立于实际宽度。
 extern std::int32_t gChatHeightUnitsC9A938; // 原聊天可见高度的字体9行高倍数。

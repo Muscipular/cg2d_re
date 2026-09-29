@@ -33,6 +33,24 @@ std::int32_t ReadCategoryValue105FA20(); // 窗口62/63借用category回复费�
 extern std::int32_t gMiniMailSelectionD673E4; // 同一发信目标，4C9490及窗口63共同更新。
 std::int32_t& SelectedProfileValue04(); // 每次按当前S16角色借用持久资料公开标志，不缓存跨发送身份。
 
+// 原4CA330生产的20条20CH搜索记录，窗口61只读借用。
+struct ProfileSearchRecord {
+    std::int32_t used;
+    std::array<char, 0x100> text04;
+    std::int32_t value104;
+    std::int32_t value108;
+    std::array<char, 0x100> text10C;
+};
+
+struct ProfileSearchRuntimeSlots {
+    std::int32_t value00;
+    std::int32_t value04;
+    std::array<ProfileSearchRecord, 20> records;
+};
+
+const ProfileSearchRuntimeSlots& ReadProfileSearch105C398(); // 同源结果及两头字段，不复制快照。
+const char* ReadCategoryText105FA24(std::int32_t group, std::int32_t index); // 三组标题借用，无额外索引拒绝。
+
 // 原F19FB0的74H联系人记录，三路回复生产，普通邮件与窗口共用。
 struct ContactRuntimeRecord {
     std::uint16_t used;

@@ -73,6 +73,7 @@ extern InputContext gInputContextCC46E0;
 extern InputContext gInputContextCC2080;
 extern InputContext gInputContextD2D828;
 extern InputContext gInputContextCA0180;
+extern InputContext gInputContextCB0610; // 原窗口61关键词输入，独立15CH虚拟零对象。
 extern InputContext gInputContextC8B1B8;
 // 原 CC21E8：交易数值输入，末尾不包含独立的 CC2344 状态。
 extern InputContext gInputContextCC21E8;

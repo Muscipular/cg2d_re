@@ -434,6 +434,12 @@ std::uint8_t gValueD67B24 = 0;
 
 namespace {
 
+std::array<char, 256> gProfileSearchKeyword1075988 {};
+WindowInputPrototype gProfileSearchInputPrototype580A80 {
+    {{&input::gInputContextCB0610}, WindowInputReferenceKind::Context},
+    20, 370, 3, 12, 6, {}, 1, 26, 0, 0,
+};
+
 // 原105F508至category起点；尾段只保留已识别字节跨度，不作为输入正文。
 struct MiniMailComposeState {
     std::int32_t target;
@@ -1343,6 +1349,183 @@ void Sub_4E5600(const std::int32_t side)
     for (std::int32_t index = 0; index < 20; ++index) {
         Sub_4E54E0(side, index);
     }
+}
+
+void Sub_4CA500()
+{
+    const auto& search = world::detail::ReadProfileSearch105C398();
+    for (std::int32_t index = 0; index < 20; ++index) {
+        const auto& record = search.records[index];
+        if (record.used != 0) {
+            std::strcpy(
+                static_cast<WindowTextData*>(gCurrentWindow->elements[index + 8].data)->text,
+                record.text10C.data());
+            std::strcpy(
+                static_cast<WindowTextData*>(gCurrentWindow->elements[index + 28].data)->text,
+                record.text04.data());
+        } else {
+            gCurrentWindow->elements[index + 8].visible = 0;
+            gCurrentWindow->elements[index + 28].visible = 0;
+            gCurrentWindow->elements[index + 48].visible = 0;
+        }
+    }
+    const std::int32_t group = search.value00;
+    switch (group) {
+    case 0:
+    case 1:
+    case 2: {
+        const char* const title = world::detail::ReadCategoryText105FA24(group, search.value04);
+        std::strcpy(static_cast<WindowTextData*>(gCurrentWindow->elements[1].data)->text, title);
+        static_cast<WindowGraphicData*>(gCurrentWindow->elements[2].data)->imageNo =
+            group == 0 ? 246045 : (group == 1 ? 0 : 246046);
+        break;
+    }
+    default:
+        break;
+    }
+}
+
+std::uint32_t Sub_4CA450()
+{
+    if (input::gCurrentInputData == &input::gInputContextCB0610) {
+        gCurrentWindow->elements[6].visible = 0;
+        WindowInstance* const window = gCurrentWindow;
+        static_cast<void>(Sub_476570(
+            &gProfileSearchInputPrototype580A80, window->x, window->y, 1));
+        const char* const text = gProfileSearchInputPrototype580A80.input.context->text;
+        const auto bytes = static_cast<std::uint32_t>(std::strlen(text) + 1);
+        std::memcpy(gProfileSearchKeyword1075988.data(), text, bytes);
+        return bytes;
+    }
+    gCurrentWindow->elements[6].visible = 1;
+    char* const text = static_cast<WindowTextData*>(gCurrentWindow->elements[6].data)->text;
+    const auto bytes = static_cast<std::uint32_t>(
+        std::strlen(gProfileSearchKeyword1075988.data()) + 1);
+    std::memcpy(text, gProfileSearchKeyword1075988.data(), bytes);
+    return bytes;
+}
+
+std::int32_t Sub_4CA410(const std::int32_t value)
+{
+    if (value == -1) {
+        Sub_4CA500();
+    }
+    if (Sub_4D3040(2, 2) != 0) {
+        gCurrentWindow->state |= 0x8000u;
+    }
+    static_cast<void>(Sub_4CA450());
+    return 1;
+}
+
+void Sub_4CAB60()
+{
+    world::detail::gValue581800 = -1;
+    static_cast<void>(Sub_4CB9B0(3));
+    static_cast<void>(Sub_4CB9B0(4));
+}
+
+std::int32_t Sub_4CAB90(const std::int32_t, const std::int32_t state)
+{
+    std::int32_t consumed = 0;
+    if ((state & 1) != 0) {
+        std::strcpy(gHoverTextD68AE8.data(), "\xBD\xD0\xBF\xE9\xA4\x4A\xC3\xF6\xC1\xE4\xA6\x72");
+        consumed = 1;
+    }
+    if ((state & 2) != 0) {
+        WindowInstance* const window = gCurrentWindow;
+        if (gFocusedElementDataD45F94 != window->elements[7].data) {
+            std::strcpy(
+                gProfileSearchInputPrototype580A80.text.data(), gProfileSearchKeyword1075988.data());
+            static_cast<void>(Sub_476570(
+                &gProfileSearchInputPrototype580A80, window->x, window->y, 0));
+            input::SetContext_44B330(&input::gInputContextCB0610);
+            gFocusedElementDataD45F94 = gCurrentWindow->elements[7].data;
+            static_cast<WindowInputData*>(gCurrentWindow->elements[7].data)->context =
+                &input::gInputContextCB0610;
+        }
+        return 1;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_4CA6F0(const std::int32_t index, const std::int32_t state)
+{
+    if (index < 3 || index > 5) {
+        return 0;
+    }
+    constexpr std::array<std::int32_t, 3> normalImages {246048, 243030, 243033};
+    constexpr std::array<std::int32_t, 3> hoverImages {246047, 243032, 243035};
+    constexpr std::array<std::int32_t, 3> commands {1, 16, 32};
+    constexpr const char* hints[] {
+        "\xA8\xCF\xA5\xCE\xC3\xF6\xC1\xE4\xA6\x72\xC0\xCB\xAF\xC1",
+        "\xA4\x57\xA4\x40\xAD\xB6",
+        "\xA4\x55\xA4\x40\xAD\xB6",
+    };
+    const std::int32_t position = index - 3;
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    std::int32_t consumed = 0;
+    if ((state & 1) != 0) {
+        graphic->imageNo = hoverImages[position];
+        std::strcpy(gHoverTextD68AE8.data(), hints[position]);
+        consumed = 1;
+    } else {
+        graphic->imageNo = normalImages[position];
+    }
+    if ((state & 2) == 0) {
+        return consumed;
+    }
+    std::array<std::array<char, 256>, 3> buffers;
+    input::EscapeLegacyText_52D1B0(gProfileSearchKeyword1075988.data(), buffers[1].data(), 256);
+    const auto& search = world::detail::ReadProfileSearch105C398();
+    const std::int32_t entry = search.value04;
+    const std::int32_t group = search.value00;
+    std::sprintf(buffers[0].data(), "%d|%d|%s", group, entry, buffers[1].data());
+    input::EscapeLegacyTextAndNotify_52D2D0(buffers[0].data(), buffers[2].data(), 255);
+    const std::int32_t target = world::detail::gDialogTargetD2DE6C;
+    const std::int32_t request = world::detail::gDialogRequestCC21E0;
+    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+    static_cast<void>(network::Sub_512620(
+        platform::gConnectionSocket, x, y, request, target, commands[position], buffers[2].data()));
+    return 1;
+}
+
+std::int32_t Sub_4CA9C0(const std::int32_t index, const std::int32_t state)
+{
+    const std::int32_t position = index - 48;
+    std::int32_t consumed = 0;
+    if ((state & 1) != 0) {
+        std::strcpy(gHoverTextD68AE8.data(),
+            "\xC2\x73\xC4\xFD\xA6\xB9\xA6\x57\xAA\xB1\xAE\x61\xAA\xBA\xB8\xEA\xAE\xC6\xAA\xED");
+        consumed = 1;
+        static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 246059;
+    } else {
+        static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 246060;
+    }
+    if ((state & 2) != 0) {
+        const auto& record = world::detail::ReadProfileSearch105C398().records[position];
+        const std::int32_t key = record.value104;
+        char name[256];
+        char packet[256];
+        char combined[1024];
+        std::strcpy(name, record.text04.data());
+        std::sprintf(combined, "%d|%s", key, name);
+        input::EscapeLegacyTextAndNotify_52D2D0(combined, packet, 255);
+        const std::int32_t target = world::detail::gDialogTargetD2DE6C;
+        const std::int32_t request = world::detail::gDialogRequestCC21E0;
+        const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+        const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+        static_cast<void>(network::Sub_512620(
+            platform::gConnectionSocket, x, y, request, target, 4, packet));
+        consumed = 1;
+    }
+    if (gWindowStates[62].window != nullptr) {
+        const std::int32_t key = world::detail::ReadViewedProfile105ECE0().value00;
+        if (key == world::detail::ReadProfileSearch105C398().records[position].value104) {
+            static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 246058;
+        }
+    }
+    return consumed;
 }
 
 std::uint32_t Sub_4CAFA0()

@@ -105,21 +105,6 @@ constexpr char kProfileHidden58F61C[] = "\xA4\xA3\xA4\xBD\xB6\x7D";
 static_assert(sizeof(kProfileDefault58F614) == 7);
 static_assert(sizeof(kProfileHidden58F61C) == 7);
 
-// 原窗口61搜索结果，4CA330只清used；原存档区在此前结束。
-struct ProfileSearchRecord {
-    std::int32_t used;
-    std::array<char, 0x100> text04;
-    std::int32_t value104;
-    std::int32_t value108;
-    std::array<char, 0x100> text10C;
-};
-
-struct ProfileSearchRuntimeSlots {
-    std::int32_t value00;
-    std::int32_t value04;
-    std::array<ProfileSearchRecord, 20> records;
-};
-
 static_assert(std::is_standard_layout_v<ProfileSearchRecord>);
 static_assert(std::is_trivially_copyable_v<ProfileSearchRecord>);
 static_assert(offsetof(ProfileSearchRecord, used) == 0);
@@ -249,6 +234,16 @@ std::int32_t ReadCategoryValue105FA20()
 std::int32_t& SelectedProfileValue04()
 {
     return gProfiles1074938[login::gSelectedCharacterIndex].value04;
+}
+
+const ProfileSearchRuntimeSlots& ReadProfileSearch105C398()
+{
+    return gProfileSearch105C398;
+}
+
+const char* ReadCategoryText105FA24(const std::int32_t group, const std::int32_t index)
+{
+    return gCategory105FA10.records[group * 100 + index].text0C.data();
 }
 
 void Sub_4EC1A0()

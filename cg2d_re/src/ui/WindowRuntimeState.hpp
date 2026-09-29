@@ -895,6 +895,13 @@ std::int32_t Sub_478330(std::int32_t index, std::int32_t state); // 资料公开
 extern std::int32_t gProfileCategory1085DA0; // 478330生产，窗口59按0/1/2选择类别，非地址。
 std::int32_t Sub_4CB9E0(std::int32_t unusedValue); // 窗口64每帧完整刷新，返回1。
 std::uint32_t Sub_4CB9F0(); // 图号转换、八文本及256B四行提取，返回末行含NUL长度。
+std::int32_t Sub_4CA410(std::int32_t value); // 窗口61首次刷结果，距离关闭后仍同步关键词。
+std::uint32_t Sub_4CA450(); // 活动输入与关键词显示互斥，返回复制含NUL长度。
+void Sub_4CA500(); // 固定20条结果、三组标题刷新；不重新显示已隐藏的非空行。
+std::int32_t Sub_4CA6F0(std::int32_t index, std::int32_t state); // 搜索/上页/下页双层转义请求。
+std::int32_t Sub_4CA9C0(std::int32_t index, std::int32_t state); // 按行发查看请求，随后重读窗口62高亮。
+void Sub_4CAB60(); // 先清对话类型，再标记62/63。
+std::int32_t Sub_4CAB90(std::int32_t unusedIndex, std::int32_t state); // 固定元素7关键词编辑入口。
 login::YobiAction* Sub_4B0110(); // 清交易U8，创建窗口43动画并发布借用T*。
 // 窗口43三元素组：低S16位置、仅隐藏时联动、只写图形颜色。
 void Sub_4B0130(

@@ -101,10 +101,20 @@ std::array<char, 2 * 20 * 0xC4C> gTradeItemsD460D0 {};
 std::array<char, 2 * 5 * 0x5FC> gTradePetsC9C108 {};
 std::array<char, 5 * 0x600> gPetStorageD64E18 {};
 std::array<char, 2 * 0xFBF8> gItemDetailStorageCC4D58 {};
+std::array<char, 20 * 0xC58> gShopItemsCF4FE0 {};
+std::int32_t gShopItemCountCB1E10 = 0;
+std::int32_t gShopReplyItemCountCF4B58 = 0;
+std::int32_t gShopImageD2DAD0 = 0;
+std::int32_t gValueD2D608 = 0;
+std::int32_t gShopDialogTypeCC3EC8 = 0;
+std::int32_t gShopValueCF467C = 0;
+std::array<std::int8_t, 20> gShopInventoryMapD2DAB8 {};
+std::array<char, 20> gShopSelectedSlotsCB03DC {};
 static_assert(sizeof(gTradeItemsD460D0) == 0x1EBE0);
 static_assert(sizeof(gTradePetsC9C108) == 0x3BD8);
 static_assert(sizeof(gPetStorageD64E18) == 0x1E00);
 static_assert(sizeof(gItemDetailStorageCC4D58) == 0x1F7F0);
+static_assert(sizeof(gShopItemsCF4FE0) == 0xF6E0);
 static_assert(0x60 + 10 * 0x8C == 0x5D8);
 std::int32_t gTradeValueCC4224 = 0;
 std::int32_t gStorageValueCC4218 = 0;
@@ -11317,6 +11327,158 @@ std::int32_t Sub_4B6970(const std::int32_t flags, char* const text)
         offset += 0x40C;
     } while (offset < 0x1030);
     return offset;
+}
+
+void Sub_4B6DC0()
+{
+    if (gShopDialogTypeCC3EC8 == world::detail::gValue581800) {
+        world::detail::gValue581800 = -1;
+    }
+    if (std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894[20]) > 0) {
+        auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
+        for (std::int32_t slot = 0; slot < 28; ++slot) {
+            --occupancy[slot];
+        }
+    }
+}
+
+login::YobiAction* Sub_4B6E00(const char* const text)
+{
+    std::array<char, 768> buffer;
+    gMaterialOccupancyCC4894[20] = 0;
+    gShopImageD2DAD0 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
+    char* const title = gNpcDialogLinesCC24D4[0].text.data();
+    static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 2, 16, title));
+    input::UnescapeLegacyTextAndNotify_52D2F0(title);
+    for (std::int32_t group = 0; group < 3; ++group) {
+        static_cast<void>(network::ExtractDelimitedField_52CED0(
+            text, '|', group + 3, 767, buffer.data()));
+        input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
+        for (std::int32_t row = 0; row < 4; ++row) {
+            char* const line = gNpcDialogLinesCC24D4[1 + group * 4 + row].text.data();
+            static_cast<void>(input::ExtractLegacyLine_503AB0(line, 81, buffer.data(), row, 20));
+        }
+    }
+    gShopItemCountCB1E10 = 0;
+    gShopItemsCF4FE0.fill(0);
+    std::int32_t field = 6;
+    for (std::int32_t index = 0; index < 20; ++index) {
+        if (network::ExtractDelimitedField_52CED0(text, '|', field++, 767, buffer.data()) == 1) {
+            break;
+        }
+        char* const record = gShopItemsCF4FE0.data() + index * 0xC58;
+        record[0] = 1;
+        input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
+        std::strcpy(record + 1, std::strlen(buffer.data()) > 28 ? "???" : buffer.data());
+        WriteTradeValue(record, 0xC20, network::ParseDelimitedInteger_52CFA0(text, '|', field++));
+        WriteTradeValue(record, 0xC24, network::ParseDelimitedInteger_52CFA0(text, '|', field++));
+        static_cast<void>(network::ExtractDelimitedField_52CED0(
+            text, '|', field++, 767, buffer.data()));
+        input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
+        for (std::int32_t row = 0; row < 32; ++row) {
+            char* const line = record + 0x1E + row * 96;
+            if (input::ExtractLegacyLine_503AB0(line, 3072, buffer.data(), row, 32) == 0) {
+                line[0] = '\0';
+            }
+        }
+        record[0xC3C] = static_cast<char>(
+            network::ParseDelimitedInteger_52CFA0(text, '|', field++));
+        WriteTradeValue(record, 0xC34, network::ParseDelimitedInteger_52CFA0(text, '|', field++));
+        ++gShopItemCountCB1E10;
+    }
+    const std::int32_t dialogType = world::detail::gValue581800;
+    gValueD2D608 = -1;
+    gShopDialogTypeCC3EC8 = dialogType;
+    return CreateWindowAnimation_475AA0(53, 1, 0, nullptr);
+}
+
+login::YobiAction* Sub_4B70D0(const char* const text)
+{
+    std::array<char, 768> buffer;
+    gMaterialOccupancyCC4894[20] = 1;
+    gShopImageD2DAD0 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
+    char* const title = gNpcDialogLinesCC24D4[0].text.data();
+    static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 2, 16, title));
+    input::UnescapeLegacyTextAndNotify_52D2F0(title);
+    static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 3, 767, buffer.data()));
+    input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
+    for (std::int32_t row = 0; row < 4; ++row) {
+        char* const line = gNpcDialogLinesCC24D4[row + 1].text.data();
+        static_cast<void>(input::ExtractLegacyLine_503AB0(line, 81, buffer.data(), row, 20));
+    }
+    std::strcpy(gNpcDialogLinesCC24D4[5].text.data(), "\xA1\x40\xB5\x4C\xAA\x6B\xA6\x41\xAB\xF9\xA6\xB3");
+    std::strcpy(gNpcDialogLinesCC24D4[6].text.data(), "\xA1\x40\xA7\xF3\xB0\xAA\xAA\xBA\xAA\xF7\xC3\x42\xA4\x46");
+    std::strcpy(gNpcDialogLinesCC24D4[7].text.data(), input::LegacyText593850());
+    gShopReplyItemCountCF4B58 = 0;
+    std::strcpy(gNpcDialogLinesCC24D4[8].text.data(), input::LegacyText593850());
+    gShopItemsCF4FE0.fill(0);
+    std::int32_t field = 4;
+    for (std::int32_t index = 0; index < 20; ++index) {
+        if (network::ExtractDelimitedField_52CED0(text, '|', field++, 767, buffer.data()) == 1) {
+            break;
+        }
+        char* const record = gShopItemsCF4FE0.data() + index * 0xC58;
+        record[0] = 1;
+        input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
+        std::strcpy(record + 1, std::strlen(buffer.data()) > 28 ? "???" : buffer.data());
+        WriteTradeValue(record, 0xC30, network::ParseDelimitedInteger_52CFA0(text, '|', field++));
+        WriteTradeValue(record, 0xC20, network::ParseDelimitedInteger_52CFA0(text, '|', field++));
+        WriteTradeValue(record, 0xC24, network::ParseDelimitedInteger_52CFA0(text, '|', field++));
+        WriteTradeValue(record, 0xC2C, network::ParseDelimitedInteger_52CFA0(text, '|', field++));
+        WriteTradeValue(record, 0xC40, network::ParseDelimitedInteger_52CFA0(text, '|', field++));
+        static_cast<void>(network::ExtractDelimitedField_52CED0(
+            text, '|', field++, 767, buffer.data()));
+        input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
+        if (std::strlen(buffer.data()) != 0) {
+            std::strcpy(record + 0xC44, buffer.data());
+        }
+        static_cast<void>(network::ExtractDelimitedField_52CED0(
+            text, '|', field++, 767, buffer.data()));
+        input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
+        for (std::int32_t row = 0; row < 20; ++row) {
+            char* const line = record + 0x1E + row * 96;
+            if (input::ExtractLegacyLine_503AB0(line, 3072, buffer.data(), row, 32) == 0) {
+                line[0] = '\0';
+            }
+        }
+        const auto value = static_cast<std::uint8_t>(
+            network::ParseDelimitedInteger_52CFA0(text, '|', field++));
+        record[0xC3C] = std::bit_cast<char>(value);
+        WriteTradeValue(record, 0xC34, static_cast<std::int32_t>(std::bit_cast<std::int8_t>(value)));
+        WriteTradeValue(record, 0xC38, network::ParseDelimitedInteger_52CFA0(text, '|', field++));
+        ++gShopReplyItemCountCF4B58;
+    }
+    for (std::int32_t slot = 0; slot < 20; ++slot) {
+        std::int32_t index = 0;
+        for (; index < 20; ++index) {
+            const char* const record = gShopItemsCF4FE0.data() + index * 0xC58;
+            if (record[0] != 0) {
+                std::int32_t inventoryIndex;
+                std::memcpy(&inventoryIndex, record + 0xC2C, sizeof(inventoryIndex));
+                if (inventoryIndex == slot + 8) {
+                    break;
+                }
+            }
+        }
+        gShopInventoryMapD2DAB8[slot] = -1;
+        if (index < 20) {
+            gShopInventoryMapD2DAB8[slot] = static_cast<std::int8_t>(index);
+        }
+    }
+    gShopValueCF467C = 0;
+    WriteTradeValue(gShopSelectedSlotsCB03DC.data(), 0, std::int32_t{-1});
+    gShopItemCountCB1E10 = 20;
+    WriteTradeValue(gShopSelectedSlotsCB03DC.data(), 4, std::int32_t{-1});
+    gValueD2D608 = -1;
+    WriteTradeValue(gShopSelectedSlotsCB03DC.data(), 8, std::int32_t{-1});
+    WriteTradeValue(gShopSelectedSlotsCB03DC.data(), 12, std::int32_t{-1});
+    WriteTradeValue(gShopSelectedSlotsCB03DC.data(), 16, std::int32_t{-1});
+    auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
+    for (std::int32_t slot = 0; slot < 28; ++slot) {
+        ++occupancy[slot];
+    }
+    gShopDialogTypeCC3EC8 = world::detail::gValue581800;
+    return CreateWindowAnimation_475AA0(53, 1, 0, nullptr);
 }
 
 std::int32_t Sub_4A5390()

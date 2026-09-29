@@ -228,6 +228,8 @@ login::YobiAction* Sub_49FCA0(
 std::int32_t Sub_49FFA0(std::int32_t unusedIndex, std::int32_t state);
 std::int32_t Sub_4A00C0(std::int32_t index); // 商店回复仅索引0..1发送，其他返回原索引。
 login::YobiAction* Sub_4A0140(const char* text); // 商店图号/标题/五行正文及买卖选择。
+login::YobiAction* Sub_4B6E00(const char* text); // 窗口53买入商品及三组四行正文。
+login::YobiAction* Sub_4B70D0(const char* text); // 窗口53出售商品、库存映射及占用。
 std::int32_t Sub_4A0280(std::int32_t index); // CB03D4命令表的选择回复。
 std::int32_t Sub_4A0420(std::int32_t index); // CF47D8命令表的选择回复。
 std::int32_t Sub_4A05C0(std::int32_t index); // 索引0..1分别发送1/2。
@@ -434,6 +436,15 @@ extern std::array<char, 2 * 20 * 0xC4C> gTradeItemsD460D0;
 extern std::array<char, 2 * 5 * 0x5FC> gTradePetsC9C108;
 extern std::array<char, 5 * 0x600> gPetStorageD64E18; // 外部存放宠物，4A84A0原回复区。
 extern std::array<char, 2 * 0xFBF8> gItemDetailStorageCC4D58; // 每组首20条C44物品、末W32金额，间隔未冻结。
+extern std::array<char, 20 * 0xC58> gShopItemsCF4FE0; // 买卖共用原字节记录，字段见窗口53 SPEC。
+extern std::int32_t gShopItemCountCB1E10; // 买入实际数量/出售固定20，与回复商品数独立。
+extern std::int32_t gShopReplyItemCountCF4B58; // 出售回复中实际读取的商品数。
+extern std::int32_t gShopImageD2DAD0;
+extern std::int32_t gValueD2D608; // 商店和其他窗口共用数值，不是地址。
+extern std::int32_t gShopDialogTypeCC3EC8;
+extern std::int32_t gShopValueCF467C;
+extern std::array<std::int8_t, 20> gShopInventoryMapD2DAB8; // 背包8..27到商品首匹配索引。
+extern std::array<char, 20> gShopSelectedSlotsCB03DC; // 原五次W32清-1，消费者按S8槽读取。
 extern std::int32_t gStorageValueCC4218; // 存放窗口41每帧清零、元素13绘制的数值。
 extern std::array<char, 22> gStorageAmountTextsCB1DF8; // 两金额文本起点相隔11B，571150/158借用。
 extern const std::array<std::int32_t, 2> gStorageTitleImages54F4E8;

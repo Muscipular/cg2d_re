@@ -60,6 +60,9 @@ void Sub_50E380(std::uintptr_t unusedSocket, const char* text);
 void Sub_50E3A0(std::uintptr_t unusedSocket, const char* text); // nFV完整自身/远端属性生产后打开46。
 void Sub_50E340(std::uintptr_t unusedSocket, const char* text); // ysVc技能目标名单及45选择回调。
 void Sub_50E360(std::uintptr_t unusedSocket, const char* text); // ND技能属性列表及46选择回调。
+void Sub_50C7F0(
+    std::uintptr_t unusedSocket, std::int32_t result,
+    std::int32_t kind, const char* text); // JgO四类结果，场景门禁后仅一次Ripple读取。
 
 // 交易回复：按场景门禁后单次CryptInt门禁，socket由原dispatcher传入但不消费。
 void Sub_50E3C0(std::uintptr_t unusedSocket, const char* text); // 名单解析/回调生产与窗口44展开。

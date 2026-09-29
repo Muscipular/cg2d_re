@@ -4121,7 +4121,7 @@ std::int32_t NetworkDispatch_512E40(
     if (TryDispatchReply<ui::Sub_50E360, T>(head, "ND", socket)) return 0;
     if (TryDispatchReply<ui::Sub_50E380, T>(head, "LY", socket)) return 0;
     if (TryDispatchReply<ui::Sub_50E3A0, T>(head, "nFV", socket)) return 0;
-    if (TryDispatchReply<Sub_50C7F0, I, I, T>(head, "JgO", socket)) return 0;
+    if (TryDispatchReply<ui::Sub_50C7F0, I, I, T>(head, "JgO", socket)) return 0;
     if (TryDispatchReply<ui::Sub_50E3C0, T>(head, "Cxo", socket)) return 0;
     if (TryDispatchReply<ui::Sub_50E3F0, T, I>(head, "ms", socket)) return 0;
     if (TryDispatchReply<ui::Sub_50E440>(head, "NdM", socket)) return 0;

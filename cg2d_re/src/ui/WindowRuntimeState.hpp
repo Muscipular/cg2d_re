@@ -142,6 +142,15 @@ void Sub_4796E0(); // 只递减既有D67AFC低U8，不清其他操作计数。
 WindowAnimationData* Sub_485AF0(WindowInstance* window); // 窗口12完整结果展示及双计时槽发布。
 WindowAnimationData* Sub_486020(); // 仅更新已有窗口12，不自动创建。
 WindowAnimationData* Sub_4ED6B0(std::int32_t result, const char* text); // JgO第四分支，失败不解析正文。
+std::int32_t Sub_47D280(
+    WindowInstance* window, std::int32_t first, std::int32_t second,
+    std::int32_t imageNo); // 双动画图号，非正才隐藏；返回原数值元素偏移。
+std::int32_t Sub_487F30(std::int32_t imageNo, std::int32_t offset); // 技能预览分组图号转换。
+login::YobiAction* Sub_4875E0(); // 原操作计数、关联关闭及窗口13创建。
+WindowAnimationData* Sub_4876B0(WindowInstance* window); // 窗口13按分类完整填充结果。
+std::int32_t Sub_487D60(std::int32_t index, std::int32_t state); // 先比较FP，再继续技能请求。
+std::int32_t Sub_487E80(std::int32_t index, std::int32_t state); // 关闭入口窗口，音效后写图号。
+login::YobiAction* Sub_4EEA40(std::int32_t result, const char* text); // JgO第三分支，七字段及窗口13。
 login::YobiAction* Sub_4EF750(const char* text); // ND自身/远端属性生产，分类1跳过人物行。
 login::YobiAction* Sub_4874B0(); // 同源六属性视图与46创建，不回滚计数。
 std::int32_t Sub_4872E0(std::int32_t index, const char* unusedText); // 按属性目标编号发送技能。

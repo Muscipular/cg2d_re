@@ -630,6 +630,54 @@ constexpr char kWindow12Failure5869C4[] = "\xA4\xB0\xBB\xF2\xB3\xA3\xA8\x53\xB5\
 constexpr char kWindow12Unknown554590[] = "???";
 static_assert(sizeof(kWindow12Nothing5897DC) == 18);
 
+std::int32_t gWindow13ResultD66E2C = 0;
+std::int32_t gWindow13ExperienceCC2E5C = 0;
+std::int32_t gWindow13ValueCC3E8C = 0;
+std::int32_t gWindow13LevelUpCF468C = 0;
+std::int32_t gWindow13EnduranceCC421C = 0;
+std::int32_t gWindow13DexterityD2D644 = 0;
+std::int32_t gWindow13IntelligenceCC19FC = 0;
+std::int32_t gWindow13ValueD2DBF0 = 0;
+std::array<char, 32> gWindow13SummaryCC18CC {};
+std::array<char, 32> gWindow13TitleCC18EC {};
+std::string gWindow13DetailsCB0FDC; // 原NUL详情，只供同源结果消费者借读。
+constexpr char kWindow13Text589A80[] = "\xA8\xCF\xA5\xCE\xA1\x79\xC5\xDC\xB8\xCB\xA1\x7A\xA7\xDE\xAF\xE0";
+constexpr char kWindow13Text589A64[] = "\xA8\xCF\xA5\xCE\xA1\x79\xC5\xDC\xB8\xCB\xA1\x7A\xA7\xDE\xAF\xE0\xA1\x41\xA6\xA8\xA5\x5C\xA4\x46\xA1\x49";
+constexpr char kWindow13Text589A48[] = "\xA8\xCF\xA5\xCE\xA1\x79\xC5\xDC\xB8\xCB\xA1\x7A\xA7\xDE\xAF\xE0\xA1\x41\xA5\xA2\xB1\xD1\xA4\x46\xA1\x49";
+constexpr char kWindow13Text589A34[] = "\xA8\xCF\xA5\xCE\xA1\x79\xC5\xDC\xA8\xAD\xA1\x7A\xA7\xDE\xAF\xE0";
+constexpr char kWindow13Text589A18[] = "\xA8\xCF\xA5\xCE\xA1\x79\xC5\xDC\xA8\xAD\xA1\x7A\xA7\xDE\xAF\xE0\xA1\x41\xA6\xA8\xA5\x5C\xA4\x46\xA1\x49";
+constexpr char kWindow13Text5899FC[] = "\xA8\xCF\xA5\xCE\xA1\x79\xC5\xDC\xA8\xAD\xA1\x7A\xA7\xDE\xAF\xE0\xA1\x41\xA5\xA2\xB1\xD1\xA4\x46\xA1\x49";
+constexpr char kWindow13Text5899E8[] = "\xA8\xCF\xA5\xCE\xA1\x79\xAB\xE6\xB1\xCF\xA1\x7A\xA7\xDE\xAF\xE0";
+constexpr char kWindow13Text5899D4[] = "\xA6\x5E\xB4\x5F\xA4\x46\x25\x64\xC2\x49\xA5\xCD\xA9\x52\xA4\x4F\xA1\x43";
+constexpr char kWindow13Text5899B8[] = "\xA8\xCF\xA5\xCE\xA1\x79\xAB\xE6\xB1\xCF\xA1\x7A\xA7\xDE\xAF\xE0\xA1\x41\xA6\xA8\xA5\x5C\xA4\x46\xA1\x49";
+constexpr char kWindow13Text5899A0[] = "\xB5\x4C\xAA\x6B\xB9\xEA\xAC\x49\xA1\x79\xAB\xE6\xB1\xCF\xA1\x7A\xA7\xDE\xAF\xE0\xA1\x49";
+constexpr char kWindow13Text589984[] = "\xA8\xCF\xA5\xCE\xA1\x79\xAB\xE6\xB1\xCF\xA1\x7A\xA7\xDE\xAF\xE0\xA1\x41\xA5\xA2\xB1\xD1\xA4\x46\xA1\x49";
+constexpr char kWindow13Text589970[] = "\xA8\xCF\xA5\xCE\xA1\x79\xAA\x76\xC0\xF8\xA1\x7A\xA7\xDE\xAF\xE0";
+constexpr char kWindow13Text589954[] = "\xA8\xCF\xA5\xCE\xA1\x79\xAA\x76\xC0\xF8\xA1\x7A\xA7\xDE\xAF\xE0\xA1\x41\xA6\xA8\xA5\x5C\xA4\x46\xA1\x49";
+constexpr char kWindow13Text589940[] = "\xA6\x5E\xB4\x5F\xA4\x46\xB0\xB7\xB1\x64\xAA\xAC\xBA\x41\xA1\x43";
+constexpr char kWindow13Text589928[] = "\xA6\x5E\xB4\x5F\xA4\x46\xA4\xD6\xB3\x5C\xB0\xB7\xB1\x64\xAA\xAC\xBA\x41\xA1\x43";
+constexpr char kWindow13Text589914[] = "\xA8\xCF\xA5\xCE\xA1\x79\xAA\x76\xC0\xF8\xA1\x7A\xA7\xDE\xAF\xE0\xA1\x41";
+constexpr char kWindow13Text5898F4[] = "\xA8\xCF\xA5\xCE\xA1\x79\xAA\x76\xC0\xF8\xA1\x7A\xA7\xDE\xAF\xE0\xA1\x41\xB5\x4C\xAA\x6B\xB9\xEA\xAC\x49\xA1\x49";
+constexpr char kWindow13Text5898D8[] = "\xA8\xCF\xA5\xCE\xA1\x79\xAA\x76\xC0\xF8\xA1\x7A\xA7\xDE\xAF\xE0\xA1\x41\xA5\xA2\xB1\xD1\xA4\x46\xA1\x49";
+constexpr char kWindow13Text5898B8[] = "\xB6\xCB\xB6\xD5\xB9\x4C\xAB\xD7\xB4\x63\xA4\xC6\xA1\x41\xC6\x46\xBB\xEE\xB1\xBC\xA4\x46\xA4\x40\xAE\xE6\xA1\x43";
+constexpr char kWindow13Text5898A8[] = "\xB6\xCB\xB6\xD5\xB4\x63\xA4\xC6\xA4\x46\xA1\x43";
+constexpr char kWindow13Text586B00[] = "\xB9\xEF\x25\x2D\x32\x32\x73";
+constexpr char kWindow13Text586AF0[] = "\xA1\x40\xC5\xDC\xB8\xCB\xA6\xA8\xA5\x5C\xA4\x46\xA1\x49";
+constexpr char kWindow13Text586AE0[] = "\xA1\x40\xC5\xDC\xB8\xCB\xA5\xA2\xB1\xD1\xA4\x46\xA1\x49";
+constexpr char kWindow13Text586AD0[] = "\xA1\x40\xC5\xDC\xA8\xAD\xA6\xA8\xA5\x5C\xA4\x46\xA1\x49";
+constexpr char kWindow13Text586AC0[] = "\xA1\x40\xC5\xDC\xA8\xAD\xA5\xA2\xB1\xD1\xA4\x46\xA1\x49";
+constexpr char kWindow13Text586AAC[] = "\x25\x2D\x31\x36\x73\xAA\xBA\xAA\x76\xC0\xF8\xA6\xA8\xA5\x5C\xA4\x46";
+constexpr char kWindow13Text586A94[] = "\xA1\x40\xA5\xCD\xA9\x52\xAD\xC8\xAB\xEC\xB4\x5F\xA4\x46\x20\x25\x64\x20\xA1\x43";
+constexpr char kWindow13Text586A80[] = "\xA1\x40\xA4\xA3\xBB\xDD\xB6\x69\xA6\xE6\xAA\x76\xC0\xF8\xA1\x49";
+constexpr char kWindow13Text586A70[] = "\xA1\x40\xAA\x76\xC0\xF8\xA5\xA2\xB1\xD1\xA4\x46\xA1\x49";
+constexpr char kWindow13Text586A5C[] = "\xB6\xCB\xB6\xD5\xA5\xFE\xB3\xA1\xAB\xEC\xB4\x5F\xA4\x46\xA1\x49";
+constexpr char kWindow13Text586A48[] = "\xB6\xCB\xB6\xD5\xB5\x79\xB7\x4C\xAB\xEC\xB4\x5F\xA4\x46\xA1\x43";
+constexpr char kWindow13Text586A34[] = "\x25\x2D\x31\x36\x73\xAA\xBA\xAA\x76\xC0\xF8\xA5\xA2\xB1\xD1\xA4\x46";
+constexpr char kWindow13Text586A1C[] = "\xA1\x40\xB6\xCB\xB6\xD5\xB4\x63\xA4\xC6\xA6\xD3\xB1\xBC\xBB\xEE\xA4\x46\xA1\x43";
+constexpr char kWindow13Text586A0C[] = "\xA1\x40\xB6\xCB\xB6\xD5\xB4\x63\xA4\xC6\xA4\x46\xA1\x43";
+constexpr char kWindow13Text5868E0[] = "\xC4\x7E\xC4\xF2\xB0\xF5\xA6\xE6\xA1\x43";
+constexpr char kWindow13Text5868EC[] = "\xC3\xF6\xB3\xAC\xA6\xB9\xB5\xF8\xB5\xA1";
+
 // 原D046D8连续浏览区；仅复用值类型布局，不与玩家或交易区共享存储。
 struct StallBrowseData {
     std::array<char, 17> sellerName00;
@@ -23080,6 +23128,358 @@ WindowAnimationData* Sub_4ED6B0(const std::int32_t result, const char* const tex
     return Sub_486020();
 }
 
+std::int32_t Sub_47D280(
+    WindowInstance* const window, const std::int32_t first,
+    const std::int32_t second, const std::int32_t imageNo)
+{
+    login::detail::SetYobiActionField2A8(
+        static_cast<WindowAnimationData*>(window->elements[first].data)->action, imageNo);
+    login::detail::SetYobiActionField2A8(
+        static_cast<WindowAnimationData*>(window->elements[second].data)->action, imageNo);
+    if (imageNo <= 0) {
+        window->elements[first].visible = 0;
+        window->elements[second].visible = 0;
+    }
+    return first * 36;
+}
+
+std::int32_t Sub_487F30(const std::int32_t imageNo, const std::int32_t offset)
+{
+    if (imageNo >= 0x18A24 && imageNo <= 0x18A26) {
+        return imageNo;
+    }
+    for (std::int32_t index = 0; index < 4; ++index) {
+        const auto& range = kCraftAlternateActionImages[index];
+        if (imageNo >= range[0] && imageNo <= range[1]) {
+            const std::int32_t relative = imageNo - range[0];
+            const std::int32_t groupSize = index == 2 ? 30 : 25;
+            const std::int32_t group = relative / groupSize * groupSize;
+            return range[0] + 2 + group + (relative - group) / 6 * 6 + offset;
+        }
+    }
+    if (imageNo >= 0x1D55C && imageNo <= 0x1D563) {
+        return imageNo;
+    }
+    if (imageNo >= 0x1AF0E && imageNo <= 0x1AF25) {
+        return 0x1AF10 + (imageNo - 0x1AF0E) / 6 * 6 + offset;
+    }
+    return imageNo;
+}
+
+login::YobiAction* Sub_4875E0()
+{
+    Sub_479650();
+    const auto references = static_cast<std::uint8_t>(gValueD67AFD + 1);
+    const auto skillReferences = static_cast<std::uint8_t>(gValueD67AFE + 1);
+    gValueD67AFD = references;
+    WindowInstance* const previous = gWindowStates[11].window;
+    gValueD67AFE = skillReferences;
+    if (previous != nullptr) {
+        previous->state |= 0x8000u;
+    }
+    for (const std::int32_t id : {12, 45, 46, 13}) {
+        WindowInstance* const window = gWindowStates[id].window;
+        if (window != nullptr) {
+            window->state |= 0x8000u;
+        }
+    }
+    return CreateWindowAnimation_475AA0(13, 1, 0, nullptr);
+}
+
+void Sub_487660()
+{
+    Sub_479660();
+    const auto references = static_cast<std::uint8_t>(gValueD67AFD - 1);
+    const auto skillReferences = static_cast<std::uint8_t>(gValueD67AFE - 1);
+    gValueD67AFD = references;
+    gValueD67AFE = skillReferences;
+    if (skillReferences == 0 && world::detail::Sub_51BEC0() == 13) {
+        static_cast<void>(world::detail::Sub_51BE50(0));
+    }
+    gWindowStates[13].window->state |= 0x8000u;
+}
+
+WindowAnimationData* Sub_4876B0(WindowInstance* const window)
+{
+    const std::int32_t kind = gSkillTargetKindCF4A10;
+    switch (kind) {
+        case 0:
+        case 1: {
+            std::sprintf(static_cast<WindowTextData*>(window->elements[4].data)->text,
+                kWindow13Text586B00, gSkillTargetNameD2F748.data());
+            const char* text = nullptr;
+            if (kind == 0) {
+                text = gWindow13ResultD66E2C != 0 ? kWindow13Text586AF0 : kWindow13Text586AE0;
+            } else {
+                text = gWindow13ResultD66E2C != 0 ? kWindow13Text586AD0 : kWindow13Text586AC0;
+            }
+            std::strcpy(static_cast<WindowTextData*>(window->elements[5].data)->text, text);
+            break;
+        }
+        case 2:
+            if (gWindow13ResultD66E2C != 0) {
+                std::sprintf(static_cast<WindowTextData*>(window->elements[4].data)->text,
+                    kWindow13Text586AAC, gSkillTargetNameD2F748.data());
+                std::sprintf(static_cast<WindowTextData*>(window->elements[5].data)->text,
+                    kWindow13Text586A94, gWindow13ValueD2DBF0);
+            } else {
+                std::sprintf(static_cast<WindowTextData*>(window->elements[4].data)->text,
+                    kWindow13Text586B00, gSkillTargetNameD2F748.data());
+                std::strcpy(static_cast<WindowTextData*>(window->elements[5].data)->text,
+                    gWindow13ValueD2DBF0 == 0 ? kWindow13Text586A80 : kWindow13Text586A70);
+            }
+            break;
+        case 3:
+            if (gWindow13ResultD66E2C != 0) {
+                std::sprintf(static_cast<WindowTextData*>(window->elements[4].data)->text,
+                    kWindow13Text586AAC, gSkillTargetNameD2F748.data());
+                std::strcpy(static_cast<WindowTextData*>(window->elements[5].data)->text,
+                    gWindow13ValueD2DBF0 == 4 ? kWindow13Text586A5C : kWindow13Text586A48);
+            } else if (gWindow13ValueD2DBF0 == 0) {
+                std::sprintf(static_cast<WindowTextData*>(window->elements[4].data)->text,
+                    kWindow13Text586B00, gSkillTargetNameD2F748.data());
+                std::strcpy(static_cast<WindowTextData*>(window->elements[5].data)->text,
+                    kWindow13Text586A80);
+            } else {
+                std::sprintf(static_cast<WindowTextData*>(window->elements[4].data)->text,
+                    kWindow13Text586A34, gSkillTargetNameD2F748.data());
+                const std::int32_t value = gWindow13ValueD2DBF0;
+                std::strcpy(static_cast<WindowTextData*>(window->elements[5].data)->text,
+                    value == 3 ? kWindow13Text586A1C
+                    : value == 2 ? kWindow13Text586A0C : input::LegacyText593850());
+            }
+            break;
+        default:
+            break;
+    }
+    static_cast<void>(audio::PlaySe_52C450(gWindow13ResultD66E2C != 0 ? 57 : 58, 320));
+    if (gWindow13LevelUpCF468C != 0) {
+        std::strcpy(static_cast<WindowTextData*>(window->elements[6].data)->text, kCraftLevelUp58661C);
+    } else {
+        std::sprintf(static_cast<WindowTextData*>(window->elements[6].data)->text,
+            kCraftExperience58660C, gWindow13ExperienceCC2E5C);
+    }
+    char* const increments = static_cast<WindowTextData*>(window->elements[7].data)->text;
+    increments[0] = '\0';
+    char buffer[256];
+    if (gWindow13EnduranceCC421C != 0) {
+        std::sprintf(buffer, kCraftEndurance586600, gWindow13EnduranceCC421C);
+        std::strcat(increments, buffer);
+    }
+    if (gWindow13DexterityD2D644 != 0) {
+        std::sprintf(buffer, kCraftDexterity5865F4, gWindow13DexterityD2D644);
+        std::strcat(increments, buffer);
+    }
+    if (gWindow13IntelligenceCC19FC != 0) {
+        std::sprintf(buffer, kCraftIntelligence5865E8, gWindow13IntelligenceCC19FC);
+        std::strcat(increments, buffer);
+    }
+    static_cast<WindowAnimationData*>(window->elements[2].data)->value04 = 1;
+    login::detail::SetYobiActionField2B0(
+        static_cast<WindowAnimationData*>(window->elements[2].data)->action,
+        gWindow13ResultD66E2C != 0 ? 5 : 10);
+    static_cast<void>(Sub_47D170(
+        window, 2, 1, 3, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
+    return Sub_47D220(window, 1, 3, 1, gWindow13ResultD66E2C != 0 ? 6 : 8, 5);
+}
+
+std::int32_t Sub_487AE0(const std::int32_t value)
+{
+    if (value == -1) {
+        static_cast<void>(Sub_4876B0(gCurrentWindow));
+    }
+    const std::int32_t imageNo =
+        Sub_487F30(character_select::detail::Sub_51B740(world::detail::ReadPlayerImageNo()), 0);
+    login::detail::SetYobiActionField2A8(
+        static_cast<WindowAnimationData*>(gCurrentWindow->elements[2].data)->action, imageNo);
+    login::detail::SetYobiActionField2B8(
+        static_cast<WindowAnimationData*>(gCurrentWindow->elements[2].data)->action, 5);
+    if (gSkillSendModeC8A970 != 0) {
+        static_cast<void>(Sub_47D280(gCurrentWindow, 1, 3, gSkillPetImageCB0A18));
+    } else {
+        static_cast<void>(Sub_47D280(gCurrentWindow, 1, 3, 0));
+    }
+    return 1;
+}
+
+std::int32_t Sub_487B80(const std::int32_t)
+{
+    login::YobiAction* const action =
+        static_cast<WindowAnimationData*>(gCurrentWindow->elements[2].data)->action;
+    const std::int32_t actionId = login::detail::GetYobiActionField2B0(action);
+    const std::int32_t imageNo = login::detail::GetYobiActionField2A8(action);
+    if (actionId == 18 || actionId == 5 || actionId == 15 || actionId == 10) {
+        const bool succeeded = actionId == 18 || actionId == 5;
+        const std::int32_t defaultAction = succeeded ? 5 : 10;
+        login::detail::SetYobiActionField2B0(action, defaultAction);
+        for (const auto& range : kCraftAlternateActionImages) {
+            if (imageNo >= range[0] && imageNo <= range[1]) {
+                login::detail::SetYobiActionField2B0(action, succeeded ? 18 : 15);
+            }
+        }
+        if (imageNo == 0x18A26) {
+            login::detail::SetYobiActionField2B0(action, defaultAction);
+        }
+    }
+    if (imageNo >= 0x1AF0E && imageNo <= 0x1AF25) {
+        login::detail::SetYobiActionField309(action, 4);
+        login::detail::SetYobiActionField310(action, 4);
+    } else {
+        login::detail::SetYobiActionField309(action, 0);
+    }
+    DrawCurrentWindow_4729B0();
+    return 1;
+}
+
+std::int32_t Sub_487D60(const std::int32_t index, const std::int32_t state)
+{
+    WindowElement* const elements = gCurrentWindow->elements;
+    const std::int32_t level = gUsingSkillLevelCA0AC4;
+    auto* const graphic = static_cast<WindowGraphicData*>(elements[index].data);
+    const std::int32_t skill = gUsingSkillIndexD2F32C;
+    const std::int32_t cost = world::detail::gSkillsF1BAFC[skill].techniques3C[level].value7C
+        * world::detail::gSkillsF1BAFC[skill].fpReduce / 100;
+    if (world::detail::IsPlayerFpLessThan(cost)) {
+        graphic->imageNo = 0x3BA32;
+        if ((state & 2) != 0) {
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        }
+        return 0;
+    }
+    if ((state & 1) != 0) {
+        std::strcpy(gHoverTextD68AE8.data(), kWindow13Text5868E0);
+    }
+    std::int32_t consumed = 0;
+    if ((state & 2) != 0) {
+        const std::int32_t currentSkill = gUsingSkillIndexD2F32C;
+        static_cast<void>(network::Sub_511C30(platform::gConnectionSocket, currentSkill));
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        consumed = 1;
+    }
+    graphic->imageNo = 0x3BA31;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3BA33;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 0x3BA32;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_487E80(const std::int32_t index, const std::int32_t state)
+{
+    WindowInstance* const window = gCurrentWindow;
+    auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
+    if ((state & 1) != 0) {
+        std::strcpy(gHoverTextD68AE8.data(), kWindow13Text5868EC);
+    }
+    std::int32_t consumed = 0;
+    if ((state & 2) != 0) {
+        window->state |= 0x8000u;
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+        consumed = 1;
+    }
+    graphic->imageNo = 0x3B565;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3B567;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 0x3B566;
+    }
+    return consumed;
+}
+
+login::YobiAction* Sub_4EEA40(const std::int32_t result, const char* const text)
+{
+    gWindow13ResultD66E2C = result;
+    gWindow13DetailsCB0FDC.clear();
+    gWindow13ExperienceCC2E5C = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
+    gWindow13ValueCC3E8C = network::ParseDelimitedInteger_52CFA0(text, '|', 2);
+    gWindow13LevelUpCF468C = network::ParseDelimitedInteger_52CFA0(text, '|', 3);
+    gWindow13EnduranceCC421C = network::ParseDelimitedInteger_52CFA0(text, '|', 4);
+    gWindow13DexterityD2D644 = network::ParseDelimitedInteger_52CFA0(text, '|', 5);
+    gWindow13IntelligenceCC19FC = network::ParseDelimitedInteger_52CFA0(text, '|', 6);
+    const std::int32_t value = network::ParseDelimitedInteger_52CFA0(text, '|', 7);
+    const std::int32_t kind = gSkillTargetKindCF4A10;
+    gWindow13ValueD2DBF0 = value;
+    char buffer[256];
+    std::int32_t lines = 0;
+    switch (kind) {
+        case 0:
+            std::strcpy(gWindow13TitleCC18EC.data(), kWindow13Text589A80);
+            std::strcpy(gWindow13SummaryCC18CC.data(), result != 0 ? kWindow13Text589A64 : kWindow13Text589A48);
+            lines = 1;
+            break;
+        case 1:
+            std::strcpy(gWindow13TitleCC18EC.data(), kWindow13Text589A34);
+            std::strcpy(gWindow13SummaryCC18CC.data(), result != 0 ? kWindow13Text589A18 : kWindow13Text5899FC);
+            lines = 1;
+            break;
+        case 2:
+            std::strcpy(gWindow13TitleCC18EC.data(), kWindow13Text5899E8);
+            if (result != 0) {
+                std::strcpy(gWindow13SummaryCC18CC.data(), kWindow13Text5899B8);
+                std::sprintf(buffer, kWindow13Text5899D4, value);
+                gWindow13DetailsCB0FDC += buffer;
+                lines = 1;
+            } else {
+                std::strcpy(gWindow13SummaryCC18CC.data(),
+                    value == 0 ? kWindow13Text5899A0 : kWindow13Text589984);
+            }
+            break;
+        case 3:
+            if (result != 0) {
+                std::strcpy(gWindow13TitleCC18EC.data(), kWindow13Text589970);
+                std::strcpy(gWindow13SummaryCC18CC.data(), kWindow13Text589954);
+                std::sprintf(buffer, value == 4 ? kWindow13Text589940 : kWindow13Text589928);
+                gWindow13DetailsCB0FDC += buffer;
+                lines = 1;
+            } else {
+                std::strcpy(gWindow13TitleCC18EC.data(), kWindow13Text589914);
+                if (value == 0) {
+                    std::strcpy(gWindow13SummaryCC18CC.data(), kWindow13Text5898F4);
+                } else {
+                    std::strcpy(gWindow13SummaryCC18CC.data(), kWindow13Text5898D8);
+                    if (value == 3 || value == 2) {
+                        std::sprintf(buffer, value == 3 ? kWindow13Text5898B8 : kWindow13Text5898A8);
+                        gWindow13DetailsCB0FDC += buffer;
+                    }
+                    lines = 1;
+                }
+            }
+            break;
+        default:
+            break;
+    }
+    const auto appendValue = [&](const char* const format, const std::int32_t number) {
+        std::sprintf(buffer, format, number);
+        if (std::strlen(buffer) < 28) {
+            std::strcat(buffer, "\n");
+        }
+        gWindow13DetailsCB0FDC += buffer;
+        ++lines;
+    };
+    if (gWindow13ExperienceCC2E5C > 0 && lines < 8) {
+        appendValue(kCraftExperience589820, gWindow13ExperienceCC2E5C);
+    }
+    if (gWindow13LevelUpCF468C != 0 && lines < 8) {
+        std::sprintf(buffer, kCraftLevelUp589814);
+        gWindow13DetailsCB0FDC += buffer;
+        ++lines;
+        static_cast<void>(audio::PlaySe_52C450(64, 320));
+    }
+    if (gWindow13EnduranceCC421C != 0 && lines < 8) {
+        appendValue(kCraftEndurance589808, gWindow13EnduranceCC421C);
+    }
+    if (gWindow13DexterityD2D644 != 0 && lines < 8) {
+        appendValue(kCraftDexterity5897FC, gWindow13DexterityD2D644);
+    }
+    if (gWindow13IntelligenceCC19FC != 0 && lines < 8) {
+        appendValue(kCraftIntelligence5897F0, gWindow13IntelligenceCC19FC);
+    }
+    return Sub_4875E0();
+}
+
 std::int32_t Sub_479820()
 {
     for (const auto& pair : world::detail::gSkillPairsF63370) {
@@ -25372,6 +25772,31 @@ void Sub_50E7F0(
 void Sub_50E820(const std::uintptr_t, const std::int32_t result)
 {
     detail::Sub_4CE930(result);
+}
+
+void Sub_50C7F0(
+    const std::uintptr_t, const std::int32_t result,
+    const std::int32_t kind, const char* const text)
+{
+    if (world::detail::gValue9A6E0C != 0 || world::ReadRippleGateOnce() != 0) {
+        return;
+    }
+    switch (kind) {
+        case 1:
+            static_cast<void>(detail::Sub_4F39F0(result, text));
+            break;
+        case 2:
+            static_cast<void>(detail::Sub_4F1800(result, text));
+            break;
+        case 3:
+            static_cast<void>(detail::Sub_4EEA40(result, text));
+            break;
+        case 4:
+            static_cast<void>(detail::Sub_4ED6B0(result, text));
+            break;
+        default:
+            break;
+    }
 }
 
 void Sub_50E340(const std::uintptr_t, const char* const text)

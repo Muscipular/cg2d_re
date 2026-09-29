@@ -295,6 +295,18 @@ void UpdateBattleFallingEffect_41A530(YobiAction* action); // 未舍入Y超过na
 void UpdateBattleReverseEmitter_41A590(YobiAction* action); // 132B数值载荷，每槽四粒子，倒序坐标。
 void UpdateBattleIndexedEmitter_41A7D0(YobiAction* action); // 32次顺序生成，失败也递增nameX。
 YobiAction* NewBattleRisingEffect_420D50(YobiAction* parent); // 先随机位置再分配，成功后可再随机混合标志。
+// 工厂初始化：仅借用现有对象与真实回调，空action/source原样返回，不分配/播放。
+void InitBattleTargetEffect_422E50(
+    YobiAction* action, YobiAction* source, void (*callback)(YobiAction*)); // 固定目标坐标与图号音效。
+void InitBattleOffsetEffect_423040(
+    YobiAction* action, YobiAction* source, void (*callback)(YobiAction*)); // 使用DX的S16半高，复制103C/1044。
+void InitBattleCenterEffect_4231D0(
+    YobiAction* action, YobiAction* source, void (*callback)(YobiAction*)); // 中心坐标、随机速度/角度，转向时重取目标。
+void InitBattleLowerEffect_423350(
+    YobiAction* action, YobiAction* source, void (*callback)(YobiAction*)); // 使用对象2CC的S32半偏移，不复制技能。
+void InitBattleScreenYEffect_4234B0(
+    YobiAction* action, YobiAction* source, void (*callback)(YobiAction*),
+    std::int32_t* side); // 可空数值输出；写输出后才读取目标屏幕Y。
 YobiAction* NewBattleRandomEffect_419FC0(
     YobiAction* parent, std::int32_t imageNo, std::int32_t direction); // X/Y分别取随机并重读尺寸。
 void UpdateBattleFloatingIcon_41F450(YobiAction* action); // 未舍入速度推进Y，停留60帧后标死并投影。

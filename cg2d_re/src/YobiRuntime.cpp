@@ -6504,6 +6504,239 @@ YobiAction* NewBattleRisingEffect_420D50(YobiAction* const parent)
     return action;
 }
 
+void InitBattleTargetEffect_422E50(
+    YobiAction* const action, YobiAction* const source, const YobiCallback callback)
+{
+    using world::detail::gBattleAllEntries59E980;
+    if (action == nullptr || source == nullptr) {
+        return;
+    }
+    const auto* const sourcePayload = static_cast<const BattleActorPayload*>(source->payload);
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    YobiAction* const target = gBattleAllEntries59E980[
+        sourcePayload->effects1C[sourcePayload->effectRunningC9C].position];
+    action->callback = callback;
+    action->displayPriority = 0xC9;
+    AppendBattleEffect_439400(action, sourcePayload->effects1C[sourcePayload->effectRunningC9C]);
+    const std::uint32_t flags = sourcePayload->effects1C[sourcePayload->effectRunningC9C].flags;
+    if ((flags & 0x800000u) != 0) {
+        std::int32_t position;
+        std::int32_t value3;
+        std::int32_t value4;
+        std::int32_t value5;
+        static_cast<void>(TakeBattleAuxEffects_43BC90(source, &position, &value3, &value4, &value5));
+        AppendBattleAuxEffects_43BC10(action, position, flags, value3, value4, value5);
+    }
+    action->framePlayingRate = 100;
+    if (sourcePayload->effectRunningC9C != 0) {
+        action->field58 = platform::RandomRange_46FAF0(0, 30);
+    }
+    action->imageNo = sourcePayload->image102C;
+    switch (action->imageNo) {
+    case 111177:
+    case 111178:
+    case 111179:
+    case 111183:
+    case 111184:
+    case 111185:
+    case 111186:
+    case 111187:
+    case 111188:
+        static_cast<void>(audio::PlaySe_52C450(263, action->x));
+        break;
+    case 111189:
+    case 111190:
+    case 111191:
+        static_cast<void>(audio::PlaySe_52C450(269, action->x));
+        break;
+    default:
+        break;
+    }
+    payload->castSkill103C = sourcePayload->castSkill103C;
+    payload->castSkillLevel1044 = sourcePayload->castSkillLevel1044;
+    static_cast<void>(render::LoadGraphic_522570(target->graphicIndex));
+    action->offset40 = target->offset40;
+    action->offset44 = target->offset44;
+    action->field270 = 0;
+}
+
+void InitBattleOffsetEffect_423040(
+    YobiAction* const action, YobiAction* const source, const YobiCallback callback)
+{
+    using world::detail::gBattleAllEntries59E980;
+    if (action == nullptr || source == nullptr) {
+        return;
+    }
+    const auto* const sourcePayload = static_cast<const BattleActorPayload*>(source->payload);
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    YobiAction* const target = gBattleAllEntries59E980[
+        sourcePayload->effects1C[sourcePayload->effectRunningC9C].position];
+    action->callback = callback;
+    action->flags |= 0x40000u;
+    AppendBattleEffect_439400(action, sourcePayload->effects1C[sourcePayload->effectRunningC9C]);
+    const std::uint32_t flags = sourcePayload->effects1C[sourcePayload->effectRunningC9C].flags;
+    if ((flags & 0x800000u) != 0) {
+        std::int32_t position;
+        std::int32_t value3;
+        std::int32_t value4;
+        std::int32_t value5;
+        static_cast<void>(TakeBattleAuxEffects_43BC90(source, &position, &value3, &value4, &value5));
+        AppendBattleAuxEffects_43BC10(action, position, flags, value3, value4, value5);
+    }
+    action->framePlayingRate = 100;
+    if (sourcePayload->effectRunningC9C != 0) {
+        action->field58 = platform::RandomRange_46FAF0(0, 30);
+    }
+    const std::int32_t imageOffset = platform::RandomRange_46FAF0(0, 2);
+    action->imageNo = imageOffset + sourcePayload->image102C;
+    payload->castSkill103C = sourcePayload->castSkill103C;
+    payload->castSkillLevel1044 = sourcePayload->castSkillLevel1044;
+    static_cast<void>(render::LoadGraphic_522570(target->graphicIndex));
+    const std::int32_t position = sourcePayload->effects1C[sourcePayload->effectRunningC9C].position;
+    const double x = target->offset40;
+    action->offset40 = static_cast<float>(position >= 10 ? x + 100.0 : x - 100.0);
+    const std::int32_t graphic = target->graphicIndex;
+    const double targetY = target->offset44;
+    const std::int32_t halfHeight = render::ReadGraphicDxHeight(graphic) / 2;
+    const double y = targetY - 200.0 - halfHeight;
+    action->field270 = 0;
+    action->offset44 = static_cast<float>(y);
+}
+
+void InitBattleCenterEffect_4231D0(
+    YobiAction* const action, YobiAction* const source, const YobiCallback callback)
+{
+    using world::detail::gBattleAllEntries59E980;
+    if (action == nullptr || source == nullptr) {
+        return;
+    }
+    const std::uint32_t initialFlags = action->flags;
+    const auto* const sourcePayload = static_cast<const BattleActorPayload*>(source->payload);
+    action->callback = callback;
+    action->displayPriority = 0xC9;
+    action->flags = initialFlags | 0x60000u;
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    AppendBattleEffect_439400(action, sourcePayload->effects1C[sourcePayload->effectRunningC9C]);
+    const std::uint32_t flags = sourcePayload->effects1C[sourcePayload->effectRunningC9C].flags;
+    if ((flags & 0x800000u) != 0) {
+        std::int32_t position;
+        std::int32_t value3;
+        std::int32_t value4;
+        std::int32_t value5;
+        static_cast<void>(TakeBattleAuxEffects_43BC90(source, &position, &value3, &value4, &value5));
+        AppendBattleAuxEffects_43BC10(action, position, flags, value3, value4, value5);
+    }
+    action->framePlayingRate = 100;
+    if (sourcePayload->effectRunningC9C != 0) {
+        action->field58 = platform::RandomRange_46FAF0(0, 30);
+    }
+    action->imageNo = sourcePayload->image102C;
+    action->rebirthValue1 = 4;
+    action->rebirthValue2 = 4;
+    const std::int32_t speed = platform::RandomRange_46FAF0(4, 8);
+    action->value54 = static_cast<float>(speed);
+    payload->castSkill103C = sourcePayload->castSkill103C;
+    payload->castSkillLevel1044 = sourcePayload->castSkillLevel1044;
+    action->offset40 = 320.0F;
+    action->offset44 = 260.0F;
+    YobiAction* const target = gBattleAllEntries59E980[
+        sourcePayload->effects1C[sourcePayload->effectRunningC9C].position];
+    TurnBattleToward_406190(action, target, 0, 0.0F);
+    const std::int32_t angleOffset = platform::RandomRange_46FAF0(-90, 90);
+    action->field270 = 0;
+    action->angle50 = static_cast<float>(static_cast<double>(angleOffset) + action->angle50);
+}
+
+void InitBattleLowerEffect_423350(
+    YobiAction* const action, YobiAction* const source, const YobiCallback callback)
+{
+    using world::detail::gBattleAllEntries59E980;
+    if (action == nullptr || source == nullptr) {
+        return;
+    }
+    const auto* const sourcePayload = static_cast<const BattleActorPayload*>(source->payload);
+    YobiAction* const target = gBattleAllEntries59E980[
+        sourcePayload->effects1C[sourcePayload->effectRunningC9C].position];
+    action->callback = callback;
+    action->displayPriority = 0xC9;
+    const bool hasDevice = render::HasLegacy3DDevice_44B610() != 0;
+    const std::uint32_t blendFlags = action->flags | (hasDevice ? 0x100000u : 0x8000u);
+    action->flags = blendFlags;
+    action->flags = blendFlags | 0x40000u;
+    AppendBattleEffect_439400(action, sourcePayload->effects1C[sourcePayload->effectRunningC9C]);
+    const std::uint32_t flags = sourcePayload->effects1C[sourcePayload->effectRunningC9C].flags;
+    if ((flags & 0x800000u) != 0) {
+        std::int32_t position;
+        std::int32_t value3;
+        std::int32_t value4;
+        std::int32_t value5;
+        static_cast<void>(TakeBattleAuxEffects_43BC90(source, &position, &value3, &value4, &value5));
+        AppendBattleAuxEffects_43BC10(action, position, flags, value3, value4, value5);
+    }
+    action->framePlayingRate = 100;
+    if (sourcePayload->effectRunningC9C != 0) {
+        action->field58 = platform::RandomRange_46FAF0(0, 30);
+    }
+    const std::int32_t imageOffset = platform::RandomRange_46FAF0(0, 2);
+    action->imageNo = imageOffset + sourcePayload->image102C;
+    action->rebirthValue1 = 4;
+    action->rebirthValue2 = 4;
+    action->offset40 = target->offset40;
+    const std::int32_t halfOffset = target->graphicOffsetY / 2;
+    const double y = static_cast<double>(halfOffset) + target->offset44;
+    action->field270 = 0;
+    action->offset44 = static_cast<float>(y);
+}
+
+void InitBattleScreenYEffect_4234B0(
+    YobiAction* const action, YobiAction* const source, const YobiCallback callback,
+    std::int32_t* const side)
+{
+    using world::detail::gBattleAllEntries59E980;
+    if (action == nullptr || source == nullptr) {
+        return;
+    }
+    const auto* const sourcePayload = static_cast<const BattleActorPayload*>(source->payload);
+    YobiAction* const target = gBattleAllEntries59E980[
+        sourcePayload->effects1C[sourcePayload->effectRunningC9C].position];
+    const std::uint32_t initialFlags = action->flags;
+    action->callback = callback;
+    action->displayPriority = 0xCC;
+    action->flags = initialFlags | 0x60000u;
+    AppendBattleEffect_439400(action, sourcePayload->effects1C[sourcePayload->effectRunningC9C]);
+    const std::uint32_t flags = sourcePayload->effects1C[sourcePayload->effectRunningC9C].flags;
+    if ((flags & 0x800000u) != 0) {
+        std::int32_t position;
+        std::int32_t value3;
+        std::int32_t value4;
+        std::int32_t value5;
+        static_cast<void>(TakeBattleAuxEffects_43BC90(source, &position, &value3, &value4, &value5));
+        AppendBattleAuxEffects_43BC10(action, position, flags, value3, value4, value5);
+    }
+    action->framePlayingRate = 100;
+    if (sourcePayload->effectRunningC9C != 0) {
+        action->field58 = platform::RandomRange_46FAF0(0, 30);
+    }
+    const std::int32_t skill = sourcePayload->castSkill103C;
+    std::int32_t image;
+    if (skill == 20 || skill == 24 || skill == 28) {
+        image = sourcePayload->image102C;
+    } else {
+        const std::int32_t imageOffset = platform::RandomRange_46FAF0(0, 2);
+        image = imageOffset + sourcePayload->image102C;
+    }
+    action->imageNo = image;
+    action->rebirthValue1 = 4;
+    action->rebirthValue2 = 4;
+    action->offset40 = target->offset40;
+    if (side != nullptr) {
+        *side = sourcePayload->effects1C[sourcePayload->effectRunningC9C].position >= 10 ? 1 : -1;
+    }
+    const std::int32_t y = target->y + 1;
+    action->field270 = 0;
+    action->offset44 = static_cast<float>(y);
+}
+
 void UpdateBattlePositionEffect_41E640(YobiAction* const action)
 {
     if (PlayFrame_517DA0(action, 1) == 1) {

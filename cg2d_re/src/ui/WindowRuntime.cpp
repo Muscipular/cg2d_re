@@ -108,6 +108,7 @@ std::int32_t gShopReplyItemCountCF4B58 = 0;
 std::int32_t gShopImageD2DAD0 = 0;
 std::int32_t gValueD2D608 = 0;
 std::int32_t gDialogValueCF4E5C = 0;
+std::int32_t gProfileCategory1085DA0 = 0;
 std::int32_t gShopDialogTypeCC3EC8 = 0;
 std::int32_t gShopValueCF467C = 0;
 std::array<std::int8_t, 20> gShopInventoryMapD2DAB8 {};
@@ -1577,6 +1578,104 @@ std::int32_t Sub_4CB6A0(const std::int32_t index, const std::int32_t state)
     input::gInputContextCA0180.text[0] = '\0';
     world::detail::gMiniMailSelectionD673E4 = -1;
     return 1;
+}
+
+std::int32_t Sub_478330(const std::int32_t index, const std::int32_t state)
+{
+    std::int32_t consumed = 0;
+    switch (index) {
+    case 17: {
+        const bool visible = world::detail::SelectedProfileValue04() != 0;
+        if ((state & 1) != 0) {
+            std::strcpy(gHoverTextD68AE8.data(), visible
+                ? "\xA4\xA3\xA4\xBD\xB6\x7D\xAA\xB1\xAE\x61\xC2\xB2\xA4\xB6"
+                : "\xA4\xBD\xB6\x7D\xAA\xB1\xAE\x61\xC2\xB2\xA4\xB6");
+            consumed = 1;
+        }
+        if ((state & 2) != 0) {
+            static_cast<void>(network::Sub_5118B0(platform::gConnectionSocket, visible ? 0 : 1));
+            if (!visible) {
+                static_cast<void>(world::detail::Sub_533C80(1));
+            }
+            world::detail::SelectedProfileValue04() = visible ? 0 : 1;
+        }
+        return consumed;
+    }
+    case 19:
+    case 20:
+    case 21: {
+        constexpr std::array<std::int32_t, 3> images {244405, 243075, 244408};
+        constexpr const char* hints[] {
+            "\xA4\xC1\xB4\xAB\xA6\xA8\xAA\xB1\xAE\x61\xAA\xAC\xBA\x41\xB5\xF8\xB5\xA1\xA1\x43",
+            "\xA4\xC1\xB4\xAB\xA6\xA8\xAA\xB1\xAE\x61\xA9\xFA\xB2\xD3\xB5\xF8\xB5\xA1\xA1\x43",
+            "\xA4\xC1\xB4\xAB\xA6\xA8\xAA\xB1\xAE\x61\xBA\xD9\xB8\xB9\xB5\xF8\xB5\xA1\xA1\x43",
+        };
+        const std::int32_t position = index - 19;
+        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+        if ((state & 1) != 0) {
+            graphic->imageNo = images[position] + 2;
+            std::strcpy(gHoverTextD68AE8.data(), hints[position]);
+            consumed = 1;
+        } else {
+            graphic->imageNo = images[position];
+        }
+        const std::int32_t target = index - 12;
+        if ((state & 2) != 0 && gWindowStates[target].window == nullptr) {
+            gCurrentWindow->state |= 0x8000u;
+            static_cast<void>(OpenWindow_471440(target));
+            gWindowStates[target].window->x = gCurrentWindow->x;
+            gWindowStates[target].window->y = gCurrentWindow->y;
+            static_cast<void>(audio::PlaySe_52C450(56, 320));
+            return 1;
+        }
+        return consumed;
+    }
+    case 23:
+    case 24:
+    case 25: {
+        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+        if ((state & 1) != 0) {
+            graphic->imageNo = 243035;
+            std::strcpy(gHoverTextD68AE8.data(), "\xB6\x7D\xB1\xD2\xA5\xD8\xBF\xFD\xB5\xF8\xB5\xA1");
+            consumed = 1;
+        } else {
+            graphic->imageNo = 243033;
+        }
+        const std::int32_t category = index - 23;
+        if ((state & 2) != 0) {
+            // 原检查窗口9，却写窗口59记录flags；第二检查仅是固定全局地址非零。
+            if (gWindowStates[9].window != nullptr) {
+                gWindowStates[59].flags |= 0x8000u;
+            }
+            gProfileCategory1085DA0 = category;
+            static_cast<void>(CreateWindowAnimation_475AA0(59, 1, 0, nullptr));
+            static_cast<void>(audio::PlaySe_52C450(56, 320));
+            consumed = 1;
+        }
+        if (gWindowStates[59].window != nullptr && gProfileCategory1085DA0 == category) {
+            static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 243034;
+        }
+        return consumed;
+    }
+    case 29: {
+        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+        if ((state & 1) != 0) {
+            graphic->imageNo = 244420;
+            std::strcpy(gHoverTextD68AE8.data(), "\xA8\x4D\xA9\x77\xAA\xB1\xAE\x61\xC2\xB2\xA4\xB6");
+            consumed = 1;
+        } else {
+            graphic->imageNo = 244418;
+        }
+        if ((state & 2) != 0) {
+            static_cast<void>(Sub_4A7B00());
+            static_cast<void>(world::detail::Sub_533C80(0));
+            return 1;
+        }
+        return consumed;
+    }
+    default:
+        return 0;
+    }
 }
 
 std::int32_t Sub_4D3020(const std::int32_t x, const std::int32_t y)

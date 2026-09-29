@@ -239,6 +239,11 @@ std::int32_t ReadCategoryValue105FA20()
     return gCategory105FA10.value10;
 }
 
+std::int32_t& SelectedProfileValue04()
+{
+    return gProfiles1074938[login::gSelectedCharacterIndex].value04;
+}
+
 void Sub_4EC1A0()
 {
     for (std::int32_t index = 0; index < 60; ++index) {

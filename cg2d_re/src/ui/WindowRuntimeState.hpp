@@ -891,6 +891,8 @@ std::int32_t Sub_4CB550(std::int32_t value); // 窗口63首次按目标决定保
 void Sub_4CB5D0(); // 同源收件人与八位费用刷新，原混合返回无人消费。
 std::int32_t Sub_4CB6A0(std::int32_t index, std::int32_t state); // 双层转义发送、插入本地迷你邮件及完整关闭尾。
 std::int32_t Sub_4CB920(std::int32_t unusedIndex, std::int32_t state); // 固定元素1输入焦点与非活动绘制。
+std::int32_t Sub_478330(std::int32_t index, std::int32_t state); // 资料公开/切窗/三目录/确认的完整八分支。
+extern std::int32_t gProfileCategory1085DA0; // 478330生产，窗口59按0/1/2选择类别，非地址。
 login::YobiAction* Sub_4B0110(); // 清交易U8，创建窗口43动画并发布借用T*。
 // 窗口43三元素组：低S16位置、仅隐藏时联动、只写图形颜色。
 void Sub_4B0130(

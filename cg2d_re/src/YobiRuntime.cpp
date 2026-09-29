@@ -7209,6 +7209,11 @@ void SetYobiActionField2B0(
     action->characterAction = value;
 }
 
+std::int32_t GetYobiActionField2B0(const YobiAction* const action) noexcept
+{
+    return action->characterAction;
+}
+
 void SetYobiActionField15(
     YobiAction* const action,
     const std::uint8_t value)

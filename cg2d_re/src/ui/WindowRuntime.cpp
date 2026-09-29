@@ -441,7 +441,10 @@ namespace {
 
 // 原D046D8连续浏览区；仅复用值类型布局，不与玩家或交易区共享存储。
 struct StallBrowseData {
-    std::array<std::byte, 0x6C> header;
+    std::array<std::byte, 0x60> header;
+    std::int32_t imageNo60;
+    std::int32_t action64;
+    std::int32_t direction68;
     std::array<world::detail::PlayerItemRecord, 20> items;
     std::array<std::int32_t, 20> itemValuesD13E74;
     std::array<std::int32_t, 20> itemValuesD13EC4;
@@ -451,6 +454,9 @@ struct StallBrowseData {
 };
 static_assert(std::is_standard_layout_v<StallBrowseData>);
 static_assert(std::is_trivially_copyable_v<StallBrowseData>);
+static_assert(offsetof(StallBrowseData, imageNo60) == 0x60);
+static_assert(offsetof(StallBrowseData, action64) == 0x64);
+static_assert(offsetof(StallBrowseData, direction68) == 0x68);
 static_assert(offsetof(StallBrowseData, items) == 0x6C);
 static_assert(offsetof(StallBrowseData, itemValuesD13E74) == 0xF79C);
 static_assert(offsetof(StallBrowseData, itemValuesD13EC4) == 0xF7EC);
@@ -467,6 +473,20 @@ std::int32_t gStallModeD67BDC = 0;
 std::int32_t gStallItemSelection581124 = -1;
 std::int32_t gStallPetSelection581128 = -1;
 std::uint8_t gStallOwn58111C = 1;
+std::int32_t gStallHover581120 = -1;
+std::int32_t gStallDescriptionPageD67C3C = 0;
+
+// 自身摊位上架项只引用玩家槽号；不同于浏览摊位的两张并行数值表。
+struct StallOffer {
+    std::int32_t slot;
+    std::int32_t value;
+};
+static_assert(sizeof(StallOffer) == 8);
+static_assert(offsetof(StallOffer, value) == 4);
+std::array<StallOffer, 20> gStallItemOffersD671D8 {};
+std::array<StallOffer, 5> gStallPetOffersCC3E98 {};
+std::array<std::uint8_t, 20> gStallItemUsedCC31AC {};
+std::array<std::uint8_t, 5> gStallPetUsedCF400C {};
 
 std::array<char, 256> gProfileSearchKeyword1075988 {};
 WindowInputPrototype gProfileSearchInputPrototype580A80 {
@@ -1383,6 +1403,142 @@ void Sub_4E5600(const std::int32_t side)
     for (std::int32_t index = 0; index < 20; ++index) {
         Sub_4E54E0(side, index);
     }
+}
+
+std::int32_t Sub_4D27C0(const std::int32_t value)
+{
+    const std::int32_t mode = gStallModeD67BDC;
+    if (mode == 0) {
+        const std::int32_t count = gStallItemCountD67BCC;
+        const std::int32_t slot = gStallItemSelection581124;
+        gStallItemSelection581124 = -1;
+        gStallItemOffersD671D8[count].slot = slot;
+        gStallItemOffersD671D8[count].value = value;
+        gStallItemUsedCC31AC[slot] = 1;
+        gStallItemCountD67BCC = count + 1;
+        return count + 1;
+    }
+    if (mode == 1) {
+        const std::int32_t count = gStallPetCountD67BD4;
+        const std::int32_t slot = gStallPetSelection581128;
+        gStallPetSelection581128 = -1;
+        gStallPetOffersCC3E98[count].slot = slot;
+        gStallPetOffersCC3E98[count].value = value;
+        gStallPetUsedCF400C[slot] = 1;
+        gStallPetCountD67BD4 = count + 1;
+        return count + 1;
+    }
+    return mode - 1;
+}
+
+std::int32_t Sub_4CDB10(const std::int32_t)
+{
+    if (gStallOwn58111C != 0) {
+        {
+            auto* const data = static_cast<WindowAnimationData*>(gCurrentWindow->elements[9].data);
+            login::YobiAction* const source = world::detail::ReadPlayerAction();
+            login::YobiAction* const target = data->action;
+            const std::int32_t value = login::detail::GetYobiActionField2A8(source);
+            login::detail::SetYobiActionField2A8(target, value);
+        }
+        {
+            auto* const data = static_cast<WindowAnimationData*>(gCurrentWindow->elements[9].data);
+            login::YobiAction* const source = world::detail::ReadPlayerAction();
+            login::YobiAction* const target = data->action;
+            const std::int32_t value = login::detail::GetYobiActionField2B0(source);
+            login::detail::SetYobiActionField2B0(target, value);
+        }
+        {
+            auto* const data = static_cast<WindowAnimationData*>(gCurrentWindow->elements[9].data);
+            login::YobiAction* const source = world::detail::ReadPlayerAction();
+            login::YobiAction* const target = data->action;
+            const std::int32_t value = login::detail::GetYobiActionField2B8(source);
+            login::detail::SetYobiActionField2B8(target, value);
+        }
+        if (gStallModeD67BDC != 1) {
+            const std::int32_t hover = gStallHover581120;
+            if (hover >= 0) {
+                static_cast<void>(Sub_48B1A0(hover, gStallDescriptionPageD67C3C));
+            }
+        }
+        std::int32_t itemCount = gStallItemCountD67BCC;
+        for (std::int32_t index = itemCount - 1; index >= 0; --index) {
+            StallOffer* const offer = gStallItemOffersD671D8.data() + index;
+            const std::int32_t slot = offer->slot;
+            if (world::detail::gPlayerItemsFDA8A4[slot + 8].used == 0) {
+                --itemCount;
+                gStallItemUsedCC31AC[slot] = 0;
+                gStallItemCountD67BCC = itemCount;
+                if (itemCount > 0 && index < itemCount) {
+                    std::memmove(offer, offer + 1,
+                        static_cast<std::size_t>(itemCount - index) * sizeof(StallOffer));
+                }
+                const std::int32_t page = gStallItemPageD67BC8;
+                gStallItemSelection581124 = -1;
+                if (itemCount - page < 10 && page > 0) {
+                    gStallItemPageD67BC8 = page - 1;
+                }
+            }
+        }
+        std::int32_t petCount = gStallPetCountD67BD4;
+        for (std::int32_t index = petCount - 1; index >= 0; --index) {
+            StallOffer* const offer = gStallPetOffersCC3E98.data() + index;
+            const std::int32_t slot = offer->slot;
+            if (world::detail::gPetRuntimeF633F8[slot].used == 0) {
+                --petCount;
+                gStallPetUsedCF400C[slot] = 0;
+                gStallPetCountD67BD4 = petCount;
+                if (petCount > 0 && index < petCount) {
+                    std::memmove(offer, offer + 1,
+                        static_cast<std::size_t>(petCount - index) * sizeof(StallOffer));
+                }
+                const std::int32_t page = gStallPetPageD67BD0;
+                gStallPetSelection581128 = -1;
+                if (petCount - page < 3 && page > 0) {
+                    gStallPetPageD67BD0 = page - 1;
+                }
+            }
+        }
+    } else {
+        {
+            auto* const data = static_cast<WindowAnimationData*>(gCurrentWindow->elements[7].data);
+            const std::int32_t value = gStallBrowseD046D8.imageNo60;
+            login::detail::SetYobiActionField2A8(data->action, value);
+        }
+        {
+            auto* const data = static_cast<WindowAnimationData*>(gCurrentWindow->elements[7].data);
+            const std::int32_t value = gStallBrowseD046D8.action64;
+            login::detail::SetYobiActionField2B0(data->action, value);
+        }
+        {
+            auto* const data = static_cast<WindowAnimationData*>(gCurrentWindow->elements[7].data);
+            const std::int32_t value = gStallBrowseD046D8.direction68;
+            login::detail::SetYobiActionField2B8(data->action, value);
+        }
+        if (gStallModeD67BDC != 1) {
+            const std::int32_t hover = gStallHover581120;
+            if (hover >= 0 && hover < 200) {
+                static_cast<void>(Sub_48B1A0(hover, gStallDescriptionPageD67C3C));
+            } else if (hover >= 200) {
+                const auto& item = gStallBrowseD046D8.items[hover - 200];
+                const std::uint16_t flags = item.flags;
+                const char* const title = item.name.data();
+                const std::int8_t color = (flags & 0x100u) != 0
+                    ? 5 : static_cast<std::int8_t>((flags & 0x200u) >> 9);
+                const std::int32_t page = gStallDescriptionPageD67C3C;
+                const char* const lines = reinterpret_cast<const char*>(&item)
+                    + offsetof(world::detail::PlayerItemRecord, description) + page * 768;
+                WindowInstance* const window = gCurrentWindow;
+                const std::int16_t y = std::bit_cast<std::int16_t>(
+                    static_cast<std::uint16_t>(window->y + 40));
+                const std::int16_t x = std::bit_cast<std::int16_t>(
+                    static_cast<std::uint16_t>(window->x + 320));
+                static_cast<void>(Sub_48B810(x, y, title, color, lines, 96, 8, nullptr, 0));
+            }
+        }
+    }
+    DrawCurrentWindow_4729B0();
+    return 1;
 }
 
 void Sub_4CF8A0(world::detail::PlayerItemRecord* const item, const char* const text)

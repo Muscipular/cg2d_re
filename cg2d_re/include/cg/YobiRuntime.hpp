@@ -312,6 +312,7 @@ std::int32_t GetYobiActionField2E4(const YobiAction* action) noexcept;
 std::int32_t GetYobiActionField2A8(YobiAction* action);
 void SetYobiActionField2A8(YobiAction* action, std::int32_t value);
 void SetYobiActionField2B0(YobiAction* action, std::int32_t value);
+std::int32_t GetYobiActionField2B0(const YobiAction* action) noexcept; // 原动作S32，摆摊预览逐次借读。
 void SetYobiActionField15(YobiAction* action, std::uint8_t value);
 std::uint8_t GetYobiActionField15(const YobiAction* action) noexcept; // 原+15显示层，选择器预览借读。
 std::int32_t GetYobiActionField30(YobiAction* action);

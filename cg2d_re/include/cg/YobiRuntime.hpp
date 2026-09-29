@@ -252,6 +252,8 @@ YobiAction* MarkDeath(YobiAction* action);
 // 原43BFF0：场景10且回合一致时，按结束位给同源20槽非空对象flags置40H。
 void Sub_43BFF0();
 void Sub_43C040(); // 命令初始化逐槽清flags bit40，不改变其他位或对象生命周期。
+void DrawBattleEntryHover_43C0A0(std::int32_t index); // 固定可选对象，按DX尺寸和播放偏移画框。
+std::int32_t GetSelectedBattleEntry_43C120(); // 返回单体/邻接/阵营/全体目标编号，先快照目标位与命中。
 // 原43C560：发布目标标志，依原序按HP/阵营选择并处理前后排遮挡。
 std::int32_t CheckBattleCommand_43C560(std::int32_t position, std::uint32_t flags);
 // 原43C060：逐槽清选择位、置绘制位及cacheIndex=-2，不销毁对象。

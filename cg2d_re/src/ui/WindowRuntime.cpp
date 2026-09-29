@@ -28442,6 +28442,480 @@ std::int32_t Sub_498160(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+void Sub_43C3E0()
+{
+    if (world::detail::gBattleCommandValue553F80 != 0) {
+        return;
+    }
+    bool selected = false;
+    for (const login::YobiAction* const action : world::detail::gBattleEntries59E980) {
+        if (action != nullptr && (login::detail::GetYobiActionFlagsLowByte(action) & 8u) != 0) {
+            selected = true;
+            break;
+        }
+    }
+    if (!selected) {
+        return;
+    }
+    const std::int32_t y = world::detail::gBattleCommandState5ABC3C == 4 ? 88 : 91;
+    static_cast<void>(login::detail::DrawGraphic(502, y + 20, 212, 0x58B1, 0, nullptr));
+    static_cast<void>(render::DrawText2_456670(
+        383, static_cast<std::int16_t>(y + 12), 2, 0, 0,
+        "\xBD\xD0\xBF\xEF\xBE\xDC\xA5\xD8\xBC\xD0", 0));
+    std::strcpy(gHoverTextD68AE8.data(),
+        "\xAB\xF6\xB7\xC6\xB9\xAB\xA5\x6B\xC1\xE4\xA5\x69\xA8\xFA\xAE\xF8\xA1\x43");
+}
+
+void Sub_43C490(std::int32_t* const values, const std::int32_t count)
+{
+    for (std::int32_t index = 0; index < count; ++index) {
+        values[index] = -2;
+    }
+}
+
+void Sub_498520()
+{
+    using namespace world::detail;
+    std::array<char, 256> buffer;
+    const std::int32_t hitIndex = render::gHoveredGraphicPendingIndex;
+    for (const login::YobiAction* const action : gBattleEntries59E980) {
+        if (action != nullptr && login::detail::GetYobiActionCacheIndex(action) == hitIndex
+            && (login::detail::GetYobiActionFlagsLowByte(action) & 8u) != 0) {
+            static_cast<void>(platform::RequestCursorState_506DE0(2, 0));
+            break;
+        }
+    }
+    Sub_43C3E0();
+    switch (gBattleCommandState5ABC3C) {
+    case 0: {
+        std::int32_t position = gBattleCurrentPosition5ABCA4;
+        if (position < 20) {
+            login::YobiAction* const player = gBattleEntries59E980[position];
+            if (*login::detail::BorrowBattleRiderSlot13C8(player) != nullptr) {
+                if ((gBattlePlayerFlags5ABCAC & 8u) != 0) {
+                    static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, "N"));
+                    const std::int32_t petCount = gBattlePetActionCount5ABBBC;
+                    const std::uint32_t flags = gBattlePlayerFlags5ABCAC;
+                    gBattlePetActionCount5ABBBC = petCount + 1;
+                    if ((flags & 0x20000u) != 0) {
+                        static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, "N"));
+                        const std::int32_t count = gBattleSkillActionCount5ABBF4;
+                        world::gCurrentSceneState = 5;
+                        gBattleSkillActionCount5ABBF4 = count + 1;
+                    } else {
+                        gBattlePlayerFlags5ABCAC &= ~8u;
+                        gBattleRebirthDisabled5ABC40 = 0;
+                    }
+                    Sub_496AE0();
+                    gBattlePlayerActionState5ABC74 = 0;
+                    break;
+                }
+                const std::int32_t technique = gValue553F84;
+                bool open = technique == -1 || gBattleSelectionMode5ABC70 != 0;
+                if (!open) {
+                    const std::uint32_t flags = gBattlePetSkillFlags5ABB78;
+                    open = (flags & (1u << (static_cast<std::uint32_t>(technique) & 31u))) == 0;
+                }
+                if (!open) {
+                    const auto pet = std::bit_cast<std::int32_t>(gBattleRidePet5ABC38);
+                    const std::int32_t cost = gPetRuntimeF633F8[pet].techniquesD8[technique].fp;
+                    open = login::detail::IsYobiActionFpLessThan(player, cost);
+                }
+                if (!open) {
+                    const auto pet = std::bit_cast<std::int32_t>(gBattleRidePet5ABC38);
+                    const std::int32_t currentTechnique = gValue553F84;
+                    const auto target =
+                        std::bit_cast<std::int16_t>(gPetRuntimeF633F8[pet].techniquesD8[currentTechnique].target);
+                    const std::int32_t currentPosition = gBattleCurrentPosition5ABCA4;
+                    open = login::detail::CheckBattleCommand_43C560(
+                        currentPosition, static_cast<std::uint32_t>(target)) == 0;
+                }
+                if (open) {
+                    gBattlePetCommandPhase553F88 = 1;
+                    gValue553F84 = -1;
+                    static_cast<void>(Sub_47A580(&Sub_497FF0));
+                }
+                gBattlePetSkillGraphicIndex553F8C = -2;
+                Sub_496F10();
+                const std::int32_t mode = gBattleSelectionMode5ABC70;
+                if (mode > 0) {
+                    gBattleSelectionModes5ABC7C[mode] = 1;
+                    login::detail::FlushBattleEntries_43C060();
+                } else if (mode == 0) {
+                    gBattleSelectionModes5ABC7C[0] = 1;
+                }
+                gBattleCommandState5ABC3C = 4;
+                Sub_4966B0(4, 341, 0);
+                static_cast<void>(audio::PlaySe_52C450(56, 320));
+                gBattlePlayerActionState5ABC74 = 0;
+                break;
+            }
+        }
+        std::uint32_t flags = gBattlePlayerFlags5ABCAC;
+        if ((flags & 4u) != 0) {
+            if (position < 20) {
+                static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, "N"));
+                position = gBattleCurrentPosition5ABCA4;
+                flags = gBattlePlayerFlags5ABCAC;
+            }
+            const std::int32_t count = gBattleSkillActionCount5ABBF4;
+            gBattleSkillActionCount5ABBF4 = count + 1;
+            if ((flags & 0x20u) != 0) {
+                gBattleCommandState5ABC3C = 3;
+            } else if ((flags & 0x10u) != 0) {
+                if (position < 20) {
+                    static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, "N"));
+                }
+                const std::int32_t nextCount = gBattleSkillActionCount5ABBF4;
+                world::gCurrentSceneState = 5;
+                gBattleSkillActionCount5ABBF4 = nextCount + 1;
+            } else {
+                gBattlePlayerFlags5ABCAC = flags & ~4u;
+                gBattleRebirthDisabled5ABC40 = 0;
+            }
+            Sub_496AE0();
+            gBattlePlayerActionState5ABC74 = 0;
+            break;
+        }
+        if ((flags & 0x10u) != 0) {
+            const std::int32_t count = gBattleSkillActionCount5ABBF4;
+            gBattleRebirthDisabled5ABC40 = 0;
+            gBattleSelectionMode5ABC70 = count == 0 ? gValue5ABB70 : gValue5ABB6C;
+        } else if (gBattleSkillActionCount5ABBF4 == 0) {
+            const std::int32_t mode = gValue5ABB70;
+            gBattleRebirthDisabled5ABC40 = 0;
+            gBattleSelectionMode5ABC70 = mode;
+        } else {
+            gBattleSelectionMode5ABC70 = gValue5ABB6C;
+        }
+        Sub_43C490(gBattleResetValues5ABB84.data(), 9);
+        Sub_496F10();
+        std::int32_t mode = gBattleSelectionMode5ABC70;
+        if (mode >= 0) {
+            gBattleSelectionModes5ABC7C[mode] = 1;
+            login::detail::FlushBattleEntries_43C060();
+            mode = gBattleSelectionMode5ABC70;
+        }
+        switch (mode) {
+        case 0:
+            static_cast<void>(login::detail::CheckBattleCommand_43C560(
+                gBattleCurrentPosition5ABCA4, 0x475u));
+            break;
+        case 2:
+            static_cast<void>(Sub_47A4C0(&Sub_4974C0));
+            break;
+        case 3:
+            static_cast<void>(CreateWindowAnimation_475AA0(27, 1, 0, nullptr));
+            break;
+        case 4:
+            static_cast<void>(CreateWindowAnimation_475AA0(28, 1, 0, nullptr));
+            break;
+        default:
+            break;
+        }
+        const auto modeFlags = static_cast<std::uint8_t>(gBattlePlayerFlags5ABCAC);
+        gBattleCommandState5ABC3C = 1;
+        std::int32_t commandType = 0;
+        if ((modeFlags & 0x10u) == 0) {
+            commandType = gBattleSkillActionCount5ABBF4 != 0 ? 2 : 1;
+        }
+        Sub_4966B0(commandType, 341, 0);
+        static_cast<void>(audio::PlaySe_52C450(56, 320));
+        gBattlePlayerActionState5ABC74 = 0;
+        break;
+    }
+    case 1: {
+        if (gBattleSelectionModes5ABC7C[0] == 1 && (platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
+            gBattleSelectionModes5ABC7C[0] = 0;
+            login::detail::FlushBattleEntries_43C060();
+            static_cast<void>(audio::PlaySe_52C450(57, 320));
+        }
+        if (gBattleValueCB054C != 0) {
+            const std::int32_t target = login::detail::GetSelectedBattleEntry_43C120();
+            if (target != -1 && (platform::gLegacyMouseState.edgeButtons & 1u) != 0) {
+                bool send = true;
+                switch (gBattleSelectionMode5ABC70) {
+                case 0:
+                    std::sprintf(buffer.data(), "H|%X", static_cast<std::uint32_t>(target));
+                    break;
+                case 2: {
+                    const std::int32_t technique = gBattleSelectedTechnique5ABC78;
+                    const std::int32_t skill = gBattleSelectedSkill5ABB5C;
+                    std::sprintf(buffer.data(), "S|%X|%X|%X",
+                        static_cast<std::uint32_t>(skill), static_cast<std::uint32_t>(technique),
+                        static_cast<std::uint32_t>(target));
+                    break;
+                }
+                case 3: {
+                    const std::int32_t item = gBattleSelectedItem5ABC48;
+                    std::sprintf(buffer.data(), "I|%X|%X",
+                        static_cast<std::uint32_t>(item), static_cast<std::uint32_t>(target));
+                    break;
+                }
+                default:
+                    send = false;
+                    break;
+                }
+                if (send) {
+                    static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, buffer.data()));
+                    login::detail::FlushBattleEntries_43C060();
+                    gBattlePlayerActionState5ABC74 = 1;
+                    static_cast<void>(audio::PlaySe_52C450(57, 320));
+                }
+            }
+        }
+        if (gBattlePlayerActionState5ABC74 == 1) {
+            const std::int32_t count = gBattleSkillActionCount5ABBF4;
+            gBattleCommandState5ABC3C = 2;
+            gBattleSkillActionCount5ABBF4 = count + 1;
+            login::detail::FlushBattleEntries_43C060();
+            Sub_496AE0();
+        }
+        if (gBattleValueCB054C == 0) {
+            gBattleValueCB054C = 1;
+        }
+        break;
+    }
+    case 2:
+        if (gWindowStates[26].userState.value == 3) {
+            const std::int32_t count = gBattleSkillActionCount5ABBF4;
+            gBattlePlayerActionState5ABC74 = 0;
+            if (count == 1) {
+                const bool singleAction = (gBattlePlayerFlags5ABCAC & 0x10u) != 0;
+                std::int32_t mode = gBattleSelectionMode5ABC70;
+                if (!singleAction) {
+                    gBattleCommandState5ABC3C = 0;
+                    gValue5ABB70 = mode;
+                    if (mode == 6) {
+                        mode = 0;
+                        gBattleSkillUsed5ABC68 = 1;
+                        gValue5ABB70 = 0;
+                        gValue5ABB6C = 0;
+                    } else if (mode >= 2 && mode <= 6) {
+                        gBattleSkillUsed5ABC68 = 1;
+                        gValue5ABB6C = 0;
+                    }
+                } else {
+                    gValue5ABB70 = mode;
+                    if (mode == 6) {
+                        mode = 0;
+                        gValue5ABB70 = 0;
+                    }
+                    gBattleCommandState5ABC3C = 3;
+                }
+                if (mode == 8) {
+                    gBattleRebirthDisabled5ABC40 = 1;
+                }
+            } else {
+                const std::int32_t mode = gBattleSelectionMode5ABC70;
+                gValue5ABB6C = mode;
+                if (mode == 6) {
+                    gValue5ABB6C = 0;
+                }
+                world::gCurrentSceneState = 5;
+            }
+        }
+        break;
+    case 3: {
+        const auto flags = static_cast<std::uint8_t>(gBattlePlayerFlags5ABCAC);
+        if ((flags & 0x20u) == 0) {
+            world::gCurrentSceneState = 5;
+            break;
+        }
+        if ((flags & 8u) != 0) {
+            if (gBattleCurrentPosition5ABCA4 < 20) {
+                static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, "W|FF"));
+            }
+            ++gBattlePetActionCount5ABBBC;
+            world::gCurrentSceneState = 5;
+            break;
+        }
+        const std::int32_t technique = gValue553F84;
+        bool open = technique == -1
+            || (gBattlePetSkillFlags5ABB78 & (1u << (static_cast<std::uint32_t>(technique) & 31u))) == 0;
+        if (!open) {
+            const std::int32_t position = GetBattlePetPosition_405B40(gBattleCurrentPosition5ABCA4);
+            login::YobiAction* const action = gBattleEntries59E980[position];
+            const std::int32_t pet = Sub_43C4B0();
+            const std::int32_t currentTechnique = gValue553F84;
+            const std::int32_t cost = gPetRuntimeF633F8[pet].techniquesD8[currentTechnique].fp;
+            open = login::detail::IsYobiActionFpLessThan(action, cost);
+        }
+        if (!open) {
+            const std::int32_t pet = Sub_43C4B0();
+            const std::int32_t currentTechnique = gValue553F84;
+            const auto target =
+                std::bit_cast<std::int16_t>(gPetRuntimeF633F8[pet].techniquesD8[currentTechnique].target);
+            const std::int32_t position = GetBattlePetPosition_405B40(gBattleCurrentPosition5ABCA4);
+            open = login::detail::CheckBattleCommand_43C560(position, static_cast<std::uint32_t>(target)) == 0;
+        }
+        if (open) {
+            gBattlePetCommandPhase553F88 = 1;
+            gValue553F84 = -1;
+            static_cast<void>(Sub_47A540(&Sub_497E30));
+        }
+        gBattlePetSkillGraphicIndex553F8C = -2;
+        gBattleCommandState5ABC3C = 4;
+        Sub_4966B0(3, 341, 0);
+        static_cast<void>(audio::PlaySe_52C450(56, 320));
+        break;
+    }
+    case 4: {
+        if (gBattlePetCommandPhase553F88 == 3) {
+            const std::int32_t target = login::detail::GetSelectedBattleEntry_43C120();
+            if (target != -1 && (platform::gLegacyMouseState.edgeButtons & 1u) != 0) {
+                const std::int32_t technique = gValue553F84;
+                std::sprintf(buffer.data(), "W|%X|%X",
+                    static_cast<std::uint32_t>(technique), static_cast<std::uint32_t>(target));
+                static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, buffer.data()));
+                login::detail::FlushBattleEntries_43C060();
+                gBattlePlayerActionState5ABC74 = 1;
+                static_cast<void>(audio::PlaySe_52C450(57, 320));
+            }
+        }
+        std::int32_t phase = gBattlePetCommandPhase553F88;
+        if (phase == 2) {
+            phase = 3;
+            gBattlePetCommandPhase553F88 = 3;
+        }
+        bool draw = false;
+        std::int32_t imageNo = 0;
+        switch (phase) {
+        case 0: {
+            if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
+                const auto pet = std::bit_cast<std::int32_t>(gBattleRidePet5ABC38);
+                gBattlePetCommandPhase553F88 = 1;
+                if (pet < 0) {
+                    static_cast<void>(Sub_47A540(&Sub_497E30));
+                } else {
+                    static_cast<void>(Sub_47A580(&Sub_497FF0));
+                }
+            }
+            const std::int32_t graphicIndex = gBattlePetSkillGraphicIndex553F8C;
+            const std::int32_t hover = render::gHoveredGraphicPendingIndex;
+            if (graphicIndex == hover) {
+                const auto clicks = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
+                std::strcpy(gHoverTextD68AE8.data(),
+                    "\xA5\xB4\xB6\x7D\xA7\xDE\xAF\xE0\xB5\xF8\xB5\xA1\xA1\x43");
+                if ((clicks & 1u) != 0) {
+                    gBattlePetCommandPhase553F88 = 1;
+                }
+            }
+            imageNo = 0x589B;
+            draw = true;
+            break;
+        }
+        case 1: {
+            const std::int32_t graphicIndex = gBattlePetSkillGraphicIndex553F8C;
+            const std::int32_t hover = render::gHoveredGraphicPendingIndex;
+            if (graphicIndex == hover) {
+                constexpr char hint[] = "\xC3\xF6\xB3\xAC\xA7\xDE\xAF\xE0\xB5\xF8\xB5\xA1\xA1\x43";
+                // 原498DF9复制12B，498DFD取点击位，498E07再复制末3B。
+                std::memcpy(gHoverTextD68AE8.data(), hint, 12);
+                const auto clicks = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
+                std::memcpy(gHoverTextD68AE8.data() + 12, hint + 12, 3);
+                if ((clicks & 1u) != 0) {
+                    WindowInstance* const window = gWindowStates[10].window;
+                    if (window != nullptr) {
+                        window->state |= 0x8000u;
+                    }
+                    gBattlePetCommandPhase553F88 = 0;
+                    static_cast<void>(audio::PlaySe_52C450(57, 320));
+                }
+            }
+            imageNo = 0x589C;
+            draw = true;
+            break;
+        }
+        case 2:
+        case 3: {
+            if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
+                login::detail::FlushBattleEntries_43C060();
+                const auto pet = std::bit_cast<std::int32_t>(gBattleRidePet5ABC38);
+                gBattlePetCommandPhase553F88 = 1;
+                gValue553F84 = -1;
+                if (pet < 0) {
+                    static_cast<void>(Sub_47A540(&Sub_497E30));
+                } else {
+                    static_cast<void>(Sub_47A580(&Sub_497FF0));
+                }
+            }
+            const std::int32_t graphicIndex = gBattlePetSkillGraphicIndex553F8C;
+            const std::int32_t hover = render::gHoveredGraphicPendingIndex;
+            bool clickedReturn = false;
+            if (graphicIndex == hover) {
+                const auto clicks = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
+                std::strcpy(gHoverTextD68AE8.data(),
+                    "\xAA\xF0\xA6\x5E\xA7\xDE\xAF\xE0\xB5\xF8\xB5\xA1\xA1\x43");
+                if ((clicks & 1u) != 0) {
+                    login::detail::FlushBattleEntries_43C060();
+                    gBattlePetCommandPhase553F88 = 1;
+                    gValue553F84 = -1;
+                    clickedReturn = true;
+                }
+            }
+            if (!clickedReturn && gValue553F84 != -1) {
+                const std::int32_t namePet = Sub_43C4B0();
+                const std::int32_t nameTechnique = gValue553F84;
+                std::sprintf(buffer.data(), "%-16s",
+                    gPetRuntimeF633F8[namePet].techniquesD8[nameTechnique].name.data());
+                const std::int32_t nameY = gBattleCommandY553F7C;
+                const std::int32_t nameX = gBattleCommandX553F78;
+                static_cast<void>(render::DrawText2_456670(
+                    std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(nameX - 114)),
+                    std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(nameY - 15)),
+                    2, 0, 0, buffer.data(), 0));
+                const std::int32_t costPet = Sub_43C4B0();
+                const std::int32_t costTechnique = gValue553F84;
+                std::sprintf(buffer.data(), "%4d", gPetRuntimeF633F8[costPet].techniquesD8[costTechnique].fp);
+                const std::int32_t costY = gBattleCommandY553F7C;
+                const std::int32_t costX = gBattleCommandX553F78;
+                static_cast<void>(render::DrawText2_456670(
+                    std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(costX + 90)),
+                    std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(costY - 12)),
+                    2, 1, 0, buffer.data(), 0));
+            }
+            imageNo = 0x5899;
+            draw = true;
+            break;
+        }
+        default:
+            break;
+        }
+        if (draw) {
+            const std::int32_t y = gBattleCommandY553F7C;
+            const std::int32_t x = gBattleCommandX553F78;
+            gBattlePetSkillGraphicIndex553F8C = login::detail::DrawGraphic(x, y, 212, imageNo, 2, nullptr);
+        }
+        if (gBattlePlayerActionState5ABC74 == 1) {
+            const std::int32_t count = gBattlePetActionCount5ABBBC;
+            gBattleCommandState5ABC3C = 5;
+            gBattlePetActionCount5ABBBC = count + 1;
+            gValue553F90 = Sub_43C4B0();
+            Sub_496AE0();
+        }
+        break;
+    }
+    case 5:
+        if (gWindowStates[26].userState.value == 3) {
+            login::YobiAction* const player = gBattleEntries59E980[gBattleCurrentPosition5ABCA4];
+            if (*login::detail::BorrowBattleRiderSlot13C8(player) != nullptr && gBattlePetActionCount5ABBBC < 2) {
+                gBattlePlayerActionState5ABC74 = 0;
+                gBattleCommandState5ABC3C = 0;
+            } else {
+                world::gCurrentSceneState = 5;
+            }
+        }
+        break;
+    default:
+        break;
+    }
+    const auto flags = static_cast<std::uint8_t>(gBattlePlayerFlags5ABCAC);
+    if ((flags & 0x1Cu) != 0x1Cu) {
+        Sub_4982C0();
+    }
+}
+
 void Sub_4982C0()
 {
     using namespace world::detail;

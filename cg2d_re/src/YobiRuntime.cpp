@@ -5766,6 +5766,89 @@ void Sub_43C040()
     }
 }
 
+void DrawBattleEntryHover_43C0A0(const std::int32_t index)
+{
+    YobiAction* const action = world::detail::gBattleEntries59E980[index];
+    if (action == nullptr || (static_cast<std::uint8_t>(action->flags) & 8u) == 0) {
+        return;
+    }
+    const std::int32_t graphic = action->graphicIndex;
+    const std::uint32_t hoverImage = gValueD69768;
+    const std::int32_t y = action->y;
+    const std::int32_t offsetX = action->graphicOffsetX;
+    const std::int32_t offsetY = action->graphicOffsetY;
+    const std::int32_t x = action->x;
+    const std::int32_t height = render::ReadGraphicDxHeight(graphic);
+    const std::int32_t width = render::ReadGraphicDxWidth(graphic);
+    DrawGraphicHover(
+        static_cast<std::uint16_t>(x + offsetX - 2),
+        static_cast<std::uint16_t>(y + offsetY - 2),
+        static_cast<std::uint16_t>(x + offsetX + width + 2),
+        static_cast<std::uint16_t>(y + offsetY + height + 2),
+        206, hoverImage, 0);
+}
+
+std::int32_t GetSelectedBattleEntry_43C120()
+{
+    const std::uint32_t target = world::detail::gBattleTargetFlags5ABC44;
+    const std::int32_t hitIndex = render::gHoveredGraphicPendingIndex;
+    static constexpr std::int32_t rows[4][5] {
+        {14, 12, 10, 11, 13},
+        {19, 17, 15, 16, 18},
+        {9, 7, 5, 6, 8},
+        {4, 2, 0, 1, 3},
+    };
+    for (std::int32_t position = 0; position < 20; ++position) {
+        const YobiAction* const action = world::detail::gBattleEntries59E980[position];
+        if (action == nullptr || action->cacheIndex != hitIndex
+            || (static_cast<std::uint8_t>(action->flags) & 8u) == 0) {
+            continue;
+        }
+        if ((target & 0x40u) != 0) {
+            return position;
+        }
+        if ((target & 0x80u) != 0) {
+            std::int32_t row = position;
+            std::int32_t column = position;
+            for (std::int32_t r = 0; r < 4; ++r) {
+                for (std::int32_t c = 0; c < 5; ++c) {
+                    if (rows[r][c] == position) {
+                        row = r;
+                        column = c;
+                    }
+                }
+            }
+            // 四行完整覆盖0..19；原排配对0/1、2/3，先纵向再右邻、左邻。
+            DrawBattleEntryHover_43C0A0(rows[row ^ 1][column]);
+            if (column + 1 <= 4) {
+                DrawBattleEntryHover_43C0A0(rows[row][column + 1]);
+            }
+            if (column - 1 >= 0) {
+                DrawBattleEntryHover_43C0A0(rows[row][column - 1]);
+            }
+            return position + 20;
+        }
+        if ((target & 0x100u) != 0) {
+            const std::int32_t first = position < 10 ? 0 : 10;
+            for (std::int32_t index = first; index < first + 10; ++index) {
+                if (index != position) {
+                    DrawBattleEntryHover_43C0A0(index);
+                }
+            }
+            return position < 10 ? 40 : 41;
+        }
+        if ((target & 0x200u) != 0) {
+            for (std::int32_t index = 0; index < 20; ++index) {
+                if (index != position) {
+                    DrawBattleEntryHover_43C0A0(index);
+                }
+            }
+            return 42;
+        }
+    }
+    return -1;
+}
+
 std::int32_t CheckBattleCommand_43C560(
     const std::int32_t position, const std::uint32_t flags)
 {

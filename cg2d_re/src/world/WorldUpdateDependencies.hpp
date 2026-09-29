@@ -1165,6 +1165,8 @@ extern std::int32_t gBattleSnapshotPetIndex5ABBFC; // 4965D0每次解码后重�
 extern std::int32_t gBattleCommandX553F78; // 映像490，43C4E0覆盖493。
 extern std::int32_t gBattleCommandY553F7C; // 映像-104，43C4E0覆盖-106。
 extern std::int32_t gBattleCommandValue553F80; // 映像及初始化17，43C3E0读取。
+extern std::int32_t gBattlePetSkillGraphicIndex553F8C; // 原绘制返回索引，初值-1，不是对象地址。
+extern std::array<std::int32_t, 9> gBattleResetValues5ABB84; // 43C490只写-2的独立九槽，非选择标志。
 void Sub_43C4E0(); // 完整命令计时初始化、对象标志与技能选择同步。
 extern std::int32_t gBattleSelectionMode5ABC70; // 与九个选择槽分别存储。
 extern std::int32_t gBattleSkillUsed5ABC68; // 497000/4975A0读取完整W32。

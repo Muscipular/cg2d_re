@@ -173,6 +173,9 @@ void Sub_497E30(std::int32_t technique); // 宠物命令，保留重复查询与
 void Sub_497FF0(std::int32_t technique); // 骑乘命令，清选择模式并保留骑乘快照写序。
 std::int32_t Sub_498160(std::int32_t index, std::int32_t state); // 宠物/骑乘技能窗开关。
 void Sub_4982C0(); // 完整倒计时/超时发送，本帧超时后仍绘制。
+void Sub_43C3E0(); // 553F80门禁及首个可选对象的目标提示，不要求鼠标命中。
+void Sub_43C490(std::int32_t* values, std::int32_t count); // 正数count逐槽写-2，原caller弃返回。
+void Sub_498520(); // 完整六态战斗命令分派，所有出口共用倒计时尾。
 void Sub_496570(); // 五宠物四项CryptInt快照，唯一CF4B78数组生产。
 void Sub_4965D0(); // 战斗对象四值更新，保留独立5ABBFC及原空值门禁。
 std::int32_t Sub_49B630(std::int32_t unused); // 窗口28归还按钮显隐。

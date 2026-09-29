@@ -115,6 +115,23 @@ struct WindowInstance {
 
 namespace detail {
 
+// 窗口45选择/取消回调：非零返回允许关闭，文本只借用；释放通知index=-1。
+using WindowTextChoiceCallback = std::int32_t (*)(std::int32_t index, const char* text);
+login::YobiAction* Sub_49F000(
+    const char* const* names, const std::uint8_t* colors,
+    std::int32_t count, WindowTextChoiceCallback callback);
+void Sub_49F040();
+std::int32_t Sub_49F060(std::int32_t value);
+void Sub_49F0A0(std::int32_t offset); // 刷新五行，未用行复制593850但保留颜色。
+std::int32_t Sub_49F1A0(std::int32_t value);
+std::int32_t Sub_49F260(std::int32_t index, std::int32_t state);
+std::int32_t Sub_49F310(std::int32_t index, std::int32_t state);
+std::int32_t Sub_49F3D0(std::int32_t index, std::int32_t state);
+std::int32_t Sub_49F490(std::int32_t index, std::int32_t state);
+std::int32_t Sub_49F570(std::int32_t index, std::int32_t state);
+std::int32_t Sub_49F5C0(std::int32_t index, std::int32_t state);
+std::int32_t Sub_49F680(std::int32_t index, std::int32_t state);
+
 // 原4B1260的14参槽位回调；借用数值与描述符，返回值原端弃用。
 using WindowTradePanelCallback = void (*)(
     std::int16_t x, std::int16_t y, std::int32_t mouseX, std::int32_t mouseY,

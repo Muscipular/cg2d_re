@@ -441,6 +441,15 @@ std::uint8_t gValueD67B24 = 0;
 
 namespace {
 
+// 窗口45借用调用者的两张表；待安装回调与当前回调是两个独立原槽。
+const char* const* gTextChoiceNamesD30130 = nullptr;
+const std::uint8_t* gTextChoiceColorsCB1E18 = nullptr;
+std::int32_t gTextChoiceCountCC4CE4 = 0;
+WindowTextChoiceCallback gTextChoicePendingC9A974 = nullptr;
+WindowTextChoiceCallback gTextChoiceCallbackCA0AC0 = nullptr;
+std::int32_t gTextChoiceOffsetD2D9C0 = 0;
+std::uint8_t gTextChoiceEnabledCA0008 = 0;
+
 // 原D046D8连续浏览区；仅复用值类型布局，不与玩家或交易区共享存储。
 struct StallBrowseData {
     std::array<char, 17> sellerName00;
@@ -22253,6 +22262,264 @@ std::int32_t Sub_49BDB0(const std::int32_t)
         std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}), 74, 54);
     render::ClearTextQueueTail_456D50(3);
     return 1;
+}
+
+login::YobiAction* Sub_49F000(
+    const char* const* const names, const std::uint8_t* const colors,
+    const std::int32_t count, const WindowTextChoiceCallback callback)
+{
+    gTextChoiceNamesD30130 = names;
+    gTextChoiceColorsCB1E18 = colors;
+    gTextChoiceCountCC4CE4 = count;
+    gTextChoicePendingC9A974 = callback;
+    return CreateWindowAnimation_475AA0(45, 1, 0, nullptr);
+}
+
+void Sub_49F040()
+{
+    const WindowTextChoiceCallback callback = gTextChoiceCallbackCA0AC0;
+    if (callback != nullptr) {
+        static_cast<void>(callback(-1, nullptr));
+    }
+}
+
+std::int32_t Sub_49F060(const std::int32_t value)
+{
+    if (value == -1) {
+        gTextChoiceOffsetD2D9C0 = 0;
+        Sub_49F0A0(0);
+        const WindowTextChoiceCallback callback = gTextChoicePendingC9A974;
+        gTextChoiceEnabledCA0008 = 1;
+        gTextChoiceCallbackCA0AC0 = callback;
+    }
+    return 1;
+}
+
+void Sub_49F0A0(const std::int32_t offset)
+{
+    const char* const* names = gTextChoiceNamesD30130;
+    std::int32_t row = 0;
+    for (; row < 5 && offset + row < gTextChoiceCountCC4CE4; ++row) {
+        if (names != nullptr) {
+            auto* const text = static_cast<WindowTextData*>(gCurrentWindow->elements[row + 9].data);
+            std::strcpy(text->text, names[offset + row]);
+            const std::uint8_t color = gTextChoiceColorsCB1E18[offset + row];
+            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 9].data)->bytes00[0] =
+                static_cast<std::byte>(color);
+            names = gTextChoiceNamesD30130;
+        }
+    }
+    for (; row < 5; ++row) {
+        std::strcpy(static_cast<WindowTextData*>(gCurrentWindow->elements[row + 9].data)->text,
+            input::LegacyText593850());
+    }
+}
+
+std::int32_t Sub_49F1A0(const std::int32_t)
+{
+    const std::int32_t visible = gTextChoiceCountCC4CE4 - 5 > 0 ? 1 : 0;
+    for (std::int32_t index = 0; index < 6; ++index) {
+        gCurrentWindow->elements[index].visible = visible;
+    }
+    WindowElement* const elements = gCurrentWindow->elements;
+    if ((static_cast<const WindowMouseData*>(elements[1].data)->flags & 1u) != 0) {
+        gTextChoiceOffsetD2D9C0 = Sub_474270(elements + 1, gTextChoiceCountCC4CE4 - 5);
+        Sub_49F0A0(gTextChoiceOffsetD2D9C0);
+    }
+    DrawCurrentWindow_4729B0();
+    WindowInstance* const window = gCurrentWindow;
+    const auto height = static_cast<std::int16_t>(window->height);
+    const auto width = static_cast<std::int16_t>(window->width);
+    const auto y = static_cast<std::int16_t>(window->y);
+    const auto x = static_cast<std::int16_t>(window->x);
+    login::detail::DrawNineGrid_49BE00(
+        245300, x, y, width, height, 223, -1,
+        std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}), 74, 54);
+    static_cast<void>(render::ClearTextQueueTail_456D50(3));
+    return 1;
+}
+
+std::int32_t Sub_49F260(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    std::int32_t consumed = 0;
+    if ((state & 0x400) != 0) {
+        if (gTextChoiceOffsetD2D9C0 > 0) {
+            --gTextChoiceOffsetD2D9C0;
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        } else {
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        }
+        const std::int32_t offset = gTextChoiceOffsetD2D9C0;
+        WindowInstance* const window = gCurrentWindow;
+        const std::int32_t maximum = gTextChoiceCountCC4CE4 - 5;
+        static_cast<void>(Sub_4742C0(window->elements + index - 1, maximum, offset));
+        Sub_49F0A0(gTextChoiceOffsetD2D9C0);
+        consumed = 1;
+    }
+    graphic->imageNo = 243090;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 243092;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 243091;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_49F310(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    std::int32_t consumed = 0;
+    if ((state & 0x400) != 0) {
+        if (gTextChoiceOffsetD2D9C0 < gTextChoiceCountCC4CE4 - 5) {
+            ++gTextChoiceOffsetD2D9C0;
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        } else {
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        }
+        const std::int32_t offset = gTextChoiceOffsetD2D9C0;
+        const std::int32_t maximum = gTextChoiceCountCC4CE4 - 5;
+        static_cast<void>(Sub_4742C0(gCurrentWindow->elements + index - 2, maximum, offset));
+        Sub_49F0A0(gTextChoiceOffsetD2D9C0);
+        consumed = 1;
+    }
+    graphic->imageNo = 243093;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 243095;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 243094;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_49F3D0(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    std::int32_t consumed = 0;
+    if ((state & 2) != 0) {
+        static_cast<void>(audio::PlaySe_52C450(gTextChoiceOffsetD2D9C0 > 0 ? 51 : 55, 320));
+        gTextChoiceOffsetD2D9C0 -= 5;
+        if (gTextChoiceOffsetD2D9C0 < 0) {
+            gTextChoiceOffsetD2D9C0 = 0;
+        }
+        const std::int32_t offset = gTextChoiceOffsetD2D9C0;
+        const std::int32_t maximum = gTextChoiceCountCC4CE4 - 5;
+        static_cast<void>(Sub_4742C0(gCurrentWindow->elements + index - 3, maximum, offset));
+        Sub_49F0A0(gTextChoiceOffsetD2D9C0);
+        consumed = 1;
+    }
+    graphic->imageNo = 243030;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 243032;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 243031;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_49F490(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    std::int32_t consumed = 0;
+    if ((state & 2) != 0) {
+        const std::int32_t oldMaximum = gTextChoiceCountCC4CE4 - 5;
+        static_cast<void>(audio::PlaySe_52C450(
+            oldMaximum > 0 && gTextChoiceOffsetD2D9C0 < oldMaximum ? 51 : 55, 320));
+        std::int32_t offset = gTextChoiceOffsetD2D9C0 + 5;
+        const std::int32_t maximum = gTextChoiceCountCC4CE4 - 5;
+        gTextChoiceOffsetD2D9C0 = offset;
+        if (offset > maximum) {
+            offset = maximum;
+            gTextChoiceOffsetD2D9C0 = offset;
+        }
+        if (offset < 0) {
+            offset = 0;
+            gTextChoiceOffsetD2D9C0 = offset;
+        }
+        static_cast<void>(Sub_4742C0(gCurrentWindow->elements + index - 4, maximum, offset));
+        Sub_49F0A0(gTextChoiceOffsetD2D9C0);
+        consumed = 1;
+    }
+    graphic->imageNo = 243033;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 243035;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 243034;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_49F570(const std::int32_t index, const std::int32_t state)
+{
+    if ((state & 0x21) != 0) {
+        const std::int32_t count = gTextChoiceCountCC4CE4;
+        const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
+        const std::int32_t offset = gTextChoiceOffsetD2D9C0;
+        gTextChoiceOffsetD2D9C0 =
+            Sub_4743B0(gCurrentWindow->elements + index - 5, offset, count - 5, wheel);
+    }
+    return 0;
+}
+
+std::int32_t Sub_49F5C0(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    std::int32_t consumed = 0;
+    if ((state & 1) != 0) {
+        std::strcpy(gHoverTextD68AE8.data(), "\xC3\xF6\xB3\xAC\xA6\xB9\xB5\xF8\xB5\xA1");
+    }
+    if ((state & 2) != 0) {
+        if (gTextChoiceEnabledCA0008 != 0) {
+            const WindowTextChoiceCallback callback = gTextChoiceCallbackCA0AC0;
+            if (callback != nullptr) {
+                if (callback(-2, nullptr) != 0) {
+                    gCurrentWindow->state |= 0x8000u;
+                    static_cast<void>(audio::PlaySe_52C450(57, 320));
+                }
+                gTextChoiceEnabledCA0008 = 0;
+            }
+        }
+        consumed = 1;
+    }
+    graphic->imageNo = 243042;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 243044;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 243043;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_49F680(const std::int32_t index, const std::int32_t state)
+{
+    const std::int32_t selected = gTextChoiceOffsetD2D9C0 + index - 14;
+    // 原门槛只比较行号，不将滚动偏移并入检查。
+    if (index - 14 >= gTextChoiceCountCC4CE4) {
+        return 0;
+    }
+    if ((state & 1) != 0) {
+        Sub_485110(gCurrentWindow->elements + index, state, login::detail::gValueD69768);
+        std::strcpy(gHoverTextD68AE8.data(), "\xBF\xEF\xBE\xDC\xA6\xB9\xA4\x48\xAA\xAB\xA1\x43");
+    }
+    if ((state & 2) != 0) {
+        if (gTextChoiceEnabledCA0008 != 0) {
+            const WindowTextChoiceCallback callback = gTextChoiceCallbackCA0AC0;
+            if (callback != nullptr) {
+                if (callback(selected, gTextChoiceNamesD30130[selected]) != 0) {
+                    gCurrentWindow->state |= 0x8000u;
+                    static_cast<void>(audio::PlaySe_52C450(57, 320));
+                }
+                gTextChoiceEnabledCA0008 = 0;
+            }
+        }
+        return 1;
+    }
+    return 0;
 }
 
 void Sub_49E990(const std::int32_t offset)

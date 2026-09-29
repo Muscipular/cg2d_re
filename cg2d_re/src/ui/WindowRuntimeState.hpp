@@ -135,6 +135,12 @@ std::int32_t Sub_47D4B0(); // 晶石等级读取后比较当前配方等级。
 std::int32_t Sub_47D4F0(); // 单选物品不加8，晶石读取后重新取得选择索引。
 std::int32_t Sub_47D530(); // 六材料首个匹配类别，晶石读取后重取槽号再比较等级。
 std::int32_t Sub_47D5B0(); // 首材料slot+8等级在晶石读取前快照。
+void Sub_47DE00(
+    std::int32_t message, std::int32_t unused, std::int32_t sourceIndex); // 材料/单选拖动与释放。
+std::int32_t Sub_47DF30(std::int32_t sourceIndex); // 安装类型10的47DE00拖动回调。
+std::int32_t Sub_482F70(std::int32_t itemType); // 加工分类；类别7优先归2。
+std::int32_t Sub_4847C0(std::int32_t index, std::int32_t state); // 单选投放/校验/拖动与绘制。
+WindowAnimationData* Sub_47EC00(WindowInstance* window); // 单选模式3完整初始化，返回借用载荷。
 WindowAnimationData* Sub_47E5E0(WindowInstance* window); // 制造结果完整窗口11展示。
 WindowAnimationData* Sub_47EBE0(); // 仅已有窗口11才更新，不自动创建。
 WindowAnimationData* Sub_4F39F0(std::int32_t result, const char* text); // JgO制造分支，原字节摘要与展示。

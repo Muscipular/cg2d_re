@@ -217,7 +217,7 @@ struct WindowDialogTextLine {
 };
 static_assert(sizeof(WindowDialogTextLine) == 81);
 
-// 原CB1E40确认显示记录；4B9F40生产、4BD100消费，数值布局保持48B。
+// 原CB1E40/D2E458/CB0AE8确认显示记录；三商店各自持有，数值布局保持48B。
 struct WindowConfirmationItem {
     std::int32_t imageNo; // +00。
     std::int32_t quantity; // +04，数量文本第二项。
@@ -233,7 +233,7 @@ static_assert(offsetof(WindowConfirmationItem, color) == 12);
 static_assert(offsetof(WindowConfirmationItem, name) == 16);
 static_assert(offsetof(WindowConfirmationItem, visible) == 47);
 
-// 原CB0F90/CB0F9C两条确认数值，不持有指针。
+// 普通/晶石商店各两条确认数值，不持有指针。
 struct WindowConfirmationAmount {
     std::int32_t value;
     std::int16_t x;
@@ -415,6 +415,9 @@ void Sub_4C1AA0(); // 五条已选数量。
 void Sub_4C1B00(); // 总额与玩家晶石比较，写type7 color。
 void Sub_4C1B70(); // 二十条选中商品占槽。
 void Sub_4C1BC0(); // 首次/分页/数量脏标刷新。
+void Sub_4C2060(std::int32_t value); // 低U8为0才按实时商品组包，命令0。
+std::int32_t Sub_4C21B0(std::int32_t index, std::int32_t state); // 余额/背包门禁及确认预览生产。
+std::int32_t Sub_4C2FA0(std::int32_t index, std::int32_t unusedState); // 窗口69确认覆盖层。
 std::int32_t Sub_4C29E0(std::int32_t index, std::int32_t state); // 窗口69商品图标及四页提示。
 std::int32_t Sub_4C2460(std::int32_t index, std::int32_t state); // 两窗口共用取消，发送command2。
 std::int32_t Sub_4C2530(std::int32_t index, std::int32_t state); // 窗口69上一行。
@@ -432,6 +435,9 @@ void Sub_4C3D40(); // 五条已选数量。
 void Sub_4C3DA0(); // 总额与指定背包物品数量比较。
 void Sub_4C3E20(); // 二十条选中商品占槽。
 void Sub_4C3E70(); // 首次/分页/数量脏标刷新。
+void Sub_4C4270(std::int32_t value); // 低U8为0才按实时商品组包，命令1。
+std::int32_t Sub_4C43C0(std::int32_t index, std::int32_t state); // 交换物数量/背包门禁及确认预览。
+std::int32_t Sub_4C50C0(std::int32_t index, std::int32_t unusedState); // 窗口70确认覆盖层。
 std::int32_t Sub_4C4B70(std::int32_t index, std::int32_t state); // 窗口70商品图标及四页提示。
 std::int32_t Sub_4C4680(std::int32_t index, std::int32_t state); // 两窗口共用按钮图，恒0。
 std::int32_t Sub_4C46C0(std::int32_t index, std::int32_t state); // 窗口70上一行。
@@ -765,6 +771,21 @@ extern std::int32_t gWindow69TooltipPageD67B94;
 extern std::int32_t gWindow70TooltipPageD67BA0;
 extern std::array<char, 12> gWindow69BalanceTextD2E448; // 完整S32格式化前缀，不冻结未消费尾区。
 extern std::array<char, 12> gWindow70BalanceTextCF3F14;
+extern WindowValueCallback gWindow69ConfirmCallbackCF4E48;
+extern WindowValueCallback gWindow70ConfirmCallbackCF4AA4;
+extern std::array<WindowConfirmationItem, 20> gWindow69ConfirmItemsD2E458;
+extern std::array<WindowConfirmationItem, 20> gWindow70ConfirmItemsCB0AE8;
+extern std::array<WindowConfirmationAmount, 2> gWindow69ConfirmAmountsD2E2B8;
+extern std::array<WindowConfirmationAmount, 2> gWindow70ConfirmAmountsD2E290;
+// 固定原文及NUL的已消费前缀，不据此冻结未消费尾区容量。
+extern std::array<char, 50> gWindow69ConfirmHeadingCC3F68;
+extern std::array<char, 48> gWindow70ConfirmHeadingCF4A40;
+extern std::array<char, 21> gWindow69ConfirmQuestionCC3F04;
+extern std::array<char, 21> gWindow70ConfirmQuestionCF4ABC;
+extern std::array<char, 11> gWindow69ConfirmAcceptD2E81C;
+extern std::array<char, 11> gWindow70ConfirmAcceptD2DD6C;
+extern std::array<char, 11> gWindow69ConfirmCancelCB076C;
+extern std::array<char, 11> gWindow70ConfirmCancelCC48BC;
 extern std::int32_t gStorageValueCC4218; // 存放窗口41每帧清零、元素13绘制的数值。
 extern std::array<char, 22> gStorageAmountTextsCB1DF8; // 两金额文本起点相隔11B，571150/158借用。
 extern const std::array<std::int32_t, 2> gStorageTitleImages54F4E8;

@@ -204,6 +204,20 @@ std::int32_t gWindow69TooltipPageD67B94 = 0;
 std::int32_t gWindow70TooltipPageD67BA0 = 0;
 std::array<char, 12> gWindow69BalanceTextD2E448 {};
 std::array<char, 12> gWindow70BalanceTextCF3F14 {};
+WindowValueCallback gWindow69ConfirmCallbackCF4E48 = nullptr;
+WindowValueCallback gWindow70ConfirmCallbackCF4AA4 = nullptr;
+std::array<WindowConfirmationItem, 20> gWindow69ConfirmItemsD2E458 {};
+std::array<WindowConfirmationItem, 20> gWindow70ConfirmItemsCB0AE8 {};
+std::array<WindowConfirmationAmount, 2> gWindow69ConfirmAmountsD2E2B8 {};
+std::array<WindowConfirmationAmount, 2> gWindow70ConfirmAmountsD2E290 {};
+std::array<char, 50> gWindow69ConfirmHeadingCC3F68 {};
+std::array<char, 48> gWindow70ConfirmHeadingCF4A40 {};
+std::array<char, 21> gWindow69ConfirmQuestionCC3F04 {};
+std::array<char, 21> gWindow70ConfirmQuestionCF4ABC {};
+std::array<char, 11> gWindow69ConfirmAcceptD2E81C {};
+std::array<char, 11> gWindow70ConfirmAcceptD2DD6C {};
+std::array<char, 11> gWindow69ConfirmCancelCB076C {};
+std::array<char, 11> gWindow70ConfirmCancelCC48BC {};
 static_assert(sizeof(gWindow69ItemsCB2230) == 0xF690);
 static_assert(sizeof(gWindow70ItemsD30428) == 0xF690);
 static_assert(sizeof(gWindow54SkillsD2EAB8) == 0x600);
@@ -16248,6 +16262,134 @@ std::int32_t Sub_4C1EC0(const std::int32_t unused)
     return 1;
 }
 
+void Sub_4C2060(const std::int32_t value)
+{
+    if (static_cast<std::uint8_t>(value) != 0) {
+        return;
+    }
+    std::array<char, 32> fragment;
+    std::array<char, 256> text;
+    std::array<char, 256> escaped;
+    text[0] = '\0';
+    std::int32_t count = 0;
+    for (std::int32_t index = 0; index < 20; ++index) {
+        const WindowCrystalItem& item = gWindow69ItemsCB2230[index];
+        if (item.used != 0) {
+            const std::int32_t quantity = item.selectedCount;
+            if (quantity != 0) {
+                if (count > 0) {
+                    std::strcat(text.data(), "|");
+                }
+                std::sprintf(fragment.data(), "%d|%d", index, quantity);
+                std::strcat(text.data(), fragment.data());
+                ++count;
+            }
+        }
+    }
+    input::EscapeLegacyTextAndNotify_52D2D0(text.data(), escaped.data(), 255);
+    const std::int32_t target = world::detail::gDialogTargetD2DE6C;
+    const std::int32_t request = world::detail::gDialogRequestCC21E0;
+    const std::int32_t y =
+        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+    const std::int32_t x =
+        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+    static_cast<void>(network::Sub_512620(
+        platform::gConnectionSocket, x, y, request, target, 0, escaped.data()));
+    gCurrentWindow->state |= 0x8000u;
+}
+
+std::int32_t Sub_4C21B0(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    const bool hover = (state & 1) != 0;
+    std::int32_t consumed = 0;
+    if (hover) {
+        constexpr char hint587FA8[] = "\xB6\x52\xB6\x69\xAB\xFC\xA9\x77\xAA\xBA\xAA\xAB\xAB\x7E\xA1\x43";
+        std::strcpy(gHoverTextD68AE8.data(), hint587FA8);
+    }
+    if (gWindow69SlotsCA0AC8 <= 0) {
+        if ((state & 2) != 0) {
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        }
+    } else if ((state & 2) != 0) {
+        const std::int32_t balance = world::detail::ReadPlayerValue15BCC();
+        if (balance < gWindow69TotalD45E70) {
+            gWindow69Message580854 = -2;
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        } else {
+            const std::int32_t freeSlots = world::detail::Sub_518C60();
+            if (gWindow69SlotsCA0AC8 > freeSlots) {
+                gWindow69Message580854 = -3;
+                static_cast<void>(audio::PlaySe_52C450(55, 320));
+            } else {
+                gWindow69ConfirmCallbackCF4E48 = &Sub_4C2060;
+                std::int32_t count = 0;
+                for (const WindowCrystalItem& item : gWindow69ItemsCB2230) {
+                    if (item.used == 0) {
+                        continue;
+                    }
+                    const std::int32_t quantity = item.selectedCount;
+                    if (quantity == 0) {
+                        continue;
+                    }
+                    WindowConfirmationItem& preview = gWindow69ConfirmItemsD2E458[count];
+                    preview.visible = 1;
+                    std::strcpy(preview.name.data(), item.name.data());
+                    const std::int32_t imageNo = item.imageNo;
+                    preview.color = 0;
+                    preview.imageNo = imageNo;
+                    preview.quantity = quantity;
+                    preview.factor = 0;
+                    ++count;
+                }
+                for (; count < 20; ++count) {
+                    gWindow69ConfirmItemsD2E458[count].visible = 0;
+                }
+                WindowConfirmationAmount& left = gWindow69ConfirmAmountsD2E2B8[0];
+                WindowConfirmationAmount& right = gWindow69ConfirmAmountsD2E2B8[1];
+                const std::int32_t currentBalance = world::detail::ReadPlayerValue15BCC();
+                left.y = 343;
+                right.y = 343;
+                const std::int32_t total = gWindow69TotalD45E70;
+                left.visible = 1;
+                left.x = 296;
+                left.value = currentBalance;
+                right.visible = 1;
+                right.x = 454;
+                right.value = total;
+                constexpr char heading588378[] =
+                    "\xAB\xF9\xA6\xB3\xA4\xF4\xB4\xB9"
+                    "\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\xC1\xFB"
+                    "\x20\x20\x20\x20\x20\xAA\xE1\xB6\x4F\xA4\xF4\xB4\xB9"
+                    "\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\xC1\xFB";
+                constexpr char question587F0C[] =
+                    "\xBD\x54\xBB\x7B\xAD\x6E\xC1\xCA\xB6\x52\xB3\x6F\xA8\xC7\xAA\xAB\xAB\x7E\xA1\x48";
+                constexpr char accept587F00[] = "\xB6\x52\xB6\x69\xAA\xAB\xAB\x7E\xA1\x43";
+                constexpr char cancel585AD0[] = "\xC1\xD9\xAC\x4F\xBA\xE2\xA4\x46\xA1\x43";
+                std::sprintf(gWindow69ConfirmHeadingCC3F68.data(), heading588378);
+                std::sprintf(gWindow69ConfirmQuestionCC3F04.data(), question587F0C);
+                std::strcpy(gWindow69ConfirmAcceptD2E81C.data(), accept587F00);
+                std::strcpy(gWindow69ConfirmCancelCB076C.data(), cancel585AD0);
+                gCurrentWindow->elements[0].visible = 1;
+                gCurrentWindow->state |= 2u;
+                static_cast<void>(audio::PlaySe_52C450(78, 320));
+            }
+        }
+        consumed = 1;
+    }
+    graphic->imageNo = 243048;
+    if (hover) {
+        graphic->imageNo = 243050;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 243049;
+    }
+    if (gWindow69SlotsCA0AC8 <= 0) {
+        graphic->imageNo = 243049;
+    }
+    return consumed;
+}
+
 std::int32_t Sub_4C2460(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -16516,6 +16658,104 @@ std::int32_t Sub_4C29E0(const std::int32_t index, const std::int32_t state)
     const std::int32_t x = elementX + window->x + 24;
     static_cast<void>(login::detail::DrawGraphic(x, y, 223, imageNo, 0, &descriptor));
     return consumed;
+}
+
+std::int32_t Sub_4C2FA0(const std::int32_t index, const std::int32_t unusedState)
+{
+    static_cast<void>(unusedState);
+    render::GraphicDescriptor16 descriptor {};
+    const std::uint32_t color = 0xFFFFFFFFu;
+    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    descriptor.bytes[13] = 4;
+    const bool acceptHover = login::detail::Sub_5049A0(100, 381, 166, 398, -1) != 0;
+    const bool cancelHover = login::detail::Sub_5049A0(510, 381, 576, 398, -1) != 0;
+    std::int32_t acceptImage = 245323;
+    if (acceptHover) {
+        acceptImage = 245325;
+        const std::size_t length = std::strlen(gWindow69ConfirmAcceptD2E81C.data()) + 1;
+        const auto buttons = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
+        std::memcpy(gHoverTextD68AE8.data(), gWindow69ConfirmAcceptD2E81C.data(), length);
+        if ((buttons & 1u) != 0) {
+            gCurrentWindow->elements[index].visible = 0;
+            const WindowValueCallback callback = gWindow69ConfirmCallbackCF4E48;
+            if (callback != nullptr) {
+                callback(0);
+            }
+            acceptImage = 245324;
+            gCurrentWindow->state &= ~2u;
+            static_cast<void>(audio::PlaySe_52C450(79, 320));
+        }
+    }
+    std::int32_t cancelImage = 245326;
+    if (cancelHover) {
+        cancelImage = 245328;
+        const std::size_t length = std::strlen(gWindow69ConfirmCancelCB076C.data()) + 1;
+        const std::size_t prefix = length & ~std::size_t{3};
+        std::memcpy(gHoverTextD68AE8.data(), gWindow69ConfirmCancelCB076C.data(), prefix);
+        const auto buttons = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
+        std::memcpy(gHoverTextD68AE8.data() + prefix,
+            gWindow69ConfirmCancelCB076C.data() + prefix, length - prefix);
+        if ((buttons & 1u) != 0) {
+            gCurrentWindow->elements[index].visible = 0;
+            const WindowValueCallback callback = gWindow69ConfirmCallbackCF4E48;
+            if (callback != nullptr) {
+                callback(1);
+            }
+            cancelImage = 245327;
+            gCurrentWindow->state &= ~2u;
+            static_cast<void>(audio::PlaySe_52C450(79, 320));
+        }
+    }
+    static_cast<void>(render::DrawGraphic3_520970(100, 381, 226, acceptImage, 0, 1, 0, &descriptor));
+    static_cast<void>(render::DrawGraphic3_520970(510, 381, 226, cancelImage, 0, 1, 0, &descriptor));
+    std::array<char, 52> buffer;
+    for (std::int32_t column = 0; column < 4; ++column) {
+        const std::int32_t x = 18 + column * 152;
+        for (std::int32_t row = 0; row < 5; ++row) {
+            const std::int32_t y = 47 + row * 65;
+            const WindowConfirmationItem& item = gWindow69ConfirmItemsD2E458[column * 5 + row];
+            if (item.visible != 0) {
+                static_cast<void>(login::detail::DrawGraphic(
+                    x + 24, y + 24, 226, item.imageNo, 0, &descriptor));
+                const std::int32_t factor = item.factor;
+                if (factor != 0) {
+                    std::sprintf(buffer.data(), "%2d X %2d", factor, item.quantity);
+                } else {
+                    std::sprintf(buffer.data(), "X %2d", item.quantity);
+                }
+                const auto countFrame = static_cast<std::uint8_t>(login::detail::gValueD69768);
+                static_cast<void>(render::DrawText_456780(
+                    static_cast<std::int16_t>(x + 57), static_cast<std::int16_t>(y + 33),
+                    4, 12, 0, buffer.data(), 0, countFrame));
+                const auto nameFrame = static_cast<std::uint8_t>(login::detail::gValueD69768);
+                const auto nameColor = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(item.color));
+                static_cast<void>(render::DrawText_456780(
+                    static_cast<std::int16_t>(x), static_cast<std::int16_t>(y + 50),
+                    4, 12, nameColor, item.name.data(), 0, nameFrame));
+            }
+            static_cast<void>(login::detail::DrawGraphic(
+                x + 24, y + 24, 226, 243139, 0, &descriptor));
+        }
+    }
+    static_cast<void>(render::DrawText_456780(
+        190, 377, 4, 12, 0, gWindow69ConfirmHeadingCC3F68.data(), 0,
+        static_cast<std::uint8_t>(login::detail::gValueD69768)));
+    static_cast<void>(render::DrawText_456780(
+        190, 393, 4, 12, 0, gWindow69ConfirmQuestionCC3F04.data(), 0,
+        static_cast<std::uint8_t>(login::detail::gValueD69768)));
+    for (const WindowConfirmationAmount& amount : gWindow69ConfirmAmountsD2E2B8) {
+        if (amount.visible != 0) {
+            std::sprintf(buffer.data(), "%d", amount.value);
+            const std::int32_t y = amount.y;
+            const std::int32_t x = amount.x;
+            Sub_4771B0(x, y + 35, buffer.data(), 0, 4, 1, 226);
+        }
+    }
+    login::detail::DrawNineGrid_49BE00(
+        245300, 0, 35, 640, 383, 226, -1,
+        std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}), 74, 54);
+    static_cast<void>(render::ClearTextQueueTail_456D50(3));
+    return 1;
 }
 
 std::int32_t Sub_4C33B0(
@@ -16861,6 +17101,134 @@ std::int32_t Sub_4C4180(const std::int32_t unused)
     return 1;
 }
 
+void Sub_4C4270(const std::int32_t value)
+{
+    if (static_cast<std::uint8_t>(value) != 0) {
+        return;
+    }
+    std::array<char, 32> fragment;
+    std::array<char, 256> text;
+    std::array<char, 256> escaped;
+    text[0] = '\0';
+    std::int32_t count = 0;
+    for (std::int32_t index = 0; index < 20; ++index) {
+        const WindowCrystalItem& item = gWindow70ItemsD30428[index];
+        if (item.used != 0) {
+            const std::int32_t quantity = item.selectedCount;
+            if (quantity != 0) {
+                if (count > 0) {
+                    std::strcat(text.data(), "|");
+                }
+                std::sprintf(fragment.data(), "%d|%d", index, quantity);
+                std::strcat(text.data(), fragment.data());
+                ++count;
+            }
+        }
+    }
+    input::EscapeLegacyTextAndNotify_52D2D0(text.data(), escaped.data(), 255);
+    const std::int32_t target = world::detail::gDialogTargetD2DE6C;
+    const std::int32_t request = world::detail::gDialogRequestCC21E0;
+    const std::int32_t y =
+        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+    const std::int32_t x =
+        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+    static_cast<void>(network::Sub_512620(
+        platform::gConnectionSocket, x, y, request, target, 1, escaped.data()));
+    gCurrentWindow->state |= 0x8000u;
+}
+
+std::int32_t Sub_4C43C0(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    const bool hover = (state & 1) != 0;
+    std::int32_t consumed = 0;
+    if (hover) {
+        constexpr char hint587FA8[] = "\xB6\x52\xB6\x69\xAB\xFC\xA9\x77\xAA\xBA\xAA\xAB\xAB\x7E\xA1\x43";
+        std::strcpy(gHoverTextD68AE8.data(), hint587FA8);
+    }
+    if (gWindow70SlotsCF4E44 <= 0) {
+        if ((state & 2) != 0) {
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        }
+    } else if ((state & 2) != 0) {
+        const std::int32_t balance = world::detail::Sub_51B5F0(gWindow70ValueD6791C);
+        if (balance < gWindow70TotalCB0F74) {
+            gWindow70Message580864 = -2;
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        } else {
+            const std::int32_t freeSlots = world::detail::Sub_518C60();
+            if (gWindow70SlotsCF4E44 > freeSlots) {
+                gWindow70Message580864 = -3;
+                static_cast<void>(audio::PlaySe_52C450(55, 320));
+            } else {
+                gWindow70ConfirmCallbackCF4AA4 = &Sub_4C4270;
+                std::int32_t count = 0;
+                for (const WindowCrystalItem& item : gWindow70ItemsD30428) {
+                    if (item.used == 0) {
+                        continue;
+                    }
+                    const std::int32_t quantity = item.selectedCount;
+                    if (quantity == 0) {
+                        continue;
+                    }
+                    WindowConfirmationItem& preview = gWindow70ConfirmItemsCB0AE8[count];
+                    preview.visible = 1;
+                    std::strcpy(preview.name.data(), item.name.data());
+                    const std::int32_t imageNo = item.imageNo;
+                    preview.color = 0;
+                    preview.imageNo = imageNo;
+                    preview.quantity = quantity;
+                    preview.factor = 0;
+                    ++count;
+                }
+                for (; count < 20; ++count) {
+                    gWindow70ConfirmItemsCB0AE8[count].visible = 0;
+                }
+                WindowConfirmationAmount& left = gWindow70ConfirmAmountsD2E290[0];
+                WindowConfirmationAmount& right = gWindow70ConfirmAmountsD2E290[1];
+                const std::int32_t itemId = gWindow70ValueD6791C;
+                left.visible = 1;
+                left.x = 296;
+                left.y = 343;
+                left.value = world::detail::Sub_51B5F0(itemId);
+                const std::int32_t total = gWindow70TotalCB0F74;
+                right.visible = 1;
+                right.x = 454;
+                right.y = 343;
+                right.value = total;
+                constexpr char heading5883D4[] =
+                    "\xAB\xF9\xA6\xB3\xA5\xE6\xA9\xF6\xAB\x7E"
+                    "\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20"
+                    "\xAA\xE1\xB6\x4F\xA5\xE6\xA9\xF6\xAB\x7E"
+                    "\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20";
+                constexpr char question5883BC[] =
+                    "\xBD\x54\xBB\x7B\xAD\x6E\xA5\xE6\xB4\xAB\xB3\x6F\xA8\xC7\xAA\xAB\xAB\x7E\xA1\x48";
+                constexpr char accept587F00[] = "\xB6\x52\xB6\x69\xAA\xAB\xAB\x7E\xA1\x43";
+                constexpr char cancel585AD0[] = "\xC1\xD9\xAC\x4F\xBA\xE2\xA4\x46\xA1\x43";
+                std::sprintf(gWindow70ConfirmHeadingCF4A40.data(), heading5883D4);
+                std::sprintf(gWindow70ConfirmQuestionCF4ABC.data(), question5883BC);
+                std::strcpy(gWindow70ConfirmAcceptD2DD6C.data(), accept587F00);
+                std::strcpy(gWindow70ConfirmCancelCC48BC.data(), cancel585AD0);
+                gCurrentWindow->elements[0].visible = 1;
+                gCurrentWindow->state |= 2u;
+                static_cast<void>(audio::PlaySe_52C450(78, 320));
+            }
+        }
+        consumed = 1;
+    }
+    graphic->imageNo = 243048;
+    if (hover) {
+        graphic->imageNo = 243050;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 243049;
+    }
+    if (gWindow70SlotsCF4E44 <= 0) {
+        graphic->imageNo = 243049;
+    }
+    return consumed;
+}
+
 std::int32_t Sub_4C4680(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
@@ -17110,6 +17478,104 @@ std::int32_t Sub_4C4B70(const std::int32_t index, const std::int32_t state)
     const std::int32_t x = elementX + window->x + 24;
     static_cast<void>(login::detail::DrawGraphic(x, y, 223, imageNo, 0, &descriptor));
     return consumed;
+}
+
+std::int32_t Sub_4C50C0(const std::int32_t index, const std::int32_t unusedState)
+{
+    static_cast<void>(unusedState);
+    render::GraphicDescriptor16 descriptor {};
+    const std::uint32_t color = 0xFFFFFFFFu;
+    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    descriptor.bytes[13] = 4;
+    const bool acceptHover = login::detail::Sub_5049A0(100, 381, 166, 398, -1) != 0;
+    const bool cancelHover = login::detail::Sub_5049A0(510, 381, 576, 398, -1) != 0;
+    std::int32_t acceptImage = 245323;
+    if (acceptHover) {
+        acceptImage = 245325;
+        const std::size_t length = std::strlen(gWindow70ConfirmAcceptD2DD6C.data()) + 1;
+        const auto buttons = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
+        std::memcpy(gHoverTextD68AE8.data(), gWindow70ConfirmAcceptD2DD6C.data(), length);
+        if ((buttons & 1u) != 0) {
+            gCurrentWindow->elements[index].visible = 0;
+            const WindowValueCallback callback = gWindow70ConfirmCallbackCF4AA4;
+            if (callback != nullptr) {
+                callback(0);
+            }
+            acceptImage = 245324;
+            gCurrentWindow->state &= ~2u;
+            static_cast<void>(audio::PlaySe_52C450(79, 320));
+        }
+    }
+    std::int32_t cancelImage = 245326;
+    if (cancelHover) {
+        cancelImage = 245328;
+        const std::size_t length = std::strlen(gWindow70ConfirmCancelCC48BC.data()) + 1;
+        const std::size_t prefix = length & ~std::size_t{3};
+        std::memcpy(gHoverTextD68AE8.data(), gWindow70ConfirmCancelCC48BC.data(), prefix);
+        const auto buttons = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
+        std::memcpy(gHoverTextD68AE8.data() + prefix,
+            gWindow70ConfirmCancelCC48BC.data() + prefix, length - prefix);
+        if ((buttons & 1u) != 0) {
+            gCurrentWindow->elements[index].visible = 0;
+            const WindowValueCallback callback = gWindow70ConfirmCallbackCF4AA4;
+            if (callback != nullptr) {
+                callback(1);
+            }
+            cancelImage = 245327;
+            gCurrentWindow->state &= ~2u;
+            static_cast<void>(audio::PlaySe_52C450(79, 320));
+        }
+    }
+    static_cast<void>(render::DrawGraphic3_520970(100, 381, 226, acceptImage, 0, 1, 0, &descriptor));
+    static_cast<void>(render::DrawGraphic3_520970(510, 381, 226, cancelImage, 0, 1, 0, &descriptor));
+    std::array<char, 52> buffer;
+    for (std::int32_t column = 0; column < 4; ++column) {
+        const std::int32_t x = 18 + column * 152;
+        for (std::int32_t row = 0; row < 5; ++row) {
+            const std::int32_t y = 47 + row * 65;
+            const WindowConfirmationItem& item = gWindow70ConfirmItemsCB0AE8[column * 5 + row];
+            if (item.visible != 0) {
+                static_cast<void>(login::detail::DrawGraphic(
+                    x + 24, y + 24, 226, item.imageNo, 0, &descriptor));
+                const std::int32_t factor = item.factor;
+                if (factor != 0) {
+                    std::sprintf(buffer.data(), "%2d X %2d", factor, item.quantity);
+                } else {
+                    std::sprintf(buffer.data(), "X %2d", item.quantity);
+                }
+                const auto countFrame = static_cast<std::uint8_t>(login::detail::gValueD69768);
+                static_cast<void>(render::DrawText_456780(
+                    static_cast<std::int16_t>(x + 57), static_cast<std::int16_t>(y + 33),
+                    4, 12, 0, buffer.data(), 0, countFrame));
+                const auto nameFrame = static_cast<std::uint8_t>(login::detail::gValueD69768);
+                const auto nameColor = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(item.color));
+                static_cast<void>(render::DrawText_456780(
+                    static_cast<std::int16_t>(x), static_cast<std::int16_t>(y + 50),
+                    4, 12, nameColor, item.name.data(), 0, nameFrame));
+            }
+            static_cast<void>(login::detail::DrawGraphic(
+                x + 24, y + 24, 226, 243139, 0, &descriptor));
+        }
+    }
+    static_cast<void>(render::DrawText_456780(
+        190, 377, 4, 12, 0, gWindow70ConfirmHeadingCF4A40.data(), 0,
+        static_cast<std::uint8_t>(login::detail::gValueD69768)));
+    static_cast<void>(render::DrawText_456780(
+        190, 393, 4, 12, 0, gWindow70ConfirmQuestionCF4ABC.data(), 0,
+        static_cast<std::uint8_t>(login::detail::gValueD69768)));
+    for (const WindowConfirmationAmount& amount : gWindow70ConfirmAmountsD2E290) {
+        if (amount.visible != 0) {
+            std::sprintf(buffer.data(), "%d", amount.value);
+            const std::int32_t y = amount.y;
+            const std::int32_t x = amount.x;
+            Sub_4771B0(x, y + 35, buffer.data(), 0, 4, 1, 226);
+        }
+    }
+    login::detail::DrawNineGrid_49BE00(
+        245300, 0, 35, 640, 383, 226, -1,
+        std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}), 74, 54);
+    static_cast<void>(render::ClearTextQueueTail_456D50(3));
+    return 1;
 }
 
 std::int32_t Sub_4C54D0(

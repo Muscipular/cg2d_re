@@ -8,6 +8,43 @@ namespace {
 // 原56CCC8的四字节元数据和593850借用，不创建另一份默认文本。
 WindowTextPrototype gWindowText56CCC8 {{}, input::LegacyText593850()};
 
+WindowGraphicData gWindowGraphic561A40 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic561A58 {0x3BA24, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic561A70 {0x3BA27, 0, 0, 0, 0, 0x80FFFFFFu};
+WindowGraphicData gWindowGraphic561A88 {0x3B598, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic561AA0 {0x3B592, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic561AB8 {0x3B595, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic561AD0 {0x3B571, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic561AE8 {0x3B57A, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic561B00 {0x3B57A, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic561B18 {0x3B556, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic561B30 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu};
+constexpr char kWindow10Job5860A4[] = "\xB5\x4C\xC2\xBE";
+constexpr char kWindow10Slots58609C[] = "10/10";
+constexpr char kWindow10Experience5861E0[] = "\xB8\x67\xC5\xE7\xAD\xC8";
+constexpr char kWindow10Level586228[] = "\xB5\xA5\xAF\xC5";
+constexpr char kWindow10Skill586094[] = "\xA7\xDE\xAF\xE0";
+constexpr char kWindow10Fp5861C0[] = "\xC5\x5D\xA4\x4F";
+WindowTextPrototype gWindowText561B48 {
+    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow10Job5860A4,
+};
+WindowTextPrototype gWindowText561B50 {
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow10Slots58609C,
+};
+WindowTextPrototype gWindowText561B58 {
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow10Experience5861E0,
+};
+WindowTextPrototype gWindowText561B60 {
+    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow10Level586228,
+};
+WindowTextPrototype gWindowText561B68 {
+    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow10Skill586094,
+};
+WindowTextPrototype gWindowText561B70 {
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow10Fp5861C0,
+};
+std::uint32_t gWindowMouseFlagsD67780 = 0;
+
 WindowGraphicData gWindowGraphic561FE0 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic561FF8 {0x3BA38, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic562010 {0x3BA3A, 0, 0, 0, 0, 0xFFFFFFFFu};
@@ -1117,6 +1154,39 @@ WindowElementPrototype gWindowElements5630F0[8] {
     {7, 85, 30, 0, 0, 1, {.number = &gWindowNumber5630E8}, &Sub_4B0F10},
     {1, 0, 0, 126, 136, 1, {.graphic = &gWindowGraphic563098}, &Sub_4B0F10},
     {0, 128, 7, 18, 78, 1, {.unusedValue = 0}, &Sub_474170},
+};
+
+WindowElementPrototype gWindowElements561B78[30] {
+    {1, 222, 9, 11, 11, 1, {.graphic = &gWindowGraphic561A40}, &Sub_4C1FB0},
+    {3, 82, 12, 0, 0, 1, {.text = &gWindowText561B48}, &Sub_4B0F10},
+    {3, 87, 12, 0, 0, 1, {.text = &gWindowText561B68}, &Sub_4B0F10},
+    {3, 66, 32, 0, 0, 1, {.text = &gWindowText561B50}, &Sub_4B0F10},
+    {1, 16, 28, 50, 15, 1, {.graphic = &gWindowGraphic561AD0}, &Sub_47B110},
+    {3, 103, 31, 0, 0, 1, {.text = &gWindowText561B58}, &Sub_4B0F10},
+    {1, 184, 28, 50, 15, 1, {.graphic = &gWindowGraphic561AE8}, &Sub_47B210},
+    {3, 95, 31, 0, 0, 1, {.text = &gWindowText561B70}, &Sub_4B0F10},
+    {1, 16, 28, 49, 17, 1, {.graphic = &gWindowGraphic561B00}, &Sub_47C950},
+    {3, 190, 13, 0, 0, 1, {.text = &gWindowText561B60}, &Sub_4B0F10},
+    {1, 223, 57, 0, 14, 1, {.graphic = &gWindowGraphic561A88}, &Sub_4B0F10},
+    {4, 223, 57, 11, 140, 1, {.mouseFlags = &gWindowMouseFlagsD67780}, &Sub_4741A0},
+    {1, 223, 47, 11, 11, 1, {.graphic = &gWindowGraphic561AA0}, &Sub_47B3D0},
+    {1, 223, 196, 11, 11, 1, {.graphic = &gWindowGraphic561AB8}, &Sub_47B470},
+    {1, 195, 28, 18, 18, 1, {.graphic = &gWindowGraphic561B18}, &Sub_47B520},
+    {1, 215, 28, 18, 18, 1, {.graphic = &gWindowGraphic561B30}, &Sub_47B5D0},
+    {0, 0, 0, 241, 258, 1, {.unusedValue = 0}, &Sub_47B680},
+    {0, 14, 46, 207, 16, 1, {.unusedValue = 0}, &Sub_47B820},
+    {0, 14, 62, 207, 16, 1, {.unusedValue = 0}, &Sub_47B820},
+    {0, 14, 78, 207, 16, 1, {.unusedValue = 0}, &Sub_47B820},
+    {0, 14, 94, 207, 16, 1, {.unusedValue = 0}, &Sub_47B820},
+    {0, 14, 110, 207, 16, 1, {.unusedValue = 0}, &Sub_47B820},
+    {0, 14, 126, 207, 16, 1, {.unusedValue = 0}, &Sub_47B820},
+    {0, 14, 142, 207, 16, 1, {.unusedValue = 0}, &Sub_47B820},
+    {0, 14, 158, 207, 16, 1, {.unusedValue = 0}, &Sub_47B820},
+    {0, 14, 174, 207, 16, 1, {.unusedValue = 0}, &Sub_47B820},
+    {0, 14, 190, 207, 16, 1, {.unusedValue = 0}, &Sub_47B820},
+    {1, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic561A58}, &Sub_4B0F10},
+    {1, 12, 27, 0, 0, 1, {.graphic = &gWindowGraphic561A70}, &Sub_4B0F10},
+    {0, 243, 5, 18, 79, 1, {.unusedValue = 0}, &Sub_474170},
 };
 
 WindowElementPrototype gWindowElements5620E0[31] {

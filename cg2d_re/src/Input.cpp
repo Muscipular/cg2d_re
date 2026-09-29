@@ -40,6 +40,7 @@ InputContext gInputContextCA0180 {};
 InputContext gInputContextCB0610 {};
 InputContext gInputContextCB0028 {};
 InputContext gInputContextCC2378 {};
+InputContext gInputContextCF4E60 {};
 InputContext gInputContextC8B1B8 {};
 InputContext gInputContextCC21E8 {};
 InputContext gInputContextCB0878 {};

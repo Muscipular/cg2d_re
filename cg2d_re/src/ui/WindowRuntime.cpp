@@ -494,7 +494,21 @@ WindowInputPrototype gStallDescriptionInput581360 {
     {{&input::gInputContextCC2378}, WindowInputReferenceKind::Context},
     299, 51, 3, 12, 0, {}, 2, 28, 14, 0,
 };
+WindowInputPrototype gStallPriceInput581590 {
+    {{&input::gInputContextCF4E60}, WindowInputReferenceKind::Context},
+    0, -100, 3, 12, 127, {}, 1, 0, 0, 0,
+};
+std::int32_t gStallPriceD67C40 = 0;
+std::int32_t gStallButtonStateD67C44 = 0;
 constexpr char kStallInputHint586450[] = "\xBD\xD0\xBF\xE9\xA4\x4A\xB4\x79\xAD\x7A";
+constexpr std::array<std::array<std::int32_t, 3>, 6> kStallButtonImages54EEE0 {{
+    {98891, 98886, 98890},
+    {98888, 98889, 98887},
+    {98885, 98883, 98884},
+    {98870, 98868, 98869},
+    {98882, 98880, 98881},
+    {98873, 98871, 98872},
+}};
 constexpr std::array<std::array<std::int32_t, 3>, 2> kStallTabImages54EF40 {{
     {98864, 98862, 98863},
     {98867, 98865, 98866},
@@ -1698,6 +1712,236 @@ std::int32_t Sub_4D27C0(const std::int32_t value)
         return count + 1;
     }
     return mode - 1;
+}
+
+std::int32_t Sub_4CE8A0()
+{
+    return network::Sub_512160(platform::gConnectionSocket);
+}
+
+WindowInstance* Sub_4CED50()
+{
+    WindowInstance* const window = gCurrentWindow;
+    window->elements[1].visible = 1;
+    return window;
+}
+
+WindowElement* Sub_4CFC40()
+{
+    gStallPriceD67C40 = 0;
+    static_cast<void>(Sub_476570(&gStallPriceInput581590, 0, -100, 0));
+    input::SetContext_44B330(&input::gInputContextCF4E60);
+    WindowInstance* const window = gCurrentWindow;
+    gFocusedElementDataD45F94 = window->elements[1].data;
+    static_cast<WindowInputData*>(window->elements[1].data)->context = &input::gInputContextCF4E60;
+    WindowElement* const elements = gCurrentWindow->elements;
+    elements[1].visible = 1;
+    return elements;
+}
+
+void Sub_4CFCA0(const std::int32_t petIndex)
+{
+    const auto& pet = world::detail::gPetRuntimeF633F8[petIndex];
+    const std::int32_t itemSlots = pet.values6D8[0];
+    for (std::int32_t slot = 0; slot < 6; ++slot) {
+        if (slot < itemSlots && pet.items6E4[slot].used != 0) {
+            char message[128];
+            std::sprintf(message,
+                "\xBD\xD0\xA8\xF8\xA4\x55\xC3\x64\xAA\xAB\xA8\xAD\xA4\x57"
+                "\xAA\xBA\xB8\xCB\xB3\xC6\xAB\xE1\xA6\x41\xBE\xDE\xA7\x40\xA1\x43");
+            world::detail::Sub_44B050(message, 4, 3);
+            return;
+        }
+    }
+    gStallPriceD67C40 = 0;
+    static_cast<void>(Sub_476570(&gStallPriceInput581590, 0, -100, 0));
+    input::SetContext_44B330(&input::gInputContextCF4E60);
+    WindowInstance* const window = gCurrentWindow;
+    gFocusedElementDataD45F94 = window->elements[1].data;
+    static_cast<WindowInputData*>(window->elements[1].data)->context = &input::gInputContextCF4E60;
+    gCurrentWindow->elements[1].visible = 1;
+}
+
+std::int32_t Sub_4CFD70()
+{
+    const std::int32_t mode = gStallModeD67BDC;
+    if (mode == 1) {
+        const std::int32_t index = gStallPetSelection581128 - 5;
+        const std::int32_t count = gStallPetCountD67BD4 - 1;
+        StallOffer* const offer = gStallPetOffersCC3E98.data() + index;
+        gStallPetUsedCF400C[offer->slot] = 0;
+        gStallPetCountD67BD4 = count;
+        if (count > 0 && index < count) {
+            std::memmove(offer, offer + 1,
+                static_cast<std::size_t>(count - index) * sizeof(StallOffer));
+        }
+        const std::int32_t page = gStallPetPageD67BD0;
+        gStallPetSelection581128 = -1;
+        const std::int32_t remaining = count - page;
+        if (remaining < 3 && page > 0) {
+            gStallPetPageD67BD0 = page - 1;
+        }
+        return remaining;
+    }
+    if (mode == 0) {
+        const std::int32_t index = gStallItemSelection581124 - 20;
+        const std::int32_t count = gStallItemCountD67BCC - 1;
+        StallOffer* const offer = gStallItemOffersD671D8.data() + index;
+        gStallItemUsedCC31AC[offer->slot] = 0;
+        gStallItemCountD67BCC = count;
+        if (count > 0 && index < count) {
+            std::memmove(offer, offer + 1,
+                static_cast<std::size_t>(count - index) * sizeof(StallOffer));
+        }
+        const std::int32_t page = gStallItemPageD67BC8;
+        gStallItemSelection581124 = -1;
+        const std::int32_t remaining = count - page;
+        if (remaining < 10 && page > 0) {
+            gStallItemPageD67BC8 = page - 1;
+        }
+        return remaining;
+    }
+    return mode - 1;
+}
+
+std::int32_t Sub_4CF940(const std::int32_t index, const std::int32_t state)
+{
+    WindowInstance* const window = gCurrentWindow;
+    auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
+    bool disabled = false;
+    std::int32_t imageGroup = state;
+    if (gStallOwn58111C != 0) {
+        switch (index) {
+        case 30:
+            imageGroup = 0;
+            if ((gStallItemCountD67BCC <= 0 && gStallPetCountD67BD4 <= 0)
+                || gStallPendingD67C31 != 0) {
+                disabled = true;
+            } else if ((state & 2) != 0) {
+                const std::uint8_t gate = gValueD67BE0;
+                gStallPendingD67C31 = 1;
+                gValueD67BE0 = gate == 0 ? 1 : 0;
+                gStallItemSelection581124 = -1;
+                gStallPetSelection581128 = -1;
+                static_cast<void>(Sub_4CFE70());
+            }
+            break;
+        case 31:
+            imageGroup = 1;
+            if (gStallPendingD67C31 != 0) {
+                disabled = true;
+            } else if ((state & 2) != 0) {
+                gStallPendingD67C31 = 1;
+                gStallItemSelection581124 = -1;
+                gStallPetSelection581128 = -1;
+                static_cast<void>(Sub_4CE8A0());
+            }
+            break;
+        case 32: {
+            imageGroup = 3;
+            const std::int32_t mode = gStallModeD67BDC;
+            if (mode == 0) {
+                const std::int32_t selected = gStallItemSelection581124;
+                if (selected < 20 || selected >= 40) {
+                    disabled = true;
+                } else if ((state & 2) != 0) {
+                    static_cast<void>(Sub_4CFD70());
+                }
+            } else if (mode == 1) {
+                const std::int32_t selected = gStallPetSelection581128;
+                if (selected < 5 || selected >= 10) {
+                    disabled = true;
+                } else if ((state & 2) != 0) {
+                    static_cast<void>(Sub_4CFD70());
+                }
+            }
+            break;
+        }
+        case 33:
+            imageGroup = 4;
+            if (gValueD67BE0 != 0) {
+                disabled = true;
+            } else if ((state & 2) != 0) {
+                window->state |= 0x8000u;
+                static_cast<void>(audio::PlaySe_52C450(57, 320));
+            }
+            break;
+        case 34: {
+            imageGroup = 5;
+            const std::int32_t mode = gStallModeD67BDC;
+            if (mode == 0) {
+                const std::int32_t selected = gStallItemSelection581124;
+                if (selected < 0 || selected >= 20) {
+                    disabled = true;
+                } else if (gStallItemUsedCC31AC[selected] == 0 && (state & 2) != 0) {
+                    static_cast<void>(Sub_4CFC40());
+                }
+            } else if (mode == 1) {
+                const std::int32_t selected = gStallPetSelection581128;
+                if (selected < 0 || selected >= 5) {
+                    disabled = true;
+                } else if (gStallPetUsedCF400C[selected] == 0 && (state & 2) != 0) {
+                    Sub_4CFCA0(selected);
+                }
+            }
+            break;
+        }
+        default:
+            break;
+        }
+    } else if (index == 28) {
+        imageGroup = 2;
+        if (gStallPendingD67C31 != 0) {
+            disabled = true;
+        } else {
+            const std::int32_t itemCount = gStallItemCountD67BCC;
+            const std::int32_t mode = gStallModeD67BDC;
+            if (itemCount <= 0 && mode == 0) {
+                disabled = true;
+            } else {
+                const std::int32_t petCount = gStallPetCountD67BD4;
+                if (petCount <= 0 && mode == 1) {
+                    disabled = true;
+                } else if ((state & 2) != 0) {
+                    static_cast<void>(Sub_4CED50());
+                }
+            }
+        }
+    } else if (index == 29) {
+        imageGroup = 4;
+        if (gStallPendingD67C31 != 0) {
+            disabled = true;
+        } else if ((state & 2) != 0) {
+            window->state |= 0x8000u;
+            static_cast<void>(audio::PlaySe_52C450(57, 320));
+        }
+    }
+    if (disabled) {
+        graphic->imageNo = kStallButtonImages54EEE0[imageGroup][1];
+        gStallButtonStateD67C44 = state;
+        return 0;
+    }
+    std::int32_t consumed = 0;
+    if ((state & 1) != 0) {
+        graphic->imageNo = kStallButtonImages54EEE0[imageGroup][2];
+        consumed = 1;
+    } else {
+        graphic->imageNo = kStallButtonImages54EEE0[imageGroup][0];
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = kStallButtonImages54EEE0[imageGroup][1];
+        consumed = 1;
+    }
+    if ((state & 2) != 0) {
+        input::InputContext* const context = input::gCurrentInputData;
+        if (context == &input::gInputContextCB0028 || context == &input::gInputContextCC2378) {
+            Sub_4A7B00();
+        }
+        gStallButtonStateD67C44 = state;
+        return 1;
+    }
+    gStallButtonStateD67C44 = state;
+    return consumed;
 }
 
 std::int32_t Sub_4CFE70()

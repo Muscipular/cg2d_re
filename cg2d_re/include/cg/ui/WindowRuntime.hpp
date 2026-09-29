@@ -41,6 +41,11 @@ void Sub_50E110(
     std::uintptr_t unusedSocket, std::int32_t type, std::int32_t value,
     std::int32_t request, std::int32_t target, char* text);
 
+// 资料DyAG回复：三重门禁后完整38/39/40路由，无BZ关闭特例或对象朝向尾。
+void Sub_50F990(
+    std::uintptr_t unusedSocket, std::int32_t type, std::int32_t value,
+    std::int32_t request, std::int32_t target, char* text);
+
 // 交易回复：按场景门禁后单次CryptInt门禁，socket由原dispatcher传入但不消费。
 void Sub_50E3C0(std::uintptr_t unusedSocket, const char* text); // 名单解析/回调生产与窗口44展开。
 void Sub_50E3F0(

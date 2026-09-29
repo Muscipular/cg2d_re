@@ -485,6 +485,9 @@ std::int32_t Sub_49DA30(
 void Sub_49D2E0(
     std::int32_t type, std::int32_t value, std::int32_t request,
     std::int32_t target, char* text); // 全部分派，保留同类续接后新建及原位文本。
+void Sub_49D8F0(
+    std::int32_t type, std::int32_t value, std::int32_t request,
+    std::int32_t target, char* text); // 先发布同源对话状态，再生产并打开60/61/62。
 void Sub_50E130(
     std::uintptr_t unusedSocket, std::int32_t type, std::int32_t value,
     std::int32_t request, std::int32_t target, char* text); // 50E110门禁后原共享尾入口。

@@ -6464,6 +6464,52 @@ void Sub_49D2E0(
     }
 }
 
+void Sub_49D8F0(
+    const std::int32_t type, const std::int32_t value, const std::int32_t request,
+    const std::int32_t target, char* const text)
+{
+    if (world::detail::gValue581800 >= 0) {
+        switch (request) {
+        case 326:
+        case 327:
+        case 369:
+        case 388:
+        case 389:
+        case 390:
+            if (type != 32) {
+                CloseWindowsByCategory_472240(2);
+                CloseWindowsByCategory_472240(3);
+            }
+            break;
+        default:
+            break;
+        }
+    }
+    world::detail::gValue581800 = type;
+    gDialogValueCF4E5C = value;
+    world::detail::gDialogRequestCC21E0 = request;
+    world::detail::gDialogTargetD2DE6C = target;
+    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+    static_cast<void>(Sub_4D3020(x, y));
+    switch (type) {
+    case 38:
+        world::detail::Sub_4C9E40(value, text);
+        static_cast<void>(CreateWindowAnimation_475AA0(60, 1, 0, nullptr));
+        return;
+    case 39:
+        world::detail::Sub_4CA330(value, text);
+        static_cast<void>(CreateWindowAnimation_475AA0(61, 1, 0, nullptr));
+        return;
+    case 40:
+        static_cast<void>(world::detail::Sub_4CAC60(value, text));
+        static_cast<void>(CreateWindowAnimation_475AA0(62, 1, 0, nullptr));
+        return;
+    default:
+        return;
+    }
+}
+
 void Sub_50E130(
     const std::uintptr_t unusedSocket, const std::int32_t type, const std::int32_t value,
     const std::int32_t request, const std::int32_t target, char* const text)
@@ -20926,6 +20972,22 @@ void Sub_50E110(
         return;
     }
     detail::Sub_50E130(unusedSocket, type, value, request, target, text);
+}
+
+void Sub_50F990(
+    const std::uintptr_t, const std::int32_t type, const std::int32_t value,
+    const std::int32_t request, const std::int32_t target, char* const text)
+{
+    if (world::detail::gValue9A6E0C != 0) {
+        return;
+    }
+    if (world::gValueD67E78 != 0) {
+        return;
+    }
+    if (world::ReadRippleGateOnce() != 0) {
+        return;
+    }
+    detail::Sub_49D8F0(type, value, request, target, text);
 }
 
 void Sub_50E3C0(const std::uintptr_t, const char* const text)

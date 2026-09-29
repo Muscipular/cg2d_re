@@ -19,8 +19,5 @@ void Sub_50E7F0(
     std::uintptr_t socket, std::int32_t first, std::int32_t second,
     char* text3, char* text4, char* text5, char* text6);
 void Sub_50E820(std::uintptr_t socket, std::int32_t value);
-void Sub_50F990(
-    std::uintptr_t socket, std::int32_t first, std::int32_t second,
-    std::int32_t third, std::int32_t fourth, char* text);
 
 } // namespace cg::network::detail

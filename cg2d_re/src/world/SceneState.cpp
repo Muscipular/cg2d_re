@@ -3965,6 +3965,7 @@ std::array<std::int32_t, 9> gBattleSelectionModes5ABC7C {};
 std::int32_t gBattleSelectedSkill5ABB5C = 0;
 std::int32_t gBattleSelectedTechnique5ABC78 = 0;
 std::int32_t gBattleCommandState5ABC3C = 0;
+std::uint8_t gBattleRebirthDisabled5ABC40 = 0;
 std::int32_t gBattleSkillActionCount5ABBF4 = 0;
 std::int32_t gBattlePetActionCount5ABBBC = 0;
 std::int32_t gBattleSelectionMode5ABC70 = 0;

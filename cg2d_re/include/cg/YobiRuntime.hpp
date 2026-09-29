@@ -255,6 +255,8 @@ void Sub_43BFF0();
 std::int32_t CheckBattleCommand_43C560(std::int32_t position, std::uint32_t flags);
 // 原43C060：逐槽清选择位、置绘制位及cacheIndex=-2，不销毁对象。
 void FlushBattleEntries_43C060();
+// 原战斗载荷+106C字段借用；空载荷返空，497C80仅在入口检查，点击后按原路径直接读取。
+const std::int32_t* BorrowBattleRebirthState106C(const YobiAction* action) noexcept;
 
 // 原 YobiClearUp@[0x404D30,0x404D5B) 与 sub_404D60@[0x404D60,0x404D85)。
 void YobiClearUp_404D30();

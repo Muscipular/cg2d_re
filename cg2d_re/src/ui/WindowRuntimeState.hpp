@@ -160,8 +160,15 @@ std::int32_t Sub_496D50(std::int32_t unused); // 先绘制再更新技术名，�
 void Sub_496AE0(); // 窗口26存在才收尾、关闭10/27/28及清三展开引用，原返回无人消费。
 void Sub_496F10(); // 先清九个选择槽，再关闭三子窗及清同源展开引用。
 void Sub_497000(); // 战斗技能快捷入口，保留actionFlags低S8门槛；原返回不用。
+std::int32_t Sub_4972B0(std::int32_t index, std::int32_t state); // 攻击选择，原目标标志475H。
+std::int32_t Sub_4973C0(std::int32_t index, std::int32_t state); // 防御G命令及玩家动作完成。
 void Sub_4974C0(std::int32_t skillIndex, std::int32_t technique); // CC4230真实双参数命令回调。
 std::int32_t Sub_4975A0(std::int32_t index, std::int32_t state); // 技能按钮及选目标返回技术窗。
+std::int32_t Sub_497770(std::int32_t index, std::int32_t state); // 物品选择/返回27，保留CC4D40独立门禁。
+std::int32_t Sub_497900(std::int32_t index, std::int32_t state); // 宠物选择及28窗口关闭。
+std::int32_t Sub_497A60(std::int32_t index, std::int32_t state); // P命令，使用九槽中的槽6。
+std::int32_t Sub_497B80(std::int32_t index, std::int32_t state); // E命令，使用槽7，无已用技能门禁。
+std::int32_t Sub_497C80(std::int32_t index, std::int32_t state); // 转生可见性及刷新后重取R命令状态。
 void Sub_497E30(std::int32_t technique); // 宠物命令，保留重复查询与负参数略过。
 void Sub_497FF0(std::int32_t technique); // 骑乘命令，清选择模式并保留骑乘快照写序。
 std::int32_t Sub_498160(std::int32_t index, std::int32_t state); // 宠物/骑乘技能窗开关。

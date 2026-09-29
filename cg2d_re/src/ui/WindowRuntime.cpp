@@ -27854,6 +27854,321 @@ void Sub_496F10()
     }
 }
 
+std::int32_t Sub_4972B0(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    if (gWindowStates[26].userState.value != 0) {
+        graphic->imageNo = 0x3B9C4;
+        if (world::detail::gBattleSelectionModes5ABC7C[0] != 0) {
+            graphic->imageNo = 0x3B9C5;
+        }
+        return 0;
+    }
+    std::int32_t consumed = 0;
+    if ((state & 1) != 0) {
+        std::strcpy(gHoverTextD68AE8.data(),
+            "\xB4\xB6\xB3\x71\xAA\xAB\xB2\x7A\xA7\xF0\xC0\xBB\xA1\x43");
+    }
+    if ((state & 2) != 0) {
+        Sub_496F10();
+        world::detail::gBattleSelectionModes5ABC7C[0] = 1;
+        world::detail::gBattleSelectionMode5ABC70 = 0;
+        login::detail::FlushBattleEntries_43C060();
+        static_cast<void>(login::detail::CheckBattleCommand_43C560(
+            world::detail::gBattleCurrentPosition5ABCA4, 0x475u));
+        login::detail::MarkDeath(world::detail::gBattleCommandAction5ABC00);
+        world::detail::gBattleCommandAction5ABC00 = nullptr;
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        gBattleValueCB054C = 0;
+        consumed = 1;
+    }
+    graphic->imageNo = 0x3B9C4;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3B9C6;
+    }
+    if (world::detail::gBattleSelectionModes5ABC7C[0] != 0) {
+        graphic->imageNo = 0x3B9C5;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_4973C0(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    if (gWindowStates[26].userState.value != 0) {
+        graphic->imageNo = 0x3B9D0;
+        if (world::detail::gBattleSelectionModes5ABC7C[1] != 0) {
+            graphic->imageNo = 0x3B9D1;
+        }
+        return 0;
+    }
+    std::int32_t consumed = 0;
+    if ((state & 1) != 0) {
+        std::strcpy(gHoverTextD68AE8.data(),
+            "\xB4\xB6\xB3\x71\xAA\xAB\xB2\x7A\xA8\xBE\xBF\x6D\xA1\x43");
+    }
+    if ((state & 2) != 0) {
+        Sub_496F10();
+        world::detail::gBattleSelectionModes5ABC7C[1] = 1;
+        world::detail::gBattleSelectionMode5ABC70 = 0;
+        login::detail::FlushBattleEntries_43C060();
+        static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, "G"));
+        login::detail::MarkDeath(world::detail::gBattleCommandAction5ABC00);
+        world::detail::gBattleCommandAction5ABC00 = nullptr;
+        world::detail::gBattlePlayerActionState5ABC74 = 1;
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+        consumed = 1;
+    }
+    graphic->imageNo = 0x3B9D0;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3B9D2;
+    }
+    if (world::detail::gBattleSelectionModes5ABC7C[1] != 0) {
+        graphic->imageNo = 0x3B9D1;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_497770(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    if (world::detail::gBattleSkillUsed5ABC68 != 0) {
+        graphic->imageNo = 0x3B9D4;
+        return 0;
+    }
+    if (gWindowStates[26].userState.value != 0) {
+        graphic->imageNo = 0x3B9D3;
+        if (world::detail::gBattleSelectionModes5ABC7C[3] != 0) {
+            graphic->imageNo = 0x3B9D4;
+        }
+        return 0;
+    }
+    std::int32_t consumed = 0;
+    if ((state & 1) != 0) {
+        std::strcpy(gHoverTextD68AE8.data(), "\xA8\xCF\xA5\xCE\xAA\xAB\xAB\x7E\xA1\x43");
+    }
+    if (world::detail::gBattleSelectionModes5ABC7C[3] == 0) {
+        if ((state & 2) != 0) {
+            Sub_496F10();
+            world::detail::gBattleSelectionMode5ABC70 = 3;
+            world::detail::gBattleSelectionModes5ABC7C[3] = 1;
+            login::detail::FlushBattleEntries_43C060();
+            login::detail::MarkDeath(world::detail::gBattleCommandAction5ABC00);
+            world::detail::gBattleCommandAction5ABC00 = nullptr;
+            world::detail::gBattleItemTargetPending5ABCC4 = 0;
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            gBattleValueCB054C = 0;
+            gBattleItemWindowActionD2F790 = CreateWindowAnimation_475AA0(27, 1, 0, nullptr);
+            consumed = 1;
+        }
+    } else if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0 && gBattleItemTargetFlagCC4D40 != 0) {
+        gBattleItemWindowActionD2F790 = CreateWindowAnimation_475AA0(27, 1, 0, nullptr);
+        gBattleItemTargetFlagCC4D40 = 0;
+        login::detail::FlushBattleEntries_43C060();
+    }
+    graphic->imageNo = 0x3B9D3;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3B9D5;
+    }
+    if (world::detail::gBattleSelectionModes5ABC7C[3] != 0) {
+        graphic->imageNo = 0x3B9D4;
+    }
+    if (gWindowStates[27].window != nullptr) {
+        gBattleItemWindowActionD2F790 = nullptr;
+    } else if (gBattleItemWindowActionD2F790 == nullptr && gBattleItemTargetFlagCC4D40 == 0) {
+        world::detail::gBattleSelectionModes5ABC7C[3] = 0;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_497900(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    if (world::detail::gBattleSkillUsed5ABC68 != 0) {
+        graphic->imageNo = 0x3B9CB;
+        return 0;
+    }
+    if (gWindowStates[26].userState.value != 0) {
+        graphic->imageNo = 0x3B9CA;
+        if (world::detail::gBattleSelectionModes5ABC7C[4] != 0) {
+            graphic->imageNo = 0x3B9CB;
+        }
+        return 0;
+    }
+    std::int32_t consumed = 0;
+    if ((state & 1) != 0) {
+        std::strcpy(gHoverTextD68AE8.data(),
+            "\xA5\x6C\xB3\xEA\xC3\x64\xAA\xAB\xA9\xCE\xAB\xCA\xA6\x4C\xC3\x64\xAA\xAB\xA1\x43");
+    }
+    if (world::detail::gBattleSelectionModes5ABC7C[4] == 0) {
+        if ((state & 2) != 0) {
+            Sub_496F10();
+            world::detail::gBattleSelectionMode5ABC70 = 4;
+            world::detail::gBattleSelectionModes5ABC7C[4] = 1;
+            login::detail::FlushBattleEntries_43C060();
+            login::detail::MarkDeath(world::detail::gBattleCommandAction5ABC00);
+            world::detail::gBattleCommandAction5ABC00 = nullptr;
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            gBattlePetWindowActionD2D60C = CreateWindowAnimation_475AA0(28, 1, 0, nullptr);
+            consumed = 1;
+        }
+    } else if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
+        WindowInstance* const window = gWindowStates[28].window;
+        if (window != nullptr) {
+            window->state |= 0x8000u;
+        }
+    }
+    graphic->imageNo = 0x3B9CA;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3B9CC;
+    }
+    if (world::detail::gBattleSelectionModes5ABC7C[4] != 0) {
+        graphic->imageNo = 0x3B9CB;
+    }
+    if (gWindowStates[28].window != nullptr) {
+        gBattlePetWindowActionD2D60C = nullptr;
+    } else if (gBattlePetWindowActionD2D60C == nullptr) {
+        world::detail::gBattleSelectionModes5ABC7C[4] = 0;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_497A60(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    if (world::detail::gBattleSkillUsed5ABC68 != 0) {
+        graphic->imageNo = 0x3B9D7;
+        return 0;
+    }
+    if (gWindowStates[26].userState.value != 0) {
+        graphic->imageNo = 0x3B9D6;
+        if (world::detail::gBattleSelectionModes5ABC7C[6] != 0) {
+            graphic->imageNo = 0x3B9D7;
+        }
+        return 0;
+    }
+    std::int32_t consumed = 0;
+    if ((state & 1) != 0) {
+        std::strcpy(gHoverTextD68AE8.data(), "\xC5\xDC\xA7\xF3\xB6\xA4\xA7\xCE\xA1\x43");
+    }
+    if ((state & 2) != 0) {
+        Sub_496F10();
+        world::detail::gBattleSelectionMode5ABC70 = 6;
+        world::detail::gBattleSelectionModes5ABC7C[6] = 1;
+        login::detail::FlushBattleEntries_43C060();
+        static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, "P"));
+        login::detail::MarkDeath(world::detail::gBattleCommandAction5ABC00);
+        world::detail::gBattleCommandAction5ABC00 = nullptr;
+        world::detail::gBattlePlayerActionState5ABC74 = 1;
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+        consumed = 1;
+    }
+    graphic->imageNo = 0x3B9D6;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3B9D8;
+    }
+    if (world::detail::gBattleSelectionModes5ABC7C[6] != 0) {
+        graphic->imageNo = 0x3B9D7;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_497B80(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    if (gWindowStates[26].userState.value != 0) {
+        graphic->imageNo = 0x3B9D9;
+        if (world::detail::gBattleSelectionModes5ABC7C[7] != 0) {
+            graphic->imageNo = 0x3B9DA;
+        }
+        return 0;
+    }
+    std::int32_t consumed = 0;
+    if ((state & 1) != 0) {
+        std::strcpy(gHoverTextD68AE8.data(),
+            "\xB0\x6B\xC2\xF7\xA6\xB9\xB3\xF5\xBE\xD4\xB0\xAB\xA1\x43");
+    }
+    if ((state & 2) != 0) {
+        Sub_496F10();
+        world::detail::gBattleSelectionModes5ABC7C[7] = 1;
+        world::detail::gBattleSelectionMode5ABC70 = 0;
+        login::detail::FlushBattleEntries_43C060();
+        static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, "E"));
+        login::detail::MarkDeath(world::detail::gBattleCommandAction5ABC00);
+        world::detail::gBattleCommandAction5ABC00 = nullptr;
+        world::detail::gBattlePlayerActionState5ABC74 = 1;
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+        consumed = 1;
+    }
+    graphic->imageNo = 0x3B9D9;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3B9DB;
+    }
+    if (world::detail::gBattleSelectionModes5ABC7C[7] != 0) {
+        graphic->imageNo = 0x3B9DA;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_497C80(const std::int32_t index, const std::int32_t state)
+{
+    WindowElement* const element = &gCurrentWindow->elements[index];
+    auto* const graphic = static_cast<WindowGraphicData*>(element->data);
+    if (world::detail::gBattleRebirthDisabled5ABC40 != 0
+        || world::detail::ReadPlayerValue08() == 0
+        || world::detail::ReadPlayerTimerRemaining0C() <= 0) {
+        element->visible = 0;
+        graphic->imageNo = 0x3B9CE;
+        return 0;
+    }
+    element->visible = 1;
+    if (gWindowStates[26].userState.value != 0) {
+        graphic->imageNo = 0x3B9CD;
+        if (world::detail::gBattleSelectionModes5ABC7C[8] != 0) {
+            graphic->imageNo = 0x3B9CE;
+        }
+        return 0;
+    }
+    const login::YobiAction* const action =
+        world::detail::gBattleEntries59E980[world::detail::gBattleCurrentPosition5ABCA4];
+    if (action == nullptr) {
+        return 0;
+    }
+    const std::int32_t* const rebirth = login::detail::BorrowBattleRebirthState106C(action);
+    if (rebirth == nullptr) {
+        return 0;
+    }
+    std::int32_t consumed = 0;
+    if ((state & 1) != 0) {
+        std::strcpy(gHoverTextD68AE8.data(),
+            *rebirth != 0 ? kSkillDisableRebirth5864B4 : kSkillEnableRebirth5864A0);
+    }
+    if ((state & 2) != 0) {
+        Sub_496F10();
+        world::detail::gBattleSelectionModes5ABC7C[8] = 1;
+        world::detail::gBattleSelectionMode5ABC70 = 8;
+        login::detail::FlushBattleEntries_43C060();
+        const login::YobiAction* const current =
+            world::detail::gBattleEntries59E980[world::detail::gBattleCurrentPosition5ABCA4];
+        const char* const command =
+            *login::detail::BorrowBattleRebirthState106C(current) != 0 ? "R|0" : "R|1";
+        static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, command));
+        login::detail::MarkDeath(world::detail::gBattleCommandAction5ABC00);
+        world::detail::gBattleCommandAction5ABC00 = nullptr;
+        world::detail::gBattlePlayerActionState5ABC74 = 1;
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+        consumed = 1;
+    }
+    graphic->imageNo = 0x3B9CD;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3B9CF;
+    }
+    if (world::detail::gBattleSelectionModes5ABC7C[8] != 0) {
+        graphic->imageNo = 0x3B9CE;
+    }
+    return consumed;
+}
+
 void Sub_497000()
 {
     if (gWindowStates[26].window == nullptr

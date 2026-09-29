@@ -1155,6 +1155,7 @@ extern std::array<std::int32_t, 9> gBattleSelectionModes5ABC7C; // 496F10清九�
 extern std::int32_t gBattleSelectedSkill5ABB5C; // 4974C0写技能槽，4975A0/498520重取。
 extern std::int32_t gBattleSelectedTechnique5ABC78; // 4974C0写技术槽，不是UI列表索引。
 extern std::int32_t gBattleCommandState5ABC3C; // 技能/宠物命令完成状态，498520消费。
+extern std::uint8_t gBattleRebirthDisabled5ABC40; // 497C80先读的独立U8门禁，498520后续写。
 extern std::int32_t gBattleSkillActionCount5ABBF4;
 extern std::int32_t gBattlePetActionCount5ABBBC;
 extern std::int32_t gBattleSelectionMode5ABC70; // 与九个选择槽分别存储。

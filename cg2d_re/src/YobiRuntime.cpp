@@ -265,9 +265,10 @@ constexpr const SceneEffectFrame* const* kFrameGroups554570[] {
     kFrameGroup55444C, kFrameGroup55455C,
 };
 
-// 战斗专用原生载荷；只映射已消费的原+FDC，完整生产/其余字段尚未落位。
+// 战斗专用原生载荷；只映射已消费字段，不沿用原偏移，完整生产/其余字段尚未落位。
 struct BattleActorPayload {
     std::uint32_t flagsFDC;
+    std::int32_t rebirthState106C; // 497C80悬停借用、点击刷新后重取。
 };
 
 struct YobiUIData {
@@ -5871,6 +5872,12 @@ void FlushBattleEntries_43C060()
             entries[slot]->cacheIndex = -2;
         }
     }
+}
+
+const std::int32_t* BorrowBattleRebirthState106C(const YobiAction* const action) noexcept
+{
+    const auto* const payload = static_cast<const BattleActorPayload*>(action->payload);
+    return payload != nullptr ? &payload->rebirthState106C : nullptr;
 }
 
 void YobiClearUp_404D30()

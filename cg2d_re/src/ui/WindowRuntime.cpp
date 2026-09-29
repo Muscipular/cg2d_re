@@ -450,6 +450,36 @@ DialogReplyRuntimeSlots gDialogReply {};
 std::array<WindowDialogTextLine, 30> gDialogLinesCB1398 {};
 std::array<std::int16_t, 2> gDialogInputYD67B34 {};
 
+// 原D672F0七个32B记录；第七条同源D673B0/B8用于合计，4DC290也消费此表。
+struct HealingDialogRecord {
+    std::int32_t level;
+    std::int32_t health;
+    std::int32_t cost;
+    std::array<char, 17> name;
+    std::array<std::byte, 3> reserved1D;
+};
+static_assert(sizeof(HealingDialogRecord) == 32);
+static_assert(offsetof(HealingDialogRecord, cost) == 8);
+static_assert(offsetof(HealingDialogRecord, name) == 12);
+std::array<HealingDialogRecord, 7> gHealingDialogRecordsD672F0 {};
+std::int32_t gHealingDialogHealthD2DC00 = 0;
+constexpr std::array<std::int32_t, 5> gHealthImages57CBA4 {22520, 22521, 22522, 22523, 22524};
+
+// 原519680：零单独处理，其余按有符号26/51/76分档，不钳制负值。
+std::int32_t Sub_519680(const std::int32_t health)
+{
+    if (health == 0) {
+        return 0;
+    }
+    if (health < 26) {
+        return 1;
+    }
+    if (health < 51) {
+        return 2;
+    }
+    return health < 76 ? 3 : 4;
+}
+
 // 原57C24C目标的内联矩形；同值异地址仍分别存储，见窗口SPEC。
 WindowDragRect gDragRects561998[] {{0, 0, 330, 25}, {315, 0, 20, 92}};
 WindowDragRect gDragRects561F38[] {{10, 0, 230, 33}, {243, 5, 18, 79}};
@@ -5323,6 +5353,128 @@ login::YobiAction* Sub_49DF30(
         lines, lineHeight, gDialogReply.firstLine, inputHeight != 0 ? 1 : 0,
         inputHeight != 0 ? gDialogInputYD67B34.data() : nullptr,
         columns, 2, 0, &Sub_49DA30, nullptr, 1, 0);
+}
+
+std::int32_t Sub_49E1D0(
+    WindowInstance* const window, const std::int32_t button,
+    std::int32_t row, const std::int32_t)
+{
+    static_cast<void>(login::detail::Sub_49C5C0(static_cast<std::int16_t>(window->width)));
+    const std::int32_t visibleLines = login::detail::Sub_49C5E0(
+        static_cast<std::int16_t>(window->height), 1, 16);
+    if (button != 0) {
+        std::strcpy(gHoverTextD68AE8.data(), "\xA4\xA3\xAA\x76\xC0\xF8\xA4\x46\xA1\x43");
+    }
+    std::array<char, 64> buffer;
+    for (std::int32_t index = 0; index < 7; ++index) {
+        if (gHealingDialogRecordsD672F0[index].level != 0) {
+            std::sprintf(buffer.data(), "%7d G", gHealingDialogRecordsD672F0[index].cost);
+            static_cast<void>(render::DrawText_456780(
+                static_cast<std::int16_t>(window->x + 336),
+                static_cast<std::int16_t>(window->y + index * 16 + 52),
+                3, 0, 0, buffer.data(), 0, static_cast<std::int8_t>(login::detail::gValueD69768)));
+            if (index < 6) {
+                const std::int32_t imageIndex = Sub_519680(gHealingDialogRecordsD672F0[index].health);
+                static_cast<void>(login::detail::DrawGraphic(
+                    window->x + 68, window->y + index * 16 + 60,
+                    223, gHealthImages57CBA4[imageIndex], 0, nullptr));
+            }
+        }
+    }
+    std::sprintf(buffer.data(), "               \xA9\xD2\xAB\xF9\xAA\xF7 %7d \xAA\xF7\xB9\xF4",
+        world::detail::ReadPlayerValueFC());
+    static_cast<void>(render::DrawText_456780(
+        static_cast<std::int16_t>(window->x + 24),
+        static_cast<std::int16_t>(window->y + 7 * 16 + 68),
+        3, 0, 0, buffer.data(), 0, static_cast<std::int8_t>(login::detail::gValueD69768)));
+    if (row >= visibleLines) {
+        row = -1;
+    }
+    // row=-1时原前缀读取无论为何值都仍得到-1，只消去这次无结果读取。
+    if (row != -1 && gDialogLinesCB1398[row].text[0] == '\0') {
+        row = -1;
+    }
+    const std::int32_t first = gDialogReply.firstLine;
+    if (row >= first && row <= 8) {
+        const char* text;
+        if (row == 8) {
+            text = gHealingDialogHealthD2DC00 != 0
+                ? "\xBD\xD0\xA8\x44\xAA\x76\xC0\xF8\xA9\xD2\xA6\xB3\xA8\xFC\xB6\xCB"
+                  "\xAA\xBA\xA4\x48\xAA\xAB\xA1\x43"
+                : "\xA8\x53\xA6\xB3\xA8\xFC\xB6\xCB\xAA\xBA\xA4\x48\xAA\xAB\xA1\x43";
+        } else {
+            text = gHealingDialogRecordsD672F0[row - first].health != 0
+                ? "\xBD\xD0\xA8\x44\xAA\x76\xC0\xF8\xA6\xB9\xA4\x48\xAA\xAB"
+                  "\xAA\xBA\xB6\xCB\xB6\xD5\xA1\x43"
+                : "\xA6\xB9\xA4\x48\xAA\xAB\xA8\x53\xA6\xB3\xA8\xFC\xB6\xCB\xA1\x43";
+        }
+        std::strcpy(gHoverTextD68AE8.data(), text);
+    }
+    return 0;
+}
+static_assert(std::is_same_v<decltype(&Sub_49E1D0), WindowDialogFrameCallback>);
+
+login::YobiAction* Sub_49E400(
+    const std::int32_t x, const std::int32_t y,
+    const std::int32_t width, const std::int32_t height,
+    const std::int32_t imageNo, const std::int32_t,
+    const std::int32_t request, const std::int32_t target, const char* const text)
+{
+    Sub_49C4D0();
+    gDialogReply.type = world::detail::gValue581800;
+    gDialogReply.request = request;
+    gDialogReply.target = target;
+    for (auto& record : gHealingDialogRecordsD672F0) {
+        record.level = 0;
+    }
+    std::int32_t totalCost = 0;
+    std::int32_t field = 1;
+    gHealingDialogHealthD2DC00 = 0;
+    std::array<char, 512> buffer;
+    char* const name = buffer.data() + 256;
+    for (std::int32_t index = 0; index < 6; ++index) {
+        auto& record = gHealingDialogRecordsD672F0[index];
+        record.level = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
+        if (record.level < 0) {
+            record.level = 0;
+            break;
+        }
+        record.health = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
+        static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', field++, 255, name));
+        input::UnescapeLegacyTextAndNotify_52D2F0(name);
+        std::strcpy(record.name.data(), std::strlen(name) > 16 ? "???" : name);
+        const std::int32_t cost = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
+        const std::int32_t totalHealth = gHealingDialogHealthD2DC00;
+        record.cost = cost;
+        totalCost += cost;
+        gHealingDialogHealthD2DC00 = totalHealth + record.health;
+    }
+    gHealingDialogRecordsD672F0[6].level = 1;
+    gHealingDialogRecordsD672F0[6].cost = totalCost;
+    std::sprintf(buffer.data(), "         \xBD\xD0\xBF\xEF\xBE\xDC\xAA\x76\xC0\xF8\xB9\xEF\xB6\x48");
+    std::strcpy(gDialogLinesCB1398[0].text.data(), buffer.data());
+    std::sprintf(buffer.data(), "   Health   LV        Name             Gold");
+    std::strcpy(gDialogLinesCB1398[1].text.data(), buffer.data());
+    for (std::int32_t index = 0; index < 6; ++index) {
+        const auto& record = gHealingDialogRecordsD672F0[index];
+        if (record.level != 0) {
+            std::sprintf(buffer.data(), "           %3d  %-16s", record.level, record.name.data());
+            std::strcpy(gDialogLinesCB1398[index + 2].text.data(), buffer.data());
+        } else {
+            gDialogLinesCB1398[index + 2].text[0] = '\0';
+        }
+    }
+    std::sprintf(buffer.data(), "           \xA7\xB9\xBE\xE3\xAA\x76\xC0\xF8");
+    std::strcpy(gDialogLinesCB1398[8].text.data(), buffer.data());
+    buffer[0] = '\0'; // 原String1@D68A7C空格式的结果，不借用593850。
+    std::strcpy(gDialogLinesCB1398[9].text.data(), buffer.data());
+    std::strcpy(gDialogLinesCB1398[10].text.data(), input::LegacyText593850());
+    gDialogReply.firstLine = 2;
+    const std::int32_t columns = login::detail::Sub_49C5C0(static_cast<std::int16_t>(width));
+    const std::int32_t first = gDialogReply.firstLine;
+    return Sub_49C600(
+        x, y, width, height, imageNo, 2, gDialogLinesCB1398.data(), first + 9,
+        16, first, 0, nullptr, columns, 2, 0, &Sub_49DA30, &Sub_49E1D0, 1, 0);
 }
 
 std::int32_t Sub_499930(const std::int32_t, const std::int32_t state)

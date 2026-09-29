@@ -233,6 +233,12 @@ login::YobiAction* Sub_49DF30(
     std::int32_t x, std::int32_t y, std::int32_t width, std::int32_t height,
     std::int32_t imageNo, std::int32_t buttons, std::int32_t request,
     std::int32_t target, char* text); // 原位文本处理，借用共享行表创建常规对话。
+std::int32_t Sub_49E1D0(
+    WindowInstance* window, std::int32_t button, std::int32_t row, std::int32_t unusedEvents);
+login::YobiAction* Sub_49E400(
+    std::int32_t x, std::int32_t y, std::int32_t width, std::int32_t height,
+    std::int32_t imageNo, std::int32_t unusedButtons, std::int32_t request,
+    std::int32_t target, const char* text); // 六治疗记录及第七合计项，共借CB1398行表。
 login::YobiAction* Sub_49C600(
     std::int32_t x, std::int32_t y, std::int32_t width, std::int32_t height,
     std::int32_t imageNo, std::int32_t buttons, WindowDialogTextLine* lines,

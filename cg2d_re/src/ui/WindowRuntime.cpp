@@ -450,6 +450,36 @@ DialogReplyRuntimeSlots gDialogReply {};
 std::array<WindowDialogTextLine, 30> gDialogLinesCB1398 {};
 std::array<std::int16_t, 2> gDialogInputYD67B34 {};
 
+// 原C9A978..C9A998，所有文本/表及回调均借用；计数保存低U8、循环按S8解释。
+struct ChoiceDialogRuntimeSlots {
+    std::int32_t type;
+    std::int32_t imageNo;
+    const char* title;
+    const char* const* lines;
+    const char* const* choices;
+    std::uint8_t lineCount;
+    std::uint8_t choiceCount;
+    const char* const* hints;
+    WindowChoiceCallback callback;
+    std::uint8_t closeEnabled;
+};
+ChoiceDialogRuntimeSlots gChoiceDialog {};
+// CC24D4首行标题和CC2525起正文必须同源，其他NPC窗口也消费这一区域。
+std::array<WindowDialogTextLine, 30> gNpcDialogLinesCC24D4 {};
+std::array<const char*, 5> gChoiceDialogLinesD672D8 {};
+std::int32_t gShopImageC9A9A0 = 0;
+std::array<const char*, 3> gShopChoicesCB1DC8 {};
+std::array<const char*, 3> gShopHintsD2F738 {};
+std::array<std::int8_t, 3> gShopCommandsD64E10 {};
+constexpr std::array<const char*, 3> kShopChoices57E6B8 {
+    "\xB6\x52", "\xBD\xE6", "\xA4\xA3\xA5\xCE\xA4\x46",
+};
+constexpr std::array<const char*, 3> kShopHints57E6C4 {
+    "\xA6\x62\xB3\x6F\xAE\x61\xA9\xB1\xB6\x52\xAA\xAB\xAB\x7E\xA1\x43",
+    "\xA6\x62\xB3\x6F\xAE\x61\xA9\xB1\xBD\xE6\xAA\xAB\xAB\x7E\xA1\x43",
+    "\xC1\xD9\xAC\x4F\xBA\xE2\xA4\x46\xA1\x43",
+};
+
 // 原D672F0七个32B记录；第七条同源D673B0/B8用于合计，4DC290也消费此表。
 struct HealingDialogRecord {
     std::int32_t level;
@@ -5475,6 +5505,186 @@ login::YobiAction* Sub_49E400(
     return Sub_49C600(
         x, y, width, height, imageNo, 2, gDialogLinesCB1398.data(), first + 9,
         16, first, 0, nullptr, columns, 2, 0, &Sub_49DA30, &Sub_49E1D0, 1, 0);
+}
+
+login::YobiAction* Sub_49FCA0(
+    const char* const title, const std::int32_t imageNo,
+    const char* const* const lines, const std::uint8_t lineCount,
+    const char* const* const choices, const std::uint8_t choiceCount,
+    const char* const* const hints, const WindowChoiceCallback callback)
+{
+    gChoiceDialog.type = world::detail::gValue581800;
+    gChoiceDialog.title = title;
+    gChoiceDialog.lines = lines;
+    gChoiceDialog.imageNo = imageNo;
+    gChoiceDialog.choiceCount = choiceCount;
+    WindowInstance* const previous = gWindowStates[52].window;
+    gChoiceDialog.lineCount = lineCount;
+    gChoiceDialog.choices = choices;
+    gChoiceDialog.callback = callback;
+    gChoiceDialog.hints = hints;
+    if (previous != nullptr) {
+        previous->state |= 0x8000u;
+        gChoiceDialog.closeEnabled = 0;
+    }
+    return CreateWindowAnimation_475AA0(52, 1, 0, nullptr);
+}
+
+std::int32_t Sub_49FD20(const std::int32_t value)
+{
+    if (value == -1) {
+        auto* const title = static_cast<WindowTextData*>(gCurrentWindow->elements[0].data);
+        std::strcpy(title->text, gChoiceDialog.title);
+        const std::int32_t measured = login::detail::TextMeasure(gChoiceDialog.title, 1);
+        WindowInstance* const window = gCurrentWindow;
+        window->elements[0].x = ((window->width - measured) >> 1) + 6;
+        auto* animation = static_cast<WindowAnimationData*>(gCurrentWindow->elements[1].data);
+        login::detail::SetYobiActionField2A8(animation->action, gChoiceDialog.imageNo);
+        animation = static_cast<WindowAnimationData*>(gCurrentWindow->elements[1].data);
+        login::detail::SetYobiActionField2B8(animation->action, 5);
+        const std::uint8_t count = gChoiceDialog.choiceCount;
+        gCurrentWindow->elements[2].height =
+            count != 0 ? 14 * std::bit_cast<std::int8_t>(count) - 2 : 0;
+        gChoiceDialog.closeEnabled = 1;
+    }
+    if (Sub_4D3040(2, 2) != 0) {
+        gCurrentWindow->state |= 0x8000u;
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+        static_cast<void>(gChoiceDialog.callback(-1));
+    }
+    return 1;
+}
+
+std::int32_t Sub_49FE40(const std::int32_t)
+{
+    DrawCurrentWindow_4729B0();
+    for (std::int32_t row = 0; row < std::bit_cast<std::int8_t>(gChoiceDialog.lineCount); ++row) {
+        const char* const text = gChoiceDialog.lines[row];
+        if (text != nullptr) {
+            WindowInstance* const window = gCurrentWindow;
+            static_cast<void>(render::DrawText_456780(
+                static_cast<std::int16_t>(window->x + 87),
+                static_cast<std::int16_t>(window->y + 40 + row * 13),
+                3, 12, 0, text, 0, 0));
+        }
+    }
+    for (std::int32_t row = 0; row < std::bit_cast<std::int8_t>(gChoiceDialog.choiceCount); ++row) {
+        const char* const text = gChoiceDialog.choices[row];
+        if (text != nullptr) {
+            WindowInstance* const window = gCurrentWindow;
+            const auto& element = window->elements[2];
+            static_cast<void>(render::DrawText_456780(
+                static_cast<std::int16_t>(window->x + element.x),
+                static_cast<std::int16_t>(window->y + element.y + row * 14),
+                3, 12, 0, text, 0, 0));
+        }
+    }
+    WindowInstance* const window = gCurrentWindow;
+    login::detail::DrawNineGrid_49BE00(245300, static_cast<std::int16_t>(window->x),
+        static_cast<std::int16_t>(window->y), static_cast<std::int16_t>(window->width),
+        static_cast<std::int16_t>(window->height), 223, -1,
+        std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}), 74, 54);
+    if (world::detail::gValue581800 != gChoiceDialog.type) {
+        gCurrentWindow->state |= 0x8000u;
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+    }
+    static_cast<void>(render::ClearTextQueueTail_456D50(3));
+    return 1;
+}
+
+void Sub_49FF70()
+{
+    if (gChoiceDialog.closeEnabled != 0 && world::detail::gValue581800 == gChoiceDialog.type) {
+        world::detail::gValue581800 = -1;
+    }
+}
+
+std::int32_t Sub_49FFA0(const std::int32_t, const std::int32_t state)
+{
+    if ((state & 1) == 0) {
+        return 0;
+    }
+    for (std::int32_t index = 0;
+         index < std::bit_cast<std::int8_t>(gChoiceDialog.choiceCount); ++index) {
+        WindowInstance* const window = gCurrentWindow;
+        const auto& element = window->elements[2];
+        const auto x = static_cast<std::int16_t>(window->x + element.x);
+        const auto y = static_cast<std::int16_t>(window->y + element.y + index * 14);
+        if (login::detail::Sub_5049A0(x, y, x + element.width, y + 12, -1) == 0) {
+            continue;
+        }
+        login::detail::DrawGraphicHover(
+            static_cast<std::uint16_t>(x - 2), static_cast<std::uint16_t>(y - 2),
+            static_cast<std::uint16_t>(x + gCurrentWindow->elements[2].width + 2),
+            static_cast<std::uint16_t>(y + 14), 223, login::detail::gValueD69768, 0);
+        std::strcpy(gHoverTextD68AE8.data(), gChoiceDialog.hints[index]);
+        if ((platform::gLegacyMouseState.edgeButtons & 1u) != 0) {
+            const WindowChoiceCallback callback = gChoiceDialog.callback;
+            if (callback != nullptr) {
+                static_cast<void>(callback(index));
+            }
+            static_cast<void>(audio::PlaySe_52C450(79, 320));
+            gCurrentWindow->state |= 0x8000u;
+            break;
+        }
+    }
+    return 1;
+}
+
+std::int32_t Sub_4A00C0(const std::int32_t index)
+{
+    if (index < 0 || index > 1) {
+        return index;
+    }
+    std::array<char, 32> buffer;
+    std::sprintf(buffer.data(), "%d", static_cast<std::int32_t>(gShopCommandsD64E10[index]));
+    input::EscapeLegacyTextAndNotify_52D2D0(buffer.data(), buffer.data() + 16, 15);
+    const std::int32_t target = world::detail::gDialogTargetD2DE6C;
+    const std::int32_t request = world::detail::gDialogRequestCC21E0;
+    const std::int32_t y =
+        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+    const std::int32_t x =
+        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+    return network::Sub_512620(
+        platform::gConnectionSocket, x, y, request, target, 0, buffer.data() + 16);
+}
+static_assert(std::is_same_v<decltype(&Sub_4A00C0), WindowChoiceCallback>);
+
+login::YobiAction* Sub_4A0140(const char* const text)
+{
+    gShopImageC9A9A0 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
+    char* const title = gNpcDialogLinesCC24D4[0].text.data();
+    static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 2, 21, title));
+    input::UnescapeLegacyTextAndNotify_52D2F0(title);
+    std::array<char, 256> body;
+    static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 3, 255, body.data()));
+    input::UnescapeLegacyTextAndNotify_52D2F0(body.data());
+    for (std::int32_t row = 0; row < 5; ++row) {
+        char* const line = gNpcDialogLinesCC24D4[row + 1].text.data();
+        static_cast<void>(input::ExtractLegacyLine_503AB0(line, 81, body.data(), row, 20));
+        gChoiceDialogLinesD672D8[row] = line;
+    }
+    const auto mask = static_cast<std::uint8_t>(network::ParseDelimitedInteger_52CFA0(text, '|', 4));
+    std::uint8_t count = 0;
+    if ((mask & 1u) != 0) {
+        gShopChoicesCB1DC8[0] = kShopChoices57E6B8[0];
+        gShopHintsD2F738[0] = kShopHints57E6C4[0];
+        gShopCommandsD64E10[0] = 1;
+        count = 1;
+    }
+    if ((mask & 2u) != 0) {
+        gShopChoicesCB1DC8[count] = kShopChoices57E6B8[1];
+        gShopHintsD2F738[count] = kShopHints57E6C4[1];
+        gShopCommandsD64E10[count] = 2;
+        ++count;
+    }
+    gShopChoicesCB1DC8[count] = kShopChoices57E6B8[2];
+    const std::int32_t imageNo = gShopImageC9A9A0;
+    gShopHintsD2F738[count] = kShopHints57E6C4[2];
+    gShopCommandsD64E10[count] = 3;
+    return Sub_49FCA0(title, imageNo, gChoiceDialogLinesD672D8.data(), 5,
+        gShopChoicesCB1DC8.data(), static_cast<std::uint8_t>(count + 1),
+        gShopHintsD2F738.data(), &Sub_4A00C0);
 }
 
 std::int32_t Sub_499930(const std::int32_t, const std::int32_t state)

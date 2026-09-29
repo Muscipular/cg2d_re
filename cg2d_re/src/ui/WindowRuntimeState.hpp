@@ -220,6 +220,14 @@ using WindowDialogReplyCallback = std::int32_t (*)(
     std::int32_t button, std::int32_t row, char* const* texts, std::uint8_t inputCount);
 using WindowDialogFrameCallback = std::int32_t (*)(
     WindowInstance* window, std::int32_t button, std::int32_t row, std::int32_t events);
+using WindowChoiceCallback = std::int32_t (*)(std::int32_t index);
+login::YobiAction* Sub_49FCA0(
+    const char* title, std::int32_t imageNo, const char* const* lines, std::uint8_t lineCount,
+    const char* const* choices, std::uint8_t choiceCount,
+    const char* const* hints, WindowChoiceCallback callback); // 窗口52只借用文本及回调。
+std::int32_t Sub_49FFA0(std::int32_t unusedIndex, std::int32_t state);
+std::int32_t Sub_4A00C0(std::int32_t index); // 商店回复仅索引0..1发送，其他返回原索引。
+login::YobiAction* Sub_4A0140(const char* text); // 商店图号/标题/五行正文及买卖选择。
 void Sub_49C4D0(); // 只清内嵌图号/计数及窗口36十元素可见性。
 void Sub_49C510(
     std::uint8_t used, std::int32_t imageNo, std::uint8_t direction,

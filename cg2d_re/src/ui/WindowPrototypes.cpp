@@ -48,6 +48,11 @@ WindowGraphicData gWindowGraphic56CA58 {0x3BE54, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic56CA70 {0x3BE51, 0, 0, 0, 0, 0xFFFFFFFFu};
 std::int32_t gWindowAnimationImageD6780C = 0;
 
+WindowTextPrototype gWindowText56D828 {
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, input::LegacyText593850(),
+};
+std::int32_t gWindowAnimationImage56D830 = 100000;
+
 WindowGraphicData gWindowGraphic563080 {243000, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic563098 {244309, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic5630B0 {243090, 0, 0, 0, 0, 0xFFFFFFFFu};
@@ -339,6 +344,12 @@ WindowElementPrototype gWindowElements56CDB0[19] {
     {0, 40, 95, 200, 13, 1, {.unusedValue = 0}, &Sub_49EF60},
     {0, 40, 115, 200, 13, 1, {.unusedValue = 0}, &Sub_49EF60},
     {0, 40, 135, 200, 13, 1, {.unusedValue = 0}, &Sub_49EF60},
+};
+
+WindowElementPrototype gWindowElements56D838[3] {
+    {3, 40, 10, 0, 0, 1, {.text = &gWindowText56D828}, &Sub_4B0F10},
+    {2, 40, 135, 0, 0, 1, {.animationImageNo = &gWindowAnimationImage56D830}, &Sub_4B0F10},
+    {0, 99, 142, 108, 0, 1, {.unusedValue = 0}, &Sub_49FFA0},
 };
 
 WindowElementPrototype gWindowElements571160[38] {

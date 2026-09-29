@@ -282,6 +282,16 @@ void SetBattleGear_422C20(YobiAction* action, std::int32_t imageNo, std::int32_t
 // 原两caller的index均0/1；type6不更新已有图号，type3..5仅首次创建设置缩放。
 void SetBattleAuxGear_422C90(
     YobiAction* action, std::int32_t imageNo, std::int32_t type, std::int32_t index);
+void UpdateBattleOneShotEffect_419FA0(YobiAction* action); // PlayFrame(1)严格返回1才标死。
+void UpdateBattleHitEffect_41F570(YobiAction* action); // 计数达到上限后仍执行投影尾。
+YobiAction* NewBattleHitEffect_41F5B0(
+    YobiAction* parent, std::int32_t offsetX, std::int32_t offsetY,
+    std::int32_t lifetime, std::int32_t imageNo);
+void UpdateBattleAttachedEffect_41FB20(YobiAction* action);
+YobiAction* NewBattleAttachedEffect_41FBE0(YobiAction* parent, std::int32_t mode); // 已有槽只换图并返回空。
+YobiAction* NewBattleScreenEffect_421610(std::int32_t x, std::int32_t y);
+void UpdateBattleScreenEmitter_4216B0(YobiAction* action); // 原rand先Y后X，生成后重取阶段并递减。
+YobiAction* NewBattleScreenEmitter_421700(std::int32_t phase);
 
 // 原1C起的16B效果值记录；仅传数值，不含底层对象指针。
 struct BattleEntryEffectRecord {

@@ -438,6 +438,22 @@ std::uint8_t gValueD67AFC = 0;
 std::uint8_t gValueD67AFD = 0;
 std::uint8_t gValueD67AFE = 0;
 std::uint8_t gValueD67B24 = 0;
+std::int32_t gUsingSkillIndexD2F32C = 0;
+std::int32_t gUsingSkillLevelCA0AC4 = 0;
+std::int32_t gSkillTargetKindCF4A10 = 0;
+std::int32_t gSkillTargetCountCA0004 = 0;
+std::int32_t gSkillTargetPageC8A974 = 0;
+std::int32_t gSkillTargetPageCountCA0178 = 0;
+std::int32_t gSkillSendModeC8A970 = 0;
+std::int32_t gSkillSelectedTargetCC4B1C = 0;
+std::int32_t gSkillWindowModeD672AC = 0;
+std::int32_t gSkillWindowIndexD2EA60 = 0;
+std::array<std::array<char, 17>, 10> gSkillTargetNamesCB0550 {};
+std::array<std::int32_t, 10> gSkillTargetKindsD2F75C {};
+std::array<const char*, 10> gSkillTargetNameViewsD45F98 {};
+std::array<std::uint8_t, 10> gSkillTargetColorsCB1DE4 {};
+std::uint8_t gSkillTargetPendingC8AF5F = 0;
+std::array<char, 20> gSkillTargetNameD2F748 {};
 
 namespace {
 
@@ -493,22 +509,6 @@ static_assert(sizeof(ItemUseStatusRecord) == 52);
 std::array<ItemUseStatusRecord, 6> gItemUseStatusRecordsCB10D8 {};
 std::int32_t gItemUseStatusCountCC4D44 = 0;
 std::array<WindowStatusChoiceRecord, 6> gItemUseStatusViewsCB1278 {};
-std::int32_t gUsingSkillIndexD2F32C = 0;
-std::int32_t gUsingSkillLevelCA0AC4 = 0;
-std::int32_t gSkillTargetKindCF4A10 = 0;
-std::int32_t gSkillTargetCountCA0004 = 0;
-std::int32_t gSkillTargetPageC8A974 = 0;
-std::int32_t gSkillTargetPageCountCA0178 = 0;
-std::int32_t gSkillSendModeC8A970 = 0;
-std::int32_t gSkillSelectedTargetCC4B1C = 0;
-std::int32_t gSkillWindowModeD672AC = 0;
-std::int32_t gSkillWindowIndexD2EA60 = 0;
-std::array<std::array<char, 17>, 10> gSkillTargetNamesCB0550 {};
-std::array<std::int32_t, 10> gSkillTargetKindsD2F75C {};
-std::array<const char*, 10> gSkillTargetNameViewsD45F98 {};
-std::array<std::uint8_t, 10> gSkillTargetColorsCB1DE4 {};
-std::uint8_t gSkillTargetPendingC8AF5F = 0;
-std::array<char, 20> gSkillTargetNameD2F748 {};
 
 // 原D046D8连续浏览区；仅复用值类型布局，不与玩家或交易区共享存储。
 struct StallBrowseData {

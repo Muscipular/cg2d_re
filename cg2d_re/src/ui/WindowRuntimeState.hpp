@@ -422,6 +422,8 @@ std::int32_t Sub_4C25B0(std::int32_t index, std::int32_t state); // 下一行。
 std::int32_t Sub_4C2630(std::int32_t index, std::int32_t state); // 上一页，真实入口为4C2630。
 std::int32_t Sub_4C26B0(std::int32_t index, std::int32_t state); // 下一页。
 std::int32_t Sub_4C2760(std::int32_t index, std::int32_t state); // 滚轮，仅回写分页。
+std::int32_t Sub_4C27B0(std::int32_t index, std::int32_t state); // 减数量，无used门禁，事件尾清消息。
+std::int32_t Sub_4C28C0(std::int32_t index, std::int32_t state); // 加数量，used/limit门禁，不清消息。
 std::int32_t Sub_4C33B0(
     std::int32_t index, std::int32_t page, std::int32_t unused); // 保留caller第三实参。
 void Sub_4C39A0(); // 窗口70五条剩余量文本。
@@ -437,6 +439,8 @@ std::int32_t Sub_4C4740(std::int32_t index, std::int32_t state); // 下一行。
 std::int32_t Sub_4C47C0(std::int32_t index, std::int32_t state); // 上一页。
 std::int32_t Sub_4C4840(std::int32_t index, std::int32_t state); // 下一页。
 std::int32_t Sub_4C48F0(std::int32_t index, std::int32_t state); // 滚轮，仅回写分页。
+std::int32_t Sub_4C4940(std::int32_t index, std::int32_t state); // 减数量，窗口70独立脏标。
+std::int32_t Sub_4C4A50(std::int32_t index, std::int32_t state); // 加数量，零上限采用交换文案。
 std::int32_t Sub_4C54D0(
     std::int32_t index, std::int32_t page, std::int32_t unused); // 共用D303FC提示键。
 std::int32_t Sub_4BA950(std::int32_t index, std::int32_t state); // 取消发送command2，发送后关闭。

@@ -16395,6 +16395,83 @@ std::int32_t Sub_4C2760(const std::int32_t index, const std::int32_t state)
     return 0;
 }
 
+std::int32_t Sub_4C27B0(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    const bool hover = (state & 1) != 0;
+    WindowCrystalItem* const item = &gWindow69ItemsCB2230[gWindow69ScrollD2D604 + index - 46];
+    std::int32_t consumed = 0;
+    if (hover) {
+        const char* const hint = item->selectedCount > 0
+            ? "\xB4\xEE\xA4\xD6\xAA\xAB\xAB\x7E\xAA\xBA\xBC\xC6\xB6\x71\xA1\x43"
+            : "\xB5\x4C\xAA\x6B\xA6\x41\xB4\xEE\xA4\xD6\xAA\xAB\xAB\x7E\xAA\xBA\xBC\xC6\xB6\x71\xA4\x46\xA1\x43";
+        std::strcpy(gHoverTextD68AE8.data(), hint);
+    }
+    if ((state & 0x400) != 0) {
+        const std::int32_t count = item->selectedCount;
+        if (count > 0) {
+            item->selectedCount = count - 1;
+            gWindow69DirtyD67B9C = 1;
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        } else {
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        }
+        gWindow69Message580854 = -1;
+        consumed = 1;
+    }
+    graphic->imageNo = 243006;
+    if (hover) {
+        graphic->imageNo = 243008;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 243007;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_4C28C0(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    const bool hover = (state & 1) != 0;
+    WindowCrystalItem* const item = &gWindow69ItemsCB2230[gWindow69ScrollD2D604 + index - 51];
+    std::int32_t consumed = 0;
+    if (hover) {
+        const std::int32_t limit = item->limitC4C;
+        const std::int32_t count = item->selectedCount;
+        const char* hint;
+        if (count < limit) {
+            hint = "\xBC\x57\xA5\x5B\xAA\xAB\xAB\x7E\xAA\xBA\xBC\xC6\xB6\x71\xA1\x43";
+        } else if (limit == 0) {
+            hint = "\xA4\x77\xB8\x67\xBD\xE6\xA7\xB9\xA4\x46\xA1\x49";
+        } else {
+            hint = "\xB5\x4C\xAA\x6B\xA6\x41\xBC\x57\xA5\x5B\xAA\xAB\xAB\x7E\xAA\xBA\xBC\xC6\xB6\x71\xA4\x46\xA1\x43";
+        }
+        std::strcpy(gHoverTextD68AE8.data(), hint);
+    }
+    if ((state & 0x400) != 0) {
+        if (item->used != 0) {
+            const std::int32_t count = item->selectedCount;
+            const std::int32_t limit = item->limitC4C;
+            if (count < limit) {
+                item->selectedCount = count + 1;
+                gWindow69DirtyD67B9C = 1;
+                static_cast<void>(audio::PlaySe_52C450(51, 320));
+            } else {
+                static_cast<void>(audio::PlaySe_52C450(55, 320));
+            }
+        }
+        consumed = 1;
+    }
+    graphic->imageNo = 243003;
+    if (hover) {
+        graphic->imageNo = 243005;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 243004;
+    }
+    return consumed;
+}
+
 std::int32_t Sub_4C29E0(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t selected = gWindow69ScrollD2D604 + index - 56;
@@ -16910,6 +16987,83 @@ std::int32_t Sub_4C48F0(const std::int32_t index, const std::int32_t state)
             Sub_4743B0(window->elements + index - 5, position, count - 5, wheel);
     }
     return 0;
+}
+
+std::int32_t Sub_4C4940(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    const bool hover = (state & 1) != 0;
+    WindowCrystalItem* const item = &gWindow70ItemsD30428[gWindow70ScrollCC4B68 + index - 46];
+    std::int32_t consumed = 0;
+    if (hover) {
+        const char* const hint = item->selectedCount > 0
+            ? "\xB4\xEE\xA4\xD6\xAA\xAB\xAB\x7E\xAA\xBA\xBC\xC6\xB6\x71\xA1\x43"
+            : "\xB5\x4C\xAA\x6B\xA6\x41\xB4\xEE\xA4\xD6\xAA\xAB\xAB\x7E\xAA\xBA\xBC\xC6\xB6\x71\xA4\x46\xA1\x43";
+        std::strcpy(gHoverTextD68AE8.data(), hint);
+    }
+    if ((state & 0x400) != 0) {
+        const std::int32_t count = item->selectedCount;
+        if (count > 0) {
+            item->selectedCount = count - 1;
+            gWindow70DirtyD67BA8 = 1;
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        } else {
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        }
+        gWindow70Message580864 = -1;
+        consumed = 1;
+    }
+    graphic->imageNo = 243006;
+    if (hover) {
+        graphic->imageNo = 243008;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 243007;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_4C4A50(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    const bool hover = (state & 1) != 0;
+    WindowCrystalItem* const item = &gWindow70ItemsD30428[gWindow70ScrollCC4B68 + index - 51];
+    std::int32_t consumed = 0;
+    if (hover) {
+        const std::int32_t limit = item->limitC4C;
+        const std::int32_t count = item->selectedCount;
+        const char* hint;
+        if (count < limit) {
+            hint = "\xBC\x57\xA5\x5B\xAA\xAB\xAB\x7E\xAA\xBA\xBC\xC6\xB6\x71\xA1\x43";
+        } else if (limit == 0) {
+            hint = "\xA4\x77\xB5\x4C\xB0\xD3\xAB\x7E\xA5\xE6\xB4\xAB\x21";
+        } else {
+            hint = "\xB5\x4C\xAA\x6B\xA6\x41\xBC\x57\xA5\x5B\xAA\xAB\xAB\x7E\xAA\xBA\xBC\xC6\xB6\x71\xA4\x46\xA1\x43";
+        }
+        std::strcpy(gHoverTextD68AE8.data(), hint);
+    }
+    if ((state & 0x400) != 0) {
+        if (item->used != 0) {
+            const std::int32_t count = item->selectedCount;
+            const std::int32_t limit = item->limitC4C;
+            if (count < limit) {
+                item->selectedCount = count + 1;
+                gWindow70DirtyD67BA8 = 1;
+                static_cast<void>(audio::PlaySe_52C450(51, 320));
+            } else {
+                static_cast<void>(audio::PlaySe_52C450(55, 320));
+            }
+        }
+        consumed = 1;
+    }
+    graphic->imageNo = 243003;
+    if (hover) {
+        graphic->imageNo = 243005;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 243004;
+    }
+    return consumed;
 }
 
 std::int32_t Sub_4C4B70(const std::int32_t index, const std::int32_t state)

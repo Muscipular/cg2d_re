@@ -22519,6 +22519,130 @@ std::int32_t Sub_49BDB0(const std::int32_t)
     return 1;
 }
 
+namespace {
+
+constexpr char kCraftDecorate586784[] = "\xB8\xCB\xB9\xA2";
+constexpr char kCraftPetDecorate5867AC[] = "\xB8\xCB\xB9\xA2\xC3\x64\xAA\xAB\xB8\xCB\xB3\xC6";
+constexpr char kCraftMagicCost58678C[] = "                     \xC5\x5D\xA4\x4F%3d";
+constexpr char kCraftMaterials58681C[] = "\xBD\xD0\xBF\xEF\xBE\xDC\xBB\x73\xA7\x40\xA7\xF7\xAE\xC6\xA1\x43";
+constexpr char kCraftFood5867FC[] = "                   \xAE\xC6\xB2\x7A/\xC3\xC4\xA4\xF4";
+constexpr char kCraftWood5867DC[] = "                        \xA4\xEC\xA7\xF7";
+constexpr char kCraftCloth5867BC[] = "                        \xA5\xAC\xAE\xC6";
+constexpr char kCraftRefine586860[] = "\xBA\xEB\xB7\xD2";
+
+// 仅模式6/15/12/9共有的原释放/清表序列，进入时仍使用旧模式释放。
+void ResetCraftMaterialMode()
+{
+    for (std::int32_t index = 0; index < 6; ++index) {
+        static_cast<void>(Sub_47DC20(index));
+    }
+    static_cast<void>(Sub_47DC20(6));
+    gItemMarksD67290.fill(0);
+    gItemMarksD68A90.fill(0);
+    gMaterialHoverSlotsCB0A8C.fill(-2);
+    gMaterialSingleHoverCB0AA4 = -2;
+    gMaterialOccupancyCC4894.fill(0);
+    gMaterialIndicesCA0458.fill(-1);
+    gSelectedSlotsCA0A90.fill(-1);
+    gSelectionCountsD66E0C.fill(0);
+    gSelectionImagesCF3FF4.fill(-1);
+}
+
+// 四新增模式共用的元素写序；计时、动作创建与模式发布仍留在各原入口。
+void PrepareCraftMaterialElements(WindowInstance* const window)
+{
+    static_cast<WindowGraphicData*>(window->elements[29].data)->imageNo = 0x3BA38;
+    static_cast<WindowGraphicData*>(window->elements[14].data)->imageNo = 0x3BA3E;
+    for (std::int32_t index = 15; index <= 20; ++index) {
+        window->elements[index].visible = 1;
+        window->elements[index].mouseCallback = Sub_483EB0;
+    }
+    window->elements[24].visible = 1;
+    window->elements[22].visible = 0;
+    window->elements[21].visible = 0;
+    window->elements[23].visible = 0;
+    window->elements[25].visible = 0;
+    window->elements[26].visible = 0;
+    window->elements[27].visible = 0;
+    static_cast<WindowAnimationData*>(window->elements[4].data)->value04 = 0;
+    login::detail::SetYobiActionField2B0(
+        static_cast<WindowAnimationData*>(window->elements[4].data)->action, 0);
+    window->elements[6].visible = 0;
+    window->elements[7].visible = 0;
+    window->elements[8].visible = 0;
+    gCraftDisplayImageCB2204 = -1;
+}
+
+} // namespace
+
+WindowAnimationData* Sub_47FAE0(WindowInstance* const window)
+{
+    ResetCraftMaterialMode();
+    std::strcpy(static_cast<WindowTextData*>(window->elements[9].data)->text, kCraftDecorate586784);
+    std::sprintf(static_cast<WindowTextData*>(window->elements[10].data)->text,
+        kCraftMagicCost58678C, 100);
+    for (std::int32_t index = 11; index <= 13; ++index) {
+        static_cast<WindowTextData*>(window->elements[index].data)->text[0] = '\0';
+    }
+    PrepareCraftMaterialElements(window);
+    static_cast<void>(Sub_47D170(
+        window, 4, 3, 5, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
+    WindowAnimationData* const result = Sub_47D220(window, 3, 5, 1, 0, 5);
+    gSelectionModeD2D650 = 6;
+    return result;
+}
+
+WindowAnimationData* Sub_47FD00(WindowInstance* const window)
+{
+    ResetCraftMaterialMode();
+    std::strcpy(static_cast<WindowTextData*>(window->elements[9].data)->text, kCraftPetDecorate5867AC);
+    std::sprintf(static_cast<WindowTextData*>(window->elements[10].data)->text,
+        kCraftMagicCost58678C, 100);
+    for (std::int32_t index = 11; index <= 13; ++index) {
+        static_cast<WindowTextData*>(window->elements[index].data)->text[0] = '\0';
+    }
+    PrepareCraftMaterialElements(window);
+    static_cast<void>(Sub_47D170(
+        window, 4, 3, 5, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
+    WindowAnimationData* const result = Sub_47D220(window, 3, 5, 1, 0, 5);
+    gSelectionModeD2D650 = 15;
+    return result;
+}
+
+WindowAnimationData* Sub_47FF20(WindowInstance* const window)
+{
+    ResetCraftMaterialMode();
+    std::strcpy(static_cast<WindowTextData*>(window->elements[9].data)->text, kCraftMaterials58681C);
+    std::strcpy(static_cast<WindowTextData*>(window->elements[10].data)->text, kCraftFood5867FC);
+    std::strcpy(static_cast<WindowTextData*>(window->elements[11].data)->text, kCraftWood5867DC);
+    std::strcpy(static_cast<WindowTextData*>(window->elements[12].data)->text, kCraftCloth5867BC);
+    std::strcpy(static_cast<WindowTextData*>(window->elements[13].data)->text, input::LegacyText593850());
+    PrepareCraftMaterialElements(window);
+    static_cast<void>(Sub_47D170(
+        window, 4, 3, 5, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
+    WindowAnimationData* const result = Sub_47D220(window, 3, 5, 1, 0, 5);
+    gSelectionModeD2D650 = 12;
+    return result;
+}
+
+WindowAnimationData* Sub_480A00(WindowInstance* const window)
+{
+    ResetCraftMaterialMode();
+    std::strcpy(static_cast<WindowTextData*>(window->elements[9].data)->text, kCraftRefine586860);
+    for (std::int32_t index = 10; index <= 13; ++index) {
+        static_cast<WindowTextData*>(window->elements[index].data)->text[0] = '\0';
+    }
+    PrepareCraftMaterialElements(window);
+    gSkillPreviewTickCF46C8 = platform::ReadTickCount32();
+    static_cast<void>(Sub_47D170(
+        window, 4, 3, 5, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
+    WindowAnimationData* const result = gSkillSendModeC8A970 != 0
+        ? Sub_47D220(window, 3, 5, 1, 0, 5)
+        : Sub_47D220(window, 3, 5, 0, 10, 5);
+    gSelectionModeD2D650 = 9;
+    return result;
+}
+
 std::int32_t Sub_483EB0(const std::int32_t index, const std::int32_t state)
 {
     render::GraphicDescriptor16 descriptor {};

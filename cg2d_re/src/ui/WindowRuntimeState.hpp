@@ -137,6 +137,10 @@ std::int32_t Sub_47D530(); // 六材料首个匹配类别，晶石读取后重�
 std::int32_t Sub_47D5B0(); // 首材料slot+8等级在晶石读取前快照。
 std::int32_t Sub_483EB0(std::int32_t index, std::int32_t state); // 六材料完整投放/换位/逐帧校验与绘制。
 WindowAnimationData* Sub_47DF50(WindowInstance* window); // 制造模式0完整初始化，逆序发布五材料需求。
+WindowAnimationData* Sub_47FAE0(WindowInstance* window); // 装饰模式6，固定魔力100。
+WindowAnimationData* Sub_47FD00(WindowInstance* window); // 宠物装备装饰模式15，独立标题。
+WindowAnimationData* Sub_47FF20(WindowInstance* window); // 模式12材料类别文本与完整六材料交互。
+WindowAnimationData* Sub_480A00(WindowInstance* window); // 精炼模式9，采样同源计时并按发送模式配置动作。
 std::int32_t Sub_4F4430(std::int32_t itemType, std::int32_t skillId); // 技能分类对应的特殊材料类别。
 void Sub_483E30(
     std::int32_t destination, std::int32_t source, std::int32_t material); // 先释放再发布材料槽/占用。

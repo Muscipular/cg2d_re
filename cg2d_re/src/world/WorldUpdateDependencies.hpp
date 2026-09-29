@@ -1152,6 +1152,16 @@ extern std::int32_t gBattleCurrentPosition5ABCA4; // 实际gMyPostion；不同�
 extern std::uint32_t gBattlePosition5ABCA8;
 extern std::int32_t gBattlePlayerActionState5ABC74; // UI发布动作完成状态，非5ABB74回合数。
 extern std::array<std::int32_t, 9> gBattleSelectionModes5ABC7C; // 496F10清九个W32，含94/98/9C。
+extern std::int32_t gBattleSelectedSkill5ABB5C; // 4974C0写技能槽，4975A0/498520重取。
+extern std::int32_t gBattleSelectedTechnique5ABC78; // 4974C0写技术槽，不是UI列表索引。
+extern std::int32_t gBattleCommandState5ABC3C; // 技能/宠物命令完成状态，498520消费。
+extern std::int32_t gBattleSkillActionCount5ABBF4;
+extern std::int32_t gBattlePetActionCount5ABBBC;
+extern std::int32_t gBattleSelectionMode5ABC70; // 与九个选择槽分别存储。
+extern std::int32_t gBattleSkillUsed5ABC68; // 497000/4975A0读取完整W32。
+extern std::int32_t gBattlePetCommandPhase553F88; // 原.data初值1，宠物命令写0/2。
+extern std::int32_t gBattleValue5ABCC0; // 两个技能开启入口清零，不猜未消费语义。
+extern login::YobiAction* gBattleCommandAction5ABC00; // 原非拥有对象引用，MarkDeath后清槽。
 extern std::uint32_t gBattleTargetFlags5ABC44; // 43C560先发布完整目标位模式，43C120后续消费。
 extern std::int32_t gBattleSelectedItem5ABC48; // 499C30发布真实物品槽，498520后续消费。
 extern std::int32_t gBattleItemTargetPending5ABCC4; // 499C30请求选目标，497100/497770处理。

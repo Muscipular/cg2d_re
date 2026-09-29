@@ -154,6 +154,14 @@ std::int32_t Sub_47CC80(std::int32_t index, std::int32_t state); // 宠物选择
 std::int32_t Sub_47CFE0(std::int32_t index, std::int32_t state); // 骑乘选择，FP不足不补失败音效。
 login::YobiAction* Sub_47A540(WindowValueCallback callback); // 设置CC4D14并创建宠物技能窗。
 login::YobiAction* Sub_47A580(WindowValueCallback callback); // 设置CC4D14并创建骑乘技能窗。
+void Sub_496AE0(); // 窗口26存在才收尾、关闭10/27/28及清三展开引用，原返回无人消费。
+void Sub_496F10(); // 先清九个选择槽，再关闭三子窗及清同源展开引用。
+void Sub_497000(); // 战斗技能快捷入口，保留actionFlags低S8门槛；原返回不用。
+void Sub_4974C0(std::int32_t skillIndex, std::int32_t technique); // CC4230真实双参数命令回调。
+std::int32_t Sub_4975A0(std::int32_t index, std::int32_t state); // 技能按钮及选目标返回技术窗。
+void Sub_497E30(std::int32_t technique); // 宠物命令，保留重复查询与负参数略过。
+void Sub_497FF0(std::int32_t technique); // 骑乘命令，清选择模式并保留骑乘快照写序。
+std::int32_t Sub_498160(std::int32_t index, std::int32_t state); // 宠物/骑乘技能窗开关。
 std::int32_t Sub_47B110(std::int32_t index, std::int32_t state); // 固定入口窗口的返回按钮。
 std::int32_t Sub_47B210(std::int32_t index, std::int32_t state); // 转生开关，发送后改同源占用字节。
 std::int32_t Sub_47C950(std::int32_t index, std::int32_t state); // 无可用宠物技能时略过，通知-1。

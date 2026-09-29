@@ -249,6 +249,14 @@ std::int32_t YobiUpdateAll_404C50();
 // 原 Yobi::MarkDeath@[0x404D00,0x404D10)，只置死亡标志并返回原指针。
 YobiAction* MarkDeath(YobiAction* action);
 
+std::uint8_t IsBattleAppendEffectSkill_43BD00(std::int32_t skill); // 原技能准入集合，不查询链。
+void AddBattleAppendEffect_43BE00(
+    std::int32_t skill, std::int32_t technique, std::int32_t position); // 匹配首节点替换，否则尾插。
+std::int32_t FindBattleAppendEffectTechnique_43BEA0(
+    std::int32_t skill, std::int32_t position); // 按位置/技能查首节点，未命中-1。
+void ClearBattleAppendEffects_43BED0(); // 每次发布当前节点、取next再释放，最后清首指针。
+void Sub_4990A0(std::int32_t index); // callback/独立HP解码门禁，重取对象后按flags绘双条。
+
 // 原43BFF0：场景10且回合一致时，按结束位给同源20槽非空对象flags置40H。
 void Sub_43BFF0();
 void Sub_43C040(); // 命令初始化逐槽清flags bit40，不改变其他位或对象生命周期。

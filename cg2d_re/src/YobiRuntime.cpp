@@ -276,6 +276,16 @@ struct BattleActorPayload {
     YobiAction* rider13C8; // 4222B0保存4221F0创建的非拥有引用，移除时MarkDeath再清槽。
 };
 
+// 原43BE00的20B节点；仅两条链指针拓宽，43BED0负责按原序释放。
+struct BattleAppendEffectNode {
+    std::int32_t skill;
+    std::int32_t technique;
+    std::int32_t position;
+    BattleAppendEffectNode* previous;
+    BattleAppendEffectNode* next;
+};
+static BattleAppendEffectNode* gBattleAppendEffects5ABA8C = nullptr;
+
 struct YobiUIData {
     std::int16_t winId;
     std::int16_t frameCount;
@@ -5744,6 +5754,101 @@ YobiAction* MarkDeath(YobiAction* const action)
         action->deathFlag = 1;
     }
     return action;
+}
+
+std::uint8_t IsBattleAppendEffectSkill_43BD00(const std::int32_t skill)
+{
+    switch (skill) {
+    case 8:
+    case 11:
+    case 2006:
+    case 2019:
+    case 2027:
+        return 1;
+    default:
+        break;
+    }
+    return (skill >= 55 && skill <= 60)
+        || (skill >= 64 && skill <= 66)
+        || (skill >= 2010 && skill <= 2012)
+        || (skill >= 2014 && skill <= 2015)
+        || (skill >= 2050 && skill <= 2052)
+        || (skill >= 2058 && skill <= 2067)
+        || (skill >= 2089 && skill <= 2095)
+        || (skill >= 3002 && skill <= 3016) ? 1 : 0;
+}
+
+void AddBattleAppendEffect_43BE00(
+    const std::int32_t skill, const std::int32_t technique, const std::int32_t position)
+{
+    if (IsBattleAppendEffectSkill_43BD00(skill) == 0) {
+        return;
+    }
+    BattleAppendEffectNode* node = gBattleAppendEffects5ABA8C;
+    if (node == nullptr) {
+        auto* const created = static_cast<BattleAppendEffectNode*>(std::malloc(sizeof(BattleAppendEffectNode)));
+        created->skill = skill;
+        created->next = nullptr;
+        created->previous = nullptr;
+        created->position = position;
+        created->technique = technique;
+        gBattleAppendEffects5ABA8C = created;
+        return;
+    }
+    for (;;) {
+        if (node->position == position && node->skill == skill) {
+            node->technique = technique;
+            return;
+        }
+        BattleAppendEffectNode* const previous = node;
+        node = node->next;
+        if (node == nullptr) {
+            auto* const created = static_cast<BattleAppendEffectNode*>(std::malloc(sizeof(BattleAppendEffectNode)));
+            created->next = nullptr;
+            created->skill = skill;
+            created->position = position;
+            created->technique = technique;
+            created->previous = previous;
+            previous->next = created;
+            return;
+        }
+    }
+}
+
+std::int32_t FindBattleAppendEffectTechnique_43BEA0(
+    const std::int32_t skill, const std::int32_t position)
+{
+    const BattleAppendEffectNode* node = gBattleAppendEffects5ABA8C;
+    while (node != nullptr) {
+        if (node->position == position && node->skill == skill) {
+            return node->technique;
+        }
+        node = node->next;
+    }
+    return -1;
+}
+
+void ClearBattleAppendEffects_43BED0()
+{
+    BattleAppendEffectNode* node = gBattleAppendEffects5ABA8C;
+    while (node != nullptr) {
+        gBattleAppendEffects5ABA8C = node;
+        node = node->next;
+        std::free(gBattleAppendEffects5ABA8C);
+    }
+    gBattleAppendEffects5ABA8C = nullptr;
+}
+
+void Sub_4990A0(const std::int32_t index)
+{
+    YobiAction* const initialAction = world::detail::gBattleEntries59E980[index];
+    if (initialAction->callback != nullptr
+        && !platform::legacy_crypt_int::LessEqual_401DA0(&initialAction->readiness, 0)) {
+        YobiAction* const action = world::detail::gBattleEntries59E980[index];
+        if ((action->flags & 0x2000u) == 0) {
+            static_cast<void>(ShowHpBar_43DB60(action, -10, 3, -1));
+        }
+    }
 }
 
 void Sub_43BFF0()

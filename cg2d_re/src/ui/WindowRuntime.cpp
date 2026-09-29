@@ -607,6 +607,29 @@ constexpr char kItemWorkFailure58671C[] = "\xA1\x40\xAA\xBA\xC5\xB2\xA9\x77\xA5\
 constexpr char kItemWorkSuccess586708[] = "\xA1\x40\xAA\xBA\xAD\xD7\xB2\x7A\xA6\xA8\xA5\x5C\xA4\x46\xA1\x49";
 constexpr char kItemWorkFailure5866F4[] = "\xA1\x40\xAA\xBA\xAD\xD7\xB2\x7A\xA5\xA2\xB1\xD1\xA4\x46\xA1\x43";
 
+std::int32_t gWindow12ResultD2D820 = 0;
+std::int32_t gWindow12ExperienceD2DFCC = 0;
+std::int32_t gWindow12ValueD40B08 = 0;
+std::int32_t gWindow12LevelUpC9C0FC = 0;
+std::int32_t gWindow12EnduranceCB0358 = 0;
+std::int32_t gWindow12DexterityCC3EC0 = 0;
+std::int32_t gWindow12IntelligenceCC4B60 = 0;
+std::int32_t gWindow12ValueCF3FF0 = 0;
+std::int32_t gWindow12ValueD66E28 = 0;
+std::array<char, 32> gWindow12NameD2DA94 {};
+std::array<char, 32> gWindow12SuffixCB1E1C {};
+std::string gWindow12DetailsCC190C; // 只承接已证NUL文本，不与前两结果摘要混用。
+std::uint8_t gWindow12ModeCC3E80 = 0;
+std::uint8_t gWindow12FlagCC4D27 = 0;
+std::uint32_t gWindow12TickD45D4C = 0;
+std::uint32_t gSkillPreviewTickCF46C8 = 0; // 多个技能窗口共用的另一计时槽。
+constexpr char kWindow12Suffix589830[] = "\xB1\x6F\xA8\xEC\xA4\x46\xA1\x49";
+constexpr char kWindow12Nothing5897DC[] = "\xA8\x53\xAC\xDD\xA8\xEC\xA5\xF4\xA6\xF3\xAA\x46\xA6\xE8\xA1\x43\n";
+constexpr char kWindow12Success5869D4[] = "\xA1\x40\xB5\x6F\xB2\x7B\xA4\x46\xA1\x43";
+constexpr char kWindow12Failure5869C4[] = "\xA4\xB0\xBB\xF2\xB3\xA3\xA8\x53\xB5\x6F\xB2\x7B\xA1\x43";
+constexpr char kWindow12Unknown554590[] = "???";
+static_assert(sizeof(kWindow12Nothing5897DC) == 18);
+
 // 原D046D8连续浏览区；仅复用值类型布局，不与玩家或交易区共享存储。
 struct StallBrowseData {
     std::array<char, 17> sellerName00;
@@ -22900,6 +22923,161 @@ WindowAnimationData* Sub_4F1800(const std::int32_t result, const char* const tex
         gItemWorkDetailsD2DB00 += kCraftInjury589CD4;
     }
     return Sub_47FAC0();
+}
+
+void Sub_4796E0()
+{
+    --gValueD67AFC;
+}
+
+WindowAnimationData* Sub_485AF0(WindowInstance* const window)
+{
+    std::uint8_t mode = gWindow12ModeCC3E80;
+    if (mode != 0 && mode != 3 && mode != 4) {
+        Sub_4796E0();
+        mode = gWindow12ModeCC3E80;
+    }
+    gWindow12ModeCC3E80 = mode == 0 ? 4 : 3;
+    window->elements[4].visible = 1;
+    window->elements[5].visible = 1;
+    window->elements[6].visible = 1;
+    window->elements[7].visible = 1;
+    window->elements[8].visible = 0;
+    window->elements[9].visible = 1;
+    window->elements[10].visible = 1;
+    window->elements[11].visible = 0;
+    window->elements[12].visible = 1;
+    if (gWindow12ResultD2D820 != 0) {
+        std::strcpy(
+            static_cast<WindowTextData*>(window->elements[4].data)->text, gWindow12NameD2DA94.data());
+        std::strcpy(
+            static_cast<WindowTextData*>(window->elements[5].data)->text, kWindow12Success5869D4);
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+    } else {
+        std::strcpy(
+            static_cast<WindowTextData*>(window->elements[4].data)->text, kWindow12Failure5869C4);
+        std::strcpy(
+            static_cast<WindowTextData*>(window->elements[5].data)->text, input::LegacyText593850());
+        static_cast<void>(audio::PlaySe_52C450(58, 320));
+        gWindow12ValueCF3FF0 = -1;
+    }
+    if (gWindow12LevelUpC9C0FC != 0) {
+        std::sprintf(
+            static_cast<WindowTextData*>(window->elements[6].data)->text, "%s", kCraftLevelUp58661C);
+    } else {
+        auto* const data = static_cast<WindowTextData*>(window->elements[6].data);
+        std::sprintf(data->text, kCraftExperience58660C, gWindow12ExperienceD2DFCC);
+    }
+    char* const increments = static_cast<WindowTextData*>(window->elements[7].data)->text;
+    increments[0] = '\0';
+    char buffer[256];
+    if (gWindow12EnduranceCB0358 != 0) {
+        std::sprintf(buffer, kCraftEndurance586600, gWindow12EnduranceCB0358);
+        std::strcat(increments, buffer);
+    }
+    if (gWindow12DexterityCC3EC0 != 0) {
+        std::sprintf(buffer, kCraftDexterity5865F4, gWindow12DexterityCC3EC0);
+        std::strcat(increments, buffer);
+    }
+    if (gWindow12IntelligenceCC4B60 != 0) {
+        std::sprintf(buffer, kCraftIntelligence5865E8, gWindow12IntelligenceCC4B60);
+        std::strcat(increments, buffer);
+    }
+    static_cast<WindowAnimationData*>(window->elements[2].data)->value04 = 1;
+    const bool succeeded = gWindow12ResultD2D820 != 0;
+    const std::int32_t defaultAction = succeeded ? 5 : 10;
+    const std::int32_t alternateAction = succeeded ? 18 : 15;
+    login::detail::SetYobiActionField2B0(
+        static_cast<WindowAnimationData*>(window->elements[2].data)->action, defaultAction);
+    std::int32_t imageNo = world::detail::ReadPlayerImageNo();
+    for (const auto& range : kCraftAlternateActionImages) {
+        if (imageNo >= range[0] && imageNo <= range[1]) {
+            login::detail::SetYobiActionField2B0(
+                static_cast<WindowAnimationData*>(window->elements[2].data)->action, alternateAction);
+            imageNo = world::detail::ReadPlayerImageNo();
+        }
+    }
+    if (imageNo == 0x18A26) {
+        login::detail::SetYobiActionField2B0(
+            static_cast<WindowAnimationData*>(window->elements[2].data)->action, defaultAction);
+    }
+    gWindow12FlagCC4D27 = 0;
+    const std::uint32_t tick = platform::ReadTickCount32();
+    gWindow12TickD45D4C = tick;
+    gSkillPreviewTickCF46C8 = tick;
+    static_cast<void>(Sub_47D170(
+        window, 2, 1, 3, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
+    if (gSkillSendModeC8A970 != 0) {
+        return Sub_47D220(window, 1, 3, 1, gWindow12ResultD2D820 != 0 ? 6 : 8, 5);
+    }
+    return Sub_47D220(window, 1, 3, 0, 10, 5);
+}
+
+WindowAnimationData* Sub_486020()
+{
+    WindowInstance* const window = gWindowStates[12].window;
+    return window != nullptr ? Sub_485AF0(window) : nullptr;
+}
+
+WindowAnimationData* Sub_4ED6B0(const std::int32_t result, const char* const text)
+{
+    gWindow12ResultD2D820 = result;
+    gWindow12DetailsCC190C.clear();
+    gWindow12ValueD66E28 = 0;
+    char buffer[256];
+    if (result == 0) {
+        std::sprintf(buffer, kWindow12Nothing5897DC);
+        gWindow12ExperienceD2DFCC = 0;
+        // 原四个dword文字复制后清两槽，再复制末尾LF/NUL；string只保存逻辑文本。
+        gWindow12DetailsCC190C.append(buffer, 16);
+        gWindow12LevelUpC9C0FC = 0;
+        gWindow12EnduranceCB0358 = 0;
+        gWindow12DetailsCC190C += buffer + 16;
+        gWindow12DexterityCC3EC0 = 0;
+        gWindow12IntelligenceCC4B60 = 0;
+        return Sub_486020();
+    }
+    gWindow12ExperienceD2DFCC = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
+    gWindow12ValueD40B08 = network::ParseDelimitedInteger_52CFA0(text, '|', 2);
+    gWindow12LevelUpC9C0FC = network::ParseDelimitedInteger_52CFA0(text, '|', 3);
+    gWindow12EnduranceCB0358 = network::ParseDelimitedInteger_52CFA0(text, '|', 4);
+    gWindow12DexterityCC3EC0 = network::ParseDelimitedInteger_52CFA0(text, '|', 5);
+    gWindow12IntelligenceCC4B60 = network::ParseDelimitedInteger_52CFA0(text, '|', 6);
+    gWindow12ValueCF3FF0 = network::ParseDelimitedInteger_52CFA0(text, '|', 7);
+    static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 8, 255, buffer));
+    input::UnescapeLegacyTextAndNotify_52D2F0(buffer);
+    std::strcpy(gWindow12NameD2DA94.data(), std::strlen(buffer) <= 28 ? buffer : kWindow12Unknown554590);
+    gWindow12ValueD66E28 = network::ParseDelimitedInteger_52CFA0(text, '|', 9);
+    const std::int32_t experience = gWindow12ExperienceD2DFCC;
+    std::strcpy(gWindow12SuffixCB1E1C.data(), kWindow12Suffix589830);
+    std::int32_t lines = 0;
+    const auto appendValue = [&](const char* const format, const std::int32_t value) {
+        std::sprintf(buffer, format, value);
+        if (std::strlen(buffer) < 28) {
+            std::strcat(buffer, "\n");
+        }
+        gWindow12DetailsCC190C += buffer;
+        ++lines;
+    };
+    if (experience > 0) {
+        appendValue(kCraftExperience589820, experience);
+    }
+    if (gWindow12LevelUpC9C0FC != 0 && lines < 8) {
+        std::sprintf(buffer, kCraftLevelUp589814);
+        gWindow12DetailsCC190C += buffer;
+        ++lines;
+        static_cast<void>(audio::PlaySe_52C450(64, 320));
+    }
+    if (gWindow12EnduranceCB0358 != 0 && lines < 8) {
+        appendValue(kCraftEndurance589808, gWindow12EnduranceCB0358);
+    }
+    if (gWindow12DexterityCC3EC0 != 0 && lines < 8) {
+        appendValue(kCraftDexterity5897FC, gWindow12DexterityCC3EC0);
+    }
+    if (gWindow12IntelligenceCC4B60 != 0 && lines < 8) {
+        appendValue(kCraftIntelligence5897F0, gWindow12IntelligenceCC4B60);
+    }
+    return Sub_486020();
 }
 
 std::int32_t Sub_479820()

@@ -500,6 +500,7 @@ WindowInputPrototype gStallPriceInput581590 {
 };
 std::int32_t gStallPriceD67C40 = 0;
 std::int32_t gStallButtonStateD67C44 = 0;
+std::int32_t gStallInventoryHover5817FC = -1;
 constexpr char kStallInputHint586450[] = "\xBD\xD0\xBF\xE9\xA4\x4A\xB4\x79\xAD\x7A";
 constexpr std::array<std::array<std::int32_t, 3>, 6> kStallButtonImages54EEE0 {{
     {98891, 98886, 98890},
@@ -2073,6 +2074,93 @@ std::int32_t Sub_4D0230(const std::int32_t index, const std::int32_t state)
         245300, backgroundX, backgroundY, 220, 92, 226, -1,
         std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}), 74, 54);
     return state & 1;
+}
+
+std::int32_t Sub_4D1D50(const std::int32_t index, const std::int32_t state)
+{
+    if (gStallModeD67BDC != 0) {
+        return 0;
+    }
+    std::int32_t hovered = -1;
+    char buffer[20];
+    for (std::int32_t slot = 0; slot < 20; ++slot) {
+        auto* const item = &world::detail::gPlayerItemsFDA8A4[slot + 8];
+        if (item->used == 0) {
+            continue;
+        }
+        WindowInstance* const window = gCurrentWindow;
+        const WindowElement& element = window->elements[index];
+        const std::int32_t x = window->x + element.x + 50 * (slot % 5);
+        const std::int32_t y = window->y + element.y + 50 * (slot / 5);
+        render::GraphicDescriptor16 descriptor {};
+        const std::uint32_t color = 0xFFFFFFFFu;
+        std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+        descriptor.bytes[13] = 4;
+        if (gStallOwn58111C != 0 && gStallItemUsedCC31AC[slot] != 0) {
+            login::detail::DrawGraphicHover(
+                static_cast<std::uint16_t>(x + 2), static_cast<std::uint16_t>(y + 2),
+                static_cast<std::uint16_t>(x + 46), static_cast<std::uint16_t>(y + 46),
+                223, 256, 0);
+        }
+        if (hovered < 0 && (state & 0x21) != 0
+            && login::detail::Sub_5049A0(x, y, x + 48, y + 48, -1) != 0) {
+            hovered = slot;
+            if (gStallInventoryHover5817FC != slot) {
+                gStallDescriptionPageD67C3C = 0;
+            }
+            const std::uint8_t gate = gValueD67BE0;
+            gStallInventoryHover5817FC = slot;
+            if (gate == 0) {
+                if (gStallOwn58111C != 0 && (state & 2) != 0
+                    && (gStallItemUsedCC31AC[slot] != 0 || (item->flags & 0x60u) != 0)) {
+                    gStallItemSelection581124 = -1;
+                }
+                if (gStallItemUsedCC31AC[slot] == 0 && (item->flags & 0x60u) == 0) {
+                    if ((state & 1) != 0) {
+                        login::detail::DrawGraphicHover(
+                            static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
+                            static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48),
+                            223, login::detail::gValueD69768, 0);
+                    }
+                    if (gStallOwn58111C != 0) {
+                        if ((state & 2) != 0) {
+                            gStallItemSelection581124 = slot;
+                        }
+                        if ((state & 0x100) != 0) {
+                            static_cast<void>(Sub_4CFC40());
+                        }
+                    }
+                }
+            }
+            if ((state & 4) != 0) {
+                const std::int32_t page = gStallDescriptionPageD67C3C + 1;
+                const std::int32_t pages = item->pages;
+                gStallDescriptionPageD67C3C = page;
+                if (page >= pages) {
+                    gStallDescriptionPageD67C3C = 0;
+                }
+            }
+            gStallHover581120 = slot + 8;
+        }
+        if (gStallOwn58111C != 0 && gValueD67BE0 == 0 && slot == gStallItemSelection581124) {
+            login::detail::DrawGraphicHover(
+                static_cast<std::uint16_t>(x + 2), static_cast<std::uint16_t>(y + 2),
+                static_cast<std::uint16_t>(x + 46), static_cast<std::uint16_t>(y + 46),
+                223, 254, 0);
+        }
+        const std::int32_t count = item->count;
+        if (count > 0) {
+            std::sprintf(buffer, "%3d", count);
+            static_cast<void>(render::DrawText_456780(
+                static_cast<std::int16_t>(x + 21), static_cast<std::int16_t>(y + 32),
+                3, 1, 1, buffer, 0, 0));
+        }
+        if (gStallOwn58111C != 0 && (item->flags & 0x60u) != 0) {
+            static_cast<void>(login::detail::DrawGraphic(x + 24, y + 24, 223, 23040, 0, &descriptor));
+        }
+        static_cast<void>(login::detail::DrawGraphic(x + 24, y + 24, 223, item->imageNo, 0, &descriptor));
+    }
+    return (state & 0x21) != 0 ? 1 : 0;
 }
 
 std::int32_t Sub_4D2260(const std::int32_t, const std::int32_t state)

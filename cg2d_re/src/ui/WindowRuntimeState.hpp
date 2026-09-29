@@ -660,6 +660,7 @@ void Sub_4CFCA0(std::int32_t petIndex); // 固定六装备槽检查后进入宠�
 std::int32_t Sub_4CFD70(); // 删除上架项，保持标记/数量/搬移/选择与页回退顺序。
 std::int32_t Sub_4D2260(std::int32_t unusedIndex, std::int32_t state); // 完整定价键盘和鼠标交互，返回hover位。
 std::int32_t Sub_4D2840(std::int32_t unusedIndex, std::int32_t state); // 购买确认及物品/宠物详情，二次读模式。
+std::int32_t Sub_4D1D50(std::int32_t index, std::int32_t state); // 玩家背包20格，首命中交互但完整绘制。
 extern std::int32_t gDragItemIndex584DA4; // 4FB8F0已接重置，4FAEF0拖动生产仍待接。
 extern std::int32_t gDragImageNoD67D24;
 extern std::int32_t gItemDragXCC4880;

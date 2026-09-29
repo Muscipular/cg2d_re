@@ -245,6 +245,23 @@ static_assert(offsetof(WindowConfirmationAmount, x) == 4);
 static_assert(offsetof(WindowConfirmationAmount, y) == 6);
 static_assert(offsetof(WindowConfirmationAmount, visible) == 8);
 
+// 原D2EAB8的60H技能报价记录；未消费字节不据此定业务语义。
+struct Window54SkillRecord {
+    std::uint16_t used;
+    std::array<std::byte, 2> bytes02;
+    std::int32_t value04;
+    std::int32_t price;
+    std::array<char, 25> name;
+    std::array<std::array<char, 29>, 2> description;
+    std::byte byte5F;
+};
+static_assert(sizeof(Window54SkillRecord) == 0x60);
+static_assert(offsetof(Window54SkillRecord, value04) == 4);
+static_assert(offsetof(Window54SkillRecord, price) == 8);
+static_assert(offsetof(Window54SkillRecord, name) == 0x0C);
+static_assert(offsetof(Window54SkillRecord, description) == 0x25);
+static_assert(offsetof(Window54SkillRecord, byte5F) == 0x5F);
+
 using WindowDialogReplyCallback = std::int32_t (*)(
     std::int32_t button, std::int32_t row, char* const* texts, std::uint8_t inputCount);
 using WindowDialogFrameCallback = std::int32_t (*)(
@@ -287,6 +304,12 @@ std::int32_t Sub_4B9F40(std::int32_t index, std::int32_t state); // 六模式确
 std::int32_t Sub_4BD100(std::int32_t index, std::int32_t unusedState); // 确认覆盖层，事件直接读共享鼠标。
 login::YobiAction* Sub_4BD540(const char* text); // 窗口54模式0，五行正文及八行说明。
 login::YobiAction* Sub_4BD680(const char* text); // 窗口54模式1，固定十五项名称/双数值。
+login::YobiAction* Sub_4BD810(const char* text); // 窗口54模式2，技能报价及旧窗刷新。
+login::YobiAction* Sub_4BDAD0(const char* text); // 同创建流程，模式12显示种族。
+void Sub_4BE930(WindowInstance* window); // 固定旧窗的五宠物名称/元素及技能分页刷新。
+void Sub_4BF460(WindowInstance* window, std::int32_t scroll); // 五行，存在性与内容索引不同。
+std::int32_t Sub_4C0CB0(std::int32_t index, std::int32_t state); // 技能选择/请求，发送后对话类型=-2。
+std::int32_t Sub_4C0EA0(std::int32_t index, std::int32_t unusedState); // 已选技能内框，恒0。
 std::int32_t Sub_4BA950(std::int32_t index, std::int32_t state); // 取消发送command2，发送后关闭。
 std::int32_t Sub_4BAA50(std::int32_t index, std::int32_t state); // 批量加入出售选择，每轮固定重置/音效尾。
 std::int32_t Sub_4BCEE0(std::int32_t index, std::int32_t state); // kind2拖放加入，hover模式门禁独立。
@@ -555,6 +578,16 @@ extern std::int32_t gWindow54LifecycleD67434; // 值2阻止释放回调重置当
 extern std::array<WindowDialogTextLine, 15> gWindow54NamesC8AAA0; // 4BD680复制、4BF2E0消费。
 extern std::array<std::int32_t, 15> gWindow54ValuesCB01A4; // 两表也被4D6EA0消费，保持同源。
 extern std::array<std::int32_t, 15> gWindow54ValuesCB09D8;
+extern std::array<Window54SkillRecord, 16> gWindow54SkillsD2EAB8; // 600H，到D2F0B8前结束。
+extern std::int32_t gWindow54SkillScrollCC31F4;
+extern std::int32_t gWindow54MessageC9FCE0; // 此地址也用于交易宠物区结束比较，不属宠物数据。
+extern std::int32_t gWindow54HoverD2DAD8;
+extern std::int32_t gWindow54SelectedD2DC04;
+extern std::array<char, 12> gWindow54AmountTextD45F78; // 下一独立槽从D45F84起。
+extern std::array<char, 110> gWindow54ValueTextsCB035C; // 10行，每行11B。
+extern std::array<char, 110> gWindow54ValueTextsC8B318;
+extern std::array<char, 55> gWindow54SkillValueTextsCF4978; // 5行，每行11B。
+extern std::array<char, 55> gWindow54SkillPriceTextsCF493C;
 extern std::int32_t gStorageValueCC4218; // 存放窗口41每帧清零、元素13绘制的数值。
 extern std::array<char, 22> gStorageAmountTextsCB1DF8; // 两金额文本起点相隔11B，571150/158借用。
 extern const std::array<std::int32_t, 2> gStorageTitleImages54F4E8;

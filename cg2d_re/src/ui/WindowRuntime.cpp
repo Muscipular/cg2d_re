@@ -180,6 +180,22 @@ std::uint8_t gWindow70FlagD673D8 = 0;
 std::int32_t gWindow70ImageD2E43C = 0;
 std::int32_t gWindow70ValueD6791C = 0;
 std::int32_t gWindow70DialogTypeD45D6C = 0;
+std::int32_t gWindow69ScrollD2D604 = 0;
+std::int32_t gWindow70ScrollCC4B68 = 0;
+std::int32_t gWindow69DirtyD67B9C = 0;
+std::int32_t gWindow70DirtyD67BA8 = 0;
+std::int32_t gWindow69CachedScroll580858 = -1;
+std::int32_t gWindow70CachedScroll580868 = -1;
+std::int32_t gWindow69TotalD45E70 = 0;
+std::int32_t gWindow70TotalCB0F74 = 0;
+std::int32_t gWindow69SlotsCA0AC8 = 0;
+std::int32_t gWindow70SlotsCF4E44 = 0;
+std::array<char, 55> gWindow69PriceTextsD2D7CC {};
+std::array<char, 55> gWindow70PriceTextsCF49C4 {};
+std::array<char, 55> gWindow69CountTextsD2EA24 {};
+std::array<char, 55> gWindow70CountTextsCC4848 {};
+std::array<char, 12> gWindow69TotalTextCC48B0 {};
+std::array<char, 12> gWindow70TotalTextD2D804 {};
 static_assert(sizeof(gWindow69ItemsCB2230) == 0xF690);
 static_assert(sizeof(gWindow70ItemsD30428) == 0xF690);
 static_assert(sizeof(gWindow54SkillsD2EAB8) == 0x600);
@@ -15986,6 +16002,149 @@ login::YobiAction* Sub_4C13B0(const char* const text)
     return CreateWindowAnimation_475AA0(69, 1, 0, nullptr);
 }
 
+void Sub_4C1700()
+{
+    for (std::int32_t row = 0; row < 5; ++row) {
+        gCurrentWindow->elements[row + 31].visible = 0;
+        const WindowCrystalItem& item = gWindow69ItemsCB2230[gWindow69ScrollD2D604 + row];
+        if (item.used != 0 && item.remainingC50 >= 0) {
+            gCurrentWindow->elements[row + 31].visible = 1;
+            const std::int32_t index = gWindow69ScrollD2D604 + row;
+            WindowInstance* const window = gCurrentWindow;
+            const std::int32_t remaining = gWindow69ItemsCB2230[index].remainingC50;
+            std::sprintf(static_cast<WindowTextData*>(window->elements[row + 31].data)->text,
+                "\xB3\xD1\xBE\x6C %2d \xAD\xD3", remaining);
+        }
+    }
+}
+
+void Sub_4C17B0()
+{
+    std::array<char, 100> buffer;
+    for (std::int32_t row = 0; row < 5; ++row) {
+        WindowInstance* const initial = gCurrentWindow;
+        char* const price = gWindow69PriceTextsD2D7CC.data() + row * 11;
+        price[0] = '\0';
+        static_cast<WindowTextData*>(initial->elements[row + 16].data)->text[0] = '\0';
+        static_cast<WindowTextData*>(gCurrentWindow->elements[row + 21].data)->text[0] = '\0';
+        gCurrentWindow->elements[row + 26].visible = 0;
+        const WindowCrystalItem* item = &gWindow69ItemsCB2230[gWindow69ScrollD2D604 + row];
+        if (item->used == 0) {
+            continue;
+        }
+        std::sprintf(price, "%10d", item->valueC24);
+        item = &gWindow69ItemsCB2230[gWindow69ScrollD2D604 + row];
+        if ((item->flags & 0x100u) != 0) {
+            std::strcpy(buffer.data(), item->tips.data());
+            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 16].data)->bytes00[0] =
+                std::byte{5};
+            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 21].data)->bytes00[0] =
+                std::byte{5};
+        } else {
+            const std::int32_t stack = item->valueC2C;
+            if (stack > 1) {
+                static_cast<void>(_snprintf(buffer.data(), 100, "%s(%s%d)",
+                    item->name.data(), "\xB0\xEF\xC5\x7C\xBC\xC6", stack));
+            } else {
+                static_cast<void>(_snprintf(buffer.data(), 100, "%s(%s)",
+                    item->name.data(), "\xA4\xA3\xA5\x69\xB0\xEF\xC5\x7C"));
+            }
+            const std::uint32_t flags =
+                gWindow69ItemsCB2230[gWindow69ScrollD2D604 + row].flags;
+            const std::byte color = (flags & 0x200u) != 0 ? std::byte{1} : std::byte{0};
+            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 16].data)->bytes00[0] = color;
+            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 21].data)->bytes00[0] = color;
+        }
+        if (std::strlen(buffer.data()) <= 20) {
+            std::strcpy(static_cast<WindowTextData*>(gCurrentWindow->elements[row + 16].data)->text,
+                buffer.data());
+        } else {
+            const std::size_t prefix =
+                input::ClassifyLegacyBoundary_44B440(buffer.data(), 20) == 2 ? 19 : 20;
+            std::memcpy(static_cast<WindowTextData*>(gCurrentWindow->elements[row + 16].data)->text,
+                buffer.data(), prefix);
+            // 原端终止偏移比复制长度多一字节，不补写中间旧字节。
+            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 16].data)->text[prefix + 1] = '\0';
+            std::strcpy(static_cast<WindowTextData*>(gCurrentWindow->elements[row + 21].data)->text,
+                buffer.data() + prefix);
+        }
+    }
+}
+
+void Sub_4C1AA0()
+{
+    for (std::int32_t row = 0; row < 5; ++row) {
+        const std::int32_t scroll = gWindow69ScrollD2D604;
+        char* const text = gWindow69CountTextsD2EA24.data() + row * 11;
+        text[0] = '\0';
+        const WindowCrystalItem& item = gWindow69ItemsCB2230[scroll + row];
+        if (item.used != 0) {
+            std::sprintf(text, "%2d", item.selectedCount);
+        }
+    }
+}
+
+void Sub_4C1B00()
+{
+    std::int32_t total = 0;
+    gWindow69TotalD45E70 = 0;
+    for (const WindowCrystalItem& item : gWindow69ItemsCB2230) {
+        if (item.used != 0) {
+            const std::int32_t quantity = item.selectedCount;
+            total += quantity * item.valueC24;
+        }
+    }
+    gWindow69TotalD45E70 = total;
+    std::sprintf(gWindow69TotalTextCC48B0.data(), "%10d", total);
+    const std::int32_t currentTotal = gWindow69TotalD45E70;
+    const std::int32_t owned = world::detail::ReadPlayerValue15BCC();
+    auto* const number = static_cast<WindowNumberData*>(gCurrentWindow->elements[6].data);
+    number->color = currentTotal <= owned ? 10 : 6;
+}
+
+void Sub_4C1B70()
+{
+    std::int32_t slots = 0;
+    gWindow69SlotsCA0AC8 = 0;
+    for (const WindowCrystalItem& item : gWindow69ItemsCB2230) {
+        if (item.used != 0) {
+            std::int32_t stack = item.valueC2C;
+            const std::int32_t quantity = item.selectedCount;
+            if (stack <= 0) {
+                stack = 2;
+            }
+            slots += (stack + quantity - 1) / stack;
+        }
+    }
+    gWindow69SlotsCA0AC8 = slots;
+}
+
+void Sub_4C1BC0()
+{
+    const std::int32_t initialized = gWindow69ValueD67B98;
+    const std::int32_t scroll = gWindow69ScrollD2D604;
+    if (initialized != 0 && gWindow69CachedScroll580858 == scroll) {
+        if (gWindow69DirtyD67B9C != 0) {
+            gWindow69DirtyD67B9C = 0;
+            Sub_4C1B00();
+            Sub_4C1AA0();
+            Sub_4C1B70();
+        }
+        return;
+    }
+    gWindow69ValueD67B98 = 1;
+    gWindow69CachedScroll580858 = scroll;
+    Sub_4C17B0();
+    Sub_4C1B00();
+    Sub_4C1AA0();
+    Sub_4C1B70();
+    Sub_4C1700();
+    const std::int32_t position = gWindow69ScrollD2D604;
+    WindowInstance* const window = gCurrentWindow;
+    const std::int32_t maximum = gShopItemCountCB1E10 - 5;
+    static_cast<void>(Sub_4742C0(window->elements + 10, maximum, position));
+}
+
 void Sub_4C3530()
 {
     const std::int32_t type = gWindow70DialogTypeD45D6C;
@@ -16053,6 +16212,149 @@ login::YobiAction* Sub_4C3550(const char* const text)
     gValueD2D608 = -1;
     gWindow70DialogTypeD45D6C = type;
     return CreateWindowAnimation_475AA0(70, 1, 0, nullptr);
+}
+
+void Sub_4C39A0()
+{
+    for (std::int32_t row = 0; row < 5; ++row) {
+        gCurrentWindow->elements[row + 31].visible = 0;
+        const WindowCrystalItem& item = gWindow70ItemsD30428[gWindow70ScrollCC4B68 + row];
+        if (item.used != 0 && item.remainingC50 >= 0) {
+            gCurrentWindow->elements[row + 31].visible = 1;
+            const std::int32_t index = gWindow70ScrollCC4B68 + row;
+            WindowInstance* const window = gCurrentWindow;
+            const std::int32_t remaining = gWindow70ItemsD30428[index].remainingC50;
+            std::sprintf(static_cast<WindowTextData*>(window->elements[row + 31].data)->text,
+                "\xB3\xD1\xBE\x6C %2d \xAD\xD3", remaining);
+        }
+    }
+}
+
+void Sub_4C3A50()
+{
+    std::array<char, 100> buffer;
+    for (std::int32_t row = 0; row < 5; ++row) {
+        WindowInstance* const initial = gCurrentWindow;
+        char* const price = gWindow70PriceTextsCF49C4.data() + row * 11;
+        price[0] = '\0';
+        static_cast<WindowTextData*>(initial->elements[row + 16].data)->text[0] = '\0';
+        static_cast<WindowTextData*>(gCurrentWindow->elements[row + 21].data)->text[0] = '\0';
+        gCurrentWindow->elements[row + 26].visible = 0;
+        const WindowCrystalItem* item = &gWindow70ItemsD30428[gWindow70ScrollCC4B68 + row];
+        if (item->used == 0) {
+            continue;
+        }
+        std::sprintf(price, "%10d", item->valueC24);
+        item = &gWindow70ItemsD30428[gWindow70ScrollCC4B68 + row];
+        if ((item->flags & 0x100u) != 0) {
+            std::strcpy(buffer.data(), item->tips.data());
+            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 16].data)->bytes00[0] =
+                std::byte{5};
+            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 21].data)->bytes00[0] =
+                std::byte{5};
+        } else {
+            const std::int32_t stack = item->valueC2C;
+            if (stack > 1) {
+                static_cast<void>(_snprintf(buffer.data(), 100, "%s(%s%d)",
+                    item->name.data(), "\xB0\xEF\xC5\x7C\xBC\xC6", stack));
+            } else {
+                static_cast<void>(_snprintf(buffer.data(), 100, "%s(%s)",
+                    item->name.data(), "\xA4\xA3\xA5\x69\xB0\xEF\xC5\x7C"));
+            }
+            const std::uint32_t flags =
+                gWindow70ItemsD30428[gWindow70ScrollCC4B68 + row].flags;
+            const std::byte color = (flags & 0x200u) != 0 ? std::byte{1} : std::byte{0};
+            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 16].data)->bytes00[0] = color;
+            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 21].data)->bytes00[0] = color;
+        }
+        if (std::strlen(buffer.data()) <= 20) {
+            std::strcpy(static_cast<WindowTextData*>(gCurrentWindow->elements[row + 16].data)->text,
+                buffer.data());
+        } else {
+            const std::size_t prefix =
+                input::ClassifyLegacyBoundary_44B440(buffer.data(), 20) == 2 ? 19 : 20;
+            std::memcpy(static_cast<WindowTextData*>(gCurrentWindow->elements[row + 16].data)->text,
+                buffer.data(), prefix);
+            // 与69同一原分行约定，保留复制末尾到NUL之间的旧字节。
+            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 16].data)->text[prefix + 1] = '\0';
+            std::strcpy(static_cast<WindowTextData*>(gCurrentWindow->elements[row + 21].data)->text,
+                buffer.data() + prefix);
+        }
+    }
+}
+
+void Sub_4C3D40()
+{
+    for (std::int32_t row = 0; row < 5; ++row) {
+        const std::int32_t scroll = gWindow70ScrollCC4B68;
+        char* const text = gWindow70CountTextsCC4848.data() + row * 11;
+        text[0] = '\0';
+        const WindowCrystalItem& item = gWindow70ItemsD30428[scroll + row];
+        if (item.used != 0) {
+            std::sprintf(text, "%2d", item.selectedCount);
+        }
+    }
+}
+
+void Sub_4C3DA0()
+{
+    std::int32_t total = 0;
+    gWindow70TotalCB0F74 = 0;
+    for (const WindowCrystalItem& item : gWindow70ItemsD30428) {
+        if (item.used != 0) {
+            const std::int32_t quantity = item.selectedCount;
+            total += quantity * item.valueC24;
+        }
+    }
+    gWindow70TotalCB0F74 = total;
+    std::sprintf(gWindow70TotalTextD2D804.data(), "%10d", total);
+    const std::int32_t owned = world::detail::Sub_51B5F0(gWindow70ValueD6791C);
+    const std::int32_t currentTotal = gWindow70TotalCB0F74;
+    auto* const number = static_cast<WindowNumberData*>(gCurrentWindow->elements[6].data);
+    number->color = currentTotal <= owned ? 10 : 6;
+}
+
+void Sub_4C3E20()
+{
+    std::int32_t slots = 0;
+    gWindow70SlotsCF4E44 = 0;
+    for (const WindowCrystalItem& item : gWindow70ItemsD30428) {
+        if (item.used != 0) {
+            std::int32_t stack = item.valueC2C;
+            const std::int32_t quantity = item.selectedCount;
+            if (stack <= 0) {
+                stack = 2;
+            }
+            slots += (stack + quantity - 1) / stack;
+        }
+    }
+    gWindow70SlotsCF4E44 = slots;
+}
+
+void Sub_4C3E70()
+{
+    const std::int32_t initialized = gWindow70ValueD67BA4;
+    const std::int32_t scroll = gWindow70ScrollCC4B68;
+    if (initialized != 0 && gWindow70CachedScroll580868 == scroll) {
+        if (gWindow70DirtyD67BA8 != 0) {
+            gWindow70DirtyD67BA8 = 0;
+            Sub_4C3DA0();
+            Sub_4C3D40();
+            Sub_4C3E20();
+        }
+        return;
+    }
+    gWindow70ValueD67BA4 = 1;
+    gWindow70CachedScroll580868 = scroll;
+    Sub_4C3A50();
+    Sub_4C3DA0();
+    Sub_4C3D40();
+    Sub_4C3E20();
+    Sub_4C39A0();
+    const std::int32_t position = gWindow70ScrollCC4B68;
+    WindowInstance* const window = gCurrentWindow;
+    const std::int32_t maximum = gShopItemCountCB1E10 - 5;
+    static_cast<void>(Sub_4742C0(window->elements + 10, maximum, position));
 }
 
 login::YobiAction* Sub_4C5790(

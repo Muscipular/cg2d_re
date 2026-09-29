@@ -306,9 +306,10 @@ struct WindowCrystalItem {
     std::array<std::byte, 2> bytesC1E;
     std::int32_t imageNo;
     std::int32_t valueC24;
-    std::array<std::byte, 4> bytesC28;
+    std::int32_t selectedCount; // +C28，两种晶石商店共用的数量字段语义。
     std::int32_t valueC2C;
-    std::array<std::byte, 28> bytesC30;
+    std::uint32_t flags;
+    std::array<char, 24> tips;
     std::int32_t limitC4C;
     std::int32_t remainingC50;
 };
@@ -318,7 +319,10 @@ static_assert(offsetof(WindowCrystalItem, name) == 1);
 static_assert(offsetof(WindowCrystalItem, description) == 0x1E);
 static_assert(offsetof(WindowCrystalItem, imageNo) == 0xC20);
 static_assert(offsetof(WindowCrystalItem, valueC24) == 0xC24);
+static_assert(offsetof(WindowCrystalItem, selectedCount) == 0xC28);
 static_assert(offsetof(WindowCrystalItem, valueC2C) == 0xC2C);
+static_assert(offsetof(WindowCrystalItem, flags) == 0xC30);
+static_assert(offsetof(WindowCrystalItem, tips) == 0xC34);
 static_assert(offsetof(WindowCrystalItem, limitC4C) == 0xC4C);
 static_assert(offsetof(WindowCrystalItem, remainingC50) == 0xC50);
 
@@ -405,6 +409,18 @@ login::YobiAction* Sub_4C6060(
     const char* text); // 类型37内嵌图号及左侧14空格正文。
 login::YobiAction* Sub_4C13B0(const char* text); // 窗口69商品，remaining非-1才可能下调limit。
 login::YobiAction* Sub_4C3550(const char* text); // 窗口70七组正文/附加值，不下调limit。
+void Sub_4C1700(); // 窗口69五条剩余量文本。
+void Sub_4C17B0(); // 名称两行和价格，保留原分行空隙字节。
+void Sub_4C1AA0(); // 五条已选数量。
+void Sub_4C1B00(); // 总额与玩家晶石比较，写type7 color。
+void Sub_4C1B70(); // 二十条选中商品占槽。
+void Sub_4C1BC0(); // 首次/分页/数量脏标刷新。
+void Sub_4C39A0(); // 窗口70五条剩余量文本。
+void Sub_4C3A50(); // 名称两行和价格，独立分页/显示缓冲。
+void Sub_4C3D40(); // 五条已选数量。
+void Sub_4C3DA0(); // 总额与指定背包物品数量比较。
+void Sub_4C3E20(); // 二十条选中商品占槽。
+void Sub_4C3E70(); // 首次/分页/数量脏标刷新。
 std::int32_t Sub_4BA950(std::int32_t index, std::int32_t state); // 取消发送command2，发送后关闭。
 std::int32_t Sub_4BAA50(std::int32_t index, std::int32_t state); // 批量加入出售选择，每轮固定重置/音效尾。
 std::int32_t Sub_4BCEE0(std::int32_t index, std::int32_t state); // kind2拖放加入，hover模式门禁独立。
@@ -703,6 +719,22 @@ extern std::uint8_t gWindow70FlagD673D8;
 extern std::int32_t gWindow70ImageD2E43C;
 extern std::int32_t gWindow70ValueD6791C; // 第十协议字段，仍S32。
 extern std::int32_t gWindow70DialogTypeD45D6C;
+extern std::int32_t gWindow69ScrollD2D604;
+extern std::int32_t gWindow70ScrollCC4B68;
+extern std::int32_t gWindow69DirtyD67B9C;
+extern std::int32_t gWindow70DirtyD67BA8;
+extern std::int32_t gWindow69CachedScroll580858; // 原文件初值-1。
+extern std::int32_t gWindow70CachedScroll580868;
+extern std::int32_t gWindow69TotalD45E70;
+extern std::int32_t gWindow70TotalCB0F74;
+extern std::int32_t gWindow69SlotsCA0AC8;
+extern std::int32_t gWindow70SlotsCF4E44;
+extern std::array<char, 55> gWindow69PriceTextsD2D7CC;
+extern std::array<char, 55> gWindow70PriceTextsCF49C4;
+extern std::array<char, 55> gWindow69CountTextsD2EA24;
+extern std::array<char, 55> gWindow70CountTextsCC4848;
+extern std::array<char, 12> gWindow69TotalTextCC48B0;
+extern std::array<char, 12> gWindow70TotalTextD2D804;
 extern std::int32_t gStorageValueCC4218; // 存放窗口41每帧清零、元素13绘制的数值。
 extern std::array<char, 22> gStorageAmountTextsCB1DF8; // 两金额文本起点相隔11B，571150/158借用。
 extern const std::array<std::int32_t, 2> gStorageTitleImages54F4E8;

@@ -3241,6 +3241,21 @@ void Sub_51B530(const std::int32_t first, const std::int32_t second)
     ui::detail::Sub_48BA60(first, second);
 }
 
+std::int32_t Sub_51B5F0(const std::int32_t itemId)
+{
+    std::int32_t count = 0;
+    if (itemId <= 0) {
+        return count;
+    }
+    for (const PlayerItemRecord* item = gPlayerItemsFDA8A4.data() + 8;
+         item != gPlayerItemsFDA8A4.data() + gPlayerItemsFDA8A4.size(); ++item) {
+        if (item != nullptr && item->used != 0 && item->itemId == itemId) {
+            count += item->count;
+        }
+    }
+    return count;
+}
+
 void Sub_50C900(
     const std::uintptr_t, const std::int32_t first, const std::int32_t second)
 {

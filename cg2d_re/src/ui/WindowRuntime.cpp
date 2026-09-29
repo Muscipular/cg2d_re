@@ -22543,28 +22543,35 @@ constexpr char kCraftIdentifying5866AC[] =
     "\xA1\x40\xA1\x40\xA1\x40\xA1\x4B\xA1\x40\xC5\xB2\xA9\x77\xA4\xA4\xA1\x40\xA1\x4B";
 constexpr char kCraftRepairing586694[] =
     "\xA1\x40\xA1\x40\xA1\x40\xA1\x4B\xA1\x40\xAD\xD7\xB2\x7A\xA4\xA4\xA1\x40\xA1\x4B";
+constexpr char kCraftPacking586830[] =
+    "\xA1\x40\xA1\x40\xA1\x40\xA1\x4B\xA1\x40\xA5\xB4\xA5\x5D\xA4\xA4\xA1\x40\xA1\x4B";
+constexpr char kCraftDecorating586848[] =
+    "\xA1\x40\xA1\x40\xA1\x40\xA1\x4B\xA1\x40\xB8\xCB\xB9\xA2\xA4\xA4\xA1\x40\xA1\x4B";
 
-// 制造与单选等待共有的动作6/16改写；每次命中仍重取载荷和玩家图号。
-void SetCraftWorkingAction(WindowInstance* const window)
+// 装饰/精炼无18A26回退，也不在末区间命中后重读玩家图号。
+void SetCraftWorkingAction(WindowInstance* const window, const bool specialImageFallback = true)
 {
     static_cast<WindowAnimationData*>(window->elements[4].data)->value04 = 0;
     login::detail::SetYobiActionField2B0(
         static_cast<WindowAnimationData*>(window->elements[4].data)->action, 6);
     std::int32_t imageNo = world::detail::ReadPlayerImageNo();
-    for (const auto& range : kCraftAlternateActionImages) {
+    for (std::size_t index = 0; index < kCraftAlternateActionImages.size(); ++index) {
+        const auto& range = kCraftAlternateActionImages[index];
         if (imageNo >= range[0] && imageNo <= range[1]) {
             login::detail::SetYobiActionField2B0(
                 static_cast<WindowAnimationData*>(window->elements[4].data)->action, 16);
-            imageNo = world::detail::ReadPlayerImageNo();
+            if (specialImageFallback || index + 1 < kCraftAlternateActionImages.size()) {
+                imageNo = world::detail::ReadPlayerImageNo();
+            }
         }
     }
-    if (imageNo == 0x18A26) {
+    if (specialImageFallback && imageNo == 0x18A26) {
         login::detail::SetYobiActionField2B0(
             static_cast<WindowAnimationData*>(window->elements[4].data)->action, 6);
     }
 }
 
-// 两等待入口共有的倍率/通知/双tick尾；调用者在本函数返回后才发布模式。
+// 五等待入口共有的倍率/通知/双tick尾；调用者在本函数返回后才发布模式。
 WindowAnimationData* FinishCraftWait(WindowInstance* const window, std::uint32_t duration)
 {
     const std::uint8_t rebirthMode = gValue5F9754;
@@ -22758,6 +22765,110 @@ WindowAnimationData* Sub_47EF00(WindowInstance* const window)
     const auto duration = static_cast<std::uint32_t>(random + level * 3 + 5) * 1000u;
     WindowAnimationData* const result = FinishCraftWait(window, duration);
     gSelectionModeD2D650 = 4;
+    return result;
+}
+
+WindowAnimationData* Sub_4801B0(WindowInstance* const window)
+{
+    gSkillSendModeC8A970 = 0;
+    if (Sub_479B00() != 0 && Sub_47D4F0() != 0 && Sub_479AB0() != 0
+        && world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId != 2026) {
+        gSkillSendModeC8A970 = 1;
+    }
+    gValueD67B00 = gSkillSendModeC8A970;
+    std::strcpy(static_cast<WindowTextData*>(window->elements[9].data)->text, kCraftPacking586830);
+    for (std::int32_t index = 10; index <= 13; ++index) {
+        std::strcpy(static_cast<WindowTextData*>(window->elements[index].data)->text,
+            input::LegacyText593850());
+    }
+    static_cast<WindowGraphicData*>(window->elements[29].data)->imageNo = 0x3BA39;
+    static_cast<WindowGraphicData*>(window->elements[14].data)->imageNo = 0x3BA3E;
+    for (std::int32_t index = 15; index <= 20; ++index) {
+        window->elements[index].visible = 0;
+        window->elements[index].mouseCallback = Sub_484D60;
+    }
+    window->elements[24].visible = 0;
+    window->elements[22].visible = 0;
+    window->elements[21].visible = 1;
+    window->elements[21].mouseCallback = Sub_484E90;
+    window->elements[23].visible = 1;
+    window->elements[25].visible = 0;
+    window->elements[26].visible = 0;
+    window->elements[27].visible = 0;
+    SetCraftWorkingAction(window);
+    const std::int32_t random = platform::NextRandom_53B4C9() % 6;
+    const std::int32_t selected = gSelectedItemD460C0;
+    const std::int32_t level = world::detail::gPlayerItemsFDA8A4[selected].level;
+    const auto duration = static_cast<std::uint32_t>(random + level * 3 + 5) * 1000u;
+    WindowAnimationData* const result = FinishCraftWait(window, duration);
+    gSelectionModeD2D650 = 13;
+    return result;
+}
+
+void Sub_480600(WindowInstance* const window)
+{
+    gSkillSendModeC8A970 = 0;
+    if (Sub_479B00() != 0 && Sub_47D530() != 0 && Sub_479AB0() != 0) {
+        gSkillSendModeC8A970 = 1;
+    }
+    gValueD67B00 = gSkillSendModeC8A970;
+    std::strcpy(static_cast<WindowTextData*>(window->elements[9].data)->text, kCraftDecorating586848);
+    for (std::int32_t index = 10; index <= 13; ++index) {
+        std::strcpy(static_cast<WindowTextData*>(window->elements[index].data)->text,
+            input::LegacyText593850());
+    }
+    static_cast<WindowGraphicData*>(window->elements[29].data)->imageNo = 0x3BA38;
+    static_cast<WindowGraphicData*>(window->elements[14].data)->imageNo = 0x3BA3E;
+    for (std::int32_t index = 15; index <= 20; ++index) {
+        window->elements[index].visible = 1;
+        window->elements[index].mouseCallback = Sub_484D60;
+    }
+    window->elements[24].visible = 1;
+    window->elements[22].visible = 1;
+    window->elements[21].visible = 0;
+    window->elements[23].visible = 0;
+    window->elements[25].visible = 0;
+    window->elements[26].visible = 0;
+    window->elements[27].visible = 0;
+    SetCraftWorkingAction(window, false);
+    static_cast<void>(FinishCraftWait(window, 8000));
+    const std::uint8_t mode = gSelectionModeD2D650;
+    if (mode == 6) {
+        gSelectionModeD2D650 = 7;
+    } else if (mode == 15) {
+        gSelectionModeD2D650 = 16;
+    }
+}
+
+WindowAnimationData* Sub_480C20(WindowInstance* const window)
+{
+    gSkillSendModeC8A970 = 0;
+    if (Sub_479B00() != 0 && Sub_47D5B0() != 0 && Sub_479AB0() != 0) {
+        gSkillSendModeC8A970 = 1;
+    }
+    gValueD67B00 = gSkillSendModeC8A970;
+    std::strcpy(static_cast<WindowTextData*>(window->elements[9].data)->text, kCraftRefining5866C4);
+    for (std::int32_t index = 10; index <= 13; ++index) {
+        std::strcpy(static_cast<WindowTextData*>(window->elements[index].data)->text,
+            input::LegacyText593850());
+    }
+    static_cast<WindowGraphicData*>(window->elements[29].data)->imageNo = 0x3BA38;
+    static_cast<WindowGraphicData*>(window->elements[14].data)->imageNo = 0x3BA3E;
+    for (std::int32_t index = 15; index <= 20; ++index) {
+        window->elements[index].visible = 1;
+        window->elements[index].mouseCallback = Sub_484D60;
+    }
+    window->elements[24].visible = 1;
+    window->elements[22].visible = 1;
+    window->elements[21].visible = 0;
+    window->elements[23].visible = 0;
+    window->elements[25].visible = 0;
+    window->elements[26].visible = 0;
+    window->elements[27].visible = 0;
+    SetCraftWorkingAction(window, false);
+    const auto duration = static_cast<std::uint32_t>(platform::NextRandom_53B4C9() % 6 + 5) * 1000u;
+    WindowAnimationData* const result = FinishCraftWait(window, duration);
+    gSelectionModeD2D650 = 10;
     return result;
 }
 

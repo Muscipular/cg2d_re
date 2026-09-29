@@ -144,6 +144,9 @@ login::YobiAction* Sub_47DA70(std::int32_t skill, std::int32_t request); // 精�
 login::YobiAction* Sub_47DB50(std::int32_t skill, std::int32_t request); // 材料开窗，无条件设置世界状态9。
 WindowAnimationData* Sub_47E1B0(WindowInstance* window); // 制造等待模式1，按配方等级生成同源截止。
 WindowAnimationData* Sub_47EF00(WindowInstance* window); // 单选等待模式4，刻印排除宠物辅助。
+WindowAnimationData* Sub_4801B0(WindowInstance* window); // 打包等待模式13，仍读取绝对单选槽等级。
+void Sub_480600(WindowInstance* window); // 装饰等待固定8000ms，原被AL覆盖的返回值由caller弃用。
+WindowAnimationData* Sub_480C20(WindowInstance* window); // 精炼等待模式10，一次RAND且不读物品等级。
 std::int32_t Sub_483EB0(std::int32_t index, std::int32_t state); // 六材料完整投放/换位/逐帧校验与绘制。
 WindowAnimationData* Sub_47DF50(WindowInstance* window); // 制造模式0完整初始化，逆序发布五材料需求。
 WindowAnimationData* Sub_47FAE0(WindowInstance* window); // 装饰模式6，固定魔力100。

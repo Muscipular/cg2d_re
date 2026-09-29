@@ -3998,6 +3998,7 @@ std::int32_t gBattleCommandY553F7C = -104;
 std::int32_t gBattleCommandValue553F80 = 17;
 std::int32_t gBattlePetSkillGraphicIndex553F8C = -1;
 std::array<std::int32_t, 9> gBattleResetValues5ABB84 {};
+login::YobiAction* gBattleEntryNoticeAction5ABFB8 = nullptr;
 std::int32_t gBattleSelectionMode5ABC70 = 0;
 std::int32_t gBattleSkillUsed5ABC68 = 0;
 std::int32_t gBattlePetCommandPhase553F88 = 1;

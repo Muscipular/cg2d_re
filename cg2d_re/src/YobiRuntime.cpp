@@ -267,6 +267,10 @@ constexpr const SceneEffectFrame* const* kFrameGroups554570[] {
 
 // 战斗专用原生载荷；只映射已消费字段，不沿用原偏移，完整生产/其余字段尚未落位。
 struct BattleActorPayload {
+    std::int32_t x00;
+    std::int32_t y04;
+    std::int32_t x08;
+    std::int32_t y0C; // 43C9A0按(08-00,0C-04)计算朝向，不与对象坐标合并。
     std::uint32_t flagsFDC;
     std::int32_t rebirthState106C; // 497C80悬停借用、点击刷新后重取。
     YobiAction* rider13C8; // 4222B0保存4221F0创建的非拥有引用，移除时MarkDeath再清槽。
@@ -5847,6 +5851,119 @@ std::int32_t GetSelectedBattleEntry_43C120()
         }
     }
     return -1;
+}
+
+void Sub_405CB0(YobiAction* const action)
+{
+    if (action->angle50 >= 360.0F) {
+        action->angle50 = static_cast<float>(static_cast<double>(action->angle50) - 360.0);
+    } else if (action->angle50 < 0.0F) {
+        action->angle50 = static_cast<float>(static_cast<double>(action->angle50) + 360.0);
+    }
+    if (action->angle50 >= 15.0F && action->angle50 < 60.0F) {
+        action->direction = 4;
+    }
+    if (action->angle50 >= 60.0F && action->angle50 < 120.0F) {
+        action->direction = 5;
+    }
+    if (action->angle50 >= 120.0F && action->angle50 < 165.0F) {
+        action->direction = 6;
+    }
+    if (action->angle50 >= 165.0F && action->angle50 < 195.0F) {
+        action->direction = 7;
+    }
+    if (action->angle50 >= 195.0F && action->angle50 < 240.0F) {
+        action->direction = 0;
+    }
+    if (action->angle50 >= 240.0F && action->angle50 < 300.0F) {
+        action->direction = 1;
+    }
+    if (action->angle50 >= 300.0F && action->angle50 < 345.0F) {
+        action->direction = 2;
+    }
+    if ((action->angle50 >= 345.0F && action->angle50 < 360.0F)
+        || (action->angle50 >= 0.0F && action->angle50 < 15.0F)) {
+        action->direction = 3;
+    }
+}
+
+std::int32_t Sub_43C910()
+{
+    bool pending = false;
+    for (YobiAction* const action : world::detail::gBattleEntries59E980) {
+        if (action != nullptr
+            && (static_cast<const BattleActorPayload*>(action->payload)->flagsFDC & 1u) == 0) {
+            action->phase = 2;
+            pending = true;
+        }
+    }
+    return pending ? 0 : 1;
+}
+
+void Sub_43C9A0()
+{
+    using namespace world::detail;
+    const auto turnEntries = [](const std::int32_t first, const std::int32_t end) {
+        for (std::int32_t index = first; index < end; ++index) {
+            YobiAction* const action = gBattleEntries59E980[index];
+            if (action != nullptr) {
+                const auto* const payload = static_cast<const BattleActorPayload*>(action->payload);
+                const float y = static_cast<float>(
+                    static_cast<double>(payload->y0C) - static_cast<double>(payload->y04));
+                const float x = static_cast<float>(
+                    static_cast<double>(payload->x08) - static_cast<double>(payload->x00));
+                const float angle = static_cast<float>(Sub_46F970(x, y));
+                gBattleEntries59E980[index]->angle50 = angle;
+                Sub_405CB0(gBattleEntries59E980[index]);
+                static_cast<void>(PlayFrame_517DA0(gBattleEntries59E980[index], 1));
+            }
+        }
+    };
+    if ((gBattlePlayerFlags5ABCAC & 1u) != 0) {
+        turnEntries(10, 20);
+    }
+    if ((gBattlePlayerFlags5ABCAC & 2u) != 0) {
+        turnEntries(0, 10);
+    }
+}
+
+std::int32_t Sub_43CA50()
+{
+    std::int32_t count = 0;
+    for (const YobiAction* const action : world::detail::gBattleEntries59E980) {
+        if (action != nullptr
+            && (static_cast<const BattleActorPayload*>(action->payload)->flagsFDC & 4u) != 0) {
+            ++count;
+        }
+    }
+    return count;
+}
+
+void Sub_43CA80()
+{
+    using namespace world::detail;
+    std::int8_t color = 0;
+    if (platform::gValue5F974C == 0) {
+        return;
+    }
+    for (std::int32_t index = 0; index < 20; ++index) {
+        if (gBattleEntries59E980[index] == nullptr) {
+            continue;
+        }
+        const std::int32_t position = gBattleCurrentPosition5ABCA4;
+        if (position < 20) {
+            color = index == position || index == GetBattlePetPosition_405B40(position) ? 4 : 0;
+        }
+        const YobiAction* const action = gBattleEntries59E980[index];
+        const char* const name = action->nameC4.data();
+        const std::int32_t y = action->y - 24;
+        const std::int32_t width = TextMeasure(name, 1);
+        const std::int32_t x = gBattleEntries59E980[index]->x - width / 2;
+        static_cast<void>(render::DrawText2_456670(
+            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x)),
+            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y)),
+            0, 1, color, name, 0));
+    }
 }
 
 std::int32_t CheckBattleCommand_43C560(

@@ -58,6 +58,10 @@ WindowGraphicData gWindowGraphic56C798 {0x3B538, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic56C7B0 {0x3BA74, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic56C7C8 {0x3BA75, 0, 0, 0, 0, 0x80FFFFFFu};
 WindowGraphicData gWindowGraphic56C7E0 {0x3BA76, 0, 0, 0, 0, 0xFFFFFFFFu};
+constexpr char kWindow32Text585F70[] = "\xB0\xBD\xC5\xA7";
+constexpr char kWindow32Text585F68[] = "\xB3\x51\xB0\xBD\xC5\xA7";
+WindowTextPrototype gWindowText56C9A8 {{}, kWindow32Text585F70};
+WindowTextPrototype gWindowText56C9B0 {{}, kWindow32Text585F68};
 constexpr char kWindow26Name586230[] = "\xA6\x57\xBA\xD9";
 WindowTextPrototype gWindowText56B6F8 {
     {std::byte{0x7F}, std::byte{1}, std::byte{0}, std::byte{0}}, kWindow26Name586230,
@@ -1335,6 +1339,11 @@ WindowElementPrototype gWindowElements56C800[8] {
     {1, 0, 0, 320, 353, 1, {.graphic = &gWindowGraphic56C7B0}, &Sub_4B0F10},
     {1, 12, 25, 320, 353, 1, {.graphic = &gWindowGraphic56C7C8}, &Sub_4B0F10},
     {0, 320, 7, 18, 78, 1, {.unusedValue = 0}, &Sub_474170},
+};
+
+WindowElementPrototype gWindowElements56C9B8[2] {
+    {3, 78, 40, 0, 0, 1, {.text = &gWindowText56C9A8}, &Sub_4B0F10},
+    {3, 68, 40, 0, 0, 1, {.text = &gWindowText56C9B0}, &Sub_4B0F10},
 };
 
 WindowElementPrototype gWindowElements56C430[22] {

@@ -22534,6 +22534,36 @@ std::int32_t Sub_49E750(const std::int32_t value)
     return 1;
 }
 
+void Sub_43C950()
+{
+    using namespace world::detail;
+    if ((gBattlePlayerFlags5ABCAC & 3u) != 0
+        && gBattleEntryNoticeAction5ABFB8 == nullptr && gWindowStates[32].window == nullptr) {
+        gBattleEntryNoticeAction5ABFB8 = CreateWindowAnimation_475AA0(32, 1, 0, nullptr);
+        static_cast<void>(audio::PlaySe_52C450(56, 320));
+    }
+}
+
+std::int32_t Sub_49BD40(const std::int32_t)
+{
+    WindowInstance* const initialWindow = gCurrentWindow;
+    world::detail::gBattleEntryNoticeAction5ABFB8 = nullptr;
+    initialWindow->elements[0].visible = 0;
+    gCurrentWindow->elements[1].visible = 0;
+    if (world::gCurrentSceneState != 3) {
+        gCurrentWindow->state |= 0x8000u;
+    }
+    const auto flags = static_cast<std::uint8_t>(world::detail::gBattlePlayerFlags5ABCAC);
+    if ((flags & 1u) != 0) {
+        gCurrentWindow->elements[0].visible = 1;
+    } else if ((flags & 2u) != 0) {
+        gCurrentWindow->elements[1].visible = 1;
+    } else {
+        gCurrentWindow->state |= 0x8000u;
+    }
+    return 1;
+}
+
 std::int32_t Sub_49BDB0(const std::int32_t)
 {
     DrawCurrentWindow_4729B0();

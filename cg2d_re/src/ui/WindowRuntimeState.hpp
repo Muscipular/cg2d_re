@@ -661,6 +661,7 @@ std::int32_t Sub_4CFD70(); // 删除上架项，保持标记/数量/搬移/选�
 std::int32_t Sub_4D2260(std::int32_t unusedIndex, std::int32_t state); // 完整定价键盘和鼠标交互，返回hover位。
 std::int32_t Sub_4D2840(std::int32_t unusedIndex, std::int32_t state); // 购买确认及物品/宠物详情，二次读模式。
 std::int32_t Sub_4D1D50(std::int32_t index, std::int32_t state); // 玩家背包20格，首命中交互但完整绘制。
+std::int32_t Sub_4D04A0(std::int32_t index, std::int32_t state); // 上架/浏览物品行，固定记录与价格重读分离。
 extern std::int32_t gDragItemIndex584DA4; // 4FB8F0已接重置，4FAEF0拖动生产仍待接。
 extern std::int32_t gDragImageNoD67D24;
 extern std::int32_t gItemDragXCC4880;

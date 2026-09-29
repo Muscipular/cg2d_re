@@ -49,6 +49,9 @@ std::int32_t Sub_520160(); // 原 [0x520160,0x5201A8)，顺序保存并透传 52
 
 namespace cg::world::detail {
 
+// 423800借用当前角色960条80h相册记录；只读同源字节，入口固定一次角色S16。
+const std::byte* BorrowSelectedAlbumRecords();
+
 // 原四个地图绘制源计数，仍由 SceneState 持有并由 46BD40 逐项清零。
 extern std::uint32_t gValue9FB934;
 extern std::uint32_t gValue9FB928;

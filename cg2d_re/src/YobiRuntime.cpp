@@ -113,6 +113,7 @@ struct YobiAction {
     std::uint32_t field27C;
     std::uint32_t field280;
     std::int32_t walkSpeed;
+    std::array<std::uint16_t, 4> fields288; // 原+288/+28A/+28C/+28E；423800相册匹配按序消费。
     std::int32_t framePlayingRate;
     std::int32_t imageNo; // 原+2A8；420100族以此槽分派阶段，图形序号另存graphicIndex。
     std::int32_t characterAction;
@@ -6562,6 +6563,61 @@ void SetBattleAuxGear_422C90(
     default:
         return;
     }
+}
+
+// 原[423800,4238EA)：固定角色记录，名称及四项属性均短路匹配。
+std::int32_t MatchBattleAlbum_423800(const YobiAction* const action)
+{
+    const std::byte* record = world::detail::BorrowSelectedAlbumRecords();
+    for (std::int32_t index = 0; index < 960; ++index, record += 0x80) {
+        if (record[0] == std::byte{0}) {
+            continue;
+        }
+        if (std::strcmp(reinterpret_cast<const char*>(record + 0x34), action->nameC4.data()) != 0) {
+            continue;
+        }
+        std::size_t field = 0;
+        for (; field < action->fields288.size(); ++field) {
+            std::uint32_t value;
+            std::memcpy(&value, record + 0x20 + field * 4, sizeof(value));
+            if ((value != 0) != (action->fields288[field] != 0)) {
+                break;
+            }
+        }
+        if (field == action->fields288.size()) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+// 原[4238F0,42395B)：11个直接caller均不消费原混合返回值。
+void UpdateBattleAlbumFlag_4238F0(YobiAction* const action)
+{
+    using namespace world::detail;
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    const std::uint32_t state = payload->stateFE0;
+    const std::int32_t position = payload->battlePosition18;
+    const std::uint32_t cleared = state & ~std::uint32_t{1};
+    payload->stateFE0 = cleared;
+    const std::int32_t playerPosition = gBattleCurrentPosition5ABCA4;
+    if (position == playerPosition) {
+        payload->stateFE0 = cleared | 1u;
+        return;
+    }
+    if (position != GetBattlePetPosition_405B40(playerPosition)) {
+        if (gBattleCurrentPosition5ABCA4 < 10) {
+            if (position < 10) {
+                return;
+            }
+        } else if (position >= 10) {
+            return;
+        }
+        if (MatchBattleAlbum_423800(action) == 0) {
+            return;
+        }
+    }
+    payload->stateFE0 = payload->stateFE0 | 1u;
 }
 
 std::int32_t GetBattleMHeader_439070(char* const destination)

@@ -724,6 +724,12 @@ platform::LegacyCryptInt gValue73ECD0 {};
 std::uint32_t& gMapEffectOffsetXBits = gMapCharaSceneSlots.valueC8A758;
 std::uint32_t& gMapEffectOffsetYBits = gMapCharaSceneSlots.valueC8A75C;
 
+const std::byte* BorrowSelectedAlbumRecords()
+{
+    const std::int16_t selected = login::gSelectedCharacterIndex;
+    return AlbumRecordAt(0, selected);
+}
+
 // 原[5186A0,518774)：完整快照交旧codec，但原目标容量仅4；短写不关闭文件。
 void Sub_5186A0()
 {

@@ -298,6 +298,8 @@ void MoveBattleSequence_420590(YobiAction* action); // X从F32投影，Y从未�
 void UpdateBattleText_421750(YobiAction* action); // 面板就绪才绘制/扣帧，逐行释放后依次标死。
 YobiAction* NewBattleText_4217F0(
     std::int8_t style, const char* text, std::int32_t fontType, std::int32_t duration);
+std::int32_t MatchBattleAlbum_423800(const YobiAction* action); // 名称原字节与四W16零/非零状态。
+void UpdateBattleAlbumFlag_4238F0(YobiAction* action); // 固定载荷，先清FE0 bit0，再按本人/宠物/相册置位。
 
 // 原1C起的16B效果值记录；仅传数值，不含底层对象指针。
 struct BattleEntryEffectRecord {

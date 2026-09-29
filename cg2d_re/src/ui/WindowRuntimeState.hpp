@@ -216,6 +216,35 @@ struct WindowDialogTextLine {
     std::array<char, 81> text;
 };
 static_assert(sizeof(WindowDialogTextLine) == 81);
+
+// 原CB1E40确认显示记录；4B9F40生产、4BD100消费，数值布局保持48B。
+struct WindowConfirmationItem {
+    std::int32_t imageNo; // +00。
+    std::int32_t quantity; // +04，数量文本第二项。
+    std::int32_t factor; // +08，非零时显示乘数前缀。
+    std::int32_t color; // +0C，绘制只读低S8。
+    std::array<char, 31> name; // +10原字节文本。
+    std::uint8_t visible; // +2F，不与名称分配另一份重叠存储。
+};
+static_assert(sizeof(WindowConfirmationItem) == 48);
+static_assert(offsetof(WindowConfirmationItem, quantity) == 4);
+static_assert(offsetof(WindowConfirmationItem, factor) == 8);
+static_assert(offsetof(WindowConfirmationItem, color) == 12);
+static_assert(offsetof(WindowConfirmationItem, name) == 16);
+static_assert(offsetof(WindowConfirmationItem, visible) == 47);
+
+// 原CB0F90/CB0F9C两条确认数值，不持有指针。
+struct WindowConfirmationAmount {
+    std::int32_t value;
+    std::int16_t x;
+    std::int16_t y;
+    std::int32_t visible;
+};
+static_assert(sizeof(WindowConfirmationAmount) == 12);
+static_assert(offsetof(WindowConfirmationAmount, x) == 4);
+static_assert(offsetof(WindowConfirmationAmount, y) == 6);
+static_assert(offsetof(WindowConfirmationAmount, visible) == 8);
+
 using WindowDialogReplyCallback = std::int32_t (*)(
     std::int32_t button, std::int32_t row, char* const* texts, std::uint8_t inputCount);
 using WindowDialogFrameCallback = std::int32_t (*)(
@@ -254,6 +283,7 @@ std::int32_t Sub_4BC060(std::int32_t index, std::int32_t state); // 独立详情
 std::int32_t Sub_4BC230(std::int32_t index, std::int32_t state); // 出售选择行，接kind9交换/取消/拖动。
 std::int32_t Sub_4BC660(std::int32_t index, std::int32_t state); // 背包20格命中、加入/拖动/翻页及两组绘制。
 void Sub_4B9B10(std::int32_t selection); // 确认选择低U8为0才按模式发送，返回值不消费。
+std::int32_t Sub_4BD100(std::int32_t index, std::int32_t unusedState); // 确认覆盖层，事件直接读共享鼠标。
 std::int32_t Sub_4BA950(std::int32_t index, std::int32_t state); // 取消发送command2，发送后关闭。
 std::int32_t Sub_4BAA50(std::int32_t index, std::int32_t state); // 批量加入出售选择，每轮固定重置/音效尾。
 std::int32_t Sub_4BCEE0(std::int32_t index, std::int32_t state); // kind2拖放加入，hover模式门禁独立。
@@ -504,6 +534,13 @@ extern std::array<char, 20> gShopValueTextCF4A28; // 模式2/3数值显示，573
 extern std::array<std::int32_t, 5> gShopRowKeysC9A954; // 多窗口共用的行编号缓存，非地址。
 extern std::uint8_t gShopDragFlagD67B90; // 非零仅清自身，零分支移除选择；原虚拟零初值。
 extern std::int32_t gQuantityLimit581C94; // 原装载值999，商店及其他数量窗口同源上限。
+extern WindowValueCallback gConfirmationCallbackC8B088; // 原生借用函数指针，确认/取消各自重读。
+extern std::array<WindowConfirmationItem, 20> gConfirmationItemsCB1E40;
+extern std::array<WindowConfirmationAmount, 2> gConfirmationAmountsCB0F90;
+extern std::array<char, 100> gConfirmationLineCB1320;
+extern std::array<char, 104> gConfirmationLineCB1210;
+extern std::array<char, 256> gConfirmationAcceptHintCC3FCC; // 4C0F20也借用，不建窗口私有副本。
+extern std::array<char, 256> gConfirmationCancelHintD45D70;
 extern std::int32_t gStorageValueCC4218; // 存放窗口41每帧清零、元素13绘制的数值。
 extern std::array<char, 22> gStorageAmountTextsCB1DF8; // 两金额文本起点相隔11B，571150/158借用。
 extern const std::array<std::int32_t, 2> gStorageTitleImages54F4E8;

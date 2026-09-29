@@ -524,6 +524,39 @@ constexpr std::array<const char*, 3> kShopHints57E6C4 {
     "\xA6\x62\xB3\x6F\xAE\x61\xA9\xB1\xBD\xE6\xAA\xAB\xAB\x7E\xA1\x43",
     "\xC1\xD9\xAC\x4F\xBA\xE2\xA4\x46\xA1\x43",
 };
+// 4B9F40六模式原字节文案，保留格式与定宽空格。
+constexpr std::array<const char*, 6> kShopConfirmHoverHints {
+    "\xB6\x52\xB6\x69\xAB\xFC\xA9\x77\xAA\xBA\xAA\xAB\xAB\x7E\xA1\x43",
+    "\xBD\xE6\xB1\xBC\xAB\xFC\xA9\x77\xAA\xBA\xAA\xAB\xAB\x7E\xA1\x43",
+    "\xA5\xE6\xB4\xAB\xAB\xFC\xA9\x77\xAA\xBA\xAA\xAB\xAB\x7E\xA1\x43",
+    "\xA5\xE6\xB4\xAB\xAB\xFC\xA9\x77\xAA\xBA\xAA\xAB\xAB\x7E\xA1\x43",
+    "\xC5\xB2\xA9\x77\xAB\xFC\xA9\x77\xAA\xBA\xAA\xAB\xAB\x7E\xA1\x43",
+    "\xAD\xD7\xB2\x7A\xAB\xFC\xA9\x77\xAA\xBA\xAA\xAB\xAB\x7E\xA1\x43",
+};
+constexpr std::array<const char*, 6> kShopConfirmHeadings {
+    "\xAB\xF9\xA6\xB3\xAA\xF7\xC3\x42\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\xAA\xF7\xB9\xF4\x20\x20\x20\x20\xC1\xCA\xB6\x52\xAA\xF7\xC3\x42\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\xAA\xF7\xB9\xF4",
+    "\xAB\xF9\xA6\xB3\xAA\xF7\xC3\x42\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\xAA\xF7\xB9\xF4\x20\x20\x20\x20\xBD\xE6\xA5\x58\xAA\xF7\xC3\x42\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\xAA\xF7\xB9\xF4",
+    "\x25\x2D\x32\x34\x73\x20\x20\x20\x20\xAD\xD3\x20\x20\xA5\xE6\xB4\xAB\xBC\xC6\x20\x20\x20\x20\x20\x20\xAD\xD3",
+    "\xA4\xE2\xAB\xF9\xBC\xC6\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\xAD\xD3\x20\x20\x20\x20\xB5\xB9\xA4\xA9\xAD\xD3\xBC\xC6\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\xAD\xD3",
+    "\xAB\xF9\xA6\xB3\xAA\xF7\xC3\x42\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\xAA\xF7\xB9\xF4\x20\x20\x20\x20\xC5\xB2\xA9\x77\xAA\xF7\xC3\x42\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\xAA\xF7\xB9\xF4",
+    "\xAB\xF9\xA6\xB3\xAA\xF7\xC3\x42\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\xAA\xF7\xB9\xF4\x20\x20\x20\x20\xAD\xD7\xB2\x7A\xAA\xF7\xC3\x42\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\xAA\xF7\xB9\xF4",
+};
+constexpr std::array<const char*, 6> kShopConfirmQuestions {
+    "\xBD\x54\xBB\x7B\xAD\x6E\xC1\xCA\xB6\x52\xB3\x6F\xA8\xC7\xAA\xAB\xAB\x7E\xA1\x48",
+    "\xBD\xE6\xB1\xBC\xB3\x6F\xA8\xC7\xAA\xAB\xAB\x7E\xA1\x43\xA5\x69\xA5\x48\xB6\xDC\xA1\x48",
+    "\xA5\xE6\xB4\xAB\xB3\x6F\xA8\xC7\xAA\xAB\xAB\x7E\xA1\x43\xA5\x69\xA5\x48\xB6\xDC\xA1\x48",
+    "\xB5\xB9\xA4\xA9\xB3\x6F\xA8\xC7\xAA\xAB\xAB\x7E\xA1\x43\xA5\x69\xA5\x48\xB6\xDC\xA1\x48",
+    "\xC5\xB2\xA9\x77\xB3\x6F\xA8\xC7\xAA\xAB\xAB\x7E\xA1\x43\xA5\x69\xA5\x48\xB6\xDC\xA1\x48",
+    "\xAD\xD7\xB2\x7A\xB3\x6F\xA8\xC7\xAA\xAB\xAB\x7E\xA1\x43\xA5\x69\xA5\x48\xB6\xDC\xA1\x48",
+};
+constexpr std::array<const char*, 6> kShopConfirmAcceptHints {
+    "\xB6\x52\xB6\x69\xAA\xAB\xAB\x7E\xA1\x43",
+    "\xBD\xE6\xB1\xBC\xA1\x43",
+    "\xB6\x69\xA6\xE6\xA5\xE6\xB4\xAB\xA1\x43",
+    "\xB6\x69\xA6\xE6\xA5\xE6\xB4\xAB\xA1\x43",
+    "\xB6\x69\xA6\xE6\xC5\xB2\xA9\x77\xA1\x43",
+    "\xB6\x69\xA6\xE6\xAD\xD7\xB2\x7A\xA1\x43",
+};
 constexpr char kShopUnavailableHint586BF4[] = "\xA1\xAF\xB2\x7B\xA6\x62\xB5\x4C\xAA\x6B\xB8\xCB\xB3\xC6";
 
 std::int32_t gChoiceImageCB0AE4 = 0;
@@ -12556,6 +12589,277 @@ void Sub_4B9B10(const std::int32_t selection)
     static_cast<void>(network::Sub_512620(
         platform::gConnectionSocket, x, y, request, target, 0, escaped));
     gCurrentWindow->state |= 0x8000u;
+}
+
+std::int32_t Sub_4B9F40(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    const bool hover = (state & 1) != 0;
+    std::int32_t consumed = 0;
+    if (hover) {
+        const auto mode = std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894[20]);
+        if (mode >= 0 && mode <= 5) {
+            std::strcpy(gHoverTextD68AE8.data(), kShopConfirmHoverHints[mode]);
+        }
+    }
+    const std::int32_t available = gShopValueC8AF74;
+    if (available <= 0) {
+        if ((state & 2) != 0) {
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        }
+    } else if ((state & 2) != 0) {
+        const auto mode = std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894[20]);
+        bool overlayReady = false;
+        std::int32_t textMode = mode;
+        switch (mode) {
+        case 0:
+        case 2: {
+            if (mode == 0) {
+                const std::int32_t money = world::detail::ReadPlayerValueFC();
+                if (money < gShopTotalD2DAFC) {
+                    gShopMessage580848 = -2;
+                    static_cast<void>(audio::PlaySe_52C450(55, 320));
+                    break;
+                }
+                const std::int32_t freeSlots = world::detail::Sub_518C60();
+                if (gShopValueC8AF74 > freeSlots) {
+                    gShopMessage580848 = -3;
+                    static_cast<void>(audio::PlaySe_52C450(55, 320));
+                    break;
+                }
+            }
+            gConfirmationCallbackC8B088 = &Sub_4B9B10;
+            std::int32_t count = 0;
+            for (std::int32_t item = 0; item < 20; ++item) {
+                const char* const record = gShopItemsCF4FE0.data() + item * 0xC58;
+                if (record[0] == 0) {
+                    continue;
+                }
+                std::int32_t quantity;
+                std::memcpy(&quantity, record + 0xC28, sizeof(quantity));
+                if (quantity == 0) {
+                    continue;
+                }
+                WindowConfirmationItem& preview = gConfirmationItemsCB1E40[count];
+                preview.visible = 1;
+                std::strcpy(preview.name.data(), record + 1);
+                std::int32_t imageNo;
+                std::memcpy(&imageNo, record + 0xC20, sizeof(imageNo));
+                preview.color = 0;
+                preview.imageNo = imageNo;
+                preview.quantity = quantity;
+                preview.factor = 0;
+                ++count;
+            }
+            for (; count < 20; ++count) {
+                gConfirmationItemsCB1E40[count].visible = 0;
+            }
+            WindowConfirmationAmount& left = gConfirmationAmountsCB0F90[0];
+            WindowConfirmationAmount& right = gConfirmationAmountsCB0F90[1];
+            if (mode == 0) {
+                const std::int32_t money = world::detail::ReadPlayerValueFC();
+                left.y = 343;
+                right.y = 343;
+                const std::int32_t total = gShopTotalD2DAFC;
+                left.visible = 1;
+                left.x = 293;
+                left.value = money;
+                right.visible = 1;
+                right.x = 457;
+                right.value = total;
+            } else {
+                const std::int32_t total = gShopTotalD2DAFC;
+                const std::int32_t materialCount = gShopAvailableCF4A24;
+                left.visible = 1;
+                left.x = 354;
+                left.y = 343;
+                left.value = materialCount;
+                right.visible = 1;
+                right.x = 450;
+                if (total < 1000) {
+                    right.x = 438;
+                }
+                right.y = 343;
+                right.value = total;
+            }
+            overlayReady = true;
+            break;
+        }
+        case 1: {
+            gConfirmationCallbackC8B088 = &Sub_4B9B10;
+            std::int32_t count = 0;
+            for (std::int32_t slot = 0; slot < 20; ++slot) {
+                const auto item = static_cast<std::int8_t>(gShopSelectedSlotsCB03DC[slot]);
+                if (item < 0) {
+                    continue;
+                }
+                WindowConfirmationItem& preview = gConfirmationItemsCB1E40[count];
+                preview.visible = 1;
+                const char* const record = gShopItemsCF4FE0.data() + item * 0xC58;
+                std::uint32_t flags;
+                std::memcpy(&flags, record + 0xC40, sizeof(flags));
+                if ((flags & 0x100u) != 0) {
+                    std::strcpy(preview.name.data(), record + 0xC44);
+                    preview.color = 5;
+                } else {
+                    std::strcpy(preview.name.data(), record + 1);
+                    preview.color = (flags & 0x200u) != 0 ? 1 : 0;
+                }
+                std::int32_t imageNo;
+                std::int32_t quantity;
+                std::memcpy(&imageNo, record + 0xC20, sizeof(imageNo));
+                std::memcpy(&quantity, record + 0xC28, sizeof(quantity));
+                preview.imageNo = imageNo;
+                preview.quantity = quantity;
+                std::int32_t itemCount;
+                std::memcpy(&itemCount, record + 0xC30, sizeof(itemCount));
+                preview.factor = 0;
+                if (itemCount > 1) {
+                    std::memcpy(&preview.factor, record + 0xC38, sizeof(preview.factor));
+                }
+                ++count;
+            }
+            for (; count < 20; ++count) {
+                gConfirmationItemsCB1E40[count].visible = 0;
+            }
+            const std::int32_t money = world::detail::ReadPlayerValueFC();
+            WindowConfirmationAmount& left = gConfirmationAmountsCB0F90[0];
+            WindowConfirmationAmount& right = gConfirmationAmountsCB0F90[1];
+            left.y = 343;
+            right.y = 343;
+            const std::int32_t total = gShopTotalD2DAFC;
+            left.visible = 1;
+            left.x = 293;
+            left.value = money;
+            right.visible = 1;
+            right.x = 457;
+            right.value = total;
+            overlayReady = true;
+            break;
+        }
+        case 3: {
+            WindowConfirmationItem& preview = gConfirmationItemsCB1E40[0];
+            preview.visible = 1;
+            const std::size_t length = std::strlen(gShopDetailCC3210.data()) + 1;
+            gConfirmationCallbackC8B088 = &Sub_4B9B10;
+            std::memcpy(preview.name.data(), gShopDetailCC3210.data(), length);
+            std::int32_t imageNo;
+            std::memcpy(&imageNo, gShopDetailCC3210.data() + 0xC20, sizeof(imageNo));
+            preview.color = 0;
+            preview.imageNo = imageNo;
+            const std::int32_t quantity = gShopValueD046C4;
+            preview.factor = 0;
+            preview.quantity = quantity;
+            for (std::int32_t item = 1; item < 20; ++item) {
+                gConfirmationItemsCB1E40[item].visible = 0;
+            }
+            WindowConfirmationAmount& left = gConfirmationAmountsCB0F90[0];
+            WindowConfirmationAmount& right = gConfirmationAmountsCB0F90[1];
+            left.visible = 1;
+            left.x = 293;
+            left.y = 343;
+            left.value = available;
+            right.visible = 1;
+            right.x = 457;
+            right.y = 343;
+            right.value = quantity;
+            overlayReady = true;
+            break;
+        }
+        case 4:
+        case 5: {
+            const std::int32_t money = world::detail::ReadPlayerValueFC();
+            if (money < gShopTotalD2DAFC) {
+                gShopMessage580848 = -2;
+                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                break;
+            }
+            gConfirmationCallbackC8B088 = &Sub_4B9B10;
+            std::int32_t count = 0;
+            const char* flagsRecord = gShopItemsCF4FE0.data();
+            for (std::int32_t slot = 0; slot < 20; ++slot) {
+                const auto item = static_cast<std::int8_t>(gShopSelectedSlotsCB03DC[slot]);
+                if (item < 0) {
+                    continue;
+                }
+                WindowConfirmationItem& preview = gConfirmationItemsCB1E40[count];
+                preview.visible = 1;
+                const char* const record = gShopItemsCF4FE0.data() + item * 0xC58;
+                std::strcpy(preview.name.data(), record + 1);
+                preview.color = 0;
+                // 原flags来源按紧凑显示项推进，不跟随选择槽映射。
+                std::uint32_t flags;
+                std::memcpy(&flags, flagsRecord + 0xC40, sizeof(flags));
+                if ((flags & 0x200u) != 0) {
+                    preview.color = 1;
+                }
+                std::int32_t imageNo;
+                std::int32_t quantity;
+                std::memcpy(&imageNo, record + 0xC20, sizeof(imageNo));
+                std::memcpy(&quantity, record + 0xC28, sizeof(quantity));
+                preview.imageNo = imageNo;
+                preview.quantity = quantity;
+                preview.factor = 0;
+                flagsRecord += 0xC58;
+                ++count;
+            }
+            for (; count < 20; ++count) {
+                gConfirmationItemsCB1E40[count].visible = 0;
+            }
+            const std::int32_t currentMoney = world::detail::ReadPlayerValueFC();
+            WindowConfirmationAmount& left = gConfirmationAmountsCB0F90[0];
+            WindowConfirmationAmount& right = gConfirmationAmountsCB0F90[1];
+            left.y = 343;
+            right.y = 343;
+            const std::int32_t total = gShopTotalD2DAFC;
+            left.visible = 1;
+            right.value = total;
+            textMode = gMaterialOccupancyCC4894[20] == 4 ? 4 : 5;
+            left.x = 293;
+            left.value = currentMoney;
+            right.visible = 1;
+            right.x = 457;
+            overlayReady = true;
+            break;
+        }
+        default:
+            break;
+        }
+        if (overlayReady) {
+            if (mode == 2) {
+                std::sprintf(gConfirmationLineCB1320.data(),
+                    kShopConfirmHeadings[textMode], gShopTextCB0184.data());
+            } else {
+                std::sprintf(gConfirmationLineCB1320.data(), kShopConfirmHeadings[textMode]);
+            }
+            std::sprintf(gConfirmationLineCB1210.data(), kShopConfirmQuestions[textMode]);
+            std::strcpy(gConfirmationAcceptHintCC3FCC.data(), kShopConfirmAcceptHints[textMode]);
+            const char* const cancelHint = kShopHints57E6C4[2];
+            if (mode == 2) {
+                const std::size_t length = std::strlen(cancelHint) + 1;
+                WindowInstance* const window = gCurrentWindow;
+                std::memcpy(gConfirmationCancelHintD45D70.data(), cancelHint, length);
+                window->elements[0].visible = 1;
+            } else {
+                std::strcpy(gConfirmationCancelHintD45D70.data(), cancelHint);
+                gCurrentWindow->elements[0].visible = 1;
+            }
+            gCurrentWindow->state |= 2u;
+            static_cast<void>(audio::PlaySe_52C450(78, 320));
+        }
+        consumed = 1;
+    }
+    graphic->imageNo = 243048;
+    if (hover) {
+        graphic->imageNo = 243050;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 243049;
+    }
+    if (gShopValueC8AF74 <= 0) {
+        graphic->imageNo = 243049;
+    }
+    return consumed;
 }
 
 std::int32_t Sub_4BA950(const std::int32_t index, const std::int32_t state)

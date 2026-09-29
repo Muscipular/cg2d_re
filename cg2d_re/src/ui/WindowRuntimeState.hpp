@@ -283,6 +283,7 @@ std::int32_t Sub_4BC060(std::int32_t index, std::int32_t state); // 独立详情
 std::int32_t Sub_4BC230(std::int32_t index, std::int32_t state); // 出售选择行，接kind9交换/取消/拖动。
 std::int32_t Sub_4BC660(std::int32_t index, std::int32_t state); // 背包20格命中、加入/拖动/翻页及两组绘制。
 void Sub_4B9B10(std::int32_t selection); // 确认选择低U8为0才按模式发送，返回值不消费。
+std::int32_t Sub_4B9F40(std::int32_t index, std::int32_t state); // 六模式确认生产，借用同源覆盖层。
 std::int32_t Sub_4BD100(std::int32_t index, std::int32_t unusedState); // 确认覆盖层，事件直接读共享鼠标。
 std::int32_t Sub_4BA950(std::int32_t index, std::int32_t state); // 取消发送command2，发送后关闭。
 std::int32_t Sub_4BAA50(std::int32_t index, std::int32_t state); // 批量加入出售选择，每轮固定重置/音效尾。

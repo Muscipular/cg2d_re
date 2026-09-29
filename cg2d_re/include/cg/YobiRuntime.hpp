@@ -286,6 +286,9 @@ void SetBattleAuxGear_422C90(
 void UpdateBattleOneShotEffect_419FA0(YobiAction* action); // PlayFrame(1)严格返回1才标死。
 void UpdateBattlePositionEffect_41E640(YobiAction* action); // PlayFrame(1)严格完成才标死，所有路径投影X/Y。
 YobiAction* NewBattlePositionEffect_41E680(YobiAction* parent, std::int32_t imageNo);
+YobiAction* NewBattleTrailEffect_41E7C0(
+    float x, float y, std::int32_t imageNo, std::int32_t mode,
+    std::uint8_t priority); // 失败不消耗随机；成功绑定41E640，设备分支决定混合标志。
 void UpdateBattleCompletingEffect_41A160(YobiAction* action); // 播放完成后通知父1024，标死仍投影。
 void UpdateBattleParentEffect_41A1C0(YobiAction* action); // 父严格死亡时标死自身，仍播放并投影。
 void UpdateBattleRisingEffect_41A200(YobiAction* action); // 固定父引用，未舍入Y比较；标死后仍播放/投影。
@@ -298,6 +301,7 @@ YobiAction* NewBattleRisingEffect_420D50(YobiAction* parent); // 先随机位置
 void UpdateBattleImpactEffect_41A9E0(YobiAction* action); // 完成后按当前效果处理HP/动作，固定目标与独立重读并存。
 void UpdateBattleImpactSoundEffect_41AF00(YobiAction* action); // 默认分类末尾另播132，其余合同同41A9E0。
 void UpdateBattleFrameEventEffect_41B440(YobiAction* action); // 先消费帧事件，再按旧58/FD0推进动画与nameY消退。
+void UpdateBattleMovingImpactEffect_41BB00(YobiAction* action); // 实时目标中心命中，保留提前标死后的运动/投影尾。
 // 工厂初始化：仅借用现有对象与真实回调，空action/source原样返回，不分配/播放。
 void InitBattleTargetEffect_422E50(
     YobiAction* action, YobiAction* source, void (*callback)(YobiAction*)); // 固定目标坐标与图号音效。
@@ -406,6 +410,9 @@ void DrawBattleEntryHover_43C0A0(std::int32_t index); // 固定可选对象，�
 std::int32_t GetSelectedBattleEntry_43C120(); // 返回单体/邻接/阵营/全体目标编号，先快照目标位与命中。
 void Sub_405CB0(YobiAction* action); // 角度只校正一圈，按八个不等宽区间写方向。
 void MoveBattleByAngle_405EA0(YobiAction* action); // X存回F32后才计算Y，角度/速度按原序读取。
+void TurnBattleTowardPosition_4060D0(
+    YobiAction* action, float x, float y, std::int32_t updateDirection,
+    float step); // 无空指针门禁；角差转S32取绝对值后限步，严格1才更新方向。
 void TurnBattleToward_406190(
     YobiAction* action, YobiAction* target, std::int32_t updateDirection, float step);
 std::int32_t GetBattleDistance_406300(YobiAction* first, YobiAction* second); // 平方和先舍入F32再开方。

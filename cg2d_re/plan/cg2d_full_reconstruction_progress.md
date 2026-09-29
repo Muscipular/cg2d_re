@@ -1,8 +1,8 @@
 # cg2d 完整复刻独立进度
 
-> 当前增量：412870/412F70/413070完整动作208/210/211已落位；独立目标坐标、转向后重取、播放后随机及四W16效果生产已静态核对。C8A768/C8A76C复用既有owner并按原.data校正全1初值，其他绘制清理未接。424620补零仍待确认，未实施。缺口仍36组元素、53主回调、1暂缓回复，见§2；整体SPEC未完成。
+> 当前增量：413110/4131B0完整动作212/213及420D50/41A200上升特效已落位；新计数S32比较、四附件清理与分支返回、随机消费和未舍入运动次序已静态核对。214全分支已取证，仍待41CD00完整工厂，不注册半父函数。424620补零仍待确认。缺口仍36组元素、53主回调、1暂缓回复，见§2；整体SPEC未完成。
 > 本文件是本线唯一执行进度；[总 SPEC](cg2d_full_reconstruction_plan.md)、[执行规则](../AGENTS.md)保持有效，旧 M 系列及根 `plans/progess.md` 不参与本线完成度。
-> 本轮压缩前进度固定于 `bbc1851c`；拆分前全文为 `810c6f75`，前次516行日志基线为 `928e20a3778fa56e340a37e9b30e3b30188369f8`。详细证据保留各窗口/共享明细，不复制另一份日志，追溯方法见§5。
+> 本轮压缩前进度固定于 `5b9e4e45`；拆分前全文为 `810c6f75`，前次516行日志基线为 `928e20a3778fa56e340a37e9b30e3b30188369f8`。详细证据保留各窗口/共享明细，不复制另一份日志，追溯方法见§5。
 
 ## 1. 当前结论
 
@@ -81,16 +81,17 @@
 | `bd67bc5a` | 406390五块效果消费、422BC0装备与416DB0动作235；原快照/九次对象重取/四输出接线，既有音效复用；235/236实际表项区分 | 36 / 53 / 1 |
 | `49d632b7` | 动作237及移动/转向/距离、CryptInt加减比较、数字显示九入口；160B图号表、HP重取/临时构造、固定目标与旧FF0收尾静态核对 | 36 / 53 / 1 |
 | `bbc1851c` | 动作209、22槽计数及位置特效四入口；阶段快照/效果重读、+10来源快照、1044等级和84/85/87伤害排除静态核对 | 36 / 53 / 1 |
+| `5b9e4e45` | 动作208/210/211；F64界线/独立坐标、播放后随机、四W16生产、唯一owner与原全1初值静态核对 | 36 / 53 / 1 |
 
 `9438fac2`按[文档组织SPEC](../doc/ui_windows/README.md)将190个详细章节唯一迁入32个window id及11份共享文档；原文件改为77行索引，正文和765处链接静态核对，近期战斗日志压为上表。拆分前全文见810c6f75，该文档步未改变38/55/1或验收级别。
 
-**本轮实现小步：** [动作208/210/211](../doc/ui_windows/shared_battle.md#battle-actions-208-210-211)三入口已有本体。208按原双精度界线选择两组偏移，先截断再加减，FE8/FEC与已有坐标分开；210保留转向后重取、距离门禁、播放后随机及创建T*返回；211四门禁各自重读，只写命中半字，效果先于动作推进。两U32内部引用复用场景唯一owner，原全1初值有直接数据证据；场景文档已同步部分生产落位边界。声明/定义及调用序已静态核对，36/53/1不变；完整404DB0与绘制清理未接，424620补零待决，不构建/测试/运行/检查产物。
+**本轮实现小步：** [动作212/213及上升特效](../doc/ui_windows/shared_battle.md#battle-actions-212-213)四入口已有本体。212保持新计数与flags的S32比较、坐标偏移和播放后重取；213保留原phase/播放值/13B0三类返回，105C→1054→1068→1058逐槽先标死后清空。上升特效保留分配前随机、无设备追加随机、未舍入速度/Y和到达后继续播放；32项立即数重建128B摘要一致。新增48、105C、13B0仅映射已证消费；214因完整41CD00仍缺而未落位。四入口声明/定义和原指令仅静态核对，36/53/1不变，不构建/测试/运行/检查产物。
 
-本步九文件UTF-8无BOM/LF、五份文档262处本地链接目标及两个新增锚点、限定差异静态检查通过；原常量/初值摘要保留共享明细，仅核本轮增量。
+本步六文件UTF-8无BOM/LF、四份文档156处本地链接目标及新增锚点、限定差异静态检查通过；原有37个历史表快照全部保留，重复读取命令收敛为可选快照示例，详细证据不删。
 
 ## 3. 后续任务与规则
 
-下一开发小步沿 `43CBB0` 完整父链继续：424620@[424620,426F9C)的var_50适配等待确认；获批后仅对该槽入口补零，再保留原写入/跨轮复用，不逐轮清零；未获批则沿43BC90的13个caller核具体队列可达性，不猜未用。动作208/209/210/211/237完整本体及本轮依赖已落，接着核表项212→4054E8、caller4054E9对应的413110@[413110,4131AD)及真实依赖，不重复已证链。424620五表/跳表及入口/尾已留证，中段分支仍须逐段核；该局部补零裁决不阻塞其他依赖。43B610实际回调为427470（至437AD3）；RID解析4239D0依赖438290/404DB0创建与动作回调，不注册占位。角色四W16/1080及10/14/1004/1054字段生产、FE8/FEC其他写者与消费者、C8A768/C8A76C的43D230起绘制清理、59F9E0的43CBB0配置生产、4383F0→4383B0/43B360、战斗C解析/载荷生产、32事件槽生产、1058清理/1068生产、冲突累计、名称清理及40F2B1消费者仍缺；5A8A40只映射已消费22位置。对象表清理覆盖22槽，常规视图仍20槽；43843B/41402E完整父函数、507140及D64E13的4FF650生产仍缺，不以初值代替真实生产。
+下一开发小步沿 `43CBB0` 完整父链继续：动作214依赖41CD00@[41CD00,41E3C1)的完整48类工厂，先核分派、真实callback与第三参数数值/指针混用的x64合同，再沿依赖实现；不以type36窄实现或仅设备分支代替完整父链。420D50/41A200已落位，不重复取证。424620@[424620,426F9C)的var_50适配仍待确认；获批后仅入口补零并保留跨轮复用，未获批则沿43BC90的13个caller核可达性；五表/跳表和入口/尾已证，中段仍须逐段核，不阻塞其他依赖。43B610实际回调为427470（至437AD3）；RID解析4239D0依赖438290/404DB0创建与动作回调，不注册占位。角色四W16/1080及10/14/1004/1054/105C/13B0字段生产、FE8/FEC其他写者与消费者、C8A768/C8A76C的43D230起绘制清理、59F9E0配置生产、4383F0→4383B0/43B360、战斗C解析/载荷生产、32事件槽生产、1068生产及附件其他清理、冲突累计、名称清理、40F2B1消费者仍缺；213已补1058/1068清理不能视为全生命周期闭合。5A8A40只映射已消费22位置，常规视图仍20槽；43843B/41402E完整父函数、507140及D64E13的4FF650生产仍缺，不以初值代替真实生产。
 
 其后仍须沿完整SPEC补齐普通/战斗场景、其余窗口、507140命中、共享初始化、排除接线和最终完整客户端门禁。未列入本摘要的债务不视为完成、豁免或范围排除；具体失败残留、未接caller及验证前提以各证据文档和固定历史为准。
 
@@ -123,7 +124,8 @@
 
 | 快照 | 用途 |
 |---|---|
-| `bbc1851c` | 本轮压缩前进度及动作209/位置特效记录；原合同继续保留在共享明细 |
+| `5b9e4e45` | 本轮压缩前进度及动作208/210/211记录；原合同继续保留在共享明细 |
+| `bbc1851c` | 动作209/位置特效记录 |
 | `49d632b7` | 动作237/数字显示记录 |
 | `bd67bc5a` | 效果消费/动作235记录 |
 | `97961d22` | 转生/属性特效记录 |
@@ -150,34 +152,12 @@
 | `a0831a64d01113b14edeed366f6bdefd3f9afdd3` | RPLAN.32压缩前952行旧记录 |
 | `3808ef2d309e1f407117bfe47390f36e7b8a4786` | RPLAN.17首次压缩前记录 |
 
+读取上表任一快照时只替换下例的`$snapshot`；不再为每个提交重复保存同一条命令。
+
 ```powershell
-git -c core.autocrlf=false -c i18n.logOutputEncoding=utf-8 show bbc1851c:cg2d_re/plan/cg2d_full_reconstruction_progress.md
-git -c core.autocrlf=false -c i18n.logOutputEncoding=utf-8 show 49d632b7:cg2d_re/plan/cg2d_full_reconstruction_progress.md
-git -c core.autocrlf=false -c i18n.logOutputEncoding=utf-8 show bd67bc5a:cg2d_re/plan/cg2d_full_reconstruction_progress.md
-git -c core.autocrlf=false -c i18n.logOutputEncoding=utf-8 show 97961d22:cg2d_re/plan/cg2d_full_reconstruction_progress.md
-git -c core.autocrlf=false -c i18n.logOutputEncoding=utf-8 show 09abcc50:cg2d_re/plan/cg2d_full_reconstruction_progress.md
-git -c core.autocrlf=false -c i18n.logOutputEncoding=utf-8 show f7bf3da5:cg2d_re/plan/cg2d_full_reconstruction_progress.md
-git -c core.autocrlf=false -c i18n.logOutputEncoding=utf-8 show 8cf4800c:cg2d_re/plan/cg2d_full_reconstruction_progress.md
-git -c core.autocrlf=false -c i18n.logOutputEncoding=utf-8 show 9029f664:cg2d_re/plan/cg2d_full_reconstruction_progress.md
-git -c core.autocrlf=false -c i18n.logOutputEncoding=utf-8 show 9107a391:cg2d_re/plan/cg2d_full_reconstruction_progress.md
-git -c core.autocrlf=false -c i18n.logOutputEncoding=utf-8 show 27496d0c:cg2d_re/plan/cg2d_full_reconstruction_progress.md
-git -c core.autocrlf=false -c i18n.logOutputEncoding=utf-8 show b64a0201:cg2d_re/plan/cg2d_full_reconstruction_progress.md
-git -c core.autocrlf=false -c i18n.logOutputEncoding=utf-8 show 7c66c182:cg2d_re/plan/cg2d_full_reconstruction_progress.md
-git -c core.autocrlf=false -c i18n.logOutputEncoding=utf-8 show 5f8c27b5:cg2d_re/plan/cg2d_full_reconstruction_progress.md
-git -c core.autocrlf=false -c i18n.logOutputEncoding=utf-8 show 9855b4a7:cg2d_re/plan/cg2d_full_reconstruction_progress.md
-git -c core.autocrlf=false -c i18n.logOutputEncoding=utf-8 show 7c266049:cg2d_re/plan/cg2d_full_reconstruction_progress.md
-git -c core.autocrlf=false -c i18n.logOutputEncoding=utf-8 show da01fc78:cg2d_re/plan/cg2d_full_reconstruction_progress.md
-git -c core.autocrlf=false -c i18n.logOutputEncoding=utf-8 show a24dc796:cg2d_re/plan/cg2d_full_reconstruction_progress.md
-git -c core.autocrlf=false -c i18n.logOutputEncoding=utf-8 show b4f66b66:cg2d_re/plan/cg2d_full_reconstruction_progress.md
-git -c core.autocrlf=false -c i18n.logOutputEncoding=utf-8 show b278f886:cg2d_re/plan/cg2d_full_reconstruction_progress.md
-git -c core.autocrlf=false -c i18n.logOutputEncoding=utf-8 show e71d7ebe:cg2d_re/plan/cg2d_full_reconstruction_progress.md
-git -c core.autocrlf=false -c i18n.logOutputEncoding=utf-8 show aa00eb19:cg2d_re/plan/cg2d_full_reconstruction_progress.md
-git -c core.autocrlf=false -c i18n.logOutputEncoding=utf-8 show d7979839:cg2d_re/plan/cg2d_full_reconstruction_progress.md
+$snapshot = '5b9e4e45'
+git -c core.autocrlf=false -c i18n.logOutputEncoding=utf-8 show "${snapshot}:cg2d_re/plan/cg2d_full_reconstruction_progress.md"
 git -c core.autocrlf=false -c i18n.logOutputEncoding=utf-8 show 810c6f75:cg2d_re/doc/cg2d_ui_window_runtime.md
-git -c core.autocrlf=false -c i18n.logOutputEncoding=utf-8 show 810c6f75:cg2d_re/plan/cg2d_full_reconstruction_progress.md
-git -c core.autocrlf=false -c i18n.logOutputEncoding=utf-8 show 928e20a3778fa56e340a37e9b30e3b30188369f8:cg2d_re/plan/cg2d_full_reconstruction_progress.md
-git -c core.autocrlf=false -c i18n.logOutputEncoding=utf-8 show a0831a64d01113b14edeed366f6bdefd3f9afdd3:cg2d_re/plan/cg2d_full_reconstruction_progress.md
-git -c core.autocrlf=false -c i18n.logOutputEncoding=utf-8 show 3808ef2d309e1f407117bfe47390f36e7b8a4786:cg2d_re/plan/cg2d_full_reconstruction_progress.md
 git -c core.autocrlf=false -c i18n.logOutputEncoding=utf-8 log --oneline -- cg2d_re
 ```
 

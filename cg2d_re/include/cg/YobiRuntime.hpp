@@ -286,6 +286,8 @@ void SetBattleAuxGear_422C90(
 void UpdateBattleOneShotEffect_419FA0(YobiAction* action); // PlayFrame(1)严格返回1才标死。
 void UpdateBattlePositionEffect_41E640(YobiAction* action); // PlayFrame(1)严格完成才标死，所有路径投影X/Y。
 YobiAction* NewBattlePositionEffect_41E680(YobiAction* parent, std::int32_t imageNo);
+void UpdateBattleRisingEffect_41A200(YobiAction* action); // 固定父引用，未舍入Y比较；标死后仍播放/投影。
+YobiAction* NewBattleRisingEffect_420D50(YobiAction* parent); // 先随机位置再分配，成功后可再随机混合标志。
 YobiAction* NewBattleRandomEffect_419FC0(
     YobiAction* parent, std::int32_t imageNo, std::int32_t direction); // X/Y分别取随机并重读尺寸。
 void UpdateBattleFloatingIcon_41F450(YobiAction* action); // 未舍入速度推进Y，停留60帧后标死并投影。
@@ -359,6 +361,8 @@ void SetBattleAction208Target_412870(YobiAction* action); // 按目标坐标界�
 std::int32_t UpdateBattleAction209_412900(YobiAction* action); // 完整动作209，效果按调用边界重读。
 YobiAction* UpdateBattleAction210_412F70(YobiAction* action); // 追近后播放，再取一次随机创建位置特效。
 void ApplyBattleSceneEffects_413070(YobiAction* action); // 动作211：四独立W16写，效果先于动作推进。
+void UpdateBattleAction212_413110(YobiAction* action); // 新计数与当前flags按S32比较，达到才推进效果/动作。
+std::int32_t UpdateBattleAction213_4131B0(YobiAction* action); // 动画结束顺序清四附件，保留分支返回值。
 std::int32_t UpdateBattleAction237_416DD0(YobiAction* action); // 完整动作237，返回最终PlayFrame结果。
 // 原43BF30：mode1只消费预扫描8整数；mode0读对象字段，五输出均为S32非拥有指针。
 void TakeBattleMAuxGraphics_43BF30(

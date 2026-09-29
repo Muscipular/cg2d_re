@@ -22514,6 +22514,122 @@ std::int32_t Sub_49BDB0(const std::int32_t)
     return 1;
 }
 
+std::int32_t Sub_47D4B0()
+{
+    const std::int32_t crystalLevel = Sub_479860();
+    const std::int32_t skill = gCraftSkillIndexCC2368;
+    const std::int32_t recipe = gCraftRecipeIndexD2D638;
+    return world::detail::gSkillsF1BAFC[skill].recipes8E8[recipe].level == crystalLevel ? 1 : 0;
+}
+
+std::int32_t Sub_47D4F0()
+{
+    if (gSelectedItemD460C0 < 0) {
+        return 0;
+    }
+    const std::int32_t crystalLevel = Sub_479860();
+    const std::int32_t slot = gSelectedItemD460C0;
+    return world::detail::gPlayerItemsFDA8A4[slot].level == crystalLevel ? 1 : 0;
+}
+
+std::int32_t Sub_47D530()
+{
+    for (std::int32_t index = 0; index < 6; ++index) {
+        const std::int32_t slot = gSelectedSlotsCA0A90[index];
+        if (slot < 0) {
+            continue;
+        }
+        const std::int32_t type = world::detail::gPlayerItemsFDA8A4[slot + 8].itemType;
+        if (type == 38 || type == 25 || type == 39 || type == 80) {
+            const std::int32_t crystalLevel = Sub_479860();
+            const std::int32_t selected = gSelectedSlotsCA0A90[index];
+            return world::detail::gPlayerItemsFDA8A4[selected + 8].level == crystalLevel ? 1 : 0;
+        }
+    }
+    return 0;
+}
+
+std::int32_t Sub_47D5B0()
+{
+    const std::int32_t slot = gSelectedSlotsCA0A90[0];
+    if (slot < 0) {
+        return 0;
+    }
+    const std::int32_t level = world::detail::gPlayerItemsFDA8A4[slot + 8].level;
+    const std::int32_t crystalLevel = Sub_479860();
+    return level == crystalLevel ? 1 : 0;
+}
+
+void Sub_481010()
+{
+    WindowInstance* const quantityWindow = gWindowStates[42].window;
+    if (quantityWindow != nullptr && gWindowStates[42].value20 == 11) {
+        quantityWindow->state |= 0x8000u;
+    }
+    gValueD67B00 = 0;
+    Sub_479660();
+    Sub_4796E0();
+    --gValueD67AFD;
+    for (std::int32_t index = 0; index < 6; ++index) {
+        static_cast<void>(Sub_47DC20(index));
+    }
+    static_cast<void>(Sub_47DC20(6));
+    --gValueD67AFE;
+    if (gValueD67AFE == 0) {
+        const std::int32_t state = world::detail::Sub_51BEC0();
+        if (state >= 9 && state <= 12) {
+            static_cast<void>(world::detail::Sub_51BE50(0));
+        }
+    }
+}
+
+std::int32_t Sub_482000(const std::int32_t)
+{
+    login::YobiAction* const action =
+        static_cast<WindowAnimationData*>(gCurrentWindow->elements[4].data)->action;
+    const std::uint8_t mode = gSelectionModeD2D650;
+    const std::int32_t imageNo = login::detail::GetYobiActionField2A8(action);
+    if (mode == 2 || mode == 5) {
+        const std::int32_t actionId = login::detail::GetYobiActionField2B0(action);
+        if (actionId == 18 || actionId == 5 || actionId == 15 || actionId == 10) {
+            const bool succeeded = actionId == 18 || actionId == 5;
+            const std::int32_t defaultAction = succeeded ? 5 : 10;
+            login::detail::SetYobiActionField2B0(action, defaultAction);
+            for (const auto& range : kCraftAlternateActionImages) {
+                if (imageNo >= range[0] && imageNo <= range[1]) {
+                    login::detail::SetYobiActionField2B0(action, succeeded ? 18 : 15);
+                }
+            }
+            if (imageNo == 0x18A26) {
+                login::detail::SetYobiActionField2B0(action, defaultAction);
+            }
+        }
+    }
+    if (imageNo >= 0x1AF0E && imageNo <= 0x1AF25) {
+        login::detail::SetYobiActionField309(
+            static_cast<WindowAnimationData*>(gCurrentWindow->elements[4].data)->action, 4);
+        login::detail::SetYobiActionField310(
+            static_cast<WindowAnimationData*>(gCurrentWindow->elements[4].data)->action, 4);
+    } else {
+        login::detail::SetYobiActionField309(
+            static_cast<WindowAnimationData*>(gCurrentWindow->elements[4].data)->action, 0);
+    }
+    const std::int32_t hovered = gMaterialHoveredItemD67424;
+    if (hovered >= 0) {
+        static_cast<void>(Sub_48B1A0(hovered, gMaterialHintPageCF4FD8));
+    }
+    if (gSelectedItemD460C0 >= 0) {
+        WindowInstance* const window = gCurrentWindow;
+        const WindowElement* const element = &window->elements[11];
+        const auto y = static_cast<std::int16_t>(element->y + window->y);
+        const auto x = static_cast<std::int16_t>(element->x + window->x);
+        static_cast<void>(render::DrawText_456780(
+            x, y, 3, 12, 127, input::gInputContextD2DE70.text, 0, 0));
+    }
+    DrawCurrentWindow_4729B0();
+    return 1;
+}
+
 std::int32_t Sub_47D170(
     WindowInstance* const window, const std::int32_t anchor,
     const std::int32_t first, const std::int32_t second,

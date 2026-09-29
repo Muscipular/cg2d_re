@@ -454,6 +454,11 @@ extern std::array<char, 0xC38> gShopDetailCC3210; // 名称/32行说明/六W32�
 extern std::int32_t gShopValueCAFEA4;
 extern std::int32_t gShopValueD046C4;
 extern std::int32_t gShopValueD672D4;
+extern std::int32_t gShopTooltipIndex580844; // 玩家/商品/详情提示编号，原装载初值-1。
+extern std::int32_t gShopMessage580848; // 四行正文组的负编号，原装载初值-1。
+extern std::int32_t gShopTooltipPageD67B8C;
+extern std::int32_t gShopTotalD2DAFC;
+extern std::int32_t gShopValueC8AF74; // 各模式计算的数量值，不与总金额合并。
 extern std::int32_t gStorageValueCC4218; // 存放窗口41每帧清零、元素13绘制的数值。
 extern std::array<char, 22> gStorageAmountTextsCB1DF8; // 两金额文本起点相隔11B，571150/158借用。
 extern const std::array<std::int32_t, 2> gStorageTitleImages54F4E8;
@@ -670,6 +675,9 @@ std::int32_t Sub_48B930(
 std::int32_t Sub_48B450(std::int32_t side, std::int32_t index, std::int32_t page);
 std::int32_t Sub_48B1A0(std::int32_t index, std::int32_t page); // 玩家/所选宠物装备提示。
 std::int32_t Sub_48B350(std::int32_t index, std::int32_t page); // 外部存放物品提示。
+std::int32_t Sub_48B560(
+    std::int32_t index, std::int32_t page, std::int32_t showUnavailable); // 同源商品及可选不可装备提示。
+std::int32_t Sub_48B750(std::int32_t page); // CC3210独立详情提示，缓存数值键400。
 std::int32_t Sub_4AC200(std::int32_t index, std::int32_t state); // 窗口38右上关闭。
 std::int32_t Sub_4A9350(std::int32_t index, std::int32_t state); // 窗口38/41共用关闭按钮。
 std::int32_t Sub_4AC290(std::int32_t index, std::int32_t state); // 窗口38自有物品面板。

@@ -115,6 +115,11 @@ std::array<char, 0xC38> gShopDetailCC3210 {};
 std::int32_t gShopValueCAFEA4 = 0;
 std::int32_t gShopValueD046C4 = 0;
 std::int32_t gShopValueD672D4 = 0;
+std::int32_t gShopTooltipIndex580844 = -1;
+std::int32_t gShopMessage580848 = -1;
+std::int32_t gShopTooltipPageD67B8C = 0;
+std::int32_t gShopTotalD2DAFC = 0;
+std::int32_t gShopValueC8AF74 = 0;
 static_assert(sizeof(gTradeItemsD460D0) == 0x1EBE0);
 static_assert(sizeof(gTradePetsC9C108) == 0x3BD8);
 static_assert(sizeof(gPetStorageD64E18) == 0x1E00);
@@ -501,6 +506,7 @@ constexpr std::array<const char*, 3> kShopHints57E6C4 {
     "\xA6\x62\xB3\x6F\xAE\x61\xA9\xB1\xBD\xE6\xAA\xAB\xAB\x7E\xA1\x43",
     "\xC1\xD9\xAC\x4F\xBA\xE2\xA4\x46\xA1\x43",
 };
+constexpr char kShopUnavailableHint586BF4[] = "\xA1\xAF\xB2\x7B\xA6\x62\xB5\x4C\xAA\x6B\xB8\xCB\xB3\xC6";
 
 std::int32_t gChoiceImageCB0AE4 = 0;
 std::int32_t gChoiceImageCF4A18 = 0;
@@ -7446,6 +7452,74 @@ std::int32_t Sub_48B350(const std::int32_t index, const std::int32_t page)
     return Sub_48B810(x, y, title, titleColor, lines, 96, 8, nullptr, 0);
 }
 
+std::int32_t Sub_48B560(
+    const std::int32_t index, const std::int32_t page, const std::int32_t showUnavailable)
+{
+    std::int32_t key = index + 300;
+    if (gTooltipSourceD303FC != key) {
+        gTooltipXCF46C0 = static_cast<std::uint16_t>(
+            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseX));
+        gTooltipYCF46CC = static_cast<std::uint16_t>(
+            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseY));
+        const bool left =
+            platform::legacy_crypt_int::Less_401DB0(&platform::gLegacyMouseState.mouseX, 320);
+        gTooltipXCF46C0 = static_cast<std::uint16_t>(gTooltipXCF46C0 + (left ? 60 : -257));
+        const bool top =
+            platform::legacy_crypt_int::Less_401DB0(&platform::gLegacyMouseState.mouseY, 240);
+        gTooltipYCF46CC = static_cast<std::uint16_t>(gTooltipYCF46CC + (top ? 60 : -174));
+    }
+    gTooltipSourceD303FC = key;
+    const char* record = gShopItemsCF4FE0.data() + index * 0xC58;
+    std::uint32_t flags;
+    std::memcpy(&flags, record + 0xC40, sizeof(flags));
+    std::array<char, 256> buffer;
+    std::strcpy(buffer.data(), record + 0xC44);
+    std::int8_t titleColor;
+    if ((flags & 0x100u) != 0) {
+        titleColor = 5;
+    } else {
+        std::int32_t count;
+        std::memcpy(&count, record + 0xC30, sizeof(count));
+        if (count <= 1) {
+            std::strcpy(buffer.data(), record + 1);
+        } else {
+            static_cast<void>(_snprintf(buffer.data(), 256, "%s(%d)", record + 1, count));
+            key = gTooltipSourceD303FC;
+        }
+        record = gShopItemsCF4FE0.data() + (key - 300) * 0xC58;
+        std::memcpy(&flags, record + 0xC40, sizeof(flags));
+        titleColor = static_cast<std::int8_t>((flags >> 9) & 1u);
+    }
+    const char* const footer = record[0xC3C] == 0 && showUnavailable != 0
+        ? kShopUnavailableHint586BF4 : nullptr;
+    const char* const lines = record + 0x1E + page * 768;
+    const std::int16_t y = std::bit_cast<std::int16_t>(gTooltipYCF46CC);
+    const std::int16_t x = std::bit_cast<std::int16_t>(gTooltipXCF46C0);
+    return Sub_48B810(x, y, buffer.data(), titleColor, lines, 96, 8, footer, 4);
+}
+
+std::int32_t Sub_48B750(const std::int32_t page)
+{
+    if (gTooltipSourceD303FC != 400) {
+        gTooltipXCF46C0 = static_cast<std::uint16_t>(
+            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseX));
+        gTooltipYCF46CC = static_cast<std::uint16_t>(
+            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseY));
+        const bool left =
+            platform::legacy_crypt_int::Less_401DB0(&platform::gLegacyMouseState.mouseX, 320);
+        gTooltipXCF46C0 = static_cast<std::uint16_t>(gTooltipXCF46C0 + (left ? 60 : -257));
+        const bool top =
+            platform::legacy_crypt_int::Less_401DB0(&platform::gLegacyMouseState.mouseY, 240);
+        gTooltipYCF46CC = static_cast<std::uint16_t>(gTooltipYCF46CC + (top ? 60 : -174));
+    }
+    const std::int16_t y = std::bit_cast<std::int16_t>(gTooltipYCF46CC);
+    const std::int16_t x = std::bit_cast<std::int16_t>(gTooltipXCF46C0);
+    gTooltipSourceD303FC = 400;
+    return Sub_48B810(
+        x, y, gShopDetailCC3210.data(), 0, gShopDetailCC3210.data() + 0x1D + page * 768,
+        96, 8, nullptr, 0);
+}
+
 std::int32_t Sub_4B4070(
     const std::int32_t x, const std::int32_t y,
     const std::int32_t index, const std::int32_t skill)
@@ -11701,6 +11775,50 @@ login::YobiAction* Sub_4B7EE0(const char* const text)
 {
     return CreateShopServiceWindow(
         text, 5, "\xA7\x41\xB7\x51\xAD\xD7\xB2\x7A\xA4\xB0\xBB\xF2\xAA\xAB\xAB\x7E\xA9\x4F\xA1\x48");
+}
+
+std::int32_t Sub_4B99D0(const std::int32_t unused)
+{
+    static_cast<void>(unused);
+    const WindowInstance* const window = gCurrentWindow;
+    const std::int32_t x = window->x + 298;
+    std::int32_t y = window->y + 50;
+    char mode = gMaterialOccupancyCC4894[20];
+    if (mode == 1) {
+        const std::int32_t money = world::detail::ReadPlayerValueFC();
+        const std::int32_t total = money + gShopTotalD2DAFC;
+        const std::int32_t limit = world::detail::ReadPlayerValue15BD0(0);
+        if (total > limit) {
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+            mode = gMaterialOccupancyCC4894[20];
+            gShopMessage580848 = -2;
+        }
+    }
+    if (mode == 3 && gShopValueCAFEA4 == 0 && gShopValueC8AF74 <= 0) {
+        gShopMessage580848 = -4;
+    }
+    const std::int32_t tooltip = gShopTooltipIndex580844;
+    if (tooltip >= 0) {
+        if (tooltip < 100) {
+            static_cast<void>(Sub_48B1A0(tooltip, gShopTooltipPageD67B8C));
+        } else if (tooltip < 200) {
+            static_cast<void>(Sub_48B560(tooltip - 100, gShopTooltipPageD67B8C, mode == 0));
+        } else {
+            static_cast<void>(Sub_48B750(gShopTooltipPageD67B8C));
+        }
+    }
+    const std::int32_t message = gShopMessage580848;
+    gTooltipColorD67D30 = 0;
+    const WindowDialogTextLine* line = gNpcDialogLinesCC24D4.data() + 1 + 4 * (-1 - message);
+    for (std::int32_t row = 0; row < 4; ++row) {
+        if (std::strlen(line->text.data()) != 0) {
+            static_cast<void>(Sub_4FBA30(x, y, 3, 8, 0, line->text.data(), 0, 0));
+        }
+        ++line;
+        y += 10;
+    }
+    DrawCurrentWindow_4729B0();
+    return 1;
 }
 
 std::int32_t Sub_4A5390()

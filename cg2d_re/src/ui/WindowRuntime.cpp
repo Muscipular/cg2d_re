@@ -395,6 +395,8 @@ struct LoginWindowRuntimeSlots {
 };
 
 LoginWindowRuntimeSlots gLoginWindowRuntime {};
+// 原D30138..D303F8；4B6970整区清零，4DFD38从+9起消费，其他字段尚未冻结。
+std::array<std::byte, 0x2C0> gWindow50AlternateRecordsD30138 {};
 
 // 原CB0FA8..CB0FD8的唯一UI状态；借用指针原生化，不沿用x86字段偏移。
 struct MessageDialogRuntimeSlots {
@@ -11031,6 +11033,67 @@ void Sub_4B5A90()
         record.texts08[0][0] = '\0';
         record.value04 = 0;
     }
+}
+
+std::int32_t Sub_4B6970(const std::int32_t flags, char* const text)
+{
+    gLoginWindowRuntime.valueD3FAD0 = static_cast<std::uint32_t>(flags);
+    input::UnescapeLegacyText_52D150(text);
+    gWindow50AlternateRecordsD30138.fill(std::byte{0});
+    static_cast<void>(network::ExtractDelimitedField_52CED0(
+        text, '|', 1, 16, gNpcDialogLinesCC24D4[0].text.data()));
+    std::array<char, 1024> buffer;
+    char* const fieldText = buffer.data();
+    char* const copiedText = buffer.data() + 768;
+    std::int32_t field = 2;
+    std::int32_t offset = 0;
+    do {
+        auto& record = gLoginWindowRuntime.recordsD3FAD4[offset / 0x40C];
+        const std::int32_t imageNo = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
+        record.value00 = character_select::detail::Sub_51BC50(imageNo);
+        record.value04 = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
+        record.value408 = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
+        static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', field++, 767, fieldText));
+        input::UnescapeLegacyTextAndNotify_52D2F0(fieldText);
+        std::strcpy(record.texts08[0].data(), std::strlen(fieldText) > 16 ? "???" : fieldText);
+        static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', field++, 767, fieldText));
+        input::UnescapeLegacyTextAndNotify_52D2F0(fieldText);
+        std::strcpy(copiedText, fieldText);
+        const auto length = static_cast<std::int32_t>(std::strlen(fieldText));
+        if (std::strlen(fieldText) > 140) {
+            std::strcpy(record.texts08[1].data(), input::LegacyText593850());
+            std::strcpy(record.texts08[2].data(), input::LegacyText593850());
+            std::strcpy(record.texts08[3].data(), input::LegacyText593850());
+        } else {
+            std::int32_t position = 0;
+            for (std::int32_t line = 1; line < 4; ++line) {
+                char* const destination = record.texts08[line].data();
+                std::int32_t used = 0;
+                for (;;) {
+                    const char value = copiedText[position];
+                    if (value == '\r') {
+                        ++position;
+                        break;
+                    }
+                    ++position;
+                    destination[used] = value;
+                    if (position > length) {
+                        break;
+                    }
+                    if (++used >= 70) {
+                        break;
+                    }
+                }
+                destination[used] = '\0';
+                if (input::ClassifyLastAnsiUnit_44B190(destination) == 3) {
+                    --position;
+                    destination[used - 1] = '\0';
+                }
+            }
+        }
+        offset += 0x40C;
+    } while (offset < 0x1030);
+    return offset;
 }
 
 std::int32_t Sub_4A5390()

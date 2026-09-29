@@ -809,6 +809,7 @@ void Sub_470980(); // 普通场景完整重开，保持626C14与22/23门禁。
 std::int32_t InitializeWindowSystem_4705D0(); // 启动UI完整初始化，返回category加载结果。
 std::int32_t Sub_4923D0(); // 三个UI数值依序写5/0/0。
 void Sub_4B5A90(); // 四条记录只清已证字段和四个文本首字节。
+std::int32_t Sub_4B6970(std::int32_t flags, char* text); // 原位反转义后生产同源四记录。
 std::int32_t Sub_4A5390(); // 五组选择槽及D2F0B8已证前缀重置。
 std::int32_t Sub_48C150(); // 所选宠物与两组五槽按原序重置。
 std::int32_t Sub_4742B0(); // 只清CF4E50/54。

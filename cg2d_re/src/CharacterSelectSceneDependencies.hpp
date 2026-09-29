@@ -87,6 +87,8 @@ std::int32_t Sub_51BD00(std::int32_t imageNo);
 std::int32_t Sub_51BFF0(std::int32_t imageNo);
 // 原 [0x51BB80,0x51BC4E)：旧图号的分段换算，类别 3/4 交换。
 std::int32_t Sub_51BB80(std::int32_t imageNo);
+// 原 [0x51BC50,0x51BCFF)：按覆盖/Puk允许类别回退，独立于51B740。
+std::int32_t Sub_51BC50(std::int32_t imageNo);
 // 原 [0x51B7D0,0x51B90F)：图号的有序区间类别判定，供 51B740 消费。
 std::int32_t Sub_51B7D0(std::int32_t imageNo);
 // 原 [0x51B740,0x51B7CE)：采样覆盖/Puk版本后按类别决定保留或回退图号。

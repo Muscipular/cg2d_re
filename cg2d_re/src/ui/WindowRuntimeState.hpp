@@ -343,6 +343,7 @@ struct WindowInputPrototype {
     std::int32_t encrypt;
 };
 extern WindowInputPrototype gDialogInputPrototype57E478; // 同源可写输入原型，57E698为容量成员。
+extern WindowInputPrototype gWindow50InputPrototype580618; // 借Input唯一CC2080，供更新与编辑交互。
 
 union WindowUserState {
     std::uint32_t value; // 原+18的数值路径。
@@ -809,6 +810,8 @@ void Sub_470980(); // 普通场景完整重开，保持626C14与22/23门禁。
 std::int32_t InitializeWindowSystem_4705D0(); // 启动UI完整初始化，返回category加载结果。
 std::int32_t Sub_4923D0(); // 三个UI数值依序写5/0/0。
 void Sub_4B5A90(); // 四条记录只清已证字段和四个文本首字节。
+void Sub_4B62A0(); // 四条记录刷新元素及输入位置；唯一caller弃用原地址低字节返回。
+std::int32_t Sub_4B6C20(); // 清对话类型、关闭入口时实例并透传SE57结果。
 std::int32_t Sub_4B6970(std::int32_t flags, char* text); // 原位反转义后生产同源四记录。
 std::int32_t Sub_4A5390(); // 五组选择槽及D2F0B8已证前缀重置。
 std::int32_t Sub_48C150(); // 所选宠物与两组五槽按原序重置。

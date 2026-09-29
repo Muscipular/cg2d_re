@@ -86,6 +86,10 @@ WindowInputPrototype gDialogInputPrototype57E478 {
     {{&input::gInputContextCA02E0}, WindowInputReferenceKind::Context},
     0, 0, 3, 0, 0, {}, 1, 32, 0, 0,
 };
+WindowInputPrototype gWindow50InputPrototype580618 {
+    {{&input::gInputContextCC2080}, WindowInputReferenceKind::Context},
+    33, 368, 3, 12, 0, {}, 2, 70, 16, 0,
+};
 std::int32_t gChatWindowModeD66E04 = 0;
 std::uint8_t gValue5F9754 = 0;
 std::int32_t gChatWidthUnitsC9A930 = 0;
@@ -11033,6 +11037,84 @@ void Sub_4B5A90()
         record.texts08[0][0] = '\0';
         record.value04 = 0;
     }
+}
+
+std::int32_t Sub_4B5AD0(const std::int32_t value)
+{
+    if (value == -1) {
+        gWindow50InputPrototype580618.input.context->text[0] = '\0';
+        WindowInstance* const window = gCurrentWindow;
+        static_cast<void>(Sub_476570(&gWindow50InputPrototype580618, window->x, window->y, 0));
+        input::SetContext_44B330(gWindow50InputPrototype580618.input.context);
+        gFocusedElementDataD45F94 = gCurrentWindow->elements[1].data;
+        static_cast<WindowInputData*>(gCurrentWindow->elements[1].data)->context =
+            gWindow50InputPrototype580618.input.context;
+    }
+    Sub_4B62A0();
+    if (Sub_4D3040(2, 2) != 0) {
+        static_cast<void>(Sub_4B6C20());
+    }
+    return 1;
+}
+
+void Sub_4B5B50()
+{
+    if (world::detail::gValue581800 == 21) {
+        world::detail::gValue581800 = -1;
+    }
+}
+
+void Sub_4B62A0()
+{
+    std::array<char, 256> buffer;
+    for (std::int32_t index = 0; index < 4; ++index) {
+        const auto& record = gLoginWindowRuntime.recordsD3FAD4[index];
+        const std::int32_t first = 2 + index * 7;
+        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[first].data);
+        graphic->imageNo = record.value00;
+        auto* const name = static_cast<WindowTextData*>(gCurrentWindow->elements[first + 1].data);
+        std::strcpy(name->text, record.texts08[0].data());
+        std::int32_t time = record.value04;
+        if (time > 0) {
+            const platform::LegacyTm53B8C6* const calendar = platform::LocalTime_53B8C6(&time);
+            const auto* const bytes = reinterpret_cast<const std::byte*>(calendar);
+            std::int32_t minute;
+            std::memcpy(&minute, bytes + 4, sizeof(minute));
+            std::int32_t hour;
+            std::memcpy(&hour, bytes + 8, sizeof(hour));
+            std::int32_t day;
+            std::memcpy(&day, bytes + 12, sizeof(day));
+            std::int32_t month;
+            std::memcpy(&month, bytes + 16, sizeof(month));
+            std::int32_t year;
+            std::memcpy(&year, bytes + 20, sizeof(year));
+            std::sprintf(buffer.data(), "%4d/%02d/%02d/%02d:%02d",
+                year + 1900, month + 1, day, hour, minute);
+            auto* const date = static_cast<WindowTextData*>(gCurrentWindow->elements[first + 2].data);
+            std::strcpy(date->text, buffer.data());
+        } else {
+            gCurrentWindow->elements[first + 2].visible = 0;
+        }
+        for (std::int32_t line = 1; line < 4; ++line) {
+            auto* const text = static_cast<WindowTextData*>(gCurrentWindow->elements[first + 3 + line].data);
+            std::strcpy(text->text, record.texts08[line].data());
+        }
+        gCurrentWindow->elements[first + 3].visible = record.value408 != 0 ? 1 : 0;
+    }
+    gCurrentWindow->elements[32].visible = (gLoginWindowRuntime.valueD3FAD0 & 0x20u) != 0 ? 1 : 0;
+    gCurrentWindow->elements[33].visible = (gLoginWindowRuntime.valueD3FAD0 & 0x10u) != 0 ? 1 : 0;
+    WindowInstance* const window = gCurrentWindow;
+    if (gFocusedElementDataD45F94 == window->elements[1].data) {
+        static_cast<void>(Sub_476570(&gWindow50InputPrototype580618, window->x, window->y, 2));
+    }
+}
+
+std::int32_t Sub_4B6C20()
+{
+    WindowInstance* const window = gCurrentWindow;
+    world::detail::gValue581800 = -1;
+    window->state |= 0x8000u;
+    return audio::PlaySe_52C450(57, 320);
 }
 
 std::int32_t Sub_4B6970(const std::int32_t flags, char* const text)

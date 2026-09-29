@@ -1700,6 +1700,133 @@ std::int32_t Sub_4D27C0(const std::int32_t value)
     return mode - 1;
 }
 
+std::int32_t Sub_4CFE70()
+{
+    char buffer[12];
+    char name[33] = "\xB5\x4C\xA6\x57\xA9\xB1\xE7\x45";
+    char description[113] =
+        "\xA6\xD1\xC1\xF3\xA8\x53\xA4\xB0\xBB\xF2\xA5\x69\xA4\xB6\xB2\xD0\xAA\xBA";
+    char offers[276];
+    char escaped[276];
+    offers[0] = input::LegacyText593850()[0];
+    std::int32_t count = gStallItemCountD67BCC;
+    std::memset(offers + 1, 0, sizeof(offers) - 1);
+    for (std::int32_t slot = 0; slot < 20; ++slot) {
+        std::int32_t index = 0;
+        if (count > 0) {
+            const StallOffer* offer = gStallItemOffersD671D8.data();
+            while (offer->slot != slot) {
+                ++index;
+                ++offer;
+                if (index >= count) {
+                    break;
+                }
+            }
+            if (index < count) {
+                std::sprintf(buffer, "%d|", gStallItemOffersD671D8[index].value);
+                std::strcat(offers, buffer);
+                count = gStallItemCountD67BCC;
+            }
+        }
+        if (index == count) {
+            std::strcat(offers, "0|");
+        }
+    }
+    count = gStallPetCountD67BD4;
+    for (std::int32_t slot = 0; slot < 5; ++slot) {
+        std::int32_t index = 0;
+        if (count > 0) {
+            const StallOffer* offer = gStallPetOffersCC3E98.data();
+            while (offer->slot != slot) {
+                ++index;
+                ++offer;
+                if (index >= count) {
+                    break;
+                }
+            }
+            if (index < count) {
+                std::sprintf(buffer, "%d|", gStallPetOffersCC3E98[index].value);
+                std::strcat(offers, buffer);
+                count = gStallPetCountD67BD4;
+            }
+        }
+        if (index == count) {
+            std::strcat(offers, "0|");
+        }
+    }
+    input::EscapeLegacyTextAndNotify_52D2D0(offers, escaped, 275);
+    std::strncpy(offers, escaped, 275);
+    const std::size_t nameLength = std::strlen(gStallNameD67BE4.data());
+    offers[275] = '\0';
+    if (nameLength != 0) {
+        std::sprintf(name, "%s", gStallNameD67BE4.data());
+    }
+    input::EscapeLegacyTextAndNotify_52D2D0(name, escaped, 275);
+    std::strncpy(name, escaped, 32);
+    const std::size_t descriptionLength = std::strlen(gStallDescriptionD67BF8.data());
+    name[32] = '\0';
+    if (descriptionLength != 0) {
+        std::sprintf(description, "%s", gStallDescriptionD67BF8.data());
+    }
+    input::EscapeLegacyTextAndNotify_52D2D0(description, escaped, 275);
+    std::strncpy(description, escaped, 112);
+    const std::uintptr_t socket = platform::gConnectionSocket;
+    description[112] = '\0';
+    static_cast<void>(network::Sub_5120D0(socket, name, description, offers));
+    if (gStallNameInput581130.input.context->text[0] != '\0') {
+        std::strcpy(login::detail::GetCurrentSavedStallNameFF4D18(), name);
+    }
+    if (gStallDescriptionInput581360.input.context->text[0] != '\0') {
+        std::strcpy(login::detail::GetCurrentSavedStallDescriptionFF4D28(), description);
+    }
+    std::strcpy(gStallMessageC8A978.data(), "\xC2\x5C\xC5\x75\xBD\xD0\xA8\x44\xA4\xA4");
+    WindowInstance* const window = gCurrentWindow;
+    gStallMessageModeD67C34 = 0;
+    gStallMessageValueD67C38 = 0;
+    window->elements[0].visible = 1;
+    return 0;
+}
+
+std::int32_t Sub_4D0230(const std::int32_t index, const std::int32_t state)
+{
+    const std::int32_t mode = gStallMessageModeD67C34;
+    if (mode != 0 && mode != 1) {
+        return state & 1;
+    }
+    render::GraphicDescriptor16 descriptor {};
+    const std::uint32_t color = 0xFFFFFFFFu;
+    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    descriptor.bytes[13] = 4;
+    const std::int32_t width = login::detail::TextMeasure(gStallMessageC8A978.data(), 0);
+    WindowInstance* window = gCurrentWindow;
+    const auto textY = static_cast<std::int16_t>(window->y + (window->height - 16) / 2);
+    const auto textX = static_cast<std::int16_t>(window->x + (window->width - width) / 2);
+    static_cast<void>(render::DrawText_456780(
+        textX, textY, 4, 0, 0, gStallMessageC8A978.data(), 0, 0));
+    if (mode == 1) {
+        window = gCurrentWindow;
+        const std::int32_t centerY = window->height / 2 + window->y;
+        const std::int32_t centerX = window->x + window->width / 2;
+        const bool hit = login::detail::Sub_5049A0(
+            centerX - 33, centerY + 18, centerX + 33, centerY + 35, -1) != 0;
+        window = gCurrentWindow;
+        const std::int32_t buttonY = window->height / 2 + window->y + 27;
+        const std::int32_t buttonX = window->x + window->width / 2;
+        static_cast<void>(login::detail::DrawGraphic(
+            buttonX, buttonY, 227, hit ? 243050 : 243048, 0, &descriptor));
+        if (hit && (state & 2) != 0) {
+            gCurrentWindow->elements[index].visible = 0;
+        }
+    }
+    window = gCurrentWindow;
+    const auto backgroundY = static_cast<std::int16_t>(window->y + (window->height - 92) / 2);
+    const auto backgroundX = static_cast<std::int16_t>(window->x + (window->width - 220) / 2);
+    login::detail::DrawNineGrid_49BE00(
+        245300, backgroundX, backgroundY, 220, 92, 226, -1,
+        std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}), 74, 54);
+    return state & 1;
+}
+
 std::int32_t Sub_4CD4F0(const std::int32_t value)
 {
     if (value == -1) {

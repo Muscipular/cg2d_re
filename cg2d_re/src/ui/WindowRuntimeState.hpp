@@ -650,6 +650,8 @@ std::int32_t Sub_4CE1F0(std::int32_t index, std::int32_t state); // 宠物候选
 std::int32_t Sub_4CE2B0(std::int32_t index, std::int32_t state); // 宠物候选向后，最大页1。
 std::int32_t Sub_4CE370(std::int32_t unusedIndex, std::int32_t state); // 宠物候选滚轮，始终返回0。
 std::int32_t Sub_4CE3F0(std::int32_t index, std::int32_t state); // 类别页签及七项候选控件原序显隐。
+std::int32_t Sub_4CFE70(); // 槽序上架组包、转义发送及同源保存记录回写，返回0。
+std::int32_t Sub_4D0230(std::int32_t index, std::int32_t state); // 共用提示覆盖层，只返回hover位。
 extern std::int32_t gDragItemIndex584DA4; // 4FB8F0已接重置，4FAEF0拖动生产仍待接。
 extern std::int32_t gDragImageNoD67D24;
 extern std::int32_t gItemDragXCC4880;

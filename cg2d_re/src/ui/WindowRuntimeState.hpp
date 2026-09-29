@@ -416,6 +416,12 @@ void Sub_4C1B00(); // 总额与玩家晶石比较，写type7 color。
 void Sub_4C1B70(); // 二十条选中商品占槽。
 void Sub_4C1BC0(); // 首次/分页/数量脏标刷新。
 std::int32_t Sub_4C29E0(std::int32_t index, std::int32_t state); // 窗口69商品图标及四页提示。
+std::int32_t Sub_4C2460(std::int32_t index, std::int32_t state); // 两窗口共用取消，发送command2。
+std::int32_t Sub_4C2530(std::int32_t index, std::int32_t state); // 窗口69上一行。
+std::int32_t Sub_4C25B0(std::int32_t index, std::int32_t state); // 下一行。
+std::int32_t Sub_4C2630(std::int32_t index, std::int32_t state); // 上一页，真实入口为4C2630。
+std::int32_t Sub_4C26B0(std::int32_t index, std::int32_t state); // 下一页。
+std::int32_t Sub_4C2760(std::int32_t index, std::int32_t state); // 滚轮，仅回写分页。
 std::int32_t Sub_4C33B0(
     std::int32_t index, std::int32_t page, std::int32_t unused); // 保留caller第三实参。
 void Sub_4C39A0(); // 窗口70五条剩余量文本。
@@ -425,6 +431,12 @@ void Sub_4C3DA0(); // 总额与指定背包物品数量比较。
 void Sub_4C3E20(); // 二十条选中商品占槽。
 void Sub_4C3E70(); // 首次/分页/数量脏标刷新。
 std::int32_t Sub_4C4B70(std::int32_t index, std::int32_t state); // 窗口70商品图标及四页提示。
+std::int32_t Sub_4C4680(std::int32_t index, std::int32_t state); // 两窗口共用按钮图，恒0。
+std::int32_t Sub_4C46C0(std::int32_t index, std::int32_t state); // 窗口70上一行。
+std::int32_t Sub_4C4740(std::int32_t index, std::int32_t state); // 下一行。
+std::int32_t Sub_4C47C0(std::int32_t index, std::int32_t state); // 上一页。
+std::int32_t Sub_4C4840(std::int32_t index, std::int32_t state); // 下一页。
+std::int32_t Sub_4C48F0(std::int32_t index, std::int32_t state); // 滚轮，仅回写分页。
 std::int32_t Sub_4C54D0(
     std::int32_t index, std::int32_t page, std::int32_t unused); // 共用D303FC提示键。
 std::int32_t Sub_4BA950(std::int32_t index, std::int32_t state); // 取消发送command2，发送后关闭。

@@ -269,6 +269,12 @@ void Sub_43C040(); // 命令初始化逐槽清flags bit40，不改变其他位�
 void DrawBattleEntryHover_43C0A0(std::int32_t index); // 固定可选对象，按DX尺寸和播放偏移画框。
 std::int32_t GetSelectedBattleEntry_43C120(); // 返回单体/邻接/阵营/全体目标编号，先快照目标位与命中。
 void Sub_405CB0(YobiAction* action); // 角度只校正一圈，按八个不等宽区间写方向。
+void Sub_406260(YobiAction* action); // 载荷反向坐标差转角度，再更新方向。
+void InitBattleCastList_4390E0(std::int32_t index); // 22槽索引，保留禁用/phase13门禁。
+void ResetBattleCastList_4391E0(std::int32_t index); // 恢复重置，不清忙状态、技能或转向。
+void AppendBattleCast_4392A0(YobiAction* caster, YobiAction* actor, std::int32_t state);
+void MoveBattleCastState_439380(YobiAction* action); // 播放索引对应项写phase，不推进索引。
+std::int32_t CheckBattleTurnReady_4394A0(YobiAction* parent, std::int32_t enable); // 22槽就绪及超时恢复。
 std::int32_t Sub_43C910(); // 全表未就绪对象置phase=2，全部就绪返回1。
 void Sub_43C9A0(); // 先10..19再重读玩家位处理0..9，重取对象并转向/播放。
 std::int32_t Sub_43CA50(); // 非空战斗槽中载荷FDC bit4计数。

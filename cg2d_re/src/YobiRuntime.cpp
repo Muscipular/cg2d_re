@@ -271,8 +271,31 @@ struct BattleActorPayload {
     std::int32_t y04;
     std::int32_t x08;
     std::int32_t y0C; // 43C9A0按(08-00,0C-04)计算朝向，不与对象坐标合并。
+    std::array<std::int32_t, 200> effectPositions1C; // 原stride16效果记录仅映射位置字段。
+    std::int32_t effectRunningC9C;
+    std::int32_t effectCountCA0;
+    std::array<std::int32_t, 200> castListCA4; // FC4前的200项动作队列。
+    std::int32_t castPlayIndexFC4;
+    std::int32_t castListIndexFC8;
+    std::int32_t valueFCC;
+    std::int32_t valueFD0;
+    std::int32_t valueFD4;
+    std::int32_t busyFD8;
     std::uint32_t flagsFDC;
+    std::uint32_t stateFE0;
+    std::int32_t effectFlagsFE4;
+    std::int32_t valueFF0;
+    std::int32_t aliveFF8;
+    std::int32_t value1024;
+    std::int32_t value1038;
+    std::int32_t castSkill103C;
+    std::int32_t castSkillLevel1044;
     std::int32_t rebirthState106C; // 497C80悬停借用、点击刷新后重取。
+    YobiAction* caster1070; // 4392A0记录动作发起者，非拥有引用。
+    std::int32_t value1084;
+    std::int32_t value1088;
+    std::int32_t value13A4;
+    std::int32_t value13A8;
     YobiAction* rider13C8; // 4222B0保存4221F0创建的非拥有引用，移除时MarkDeath再清槽。
 };
 
@@ -280,7 +303,29 @@ struct BattleActorPayload {
 struct BattleScenePayload {
     std::int32_t packetOffset64;
     std::int32_t messageValueA4;
+    std::uint32_t entryMaskA8; // 4394A0参与对象位图，含特殊槽20/21。
+    std::int32_t waitCountAC; // 忙状态每次检查递增，超时逐对象恢复后清零。
 };
+
+// 4390E0/4391E0仅共享此写序；各自队列尾、技能及朝向处理保持独立。
+void ResetBattleCastEffects(BattleActorPayload* const payload)
+{
+    payload->valueFD4 = 0;
+    payload->effectFlagsFE4 = 0;
+    payload->valueFF0 = 0;
+    payload->aliveFF8 = 0;
+    payload->value1024 = 0;
+    payload->value1038 = 0;
+    payload->valueFCC = 0;
+    payload->valueFD0 = 0;
+    payload->effectRunningC9C = 0;
+    payload->effectCountCA0 = 0;
+    payload->effectPositions1C[0] = -1;
+    payload->effectPositions1C[1] = -1;
+    for (std::int32_t& position : payload->effectPositions1C) {
+        position = -1;
+    }
+}
 constexpr std::array<const char*, 25> kBattleMHeaders553E94 {
     "SKL", "ESC", "CLR", "SUP", "POS", "MON", "EQU", "ITM", "CMB", "PSN",
     "ANR", "PUE", "ACT", "CFP", "CHT", "PNO", "PLV", "CBC", "PDN", "REB",
@@ -6149,6 +6194,142 @@ void Sub_405CB0(YobiAction* const action)
         || (action->angle50 >= 0.0F && action->angle50 < 15.0F)) {
         action->direction = 3;
     }
+}
+
+void Sub_406260(YobiAction* const action)
+{
+    if (action == nullptr) {
+        return;
+    }
+    const auto* const payload = static_cast<const BattleActorPayload*>(action->payload);
+    const float y = static_cast<float>(static_cast<double>(payload->y04) - payload->y0C);
+    const float x = static_cast<float>(static_cast<double>(payload->x00) - payload->x08);
+    action->angle50 = static_cast<float>(world::detail::Sub_46F970(x, y));
+    Sub_405CB0(action);
+}
+
+void InitBattleCastList_4390E0(const std::int32_t index)
+{
+    using world::detail::gBattleAllEntries59E980;
+    YobiAction* const action = gBattleAllEntries59E980[index];
+    if (action == nullptr) {
+        return;
+    }
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    if ((static_cast<std::uint8_t>(payload->flagsFDC) & 2u) != 0 || action->phase == 13) {
+        return;
+    }
+    action->value54 = 1.0F;
+    gBattleAllEntries59E980[index]->hidden = 0;
+    ResetBattleCastEffects(payload);
+    payload->castPlayIndexFC4 = 0;
+    payload->castListCA4[0] = 0;
+    payload->value13A4 = 0;
+    payload->value13A8 = 0;
+    const std::uint8_t flags = static_cast<std::uint8_t>(payload->flagsFDC);
+    payload->castListIndexFC8 = -1;
+    payload->castListCA4[1] = -1;
+    payload->value1084 = -1;
+    payload->value1088 = -1;
+    payload->castSkill103C = -1;
+    payload->castSkillLevel1044 = -1;
+    if ((flags & 2u) == 0
+        && (static_cast<std::uint8_t>(world::detail::gBattlePlayerFlags5ABCAC) & 3u) != 0) {
+        Sub_406260(gBattleAllEntries59E980[index]);
+    }
+}
+
+void ResetBattleCastList_4391E0(const std::int32_t index)
+{
+    using world::detail::gBattleAllEntries59E980;
+    YobiAction* const action = gBattleAllEntries59E980[index];
+    if (action == nullptr) {
+        return;
+    }
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    action->value54 = 1.0F;
+    gBattleAllEntries59E980[index]->hidden = 0;
+    ResetBattleCastEffects(payload);
+    payload->castListIndexFC8 = -1;
+    payload->castListCA4[1] = -1;
+    payload->value1084 = -1;
+    payload->value1088 = -1;
+    payload->castPlayIndexFC4 = 0;
+    payload->castListCA4[0] = 0;
+    payload->value13A4 = 0;
+    payload->value13A8 = 0;
+}
+
+void AppendBattleCast_4392A0(
+    YobiAction* const caster, YobiAction* const actor, const std::int32_t state)
+{
+    if (actor == nullptr) {
+        return;
+    }
+    auto* const payload = static_cast<BattleActorPayload*>(actor->payload);
+    payload->caster1070 = caster;
+    const std::int32_t next = payload->castListIndexFC8 + 1;
+    payload->castListIndexFC8 = next;
+    payload->castListCA4[next] = state;
+    payload->castListCA4[payload->castListIndexFC8 + 1] = -1;
+    payload->busyFD8 = 1;
+}
+
+void MoveBattleCastState_439380(YobiAction* const action)
+{
+    if (action == nullptr) {
+        return;
+    }
+    const auto* const payload = static_cast<const BattleActorPayload*>(action->payload);
+    action->phase = payload->castListCA4[payload->castPlayIndexFC4];
+}
+
+std::int32_t CheckBattleTurnReady_4394A0(
+    YobiAction* const parent, const std::int32_t enable)
+{
+    using namespace world::detail;
+    auto* const payload = static_cast<BattleScenePayload*>(parent->payload);
+    for (std::size_t index = 0; index < gBattleAllEntries59E980.size(); ++index) {
+        YobiAction* const actor = gBattleAllEntries59E980[index];
+        if (actor == nullptr || (payload->entryMaskA8 & (1u << index)) == 0) {
+            continue;
+        }
+        const std::int32_t parentPhase = parent->phase;
+        const auto* const actorPayload = static_cast<const BattleActorPayload*>(actor->payload);
+        if (parentPhase != 24 && enable == 0
+            && (static_cast<std::uint8_t>(actorPayload->stateFE0) & 2u) != 0
+            && actorPayload->aliveFF8 == 0 && actor->phase != 27) {
+            continue;
+        }
+        if (actorPayload->busyFD8 == 1) {
+            const std::int32_t count = payload->waitCountAC + 1;
+            payload->waitCountAC = count;
+            if (count > 1200) {
+                for (std::size_t slot = 0; slot < gBattleAllEntries59E980.size(); ++slot) {
+                    if (gBattleAllEntries59E980[slot] != nullptr
+                        && (payload->entryMaskA8 & (1u << slot)) != 0) {
+                        ResetBattleCastList_4391E0(static_cast<std::int32_t>(slot));
+                        AppendBattleCast_4392A0(parent, gBattleAllEntries59E980[slot], 11);
+                        AppendBattleCast_4392A0(parent, gBattleAllEntries59E980[slot], 40);
+                        MoveBattleCastState_439380(gBattleAllEntries59E980[slot]);
+                        payload->waitCountAC = 0;
+                    }
+                }
+            }
+            return 0;
+        }
+        if (parentPhase != 24) {
+            const auto& point = gBattleGraphicPoints553758[gBattlePointIndices5536FC[index]];
+            if (static_cast<double>(point[2]) != static_cast<double>(actor->offset40)
+                || static_cast<double>(point[3]) != static_cast<double>(actor->offset44)) {
+                AppendBattleCast_4392A0(parent, gBattleAllEntries59E980[index], 11);
+                AppendBattleCast_4392A0(parent, gBattleAllEntries59E980[index], 40);
+                MoveBattleCastState_439380(gBattleAllEntries59E980[index]);
+                return 0;
+            }
+        }
+    }
+    return 1;
 }
 
 std::int32_t Sub_43C910()

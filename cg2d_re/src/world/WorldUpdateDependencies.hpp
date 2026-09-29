@@ -9,6 +9,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <cstdio>
+#include <span>
 #include <type_traits>
 
 namespace cg::render {
@@ -1150,7 +1151,10 @@ extern std::array<char, 0x1000> gBattleCText5A3A20; // 场景从C队列复制的
 extern std::array<char, 0x1000> gBattleMText5AAA7C;
 extern std::int32_t gBattleMScanOffset5A8A3C; // M头扫描S32游标，非队列索引或对象载荷64游标。
 extern login::YobiAction* gBattleSceneAction5ABA94; // 4383F0发布的非拥有场景对象，完整生产仍缺。
-extern std::array<login::YobiAction*, 20> gBattleEntries59E980; // 原20槽非拥有对象表。
+extern std::array<login::YobiAction*, 22> gBattleAllEntries59E980; // 含20/21特殊槽的唯一非拥有对象表。
+extern const std::span<login::YobiAction*, 20> gBattleEntries59E980; // 常规路径仅遍历前20槽。
+extern const std::array<std::int32_t, 22> gBattlePointIndices5536FC;
+extern const std::array<std::array<std::int32_t, 4>, 22> gBattleGraphicPoints553758; // 两组原S32坐标。
 extern std::int32_t gBattleCurrentPosition5ABCA4; // 实际gMyPostion；不同于P回复的5ABCA8。
 extern std::uint32_t gBattlePosition5ABCA8;
 extern std::int32_t gBattlePlayerActionState5ABC74; // UI发布动作完成状态，非5ABB74回合数。

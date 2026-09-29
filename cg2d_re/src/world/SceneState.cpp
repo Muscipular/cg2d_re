@@ -3980,7 +3980,23 @@ std::array<char, 0x1000> gBattleCText5A3A20 {};
 std::array<char, 0x1000> gBattleMText5AAA7C {};
 std::int32_t gBattleMScanOffset5A8A3C = 0;
 login::YobiAction* gBattleSceneAction5ABA94 = nullptr;
-std::array<login::YobiAction*, 20> gBattleEntries59E980 {};
+std::array<login::YobiAction*, 22> gBattleAllEntries59E980 {};
+constinit const std::span<login::YobiAction*, 20> gBattleEntries59E980 {
+    gBattleAllEntries59E980.data(), 20
+};
+const std::array<std::int32_t, 22> gBattlePointIndices5536FC {
+    2, 1, 3, 0, 4, 7, 6, 8, 5, 9, 12, 11, 13, 10, 14, 17, 16, 18, 15, 19, 20, 21
+};
+const std::array<std::array<std::int32_t, 4>, 22> gBattleGraphicPoints553758 {{
+    {910, 590, 610, 290}, {845, 625, 545, 325}, {780, 660, 480, 360},
+    {715, 695, 415, 395}, {650, 730, 350, 430}, {845, 540, 545, 240},
+    {781, 576, 481, 276}, {718, 613, 418, 313}, {654, 649, 354, 349},
+    {590, 685, 290, 385}, {-14, -194, 285, 105}, {-77, -157, 222, 142},
+    {-141, -121, 158, 178}, {-205, -85, 94, 214}, {-269, -49, 30, 250},
+    {45, -143, 345, 156}, {-18, -107, 281, 192}, {-81, -71, 218, 228},
+    {-145, -35, 154, 264}, {-209, 0, 90, 300}, {768, 663, 418, 313},
+    {-131, -121, 218, 228},
+}};
 std::int32_t gBattleCurrentPosition5ABCA4 = 0;
 std::uint32_t gBattlePosition5ABCA8 = 0;
 std::int32_t gBattlePlayerActionState5ABC74 = 0;
@@ -4019,7 +4035,8 @@ std::uint32_t gBattleEndBits5ABBC0 = 0;
 std::uint32_t gBattleTurn5ABB74 = 0;
 std::uint32_t gBattleTurnSnapshot5ABC08 = 0;
 std::uint32_t gValue5ABCB0 = 0;
-static_assert(sizeof(gBattleEntries59E980) == 20 * sizeof(login::YobiAction*));
+static_assert(sizeof(gBattleAllEntries59E980) == 22 * sizeof(login::YobiAction*));
+static_assert(decltype(gBattleEntries59E980)::extent == 20);
 static_assert(sizeof(gBattleCQueue5A4A3C) == 4 * 0x1000);
 static_assert(sizeof(gBattleMQueue59FA18) == 4 * 0x1000);
 static_assert(sizeof(gBattleCText5A3A20) == 0x1000);

@@ -190,6 +190,5 @@ std::int32_t Sub_4CBD90(std::int32_t value);
 std::int32_t Sub_4CC6C0(std::int32_t value);
 std::int32_t Sub_4CD4F0(std::int32_t value);
 std::int32_t Sub_4CDB10(std::int32_t value);
-void Sub_4CDE00();
 
 } // namespace cg::ui::detail

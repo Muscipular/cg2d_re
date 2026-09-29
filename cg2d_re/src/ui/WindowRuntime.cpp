@@ -466,6 +466,7 @@ std::int32_t gStallPetCountD67BD4 = 0;
 std::int32_t gStallModeD67BDC = 0;
 std::int32_t gStallItemSelection581124 = -1;
 std::int32_t gStallPetSelection581128 = -1;
+std::uint8_t gStallOwn58111C = 1;
 
 std::array<char, 256> gProfileSearchKeyword1075988 {};
 WindowInputPrototype gProfileSearchInputPrototype580A80 {
@@ -1382,6 +1383,82 @@ void Sub_4E5600(const std::int32_t side)
     for (std::int32_t index = 0; index < 20; ++index) {
         Sub_4E54E0(side, index);
     }
+}
+
+void Sub_4CF8A0(world::detail::PlayerItemRecord* const item, const char* const text)
+{
+    std::int32_t last = -1;
+    for (std::int32_t line = 0; line < 32; ++line) {
+        char* const row = item->description[line].data();
+        if (input::ExtractLegacyLine_503AB0(row, 3072, text, line, 32) != 0) {
+            last = line;
+        } else {
+            row[0] = '\0';
+        }
+    }
+    // 原回扫从最后成功行的前一行开始，不检查最后成功行本身。
+    while (last > 0 && std::strlen(item->description[last - 1].data()) == 0) {
+        --last;
+    }
+    item->pages = last < 0 ? 0 : last / 8 + 1;
+}
+
+std::int32_t Sub_4CECB0()
+{
+    const std::int32_t mode = gStallModeD67BDC;
+    std::int32_t value;
+    if (mode == 0) {
+        value = gStallBrowseD046D8.itemValuesD13E74[gStallItemSelection581124];
+    } else if (mode == 1) {
+        value = gStallBrowseD046D8.petValuesD2D464[gStallPetSelection581128];
+    } else {
+        return mode - 1;
+    }
+    if (value < 0) {
+        return value;
+    }
+    const std::uintptr_t socket = platform::gConnectionSocket;
+    gStallPendingD67C31 = 1;
+    static_cast<void>(network::Sub_5121E0(socket, value));
+    constexpr char message[] = "\xC1\xCA\xB6\x52\xBD\xD0\xA8\x44\xA4\xA4";
+    const auto bytes = static_cast<std::int32_t>(std::strlen(message) + 1);
+    gStallMessageModeD67C34 = 0;
+    gStallMessageValueD67C38 = 0;
+    std::memcpy(gStallMessageC8A978.data(), message, bytes);
+    gCurrentWindow->elements[0].visible = 1;
+    return bytes;
+}
+
+std::int32_t Sub_4CD420(const std::int32_t index, const std::int32_t state)
+{
+    WindowInstance* const window = gCurrentWindow;
+    auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
+    const bool hovered = (state & 1) != 0;
+    std::int32_t consumed = 0;
+    if (hovered) {
+        std::strcpy(gHoverTextD68AE8.data(), "\xC3\xF6\xB3\xAC\xB3\x6F\xAD\xD3\xB5\xF8\xB5\xA1\xA1\x43");
+    }
+    if ((state & 2) != 0 && gValueD67BE0 == 0 && gStallPendingD67C31 == 0) {
+        window->state |= 0x8000u;
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+        consumed = 1;
+    }
+    graphic->imageNo = 243000;
+    if (hovered) {
+        graphic->imageNo = 243002;
+    }
+    if ((state & 8) != 0 || gValueD67BE0 != 0 || gStallPendingD67C31 != 0) {
+        graphic->imageNo = 243001;
+    }
+    return consumed;
+}
+
+void Sub_4CDE00()
+{
+    if (gStallOwn58111C != 0 && gValueD67BE0 != 0) {
+        static_cast<void>(network::Sub_512160(platform::gConnectionSocket));
+    }
+    static_cast<void>(audio::PlaySe_52C450(57, 320));
 }
 
 void Sub_4CE700(const std::int32_t result)

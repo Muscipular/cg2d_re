@@ -633,6 +633,10 @@ extern std::int32_t gStallMessageValueD67C38;
 void Sub_4CE700(std::int32_t result); // 开摊结果：玩家标志、名字及窗口67首元素。
 void Sub_4CE8B0(std::int32_t result); // 收摊结果：两路均先清玩家标志/等待/门禁。
 void Sub_4CE930(std::int32_t result); // 购买结果：浏览记录和两并行表原序搬移，或显示原提示。
+void Sub_4CF8A0(world::detail::PlayerItemRecord* item, const char* text); // 固定32行描述及前一行回扫。
+std::int32_t Sub_4CECB0(); // 选择索引直接查询后发购买请求，返回提示字节数或原负值。
+std::int32_t Sub_4CD420(std::int32_t index, std::int32_t state); // 两等待门禁、关闭标记和原图形快照。
+void Sub_4CDE00(); // 67/68共用释放，条件发送后无条件SE57。
 extern std::int32_t gDragItemIndex584DA4; // 4FB8F0已接重置，4FAEF0拖动生产仍待接。
 extern std::int32_t gDragImageNoD67D24;
 extern std::int32_t gItemDragXCC4880;

@@ -3978,6 +3978,8 @@ std::array<char, 0x4000> gBattleCQueue5A4A3C {};
 std::array<char, 0x4000> gBattleMQueue59FA18 {};
 std::array<char, 0x1000> gBattleCText5A3A20 {};
 std::array<char, 0x1000> gBattleMText5AAA7C {};
+std::int32_t gBattleMScanOffset5A8A3C = 0;
+login::YobiAction* gBattleSceneAction5ABA94 = nullptr;
 std::array<login::YobiAction*, 20> gBattleEntries59E980 {};
 std::int32_t gBattleCurrentPosition5ABCA4 = 0;
 std::uint32_t gBattlePosition5ABCA8 = 0;
@@ -6984,6 +6986,14 @@ const char* BorrowPlayerJobName() noexcept
 std::int32_t ReadPlayerTimerRemaining0C() noexcept
 {
     return gPlayerRuntime.timerRemaining0C;
+}
+
+void ConsumeBattlePlayerTimer(const std::int32_t seconds)
+{
+    gPlayerRuntime.timerRemaining0C -= 1000 * seconds;
+    if (gPlayerRuntime.timerRemaining0C < 0) {
+        gPlayerRuntime.timerRemaining0C = 0;
+    }
 }
 
 std::int32_t ReadPlayerInjury() noexcept

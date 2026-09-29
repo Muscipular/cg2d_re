@@ -249,6 +249,12 @@ std::int32_t YobiUpdateAll_404C50();
 // 原 Yobi::MarkDeath@[0x404D00,0x404D10)，只置死亡标志并返回原指针。
 YobiAction* MarkDeath(YobiAction* action);
 
+std::int32_t GetBattleMHeader_439070(char* destination); // 独立头游标，读3B并补NUL，结束返回1。
+std::int32_t TakeBattleMInteger_438F70(YobiAction* action); // 对象载荷64游标读取大写十六进制。
+void TakeBattleMString_438FE0(YobiAction* action, char* destination, std::int32_t capacity);
+std::int32_t GetBattlePosition_4237E0(std::int32_t position); // 50/51转20/21，其余原值。
+std::int32_t Sub_43BAA0(); // 完整退出扫描，仅处理CHT/BST，返回1；固定载荷但重取场景对象。
+
 std::uint8_t IsBattleAppendEffectSkill_43BD00(std::int32_t skill); // 原技能准入集合，不查询链。
 void AddBattleAppendEffect_43BE00(
     std::int32_t skill, std::int32_t technique, std::int32_t position); // 匹配首节点替换，否则尾插。

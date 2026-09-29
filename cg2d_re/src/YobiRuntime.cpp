@@ -276,6 +276,17 @@ struct BattleActorPayload {
     YobiAction* rider13C8; // 4222B0保存4221F0创建的非拥有引用，移除时MarkDeath再清槽。
 };
 
+// 原场景载荷仅映射本步字段；完整180B生产与调度回调仍待实现。
+struct BattleScenePayload {
+    std::int32_t packetOffset64;
+    std::int32_t messageValueA4;
+};
+constexpr std::array<const char*, 25> kBattleMHeaders553E94 {
+    "SKL", "ESC", "CLR", "SUP", "POS", "MON", "EQU", "ITM", "CMB", "PSN",
+    "ANR", "PUE", "ACT", "CFP", "CHT", "PNO", "PLV", "CBC", "PDN", "REB",
+    "BST", "GMN", "RID", "DSK", "END",
+};
+
 // 原43BE00的20B节点；仅两条链指针拓宽，43BED0负责按原序释放。
 struct BattleAppendEffectNode {
     std::int32_t skill;
@@ -5754,6 +5765,154 @@ YobiAction* MarkDeath(YobiAction* const action)
         action->deathFlag = 1;
     }
     return action;
+}
+
+std::int32_t GetBattleMHeader_439070(char* const destination)
+{
+    using namespace world::detail;
+    std::int32_t offset = gBattleMScanOffset5A8A3C;
+    if (gBattleMText5AAA7C[offset] == '\0' || gBattleMText5AAA7C[offset + 1] == '\0') {
+        return 1;
+    }
+    for (;;) {
+        const auto value = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(gBattleMText5AAA7C[offset]));
+        if (value == 0) {
+            gBattleMScanOffset5A8A3C = offset;
+            return 1;
+        }
+        if (value >= 'A' && value <= 'Z') {
+            break;
+        }
+        ++offset;
+    }
+    gBattleMScanOffset5A8A3C = offset;
+    std::strncpy(destination, gBattleMText5AAA7C.data() + offset, 3);
+    destination[3] = '\0';
+    gBattleMScanOffset5A8A3C += 4;
+    return 0;
+}
+
+std::int32_t TakeBattleMInteger_438F70(YobiAction* const action)
+{
+    auto* const payload = static_cast<BattleScenePayload*>(action->payload);
+    std::uint32_t result = 0;
+    bool hasDigit = false;
+    for (;;) {
+        const std::int32_t offset = payload->packetOffset64;
+        const auto value = std::bit_cast<std::int8_t>(
+            static_cast<std::uint8_t>(world::detail::gBattleMText5AAA7C[offset]));
+        if (value == 0) {
+            break;
+        }
+        if ((value >= '0' && value <= '9') || (value >= 'A' && value <= 'F')) {
+            if (hasDigit) {
+                result <<= 4;
+            } else {
+                hasDigit = true;
+            }
+            result += static_cast<std::uint32_t>(value - (value < 'A' ? '0' : '7'));
+            payload->packetOffset64 = offset + 1;
+        } else if (hasDigit || value == '|') {
+            ++payload->packetOffset64;
+            break;
+        } else {
+            payload->packetOffset64 = offset + 1;
+        }
+    }
+    return std::bit_cast<std::int32_t>(result);
+}
+
+void TakeBattleMString_438FE0(YobiAction* const action, char* const destination, const std::int32_t capacity)
+{
+    auto* const payload = static_cast<BattleScenePayload*>(action->payload);
+    std::int32_t written = 0;
+    for (;;) {
+        const std::int32_t offset = payload->packetOffset64;
+        const char byte = world::detail::gBattleMText5AAA7C[offset];
+        const auto value = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(byte));
+        if (byte == '\0') {
+            break;
+        }
+        if (byte == '|') {
+            ++payload->packetOffset64;
+            break;
+        }
+        if (written >= capacity - 1) {
+            if (value < 0) {
+                payload->packetOffset64 = offset + 1;
+            }
+            ++payload->packetOffset64;
+            continue;
+        }
+        destination[written] = byte;
+        if (value < 0) {
+            ++written;
+            if (written >= capacity - 1) {
+                // 原439034保留已写首字节，源游标仍跳过两字节。
+                ++payload->packetOffset64;
+                ++payload->packetOffset64;
+                continue;
+            }
+            const std::int32_t next = payload->packetOffset64 + 1;
+            payload->packetOffset64 = next;
+            destination[written] = world::detail::gBattleMText5AAA7C[next];
+        }
+        ++written;
+        ++payload->packetOffset64;
+    }
+    destination[written] = '\0';
+    input::UnescapeLegacyTextAndNotify_52D2F0(destination);
+}
+
+std::int32_t GetBattlePosition_4237E0(const std::int32_t position)
+{
+    if (position == 50) {
+        return 20;
+    }
+    if (position == 51) {
+        return 21;
+    }
+    return position;
+}
+
+std::int32_t Sub_43BAA0()
+{
+    using namespace world::detail;
+    auto* const payload = static_cast<BattleScenePayload*>(gBattleSceneAction5ABA94->payload);
+    std::array<char, 4> header;
+    std::array<char, 256> message;
+    for (;;) {
+        if (GetBattleMHeader_439070(header.data()) == 1) {
+            return 1;
+        }
+        std::size_t kind = 0;
+        while (kind < kBattleMHeaders553E94.size()
+            && std::strstr(header.data(), kBattleMHeaders553E94[kind]) == nullptr) {
+            ++kind;
+        }
+        if (kind != 14 && kind != 20) {
+            continue;
+        }
+        payload->packetOffset64 = gBattleMScanOffset5A8A3C;
+        if (kind == 14) { // CHT
+            static_cast<void>(GetBattlePosition_4237E0(TakeBattleMInteger_438F70(gBattleSceneAction5ABA94)));
+            const std::int32_t color = TakeBattleMInteger_438F70(gBattleSceneAction5ABA94);
+            const std::int32_t font = TakeBattleMInteger_438F70(gBattleSceneAction5ABA94);
+            payload->messageValueA4 = TakeBattleMInteger_438F70(gBattleSceneAction5ABA94);
+            TakeBattleMString_438FE0(gBattleSceneAction5ABA94, message.data(), 256);
+            if (platform::gValue554644 != 0) {
+                static_cast<void>(audio::PlaySe_52C450(74, 320));
+            }
+            Sub_44B050(message.data(), color, font);
+        } else { // BST
+            const std::int32_t position = GetBattlePosition_4237E0(
+                TakeBattleMInteger_438F70(gBattleSceneAction5ABA94));
+            const std::int32_t seconds = TakeBattleMInteger_438F70(gBattleSceneAction5ABA94);
+            if (position == gBattleCurrentPosition5ABCA4) {
+                ConsumeBattlePlayerTimer(seconds);
+            }
+        }
+    }
 }
 
 std::uint8_t IsBattleAppendEffectSkill_43BD00(const std::int32_t skill)

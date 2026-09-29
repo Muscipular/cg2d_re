@@ -1079,6 +1079,7 @@ std::int32_t ReadPlayerValue15BCC() noexcept; // 原FF02CC，库存第二数值�
 std::int32_t ReadPlayerLevel() noexcept; // 原FDA704，存放宠物费用读取同源等级。
 std::int32_t ReadPlayerValue08() noexcept; // 原FDA708，技能时长倍率索引，借读既有槽。
 std::int32_t ReadPlayerTimerRemaining0C() noexcept; // 原FDA70C，转生按钮读取同源计时，不改owner。
+void ConsumeBattlePlayerTimer(std::int32_t seconds); // 原43BBCE..43BBF2，先扣毫秒再按S32负值清零。
 std::int32_t ReadPlayerInjury() noexcept; // 原FDA7F4，属性选择列表使用同一伤势。
 std::int32_t ReadPlayerHpOnce(); // 原FDA718，仅执行一次CryptInt读取，不复制载荷。
 std::int32_t ReadPlayerMaxHpOnce(); // 原FDA728。
@@ -1147,6 +1148,8 @@ extern std::array<char, 0x4000> gBattleCQueue5A4A3C; // 四槽，每槽1000H；5
 extern std::array<char, 0x4000> gBattleMQueue59FA18;
 extern std::array<char, 0x1000> gBattleCText5A3A20; // 场景从C队列复制的活动原字节文本。
 extern std::array<char, 0x1000> gBattleMText5AAA7C;
+extern std::int32_t gBattleMScanOffset5A8A3C; // M头扫描S32游标，非队列索引或对象载荷64游标。
+extern login::YobiAction* gBattleSceneAction5ABA94; // 4383F0发布的非拥有场景对象，完整生产仍缺。
 extern std::array<login::YobiAction*, 20> gBattleEntries59E980; // 原20槽非拥有对象表。
 extern std::int32_t gBattleCurrentPosition5ABCA4; // 实际gMyPostion；不同于P回复的5ABCA8。
 extern std::uint32_t gBattlePosition5ABCA8;

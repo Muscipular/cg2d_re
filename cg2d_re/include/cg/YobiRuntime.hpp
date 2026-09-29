@@ -292,6 +292,9 @@ YobiAction* NewBattleAttachedEffect_41FBE0(YobiAction* parent, std::int32_t mode
 YobiAction* NewBattleScreenEffect_421610(std::int32_t x, std::int32_t y);
 void UpdateBattleScreenEmitter_4216B0(YobiAction* action); // 原rand先Y后X，生成后重取阶段并递减。
 YobiAction* NewBattleScreenEmitter_421700(std::int32_t phase);
+void NewBattleSequence_420100(std::int8_t value, std::int32_t position); // 逐个创建9/10项，失败保留已建对象。
+void UpdateBattleSequence_420300(YobiAction* action); // 原2A8六态，CryptInt自增和比较分别消费读取。
+void MoveBattleSequence_420590(YobiAction* action); // X从F32投影，Y从未舍入计算值投影。
 
 // 原1C起的16B效果值记录；仅传数值，不含底层对象指针。
 struct BattleEntryEffectRecord {

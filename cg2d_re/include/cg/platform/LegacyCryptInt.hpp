@@ -48,6 +48,9 @@ void AssignFromInt(LegacyCryptInt* target, std::int32_t value);
 // 原 sub_401EC0@[0x401EC0,0x401F45)，读取会修改 readCount，必要时换 mask。
 std::int32_t Read_401EC0(LegacyCryptInt* value);
 
+// 原401DE0：单次读取后自增并SetNorVal，返回新值；原未使用的S32参数保留。
+std::int32_t Increment_401DE0(LegacyCryptInt* value, std::int32_t unused);
+
 // 原 CryptInt::add@[0x401E10,0x401E1C)，只读取一次后作 int32 位模式回绕加法。
 std::int32_t Add_401E10(LegacyCryptInt* value, std::int32_t amount);
 

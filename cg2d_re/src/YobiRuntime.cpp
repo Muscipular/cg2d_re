@@ -98,9 +98,9 @@ struct YobiAction {
     };
     std::int32_t value1D4; // 原+1D4；观察父节点主队列索引/子节点轨迹计数，共用S32。
     std::int32_t field1D8; // 原 +1D8；51A090 写入完整第四参数。
-    std::int32_t counter1DC; // 原+1DC，442F70图标显示计数。
-    platform::LegacyCryptInt mapX1E0; // 原 +1E0/+1F0 当前位置；46DD90 按 X→Y 读取并乘64。
-    platform::LegacyCryptInt mapY1F0;
+    std::int32_t counter1DC; // 原+1DC，442F70图标/420300序列特效计数。
+    platform::LegacyCryptInt mapX1E0; // 原+1E0/+1F0当前位置；420100族复用为序号/计时。
+    platform::LegacyCryptInt mapY1F0; // 46DD90仍按X→Y读取坐标并乘64。
     platform::LegacyCryptInt mapX200; // 原 +200/+210 移动目标；46DE50先赋这组，不合并载荷。
     platform::LegacyCryptInt mapY210;
     std::array<std::int32_t, 10> pathX220; // 原 +220..+247，路径X。
@@ -113,7 +113,7 @@ struct YobiAction {
     std::uint32_t field280;
     std::int32_t walkSpeed;
     std::int32_t framePlayingRate;
-    std::int32_t imageNo;
+    std::int32_t imageNo; // 原+2A8；420100族以此槽分派阶段，图形序号另存graphicIndex。
     std::int32_t characterAction;
     std::int32_t direction;
     std::int32_t lastImageNo;       // 原 +2AC：上次播放图号。
@@ -344,6 +344,14 @@ constexpr std::array<const char*, 25> kBattleMHeaders553E94 {
     "SKL", "ESC", "CLR", "SUP", "POS", "MON", "EQU", "ITM", "CMB", "PSN",
     "ANR", "PUE", "ACT", "CFP", "CHT", "PNO", "PLV", "CBC", "PDN", "REB",
     "BST", "GMN", "RID", "DSK", "END",
+};
+
+// 420100只消费这两段40B，不冻结相邻未消费的原表布局。
+constexpr std::array<std::int32_t, 10> kBattleSequenceOffsets553BF4 {
+    0, 34, 54, 66, 88, 108, 131, 152, 171, 0,
+};
+constexpr std::array<std::int32_t, 10> kBattleSequenceOrder553C1C {
+    0, 8, 7, 6, 5, 4, 3, 2, 1, 9,
 };
 
 // 439B30的SKL字段布局；同布局合并不改变技能集合、RID尾扫描或特殊字段。
@@ -5894,6 +5902,172 @@ YobiAction* MarkDeath(YobiAction* const action)
         action->deathFlag = 1;
     }
     return action;
+}
+
+void NewBattleSequence_420100(const std::int8_t value, const std::int32_t position)
+{
+    const std::int8_t limited = value > 10 ? 10 : value;
+    const bool directOrder = position < 10;
+    const std::int32_t baseX = directOrder ? 672 : -203;
+    const float angle = directOrder ? 270.0F : 90.0F;
+    const std::int32_t baseY = directOrder ? 384 : 96;
+    for (std::int32_t index = 0; index < 10; ++index) {
+        const std::int32_t slot = directOrder ? index : kBattleSequenceOrder553C1C[index];
+        YobiAction* const action = NewYobiAction_404AE0(11, 0);
+        if (action == nullptr) {
+            return;
+        }
+        action->callback = UpdateBattleSequence_420300;
+        action->displayPriority = 0xCD;
+        platform::LegacyCryptInt temporary;
+        platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, index);
+        action->mapX1E0.mask = temporary.mask;
+        action->mapX1E0.encoded = temporary.encoded;
+        action->mapX1E0.readCount = temporary.readCount;
+        platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+        action->imageNo = 0;
+        action->value54 = 18.0F;
+        action->angle50 = angle;
+        std::int32_t mapNo;
+        if (slot == 0) {
+            action->flags = 2;
+            mapNo = 23138 + limited;
+        } else if (slot == 8) {
+            mapNo = 23162;
+        } else if (slot == 9) {
+            action->flags = 2;
+            mapNo = 23165;
+        } else {
+            mapNo = 23157 + slot;
+        }
+        std::int32_t graphic;
+        static_cast<void>(resource::GetGraphicMapNoIndex(mapNo, &graphic));
+        std::int16_t graphicX;
+        std::int16_t graphicY;
+        static_cast<void>(resource::GetGraphicXY(static_cast<std::uint32_t>(graphic), &graphicX, &graphicY));
+        const std::int32_t offset = kBattleSequenceOffsets553BF4[slot == 9 ? 4 : slot];
+        action->offset40 = static_cast<float>(static_cast<double>(offset) + graphicX + baseX);
+        double y = static_cast<double>(graphicY) + baseY;
+        if (slot == 9) {
+            y -= 32.0;
+        }
+        action->offset44 = static_cast<float>(y);
+        action->x = static_cast<std::int32_t>(action->offset40);
+        action->y = static_cast<std::int32_t>(action->offset44);
+        action->graphicIndex = graphic;
+        action->rebirthValue1 = 4;
+        action->rebirthValue2 = 4;
+        action->field1D0 = 4 * index;
+        action->counter1DC = 4 * (8 - slot);
+        if (limited != 10 && index == 8) {
+            return;
+        }
+    }
+}
+
+void MoveBattleSequence_420590(YobiAction* const action)
+{
+    float angle = static_cast<float>(270.0 - static_cast<double>(action->angle50));
+    world::detail::Sub_46F8F0(&angle);
+    const double xFactor = world::detail::Sub_46F950(angle);
+    const double xStep = xFactor * action->value54;
+    action->offset40 = static_cast<float>(static_cast<double>(action->offset40) - xStep);
+    const double yFactor = world::detail::Sub_46F930(angle);
+    const double yStep = yFactor * action->value54;
+    const double y = yStep + static_cast<double>(action->offset44);
+    action->offset44 = static_cast<float>(y);
+    action->x = static_cast<std::int32_t>(action->offset40);
+    // 原4205D2是FST；屏幕Y使用仍留在寄存器中的值，而非刚存回的F32。
+    action->y = static_cast<std::int32_t>(y);
+}
+
+void UpdateBattleSequence_420300(YobiAction* const action)
+{
+    using namespace platform::legacy_crypt_int;
+    switch (action->imageNo) {
+    case 0: {
+        const std::int32_t count = action->counter1DC;
+        const std::int32_t delay = action->field1D0;
+        action->counter1DC = count + 1;
+        if (delay != 0) {
+            action->field1D0 = delay - 1;
+            return;
+        }
+        static_cast<void>(Increment_401DE0(&action->mapY1F0, 0));
+        if (Greater_401D40(&action->mapY1F0, 60)) {
+            ++action->imageNo;
+        }
+        return;
+    }
+    case 1: {
+        ++action->counter1DC;
+        MoveBattleSequence_420590(action);
+        const double speed = static_cast<double>(action->value54) - std::bit_cast<float>(0x3F333333u);
+        action->value54 = static_cast<float>(speed);
+        // 原FST后比较未舍入值，FCOMP的无序也走阶段推进分支。
+        if (!(speed > 0.0)) {
+            ++action->imageNo;
+            platform::LegacyCryptInt temporary;
+            ConstructFromInt_401CC0(&temporary, 0);
+            action->mapY1F0.mask = temporary.mask;
+            action->mapY1F0.encoded = temporary.encoded;
+            action->mapY1F0.readCount = temporary.readCount;
+            Destroy_401CF0(&temporary);
+        }
+        return;
+    }
+    case 2:
+        ++action->counter1DC;
+        static_cast<void>(Increment_401DE0(&action->mapY1F0, 0));
+        if (action->flags != 0) {
+            if (Greater_401D40(&action->mapY1F0, 50)) {
+                const std::int32_t next = action->imageNo + 1;
+                action->flags = 0;
+                action->imageNo = next;
+                action->value54 = 10.0F;
+                action->angle50 = 0.0F;
+                if (Equal_401D00(&action->mapX1E0, 9)) {
+                    static_cast<void>(audio::PlaySe_52C450(64, 320));
+                }
+            }
+        } else if (action->counter1DC > 240) {
+            static_cast<void>(MarkDeath(action));
+        }
+        return;
+    case 3: {
+        ++action->counter1DC;
+        MoveBattleSequence_420590(action);
+        static_cast<void>(Increment_401DE0(&action->mapY1F0, 0));
+        const double speed = static_cast<double>(action->value54) - 1.0;
+        action->value54 = static_cast<float>(speed);
+        if (!(speed > 0.0)) {
+            const std::int32_t next = action->imageNo + 1;
+            action->angle50 = 180.0F;
+            action->imageNo = next;
+        }
+        return;
+    }
+    case 4: {
+        ++action->counter1DC;
+        static_cast<void>(Increment_401DE0(&action->mapY1F0, 0));
+        const double speed = static_cast<double>(action->value54) + 1.0;
+        action->value54 = static_cast<float>(speed);
+        if (speed >= 10.0) {
+            ++action->imageNo;
+        }
+        MoveBattleSequence_420590(action);
+        return;
+    }
+    case 5:
+        ++action->counter1DC;
+        static_cast<void>(Increment_401DE0(&action->mapY1F0, 0));
+        if (action->counter1DC > 240) {
+            static_cast<void>(MarkDeath(action));
+        }
+        return;
+    default:
+        return;
+    }
 }
 
 void UpdateBattleOneShotEffect_419FA0(YobiAction* const action)

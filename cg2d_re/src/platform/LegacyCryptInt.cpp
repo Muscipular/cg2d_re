@@ -86,6 +86,14 @@ std::int32_t Read_401EC0(LegacyCryptInt* value)
     return FromBits(value->encoded ^ value->mask);
 }
 
+std::int32_t Increment_401DE0(LegacyCryptInt* value, const std::int32_t unused)
+{
+    static_cast<void>(unused);
+    const std::int32_t result = Read_401EC0(value) + 1;
+    SetNorVal_401F50(value, result);
+    return result;
+}
+
 std::int32_t Add_401E10(LegacyCryptInt* value, const std::int32_t amount)
 {
     const std::uint32_t result =

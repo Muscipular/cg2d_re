@@ -154,6 +154,9 @@ std::int32_t Sub_47CC80(std::int32_t index, std::int32_t state); // 宠物选择
 std::int32_t Sub_47CFE0(std::int32_t index, std::int32_t state); // 骑乘选择，FP不足不补失败音效。
 login::YobiAction* Sub_47A540(WindowValueCallback callback); // 设置CC4D14并创建宠物技能窗。
 login::YobiAction* Sub_47A580(WindowValueCallback callback); // 设置CC4D14并创建骑乘技能窗。
+void Sub_4966B0(std::int32_t mode, std::int16_t x, std::int16_t y); // 窗口26五模式创建/配置及入场偏移。
+std::int32_t Sub_496B90(std::int32_t value); // 窗口26初始化、入退场与按钮显隐。
+std::int32_t Sub_496D50(std::int32_t unused); // 先绘制再更新技术名，按命中索引追加目标说明。
 void Sub_496AE0(); // 窗口26存在才收尾、关闭10/27/28及清三展开引用，原返回无人消费。
 void Sub_496F10(); // 先清九个选择槽，再关闭三子窗及清同源展开引用。
 void Sub_497000(); // 战斗技能快捷入口，保留actionFlags低S8门槛；原返回不用。

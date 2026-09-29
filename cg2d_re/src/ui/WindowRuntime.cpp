@@ -27556,6 +27556,237 @@ std::int32_t Sub_47C700(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+void Sub_4966B0(
+    const std::int32_t mode, const std::int16_t x, const std::int16_t y)
+{
+    gWindowStates[26].actionFlags1C =
+        (gWindowStates[26].actionFlags1C & ~0xFFu) | static_cast<std::uint8_t>(mode);
+    WindowInstance* const window = gWindowStates[26].window;
+    if (window != nullptr) {
+        window->state &= ~0x8000u;
+    } else {
+        gWindowStates[26].window = OpenWindow_471440(26);
+    }
+    WindowElement* const elements = gWindowStates[26].window->elements;
+    const auto currentMode = std::bit_cast<std::int8_t>(
+        static_cast<std::uint8_t>(gWindowStates[26].actionFlags1C));
+    auto* const graphic = static_cast<WindowGraphicData*>(elements[13].data);
+    switch (currentMode) {
+    case 0:
+    case 1:
+    case 2:
+        graphic->imageNo = 0x3B9C0 + currentMode;
+        for (std::int32_t index = 0; index < 8; ++index) {
+            gWindowStates[26].window->elements[index].visible = 1;
+        }
+        gWindowStates[26].window->elements[8].visible = 0;
+        gWindowStates[26].window->elements[9].visible = 0;
+        gWindowStates[26].window->elements[10].visible = 0;
+        gWindowStates[26].window->elements[11].visible = 0;
+        gWindowStates[26].window->elements[12].visible = 0;
+        break;
+    case 3: {
+        graphic->imageNo = 0x3B9C3;
+        for (std::int32_t index = 0; index < 8; ++index) {
+            gWindowStates[26].window->elements[index].visible = 0;
+        }
+        gWindowStates[26].window->elements[8].visible = 1;
+        gWindowStates[26].window->elements[8].x = 216;
+        gWindowStates[26].window->elements[9].visible = 0;
+        gWindowStates[26].window->elements[10].visible = 1;
+        gWindowStates[26].window->elements[11].visible = 1;
+        gWindowStates[26].window->elements[12].visible = 1;
+        const std::int32_t namePosition = world::detail::GetBattlePetPosition_405B40(
+            world::detail::gBattleCurrentPosition5ABCA4);
+        const login::YobiAction* const action = world::detail::gBattleEntries59E980[namePosition];
+        const char* name = login::detail::BorrowYobiTitleE1(action);
+        if (name[0] == '\0') {
+            name = login::detail::BorrowYobiNameC4(action);
+        }
+        std::strcpy(static_cast<WindowTextData*>(gWindowStates[26].window->elements[10].data)->text, name);
+        const std::int32_t maximumPosition = world::detail::GetBattlePetPosition_405B40(
+            world::detail::gBattleCurrentPosition5ABCA4);
+        const std::int32_t maximum = login::detail::ReadYobiActionMaxFpOnce(
+            world::detail::gBattleEntries59E980[maximumPosition]);
+        const std::int32_t currentPosition = world::detail::GetBattlePetPosition_405B40(
+            world::detail::gBattleCurrentPosition5ABCA4);
+        const std::int32_t current = login::detail::ReadYobiActionFpOnce(
+            world::detail::gBattleEntries59E980[currentPosition]);
+        std::sprintf(static_cast<WindowTextData*>(gWindowStates[26].window->elements[11].data)->text,
+            "%4d/%4d", current, maximum);
+        break;
+    }
+    case 4: {
+        graphic->imageNo = 0x3B9C3;
+        for (std::int32_t index = 0; index < 8; ++index) {
+            gWindowStates[26].window->elements[index].visible = 0;
+        }
+        gWindowStates[26].window->elements[8].visible = 1;
+        gWindowStates[26].window->elements[8].x = 146;
+        gWindowStates[26].window->elements[9].visible = 1;
+        gWindowStates[26].window->elements[10].visible = 1;
+        gWindowStates[26].window->elements[11].visible = 1;
+        gWindowStates[26].window->elements[12].visible = 1;
+        const std::int32_t namePosition = world::detail::gBattleCurrentPosition5ABCA4;
+        const char* const name = login::detail::BorrowYobiNameC4(
+            world::detail::gBattleEntries59E980[namePosition]);
+        std::strcpy(static_cast<WindowTextData*>(gWindowStates[26].window->elements[10].data)->text, name);
+        const std::int32_t maximumPosition = world::detail::gBattleCurrentPosition5ABCA4;
+        const std::int32_t maximum = login::detail::ReadYobiActionMaxFpOnce(
+            world::detail::gBattleEntries59E980[maximumPosition]);
+        const std::int32_t currentPosition = world::detail::gBattleCurrentPosition5ABCA4;
+        const std::int32_t current = login::detail::ReadYobiActionFpOnce(
+            world::detail::gBattleEntries59E980[currentPosition]);
+        std::sprintf(static_cast<WindowTextData*>(gWindowStates[26].window->elements[11].data)->text,
+            "%4d/%4d", current, maximum);
+        break;
+    }
+    default:
+        break;
+    }
+    WindowInstance* const positionedWindow = gWindowStates[26].window;
+    gWindowStates[26].x = x;
+    gWindowStates[26].y = y;
+    gWindowStates[26].value10 = std::bit_cast<std::uint32_t>(std::int32_t {-153});
+    gWindowStates[26].value14 = 17;
+    positionedWindow->x = x;
+    const std::int32_t baseY = gWindowStates[26].y;
+    const auto offset = std::bit_cast<std::int32_t>(gWindowStates[26].value10);
+    gWindowStates[26].window->y = baseY + offset;
+    gWindowStates[26].userState.value = 1;
+}
+
+std::int32_t Sub_496B90(const std::int32_t value)
+{
+    if (value == -1) {
+        gWindowStates[26].value10 = 0;
+        gWindowStates[26].value14 = 0;
+        gWindowStates[26].userState.value = 0;
+        gBattleSkillTargetPendingD303F8 = 0;
+        gBattleItemTargetFlagCC4D40 = 0;
+        return 1;
+    }
+    const std::uint32_t phase = gWindowStates[26].userState.value;
+    if (phase == 1) {
+        const auto oldOffset = std::bit_cast<std::int32_t>(gWindowStates[26].value10);
+        const auto velocity = std::bit_cast<std::int32_t>(gWindowStates[26].value14);
+        const std::int32_t offset = oldOffset + velocity;
+        gWindowStates[26].value14 = std::bit_cast<std::uint32_t>(velocity - 1);
+        const std::int32_t baseY = gWindowStates[26].y;
+        gWindowStates[26].value10 = std::bit_cast<std::uint32_t>(offset);
+        gCurrentWindow->y = baseY + offset;
+        if (std::bit_cast<std::int32_t>(gWindowStates[26].value14) <= 0) {
+            gWindowStates[26].value14 = 0;
+            gWindowStates[26].userState.value = 0;
+        }
+    } else if (phase == 2) {
+        const auto velocity = std::bit_cast<std::int32_t>(gWindowStates[26].value14);
+        const auto oldOffset = std::bit_cast<std::int32_t>(gWindowStates[26].value10);
+        const std::int32_t nextVelocity = velocity + 1;
+        gWindowStates[26].value14 = std::bit_cast<std::uint32_t>(nextVelocity);
+        const std::int32_t offset = oldOffset - nextVelocity;
+        const std::int32_t baseY = gWindowStates[26].y;
+        gWindowStates[26].value10 = std::bit_cast<std::uint32_t>(offset);
+        gCurrentWindow->y = baseY + offset;
+        if (std::bit_cast<std::int32_t>(gWindowStates[26].value14) >= 17) {
+            gWindowStates[26].value14 = 17;
+            gWindowStates[26].window->state |= 0x8000u;
+            gWindowStates[26].userState.value = 3;
+        }
+        WindowInstance* window = gWindowStates[10].window;
+        if (window != nullptr) {
+            window->state |= 0x8000u;
+        }
+        window = gWindowStates[27].window;
+        if (window != nullptr) {
+            window->state |= 0x8000u;
+        }
+        window = gWindowStates[28].window;
+        if (window != nullptr) {
+            window->state |= 0x8000u;
+        }
+    }
+    auto mode = static_cast<std::uint8_t>(gWindowStates[26].actionFlags1C);
+    if (mode != 3 && mode != 4) {
+        gCurrentWindow->elements[7].visible = 1;
+        mode = static_cast<std::uint8_t>(gWindowStates[26].actionFlags1C);
+    }
+    if (mode == 2) {
+        gCurrentWindow->elements[2].visible = 1;
+        gCurrentWindow->elements[3].visible = 1;
+        gCurrentWindow->elements[4].visible = 1;
+        gCurrentWindow->elements[5].visible = 1;
+        if (world::detail::gBattleSkillUsed5ABC68 != 0) {
+            gCurrentWindow->elements[2].visible = 0;
+            gCurrentWindow->elements[3].visible = 0;
+            gCurrentWindow->elements[4].visible = 0;
+            gCurrentWindow->elements[5].visible = 0;
+        }
+    }
+    return 1;
+}
+
+std::int32_t Sub_496D50(const std::int32_t)
+{
+    DrawCurrentWindow_4729B0();
+    const auto mode = static_cast<std::uint8_t>(gWindowStates[26].actionFlags1C);
+    if (mode == 3 || mode == 4) {
+        const char* name;
+        if (world::detail::gValue553F84 < 0) {
+            name = input::LegacyText593850();
+        } else {
+            const std::int32_t pet = world::detail::Sub_43C4B0();
+            const std::int32_t technique = world::detail::gValue553F84;
+            name = world::detail::gPetRuntimeF633F8[pet].techniquesD8[technique].name.data();
+        }
+        std::strcpy(static_cast<WindowTextData*>(gWindowStates[26].window->elements[12].data)->text, name);
+    }
+    if (gWindowStates[26].userState.value == 0) {
+        std::int32_t first = 0;
+        for (; first < 20; ++first) {
+            const login::YobiAction* const action = world::detail::gBattleEntries59E980[first];
+            if (action != nullptr && (login::detail::GetYobiActionFlagsLowByte(action) & 8u) != 0) {
+                break;
+            }
+        }
+        if (first < 20) {
+            const std::int32_t hitIndex = render::gHoveredGraphicPendingIndex;
+            std::int8_t selected = -1;
+            for (std::int32_t index = 0; index < 20; ++index) {
+                const login::YobiAction* const action = world::detail::gBattleEntries59E980[index];
+                if (action != nullptr && login::detail::GetYobiActionCacheIndex(action) == hitIndex
+                    && (login::detail::GetYobiActionFlagsLowByte(action) & 8u) != 0) {
+                    selected = static_cast<std::int8_t>(index);
+                    break;
+                }
+            }
+            WindowInstance* const textWindow = gCurrentWindow;
+            const auto windowX = static_cast<std::int16_t>(textWindow->x);
+            const auto windowY = static_cast<std::int16_t>(textWindow->y);
+            const auto textX = static_cast<std::int16_t>(windowX + 17);
+            const auto textY = static_cast<std::int16_t>(windowY + 89);
+            const char* name = "\xBD\xD0\xBF\xEF\xBE\xDC\xB9\xEF\xB6\x48";
+            if (selected >= 0) {
+                const login::YobiAction* const action = world::detail::gBattleEntries59E980[selected];
+                name = login::detail::BorrowYobiTitleE1(action);
+                if (name[0] == '\0') {
+                    name = login::detail::BorrowYobiNameC4(action);
+                }
+            }
+            static_cast<void>(render::DrawText_456780(textX, textY, 3, 0, 0, name, 0, 0));
+            WindowInstance* const backgroundWindow = gCurrentWindow;
+            const auto backgroundWindowY = static_cast<std::int16_t>(backgroundWindow->y);
+            const auto backgroundWindowX = static_cast<std::int16_t>(backgroundWindow->x);
+            const auto backgroundY = static_cast<std::int16_t>(backgroundWindowY + 69);
+            const auto backgroundX = static_cast<std::int16_t>(backgroundWindowX + 2);
+            login::detail::DrawNineGrid_49BE00(0x3BE84, backgroundX, backgroundY, 296, 61, 223,
+                -1, std::bit_cast<std::int32_t>(0x80FFFFFFu), 74, 54);
+        }
+    }
+    static_cast<void>(render::ClearTextQueueTail_456D50(3));
+    return 1;
+}
+
 void Sub_496AE0()
 {
     if (gWindowStates[26].window == nullptr) {

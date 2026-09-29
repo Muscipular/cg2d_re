@@ -100,6 +100,7 @@ void AppendReservedGraphic(
 } // namespace
 
 LegacyPendingStorage gLegacyPendingStorage {};
+std::int32_t gHoveredGraphicPendingIndex = 0;
 std::uint8_t gSpecialGraphicPending = 0;
 std::int32_t gGraphicDirty = 0;
 std::uint32_t gRenderQueueMode103CF10 = 0;

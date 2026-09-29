@@ -88,6 +88,9 @@ static_assert(std::is_trivially_copyable_v<LegacyPendingStorage>);
 // 上述 legacy 区间的唯一零初始化承载；不得另建文本区或队列副本。
 extern LegacyPendingStorage gLegacyPendingStorage;
 
+// 原D6976C：S32图形命中索引，初值0；507140生产，战斗/UI消费，不是对象地址。
+extern std::int32_t gHoveredGraphicPendingIndex;
+
 // 原 0x1020EDC：特殊图形进入待提交队列后的单字节标志。
 extern std::uint8_t gSpecialGraphicPending;
 

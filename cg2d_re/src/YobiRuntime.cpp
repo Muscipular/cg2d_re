@@ -7220,6 +7220,21 @@ const char* BorrowYobiNameC4(const YobiAction* const action) noexcept
     return action->nameC4.data();
 }
 
+const char* BorrowYobiTitleE1(const YobiAction* const action) noexcept
+{
+    return action->titleE1.data();
+}
+
+std::uint8_t GetYobiActionFlagsLowByte(const YobiAction* const action) noexcept
+{
+    return static_cast<std::uint8_t>(action->flags);
+}
+
+std::int32_t GetYobiActionCacheIndex(const YobiAction* const action) noexcept
+{
+    return action->cacheIndex;
+}
+
 std::int32_t GetYobiActionField2A8(YobiAction* const action)
 {
     return action->imageNo;

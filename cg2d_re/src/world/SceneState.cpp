@@ -6934,6 +6934,11 @@ std::int32_t ReadPlayerValue08() noexcept
     return gPlayerRuntime.value08;
 }
 
+std::int32_t ReadPlayerTimerRemaining0C() noexcept
+{
+    return gPlayerRuntime.timerRemaining0C;
+}
+
 std::int32_t ReadPlayerInjury() noexcept
 {
     return gPlayerRuntime.valueF4;

@@ -27039,6 +27039,11 @@ constexpr char kSkillBackToTechniques586470[] =
     "\xA4\xC1\xB4\xAB\xA6\x5E\xA7\xDE\xAF\xE0\xB5\xA5\xAF\xC5\xB5\xF8\xB5\xA1\xA1\x43";
 constexpr char kSkillBackToList586488[] =
     "\xA4\xC1\xB4\xAB\xA6\x5E\xA7\xDE\xAF\xE0\xA4\x40\xC4\xFD\xB5\xF8\xB5\xA1\xA1\x43";
+constexpr char kSkillEnableRebirth5864A0[] =
+    "\xB6\x69\xA6\xE6\xA1\x75\xBA\xEB\xC6\x46\xC5\xDC\xA8\xAD\xA1\x76\xA1\x43";
+constexpr char kSkillDisableRebirth5864B4[] =
+    "\xB8\xD1\xB0\xA3\xA1\x75\xBA\xEB\xC6\x46\xC5\xDC\xA8\xAD\xA1\x76\xA1\x43";
+constexpr char kPetSkillSkip5865A8[] = "\xB2\xA4\xB9\x4C\xA6\xB9\xA6\x5E\xA6\x58\xA1\x43";
 
 } // namespace
 
@@ -27917,6 +27922,109 @@ std::int32_t Sub_47A5C0()
     default:
         return 0;
     }
+}
+
+std::int32_t Sub_47B210(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    if ((world::detail::ReadPlayerActionFlags() & 0x80u) != 0
+        || world::detail::Sub_440B50() != 0
+        || world::detail::ReadPlayerValue08() == 0
+        || world::detail::ReadPlayerTimerRemaining0C() <= 0
+        || world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60].canRebirth == 0) {
+        gCurrentWindow->elements[index].visible = 0;
+        return 0;
+    }
+    const std::uint8_t rebirth = gValue5F9754;
+    if ((state & 1) != 0) {
+        std::strcpy(gHoverTextD68AE8.data(), rebirth != 0
+            ? kSkillDisableRebirth5864B4 : kSkillEnableRebirth5864A0);
+    }
+    std::int32_t consumed = 0;
+    if (gValueD67AFC != 0) {
+        if ((state & 2) != 0) {
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        }
+    } else if ((state & 2) != 0) {
+        const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+        const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+        static_cast<void>(network::Sub_511DD0(platform::gConnectionSocket, x, y, rebirth != 0 ? 62 : 61));
+        auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
+        const std::uint8_t previous = occupancy[7];
+        gValue5F9754 = rebirth != 0 ? 0 : 1;
+        occupancy[7] = static_cast<std::uint8_t>(previous + (rebirth != 0 ? -1 : 1));
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        consumed = 1;
+    }
+    graphic->imageNo = 0x3B57A;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3B57C;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 0x3B57B;
+    }
+    if (gValueD67AFC != 0) {
+        graphic->imageNo = 0x3B57B;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_47C950(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    const std::int32_t mode = gSkillWindowModeD672AC;
+    std::int32_t petIndex;
+    std::int32_t position; // 原仅mode5/6写入；其他模式未初始化路径不模拟，见SPEC。
+    if (mode == 5) {
+        petIndex = world::detail::Sub_43C4B0();
+        position = world::detail::GetBattlePetPosition_405B40(world::detail::gBattleCurrentPosition5ABCA4);
+    } else if (mode == 6) {
+        position = world::detail::gBattleCurrentPosition5ABCA4;
+        petIndex = std::bit_cast<std::int32_t>(world::detail::gBattleRidePet5ABC38);
+    } else {
+        petIndex = state;
+    }
+    const auto* const pet = &world::detail::gPetRuntimeF633F8[petIndex];
+    std::int32_t count = 0;
+    std::int32_t unavailable = 0;
+    for (std::int32_t row = 0; row < pet->value6A4; ++row) {
+        const auto technique = std::bit_cast<std::int16_t>(pet->techniquePairs650[row].index);
+        const auto* const record = &pet->techniquesD8[technique];
+        if (record->name[0] != '\0') {
+            const std::int32_t cost = record->fp;
+            login::YobiAction* const action = world::detail::gBattleEntries59E980[position];
+            if (login::detail::IsYobiActionFpLessThan(action, cost)
+                || (world::detail::gBattlePetSkillFlags5ABB78 & (1u << (static_cast<std::uint32_t>(row) & 31u))) == 0) {
+                ++unavailable;
+            }
+            ++count;
+        }
+    }
+    if (count > unavailable) {
+        gCurrentWindow->elements[8].visible = 0;
+        return 0;
+    }
+    if ((state & 1) != 0) {
+        std::strcpy(gHoverTextD68AE8.data(), kPetSkillSkip5865A8);
+    }
+    std::int32_t consumed = 0;
+    if ((state & 2) != 0) {
+        const WindowValueCallback callback = gPetSkillSelectionCallbackCC4D14;
+        if (callback != nullptr) {
+            callback(-1);
+        }
+        gCurrentWindow->state |= 0x8000u;
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        consumed = 1;
+    }
+    graphic->imageNo = 0x3BE7E;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3BE80;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 0x3BE7F;
+    }
+    return consumed;
 }
 
 std::int32_t Sub_47A620(const std::int32_t value)

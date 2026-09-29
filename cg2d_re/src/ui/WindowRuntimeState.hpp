@@ -155,6 +155,8 @@ std::int32_t Sub_47CFE0(std::int32_t index, std::int32_t state); // 骑乘选择
 login::YobiAction* Sub_47A540(WindowValueCallback callback); // 设置CC4D14并创建宠物技能窗。
 login::YobiAction* Sub_47A580(WindowValueCallback callback); // 设置CC4D14并创建骑乘技能窗。
 std::int32_t Sub_47B110(std::int32_t index, std::int32_t state); // 固定入口窗口的返回按钮。
+std::int32_t Sub_47B210(std::int32_t index, std::int32_t state); // 转生开关，发送后改同源占用字节。
+std::int32_t Sub_47C950(std::int32_t index, std::int32_t state); // 无可用宠物技能时略过，通知-1。
 std::int32_t Sub_47A5C0(); // 战斗返回：模式4退列表，0/3/5/6关闭。
 std::int32_t Sub_47B3D0(std::int32_t index, std::int32_t state); // 前一行，bit400。
 std::int32_t Sub_47B470(std::int32_t index, std::int32_t state); // 后一行，bit400。

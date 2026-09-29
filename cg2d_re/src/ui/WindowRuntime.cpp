@@ -169,6 +169,19 @@ std::array<Window54TechniqueSlot, 10> gWindow54TechniqueSlotsD66E38 {};
 std::int32_t gWindow54ReplacementC8B08C = 0;
 std::array<std::int8_t, 15> gWindow54SkillMapCC4D04 {};
 std::array<char, 12> gWindow54MoneyTextC9A9A4 {};
+std::array<WindowCrystalItem, 20> gWindow69ItemsCB2230 {};
+std::array<WindowCrystalItem, 20> gWindow70ItemsD30428 {};
+std::int32_t gWindow69ValueD67B98 = 0;
+std::uint8_t gWindow69FlagD2EA5B = 0;
+std::int32_t gWindow69ImageCB01F0 = 0;
+std::int32_t gWindow69DialogTypeD2D810 = 0;
+std::int32_t gWindow70ValueD67BA4 = 0;
+std::uint8_t gWindow70FlagD673D8 = 0;
+std::int32_t gWindow70ImageD2E43C = 0;
+std::int32_t gWindow70ValueD6791C = 0;
+std::int32_t gWindow70DialogTypeD45D6C = 0;
+static_assert(sizeof(gWindow69ItemsCB2230) == 0xF690);
+static_assert(sizeof(gWindow70ItemsD30428) == 0xF690);
 static_assert(sizeof(gWindow54SkillsD2EAB8) == 0x600);
 static_assert(sizeof(gWindow54PetOptionsD67448) == 0xC8);
 static_assert(sizeof(gWindow54TechniqueSlotsD66E38) == 0x398);
@@ -15896,6 +15909,150 @@ std::int32_t Sub_4C0800(const std::int32_t index, const std::int32_t state)
         }
     }
     return 0;
+}
+
+void Sub_4C1390()
+{
+    const std::int32_t type = gWindow69DialogTypeD2D810;
+    if (type == world::detail::gValue581800) {
+        world::detail::gValue581800 = -1;
+    }
+}
+
+login::YobiAction* Sub_4C13B0(const char* const text)
+{
+    gWindow69ValueD67B98 = 0;
+    gWindow69FlagD2EA5B = 0;
+    gWindow69ImageCB01F0 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
+    char* const title = gNpcDialogLinesCC24D4[0].text.data();
+    static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 2, 16, title));
+    input::UnescapeLegacyTextAndNotify_52D2F0(title);
+    std::array<char, 768> buffer;
+    for (std::int32_t group = 0; group < 3; ++group) {
+        static_cast<void>(network::ExtractDelimitedField_52CED0(
+            text, '|', group + 3, 767, buffer.data()));
+        input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
+        for (std::int32_t row = 0; row < 4; ++row) {
+            static_cast<void>(input::ExtractLegacyLine_503AB0(
+                gNpcDialogLinesCC24D4[group * 4 + row + 1].text.data(),
+                81, buffer.data(), row, 20));
+        }
+    }
+    gShopItemCountCB1E10 = 0;
+    std::memset(gWindow69ItemsCB2230.data(), 0, sizeof(gWindow69ItemsCB2230));
+    std::int32_t field = 8;
+    for (WindowCrystalItem* item = gWindow69ItemsCB2230.data();
+         item != gWindow69ItemsCB2230.data() + gWindow69ItemsCB2230.size(); ++item, field += 7) {
+        if (network::ExtractDelimitedField_52CED0(text, '|', field - 2, 767, buffer.data()) == 1) {
+            break;
+        }
+        gWindow69ItemsCB2230[gShopItemCountCB1E10].used = 1;
+        input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
+        if (std::strlen(buffer.data()) > 28) {
+            std::strcpy(item->name.data(), "???");
+        } else {
+            std::strcpy(gWindow69ItemsCB2230[gShopItemCountCB1E10].name.data(), buffer.data());
+        }
+        item->imageNo = network::ParseDelimitedInteger_52CFA0(text, '|', field - 1);
+        item->valueC24 = network::ParseDelimitedInteger_52CFA0(text, '|', field);
+        item->limitC4C = network::ParseDelimitedInteger_52CFA0(text, '|', field + 1);
+        item->valueC2C = network::ParseDelimitedInteger_52CFA0(text, '|', field + 2);
+        const std::int32_t remaining = network::ParseDelimitedInteger_52CFA0(text, '|', field + 3);
+        item->remainingC50 = remaining;
+        if (remaining != -1) {
+            WindowCrystalItem& current = gWindow69ItemsCB2230[gShopItemCountCB1E10];
+            if (remaining < current.limitC4C) {
+                current.limitC4C = current.remainingC50;
+            }
+        }
+        static_cast<void>(network::ExtractDelimitedField_52CED0(
+            text, '|', field + 4, 767, buffer.data()));
+        input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
+        std::int32_t currentCount = gShopItemCountCB1E10;
+        for (std::int32_t row = 0; row < 32; ++row) {
+            const std::int32_t copied = input::ExtractLegacyLine_503AB0(
+                gWindow69ItemsCB2230[currentCount].description.data() + row * 96,
+                3072, buffer.data(), row, 32);
+            currentCount = gShopItemCountCB1E10;
+            if (copied == 0) {
+                gWindow69ItemsCB2230[currentCount].description[row * 96] = '\0';
+            }
+        }
+        gShopItemCountCB1E10 = currentCount + 1;
+    }
+    const std::int32_t type = world::detail::gValue581800;
+    gValueD2D608 = -1;
+    gWindow69DialogTypeD2D810 = type;
+    return CreateWindowAnimation_475AA0(69, 1, 0, nullptr);
+}
+
+void Sub_4C3530()
+{
+    const std::int32_t type = gWindow70DialogTypeD45D6C;
+    if (type == world::detail::gValue581800) {
+        world::detail::gValue581800 = -1;
+    }
+}
+
+login::YobiAction* Sub_4C3550(const char* const text)
+{
+    gWindow70ValueD67BA4 = 0;
+    gWindow70FlagD673D8 = 0;
+    gWindow70ImageD2E43C = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
+    char* const title = gNpcDialogLinesCC24D4[0].text.data();
+    static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 2, 16, title));
+    input::UnescapeLegacyTextAndNotify_52D2F0(title);
+    std::array<char, 768> buffer;
+    for (std::int32_t group = 0; group < 7; ++group) {
+        static_cast<void>(network::ExtractDelimitedField_52CED0(
+            text, '|', group + 3, 767, buffer.data()));
+        input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
+        for (std::int32_t row = 0; row < 4; ++row) {
+            static_cast<void>(input::ExtractLegacyLine_503AB0(
+                gNpcDialogLinesCC24D4[group * 4 + row + 1].text.data(),
+                81, buffer.data(), row, 20));
+        }
+    }
+    gWindow70ValueD6791C = network::ParseDelimitedInteger_52CFA0(text, '|', 10);
+    gShopItemCountCB1E10 = 0;
+    std::memset(gWindow70ItemsD30428.data(), 0, sizeof(gWindow70ItemsD30428));
+    std::int32_t field = 13;
+    for (WindowCrystalItem* item = gWindow70ItemsD30428.data();
+         item != gWindow70ItemsD30428.data() + gWindow70ItemsD30428.size(); ++item, field += 7) {
+        if (network::ExtractDelimitedField_52CED0(text, '|', field - 2, 767, buffer.data()) == 1) {
+            break;
+        }
+        gWindow70ItemsD30428[gShopItemCountCB1E10].used = 1;
+        input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
+        if (std::strlen(buffer.data()) > 28) {
+            std::strcpy(item->name.data(), "???");
+        } else {
+            std::strcpy(gWindow70ItemsD30428[gShopItemCountCB1E10].name.data(), buffer.data());
+        }
+        item->imageNo = network::ParseDelimitedInteger_52CFA0(text, '|', field - 1);
+        item->valueC24 = network::ParseDelimitedInteger_52CFA0(text, '|', field);
+        item->limitC4C = network::ParseDelimitedInteger_52CFA0(text, '|', field + 1);
+        item->valueC2C = network::ParseDelimitedInteger_52CFA0(text, '|', field + 2);
+        item->remainingC50 = network::ParseDelimitedInteger_52CFA0(text, '|', field + 3);
+        static_cast<void>(network::ExtractDelimitedField_52CED0(
+            text, '|', field + 4, 767, buffer.data()));
+        input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
+        std::int32_t currentCount = gShopItemCountCB1E10;
+        for (std::int32_t row = 0; row < 32; ++row) {
+            const std::int32_t copied = input::ExtractLegacyLine_503AB0(
+                gWindow70ItemsD30428[currentCount].description.data() + row * 96,
+                3072, buffer.data(), row, 32);
+            currentCount = gShopItemCountCB1E10;
+            if (copied == 0) {
+                gWindow70ItemsD30428[currentCount].description[row * 96] = '\0';
+            }
+        }
+        gShopItemCountCB1E10 = currentCount + 1;
+    }
+    const std::int32_t type = world::detail::gValue581800;
+    gValueD2D608 = -1;
+    gWindow70DialogTypeD45D6C = type;
+    return CreateWindowAnimation_475AA0(70, 1, 0, nullptr);
 }
 
 login::YobiAction* Sub_4C5790(

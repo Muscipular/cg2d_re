@@ -298,6 +298,30 @@ static_assert(offsetof(Window54TechniqueSlot, name) == 8);
 static_assert(offsetof(Window54TechniqueSlot, description) == 0x21);
 static_assert(offsetof(Window54TechniqueSlot, byte5B) == 0x5B);
 
+// 原CB2230/D30428晶石商品；不同于普通商店C38H记录，保留区尚不定语义。
+struct WindowCrystalItem {
+    std::uint8_t used;
+    std::array<char, 29> name;
+    std::array<char, 3072> description;
+    std::array<std::byte, 2> bytesC1E;
+    std::int32_t imageNo;
+    std::int32_t valueC24;
+    std::array<std::byte, 4> bytesC28;
+    std::int32_t valueC2C;
+    std::array<std::byte, 28> bytesC30;
+    std::int32_t limitC4C;
+    std::int32_t remainingC50;
+};
+static_assert(sizeof(WindowCrystalItem) == 0xC54);
+static_assert(offsetof(WindowCrystalItem, used) == 0);
+static_assert(offsetof(WindowCrystalItem, name) == 1);
+static_assert(offsetof(WindowCrystalItem, description) == 0x1E);
+static_assert(offsetof(WindowCrystalItem, imageNo) == 0xC20);
+static_assert(offsetof(WindowCrystalItem, valueC24) == 0xC24);
+static_assert(offsetof(WindowCrystalItem, valueC2C) == 0xC2C);
+static_assert(offsetof(WindowCrystalItem, limitC4C) == 0xC4C);
+static_assert(offsetof(WindowCrystalItem, remainingC50) == 0xC50);
+
 using WindowDialogReplyCallback = std::int32_t (*)(
     std::int32_t button, std::int32_t row, char* const* texts, std::uint8_t inputCount);
 using WindowDialogFrameCallback = std::int32_t (*)(
@@ -379,6 +403,8 @@ std::int32_t Sub_4C5F80(
 login::YobiAction* Sub_4C6060(
     std::int32_t buttons, std::int32_t request, std::int32_t target,
     const char* text); // 类型37内嵌图号及左侧14空格正文。
+login::YobiAction* Sub_4C13B0(const char* text); // 窗口69商品，remaining非-1才可能下调limit。
+login::YobiAction* Sub_4C3550(const char* text); // 窗口70七组正文/附加值，不下调limit。
 std::int32_t Sub_4BA950(std::int32_t index, std::int32_t state); // 取消发送command2，发送后关闭。
 std::int32_t Sub_4BAA50(std::int32_t index, std::int32_t state); // 批量加入出售选择，每轮固定重置/音效尾。
 std::int32_t Sub_4BCEE0(std::int32_t index, std::int32_t state); // kind2拖放加入，hover模式门禁独立。
@@ -666,6 +692,17 @@ extern std::array<Window54TechniqueSlot, 10> gWindow54TechniqueSlotsD66E38; // 3
 extern std::int32_t gWindow54ReplacementC8B08C; // 4C0BF0发布、4C0F20消费的技能槽索引。
 extern std::array<std::int8_t, 15> gWindow54SkillMapCC4D04; // 技能索引对扣除前序空名后的协议映射。
 extern std::array<char, 12> gWindow54MoneyTextC9A9A4; // 止于C9A9B0窗口状态表之前。
+extern std::array<WindowCrystalItem, 20> gWindow69ItemsCB2230;
+extern std::array<WindowCrystalItem, 20> gWindow70ItemsD30428;
+extern std::int32_t gWindow69ValueD67B98;
+extern std::uint8_t gWindow69FlagD2EA5B;
+extern std::int32_t gWindow69ImageCB01F0;
+extern std::int32_t gWindow69DialogTypeD2D810;
+extern std::int32_t gWindow70ValueD67BA4;
+extern std::uint8_t gWindow70FlagD673D8;
+extern std::int32_t gWindow70ImageD2E43C;
+extern std::int32_t gWindow70ValueD6791C; // 第十协议字段，仍S32。
+extern std::int32_t gWindow70DialogTypeD45D6C;
 extern std::int32_t gStorageValueCC4218; // 存放窗口41每帧清零、元素13绘制的数值。
 extern std::array<char, 22> gStorageAmountTextsCB1DF8; // 两金额文本起点相隔11B，571150/158借用。
 extern const std::array<std::int32_t, 2> gStorageTitleImages54F4E8;

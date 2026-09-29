@@ -513,6 +513,10 @@ constexpr std::array<std::array<std::int32_t, 3>, 2> kStallTabImages54EF40 {{
     {98864, 98862, 98863},
     {98867, 98865, 98866},
 }};
+constexpr std::array<std::array<std::int32_t, 3>, 2> kStallPurchaseButtonImages54EF28 {{
+    {98876, 98874, 98875},
+    {98879, 98877, 98878},
+}};
 
 // 自身摊位上架项只引用玩家槽号；不同于浏览摊位的两张并行数值表。
 struct StallOffer {
@@ -2068,6 +2072,279 @@ std::int32_t Sub_4D0230(const std::int32_t index, const std::int32_t state)
     login::detail::DrawNineGrid_49BE00(
         245300, backgroundX, backgroundY, 220, 92, 226, -1,
         std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}), 74, 54);
+    return state & 1;
+}
+
+std::int32_t Sub_4D2260(const std::int32_t, const std::int32_t state)
+{
+    const bool clicked = (state & 2) != 0;
+    if (clicked) {
+        static_cast<void>(Sub_476570(&gStallPriceInput581590, 0, -100, 0));
+        input::SetContext_44B330(&input::gInputContextCF4E60);
+        WindowInstance* const window = gCurrentWindow;
+        gFocusedElementDataD45F94 = window->elements[1].data;
+        static_cast<WindowInputData*>(window->elements[1].data)->context = &input::gInputContextCF4E60;
+    }
+    if (input::gCurrentInputData == &input::gInputContextCF4E60) {
+        for (std::int32_t digit = 0; digit < 10; ++digit) {
+            if (platform::ReadKeyFlag4_4597A0(digit + 48) != 0
+                || platform::ReadKeyFlag4_4597A0(digit + 96) != 0) {
+                gStallPriceD67C40 = digit + 10 * gStallPriceD67C40;
+            }
+            if (gStallPriceD67C40 > 9999999) {
+                gStallPriceD67C40 = 9999999;
+            }
+        }
+        if (platform::ReadKeyFlag4_4597A0(8) != 0) {
+            gStallPriceD67C40 /= 10;
+        }
+    }
+    constexpr std::array<std::array<std::int32_t, 2>, 10> positions {{
+        {18, 104}, {18, 84}, {42, 84}, {65, 84}, {18, 64},
+        {42, 64}, {65, 64}, {18, 44}, {42, 44}, {65, 44},
+    }};
+    render::GraphicDescriptor16 descriptor {};
+    const std::uint32_t color = 0xFFFFFFFFu;
+    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    descriptor.bytes[13] = 4;
+    WindowInstance* const window = gCurrentWindow;
+    const std::int32_t y = window->y + 115;
+    const std::int32_t x = window->x + 206;
+    if (login::detail::Sub_5049A0(x + 103, y + 6, x + 118, y + 19, -1) != 0) {
+        if (clicked) {
+            if (input::gCurrentInputData == &input::gInputContextCF4E60) {
+                Sub_4A7B00();
+            }
+            gCurrentWindow->elements[1].visible = 0;
+        } else {
+            static_cast<void>(render::DrawGraphic3_520970(
+                x + 106, y + 9, 227, 243002, 0, 1, 0, &descriptor));
+        }
+    } else {
+        static_cast<void>(render::DrawGraphic3_520970(
+            x + 106, y + 9, 227, 243000, 0, 1, 0, &descriptor));
+    }
+    for (std::int32_t digit = 0; digit < 10; ++digit) {
+        const std::int32_t top = y + positions[digit][1];
+        const std::int32_t left = x + positions[digit][0];
+        std::int32_t imageState = 0;
+        if (login::detail::Sub_5049A0(left, top, left + 21, top + 19, -1) != 0) {
+            if (clicked) {
+                gStallPriceD67C40 = digit + 10 * gStallPriceD67C40;
+            }
+            if (gStallPriceD67C40 > 9999999) {
+                gStallPriceD67C40 = 9999999;
+            }
+            imageState = (state & 8) != 0 ? 1 : ((state & 1) != 0 ? 2 : -1);
+        }
+        if (imageState >= 0) {
+            static_cast<void>(login::detail::DrawGraphic(
+                left + 10, top + 10, 227, gNumericKeyImages54F030[digit][imageState], 0, &descriptor));
+        }
+    }
+    std::int32_t imageState = 0;
+    if (login::detail::Sub_5049A0(x + 93, y + 64, x + 118, y + 83, -1) != 0) {
+        if (clicked) {
+            gStallPriceD67C40 /= 10;
+        }
+        imageState = (state & 8) != 0 ? 1 : ((state & 1) != 0 ? 2 : -1);
+    }
+    if (imageState >= 0) {
+        static_cast<void>(login::detail::DrawGraphic(
+            x + 103, y + 74, 227, gNumericKeyImages54F030[10][imageState], 0, &descriptor));
+    }
+    imageState = 0;
+    if (login::detail::Sub_5049A0(x + 93, y + 104, x + 118, y + 123, -1) != 0) {
+        if (clicked) {
+            gStallPriceD67C40 = 0;
+        }
+        imageState = (state & 8) != 0 ? 1 : ((state & 1) != 0 ? 2 : -1);
+    }
+    if (imageState >= 0) {
+        static_cast<void>(login::detail::DrawGraphic(
+            x + 103, y + 114, 227, gNumericKeyImages54F030[12][imageState], 0, &descriptor));
+    }
+    imageState = 1;
+    if (gStallPriceD67C40 != 0) {
+        if (login::detail::Sub_5049A0(x + 65, y + 104, x + 87, y + 123, -1) != 0) {
+            if (clicked) {
+                static_cast<void>(Sub_4D27C0(gStallPriceD67C40));
+                if (input::gCurrentInputData == &input::gInputContextCF4E60) {
+                    Sub_4A7B00();
+                }
+                gCurrentWindow->elements[1].visible = 0;
+            }
+            imageState = (state & 8) != 0 ? 1 : ((state & 1) != 0 ? 2 : -1);
+        } else {
+            imageState = 0;
+        }
+    }
+    if (imageState >= 0) {
+        static_cast<void>(login::detail::DrawGraphic(
+            x + 75, y + 114, 227, gNumericKeyImages54F030[13][imageState], 0, &descriptor));
+    }
+    char buffer[20];
+    std::sprintf(buffer, "%d", gStallPriceD67C40);
+    Sub_4771B0(x + 105, y + 29, buffer, 3, 0, 1, 227);
+    static_cast<void>(render::DrawGraphic3_520970(x, y, 226, 98855, 0, 1, 0, &descriptor));
+    return state & 1;
+}
+
+std::int32_t Sub_4D2840(const std::int32_t, const std::int32_t state)
+{
+    WindowInstance* const window = gCurrentWindow;
+    std::int32_t y = window->y + 183;
+    std::int32_t x = window->x + 274;
+    const bool petLayout = gStallModeD67BDC != 0;
+    render::GraphicDescriptor16 descriptor {};
+    const std::uint32_t color = 0xFFFFFFFFu;
+    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    descriptor.bytes[13] = 4;
+    std::int32_t buttonY;
+    std::int32_t acceptX;
+    std::int32_t cancelX;
+    if (petLayout) {
+        x -= 144;
+        y -= 99;
+        acceptX = 143;
+        buttonY = 162;
+        cancelX = 205;
+    } else {
+        x -= 83;
+        y -= 79;
+        acceptX = 26;
+        buttonY = 120;
+        cancelX = 88;
+    }
+    const std::int32_t acceptTop = y + buttonY;
+    const std::int32_t acceptLeft = x + acceptX;
+    std::int32_t imageState = 0;
+    if (login::detail::Sub_5049A0(
+        acceptLeft, acceptTop, acceptLeft + 49, acceptTop + 17, -1) != 0) {
+        if ((state & 2) != 0) {
+            static_cast<void>(Sub_4CECB0());
+            gCurrentWindow->elements[1].visible = 0;
+        }
+        imageState = (state & 8) != 0 ? 1 : ((state & 1) != 0 ? 2 : -1);
+    }
+    if (imageState >= 0) {
+        static_cast<void>(render::DrawGraphic3_520970(
+            acceptLeft, acceptTop, 227, kStallPurchaseButtonImages54EF28[0][imageState],
+            0, 1, 0, &descriptor));
+    }
+    const std::int32_t cancelTop = y + buttonY;
+    const std::int32_t cancelLeft = x + cancelX;
+    imageState = 0;
+    if (login::detail::Sub_5049A0(
+        cancelLeft, cancelTop, cancelLeft + 49, cancelTop + 17, -1) != 0) {
+        if ((state & 2) != 0) {
+            gCurrentWindow->elements[1].visible = 0;
+        }
+        imageState = (state & 8) != 0 ? 1 : ((state & 1) != 0 ? 2 : -1);
+    }
+    if (imageState >= 0) {
+        static_cast<void>(render::DrawGraphic3_520970(
+            cancelLeft, cancelTop, 227, kStallPurchaseButtonImages54EF28[1][imageState],
+            0, 1, 0, &descriptor));
+    }
+    char buffer[20];
+    char details[32];
+    if (gStallModeD67BDC == 0) {
+        auto* const item = gStallBrowseD046D8.items.data() + (gStallItemSelection581124 - 20);
+        if (login::detail::Sub_5049A0(x + 22, y + 58, x + 70, y + 106, -1) != 0) {
+            if ((state & 1) != 0) {
+                gStallHover581120 = gStallItemSelection581124 + 180;
+            }
+            if ((state & 4) != 0) {
+                ++gStallDescriptionPageD67C3C;
+                if (gStallDescriptionPageD67C3C >= item->pages) {
+                    gStallDescriptionPageD67C3C = 0;
+                }
+            }
+        }
+        if (login::detail::Sub_5049A0(x + 133, y + 6, x + 148, y + 19, -1) != 0) {
+            if ((state & 2) != 0) {
+                gCurrentWindow->elements[1].visible = 0;
+            } else {
+                static_cast<void>(render::DrawGraphic3_520970(
+                    x + 136, y + 9, 227, 243002, 0, 1, 0, &descriptor));
+            }
+        } else {
+            static_cast<void>(render::DrawGraphic3_520970(
+                x + 136, y + 9, 227, 243000, 0, 1, 0, &descriptor));
+        }
+        static_cast<void>(input::ExtractLegacyLine_503AB0(buffer, 20, item->name.data(), 0, 10));
+        static_cast<void>(render::DrawText_456780(
+            static_cast<std::int16_t>(x + 74), static_cast<std::int16_t>(y + 58),
+            4, 8, 0, buffer, 0, 0));
+        static_cast<void>(input::ExtractLegacyLine_503AB0(buffer, 20, item->name.data(), 1, 10));
+        static_cast<void>(render::DrawText_456780(
+            static_cast<std::int16_t>(x + 74), static_cast<std::int16_t>(y + 72),
+            4, 8, 0, buffer, 0, 0));
+        static_cast<void>(login::detail::DrawGraphic(x + 46, y + 82, 227, item->imageNo, 0, &descriptor));
+        std::sprintf(buffer, "%d", gStallBrowseD046D8.itemValuesD13E74[gStallItemSelection581124 - 20]);
+        Sub_4771B0(x + 127, y + 93, buffer, 3, 0, 1, 227);
+        const std::int32_t count = item->count;
+        if (count > 0) {
+            std::sprintf(details, "%3d", count);
+            static_cast<void>(render::DrawText_456780(
+                static_cast<std::int16_t>(x + 43), static_cast<std::int16_t>(y + 90),
+                4, 1, 1, details, 0, 0));
+        }
+        static_cast<void>(render::DrawGraphic3_520970(x, y, 226, 98856, 0, 1, 0, &descriptor));
+    } else {
+        if (login::detail::Sub_5049A0(x + 254, y + 6, x + 269, y + 19, -1) != 0) {
+            if ((state & 2) != 0) {
+                gCurrentWindow->elements[1].visible = 0;
+            } else {
+                static_cast<void>(render::DrawGraphic3_520970(
+                    x + 257, y + 9, 227, 243002, 0, 1, 0, &descriptor));
+            }
+        } else {
+            static_cast<void>(render::DrawGraphic3_520970(
+                x + 257, y + 9, 227, 243000, 0, 1, 0, &descriptor));
+        }
+        auto* const pet = gStallBrowseD046D8.pets.data() + (gStallPetSelection581128 - 5);
+        const auto drawPetText = [&](const std::int32_t dx, const std::int32_t dy) {
+            static_cast<void>(render::DrawText_456780(
+                static_cast<std::int16_t>(x + dx), static_cast<std::int16_t>(y + dy),
+                4, 13, std::bit_cast<std::int8_t>(std::uint8_t{138}), details, 0, 0));
+        };
+        std::sprintf(details, "%s", pet->name6AC.data());
+        drawPetText(75, 61);
+        std::sprintf(details, "%4d", platform::legacy_crypt_int::Read_401EC0(&pet->values0C[1]));
+        drawPetText(225, 61);
+        std::sprintf(details, "%3d", pet->value08);
+        drawPetText(51, 78);
+        const std::int16_t tribe = std::bit_cast<std::int16_t>(pet->value04);
+        if (tribe >= 0 && tribe < 20) {
+            std::sprintf(details, "%s", gTribeNames57CB54[tribe]);
+        } else {
+            details[0] = '\0';
+        }
+        drawPetText(118, 78);
+        std::sprintf(details, "%4d", platform::legacy_crypt_int::Read_401EC0(&pet->values0C[3]));
+        drawPetText(225, 78);
+        std::sprintf(details, "%3d", pet->values70[0]);
+        drawPetText(115, 96);
+        std::sprintf(details, "%3d", pet->values70[1]);
+        drawPetText(174, 96);
+        std::sprintf(details, "%3d", pet->values70[2]);
+        drawPetText(232, 96);
+        std::sprintf(details, "%3d", pet->value6A4);
+        drawPetText(51, 114);
+        std::sprintf(details, "%3d", pet->values70[3]);
+        drawPetText(115, 114);
+        std::sprintf(details, "%3d", pet->values70[4]);
+        drawPetText(174, 114);
+        std::sprintf(details, "%3d", pet->values70[10]);
+        drawPetText(232, 114);
+        std::sprintf(details, "%3d", pet->lvFlag6C);
+        drawPetText(89, 132);
+        std::sprintf(details, "%d", gStallBrowseD046D8.petValuesD2D464[gStallPetSelection581128 - 5]);
+        Sub_4771B0(x + 241, y + 131, details, 3, 0, 1, 227);
+        static_cast<void>(render::DrawGraphic3_520970(x, y, 226, 98860, 0, 1, 0, &descriptor));
+    }
     return state & 1;
 }
 

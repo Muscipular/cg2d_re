@@ -658,6 +658,8 @@ WindowInstance* Sub_4CED50(); // 显示购买确认，返回入口窗口。
 WindowElement* Sub_4CFC40(); // 物品定价输入初始化，返回末次取得的元素表。
 void Sub_4CFCA0(std::int32_t petIndex); // 固定六装备槽检查后进入宠物定价。
 std::int32_t Sub_4CFD70(); // 删除上架项，保持标记/数量/搬移/选择与页回退顺序。
+std::int32_t Sub_4D2260(std::int32_t unusedIndex, std::int32_t state); // 完整定价键盘和鼠标交互，返回hover位。
+std::int32_t Sub_4D2840(std::int32_t unusedIndex, std::int32_t state); // 购买确认及物品/宠物详情，二次读模式。
 extern std::int32_t gDragItemIndex584DA4; // 4FB8F0已接重置，4FAEF0拖动生产仍待接。
 extern std::int32_t gDragImageNoD67D24;
 extern std::int32_t gItemDragXCC4880;

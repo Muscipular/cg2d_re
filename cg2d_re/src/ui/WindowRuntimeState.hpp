@@ -134,6 +134,10 @@ std::int32_t Sub_484D60(std::int32_t index, std::int32_t state); // 六材料槽
 WindowAnimationData* Sub_47E5E0(WindowInstance* window); // 制造结果完整窗口11展示。
 WindowAnimationData* Sub_47EBE0(); // 仅已有窗口11才更新，不自动创建。
 WindowAnimationData* Sub_4F39F0(std::int32_t result, const char* text); // JgO制造分支，原字节摘要与展示。
+std::int32_t Sub_484E90(std::int32_t index, std::int32_t state); // 单物品悬停/翻页，物品编号不加8。
+WindowAnimationData* Sub_47F3D0(WindowInstance* window); // 物品加工结果展示，保留入口选择快照及交叉门禁。
+WindowAnimationData* Sub_47FAC0(); // 仅已有窗口11才展示物品结果。
+WindowAnimationData* Sub_4F1800(std::int32_t result, const char* text); // JgO第二分支七字段及独立摘要。
 login::YobiAction* Sub_4EF750(const char* text); // ND自身/远端属性生产，分类1跳过人物行。
 login::YobiAction* Sub_4874B0(); // 同源六属性视图与46创建，不回滚计数。
 std::int32_t Sub_4872E0(std::int32_t index, const char* unusedText); // 按属性目标编号发送技能。

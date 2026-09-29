@@ -581,6 +581,32 @@ constexpr char kCraftIntelligence5897F0[] = "\xB4\xBC\xA4\x4F %+d";
 constexpr char kCraftInjury589CD4[] = "\xA8\xFC\xB6\xCB\xA4\x46\xA1\x49\n";
 constexpr char kCraftLostItem589F9C[] = "%s \xA5\xA2\xA5\x68\xA4\x46\xA1\x49";
 
+std::int32_t gItemWorkResultCB05FC = 0;
+std::int32_t gItemWorkExperienceC8A950 = 0;
+std::int32_t gItemWorkValueD2E2AC = 0;
+std::int32_t gItemWorkLevelUpCB03D8 = 0;
+std::int32_t gItemWorkEnduranceCF46B4 = 0;
+std::int32_t gItemWorkDexterityCB0A14 = 0;
+std::int32_t gItemWorkIntelligenceD30418 = 0;
+std::int32_t gItemWorkInjuryD2E2A8 = 0;
+std::int32_t gItemWorkSkillIdD67CF0 = 0;
+std::array<char, 32> gItemWorkSuffixD2DADC {};
+std::string gItemWorkDetailsD2DB00; // 独立NUL文本合同，与制造详情不共用。
+std::int32_t gMaterialSingleHoverCB0AA4 = 0;
+constexpr char kItemWorkEngrave589D08[] = "\xAA\xBA\xA8\xE8\xA6\x4C";
+constexpr char kItemWorkIdentify589D00[] = "\xAA\xBA\xC5\xB2\xA9\x77";
+constexpr char kItemWorkRepair589CF8[] = "\xAA\xBA\xAD\xD7\xB2\x7A";
+constexpr char kItemWorkSuccess589CEC[] = "\xA6\xA8\xA5\x5C\xA4\x46\xA1\x43";
+constexpr char kItemWorkFailure589CE0[] = "\xA5\xA2\xB1\xD1\xA4\x46\xA1\x43";
+constexpr char kItemWorkSuccess586774[] = "\xA1\x40\xA8\xE8\xA6\x4C\xA4\x57\xA5\x68\xA4\x46\xA1\x49";
+constexpr char kItemWorkFailure586764[] = "\xA1\x40\xA8\xE8\xA6\x4C\xA5\xA2\xB1\xD1\xA4\x46\xA1\x43";
+constexpr char kItemWorkSuccess586754[] = "\xBA\xEB\xB7\xD2\xA6\xA8\xA5\x5C\xA4\x46\xA1\x49";
+constexpr char kItemWorkFailure586744[] = "\xBA\xEB\xB7\xD2\xA5\xA2\xB1\xD1\xA4\x46\xA1\x49";
+constexpr char kItemWorkSuccess586730[] = "\xA1\x40\xAA\xBA\xC5\xB2\xA9\x77\xA6\xA8\xA5\x5C\xA4\x46\xA1\x49";
+constexpr char kItemWorkFailure58671C[] = "\xA1\x40\xAA\xBA\xC5\xB2\xA9\x77\xA5\xA2\xB1\xD1\xA4\x46\xA1\x43";
+constexpr char kItemWorkSuccess586708[] = "\xA1\x40\xAA\xBA\xAD\xD7\xB2\x7A\xA6\xA8\xA5\x5C\xA4\x46\xA1\x49";
+constexpr char kItemWorkFailure5866F4[] = "\xA1\x40\xAA\xBA\xAD\xD7\xB2\x7A\xA5\xA2\xB1\xD1\xA4\x46\xA1\x43";
+
 // 原D046D8连续浏览区；仅复用值类型布局，不与玩家或交易区共享存储。
 struct StallBrowseData {
     std::array<char, 17> sellerName00;
@@ -22650,6 +22676,230 @@ WindowAnimationData* Sub_4F39F0(const std::int32_t result, const char* const tex
         gCraftResultDetailsD2E92C += kCraftInjury589CD4;
     }
     return Sub_47EBE0();
+}
+
+std::int32_t Sub_484E90(const std::int32_t index, const std::int32_t state)
+{
+    render::GraphicDescriptor16 descriptor {};
+    const std::uint32_t color = 0xFFFFFFFFu;
+    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    descriptor.bytes[13] = 4;
+    const auto events = static_cast<std::uint8_t>(state);
+    std::int32_t consumed = 0;
+    if ((events & 0x21) != 0) {
+        WindowInstance* const window = gCurrentWindow;
+        const WindowElement* const element = &window->elements[index];
+        const std::int32_t y = window->y + element->y;
+        const std::int32_t x = window->x + element->x;
+        const std::uint32_t imageNo = login::detail::gValueD69768;
+        login::detail::DrawGraphicHover(
+            static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
+            static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48),
+            0xDF, imageNo, 0);
+    }
+    const std::int32_t selected = gSelectedItemD460C0;
+    if (selected < 0) {
+        return 0;
+    }
+    if ((events & 1) != 0) {
+        if (gMaterialSingleHoverCB0AA4 != 6) {
+            gMaterialHintPageCF4FD8 = 0;
+        }
+        gMaterialSingleHoverCB0AA4 = 6;
+        if ((events & 4) != 0) {
+            ++gMaterialHintPageCF4FD8;
+            if (gMaterialHintPageCF4FD8 >= 4) {
+                gMaterialHintPageCF4FD8 = 0;
+            }
+            consumed = 1;
+        }
+        gMaterialHoveredItemD67424 = selected;
+    }
+    WindowInstance* const window = gCurrentWindow;
+    const WindowElement* const element = &window->elements[index];
+    const std::int32_t imageNo = gSelectedImageCC3ED8;
+    const std::int32_t y = window->y + element->y + 24;
+    const std::int32_t x = window->x + element->x + 24;
+    static_cast<void>(login::detail::DrawGraphic(x, y, 0xDF, imageNo, 0, &descriptor));
+    return consumed;
+}
+
+WindowAnimationData* Sub_47F3D0(WindowInstance* const window)
+{
+    const std::int32_t entryResult = gItemWorkResultCB05FC;
+    const std::int32_t selected = gSelectedItemD460C0;
+    gValueD67B00 = 0;
+    if (entryResult != 0 && world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId != 220) {
+        static_cast<void>(Sub_47DC20(6));
+    }
+    const auto* const item = &world::detail::gPlayerItemsFDA8A4[selected];
+    std::strcpy(static_cast<WindowTextData*>(window->elements[9].data)->text, item->name.data());
+    const std::int32_t skillId = world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
+    const char* message = nullptr;
+    switch (skillId) {
+    case 217:
+    case 218:
+    case 2031:
+    case 2032:
+        message = gItemWorkResultCB05FC != 0 ? kItemWorkSuccess586708 : kItemWorkFailure5866F4;
+        break;
+    case 219:
+    case 2033:
+        message = gItemWorkResultCB05FC != 0 ? kItemWorkSuccess586730 : kItemWorkFailure58671C;
+        break;
+    case 220:
+        message = gItemWorkResultCB05FC != 0 ? kItemWorkSuccess586774 : kItemWorkFailure586764;
+        break;
+    case 2025:
+        message = gItemWorkResultCB05FC != 0 ? kItemWorkSuccess586754 : kItemWorkFailure586744;
+        break;
+    }
+    if (message != nullptr) {
+        std::strcpy(static_cast<WindowTextData*>(window->elements[10].data)->text, message);
+    }
+    static_cast<void>(audio::PlaySe_52C450(gItemWorkResultCB05FC != 0 ? 57 : 58, 320));
+    if (gItemWorkLevelUpCB03D8 != 0) {
+        std::strcpy(static_cast<WindowTextData*>(window->elements[11].data)->text, kCraftLevelUp58661C);
+    } else {
+        auto* const data = static_cast<WindowTextData*>(window->elements[11].data);
+        std::sprintf(data->text, kCraftExperience58660C, gItemWorkExperienceC8A950);
+    }
+    char* const increments = static_cast<WindowTextData*>(window->elements[12].data)->text;
+    increments[0] = '\0';
+    char buffer[256];
+    // 原门禁取制造回复，显示值取本次物品回复；不能收敛成同一来源。
+    if (gCraftEnduranceD2F328 != 0) {
+        std::sprintf(buffer, kCraftEndurance586600, gItemWorkEnduranceCF46B4);
+        std::strcat(increments, buffer);
+    }
+    if (gCraftDexterityCA0448 != 0) {
+        std::sprintf(buffer, kCraftDexterity5865F4, gItemWorkDexterityCB0A14);
+        std::strcat(increments, buffer);
+    }
+    if (gCraftIntelligenceCB0F84 != 0) {
+        std::sprintf(buffer, kCraftIntelligence5865E8, gItemWorkIntelligenceD30418);
+        std::strcat(increments, buffer);
+    }
+    std::strcpy(
+        static_cast<WindowTextData*>(window->elements[13].data)->text,
+        gItemWorkInjuryD2E2A8 != 0 ? kCraftInjury5865DC : input::LegacyText593850());
+    const std::int32_t imageResult = gItemWorkResultCB05FC;
+    gCraftDisplayImageCB2204 = -1;
+    if (imageResult != 0) {
+        gCraftDisplayImageCB2204 = item->imageNo;
+    }
+    static_cast<WindowGraphicData*>(window->elements[29].data)->imageNo = 0x3BA39;
+    static_cast<WindowGraphicData*>(window->elements[14].data)->imageNo = 0x3BA3A;
+    for (std::int32_t index = 15; index <= 20; ++index) {
+        window->elements[index].visible = 0;
+        window->elements[index].mouseCallback = Sub_484D60;
+    }
+    window->elements[24].visible = 0;
+    window->elements[22].visible = 0;
+    window->elements[21].visible = 1;
+    window->elements[21].mouseCallback = Sub_484E90;
+    window->elements[23].visible = 1;
+    if (world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId == 220) {
+        window->elements[23].visible = 0;
+    }
+    window->elements[25].visible = 0;
+    window->elements[26].visible = 1;
+    window->elements[27].visible = 1;
+    static_cast<WindowAnimationData*>(window->elements[4].data)->value04 = 1;
+    const bool succeeded = gItemWorkResultCB05FC != 0;
+    const std::int32_t defaultAction = succeeded ? 5 : 10;
+    const std::int32_t alternateAction = succeeded ? 18 : 15;
+    login::detail::SetYobiActionField2B0(
+        static_cast<WindowAnimationData*>(window->elements[4].data)->action, defaultAction);
+    std::int32_t imageNo = world::detail::ReadPlayerImageNo();
+    for (const auto& range : kCraftAlternateActionImages) {
+        if (imageNo >= range[0] && imageNo <= range[1]) {
+            login::detail::SetYobiActionField2B0(
+                static_cast<WindowAnimationData*>(window->elements[4].data)->action, alternateAction);
+            imageNo = world::detail::ReadPlayerImageNo();
+        }
+    }
+    if (imageNo == 0x18A26) {
+        login::detail::SetYobiActionField2B0(
+            static_cast<WindowAnimationData*>(window->elements[4].data)->action, defaultAction);
+    }
+    window->elements[6].visible = 0;
+    window->elements[7].visible = 0;
+    window->elements[8].visible = 0;
+    static_cast<void>(Sub_47D170(
+        window, 4, 3, 5, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
+    WindowAnimationData* last;
+    if (gSkillSendModeC8A970 != 0) {
+        last = Sub_47D220(window, 3, 5, 1, gItemWorkResultCB05FC != 0 ? 6 : 8, 5);
+    } else {
+        last = Sub_47D220(window, 3, 5, 0, 10, 5);
+    }
+    gSelectionModeD2D650 = 5;
+    return last;
+}
+
+WindowAnimationData* Sub_47FAC0()
+{
+    WindowInstance* const window = gWindowStates[11].window;
+    return window != nullptr ? Sub_47F3D0(window) : nullptr;
+}
+
+WindowAnimationData* Sub_4F1800(const std::int32_t result, const char* const text)
+{
+    gItemWorkDetailsD2DB00.clear();
+    gItemWorkResultCB05FC = result;
+    gItemWorkExperienceC8A950 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
+    gItemWorkValueD2E2AC = network::ParseDelimitedInteger_52CFA0(text, '|', 2);
+    gItemWorkLevelUpCB03D8 = network::ParseDelimitedInteger_52CFA0(text, '|', 3);
+    gItemWorkEnduranceCF46B4 = network::ParseDelimitedInteger_52CFA0(text, '|', 4);
+    gItemWorkDexterityCB0A14 = network::ParseDelimitedInteger_52CFA0(text, '|', 5);
+    gItemWorkIntelligenceD30418 = network::ParseDelimitedInteger_52CFA0(text, '|', 6);
+    gItemWorkInjuryD2E2A8 = network::ParseDelimitedInteger_52CFA0(text, '|', 7);
+    const std::int32_t skillId = gItemWorkSkillIdD67CF0;
+    const char* prefix;
+    switch (skillId) {
+    case 217:
+    case 218:
+    case 2031:
+    case 2032: prefix = kItemWorkRepair589CF8; break;
+    case 219:
+    case 2033: prefix = kItemWorkIdentify589D00; break;
+    default: prefix = kItemWorkEngrave589D08; break;
+    }
+    std::strcpy(gItemWorkSuffixD2DADC.data(), prefix);
+    std::strcat(gItemWorkSuffixD2DADC.data(), result != 0 ? kItemWorkSuccess589CEC : kItemWorkFailure589CE0);
+    char buffer[256];
+    std::int32_t lines = 0;
+    const auto appendValue = [&](const char* const format, const std::int32_t value) {
+        std::sprintf(buffer, format, value);
+        if (std::strlen(buffer) < 28) {
+            std::strcat(buffer, "\n");
+        }
+        gItemWorkDetailsD2DB00 += buffer;
+        ++lines;
+    };
+    if (gItemWorkExperienceC8A950 > 0) {
+        appendValue(kCraftExperience589820, gItemWorkExperienceC8A950);
+    }
+    if (gItemWorkLevelUpCB03D8 != 0 && lines < 8) {
+        std::sprintf(buffer, kCraftLevelUp589814);
+        gItemWorkDetailsD2DB00 += buffer;
+        ++lines;
+        static_cast<void>(audio::PlaySe_52C450(64, 320));
+    }
+    if (gItemWorkEnduranceCF46B4 != 0 && lines < 8) {
+        appendValue(kCraftEndurance589808, gItemWorkEnduranceCF46B4);
+    }
+    if (gItemWorkDexterityCB0A14 != 0 && lines < 8) {
+        appendValue(kCraftDexterity5897FC, gItemWorkDexterityCB0A14);
+    }
+    if (gItemWorkIntelligenceD30418 != 0 && lines < 8) {
+        appendValue(kCraftIntelligence5897F0, gItemWorkIntelligenceD30418);
+    }
+    if (gItemWorkInjuryD2E2A8 != 0 && lines < 8) {
+        gItemWorkDetailsD2DB00 += kCraftInjury589CD4;
+    }
+    return Sub_47FAC0();
 }
 
 std::int32_t Sub_479820()

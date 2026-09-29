@@ -345,12 +345,17 @@ login::YobiAction* Sub_4BDAD0(const char* text); // 同创建流程，模式12�
 void Sub_4BDD90(const char* text); // 模式3候选回复，仅更新存在的窗口54。
 void Sub_4BDF70(const char* text); // 模式13候选回复，带种族条件及提示标记。
 void Sub_4BE200(const char* text); // 模式4固定十槽回复，空名不终止后续槽。
+void Sub_4BE3F0(WindowInstance* window); // 模式0技能栏/说明/花费，reqSlot按低S8。
+void Sub_4BE600(WindowInstance* window); // 模式1遗忘映射/警告/回调，与原技能表同源。
 void Sub_4BE930(WindowInstance* window); // 固定旧窗的五宠物名称/元素及技能分页刷新。
 void Sub_4BEC20(WindowInstance* window); // 玩家索引对转候选映射，绑定真实选择回调。
 void Sub_4BEF30(WindowInstance* window); // 技能槽计数/候选原序显示，先右侧再左侧刷新。
+void Sub_4BF160(WindowInstance* window, std::int32_t scroll, std::int32_t count); // 模式0十行原技能。
+void Sub_4BF2E0(WindowInstance* window, std::int32_t scroll, std::int32_t count); // 模式1十行协议名称/双数值。
 void Sub_4BF460(WindowInstance* window, std::int32_t scroll); // 五行，存在性与内容索引不同。
 void Sub_4BF620(WindowInstance* window, std::int32_t scroll); // 按候选槽数逐轮重读，不加十行钳制。
 std::int32_t Sub_4C0A50(std::int32_t index, std::int32_t state); // 候选门禁/提示/发送，hintFlag不阻止发送。
+std::int32_t Sub_4C0910(std::int32_t index, std::int32_t state); // 遗忘映射+1发送，发送后关闭窗口。
 std::int32_t Sub_4C0BF0(std::int32_t index, std::int32_t state); // 选技能槽并显示元素0，不提前发送。
 std::int32_t Sub_4C0CB0(std::int32_t index, std::int32_t state); // 技能选择/请求，发送后对话类型=-2。
 std::int32_t Sub_4C0EA0(std::int32_t index, std::int32_t unusedState); // 已选技能内框，恒0。
@@ -640,6 +645,8 @@ extern std::int32_t gWindow54PetChoiceC8AA90; // 已选协议候选，不是原�
 extern std::int32_t gWindow54PetScrollCC31DC;
 extern std::array<Window54TechniqueSlot, 10> gWindow54TechniqueSlotsD66E38; // 398H，其他窗口同源。
 extern std::int32_t gWindow54ReplacementC8B08C; // 4C0BF0发布、4C0F20消费的技能槽索引。
+extern std::array<std::int8_t, 15> gWindow54SkillMapCC4D04; // 技能索引对扣除前序空名后的协议映射。
+extern std::array<char, 12> gWindow54MoneyTextC9A9A4; // 止于C9A9B0窗口状态表之前。
 extern std::int32_t gStorageValueCC4218; // 存放窗口41每帧清零、元素13绘制的数值。
 extern std::array<char, 22> gStorageAmountTextsCB1DF8; // 两金额文本起点相隔11B，571150/158借用。
 extern const std::array<std::int32_t, 2> gStorageTitleImages54F4E8;

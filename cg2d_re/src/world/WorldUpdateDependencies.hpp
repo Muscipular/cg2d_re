@@ -432,7 +432,7 @@ struct SkillRecipeRecord {
 // 原F1BAFC起的技能记录；未消费字段不计最终业务映射。
 struct SkillRuntimeRecord {
     std::array<char, 25> name;
-    std::array<std::uint8_t, 2> requiredSlots19; // 回复仅写低U8，UI按完整S16读。
+    std::array<std::uint8_t, 2> requiredSlots19; // 回复写低U8；4740F0读S16，窗口54读低S8。
     std::byte byte1B;
     std::int32_t level;
     std::int32_t maxLevel;
@@ -1064,6 +1064,7 @@ extern std::uint32_t gActorBarsEnabled5AC490; // 原虚拟零区，442F70与后�
 std::int32_t ReadPlayerWalkSpeed() noexcept; // 原FDA870。
 std::int32_t ReadPlayerImageNo() noexcept; // 原FDA878；不是action当前变换图号。
 std::int32_t ReadPlayerValueFC() noexcept; // 原FDA7FC，交易面板借用同源金额，不复制owner。
+std::int32_t ReadPlayerValue16C() noexcept; // 原FDA86C，窗口54借读509650生产的总技能槽数。
 std::int32_t ReadPlayerValue15BCC() noexcept; // 原FF02CC，库存第二数值文本借读同源回复字段。
 std::int32_t ReadPlayerLevel() noexcept; // 原FDA704，存放宠物费用读取同源等级。
 bool IsPlayerFpLessThan(std::int32_t cost); // 原FDA738，499C30各次401DB0比较共用同一CryptInt。

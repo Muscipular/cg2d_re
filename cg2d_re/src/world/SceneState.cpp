@@ -6797,6 +6797,11 @@ std::int32_t ReadPlayerValueFC() noexcept
     return gPlayerRuntime.valueFC;
 }
 
+std::int32_t ReadPlayerValue16C() noexcept
+{
+    return gPlayerRuntime.value16C;
+}
+
 std::int32_t GetBattlePetPosition_405B40(const std::int32_t position)
 {
     if ((position >= 0 && position < 5) || (position >= 10 && position < 15)) {

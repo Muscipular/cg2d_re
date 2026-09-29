@@ -166,6 +166,8 @@ std::int32_t gWindow54PetChoiceC8AA90 = 0;
 std::int32_t gWindow54PetScrollCC31DC = 0;
 std::array<Window54TechniqueSlot, 10> gWindow54TechniqueSlotsD66E38 {};
 std::int32_t gWindow54ReplacementC8B08C = 0;
+std::array<std::int8_t, 15> gWindow54SkillMapCC4D04 {};
+std::array<char, 12> gWindow54MoneyTextC9A9A4 {};
 static_assert(sizeof(gWindow54SkillsD2EAB8) == 0x600);
 static_assert(sizeof(gWindow54PetOptionsD67448) == 0xC8);
 static_assert(sizeof(gWindow54TechniqueSlotsD66E38) == 0x398);
@@ -14773,6 +14775,147 @@ void Sub_4BE200(const char* const text)
     Sub_4BEF30(window);
 }
 
+void Sub_4BE3F0(WindowInstance* const window)
+{
+    static_cast<WindowGraphicData*>(window->elements[104].data)->imageNo = 244384;
+    window->elements[2].visible = 1;
+    window->elements[5].visible = 1;
+    gWindow54ValueCB01E4 = 0;
+    std::int32_t usedSlots = 0;
+    std::int32_t count = 0;
+    for (const world::detail::SkillPairRecord& pair : world::detail::gSkillPairsF63370) {
+        if (pair.used != 0) {
+            const std::int32_t index = std::bit_cast<std::int16_t>(pair.index);
+            usedSlots += std::bit_cast<std::int8_t>(
+                world::detail::gSkillsF1BAFC[index].requiredSlots19[0]);
+            ++count;
+        }
+    }
+    const std::int32_t totalSlots = world::detail::ReadPlayerValue16C();
+    gWindow54ValueCB01E4 = count;
+    std::sprintf(static_cast<WindowTextData*>(window->elements[5].data)->text,
+        "%2d/%2d", usedSlots, totalSlots);
+    std::int32_t freeSlots = world::detail::ReadPlayerValue16C() - usedSlots;
+    if (freeSlots < 0) {
+        freeSlots = 0;
+    }
+    const std::int32_t displayed = gWindow54ValueCB01E4 + freeSlots;
+    gWindow54ValueCB01E4 = displayed;
+    for (std::int32_t index = 9; index <= 16; ++index) {
+        window->elements[index].visible = displayed > 10 ? 1 : 0;
+    }
+    window->elements[24].visible = 1;
+    std::strcpy(static_cast<WindowTextData*>(window->elements[24].data)->text,
+        gNpcDialogLinesCC24D4[9].text.data());
+    for (std::int32_t row = 0; row < 8; ++row) {
+        window->elements[row + 25].visible = 1;
+        std::strcpy(static_cast<WindowTextData*>(window->elements[row + 25].data)->text,
+            gNpcDialogLinesCC24D4[row + 10].text.data());
+    }
+    window->elements[33].visible = 1;
+    std::sprintf(static_cast<WindowTextData*>(window->elements[33].data)->text,
+        "\xA9\xD2\xBB\xDD\xAA\xBA\xA7\xDE\xAF\xE0\xC4\xE6\xA6\xEC\xBC\xC6\xB6\x71"
+        "\xA1\x47\x25\x32\x64\xC4\xE6", gWindow54ValueCC2E68);
+    window->elements[6].visible = 1;
+    std::sprintf(gWindow54AmountTextD45F78.data(), "%10d", gWindow54ValueCF4A3C);
+    for (std::int32_t row = 0; row < 10; ++row) {
+        window->elements[row + 69].mouseCallback = &Sub_4B0F10;
+    }
+    const std::int32_t currentCount = gWindow54ValueCB01E4;
+    const std::int32_t scroll = gWindow54PetScrollCC31DC;
+    Sub_4BF160(window, scroll, currentCount);
+    for (std::int32_t index = 17; index <= 23; ++index) {
+        window->elements[index].visible = 0;
+    }
+    for (std::int32_t index = 79; index <= 103; ++index) {
+        window->elements[index].visible = 0;
+    }
+}
+
+void Sub_4BE600(WindowInstance* const window)
+{
+    static_cast<WindowGraphicData*>(window->elements[104].data)->imageNo = 244384;
+    window->elements[2].visible = 0;
+    window->elements[5].visible = 1;
+    for (std::int32_t row = 0; row < 15; ++row) {
+        const world::detail::SkillPairRecord& pair = world::detail::gSkillPairsF63370[row];
+        if (pair.used != 0) {
+            const std::int32_t index = std::bit_cast<std::int16_t>(pair.index);
+            std::int32_t empty = 0;
+            for (std::int32_t skill = 0; skill < index; ++skill) {
+                if (world::detail::gSkillsF1BAFC[skill].name[0] == '\0') {
+                    ++empty;
+                }
+            }
+            const auto lowIndex = static_cast<std::uint8_t>(pair.index);
+            gWindow54SkillMapCC4D04[row] =
+                std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(lowIndex - empty));
+        } else {
+            gWindow54SkillMapCC4D04[row] = -1;
+        }
+    }
+    gWindow54ValueCB01E4 = 0;
+    std::int32_t usedSlots = 0;
+    std::int32_t count = 0;
+    for (const world::detail::SkillPairRecord& pair : world::detail::gSkillPairsF63370) {
+        if (pair.used != 0) {
+            const std::int32_t index = std::bit_cast<std::int16_t>(pair.index);
+            usedSlots += std::bit_cast<std::int8_t>(
+                world::detail::gSkillsF1BAFC[index].requiredSlots19[0]);
+            ++count;
+        }
+    }
+    const std::int32_t totalSlots = world::detail::ReadPlayerValue16C();
+    gWindow54ValueCB01E4 = count;
+    std::sprintf(static_cast<WindowTextData*>(window->elements[5].data)->text,
+        "%2d/%2d", usedSlots, totalSlots);
+    std::int32_t freeSlots = world::detail::ReadPlayerValue16C() - usedSlots;
+    if (freeSlots < 0) {
+        freeSlots = 0;
+    }
+    const std::int32_t displayed = gWindow54ValueCB01E4 + freeSlots;
+    gWindow54ValueCB01E4 = displayed;
+    for (std::int32_t index = 9; index <= 16; ++index) {
+        window->elements[index].visible = displayed > 10 ? 1 : 0;
+    }
+    window->elements[24].visible = 0;
+    std::strcpy(static_cast<WindowTextData*>(window->elements[25].data)->text,
+        "\xBD\xD0\xBF\xEF\xBE\xDC");
+    std::strcpy(static_cast<WindowTextData*>(window->elements[26].data)->text,
+        "\xB7\x51\xBF\xF2\xA7\xD1\xAA\xBA\xA7\xDE\xAF\xE0");
+    std::strcpy(static_cast<WindowTextData*>(window->elements[27].data)->text,
+        input::LegacyText593850());
+    std::strcpy(static_cast<WindowTextData*>(window->elements[28].data)->text,
+        "\xA1\xAF\xA1\xAF\xA1\xAF\xA1\xAF\xA1\xAF\xA1\xAF\xA1\x40\xAA\x60\xB7\x4E"
+        "\xA1\x40\xA1\xAF\xA1\xAF\xA1\xAF\xA1\xAF\xA1\xAF\xA1\xAF");
+    std::strcpy(static_cast<WindowTextData*>(window->elements[29].data)->text,
+        input::LegacyText593850());
+    std::strcpy(static_cast<WindowTextData*>(window->elements[30].data)->text,
+        "\xA1\x40\xA4\x40\xA5\xB9\xBF\xF2\xA7\xD1\xA7\xDE\xAF\xE0\xAB\xE1");
+    std::strcpy(static_cast<WindowTextData*>(window->elements[31].data)->text,
+        "\xA1\x40\xB4\x4E\xA4\xA3\xAF\xE0\xA6\x41\xAB\xEC\xB4\x5F\xAD\xEC\xAA\xAC\xA4\x46\xA1\x43");
+    std::strcpy(static_cast<WindowTextData*>(window->elements[32].data)->text,
+        "\xA1\x40\xBD\xD0\xAF\x53\xA7\x4F\xAA\x60\xB7\x4E\xA1\x43");
+    for (std::int32_t index = 25; index <= 32; ++index) {
+        window->elements[index].visible = 1;
+    }
+    window->elements[33].visible = 0;
+    window->elements[6].visible = 1;
+    std::sprintf(gWindow54AmountTextD45F78.data(), "%10d", 0);
+    for (std::int32_t row = 0; row < 10; ++row) {
+        window->elements[row + 69].mouseCallback = &Sub_4C0910;
+    }
+    const std::int32_t currentCount = gWindow54ValueCB01E4;
+    const std::int32_t scroll = gWindow54PetScrollCC31DC;
+    Sub_4BF2E0(window, scroll, currentCount);
+    for (std::int32_t index = 17; index <= 23; ++index) {
+        window->elements[index].visible = 0;
+    }
+    for (std::int32_t index = 79; index <= 103; ++index) {
+        window->elements[index].visible = 0;
+    }
+}
+
 void Sub_4BE930(WindowInstance* const window)
 {
     static_cast<WindowGraphicData*>(window->elements[104].data)->imageNo = 244385;
@@ -14950,6 +15093,69 @@ void Sub_4BEF30(WindowInstance* const window)
     Sub_4BF620(window, gWindow54PetScrollCC31DC);
 }
 
+void Sub_4BF160(
+    WindowInstance* const window, const std::int32_t scroll, const std::int32_t count)
+{
+    for (std::int32_t row = 0; row < 10; ++row) {
+        window->elements[row + 69].visible = 0;
+        window->elements[row + 34].visible = 0;
+        window->elements[row + 49].visible = 0;
+        window->elements[row + 59].visible = 0;
+        gWindow54ValueTextsCB035C[row * 11] = '\0';
+        gWindow54ValueTextsC8B318[row * 11] = '\0';
+        if (scroll + row < count) {
+            window->elements[row + 69].visible = 1;
+            const world::detail::SkillPairRecord& pair = world::detail::gSkillPairsF63370[scroll + row];
+            if (pair.used != 0) {
+                const std::int32_t index = std::bit_cast<std::int16_t>(pair.index);
+                window->elements[row + 34].visible = 1;
+                window->elements[row + 49].visible = 1;
+                window->elements[row + 59].visible = 1;
+                const world::detail::SkillRuntimeRecord& skill = world::detail::gSkillsF1BAFC[index];
+                std::strcpy(static_cast<WindowTextData*>(window->elements[row + 34].data)->text,
+                    skill.name.data());
+                std::sprintf(gWindow54ValueTextsCB035C.data() + row * 11, "%2d", skill.level);
+                const std::int32_t requiredSlots = std::bit_cast<std::int8_t>(skill.requiredSlots19[0]);
+                std::sprintf(gWindow54ValueTextsC8B318.data() + row * 11, "%2d", requiredSlots);
+            }
+        }
+    }
+    for (std::int32_t index = 44; index <= 48; ++index) {
+        window->elements[index].visible = 0;
+    }
+}
+
+void Sub_4BF2E0(
+    WindowInstance* const window, const std::int32_t scroll, const std::int32_t count)
+{
+    for (std::int32_t row = 0; row < 10; ++row) {
+        window->elements[row + 69].visible = 0;
+        window->elements[row + 34].visible = 0;
+        window->elements[row + 49].visible = 0;
+        window->elements[row + 59].visible = 0;
+        gWindow54ValueTextsCB035C[row * 11] = '\0';
+        gWindow54ValueTextsC8B318[row * 11] = '\0';
+        if (scroll + row < count) {
+            window->elements[row + 69].visible = 1;
+            const std::int32_t selected = gWindow54SkillMapCC4D04[scroll + row];
+            if (selected >= 0 && gWindow54ValuesCB01A4[selected] >= 0) {
+                window->elements[row + 34].visible = 1;
+                window->elements[row + 49].visible = 1;
+                window->elements[row + 59].visible = 1;
+                std::strcpy(static_cast<WindowTextData*>(window->elements[row + 34].data)->text,
+                    gWindow54NamesC8AAA0[selected].text.data());
+                std::sprintf(gWindow54ValueTextsCB035C.data() + row * 11, "%2d",
+                    gWindow54ValuesCB01A4[selected]);
+                std::sprintf(gWindow54ValueTextsC8B318.data() + row * 11, "%2d",
+                    gWindow54ValuesCB09D8[selected]);
+            }
+        }
+    }
+    for (std::int32_t index = 44; index <= 48; ++index) {
+        window->elements[index].visible = 0;
+    }
+}
+
 void Sub_4BF460(WindowInstance* const window, const std::int32_t scroll)
 {
     for (std::int32_t row = 0; row < 5; ++row) {
@@ -15019,6 +15225,91 @@ void Sub_4BF620(WindowInstance* const window, const std::int32_t scroll)
     for (std::int32_t index = 44; index <= 48; ++index) {
         window->elements[index].visible = 0;
     }
+}
+
+std::int32_t Sub_4BF7C0(const std::int32_t value)
+{
+    if (value == -1) {
+        gCurrentWindow->elements[0].visible = 0;
+        std::strcpy(static_cast<WindowTextData*>(gCurrentWindow->elements[4].data)->text,
+            gNpcDialogLinesCC24D4[0].text.data());
+        auto* animation = static_cast<WindowAnimationData*>(gCurrentWindow->elements[8].data);
+        login::detail::SetYobiActionField2A8(animation->action, gWindow54ImageCC18C4);
+        animation = static_cast<WindowAnimationData*>(gCurrentWindow->elements[8].data);
+        login::detail::SetYobiActionField2B8(animation->action, 5);
+        gWindow54PetScrollCC31DC = 0;
+        const auto mode = std::bit_cast<std::int8_t>(gWindow54ModeC8AF64);
+        gWindow54SkillScrollCC31F4 = 0;
+        switch (mode) {
+        case 0:
+            Sub_4BE3F0(gCurrentWindow);
+            break;
+        case 1:
+            Sub_4BE600(gCurrentWindow);
+            break;
+        case 2:
+        case 12:
+            Sub_4BE930(gCurrentWindow);
+            break;
+        default:
+            break;
+        }
+        gWindow54MessageC9FCE0 = -1;
+        gWindow54HoverD2DAD8 = -1;
+    }
+    if (Sub_4D3040(2, 2) != 0) {
+        gCurrentWindow->state |= 0x8000u;
+    }
+    const std::int32_t dialogType = world::detail::gValue581800;
+    if (dialogType != -2 && gWindow54DialogTypeCB2224 != dialogType) {
+        gCurrentWindow->state |= 0x8000u;
+    }
+    std::sprintf(gWindow54MoneyTextC9A9A4.data(), "%10d", world::detail::ReadPlayerValueFC());
+    if (gWindow54MessageC9FCE0 >= 0) {
+        gWindow54MessageC9FCE0 = -1;
+    }
+    return 1;
+}
+
+std::int32_t Sub_4C0910(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    const std::int32_t selected = gWindow54SkillMapCC4D04[gWindow54PetScrollCC31DC + index - 69];
+    if (selected < 0 || gWindow54ValuesCB01A4[selected] < 0) {
+        graphic->imageNo = 243104;
+        return 0;
+    }
+    const bool hover = (state & 1) != 0;
+    if (hover) {
+        std::strcpy(gHoverTextD68AE8.data(),
+            "\xBF\xF2\xA7\xD1\xA6\xB9\xA7\xDE\xAF\xE0\xA1\x43");
+    }
+    std::int32_t consumed = 0;
+    if ((state & 2) != 0) {
+        std::array<char, 16> text;
+        std::array<char, 16> escaped;
+        std::sprintf(text.data(), "%d", selected + 1);
+        input::EscapeLegacyTextAndNotify_52D2D0(text.data(), escaped.data(), 15);
+        const std::int32_t target = world::detail::gDialogTargetD2DE6C;
+        const std::int32_t request = world::detail::gDialogRequestCC21E0;
+        const std::int32_t y =
+            platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+        const std::int32_t x =
+            platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+        static_cast<void>(network::Sub_512620(
+            platform::gConnectionSocket, x, y, request, target, 0, escaped.data()));
+        gCurrentWindow->state |= 0x8000u;
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        consumed = 1;
+    }
+    graphic->imageNo = 243103;
+    if (hover) {
+        graphic->imageNo = 243105;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 243104;
+    }
+    return consumed;
 }
 
 std::int32_t Sub_4C0A50(const std::int32_t index, const std::int32_t state)

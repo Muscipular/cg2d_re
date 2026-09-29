@@ -234,6 +234,10 @@ login::YobiAction* Sub_4B74E0(const char* text); // 窗口53模式2五字段商�
 login::YobiAction* Sub_4B77E0(const char* text); // 窗口53模式3独立详情，保留其他商品状态。
 login::YobiAction* Sub_4B7AB0(const char* text); // 窗口53鉴定，库存映射保留未匹配物品哨兵20。
 login::YobiAction* Sub_4B7EE0(const char* text); // 窗口53修理，与鉴定仅模式和提示不同。
+void Sub_4B8310(); // 买入五行名称/价格/不可装备提示，保留原分行终止偏移。
+void Sub_4B8670(); // 买入五行所选数量文本。
+void Sub_4B86C0(); // 全20商品金额合计及元素7颜色。
+void Sub_4B8730(); // 全20商品按上限分组计算占用数量。
 std::int32_t Sub_4A0280(std::int32_t index); // CB03D4命令表的选择回复。
 std::int32_t Sub_4A0420(std::int32_t index); // CF47D8命令表的选择回复。
 std::int32_t Sub_4A05C0(std::int32_t index); // 索引0..1分别发送1/2。
@@ -459,6 +463,10 @@ extern std::int32_t gShopMessage580848; // 四行正文组的负编号，原装�
 extern std::int32_t gShopTooltipPageD67B8C;
 extern std::int32_t gShopTotalD2DAFC;
 extern std::int32_t gShopValueC8AF74; // 各模式计算的数量值，不与总金额合并。
+extern std::int32_t gShopScrollCC488C;
+extern std::array<char, 55> gShopPriceTextsD673EC; // 五行、11B步长；type7原型借用。
+extern std::array<char, 55> gShopCountTextsD2D988; // 五行所选数量文本，与价格区分离。
+extern std::array<char, 48> gShopTotalTextCC4B2C; // 金额或模式相关数值的共用显示文本。
 extern std::int32_t gStorageValueCC4218; // 存放窗口41每帧清零、元素13绘制的数值。
 extern std::array<char, 22> gStorageAmountTextsCB1DF8; // 两金额文本起点相隔11B，571150/158借用。
 extern const std::array<std::int32_t, 2> gStorageTitleImages54F4E8;

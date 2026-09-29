@@ -120,6 +120,10 @@ std::int32_t gShopMessage580848 = -1;
 std::int32_t gShopTooltipPageD67B8C = 0;
 std::int32_t gShopTotalD2DAFC = 0;
 std::int32_t gShopValueC8AF74 = 0;
+std::int32_t gShopScrollCC488C = 0;
+std::array<char, 55> gShopPriceTextsD673EC {};
+std::array<char, 55> gShopCountTextsD2D988 {};
+std::array<char, 48> gShopTotalTextCC4B2C {};
 static_assert(sizeof(gTradeItemsD460D0) == 0x1EBE0);
 static_assert(sizeof(gTradePetsC9C108) == 0x3BD8);
 static_assert(sizeof(gPetStorageD64E18) == 0x1E00);
@@ -11775,6 +11779,133 @@ login::YobiAction* Sub_4B7EE0(const char* const text)
 {
     return CreateShopServiceWindow(
         text, 5, "\xA7\x41\xB7\x51\xAD\xD7\xB2\x7A\xA4\xB0\xBB\xF2\xAA\xAB\xAB\x7E\xA9\x4F\xA1\x48");
+}
+
+void Sub_4B8310()
+{
+    std::array<char, 100> buffer;
+    for (std::int32_t row = 0; row < 5; ++row) {
+        char* const priceText = gShopPriceTextsD673EC.data() + row * 11;
+        priceText[0] = '\0';
+        static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data)->text[0] = '\0';
+        static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->text[0] = '\0';
+        gCurrentWindow->elements[row + 27].visible = 0;
+        const char* record = gShopItemsCF4FE0.data() + (gShopScrollCC488C + row) * 0xC58;
+        if (record[0] == 0) {
+            continue;
+        }
+        std::int32_t price;
+        std::memcpy(&price, record + 0xC24, sizeof(price));
+        std::sprintf(priceText, "%10d", price);
+        record = gShopItemsCF4FE0.data() + (gShopScrollCC488C + row) * 0xC58;
+        std::uint32_t flags;
+        std::memcpy(&flags, record + 0xC40, sizeof(flags));
+        if ((flags & 0x100u) != 0) {
+            std::strcpy(buffer.data(), record + 0xC44);
+            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data)->bytes00[0] =
+                std::byte{5};
+            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->bytes00[0] =
+                std::byte{5};
+        } else {
+            std::int32_t count;
+            std::memcpy(&count, record + 0xC30, sizeof(count));
+            if (count <= 1) {
+                std::strcpy(buffer.data(), record + 1);
+            } else {
+                static_cast<void>(_snprintf(buffer.data(), 100, "%s(%d)", record + 1, count));
+            }
+            record = gShopItemsCF4FE0.data() + (gShopScrollCC488C + row) * 0xC58;
+            std::memcpy(&flags, record + 0xC40, sizeof(flags));
+            const std::byte color = (flags & 0x200u) != 0 ? std::byte{1} : std::byte{0};
+            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data)->bytes00[0] = color;
+            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->bytes00[0] = color;
+        }
+        if (std::strlen(buffer.data()) <= 20) {
+            std::strcpy(
+                static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data)->text,
+                buffer.data());
+        } else {
+            const std::size_t prefix = input::ClassifyLegacyBoundary_44B440(buffer.data(), 20) == 2
+                ? 19 : 20;
+            std::memcpy(
+                static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data)->text,
+                buffer.data(), prefix);
+            // 原复制量与NUL偏移相差一字节，中间字节不另补零。
+            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data)->text[prefix + 1] = '\0';
+            std::strcpy(
+                static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->text,
+                buffer.data() + prefix);
+        }
+        record = gShopItemsCF4FE0.data() + (gShopScrollCC488C + row) * 0xC58;
+        if (record[0xC3C] != 0) {
+            static_cast<WindowNumberData*>(gCurrentWindow->elements[row + 32].data)->color = 0;
+        } else {
+            static_cast<WindowNumberData*>(gCurrentWindow->elements[row + 32].data)->color = 4;
+            gCurrentWindow->elements[row + 27].visible = 1;
+            std::strcpy(
+                static_cast<WindowTextData*>(gCurrentWindow->elements[row + 27].data)->text,
+                kShopUnavailableHint586BF4);
+            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 27].data)->bytes00[0] =
+                std::byte{4};
+        }
+    }
+}
+
+void Sub_4B8670()
+{
+    for (std::int32_t row = 0; row < 5; ++row) {
+        const std::int32_t scroll = gShopScrollCC488C;
+        char* const text = gShopCountTextsD2D988.data() + row * 11;
+        text[0] = '\0';
+        const char* const record = gShopItemsCF4FE0.data() + (scroll + row) * 0xC58;
+        if (record[0] != 0) {
+            std::int32_t selected;
+            std::memcpy(&selected, record + 0xC28, sizeof(selected));
+            std::sprintf(text, "%2d", selected);
+        }
+    }
+}
+
+void Sub_4B86C0()
+{
+    std::int32_t total = 0;
+    gShopTotalD2DAFC = 0;
+    for (std::int32_t index = 0; index < 20; ++index) {
+        const char* const record = gShopItemsCF4FE0.data() + index * 0xC58;
+        if (record[0] != 0) {
+            std::int32_t selected;
+            std::int32_t price;
+            std::memcpy(&selected, record + 0xC28, sizeof(selected));
+            std::memcpy(&price, record + 0xC24, sizeof(price));
+            total += price * selected;
+        }
+    }
+    gShopTotalD2DAFC = total;
+    std::sprintf(gShopTotalTextCC4B2C.data(), "%10d", total);
+    const std::int32_t currentTotal = gShopTotalD2DAFC;
+    const std::int32_t money = world::detail::ReadPlayerValueFC();
+    static_cast<WindowNumberData*>(gCurrentWindow->elements[7].data)->color =
+        currentTotal <= money ? 0 : 6;
+}
+
+void Sub_4B8730()
+{
+    std::int32_t total = 0;
+    gShopValueC8AF74 = 0;
+    for (std::int32_t index = 0; index < 20; ++index) {
+        const char* const record = gShopItemsCF4FE0.data() + index * 0xC58;
+        if (record[0] != 0) {
+            std::int32_t divisor;
+            std::int32_t selected;
+            std::memcpy(&divisor, record + 0xC34, sizeof(divisor));
+            std::memcpy(&selected, record + 0xC28, sizeof(selected));
+            if (divisor <= 0) {
+                divisor = 2;
+            }
+            total += (divisor + selected - 1) / divisor;
+        }
+    }
+    gShopValueC8AF74 = total;
 }
 
 std::int32_t Sub_4B99D0(const std::int32_t unused)

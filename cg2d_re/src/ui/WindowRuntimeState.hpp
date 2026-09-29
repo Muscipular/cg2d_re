@@ -418,6 +418,7 @@ void Sub_4C1BC0(); // 首次/分页/数量脏标刷新。
 void Sub_4C2060(std::int32_t value); // 低U8为0才按实时商品组包，命令0。
 std::int32_t Sub_4C21B0(std::int32_t index, std::int32_t state); // 余额/背包门禁及确认预览生产。
 std::int32_t Sub_4C2FA0(std::int32_t index, std::int32_t unusedState); // 窗口69确认覆盖层。
+std::int32_t Sub_4C2B20(std::int32_t index, std::int32_t state); // 背包20格命中和绘制。
 std::int32_t Sub_4C29E0(std::int32_t index, std::int32_t state); // 窗口69商品图标及四页提示。
 std::int32_t Sub_4C2460(std::int32_t index, std::int32_t state); // 两窗口共用取消，发送command2。
 std::int32_t Sub_4C2530(std::int32_t index, std::int32_t state); // 窗口69上一行。
@@ -438,6 +439,7 @@ void Sub_4C3E70(); // 首次/分页/数量脏标刷新。
 void Sub_4C4270(std::int32_t value); // 低U8为0才按实时商品组包，命令1。
 std::int32_t Sub_4C43C0(std::int32_t index, std::int32_t state); // 交换物数量/背包门禁及确认预览。
 std::int32_t Sub_4C50C0(std::int32_t index, std::int32_t unusedState); // 窗口70确认覆盖层。
+std::int32_t Sub_4C4CB0(std::int32_t index, std::int32_t state); // 仅首格命中，仍绘完整20格。
 std::int32_t Sub_4C4B70(std::int32_t index, std::int32_t state); // 窗口70商品图标及四页提示。
 std::int32_t Sub_4C4680(std::int32_t index, std::int32_t state); // 两窗口共用按钮图，恒0。
 std::int32_t Sub_4C46C0(std::int32_t index, std::int32_t state); // 窗口70上一行。
@@ -769,6 +771,8 @@ extern std::int32_t gWindow69Message580854; // NPC正文组，原文件初值-1�
 extern std::int32_t gWindow70Message580864;
 extern std::int32_t gWindow69TooltipPageD67B94;
 extern std::int32_t gWindow70TooltipPageD67BA0;
+extern std::int32_t gWindow69InventoryHover58085C; // 原文件初值-2；背包命中变化才更新。
+extern std::int32_t gWindow70InventoryHover58086C;
 extern std::array<char, 12> gWindow69BalanceTextD2E448; // 完整S32格式化前缀，不冻结未消费尾区。
 extern std::array<char, 12> gWindow70BalanceTextCF3F14;
 extern WindowValueCallback gWindow69ConfirmCallbackCF4E48;

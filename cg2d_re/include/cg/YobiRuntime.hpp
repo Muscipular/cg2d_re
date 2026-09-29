@@ -295,6 +295,9 @@ YobiAction* NewBattleScreenEmitter_421700(std::int32_t phase);
 void NewBattleSequence_420100(std::int8_t value, std::int32_t position); // 逐个创建9/10项，失败保留已建对象。
 void UpdateBattleSequence_420300(YobiAction* action); // 原2A8六态，CryptInt自增和比较分别消费读取。
 void MoveBattleSequence_420590(YobiAction* action); // X从F32投影，Y从未舍入计算值投影。
+void UpdateBattleText_421750(YobiAction* action); // 面板就绪才绘制/扣帧，逐行释放后依次标死。
+YobiAction* NewBattleText_4217F0(
+    std::int8_t style, const char* text, std::int32_t fontType, std::int32_t duration);
 
 // 原1C起的16B效果值记录；仅传数值，不含底层对象指针。
 struct BattleEntryEffectRecord {

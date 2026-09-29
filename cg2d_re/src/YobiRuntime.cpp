@@ -20,6 +20,7 @@
 #include "cg/platform/Startup.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/render/GraphicDxCache.hpp"
+#include "cg/render/Font.hpp"
 #include "cg/render/RendererResources.hpp"
 #include "cg/render/SdlPresenter.hpp"
 #include "cg/render/TextPendingQueue.hpp"
@@ -266,6 +267,15 @@ constexpr const SceneEffectFrame* kFrameGroup55455C[] {
 };
 constexpr const SceneEffectFrame* const* kFrameGroups554570[] {
     kFrameGroup55444C, kFrameGroup55455C,
+};
+
+// 原4217F0的18B文本载荷；行表/行字节由421750释放，面板仅持有非拥有引用。
+struct BattleTextPayload {
+    YobiAction* panel00;
+    char** lines04;
+    std::int32_t lineCount08;
+    std::int32_t fontType0C;
+    std::int32_t remaining10;
 };
 
 // 战斗专用原生载荷；只映射已消费字段，不沿用原偏移，完整生产/其余字段尚未落位。
@@ -5901,6 +5911,98 @@ YobiAction* MarkDeath(YobiAction* const action)
     if (action != nullptr) {
         action->deathFlag = 1;
     }
+    return action;
+}
+
+void UpdateBattleText_421750(YobiAction* const action)
+{
+    auto* const payload = static_cast<BattleTextPayload*>(action->payload);
+    if (!platform::legacy_crypt_int::Greater_401D40(&payload->panel00->readiness, 0)) {
+        return;
+    }
+    for (std::int32_t index = 0; index < payload->lineCount08; ++index) {
+        char** const lines = payload->lines04;
+        YobiAction* const panel = payload->panel00;
+        const char* const line = lines[index];
+        const std::int32_t y = panel->y + 40;
+        const std::int32_t x = panel->x + 40;
+        // 原421793各行坐标相同，创建时的fontType只用于测量，不改为带行距绘制。
+        static_cast<void>(render::DrawText3_456560(
+            static_cast<std::int16_t>(x), static_cast<std::int16_t>(y), 2, 0, line, 0));
+    }
+    const std::int32_t remaining = payload->remaining10 - 1;
+    payload->remaining10 = remaining;
+    if (remaining < 0) {
+        for (std::int32_t index = 0; index < payload->lineCount08; ++index) {
+            std::free(payload->lines04[index]);
+        }
+        std::free(payload->lines04);
+        static_cast<void>(MarkDeath(payload->panel00));
+        static_cast<void>(MarkDeath(action));
+    }
+}
+
+YobiAction* NewBattleText_4217F0(
+    const std::int8_t style, const char* const text,
+    const std::int32_t fontType, const std::int32_t duration)
+{
+    YobiAction* const action = NewYobiAction_404AE0(2, sizeof(BattleTextPayload));
+    if (action == nullptr) {
+        return nullptr;
+    }
+    const std::uint32_t flags = action->flags;
+    auto* const payload = static_cast<BattleTextPayload*>(action->payload);
+    action->callback = UpdateBattleText_421750;
+    action->flags = flags | 0x40000u;
+    payload->lineCount08 = 0;
+    const char* current = text;
+    payload->remaining10 = duration;
+    payload->fontType0C = fontType;
+    for (const char* newline = std::strchr(current, '\n'); newline != nullptr;
+         newline = std::strchr(newline + 1, '\n')) {
+        ++payload->lineCount08;
+    }
+    ++payload->lineCount08;
+    payload->lines04 = static_cast<char**>(
+        std::calloc(static_cast<std::size_t>(payload->lineCount08), sizeof(char*)));
+    std::int32_t longestLength = 0;
+    std::int32_t longestIndex = -1;
+    std::int32_t index = 0;
+    if (current != nullptr) {
+        do {
+            const char* const newline = std::strchr(current, '\n');
+            const std::int32_t length = newline != nullptr
+                ? static_cast<std::int32_t>(newline - current)
+                : static_cast<std::int32_t>(std::strlen(current));
+            if (longestLength < length) {
+                longestLength = length;
+                longestIndex = index;
+            }
+            payload->lines04[index] = static_cast<char*>(
+                std::calloc(static_cast<std::size_t>(length + 1), 1));
+            std::memcpy(payload->lines04[index], current, static_cast<std::size_t>(length));
+            payload->lines04[index][length] = '\0';
+            if (newline == nullptr) {
+                break;
+            }
+            current = newline + 1;
+            ++index;
+        } while (current != nullptr);
+    }
+    std::int32_t width = 80;
+    if (longestIndex >= 0) {
+        width = TextMeasure(payload->lines04[longestIndex], payload->fontType0C) + 80;
+    }
+    const std::int32_t count = payload->lineCount08;
+    std::int32_t height = 80;
+    if (count > 0) {
+        height = render::gFontMetrics[payload->fontType0C].sHeight + 80;
+    }
+    if (count > 1) {
+        height += count * (render::gFontMetrics[payload->fontType0C].sHeight + 1);
+    }
+    payload->panel00 = Sub_5044E0((640 - width) >> 1, (480 - height) >> 1, width, height, style, 0);
+    static_cast<void>(audio::PlaySe_52C450(56, 320));
     return action;
 }
 

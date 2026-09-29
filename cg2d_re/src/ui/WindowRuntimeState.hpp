@@ -230,6 +230,8 @@ std::int32_t Sub_4A00C0(std::int32_t index); // 商店回复仅索引0..1发送�
 login::YobiAction* Sub_4A0140(const char* text); // 商店图号/标题/五行正文及买卖选择。
 login::YobiAction* Sub_4B6E00(const char* text); // 窗口53买入商品及三组四行正文。
 login::YobiAction* Sub_4B70D0(const char* text); // 窗口53出售商品、库存映射及占用。
+login::YobiAction* Sub_4B74E0(const char* text); // 窗口53模式2五字段商品及指定物品文本。
+login::YobiAction* Sub_4B77E0(const char* text); // 窗口53模式3独立详情，保留其他商品状态。
 std::int32_t Sub_4A0280(std::int32_t index); // CB03D4命令表的选择回复。
 std::int32_t Sub_4A0420(std::int32_t index); // CF47D8命令表的选择回复。
 std::int32_t Sub_4A05C0(std::int32_t index); // 索引0..1分别发送1/2。
@@ -445,6 +447,11 @@ extern std::int32_t gShopDialogTypeCC3EC8;
 extern std::int32_t gShopValueCF467C;
 extern std::array<std::int8_t, 20> gShopInventoryMapD2DAB8; // 背包8..27到商品首匹配索引。
 extern std::array<char, 20> gShopSelectedSlotsCB03DC; // 原五次W32清-1，消费者按S8槽读取。
+extern std::array<char, 32> gShopTextCB0184; // 模式2字段7反转义结果，不套商品名回退。
+extern std::array<char, 0xC38> gShopDetailCC3210; // 名称/32行说明/六W32同源，见窗口53 SPEC。
+extern std::int32_t gShopValueCAFEA4;
+extern std::int32_t gShopValueD046C4;
+extern std::int32_t gShopValueD672D4;
 extern std::int32_t gStorageValueCC4218; // 存放窗口41每帧清零、元素13绘制的数值。
 extern std::array<char, 22> gStorageAmountTextsCB1DF8; // 两金额文本起点相隔11B，571150/158借用。
 extern const std::array<std::int32_t, 2> gStorageTitleImages54F4E8;

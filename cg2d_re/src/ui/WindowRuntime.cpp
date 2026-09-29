@@ -1351,6 +1351,106 @@ void Sub_4E5600(const std::int32_t side)
     }
 }
 
+void Sub_4C9F20()
+{
+    constexpr std::array<std::int32_t, 3> counts {32, 32, 15};
+    constexpr std::array<std::int32_t, 3> textBases {0, 32, 64};
+    for (std::int32_t group = 0; group < 3; ++group) {
+        for (std::int32_t index = 1; index <= counts[group]; ++index) {
+            const auto& record = world::detail::ReadCategoryRecord105FA24(group, index);
+            const std::int32_t textIndex = textBases[group] + index - 1;
+            if (record.used != 0) {
+                gCurrentWindow->elements[textIndex].visible = 1;
+                gCurrentWindow->elements[textIndex + 79].visible = 1;
+                std::strcpy(
+                    static_cast<WindowTextData*>(gCurrentWindow->elements[textIndex].data)->text,
+                    record.text0C.data());
+                static_cast<WindowTextData*>(gCurrentWindow->elements[textIndex].data)->bytes00[0] =
+                    record.selected10C != 0 ? std::byte{0} : std::byte{7};
+            } else {
+                gCurrentWindow->elements[textIndex].visible = 0;
+                gCurrentWindow->elements[textIndex + 79].visible = 0;
+            }
+        }
+    }
+}
+
+std::int32_t Sub_4C9EE0(const std::int32_t value)
+{
+    if (value == -1) {
+        Sub_4C9F20();
+    }
+    if (Sub_4D3040(2, 2) != 0) {
+        gCurrentWindow->state |= 0x8000u;
+    }
+    return 1;
+}
+
+void Sub_4CA300()
+{
+    world::detail::gValue581800 = -1;
+    static_cast<void>(Sub_4CB9B0(2));
+    static_cast<void>(Sub_4CB9B0(3));
+    static_cast<void>(Sub_4CB9B0(4));
+}
+
+std::int32_t Sub_4CB430(const std::int32_t index)
+{
+    if (index - 79 < 32) {
+        return world::detail::ReadCategoryRecord105FA24(0, index - 78).selected10C != 0 ? 1 : 0;
+    }
+    if (index - 79 < 64) {
+        return world::detail::ReadCategoryRecord105FA24(1, index - 110).selected10C != 0 ? 1 : 0;
+    }
+    return world::detail::ReadCategoryRecord105FA24(2, index - 142).selected10C != 0 ? 1 : 0;
+}
+
+std::int32_t Sub_4CB4A0(
+    const std::int32_t index, std::int32_t* const group, std::int32_t* const value)
+{
+    if (index - 79 < 32) {
+        *group = 0;
+        *value = world::detail::ReadCategoryRecord105FA24(0, index - 78).value04;
+    } else if (index - 79 < 64) {
+        *group = 1;
+        *value = world::detail::ReadCategoryRecord105FA24(1, index - 110).value04;
+    } else {
+        *group = 2;
+        *value = world::detail::ReadCategoryRecord105FA24(2, index - 142).value04;
+    }
+    return 1;
+}
+
+std::int32_t Sub_4CA1A0(const std::int32_t index, const std::int32_t state)
+{
+    std::int32_t consumed = 0;
+    if ((state & 1) != 0) {
+        std::strcpy(gHoverTextD68AE8.data(), "\xA6\x62\xA6\xB9\xA5\xD8\xBF\xFD\xA4\xA4\xB7\x6A\xB4\x4D");
+        static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 246042;
+        consumed = 1;
+    } else {
+        static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 0;
+    }
+    if ((state & 2) == 0 || Sub_4CB430(index) == 0) {
+        return consumed;
+    }
+    std::int32_t group;
+    std::int32_t value;
+    if (Sub_4CB4A0(index, &group, &value) != 0) {
+        std::array<std::array<char, 256>, 2> buffers;
+        std::sprintf(buffers[0].data(), "%d|%d|", group, value);
+        input::EscapeLegacyTextAndNotify_52D2D0(buffers[0].data(), buffers[1].data(), 255);
+        const std::int32_t target = world::detail::gDialogTargetD2DE6C;
+        const std::int32_t request = world::detail::gDialogRequestCC21E0;
+        const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+        const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+        static_cast<void>(network::Sub_512620(
+            platform::gConnectionSocket, x, y, request, target, 0, buffers[1].data()));
+        std::strcpy(gProfileSearchKeyword1075988.data(), input::LegacyText593850());
+    }
+    return 1;
+}
+
 void Sub_4CA500()
 {
     const auto& search = world::detail::ReadProfileSearch105C398();

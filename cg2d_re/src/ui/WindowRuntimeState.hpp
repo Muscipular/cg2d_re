@@ -895,6 +895,12 @@ std::int32_t Sub_478330(std::int32_t index, std::int32_t state); // 资料公开
 extern std::int32_t gProfileCategory1085DA0; // 478330生产，窗口59按0/1/2选择类别，非地址。
 std::int32_t Sub_4CB9E0(std::int32_t unusedValue); // 窗口64每帧完整刷新，返回1。
 std::uint32_t Sub_4CB9F0(); // 图号转换、八文本及256B四行提取，返回末行含NUL长度。
+std::int32_t Sub_4C9EE0(std::int32_t value); // 窗口60仅初始化刷新，随后检查距离。
+void Sub_4C9F20(); // 固定32/32/15项分类的显隐、文本和选择颜色。
+std::int32_t Sub_4CA1A0(std::int32_t index, std::int32_t state); // 分类点击发送后复制共享默认关键词。
+void Sub_4CA300(); // 先清对话类型，再标记61/62/63。
+std::int32_t Sub_4CB430(std::int32_t index); // 只读selected10C门禁，不检查used。
+std::int32_t Sub_4CB4A0(std::int32_t index, std::int32_t* group, std::int32_t* value);
 std::int32_t Sub_4CA410(std::int32_t value); // 窗口61首次刷结果，距离关闭后仍同步关键词。
 std::uint32_t Sub_4CA450(); // 活动输入与关键词显示互斥，返回复制含NUL长度。
 void Sub_4CA500(); // 固定20条结果、三组标题刷新；不重新显示已隐藏的非空行。

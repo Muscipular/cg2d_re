@@ -51,6 +51,19 @@ struct ProfileSearchRuntimeSlots {
 const ProfileSearchRuntimeSlots& ReadProfileSearch105C398(); // 同源结果及两头字段，不复制快照。
 const char* ReadCategoryText105FA24(std::int32_t group, std::int32_t index); // 三组标题借用，无额外索引拒绝。
 
+// 原category.dat三组各100条；窗口60只读借用，存储仍归MailState。
+struct CategoryRecord {
+    std::uint8_t used;
+    std::array<std::byte, 3> bytes01;
+    std::int32_t value04;
+    std::int32_t value08;
+    std::array<char, 0x100> text0C;
+    std::uint8_t selected10C; // 4C9E40写选择位，与used独立。
+    std::array<std::byte, 3> bytes10D;
+};
+
+const CategoryRecord& ReadCategoryRecord105FA24(std::int32_t group, std::int32_t index);
+
 // 原F19FB0的74H联系人记录，三路回复生产，普通邮件与窗口共用。
 struct ContactRuntimeRecord {
     std::uint16_t used;

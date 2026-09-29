@@ -121,17 +121,6 @@ static_assert(offsetof(ProfileSearchRuntimeSlots, records) == 8);
 static_assert(sizeof(ProfileSearchRuntimeSlots) == 0x28F8);
 ProfileSearchRuntimeSlots gProfileSearch105C398 {};
 
-// 原category.dat三组各100条；未消费字节不解释成地址或额外状态。
-struct CategoryRecord {
-    std::uint8_t used;
-    std::array<std::byte, 3> bytes01;
-    std::int32_t value04;
-    std::int32_t value08;
-    std::array<char, 0x100> text0C;
-    std::uint8_t selected10C; // 4C9E40写选择位，与used独立。
-    std::array<std::byte, 3> bytes10D;
-};
-
 struct CategoryRuntimeSlots {
     std::int32_t value00; // 原105FA10，50F2A0发布、50F3A0比较。
     std::int32_t value04; // 原105FA14，50F8E0发布、50F3A0比较。
@@ -244,6 +233,12 @@ const ProfileSearchRuntimeSlots& ReadProfileSearch105C398()
 const char* ReadCategoryText105FA24(const std::int32_t group, const std::int32_t index)
 {
     return gCategory105FA10.records[group * 100 + index].text0C.data();
+}
+
+const CategoryRecord& ReadCategoryRecord105FA24(
+    const std::int32_t group, const std::int32_t index)
+{
+    return gCategory105FA10.records[group * 100 + index];
 }
 
 void Sub_4EC1A0()

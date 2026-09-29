@@ -11596,6 +11596,113 @@ login::YobiAction* Sub_4B77E0(const char* const text)
     return CreateWindowAnimation_475AA0(53, 1, 0, nullptr);
 }
 
+namespace {
+
+// 4B7AB0/4B7EE0同一七字段流程；只区分模式字节和第二行原字节提示。
+login::YobiAction* CreateShopServiceWindow(
+    const char* const text, const char mode, const char* const prompt)
+{
+    std::array<char, 768> buffer;
+    gMaterialOccupancyCC4894[20] = mode;
+    gShopImageD2DAD0 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
+    char* const title = gNpcDialogLinesCC24D4[0].text.data();
+    static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 2, 16, title));
+    input::UnescapeLegacyTextAndNotify_52D2F0(title);
+    std::strcpy(gNpcDialogLinesCC24D4[1].text.data(), "\xC5\x77\xAA\xEF\xA5\xFA\xC1\x7B\xA1\x43");
+    std::strcpy(gNpcDialogLinesCC24D4[2].text.data(), prompt);
+    std::strcpy(gNpcDialogLinesCC24D4[3].text.data(), input::LegacyText593850());
+    std::strcpy(gNpcDialogLinesCC24D4[4].text.data(), input::LegacyText593850());
+    std::strcpy(gNpcDialogLinesCC24D4[5].text.data(), "\xA7\x41\xA8\xAD\xA4\x57\xAA\xBA\xBF\xFA\xA4\xA3\xB0\xF7\xA1\x49");
+    std::strcpy(gNpcDialogLinesCC24D4[6].text.data(), input::LegacyText593850());
+    std::strcpy(gNpcDialogLinesCC24D4[7].text.data(), input::LegacyText593850());
+    gShopReplyItemCountCF4B58 = 0;
+    std::strcpy(gNpcDialogLinesCC24D4[8].text.data(), input::LegacyText593850());
+    gShopItemsCF4FE0.fill(0);
+    std::int32_t field = 3;
+    for (std::int32_t index = 0; index < 20; ++index) {
+        if (network::ExtractDelimitedField_52CED0(text, '|', field++, 767, buffer.data()) == 1) {
+            break;
+        }
+        char* const record = gShopItemsCF4FE0.data() + index * 0xC58;
+        record[0] = 1;
+        input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
+        std::strcpy(record + 1, std::strlen(buffer.data()) > 28 ? "???" : buffer.data());
+        WriteTradeValue(record, 0xC20, network::ParseDelimitedInteger_52CFA0(text, '|', field++));
+        WriteTradeValue(record, 0xC24, network::ParseDelimitedInteger_52CFA0(text, '|', field++));
+        WriteTradeValue(record, 0xC2C, network::ParseDelimitedInteger_52CFA0(text, '|', field++));
+        WriteTradeValue(record, 0xC40, network::ParseDelimitedInteger_52CFA0(text, '|', field++));
+        WriteTradeValue(record, 0xC34, std::int32_t{1});
+        record[0xC3C] = 1;
+        static_cast<void>(network::ExtractDelimitedField_52CED0(
+            text, '|', field++, 767, buffer.data()));
+        input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
+        if (std::strlen(buffer.data()) != 0) {
+            std::strcpy(record + 0xC44, buffer.data());
+        }
+        static_cast<void>(network::ExtractDelimitedField_52CED0(
+            text, '|', field++, 767, buffer.data()));
+        input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
+        for (std::int32_t row = 0; row < 32; ++row) {
+            char* const line = record + 0x1E + row * 96;
+            if (input::ExtractLegacyLine_503AB0(line, 3072, buffer.data(), row, 32) == 0) {
+                line[0] = '\0';
+            }
+        }
+        ++gShopReplyItemCountCF4B58;
+    }
+    for (std::int32_t slot = 0; slot < 20; ++slot) {
+        std::int32_t index = 0;
+        for (; index < 20; ++index) {
+            const char* const record = gShopItemsCF4FE0.data() + index * 0xC58;
+            if (record[0] != 0) {
+                std::int32_t inventoryIndex;
+                std::memcpy(&inventoryIndex, record + 0xC2C, sizeof(inventoryIndex));
+                if (inventoryIndex == slot + 8) {
+                    break;
+                }
+            }
+        }
+        const std::uint16_t used = world::detail::gPlayerItemsFDA8A4[slot + 8].used;
+        gShopInventoryMapD2DAB8[slot] = -1;
+        if (used != 0) {
+            gShopInventoryMapD2DAB8[slot] = 20;
+        }
+        if (index < 20) {
+            gShopInventoryMapD2DAB8[slot] = static_cast<std::int8_t>(index);
+        }
+    }
+    std::int32_t value;
+    std::memcpy(&value, gShopDetailCC3210.data() + 0xC28, sizeof(value));
+    WriteTradeValue(gShopSelectedSlotsCB03DC.data(), 0, std::int32_t{-1});
+    gShopValueCF467C = 0;
+    WriteTradeValue(gShopSelectedSlotsCB03DC.data(), 4, std::int32_t{-1});
+    gShopItemCountCB1E10 = 20;
+    WriteTradeValue(gShopSelectedSlotsCB03DC.data(), 8, std::int32_t{-1});
+    gValueD2D608 = value;
+    WriteTradeValue(gShopSelectedSlotsCB03DC.data(), 12, std::int32_t{-1});
+    WriteTradeValue(gShopSelectedSlotsCB03DC.data(), 16, std::int32_t{-1});
+    auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
+    for (std::int32_t slot = 0; slot < 28; ++slot) {
+        ++occupancy[slot];
+    }
+    gShopDialogTypeCC3EC8 = world::detail::gValue581800;
+    return CreateWindowAnimation_475AA0(53, 1, 0, nullptr);
+}
+
+} // namespace
+
+login::YobiAction* Sub_4B7AB0(const char* const text)
+{
+    return CreateShopServiceWindow(
+        text, 4, "\xA7\x41\xB7\x51\xC5\xB2\xA9\x77\xA4\xB0\xBB\xF2\xAA\xAB\xAB\x7E\xA9\x4F\xA1\x48");
+}
+
+login::YobiAction* Sub_4B7EE0(const char* const text)
+{
+    return CreateShopServiceWindow(
+        text, 5, "\xA7\x41\xB7\x51\xAD\xD7\xB2\x7A\xA4\xB0\xBB\xF2\xAA\xAB\xAB\x7E\xA9\x4F\xA1\x48");
+}
+
 std::int32_t Sub_4A5390()
 {
     WindowChoiceSlotsCC4CA0& choices = gLoginWindowRuntime.choicesCC4CA0;

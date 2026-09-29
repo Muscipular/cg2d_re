@@ -232,6 +232,8 @@ login::YobiAction* Sub_4B6E00(const char* text); // 窗口53买入商品及三�
 login::YobiAction* Sub_4B70D0(const char* text); // 窗口53出售商品、库存映射及占用。
 login::YobiAction* Sub_4B74E0(const char* text); // 窗口53模式2五字段商品及指定物品文本。
 login::YobiAction* Sub_4B77E0(const char* text); // 窗口53模式3独立详情，保留其他商品状态。
+login::YobiAction* Sub_4B7AB0(const char* text); // 窗口53鉴定，库存映射保留未匹配物品哨兵20。
+login::YobiAction* Sub_4B7EE0(const char* text); // 窗口53修理，与鉴定仅模式和提示不同。
 std::int32_t Sub_4A0280(std::int32_t index); // CB03D4命令表的选择回复。
 std::int32_t Sub_4A0420(std::int32_t index); // CF47D8命令表的选择回复。
 std::int32_t Sub_4A05C0(std::int32_t index); // 索引0..1分别发送1/2。

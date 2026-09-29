@@ -295,6 +295,8 @@ bool IsYobiActionStateLessOrEqual(
     std::int32_t maximum);
 // 原47BA53直接比较action+1B0；读取同源FP一次，不增加空保护。
 bool IsYobiActionFpLessThan(YobiAction* action, std::int32_t cost);
+// 原47C78D/47C8ED同源FP比较，各自单次读取，不缓存结果。
+bool IsYobiActionFpGreaterEqual(YobiAction* action, std::int32_t cost);
 
 // 原 +5C/+60：队列绘制按轴读取 F32，不向 render 暴露 action 布局。
 float GetYobiActionScaleX(const YobiAction* action) noexcept;

@@ -117,6 +117,8 @@ namespace detail {
 
 // 窗口45/46选择回调：非零返回允许关闭，文本只借用；释放通知index=-1。
 using WindowTextChoiceCallback = std::int32_t (*)(std::int32_t index, const char* text);
+// CC4230原回调实际接收技能和等级两个S32，47C7B2/47C7B3压栈，返回不用。
+using SkillWindowSelectionCallback = void (*)(std::int32_t skillIndex, std::int32_t technique);
 std::int32_t Sub_4EF710(std::int32_t skillId); // 221..224分类0..3，其余-1。
 void Sub_4F0200(const char* text); // ysVc完整名单生产；唯一回复调用方弃用混合返回。
 login::YobiAction* Sub_4871B0(); // 技能目标名称/颜色借用及45创建，不回滚失败计数。
@@ -133,6 +135,13 @@ void Sub_479700(
 std::int32_t Sub_4797A0(std::int32_t sourceIndex); // 安装479700并透传返回。
 void Sub_479C80(WindowInstance* window, std::int32_t pairIndex); // 切技术模式，负参数保留原技能。
 void Sub_479DA0(WindowInstance* window, std::int32_t level); // 切配方，滚动先用旧上限。
+void Sub_479EA0(WindowInstance* window, std::int32_t skillIndex); // 战斗列表及原过滤表尾字节计数门槛。
+void Sub_47A000(WindowInstance* window, std::int32_t index, std::uint8_t directSkill); // 战斗技术初始化。
+std::int32_t Sub_47C570(std::int32_t index, std::int32_t state); // 战斗列表行，技能标志决定可用。
+std::int32_t Sub_47C700(std::int32_t index, std::int32_t state); // 战斗技术选择，独立FP读取与回调后重取窗口。
+login::YobiAction* Sub_47A490(); // 清选择回调并创建普通技能窗。
+login::YobiAction* Sub_47A4C0(SkillWindowSelectionCallback callback); // 设置回调并创建战斗列表窗。
+login::YobiAction* Sub_47A500(std::int32_t skillIndex, SkillWindowSelectionCallback callback); // 战斗技术窗。
 std::int32_t Sub_47B3D0(std::int32_t index, std::int32_t state); // 前一行，bit400。
 std::int32_t Sub_47B470(std::int32_t index, std::int32_t state); // 后一行，bit400。
 std::int32_t Sub_47B520(std::int32_t index, std::int32_t state); // 前十行，音效后重读页码。

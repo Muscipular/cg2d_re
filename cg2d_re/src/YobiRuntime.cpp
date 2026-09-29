@@ -6863,6 +6863,11 @@ bool IsYobiActionFpLessThan(YobiAction* const action, const std::int32_t cost)
     return platform::legacy_crypt_int::Less_401DB0(&action->barValue1B0, cost);
 }
 
+bool IsYobiActionFpGreaterEqual(YobiAction* const action, const std::int32_t cost)
+{
+    return platform::legacy_crypt_int::GreaterEqual_401D70(&action->barValue1B0, cost);
+}
+
 std::int32_t Sub_517880(
     YobiAction* const action,
     const std::int32_t rate,

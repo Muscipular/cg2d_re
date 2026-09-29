@@ -454,6 +454,9 @@ static std::int32_t gSkillWindowScrollD2D648 = 0;
 static std::int32_t gSkillWindowHoverD2F744 = 0;
 static std::int32_t gSkillRecipeLevelC8B1B4 = 0;
 static std::int32_t gSkillWindowMaximumCA000C = 0;
+// 前15项为配对行号，末字节D3FACB单独参与479FA9计数门槛，见战斗列表SPEC。
+static std::array<std::int8_t, 16> gBattleSkillRowsD3FABC {};
+static SkillWindowSelectionCallback gSkillSelectionCallbackCC4230 = nullptr;
 std::array<std::array<char, 17>, 10> gSkillTargetNamesCB0550 {};
 std::array<std::int32_t, 10> gSkillTargetKindsD2F75C {};
 std::array<const char*, 10> gSkillTargetNameViewsD45F98 {};
@@ -27024,6 +27027,12 @@ constexpr char kSkillRecipeHint586530[] =
     "\xBB\x73\xA7\x40\xA6\xB9\xB0\x74\xA4\xE8\xA4\xBA\xAE\x65\xAA\xBA\xAA\xAB\xAB\x7E\xA1\x43";
 constexpr char kSkillListHint5864C8[] =
     "\xA5\xB4\xB6\x7D\xB3\x6F\xAD\xD3\xA7\xDE\xAF\xE0\xAA\xBA\xA7\xDE\xAF\xE0\xB5\xF8\xB5\xA1\xA1\x43";
+constexpr char kBattleSkillInventoryFull586548[] =
+    "\xA5\xD1\xA9\xF3\xAB\xF9\xA6\xB3\xAA\xAB\xAB\x7E\xBA\xA1\xA4\x46\xA1\x41\xB5\x4C\xAA\x6B\xA8\xCF\xA5\xCE\xA1\x43";
+constexpr char kBattleSkillNoFp586568[] =
+    "\xA5\xD1\xA9\xF3\xC5\x5D\xA4\x4F\xA4\xA3\xA8\xAC\xA1\x41\xB5\x4C\xAA\x6B\xA8\xCF\xA5\xCE\xA6\xB9\xA7\xDE\xAF\xE0\xA1\x43";
+constexpr char kBattleSkillUnusable586588[] =
+    "\xA5\xD1\xA9\xF3\xAF\xE0\xA4\x4F\xA4\xA3\xA8\xAC\xA1\x41\xB5\x4C\xAA\x6B\xA8\xCF\xA5\xCE\xA6\xB9\xA7\xDE\xAF\xE0\xA1\x43";
 
 } // namespace
 
@@ -27324,6 +27333,244 @@ void Sub_47B0E0()
             --gValueD67AFD;
         }
     }
+}
+
+void Sub_479EA0(WindowInstance* const window, const std::int32_t skillIndex)
+{
+    std::int32_t row = 0;
+    while (row < 15
+        && std::bit_cast<std::int16_t>(world::detail::gSkillPairsF63370[row].index) != skillIndex) {
+        ++row;
+    }
+    if (row >= 15) {
+        row = 0;
+    }
+    gSkillWindowModeD672AC = 3;
+    gSkillWindowScrollD2D648 = row - 9;
+    if (gSkillWindowScrollD2D648 < 0) {
+        gSkillWindowScrollD2D648 = 0;
+    }
+    if (skillIndex < 0) {
+        gSkillWindowScrollD2D648 = 0;
+    }
+    for (std::int32_t index = 1; index <= 16; ++index) {
+        window->elements[index].visible = 0;
+    }
+    window->elements[1].visible = 1;
+    window->elements[3].visible = 1;
+    for (std::int32_t index = 10; index <= 16; ++index) {
+        window->elements[index].visible = 1;
+    }
+    static_cast<WindowGraphicData*>(window->elements[27].data)->imageNo = 0x3BA24;
+    std::int32_t end = 0;
+    for (std::int32_t index = 0; index < 15; ++index) {
+        if (world::detail::gSkillPairsF63370[index].used != 0) {
+            const auto skill = std::bit_cast<std::int16_t>(world::detail::gSkillPairsF63370[index].index);
+            const std::int32_t kind = world::detail::gSkillsF1BAFC[skill].canRebirth;
+            if (kind == 0 || kind == 5) {
+                gBattleSkillRowsD3FABC[end++] = static_cast<std::int8_t>(index);
+            }
+        }
+    }
+    while (end < 15) {
+        gBattleSkillRowsD3FABC[end++] = -1;
+    }
+    // 原479FA9固定读取末尾字节，不改成逐行非负判断；负配对索引按RPLAN.24处理。
+    const std::int8_t countGate = gBattleSkillRowsD3FABC[end];
+    std::int32_t count = 0;
+    for (std::int32_t index = 0; index < 15; ++index) {
+        if (countGate >= 0 && world::detail::gSkillPairsF63370[gBattleSkillRowsD3FABC[index]].used != 0) {
+            ++count;
+        }
+    }
+    gSkillWindowMaximumCA000C = count - 10;
+    if (gSkillWindowMaximumCA000C < 0) {
+        gSkillWindowMaximumCA000C = 0;
+    }
+    for (std::int32_t index = 17; index <= 26; ++index) {
+        window->elements[index].mouseCallback = Sub_47C570;
+    }
+}
+
+void Sub_47A000(
+    WindowInstance* const window, const std::int32_t index, const std::uint8_t directSkill)
+{
+    gSkillWindowModeD672AC = 4;
+    gSkillWindowScrollD2D648 = 0;
+    if (directSkill != 0) {
+        gSkillWindowIndexD2EA60 = index;
+    } else if (index >= 0) {
+        gSkillWindowIndexD2EA60 = std::bit_cast<std::int16_t>(world::detail::gSkillPairsF63370[index].index);
+    }
+    const std::int32_t oldMaximum = gSkillWindowMaximumCA000C;
+    static_cast<void>(Sub_4742C0(&window->elements[11], oldMaximum, 0));
+    for (std::int32_t element = 1; element <= 16; ++element) {
+        window->elements[element].visible = 0;
+    }
+    window->elements[2].visible = 1;
+    window->elements[4].visible = 1;
+    window->elements[5].visible = 1;
+    window->elements[9].visible = 1;
+    if (world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60].canRebirth != 0) {
+        window->elements[6].visible = 1;
+    }
+    const auto* const techniques =
+        world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60].techniques3C.data();
+    std::int32_t count = 0;
+    while (count < 15 && techniques[count].name[0] != '\0') {
+        ++count;
+    }
+    gSkillWindowMaximumCA000C = count - 10;
+    if (gSkillWindowMaximumCA000C < 0) {
+        gSkillWindowMaximumCA000C = 0;
+    }
+    for (std::int32_t element = 10; element <= 16; ++element) {
+        window->elements[element].visible = 1;
+    }
+    window->elements[14].visible = 0;
+    window->elements[15].visible = 0;
+    static_cast<WindowGraphicData*>(window->elements[27].data)->imageNo = 0x3BA26;
+    for (std::int32_t element = 17; element <= 26; ++element) {
+        window->elements[element].mouseCallback = Sub_47C700;
+    }
+}
+
+std::int32_t Sub_47C570(const std::int32_t index, const std::int32_t state)
+{
+    const std::int32_t pairIndex = gBattleSkillRowsD3FABC[gSkillWindowScrollD2D648 + index - 17];
+    if (pairIndex < 0 || world::detail::gSkillPairsF63370[pairIndex].used == 0) {
+        return 0;
+    }
+    std::int32_t consumed = 0;
+    std::int8_t visualState = 0;
+    const bool clicked = (state & 2) != 0;
+    if (clicked) {
+        const std::int32_t skillIndex =
+            std::bit_cast<std::int16_t>(world::detail::gSkillPairsF63370[pairIndex].index);
+        const std::uint32_t flags = world::detail::gBattleSkillFlags5ABC04;
+        const std::uint32_t mask = 1u << (static_cast<std::uint32_t>(skillIndex) & 31u);
+        if ((flags & mask) != 0) {
+            Sub_47A000(gCurrentWindow, pairIndex, 0);
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            consumed = 1;
+        } else {
+            if (world::detail::gSkillsF1BAFC[skillIndex].skillId == 72
+                && world::detail::Sub_518C60() == 0) {
+                world::detail::Sub_44B050(kBattleSkillInventoryFull586548, 4, 3);
+            }
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        }
+    }
+    const std::uint32_t flags = world::detail::gBattleSkillFlags5ABC04;
+    if ((state & 1) != 0) {
+        const auto skillIndex = static_cast<std::uint8_t>(world::detail::gSkillPairsF63370[pairIndex].index);
+        visualState = 2;
+        gSkillWindowHoverD2F744 = pairIndex;
+        if ((flags & (1u << (skillIndex & 31u))) != 0) {
+            std::strcpy(gHoverTextD68AE8.data(), kSkillListHint5864C8);
+        }
+    }
+    if (clicked) {
+        visualState = 1;
+    }
+    const WindowInstance* const window = gCurrentWindow;
+    const WindowElement* const element = &window->elements[index];
+    const auto skillIndex = static_cast<std::uint8_t>(world::detail::gSkillPairsF63370[pairIndex].index);
+    const std::int32_t enabled = (flags & (1u << (skillIndex & 31u))) != 0 ? 1 : 0;
+    const auto y = static_cast<std::int16_t>(element->y + window->y);
+    const auto x = static_cast<std::int16_t>(element->x + window->x);
+    Sub_47B6C0(x, y, visualState, pairIndex, enabled, 3, 223, 0xFFFFFFFFu);
+    return consumed;
+}
+
+std::int32_t Sub_47C700(const std::int32_t index, const std::int32_t state)
+{
+    const std::int32_t technique = gSkillWindowScrollD2D648 + index - 17;
+    const auto* record = &world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
+    if (record->techniques3C[technique].name[0] == '\0') {
+        return 0;
+    }
+    const std::int32_t cost = record->techniques3C[technique].value7C * record->fpReduce / 100;
+    std::int32_t consumed = 0;
+    std::int8_t visualState = 0;
+    bool allowed = record->techniques3C[technique].value8C != 0;
+    if (allowed) {
+        const std::int32_t position = world::detail::gBattleCurrentPosition5ABCA4;
+        allowed = login::detail::IsYobiActionFpGreaterEqual(world::detail::gBattleEntries59E980[position], cost);
+    }
+    const bool clicked = (state & 2) != 0;
+    if (clicked) {
+        if (allowed) {
+            const SkillWindowSelectionCallback callback = gSkillSelectionCallbackCC4230;
+            if (callback != nullptr) {
+                callback(gSkillWindowIndexD2EA60, technique);
+            }
+            gCurrentWindow->state |= 0x8000u;
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            consumed = 1;
+        } else {
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        }
+    }
+    if ((state & 1) != 0) {
+        record = &world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
+        visualState = 2;
+        gSkillWindowHoverD2F744 = technique;
+        const char* hint = kBattleSkillUnusable586588;
+        if (record->techniques3C[technique].value8C != 0) {
+            const std::int32_t position = world::detail::gBattleCurrentPosition5ABCA4;
+            hint = login::detail::IsYobiActionFpLessThan(world::detail::gBattleEntries59E980[position], cost)
+                ? kBattleSkillNoFp586568 : kSkillUsable586518;
+        }
+        std::strcpy(gHoverTextD68AE8.data(), hint);
+    }
+    if (clicked && world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60].techniques3C[technique].value8C != 0) {
+        const std::int32_t position = world::detail::gBattleCurrentPosition5ABCA4;
+        if (login::detail::IsYobiActionFpGreaterEqual(world::detail::gBattleEntries59E980[position], cost)) {
+            visualState = 1;
+        }
+    }
+    const WindowInstance* const window = gCurrentWindow;
+    const WindowElement* const element = &window->elements[index];
+    const auto y = static_cast<std::int16_t>(element->y + window->y);
+    const auto x = static_cast<std::int16_t>(element->x + window->x);
+    Sub_47B9B0(x, y, visualState, technique + 100, 3, 223, 0xFFFFFFFFu);
+    return consumed;
+}
+
+login::YobiAction* Sub_47A490()
+{
+    WindowInstance* const window = gWindowStates[10].window;
+    gSkillSelectionCallbackCC4230 = nullptr;
+    gSkillWindowModeD672AC = 0;
+    if (window != nullptr) {
+        window->state &= ~0x8000u;
+    }
+    return CreateWindowAnimation_475AA0(10, 1, 0, nullptr);
+}
+
+login::YobiAction* Sub_47A4C0(const SkillWindowSelectionCallback callback)
+{
+    gSkillWindowModeD672AC = 3;
+    gSkillSelectionCallbackCC4230 = callback;
+    WindowInstance* const window = gWindowStates[10].window;
+    if (window != nullptr) {
+        window->state &= ~0x8000u;
+    }
+    return CreateWindowAnimation_475AA0(10, 1, 0, nullptr);
+}
+
+login::YobiAction* Sub_47A500(
+    const std::int32_t skillIndex, const SkillWindowSelectionCallback callback)
+{
+    gSkillSelectionCallbackCC4230 = callback;
+    WindowInstance* const window = gWindowStates[10].window;
+    gSkillWindowModeD672AC = 4;
+    gSkillWindowIndexD2EA60 = skillIndex;
+    if (window != nullptr) {
+        window->state &= ~0x8000u;
+    }
+    return CreateWindowAnimation_475AA0(10, 1, 0, nullptr);
 }
 
 std::int32_t Sub_47B3D0(const std::int32_t index, const std::int32_t state)

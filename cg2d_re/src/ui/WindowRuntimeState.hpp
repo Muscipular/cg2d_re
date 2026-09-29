@@ -115,7 +115,7 @@ struct WindowInstance {
 
 namespace detail {
 
-// 窗口45选择/取消回调：非零返回允许关闭，文本只借用；释放通知index=-1。
+// 窗口45/46选择回调：非零返回允许关闭，文本只借用；释放通知index=-1。
 using WindowTextChoiceCallback = std::int32_t (*)(std::int32_t index, const char* text);
 login::YobiAction* Sub_49F000(
     const char* const* names, const std::uint8_t* colors,
@@ -131,6 +131,33 @@ std::int32_t Sub_49F490(std::int32_t index, std::int32_t state);
 std::int32_t Sub_49F570(std::int32_t index, std::int32_t state);
 std::int32_t Sub_49F5C0(std::int32_t index, std::int32_t state);
 std::int32_t Sub_49F680(std::int32_t index, std::int32_t state);
+
+// 原窗口46的28B属性源；仅名称地址扩宽，4874B0/48B0A0分别生产。
+struct WindowStatusChoiceRecord {
+    const char* name;
+    std::int32_t level;
+    std::int32_t hp;
+    std::int32_t maxHp;
+    std::int32_t fp;
+    std::int32_t maxFp;
+    std::int8_t injury;
+    std::uint8_t color;
+    std::array<std::byte, 2> bytes1A;
+};
+static_assert(offsetof(WindowStatusChoiceRecord, level) == 8);
+static_assert(offsetof(WindowStatusChoiceRecord, injury) == 0x1C);
+static_assert(offsetof(WindowStatusChoiceRecord, color) == 0x1D);
+static_assert(sizeof(WindowStatusChoiceRecord) == 32);
+login::YobiAction* Sub_49F760(
+    const WindowStatusChoiceRecord* records, std::int32_t count,
+    WindowTextChoiceCallback callback); // 三槽按序发布后打开46，透传借用Yobi。
+void Sub_49F790();
+std::int32_t Sub_49F7B0(std::int32_t value);
+void Sub_49F7E0(std::int32_t offset); // 六行名称/等级/HP/FP及伤势图标。
+std::int32_t Sub_499830(std::int32_t value); // 31/46共用绘制与九宫格尾。
+std::int32_t Sub_49FA40(std::int32_t index, std::int32_t state);
+std::int32_t Sub_49FB00(std::int32_t index, std::int32_t state);
+std::int32_t Sub_49FBC0(std::int32_t index, std::int32_t state);
 
 // 原4B1260的14参槽位回调；借用数值与描述符，返回值原端弃用。
 using WindowTradePanelCallback = void (*)(

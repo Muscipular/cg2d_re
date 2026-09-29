@@ -251,6 +251,10 @@ void Sub_4B9270(); // 模式3三次读取D046C4，先两个显示值后乘详情
 void Sub_4B92C0(); // 模式3详情数值或全部28玩家物品的匹配数量。
 std::int32_t Sub_4BBED0(std::int32_t index, std::int32_t state); // 商品图标，仅hover内bit4翻页。
 std::int32_t Sub_4BC060(std::int32_t index, std::int32_t state); // 独立详情图标，bit4无hover门禁。
+void Sub_4B6C50(
+    std::int32_t message, std::int32_t unused, std::int32_t sourceIndex); // kind9出售拖动生命周期。
+std::int32_t Sub_4B6DA0(std::int32_t sourceIndex); // 透传kind9注册返回。
+void Sub_4BC150(); // 三次读取来源，撤销选择并刷新窗口53。
 std::int32_t Sub_4A0280(std::int32_t index); // CB03D4命令表的选择回复。
 std::int32_t Sub_4A0420(std::int32_t index); // CF47D8命令表的选择回复。
 std::int32_t Sub_4A05C0(std::int32_t index); // 索引0..1分别发送1/2。
@@ -483,6 +487,7 @@ extern std::array<char, 48> gShopTotalTextCC4B2C; // 金额或模式相关数值
 extern std::int32_t gShopAvailableCF4A24; // 模式2指定物品数量，装载0，窗口初始化再写-1。
 extern std::array<char, 20> gShopValueTextCF4A28; // 模式2/3数值显示，573D20借用。
 extern std::array<std::int32_t, 5> gShopRowKeysC9A954; // 多窗口共用的行编号缓存，非地址。
+extern std::uint8_t gShopDragFlagD67B90; // 非零仅清自身，零分支移除选择；原虚拟零初值。
 extern std::int32_t gStorageValueCC4218; // 存放窗口41每帧清零、元素13绘制的数值。
 extern std::array<char, 22> gStorageAmountTextsCB1DF8; // 两金额文本起点相隔11B，571150/158借用。
 extern const std::array<std::int32_t, 2> gStorageTitleImages54F4E8;

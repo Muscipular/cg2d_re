@@ -127,6 +127,7 @@ std::array<char, 48> gShopTotalTextCC4B2C {};
 std::int32_t gShopAvailableCF4A24 = 0;
 std::array<char, 20> gShopValueTextCF4A28 {};
 std::array<std::int32_t, 5> gShopRowKeysC9A954 {};
+std::uint8_t gShopDragFlagD67B90 = 0;
 static_assert(sizeof(gTradeItemsD460D0) == 0x1EBE0);
 static_assert(sizeof(gTradePetsC9C108) == 0x3BD8);
 static_assert(sizeof(gPetStorageD64E18) == 0x1E00);
@@ -11413,6 +11414,90 @@ std::int32_t Sub_4B6970(const std::int32_t flags, char* const text)
         offset += 0x40C;
     } while (offset < 0x1030);
     return offset;
+}
+
+void Sub_4B6C50(
+    const std::int32_t message, const std::int32_t unused, const std::int32_t sourceIndex)
+{
+    static_cast<void>(unused);
+    render::GraphicDescriptor16 descriptor {};
+    const std::uint32_t color = 0x80FFFFFFu;
+    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    descriptor.bytes[13] = 4;
+    if (message != 0) {
+        if (message == 2 || message == 4) {
+            WindowInstance* const target = gWindowStates[53].window;
+            WindowInstance* const previous = gCurrentWindow;
+            gCurrentWindow = target;
+            Sub_4BC150();
+            gCurrentWindow = previous;
+        }
+        return;
+    }
+    std::int32_t item = std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[sourceIndex]);
+    if (gShopItemsCF4FE0[item * 0xC58] == 0) {
+        static_cast<void>(Sub_4763E0());
+    }
+    if ((platform::gLegacyMouseState.edgeButtons & 1u) != 0) {
+        static_cast<void>(Sub_4763E0());
+        const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
+            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseX)));
+        const auto y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
+            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseY)));
+        static_cast<void>(Sub_476490(9, sourceIndex, x, y, &Sub_4B6C50));
+    }
+    if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
+        CancelWindowDrag_476410();
+    }
+    static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
+    item = std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[sourceIndex]);
+    std::int32_t imageNo;
+    std::memcpy(&imageNo, gShopItemsCF4FE0.data() + item * 0xC58 + 0xC20, sizeof(imageNo));
+    const std::int32_t y =
+        platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseY);
+    const std::int32_t x =
+        platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseX);
+    static_cast<void>(login::detail::DrawGraphic(x, y, 230, imageNo, 0, &descriptor));
+}
+
+std::int32_t Sub_4B6DA0(const std::int32_t sourceIndex)
+{
+    return Sub_475DA0(9, sourceIndex, &Sub_4B6C50);
+}
+
+void Sub_4BC150()
+{
+    if (gShopDragFlagD67B90 != 0) {
+        gShopDragFlagD67B90 = 0;
+        return;
+    }
+    std::int32_t source = Sub_475D90();
+    std::int32_t item = std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[source]);
+    WriteTradeValue(gShopItemsCF4FE0.data() + item * 0xC58, 0xC28, std::int32_t{0});
+    source = Sub_475D90();
+    item = std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[source]);
+    const auto selectedMask = static_cast<std::uint32_t>(gShopValueCF467C);
+    std::int32_t inventoryIndex;
+    std::memcpy(&inventoryIndex, gShopItemsCF4FE0.data() + item * 0xC58 + 0xC2C, sizeof(inventoryIndex));
+    gShopValueCF467C = std::bit_cast<std::int32_t>(selectedMask & ~(1u << (inventoryIndex - 8)));
+    source = Sub_475D90();
+    std::int32_t position = gShopScrollCC488C;
+    gShopSelectedSlotsCB03DC[source] = static_cast<char>(-1);
+    const std::int32_t maximum = gShopItemCountCB1E10 - 5;
+    if (position > maximum) {
+        position = maximum;
+        gShopScrollCC488C = position;
+    }
+    if (position < 0) {
+        position = 0;
+        gShopScrollCC488C = 0;
+    }
+    static_cast<void>(Sub_4742C0(gCurrentWindow->elements + 11, maximum, position));
+    Sub_4B8780();
+    Sub_4B8B10();
+    Sub_4B8BE0();
+    Sub_4B8C50();
+    gShopMessage580848 = -1;
 }
 
 void Sub_4B6DC0()

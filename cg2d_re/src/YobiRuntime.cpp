@@ -51,7 +51,7 @@ struct YobiAction {
     union {
         YobiAction** completionSlot10; // 原+10，444260/4441A0的非拥有完成回写槽。
         YobiAction* observationParent10; // 同一原+10，43F290/43FE00的非拥有观察父节点。
-        YobiAction* battleAttachmentParent10; // 同一原+10，421F90/41FB20/41A200附件及特效的非拥有父引用。
+        YobiAction* battleAttachmentParent10; // 同一原+10，附件/特效/粒子发射器的非拥有父引用。
         YobiAction* battleOpponent10; // 同一原+10，416DD0/412900的非拥有对象引用；412900另快照原值。
     };
     std::uint8_t priority;
@@ -71,7 +71,7 @@ struct YobiAction {
     std::int32_t deltaY; // 原+3C；窗口/排序字段，41F570复用为寿命上限，不与y合并。
     float offset40; // 原+40；448A50/448BF0/449A00的投影后横向偏移。
     float offset44; // 原+44；对应纵向偏移，不与屏幕y合并。
-    float effectAcceleration48; // 原+48，420D50写0.2，41A200逐帧从4C速度扣除。
+    float effectAcceleration48; // 原+48，420D50/41A310写0.2，41A7D0写0.1，41A200从4C扣除。
     std::uint32_t value4CBits; // 原+4C；41F4C0/41F5B0写C1000000，41F450/41A200按F32消费。
     float angle50; // 原+50；本对象族创建清零，449160另作角度。
     float value54; // 原+54；三路对象速度及其他回调的幅值，共用F32。
@@ -79,8 +79,8 @@ struct YobiAction {
     float scaleX;
     float scaleY;
     std::array<char, 64> displayName; // 原 +64..+A3；41EB10 按 64B 复制，保留原编码。
-    std::int32_t nameX;              // 原 +A4；DrawText2 消费低 S16。
-    std::int32_t nameY;              // 原 +A8。
+    std::int32_t nameX;              // 原 +A4；DrawText2消费低S16，41A7D0作S32生成计数。
+    std::int32_t nameY;              // 原 +A8；41A590写下落终点，41A530按完整S32比较。
     float nameOffsetAC; // 原+AC，伤害数字创建/更新投影到nameX。
     float nameOffsetB0; // 原+B0，伤害数字创建/更新投影到nameY。
     float numberVelocityB8; // 原+B8，41F1A0写-8，41F110更新独立数字速度。
@@ -283,6 +283,25 @@ struct BattleTextPayload {
     std::int32_t lineCount08;
     std::int32_t fontType0C;
     std::int32_t remaining10;
+};
+
+// 原41DA04分配的132B数值载荷，41A590逐槽生成；不与战斗角色载荷混用。
+struct BattleRingEmitterPayload {
+    std::array<std::int32_t, 32> counts00;
+    std::int32_t lastIndex80;
+};
+static_assert(sizeof(BattleRingEmitterPayload) == 0x84);
+static_assert(offsetof(BattleRingEmitterPayload, lastIndex80) == 0x80);
+
+// 原立即数坐标表；顺序发射器Y的两项44/-44不同于随机上升粒子的33/-33。
+constexpr std::array<std::int32_t, 16> kBattleRadialXOffsets {
+    48, 44, 34, 18, 0, -18, -34, -44, -48, -44, -34, -18, 0, 18, 34, 44,
+};
+constexpr std::array<std::int32_t, 16> kBattleRisingYOffsets {
+    0, 14, 26, 44, 47, 33, 26, 14, 0, -14, -26, -44, -47, -33, -26, -14,
+};
+constexpr std::array<std::int32_t, 16> kBattleEmitterYOffsets {
+    0, 14, 26, 44, 47, 44, 26, 14, 0, -14, -26, -44, -47, -44, -26, -14,
 };
 
 // 战斗专用原生载荷；只映射已消费字段，不沿用原偏移，完整生产/其余字段尚未落位。
@@ -6216,6 +6235,33 @@ void UpdateBattleSequence_420300(YobiAction* const action)
     }
 }
 
+void UpdateBattleCompletingEffect_41A160(YobiAction* const action)
+{
+    if (PlayFrame_517DA0(action, 1) == 1) {
+        YobiAction* const parent = action->battleAttachmentParent10;
+        if (parent != nullptr) {
+            auto* const payload = static_cast<BattleActorPayload*>(parent->payload);
+            if (payload->value1024 != 0) {
+                payload->value1024 = 2;
+            }
+        }
+        static_cast<void>(MarkDeath(action));
+    }
+    action->x = static_cast<std::int32_t>(action->offset40);
+    action->y = static_cast<std::int32_t>(action->offset44);
+}
+
+void UpdateBattleParentEffect_41A1C0(YobiAction* const action)
+{
+    YobiAction* const parent = action->battleAttachmentParent10;
+    if (parent != nullptr && parent->deathFlag == 1) {
+        static_cast<void>(MarkDeath(action));
+    }
+    static_cast<void>(PlayFrame_517DA0(action, 0));
+    action->x = static_cast<std::int32_t>(action->offset40);
+    action->y = static_cast<std::int32_t>(action->offset44);
+}
+
 void UpdateBattleRisingEffect_41A200(YobiAction* const action)
 {
     YobiAction* const parent = action->battleAttachmentParent10;
@@ -6237,14 +6283,196 @@ void UpdateBattleRisingEffect_41A200(YobiAction* const action)
     action->y = static_cast<std::int32_t>(action->offset44);
 }
 
+void UpdateBattleScalingEffect_41A270(YobiAction* const action)
+{
+    constexpr float step = std::bit_cast<float>(0x3CA3D70Au);
+    if (action->phase == 0) {
+        const double scaleX = static_cast<double>(action->scaleX) + step;
+        action->scaleX = static_cast<float>(scaleX);
+        action->scaleY = static_cast<float>(static_cast<double>(action->scaleY) + step);
+        if (scaleX > 1.0) {
+            action->phase = 1;
+            action->scaleX = 1.0F;
+            action->scaleY = 1.0F;
+        }
+    } else if (action->phase == 2) {
+        const double scaleX = static_cast<double>(action->scaleX) - step;
+        action->scaleX = static_cast<float>(scaleX);
+        action->scaleY = static_cast<float>(static_cast<double>(action->scaleY) - step);
+        if (!(scaleX >= 0.0)) {
+            action->scaleX = 0.0F;
+            action->scaleY = 0.0F;
+            action->phase = 3;
+        }
+    }
+    static_cast<void>(PlayFrame_517DA0(action, 0));
+    action->x = static_cast<std::int32_t>(action->offset40);
+    action->y = static_cast<std::int32_t>(action->offset44);
+}
+
+void UpdateBattleRandomEmitter_41A310(YobiAction* const action)
+{
+    YobiAction* const parent = action->battleAttachmentParent10;
+    if (parent->deathFlag == 1) {
+        static_cast<void>(MarkDeath(action));
+        return;
+    }
+    const std::int32_t oldPhase = action->phase;
+    action->phase = oldPhase + 1;
+    if (oldPhase < 50) {
+        if (action->phase == 40) {
+            parent->flags |= 2u;
+        }
+        const std::int32_t index = platform::RandomRange_46FAF0(0, 15);
+        YobiAction* const particle = NewYobiAction_404AE0(2, 0);
+        if (particle != nullptr) {
+            particle->callback = UpdateBattleRisingEffect_41A200;
+            std::uint32_t flags;
+            if (render::HasLegacy3DDevice_44B610() != 0) {
+                flags = particle->flags | 0x100000u;
+            } else {
+                const std::int32_t mode = platform::RandomRange_46FAF0(0, 1);
+                flags = particle->flags | (mode == 0 ? 0x10000u : 0x8000u);
+            }
+            particle->flags = flags;
+            particle->displayPriority = 0xCC;
+            particle->flags = flags | 0x40000u;
+            particle->framePlayingRate = 100;
+            particle->imageNo = 110004;
+            particle->rebirthValue1 = 4;
+            particle->rebirthValue2 = 4;
+            const std::int32_t xOffset = kBattleRadialXOffsets[index];
+            const std::int32_t yOffset = kBattleRisingYOffsets[index];
+            particle->offset40 = static_cast<float>(action->x + xOffset);
+            particle->offset44 = static_cast<float>(action->y + yOffset);
+            const std::int32_t parentY = action->y;
+            particle->effectAcceleration48 = std::bit_cast<float>(0x3E4CCCCDu);
+            particle->battleAttachmentParent10 = action;
+            particle->phase = parentY + yOffset - 100;
+            action->field270 = 0;
+        }
+    }
+    if (action->field58 >= 50) {
+        YobiAction* const completionParent = action->battleAttachmentParent10;
+        if (completionParent != nullptr) {
+            auto* const payload = static_cast<BattleActorPayload*>(completionParent->payload);
+            if (payload->value1024 != 0) {
+                payload->value1024 = 2;
+            }
+        }
+        static_cast<void>(MarkDeath(action));
+    }
+}
+
+void UpdateBattleFallingEffect_41A530(YobiAction* const action)
+{
+    const double y = static_cast<double>(action->offset44) + 3.0;
+    action->offset44 = static_cast<float>(y);
+    if (y > static_cast<double>(action->nameY)) {
+        YobiAction* const parent = action->battleAttachmentParent10;
+        ++parent->field58;
+        static_cast<void>(MarkDeath(action));
+    }
+    static_cast<void>(PlayFrame_517DA0(action, 0));
+    action->x = static_cast<std::int32_t>(action->offset40);
+    action->y = static_cast<std::int32_t>(action->offset44);
+}
+
+void UpdateBattleReverseEmitter_41A590(YobiAction* const action)
+{
+    auto* const payload = static_cast<BattleRingEmitterPayload*>(action->payload);
+    const std::int32_t oldPhase = action->phase;
+    action->phase = oldPhase + 1;
+    if (oldPhase > 1) {
+        action->phase = 0;
+        for (std::int32_t i = 0; i <= payload->lastIndex80; ++i) {
+            if (payload->counts00[i] >= 4) {
+                continue;
+            }
+            YobiAction* const particle = NewYobiAction_404AE0(2, 0);
+            if (particle == nullptr) {
+                continue;
+            }
+            const std::uint32_t flags = particle->flags;
+            particle->callback = UpdateBattleFallingEffect_41A530;
+            particle->displayPriority = 0xCC;
+            particle->flags = flags | 0x40000u;
+            particle->framePlayingRate = 100;
+            particle->imageNo = 110060;
+            particle->rebirthValue1 = 4;
+            particle->rebirthValue2 = 4;
+            const std::int32_t index = 15 - (i % 16);
+            const std::int32_t xOffset = kBattleRadialXOffsets[index];
+            const std::int32_t yOffset = kBattleEmitterYOffsets[index];
+            particle->offset40 = static_cast<float>(action->x + xOffset);
+            particle->offset44 = static_cast<float>(static_cast<double>(action->y + yOffset) - 100.0);
+            const std::int32_t parentY = action->y;
+            particle->battleAttachmentParent10 = action;
+            particle->nameY = parentY + yOffset - 40;
+            action->field270 = 0;
+            ++payload->counts00[i];
+        }
+        const std::int32_t lastIndex = payload->lastIndex80 + 1;
+        payload->lastIndex80 = lastIndex;
+        if (lastIndex >= 32) {
+            payload->lastIndex80 = 31;
+        }
+    }
+    if (action->field58 >= 128) {
+        YobiAction* const parent = action->battleAttachmentParent10;
+        if (parent != nullptr) {
+            auto* const parentPayload = static_cast<BattleActorPayload*>(parent->payload);
+            if (parentPayload->value1024 != 0) {
+                parentPayload->value1024 = 2;
+            }
+        }
+        static_cast<void>(MarkDeath(action));
+    }
+}
+
+void UpdateBattleIndexedEmitter_41A7D0(YobiAction* const action)
+{
+    const std::int32_t oldPhase = action->phase;
+    action->phase = oldPhase + 1;
+    if (oldPhase > 0 && action->nameX < 32) {
+        action->phase = 0;
+        YobiAction* const particle = NewYobiAction_404AE0(2, 0);
+        if (particle != nullptr) {
+            const std::uint32_t flags = particle->flags;
+            particle->callback = UpdateBattleRisingEffect_41A200;
+            particle->displayPriority = 0xCC;
+            particle->flags = flags | 0x40000u;
+            particle->framePlayingRate = 100;
+            particle->imageNo = 110011;
+            particle->rebirthValue1 = 4;
+            particle->rebirthValue2 = 4;
+            const std::int32_t xOffset = kBattleRadialXOffsets[action->nameX % 16];
+            particle->offset40 = static_cast<float>(action->x + xOffset);
+            const std::int32_t yOffset = kBattleEmitterYOffsets[action->nameX % 16];
+            particle->offset44 = static_cast<float>(action->y + yOffset);
+            const std::int32_t endOffset = kBattleEmitterYOffsets[action->nameX % 16];
+            const std::int32_t parentY = action->y;
+            particle->effectAcceleration48 = std::bit_cast<float>(0x3DCCCCCDu);
+            particle->battleAttachmentParent10 = action;
+            particle->phase = endOffset + parentY - 100;
+            action->field270 = 0;
+        }
+        ++action->nameX;
+    }
+    if (action->field58 >= 32) {
+        YobiAction* const parent = action->battleAttachmentParent10;
+        if (parent != nullptr) {
+            auto* const payload = static_cast<BattleActorPayload*>(parent->payload);
+            if (payload->value1024 != 0) {
+                payload->value1024 = 2;
+            }
+        }
+        static_cast<void>(MarkDeath(action));
+    }
+}
+
 YobiAction* NewBattleRisingEffect_420D50(YobiAction* const parent)
 {
-    constexpr std::array<std::int32_t, 16> xOffsets {
-        48, 44, 34, 18, 0, -18, -34, -44, -48, -44, -34, -18, 0, 18, 34, 44,
-    };
-    constexpr std::array<std::int32_t, 16> yOffsets {
-        0, 14, 26, 44, 47, 33, 26, 14, 0, -14, -26, -44, -47, -33, -26, -14,
-    };
     const std::int32_t index = platform::RandomRange_46FAF0(0, 15);
     YobiAction* const action = NewYobiAction_404AE0(2, 0);
     if (action == nullptr) {
@@ -6258,14 +6486,14 @@ YobiAction* NewBattleRisingEffect_420D50(YobiAction* const parent)
         const std::int32_t mode = platform::RandomRange_46FAF0(0, 1);
         flags = action->flags | (mode == 0 ? 0x10000u : 0x8000u);
     }
-    const std::int32_t xOffset = xOffsets[index];
+    const std::int32_t xOffset = kBattleRadialXOffsets[index];
     action->flags = flags;
     action->displayPriority = 0xCC;
     action->rebirthValue1 = 4;
     action->rebirthValue2 = 4;
     action->framePlayingRate = 100;
     action->imageNo = 110004;
-    const std::int32_t yOffset = yOffsets[index];
+    const std::int32_t yOffset = kBattleRisingYOffsets[index];
     action->offset40 = static_cast<float>(parent->x + xOffset);
     action->offset44 = static_cast<float>(parent->y + yOffset);
     const std::int32_t parentY = parent->y;

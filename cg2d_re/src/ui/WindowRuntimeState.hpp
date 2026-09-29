@@ -261,6 +261,7 @@ std::int32_t Sub_4BAF10(std::int32_t index, std::int32_t state); // bit2向前�
 std::int32_t Sub_4BB010(std::int32_t index, std::int32_t state); // bit2向后五行，先上限后负值修正。
 std::int32_t Sub_4BB130(std::int32_t index, std::int32_t state); // 共享滚轮更新并刷新，恒返回0。
 std::int32_t Sub_4BB1D0(std::int32_t index, std::int32_t state); // 数量减少，兑换模式两轮背包占槽计算。
+std::int32_t Sub_4BB6E0(std::int32_t index, std::int32_t state); // 数量增加，保留行价格与选择槽索引差别。
 void Sub_4B6C50(
     std::int32_t message, std::int32_t unused, std::int32_t sourceIndex); // kind9出售拖动生命周期。
 std::int32_t Sub_4B6DA0(std::int32_t sourceIndex); // 透传kind9注册返回。

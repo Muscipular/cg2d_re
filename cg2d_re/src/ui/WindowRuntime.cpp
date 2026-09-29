@@ -13169,6 +13169,356 @@ std::int32_t Sub_4BB1D0(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+std::int32_t Sub_4BB6E0(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    const std::int32_t row = gShopScrollCC488C + index - 47;
+    const bool hover = (state & 1) != 0;
+    auto permitted = static_cast<std::uint8_t>(index);
+    // 原模式2只在对应hover路径赋值；不补异常事件组合的栈残留默认值。
+    std::int32_t message;
+    std::int32_t increment;
+    std::int32_t detailSelected;
+    bool detailSelectedRead = false;
+    if (hover) {
+        permitted = 0;
+        switch (std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894[20])) {
+        case 0: {
+            const char* const record = gShopItemsCF4FE0.data() + row * 0xC58;
+            if (record[0] != 0) {
+                std::int32_t selected;
+                std::memcpy(&selected, record + 0xC28, sizeof(selected));
+                permitted = selected < 20;
+            }
+            break;
+        }
+        case 1:
+        case 4:
+        case 5: {
+            const std::int32_t item = std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[row]);
+            if (item < 0) {
+                break;
+            }
+            const char* const record = gShopItemsCF4FE0.data() + item * 0xC58;
+            std::int32_t selected;
+            std::int32_t maximum;
+            std::memcpy(&selected, record + 0xC28, sizeof(selected));
+            std::memcpy(&maximum, record + 0xC34, sizeof(maximum));
+            permitted = selected < maximum;
+            const std::int32_t total = gShopTotalD2DAFC;
+            const std::int32_t limit = world::detail::ReadPlayerValue15BD0(0);
+            std::int32_t price;
+            std::memcpy(&price, gShopItemsCF4FE0.data() + row * 0xC58 + 0xC24, sizeof(price));
+            const std::int32_t money = world::detail::ReadPlayerValueFC();
+            if (price + total + money > limit) {
+                permitted = 0;
+            }
+            break;
+        }
+        case 2: {
+            const char* const record = gShopItemsCF4FE0.data() + row * 0xC58;
+            if (record[0] == 0) {
+                break;
+            }
+            std::int32_t price;
+            std::memcpy(&price, record + 0xC24, sizeof(price));
+            const std::int32_t total = gShopTotalD2DAFC;
+            message = -1;
+            const std::int32_t cost = total + price;
+            if (gShopAvailableCF4A24 < cost) {
+                message = -2;
+                break;
+            }
+            const std::int32_t itemId = gValueD2D608;
+            std::int32_t remaining = cost;
+            increment = remaining;
+            std::int32_t released = 0;
+            std::int32_t slot = 8;
+            for (; slot < 28; ++slot) {
+                const world::detail::PlayerItemRecord& item = world::detail::gPlayerItemsFDA8A4[slot];
+                if (item.used != 0 && item.itemId == itemId) {
+                    remaining -= item.count;
+                    if (remaining < 0) {
+                        break;
+                    }
+                    increment = remaining;
+                    ++released;
+                }
+            }
+            std::int32_t available = released + world::detail::Sub_518C60();
+            for (std::int32_t item = 0; item < 20; ++item) {
+                std::int32_t count;
+                std::memcpy(&count, gShopItemsCF4FE0.data() + item * 0xC58 + 0xC30, sizeof(count));
+                available -= count;
+            }
+            std::int32_t maximum;
+            std::int32_t selected;
+            std::int32_t occupied;
+            std::memcpy(&maximum, record + 0xC34, sizeof(maximum));
+            std::memcpy(&selected, record + 0xC28, sizeof(selected));
+            const std::int32_t numerator = selected + maximum;
+            std::memcpy(&occupied, record + 0xC30, sizeof(occupied));
+            if (numerator / maximum > occupied) {
+                --available;
+            }
+            if (available >= 0) {
+                increment = 1;
+                permitted = 1;
+                break;
+            }
+            std::int32_t accumulated = 0;
+            std::int32_t deficit = -available;
+            for (; slot < 28; ++slot) {
+                const world::detail::PlayerItemRecord& item = world::detail::gPlayerItemsFDA8A4[slot];
+                if (item.used != 0 && item.itemId == gValueD2D608) {
+                    const std::int32_t count = item.count;
+                    std::memcpy(&price, record + 0xC24, sizeof(price));
+                    std::int32_t candidate = (count - increment + price - 1) / price;
+                    const std::int32_t currentTotal = gShopTotalD2DAFC;
+                    ++candidate;
+                    if (gShopAvailableCF4A24 < price * candidate + currentTotal) {
+                        message = -3;
+                        break;
+                    }
+                    accumulated += candidate;
+                    if ((numerator + accumulated - 1) / maximum - occupied <= deficit) {
+                        increment = accumulated;
+                        permitted = 1;
+                        break;
+                    }
+                    ++deficit;
+                }
+            }
+            if (permitted == 0) {
+                message = -3;
+            }
+            break;
+        }
+        case 3:
+            if (row == 0) {
+                if (gShopValueCAFEA4 == 0) {
+                    const std::int32_t available = gShopValueC8AF74;
+                    detailSelected = gShopValueD046C4;
+                    detailSelectedRead = true;
+                    if (available - detailSelected > 0) {
+                        std::int32_t current;
+                        std::int32_t capacity;
+                        std::memcpy(&current, gShopDetailCC3210.data() + 0xC34, sizeof(current));
+                        std::memcpy(&capacity, gShopDetailCC3210.data() + 0xC30, sizeof(capacity));
+                        if (current + detailSelected < capacity && detailSelected < gQuantityLimit581C94) {
+                            permitted = 1;
+                        }
+                    }
+                } else {
+                    detailSelected = gShopValueD046C4;
+                    detailSelectedRead = true;
+                    std::int32_t quantity;
+                    std::memcpy(&quantity, gShopDetailCC3210.data() + 0xC24, sizeof(quantity));
+                    if (detailSelected < quantity) {
+                        std::int32_t current;
+                        std::memcpy(&current, gShopDetailCC3210.data() + 0xC34, sizeof(current));
+                        if (current - detailSelected > 0) {
+                            const std::int32_t total = gShopTotalD2DAFC;
+                            const std::int32_t money = world::detail::ReadPlayerValueFC();
+                            if (total < money && detailSelected < gQuantityLimit581C94) {
+                                permitted = 1;
+                            }
+                        }
+                    }
+                }
+            }
+            break;
+        default:
+            break;
+        }
+    }
+    if (!detailSelectedRead) {
+        detailSelected = gShopValueD046C4;
+    }
+    if (hover) {
+        const char* hint = nullptr;
+        switch (std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894[20])) {
+        case 0:
+        case 1:
+        case 2:
+        case 4:
+        case 5:
+            hint = permitted != 0
+                ? "\xBC\x57\xA5\x5B\xAA\xAB\xAB\x7E\xAA\xBA\xBC\xC6\xB6\x71\xA1\x43"
+                : "\xB5\x4C\xAA\x6B\xA6\x41\xBC\x57\xA5\x5B\xAA\xAB\xAB\x7E\xAA\xBA\xBC\xC6\xB6\x71\xA4\x46\xA1\x43";
+            break;
+        case 3:
+            hint = permitted != 0
+                ? "\xBC\x57\xA5\x5B\xB5\xB9\xA4\xA9\xB3\x6F\xA8\xC7\xAA\xAB\xAB\x7E\xAA\xBA\xBC\xC6\xB6\x71\xA1\x43"
+                : "\xB5\x4C\xAA\x6B\xA6\x41\xBC\x57\xA5\x5B\xA4\x46\xA1\x43";
+            break;
+        default:
+            break;
+        }
+        if (hint != nullptr) {
+            std::strcpy(gHoverTextD68AE8.data(), hint);
+        }
+    }
+    std::int32_t consumed = 0;
+    if ((state & 0x400) != 0) {
+        switch (std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894[20])) {
+        case 0: {
+            char* const record = gShopItemsCF4FE0.data() + row * 0xC58;
+            if (record[0] == 0) {
+                break;
+            }
+            std::int32_t selected;
+            std::memcpy(&selected, record + 0xC28, sizeof(selected));
+            if (selected < 20) {
+                WriteTradeValue(record, 0xC28, selected + 1);
+                static_cast<void>(audio::PlaySe_52C450(51, 320));
+            } else {
+                static_cast<void>(audio::PlaySe_52C450(55, 320));
+            }
+            Sub_4B8670();
+            Sub_4B86C0();
+            Sub_4B8730();
+            break;
+        }
+        case 1:
+        case 4:
+        case 5: {
+            const std::int32_t item = std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[row]);
+            if (item < 0) {
+                break;
+            }
+            char* const record = gShopItemsCF4FE0.data() + item * 0xC58;
+            std::int32_t selected;
+            std::int32_t maximum;
+            std::memcpy(&selected, record + 0xC28, sizeof(selected));
+            std::memcpy(&maximum, record + 0xC34, sizeof(maximum));
+            bool canIncrease = false;
+            if (selected < maximum) {
+                const std::int32_t total = gShopTotalD2DAFC;
+                const std::int32_t money = world::detail::ReadPlayerValueFC();
+                const std::int32_t limit = world::detail::ReadPlayerValue15BD0(0);
+                std::int32_t price;
+                std::memcpy(&price, gShopItemsCF4FE0.data() + row * 0xC58 + 0xC24, sizeof(price));
+                canIncrease = price + total + money <= limit;
+            }
+            if (canIncrease) {
+                WriteTradeValue(record, 0xC28, selected + 1);
+                static_cast<void>(audio::PlaySe_52C450(51, 320));
+            } else {
+                static_cast<void>(audio::PlaySe_52C450(55, 320));
+            }
+            Sub_4B8B10();
+            Sub_4B8BE0();
+            Sub_4B8C50();
+            const std::int32_t money = world::detail::ReadPlayerValueFC();
+            const std::int32_t total = gShopTotalD2DAFC;
+            const std::int32_t limit = world::detail::ReadPlayerValue15BD0(0);
+            if (total + money > limit) {
+                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                gShopMessage580848 = -2;
+            }
+            break;
+        }
+        case 2: {
+            char* const record = gShopItemsCF4FE0.data() + row * 0xC58;
+            if (record[0] == 0) {
+                break;
+            }
+            gShopMessage580848 = message;
+            if (permitted != 0) {
+                std::int32_t selected;
+                std::memcpy(&selected, record + 0xC28, sizeof(selected));
+                selected += increment;
+                WriteTradeValue(record, 0xC28, selected);
+                std::int32_t maximum;
+                std::memcpy(&maximum, record + 0xC34, sizeof(maximum));
+                WriteTradeValue(record, 0xC30, (selected + maximum - 1) / maximum);
+                static_cast<void>(audio::PlaySe_52C450(51, 320));
+            } else {
+                static_cast<void>(audio::PlaySe_52C450(55, 320));
+            }
+            Sub_4B8C90();
+            Sub_4B8FF0();
+            Sub_4B9090();
+            Sub_4B90E0();
+            break;
+        }
+        case 3: {
+            if (row != 0) {
+                break;
+            }
+            bool canIncrease = false;
+            if (gShopValueCAFEA4 == 0) {
+                const std::int32_t available = gShopValueC8AF74 - detailSelected;
+                if (available <= 0) {
+                    gShopMessage580848 = -2;
+                } else {
+                    std::int32_t current;
+                    std::int32_t capacity;
+                    std::memcpy(&current, gShopDetailCC3210.data() + 0xC34, sizeof(current));
+                    std::memcpy(&capacity, gShopDetailCC3210.data() + 0xC30, sizeof(capacity));
+                    if (current + detailSelected < capacity && detailSelected < gQuantityLimit581C94) {
+                        canIncrease = true;
+                    } else {
+                        std::memcpy(&current, gShopDetailCC3210.data() + 0xC34, sizeof(current));
+                        std::memcpy(&capacity, gShopDetailCC3210.data() + 0xC30, sizeof(capacity));
+                        if (current + detailSelected >= capacity) {
+                            gShopMessage580848 = -3;
+                        }
+                    }
+                }
+            } else {
+                std::int32_t quantity;
+                std::memcpy(&quantity, gShopDetailCC3210.data() + 0xC24, sizeof(quantity));
+                if (detailSelected >= quantity) {
+                    gShopMessage580848 = -2;
+                } else {
+                    std::int32_t current;
+                    std::memcpy(&current, gShopDetailCC3210.data() + 0xC34, sizeof(current));
+                    if (current - detailSelected <= 0) {
+                        gShopMessage580848 = -3;
+                    } else {
+                        const std::int32_t total = gShopTotalD2DAFC;
+                        const std::int32_t money = world::detail::ReadPlayerValueFC();
+                        if (total < money && detailSelected < gQuantityLimit581C94) {
+                            canIncrease = true;
+                        } else {
+                            const std::int32_t updatedMoney = world::detail::ReadPlayerValueFC();
+                            const std::int32_t updatedTotal = gShopTotalD2DAFC;
+                            if (updatedTotal >= updatedMoney) {
+                                gShopMessage580848 = -4;
+                            }
+                        }
+                    }
+                }
+            }
+            if (canIncrease) {
+                gShopMessage580848 = -1;
+                gShopValueD046C4 = detailSelected + 1;
+                static_cast<void>(audio::PlaySe_52C450(51, 320));
+            } else {
+                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                gShopValueD046C4 = 0;
+            }
+            Sub_4B9110();
+            Sub_4B9270();
+            break;
+        }
+        default:
+            break;
+        }
+        consumed = 1;
+    }
+    graphic->imageNo = 243003;
+    if (hover) {
+        graphic->imageNo = 243005;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 243004;
+    }
+    return consumed;
+}
+
 std::int32_t Sub_4BBED0(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t item = gShopScrollCC488C + index - 52;

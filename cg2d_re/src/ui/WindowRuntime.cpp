@@ -15271,6 +15271,91 @@ std::int32_t Sub_4BF7C0(const std::int32_t value)
     return 1;
 }
 
+std::int32_t Sub_4BF950(const std::int32_t unused)
+{
+    static_cast<void>(unused);
+    WindowInstance* window = gCurrentWindow;
+    const auto mode = std::bit_cast<std::int8_t>(gWindow54ModeC8AF64);
+    const std::int32_t x = window->x + 297;
+    std::int32_t y = window->y + 52;
+    switch (mode) {
+    case 0:
+    case 1: {
+        if (gWindow54ValueCB01E4 - 10 <= 0) {
+            window->elements[9].visible = 0;
+            window = gCurrentWindow;
+        }
+        WindowElement* const elements = window->elements;
+        if ((static_cast<const WindowMouseData*>(elements[10].data)->flags & 1u) != 0) {
+            const std::int32_t position = Sub_474270(elements + 10, gWindow54ValueCB01E4 - 10);
+            const std::uint8_t currentMode = gWindow54ModeC8AF64;
+            WindowInstance* const current = gCurrentWindow;
+            gWindow54PetScrollCC31DC = position;
+            const std::int32_t count = gWindow54ValueCB01E4;
+            if (currentMode == 0) {
+                Sub_4BF160(current, position, count);
+            } else {
+                Sub_4BF2E0(current, position, count);
+            }
+        }
+        break;
+    }
+    case 2:
+    case 3:
+    case 4:
+    case 12:
+    case 13: {
+        window->elements[9].visible = 1;
+        if (gWindow54ValueCB01E4 - 10 <= 0) {
+            gCurrentWindow->elements[9].visible = 0;
+        }
+        WindowElement* elements = gCurrentWindow->elements;
+        if ((static_cast<const WindowMouseData*>(elements[10].data)->flags & 1u) != 0) {
+            const std::int32_t position = Sub_474270(elements + 10, gWindow54ValueCB01E4 - 10);
+            WindowInstance* const current = gCurrentWindow;
+            gWindow54PetScrollCC31DC = position;
+            Sub_4BF620(current, position);
+        }
+        gCurrentWindow->elements[17].visible = 1;
+        if (gWindow54ValueCB01E8 - 5 <= 0) {
+            gCurrentWindow->elements[17].visible = 0;
+        }
+        elements = gCurrentWindow->elements;
+        if ((static_cast<const WindowMouseData*>(elements[18].data)->flags & 1u) != 0) {
+            const std::int32_t position = Sub_474270(elements + 18, gWindow54ValueCB01E8 - 5);
+            gWindow54SkillScrollCC31F4 = position;
+            Sub_4BF460(gCurrentWindow, position);
+        }
+        break;
+    }
+    default:
+        break;
+    }
+    std::int32_t message = gWindow54MessageC9FCE0;
+    gTooltipColorD67D30 = 0;
+    if (message >= 0) {
+        for (std::int32_t row = 0; row < 2; ++row) {
+            if (row != 0) {
+                message = gWindow54MessageC9FCE0;
+            }
+            static_cast<void>(Sub_4FBA30(
+                x, y, 3, 8, 0, gWindow54SkillsD2EAB8[message].description[row].data(), 0, 0));
+            y += 10;
+        }
+    } else {
+        const WindowDialogTextLine* line = gNpcDialogLinesCC24D4.data() + 1 + 4 * (-1 - message);
+        for (std::int32_t row = 0; row < 4; ++row) {
+            if (std::strlen(line->text.data()) != 0) {
+                static_cast<void>(Sub_4FBA30(x, y, 3, 8, 0, line->text.data(), 0, 0));
+            }
+            ++line;
+            y += 10;
+        }
+    }
+    DrawCurrentWindow_4729B0();
+    return 1;
+}
+
 std::int32_t Sub_4C0910(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);

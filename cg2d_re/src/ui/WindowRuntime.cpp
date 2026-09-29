@@ -126,6 +126,7 @@ std::array<char, 55> gShopCountTextsD2D988 {};
 std::array<char, 48> gShopTotalTextCC4B2C {};
 std::int32_t gShopAvailableCF4A24 = 0;
 std::array<char, 20> gShopValueTextCF4A28 {};
+std::array<std::int32_t, 5> gShopRowKeysC9A954 {};
 static_assert(sizeof(gTradeItemsD460D0) == 0x1EBE0);
 static_assert(sizeof(gTradePetsC9C108) == 0x3BD8);
 static_assert(sizeof(gPetStorageD64E18) == 0x1E00);
@@ -12218,6 +12219,95 @@ void Sub_4B92C0()
         }
     }
     gShopValueC8AF74 = total;
+}
+
+std::int32_t Sub_4BBED0(const std::int32_t index, const std::int32_t state)
+{
+    const std::int32_t item = gShopScrollCC488C + index - 52;
+    render::GraphicDescriptor16 descriptor {};
+    const std::uint32_t color = 0xFFFFFFFFu;
+    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    descriptor.bytes[13] = 4;
+    std::int32_t consumed = 0;
+    if ((state & 1) != 0) {
+        const WindowInstance* const window = gCurrentWindow;
+        const WindowElement& element = window->elements[index];
+        const std::int32_t x = window->x + element.x;
+        const std::int32_t y = window->y + element.y;
+        login::detail::DrawGraphicHover(
+            static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
+            static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48),
+            223, login::detail::gValueD69768, 0);
+    }
+    const char* const record = gShopItemsCF4FE0.data() + item * 0xC58;
+    if (record[0] == 0) {
+        return 0;
+    }
+    if ((state & 1) != 0) {
+        if (gShopRowKeysC9A954[index - 52] != item) {
+            gShopTooltipPageD67B8C = 0;
+        }
+        gShopRowKeysC9A954[index - 52] = item;
+        if ((state & 4) != 0) {
+            ++gShopTooltipPageD67B8C;
+            if (gShopTooltipPageD67B8C >= 4) {
+                gShopTooltipPageD67B8C = 0;
+            }
+            consumed = 1;
+        }
+        gShopTooltipIndex580844 = item + 100;
+    }
+    if (record[0xC3C] == 0) {
+        static_cast<void>(render::ClearTextQueueTail_456D50(3));
+        const WindowInstance* const window = gCurrentWindow;
+        const WindowElement& element = window->elements[index];
+        const std::int32_t x = window->x + element.x + 1;
+        const std::int32_t y = window->y + element.y + 31;
+        static_cast<void>(render::DrawText_456780(
+            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x)),
+            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y)), 3, 0, 6, "X", 0, 0));
+    }
+    const WindowInstance* const window = gCurrentWindow;
+    const WindowElement& element = window->elements[index];
+    std::int32_t imageNo;
+    std::memcpy(&imageNo, record + 0xC20, sizeof(imageNo));
+    static_cast<void>(login::detail::DrawGraphic(
+        element.x + window->x + 24, element.y + window->y + 24, 223, imageNo, 0, &descriptor));
+    return consumed;
+}
+
+std::int32_t Sub_4BC060(const std::int32_t index, const std::int32_t state)
+{
+    render::GraphicDescriptor16 descriptor {};
+    const std::uint32_t color = 0xFFFFFFFFu;
+    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    descriptor.bytes[13] = 4;
+    std::int32_t consumed = 0;
+    if ((state & 4) != 0) {
+        ++gShopTooltipPageD67B8C;
+        if (gShopTooltipPageD67B8C >= 4) {
+            gShopTooltipPageD67B8C = 0;
+        }
+        consumed = 1;
+    }
+    if ((state & 1) != 0) {
+        gShopTooltipIndex580844 = 200;
+        const WindowInstance* const window = gCurrentWindow;
+        const WindowElement& element = window->elements[index];
+        const std::int32_t x = window->x + element.x;
+        const std::int32_t y = window->y + element.y;
+        login::detail::DrawGraphicHover(
+            static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
+            static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48),
+            223, login::detail::gValueD69768, 0);
+    }
+    const WindowInstance* const window = gCurrentWindow;
+    const WindowElement& element = window->elements[index];
+    std::int32_t imageNo;
+    std::memcpy(&imageNo, gShopDetailCC3210.data() + 0xC20, sizeof(imageNo));
+    static_cast<void>(login::detail::DrawGraphic(
+        element.x + window->x + 24, element.y + window->y + 24, 223, imageNo, 0, &descriptor));
+    return consumed;
 }
 
 std::int32_t Sub_4B99D0(const std::int32_t unused)

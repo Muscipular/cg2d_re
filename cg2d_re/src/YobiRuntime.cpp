@@ -6680,6 +6680,11 @@ std::int32_t SetBattleRider_4222B0(
     return imageNo;
 }
 
+void SetBattleGear_422BC0(YobiAction* const action, const std::int32_t imageNo)
+{
+    SetBattleGear_422C20(action, imageNo, 0);
+}
+
 void SetBattleGear_422C20(
     YobiAction* const action, const std::int32_t imageNo, const std::int32_t index)
 {
@@ -8545,6 +8550,52 @@ std::int32_t TakeBattleAuxEffects_43BC90(
     AdvanceBattleEffect_439470(action);
     *value5 = payload->effects1C[payload->effectRunningC9C].position3;
     return AdvanceBattleEffect_439470(action);
+}
+
+void ApplyBattleEffectFlags_406390(const std::int32_t sourcePosition, YobiAction* const action)
+{
+    using world::detail::gBattleAllEntries59E980;
+    const auto* const payload = static_cast<const BattleActorPayload*>(action->payload);
+    const std::int32_t index = payload->effectRunningC9C;
+    const std::uint32_t flags = payload->effects1C[index].flags;
+    const std::int32_t position = payload->effects1C[index].position;
+    const std::int32_t recipient = (flags & 0x2000u) != 0 ? sourcePosition : position;
+    if ((flags & 0x200000u) != 0) {
+        static_cast<void>(NewBattleFloatingIcon_41F4C0(gBattleAllEntries59E980[recipient], 22329, 0, 0));
+    }
+    if ((flags & 0x400000u) != 0) {
+        static_cast<void>(NewBattleFloatingIcon_41F4C0(gBattleAllEntries59E980[recipient], 22330, 0, 0));
+    }
+    if ((flags & 0x800000u) != 0) {
+        std::int32_t effectPosition;
+        std::int32_t imageNo;
+        std::int32_t ridingImageNo;
+        std::int32_t gearImageNo;
+        static_cast<void>(TakeBattleAuxEffects_43BC90(
+            action, &effectPosition, &imageNo, &ridingImageNo, &gearImageNo));
+        const std::int32_t auxiliaryRecipient = (flags & 0x2000u) != 0 ? sourcePosition : effectPosition;
+        static_cast<void>(NewBattleFloatingIcon_41F4C0(
+            gBattleAllEntries59E980[auxiliaryRecipient], 22328, 0, 0));
+        static_cast<void>(audio::PlaySe_52C450(214, gBattleAllEntries59E980[auxiliaryRecipient]->x));
+        static_cast<void>(SetBattleRider_4222B0(
+            gBattleAllEntries59E980[auxiliaryRecipient], imageNo, ridingImageNo));
+        SetBattleGear_422BC0(gBattleAllEntries59E980[auxiliaryRecipient], gearImageNo);
+    }
+    // 附加读取已经推进游标，末两块仍消费入口快照，不刷新flags或position。
+    if ((flags & 0x1000000u) != 0) {
+        static_cast<void>(NewBattleFloatingIcon_41F4C0(gBattleAllEntries59E980[recipient], 22330, 0, 0));
+    }
+    if ((flags & 0x2000000u) != 0) {
+        static_cast<void>(NewBattleFloatingIcon_41F4C0(gBattleAllEntries59E980[recipient], 22328, 0, 0));
+        static_cast<void>(audio::PlaySe_52C450(214, gBattleAllEntries59E980[recipient]->x));
+    }
+}
+
+void ApplyBattleCastEffects_416DB0(YobiAction* const action)
+{
+    const std::int32_t position = static_cast<const BattleActorPayload*>(action->payload)->battlePosition18;
+    ApplyBattleEffectFlags_406390(position, action);
+    AdvanceBattleCastState_439340(action);
 }
 
 void AdvanceBattleLinkedCast_40CAC0(YobiAction* const action)

@@ -278,6 +278,7 @@ YobiAction* NewBattleAuxGear_422B00(
     YobiAction* parent, std::int32_t imageNo, std::int16_t sortIndex);
 std::int32_t SetBattleRider_4222B0(
     YobiAction* action, std::int32_t imageNo, std::int32_t ridingImageNo);
+void SetBattleGear_422BC0(YobiAction* action, std::int32_t imageNo); // 原无模式门槛，等价422C20的index0。
 void SetBattleGear_422C20(YobiAction* action, std::int32_t imageNo, std::int32_t index);
 // 原两caller的index均0/1；type6不更新已有图号，type3..5仅首次创建设置缩放。
 void SetBattleAuxGear_422C90(
@@ -345,6 +346,9 @@ std::int32_t AdvanceBattleEffect_439470(YobiAction* action);
 std::int32_t TakeBattleAuxEffects_43BC90(
     YobiAction* action, std::int32_t* position, std::int32_t* value3,
     std::int32_t* value4, std::int32_t* value5);
+// 原406390：固定当前flags/position，五块独立执行；附加块消费四输出，逐调用重取对象。
+void ApplyBattleEffectFlags_406390(std::int32_t sourcePosition, YobiAction* action);
+void ApplyBattleCastEffects_416DB0(YobiAction* action); // 动作235：先应用效果，再推进动作队列。
 // 原43BF30：mode1只消费预扫描8整数；mode0读对象字段，五输出均为S32非拥有指针。
 void TakeBattleMAuxGraphics_43BF30(
     YobiAction* action, std::int32_t mode, std::int32_t* firstImage, std::int32_t* secondImage,

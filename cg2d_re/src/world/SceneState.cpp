@@ -6871,6 +6871,16 @@ void ClearPlayerActionFlags(const std::uint16_t mask) noexcept
     gPlayerRuntime.flags18C &= ~(static_cast<std::uint32_t>(mask) << 16);
 }
 
+void SetPlayerActionFlags(const std::uint16_t mask) noexcept
+{
+    gPlayerRuntime.flags18C |= static_cast<std::uint32_t>(mask) << 16;
+}
+
+char* BorrowPlayerStallName() noexcept
+{
+    return gPlayerRuntime.text15BB8.data();
+}
+
 void CopyPlayerBarValues(
     platform::LegacyCryptInt* const hp, platform::LegacyCryptInt* const maxHp,
     platform::LegacyCryptInt* const fp, platform::LegacyCryptInt* const maxFp)

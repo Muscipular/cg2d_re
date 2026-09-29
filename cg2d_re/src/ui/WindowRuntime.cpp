@@ -45,6 +45,11 @@ std::array<WindowState, kWindowCount> gWindowStates {};
 WindowInstance* gCurrentWindow = nullptr;
 WindowState* gCurrentWindowState = nullptr;
 std::uint8_t gValueD67BE0 = 0;
+std::array<char, 256> gStallMessageC8A978 {};
+std::array<char, 17> gStallNameD67BE4 {};
+std::uint8_t gStallPendingD67C31 = 0;
+std::int32_t gStallMessageModeD67C34 = 0;
+std::int32_t gStallMessageValueD67C38 = 0;
 std::int32_t gDragItemIndex584DA4 = -1;
 std::int32_t gDragImageNoD67D24 = 0;
 std::int32_t gItemDragXCC4880 = 0;
@@ -1348,6 +1353,71 @@ void Sub_4E5600(const std::int32_t side)
 {
     for (std::int32_t index = 0; index < 20; ++index) {
         Sub_4E54E0(side, index);
+    }
+}
+
+void Sub_4CE700(const std::int32_t result)
+{
+    if (result != 0) {
+        const char* message;
+        switch (result) {
+        case 1:
+            message = "\xA4\x77\xB8\x67\xA6\xB3\xA4\x48\xA6\x62\xA6\xB9\xC2\x5C\xC5\x75";
+            break;
+        case 3:
+            message = "\xA8\xE2\xA6\xB8\xC2\x5C\xC5\x75\xAE\xC9\xB6\xA1\xB6\xA1\xB9\x6A\xB9\x4C\xB5\x75";
+            break;
+        case 4:
+            message = "\xB3\x6F\xAD\xD3\xA4\x6C\xAC\x50\xB3\xCC\xA4\x6A\xC5\x75\xA6\xEC\xBC\xC6\xA4\x77\xBA\xA1";
+            break;
+        default:
+            message = "\xC2\x5C\xC5\x75\xA5\xA2\xB1\xD1";
+            break;
+        }
+        std::strcpy(gStallMessageC8A978.data(), message);
+        WindowInstance* const window = gWindowStates[67].window;
+        world::detail::ClearPlayerActionFlags(0x1000u);
+        gStallMessageModeD67C34 = 1;
+        gStallMessageValueD67C38 = 0;
+        if (window != nullptr) {
+            window->elements[0].visible = 1;
+        }
+        gValueD67BE0 = 0;
+        gStallPendingD67C31 = 0;
+        return;
+    }
+    char name[33];
+    std::memcpy(name, "\xB5\x4C\xA6\x57\xA9\xB1\xE7\x45", 9);
+    world::detail::SetPlayerActionFlags(0x1000u);
+    std::memset(name + 9, 0, 24);
+    if (std::strlen(gStallNameD67BE4.data()) != 0) {
+        std::sprintf(name, "%s", gStallNameD67BE4.data());
+    }
+    WindowInstance* const window = gWindowStates[67].window;
+    std::strcpy(world::detail::BorrowPlayerStallName(), name);
+    if (window != nullptr) {
+        window->elements[0].visible = 0;
+    }
+    gStallPendingD67C31 = 0;
+}
+
+void Sub_4CE8B0(const std::int32_t result)
+{
+    if (result != 0) {
+        std::strcpy(gStallMessageC8A978.data(), "\xA6\xAC\xC5\x75\xA5\xA2\xB1\xD1");
+    }
+    world::detail::ClearPlayerActionFlags(0x1000u);
+    gStallPendingD67C31 = 0;
+    gValueD67BE0 = 0;
+    WindowInstance* const window = gWindowStates[67].window;
+    if (result != 0) {
+        gStallMessageModeD67C34 = 1;
+        gStallMessageValueD67C38 = 0;
+        if (window != nullptr) {
+            window->elements[0].visible = 1;
+        }
+    } else if (window != nullptr) {
+        window->elements[0].visible = 0;
     }
 }
 
@@ -20988,6 +21058,16 @@ void Sub_50F990(
         return;
     }
     detail::Sub_49D8F0(type, value, request, target, text);
+}
+
+void Sub_50E7D0(const std::uintptr_t, const std::int32_t result)
+{
+    detail::Sub_4CE700(result);
+}
+
+void Sub_50E7E0(const std::uintptr_t, const std::int32_t result)
+{
+    detail::Sub_4CE8B0(result);
 }
 
 void Sub_50E3C0(const std::uintptr_t, const char* const text)

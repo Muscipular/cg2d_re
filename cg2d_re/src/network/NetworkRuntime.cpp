@@ -4139,8 +4139,8 @@ std::int32_t NetworkDispatch_512E40(
     if (TryDispatchReply<character_select::detail::Sub_50E770, I>(head, "PfM", socket)) return 0;
     if (TryDispatchReply<Sub_50E780, I>(head, "ed", socket)) return 0;
     if (TryDispatchReply<platform::ConfigureLegacyMouseTracker_50E7B0, I, I>(head, "tq", socket)) return 0;
-    if (TryDispatchReply<Sub_50E7D0, I>(head, "Tmrx", socket)) return 0;
-    if (TryDispatchReply<Sub_50E7E0, I>(head, "KXhH", socket)) return 0;
+    if (TryDispatchReply<ui::Sub_50E7D0, I>(head, "Tmrx", socket)) return 0;
+    if (TryDispatchReply<ui::Sub_50E7E0, I>(head, "KXhH", socket)) return 0;
     if (TryDispatchReply<Sub_50E7F0, I, I, T, T, T, T>(head, "ft", socket)) return 0;
     if (TryDispatchReply<Sub_50E820, I>(head, "Yx", socket)) return 0;
     static_cast<void>(TryDispatchReply<world::detail::Sub_510150, I, T>(head, "iKe", socket));

@@ -1057,6 +1057,8 @@ std::uint32_t ReadPlayerFlags18A() noexcept; // 原FDA88A跨W32读取。
 std::uint16_t ReadPlayerActionFlags() noexcept; // 原FDA88E，与flags18C高W16同源。
 std::int32_t ReadPlayerActionValue190() noexcept;
 void ClearPlayerActionFlags(std::uint16_t mask) noexcept; // 只清FDA88E，不改FDA88C低W16。
+void SetPlayerActionFlags(std::uint16_t mask) noexcept; // 同源FDA88E置位，保留其他字节。
+char* BorrowPlayerStallName() noexcept; // 原FF02B8的text15BB8，可写借用，不复制owner。
 void CopyPlayerBarValues(
     platform::LegacyCryptInt* hp, platform::LegacyCryptInt* maxHp,
     platform::LegacyCryptInt* fp, platform::LegacyCryptInt* maxFp);

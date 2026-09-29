@@ -625,6 +625,13 @@ extern std::array<WindowState, kWindowCount> gWindowStates; // 原C9A9B0。
 extern WindowInstance* gCurrentWindow; // 原CF4694。
 extern WindowState* gCurrentWindowState; // 原CF4684。
 extern std::uint8_t gValueD67BE0; // 原多个UI生产/消费入口共用，不并入窗口记录。
+extern std::array<char, 256> gStallMessageC8A978; // 摆摊结果提示，4D0230消费同一文本。
+extern std::array<char, 17> gStallNameD67BE4; // 原strncpy16及D67BF4终止字节。
+extern std::uint8_t gStallPendingD67C31; // 请求与回复共用等待标记。
+extern std::int32_t gStallMessageModeD67C34;
+extern std::int32_t gStallMessageValueD67C38;
+void Sub_4CE700(std::int32_t result); // 开摊结果：玩家标志、名字及窗口67首元素。
+void Sub_4CE8B0(std::int32_t result); // 收摊结果：两路均先清玩家标志/等待/门禁。
 extern std::int32_t gDragItemIndex584DA4; // 4FB8F0已接重置，4FAEF0拖动生产仍待接。
 extern std::int32_t gDragImageNoD67D24;
 extern std::int32_t gItemDragXCC4880;

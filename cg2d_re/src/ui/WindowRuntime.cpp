@@ -22534,6 +22534,33 @@ constexpr char kCraftWood5867DC[] = "                        \xA4\xEC\xA7\xF7";
 constexpr char kCraftCloth5867BC[] = "                        \xA5\xAC\xAE\xC6";
 constexpr char kCraftRefine586860[] = "\xBA\xEB\xB7\xD2";
 
+// 仅新补的制造/单选/装饰创建入口共用；材料模式12另有无条件状态写。
+void SelectCraftWindowState(const std::int32_t skillId)
+{
+    std::int32_t state = 9;
+    switch (skillId) {
+    case 215: state = 10; break;
+    case 219: case 2033: state = 11; break;
+    case 217: case 218: case 2031: case 2032: state = 12; break;
+    default: break;
+    }
+    if (world::detail::Sub_51BEC0() != state) {
+        static_cast<void>(world::detail::Sub_51BE50(state));
+    }
+}
+
+// 五创建入口的原关闭顺序；只标关闭，不同步释放或撤回已递增计数。
+login::YobiAction* CreateCraftWindow()
+{
+    for (const std::int32_t id : {11, 12, 45, 46, 13}) {
+        WindowInstance* const window = gWindowStates[id].window;
+        if (window != nullptr) {
+            window->state |= 0x8000u;
+        }
+    }
+    return CreateWindowAnimation_475AA0(11, 1, 0, nullptr);
+}
+
 // 仅模式6/15/12/9共有的原释放/清表序列，进入时仍使用旧模式释放。
 void ResetCraftMaterialMode()
 {
@@ -22578,6 +22605,109 @@ void PrepareCraftMaterialElements(WindowInstance* const window)
 }
 
 } // namespace
+
+login::YobiAction* Sub_47D5F0(
+    const std::int32_t skill, const std::int32_t recipe, const std::int32_t request)
+{
+    gCraftSkillIndexCC2368 = skill;
+    gCraftRequestValueD30400 = request;
+    gCraftRecipeIndexD2D638 = recipe;
+    gSelectionModeD2D650 = 0;
+    gCraftRecipeIdD2E440 = world::detail::gSkillsF1BAFC[skill].recipes8E8[recipe].itemId;
+    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+    static_cast<void>(Sub_4D3020(x, y));
+    Sub_479650();
+    Sub_4796D0();
+    const std::int32_t currentSkill = gCraftSkillIndexCC2368;
+    const auto references = static_cast<std::uint8_t>(gValueD67AFD + 1);
+    const auto skillReferences = static_cast<std::uint8_t>(gValueD67AFE + 1);
+    gValueD67AFD = references;
+    const std::int32_t skillId = world::detail::gSkillsF1BAFC[currentSkill].skillId;
+    gValueD67AFE = skillReferences;
+    SelectCraftWindowState(skillId);
+    return CreateCraftWindow();
+}
+
+login::YobiAction* Sub_47D780(const std::int32_t skill, const std::int32_t request)
+{
+    gCraftRequestValueD30400 = request;
+    gCraftSkillIndexCC2368 = skill;
+    gSelectionModeD2D650 = 3;
+    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+    static_cast<void>(Sub_4D3020(x, y));
+    Sub_479650();
+    Sub_4796D0();
+    const auto references = static_cast<std::uint8_t>(gValueD67AFD + 1);
+    const auto skillReferences = static_cast<std::uint8_t>(gValueD67AFE + 1);
+    gValueD67AFE = skillReferences;
+    const std::int32_t currentSkill = gCraftSkillIndexCC2368;
+    gValueD67AFD = references;
+    SelectCraftWindowState(world::detail::gSkillsF1BAFC[currentSkill].skillId);
+    return CreateCraftWindow();
+}
+
+login::YobiAction* Sub_47D8F0(
+    const std::int32_t skill, const std::int32_t request, const std::int32_t kind)
+{
+    gCraftSkillIndexCC2368 = skill;
+    gCraftRequestValueD30400 = request;
+    gSelectionModeD2D650 = 6;
+    if (kind == 1) {
+        gSelectionModeD2D650 = 15;
+    }
+    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+    static_cast<void>(Sub_4D3020(x, y));
+    Sub_479650();
+    Sub_4796D0();
+    const auto references = static_cast<std::uint8_t>(gValueD67AFD + 1);
+    const auto skillReferences = static_cast<std::uint8_t>(gValueD67AFE + 1);
+    gValueD67AFE = skillReferences;
+    const std::int32_t currentSkill = gCraftSkillIndexCC2368;
+    gValueD67AFD = references;
+    SelectCraftWindowState(world::detail::gSkillsF1BAFC[currentSkill].skillId);
+    return CreateCraftWindow();
+}
+
+login::YobiAction* Sub_47DA70(const std::int32_t skill, const std::int32_t request)
+{
+    gCraftRequestValueD30400 = request;
+    gCraftSkillIndexCC2368 = skill;
+    gSelectionModeD2D650 = 9;
+    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+    static_cast<void>(Sub_4D3020(x, y));
+    Sub_479650();
+    Sub_4796D0();
+    const auto references = static_cast<std::uint8_t>(gValueD67AFD + 1);
+    const auto skillReferences = static_cast<std::uint8_t>(gValueD67AFE + 1);
+    gValueD67AFD = references;
+    gValueD67AFE = skillReferences;
+    if (world::detail::Sub_51BEC0() != 9) {
+        static_cast<void>(world::detail::Sub_51BE50(9));
+    }
+    return CreateCraftWindow();
+}
+
+login::YobiAction* Sub_47DB50(const std::int32_t skill, const std::int32_t request)
+{
+    gCraftRequestValueD30400 = request;
+    gCraftSkillIndexCC2368 = skill;
+    gSelectionModeD2D650 = 12;
+    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+    static_cast<void>(Sub_4D3020(x, y));
+    Sub_479650();
+    Sub_4796D0();
+    const auto references = static_cast<std::uint8_t>(gValueD67AFD + 1);
+    const auto skillReferences = static_cast<std::uint8_t>(gValueD67AFE + 1);
+    gValueD67AFD = references;
+    gValueD67AFE = skillReferences;
+    static_cast<void>(world::detail::Sub_51BE50(9));
+    return CreateCraftWindow();
+}
 
 WindowAnimationData* Sub_47FAE0(WindowInstance* const window)
 {

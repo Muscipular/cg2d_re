@@ -135,6 +135,13 @@ std::int32_t Sub_47D4B0(); // 晶石等级读取后比较当前配方等级。
 std::int32_t Sub_47D4F0(); // 单选物品不加8，晶石读取后重新取得选择索引。
 std::int32_t Sub_47D530(); // 六材料首个匹配类别，晶石读取后重取槽号再比较等级。
 std::int32_t Sub_47D5B0(); // 首材料slot+8等级在晶石读取前快照。
+login::YobiAction* Sub_47D5F0(
+    std::int32_t skill, std::int32_t recipe, std::int32_t request); // 制造开窗，保存同源配方id。
+login::YobiAction* Sub_47D780(std::int32_t skill, std::int32_t request); // 单选加工开窗。
+login::YobiAction* Sub_47D8F0(
+    std::int32_t skill, std::int32_t request, std::int32_t kind); // 装饰开窗，kind严格1为宠物装备。
+login::YobiAction* Sub_47DA70(std::int32_t skill, std::int32_t request); // 精炼开窗，条件设置世界状态9。
+login::YobiAction* Sub_47DB50(std::int32_t skill, std::int32_t request); // 材料开窗，无条件设置世界状态9。
 std::int32_t Sub_483EB0(std::int32_t index, std::int32_t state); // 六材料完整投放/换位/逐帧校验与绘制。
 WindowAnimationData* Sub_47DF50(WindowInstance* window); // 制造模式0完整初始化，逆序发布五材料需求。
 WindowAnimationData* Sub_47FAE0(WindowInstance* window); // 装饰模式6，固定魔力100。

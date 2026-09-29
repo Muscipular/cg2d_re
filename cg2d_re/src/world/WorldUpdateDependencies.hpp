@@ -1158,6 +1158,14 @@ extern std::int32_t gBattleCommandState5ABC3C; // 技能/宠物命令完成状�
 extern std::uint8_t gBattleRebirthDisabled5ABC40; // 497C80先读的独立U8门禁，498520后续写。
 extern std::int32_t gBattleSkillActionCount5ABBF4;
 extern std::int32_t gBattlePetActionCount5ABBBC;
+extern std::int32_t gBattleCountdownActive5ABCB8; // 43C4E0置1，4982C0到期清零。
+extern std::uint32_t gBattleCommandDeadline5ABBF8; // 原32位tick截止值，不是地址。
+extern std::int32_t gBattleCountdownSecond5ABB80; // 低于十秒时的独立提示秒数。
+extern std::int32_t gBattleSnapshotPetIndex5ABBFC; // 4965D0每次解码后重取，非553F90。
+extern std::int32_t gBattleCommandX553F78; // 映像490，43C4E0覆盖493。
+extern std::int32_t gBattleCommandY553F7C; // 映像-104，43C4E0覆盖-106。
+extern std::int32_t gBattleCommandValue553F80; // 映像及初始化17，43C3E0读取。
+void Sub_43C4E0(); // 完整命令计时初始化、对象标志与技能选择同步。
 extern std::int32_t gBattleSelectionMode5ABC70; // 与九个选择槽分别存储。
 extern std::int32_t gBattleSkillUsed5ABC68; // 497000/4975A0读取完整W32。
 extern std::int32_t gBattlePetCommandPhase553F88; // 原.data初值1，宠物命令写0/2。

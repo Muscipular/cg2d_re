@@ -3713,6 +3713,27 @@ std::int32_t Sub_43C4B0()
     return -1;
 }
 
+void Sub_43C4E0()
+{
+    gBattleCountdownActive5ABCB8 = 1;
+    const std::uint32_t tick = platform::ReadTickCount32();
+    gBattleCommandDeadline5ABBF8 = tick + 30000u;
+    gBattleCountdownSecond5ABB80 = 0;
+    gBattleCommandState5ABC3C = 0;
+    gBattleSkillActionCount5ABBF4 = 0;
+    gBattlePetActionCount5ABBBC = 0;
+    login::detail::Sub_43C040();
+    login::detail::Sub_43BFF0();
+    gBattleCommandX553F78 = 493;
+    gBattleCommandY553F7C = -106;
+    gBattleCommandValue553F80 = 17;
+    gBattleSkillUsed5ABC68 = 0;
+    const std::int32_t pet = Sub_43C4B0();
+    if (gValue553F90 != pet) {
+        gValue553F84 = -1;
+    }
+}
+
 std::int32_t Sub_519920()
 {
     std::int32_t count = 0;
@@ -3968,6 +3989,13 @@ std::int32_t gBattleCommandState5ABC3C = 0;
 std::uint8_t gBattleRebirthDisabled5ABC40 = 0;
 std::int32_t gBattleSkillActionCount5ABBF4 = 0;
 std::int32_t gBattlePetActionCount5ABBBC = 0;
+std::int32_t gBattleCountdownActive5ABCB8 = 0;
+std::uint32_t gBattleCommandDeadline5ABBF8 = 0;
+std::int32_t gBattleCountdownSecond5ABB80 = 0;
+std::int32_t gBattleSnapshotPetIndex5ABBFC = 0;
+std::int32_t gBattleCommandX553F78 = 490;
+std::int32_t gBattleCommandY553F7C = -104;
+std::int32_t gBattleCommandValue553F80 = 17;
 std::int32_t gBattleSelectionMode5ABC70 = 0;
 std::int32_t gBattleSkillUsed5ABC68 = 0;
 std::int32_t gBattlePetCommandPhase553F88 = 1;

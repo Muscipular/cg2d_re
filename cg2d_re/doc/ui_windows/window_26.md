@@ -32,6 +32,8 @@
 - [战斗目标选择依赖 SPEC（2026-09-28）](shared_battle.md#evidence-078)
 - [窗口10：技能、技术与宠物技能](window_10.md)
 - [窗口27：战斗物品](window_27.md)
+- [窗口28：战斗宠物切换](window_28.md)
+- [命令初始化与倒计时](shared_battle.md#command-countdown)
 
 <a id="evidence-188"></a>
 

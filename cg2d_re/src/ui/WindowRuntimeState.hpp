@@ -172,6 +172,16 @@ std::int32_t Sub_497C80(std::int32_t index, std::int32_t state); // 转生可见
 void Sub_497E30(std::int32_t technique); // 宠物命令，保留重复查询与负参数略过。
 void Sub_497FF0(std::int32_t technique); // 骑乘命令，清选择模式并保留骑乘快照写序。
 std::int32_t Sub_498160(std::int32_t index, std::int32_t state); // 宠物/骑乘技能窗开关。
+void Sub_4982C0(); // 完整倒计时/超时发送，本帧超时后仍绘制。
+void Sub_496570(); // 五宠物四项CryptInt快照，唯一CF4B78数组生产。
+void Sub_4965D0(); // 战斗对象四值更新，保留独立5ABBFC及原空值门禁。
+std::int32_t Sub_49B630(std::int32_t unused); // 窗口28归还按钮显隐。
+std::int32_t Sub_49BA10(std::int32_t index, std::int32_t state); // 窗口28宠物归还M|FF。
+std::int32_t Sub_49BB00(std::int32_t index, std::int32_t state); // 窗口28三条宠物选择行。
+void Sub_49B670(
+    std::int16_t x, std::int16_t y, std::int32_t petIndex,
+    std::uint8_t textLayer, std::int32_t graphicLayer,
+    const render::GraphicDescriptor16* descriptor); // 快照数值与宠物属性行，唯一caller弃返回。
 std::int32_t Sub_47B110(std::int32_t index, std::int32_t state); // 固定入口窗口的返回按钮。
 std::int32_t Sub_47B210(std::int32_t index, std::int32_t state); // 转生开关，发送后改同源占用字节。
 std::int32_t Sub_47C950(std::int32_t index, std::int32_t state); // 无可用宠物技能时略过，通知-1。

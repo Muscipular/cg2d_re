@@ -127,7 +127,6 @@ std::int32_t Sub_4996C0(std::int32_t value);
 std::int32_t Sub_499790(std::int32_t value);
 std::int32_t Sub_499990(std::int32_t value);
 std::int32_t Sub_4999D0(std::int32_t value);
-std::int32_t Sub_49B630(std::int32_t value);
 std::int32_t Sub_49BD40(std::int32_t value);
 std::int32_t Sub_49C710(std::int32_t value);
 std::int32_t Sub_49CAD0(std::int32_t value);

@@ -474,6 +474,16 @@ std::array<char, 20> gSkillTargetNameD2F748 {};
 
 namespace {
 
+// 原CF4B78五条独立战斗数值快照；只含S32，不与World宠物CryptInt存储合并。
+struct BattlePetVitals {
+    std::int32_t hp;
+    std::int32_t maxHp;
+    std::int32_t fp;
+    std::int32_t maxFp;
+};
+static_assert(sizeof(BattlePetVitals) == 0x10);
+std::array<BattlePetVitals, 5> gBattlePetVitalsCF4B78 {};
+
 // 窗口45借用调用者的两张表；待安装回调与当前回调是两个独立原槽。
 const char* const* gTextChoiceNamesD30130 = nullptr;
 const std::uint8_t* gTextChoiceColorsCB1E18 = nullptr;
@@ -28429,6 +28439,298 @@ std::int32_t Sub_498160(const std::int32_t index, const std::int32_t state)
             gBattlePetSkillWindowActionCC423C = nullptr;
         }
     }
+    return consumed;
+}
+
+void Sub_4982C0()
+{
+    using namespace world::detail;
+    const std::uint32_t tick = platform::ReadTickCount32();
+    std::int32_t remaining = std::bit_cast<std::int32_t>(gBattleCommandDeadline5ABBF8 - tick);
+    if (gBattleCountdownActive5ABCB8 == 0) {
+        return;
+    }
+    if (remaining <= 0) {
+        gBattleCountdownActive5ABCB8 = 0;
+        remaining = 0;
+        login::detail::FlushBattleEntries_43C060();
+        Sub_496AE0();
+        login::YobiAction* const player = gBattleEntries59E980[gBattleCurrentPosition5ABCA4];
+        bool finish = false;
+        if (*login::detail::BorrowBattleRiderSlot13C8(player) != nullptr) {
+            static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, "W|FF"));
+            finish = true;
+        } else {
+            std::uint8_t flags = static_cast<std::uint8_t>(gBattlePlayerFlags5ABCAC);
+            const std::int32_t skillCount = gBattleSkillActionCount5ABBF4;
+            if ((flags & 0x20u) != 0) {
+                if (skillCount == 0 && (flags & 4u) == 0) {
+                    static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, "N"));
+                    finish = true;
+                }
+                if (gBattlePetActionCount5ABBBC == 0) {
+                    static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, "W|FF"));
+                    finish = true;
+                }
+            } else if (skillCount != 0 || (flags & 4u) == 0) {
+                if (skillCount == 0) {
+                    static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, "N"));
+                    static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, "N"));
+                    flags = static_cast<std::uint8_t>(gBattlePlayerFlags5ABCAC);
+                    finish = true;
+                }
+                if (gBattleSkillActionCount5ABBF4 == 1 && (flags & 4u) == 0) {
+                    static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, "N"));
+                    finish = true;
+                }
+            }
+        }
+        if (finish) {
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+            login::YobiAction* const action = gBattleCommandAction5ABC00;
+            world::gCurrentSceneState = 5;
+            login::detail::MarkDeath(action);
+            gBattleCommandAction5ABC00 = nullptr;
+        }
+    }
+    std::int32_t imageBase = 0x5690;
+    if (remaining < 10000) {
+        imageBase = 0x569A;
+        const std::int32_t seconds = remaining / 1000;
+        if (seconds != gBattleCountdownSecond5ABB80) {
+            static_cast<void>(audio::PlaySe_52C450(202, 320));
+            gBattleCountdownSecond5ABB80 = seconds;
+        }
+    }
+    std::array<char, 16> buffer;
+    std::sprintf(buffer.data(), "%2d", remaining / 1000);
+    for (std::int32_t index = 0; index < 2; ++index) {
+        if (buffer[index] != ' ') {
+            const std::int32_t digit =
+                std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(buffer[index]));
+            static_cast<void>(login::detail::DrawGraphic(
+                304 + index * 32, 240, 209, imageBase + digit - '0', 0, nullptr));
+        }
+    }
+    if (gBattleModeFlag5ABFCC == 1) {
+        const auto turn = std::bit_cast<std::int32_t>(gBattleTurnSnapshot5ABC08 + 1u);
+        std::sprintf(buffer.data(), "\xB2\xC4 %d \xA6\x5E\xA6\x58", turn);
+        static_cast<void>(render::DrawText3_456560(288, 180, 0, 4, buffer.data(), 0));
+    }
+}
+
+void Sub_496570()
+{
+    if (world::detail::gBattleCurrentPosition5ABCA4 >= 20) {
+        return;
+    }
+    for (std::size_t index = 0; index < gBattlePetVitalsCF4B78.size(); ++index) {
+        auto& pet = world::detail::gPetRuntimeF633F8[index];
+        gBattlePetVitalsCF4B78[index].hp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[0]);
+        gBattlePetVitalsCF4B78[index].maxHp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[1]);
+        gBattlePetVitalsCF4B78[index].fp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[2]);
+        gBattlePetVitalsCF4B78[index].maxFp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[3]);
+    }
+}
+
+void Sub_4965D0()
+{
+    using namespace world::detail;
+    const std::int32_t position = gBattleCurrentPosition5ABCA4;
+    if (position >= 20 || gBattleSnapshotPetIndex5ABBFC < 0) {
+        return;
+    }
+    const std::int32_t petPosition = GetBattlePetPosition_405B40(position);
+    login::YobiAction* const player = gBattleEntries59E980[gBattleCurrentPosition5ABCA4];
+    if (player == nullptr) {
+        return;
+    }
+    login::YobiAction* const* const rider = login::detail::BorrowBattleRiderSlot13C8(player);
+    if (rider == nullptr || *rider != nullptr) {
+        return;
+    }
+    const std::int32_t hp = login::detail::ReadYobiActionHpOnce(gBattleEntries59E980[petPosition]);
+    gBattlePetVitalsCF4B78[gBattleSnapshotPetIndex5ABBFC].hp = hp;
+    const std::int32_t maxHp = login::detail::ReadYobiActionMaxHpOnce(gBattleEntries59E980[petPosition]);
+    const std::int32_t maxHpIndex = gBattleSnapshotPetIndex5ABBFC;
+    login::YobiAction* const fpAction = gBattleEntries59E980[petPosition];
+    gBattlePetVitalsCF4B78[maxHpIndex].maxHp = maxHp;
+    const std::int32_t fp = login::detail::ReadYobiActionFpOnce(fpAction);
+    gBattlePetVitalsCF4B78[gBattleSnapshotPetIndex5ABBFC].fp = fp;
+    const std::int32_t maxFp = login::detail::ReadYobiActionMaxFpOnce(gBattleEntries59E980[petPosition]);
+    gBattlePetVitalsCF4B78[gBattleSnapshotPetIndex5ABBFC].maxFp = maxFp;
+}
+
+std::int32_t Sub_49B630(const std::int32_t)
+{
+    gCurrentWindow->elements[1].visible = 0;
+    if (world::detail::Sub_43C4B0() != -1) {
+        gCurrentWindow->elements[1].visible = 1;
+    }
+    return 1;
+}
+
+std::int32_t Sub_49BA10(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    std::int32_t consumed = 0;
+    if ((state & 1) != 0) {
+        std::strcpy(gHoverTextD68AE8.data(),
+            "\xC5\xFD\xB3\x6F\xB0\xA6\xC3\x64\xAA\xAB\xC2\x6B\xC1\xD9\xA1\x43");
+    }
+    if ((state & 2) != 0) {
+        if (world::detail::Sub_43C4B0() != -1) {
+            std::array<char, 256> buffer;
+            std::sprintf(buffer.data(), "M|%X", 255u);
+            static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, buffer.data()));
+            gCurrentWindow->state |= 0x8000u;
+            world::detail::gBattlePlayerActionState5ABC74 = 1;
+            static_cast<void>(audio::PlaySe_52C450(57, 320));
+        }
+        consumed = 1;
+    }
+    graphic->imageNo = 0x3BA76;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3BA78;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 0x3BA77;
+    }
+    return consumed;
+}
+
+void Sub_49B670(
+    const std::int16_t x, const std::int16_t y, const std::int32_t petIndex,
+    const std::uint8_t textLayer, const std::int32_t graphicLayer,
+    const render::GraphicDescriptor16* const descriptor)
+{
+    std::int32_t battleImage = 0x3B58D;
+    std::int32_t readyImage = 0x3B58A;
+    const auto& pet = world::detail::gPetRuntimeF633F8[petIndex];
+    if (pet.used == 1 && (pet.flags6AA == 1 || pet.flags6AA == 2)) {
+        static_cast<void>(render::ClearTextQueueTail_456D50(textLayer));
+        static_cast<void>(render::DrawText_456780(
+            0, 0, textLayer, 8, 0, input::LegacyText593850(), 0, 0));
+        const auto drawText = [&](const char* const text, const std::int32_t dx, const std::int32_t dy) {
+            static_cast<void>(render::DrawText_456780(
+                std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + dx)),
+                std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + dy)),
+                textLayer, 8, 0, text, 0, 0));
+        };
+        drawText(pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data(), 10, 5);
+        std::array<char, 256> buffer;
+        std::sprintf(buffer.data(), "%3d", pet.value08);
+        drawText(buffer.data(), 140, 5);
+        const std::int32_t tribe = std::bit_cast<std::int16_t>(pet.value04);
+        if (tribe >= 0 && tribe < 20) {
+            drawText(gTribeNames57CB54[tribe], 130, 19);
+        }
+        const std::int32_t maxHp = gBattlePetVitalsCF4B78[petIndex].maxHp;
+        const std::int32_t hp = gBattlePetVitalsCF4B78[petIndex].hp;
+        std::sprintf(buffer.data(), "%6d/%6d", hp, maxHp);
+        drawText(buffer.data(), 35, 19);
+        const std::int32_t maxFp = gBattlePetVitalsCF4B78[petIndex].maxFp;
+        const std::int32_t fp = gBattlePetVitalsCF4B78[petIndex].fp;
+        std::sprintf(buffer.data(), "%6d/%6d", fp, maxFp);
+        drawText(buffer.data(), 35, 32);
+        for (std::int32_t row = 0; row < 4; ++row) {
+            const std::int32_t segments = pet.values70[21 + row] / 10;
+            const auto& images = gPetBarImages57E434[row];
+            const std::int32_t barY = y + 6 + row * 10;
+            if (segments > 1) {
+                static_cast<void>(render::DrawGraphic3_520970(
+                    x + 175, barY, graphicLayer, images[0], 0, 1, 0, descriptor));
+                std::int32_t barX = x + 181;
+                for (std::int32_t middle = 0; middle < segments - 2; ++middle) {
+                    static_cast<void>(render::DrawGraphic3_520970(
+                        barX, barY, graphicLayer, images[1], 0, 1, 0, descriptor));
+                    barX += 6;
+                }
+                static_cast<void>(render::DrawGraphic3_520970(
+                    barX, barY, graphicLayer, images[2], 0, 1, 0, descriptor));
+            } else if (segments == 1) {
+                static_cast<void>(render::DrawGraphic3_520970(
+                    x + 175, barY, graphicLayer, images[3], 0, 1, 0, descriptor));
+            }
+        }
+        const std::uint16_t flags = pet.flags6AA;
+        if (flags == 2) {
+            battleImage = 0x3B58C;
+        }
+        if (flags == 1) {
+            readyImage = 0x3B589;
+        }
+    }
+    static_cast<void>(render::DrawGraphic3_520970(
+        x + 241, y + 6, graphicLayer, battleImage, 0, 1, 0, descriptor));
+    static_cast<void>(render::DrawGraphic3_520970(
+        x + 267, y + 25, graphicLayer, readyImage, 0, 1, 0, descriptor));
+    static_cast<void>(render::DrawGraphic3_520970(
+        x, y, graphicLayer, 0x3B5C4, 0, 1, 0, descriptor));
+}
+
+std::int32_t Sub_49BB00(const std::int32_t index, const std::int32_t state)
+{
+    WindowInstance* const window = gCurrentWindow;
+    const WindowElement* const element = window->elements + index;
+    const auto x = std::bit_cast<std::int16_t>(
+        static_cast<std::uint16_t>(static_cast<std::uint16_t>(window->x)
+            + static_cast<std::uint16_t>(element->x)));
+    const auto y = std::bit_cast<std::int16_t>(
+        static_cast<std::uint16_t>(static_cast<std::uint16_t>(window->y)
+            + static_cast<std::uint16_t>(element->y)));
+    render::GraphicDescriptor16 descriptor {};
+    const std::uint32_t color = 0xFFFFFFFFu;
+    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    descriptor.bytes[13] = 4;
+    std::int32_t selected = -1;
+    std::int32_t visible = -1;
+    for (const auto& pair : world::detail::gPetPairsDE0B08) {
+        const std::int32_t petIndex = std::bit_cast<std::int16_t>(pair.index);
+        const auto& pet = world::detail::gPetRuntimeF633F8[petIndex];
+        if (pet.used == 1 && (pet.flags6AA == 1 || pet.flags6AA == 2)) {
+            ++visible;
+        }
+        if (visible == index - 2) {
+            selected = petIndex;
+            break;
+        }
+    }
+    if (selected < 0) {
+        return 0;
+    }
+    std::int32_t consumed = 0;
+    const auto& pet = world::detail::gPetRuntimeF633F8[selected];
+    if (pet.used == 1) {
+        std::uint16_t flags = pet.flags6AA;
+        if (flags == 1 || flags == 2) {
+            if ((state & 1) != 0) {
+                Sub_485110(window->elements + index, state, login::detail::gValueD69768);
+                flags = pet.flags6AA;
+                if (flags != 2) {
+                    const char* const hint = gBattlePetVitalsCF4B78[selected].hp > 0
+                        ? "\xA5\x6C\xB3\xEA\xC3\x64\xAA\xAB\xA1\x43"
+                        : "\xB3\x6F\xB0\xA6\xC3\x64\xAA\xAB\xA9\xFC\xAD\xCB\xA4\x46\xA1\x43";
+                    std::strcpy(gHoverTextD68AE8.data(), hint);
+                }
+            }
+            if ((state & 2) != 0) {
+                if (gBattlePetVitalsCF4B78[selected].hp <= 0 || flags == 2) {
+                    static_cast<void>(audio::PlaySe_52C450(55, 320));
+                } else {
+                    std::array<char, 256> buffer;
+                    std::sprintf(buffer.data(), "M|%X", static_cast<std::uint32_t>(selected));
+                    static_cast<void>(network::SendBattlePacket_5109B0(
+                        platform::gConnectionSocket, buffer.data()));
+                    gCurrentWindow->state |= 0x8000u;
+                    world::detail::gBattlePlayerActionState5ABC74 = 1;
+                    static_cast<void>(audio::PlaySe_52C450(57, 320));
+                }
+                consumed = 1;
+            }
+        }
+    }
+    Sub_49B670(x, y, selected, 3, 223, &descriptor);
     return consumed;
 }
 

@@ -251,12 +251,15 @@ YobiAction* MarkDeath(YobiAction* action);
 
 // 原43BFF0：场景10且回合一致时，按结束位给同源20槽非空对象flags置40H。
 void Sub_43BFF0();
+void Sub_43C040(); // 命令初始化逐槽清flags bit40，不改变其他位或对象生命周期。
 // 原43C560：发布目标标志，依原序按HP/阵营选择并处理前后排遮挡。
 std::int32_t CheckBattleCommand_43C560(std::int32_t position, std::uint32_t flags);
 // 原43C060：逐槽清选择位、置绘制位及cacheIndex=-2，不销毁对象。
 void FlushBattleEntries_43C060();
 // 原战斗载荷+106C字段借用；空载荷返空，497C80仅在入口检查，点击后按原路径直接读取。
 const std::int32_t* BorrowBattleRebirthState106C(const YobiAction* action) noexcept;
+// 原战斗载荷+13C8的非拥有Yobi引用槽；载荷空返空，调用方保留各自原门禁。
+YobiAction* const* BorrowBattleRiderSlot13C8(const YobiAction* action) noexcept;
 
 // 原 YobiClearUp@[0x404D30,0x404D5B) 与 sub_404D60@[0x404D60,0x404D85)。
 void YobiClearUp_404D30();
@@ -301,6 +304,8 @@ bool IsYobiActionFpLessThan(YobiAction* action, std::int32_t cost);
 bool IsYobiActionFpGreaterEqual(YobiAction* action, std::int32_t cost);
 std::int32_t ReadYobiActionFpOnce(YobiAction* action); // 原+1B0，47A7A0每次显示单独读取。
 std::int32_t ReadYobiActionMaxFpOnce(YobiAction* action); // 原+1C0，先于当前FP读取。
+std::int32_t ReadYobiActionHpOnce(YobiAction* action); // 原+170，4965D0单次读取后发布宠物快照。
+std::int32_t ReadYobiActionMaxHpOnce(YobiAction* action); // 原+180，与HP读取分开。
 
 // 原 +5C/+60：队列绘制按轴读取 F32，不向 render 暴露 action 布局。
 float GetYobiActionScaleX(const YobiAction* action) noexcept;

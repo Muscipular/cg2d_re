@@ -269,6 +269,7 @@ constexpr const SceneEffectFrame* const* kFrameGroups554570[] {
 struct BattleActorPayload {
     std::uint32_t flagsFDC;
     std::int32_t rebirthState106C; // 497C80悬停借用、点击刷新后重取。
+    YobiAction* rider13C8; // 4222B0保存4221F0创建的非拥有引用，移除时MarkDeath再清槽。
 };
 
 struct YobiUIData {
@@ -5756,6 +5757,15 @@ void Sub_43BFF0()
     }
 }
 
+void Sub_43C040()
+{
+    for (YobiAction* const action : world::detail::gBattleEntries59E980) {
+        if (action != nullptr) {
+            action->flags &= ~0x40u;
+        }
+    }
+}
+
 std::int32_t CheckBattleCommand_43C560(
     const std::int32_t position, const std::uint32_t flags)
 {
@@ -5878,6 +5888,12 @@ const std::int32_t* BorrowBattleRebirthState106C(const YobiAction* const action)
 {
     const auto* const payload = static_cast<const BattleActorPayload*>(action->payload);
     return payload != nullptr ? &payload->rebirthState106C : nullptr;
+}
+
+YobiAction* const* BorrowBattleRiderSlot13C8(const YobiAction* const action) noexcept
+{
+    const auto* const payload = static_cast<const BattleActorPayload*>(action->payload);
+    return payload != nullptr ? &payload->rider13C8 : nullptr;
 }
 
 void YobiClearUp_404D30()
@@ -6883,6 +6899,16 @@ std::int32_t ReadYobiActionFpOnce(YobiAction* const action)
 std::int32_t ReadYobiActionMaxFpOnce(YobiAction* const action)
 {
     return platform::legacy_crypt_int::Read_401EC0(&action->barMaximum1C0);
+}
+
+std::int32_t ReadYobiActionHpOnce(YobiAction* const action)
+{
+    return platform::legacy_crypt_int::Read_401EC0(&action->readiness);
+}
+
+std::int32_t ReadYobiActionMaxHpOnce(YobiAction* const action)
+{
+    return platform::legacy_crypt_int::Read_401EC0(&action->maxHp);
 }
 
 std::int32_t Sub_517880(

@@ -107,6 +107,7 @@ std::int32_t gShopItemCountCB1E10 = 0;
 std::int32_t gShopReplyItemCountCF4B58 = 0;
 std::int32_t gShopImageD2DAD0 = 0;
 std::int32_t gValueD2D608 = 0;
+std::int32_t gDialogValueCF4E5C = 0;
 std::int32_t gShopDialogTypeCC3EC8 = 0;
 std::int32_t gShopValueCF467C = 0;
 std::array<std::int8_t, 20> gShopInventoryMapD2DAB8 {};
@@ -5561,6 +5562,237 @@ void Sub_49DDB0(const char* const text, std::int16_t x, std::int16_t y)
         }
     }
     Sub_49C510(1, imageNo, direction, x, y);
+}
+
+void Sub_49D2E0(
+    const std::int32_t type, const std::int32_t value, const std::int32_t request,
+    const std::int32_t target, char* const text)
+{
+    std::int32_t currentType = world::detail::gValue581800;
+    login::YobiAction* created = nullptr;
+    if (currentType >= 0) {
+        switch (request) {
+        case 326:
+        case 327:
+        case 369:
+        case 388:
+        case 389:
+        case 390:
+            if (type != 32) {
+                CloseWindowsByCategory_472240(2);
+                CloseWindowsByCategory_472240(3);
+                currentType = -1;
+                world::detail::gValue581800 = -1;
+            }
+            break;
+        default:
+            break;
+        }
+    }
+    bool enterNewType = false;
+    if (type == currentType) {
+        switch (currentType) {
+        case 21: {
+            world::detail::gValue581800 = type;
+            gDialogValueCF4E5C = value;
+            world::detail::gDialogRequestCC21E0 = request;
+            world::detail::gDialogTargetD2DE6C = target;
+            const std::int32_t y =
+                platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+            const std::int32_t x =
+                platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+            static_cast<void>(Sub_4D3020(x, y));
+            static_cast<void>(Sub_4B6970(value, text));
+            static_cast<void>(CreateWindowAnimation_475AA0(50, 1, 0, nullptr));
+            break;
+        }
+        case 23:
+        case 33:
+            if (Sub_4A84A0(text) != 0) {
+                if (gWindowStates[41].window != nullptr) {
+                    break;
+                }
+                created = login::detail::Sub_4ABEF0(type == 33 ? 1 : 0, request, target, 1, 0);
+                if (created != nullptr) {
+                    break;
+                }
+            }
+            if (gWindowStates[41].window == nullptr) {
+                enterNewType = true;
+            }
+            break;
+        case 34:
+            if (Sub_4A84A0(text) != 0) {
+                if (gWindowStates[38].window != nullptr) {
+                    break;
+                }
+                created = login::detail::Sub_4ACE80(0, request, target, 0, 1, 0);
+                if (created != nullptr) {
+                    break;
+                }
+            }
+            if (gWindowStates[38].window == nullptr) {
+                enterNewType = true;
+            }
+            break;
+        case 32:
+            if (gWindowStates[51].window == nullptr) {
+                enterNewType = true;
+            } else {
+                Sub_4AD470(text);
+            }
+            break;
+        default:
+            break;
+        }
+    }
+    if (!enterNewType && world::detail::gValue581800 >= 0) {
+        return;
+    }
+    world::detail::gValue581800 = type;
+    gDialogValueCF4E5C = value;
+    world::detail::gDialogRequestCC21E0 = request;
+    world::detail::gDialogTargetD2DE6C = target;
+    const std::int32_t y =
+        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+    const std::int32_t x =
+        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+    static_cast<void>(Sub_4D3020(x, y));
+    switch (type) {
+    case 0:
+    case 1:
+    case 2:
+    case 35:
+        static_cast<void>(Sub_49DF30(96, 108, 448, 240, 245300, value, request, target, text));
+        return;
+    case 10:
+    case 11:
+        static_cast<void>(Sub_49DF30(32, 12, 576, 432, 245300, value, request, target, text));
+        return;
+    case 5:
+        static_cast<void>(Sub_4A0140(text));
+        return;
+    case 6:
+        static_cast<void>(Sub_4B6E00(text));
+        return;
+    case 7:
+        static_cast<void>(Sub_4B70D0(text));
+        return;
+    case 16:
+        static_cast<void>(Sub_4A0640(text));
+        return;
+    case 17:
+        static_cast<void>(Sub_4BD540(text));
+        return;
+    case 18:
+        static_cast<void>(Sub_4BD680(text));
+        return;
+    case 19:
+        static_cast<void>(Sub_49E400(96, 108, 448, 240, 245300, value, request, target, text));
+        return;
+    case 20:
+        static_cast<void>(Sub_4B7AB0(text));
+        return;
+    case 21:
+        static_cast<void>(Sub_4B6970(value, text));
+        static_cast<void>(CreateWindowAnimation_475AA0(50, 1, 0, nullptr));
+        return;
+    case 22:
+        static_cast<void>(Sub_4B7EE0(text));
+        return;
+    case 23:
+    case 33:
+        if (Sub_4A84A0(text) != 0 && gWindowStates[41].window == nullptr) {
+            created = login::detail::Sub_4ABEF0(type == 33 ? 1 : 0, request, target, 1, 0);
+        }
+        if (created == nullptr && gWindowStates[41].window == nullptr) {
+            world::detail::gValue581800 = -1;
+        }
+        return;
+    case 24:
+        static_cast<void>(Sub_4BD810(text));
+        return;
+    case 25:
+        Sub_4BDD90(text);
+        return;
+    case 26:
+    case 44:
+        Sub_4BE200(text);
+        return;
+    case 27:
+        static_cast<void>(Sub_4A0790(text));
+        return;
+    case 28:
+        static_cast<void>(Sub_4B74E0(text));
+        return;
+    case 29:
+        static_cast<void>(Sub_4888C0(text));
+        return;
+    case 30:
+        static_cast<void>(Sub_4A0850(text));
+        return;
+    case 31:
+        static_cast<void>(Sub_4B77E0(text));
+        return;
+    case 32:
+        static_cast<void>(Sub_4AD180(request, target, text));
+        return;
+    case 34:
+        if (Sub_4A84A0(text) != 0 && gWindowStates[38].window == nullptr) {
+            created = login::detail::Sub_4ACE80(0, request, target, 0, 1, 0);
+        }
+        if (created == nullptr && gWindowStates[38].window == nullptr) {
+            world::detail::gValue581800 = -1;
+        }
+        return;
+    case 36:
+        static_cast<void>(Sub_4C5790(request, target, text));
+        return;
+    case 37:
+        static_cast<void>(Sub_4C6060(value, request, target, text));
+        return;
+    case 42:
+        static_cast<void>(Sub_4BDAD0(text));
+        return;
+    case 43:
+        Sub_4BDF70(text);
+        return;
+    case 45:
+        static_cast<void>(Sub_4A0300(text));
+        return;
+    case 46:
+        static_cast<void>(Sub_4C13B0(text));
+        return;
+    case 47:
+        static_cast<void>(Sub_4A04A0(text));
+        return;
+    case 48:
+        static_cast<void>(Sub_4C3550(text));
+        return;
+    default:
+        return;
+    }
+}
+
+void Sub_50E130(
+    const std::uintptr_t unusedSocket, const std::int32_t type, const std::int32_t value,
+    const std::int32_t request, const std::int32_t target, char* const text)
+{
+    static_cast<void>(unusedSocket);
+    if (value == -1) {
+        if (type != world::detail::gValue581800) {
+            return;
+        }
+        if (target != world::detail::gDialogTargetD2DE6C) {
+            return;
+        }
+        CloseWindowsByCategory_472240(3);
+        world::detail::gValue581800 = -1;
+        return;
+    }
+    Sub_49D2E0(type, value, request, target, text);
+    login::YobiAction* const action = world::detail::FindObjectYobi_4462B0(target);
+    world::detail::Sub_43D860(action);
 }
 
 login::YobiAction* Sub_49DF30(
@@ -19983,6 +20215,22 @@ login::YobiAction* CreateWindowAnimation_475AA0(
         y = gWindowStates[id].y;
     }
     return login::detail::Sub_475950(x, y, width, height, id, flags, mode, completionSlot);
+}
+
+void Sub_50E110(
+    const std::uintptr_t unusedSocket, const std::int32_t type, const std::int32_t value,
+    const std::int32_t request, const std::int32_t target, char* const text)
+{
+    if (world::detail::gValue9A6E0C != 0) {
+        return;
+    }
+    if (world::gValueD67E78 != 0) {
+        return;
+    }
+    if (world::ReadRippleGateOnce() != 0) {
+        return;
+    }
+    detail::Sub_50E130(unusedSocket, type, value, request, target, text);
 }
 
 void Sub_50E3C0(const std::uintptr_t, const char* const text)

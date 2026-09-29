@@ -35,6 +35,11 @@ void ConstructItemSelectors(); // 原CRT 55309C/5530A0，两静态选择对象�
 void DestroyItemSelectors(); // 两对象逆序析构，不释放其静态预览。
 void DrawCurrentWindow_4729B0(); // 严格visible==1的七类分派，尾部清文本层3并绘范围提示。
 
+// 对话BZ回复：三重门禁、关闭/完整路由及对象朝向，socket保持未使用实参。
+void Sub_50E110(
+    std::uintptr_t unusedSocket, std::int32_t type, std::int32_t value,
+    std::int32_t request, std::int32_t target, char* text);
+
 // 交易回复：按场景门禁后单次CryptInt门禁，socket由原dispatcher传入但不消费。
 void Sub_50E3C0(std::uintptr_t unusedSocket, const char* text); // 名单解析/回调生产与窗口44展开。
 void Sub_50E3F0(

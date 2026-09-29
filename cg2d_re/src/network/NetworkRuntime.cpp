@@ -4116,7 +4116,7 @@ std::int32_t NetworkDispatch_512E40(
     if (TryDispatchReply<Sub_50CF60, I>(head, "kg", socket)) return 0;
     if (TryDispatchReply<world::detail::Sub_50CF70, I, I>(head, "sA", socket)) return 0;
     if (TryDispatchReply<world::detail::Sub_50BFC0, I>(head, "Ov", socket)) return 0;
-    if (TryDispatchReply<Sub_50E110, I, I, I, I, T>(head, "BZ", socket)) return 0;
+    if (TryDispatchReply<ui::Sub_50E110, I, I, I, I, T>(head, "BZ", socket)) return 0;
     if (TryDispatchReply<world::detail::Sub_50E1A0, I, I, T>(head, "zzd", socket)) return 0;
     if (TryDispatchReply<world::detail::Sub_50E210, I>(head, "TFCu", socket)) return 0;
     if (TryDispatchReply<Sub_50E310, I>(head, "wiB", socket)) return 0;

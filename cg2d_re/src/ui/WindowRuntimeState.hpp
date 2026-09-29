@@ -482,6 +482,13 @@ std::int32_t Sub_49CE70(std::int32_t index, std::int32_t state); // 六按钮与
 std::int32_t Sub_49CF70(std::int32_t unusedIndex, std::int32_t state); // 输入行切换/文本行选择。
 std::int32_t Sub_49DA30(
     std::int32_t button, std::int32_t row, char* const* texts, std::uint8_t inputCount);
+void Sub_49D2E0(
+    std::int32_t type, std::int32_t value, std::int32_t request,
+    std::int32_t target, char* text); // 全部分派，保留同类续接后新建及原位文本。
+void Sub_50E130(
+    std::uintptr_t unusedSocket, std::int32_t type, std::int32_t value,
+    std::int32_t request, std::int32_t target, char* text); // 50E110门禁后原共享尾入口。
+extern std::int32_t gDialogValueCF4E5C; // 原第二协议参数；虚拟零S32，后续UI按位读取。
 void Sub_49DDB0(const char* text, std::int16_t x, std::int16_t y); // 内嵌g,标记原字节解析。
 login::YobiAction* Sub_49DF30(
     std::int32_t x, std::int32_t y, std::int32_t width, std::int32_t height,

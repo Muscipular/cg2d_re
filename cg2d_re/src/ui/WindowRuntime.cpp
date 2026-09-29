@@ -12491,6 +12491,253 @@ std::int32_t Sub_4B9310(const std::int32_t value)
     return 1;
 }
 
+std::int32_t Sub_4BA950(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    const bool hover = (state & 1) != 0;
+    std::int32_t consumed = 0;
+    if (hover) {
+        const auto mode = std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894[20]);
+        if (mode >= 0 && mode <= 5) {
+            std::strcpy(gHoverTextD68AE8.data(), kShopHints57E6C4[2]);
+        }
+    }
+    if ((state & 2) != 0) {
+        const std::int32_t target = world::detail::gDialogTargetD2DE6C;
+        const std::int32_t request = world::detail::gDialogRequestCC21E0;
+        const std::int32_t y =
+            platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+        const std::int32_t x =
+            platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+        static_cast<void>(network::Sub_512620(
+            platform::gConnectionSocket, x, y, request, target, 2, input::LegacyText593850()));
+        gCurrentWindow->state |= 0x8000u;
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+        consumed = 1;
+    }
+    graphic->imageNo = 245320;
+    if (hover) {
+        graphic->imageNo = 245322;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 245321;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_4BAD10(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    std::int32_t consumed = 0;
+    if ((state & 0x400) != 0) {
+        if (gShopScrollCC488C > 0) {
+            --gShopScrollCC488C;
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        } else {
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        }
+        const std::int32_t position = gShopScrollCC488C;
+        WindowInstance* const window = gCurrentWindow;
+        const std::int32_t maximum = gShopItemCountCB1E10 - 5;
+        static_cast<void>(Sub_4742C0(window->elements + index - 1, maximum, position));
+        switch (std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894[20])) {
+        case 0:
+            Sub_4B8310();
+            Sub_4B8670();
+            break;
+        case 1:
+        case 4:
+        case 5:
+            Sub_4B8780();
+            Sub_4B8B10();
+            break;
+        case 2:
+            Sub_4B8C90();
+            Sub_4B8FF0();
+            break;
+        default:
+            break;
+        }
+        consumed = 1;
+    }
+    graphic->imageNo = 243090;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 243092;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 243091;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_4BAE10(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    std::int32_t consumed = 0;
+    if ((state & 0x400) != 0) {
+        const std::int32_t oldMaximum = gShopItemCountCB1E10 - 5;
+        if (gShopScrollCC488C < oldMaximum) {
+            ++gShopScrollCC488C;
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        } else {
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        }
+        const std::int32_t position = gShopScrollCC488C;
+        const std::int32_t maximum = gShopItemCountCB1E10 - 5;
+        static_cast<void>(Sub_4742C0(gCurrentWindow->elements + index - 2, maximum, position));
+        switch (std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894[20])) {
+        case 0:
+            Sub_4B8310();
+            Sub_4B8670();
+            break;
+        case 1:
+        case 4:
+        case 5:
+            Sub_4B8780();
+            Sub_4B8B10();
+            break;
+        case 2:
+            Sub_4B8C90();
+            Sub_4B8FF0();
+            break;
+        default:
+            break;
+        }
+        consumed = 1;
+    }
+    graphic->imageNo = 243093;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 243095;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 243094;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_4BAF10(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    std::int32_t consumed = 0;
+    if ((state & 2) != 0) {
+        static_cast<void>(audio::PlaySe_52C450(gShopScrollCC488C > 0 ? 51 : 55, 320));
+        gShopScrollCC488C -= 5;
+        if (gShopScrollCC488C < 0) {
+            gShopScrollCC488C = 0;
+        }
+        const std::int32_t position = gShopScrollCC488C;
+        const std::int32_t maximum = gShopItemCountCB1E10 - 5;
+        static_cast<void>(Sub_4742C0(gCurrentWindow->elements + index - 3, maximum, position));
+        switch (std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894[20])) {
+        case 0:
+            Sub_4B8310();
+            Sub_4B8670();
+            break;
+        case 1:
+        case 4:
+        case 5:
+            Sub_4B8780();
+            Sub_4B8B10();
+            break;
+        case 2:
+            Sub_4B8C90();
+            Sub_4B8FF0();
+            break;
+        default:
+            break;
+        }
+        consumed = 1;
+    }
+    graphic->imageNo = 243030;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 243032;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 243031;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_4BB010(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    std::int32_t consumed = 0;
+    if ((state & 2) != 0) {
+        const std::int32_t oldMaximum = gShopItemCountCB1E10 - 5;
+        const bool canMove = oldMaximum > 0 && gShopScrollCC488C < oldMaximum;
+        static_cast<void>(audio::PlaySe_52C450(canMove ? 51 : 55, 320));
+        std::int32_t position = gShopScrollCC488C + 5;
+        const std::int32_t maximum = gShopItemCountCB1E10 - 5;
+        gShopScrollCC488C = position;
+        if (position > maximum) {
+            position = maximum;
+            gShopScrollCC488C = position;
+        }
+        if (position < 0) {
+            position = 0;
+            gShopScrollCC488C = position;
+        }
+        static_cast<void>(Sub_4742C0(gCurrentWindow->elements + index - 4, maximum, position));
+        switch (std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894[20])) {
+        case 0:
+            Sub_4B8310();
+            Sub_4B8670();
+            break;
+        case 1:
+        case 4:
+        case 5:
+            Sub_4B8780();
+            Sub_4B8B10();
+            break;
+        case 2:
+            Sub_4B8C90();
+            Sub_4B8FF0();
+            break;
+        default:
+            break;
+        }
+        consumed = 1;
+    }
+    graphic->imageNo = 243033;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 243035;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 243034;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_4BB130(const std::int32_t index, const std::int32_t state)
+{
+    if ((state & 0x21) != 0) {
+        const std::int32_t count = gShopItemCountCB1E10;
+        const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
+        const std::int32_t position = gShopScrollCC488C;
+        gShopScrollCC488C =
+            Sub_4743B0(gCurrentWindow->elements + index - 5, position, count - 5, wheel);
+        switch (std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894[20])) {
+        case 0:
+            Sub_4B8310();
+            Sub_4B8670();
+            break;
+        case 1:
+        case 4:
+        case 5:
+            Sub_4B8780();
+            Sub_4B8B10();
+            break;
+        case 2:
+            Sub_4B8C90();
+            Sub_4B8FF0();
+            break;
+        default:
+            break;
+        }
+    }
+    return 0;
+}
+
 std::int32_t Sub_4BBED0(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t item = gShopScrollCC488C + index - 52;

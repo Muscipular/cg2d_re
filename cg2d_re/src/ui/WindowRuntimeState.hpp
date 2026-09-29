@@ -252,6 +252,12 @@ void Sub_4B92C0(); // 模式3详情数值或全部28玩家物品的匹配数量�
 std::int32_t Sub_4BBED0(std::int32_t index, std::int32_t state); // 商品图标，仅hover内bit4翻页。
 std::int32_t Sub_4BC060(std::int32_t index, std::int32_t state); // 独立详情图标，bit4无hover门禁。
 std::int32_t Sub_4BC230(std::int32_t index, std::int32_t state); // 出售选择行，接kind9交换/取消/拖动。
+std::int32_t Sub_4BA950(std::int32_t index, std::int32_t state); // 取消发送command2，发送后关闭。
+std::int32_t Sub_4BAD10(std::int32_t index, std::int32_t state); // bit400向前一行，触边仍刷新。
+std::int32_t Sub_4BAE10(std::int32_t index, std::int32_t state); // bit400向后一行，触边仍刷新。
+std::int32_t Sub_4BAF10(std::int32_t index, std::int32_t state); // bit2向前五行，音效后重读位置。
+std::int32_t Sub_4BB010(std::int32_t index, std::int32_t state); // bit2向后五行，先上限后负值修正。
+std::int32_t Sub_4BB130(std::int32_t index, std::int32_t state); // 共享滚轮更新并刷新，恒返回0。
 void Sub_4B6C50(
     std::int32_t message, std::int32_t unused, std::int32_t sourceIndex); // kind9出售拖动生命周期。
 std::int32_t Sub_4B6DA0(std::int32_t sourceIndex); // 透传kind9注册返回。

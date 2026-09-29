@@ -48,6 +48,7 @@ struct YobiAction {
     union {
         YobiAction** completionSlot10; // 原+10，444260/4441A0的非拥有完成回写槽。
         YobiAction* observationParent10; // 同一原+10，43F290/43FE00的非拥有观察父节点。
+        YobiAction* battleAttachmentParent10; // 同一原+10，421F90骑乘/装备附件的非拥有父引用。
     };
     std::uint8_t priority;
     std::uint8_t displayPriority;
@@ -271,6 +272,7 @@ struct BattleActorPayload {
     std::int32_t y04;
     std::int32_t x08;
     std::int32_t y0C; // 43C9A0按(08-00,0C-04)计算朝向，不与对象坐标合并。
+    std::int32_t battlePosition18; // 4221F0/422A30/422B00复制到附件+1D4。
     std::array<BattleEntryEffectRecord, 200> effects1C; // 原16B效果记录，重置只写position。
     std::int32_t effectRunningC9C;
     std::int32_t effectCountCA0;
@@ -295,6 +297,9 @@ struct BattleActorPayload {
     std::array<std::int32_t, 200> queuedTargets1084; // 原[1084,13A4)，43B7F0追加值及哨兵。
     std::int32_t value13A4;
     std::int32_t queuedTargetCount13A8;
+    YobiAction* gear13B4; // 422C20主附件，非拥有引用。
+    std::array<YobiAction*, 2> auxiliaryGear13B8; // 原13B8/13BC，422C90的0/1槽。
+    std::array<std::int32_t, 2> auxiliaryGearTypes13C0; // 原13C0/13C4，清附件不清类型。
     YobiAction* rider13C8; // 4222B0保存4221F0创建的非拥有引用，移除时MarkDeath再清槽。
 };
 static_assert(sizeof(BattleEntryEffectRecord) == 16);
@@ -5885,6 +5890,222 @@ YobiAction* MarkDeath(YobiAction* const action)
         action->deathFlag = 1;
     }
     return action;
+}
+
+void UpdateBattleAttachment_421F90(YobiAction* const action)
+{
+    if (world::detail::gBattleAllEntries59E980[action->value1D4]
+        != action->battleAttachmentParent10) {
+        static_cast<void>(MarkDeath(action));
+    }
+}
+
+YobiAction* NewBattleRider_4221F0(YobiAction* const parent, const std::int32_t imageNo)
+{
+    YobiAction* const action = NewYobiAction_404AE0(2, 0);
+    if (action == nullptr) {
+        return nullptr;
+    }
+    const std::uint32_t flags = action->flags;
+    action->imageNo = imageNo;
+    action->callback = UpdateBattleAttachment_421F90;
+    action->flags = flags | 0x860040u;
+    action->characterAction = 0;
+    action->framePlayingRate = 100;
+    action->value54 = 3.0F;
+    const std::int32_t direction = parent->direction;
+    action->displayPriority = 9;
+    action->direction = direction;
+    action->phase = 0;
+    action->field270 = 1;
+    action->battleAttachmentParent10 = parent;
+    action->value1D4 = static_cast<const BattleActorPayload*>(parent->payload)->battlePosition18;
+    static_cast<void>(PlayFrame_517DA0(action, 0));
+    YobiAction* const source = action->battleAttachmentParent10;
+    const std::int32_t x = static_cast<std::int32_t>(source->offset40);
+    action->x = x + static_cast<std::int32_t>(gYobiScreenOffsetX);
+    const std::int32_t y = static_cast<std::int32_t>(source->offset44);
+    action->y = y + static_cast<std::int32_t>(gYobiScreenOffsetY);
+    return action;
+}
+
+YobiAction* NewBattleGear_422A30(YobiAction* const parent, const std::int32_t imageNo)
+{
+    if (parent == nullptr) {
+        return nullptr;
+    }
+    YobiAction* const action = NewYobiAction_404AE0(2, 0);
+    if (action == nullptr) {
+        return nullptr;
+    }
+    const std::uint32_t flags = action->flags | 0x860040u;
+    action->callback = UpdateBattleAttachment_421F90;
+    action->flags = flags;
+    action->imageNo = imageNo;
+    action->characterAction = 0;
+    action->framePlayingRate = 100;
+    action->value54 = 3.0F;
+    action->direction = parent->direction;
+    action->displayPriority = 9;
+    action->phase = 0;
+    action->field270 = 2;
+    action->battleAttachmentParent10 = parent;
+    action->value1D4 = static_cast<const BattleActorPayload*>(parent->payload)->battlePosition18;
+    static_cast<void>(PlayFrame_517DA0(action, 0));
+    YobiAction* const source = action->battleAttachmentParent10;
+    const std::int32_t x = static_cast<std::int32_t>(source->offset40);
+    action->x = x + static_cast<std::int32_t>(gYobiScreenOffsetX);
+    const std::int32_t y = static_cast<std::int32_t>(source->offset44);
+    action->y = y + static_cast<std::int32_t>(gYobiScreenOffsetY);
+    return action;
+}
+
+YobiAction* NewBattleAuxGear_422B00(
+    YobiAction* const parent, const std::int32_t imageNo, const std::int16_t sortIndex)
+{
+    if (parent == nullptr) {
+        return nullptr;
+    }
+    YobiAction* const action = NewYobiAction_404AE0(2, 0);
+    if (action == nullptr) {
+        return nullptr;
+    }
+    action->callback = UpdateBattleAttachment_421F90;
+    const std::uint32_t flags = parent->flags;
+    action->imageNo = imageNo;
+    action->flags = flags;
+    action->characterAction = 0;
+    action->framePlayingRate = 100;
+    action->value54 = 3.0F;
+    const std::int32_t direction = parent->direction;
+    action->displayPriority = 9;
+    action->direction = direction;
+    action->phase = 0;
+    action->battleAttachmentParent10 = parent;
+    const std::int32_t position = static_cast<const BattleActorPayload*>(parent->payload)->battlePosition18;
+    action->field270 = static_cast<std::uint16_t>(sortIndex);
+    action->value1D4 = position;
+    static_cast<void>(PlayFrame_517DA0(action, 0));
+    YobiAction* const source = action->battleAttachmentParent10;
+    const std::int32_t x = static_cast<std::int32_t>(source->offset40);
+    action->x = x + static_cast<std::int32_t>(gYobiScreenOffsetX);
+    const std::int32_t y = static_cast<std::int32_t>(source->offset44);
+    action->y = y + static_cast<std::int32_t>(gYobiScreenOffsetY);
+    return action;
+}
+
+std::int32_t SetBattleRider_4222B0(
+    YobiAction* const action, const std::int32_t imageNo, const std::int32_t ridingImageNo)
+{
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    if (ridingImageNo > 0) {
+        if (payload->rider13C8 == nullptr) {
+            const std::int32_t mapped = world::detail::Sub_51C0D0(imageNo);
+            YobiAction* const rider = NewBattleRider_4221F0(action, mapped);
+            payload->rider13C8 = rider;
+            rider->phase = 0;
+            payload->rider13C8->field58 = 0;
+            payload->rider13C8->characterAction = 0;
+        }
+        if (payload->rider13C8 != nullptr) {
+            const std::int32_t mapped = world::detail::Sub_51C0D0(imageNo);
+            payload->rider13C8->imageNo = mapped;
+        }
+        action->imageNo = ridingImageNo;
+        return ridingImageNo;
+    }
+    if (payload->rider13C8 != nullptr) {
+        payload->rider13C8->phase = 0;
+        payload->rider13C8->field58 = 0;
+        static_cast<void>(MarkDeath(payload->rider13C8));
+        payload->rider13C8 = nullptr;
+    }
+    action->imageNo = imageNo;
+    return imageNo;
+}
+
+void SetBattleGear_422C20(
+    YobiAction* const action, const std::int32_t imageNo, const std::int32_t index)
+{
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    if (imageNo > 0) {
+        if (payload->gear13B4 == nullptr) {
+            payload->gear13B4 = NewBattleGear_422A30(action, imageNo);
+        }
+        if (payload->gear13B4 != nullptr) {
+            payload->gear13B4->imageNo = imageNo;
+        }
+    } else if (payload->gear13B4 != nullptr && index == 0) {
+        static_cast<void>(MarkDeath(payload->gear13B4));
+        payload->gear13B4 = nullptr;
+    }
+}
+
+void SetBattleAuxGear_422C90(
+    YobiAction* const action, const std::int32_t imageNo,
+    const std::int32_t type, const std::int32_t index)
+{
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    if (imageNo <= 0) {
+        if (type > 0) {
+            if (payload->auxiliaryGear13B8[0] != nullptr) {
+                static_cast<void>(MarkDeath(payload->auxiliaryGear13B8[0]));
+                payload->auxiliaryGear13B8[0] = nullptr;
+            }
+            if (payload->auxiliaryGear13B8[1] != nullptr) {
+                static_cast<void>(MarkDeath(payload->auxiliaryGear13B8[1]));
+                payload->auxiliaryGear13B8[1] = nullptr;
+            }
+        }
+        return;
+    }
+    if (index == 1 && type >= 3 && type <= 5
+        && payload->auxiliaryGearTypes13C0[0] >= 3 && payload->auxiliaryGearTypes13C0[0] <= 5) {
+        static_cast<void>(MarkDeath(payload->auxiliaryGear13B8[0]));
+        payload->auxiliaryGear13B8[0] = nullptr;
+    }
+    // 原两caller只传0/1；不模拟其他index把图号当地址的异常路径。
+    YobiAction** const slot = &payload->auxiliaryGear13B8[index];
+    payload->auxiliaryGearTypes13C0[index] = type;
+    switch (type) {
+    case 1:
+        if (*slot == nullptr) {
+            *slot = NewBattleAuxGear_422B00(action, imageNo, -1);
+        }
+        if (*slot != nullptr) {
+            (*slot)->imageNo = imageNo;
+        }
+        return;
+    case 2:
+        if (*slot == nullptr) {
+            *slot = NewBattleAuxGear_422B00(action, imageNo, 3);
+        }
+        if (*slot != nullptr) {
+            (*slot)->imageNo = imageNo;
+        }
+        return;
+    case 3:
+    case 4:
+    case 5:
+        if (*slot == nullptr) {
+            YobiAction* const gear = NewBattleAuxGear_422B00(action, imageNo, 0);
+            *slot = gear;
+            const float scale = type == 3 ? 0.25F : (type == 4 ? 0.5F : 0.75F);
+            gear->scaleX = scale;
+            (*slot)->scaleY = scale;
+        }
+        if (*slot != nullptr) {
+            (*slot)->imageNo = imageNo;
+        }
+        return;
+    case 6:
+        if (*slot == nullptr) {
+            *slot = NewBattleAuxGear_422B00(action, imageNo, 3);
+        }
+        return;
+    default:
+        return;
+    }
 }
 
 std::int32_t GetBattleMHeader_439070(char* const destination)

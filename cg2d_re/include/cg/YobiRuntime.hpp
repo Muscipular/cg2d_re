@@ -271,6 +271,17 @@ std::int32_t GetBattleMObjectHeader_423960(YobiAction* action, char* destination
 void FinishBattleEvent_43B6C0(YobiAction* action); // 推进同一事件消息或注销当前槽后MarkDeath。
 void AppendBattleQueuedTarget_43B7F0(YobiAction* action, std::int32_t value);
 std::int32_t GetBattleValueBand_43BF00(std::int32_t value); // 原1..15按五阈值分档，范围外-1。
+void UpdateBattleAttachment_421F90(YobiAction* action); // 父战斗槽身份变化时只标死附件。
+YobiAction* NewBattleRider_4221F0(YobiAction* parent, std::int32_t imageNo);
+YobiAction* NewBattleGear_422A30(YobiAction* parent, std::int32_t imageNo);
+YobiAction* NewBattleAuxGear_422B00(
+    YobiAction* parent, std::int32_t imageNo, std::int16_t sortIndex);
+std::int32_t SetBattleRider_4222B0(
+    YobiAction* action, std::int32_t imageNo, std::int32_t ridingImageNo);
+void SetBattleGear_422C20(YobiAction* action, std::int32_t imageNo, std::int32_t index);
+// 原两caller的index均0/1；type6不更新已有图号，type3..5仅首次创建设置缩放。
+void SetBattleAuxGear_422C90(
+    YobiAction* action, std::int32_t imageNo, std::int32_t type, std::int32_t index);
 
 // 原1C起的16B效果值记录；仅传数值，不含底层对象指针。
 struct BattleEntryEffectRecord {

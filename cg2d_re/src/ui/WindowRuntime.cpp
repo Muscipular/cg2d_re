@@ -28081,6 +28081,179 @@ std::int32_t Sub_47A620(const std::int32_t value)
     return 1;
 }
 
+std::int32_t Sub_47A7A0(const std::int32_t)
+{
+    WindowElement* const elements = gCurrentWindow->elements;
+    const auto* const mouse = static_cast<const WindowMouseData*>(elements[11].data);
+    elements[10].visible = 0;
+    std::int32_t mode = gSkillWindowModeD672AC;
+    if (mode >= 0 && mode <= 5 && gSkillWindowMaximumCA000C > 0) {
+        gCurrentWindow->elements[10].visible = 1;
+        mode = gSkillWindowModeD672AC;
+    }
+    std::int32_t position;
+    if ((mouse->flags & 1u) != 0) {
+        WindowInstance* const window = gCurrentWindow;
+        const std::int32_t maximum = gSkillWindowMaximumCA000C;
+        position = Sub_474270(&window->elements[11], maximum);
+        mode = gSkillWindowModeD672AC;
+        gSkillWindowScrollD2D648 = position;
+    } else {
+        position = gSkillWindowScrollD2D648;
+    }
+    char buffer[256];
+    const auto drawDescription = [&](const char* text, const std::int32_t line, const std::int32_t columns) {
+        if (input::ExtractLegacyLine_503AB0(buffer, 256, text, line, columns) != 0) {
+            const WindowInstance* const window = gCurrentWindow;
+            const auto y = static_cast<std::int16_t>(window->y + 208 + 12 * line);
+            const auto x = static_cast<std::int16_t>(window->x + 23);
+            static_cast<void>(render::DrawText_456780(x, y, 3, 12, 0, buffer, 0, 0));
+        }
+    };
+    switch (mode) {
+    case 0:
+    case 3: {
+        if (mode == 0) {
+            std::int32_t count = 0;
+            for (std::int32_t index = 0; index < 15; ++index) {
+                if (world::detail::gSkillPairsF63370[index].used != 0) {
+                    ++count;
+                }
+            }
+            gSkillWindowMaximumCA000C = count - 10;
+            if (gSkillWindowMaximumCA000C < 0) {
+                gSkillWindowMaximumCA000C = 0;
+            }
+            if (position > gSkillWindowMaximumCA000C) {
+                gSkillWindowScrollD2D648 = gSkillWindowMaximumCA000C;
+            }
+        }
+        std::strcpy(static_cast<WindowTextData*>(gCurrentWindow->elements[1].data)->text,
+            world::detail::BorrowPlayerJobName());
+        std::int32_t usedSlots = 0;
+        for (std::int32_t index = 0; index < 15; ++index) {
+            if (world::detail::gSkillPairsF63370[index].used != 0) {
+                const auto skill = std::bit_cast<std::int16_t>(world::detail::gSkillPairsF63370[index].index);
+                const auto* const record = &world::detail::gSkillsF1BAFC[skill];
+                if (mode == 3) {
+                    const std::int32_t kind = record->canRebirth;
+                    if (kind != 0 && kind != 5) {
+                        continue;
+                    }
+                }
+                usedSlots += std::bit_cast<std::int8_t>(record->requiredSlots19[0]);
+            }
+        }
+        const std::int32_t totalSlots = world::detail::ReadPlayerValue16C();
+        std::sprintf(buffer, "%2d/%2d", usedSlots, totalSlots);
+        std::strcpy(static_cast<WindowTextData*>(gCurrentWindow->elements[3].data)->text, buffer);
+        break;
+    }
+    case 1:
+    case 4: {
+        const auto* record = &world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
+        if (mode == 1) {
+            std::int32_t count = 0;
+            while (count < 15 && record->techniques3C[count].name[0] != '\0') {
+                ++count;
+            }
+            gSkillWindowMaximumCA000C = count - 10;
+            if (gSkillWindowMaximumCA000C < 0) {
+                gSkillWindowMaximumCA000C = 0;
+            }
+            if (position > gSkillWindowMaximumCA000C) {
+                gSkillWindowScrollD2D648 = gSkillWindowMaximumCA000C;
+            }
+        }
+        std::strcpy(static_cast<WindowTextData*>(gCurrentWindow->elements[2].data)->text, record->name.data());
+        record = &world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
+        if (record->level < record->maxLevel) {
+            const std::int32_t next = record->nextExperience;
+            const std::int32_t experience = record->experience;
+            std::sprintf(buffer, "%4d/%4d", experience, next);
+        } else {
+            std::sprintf(buffer, "%4d/ -- ", record->experience);
+        }
+        std::strcpy(static_cast<WindowTextData*>(gCurrentWindow->elements[5].data)->text, buffer);
+        record = &world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
+        const std::int32_t maximum = record->maxLevel;
+        const std::int32_t level = record->level;
+        std::sprintf(buffer, "%2d/%2d", level, maximum);
+        std::strcpy(static_cast<WindowTextData*>(gCurrentWindow->elements[9].data)->text, buffer);
+        if (gSkillWindowHoverD2F744 >= 0) {
+            for (std::int32_t line = 0; line < 4; ++line) {
+                const std::int32_t hover = gSkillWindowHoverD2F744;
+                const std::int32_t skill = gSkillWindowIndexD2EA60;
+                drawDescription(world::detail::gSkillsF1BAFC[skill].techniques3C[hover].description.data(), line, 26);
+            }
+        }
+        break;
+    }
+    case 2: {
+        const auto* const record = &world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
+        std::int32_t count = 0;
+        while (record->recipes8E8[count].itemId >= 0) {
+            ++count;
+        }
+        gSkillWindowMaximumCA000C = count - 10;
+        if (gSkillWindowMaximumCA000C < 0) {
+            gSkillWindowMaximumCA000C = 0;
+        }
+        if (position > gSkillWindowMaximumCA000C) {
+            gSkillWindowScrollD2D648 = gSkillWindowMaximumCA000C;
+        }
+        const std::int32_t levelIndex = gSkillRecipeLevelC8B1B4;
+        std::strcpy(static_cast<WindowTextData*>(gCurrentWindow->elements[2].data)->text,
+            record->techniques3C[levelIndex].name.data());
+        const std::int32_t level = world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60].level;
+        std::sprintf(buffer, "%5d", level);
+        std::strcpy(static_cast<WindowTextData*>(gCurrentWindow->elements[9].data)->text, buffer);
+        for (std::int32_t line = 0; line < 2; ++line) {
+            const std::int32_t skill = gSkillWindowIndexD2EA60;
+            const std::int32_t hover = gSkillWindowHoverD2F744;
+            drawDescription(world::detail::gSkillsF1BAFC[skill].recipes8E8[hover].description.data(), line, 28);
+        }
+        break;
+    }
+    case 5:
+    case 6: {
+        std::int32_t maximumPosition = world::detail::gBattleCurrentPosition5ABCA4;
+        if (mode == 5) {
+            maximumPosition = world::detail::GetBattlePetPosition_405B40(maximumPosition);
+        }
+        const std::int32_t maximum =
+            login::detail::ReadYobiActionMaxFpOnce(world::detail::gBattleEntries59E980[maximumPosition]);
+        std::int32_t currentPosition = world::detail::gBattleCurrentPosition5ABCA4;
+        if (mode == 5) {
+            currentPosition = world::detail::GetBattlePetPosition_405B40(currentPosition);
+        }
+        const std::int32_t current =
+            login::detail::ReadYobiActionFpOnce(world::detail::gBattleEntries59E980[currentPosition]);
+        std::sprintf(static_cast<WindowTextData*>(gCurrentWindow->elements[7].data)->text,
+            "%4d/%4d", current, maximum);
+        if (gSkillWindowHoverD2F744 >= 0) {
+            for (std::int32_t line = 0; line < 4; ++line) {
+                std::int32_t pet;
+                std::int32_t hover;
+                if (mode == 5) {
+                    pet = world::detail::Sub_43C4B0();
+                    hover = gSkillWindowHoverD2F744;
+                } else {
+                    hover = gSkillWindowHoverD2F744;
+                    pet = std::bit_cast<std::int32_t>(world::detail::gBattleRidePet5ABC38);
+                }
+                drawDescription(world::detail::gPetRuntimeF633F8[pet].techniquesD8[hover].description.data(), line, 26);
+            }
+        }
+        break;
+    }
+    default:
+        break;
+    }
+    DrawCurrentWindow_4729B0();
+    return 1;
+}
+
 std::int32_t Sub_47B3D0(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);

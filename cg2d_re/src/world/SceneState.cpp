@@ -6934,6 +6934,11 @@ std::int32_t ReadPlayerValue08() noexcept
     return gPlayerRuntime.value08;
 }
 
+const char* BorrowPlayerJobName() noexcept
+{
+    return gSkillRuntimeSlots.jobName.data();
+}
+
 std::int32_t ReadPlayerTimerRemaining0C() noexcept
 {
     return gPlayerRuntime.timerRemaining0C;

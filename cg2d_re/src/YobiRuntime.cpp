@@ -6868,6 +6868,16 @@ bool IsYobiActionFpGreaterEqual(YobiAction* const action, const std::int32_t cos
     return platform::legacy_crypt_int::GreaterEqual_401D70(&action->barValue1B0, cost);
 }
 
+std::int32_t ReadYobiActionFpOnce(YobiAction* const action)
+{
+    return platform::legacy_crypt_int::Read_401EC0(&action->barValue1B0);
+}
+
+std::int32_t ReadYobiActionMaxFpOnce(YobiAction* const action)
+{
+    return platform::legacy_crypt_int::Read_401EC0(&action->barMaximum1C0);
+}
+
 std::int32_t Sub_517880(
     YobiAction* const action,
     const std::int32_t rate,

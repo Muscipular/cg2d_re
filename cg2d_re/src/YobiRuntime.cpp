@@ -332,6 +332,76 @@ constexpr std::array<const char*, 25> kBattleMHeaders553E94 {
     "BST", "GMN", "RID", "DSK", "END",
 };
 
+// 439B30的SKL字段布局；同布局合并不改变技能集合、RID尾扫描或特殊字段。
+enum class BattlePreviewSkillLayout {
+    None, Attack, Mode73, Damage, ValuesRide, PairRide, ValuesOnly, PairOnly,
+    SourceValue, NamedTargets, Mode98, OptionalPair, DirectValues, Team,
+    DirectRecords, RideRecords, EffectRecords,
+};
+
+BattlePreviewSkillLayout GetBattlePreviewSkillLayout(const std::int32_t skill)
+{
+    switch (skill) {
+    case 0: case 1: case 3: case 5: case 6: case 72:
+    case 75: case 76: case 77: case 78: case 79: case 80: case 81:
+    case 84: case 85: case 87: case 94: case 95: case 96: case 105: case 110: case 113:
+    case 257: case 258: case 259: case 260: case 262: case 266:
+    case 2007: case 2008: case 2016: case 2017: case 2021: case 2022:
+    case 2096: case 2097: case 2098: case 2099: case 2100: case 2101:
+    case 3019: case 3038: case 3100: case 3101: case 4002:
+        return BattlePreviewSkillLayout::Attack;
+    case 73:
+        return BattlePreviewSkillLayout::Mode73;
+    case 4: case 19: case 20: case 21: case 22: case 23: case 24: case 25:
+    case 26: case 27: case 28: case 29: case 30: case 31: case 82: case 97:
+    case 267: case 2005: case 2055: case 2056: case 2057:
+    case 2068: case 2069: case 2070: case 2071: case 2072: case 2073:
+    case 2074: case 2075: case 2076: case 2077: case 2078: case 2079:
+    case 3029: case 3037: case 4003:
+        return BattlePreviewSkillLayout::Damage;
+    case 32: case 33: case 34: case 35: case 36: case 37: case 38: case 39:
+    case 40: case 41: case 42: case 43: case 44: case 45: case 46: case 47:
+    case 48: case 49: case 54: case 55: case 56: case 57: case 58: case 59: case 60:
+    case 64: case 65: case 66: case 67: case 68: case 86:
+    case 2006: case 2010: case 2011: case 2012: case 2013: case 2014: case 2015:
+    case 2019: case 2027: case 2050: case 2051: case 2052:
+    case 2058: case 2059: case 2060: case 2061: case 2062: case 2063:
+    case 2064: case 2065: case 2066: case 2067:
+    case 2089: case 2090: case 2091: case 2092: case 2093: case 2094: case 2095:
+    case 3002: case 3003: case 3004: case 3005: case 3006: case 3007:
+    case 3008: case 3009: case 3010: case 3011: case 3012: case 3013:
+    case 3014: case 3015: case 3016:
+        return BattlePreviewSkillLayout::ValuesRide;
+    case 61: case 62: case 63: case 83: case 2028:
+        return BattlePreviewSkillLayout::PairRide;
+    case 99: case 100: case 101: case 102: case 103: case 104:
+    case 107: case 109: case 112: case 114: case 117: case 3001:
+        return BattlePreviewSkillLayout::ValuesOnly;
+    case 108:
+        return BattlePreviewSkillLayout::PairOnly;
+    case 12: case 50: case 51: case 52: case 53: case 88:
+        return BattlePreviewSkillLayout::SourceValue;
+    case 93:
+        return BattlePreviewSkillLayout::NamedTargets;
+    case 98:
+        return BattlePreviewSkillLayout::Mode98;
+    case 263:
+        return BattlePreviewSkillLayout::OptionalPair;
+    case 400: case 401:
+        return BattlePreviewSkillLayout::DirectValues;
+    case 402:
+        return BattlePreviewSkillLayout::Team;
+    case 405:
+        return BattlePreviewSkillLayout::DirectRecords;
+    case 404: case 406:
+        return BattlePreviewSkillLayout::RideRecords;
+    case 106: case 111: case 2002:
+        return BattlePreviewSkillLayout::EffectRecords;
+    default:
+        return BattlePreviewSkillLayout::None;
+    }
+}
+
 // 原43BE00的20B节点；仅两条链指针拓宽，43BED0负责按原序释放。
 struct BattleAppendEffectNode {
     std::int32_t skill;
@@ -6220,6 +6290,491 @@ std::int32_t ScanBattleMAttackParticipants_439920(
         }
         currentSkill = -1;
     }
+}
+
+void ScanBattleMParticipants_439B30(
+    const std::int32_t kind, std::uint8_t* const participants,
+    std::int32_t* const source, std::int32_t* const flag)
+{
+    using namespace world::detail;
+    std::int32_t position = -1;
+    *flag = 0;
+    std::memset(participants, 0, 22);
+    std::array<char, 32> text;
+    std::array<char, 256> message;
+    const auto skip = [](const std::int32_t count) {
+        for (std::int32_t i = 0; i < count; ++i) {
+            static_cast<void>(TakeBattleMPreviewInteger_439600());
+        }
+    };
+    const auto readPosition = [] {
+        return GetBattlePosition_4237E0(TakeBattleMPreviewInteger_439600());
+    };
+    const auto readSource = [&] {
+        position = readPosition();
+        ++participants[position];
+    };
+    const auto scanTargets = [&](const std::int32_t values, const bool auxiliaryGraphics) {
+        for (;;) {
+            const std::int32_t target = readPosition();
+            if (target == 255) {
+                return;
+            }
+            ++participants[target];
+            if (values != 0) {
+                const std::int32_t targetFlags = TakeBattleMPreviewInteger_439600();
+                skip(values - 1);
+                if (auxiliaryGraphics && (targetFlags & 0x800000) != 0) {
+                    TakeBattleMAuxGraphics_43BF30(nullptr, 1, nullptr, nullptr, nullptr, nullptr, nullptr);
+                }
+            }
+        }
+    };
+    switch (kind) {
+    case 0: { // SKL
+        const std::int32_t technique = TakeBattleMPreviewInteger_439600();
+        skip(1);
+        std::int32_t skill = TakeBattleMPreviewInteger_439600();
+        skip(2);
+        if (technique < 205000) {
+            skill = technique / 100;
+        }
+        const BattlePreviewSkillLayout layout = GetBattlePreviewSkillLayout(skill);
+        bool followRide = false;
+        switch (layout) {
+        case BattlePreviewSkillLayout::Attack:
+        case BattlePreviewSkillLayout::Mode73: {
+            const std::int32_t mode = TakeBattleMPreviewInteger_439600();
+            if (mode == 0 || skill == 72 || skill == 2017 || skill == 113) {
+                position = ScanBattleMAttackParticipants_439920(skill, participants);
+            } else if (mode > 0 && mode <= 4) {
+                readSource();
+                for (;;) {
+                    const std::int32_t target = readPosition();
+                    if (target == 255) {
+                        break;
+                    }
+                    ++participants[target];
+                    const std::int32_t targetFlags = TakeBattleMPreviewInteger_439600();
+                    skip(1);
+                    if ((targetFlags & 0x800000) != 0) {
+                        TakeBattleMAuxGraphics_43BF30(nullptr, 1, nullptr, nullptr, nullptr, nullptr, nullptr);
+                    }
+                    if (layout == BattlePreviewSkillLayout::Attack
+                        && target == position && (targetFlags & 0x200) != 0) {
+                        ++participants[readPosition()];
+                    }
+                }
+            }
+            followRide = true;
+            break;
+        }
+        case BattlePreviewSkillLayout::Damage:
+        case BattlePreviewSkillLayout::ValuesRide:
+        case BattlePreviewSkillLayout::PairRide:
+        case BattlePreviewSkillLayout::ValuesOnly:
+        case BattlePreviewSkillLayout::PairOnly:
+            skip(1);
+            readSource();
+            if (layout == BattlePreviewSkillLayout::Damage) {
+                scanTargets(2, true);
+            } else if (layout == BattlePreviewSkillLayout::PairRide
+                || layout == BattlePreviewSkillLayout::PairOnly || skill == 68) {
+                scanTargets(2, false);
+            } else {
+                scanTargets(1, false);
+            }
+            followRide = layout == BattlePreviewSkillLayout::Damage
+                || layout == BattlePreviewSkillLayout::ValuesRide
+                || layout == BattlePreviewSkillLayout::PairRide;
+            break;
+        case BattlePreviewSkillLayout::SourceValue:
+            skip(1);
+            readSource();
+            skip(1);
+            break;
+        case BattlePreviewSkillLayout::NamedTargets:
+            skip(1);
+            readSource();
+            for (;;) {
+                const std::int32_t target = readPosition();
+                if (target == 255) {
+                    break;
+                }
+                ++participants[target];
+                TakeBattleMPreviewString_439670(text.data(), 29);
+                skip(7);
+            }
+            break;
+        case BattlePreviewSkillLayout::Mode98: {
+            skip(1);
+            const std::int32_t mode = TakeBattleMPreviewInteger_439600();
+            readSource();
+            followRide = true;
+            switch (mode) {
+            case 0: case 1: case 2: case 3: case 4: case 5:
+            case 9: case 10: case 11: case 18:
+                scanTargets(mode == 11 ? 2 : 1, false);
+                break;
+            case 6: case 8:
+                scanTargets(0, false);
+                break;
+            case 7:
+                for (;;) {
+                    const std::int32_t target = readPosition();
+                    if (target == 255) {
+                        break;
+                    }
+                    ++participants[target];
+                    ++participants[GetBattlePetPosition_405B40(target)];
+                }
+                break;
+            case 12: case 13:
+                position = readPosition();
+                if (position == 255) {
+                    followRide = false;
+                    break;
+                }
+                ++participants[position];
+                scanTargets(2, mode == 12);
+                break;
+            case 14:
+                for (;;) {
+                    skip(1);
+                    position = TakeBattleMPreviewInteger_439600();
+                    if (position == 255) {
+                        break;
+                    }
+                    ++participants[position];
+                    skip(1);
+                    const std::int32_t target = readPosition();
+                    if (target == 255) {
+                        break;
+                    }
+                    ++participants[target];
+                }
+                break;
+            case 15: case 16:
+                scanTargets(2, false);
+                break;
+            case 17:
+                scanTargets(1, false);
+                break;
+            default:
+                break;
+            }
+            break;
+        }
+        case BattlePreviewSkillLayout::OptionalPair: {
+            readSource();
+            const std::int32_t target = readPosition();
+            skip(2);
+            if (target != -1) {
+                ++participants[target];
+            }
+            break;
+        }
+        case BattlePreviewSkillLayout::DirectValues:
+            readSource();
+            scanTargets(1, false);
+            break;
+        case BattlePreviewSkillLayout::Team: {
+            skip(1);
+            readSource();
+            const std::int32_t first = TakeBattleMPreviewInteger_439600() == 0 ? 0 : 10;
+            for (std::int32_t index = first; index < first + 10; ++index) {
+                ++participants[index];
+            }
+            break;
+        }
+        case BattlePreviewSkillLayout::DirectRecords:
+            readSource();
+            for (;;) {
+                skip(1);
+                const std::int32_t target = readPosition();
+                if (target == 255) {
+                    break;
+                }
+                ++participants[target];
+                skip(7);
+            }
+            break;
+        case BattlePreviewSkillLayout::RideRecords:
+            skip(1);
+            readSource();
+            for (;;) {
+                const std::int32_t target = readPosition();
+                if (target == 255) {
+                    break;
+                }
+                if (target == position) {
+                    ++participants[readPosition()];
+                    skip(1);
+                    TakeBattleMPreviewString_439670(text.data(), 29);
+                    skip(8);
+                    TakeBattleMPreviewString_439670(text.data(), 29);
+                    skip(7);
+                } else {
+                    ++participants[target];
+                    const std::int32_t targetFlags = TakeBattleMPreviewInteger_439600();
+                    skip(1);
+                    if ((targetFlags & 0x800000) != 0) {
+                        TakeBattleMAuxGraphics_43BF30(nullptr, 1, nullptr, nullptr, nullptr, nullptr, nullptr);
+                    }
+                }
+            }
+            followRide = true;
+            break;
+        case BattlePreviewSkillLayout::EffectRecords:
+            skip(1);
+            readSource();
+            for (;;) {
+                const std::int32_t target = readPosition();
+                if (target == 255) {
+                    break;
+                }
+                ++participants[target];
+                const std::int32_t targetFlags = TakeBattleMPreviewInteger_439600();
+                skip(1);
+                auto& pair = gBattleEffectPairs5A8A40[target];
+                pair[0] = 0;
+                pair[1] = 0;
+                if (skill == 2002) {
+                    pair[0] = TakeBattleMPreviewInteger_439600();
+                    pair[1] = TakeBattleMPreviewInteger_439600();
+                    TakeBattleMPreviewString_439670(text.data(), 29);
+                    const std::int32_t value = TakeBattleMPreviewInteger_439600();
+                    for (auto& record : gBattleNamedEffects5ABCE0) {
+                        if (record.name[0] == '\0') {
+                            std::strcpy(record.name.data(), text.data());
+                            record.value = value;
+                            break;
+                        }
+                        if (std::strcmp(text.data(), record.name.data()) == 0) {
+                            record.value = value;
+                            break;
+                        }
+                    }
+                }
+                if ((targetFlags & 0x800000) != 0) {
+                    TakeBattleMAuxGraphics_43BF30(nullptr, 1, nullptr, nullptr, nullptr, nullptr, nullptr);
+                }
+            }
+            followRide = true;
+            break;
+        case BattlePreviewSkillLayout::None:
+            break;
+        }
+        if (followRide) {
+            ScanBattleMRideParticipants_439770(participants);
+        }
+        *flag = 1;
+        *source = position;
+        return;
+    }
+    case 1: case 20: // ESC/BST
+        readSource();
+        skip(1);
+        *flag = 1;
+        break;
+    case 2: case 3: // CLR/SUP
+        for (;;) {
+            position = readPosition();
+            if (position == 255) {
+                break;
+            }
+            ++participants[position];
+        }
+        *flag = 1;
+        break;
+    case 4: { // POS
+        position = readPosition();
+        const std::int32_t pet = GetBattlePetPosition_405B40(position);
+        ++participants[position];
+        ++participants[pet];
+        *flag = 1;
+        break;
+    }
+    case 5: // MON
+        readSource();
+        ++participants[GetBattlePetPosition_405B40(position)];
+        if (TakeBattleMPreviewInteger_439600() != 0) {
+            skip(1);
+            TakeBattleMPreviewString_439670(text.data(), 29);
+            skip(6);
+        }
+        skip(1);
+        *flag = 1;
+        break;
+    case 6: // EQU
+        readSource();
+        skip(2);
+        *flag = 1;
+        break;
+    case 7: { // ITM
+        const std::int32_t mode = TakeBattleMPreviewInteger_439600();
+        if (mode == 0) {
+            readSource();
+            for (;;) {
+                skip(1);
+                const std::int32_t target = readPosition();
+                if (target == 255) {
+                    break;
+                }
+                ++participants[target];
+            }
+        } else if (mode == 6) {
+            readSource();
+            ++participants[readPosition()];
+            skip(1);
+        } else if (mode == 7) {
+            readSource();
+        }
+        *flag = 1;
+        break;
+    }
+    case 8: // CMB，输出循环终止位置FF，不是首参与者。
+        ++participants[readPosition()];
+        scanTargets(2, true);
+        ScanBattleMRideParticipants_439770(participants);
+        position = 255;
+        *flag = 1;
+        break;
+    case 9: // PSN
+        skip(2);
+        readSource();
+        skip(2);
+        ScanBattleMRideParticipants_439770(participants);
+        *flag = 1;
+        break;
+    case 10: case 12: // ANR/ACT
+        readSource();
+        *flag = 0;
+        break;
+    case 11: // PUE
+        readSource();
+        skip(2);
+        *flag = 0;
+        break;
+    case 13: // CFP
+        readSource();
+        skip(1);
+        *flag = 0;
+        break;
+    case 14: // CHT
+        position = readPosition();
+        if (static_cast<std::uint32_t>(position) <= 21u) {
+            ++participants[position];
+        }
+        skip(3);
+        TakeBattleMPreviewString_439670(message.data(), 256);
+        *flag = 0;
+        break;
+    case 15: case 16: case 18: // PNO/PLV/PDN
+        readSource();
+        *flag = 1;
+        break;
+    case 17: // CBC
+        readSource();
+        skip(7);
+        *flag = 0;
+        break;
+    case 19: { // REB
+        readSource();
+        const std::int32_t targetFlags = TakeBattleMPreviewInteger_439600();
+        skip(1);
+        if ((targetFlags & 0x80000) != 0) {
+            skip(1);
+        }
+        *flag = 1;
+        break;
+    }
+    case 21: // GMN，首位置只参与计数，gate0仍输出-1。
+        ++participants[readPosition()];
+        if (TakeBattleMPreviewInteger_439600() != 0) {
+            position = readPosition();
+            skip(2);
+            TakeBattleMPreviewString_439670(text.data(), 29);
+            skip(7);
+        }
+        for (std::int32_t index = 0; index < 22; ++index) {
+            ++participants[index];
+        }
+        *flag = 1;
+        break;
+    case 22: { // RID，此处零模式19整数，与439770试读20整数不同。
+        const std::int32_t mode = TakeBattleMPreviewInteger_439600();
+        position = readPosition();
+        const std::int32_t target = readPosition();
+        ++participants[position];
+        ++participants[target];
+        const std::int32_t targetFlags = TakeBattleMPreviewInteger_439600();
+        if (mode != 0) {
+            if ((targetFlags & 0x80000) != 0) {
+                TakeBattleMPreviewString_439670(text.data(), 29);
+                skip(8);
+            }
+        } else {
+            TakeBattleMPreviewString_439670(text.data(), 29);
+            skip(8);
+            TakeBattleMPreviewString_439670(text.data(), 29);
+            skip(7);
+        }
+        *flag = 1;
+        break;
+    }
+    case 23: // DSK
+        skip(3);
+        [[fallthrough]];
+    case 24: // END
+        for (std::int32_t index = 0; index < 22; ++index) {
+            ++participants[index];
+        }
+        *flag = 0;
+        break;
+    default:
+        break;
+    }
+    *source = position;
+}
+
+std::int32_t CheckBattleMParticipants_43B290(
+    std::int32_t* const source, const std::int32_t previousSource,
+    std::uint32_t* const mask, std::int32_t* const flag)
+{
+    using namespace world::detail;
+    gBattleMPreviewOffset5AAA60 = gBattleMScanOffset5A8A3C;
+    std::array<char, 4> header;
+    std::array<std::uint8_t, 22> participants;
+    if (GetBattleMPreviewHeader_439700(header.data()) == 1) {
+        return 1;
+    }
+    std::size_t kind = 0;
+    while (kind < kBattleMHeaders553E94.size()
+        && std::strstr(header.data(), kBattleMHeaders553E94[kind]) == nullptr) {
+        ++kind;
+    }
+    if (kind < kBattleMHeaders553E94.size()) {
+        ScanBattleMParticipants_439B30(static_cast<std::int32_t>(kind), participants.data(), source, flag);
+        for (std::int32_t index = 0; index < 22; ++index) {
+            const std::uint8_t count = participants[index];
+            if (count == 0) {
+                continue;
+            }
+            if (!(previousSource == *source && index == previousSource)
+                && gBattlePreviewParticipants5AAA48[index] != 0) {
+                return 0;
+            }
+            gBattlePreviewParticipants5AAA48[index] = count;
+        }
+    }
+    // 原未知头路径不初始化局部计数；不补零或新增拒绝分支。
+    for (std::int32_t index = 0; index < 22; ++index) {
+        if (participants[index] != 0) {
+            *mask |= 1u << index;
+        }
+    }
+    return 1;
 }
 
 std::int32_t GetBattlePosition_4237E0(const std::int32_t position)

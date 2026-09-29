@@ -1151,6 +1151,13 @@ extern std::array<char, 0x1000> gBattleCText5A3A20; // 场景从C队列复制的
 extern std::array<char, 0x1000> gBattleMText5AAA7C;
 extern std::int32_t gBattleMScanOffset5A8A3C; // M头扫描S32游标，非队列索引或对象载荷64游标。
 extern std::int32_t gBattleMPreviewOffset5AAA60; // 439600/439700预扫描游标，由43B290复制头游标。
+extern std::array<std::uint8_t, 22> gBattlePreviewParticipants5AAA48; // 调度累计、43B290逐槽冲突判定。
+extern std::array<std::array<std::int32_t, 2>, 22> gBattleEffectPairs5A8A40; // 仅映射439B30已消费位置，40F2B1同源读取。
+struct BattleNamedEffectRecord {
+    std::array<char, 32> name; // 原编码名称，首字节0表示空槽。
+    std::int32_t value; // 原+20，439B30按名称更新。
+};
+extern std::array<BattleNamedEffectRecord, 20> gBattleNamedEffects5ABCE0;
 extern login::YobiAction* gBattleSceneAction5ABA94; // 4383F0发布的非拥有场景对象，完整生产仍缺。
 extern std::array<login::YobiAction*, 22> gBattleAllEntries59E980; // 含20/21特殊槽的唯一非拥有对象表。
 extern const std::span<login::YobiAction*, 20> gBattleEntries59E980; // 常规路径仅遍历前20槽。

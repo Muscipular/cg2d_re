@@ -261,6 +261,11 @@ std::int32_t TakeBattleMIntegerAt_43B940(std::int32_t* offset); // 显式游标�
 void TakeBattleMStringAt_43B8C0(std::int32_t* offset, char* destination, std::int32_t capacity);
 void ScanBattleMRideParticipants_439770(std::uint8_t* participants); // 22槽计数，RID试读成功才推进游标。
 std::int32_t ScanBattleMAttackParticipants_439920(std::int32_t skill, std::uint8_t* participants);
+void ScanBattleMParticipants_439B30(
+    std::int32_t kind, std::uint8_t* participants, std::int32_t* source, std::int32_t* flag);
+// 原43B290：冲突返回0，保留此前槽写入和预扫描副作用；成功OR参与位，不清调用方mask。
+std::int32_t CheckBattleMParticipants_43B290(
+    std::int32_t* source, std::int32_t previousSource, std::uint32_t* mask, std::int32_t* flag);
 // 原43BF30：mode1只消费预扫描8整数；mode0读对象字段，五输出均为S32非拥有指针。
 void TakeBattleMAuxGraphics_43BF30(
     YobiAction* action, std::int32_t mode, std::int32_t* firstImage, std::int32_t* secondImage,

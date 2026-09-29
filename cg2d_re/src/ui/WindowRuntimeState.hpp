@@ -810,6 +810,8 @@ void Sub_470980(); // 普通场景完整重开，保持626C14与22/23门禁。
 std::int32_t InitializeWindowSystem_4705D0(); // 启动UI完整初始化，返回category加载结果。
 std::int32_t Sub_4923D0(); // 三个UI数值依序写5/0/0。
 void Sub_4B5A90(); // 四条记录只清已证字段和四个文本首字节。
+std::int32_t Sub_4B5B70(std::int32_t index, std::int32_t state); // 输入焦点及非空文本提示。
+std::int32_t Sub_4B5C30(std::int32_t index, std::int32_t state); // 删除/写入/取消/翻页完整交互。
 void Sub_4B62A0(); // 四条记录刷新元素及输入位置；唯一caller弃用原地址低字节返回。
 std::int32_t Sub_4B6C20(); // 清对话类型、关闭入口时实例并透传SE57结果。
 std::int32_t Sub_4B6970(std::int32_t flags, char* text); // 原位反转义后生产同源四记录。

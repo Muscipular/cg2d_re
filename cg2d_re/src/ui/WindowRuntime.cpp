@@ -401,6 +401,7 @@ struct LoginWindowRuntimeSlots {
 LoginWindowRuntimeSlots gLoginWindowRuntime {};
 // 原D30138..D303F8；4B6970整区清零，4DFD38从+9起消费，其他字段尚未冻结。
 std::array<std::byte, 0x2C0> gWindow50AlternateRecordsD30138 {};
+constexpr char kWindow50WriteHint587C84[] = "\xBC\x67\xA4\x55\xB0\x54\xAE\xA7\xA1\x43";
 
 // 原CB0FA8..CB0FD8的唯一UI状态；借用指针原生化，不沿用x86字段偏移。
 struct MessageDialogRuntimeSlots {
@@ -11061,6 +11062,146 @@ void Sub_4B5B50()
 {
     if (world::detail::gValue581800 == 21) {
         world::detail::gValue581800 = -1;
+    }
+}
+
+std::int32_t Sub_4B5B70(const std::int32_t index, const std::int32_t state)
+{
+    if ((state & 1) != 0 && gWindow50InputPrototype580618.input.context->text[0] != '\0') {
+        std::strcpy(gHoverTextD68AE8.data(), kWindow50WriteHint587C84);
+    }
+    if ((state & 2) == 0) {
+        return 0;
+    }
+    WindowInstance* const window = gCurrentWindow;
+    if (gFocusedElementDataD45F94 != window->elements[index].data) {
+        static_cast<void>(Sub_476570(&gWindow50InputPrototype580618, window->x, window->y, 0));
+        input::SetContext_44B330(gWindow50InputPrototype580618.input.context);
+        gFocusedElementDataD45F94 = gCurrentWindow->elements[index].data;
+        static_cast<WindowInputData*>(gCurrentWindow->elements[index].data)->context =
+            gWindow50InputPrototype580618.input.context;
+    }
+    return 1;
+}
+
+std::int32_t Sub_4B5C30(const std::int32_t index, const std::int32_t state)
+{
+    std::array<char, 512> buffer;
+    char* const escaped = buffer.data();
+    char* const text = buffer.data() + 256;
+    std::int32_t consumed = 0;
+    switch (index) {
+    case 0:
+    case 31: {
+        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+        if ((state & 1) != 0) {
+            graphic->imageNo = index == 0 ? 243002 : 244547;
+            const char* const hint = index == 0
+                ? "\xC3\xF6\xB3\xAC\xB3\x6F\xAD\xD3\xB5\xF8\xB5\xA1\xA1\x43"
+                : kShopHints57E6C4[2];
+            std::strcpy(gHoverTextD68AE8.data(), hint);
+            consumed = 1;
+        } else {
+            graphic->imageNo = index == 0 ? 243001 : 244545;
+        }
+        if ((state & 2) != 0) {
+            static_cast<void>(Sub_4B6C20());
+        }
+        return consumed;
+    }
+    case 5:
+    case 12:
+    case 19:
+    case 26: {
+        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+        if ((state & 1) != 0) {
+            graphic->imageNo = 36818;
+            std::strcpy(gHoverTextD68AE8.data(), "\xA7\x52\xB0\xA3\xA6\xB9\xB0\x54\xAE\xA7\xA1\x43");
+            consumed = 1;
+        } else {
+            graphic->imageNo = 36816;
+        }
+        if ((state & 2) == 0) {
+            return consumed;
+        }
+        std::sprintf(text, "%d", (index - 5) / 7);
+        input::EscapeLegacyTextAndNotify_52D2D0(text, escaped, 255);
+        const std::int32_t target = world::detail::gDialogTargetD2DE6C;
+        const std::int32_t request = world::detail::gDialogRequestCC21E0;
+        const std::int32_t y =
+            platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+        const std::int32_t x =
+            platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+        static_cast<void>(network::Sub_512620(
+            platform::gConnectionSocket, x, y, request, target, 64, escaped));
+        static_cast<void>(Sub_4B6C20());
+        return 1;
+    }
+    case 30: {
+        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[30].data);
+        if ((state & 1) != 0) {
+            graphic->imageNo = 244544;
+            std::strcpy(gHoverTextD68AE8.data(), kWindow50WriteHint587C84);
+            consumed = 1;
+        } else {
+            graphic->imageNo = 244542;
+        }
+        if ((state & 2) == 0) {
+            return consumed;
+        }
+        input::InputContext* const context = gWindow50InputPrototype580618.input.context;
+        if (context->text[0] != '\0') {
+            std::strcpy(text, context->text);
+            input::EscapeLegacyTextAndNotify_52D2D0(text, escaped, 256);
+            const std::int32_t target = world::detail::gDialogTargetD2DE6C;
+            const std::int32_t request = world::detail::gDialogRequestCC21E0;
+            const std::int32_t y =
+                platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+            const std::int32_t x =
+                platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+            static_cast<void>(network::Sub_512620(
+                platform::gConnectionSocket, x, y, request, target, 1, escaped));
+            gWindow50InputPrototype580618.input.context->text[0] = '\0';
+            static_cast<void>(Sub_4B6C20());
+        } else {
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        }
+        return 1;
+    }
+    case 32:
+    case 33: {
+        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+        const std::int32_t baseImage = index == 32 ? 243033 : 243030;
+        if ((state & 1) != 0) {
+            graphic->imageNo = baseImage + 2;
+            const char* const hint = index == 32
+                ? "\xA4\xC1\xB4\xAB\xA6\xDC\xA4\x55\xA4\x40\xAD\xB6\xB5\xF8\xB5\xA1\xA1\x43"
+                : "\xA6\x5E\xA8\xEC\xA4\x57\xA4\x40\xAD\xB6\xB5\xF8\xB5\xA1\xA1\x43";
+            std::strcpy(gHoverTextD68AE8.data(), hint);
+            consumed = 1;
+        } else {
+            graphic->imageNo = baseImage;
+        }
+        if ((state & 2) != 0) {
+            const std::int32_t target = world::detail::gDialogTargetD2DE6C;
+            const std::int32_t request = world::detail::gDialogRequestCC21E0;
+            escaped[0] = '\0';
+            const std::int32_t y =
+                platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+            const std::int32_t x =
+                platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+            static_cast<void>(network::Sub_512620(
+                platform::gConnectionSocket, x, y, request, target, index == 32 ? 32 : 16, escaped));
+            static_cast<void>(Sub_4B6C20());
+            consumed = 1;
+        }
+        if ((state & 8) != 0) {
+            static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = baseImage + 1;
+        }
+        return consumed;
+    }
+    default:
+        return 0;
     }
 }
 

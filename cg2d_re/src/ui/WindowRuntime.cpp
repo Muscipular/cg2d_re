@@ -138,6 +138,17 @@ std::array<char, 100> gConfirmationLineCB1320 {};
 std::array<char, 104> gConfirmationLineCB1210 {};
 std::array<char, 256> gConfirmationAcceptHintCC3FCC {};
 std::array<char, 256> gConfirmationCancelHintD45D70 {};
+std::int32_t gWindow54DialogTypeCB2224 = 0;
+std::int32_t gWindow54ImageCC18C4 = 0;
+std::int32_t gWindow54ValueCC2E68 = 0;
+std::int32_t gWindow54ValueCF4A3C = 0;
+std::int32_t gWindow54ValueCB01E4 = 0;
+std::int32_t gWindow54ValueCB01E8 = 0;
+std::uint8_t gWindow54ModeC8AF64 = 0;
+std::int32_t gWindow54LifecycleD67434 = 0;
+std::array<WindowDialogTextLine, 15> gWindow54NamesC8AAA0 {};
+std::array<std::int32_t, 15> gWindow54ValuesCB01A4 {};
+std::array<std::int32_t, 15> gWindow54ValuesCB09D8 {};
 static_assert(sizeof(gTradeItemsD460D0) == 0x1EBE0);
 static_assert(sizeof(gTradePetsC9C108) == 0x3BD8);
 static_assert(sizeof(gPetStorageD64E18) == 0x1E00);
@@ -14451,6 +14462,87 @@ std::int32_t Sub_4BD100(const std::int32_t index, const std::int32_t unusedState
         std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}), 74, 54);
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
     return 1;
+}
+
+void Sub_4BD500()
+{
+    if (gWindow54LifecycleD67434 != 2
+        && gWindow54DialogTypeCB2224 == world::detail::gValue581800) {
+        world::detail::gValue581800 = -1;
+    }
+    gWindow54LifecycleD67434 = 0;
+}
+
+login::YobiAction* Sub_4BD540(const char* const text)
+{
+    std::array<char, 512> buffer;
+    gWindow54DialogTypeCB2224 = world::detail::gValue581800;
+    gWindow54ImageCC18C4 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
+    char* const title = gNpcDialogLinesCC24D4[0].text.data();
+    static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 2, 21, title));
+    input::UnescapeLegacyTextAndNotify_52D2F0(title);
+    static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 3, 511, buffer.data()));
+    input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
+    for (std::int32_t row = 0; row < 5; ++row) {
+        static_cast<void>(input::ExtractLegacyLine_503AB0(
+            gNpcDialogLinesCC24D4[row + 1].text.data(), 81, buffer.data(), row, 21));
+    }
+    char* const heading = gNpcDialogLinesCC24D4[9].text.data();
+    static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 4, 80, heading));
+    input::UnescapeLegacyTextAndNotify_52D2F0(heading);
+    static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 5, 511, buffer.data()));
+    input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
+    for (std::int32_t row = 0; row < 8; ++row) {
+        static_cast<void>(input::ExtractLegacyLine_503AB0(
+            gNpcDialogLinesCC24D4[row + 10].text.data(), 81, buffer.data(), row, 32));
+    }
+    gWindow54ValueCC2E68 = network::ParseDelimitedInteger_52CFA0(text, '|', 6);
+    gWindow54ValueCF4A3C = network::ParseDelimitedInteger_52CFA0(text, '|', 7);
+    gWindow54ValueCB01E4 = 0;
+    gWindow54ValueCB01E8 = 0;
+    gWindow54ModeC8AF64 = 0;
+    return CreateWindowAnimation_475AA0(54, 1, 0, nullptr);
+}
+
+login::YobiAction* Sub_4BD680(const char* const text)
+{
+    std::array<char, 512> buffer;
+    gWindow54DialogTypeCB2224 = world::detail::gValue581800;
+    gWindow54ImageCC18C4 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
+    char* const title = gNpcDialogLinesCC24D4[0].text.data();
+    static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 2, 21, title));
+    input::UnescapeLegacyTextAndNotify_52D2F0(title);
+    static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 3, 511, buffer.data()));
+    input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
+    for (std::int32_t row = 0; row < 5; ++row) {
+        static_cast<void>(input::ExtractLegacyLine_503AB0(
+            gNpcDialogLinesCC24D4[row + 1].text.data(), 81, buffer.data(), row, 21));
+    }
+    for (std::int32_t row = 0; row < 15; ++row) {
+        const std::int32_t field = 4 + row * 3;
+        char* const name = gNpcDialogLinesCC24D4[row + 10].text.data();
+        static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', field, 21, name));
+        input::UnescapeLegacyTextAndNotify_52D2F0(name);
+        char* const destination = gWindow54NamesC8AAA0[row].text.data();
+        const std::size_t length = std::strlen(name) + 1;
+        const std::size_t wholeWords = length & ~std::size_t{3};
+        std::memcpy(destination, name, wholeWords);
+        const char first = name[0];
+        std::memcpy(destination + wholeWords, name + wholeWords, length & 3);
+        if (first != '\0') {
+            gWindow54ValuesCB01A4[row] =
+                network::ParseDelimitedInteger_52CFA0(text, '|', field + 1);
+            gWindow54ValuesCB09D8[row] =
+                network::ParseDelimitedInteger_52CFA0(text, '|', field + 2);
+        } else {
+            gWindow54ValuesCB01A4[row] = -1;
+            gWindow54ValuesCB09D8[row] = -1;
+        }
+    }
+    gWindow54ModeC8AF64 = 1;
+    gWindow54ValueCB01E4 = 0;
+    gWindow54ValueCB01E8 = 0;
+    return CreateWindowAnimation_475AA0(54, 1, 0, nullptr);
 }
 
 std::int32_t Sub_4B99D0(const std::int32_t unused)

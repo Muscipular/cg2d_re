@@ -285,6 +285,8 @@ std::int32_t Sub_4BC660(std::int32_t index, std::int32_t state); // 背包20格�
 void Sub_4B9B10(std::int32_t selection); // 确认选择低U8为0才按模式发送，返回值不消费。
 std::int32_t Sub_4B9F40(std::int32_t index, std::int32_t state); // 六模式确认生产，借用同源覆盖层。
 std::int32_t Sub_4BD100(std::int32_t index, std::int32_t unusedState); // 确认覆盖层，事件直接读共享鼠标。
+login::YobiAction* Sub_4BD540(const char* text); // 窗口54模式0，五行正文及八行说明。
+login::YobiAction* Sub_4BD680(const char* text); // 窗口54模式1，固定十五项名称/双数值。
 std::int32_t Sub_4BA950(std::int32_t index, std::int32_t state); // 取消发送command2，发送后关闭。
 std::int32_t Sub_4BAA50(std::int32_t index, std::int32_t state); // 批量加入出售选择，每轮固定重置/音效尾。
 std::int32_t Sub_4BCEE0(std::int32_t index, std::int32_t state); // kind2拖放加入，hover模式门禁独立。
@@ -542,6 +544,17 @@ extern std::array<char, 100> gConfirmationLineCB1320;
 extern std::array<char, 104> gConfirmationLineCB1210;
 extern std::array<char, 256> gConfirmationAcceptHintCC3FCC; // 4C0F20也借用，不建窗口私有副本。
 extern std::array<char, 256> gConfirmationCancelHintD45D70;
+extern std::int32_t gWindow54DialogTypeCB2224; // 创建快照581800，更新/释放共同读取。
+extern std::int32_t gWindow54ImageCC18C4; // 协议字段1的图号，非地址。
+extern std::int32_t gWindow54ValueCC2E68; // 4BD540字段6，4D6A60也消费。
+extern std::int32_t gWindow54ValueCF4A3C; // 4BD540字段7，4D6A60也消费。
+extern std::int32_t gWindow54ValueCB01E4; // 创建尾清零的独立数值，不与CB01E8合并。
+extern std::int32_t gWindow54ValueCB01E8;
+extern std::uint8_t gWindow54ModeC8AF64;
+extern std::int32_t gWindow54LifecycleD67434; // 值2阻止释放回调重置当前对话类型。
+extern std::array<WindowDialogTextLine, 15> gWindow54NamesC8AAA0; // 4BD680复制、4BF2E0消费。
+extern std::array<std::int32_t, 15> gWindow54ValuesCB01A4; // 两表也被4D6EA0消费，保持同源。
+extern std::array<std::int32_t, 15> gWindow54ValuesCB09D8;
 extern std::int32_t gStorageValueCC4218; // 存放窗口41每帧清零、元素13绘制的数值。
 extern std::array<char, 22> gStorageAmountTextsCB1DF8; // 两金额文本起点相隔11B，571150/158借用。
 extern const std::array<std::int32_t, 2> gStorageTitleImages54F4E8;

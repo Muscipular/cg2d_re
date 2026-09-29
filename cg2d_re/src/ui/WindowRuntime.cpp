@@ -398,6 +398,13 @@ std::int32_t gWindow56QuarterCC3E88 = 0;
 std::int32_t gWindow56FifthCB0F88 = 0;
 std::int32_t gWindow56OnesCF4680 = 0;
 
+// 原D2F7A0..AC四个数值槽；D2F7B0只映射固定240高所能消费的13行。
+std::int32_t gImageDialogTypeD2F7A0 = 0;
+std::int32_t gImageDialogRequestD2F7A4 = 0;
+std::int32_t gImageDialogTargetD2F7A8 = 0;
+std::int32_t gImageDialogImageD2F7AC = 0;
+std::array<WindowDialogTextLine, 13> gImageDialogLinesD2F7B0 {};
+
 // 原D40B30的521CH设置文件；不与含原生指针的WindowState布局混用。
 struct WindowSavedRecord {
     std::int32_t x;
@@ -16140,6 +16147,65 @@ std::int32_t Sub_4C5EB0(const std::int32_t index, const std::int32_t state)
         graphic->imageNo = index < 10 ? 243031 : 243034;
     }
     return consumed;
+}
+
+std::int32_t Sub_4C5F80(
+    const std::int32_t button, const std::int32_t row, char* const* const unusedTexts,
+    const std::uint8_t unusedInputCount)
+{
+    static_cast<void>(unusedTexts);
+    static_cast<void>(unusedInputCount);
+    if (button == 0) {
+        if (row < 0) {
+            world::detail::gValue581800 = -1;
+        }
+        return 1;
+    }
+    std::array<char, 256> text;
+    std::array<char, 256> escaped;
+    std::sprintf(text.data(), "%d", gImageDialogImageD2F7AC);
+    input::EscapeLegacyTextAndNotify_52D2D0(text.data(), escaped.data(), 255);
+    const std::int32_t target = gImageDialogTargetD2F7A8;
+    const std::int32_t request = gImageDialogRequestD2F7A4;
+    const std::int32_t y =
+        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+    const std::int32_t x =
+        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+    static_cast<void>(network::Sub_512620(
+        platform::gConnectionSocket, x, y, request, target, button, escaped.data()));
+    world::detail::gValue581800 = -1;
+    static_cast<void>(audio::PlaySe_52C450(79, 320));
+    static_cast<void>(audio::PlaySe_52C450(57, 320));
+    return 1;
+}
+
+login::YobiAction* Sub_4C6060(
+    const std::int32_t buttons, const std::int32_t request, const std::int32_t target,
+    const char* const text)
+{
+    Sub_49C4D0();
+    gImageDialogTypeD2F7A0 = world::detail::gValue581800;
+    gImageDialogRequestD2F7A4 = request;
+    gImageDialogTargetD2F7A8 = target;
+    gImageDialogImageD2F7AC = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
+    std::array<char, 1000> buffer;
+    static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 2, 1000, buffer.data()));
+    input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
+    const std::int32_t columns = login::detail::Sub_49C5C0(448);
+    const std::int32_t count = login::detail::Sub_49C5E0(240, buttons, 16);
+    gImageDialogLinesD2F7B0[0].text[0] = '\0';
+    gImageDialogLinesD2F7B0[1].text[0] = '\0';
+    gImageDialogLinesD2F7B0[2].text[0] = '\0';
+    for (std::int32_t row = 3; row < count; ++row) {
+        char* const destination = gImageDialogLinesD2F7B0[row].text.data();
+        std::memset(destination, ' ', 14);
+        static_cast<void>(input::ExtractLegacyLine_503AB0(
+            destination + 14, 67, buffer.data(), row - 3, columns - 14));
+    }
+    Sub_49C510(1, gImageDialogImageD2F7AC, 0, 86, 98);
+    return Sub_49C600(
+        96, 108, 448, 240, 245300, buttons, gImageDialogLinesD2F7B0.data(),
+        count, 16, 0, 0, nullptr, columns, 2, 0, &Sub_4C5F80, nullptr, 1, 0);
 }
 
 std::int32_t Sub_4C0910(const std::int32_t index, const std::int32_t state)

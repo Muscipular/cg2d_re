@@ -373,6 +373,12 @@ std::int32_t Sub_4C5C30(std::int32_t index, std::int32_t state); // 图号原文
 std::int32_t Sub_4C5D00(std::int32_t index, std::int32_t state); // class按版本上下界循环。
 std::int32_t Sub_4C5DE0(std::int32_t index, std::int32_t state); // fifth分量0..4循环。
 std::int32_t Sub_4C5EB0(std::int32_t index, std::int32_t state); // ones分量0..4循环。
+std::int32_t Sub_4C5F80(
+    std::int32_t button, std::int32_t row, char* const* unusedTexts,
+    std::uint8_t unusedInputCount); // 类型37回复，图号转义后发完整button。
+login::YobiAction* Sub_4C6060(
+    std::int32_t buttons, std::int32_t request, std::int32_t target,
+    const char* text); // 类型37内嵌图号及左侧14空格正文。
 std::int32_t Sub_4BA950(std::int32_t index, std::int32_t state); // 取消发送command2，发送后关闭。
 std::int32_t Sub_4BAA50(std::int32_t index, std::int32_t state); // 批量加入出售选择，每轮固定重置/音效尾。
 std::int32_t Sub_4BCEE0(std::int32_t index, std::int32_t state); // kind2拖放加入，hover模式门禁独立。

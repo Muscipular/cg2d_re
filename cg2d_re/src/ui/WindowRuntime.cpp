@@ -540,6 +540,10 @@ constexpr std::array<std::int32_t, 15> kPetCrystalFp54F340 {
 
 std::int32_t gCraftSkillIndexCC2368 = 0;
 std::int32_t gCraftRecipeIndexD2D638 = 0;
+std::int32_t gCraftRecipeIdD2E440 = 0; // 主更新重定位配方使用的原id快照。
+std::int32_t gCraftRequestValueD30400 = 0; // 制造发送保留完整S32值。
+std::uint8_t gSkillRequestByteD64E13 = 0; // 其他加工发送按S8读取。
+std::uint32_t gCraftDeadlineCF3B04 = 0; // 制作等待阶段的同源U32截止值。
 std::int32_t gCraftResultCC46D8 = 0;
 std::int32_t gCraftExperienceCC3204 = 0;
 std::int32_t gCraftValueCC4840 = 0;
@@ -23512,6 +23516,325 @@ std::int32_t Sub_47D5B0()
     const std::int32_t level = world::detail::gPlayerItemsFDA8A4[slot + 8].level;
     const std::int32_t crystalLevel = Sub_479860();
     return level == crystalLevel ? 1 : 0;
+}
+
+std::int32_t Sub_4810A0(const std::int32_t value)
+{
+    const auto initializeMode = [](const std::uint8_t mode) {
+        switch (mode) {
+        case 0: static_cast<void>(Sub_47DF50(gCurrentWindow)); break;
+        case 3: static_cast<void>(Sub_47EC00(gCurrentWindow)); break;
+        case 6: static_cast<void>(Sub_47FAE0(gCurrentWindow)); break;
+        case 15: static_cast<void>(Sub_47FD00(gCurrentWindow)); break;
+        case 9: static_cast<void>(Sub_480A00(gCurrentWindow)); break;
+        case 12: static_cast<void>(Sub_47FF20(gCurrentWindow)); break;
+        default: break;
+        }
+    };
+    if (value == -1) {
+        gItemMarksD67290.fill(0);
+        gWindowActionCA0174 = nullptr;
+        gMaterialHoverSlotsCB0A8C.fill(-2);
+        gMaterialHoveredItemD67424 = -1;
+        gMaterialIndicesCA0458.fill(-1);
+        gSelectedSlotsCA0A90.fill(-1);
+        gMaterialHintPageCF4FD8 = 0;
+        gSelectionCountsD66E0C.fill(0);
+        gSelectedItemD460C0 = -1;
+        gSelectionImagesCF3FF4.fill(-1);
+        const std::uint8_t mode = gSelectionModeD2D650;
+        gSelectedImageCC3ED8 = -1;
+        gSelectedCountCC483C = -1;
+        initializeMode(mode);
+        gCurrentWindow->elements[0].visible = 0;
+        gCurrentWindow->elements[1].visible = 0;
+        return 1;
+    }
+    if (std::bit_cast<std::int8_t>(gSelectionModeD2D650) <= 2) {
+        const std::int32_t skill = gCraftSkillIndexCC2368;
+        const std::int32_t recipe = gCraftRecipeIndexD2D638;
+        const std::int32_t expected = gCraftRecipeIdD2E440;
+        const auto* const record = &world::detail::gSkillsF1BAFC[skill];
+        if (expected != record->recipes8E8[recipe].itemId) {
+            const std::int32_t skillId = record->skillId;
+            if (skillId != 255 && skillId != 606 && skillId != 2026 && skillId != 2025) {
+                for (std::int32_t index = 0;; ++index) {
+                    const std::int32_t itemId = record->recipes8E8[index].itemId;
+                    if (itemId < 0) {
+                        gCurrentWindow->state |= 0x8000u;
+                        static_cast<void>(audio::PlaySe_52C450(57, 320));
+                        break;
+                    }
+                    if (itemId == expected) {
+                        gCraftRecipeIndexD2D638 = index;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    if (Sub_4D3040(1, 1) != 0) {
+        gWindowStates[11].window->state |= 0x8000u;
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+    }
+    bool matchingCrystal = false;
+    bool petAvailable = false;
+    if (Sub_479B00() != 0) {
+        petAvailable = true;
+        const auto configureCrystal = [] {
+            if (Sub_479AB0() != 0) {
+                static_cast<void>(Sub_47D220(gCurrentWindow, 3, 5, 1, 0, 5));
+            } else {
+                static_cast<void>(Sub_47D220(gCurrentWindow, 3, 5, 0, 10, 5));
+            }
+        };
+        if (gSelectionModeD2D650 == 0 && Sub_47D4B0() != 0) {
+            matchingCrystal = true;
+            configureCrystal();
+        }
+        bool engraving = false;
+        if (gSelectionModeD2D650 == 3) {
+            if (world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId == 220) {
+                engraving = true;
+            } else if (Sub_47D4F0() != 0) {
+                matchingCrystal = true;
+                configureCrystal();
+            }
+        }
+        if (!engraving) {
+            const std::uint8_t mode = gSelectionModeD2D650;
+            const bool matches = mode == 6 || mode == 15
+                ? Sub_47D530() != 0
+                : mode == 9 ? Sub_47D5B0() != 0
+                : mode == 12 && Sub_47D530() != 0;
+            if (matches) {
+                matchingCrystal = true;
+                static_cast<void>(Sub_47D170(
+                    gCurrentWindow, 4, 3, 5, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
+                configureCrystal();
+            }
+        }
+        switch (std::bit_cast<std::int8_t>(gSelectionModeD2D650)) {
+        case 0: case 3: case 6: case 9: case 12: case 15:
+            if (matchingCrystal) {
+                const std::int32_t imageNo = Sub_4799D0();
+                static_cast<void>(Sub_47D280(gCurrentWindow, 3, 5, imageNo));
+                static_cast<void>(Sub_47D170(
+                    gCurrentWindow, 4, 3, 5, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
+            } else {
+                static_cast<void>(Sub_47D280(gCurrentWindow, 3, 5, 0));
+            }
+            break;
+        case 1: case 4: case 7: case 10: case 13: case 16:
+            if (gSkillSendModeC8A970 != 0) {
+                const std::int32_t imageNo = Sub_4799D0();
+                static_cast<void>(Sub_47D280(gCurrentWindow, 3, 5, imageNo));
+            } else {
+                static_cast<void>(Sub_47D280(gCurrentWindow, 3, 5, 0));
+            }
+            break;
+        case 5:
+            if (world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId == 220) {
+                break;
+            }
+            [[fallthrough]];
+        case 2:
+            static_cast<void>(Sub_47D280(
+                gCurrentWindow, 3, 5, gSkillSendModeC8A970 != 0 ? gSkillPetImageCB0A18 : 0));
+            break;
+        default:
+            break;
+        }
+    } else {
+        static_cast<void>(Sub_47D280(gCurrentWindow, 3, 5, 0));
+    }
+    if (gSkillSendModeC8A970 != 0) {
+        const std::uint8_t mode = gSelectionModeD2D650;
+        if (mode == 1 || mode == 4 || mode == 7 || mode == 16 || mode == 10 || mode == 13) {
+            if (petAvailable && gValueD67B00 != 0) {
+                static_cast<void>(Sub_47D2E0(gCurrentWindow, 4, 3, 5, gCraftDeadlineCF3B04));
+            } else {
+                initializeMode(static_cast<std::uint8_t>(mode - 1));
+            }
+        }
+    }
+    char buffer[256];
+    char temporary[256];
+    const auto expired = [] {
+        const std::uint32_t tick = platform::ReadTickCount32();
+        return gCraftDeadlineCF3B04 <= tick;
+    };
+    // 三种参数合同在读取共享状态时才选取，不能把请求值预先截为同一宽度。
+    const auto sendRequest = [&](const bool recipeRequest, const bool singleTarget) {
+        std::int32_t offset = 0;
+        if (gValue5F9754 != 0) {
+            offset = 100;
+        } else if (gSkillSendModeC8A970 != 0) {
+            gSkillPetImageCB0A18 = Sub_4799D0();
+            offset = 200;
+        }
+        std::int32_t skill;
+        std::int32_t request;
+        std::int32_t target = -1;
+        if (recipeRequest) {
+            skill = gCraftSkillIndexCC2368;
+            request = gCraftRequestValueD30400;
+        } else {
+            request = std::bit_cast<std::int8_t>(gSkillRequestByteD64E13);
+            if (singleTarget) {
+                target = gSelectedItemD460C0;
+            }
+            skill = gCraftSkillIndexCC2368;
+        }
+        static_cast<void>(network::Sub_511EF0(
+            platform::gConnectionSocket, skill + offset, request, target, buffer));
+    };
+    bool hideControls = false;
+    if (gSelectionModeD2D650 == 1 && expired()) {
+        const std::int32_t skill = gCraftSkillIndexCC2368;
+        const std::int32_t recipe = gCraftRecipeIndexD2D638;
+        std::sprintf(buffer, "%d", world::detail::gSkillsF1BAFC[skill].recipes8E8[recipe].itemId);
+        for (std::int32_t index = 0; index < 6; ++index) {
+            const std::int32_t slot = gSelectedSlotsCA0A90[index];
+            if (slot >= 0 && gMaterialIndicesCA0458[index] >= 0) {
+                std::sprintf(temporary, "|%d", slot + 8);
+                std::strcat(buffer, temporary);
+            }
+        }
+        for (std::int32_t index = 0; index < 6; ++index) {
+            const std::int32_t slot = gSelectedSlotsCA0A90[index];
+            if (slot >= 0 && gMaterialIndicesCA0458[index] < 0) {
+                std::sprintf(temporary, "|%d", slot + 8);
+                std::strcat(buffer, temporary);
+            }
+        }
+        NullSub_509080();
+        sendRequest(true, false);
+        gSelectionModeD2D650 = 2;
+        hideControls = true;
+    } else if (gSelectionModeD2D650 == 4 && expired()) {
+        if (world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId == 220) {
+            std::strcpy(buffer, input::gInputContextD2DE70.text);
+        } else {
+            buffer[0] = '\0';
+        }
+        NullSub_509080();
+        sendRequest(false, true);
+        gSelectionModeD2D650 = 5;
+        hideControls = true;
+    } else {
+        const std::uint8_t mode = gSelectionModeD2D650;
+        if ((mode == 7 || mode == 16) && expired()) {
+            // 原两局部未赋初值；正常分组由材料写入，不补默认值或模拟栈残留。
+            std::array<std::int32_t, 2> groupedSlots;
+            std::int32_t& ordinarySlot = groupedSlots[0];
+            std::int32_t& specialSlot = groupedSlots[1];
+            for (std::int32_t index = 0; index < 6; ++index) {
+                const std::int32_t slot = gSelectedSlotsCA0A90[index];
+                if (slot < 0) {
+                    continue;
+                }
+                const std::int32_t type = world::detail::gPlayerItemsFDA8A4[slot + 8].itemType;
+                if (type == 38 || type == 25 || type == 39 || type == 80) {
+                    specialSlot = slot + 8;
+                } else {
+                    ordinarySlot = slot + 8;
+                }
+            }
+            std::sprintf(buffer, "%d|%d", ordinarySlot, specialSlot);
+            NullSub_509080();
+            sendRequest(false, false);
+            const char* const name = world::detail::gPlayerItemsFDA8A4[ordinarySlot].name.data();
+            const std::size_t length = std::strlen(name) + 1;
+            const std::uint8_t currentMode = gSelectionModeD2D650;
+            std::memcpy(gCraftNameCF46D4.data(), name, length);
+            if (currentMode == 7) {
+                gSelectionModeD2D650 = 8;
+                hideControls = true;
+            } else if (currentMode == 16) {
+                gSelectionModeD2D650 = 17;
+                hideControls = true;
+            }
+        } else if (mode == 10 && expired()) {
+            std::int32_t selected = -1;
+            for (std::int32_t index = 0; index < 6; ++index) {
+                const std::int32_t slot = gSelectedSlotsCA0A90[index];
+                if (slot >= 0 && world::detail::Sub_505110(slot + 8) != 0) {
+                    selected = gSelectedSlotsCA0A90[index] + 8;
+                    break;
+                }
+            }
+            std::sprintf(buffer, "%d", selected);
+            NullSub_509080();
+            sendRequest(false, false);
+            gSelectionModeD2D650 = 11;
+            std::strcpy(gCraftNameCF46D4.data(), world::detail::gPlayerItemsFDA8A4[selected].name.data());
+            hideControls = true;
+        } else if (mode == 13 && expired()) {
+            const char initial = input::LegacyText593850()[0];
+            buffer[0] = initial;
+            temporary[0] = initial;
+            std::memset(buffer + 1, 0, sizeof(buffer) - 1);
+            std::memset(temporary + 1, 0, sizeof(temporary) - 1);
+            for (std::int32_t index = 0; index < 6; ++index) {
+                const std::int32_t slot = gSelectedSlotsCA0A90[index];
+                if (slot >= 0 && gMaterialIndicesCA0458[index] >= 0) {
+                    std::sprintf(temporary, "%d|", slot + 8);
+                    std::strcat(buffer, temporary);
+                    if (gMaterialIndicesCA0458[index] == 0) {
+                        const std::int32_t selected = gSelectedSlotsCA0A90[index];
+                        std::strcpy(gCraftNameCF46D4.data(),
+                            world::detail::gPlayerItemsFDA8A4[selected + 8].name.data());
+                    }
+                }
+            }
+            NullSub_509080();
+            sendRequest(false, false);
+            gSelectionModeD2D650 = 14;
+            hideControls = true;
+        }
+    }
+    if (!hideControls) {
+        const std::uint8_t mode = gSelectionModeD2D650;
+        if (mode == 3) {
+            if (world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId == 220) {
+                std::strcpy(static_cast<WindowTextData*>(gCurrentWindow->elements[9].data)->text,
+                    "\xA8\xE8\xA6\x4C\xAA\xBA\xAA\xAB\xAB\x7E");
+                std::strcpy(static_cast<WindowTextData*>(gCurrentWindow->elements[10].data)->text,
+                    "\xA1\x40\xBD\xD0\xBF\xEF\xBE\xDC\xA1\x43");
+                if (input::gCurrentInputData != &input::gInputContextD2DE70) {
+                    gCurrentWindow->elements[8].visible = 1;
+                    gCurrentWindow->elements[6].visible = 1;
+                    gCurrentWindow->elements[7].visible = 0;
+                }
+            } else {
+                gCurrentWindow->elements[25].visible = 1;
+            }
+        } else if (mode == 0 || mode == 6 || mode == 15 || mode == 9 || mode == 12) {
+            gCurrentWindow->elements[25].visible = 1;
+        } else {
+            hideControls = true;
+        }
+    }
+    if (hideControls) {
+        gCurrentWindow->elements[25].visible = 0;
+        gCurrentWindow->elements[8].visible = 0;
+    }
+    const std::int32_t mapped = character_select::detail::Sub_51B740(world::detail::ReadPlayerImageNo());
+    const std::int32_t imageNo = Sub_487F30(mapped, 0);
+    login::detail::SetYobiActionField2A8(
+        static_cast<WindowAnimationData*>(gCurrentWindow->elements[4].data)->action, imageNo);
+    login::detail::SetYobiActionField2B8(
+        static_cast<WindowAnimationData*>(gCurrentWindow->elements[4].data)->action, 5);
+    if (input::gCurrentInputData == &input::gInputContextD2DE70) {
+        WindowInstance* const window = gCurrentWindow;
+        const WindowElement* const element = &window->elements[6];
+        const std::int32_t y = element->y + window->y;
+        const std::int32_t x = element->x + window->x;
+        static_cast<void>(Sub_476570(&gCraftInputPrototype57D7F8, x, y, 2));
+    }
+    gMaterialHoveredItemD67424 = -1;
+    return 1;
 }
 
 void Sub_481010()

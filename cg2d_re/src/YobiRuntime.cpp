@@ -6683,6 +6683,40 @@ std::int32_t AppendBattleRedirect_4242B0(
     return redirect;
 }
 
+void AppendBattleSkillTail_424500(
+    YobiAction* const scene, const std::int32_t position, const std::uint32_t flags,
+    const std::int32_t mode, const std::int32_t target)
+{
+    using world::detail::gBattleAllEntries59E980;
+    if (mode == 0) {
+        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[position], 37);
+    }
+    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[position], 73);
+    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[position], 74);
+    if ((flags & 0xE000u) != 0) {
+        if (target < 0) {
+            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[position], 11);
+        } else {
+            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[position], 3);
+            AppendBattleEffect_439400(gBattleAllEntries59E980[position], {target, 0, 0, 0});
+            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[position], 74);
+        }
+    }
+    if ((flags & 0x20u) == 0) {
+        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[position], 40);
+    }
+    // 原4245BF独立尾块，不能与前面的E000h分支合并去重。
+    if (mode == 0) {
+        if (target < 0) {
+            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[position], 11);
+        } else {
+            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[position], 3);
+            AppendBattleEffect_439400(gBattleAllEntries59E980[position], {target, 0, 0, 0});
+            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[position], 74);
+        }
+    }
+}
+
 void TakeBattleMSkillTargets_426FC0(
     YobiAction* const scene, const std::int32_t skill, const std::int32_t level,
     const std::int32_t technique, const std::int32_t fpUsed, const std::int32_t attackMode,
@@ -7018,6 +7052,41 @@ std::int32_t TakeBattleMIntegerAt_43B940(std::int32_t* const offset)
         }
     }
     return std::bit_cast<std::int32_t>(result);
+}
+
+std::int32_t FindBattleMTarget_43B9B0(
+    YobiAction* const scene, const std::int32_t position, std::int32_t skip)
+{
+    const auto* const payload = static_cast<const BattleScenePayload*>(scene->payload);
+    std::int32_t offset = payload->packetOffset64;
+    while (skip > 0) {
+        static_cast<void>(TakeBattleMIntegerAt_43B940(&offset));
+        --skip;
+    }
+    for (;;) {
+        const std::int32_t first = GetBattlePosition_4237E0(TakeBattleMIntegerAt_43B940(&offset));
+        if (first == 255) {
+            return -1;
+        }
+        const std::int32_t second = GetBattlePosition_4237E0(TakeBattleMIntegerAt_43B940(&offset));
+        const std::uint32_t flags = static_cast<std::uint32_t>(TakeBattleMIntegerAt_43B940(&offset));
+        if ((flags & 0x1010u) == 0) {
+            return -1;
+        }
+        if (first == position) {
+            return second;
+        }
+        static_cast<void>(TakeBattleMIntegerAt_43B940(&offset));
+        if ((flags & 0x800000u) != 0) {
+            static_cast<void>(TakeBattleMIntegerAt_43B940(&offset));
+            static_cast<void>(TakeBattleMIntegerAt_43B940(&offset));
+            for (std::int32_t index = 0; index < 2; ++index) {
+                static_cast<void>(TakeBattleMIntegerAt_43B940(&offset));
+                static_cast<void>(TakeBattleMIntegerAt_43B940(&offset));
+                static_cast<void>(TakeBattleMIntegerAt_43B940(&offset));
+            }
+        }
+    }
 }
 
 void TakeBattleMStringAt_43B8C0(

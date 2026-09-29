@@ -311,6 +311,12 @@ void TakeBattleMSkillTargets_426FC0(
     std::int32_t technique, std::int32_t fpUsed, std::int32_t attackMode,
     std::int32_t* sourcePosition, std::int32_t* initialPosition,
     std::int32_t* targetPosition, std::int32_t* redirectedPosition);
+// 原43B9B0：只推进局部游标，flags&1010h非零且位置匹配时返回次位置，否则-1。
+std::int32_t FindBattleMTarget_43B9B0(YobiAction* scene, std::int32_t position, std::int32_t skip);
+// 原424500：两处目标动作可重复追加；flags保持W32，只消费E000h/20h。
+void AppendBattleSkillTail_424500(
+    YobiAction* scene, std::int32_t position, std::uint32_t flags,
+    std::int32_t mode, std::int32_t target);
 
 // 原1C起的16B效果值记录；仅传数值，不含底层对象指针。
 struct BattleEntryEffectRecord {

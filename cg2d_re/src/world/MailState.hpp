@@ -7,6 +7,28 @@
 
 namespace cg::world::detail {
 
+// 原三项108H资料及828H资料记录；只共享布局，持久/当前/查看区各有唯一存储。
+struct ProfileEntry {
+    std::int32_t value00;
+    std::int32_t value04;
+    std::array<char, 0x100> text08;
+};
+
+struct ProfileRuntimeRecord {
+    std::int32_t value00;
+    std::int32_t value04;
+    std::array<char, 0x100> text08;
+    std::int32_t value108;
+    std::int32_t value10C;
+    std::array<char, 0x100> text110;
+    std::array<char, 0x100> text210;
+    std::array<char, 0x100> text310;
+    std::array<ProfileEntry, 3> entries410;
+    std::array<char, 0x100> text728;
+};
+
+const ProfileRuntimeRecord& ReadViewedProfile105ECE0(); // 窗口62借用4CAC60唯一生产区。
+
 // 原F19FB0的74H联系人记录，三路回复生产，普通邮件与窗口共用。
 struct ContactRuntimeRecord {
     std::uint16_t used;

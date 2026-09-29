@@ -1325,6 +1325,78 @@ void Sub_4E5600(const std::int32_t side)
     }
 }
 
+std::uint32_t Sub_4CAFA0()
+{
+    const world::detail::ProfileRuntimeRecord& profile =
+        world::detail::ReadViewedProfile105ECE0();
+    static_cast<WindowGraphicData*>(gCurrentWindow->elements[14].data)->imageNo =
+        profile.value10C;
+    for (std::int32_t index = 0; index < 3; ++index) {
+        static_cast<WindowGraphicData*>(gCurrentWindow->elements[index + 15].data)->imageNo =
+            profile.entries410[index].value04;
+    }
+    std::strcpy(
+        static_cast<WindowTextData*>(gCurrentWindow->elements[1].data)->text,
+        profile.text08.data());
+    char number[256];
+    std::sprintf(number, "%3d", profile.value108);
+    std::strcpy(
+        static_cast<WindowTextData*>(gCurrentWindow->elements[2].data)->text, number);
+    std::strcpy(
+        static_cast<WindowTextData*>(gCurrentWindow->elements[3].data)->text,
+        profile.text110.data());
+    std::strcpy(
+        static_cast<WindowTextData*>(gCurrentWindow->elements[4].data)->text,
+        profile.text210.data());
+    std::strcpy(
+        static_cast<WindowTextData*>(gCurrentWindow->elements[5].data)->text,
+        profile.text310.data());
+    for (std::int32_t index = 0; index < 3; ++index) {
+        std::strcpy(
+            static_cast<WindowTextData*>(gCurrentWindow->elements[index + 6].data)->text,
+            profile.entries410[index].text08.data());
+    }
+    char line[1024];
+    for (std::int32_t index = 0; index < 3; ++index) {
+        static_cast<void>(input::ExtractLegacyLine_503AB0(
+            line, 1024, profile.text728.data(), index, 28));
+        std::strcpy(
+            static_cast<WindowTextData*>(gCurrentWindow->elements[index + 9].data)->text,
+            line);
+    }
+    static_cast<void>(input::ExtractLegacyLine_503AB0(
+        line, 1024, profile.text728.data(), 3, 28));
+    char* const destination =
+        static_cast<WindowTextData*>(gCurrentWindow->elements[12].data)->text;
+    const auto bytes = static_cast<std::uint32_t>(std::strlen(line) + 1);
+    std::memcpy(destination, line, bytes);
+    return bytes;
+}
+
+std::int32_t Sub_4CAF60(const std::int32_t)
+{
+    if (Sub_4D3040(2, 2) != 0) {
+        gCurrentWindow->state |= 0x8000u;
+    }
+    static_cast<void>(Sub_4CAFA0());
+    return 1;
+}
+
+WindowInstance* Sub_4CB9B0(const std::int32_t index)
+{
+    WindowInstance* const window = gWindowStates[59 + index].window;
+    if (window != nullptr) {
+        window->state |= 0x8000u;
+    }
+    return window;
+}
+
+void Sub_4CB530()
+{
+    world::detail::gValue581800 = -1;
+    static_cast<void>(Sub_4CB9B0(4));
+}
+
 std::int32_t Sub_4D3020(const std::int32_t x, const std::int32_t y)
 {
     gValueCC4D34 = x;

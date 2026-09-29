@@ -882,6 +882,10 @@ void Sub_4E54E0(std::int32_t side, std::int32_t index); // 背包index+8到交�
 void Sub_4E5600(std::int32_t side); // 顺序同步20条交易物品。
 std::int32_t Sub_4D3020(std::int32_t x, std::int32_t y); // 同源坐标依序保存，返回x。
 std::int32_t Sub_4D3040(std::int32_t rangeX, std::int32_t rangeY); // 到格才判断距快照的范围。
+std::int32_t Sub_4CAF60(std::int32_t unusedValue); // 窗口62更新，标关闭后仍刷新全部资料。
+std::uint32_t Sub_4CAFA0(); // 四图号、八资料文本和四分行，返回末行含NUL字节数。
+void Sub_4CB530(); // 先清对话类型，再标记关联窗口63。
+WindowInstance* Sub_4CB9B0(std::int32_t index); // 借用窗口59+index，只标记关闭并返回原T*。
 login::YobiAction* Sub_4B0110(); // 清交易U8，创建窗口43动画并发布借用T*。
 // 窗口43三元素组：低S16位置、仅隐藏时联动、只写图形颜色。
 void Sub_4B0130(

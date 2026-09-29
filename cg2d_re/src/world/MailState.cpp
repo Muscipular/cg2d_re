@@ -75,26 +75,6 @@ MiniMailRuntimeSlots gMiniMailRuntime {};
 std::uint32_t gMiniMailSequence1075A88 = 0; // W32序号，先发布低W16再递增。
 std::int32_t gMiniMailSelectionD673E4 = 0; // 4C9490显式写-1，不在静态初值提前写。
 
-// 原profile每条三项108H资料；默认生产及查看资料共用布局，见场景§142/145。
-struct ProfileEntry {
-    std::int32_t value00;
-    std::int32_t value04;
-    std::array<char, 0x100> text08;
-};
-
-struct ProfileRuntimeRecord {
-    std::int32_t value00; // 原1074938，50F9E0比较的角色编号。
-    std::int32_t value04;
-    std::array<char, 0x100> text08;
-    std::int32_t value108;
-    std::int32_t value10C;
-    std::array<char, 0x100> text110;
-    std::array<char, 0x100> text210;
-    std::array<char, 0x100> text310;
-    std::array<ProfileEntry, 3> entries410;
-    std::array<char, 0x100> text728;
-};
-
 static_assert(offsetof(ProfileEntry, value00) == 0);
 static_assert(offsetof(ProfileEntry, value04) == 4);
 static_assert(offsetof(ProfileEntry, text08) == 8);
@@ -248,6 +228,11 @@ std::int32_t CompareContactIndices_4EC030(
 }
 
 } // namespace
+
+const ProfileRuntimeRecord& ReadViewedProfile105ECE0()
+{
+    return gViewedProfile105ECE0;
+}
 
 void Sub_4EC1A0()
 {

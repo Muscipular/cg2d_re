@@ -124,6 +124,8 @@ std::int32_t gShopScrollCC488C = 0;
 std::array<char, 55> gShopPriceTextsD673EC {};
 std::array<char, 55> gShopCountTextsD2D988 {};
 std::array<char, 48> gShopTotalTextCC4B2C {};
+std::int32_t gShopAvailableCF4A24 = 0;
+std::array<char, 20> gShopValueTextCF4A28 {};
 static_assert(sizeof(gTradeItemsD460D0) == 0x1EBE0);
 static_assert(sizeof(gTradePetsC9C108) == 0x3BD8);
 static_assert(sizeof(gPetStorageD64E18) == 0x1E00);
@@ -12042,6 +12044,177 @@ void Sub_4B8C50()
             std::int32_t selected;
             std::memcpy(&selected, record + 0xC28, sizeof(selected));
             total += selected;
+        }
+    }
+    gShopValueC8AF74 = total;
+}
+
+void Sub_4B8C90()
+{
+    std::array<char, 100> buffer;
+    for (std::int32_t row = 0; row < 5; ++row) {
+        char* const priceText = gShopPriceTextsD673EC.data() + row * 11;
+        priceText[0] = '\0';
+        static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data)->text[0] = '\0';
+        static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->text[0] = '\0';
+        gCurrentWindow->elements[row + 27].visible = 0;
+        const char* record = gShopItemsCF4FE0.data() + (gShopScrollCC488C + row) * 0xC58;
+        if (record[0] == 0) {
+            continue;
+        }
+        std::int32_t price;
+        std::memcpy(&price, record + 0xC24, sizeof(price));
+        std::sprintf(priceText, "%10d", price);
+        record = gShopItemsCF4FE0.data() + (gShopScrollCC488C + row) * 0xC58;
+        std::uint32_t flags;
+        std::memcpy(&flags, record + 0xC40, sizeof(flags));
+        if ((flags & 0x100u) != 0) {
+            std::strcpy(buffer.data(), record + 0xC44);
+            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data)->bytes00[0] =
+                std::byte{5};
+            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->bytes00[0] =
+                std::byte{5};
+        } else {
+            std::int32_t count;
+            std::memcpy(&count, record + 0xC30, sizeof(count));
+            if (count <= 1) {
+                std::strcpy(buffer.data(), record + 1);
+            } else {
+                static_cast<void>(_snprintf(buffer.data(), 100, "%s(%d)", record + 1, count));
+            }
+            record = gShopItemsCF4FE0.data() + (gShopScrollCC488C + row) * 0xC58;
+            std::memcpy(&flags, record + 0xC40, sizeof(flags));
+            const std::byte color = (flags & 0x200u) != 0 ? std::byte{1} : std::byte{0};
+            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data)->bytes00[0] = color;
+            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->bytes00[0] = color;
+        }
+        if (std::strlen(buffer.data()) <= 20) {
+            std::strcpy(
+                static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data)->text,
+                buffer.data());
+        } else {
+            const std::size_t prefix = input::ClassifyLegacyBoundary_44B440(buffer.data(), 20) == 2
+                ? 19 : 20;
+            std::memcpy(
+                static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data)->text,
+                buffer.data(), prefix);
+            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data)->text[prefix + 1] = '\0';
+            std::strcpy(
+                static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->text,
+                buffer.data() + prefix);
+        }
+        record = gShopItemsCF4FE0.data() + (gShopScrollCC488C + row) * 0xC58;
+        const std::int32_t available = gShopAvailableCF4A24;
+        std::memcpy(&price, record + 0xC24, sizeof(price));
+        const std::int32_t total = gShopTotalD2DAFC;
+        if (available >= price + total) {
+            static_cast<WindowNumberData*>(gCurrentWindow->elements[row + 32].data)->color = 0;
+        } else {
+            static_cast<WindowNumberData*>(gCurrentWindow->elements[row + 32].data)->color = 7;
+            gCurrentWindow->elements[row + 27].visible = 1;
+            std::strcpy(
+                static_cast<WindowTextData*>(gCurrentWindow->elements[row + 27].data)->text,
+                "\xA1\xAF\xA7\x41\xAA\xBA\xBC\xC6\xB6\x71\xA4\xA3\xB0\xF7\xA5\x5B\xA4\x75");
+            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 27].data)->bytes00[0] =
+                std::byte{4};
+        }
+    }
+}
+
+void Sub_4B8FF0()
+{
+    for (std::int32_t row = 0; row < 5; ++row) {
+        char* const text = gShopCountTextsD2D988.data() + row * 11;
+        text[0] = '\0';
+        gCurrentWindow->elements[row + 42].visible = 0;
+        gCurrentWindow->elements[row + 47].visible = 0;
+        const char* const record = gShopItemsCF4FE0.data() + (gShopScrollCC488C + row) * 0xC58;
+        if (record[0] != 0) {
+            std::int32_t selected;
+            std::memcpy(&selected, record + 0xC28, sizeof(selected));
+            std::sprintf(text, "%2d", selected);
+            gCurrentWindow->elements[row + 42].visible = 1;
+            gCurrentWindow->elements[row + 47].visible = 1;
+        }
+    }
+}
+
+void Sub_4B9090()
+{
+    std::int32_t total = 0;
+    gShopTotalD2DAFC = 0;
+    for (std::int32_t index = 0; index < 20; ++index) {
+        const char* const record = gShopItemsCF4FE0.data() + index * 0xC58;
+        if (record[0] != 0) {
+            std::int32_t selected;
+            std::int32_t price;
+            std::memcpy(&selected, record + 0xC28, sizeof(selected));
+            std::memcpy(&price, record + 0xC24, sizeof(price));
+            total += price * selected;
+        }
+    }
+    gShopTotalD2DAFC = total;
+    std::sprintf(gShopValueTextCF4A28.data(), "%10d", total);
+}
+
+void Sub_4B90E0()
+{
+    std::int32_t total = 0;
+    gShopValueC8AF74 = 0;
+    for (std::int32_t index = 0; index < 20; ++index) {
+        const char* const record = gShopItemsCF4FE0.data() + index * 0xC58;
+        if (record[0] != 0) {
+            std::int32_t selected;
+            std::memcpy(&selected, record + 0xC28, sizeof(selected));
+            total += selected;
+        }
+    }
+    gShopValueC8AF74 = total;
+}
+
+void Sub_4B9110()
+{
+    std::int32_t price;
+    std::memcpy(&price, gShopDetailCC3210.data() + 0xC34, sizeof(price));
+    std::sprintf(gShopPriceTextsD673EC.data(), "%10d", price);
+    const char* const name = gShopDetailCC3210.data();
+    const char* secondLine;
+    if (std::strlen(name) <= 20) {
+        std::strcpy(static_cast<WindowTextData*>(gCurrentWindow->elements[17].data)->text, name);
+        secondLine = input::LegacyText593850();
+    } else {
+        const std::size_t prefix = input::ClassifyLegacyBoundary_44B440(name, 20) == 2 ? 19 : 20;
+        std::memcpy(
+            static_cast<WindowTextData*>(gCurrentWindow->elements[17].data)->text, name, prefix);
+        static_cast<WindowTextData*>(gCurrentWindow->elements[17].data)->text[prefix + 1] = '\0';
+        secondLine = name + prefix;
+    }
+    std::strcpy(static_cast<WindowTextData*>(gCurrentWindow->elements[22].data)->text, secondLine);
+}
+
+void Sub_4B9270()
+{
+    std::sprintf(gShopCountTextsD2D988.data(), "%2d", gShopValueD046C4);
+    std::sprintf(gShopValueTextCF4A28.data(), "%10d", gShopValueD046C4);
+    std::int32_t price;
+    std::memcpy(&price, gShopDetailCC3210.data() + 0xC2C, sizeof(price));
+    gShopTotalD2DAFC = price * gShopValueD046C4;
+}
+
+void Sub_4B92C0()
+{
+    const std::int32_t mode = gShopValueCAFEA4;
+    gShopValueC8AF74 = 0;
+    if (mode == 0) {
+        std::memcpy(&gShopValueC8AF74, gShopDetailCC3210.data() + 0xC24, sizeof(gShopValueC8AF74));
+        return;
+    }
+    std::int32_t itemId;
+    std::memcpy(&itemId, gShopDetailCC3210.data() + 0xC28, sizeof(itemId));
+    std::int32_t total = 0;
+    for (const world::detail::PlayerItemRecord& record : world::detail::gPlayerItemsFDA8A4) {
+        if (record.used != 0 && record.itemId == itemId) {
+            total += record.count;
         }
     }
     gShopValueC8AF74 = total;

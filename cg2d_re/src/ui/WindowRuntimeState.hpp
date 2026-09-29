@@ -228,6 +228,15 @@ login::YobiAction* Sub_49FCA0(
 std::int32_t Sub_49FFA0(std::int32_t unusedIndex, std::int32_t state);
 std::int32_t Sub_4A00C0(std::int32_t index); // 商店回复仅索引0..1发送，其他返回原索引。
 login::YobiAction* Sub_4A0140(const char* text); // 商店图号/标题/五行正文及买卖选择。
+std::int32_t Sub_4A0280(std::int32_t index); // CB03D4命令表的选择回复。
+std::int32_t Sub_4A0420(std::int32_t index); // CF47D8命令表的选择回复。
+std::int32_t Sub_4A05C0(std::int32_t index); // 索引0..1分别发送1/2。
+std::int32_t Sub_4A0700(std::int32_t index); // 仅索引0发送原字节1。
+login::YobiAction* Sub_4A0300(const char* text);
+login::YobiAction* Sub_4A04A0(const char* text);
+login::YobiAction* Sub_4A0640(const char* text); // 技能三选项。
+login::YobiAction* Sub_4A0790(const char* text); // 交易两选项。
+login::YobiAction* Sub_4A0850(const char* text); // 给出/接收标签，正文取第四字段。
 void Sub_49C4D0(); // 只清内嵌图号/计数及窗口36十元素可见性。
 void Sub_49C510(
     std::uint8_t used, std::int32_t imageNo, std::uint8_t direction,

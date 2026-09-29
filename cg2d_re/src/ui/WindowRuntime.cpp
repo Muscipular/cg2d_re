@@ -480,6 +480,71 @@ constexpr std::array<const char*, 3> kShopHints57E6C4 {
     "\xC1\xD9\xAC\x4F\xBA\xE2\xA4\x46\xA1\x43",
 };
 
+std::int32_t gChoiceImageCB0AE4 = 0;
+std::int32_t gChoiceImageCF4A18 = 0;
+std::int32_t gChoiceImageCC4890 = 0;
+std::int32_t gChoiceImageC9A99C = 0;
+std::int32_t gChoiceImageD2EA74 = 0;
+std::array<const char*, 2> gChoicesD67438 {};
+std::array<const char*, 2> gChoiceHintsCC31FC {};
+std::array<std::int8_t, 2> gChoiceCommandsCB03D4 {};
+std::array<const char*, 2> gChoicesD2D818 {};
+std::array<const char*, 2> gChoiceHintsCA0AAC {};
+std::array<std::int8_t, 2> gChoiceCommandsCF47D8 {};
+constexpr std::array<const char*, 3> kSkillChoices57E6F0 {
+    "\xB7\x51\xBE\xC7\xB2\xDF\xA7\xDE\xAF\xE0",
+    "\xB7\x51\xBF\xF2\xA7\xD1\xA7\xDE\xAF\xE0",
+    kShopChoices57E6B8[2],
+};
+constexpr std::array<const char*, 3> kSkillHints57E6FC {
+    "\xA6\x56\xB3\x6F\xA6\xEC\xA7\xDE\xAF\xE0\xAE\x76\xBD\x64"
+    "\xBE\xC7\xB2\xDF\xA7\xDE\xAF\xE0\xA1\x43",
+    "\xBF\xF2\xA7\xD1\xA6\xDB\xA4\x76\xBE\xC7\xB2\xDF\xA8\xEC"
+    "\xAA\xBA\xA7\xDE\xAF\xE0\xA1\x43",
+    "\xA4\xA3\xBE\xC7\xB2\xDF\xA7\xDE\xAF\xE0\xA1\x43",
+};
+constexpr std::array<const char*, 3> kExchangeChoices57E708 {
+    "\xA5\xE6\xA9\xF6", kShopChoices57E6B8[2], nullptr,
+};
+constexpr std::array<const char*, 3> kExchangeHints57E714 {
+    "\xA5\xE6\xB4\xAB\xB3\x6F\xAE\x61\xA9\xB1\xAA\xBA\xAA\xAB\xAB\x7E\xA1\x43",
+    kShopHints57E6C4[2], nullptr,
+};
+constexpr std::array<const char*, 2> kGiveReceiveLabels57E720 {
+    "\xB5\xB9\xA4\xA9\xAA\xAB\xAB\x7E", "\xB1\xB5\xA8\xFC\xAA\xAB\xAB\x7E",
+};
+std::array<const char*, 2> gGiveReceiveChoices57E728 {nullptr, kShopChoices57E6B8[2]};
+constexpr std::array<const char*, 3> kGiveReceiveHints57E730 {
+    kExchangeHints57E714[0], kShopHints57E6C4[2], nullptr,
+};
+
+// 五个选择创建入口共用的原字段提取/反转义/五行发布序列。
+void FillChoiceDialogBody(
+    const char* const text, const std::int32_t field, const std::int32_t capacity)
+{
+    std::array<char, 256> body;
+    static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', field, capacity, body.data()));
+    input::UnescapeLegacyTextAndNotify_52D2F0(body.data());
+    for (std::int32_t row = 0; row < 5; ++row) {
+        char* const line = gNpcDialogLinesCC24D4[row + 1].text.data();
+        static_cast<void>(input::ExtractLegacyLine_503AB0(line, 81, body.data(), row, 20));
+        gChoiceDialogLinesD672D8[row] = line;
+    }
+}
+
+// 调用者传原连续32B临时区；不缓存跨回复的目标/请求/坐标。
+std::int32_t SendChoiceDialogReply(char* const buffer)
+{
+    input::EscapeLegacyTextAndNotify_52D2D0(buffer, buffer + 16, 15);
+    const std::int32_t target = world::detail::gDialogTargetD2DE6C;
+    const std::int32_t request = world::detail::gDialogRequestCC21E0;
+    const std::int32_t y =
+        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+    const std::int32_t x =
+        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+    return network::Sub_512620(platform::gConnectionSocket, x, y, request, target, 0, buffer + 16);
+}
+
 // 原D672F0七个32B记录；第七条同源D673B0/B8用于合计，4DC290也消费此表。
 struct HealingDialogRecord {
     std::int32_t level;
@@ -5685,6 +5750,134 @@ login::YobiAction* Sub_4A0140(const char* const text)
     return Sub_49FCA0(title, imageNo, gChoiceDialogLinesD672D8.data(), 5,
         gShopChoicesCB1DC8.data(), static_cast<std::uint8_t>(count + 1),
         gShopHintsD2F738.data(), &Sub_4A00C0);
+}
+
+std::int32_t Sub_4A0280(const std::int32_t index)
+{
+    if (index < 0 || index > 1) {
+        return index;
+    }
+    std::array<char, 32> buffer;
+    std::sprintf(buffer.data(), "%d", static_cast<std::int32_t>(gChoiceCommandsCB03D4[index]));
+    return SendChoiceDialogReply(buffer.data());
+}
+
+std::int32_t Sub_4A0420(const std::int32_t index)
+{
+    if (index < 0 || index > 1) {
+        return index;
+    }
+    std::array<char, 32> buffer;
+    std::sprintf(buffer.data(), "%d", static_cast<std::int32_t>(gChoiceCommandsCF47D8[index]));
+    return SendChoiceDialogReply(buffer.data());
+}
+
+std::int32_t Sub_4A05C0(const std::int32_t index)
+{
+    if (index < 0 || index > 1) {
+        return index;
+    }
+    std::array<char, 32> buffer;
+    std::sprintf(buffer.data(), "%d", index + 1);
+    return SendChoiceDialogReply(buffer.data());
+}
+
+std::int32_t Sub_4A0700(const std::int32_t index)
+{
+    if (index != 0) {
+        return index;
+    }
+    std::array<char, 32> buffer;
+    std::strcpy(buffer.data(), "1");
+    return SendChoiceDialogReply(buffer.data());
+}
+static_assert(std::is_same_v<decltype(&Sub_4A0280), WindowChoiceCallback>);
+static_assert(std::is_same_v<decltype(&Sub_4A0420), WindowChoiceCallback>);
+static_assert(std::is_same_v<decltype(&Sub_4A05C0), WindowChoiceCallback>);
+static_assert(std::is_same_v<decltype(&Sub_4A0700), WindowChoiceCallback>);
+
+login::YobiAction* Sub_4A0300(const char* const text)
+{
+    gChoiceImageCB0AE4 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
+    char* const title = gNpcDialogLinesCC24D4[0].text.data();
+    static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 2, 21, title));
+    input::UnescapeLegacyTextAndNotify_52D2F0(title);
+    FillChoiceDialogBody(text, 3, 255);
+    std::uint8_t count = 0;
+    if ((network::ParseDelimitedInteger_52CFA0(text, '|', 4) & 1) != 0) {
+        gChoicesD67438[0] = kShopChoices57E6B8[0];
+        gChoiceHintsCC31FC[0] = kShopHints57E6C4[0];
+        gChoiceCommandsCB03D4[0] = 1;
+        count = 1;
+    }
+    const std::int32_t imageNo = gChoiceImageCB0AE4;
+    gChoicesD67438[count] = kShopChoices57E6B8[2];
+    gChoiceHintsCC31FC[count] = kShopHints57E6C4[2];
+    gChoiceCommandsCB03D4[count] = 3;
+    return Sub_49FCA0(title, imageNo, gChoiceDialogLinesD672D8.data(), 5,
+        gChoicesD67438.data(), static_cast<std::uint8_t>(count + 1),
+        gChoiceHintsCC31FC.data(), &Sub_4A0280);
+}
+
+login::YobiAction* Sub_4A04A0(const char* const text)
+{
+    gChoiceImageCF4A18 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
+    char* const title = gNpcDialogLinesCC24D4[0].text.data();
+    static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 2, 21, title));
+    input::UnescapeLegacyTextAndNotify_52D2F0(title);
+    FillChoiceDialogBody(text, 3, 255);
+    std::uint8_t count = 0;
+    if ((network::ParseDelimitedInteger_52CFA0(text, '|', 4) & 1) != 0) {
+        gChoicesD2D818[0] = kShopChoices57E6B8[0];
+        gChoiceHintsCA0AAC[0] = kShopHints57E6C4[0];
+        gChoiceCommandsCF47D8[0] = 1;
+        count = 1;
+    }
+    const std::int32_t imageNo = gChoiceImageCF4A18;
+    gChoicesD2D818[count] = kShopChoices57E6B8[2];
+    gChoiceHintsCA0AAC[count] = kShopHints57E6C4[2];
+    gChoiceCommandsCF47D8[count] = 3;
+    return Sub_49FCA0(title, imageNo, gChoiceDialogLinesD672D8.data(), 5,
+        gChoicesD2D818.data(), static_cast<std::uint8_t>(count + 1),
+        gChoiceHintsCA0AAC.data(), &Sub_4A0420);
+}
+
+login::YobiAction* Sub_4A0640(const char* const text)
+{
+    gChoiceImageCC4890 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
+    char* const title = gNpcDialogLinesCC24D4[0].text.data();
+    static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 2, 21, title));
+    input::UnescapeLegacyTextAndNotify_52D2F0(title);
+    FillChoiceDialogBody(text, 3, 255);
+    return Sub_49FCA0(title, gChoiceImageCC4890, gChoiceDialogLinesD672D8.data(), 5,
+        kSkillChoices57E6F0.data(), 3, kSkillHints57E6FC.data(), &Sub_4A05C0);
+}
+
+login::YobiAction* Sub_4A0790(const char* const text)
+{
+    gChoiceImageC9A99C = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
+    char* const title = gNpcDialogLinesCC24D4[0].text.data();
+    static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 2, 21, title));
+    input::UnescapeLegacyTextAndNotify_52D2F0(title);
+    FillChoiceDialogBody(text, 3, 255);
+    return Sub_49FCA0(title, gChoiceImageC9A99C, gChoiceDialogLinesD672D8.data(), 5,
+        kExchangeChoices57E708.data(), 2, kExchangeHints57E714.data(), &Sub_4A0700);
+}
+
+login::YobiAction* Sub_4A0850(const char* const text)
+{
+    gChoiceImageD2EA74 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
+    char* const title = gNpcDialogLinesCC24D4[0].text.data();
+    static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 2, 21, title));
+    input::UnescapeLegacyTextAndNotify_52D2F0(title);
+    const std::int32_t receive = network::ParseDelimitedInteger_52CFA0(text, '|', 3);
+    gGiveReceiveChoices57E728[0] = kGiveReceiveLabels57E720[0];
+    if (receive != 0) {
+        gGiveReceiveChoices57E728[0] = kGiveReceiveLabels57E720[1];
+    }
+    FillChoiceDialogBody(text, 4, 256);
+    return Sub_49FCA0(title, gChoiceImageD2EA74, gChoiceDialogLinesD672D8.data(), 5,
+        gGiveReceiveChoices57E728.data(), 2, kGiveReceiveHints57E730.data(), &Sub_4A05C0);
 }
 
 std::int32_t Sub_499930(const std::int32_t, const std::int32_t state)

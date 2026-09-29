@@ -260,6 +260,7 @@ std::int32_t Sub_4BAE10(std::int32_t index, std::int32_t state); // bit400向后
 std::int32_t Sub_4BAF10(std::int32_t index, std::int32_t state); // bit2向前五行，音效后重读位置。
 std::int32_t Sub_4BB010(std::int32_t index, std::int32_t state); // bit2向后五行，先上限后负值修正。
 std::int32_t Sub_4BB130(std::int32_t index, std::int32_t state); // 共享滚轮更新并刷新，恒返回0。
+std::int32_t Sub_4BB1D0(std::int32_t index, std::int32_t state); // 数量减少，兑换模式两轮背包占槽计算。
 void Sub_4B6C50(
     std::int32_t message, std::int32_t unused, std::int32_t sourceIndex); // kind9出售拖动生命周期。
 std::int32_t Sub_4B6DA0(std::int32_t sourceIndex); // 透传kind9注册返回。
@@ -498,6 +499,7 @@ extern std::int32_t gShopAvailableCF4A24; // 模式2指定物品数量，装载0
 extern std::array<char, 20> gShopValueTextCF4A28; // 模式2/3数值显示，573D20借用。
 extern std::array<std::int32_t, 5> gShopRowKeysC9A954; // 多窗口共用的行编号缓存，非地址。
 extern std::uint8_t gShopDragFlagD67B90; // 非零仅清自身，零分支移除选择；原虚拟零初值。
+extern std::int32_t gQuantityLimit581C94; // 原装载值999，商店及其他数量窗口同源上限。
 extern std::int32_t gStorageValueCC4218; // 存放窗口41每帧清零、元素13绘制的数值。
 extern std::array<char, 22> gStorageAmountTextsCB1DF8; // 两金额文本起点相隔11B，571150/158借用。
 extern const std::array<std::int32_t, 2> gStorageTitleImages54F4E8;

@@ -304,6 +304,14 @@ void UpdateBattleFrameEventEffect_41B440(YobiAction* action); // 先消费帧事
 void UpdateBattleMovingImpactEffect_41BB00(YobiAction* action); // 实时目标中心命中，保留提前标死后的运动/投影尾。
 void UpdateBattleHomingImpactEffect_41C3B0(YobiAction* action); // 距离门禁/HP分类，命中后出界仍继续移动与尾迹。
 void UpdateBattleCarryingEffect_4219D0(YobiAction* action); // 当帧carry独立快照，出界推进/标死后仍带动当前目标。
+// 41CD00第三槽：创建类型0..47使用S32 Y槽；其他类型消费已有对象T*，由caller显式选择成员。
+union BattleEffectThirdArgument {
+    std::int32_t offsetY;
+    YobiAction* existingAction;
+};
+YobiAction* NewBattleEffect_41CD00(
+    YobiAction* source, std::int32_t offsetX, BattleEffectThirdArgument third,
+    std::uint32_t type, std::int32_t blend, std::int32_t link); // 完整48类及已有对象公共尾。
 // 工厂初始化：仅借用现有对象与真实回调，空action/source原样返回，不分配/播放。
 void InitBattleTargetEffect_422E50(
     YobiAction* action, YobiAction* source, void (*callback)(YobiAction*)); // 固定目标坐标与图号音效。

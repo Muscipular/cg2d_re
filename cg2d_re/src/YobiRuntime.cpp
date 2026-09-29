@@ -338,7 +338,9 @@ struct BattleActorPayload {
     std::int32_t reactionImage1010;
     std::int32_t value1018;
     std::int32_t value1024;
+    std::int32_t image1028; // 41CD00的type34图号及音效/坐标重读源，生产仍待上游。
     std::int32_t image102C; // 426FC0按技术索引和目标阵营选表。
+    std::int32_t value1030; // 41CD00的type18按2000/3500选图，非指针。
     std::int32_t value1038;
     std::int32_t castSkill103C;
     std::int32_t castLevel1040; // 与1044的技术索引独立。
@@ -358,9 +360,14 @@ struct BattleActorPayload {
     std::array<YobiAction*, 2> auxiliaryGear13B8; // 原13B8/13BC，422C90的0/1槽。
     std::array<std::int32_t, 2> auxiliaryGearTypes13C0; // 原13C0/13C4，清附件不清类型。
     YobiAction* rider13C8; // 4222B0保存4221F0创建的非拥有引用，移除时MarkDeath再清槽。
+    std::int32_t image13E4; // 41CD00的type43从重取的源载荷读取，生产仍待上游。
 };
 static_assert(sizeof(BattleEntryEffectRecord) == 16);
 static_assert(offsetof(BattleEntryEffectRecord, position4) == 12);
+
+// 原553A38的12项S32等级映射；59F9E8只有工厂type34/43发布，不拥有或释放对象。
+constexpr std::array<std::int32_t, 12> kBattleEffectTierOffsets553A38 {3, 3, 3, 2, 2, 2, 1, 1, 1, 0, 0, 0};
+YobiAction* gBattleFactoryEffect59F9E8 = nullptr;
 
 // 原场景载荷仅映射本步字段；完整180B生产与调度回调仍待实现。
 struct BattleScenePayload {
@@ -7675,6 +7682,514 @@ void UpdateBattleCarryingEffect_4219D0(YobiAction* const action)
     const float y = action->offset44;
     action->x = x + offsetX;
     action->y = static_cast<std::int32_t>(y) + static_cast<std::int32_t>(gYobiScreenOffsetY);
+}
+
+YobiAction* NewBattleEffect_41CD00(
+    YobiAction* const source, const std::int32_t offsetX, const BattleEffectThirdArgument third,
+    const std::uint32_t type, const std::int32_t blend, const std::int32_t link)
+{
+    using world::detail::gBattleAllEntries59E980;
+    auto* const sourcePayload = static_cast<BattleActorPayload*>(source->payload);
+    YobiAction* action;
+    if (type > 47) {
+        action = third.existingAction;
+    } else {
+        switch (type) {
+        case 47:
+            action = NewYobiAction_404AE0(2, 0);
+            if (action == nullptr) {
+                return nullptr;
+            }
+            action->callback = UpdateBattleCompletingEffect_41A160;
+            action->rebirthValue1 = 4;
+            action->rebirthValue2 = 4;
+            action->displayPriority = 204;
+            action->offset40 = static_cast<float>(offsetX);
+            action->framePlayingRate = 100;
+            action->flags |= 0x40000u;
+            action->field270 = 0;
+            action->offset44 = static_cast<float>(third.offsetY);
+            action->scaleX = static_cast<float>(static_cast<double>(action->scaleX) * 1.5F);
+            action->scaleY = static_cast<float>(static_cast<double>(action->scaleY) * 1.5F);
+            action->imageNo = sourcePayload->image102C;
+            break;
+        case 13: {
+            action = NewYobiAction_404AE0(2, 0);
+            if (action == nullptr) {
+                return nullptr;
+            }
+            action->callback = UpdateBattleCompletingEffect_41A160;
+            action->displayPriority = 204;
+            action->framePlayingRate = 100;
+            const bool hasDevice = render::HasLegacy3DDevice_44B610() != 0;
+            action->flags |= hasDevice ? 0x100000u : 0x8000u;
+            action->flags |= 0x40000u;
+            const std::int32_t level = sourcePayload->castSkillLevel1044;
+            action->imageNo = level >= 12 ? 111019 : kBattleEffectTierOffsets553A38[level] + 110176;
+            action->rebirthValue1 = 4;
+            action->rebirthValue2 = 4;
+            action->offset40 = source->offset40;
+            const std::int32_t halfOffset = source->graphicOffsetY / 2;
+            action->offset44 = static_cast<float>(static_cast<double>(halfOffset) + source->offset44);
+            action->field270 = 0;
+            break;
+        }
+        case 30:
+        case 31:
+        case 32:
+            action = NewYobiAction_404AE0(2, 0);
+            if (action == nullptr) {
+                return nullptr;
+            }
+            action->callback = UpdateBattleCompletingEffect_41A160;
+            action->displayPriority = 204;
+            action->flags |= 0x40000u;
+            action->framePlayingRate = 100;
+            action->imageNo = type == 30 ? 110012 : (type == 31 ? 110014 : 110013);
+            action->rebirthValue1 = 4;
+            action->rebirthValue2 = 4;
+            action->offset40 = source->offset40;
+            action->offset44 = static_cast<float>(static_cast<double>(third.offsetY) + source->offset44);
+            action->field270 = 0;
+            break;
+        case 36: {
+            const auto position = static_cast<std::uint8_t>(sourcePayload->battlePosition18);
+            action = NewYobiAction_404AE0(static_cast<std::uint8_t>(position * 10 + 1), 0);
+            if (action == nullptr) {
+                return nullptr;
+            }
+            action->callback = UpdateBattleRandomEmitter_41A310;
+            action->displayPriority = 204;
+            action->flags |= 0x40000u;
+            action->framePlayingRate = 100;
+            action->rebirthValue1 = 4;
+            action->rebirthValue2 = 4;
+            const std::int32_t graphic = source->graphicIndex;
+            const std::int32_t x = source->x;
+            const std::int32_t halfWidth = render::ReadGraphicDxWidth(graphic) / 2;
+            const std::int32_t projectedX = halfWidth + source->graphicOffsetX + x;
+            action->offset40 = static_cast<float>(projectedX);
+            const std::int32_t projectedY = source->y + third.offsetY;
+            action->field270 = 0;
+            action->offset44 = static_cast<float>(projectedY);
+            break;
+        }
+        case 25:
+        case 33: {
+            action = NewYobiAction_404AE0(2, sizeof(BattleRingEmitterPayload));
+            if (action == nullptr) {
+                return nullptr;
+            }
+            if (type == 33) {
+                static_cast<void>(audio::PlaySe_52C450(280, source->x));
+                action->callback = UpdateBattleReverseEmitter_41A590;
+            } else {
+                static_cast<void>(audio::PlaySe_52C450(281, source->x));
+                action->callback = UpdateBattleIndexedEmitter_41A7D0;
+            }
+            action->displayPriority = 204;
+            action->flags |= 0x40000u;
+            action->framePlayingRate = 100;
+            action->rebirthValue1 = 4;
+            action->rebirthValue2 = 4;
+            const std::int32_t width = render::ReadGraphicDxWidth(source->graphicIndex);
+            const std::int32_t x = source->x;
+            const std::int32_t projectedX = width / 2 + source->graphicOffsetX + x;
+            action->offset40 = static_cast<float>(projectedX);
+            const std::int32_t projectedY = third.offsetY + source->y;
+            action->field270 = 0;
+            action->offset44 = static_cast<float>(projectedY);
+            break;
+        }
+        case 34:
+        case 43: {
+            action = NewYobiAction_404AE0(2, sizeof(BattleActorPayload));
+            gBattleFactoryEffect59F9E8 = action;
+            // 原34/43先写1C再走判空分支；RPLAN.24不改为安全失败。
+            action->deathFlag = 0;
+            if (action == nullptr) {
+                return nullptr;
+            }
+            action->callback = UpdateBattleParentEffect_41A1C0;
+            action->displayPriority = 204;
+            action->flags |= 0x40000u;
+            action->framePlayingRate = 100;
+            action->imageNo = type == 34 ? sourcePayload->image1028
+                : static_cast<BattleActorPayload*>(source->payload)->image13E4;
+            action->rebirthValue1 = 4;
+            action->rebirthValue2 = 4;
+            if (type == 34) {
+                const std::int32_t image = sourcePayload->image1028;
+                std::int32_t sound;
+                bool playSound = true;
+                if ((image >= 110052 && image <= 110055) || image == 111001) {
+                    sound = 259;
+                } else if ((image >= 110056 && image <= 110059) || image == 111018) {
+                    sound = 260;
+                } else if ((image >= 110081 && image <= 110084) || image == 111014
+                    || (image >= 110180 && image <= 110183) || image == 111017) {
+                    sound = 261;
+                } else {
+                    playSound = false;
+                }
+                if (playSound) {
+                    static_cast<void>(audio::PlaySe_52C450(sound, source->x));
+                }
+                action->offset40 = source->offset40;
+                const std::int32_t currentImage = sourcePayload->image1028;
+                if (currentImage >= 110180 && currentImage <= 110183) {
+                    const std::int32_t halfOffset = source->graphicOffsetY / 2;
+                    const double y = static_cast<double>(halfOffset) + source->offset44 + third.offsetY;
+                    action->field270 = 0;
+                    action->offset44 = static_cast<float>(y);
+                } else {
+                    const float y = source->offset44;
+                    action->field270 = 0;
+                    action->offset44 = y;
+                }
+            } else {
+                action->offset40 = source->offset40;
+                action->offset44 = source->offset44;
+                action->field270 = 0;
+            }
+            break;
+        }
+        case 35: {
+            const std::int32_t skill = sourcePayload->castSkill103C;
+            const bool fixedTargetMode = skill == 31 || skill == 3037 || skill == 2013;
+            YobiAction* fixedTarget;
+            if (fixedTargetMode) {
+                fixedTarget = gBattleAllEntries59E980[
+                    sourcePayload->effects1C[sourcePayload->effectRunningC9C].position];
+            }
+            action = NewYobiAction_404AE0(2, sizeof(BattleActorPayload));
+            if (action == nullptr) {
+                return nullptr;
+            }
+            if (skill == 400) {
+                auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+                action->callback = UpdateBattleCarryingEffect_4219D0;
+                action->displayPriority = 201;
+                action->flags |= 0x60000u;
+                AppendBattleEffect_439400(action, sourcePayload->effects1C[sourcePayload->effectRunningC9C]);
+                const std::uint32_t flags = sourcePayload->effects1C[sourcePayload->effectRunningC9C].flags;
+                if ((flags & 0x800000u) != 0) {
+                    std::int32_t position;
+                    std::int32_t value3;
+                    std::int32_t value4;
+                    std::int32_t value5;
+                    static_cast<void>(TakeBattleAuxEffects_43BC90(source, &position, &value3, &value4, &value5));
+                    AppendBattleAuxEffects_43BC10(action, position, flags, value3, value4, value5);
+                }
+                action->framePlayingRate = 100;
+                if (sourcePayload->effectRunningC9C != 0) {
+                    action->field58 = platform::RandomRange_46FAF0(0, 30);
+                }
+                action->imageNo = sourcePayload->image102C;
+                action->rebirthValue1 = 4;
+                action->rebirthValue2 = 4;
+                const std::int32_t speed = platform::RandomRange_46FAF0(4, 8);
+                action->value54 = static_cast<float>(speed);
+                payload->castSkill103C = sourcePayload->castSkill103C;
+                payload->castSkillLevel1044 = sourcePayload->castSkillLevel1044;
+                action->offset40 = 320.0F;
+                action->offset44 = 260.0F;
+                TurnBattleToward_406190(action, gBattleAllEntries59E980[
+                    sourcePayload->effects1C[sourcePayload->effectRunningC9C].position], 0, 0.0F);
+                const std::int32_t angle = platform::RandomRange_46FAF0(-90, 90);
+                action->field270 = 0;
+                action->angle50 = static_cast<float>(static_cast<double>(angle) + action->angle50);
+            } else if (fixedTargetMode) {
+                auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+                action->callback = UpdateBattleImpactEffect_41A9E0;
+                action->displayPriority = 201;
+                const bool hasDevice = render::HasLegacy3DDevice_44B610() != 0;
+                action->flags |= hasDevice ? 0x100000u : 0x8000u;
+                action->flags |= 0x40000u;
+                AppendBattleEffect_439400(action, sourcePayload->effects1C[sourcePayload->effectRunningC9C]);
+                const std::uint32_t flags = sourcePayload->effects1C[sourcePayload->effectRunningC9C].flags;
+                if ((flags & 0x800000u) != 0) {
+                    std::int32_t position;
+                    std::int32_t value3;
+                    std::int32_t value4;
+                    std::int32_t value5;
+                    static_cast<void>(TakeBattleAuxEffects_43BC90(source, &position, &value3, &value4, &value5));
+                    AppendBattleAuxEffects_43BC10(action, position, flags, value3, value4, value5);
+                }
+                action->framePlayingRate = 100;
+                if (sourcePayload->effectRunningC9C != 0) {
+                    action->field58 = platform::RandomRange_46FAF0(0, 30);
+                }
+                action->imageNo = sourcePayload->image102C;
+                action->rebirthValue1 = 4;
+                action->rebirthValue2 = 4;
+                payload->castSkill103C = sourcePayload->castSkill103C;
+                payload->castSkillLevel1044 = sourcePayload->castSkillLevel1044;
+                action->offset40 = fixedTarget->offset40;
+                action->offset44 = fixedTarget->offset44;
+                action->field270 = 0;
+            } else if (skill == 19 || skill == 23 || skill == 27) {
+                InitBattleOffsetEffect_423040(action, source, UpdateBattleMovingImpactEffect_41BB00);
+            } else if (skill == 22 || skill == 26 || skill == 30) {
+                InitBattleCenterEffect_4231D0(action, source, UpdateBattleHomingImpactEffect_41C3B0);
+            } else if (skill == 21 || skill == 25 || skill == 29) {
+                InitBattleLowerEffect_423350(action, source, UpdateBattleFrameEventEffect_41B440);
+            } else if (skill >= 2068 && skill <= 2079) {
+                InitBattleTargetEffect_422E50(action, source, UpdateBattleImpactSoundEffect_41AF00);
+            } else if (skill >= 2055 && skill <= 2057) {
+                InitBattleTargetEffect_422E50(action, source, UpdateBattleImpactEffect_41A9E0);
+            } else {
+                std::int32_t side;
+                InitBattleScreenYEffect_4234B0(action, source, UpdateBattleFrameEventEffect_41B440, &side);
+            }
+            break;
+        }
+        case 17:
+        case 19:
+            action = NewYobiAction_404AE0(2, sizeof(BattleActorPayload));
+            if (action == nullptr) {
+                return nullptr;
+            }
+            action->callback = UpdateBattleParentEffect_41A1C0;
+            action->displayPriority = 203;
+            action->flags |= 0x40000u;
+            action->battleAttachmentParent10 = source;
+            action->framePlayingRate = 100;
+            if (type == 17) {
+                action->imageNo = 110184;
+            } else {
+                const std::int32_t image = source->imageNo;
+                if (image >= 110085 && image <= 110088) {
+                    const std::int32_t level = source->field1D0;
+                    action->imageNo = level >= 12 && level <= 15 ? 111015 : 110184;
+                } else if (image >= 110165 && image <= 110168) {
+                    const std::int32_t level = source->field1D0;
+                    action->imageNo = level >= 12 && level <= 15 ? 111020 : 110184;
+                } else {
+                    action->imageNo = 0;
+                }
+            }
+            action->rebirthValue1 = 4;
+            action->rebirthValue2 = 4;
+            action->offset40 = source->offset40;
+            action->offset44 = source->offset44;
+            action->field270 = 0;
+            break;
+        default: {
+            action = NewYobiAction_404AE0(2, 0);
+            if (action == nullptr) {
+                return nullptr;
+            }
+            action->callback = UpdateBattleCompletingEffect_41A160;
+            action->displayPriority = 204;
+            action->framePlayingRate = 100;
+            action->rebirthValue1 = 4;
+            action->rebirthValue2 = 4;
+            action->flags |= 0x40000u;
+            action->offset40 = static_cast<float>(static_cast<double>(offsetX) + source->offset40);
+            const double initialY = static_cast<double>(third.offsetY) + source->offset44;
+            action->field270 = 0;
+            action->offset44 = static_cast<float>(initialY);
+            bool deviceBlend = false;
+            bool centerY = false;
+            bool childAura = false;
+            switch (type) {
+            case 0: action->imageNo = 110009; break;
+            case 1: action->imageNo = 110063; break;
+            case 2:
+            case 4:
+            case 5:
+            case 6:
+            case 15: {
+                const std::int32_t level = sourcePayload->castSkillLevel1044;
+                std::int32_t base;
+                std::int32_t highImage;
+                switch (type) {
+                case 2: base = 110067; highImage = 111013; break;
+                case 4: base = 110071; highImage = 111063; break;
+                case 5: base = 110105; highImage = 111021; break;
+                case 6: base = 110161; highImage = 111001; break;
+                default: base = 110170; highImage = 111001; break;
+                }
+                action->imageNo = level >= 12 ? highImage : kBattleEffectTierOffsets553A38[level] + base;
+                deviceBlend = type != 5;
+                centerY = type == 15;
+                break;
+            }
+            case 21: {
+                const std::int32_t skill = sourcePayload->castSkill103C;
+                std::int32_t* level = &sourcePayload->castSkillLevel1044;
+                if (skill == 3100 || skill == 3101) {
+                    level = &sourcePayload->castLevel1040;
+                    --*level;
+                }
+                const std::int32_t value = *level;
+                action->imageNo = value >= 12 ? 111016 : kBattleEffectTierOffsets553A38[value] + 110100;
+                centerY = true;
+                break;
+            }
+            case 22:
+            case 23:
+                action->imageNo = type == 22 ? 110097 : 110096;
+                action->callback = UpdateBattleParentEffect_41A1C0;
+                deviceBlend = true;
+                break;
+            case 20: action->imageNo = 110104; break;
+            case 3:
+                action->imageNo = FindBattleAppendEffectTechnique_43BEA0(11, sourcePayload->battlePosition18) >= 12
+                    ? 111053 : 110153;
+                break;
+            case 7:
+            case 8:
+            case 9:
+            case 10:
+            case 11:
+            case 12: {
+                std::int32_t skill;
+                std::int32_t lowImage;
+                std::int32_t highImage;
+                switch (type) {
+                case 7: skill = 55; lowImage = 110109; highImage = 111025; break;
+                case 8: skill = 57; lowImage = 110117; highImage = 111027; break;
+                case 9: skill = 59; lowImage = 110125; highImage = 111023; break;
+                case 10: skill = 56; lowImage = 110113; highImage = 111024; break;
+                case 11: skill = 58; lowImage = 110121; highImage = 110121; break;
+                default: skill = 60; lowImage = 110129; highImage = 111022; break;
+                }
+                const std::int32_t technique = FindBattleAppendEffectTechnique_43BEA0(
+                    skill, static_cast<BattleActorPayload*>(source->payload)->battlePosition18);
+                action->imageNo = technique >= 12 ? highImage : lowImage;
+                deviceBlend = true;
+                centerY = true;
+                break;
+            }
+            case 24:
+                action->imageNo = 110095;
+                action->callback = UpdateBattleScalingEffect_41A270;
+                action->displayPriority = 8;
+                action->scaleX = 0.0F;
+                action->scaleY = 0.0F;
+                break;
+            case 26:
+            case 27:
+            case 28:
+                action->imageNo = type == 26 ? 110156 : (type == 27 ? 111162 : 111163);
+                centerY = true;
+                break;
+            case 29:
+                action->imageNo = 110157;
+                deviceBlend = true;
+                centerY = true;
+                break;
+            case 14:
+            case 16: {
+                const std::int32_t level = sourcePayload->castSkillLevel1044;
+                const std::int32_t base = type == 14 ? 110165 : 110085;
+                action->imageNo = level >= 12 ? base : kBattleEffectTierOffsets553A38[level] + base;
+                deviceBlend = true;
+                childAura = true;
+                break;
+            }
+            case 18: {
+                const std::int32_t value = sourcePayload->value1030;
+                action->imageNo = value >= 3500 ? 111196 : (value >= 2000 ? 111195 : 111194);
+                deviceBlend = true;
+                break;
+            }
+            case 37:
+                action->imageNo = sourcePayload->castSkillLevel1044 < 12 ? 110189 : 111057;
+                break;
+            case 38: {
+                const std::int32_t level = sourcePayload->castSkillLevel1044;
+                action->imageNo = level >= 1 && level <= 7 ? 111239 + level : 111239;
+                break;
+            }
+            case 39: {
+                const std::int32_t level = world::detail::gBattleBombLevelD67B2C;
+                if (level > 0 && level <= 3) {
+                    action->imageNo = 110103;
+                } else if (level > 3 && level <= 6) {
+                    action->imageNo = 110102;
+                } else if (level > 6 && level <= 9) {
+                    action->imageNo = 110101;
+                } else if (level > 9 && level <= 12) {
+                    action->imageNo = 110100;
+                } else {
+                    action->imageNo = 111016;
+                }
+                centerY = true;
+                break;
+            }
+            case 40: {
+                action->imageNo = 110474;
+                const bool hasDevice = render::HasLegacy3DDevice_44B610() != 0;
+                action->flags |= hasDevice ? 0x100000u : 0x8000u;
+                const std::int32_t halfWidth = render::ReadGraphicDxWidth(source->graphicIndex) / 2;
+                const std::int32_t randomX = platform::RandomRange_46FAF0(0, halfWidth);
+                const std::int32_t quarterWidth = render::ReadGraphicDxWidth(source->graphicIndex) / 4;
+                const std::int32_t x = source->x - quarterWidth + randomX;
+                action->offset40 = static_cast<float>(x);
+                const std::int32_t randomY = platform::RandomRange_46FAF0(0, source->graphicOffsetY / 3);
+                const std::int32_t quarterOffset = source->graphicOffsetY / 4;
+                const std::int32_t y = source->y + quarterOffset - randomY;
+                action->offset44 = static_cast<float>(y);
+                break;
+            }
+            case 41:
+            case 42: action->imageNo = sourcePayload->image102C; break;
+            case 44: action->imageNo = 111179; break;
+            case 45: action->imageNo = 111188; break;
+            case 46: action->imageNo = 111191; break;
+            }
+            if (deviceBlend) {
+                const bool hasDevice = render::HasLegacy3DDevice_44B610() != 0;
+                action->flags |= hasDevice ? 0x100000u : 0x8000u;
+            }
+            if (centerY) {
+                const std::int32_t halfOffset = source->graphicOffsetY / 2;
+                action->offset44 = static_cast<float>(static_cast<double>(halfOffset) + source->offset44);
+            }
+            if (childAura) {
+                const std::int32_t level = sourcePayload->castSkillLevel1044;
+                if (level >= 9) {
+                    action->field1D0 = level;
+                    static_cast<void>(NewBattleEffect_41CD00(action, 0, {.offsetY = 0}, 19, 1, 0));
+                }
+            }
+            break;
+        }
+        }
+    }
+    const bool hasDevice = render::HasLegacy3DDevice_44B610() != 0;
+    if (hasDevice) {
+        if (blend == 1 || blend == 2) {
+            action->flags |= 0x100000u;
+        }
+    } else if (blend == 1) {
+        action->flags |= 0x8000u;
+    } else if (blend == 2) {
+        action->flags |= 0x10000u;
+    }
+    if (link == 1) {
+        action->battleAttachmentParent10 = source;
+        static_cast<BattleActorPayload*>(source->payload)->value1024 = 1;
+    }
+    const float x = action->offset40;
+    action->direction = 0;
+    const std::int32_t projectedX = static_cast<std::int32_t>(x);
+    const float y = action->offset44;
+    action->x = projectedX;
+    action->y = static_cast<std::int32_t>(y);
+    if (type == 17 || type == 19 || type == 34 || type == 35 || type == 43) {
+        auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+        if (payload != nullptr) {
+            const auto* const currentSource = static_cast<const BattleActorPayload*>(source->payload);
+            if (currentSource != nullptr) {
+                payload->battlePosition18 = currentSource->battlePosition18;
+            }
+        }
+    }
+    return action;
 }
 
 void InitBattleTargetEffect_422E50(

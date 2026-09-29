@@ -164,8 +164,11 @@ std::array<std::int8_t, 5> gWindow54PetMapCF4AB0 {};
 std::int32_t gWindow54TribeCA0B2C = 0;
 std::int32_t gWindow54PetChoiceC8AA90 = 0;
 std::int32_t gWindow54PetScrollCC31DC = 0;
+std::array<Window54TechniqueSlot, 10> gWindow54TechniqueSlotsD66E38 {};
+std::int32_t gWindow54ReplacementC8B08C = 0;
 static_assert(sizeof(gWindow54SkillsD2EAB8) == 0x600);
 static_assert(sizeof(gWindow54PetOptionsD67448) == 0xC8);
+static_assert(sizeof(gWindow54TechniqueSlotsD66E38) == 0x398);
 static_assert(sizeof(gTradeItemsD460D0) == 0x1EBE0);
 static_assert(sizeof(gTradePetsC9C108) == 0x3BD8);
 static_assert(sizeof(gPetStorageD64E18) == 0x1E00);
@@ -14723,6 +14726,53 @@ void Sub_4BDF70(const char* const text)
     Sub_4BEC20(window);
 }
 
+void Sub_4BE200(const char* const text)
+{
+    if (gWindowStates[54].window == nullptr) {
+        return;
+    }
+    std::array<char, 512> buffer;
+    gWindow54DialogTypeCB2224 = world::detail::gValue581800;
+    gWindow54ImageCC18C4 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
+    char* const title = gNpcDialogLinesCC24D4[0].text.data();
+    static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 2, 21, title));
+    input::UnescapeLegacyTextAndNotify_52D2F0(title);
+    static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 3, 511, buffer.data()));
+    input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
+    for (std::int32_t row = 0; row < 5; ++row) {
+        static_cast<void>(input::ExtractLegacyLine_503AB0(
+            gNpcDialogLinesCC24D4[row + 1].text.data(), 81, buffer.data(), row, 21));
+    }
+    std::memset(gWindow54TechniqueSlotsD66E38.data(), 0, sizeof(gWindow54TechniqueSlotsD66E38));
+    std::int32_t field = 4;
+    for (Window54TechniqueSlot& slot : gWindow54TechniqueSlotsD66E38) {
+        static_cast<void>(network::ExtractDelimitedField_52CED0(
+            text, '|', field++, 511, buffer.data()));
+        input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
+        if (buffer[0] == '\0') {
+            slot.used = 0;
+            field += 2;
+            continue;
+        }
+        slot.used = 1;
+        std::strcpy(slot.name.data(), std::strlen(buffer.data()) > 16 ? "???" : buffer.data());
+        slot.value04 = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
+        static_cast<void>(network::ExtractDelimitedField_52CED0(
+            text, '|', field++, 511, buffer.data()));
+        input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
+        for (std::int32_t row = 0; row < 2; ++row) {
+            static_cast<void>(input::ExtractLegacyLine_503AB0(
+                slot.description[row].data(), 29, buffer.data(), row, 28));
+        }
+    }
+    WindowInstance* const window = gWindowStates[54].window;
+    gWindow54ValueCB01E4 = 0;
+    gWindow54ValueCB01E8 = 0;
+    gWindow54ModeC8AF64 = 4;
+    gWindow54LifecycleD67434 = 0;
+    Sub_4BEF30(window);
+}
+
 void Sub_4BE930(WindowInstance* const window)
 {
     static_cast<WindowGraphicData*>(window->elements[104].data)->imageNo = 244385;
@@ -14850,6 +14900,56 @@ void Sub_4BEC20(WindowInstance* const window)
     Sub_4BF460(window, gWindow54SkillScrollCC31F4);
 }
 
+void Sub_4BEF30(WindowInstance* const window)
+{
+    static_cast<WindowGraphicData*>(window->elements[104].data)->imageNo = 244385;
+    window->elements[2].visible = 0;
+    window->elements[5].visible = 1;
+    const std::int32_t capacity = gWindow54PetOptionsD67448[gWindow54PetChoiceC8AA90].slots;
+    std::int32_t used = 0;
+    for (std::int32_t index = 0; index < capacity; ++index) {
+        if (gWindow54TechniqueSlotsD66E38[index].used != 0) {
+            ++used;
+        }
+    }
+    std::sprintf(static_cast<WindowTextData*>(window->elements[5].data)->text,
+        "%2d/%2d", used, capacity);
+    for (std::int32_t index = 9; index <= 16; ++index) {
+        window->elements[index].visible = 0;
+    }
+    for (std::int32_t index = 24; index <= 32; ++index) {
+        window->elements[index].visible = 0;
+    }
+    window->elements[33].visible = 0;
+    window->elements[6].visible = 1;
+    std::sprintf(gWindow54AmountTextD45F78.data(), "%10d",
+        gWindow54SkillsD2EAB8[gWindow54SelectedD2DC04].price);
+    for (std::int32_t row = 0; row < 5; ++row) {
+        window->elements[row + 69].visible = 1;
+        window->elements[row + 69].mouseCallback = &Sub_4C0A50;
+        static_cast<WindowTextData*>(window->elements[row + 34].data)->text[0] = '\0';
+        window->elements[row + 44].visible = 0;
+        const bool usedOption = gWindow54PetOptionsD67448[row].used != 0;
+        gWindow54ValueTextsCB035C[row * 11] = '\0';
+        gWindow54ValueTextsC8B318[row * 11] = '\0';
+        if (usedOption) {
+            std::strcpy(static_cast<WindowTextData*>(window->elements[row + 34].data)->text,
+                gWindow54PetOptionsD67448[row].name.data());
+        }
+    }
+    for (std::int32_t row = 5; row < 10; ++row) {
+        window->elements[row + 69].visible = 0;
+        window->elements[row + 34].visible = 0;
+        window->elements[row + 49].visible = 0;
+        window->elements[row + 59].visible = 0;
+    }
+    for (std::int32_t index = 17; index <= 23; ++index) {
+        window->elements[index].visible = 1;
+    }
+    Sub_4BF460(window, gWindow54SkillScrollCC31F4);
+    Sub_4BF620(window, gWindow54PetScrollCC31DC);
+}
+
 void Sub_4BF460(WindowInstance* const window, const std::int32_t scroll)
 {
     for (std::int32_t row = 0; row < 5; ++row) {
@@ -14885,6 +14985,39 @@ void Sub_4BF460(WindowInstance* const window, const std::int32_t scroll)
             static_cast<WindowNumberData*>(window->elements[row + 89].data)->color =
                 money >= price ? 0 : 6;
         }
+    }
+}
+
+void Sub_4BF620(WindowInstance* const window, const std::int32_t scroll)
+{
+    std::int32_t row = 0;
+    if (gWindow54PetOptionsD67448[gWindow54PetChoiceC8AA90].slots - scroll > 0) {
+        do {
+            const Window54TechniqueSlot& slot = gWindow54TechniqueSlotsD66E38[scroll + row];
+            window->elements[row + 69].visible = 1;
+            window->elements[row + 34].visible = 1;
+            window->elements[row + 59].visible = 1;
+            window->elements[row + 69].mouseCallback = &Sub_4C0BF0;
+            static_cast<WindowTextData*>(window->elements[row + 34].data)->text[0] = '\0';
+            const bool used = slot.used != 0;
+            gWindow54ValueTextsCB035C[row * 11] = '\0';
+            gWindow54ValueTextsC8B318[row * 11] = '\0';
+            if (used) {
+                std::strcpy(static_cast<WindowTextData*>(window->elements[row + 34].data)->text,
+                    slot.name.data());
+                std::sprintf(gWindow54ValueTextsC8B318.data() + row * 11, "%3d", slot.value04);
+            }
+            ++row;
+        } while (row < gWindow54PetOptionsD67448[gWindow54PetChoiceC8AA90].slots - scroll);
+    }
+    for (; row < 10; ++row) {
+        window->elements[row + 69].visible = 0;
+        window->elements[row + 34].visible = 0;
+        window->elements[row + 59].visible = 0;
+        window->elements[row + 69].mouseCallback = &Sub_4B0F10;
+    }
+    for (std::int32_t index = 44; index <= 48; ++index) {
+        window->elements[index].visible = 0;
     }
 }
 
@@ -14942,6 +15075,35 @@ std::int32_t Sub_4C0A50(const std::int32_t index, const std::int32_t state)
     }
     if ((state & 8) != 0) {
         graphic->imageNo = 243101;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_4C0BF0(const std::int32_t index, const std::int32_t state)
+{
+    WindowInstance* const window = gCurrentWindow;
+    const bool hover = (state & 1) != 0;
+    auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
+    const std::int32_t slot = gWindow54PetScrollCC31DC + index - 69;
+    if (hover) {
+        std::strcpy(gHoverTextD68AE8.data(),
+            "\xA7\xE2\xAD\x6E\xBE\xC7\xB2\xDF\xAA\xBA\xA7\xDE\xAF\xE0\xA9\xF1\xA6\x62"
+            "\xB3\x6F\xA4\x40\xC4\xE6\xA1\x43");
+    }
+    std::int32_t consumed = 0;
+    if ((state & 2) != 0) {
+        gWindow54ReplacementC8B08C = slot;
+        window->elements[0].visible = 1;
+        gCurrentWindow->state |= 2u;
+        static_cast<void>(audio::PlaySe_52C450(78, 320));
+        consumed = 1;
+    }
+    graphic->imageNo = 243127;
+    if (hover) {
+        graphic->imageNo = 243129;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 243128;
     }
     return consumed;
 }

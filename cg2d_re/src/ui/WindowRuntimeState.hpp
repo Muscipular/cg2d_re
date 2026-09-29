@@ -283,6 +283,21 @@ static_assert(offsetof(Window54PetOption, allowed) == 0x1D);
 static_assert(offsetof(Window54PetOption, tribe) == 0x20);
 static_assert(offsetof(Window54PetOption, hintFlag) == 0x24);
 
+// 原D66E38十条5CH技能槽，供模式4显示及确认覆盖层借用。
+struct Window54TechniqueSlot {
+    std::uint16_t used;
+    std::array<std::byte, 2> bytes02;
+    std::int32_t value04;
+    std::array<char, 25> name;
+    std::array<std::array<char, 29>, 2> description;
+    std::byte byte5B;
+};
+static_assert(sizeof(Window54TechniqueSlot) == 0x5C);
+static_assert(offsetof(Window54TechniqueSlot, value04) == 4);
+static_assert(offsetof(Window54TechniqueSlot, name) == 8);
+static_assert(offsetof(Window54TechniqueSlot, description) == 0x21);
+static_assert(offsetof(Window54TechniqueSlot, byte5B) == 0x5B);
+
 using WindowDialogReplyCallback = std::int32_t (*)(
     std::int32_t button, std::int32_t row, char* const* texts, std::uint8_t inputCount);
 using WindowDialogFrameCallback = std::int32_t (*)(
@@ -329,10 +344,14 @@ login::YobiAction* Sub_4BD810(const char* text); // 窗口54模式2，技能报�
 login::YobiAction* Sub_4BDAD0(const char* text); // 同创建流程，模式12显示种族。
 void Sub_4BDD90(const char* text); // 模式3候选回复，仅更新存在的窗口54。
 void Sub_4BDF70(const char* text); // 模式13候选回复，带种族条件及提示标记。
+void Sub_4BE200(const char* text); // 模式4固定十槽回复，空名不终止后续槽。
 void Sub_4BE930(WindowInstance* window); // 固定旧窗的五宠物名称/元素及技能分页刷新。
 void Sub_4BEC20(WindowInstance* window); // 玩家索引对转候选映射，绑定真实选择回调。
+void Sub_4BEF30(WindowInstance* window); // 技能槽计数/候选原序显示，先右侧再左侧刷新。
 void Sub_4BF460(WindowInstance* window, std::int32_t scroll); // 五行，存在性与内容索引不同。
+void Sub_4BF620(WindowInstance* window, std::int32_t scroll); // 按候选槽数逐轮重读，不加十行钳制。
 std::int32_t Sub_4C0A50(std::int32_t index, std::int32_t state); // 候选门禁/提示/发送，hintFlag不阻止发送。
+std::int32_t Sub_4C0BF0(std::int32_t index, std::int32_t state); // 选技能槽并显示元素0，不提前发送。
 std::int32_t Sub_4C0CB0(std::int32_t index, std::int32_t state); // 技能选择/请求，发送后对话类型=-2。
 std::int32_t Sub_4C0EA0(std::int32_t index, std::int32_t unusedState); // 已选技能内框，恒0。
 std::int32_t Sub_4BA950(std::int32_t index, std::int32_t state); // 取消发送command2，发送后关闭。
@@ -618,6 +637,8 @@ extern std::array<std::int8_t, 5> gWindow54PetMapCF4AB0; // 4C0A50原CF4A6B基�
 extern std::int32_t gWindow54TribeCA0B2C;
 extern std::int32_t gWindow54PetChoiceC8AA90; // 已选协议候选，不是原生地址或玩家宠物槽。
 extern std::int32_t gWindow54PetScrollCC31DC;
+extern std::array<Window54TechniqueSlot, 10> gWindow54TechniqueSlotsD66E38; // 398H，其他窗口同源。
+extern std::int32_t gWindow54ReplacementC8B08C; // 4C0BF0发布、4C0F20消费的技能槽索引。
 extern std::int32_t gStorageValueCC4218; // 存放窗口41每帧清零、元素13绘制的数值。
 extern std::array<char, 22> gStorageAmountTextsCB1DF8; // 两金额文本起点相隔11B，571150/158借用。
 extern const std::array<std::int32_t, 2> gStorageTitleImages54F4E8;

@@ -1063,6 +1063,7 @@ const char* BorrowPlayerDisplayText(std::int16_t mode) noexcept; // 模式1..6�
 extern std::uint32_t gActorBarsEnabled5AC490; // 原虚拟零区，442F70与后续设置UI共享。
 std::int32_t ReadPlayerWalkSpeed() noexcept; // 原FDA870。
 std::int32_t ReadPlayerImageNo() noexcept; // 原FDA878；不是action当前变换图号。
+std::int32_t ReadPlayerValue17C() noexcept; // 原FDA87C，窗口56外观分解读取，与FDA878独立。
 std::int32_t ReadPlayerValueFC() noexcept; // 原FDA7FC，交易面板借用同源金额，不复制owner。
 std::int32_t ReadPlayerValue16C() noexcept; // 原FDA86C，窗口54借读509650生产的总技能槽数。
 std::int32_t ReadPlayerValue15BCC() noexcept; // 原FF02CC，库存第二数值文本借读同源回复字段。

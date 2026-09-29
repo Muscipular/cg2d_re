@@ -6886,6 +6886,11 @@ std::int32_t ReadPlayerImageNo() noexcept
     return gPlayerRuntime.imageNo;
 }
 
+std::int32_t ReadPlayerValue17C() noexcept
+{
+    return gPlayerRuntime.value17C;
+}
+
 std::int16_t ReadDirectionDeltaX(const std::int16_t direction) noexcept
 {
     return gDirectionDeltas55D9DC[static_cast<std::size_t>(direction)].x;

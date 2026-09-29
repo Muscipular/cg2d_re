@@ -367,6 +367,12 @@ std::int32_t Sub_4C0BF0(std::int32_t index, std::int32_t state); // 选技能槽
 std::int32_t Sub_4C0CB0(std::int32_t index, std::int32_t state); // 技能选择/请求，发送后对话类型=-2。
 std::int32_t Sub_4C0EA0(std::int32_t index, std::int32_t unusedState); // 已选技能内框，恒0。
 std::int32_t Sub_4C0F20(std::int32_t index, std::int32_t unusedState); // 确认覆盖层，发原选槽文本后请求关闭。
+login::YobiAction* Sub_4C5790(
+    std::int32_t request, std::int32_t target, const char* text); // 两行正文后打开外观选择56。
+std::int32_t Sub_4C5C30(std::int32_t index, std::int32_t state); // 图号原文本直接发送，不转义。
+std::int32_t Sub_4C5D00(std::int32_t index, std::int32_t state); // class按版本上下界循环。
+std::int32_t Sub_4C5DE0(std::int32_t index, std::int32_t state); // fifth分量0..4循环。
+std::int32_t Sub_4C5EB0(std::int32_t index, std::int32_t state); // ones分量0..4循环。
 std::int32_t Sub_4BA950(std::int32_t index, std::int32_t state); // 取消发送command2，发送后关闭。
 std::int32_t Sub_4BAA50(std::int32_t index, std::int32_t state); // 批量加入出售选择，每轮固定重置/音效尾。
 std::int32_t Sub_4BCEE0(std::int32_t index, std::int32_t state); // kind2拖放加入，hover模式门禁独立。

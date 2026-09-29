@@ -184,6 +184,22 @@ WindowNumberData gWindowNumber5748D8 {gWindow54ValueTextsC8B318.data() + 88, 0, 
 WindowNumberData gWindowNumber5748E0 {gWindow54ValueTextsC8B318.data() + 99, 0, 0, 1, 0};
 std::uint32_t gWindowMouseFlagsD67900 = 0;
 
+WindowGraphicData gWindowGraphic576EF0 {243048, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic576F08 {30000, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic576F20 {245042, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic576F38 {243030, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic576F50 {243033, 0, 0, 0, 0, 0xFFFFFFFFu};
+constexpr char kWindow56Message585D98[] =
+    "MASSAGE789\xB2" "123456789\xC6" "123456789\xBB" "123456789\xD6" "123456789";
+constexpr char kWindow56Class585D90[] = "\xC1\x79\xB3\xA1";
+constexpr char kWindow56Fifth585D88[] = "\xB2\xB4\xB7\xFA";
+constexpr char kWindow56Ones585D80[] = "\xBC\x4C\xA4\xDA";
+WindowTextPrototype gWindowText576F68 {{}, kWindow56Message585D98};
+WindowTextPrototype gWindowText576F70 {{}, kWindow56Class585D90};
+WindowTextPrototype gWindowText576F78 {{}, kWindow56Fifth585D88};
+WindowTextPrototype gWindowText576F80 {{}, kWindow56Ones585D80};
+std::int32_t gWindowAnimationImage576F88 = 100000;
+
 WindowGraphicData gWindowGraphic563080 {243000, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic563098 {244309, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic5630B0 {243090, 0, 0, 0, 0, 0xFFFFFFFFu};
@@ -802,6 +818,25 @@ WindowElementPrototype gWindowElements5748E8[107] {
     {1, 17, 28, 274, 325, 1, {.graphic = &gWindowGraphic574698}, &Sub_4B0F10},
     {1, 0, 0, 40, 11, 1, {.graphic = &gWindowGraphic574680}, &Sub_4B0F10},
     {0, 552, 5, 18, 80, 1, {.unusedValue = 0}, &Sub_474170},
+};
+
+// 原576F90的十五项，三个分量按钮复用源图形但实例各自分配。
+WindowElementPrototype gWindowElements576F90[15] {
+    {1, 197, 206, 66, 17, 1, {.graphic = &gWindowGraphic576EF0}, &Sub_4C5C30},
+    {1, 48, 19, 0, 0, 1, {.graphic = &gWindowGraphic576F20}, &Sub_4B0F10},
+    {1, 48, 19, 0, 0, 1, {.graphic = &gWindowGraphic576F08}, &Sub_4B0F10},
+    {1, 144, 26, 18, 18, 1, {.graphic = &gWindowGraphic576F38}, &Sub_4C5D00},
+    {3, 194, 28, 0, 0, 1, {.text = &gWindowText576F70}, &Sub_4B0F10},
+    {1, 260, 26, 18, 18, 1, {.graphic = &gWindowGraphic576F50}, &Sub_4C5D00},
+    {1, 144, 47, 18, 18, 1, {.graphic = &gWindowGraphic576F38}, &Sub_4C5DE0},
+    {3, 194, 49, 0, 0, 1, {.text = &gWindowText576F78}, &Sub_4B0F10},
+    {1, 260, 47, 18, 18, 1, {.graphic = &gWindowGraphic576F50}, &Sub_4C5DE0},
+    {1, 144, 68, 18, 18, 1, {.graphic = &gWindowGraphic576F38}, &Sub_4C5EB0},
+    {3, 194, 70, 0, 0, 1, {.text = &gWindowText576F80}, &Sub_4B0F10},
+    {1, 260, 68, 18, 18, 1, {.graphic = &gWindowGraphic576F50}, &Sub_4C5EB0},
+    {2, 390, 120, 0, 0, 1, {.animationImageNo = &gWindowAnimationImage576F88}, &Sub_4B0F10},
+    {3, 20, 147, 0, 0, 1, {.text = &gWindowText576F68}, &Sub_4B0F10},
+    {3, 20, 163, 0, 0, 1, {.text = &gWindowText576F68}, &Sub_4B0F10},
 };
 
 // 71个原生指针；原36/37同源，不因窗口编号不同复制对象。

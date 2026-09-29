@@ -1,6 +1,7 @@
 #include "WindowRuntimeState.hpp"
 
 #include "../CharacterSelectSceneDependencies.hpp"
+#include "../CharacterSelectState.hpp"
 #include "../LoginMessageDependencies.hpp"
 #include "../LoginSceneDependencies.hpp"
 #include "../platform/MainLoopDependencies.hpp"
@@ -377,6 +378,25 @@ std::uint8_t gValueD67AFE = 0;
 std::uint8_t gValueD67B24 = 0;
 
 namespace {
+
+// 原580870..580900，保留加载时已有的姓名与两行正文原字节。
+struct Window56TextStorage {
+    char name[52];
+    char messages[2][46];
+};
+static_assert(offsetof(Window56TextStorage, messages) == 0x34);
+static_assert(sizeof(Window56TextStorage) == 0x90);
+Window56TextStorage gWindow56Texts580870 {"NPCNAME", {"MESSAGE", "MESSAGE"}};
+std::int32_t gWindow56DialogTypeCB1DE0 = 0;
+std::int32_t gWindow56RequestCF49C0 = 0; // 创建保留，确认请求实际读取共享对话参数。
+std::int32_t gWindow56TargetC8AF60 = 0;
+std::int32_t gWindow56MinimumCB0F80 = 0;
+std::int32_t gWindow56MaximumC8A958 = 0;
+std::int32_t gWindow56BaseCB0F8C = 0;
+std::int32_t gWindow56ClassCC466C = 0;
+std::int32_t gWindow56QuarterCC3E88 = 0;
+std::int32_t gWindow56FifthCB0F88 = 0;
+std::int32_t gWindow56OnesCF4680 = 0;
 
 // 原D40B30的521CH设置文件；不与含原生指针的WindowState布局混用。
 struct WindowSavedRecord {
@@ -15869,6 +15889,257 @@ std::int32_t Sub_4C0800(const std::int32_t index, const std::int32_t state)
         }
     }
     return 0;
+}
+
+login::YobiAction* Sub_4C5790(
+    const std::int32_t request, const std::int32_t target, const char* const text)
+{
+    gWindow56DialogTypeCB1DE0 = 36;
+    gWindow56RequestCF49C0 = request;
+    gWindow56TargetC8AF60 = target;
+    gShopImageD2DAD0 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
+    static_cast<void>(network::ExtractDelimitedField_52CED0(
+        text, '|', 2, 16, gWindow56Texts580870.name));
+    input::UnescapeLegacyTextAndNotify_52D2F0(gWindow56Texts580870.name);
+    std::array<char, 1024> buffer;
+    static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 3, 1023, buffer.data()));
+    input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
+    for (std::int32_t row = 0; row < 2; ++row) {
+        static_cast<void>(input::ExtractLegacyLine_503AB0(
+            gWindow56Texts580870.messages[row], 46, buffer.data(), row, 45));
+    }
+    return CreateWindowAnimation_475AA0(56, 1, 0, nullptr);
+}
+
+std::int32_t Sub_4C5850(const std::int32_t value)
+{
+    if (value != -1) {
+        return 1;
+    }
+    auto* const animation = static_cast<WindowAnimationData*>(gCurrentWindow->elements[12].data);
+    std::int32_t version = character_select::state::gGraphicVersionOverride58B6A0;
+    if (version == 0xFF) {
+        version = character_select::state::gPukVersion;
+    }
+    const std::int32_t converted = character_select::detail::Sub_51BFF0(
+        character_select::detail::Sub_51BB80(world::detail::ReadPlayerValue17C()));
+    gWindow56MinimumCB0F80 = 0;
+    if (converted >= 241400) {
+        gWindow56MinimumCB0F80 = 1;
+    }
+    gWindow56MaximumC8A958 = 0;
+    if (version >= 5) {
+        gWindow56MaximumC8A958 = 1;
+    }
+    if (version >= 7) {
+        gWindow56MaximumC8A958 = 2;
+    }
+    if (converted >= 205000 && converted <= 205600) {
+        gWindow56MinimumCB0F80 = 0;
+        gWindow56MaximumC8A958 = 0;
+    }
+    if (converted >= 270000 && converted <= 270200) {
+        gWindow56MinimumCB0F80 = 0;
+        gWindow56MaximumC8A958 = 0;
+    }
+    std::strcpy(static_cast<WindowTextData*>(gCurrentWindow->elements[13].data)->text,
+        gWindow56Texts580870.messages[0]);
+    std::strcpy(static_cast<WindowTextData*>(gCurrentWindow->elements[14].data)->text,
+        gWindow56Texts580870.messages[1]);
+    for (std::int32_t index = 3; index <= 5; ++index) {
+        gCurrentWindow->elements[index].visible = 0;
+    }
+    if (gWindow56MaximumC8A958 - gWindow56MinimumCB0F80 > 0) {
+        for (std::int32_t index = 3; index <= 5; ++index) {
+            gCurrentWindow->elements[index].visible = 1;
+        }
+    }
+    for (std::int32_t index = 6; index <= 11; ++index) {
+        gCurrentWindow->elements[index].visible = 1;
+    }
+    // 原门禁读取上次分类；本次玩家图号分解在可见性处理之后。
+    const std::int32_t previousBase = gWindow56BaseCB0F8C;
+    if (previousBase == 33100 || previousBase == 33101) {
+        for (std::int32_t index = 3; index <= 11; ++index) {
+            gCurrentWindow->elements[index].visible = 0;
+        }
+    }
+    static_cast<void>(character_select::detail::Sub_4C56E0(
+        world::detail::ReadPlayerValue17C(), &gWindow56BaseCB0F8C, &gWindow56ClassCC466C,
+        &gWindow56QuarterCC3E88, &gWindow56FifthCB0F88, &gWindow56OnesCF4680));
+    const std::int32_t ones = gWindow56OnesCF4680;
+    const std::int32_t fifth = gWindow56FifthCB0F88;
+    const std::int32_t quarter = gWindow56QuarterCC3E88;
+    const std::int32_t imageClass = gWindow56ClassCC466C;
+    const std::int32_t base = gWindow56BaseCB0F8C;
+    const std::int32_t image = character_select::detail::Sub_4C5650(
+        base, imageClass, quarter, fifth, ones);
+    static_cast<WindowGraphicData*>(gCurrentWindow->elements[2].data)->imageNo = image;
+    login::YobiAction* const action = animation->action;
+    login::detail::SetYobiActionField2A8(action, world::detail::ReadPlayerImageNo());
+    login::detail::SetYobiActionField2B0(animation->action, 0);
+    login::detail::SetYobiActionField2B8(animation->action, 5);
+    return 1;
+}
+
+std::int32_t Sub_4C5B70(const std::int32_t unused)
+{
+    static_cast<void>(unused);
+    if (Sub_4D3040(2, 2) != 0 || world::detail::gValue581800 != gWindow56DialogTypeCB1DE0) {
+        gCurrentWindow->state |= 0x8000u;
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+    }
+    DrawCurrentWindow_4729B0();
+    WindowInstance* const window = gCurrentWindow;
+    login::detail::DrawNineGrid_49BE00(
+        245300, static_cast<std::int16_t>(window->x), static_cast<std::int16_t>(window->y),
+        static_cast<std::int16_t>(window->width), static_cast<std::int16_t>(window->height),
+        223, -1, std::bit_cast<std::int32_t>(0x80FFFFFFu), 74, 54);
+    static_cast<void>(render::ClearTextQueueTail_456D50(3));
+    return 1;
+}
+
+void Sub_4C5C00()
+{
+    if (world::detail::gValue581800 == gWindow56DialogTypeCB1DE0) {
+        world::detail::gValue581800 = -1;
+        gWindow56DialogTypeCB1DE0 = -1;
+    }
+}
+
+std::int32_t Sub_4C5C30(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    std::int32_t consumed = 0;
+    if ((state & 2) != 0) {
+        const std::int32_t ones = gWindow56OnesCF4680;
+        const std::int32_t fifth = gWindow56FifthCB0F88;
+        const std::int32_t quarter = gWindow56QuarterCC3E88;
+        const std::int32_t imageClass = gWindow56ClassCC466C;
+        const std::int32_t base = gWindow56BaseCB0F8C;
+        const std::int32_t image = character_select::detail::Sub_4C5650(
+            base, imageClass, quarter, fifth, ones);
+        std::array<char, 52> buffer;
+        std::sprintf(buffer.data(), "%d", image);
+        const std::int32_t target = world::detail::gDialogTargetD2DE6C;
+        const std::int32_t request = world::detail::gDialogRequestCC21E0;
+        const std::int32_t y =
+            platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+        const std::int32_t x =
+            platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+        static_cast<void>(network::Sub_512620(
+            platform::gConnectionSocket, x, y, request, target, 1, buffer.data()));
+        gCurrentWindow->state |= 0x8000u;
+        consumed = 1;
+    }
+    graphic->imageNo = 243048;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 243050;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 243049;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_4C5D00(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    std::int32_t consumed = 0;
+    if ((state & 2) != 0) {
+        std::int32_t imageClass = gWindow56ClassCC466C + (index < 4 ? -1 : 1);
+        const std::int32_t minimum = gWindow56MinimumCB0F80;
+        gWindow56ClassCC466C = imageClass;
+        if (imageClass < minimum) {
+            imageClass = gWindow56MaximumC8A958;
+            gWindow56ClassCC466C = imageClass;
+        } else if (imageClass > gWindow56MaximumC8A958) {
+            imageClass = minimum;
+            gWindow56ClassCC466C = imageClass;
+        }
+        const std::int32_t ones = gWindow56OnesCF4680;
+        const std::int32_t fifth = gWindow56FifthCB0F88;
+        const std::int32_t quarter = gWindow56QuarterCC3E88;
+        const std::int32_t base = gWindow56BaseCB0F8C;
+        const std::int32_t image = character_select::detail::Sub_4C5650(
+            base, imageClass, quarter, fifth, ones);
+        static_cast<WindowGraphicData*>(gCurrentWindow->elements[2].data)->imageNo = image;
+        consumed = 1;
+    }
+    graphic->imageNo = index < 4 ? 243030 : 243033;
+    if ((state & 1) != 0) {
+        graphic->imageNo = index < 4 ? 243032 : 243035;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = index < 4 ? 243031 : 243034;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_4C5DE0(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    std::int32_t consumed = 0;
+    if ((state & 2) != 0) {
+        std::int32_t fifth = gWindow56FifthCB0F88 + (index < 7 ? -1 : 1);
+        gWindow56FifthCB0F88 = fifth;
+        if (fifth < 0) {
+            fifth = 4;
+            gWindow56FifthCB0F88 = fifth;
+        } else if (fifth >= 5) {
+            fifth = 0;
+            gWindow56FifthCB0F88 = fifth;
+        }
+        const std::int32_t ones = gWindow56OnesCF4680;
+        const std::int32_t quarter = gWindow56QuarterCC3E88;
+        const std::int32_t base = gWindow56BaseCB0F8C;
+        const std::int32_t imageClass = gWindow56ClassCC466C;
+        const std::int32_t image = character_select::detail::Sub_4C5650(
+            base, imageClass, quarter, fifth, ones);
+        static_cast<WindowGraphicData*>(gCurrentWindow->elements[2].data)->imageNo = image;
+        consumed = 1;
+    }
+    graphic->imageNo = index < 7 ? 243030 : 243033;
+    if ((state & 1) != 0) {
+        graphic->imageNo = index < 7 ? 243032 : 243035;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = index < 7 ? 243031 : 243034;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_4C5EB0(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    std::int32_t consumed = 0;
+    if ((state & 2) != 0) {
+        std::int32_t ones = gWindow56OnesCF4680 + (index < 10 ? -1 : 1);
+        gWindow56OnesCF4680 = ones;
+        if (ones < 0) {
+            ones = 4;
+            gWindow56OnesCF4680 = ones;
+        } else if (ones >= 5) {
+            ones = 0;
+            gWindow56OnesCF4680 = ones;
+        }
+        const std::int32_t quarter = gWindow56QuarterCC3E88;
+        const std::int32_t imageClass = gWindow56ClassCC466C;
+        const std::int32_t fifth = gWindow56FifthCB0F88;
+        const std::int32_t base = gWindow56BaseCB0F8C;
+        const std::int32_t image = character_select::detail::Sub_4C5650(
+            base, imageClass, quarter, fifth, ones);
+        static_cast<WindowGraphicData*>(gCurrentWindow->elements[2].data)->imageNo = image;
+        consumed = 1;
+    }
+    graphic->imageNo = index < 10 ? 243030 : 243033;
+    if ((state & 1) != 0) {
+        graphic->imageNo = index < 10 ? 243032 : 243035;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = index < 10 ? 243031 : 243034;
+    }
+    return consumed;
 }
 
 std::int32_t Sub_4C0910(const std::int32_t index, const std::int32_t state)

@@ -12395,6 +12395,138 @@ std::int32_t Sub_4BC060(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+std::int32_t Sub_4BC230(const std::int32_t index, const std::int32_t state)
+{
+    const std::int32_t row = gShopScrollCC488C + index - 52;
+    render::GraphicDescriptor16 descriptor {};
+    const std::uint32_t color = 0xFFFFFFFFu;
+    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    descriptor.bytes[13] = 4;
+    std::int32_t consumed = 0;
+    if (gShopRowKeysC9A954[index - 52] != row) {
+        gShopTooltipPageD67B8C = 0;
+    }
+    gShopRowKeysC9A954[index - 52] = row;
+    auto events = static_cast<std::uint8_t>(state);
+    if ((events & 0x60u) != 0 && Sub_475D60() != 9 && Sub_475D60() != 2) {
+        consumed = 1;
+        events &= 0x9Fu;
+    }
+    if ((events & 0x40u) != 0 && Sub_475D60() == 9) {
+        const std::int32_t source = Sub_475D90();
+        if (source != row) {
+            const char sourceItem = gShopSelectedSlotsCB03DC[source];
+            const char targetItem = gShopSelectedSlotsCB03DC[row];
+            gShopSelectedSlotsCB03DC[row] = sourceItem;
+            gShopSelectedSlotsCB03DC[source] = targetItem;
+            Sub_4B8780();
+            Sub_4B8B10();
+        }
+        Sub_476500();
+    }
+    const bool hover = (events & 1u) != 0;
+    if (hover && std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[row]) >= 0) {
+        const char mode = gMaterialOccupancyCC4894[20];
+        if (mode == 1 || mode == 4 || mode == 5) {
+            std::strcpy(gHoverTextD68AE8.data(), kShopHints57E6C4[2]);
+        }
+    }
+    if ((events & 0x21u) != 0 && (platform::gLegacyMouseState.edgeButtons & 0x10u) != 0) {
+        static_cast<void>(Sub_4763E0());
+        const std::int32_t item = std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[row]);
+        gShopSelectedSlotsCB03DC[row] = static_cast<char>(-1);
+        char* const record = gShopItemsCF4FE0.data() + item * 0xC58;
+        WriteTradeValue(record, 0xC28, std::int32_t{0});
+        std::int32_t inventoryIndex;
+        std::memcpy(&inventoryIndex, record + 0xC2C, sizeof(inventoryIndex));
+        const auto selectedMask = static_cast<std::uint32_t>(gShopValueCF467C);
+        gShopValueCF467C = std::bit_cast<std::int32_t>(selectedMask & ~(1u << (inventoryIndex - 8)));
+        Sub_4B8780();
+        Sub_4B8B10();
+        Sub_4B8BE0();
+        Sub_4B8C50();
+        gShopMessage580848 = -1;
+    }
+    if (hover && std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[row]) >= 0
+        && (events & 2u) != 0) {
+        static_cast<void>(Sub_4B6DA0(row));
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        consumed = 1;
+    }
+    if (Sub_475D60() == 9 && Sub_475D90() == row) {
+        const WindowInstance* const window = gCurrentWindow;
+        const WindowElement& element = window->elements[index];
+        const std::int32_t x = window->x + element.x;
+        const std::int32_t y = window->y + element.y;
+        login::detail::DrawGraphicHover(
+            static_cast<std::uint16_t>(x + 2), static_cast<std::uint16_t>(y + 2),
+            static_cast<std::uint16_t>(x + 46), static_cast<std::uint16_t>(y + 46),
+            223, 254, 0);
+    }
+    if (hover) {
+        const WindowInstance* const window = gCurrentWindow;
+        const WindowElement& element = window->elements[index];
+        const std::int32_t x = window->x + element.x;
+        const std::int32_t y = window->y + element.y;
+        login::detail::DrawGraphicHover(
+            static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
+            static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48),
+            223, login::detail::gValueD69768, 0);
+    }
+    if ((events & 0x20u) != 0 && Sub_475D60() == 9) {
+        const WindowInstance* const window = gCurrentWindow;
+        const WindowElement& element = window->elements[index];
+        const std::int32_t x = window->x + element.x;
+        const std::int32_t y = window->y + element.y;
+        login::detail::DrawGraphicHover(
+            static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
+            static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48),
+            223, login::detail::gValueD69768, 0);
+    }
+    const std::int32_t item = std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[row]);
+    if (item < 0) {
+        return 0;
+    }
+    if (hover) {
+        if (gShopRowKeysC9A954[index - 52] != row) {
+            gShopTooltipPageD67B8C = 0;
+        }
+        gShopRowKeysC9A954[index - 52] = row;
+        if ((events & 4u) != 0) {
+            ++gShopTooltipPageD67B8C;
+            if (gShopTooltipPageD67B8C >= 4) {
+                gShopTooltipPageD67B8C = 0;
+            }
+            consumed = 1;
+        }
+        gShopTooltipIndex580844 = item + 100;
+        const char* const record = gShopItemsCF4FE0.data() + item * 0xC58;
+        char buffer[256];
+        std::uint32_t flags = 0;
+        if (std::strlen(record + 0xC44) != 0) {
+            std::memcpy(&flags, record + 0xC40, sizeof(flags));
+        }
+        if ((flags & 0x100u) != 0) {
+            std::sprintf(buffer, "%s[kok]", record + 1);
+            std::strcpy(gHoverTextD68AE8.data(), buffer);
+        } else {
+            std::memcpy(&flags, record + 0xC40, sizeof(flags));
+            if ((flags & 0x200u) != 0) {
+                std::sprintf(buffer, "%s[han]", record + 0xC44);
+                std::strcpy(gHoverTextD68AE8.data(), buffer);
+            }
+        }
+    }
+    const WindowInstance* const window = gCurrentWindow;
+    const WindowElement& element = window->elements[index];
+    const std::int32_t drawItem = std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[row]);
+    std::int32_t imageNo;
+    std::memcpy(&imageNo, gShopItemsCF4FE0.data() + drawItem * 0xC58 + 0xC20, sizeof(imageNo));
+    static_cast<void>(login::detail::DrawGraphic(
+        element.x + window->x + 24, element.y + window->y + 24, 223, imageNo, 0, &descriptor));
+    return consumed;
+}
+
 std::int32_t Sub_4B99D0(const std::int32_t unused)
 {
     static_cast<void>(unused);

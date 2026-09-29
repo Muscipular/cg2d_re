@@ -251,6 +251,7 @@ void Sub_4B9270(); // 模式3三次读取D046C4，先两个显示值后乘详情
 void Sub_4B92C0(); // 模式3详情数值或全部28玩家物品的匹配数量。
 std::int32_t Sub_4BBED0(std::int32_t index, std::int32_t state); // 商品图标，仅hover内bit4翻页。
 std::int32_t Sub_4BC060(std::int32_t index, std::int32_t state); // 独立详情图标，bit4无hover门禁。
+std::int32_t Sub_4BC230(std::int32_t index, std::int32_t state); // 出售选择行，接kind9交换/取消/拖动。
 void Sub_4B6C50(
     std::int32_t message, std::int32_t unused, std::int32_t sourceIndex); // kind9出售拖动生命周期。
 std::int32_t Sub_4B6DA0(std::int32_t sourceIndex); // 透传kind9注册返回。

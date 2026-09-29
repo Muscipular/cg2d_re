@@ -27035,6 +27035,10 @@ constexpr char kBattleSkillNoFp586568[] =
     "\xA5\xD1\xA9\xF3\xC5\x5D\xA4\x4F\xA4\xA3\xA8\xAC\xA1\x41\xB5\x4C\xAA\x6B\xA8\xCF\xA5\xCE\xA6\xB9\xA7\xDE\xAF\xE0\xA1\x43";
 constexpr char kBattleSkillUnusable586588[] =
     "\xA5\xD1\xA9\xF3\xAF\xE0\xA4\x4F\xA4\xA3\xA8\xAC\xA1\x41\xB5\x4C\xAA\x6B\xA8\xCF\xA5\xCE\xA6\xB9\xA7\xDE\xAF\xE0\xA1\x43";
+constexpr char kSkillBackToTechniques586470[] =
+    "\xA4\xC1\xB4\xAB\xA6\x5E\xA7\xDE\xAF\xE0\xB5\xA5\xAF\xC5\xB5\xF8\xB5\xA1\xA1\x43";
+constexpr char kSkillBackToList586488[] =
+    "\xA4\xC1\xB4\xAB\xA6\x5E\xA7\xDE\xAF\xE0\xA4\x40\xC4\xFD\xB5\xF8\xB5\xA1\xA1\x43";
 
 } // namespace
 
@@ -27849,6 +27853,124 @@ login::YobiAction* Sub_47A580(const WindowValueCallback callback)
         window->state &= ~0x8000u;
     }
     return CreateWindowAnimation_475AA0(10, 1, 0, nullptr);
+}
+
+std::int32_t Sub_47B110(const std::int32_t index, const std::int32_t state)
+{
+    WindowInstance* const window = gCurrentWindow;
+    auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
+    std::int32_t consumed = 0;
+    if ((state & 1) != 0) {
+        const std::int32_t mode = gSkillWindowModeD672AC;
+        if (mode == 1 || mode == 4) {
+            std::strcpy(gHoverTextD68AE8.data(), kSkillBackToList586488);
+        } else if (mode == 2) {
+            std::strcpy(gHoverTextD68AE8.data(), kSkillBackToTechniques586470);
+        }
+    }
+    if ((state & 2) != 0) {
+        switch (gSkillWindowModeD672AC) {
+        case 1:
+            Sub_479B80(window, gSkillWindowIndexD2EA60);
+            Sub_479660();
+            break;
+        case 2:
+            Sub_479C80(window, -1);
+            Sub_4796E0();
+            --gValueD67AFD;
+            break;
+        case 4:
+            Sub_479EA0(window, gSkillWindowIndexD2EA60);
+            break;
+        default:
+            break;
+        }
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        consumed = 1;
+    }
+    graphic->imageNo = 0x3B571;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3B573;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 0x3B572;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_47A5C0()
+{
+    WindowInstance* const window = gWindowStates[10].window;
+    if (window == nullptr) {
+        return 0;
+    }
+    switch (gSkillWindowModeD672AC) {
+    case 0:
+    case 3:
+    case 5:
+    case 6:
+        window->state |= 0x8000u;
+        return 1;
+    case 4:
+        Sub_479EA0(window, gSkillWindowIndexD2EA60);
+        return 0;
+    default:
+        return 0;
+    }
+}
+
+std::int32_t Sub_47A620(const std::int32_t value)
+{
+    if (value == -1) {
+        const std::int32_t mode = gSkillWindowModeD672AC;
+        gSkillWindowScrollD2D648 = 0;
+        switch (mode) {
+        case 0:
+            Sub_479B80(gCurrentWindow, -1);
+            break;
+        case 3:
+            Sub_479EA0(gCurrentWindow, -1);
+            break;
+        case 4: {
+            const std::int32_t skillIndex = gSkillWindowIndexD2EA60;
+            Sub_47A000(gCurrentWindow, skillIndex, 1);
+            break;
+        }
+        case 5:
+            Sub_47A1A0(gCurrentWindow);
+            break;
+        case 6:
+            Sub_47A320(gCurrentWindow);
+            break;
+        default:
+            break;
+        }
+    }
+    const std::int32_t mode = gSkillWindowModeD672AC;
+    gSkillWindowHoverD2F744 = -1;
+    if ((mode == 1 || mode == 2 || mode == 4)
+        && world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60].name[0] == '\0') {
+        if (mode == 2) {
+            Sub_4796E0();
+            --gValueD67AFD;
+        }
+        if (mode == 1 || mode == 2) {
+            Sub_479660();
+        }
+        Sub_479B80(gCurrentWindow, 0);
+    }
+    gCurrentWindow->elements[6].visible = 0;
+    if (gSkillWindowModeD672AC == 1) {
+        gCurrentWindow->elements[6].visible = 1;
+    }
+    gCurrentWindow->elements[8].visible = 0;
+    if (gSkillWindowModeD672AC == 5) {
+        gCurrentWindow->elements[8].visible = 1;
+    }
+    if (gSkillWindowModeD672AC == 6) {
+        gCurrentWindow->elements[8].visible = 1;
+    }
+    return 1;
 }
 
 std::int32_t Sub_47B3D0(const std::int32_t index, const std::int32_t state)

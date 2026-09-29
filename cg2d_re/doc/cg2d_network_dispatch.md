@@ -298,7 +298,7 @@ category三组及文件区唯一持有，profile编号直接写既有双槽；
 
 ### BZ对话回复续接
 
-2026-09-29，按[窗口父路由SPEC](cg2d_ui_window_runtime.md)落实
+2026-09-29，按[窗口父路由SPEC](ui_windows/shared_dialog_routes.md#evidence-132)落实
 50E110三门禁、50E130关闭/对象朝向尾部及完整49D2E0路由。
 BZ直接绑定ui::Sub_50E110，保持I/I/I/I/T解码、可写工作区文本、
 未使用socket及命中返回0，不绕过现有原位文本消费者。
@@ -308,7 +308,7 @@ BZ直接绑定ui::Sub_50E110，保持I/I/I/I/T解码、可写工作区文本、
 
 ### DpSY资料回复续接
 
-2026-09-29，按[窗口64 SPEC](cg2d_ui_window_runtime.md)落实50F450、
+2026-09-29，按[窗口64 SPEC](ui_windows/window_64.md)落实50F450、
 5342E0、64完整主更新/刷新和21元素，DpSY直接绑定world::detail::Sub_50F450。
 保留T/I/T/T/T/I/I/T/I/T/I/T/T解析顺序和命中返回0，文本只读借用
 既有可写工作区；本体八份256B副本逐项反转义，写独立1074110资料，
@@ -317,7 +317,7 @@ BZ直接绑定ui::Sub_50E110，保持I/I/I/I/T解码、可写工作区文本、
 
 ### DyAG资料窗口回复续接
 
-2026-09-29，按[完整资料父路由SPEC](cg2d_ui_window_runtime.md)落实
+2026-09-29，按[完整资料父路由SPEC](ui_windows/shared_profile.md#evidence-139)落实
 50F990和49D8F0，DyAG直接绑定ui::Sub_50F990，保留I/I/I/I/T、
 可写工作区和命中返回0。三重门禁后发布同源对话状态，38/39/40依序
 生产分类/搜索/查看资料，再真实创建60/61/62；不混入BZ关闭特例或
@@ -326,7 +326,7 @@ BZ直接绑定ui::Sub_50E110，保持I/I/I/I/T解码、可写工作区文本、
 
 ### 摆摊开收回复续接
 
-2026-09-29，按[摆摊开收SPEC](cg2d_ui_window_runtime.md)落实
+2026-09-29，按[摆摊开收SPEC](ui_windows/window_67.md)落实
 50E7D0/50E7E0及完整4CE700/4CE8B0，Tmrx/KXhH直接绑定UI真实入口。
 两路保持I解析、未用socket、无场景门禁、命中返回0；原混合地址
 返回均被唯一网络caller丢弃，裁决void。玩家标志/名字复用原owner，
@@ -336,7 +336,7 @@ BZ直接绑定ui::Sub_50E110，保持I/I/I/I/T解码、可写工作区文本、
 
 ### 摆摊购买结果回复续接
 
-2026-09-29，按[购买结果SPEC](cg2d_ui_window_runtime.md)落实
+2026-09-29，按[购买结果SPEC](ui_windows/window_68.md#evidence-141)落实
 50E820/4CE930，Yx直接绑定UI真实入口，保持I解析、未使用socket、
 无场景门禁及命中返回0。成功只搬移同源浏览物品/宠物及并行数值表，
 不动玩家存储；失败沿十三原字节提示和窗口68首元素显隐。
@@ -345,7 +345,7 @@ BZ直接绑定ui::Sub_50E110，保持I/I/I/I/T解码、可写工作区文本、
 
 ### ft摆摊浏览回复续接
 
-2026-09-29，按[浏览生产SPEC](cg2d_ui_window_runtime.md)落实50E7F0/4CED60，
+2026-09-29，按[浏览生产SPEC](ui_windows/window_68.md#evidence-155)落实50E7F0/4CED60，
 ft直接绑定ui::Sub_50E7F0，保持I/I/T/T/T/T解码及命中返回0。
 socket仍未使用，四串只读借用；无附加场景门禁，先清两数量再查询对象，
 成功生产完整物品/宠物/技能浏览区并真实打开68，失败按状态提示后标关闭。
@@ -356,7 +356,7 @@ socket仍未使用，四串只读借用；无附加场景门禁，先清两数�
 
 ### LY物品目标名单回复续接
 
-2026-09-29，按[LY名单SPEC](cg2d_ui_window_runtime.md)落实50E380、
+2026-09-29，按[LY名单SPEC](ui_windows/window_45.md#evidence-158)落实50E380、
 4E4860/48AF00/48AEA0，LY直接绑定ui::Sub_50E380，保持T解码与命中返0。
 仅一次CryptInt门禁；自己/地图五槽/服务器目标生产后真实打开45，
 选择发送511D10后发布目标，取消与释放清理分开。
@@ -366,7 +366,7 @@ socket仍未使用，四串只读借用；无附加场景门禁，先清两数�
 
 ### nFV属性列表与iVfo发送续接
 
-2026-09-29，按[nFV属性SPEC](cg2d_ui_window_runtime.md)落实50E3A0/
+2026-09-29，按[nFV属性SPEC](ui_windows/window_46.md#evidence-159)落实50E3A0/
 4E4020/48B0A0/48B010及510AC0，nFV原T解码绑定ui::Sub_50E3A0，
 仅一次CryptInt门禁，保持命中返0与未用socket，不增场景门禁。
 5153A2 caller随后清EAX，wrapper采用void；父生产保留真实Yobi返回。
@@ -378,7 +378,7 @@ socket仍未使用，四串只读借用；无附加场景门禁，先清两数�
 
 ### ysVc技能目标名单续接
 
-2026-09-29，按[ysVc名单SPEC](cg2d_ui_window_runtime.md)落实50E340/
+2026-09-29，按[ysVc名单SPEC](ui_windows/window_45.md#evidence-160)落实50E340/
 4F0200/4871B0/487020及四个分类/计数/刷新依赖，T解码绑定ui::Sub_50E340，
 仍保留unusedSocket及命中返0。唯一CryptInt门禁、三源名单、分类0提前结束、
 窗口45创建/选择/释放与McVa/sM/MIS/yi既有发送链按原序接通；
@@ -389,7 +389,7 @@ socket仍未使用，四串只读借用；无附加场景门禁，先清两数�
 
 ### ND技能属性列表续接
 
-2026-09-29，按[ND属性SPEC](cg2d_ui_window_runtime.md)落实50E360/
+2026-09-29，按[ND属性SPEC](ui_windows/window_46.md#evidence-161)落实50E360/
 4EF750/4874B0/4872E0及十个宠物/技能条件叶，ND的T解码绑定ui::Sub_50E360，
 保持唯一CryptInt门禁、未用socket与命中返0；5152AA caller随后清EAX。
 本地玩家/宠物与远端六轮属性分别生产，分类1不显示人物首行；
@@ -404,14 +404,14 @@ socket仍未使用，四串只读借用；无附加场景门禁，先清两数�
 2026-09-29，完整核50C7F0：9A6E0C门禁后一次Ripple读取，
 第二整数1/2/3/4分别调用4F39F0/4F1800/4EEA40/4ED6B0，
 第一整数与文本转交下游，其他值不动作；515442 caller随后清EAX。
-本步只落实[制造结果分支](cg2d_ui_window_runtime.md)4F39F0→47EBE0→47E5E0
+本步只落实[制造结果分支](ui_windows/window_11.md#evidence-162)4F39F0→47EBE0→47E5E0
 及三项动画/材料依赖，不改JgO分派或占位声明。
 另三分支、窗口11/12/13完整元素与上游仍未齐；回复缺口保持2，
 静态核对不计实际制造或完整网络回复验收。
 
 ### JgO物品加工分支准备
 
-2026-09-29，按[物品加工结果SPEC](cg2d_ui_window_runtime.md)落实第二分支
+2026-09-29，按[物品加工结果SPEC](ui_windows/window_11.md#evidence-163)落实第二分支
 4F1800→47FAC0→47F3D0及真实单物品回调484E90。
 七字段/独立摘要与已有窗口11展示保留两套技能来源、入口物品快照及
 跨回复增量门禁，不改变JgO的I/I/T解析或占位声明。
@@ -420,7 +420,7 @@ socket仍未使用，四串只读借用；无附加场景门禁，先清两数�
 
 ### JgO窗口12结果分支准备
 
-2026-09-29，按[窗口12结果SPEC](cg2d_ui_window_runtime.md)落实第四分支
+2026-09-29，按[窗口12结果SPEC](ui_windows/window_12.md#evidence-164)落实第四分支
 4ED6B0→486020→485AF0及4796E0。保留成功九字段、失败不解析正文、
 旧槽残留与存在窗口时才写第七槽=-1的区别；双动画返回真实载荷T*。
 第一/第二/第四分支已有本体，第三分支4EEA40及窗口13完整依赖尚缺，
@@ -429,7 +429,7 @@ socket仍未使用，四串只读借用；无附加场景门禁，先清两数�
 
 ### JgO四分支接线完成
 
-2026-09-29，按[第三分支与窗口13 SPEC](cg2d_ui_window_runtime.md)完成
+2026-09-29，按[第三分支与窗口13 SPEC](ui_windows/window_13.md)完成
 4EEA40/4875E0和完整窗口13、两预览依赖，四结果分支本体已齐。
 50C7F0按9A6E0C短路后一次Ripple读取，第二整数1..4分派，
 第一整数/只读文本转交既有结果入口，其他值不动作。

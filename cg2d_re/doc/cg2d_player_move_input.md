@@ -1,7 +1,7 @@
 # 玩家移动输入父链 SPEC
 
 完整只读核469C90@[469C90,469FB6)、51B3E0@[51B3E0,51B530)及
-510B80@[510B80,510CD4)。沿既有[移动调度](cg2d_ui_window_runtime.md)、
+510B80@[510B80,510CD4)。沿既有[移动调度](ui_windows/shared_runtime.md#evidence-004)、
 [World对象表](cg2d_world_objects.md)、[网络运行期](cg2d_network_runtime.md)
 接线，不以固定命中、私有坐标或发包替身补依赖。
 

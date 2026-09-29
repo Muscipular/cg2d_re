@@ -3794,7 +3794,7 @@ slot0/flag1/batch0及同一action描述符。队列满不提前退出循环。
 
 ## 数量窗口展开与原生回调（2026-09-28）
 
-按[窗口数量展开SPEC](cg2d_ui_window_runtime.md)实现48AC60/48ABC0，
+按[窗口数量展开SPEC](ui_windows/window_42.md#evidence-052)实现48AC60/48ABC0，
 同源24H载荷复用WindowOpeningPayload；action原+2C按创建族使用
 S32 phase/非拥有WindowValueCallback联合字段，+1D0在数量族仍为S32上限。
 不把值回调放入地址整数，不把反编译误标的数量T**拓宽为指针；
@@ -3808,7 +3808,7 @@ S16计数门槛、结束前Y→X读取和MarkDeath后W16递增。
 
 ## 存放窗口双展开（2026-09-28）
 
-按[存放双展开SPEC](cg2d_ui_window_runtime.md)实现4ABEF0/4ABE60和4ACE80/4ACDF0，
+按[存放双展开SPEC](ui_windows/shared_38_41.md#evidence-055)实现4ABEF0/4ABE60和4ACE80/4ACDF0，
 调用UI同源4A83A0/4AC0C0。复用WindowOpeningPayload的kind低W16和计数，
 38族第四参数使用已有S32 phase，不读取数量窗口族函数指针成员。
 保留先SE/分配、无已有实例关闭、失败仍发布和成功S16/失败S32参数差异；

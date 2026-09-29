@@ -162,7 +162,7 @@ InitPalette 失败则无本函数额外提示。七条 ASCII 阶段日志的大�
 - `initialization_detail::InitializeMusic_454C30`：原次级 DirectMusic
   初始化，音频继续暂缓，没有以已有 `5241A0` 替掉这个独立调用。
 
-窗口系统后续已按[窗口设置与启动初始化SPEC](cg2d_ui_window_runtime.md)
+窗口系统后续已按[窗口设置与启动初始化SPEC](ui_windows/shared_runtime.md#evidence-024)
 完整实现4705D0/4C9060及默认、回填、版本坐标检查、旧长度修复和
 marker清理，调用迁到ui::detail，不再保留platform未定义声明。
 category读取复用同源MailState；设置读取失败仍继续初始化尾部。

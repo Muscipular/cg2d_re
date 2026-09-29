@@ -1428,7 +1428,7 @@ ABI 依据微软《x64 calling convention》的参数、leaf、FPCSR 段：
 ## 28. Sub_503E80 场景切换、窗口重开及共享布局证据
 
 2026-09-28后续状态：已按用户工程委托及
-[场景窗口分派与重开SPEC](cg2d_ui_window_runtime.md)实现完整503E80、
+[场景窗口分派与重开SPEC](ui_windows/shared_runtime.md#evidence-027)实现完整503E80、
 三条重开和十个依赖入口，WorldUpdate两处已改调UI唯一void接口。
 本节历史待批/未实现结论已被该实施状态替代，不改下述原x86指令事实。
 补核生产者确认CA0174、D2E928、D67B84均为YobiAction*，
@@ -1463,7 +1463,7 @@ ABI 依据微软《x64 calling convention》的参数、leaf、FPCSR 段：
 ## 29. 窗口 owner、生命周期及记录字段补证
 
 后续状态：当前受托工程裁决及已落位承载见
-[UI窗口运行期SPEC](cg2d_ui_window_runtime.md)。本节旧owner待批状态
+[UI窗口运行期SPEC](ui_windows/shared_runtime.md)。本节旧owner待批状态
 已被该裁决替代；open/free、原型表、未消费字段和完整文件兼容仍未完成，
 不因共享表与关闭标记存在就视为生命周期已验收。
 

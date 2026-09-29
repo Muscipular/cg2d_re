@@ -226,7 +226,7 @@ DX 引用也不在此清理。其他退出依赖及完整
 详见 [DX §5.15](cg2d_graphic_dx_cache.md)；
 其他退出依赖、初始化/重建和完整链接/运行仍未闭合。
 
-2026-09-28：按[窗口保存与完整关闭SPEC](cg2d_ui_window_runtime.md)
+2026-09-28：按[窗口保存与完整关闭SPEC](ui_windows/shared_runtime.md#evidence-026)
 落实4C92B0/4C92D0/4C9130/472160/472190，4705F0已直接接
 同一UI保存、已有相册保存及全关闭本体；旧Sub_4C9130和
 WindowCloseAll_472190未定义声明已迁出，内部返回由char候选纠正为int32。

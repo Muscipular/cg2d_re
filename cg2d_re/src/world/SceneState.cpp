@@ -260,8 +260,8 @@ struct MapCharaSceneSlots {
     std::int16_t valueC8A760;
     std::int16_t valueC8A762;
     login::YobiAction* actionC8A764;
-    std::uint32_t valueC8A768;
-    std::uint32_t valueC8A76C;
+    std::uint32_t valueC8A768 {0xFFFFFFFFu}; // 原.data两W32均全1，413070仅覆写命中半字。
+    std::uint32_t valueC8A76C {0xFFFFFFFFu};
     float value55DE9C {5.0F};
     std::int16_t value55DEA0 {315};
     std::int16_t value55DEA2 {-1};
@@ -723,6 +723,8 @@ platform::LegacyCryptInt gValue73ECD0 {};
 
 std::uint32_t& gMapEffectOffsetXBits = gMapCharaSceneSlots.valueC8A758;
 std::uint32_t& gMapEffectOffsetYBits = gMapCharaSceneSlots.valueC8A75C;
+std::uint32_t& gBattleSceneEffectC8A768 = gMapCharaSceneSlots.valueC8A768;
+std::uint32_t& gBattleSceneEffectC8A76C = gMapCharaSceneSlots.valueC8A76C;
 
 const std::byte* BorrowSelectedAlbumRecords()
 {

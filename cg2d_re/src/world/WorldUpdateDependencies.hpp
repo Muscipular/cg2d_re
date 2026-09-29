@@ -207,6 +207,8 @@ extern std::int32_t gValue73ED44; // 原当前调色板选择标志 W32，458F00
 extern std::int32_t gValue73ED48; // 原时间类别/调色板索引 W32，50C870 与 458F00 共用。
 extern std::uint32_t& gMapEffectOffsetXBits; // 原C8A758；别名既有场景槽，4483A0写、46F1D0读。
 extern std::uint32_t& gMapEffectOffsetYBits; // 原C8A75C；保留F32位型及独立写序。
+extern std::uint32_t& gBattleSceneEffectC8A768; // 413070按两W16写入，别名既有场景效果owner。
+extern std::uint32_t& gBattleSceneEffectC8A76C; // 同源W32，不能拆成独立高/低槽。
 extern std::uint32_t gValueC82224;
 extern std::uint32_t gValueC8221C; // 原 46ADA0/46AEA0 共用的 W32 请求序号。
 extern std::uint16_t gValue9DAD54;

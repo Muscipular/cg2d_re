@@ -83,6 +83,7 @@ struct YobiAction {
     std::int32_t nameY;              // 原+A8；下落族作终点，41B440帧事件族作S32消退计数。
     float nameOffsetAC; // 原+AC，伤害数字创建/更新投影到nameX。
     float nameOffsetB0; // 原+B0，伤害数字创建/更新投影到nameY。
+    float battleTurnStepB4; // 原+B4；41C3B0/4219D0未命中时累加F32转向步长，独立于速度54/B8。
     float numberVelocityB8; // 原+B8，41F1A0写-8，41F110更新独立数字速度。
     std::int8_t nameColor;           // 原 +BC。
     std::int8_t nameFontType;        // 原 +BD。
@@ -7247,6 +7248,428 @@ void UpdateBattleMovingImpactEffect_41BB00(YobiAction* const action)
         }
     }
     action->displayPriority = static_cast<std::uint8_t>(target->displayPriority + 20);
+    const std::int32_t x = static_cast<std::int32_t>(action->offset40);
+    const std::int32_t offsetX = static_cast<std::int32_t>(gYobiScreenOffsetX);
+    const float y = action->offset44;
+    action->x = x + offsetX;
+    action->y = static_cast<std::int32_t>(y) + static_cast<std::int32_t>(gYobiScreenOffsetY);
+}
+
+void UpdateBattleHomingImpactEffect_41C3B0(YobiAction* const action)
+{
+    using world::detail::gBattleAllEntries59E980;
+    using world::detail::gBattleSceneAction5ABA94;
+    using namespace platform::legacy_crypt_int;
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    if (action->phase == 0) {
+        YobiAction* const currentTarget = gBattleAllEntries59E980[
+            payload->effects1C[payload->effectRunningC9C].position];
+        if (currentTarget->phase != 0) {
+            return;
+        }
+    }
+    action->phase = 1;
+    const std::int32_t initialIndex = payload->effectRunningC9C;
+    if ((payload->effects1C[initialIndex].flags & 0x20000000u) != 0 && action->frameEvent == 0
+        && GetBattleDistance_406300(action, gBattleAllEntries59E980[payload->effects1C[initialIndex].position]) <= 70) {
+        const std::int32_t index = payload->effectRunningC9C;
+        const double x = static_cast<double>(static_cast<std::int32_t>(gYobiScreenOffsetX)) + action->offset40;
+        YobiAction* const target = gBattleAllEntries59E980[payload->effects1C[index].position];
+        action->offset40 = static_cast<float>(x);
+        action->offset44 = static_cast<float>(
+            static_cast<double>(static_cast<std::int32_t>(gYobiScreenOffsetY)) + action->offset44);
+        static_cast<void>(MarkDeath(action));
+        static_cast<void>(NewBattleRandomEffect_419FC0(action, 110475, 0));
+        static_cast<void>(NewBattleRandomEffect_419FC0(target, 110474, 0));
+        AdvanceBattleCastState_439340(target);
+    }
+    if (action->frameEvent == 0
+        && GetBattleDistance_406300(action, gBattleAllEntries59E980[
+            payload->effects1C[payload->effectRunningC9C].position]) <= 8) {
+        const std::int32_t index = payload->effectRunningC9C;
+        const std::int32_t position = payload->effects1C[index].position;
+        const std::uint32_t initialFlags = payload->effects1C[index].flags;
+        YobiAction* const target = gBattleAllEntries59E980[position];
+        auto* const targetPayload = static_cast<BattleActorPayload*>(target->payload);
+        std::int32_t imageNo;
+        if ((initialFlags & 4u) != 0) {
+            imageNo = 110000;
+        } else if ((initialFlags & 0x800u) != 0) {
+            imageNo = 110099;
+        } else if ((initialFlags & 0x400u) != 0) {
+            imageNo = 110098;
+        } else {
+            imageNo = platform::RandomRange_46FAF0(0, 2) + 110001;
+        }
+        target->battleOpponent10 = gBattleAllEntries59E980[payload->battlePosition18];
+        targetPayload->effectFlagsFE4 = std::bit_cast<std::int32_t>(
+            payload->effects1C[payload->effectRunningC9C].flags);
+        ApplyBattleEffectFlags_406390(payload->battlePosition18, action);
+        const std::int32_t resolvedIndex = payload->effectRunningC9C;
+        const std::uint32_t resolvedFlags = payload->effects1C[resolvedIndex].flags;
+        if ((resolvedFlags & 8u) != 0) {
+            target->phase = 31;
+        } else {
+            if ((resolvedFlags & 0x70000u) == 0 && payload->effects1C[resolvedIndex].position3 != 0) {
+                const BattleEntryEffectRecord& effect = payload->effects1C[resolvedIndex];
+                const std::int32_t amount = effect.position3;
+                SubtractAssign_401E40(&gBattleAllEntries59E980[effect.position]->readiness, amount);
+                YobiAction* const compareTarget = gBattleAllEntries59E980[
+                    payload->effects1C[payload->effectRunningC9C].position];
+                if (Less_401DB0(&compareTarget->readiness, 0)) {
+                    platform::LegacyCryptInt temporary;
+                    ConstructFromInt_401CC0(&temporary, 0);
+                    YobiAction* const copyTarget = gBattleAllEntries59E980[
+                        payload->effects1C[payload->effectRunningC9C].position];
+                    CopyPayload(&copyTarget->readiness, &temporary);
+                    Destroy_401CF0(&temporary);
+                }
+                if ((payload->effects1C[payload->effectRunningC9C].flags & 0x20u) != 0) {
+                    targetPayload->flagsFDC |= 2u;
+                    gYobiUpdateGateMode = 1;
+                    targetPayload->aliveFF8 = 1;
+                }
+            }
+            const std::uint32_t categoryFlags = payload->effects1C[payload->effectRunningC9C].flags;
+            if ((categoryFlags & 0x10000u) != 0) {
+                AdvanceBattleCastState_439340(target);
+                YobiAction* const scene = gBattleSceneAction5ABA94;
+                if (scene->phase == 8) {
+                    ++static_cast<BattleScenePayload*>(scene->payload)->value00;
+                }
+            } else if ((categoryFlags & 0x40000u) != 0) {
+                AdvanceBattleCastState_439340(target);
+                YobiAction* const scene = gBattleSceneAction5ABA94;
+                if (scene->phase == 8) {
+                    ++static_cast<BattleScenePayload*>(scene->payload)->value00;
+                }
+            } else if ((categoryFlags & 0x20000u) != 0) {
+                AdvanceBattleCastState_439340(target);
+                const std::int32_t index = payload->effectRunningC9C;
+                if ((payload->effects1C[index].flags & 0x10000000u) != 0) {
+                    static_cast<void>(NewBattleFloatingIcon_41F4C0(
+                        gBattleAllEntries59E980[payload->effects1C[index].position], 22459, 0, 0));
+                } else {
+                    const BattleEntryEffectRecord& effect = payload->effects1C[index];
+                    const std::int32_t amount = effect.position3;
+                    AddAssign_401E20(&gBattleAllEntries59E980[effect.position]->readiness, amount);
+                    YobiAction* const compareTarget = gBattleAllEntries59E980[
+                        payload->effects1C[payload->effectRunningC9C].position];
+                    if (GreaterCrypt_401D50(&compareTarget->readiness, &compareTarget->maxHp)) {
+                        YobiAction* const copyTarget = gBattleAllEntries59E980[
+                            payload->effects1C[payload->effectRunningC9C].position];
+                        CopyPayload(&copyTarget->readiness, &copyTarget->maxHp);
+                    }
+                    const std::int32_t displayIndex = payload->effectRunningC9C;
+                    const std::uint32_t displayFlags = payload->effects1C[displayIndex].flags;
+                    const std::int32_t displayed = payload->effects1C[displayIndex].position3;
+                    const std::int32_t y = target->y - 80;
+                    static_cast<void>(NewBattleNumber_41F1A0(target->x, y, displayed, 5, 2, displayFlags));
+                    if ((payload->effects1C[payload->effectRunningC9C].flags & 2u) != 0) {
+                        static_cast<void>(NewBattleFloatingIcon_41F4C0(target, 22454, 0, 0));
+                    }
+                    static_cast<void>(NewBattleAttributeEffects_4209C0(
+                        gBattleAllEntries59E980[payload->battlePosition18], target));
+                }
+                YobiAction* const scene = gBattleSceneAction5ABA94;
+                if (scene->phase == 8) {
+                    ++static_cast<BattleScenePayload*>(scene->payload)->value00;
+                }
+            } else {
+                if ((categoryFlags & 0x100000u) != 0) {
+                    static_cast<void>(MarkDeath(targetPayload->effect1054));
+                    const std::uint32_t targetFlags = targetPayload->flagsFDC;
+                    targetPayload->effect1054 = nullptr;
+                    targetPayload->flagsFDC = targetFlags & ~0x20u;
+                }
+                if ((payload->effects1C[payload->effectRunningC9C].flags & 2u) != 0) {
+                    static_cast<void>(NewBattleRandomEffect_419FC0(target, 110008, 0));
+                }
+                static_cast<void>(NewBattleRandomEffect_419FC0(target, imageNo, 0));
+                NewBattleRebirthEffects_4208F0(gBattleAllEntries59E980[payload->battlePosition18], target);
+                TurnBattleToward_406190(target, action, 1, 0.0F);
+                AdvanceBattleCastState_439340(target);
+                const std::int32_t index = payload->effectRunningC9C;
+                const std::uint32_t flags = payload->effects1C[index].flags;
+                if ((flags & 0x10000000u) != 0) {
+                    static_cast<void>(NewBattleFloatingIcon_41F4C0(
+                        gBattleAllEntries59E980[payload->effects1C[index].position], 22459, 0, 0));
+                } else {
+                    const std::int32_t y = target->y - 80;
+                    const std::int32_t displayed = payload->effects1C[index].position3;
+                    const std::int32_t x = target->x;
+                    static_cast<void>(NewBattleNumber_41F1A0(x, y, displayed, 6, 2, flags));
+                    if ((payload->effects1C[payload->effectRunningC9C].flags & 2u) != 0) {
+                        static_cast<void>(NewBattleFloatingIcon_41F4C0(target, 22454, 0, 0));
+                    }
+                    static_cast<void>(NewBattleAttributeEffects_4209C0(
+                        gBattleAllEntries59E980[payload->battlePosition18], target));
+                }
+                const std::int32_t image = action->imageNo;
+                if (image == 111011 || image == 110044 || image == 110045 || image == 110046 || image == 110047) {
+                    const std::int32_t sound = image == 110046 || image == 110047 ? 268 : 269;
+                    static_cast<void>(audio::PlaySe_52C450(sound, action->x));
+                }
+            }
+        }
+        const std::int32_t delayIndex = payload->effectRunningC9C;
+        if ((payload->effects1C[delayIndex].flags & 8u) == 0 && payload->effects1C[delayIndex].position3 != 0) {
+            payload->valueFD0 = 14 * static_cast<std::int32_t>(((targetPayload->flagsFDC >> 1) & 1u) + 1u);
+        }
+        action->frameEvent = 1;
+    }
+    const std::int32_t previousDelay = action->field58;
+    action->field58 = previousDelay - 1;
+    if (previousDelay <= 0) {
+        if (previousDelay == 0) {
+            const std::int32_t image = action->imageNo;
+            if (image == 111011 || image == 110044 || image == 110045 || image == 110046 || image == 110047) {
+                const std::int32_t sound = image == 111011 || image == 110044 ? 269 : 268;
+                static_cast<void>(audio::PlaySe_52C450(sound, action->x));
+            }
+        }
+        const std::int32_t remaining = payload->valueFD0;
+        if (remaining > 0) {
+            payload->valueFD0 = remaining - 1;
+        }
+        if (payload->valueFD0 == 0) {
+            static_cast<void>(PlayFrame_517DA0(action, 0));
+            if (action->frameEvent == 0) {
+                const float step = static_cast<float>(static_cast<double>(action->battleTurnStepB4) + 0.1F);
+                action->battleTurnStepB4 = step;
+                YobiAction* const target = gBattleAllEntries59E980[
+                    payload->effects1C[payload->effectRunningC9C].position];
+                TurnBattleToward_406190(action, target, 0, step);
+            } else if (!(action->offset40 >= -200.0F) || action->offset40 > 840.0F
+                || !(action->offset44 >= -200.0F) || action->offset44 > 680.0F) {
+                static_cast<void>(MarkDeath(action));
+            }
+            MoveBattleByAngle_405EA0(action);
+            const std::int32_t image = action->imageNo;
+            bool emitTrail = false;
+            float trailY;
+            std::int32_t randomX;
+            std::int32_t trailImage;
+            if (image == 111011) {
+                if (action->nameX == 0) {
+                    trailImage = 110007;
+                    const std::int32_t randomY = platform::RandomRange_46FAF0(-10, 10);
+                    trailY = static_cast<float>(static_cast<double>(randomY) + action->offset44);
+                    randomX = platform::RandomRange_46FAF0(-10, 10);
+                    emitTrail = true;
+                }
+            } else if (image == 110044) {
+                if (action->nameX == 0) {
+                    trailImage = 110007;
+                    const std::int32_t randomY = platform::RandomRange_46FAF0(-10, 10);
+                    trailY = static_cast<float>(static_cast<double>(randomY) + action->offset44);
+                    randomX = platform::RandomRange_46FAF0(-10, 10);
+                    emitTrail = true;
+                }
+            } else if (image == 110045) {
+                if (action->nameX == 0) {
+                    trailImage = 110007;
+                    const std::int32_t randomY = platform::RandomRange_46FAF0(-6, 6);
+                    trailY = static_cast<float>(static_cast<double>(randomY) + action->offset44);
+                    randomX = platform::RandomRange_46FAF0(-6, 6);
+                    emitTrail = true;
+                }
+            } else if (image == 110046) {
+                if (action->nameX == 0) {
+                    const std::int32_t randomY = platform::RandomRange_46FAF0(-4, 4);
+                    const float y = static_cast<float>(static_cast<double>(randomY) + action->offset44);
+                    const std::int32_t xOffset = platform::RandomRange_46FAF0(-4, 4);
+                    const float x = static_cast<float>(static_cast<double>(xOffset) + action->offset40);
+                    static_cast<void>(NewBattleTrailEffect_41E7C0(x, y, 110006, 1, 202));
+                }
+                ++action->nameX;
+            } else if (image == 110047) {
+                if (action->nameX == 0) {
+                    trailImage = 110006;
+                    const std::int32_t randomY = platform::RandomRange_46FAF0(-2, 2);
+                    trailY = static_cast<float>(static_cast<double>(randomY) + action->offset44);
+                    randomX = platform::RandomRange_46FAF0(-2, 2);
+                    emitTrail = true;
+                }
+            }
+            if (emitTrail) {
+                const float x = static_cast<float>(static_cast<double>(randomX) + action->offset40);
+                static_cast<void>(NewBattleTrailEffect_41E7C0(x, trailY, trailImage, 1, 202));
+            }
+            const std::int32_t previousTrail = action->nameX;
+            action->nameX = previousTrail < 2 ? previousTrail + 1 : 0;
+        }
+    }
+    const std::int32_t x = static_cast<std::int32_t>(action->offset40);
+    const std::int32_t offsetX = static_cast<std::int32_t>(gYobiScreenOffsetX);
+    const float y = action->offset44;
+    action->x = x + offsetX;
+    action->y = static_cast<std::int32_t>(y) + static_cast<std::int32_t>(gYobiScreenOffsetY);
+}
+
+void UpdateBattleCarryingEffect_4219D0(YobiAction* const action)
+{
+    using world::detail::gBattleAllEntries59E980;
+    bool carry = false;
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    if (action->phase == 0) {
+        YobiAction* const currentTarget = gBattleAllEntries59E980[
+            payload->effects1C[payload->effectRunningC9C].position];
+        if (currentTarget->phase != 0) {
+            return;
+        }
+    }
+    const std::int32_t initialEvent = action->frameEvent;
+    action->phase = 1;
+    if (initialEvent == 0
+        && GetBattleDistance_406300(action, gBattleAllEntries59E980[
+            payload->effects1C[payload->effectRunningC9C].position]) <= 8) {
+        const std::int32_t index = payload->effectRunningC9C;
+        const std::int32_t sourcePosition = payload->battlePosition18;
+        const std::int32_t targetPosition = payload->effects1C[index].position;
+        YobiAction* const source = gBattleAllEntries59E980[sourcePosition];
+        YobiAction* const target = gBattleAllEntries59E980[targetPosition];
+        auto* const targetPayload = static_cast<BattleActorPayload*>(target->payload);
+        target->battleOpponent10 = source;
+        targetPayload->effectFlagsFE4 = std::bit_cast<std::int32_t>(
+            payload->effects1C[payload->effectRunningC9C].flags);
+        ApplyBattleEffectFlags_406390(payload->battlePosition18, action);
+        const std::int32_t resolvedIndex = payload->effectRunningC9C;
+        const std::uint32_t flags = payload->effects1C[resolvedIndex].flags;
+        if ((flags & 8u) != 0) {
+            target->phase = 31;
+        } else {
+            if ((flags & 0x10000000u) != 0) {
+                static_cast<void>(NewBattleFloatingIcon_41F4C0(
+                    gBattleAllEntries59E980[payload->effects1C[resolvedIndex].position], 22459, 0, 0));
+            }
+            const std::int32_t image = action->imageNo;
+            if (image == 111011 || image == 110044 || image == 110045 || image == 110046 || image == 110047) {
+                const std::int32_t sound = image == 110046 || image == 110047 ? 268 : 269;
+                static_cast<void>(audio::PlaySe_52C450(sound, action->x));
+            }
+            if ((payload->effects1C[payload->effectRunningC9C].flags & 0x10000000u) != 0) {
+                AdvanceBattleCastState_439340(target);
+            }
+        }
+        action->frameEvent = 1;
+    }
+    const std::int32_t previousDelay = action->field58;
+    action->field58 = previousDelay - 1;
+    if (previousDelay <= 0) {
+        if (previousDelay == 0) {
+            const std::int32_t image = action->imageNo;
+            if (image == 111011 || image == 110044 || image == 110045 || image == 110046 || image == 110047) {
+                const std::int32_t sound = image == 111011 || image == 110044 ? 269 : 268;
+                static_cast<void>(audio::PlaySe_52C450(sound, action->x));
+            }
+        }
+        const std::int32_t remaining = payload->valueFD0;
+        if (remaining > 0) {
+            payload->valueFD0 = remaining - 1;
+        }
+        if (payload->valueFD0 == 0) {
+            static_cast<void>(PlayFrame_517DA0(action, 0));
+            if (action->frameEvent == 0) {
+                const float step = static_cast<float>(static_cast<double>(action->battleTurnStepB4) + 0.1F);
+                action->battleTurnStepB4 = step;
+                YobiAction* const target = gBattleAllEntries59E980[
+                    payload->effects1C[payload->effectRunningC9C].position];
+                TurnBattleToward_406190(action, target, 0, step);
+            } else {
+                const std::int32_t index = payload->effectRunningC9C;
+                const std::uint32_t flags = payload->effects1C[index].flags;
+                if ((flags & 8u) == 0 && (flags & 0x10000000u) == 0) {
+                    carry = true;
+                }
+                if (!(action->offset40 >= -200.0F) || action->offset40 > 840.0F
+                    || !(action->offset44 >= -200.0F) || action->offset44 > 680.0F) {
+                    if (carry) {
+                        AdvanceBattleCastState_439340(gBattleAllEntries59E980[payload->effects1C[index].position]);
+                    }
+                    static_cast<void>(MarkDeath(action));
+                }
+            }
+            MoveBattleByAngle_405EA0(action);
+            if (carry) {
+                YobiAction* const target = gBattleAllEntries59E980[
+                    payload->effects1C[payload->effectRunningC9C].position];
+                target->characterAction = 8;
+                const std::int32_t tick = action->field58 & 0x1F;
+                std::int32_t arc;
+                if (tick < 16) {
+                    const std::int32_t distance = tick - 8;
+                    arc = distance * distance / 2;
+                } else {
+                    const std::int32_t distance = tick - 24;
+                    arc = 64 - distance * distance / 2;
+                }
+                const std::int32_t offsetX = static_cast<std::int32_t>(gYobiScreenOffsetX);
+                const std::int32_t direction = target->direction + 1;
+                target->offset40 = static_cast<float>(static_cast<double>(offsetX) + action->offset40);
+                const double y = static_cast<double>(action->offset44) - 35.0F - arc
+                    + static_cast<std::int32_t>(gYobiScreenOffsetY);
+                target->direction = direction;
+                target->offset44 = static_cast<float>(y);
+                if (direction >= 8) {
+                    target->direction = direction - 8;
+                }
+            }
+            const std::int32_t image = action->imageNo;
+            bool emitTrail = false;
+            float trailY;
+            std::int32_t randomX;
+            std::int32_t trailImage;
+            if (image == 111011) {
+                if (action->nameX == 0) {
+                    trailImage = 110007;
+                    const std::int32_t randomY = platform::RandomRange_46FAF0(-10, 10);
+                    trailY = static_cast<float>(static_cast<double>(randomY) + action->offset44);
+                    randomX = platform::RandomRange_46FAF0(-10, 10);
+                    emitTrail = true;
+                }
+            } else if (image == 110044) {
+                if (action->nameX == 0) {
+                    trailImage = 110007;
+                    const std::int32_t randomY = platform::RandomRange_46FAF0(-10, 10);
+                    trailY = static_cast<float>(static_cast<double>(randomY) + action->offset44);
+                    randomX = platform::RandomRange_46FAF0(-10, 10);
+                    emitTrail = true;
+                }
+            } else if (image == 110045) {
+                if (action->nameX == 0) {
+                    trailImage = 110007;
+                    const std::int32_t randomY = platform::RandomRange_46FAF0(-6, 6);
+                    trailY = static_cast<float>(static_cast<double>(randomY) + action->offset44);
+                    randomX = platform::RandomRange_46FAF0(-6, 6);
+                    emitTrail = true;
+                }
+            } else if (image == 110046) {
+                if (action->nameX == 0) {
+                    const std::int32_t randomY = platform::RandomRange_46FAF0(-4, 4);
+                    const float y = static_cast<float>(static_cast<double>(randomY) + action->offset44);
+                    const std::int32_t xOffset = platform::RandomRange_46FAF0(-4, 4);
+                    const float x = static_cast<float>(static_cast<double>(xOffset) + action->offset40);
+                    static_cast<void>(NewBattleTrailEffect_41E7C0(x, y, 110006, 1, 202));
+                }
+                ++action->nameX;
+            } else if (image == 110047) {
+                if (action->nameX == 0) {
+                    trailImage = 110006;
+                    const std::int32_t randomY = platform::RandomRange_46FAF0(-2, 2);
+                    trailY = static_cast<float>(static_cast<double>(randomY) + action->offset44);
+                    randomX = platform::RandomRange_46FAF0(-2, 2);
+                    emitTrail = true;
+                }
+            }
+            if (emitTrail) {
+                const float x = static_cast<float>(static_cast<double>(randomX) + action->offset40);
+                static_cast<void>(NewBattleTrailEffect_41E7C0(x, trailY, trailImage, 1, 202));
+            }
+            const std::int32_t previousTrail = action->nameX;
+            action->nameX = previousTrail < 2 ? previousTrail + 1 : 0;
+        }
+    }
     const std::int32_t x = static_cast<std::int32_t>(action->offset40);
     const std::int32_t offsetX = static_cast<std::int32_t>(gYobiScreenOffsetX);
     const float y = action->offset44;

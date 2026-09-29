@@ -302,6 +302,8 @@ void UpdateBattleImpactEffect_41A9E0(YobiAction* action); // 完成后按当前�
 void UpdateBattleImpactSoundEffect_41AF00(YobiAction* action); // 默认分类末尾另播132，其余合同同41A9E0。
 void UpdateBattleFrameEventEffect_41B440(YobiAction* action); // 先消费帧事件，再按旧58/FD0推进动画与nameY消退。
 void UpdateBattleMovingImpactEffect_41BB00(YobiAction* action); // 实时目标中心命中，保留提前标死后的运动/投影尾。
+void UpdateBattleHomingImpactEffect_41C3B0(YobiAction* action); // 距离门禁/HP分类，命中后出界仍继续移动与尾迹。
+void UpdateBattleCarryingEffect_4219D0(YobiAction* action); // 当帧carry独立快照，出界推进/标死后仍带动当前目标。
 // 工厂初始化：仅借用现有对象与真实回调，空action/source原样返回，不分配/播放。
 void InitBattleTargetEffect_422E50(
     YobiAction* action, YobiAction* source, void (*callback)(YobiAction*)); // 固定目标坐标与图号音效。

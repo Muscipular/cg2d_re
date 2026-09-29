@@ -354,6 +354,13 @@ void Sub_4BF160(WindowInstance* window, std::int32_t scroll, std::int32_t count)
 void Sub_4BF2E0(WindowInstance* window, std::int32_t scroll, std::int32_t count); // 模式1十行协议名称/双数值。
 void Sub_4BF460(WindowInstance* window, std::int32_t scroll); // 五行，存在性与内容索引不同。
 void Sub_4BF620(WindowInstance* window, std::int32_t scroll); // 按候选槽数逐轮重读，不加十行钳制。
+std::int32_t Sub_4BFBC0(std::int32_t index, std::int32_t state); // 模式0学习请求，bit2恒消费。
+std::int32_t Sub_4BFCB0(std::int32_t index, std::int32_t state); // 分模式关闭/返回，音效后重读模式。
+std::int32_t Sub_4BFF60(std::int32_t index, std::int32_t state); // bit400上一行，触边仍刷新。
+std::int32_t Sub_4C0160(std::int32_t index, std::int32_t state); // 下一行，12/13固定左侧且目标index-1。
+std::int32_t Sub_4C0380(std::int32_t index, std::int32_t state); // 上一页，音效后重读位置。
+std::int32_t Sub_4C0590(std::int32_t index, std::int32_t state); // 下一页，先上限后负值修正。
+std::int32_t Sub_4C0800(std::int32_t index, std::int32_t state); // 两侧滚轮；模式0/1只更新位置。
 std::int32_t Sub_4C0A50(std::int32_t index, std::int32_t state); // 候选门禁/提示/发送，hintFlag不阻止发送。
 std::int32_t Sub_4C0910(std::int32_t index, std::int32_t state); // 遗忘映射+1发送，发送后关闭窗口。
 std::int32_t Sub_4C0BF0(std::int32_t index, std::int32_t state); // 选技能槽并显示元素0，不提前发送。

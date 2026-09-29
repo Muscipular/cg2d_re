@@ -22533,6 +22533,68 @@ constexpr char kCraftFood5867FC[] = "                   \xAE\xC6\xB2\x7A/\xC3\xC
 constexpr char kCraftWood5867DC[] = "                        \xA4\xEC\xA7\xF7";
 constexpr char kCraftCloth5867BC[] = "                        \xA5\xAC\xAE\xC6";
 constexpr char kCraftRefine586860[] = "\xBA\xEB\xB7\xD2";
+constexpr char kCraftWorking5865C4[] =
+    "\xA1\x40\xA1\x40\xA1\x40\x2E\x2E\x2E\xA1\x40\xA7\x40\xA6\xA8\xA4\xA4\xA1\x40\x2E\x2E\x2E";
+constexpr char kCraftEngraving5866DC[] =
+    "\xA1\x40\xA1\x40\xA1\x40\xA1\x4B\xA1\x40\xA8\xE8\xA6\x4C\xA4\xA4\xA1\x40\xA1\x4B";
+constexpr char kCraftRefining5866C4[] =
+    "\xA1\x40\xA1\x40\xA1\x40\xA1\x4B\xA1\x40\xBA\xEB\xB7\xD2\xA4\xA4\xA1\x40\xA1\x4B";
+constexpr char kCraftIdentifying5866AC[] =
+    "\xA1\x40\xA1\x40\xA1\x40\xA1\x4B\xA1\x40\xC5\xB2\xA9\x77\xA4\xA4\xA1\x40\xA1\x4B";
+constexpr char kCraftRepairing586694[] =
+    "\xA1\x40\xA1\x40\xA1\x40\xA1\x4B\xA1\x40\xAD\xD7\xB2\x7A\xA4\xA4\xA1\x40\xA1\x4B";
+
+// 制造与单选等待共有的动作6/16改写；每次命中仍重取载荷和玩家图号。
+void SetCraftWorkingAction(WindowInstance* const window)
+{
+    static_cast<WindowAnimationData*>(window->elements[4].data)->value04 = 0;
+    login::detail::SetYobiActionField2B0(
+        static_cast<WindowAnimationData*>(window->elements[4].data)->action, 6);
+    std::int32_t imageNo = world::detail::ReadPlayerImageNo();
+    for (const auto& range : kCraftAlternateActionImages) {
+        if (imageNo >= range[0] && imageNo <= range[1]) {
+            login::detail::SetYobiActionField2B0(
+                static_cast<WindowAnimationData*>(window->elements[4].data)->action, 16);
+            imageNo = world::detail::ReadPlayerImageNo();
+        }
+    }
+    if (imageNo == 0x18A26) {
+        login::detail::SetYobiActionField2B0(
+            static_cast<WindowAnimationData*>(window->elements[4].data)->action, 6);
+    }
+}
+
+// 两等待入口共有的倍率/通知/双tick尾；调用者在本函数返回后才发布模式。
+WindowAnimationData* FinishCraftWait(WindowInstance* const window, std::uint32_t duration)
+{
+    const std::uint8_t rebirthMode = gValue5F9754;
+    gCraftDeadlineCF3B04 = duration;
+    if (rebirthMode != 0) {
+        const std::int32_t rebirth = world::detail::ReadPlayerValue08();
+        duration = duration * kSkillRebirthRates57D7A4[rebirth] / 100u;
+        gCraftDeadlineCF3B04 = duration;
+    }
+    if (gSkillSendModeC8A970 != 0) {
+        const std::int32_t crystalLevel = Sub_479860();
+        duration = gCraftDeadlineCF3B04 * kSkillCrystalRates57D7B4[crystalLevel] / 100u;
+        gCraftDeadlineCF3B04 = duration;
+    }
+    static_cast<void>(network::Sub_512DA0(
+        platform::gConnectionSocket, static_cast<std::int32_t>(duration / 1000u)));
+    const std::uint32_t tick = platform::ReadTickCount32();
+    gCraftDeadlineCF3B04 = gCraftDeadlineCF3B04 + tick;
+    window->elements[6].visible = 0;
+    window->elements[7].visible = 0;
+    window->elements[8].visible = 0;
+    gCraftDisplayImageCB2204 = -1;
+    gSkillPreviewTickCF46C8 = platform::ReadTickCount32();
+    static_cast<void>(Sub_47D170(
+        window, 4, 3, 5, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
+    if (gSkillSendModeC8A970 != 0) {
+        return Sub_47D220(window, 3, 5, 1, 0, 5);
+    }
+    return Sub_47D220(window, 3, 5, 0, 10, 5);
+}
 
 // 仅新补的制造/单选/装饰创建入口共用；材料模式12另有无条件状态写。
 void SelectCraftWindowState(const std::int32_t skillId)
@@ -22605,6 +22667,99 @@ void PrepareCraftMaterialElements(WindowInstance* const window)
 }
 
 } // namespace
+
+WindowAnimationData* Sub_47E1B0(WindowInstance* const window)
+{
+    gSkillSendModeC8A970 = 0;
+    if (Sub_479B00() != 0 && Sub_47D4B0() != 0 && Sub_479AB0() != 0) {
+        gSkillSendModeC8A970 = 1;
+    }
+    gValueD67B00 = gSkillSendModeC8A970;
+    std::strcpy(static_cast<WindowTextData*>(window->elements[9].data)->text, kCraftWorking5865C4);
+    for (std::int32_t index = 10; index <= 13; ++index) {
+        std::strcpy(static_cast<WindowTextData*>(window->elements[index].data)->text,
+            input::LegacyText593850());
+    }
+    static_cast<WindowGraphicData*>(window->elements[29].data)->imageNo = 0x3BA38;
+    static_cast<WindowGraphicData*>(window->elements[14].data)->imageNo = 0x3BA3E;
+    for (std::int32_t index = 15; index <= 20; ++index) {
+        window->elements[index].visible = 1;
+        window->elements[index].mouseCallback = Sub_484D60;
+    }
+    window->elements[24].visible = 1;
+    window->elements[22].visible = 1;
+    window->elements[21].visible = 0;
+    window->elements[23].visible = 0;
+    window->elements[25].visible = 0;
+    window->elements[26].visible = 0;
+    window->elements[27].visible = 0;
+    SetCraftWorkingAction(window);
+    const std::int32_t random = platform::NextRandom_53B4C9() % 6;
+    const std::int32_t skill = gCraftSkillIndexCC2368;
+    const std::int32_t recipe = gCraftRecipeIndexD2D638;
+    const std::int32_t level = world::detail::gSkillsF1BAFC[skill].recipes8E8[recipe].level;
+    const auto duration = static_cast<std::uint32_t>(random + level * 3 + 5) * 1000u;
+    WindowAnimationData* const result = FinishCraftWait(window, duration);
+    gSelectionModeD2D650 = 1;
+    return result;
+}
+
+WindowAnimationData* Sub_47EF00(WindowInstance* const window)
+{
+    gSkillSendModeC8A970 = 0;
+    std::int32_t skill;
+    if (Sub_479B00() != 0 && Sub_47D4F0() != 0 && Sub_479AB0() != 0) {
+        skill = gCraftSkillIndexCC2368;
+        if (world::detail::gSkillsF1BAFC[skill].skillId != 220) {
+            gSkillSendModeC8A970 = 1;
+        }
+    } else {
+        skill = gCraftSkillIndexCC2368;
+    }
+    const std::int32_t active = gSkillSendModeC8A970;
+    const std::int32_t skillId = world::detail::gSkillsF1BAFC[skill].skillId;
+    gValueD67B00 = active;
+    const char* hint = nullptr;
+    switch (skillId) {
+    case 220: hint = kCraftEngraving5866DC; break;
+    case 2025: hint = kCraftRefining5866C4; break;
+    case 219: case 2033: hint = kCraftIdentifying5866AC; break;
+    case 217: case 218: case 2031: case 2032: hint = kCraftRepairing586694; break;
+    default: break;
+    }
+    if (hint != nullptr) {
+        std::strcpy(static_cast<WindowTextData*>(window->elements[9].data)->text, hint);
+    }
+    for (std::int32_t index = 10; index <= 13; ++index) {
+        std::strcpy(static_cast<WindowTextData*>(window->elements[index].data)->text,
+            input::LegacyText593850());
+    }
+    static_cast<WindowGraphicData*>(window->elements[29].data)->imageNo = 0x3BA39;
+    static_cast<WindowGraphicData*>(window->elements[14].data)->imageNo = 0x3BA3E;
+    for (std::int32_t index = 15; index <= 20; ++index) {
+        window->elements[index].visible = 0;
+        window->elements[index].mouseCallback = Sub_484D60;
+    }
+    window->elements[24].visible = 0;
+    window->elements[22].visible = 0;
+    window->elements[21].visible = 1;
+    window->elements[21].mouseCallback = Sub_484E90;
+    window->elements[23].visible = 1;
+    if (world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId == 220) {
+        window->elements[23].visible = 0;
+    }
+    window->elements[25].visible = 0;
+    window->elements[26].visible = 0;
+    window->elements[27].visible = 0;
+    SetCraftWorkingAction(window);
+    const std::int32_t random = platform::NextRandom_53B4C9() % 6;
+    const std::int32_t selected = gSelectedItemD460C0;
+    const std::int32_t level = world::detail::gPlayerItemsFDA8A4[selected].level;
+    const auto duration = static_cast<std::uint32_t>(random + level * 3 + 5) * 1000u;
+    WindowAnimationData* const result = FinishCraftWait(window, duration);
+    gSelectionModeD2D650 = 4;
+    return result;
+}
 
 login::YobiAction* Sub_47D5F0(
     const std::int32_t skill, const std::int32_t recipe, const std::int32_t request)

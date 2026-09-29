@@ -142,6 +142,8 @@ login::YobiAction* Sub_47D8F0(
     std::int32_t skill, std::int32_t request, std::int32_t kind); // 装饰开窗，kind严格1为宠物装备。
 login::YobiAction* Sub_47DA70(std::int32_t skill, std::int32_t request); // 精炼开窗，条件设置世界状态9。
 login::YobiAction* Sub_47DB50(std::int32_t skill, std::int32_t request); // 材料开窗，无条件设置世界状态9。
+WindowAnimationData* Sub_47E1B0(WindowInstance* window); // 制造等待模式1，按配方等级生成同源截止。
+WindowAnimationData* Sub_47EF00(WindowInstance* window); // 单选等待模式4，刻印排除宠物辅助。
 std::int32_t Sub_483EB0(std::int32_t index, std::int32_t state); // 六材料完整投放/换位/逐帧校验与绘制。
 WindowAnimationData* Sub_47DF50(WindowInstance* window); // 制造模式0完整初始化，逆序发布五材料需求。
 WindowAnimationData* Sub_47FAE0(WindowInstance* window); // 装饰模式6，固定魔力100。

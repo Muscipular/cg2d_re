@@ -450,6 +450,10 @@ std::int32_t gSkillSendModeC8A970 = 0;
 std::int32_t gSkillSelectedTargetCC4B1C = 0;
 std::int32_t gSkillWindowModeD672AC = 0;
 std::int32_t gSkillWindowIndexD2EA60 = 0;
+static std::int32_t gSkillWindowScrollD2D648 = 0;
+static std::int32_t gSkillWindowHoverD2F744 = 0;
+static std::int32_t gSkillRecipeLevelC8B1B4 = 0;
+static std::int32_t gSkillWindowMaximumCA000C = 0;
 std::array<std::array<char, 17>, 10> gSkillTargetNamesCB0550 {};
 std::array<std::int32_t, 10> gSkillTargetKindsD2F75C {};
 std::array<const char*, 10> gSkillTargetNameViewsD45F98 {};
@@ -26991,6 +26995,361 @@ std::int32_t Sub_4EF710(const std::int32_t skillId)
     case 224: return 3;
     default: return -1;
     }
+}
+
+namespace {
+
+constexpr std::array<std::int32_t, 18> kSkillTechniqueImages54F3C4 {
+    0x3B5AB, 0x3B5AC, 0x3B5AD, 0x3B5B1, 0x3B5B2, 0x3B5B3,
+    0x3B5B1, 0x3B5B2, 0x3B5B3, 0x3B5B4, 0x3B5B5, 0x3B5B6,
+    0x3B5AE, 0x3B5AF, 0x3B5B0, 0x3B5AB, 0x3B5AC, 0x3B5AD,
+};
+constexpr std::array<std::int32_t, 18> kSkillRecipeImages54F40C {
+    0x3B5B7, 0x3B5B8, 0x3B5B9, 0x3B5BD, 0x3B5BE, 0x3B5BF,
+    0x3B5BD, 0x3B5BE, 0x3B5BF, 0x3B5C0, 0x3B5C1, 0x3B5C2,
+    0x3B5BA, 0x3B5BB, 0x3B5BC, 0x3B5B7, 0x3B5B8, 0x3B5B9,
+};
+constexpr char kSkillUsable586518[] =
+    "\xA8\xCF\xA5\xCE\xA6\xB9\xA4\x40\xB5\xA5\xAF\xC5\xAA\xBA\xA7\xDE\xAF\xE0\xA1\x43";
+constexpr char kSkillUnusable5864FC[] =
+    "\xB5\x4C\xAA\x6B\xA8\xCF\xA5\xCE\xA6\xB9\xA4\x40\xB5\xA5\xAF\xC5"
+    "\xAA\xBA\xA7\xDE\xAF\xE0\xA1\x43";
+constexpr char kSkillInventoryFull5864E4[] = "\xAA\xAB\xAB\x7E\xC4\xE6\xA4\x77\xBA\xA1";
+constexpr char kSkillRecipeHint586530[] =
+    "\xBB\x73\xA7\x40\xA6\xB9\xB0\x74\xA4\xE8\xA4\xBA\xAE\x65\xAA\xBA\xAA\xAB\xAB\x7E\xA1\x43";
+
+} // namespace
+
+void Sub_47B9B0(
+    const std::int16_t x, const std::int16_t y, const std::int8_t visualState,
+    std::int32_t technique, const std::int32_t textLayer,
+    const std::int32_t graphicLayer, const std::uint32_t color)
+{
+    render::GraphicDescriptor16 descriptor {};
+    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    descriptor.bytes[13] = 4;
+    const bool battle = technique >= 100;
+    if (battle) {
+        technique -= 100;
+    }
+    const auto* record = &world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
+    if (record->techniques3C[technique].name[0] == '\0') {
+        return;
+    }
+    std::int8_t nameColor = 0;
+    if (record->techniques3C[technique].value8C == 0) {
+        nameColor = 7;
+    } else if (battle) {
+        const std::int32_t cost = record->techniques3C[technique].value7C * record->fpReduce / 100;
+        const std::int32_t position = world::detail::gBattleCurrentPosition5ABCA4;
+        login::YobiAction* const action = world::detail::gBattleEntries59E980[position];
+        if (login::detail::IsYobiActionFpLessThan(action, cost)) {
+            nameColor = 6;
+        }
+    }
+    static_cast<void>(render::ClearTextQueueTail_456D50(static_cast<std::int8_t>(textLayer)));
+    static_cast<void>(render::DrawText_456780(
+        0, 0, static_cast<std::uint8_t>(textLayer), 12, 0, input::LegacyText593850(), 0, 0));
+    const char* const name =
+        world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60].techniques3C[technique].name.data();
+    static_cast<void>(render::DrawText_456780(
+        static_cast<std::int16_t>(x + 7), static_cast<std::int16_t>(y + 2),
+        static_cast<std::uint8_t>(textLayer), 12, nameColor, name, 0, 0));
+    char buffer[20];
+    const std::int32_t level =
+        world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60].techniques3C[technique].value90;
+    std::sprintf(buffer, "%2d", level);
+    Sub_4771B0(x + 155, y + 3, buffer, 0, 0, 0, static_cast<std::uint8_t>(graphicLayer));
+    record = &world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
+    const std::int32_t kind = record->canRebirth;
+    if (kind != 1 && kind != 2) {
+        const std::int32_t cost = record->techniques3C[technique].value7C * record->fpReduce / 100;
+        std::sprintf(buffer, "%3d", cost);
+        Sub_4771B0(x + 186, y + 3, buffer, 0, 0, 0, static_cast<std::uint8_t>(graphicLayer));
+    } else {
+        static_cast<void>(render::DrawText_456780(
+            static_cast<std::int16_t>(x + 189), static_cast<std::int16_t>(y + 3),
+            static_cast<std::uint8_t>(textLayer), 12, nameColor, kWindow12Unknown554590, 0, 0));
+    }
+    const std::int32_t currentKind = world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60].canRebirth;
+    const std::int32_t imageNo = kSkillTechniqueImages54F3C4[currentKind * 3 + visualState];
+    static_cast<void>(login::detail::DrawGraphic(x + 105, y + 8, graphicLayer, imageNo, 0, &descriptor));
+}
+
+void Sub_47C240(
+    const std::int16_t x, const std::int16_t y, const std::int8_t visualState,
+    const std::int32_t recipe, const std::int32_t textLayer,
+    const std::int32_t graphicLayer, const std::uint32_t color)
+{
+    render::GraphicDescriptor16 descriptor {};
+    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    descriptor.bytes[13] = 4;
+    if (world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60].recipes8E8[recipe].itemId < 0) {
+        return;
+    }
+    static_cast<void>(render::ClearTextQueueTail_456D50(static_cast<std::int8_t>(textLayer)));
+    static_cast<void>(render::DrawText_456780(
+        0, 0, static_cast<std::uint8_t>(textLayer), 12, 0, input::LegacyText593850(), 0, 0));
+    const auto* const row = &world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60].recipes8E8[recipe];
+    const std::int8_t nameColor = row->value0C != 0 ? 0 : 7;
+    static_cast<void>(render::DrawText_456780(
+        static_cast<std::int16_t>(x + 7), static_cast<std::int16_t>(y + 2),
+        static_cast<std::uint8_t>(textLayer), 12, nameColor, row->name.data(), 0, 0));
+    const auto* const record = &world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
+    const std::int32_t cost = record->recipes8E8[recipe].value04 * record->fpReduce / 100;
+    char buffer[20];
+    std::sprintf(buffer, "%3d", cost);
+    Sub_4771B0(x + 186, y + 3, buffer, 0, 0, 0, static_cast<std::uint8_t>(graphicLayer));
+    const std::int32_t kind = world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60].canRebirth;
+    const std::int32_t imageNo = kSkillRecipeImages54F40C[kind * 3 + visualState];
+    static_cast<void>(login::detail::DrawGraphic(x + 105, y + 8, graphicLayer, imageNo, 0, &descriptor));
+}
+
+void Sub_479DA0(WindowInstance* const window, const std::int32_t level)
+{
+    if (level >= 0) {
+        gSkillRecipeLevelC8B1B4 = level;
+    }
+    const std::int32_t oldMaximum = gSkillWindowMaximumCA000C;
+    gSkillWindowModeD672AC = 2;
+    gSkillWindowScrollD2D648 = 0;
+    static_cast<void>(Sub_4742C0(&window->elements[11], oldMaximum, 0));
+    for (std::int32_t index = 1; index <= 16; ++index) {
+        window->elements[index].visible = 0;
+    }
+    window->elements[2].visible = 1;
+    window->elements[4].visible = 1;
+    window->elements[9].visible = 1;
+    const auto* const recipes = world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60].recipes8E8.data();
+    std::int32_t count = 0;
+    while (recipes[count].itemId >= 0) {
+        ++count;
+    }
+    gSkillWindowMaximumCA000C = count - 10;
+    for (std::int32_t index = 10; index <= 16; ++index) {
+        window->elements[index].visible = 1;
+    }
+    static_cast<WindowGraphicData*>(window->elements[27].data)->imageNo = 0x3BA25;
+    for (std::int32_t index = 17; index <= 26; ++index) {
+        window->elements[index].mouseCallback = Sub_47C3A0;
+    }
+}
+
+std::int32_t Sub_47C3A0(const std::int32_t index, const std::int32_t state)
+{
+    const std::int32_t recipe = gSkillWindowScrollD2D648 + index - 17;
+    const auto* const record = &world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
+    const std::uint8_t rebirthMode = gValue5F9754;
+    if ((record->rebirthState4C48 != 0) != (rebirthMode != 0)
+        || record->recipes8E8[recipe].itemId < 0) {
+        return 0;
+    }
+    std::int8_t visualState = 0;
+    const bool clicked = (state & 2) != 0;
+    if (clicked) {
+        bool allowed = (world::detail::ReadPlayerActionFlags() & 0x80u) == 0
+            && world::detail::Sub_440B50() == 0;
+        if (allowed) {
+            const std::int32_t skill = gSkillWindowIndexD2EA60;
+            allowed = world::detail::gSkillsF1BAFC[skill].recipes8E8[recipe].value0C != 0;
+            if (allowed) {
+                bool create;
+                if (gWindowStates[11].window != nullptr) {
+                    create = gCraftSkillIndexCC2368 != skill
+                        || gCraftRequestValueD30400 != gSkillRecipeLevelC8B1B4
+                        || gCraftRecipeIndexD2D638 != recipe;
+                } else {
+                    create = gWindowActionCA0174 == nullptr;
+                }
+                if (create) {
+                    gWindowActionCA0174 = Sub_47D5F0(skill, recipe, gSkillRecipeLevelC8B1B4);
+                }
+            }
+        }
+        static_cast<void>(audio::PlaySe_52C450(allowed ? 51 : 55, 320));
+    }
+    if ((state & 1) != 0) {
+        visualState = 2;
+        gSkillWindowHoverD2F744 = recipe;
+        std::strcpy(gHoverTextD68AE8.data(), kSkillRecipeHint586530);
+    }
+    if (clicked) {
+        visualState = 1;
+    }
+    if (gWindowStates[11].window != nullptr
+        && gCraftSkillIndexCC2368 == gSkillWindowIndexD2EA60
+        && gCraftRequestValueD30400 == gSkillRecipeLevelC8B1B4
+        && gCraftRecipeIndexD2D638 == recipe) {
+        visualState = 1;
+    }
+    const WindowInstance* const window = gCurrentWindow;
+    const WindowElement* const element = &window->elements[index];
+    const auto y = static_cast<std::int16_t>(element->y + window->y);
+    const auto x = static_cast<std::int16_t>(element->x + window->x);
+    Sub_47C240(x, y, visualState, recipe, 3, 223, 0xFFFFFFFFu);
+    return 0;
+}
+
+std::int32_t Sub_47BC00(const std::int32_t index, const std::int32_t state)
+{
+    const std::int32_t technique = gSkillWindowScrollD2D648 + index - 17;
+    const auto* record = &world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
+    if (record->techniques3C[technique].name[0] == '\0') {
+        return 0;
+    }
+    std::int32_t consumed = 0;
+    std::int8_t visualState = 0;
+    if ((state & 1) != 0) {
+        std::strcpy(gHoverTextD68AE8.data(),
+            record->techniques3C[technique].value8C != 0 ? kSkillUsable586518 : kSkillUnusable5864FC);
+        if (record->canRebirth >= 3 && record->canRebirth <= 4) {
+            const std::int32_t cost = record->techniques3C[technique].value7C * record->fpReduce / 100;
+            if (world::detail::IsPlayerFpLessThan(cost)) {
+                std::strcpy(gHoverTextD68AE8.data(), kWindow12NoFp5864F0);
+            }
+        }
+        visualState = 2;
+        gSkillWindowHoverD2F744 = technique;
+    }
+    if ((state & 2) != 0) {
+        record = &world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
+        if (record->techniques3C[technique].value8C == 0) {
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        } else {
+            // 可用技术所有分支最终还播放SE51，包括动作门禁与部分FP失败。
+            const auto activate = [&] {
+                const auto actionBlocked = [] {
+                    return (world::detail::ReadPlayerActionFlags() & 0x80u) != 0
+                        || world::detail::Sub_440B50() != 0;
+                };
+                const auto insufficientFp = [&] {
+                    const auto* const current = &world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
+                    const std::int32_t cost =
+                        current->techniques3C[technique].value7C * current->fpReduce / 100;
+                    return world::detail::IsPlayerFpLessThan(cost);
+                };
+                const auto fail = [] {
+                    static_cast<void>(audio::PlaySe_52C450(55, 320));
+                };
+                switch (record->canRebirth) {
+                case 4:
+                    if (actionBlocked()) {
+                        fail();
+                        return;
+                    }
+                    if (insufficientFp()) {
+                        world::detail::Sub_44B050(kWindow12NoFp5864F0, 4, 3);
+                        fail();
+                        return;
+                    }
+                    if (world::detail::Sub_518C60() <= 0) {
+                        world::detail::Sub_44B050(kSkillInventoryFull5864E4, 4, 3);
+                        fail();
+                        return;
+                    }
+                    if (gWindowStates[12].window != nullptr) {
+                        const std::int32_t current = std::bit_cast<std::int8_t>(gWindow12SkillIndexCA0470);
+                        const std::int32_t skill = gSkillWindowIndexD2EA60;
+                        if (current != skill || gUsingSkillLevelCA0AC4 != technique) {
+                            gWindowActionD2E928 = Sub_4854A0(skill, technique);
+                        }
+                    } else if (gWindowActionD2E928 == nullptr) {
+                        gWindowActionD2E928 = Sub_4854A0(gSkillWindowIndexD2EA60, technique);
+                    }
+                    return;
+                case 3: {
+                    if (actionBlocked()) {
+                        fail();
+                        return;
+                    }
+                    if (insufficientFp()) {
+                        return;
+                    }
+                    const std::int32_t skill = gSkillWindowIndexD2EA60;
+                    const std::uintptr_t socket = platform::gConnectionSocket;
+                    gUsingSkillIndexD2F32C = skill;
+                    gUsingSkillLevelCA0AC4 = technique;
+                    static_cast<void>(network::Sub_511C30(socket, skill));
+                    return;
+                }
+                case 2:
+                    if (actionBlocked()) {
+                        fail();
+                        return;
+                    }
+                    if (gWindowStates[11].window != nullptr) {
+                        const std::int32_t skill = gSkillWindowIndexD2EA60;
+                        if (gCraftSkillIndexCC2368 != skill || gCraftRequestValueD30400 != technique) {
+                            gWindowActionCA0174 = Sub_47D780(skill, technique);
+                        }
+                    } else if (gWindowActionCA0174 == nullptr) {
+                        gWindowActionCA0174 = Sub_47D780(gSkillWindowIndexD2EA60, technique);
+                    }
+                    return;
+                case 1: {
+                    const std::int32_t skillId = record->skillId;
+                    if (skillId == 255 || skillId == 606 || skillId == 2025 || skillId == 2026) {
+                        if (actionBlocked()) {
+                            fail();
+                            return;
+                        }
+                        const std::int32_t skill = gSkillWindowIndexD2EA60;
+                        if (skillId == 255 || skillId == 606) {
+                            static_cast<void>(Sub_47D8F0(skill, technique, skillId == 606 ? 1 : 0));
+                        } else if (skillId == 2025) {
+                            static_cast<void>(Sub_47DA70(skill, technique));
+                        } else {
+                            static_cast<void>(Sub_47DB50(skill, technique));
+                        }
+                        return;
+                    }
+                    Sub_4796D0();
+                    const std::uint8_t previous = gValueD67AFD;
+                    const std::int32_t skill = gSkillWindowIndexD2EA60;
+                    gValueD67AFD = static_cast<std::uint8_t>(previous + 1);
+                    const std::int32_t rebirth = world::detail::gSkillsF1BAFC[skill].rebirthState4C48;
+                    const bool enabled = gValue5F9754 != 0;
+                    if ((rebirth != 0) != enabled) {
+                        static_cast<void>(network::Sub_510F50(
+                            platform::gConnectionSocket, skill + (enabled ? 100 : 0)));
+                    }
+                    Sub_479DA0(gCurrentWindow, technique);
+                    return;
+                }
+                case 5: {
+                    if (actionBlocked()) {
+                        fail();
+                        return;
+                    }
+                    if (login::detail::ReadMapActorAttachment44(world::detail::ReadPlayerAction()) == nullptr
+                        && insufficientFp()) {
+                        world::detail::Sub_44B050(kWindow12NoFp5864F0, 4, 3);
+                        fail();
+                        return;
+                    }
+                    const std::uint8_t rebirth = gValue5F9754;
+                    const std::int32_t skill = gSkillWindowIndexD2EA60;
+                    const std::uintptr_t socket = platform::gConnectionSocket;
+                    static_cast<void>(network::Sub_511EF0(
+                        socket, skill + (rebirth != 0 ? 100 : 0), technique, -1, input::LegacyText593850()));
+                    return;
+                }
+                default:
+                    return;
+                }
+            };
+            activate();
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        }
+        consumed = 1;
+        visualState = 1;
+    }
+    const WindowInstance* const window = gCurrentWindow;
+    const WindowElement* const element = &window->elements[index];
+    const auto y = static_cast<std::int16_t>(element->y + window->y);
+    const auto x = static_cast<std::int16_t>(element->x + window->x);
+    Sub_47B9B0(x, y, visualState, technique, 3, 223, 0xFFFFFFFFu);
+    return consumed;
 }
 
 void Sub_47A140()

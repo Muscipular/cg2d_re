@@ -122,6 +122,15 @@ void Sub_4F0200(const char* text); // ysVc完整名单生产；唯一回复调�
 login::YobiAction* Sub_4871B0(); // 技能目标名称/颜色借用及45创建，不回滚失败计数。
 std::int32_t Sub_487020(std::int32_t index, const char* text); // 请求属性/发送技能及释放通知。
 void Sub_47A140(); // 窗口10模式2的技能状态差异请求，原返回无人消费。
+void Sub_479DA0(WindowInstance* window, std::int32_t level); // 切配方，滚动先用旧上限。
+void Sub_47B9B0(
+    std::int16_t x, std::int16_t y, std::int8_t visualState, std::int32_t technique,
+    std::int32_t textLayer, std::int32_t graphicLayer, std::uint32_t color); // 技术行，>=100按战斗FP着色。
+void Sub_47C240(
+    std::int16_t x, std::int16_t y, std::int8_t visualState, std::int32_t recipe,
+    std::int32_t textLayer, std::int32_t graphicLayer, std::uint32_t color); // 配方行与独立图号表。
+std::int32_t Sub_47BC00(std::int32_t index, std::int32_t state); // 五类技能选择与完整失败音效。
+std::int32_t Sub_47C3A0(std::int32_t index, std::int32_t state); // 转生一致才处理配方，恒返0。
 void Sub_479650(); // 原窗口操作S32计数加1。
 void Sub_479660(); // 原操作计数减1及严格零时的退出发送/技能状态刷新。
 std::int32_t Sub_47D170(

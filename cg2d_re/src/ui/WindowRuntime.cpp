@@ -15189,6 +15189,108 @@ std::int32_t Sub_4C0EA0(const std::int32_t index, const std::int32_t unusedState
     return 0;
 }
 
+std::int32_t Sub_4C0F20(const std::int32_t index, const std::int32_t unusedState)
+{
+    static_cast<void>(unusedState);
+    render::GraphicDescriptor16 descriptor {};
+    const std::uint32_t color = 0xFFFFFFFFu;
+    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    descriptor.bytes[13] = 4;
+    const bool acceptHover = login::detail::Sub_5049A0(240, 310, 306, 327, -1) != 0;
+    const bool cancelHover = login::detail::Sub_5049A0(334, 310, 400, 327, -1) != 0;
+    std::int32_t acceptImage = 245323;
+    if (acceptHover) {
+        acceptImage = 245325;
+        const std::size_t length = std::strlen(gConfirmationAcceptHintCC3FCC.data()) + 1;
+        const auto buttons = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
+        std::memcpy(gHoverTextD68AE8.data(), gConfirmationAcceptHintCC3FCC.data(), length);
+        if ((buttons & 1u) != 0) {
+            gCurrentWindow->elements[index].visible = 0;
+            std::array<char, 16> requestText;
+            std::sprintf(requestText.data(), "%d", gWindow54ReplacementC8B08C);
+            const std::int32_t target = world::detail::gDialogTargetD2DE6C;
+            const std::int32_t request = world::detail::gDialogRequestCC21E0;
+            const std::int32_t y =
+                platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+            const std::int32_t x =
+                platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+            static_cast<void>(network::Sub_512620(
+                platform::gConnectionSocket, x, y, request, target, 0, requestText.data()));
+            gCurrentWindow->state &= ~2u;
+            acceptImage = 245324;
+            gCurrentWindow->state |= 0x8000u;
+            static_cast<void>(audio::PlaySe_52C450(79, 320));
+        }
+    }
+    std::int32_t cancelImage = 245326;
+    if (cancelHover) {
+        cancelImage = 245328;
+        const std::size_t length = std::strlen(gConfirmationCancelHintD45D70.data()) + 1;
+        const std::size_t prefix = length & ~std::size_t{3};
+        std::memcpy(gHoverTextD68AE8.data(), gConfirmationCancelHintD45D70.data(), prefix);
+        const auto buttons = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
+        std::memcpy(gHoverTextD68AE8.data() + prefix,
+            gConfirmationCancelHintD45D70.data() + prefix, length - prefix);
+        if ((buttons & 1u) != 0) {
+            cancelImage = 245327;
+            gCurrentWindow->elements[index].visible = 0;
+            gCurrentWindow->state &= ~2u;
+            static_cast<void>(audio::PlaySe_52C450(79, 320));
+        }
+    }
+    static_cast<void>(render::DrawGraphic3_520970(240, 310, 226, acceptImage, 0, 1, 0, &descriptor));
+    static_cast<void>(render::DrawGraphic3_520970(334, 310, 226, cancelImage, 0, 1, 0, &descriptor));
+    constexpr char learnFormat588344[] = "\xBE\xC7\xB2\xDF\xA1\x79\x25\x73\xA1\x7A";
+    constexpr char petFormat588338[] = "\xC5\xFD\xA1\x79\x25\x73\xA1\x7A";
+    constexpr char petMeasure588320[] =
+        "\xC5\xFD\xA1\x79\x31\x32\x33\x34\x35\x36\x37\x38\x39\x30\x31\x32\x33\x34\x35\x36\xA1\x7A";
+    constexpr char slotFormat58830C[] =
+        "\xA8\xCF\xA5\xCE\xA1\x79\x25\x73\xA1\x7A\xAA\xBA\xA6\xEC\xB8\x6D";
+    constexpr char emptySlot5882F4[] =
+        "\xA8\xCF\xA5\xCE\xA1\x79\xAA\xC5\xC4\xE6\xA6\xEC\xA1\x7A\xAA\xBA\xA6\xEC\xB8\x6D";
+    constexpr char learnSuffix5882E8[] = "\xA8\xD3\xBE\xC7\xB2\xDF\xA1\x43";
+    constexpr char moneyFormat5882D4[] =
+        "\xA9\xD2\xAB\xF9\xAA\xF7\xA1\x40\x20\x25\x37\x64\xAA\xF7\xB9\xF4";
+    constexpr char priceFormat5882C0[] =
+        "\xC1\xCA\xA4\x4A\xAA\xF7\xC3\x42\x20\x25\x37\x64\xAA\xF7\xB9\xF4";
+    constexpr char question5882B0[] = "\xB3\x6F\xBC\xCB\xA5\x69\xA5\x48\xB6\xDC\xA1\x48";
+    std::array<char, 256> buffer;
+    std::sprintf(buffer.data(), learnFormat588344,
+        gWindow54SkillsD2EAB8[gWindow54SelectedD2DC04].name.data());
+    std::int32_t width = login::detail::TextMeasure(buffer.data(), 0);
+    static_cast<void>(render::DrawText_456780(
+        static_cast<std::int16_t>(320 - width / 2), 130, 4, 0, 0, buffer.data(), 0, 0));
+    std::sprintf(buffer.data(), petFormat588338,
+        gWindow54PetOptionsD67448[gWindow54PetChoiceC8AA90].name.data());
+    // 原第二行按固定16位示例名测宽，不按实际候选名测量。
+    width = login::detail::TextMeasure(petMeasure588320, 0);
+    static_cast<void>(render::DrawText_456780(
+        static_cast<std::int16_t>(320 - width / 2), 154, 4, 0, 0, buffer.data(), 0, 0));
+    const Window54TechniqueSlot& slot = gWindow54TechniqueSlotsD66E38[gWindow54ReplacementC8B08C];
+    if (slot.used != 0) {
+        std::sprintf(buffer.data(), slotFormat58830C, slot.name.data());
+    } else {
+        std::strcpy(buffer.data(), emptySlot5882F4);
+    }
+    width = login::detail::TextMeasure(buffer.data(), 0);
+    static_cast<void>(render::DrawText_456780(
+        static_cast<std::int16_t>(320 - width / 2), 178, 4, 0, 0, buffer.data(), 0, 0));
+    width = login::detail::TextMeasure(learnSuffix5882E8, 0);
+    static_cast<void>(render::DrawText_456780(
+        static_cast<std::int16_t>(320 - width / 2), 198, 4, 0, 0, learnSuffix5882E8, 0, 0));
+    std::sprintf(buffer.data(), moneyFormat5882D4, world::detail::ReadPlayerValueFC());
+    static_cast<void>(render::DrawText_456780(245, 230, 4, 0, 0, buffer.data(), 0, 0));
+    std::sprintf(buffer.data(), priceFormat5882C0,
+        gWindow54SkillsD2EAB8[gWindow54SelectedD2DC04].price);
+    static_cast<void>(render::DrawText_456780(245, 250, 4, 0, 0, buffer.data(), 0, 0));
+    static_cast<void>(render::DrawText_456780(252, 282, 4, 0, 0, question5882B0, 0, 0));
+    login::detail::DrawNineGrid_49BE00(
+        245300, 160, 110, 320, 240, 226, -1,
+        std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}), 74, 54);
+    static_cast<void>(render::ClearTextQueueTail_456D50(3));
+    return 1;
+}
+
 std::int32_t Sub_4B99D0(const std::int32_t unused)
 {
     static_cast<void>(unused);

@@ -124,6 +124,7 @@ std::int32_t gShopScrollCC488C = 0;
 std::array<char, 55> gShopPriceTextsD673EC {};
 std::array<char, 55> gShopCountTextsD2D988 {};
 std::array<char, 48> gShopTotalTextCC4B2C {};
+std::array<char, 16> gShopMoneyTextCC1A00 {};
 std::int32_t gShopAvailableCF4A24 = 0;
 std::array<char, 20> gShopValueTextCF4A28 {};
 std::array<std::int32_t, 5> gShopRowKeysC9A954 {};
@@ -12304,6 +12305,190 @@ void Sub_4B92C0()
         }
     }
     gShopValueC8AF74 = total;
+}
+
+std::int32_t Sub_4B9310(const std::int32_t value)
+{
+    if (value == -1) {
+        gShopScrollCC488C = 0;
+        gShopAvailableCF4A24 = -1;
+        gCurrentWindow->elements[0].visible = 0;
+        for (std::int32_t row = 0; row < 5; ++row) {
+            gCurrentWindow->elements[17 + row].visible = 1;
+            gCurrentWindow->elements[22 + row].visible = 1;
+            gCurrentWindow->elements[27 + row].visible = 0;
+            gCurrentWindow->elements[32 + row].visible = 1;
+            gCurrentWindow->elements[37 + row].visible = 1;
+            gCurrentWindow->elements[42 + row].visible = 1;
+            gCurrentWindow->elements[47 + row].visible = 1;
+            gCurrentWindow->elements[52 + row].visible = 1;
+            gCurrentWindow->elements[57 + row].visible = 1;
+        }
+        switch (std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894[20])) {
+        case 0:
+            Sub_4B8310();
+            Sub_4B8670();
+            Sub_4B86C0();
+            Sub_4B8730();
+            static_cast<WindowGraphicData*>(gCurrentWindow->elements[63].data)->imageNo = 244381;
+            for (std::int32_t row = 0; row < 5; ++row) {
+                gCurrentWindow->elements[52 + row].visible = 1;
+                gCurrentWindow->elements[52 + row].mouseCallback = &Sub_4BBED0;
+                static_cast<WindowGraphicData*>(gCurrentWindow->elements[57 + row].data)->imageNo =
+                    244382;
+            }
+            gCurrentWindow->elements[6].visible = 0;
+            gCurrentWindow->elements[4].visible = 0;
+            break;
+        case 1:
+        case 4:
+        case 5:
+            Sub_4B8780();
+            Sub_4B8B10();
+            Sub_4B8BE0();
+            Sub_4B8C50();
+            static_cast<WindowGraphicData*>(gCurrentWindow->elements[63].data)->imageNo = 244381;
+            for (std::int32_t row = 0; row < 5; ++row) {
+                gCurrentWindow->elements[52 + row].visible = 1;
+                gCurrentWindow->elements[52 + row].mouseCallback = &Sub_4BC230;
+                static_cast<WindowGraphicData*>(gCurrentWindow->elements[57 + row].data)->imageNo =
+                    244382;
+            }
+            gCurrentWindow->elements[6].visible = 0;
+            gCurrentWindow->elements[4].visible = 1;
+            break;
+        case 2:
+            Sub_4B8C90();
+            Sub_4B8FF0();
+            Sub_4B9090();
+            Sub_4B90E0();
+            static_cast<WindowGraphicData*>(gCurrentWindow->elements[63].data)->imageNo = 244388;
+            for (std::int32_t row = 0; row < 5; ++row) {
+                gCurrentWindow->elements[52 + row].visible = 1;
+                gCurrentWindow->elements[52 + row].mouseCallback = &Sub_4BBED0;
+                static_cast<WindowGraphicData*>(gCurrentWindow->elements[57 + row].data)->imageNo =
+                    244389;
+            }
+            gCurrentWindow->elements[6].visible = 1;
+            gCurrentWindow->elements[4].visible = 0;
+            break;
+        case 3:
+            Sub_4B9110();
+            Sub_4B9270();
+            for (std::int32_t row = 1; row < 5; ++row) {
+                gCurrentWindow->elements[17 + row].visible = 0;
+                gCurrentWindow->elements[22 + row].visible = 0;
+                gCurrentWindow->elements[27 + row].visible = 0;
+                gCurrentWindow->elements[32 + row].visible = 0;
+                gCurrentWindow->elements[37 + row].visible = 0;
+                gCurrentWindow->elements[42 + row].visible = 0;
+                gCurrentWindow->elements[47 + row].visible = 0;
+                gCurrentWindow->elements[52 + row].visible = 0;
+                gCurrentWindow->elements[57 + row].visible = 0;
+            }
+            static_cast<WindowGraphicData*>(gCurrentWindow->elements[63].data)->imageNo = 244388;
+            gCurrentWindow->elements[17].visible = 1;
+            gCurrentWindow->elements[22].visible = 1;
+            gCurrentWindow->elements[27].visible = 0;
+            gCurrentWindow->elements[32].visible = 1;
+            gCurrentWindow->elements[37].visible = 1;
+            gCurrentWindow->elements[42].visible = 1;
+            gCurrentWindow->elements[47].visible = 1;
+            gCurrentWindow->elements[52].visible = 1;
+            gCurrentWindow->elements[57].visible = 1;
+            gCurrentWindow->elements[52].mouseCallback = &Sub_4BC060;
+            static_cast<WindowGraphicData*>(gCurrentWindow->elements[57].data)->imageNo = 244389;
+            gCurrentWindow->elements[6].visible = 1;
+            gCurrentWindow->elements[4].visible = 0;
+            break;
+        default:
+            break;
+        }
+        gShopRowKeysC9A954[0] = -2;
+        gShopTooltipIndex580844 = -1;
+        gShopRowKeysC9A954[1] = -2;
+        gShopMessage580848 = -1;
+        gShopRowKeysC9A954[2] = -2;
+        gShopTooltipPageD67B8C = 0;
+        gShopRowKeysC9A954[3] = -2;
+        gShopRowKeysC9A954[4] = -2;
+        auto* const title = static_cast<WindowTextData*>(gCurrentWindow->elements[5].data);
+        std::strcpy(title->text, gNpcDialogLinesCC24D4[0].text.data());
+        auto* animation = static_cast<WindowAnimationData*>(gCurrentWindow->elements[9].data);
+        login::detail::SetYobiActionField2A8(animation->action, gShopImageD2DAD0);
+        animation = static_cast<WindowAnimationData*>(gCurrentWindow->elements[9].data);
+        login::detail::SetYobiActionField2B8(animation->action, 5);
+    }
+    if (Sub_4D3040(2, 2) != 0) {
+        gCurrentWindow->state |= 0x8000u;
+    }
+    if (gShopDialogTypeCC3EC8 != world::detail::gValue581800) {
+        gCurrentWindow->state |= 0x8000u;
+    }
+    gCurrentWindow->elements[10].visible = 1;
+    if (gShopItemCountCB1E10 - 5 <= 0) {
+        gCurrentWindow->elements[10].visible = 0;
+    }
+    WindowElement* const elements = gCurrentWindow->elements;
+    if ((static_cast<const WindowMouseData*>(elements[11].data)->flags & 1u) != 0) {
+        gShopScrollCC488C = Sub_474270(elements + 11, gShopItemCountCB1E10 - 5);
+        switch (std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894[20])) {
+        case 0:
+            Sub_4B8310();
+            Sub_4B8670();
+            break;
+        case 1:
+        case 4:
+        case 5:
+            Sub_4B8780();
+            Sub_4B8B10();
+            break;
+        case 2:
+            Sub_4B8C90();
+            Sub_4B8FF0();
+            break;
+        default:
+            break;
+        }
+    }
+    std::sprintf(gShopMoneyTextCC1A00.data(), "%10d", world::detail::ReadPlayerValueFC());
+    if (gMaterialOccupancyCC4894[20] == 0) {
+        const std::int32_t total = gShopTotalD2DAFC;
+        const std::int32_t money = world::detail::ReadPlayerValueFC();
+        static_cast<WindowNumberData*>(gCurrentWindow->elements[7].data)->color =
+            total <= money ? 0 : 6;
+    }
+    if (gMaterialOccupancyCC4894[20] == 2) {
+        const std::int32_t previous = gShopAvailableCF4A24;
+        const std::int32_t itemId = gValueD2D608;
+        gShopAvailableCF4A24 = 0;
+        std::int32_t total = 0;
+        for (const world::detail::PlayerItemRecord& record : world::detail::gPlayerItemsFDA8A4) {
+            if (record.used != 0 && record.itemId == itemId) {
+                total += record.count;
+            }
+        }
+        gShopAvailableCF4A24 = total;
+        if (total != previous) {
+            Sub_4B8C90();
+            std::sprintf(gShopTotalTextCC4B2C.data(), "%10d", gShopAvailableCF4A24);
+        }
+    }
+    if (gShopMessage580848 >= 0) {
+        gShopMessage580848 = -1;
+    }
+    gShopTooltipIndex580844 = -1;
+    if (gMaterialOccupancyCC4894[20] == 3) {
+        Sub_4B92C0();
+        std::int32_t amount;
+        if (gShopValueCAFEA4 != 0) {
+            amount = gShopValueC8AF74;
+        } else {
+            std::memcpy(&amount, gShopDetailCC3210.data() + 0xC24, sizeof(amount));
+        }
+        std::sprintf(gShopTotalTextCC4B2C.data(), "%10d", amount);
+    }
+    return 1;
 }
 
 std::int32_t Sub_4BBED0(const std::int32_t index, const std::int32_t state)

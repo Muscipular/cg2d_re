@@ -266,6 +266,25 @@ void ScanBattleMParticipants_439B30(
 // 原43B290：冲突返回0，保留此前槽写入和预扫描副作用；成功OR参与位，不清调用方mask。
 std::int32_t CheckBattleMParticipants_43B290(
     std::int32_t* source, std::int32_t previousSource, std::uint32_t* mask, std::int32_t* flag);
+std::int32_t PeekBattleMInteger_43B860(YobiAction* action); // 只预读，不推进对象或全局游标。
+std::int32_t GetBattleMObjectHeader_423960(YobiAction* action, char* destination);
+void FinishBattleEvent_43B6C0(YobiAction* action); // 推进同一事件消息或注销当前槽后MarkDeath。
+void AppendBattleQueuedTarget_43B7F0(YobiAction* action, std::int32_t value);
+std::int32_t GetBattleValueBand_43BF00(std::int32_t value); // 原1..15按五阈值分档，范围外-1。
+
+// 原1C起的16B效果值记录；仅传数值，不含底层对象指针。
+struct BattleEntryEffectRecord {
+    std::int32_t position; // 原记录+00，-1为队列哨兵。
+    std::uint32_t flags; // 原记录+04。
+    std::int32_t position3; // 原记录+08，4393A0/439400写入。
+    std::int32_t position4; // 原记录+0C，仅439400写入。
+};
+void AppendBattleEffectList_4393A0(
+    YobiAction* action, std::int32_t position, std::uint32_t flags, std::int32_t position3);
+void AppendBattleEffect_439400(YobiAction* action, BattleEntryEffectRecord effect);
+void AppendBattleAuxEffects_43BC10(
+    YobiAction* action, std::int32_t position, std::uint32_t flags,
+    std::int32_t value3, std::int32_t value4, std::int32_t value5);
 // 原43BF30：mode1只消费预扫描8整数；mode0读对象字段，五输出均为S32非拥有指针。
 void TakeBattleMAuxGraphics_43BF30(
     YobiAction* action, std::int32_t mode, std::int32_t* firstImage, std::int32_t* secondImage,
@@ -289,6 +308,9 @@ void Sub_406260(YobiAction* action); // 载荷反向坐标差转角度，再更�
 void InitBattleCastList_4390E0(std::int32_t index); // 22槽索引，保留禁用/phase13门禁。
 void ResetBattleCastList_4391E0(std::int32_t index); // 恢复重置，不清忙状态、技能或转向。
 void AppendBattleCast_4392A0(YobiAction* caster, YobiAction* actor, std::int32_t state);
+void AppendBattleCastAt_4392F0(
+    YobiAction* caster, YobiAction* actor, std::int32_t state, std::int32_t index);
+void AdvanceBattleCastState_439340(YobiAction* action); // 先推进FC4，到200或-1哨兵写phase236。
 void MoveBattleCastState_439380(YobiAction* action); // 播放索引对应项写phase，不推进索引。
 std::int32_t CheckBattleTurnReady_4394A0(YobiAction* parent, std::int32_t enable); // 22槽就绪及超时恢复。
 std::int32_t Sub_43C910(); // 全表未就绪对象置phase=2，全部就绪返回1。

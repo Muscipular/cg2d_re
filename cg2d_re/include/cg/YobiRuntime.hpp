@@ -312,6 +312,7 @@ union BattleEffectThirdArgument {
 YobiAction* NewBattleEffect_41CD00(
     YobiAction* source, std::int32_t offsetX, BattleEffectThirdArgument third,
     std::uint32_t type, std::int32_t blend, std::int32_t link); // 完整48类及已有对象公共尾。
+std::int32_t DrawBattleTiledEffect_41E890(std::int32_t type); // 共享相位先推进，按列/行提交100格，返回末次结果。
 // 工厂初始化：仅借用现有对象与真实回调，空action/source原样返回，不分配/播放。
 void InitBattleTargetEffect_422E50(
     YobiAction* action, YobiAction* source, void (*callback)(YobiAction*)); // 固定目标坐标与图号音效。
@@ -401,6 +402,7 @@ void UpdateBattleAction212_413110(YobiAction* action); // 新计数与当前flag
 std::int32_t UpdateBattleAction213_4131B0(YobiAction* action); // 动画结束顺序清四附件，保留分支返回值。
 void UpdateBattleAction214_4132B0(YobiAction* action); // 两设备分支：闪烁后建特效，或先快照/后重读30F衰减。
 void UpdateBattleAction215_4133D0(YobiAction* action); // 1024严格为2才清槽并推进动作。
+void UpdateBattleAction216_413400(YobiAction* action); // 施法特效、帧事件逐项消费及播放后独立平铺尾。
 std::int32_t UpdateBattleAction237_416DD0(YobiAction* action); // 完整动作237，返回最终PlayFrame结果。
 // 原43BF30：mode1只消费预扫描8整数；mode0读对象字段，五输出均为S32非拥有指针。
 void TakeBattleMAuxGraphics_43BF30(
@@ -429,6 +431,7 @@ void TurnBattleToward_406190(
     YobiAction* action, YobiAction* target, std::int32_t updateDirection, float step);
 std::int32_t GetBattleDistance_406300(YobiAction* first, YobiAction* second); // 平方和先舍入F32再开方。
 std::int32_t CountBattleActiveEntries_406360(); // 扫全部22槽，只计非空且载荷FF8严格等于1。
+std::int32_t SeedBattleRandom_4065A0(std::int32_t value); // 前20槽非空数乘活动M字节长度与输入，重播同源随机种子。
 void Sub_406260(YobiAction* action); // 载荷反向坐标差转角度，再更新方向。
 void InitBattleCastList_4390E0(std::int32_t index); // 22槽索引，保留禁用/phase13门禁。
 void ResetBattleCastList_4391E0(std::int32_t index); // 恢复重置，不清忙状态、技能或转向。

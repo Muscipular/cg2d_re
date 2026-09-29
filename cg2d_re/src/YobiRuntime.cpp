@@ -53,6 +53,7 @@ struct YobiAction {
         YobiAction* observationParent10; // 同一原+10，43F290/43FE00的非拥有观察父节点。
         YobiAction* battleAttachmentParent10; // 同一原+10，附件/特效/粒子发射器的非拥有父引用。
         YobiAction* battleOpponent10; // 同一原+10，416DD0/412900的非拥有对象引用；412900另快照原值。
+        YobiAction* battleCastEffect10; // 同一原+10，413400保存创建返回的非拥有施法特效。
     };
     std::uint8_t priority;
     std::uint8_t displayPriority;
@@ -368,6 +369,24 @@ static_assert(offsetof(BattleEntryEffectRecord, position4) == 12);
 // 原553A38的12项S32等级映射；59F9E8只有工厂type34/43发布，不拥有或释放对象。
 constexpr std::array<std::int32_t, 12> kBattleEffectTierOffsets553A38 {3, 3, 3, 2, 2, 2, 1, 1, 1, 0, 0, 0};
 YobiAction* gBattleFactoryEffect59F9E8 = nullptr;
+
+// 原553A74已证六型、每型16项图号；41E890共享相位，41E920另用对象内相位。
+constexpr std::array<std::int32_t, 96> kBattleTiledEffectImages553A74 {
+    28881, 28881, 28882, 28882, 28883, 28883, 28884, 28884,
+    28885, 28885, 28886, 28886, 28887, 28887, 28888, 28888,
+    28889, 28889, 28890, 28890, 28891, 28891, 28892, 28892,
+    28893, 28893, 28894, 28894, 28895, 28895, 28896, 28896,
+    28897, 28897, 28898, 28898, 28899, 28899, 28900, 28900,
+    28901, 28901, 28902, 28902, 28903, 28903, 28904, 28904,
+    28905, 28905, 28906, 28906, 28907, 28907, 28908, 28908,
+    28909, 28909, 28910, 28910, 28911, 28911, 28912, 28912,
+    28895, 28904, 28895, 28904, 28895, 28904, 28895, 28904,
+    28895, 28904, 28895, 28904, 28895, 28904, 28895, 28904,
+    28913, 28913, 28913, 28913, 28914, 28914, 28914, 28914,
+    28915, 28915, 28915, 28915, 28916, 28916, 28916, 28916,
+};
+std::int32_t gBattleTiledEffectPhase59F9EC = 0;
+std::int32_t gBattleTiledEffectReverse59F9F0 = 0;
 
 // 原场景载荷仅映射本步字段；完整180B生产与调度回调仍待实现。
 struct BattleScenePayload {
@@ -8192,6 +8211,32 @@ YobiAction* NewBattleEffect_41CD00(
     return action;
 }
 
+std::int32_t DrawBattleTiledEffect_41E890(const std::int32_t type)
+{
+    if (gBattleTiledEffectReverse59F9F0 == 0) {
+        const std::int32_t phase = gBattleTiledEffectPhase59F9EC + 1;
+        gBattleTiledEffectPhase59F9EC = phase;
+        if (phase >= 15) {
+            gBattleTiledEffectReverse59F9F0 = 1;
+        }
+    } else {
+        const std::int32_t phase = gBattleTiledEffectPhase59F9EC - 1;
+        gBattleTiledEffectPhase59F9EC = phase;
+        if (phase <= 0) {
+            gBattleTiledEffectReverse59F9F0 = 0;
+        }
+    }
+    const std::int32_t row = type * 16;
+    std::int32_t result;
+    for (std::int32_t x = 0; x < 640; x += 64) {
+        for (std::int32_t y = 0; y < 480; y += 48) {
+            const std::int32_t image = kBattleTiledEffectImages553A74[row + gBattleTiledEffectPhase59F9EC];
+            result = DrawGraphic(x + 32, y + 24, 3, image, 0, nullptr);
+        }
+    }
+    return result;
+}
+
 void InitBattleTargetEffect_422E50(
     YobiAction* const action, YobiAction* const source, const YobiCallback callback)
 {
@@ -10853,6 +10898,20 @@ std::int32_t CountBattleActiveEntries_406360()
     return count;
 }
 
+std::int32_t SeedBattleRandom_4065A0(const std::int32_t value)
+{
+    std::int32_t count = 0;
+    for (YobiAction* const action : world::detail::gBattleEntries59E980) {
+        if (action != nullptr) {
+            ++count;
+        }
+    }
+    const auto length = static_cast<std::int32_t>(std::strlen(world::detail::gBattleMText5AAA7C.data()));
+    const std::int32_t seed = length * count * value;
+    static_cast<void>(platform::SeedRandom_53B4BF(static_cast<std::uint32_t>(seed)));
+    return seed;
+}
+
 void Sub_406260(YobiAction* const action)
 {
     if (action == nullptr) {
@@ -11462,6 +11521,59 @@ void UpdateBattleAction215_4133D0(YobiAction* const action)
     if (payload->value1024 == 2) {
         payload->value1024 = 0;
         AdvanceBattleCastState_439340(action);
+    }
+}
+
+void UpdateBattleAction216_413400(YobiAction* const action)
+{
+    using world::detail::gBattleAllEntries59E980;
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    action->characterAction = 6;
+    if (payload->value1024 == 0) {
+        action->battleCastEffect10 = NewBattleEffect_41CD00(action, 0, {.offsetY = 0}, 34, 0, 1);
+        payload->valueFF0 = 0;
+    }
+    const std::int32_t event = action->frameEvent;
+    if (event >= 10000 && event < 20000) {
+        YobiAction* const effect = action->battleCastEffect10;
+        if (effect != nullptr) {
+            static_cast<void>(MarkDeath(effect));
+            action->battleCastEffect10 = nullptr;
+            for (;;) {
+                const std::int32_t position = payload->effects1C[payload->effectRunningC9C].position;
+                if (position == 255) {
+                    break;
+                }
+                static_cast<void>(SeedBattleRandom_4065A0(position + payload->battlePosition18));
+                if (payload->castSkill103C == 400) {
+                    static_cast<void>(NewBattleEffect_41CD00(action, 0, {.offsetY = 0}, 35, 0, 0));
+                }
+                const std::int32_t currentPosition = payload->effects1C[payload->effectRunningC9C].position;
+                if (payload->battlePosition18 != currentPosition) {
+                    AdvanceBattleCastState_439340(gBattleAllEntries59E980[currentPosition]);
+                }
+                static_cast<void>(AdvanceBattleEffect_439470(action));
+            }
+            static_cast<void>(AdvanceBattleEffect_439470(action));
+        }
+        action->frameEvent = 0;
+    }
+    if (PlayFrame_517DA0(action, 1) == 1) {
+        YobiAction* const effect = action->battleCastEffect10;
+        if (effect != nullptr) {
+            static_cast<void>(MarkDeath(effect));
+            action->battleCastEffect10 = nullptr;
+        }
+        payload->value1024 = 0;
+        AdvanceBattleCastState_439340(action);
+    }
+    if (action->battleCastEffect10 != nullptr) {
+        const std::int32_t skill = payload->castSkill103C;
+        if (skill == 400) {
+            static_cast<void>(DrawBattleTiledEffect_41E890(3));
+        } else if (skill == 401) {
+            static_cast<void>(DrawBattleTiledEffect_41E890(1));
+        }
     }
 }
 

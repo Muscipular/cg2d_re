@@ -284,6 +284,8 @@ void SetBattleGear_422C20(YobiAction* action, std::int32_t imageNo, std::int32_t
 void SetBattleAuxGear_422C90(
     YobiAction* action, std::int32_t imageNo, std::int32_t type, std::int32_t index);
 void UpdateBattleOneShotEffect_419FA0(YobiAction* action); // PlayFrame(1)严格返回1才标死。
+void UpdateBattlePositionEffect_41E640(YobiAction* action); // PlayFrame(1)严格完成才标死，所有路径投影X/Y。
+YobiAction* NewBattlePositionEffect_41E680(YobiAction* parent, std::int32_t imageNo);
 YobiAction* NewBattleRandomEffect_419FC0(
     YobiAction* parent, std::int32_t imageNo, std::int32_t direction); // X/Y分别取随机并重读尺寸。
 void UpdateBattleFloatingIcon_41F450(YobiAction* action); // 未舍入速度推进Y，停留60帧后标死并投影。
@@ -353,6 +355,7 @@ std::int32_t TakeBattleAuxEffects_43BC90(
 // 原406390：固定当前flags/position，五块独立执行；附加块消费四输出，逐调用重取对象。
 void ApplyBattleEffectFlags_406390(std::int32_t sourcePosition, YobiAction* action);
 void ApplyBattleCastEffects_416DB0(YobiAction* action); // 动作235：先应用效果，再推进动作队列。
+std::int32_t UpdateBattleAction209_412900(YobiAction* action); // 完整动作209，效果按调用边界重读。
 std::int32_t UpdateBattleAction237_416DD0(YobiAction* action); // 完整动作237，返回最终PlayFrame结果。
 // 原43BF30：mode1只消费预扫描8整数；mode0读对象字段，五输出均为S32非拥有指针。
 void TakeBattleMAuxGraphics_43BF30(
@@ -377,6 +380,7 @@ void MoveBattleByAngle_405EA0(YobiAction* action); // X存回F32后才计算Y，
 void TurnBattleToward_406190(
     YobiAction* action, YobiAction* target, std::int32_t updateDirection, float step);
 std::int32_t GetBattleDistance_406300(YobiAction* first, YobiAction* second); // 平方和先舍入F32再开方。
+std::int32_t CountBattleActiveEntries_406360(); // 扫全部22槽，只计非空且载荷FF8严格等于1。
 void Sub_406260(YobiAction* action); // 载荷反向坐标差转角度，再更新方向。
 void InitBattleCastList_4390E0(std::int32_t index); // 22槽索引，保留禁用/phase13门禁。
 void ResetBattleCastList_4391E0(std::int32_t index); // 恢复重置，不清忙状态、技能或转向。

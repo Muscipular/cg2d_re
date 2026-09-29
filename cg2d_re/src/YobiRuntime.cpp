@@ -11418,6 +11418,53 @@ std::int32_t UpdateBattleAction213_4131B0(YobiAction* const action)
     return next;
 }
 
+void UpdateBattleAction214_4132B0(YobiAction* const action)
+{
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    if (render::HasLegacy3DDevice_44B610() == 0) {
+        const std::int32_t count = payload->valueFF0 + 1;
+        payload->valueFF0 = count;
+        if (action->field58 >= 8) {
+            action->field58 = 0;
+            action->flags |= 0x8000u;
+            static_cast<void>(audio::PlaySe_52C450(218, action->x));
+            static_cast<void>(NewBattleEffect_41CD00(action, 0, {.offsetY = 0}, 36, 0, 1));
+            action->phase = 215;
+        } else if (count > 4) {
+            payload->valueFF0 = 0;
+            const std::uint32_t flags = action->flags ^ 2u;
+            const std::int32_t step = action->field58 + 1;
+            action->flags = flags;
+            action->field58 = step;
+        }
+        return;
+    }
+    if (payload->valueFF0 != 255) {
+        payload->valueFF0 = 255;
+        static_cast<void>(audio::PlaySe_52C450(218, action->x));
+    }
+    const std::uint8_t previousAlpha = GetYobiActionField30F(action);
+    SetYobiActionField308(action, 8);
+    if (previousAlpha == 0) {
+        action->field58 = 0;
+        payload->valueFF0 = 0;
+        AdvanceBattleCastState_439340(action);
+        return;
+    }
+    static_cast<void>(NewBattleRisingEffect_420D50(action));
+    const std::uint8_t alpha = GetYobiActionField30F(action);
+    SetYobiActionField30F(action, alpha < 4 ? 0 : static_cast<std::uint8_t>(alpha - 4));
+}
+
+void UpdateBattleAction215_4133D0(YobiAction* const action)
+{
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    if (payload->value1024 == 2) {
+        payload->value1024 = 0;
+        AdvanceBattleCastState_439340(action);
+    }
+}
+
 std::int32_t UpdateBattleAction237_416DD0(YobiAction* const action)
 {
     using world::detail::gBattleAllEntries59E980;

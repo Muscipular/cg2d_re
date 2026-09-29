@@ -399,6 +399,8 @@ YobiAction* UpdateBattleAction210_412F70(YobiAction* action); // 追近后播放
 void ApplyBattleSceneEffects_413070(YobiAction* action); // 动作211：四独立W16写，效果先于动作推进。
 void UpdateBattleAction212_413110(YobiAction* action); // 新计数与当前flags按S32比较，达到才推进效果/动作。
 std::int32_t UpdateBattleAction213_4131B0(YobiAction* action); // 动画结束顺序清四附件，保留分支返回值。
+void UpdateBattleAction214_4132B0(YobiAction* action); // 两设备分支：闪烁后建特效，或先快照/后重读30F衰减。
+void UpdateBattleAction215_4133D0(YobiAction* action); // 1024严格为2才清槽并推进动作。
 std::int32_t UpdateBattleAction237_416DD0(YobiAction* action); // 完整动作237，返回最终PlayFrame结果。
 // 原43BF30：mode1只消费预扫描8整数；mode0读对象字段，五输出均为S32非拥有指针。
 void TakeBattleMAuxGraphics_43BF30(

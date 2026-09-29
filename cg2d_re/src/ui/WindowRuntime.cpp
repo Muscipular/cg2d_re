@@ -457,6 +457,7 @@ static std::int32_t gSkillWindowMaximumCA000C = 0;
 // 前15项为配对行号，末字节D3FACB单独参与479FA9计数门槛，见战斗列表SPEC。
 static std::array<std::int8_t, 16> gBattleSkillRowsD3FABC {};
 static SkillWindowSelectionCallback gSkillSelectionCallbackCC4230 = nullptr;
+static WindowValueCallback gPetSkillSelectionCallbackCC4D14 = nullptr;
 std::array<std::array<char, 17>, 10> gSkillTargetNamesCB0550 {};
 std::array<std::int32_t, 10> gSkillTargetKindsD2F75C {};
 std::array<const char*, 10> gSkillTargetNameViewsD45F98 {};
@@ -27007,6 +27008,7 @@ constexpr std::array<std::int32_t, 18> kSkillListImages54F37C {
     0x3B5A5, 0x3B5A6, 0x3B5A7, 0x3B5A8, 0x3B5A9, 0x3B5AA,
     0x3B5A2, 0x3B5A3, 0x3B5A4, 0x3B59F, 0x3B5A0, 0x3B5A1,
 };
+constexpr std::array<std::int32_t, 3> kPetSkillImages54F454 {0x3B5B7, 0x3B5B8, 0x3B5B9};
 constexpr std::array<std::int32_t, 18> kSkillTechniqueImages54F3C4 {
     0x3B5AB, 0x3B5AC, 0x3B5AD, 0x3B5B1, 0x3B5B2, 0x3B5B3,
     0x3B5B1, 0x3B5B2, 0x3B5B3, 0x3B5B4, 0x3B5B5, 0x3B5B6,
@@ -27567,6 +27569,282 @@ login::YobiAction* Sub_47A500(
     WindowInstance* const window = gWindowStates[10].window;
     gSkillWindowModeD672AC = 4;
     gSkillWindowIndexD2EA60 = skillIndex;
+    if (window != nullptr) {
+        window->state &= ~0x8000u;
+    }
+    return CreateWindowAnimation_475AA0(10, 1, 0, nullptr);
+}
+
+void Sub_47CB00(
+    const std::int16_t x, const std::int16_t y, const std::int8_t visualState,
+    const std::int32_t pairIndex, const std::int32_t textLayer,
+    const std::int32_t graphicLayer, const std::uint32_t color)
+{
+    const std::int32_t petIndex = world::detail::Sub_43C4B0();
+    const std::int32_t pairPetIndex = world::detail::Sub_43C4B0();
+    const auto technique = std::bit_cast<std::int16_t>(
+        world::detail::gPetRuntimeF633F8[pairPetIndex].techniquePairs650[pairIndex].index);
+    render::GraphicDescriptor16 descriptor {};
+    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    descriptor.bytes[13] = 4;
+    const auto* const record = &world::detail::gPetRuntimeF633F8[petIndex].techniquesD8[technique];
+    if (record->name[0] == '\0') {
+        return;
+    }
+    static_cast<void>(render::ClearTextQueueTail_456D50(static_cast<std::int8_t>(textLayer)));
+    static_cast<void>(render::DrawText_456780(
+        0, 0, static_cast<std::uint8_t>(textLayer), 12, 0, input::LegacyText593850(), 0, 0));
+    const std::int32_t position = world::detail::GetBattlePetPosition_405B40(
+        world::detail::gBattleCurrentPosition5ABCA4);
+    login::YobiAction* const action = world::detail::gBattleEntries59E980[position];
+    const std::int32_t cost = record->fp;
+    std::int8_t nameColor = login::detail::IsYobiActionFpLessThan(action, cost) ? 6 : 0;
+    const std::uint32_t flags = world::detail::gBattlePetSkillFlags5ABB78;
+    if ((flags & (1u << (static_cast<std::uint32_t>(pairIndex) & 31u))) == 0) {
+        nameColor = 7;
+    }
+    static_cast<void>(render::DrawText_456780(
+        static_cast<std::int16_t>(x + 7), static_cast<std::int16_t>(y + 2),
+        static_cast<std::uint8_t>(textLayer), 12, nameColor, record->name.data(), 0, 0));
+    char buffer[20];
+    std::sprintf(buffer, "%3d", record->fp);
+    Sub_4771B0(x + 186, y + 3, buffer, 0, 0, 0, static_cast<std::uint8_t>(graphicLayer));
+    static_cast<void>(login::detail::DrawGraphic(
+        x + 105, y + 8, graphicLayer, kPetSkillImages54F454[visualState], 0, &descriptor));
+}
+
+void Sub_47CE70(
+    const std::int16_t x, const std::int16_t y, const std::int8_t visualState,
+    const std::int32_t pairIndex, const std::int32_t textLayer,
+    const std::int32_t graphicLayer, const std::uint32_t color)
+{
+    const auto petIndex = std::bit_cast<std::int32_t>(world::detail::gBattleRidePet5ABC38);
+    render::GraphicDescriptor16 descriptor {};
+    descriptor.bytes[13] = 4;
+    const auto technique = std::bit_cast<std::int16_t>(
+        world::detail::gPetRuntimeF633F8[petIndex].techniquePairs650[pairIndex].index);
+    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    const auto* const record = &world::detail::gPetRuntimeF633F8[petIndex].techniquesD8[technique];
+    if (record->name[0] == '\0') {
+        return;
+    }
+    static_cast<void>(render::ClearTextQueueTail_456D50(static_cast<std::int8_t>(textLayer)));
+    static_cast<void>(render::DrawText_456780(
+        0, 0, static_cast<std::uint8_t>(textLayer), 12, 0, input::LegacyText593850(), 0, 0));
+    const std::int32_t position = world::detail::gBattleCurrentPosition5ABCA4;
+    const std::int32_t cost = record->fp;
+    login::YobiAction* const action = world::detail::gBattleEntries59E980[position];
+    std::int8_t nameColor = login::detail::IsYobiActionFpLessThan(action, cost) ? 6 : 0;
+    const std::uint32_t flags = world::detail::gBattlePetSkillFlags5ABB78;
+    if ((flags & (1u << (static_cast<std::uint32_t>(pairIndex) & 31u))) == 0) {
+        nameColor = 7;
+    }
+    static_cast<void>(render::DrawText_456780(
+        static_cast<std::int16_t>(x + 7), static_cast<std::int16_t>(y + 2),
+        static_cast<std::uint8_t>(textLayer), 12, nameColor, record->name.data(), 0, 0));
+    char buffer[20];
+    std::sprintf(buffer, "%3d", record->fp);
+    Sub_4771B0(x + 186, y + 3, buffer, 0, 0, 0, static_cast<std::uint8_t>(graphicLayer));
+    static_cast<void>(login::detail::DrawGraphic(
+        x + 105, y + 8, graphicLayer, kPetSkillImages54F454[visualState], 0, &descriptor));
+}
+
+std::int32_t Sub_47CC80(const std::int32_t index, const std::int32_t state)
+{
+    const std::int32_t pairIndex = index - 17;
+    std::int32_t pairPet = world::detail::Sub_43C4B0();
+    auto technique = std::bit_cast<std::int16_t>(
+        world::detail::gPetRuntimeF633F8[pairPet].techniquePairs650[pairIndex].index);
+    const std::int32_t namePet = world::detail::Sub_43C4B0();
+    if (world::detail::gPetRuntimeF633F8[namePet].techniquesD8[technique].name[0] == '\0') {
+        return 0;
+    }
+    std::int32_t consumed = 0;
+    std::int8_t visualState = 0;
+    const std::uint32_t flags = world::detail::gBattlePetSkillFlags5ABB78;
+    if ((flags & (1u << (static_cast<std::uint32_t>(pairIndex) & 31u))) != 0) {
+        pairPet = world::detail::Sub_43C4B0();
+        technique = std::bit_cast<std::int16_t>(
+            world::detail::gPetRuntimeF633F8[pairPet].techniquePairs650[pairIndex].index);
+        const std::int32_t costPet = world::detail::Sub_43C4B0();
+        const std::int32_t playerPosition = world::detail::gBattleCurrentPosition5ABCA4;
+        const std::int32_t cost = world::detail::gPetRuntimeF633F8[costPet].techniquesD8[technique].fp;
+        const std::int32_t position = world::detail::GetBattlePetPosition_405B40(playerPosition);
+        if (login::detail::IsYobiActionFpGreaterEqual(world::detail::gBattleEntries59E980[position], cost)
+            && (state & 2) != 0) {
+            if (gPetSkillSelectionCallbackCC4D14 != nullptr) {
+                const std::int32_t pet = world::detail::Sub_43C4B0();
+                const auto selected = std::bit_cast<std::int16_t>(
+                    world::detail::gPetRuntimeF633F8[pet].techniquePairs650[pairIndex].index);
+                gPetSkillSelectionCallbackCC4D14(selected);
+            }
+            gCurrentWindow->state |= 0x8000u;
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            consumed = 1;
+        }
+    } else if ((state & 2) != 0) {
+        static_cast<void>(audio::PlaySe_52C450(55, 320));
+    }
+    if ((state & 1) != 0) {
+        visualState = 2;
+        gSkillWindowHoverD2F744 = pairIndex;
+        std::strcpy(gHoverTextD68AE8.data(), kSkillUsable586518);
+    }
+    if ((state & 2) != 0) {
+        visualState = 1;
+    }
+    const WindowInstance* const window = gCurrentWindow;
+    const WindowElement* const element = &window->elements[index];
+    const auto y = static_cast<std::int16_t>(element->y + window->y);
+    const auto x = static_cast<std::int16_t>(element->x + window->x);
+    Sub_47CB00(x, y, visualState, pairIndex, 3, 223, 0xFFFFFFFFu);
+    return consumed;
+}
+
+std::int32_t Sub_47CFE0(const std::int32_t index, const std::int32_t state)
+{
+    const auto petIndex = std::bit_cast<std::int32_t>(world::detail::gBattleRidePet5ABC38);
+    const std::int32_t pairIndex = index - 17;
+    const auto technique = std::bit_cast<std::int16_t>(
+        world::detail::gPetRuntimeF633F8[petIndex].techniquePairs650[pairIndex].index);
+    const auto* const record = &world::detail::gPetRuntimeF633F8[petIndex].techniquesD8[technique];
+    if (record->name[0] == '\0') {
+        return 0;
+    }
+    std::int32_t consumed = 0;
+    std::int8_t visualState = 0;
+    if ((world::detail::gBattlePetSkillFlags5ABB78 & (1u << (static_cast<std::uint32_t>(pairIndex) & 31u))) != 0) {
+        const std::int32_t position = world::detail::gBattleCurrentPosition5ABCA4;
+        const std::int32_t cost = record->fp;
+        if (login::detail::IsYobiActionFpGreaterEqual(world::detail::gBattleEntries59E980[position], cost)
+            && (state & 2) != 0) {
+            const WindowValueCallback callback = gPetSkillSelectionCallbackCC4D14;
+            if (callback != nullptr) {
+                const auto pet = std::bit_cast<std::int32_t>(world::detail::gBattleRidePet5ABC38);
+                const auto selected = std::bit_cast<std::int16_t>(
+                    world::detail::gPetRuntimeF633F8[pet].techniquePairs650[pairIndex].index);
+                callback(selected);
+            }
+            gCurrentWindow->state |= 0x8000u;
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            consumed = 1;
+        }
+    } else if ((state & 2) != 0) {
+        static_cast<void>(audio::PlaySe_52C450(55, 320));
+    }
+    if ((state & 1) != 0) {
+        visualState = 2;
+        gSkillWindowHoverD2F744 = pairIndex;
+        std::strcpy(gHoverTextD68AE8.data(), kSkillUsable586518);
+    }
+    if ((state & 2) != 0) {
+        visualState = 1;
+    }
+    const WindowInstance* const window = gCurrentWindow;
+    const WindowElement* const element = &window->elements[index];
+    const auto y = static_cast<std::int16_t>(element->y + window->y);
+    const auto x = static_cast<std::int16_t>(element->x + window->x);
+    Sub_47CE70(x, y, visualState, pairIndex, 3, 223, 0xFFFFFFFFu);
+    return consumed;
+}
+
+void Sub_47A1A0(WindowInstance* const window)
+{
+    gSkillWindowModeD672AC = 5;
+    gSkillWindowScrollD2D648 = 0;
+    for (std::int32_t index = 1; index <= 16; ++index) {
+        window->elements[index].visible = 0;
+    }
+    window->elements[2].visible = 1;
+    gSkillWindowMaximumCA000C = 0;
+    for (std::int32_t index = 10; index <= 16; ++index) {
+        window->elements[index].visible = 1;
+    }
+    const std::int32_t petIndex = world::detail::Sub_43C4B0();
+    if (petIndex < 0) {
+        return;
+    }
+    const auto* const pet = &world::detail::gPetRuntimeF633F8[petIndex];
+    const char* name = pet->name6BD.data();
+    if (name[0] == '\0') {
+        name = pet->name6AC.data();
+    }
+    std::strcpy(static_cast<WindowTextData*>(window->elements[2].data)->text, name);
+    for (std::int32_t index = 0; index < pet->value6A4; ++index) {
+        const auto technique = std::bit_cast<std::int16_t>(pet->techniquePairs650[index].index);
+        const auto* const record = &pet->techniquesD8[technique];
+        if (record->name[0] != '\0') {
+            const std::int32_t position = world::detail::GetBattlePetPosition_405B40(
+                world::detail::gBattleCurrentPosition5ABCA4);
+            login::YobiAction* const action = world::detail::gBattleEntries59E980[position];
+            const std::int32_t cost = record->fp;
+            static_cast<void>(login::detail::IsYobiActionFpLessThan(action, cost));
+        }
+    }
+    window->elements[8].visible = 1;
+    gSkillWindowMaximumCA000C = pet->value6A4 - 10;
+    window->elements[7].visible = 1;
+    static_cast<WindowGraphicData*>(window->elements[27].data)->imageNo = 0x3BA28;
+    for (std::int32_t index = 17; index <= 26; ++index) {
+        window->elements[index].mouseCallback = Sub_47CC80;
+    }
+}
+
+void Sub_47A320(WindowInstance* const window)
+{
+    gSkillWindowModeD672AC = 6;
+    gSkillWindowScrollD2D648 = 0;
+    for (std::int32_t index = 1; index <= 16; ++index) {
+        window->elements[index].visible = 0;
+    }
+    window->elements[2].visible = 1;
+    gSkillWindowMaximumCA000C = 0;
+    for (std::int32_t index = 10; index <= 16; ++index) {
+        window->elements[index].visible = 1;
+    }
+    const auto petIndex = std::bit_cast<std::int32_t>(world::detail::gBattleRidePet5ABC38);
+    if (petIndex < 0) {
+        return;
+    }
+    const std::int32_t position = world::detail::gBattleCurrentPosition5ABCA4;
+    const char* const name = login::detail::BorrowYobiNameC4(world::detail::gBattleEntries59E980[position]);
+    std::strcpy(static_cast<WindowTextData*>(window->elements[2].data)->text, name);
+    const auto* const pet = &world::detail::gPetRuntimeF633F8[petIndex];
+    for (std::int32_t index = 0; index < pet->value6A4; ++index) {
+        const auto technique = std::bit_cast<std::int16_t>(pet->techniquePairs650[index].index);
+        const auto* const record = &pet->techniquesD8[technique];
+        if (record->name[0] != '\0') {
+            const std::int32_t currentPosition = world::detail::gBattleCurrentPosition5ABCA4;
+            login::YobiAction* const action = world::detail::gBattleEntries59E980[currentPosition];
+            const std::int32_t cost = record->fp;
+            static_cast<void>(login::detail::IsYobiActionFpLessThan(action, cost));
+        }
+    }
+    window->elements[8].visible = 1;
+    gSkillWindowMaximumCA000C = pet->value6A4 - 10;
+    window->elements[7].visible = 1;
+    static_cast<WindowGraphicData*>(window->elements[27].data)->imageNo = 0x3BA28;
+    for (std::int32_t index = 17; index <= 26; ++index) {
+        window->elements[index].mouseCallback = Sub_47CFE0;
+    }
+}
+
+login::YobiAction* Sub_47A540(const WindowValueCallback callback)
+{
+    gSkillWindowModeD672AC = 5;
+    gPetSkillSelectionCallbackCC4D14 = callback;
+    WindowInstance* const window = gWindowStates[10].window;
+    if (window != nullptr) {
+        window->state &= ~0x8000u;
+    }
+    return CreateWindowAnimation_475AA0(10, 1, 0, nullptr);
+}
+
+login::YobiAction* Sub_47A580(const WindowValueCallback callback)
+{
+    gSkillWindowModeD672AC = 6;
+    gPetSkillSelectionCallbackCC4D14 = callback;
+    WindowInstance* const window = gWindowStates[10].window;
     if (window != nullptr) {
         window->state &= ~0x8000u;
     }

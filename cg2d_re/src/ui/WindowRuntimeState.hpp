@@ -142,6 +142,18 @@ std::int32_t Sub_47C700(std::int32_t index, std::int32_t state); // 战斗技术
 login::YobiAction* Sub_47A490(); // 清选择回调并创建普通技能窗。
 login::YobiAction* Sub_47A4C0(SkillWindowSelectionCallback callback); // 设置回调并创建战斗列表窗。
 login::YobiAction* Sub_47A500(std::int32_t skillIndex, SkillWindowSelectionCallback callback); // 战斗技术窗。
+void Sub_47A1A0(WindowInstance* window); // 宠物模式初始化，保留弃用结果的FP读取。
+void Sub_47A320(WindowInstance* window); // 骑乘模式初始化，名称借自身战斗对象。
+void Sub_47CB00(
+    std::int16_t x, std::int16_t y, std::int8_t visualState, std::int32_t pairIndex,
+    std::int32_t textLayer, std::int32_t graphicLayer, std::uint32_t color); // 宠物行绘制，两次宠物查询。
+void Sub_47CE70(
+    std::int16_t x, std::int16_t y, std::int8_t visualState, std::int32_t pairIndex,
+    std::int32_t textLayer, std::int32_t graphicLayer, std::uint32_t color); // 骑乘行绘制，固定技术记录。
+std::int32_t Sub_47CC80(std::int32_t index, std::int32_t state); // 宠物选择，不加滚动偏移。
+std::int32_t Sub_47CFE0(std::int32_t index, std::int32_t state); // 骑乘选择，FP不足不补失败音效。
+login::YobiAction* Sub_47A540(WindowValueCallback callback); // 设置CC4D14并创建宠物技能窗。
+login::YobiAction* Sub_47A580(WindowValueCallback callback); // 设置CC4D14并创建骑乘技能窗。
 std::int32_t Sub_47B3D0(std::int32_t index, std::int32_t state); // 前一行，bit400。
 std::int32_t Sub_47B470(std::int32_t index, std::int32_t state); // 后一行，bit400。
 std::int32_t Sub_47B520(std::int32_t index, std::int32_t state); // 前十行，音效后重读页码。

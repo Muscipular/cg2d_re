@@ -665,6 +665,10 @@ std::int32_t Sub_4D04A0(std::int32_t index, std::int32_t state); // 上架/浏�
 std::int32_t Sub_4D16F0(std::int32_t index, std::int32_t state); // 宠物候选，逐项重读候选页并保持CryptInt顺序。
 std::int32_t Sub_4D1C00(
     std::int32_t petIndex, std::int32_t attribute, std::int32_t x, std::int32_t y); // 候选属性条，透传末绘制返回。
+std::int32_t Sub_4D0990(
+    std::int32_t x, std::int32_t y, std::int32_t petIndex, std::int32_t skillPosition); // 浏览宠物技能，使用独立浏览记录。
+std::int32_t Sub_4D0A80(
+    std::int32_t x, std::int32_t y, std::int32_t index); // 完整浏览宠物详情，复用D67B84预览。
 extern std::int32_t gDragItemIndex584DA4; // 4FB8F0已接重置，4FAEF0拖动生产仍待接。
 extern std::int32_t gDragImageNoD67D24;
 extern std::int32_t gItemDragXCC4880;

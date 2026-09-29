@@ -12525,6 +12525,204 @@ std::int32_t Sub_4BA950(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+std::int32_t Sub_4BAA50(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    bool available = false;
+    for (std::int32_t inventorySlot = 0; inventorySlot < 20; ++inventorySlot) {
+        if ((static_cast<std::uint32_t>(gShopValueCF467C) & (1u << inventorySlot)) == 0) {
+            // 原可用性预扫没有实际加入时的映射范围门禁。
+            const std::int32_t item = gShopInventoryMapD2DAB8[inventorySlot];
+            if (gShopItemsCF4FE0[item * 0xC58 + 0xC3C] != 0) {
+                available = true;
+                break;
+            }
+        }
+    }
+    const bool hover = (state & 1) != 0;
+    if (hover) {
+        if (!available) {
+            std::strcpy(gHoverTextD68AE8.data(),
+                "\xA8\x53\xA6\xB3\xA5\x69\xB5\x6E\xBF\xFD\xAA\xBA\xAA\xAB\xAB\x7E");
+        } else {
+            const char* hint = nullptr;
+            switch (std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894[20])) {
+            case 0:
+            case 2:
+            case 3:
+                hint = input::LegacyText593850();
+                break;
+            case 1:
+                hint = "\xB5\x6E\xBF\xFD\xA9\xD2\xA6\xB3\xA5\x69\xBD\xE6\xAA\xBA\xAA\xAB\xAB\x7E";
+                break;
+            case 4:
+                hint = "\xB5\x6E\xBF\xFD\xA9\xD2\xA6\xB3\xA5\x69\xC5\xB2\xA9\x77\xAA\xBA\xAA\xAB\xAB\x7E";
+                break;
+            case 5:
+                hint = "\xB5\x6E\xBF\xFD\xA9\xD2\xA6\xB3\xA5\x69\xAD\xD7\xB2\x7A\xAA\xBA\xAA\xAB\xAB\x7E";
+                break;
+            default:
+                break;
+            }
+            if (hint != nullptr) {
+                std::strcpy(gHoverTextD68AE8.data(), hint);
+            }
+        }
+    }
+    if (!available) {
+        graphic->imageNo = 243204;
+        if ((state & 2) != 0) {
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+            return 1;
+        }
+        return 0;
+    }
+    std::int32_t consumed = 0;
+    if ((state & 2) != 0) {
+        for (std::int32_t inventorySlot = 0; inventorySlot < 20; ++inventorySlot) {
+            const std::int32_t item = gShopInventoryMapD2DAB8[inventorySlot];
+            if (item >= 0 && item < 20
+                && (static_cast<std::uint32_t>(gShopValueCF467C) & (1u << inventorySlot)) == 0) {
+                char* const record = gShopItemsCF4FE0.data() + item * 0xC58;
+                if (record[0xC3C] != 0) {
+                    std::int32_t slot = 0;
+                    while (slot < 20 && std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[slot]) >= 0) {
+                        ++slot;
+                    }
+                    if (slot < 20) {
+                        bool exceedsLimit = false;
+                        if (gMaterialOccupancyCC4894[20] == 1) {
+                            std::int32_t amount;
+                            std::memcpy(&amount, record + 0xC24, sizeof(amount));
+                            amount += gShopTotalD2DAFC;
+                            amount += world::detail::ReadPlayerValueFC();
+                            exceedsLimit = amount > world::detail::ReadPlayerValue15BD0(0);
+                        }
+                        if (exceedsLimit) {
+                            static_cast<void>(audio::PlaySe_52C450(55, 320));
+                            gShopMessage580848 = -2;
+                        } else {
+                            gShopSelectedSlotsCB03DC[slot] = static_cast<char>(item);
+                            std::int32_t maximumCount;
+                            std::memcpy(&maximumCount, record + 0xC34, sizeof(maximumCount));
+                            WriteTradeValue(record, 0xC28, maximumCount);
+                            if (maximumCount <= 0) {
+                                WriteTradeValue(record, 0xC28, std::int32_t{1});
+                            }
+                            const auto mask = static_cast<std::uint32_t>(gShopValueCF467C);
+                            WindowInstance* const window = gCurrentWindow;
+                            const std::int32_t maximum = gShopItemCountCB1E10 - 5;
+                            gShopValueCF467C = std::bit_cast<std::int32_t>(mask | (1u << inventorySlot));
+                            const std::int32_t position = gShopScrollCC488C;
+                            static_cast<void>(Sub_4742C0(window->elements + 11, maximum, position));
+                            Sub_4B8780();
+                            Sub_4B8B10();
+                            Sub_4B8BE0();
+                            Sub_4B8C50();
+                        }
+                    }
+                }
+            }
+            static_cast<void>(Sub_4763E0());
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        }
+        consumed = 1;
+    }
+    graphic->imageNo = 243203;
+    if (hover) {
+        graphic->imageNo = 243205;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 243204;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_4BCEE0(const std::int32_t index, const std::int32_t state)
+{
+    auto events = static_cast<std::uint8_t>(state);
+    if ((events & 1u) != 0) {
+        const char* hint;
+        switch (std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894[20])) {
+        case 1:
+            hint = "\xA7\xE2\xAD\x6E\xBD\xE6\xAA\xBA\xAA\xAB\xAB\x7E\xA9\xEC\xA9\xF1\xA8\xEC\xB3\x6F\xB8\xCC\xA1\x43";
+            break;
+        case 4:
+            hint = "\xA7\xE2\xAD\x6E\xC5\xB2\xA9\x77\xAA\xBA\xAA\xAB\xAB\x7E\xA9\xEC\xA9\xF1\xA8\xEC\xB3\x6F\xB8\xCC\xA1\x43";
+            break;
+        case 5:
+            hint = "\xA7\xE2\xAD\x6E\xAD\xD7\xB2\x7A\xAA\xBA\xAA\xAB\xAB\x7E\xA9\xEC\xA9\xF1\xA8\xEC\xB3\x6F\xB8\xCC\xA1\x43";
+            break;
+        default:
+            return 0;
+        }
+        std::strcpy(gHoverTextD68AE8.data(), hint);
+    }
+    if ((events & 0x60u) != 0 && Sub_475D60() != 2) {
+        events &= 0x9Fu;
+    }
+    if ((events & 0x40u) != 0) {
+        const std::int32_t inventorySlot = Sub_475D90() - 8;
+        if (inventorySlot >= 0) {
+            const std::int32_t item = gShopInventoryMapD2DAB8[inventorySlot];
+            if (item >= 0 && item < 20
+                && (static_cast<std::uint32_t>(gShopValueCF467C) & (1u << inventorySlot)) == 0) {
+                char* const record = gShopItemsCF4FE0.data() + item * 0xC58;
+                if (record[0xC3C] != 0) {
+                    std::int32_t slot = 0;
+                    while (slot < 20 && std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[slot]) >= 0) {
+                        ++slot;
+                    }
+                    if (slot < 20) {
+                        bool exceedsLimit = false;
+                        if (gMaterialOccupancyCC4894[20] == 1) {
+                            std::int32_t amount;
+                            std::memcpy(&amount, record + 0xC24, sizeof(amount));
+                            amount += gShopTotalD2DAFC;
+                            amount += world::detail::ReadPlayerValueFC();
+                            exceedsLimit = amount > world::detail::ReadPlayerValue15BD0(0);
+                        }
+                        if (exceedsLimit) {
+                            static_cast<void>(audio::PlaySe_52C450(55, 320));
+                            gShopMessage580848 = -2;
+                        } else {
+                            gShopSelectedSlotsCB03DC[slot] = static_cast<char>(item);
+                            std::int32_t maximumCount;
+                            std::memcpy(&maximumCount, record + 0xC34, sizeof(maximumCount));
+                            WriteTradeValue(record, 0xC28, maximumCount);
+                            if (maximumCount <= 0) {
+                                WriteTradeValue(record, 0xC28, std::int32_t{1});
+                            }
+                            const auto mask = static_cast<std::uint32_t>(gShopValueCF467C);
+                            const std::int32_t position = gShopScrollCC488C;
+                            const std::int32_t maximum = gShopItemCountCB1E10 - 5;
+                            gShopValueCF467C = std::bit_cast<std::int32_t>(mask | (1u << inventorySlot));
+                            static_cast<void>(Sub_4742C0(gCurrentWindow->elements + 11, maximum, position));
+                            Sub_4B8780();
+                            Sub_4B8B10();
+                            Sub_4B8BE0();
+                            Sub_4B8C50();
+                        }
+                    }
+                }
+            }
+        }
+        Sub_476500();
+    }
+    if (Sub_475D60() != 0 && (events & 0x20u) != 0) {
+        const WindowInstance* const window = gCurrentWindow;
+        const std::int32_t frame = login::detail::gValueD69768;
+        const WindowElement& element = window->elements[index];
+        const std::int32_t x = window->x + element.x;
+        const std::int32_t y = window->y + element.y;
+        login::detail::DrawGraphicHover(
+            static_cast<std::uint16_t>(x + 3), static_cast<std::uint16_t>(y),
+            static_cast<std::uint16_t>(x + element.width), static_cast<std::uint16_t>(y + element.height),
+            223, frame, 0);
+    }
+    return 0;
+}
+
 std::int32_t Sub_4BAD10(const std::int32_t index, const std::int32_t state)
 {
     auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);

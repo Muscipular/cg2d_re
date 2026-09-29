@@ -253,6 +253,8 @@ std::int32_t Sub_4BBED0(std::int32_t index, std::int32_t state); // 商品图标
 std::int32_t Sub_4BC060(std::int32_t index, std::int32_t state); // 独立详情图标，bit4无hover门禁。
 std::int32_t Sub_4BC230(std::int32_t index, std::int32_t state); // 出售选择行，接kind9交换/取消/拖动。
 std::int32_t Sub_4BA950(std::int32_t index, std::int32_t state); // 取消发送command2，发送后关闭。
+std::int32_t Sub_4BAA50(std::int32_t index, std::int32_t state); // 批量加入出售选择，每轮固定重置/音效尾。
+std::int32_t Sub_4BCEE0(std::int32_t index, std::int32_t state); // kind2拖放加入，hover模式门禁独立。
 std::int32_t Sub_4BAD10(std::int32_t index, std::int32_t state); // bit400向前一行，触边仍刷新。
 std::int32_t Sub_4BAE10(std::int32_t index, std::int32_t state); // bit400向后一行，触边仍刷新。
 std::int32_t Sub_4BAF10(std::int32_t index, std::int32_t state); // bit2向前五行，音效后重读位置。

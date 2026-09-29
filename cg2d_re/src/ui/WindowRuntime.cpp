@@ -11908,6 +11908,145 @@ void Sub_4B8730()
     gShopValueC8AF74 = total;
 }
 
+void Sub_4B8780()
+{
+    std::array<char, 100> buffer;
+    for (std::int32_t row = 0; row < 5; ++row) {
+        char* const priceText = gShopPriceTextsD673EC.data() + row * 11;
+        priceText[0] = '\0';
+        static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data)->text[0] = '\0';
+        static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->text[0] = '\0';
+        gCurrentWindow->elements[row + 27].visible = 0;
+        std::int32_t index = std::bit_cast<std::int8_t>(
+            gShopSelectedSlotsCB03DC[gShopScrollCC488C + row]);
+        if (index < 0) {
+            continue;
+        }
+        const char* record = gShopItemsCF4FE0.data() + index * 0xC58;
+        std::int32_t price;
+        std::memcpy(&price, record + 0xC24, sizeof(price));
+        std::sprintf(priceText, "%10d", price);
+        index = std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[gShopScrollCC488C + row]);
+        record = gShopItemsCF4FE0.data() + index * 0xC58;
+        std::uint32_t flags;
+        std::memcpy(&flags, record + 0xC40, sizeof(flags));
+        if ((flags & 0x100u) != 0) {
+            std::strcpy(buffer.data(), record + 0xC44);
+            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data)->bytes00[0] =
+                std::byte{5};
+            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->bytes00[0] =
+                std::byte{5};
+        } else {
+            std::int32_t count;
+            std::memcpy(&count, record + 0xC30, sizeof(count));
+            if (count <= 1) {
+                std::strcpy(buffer.data(), record + 1);
+            } else {
+                static_cast<void>(_snprintf(buffer.data(), 100, "%s(%d)", record + 1, count));
+            }
+            index = std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[gShopScrollCC488C + row]);
+            record = gShopItemsCF4FE0.data() + index * 0xC58;
+            std::memcpy(&flags, record + 0xC40, sizeof(flags));
+            const std::byte color = (flags & 0x200u) != 0 ? std::byte{1} : std::byte{0};
+            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data)->bytes00[0] = color;
+            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->bytes00[0] = color;
+        }
+        if (std::strlen(buffer.data()) <= 20) {
+            std::strcpy(
+                static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data)->text,
+                buffer.data());
+        } else {
+            const std::size_t prefix = input::ClassifyLegacyBoundary_44B440(buffer.data(), 20) == 2
+                ? 19 : 20;
+            std::memcpy(
+                static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data)->text,
+                buffer.data(), prefix);
+            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 17].data)->text[prefix + 1] = '\0';
+            std::strcpy(
+                static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->text,
+                buffer.data() + prefix);
+        }
+        index = std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[gShopScrollCC488C + row]);
+        record = gShopItemsCF4FE0.data() + index * 0xC58;
+        if (record[0xC3C] != 0) {
+            std::int32_t selected;
+            std::memcpy(&selected, record + 0xC28, sizeof(selected));
+            static_cast<WindowNumberData*>(gCurrentWindow->elements[row + 32].data)->color =
+                selected != 0 ? 0 : 7;
+        } else {
+            static_cast<WindowNumberData*>(gCurrentWindow->elements[row + 32].data)->color = 6;
+            gCurrentWindow->elements[row + 27].visible = 1;
+            std::strcpy(
+                static_cast<WindowTextData*>(gCurrentWindow->elements[row + 27].data)->text,
+                "\xA1\xAF\xB5\x4C\xAA\x6B\xB3\x63\xBD\xE6");
+            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 27].data)->bytes00[0] =
+                std::byte{6};
+        }
+    }
+}
+
+void Sub_4B8B10()
+{
+    for (std::int32_t row = 0; row < 5; ++row) {
+        char* const text = gShopCountTextsD2D988.data() + row * 11;
+        text[0] = '\0';
+        gCurrentWindow->elements[row + 42].visible = 0;
+        gCurrentWindow->elements[row + 47].visible = 0;
+        std::int32_t index = std::bit_cast<std::int8_t>(
+            gShopSelectedSlotsCB03DC[gShopScrollCC488C + row]);
+        if (index >= 0) {
+            const char* record = gShopItemsCF4FE0.data() + index * 0xC58;
+            std::int32_t selected;
+            std::memcpy(&selected, record + 0xC28, sizeof(selected));
+            std::sprintf(text, "%2d", selected);
+            index = std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[gShopScrollCC488C + row]);
+            record = gShopItemsCF4FE0.data() + index * 0xC58;
+            std::int32_t maximum;
+            std::memcpy(&maximum, record + 0xC34, sizeof(maximum));
+            if (maximum > 1) {
+                gCurrentWindow->elements[row + 42].visible = 1;
+                gCurrentWindow->elements[row + 47].visible = 1;
+            }
+        }
+    }
+}
+
+void Sub_4B8BE0()
+{
+    std::int32_t total = 0;
+    gShopTotalD2DAFC = 0;
+    for (std::int32_t slot = 0; slot < 20; ++slot) {
+        const std::int32_t index = std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[slot]);
+        if (index >= 0) {
+            const char* const record = gShopItemsCF4FE0.data() + index * 0xC58;
+            std::int32_t price;
+            std::int32_t selected;
+            std::memcpy(&price, record + 0xC24, sizeof(price));
+            std::memcpy(&selected, record + 0xC28, sizeof(selected));
+            total += price * selected;
+        }
+    }
+    gShopTotalD2DAFC = total;
+    std::sprintf(gShopTotalTextCC4B2C.data(), "%10d", total);
+    static_cast<WindowNumberData*>(gCurrentWindow->elements[7].data)->color = 0;
+}
+
+void Sub_4B8C50()
+{
+    std::int32_t total = 0;
+    gShopValueC8AF74 = 0;
+    for (std::int32_t slot = 0; slot < 20; ++slot) {
+        const std::int32_t index = std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[slot]);
+        if (index >= 0) {
+            const char* const record = gShopItemsCF4FE0.data() + index * 0xC58;
+            std::int32_t selected;
+            std::memcpy(&selected, record + 0xC28, sizeof(selected));
+            total += selected;
+        }
+    }
+    gShopValueC8AF74 = total;
+}
+
 std::int32_t Sub_4B99D0(const std::int32_t unused)
 {
     static_cast<void>(unused);

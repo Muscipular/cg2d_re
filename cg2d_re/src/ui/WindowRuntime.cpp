@@ -196,6 +196,14 @@ std::array<char, 55> gWindow69CountTextsD2EA24 {};
 std::array<char, 55> gWindow70CountTextsCC4848 {};
 std::array<char, 12> gWindow69TotalTextCC48B0 {};
 std::array<char, 12> gWindow70TotalTextD2D804 {};
+std::int32_t gWindow69Tooltip580850 = -1;
+std::int32_t gWindow70Tooltip580860 = -1;
+std::int32_t gWindow69Message580854 = -1;
+std::int32_t gWindow70Message580864 = -1;
+std::int32_t gWindow69TooltipPageD67B94 = 0;
+std::int32_t gWindow70TooltipPageD67BA0 = 0;
+std::array<char, 12> gWindow69BalanceTextD2E448 {};
+std::array<char, 12> gWindow70BalanceTextCF3F14 {};
 static_assert(sizeof(gWindow69ItemsCB2230) == 0xF690);
 static_assert(sizeof(gWindow70ItemsD30428) == 0xF690);
 static_assert(sizeof(gWindow54SkillsD2EAB8) == 0x600);
@@ -16145,6 +16153,182 @@ void Sub_4C1BC0()
     static_cast<void>(Sub_4742C0(window->elements + 10, maximum, position));
 }
 
+std::int32_t Sub_4C1C50(const std::int32_t value)
+{
+    WindowInstance* const entryWindow = gCurrentWindow;
+    if (value == -1) {
+        gWindow69ScrollD2D604 = 0;
+        gShopAvailableCF4A24 = -1;
+        entryWindow->elements[0].visible = 0;
+        for (std::int32_t row = 0; row < 5; ++row) {
+            gCurrentWindow->elements[16 + row].visible = 1;
+            gCurrentWindow->elements[21 + row].visible = 1;
+            gCurrentWindow->elements[26 + row].visible = 0;
+            gCurrentWindow->elements[36 + row].visible = 1;
+            gCurrentWindow->elements[41 + row].visible = 1;
+            gCurrentWindow->elements[46 + row].visible = 1;
+            gCurrentWindow->elements[51 + row].visible = 1;
+            gCurrentWindow->elements[56 + row].visible = 1;
+            gCurrentWindow->elements[61 + row].visible = 1;
+            gCurrentWindow->elements[56 + row].mouseCallback = &Sub_4C29E0;
+            static_cast<WindowGraphicData*>(gCurrentWindow->elements[61 + row].data)->imageNo =
+                98100;
+        }
+        gCurrentWindow->elements[4].visible = 0;
+        WindowInstance* const window = gCurrentWindow;
+        gShopRowKeysC9A954[0] = -2;
+        gWindow69Tooltip580850 = -1;
+        gShopRowKeysC9A954[1] = -2;
+        gWindow69Message580854 = -1;
+        gShopRowKeysC9A954[2] = -2;
+        gWindow69TooltipPageD67B94 = 0;
+        gShopRowKeysC9A954[3] = -2;
+        gShopRowKeysC9A954[4] = -2;
+        auto* const title = static_cast<WindowTextData*>(window->elements[5].data);
+        std::strcpy(title->text, gNpcDialogLinesCC24D4[0].text.data());
+        auto* animation = static_cast<WindowAnimationData*>(gCurrentWindow->elements[8].data);
+        const std::int32_t imageNo = gWindow69ImageCB01F0;
+        login::detail::SetYobiActionField2A8(animation->action, imageNo);
+        animation = static_cast<WindowAnimationData*>(gCurrentWindow->elements[8].data);
+        login::detail::SetYobiActionField2B8(animation->action, 5);
+    }
+    if (Sub_4D3040(2, 2) != 0) {
+        gCurrentWindow->state |= 0x8000u;
+    }
+    const std::int32_t type = gWindow69DialogTypeD2D810;
+    if (type != world::detail::gValue581800) {
+        gCurrentWindow->state |= 0x8000u;
+    }
+    gCurrentWindow->elements[9].visible = 1;
+    if (gShopItemCountCB1E10 - 5 <= 0) {
+        gCurrentWindow->elements[9].visible = 0;
+    }
+    WindowElement* const elements = gCurrentWindow->elements;
+    if ((static_cast<const WindowMouseData*>(elements[10].data)->flags & 1u) != 0) {
+        gWindow69ScrollD2D604 = Sub_474270(elements + 10, gShopItemCountCB1E10 - 5);
+    }
+    std::sprintf(gWindow69BalanceTextD2E448.data(), "%10d", world::detail::ReadPlayerValue15BCC());
+    if (gWindow69Message580854 >= 0) {
+        gWindow69Message580854 = -1;
+    }
+    gWindow69Tooltip580850 = -1;
+    return 1;
+}
+
+std::int32_t Sub_4C1EC0(const std::int32_t unused)
+{
+    static_cast<void>(unused);
+    const WindowInstance* const window = gCurrentWindow;
+    const std::int32_t x = window->x + 298;
+    std::int32_t y = window->y + 50;
+    const std::int32_t tooltip = gWindow69Tooltip580850;
+    if (tooltip >= 0) {
+        if (tooltip < 100) {
+            static_cast<void>(Sub_48B1A0(tooltip, gWindow69TooltipPageD67B94));
+        } else if (tooltip < 200) {
+            const std::uint8_t flag = gWindow69FlagD2EA5B;
+            const std::int32_t page = gWindow69TooltipPageD67B94;
+            static_cast<void>(Sub_4C33B0(tooltip - 100, page, flag == 0));
+        } else {
+            static_cast<void>(Sub_48B750(gWindow69TooltipPageD67B94));
+        }
+    }
+    const std::int32_t message = gWindow69Message580854;
+    gTooltipColorD67D30 = 0;
+    const WindowDialogTextLine* line = gNpcDialogLinesCC24D4.data() + 1 + 4 * (-1 - message);
+    for (std::int32_t row = 0; row < 4; ++row) {
+        if (std::strlen(line->text.data()) != 0) {
+            static_cast<void>(Sub_4FBA30(x, y, 3, 8, 0, line->text.data(), 0, 0));
+        }
+        ++line;
+        y += 10;
+    }
+    Sub_4C1BC0();
+    DrawCurrentWindow_4729B0();
+    return 1;
+}
+
+std::int32_t Sub_4C29E0(const std::int32_t index, const std::int32_t state)
+{
+    const std::int32_t selected = gWindow69ScrollD2D604 + index - 56;
+    render::GraphicDescriptor16 descriptor {};
+    const std::uint32_t color = 0xFFFFFFFFu;
+    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    descriptor.bytes[13] = 4;
+    std::int32_t consumed = 0;
+    const WindowCrystalItem* const item = &gWindow69ItemsCB2230[selected];
+    if (item->used == 0) {
+        return 0;
+    }
+    if ((state & 1) != 0) {
+        if (gShopRowKeysC9A954[index - 56] != selected) {
+            gWindow69TooltipPageD67B94 = 0;
+        }
+        gShopRowKeysC9A954[index - 56] = selected;
+        if ((state & 4) != 0) {
+            ++gWindow69TooltipPageD67B94;
+            if (gWindow69TooltipPageD67B94 >= 4) {
+                gWindow69TooltipPageD67B94 = 0;
+            }
+            consumed = 1;
+        }
+        gWindow69Tooltip580850 = selected + 100;
+    }
+    if (item->remainingC50 == 0) {
+        const WindowInstance* const window = gCurrentWindow;
+        const WindowElement& element = window->elements[index];
+        const std::int32_t windowY = window->y;
+        const std::int32_t y = element.y + windowY + 24;
+        const std::int32_t elementX = element.x;
+        const std::int32_t x = elementX + window->x + 24;
+        static_cast<void>(login::detail::DrawGraphic(x, y, 223, 98102, 0, &descriptor));
+    }
+    const WindowInstance* const window = gCurrentWindow;
+    const WindowElement& element = window->elements[index];
+    const std::int32_t windowY = window->y;
+    const std::int32_t imageNo = item->imageNo;
+    const std::int32_t y = element.y + windowY + 24;
+    const std::int32_t elementX = element.x;
+    const std::int32_t x = elementX + window->x + 24;
+    static_cast<void>(login::detail::DrawGraphic(x, y, 223, imageNo, 0, &descriptor));
+    return consumed;
+}
+
+std::int32_t Sub_4C33B0(
+    const std::int32_t index, const std::int32_t page, const std::int32_t unused)
+{
+    static_cast<void>(unused);
+    const std::int32_t key = index + 300;
+    if (gTooltipSourceD303FC != key) {
+        gTooltipXCF46C0 = static_cast<std::uint16_t>(
+            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseX));
+        gTooltipYCF46CC = static_cast<std::uint16_t>(
+            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseY));
+        const bool left =
+            platform::legacy_crypt_int::Less_401DB0(&platform::gLegacyMouseState.mouseX, 320);
+        gTooltipXCF46C0 = static_cast<std::uint16_t>(gTooltipXCF46C0 + (left ? 60 : -257));
+        const bool top =
+            platform::legacy_crypt_int::Less_401DB0(&platform::gLegacyMouseState.mouseY, 240);
+        gTooltipYCF46CC = static_cast<std::uint16_t>(gTooltipYCF46CC + (top ? 60 : -174));
+    }
+    gTooltipSourceD303FC = key;
+    const WindowCrystalItem* const item = &gWindow69ItemsCB2230[index];
+    const std::uint32_t flags = item->flags;
+    std::array<char, 256> title;
+    std::strcpy(title.data(), item->tips.data());
+    std::int8_t titleColor;
+    if ((flags & 0x100u) != 0) {
+        titleColor = 5;
+    } else {
+        std::strcpy(title.data(), item->name.data());
+        titleColor = static_cast<std::int8_t>((flags >> 9) & 1u);
+    }
+    const char* const lines = item->description.data() + page * 768;
+    const std::int16_t y = std::bit_cast<std::int16_t>(gTooltipYCF46CC);
+    const std::int16_t x = std::bit_cast<std::int16_t>(gTooltipXCF46C0);
+    return Sub_48B810(x, y, title.data(), titleColor, lines, 96, 8, nullptr, 4);
+}
+
 void Sub_4C3530()
 {
     const std::int32_t type = gWindow70DialogTypeD45D6C;
@@ -16355,6 +16539,183 @@ void Sub_4C3E70()
     WindowInstance* const window = gCurrentWindow;
     const std::int32_t maximum = gShopItemCountCB1E10 - 5;
     static_cast<void>(Sub_4742C0(window->elements + 10, maximum, position));
+}
+
+std::int32_t Sub_4C3F00(const std::int32_t value)
+{
+    WindowInstance* const entryWindow = gCurrentWindow;
+    if (value == -1) {
+        gWindow70ScrollCC4B68 = 0;
+        gShopAvailableCF4A24 = -1;
+        entryWindow->elements[0].visible = 0;
+        for (std::int32_t row = 0; row < 5; ++row) {
+            gCurrentWindow->elements[16 + row].visible = 1;
+            gCurrentWindow->elements[21 + row].visible = 1;
+            gCurrentWindow->elements[26 + row].visible = 0;
+            gCurrentWindow->elements[36 + row].visible = 1;
+            gCurrentWindow->elements[41 + row].visible = 1;
+            gCurrentWindow->elements[46 + row].visible = 1;
+            gCurrentWindow->elements[51 + row].visible = 1;
+            gCurrentWindow->elements[56 + row].visible = 1;
+            gCurrentWindow->elements[61 + row].visible = 1;
+            gCurrentWindow->elements[56 + row].mouseCallback = &Sub_4C4B70;
+            static_cast<WindowGraphicData*>(gCurrentWindow->elements[61 + row].data)->imageNo =
+                99939;
+        }
+        gCurrentWindow->elements[4].visible = 0;
+        WindowInstance* const window = gCurrentWindow;
+        gShopRowKeysC9A954[0] = -2;
+        gWindow70Tooltip580860 = -1;
+        gShopRowKeysC9A954[1] = -2;
+        gWindow70Message580864 = -1;
+        gShopRowKeysC9A954[2] = -2;
+        gWindow70TooltipPageD67BA0 = 0;
+        gShopRowKeysC9A954[3] = -2;
+        gShopRowKeysC9A954[4] = -2;
+        auto* const title = static_cast<WindowTextData*>(window->elements[5].data);
+        std::strcpy(title->text, gNpcDialogLinesCC24D4[0].text.data());
+        auto* animation = static_cast<WindowAnimationData*>(gCurrentWindow->elements[8].data);
+        const std::int32_t imageNo = gWindow70ImageD2E43C;
+        login::detail::SetYobiActionField2A8(animation->action, imageNo);
+        animation = static_cast<WindowAnimationData*>(gCurrentWindow->elements[8].data);
+        login::detail::SetYobiActionField2B8(animation->action, 5);
+    }
+    if (Sub_4D3040(2, 2) != 0) {
+        gCurrentWindow->state |= 0x8000u;
+    }
+    const std::int32_t type = gWindow70DialogTypeD45D6C;
+    if (type != world::detail::gValue581800) {
+        gCurrentWindow->state |= 0x8000u;
+    }
+    gCurrentWindow->elements[9].visible = 1;
+    if (gShopItemCountCB1E10 - 5 <= 0) {
+        gCurrentWindow->elements[9].visible = 0;
+    }
+    WindowElement* const elements = gCurrentWindow->elements;
+    if ((static_cast<const WindowMouseData*>(elements[10].data)->flags & 1u) != 0) {
+        gWindow70ScrollCC4B68 = Sub_474270(elements + 10, gShopItemCountCB1E10 - 5);
+    }
+    const std::int32_t owned = world::detail::Sub_51B5F0(gWindow70ValueD6791C);
+    std::sprintf(gWindow70BalanceTextCF3F14.data(), "%10d", owned);
+    if (gWindow70Message580864 >= 0) {
+        gWindow70Message580864 = -1;
+    }
+    gWindow70Tooltip580860 = -1;
+    return 1;
+}
+
+std::int32_t Sub_4C4180(const std::int32_t unused)
+{
+    static_cast<void>(unused);
+    const WindowInstance* const window = gCurrentWindow;
+    const std::int32_t x = window->x + 298;
+    std::int32_t y = window->y + 50;
+    const std::int32_t tooltip = gWindow70Tooltip580860;
+    if (tooltip >= 0) {
+        if (tooltip < 100) {
+            static_cast<void>(Sub_48B1A0(tooltip, gWindow70TooltipPageD67BA0));
+        } else if (tooltip < 200) {
+            const std::uint8_t flag = gWindow70FlagD673D8;
+            const std::int32_t page = gWindow70TooltipPageD67BA0;
+            static_cast<void>(Sub_4C54D0(tooltip - 100, page, flag == 0));
+        } else {
+            static_cast<void>(Sub_48B750(gWindow70TooltipPageD67BA0));
+        }
+    }
+    const std::int32_t message = gWindow70Message580864;
+    gTooltipColorD67D30 = 0;
+    const WindowDialogTextLine* line = gNpcDialogLinesCC24D4.data() + 1 + 4 * (-1 - message);
+    for (std::int32_t row = 0; row < 4; ++row) {
+        if (std::strlen(line->text.data()) != 0) {
+            static_cast<void>(Sub_4FBA30(x, y, 3, 8, 0, line->text.data(), 0, 0));
+        }
+        ++line;
+        y += 10;
+    }
+    Sub_4C3E70();
+    DrawCurrentWindow_4729B0();
+    return 1;
+}
+
+std::int32_t Sub_4C4B70(const std::int32_t index, const std::int32_t state)
+{
+    const std::int32_t selected = gWindow70ScrollCC4B68 + index - 56;
+    render::GraphicDescriptor16 descriptor {};
+    const std::uint32_t color = 0xFFFFFFFFu;
+    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    descriptor.bytes[13] = 4;
+    std::int32_t consumed = 0;
+    const WindowCrystalItem* const item = &gWindow70ItemsD30428[selected];
+    if (item->used == 0) {
+        return 0;
+    }
+    if ((state & 1) != 0) {
+        if (gShopRowKeysC9A954[index - 56] != selected) {
+            gWindow70TooltipPageD67BA0 = 0;
+        }
+        gShopRowKeysC9A954[index - 56] = selected;
+        if ((state & 4) != 0) {
+            ++gWindow70TooltipPageD67BA0;
+            if (gWindow70TooltipPageD67BA0 >= 4) {
+                gWindow70TooltipPageD67BA0 = 0;
+            }
+            consumed = 1;
+        }
+        gWindow70Tooltip580860 = selected + 100;
+    }
+    if (item->remainingC50 == 0) {
+        const WindowInstance* const window = gCurrentWindow;
+        const WindowElement& element = window->elements[index];
+        const std::int32_t windowY = window->y;
+        const std::int32_t y = element.y + windowY + 24;
+        const std::int32_t elementX = element.x;
+        const std::int32_t x = elementX + window->x + 24;
+        static_cast<void>(login::detail::DrawGraphic(x, y, 223, 98102, 0, &descriptor));
+    }
+    const WindowInstance* const window = gCurrentWindow;
+    const WindowElement& element = window->elements[index];
+    const std::int32_t windowY = window->y;
+    const std::int32_t imageNo = item->imageNo;
+    const std::int32_t y = element.y + windowY + 24;
+    const std::int32_t elementX = element.x;
+    const std::int32_t x = elementX + window->x + 24;
+    static_cast<void>(login::detail::DrawGraphic(x, y, 223, imageNo, 0, &descriptor));
+    return consumed;
+}
+
+std::int32_t Sub_4C54D0(
+    const std::int32_t index, const std::int32_t page, const std::int32_t unused)
+{
+    static_cast<void>(unused);
+    const std::int32_t key = index + 300;
+    if (gTooltipSourceD303FC != key) {
+        gTooltipXCF46C0 = static_cast<std::uint16_t>(
+            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseX));
+        gTooltipYCF46CC = static_cast<std::uint16_t>(
+            platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseY));
+        const bool left =
+            platform::legacy_crypt_int::Less_401DB0(&platform::gLegacyMouseState.mouseX, 320);
+        gTooltipXCF46C0 = static_cast<std::uint16_t>(gTooltipXCF46C0 + (left ? 60 : -257));
+        const bool top =
+            platform::legacy_crypt_int::Less_401DB0(&platform::gLegacyMouseState.mouseY, 240);
+        gTooltipYCF46CC = static_cast<std::uint16_t>(gTooltipYCF46CC + (top ? 60 : -174));
+    }
+    gTooltipSourceD303FC = key;
+    const WindowCrystalItem* const item = &gWindow70ItemsD30428[index];
+    const std::uint32_t flags = item->flags;
+    std::array<char, 256> title;
+    std::strcpy(title.data(), item->tips.data());
+    std::int8_t titleColor;
+    if ((flags & 0x100u) != 0) {
+        titleColor = 5;
+    } else {
+        std::strcpy(title.data(), item->name.data());
+        titleColor = static_cast<std::int8_t>((flags >> 9) & 1u);
+    }
+    const char* const lines = item->description.data() + page * 768;
+    const std::int16_t y = std::bit_cast<std::int16_t>(gTooltipYCF46CC);
+    const std::int16_t x = std::bit_cast<std::int16_t>(gTooltipXCF46C0);
+    return Sub_48B810(x, y, title.data(), titleColor, lines, 96, 8, nullptr, 4);
 }
 
 login::YobiAction* Sub_4C5790(

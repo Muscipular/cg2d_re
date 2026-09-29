@@ -415,12 +415,18 @@ void Sub_4C1AA0(); // 五条已选数量。
 void Sub_4C1B00(); // 总额与玩家晶石比较，写type7 color。
 void Sub_4C1B70(); // 二十条选中商品占槽。
 void Sub_4C1BC0(); // 首次/分页/数量脏标刷新。
+std::int32_t Sub_4C29E0(std::int32_t index, std::int32_t state); // 窗口69商品图标及四页提示。
+std::int32_t Sub_4C33B0(
+    std::int32_t index, std::int32_t page, std::int32_t unused); // 保留caller第三实参。
 void Sub_4C39A0(); // 窗口70五条剩余量文本。
 void Sub_4C3A50(); // 名称两行和价格，独立分页/显示缓冲。
 void Sub_4C3D40(); // 五条已选数量。
 void Sub_4C3DA0(); // 总额与指定背包物品数量比较。
 void Sub_4C3E20(); // 二十条选中商品占槽。
 void Sub_4C3E70(); // 首次/分页/数量脏标刷新。
+std::int32_t Sub_4C4B70(std::int32_t index, std::int32_t state); // 窗口70商品图标及四页提示。
+std::int32_t Sub_4C54D0(
+    std::int32_t index, std::int32_t page, std::int32_t unused); // 共用D303FC提示键。
 std::int32_t Sub_4BA950(std::int32_t index, std::int32_t state); // 取消发送command2，发送后关闭。
 std::int32_t Sub_4BAA50(std::int32_t index, std::int32_t state); // 批量加入出售选择，每轮固定重置/音效尾。
 std::int32_t Sub_4BCEE0(std::int32_t index, std::int32_t state); // kind2拖放加入，hover模式门禁独立。
@@ -735,6 +741,14 @@ extern std::array<char, 55> gWindow69CountTextsD2EA24;
 extern std::array<char, 55> gWindow70CountTextsCC4848;
 extern std::array<char, 12> gWindow69TotalTextCC48B0;
 extern std::array<char, 12> gWindow70TotalTextD2D804;
+extern std::int32_t gWindow69Tooltip580850; // 悬停编号，原文件初值-1。
+extern std::int32_t gWindow70Tooltip580860;
+extern std::int32_t gWindow69Message580854; // NPC正文组，原文件初值-1。
+extern std::int32_t gWindow70Message580864;
+extern std::int32_t gWindow69TooltipPageD67B94;
+extern std::int32_t gWindow70TooltipPageD67BA0;
+extern std::array<char, 12> gWindow69BalanceTextD2E448; // 完整S32格式化前缀，不冻结未消费尾区。
+extern std::array<char, 12> gWindow70BalanceTextCF3F14;
 extern std::int32_t gStorageValueCC4218; // 存放窗口41每帧清零、元素13绘制的数值。
 extern std::array<char, 22> gStorageAmountTextsCB1DF8; // 两金额文本起点相隔11B，571150/158借用。
 extern const std::array<std::int32_t, 2> gStorageTitleImages54F4E8;

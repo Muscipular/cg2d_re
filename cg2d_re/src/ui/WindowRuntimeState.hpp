@@ -135,6 +135,8 @@ std::int32_t Sub_47D4B0(); // 晶石等级读取后比较当前配方等级。
 std::int32_t Sub_47D4F0(); // 单选物品不加8，晶石读取后重新取得选择索引。
 std::int32_t Sub_47D530(); // 六材料首个匹配类别，晶石读取后重取槽号再比较等级。
 std::int32_t Sub_47D5B0(); // 首材料slot+8等级在晶石读取前快照。
+std::int32_t Sub_483EB0(std::int32_t index, std::int32_t state); // 六材料完整投放/换位/逐帧校验与绘制。
+WindowAnimationData* Sub_47DF50(WindowInstance* window); // 制造模式0完整初始化，逆序发布五材料需求。
 std::int32_t Sub_4F4430(std::int32_t itemType, std::int32_t skillId); // 技能分类对应的特殊材料类别。
 void Sub_483E30(
     std::int32_t destination, std::int32_t source, std::int32_t material); // 先释放再发布材料槽/占用。

@@ -3630,6 +3630,17 @@ void Sub_5185C0(
     }
 }
 
+std::int32_t Sub_43C4B0()
+{
+    for (std::int32_t index = 0; index < 5; ++index) {
+        const PetRuntimeRecord& pet = gPetRuntimeF633F8[index];
+        if (pet.used == 1 && pet.flags6AA == 2) {
+            return index;
+        }
+    }
+    return -1;
+}
+
 std::int32_t Sub_519920()
 {
     std::int32_t count = 0;

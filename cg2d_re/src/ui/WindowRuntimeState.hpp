@@ -124,6 +124,18 @@ std::int32_t Sub_487020(std::int32_t index, const char* text); // 请求属性/�
 void Sub_47A140(); // 窗口10模式2的技能状态差异请求，原返回无人消费。
 void Sub_479650(); // 原窗口操作S32计数加1。
 void Sub_479660(); // 原操作计数减1及严格零时的退出发送/技能状态刷新。
+login::YobiAction* Sub_4EF750(const char* text); // ND自身/远端属性生产，分类1跳过人物行。
+login::YobiAction* Sub_4874B0(); // 同源六属性视图与46创建，不回滚计数。
+std::int32_t Sub_4872E0(std::int32_t index, const char* unusedText); // 按属性目标编号发送技能。
+std::int32_t Sub_479820(); // 技能索引对中查1009，按S16读取槽号。
+std::int32_t Sub_479860(); // 玩家物品槽7的晶石等级，未用/未知返回0。
+std::int32_t Sub_479920(); // 同一槽7的属性0..3；未用0，未知ID为-1。
+std::int32_t Sub_4799D0(); // 重新选取出战宠物并读取原图号，未命中0。
+std::int32_t Sub_479A00(std::int32_t petIndex); // 宠物技术索引对中查40330..40332。
+std::int32_t Sub_479A70(std::int32_t petIndex, std::int32_t crystalLevel); // 宠物等级闭区间。
+std::int32_t Sub_479AB0(); // 当前宠物FP的单次CryptInt比较。
+std::int32_t Sub_479B00(); // 技能/晶石/宠物技术/属性/等级条件链。
+std::int32_t Sub_486FE0(); // 当前技能技术value90与重读晶石等级等值。
 std::int32_t Sub_48AEA0(std::int32_t index, const char* unusedText); // 选择发送/释放计数；-2仅允许关闭。
 login::YobiAction* Sub_48AF00(); // 名称/颜色借用及物品占用计数，创建失败按原条件回滚。
 login::YobiAction* Sub_4E4860(const char* text); // LY完整目标名单生产，保留原Yobi返回。

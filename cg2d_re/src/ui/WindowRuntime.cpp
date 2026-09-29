@@ -510,6 +510,33 @@ std::array<ItemUseStatusRecord, 6> gItemUseStatusRecordsCB10D8 {};
 std::int32_t gItemUseStatusCountCC4D44 = 0;
 std::array<WindowStatusChoiceRecord, 6> gItemUseStatusViewsCB1278 {};
 
+// ND六行属性使用各自原槽，不能与nFV值记录或ysVc名称表混用。
+std::int32_t gSkillStatusCountC8AA94 = 0;
+std::array<std::array<char, 17>, 6> gSkillStatusNamesCC4670 {};
+std::array<std::int32_t, 6> gSkillStatusLevelsCC31C0 {};
+std::array<std::int32_t, 6> gSkillStatusInjuriesD67600 {};
+std::array<std::int32_t, 6> gSkillStatusHpCC318C {};
+std::array<std::int32_t, 6> gSkillStatusMaxHpD66C1C {};
+std::array<std::int32_t, 6> gSkillStatusFpCC2348 {};
+std::array<std::int32_t, 6> gSkillStatusMaxFpD2EA80 {};
+std::array<std::int32_t, 6> gSkillStatusKindsCA0A78 {};
+std::array<std::int32_t, 6> gSkillStatusTargetsCF3FD0 {};
+std::array<WindowStatusChoiceRecord, 6> gSkillStatusViewsCC4BE8 {};
+std::int32_t gSkillPetImageCB0A18 = 0;
+constexpr std::array<std::array<std::int32_t, 2>, 8> kPetCrystalItemRanges {{
+    {0x24B9, 0x24C2}, {0x24C3, 0x24CC}, {0x24CD, 0x24D6}, {0x24D7, 0x24E0},
+    {0x24E1, 0x24E5}, {0x24E6, 0x24EA}, {0x24EB, 0x24EF}, {0x24F0, 0x24F4},
+}};
+// 原54F2C8起的15对等级闭区间，晶石等级1对应首项。
+constexpr std::array<std::array<std::int32_t, 2>, 15> kPetCrystalLevels54F2C8 {{
+    {1, 15}, {9, 22}, {16, 29}, {23, 36}, {30, 43},
+    {37, 50}, {44, 57}, {51, 64}, {58, 71}, {65, 78},
+    {72, 85}, {79, 92}, {86, 99}, {93, 106}, {100, 1000},
+}};
+constexpr std::array<std::int32_t, 15> kPetCrystalFp54F340 {
+    1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8,
+};
+
 // 原D046D8连续浏览区；仅复用值类型布局，不与玩家或交易区共享存储。
 struct StallBrowseData {
     std::array<char, 17> sellerName00;
@@ -22325,6 +22352,306 @@ std::int32_t Sub_49BDB0(const std::int32_t)
     return 1;
 }
 
+std::int32_t Sub_479820()
+{
+    for (const auto& pair : world::detail::gSkillPairsF63370) {
+        if (pair.used != 0) {
+            const auto index = std::bit_cast<std::int16_t>(pair.index);
+            if (world::detail::gSkillsF1BAFC[index].skillId == 1009) {
+                return 1;
+            }
+        }
+    }
+    return 0;
+}
+
+std::int32_t Sub_479860()
+{
+    const auto& item = world::detail::gPlayerItemsFDA8A4[7];
+    if (item.used == 0) {
+        return 0;
+    }
+    const std::int32_t id = item.itemId;
+    for (std::int32_t index = 0; index < 8; ++index) {
+        const auto& range = kPetCrystalItemRanges[index];
+        if (id >= range[0] && id <= range[1]) {
+            return id - range[0] + (index < 4 ? 1 : 11);
+        }
+    }
+    return 0;
+}
+
+std::int32_t Sub_479920()
+{
+    const auto& item = world::detail::gPlayerItemsFDA8A4[7];
+    if (item.used == 0) {
+        return 0;
+    }
+    const std::int32_t id = item.itemId;
+    for (std::int32_t index = 0; index < 8; ++index) {
+        const auto& range = kPetCrystalItemRanges[index];
+        if (id >= range[0] && id <= range[1]) {
+            return index % 4;
+        }
+    }
+    return -1;
+}
+
+std::int32_t Sub_4799D0()
+{
+    const std::int32_t index = world::detail::Sub_43C4B0();
+    return index < 0 ? 0 : world::detail::gPetRuntimeF633F8[index].imageNo6A0;
+}
+
+std::int32_t Sub_479A00(const std::int32_t petIndex)
+{
+    const auto& pet = world::detail::gPetRuntimeF633F8[petIndex];
+    const std::int32_t count = pet.value6A4;
+    for (std::int32_t index = 0; index < count; ++index) {
+        const auto slot = std::bit_cast<std::int16_t>(pet.techniquePairs650[index].index);
+        const auto& technique = pet.techniquesD8[slot];
+        if (technique.name[0] != '\0') {
+            const std::int32_t id = technique.techniqueId;
+            if (id >= 40330 && id <= 40332) {
+                return 1;
+            }
+        }
+    }
+    return 0;
+}
+
+std::int32_t Sub_479A70(const std::int32_t petIndex, const std::int32_t crystalLevel)
+{
+    const std::int32_t level = world::detail::gPetRuntimeF633F8[petIndex].value08;
+    const auto& range = kPetCrystalLevels54F2C8[crystalLevel - 1];
+    if (level < range[0]) {
+        return 0;
+    }
+    return level <= range[1] ? 1 : 0;
+}
+
+std::int32_t Sub_479AB0()
+{
+    const std::int32_t index = world::detail::Sub_43C4B0();
+    if (index < 0) {
+        return 0;
+    }
+    const std::int32_t level = Sub_479860();
+    if (level < 1 || level > 15) {
+        return 0;
+    }
+    const std::int32_t required = kPetCrystalFp54F340[level - 1];
+    return platform::legacy_crypt_int::Less_401DB0(
+        &world::detail::gPetRuntimeF633F8[index].values0C[2], required) ? 0 : 1;
+}
+
+std::int32_t Sub_479B00()
+{
+    if (Sub_479820() == 0) {
+        return 0;
+    }
+    const std::int32_t level = Sub_479860();
+    if (level < 1) {
+        return 0;
+    }
+    const std::int32_t index = world::detail::Sub_43C4B0();
+    if (index < 0 || Sub_479A00(index) == 0) {
+        return 0;
+    }
+    const std::int32_t attribute = Sub_479920();
+    if (world::detail::gPetRuntimeF633F8[index].values70[21 + attribute] < 50) {
+        return 0;
+    }
+    return Sub_479A70(index, level) != 0 ? 1 : 0;
+}
+
+std::int32_t Sub_486FE0()
+{
+    const std::int32_t crystalLevel = Sub_479860();
+    const std::int32_t skill = gUsingSkillIndexD2F32C;
+    const std::int32_t level = gUsingSkillLevelCA0AC4;
+    return world::detail::gSkillsF1BAFC[skill].techniques3C[level].value90 == crystalLevel ? 1 : 0;
+}
+
+std::int32_t Sub_4872E0(const std::int32_t index, const char*)
+{
+    if (index == -1) {
+        Sub_479660();
+        const auto count = static_cast<std::uint8_t>(gValueD67AFD - 1);
+        const auto skillCount = static_cast<std::uint8_t>(gValueD67AFE - 1);
+        gValueD67AFD = count;
+        gValueD67AFE = skillCount;
+        if (skillCount == 0 && world::detail::Sub_51BEC0() == 13) {
+            static_cast<void>(world::detail::Sub_51BE50(0));
+        }
+        return 1;
+    }
+    if (index == -3) {
+        const std::int32_t skill = gUsingSkillIndexD2F32C;
+        static_cast<void>(network::Sub_511C30(platform::gConnectionSocket, skill));
+        return 0;
+    }
+    if (index == -2) {
+        return 1;
+    }
+    gSkillSendModeC8A970 = 0;
+    if (Sub_479B00() != 0 && Sub_486FE0() != 0 && Sub_479AB0() != 0) {
+        gSkillSendModeC8A970 = 1;
+        gSkillPetImageCB0A18 = Sub_4799D0();
+    }
+    if (gSkillTargetKindCF4A10 <= 1) {
+        gSkillSendModeC8A970 = 0;
+    }
+    char extra[256];
+    extra[0] = '\0';
+    std::strcpy(gSkillTargetNameD2F748.data(), gSkillStatusNamesCC4670[index].data());
+    // 原509080只有ret；后续三分支均发送此空串，但不清局部其余字节。
+    std::int32_t offset = 0;
+    if (gValue5F9754 != 0) {
+        offset = 100;
+    } else if (gSkillSendModeC8A970 != 0) {
+        offset = 200;
+    }
+    const std::int32_t target = gSkillStatusTargetsCF3FD0[index];
+    const std::int32_t level = gUsingSkillLevelCA0AC4;
+    const std::int32_t skill = gUsingSkillIndexD2F32C;
+    const std::uintptr_t socket = platform::gConnectionSocket;
+    static_cast<void>(network::Sub_511EF0(socket, skill + offset, level, target, extra));
+    return 0;
+}
+
+login::YobiAction* Sub_4874B0()
+{
+    const std::int32_t count = gSkillStatusCountC8AA94;
+    constexpr std::array<std::int32_t, 7> colors {5, 1, 0, 0, 0, 0, 0};
+    gSkillSendModeC8A970 = 0;
+    for (std::int32_t index = 0; index < count; ++index) {
+        auto& view = gSkillStatusViewsCC4BE8[index];
+        const std::int32_t level = gSkillStatusLevelsCC31C0[index];
+        view.name = gSkillStatusNamesCC4670[index].data();
+        view.level = level;
+        view.hp = gSkillStatusHpCC318C[index];
+        view.maxHp = gSkillStatusMaxHpD66C1C[index];
+        view.fp = gSkillStatusFpCC2348[index];
+        view.maxFp = gSkillStatusMaxFpD2EA80[index];
+        view.injury = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(gSkillStatusInjuriesD67600[index]));
+        view.color = static_cast<std::uint8_t>(colors[gSkillStatusKindsCA0A78[index]]);
+    }
+    Sub_479650();
+    const auto references = static_cast<std::uint8_t>(gValueD67AFD + 1);
+    const auto skillReferences = static_cast<std::uint8_t>(gValueD67AFE + 1);
+    gValueD67AFD = references;
+    gValueD67AFE = skillReferences;
+    constexpr std::array<std::int32_t, 5> windowIds {11, 12, 45, 46, 13};
+    for (const std::int32_t id : windowIds) {
+        WindowInstance* const window = gWindowStates[id].window;
+        if (window != nullptr) {
+            window->state |= 0x8000u;
+        }
+    }
+    return Sub_49F760(gSkillStatusViewsCC4BE8.data(), gSkillStatusCountC8AA94, Sub_4872E0);
+}
+
+login::YobiAction* Sub_4EF750(const char* const text)
+{
+    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+    static_cast<void>(Sub_4D3020(x, y));
+    const std::int32_t selected = gSkillSelectedTargetCC4B1C;
+    const std::int32_t kind = gSkillTargetKindsD2F75C[selected];
+    gSkillStatusCountC8AA94 = 0;
+    if (kind == 0) {
+        std::int32_t count = 0;
+        if (gSkillTargetKindCF4A10 != 1) {
+            const char* const name = world::detail::BorrowPlayerDisplayText(1);
+            const std::size_t size = std::strlen(name) + 1;
+            gSkillStatusLevelsCC31C0[0] = world::detail::ReadPlayerLevel();
+            std::memcpy(gSkillStatusNamesCC4670[0].data(), name, size);
+            gSkillStatusInjuriesD67600[0] = world::detail::ReadPlayerInjury();
+            const std::int32_t hp = world::detail::ReadPlayerHpOnce();
+            gSkillStatusHpCC318C[gSkillStatusCountC8AA94] = hp;
+            const std::int32_t maxHp = world::detail::ReadPlayerMaxHpOnce();
+            gSkillStatusMaxHpD66C1C[gSkillStatusCountC8AA94] = maxHp;
+            const std::int32_t fp = world::detail::ReadPlayerFpOnce();
+            const std::int32_t output = gSkillStatusCountC8AA94;
+            gSkillStatusFpCC2348[output] = fp;
+            const std::int32_t maxFp = world::detail::ReadPlayerMaxFpOnce();
+            count = gSkillStatusCountC8AA94 + 1;
+            gSkillStatusMaxFpD2EA80[output] = maxFp;
+            gSkillStatusKindsCA0A78[output] = 0;
+            gSkillStatusTargetsCF3FD0[output] = 0;
+            gSkillStatusCountC8AA94 = count;
+        }
+        std::int32_t target = 1;
+        for (std::int32_t slot = 0; slot < 5; ++slot) {
+            auto& pet = world::detail::gPetRuntimeF633F8[slot];
+            if (pet.used == 0 || gLoginWindowRuntime.valuesCC1A18[slot] == 3) {
+                continue;
+            }
+            const char* const name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
+            const std::size_t size = std::strlen(name) + 1;
+            const std::size_t prefix = size & ~std::size_t{3};
+            char* const destination = gSkillStatusNamesCC4670[count].data();
+            std::memcpy(destination, name, prefix);
+            gSkillStatusInjuriesD67600[count] = pet.values70[25];
+            std::memcpy(destination + prefix, name + prefix, size - prefix);
+            gSkillStatusLevelsCC31C0[count] = pet.value08;
+            const std::int32_t hp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[0]);
+            gSkillStatusHpCC318C[gSkillStatusCountC8AA94] = hp;
+            const std::int32_t maxHp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[1]);
+            gSkillStatusMaxHpD66C1C[gSkillStatusCountC8AA94] = maxHp;
+            const std::int32_t fp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[2]);
+            const std::int32_t output = gSkillStatusCountC8AA94;
+            gSkillStatusFpCC2348[output] = fp;
+            const std::int32_t maxFp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[3]);
+            count = gSkillStatusCountC8AA94 + 1;
+            gSkillStatusMaxFpD2EA80[output] = maxFp;
+            gSkillStatusTargetsCF3FD0[output] = target++;
+            gSkillStatusKindsCA0A78[output] = 4;
+            gSkillStatusCountC8AA94 = count;
+        }
+        return Sub_4874B0();
+    }
+
+    char name[128];
+    std::int32_t field = 1;
+    std::int32_t target = 0;
+    for (std::int32_t row = 0; row < 6; ++row) {
+        if (network::ExtractDelimitedField_52CED0(text, '|', field++, 127, name) == 1) {
+            break;
+        }
+        if (gSkillTargetKindCF4A10 == 1 && row == 0) {
+            field += 6;
+            ++target;
+            continue;
+        }
+        input::UnescapeLegacyTextAndNotify_52D2F0(name);
+        std::strcpy(gSkillStatusNamesCC4670[gSkillStatusCountC8AA94].data(), name);
+        std::int32_t value = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
+        gSkillStatusLevelsCC31C0[gSkillStatusCountC8AA94] = value;
+        value = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
+        gSkillStatusInjuriesD67600[gSkillStatusCountC8AA94] = value;
+        value = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
+        gSkillStatusHpCC318C[gSkillStatusCountC8AA94] = value;
+        value = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
+        gSkillStatusMaxHpD66C1C[gSkillStatusCountC8AA94] = value;
+        value = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
+        const std::int32_t output = gSkillStatusCountC8AA94;
+        gSkillStatusFpCC2348[output] = value;
+        value = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
+        gSkillStatusMaxFpD2EA80[output] = value;
+        switch (gSkillTargetKindsD2F75C[gSkillSelectedTargetCC4B1C]) {
+        case 1: gSkillStatusKindsCA0A78[output] = row == 0 ? 1 : 5; break;
+        case 2: gSkillStatusKindsCA0A78[output] = row == 0 ? 2 : 6; break;
+        case 3: gSkillStatusKindsCA0A78[output] = 3; break;
+        }
+        const std::int32_t count = gSkillStatusCountC8AA94 + 1;
+        gSkillStatusTargetsCF3FD0[output] = target++;
+        gSkillStatusCountC8AA94 = count;
+    }
+    return Sub_4874B0();
+}
+
 std::int32_t Sub_4EF710(const std::int32_t skillId)
 {
     switch (skillId) {
@@ -24325,6 +24652,14 @@ void Sub_50E340(const std::uintptr_t, const char* const text)
         return;
     }
     detail::Sub_4F0200(text);
+}
+
+void Sub_50E360(const std::uintptr_t, const char* const text)
+{
+    if (world::ReadRippleGateOnce() != 0) {
+        return;
+    }
+    static_cast<void>(detail::Sub_4EF750(text));
 }
 
 void Sub_50E380(const std::uintptr_t, const char* const text)

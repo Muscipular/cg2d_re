@@ -686,6 +686,7 @@ void Sub_5185C0(
 std::int32_t Sub_50CF70(
     std::uintptr_t socket, std::int32_t index, std::int32_t value); // 仅写宠物+6C并返回index。
 std::int32_t Sub_519920(); // 先清计数，再扫描占用并发布。
+std::int32_t Sub_43C4B0(); // 首个used严格1且flags6AA严格2的宠物槽，未命中-1。
 void Sub_518580(
     const PetRuntimeRecord* source, PetPairRecord* destination, std::int32_t count);
 void Sub_492250(); // 原[492250,49225B)，置刷新标志。

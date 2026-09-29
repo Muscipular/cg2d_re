@@ -6941,6 +6941,11 @@ std::uint32_t ReadPetMapObjectIndex(const std::int16_t index) noexcept
     return gPetMapCharaSlots[static_cast<std::size_t>(index)].objectIndex;
 }
 
+std::uint16_t ReadPetMapFlags(const std::int16_t index) noexcept
+{
+    return gPetMapCharaSlots[static_cast<std::size_t>(index)].flags;
+}
+
 void Sub_46A990()
 {
     if (gValueFF0D36 == 0) {

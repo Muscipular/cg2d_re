@@ -455,6 +455,22 @@ WindowTextChoiceCallback gStatusChoiceCallbackCF47D4 = nullptr;
 std::int32_t gStatusChoiceOffsetD671D4 = 0;
 std::uint8_t gStatusChoiceEnabledC9A970 = 0;
 
+// 原CB0EA8十条20B名单；与45的借用表及后续物品详情共用，不与交易名单混用。
+struct ItemUseTargetRecord {
+    std::int16_t kind;
+    std::array<char, 17> name;
+    std::byte byte13;
+};
+static_assert(offsetof(ItemUseTargetRecord, name) == 2);
+static_assert(sizeof(ItemUseTargetRecord) == 20);
+std::array<ItemUseTargetRecord, 10> gItemUseTargetsCB0EA8 {};
+std::int32_t gItemUseTargetCountCC40CC = 0;
+std::int32_t gItemUsePageCC46DC = 0;
+std::int32_t gItemUsePageCountCC3E70 = 0;
+std::int32_t gItemUseTargetCB0A48 = 0;
+std::array<const char*, 10> gItemUseNamesCB0A1C {};
+std::array<std::uint8_t, 10> gItemUseColorsD2E91C {};
+
 // 原D046D8连续浏览区；仅复用值类型布局，不与玩家或交易区共享存储。
 struct StallBrowseData {
     std::array<char, 17> sellerName00;
@@ -22270,6 +22286,109 @@ std::int32_t Sub_49BDB0(const std::int32_t)
     return 1;
 }
 
+std::int32_t Sub_48AEA0(const std::int32_t index, const char*)
+{
+    if (index >= 0) {
+        static_cast<void>(network::Sub_511D10(platform::gConnectionSocket, index));
+        gItemUseTargetCB0A48 = index;
+        return 0;
+    }
+    if (index == -1) {
+        const std::int32_t selected = gSelectedItemCB1DF4;
+        if (selected >= 0) {
+            --reinterpret_cast<unsigned char*>(world::gValueD67B08.data())[selected];
+        }
+        --gValueD67B24;
+        if (std::bit_cast<std::int8_t>(gValueD67B24) <= 0) {
+            gSelectedItemCB1DF4 = -1;
+        }
+    }
+    return 1;
+}
+
+login::YobiAction* Sub_48AF00()
+{
+    constexpr std::array<std::int32_t, 7> colors {5, 1, 0, 0, 0, 0, 0};
+    for (std::int32_t index = 0; index < 10; ++index) {
+        gItemUseNamesCB0A1C[index] = gItemUseTargetsCB0EA8[index].name.data();
+        gItemUseColorsD2E91C[index] =
+            static_cast<std::uint8_t>(colors[gItemUseTargetsCB0EA8[index].kind]);
+    }
+    constexpr std::array<std::int32_t, 3> windowIds {13, 45, 46};
+    for (const std::int32_t id : windowIds) {
+        WindowInstance* const window = gWindowStates[id].window;
+        if (window != nullptr) {
+            window->state |= 0x8000u;
+        }
+    }
+    const std::int32_t selected = gSelectedItemCB0A44;
+    gSelectedItemCB1DF4 = selected;
+    ++reinterpret_cast<unsigned char*>(world::gValueD67B08.data())[selected];
+    ++gValueD67B24;
+    login::YobiAction* const result = Sub_49F000(
+        gItemUseNamesCB0A1C.data(), gItemUseColorsD2E91C.data(),
+        gItemUseTargetCountCC40CC, Sub_48AEA0);
+    if (result == nullptr) {
+        WindowInstance* const window = gWindowStates[45].window;
+        if (window == nullptr || (window->state & 0x8000u) != 0) {
+            const std::int32_t previous = gSelectedItemCB1DF4;
+            gSelectedItemCB1DF4 = -1;
+            --reinterpret_cast<unsigned char*>(world::gValueD67B08.data())[previous];
+            --gValueD67B24;
+        }
+    }
+    return result;
+}
+
+login::YobiAction* Sub_4E4860(const char* const text)
+{
+    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+    static_cast<void>(Sub_4D3020(x, y));
+    std::memset(gItemUseTargetsCB0EA8.data(), 0, sizeof(gItemUseTargetsCB0EA8));
+    const char* const ownName = world::detail::BorrowPlayerDisplayText(1);
+    const std::size_t ownNameSize = std::strlen(ownName) + 1;
+    const std::uint32_t ownIndex = world::ReadPlayerObjectIndex_FDA880();
+    std::memcpy(gItemUseTargetsCB0EA8[0].name.data(), ownName, ownNameSize);
+    std::int32_t count = 1;
+    gItemUseTargetCountCC40CC = count;
+    gItemUseTargetsCB0EA8[0].kind = 0;
+    for (std::int16_t slot = 0; slot < 5; ++slot) {
+        if (world::detail::ReadPetMapFlags(slot) != 0
+            && world::detail::ReadPetMapObjectIndex(slot) != ownIndex) {
+            login::YobiAction* const action = world::detail::ReadPetMapAction(slot);
+            if (action != nullptr) {
+                std::strcpy(gItemUseTargetsCB0EA8[count].name.data(), login::detail::BorrowYobiNameC4(action));
+            }
+            const std::int32_t index = count++;
+            gItemUseTargetCountCC40CC = count;
+            gItemUseTargetsCB0EA8[index].kind = 1;
+        }
+    }
+    char name[256];
+    std::int32_t field = 1;
+    std::int32_t appended = 0;
+    while (count < 10) {
+        if (network::ExtractDelimitedField_52CED0(text, '|', field++, 255, name) == 1) {
+            count = gItemUseTargetCountCC40CC;
+            break;
+        }
+        const std::int32_t flag = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
+        input::UnescapeLegacyTextAndNotify_52D2F0(name);
+        const std::int32_t index = gItemUseTargetCountCC40CC;
+        std::strcpy(gItemUseTargetsCB0EA8[index].name.data(), name);
+        gItemUseTargetsCB0EA8[index].kind = flag != 0 ? 3 : 2;
+        count = index + 1;
+        gItemUseTargetCountCC40CC = count;
+        if (++appended >= 10) {
+            break;
+        }
+    }
+    gItemUsePageCC46DC = 0;
+    gItemUsePageCountCC3E70 = (count + 4) / 5;
+    return Sub_48AF00();
+}
+
 login::YobiAction* Sub_49F000(
     const char* const* const names, const std::uint8_t* const colors,
     const std::int32_t count, const WindowTextChoiceCallback callback)
@@ -23805,6 +23924,14 @@ void Sub_50E7F0(
 void Sub_50E820(const std::uintptr_t, const std::int32_t result)
 {
     detail::Sub_4CE930(result);
+}
+
+void Sub_50E380(const std::uintptr_t, const char* const text)
+{
+    if (world::ReadRippleGateOnce() != 0) {
+        return;
+    }
+    static_cast<void>(detail::Sub_4E4860(text));
 }
 
 void Sub_50E3C0(const std::uintptr_t, const char* const text)

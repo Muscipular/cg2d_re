@@ -117,6 +117,9 @@ namespace detail {
 
 // 窗口45/46选择回调：非零返回允许关闭，文本只借用；释放通知index=-1。
 using WindowTextChoiceCallback = std::int32_t (*)(std::int32_t index, const char* text);
+std::int32_t Sub_48AEA0(std::int32_t index, const char* unusedText); // 选择发送/释放计数；-2仅允许关闭。
+login::YobiAction* Sub_48AF00(); // 名称/颜色借用及物品占用计数，创建失败按原条件回滚。
+login::YobiAction* Sub_4E4860(const char* text); // LY完整目标名单生产，保留原Yobi返回。
 login::YobiAction* Sub_49F000(
     const char* const* names, const std::uint8_t* colors,
     std::int32_t count, WindowTextChoiceCallback callback);

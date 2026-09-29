@@ -1075,6 +1075,7 @@ bool IsPlayerFpLessThan(std::int32_t cost); // 原FDA738，499C30各次401DB0比
 std::int32_t ReadPlayerValue15BD0(std::int32_t index) noexcept; // 原FF02D0/D4/D8三项金额上限。
 std::int16_t ReadPetFollowIndex(std::size_t position) noexcept;
 login::YobiAction* ReadPetMapAction(std::int16_t index) noexcept;
+std::uint16_t ReadPetMapFlags(std::int16_t index) noexcept; // 原FF02E0五槽W16占用，名单按完整非零判断。
 std::uint32_t ReadPetMapObjectIndex(std::int16_t index) noexcept;
 // 519EE0 每个原读取点借用唯一 FF02B4，不暴露可写槽或对象布局。
 login::YobiAction* ReadPlayerAction() noexcept;

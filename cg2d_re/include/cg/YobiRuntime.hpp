@@ -283,6 +283,14 @@ void SetBattleGear_422C20(YobiAction* action, std::int32_t imageNo, std::int32_t
 void SetBattleAuxGear_422C90(
     YobiAction* action, std::int32_t imageNo, std::int32_t type, std::int32_t index);
 void UpdateBattleOneShotEffect_419FA0(YobiAction* action); // PlayFrame(1)严格返回1才标死。
+YobiAction* NewBattleRandomEffect_419FC0(
+    YobiAction* parent, std::int32_t imageNo, std::int32_t direction); // X/Y分别取随机并重读尺寸。
+void UpdateBattleFloatingIcon_41F450(YobiAction* action); // 未舍入速度推进Y，停留60帧后标死并投影。
+YobiAction* NewBattleFloatingIcon_41F4C0(
+    YobiAction* parent, std::int32_t imageNo, std::int32_t offsetX, std::int32_t offsetY);
+void NewBattleRebirthEffects_4208F0(YobiAction* source, YobiAction* target); // 消费1080低S8，不读106C。
+std::uint8_t NewBattleAttributeEffects_4209C0(
+    YobiAction* source, YobiAction* target); // 四W16非零属性匹配，返回八位生成掩码。
 void UpdateBattleHitEffect_41F570(YobiAction* action); // 计数达到上限后仍执行投影尾。
 YobiAction* NewBattleHitEffect_41F5B0(
     YobiAction* parent, std::int32_t offsetX, std::int32_t offsetY,

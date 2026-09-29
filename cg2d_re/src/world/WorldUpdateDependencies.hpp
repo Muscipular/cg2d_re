@@ -1139,6 +1139,7 @@ std::int8_t Sub_51D750();                  // 原 0x51D750，IDA 原型 char()�
 std::uint32_t Sub_51D640();
 // 原 59F9F8，战斗背景 W32 图号；重建与战斗绘制/协议生产共用，非地址。
 extern std::int32_t gBattleBackgroundImage59F9F8;
+extern std::uint8_t gBattleAttributeEffectFlags59F9E0; // 4209C0门禁；43CBB0完整配置生产仍待接线。
 extern std::int32_t gBattleType5ABFC8; // 50D120写完整S32类型。
 extern std::uint32_t gBattleModeFlag5ABFCC; // 仅类型2写1。
 extern std::uint32_t gValue5ABB1C;

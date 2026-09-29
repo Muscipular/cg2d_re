@@ -3971,6 +3971,7 @@ std::uint32_t gValue9A7F78 = 0;
 
 // 原59F9F8；50D120生产，421480后续复用。
 std::int32_t gBattleBackgroundImage59F9F8 = 0;
+std::uint8_t gBattleAttributeEffectFlags59F9E0 = 0;
 std::int32_t gBattleType5ABFC8 = 0;
 std::uint32_t gBattleModeFlag5ABFCC = 0;
 std::uint32_t gValue5ABB1C = 0;

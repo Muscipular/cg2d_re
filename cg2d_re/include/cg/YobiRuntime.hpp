@@ -300,6 +300,17 @@ YobiAction* NewBattleText_4217F0(
     std::int8_t style, const char* text, std::int32_t fontType, std::int32_t duration);
 std::int32_t MatchBattleAlbum_423800(const YobiAction* action); // 名称原字节与四W16零/非零状态。
 void UpdateBattleAlbumFlag_4238F0(YobiAction* action); // 固定载荷，先清FE0 bit0，再按本人/宠物/相册置位。
+std::int32_t SelectIntValue_404D90(const std::int32_t* values, std::int32_t count, std::int32_t index);
+// 原4242B0：三方动作/效果按序追加，返回redirect，不缓存对象表中的T*。
+std::int32_t AppendBattleRedirect_4242B0(
+    YobiAction* scene, std::int32_t source, std::int32_t target,
+    std::uint32_t flags, std::int32_t value, std::int32_t redirect);
+// 原426FC0：四个输出保持独立指针；255终止与空对象收尾路径不同。
+void TakeBattleMSkillTargets_426FC0(
+    YobiAction* scene, std::int32_t skill, std::int32_t level,
+    std::int32_t technique, std::int32_t fpUsed, std::int32_t attackMode,
+    std::int32_t* sourcePosition, std::int32_t* initialPosition,
+    std::int32_t* targetPosition, std::int32_t* redirectedPosition);
 
 // 原1C起的16B效果值记录；仅传数值，不含底层对象指针。
 struct BattleEntryEffectRecord {

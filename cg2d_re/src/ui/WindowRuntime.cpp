@@ -411,6 +411,7 @@ std::int32_t gSelectedCountCC483C = 0;
 std::uint8_t gSelectionModeD2D650 = 0;
 std::array<std::uint8_t, 28> gItemMarksD67290 {};
 std::array<std::uint8_t, 20> gItemMarksD68A90 {};
+static std::int32_t gCraftBackpackHover57DA24 = -2; // 483150唯一读写，区别于材料/单选悬停槽。
 std::uint8_t gValue57DA28 = 0xFF;
 std::int32_t gInventoryHover57DA2C = -2;
 std::int32_t gEquipmentHover57DA68 = -2;
@@ -24014,6 +24015,372 @@ std::int32_t Sub_4830B0(const std::int32_t index, const std::int32_t state)
         graphic->imageNo = 0x3B566;
     }
     return 0;
+}
+
+std::int32_t Sub_483150(const std::int32_t index, const std::int32_t state)
+{
+    render::GraphicDescriptor16 descriptor {};
+    render::GraphicDescriptor16 dimmed {};
+    const std::uint32_t color = 0xFFFFFFFFu;
+    const std::uint32_t dimmedColor = 0x80FFFFFFu;
+    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    std::memcpy(dimmed.bytes.data() + 8, &dimmedColor, sizeof(dimmedColor));
+    descriptor.bytes[13] = 4;
+    dimmed.bytes[13] = 4;
+    auto* const hoverMarks = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
+    std::uint32_t events = static_cast<std::uint32_t>(state);
+    std::int32_t consumed = 0;
+    if ((events & 0x60u) != 0 && Sub_475D60() != 2) {
+        events &= ~0x60u;
+        consumed = 1;
+    }
+    if ((events & 0x40u) != 0) {
+        const std::int32_t dropX = Sub_475D70();
+        const std::int32_t dropY = Sub_475D80();
+        const std::int32_t source = Sub_475D90();
+        const WindowInstance* const window = gCurrentWindow;
+        for (std::int32_t position = 0; position < 20; ++position) {
+            if (hoverMarks[position + 8] != 0) {
+                continue;
+            }
+            const WindowElement* const element = &window->elements[index];
+            const std::int32_t left = element->x + 50 * (position % 5) + window->x;
+            const std::int32_t top = element->y + 50 * (position / 5) + window->y;
+            if (dropX >= left + 48 || left > dropX || dropY >= top + 48 || top > dropY) {
+                continue;
+            }
+            if (source != position + 8) {
+                Sub_4886E0(11, index, source, position + 8);
+            }
+            break;
+        }
+        Sub_476500();
+    }
+    std::int32_t hovered = -1;
+    if ((events & 0x21u) != 0) {
+        for (std::int32_t position = 0; position < 20; ++position) {
+            if (hoverMarks[position + 8] != 0) {
+                continue;
+            }
+            const WindowInstance* const window = gCurrentWindow;
+            const WindowElement* const element = &window->elements[index];
+            const std::int32_t left = element->x + 50 * (position % 5) + window->x;
+            const std::int32_t top = element->y + 50 * (position / 5) + window->y;
+            if (login::detail::Sub_5049A0(left, top, left + 48, top + 48, -1) != 0) {
+                hovered = position;
+                break;
+            }
+        }
+    }
+    if ((events & 1u) != 0 && hovered >= 0) {
+        std::strcpy(gHoverTextD68AE8.data(),
+            "\xA5\x48\xB7\xC6\xB9\xAB\xA9\xEC\xA9\xF1\xA1\xAE\xC2\x49\xBF\xEF"
+            "\xA4\xE8\xA6\xA1\xA1\x41\xA8\xD3\xBF\xEF\xBE\xDC\xAA\xAB\xAB\x7E\xA1\x43");
+    }
+    if ((events & 0x20u) != 0 && Sub_475D90() >= 100
+        && (world::detail::gPlayerItemsFDA8A4[hovered + 8].flags & 0x60u) != 0) {
+        hovered = -1;
+    }
+    if (gCraftBackpackHover57DA24 != hovered) {
+        gMaterialHintPageCF4FD8 = 0;
+    }
+    gCraftBackpackHover57DA24 = hovered;
+    if (hovered >= 0 && world::detail::gPlayerItemsFDA8A4[hovered + 8].used != 0
+        && (platform::gLegacyMouseState.edgeButtons & 0x10u) != 0) {
+        if (Sub_475D40() == 11 || Sub_475D40() == 0) {
+            const std::uint8_t mode = gSelectionModeD2D650;
+            if (mode == 0 || mode == 3 || mode == 6 || mode == 15 || mode == 9 || mode == 12) {
+                static_cast<void>(Sub_4763E0());
+                const auto selectItem = [&] {
+                    auto* const item = &world::detail::gPlayerItemsFDA8A4[hovered + 8];
+                    const auto fail = [] {
+                        static_cast<void>(audio::PlaySe_52C450(55, 320));
+                    };
+                    const auto firstFreeSlot = [] {
+                        std::int32_t slot = 0;
+                        while (slot < 6 && gSelectedSlotsCA0A90[slot] >= 0) {
+                            ++slot;
+                        }
+                        return slot;
+                    };
+                    const auto occupied = [](const std::int32_t slot) {
+                        std::int32_t value;
+                        std::memcpy(&value, gMaterialOccupancyCC4894.data() + slot * 4, sizeof(value));
+                        return value;
+                    };
+                    // 此路径只填首空槽，没有483E30的预释放；标记仍在4F4630之后发布。
+                    const auto publishMaterial = [&](const std::int32_t slot,
+                                                     const std::int32_t material,
+                                                     const bool extraMark) {
+                        const std::int32_t itemId = item->itemId;
+                        const std::int32_t imageNo = item->imageNo;
+                        if (material >= 0) {
+                            WriteTradeValue(gMaterialOccupancyCC4894.data(), material * 4, std::int32_t{1});
+                        }
+                        gSelectedSlotsCA0A90[slot] = hovered;
+                        gSelectionImagesCF3FF4[slot] = imageNo;
+                        gSelectionCountsD66E0C[slot] = Sub_4F4630(itemId);
+                        gMaterialIndicesCA0458[slot] = material;
+                        const unsigned char previous = hoverMarks[hovered + 8];
+                        gItemMarksD67290[hovered + 8] = 1;
+                        if (extraMark) {
+                            gItemMarksD68A90[hovered] = 1;
+                        }
+                        hoverMarks[hovered + 8] = static_cast<unsigned char>(previous + 1);
+                    };
+                    switch (gSelectionModeD2D650) {
+                    case 0: {
+                        const std::int32_t slot = firstFreeSlot();
+                        if (slot >= 6 || hovered + 8 < 8 || hovered + 8 >= 100
+                            || item->hasDescription == 0) {
+                            fail();
+                            return;
+                        }
+                        std::int32_t count = item->count;
+                        if (count == 0) {
+                            count = 1;
+                        }
+                        std::int32_t skill = gCraftSkillIndexCC2368;
+                        const std::int32_t skillId = world::detail::gSkillsF1BAFC[skill].skillId;
+                        if (skillId != 215 && skillId != 216) {
+                            if (Sub_4F4430(item->itemType, skillId) != 0) {
+                                for (std::int32_t current = 0; current < 6; ++current) {
+                                    const std::int32_t selected = gSelectedSlotsCA0A90[current];
+                                    if (selected >= 0) {
+                                        const std::int32_t currentId =
+                                            world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
+                                        const std::int32_t type =
+                                            world::detail::gPlayerItemsFDA8A4[selected + 8].itemType;
+                                        if (Sub_4F4430(type, currentId) != 0) {
+                                            fail();
+                                            return;
+                                        }
+                                    }
+                                }
+                                publishMaterial(slot, -1, false);
+                                return;
+                            }
+                            skill = gCraftSkillIndexCC2368;
+                        }
+                        const std::int32_t recipeIndex = gCraftRecipeIndexD2D638;
+                        const auto* const recipe = &world::detail::gSkillsF1BAFC[skill].recipes8E8[recipeIndex];
+                        for (std::int32_t material = 0; material < 5; ++material) {
+                            const auto* const required = &recipe->items6C[material];
+                            const std::int32_t itemId = required->itemId;
+                            if (itemId >= 0 && occupied(material) == 0
+                                && gItemMarksD67290[hovered + 8] == 0
+                                && item->itemId == itemId && count >= required->count) {
+                                publishMaterial(slot, material, false);
+                                return;
+                            }
+                        }
+                        fail();
+                        return;
+                    }
+                    case 3: {
+                        const std::int32_t selected = hovered + 8;
+                        if (selected < 8 || selected >= 100) {
+                            return;
+                        }
+                        if (gSelectedItemD460C0 >= 0) {
+                            static_cast<void>(Sub_47DC20(6));
+                        }
+                        const std::int32_t skill = gCraftSkillIndexCC2368;
+                        const std::int32_t skillId = world::detail::gSkillsF1BAFC[skill].skillId;
+                        if (skillId == 220) {
+                            const std::uint16_t flags = item->flags;
+                            if (((flags & 0x200u) != 0 && (flags & 0x400u) == 0)
+                                || ((flags & 0x100u) != 0 && (flags & 0x400u) == 0)
+                                || item->hasDescription == 0 || item->count > 0 || item->itemType == 47) {
+                                fail();
+                                return;
+                            }
+                        } else if (skillId == 219 || skillId == 2033) {
+                            if (item->hasDescription != 0) {
+                                world::detail::Sub_44B050(
+                                    "\xA4\xA3\xBB\xDD\xC5\xB2\xA9\x77\xAA\xBA\xAA\xAB\xAB\x7E", 4, 3);
+                                fail();
+                                return;
+                            }
+                            const std::uint8_t crystal = gValue5F9754;
+                            const std::int32_t level = world::detail::gSkillsF1BAFC[skill].level;
+                            if (item->level > level + (crystal != 0 ? 1 : 0)) {
+                                world::detail::Sub_44B050(
+                                    "\xA4\xA3\xA5\x69\xC5\xB2\xA9\x77\xAA\xBA\xAA\xAB\xAB\x7E", 4, 3);
+                                fail();
+                                return;
+                            }
+                        } else if (skillId == 217 || skillId == 218 || skillId == 2031 || skillId == 2032) {
+                            bool rejected = item->hasDescription == 0;
+                            if (!rejected) {
+                                if (Sub_482F70(item->itemType) == 2) {
+                                    const std::int32_t currentId =
+                                        world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
+                                    rejected = currentId == 217 || currentId == 2031;
+                                } else if (Sub_482F70(item->itemType) == 1) {
+                                    const std::int32_t currentId =
+                                        world::detail::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
+                                    rejected = currentId == 218 || currentId == 2032;
+                                } else if (Sub_482F70(item->itemType) == 0) {
+                                    rejected = true;
+                                } else {
+                                    const std::int32_t currentSkill = gCraftSkillIndexCC2368;
+                                    const std::uint8_t crystal = gValue5F9754;
+                                    const std::int32_t level = world::detail::gSkillsF1BAFC[currentSkill].level;
+                                    rejected = item->level > level + (crystal != 0 ? 1 : 0);
+                                }
+                            }
+                            if (rejected) {
+                                fail();
+                                return;
+                            }
+                        }
+                        const std::int32_t itemId = item->itemId;
+                        const std::int32_t imageNo = item->imageNo;
+                        gSelectedItemD460C0 = selected;
+                        gSelectedImageCC3ED8 = imageNo;
+                        gSelectedCountCC483C = Sub_4F4630(itemId);
+                        const std::int32_t currentSkill = gCraftSkillIndexCC2368;
+                        const unsigned char previous = hoverMarks[hovered + 8];
+                        const std::int32_t currentId = world::detail::gSkillsF1BAFC[currentSkill].skillId;
+                        hoverMarks[hovered + 8] = static_cast<unsigned char>(previous + 1);
+                        gItemMarksD67290[hovered + 8] = 1;
+                        if (currentId == 220) {
+                            WindowInstance* const window = gCurrentWindow;
+                            const WindowElement* const inputElement = &window->elements[11];
+                            const std::int32_t y = inputElement->y + window->y;
+                            const std::int32_t x = inputElement->x + window->x;
+                            static_cast<void>(Sub_476570(&gCraftInputPrototype57D7F8, x, y, 0));
+                        }
+                        return;
+                    }
+                    case 6:
+                    case 15: {
+                        const std::uint8_t currentMode = gSelectionModeD2D650;
+                        const std::int32_t allowed = currentMode == 6
+                            ? world::detail::Sub_505040(hovered + 8)
+                            : world::detail::Sub_5050B0(hovered + 8);
+                        if (allowed == 0) {
+                            return;
+                        }
+                        const std::int32_t slot = firstFreeSlot();
+                        if (slot >= 6) {
+                            fail();
+                            return;
+                        }
+                        const std::int32_t type = item->itemType;
+                        const bool special = currentMode == 6 ? type == 38 || type == 25 || type == 39
+                                                              : type == 80;
+                        const std::int32_t material = special ? 1 : 0;
+                        if (occupied(material) == 0) {
+                            publishMaterial(slot, material, true);
+                        }
+                        return;
+                    }
+                    case 9: {
+                        if (world::detail::Sub_505110(hovered + 8) == 0) {
+                            return;
+                        }
+                        const std::int32_t slot = firstFreeSlot();
+                        if (slot >= 6) {
+                            fail();
+                            return;
+                        }
+                        if (occupied(0) == 0) {
+                            publishMaterial(slot, 0, false);
+                        }
+                        return;
+                    }
+                    case 12: {
+                        const std::int32_t slot = firstFreeSlot();
+                        if (slot >= 6) {
+                            fail();
+                            return;
+                        }
+                        Sub_4881D0(slot, hovered + 8);
+                        return;
+                    }
+                    default:
+                        return;
+                    }
+                };
+                selectItem();
+            }
+        }
+        consumed = 1;
+    } else if ((events & 1u) != 0 && hovered >= 0) {
+        if ((events & 2u) != 0) {
+            if (world::detail::gPlayerItemsFDA8A4[hovered + 8].used != 0) {
+                static_cast<void>(Sub_48BF10(hovered + 8, 1));
+                static_cast<void>(audio::PlaySe_52C450(51, 320));
+            }
+            consumed = 1;
+        }
+        if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
+            if (world::detail::gPlayerItemsFDA8A4[hovered + 8].used != 0) {
+                const std::int32_t page = gMaterialHintPageCF4FD8 + 1;
+                const std::int32_t pages = world::detail::gPlayerItemsFDA8A4[hovered + 8].pages;
+                gMaterialHintPageCF4FD8 = page;
+                if (page >= pages) {
+                    gMaterialHintPageCF4FD8 = 0;
+                }
+            }
+            consumed = 1;
+        }
+    }
+    if (Sub_475D60() == 2) {
+        const std::int32_t source = Sub_475D90();
+        if (source >= 8) {
+            const WindowInstance* const window = gCurrentWindow;
+            const WindowElement* const element = &window->elements[index];
+            const std::int32_t left = element->x + 50 * ((source - 8) % 5) + window->x;
+            const std::int32_t top = element->y + 50 * ((source - 8) / 5) + window->y;
+            login::detail::DrawGraphicHover(
+                static_cast<std::uint16_t>(left + 1), static_cast<std::uint16_t>(top + 2),
+                static_cast<std::uint16_t>(left + 47), static_cast<std::uint16_t>(top + 46), 223, 254, 0);
+        }
+    }
+    if (hovered >= 0) {
+        const WindowInstance* const window = gCurrentWindow;
+        const WindowElement* const element = &window->elements[index];
+        const std::int32_t left = element->x + 50 * (hovered % 5) + window->x;
+        const std::int32_t top = element->y + 50 * (hovered / 5) + window->y;
+        const std::uint32_t imageNo = login::detail::gValueD69768;
+        login::detail::DrawGraphicHover(
+            static_cast<std::uint16_t>(left + 1), static_cast<std::uint16_t>(top),
+            static_cast<std::uint16_t>(left + 49), static_cast<std::uint16_t>(top + 48), 223, imageNo, 0);
+        if (world::detail::gPlayerItemsFDA8A4[hovered + 8].used != 0) {
+            gMaterialHoveredItemD67424 = hovered + 8;
+        }
+    }
+    static_cast<void>(render::ClearTextQueueTail_456D50(3));
+    static_cast<void>(render::DrawText_456780(0, 0, 3, 1, 0, input::LegacyText593850(), 0, 0));
+    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    char countText[12];
+    for (std::int32_t position = 0; position < 20; ++position) {
+        const auto* const item = &world::detail::gPlayerItemsFDA8A4[position + 8];
+        if (item->used == 0) {
+            continue;
+        }
+        const WindowInstance* const window = gCurrentWindow;
+        const WindowElement* const element = &window->elements[index];
+        const std::int32_t x = element->x + 50 * (position % 5) + window->x + 24;
+        const std::int32_t y = element->y + 50 * (position / 5) + window->y + 24;
+        if (hoverMarks[position + 8] != 0) {
+            login::detail::DrawGraphicHover(
+                static_cast<std::uint16_t>(x - 24), static_cast<std::uint16_t>(y - 24),
+                static_cast<std::uint16_t>(x + 24), static_cast<std::uint16_t>(y + 24), 223, 249, 0);
+            static_cast<void>(login::detail::DrawGraphic(x, y, 223, item->imageNo, 0, &dimmed));
+        } else {
+            static_cast<void>(login::detail::DrawGraphic(x, y, 223, item->imageNo, 0, &descriptor));
+        }
+        const std::int32_t count = item->count;
+        if (count > 0) {
+            std::sprintf(countText, "%3d", count);
+            static_cast<void>(render::DrawText_456780(x - 3, y + 7, 3, 1, 1, countText, 0, 0));
+        }
+    }
+    return consumed;
 }
 
 std::int32_t Sub_484FB0(const std::int32_t index, const std::int32_t)

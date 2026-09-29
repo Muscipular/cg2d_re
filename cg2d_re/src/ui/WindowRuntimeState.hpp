@@ -167,6 +167,7 @@ std::int32_t Sub_482F70(std::int32_t itemType); // 加工分类；类别7优先�
 std::int32_t Sub_482270(std::int32_t index, std::int32_t state); // 执行资格、五等待及刻印直接发送。
 std::int32_t Sub_482FA0(std::int32_t index, std::int32_t state); // 续作，初始化后独立重读模式5。
 std::int32_t Sub_4830B0(std::int32_t index, std::int32_t state); // 底部关闭，点击仍返回0。
+std::int32_t Sub_483150(std::int32_t index, std::int32_t state); // 20格背包投放/快速选择/拖动及绘制。
 std::int32_t Sub_484FB0(std::int32_t index, std::int32_t unusedState); // 结果图，负图号不绘制。
 std::int32_t Sub_485030(std::int32_t index, std::int32_t state); // 刻印输入焦点，借用唯一D2DE70。
 std::int32_t Sub_485160(std::int32_t index, std::int32_t state); // 右上关闭，点击返回1。

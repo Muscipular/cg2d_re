@@ -8,6 +8,25 @@ namespace {
 // 原56CCC8的四字节元数据和593850借用，不创建另一份默认文本。
 WindowTextPrototype gWindowText56CCC8 {{}, input::LegacyText593850()};
 
+WindowGraphicData gWindowGraphic561FE0 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic561FF8 {0x3BA38, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic562010 {0x3BA3A, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic562028 {0x3BA3B, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic562040 {0x3B56B, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic562058 {0x3BA31, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic562070 {0x3B565, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic562088 {0x3BA3C, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic5620A0 {0x3B5C3, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic5620B8 {0x3BAC2, 0, 0, 0, 0, 0xFFFFFFFFu};
+constexpr char kWindow11Placeholder586078[] =
+    "\xA1\x48\xA1\x48\xA1\x48\xA1\x48\xA1\x48\xA1\x48\xA1\x48\xA1\x48\xA1\x48\xA1\x48"
+    "\xA1\x40\xA1\x40\x30\x30\x30";
+WindowTextPrototype gWindowText5620D0 {
+    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow11Placeholder586078,
+};
+std::int32_t gWindowAnimationImage5620D8 = 0x1AF16;
+std::int32_t gWindowAnimationImage5620DC = 0x1AF16;
+
 WindowGraphicData gWindowGraphic5628A8 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic5628C0 {0x3BA3F, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic5628D8 {0x3BA3E, 0, 0, 0, 0, 0xFFFFFFFFu};
@@ -1098,6 +1117,40 @@ WindowElementPrototype gWindowElements5630F0[8] {
     {7, 85, 30, 0, 0, 1, {.number = &gWindowNumber5630E8}, &Sub_4B0F10},
     {1, 0, 0, 126, 136, 1, {.graphic = &gWindowGraphic563098}, &Sub_4B0F10},
     {0, 128, 7, 18, 78, 1, {.unusedValue = 0}, &Sub_474170},
+};
+
+WindowElementPrototype gWindowElements5620E0[31] {
+    {0, 0, 0, 330, 110, 1, {.unusedValue = 0}, &Sub_485200},
+    {0, 0, 0, 330, 110, 1, {.unusedValue = 0}, &Sub_485350},
+    {1, 543, 8, 11, 11, 1, {.graphic = &gWindowGraphic561FE0}, &Sub_485160},
+    {2, 103, 225, 0, 0, 1, {.animationImageNo = &gWindowAnimationImage5620DC}, &Sub_4B0F10},
+    {2, 103, 225, 0, 0, 1, {.animationImageNo = &gWindowAnimationImage5620D8}, &Sub_4B0F10},
+    {2, 103, 225, 0, 0, 1, {.animationImageNo = &gWindowAnimationImage5620DC}, &Sub_4B0F10},
+    {0, 20, 57, 150, 12, 1, {.unusedValue = 0}, &Sub_485030},
+    {5, 20, 53, 0, 0, 1, {.unusedValue = 0}, &Sub_4B0F10},
+    {1, 190, 54, 49, 17, 1, {.graphic = &gWindowGraphic5620B8}, &Sub_482270},
+    {3, 20, 29, 0, 0, 1, {.text = &gWindowText5620D0}, &Sub_4B0F10},
+    {3, 20, 43, 0, 0, 1, {.text = &gWindowText5620D0}, &Sub_4B0F10},
+    {3, 20, 57, 0, 0, 1, {.text = &gWindowText5620D0}, &Sub_4B0F10},
+    {3, 20, 71, 0, 0, 1, {.text = &gWindowText5620D0}, &Sub_4B0F10},
+    {3, 20, 85, 0, 0, 1, {.text = &gWindowText5620D0}, &Sub_4B0F10},
+    {1, 20, 29, 0, 0, 1, {.graphic = &gWindowGraphic562010}, &Sub_4B0F10},
+    {0, 190, 75, 48, 48, 1, {.unusedValue = 0}, &Sub_483EB0},
+    {0, 190, 125, 48, 48, 1, {.unusedValue = 0}, &Sub_483EB0},
+    {0, 190, 175, 48, 48, 1, {.unusedValue = 0}, &Sub_483EB0},
+    {0, 243, 75, 48, 48, 1, {.unusedValue = 0}, &Sub_483EB0},
+    {0, 243, 125, 48, 48, 1, {.unusedValue = 0}, &Sub_483EB0},
+    {0, 243, 175, 48, 48, 1, {.unusedValue = 0}, &Sub_483EB0},
+    {1, 231, 175, 48, 48, 1, {.graphic = &gWindowGraphic5620A0}, &Sub_4847C0},
+    {1, 190, 27, 0, 0, 1, {.graphic = &gWindowGraphic562088}, &Sub_484FB0},
+    {1, 231, 45, 0, 0, 1, {.graphic = &gWindowGraphic562088}, &Sub_484FB0},
+    {1, 188, 73, 0, 0, 1, {.graphic = &gWindowGraphic562028}, &Sub_4B0F10},
+    {1, 21, 209, 49, 17, 1, {.graphic = &gWindowGraphic562040}, &Sub_482270},
+    {1, 21, 209, 49, 17, 1, {.graphic = &gWindowGraphic562058}, &Sub_482FA0},
+    {1, 126, 209, 49, 17, 1, {.graphic = &gWindowGraphic562070}, &Sub_4830B0},
+    {0, 307, 28, 248, 204, 1, {.unusedValue = 0}, &Sub_483150},
+    {1, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic561FF8}, &Sub_4B0F10},
+    {0, 566, 5, 18, 79, 1, {.unusedValue = 0}, &Sub_474170},
 };
 
 WindowElementPrototype gWindowElements562620[15] {

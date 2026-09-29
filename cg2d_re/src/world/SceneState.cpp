@@ -6857,6 +6857,11 @@ std::int32_t ReadPlayerLevel() noexcept
     return gPlayerRuntime.level;
 }
 
+std::int32_t ReadPlayerValue08() noexcept
+{
+    return gPlayerRuntime.value08;
+}
+
 std::int32_t ReadPlayerInjury() noexcept
 {
     return gPlayerRuntime.valueF4;

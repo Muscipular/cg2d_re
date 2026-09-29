@@ -7070,6 +7070,11 @@ float GetYobiActionScaleX(const YobiAction* const action) noexcept
     return action->scaleX;
 }
 
+std::int32_t GetYobiActionField2DC(const YobiAction* const action) noexcept
+{
+    return std::bit_cast<std::int32_t>(action->completedLoops);
+}
+
 float GetYobiActionScaleY(const YobiAction* const action) noexcept
 {
     return action->scaleY;

@@ -139,6 +139,16 @@ WindowAnimationData* Sub_47F3D0(WindowInstance* window); // 物品加工结果�
 WindowAnimationData* Sub_47FAC0(); // 仅已有窗口11才展示物品结果。
 WindowAnimationData* Sub_4F1800(std::int32_t result, const char* text); // JgO第二分支七字段及独立摘要。
 void Sub_4796E0(); // 只递减既有D67AFC低U8，不清其他操作计数。
+void Sub_4796D0(); // 仅递增既有D67AFC低U8。
+login::YobiAction* Sub_4854A0(std::int32_t skill, std::int32_t level); // 低U8请求状态及窗口12创建。
+WindowAnimationData* Sub_485700(WindowInstance* window); // 取消窗口12操作并归空闲，保留末动画载荷返回。
+WindowAnimationData* Sub_485890(WindowInstance* window); // 窗口12计时/操作初始化。
+std::int32_t Sub_486CF0(std::int32_t index, std::int32_t state); // FP/背包检查与重启。
+std::int32_t Sub_486E50(std::int32_t index, std::int32_t state); // 关闭或取消，hover后重取窗口。
+std::int32_t Sub_486F20(std::int32_t index, std::int32_t unusedState); // 结果图及固定框，恒返0。
+WindowAnimationData* Sub_47D2E0(
+    WindowInstance* unusedWindow, std::int32_t anchor,
+    std::int32_t first, std::int32_t second, std::uint32_t deadline); // 双预览六点插值，实际借当前窗口。
 WindowAnimationData* Sub_485AF0(WindowInstance* window); // 窗口12完整结果展示及双计时槽发布。
 WindowAnimationData* Sub_486020(); // 仅更新已有窗口12，不自动创建。
 WindowAnimationData* Sub_4ED6B0(std::int32_t result, const char* text); // JgO第四分支，失败不解析正文。

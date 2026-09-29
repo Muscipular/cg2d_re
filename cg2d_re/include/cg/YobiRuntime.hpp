@@ -309,6 +309,7 @@ const render::GraphicDescriptor16* BorrowYobiActionDrawMode(const YobiAction* ac
 void AddYobiActionDrawFlags(YobiAction* action, std::uint8_t flags) noexcept; // 原+305低U8置位，不清其他位。
 // 原 +2E4；51A5B0 读取，独立于播放翻转值 +2E0。
 std::int32_t GetYobiActionField2E4(const YobiAction* action) noexcept;
+std::int32_t GetYobiActionField2DC(const YobiAction* action) noexcept; // 窗口12按S32位型比较同源播放圈数。
 const char* BorrowYobiNameC4(const YobiAction* action) noexcept; // 原+C4名称，只读借用同一对象。
 std::int32_t GetYobiActionField2A8(YobiAction* action);
 void SetYobiActionField2A8(YobiAction* action, std::int32_t value);

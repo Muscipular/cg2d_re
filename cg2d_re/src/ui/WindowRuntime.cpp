@@ -614,7 +614,7 @@ std::int32_t gWindow12LevelUpC9C0FC = 0;
 std::int32_t gWindow12EnduranceCB0358 = 0;
 std::int32_t gWindow12DexterityCC3EC0 = 0;
 std::int32_t gWindow12IntelligenceCC4B60 = 0;
-std::int32_t gWindow12ValueCF3FF0 = 0;
+std::int32_t gWindow12ValueCF3FF0 = 0; // 回复第七字段，486F20按结果图号消费。
 std::int32_t gWindow12ValueD66E28 = 0;
 std::array<char, 32> gWindow12NameD2DA94 {};
 std::array<char, 32> gWindow12SuffixCB1E1C {};
@@ -623,11 +623,32 @@ std::uint8_t gWindow12ModeCC3E80 = 0;
 std::uint8_t gWindow12FlagCC4D27 = 0;
 std::uint32_t gWindow12TickD45D4C = 0;
 std::uint32_t gSkillPreviewTickCF46C8 = 0; // 多个技能窗口共用的另一计时槽。
+std::uint8_t gWindow12SkillIndexCA0470 = 0; // 原低U8发布，索引消费按S8。
+std::uint8_t gWindow12SkillLevelCB0608 = 0;
+std::uint8_t gWindow12KindD046CC = 0;
+std::uint32_t gSkillExtraDelayCF46C4 = 0;
+std::uint32_t gWindow12DeadlineCB0F7C = 0;
+std::int32_t gWindow12PetImageCB10CC = 0;
+std::int32_t gWindow12CrystalLevelCC3E90 = 0;
+constexpr std::array<std::int8_t, 16> kSkillRebirthRates57D7A4 {
+    100, 95, 90, 85, 80, 75, 65, 60, 55, 50, 45, 40, 35, 30, 25, 0,
+};
+constexpr std::array<std::int8_t, 16> kSkillCrystalRates57D7B4 {
+    100, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60,
+};
+constexpr std::array<std::array<std::int16_t, 3>, 6> kSkillPreviewPoints57D7D0 {{
+    {30, -45, 0}, {-30, -45, 7}, {-50, -20, 6},
+    {-35, 22, 4}, {35, 22, 3}, {50, -20, 2},
+}};
 constexpr char kWindow12Suffix589830[] = "\xB1\x6F\xA8\xEC\xA4\x46\xA1\x49";
 constexpr char kWindow12Nothing5897DC[] = "\xA8\x53\xAC\xDD\xA8\xEC\xA5\xF4\xA6\xF3\xAA\x46\xA6\xE8\xA1\x43\n";
 constexpr char kWindow12Success5869D4[] = "\xA1\x40\xB5\x6F\xB2\x7B\xA4\x46\xA1\x43";
 constexpr char kWindow12Failure5869C4[] = "\xA4\xB0\xBB\xF2\xB3\xA3\xA8\x53\xB5\x6F\xB2\x7B\xA1\x43";
 constexpr char kWindow12Unknown554590[] = "???";
+constexpr char kWindow12NoFp5864F0[] = "\xC5\x5D\xA4\x4F\xA4\xA3\xA8\xAC\xA1\x43";
+constexpr char kWindow12NoSpace5869E0[] = "\xAA\xAB\xAB\x7E\xC4\xE6\xA8\x53\xA6\xB3\xAA\xC5\xA6\xEC\xA1\x43";
+constexpr char kWindow12Restart5869F4[] = "\xAD\xAB\xB7\x73\xA6\x41\xB6\x7D\xA1\x43";
+constexpr char kWindow12Cancel586A00[] = "\xBC\xC8\xAE\xC9\xA4\xA4\xC2\x5F\xA1\x43";
 static_assert(sizeof(kWindow12Nothing5897DC) == 18);
 
 std::int32_t gWindow13ResultD66E2C = 0;
@@ -22973,6 +22994,219 @@ WindowAnimationData* Sub_4F1800(const std::int32_t result, const char* const tex
     return Sub_47FAC0();
 }
 
+void Sub_4796D0()
+{
+    ++gValueD67AFC;
+}
+
+login::YobiAction* Sub_4854A0(const std::int32_t skill, const std::int32_t level)
+{
+    const auto skillByte = static_cast<std::uint8_t>(skill);
+    gWindow12SkillIndexCA0470 = skillByte;
+    gWindow12SkillLevelCB0608 = static_cast<std::uint8_t>(level);
+    const std::int32_t skillId =
+        world::detail::gSkillsF1BAFC[std::bit_cast<std::int8_t>(skillByte)].skillId;
+    gSkillSendModeC8A970 = 0;
+    gWindow12ValueD66E28 = 0;
+    switch (skillId) {
+        case 225:
+        case 251:
+            gWindow12KindD046CC = 0;
+            break;
+        case 226:
+        case 253:
+            gWindow12KindD046CC = 1;
+            break;
+        case 227:
+        case 250:
+            gWindow12KindD046CC = 2;
+            break;
+        case 2000:
+        case 2003:
+            gWindow12KindD046CC = 3;
+            break;
+        default:
+            break;
+    }
+    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+    static_cast<void>(Sub_4D3020(x, y));
+    gSkillExtraDelayCF46C4 = 2000;
+    Sub_479650();
+    Sub_4796D0();
+    const auto references = static_cast<std::uint8_t>(gValueD67AFD + 1);
+    const auto skillReferences = static_cast<std::uint8_t>(gValueD67AFE + 1);
+    gValueD67AFD = references;
+    gValueD67AFE = skillReferences;
+    std::int32_t mode = 0;
+    switch (world::detail::gSkillsF1BAFC[std::bit_cast<std::int8_t>(gWindow12SkillIndexCA0470)].skillId) {
+        case 225:
+        case 251:
+            mode = 5;
+            break;
+        case 226:
+        case 253:
+            mode = 7;
+            break;
+        case 227:
+        case 250:
+            mode = 6;
+            break;
+        case 2000:
+        case 2003:
+            mode = 16;
+            break;
+        default:
+            break;
+    }
+    if (mode != 0 && world::detail::Sub_51BEC0() != mode) {
+        static_cast<void>(world::detail::Sub_51BE50(mode));
+    }
+    for (const std::int32_t id : {11, 12, 45, 46, 13}) {
+        WindowInstance* const window = gWindowStates[id].window;
+        if (window != nullptr) {
+            window->state |= 0x8000u;
+        }
+    }
+    return CreateWindowAnimation_475AA0(12, 1, 0, nullptr);
+}
+
+void Sub_485690()
+{
+    Sub_479660();
+    const std::uint8_t mode = gWindow12ModeCC3E80;
+    if (mode == 1 || mode == 2) {
+        Sub_4796E0();
+    }
+    const auto references = static_cast<std::uint8_t>(gValueD67AFD - 1);
+    WindowInstance* const window = gWindowStates[12].window;
+    gValueD67AFD = references;
+    window->state |= 0x8000u;
+    --gValueD67AFE;
+    if (gValueD67AFE == 0) {
+        const std::int32_t state = world::detail::Sub_51BEC0();
+        if ((state >= 5 && state <= 7) || state == 16) {
+            static_cast<void>(world::detail::Sub_51BE50(0));
+        }
+    }
+}
+
+WindowAnimationData* Sub_485700(WindowInstance* const window)
+{
+    const std::uint8_t mode = gWindow12ModeCC3E80;
+    if (mode != 0 && mode != 3 && mode != 4) {
+        Sub_4796E0();
+    }
+    gWindow12ModeCC3E80 = 0;
+    for (std::int32_t index = 4; index <= 7; ++index) {
+        std::strcpy(static_cast<WindowTextData*>(window->elements[index].data)->text,
+            input::LegacyText593850());
+    }
+    for (std::int32_t index = 4; index <= 10; ++index) {
+        window->elements[index].visible = 0;
+    }
+    window->elements[11].visible = 1;
+    window->elements[12].visible = 1;
+    login::detail::SetYobiActionField2B0(
+        static_cast<WindowAnimationData*>(window->elements[2].data)->action, 0);
+    static_cast<WindowAnimationData*>(window->elements[2].data)->value04 = 0;
+    gWindow12ValueCF3FF0 = -1;
+    static_cast<void>(Sub_47D170(
+        window, 2, 1, 3, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
+    WindowAnimationData* const data = Sub_47D220(window, 1, 3, 1, 0, 5);
+    gSkillSendModeC8A970 = 0;
+    gWindow12ValueD66E28 = 0;
+    return data;
+}
+
+WindowAnimationData* Sub_485890(WindowInstance* const window)
+{
+    if (gWindow12ModeCC3E80 != 1) {
+        Sub_4796D0();
+    }
+    const std::int32_t previousValue = gWindow12ValueD66E28;
+    gWindow12ModeCC3E80 = 1;
+    gSkillSendModeC8A970 = 0;
+    if (previousValue > 0) {
+        const std::int32_t imageNo = gWindow12PetImageCB10CC;
+        gSkillSendModeC8A970 = 1;
+        gSkillPetImageCB0A18 = imageNo;
+    }
+    for (std::int32_t index = 4; index <= 7; ++index) {
+        std::strcpy(static_cast<WindowTextData*>(window->elements[index].data)->text,
+            input::LegacyText593850());
+    }
+    for (std::int32_t index = 4; index <= 7; ++index) {
+        window->elements[index].visible = 0;
+    }
+    window->elements[8].visible = 1;
+    window->elements[9].visible = 0;
+    window->elements[10].visible = 0;
+    window->elements[11].visible = 0;
+    window->elements[12].visible = 1;
+    login::detail::SetYobiActionField2B0(
+        static_cast<WindowAnimationData*>(window->elements[2].data)->action, 0);
+    static_cast<WindowAnimationData*>(window->elements[2].data)->value04 = 0;
+    gWindow12ValueCF3FF0 = -1;
+    gWindow12FlagCC4D27 = 0;
+    const std::uint32_t tick = platform::ReadTickCount32();
+    std::uint32_t duration = gSkillExtraDelayCF46C4 + 4500u;
+    gWindow12TickD45D4C = tick;
+    const std::uint8_t rebirthMode = gValue5F9754;
+    gWindow12DeadlineCB0F7C = duration;
+    if (rebirthMode != 0) {
+        const std::int32_t rebirth = world::detail::ReadPlayerValue08();
+        duration = duration * kSkillRebirthRates57D7A4[rebirth] / 100u;
+        gWindow12DeadlineCB0F7C = duration;
+    }
+    if (gSkillSendModeC8A970 != 0) {
+        duration = duration * kSkillCrystalRates57D7B4[gWindow12CrystalLevelCC3E90] / 100u;
+    }
+    const std::uint32_t deadline = duration + tick;
+    gSkillPreviewTickCF46C8 = tick;
+    gWindow12DeadlineCB0F7C = deadline;
+    static_cast<void>(Sub_47D170(
+        window, 2, 1, 3, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
+    if (gSkillSendModeC8A970 != 0) {
+        return Sub_47D220(window, 1, 3, 1, 0, 5);
+    }
+    return Sub_47D220(window, 1, 3, 0, 10, 5);
+}
+
+WindowAnimationData* Sub_47D2E0(
+    WindowInstance*, const std::int32_t anchor,
+    const std::int32_t first, const std::int32_t second, const std::uint32_t deadline)
+{
+    const std::uint32_t tick = platform::ReadTickCount32();
+    const std::uint32_t start = gSkillPreviewTickCF46C8;
+    const std::int32_t interval = std::bit_cast<std::int32_t>(deadline - start) / 11;
+    const std::int32_t phase = interval == 0 ? 0 : std::bit_cast<std::int32_t>(tick - start) / interval;
+    if (static_cast<std::uint32_t>(phase) <= 10) {
+        if ((phase & 1) == 0) {
+            const std::int32_t index = phase / 2;
+            const std::int32_t next = index + 1 >= 6 ? 0 : index + 1;
+            const std::int32_t elapsed = std::bit_cast<std::int32_t>(tick - gSkillPreviewTickCF46C8);
+            const std::int32_t remainder = elapsed % interval;
+            const auto& from = kSkillPreviewPoints57D7D0[index];
+            const auto& to = kSkillPreviewPoints57D7D0[next];
+            const std::int32_t y = (to[1] - from[1]) * remainder / interval + from[1];
+            const std::int32_t x = (to[0] - from[0]) * remainder / interval + from[0];
+            static_cast<void>(Sub_47D170(gCurrentWindow, anchor, first, second, x, y));
+            return Sub_47D220(gCurrentWindow, first, second, 1, 1, to[2]);
+        }
+        std::int32_t index = phase / 2 + 1;
+        if (index > 7) {
+            index = 0;
+        }
+        const auto& point = kSkillPreviewPoints57D7D0[index];
+        static_cast<void>(Sub_47D170(gCurrentWindow, anchor, first, second, point[0], point[1]));
+        return Sub_47D220(gCurrentWindow, first, second, 1, 0, 5);
+    }
+    static_cast<void>(Sub_47D170(
+        gCurrentWindow, anchor, first, second, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
+    return Sub_47D220(gCurrentWindow, first, second, 1, 0, 5);
+}
+
 void Sub_4796E0()
 {
     --gValueD67AFC;
@@ -23126,6 +23360,319 @@ WindowAnimationData* Sub_4ED6B0(const std::int32_t result, const char* const tex
         appendValue(kCraftIntelligence5897F0, gWindow12IntelligenceCC4B60);
     }
     return Sub_486020();
+}
+
+std::int32_t Sub_486040(const std::int32_t value)
+{
+    if (value == -1) {
+        gWindowActionD2E928 = nullptr;
+        gWindow12ModeCC3E80 = 0;
+        Sub_4796E0();
+        static_cast<void>(Sub_485890(gCurrentWindow));
+        return 1;
+    }
+    const std::int32_t mapped = character_select::detail::Sub_51B740(world::detail::ReadPlayerImageNo());
+    const std::int32_t kind = std::bit_cast<std::int8_t>(gWindow12KindD046CC);
+    const std::int32_t offset = kind == 0 ? -2 : kind == 1 ? -1 : kind == 3 ? 1 : 0;
+    const std::int32_t previewImage = Sub_487F30(mapped, offset);
+    login::detail::SetYobiActionField2A8(
+        static_cast<WindowAnimationData*>(gCurrentWindow->elements[2].data)->action, previewImage);
+    login::detail::SetYobiActionField2B8(
+        static_cast<WindowAnimationData*>(gCurrentWindow->elements[2].data)->action, 5);
+    std::uint8_t mode;
+    if (gSkillSendModeC8A970 != 0) {
+        const std::int32_t imageNo = Sub_479B00() != 0 ? gSkillPetImageCB0A18 : 0;
+        static_cast<void>(Sub_47D280(gCurrentWindow, 1, 3, imageNo));
+        mode = gWindow12ModeCC3E80;
+        if (mode == 1) {
+            static_cast<void>(Sub_47D2E0(gCurrentWindow, 2, 1, 3, gWindow12DeadlineCB0F7C));
+            mode = gWindow12ModeCC3E80;
+        }
+    } else {
+        static_cast<void>(Sub_47D280(gCurrentWindow, 1, 3, 0));
+        mode = gWindow12ModeCC3E80;
+    }
+    if (mode == 1) {
+        // 四条阶段路径共用原6/16选择；每次命中仍重取当前窗口和玩家图号。
+        const auto setWorkingAction = [](login::YobiAction* const initialAction) {
+            login::detail::SetYobiActionField2B0(initialAction, 6);
+            std::int32_t imageNo = world::detail::ReadPlayerImageNo();
+            for (const auto& range : kCraftAlternateActionImages) {
+                if (imageNo >= range[0] && imageNo <= range[1]) {
+                    login::detail::SetYobiActionField2B0(
+                        static_cast<WindowAnimationData*>(gCurrentWindow->elements[2].data)->action, 16);
+                    imageNo = world::detail::ReadPlayerImageNo();
+                }
+            }
+            if (imageNo == 0x18A26) {
+                login::detail::SetYobiActionField2B0(
+                    static_cast<WindowAnimationData*>(gCurrentWindow->elements[2].data)->action, 6);
+            }
+        };
+        switch (std::bit_cast<std::int8_t>(gWindow12KindD046CC)) {
+            case 0:
+            case 1:
+                if (gWindow12FlagCC4D27 == 0) {
+                    login::detail::SetYobiActionField2B0(
+                        static_cast<WindowAnimationData*>(gCurrentWindow->elements[2].data)->action, 1);
+                    static_cast<WindowAnimationData*>(gCurrentWindow->elements[2].data)->value04 = 0;
+                    ++gWindow12FlagCC4D27;
+                } else if (gWindow12FlagCC4D27 == 1) {
+                    const std::uint32_t tick = platform::ReadTickCount32();
+                    if (gWindow12TickD45D4C + 2000u < tick) {
+                        login::detail::SetYobiActionField2B0(
+                            static_cast<WindowAnimationData*>(gCurrentWindow->elements[2].data)->action, 5);
+                        ++gWindow12FlagCC4D27;
+                    }
+                } else if (gWindow12FlagCC4D27 == 2) {
+                    login::YobiAction* const action =
+                        static_cast<WindowAnimationData*>(gCurrentWindow->elements[2].data)->action;
+                    if (login::detail::GetYobiActionField2DC(action) >= 2) {
+                        setWorkingAction(action);
+                        ++gWindow12FlagCC4D27;
+                    }
+                }
+                break;
+            case 2:
+                if (gWindow12FlagCC4D27 == 0) {
+                    login::detail::SetYobiActionField2B0(
+                        static_cast<WindowAnimationData*>(gCurrentWindow->elements[2].data)->action, 5);
+                    static_cast<WindowAnimationData*>(gCurrentWindow->elements[2].data)->value04 = 0;
+                    ++gWindow12FlagCC4D27;
+                } else if (gWindow12FlagCC4D27 == 1) {
+                    login::YobiAction* const action =
+                        static_cast<WindowAnimationData*>(gCurrentWindow->elements[2].data)->action;
+                    if (login::detail::GetYobiActionField2DC(action) >= 2) {
+                        setWorkingAction(action);
+                        ++gWindow12FlagCC4D27;
+                    }
+                }
+                [[fallthrough]]; // 原486562递增后落入486568，再检查同一阶段。
+            case 3:
+                if (gWindow12FlagCC4D27 == 0) {
+                    login::detail::SetYobiActionField2B0(
+                        static_cast<WindowAnimationData*>(gCurrentWindow->elements[2].data)->action, 5);
+                    static_cast<WindowAnimationData*>(gCurrentWindow->elements[2].data)->value04 = 0;
+                    ++gWindow12FlagCC4D27;
+                } else if (gWindow12FlagCC4D27 == 1) {
+                    login::YobiAction* const action =
+                        static_cast<WindowAnimationData*>(gCurrentWindow->elements[2].data)->action;
+                    if (login::detail::GetYobiActionField2DC(action) >= 2) {
+                        setWorkingAction(action);
+                        ++gWindow12FlagCC4D27;
+                    }
+                }
+                break;
+            default:
+                break;
+        }
+        const std::uint32_t tick = platform::ReadTickCount32();
+        if (gWindow12DeadlineCB0F7C < tick) {
+            const std::uint8_t sendMode = gValue5F9754;
+            gSkillExtraDelayCF46C4 = 0;
+            std::int32_t skill;
+            std::int32_t level;
+            if (sendMode != 0) {
+                level = std::bit_cast<std::int8_t>(gWindow12SkillLevelCB0608);
+                skill = std::bit_cast<std::int8_t>(gWindow12SkillIndexCA0470) + 100;
+            } else {
+                level = std::bit_cast<std::int8_t>(gWindow12SkillLevelCB0608);
+                static_cast<void>(gSkillSendModeC8A970); // 原cmp未被后续分支消费，没有+200。
+                skill = std::bit_cast<std::int8_t>(gWindow12SkillIndexCA0470);
+            }
+            static_cast<void>(network::Sub_511EF0(
+                platform::gConnectionSocket, skill, level, -1, input::LegacyText593850()));
+            gWindow12PetImageCB10CC = Sub_4799D0();
+            gWindow12CrystalLevelCC3E90 = Sub_479860();
+            gWindow12ModeCC3E80 = 2;
+        } else if (Sub_4D3040(1, 1) != 0) {
+            static_cast<void>(Sub_485700(gCurrentWindow));
+        }
+    } else if (mode == 3) {
+        const std::uint32_t tick = platform::ReadTickCount32();
+        if (gWindow12TickD45D4C + 2000u < tick) {
+            const std::int32_t skill = std::bit_cast<std::int8_t>(gWindow12SkillIndexCA0470);
+            const std::int32_t level = std::bit_cast<std::int8_t>(gWindow12SkillLevelCB0608);
+            const std::int32_t cost = world::detail::gSkillsF1BAFC[skill].techniques3C[level].value7C
+                * world::detail::gSkillsF1BAFC[skill].fpReduce / 100;
+            if (world::detail::IsPlayerFpLessThan(cost)) {
+                world::detail::Sub_44B050(kWindow12NoFp5864F0, 4, 3);
+                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                static_cast<void>(audio::PlaySe_52C450(58, 320));
+                static_cast<void>(Sub_485700(gCurrentWindow));
+            } else if (world::detail::Sub_518C60() <= 0) {
+                world::detail::Sub_44B050(kWindow12NoSpace5869E0, 4, 3);
+                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                static_cast<void>(audio::PlaySe_52C450(58, 320));
+                static_cast<void>(Sub_485700(gCurrentWindow));
+            } else {
+                static_cast<void>(Sub_485890(gCurrentWindow));
+            }
+        }
+    } else if (mode == 4) {
+        const std::uint32_t tick = platform::ReadTickCount32();
+        if (gWindow12TickD45D4C + 2000u < tick) {
+            static_cast<void>(Sub_485700(gCurrentWindow));
+        }
+    }
+    auto* animation = static_cast<WindowAnimationData*>(gCurrentWindow->elements[1].data);
+    std::uint32_t stop = animation->value04;
+    static_cast<void>(login::detail::Sub_517880(animation->action, 100, stop != 0, 0));
+    animation = static_cast<WindowAnimationData*>(gCurrentWindow->elements[3].data);
+    stop = animation->value04;
+    static_cast<void>(login::detail::Sub_517880(animation->action, 100, stop != 0, 0));
+    WindowElement* elements = gCurrentWindow->elements;
+    if (elements[1].visible != 0) {
+        login::YobiAction* const action = static_cast<WindowAnimationData*>(elements[1].data)->action;
+        const render::GraphicDescriptor16* const descriptor = login::detail::ApplyWindowAnimationDrawMode(action);
+        WindowInstance* const window = gCurrentWindow;
+        const std::int32_t graphic = login::detail::GetYobiActionField20(action);
+        elements = window->elements;
+        const std::int32_t y = elements[1].y + window->y;
+        const std::int32_t x = elements[1].x + window->x;
+        static_cast<void>(render::DrawGraphic2_521DD0(x, y, 0xDF, graphic, 0, 0, descriptor));
+    }
+    login::YobiAction* const action =
+        static_cast<WindowAnimationData*>(gCurrentWindow->elements[2].data)->action;
+    const std::uint8_t currentMode = gWindow12ModeCC3E80;
+    const std::int32_t imageNo = login::detail::GetYobiActionField2A8(action);
+    if (currentMode == 4) {
+        const std::int32_t actionId = login::detail::GetYobiActionField2B0(action);
+        if (actionId == 18 || actionId == 5 || actionId == 15 || actionId == 10) {
+            const bool succeeded = actionId == 18 || actionId == 5;
+            const std::int32_t defaultAction = succeeded ? 5 : 10;
+            login::detail::SetYobiActionField2B0(action, defaultAction);
+            for (const auto& range : kCraftAlternateActionImages) {
+                if (imageNo >= range[0] && imageNo <= range[1]) {
+                    login::detail::SetYobiActionField2B0(action, succeeded ? 18 : 15);
+                }
+            }
+            if (imageNo == 0x18A26) {
+                login::detail::SetYobiActionField2B0(action, defaultAction);
+            }
+        }
+    }
+    if (imageNo >= 0x1AF0E && imageNo <= 0x1AF25) {
+        login::detail::SetYobiActionField309(action, 4);
+        login::detail::SetYobiActionField310(action, 4);
+    } else {
+        login::detail::SetYobiActionField309(action, 0);
+    }
+    stop = static_cast<WindowAnimationData*>(gCurrentWindow->elements[2].data)->value04;
+    static_cast<void>(login::detail::Sub_517880(action, 100, stop != 0, 0));
+    const std::int32_t graphic = login::detail::GetYobiActionField20(action);
+    if (graphic != 0) {
+        const render::GraphicDescriptor16* const descriptor = login::detail::ApplyWindowAnimationDrawMode(action);
+        WindowInstance* const window = gCurrentWindow;
+        elements = window->elements;
+        const std::int32_t y = elements[2].y + window->y;
+        const std::int32_t x = elements[2].x + window->x;
+        static_cast<void>(render::DrawGraphic2_521DD0(x, y, 0xDF, graphic, 0, 0, descriptor));
+    }
+    elements = gCurrentWindow->elements;
+    if (elements[1].visible == 0) {
+        login::YobiAction* const back = static_cast<WindowAnimationData*>(elements[3].data)->action;
+        const render::GraphicDescriptor16* const descriptor = login::detail::ApplyWindowAnimationDrawMode(back);
+        WindowInstance* const window = gCurrentWindow;
+        const std::int32_t backGraphic = login::detail::GetYobiActionField20(back);
+        elements = window->elements;
+        const std::int32_t y = elements[3].y + window->y;
+        const std::int32_t x = elements[3].x + window->x;
+        static_cast<void>(render::DrawGraphic2_521DD0(x, y, 0xDF, backGraphic, 0, 0, descriptor));
+    }
+    gCurrentWindow->elements[1].visible = 0;
+    gCurrentWindow->elements[3].visible = 0;
+    return 1;
+}
+
+std::int32_t Sub_486CF0(const std::int32_t index, const std::int32_t state)
+{
+    WindowElement* const elements = gCurrentWindow->elements;
+    const std::int32_t level = std::bit_cast<std::int8_t>(gWindow12SkillLevelCB0608);
+    auto* const graphic = static_cast<WindowGraphicData*>(elements[index].data);
+    const std::int32_t skill = std::bit_cast<std::int8_t>(gWindow12SkillIndexCA0470);
+    const std::int32_t cost = world::detail::gSkillsF1BAFC[skill].techniques3C[level].value7C
+        * world::detail::gSkillsF1BAFC[skill].fpReduce / 100;
+    const bool enoughFp = !world::detail::IsPlayerFpLessThan(cost);
+    if (!enoughFp && (state & 1) != 0) {
+        std::strcpy(gHoverTextD68AE8.data(), kWindow12NoFp5864F0);
+    }
+    if (world::detail::Sub_518C60() <= 0 || !enoughFp) {
+        graphic->imageNo = 0x3B56C;
+        return 0;
+    }
+    if ((state & 1) != 0) {
+        std::strcpy(gHoverTextD68AE8.data(), kWindow12Restart5869F4);
+    }
+    std::int32_t consumed = 0;
+    if ((state & 2) != 0) {
+        const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+        const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+        static_cast<void>(Sub_4D3020(x, y));
+        static_cast<void>(Sub_485890(gCurrentWindow));
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        consumed = 1;
+    }
+    graphic->imageNo = 0x3B56B;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3B56D;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 0x3B56C;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_486E50(const std::int32_t index, const std::int32_t state)
+{
+    WindowInstance* window = gCurrentWindow;
+    auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
+    if ((state & 1) != 0) {
+        std::strcpy(gHoverTextD68AE8.data(),
+            gWindow12ModeCC3E80 == 0 ? kWindow13Text5868EC : kWindow12Cancel586A00);
+        window = gCurrentWindow;
+    }
+    std::int32_t consumed = 0;
+    if ((state & 2) != 0) {
+        if (gWindow12ModeCC3E80 == 0) {
+            window->state |= 0x8000u;
+            static_cast<void>(audio::PlaySe_52C450(57, 320));
+        } else {
+            static_cast<void>(Sub_485700(window));
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        }
+        consumed = 1;
+    }
+    graphic->imageNo = 0x3B565;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3B567;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 0x3B566;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_486F20(const std::int32_t index, const std::int32_t)
+{
+    const std::int32_t resultImage = gWindow12ValueCF3FF0;
+    render::GraphicDescriptor16 descriptor {};
+    const std::uint32_t color = 0xFFFFFFFFu;
+    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    descriptor.bytes[13] = 4;
+    if (resultImage >= 0) {
+        WindowInstance* const window = gCurrentWindow;
+        const WindowElement* const element = &window->elements[index];
+        const std::int32_t y = element->y + window->y + 24;
+        const std::int32_t x = element->x + window->x + 24;
+        static_cast<void>(login::detail::DrawGraphic(x, y, 0xDF, resultImage, 0, &descriptor));
+    }
+    WindowInstance* const window = gCurrentWindow;
+    const WindowElement* const element = &window->elements[index];
+    const std::int32_t y = element->y + window->y + 24;
+    const std::int32_t x = element->x + window->x + 24;
+    static_cast<void>(login::detail::DrawGraphic(x, y, 0xDF, 0x3B5C3, 0, &descriptor));
+    return 0;
 }
 
 std::int32_t Sub_47D280(

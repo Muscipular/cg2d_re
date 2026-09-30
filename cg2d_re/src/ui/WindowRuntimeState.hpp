@@ -11,12 +11,18 @@ namespace cg::login {
 struct YobiAction;
 }
 
+namespace cg::login::detail {
+struct OrderedRecord1051B14;
+}
+
 namespace cg::input {
 struct InputContext;
 }
 
 namespace cg::world::detail {
 struct PlayerItemRecord;
+struct ContactRuntimeRecord;
+struct MiniMailContactRecord;
 }
 
 namespace cg::ui {
@@ -1609,6 +1615,40 @@ void Sub_4A1780(std::int32_t category); // 普通/公会/迷你名单布局，�
 void Sub_4A2700(); // 修正当前名单位置并更新元素17滚动条。
 std::int32_t Sub_4A3820(std::int32_t unused); // 滚动条反求位置；调用后重读类别写回。
 std::int32_t Sub_4A32B0(); // 邮件闪烁相位推进；开窗不重置。
+void Sub_4A2C60(); // 填200项C9FCE4后按类别依原CRT次序排序60/200/20项。
+std::int32_t Sub_4A2CC0(const std::int32_t* left, const std::int32_t* right); // 原索引比较，先查右侧used。
+std::int32_t Sub_4A3010(
+    const world::detail::ContactRuntimeRecord* left,
+    const world::detail::ContactRuntimeRecord* right); // 普通姓名原字节比较。
+std::int32_t Sub_4A3070(
+    const login::detail::OrderedRecord1051B14* left,
+    const login::detail::OrderedRecord1051B14* right); // 公会姓名原字节比较。
+std::int32_t Sub_4A30D0(
+    const login::detail::OrderedRecord1051B14* left,
+    const login::detail::OrderedRecord1051B14* right); // 公会value00完整S32差值。
+std::int32_t Sub_4A3100(
+    const world::detail::ContactRuntimeRecord* left,
+    const world::detail::ContactRuntimeRecord* right); // 普通text32原字节比较。
+std::int32_t Sub_4A3160(
+    const world::detail::ContactRuntimeRecord* left,
+    const world::detail::ContactRuntimeRecord* right); // 普通value08完整S32差值。
+std::int32_t Sub_4A3190(
+    const login::detail::OrderedRecord1051B14* left,
+    const login::detail::OrderedRecord1051B14* right); // 公会value10完整S32差值。
+std::int32_t Sub_4A31C0(
+    const std::int32_t* leftValue04, const std::int32_t* rightValue04); // 借原记录+4字段，相等仍-1。
+std::int32_t Sub_4A31E0(
+    const world::detail::ContactRuntimeRecord* left,
+    const world::detail::ContactRuntimeRecord* right); // 普通S16 value02，零映射最大S32。
+std::int32_t Sub_4A3230(
+    const world::detail::MiniMailContactRecord* left,
+    const world::detail::MiniMailContactRecord* right); // 迷你序号按S16比较，零不替换。
+std::int32_t Sub_4A3260(
+    const login::detail::OrderedRecord1051B14* left,
+    const login::detail::OrderedRecord1051B14* right); // 公会S16 value0A，零映射最大S32。
+std::int32_t Sub_4A3950(); // 当前公会职级权限80H。
+std::int32_t Sub_4A3960(std::int32_t mask); // 当前职级-1才拒绝，再读同源权限。
+std::int32_t Sub_4A3990(std::int32_t index, std::int32_t mask); // 当前职级门禁通过后读取指定职级。
 std::int32_t Sub_4CC6A0(); // 三个UI数值依序写5/0/0。
 void Sub_4CBD30(); // 首次借用原localtime对象并写同源日志文件名。
 void InitializeLoginWindows_470600(); // 每次登录的完整UI/邮件/profile初始化；不清全部窗口指针。

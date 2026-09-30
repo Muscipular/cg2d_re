@@ -40,19 +40,6 @@ namespace {
 alignas(std::uint32_t) std::array<std::byte, 0x5DC00> gMailStorageF7CA08 {};
 alignas(std::uint32_t) std::array<std::byte, 0x139480> gGuildMailStorageDE0B30 {};
 
-// 原1075A90起的20条74H记录；50F9E0生产，查找/收信/未读扫描共用。
-struct MiniMailContactRecord {
-    std::uint16_t used;
-    std::uint16_t sequence02;
-    std::int32_t key04;
-    std::int32_t value08;
-    std::int32_t value0C;
-    std::array<char, 17> name10;
-    std::array<char, 17> text21;
-    std::array<char, 33> text32;
-    std::array<std::byte, 0x21> bytes53;
-};
-
 struct alignas(std::uint32_t) MiniMailRuntimeSlots {
     std::array<MiniMailContactRecord, 20> contacts;
     std::array<std::byte, 0xFA00> messages; // 原10763A0，20组各十条140H。
@@ -204,6 +191,11 @@ std::int32_t CompareContactIndices_4EC030(
 }
 
 } // namespace
+
+const MiniMailContactRecord& ReadMiniMailContact1075A90(const std::int32_t index)
+{
+    return gMiniMailRuntime.contacts[index];
+}
 
 const ProfileRuntimeRecord& ReadViewedProfile105ECE0()
 {

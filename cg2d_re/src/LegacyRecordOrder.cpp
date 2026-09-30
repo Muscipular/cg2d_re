@@ -91,6 +91,11 @@ std::int32_t ReadGuildTextIndex10514B0() noexcept
     return gGuildHeader10514A8.value08;
 }
 
+std::int32_t ReadGuildRankFlags1051514(const std::int32_t index) noexcept
+{
+    return gGuildTextRecords1051514[index].value00;
+}
+
 const char* BorrowGuildName10514BC() noexcept
 {
     return gGuildHeader10514A8.texts14[0].data();

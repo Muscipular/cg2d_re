@@ -987,6 +987,7 @@ struct LoginWindowRuntimeSlots {
     std::uint32_t mailSortModeD67B3C; // 4A0970从存档live排序模式复制。
     std::int32_t mailBlinkPhaseD67B5C; // 4A32B0有符号余数相位。
     std::int32_t mailBlinkFlagD67B60; // 每16帧异或1，开窗不清零。
+    std::array<std::int32_t, 200> mailIndicesC9FCE4; // 窗口21三类名单共用的数值索引，不与CA0004重叠。
     std::int32_t valueCC31A4;
     std::int32_t valueD2E444;
     std::int32_t valueCB0604;
@@ -24484,6 +24485,327 @@ void Sub_4A2700()
         position = gLoginWindowRuntime.valuesD67B40[3 + category];
     }
     Sub_4742C0(&gCurrentWindow->elements[17], maximum, position);
+}
+
+void Sub_4A2C60()
+{
+    for (std::int32_t index = 0; index < 200; ++index) {
+        gLoginWindowRuntime.mailIndicesC9FCE4[index] = index;
+    }
+    // 原异常类别的入口寄存器暂存不专项模拟，不补默认项数。
+    std::uint32_t count;
+    switch (gLoginWindowRuntime.valuesD67B40[6]) {
+    case 0:
+        count = 60;
+        break;
+    case 1:
+        count = 200;
+        break;
+    case 2:
+        count = 20;
+        break;
+    }
+    // 复用已证53C112/53C266四字节路径，保留非严格比较器的原排序次序。
+    std::int32_t* first = gLoginWindowRuntime.mailIndicesC9FCE4.data();
+    std::int32_t* last = first + count - 1;
+    std::array<std::int32_t*, 30> firstStack;
+    std::array<std::int32_t*, 30> lastStack;
+    std::int32_t stackSize = 0;
+    for (;;) {
+        const auto length = last - first + 1;
+        if (length <= 8) {
+            while (last > first) {
+                std::int32_t* maximum = first;
+                for (std::int32_t* item = first + 1; item <= last; ++item) {
+                    if (Sub_4A2CC0(item, maximum) > 0) {
+                        maximum = item;
+                    }
+                }
+                std::swap(*maximum, *last);
+                --last;
+            }
+        } else {
+            std::swap(*(first + length / 2), *first);
+            std::int32_t* left = first;
+            std::int32_t* right = last + 1;
+            for (;;) {
+                do {
+                    ++left;
+                } while (left <= last && Sub_4A2CC0(left, first) <= 0);
+                do {
+                    --right;
+                } while (right > first && Sub_4A2CC0(right, first) >= 0);
+                if (right < left) {
+                    break;
+                }
+                std::swap(*left, *right);
+            }
+            std::swap(*first, *right);
+            if (right - first > last - left) {
+                if (first + 1 < right) {
+                    firstStack[stackSize] = first;
+                    lastStack[stackSize] = right - 1;
+                    ++stackSize;
+                }
+                if (left < last) {
+                    first = left;
+                    continue;
+                }
+            } else {
+                if (left < last) {
+                    firstStack[stackSize] = left;
+                    lastStack[stackSize] = last;
+                    ++stackSize;
+                }
+                if (first + 1 < right) {
+                    last = right - 1;
+                    continue;
+                }
+            }
+        }
+        if (--stackSize < 0) {
+            return;
+        }
+        first = firstStack[stackSize];
+        last = lastStack[stackSize];
+    }
+}
+
+std::int32_t Sub_4A2CC0(const std::int32_t* const left, const std::int32_t* const right)
+{
+    const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
+    if (category == 0) {
+        if (world::detail::gContactsF19FB0[*right].used == 0) {
+            return -1;
+        }
+        if (world::detail::gContactsF19FB0[*left].used == 0) {
+            return 1;
+        }
+    } else if (category == 1) {
+        if (login::detail::gOrderedRecords1051B14[*right].value08 == 0) {
+            return -1;
+        }
+        if (login::detail::gOrderedRecords1051B14[*left].value08 == 0) {
+            return 1;
+        }
+    } else if (category == 2) {
+        if (world::detail::ReadMiniMailContact1075A90(*right).used == 0) {
+            return -1;
+        }
+        if (world::detail::ReadMiniMailContact1075A90(*left).used == 0) {
+            return 1;
+        }
+        const std::int32_t rightIndex = *right;
+        const std::int32_t leftIndex = *left;
+        const auto* const other = &world::detail::ReadMiniMailContact1075A90(rightIndex);
+        const auto* const current = &world::detail::ReadMiniMailContact1075A90(leftIndex);
+        return Sub_4A3230(current, other);
+    }
+
+    const std::uint32_t mode = platform::gValueD67CD0;
+    if (mode > 4) {
+        return 0;
+    }
+    const std::int32_t rightIndex = *right;
+    if (category == 0) {
+        const std::int32_t leftIndex = *left;
+        const auto* const other = &world::detail::gContactsF19FB0[rightIndex];
+        const auto* const current = &world::detail::gContactsF19FB0[leftIndex];
+        switch (mode) {
+        case 0:
+            return Sub_4A3010(current, other);
+        case 1:
+            return Sub_4A3100(current, other);
+        case 2:
+            return Sub_4A3160(current, other);
+        case 3:
+            return Sub_4A31C0(&current->value04, &other->value04);
+        case 4:
+            return Sub_4A31E0(current, other);
+        }
+    } else {
+        const std::int32_t leftIndex = *left;
+        const auto* const other = &login::detail::gOrderedRecords1051B14[rightIndex];
+        const auto* const current = &login::detail::gOrderedRecords1051B14[leftIndex];
+        switch (mode) {
+        case 0:
+            return Sub_4A3070(current, other);
+        case 1:
+            return Sub_4A30D0(current, other);
+        case 2:
+            return Sub_4A3190(current, other);
+        case 3:
+            return Sub_4A31C0(&current->value04, &other->value04);
+        case 4:
+            return Sub_4A3260(current, other);
+        }
+    }
+    return 0;
+}
+
+std::int32_t Sub_4A3010(
+    const world::detail::ContactRuntimeRecord* const left,
+    const world::detail::ContactRuntimeRecord* const right)
+{
+    const int order = std::strcmp(left->name10.data(), right->name10.data());
+    if (order != 0) {
+        return order < 0 ? -1 : 1;
+    }
+    const std::int32_t leftSequence = left->value04;
+    const std::int32_t rightSequence = right->value04;
+    return leftSequence <= rightSequence ? -1 : 1;
+}
+
+std::int32_t Sub_4A3070(
+    const login::detail::OrderedRecord1051B14* const left,
+    const login::detail::OrderedRecord1051B14* const right)
+{
+    const int order = std::strcmp(left->text18, right->text18);
+    if (order != 0) {
+        return order < 0 ? -1 : 1;
+    }
+    const std::int32_t leftSequence = left->value04;
+    const std::int32_t rightSequence = right->value04;
+    return leftSequence <= rightSequence ? -1 : 1;
+}
+
+std::int32_t Sub_4A30D0(
+    const login::detail::OrderedRecord1051B14* const left,
+    const login::detail::OrderedRecord1051B14* const right)
+{
+    const std::int32_t leftValue = left->value00;
+    const std::int32_t rightValue = right->value00;
+    const std::int32_t order = leftValue - rightValue;
+    if (order != 0) {
+        return order;
+    }
+    const std::int32_t leftSequence = left->value04;
+    const std::int32_t rightSequence = right->value04;
+    return leftSequence <= rightSequence ? -1 : 1;
+}
+
+std::int32_t Sub_4A3100(
+    const world::detail::ContactRuntimeRecord* const left,
+    const world::detail::ContactRuntimeRecord* const right)
+{
+    const int order = std::strcmp(left->text32.data(), right->text32.data());
+    if (order != 0) {
+        return order < 0 ? -1 : 1;
+    }
+    const std::int32_t leftSequence = left->value04;
+    const std::int32_t rightSequence = right->value04;
+    return leftSequence <= rightSequence ? -1 : 1;
+}
+
+std::int32_t Sub_4A3160(
+    const world::detail::ContactRuntimeRecord* const left,
+    const world::detail::ContactRuntimeRecord* const right)
+{
+    const std::int32_t leftValue = left->value08;
+    const std::int32_t rightValue = right->value08;
+    const std::int32_t order = leftValue - rightValue;
+    if (order != 0) {
+        return order;
+    }
+    const std::int32_t leftSequence = left->value04;
+    const std::int32_t rightSequence = right->value04;
+    return leftSequence <= rightSequence ? -1 : 1;
+}
+
+std::int32_t Sub_4A3190(
+    const login::detail::OrderedRecord1051B14* const left,
+    const login::detail::OrderedRecord1051B14* const right)
+{
+    const std::int32_t leftValue = left->value10;
+    const std::int32_t rightValue = right->value10;
+    const std::int32_t order = leftValue - rightValue;
+    if (order != 0) {
+        return order;
+    }
+    const std::int32_t leftSequence = left->value04;
+    const std::int32_t rightSequence = right->value04;
+    return leftSequence <= rightSequence ? -1 : 1;
+}
+
+std::int32_t Sub_4A31C0(
+    const std::int32_t* const leftValue04, const std::int32_t* const rightValue04)
+{
+    const std::int32_t leftSequence = *leftValue04;
+    const std::int32_t rightSequence = *rightValue04;
+    return leftSequence <= rightSequence ? -1 : 1;
+}
+
+std::int32_t Sub_4A31E0(
+    const world::detail::ContactRuntimeRecord* const left,
+    const world::detail::ContactRuntimeRecord* const right)
+{
+    const std::int16_t leftShort = left->value02;
+    const std::int32_t leftValue = leftShort == 0 ? 0x7FFFFFFF : leftShort;
+    const std::int16_t rightShort = right->value02;
+    const std::int32_t rightValue = rightShort == 0 ? 0x7FFFFFFF : rightShort;
+    const std::int32_t order = leftValue - rightValue;
+    if (order != 0) {
+        return order;
+    }
+    const std::int32_t leftSequence = left->value04;
+    const std::int32_t rightSequence = right->value04;
+    return leftSequence <= rightSequence ? -1 : 1;
+}
+
+std::int32_t Sub_4A3230(
+    const world::detail::MiniMailContactRecord* const left,
+    const world::detail::MiniMailContactRecord* const right)
+{
+    const std::int32_t leftValue = std::bit_cast<std::int16_t>(left->sequence02);
+    const std::int32_t rightValue = std::bit_cast<std::int16_t>(right->sequence02);
+    const std::int32_t order = leftValue - rightValue;
+    if (order != 0) {
+        return order;
+    }
+    const std::int32_t leftSequence = left->key04;
+    const std::int32_t rightSequence = right->key04;
+    return leftSequence <= rightSequence ? -1 : 1;
+}
+
+std::int32_t Sub_4A3260(
+    const login::detail::OrderedRecord1051B14* const left,
+    const login::detail::OrderedRecord1051B14* const right)
+{
+    const std::int16_t leftShort = left->value0A;
+    const std::int32_t leftValue = leftShort == 0 ? 0x7FFFFFFF : leftShort;
+    const std::int16_t rightShort = right->value0A;
+    const std::int32_t rightValue = rightShort == 0 ? 0x7FFFFFFF : rightShort;
+    const std::int32_t order = leftValue - rightValue;
+    if (order != 0) {
+        return order;
+    }
+    const std::int32_t leftSequence = left->value04;
+    const std::int32_t rightSequence = right->value04;
+    return leftSequence <= rightSequence ? -1 : 1;
+}
+
+std::int32_t Sub_4A3950()
+{
+    return Sub_4A3960(0x80);
+}
+
+std::int32_t Sub_4A3960(const std::int32_t mask)
+{
+    const std::int32_t index = login::detail::ReadGuildTextIndex10514B0();
+    if (index == -1) {
+        return 0;
+    }
+    const std::int32_t flags = login::detail::ReadGuildRankFlags1051514(index);
+    return (flags & mask) != 0 ? 1 : 0;
+}
+
+std::int32_t Sub_4A3990(const std::int32_t index, const std::int32_t mask)
+{
+    if (login::detail::ReadGuildTextIndex10514B0() == -1) {
+        return 0;
+    }
+    const std::int32_t flags = login::detail::ReadGuildRankFlags1051514(index);
+    return (flags & mask) != 0 ? 1 : 0;
 }
 
 std::int32_t Sub_4A3820(const std::int32_t)

@@ -96,6 +96,20 @@ static_assert(offsetof(ContactRuntimeRecord, text53) == 0x53);
 static_assert(sizeof(ContactRuntimeRecord) == 0x74);
 
 extern std::array<ContactRuntimeRecord, 60> gContactsF19FB0;
+// 原1075A90起的20条74H记录；50F9E0生产，查找/收信/未读扫描共用。
+struct MiniMailContactRecord {
+    std::uint16_t used;
+    std::uint16_t sequence02;
+    std::int32_t key04;
+    std::int32_t value08;
+    std::int32_t value0C;
+    std::array<char, 17> name10;
+    std::array<char, 17> text21;
+    std::array<char, 33> text32;
+    std::array<std::byte, 0x21> bytes53;
+};
+
+const MiniMailContactRecord& ReadMiniMailContact1075A90(std::int32_t index); // 窗口21借用，存储仍归MailState。
 extern std::array<std::int32_t, 60> gContactIndicesFDA608; // 数值索引，不是地址。
 extern std::uint16_t gValue62B354; // 518DA0写未读类别0/1/2/3。
 extern std::uint32_t gValueCB1384; // 同源邮件页号，518C80清零。

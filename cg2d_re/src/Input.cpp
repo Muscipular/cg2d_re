@@ -4,6 +4,7 @@
 #include "cg/platform/KeyState.hpp"
 #include "cg/platform/LegacyTime.hpp"
 #include "cg/platform/Startup.hpp"
+#include "cg/ui/WindowRuntime.hpp"
 
 #include "InputKeyDispatchDependencies.hpp"
 #include "platform/WindowProcedureState.hpp"
@@ -1420,6 +1421,76 @@ void Sub_44B050(
 }
 
 } // namespace cg::world::detail
+
+namespace cg::input {
+
+void BrowseChatHistory_44A1B0()
+{
+    using world::detail::gChatHistory621FF8;
+    using world::detail::gCursor62683C;
+    NullSub_509080();
+    InputContext* const initialContext = gCurrentInputData;
+    if (initialContext != &gInputContext626AA0 || platform::gImeComposition[0] != '\0') {
+        return;
+    }
+    const std::uint8_t control = platform::gKeyStates[17] & 2u;
+    if (control == 0 && (platform::gKeyStates[16] & 2u) == 0
+        && (platform::gKeyStates[38] & 0x10u) != 0) {
+        const std::int32_t previous = gCursor62683C;
+        const auto tail = std::bit_cast<std::int32_t>(gChatHistory621FF8.tail626838);
+        std::int32_t selected = previous == -1 ? tail : previous - 1;
+        gCursor62683C = selected;
+        if (selected < 0) {
+            selected = 63;
+            gCursor62683C = selected;
+        }
+        if (gChatHistory621FF8.records[selected][0] == '\0'
+            || (selected == tail && previous != -1)) {
+            gCursor62683C = previous;
+            return;
+        }
+    } else {
+        // 向下复用已读Ctrl位，不增加Shift门禁或空记录检查。
+        if (control != 0 || (platform::gKeyStates[40] & 0x10u) == 0) {
+            return;
+        }
+        const std::int32_t selected = gCursor62683C;
+        if (selected == -1) {
+            return;
+        }
+        if (selected == std::bit_cast<std::int32_t>(gChatHistory621FF8.tail626838)) {
+            gCursor62683C = -1;
+            initialContext->totalByteLength = 0;
+            gCurrentInputData->text[0] = '\0';
+            gCurrentInputData->caretByteOffset = 0;
+            return;
+        }
+        const std::int32_t next = selected + 1;
+        gCursor62683C = next;
+        if (next >= 64) {
+            gCursor62683C = 0;
+        }
+    }
+    initialContext->totalByteLength = 0;
+    gCurrentInputData->text[0] = '\0';
+    gCurrentInputData->caretByteOffset = 0;
+    LoadInitialText_44A160(gChatHistory621FF8.records[gCursor62683C]);
+    std::array<char, 256> text;
+    std::strcpy(text.data(), gChatHistory621FF8.records[gCursor62683C]);
+    const auto length = static_cast<std::int32_t>(std::strlen(text.data()));
+    const std::int32_t width = ui::ReadChatInputByteWidth_4A80E0();
+    std::int32_t offset = length - width;
+    if (ClassifyLegacyBoundary_44B440(text.data(),
+            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(offset))) == 2) {
+        ++offset;
+    }
+    if (offset < 0) {
+        offset = 0;
+    }
+    gCurrentInputData->field158 = offset;
+}
+
+} // namespace cg::input
 
 namespace cg::input::detail {
 

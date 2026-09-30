@@ -32027,6 +32027,11 @@ std::int32_t Sub_4A7B00()
 
 } // namespace detail
 
+std::int32_t ReadChatInputByteWidth_4A80E0()
+{
+    return detail::gChatWidthUnitsC9A930 * 2;
+}
+
 WindowInstance* Sub_5342E0()
 {
     return OpenWindow_471440(64);

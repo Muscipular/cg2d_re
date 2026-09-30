@@ -136,6 +136,7 @@ InputContext* Sub_45D760(
 // 原 Input::AppendChar@[0x44ADB0,0x44B044)。
 void AppendChar_44ADB0(char character);
 void LoadInitialText_44A160(const char* initialText); // 向当前输入逐字追加，保留原287B上限。
+void BrowseChatHistory_44A1B0(); // 同源64条历史，Ctrl/Shift门禁差异及输入滚动尾；由场景调用。
 
 // 原476740：拒绝单字节逗号/竖线/反斜杠及全空白，80..FF按双字节扫描。
 std::int32_t Sub_476740(const char* text);

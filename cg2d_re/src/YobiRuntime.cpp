@@ -10,12 +10,15 @@
 #include "ui/WindowRuntimeState.hpp"
 
 #include "cg/AnimationRuntime.hpp"
+#include "cg/Blacklist.hpp"
 #include "cg/GraphicInfo.hpp"
 #include "cg/Input.hpp"
 #include "cg/LegacyAudio.hpp"
 #include "cg/Palette.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
+#include "cg/platform/KeyState.hpp"
+#include "cg/platform/LegacyCursor.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/platform/Startup.hpp"
@@ -30884,6 +30887,197 @@ std::int32_t GetYobiActionField2DC(const YobiAction* const action) noexcept
 float GetYobiActionScaleY(const YobiAction* const action) noexcept
 {
     return action->scaleY;
+}
+
+std::int32_t ReadYobiGraphicOffsetX(const YobiAction* const action) noexcept
+{
+    return action->graphicOffsetX;
+}
+
+std::int32_t ReadYobiGraphicOffsetY(const YobiAction* const action) noexcept
+{
+    return action->graphicOffsetY;
+}
+
+std::uint32_t ReadYobiActionFlags(const YobiAction* const action) noexcept
+{
+    return action->flags;
+}
+
+void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
+{
+    constexpr char kFull58AD04[] =
+        "\xB5\xA5\xAF\xC5 %-3d %-16s  \xA5\xCD\xA9\x52 %4d/%-4d  \xC5\x5D\xA4\x4F %4d/%-4d";
+    constexpr char kLevel58AD5C[] = "\xB5\xA5\xAF\xC5 %-3d %-16s";
+    constexpr char kTitle58AD44[] = "\xB5\xA5\xAF\xC5 %-3d %-16s [%-16s]";
+    constexpr char kFullBlacklist553294[] =
+        "\xA7\x41\xAA\xBA\xB6\xC2\xA6\x57\xB3\xE6\xA4\x77\xBA\xA1\xA1\x41\xB5\x4C\xAA\x6B\xA6\x41\xA5\x5B\xA4\x4A";
+    constexpr char kAddFailed5532B0[] = "%s\xA5\x5B\xA4\x4A\xB6\xC2\xA6\x57\xB3\xE6\xA5\xA2\xB1\xD1";
+    constexpr char kAdded5532C4[] = "\xA4\x77\xB1\x4E%s\xA5\x5B\xA4\x4A\xB6\xC2\xA6\x57\xB3\xE6";
+    constexpr char kRemoveFailed5532D8[] = "\xB1\x71\xB6\xC2\xA6\x57\xB3\xE6\xB2\xBE\xB0\xA3%s\xA5\xA2\xB1\xD1";
+    constexpr char kRemoved5532EC[] = "\xA4\x77\xB1\x4E%s\xB1\x71\xB6\xC2\xA6\x57\xB3\xE6\xA4\xA4\xB2\xBE\xB0\xA3";
+    constexpr char kAlready554928[] = "%s\xA4\x77\xA6\x62\xB6\xC2\xA6\x57\xB3\xE6\xA4\xA4";
+    constexpr char kAbsent58AD34[] = "%s\xA4\xA3\xA6\x62\xB6\xC2\xA6\x57\xB3\xE6\xA4\xA4";
+    using namespace ui::detail;
+    using namespace world::detail;
+
+    YobiAction* action = graphic->reference.action;
+    if (action == nullptr || (action->flags & 0x10u) == 0) {
+        return;
+    }
+    const std::int32_t scene = world::gCurrentSceneType;
+    std::int32_t companion = action->field1D8;
+    gHoverObjectValueD68AC8 = companion;
+    if (scene == 9) {
+        action = graphic->reference.action;
+        if (action->imageNo <= 0) {
+            return;
+        }
+        const std::uint32_t flags = action->flags;
+        if ((flags & 0x80u) != 0) {
+            gHoverObjectValueD68AC8 = action->field1D8;
+            YobiAction* const fixed = graphic->reference.action;
+            const std::int32_t maxFp = ReadPlayerMaxFpOnce();
+            const std::int32_t fp = ReadPlayerFpOnce();
+            const std::int32_t maxHp = ReadPlayerMaxHpOnce();
+            const std::int32_t hp = ReadPlayerHpOnce();
+            std::sprintf(gHoverTextD68AE8.data(), kFull58AD04,
+                fixed->field1D0, fixed->nameC4.data(), hp, maxHp, fp, maxFp);
+        } else if ((flags & 0x80000u) != 0) {
+            gHoverObjectValueD68AC8 = action->field1D8;
+            YobiAction* const fixed = graphic->reference.action;
+            // 原额外字符串实参不被本格式消费，不增加显示内容。
+            std::sprintf(gHoverTextD68AE8.data(), kLevel58AD5C,
+                fixed->field1D0, fixed->nameC4.data(), fixed->titleE1.data());
+        } else if ((flags & 0x100u) != 0) {
+            gHoverObjectValueD68AC8 = action->field1D8;
+            YobiAction* const fixed = graphic->reference.action;
+            std::sprintf(gHoverTextD68AE8.data(), kTitle58AD44,
+                fixed->field1D0, fixed->nameC4.data(), fixed->titleE1.data());
+            const char* const title = graphic->reference.action->text144.data();
+            if (std::strlen(title) != 0) {
+                std::sprintf(gHoverTitleD68BF4.data(), "%-16s", title);
+                gHoverTitleValueD69748 = 4;
+            }
+            const std::uint8_t control = platform::gKeyStates[0x11] & 2u;
+            if (control != 0 && (platform::gKeyStates[0x2D] & 4u) != 0) {
+                if (blacklist::GetBlacklistCount_401190() >= 72) {
+                    Sub_44B050(kFullBlacklist553294, 4, 3);
+                    return;
+                }
+                const char* const name = graphic->reference.action->nameC4.data();
+                if (name == nullptr) {
+                    return;
+                }
+                char message[128];
+                if (blacklist::ContainsBlacklistRecord_4013D0(name) == 0) {
+                    const std::int8_t added = blacklist::AddBlacklistRecord_401270(
+                        graphic->reference.action->nameC4.data());
+                    std::sprintf(message, added != 0 ? kAdded5532C4 : kAddFailed5532B0,
+                        graphic->reference.action->nameC4.data());
+                } else {
+                    std::sprintf(message, kAlready554928, graphic->reference.action->nameC4.data());
+                }
+                Sub_44B050(message, 4, 3);
+            } else if (control != 0 && (platform::gKeyStates[0x2E] & 4u) != 0) {
+                const char* const name = graphic->reference.action->nameC4.data();
+                if (name == nullptr) {
+                    return;
+                }
+                char message[128];
+                if (blacklist::ContainsBlacklistRecord_4013D0(name) != 0) {
+                    const std::int8_t removed = blacklist::RemoveBlacklistRecord_4012F0(
+                        graphic->reference.action->nameC4.data());
+                    std::sprintf(message, removed != 0 ? kRemoved5532EC : kRemoveFailed5532D8,
+                        graphic->reference.action->nameC4.data());
+                } else {
+                    std::sprintf(message, kAbsent58AD34, graphic->reference.action->nameC4.data());
+                }
+                Sub_44B050(message, 4, 3);
+            }
+        } else if ((flags & 0x200u) != 0) {
+            const char* name = action->titleE1.data();
+            if (*name == '\0') {
+                name = action->nameC4.data();
+            }
+            std::sprintf(gHoverTextD68AE8.data(), kLevel58AD5C, action->field1D0, name);
+            static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
+        } else if ((flags & 0x400u) != 0) {
+            gHoverObjectValueD68AC8 = action->field1D8;
+            YobiAction* const fixed = graphic->reference.action;
+            const std::int32_t count = static_cast<MapActorPayload*>(fixed->payload)->value18;
+            if (count > 0) {
+                std::sprintf(gHoverTextD68AE8.data(), "%s(%d)", fixed->nameC4.data(), count);
+            } else {
+                std::sprintf(gHoverTextD68AE8.data(), "%s", fixed->nameC4.data());
+            }
+            static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
+        } else if ((flags & 0x800u) != 0) {
+            std::sprintf(gHoverTextD68AE8.data(), "%s", action->nameC4.data());
+            static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
+        } else if ((flags & 0x1000u) != 0) {
+            std::sprintf(gHoverTextD68AE8.data(), "%s", action->nameC4.data());
+        }
+        return;
+    }
+    if (scene != 10) {
+        return;
+    }
+
+    const std::int32_t position = gBattleCurrentPosition5ABCA4;
+    action = graphic->reference.action;
+    const auto* const payload = static_cast<const BattleActorPayload*>(action->payload);
+    if (position < 10) {
+        if (payload != nullptr && payload->battlePosition18 < 10) {
+            if ((payload->flagsFDC & 0x2000u) != 0) {
+                companion = 4;
+            }
+            gHoverObjectValueD68AC8 = companion;
+        } else {
+            if ((action->flags & 0x02000000u) == 0) {
+                std::sprintf(gHoverTextD68AE8.data(), kLevel58AD5C,
+                    action->field1D0, action->nameC4.data());
+            }
+            return;
+        }
+    } else if (position < 20) {
+        if (payload != nullptr && payload->battlePosition18 < 10) {
+            if ((payload->flagsFDC & 0x2000u) != 0) {
+                companion = 4;
+            }
+            gHoverObjectValueD68AC8 = companion;
+            YobiAction* const fixed = graphic->reference.action;
+            std::sprintf(gHoverTextD68AE8.data(), kLevel58AD5C,
+                fixed->field1D0, fixed->nameC4.data());
+            return;
+        }
+        if ((action->flags & 0x02000000u) != 0) {
+            return;
+        }
+    } else {
+        if (payload != nullptr && payload->battlePosition18 < 10) {
+            if ((payload->flagsFDC & 0x2000u) != 0) {
+                companion = 4;
+            }
+            gHoverObjectValueD68AC8 = companion;
+        }
+        YobiAction* const fixed = graphic->reference.action;
+        std::sprintf(gHoverTextD68AE8.data(), kLevel58AD5C,
+            fixed->field1D0, fixed->nameC4.data());
+        return;
+    }
+
+    // 原507AEA/507B8F固定首对象供名称/等级，后续三个CryptInt仍逐次重取对象。
+    YobiAction* const fixed = graphic->reference.action;
+    const std::int32_t maxFp = platform::legacy_crypt_int::Read_401EC0(&fixed->barMaximum1C0);
+    const std::int32_t fp = platform::legacy_crypt_int::Read_401EC0(
+        &graphic->reference.action->barValue1B0);
+    const std::int32_t maxHp = platform::legacy_crypt_int::Read_401EC0(
+        &graphic->reference.action->maxHp);
+    const std::int32_t hp = platform::legacy_crypt_int::Read_401EC0(
+        &graphic->reference.action->readiness);
+    std::sprintf(gHoverTextD68AE8.data(), kFull58AD04,
+        fixed->field1D0, fixed->nameC4.data(), hp, maxHp, fp, maxFp);
 }
 
 void ClearYobiActionCallback(YobiAction* const action)

@@ -105,6 +105,7 @@ add_library(cg2d_re_startup STATIC
     src/ui/WindowPrototypes.cpp
     src/network/NetworkRuntime.cpp
     src/render/GraphicPendingQueue.cpp
+    src/render/GraphicHitTest.cpp
     src/render/DrawAllQueued.cpp
     src/render/LegacyTextureDrawing.cpp
     src/render/InputText.cpp

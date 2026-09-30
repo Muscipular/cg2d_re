@@ -166,6 +166,130 @@ WindowTextPrototype gWindowText55FD58 {
     {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow7DuelPoint5861B4,
 };
 
+WindowGraphicData gWindowGraphic560680 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic560698 {0x3BAB5, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic5606B0 {0x3B584, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic5606C8 {0x3BAB8, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic5606E0 {0x3B53B, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic5606F8 {0x3BAB4, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic560710 {0x3C10E, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic560728 {0x3BAB1, 0, 0, 0, 0, 0x80FFFFFFu};
+WindowGraphicData gWindowGraphic560740 {0x3C110, 0, 0, 0, 0, 0xFFFFFFFFu};
+constexpr char kWindow8Text5861A8[] = "\xB7\x73\xBC\x57\xC2\x49\xBC\xC6";
+constexpr char kWindow8Text5861A0[] = "\xC5\xE9\xA4\x4F";
+constexpr char kWindow8Text586198[] = "\xA4\x4F\xB6\x71";
+constexpr char kWindow8Text586190[] = "\xB1\x6A\xAB\xD7";
+constexpr char kWindow8Text586188[] = "\xB3\x74\xAB\xD7";
+constexpr char kWindow8Text586180[] = "\xC5\x5D\xAA\x6B";
+constexpr char kWindow8Text586178[] = "\xA7\xF0\xC0\xBB";
+constexpr char kWindow8Text586170[] = "\xA8\xBE\xBF\x6D";
+constexpr char kWindow8Text586168[] = "\xB1\xD3\xB1\xB6";
+constexpr char kWindow8Text586160[] = "\xBA\xEB\xAF\xAB";
+constexpr char kWindow8Text586158[] = "\xA6\x5E\xB4\x5F";
+constexpr char kWindow8Text586150[] = "\xBE\x79\xA4\x4F";
+constexpr char kWindow8Text586148[] = "\xA7\xDC\xAC\x72";
+constexpr char kWindow8Text586140[] = "\xA7\xDC\xA9\xFC\xBA\xCE";
+constexpr char kWindow8Text586138[] = "\xA7\xDC\xA5\xDB\xA4\xC6";
+constexpr char kWindow8Text586130[] = "\xA7\xDC\xBE\x4B";
+constexpr char kWindow8Text586128[] = "\xA7\xDC\xB2\x56\xB6\xC3";
+constexpr char kWindow8Text586120[] = "\xA7\xDC\xBF\xF2\xA7\xD1";
+constexpr char kWindow8Text586118[] = "\xA5\xB2\xB1\xFE\xB2\x76";
+constexpr char kWindow8Text586110[] = "\xA4\xCF\xC0\xBB\xB2\x76";
+constexpr char kWindow8Text586108[] = "\xA9\x52\xA4\xA4\xB2\x76";
+constexpr char kWindow8Text586100[] = "\xB0\x7B\xB8\xFA\xB2\x76";
+constexpr char kWindow8Text5860F8[] = "\xAD\x40\xA4\x4F";
+constexpr char kWindow8Text5860F0[] = "\xC6\x46\xA5\xA9";
+constexpr char kWindow8Text5860E8[] = "\xB4\xBC\xA4\x4F";
+constexpr char kWindow8Text5860E0[] = "\xC5\x5D\xA7\xF0";
+constexpr char kWindow8Text5860D8[] = "\xC5\x5D\xA8\xBE";
+WindowTextPrototype gWindowText560758 {
+    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow26Name586230,
+};
+WindowTextPrototype gWindowText560760 {
+    {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow10Level586228,
+};
+WindowTextPrototype gWindowText560768 {
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow8Text5861A8,
+};
+WindowTextPrototype gWindowText560770 {
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow8Text5861A0,
+};
+WindowTextPrototype gWindowText560778 {
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow8Text586198,
+};
+WindowTextPrototype gWindowText560780 {
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow8Text586190,
+};
+WindowTextPrototype gWindowText560788 {
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow8Text586188,
+};
+WindowTextPrototype gWindowText560790 {
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow8Text586180,
+};
+WindowTextPrototype gWindowText560798 {
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow8Text586178,
+};
+WindowTextPrototype gWindowText5607A0 {
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow8Text586170,
+};
+WindowTextPrototype gWindowText5607A8 {
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow8Text586168,
+};
+WindowTextPrototype gWindowText5607B0 {
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow8Text586160,
+};
+WindowTextPrototype gWindowText5607B8 {
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow8Text586158,
+};
+WindowTextPrototype gWindowText5607C0 {
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow8Text586150,
+};
+WindowTextPrototype gWindowText5607C8 {
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow8Text586148,
+};
+WindowTextPrototype gWindowText5607D0 {
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow8Text586140,
+};
+WindowTextPrototype gWindowText5607D8 {
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow8Text586138,
+};
+WindowTextPrototype gWindowText5607E0 {
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow8Text586130,
+};
+WindowTextPrototype gWindowText5607E8 {
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow8Text586128,
+};
+WindowTextPrototype gWindowText5607F0 {
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow8Text586120,
+};
+WindowTextPrototype gWindowText5607F8 {
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow8Text586118,
+};
+WindowTextPrototype gWindowText560800 {
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow8Text586110,
+};
+WindowTextPrototype gWindowText560808 {
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow8Text586108,
+};
+WindowTextPrototype gWindowText560810 {
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow8Text586100,
+};
+WindowTextPrototype gWindowText560818 {
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow8Text5860F8,
+};
+WindowTextPrototype gWindowText560820 {
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow8Text5860F0,
+};
+WindowTextPrototype gWindowText560828 {
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow8Text5860E8,
+};
+WindowTextPrototype gWindowText560830 {
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow8Text5860E0,
+};
+WindowTextPrototype gWindowText560838 {
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow8Text5860D8,
+};
+
 WindowGraphicData gWindowGraphic561FE0 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic561FF8 {0x3BA38, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic562010 {0x3BA3A, 0, 0, 0, 0, 0xFFFFFFFFu};
@@ -1384,6 +1508,52 @@ WindowElementPrototype gWindowElements55FD60[73] {
     {1, 16, 29, 0, 0, 1, {.graphic = &gWindowGraphic55FC90}, &Sub_4B0F10},
     {1, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic55FCA8}, &Sub_4B0F10},
     {1, 12, 27, 0, 0, 1, {.graphic = &gWindowGraphic55FCC0}, &Sub_4B0F10},
+    {0, 315, 0, 20, 130, 1, {.unusedValue = 0}, &Sub_474170},
+};
+
+WindowElementPrototype gWindowElements560840[43] {
+    {3, 70, 10, 0, 0, 1, {.text = &gWindowText560758}, &Sub_4B0F10},
+    {3, 272, 11, 0, 0, 1, {.text = &gWindowText560760}, &Sub_4B0F10},
+    {3, 130, 31, 0, 0, 1, {.text = &gWindowText560768}, &Sub_4B0F10},
+    {3, 124, 48, 0, 0, 1, {.text = &gWindowText560770}, &Sub_4B0F10},
+    {3, 124, 64, 0, 0, 1, {.text = &gWindowText560778}, &Sub_4B0F10},
+    {3, 124, 80, 0, 0, 1, {.text = &gWindowText560780}, &Sub_4B0F10},
+    {3, 124, 96, 0, 0, 1, {.text = &gWindowText560788}, &Sub_4B0F10},
+    {3, 124, 112, 0, 0, 1, {.text = &gWindowText560790}, &Sub_4B0F10},
+    {3, 46, 159, 0, 0, 1, {.text = &gWindowText560798}, &Sub_4B0F10},
+    {3, 46, 175, 0, 0, 1, {.text = &gWindowText5607A0}, &Sub_4B0F10},
+    {3, 46, 191, 0, 0, 1, {.text = &gWindowText5607A8}, &Sub_4B0F10},
+    {3, 46, 207, 0, 0, 1, {.text = &gWindowText560830}, &Sub_4B0F10},
+    {3, 124, 159, 0, 0, 1, {.text = &gWindowText5607B0}, &Sub_4B0F10},
+    {3, 124, 175, 0, 0, 1, {.text = &gWindowText5607B8}, &Sub_4B0F10},
+    {3, 124, 191, 0, 0, 1, {.text = &gWindowText5607C0}, &Sub_4B0F10},
+    {3, 124, 207, 0, 0, 1, {.text = &gWindowText560838}, &Sub_4B0F10},
+    {3, 212, 48, 0, 0, 1, {.text = &gWindowText5607C8}, &Sub_4B0F10},
+    {3, 212, 64, 0, 0, 1, {.text = &gWindowText5607D0}, &Sub_4B0F10},
+    {3, 212, 80, 0, 0, 1, {.text = &gWindowText5607D8}, &Sub_4B0F10},
+    {3, 284, 48, 0, 0, 1, {.text = &gWindowText5607E0}, &Sub_4B0F10},
+    {3, 284, 64, 0, 0, 1, {.text = &gWindowText5607E8}, &Sub_4B0F10},
+    {3, 284, 80, 0, 0, 1, {.text = &gWindowText5607F0}, &Sub_4B0F10},
+    {3, 212, 137, 0, 0, 1, {.text = &gWindowText5607F8}, &Sub_4B0F10},
+    {3, 212, 153, 0, 0, 1, {.text = &gWindowText560800}, &Sub_4B0F10},
+    {3, 284, 137, 0, 0, 1, {.text = &gWindowText560808}, &Sub_4B0F10},
+    {3, 284, 153, 0, 0, 1, {.text = &gWindowText560810}, &Sub_4B0F10},
+    {3, 212, 191, 0, 0, 1, {.text = &gWindowText560818}, &Sub_4B0F10},
+    {3, 284, 191, 0, 0, 1, {.text = &gWindowText560820}, &Sub_4B0F10},
+    {3, 284, 207, 0, 0, 1, {.text = &gWindowText560828}, &Sub_4B0F10},
+    {1, 94, 48, 11, 11, 1, {.graphic = &gWindowGraphic5606E0}, &Sub_475E00},
+    {1, 94, 64, 11, 11, 1, {.graphic = &gWindowGraphic5606E0}, &Sub_475E00},
+    {1, 94, 80, 11, 11, 1, {.graphic = &gWindowGraphic5606E0}, &Sub_475E00},
+    {1, 94, 96, 11, 11, 1, {.graphic = &gWindowGraphic5606E0}, &Sub_475E00},
+    {1, 94, 112, 11, 11, 1, {.graphic = &gWindowGraphic5606E0}, &Sub_475E00},
+    {1, 296, 8, 12, 12, 1, {.graphic = &gWindowGraphic560680}, &Sub_4C1FB0},
+    {1, 151, 230, 38, 25, 1, {.graphic = &gWindowGraphic560698}, &Sub_475E00},
+    {1, 204, 231, 38, 25, 1, {.graphic = &gWindowGraphic5606B0}, &Sub_4B0F10},
+    {1, 258, 230, 38, 25, 1, {.graphic = &gWindowGraphic5606C8}, &Sub_475E00},
+    {1, 94, 230, 38, 25, 1, {.graphic = &gWindowGraphic560740}, &Sub_475E00},
+    {1, 15, 28, 0, 0, 1, {.graphic = &gWindowGraphic5606F8}, &Sub_4B0F10},
+    {1, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic560710}, &Sub_4B0F10},
+    {1, 12, 27, 0, 0, 1, {.graphic = &gWindowGraphic560728}, &Sub_4B0F10},
     {0, 315, 0, 20, 130, 1, {.unusedValue = 0}, &Sub_474170},
 };
 

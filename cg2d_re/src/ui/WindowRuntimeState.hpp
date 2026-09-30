@@ -1253,6 +1253,7 @@ std::int32_t Sub_48AA60(std::int32_t index, std::int32_t state);
 std::int32_t Sub_48AB10(std::int32_t index, std::int32_t state);
 std::int32_t Sub_474170(std::int32_t unusedIndex, std::int32_t state);
 std::int32_t Sub_474BE0(std::int32_t index, std::int32_t state); // 窗口7资料切页及前后排请求。
+std::int32_t Sub_475E00(std::int32_t index, std::int32_t state); // 窗口8入口六值快照、加点及切页。
 void Sub_48BB90(
     std::int32_t unusedWindow, std::int32_t unusedElement,
     std::int32_t source, std::int32_t target); // 普通/窗口41两路宠物换位请求。

@@ -32371,6 +32371,99 @@ void Sub_474310()
     }
 }
 
+// 原475E00：先按原顺序采样六值，连默认分支也计算门槛；区别于4767E0重读。
+std::int32_t Sub_475E00(const std::int32_t index, const std::int32_t state)
+{
+    std::array<std::int32_t, 6> values;
+    values[1] = world::detail::ReadPlayerValue78(1);
+    values[2] = world::detail::ReadPlayerValue78(2);
+    values[3] = world::detail::ReadPlayerValue78(3);
+    values[4] = world::detail::ReadPlayerValue78(4);
+    values[5] = world::detail::gValueD2F788;
+    values[0] = world::detail::ReadPlayerValue78(0);
+    std::int32_t total = 0;
+    for (const std::int32_t value : values) {
+        total += value;
+    }
+    const std::int32_t limit = total / 2;
+
+    if (index >= 29 && index <= 33) {
+        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+        std::int32_t consumed = 0;
+        if ((state & 1) != 0) {
+            graphic->imageNo = 0x3B53D;
+            std::strcpy(gHoverTextD68AE8.data(),
+                "\xA4\xC0\xB0\x74\xC2\x49\xBC\xC6\xA6\xDC\xA5\xD8\xAB\x65\xAA\xBA"
+                "\xAF\xE0\xA4\x4F\xBC\xC6\xAD\xC8\xA1\x43");
+            consumed = 1;
+        } else {
+            graphic->imageNo = 0x3B53B;
+        }
+        if ((state & 2) != 0) {
+            if (values[index - 29] < limit) {
+                static_cast<void>(network::Sub_5123B0(platform::gConnectionSocket, index - 29));
+                static_cast<void>(audio::PlaySe_52C450(78, 320));
+            }
+            return 1;
+        }
+        return consumed;
+    }
+
+    std::int32_t idleImage;
+    std::int32_t hoverImage;
+    std::int32_t targetWindow;
+    const char* hint;
+    switch (index) {
+    case 35:
+        idleImage = 0x3BAB5;
+        hoverImage = 0x3BAB7;
+        targetWindow = 7;
+        hint = "\xA4\xC1\xB4\xAB\xA6\xA8\xAA\xB1\xAE\x61\xAA\xAC\xBA\x41\xB5\xF8\xB5\xA1\xA1\x43";
+        break;
+    case 37:
+        idleImage = 0x3BAB8;
+        hoverImage = 0x3BABA;
+        targetWindow = 9;
+        hint = "\xA4\xC1\xB4\xAB\xA6\xA8\xAA\xB1\xAE\x61\xBA\xD9\xB8\xB9\xB5\xF8\xB5\xA1\xA1\x43";
+        break;
+    case 38:
+        if (character_select::state::gPukVersion < 8u) {
+            static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo =
+                0x3C111;
+            return 0;
+        }
+        idleImage = 0x3C111;
+        hoverImage = 0x3C112;
+        targetWindow = 58;
+        hint = "\xA4\xC1\xB4\xAB\xA6\xA8\xAA\xB1\xAE\x61\xC2\xB2\xA4\xB6\xB5\xF8\xB5\xA1";
+        break;
+    default:
+        return 0;
+    }
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    std::int32_t consumed = 0;
+    if ((state & 1) != 0) {
+        graphic->imageNo = hoverImage;
+        std::strcpy(gHoverTextD68AE8.data(), hint);
+        consumed = 1;
+    } else {
+        graphic->imageNo = idleImage;
+    }
+    if ((state & 2) != 0 && gWindowStates[targetWindow].window == nullptr) {
+        gCurrentWindow->state |= 0x8000u;
+        static_cast<void>(OpenWindow_471440(targetWindow));
+        WindowInstance* const xSource = gCurrentWindow;
+        WindowInstance* const xTarget = gWindowStates[targetWindow].window;
+        xTarget->x = xSource->x;
+        WindowInstance* const ySource = gCurrentWindow;
+        WindowInstance* const yTarget = gWindowStates[targetWindow].window;
+        yTarget->y = ySource->y;
+        static_cast<void>(audio::PlaySe_52C450(56, 320));
+        consumed = 1;
+    }
+    return consumed;
+}
+
 // 原4767E0：逐项格式化后重取元素；点数门槛阶段独立读取，见window_8.md。
 void Sub_4767E0()
 {

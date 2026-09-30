@@ -3987,6 +3987,8 @@ std::int32_t gBattleMReadIndex5AAA68 = 0;
 std::array<char, 0x4000> gBattleCQueue5A4A3C {};
 std::array<char, 0x4000> gBattleMQueue59FA18 {};
 std::array<char, 0x1000> gBattleCText5A3A20 {};
+std::int32_t gBattleCOffset5ABA80 = 0;
+std::uint32_t gBattleFieldFlags5ABB58 = 0;
 std::array<char, 0x1000> gBattleMText5AAA7C {};
 std::int32_t gBattleMScanOffset5A8A3C = 0;
 std::int32_t gBattleMPreviewOffset5AAA60 = 0;

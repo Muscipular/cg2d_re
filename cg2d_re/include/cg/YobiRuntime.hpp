@@ -275,6 +275,9 @@ std::int32_t PeekBattleMInteger_43B860(YobiAction* action); // 只预读，不�
 std::int32_t GetBattleMObjectHeader_423960(YobiAction* action, char* destination);
 YobiAction* NewBattleActor_438290(std::int32_t position); // 基础创建与404DB0绑定；完整角色属性由各caller生产。
 void ParseBattleMRide_4239D0(YobiAction* action); // RID预读/实际消费差异，双新对象交226恢复发布。
+std::int32_t TakeBattleCInteger_438450(); // C独立全局游标，大写十六进制读取。
+void TakeBattleCString_4384C0(char* destination, std::int32_t capacity); // 原双字节截断，尾部反转义/空叶。
+void ParseBattleC_438550(); // 完整C角色/附件生产及22槽缺席清理；43CBB0父入口尚待。
 void FinishBattleEvent_43B6C0(YobiAction* action); // 推进同一事件消息或注销当前槽后MarkDeath。
 void AppendBattleQueuedTarget_43B7F0(YobiAction* action, std::int32_t value);
 std::int32_t AdvanceBattleQueuedTarget_43B830(YobiAction* action); // 先推进13A4，再判断新槽是否为-1。

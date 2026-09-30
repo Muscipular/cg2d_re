@@ -1155,6 +1155,8 @@ extern std::int32_t gBattleMReadIndex5AAA68;
 extern std::array<char, 0x4000> gBattleCQueue5A4A3C; // 四槽，每槽1000H；50D120只清各首字节。
 extern std::array<char, 0x4000> gBattleMQueue59FA18;
 extern std::array<char, 0x1000> gBattleCText5A3A20; // 场景从C队列复制的活动原字节文本。
+extern std::int32_t gBattleCOffset5ABA80; // 438550先写2；438450/4384C0消费，与C队列索引独立。
+extern std::uint32_t gBattleFieldFlags5ABB58; // 438550发布完整W32，43CBB0随后检查bit20。
 extern std::array<char, 0x1000> gBattleMText5AAA7C;
 extern std::int32_t gBattleMScanOffset5A8A3C; // M头扫描S32游标，非队列索引或对象载荷64游标。
 extern std::int32_t gBattleMPreviewOffset5AAA60; // 439600/439700预扫描游标，由43B290复制头游标。

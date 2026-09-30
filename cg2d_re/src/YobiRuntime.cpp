@@ -539,7 +539,7 @@ struct BattleScenePayload {
     std::int32_t messageValueA4;
     std::uint32_t entryMaskA8; // 4394A0参与对象位图，含特殊槽20/21。
     std::int32_t waitCountAC; // 忙状态每次检查递增，超时逐对象恢复后清零。
-    YobiAction* fieldEffectB0; // 41FFE0发布的非拥有场地特效；438550清理父链仍待。
+    YobiAction* fieldEffectB0; // 41FFE0发布的非拥有场地特效；438550无场地标志时标死并重取载荷清槽。
 };
 
 // 4390E0/4391E0仅共享此写序；各自队列尾、技能及朝向处理保持独立。
@@ -12659,6 +12659,427 @@ void ParseBattleMRide_4239D0(YobiAction* const action)
             AppendBattleCast_4392A0(action, secondActor, 10);
         }
         scene->packetOffset64 = previewOffset;
+    }
+}
+
+std::int32_t TakeBattleCInteger_438450()
+{
+    using namespace world::detail;
+    std::int32_t offset = gBattleCOffset5ABA80;
+    std::uint32_t result = 0;
+    bool hasDigit = false;
+    for (;;) {
+        const auto value = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(gBattleCText5A3A20[offset]));
+        if (value == 0) {
+            break;
+        }
+        if ((value >= '0' && value <= '9') || (value >= 'A' && value <= 'F')) {
+            if (hasDigit) {
+                result <<= 4;
+            } else {
+                hasDigit = true;
+            }
+            result += static_cast<std::uint32_t>(value - (value < 'A' ? '0' : '7'));
+            ++offset;
+        } else if (hasDigit || value == '|') {
+            gBattleCOffset5ABA80 = offset;
+            ++offset;
+            break;
+        } else {
+            ++offset;
+        }
+    }
+    gBattleCOffset5ABA80 = offset;
+    return std::bit_cast<std::int32_t>(result);
+}
+
+void TakeBattleCString_4384C0(char* const destination, const std::int32_t capacity)
+{
+    using namespace world::detail;
+    std::int32_t written = 0;
+    for (;;) {
+        const char byte = gBattleCText5A3A20[gBattleCOffset5ABA80];
+        const auto value = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(byte));
+        if (byte == '\0') {
+            break;
+        }
+        if (byte == '|') {
+            ++gBattleCOffset5ABA80;
+            break;
+        }
+        if (written >= capacity - 1) {
+            if (value < 0) {
+                ++gBattleCOffset5ABA80;
+            }
+            ++gBattleCOffset5ABA80;
+            continue;
+        }
+        destination[written] = byte;
+        if (value < 0) {
+            const std::int32_t offset = gBattleCOffset5ABA80;
+            ++written;
+            if (written >= capacity - 1) {
+                gBattleCOffset5ABA80 = offset + 1;
+                ++gBattleCOffset5ABA80;
+                continue;
+            }
+            const char nextByte = gBattleCText5A3A20[offset + 1];
+            gBattleCOffset5ABA80 = offset + 1;
+            destination[written] = nextByte;
+        }
+        ++written;
+        ++gBattleCOffset5ABA80;
+    }
+    destination[written] = '\0';
+    input::UnescapeLegacyTextAndNotify_52D2F0(destination);
+}
+
+void ParseBattleC_438550()
+{
+    using namespace world::detail;
+    using namespace platform::legacy_crypt_int;
+    std::uint32_t present = 0;
+    gBattleCOffset5ABA80 = 2;
+    const auto fieldFlags = static_cast<std::uint32_t>(TakeBattleCInteger_438450());
+    gBattleFieldFlags5ABB58 = fieldFlags;
+    if ((fieldFlags & 0x20u) != 0) {
+        return;
+    }
+    if ((fieldFlags & 1u) != 0) {
+        static_cast<void>(NewBattleFieldEffect_41FFE0(110092));
+    } else if ((fieldFlags & 2u) != 0) {
+        static_cast<void>(NewBattleFieldEffect_41FFE0(110089));
+    } else if ((fieldFlags & 4u) != 0) {
+        static_cast<void>(NewBattleFieldEffect_41FFE0(110090));
+    } else if ((fieldFlags & 8u) != 0) {
+        static_cast<void>(NewBattleFieldEffect_41FFE0(110091));
+    } else if ((fieldFlags & 0x10u) != 0) {
+        static_cast<void>(NewBattleFieldEffect_41FFE0(110155));
+    } else {
+        static_cast<void>(MarkDeath(static_cast<BattleScenePayload*>(gBattleSceneAction5ABA94->payload)->fieldEffectB0));
+        static_cast<BattleScenePayload*>(gBattleSceneAction5ABA94->payload)->fieldEffectB0 = nullptr;
+    }
+
+    while (gBattleCText5A3A20[gBattleCOffset5ABA80] != '\0') {
+        std::int32_t position = TakeBattleCInteger_438450();
+        if (position < 0 || position >= 22) {
+            position = 0;
+        }
+        present |= 1u << position;
+        YobiAction** const slot = &gBattleAllEntries59E980[position];
+        if (*slot == nullptr) {
+            *slot = NewBattleActor_438290(position);
+            ResetBattleCastList_4391E0(position);
+        }
+        YobiAction* const actor = *slot;
+        auto* const payload = static_cast<BattleActorPayload*>(actor->payload);
+        TakeBattleCString_4384C0(actor->nameC4.data(), 29);
+        // 4384C0内部已反转义；原438673仍独立再次执行。
+        input::UnescapeLegacyText_52D150(actor->nameC4.data());
+        actor->imageNo = character_select::detail::Sub_51B740(TakeBattleCInteger_438450());
+        payload->baseImage13AC = character_select::detail::Sub_51B740(TakeBattleCInteger_438450());
+        actor->field1D0 = TakeBattleCInteger_438450();
+        {
+            const std::int32_t value = TakeBattleCInteger_438450();
+            platform::LegacyCryptInt temporary;
+            ConstructFromInt_401CC0(&temporary, value);
+            const auto encoded = temporary.encoded;
+            const auto mask = temporary.mask;
+            const auto count = temporary.readCount;
+            actor->readiness.encoded = encoded;
+            actor->readiness.mask = mask;
+            actor->readiness.readCount = count;
+            Destroy_401CF0(&temporary);
+        }
+        {
+            const std::int32_t value = TakeBattleCInteger_438450();
+            platform::LegacyCryptInt temporary;
+            ConstructFromInt_401CC0(&temporary, value);
+            const auto encoded = temporary.encoded;
+            const auto mask = temporary.mask;
+            const auto count = temporary.readCount;
+            actor->maxHp.encoded = encoded;
+            actor->maxHp.mask = mask;
+            actor->maxHp.readCount = count;
+            Destroy_401CF0(&temporary);
+        }
+        {
+            const std::int32_t value = TakeBattleCInteger_438450();
+            platform::LegacyCryptInt temporary;
+            ConstructFromInt_401CC0(&temporary, value);
+            const auto encoded = temporary.encoded;
+            const auto mask = temporary.mask;
+            const auto count = temporary.readCount;
+            actor->barValue1B0.encoded = encoded;
+            actor->barValue1B0.mask = mask;
+            actor->barValue1B0.readCount = count;
+            Destroy_401CF0(&temporary);
+        }
+        {
+            const std::int32_t value = TakeBattleCInteger_438450();
+            platform::LegacyCryptInt temporary;
+            ConstructFromInt_401CC0(&temporary, value);
+            const auto encoded = temporary.encoded;
+            const auto mask = temporary.mask;
+            const auto count = temporary.readCount;
+            actor->barMaximum1C0.encoded = encoded;
+            actor->barMaximum1C0.mask = mask;
+            actor->barMaximum1C0.readCount = count;
+            Destroy_401CF0(&temporary);
+        }
+        const auto inputFlags = static_cast<std::uint32_t>(TakeBattleCInteger_438450());
+        const std::int32_t ridingImage = character_select::detail::Sub_51B740(TakeBattleCInteger_438450());
+        static_cast<void>(SetBattleRider_4222B0(actor, actor->imageNo, ridingImage));
+        for (std::int32_t index = 0; index < 2; ++index) {
+            const std::int32_t gearImage = character_select::detail::Sub_51B740(TakeBattleCInteger_438450());
+            const std::int32_t auxiliaryImage = character_select::detail::Sub_51B740(TakeBattleCInteger_438450());
+            const std::int32_t auxiliaryType = TakeBattleCInteger_438450();
+            SetBattleGear_422C20(actor, gearImage, index);
+            SetBattleAuxGear_422C90(actor, auxiliaryImage, auxiliaryType, index);
+        }
+        const std::int32_t imageNo = actor->imageNo;
+        actor->rebirthValue1 = 0;
+        if (imageNo >= 110350 && imageNo <= 110373) {
+            actor->rebirthValue1 = 4;
+            actor->rebirthValue2 = 4;
+        }
+        if ((inputFlags & 1u) != 0) {
+            payload->flagsFDC &= ~1u;
+            actor->offset40 = static_cast<float>(gBattleGraphicPoints553758[gBattlePointIndices5536FC[position]][0]);
+            actor->offset44 = static_cast<float>(gBattleGraphicPoints553758[gBattlePointIndices5536FC[position]][1]);
+        } else {
+            const std::uint32_t flags = payload->flagsFDC | 1u;
+            payload->flagsFDC = flags;
+            if ((flags & 2u) == 0) {
+                actor->offset40 = static_cast<float>(gBattleGraphicPoints553758[gBattlePointIndices5536FC[position]][2]);
+                actor->offset44 = static_cast<float>(gBattleGraphicPoints553758[gBattlePointIndices5536FC[position]][3]);
+                Sub_406260(actor);
+                if ((inputFlags & 2u) != 0) {
+                    Sub_406260(actor);
+                    actor->characterAction = 10;
+                    while (PlayFrame_517DA0(actor, 1) != 1) {
+                    }
+                    static_cast<void>(NewBattleCenteredEffect_41FA00(actor, 110169));
+                }
+            }
+        }
+        std::uint32_t deathFlags = payload->flagsFDC;
+        std::uint32_t deathState = payload->stateFE0;
+        if ((inputFlags & 2u) != 0) {
+            deathFlags |= 2u;
+            deathState |= 2u;
+        } else {
+            deathFlags &= ~2u;
+            deathState &= ~2u;
+        }
+        payload->flagsFDC = deathFlags;
+        std::uint32_t flags = payload->flagsFDC;
+        payload->stateFE0 = deathState;
+        flags = (inputFlags & 4u) != 0 ? flags | 4u : flags & ~4u;
+        payload->flagsFDC = flags;
+        flags = (inputFlags & 8u) != 0 ? flags | 8u : flags & ~8u;
+        payload->flagsFDC = flags;
+        if ((inputFlags & 0x10u) != 0) {
+            static_cast<void>(NewBattleDebuffEffect_41F660(actor, 110075));
+        } else {
+            payload->flagsFDC &= ~0x10u;
+        }
+        if ((inputFlags & 0x20u) != 0) {
+            static_cast<void>(NewBattleDebuffEffect_41F660(actor, 110076));
+        } else {
+            payload->flagsFDC &= ~0x20u;
+        }
+        if ((inputFlags & 0x40u) != 0) {
+            static_cast<void>(NewBattleDebuffEffect_41F660(actor, 110077));
+        } else {
+            payload->flagsFDC &= ~0x40u;
+        }
+        if ((inputFlags & 0x80u) != 0) {
+            static_cast<void>(NewBattleDebuffEffect_41F660(actor, 110078));
+        } else {
+            payload->flagsFDC &= ~0x80u;
+        }
+        if ((inputFlags & 0x100u) != 0) {
+            static_cast<void>(NewBattleDebuffEffect_41F660(actor, 110079));
+        } else {
+            payload->flagsFDC &= ~0x100u;
+        }
+        if ((inputFlags & 0x200u) != 0) {
+            static_cast<void>(NewBattleDebuffEffect_41F660(actor, 110080));
+        } else {
+            payload->flagsFDC &= ~0x200u;
+        }
+        const float scale = std::bit_cast<float>((inputFlags & 0x1000u) != 0 ? 0x3FA66666u : 0x3F800000u);
+        actor->scaleX = scale;
+        actor->scaleY = scale;
+        if ((inputFlags & 0x400u) != 0) {
+            static_cast<void>(NewBattleAttachedEffect_41FBE0(actor, 1));
+        } else {
+            static_cast<void>(MarkDeath(static_cast<BattleActorPayload*>(actor->payload)->attachedEffect1058));
+            static_cast<BattleActorPayload*>(actor->payload)->attachedEffect1058 = nullptr;
+        }
+        const std::uint32_t reverseFlags = payload->flagsFDC;
+        if ((inputFlags & 0x800u) != 0) {
+            payload->flagsFDC = reverseFlags | 0x800u;
+            static_cast<void>(NewBattleReverseEffect_41F860(actor, 110152));
+        } else {
+            YobiAction* const effect = payload->effect105C;
+            payload->flagsFDC = reverseFlags & ~0x800u;
+            static_cast<void>(MarkDeath(effect));
+            payload->effect105C = nullptr;
+        }
+        if ((inputFlags & 0x2000u) != 0) {
+            payload->flagsFDC |= 0x2000u;
+        }
+        // 三对状态位沿原清除掩码，不能按输入位对称化。
+        if ((inputFlags & 0x4000u) != 0) {
+            static_cast<void>(NewBattleStatusEffect_41FE00(actor, 103018, 0));
+        } else {
+            payload->flagsFDC &= ~0x4000u;
+        }
+        if ((inputFlags & 0x8000u) != 0) {
+            static_cast<void>(NewBattleStatusEffect_41FE00(actor, 103019, 0));
+        } else {
+            payload->flagsFDC &= ~0x4000u;
+        }
+        if ((inputFlags & 0x10000u) != 0) {
+            static_cast<void>(NewBattleStatusEffect_41FE00(actor, 103020, 0));
+        } else {
+            payload->flagsFDC &= ~0x10000u;
+        }
+        if ((inputFlags & 0x20000u) != 0) {
+            static_cast<void>(NewBattleStatusEffect_41FE00(actor, 103021, 0));
+        } else {
+            payload->flagsFDC &= ~0x10000u;
+        }
+        if ((inputFlags & 0x40000u) != 0) {
+            static_cast<void>(NewBattleStatusEffect_41FE00(actor, 103022, 0));
+        } else {
+            payload->flagsFDC &= ~0x40000u;
+        }
+        if ((inputFlags & 0x80000u) != 0) {
+            static_cast<void>(NewBattleStatusEffect_41FE00(actor, 103023, 0));
+        } else {
+            payload->flagsFDC &= ~0x40000u;
+        }
+        if ((inputFlags & 0x10000000u) != 0) {
+            if (payload->rebirthEffectType1080 == 0) {
+                if ((inputFlags & 0x1000000u) != 0) {
+                    payload->rebirthEffectType1080 = 1;
+                }
+                if ((inputFlags & 0x2000000u) != 0) {
+                    payload->rebirthEffectType1080 = 2;
+                }
+                if ((inputFlags & 0x4000000u) != 0) {
+                    payload->rebirthEffectType1080 = 3;
+                }
+                if ((inputFlags & 0x8000000u) != 0) {
+                    payload->rebirthEffectType1080 = 4;
+                }
+                const std::int8_t type = payload->rebirthEffectType1080;
+                if (type >= 1 && type <= 4) {
+                    {
+                        const std::int32_t image = kRebirthPersistentImages4113EB[type - 1][0];
+                        if (image != 0) {
+                            YobiAction* const effect = NewBattleOffsetFollowEffect_419CF0(actor, 0, 2, image);
+                            payload->rebirthEffect106C = effect;
+                            effect->rebirthValue1 = 4;
+                            payload->rebirthEffect106C->rebirthValue2 = 4;
+                        }
+                    }
+                    {
+                        const std::int32_t image = kRebirthPersistentImages4113EB[payload->rebirthEffectType1080 - 1][1];
+                        if (image != 0) {
+                            YobiAction* const effect = NewBattleOffsetFollowEffect_419CF0(actor, 0, 1, image);
+                            payload->rebirthAuxiliaryEffects1074[0] = effect;
+                            effect->rebirthValue1 = 4;
+                            payload->rebirthAuxiliaryEffects1074[0]->rebirthValue2 = 4;
+                        }
+                    }
+                    {
+                        const std::int32_t image = kRebirthPersistentImages4113EB[payload->rebirthEffectType1080 - 1][2];
+                        if (image != 0) {
+                            YobiAction* const effect = NewBattleOffsetFollowEffect_419CF0(actor, 0, -1, image);
+                            payload->rebirthAuxiliaryEffects1074[1] = effect;
+                            effect->rebirthValue1 = 4;
+                            payload->rebirthAuxiliaryEffects1074[1]->rebirthValue2 = 4;
+                        }
+                    }
+                    {
+                        const std::int32_t image = kRebirthPersistentImages4113EB[payload->rebirthEffectType1080 - 1][3];
+                        if (image != 0) {
+                            YobiAction* const effect = NewBattleOffsetFollowEffect_419CF0(actor, 0, -2, image);
+                            payload->rebirthAuxiliaryEffects1074[2] = effect;
+                            effect->rebirthValue1 = 4;
+                            payload->rebirthAuxiliaryEffects1074[2]->rebirthValue2 = 4;
+                        }
+                    }
+                }
+            }
+            payload->flagsFDC |= 0x10000000u;
+        } else {
+            for (std::int32_t index = 0; index < 3; ++index) {
+                YobiAction* const effect = payload->rebirthAuxiliaryEffects1074[index];
+                if (effect != nullptr) {
+                    static_cast<void>(MarkDeath(effect));
+                    payload->rebirthAuxiliaryEffects1074[index] = nullptr;
+                }
+            }
+            YobiAction* const effect = payload->rebirthEffect106C;
+            if (effect != nullptr) {
+                static_cast<void>(MarkDeath(effect));
+                payload->rebirthEffect106C = nullptr;
+            }
+            const std::uint32_t rebirthFlags = payload->flagsFDC & ~0x10000000u;
+            payload->rebirthEffectType1080 = 0;
+            payload->flagsFDC = rebirthFlags;
+        }
+        actor->fields288[3] = 0;
+        actor->fields288[2] = 0;
+        actor->fields288[1] = 0;
+        actor->fields288[0] = 0;
+        if ((inputFlags & 0x1000000u) != 0) {
+            actor->fields288[0] = 1;
+        }
+        if ((inputFlags & 0x2000000u) != 0) {
+            actor->fields288[1] = 1;
+        }
+        if ((inputFlags & 0x4000000u) != 0) {
+            actor->fields288[2] = 1;
+        }
+        if ((inputFlags & 0x8000000u) != 0) {
+            actor->fields288[3] = 1;
+        }
+        UpdateBattleAlbumFlag_4238F0(actor);
+        static_cast<void>(PlayFrame_517DA0(actor, 0));
+    }
+
+    for (std::int32_t index = 0; index < 22; ++index) {
+        if ((present & (1u << index)) != 0) {
+            continue;
+        }
+        YobiAction** const slot = &gBattleAllEntries59E980[index];
+        YobiAction* const actor = *slot;
+        if (actor == nullptr) {
+            continue;
+        }
+        auto* const payload = static_cast<BattleActorPayload*>(actor->payload);
+        static_cast<void>(MarkDeath(payload->effect1054));
+        static_cast<void>(MarkDeath(payload->attachedEffect1058));
+        static_cast<void>(MarkDeath(payload->effect105C));
+        static_cast<void>(MarkDeath(payload->effect1060));
+        static_cast<void>(MarkDeath(payload->centeredEffect1064));
+        static_cast<void>(MarkDeath(payload->effect1068));
+        static_cast<void>(MarkDeath(payload->rebirthEffect106C));
+        static_cast<void>(MarkDeath(payload->rebirthAuxiliaryEffects1074[0]));
+        static_cast<void>(MarkDeath(payload->rebirthAuxiliaryEffects1074[1]));
+        static_cast<void>(MarkDeath(payload->rebirthAuxiliaryEffects1074[2]));
+        static_cast<void>(MarkDeath(payload->gear13B4));
+        static_cast<void>(MarkDeath(payload->auxiliaryGear13B8[0]));
+        static_cast<void>(MarkDeath(payload->auxiliaryGear13B8[1]));
+        static_cast<void>(MarkDeath(payload->rider13C8));
+        static_cast<void>(MarkDeath(*slot));
+        *slot = nullptr;
     }
 }
 

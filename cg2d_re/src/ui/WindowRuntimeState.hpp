@@ -840,6 +840,7 @@ std::int32_t Sub_492430(std::int32_t index, std::int32_t state); // 图鉴列表
 std::int32_t Sub_492520(std::int32_t index, std::int32_t state); // 单行/十行滚动按钮。
 std::int32_t Sub_492800(std::int32_t index, std::int32_t state); // 拖动结果恰1时反求图鉴起点。
 std::int32_t Sub_492840(std::int32_t index, std::int32_t state); // 图鉴滚轮，恒返0。
+std::int32_t Sub_492880(std::int32_t index, std::int32_t state); // 图鉴详情四种翻页与旋转。
 std::int32_t Sub_48F380(std::int32_t index, std::int32_t state); // 共享名称输入焦点。
 std::int32_t Sub_48F410(std::int32_t index, std::int32_t state); // 三详情页切换。
 std::int32_t Sub_48F6C0(std::int32_t index, std::int32_t state); // 描述、技能换位与拖动。

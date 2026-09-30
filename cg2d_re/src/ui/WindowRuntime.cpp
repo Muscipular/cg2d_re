@@ -15389,6 +15389,10 @@ namespace {
 
 constexpr std::array<std::int32_t, 2> kAlbumMarkImages57DF24 {0x3BB0F, 0x3BB0E};
 constexpr std::array<std::int32_t, 3> kAlbumMarkImages57DF2C {0, 0x3BB10, 0x3BB11};
+constexpr char kAlbumPreviousTen586DC8[] = "\xA7\xD6\xB3\x74\xA4\xC1\xB4\xAB\xA6\xDC\xAB\xE1\x31\x30\xAD\xB6\xB5\xF8\xB5\xA1\xA1\x43";
+constexpr char kAlbumPrevious586DB4[] = "\xA4\xC1\xB4\xAB\xA6\xDC\xAB\xE1\xA4\x40\xAD\xB6\xB5\xF8\xB5\xA1\xA1\x43";
+constexpr char kAlbumNext586DA0[] = "\xA4\xC1\xB4\xAB\xA6\xDC\xAB\x65\xA4\x40\xAD\xB6\xB5\xF8\xB5\xA1\xA1\x43";
+constexpr char kAlbumNextTen586D88[] = "\xA7\xD6\xB3\x74\xA4\xC1\xB4\xAB\xA6\xDC\xAB\x65\x31\x30\xAD\xB6\xB5\xF8\xB5\xA1\xA1\x43";
 
 } // namespace
 
@@ -15559,6 +15563,80 @@ std::int32_t Sub_492410(const std::int32_t value)
     }
     Sub_492F70();
     return 1;
+}
+
+std::int32_t Sub_492880(const std::int32_t index, const std::int32_t state)
+{
+    std::int32_t delta;
+    std::int32_t idle;
+    const char* hint;
+    switch (index) {
+    case 9:
+        delta = -10;
+        idle = 0x3B55C;
+        hint = kAlbumPreviousTen586DC8;
+        break;
+    case 10:
+        delta = -1;
+        idle = 0x3BE5D;
+        hint = kAlbumPrevious586DB4;
+        break;
+    case 11:
+        delta = 1;
+        idle = 0x3BE5A;
+        hint = kAlbumNext586DA0;
+        break;
+    case 12:
+        delta = 10;
+        idle = 0x3B55F;
+        hint = kAlbumNextTen586D88;
+        break;
+    case 80:
+        if ((state & 0x400) != 0) {
+            const std::int32_t direction = gLoginWindowRuntime.valueCF4A00 + 1;
+            gLoginWindowRuntime.valueCF4A00 = direction;
+            if (direction > 7) {
+                gLoginWindowRuntime.valueCF4A00 = 0;
+            }
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        }
+        if ((state & 0x800) != 0) {
+            const std::int32_t direction = gLoginWindowRuntime.valueCF4A00 - 1;
+            gLoginWindowRuntime.valueCF4A00 = direction;
+            if (direction < 0) {
+                gLoginWindowRuntime.valueCF4A00 = 7;
+            }
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        }
+        return 0;
+    default:
+        return 0;
+    }
+    std::int32_t consumed = 0;
+    if ((state & 1) != 0) {
+        std::strcpy(gHoverTextD68AE8.data(), hint);
+        static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = idle + 2;
+        consumed = 1;
+    } else {
+        static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = idle;
+    }
+    if ((state & 0x400) != 0) {
+        const std::int32_t selected = gLoginWindowRuntime.valueCB2200 + delta;
+        gLoginWindowRuntime.valueCB2200 = selected;
+        if (delta < 0) {
+            if (selected < 0) {
+                gLoginWindowRuntime.valueCB2200 = 0;
+            }
+        } else if (selected > 959) {
+            gLoginWindowRuntime.valueCB2200 = 959;
+        }
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        consumed = 1;
+    }
+    if ((state & 8) != 0) {
+        static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = idle + 1;
+    }
+    return consumed;
 }
 
 void Sub_4B5A90()

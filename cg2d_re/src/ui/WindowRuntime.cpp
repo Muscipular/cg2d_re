@@ -34071,6 +34071,150 @@ std::int32_t Sub_48ECA0(const std::int32_t index, const std::int32_t state)
     }
 }
 
+std::int32_t Sub_48DD80(const std::int32_t index, const std::int32_t state)
+{
+    std::int32_t consumed = 0;
+    const auto setImage = [index](const std::int32_t image) {
+        static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = image;
+    };
+    const auto petIndex = [](const std::int32_t position) {
+        return std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[position].index);
+    };
+    switch (index) {
+    case 5:
+        if ((state & 1) != 0) {
+            setImage(0x3B570);
+            std::strcpy(gHoverTextD68AE8.data(), kPetRenameHint586D38);
+            consumed = 1;
+        } else {
+            setImage(0x3B56E);
+        }
+        if ((state & 2) != 0) {
+            char buffer[512];
+            const char* const text = input::gInputContextD2D4A0.text;
+            std::memcpy(buffer, text, std::strlen(text) + 1);
+            input::EscapeLegacyTextAndNotify_52D2D0(buffer, buffer + 256, 256);
+            const std::int32_t position = gLoginWindowRuntime.selectedPetCC3E5C;
+            const std::uintptr_t socket = platform::gConnectionSocket;
+            const std::int16_t pet = petIndex(position);
+            static_cast<void>(network::Sub_5125B0(socket, pet, buffer + 256));
+            static_cast<void>(audio::PlaySe_52C450(78, 320));
+            Sub_4A7B00();
+            if (buffer[0] == '\0') {
+                const std::int16_t selected = petIndex(gLoginWindowRuntime.selectedPetCC3E5C);
+                const char* const name = world::detail::gPetRuntimeF633F8[selected].name6AC.data();
+                std::memcpy(gLoginWindowRuntime.petNameDraftD45E74.data(), name, std::strlen(name) + 1);
+                auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[9].data);
+                const std::size_t length = std::strlen(name) + 1;
+                std::memcpy(data->text, name, length);
+            }
+            consumed = 1;
+        }
+        if ((state & 8) != 0) {
+            setImage(0x3B56F);
+        }
+        return consumed;
+    case 6:
+        if ((state & 1) != 0) {
+            setImage(0x3BAF9);
+            std::strcpy(gHoverTextD68AE8.data(), kPetPlaceHint586C14);
+            consumed = 1;
+        } else {
+            setImage(0x3BAF7);
+        }
+        if ((state & 2) != 0) {
+            if (world::detail::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].used != 0
+                && (world::detail::ReadPlayerActionFlags() & 0x80u) == 0
+                && world::detail::Sub_440B50() == 0) {
+                const std::int16_t pet = petIndex(gLoginWindowRuntime.selectedPetCC3E5C);
+                const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+                const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+                const std::uintptr_t socket = platform::gConnectionSocket;
+                static_cast<void>(network::Sub_510E30(socket, x, y, pet));
+                static_cast<void>(audio::PlaySe_52C450(79, 320));
+                const std::int16_t selected = petIndex(gLoginWindowRuntime.selectedPetCC3E5C);
+                if (world::detail::gPetRuntimeF633F8[selected].flags6AA == 2) {
+                    Sub_47D490();
+                }
+            }
+            consumed = 1;
+        }
+        if ((state & 8) != 0) {
+            setImage(0x3BAF8);
+        }
+        return consumed;
+    case 7:
+    case 8:
+        if ((state & 1) != 0) {
+            setImage(index == 7 ? 0x3B558 : 0x3B55B);
+            std::strcpy(gHoverTextD68AE8.data(), kPetSelectHint586D2C);
+            consumed = 1;
+        } else {
+            setImage(index == 7 ? 0x3B556 : 0x3B559);
+        }
+        if ((state & 2) != 0) {
+            std::int32_t position = gLoginWindowRuntime.selectedPetCC3E5C;
+            for (std::int32_t attempt = 0; attempt < 6; ++attempt) {
+                if (index == 7) {
+                    --position;
+                    if (position < 0) {
+                        position = 4;
+                    }
+                } else {
+                    ++position;
+                    if (position >= 5) {
+                        position = 0;
+                    }
+                }
+                if (world::detail::gPetRuntimeF633F8[petIndex(position)].used != 0) {
+                    break;
+                }
+            }
+            const std::int16_t selected = petIndex(position);
+            gLoginWindowRuntime.selectedPetCC3E5C = position;
+            const auto& pet = world::detail::gPetRuntimeF633F8[selected];
+            const char* const name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
+            const std::size_t length = std::strlen(name) + 1;
+            const std::size_t whole = length & ~std::size_t{3};
+            std::memcpy(gPetNameInputPrototype57DCF8.text.data(), name, whole);
+            WindowInstance* const window = gCurrentWindow;
+            std::memcpy(gPetNameInputPrototype57DCF8.text.data() + whole, name + whole, length - whole);
+            const std::int32_t y = window->y;
+            const std::int32_t x = window->x;
+            static_cast<void>(Sub_476570(&gPetNameInputPrototype57DCF8, x, y, 0));
+            static_cast<void>(Sub_48D9A0(-1));
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            consumed = 1;
+        }
+        if ((state & 8) != 0) {
+            setImage(index == 7 ? 0x3B557 : 0x3B55A);
+        }
+        return consumed;
+    case 64:
+        if ((state & 0x400) != 0) {
+            const std::int32_t direction = gLoginWindowRuntime.valueD673D0 + 1;
+            gLoginWindowRuntime.valueD673D0 = direction;
+            if (direction > 7) {
+                gLoginWindowRuntime.valueD673D0 = 0;
+            }
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            consumed = 1;
+        }
+        if ((state & 0x800) != 0) {
+            const std::int32_t direction = gLoginWindowRuntime.valueD673D0 - 1;
+            gLoginWindowRuntime.valueD673D0 = direction;
+            if (direction < 0) {
+                gLoginWindowRuntime.valueD673D0 = 7;
+            }
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            consumed = 1;
+        }
+        return consumed;
+    default:
+        return 0;
+    }
+}
+
 std::int32_t Sub_48F380(const std::int32_t index, const std::int32_t state)
 {
     if ((state & 2) == 0) {

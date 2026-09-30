@@ -834,6 +834,7 @@ extern std::array<std::array<char, 11>, 10> gPetTechniqueCostsD66C34; // 原连�
 std::int32_t Sub_48C1E0(std::int32_t index, std::int32_t state); // 窗口15完整五组交互。
 std::int32_t Sub_48D4E0(); // 五状态局部快照叠加真实跟随位，透传发送结果。
 std::int32_t Sub_48ECA0(std::int32_t index, std::int32_t state); // 宠物技能页六按钮。
+std::int32_t Sub_48DD80(std::int32_t index, std::int32_t state); // 宠物详情名称/放地/选择/旋转。
 std::int32_t Sub_48F380(std::int32_t index, std::int32_t state); // 共享名称输入焦点。
 std::int32_t Sub_48F410(std::int32_t index, std::int32_t state); // 三详情页切换。
 std::int32_t Sub_48F6C0(std::int32_t index, std::int32_t state); // 描述、技能换位与拖动。

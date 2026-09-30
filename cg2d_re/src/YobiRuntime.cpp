@@ -12993,6 +12993,298 @@ namespace {
 
 } // namespace
 
+namespace {
+
+// 原427470的POS=4；固定旧槽地址，保留非对称附件重绑及空槽后的子状态递增。
+[[maybe_unused]] void ProcessBattleMPositionHeader(
+    YobiAction* const scene, BattleScenePayload* const payload)
+{
+    using namespace world::detail;
+    const std::int32_t subState = payload->packetSubState58;
+    if (subState != 0) {
+        if (subState == 1 && CheckBattleTurnReady_4394A0(scene, 0) == 1) {
+            const std::int32_t otherPosition = GetBattlePetPosition_405B40(gBattleMCasterPosition5AAA64);
+            Sub_406260(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
+            YobiAction* const other = gBattleAllEntries59E980[otherPosition];
+            if (other != nullptr && other->characterAction != 10 && other->phase != 34) {
+                Sub_406260(other);
+            }
+            FinishBattleEvent_43B6C0(scene);
+        }
+        return;
+    }
+
+    gBattleMCasterPosition5AAA64 = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
+    if (gBattleMCasterPosition5AAA64 == 255) {
+        return;
+    }
+    if (gBattleAllEntries59E980[gBattleMCasterPosition5AAA64] == nullptr) {
+        FinishBattleEvent_43B6C0(scene);
+        ++payload->packetSubState58;
+        return;
+    }
+    const std::int32_t otherPosition = GetBattlePetPosition_405B40(gBattleMCasterPosition5AAA64);
+    YobiAction* const moving = gBattleAllEntries59E980[gBattleMCasterPosition5AAA64];
+    YobiAction** const oldSlot = &gBattleAllEntries59E980[gBattleMCasterPosition5AAA64];
+    const std::int32_t oldPosition = gBattleMCasterPosition5AAA64;
+    if (gBattleCurrentPosition5ABCA4 == gBattleMCasterPosition5AAA64) {
+        gBattleCurrentPosition5ABCA4 = otherPosition;
+    }
+    static_cast<BattleActorPayload*>(moving->payload)->x00 =
+        gBattleGraphicPoints553758[gBattlePointIndices5536FC[otherPosition]][2];
+    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload)->y04 =
+        gBattleGraphicPoints553758[gBattlePointIndices5536FC[otherPosition]][3];
+    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload)->x08 =
+        gBattleGraphicPoints553758[gBattlePointIndices5536FC[otherPosition]][0];
+    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload)->y0C =
+        gBattleGraphicPoints553758[gBattlePointIndices5536FC[otherPosition]][1];
+    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload)
+        ->battlePosition18 = otherPosition;
+    YobiAction* const initialOther = gBattleAllEntries59E980[otherPosition];
+    if (initialOther != nullptr) {
+        static_cast<BattleActorPayload*>(initialOther->payload)->battlePosition18 = gBattleMCasterPosition5AAA64;
+        YobiAction* const other = gBattleAllEntries59E980[otherPosition];
+        if (other != nullptr && other->phase != 34) {
+            static_cast<BattleActorPayload*>(other->payload)->x00 =
+                gBattleGraphicPoints553758[gBattlePointIndices5536FC[gBattleMCasterPosition5AAA64]][2];
+            static_cast<BattleActorPayload*>(gBattleAllEntries59E980[otherPosition]->payload)->y04 =
+                gBattleGraphicPoints553758[gBattlePointIndices5536FC[gBattleMCasterPosition5AAA64]][3];
+            static_cast<BattleActorPayload*>(gBattleAllEntries59E980[otherPosition]->payload)->x08 =
+                gBattleGraphicPoints553758[gBattlePointIndices5536FC[gBattleMCasterPosition5AAA64]][0];
+            static_cast<BattleActorPayload*>(gBattleAllEntries59E980[otherPosition]->payload)->y0C =
+                gBattleGraphicPoints553758[gBattlePointIndices5536FC[gBattleMCasterPosition5AAA64]][1];
+        }
+    }
+    const std::int32_t sourcePosition = gBattleMCasterPosition5AAA64;
+    YobiAction* const replacement = gBattleAllEntries59E980[otherPosition];
+    gBattleMCasterPosition5AAA64 = otherPosition;
+    gBattleAllEntries59E980[sourcePosition] = replacement;
+    gBattleAllEntries59E980[otherPosition] = moving;
+    if (moving != nullptr) {
+        YobiAction* const rider = static_cast<BattleActorPayload*>(moving->payload)->rider13C8;
+        if (rider != nullptr) {
+            rider->battleAttachmentParent10 = moving;
+            static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload)
+                ->rider13C8->value1D4 = gBattleMCasterPosition5AAA64;
+        }
+    }
+    YobiAction* const oldActor = *oldSlot;
+    if (oldActor != nullptr) {
+        YobiAction* const rider = static_cast<BattleActorPayload*>(oldActor->payload)->rider13C8;
+        if (rider != nullptr) {
+            rider->battleAttachmentParent10 = oldActor;
+            static_cast<BattleActorPayload*>((*oldSlot)->payload)->rider13C8->value1D4 = oldPosition;
+        }
+        // 原4286E8在旧槽非空门禁内重绑新槽两附件，后面仍重复同两次写入。
+        for (std::size_t index = 0; index < 2; ++index) {
+            YobiAction* const actor = gBattleAllEntries59E980[gBattleMCasterPosition5AAA64];
+            YobiAction* const gear = static_cast<BattleActorPayload*>(actor->payload)->auxiliaryGear13B8[index];
+            if (gear != nullptr) {
+                gear->battleAttachmentParent10 = actor;
+                static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload)
+                    ->auxiliaryGear13B8[index]->value1D4 = gBattleMCasterPosition5AAA64;
+            }
+        }
+    }
+    YobiAction* const newActor = gBattleAllEntries59E980[gBattleMCasterPosition5AAA64];
+    if (newActor != nullptr) {
+        YobiAction* const gear = static_cast<BattleActorPayload*>(newActor->payload)->gear13B4;
+        if (gear != nullptr) {
+            gear->battleAttachmentParent10 = newActor;
+            static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload)
+                ->gear13B4->value1D4 = gBattleMCasterPosition5AAA64;
+        }
+        for (std::size_t index = 0; index < 2; ++index) {
+            YobiAction* const actor = gBattleAllEntries59E980[gBattleMCasterPosition5AAA64];
+            YobiAction* const auxiliary = static_cast<BattleActorPayload*>(actor->payload)->auxiliaryGear13B8[index];
+            if (auxiliary != nullptr) {
+                auxiliary->battleAttachmentParent10 = actor;
+                static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload)
+                    ->auxiliaryGear13B8[index]->value1D4 = gBattleMCasterPosition5AAA64;
+            }
+        }
+    }
+    YobiAction* const remaining = *oldSlot;
+    if (remaining != nullptr) {
+        YobiAction* const gear = static_cast<BattleActorPayload*>(remaining->payload)->gear13B4;
+        if (gear != nullptr) {
+            gear->battleAttachmentParent10 = remaining;
+            static_cast<BattleActorPayload*>((*oldSlot)->payload)->gear13B4->value1D4 = oldPosition;
+        }
+    }
+    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload)
+        ->value1018 = 210;
+    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 80);
+    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 11);
+    MoveBattleCastState_439380(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
+    gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->value54 = 3.0F;
+    gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->framePlayingRate = 100;
+    YobiAction* const other = *oldSlot;
+    if (other != nullptr && other->phase != 34) {
+        AppendBattleCast_4392A0(scene, other, 11);
+        MoveBattleCastState_439380(*oldSlot);
+        (*oldSlot)->value54 = 3.0F;
+        (*oldSlot)->framePlayingRate = 100;
+    }
+    ++payload->packetSubState58;
+}
+
+} // namespace
+
+namespace {
+
+// 原427470的MON=5；子状态2沿恢复目标重试，成功解析期间固定目标对象及载荷。
+[[maybe_unused]] void ProcessBattleMMonsterHeader(
+    YobiAction* const scene, BattleScenePayload* const payload)
+{
+    using namespace world::detail;
+    using namespace platform::legacy_crypt_int;
+    std::int32_t defenderPosition = gBattleMDefenderPosition5A4A24;
+    const std::int32_t subState = payload->packetSubState58;
+    if (subState == 1) {
+        if (CheckBattleTurnReady_4394A0(scene, 0) == 1) {
+            YobiAction* const defender = gBattleAllEntries59E980[gBattleMDefenderPosition5A4A24];
+            if (defender == nullptr || static_cast<BattleActorPayload*>(defender->payload)->busyFD8 == 0) {
+                Sub_406260(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
+                if (gBattleAllEntries59E980[gBattleMDefenderPosition5A4A24] != nullptr) {
+                    const std::int32_t petPosition = GetBattlePetPosition_405B40(gBattleMCasterPosition5AAA64);
+                    Sub_406260(gBattleAllEntries59E980[petPosition]);
+                }
+                FinishBattleEvent_43B6C0(scene);
+            }
+        }
+        return;
+    }
+    if (subState == 0) {
+        const std::int32_t position = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
+        YobiAction* const actor = gBattleAllEntries59E980[position];
+        gBattleMCasterPosition5AAA64 = position;
+        if (actor == nullptr) {
+            FinishBattleEvent_43B6C0(scene);
+            return;
+        }
+        defenderPosition = GetBattlePetPosition_405B40(position);
+        gBattleMDefenderPosition5A4A24 = defenderPosition;
+    } else if (subState != 2) {
+        return;
+    }
+    YobiAction* const pending = gBattleAllEntries59E980[defenderPosition];
+    if (pending != nullptr && static_cast<BattleActorPayload*>(pending->payload)->busyFD8 == 1) {
+        payload->packetSubState58 = 2;
+        return;
+    }
+    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 41);
+    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload)
+        ->targetPosition100C = gBattleMDefenderPosition5A4A24;
+    gBattleMResultFlags5A4A20 = static_cast<std::uint32_t>(TakeBattleMInteger_438F70(scene));
+    const std::int32_t value = TakeBattleMInteger_438F70(scene);
+    if (gBattleCurrentPosition5ABCA4 == gBattleMCasterPosition5AAA64
+        && (gBattleMResultFlags5A4A20 == 0 || value != -1)) {
+        AppendBattleEffectList_4393A0(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], -2, 0, 0);
+        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 223);
+    }
+    AppendBattleEffectList_4393A0(
+        gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], gBattleMDefenderPosition5A4A24, 0, 0);
+    if (gBattleMResultFlags5A4A20 == 0) {
+        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 68);
+        static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload)
+            ->reactionImage1010 = 22339;
+        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 67);
+        YobiAction* const defender = gBattleAllEntries59E980[gBattleMDefenderPosition5A4A24];
+        if (defender == nullptr) {
+            FinishBattleEvent_43B6C0(scene);
+            return;
+        }
+        if ((static_cast<BattleActorPayload*>(defender->payload)->flagsFDC & 2u) != 0) {
+            ResetBattleCastList_4391E0(gBattleMDefenderPosition5A4A24);
+        }
+        static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMDefenderPosition5A4A24]->payload)
+            ->value1018 = 205;
+        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMDefenderPosition5A4A24], 80);
+        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMDefenderPosition5A4A24], 53);
+        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMDefenderPosition5A4A24], 51);
+    } else {
+        YobiAction** const defenderSlot = &gBattleAllEntries59E980[gBattleMDefenderPosition5A4A24];
+        if (*defenderSlot == nullptr) {
+            *defenderSlot = NewBattleActor_438290(gBattleMDefenderPosition5A4A24);
+        }
+        YobiAction* const defender = *defenderSlot;
+        auto* const defenderPayload = static_cast<BattleActorPayload*>(defender->payload);
+        TakeBattleMString_438FE0(scene, defender->nameC4.data(), 29);
+        static_cast<void>(input::UnescapeLegacyText_52D150(defender->nameC4.data()));
+        defender->imageNo = character_select::detail::Sub_51B740(TakeBattleMInteger_438F70(scene));
+        defender->field1D0 = TakeBattleMInteger_438F70(scene);
+        {
+            platform::LegacyCryptInt temporary;
+            ConstructFromInt_401CC0(&temporary, TakeBattleMInteger_438F70(scene));
+            CopyPayload(&defender->readiness, &temporary);
+            Destroy_401CF0(&temporary);
+        }
+        {
+            platform::LegacyCryptInt temporary;
+            ConstructFromInt_401CC0(&temporary, TakeBattleMInteger_438F70(scene));
+            CopyPayload(&defender->maxHp, &temporary);
+            Destroy_401CF0(&temporary);
+        }
+        {
+            platform::LegacyCryptInt temporary;
+            ConstructFromInt_401CC0(&temporary, TakeBattleMInteger_438F70(scene));
+            CopyPayload(&defender->barValue1B0, &temporary);
+            Destroy_401CF0(&temporary);
+        }
+        {
+            platform::LegacyCryptInt temporary;
+            ConstructFromInt_401CC0(&temporary, TakeBattleMInteger_438F70(scene));
+            CopyPayload(&defender->barMaximum1C0, &temporary);
+            Destroy_401CF0(&temporary);
+        }
+        defenderPayload->flagsFDC = static_cast<std::uint32_t>(TakeBattleMInteger_438F70(scene));
+        defenderPayload->stateFE0 = 0;
+        defender->fields288[3] = 0;
+        defender->fields288[2] = 0;
+        defender->fields288[1] = 0;
+        defender->fields288[0] = 0;
+        if ((defenderPayload->flagsFDC & 0x01000000u) != 0) {
+            defender->fields288[0] = 1;
+        }
+        if ((defenderPayload->flagsFDC & 0x02000000u) != 0) {
+            defender->fields288[1] = 1;
+        }
+        if ((defenderPayload->flagsFDC & 0x04000000u) != 0) {
+            defender->fields288[2] = 1;
+        }
+        if ((defenderPayload->flagsFDC & 0x08000000u) != 0) {
+            defender->fields288[3] = 1;
+        }
+        defenderPayload->castPlayIndexFC4 = 0;
+        defenderPayload->castListIndexFC8 = -1;
+        defenderPayload->castListCA4[0] = 0;
+        defenderPayload->castListCA4[1] = -1;
+        defender->offset40 = static_cast<float>(gBattleGraphicPoints553758[gBattlePointIndices5536FC[gBattleMDefenderPosition5A4A24]][2]);
+        defender->offset44 = static_cast<float>(gBattleGraphicPoints553758[gBattlePointIndices5536FC[gBattleMDefenderPosition5A4A24]][3]);
+        defender->x = gBattleGraphicPoints553758[gBattlePointIndices5536FC[gBattleMDefenderPosition5A4A24]][2];
+        defender->y = gBattleGraphicPoints553758[gBattlePointIndices5536FC[gBattleMDefenderPosition5A4A24]][3];
+        defender->scaleX = 0.0F;
+        defender->scaleY = 0.0F;
+        defenderPayload->battlePosition18 = gBattleMDefenderPosition5A4A24;
+        UpdateBattleAlbumFlag_4238F0(defender);
+        defender->phase = 0;
+        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 68);
+        static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload)
+            ->reactionImage1010 = 22338;
+        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 67);
+        static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMDefenderPosition5A4A24]->payload)
+            ->value1018 = 204;
+        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMDefenderPosition5A4A24], 80);
+        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMDefenderPosition5A4A24], 54);
+    }
+    AppendBattleEffectList_4393A0(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], -1, 0, 0);
+    MoveBattleCastState_439380(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
+    payload->packetSubState58 = 1;
+}
+
+} // namespace
+
 YobiAction* NewBattleActor_438290(const std::int32_t position)
 {
     using namespace world::detail;

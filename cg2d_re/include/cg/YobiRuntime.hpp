@@ -508,6 +508,14 @@ std::int32_t UpdateBattleAction87_40C780(YobiAction* action); // 十位置逐次
 void UpdateBattleAction88_40C8D0(YobiAction* action); // 振幅6、启用同源震动后推进。
 void UpdateBattleAction89_40C8F0(YobiAction* action); // 只停止震动并推进，不清振幅。
 void UpdateBattleAction90_40C910(YobiAction* action); // 逐目标启动与4帧延迟，越界后额外推进效果再推进动作。
+std::int32_t UpdateBattleAction91_40CF30(YobiAction* action); // 对象flags置2后先推进，再播放。
+std::int32_t UpdateBattleAction92_40CF50(YobiAction* action); // 对象flags清2后先推进，再播放。
+void UpdateBattleAction93_40CF70(YobiAction* action); // 先计全部22槽，再按结果清更新门并清自身FF8。
+void UpdateBattleAction94_40D010(YobiAction* action); // 分别重取目标X/Y/角度，后移50后重取目标转向。
+void UpdateBattleAction95_40D0B0(YobiAction* action); // 旧FF0<16才移动，否则推进后重取目标并清HP。
+void UpdateBattleAction96_40D170(YobiAction* action); // 当前效果目标hidden=0，再推进源动作。
+void UpdateBattleAction97_40D1A0(YobiAction* action); // 当前效果目标hidden=1，再推进源动作。
+void UpdateBattleAction98_40D1D0(YobiAction* action); // 事件/完成两次独立特效；平铺尾重读技能判断type5。
 void UpdateBattleAction236_406630(YobiAction* action); // 清phase/FD8后执行完整动作0。
 void SetBattleAction208Target_412870(YobiAction* action); // 按目标坐标界线写FE8/FEC，最后phase6。
 std::int32_t UpdateBattleAction209_412900(YobiAction* action); // 完整动作209，效果按调用边界重读。

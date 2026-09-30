@@ -15654,6 +15654,26 @@ constexpr char kSettingsLogout586DE8[] = "\xB5\x6E\xA5\x58\xA6\xF8\xAA\x41\xBE\x
 constexpr char kSettingsInput586DF8[] = "\xB3\x5D\xA9\x77\xB7\xC6\xB9\xAB\xBB\x50\xC1\xE4\xBD\x4C\xAA\xBA\xBE\xDE\xA7\x40\xA4\xE8\xA6\xA1\xA1\x43";
 constexpr char kSettingsAudio586E14[] = "\xB3\x5D\xA9\x77\xAD\xB5\xBC\xD6\xAD\xB5\xAE\xC4\xA1\x43";
 constexpr char kSettingsDisplay586E24[] = "\xB1\xBD\xB4\x79\xBD\x75\xA6\x50\xB4\xC1\xB3\x5D\xA9\x77";
+constexpr std::array<std::int32_t, 6> kSettingsKeyImages54F460 {
+    0x3BE63, 0x3BE64, 0x3BE65, 0x3BE66, 0x3BE67, 0x3BE68,
+};
+constexpr char kSettingsClose55331C[] = "\xC3\xF6\xB3\xAC\xB3\x6F\xAD\xD3\xB5\xF8\xB5\xA1\xA1\x43";
+constexpr char kSettingsHotkeys586E34[] = "\xB6\x7D\xB1\xD2\xBC\xF6\xC1\xE4\xA4\x40\xC4\xFD\xAA\xED\xA1\x43";
+constexpr char kSettingsLogoutTown586E48[] = "\xB5\x6E\xA5\x58\xA8\xC3\xA6\x5E\xA8\xEC\xAB\xB0\xA4\xBA\xB5\x6E\xA4\x4A\xC2\x49\xA1\x43";
+constexpr char kSettingsLogoutServer586E60[] = "\xB5\x6E\xA5\x58\xAB\xE1\xA6\x5E\xA8\xEC\xA6\xF8\xAA\x41\xBE\xB9\xBF\xEF\xBE\xDC\xB5\x65\xAD\xB1\xA1\x43";
+constexpr char kSettingsStackMode586E7C[] = "\xC5\xDC\xA7\xF3\xAA\xAB\xAB\x7E\xB0\xEF\xC5\x7C\xB5\xF8\xB5\xA1\xAA\xBA\xB6\x7D\xB1\xD2\xA4\xE8\xA6\xA1\xA1\x43";
+constexpr char kSettingsCursor586E9C[] = "\xC5\xDC\xA7\xF3\xB7\xC6\xB9\xAB\xB4\xE5\xBC\xD0\xBA\xD8\xC3\xFE\xA1\x43";
+constexpr char kSettingsKeyMode586EB0[] = "\xC5\xDC\xA7\xF3\xA7\xD6\xB3\x74\xC1\xE4\xAA\xBA\xAB\xAC\xBA\x41\xA1\x43";
+constexpr char kSettingsMusicMin586EC4[] = "\xB5\x4C\xAA\x6B\xA6\x41\xAD\xB0\xA7\x43\xAD\x49\xB4\xBA\xAD\xB5\xBC\xD6\xAA\xBA\xAD\xB5\xB6\x71\xA1\x43";
+constexpr char kSettingsMusicDown586EE0[] = "\xAD\xB0\xA7\x43\xAD\x49\xB4\xBA\xAD\xB5\xBC\xD6\xAA\xBA\xAD\xB5\xB6\x71\xA1\x43";
+constexpr char kSettingsMusicMax586EF8[] = "\xB5\x4C\xAA\x6B\xA6\x41\xB4\xA3\xB0\xAA\xAD\x49\xB4\xBA\xAD\xB5\xBC\xD6\xAA\xBA\xAD\xB5\xB6\x71\xA1\x43";
+constexpr char kSettingsMusicUp586F14[] = "\xB4\xA3\xB0\xAA\xAD\x49\xB4\xBA\xAD\xB5\xBC\xD6\xAA\xBA\xAD\xB5\xB6\x71\xA1\x43";
+constexpr char kSettingsEffectMin586F2C[] = "\xB5\x4C\xAA\x6B\xA6\x41\xAD\xB0\xA7\x43\xAE\xC4\xAA\x47\xAD\xB5\xB6\x71\xA1\x43";
+constexpr char kSettingsEffectDown586F44[] = "\xAD\xB0\xA7\x43\xAE\xC4\xAA\x47\xAD\xB5\xB6\x71\xA1\x43";
+constexpr char kSettingsEffectMax586F54[] = "\xB5\x4C\xAA\x6B\xA6\x41\xB4\xA3\xB0\xAA\xAE\xC4\xAA\x47\xAD\xB5\xB6\x71\xA1\x43";
+constexpr char kSettingsEffectUp586F6C[] = "\xB4\xA3\xB0\xAA\xAE\xC4\xAA\x47\xAD\xB5\xB6\x71\xA1\x43";
+constexpr char kSettingsOutput586F7C[] = "\xC5\xDC\xA7\xF3\xAD\xB5\xC5\x54\xBF\xE9\xA5\x58\xC3\xFE\xAB\xAC\xA1\x43";
+constexpr char kSettingsRenderMode586F90[] = "\xA5\xD8\xAB\x65\xAA\xBA\xB4\x79\xC3\xB8\xA5\x5C\xAF\xE0\xA1\x43";
 
 } // namespace
 
@@ -15952,6 +15972,445 @@ std::int32_t Sub_494370(const std::int32_t index, const std::int32_t state)
         graphic->imageNo = 0x3B8C8;
     }
     return consumed;
+}
+
+std::int32_t Sub_493E50(const std::int32_t index, const std::int32_t state)
+{
+    WindowInstance* const window = gCurrentWindow;
+    auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
+    std::int32_t consumed = 0;
+    if ((state & 1) != 0) {
+        std::strcpy(gHoverTextD68AE8.data(), kSettingsClose55331C);
+    }
+    if ((state & 2) != 0) {
+        window->state |= 0x8000u;
+        consumed = 1;
+    }
+    graphic->imageNo = 0x3B538;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3B53A;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 0x3B539;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_4944A0(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    std::int32_t consumed = 0;
+    graphic->imageNo = 0x3B8CA;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3B8CC;
+        std::strcpy(gHoverTextD68AE8.data(), kSettingsHotkeys586E34);
+    }
+    if ((state & 2) != 0) {
+        WindowInstance* const hotkeys = gWindowStates[25].window;
+        if (hotkeys != nullptr) {
+            hotkeys->state |= 0x8000u;
+            static_cast<void>(audio::PlaySe_52C450(57, 320));
+        } else {
+            static_cast<void>(CreateWindowAnimation_475AA0(25, 1, 0, nullptr));
+        }
+        consumed = 1;
+    }
+    if (gWindowStates[25].window != nullptr) {
+        graphic->imageNo = 0x3B8CB;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_494550(const std::int32_t index, const std::int32_t state)
+{
+    WindowInstance* window = gCurrentWindow;
+    auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
+    std::int32_t consumed = 0;
+    if ((state & 1) != 0) {
+        std::strcpy(gHoverTextD68AE8.data(), kSettingsLogoutTown586E48);
+        window = gCurrentWindow;
+    }
+    if ((state & 2) != 0) {
+        window->state |= 0x2000u;
+        static_cast<void>(network::Sub_512CF0(platform::gConnectionSocket));
+        if (world::gCurrentSceneType == 10) {
+            world::gCurrentSceneState = 7;
+        }
+        static_cast<void>(audio::PlaySe_52C450(60, 320));
+        consumed = 1;
+        world::gValueD67E78 = 1;
+    }
+    graphic->imageNo = 0x3B8D1;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3B8D3;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 0x3B8D2;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_494620(const std::int32_t index, const std::int32_t state)
+{
+    WindowInstance* window = gCurrentWindow;
+    auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
+    std::int32_t consumed = 0;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3B8D6;
+        std::strcpy(gHoverTextD68AE8.data(), kSettingsLogoutServer586E60);
+        window = gCurrentWindow;
+    }
+    if ((state & 2) != 0) {
+        window->state |= 0x2000u;
+        if (world::gCurrentSceneType == 10) {
+            world::gCurrentSceneState = 9;
+        } else {
+            platform::LegacyCryptInt temporary;
+            platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, 0);
+            world::detail::gValue73ECD0.encoded = temporary.encoded;
+            world::detail::gValue73ECD0.mask = temporary.mask;
+            world::detail::gValue73ECD0.readCount = temporary.readCount;
+            platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+            static_cast<void>(world::SetPendingSceneType(7));
+        }
+        static_cast<void>(audio::PlaySe_52C450(60, 320));
+        consumed = 1;
+    }
+    graphic->imageNo = 0x3B8D4;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3B8D6;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 0x3B8D5;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_494720(const std::int32_t index, const std::int32_t state)
+{
+    WindowInstance* const window = gCurrentWindow;
+    auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
+    std::int32_t consumed = 0;
+    if ((state & 1) != 0) {
+        std::strcpy(gHoverTextD68AE8.data(), kSettingsStackMode586E7C);
+    }
+    if ((state & 2) != 0) {
+        window->state |= 0x2000u;
+        platform::gValueD67AE8 = (platform::gValueD67AE8 - 1u) & 1u;
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        consumed = 1;
+    }
+    if (platform::gValueD67AE8 != 0) {
+        graphic->imageNo = 0x3B8DB;
+        if ((state & 1) != 0) {
+            graphic->imageNo = 0x3B8DD;
+        }
+    } else {
+        graphic->imageNo = 0x3B8DE;
+        if ((state & 1) != 0) {
+            graphic->imageNo = 0x3B8E0;
+        }
+    }
+    return consumed;
+}
+
+std::int32_t Sub_4947F0(const std::int32_t index, const std::int32_t state)
+{
+    WindowInstance* const window = gCurrentWindow;
+    auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
+    std::int32_t consumed = 0;
+    if ((state & 1) != 0) {
+        std::strcpy(gHoverTextD68AE8.data(), kSettingsCursor586E9C);
+    }
+    if ((state & 2) != 0) {
+        window->state |= 0x2000u;
+        platform::gValueD67AE4 = platform::gValueD67AE4 == 0 ? 1u : 0u;
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        consumed = 1;
+    }
+    if (platform::gValueD67AE4 != 0) {
+        graphic->imageNo = 0x3B8E1;
+        if ((state & 1) != 0) {
+            graphic->imageNo = 0x3B8E3;
+        }
+        const std::int32_t y = platform::legacy_crypt_int::Add_401E10(
+            &platform::gLegacyMouseState.mouseY, 16);
+        const std::int32_t x = platform::legacy_crypt_int::Add_401E10(
+            &platform::gLegacyMouseState.mouseX, 16);
+        static_cast<void>(login::detail::DrawGraphic(x, y, 231, 22000, 0, nullptr));
+    } else {
+        graphic->imageNo = 0x3B8E4;
+        if ((state & 1) != 0) {
+            graphic->imageNo = 0x3B8E6;
+        }
+    }
+    return consumed;
+}
+
+std::int32_t Sub_4948F0(const std::int32_t index, const std::int32_t state)
+{
+    WindowInstance* const window = gCurrentWindow;
+    auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
+    std::int32_t consumed = 0;
+    if ((state & 1) != 0) {
+        std::strcpy(gHoverTextD68AE8.data(), kSettingsKeyMode586EB0);
+    }
+    if ((state & 2) != 0) {
+        window->state |= 0x2000u;
+        const std::int32_t mode = gValueCF4AAC + 1;
+        gValueCF4AAC = mode;
+        if (mode == 2) {
+            gValueCF4AAC = 0;
+        }
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        consumed = 1;
+    }
+    graphic->imageNo = kSettingsKeyImages54F460[3 * gValueCF4AAC];
+    if ((state & 1) != 0) {
+        graphic->imageNo = kSettingsKeyImages54F460[3 * gValueCF4AAC + 2];
+    }
+    return consumed;
+}
+
+std::int32_t Sub_4949C0(const std::int32_t index, const std::int32_t state)
+{
+    WindowInstance* const window = gCurrentWindow;
+    auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
+    std::int32_t consumed = 0;
+    if ((state & 1) != 0) {
+        const char* const hint = platform::gMusicVolume <= 0
+            ? kSettingsMusicMin586EC4 : kSettingsMusicDown586EE0;
+        std::strcpy(gHoverTextD68AE8.data(), hint);
+    }
+    if ((state & 0x400) != 0) {
+        window->state |= 0x2000u;
+        const std::int32_t volume = platform::gMusicVolume;
+        if (volume <= 0) {
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        } else {
+            platform::gMusicVolume = volume - 1;
+            static_cast<void>(audio::Sub_52C3D0());
+            std::sprintf(gSettingsMusicTextD3041C.data(), "%d", platform::gMusicVolume);
+            const std::int32_t width = Sub_477460(gSettingsMusicTextD3041C.data(), 3);
+            const std::int32_t x = ((37 - width) >> 1) + gSettingsOffsetCA02DC + 69;
+            gCurrentWindow->elements[13].x = x;
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        }
+        consumed = 1;
+    }
+    graphic->imageNo = 0x3B556;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3B558;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 0x3B557;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_494AE0(const std::int32_t index, const std::int32_t state)
+{
+    WindowInstance* const window = gCurrentWindow;
+    auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
+    std::int32_t consumed = 0;
+    if ((state & 1) != 0) {
+        const char* const hint = platform::gMusicVolume >= 15
+            ? kSettingsMusicMax586EF8 : kSettingsMusicUp586F14;
+        std::strcpy(gHoverTextD68AE8.data(), hint);
+    }
+    if ((state & 0x400) != 0) {
+        window->state |= 0x2000u;
+        const std::int32_t volume = platform::gMusicVolume;
+        if (volume >= 15) {
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        } else {
+            platform::gMusicVolume = volume + 1;
+            static_cast<void>(audio::Sub_52C3D0());
+            std::sprintf(gSettingsMusicTextD3041C.data(), "%d", platform::gMusicVolume);
+            const std::int32_t width = Sub_477460(gSettingsMusicTextD3041C.data(), 3);
+            const std::int32_t x = ((37 - width) >> 1) + gSettingsOffsetCA02DC + 69;
+            gCurrentWindow->elements[13].x = x;
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        }
+        consumed = 1;
+    }
+    graphic->imageNo = 0x3B559;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3B55B;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 0x3B55A;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_494C10(const std::int32_t index, const std::int32_t state)
+{
+    WindowInstance* const window = gCurrentWindow;
+    auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
+    std::int32_t consumed = 0;
+    if ((state & 1) != 0) {
+        const char* const hint = platform::gEffectVolume <= 0
+            ? kSettingsEffectMin586F2C : kSettingsEffectDown586F44;
+        std::strcpy(gHoverTextD68AE8.data(), hint);
+    }
+    if ((state & 0x400) != 0) {
+        window->state |= 0x2000u;
+        const std::int32_t volume = platform::gEffectVolume;
+        if (volume <= 0) {
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        } else {
+            platform::gEffectVolume = volume - 1;
+            static_cast<void>(audio::Sub_52C3D0());
+            std::sprintf(gSettingsEffectTextD2EA64.data(), "%d", platform::gEffectVolume);
+            const std::int32_t width = Sub_477460(gSettingsEffectTextD2EA64.data(), 3);
+            const std::int32_t x = ((37 - width) >> 1) + gSettingsOffsetCA02DC + 69;
+            gCurrentWindow->elements[16].x = x;
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        }
+        consumed = 1;
+    }
+    graphic->imageNo = 0x3B556;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3B558;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 0x3B557;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_494D30(const std::int32_t index, const std::int32_t state)
+{
+    WindowInstance* const window = gCurrentWindow;
+    auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
+    std::int32_t consumed = 0;
+    if ((state & 1) != 0) {
+        const char* const hint = platform::gEffectVolume >= 15
+            ? kSettingsEffectMax586F54 : kSettingsEffectUp586F6C;
+        std::strcpy(gHoverTextD68AE8.data(), hint);
+    }
+    if ((state & 0x400) != 0) {
+        window->state |= 0x2000u;
+        const std::int32_t volume = platform::gEffectVolume;
+        if (volume >= 15) {
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        } else {
+            platform::gEffectVolume = volume + 1;
+            static_cast<void>(audio::Sub_52C3D0());
+            std::sprintf(gSettingsEffectTextD2EA64.data(), "%d", platform::gEffectVolume);
+            const std::int32_t width = Sub_477460(gSettingsEffectTextD2EA64.data(), 3);
+            const std::int32_t x = ((37 - width) >> 1) + gSettingsOffsetCA02DC + 69;
+            gCurrentWindow->elements[16].x = x;
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        }
+        consumed = 1;
+    }
+    graphic->imageNo = 0x3B559;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3B55B;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 0x3B55A;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_494E60(const std::int32_t index, const std::int32_t state)
+{
+    WindowInstance* const window = gCurrentWindow;
+    auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
+    std::int32_t consumed = 0;
+    if ((state & 1) != 0) {
+        std::strcpy(gHoverTextD68AE8.data(), kSettingsOutput586F7C);
+    }
+    if ((state & 2) != 0) {
+        window->state |= 0x2000u;
+        platform::gUseStereo = static_cast<std::int32_t>(
+            (static_cast<std::uint32_t>(platform::gUseStereo) - 1u) & 1u);
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        consumed = 1;
+    }
+    if (platform::gUseStereo != 0) {
+        graphic->imageNo = 0x3B8EF;
+        if ((state & 1) != 0) {
+            graphic->imageNo = 0x3B8F1;
+        }
+    } else {
+        graphic->imageNo = 0x3B8F2;
+        if ((state & 1) != 0) {
+            graphic->imageNo = 0x3B8F4;
+        }
+    }
+    return consumed;
+}
+
+std::int32_t Sub_494F30(const std::int32_t index, const std::int32_t state)
+{
+    WindowInstance* const window = gCurrentWindow;
+    auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
+    std::int32_t consumed = 0;
+    if ((state & 1) != 0) {
+        std::strcpy(gHoverTextD68AE8.data(), kSettingsOutput586F7C);
+    }
+    if ((state & 2) != 0) {
+        window->state |= 0x2000u;
+        platform::gValue554644 = static_cast<std::int32_t>(
+            (static_cast<std::uint32_t>(platform::gValue554644) - 1u) & 1u);
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        consumed = 1;
+    }
+    if (platform::gValue554644 != 0) {
+        graphic->imageNo = 0x3BE7B;
+        if ((state & 1) != 0) {
+            graphic->imageNo = 0x3BE7D;
+        }
+    } else {
+        graphic->imageNo = 0x3BE78;
+        if ((state & 1) != 0) {
+            graphic->imageNo = 0x3BE7A;
+        }
+    }
+    return consumed;
+}
+
+std::int32_t Sub_495000(const std::int32_t index, const std::int32_t state)
+{
+    WindowInstance* const window = gCurrentWindow;
+    auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
+    std::int32_t consumed = 0;
+    if ((state & 1) != 0) {
+        std::strcpy(gHoverTextD68AE8.data(), kSettingsDisplay586E24);
+    }
+    if ((state & 2) != 0) {
+        window->state |= 0x2000u;
+        platform::gScanlineSyncMode = static_cast<std::uint16_t>(
+            (static_cast<std::uint8_t>(platform::gScanlineSyncMode) - 1) & 1);
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        consumed = 1;
+    }
+    if (platform::gScanlineSyncMode != 0) {
+        graphic->imageNo = 0x3B8FC;
+        if ((state & 1) != 0) {
+            graphic->imageNo = 0x3B8FE;
+        }
+    } else {
+        graphic->imageNo = 0x3B8F9;
+        if ((state & 1) != 0) {
+            graphic->imageNo = 0x3B8FB;
+        }
+    }
+    return consumed;
+}
+
+std::int32_t Sub_4950D0(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    if ((state & 1) != 0) {
+        std::strcpy(gHoverTextD68AE8.data(), kSettingsRenderMode586F90);
+    }
+    graphic->imageNo = 0x3B5A0 + 3 * index;
+    return 0;
 }
 
 void Sub_4B5A90()

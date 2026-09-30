@@ -217,6 +217,35 @@ WindowTextPrototype gWindowText567AD8 {
 };
 std::uint32_t gWindowAnimationImage567AE0 = 100000;
 std::uint32_t gWindowMouseFlagsD677D0 = 0;
+WindowGraphicData gWindowGraphic568720 {0x3B538, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic568738 {0x3B8BE, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic568750 {0x3B8C1, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic568768 {0x3B8C4, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic568780 {0x3B8C7, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic568798 {0x3B8CA, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic5687B0 {0x3B8D0, 0, 0, 0, 79, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic5687C8 {0x3B8DA, 0, 0, 0, 128, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic5687E0 {0x3B8EE, 0, 0, 0, 203, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic5687F8 {0x3B8F8, 0, 0, 0, 90, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic568810 {0x3B8D1, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic568828 {0x3B8D4, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic568840 {0x3B8DB, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic568858 {0x3B8E1, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic568870 {0x3B556, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic568888 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic5688A0 {0x3B8EF, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic5688B8 {0x3B8F9, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic5688D0 {0x3B8BC, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic5688E8 {0x3B8BD, 0, 0, 0, 0, 0x99FFFFFFu};
+WindowGraphicData gWindowGraphic568900 {0x3BE63, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic568918 {0x3BE78, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic568930 {0x3B5E2, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic568948 {0x3B5E5, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic568960 {0x3B5E8, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic568978 {0x3B5EB, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic568990 {0x3B5EE, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowNumberData gWindowNumber5689B8 {gSettingsEffectTextD2EA64.data(), 0, 3, 0, 0};
+WindowNumberData gWindowNumber5689C0 {gSettingsMusicTextD3041C.data(), 0, 3, 0, 0};
 
 WindowGraphicData gWindowGraphic55F798 {0x3B614, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic55F7B0 {0x3BAC5, 0, 0, 0, 0, 0xFFFFFFFFu};
@@ -1553,6 +1582,41 @@ WindowElementPrototype gWindowElements567AE8[82] {
     {1, 13, 26, 11, 11, 1, {.graphic = &gWindowGraphic5679E0}, &Sub_4B0F10},
     {4, 131, 59, 114, 110, 1, {.mouseFlags = &gWindowMouseFlagsD677D0}, &Sub_492880},
     {0, 256, 0, 20, 130, 1, {.unusedValue = 0}, &Sub_474170},
+};
+
+WindowElementPrototype gWindowElements5689C8[32] {
+    {1, 186, 9, 11, 11, 1, {.graphic = &gWindowGraphic568720}, &Sub_493E50},
+    {1, 69, 51, 70, 17, 1, {.graphic = &gWindowGraphic568738}, &Sub_493EE0},
+    {1, 69, 79, 70, 17, 1, {.graphic = &gWindowGraphic568750}, &Sub_494000},
+    {1, 69, 109, 70, 17, 1, {.graphic = &gWindowGraphic568768}, &Sub_494180},
+    {1, 69, 142, 70, 17, 1, {.graphic = &gWindowGraphic568780}, &Sub_494370},
+    {1, 69, 174, 70, 17, 1, {.graphic = &gWindowGraphic568798}, &Sub_4944A0},
+    {1, 0, 0, 40, 11, 1, {.graphic = &gWindowGraphic5688D0}, &Sub_4B0F10},
+    {1, 13, 26, 40, 11, 1, {.graphic = &gWindowGraphic5688E8}, &Sub_4B0F10},
+    {1, -111, 30, 102, 18, 1, {.graphic = &gWindowGraphic568810}, &Sub_494550},
+    {1, -111, 58, 102, 18, 1, {.graphic = &gWindowGraphic568828}, &Sub_494620},
+    {1, -117, 40, 88, 18, 1, {.graphic = &gWindowGraphic568840}, &Sub_494720},
+    {1, -117, 75, 88, 18, 1, {.graphic = &gWindowGraphic568858}, &Sub_4947F0},
+    {1, -117, 110, 88, 18, 1, {.graphic = &gWindowGraphic568900}, &Sub_4948F0},
+    {7, -72, 51, 0, 0, 1, {.number = &gWindowNumber5689C0}, &Sub_4B0F10},
+    {1, -98, 47, 18, 18, 1, {.graphic = &gWindowGraphic568870}, &Sub_4949C0},
+    {1, -35, 47, 18, 18, 1, {.graphic = &gWindowGraphic568888}, &Sub_494AE0},
+    {7, -72, 95, 0, 0, 1, {.number = &gWindowNumber5689B8}, &Sub_4B0F10},
+    {1, -98, 91, 18, 18, 1, {.graphic = &gWindowGraphic568870}, &Sub_494C10},
+    {1, -35, 91, 18, 18, 1, {.graphic = &gWindowGraphic568888}, &Sub_494D30},
+    {1, -88, 141, 63, 18, 1, {.graphic = &gWindowGraphic5688A0}, &Sub_494E60},
+    {1, -88, 185, 63, 18, 1, {.graphic = &gWindowGraphic568918}, &Sub_494F30},
+    {1, -45, 25, 44, 18, 1, {.graphic = &gWindowGraphic5688B8}, &Sub_495000},
+    {1, 0, 72, 22, 19, 0, {.graphic = &gWindowGraphic568930}, &Sub_4950D0},
+    {1, -120, 72, 22, 19, 1, {.graphic = &gWindowGraphic568948}, &Sub_4950D0},
+    {1, -89, 72, 22, 19, 1, {.graphic = &gWindowGraphic568960}, &Sub_4950D0},
+    {1, -58, 72, 22, 19, 1, {.graphic = &gWindowGraphic568978}, &Sub_4950D0},
+    {1, -27, 72, 22, 19, 1, {.graphic = &gWindowGraphic568990}, &Sub_4950D0},
+    {1, -130, 10, 150, 79, 1, {.graphic = &gWindowGraphic5687B0}, &Sub_474170},
+    {1, -130, 10, 150, 128, 1, {.graphic = &gWindowGraphic5687C8}, &Sub_474170},
+    {1, -130, 10, 150, 203, 1, {.graphic = &gWindowGraphic5687E0}, &Sub_474170},
+    {1, -130, 10, 150, 90, 1, {.graphic = &gWindowGraphic5687F8}, &Sub_474170},
+    {0, 209, 7, 18, 78, 1, {.unusedValue = 0}, &Sub_474170},
 };
 
 WindowElementPrototype gWindowElements57B508[48] {

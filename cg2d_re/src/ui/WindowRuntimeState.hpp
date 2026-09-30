@@ -852,6 +852,21 @@ std::int32_t Sub_493EE0(std::int32_t index, std::int32_t state); // 登出侧栏
 std::int32_t Sub_494000(std::int32_t index, std::int32_t state); // 输入侧栏，展开后保留元素11载荷别名。
 std::int32_t Sub_494180(std::int32_t index, std::int32_t state); // 音量侧栏，生成两个type7同源文本。
 std::int32_t Sub_494370(std::int32_t index, std::int32_t state); // 显示侧栏，展开后保留元素21载荷别名。
+std::int32_t Sub_493E50(std::int32_t index, std::int32_t state); // 设置窗关闭标记，无直接音效。
+std::int32_t Sub_4944A0(std::int32_t index, std::int32_t state); // 快捷键窗口25开关。
+std::int32_t Sub_494550(std::int32_t index, std::int32_t state); // lO请求与场景10状态7。
+std::int32_t Sub_494620(std::int32_t index, std::int32_t state); // 返回服务器选择，非场景10构造CryptInt零值。
+std::int32_t Sub_494720(std::int32_t index, std::int32_t state); // 物品堆叠输入设置。
+std::int32_t Sub_4947F0(std::int32_t index, std::int32_t state); // 光标切换，非零模式逐帧预览。
+std::int32_t Sub_4948F0(std::int32_t index, std::int32_t state); // 快捷键模式，同源六项图号表。
+std::int32_t Sub_4949C0(std::int32_t index, std::int32_t state); // 音乐减量，bit400触发。
+std::int32_t Sub_494AE0(std::int32_t index, std::int32_t state); // 音乐增量。
+std::int32_t Sub_494C10(std::int32_t index, std::int32_t state); // 音效减量，仍调用BGM音量入口。
+std::int32_t Sub_494D30(std::int32_t index, std::int32_t state); // 音效增量。
+std::int32_t Sub_494E60(std::int32_t index, std::int32_t state); // 声道设置，保留W32奇偶切换。
+std::int32_t Sub_494F30(std::int32_t index, std::int32_t state); // 554644切换，提示仍复用声道文案。
+std::int32_t Sub_495000(std::int32_t index, std::int32_t state); // 低U8切换后写W16扫描线设置。
+std::int32_t Sub_4950D0(std::int32_t index, std::int32_t state); // 当前渲染模式提示/图号，恒返0。
 extern std::int8_t gSettingsPanelCC4234;
 extern std::int32_t gSettingsOffsetCA02DC;
 extern std::int32_t gSettingsStepD2D610;

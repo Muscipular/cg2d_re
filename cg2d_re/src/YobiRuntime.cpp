@@ -13,6 +13,7 @@
 #include "cg/GraphicInfo.hpp"
 #include "cg/Input.hpp"
 #include "cg/LegacyAudio.hpp"
+#include "cg/Palette.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
 #include "cg/platform/LegacyWindow.hpp"
@@ -17542,6 +17543,316 @@ void UpdateBattleAction169_411FE0(YobiAction* const action)
 {
     SetYobiActionField309(action, 255);
     AdvanceBattleCastState_439340(action);
+}
+
+void SyncBattleAttachmentAlpha_420F10(
+    YobiAction* const action, const std::int32_t alpha, const std::int8_t delta,
+    const std::uint32_t addMask, const std::uint32_t removeMask)
+{
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    // 保存槽地址而非对象快照，保留每个操作后的重取及多个槽指向同一对象的重复处理。
+    const std::array<YobiAction**, 9> slots {
+        &payload->effect1054, &payload->attachedEffect1058, &payload->effect105C,
+        &payload->centeredEffect1064, &payload->effect1068, &payload->rebirthEffect106C,
+        &payload->rebirthAuxiliaryEffects1074[0], &payload->rebirthAuxiliaryEffects1074[1],
+        &payload->rebirthAuxiliaryEffects1074[2],
+    };
+    for (YobiAction** const slot : slots) {
+        if (*slot == nullptr) {
+            continue;
+        }
+        if (alpha >= 0) {
+            SetYobiActionField30F(*slot, static_cast<std::uint8_t>(alpha));
+        }
+        YobiAction* const adjusted = *slot;
+        SetYobiActionField30F(adjusted,
+            static_cast<std::uint8_t>(GetYobiActionField30F(adjusted) + delta));
+        (*slot)->flags &= ~removeMask;
+        (*slot)->flags |= addMask;
+        SetYobiActionField308(*slot, 0);
+        YobiAction* const batched = *slot;
+        if (GetYobiActionField30F(batched) != 255) {
+            SetYobiActionField308(batched, 8);
+        }
+        (*slot)->flags &= ~2u;
+        YobiAction* const visible = *slot;
+        if (GetYobiActionField30F(visible) == 0) {
+            visible->flags |= 2u;
+        }
+    }
+}
+
+void UpdateBattleAction170_412000(YobiAction* const action)
+{
+    SetYobiActionField309(action, 0);
+    AdvanceBattleCastState_439340(action);
+}
+
+void UpdateBattleAction171_412020(YobiAction* const action)
+{
+    action->flags &= ~2u;
+    SyncBattleAttachmentAlpha_420F10(action, -1, 0, 0, 2);
+    const std::uint8_t alpha = GetYobiActionField30F(action);
+    if (alpha + 3 < 255) {
+        SetYobiActionField30F(action, static_cast<std::uint8_t>(alpha + 3));
+        SyncBattleAttachmentAlpha_420F10(action, -1, 3, 0, 0);
+        if (render::HasLegacy3DDevice_44B610() == 0) {
+            action->flags |= 0x8000u;
+            SyncBattleAttachmentAlpha_420F10(action, -1, 0, 0x8000, 0);
+        }
+    } else {
+        SetYobiActionField30F(action, 255);
+        SyncBattleAttachmentAlpha_420F10(action, 255, 0, 0, 0);
+        if (render::HasLegacy3DDevice_44B610() == 0) {
+            action->flags &= ~0x8000u;
+            SyncBattleAttachmentAlpha_420F10(action, -1, 0, 0, 0x8000);
+        }
+        AdvanceBattleCastState_439340(action);
+    }
+}
+
+void UpdateBattleActions172_173_4120F0(YobiAction* const action)
+{
+    const std::int32_t step = action->phase == 173 ? 2 : 3;
+    const std::uint8_t alpha = GetYobiActionField30F(action);
+    if (alpha - step > 0) {
+        SetYobiActionField30F(action, static_cast<std::uint8_t>(alpha - step));
+        SyncBattleAttachmentAlpha_420F10(action, -1, static_cast<std::int8_t>(-step), 0, 0);
+        if (render::HasLegacy3DDevice_44B610() == 0) {
+            action->flags |= 0x8000u;
+            SyncBattleAttachmentAlpha_420F10(action, -1, 0, 0x8000, 0);
+        }
+    } else {
+        SetYobiActionField30F(action, 0);
+        SyncBattleAttachmentAlpha_420F10(action, 0, 0, 0, 0);
+        if (render::HasLegacy3DDevice_44B610() == 0) {
+            action->flags &= ~0x8000u;
+            SyncBattleAttachmentAlpha_420F10(action, -1, 0, 0, 0x8000);
+        }
+        action->flags |= 2u;
+        SyncBattleAttachmentAlpha_420F10(action, -1, 0, 0x8000, 0);
+        AdvanceBattleCastState_439340(action);
+    }
+}
+
+void UpdateBattleAction174_4121D0(YobiAction* const action)
+{
+    const auto* const payload = static_cast<const BattleActorPayload*>(action->payload);
+    const std::int32_t index = payload->effectRunningC9C;
+    const std::int32_t steps = payload->effects1C[index].position3;
+    const std::int32_t palette = payload->effects1C[index].position;
+    static_cast<void>(render::SelectPalette(palette, steps));
+    static_cast<void>(AdvanceBattleEffect_439470(action));
+    AdvanceBattleCastState_439340(action);
+}
+
+void UpdateBattleAction175_412210(YobiAction* const action)
+{
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    if (payload->effect1060 == nullptr) {
+        payload->effect1060 = NewBattleBackgroundFade_421570(
+            payload->effects1C[payload->effectRunningC9C].position4, 2, 0);
+    }
+    payload->effect1060->phase = 0;
+    AdvanceBattleCastState_439340(action);
+}
+
+void UpdateBattleAction176_412260(YobiAction* const action)
+{
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    YobiAction* const effect = payload->effect1060;
+    if (effect != nullptr) {
+        effect->phase = 2;
+        payload->effect1060 = nullptr;
+    }
+    AdvanceBattleCastState_439340(action);
+}
+
+void UpdateBattleAction177_412290(YobiAction* const action)
+{
+    const auto* const payload = static_cast<const BattleActorPayload*>(action->payload);
+    static_cast<void>(NewBattleBackgroundFade_421570(
+        payload->effects1C[payload->effectRunningC9C].position4, 2, 1));
+    AdvanceBattleCastState_439340(action);
+}
+
+void UpdateBattleAction178_4122C0(YobiAction* const action)
+{
+    AdvanceBattleCastState_439340(action);
+    action->phase = 0;
+}
+
+void UpdateBattleAction179_4122E0(YobiAction* const action)
+{
+    action->characterAction = 6;
+    if (PlayFrame_517DA0(action, 1) == 1) {
+        AdvanceBattleCastState_439340(action);
+    }
+}
+
+void UpdateBattleActions180_203_412310(YobiAction* const action)
+{
+    const auto* const payload = static_cast<const BattleActorPayload*>(action->payload);
+    if ((payload->flagsFDC & 0x60u) == 0) {
+        static_cast<void>(PlayFrame_517DA0(action, 0));
+    }
+    if (payload->value1024 == 0) {
+        std::int32_t type = -1;
+        switch (action->phase) {
+        case 180: type = 13; break;
+        case 181: type = 1; break;
+        case 182: type = 2; break;
+        case 183: type = 25; break;
+        case 184: type = 16; break;
+        case 185: type = 21; break;
+        case 186: type = 22; break;
+        case 187: type = 23; break;
+        case 189: type = 4; break;
+        case 190: type = 5; break;
+        case 191: type = 7; break;
+        case 192: type = 8; break;
+        case 193: type = 9; break;
+        case 194: type = 10; break;
+        case 195: type = 11; break;
+        case 196: type = 12; break;
+        case 197: type = 26; break;
+        case 198: type = 29; break;
+        case 199: type = 14; break;
+        case 200: type = 15; break;
+        case 201: type = 6; break;
+        case 202: type = 37; break;
+        case 203: type = 39; break;
+        default: break;
+        }
+        if (type >= 0) {
+            static_cast<void>(NewBattleEffect_41CD00(action, 0, {.offsetY = 0}, type, 0, 1));
+        }
+    }
+    action->phase = 204;
+}
+
+void UpdateBattleAction204_4124E0(YobiAction* const action)
+{
+    using namespace platform::legacy_crypt_int;
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    if ((payload->flagsFDC & 0x60u) == 0) {
+        static_cast<void>(PlayFrame_517DA0(action, 0));
+    }
+    action->flags &= ~2u;
+    SyncBattleAttachmentAlpha_420F10(action, -1, 0, 0, 2);
+    const std::uint8_t alpha = GetYobiActionField30F(action);
+    if (alpha + 3 < 255) {
+        SetYobiActionField30F(action, static_cast<std::uint8_t>(alpha + 3));
+        SyncBattleAttachmentAlpha_420F10(action, -1, 3, 0, 0);
+        if (render::HasLegacy3DDevice_44B610() == 0) {
+            action->flags |= 0x8000u;
+            SyncBattleAttachmentAlpha_420F10(action, -1, 0, 0x8000, 0);
+        }
+    } else {
+        SetYobiActionField30F(action, 255);
+        SyncBattleAttachmentAlpha_420F10(action, 255, 0, 0, 0);
+        if (render::HasLegacy3DDevice_44B610() == 0) {
+            action->flags &= ~0x8000u;
+            SyncBattleAttachmentAlpha_420F10(action, -1, 0, 0, 0x8000);
+        }
+    }
+    if (payload->value1024 == 2) {
+        action->hidden = 0;
+        action->field2D8 = 0;
+        const std::int32_t index = payload->effectRunningC9C;
+        if ((payload->effects1C[index].flags & 0x10000000u) != 0) {
+            static_cast<void>(NewBattleFloatingIcon_41F4C0(
+                world::detail::gBattleAllEntries59E980[payload->effects1C[index].position], 22459, 0, 0));
+        } else {
+            const std::int32_t displayType = payload->value1034;
+            if (displayType >= 0) {
+                const std::int32_t value = payload->value1030;
+                const std::int32_t x = action->x;
+                const std::int32_t y = action->y - 80;
+                static_cast<void>(NewBattleNumber_41F1A0(x, y, value, displayType, 2, 0));
+            }
+            switch (payload->value1034) {
+            case 6:
+                SubtractAssign_401E40(&action->readiness, payload->value1030);
+                if (Less_401DB0(&action->readiness, 0)) {
+                    platform::LegacyCryptInt temporary;
+                    ConstructFromInt_401CC0(&temporary, 0);
+                    action->readiness.mask = temporary.mask;
+                    action->readiness.encoded = temporary.encoded;
+                    action->readiness.readCount = temporary.readCount;
+                    Destroy_401CF0(&temporary);
+                }
+                break;
+            case 5:
+                AddAssign_401E20(&action->readiness, payload->value1030);
+                if (LessCrypt_401DC0(&action->maxHp, &action->readiness)) {
+                    CopyPayload(&action->readiness, &action->maxHp);
+                }
+                break;
+            case 4:
+                AddAssign_401E20(&action->barValue1B0, payload->value1030);
+                if (LessCrypt_401DC0(&action->barMaximum1C0, &action->barValue1B0)) {
+                    CopyPayload(&action->barValue1B0, &action->barMaximum1C0);
+                }
+                break;
+            case 3:
+                SubtractAssign_401E40(&action->barValue1B0, payload->value1030);
+                if (IntGreaterCrypt_401F80(0, &action->barValue1B0)) {
+                    platform::LegacyCryptInt temporary;
+                    ConstructFromInt_401CC0(&temporary, 0);
+                    action->barValue1B0.mask = temporary.mask;
+                    action->barValue1B0.encoded = temporary.encoded;
+                    action->barValue1B0.readCount = temporary.readCount;
+                    Destroy_401CF0(&temporary);
+                }
+                break;
+            default:
+                break;
+            }
+        }
+        ++payload->value1024;
+    }
+    if (payload->value1024 == 3) {
+        const std::int32_t count = payload->valueFF0 + 1;
+        payload->valueFF0 = count;
+        if (count >= 60) {
+            payload->value1024 = 4;
+        }
+    }
+    if (payload->value1024 == 4 && GetYobiActionField30F(action) == 255) {
+        payload->value1024 = 0;
+        payload->valueFF0 = 0;
+        AdvanceBattleCastState_439340(action);
+    }
+}
+
+void UpdateBattleAction205_4127B0(YobiAction* const action)
+{
+    action->characterAction = 16;
+    if (PlayFrame_517DA0(action, 1) == 1) {
+        action->frameIndex = 0;
+        action->frameRemain = 0;
+        AdvanceBattleCastState_439340(action);
+    }
+}
+
+void UpdateBattleAction206_4127F0(YobiAction* const action)
+{
+    const auto* const payload = static_cast<const BattleActorPayload*>(action->payload);
+    YobiAction* const target = world::detail::gBattleAllEntries59E980[
+        payload->effects1C[payload->effectRunningC9C].position];
+    TurnBattleToward_406190(action, target, 1, 0.0F);
+    AdvanceBattleCastState_439340(action);
+}
+
+void UpdateBattleAction207_412830(YobiAction* const action)
+{
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    const std::int32_t index = payload->effectRunningC9C;
+    payload->moveTargetXFE8 = payload->effects1C[index].position;
+    payload->moveTargetYFEC = std::bit_cast<std::int32_t>(payload->effects1C[index].flags);
+    static_cast<void>(AdvanceBattleEffect_439470(action));
+    action->phase = 6;
 }
 
 std::int32_t AdvanceBattleQueuedTarget_43B830(YobiAction* const action)

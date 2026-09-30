@@ -563,6 +563,23 @@ void UpdateBattleAction166_411CB0(YobiAction* action); // 同源计时扣减、�
 void UpdateBattleAction167_411FA0(YobiAction* action); // batch8后推进动作。
 void UpdateBattleAction168_411FC0(YobiAction* action); // batch0后推进动作。
 void UpdateBattleAction169_411FE0(YobiAction* action); // 仅309=255后推进动作。
+void UpdateBattleAction170_412000(YobiAction* action); // 仅309=0后推进动作。
+void UpdateBattleAction171_412020(YobiAction* action); // 自身及九附属槽淡入，完成后推进。
+void UpdateBattleActions172_173_4120F0(YobiAction* action); // phase173减2，其余减3，完成尾保留附属8000位。
+void UpdateBattleAction174_4121D0(YobiAction* action); // 当前效果选择调色板，再推进效果/动作。
+void UpdateBattleAction175_412210(YobiAction* action); // 1060背景淡变创建/复用，重取对象令phase0。
+void UpdateBattleAction176_412260(YobiAction* action); // 1060令phase2并清槽，不标死。
+void UpdateBattleAction177_412290(YobiAction* action); // 创建发布背景的淡变对象，不保存1060。
+void UpdateBattleAction178_4122C0(YobiAction* action); // 推进后覆盖self.phase为0。
+void UpdateBattleAction179_4122E0(YobiAction* action); // 动作6，播放严格返回1才推进。
+void UpdateBattleActions180_203_412310(YobiAction* action); // 23种工厂映射，188不创建，统一转204。
+void UpdateBattleAction204_4124E0(YobiAction* action); // 九槽淡入、HP/FP结算及独立等待/完成检查。
+void UpdateBattleAction205_4127B0(YobiAction* action); // 动作16完成后清帧索引/剩余时长。
+void UpdateBattleAction206_4127F0(YobiAction* action); // 朝当前效果目标转向后推进。
+void UpdateBattleAction207_412830(YobiAction* action); // 当前效果写FE8/FEC，推进效果后转phase6。
+void SyncBattleAttachmentAlpha_420F10(
+    YobiAction* action, std::int32_t alpha, std::int8_t delta,
+    std::uint32_t addMask, std::uint32_t removeMask); // 按原九槽顺序重取，不处理1060/1070。
 std::int32_t NewBattleTimeNumber_4206C0(std::int32_t x, std::int32_t y, std::int32_t seconds);
 void UpdateBattleAction236_406630(YobiAction* action); // 清phase/FD8后执行完整动作0。
 void SetBattleAction208Target_412870(YobiAction* action); // 按目标坐标界线写FE8/FEC，最后phase6。

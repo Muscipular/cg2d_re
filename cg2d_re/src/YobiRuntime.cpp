@@ -13814,6 +13814,270 @@ namespace {
 
 } // namespace
 
+namespace {
+
+// 原427470的RID=22；独立于4239D0预读路径，固定旧载荷并保留两名新角色各自坐标。
+[[maybe_unused]] void ProcessBattleMRideHeader(
+    YobiAction* const scene, BattleScenePayload* const payload)
+{
+    using namespace world::detail;
+    using namespace platform::legacy_crypt_int;
+    const std::int32_t subState = payload->packetSubState58;
+    if (subState != 0) {
+        if (subState == 1 && CheckBattleTurnReady_4394A0(scene, 0) == 1) {
+            FinishBattleEvent_43B6C0(scene);
+        }
+        return;
+    }
+    const std::int32_t mode = TakeBattleMInteger_438F70(scene);
+    gBattleMCasterPosition5AAA64 = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
+    const std::int32_t secondPosition = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
+    YobiAction* const existing = gBattleAllEntries59E980[gBattleMCasterPosition5AAA64];
+    if (existing == nullptr) {
+        FinishBattleEvent_43B6C0(scene);
+        ++payload->packetSubState58;
+        return;
+    }
+    auto* const existingPayload = static_cast<BattleActorPayload*>(existing->payload);
+    gBattleMResultFlags5A4A20 = static_cast<std::uint32_t>(TakeBattleMInteger_438F70(scene));
+    if (mode != 0) {
+        if ((gBattleMResultFlags5A4A20 & 0x80000u) != 0) {
+            const std::int32_t firstPosition = gBattleMCasterPosition5AAA64;
+            if (gBattleAllEntries59E980[secondPosition] == nullptr) {
+                FinishBattleEvent_43B6C0(scene);
+                ++payload->packetSubState58;
+                return;
+            }
+            YobiAction* const carrierAction = NewYobiAction_404AE0(2, sizeof(BattleRideCarrierPayload));
+            auto* const carrier = static_cast<BattleRideCarrierPayload*>(carrierAction->payload);
+            TakeBattleMString_438FE0(scene, carrierAction->nameC4.data(), 29);
+            carrierAction->imageNo = character_select::detail::Sub_51B740(TakeBattleMInteger_438F70(scene));
+            carrier->gearImage0C = character_select::detail::Sub_51B740(TakeBattleMInteger_438F70(scene));
+            carrierAction->field1D0 = TakeBattleMInteger_438F70(scene);
+            {
+                platform::LegacyCryptInt temporary;
+                ConstructFromInt_401CC0(&temporary, TakeBattleMInteger_438F70(scene));
+                CopyPayload(&carrierAction->readiness, &temporary);
+                Destroy_401CF0(&temporary);
+            }
+            {
+                platform::LegacyCryptInt temporary;
+                ConstructFromInt_401CC0(&temporary, TakeBattleMInteger_438F70(scene));
+                CopyPayload(&carrierAction->maxHp, &temporary);
+                Destroy_401CF0(&temporary);
+            }
+            {
+                platform::LegacyCryptInt temporary;
+                ConstructFromInt_401CC0(&temporary, TakeBattleMInteger_438F70(scene));
+                CopyPayload(&carrierAction->barValue1B0, &temporary);
+                Destroy_401CF0(&temporary);
+            }
+            {
+                platform::LegacyCryptInt temporary;
+                ConstructFromInt_401CC0(&temporary, TakeBattleMInteger_438F70(scene));
+                CopyPayload(&carrierAction->barMaximum1C0, &temporary);
+                Destroy_401CF0(&temporary);
+            }
+            carrier->flags08 = static_cast<std::uint32_t>(TakeBattleMInteger_438F70(scene));
+            carrierAction->offset40 = static_cast<float>(
+                gBattleGraphicPoints553758[gBattlePointIndices5536FC[firstPosition]][2]);
+            carrierAction->offset44 = static_cast<float>(
+                gBattleGraphicPoints553758[gBattlePointIndices5536FC[firstPosition]][3]);
+            existingPayload->effect1060 = carrierAction;
+            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 224);
+            AppendBattleEffect_439400(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64],
+                {firstPosition, 1u, gBattleMCasterPosition5AAA64, secondPosition});
+            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 40);
+        } else {
+            const std::int32_t firstPosition = gBattleMCasterPosition5AAA64;
+            YobiAction* const effect = NewYobiAction_404AE0(2, 0);
+            existingPayload->effect1060 = effect;
+            effect->offset40 = static_cast<float>(
+                gBattleGraphicPoints553758[gBattlePointIndices5536FC[firstPosition]][2]);
+            existingPayload->effect1060->offset44 = static_cast<float>(
+                gBattleGraphicPoints553758[gBattlePointIndices5536FC[firstPosition]][3]);
+            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 225);
+            AppendBattleEffect_439400(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64],
+                {firstPosition, 1u, gBattleMCasterPosition5AAA64, secondPosition});
+            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 68);
+            static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload)
+                ->reactionImage1010 = 22331;
+            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 58);
+            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 58);
+            YobiAction* const second = gBattleAllEntries59E980[secondPosition];
+            if (second != nullptr) {
+                auto* const secondPayload = static_cast<BattleActorPayload*>(second->payload);
+                if ((secondPayload->flagsFDC & 2u) == 0) {
+                    secondPayload->reactionImage1010 = 22334;
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[secondPosition], 68);
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[secondPosition], 65);
+                    MoveBattleCastState_439380(gBattleAllEntries59E980[secondPosition]);
+                }
+            }
+        }
+    } else {
+        YobiAction* const carrierAction = NewYobiAction_404AE0(2, sizeof(BattleRideCarrierPayload));
+        auto* const carrier = static_cast<BattleRideCarrierPayload*>(carrierAction->payload);
+        existingPayload->effect1060 = carrierAction;
+        const std::int32_t firstPosition = gBattleMCasterPosition5AAA64;
+        YobiAction* const first = NewBattleActor_438290(firstPosition);
+        auto* const firstPayload = static_cast<BattleActorPayload*>(first->payload);
+        TakeBattleMString_438FE0(scene, first->nameC4.data(), 29);
+        first->imageNo = character_select::detail::Sub_51B740(TakeBattleMInteger_438F70(scene));
+        carrier->gearImage0C = character_select::detail::Sub_51B740(TakeBattleMInteger_438F70(scene));
+        first->field1D0 = TakeBattleMInteger_438F70(scene);
+        {
+            platform::LegacyCryptInt temporary;
+            ConstructFromInt_401CC0(&temporary, TakeBattleMInteger_438F70(scene));
+            CopyPayload(&first->readiness, &temporary);
+            Destroy_401CF0(&temporary);
+        }
+        {
+            platform::LegacyCryptInt temporary;
+            ConstructFromInt_401CC0(&temporary, TakeBattleMInteger_438F70(scene));
+            CopyPayload(&first->maxHp, &temporary);
+            Destroy_401CF0(&temporary);
+        }
+        {
+            platform::LegacyCryptInt temporary;
+            ConstructFromInt_401CC0(&temporary, TakeBattleMInteger_438F70(scene));
+            CopyPayload(&first->barValue1B0, &temporary);
+            Destroy_401CF0(&temporary);
+        }
+        {
+            platform::LegacyCryptInt temporary;
+            ConstructFromInt_401CC0(&temporary, TakeBattleMInteger_438F70(scene));
+            CopyPayload(&first->barMaximum1C0, &temporary);
+            Destroy_401CF0(&temporary);
+        }
+        firstPayload->flagsFDC = static_cast<std::uint32_t>(TakeBattleMInteger_438F70(scene));
+        firstPayload->stateFE0 = 0;
+        first->fields288[3] = 0;
+        first->fields288[2] = 0;
+        first->fields288[1] = 0;
+        first->fields288[0] = 0;
+        if ((firstPayload->flagsFDC & 0x01000000u) != 0) {
+            first->fields288[0] = 1;
+        }
+        if ((firstPayload->flagsFDC & 0x02000000u) != 0) {
+            first->fields288[1] = 1;
+        }
+        if ((firstPayload->flagsFDC & 0x04000000u) != 0) {
+            first->fields288[2] = 1;
+        }
+        if ((firstPayload->flagsFDC & 0x08000000u) != 0) {
+            first->fields288[3] = 1;
+        }
+        firstPayload->castPlayIndexFC4 = 0;
+        firstPayload->castListIndexFC8 = -1;
+        firstPayload->castListCA4[0] = 0;
+        firstPayload->castListCA4[1] = -1;
+        first->offset40 = static_cast<float>(gBattleGraphicPoints553758[gBattlePointIndices5536FC[firstPosition]][2]);
+        first->offset44 = static_cast<float>(gBattleGraphicPoints553758[gBattlePointIndices5536FC[firstPosition]][3]);
+        first->x = gBattleGraphicPoints553758[gBattlePointIndices5536FC[firstPosition]][2];
+        first->y = gBattleGraphicPoints553758[gBattlePointIndices5536FC[firstPosition]][3];
+        first->scaleX = 1.0F;
+        first->scaleY = 1.0F;
+        firstPayload->battlePosition18 = firstPosition;
+        UpdateBattleAlbumFlag_4238F0(first);
+        first->phase = 0;
+        first->flags |= 2u;
+        first->callback = nullptr;
+        carrier->first00 = first;
+        std::strcpy(existingPayload->rider13C8->nameC4.data(), first->nameC4.data());
+        existingPayload->rider13C8->field1D0 = first->field1D0;
+        CopyPayload(&existingPayload->rider13C8->readiness, &first->readiness);
+        CopyPayload(&existingPayload->rider13C8->maxHp, &first->maxHp);
+        CopyPayload(&existingPayload->rider13C8->barValue1B0, &first->barValue1B0);
+        CopyPayload(&existingPayload->rider13C8->barMaximum1C0, &first->barMaximum1C0);
+        YobiAction* const riderX = existingPayload->rider13C8;
+        YobiAction* const sourceX = gBattleAllEntries59E980[gBattleMCasterPosition5AAA64];
+        riderX->offset40 = static_cast<float>(static_cast<double>(sourceX->frameX) + sourceX->offset40);
+        YobiAction* const riderY = existingPayload->rider13C8;
+        YobiAction* const sourceY = gBattleAllEntries59E980[gBattleMCasterPosition5AAA64];
+        riderY->offset44 = sourceY->offset44;
+
+        YobiAction* const second = NewBattleActor_438290(secondPosition);
+        auto* const secondPayload = static_cast<BattleActorPayload*>(second->payload);
+        TakeBattleMString_438FE0(scene, second->nameC4.data(), 29);
+        second->imageNo = character_select::detail::Sub_51B740(TakeBattleMInteger_438F70(scene));
+        second->field1D0 = TakeBattleMInteger_438F70(scene);
+        {
+            platform::LegacyCryptInt temporary;
+            ConstructFromInt_401CC0(&temporary, TakeBattleMInteger_438F70(scene));
+            CopyPayload(&second->readiness, &temporary);
+            Destroy_401CF0(&temporary);
+        }
+        {
+            platform::LegacyCryptInt temporary;
+            ConstructFromInt_401CC0(&temporary, TakeBattleMInteger_438F70(scene));
+            CopyPayload(&second->maxHp, &temporary);
+            Destroy_401CF0(&temporary);
+        }
+        {
+            platform::LegacyCryptInt temporary;
+            ConstructFromInt_401CC0(&temporary, TakeBattleMInteger_438F70(scene));
+            CopyPayload(&second->barValue1B0, &temporary);
+            Destroy_401CF0(&temporary);
+        }
+        {
+            platform::LegacyCryptInt temporary;
+            ConstructFromInt_401CC0(&temporary, TakeBattleMInteger_438F70(scene));
+            CopyPayload(&second->barMaximum1C0, &temporary);
+            Destroy_401CF0(&temporary);
+        }
+        secondPayload->flagsFDC = static_cast<std::uint32_t>(TakeBattleMInteger_438F70(scene));
+        secondPayload->stateFE0 = 0;
+        second->fields288[3] = 0;
+        second->fields288[2] = 0;
+        second->fields288[1] = 0;
+        second->fields288[0] = 0;
+        if ((secondPayload->flagsFDC & 0x01000000u) != 0) {
+            second->fields288[0] = 1;
+        }
+        if ((secondPayload->flagsFDC & 0x02000000u) != 0) {
+            second->fields288[1] = 1;
+        }
+        if ((secondPayload->flagsFDC & 0x04000000u) != 0) {
+            second->fields288[2] = 1;
+        }
+        if ((secondPayload->flagsFDC & 0x08000000u) != 0) {
+            second->fields288[3] = 1;
+        }
+        secondPayload->castPlayIndexFC4 = 0;
+        secondPayload->castListIndexFC8 = -1;
+        secondPayload->castListCA4[0] = 0;
+        secondPayload->castListCA4[1] = -1;
+        second->offset40 = static_cast<float>(gBattleGraphicPoints553758[gBattlePointIndices5536FC[secondPosition]][2]);
+        second->offset44 = static_cast<float>(gBattleGraphicPoints553758[gBattlePointIndices5536FC[secondPosition]][3]);
+        second->x = gBattleGraphicPoints553758[gBattlePointIndices5536FC[secondPosition]][2];
+        second->y = gBattleGraphicPoints553758[gBattlePointIndices5536FC[secondPosition]][3];
+        second->scaleX = 1.0F;
+        second->scaleY = 1.0F;
+        secondPayload->battlePosition18 = secondPosition;
+        UpdateBattleAlbumFlag_4238F0(second);
+        second->phase = 0;
+        second->flags |= 2u;
+        second->callback = nullptr;
+        carrier->second04 = second;
+        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 224);
+        AppendBattleEffect_439400(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64],
+            {gBattleMCasterPosition5AAA64, 0u, firstPosition, secondPosition});
+        YobiAction* const firstEntry = carrier->first00;
+        if ((static_cast<BattleActorPayload*>(firstEntry->payload)->flagsFDC & 2u) != 0) {
+            AppendBattleCast_4392A0(scene, firstEntry, 46);
+        }
+        YobiAction* const secondEntry = carrier->second04;
+        if ((static_cast<BattleActorPayload*>(secondEntry->payload)->flagsFDC & 2u) != 0) {
+            AppendBattleCast_4392A0(scene, secondEntry, 46);
+        }
+    }
+    MoveBattleCastState_439380(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
+    ++payload->packetSubState58;
+}
+
+} // namespace
+
 YobiAction* NewBattleActor_438290(const std::int32_t position)
 {
     using namespace world::detail;

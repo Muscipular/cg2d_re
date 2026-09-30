@@ -14828,6 +14828,112 @@ void ProcessBattleMSkill82And97Targets(YobiAction* const scene, BattleScenePaylo
 
 } // namespace
 
+namespace {
+
+// 原42CB5E..42CF66及432E99尾；技能93先发布替换角色，再消费其名称和属性。
+[[maybe_unused]] void ProcessBattleMSkill93(
+    YobiAction* const scene, BattleScenePayload* const payload, const std::int32_t fpUsed)
+{
+    using namespace world::detail;
+    using namespace platform::legacy_crypt_int;
+    static_cast<void>(TakeBattleMInteger_438F70(scene));
+    gBattleMCasterPosition5AAA64 = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
+    YobiAction* const caster = gBattleAllEntries59E980[gBattleMCasterPosition5AAA64];
+    if (caster == nullptr) {
+        FinishBattleEvent_43B6C0(scene);
+        return;
+    }
+    static_cast<BattleActorPayload*>(caster->payload)->castSkill103C = gBattleMSkill5AAA78;
+    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload)
+        ->castSkillLevel1044 = gBattleMSkillLevelIndex5A3A18;
+    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload)->fpUsed1008 = fpUsed;
+    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 25);
+    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 55);
+    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 68);
+    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload)
+        ->reactionImage1010 = 22338;
+    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 67);
+    for (;;) {
+        gBattleMTargetPosition5AAA40 = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
+        if (gBattleMTargetPosition5AAA40 == 255) {
+            break;
+        }
+        static_cast<void>(MarkDeath(gBattleAllEntries59E980[gBattleMTargetPosition5AAA40]));
+        YobiAction* const created = NewBattleActor_438290(gBattleMTargetPosition5AAA40);
+        gBattleAllEntries59E980[gBattleMTargetPosition5AAA40] = created;
+        auto* const actorPayload = static_cast<BattleActorPayload*>(created->payload);
+        TakeBattleMString_438FE0(scene, created->nameC4.data(), 29);
+        created->imageNo = character_select::detail::Sub_51B740(TakeBattleMInteger_438F70(scene));
+        created->field1D0 = TakeBattleMInteger_438F70(scene);
+        {
+            platform::LegacyCryptInt temporary;
+            ConstructFromInt_401CC0(&temporary, TakeBattleMInteger_438F70(scene));
+            CopyPayload(&created->readiness, &temporary);
+            Destroy_401CF0(&temporary);
+        }
+        {
+            platform::LegacyCryptInt temporary;
+            ConstructFromInt_401CC0(&temporary, TakeBattleMInteger_438F70(scene));
+            CopyPayload(&created->maxHp, &temporary);
+            Destroy_401CF0(&temporary);
+        }
+        {
+            platform::LegacyCryptInt temporary;
+            ConstructFromInt_401CC0(&temporary, TakeBattleMInteger_438F70(scene));
+            CopyPayload(&created->barValue1B0, &temporary);
+            Destroy_401CF0(&temporary);
+        }
+        {
+            platform::LegacyCryptInt temporary;
+            ConstructFromInt_401CC0(&temporary, TakeBattleMInteger_438F70(scene));
+            CopyPayload(&created->barMaximum1C0, &temporary);
+            Destroy_401CF0(&temporary);
+        }
+        actorPayload->flagsFDC = static_cast<std::uint32_t>(TakeBattleMInteger_438F70(scene));
+        actorPayload->stateFE0 = 0;
+        created->fields288[3] = 0;
+        created->fields288[2] = 0;
+        created->fields288[1] = 0;
+        created->fields288[0] = 0;
+        if ((actorPayload->flagsFDC & 0x01000000u) != 0) {
+            created->fields288[0] = 1;
+        }
+        if ((actorPayload->flagsFDC & 0x02000000u) != 0) {
+            created->fields288[1] = 1;
+        }
+        if ((actorPayload->flagsFDC & 0x04000000u) != 0) {
+            created->fields288[2] = 1;
+        }
+        if ((actorPayload->flagsFDC & 0x08000000u) != 0) {
+            created->fields288[3] = 1;
+        }
+        actorPayload->castPlayIndexFC4 = 0;
+        actorPayload->castListIndexFC8 = -1;
+        actorPayload->castListCA4[0] = 0;
+        actorPayload->castListCA4[1] = -1;
+        created->offset40 =
+            static_cast<float>(gBattleGraphicPoints553758[gBattlePointIndices5536FC[gBattleMTargetPosition5AAA40]][2]);
+        created->offset44 =
+            static_cast<float>(gBattleGraphicPoints553758[gBattlePointIndices5536FC[gBattleMTargetPosition5AAA40]][3]);
+        created->x = gBattleGraphicPoints553758[gBattlePointIndices5536FC[gBattleMTargetPosition5AAA40]][2];
+        created->y = gBattleGraphicPoints553758[gBattlePointIndices5536FC[gBattleMTargetPosition5AAA40]][3];
+        created->scaleX = 0.0F;
+        created->scaleY = 0.0F;
+        actorPayload->battlePosition18 = gBattleMTargetPosition5AAA40;
+        UpdateBattleAlbumFlag_4238F0(created);
+        AppendBattleEffectList_4393A0(
+            gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], gBattleMTargetPosition5AAA40, 0, 0);
+        static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMTargetPosition5AAA40]->payload)->value1018 = 204;
+        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 80);
+        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 54);
+    }
+    AppendBattleEffectList_4393A0(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], -1, 0, 0);
+    MoveBattleCastState_439380(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
+    ++payload->packetSubState58;
+}
+
+} // namespace
+
 YobiAction* NewBattleActor_438290(const std::int32_t position)
 {
     using namespace world::detail;

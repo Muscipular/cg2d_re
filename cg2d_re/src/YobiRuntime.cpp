@@ -349,12 +349,12 @@ struct BattleActorPayload {
     std::int32_t castSkill103C;
     std::int32_t castLevel1040; // 与1044的技术索引独立。
     std::int32_t castSkillLevel1044;
-    YobiAction* effect1054; // 416DD0在flags100000h分支先标死再清槽，非拥有引用。
+    YobiAction* effect1054; // 41F660发布；416DD0先标死再清槽，非拥有引用。
     YobiAction* attachedEffect1058; // 41FBE0创建并发布的非拥有附属特效引用。
-    YobiAction* effect105C; // 4131B0首个标死/清空槽，非拥有引用，生产仍待父链。
+    YobiAction* effect105C; // 41F860发布；4131B0/422370标死并清槽，非拥有引用。
     YobiAction* effect1060; // 413550发布克隆、渐变完成后标死并清槽，非拥有引用。
     YobiAction* centeredEffect1064; // 41FA00发布的非拥有居中特效；41F950随父对象移动。
-    YobiAction* effect1068; // 41FB20检查非空，4131B0标死并清空；实际生产仍待父链。
+    YobiAction* effect1068; // 41FE00发布、41FCD0更新；4131B0标死并清槽，非拥有引用。
     std::int32_t rebirthState106C; // 497C80悬停借用、点击刷新后重取。
     YobiAction* caster1070; // 4392A0记录动作发起者，非拥有引用。
     std::int8_t rebirthEffectType1080; // 4208F0按S8选图；仅映射已消费字节，完整生产仍缺。
@@ -367,6 +367,9 @@ struct BattleActorPayload {
     std::array<YobiAction*, 2> auxiliaryGear13B8; // 原13B8/13BC，422C90的0/1槽。
     std::array<std::int32_t, 2> auxiliaryGearTypes13C0; // 原13C0/13C4，清附件不清类型。
     YobiAction* rider13C8; // 4222B0保存4221F0创建的非拥有引用，移除时MarkDeath再清槽。
+    std::int32_t debuffState13CC; // 41F660分配前写2，失败不回滚。
+    std::int32_t debuffType13D0; // 41F660六图号对应类型1至6。
+    std::int32_t value13D8; // 41FE00按完整W32与3比较；其余布局及生产仍待父链。
     std::int32_t image13E4; // 41CD00的type43从重取的源载荷读取，生产仍待上游。
 };
 static_assert(sizeof(BattleEntryEffectRecord) == 16);
@@ -8991,6 +8994,111 @@ YobiAction* NewBattleHitEffect_41F5B0(
     return action;
 }
 
+YobiAction* NewBattleDebuffEffect_41F660(YobiAction* const parent, const std::int32_t imageNo)
+{
+    auto* const payload = static_cast<BattleActorPayload*>(parent->payload);
+    if (payload->effect1054 != nullptr) {
+        return nullptr;
+    }
+    std::int32_t type = 0;
+    switch (imageNo) {
+    case 110075: payload->flagsFDC |= 0x10u; type = 1; break;
+    case 110076: payload->flagsFDC |= 0x20u; type = 2; break;
+    case 110077: payload->flagsFDC |= 0x40u; type = 3; break;
+    case 110078: payload->flagsFDC |= 0x80u; type = 4; break;
+    case 110079: payload->flagsFDC |= 0x100u; type = 5; break;
+    case 110080: payload->flagsFDC |= 0x200u; type = 6; break;
+    default: break;
+    }
+    if (type != 0) {
+        auto* const currentPayload = static_cast<BattleActorPayload*>(parent->payload);
+        currentPayload->debuffType13D0 = type;
+        currentPayload->debuffState13CC = 2;
+    }
+    YobiAction* const action = NewYobiAction_404AE0(2, 0);
+    if (action == nullptr) {
+        return nullptr;
+    }
+    const std::uint32_t flags = action->flags;
+    action->callback = UpdateBattleDebuffEffect_41F800;
+    action->displayPriority = 9;
+    action->framePlayingRate = 100;
+    action->flags = flags | 0x60000u;
+    action->offset40 = parent->offset40;
+    const double y = static_cast<double>(parent->offset44) + 1.0;
+    action->imageNo = imageNo;
+    action->direction = 0;
+    action->rebirthValue1 = 4;
+    action->rebirthValue2 = 4;
+    action->offset44 = static_cast<float>(y);
+    static_cast<void>(PlayFrame_517DA0(action, 1));
+    static_cast<BattleActorPayload*>(parent->payload)->effect1054 = action;
+    action->battleAttachmentParent10 = parent;
+    const std::int32_t x = static_cast<std::int32_t>(action->offset40);
+    const std::int32_t offsetX = static_cast<std::int32_t>(gYobiScreenOffsetX);
+    const float currentY = action->offset44;
+    action->x = x + offsetX;
+    const std::int32_t projectedY = static_cast<std::int32_t>(currentY);
+    const std::int32_t offsetY = static_cast<std::int32_t>(gYobiScreenOffsetY);
+    action->field270 = 0;
+    action->y = projectedY + offsetY;
+    return action;
+}
+
+void UpdateBattleDebuffEffect_41F800(YobiAction* const action)
+{
+    if (action->battleAttachmentParent10->deathFlag == 1) {
+        static_cast<void>(MarkDeath(action));
+    } else {
+        static_cast<void>(PlayFrame_517DA0(action, 0));
+        YobiAction* const parent = action->battleAttachmentParent10;
+        action->offset40 = parent->offset40;
+        action->offset44 = static_cast<float>(static_cast<double>(parent->offset44) + 1.0);
+    }
+    const std::int32_t x = static_cast<std::int32_t>(action->offset40);
+    const std::int32_t offsetX = static_cast<std::int32_t>(gYobiScreenOffsetX);
+    const float y = action->offset44;
+    action->x = x + offsetX;
+    action->y = static_cast<std::int32_t>(y) + static_cast<std::int32_t>(gYobiScreenOffsetY);
+}
+
+YobiAction* NewBattleReverseEffect_41F860(YobiAction* const parent, const std::int32_t imageNo)
+{
+    if (static_cast<BattleActorPayload*>(parent->payload)->effect105C != nullptr) {
+        return nullptr;
+    }
+    YobiAction* const action = NewYobiAction_404AE0(2, 0);
+    if (action == nullptr) {
+        return nullptr;
+    }
+    action->callback = UpdateBattleDebuffEffect_41F800;
+    action->displayPriority = 0xC8;
+    action->framePlayingRate = 100;
+    const bool hasDevice = render::HasLegacy3DDevice_44B610() != 0;
+    const std::uint32_t flags = action->flags | (hasDevice ? 0x100000u : 0x8000u);
+    action->flags = flags;
+    action->flags = flags | 0x40000u;
+    action->offset40 = parent->offset40;
+    const double y = static_cast<double>(parent->offset44) + 1.0;
+    action->imageNo = imageNo;
+    action->direction = 0;
+    action->rebirthValue1 = 4;
+    action->offset44 = static_cast<float>(y);
+    action->rebirthValue2 = 4;
+    static_cast<void>(PlayFrame_517DA0(action, 1));
+    static_cast<BattleActorPayload*>(parent->payload)->effect105C = action;
+    action->battleAttachmentParent10 = parent;
+    const std::int32_t x = static_cast<std::int32_t>(action->offset40);
+    const std::int32_t offsetX = static_cast<std::int32_t>(gYobiScreenOffsetX);
+    const float currentY = action->offset44;
+    action->x = x + offsetX;
+    const std::int32_t projectedY = static_cast<std::int32_t>(currentY);
+    const std::int32_t offsetY = static_cast<std::int32_t>(gYobiScreenOffsetY);
+    action->field270 = 0;
+    action->y = projectedY + offsetY;
+    return action;
+}
+
 void UpdateBattleCenteredEffect_41F950(YobiAction* const action)
 {
     YobiAction* const parent = action->battleAttachmentParent10;
@@ -9119,6 +9227,208 @@ YobiAction* NewBattleAttachedEffect_41FBE0(YobiAction* const parent, const std::
     action->y = static_cast<std::int32_t>(action->offset44);
     action->field270 = 0;
     return action;
+}
+
+void UpdateBattleStatusEffect_41FCD0(YobiAction* const action)
+{
+    YobiAction* const parent = action->battleAttachmentParent10;
+    if (parent->deathFlag == 1) {
+        static_cast<void>(MarkDeath(action));
+    } else {
+        YobiAction* const attached = static_cast<BattleActorPayload*>(parent->payload)->attachedEffect1058;
+        if (attached != nullptr) {
+            const std::uint8_t flags = static_cast<std::uint8_t>(attached->flags);
+            const std::int32_t count = action->deltaX;
+            if ((flags & 2u) != 0) {
+                if (count > 0) {
+                    action->deltaX = count - 1;
+                }
+            } else if (count < 10) {
+                action->deltaX = count + 1;
+            }
+        } else {
+            const std::int32_t count = action->deltaX;
+            if (count > 0) {
+                action->deltaX = count - 1;
+            }
+        }
+        const std::int32_t initialY = action->deltaY;
+        if (initialY != 0) {
+            constexpr float growth = std::bit_cast<float>(0x3D23D70Au);
+            const float scaleX = static_cast<float>(static_cast<double>(action->scaleX) + growth);
+            action->scaleX = scaleX;
+            const double scaleY = static_cast<double>(action->scaleY) + growth;
+            action->scaleY = static_cast<float>(scaleY);
+            if (scaleX > 1.0F) {
+                action->scaleX = 1.0F;
+            }
+            if (scaleY > 1.0) {
+                action->scaleY = 1.0F;
+            }
+            if (action->scaleY >= 1.0F) {
+                action->effectAcceleration48 = static_cast<float>(
+                    static_cast<double>(action->effectAcceleration48) + 1.0);
+            }
+            if (action->effectAcceleration48 >= 30.0F) {
+                action->deltaY = initialY + 7;
+            }
+            if (action->deltaY > 0) {
+                action->deltaY = 0;
+            }
+        }
+        static_cast<void>(PlayFrame_517DA0(action, 0));
+        const std::int32_t position = action->deltaX;
+        YobiAction* const source = action->battleAttachmentParent10;
+        action->offset40 = static_cast<float>(static_cast<double>(position) + source->offset40);
+        action->offset44 = static_cast<float>(static_cast<double>(source->offset44) - 5.0 + action->deltaY);
+    }
+    const std::int32_t x = static_cast<std::int32_t>(action->offset40);
+    const std::int32_t offsetX = static_cast<std::int32_t>(gYobiScreenOffsetX);
+    const float y = action->offset44;
+    action->x = x + offsetX;
+    action->y = static_cast<std::int32_t>(y) + static_cast<std::int32_t>(gYobiScreenOffsetY);
+}
+
+YobiAction* NewBattleStatusEffect_41FE00(YobiAction* const parent, const std::int32_t imageNo,
+    const std::int32_t mode)
+{
+    if (static_cast<BattleActorPayload*>(parent->payload)->effect1068 != nullptr) {
+        return nullptr;
+    }
+    YobiAction* const action = NewYobiAction_404AE0(2, 0);
+    if (action == nullptr) {
+        return nullptr;
+    }
+    action->callback = UpdateBattleStatusEffect_41FCD0;
+    auto* const payload = static_cast<BattleActorPayload*>(parent->payload);
+    std::int32_t displayImage = imageNo;
+    if (payload->value13D8 != 3) {
+        switch (imageNo) {
+        case 103018: payload->flagsFDC |= 0x4000u; break;
+        case 103019: payload->flagsFDC |= 0x8000u; break;
+        case 103020: payload->flagsFDC |= 0x10000u; break;
+        case 103021: payload->flagsFDC |= 0x20000u; break;
+        case 103022: payload->flagsFDC |= 0x40000u; break;
+        case 103023: payload->flagsFDC |= 0x80000u; break;
+        case 103033: payload->flagsFDC |= 0x100000u; displayImage = 103018; break;
+        default: break;
+        }
+    }
+    const std::uint32_t flags = action->flags;
+    action->displayPriority = 0xC8;
+    action->framePlayingRate = 100;
+    action->flags = flags | 0x40000u;
+    action->offset40 = parent->offset40;
+    action->offset44 = parent->offset44;
+    action->imageNo = displayImage;
+    action->direction = 0;
+    action->rebirthValue1 = 4;
+    action->rebirthValue2 = 4;
+    static_cast<void>(PlayFrame_517DA0(action, 1));
+    static_cast<BattleActorPayload*>(parent->payload)->effect1068 = action;
+    action->battleAttachmentParent10 = parent;
+    const std::int32_t x = static_cast<std::int32_t>(action->offset40);
+    const float y = action->offset44;
+    action->x = x;
+    action->y = static_cast<std::int32_t>(y);
+    action->field270 = 0;
+    if (mode == 1) {
+        action->deltaY = -50;
+        action->scaleX = std::bit_cast<float>(0x3E99999Au);
+        action->scaleY = std::bit_cast<float>(0x3E99999Au);
+    } else {
+        action->deltaY = 0;
+    }
+    return action;
+}
+
+void RestoreBattleStateEffects_422370(YobiAction* const parent)
+{
+    auto* const payload = static_cast<BattleActorPayload*>(parent->payload);
+    const std::uint32_t flags = payload->flagsFDC;
+    if ((flags & 0x10u) != 0) {
+        static_cast<void>(NewBattleDebuffEffect_41F660(parent, 110075));
+    } else {
+        payload->flagsFDC = flags & ~0x10u;
+    }
+    if ((flags & 0x20u) != 0) {
+        static_cast<void>(NewBattleDebuffEffect_41F660(parent, 110076));
+    } else {
+        payload->flagsFDC &= ~0x20u;
+    }
+    if ((flags & 0x40u) != 0) {
+        static_cast<void>(NewBattleDebuffEffect_41F660(parent, 110077));
+    } else {
+        payload->flagsFDC &= ~0x40u;
+    }
+    if ((flags & 0x80u) != 0) {
+        static_cast<void>(NewBattleDebuffEffect_41F660(parent, 110078));
+    } else {
+        payload->flagsFDC &= ~0x80u;
+    }
+    if ((flags & 0x100u) != 0) {
+        static_cast<void>(NewBattleDebuffEffect_41F660(parent, 110079));
+    } else {
+        payload->flagsFDC &= ~0x100u;
+    }
+    if ((flags & 0x200u) != 0) {
+        static_cast<void>(NewBattleDebuffEffect_41F660(parent, 110080));
+    } else {
+        payload->flagsFDC &= ~0x200u;
+    }
+    const float scale = (flags & 0x1000u) != 0 ? std::bit_cast<float>(0x3FA66666u) : 1.0F;
+    parent->scaleX = scale;
+    parent->scaleY = scale;
+    if ((flags & 0x400u) != 0) {
+        static_cast<void>(NewBattleAttachedEffect_41FBE0(parent, 1));
+    } else {
+        static_cast<void>(MarkDeath(static_cast<BattleActorPayload*>(parent->payload)->attachedEffect1058));
+        static_cast<BattleActorPayload*>(parent->payload)->attachedEffect1058 = nullptr;
+    }
+    const std::uint32_t currentFlags = payload->flagsFDC;
+    if ((flags & 0x800u) != 0) {
+        payload->flagsFDC = currentFlags | 0x800u;
+        static_cast<void>(NewBattleReverseEffect_41F860(parent, 110152));
+    } else {
+        YobiAction* const effect = payload->effect105C;
+        payload->flagsFDC = currentFlags & ~0x800u;
+        static_cast<void>(MarkDeath(effect));
+        payload->effect105C = nullptr;
+    }
+    if ((flags & 0x2000u) != 0) {
+        payload->flagsFDC |= 0x2000u;
+    }
+    // 原端每对状态共用清位掩码；不能改为清除各自的选择位。
+    if ((flags & 0x4000u) != 0) {
+        static_cast<void>(NewBattleStatusEffect_41FE00(parent, 103018, 0));
+    } else {
+        payload->flagsFDC &= ~0x4000u;
+    }
+    if ((flags & 0x8000u) != 0) {
+        static_cast<void>(NewBattleStatusEffect_41FE00(parent, 103019, 0));
+    } else {
+        payload->flagsFDC &= ~0x4000u;
+    }
+    if ((flags & 0x10000u) != 0) {
+        static_cast<void>(NewBattleStatusEffect_41FE00(parent, 103020, 0));
+    } else {
+        payload->flagsFDC &= ~0x10000u;
+    }
+    if ((flags & 0x20000u) != 0) {
+        static_cast<void>(NewBattleStatusEffect_41FE00(parent, 103021, 0));
+    } else {
+        payload->flagsFDC &= ~0x10000u;
+    }
+    if ((flags & 0x40000u) != 0) {
+        static_cast<void>(NewBattleStatusEffect_41FE00(parent, 103022, 0));
+    } else {
+        payload->flagsFDC &= ~0x40000u;
+    }
+    if ((flags & 0x80000u) != 0) {
+        static_cast<void>(NewBattleStatusEffect_41FE00(parent, 103023, 0));
+    } else {
+        payload->flagsFDC &= ~0x40000u;
+    }
 }
 
 YobiAction* NewBattleScreenEffect_421610(const std::int32_t x, const std::int32_t y)
@@ -11066,6 +11376,20 @@ void TurnBattleToward_406190(
     if (updateDirection == 1) {
         Sub_405CB0(action);
     }
+}
+
+std::int32_t GetBattleDistanceToPosition_4062A0(YobiAction* const action, const float x, const float y)
+{
+    if (action == nullptr) {
+        return 0;
+    }
+    const double deltaX = static_cast<double>(x) - action->offset40;
+    const double deltaY = static_cast<double>(y) - action->offset44;
+    const float squared = static_cast<float>(deltaY * deltaY + deltaX * deltaX);
+    if (!(squared > 0.0F)) {
+        return 0;
+    }
+    return static_cast<std::int32_t>(std::sqrt(static_cast<double>(squared)));
 }
 
 std::int32_t GetBattleDistance_406300(YobiAction* const first, YobiAction* const second)

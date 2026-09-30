@@ -344,10 +344,16 @@ void UpdateBattleHitEffect_41F570(YobiAction* action); // 计数达到上限后�
 YobiAction* NewBattleHitEffect_41F5B0(
     YobiAction* parent, std::int32_t offsetX, std::int32_t offsetY,
     std::int32_t lifetime, std::int32_t imageNo);
+YobiAction* NewBattleDebuffEffect_41F660(YobiAction* parent, std::int32_t imageNo); // 分配前更新FDC/13CC/13D0，失败不回滚。
+void UpdateBattleDebuffEffect_41F800(YobiAction* action); // 1054/105C共用父对象跟随回调。
+YobiAction* NewBattleReverseEffect_41F860(YobiAction* parent, std::int32_t imageNo); // 105C已有引用返回空。
 void UpdateBattleCenteredEffect_41F950(YobiAction* action); // 父标死仍执行公共坐标投影尾。
 YobiAction* NewBattleCenteredEffect_41FA00(YobiAction* parent, std::int32_t imageNo); // 1064已有引用时返回空，不换图。
 void UpdateBattleAttachedEffect_41FB20(YobiAction* action);
 YobiAction* NewBattleAttachedEffect_41FBE0(YobiAction* parent, std::int32_t mode); // 已有槽只换图并返回空。
+void UpdateBattleStatusEffect_41FCD0(YobiAction* action);
+YobiAction* NewBattleStatusEffect_41FE00(YobiAction* parent, std::int32_t imageNo, std::int32_t mode); // 1068发布后执行缩放/下降。
+void RestoreBattleStateEffects_422370(YobiAction* parent); // 固定入口FDC快照，保留成对共用清位掩码。
 YobiAction* NewBattleScreenEffect_421610(std::int32_t x, std::int32_t y);
 void UpdateBattleScreenEmitter_4216B0(YobiAction* action); // 原rand先Y后X，生成后重取阶段并递减。
 YobiAction* NewBattleScreenEmitter_421700(std::int32_t phase);
@@ -440,6 +446,7 @@ void TurnBattleTowardPosition_4060D0(
     float step); // 无空指针门禁；角差转S32取绝对值后限步，严格1才更新方向。
 void TurnBattleToward_406190(
     YobiAction* action, YobiAction* target, std::int32_t updateDirection, float step);
+std::int32_t GetBattleDistanceToPosition_4062A0(YobiAction* action, float x, float y); // 先X后Y求差，平方和先存F32。
 std::int32_t GetBattleDistance_406300(YobiAction* first, YobiAction* second); // 平方和先舍入F32再开方。
 std::int32_t CountBattleActiveEntries_406360(); // 扫全部22槽，只计非空且载荷FF8严格等于1。
 std::int32_t SeedBattleRandom_4065A0(std::int32_t value); // 前20槽非空数乘活动M字节长度与输入，重播同源随机种子。

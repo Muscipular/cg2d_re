@@ -33558,6 +33558,162 @@ std::int32_t Sub_48D9A0(const std::int32_t value)
     return 1;
 }
 
+// 窗口17完整属性刷新；显示逐项取号，加点判断单独固定宠物，见window_17.md。
+std::uint32_t Sub_490780()
+{
+    const auto selectedPet = []() -> world::detail::PetRuntimeRecord& {
+        const auto index = std::bit_cast<std::int16_t>(
+            world::detail::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].index);
+        return world::detail::gPetRuntimeF633F8[index];
+    };
+    const auto copyTextAfterScan = [](const std::int32_t element, const char* const text) {
+        WindowElement* const elements = gCurrentWindow->elements;
+        const std::size_t length = std::strlen(text) + 1;
+        auto* const data = static_cast<WindowTextData*>(elements[element].data);
+        std::memcpy(data->text, text, length);
+    };
+    const auto copyTextBeforeScan = [](const std::int32_t element, const char* const text) {
+        auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[element].data);
+        const std::size_t length = std::strlen(text) + 1;
+        std::memcpy(data->text, text, length);
+        return length;
+    };
+    constexpr std::int32_t valueElements[] {
+        14, 15, 16, 17, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
+        29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41,
+    };
+    char buffer[256];
+    const auto writeNumber = [&](const std::int32_t element, const std::int32_t value) {
+        std::sprintf(buffer, "%3d", value);
+        static_cast<void>(copyTextBeforeScan(element, buffer));
+    };
+    if (selectedPet().used != 0) {
+        for (const std::int32_t element : valueElements) {
+            gCurrentWindow->elements[element].visible = 1;
+        }
+        const bool customName = selectedPet().name6BD[0] != '\0';
+        input::InputContext* const activeInput = input::gCurrentInputData;
+        // 原名分支在输入身份判断前固定elements，自定义名分支在判断后读取。
+        WindowElement* const originalNameElements = customName ? nullptr : gCurrentWindow->elements;
+        if (activeInput == &input::gInputContextD2D4A0) {
+            if (customName) {
+                gCurrentWindow->elements[14].visible = 0;
+            } else {
+                originalNameElements[14].visible = 0;
+            }
+            const char* const text = gPetNameInputPrototype57DCF8.input.context->text;
+            const std::size_t length = std::strlen(text) + 1;
+            WindowInstance* const window = gCurrentWindow;
+            std::memcpy(gLoginWindowRuntime.petNameDraftD45E74.data(), text, length);
+            const std::int32_t y = window->y;
+            const std::int32_t x = window->x;
+            static_cast<void>(Sub_476570(&gPetNameInputPrototype57DCF8, x, y, 1));
+        } else {
+            if (customName) {
+                gCurrentWindow->elements[14].visible = 1;
+                static_cast<void>(copyTextBeforeScan(14, gLoginWindowRuntime.petNameDraftD45E74.data()));
+            } else {
+                originalNameElements[14].visible = 1;
+                copyTextAfterScan(14, gLoginWindowRuntime.petNameDraftD45E74.data());
+            }
+            const auto& compared = selectedPet();
+            const char* const name = customName ? compared.name6BD.data() : compared.name6AC.data();
+            const bool changed = std::strcmp(gLoginWindowRuntime.petNameDraftD45E74.data(), name) != 0;
+            auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[14].data);
+            data->bytes00[0] = changed ? std::byte{6} : std::byte{0};
+        }
+        const auto& compared = selectedPet();
+        const char* const name = customName ? compared.name6BD.data() : compared.name6AC.data();
+        const bool changed = std::strcmp(gLoginWindowRuntime.petNameDraftD45E74.data(), name) != 0;
+        gCurrentWindow->elements[5].visible = changed ? 1 : 0;
+
+        writeNumber(15, selectedPet().value08);
+        const std::int32_t maxHp = platform::legacy_crypt_int::Read_401EC0(&selectedPet().values0C[1]);
+        const std::int32_t hp = platform::legacy_crypt_int::Read_401EC0(&selectedPet().values0C[0]);
+        std::sprintf(buffer, "%4d/%4d", hp, maxHp);
+        copyTextAfterScan(16, buffer);
+        const std::int32_t maxFp = platform::legacy_crypt_int::Read_401EC0(&selectedPet().values0C[3]);
+        const std::int32_t fp = platform::legacy_crypt_int::Read_401EC0(&selectedPet().values0C[2]);
+        std::sprintf(buffer, "%4d/%4d", fp, maxFp);
+        copyTextAfterScan(17, buffer);
+        writeNumber(19, selectedPet().lvFlag6C);
+        for (std::int32_t attribute = 0; attribute < 5; ++attribute) {
+            writeNumber(20 + attribute, selectedPet().values70[attribute]);
+        }
+        writeNumber(25, selectedPet().values70[10]);
+        writeNumber(26, selectedPet().value6A4);
+        constexpr std::int32_t valueIndexes[] {17, 19, 18, 20, 11, 14, 12, 15, 13, 16, 5, 8, 6, 9, 7};
+        for (std::int32_t index = 0; index < 15; ++index) {
+            writeNumber(27 + index, selectedPet().values70[valueIndexes[index]]);
+        }
+
+        for (std::int32_t element = 9; element <= 13; ++element) {
+            gCurrentWindow->elements[element].visible = 0;
+        }
+        const auto& allocationPet = selectedPet();
+        if (allocationPet.lvFlag6C > 0) {
+            const std::array<std::int32_t, 6> values {
+                allocationPet.values70[0], allocationPet.values70[1], allocationPet.values70[2],
+                allocationPet.values70[3], allocationPet.values70[4], allocationPet.lvFlag6C,
+            };
+            std::int32_t total = 0;
+            for (const std::int32_t value : values) {
+                total += value;
+            }
+            const std::int32_t threshold = total / 2;
+            for (std::int32_t attribute = 0; attribute < 5; ++attribute) {
+                if (values[attribute] < threshold) {
+                    gCurrentWindow->elements[9 + attribute].visible = 1;
+                }
+            }
+        }
+    } else {
+        for (const std::int32_t element : valueElements) {
+            gCurrentWindow->elements[element].visible = 0;
+        }
+        for (std::int32_t element = 9; element <= 13; ++element) {
+            gCurrentWindow->elements[element].visible = 0;
+        }
+    }
+    std::sprintf(buffer, "%d/%d", gLoginWindowRuntime.selectedPetCC3E5C + 1, 5);
+    return static_cast<std::uint32_t>(copyTextBeforeScan(18, buffer));
+}
+
+// 窗口17初始化仅采样名称/序号并发声，不代替窗口16的拖动槽初始化。
+std::int32_t Sub_48DAB0(const std::int32_t value)
+{
+    if (value == -1) {
+        static_cast<void>(Sub_492350());
+        Sub_492280();
+        static_cast<void>(audio::PlaySe_52C450(56, 320));
+        return 1;
+    }
+    if (gLoginWindowRuntime.selectedPetCC3E5C != gLoginWindowRuntime.previousPetCC4888) {
+        Sub_492280();
+    }
+    gLoginWindowRuntime.previousPetCC4888 = gLoginWindowRuntime.selectedPetCC3E5C;
+    if (Sub_492390() != 0 || Sub_492270() != 0) {
+        static_cast<void>(Sub_492350());
+        Sub_492280();
+        Sub_492260();
+        const std::size_t length = std::strlen(gLoginWindowRuntime.petNameDraftD45E74.data()) + 1;
+        WindowInstance* const window = gCurrentWindow;
+        std::memcpy(gPetNameInputPrototype57DCF8.text.data(),
+            gLoginWindowRuntime.petNameDraftD45E74.data(), length);
+        const std::int32_t y = window->y;
+        const std::int32_t x = window->x;
+        static_cast<void>(Sub_476570(&gPetNameInputPrototype57DCF8, x, y, 0));
+    }
+    const auto selected = std::bit_cast<std::int16_t>(
+        world::detail::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].index);
+    if (world::detail::gPetRuntimeF633F8[selected].used == 0) {
+        gCurrentWindow->state |= 0x8000u;
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+    }
+    static_cast<void>(Sub_490780());
+    return 1;
+}
+
 WindowElement* Sub_491AA0()
 {
     const auto selectedPet = []() -> world::detail::PetRuntimeRecord& {

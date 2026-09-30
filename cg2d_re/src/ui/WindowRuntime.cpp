@@ -32134,6 +32134,82 @@ void RefreshPlayerAttributeBar(
 
 } // namespace
 
+// 原474BE0：五按钮及默认分支；位置请求不写玩家状态，返回仍为悬停值。
+std::int32_t Sub_474BE0(const std::int32_t index, const std::int32_t state)
+{
+    std::int32_t idleImage;
+    std::int32_t hoverImage;
+    std::int32_t targetWindow = 0;
+    const char* hint;
+    switch (index) {
+    case 19:
+        idleImage = 0x3B583;
+        hoverImage = 0x3B585;
+        targetWindow = 8;
+        hint = "\xA4\xC1\xB4\xAB\xA6\xA8\xAA\xB1\xAE\x61\xA9\xFA\xB2\xD3\xB5\xF8\xB5\xA1\xA1\x43";
+        break;
+    case 20:
+        idleImage = 0x3BAB8;
+        hoverImage = 0x3BABA;
+        targetWindow = 9;
+        hint = "\xA4\xC1\xB4\xAB\xA6\xA8\xAA\xB1\xAE\x61\xBA\xD9\xB8\xB9\xB5\xF8\xB5\xA1\xA1\x43";
+        break;
+    case 21:
+        if (character_select::state::gPukVersion < 8u) {
+            static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo =
+                0x3C111;
+            return 0;
+        }
+        idleImage = 0x3C111;
+        hoverImage = 0x3C112;
+        targetWindow = 58;
+        hint = "\xA4\xC1\xB4\xAB\xA6\xA8\xAA\xB1\xAE\x61\xC2\xB2\xA4\xB6\xB5\xF8\xB5\xA1";
+        break;
+    case 23:
+        idleImage = 0x3BAC0;
+        hoverImage = 0x3BAC1;
+        hint = "\xA7\xE2\xBE\xD4\xB0\xAB\xAE\xC9\xAA\xBA\xA6\xEC\xB8\x6D\xC5\xDC\xA7\xF3\xAC\xB0\xAB\x65\xB1\xC6\xA1\x43";
+        break;
+    case 24:
+        idleImage = 0x3BABD;
+        hoverImage = 0x3BABE;
+        hint = "\xA7\xE2\xBE\xD4\xB0\xAB\xAE\xC9\xAA\xBA\xA6\xEC\xB8\x6D\xC5\xDC\xA7\xF3\xAC\xB0\xAB\xE1\xB1\xC6\xA1\x43";
+        break;
+    default:
+        return 0;
+    }
+
+    std::int32_t consumed = 0;
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    if ((state & 1) != 0) {
+        graphic->imageNo = hoverImage;
+        std::strcpy(gHoverTextD68AE8.data(), hint);
+        consumed = 1;
+    } else {
+        graphic->imageNo = idleImage;
+    }
+    if ((state & 2) != 0) {
+        if (targetWindow != 0) {
+            if (gWindowStates[targetWindow].window == nullptr) {
+                gCurrentWindow->state |= 0x8000u;
+                static_cast<void>(OpenWindow_471440(targetWindow));
+                WindowInstance* const xSource = gCurrentWindow;
+                WindowInstance* const xTarget = gWindowStates[targetWindow].window;
+                xTarget->x = xSource->x;
+                WindowInstance* const ySource = gCurrentWindow;
+                WindowInstance* const yTarget = gWindowStates[targetWindow].window;
+                yTarget->y = ySource->y;
+                static_cast<void>(audio::PlaySe_52C450(56, 320));
+                consumed = 1;
+            }
+        } else if (world::detail::ReadPlayerValue1A0() == (index == 23 ? 0 : 1)) {
+            static_cast<void>(network::Sub_512570(platform::gConnectionSocket));
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        }
+    }
+    return consumed;
+}
+
 // 原474FB0：窗口7完整刷新，复制阶段的elements/data快照差异见window_7.md。
 void Sub_474FB0()
 {

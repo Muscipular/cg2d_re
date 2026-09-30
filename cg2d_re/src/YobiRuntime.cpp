@@ -381,7 +381,7 @@ struct BattleActorPayload {
     std::int32_t reactionImage1010;
     std::int32_t image1014; // 429A05写51B740转换后的图号，40C480消费；完整生产父链仍待落位。
     std::int32_t value1018;
-    std::int32_t value101C; // 40CCB0音效编号；424620/427470的已证生产尚待落位。
+    std::int32_t value101C; // 40CCB0音效编号；427470技能98模式6已写入，424620等其他生产仍待。
     std::int32_t value1020; // 40CCE0音效编号；与1018/101C独立，不是地址。
     std::int32_t value1024;
     std::int32_t image1028; // 41CD00的type34图号及音效/坐标重读源，生产仍待上游。
@@ -14930,6 +14930,229 @@ namespace {
     AppendBattleEffectList_4393A0(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], -1, 0, 0);
     MoveBattleCastState_439380(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
     ++payload->packetSubState58;
+}
+
+} // namespace
+
+namespace {
+
+// 原42CF66..42D0D0；成功后由完整父分派重读5A4A34，空施法者不进入模式生产。
+[[maybe_unused]] bool PrepareBattleMSkill98(YobiAction* const scene, const std::int32_t fpUsed)
+{
+    using namespace world::detail;
+    static_cast<void>(TakeBattleMInteger_438F70(scene));
+    gBattleMValue5A4A34 = TakeBattleMInteger_438F70(scene);
+    gBattleMCasterPosition5AAA64 = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
+    YobiAction* const caster = gBattleAllEntries59E980[gBattleMCasterPosition5AAA64];
+    if (caster == nullptr) {
+        FinishBattleEvent_43B6C0(scene);
+        return false;
+    }
+    static_cast<BattleActorPayload*>(caster->payload)->castSkill103C = gBattleMSkill5AAA78;
+    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload)
+        ->castSkillLevel1044 = gBattleMSkillLevelIndex5A3A18;
+    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload)
+        ->value1048 = gBattleMValue5A4A34;
+    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload)->fpUsed1008 = fpUsed;
+    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 25);
+    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 55);
+    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 39);
+    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 40);
+    const std::int32_t level = gBattleMSkillLevelIndex5A3A18;
+    const std::int32_t image = level < 12 ? kBattleMSkillEffectOffsets553E58[level] + 110056 : 111018;
+    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload)->image1028 = image;
+    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 139);
+    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 64);
+    return true;
+}
+
+// 原42D696/42EAEF..42EB32，模式目标退出后仍追加哨兵、执行RID并递增固定载荷。
+void CompleteBattleMSkill98Targets(YobiAction* const scene, BattleScenePayload* const payload)
+{
+    using namespace world::detail;
+    AppendBattleEffectList_4393A0(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], -1, 0, 0);
+    MoveBattleCastState_439380(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
+    ParseBattleMRide_4239D0(scene);
+    ++payload->packetSubState58;
+}
+
+// 原42D142..42D285，技能98模式6只消费目标位置列表。
+[[maybe_unused]] void ProcessBattleMSkill98Mode6(YobiAction* const scene, BattleScenePayload* const payload)
+{
+    using namespace world::detail;
+    for (;;) {
+        gBattleMTargetPosition5AAA40 = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
+        if (gBattleMTargetPosition5AAA40 == 255) {
+            break;
+        }
+        if (gBattleAllEntries59E980[gBattleMTargetPosition5AAA40] == nullptr) {
+            FinishBattleEvent_43B6C0(scene);
+            break;
+        }
+        AppendBattleEffectList_4393A0(
+            gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], gBattleMTargetPosition5AAA40, 0, 0);
+        static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMTargetPosition5AAA40]->payload)
+            ->castSkill103C = gBattleMSkill5AAA78;
+        static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMTargetPosition5AAA40]->payload)
+            ->castSkillLevel1044 = gBattleMSkillLevelIndex5A3A18;
+        static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMTargetPosition5AAA40]->payload)->value1018 = 288;
+        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 80);
+        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 83);
+        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 68);
+        static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMTargetPosition5AAA40]->payload)
+            ->reactionImage1010 = 22404;
+        static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMTargetPosition5AAA40]->payload)->value101C = 168;
+        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 81);
+        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 56);
+    }
+    CompleteBattleMSkill98Targets(scene, payload);
+}
+
+// 原42D28E..42D68D，技能98模式7交换目标与配对槽，固定原槽和当前目标分别保留。
+[[maybe_unused]] void ProcessBattleMSkill98Mode7(YobiAction* const scene, BattleScenePayload* const payload)
+{
+    using namespace world::detail;
+    for (;;) {
+        gBattleMTargetPosition5AAA40 = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
+        if (gBattleMTargetPosition5AAA40 == 255) {
+            break;
+        }
+        if (gBattleAllEntries59E980[gBattleMTargetPosition5AAA40] == nullptr) {
+            FinishBattleEvent_43B6C0(scene);
+            break;
+        }
+        const std::int32_t otherPosition = GetBattlePetPosition_405B40(gBattleMTargetPosition5AAA40);
+        const std::int32_t oldPosition = gBattleMTargetPosition5AAA40;
+        YobiAction* const moving = gBattleAllEntries59E980[oldPosition];
+        YobiAction** const oldSlot = &gBattleAllEntries59E980[oldPosition];
+        if (gBattleCurrentPosition5ABCA4 == oldPosition) {
+            gBattleCurrentPosition5ABCA4 = otherPosition;
+        }
+        AppendBattleEffectList_4393A0(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], otherPosition, 0, 0);
+        if (gBattleMCasterPosition5AAA64 == gBattleMTargetPosition5AAA40) {
+            gBattleMCasterPosition5AAA64 = otherPosition;
+        }
+        static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMTargetPosition5AAA40]->payload)->x00 =
+            gBattleGraphicPoints553758[gBattlePointIndices5536FC[otherPosition]][2];
+        static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMTargetPosition5AAA40]->payload)->y04 =
+            gBattleGraphicPoints553758[gBattlePointIndices5536FC[otherPosition]][3];
+        static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMTargetPosition5AAA40]->payload)->x08 =
+            gBattleGraphicPoints553758[gBattlePointIndices5536FC[otherPosition]][0];
+        static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMTargetPosition5AAA40]->payload)->y0C =
+            gBattleGraphicPoints553758[gBattlePointIndices5536FC[otherPosition]][1];
+        static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMTargetPosition5AAA40]->payload)
+            ->battlePosition18 = otherPosition;
+        YobiAction* const initialOther = gBattleAllEntries59E980[otherPosition];
+        if (initialOther != nullptr) {
+            static_cast<BattleActorPayload*>(initialOther->payload)->battlePosition18 = gBattleMTargetPosition5AAA40;
+            YobiAction* const other = gBattleAllEntries59E980[otherPosition];
+            if (other != nullptr && other->phase != 34) {
+                static_cast<BattleActorPayload*>(other->payload)->x00 =
+                    gBattleGraphicPoints553758[gBattlePointIndices5536FC[gBattleMTargetPosition5AAA40]][2];
+                static_cast<BattleActorPayload*>(gBattleAllEntries59E980[otherPosition]->payload)->y04 =
+                    gBattleGraphicPoints553758[gBattlePointIndices5536FC[gBattleMTargetPosition5AAA40]][3];
+                static_cast<BattleActorPayload*>(gBattleAllEntries59E980[otherPosition]->payload)->x08 =
+                    gBattleGraphicPoints553758[gBattlePointIndices5536FC[gBattleMTargetPosition5AAA40]][0];
+                static_cast<BattleActorPayload*>(gBattleAllEntries59E980[otherPosition]->payload)->y0C =
+                    gBattleGraphicPoints553758[gBattlePointIndices5536FC[gBattleMTargetPosition5AAA40]][1];
+            }
+        }
+        const std::int32_t sourcePosition = gBattleMTargetPosition5AAA40;
+        YobiAction* const replacement = gBattleAllEntries59E980[otherPosition];
+        gBattleMTargetPosition5AAA40 = otherPosition;
+        gBattleAllEntries59E980[sourcePosition] = replacement;
+        gBattleAllEntries59E980[otherPosition] = moving;
+        if (moving != nullptr) {
+            YobiAction* const rider = static_cast<BattleActorPayload*>(moving->payload)->rider13C8;
+            if (rider != nullptr) {
+                rider->battleAttachmentParent10 = moving;
+                static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMTargetPosition5AAA40]->payload)
+                    ->rider13C8->value1D4 = gBattleMTargetPosition5AAA40;
+            }
+        }
+        YobiAction* const oldActor = *oldSlot;
+        if (oldActor != nullptr) {
+            YobiAction* const rider = static_cast<BattleActorPayload*>(oldActor->payload)->rider13C8;
+            if (rider != nullptr) {
+                rider->battleAttachmentParent10 = oldActor;
+                static_cast<BattleActorPayload*>((*oldSlot)->payload)->rider13C8->value1D4 = oldPosition;
+            }
+        }
+        // 原42D4E5检查施法者槽，却重绑当前目标附件；不替换为目标判空。
+        if (gBattleAllEntries59E980[gBattleMCasterPosition5AAA64] != nullptr) {
+            YobiAction* const actor = gBattleAllEntries59E980[gBattleMTargetPosition5AAA40];
+            YobiAction* const gear = static_cast<BattleActorPayload*>(actor->payload)->gear13B4;
+            if (gear != nullptr) {
+                gear->battleAttachmentParent10 = actor;
+                static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMTargetPosition5AAA40]->payload)
+                    ->gear13B4->value1D4 = gBattleMTargetPosition5AAA40;
+            }
+            for (std::size_t index = 0; index < 2; ++index) {
+                YobiAction* const target = gBattleAllEntries59E980[gBattleMTargetPosition5AAA40];
+                YobiAction* const auxiliary = static_cast<BattleActorPayload*>(target->payload)->auxiliaryGear13B8[index];
+                if (auxiliary != nullptr) {
+                    auxiliary->battleAttachmentParent10 = target;
+                    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMTargetPosition5AAA40]->payload)
+                        ->auxiliaryGear13B8[index]->value1D4 = gBattleMTargetPosition5AAA40;
+                }
+            }
+        }
+        YobiAction* const remaining = *oldSlot;
+        if (remaining != nullptr) {
+            YobiAction* const gear = static_cast<BattleActorPayload*>(remaining->payload)->gear13B4;
+            if (gear != nullptr) {
+                gear->battleAttachmentParent10 = remaining;
+                static_cast<BattleActorPayload*>((*oldSlot)->payload)->gear13B4->value1D4 = oldPosition;
+            }
+        }
+        static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMTargetPosition5AAA40]->payload)->value1018 = 210;
+        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 80);
+        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 11);
+        gBattleAllEntries59E980[gBattleMTargetPosition5AAA40]->value54 = 3.0F;
+        gBattleAllEntries59E980[gBattleMTargetPosition5AAA40]->framePlayingRate = 100;
+        YobiAction* const other = *oldSlot;
+        if (other != nullptr && other->phase != 34) {
+            AppendBattleEffectList_4393A0(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], oldPosition, 0, 0);
+            AppendBattleCast_4392A0(scene, *oldSlot, 11);
+            (*oldSlot)->value54 = 3.0F;
+            (*oldSlot)->framePlayingRate = 100;
+        }
+    }
+    CompleteBattleMSkill98Targets(scene, payload);
+}
+
+// 原42D6BC..42D7D1，技能98模式8的宠物标记和恢复队列读取次序。
+[[maybe_unused]] void ProcessBattleMSkill98Mode8(YobiAction* const scene, BattleScenePayload* const payload)
+{
+    using namespace world::detail;
+    for (;;) {
+        gBattleMTargetPosition5AAA40 = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
+        if (gBattleMTargetPosition5AAA40 == 255) {
+            break;
+        }
+        if (gBattleAllEntries59E980[gBattleMTargetPosition5AAA40] == nullptr) {
+            FinishBattleEvent_43B6C0(scene);
+            break;
+        }
+        AppendBattleEffectList_4393A0(
+            gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], gBattleMTargetPosition5AAA40, 0, 0);
+        if ((static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMTargetPosition5AAA40]->payload)
+                ->flagsFDC & 2u) != 0) {
+            ResetBattleCastList_4391E0(gBattleMTargetPosition5AAA40);
+        }
+        const std::int32_t petPosition = GetBattlePetPosition_405B40(gBattleCurrentPosition5ABCA4);
+        std::int32_t targetPosition = gBattleMTargetPosition5AAA40;
+        if (petPosition == targetPosition) {
+            AppendBattleEffectList_4393A0(gBattleAllEntries59E980[targetPosition], -2, 0, 0);
+            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 223);
+            targetPosition = gBattleMTargetPosition5AAA40;
+        }
+        static_cast<BattleActorPayload*>(gBattleAllEntries59E980[targetPosition]->payload)->value1018 = 205;
+        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 80);
+        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 53);
+        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 51);
+    }
+    CompleteBattleMSkill98Targets(scene, payload);
 }
 
 } // namespace

@@ -29,6 +29,9 @@ struct ProfileRuntimeRecord {
 
 const ProfileRuntimeRecord& ReadViewedProfile105ECE0(); // 窗口62借用4CAC60唯一生产区。
 const ProfileRuntimeRecord& ReadReceivedProfile1074110(); // 窗口64借用DpSY独立回复区。
+ProfileRuntimeRecord& BorrowCurrentProfile10738E8(); // 窗口58编辑借用，仍归MailState持有。
+const ProfileRuntimeRecord& ReadSelectedProfile1074938(); // 每次按当前S16角色借用持久资料。
+std::int32_t Sub_533B00(); // 固定一次角色，三数值/三文本/正文按原顺序短路比较。
 std::int32_t ReadCategoryValue105FA20(); // 窗口62/63借用category回复费用，不复制owner。
 extern std::int32_t gMiniMailSelectionD673E4; // 同一发信目标，4C9490及窗口63共同更新。
 std::int32_t& SelectedProfileValue04(); // 每次按当前S16角色借用持久资料公开标志，不缓存跨发送身份。

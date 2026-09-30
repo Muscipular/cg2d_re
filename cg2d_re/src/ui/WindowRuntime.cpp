@@ -1405,6 +1405,22 @@ WindowInputPrototype gTitleInputPrototype57CCB8 {
     {{&input::gInputContextD2DC10}, WindowInputReferenceKind::Context},
     105, 31, 3, 12, 6, {}, 1, 16, 0, 0,
 };
+WindowInputPrototype gOwnProfileInputPrototype57CEE8 {
+    {{&input::gInputContextD64CB0}, WindowInputReferenceKind::Context},
+    97, 108, 3, 12, 6, {}, 1, 26, 0, 0,
+};
+WindowInputPrototype gOwnProfileInputPrototype57D118 {
+    {{&input::gInputContextD2D670}, WindowInputReferenceKind::Context},
+    97, 130, 3, 12, 6, {}, 1, 26, 0, 0,
+};
+WindowInputPrototype gOwnProfileInputPrototype57D348 {
+    {{&input::gInputContextCAFEC8}, WindowInputReferenceKind::Context},
+    97, 152, 3, 12, 6, {}, 1, 26, 0, 0,
+};
+WindowInputPrototype gOwnProfileInputPrototype57D578 {
+    {{&input::gInputContextD2D828}, WindowInputReferenceKind::Context},
+    97, 170, 3, 12, 6, {}, 4, 28, 14, 0,
+};
 
 // 原71槽逐项绑定；下标仅用于静态初始化，不是对象句柄。
 std::array<WindowDragPrototype*, kWindowCount> gWindowDragPrototypes57C24C {
@@ -32824,6 +32840,214 @@ std::int32_t Sub_4782E0(const std::int32_t index, const std::int32_t state)
         gTitlePageCF4E54 = Sub_474270(window->elements + 2, 58);
     }
     return result;
+}
+
+namespace {
+
+// 原478A10三项正文共享分支；第一项在求长度后才取data，另两项在此前取。
+void RefreshOwnProfileEntry(
+    const std::int32_t index, input::InputContext* const context,
+    WindowInputPrototype* const prototype)
+{
+    auto& current = world::detail::BorrowCurrentProfile10738E8().entries410[index];
+    const std::int32_t element = index + 9;
+    const bool editing = input::gCurrentInputData == context;
+    WindowElement* const elements = gCurrentWindow->elements;
+    if (editing) {
+        elements[element].visible = 0;
+        WindowInstance* const window = gCurrentWindow;
+        const std::int32_t y = window->y;
+        const std::int32_t x = window->x;
+        static_cast<void>(Sub_476570(prototype, x, y, 1));
+        const char* const text = prototype->input.context->text;
+        const std::size_t length = std::strlen(text) + 1;
+        std::memcpy(current.text08.data(), text, length);
+        return;
+    }
+
+    WindowTextData* data;
+    std::size_t length;
+    if (index == 0) {
+        length = std::strlen(current.text08.data()) + 1;
+        data = static_cast<WindowTextData*>(elements[element].data);
+    } else {
+        data = static_cast<WindowTextData*>(elements[element].data);
+        length = std::strlen(current.text08.data()) + 1;
+    }
+    std::memcpy(data->text, current.text08.data(), length);
+    gCurrentWindow->elements[element].visible = 1;
+    const auto& saved = world::detail::ReadSelectedProfile1074938();
+    std::byte color {6};
+    if (std::strcmp(saved.entries410[index].text08.data(), current.text08.data()) == 0) {
+        const std::int32_t currentValue = current.value00;
+        const std::int32_t savedValue = saved.entries410[index].value00;
+        if (savedValue == currentValue) {
+            color = saved.value04 != 0 && currentValue != 0 ? std::byte{0} : std::byte{7};
+        }
+    }
+    static_cast<WindowTextData*>(gCurrentWindow->elements[element].data)->bytes00[0] = color;
+}
+
+} // namespace
+
+// 原478A10完整刷新：保持每个阶段的角色采样和窗口重取，不缓存跨输入调用的data。
+void Sub_478A10()
+{
+    auto& current = world::detail::BorrowCurrentProfile10738E8();
+    WindowElement* const portraitElements = gCurrentWindow->elements;
+    const std::int32_t portrait = world::detail::ReadPlayerValue17C();
+    static_cast<WindowGraphicData*>(portraitElements[18].data)->imageNo = portrait;
+    const std::int32_t publicFlag = world::detail::SelectedProfileValue04();
+    static_cast<WindowGraphicData*>(gCurrentWindow->elements[17].data)->imageNo =
+        publicFlag != 0 ? 0 : 0x3C113;
+
+    auto* const nameData = static_cast<WindowTextData*>(gCurrentWindow->elements[0].data);
+    const char* const name = world::detail::BorrowPlayerDisplayText(1);
+    const std::size_t nameLength = std::strlen(name) + 1;
+    std::memcpy(nameData->text, name, nameLength);
+    char number[256];
+    std::sprintf(number, "%3d", world::detail::ReadPlayerLevel());
+    auto* const levelData = static_cast<WindowTextData*>(gCurrentWindow->elements[1].data);
+    const std::size_t levelLength = std::strlen(number) + 1;
+    std::memcpy(levelData->text, number, levelLength);
+
+    WindowElement* const titleElements = gCurrentWindow->elements;
+    const char* const title = world::detail::BorrowPlayerDisplayText(2);
+    const std::size_t titleLength = std::strlen(title) + 1;
+    auto* const titleData = static_cast<WindowTextData*>(titleElements[2].data);
+    std::memcpy(titleData->text, title, titleLength);
+    WindowElement* const jobElements = gCurrentWindow->elements;
+    const char* const job = world::detail::BorrowPlayerJobName();
+    const std::size_t jobLength = std::strlen(job) + 1;
+    auto* const jobData = static_cast<WindowTextData*>(jobElements[3].data);
+    std::memcpy(jobData->text, job, jobLength);
+
+    WindowInstance* const guildWindow = gCurrentWindow;
+    const std::int32_t guildIndex = login::detail::ReadGuildTextIndex10514B0();
+    auto* const guildData = static_cast<WindowTextData*>(guildWindow->elements[4].data);
+    const char* const guild = guildIndex == -1
+        ? input::LegacyText593850() : login::detail::BorrowGuildName10514BC();
+    const std::size_t guildLength = std::strlen(guild) + 1;
+    std::memcpy(guildData->text, guild, guildLength);
+
+    for (std::int32_t index = 0; index < 3; ++index) {
+        WindowElement* const elements = gCurrentWindow->elements;
+        const std::int32_t image = current.entries410[index].value04;
+        static_cast<WindowGraphicData*>(elements[index + 26].data)->imageNo = image;
+    }
+    RefreshOwnProfileEntry(0, &input::gInputContextD64CB0, &gOwnProfileInputPrototype57CEE8);
+    RefreshOwnProfileEntry(1, &input::gInputContextD2D670, &gOwnProfileInputPrototype57D118);
+    RefreshOwnProfileEntry(2, &input::gInputContextCAFEC8, &gOwnProfileInputPrototype57D348);
+
+    if (input::gCurrentInputData == &input::gInputContextD2D828) {
+        for (std::int32_t index = 12; index < 16; ++index) {
+            gCurrentWindow->elements[index].visible = 0;
+        }
+        WindowInstance* const window = gCurrentWindow;
+        const std::int32_t y = window->y;
+        const std::int32_t x = window->x;
+        static_cast<void>(Sub_476570(&gOwnProfileInputPrototype57D578, x, y, 1));
+        const char* const text = gOwnProfileInputPrototype57D578.input.context->text;
+        const std::size_t length = std::strlen(text) + 1;
+        std::memcpy(current.text728.data(), text, length);
+    } else {
+        char line[1024];
+        for (std::int32_t index = 0; index < 4; ++index) {
+            static_cast<void>(input::ExtractLegacyLine_503AB0(
+                line, 1024, current.text728.data(), index, 28));
+            WindowElement* const elements = gCurrentWindow->elements;
+            WindowTextData* data;
+            std::size_t length;
+            if (index == 0) {
+                length = std::strlen(line) + 1;
+                data = static_cast<WindowTextData*>(elements[index + 12].data);
+            } else {
+                data = static_cast<WindowTextData*>(elements[index + 12].data);
+                length = std::strlen(line) + 1;
+            }
+            std::memcpy(data->text, line, length);
+        }
+        for (std::int32_t index = 12; index < 16; ++index) {
+            gCurrentWindow->elements[index].visible = 1;
+        }
+        const auto& saved = world::detail::ReadSelectedProfile1074938();
+        std::byte color {6};
+        if (std::strcmp(saved.text728.data(), current.text728.data()) == 0) {
+            color = saved.value04 != 0 ? std::byte{0} : std::byte{7};
+        }
+        for (std::int32_t index = 12; index < 16; ++index) {
+            static_cast<WindowTextData*>(gCurrentWindow->elements[index].data)->bytes00[0] = color;
+        }
+    }
+    const std::int32_t changed = world::detail::Sub_533B00();
+    gCurrentWindow->elements[29].visible = changed != 0 ? 1 : 0;
+}
+
+std::int32_t Sub_478320(const std::int32_t)
+{
+    Sub_478A10();
+    return 1;
+}
+
+void Sub_4744F0()
+{
+    if (gWindowStates[9].window != nullptr) {
+        WindowInstance* const window = gWindowStates[58].window;
+        gWindowStates[7].x = window->x;
+        gWindowStates[7].y = window->y;
+        gWindowStates[8].x = window->x;
+        gWindowStates[8].y = window->y;
+        gWindowStates[9].x = window->x;
+        gWindowStates[9].y = window->y;
+    }
+}
+
+std::int32_t Sub_4792D0(const std::int32_t index, const std::int32_t state)
+{
+    WindowInputPrototype* prototype;
+    input::InputContext* context;
+    switch (index) {
+    case 5:
+        prototype = &gOwnProfileInputPrototype57CEE8;
+        context = &input::gInputContextD64CB0;
+        break;
+    case 6:
+        prototype = &gOwnProfileInputPrototype57D118;
+        context = &input::gInputContextD2D670;
+        break;
+    case 7:
+        prototype = &gOwnProfileInputPrototype57D348;
+        context = &input::gInputContextCAFEC8;
+        break;
+    case 8:
+        prototype = &gOwnProfileInputPrototype57D578;
+        context = &input::gInputContextD2D828;
+        break;
+    default:
+        return 0;
+    }
+    if ((state & 1) != 0) {
+        std::strcpy(gHoverTextD68AE8.data(), "\xBD\xD0\xBF\xE9\xA4\x4A\xB4\x79\xAD\x7A");
+    }
+    if ((state & 2) == 0) {
+        return 0;
+    }
+    WindowInstance* const window = gCurrentWindow;
+    if (gFocusedElementDataD45F94 != window->elements[index].data) {
+        const auto& current = world::detail::BorrowCurrentProfile10738E8();
+        const char* const source =
+            index == 8 ? current.text728.data() : current.entries410[index - 5].text08.data();
+        const std::size_t length = std::strlen(source) + 1;
+        std::memcpy(prototype->text.data(), source, length);
+        const std::int32_t y = window->y;
+        const std::int32_t x = window->x;
+        static_cast<void>(Sub_476570(prototype, x, y, 0));
+        input::SetContext_44B330(context);
+        WindowInstance* const focused = gCurrentWindow;
+        gFocusedElementDataD45F94 = focused->elements[index].data;
+        static_cast<WindowInputData*>(focused->elements[index].data)->context = context;
+    }
+    return 1;
 }
 
 // 原478010：草稿比较分别控制颜色与确认显隐，六行固定表起点、逐行重取窗口。

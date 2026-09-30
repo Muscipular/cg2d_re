@@ -215,6 +215,16 @@ const ProfileRuntimeRecord& ReadReceivedProfile1074110()
     return gReceivedProfile1074110;
 }
 
+ProfileRuntimeRecord& BorrowCurrentProfile10738E8()
+{
+    return gCurrentProfile10738E8;
+}
+
+const ProfileRuntimeRecord& ReadSelectedProfile1074938()
+{
+    return gProfiles1074938[login::gSelectedCharacterIndex];
+}
+
 std::int32_t ReadCategoryValue105FA20()
 {
     return gCategory105FA10.value10;
@@ -756,6 +766,34 @@ void Sub_533950()
     std::memcpy(
         &gCurrentProfile10738E8, &gProfiles1074938[selected],
         sizeof(gCurrentProfile10738E8));
+}
+
+std::int32_t Sub_533B00()
+{
+    const std::int16_t selected = login::gSelectedCharacterIndex;
+    const ProfileRuntimeRecord& saved = gProfiles1074938[selected];
+    const std::int32_t firstCurrent = gCurrentProfile10738E8.entries410[0].value00;
+    const std::int32_t firstSaved = saved.entries410[0].value00;
+    if (firstSaved != firstCurrent) {
+        return 1;
+    }
+    const std::int32_t secondSaved = saved.entries410[1].value00;
+    const std::int32_t secondCurrent = gCurrentProfile10738E8.entries410[1].value00;
+    if (secondSaved != secondCurrent) {
+        return 1;
+    }
+    const std::int32_t thirdSaved = saved.entries410[2].value00;
+    const std::int32_t thirdCurrent = gCurrentProfile10738E8.entries410[2].value00;
+    if (thirdSaved != thirdCurrent) {
+        return 1;
+    }
+    for (std::int32_t index = 0; index < 3; ++index) {
+        if (std::strcmp(saved.entries410[index].text08.data(),
+                gCurrentProfile10738E8.entries410[index].text08.data()) != 0) {
+            return 1;
+        }
+    }
+    return std::strcmp(saved.text728.data(), gCurrentProfile10738E8.text728.data()) != 0 ? 1 : 0;
 }
 
 std::int32_t Sub_533C80(const std::int32_t mode)

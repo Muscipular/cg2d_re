@@ -837,6 +837,11 @@ std::int32_t Sub_477600(std::int32_t index, std::int32_t state); // 六行称号
 std::int32_t Sub_477710(std::int32_t index, std::int32_t state); // 完整按钮分派与背景清模式。
 std::int32_t Sub_4782A0(std::int32_t unusedIndex, std::int32_t state); // 称号滚轮，恒返0。
 std::int32_t Sub_4782E0(std::int32_t index, std::int32_t state); // 拖动后反求称号页码。
+extern WindowInputPrototype gOwnProfileInputPrototype57CEE8; // 窗口58三项/正文的可写输入原型。
+extern WindowInputPrototype gOwnProfileInputPrototype57D118;
+extern WindowInputPrototype gOwnProfileInputPrototype57D348;
+extern WindowInputPrototype gOwnProfileInputPrototype57D578;
+std::int32_t Sub_4792D0(std::int32_t index, std::int32_t state); // 窗口58元素5..8编辑焦点。
 
 union WindowUserState {
     std::uint32_t value; // 原+18的数值路径。

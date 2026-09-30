@@ -127,6 +127,9 @@ void Sub_50DC70(
 void Sub_5191C0(
     std::int32_t index, std::int32_t kind, const char* name, const char* text); // 九次倒序搬移后写首条。
 std::int32_t Sub_518DA0(); // 普通/公会/迷你三类扫描，首命中发布页号并返回1。
+std::int32_t Sub_519090(std::int32_t index); // 普通未读查询，范围/used门禁后固定角色扫描十条。
+std::int32_t Sub_5190F0(std::int32_t index); // 公会先查邮件槽再查成员状态，扫描前重读角色。
+std::int32_t Sub_519170(std::int32_t index); // 迷你未读查询，无角色分组，正序扫描十条。
 std::int32_t Sub_534370(std::int32_t key); // 20个迷你联系人，used严格1，返回首个匹配槽。
 std::int32_t Sub_5343A0(); // 返回首个used==0的槽或-1，不预先占用。
 void Sub_4C9490(); // 先清迷你序号，再将共享选择槽写-1。

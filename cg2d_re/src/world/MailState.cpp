@@ -523,6 +523,70 @@ std::int32_t Sub_518DA0()
     return 0;
 }
 
+std::int32_t Sub_519090(const std::int32_t index)
+{
+    if (index < 0 || index >= 60) {
+        return 0;
+    }
+    if (gContactsF19FB0[index].used == 0) {
+        return 0;
+    }
+    const std::ptrdiff_t selected = login::gSelectedCharacterIndex;
+    const std::byte* const entry = gMailStorageF7CA08.data()
+        + selected * kMailGroupBytes
+        + static_cast<std::ptrdiff_t>(index) * kMailNumberBytes;
+    for (std::int32_t message = 0; message < 10; ++message) {
+        if (entry[message * kMailMessageBytes] != std::byte{0}) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+std::int32_t Sub_5190F0(const std::int32_t index)
+{
+    const auto& record = login::detail::gOrderedRecords1051B14[index];
+    const std::int32_t key = record.value0C;
+    const std::int32_t slot = Sub_5195F0(key);
+    if (slot == -1) {
+        return 0;
+    }
+    if (index == -1) {
+        return 0;
+    }
+    if (record.value08 == 0) {
+        return 0;
+    }
+    const std::ptrdiff_t selected = login::gSelectedCharacterIndex;
+    const std::byte* const entry = gGuildMailStorageDE0B30.data()
+        + selected * kGuildMailGroupBytes
+        + static_cast<std::ptrdiff_t>(slot) * kGuildMailEntryBytes + 8;
+    for (std::int32_t message = 0; message < 10; ++message) {
+        if (entry[message * kMailMessageBytes] != std::byte{0}) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+std::int32_t Sub_519170(const std::int32_t index)
+{
+    if (index < 0 || index >= 20) {
+        return 0;
+    }
+    if (gMiniMailRuntime.contacts[index].used == 0) {
+        return 0;
+    }
+    const std::byte* const entry = gMiniMailRuntime.messages.data()
+        + static_cast<std::ptrdiff_t>(index) * kMailNumberBytes;
+    for (std::int32_t message = 0; message < 10; ++message) {
+        if (entry[message * kMailMessageBytes] != std::byte{0}) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
 void Sub_50DC70(
     const std::uintptr_t, const std::int32_t index,
     const char* const payload, const std::int32_t)

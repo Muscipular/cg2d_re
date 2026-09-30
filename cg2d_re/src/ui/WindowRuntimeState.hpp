@@ -1125,6 +1125,7 @@ extern std::array<char, 256> gHoverTextD68AE8; // 已识别地址跨度，不是
 extern std::int32_t gHoverObjectValueD68AC8; // 507140命中伴随值，4731E0后续须共享。
 extern std::array<char, 260> gHoverTitleD68BF4; // 至既有鼠标D68CF8之前的原字节区。
 extern std::int32_t gHoverTitleValueD69748; // 副标题伴随值，非主描述值。
+extern std::int32_t gWindow6HoverD2EA70; // 473840的case0写U8(state)&1，4731E0严格判1。
 extern std::int32_t gValueCC4D34; // 4D3020保存x/y数值，非CryptInt对象。
 extern std::int32_t gValueCC4D3C;
 extern std::int32_t gSelectedItemCB1DF4;

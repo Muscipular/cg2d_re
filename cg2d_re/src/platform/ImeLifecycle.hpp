@@ -16,4 +16,9 @@ void ShutdownIme_459040();
 // 原 sub_4590A0@[0x4590A0,0x4590C6)：IME 时依次关闭、重新打开 context。
 [[nodiscard]] std::int32_t ResetImeOpenStatus_4590A0() noexcept;
 
+// 原4590D0：借用既有100B输入法描述，不复制或更新内容。
+[[nodiscard]] char* BorrowImeDescription_4590D0() noexcept;
+// 原4734F0..473500的窄平台边界；保留IME查询及未使用键表采样后再借用描述。
+[[nodiscard]] const char* BorrowWindowImeDescription_4734F0() noexcept;
+
 } // namespace cg::platform

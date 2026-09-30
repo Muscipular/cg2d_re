@@ -6,6 +6,7 @@
 #include "../LoginMessageDependencies.hpp"
 #include "../LoginSceneDependencies.hpp"
 #include "../platform/MainLoopDependencies.hpp"
+#include "../platform/ImeLifecycle.hpp"
 #include "../platform/WindowProcedureState.hpp"
 #include "../world/MailState.hpp"
 #include "../world/WorldUpdateDependencies.hpp"
@@ -287,6 +288,7 @@ std::array<char, 256> gHoverTextD68AE8 {};
 std::int32_t gHoverObjectValueD68AC8 = 0;
 std::array<char, 260> gHoverTitleD68BF4 {};
 std::int32_t gHoverTitleValueD69748 = 0;
+std::int32_t gWindow6HoverD2EA70 = 0;
 std::int32_t gValueCC4D34 = 0;
 std::int32_t gValueCC4D3C = 0;
 static_assert(sizeof(gTradeNameD2D654) == 17);
@@ -31695,6 +31697,63 @@ std::int32_t Sub_472D20()
         }
     }
     return result;
+}
+
+// 原4731E0：窗口6主更新；忽略参数，复制描述后仅清共享缓冲首字节。
+std::int32_t Sub_4731E0(const std::int32_t)
+{
+    if (gWindow6HoverD2EA70 == 1 || gHoverTextD68AE8[0] == '\0') {
+        for (std::int32_t index = 1; index <= 7; ++index) {
+            gCurrentWindow->elements[index].visible = 1;
+        }
+        gCurrentWindow->elements[8].visible = 0;
+        gCurrentWindow->elements[10].visible = 1;
+        gCurrentWindow->elements[11].visible = 0;
+        gCurrentWindow->elements[12].visible = 0;
+    } else {
+        if (std::strstr(gHoverTextD68AE8.data(), "[han]") != nullptr) {
+            if (gHoverTextD68AE8[0] != '\0') {
+                gHoverTextD68AE8[std::strlen(gHoverTextD68AE8.data()) - 5] = '\0';
+            }
+            gHoverObjectValueD68AC8 = 1;
+        } else if (std::strstr(gHoverTextD68AE8.data(), "[kok]") != nullptr) {
+            if (gHoverTextD68AE8[0] != '\0') {
+                gHoverTextD68AE8[std::strlen(gHoverTextD68AE8.data()) - 5] = '\0';
+            }
+            gHoverObjectValueD68AC8 = 5;
+        }
+
+        WindowElement* const mainElements = gCurrentWindow->elements;
+        const std::size_t mainLength = std::strlen(gHoverTextD68AE8.data()) + 1;
+        auto* const mainText = static_cast<WindowTextData*>(mainElements[11].data);
+        std::memcpy(mainText->text, gHoverTextD68AE8.data(), mainLength);
+        mainText->bytes00[0] = std::byte{static_cast<std::uint8_t>(gHoverObjectValueD68AC8)};
+        if (std::strlen(gHoverTitleD68BF4.data()) != 0) {
+            gCurrentWindow->elements[12].visible = 1;
+        }
+        WindowElement* const titleElements = gCurrentWindow->elements;
+        const std::size_t titleLength = std::strlen(gHoverTitleD68BF4.data()) + 1;
+        auto* const titleText = static_cast<WindowTextData*>(titleElements[12].data);
+        std::memcpy(titleText->text, gHoverTitleD68BF4.data(), titleLength);
+        titleText->bytes00[0] = std::byte{static_cast<std::uint8_t>(gHoverTitleValueD69748)};
+        for (std::int32_t index = 1; index <= 7; ++index) {
+            gCurrentWindow->elements[index].visible = 0;
+        }
+        gCurrentWindow->elements[8].visible = 0;
+        gCurrentWindow->elements[10].visible = 0;
+        gCurrentWindow->elements[11].visible = 1;
+    }
+
+    const char* const description = platform::BorrowWindowImeDescription_4734F0();
+    WindowElement* const elements = gCurrentWindow->elements;
+    const std::size_t length = std::strlen(description) + 1;
+    auto* const text = static_cast<WindowTextData*>(elements[9].data);
+    std::memcpy(text->text, description, length);
+    gHoverTextD68AE8[0] = '\0';
+    gHoverObjectValueD68AC8 = 0;
+    gHoverTitleD68BF4[0] = '\0';
+    gHoverTitleValueD69748 = 0;
+    return 1;
 }
 
 std::int32_t Sub_4730A0()

@@ -7,6 +7,7 @@
 
 #include <imm.h>
 
+#include <array>
 #include <bit>
 #include <cstdlib>
 #include <cstring>
@@ -78,6 +79,19 @@ std::int32_t ResetImeOpenStatus_4590A0() noexcept
         TRUE);
     static_assert(sizeof(result) == sizeof(std::int32_t));
     return std::bit_cast<std::int32_t>(result);
+}
+
+char* BorrowImeDescription_4590D0() noexcept
+{
+    return gImeDescription;
+}
+
+const char* BorrowWindowImeDescription_4734F0() noexcept
+{
+    static_cast<void>(IsImeKeyboardLayout_459090());
+    std::array<BYTE, 256> keyboardState;
+    static_cast<void>(GetKeyboardState(keyboardState.data()));
+    return BorrowImeDescription_4590D0();
 }
 
 } // namespace cg::platform

@@ -51,6 +51,8 @@ namespace cg::world::detail {
 
 // 423800借用当前角色960条80h相册记录；只读同源字节，入口固定一次角色S16。
 const std::byte* BorrowSelectedAlbumRecords();
+// 492F70固定角色/记录后清+7F，返回同记录名称；不保存或重新取角色。
+const char* ClearAlbumNewFlagAndBorrowName(std::int16_t selected, std::int32_t index);
 
 // 原四个地图绘制源计数，仍由 SceneState 持有并由 46BD40 逐项清零。
 extern std::uint32_t gValue9FB934;

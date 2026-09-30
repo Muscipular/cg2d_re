@@ -732,6 +732,13 @@ const std::byte* BorrowSelectedAlbumRecords()
     return AlbumRecordAt(0, selected);
 }
 
+const char* ClearAlbumNewFlagAndBorrowName(const std::int16_t selected, const std::int32_t index)
+{
+    std::byte* const record = AlbumRecordAt(index, selected);
+    record[0x7F] = std::byte{0};
+    return reinterpret_cast<const char*>(record + 0x34);
+}
+
 // 原[5186A0,518774)：完整快照交旧codec，但原目标容量仅4；短写不关闭文件。
 void Sub_5186A0()
 {

@@ -14,6 +14,7 @@
 #include "cg/Input.hpp"
 #include "cg/LegacyAudio.hpp"
 #include "cg/LegacyRecordOrder.hpp"
+#include "cg/LoginRequest.hpp"
 #include "cg/YobiRuntime.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/KeyState.hpp"
@@ -15382,6 +15383,182 @@ std::int32_t Sub_492840(const std::int32_t, const std::int32_t state)
         gLoginWindowRuntime.valueC8A95C = Sub_4743B0(window->elements + 2, scroll, 950, wheel);
     }
     return 0;
+}
+
+namespace {
+
+constexpr std::array<std::int32_t, 2> kAlbumMarkImages57DF24 {0x3BB0F, 0x3BB0E};
+constexpr std::array<std::int32_t, 3> kAlbumMarkImages57DF2C {0, 0x3BB10, 0x3BB11};
+
+} // namespace
+
+// 原评级参数是S32，不是反编译的载荷指针；五个caller均不消费混合返回。
+void Sub_4939A0(const std::int32_t rating, const std::int32_t base)
+{
+    for (std::int32_t slot = 0; slot < 5; ++slot) {
+        gCurrentWindow->elements[base + slot].visible = 0;
+    }
+    const std::int32_t count = rating + 1;
+    if (count < 1 || count > 10 || count <= 0) {
+        return;
+    }
+    for (std::int32_t part = 0; part < count; ++part) {
+        if (part % 2 == 0) {
+            const std::int32_t element = base + part / 2;
+            gCurrentWindow->elements[element].visible = 1;
+            static_cast<WindowGraphicData*>(gCurrentWindow->elements[element].data)->imageNo = 0x3BB0C;
+        }
+        if (part == count - 1 && count % 2 == 1) {
+            static_cast<WindowGraphicData*>(gCurrentWindow->elements[base + part / 2].data)->imageNo = 0x3BB0D;
+        }
+    }
+}
+
+// 唯一caller492410不消费原混合返回；保留各消费点独立的角色/记录取样。
+void Sub_492F70()
+{
+    const auto selectedRecord = []() {
+        const std::byte* const records = world::detail::BorrowSelectedAlbumRecords();
+        const std::int32_t index = gLoginWindowRuntime.valueCB2200;
+        return records + index * 0x80;
+    };
+    const auto readValue = [](const std::byte* const record, const std::size_t offset) {
+        std::int32_t value;
+        std::memcpy(&value, record + offset, sizeof(value));
+        return value;
+    };
+    const auto copyBeforeScan = [](const std::int32_t index, const char* const source) {
+        auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[index].data);
+        const std::size_t length = std::strlen(source) + 1;
+        std::memcpy(data->text, source, length);
+    };
+    const auto copyAfterScan = [](const std::int32_t index, const char* const source) {
+        WindowElement* const elements = gCurrentWindow->elements;
+        const std::size_t length = std::strlen(source) + 1;
+        auto* const data = static_cast<WindowTextData*>(elements[index].data);
+        std::memcpy(data->text, source, length);
+    };
+    char buffer[256];
+    if (selectedRecord()[0] != std::byte{0}) {
+        constexpr std::int32_t shown[] {2, 1, 3, 4, 5, 7, 8};
+        for (const std::int32_t element : shown) {
+            gCurrentWindow->elements[element].visible = 1;
+        }
+        for (std::int32_t slot = 0; slot < 5; ++slot) {
+            gCurrentWindow->elements[53 + slot].visible = 1;
+            gCurrentWindow->elements[58 + slot].visible = 1;
+            gCurrentWindow->elements[63 + slot].visible = 1;
+            gCurrentWindow->elements[68 + slot].visible = 1;
+            gCurrentWindow->elements[73 + slot].visible = 1;
+        }
+        for (std::int32_t slot = 0; slot < 10; ++slot) {
+            gCurrentWindow->elements[13 + slot].visible = 1;
+            gCurrentWindow->elements[23 + slot].visible = 1;
+            gCurrentWindow->elements[33 + slot].visible = 1;
+            gCurrentWindow->elements[43 + slot].visible = 1;
+        }
+        const std::int16_t nameCharacter = login::gSelectedCharacterIndex;
+        const std::int32_t nameIndex = gLoginWindowRuntime.valueCB2200;
+        const char* const name = world::detail::ClearAlbumNewFlagAndBorrowName(nameCharacter, nameIndex);
+        copyBeforeScan(2, name);
+
+        const std::int32_t image = readValue(selectedRecord(), 8);
+        const std::int32_t mapped = character_select::detail::Sub_51B740(image);
+        auto* const imageData = static_cast<WindowAnimationData*>(gCurrentWindow->elements[1].data);
+        login::detail::SetYobiActionField2A8(imageData->action, mapped);
+        auto* const directionData = static_cast<WindowAnimationData*>(gCurrentWindow->elements[1].data);
+        const std::int32_t direction = gLoginWindowRuntime.valueCF4A00;
+        login::detail::SetYobiActionField2B8(directionData->action, direction);
+
+        std::sprintf(buffer, "%3d", gLoginWindowRuntime.valueCB2200 + 1);
+        copyAfterScan(3, buffer);
+        std::sprintf(buffer, "%2d", readValue(selectedRecord(), 0x30));
+        copyAfterScan(4, buffer);
+        const std::byte* const tribeRecord = selectedRecord();
+        WindowInstance* const tribeWindow = gCurrentWindow;
+        const auto tribe = std::bit_cast<std::int8_t>(tribeRecord[3]);
+        WindowElement* const tribeElements = tribeWindow->elements;
+        const char* const tribeName = gTribeNames57CB54[tribe];
+        auto* const tribeData = static_cast<WindowTextData*>(tribeElements[5].data);
+        const std::size_t tribeLength = std::strlen(tribeName) + 1;
+        std::memcpy(tribeData->text, tribeName, tribeLength);
+        std::sprintf(buffer, "%3d/%3d", gLoginWindowRuntime.valueCB2200 + 1, 960);
+        copyBeforeScan(6, buffer);
+
+        const std::byte* const firstMarkRecord = selectedRecord();
+        WindowInstance* const firstMarkWindow = gCurrentWindow;
+        const auto firstMark = std::bit_cast<std::int8_t>(firstMarkRecord[1]);
+        auto* const firstMarkData = static_cast<WindowGraphicData*>(firstMarkWindow->elements[7].data);
+        firstMarkData->imageNo = kAlbumMarkImages57DF24[firstMark];
+        WindowInstance* const secondMarkWindow = gCurrentWindow;
+        const std::byte* const secondMarkRecord = selectedRecord();
+        const auto secondMark = std::bit_cast<std::int8_t>(secondMarkRecord[2]);
+        auto* const secondMarkData = static_cast<WindowGraphicData*>(secondMarkWindow->elements[8].data);
+        secondMarkData->imageNo = kAlbumMarkImages57DF2C[secondMark];
+
+        const std::int32_t firstRatingIndex = gLoginWindowRuntime.valueCB2200;
+        const std::byte* const firstRatingRecords = world::detail::BorrowSelectedAlbumRecords();
+        Sub_4939A0(readValue(firstRatingRecords + firstRatingIndex * 0x80, 0x0C), 53);
+        for (std::int32_t rating = 1; rating < 5; ++rating) {
+            Sub_4939A0(readValue(selectedRecord(), 0x0C + rating * 4), 53 + rating * 5);
+        }
+        const auto showSegment = [](const std::int32_t element, const std::int32_t graphic) {
+            static_cast<WindowGraphicData*>(gCurrentWindow->elements[element].data)->imageNo = graphic;
+            gCurrentWindow->elements[element].visible = 1;
+        };
+        for (std::int32_t attribute = 0; attribute < 4; ++attribute) {
+            const std::int32_t base = 13 + attribute * 10;
+            for (std::int32_t slot = 0; slot < 10; ++slot) {
+                gCurrentWindow->elements[base + slot].visible = 0;
+            }
+            const std::int32_t segments = readValue(selectedRecord(), 0x20 + attribute * 4);
+            const auto& graphics = gPetBarImages57E434[attribute];
+            if (segments == 1) {
+                showSegment(base, graphics[3]);
+            } else {
+                for (std::int32_t segment = 0; segment < segments; ++segment) {
+                    showSegment(base + segment, graphics[1]);
+                    if (segment == 0) {
+                        showSegment(base, graphics[0]);
+                    }
+                    if (segment == segments - 1) {
+                        showSegment(base + segment, graphics[2]);
+                    }
+                }
+            }
+        }
+    } else {
+        constexpr std::int32_t hidden[] {2, 1, 4, 5, 7, 8};
+        for (const std::int32_t element : hidden) {
+            gCurrentWindow->elements[element].visible = 0;
+        }
+        for (std::int32_t slot = 0; slot < 5; ++slot) {
+            gCurrentWindow->elements[53 + slot].visible = 0;
+            gCurrentWindow->elements[58 + slot].visible = 0;
+            gCurrentWindow->elements[63 + slot].visible = 0;
+            gCurrentWindow->elements[68 + slot].visible = 0;
+            gCurrentWindow->elements[73 + slot].visible = 0;
+        }
+        for (std::int32_t slot = 0; slot < 10; ++slot) {
+            gCurrentWindow->elements[13 + slot].visible = 0;
+            gCurrentWindow->elements[23 + slot].visible = 0;
+            gCurrentWindow->elements[33 + slot].visible = 0;
+            gCurrentWindow->elements[43 + slot].visible = 0;
+        }
+        std::sprintf(buffer, "%3d", gLoginWindowRuntime.valueCB2200 + 1);
+        copyBeforeScan(3, buffer);
+        std::sprintf(buffer, "%3d/%3d", gLoginWindowRuntime.valueCB2200 + 1, 960);
+        copyBeforeScan(6, buffer);
+    }
+}
+
+std::int32_t Sub_492410(const std::int32_t value)
+{
+    if (value == -1) {
+        gLoginWindowRuntime.valueCF4A00 = 5;
+    }
+    Sub_492F70();
+    return 1;
 }
 
 void Sub_4B5A90()

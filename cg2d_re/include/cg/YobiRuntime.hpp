@@ -275,6 +275,7 @@ std::int32_t PeekBattleMInteger_43B860(YobiAction* action); // 只预读，不�
 std::int32_t GetBattleMObjectHeader_423960(YobiAction* action, char* destination);
 void FinishBattleEvent_43B6C0(YobiAction* action); // 推进同一事件消息或注销当前槽后MarkDeath。
 void AppendBattleQueuedTarget_43B7F0(YobiAction* action, std::int32_t value);
+std::int32_t AdvanceBattleQueuedTarget_43B830(YobiAction* action); // 先推进13A4，再判断新槽是否为-1。
 std::int32_t GetBattleValueBand_43BF00(std::int32_t value); // 原1..15按五阈值分档，范围外-1。
 void UpdateBattleAttachment_421F90(YobiAction* action); // 父战斗槽身份变化时只标死附件。
 YobiAction* NewBattleRider_4221F0(YobiAction* parent, std::int32_t imageNo);
@@ -556,6 +557,13 @@ void UpdateBattleAction159_4107C0(YobiAction* action); // 1034选择HP/FP操作�
 void UpdateBattleAction160_410B00(YobiAction* action); // 同159数值处理，但只转phase37，不推进动作队列。
 void UpdateBattleAction162_410E30(YobiAction* action); // 1024严格2才清通知/隐藏/2D8并推进。
 void UpdateBattleAction163_4113A0(YobiAction* action); // 转生进入/退出、四槽发布与差异透明度/清理尾。
+void UpdateBattleAction164_411A50(YobiAction* action); // 强制退出转生，完成时恢复FF0保存的动作阶段。
+std::int32_t UpdateBattleAction165_411D30(YobiAction* action); // 无条件旋转受击，保留入口FDC和未舍入运动比较。
+void UpdateBattleAction166_411CB0(YobiAction* action); // 同源计时扣减、浮动时间及队列/动作依次推进。
+void UpdateBattleAction167_411FA0(YobiAction* action); // batch8后推进动作。
+void UpdateBattleAction168_411FC0(YobiAction* action); // batch0后推进动作。
+void UpdateBattleAction169_411FE0(YobiAction* action); // 仅309=255后推进动作。
+std::int32_t NewBattleTimeNumber_4206C0(std::int32_t x, std::int32_t y, std::int32_t seconds);
 void UpdateBattleAction236_406630(YobiAction* action); // 清phase/FD8后执行完整动作0。
 void SetBattleAction208Target_412870(YobiAction* action); // 按目标坐标界线写FE8/FEC，最后phase6。
 std::int32_t UpdateBattleAction209_412900(YobiAction* action); // 完整动作209，效果按调用边界重读。

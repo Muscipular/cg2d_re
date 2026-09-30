@@ -17855,6 +17855,182 @@ void UpdateBattleAction207_412830(YobiAction* const action)
     action->phase = 6;
 }
 
+void UpdateBattleAction225_4150F0(YobiAction* const action)
+{
+    using platform::legacy_crypt_int::CopyPayload;
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    YobiAction* const initialRider = payload->rider13C8;
+    if (initialRider == nullptr) {
+        payload->baseImage13AC = action->imageNo;
+        const std::int32_t imageNo = world::detail::Sub_51C0D0(action->imageNo);
+        YobiAction* const rider = NewBattleRider_4221F0(action, imageNo);
+        payload->rider13C8 = rider;
+        rider->phase = 1;
+        payload->rider13C8->field58 = 0;
+        payload->rider13C8->characterAction = 11;
+        std::strcpy(payload->rider13C8->nameC4.data(), action->nameC4.data());
+        payload->rider13C8->field1D0 = action->field1D0;
+        CopyPayload(&payload->rider13C8->readiness, &action->readiness);
+        CopyPayload(&payload->rider13C8->maxHp, &action->maxHp);
+        CopyPayload(&payload->rider13C8->barValue1B0, &action->barValue1B0);
+        CopyPayload(&payload->rider13C8->barMaximum1C0, &action->barMaximum1C0);
+        payload->rider13C8->x = action->x;
+        payload->rider13C8->y = action->y;
+        payload->rider13C8->offset40 = action->offset40;
+        payload->rider13C8->offset44 = action->offset44;
+        payload->rider13C8->flags |= 0x14u;
+        action->graphicIndex = -1;
+        action->lastImageNo = 0;
+        Sub_406260(action);
+        payload->effect1060->deltaX = action->frameX;
+        YobiAction* const effect = payload->effect1060;
+        YobiAction* const currentRider = payload->rider13C8;
+        const float targetY = effect->offset44;
+        const float targetX = static_cast<float>(static_cast<double>(effect->deltaX) + effect->offset40);
+        TurnBattleTowardPosition_4060D0(currentRider, targetX, targetY, 1, 0.0F);
+        payload->rider13C8->value54 = 8.0F;
+        static_cast<void>(PlayFrame_517DA0(payload->rider13C8, 0));
+        YobiAction* const soundRider = payload->rider13C8;
+        static_cast<void>(audio::PlaySe_52C450(465, soundRider->x));
+        return;
+    }
+    initialRider->characterAction = 11;
+    YobiAction* const effect = payload->effect1060;
+    YobiAction* const currentRider = payload->rider13C8;
+    const float targetY = effect->offset44;
+    const float targetX = static_cast<float>(static_cast<double>(effect->deltaX) + effect->offset40);
+    if (GetBattleDistanceToPosition_4062A0(currentRider, targetX, targetY) >= 5) {
+        MoveBattleByAngle_405EA0(payload->rider13C8);
+    } else {
+        YobiAction* const positionEffect = payload->effect1060;
+        const double x = static_cast<double>(positionEffect->deltaX) + positionEffect->offset40;
+        payload->rider13C8->offset40 = static_cast<float>(x);
+        YobiAction* const yEffect = payload->effect1060;
+        YobiAction* const yRider = payload->rider13C8;
+        yRider->offset44 = yEffect->offset44;
+    }
+    YobiAction* const xRider = payload->rider13C8;
+    const std::int32_t projectedX = static_cast<std::int32_t>(xRider->offset40);
+    xRider->deltaX = projectedX + static_cast<std::int32_t>(gYobiScreenOffsetX);
+    YobiAction* const yRider = payload->rider13C8;
+    const std::int32_t projectedY = static_cast<std::int32_t>(yRider->offset44);
+    yRider->deltaY = projectedY + static_cast<std::int32_t>(gYobiScreenOffsetY);
+    YobiAction* const screenXRider = payload->rider13C8;
+    screenXRider->x = screenXRider->deltaX;
+    YobiAction* const screenYRider = payload->rider13C8;
+    screenYRider->y = screenYRider->deltaY;
+    YobiAction* const arcRider = payload->rider13C8;
+    const std::int32_t arc = arcRider->field58 - 15;
+    const std::int32_t displacement = arc * arc - 225;
+    arcRider->y += displacement;
+    YobiAction* const counterRider = payload->rider13C8;
+    const std::int32_t previous = counterRider->field58;
+    counterRider->field58 = previous + 1;
+    if (previous > 15 && action->frameY <= displacement) {
+        payload->rider13C8->phase = 0;
+        payload->rider13C8->field58 = 0;
+        payload->rider13C8->flags &= ~0x14u;
+        payload->rider13C8->phase = 0;
+        payload->rider13C8->field58 = 0;
+        static_cast<void>(MarkDeath(payload->rider13C8));
+        YobiAction* const restoreEffect = payload->effect1060;
+        payload->rider13C8 = nullptr;
+        action->offset40 = restoreEffect->offset40;
+        YobiAction* const restoreYEffect = payload->effect1060;
+        const float x = action->offset40;
+        action->offset44 = restoreYEffect->offset44;
+        const std::int32_t screenX = static_cast<std::int32_t>(x);
+        const float y = action->offset44;
+        action->x = screenX;
+        action->y = static_cast<std::int32_t>(y);
+        action->imageNo = payload->baseImage13AC;
+        static_cast<void>(MarkDeath(payload->effect1060));
+        payload->effect1060 = nullptr;
+        static_cast<void>(audio::PlaySe_52C450(462, action->x));
+        static_cast<void>(PlayFrame_517DA0(action, 0));
+        static_cast<void>(AdvanceBattleEffect_439470(action));
+        AdvanceBattleCastState_439340(action);
+    }
+    YobiAction* const finalRider = payload->rider13C8;
+    if (finalRider != nullptr) {
+        static_cast<void>(PlayFrame_517DA0(finalRider, 0));
+    }
+}
+
+std::int32_t UpdateBattleAction228_416000(YobiAction* const action)
+{
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    payload->valueFF0 = 0;
+    action->phase = 229;
+    return UpdateBattleAction229_416020(action);
+}
+
+std::int32_t UpdateBattleAction229_416020(YobiAction* const action)
+{
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    action->characterAction = 3;
+    if (payload->valueFF0 < 60) {
+        action->framePlayingRate = 250;
+        action->framePlayingRate = 250 - 4 * payload->valueFF0;
+        ++payload->valueFF0;
+    } else {
+        payload->valueFF0 = 0;
+        AdvanceBattleCastState_439340(action);
+    }
+    return PlayFrame_517DA0(action, 0);
+}
+
+void UpdateBattleAction230_4160A0(YobiAction* const action)
+{
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    const std::int32_t initialIndex = payload->effectRunningC9C;
+    const float initialY = static_cast<float>(std::bit_cast<std::int32_t>(payload->effects1C[initialIndex].flags));
+    const float initialX = static_cast<float>(payload->effects1C[initialIndex].position);
+    TurnBattleTowardPosition_4060D0(action, initialX, initialY, 1, 10.0F);
+    MoveBattleByAngle_405EA0(action);
+    static_cast<void>(PlayFrame_517DA0(action, 0));
+    const std::int32_t currentIndex = payload->effectRunningC9C;
+    const float targetY = static_cast<float>(std::bit_cast<std::int32_t>(payload->effects1C[currentIndex].flags));
+    const float targetX = static_cast<float>(payload->effects1C[currentIndex].position);
+    if (GetBattleDistanceToPosition_4062A0(action, targetX, targetY) < 8) {
+        action->offset40 = static_cast<float>(payload->effects1C[payload->effectRunningC9C].position);
+        action->offset44 = static_cast<float>(
+            std::bit_cast<std::int32_t>(payload->effects1C[payload->effectRunningC9C].flags));
+        static_cast<void>(AdvanceBattleEffect_439470(action));
+        AdvanceBattleCastState_439340(action);
+    }
+}
+
+std::int32_t UpdateBattleAction231_416150(YobiAction* const action)
+{
+    const double speed = static_cast<double>(action->value54) - std::bit_cast<float>(0x3EE66666u);
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    action->characterAction = 9;
+    action->value54 = static_cast<float>(speed);
+    if (!(speed >= 0.0)) {
+        action->value54 = 0.0F;
+    }
+    action->framePlayingRate = 100;
+    MoveBattleByAngle_405EA0(action);
+    if (!(action->value54 > 0.0F)) {
+        AdvanceBattleCastState_439340(action);
+        action->value54 = 6.0F;
+    }
+    static_cast<void>(PlayFrame_517DA0(action, 0));
+    if (payload->valueFF0 == 0) {
+        static_cast<void>(NewBattlePositionEffect_41E680(action, 110006));
+    }
+    if (payload->valueFF0 == 1) {
+        static_cast<void>(NewBattlePositionEffect_41E680(action, 110007));
+    }
+    const std::int32_t previous = payload->valueFF0;
+    payload->valueFF0 = previous + 1;
+    if (previous >= 2) {
+        payload->valueFF0 = 0;
+    }
+    return previous;
+}
+
 std::int32_t AdvanceBattleQueuedTarget_43B830(YobiAction* const action)
 {
     if (action == nullptr) {

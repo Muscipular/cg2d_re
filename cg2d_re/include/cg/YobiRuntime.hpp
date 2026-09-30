@@ -577,6 +577,11 @@ void UpdateBattleAction204_4124E0(YobiAction* action); // 九槽淡入、HP/FP�
 void UpdateBattleAction205_4127B0(YobiAction* action); // 动作16完成后清帧索引/剩余时长。
 void UpdateBattleAction206_4127F0(YobiAction* action); // 朝当前效果目标转向后推进。
 void UpdateBattleAction207_412830(YobiAction* action); // 当前效果写FE8/FEC，推进效果后转phase6。
+void UpdateBattleAction225_4150F0(YobiAction* action); // 骑乘副本抛物线及1060坐标/原图恢复。
+std::int32_t UpdateBattleAction228_416000(YobiAction* action); // 清FF0后立即执行完整229。
+std::int32_t UpdateBattleAction229_416020(YobiAction* action); // 旧FF0决定播放速率，满60推进后仍播放。
+void UpdateBattleAction230_4160A0(YobiAction* action); // 三段重取效果坐标，flags按S32转F32。
+std::int32_t UpdateBattleAction231_416150(YobiAction* action); // 未舍入减速、两个独立尾迹条件，返回旧FF0。
 void SyncBattleAttachmentAlpha_420F10(
     YobiAction* action, std::int32_t alpha, std::int8_t delta,
     std::uint32_t addMask, std::uint32_t removeMask); // 按原九槽顺序重取，不处理1060/1070。

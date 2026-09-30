@@ -421,6 +421,27 @@ struct BattleEntryEffectRecord {
     std::int32_t position3; // 原记录+08，4393A0/439400写入。
     std::int32_t position4; // 原记录+0C，仅439400写入。
 };
+void UpdateBattleActor_404DB0(YobiAction* action); // 完整257槽与固定入口载荷公共尾，场景7直接返回。
+YobiAction* NewBattleSpiracleShot_418B70(YobiAction* parent, const BattleEntryEffectRecord* effect, std::int32_t imageNo);
+YobiAction* NewBattleBlastWave_419180(YobiAction* parent, const BattleEntryEffectRecord* effect, std::int32_t imageNo);
+YobiAction* NewBattleRangeHit_419390(YobiAction* parent, const BattleEntryEffectRecord* effect, std::int32_t imageNo);
+YobiAction* NewBattleBoomerang_4195F0(YobiAction* parent); // 返回前通过完整总回调同步推进。
+YobiAction* NewBattleArcShot_419DA0(YobiAction* parent, const BattleEntryEffectRecord* effect,
+    std::int32_t imageNo, std::int32_t count, std::int32_t mode);
+YobiAction* NewBattleCastCopy_4205F0(YobiAction* parent); // 独立战斗载荷，不是浅克隆。
+void UpdateBattleAction15_406E10(YobiAction* action);
+void UpdateBattleAction18_408170(YobiAction* action);
+void UpdateBattleAction19_4082F0(YobiAction* action);
+void UpdateBattleAction70_4070E0(YobiAction* action);
+void UpdateBattleAction103_40DBE0(YobiAction* action);
+void UpdateBattleAction109_40E4B0(YobiAction* action);
+void UpdateBattleAction112_40EB00(YobiAction* action);
+void UpdateBattleAction224_414050(YobiAction* action);
+void UpdateBattleAction226_4154C0(YobiAction* action);
+void UpdateBattleAction227_415940(YobiAction* action);
+void UpdateBattleAction241_417B80(YobiAction* action);
+void UpdateBattleAction242_417CC0(YobiAction* action);
+void UpdateBattleAction249_4071C0(YobiAction* action);
 void AppendBattleEffectList_4393A0(
     YobiAction* action, std::int32_t position, std::uint32_t flags, std::int32_t position3);
 void AppendBattleEffect_439400(YobiAction* action, BattleEntryEffectRecord effect);

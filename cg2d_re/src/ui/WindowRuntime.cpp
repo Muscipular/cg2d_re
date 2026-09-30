@@ -1423,6 +1423,10 @@ WindowInputPrototype gOwnProfileInputPrototype57D578 {
     {{&input::gInputContextD2D828}, WindowInputReferenceKind::Context},
     97, 170, 3, 12, 6, {}, 4, 28, 14, 0,
 };
+WindowInputPrototype gPetNameInputPrototype57DCF8 {
+    {{&input::gInputContextD2D4A0}, WindowInputReferenceKind::Context},
+    66, 31, 3, 12, 6, {}, 1, 16, 0, 0,
+};
 
 // 原71槽逐项绑定；下标仅用于静态初始化，不是对象句柄。
 std::array<WindowDragPrototype*, kWindowCount> gWindowDragPrototypes57C24C {
@@ -32825,6 +32829,271 @@ void Sub_474360()
         gWindowStates[58].x = window->x;
         gWindowStates[58].y = window->y;
     }
+}
+
+namespace {
+
+// 原511AE0三处调用均先逆序读取五状态，最后读取socket。
+std::int32_t SendPetStateValues(const std::array<std::int32_t, 5>& values)
+{
+    const std::int32_t fifth = values[4];
+    const std::int32_t fourth = values[3];
+    const std::int32_t third = values[2];
+    const std::int32_t second = values[1];
+    const std::int32_t first = values[0];
+    const std::uintptr_t socket = platform::gConnectionSocket;
+    return network::Sub_511AE0(socket, first, second, third, fourth, fifth);
+}
+
+constexpr char kPetPlaceHint586C14[] = "\xB1\x4E\xA6\xB9\xC3\x64\xAA\xAB\xA9\xF1\xA6\x62\xA6\x61\xA4\x57\xA1\x43";
+constexpr char kPetPlacedHint586C28[] = "\xB5\x4C\xAA\x6B\xB1\x4E\xA6\xB9\xC3\x64\xAA\xAB\xA9\xF1\xA6\x62\xA6\x61\xA4\x57\xA1\x43";
+constexpr char kPetBattleHint586C40[] = "\xA8\xCF\xB3\x6F\xB0\xA6\xC3\x64\xAA\xAB\xB3\x42\xA9\xF3\xBE\xD4\xB0\xAB\xAA\xAC\xBA\x41\xA1\x43";
+constexpr char kPetBattlingHint586C5C[] = "\xB3\x6F\xB0\xA6\xC3\x64\xAA\xAB\xA5\xBF\xB3\x42\xA9\xF3\xBE\xD4\xB0\xAB\xAA\xAC\xBA\x41\xA1\x43";
+constexpr char kPetReadyHint586C78[] = "\xA8\xCF\xB3\x6F\xB0\xA6\xC3\x64\xAA\xAB\xB3\x42\xA9\xF3\xAB\xDD\xA9\x52\xAA\xAC\xBA\x41\xA1\x43";
+constexpr char kPetReadiedHint586C94[] = "\xB3\x6F\xB0\xA6\xC3\x64\xAA\xAB\xA5\xBF\xB3\x42\xA9\xF3\xAB\xDD\xA9\x52\xAA\xAC\xBA\x41\xA1\x43";
+constexpr char kPetFollowHint586CD8[] = "\xB1\x4E\xA6\xB9\xC3\x64\xAA\xAB\xB1\x61\xA6\x62\xA8\xAD\xAB\xE1\xB4\xB2\xA8\x42\xA1\x43";
+constexpr char kPetFollowingHint586CF0[] = "\xB5\x4C\xAA\x6B\xB1\x4E\xA6\xB9\xC3\x64\xAA\xAB\xB1\x61\xA6\x62\xA8\xAD\xAB\xE1\xB4\xB2\xA8\x42\xA1\x43";
+constexpr char kPetDetailsHint586D0C[] = "\xA5\xB4\xB6\x7D\xA6\xB9\xC3\x64\xAA\xAB\xAA\xBA\xAF\xE0\xA4\x4F\xB5\xF8\xB5\xA1\xA1\x43";
+constexpr char kPetLowLoyalty586CB0[] =
+    "\xC3\x64\xAA\xAB\xA9\xBE\xB8\xDB\xAB\xD7\xBB\xDD\xB9\x46\xA8\xEC\x36\x30\xA5\x48"
+    "\xA4\x57\xA4\x7E\xA5\x69\xA5\x48\xB1\x61\xA5\xA6\xB4\xB2\xA8\x42\xB3\xE1\x21";
+
+} // namespace
+
+std::int32_t Sub_48D4E0()
+{
+    std::array<std::int32_t, 5> values;
+    for (std::int32_t slot = 0; slot < 5; ++slot) {
+        const std::int32_t follow = world::detail::gPetRuntimeF633F8[slot].follow6D4;
+        const std::int32_t state = gLoginWindowRuntime.valuesCC1A18[slot];
+        values[slot] = state;
+        if (follow != 0) {
+            values[slot] = state | 0x10;
+        }
+    }
+    return SendPetStateValues(values);
+}
+
+std::int32_t Sub_48C1E0(const std::int32_t index, const std::int32_t state)
+{
+    std::int32_t consumed = 0;
+    auto& states = gLoginWindowRuntime.valuesCC1A18;
+    const auto petIndex = [](const std::int32_t row) {
+        return std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[row].index);
+    };
+    const auto setImage = [index](const std::int32_t image) {
+        static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = image;
+    };
+
+    if (index >= 253 && index <= 257) {
+        const std::int32_t row = index - 253;
+        std::uint32_t events = static_cast<std::uint32_t>(state);
+        if ((events & 0x60u) != 0 && Sub_475D60() != 3) {
+            consumed = 1;
+            events &= ~0x60u;
+        }
+        if ((events & 0x40u) != 0) {
+            const std::int32_t source = Sub_475D90();
+            const std::int16_t target = petIndex(row);
+            Sub_48BB90(15, index, source, target);
+            Sub_476500();
+        }
+        if ((events & 1u) != 0) {
+            std::strcpy(gHoverTextD68AE8.data(), kPetDetailsHint586D0C);
+            consumed = 1;
+        }
+        if ((events & 2u) != 0) {
+            const std::int16_t selected = petIndex(row);
+            const auto& pet = world::detail::gPetRuntimeF633F8[selected];
+            if (pet.used != 0) {
+                WindowInstance* const detailsWindow = gWindowStates[16].window;
+                gLoginWindowRuntime.selectedPetCC3E5C = row;
+                gLoginWindowRuntime.valueD673D0 = 5;
+                if (detailsWindow != nullptr || gWindowStates[17].window != nullptr
+                    || gWindowStates[18].window != nullptr) {
+                    const char* const name =
+                        pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
+                    const std::size_t length = std::strlen(name) + 1;
+                    const std::size_t bulk = length & ~std::size_t{3};
+                    std::memcpy(gPetNameInputPrototype57DCF8.text.data(), name, bulk);
+                    WindowInstance* const window = gCurrentWindow;
+                    std::memcpy(
+                        gPetNameInputPrototype57DCF8.text.data() + bulk, name + bulk, length - bulk);
+                    const std::int32_t y = window->y;
+                    const std::int32_t x = window->x;
+                    static_cast<void>(Sub_476570(&gPetNameInputPrototype57DCF8, x, y, 0));
+                } else {
+                    static_cast<void>(CreateWindowAnimation_475AA0(16, 1, 0, nullptr));
+                }
+            }
+            static_cast<void>(Sub_4763E0());
+            consumed = 1;
+        } else if ((events & 1u) != 0 && (events & 4u) != 0) {
+            const std::int16_t selected = petIndex(row);
+            if (world::detail::gPetRuntimeF633F8[selected].used != 0) {
+                static_cast<void>(Sub_48C130(selected, 0));
+                static_cast<void>(audio::PlaySe_52C450(51, 320));
+            }
+        }
+        gLoginWindowRuntime.valuesD2EAA0[0] = 0;
+        gLoginWindowRuntime.valuesD2EAA0[1] = -1;
+        if (Sub_475D60() == 3) {
+            const std::int32_t source = Sub_475D90();
+            gLoginWindowRuntime.valuesD2EAA0[0] = 1;
+            gLoginWindowRuntime.valuesD2EAA0[1] = Sub_48BC60(source);
+        }
+        return consumed;
+    }
+
+    if (index >= 226 && index <= 230) {
+        const std::int32_t row = index - 226;
+        if (character_select::state::gPukVersion < 7u) {
+            gCurrentWindow->elements[index].visible = 0;
+            return 0;
+        }
+        if (Sub_4EA670(petIndex(row)) != 1) {
+            return 0;
+        }
+        if ((state & 1) != 0) {
+            setImage(0x3B588);
+            const std::int32_t follow = world::detail::gPetRuntimeF633F8[petIndex(row)].follow6D4;
+            std::strcpy(gHoverTextD68AE8.data(),
+                follow != 0 ? kPetFollowingHint586CF0 : kPetFollowHint586CD8);
+            consumed = 1;
+        }
+        if ((state & 2) == 0) {
+            return consumed;
+        }
+        const std::int16_t selected = petIndex(row);
+        if (world::detail::gPetRuntimeF633F8[selected].follow6D4 != 0) {
+            static_cast<void>(SendPetStateValues(states));
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            return consumed;
+        }
+        std::int32_t followCount = 0;
+        for (std::int32_t position = 0; position < 5; ++position) {
+            if (world::detail::gPetRuntimeF633F8[petIndex(position)].follow6D4 != 0) {
+                ++followCount;
+            }
+        }
+        if (followCount > 0) {
+            return consumed;
+        }
+        if (world::detail::gPetRuntimeF633F8[selected].values70[10] < 60) {
+            world::detail::Sub_44B050(kPetLowLoyalty586CB0, 4, 3);
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            return consumed;
+        }
+        states[selected] |= 0x10;
+        static_cast<void>(SendPetStateValues(states));
+        states[petIndex(row)] &= ~0x10;
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        return consumed;
+    }
+
+    if (index >= 231 && index <= 235) {
+        const std::int32_t row = index - 231;
+        if ((state & 1) != 0) {
+            setImage(0x3B58B);
+            std::strcpy(gHoverTextD68AE8.data(),
+                states[petIndex(row)] == 1 ? kPetReadiedHint586C94 : kPetReadyHint586C78);
+            consumed = 1;
+        }
+        if ((state & 2) == 0) {
+            return consumed;
+        }
+        const std::int16_t selected = petIndex(row);
+        const std::int32_t previous = states[selected];
+        if (previous == 3) {
+            return consumed;
+        }
+        if (previous == 1) {
+            states[selected] = 0;
+            static_cast<void>(Sub_48D4E0());
+            return consumed;
+        }
+        if (previous == 2) {
+            Sub_47D490();
+        }
+        std::int32_t count = 0;
+        for (std::int32_t slot = 0; slot < 5; ++slot) {
+            const std::int32_t value = states[slot];
+            if (value == 1) {
+                ++count;
+            }
+            if (value == 2) {
+                ++count;
+            }
+        }
+        const std::int16_t target = petIndex(row);
+        if (count >= 3 && states[target] != 2) {
+            const std::int32_t firstReady = gLoginWindowRuntime.valuesCC4CE8[2];
+            states[firstReady] &= ~1;
+        }
+        states[target] = 1;
+        static_cast<void>(Sub_48D4E0());
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        return consumed;
+    }
+
+    if (index >= 236 && index <= 240) {
+        const std::int32_t row = index - 236;
+        if ((state & 1) != 0) {
+            setImage(0x3B58E);
+            std::strcpy(gHoverTextD68AE8.data(),
+                states[petIndex(row)] == 2 ? kPetBattlingHint586C5C : kPetBattleHint586C40);
+            consumed = 1;
+        }
+        if ((state & 2) == 0) {
+            return consumed;
+        }
+        const std::int16_t selected = petIndex(row);
+        const std::int32_t previous = states[selected];
+        if (previous == 3) {
+            return consumed;
+        }
+        if (previous == 2) {
+            states[selected] = 0;
+        } else {
+            const std::int32_t oldBattle = gLoginWindowRuntime.valuesCC4CE8[0];
+            if (oldBattle != -1) {
+                states[oldBattle] &= ~2;
+            }
+            states[selected] = 2;
+        }
+        static_cast<void>(Sub_48D4E0());
+        Sub_47D490();
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        return consumed;
+    }
+
+    if (index >= 241 && index <= 245) {
+        const std::int32_t row = index - 241;
+        if ((state & 1) != 0) {
+            setImage(0x3B591);
+            std::strcpy(gHoverTextD68AE8.data(),
+                states[petIndex(row)] == 3 ? kPetPlacedHint586C28 : kPetPlaceHint586C14);
+            consumed = 1;
+        }
+        if ((state & 2) == 0) {
+            return consumed;
+        }
+        if (states[petIndex(row)] == 2) {
+            Sub_47D490();
+        }
+        const std::int16_t selected = petIndex(row);
+        if (states[selected] == 3) {
+            states[selected] = 0;
+            static_cast<void>(Sub_48D4E0());
+        } else if ((world::detail::ReadPlayerActionFlags() & 0x80u) == 0
+            && world::detail::Sub_440B50() == 0) {
+            states[petIndex(row)] = 3;
+            static_cast<void>(Sub_48D4E0());
+        }
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        return consumed;
+    }
+    return 0;
 }
 
 void Sub_48D460()

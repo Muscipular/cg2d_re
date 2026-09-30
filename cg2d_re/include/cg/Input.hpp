@@ -79,6 +79,7 @@ extern InputContext gInputContextCC2378; // 原摆摊说明输入，15CH虚拟�
 extern InputContext gInputContextCF4E60; // 原摆摊定价输入，独立15CH虚拟零对象。
 extern InputContext gInputContextD2DE70; // 原窗口11输入，不包含紧邻D2DFCC的结果经验槽。
 extern InputContext gInputContextD2DC10; // 原窗口9称号输入，独立15CH虚拟零对象。
+extern InputContext gInputContextD2D4A0; // 原宠物详情共享名称输入，独立15CH虚拟零对象。
 extern InputContext gInputContextD64CB0; // 原窗口58第一条资料输入。
 extern InputContext gInputContextD2D670; // 原窗口58第二条资料输入。
 extern InputContext gInputContextCAFEC8; // 原窗口58第三条资料输入。

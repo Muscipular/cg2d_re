@@ -44,6 +44,7 @@ InputContext gInputContextCC2378 {};
 InputContext gInputContextCF4E60 {};
 InputContext gInputContextD2DE70 {};
 InputContext gInputContextD2DC10 {};
+InputContext gInputContextD2D4A0 {};
 InputContext gInputContextD64CB0 {};
 InputContext gInputContextD2D670 {};
 InputContext gInputContextCAFEC8 {};

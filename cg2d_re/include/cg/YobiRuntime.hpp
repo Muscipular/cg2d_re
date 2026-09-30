@@ -425,6 +425,9 @@ void UpdateBattleAction11_4067F0(YobiAction* action); // 骑乘双T*死亡短路
 void UpdateBattleAction12_406930(YobiAction* action); // Y→X随机、旧FF0周期和FCC减速门禁。
 void UpdateBattleAction13_406A80(YobiAction* action); // 先播放再转向/移动到08/0C，末尾不补播放。
 void UpdateBattleAction14_409680(YobiAction* action); // 完整帧事件命中，四类HP/FP路径与FD0/FD4尾。
+std::int32_t ProbeBattleAttackEvent_4065E0(YobiAction* action); // 播至严格终帧或攻击事件，重置上次动作和事件。
+void UpdateBattleAction16_4072E0(YobiAction* action); // 完整投射命中，保留目标重取/特殊技能推进和双播放尾。
+void UpdateBattleAction17_4093B0(YobiAction* action); // 只移动/越界标死，不播放或推进队列。
 void UpdateBattleAction26_40A9E0(YobiAction* action); // 单次后退/播放，不消费FCC或推进动作。
 std::int32_t UpdateBattleAction27_40AA70(YobiAction* action); // 初始FDC决定时长，减速阶段重读状态。
 std::int32_t UpdateBattleAction28_40ACF0(YobiAction* action); // 132音效后重读计数，14/34/54帧分段。

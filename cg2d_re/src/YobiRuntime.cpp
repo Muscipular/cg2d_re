@@ -12434,6 +12434,437 @@ void UpdateBattleAction14_409680(YobiAction* const action)
     }
 }
 
+std::int32_t ProbeBattleAttackEvent_4065E0(YobiAction* const action)
+{
+    std::int32_t result;
+    for (;;) {
+        if (PlayFrame_517DA0(action, 1) == 1) {
+            result = 0;
+            break;
+        }
+        const std::int32_t event = action->frameEvent;
+        if (event >= 10000 && event < 20000) {
+            result = 1;
+            break;
+        }
+    }
+    action->lastCharacterAction = -1;
+    action->frameEvent = 0;
+    return result;
+}
+
+void UpdateBattleAction16_4072E0(YobiAction* const action)
+{
+    using world::detail::gBattleAllEntries59E980;
+    using namespace platform::legacy_crypt_int;
+    if (action == nullptr) {
+        return;
+    }
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    if (payload == nullptr) {
+        return;
+    }
+    const std::int32_t initialIndex = payload->effectRunningC9C;
+    if (initialIndex < 0 || initialIndex >= 200) {
+        return;
+    }
+    if ((payload->effects1C[initialIndex].flags & 8u) == 0) {
+        TurnBattleToward_406190(action, gBattleAllEntries59E980[payload->effects1C[initialIndex].position], 0, 0.0F);
+    }
+    const std::int32_t earlyIndex = payload->effectRunningC9C;
+    if ((payload->effects1C[earlyIndex].flags & 0x20000000u) != 0
+        && GetBattleDistance_406300(action, gBattleAllEntries59E980[payload->effects1C[earlyIndex].position]) < 70
+        && action->frameEvent == 0) {
+        YobiAction* const target = gBattleAllEntries59E980[payload->effects1C[payload->effectRunningC9C].position];
+        if (target == nullptr) {
+            return;
+        }
+        auto* const targetPayload = static_cast<BattleActorPayload*>(target->payload);
+        static_cast<void>(MarkDeath(action));
+        action->phase = 17;
+        const std::int32_t mode = payload->attackModeFF4;
+        if (mode == 2) {
+            YobiAction* const effect = NewBattleRandomEffect_419FC0(action, 110469, 0);
+            if (effect != nullptr) {
+                effect->y -= 103;
+            }
+        } else if (mode == 4) {
+            const float x = action->offset40;
+            const float y = action->offset44;
+            const float speed = action->value54;
+            action->value54 = 20.0F;
+            MoveBattleByAngle_405EA0(action);
+            YobiAction* const effect = NewBattleRandomEffect_419FC0(action, 110469, 0);
+            if (effect != nullptr) {
+                effect->x = static_cast<std::int32_t>(action->offset40);
+                effect->y = static_cast<std::int32_t>(action->offset44) - 90;
+            }
+            action->offset40 = x;
+            action->offset44 = y;
+            action->value54 = speed;
+        } else {
+            YobiAction* const effect = NewBattleRandomEffect_419FC0(action, 110473, 0);
+            if (effect != nullptr) {
+                effect->y -= 68;
+            }
+        }
+        static_cast<void>(NewBattleRandomEffect_419FC0(target, 110474, 0));
+        if (target->phase != 0) {
+            AdvanceBattleCastState_439340(target);
+            targetPayload->valueFCC = 0;
+            targetPayload->value1024 = 0;
+        }
+        AdvanceBattleCastState_439340(target);
+        return;
+    }
+    if (GetBattleDistance_406300(action,
+            gBattleAllEntries59E980[payload->effects1C[payload->effectRunningC9C].position]) < 20
+        && action->frameEvent == 0) {
+        const std::int32_t index = payload->effectRunningC9C;
+        const std::int32_t position = payload->effects1C[index].position;
+        YobiAction* const target = gBattleAllEntries59E980[position];
+        if (target == nullptr) {
+            return;
+        }
+        auto* const targetPayload = static_cast<BattleActorPayload*>(target->payload);
+        std::int32_t image = -1;
+        std::int32_t secondaryImage = -1;
+        std::int32_t direction = 0;
+        const std::uint32_t initialFlags = payload->effects1C[index].flags;
+        if ((initialFlags & 4u) != 0) {
+            image = 110000;
+        } else if ((initialFlags & 0x800u) != 0) {
+            image = 110099;
+        } else if ((initialFlags & 0x400u) != 0) {
+            image = FindBattleAppendEffectTechnique_43BEA0(8, position) < 12 ? 110098 : 111048;
+        } else {
+            const std::int32_t skill = payload->castSkill103C;
+            switch (skill) {
+            case 0: case 2007: case 2008: case 2021:
+                image = payload->castSkillLevel1044 < 12 ? 110133 : 111029;
+                break;
+            case 1: image = payload->castSkillLevel1044 < 12 ? 110134 : 111047; break;
+            case 3: image = payload->castSkillLevel1044 < 12 ? 110135 : 111046; break;
+            case 5: image = payload->castSkillLevel1044 < 12 ? 110139 : 111052; break;
+            case 6: image = payload->castSkillLevel1044 < 12 ? 110137 : 111050; break;
+            case 81: image = 110174; break;
+            case 84: image = 110175; break;
+            case 85: image = 110159; break;
+            case 87: image = 110160; break;
+            case 110: image = 110074; break;
+            case 257: {
+                const std::int32_t level = payload->castSkillLevel1044;
+                secondaryImage = 110476;
+                if (level >= 12) {
+                    secondaryImage = 111051;
+                } else if (level >= 9) {
+                    image = 110014;
+                }
+                break;
+            }
+            case 258: secondaryImage = 110477; break;
+            case 259:
+                image = platform::RandomRange_46FAF0(0, 2) + 110001;
+                secondaryImage = 110470;
+                break;
+            case 260: image = payload->castSkillLevel1044 < 12 ? 110473 : 111054; break;
+            case 262:
+                if (payload->castSkillLevel1044 < 12) {
+                    image = 110473;
+                    direction = 1;
+                } else {
+                    image = 111049;
+                }
+                break;
+            default:
+                if ((skill >= 75 && skill <= 80) || (skill >= 2096 && skill <= 2101)) {
+                    image = 110074;
+                } else {
+                    image = platform::RandomRange_46FAF0(0, 2) + 110001;
+                }
+                break;
+            }
+        }
+        TurnBattleToward_406190(target, action, 1, 0.0F);
+        target->battleOpponent10 = gBattleAllEntries59E980[payload->battlePosition18];
+        targetPayload->effectFlagsFE4 = std::bit_cast<std::int32_t>(
+            payload->effects1C[payload->effectRunningC9C].flags);
+        ApplyBattleEffectFlags_406390(payload->battlePosition18, action);
+        if (payload->castSkillLevel1044 >= 9 && payload->castSkill103C == 259) {
+            static_cast<void>(NewBattleTiledEffect_41E9D0(0, 15));
+        }
+        const std::int32_t appliedIndex = payload->effectRunningC9C;
+        const std::uint32_t flags = payload->effects1C[appliedIndex].flags;
+        if ((flags & 8u) != 0) {
+            const std::int32_t skill = payload->castSkill103C;
+            if (skill == 95 || skill == 4002 || skill == 3038) {
+                if (target->phase != 0) {
+                    AdvanceBattleCastState_439340(target);
+                    targetPayload->valueFCC = 0;
+                    targetPayload->value1024 = 0;
+                }
+                AdvanceBattleCastState_439340(target);
+            } else if (payload->attackModeFF4 == 4 && target->phase != 0) {
+                AdvanceBattleCastState_439340(target);
+                targetPayload->valueFCC = 0;
+                targetPayload->value1024 = 0;
+                AdvanceBattleCastState_439340(target);
+            } else {
+                target->phase = 31;
+            }
+            goto finishProjectileHit;
+        }
+        if ((flags & 0x100u) != 0) {
+            const std::int32_t skill = payload->castSkill103C;
+            if (skill == 95 || skill == 4002 || skill == 3038) {
+                if (target->phase != 0) {
+                    AdvanceBattleCastState_439340(target);
+                    targetPayload->valueFCC = 0;
+                    targetPayload->value1024 = 0;
+                }
+                AdvanceBattleCastState_439340(target);
+            } else {
+                if (payload->attackModeFF4 == 4 && target->phase != 0) {
+                    AdvanceBattleCastState_439340(target);
+                    targetPayload->valueFCC = 0;
+                    targetPayload->value1024 = 0;
+                }
+                targetPayload->flash1004 = 1;
+                static_cast<void>(audio::PlaySe_52C450(210, action->x));
+                target->phase = 31;
+            }
+            goto finishProjectileHit;
+        }
+        {
+            if ((flags & 0x7E000u) == 0 && payload->effects1C[appliedIndex].position3 != 0) {
+                if ((flags & 2u) != 0) {
+                    static_cast<void>(NewBattleRandomEffect_419FC0(target, 110008, 0));
+                }
+                if (image >= 0) {
+                    static_cast<void>(NewBattleRandomEffect_419FC0(target, image, direction));
+                }
+                if (secondaryImage >= 0) {
+                    static_cast<void>(NewBattleRandomEffect_419FC0(target, secondaryImage, 0));
+                }
+                NewBattleRebirthEffects_4208F0(gBattleAllEntries59E980[payload->battlePosition18], target);
+                const std::int32_t mode = payload->attackModeFF4;
+                static_cast<void>(audio::PlaySe_52C450(mode == 2 ? 141 : (mode == 4 ? 142 : 255), action->x));
+                const BattleEntryEffectRecord& effect = payload->effects1C[payload->effectRunningC9C];
+                const std::int32_t amount = effect.position3;
+                SubtractAssign_401E40(&gBattleAllEntries59E980[effect.position]->readiness, amount);
+                if (Less_401DB0(&gBattleAllEntries59E980[
+                        payload->effects1C[payload->effectRunningC9C].position]->readiness, 0)) {
+                    platform::LegacyCryptInt temporary;
+                    ConstructFromInt_401CC0(&temporary, 0);
+                    YobiAction* const copyTarget = gBattleAllEntries59E980[
+                        payload->effects1C[payload->effectRunningC9C].position];
+                    CopyPayload(&copyTarget->readiness, &temporary);
+                    Destroy_401CF0(&temporary);
+                }
+                if ((payload->effects1C[payload->effectRunningC9C].flags & 0x20u) != 0) {
+                    targetPayload->flagsFDC |= 2u;
+                    gYobiUpdateGateMode = 1;
+                    targetPayload->aliveFF8 = 1;
+                }
+            }
+            const std::uint32_t hitFlags = payload->effects1C[payload->effectRunningC9C].flags;
+            if ((hitFlags & 0x48000u) != 0) {
+                const std::int32_t skill = payload->castSkill103C;
+                if (skill == 95 || skill == 4002 || skill == 3038) {
+                    if (target->phase != 0) {
+                        AdvanceBattleCastState_439340(target);
+                        targetPayload->valueFCC = 0;
+                        targetPayload->value1024 = 0;
+                    }
+                } else {
+                    if (payload->attackModeFF4 == 4 && target->phase != 0) {
+                        AdvanceBattleCastState_439340(target);
+                        targetPayload->valueFCC = 0;
+                        targetPayload->value1024 = 0;
+                    }
+                    const std::int32_t currentSkill = payload->castSkill103C;
+                    if ((currentSkill == 110 || currentSkill == 3019)
+                        && (payload->effects1C[payload->effectRunningC9C].flags & 0x80000u) != 0) {
+                        static_cast<void>(NewBattleDebuffEffect_41F660(target, 110075));
+                    }
+                }
+                AdvanceBattleCastState_439340(target);
+            } else if ((hitFlags & 0x24000u) != 0) {
+                const std::int32_t skill = payload->castSkill103C;
+                if (skill == 95 || skill == 4002 || skill == 3038) {
+                    if (target->phase != 0) {
+                        AdvanceBattleCastState_439340(target);
+                        targetPayload->valueFCC = 0;
+                        targetPayload->value1024 = 0;
+                    }
+                } else {
+                    if (payload->attackModeFF4 == 4 && target->phase != 0) {
+                        AdvanceBattleCastState_439340(target);
+                        targetPayload->valueFCC = 0;
+                        targetPayload->value1024 = 0;
+                    }
+                    const std::int32_t currentSkill = payload->castSkill103C;
+                    if ((currentSkill == 110 || currentSkill == 3019)
+                        && (payload->effects1C[payload->effectRunningC9C].flags & 0x80000u) != 0) {
+                        static_cast<void>(NewBattleDebuffEffect_41F660(target, 110075));
+                    }
+                }
+                AdvanceBattleCastState_439340(target);
+                const BattleEntryEffectRecord& effect = payload->effects1C[payload->effectRunningC9C];
+                if ((effect.flags & 0x10000000u) != 0) {
+                    static_cast<void>(NewBattleFloatingIcon_41F4C0(
+                        gBattleAllEntries59E980[effect.position], 22459, 0, 0));
+                } else {
+                    const std::int32_t amount = effect.position3;
+                    AddAssign_401E20(&gBattleAllEntries59E980[effect.position]->readiness, amount);
+                    YobiAction* const compareTarget = gBattleAllEntries59E980[
+                        payload->effects1C[payload->effectRunningC9C].position];
+                    if (GreaterCrypt_401D50(&compareTarget->readiness, &compareTarget->maxHp)) {
+                        YobiAction* const copyTarget = gBattleAllEntries59E980[
+                            payload->effects1C[payload->effectRunningC9C].position];
+                        CopyPayload(&copyTarget->readiness, &copyTarget->maxHp);
+                    }
+                    const std::int32_t numberIndex = payload->effectRunningC9C;
+                    const std::uint32_t numberFlags = payload->effects1C[numberIndex].flags;
+                    const std::int32_t y = target->y - 80;
+                    const std::int32_t displayed = payload->effects1C[numberIndex].position3;
+                    static_cast<void>(NewBattleNumber_41F1A0(target->x, y, displayed, 5, 2, numberFlags));
+                    if ((payload->effects1C[payload->effectRunningC9C].flags & 2u) != 0) {
+                        static_cast<void>(NewBattleFloatingIcon_41F4C0(target, 22454, 0, 0));
+                    }
+                    static_cast<void>(NewBattleAttributeEffects_4209C0(
+                        gBattleAllEntries59E980[payload->battlePosition18], target));
+                }
+            } else if ((hitFlags & 0x12000u) != 0) {
+                const std::int32_t skill = payload->castSkill103C;
+                if (skill == 95 || skill == 4002 || skill == 3038) {
+                    if (target->phase != 0) {
+                        AdvanceBattleCastState_439340(target);
+                        targetPayload->valueFCC = 0;
+                        targetPayload->value1024 = 0;
+                    }
+                } else {
+                    if (payload->attackModeFF4 == 4 && target->phase != 0) {
+                        AdvanceBattleCastState_439340(target);
+                        targetPayload->valueFCC = 0;
+                        targetPayload->value1024 = 0;
+                    }
+                    const std::int32_t currentSkill = payload->castSkill103C;
+                    if ((currentSkill == 110 || currentSkill == 3019)
+                        && (payload->effects1C[payload->effectRunningC9C].flags & 0x80000u) != 0) {
+                        static_cast<void>(NewBattleDebuffEffect_41F660(target, 110075));
+                    }
+                }
+                AdvanceBattleCastState_439340(target);
+            } else {
+                if ((hitFlags & 0x100000u) != 0) {
+                    static_cast<void>(MarkDeath(targetPayload->effect1054));
+                    const std::uint32_t targetFlags = targetPayload->flagsFDC;
+                    targetPayload->effect1054 = nullptr;
+                    targetPayload->flagsFDC = targetFlags & ~0x20u;
+                }
+                const std::int32_t skill = payload->castSkill103C;
+                if (skill == 95 || skill == 4002 || skill == 3038) {
+                    if ((payload->effects1C[payload->effectRunningC9C].flags & 0x80000u) != 0) {
+                        static_cast<void>(NewBattleDebuffEffect_41F660(target, 110075));
+                    }
+                    const double backwardAngle = static_cast<double>(target->angle50) + 180.0;
+                    target->angle50 = static_cast<float>(backwardAngle);
+                    if (backwardAngle >= 360.0) {
+                        target->angle50 = static_cast<float>(backwardAngle - 360.0);
+                    }
+                    target->value54 = 8.0F;
+                    MoveBattleByAngle_405EA0(target);
+                    const double forwardAngle = static_cast<double>(target->angle50) + 180.0;
+                    target->angle50 = static_cast<float>(forwardAngle);
+                    if (forwardAngle >= 360.0) {
+                        target->angle50 = static_cast<float>(forwardAngle - 360.0);
+                    }
+                    if (target->phase != 0) {
+                        AdvanceBattleCastState_439340(target);
+                        targetPayload->valueFCC = 0;
+                        targetPayload->value1024 = 0;
+                    }
+                } else {
+                    if (payload->attackModeFF4 == 4 && target->phase != 0) {
+                        AdvanceBattleCastState_439340(target);
+                        targetPayload->valueFCC = 0;
+                        targetPayload->value1024 = 0;
+                    }
+                    const std::int32_t currentSkill = payload->castSkill103C;
+                    if ((currentSkill == 110 || currentSkill == 3019)
+                        && (payload->effects1C[payload->effectRunningC9C].flags & 0x80000u) != 0) {
+                        static_cast<void>(NewBattleDebuffEffect_41F660(target, 110075));
+                    }
+                }
+                AdvanceBattleCastState_439340(target);
+                const std::int32_t numberIndex = payload->effectRunningC9C;
+                const std::uint32_t numberFlags = payload->effects1C[numberIndex].flags;
+                if ((numberFlags & 0x10000000u) != 0) {
+                    static_cast<void>(NewBattleFloatingIcon_41F4C0(
+                        gBattleAllEntries59E980[payload->effects1C[numberIndex].position], 22459, 0, 0));
+                } else {
+                    const std::int32_t y = target->y - 80;
+                    const std::int32_t displayed = payload->effects1C[numberIndex].position3;
+                    static_cast<void>(NewBattleNumber_41F1A0(target->x, y, displayed, 6, 2, numberFlags));
+                    if ((payload->effects1C[payload->effectRunningC9C].flags & 2u) != 0) {
+                        static_cast<void>(NewBattleFloatingIcon_41F4C0(target, 22454, 0, 0));
+                    }
+                    static_cast<void>(NewBattleAttributeEffects_4209C0(
+                        gBattleAllEntries59E980[payload->battlePosition18], target));
+                }
+            }
+            if (payload->castSkill103C == 259
+                && (payload->effects1C[payload->effectRunningC9C].flags & 0x80000u) != 0) {
+                static_cast<void>(NewBattleDebuffEffect_41F660(target, 110075));
+            }
+            if (payload->castSkill103C == 3029
+                && (payload->effects1C[payload->effectRunningC9C].flags & 0x80000u) != 0) {
+                static_cast<void>(NewBattleDebuffEffect_41F660(target, 110079));
+            }
+        }
+    finishProjectileHit:
+        const std::int32_t finishIndex = payload->effectRunningC9C;
+        if ((payload->effects1C[finishIndex].flags & 8u) == 0 && payload->effects1C[finishIndex].position3 != 0) {
+            const std::int32_t duration = 14 * static_cast<std::int32_t>(((targetPayload->flagsFDC >> 1) & 1u) + 1u);
+            const std::int32_t skill = payload->castSkill103C;
+            payload->valueFD0 = duration;
+            if (skill == 267 || skill == 3029) {
+                payload->valueFD0 = 2;
+            }
+        }
+        action->frameEvent = 1;
+    }
+    const std::int32_t delay = payload->valueFD0;
+    if (delay > 0) {
+        payload->valueFD0 = delay - 1;
+        const std::int32_t image = action->imageNo;
+        if (image == 110016 || image == 111055) {
+            static_cast<void>(PlayFrame_517DA0(action, 0));
+        }
+    }
+    if (payload->valueFD0 == 0) {
+        static_cast<void>(PlayFrame_517DA0(action, 0));
+        MoveBattleByAngle_405EA0(action);
+        if (action->frameEvent == 1) {
+            const std::uint32_t flags = payload->effects1C[payload->effectRunningC9C].flags;
+            if ((flags & 0x108u) == 0) {
+                static_cast<void>(MarkDeath(action));
+            }
+            action->phase = 17;
+        }
+    }
+}
+
+void UpdateBattleAction17_4093B0(YobiAction* const action)
+{
+    MoveBattleByAngle_405EA0(action);
+    if (!(action->offset40 >= -200.0F) || action->offset40 > 840.0F
+        || !(action->offset44 >= -200.0F) || action->offset44 > 680.0F) {
+        static_cast<void>(MarkDeath(action));
+    }
+}
+
 void UpdateBattleAction26_40A9E0(YobiAction* const action)
 {
     const auto* const payload = static_cast<const BattleActorPayload*>(action->payload);

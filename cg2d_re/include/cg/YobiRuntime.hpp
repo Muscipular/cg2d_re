@@ -608,6 +608,12 @@ void UpdateBattleAction223_413FE0(YobiAction* action); // 发布或先刷新后�
 std::int32_t UpdateBattleAction237_416DD0(YobiAction* action); // 完整动作237，返回最终PlayFrame结果。
 void UpdateBattleActions238_239_417410(YobiAction* action); // 动态效果命中，FD0归零当帧双播放，按写回F32速度转阶段。
 void UpdateBattleAction240_417AC0(YobiAction* action); // 播放后消费帧事件，清施法特效后重取+10决定平铺。
+void UpdateBattleAction243_417D80(YobiAction* action); // 技能图号及动态flags命中，普通路径不扣HP/显示伤害数字。
+void UpdateBattleAction244_418550(YobiAction* action); // FDC置2、门禁和FF8置1后推进动作。
+void UpdateBattleAction245_418580(YobiAction* action); // 当前效果指定平铺类型/寿命，创建后推进效果及动作。
+void UpdateBattleAction246_4185C0(YobiAction* action); // position3乘原F32比例设置速度，再推进效果及动作。
+void UpdateBattleAction247_4185F0(YobiAction* action); // 原F32坐标按X/Y分别截断到载荷10/14。
+std::int32_t UpdateBattleAction248_418620(YobiAction* action); // 返回载荷10/14坐标，距离<5时重读坐标并推进。
 // 原43BF30：mode1只消费预扫描8整数；mode0读对象字段，五输出均为S32非拥有指针。
 void TakeBattleMAuxGraphics_43BF30(
     YobiAction* action, std::int32_t mode, std::int32_t* firstImage, std::int32_t* secondImage,
